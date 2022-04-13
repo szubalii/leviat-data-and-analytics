@@ -34,13 +34,13 @@ steps:
 
 - task: CopyFiles@2
   inputs:
-    SourceFolder: '$(Build.SourcesDirectory)\sqldb-xxxx-orchdb-d-euw-001\bin\Release'
+    SourceFolder: '$(Build.SourcesDirectory)\orchestration\sqldb-xxxx-orchdb-d-euw-001\bin\Release'
     Contents: '*.dacpac'
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
 - task: CopyFiles@2
   inputs:
-    SourceFolder: '$(Build.SourcesDirectory)'
+    SourceFolder: '$(Build.SourcesDirectory)\orchestration'
     Contents: '*publish.xml'
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
