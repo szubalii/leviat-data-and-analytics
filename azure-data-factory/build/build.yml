@@ -30,7 +30,7 @@ steps:
   inputs:
     command: 'custom'
     workingDir: '$(Build.Repository.LocalPath)' #replace with the package.json folder
-    customCommand: 'run build validate $(Build.Repository.LocalPath) /subscriptions/f199b488-7d9d-4992-aeda-c10a1e1c9b9e/resourceGroups/rg-xxxx-sls-d-euw-001/providers/Microsoft.DataFactory/factories/df-xxxx-sls-d-euw-001'
+    customCommand: 'run build validate $(Build.Repository.LocalPath) /subscriptions/f199b488-7d9d-4992-aeda-c10a1e1c9b9e/resourceGroups/rg-xxxx-sls-d-euw-001/providers/Microsoft.DataFactory/factories/df-xxxx-sls-d-euw-001-restructure'
   displayName: 'Validate'
 
 # Validate and then generate the ARM template into the destination folder, which is the same as selecting "Publish" from the UX.
@@ -40,7 +40,7 @@ steps:
   inputs:
     command: 'custom'
     workingDir: '$(Build.Repository.LocalPath)' #replace with the package.json folder
-    customCommand: 'run build export $(Build.Repository.LocalPath) /subscriptions/f199b488-7d9d-4992-aeda-c10a1e1c9b9e/resourceGroups/rg-xxxx-sls-d-euw-001/providers/Microsoft.DataFactory/factories/df-xxxx-sls-d-euw-001 "ArmTemplate"'
+    customCommand: 'run build export $(Build.Repository.LocalPath) /subscriptions/f199b488-7d9d-4992-aeda-c10a1e1c9b9e/resourceGroups/rg-xxxx-sls-d-euw-001/providers/Microsoft.DataFactory/factories/df-xxxx-sls-d-euw-001-restructure "ArmTemplate"'
   displayName: 'Validate and Generate ARM template'
 
 # Publish the build artifact to be used as a source for a release pipeline.
