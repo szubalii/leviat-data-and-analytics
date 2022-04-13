@@ -20,35 +20,49 @@ WITH (
 --IF OBJECT_ID('batch_activity_log', 'U') IS NOT NULL
 --    TRUNCATE TABLE batch_activity_log;
 
+SET ANSI_NULLS OFF
+
 -- Merge data from temp table with original table
-MERGE 
-	batch_activity AS tgt 
-USING 
+MERGE
+	batch_activity AS tgt
+USING
 	(SELECT * FROM batch_activity_tmp) AS src
-ON 
+ON
 	(tgt.activity_id = src.activity_id)
 WHEN MATCHED AND (
-	ISNULL(src.activity_nk,'') <> ISNULL(tgt.activity_nk,'')
+	src.activity_nk <> tgt.activity_nk
 	OR
-	ISNULL(src.activity_description,'') <> ISNULL(tgt.activity_description,'')
+	src.activity_description <> tgt.activity_description
+	OR
+	src.activity_order <> tgt.activity_order
+	OR
+	src.is_deprecated <> tgt.is_deprecated
 ) THEN
-	UPDATE SET 
+	UPDATE SET
 		activity_nk = src.activity_nk
 	,	activity_description = src.activity_description
+	,	activity_order = src.activity_order
+	,	is_deprecated = src.is_deprecated
 WHEN NOT MATCHED BY TARGET THEN
-	INSERT (activity_id, activity_nk, activity_description)
-	VALUES (src.activity_id, src.activity_nk, src.activity_description)
+	INSERT (activity_id, activity_nk, activity_description, activity_order, is_deprecated)
+	VALUES (src.activity_id, src.activity_nk, src.activity_description, src.activity_order, src.is_deprecated)
 WHEN NOT MATCHED BY SOURCE THEN
-	DELETE 
-OUTPUT     
+	DELETE
+OUTPUT
 	Deleted.activity_id
 ,   Deleted.activity_nk
 ,   Deleted.activity_description
+,   Deleted.activity_order
+,   Deleted.is_deprecated
 ,   $action
 ,   Inserted.activity_id
 ,   Inserted.activity_nk
 ,   Inserted.activity_description
+,   Inserted.activity_order
+,   Inserted.is_deprecated
 ,	GETUTCDATE() INTO [log].batch_activity;
+
+SET ANSI_NULLS ON
 
 -- drop temp table
 DROP TABLE batch_activity_tmp;
