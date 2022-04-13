@@ -1699,18 +1699,6 @@
             "schedule_recurrence": "A"
         },
         {
-            "entity_id": 406,
-            "entity_name": "I_GoodsMovementType",
-            "data_category": "DIMENSION",
-            "client_field": "MANDT",
-            "tool_name": "Theobald",
-            "extraction_type": "Table",
-            "update_mode": "Full",
-            "base_table_name": "I_GoodsMovementType",
-            "pk_field_names": "GOODSMOVEMENTTYPE",
-            "schedule_recurrence": "A"
-        },
-        {
             "entity_id": 205,
             "entity_name": "I_HandlingUnitInStockText",
             "data_category": "TEXT",
@@ -3105,6 +3093,18 @@
             "update_mode": "Full",
             "base_table_name": "I_CalendarMonthName",
             "pk_field_names": "CALENDARMONTH",
+            "schedule_recurrence": "A"
+        },
+        {
+            "entity_id": 375,
+            "entity_name": "I_GoodsMovementType",
+            "data_category": "DIMENSION",
+            "client_field": "MANDT",
+            "tool_name": "Theobald",
+            "extraction_type": "Table",
+            "update_mode": "Full",
+            "base_table_name": "I_GoodsMovementType",
+            "pk_field_names": "GOODSMOVEMENTTYPE",
             "schedule_recurrence": "A"
         },
         {
