@@ -9,7 +9,7 @@ SELECT TOP 0 * INTO batch_execution_status_tmp FROM dbo.batch_execution_status;
 BULK INSERT batch_execution_status_tmp
 FROM 'batch_execution_status.csv'
 WITH (
-    DATA_SOURCE = 'AzureBlobStorageOrchDB'
+    DATA_SOURCE = 'eds_OrchDB'
 ,   FIRSTROW = 2
 ,   FIELDTERMINATOR = ','
 ,   FORMAT = 'CSV'

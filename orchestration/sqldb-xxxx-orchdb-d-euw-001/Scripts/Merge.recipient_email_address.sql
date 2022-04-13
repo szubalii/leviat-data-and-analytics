@@ -9,7 +9,7 @@ SELECT TOP 0 * INTO recipient_email_address_tmp FROM dbo.recipient_email_address
 BULK INSERT recipient_email_address_tmp
 FROM 'recipient_email_address.csv'
 WITH (
-    DATA_SOURCE = 'AzureBlobStorageOrchDB'
+    DATA_SOURCE = 'eds_OrchDB'
 ,   FIRSTROW = 2
 ,   FIELDTERMINATOR = ','
 ,   FORMAT = 'CSV'

@@ -9,7 +9,7 @@ SELECT TOP 0 * INTO entity_tmp FROM dbo.entity;
 BULK INSERT entity_tmp
 FROM 'entity.csv'
 WITH (
-    DATA_SOURCE = 'AzureBlobStorageOrchDB'
+    DATA_SOURCE = 'eds_OrchDB'
 ,   FIRSTROW = 2
 ,   FIELDTERMINATOR = ','
 ,   FORMAT = 'CSV'

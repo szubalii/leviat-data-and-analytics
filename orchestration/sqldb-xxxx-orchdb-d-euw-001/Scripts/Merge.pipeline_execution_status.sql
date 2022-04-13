@@ -9,7 +9,7 @@ SELECT TOP 0 * INTO pipeline_execution_status_tmp FROM dbo.pipeline_execution_st
 BULK INSERT pipeline_execution_status_tmp
 FROM 'pipeline_execution_status.csv'
 WITH (
-    DATA_SOURCE = 'AzureBlobStorageOrchDB'
+    DATA_SOURCE = 'eds_OrchDB'
 ,   FIRSTROW = 2
 ,   FIELDTERMINATOR = ','
 ,   FORMAT = 'CSV'

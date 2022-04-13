@@ -9,7 +9,7 @@ SELECT TOP 0 * INTO layer_tmp FROM dbo.layer;
 BULK INSERT layer_tmp
 FROM 'layer.csv'
 WITH (
-    DATA_SOURCE = 'AzureBlobStorageOrchDB'
+    DATA_SOURCE = 'eds_OrchDB'
 ,   FIRSTROW = 2
 ,   FIELDTERMINATOR = ','
 ,   FORMAT = 'CSV'

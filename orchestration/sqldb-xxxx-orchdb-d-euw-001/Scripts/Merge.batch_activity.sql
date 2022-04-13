@@ -9,7 +9,7 @@ SELECT TOP 0 * INTO batch_activity_tmp FROM dbo.batch_activity;
 BULK INSERT batch_activity_tmp
 FROM 'batch_activity.csv'
 WITH (
-    DATA_SOURCE = 'AzureBlobStorageOrchDB'
+    DATA_SOURCE = 'eds_OrchDB'
 ,   FIRSTROW = 2
 ,   FIELDTERMINATOR = ','
 ,   FORMAT = 'CSV'

@@ -9,7 +9,7 @@ SELECT TOP 0 * INTO location_tmp FROM dbo.location;
 BULK INSERT location_tmp
 FROM 'location.csv'
 WITH (
-    DATA_SOURCE = 'AzureBlobStorageOrchDB'
+    DATA_SOURCE = 'eds_OrchDB'
 ,   FIRSTROW = 2
 ,   FIELDTERMINATOR = ','
 ,   FORMAT = 'CSV'

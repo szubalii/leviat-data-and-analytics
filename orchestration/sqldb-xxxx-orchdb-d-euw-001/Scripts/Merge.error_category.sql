@@ -9,7 +9,7 @@ SELECT TOP 0 * INTO error_category_tmp FROM dbo.error_category;
 BULK INSERT error_category_tmp
 FROM 'error_category.csv'
 WITH (
-    DATA_SOURCE = 'AzureBlobStorageOrchDB'
+    DATA_SOURCE = 'eds_OrchDB'
 ,   FIRSTROW = 2
 ,   FIELDTERMINATOR = ','
 ,   FORMAT = 'CSV'

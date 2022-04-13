@@ -9,7 +9,7 @@ SELECT TOP 0 * INTO pbi_dataset_entity_tmp FROM dbo.pbi_dataset_entity;
 BULK INSERT pbi_dataset_entity_tmp
 FROM 'pbi_dataset_entity.csv'
 WITH (
-    DATA_SOURCE = 'AzureBlobStorageOrchDB'
+    DATA_SOURCE = 'eds_OrchDB'
 ,   FIRSTROW = 2
 ,   FIELDTERMINATOR = ','
 ,   FORMAT = 'CSV'
