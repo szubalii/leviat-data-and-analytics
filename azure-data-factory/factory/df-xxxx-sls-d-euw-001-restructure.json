@@ -1,0 +1,12 @@
+{
+	"name": "df-xxxx-sls-d-euw-001-restructure",
+	"properties": {
+		"globalParameters": {
+			"environment": {
+				"type": "string",
+				"value": "dev"
+			}
+		}
+	},
+	"location": "westeurope"
+}
