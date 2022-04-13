@@ -1,0 +1,21 @@
+pipeline_id,pipeline_name_nk,pipeline_description,parent_pipeline_id,pipeline_order
+1,pl_adls_syndw_generic_ingest_s4h,DEPRECATED: Using pl_ADLS_SYNDW_ingestion_main. Pipeline loads S4H data from Data Lake to Base layer in Dedicated SQL Pool,,1
+2,pl_SYNDW_EDW_process_main,Pipeline loads data from Base to EDW layer in Dedicated SQL Pool,,2
+3,pl_adls_syndw_generic_ingest_ax_bi,DEPRECATED: Using pl_AXBI_ADLS_ingestion_main and pl_ADLS_SYNDW_ingestion_main. Pipeline loads data from SQL Server AXBI to Base layer in Dedicated SQL Pool,,1
+4,pl_XU_ADLS_extraction_main,Pipeline extracts S4H data from Xtract Universal Theobald into Data Lake,,0
+5,pl_ADLS_In_Out_S4HTransformation_main,Pipeline loads S4H data from In to Out folder in Data Lake,,1
+6,pl_ADLS_SYNDW_ingestion_main,Pipeline loads data from Data Lake to Base layer in Dedicated SQL Pool,,1
+7,pl_AXBI_ADLS_ingestion_main,Pipeline loads data from SQL Server AXBI to In folder in Data Lake,,1
+8,pl_PBI_datasetRefresh_main,Pipeline refreshes all datasets in PBI Service,,3
+9,pl_PBI_datasetRefresh,Pipeline calls dataset refreshes and logs the result,,3
+10,pl_adls_syndw_delta_computation_InBaseLayer,Pipeline loads S4H delta data from Data Lake to Base layer in Dedicated SQL Pool,,3
+12,pl_SYNDW_Base_process_main,Pipeline loads S4H delta data from Data Lake to Base layer in Dedicated SQL Pool,,3
+13,pl_USASnowflake_ADLS_ingestion_main,Pipeline loads all tables from Snowflake DB to In folder in Data Lake,,1
+14,pl_USASnowflake_ADLS_ingestion,Pipeline single table from Snowflake DB to In folder in Data Lake,,2
+15,pl_ADLS_SYNDW_USASnowflake_ingestion_main,Pipeline loads all parquet files with USA Snowflake data from Out folder to Base layer in Dedicated SQL Pool,,1
+16,pl_ADLS_SYNDW_USASnowflake_ingestion,Pipeline loads single parquet files with USA Snowflake data from Out Data Lake folder to Base layer in Dedicated SQL Pool,,2
+17,pl_ADLS_In_Out_USASnowflake_transformation_main,Pipeline moves all parquet files with USA Snowflake data from In Data Lake folder to Out Data Lake folder and adds technical fields,,1
+18,pl_ADLS_In_Out_USASnowflake_transformation,Pipeline moves single parquet file with USA Snowflake data from In Data Lake folder to Out Data Lake folder and adds technical fields,,2
+19,pl_ADLS_In_duplicatesTest,"Pipeline checks for duplicates in parquet files for sources: Snowflake, AXBI",,
+20,pl_ADLS_In_dataValidation_main,Pipeline checks for duplicates in parquet files for sources: S4H,,
+21,pl_ELT_entity_main,Main pipeline for ELTL,,

@@ -1,0 +1,188 @@
+{
+	"name": "pl_pbi_refresh_status_email_sending",
+	"properties": {
+		"activities": [
+			{
+				"name": "act_lookup_EmailList",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderQuery": "  SELECT STRING_AGG([email_address],';') [EmailTo] \n  FROM [dbo].[recipient_email_address]",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "ds_orch_db",
+						"type": "DatasetReference"
+					},
+					"firstRowOnly": false
+				}
+			},
+			{
+				"name": "If status success",
+				"type": "IfCondition",
+				"dependsOn": [
+					{
+						"activity": "act_lookup_EmailList",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@equals(pipeline().parameters.status,'succeeded')",
+						"type": "Expression"
+					},
+					"ifFalseActivities": [
+						{
+							"name": "act_web_SendEmailFailure",
+							"type": "WebActivity",
+							"dependsOn": [
+								{
+									"activity": "act_lookup_select_exceptions",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"url": "https://prod-59.westeurope.logic.azure.com:443/workflows/f2ad36b624fd43bd85a5543f194ccd26/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=WD2chZlXpiB7w0Z4ogJFxYXPt4VuxVib-g2ZlscCc0A",
+								"method": "POST",
+								"body": {
+									"value": "{\n\t\"Subject\": \"CRH: Dataset Refresh Status\",\n\t\"Title\": \"PBI DATASETS REFRESH PIPELINE RUN FAILED\",\n\t\"Message\": \"@{replace(\n\t\t\t\t\t\tstring(activity('act_lookup_select_exceptions').output.value)\n\t\t\t\t,'\"','')\n                              }\",\n\t\"EmailTo\": \"@{activity('act_lookup_EmailList').output.value[0].EmailTo}\",\n\t\"Color\": \"Red\",\n\t\"DataFactoryName\": \"@{pipeline().DataFactory}\",\n\t\"PipelineName\": \"@{pipeline().parameters.PipelineName}\",\n\t\"PipelineRunId\": \"@{pipeline().parameters.PipelineRunId}\",\n\t\"UTCTime\": \"@{formatDateTime(utcnow(), 'yyyy-MM-dd HH:mm:ss')}\"\n}",
+									"type": "Expression"
+								}
+							}
+						},
+						{
+							"name": "act_lookup_select_exceptions",
+							"type": "Lookup",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "AzureSqlSource",
+									"sqlReaderQuery": {
+										"value": "select p.[pipeline_name_nk] as [pipeline_name],\n\tlex.run_id,\n\te.[dataset_name],\n\tlex.message\n\tfrom [dbo].[pipeline_log] lex\n\tleft join [dbo].[pipeline] p on p.[pipeline_id] = lex.[pipeline_id]\n\tleft join dbo.exception ex on ex.run_id = lex.run_id\n\tleft join [dbo].[pbi_dataset] e on e.[pbi_dataset_id] = ex.[pbi_dataset_id]\n\twhere lex.[parent_run_id] = '@{pipeline().parameters.parent_run_id}'\norder by [error_timestamp]",
+										"type": "Expression"
+									},
+									"queryTimeout": "02:00:00",
+									"partitionOption": "None"
+								},
+								"dataset": {
+									"referenceName": "ds_orch_db",
+									"type": "DatasetReference"
+								},
+								"firstRowOnly": false
+							}
+						}
+					],
+					"ifTrueActivities": [
+						{
+							"name": "act_web_SendEmailSuccess",
+							"type": "WebActivity",
+							"dependsOn": [
+								{
+									"activity": "act_lookup_select_statuses",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"url": "https://prod-59.westeurope.logic.azure.com:443/workflows/f2ad36b624fd43bd85a5543f194ccd26/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=WD2chZlXpiB7w0Z4ogJFxYXPt4VuxVib-g2ZlscCc0A",
+								"method": "POST",
+								"body": {
+									"value": "{\n\t\"Subject\": \"CRH: Dataset Refresh Status\",\n\t\"Title\": \"PBI DATASETS REFRESH PIPELINE RUN IS FINISHED SUCCESSFULLY\",\n\t\"Message\": \"@{replace(\n\t\t\t\t\t\tstring(activity('act_lookup_select_statuses').output.value)\n\t\t\t\t,'\"','')\n                              }\",\n\t\"EmailTo\": \"@{activity('act_lookup_EmailList').output.value[0].EmailTo}\",\n\t\"Color\": \"Green\",\n\t\"DataFactoryName\": \"@{pipeline().DataFactory}\",\n\t\"PipelineName\": \"@{pipeline().parameters.PipelineName}\",\n\t\"PipelineRunId\": \"@{pipeline().parameters.PipelineRunId}\",\n\t\"UTCTime\": \"@{formatDateTime(utcNow(), 'yyyy-MM-dd HH:mm:ss')}\"\n}",
+									"type": "Expression"
+								}
+							}
+						},
+						{
+							"name": "act_lookup_select_statuses",
+							"type": "Lookup",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "AzureSqlSource",
+									"sqlReaderQuery": {
+										"value": "select p.[pipeline_name_nk] as [pipeline_name],\n\tlex.run_id,\n\te.[dataset_name],\n\tlex.message\n\tfrom [dbo].[pipeline_log] lex\n\tleft join [dbo].[pipeline] p on p.[pipeline_id] = lex.[pipeline_id]\n\tleft join dbo.exception ex on ex.run_id = lex.run_id\n\tleft join [dbo].[pbi_dataset] e on e.[pbi_dataset_id] = ex.[pbi_dataset_id]\n\twhere lex.[parent_run_id] = '@{pipeline().parameters.parent_run_id}'\norder by [error_timestamp]",
+										"type": "Expression"
+									},
+									"queryTimeout": "02:00:00",
+									"partitionOption": "None"
+								},
+								"dataset": {
+									"referenceName": "ds_orch_db",
+									"type": "DatasetReference"
+								},
+								"firstRowOnly": false
+							}
+						}
+					]
+				}
+			}
+		],
+		"parameters": {
+			"status": {
+				"type": "string"
+			},
+			"PipelineRunId": {
+				"type": "string"
+			},
+			"PipelineName": {
+				"type": "string"
+			},
+			"parent_run_id": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "90 Utilities/Email"
+		},
+		"annotations": []
+	}
+}

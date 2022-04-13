@@ -1,0 +1,194 @@
+{
+	"name": "pl_child_daily_etl_process_s4h",
+	"properties": {
+		"description": "Starts or Stops Azure VM",
+		"activities": [
+			{
+				"name": "act_exec_pl_adls_main_generic_XU_extraction",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pl_XU_ADLS_extraction_main",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"date": {
+							"value": "@pipeline().parameters.date",
+							"type": "Expression"
+						},
+						"adhoc": {
+							"value": "@pipeline().parameters.adhoc",
+							"type": "Expression"
+						},
+						"parent_run_id": {
+							"value": "@pipeline().RunId",
+							"type": "Expression"
+						},
+						"manual_run": {
+							"value": "@pipeline().parameters.manual_run",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "act_exec_pl_syndw_main_generic_load_edw",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "act_exec_ingest_s4h_InBaseLayer",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pl_SYNDW_EDW_process_main",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"adhoc": {
+							"value": "@pipeline().parameters.adhoc",
+							"type": "Expression"
+						},
+						"parent_run_id": {
+							"value": "@pipeline().RunId",
+							"type": "Expression"
+						},
+						"manual_run": {
+							"value": "@pipeline().parameters.manual_run",
+							"type": "Expression"
+						},
+						"date": {
+							"value": "@pipeline().parameters.date",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "act_exec_pl_syndw_check_synapse_analytics_status",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pl_SYNDW_checkStatus",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "act_exec_ingest_s4h_BlobInToBlobOut",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "act_exec_pl_adls_main_generic_XU_extraction",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "act_exec_pl_syndw_check_synapse_analytics_status",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pl_ADLS_In_Out_S4HTransformation_main",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"date": {
+							"value": "@pipeline().parameters.date",
+							"type": "Expression"
+						},
+						"adhoc": {
+							"value": "@pipeline().parameters.adhoc",
+							"type": "Expression"
+						},
+						"parent_run_id": {
+							"value": "@pipeline().RunId",
+							"type": "Expression"
+						},
+						"manual_run": {
+							"value": "@pipeline().parameters.manual_run",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "act_exec_ingest_s4h_InBaseLayer",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "act_exec_ingest_s4h_BlobInToBlobOut",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pl_ADLS_SYNDW_ingestion_main",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"adhoc": {
+							"value": "@pipeline().parameters.adhoc",
+							"type": "Expression"
+						},
+						"manual_run": {
+							"value": "@pipeline().parameters.manual_run",
+							"type": "Expression"
+						},
+						"function_name": "get_s4h_entities_InBaseLayer",
+						"parent_run_id": {
+							"value": "@pipeline().RunId",
+							"type": "Expression"
+						},
+						"date": {
+							"value": "@pipeline().parameters.date",
+							"type": "Expression"
+						}
+					}
+				}
+			}
+		],
+		"parameters": {
+			"adhoc": {
+				"type": "int",
+				"defaultValue": 0
+			},
+			"manual_run": {
+				"type": "int",
+				"defaultValue": 0
+			},
+			"date": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "10 Manage"
+		},
+		"annotations": [
+			"Synapse Analytics"
+		],
+		"lastPublishTime": "2021-10-25T15:25:03Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

@@ -1,0 +1,1 @@
+﻿CREATE USER [nbaranava@crh.com] FOR EXTERNAL PROVIDER;

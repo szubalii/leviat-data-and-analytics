@@ -1,0 +1,700 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Name>syndw_xxxx_sls_d_euw_001</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>4.1</ProjectVersion>
+    <ProjectGuid>{13dae2ec-5b7b-4433-9f63-a147334be85c}</ProjectGuid>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.SqlDwDatabaseSchemaProvider</DSP>
+    <OutputType>Database</OutputType>
+    <RootPath />
+    <RootNamespace>syndw_xxxx_sls_d_euw_001</RootNamespace>
+    <AssemblyName>syndw_xxxx_sls_d_euw_001</AssemblyName>
+    <ModelCollation>1033,CS</ModelCollation>
+    <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
+    <DeployToDatabase>True</DeployToDatabase>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetLanguage>CS</TargetLanguage>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <SqlServerVerification>False</SqlServerVerification>
+    <IncludeCompositeObjects>True</IncludeCompositeObjects>
+    <TargetDatabaseSet>True</TargetDatabaseSet>
+    <DefaultCollation>SQL_Latin1_General_CP1_CS_AS</DefaultCollation>
+    <QueryStoreCaptureMode>None</QueryStoreCaptureMode>
+    <QueryStoreDesiredState>Off</QueryStoreDesiredState>
+    <QueryStoreFlushInterval>0</QueryStoreFlushInterval>
+    <QueryStoreStatsInterval>0</QueryStoreStatsInterval>
+    <QueryStoreMaxPlansPerQuery>0</QueryStoreMaxPlansPerQuery>
+    <QueryStoreStaleQueryThreshold>0</QueryStoreStaleQueryThreshold>
+    <QueryStoreMaxStorageSize>0</QueryStoreMaxStorageSize>
+    <DbScopedConfigLegacyCardinalityEstimation>Off</DbScopedConfigLegacyCardinalityEstimation>
+    <DbScopedConfigLegacyCardinalityEstimationSecondary>Off</DbScopedConfigLegacyCardinalityEstimationSecondary>
+    <DbScopedConfigMaxDOP>0</DbScopedConfigMaxDOP>
+    <DbScopedConfigMaxDOPSecondary>0</DbScopedConfigMaxDOPSecondary>
+    <DbScopedConfigParameterSniffing>Off</DbScopedConfigParameterSniffing>
+    <DbScopedConfigParameterSniffingSecondary>Off</DbScopedConfigParameterSniffingSecondary>
+    <DbScopedConfigOptimizerHotfixes>Off</DbScopedConfigOptimizerHotfixes>
+    <DbScopedConfigOptimizerHotfixesSecondary>Off</DbScopedConfigOptimizerHotfixesSecondary>
+    <DelayedDurability>DISABLED</DelayedDurability>
+    <AutoCreateStatisticsIncremental>False</AutoCreateStatisticsIncremental>
+    <MemoryOptimizedElevateToSnapshot>False</MemoryOptimizedElevateToSnapshot>
+    <Containment>None</Containment>
+    <IsNestedTriggersOn>True</IsNestedTriggersOn>
+    <IsTransformNoiseWordsOn>False</IsTransformNoiseWordsOn>
+    <TwoDigitYearCutoff>2049</TwoDigitYearCutoff>
+    <NonTransactedFileStreamAccess>OFF</NonTransactedFileStreamAccess>
+    <TargetRecoveryTimePeriod>60</TargetRecoveryTimePeriod>
+    <TargetRecoveryTimeUnit>SECONDS</TargetRecoveryTimeUnit>
+    <IsChangeTrackingOn>False</IsChangeTrackingOn>
+    <IsChangeTrackingAutoCleanupOn>False</IsChangeTrackingAutoCleanupOn>
+    <ChangeTrackingRetentionPeriod>0</ChangeTrackingRetentionPeriod>
+    <IsEncryptionOn>False</IsEncryptionOn>
+    <IsBrokerPriorityHonored>False</IsBrokerPriorityHonored>
+    <Trustworthy>False</Trustworthy>
+    <AutoUpdateStatisticsAsynchronously>False</AutoUpdateStatisticsAsynchronously>
+    <PageVerify>NONE</PageVerify>
+    <ServiceBrokerOption>DisableBroker</ServiceBrokerOption>
+    <DateCorrelationOptimizationOn>False</DateCorrelationOptimizationOn>
+    <Parameterization>SIMPLE</Parameterization>
+    <AllowSnapshotIsolation>False</AllowSnapshotIsolation>
+    <ReadCommittedSnapshot>False</ReadCommittedSnapshot>
+    <VardecimalStorageFormatOn>False</VardecimalStorageFormatOn>
+    <SupplementalLoggingOn>False</SupplementalLoggingOn>
+    <CompatibilityMode>130</CompatibilityMode>
+    <AnsiNullDefault>True</AnsiNullDefault>
+    <AnsiNulls>True</AnsiNulls>
+    <AnsiPadding>True</AnsiPadding>
+    <AnsiWarnings>True</AnsiWarnings>
+    <ArithAbort>True</ArithAbort>
+    <ConcatNullYieldsNull>True</ConcatNullYieldsNull>
+    <QuotedIdentifier>True</QuotedIdentifier>
+    <NumericRoundAbort>True</NumericRoundAbort>
+    <RecursiveTriggersEnabled>False</RecursiveTriggersEnabled>
+    <DatabaseChaining>False</DatabaseChaining>
+    <DatabaseState>ONLINE</DatabaseState>
+    <CloseCursorOnCommitEnabled>False</CloseCursorOnCommitEnabled>
+    <DefaultCursor>GLOBAL</DefaultCursor>
+    <AutoClose>False</AutoClose>
+    <AutoCreateStatistics>True</AutoCreateStatistics>
+    <AutoShrink>False</AutoShrink>
+    <AutoUpdateStatistics>False</AutoUpdateStatistics>
+    <TornPageDetection>False</TornPageDetection>
+    <DatabaseAccess>MULTI_USER</DatabaseAccess>
+    <Recovery>SIMPLE</Recovery>
+    <EnableFullTextSearch>False</EnableFullTextSearch>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
+    <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
+    <VisualStudioVersion Condition="'$(SSDTExists)' == ''">11.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Condition="'$(NetCoreBuild)' != 'true' AND '$(SQLDBExtensionsRefPath)' != ''" Project="$(SQLDBExtensionsRefPath)\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <Import Condition="'$(NetCoreBuild)' != 'true' AND '$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <ItemGroup>
+    <Folder Include="Properties" />
+    <Folder Include="base_tx_ca_0_hlp" />
+    <Folder Include="base_tx_ca_0_hlp\Tables" />
+    <Folder Include="base_dw_halfen_0_hlp" />
+    <Folder Include="base_dw_halfen_0_hlp\Tables" />
+    <Folder Include="base_dw_halfen_2_dwh" />
+    <Folder Include="base_dw_halfen_2_dwh\Tables" />
+    <Folder Include="base_tx_halfen_2_dwh" />
+    <Folder Include="base_tx_halfen_2_dwh\Tables" />
+    <Folder Include="Security" />
+    <Folder Include="Security\Schemas" />
+    <Folder Include="Security\Users" />
+    <Folder Include="Security\Roles" />
+    <Folder Include="base_s4h_cax" />
+    <Folder Include="base_s4h_cax\Tables" />
+    <Folder Include="base_s4h_cax\Views" />
+    <Folder Include="base_s4h_cax\Stored Procedures" />
+    <Folder Include="edw" />
+    <Folder Include="edw\Tables" />
+    <Folder Include="edw\Stored Procedures" />
+    <Folder Include="dm_sales" />
+    <Folder Include="dm_sales\Views" />
+    <Folder Include="map_AXBI" />
+    <Folder Include="map_AXBI\Tables" />
+    <Folder Include="edw\Views" />
+    <Folder Include="base_ff" />
+    <Folder Include="base_ff\Tables" />
+    <Folder Include="utilities" />
+    <Folder Include="utilities\Stored Procedures" />
+    <Folder Include="utilities\Functions" />
+    <Folder Include="utilities\Functions\Scalar-valued Functions" />
+    <Folder Include="base_us_leviat_db" />
+    <Folder Include="base_us_leviat_db\Tables" />
+    <Folder Include="map_USA" />
+    <Folder Include="map_USA\Tables" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="base_tx_ca_0_hlp\Tables\CRHCURRENCY.sql" />
+    <Build Include="base_dw_halfen_0_hlp\Tables\CUSTOMER.sql" />
+    <Build Include="base_tx_ca_0_hlp\Tables\DATAAREA.sql" />
+    <Build Include="base_dw_halfen_0_hlp\Tables\DIM_ARTICLE.sql" />
+    <Build Include="base_dw_halfen_2_dwh\Tables\DIM_CRHPRODUCTGROUP.sql" />
+    <Build Include="base_dw_halfen_2_dwh\Tables\DIM_DISTRIBUTIONCOMPANY.sql" />
+    <Build Include="base_dw_halfen_2_dwh\Tables\FACT_HGDAWA.sql" />
+    <Build Include="base_dw_halfen_2_dwh\Tables\FACT_HGPLUM.sql" />
+    <Build Include="base_tx_halfen_2_dwh\Tables\FACT_SALESLINE.sql" />
+    <Build Include="base_dw_halfen_0_hlp\Tables\SAPCustomerBasicMappingTable.sql" />
+    <Build Include="base_dw_halfen_0_hlp\Tables\SAPItemNumberBasicMappingTable.sql" />
+    <Build Include="base_dw_halfen_0_hlp\Tables\ARTICLE.sql" />
+    <Build Include="Security\Schemas\base_dw_halfen_0_hlp.sql" />
+    <Build Include="Security\Schemas\base_tx_halfen_2_dwh.sql" />
+    <Build Include="Security\Schemas\base_dw_halfen_2_dwh.sql" />
+    <Build Include="Security\Schemas\base_s4h_cax.sql" />
+    <Build Include="Security\Schemas\base_tx_ca_0_hlp.sql" />
+    <Build Include="base_s4h_cax\Tables\C_BillingDocumentItemBasicDEX.sql" />
+    <Build Include="base_s4h_cax\Tables\C_BillingDocumentPartnerFs.sql" />
+    <Build Include="base_s4h_cax\Tables\C_CnsldtnProfitCenter.sql" />
+    <Build Include="base_s4h_cax\Tables\C_SalesDocumentItemDEX.sql" />
+    <Build Include="base_s4h_cax\Tables\I_BillingDocumentTypeText.sql" />
+    <Build Include="Security\Schemas\edw.sql" />
+    <Build Include="base_s4h_cax\Tables\I_CalendarDate.sql" />
+    <Build Include="base_s4h_cax\Tables\I_CalendarMonthName.sql" />
+    <Build Include="base_s4h_cax\Tables\I_CountryText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_CurrencyText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_Customer.sql" />
+    <Build Include="base_s4h_cax\Tables\I_CustomerGroupText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_CustomerPriceGroupText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_DistributionChannelText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_DivisionText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_MaterialText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_PlanningStrategyGroupText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_Product.sql" />
+    <Build Include="base_s4h_cax\Tables\I_ProductHierarchyNode.sql" />
+    <Build Include="base_s4h_cax\Tables\I_ProductHierarchyNodeText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_ProductSalesDelivery.sql" />
+    <Build Include="base_s4h_cax\Tables\I_ProductTypeText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_RegionText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_SalesDistrictText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_SalesDocumentItemCategoryT.sql" />
+    <Build Include="base_s4h_cax\Tables\I_SalesDocumentTypeText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_SalesGroupText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_SalesOfficeText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_SalesOrganizationText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_ProductText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_CustomerAccountGroupText.sql" />
+    <Build Include="edw\Tables\dim_Customer.sql" />
+    <Build Include="edw\Tables\dim_Product.sql" />
+    <Build Include="edw\Tables\dim_ProductSalesDelivery.sql" />
+    <Build Include="base_s4h_cax\Tables\I_CompanyCode.sql" />
+    <Build Include="base_s4h_cax\Tables\I_Globalcompany.sql" />
+    <Build Include="edw\Stored Procedures\sp_load_dim_ProductHierarchy.sql" />
+    <Build Include="edw\Tables\dim_ProductHierarchy.sql" />
+    <Build Include="base_s4h_cax\Tables\I_CostCenter.sql" />
+    <Build Include="base_s4h_cax\Tables\I_ControllingArea.sql" />
+    <Build Include="base_s4h_cax\Tables\I_FunctionalAreaText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_ChartOfAccountsText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_GLAccountInChartOfAccounts.sql" />
+    <Build Include="base_s4h_cax\Tables\I_FunctionalArea.sql" />
+    <Build Include="base_s4h_cax\Tables\I_GLAccountText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_FiscalCalendarDate.sql" />
+    <Build Include="base_s4h_cax\Tables\I_ChartOfAccounts.sql" />
+    <Build Include="base_s4h_cax\Tables\I_AccountingDocumentTypeText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_AccountingDocumentType.sql" />
+    <Build Include="base_s4h_cax\Tables\I_PostingKeyText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_PostingKey.sql" />
+    <Build Include="base_s4h_cax\Tables\I_ProfitCenter.sql" />
+    <Build Include="base_s4h_cax\Tables\I_SemanticTagText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_ExchangeRate.sql" />
+    <Build Include="base_s4h_cax\Tables\I_CostCenterText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_ProfitCenterText.sql" />
+    <Build Include="edw\Stored Procedures\sp_load_dim_ProductSalesDelivery_delta.sql" />
+    <Build Include="base_s4h_cax\Tables\I_ProductSalesDelivery_delta.sql" />
+    <Build Include="edw\Tables\dim_CostCenter.sql" />
+    <Build Include="edw\Tables\dim_CompanyCode.sql" />
+    <Build Include="edw\Tables\dim_GLAccountInChartOfAccounts.sql" />
+    <Build Include="edw\Tables\dim_AccountingDocumentType.sql" />
+    <Build Include="edw\Tables\dim_PostingKey.sql" />
+    <Build Include="edw\Tables\dim_ProfitCenter.sql" />
+    <Build Include="edw\Tables\dim_ExchangeRates.sql" />
+    <Build Include="edw\Stored Procedures\sp_load_fact_BillingDocumentItem.sql" />
+    <Build Include="edw\Tables\fact_BillingDocumentItem.sql" />
+    <Build Include="base_s4h_cax\Tables\I_BillingDocumentItemPrcgElmnt.sql" />
+    <Build Include="base_s4h_cax\Tables\I_BillingDocumentPrcgElmnt.sql" />
+    <Build Include="base_s4h_cax\Tables\I_ConditionType.sql" />
+    <Build Include="base_s4h_cax\Tables\I_ConditionTypeText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_CustomerReturnDeliveryItem.sql" />
+    <Build Include="base_s4h_cax\Tables\I_SalesDocumentRjcnReasonText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_OutboundDeliveryItem.sql" />
+    <Build Include="base_s4h_cax\Tables\I_OverallBillingStatusText.sql" />
+    <Build Include="edw\Tables\dim_CustomerReturnDeliveryItem.sql" />
+    <Build Include="edw\Tables\dim_OutboundDeliveryItem.sql" />
+    <Build Include="edw\Tables\dim_BillingDocumentItemPrcgElmnt.sql" />
+    <Build Include="base_s4h_cax\Tables\I_FinancialInstrTransTypeText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_BusTransactionTypeText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_ReferenceDocumentTypeText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_DebitCreditCodeText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_AccountingDocumentCategoryT.sql" />
+    <Build Include="base_s4h_cax\Tables\I_GLAccountTypeText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_GLRecordTypeText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_GLAccountLineItemRawData.sql" />
+    <Build Include="edw\Tables\fact_GLAccountLineItemRawData.sql" />
+    <Build Include="Security\Schemas\dm_sales.sql" />
+    <Build Include="dm_sales\Views\vw_dim_Customer.sql" />
+    <Build Include="dm_sales\Views\vw_fact_BillingDocumentItem.sql" />
+    <Build Include="dm_sales\Views\vw_dim_Product.sql" />
+    <Build Include="dm_sales\Views\vw_dim_Calendar.sql" />
+    <Build Include="dm_sales\Views\vw_dim_CompanyCode.sql" />
+    <Build Include="dm_sales\Views\vw_dim_CostCenter.sql" />
+    <Build Include="dm_sales\Views\vw_dim_ProfitCenter.sql" />
+    <Build Include="base_s4h_cax\Tables\I_BillingDocumentCategoryText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_BillingDocumentType.sql" />
+    <Build Include="base_s4h_cax\Tables\I_Currency.sql" />
+    <Build Include="base_s4h_cax\Tables\I_SalesDocumentItemCategory.sql" />
+    <Build Include="base_s4h_cax\Tables\I_SalesDocumentItemTypeText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_SDDocumentCategory.sql" />
+    <Build Include="base_s4h_cax\Tables\I_SDDocumentCategoryText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_SDDocumentReason.sql" />
+    <Build Include="base_s4h_cax\Tables\I_SDDocumentReasonText.sql" />
+    <Build Include="edw\Stored Procedures\sp_load_fact_GLAccountLineItemRawData.sql" />
+    <Build Include="edw\Tables\dim_Calendar.sql" />
+    <Build Include="edw\Tables\dim_BillingDocumentCategory.sql" />
+    <Build Include="edw\Tables\dim_BillingDocumentType.sql" />
+    <Build Include="edw\Tables\dim_Currency.sql" />
+    <Build Include="edw\Tables\dim_CustomerPriceGroup.sql" />
+    <Build Include="edw\Tables\dim_SalesDocumentItemCategory.sql" />
+    <Build Include="edw\Tables\dim_SalesDocumentItemType.sql" />
+    <Build Include="edw\Tables\dim_SDDocumentCategory.sql" />
+    <Build Include="edw\Tables\dim_SDDocumentReason.sql" />
+    <Build Include="base_s4h_cax\Tables\I_FinancialTransactionTypeT.sql" />
+    <Build Include="edw\Tables\dim_FinancialTransactionTypeT.sql" />
+    <Build Include="edw\Tables\dim_CurrencyType.sql" />
+    <Build Include="base_s4h_cax\Tables\I_BusinessObjTypeText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_BusinessProcessText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_ControllingDebitCreditCodeT.sql" />
+    <Build Include="base_s4h_cax\Tables\I_ControllingObjectClassT.sql" />
+    <Build Include="base_s4h_cax\Tables\I_CreditRiskClassText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_FinancialAccountTypeText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_FinancialManagementAreaText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_FinValuationObjectTypeText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_FunctionalLocationText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_FundText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_GLAccountGroupText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_GlAccountTextInCompanycode.sql" />
+    <Build Include="base_s4h_cax\Tables\I_InternalOrderTypeText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_MaintenanceActivityTypeText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_OperatingConcernText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_OrderCategoryText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_PostingKeyT.sql" />
+    <Build Include="base_s4h_cax\Tables\I_Projecttypetext.sql" />
+    <Build Include="base_s4h_cax\Tables\I_ServiceDocumentTypeText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_SpecialGLCodeText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_SubLedgerAccLineItemTypeT.sql" />
+    <Build Include="base_s4h_cax\Tables\I_WorkCenterText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_AccountingPostingStatusText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_AccountingTransferStatusText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_BillingIssueTypeText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_CityCodeText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_InvoiceListStatusText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_LedgerText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_OvrlBillingDocReqStatusText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_PriceListTypeText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_Supplier.sql" />
+    <Build Include="base_s4h_cax\Tables\I_SupplierAccountGroupText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_AdditionalCustomerGroup1Text.sql" />
+    <Build Include="base_s4h_cax\Tables\I_AdditionalCustomerGroup2Text.sql" />
+    <Build Include="base_s4h_cax\Tables\I_AdditionalCustomerGroup3Text.sql" />
+    <Build Include="base_s4h_cax\Tables\I_AdditionalCustomerGroup4Text.sql" />
+    <Build Include="base_s4h_cax\Tables\I_AdditionalCustomerGroup5Text.sql" />
+    <Build Include="base_s4h_cax\Tables\I_AdditionalMaterialGroup1Text.sql" />
+    <Build Include="base_s4h_cax\Tables\I_AdditionalMaterialGroup2Text.sql" />
+    <Build Include="base_s4h_cax\Tables\I_AdditionalMaterialGroup3Text.sql" />
+    <Build Include="base_s4h_cax\Tables\I_AdditionalMaterialGroup4Text.sql" />
+    <Build Include="base_s4h_cax\Tables\I_AdditionalMaterialGroup5Text.sql" />
+    <Build Include="base_s4h_cax\Tables\I_Address.sql" />
+    <Build Include="base_s4h_cax\Tables\I_BillingBlockReasonText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_BillingBlockStatusText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_BillingRelevanceCodeText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_CentralCreditCheckStatusText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_CreditControlAreaText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_CustomerPaymentTermsText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_DangerousGoodsStatusText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_DeliveryBlockReasonText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_DeliveryBlockStatusText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_DeliveryPriorityText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_DeliveryStatusText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_ExchangeRateTypeText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_ExprtInsurCreditCheckStatusT.sql" />
+    <Build Include="base_s4h_cax\Tables\I_FinDocCreditCheckStatusT.sql" />
+    <Build Include="base_s4h_cax\Tables\I_HdrBillgIncompletionStatusT.sql" />
+    <Build Include="base_s4h_cax\Tables\I_HdrDelivIncompletionStatusT.sql" />
+    <Build Include="base_s4h_cax\Tables\I_HdrGenIncompletionStatusT.sql" />
+    <Build Include="base_s4h_cax\Tables\I_ItemBillingIncompletionStsT.sql" />
+    <Build Include="base_s4h_cax\Tables\I_ItemDelivIncompletionStsT.sql" />
+    <Build Include="base_s4h_cax\Tables\I_ItemGenIncompletionStatusT.sql" />
+    <Build Include="base_s4h_cax\Tables\I_MaterialPlant.sql" />
+    <Build Include="base_s4h_cax\Tables\I_MaterialPricingGroupText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_Matlabcclassificationtext.sql" />
+    <Build Include="base_s4h_cax\Tables\I_OverallChmlCmplncStatusText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_OverallDelivConfStatusText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_OverallDeliveryStatusText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_OvrlItmBillgIncompltnStsText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_OvrlItmDelivIncompletionStsT.sql" />
+    <Build Include="base_s4h_cax\Tables\I_PaymentTermCreditCheckStsT.sql" />
+    <Build Include="base_s4h_cax\Tables\I_PaytAuthsnCreditCheckStsText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_PlngDelivSchedInstrnText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_ReturnReasonText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_ReturnsRefundExtentText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_SDDocReferenceStatusText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_SDProcessStatusText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_ShippingTypeText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_TotalBlockStatusText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_TotalCreditCheckStatusText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_TotalDeliveryStatusText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_Country.sql" />
+    <Build Include="base_s4h_cax\Tables\I_CustomerAccountAssgmtGroupT.sql" />
+    <Build Include="base_s4h_cax\Tables\I_MaterialGroup.sql" />
+    <Build Include="base_s4h_cax\Tables\I_MaterialGroupText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_SalesOrganization.sql" />
+    <Build Include="base_s4h_cax\Tables\I_StorageLocation.sql" />
+    <Build Include="base_s4h_cax\Tables\I_UnitOfMeasure.sql" />
+    <Build Include="base_s4h_cax\Tables\I_UnitOfMeasureText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_BrandText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_DeliveryRelatedBillgStatusT.sql" />
+    <Build Include="base_s4h_cax\Tables\I_GoodsMovementStatusText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_GoodsMovementTypeT.sql" />
+    <Build Include="base_s4h_cax\Tables\I_Intntnlartnmbcattext.sql" />
+    <Build Include="base_s4h_cax\Tables\I_InventorySpecialStockTypeT.sql" />
+    <Build Include="base_s4h_cax\Tables\I_ItemCategoryGroupText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_ItemGdsMvtIncompletionStsT.sql" />
+    <Build Include="base_s4h_cax\Tables\I_ItemPackingIncompletionStsT.sql" />
+    <Build Include="base_s4h_cax\Tables\I_ItemPickingIncompletionStsT.sql" />
+    <Build Include="base_s4h_cax\Tables\I_PaymentGuaranteeFormText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_PickingConfirmationStatusT.sql" />
+    <Build Include="base_s4h_cax\Tables\I_PickingControlText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_PickingStatusText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_ProductCategoryText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_ProductGroupText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_ProductGroupText_2.sql" />
+    <Build Include="base_s4h_cax\Tables\I_ProductHierarchyText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_ProductStatusText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_ProofOfDeliveryStatusText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_SourceOfSupplyCategoryT.sql" />
+    <Build Include="base_s4h_cax\Tables\I_StockCategoryText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_StockTypeText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_TextObjectPlainLongText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_WarehouseActivityStatusText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_ChmlCmplncStatusText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_ContactPerson.sql" />
+    <Build Include="base_s4h_cax\Tables\I_CountyCodeText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_CustomerCompany.sql" />
+    <Build Include="base_s4h_cax\Tables\I_CustomerSalesArea.sql" />
+    <Build Include="base_s4h_cax\Tables\I_DeliveryDocumentType.sql" />
+    <Build Include="base_s4h_cax\Tables\I_DeliveryDocumentTypeText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_DistrStatusByDectrlzdWrhsT.sql" />
+    <Build Include="base_s4h_cax\Tables\I_HandlingUnitInStockText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_HdrGoodsMvtIncompltnStatusT.sql" />
+    <Build Include="base_s4h_cax\Tables\I_HdrPackingIncompltnStatusT.sql" />
+    <Build Include="base_s4h_cax\Tables\I_HdrPickgIncompltnStatusT.sql" />
+    <Build Include="base_s4h_cax\Tables\I_OverallDelivReltdBillgStsT.sql" />
+    <Build Include="base_s4h_cax\Tables\I_OverallGoodsMovementStatusT.sql" />
+    <Build Include="base_s4h_cax\Tables\I_OverallPackingStatusText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_OverallPickingConfStatusText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_OverallPickingStatusText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_OverallProofOfDelivStatusT.sql" />
+    <Build Include="base_s4h_cax\Tables\I_OvrlItmGdsMvtIncompltnStsT.sql" />
+    <Build Include="base_s4h_cax\Tables\I_OvrlItmPackingIncompltnStsT.sql" />
+    <Build Include="base_s4h_cax\Tables\I_OvrlItmPickingIncompltnStsT.sql" />
+    <Build Include="base_s4h_cax\Tables\I_OvrlWarehouseActyStatusT.sql" />
+    <Build Include="base_s4h_cax\Tables\I_PackingStatusText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_PaymentGuaranteeProcedureT.sql" />
+    <Build Include="base_s4h_cax\Tables\I_Warehouse.sql" />
+    <Build Include="base_s4h_cax\Tables\I_WarehouseGateText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_WarehouseStagingAreaText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_WarehouseText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_FactoryCalWorkingDaysPerYr.sql" />
+    <Build Include="base_s4h_cax\Tables\I_FinancialStatementHierT.sql" />
+    <Build Include="base_s4h_cax\Tables\I_IncotermsClassificationText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_OverallSDProcessStatusText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_OvrlItmGenIncompletionStsT.sql" />
+    <Build Include="base_s4h_cax\Tables\I_Plant.sql" />
+    <Build Include="base_s4h_cax\Tables\I_PlantCategoryT.sql" />
+    <Build Include="base_s4h_cax\Tables\I_SalesDistrict.sql" />
+    <Build Include="base_s4h_cax\Tables\I_ShippingConditionText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_ShippingPoint.sql" />
+    <Build Include="base_s4h_cax\Tables\I_ShippingPointText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_GLAccount.sql" />
+    <Build Include="base_s4h_cax\Tables\I_ProductPlant.sql" />
+    <Build Include="base_s4h_cax\Tables\I_Productprocurement.sql" />
+    <Build Include="base_s4h_cax\Tables\I_ProductSales.sql" />
+    <Build Include="base_s4h_cax\Tables\I_SalesDocumentScheduleLine.sql" />
+    <Build Include="base_s4h_cax\Tables\I_ScheduleLineCategoryText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_ScheduleLineConfStatusText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_SalesOrderItemPricingElement.sql" />
+    <Build Include="base_s4h_cax\Tables\I_SalesOrderPricingElement.sql" />
+    <Build Include="base_s4h_cax\Tables\I_SemTagGLAccount.sql" />
+    <Build Include="base_s4h_cax\Tables\I_SupplierIndustryText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_User.sql" />
+    <Build Include="base_s4h_cax\Tables\I_PaymentBlockingReasonText.sql" />
+    <Build Include="base_s4h_cax\Tables\P_SemTagGLAccountRange.sql" />
+    <Build Include="base_s4h_cax\Tables\I_CustSalesAreaTax.sql" />
+    <Build Include="edw\Tables\dim_UnitOfMeasure.sql" />
+    <Build Include="edw\Tables\dim_Country.sql" />
+    <Build Include="edw\Tables\dim_SalesOrganization.sql" />
+    <Build Include="edw\Tables\dim_CustomerAccountAssignmentGroup.sql" />
+    <Build Include="edw\Tables\dim_CustomerGroup.sql" />
+    <Build Include="edw\Tables\dim_DistributionChannel.sql" />
+    <Build Include="edw\Tables\dim_ExchangeRateType.sql" />
+    <Build Include="edw\Tables\dim_Plant.sql" />
+    <Build Include="edw\Tables\dim_SalesDistrict.sql" />
+    <Build Include="edw\Tables\dim_SalesOffice.sql" />
+    <Build Include="edw\Tables\dim_PriceListType.sql" />
+    <Build Include="edw\Tables\dim_StorageLocation.sql" />
+    <Build Include="base_s4h_cax\Tables\I_ExchangeRateType.sql" />
+    <Build Include="edw\Tables\dim_MaterialGroup.sql" />
+    <Build Include="Security\Schemas\map_AXBI.sql" />
+    <Build Include="map_AXBI\Tables\SalesOrganization.sql" />
+    <Build Include="map_AXBI\Tables\SDDocumentCategory.sql" />
+    <Build Include="map_AXBI\Tables\SalesDocumentType.sql" />
+    <Build Include="map_AXBI\Tables\SalesEmployee.sql" />
+    <Build Include="map_AXBI\Tables\SalesDistrict.sql" />
+    <Build Include="base_tx_halfen_2_dwh\Tables\FACT_CUSTPACKINGSLIPJOUR.sql" />
+    <Build Include="base_tx_halfen_2_dwh\Tables\FACT_CUSTPACKINGSLIPTRANS.sql" />
+    <Build Include="edw\Views\vw_SalesDocumentItem_axbi.sql" />
+    <Build Include="edw\Views\vw_SalesDocumentItem_s4h.sql" />
+    <Build Include="edw\Tables\dim_BillingBlockStatus.sql" />
+    <Build Include="edw\Tables\dim_DeliveryBlockStatus.sql" />
+    <Build Include="edw\Tables\dim_ItemBillingIncompletionStatus.sql" />
+    <Build Include="edw\Tables\dim_ItemDeliveryIncompletionStatus.sql" />
+    <Build Include="edw\Tables\dim_ItemGeneralIncompletionStatus.sql" />
+    <Build Include="edw\Tables\dim_OverallSDProcessStatus.sql" />
+    <Build Include="edw\Tables\dim_SDDocReferenceStatus.sql" />
+    <Build Include="edw\Tables\dim_SalesDocumentType.sql" />
+    <Build Include="edw\Tables\dim_TotalCreditCheckStatus.sql" />
+    <Build Include="edw\Tables\dim_SalesDocumentRjcnReason.sql" />
+    <Build Include="edw\Tables\fact_SalesDocumentItem.sql" />
+    <Build Include="Security\Schemas\base_ff.sql" />
+    <Build Include="base_ff\Tables\CurrencyType.sql" />
+    <Build Include="edw\Views\vw_CurrencyType.sql" />
+    <Build Include="edw\Stored Procedures\sp_load_fact_SalesDocumentItem.sql" />
+    <Build Include="edw\Views\vw_BillingDocumentItem_s4h.sql" />
+    <Build Include="edw\Views\vw_BillingDocumentItem_axbi.sql" />
+    <Build Include="dm_sales\Views\vw_fact_SalesOrderItem.sql" />
+    <Build Include="dm_sales\Views\vw_fact_SalesQuotationItem.sql" />
+    <Build Include="base_s4h_cax\Tables\I_TotalSDDocReferenceStatusT.sql" />
+    <Build Include="base_s4h_cax\Tables\I_OverallSDDocumentRjcnStatusT.sql" />
+    <Build Include="base_s4h_cax\Tables\I_SDDocumentRejectionStatusT.sql" />
+    <Build Include="base_s4h_cax\Tables\I_OverallTotalSDDocRefStatusT.sql" />
+    <Build Include="base_s4h_cax\Tables\I_OverallSDDocReferenceStatusT.sql" />
+    <Build Include="base_s4h_cax\Tables\I_PricingIncompletionStatusT.sql" />
+    <Build Include="edw\Tables\dim_TotalSDDocReferenceStatus.sql" />
+    <Build Include="edw\Tables\dim_OverallSDDocumentRjcnStatus.sql" />
+    <Build Include="edw\Tables\dim_SDDocumentRejectionStatus.sql" />
+    <Build Include="edw\Tables\dim_OverallTotalSDDocRefStatus.sql" />
+    <Build Include="edw\Tables\dim_OverallSDDocReferenceStatus.sql" />
+    <Build Include="edw\Tables\dim_PricingIncompletionStatus.sql" />
+    <Build Include="Security\Schemas\utilities.sql" />
+    <Build Include="utilities\Stored Procedures\sp_add_t_values_old.sql" />
+    <Build Include="utilities\Stored Procedures\sp_ingest_with_t_values.sql" />
+    <Build Include="utilities\Stored Procedures\sp_process_ingestion.sql" />
+    <Build Include="base_s4h_cax\Tables\I_OverallTotalDeliveryStatusT.sql" />
+    <Build Include="edw\Tables\dim_OverallTotalDeliveryStatus.sql" />
+    <Build Include="utilities\Stored Procedures\sp_update_t_values.sql" />
+    <Build Include="base_s4h_cax\Tables\I_StatusCodeText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_StatusObjectStatus.sql" />
+    <Build Include="base_s4h_cax\Tables\I_DeliveryDocument.sql" />
+    <Build Include="map_AXBI\Tables\BusinessPartner.sql" />
+    <Build Include="base_tx_halfen_2_dwh\Tables\DIM_CUSTOMEROBJECT.sql" />
+    <Build Include="edw\Tables\dim_StatusObjectStatus.sql" />
+    <Build Include="dm_sales\Views\vw_dim_QuoteItemStatus.sql" />
+    <Build Include="dm_sales\Views\vw_dim_QuoteStatus.sql" />
+    <Build Include="base_s4h_cax\Tables\I_OutboundDelivery.sql" />
+    <Build Include="base_s4h_cax\Tables\C_BillingDocumentItemBasicDEX_delta.sql" />
+    <Build Include="base_s4h_cax\Tables\C_BillingDocumentItemBasicDEX_active.sql" />
+    <Build Include="base_s4h_cax\Views\vw_C_BillingDocumentItemBasicDEX.sql" />
+    <Build Include="base_s4h_cax\Stored Procedures\sp_load_C_BillingDocumentItemBasicDEX.sql" />
+    <Build Include="edw\Views\vw_OutboundDeliveryItem_s4h.sql" />
+    <Build Include="edw\Tables\fact_OutboundDeliveryItem.sql" />
+    <Build Include="edw\Tables\dim_Supplier.sql" />
+    <Build Include="edw\Tables\dim_Warehouse.sql" />
+    <Build Include="edw\Stored Procedures\sp_load_fact_OutboundDeliveryItem.sql" />
+    <Build Include="dm_sales\Views\vw_fact_OutboundDeliveryItem.sql" />
+    <Build Include="base_s4h_cax\Tables\I_PaymentTermsConditions.sql" />
+    <Build Include="map_AXBI\Tables\BillingDocumentItem.sql" />
+    <Build Include="base_tx_halfen_2_dwh\Tables\FACT_SALESTABLE.sql" />
+    <Build Include="base_s4h_cax\Tables\I_BusinessPartner.sql" />
+    <Build Include="edw\Tables\dim_DeliveryDocumentType.sql" />
+    <Build Include="edw\Tables\dim_SDProcessStatus.sql" />
+    <Build Include="edw\Views\vw_DeliveryDocumentType.sql" />
+    <Build Include="edw\Views\vw_SDProcessStatus.sql" />
+    <Build Include="edw\Views\vw_BillingDocumentItem_s4h_fin.sql" />
+    <Build Include="base_tx_ca_0_hlp\Tables\CUSTINVOICETRANS.sql" />
+    <Build Include="edw\Tables\dim_SalesDocumentScheduleLine.sql" />
+    <Build Include="edw\Views\vw_SalesDocumentScheduleLine.sql" />
+    <Build Include="dm_sales\Views\vw_dim_SalesDocumentScheduleLine.sql" />
+    <Build Include="edw\Views\vw_OutboundDeliveryItem_axbi.sql" />
+    <Build Include="edw\Stored Procedures\sp_materialize_view.sql" />
+    <Build Include="map_AXBI\Tables\Material.sql" />
+    <Build Include="edw\Views\vw_AccountingDocumentType.sql" />
+    <Build Include="edw\Views\vw_BillingBlockStatus.sql" />
+    <Build Include="edw\Views\vw_BillingDocumentCategory.sql" />
+    <Build Include="edw\Views\vw_BillingDocumentItemPrcgElmnt.sql" />
+    <Build Include="edw\Views\vw_BillingDocumentType.sql" />
+    <Build Include="edw\Views\vw_Calendar.sql" />
+    <Build Include="edw\Views\vw_CompanyCode.sql" />
+    <Build Include="edw\Views\vw_CostCenter.sql" />
+    <Build Include="edw\Views\vw_Country.sql" />
+    <Build Include="edw\Views\vw_Currency.sql" />
+    <Build Include="edw\Views\vw_Customer.sql" />
+    <Build Include="edw\Views\vw_CustomerAccountAssignmentGroup.sql" />
+    <Build Include="edw\Views\vw_CustomerGroup.sql" />
+    <Build Include="edw\Views\vw_CustomerPriceGroup.sql" />
+    <Build Include="edw\Views\vw_CustomerReturnDeliveryItem.sql" />
+    <Build Include="edw\Views\vw_DeliveryBlockStatus.sql" />
+    <Build Include="edw\Views\vw_DistributionChannel.sql" />
+    <Build Include="edw\Views\vw_ExchangeRates.sql" />
+    <Build Include="edw\Views\vw_ExchangeRateType.sql" />
+    <Build Include="edw\Views\vw_FinancialTransactionTypeT.sql" />
+    <Build Include="edw\Views\vw_GLAccount.sql" />
+    <Build Include="edw\Views\vw_ItemBillingIncompletionStatus.sql" />
+    <Build Include="edw\Views\vw_ItemDeliveryIncompletionStatus.sql" />
+    <Build Include="edw\Views\vw_ItemGeneralIncompletionStatus.sql" />
+    <Build Include="edw\Views\vw_MaterialGroup.sql" />
+    <Build Include="edw\Views\vw_OverallSDDocReferenceStatus.sql" />
+    <Build Include="edw\Views\vw_OverallSDDocumentRjcnStatus.sql" />
+    <Build Include="edw\Views\vw_SalesDocumentType.sql" />
+    <Build Include="edw\Views\vw_SalesOffice.sql" />
+    <Build Include="edw\Views\vw_SalesOrganization.sql" />
+    <Build Include="edw\Views\vw_SDDocReferenceStatus.sql" />
+    <Build Include="edw\Views\vw_SDDocumentCategory.sql" />
+    <Build Include="edw\Views\vw_SDDocumentReason.sql" />
+    <Build Include="edw\Views\vw_SDDocumentRejectionStatus.sql" />
+    <Build Include="edw\Views\vw_StatusObjectStatus.sql" />
+    <Build Include="edw\Views\vw_StorageLocation.sql" />
+    <Build Include="edw\Views\vw_Supplier.sql" />
+    <Build Include="edw\Views\vw_TotalCreditCheckStatus.sql" />
+    <Build Include="edw\Views\vw_TotalSDDocReferenceStatus.sql" />
+    <Build Include="edw\Views\vw_UnitOfMeasure.sql" />
+    <Build Include="edw\Views\vw_Warehouse.sql" />
+    <Build Include="edw\Views\vw_GLAccountLineItemRawData.sql" />
+    <Build Include="edw\Views\vw_OutboundDeliveryItem.sql" />
+    <Build Include="edw\Views\vw_OverallSDProcessStatus.sql" />
+    <Build Include="edw\Views\vw_OverallTotalDeliveryStatus.sql" />
+    <Build Include="edw\Views\vw_OverallTotalSDDocRefStatus.sql" />
+    <Build Include="edw\Views\vw_Plant.sql" />
+    <Build Include="edw\Views\vw_PostingKey.sql" />
+    <Build Include="edw\Views\vw_PriceListType.sql" />
+    <Build Include="edw\Views\vw_PricingIncompletionStatus.sql" />
+    <Build Include="edw\Views\vw_Product.sql" />
+    <Build Include="edw\Views\vw_ProductHierarchy.sql" />
+    <Build Include="edw\Views\vw_ProductSalesDelivery.sql" />
+    <Build Include="edw\Views\vw_ProfitCenter.sql" />
+    <Build Include="edw\Views\vw_SalesDistrict.sql" />
+    <Build Include="edw\Views\vw_SalesDocumentItemCategory.sql" />
+    <Build Include="edw\Views\vw_SalesDocumentItemType.sql" />
+    <Build Include="edw\Views\vw_SalesDocumentRjcnReason.sql" />
+    <Build Include="base_s4h_cax\Tables\I_CostCenter_delta.sql" />
+    <Build Include="base_s4h_cax\Tables\I_ProfitCenter_delta.sql" />
+    <Build Include="base_s4h_cax\Tables\C_SalesDocumentItemDEX_delta.sql" />
+    <Build Include="base_s4h_cax\Tables\C_SalesDocumentItemDEX_active.sql" />
+    <Build Include="base_s4h_cax\Views\vw_C_SalesDocumentItemDEX.sql" />
+    <Build Include="base_s4h_cax\Stored Procedures\sp_load_C_SalesDocumentItemDEX.sql" />
+    <Build Include="base_s4h_cax\Tables\I_MaterialDocumentHeader.sql" />
+    <Build Include="base_s4h_cax\Tables\I_MaterialDocumentItem.sql" />
+    <Build Include="edw\Tables\fact_MaterialDocumentItem.sql" />
+    <Build Include="edw\Views\vw_MaterialDocumentItem.sql" />
+    <Build Include="dm_sales\Views\vw_fact_MaterialDocumentItem.sql" />
+    <Build Include="dm_sales\Views\vw_dim_SalesOrganization.sql" />
+    <Build Include="base_tx_ca_0_hlp\Tables\CUSTTABLE.sql" />
+    <Build Include="base_tx_ca_0_hlp\Tables\ITEMTABLE.sql" />
+    <Build Include="base_tx_ca_0_hlp\Tables\PRODUCTGROUP.sql" />
+    <Build Include="base_ff\Tables\ProductCalculated.sql" />
+    <Build Include="edw\Tables\dim_ProductCalculated.sql" />
+    <Build Include="dm_sales\Views\vw_dim_ProductCalculated.sql" />
+    <Build Include="edw\Tables\dim_CustomerCalculated.sql" />
+    <Build Include="dm_sales\Views\vw_dim_CustomerCalculated.sql" />
+    <Build Include="base_tx_halfen_2_dwh\Tables\DIM_DATAAREA.sql" />
+    <Build Include="edw\Views\vw_ProductCalculated.sql" />
+    <Build Include="base_ff\Tables\CustomerCalculated.sql" />
+    <Build Include="edw\Views\vw_CustomerCalculated.sql" />
+    <Build Include="utilities\Stored Procedures\sp_update_statistics.sql" />
+    <Build Include="base_dw_halfen_2_dwh\Tables\DIM_CUSTOMER.sql" />
+    <Build Include="edw\Views\vw_BillingBudget_obsolete.sql" />
+    <Build Include="edw\Tables\fact_BillingBudget_obsolete.sql" />
+    <Build Include="base_ff\Tables\ValueType.sql" />
+    <Build Include="edw\Tables\dim_ValueType.sql" />
+    <Build Include="edw\Views\vw_ValueType.sql" />
+    <Build Include="dm_sales\Views\vw_fact_BillingDocItem_FinView.sql" />
+    <Build Include="edw\Tables\dim_SAPItemNumberBasicMappingTable.sql" />
+    <Build Include="edw\Views\vw_SAPItemNumberBasicMappingTable.sql" />
+    <Build Include="base_us_leviat_db\Tables\COMPANIES.sql" />
+    <Build Include="base_us_leviat_db\Tables\ITEM_GROUPS.sql" />
+    <Build Include="Security\Schemas\base_us_leviat_db.sql" />
+    <Build Include="base_tx_ca_0_hlp\Tables\BUDGET.sql" />
+    <Build Include="base_us_leviat_db\Tables\CUSTOMERS.sql" />
+    <Build Include="base_us_leviat_db\Tables\CUSTOMER_SALES.sql" />
+    <Build Include="base_us_leviat_db\Tables\ITEMS.sql" />
+    <Build Include="base_us_leviat_db\Tables\SubPCAT_Pillar.sql" />
+    <Build Include="edw\Views\vw_Budget_axbi.sql" />
+    <Build Include="edw\Tables\fact_Budget_axbi.sql" />
+    <Build Include="dm_sales\Views\vw_dim_SAPItemNumberBasicMappingTable.sql" />
+    <Build Include="edw\Tables\fact_BillingDocumentItem_US.sql" />
+    <Build Include="edw\Tables\dim_CustomerCalculated_US.sql" />
+    <Build Include="edw\Tables\dim_ProductCalculated_US.sql" />
+    <Build Include="edw\Tables\dim_SalesOrganization_US.sql" />
+    <Build Include="edw\Views\vw_BillingDocumentItem_US.sql" />
+    <Build Include="edw\Views\vw_CustomerCalculated_US.sql" />
+    <Build Include="edw\Views\vw_ProductCalculated_US.sql" />
+    <Build Include="edw\Views\vw_SalesOrganization_US.sql" />
+    <Build Include="map_AXBI\Tables\AXProductSAPHierarchy.sql" />
+    <Build Include="edw\Tables\dim_AXProductSAPHierarchy.sql" />
+    <Build Include="edw\Views\vw_AXProductSAPHierarchy.sql" />
+    <Build Include="edw\Views\vw_SAPCustomerBasicMappingTable.sql" />
+    <Build Include="edw\Tables\dim_SAPCustomerBasicMappingTable.sql" />
+    <Build Include="edw\Tables\fact_SalesDocItem_SAPSnapshotMonthly.sql" />
+    <Build Include="edw\Views\vw_SalesDocItem_SAPSnapshotMonthly.sql" />
+    <Build Include="Security\Schemas\map_USA.sql" />
+    <Build Include="map_USA\Tables\Customer.sql" />
+    <Build Include="edw\Tables\dim_Brand.sql" />
+    <Build Include="edw\Views\vw_Brand.sql" />
+    <Build Include="map_AXBI\Tables\Brand.sql" />
+    <Build Include="edw\Stored Procedures\sp_load_fact_SalesDocItem_SAPSnapshotMonthly.sql" />
+    <Build Include="base_s4h_cax\Tables\TVRO.sql" />
+    <Build Include="base_s4h_cax\Tables\TVROT.sql" />
+    <Build Include="edw\Tables\dim_Route.sql" />
+    <Build Include="edw\Views\vw_Route.sql" />
+    <Build Include="base_ff\Tables\DataQualityCode.sql" />
+    <Build Include="edw\Tables\dim_DataQualityCode.sql" />
+    <Build Include="edw\Views\vw_DataQualityCheck.sql" />
+    <Build Include="edw\Tables\dim_ShippingPoint.sql" />
+    <Build Include="edw\Views\vw_ShippingPoint.sql" />
+    <Build Include="dm_sales\Views\vw_dim_DataQualityCode.sql" />
+    <Build Include="dm_sales\Views\vw_dim_ShippingPoint.sql" />
+    <Build Include="edw\Stored Procedures\sp_load_fact_Budget_axbi.sql" />
+  </ItemGroup>
+  <Import Condition="'$(NetCoreBuild)' == 'true'" Project="$(NETCoreTargetsPath)\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <ItemGroup>
+    <PackageReference Condition="'$(NetCoreBuild)' == 'true'" Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.0" PrivateAssets="All" />
+  </ItemGroup>
+  <Target Name="BeforeBuild">
+    <Delete Files="$(BaseIntermediateOutputPath)\project.assets.json" />
+  </Target>
+</Project>

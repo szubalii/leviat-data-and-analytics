@@ -1,0 +1,216 @@
+{
+    "functionName": "/SAPDS/RFC_READ_TABLE2",
+    "runInBackgroundJob": false,
+    "tables": 
+    [
+        {
+            "name": "TVRO",
+            "description": "Routes",
+            "isView": false,
+            "fields": 
+            [
+                {
+                    "name": "MANDT",
+                    "description": "Client",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "T000",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ROUTE",
+                    "description": "Route",
+                    "abapType": "CharacterString",
+                    "length": 6,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "TRAZT",
+                    "description": "Outdated: Transit Time from GI to Ship-to Party (in Days)",
+                    "abapType": "PackedNumber",
+                    "length": 5,
+                    "decimalCount": 2,
+                    "isSelected": true,
+                    "formattedLength": 6,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "TRAZTD",
+                    "description": "Transit Duration in Calendar Days",
+                    "abapType": "PackedNumber",
+                    "length": 11,
+                    "isSelected": true,
+                    "formattedLength": 10,
+                    "conversionExit": "TSTRG"
+                },
+                {
+                    "name": "TDVZT",
+                    "description": "Outdated: Transportation-Planning Lead Time (in Days)",
+                    "abapType": "PackedNumber",
+                    "length": 5,
+                    "decimalCount": 2,
+                    "isSelected": true,
+                    "formattedLength": 6,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "TDVZTD",
+                    "description": "Transportation Lead Time in Calendar Days",
+                    "abapType": "PackedNumber",
+                    "length": 11,
+                    "isSelected": true,
+                    "formattedLength": 10,
+                    "conversionExit": "TSTRG"
+                },
+                {
+                    "name": "TDVZND",
+                    "description": "Transportation Lead Time in Hours/Minutes Work Time",
+                    "abapType": "PackedNumber",
+                    "length": 11,
+                    "isSelected": true,
+                    "formattedLength": 10,
+                    "conversionExit": "TSTRN"
+                },
+                {
+                    "name": "SPFBK",
+                    "description": "Factory calendar key",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "checkTable": "TFACD",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "EXPVZ",
+                    "description": "Mode of Transport at the Border (Intrastat)",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "checkTable": "T618",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "TDIIX",
+                    "description": "Relevance for transportation ID",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SPZST",
+                    "description": "Working time from sales view",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "checkTable": "TTSTRSD",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "FAHZTD",
+                    "description": "Travel Duration as Actual Time (Hours/Minutes)",
+                    "abapType": "PackedNumber",
+                    "length": 11,
+                    "isSelected": true,
+                    "formattedLength": 10,
+                    "conversionExit": "TSTRN"
+                },
+                {
+                    "name": "DISTZ",
+                    "description": "Distance",
+                    "abapType": "PackedNumber",
+                    "length": 13,
+                    "decimalCount": 3,
+                    "isSelected": true,
+                    "formattedLength": 17,
+                    "conversionExit": "",
+                    "referenceTable": "TVRO",
+                    "referenceField": "MEDST"
+                },
+                {
+                    "name": "MEDST",
+                    "description": "Distance Unit of Measure",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "conversionExit": "CUNIT"
+                },
+                {
+                    "name": "VSART",
+                    "description": "Shipping Type",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "checkTable": "T173",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "VSAVL",
+                    "description": "Shipping Type of Preliminary Leg",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "checkTable": "T173",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "VSANL",
+                    "description": "Shipping Type of Subsequent Leg",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "checkTable": "T173",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "TDLNR",
+                    "description": "Number of forwarding agent",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "checkTable": "LFA1",
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "ROUTID",
+                    "description": "Route Identification",
+                    "abapType": "CharacterString",
+                    "length": 100,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "TCTAB",
+                    "description": "Take Table for Transit Countries into Account",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ALLOWED_TWGT",
+                    "description": "Allowed total weight of shipment",
+                    "abapType": "PackedNumber",
+                    "length": 9,
+                    "isSelected": true,
+                    "formattedLength": 10,
+                    "conversionExit": "",
+                    "referenceTable": "TVRO",
+                    "referenceField": "ALLOWED_UOM"
+                },
+                {
+                    "name": "ALLOWED_UOM",
+                    "description": "Unit of Measurement for Allowed Total Weight of Shipment",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "conversionExit": "CUNIT"
+                }
+            ]
+        }
+    ]
+}

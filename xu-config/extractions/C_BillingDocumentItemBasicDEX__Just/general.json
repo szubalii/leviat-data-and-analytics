@@ -1,0 +1,12 @@
+{
+    "created": {
+        "machine": "[::ffff:127.0.0.1]:53172",
+        "timestamp": "20210601T121200.529Z"
+    },
+    "lastChange": {
+        "machine": "[::ffff:127.0.0.1]:53172",
+        "timestamp": "20210601T121200.575Z"
+    },
+    "source": "Just_S4Hana",
+    "type": "ODP"
+}

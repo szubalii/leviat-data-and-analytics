@@ -1,0 +1,42 @@
+{
+	"name": "ds_adls_s4h_data_files",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "stxxxxslsxeuw001",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"file_path": {
+				"type": "string"
+			},
+			"file_type": {
+				"type": "string"
+			},
+			"date": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@concat('raw_', formatDateTime(dataset().date,'yyyyMMdd'), dataset().file_type)",
+					"type": "Expression"
+				},
+				"folderPath": {
+					"value": "@concat(dataset().file_path,formatDateTime(dataset().date, 'yyyy'), '/', formatDateTime(dataset().date, 'MM'), '/', formatDateTime(dataset().date, 'dd'))",
+					"type": "Expression"
+				},
+				"fileSystem": "s4h-uat-caa"
+			},
+			"columnDelimiter": ";",
+			"escapeChar": "",
+			"firstRowAsHeader": true,
+			"quoteChar": ""
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

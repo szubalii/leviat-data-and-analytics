@@ -1,0 +1,30 @@
+﻿CREATE VIEW [edw].[vw_Route]
+	AS SELECT
+        tvro.[ROUTE]                AS [ROUTEID]
+        , tvroText.[BEZEI]          AS [ROUTE]
+        , tvro.[TRAZT]
+        , tvro.[TRAZTD]/10000       AS [TRAZTD]
+        , tvro.[TDVZT]
+        , tvro.[TDVZTD]
+        , tvro.[TDVZND]
+        , tvro.[SPFBK]
+        , tvro.[EXPVZ]
+        , tvro.[TDIIX]
+        , tvro.[SPZST]
+        , tvro.[FAHZTD]
+        , tvro.[DISTZ]
+        , tvro.[MEDST]
+        , tvro.[VSART]
+        , tvro.[VSAVL]
+        , tvro.[VSANL]
+        , tvro.[TDLNR]
+        , tvro.[ROUTID]
+        , tvro.[TCTAB]
+        , tvro.[ALLOWED_TWGT]
+        , tvro.[ALLOWED_UOM]
+        , tvro.[TRAZTD]/240000      AS [DurInDays]
+        , tvro.t_applicationId
+    FROM [base_s4h_cax].[TVRO] tvro
+    JOIN [base_s4h_cax].[TVROT] tvroText
+        ON tvro.[ROUTE] = tvroText.[ROUTE]
+        AND tvroText.[SPRAS] = 'E'

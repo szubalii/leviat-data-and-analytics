@@ -1,0 +1,1 @@
+CREATE USER [kpuchkova@crh.com] FOR EXTERNAL PROVIDER;

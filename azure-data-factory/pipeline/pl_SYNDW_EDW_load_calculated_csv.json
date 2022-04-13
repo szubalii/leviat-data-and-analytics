@@ -1,0 +1,104 @@
+{
+	"name": "pl_SYNDW_EDW_load_calculated_csv",
+	"properties": {
+		"activities": [
+			{
+				"name": "act_sproc_materialize_view",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[edw].[sp_materialize_view]",
+					"storedProcedureParameters": {
+						"DestSchema": {
+							"value": {
+								"value": "@pipeline().parameters.dest_schema_name",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"DestTable": {
+							"value": {
+								"value": "@pipeline().parameters.dest_table_name",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"SourceSchema": {
+							"value": {
+								"value": "@pipeline().parameters.source_schema_name",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"SourceView": {
+							"value": {
+								"value": "@pipeline().parameters.source_view_name",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"t_jobBy": {
+							"value": {
+								"value": "@pipeline().DataFactory",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"t_jobDtm": {
+							"value": {
+								"value": "@formatDateTime(utcnow(),'yyyy/MM/dd HH:mm:ss')",
+								"type": "Expression"
+							},
+							"type": "DateTime"
+						},
+						"t_jobId": {
+							"value": {
+								"value": "@pipeline().RunId",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"t_lastActionCd": {
+							"value": "I",
+							"type": "String"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_ws_xxxx_sls_x_euw_001__syndw_xxxx_sls_x_euw_001",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"parameters": {
+			"source_schema_name": {
+				"type": "string",
+				"defaultValue": "edw"
+			},
+			"source_view_name": {
+				"type": "string",
+				"defaultValue": "vw_ProductCalculated"
+			},
+			"dest_schema_name": {
+				"type": "string",
+				"defaultValue": "edw"
+			},
+			"dest_table_name": {
+				"type": "string",
+				"defaultValue": "dim_ProductCalculated"
+			}
+		},
+		"folder": {
+			"name": "Calculated"
+		},
+		"annotations": []
+	}
+}

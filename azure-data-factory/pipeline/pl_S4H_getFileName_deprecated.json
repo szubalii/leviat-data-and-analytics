@@ -1,0 +1,232 @@
+{
+	"name": "pl_S4H_getFileName_deprecated",
+	"properties": {
+		"activities": [
+			{
+				"name": "If S4H and Debug",
+				"type": "IfCondition",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@equals(\n    pipeline().parameters.layer_nk,\n    'S4H'\n)",
+						"type": "Expression"
+					},
+					"ifFalseActivities": [
+						{
+							"name": "Get S4H ADLS File Name",
+							"type": "WebActivity",
+							"dependsOn": [
+								{
+									"activity": "Get Pipeline Run ID",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"url": {
+									"value": "@concat(\n    'https://management.azure.com/subscriptions/f199b488-7d9d-4992-aeda-c10a1e1c9b9e/resourceGroups/',\n    pipeline().globalParameters.resourceGroupName,\n    '/providers/Microsoft.DataFactory/factories/',\n    pipeline().DataFactory,\n    '/pipelineruns/',\n    activity('Get Pipeline Run ID').output.pipelineRunId,\n    '/queryActivityRuns?api-version=2018-06-01'\n)",
+									"type": "Expression"
+								},
+								"method": "POST",
+								"body": {
+									"value": "{\n  \"lastUpdatedAfter\": \"2018-06-16T00:36:44.3345758Z\",\n  \"lastUpdatedBefore\": \"@{utcNow()}\",\n  \"filters\": [\n    {\n      \"operand\": \"ActivityName\",\n      \"operator\": \"Equals\",\n      \"values\": [\n        \"Set S4H ADLS File Name\"\n      ]\n    }\n  ]\n}",
+									"type": "Expression"
+								},
+								"authentication": {
+									"type": "MSI",
+									"resource": {
+										"value": "https://management.azure.com/",
+										"type": "Expression"
+									}
+								}
+							}
+						},
+						{
+							"name": "Get Pipeline Run ID",
+							"type": "WebActivity",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"url": {
+									"value": "@concat(\n    'https://management.azure.com/subscriptions/f199b488-7d9d-4992-aeda-c10a1e1c9b9e/resourceGroups/',\n    pipeline().globalParameters.resourceGroupName,\n    '/providers/Microsoft.DataFactory/factories/',\n    pipeline().DataFactory,\n    '/pipelineruns/queryActivityRuns?api-version=2018-06-01'\n)",
+									"type": "Expression"
+								},
+								"method": "POST",
+								"body": {
+									"value": "{\n  \"lastUpdatedAfter\": \"2018-06-16T00:36:44.3345758Z\",\n  \"lastUpdatedBefore\": \"@{utcNow()}\",\n  \"filters\": [\n    {\n      \"operand\": \"PipelineName\",\n      \"operator\": \"Equals\",\n      \"values\": [\n        \"Run XU Extraction\"\n      ]\n    },\n    {\n      \"operand\": \"LatestOnly\",\n      \"operator\": \"Equals\",\n      \"values\": [\n        true\n      ]\n    }\n  ]\n}",
+									"type": "Expression"
+								},
+								"authentication": {
+									"type": "MSI",
+									"resource": {
+										"value": "https://management.azure.com/",
+										"type": "Expression"
+									}
+								}
+							}
+						}
+					],
+					"ifTrueActivities": [
+						{
+							"name": "Get Debug S4H ADLS File Name",
+							"type": "WebActivity",
+							"dependsOn": [
+								{
+									"activity": "Get Debug Pipeline Run ID",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"url": {
+									"value": "@concat(\n    'https://management.azure.com/subscriptions/f199b488-7d9d-4992-aeda-c10a1e1c9b9e/resourceGroups/',\n    pipeline().globalParameters.resourceGroupName,\n    '/providers/Microsoft.DataFactory/factories/',\n    pipeline().DataFactory,\n    '/sandboxpipelineruns/',\n    activity('Get Debug Pipeline Run ID').output.pipelineRunId,\n    '/sandbnoxActivityRuns?api-version=2017-09-01-preview'\n)",
+									"type": "Expression"
+								},
+								"method": "GET",
+								"body": {
+									"value": "{\n  \"lastUpdatedAfter\": \"2018-06-16T00:36:44.3345758Z\",\n  \"lastUpdatedBefore\": \"@{utcNow()}\",\n  \"filters\": [\n    {\n      \"operand\": \"ActivityName\",\n      \"operator\": \"Equals\",\n      \"values\": [\n        \"Set S4H ADLS File Name\"\n      ]\n    }\n  ]\n}",
+									"type": "Expression"
+								},
+								"authentication": {
+									"type": "MSI",
+									"resource": {
+										"value": "https://management.azure.com/",
+										"type": "Expression"
+									}
+								}
+							}
+						},
+						{
+							"name": "Set Debug S4H ADLS File Name",
+							"type": "SetVariable",
+							"dependsOn": [
+								{
+									"activity": "Get Debug S4H ADLS File Name",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								},
+								{
+									"activity": "Get ADLS File Name",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "adlsFileName",
+								"value": {
+									"value": "@activity('Get Debug S4H ADLS File Name').output.value[0].output.value",
+									"type": "Expression"
+								}
+							}
+						},
+						{
+							"name": "Get Debug Pipeline Run ID",
+							"type": "WebActivity",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"url": {
+									"value": "@concat(\n    'https://management.azure.com/subscriptions/f199b488-7d9d-4992-aeda-c10a1e1c9b9e/resourceGroups/',\n    pipeline().globalParameters.resourceGroupName,\n    '/providers/Microsoft.DataFactory/factories/',\n    pipeline().DataFactory,\n    '/sandboxpipelineruns/',\n    pipeline().RunId,\n    '/sandboxActivityRuns?startTime=',\n    pipeline().TriggerTime,\n    '&endTime=',\n    addMinutes(pipeline().TriggerTime, 2),\n    '&api-version=2017-09-01-preview'\n)",
+									"type": "Expression"
+								},
+								"method": "GET",
+								"body": {
+									"value": "{\n  \"lastUpdatedAfter\": \"2018-06-16T00:36:44.3345758Z\",\n  \"lastUpdatedBefore\": \"@{utcNow()}\",\n  \"filters\": [\n    {\n      \"operand\": \"ActivityName\",\n      \"operator\": \"Equals\",\n      \"values\": [\n        \"Set S4H ADLS File Name\"\n      ]\n    }\n  ]\n}",
+									"type": "Expression"
+								},
+								"authentication": {
+									"type": "MSI",
+									"resource": {
+										"value": "https://management.azure.com/",
+										"type": "Expression"
+									}
+								}
+							}
+						},
+						{
+							"name": "Get ADLS File Name",
+							"type": "Lookup",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "AzureSqlSource",
+									"sqlReaderQuery": {
+										"value": "SELECT file_name\nFROM dbo.vw_get_entity_status\nWHERE entity_id = @{pipeline().parameters.entity_id}",
+										"type": "Expression"
+									},
+									"queryTimeout": "02:00:00",
+									"partitionOption": "None"
+								},
+								"dataset": {
+									"referenceName": "ds_orch_db",
+									"type": "DatasetReference"
+								}
+							}
+						}
+					]
+				}
+			}
+		],
+		"parameters": {
+			"layer_nk": {
+				"type": "string"
+			},
+			"entity_id": {
+				"type": "string"
+			}
+		},
+		"variables": {
+			"adlsFileName": {
+				"type": "String"
+			}
+		},
+		"folder": {
+			"name": "20 Sources/S4H"
+		},
+		"annotations": []
+	}
+}

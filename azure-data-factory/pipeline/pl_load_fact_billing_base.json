@@ -1,0 +1,119 @@
+{
+	"name": "pl_load_fact_billing_base",
+	"properties": {
+		"activities": [
+			{
+				"name": "act_copy_FileToStaging",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "SqlDWSink",
+						"preCopyScript": "IF EXISTS (SELECT * FROM dbo.sysobjects WHERE ID = OBJECT_ID(N'[base_s4h_uat_caa].[C_BillingDocumentItemBasicDEX_staging]'))\nDROP TABLE [base_s4h_uat_caa].[C_BillingDocumentItemBasicDEX_staging]",
+						"allowPolyBase": true,
+						"polyBaseSettings": {
+							"rejectValue": 0,
+							"rejectType": "value",
+							"useTypeDefault": true
+						},
+						"tableOption": "autoCreate",
+						"disableMetricsCollection": false
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "ds_adls_s4h_fact_billing",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ds_syndw_fact_billing_staging",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "act_sproc_LoadBaseLayer",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "act_copy_FileToStaging",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[base_s4h_uat_caa].[sp_load_BillingDocumentItemBasicDEX_base]",
+					"storedProcedureParameters": {
+						"t_applicationId": {
+							"value": null,
+							"type": "String"
+						},
+						"t_jobId": {
+							"value": {
+								"value": "@pipeline().RunId",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"t_lastDtm": {
+							"value": {
+								"value": "@formatDateTime(utcnow(),'yyyy/MM/dd HH:mm:ss')",
+								"type": "Expression"
+							},
+							"type": "Datetime"
+						},
+						"t_lastActionCd": {
+							"value": "I",
+							"type": "String"
+						},
+						"t_lastActionBy": {
+							"value": "ADF",
+							"type": "String"
+						},
+						"t_filePath": {
+							"value": null
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_ws_xxxx_sls_x_euw_001__syndw_xxxx_sls_x_euw_001",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2021-10-25T15:25:00Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

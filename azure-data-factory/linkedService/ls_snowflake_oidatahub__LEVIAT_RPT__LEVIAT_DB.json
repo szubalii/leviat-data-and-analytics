@@ -1,0 +1,17 @@
+{
+	"name": "ls_snowflake_oidatahub__LEVIAT_RPT__LEVIAT_DB",
+	"properties": {
+		"annotations": [],
+		"type": "Snowflake",
+		"typeProperties": {
+			"connectionString": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "ls_kv_xxxx_sls_x_euw_001",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "snowflake-oidatahub--LEVIAT-DB"
+			}
+		}
+	}
+}

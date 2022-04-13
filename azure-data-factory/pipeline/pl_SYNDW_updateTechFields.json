@@ -1,0 +1,115 @@
+{
+	"name": "pl_SYNDW_updateTechFields",
+	"properties": {
+		"activities": [
+			{
+				"name": "Update tech fields",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[utilities].[sp_update_t_values]",
+					"storedProcedureParameters": {
+						"application_id": {
+							"value": {
+								"value": "@pipeline().parameters.applicationId",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"extraction_dtm_string": {
+							"value": {
+								"value": "@pipeline().parameters.extractionDtmString",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"job_dtm": {
+							"value": {
+								"value": "@pipeline().parameters.jobDtm",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"job_id": {
+							"value": {
+								"value": "@pipeline().RunId",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"schema": {
+							"value": {
+								"value": "@pipeline().parameters.schema",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"table": {
+							"value": {
+								"value": "@pipeline().parameters.table",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"job_by": {
+							"value": {
+								"value": "@pipeline().DataFactory",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"file_path": {
+							"value": {
+								"value": "@pipeline().parameters.filePath",
+								"type": "Expression"
+							},
+							"type": "String"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_ws_xxxx_sls_x_euw_001__syndw_xxxx_sls_x_euw_001",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"parameters": {
+			"schema": {
+				"type": "string"
+			},
+			"table": {
+				"type": "string"
+			},
+			"applicationId": {
+				"type": "string"
+			},
+			"jobId": {
+				"type": "string"
+			},
+			"jobDtm": {
+				"type": "string"
+			},
+			"jobBy": {
+				"type": "string"
+			},
+			"extractionDtmString": {
+				"type": "string"
+			},
+			"filePath": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "90 Utilities/Synapse"
+		},
+		"annotations": []
+	}
+}

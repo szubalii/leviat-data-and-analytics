@@ -1,0 +1,156 @@
+{
+	"name": "pl_etl_status_email_sending",
+	"properties": {
+		"activities": [
+			{
+				"name": "If status success",
+				"type": "IfCondition",
+				"dependsOn": [
+					{
+						"activity": "act_lookup_EmailList",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@equals(pipeline().parameters.status,'succeeded')",
+						"type": "Expression"
+					},
+					"ifFalseActivities": [
+						{
+							"name": "act_web_SendEmailFailure",
+							"type": "WebActivity",
+							"dependsOn": [
+								{
+									"activity": "act_lookup_select_exceptions",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"url": "https://prod-59.westeurope.logic.azure.com:443/workflows/f2ad36b624fd43bd85a5543f194ccd26/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=WD2chZlXpiB7w0Z4ogJFxYXPt4VuxVib-g2ZlscCc0A",
+								"method": "POST",
+								"body": {
+									"value": "{\n\t\"Subject\": \"CRH: ETL Status\",\n\t\"Title\": \"PIPELINE RUN IS FAILED\",\n\t\"Message\": \"@{replace(\n\t\t\t\t\t\tstring(activity('act_lookup_select_exceptions').output.value)\n\t\t\t\t,'\"','')\n                              }\",\n\t\"EmailTo\": \"@{activity('act_lookup_EmailList').output.value[0].EmailTo}\",\n\t\"Color\": \"Red\",\n\t\"DataFactoryName\": \"@{pipeline().DataFactory}\",\n\t\"PipelineName\": \"@{pipeline().parameters.PipelineName}\",\n\t\"PipelineRunId\": \"@{pipeline().parameters.PipelineRunId}\",\n\t\"UTCTime\": \"@{formatDateTime(utcnow(), 'yyyy-MM-dd HH:mm:ss')}\"\n}",
+									"type": "Expression"
+								}
+							}
+						},
+						{
+							"name": "act_lookup_select_exceptions",
+							"type": "Lookup",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "AzureSqlSource",
+									"sqlReaderQuery": {
+										"value": "select\np.[pipeline_name_nk] as [pipeline_name],\ne.[entity_name],\nba.[activity_nk] as [batch_activity],\n[category_nk] as [error_category],\n[error_message]\n\tfrom [dbo].[exception] ex\n\tjoin [dbo].[error_category] erc on erc.[error_category_id] = ex.[error_category_id]\n\tleft join [dbo].[batch] b on ex.[batch_id] = b.[batch_id]\n\tleft join [dbo].[entity] e on e.[entity_id] = b.[entity_id]\n\tleft join [dbo].[batch_execution_status] bs on bs.[status_id] = b.[status_id]\n\tleft join [dbo].[batch_activity] ba on ba.activity_id = b.activity_id\n\tleft join [dbo].[pipeline_log] lex on lex.[run_id] = ex.[run_id]\n\tleft join [dbo].[pipeline] p on p.[pipeline_id] = lex.[pipeline_id]\n\twhere lex.[parent_run_id] = '@{pipeline().parameters.parent_run_id}'\norder by [error_timestamp]",
+										"type": "Expression"
+									},
+									"queryTimeout": "02:00:00",
+									"partitionOption": "None"
+								},
+								"dataset": {
+									"referenceName": "ds_orch_db",
+									"type": "DatasetReference"
+								},
+								"firstRowOnly": false
+							}
+						}
+					],
+					"ifTrueActivities": [
+						{
+							"name": "act_web_SendEmailSuccess",
+							"type": "WebActivity",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"url": "https://prod-59.westeurope.logic.azure.com:443/workflows/f2ad36b624fd43bd85a5543f194ccd26/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=WD2chZlXpiB7w0Z4ogJFxYXPt4VuxVib-g2ZlscCc0A",
+								"method": "POST",
+								"body": {
+									"value": "{\n\t\"Subject\": \"CRH: ETL Status\",\n\t\"Title\": \"PIPELINE RUN IS FINISHED SUCCESSFULLY\",\n\t\"Message\": \"Pipeline run is finished successfully.\",\n\t\"EmailTo\": \"@{activity('act_lookup_EmailList').output.value[0].EmailTo}\",\n\t\"Color\": \"Green\",\n\t\"DataFactoryName\": \"@{pipeline().DataFactory}\",\n\t\"PipelineName\": \"@{pipeline().parameters.PipelineName}\",\n\t\"PipelineRunId\": \"@{pipeline().parameters.PipelineRunId}\",\n\t\"UTCTime\": \"@{formatDateTime(utcnow(), 'yyyy-MM-dd HH:mm:ss')}\"\n}",
+									"type": "Expression"
+								}
+							}
+						}
+					]
+				}
+			},
+			{
+				"name": "act_lookup_EmailList",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderQuery": "  SELECT STRING_AGG([email_address],';') [EmailTo] \n  FROM [dbo].[recipient_email_address]",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "ds_orch_db",
+						"type": "DatasetReference"
+					},
+					"firstRowOnly": false
+				}
+			}
+		],
+		"parameters": {
+			"PipelineRunId": {
+				"type": "string"
+			},
+			"PipelineName": {
+				"type": "string"
+			},
+			"status": {
+				"type": "string"
+			},
+			"parent_run_id": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "90 Utilities/Email"
+		},
+		"annotations": [
+			"Synapse Analytics"
+		],
+		"lastPublishTime": "2021-10-25T15:25:00Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

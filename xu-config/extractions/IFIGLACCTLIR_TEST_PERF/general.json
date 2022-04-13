@@ -1,0 +1,12 @@
+{
+    "created": {
+        "machine": "[::ffff:127.0.0.1]:49960",
+        "timestamp": "20210601T064030.906Z"
+    },
+    "lastChange": {
+        "machine": "[::ffff:127.0.0.1]:61186",
+        "timestamp": "20210602T160452.104Z"
+    },
+    "source": "CRH_Leviat_S4HANA_CAA",
+    "type": "ODP"
+}

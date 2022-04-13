@@ -1,0 +1,8 @@
+{
+    "created": {
+        "machine": "[::ffff:127.0.0.1]:52393",
+        "timestamp": "20210802T120741.795Z"
+    },
+    "source": "CRH_Leviat_S4HANA_CAD",
+    "type": "Table"
+}

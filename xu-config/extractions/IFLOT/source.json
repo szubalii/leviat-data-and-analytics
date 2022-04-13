@@ -1,0 +1,543 @@
+{
+    "functionName": "/SAPDS/RFC_READ_TABLE2",
+    "runInBackgroundJob": false,
+    "tables": 
+    [
+        {
+            "name": "IFLOT",
+            "description": "Functional Location (Table)",
+            "isView": false,
+            "fields": 
+            [
+                {
+                    "name": "MANDT",
+                    "description": "Client",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "T000",
+                    "indexed": "Ascending",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "TPLNR",
+                    "description": "Functional Location",
+                    "abapType": "CharacterString",
+                    "length": 30,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "formattedLength": 40,
+                    "indexed": "Ascending",
+                    "conversionExit": "TPLNR"
+                },
+                {
+                    "name": "MLANG",
+                    "description": "Primary language for object texts",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "formattedLength": 2,
+                    "checkTable": "T002",
+                    "conversionExit": "ISOLA"
+                },
+                {
+                    "name": "TPLKZ",
+                    "description": "Functional Location Structure Indicator",
+                    "abapType": "CharacterString",
+                    "length": 5,
+                    "isSelected": true,
+                    "checkTable": "T370S",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "FLTYP",
+                    "description": "Functional location category",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "checkTable": "T370F",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "TPLMA",
+                    "description": "Superior functional location",
+                    "abapType": "CharacterString",
+                    "length": 30,
+                    "isSelected": true,
+                    "formattedLength": 40,
+                    "checkTable": "IFLOT",
+                    "indexed": "Ascending",
+                    "conversionExit": "TPLNR"
+                },
+                {
+                    "name": "ERDAT",
+                    "description": "Date on which the object was created",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ERNAM",
+                    "description": "Name of User Who Created the Object",
+                    "abapType": "CharacterString",
+                    "length": 12,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "AEDAT",
+                    "description": "Date on which the object was last changed",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "AENAM",
+                    "description": "Name of the user who last changed the object",
+                    "abapType": "CharacterString",
+                    "length": 12,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "DATAB",
+                    "description": "Start-up Date of the Technical Object",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "BEGRU",
+                    "description": "Technical object authorization group",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "T370B",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "TRPNR",
+                    "description": "Reference functional location",
+                    "abapType": "CharacterString",
+                    "length": 30,
+                    "isSelected": true,
+                    "checkTable": "IRLOT",
+                    "indexed": "Ascending",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PSTAE",
+                    "description": "SAP Development reserve: Format CHAR, length 4",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "STNAM",
+                    "description": "SAP Development Reserve: Format CHAR, Length 12",
+                    "abapType": "CharacterString",
+                    "length": 12,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "LVORM",
+                    "description": "SAP Development Reserve: Format CHAR, Length 1",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SUBMT",
+                    "description": "Construction type material of the object",
+                    "abapType": "CharacterString",
+                    "length": 40,
+                    "isSelected": true,
+                    "checkTable": "MARA",
+                    "indexed": "Ascending",
+                    "conversionExit": "MATN1"
+                },
+                {
+                    "name": "SUBMTI",
+                    "description": "Data origin for construction type field",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MAPAR",
+                    "description": "Manufacturer part number",
+                    "abapType": "CharacterString",
+                    "length": 30,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MAPARI",
+                    "description": "SAP Development Reserve: Format CHAR, Length 1",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "IEQUI",
+                    "description": "Installation of equipment allowed at the functional location",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "IEQUII",
+                    "description": "Data origin for equip. inst. allowed field",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "EINZL",
+                    "description": "Single equipment installation at functional location",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "EINZLI",
+                    "description": "Data origin for authorization group field",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "IWERK",
+                    "description": "Maintenance Planning Plant",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "T399I",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "IWERKI",
+                    "description": "Data origin for planning plant field",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "INGRP",
+                    "description": "Planner Group for Customer Service and Plant Maintenance",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "checkTable": "T024I",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "INGRPI",
+                    "description": "Data origin for maintenance planner group field",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PM_OBJTY",
+                    "description": "Object Type of CIM Resources for Work Center",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "LGWID",
+                    "description": "Object ID of the Work Center",
+                    "abapType": "NumericCharacterString",
+                    "length": 8,
+                    "isSelected": true,
+                    "checkTable": "CRID",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "LGWIDI",
+                    "description": "Data Origin for the Field 'Work Center'",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "RBNR",
+                    "description": "Catalog Profile",
+                    "abapType": "CharacterString",
+                    "length": 9,
+                    "isSelected": true,
+                    "checkTable": "T352B",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "RBNR_I",
+                    "description": "Data origin for maintenance catalog field",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ILOAN",
+                    "description": "Location and account assignment for technical object",
+                    "abapType": "CharacterString",
+                    "length": 12,
+                    "isSelected": true,
+                    "checkTable": "ILOA",
+                    "indexed": "Ascending",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "OBJNR",
+                    "description": "Object number",
+                    "abapType": "CharacterString",
+                    "length": 22,
+                    "isSelected": true,
+                    "checkTable": "ONR00",
+                    "indexed": "Ascending",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "POSNR",
+                    "description": "Position in superior technical object",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ISTYP",
+                    "description": "Object category for Industry Solutions (IS)",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PREMS",
+                    "description": "Premise",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "EQART",
+                    "description": "Type of Technical Object",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "checkTable": "T370K",
+                    "indexed": "Ascending",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "INVNR",
+                    "description": "Inventory number",
+                    "abapType": "CharacterString",
+                    "length": 25,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "GROES",
+                    "description": "Size/dimension",
+                    "abapType": "CharacterString",
+                    "length": 18,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "BRGEW",
+                    "description": "Gross weight",
+                    "abapType": "PackedNumber",
+                    "length": 13,
+                    "decimalCount": 3,
+                    "isSelected": true,
+                    "formattedLength": 17,
+                    "conversionExit": "",
+                    "referenceTable": "IFLOT",
+                    "referenceField": "GEWEI"
+                },
+                {
+                    "name": "GEWEI",
+                    "description": "Weight Unit",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "checkTable": "T006",
+                    "conversionExit": "CUNIT"
+                },
+                {
+                    "name": "ANSWT",
+                    "description": "Acquisition Value",
+                    "abapType": "PackedNumber",
+                    "length": 13,
+                    "decimalCount": 2,
+                    "isSelected": true,
+                    "formattedLength": 17,
+                    "conversionExit": "",
+                    "referenceTable": "IFLOT",
+                    "referenceField": "WAERS"
+                },
+                {
+                    "name": "WAERS",
+                    "description": "Currency Key",
+                    "abapType": "CharacterString",
+                    "length": 5,
+                    "isSelected": true,
+                    "checkTable": "TCURC",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ANSDT",
+                    "description": "Acquisition date",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "HERST",
+                    "description": "Manufacturer of Asset",
+                    "abapType": "CharacterString",
+                    "length": 30,
+                    "isSelected": true,
+                    "indexed": "Ascending",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "HERLD",
+                    "description": "Country of manufacture",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "checkTable": "T005",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "BAUJJ",
+                    "description": "Year of construction",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "conversionExit": "GJAHR"
+                },
+                {
+                    "name": "BAUMM",
+                    "description": "Month of construction",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "TYPBZ",
+                    "description": "Manufacturer model number",
+                    "abapType": "CharacterString",
+                    "length": 20,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "EMATN",
+                    "description": "Material number corresponding to manufacturer part number",
+                    "abapType": "CharacterString",
+                    "length": 40,
+                    "isSelected": true,
+                    "conversionExit": "MATN1"
+                },
+                {
+                    "name": "SERGE",
+                    "description": "Manufacturer serial number",
+                    "abapType": "CharacterString",
+                    "length": 30,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "HANDLE",
+                    "description": "SAP Development Reserve: Integration of Date Segment (Key)",
+                    "abapType": "CharacterString",
+                    "length": 22,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "TSEGTP",
+                    "description": "SAP Development Reserve: Integration Date Segment (Tempate)",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "formattedLength": 20,
+                    "conversionExit": "TMPLA"
+                },
+                {
+                    "name": "CHANGEDDATETIME",
+                    "description": "UTC Time Stamp in Short Form (YYYYMMDDhhmmss)",
+                    "abapType": "PackedNumber",
+                    "length": 15,
+                    "isSelected": true,
+                    "formattedLength": 19,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "DUMMY_IFLOT_INCL_EEW_PS",
+                    "description": "Custom Fields: Dummy for Use in Extension Includes",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "FLLB_DUTY",
+                    "description": "Logbook Duty",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "FLLB_HIDE",
+                    "description": "Hide Logbook Display",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "IFLOT_SRTYPE",
+                    "description": "Shift Report Type for Object",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "indexed": "Ascending",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "IFLOT_SNTYPE",
+                    "description": "Notification Type for Shift Note for Object",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "checkTable": "TQ80",
+                    "conversionExit": ""
+                }
+            ]
+        }
+    ]
+}

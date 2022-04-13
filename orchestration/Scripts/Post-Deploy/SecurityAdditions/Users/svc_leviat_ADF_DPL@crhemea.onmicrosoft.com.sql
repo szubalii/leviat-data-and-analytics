@@ -1,0 +1,1 @@
+﻿CREATE USER [svc_leviat_ADF_DPL@crhemea.onmicrosoft.com] FROM EXTERNAL PROVIDER;

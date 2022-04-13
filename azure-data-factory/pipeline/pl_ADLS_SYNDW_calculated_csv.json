@@ -1,0 +1,148 @@
+{
+	"name": "pl_ADLS_SYNDW_calculated_csv",
+	"properties": {
+		"activities": [
+			{
+				"name": "Update technical field values",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "Execute Copy from CSV to Synapse Base",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[utilities].[sp_update_t_values]",
+					"storedProcedureParameters": {
+						"application_id": {
+							"value": null,
+							"type": "String"
+						},
+						"extraction_dtm_string": {
+							"value": null,
+							"type": "String"
+						},
+						"file_path": {
+							"value": {
+								"value": "@concat(\n    'flat-files/'\n,   pipeline().parameters.directory\n,   if(\n        empty(pipeline().parameters.directory)\n    ,   ''\n    ,   '/'\n    )\n,   pipeline().parameters.file_name\n)",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"job_by": {
+							"value": {
+								"value": "@pipeline().DataFactory",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"job_dtm": {
+							"value": {
+								"value": "@formatDateTime(pipeline().TriggerTime, 'yyyy-MM-dd HH:mm:ss')",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"job_id": {
+							"value": {
+								"value": "@pipeline().RunId",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"schema": {
+							"value": {
+								"value": "@pipeline().parameters.base_schema_name",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"table": {
+							"value": {
+								"value": "@pipeline().parameters.base_table_name",
+								"type": "Expression"
+							},
+							"type": "String"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_ws_xxxx_sls_x_euw_001__syndw_xxxx_sls_x_euw_001",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "Execute Copy from CSV to Synapse Base",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pl_ADLS_SYNDW_csv_ingest",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"container": "flat-files",
+						"file_name": {
+							"value": "@pipeline().parameters.file_name",
+							"type": "Expression"
+						},
+						"field_delimiter": {
+							"value": "@pipeline().parameters.field_delimiter",
+							"type": "Expression"
+						},
+						"base_schema_name": {
+							"value": "@pipeline().parameters.base_schema_name",
+							"type": "Expression"
+						},
+						"base_table_name": {
+							"value": "@pipeline().parameters.base_table_name",
+							"type": "Expression"
+						}
+					}
+				}
+			}
+		],
+		"parameters": {
+			"directory": {
+				"type": "string"
+			},
+			"file_name": {
+				"type": "string",
+				"defaultValue": "dim_ProductCalculated.csv"
+			},
+			"field_delimiter": {
+				"type": "string",
+				"defaultValue": ";"
+			},
+			"base_schema_name": {
+				"type": "string",
+				"defaultValue": "base_ff"
+			},
+			"base_table_name": {
+				"type": "string",
+				"defaultValue": "ProductCalculated"
+			}
+		},
+		"variables": {
+			"extractionDtm": {
+				"type": "String"
+			}
+		},
+		"folder": {
+			"name": "Calculated"
+		},
+		"annotations": []
+	}
+}

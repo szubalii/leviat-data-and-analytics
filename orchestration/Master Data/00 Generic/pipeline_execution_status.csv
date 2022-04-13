@@ -1,0 +1,7 @@
+status_id,status_nk,status_description
+1,InProgress,Pipeline execution is in progress
+2,Succeeded,Pipeline execution was succeeded
+3,Cancelled,Pipeline execution was cancelled
+4,Failed,Pipeline execution was failed
+5,FinishedWithExceptions,Pipeline execution was finished with exceptions
+6,Skipped,Pipeline execution was skipped

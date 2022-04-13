@@ -1,0 +1,215 @@
+{
+	"name": "pl_ADLS_ingestion",
+	"properties": {
+		"activities": [
+			{
+				"name": "Extraction Switch",
+				"type": "Switch",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"on": {
+						"value": "@pipeline().parameters.layer_nk",
+						"type": "Expression"
+					},
+					"cases": [
+						{
+							"value": "AXBI",
+							"activities": [
+								{
+									"name": "Run AXBI Extraction",
+									"type": "ExecutePipeline",
+									"dependsOn": [],
+									"userProperties": [],
+									"typeProperties": {
+										"pipeline": {
+											"referenceName": "pl_AXBI_ADLS_ingestion",
+											"type": "PipelineReference"
+										},
+										"waitOnCompletion": true,
+										"parameters": {
+											"axbi_database_name": {
+												"value": "@pipeline().parameters.source_database_name",
+												"type": "Expression"
+											},
+											"axbi_schema_name": {
+												"value": "@pipeline().parameters.source_schema_name",
+												"type": "Expression"
+											},
+											"axbi_table_name": {
+												"value": "@pipeline().parameters.source_table_name",
+												"type": "Expression"
+											},
+											"axbi_date_field_name": {
+												"value": "@pipeline().parameters.source_date_field_name",
+												"type": "Expression"
+											},
+											"adls_container_name": {
+												"value": "@pipeline().parameters.adls_container_name",
+												"type": "Expression"
+											},
+											"adls_directory_path": {
+												"value": "@pipeline().parameters.adls_directory_path_In",
+												"type": "Expression"
+											},
+											"file_name": {
+												"value": "@pipeline().parameters.adls_file_name",
+												"type": "Expression"
+											},
+											"run_id": {
+												"value": "@pipeline().parameters.run_id",
+												"type": "Expression"
+											},
+											"entity_id": {
+												"value": "@pipeline().parameters.entity_id",
+												"type": "Expression"
+											}
+										}
+									}
+								}
+							]
+						},
+						{
+							"value": "S4H",
+							"activities": [
+								{
+									"name": "Run XU Extraction",
+									"type": "ExecutePipeline",
+									"dependsOn": [],
+									"userProperties": [],
+									"typeProperties": {
+										"pipeline": {
+											"referenceName": "pl_XU_ADLS_extraction",
+											"type": "PipelineReference"
+										},
+										"waitOnCompletion": true,
+										"parameters": {
+											"extraction_name": {
+												"value": "@pipeline().parameters.entity_name",
+												"type": "Expression"
+											},
+											"date": {
+												"value": "@pipeline().parameters.date",
+												"type": "Expression"
+											},
+											"run_id": {
+												"value": "@pipeline().parameters.run_id",
+												"type": "Expression"
+											},
+											"entity_id": {
+												"value": "@pipeline().parameters.entity_id",
+												"type": "Expression"
+											},
+											"adls_directory_path": {
+												"value": "@pipeline().parameters.adls_directory_path_In",
+												"type": "Expression"
+											}
+										}
+									}
+								}
+							]
+						},
+						{
+							"value": "USA",
+							"activities": [
+								{
+									"name": "Run USA Snowflake Extraction",
+									"type": "ExecutePipeline",
+									"dependsOn": [],
+									"userProperties": [],
+									"typeProperties": {
+										"pipeline": {
+											"referenceName": "pl_USASnowflake_ADLS_ingestion",
+											"type": "PipelineReference"
+										},
+										"waitOnCompletion": true,
+										"parameters": {
+											"source_database_name": {
+												"value": "@pipeline().parameters.source_database_name",
+												"type": "Expression"
+											},
+											"source_schema_name": {
+												"value": "@pipeline().parameters.source_schema_name",
+												"type": "Expression"
+											},
+											"source_table_name": {
+												"value": "@pipeline().parameters.source_table_name",
+												"type": "Expression"
+											},
+											"source_date_field_name": {
+												"value": "@pipeline().parameters.source_date_field_name",
+												"type": "Expression"
+											},
+											"adls_container_name": {
+												"value": "@pipeline().parameters.adls_container_name",
+												"type": "Expression"
+											},
+											"target_adls_directory_path": {
+												"value": "@pipeline().parameters.adls_directory_path_In",
+												"type": "Expression"
+											},
+											"file_name": {
+												"value": "@pipeline().parameters.adls_file_name",
+												"type": "Expression"
+											},
+											"run_id": {
+												"value": "@pipeline().parameters.run_id",
+												"type": "Expression"
+											},
+											"entity_id": {
+												"value": "@pipeline().parameters.entity_id",
+												"type": "Expression"
+											}
+										}
+									}
+								}
+							]
+						}
+					]
+				}
+			}
+		],
+		"parameters": {
+			"entity_name": {
+				"type": "string"
+			},
+			"entity_id": {
+				"type": "string"
+			},
+			"date": {
+				"type": "string"
+			},
+			"run_id": {
+				"type": "string"
+			},
+			"layer_nk": {
+				"type": "string"
+			},
+			"source_database_name": {
+				"type": "string"
+			},
+			"source_schema_name": {
+				"type": "string"
+			},
+			"source_table_name": {
+				"type": "string"
+			},
+			"source_date_field_name": {
+				"type": "string"
+			},
+			"adls_container_name": {
+				"type": "string"
+			},
+			"adls_directory_path_In": {
+				"type": "string"
+			},
+			"adls_file_name": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "00 ELT/01 ADLS Ingestion"
+		},
+		"annotations": []
+	}
+}

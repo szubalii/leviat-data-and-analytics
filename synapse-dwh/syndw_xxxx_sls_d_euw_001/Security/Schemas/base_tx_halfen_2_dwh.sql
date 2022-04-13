@@ -1,0 +1,1 @@
+﻿CREATE SCHEMA [base_tx_halfen_2_dwh]

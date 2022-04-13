@@ -1,0 +1,450 @@
+{
+	"name": "pl_Base_ELT_entity",
+	"properties": {
+		"activities": [
+			{
+				"name": "Execute Entity ADLS Ingestion",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Set ADLS File Name",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pl_ADLS_ingestion",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"entity_name": {
+							"value": "@pipeline().parameters.entity_name",
+							"type": "Expression"
+						},
+						"entity_id": {
+							"value": "@pipeline().parameters.entity_id",
+							"type": "Expression"
+						},
+						"date": {
+							"value": "@pipeline().parameters.date",
+							"type": "Expression"
+						},
+						"run_id": {
+							"value": "@pipeline().parameters.run_id",
+							"type": "Expression"
+						},
+						"layer_nk": {
+							"value": "@pipeline().parameters.layer_nk",
+							"type": "Expression"
+						},
+						"source_database_name": {
+							"value": "@pipeline().parameters.source_database_name",
+							"type": "Expression"
+						},
+						"source_schema_name": {
+							"value": "@pipeline().parameters.source_schema_name",
+							"type": "Expression"
+						},
+						"source_table_name": {
+							"value": "@pipeline().parameters.source_table_name",
+							"type": "Expression"
+						},
+						"source_date_field_name": {
+							"value": "@pipeline().parameters.source_date_field_name",
+							"type": "Expression"
+						},
+						"adls_container_name": {
+							"value": "@pipeline().parameters.adls_container_name",
+							"type": "Expression"
+						},
+						"adls_directory_path_In": {
+							"value": "@pipeline().parameters.adls_directory_path_In",
+							"type": "Expression"
+						},
+						"adls_file_name": {
+							"value": "@variables('adlsFileName')",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "Set ADLS File Name",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "adlsFileName",
+					"value": {
+						"value": "@concat(\n    pipeline().parameters.base_table_name\n    ,'_'\n    ,formatDateTime(utcNow(),'yyyy_MM_dd_HH_mm_ss_fff')\n    ,'.parquet'\n)",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Ingest Parquet into Synapse Base",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Process Parquet File",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pl_ADLS_SYNDW_ingestion",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"base_schema_name": {
+							"value": "@pipeline().parameters.base_schema_name",
+							"type": "Expression"
+						},
+						"base_table_name": {
+							"value": "@pipeline().parameters.base_table_name",
+							"type": "Expression"
+						},
+						"entity_id": {
+							"value": "@pipeline().parameters.entity_id",
+							"type": "Expression"
+						},
+						"directory_path": {
+							"value": "@pipeline().parameters.adls_directory_path_Out",
+							"type": "Expression"
+						},
+						"run_id": {
+							"value": "@pipeline().parameters.run_id",
+							"type": "Expression"
+						},
+						"source_layer": "Out",
+						"file_name": {
+							"value": "@variables('adlsFileName')",
+							"type": "Expression"
+						},
+						"adls_container_name": {
+							"value": "@pipeline().parameters.adls_container_name",
+							"type": "Expression"
+						},
+						"target_layer": "Base"
+					}
+				}
+			},
+			{
+				"name": "Process Parquet File",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "If Test for Duplicates",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pl_ADLS_process",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"entity_name": {
+							"value": "@pipeline().parameters.entity_name",
+							"type": "Expression"
+						},
+						"entity_id": {
+							"value": "@pipeline().parameters.entity_id",
+							"type": "Expression"
+						},
+						"date": {
+							"value": "@pipeline().parameters.date",
+							"type": "Expression"
+						},
+						"run_id": {
+							"value": "@pipeline().parameters.run_id",
+							"type": "Expression"
+						},
+						"client_field": {
+							"value": "@pipeline().parameters.client_field",
+							"type": "Expression"
+						},
+						"extraction_type": {
+							"value": "@pipeline().parameters.extraction_type",
+							"type": "Expression"
+						},
+						"adls_container_name": {
+							"value": "@pipeline().parameters.adls_container_name",
+							"type": "Expression"
+						},
+						"adls_directory_path_In": {
+							"value": "@pipeline().parameters.adls_directory_path_In",
+							"type": "Expression"
+						},
+						"adls_directory_path_Out": {
+							"value": "@pipeline().parameters.adls_directory_path_Out",
+							"type": "Expression"
+						},
+						"adls_file_name": {
+							"value": "@variables('adlsFileName')",
+							"type": "Expression"
+						},
+						"layer_nk": {
+							"value": "@pipeline().parameters.layer_nk",
+							"type": "Expression"
+						},
+						"application_id": {
+							"value": "@pipeline().parameters.source_database_name",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "If Required to Process Base",
+				"type": "IfCondition",
+				"dependsOn": [
+					{
+						"activity": "Ingest Parquet into Synapse Base",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@not(\n    equals(\n        pipeline().parameters.base_sproc_name,\n        null\n    )\n)",
+						"type": "Expression"
+					},
+					"ifTrueActivities": [
+						{
+							"name": "Process Base",
+							"type": "ExecutePipeline",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"pipeline": {
+									"referenceName": "pl_SYNDW_Base_process",
+									"type": "PipelineReference"
+								},
+								"waitOnCompletion": true,
+								"parameters": {
+									"base_schema_name": {
+										"value": "@pipeline().parameters.base_schema_name",
+										"type": "Expression"
+									},
+									"base_table_name": {
+										"value": "@pipeline().parameters.base_table_name",
+										"type": "Expression"
+									},
+									"base_sproc_name": {
+										"value": "@pipeline().parameters.base_sproc_name",
+										"type": "Expression"
+									},
+									"entity_id": {
+										"value": "@pipeline().parameters.entity_id",
+										"type": "Expression"
+									},
+									"run_id": {
+										"value": "@pipeline().parameters.run_id",
+										"type": "Expression"
+									}
+								}
+							}
+						}
+					]
+				}
+			},
+			{
+				"name": "If Test for Duplicates",
+				"type": "IfCondition",
+				"dependsOn": [
+					{
+						"activity": "Reset ADLS File Name",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@not(\r\n    equals(\r\n        pipeline().parameters.pk_field_names,\r\n        null\r\n    )\r\n)",
+						"type": "Expression"
+					},
+					"ifTrueActivities": [
+						{
+							"name": "Test for Duplicates",
+							"type": "ExecutePipeline",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"pipeline": {
+									"referenceName": "pl_ADLS_In_duplicatesTest",
+									"type": "PipelineReference"
+								},
+								"waitOnCompletion": true,
+								"parameters": {
+									"primary_key_columns": {
+										"value": "@pipeline().parameters.pk_field_names",
+										"type": "Expression"
+									},
+									"entity_id": {
+										"value": "@pipeline().parameters.entity_id",
+										"type": "Expression"
+									},
+									"adls_directory_path": {
+										"value": "@pipeline().parameters.adls_directory_path_In",
+										"type": "Expression"
+									},
+									"run_id": {
+										"value": "@pipeline().parameters.run_id",
+										"type": "Expression"
+									},
+									"source_layer": "In",
+									"adls_container_name": {
+										"value": "@pipeline().parameters.adls_container_name",
+										"type": "Expression"
+									},
+									"file_name": {
+										"value": "@variables('adlsFileName')",
+										"type": "Expression"
+									}
+								}
+							}
+						}
+					]
+				}
+			},
+			{
+				"name": "Reset ADLS File Name",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "Lookup ADLS File Name",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "adlsFileName",
+					"value": {
+						"value": "@activity('Lookup ADLS File Name').output.firstRow.file_name",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Lookup ADLS File Name",
+				"description": "In case ADLS ingestion was successful, but subsequent activities were not.",
+				"type": "Lookup",
+				"dependsOn": [
+					{
+						"activity": "Execute Entity ADLS Ingestion",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderQuery": {
+							"value": "SELECT file_name\nFROM [dbo].[get_scheduled_entities] (\n    1,\n    '@{pipeline().parameters.date}'\n)\nWHERE \n    last_run_status = 'Succeeded'\n    AND\n    entity_id = @{pipeline().parameters.entity_id}",
+							"type": "Expression"
+						},
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "ds_orch_db",
+						"type": "DatasetReference"
+					}
+				}
+			}
+		],
+		"parameters": {
+			"entity_name": {
+				"type": "string"
+			},
+			"entity_id": {
+				"type": "string"
+			},
+			"date": {
+				"type": "string"
+			},
+			"run_id": {
+				"type": "string"
+			},
+			"layer_nk": {
+				"type": "string"
+			},
+			"client_field": {
+				"type": "string"
+			},
+			"extraction_type": {
+				"type": "string"
+			},
+			"pk_field_names": {
+				"type": "string"
+			},
+			"source_database_name": {
+				"type": "string"
+			},
+			"source_schema_name": {
+				"type": "string"
+			},
+			"source_table_name": {
+				"type": "string"
+			},
+			"source_date_field_name": {
+				"type": "string"
+			},
+			"adls_container_name": {
+				"type": "string"
+			},
+			"adls_directory_path_In": {
+				"type": "string"
+			},
+			"adls_directory_path_Out": {
+				"type": "string"
+			},
+			"base_schema_name": {
+				"type": "string"
+			},
+			"base_sproc_name": {
+				"type": "string"
+			},
+			"base_table_name": {
+				"type": "string"
+			}
+		},
+		"variables": {
+			"adlsFileName": {
+				"type": "String"
+			}
+		},
+		"folder": {
+			"name": "00 ELT"
+		},
+		"annotations": []
+	}
+}

@@ -1,0 +1,2 @@
+﻿CREATE USER [fbouw@crh.com] FOR EXTERNAL PROVIDER;
+

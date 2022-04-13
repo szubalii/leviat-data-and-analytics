@@ -1,0 +1,1469 @@
+{
+    "name": "ZDT_OUTBNDLVRYTM$E",
+    "description": "Delta Enablement of I_OutboundDeliveryItem",
+    "guid": "c5aa0eeb-de3a-4901-8eb3-da4a58a48580",
+    "semantics": "69",
+    "context": "ABAP_CDS",
+    "supportsFull": true,
+    "supportsDelta": true,
+    "mode": "Delta",
+    "transferDataOnDeltaInit": true,
+    "columns": 
+    [
+        {
+            "name": "TS_SEQUENCE_NUMBER",
+            "description": "[GENERATED] Sequence number of row in current extraction",
+            "abapType": "FourByteInteger",
+            "isPrimaryKey": true,
+            "isSelected": true,
+            "isDeltaColumn": true,
+            "generated": true,
+            "outputLength": 0
+        },
+        {
+            "name": "OUTBOUNDDELIVERY",
+            "description": "Outbound Delivery",
+            "abapType": "CharacterString",
+            "length": 10,
+            "isPrimaryKey": true,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 10
+        },
+        {
+            "name": "OUTBOUNDDELIVERYITEM",
+            "description": "Outbound Delivery Item",
+            "abapType": "NumericCharacterString",
+            "length": 6,
+            "isPrimaryKey": true,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 6
+        },
+        {
+            "name": "DELIVERYDOCUMENTITEMCATEGORY",
+            "description": "Delivery item category",
+            "abapType": "CharacterString",
+            "length": 4,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 4
+        },
+        {
+            "name": "SALESDOCUMENTITEMTYPE",
+            "description": "Item Type",
+            "abapType": "CharacterString",
+            "length": 1,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 1
+        },
+        {
+            "name": "CREATEDBYUSER",
+            "description": "Name of Person who Created the Object",
+            "abapType": "CharacterString",
+            "length": 12,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 12
+        },
+        {
+            "name": "CREATIONDATE",
+            "description": "Date on which the record was created",
+            "abapType": "Date",
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 8
+        },
+        {
+            "name": "CREATIONTIME",
+            "description": "Entry time",
+            "abapType": "Time",
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 6
+        },
+        {
+            "name": "LASTCHANGEDATE",
+            "description": "Date of Last Change",
+            "abapType": "Date",
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 8
+        },
+        {
+            "name": "DISTRIBUTIONCHANNEL",
+            "description": "Distribution Channel",
+            "abapType": "CharacterString",
+            "length": 2,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 2
+        },
+        {
+            "name": "DIVISION",
+            "description": "Division",
+            "abapType": "CharacterString",
+            "length": 2,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 2
+        },
+        {
+            "name": "SALESGROUP",
+            "description": "Sales group",
+            "abapType": "CharacterString",
+            "length": 3,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 3
+        },
+        {
+            "name": "SALESOFFICE",
+            "description": "Sales office",
+            "abapType": "CharacterString",
+            "length": 4,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 4
+        },
+        {
+            "name": "DEPARTMENTCLASSIFICATIONBYCUST",
+            "description": "Department number",
+            "abapType": "CharacterString",
+            "length": 4,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 4
+        },
+        {
+            "name": "MATERIAL",
+            "description": "Material Number",
+            "abapType": "CharacterString",
+            "length": 40,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 40
+        },
+        {
+            "name": "PRODUCT",
+            "description": "Product Number",
+            "abapType": "CharacterString",
+            "length": 40,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 40
+        },
+        {
+            "name": "MATERIALBYCUSTOMER",
+            "description": "Customer Material",
+            "abapType": "CharacterString",
+            "length": 35,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 35
+        },
+        {
+            "name": "ORIGINALLYREQUESTEDMATERIAL",
+            "description": "Material entered",
+            "abapType": "CharacterString",
+            "length": 40,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 40
+        },
+        {
+            "name": "INTERNATIONALARTICLENUMBER",
+            "description": "International Article Number (EAN/UPC)",
+            "abapType": "CharacterString",
+            "length": 18,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 18
+        },
+        {
+            "name": "BATCH",
+            "description": "Batch Number",
+            "abapType": "CharacterString",
+            "length": 10,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 10
+        },
+        {
+            "name": "BATCHCLASSIFICATION",
+            "description": "Internal object number of the batch classification",
+            "abapType": "NumericCharacterString",
+            "length": 18,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 18
+        },
+        {
+            "name": "BATCHBYSUPPLIER",
+            "description": "Supplier Batch Number",
+            "abapType": "CharacterString",
+            "length": 15,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 15
+        },
+        {
+            "name": "MATERIALISINTBATCHMANAGED",
+            "description": "Batch management indicator (internal)",
+            "abapType": "CharacterString",
+            "length": 1,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 1
+        },
+        {
+            "name": "MATERIALISBATCHMANAGED",
+            "description": "Batch management requirement indicator",
+            "abapType": "CharacterString",
+            "length": 1,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 1
+        },
+        {
+            "name": "MATERIALGROUP",
+            "description": "Material Group",
+            "abapType": "CharacterString",
+            "length": 9,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 9
+        },
+        {
+            "name": "PRODUCTGROUP",
+            "description": "Product Group",
+            "abapType": "CharacterString",
+            "length": 9,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 9
+        },
+        {
+            "name": "MATERIALFREIGHTGROUP",
+            "description": "Material freight group",
+            "abapType": "CharacterString",
+            "length": 8,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 8
+        },
+        {
+            "name": "ADDITIONALMATERIALGROUP1",
+            "description": "Brand",
+            "abapType": "CharacterString",
+            "length": 3,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 3
+        },
+        {
+            "name": "ADDITIONALMATERIALGROUP2",
+            "description": "Alloy Surcharge",
+            "abapType": "CharacterString",
+            "length": 3,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 3
+        },
+        {
+            "name": "ADDITIONALMATERIALGROUP3",
+            "description": "Material Discount Group",
+            "abapType": "CharacterString",
+            "length": 3,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 3
+        },
+        {
+            "name": "ADDITIONALMATERIALGROUP4",
+            "description": "Material Surcharge Group",
+            "abapType": "CharacterString",
+            "length": 3,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 3
+        },
+        {
+            "name": "ADDITIONALMATERIALGROUP5",
+            "description": "Material group 5",
+            "abapType": "CharacterString",
+            "length": 3,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 3
+        },
+        {
+            "name": "PLANT",
+            "description": "Plant",
+            "abapType": "CharacterString",
+            "length": 4,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 4
+        },
+        {
+            "name": "WAREHOUSE",
+            "description": "Warehouse Number / Warehouse Complex",
+            "abapType": "CharacterString",
+            "length": 3,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 3
+        },
+        {
+            "name": "STORAGELOCATION",
+            "description": "Storage location",
+            "abapType": "CharacterString",
+            "length": 4,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 4
+        },
+        {
+            "name": "STORAGEBIN",
+            "description": "Storage Bin",
+            "abapType": "CharacterString",
+            "length": 10,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 10
+        },
+        {
+            "name": "STORAGETYPE",
+            "description": "Storage Type",
+            "abapType": "CharacterString",
+            "length": 3,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 3
+        },
+        {
+            "name": "INVENTORYSPECIALSTOCKTYPE",
+            "description": "Special Stock Indicator",
+            "abapType": "CharacterString",
+            "length": 1,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 1
+        },
+        {
+            "name": "SHELFLIFEEXPIRATIONDATE",
+            "description": "Shelf Life Expiration or Best-Before Date",
+            "abapType": "Date",
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 8
+        },
+        {
+            "name": "NUMBEROFSERIALNUMBERS",
+            "description": "Number of serial numbers",
+            "abapType": "FourByteInteger",
+            "isSelected": true,
+            "outputLength": 11
+        },
+        {
+            "name": "PRODUCTCONFIGURATION",
+            "description": "Configuration",
+            "abapType": "NumericCharacterString",
+            "length": 18,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 18
+        },
+        {
+            "name": "PRODUCTHIERARCHYNODE",
+            "description": "Product hierarchy",
+            "abapType": "CharacterString",
+            "length": 18,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 18
+        },
+        {
+            "name": "MANUFACTUREDATE",
+            "description": "Date of Manufacture",
+            "abapType": "Date",
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 8
+        },
+        {
+            "name": "DELIVERYDOCUMENTITEMTEXT",
+            "description": "Short text for sales order item",
+            "abapType": "CharacterString",
+            "length": 40,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 40
+        },
+        {
+            "name": "HIGHERLEVELITEM",
+            "description": "Higher-Level item in bill of material structures",
+            "abapType": "NumericCharacterString",
+            "length": 6,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 6
+        },
+        {
+            "name": "HIGHERLVLITMOFBATSPLTITM",
+            "description": "Higher-Level Item of Batch Split Item",
+            "abapType": "NumericCharacterString",
+            "length": 6,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 6
+        },
+        {
+            "name": "ACTUALDELIVERYQUANTITY",
+            "description": "Actual quantity delivered (in sales units)",
+            "abapType": "PackedNumber",
+            "length": 17,
+            "decimalCount": 3,
+            "isSelected": true,
+            "outputLength": 19,
+            "referenceField": "DELIVERYQUANTITYUNIT"
+        },
+        {
+            "name": "QUANTITYISFIXED",
+            "description": "Quantity is fixed",
+            "abapType": "CharacterString",
+            "length": 1,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 1
+        },
+        {
+            "name": "ORIGINALDELIVERYQUANTITY",
+            "description": "Original Quantity of Delivery Item",
+            "abapType": "PackedNumber",
+            "length": 17,
+            "decimalCount": 3,
+            "isSelected": true,
+            "outputLength": 19,
+            "referenceField": "DELIVERYQUANTITYUNIT"
+        },
+        {
+            "name": "DELIVERYQUANTITYUNIT",
+            "description": "Sales unit",
+            "abapType": "CharacterString",
+            "length": 3,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 3
+        },
+        {
+            "name": "ACTUALDELIVEREDQTYINBASEUNIT",
+            "description": "Actual quantity delivered in stockkeeping units",
+            "abapType": "PackedNumber",
+            "length": 17,
+            "decimalCount": 3,
+            "isSelected": true,
+            "outputLength": 19,
+            "referenceField": "BASEUNIT"
+        },
+        {
+            "name": "BASEUNIT",
+            "description": "Base Unit of Measure",
+            "abapType": "CharacterString",
+            "length": 3,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 3
+        },
+        {
+            "name": "DELIVERYTOBASEQUANTITYDNMNTR",
+            "description": "Denominator (Divisor) for Conversion of Sales Qty into SKU",
+            "abapType": "PackedNumber",
+            "length": 5,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 6
+        },
+        {
+            "name": "DELIVERYTOBASEQUANTITYNMRTR",
+            "description": "Numerator (factor) for conversion of sales quantity into SKU",
+            "abapType": "PackedNumber",
+            "length": 5,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 6
+        },
+        {
+            "name": "PRODUCTAVAILABILITYDATE",
+            "description": "Material Staging/Availability Date",
+            "abapType": "Date",
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 8
+        },
+        {
+            "name": "PRODUCTAVAILABILITYTIME",
+            "description": "Material Staging Time (Local, Relating to a Plant)",
+            "abapType": "Time",
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 6
+        },
+        {
+            "name": "DELIVERYGROUP",
+            "description": "Delivery Group (Items are delivered together)",
+            "abapType": "NumericCharacterString",
+            "length": 3,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 3
+        },
+        {
+            "name": "ITEMGROSSWEIGHT",
+            "description": "Gross weight",
+            "abapType": "PackedNumber",
+            "length": 17,
+            "decimalCount": 3,
+            "isSelected": true,
+            "outputLength": 19,
+            "referenceField": "ITEMWEIGHTUNIT"
+        },
+        {
+            "name": "ITEMNETWEIGHT",
+            "description": "Net weight",
+            "abapType": "PackedNumber",
+            "length": 17,
+            "decimalCount": 3,
+            "isSelected": true,
+            "outputLength": 19,
+            "referenceField": "ITEMWEIGHTUNIT"
+        },
+        {
+            "name": "ITEMWEIGHTUNIT",
+            "description": "Weight Unit",
+            "abapType": "CharacterString",
+            "length": 3,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 3
+        },
+        {
+            "name": "ITEMVOLUME",
+            "description": "Volume",
+            "abapType": "PackedNumber",
+            "length": 17,
+            "decimalCount": 3,
+            "isSelected": true,
+            "outputLength": 19,
+            "referenceField": "ITEMVOLUMEUNIT"
+        },
+        {
+            "name": "ITEMVOLUMEUNIT",
+            "description": "Volume unit",
+            "abapType": "CharacterString",
+            "length": 3,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 3
+        },
+        {
+            "name": "INSPECTIONLOT",
+            "description": "Inspection Lot Number",
+            "abapType": "NumericCharacterString",
+            "length": 12,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 12
+        },
+        {
+            "name": "INSPECTIONPARTIALLOT",
+            "description": "Partial lot number",
+            "abapType": "NumericCharacterString",
+            "length": 6,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 6
+        },
+        {
+            "name": "PARTIALDELIVERYISALLOWED",
+            "description": "Partial delivery at item level",
+            "abapType": "CharacterString",
+            "length": 1,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 1
+        },
+        {
+            "name": "UNLIMITEDOVERDELIVERYISALLOWED",
+            "description": "Indicator: Unlimited Overdelivery Allowed",
+            "abapType": "CharacterString",
+            "length": 1,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 1
+        },
+        {
+            "name": "OVERDELIVTOLRTDLMTRATIOINPCT",
+            "description": "Overdelivery Tolerance",
+            "abapType": "PackedNumber",
+            "length": 17,
+            "decimalCount": 1,
+            "isSelected": true,
+            "outputLength": 19
+        },
+        {
+            "name": "UNDERDELIVTOLRTDLMTRATIOINPCT",
+            "description": "Underdelivery Tolerance",
+            "abapType": "PackedNumber",
+            "length": 17,
+            "decimalCount": 1,
+            "isSelected": true,
+            "outputLength": 19
+        },
+        {
+            "name": "BOMEXPLOSION",
+            "description": "BOM explosion number",
+            "abapType": "CharacterString",
+            "length": 8,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 8
+        },
+        {
+            "name": "WAREHOUSESTAGINGAREA",
+            "description": "Staging Area for Warehouse Complex",
+            "abapType": "CharacterString",
+            "length": 10,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 10
+        },
+        {
+            "name": "WAREHOUSESTOCKCATEGORY",
+            "description": "Stock Category in the Warehouse Management System",
+            "abapType": "CharacterString",
+            "length": 1,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 1
+        },
+        {
+            "name": "STOCKTYPE",
+            "description": "Stock Type",
+            "abapType": "CharacterString",
+            "length": 1,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 1
+        },
+        {
+            "name": "GLACCOUNT",
+            "description": "G/L Account Number",
+            "abapType": "CharacterString",
+            "length": 10,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 10
+        },
+        {
+            "name": "GOODSMOVEMENTREASONCODE",
+            "description": "Reason for goods movment",
+            "abapType": "NumericCharacterString",
+            "length": 4,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 4
+        },
+        {
+            "name": "SUBSEQUENTMOVEMENTTYPE",
+            "description": "Subsequent movement type",
+            "abapType": "CharacterString",
+            "length": 3,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 3
+        },
+        {
+            "name": "ISCOMPLETELYDELIVERED",
+            "description": "\"Delivery Completed\" Indicator",
+            "abapType": "CharacterString",
+            "length": 1,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 1
+        },
+        {
+            "name": "ISNOTGOODSMOVEMENTSRELEVANT",
+            "description": "Indicator: Item Not Relevant for Goods Movements",
+            "abapType": "CharacterString",
+            "length": 1,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 1
+        },
+        {
+            "name": "PICKINGCONTROL",
+            "description": "Indicator for picking control",
+            "abapType": "CharacterString",
+            "length": 1,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 1
+        },
+        {
+            "name": "LOADINGGROUP",
+            "description": "Loading Group",
+            "abapType": "CharacterString",
+            "length": 4,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 4
+        },
+        {
+            "name": "GOODSMOVEMENTTYPE",
+            "description": "Movement type (inventory management)",
+            "abapType": "CharacterString",
+            "length": 3,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 3
+        },
+        {
+            "name": "TRANSPORTATIONGROUP",
+            "description": "Transportation Group",
+            "abapType": "CharacterString",
+            "length": 4,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 4
+        },
+        {
+            "name": "RECEIVINGPOINT",
+            "description": "Receiving Point",
+            "abapType": "CharacterString",
+            "length": 25,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 25
+        },
+        {
+            "name": "FIXEDSHIPGPROCGDURATIONINDAYS",
+            "description": "Fixed shipping processing time in days (= setup time)",
+            "abapType": "PackedNumber",
+            "length": 17,
+            "decimalCount": 2,
+            "isSelected": true,
+            "outputLength": 19
+        },
+        {
+            "name": "VARBLSHIPGPROCGDURATIONINDAYS",
+            "description": "Variable shipping processing time in days",
+            "abapType": "PackedNumber",
+            "length": 17,
+            "decimalCount": 2,
+            "isSelected": true,
+            "outputLength": 19
+        },
+        {
+            "name": "PROOFOFDELIVERYRELEVANCECODE",
+            "description": "POD Control (Proof of Delivery)",
+            "abapType": "CharacterString",
+            "length": 1,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 1
+        },
+        {
+            "name": "ITEMISBILLINGRELEVANT",
+            "description": "Relevant for Billing",
+            "abapType": "CharacterString",
+            "length": 1,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 1
+        },
+        {
+            "name": "ITEMBILLINGBLOCKREASON",
+            "description": "Billing Block",
+            "abapType": "CharacterString",
+            "length": 2,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 2
+        },
+        {
+            "name": "BUSINESSAREA",
+            "description": "Business Area",
+            "abapType": "CharacterString",
+            "length": 4,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 4
+        },
+        {
+            "name": "CONTROLLINGAREA",
+            "description": "Controlling Area",
+            "abapType": "CharacterString",
+            "length": 4,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 4
+        },
+        {
+            "name": "PROFITABILITYSEGMENT",
+            "description": "Profitability Segment Number (CO-PA)",
+            "abapType": "NumericCharacterString",
+            "length": 10,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 10
+        },
+        {
+            "name": "PROFITCENTER",
+            "description": "Profit Center",
+            "abapType": "CharacterString",
+            "length": 10,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 10
+        },
+        {
+            "name": "INVENTORYVALUATIONTYPE",
+            "description": "Valuation Type",
+            "abapType": "CharacterString",
+            "length": 10,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 10
+        },
+        {
+            "name": "ISSEPARATEVALUATION",
+            "description": "Indicator: Separate valuation",
+            "abapType": "CharacterString",
+            "length": 1,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 1
+        },
+        {
+            "name": "CONSUMPTIONPOSTING",
+            "description": "Consumption posting",
+            "abapType": "CharacterString",
+            "length": 1,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 1
+        },
+        {
+            "name": "ORDERID",
+            "description": "Order Number",
+            "abapType": "CharacterString",
+            "length": 12,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 12
+        },
+        {
+            "name": "ORDERITEM",
+            "description": "Order item number",
+            "abapType": "NumericCharacterString",
+            "length": 4,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 4
+        },
+        {
+            "name": "COSTCENTER",
+            "description": "Cost Center",
+            "abapType": "CharacterString",
+            "length": 10,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 10
+        },
+        {
+            "name": "REFERENCESDDOCUMENT",
+            "description": "Document number of the reference document",
+            "abapType": "CharacterString",
+            "length": 10,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 10
+        },
+        {
+            "name": "REFERENCESDDOCUMENTITEM",
+            "description": "Item number of the reference item",
+            "abapType": "NumericCharacterString",
+            "length": 6,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 6
+        },
+        {
+            "name": "REFERENCESDDOCUMENTCATEGORY",
+            "description": "Document Category of Preceding SD Document",
+            "abapType": "CharacterString",
+            "length": 4,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 4
+        },
+        {
+            "name": "REFERENCEDOCUMENTLOGICALSYSTEM",
+            "description": "Logical System in the Preceding Document",
+            "abapType": "CharacterString",
+            "length": 10,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 10
+        },
+        {
+            "name": "ADDITIONALCUSTOMERGROUP1",
+            "description": "Expt MinVal Surcharge",
+            "abapType": "CharacterString",
+            "length": 3,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 3
+        },
+        {
+            "name": "ADDITIONALCUSTOMERGROUP2",
+            "description": "Print net price only",
+            "abapType": "CharacterString",
+            "length": 3,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 3
+        },
+        {
+            "name": "ADDITIONALCUSTOMERGROUP3",
+            "description": "Freight Rate",
+            "abapType": "CharacterString",
+            "length": 3,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 3
+        },
+        {
+            "name": "ADDITIONALCUSTOMERGROUP4",
+            "description": "Customer group 4",
+            "abapType": "CharacterString",
+            "length": 3,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 3
+        },
+        {
+            "name": "ADDITIONALCUSTOMERGROUP5",
+            "description": "Customer group 5",
+            "abapType": "CharacterString",
+            "length": 3,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 3
+        },
+        {
+            "name": "RETAILPROMOTION",
+            "description": "Promotion",
+            "abapType": "CharacterString",
+            "length": 10,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 10
+        },
+        {
+            "name": "SDPROCESSSTATUS",
+            "description": "Overall Processing Status (Item)",
+            "abapType": "CharacterString",
+            "length": 1,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 1
+        },
+        {
+            "name": "PICKINGCONFIRMATIONSTATUS",
+            "description": "Confirmation status of picking/putaway",
+            "abapType": "CharacterString",
+            "length": 1,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 1
+        },
+        {
+            "name": "PICKINGSTATUS",
+            "description": "Picking Status/Putaway Status (Item)",
+            "abapType": "CharacterString",
+            "length": 1,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 1
+        },
+        {
+            "name": "WAREHOUSEACTIVITYSTATUS",
+            "description": "Status of Warehouse Management Activities (Item)",
+            "abapType": "CharacterString",
+            "length": 1,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 1
+        },
+        {
+            "name": "PACKINGSTATUS",
+            "description": "Packing Status (Item)",
+            "abapType": "CharacterString",
+            "length": 1,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 1
+        },
+        {
+            "name": "GOODSMOVEMENTSTATUS",
+            "description": "Goods Movement Status",
+            "abapType": "CharacterString",
+            "length": 1,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 1
+        },
+        {
+            "name": "DELIVERYRELATEDBILLINGSTATUS",
+            "description": "Delivery-Related Billing Status (Item)",
+            "abapType": "CharacterString",
+            "length": 1,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 1
+        },
+        {
+            "name": "PROOFOFDELIVERYSTATUS",
+            "description": "POD status on item level",
+            "abapType": "CharacterString",
+            "length": 1,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 1
+        },
+        {
+            "name": "ITEMGENERALINCOMPLETIONSTATUS",
+            "description": "Incompletion Status (Item)",
+            "abapType": "CharacterString",
+            "length": 1,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 1
+        },
+        {
+            "name": "ITEMDELIVERYINCOMPLETIONSTATUS",
+            "description": "Delivery Incompletion Status (Item)",
+            "abapType": "CharacterString",
+            "length": 1,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 1
+        },
+        {
+            "name": "ITEMPICKINGINCOMPLETIONSTATUS",
+            "description": "Incomplete status of item for picking/putaway",
+            "abapType": "CharacterString",
+            "length": 1,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 1
+        },
+        {
+            "name": "ITEMGDSMVTINCOMPLETIONSTS",
+            "description": "Incomplete status of item regarding goods issue",
+            "abapType": "CharacterString",
+            "length": 1,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 1
+        },
+        {
+            "name": "ITEMPACKINGINCOMPLETIONSTATUS",
+            "description": "Incomplete status of item for packaging",
+            "abapType": "CharacterString",
+            "length": 1,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 1
+        },
+        {
+            "name": "ITEMBILLINGINCOMPLETIONSTATUS",
+            "description": "Billing Incompletion Status (Item)",
+            "abapType": "CharacterString",
+            "length": 1,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 1
+        },
+        {
+            "name": "INTERCOMPANYBILLINGSTATUS",
+            "description": "Intercompany Billing Status (Item)",
+            "abapType": "CharacterString",
+            "length": 1,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 1
+        },
+        {
+            "name": "CHMLCMPLNCSTATUS",
+            "description": "Product Marketability Check Status",
+            "abapType": "CharacterString",
+            "length": 1,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 1
+        },
+        {
+            "name": "DANGEROUSGOODSSTATUS",
+            "description": "Dangerous Goods Check Status",
+            "abapType": "CharacterString",
+            "length": 1,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 1
+        },
+        {
+            "name": "SAFETYDATASHEETSTATUS",
+            "description": "Safety Data Sheet Check Status",
+            "abapType": "CharacterString",
+            "length": 1,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 1
+        },
+        {
+            "name": "REQUIREMENTSEGMENT",
+            "description": "Requirement Segment",
+            "abapType": "CharacterString",
+            "length": 40,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 40
+        },
+        {
+            "name": "STOCKSEGMENT",
+            "description": "Stock Segment",
+            "abapType": "CharacterString",
+            "length": 40,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 40
+        },
+        {
+            "name": "PRODUCTSEASONYEAR",
+            "description": "Season Year",
+            "abapType": "CharacterString",
+            "length": 4,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 4
+        },
+        {
+            "name": "PRODUCTSEASON",
+            "description": "Season",
+            "abapType": "CharacterString",
+            "length": 10,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 10
+        },
+        {
+            "name": "PRODUCTCOLLECTION",
+            "description": "Fashion Collection",
+            "abapType": "CharacterString",
+            "length": 10,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 10
+        },
+        {
+            "name": "PRODUCTTHEME",
+            "description": "Fashion Theme",
+            "abapType": "CharacterString",
+            "length": 10,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 10
+        },
+        {
+            "name": "PRODUCTCHARACTERISTIC1",
+            "description": "Characteristic Value 1",
+            "abapType": "CharacterString",
+            "length": 18,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 18
+        },
+        {
+            "name": "PRODUCTCHARACTERISTIC2",
+            "description": "Characteristic Value 2",
+            "abapType": "CharacterString",
+            "length": 18,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 18
+        },
+        {
+            "name": "PRODUCTCHARACTERISTIC3",
+            "description": "Characteristic Value 3",
+            "abapType": "CharacterString",
+            "length": 18,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 18
+        },
+        {
+            "name": "ORIGINSDDOCUMENT",
+            "description": "Originating Document",
+            "abapType": "CharacterString",
+            "length": 10,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 10
+        },
+        {
+            "name": "SDDOCUMENTITEM",
+            "description": "Originating item",
+            "abapType": "NumericCharacterString",
+            "length": 6,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 6
+        },
+        {
+            "name": "SALESSDDOCUMENTCATEGORY",
+            "description": "SD Document Category",
+            "abapType": "CharacterString",
+            "length": 4,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 4
+        },
+        {
+            "name": "MATERIALTYPEPRIMARY",
+            "description": "Material type",
+            "abapType": "CharacterString",
+            "length": 4,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 4
+        },
+        {
+            "name": "COSTINDOCUMENTCURRENCY",
+            "description": "Cost in document currency",
+            "abapType": "PackedNumber",
+            "length": 17,
+            "decimalCount": 2,
+            "isSelected": true,
+            "outputLength": 19
+        },
+        {
+            "name": "SUBTOTAL1AMOUNT",
+            "description": "Subtotal 1 from pricing procedure for condition",
+            "abapType": "PackedNumber",
+            "length": 17,
+            "decimalCount": 2,
+            "isSelected": true,
+            "outputLength": 19
+        },
+        {
+            "name": "SUBTOTAL2AMOUNT",
+            "description": "Subtotal 2 from pricing procedure for condition",
+            "abapType": "PackedNumber",
+            "length": 17,
+            "decimalCount": 2,
+            "isSelected": true,
+            "outputLength": 19
+        },
+        {
+            "name": "SUBTOTAL3AMOUNT",
+            "description": "Subtotal 3 from pricing procedure for condition",
+            "abapType": "PackedNumber",
+            "length": 17,
+            "decimalCount": 2,
+            "isSelected": true,
+            "outputLength": 19
+        },
+        {
+            "name": "SUBTOTAL4AMOUNT",
+            "description": "Subtotal 4 from pricing procedure for condition",
+            "abapType": "PackedNumber",
+            "length": 17,
+            "decimalCount": 2,
+            "isSelected": true,
+            "outputLength": 19
+        },
+        {
+            "name": "SUBTOTAL5AMOUNT",
+            "description": "Subtotal 5 from pricing procedure for condition",
+            "abapType": "PackedNumber",
+            "length": 17,
+            "decimalCount": 2,
+            "isSelected": true,
+            "outputLength": 19
+        },
+        {
+            "name": "SUBTOTAL6AMOUNT",
+            "description": "Subtotal 6 from pricing procedure for condition",
+            "abapType": "PackedNumber",
+            "length": 17,
+            "decimalCount": 2,
+            "isSelected": true,
+            "outputLength": 19
+        },
+        {
+            "name": "ORDERDOCUMENT",
+            "description": "Sales Order Number",
+            "abapType": "CharacterString",
+            "length": 10,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 10
+        },
+        {
+            "name": "PLANNINGMATERIAL",
+            "description": "Planning material",
+            "abapType": "CharacterString",
+            "length": 40,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 40
+        },
+        {
+            "name": "PLANNINGPLANT",
+            "description": "Planning plant",
+            "abapType": "CharacterString",
+            "length": 4,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 4
+        },
+        {
+            "name": "PRODUCTGROUPBASEUNIT",
+            "description": "Base unit of measure for product group",
+            "abapType": "CharacterString",
+            "length": 3,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 3
+        },
+        {
+            "name": "CONVERSIONFACTOR",
+            "description": "Conversion factor: quantities",
+            "abapType": "FloatingPoint",
+            "isSelected": true,
+            "outputLength": 24
+        },
+        {
+            "name": "ISRETURNSITEM",
+            "description": "Returns Item",
+            "abapType": "CharacterString",
+            "length": 1,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 1
+        },
+        {
+            "name": "CONDITIONUNIT",
+            "description": "Condition Unit",
+            "abapType": "CharacterString",
+            "length": 3,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 3
+        },
+        {
+            "name": "NETPRICEAMOUNT",
+            "description": "Net Price",
+            "abapType": "PackedNumber",
+            "length": 17,
+            "decimalCount": 2,
+            "isSelected": true,
+            "outputLength": 19
+        },
+        {
+            "name": "TOTALNETAMOUNT",
+            "description": "Net Value in Document Currency",
+            "abapType": "PackedNumber",
+            "length": 17,
+            "decimalCount": 2,
+            "isSelected": true,
+            "outputLength": 19
+        },
+        {
+            "name": "QTYINPURCHASEORDERPRICEUNIT",
+            "description": "Quantity in Purchase Order Price Unit",
+            "abapType": "PackedNumber",
+            "length": 17,
+            "decimalCount": 3,
+            "isSelected": true,
+            "outputLength": 19,
+            "referenceField": "BASEUNIT"
+        },
+        {
+            "name": "CREDITRELATEDPRICE",
+            "description": "Item Credit Price",
+            "abapType": "FloatingPoint",
+            "isSelected": true,
+            "outputLength": 24
+        },
+        {
+            "name": "DELIVERYTOBASEUNITCNVRSNFCTR",
+            "description": "Conversion Factor of Delivery Quantity VRKME for MEINS",
+            "abapType": "FloatingPoint",
+            "isSelected": true,
+            "outputLength": 24
+        },
+        {
+            "name": "FUNCTIONALAREA",
+            "description": "Functional Area",
+            "abapType": "CharacterString",
+            "length": 16,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 16
+        },
+        {
+            "name": "RESERVATION",
+            "description": "Number of reservation/dependent requirements",
+            "abapType": "NumericCharacterString",
+            "length": 10,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 10
+        },
+        {
+            "name": "RESERVATIONITEM",
+            "description": "Item Number of Reservation / Dependent Requirements",
+            "abapType": "NumericCharacterString",
+            "length": 4,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 4
+        },
+        {
+            "name": "ODQ_CHANGEMODE",
+            "description": "Change Mode for a Data Record in the Delta",
+            "abapType": "CharacterString",
+            "length": 1,
+            "isSelected": true,
+            "isDeltaColumn": true,
+            "outputLength": 1
+        },
+        {
+            "name": "ODQ_ENTITYCNTR",
+            "description": "Number of Data Units (Data Records for Example)",
+            "abapType": "PackedNumber",
+            "length": 19,
+            "isSelected": true,
+            "isDeltaColumn": true,
+            "outputLength": 20
+        }
+    ],
+    "parameters": {
+    }
+}

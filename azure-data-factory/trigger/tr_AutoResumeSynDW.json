@@ -1,0 +1,42 @@
+{
+	"name": "tr_AutoResumeSynDW",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "pl_SYNDW_checkStatus",
+					"type": "PipelineReference"
+				},
+				"parameters": {
+					"SubscriptionId": "f199b488-7d9d-4992-aeda-c10a1e1c9b9e"
+				}
+			}
+		],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Week",
+				"interval": 1,
+				"startTime": "2021-10-29T19:05:00Z",
+				"timeZone": "UTC",
+				"schedule": {
+					"minutes": [
+						30
+					],
+					"hours": [
+						6
+					],
+					"weekDays": [
+						"Monday",
+						"Tuesday",
+						"Wednesday",
+						"Thursday",
+						"Friday"
+					]
+				}
+			}
+		}
+	}
+}

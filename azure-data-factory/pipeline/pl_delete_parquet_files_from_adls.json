@@ -1,0 +1,123 @@
+{
+	"name": "pl_delete_parquet_files_from_adls",
+	"properties": {
+		"activities": [
+			{
+				"name": "act_lookup_BaseLayerControlTable",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderQuery": {
+							"value": "@if (equals(pipeline().parameters.source_type,'s4h'),\nconcat(\n'SELECT * FROM [dbo].[get_s4h_entities] (',pipeline().parameters.adhoc,')')\n,\nconcat(\n'SELECT * FROM [dbo].[get_axbi_entities] (',pipeline().parameters.adhoc,')')\n)",
+							"type": "Expression"
+						},
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "ds_orch_db",
+						"type": "DatasetReference"
+					},
+					"firstRowOnly": false
+				}
+			},
+			{
+				"name": "ForEachDeletion",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "act_lookup_BaseLayerControlTable",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('act_lookup_BaseLayerControlTable').output.value",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "DeleteParquetFiles",
+							"type": "Delete",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"dataset": {
+									"referenceName": "ds_adls_delete_files",
+									"type": "DatasetReference",
+									"parameters": {
+										"container": {
+											"value": "@item().adls_container_name",
+											"type": "Expression"
+										},
+										"directory": {
+											"value": "@join(\n    createArray(\n     item().adls_directory_path\n     ,pipeline().parameters.in_out\n     ,pipeline().parameters.date\n  ), '/'\n)",
+											"type": "Expression"
+										}
+									}
+								},
+								"logStorageSettings": {
+									"linkedServiceName": {
+										"referenceName": "stxxxxslsxeuw001",
+										"type": "LinkedServiceReference"
+									},
+									"path": "utilities/logging"
+								},
+								"enableLogging": true,
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
+									"wildcardFileName": "*.parquet",
+									"enablePartitionDiscovery": false
+								}
+							}
+						}
+					]
+				}
+			}
+		],
+		"parameters": {
+			"adhoc": {
+				"type": "string",
+				"defaultValue": "0"
+			},
+			"date": {
+				"type": "string"
+			},
+			"in_out": {
+				"type": "string",
+				"defaultValue": "In"
+			},
+			"source_type": {
+				"type": "string",
+				"defaultValue": "s4h"
+			}
+		},
+		"folder": {
+			"name": "90 Utilities/ADLS"
+		},
+		"annotations": [],
+		"lastPublishTime": "2021-10-25T15:25:00Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

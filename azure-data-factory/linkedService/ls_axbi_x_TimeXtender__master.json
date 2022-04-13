@@ -1,0 +1,23 @@
+{
+	"name": "ls_axbi_x_TimeXtender__master",
+	"properties": {
+		"annotations": [],
+		"type": "SqlServer",
+		"typeProperties": {
+			"connectionString": "Integrated Security=False;Data Source=bebrs01db055.eu.crh-corp.net\\A_TIMEXTENDER,60001;Initial Catalog=master;User ID=JustBI",
+			"password": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "ls_kv_xxxx_sls_x_euw_001",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "axbiPassword"
+			}
+		},
+		"connectVia": {
+			"referenceName": "ir-WEXLEVAPP001",
+			"type": "IntegrationRuntimeReference"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/linkedservices"
+}

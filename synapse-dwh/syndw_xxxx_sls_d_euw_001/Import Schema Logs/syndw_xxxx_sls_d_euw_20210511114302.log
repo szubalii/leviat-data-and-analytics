@@ -1,0 +1,31 @@
+11/05/2021 13:43:02	This log contains information about the import schema operation into project 'syndw_xxxx_sls_d_euw_001' on computer 'DESKTOP-EDBITV7' by user 'MichielPors-Just-BI'.
+11/05/2021 13:43:02	Import of database schema has started.
+11/05/2021 13:43:04	Gathering database credentials
+11/05/2021 13:43:04	Gathering database options
+11/05/2021 13:43:04	Gathering users
+11/05/2021 13:43:04	Gathering roles
+11/05/2021 13:43:05	Gathering role memberships
+11/05/2021 13:43:05	Gathering symmetric keys
+11/05/2021 13:43:05	Gathering schemas
+11/05/2021 13:43:06	Gathering functions
+11/05/2021 13:43:06	Gathering procedures
+11/05/2021 13:43:06	Gathering partition table specification
+11/05/2021 13:43:06	Gathering tables
+11/05/2021 13:43:07	Gathering primary keys
+11/05/2021 13:43:11	Gathering unique constraints
+11/05/2021 13:43:11	Gathering default constraints
+11/05/2021 13:43:11	Gathering views
+11/05/2021 13:43:11	Gathering indexes
+11/05/2021 13:43:11	Gathering statistics
+11/05/2021 13:43:11	Gathering column store indexes
+11/05/2021 13:43:11	Gathering security policies
+11/05/2021 13:43:11	Gathering external data sources
+11/05/2021 13:43:11	Gathering external file formats
+11/05/2021 13:43:11	Gathering external tables
+11/05/2021 13:43:11	Gathering Workload Groups
+11/05/2021 13:43:11	Gathering Workload Classifiers
+11/05/2021 13:43:14	Scanning project for duplicate elements
+11/05/2021 13:43:14	Finished duplicate element processing
+11/05/2021 13:43:15	Finished importing database.
+11/05/2021 13:43:15	A summary of the import was saved to the following location: C:\Users\MichielPors-Just-BI\source\repos\syndw_xxxx_sls_d_euw_001\syndw_xxxx_sls_d_euw_001\Import Schema Logs\syndw_xxxx_sls_d_euw_20210511114302.log
+11/05/2021 13:43:15	Click Finish to continue...

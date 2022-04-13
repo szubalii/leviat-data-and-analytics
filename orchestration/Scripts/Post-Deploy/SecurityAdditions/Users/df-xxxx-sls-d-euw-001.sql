@@ -1,0 +1,1 @@
+﻿CREATE USER [df-xxxx-sls-d-euw-001] FROM EXTERNAL PROVIDER;

@@ -1,0 +1,247 @@
+{
+	"name": "pl_S4H_entity",
+	"properties": {
+		"activities": [
+			{
+				"name": "Test for Duplicates",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Run XU Extraction",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pl_ADLS_In_duplicatesTest",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"primary_key_columns": {
+							"value": "@pipeline().parameters.primary_key_columns",
+							"type": "Expression"
+						},
+						"entity_id": {
+							"value": "@pipeline().parameters.entity_id",
+							"type": "Expression"
+						},
+						"run_id": {
+							"value": "@pipeline().parameters.run_id",
+							"type": "Expression"
+						},
+						"adls_container_name": {
+							"value": "@pipeline().parameters.adls_container_name",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "Process Parquet on ADLS",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Test for Duplicates",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pl_ADLS_In_Out_S4HTransformation",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"client_field": {
+							"value": "@pipeline().parameters.client_field",
+							"type": "Expression"
+						},
+						"entity_id": {
+							"value": "@pipeline().parameters.entity_id",
+							"type": "Expression"
+						},
+						"run_id": {
+							"value": "@pipeline().parameters.run_id",
+							"type": "Expression"
+						},
+						"extraction_type": {
+							"value": "@pipeline().parameters.extraction_type",
+							"type": "Expression"
+						},
+						"adls_container_name": {
+							"value": "@pipeline().parameters.adls_container_name",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "Ingest Parquet into Synapse Base",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Process Parquet on ADLS",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pl_ADLS_SYNDW_ingestion",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"base_schema_name": {
+							"value": "@pipeline().parameters.base_schema_name",
+							"type": "Expression"
+						},
+						"base_table_name": {
+							"value": "@pipeline().parameters.base_table_name",
+							"type": "Expression"
+						},
+						"entity_id": {
+							"value": "@pipeline().parameters.entity_id",
+							"type": "Expression"
+						},
+						"run_id": {
+							"value": "@pipeline().parameters.run_id",
+							"type": "Expression"
+						},
+						"adls_container_name": {
+							"value": "@pipeline().parameters.adls_container_name",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "Process Base",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Ingest Parquet into Synapse Base",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pl_SYNDW_Base_process",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"base_schema_name": {
+							"value": "@pipeline().parameters.base_schema_name",
+							"type": "Expression"
+						},
+						"base_table_name": {
+							"value": "@pipeline().parameters.base_table_name",
+							"type": "Expression"
+						},
+						"base_sproc_name": {
+							"value": "@pipeline().parameters.base_sproc_name",
+							"type": "Expression"
+						},
+						"entity_id": {
+							"value": "@pipeline().parameters.entity_id",
+							"type": "Expression"
+						},
+						"run_id": {
+							"value": "@pipeline().parameters.run_id",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "Run XU Extraction",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pl_XU_ADLS_extraction",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"extraction_name": {
+							"value": "@pipeline().parameters.entity_name",
+							"type": "Expression"
+						},
+						"date": {
+							"value": "@pipeline().parameters.date",
+							"type": "Expression"
+						},
+						"run_id": {
+							"value": "@pipeline().parameters.run_id",
+							"type": "Expression"
+						},
+						"entity_id": {
+							"value": "@pipeline().parameters.entity_id",
+							"type": "Expression"
+						}
+					}
+				}
+			}
+		],
+		"parameters": {
+			"entity_name": {
+				"type": "string"
+			},
+			"date": {
+				"type": "string"
+			},
+			"run_id": {
+				"type": "string"
+			},
+			"entity_id": {
+				"type": "string"
+			},
+			"base_directory_path": {
+				"type": "string"
+			},
+			"primary_key_columns": {
+				"type": "string"
+			},
+			"adls_directory_path": {
+				"type": "string"
+			},
+			"adls_container_name": {
+				"type": "string"
+			},
+			"client_field": {
+				"type": "string"
+			},
+			"extraction_type": {
+				"type": "string"
+			},
+			"base_schema_name": {
+				"type": "string"
+			},
+			"base_table_name": {
+				"type": "string"
+			},
+			"base_sproc_name": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "20 Sources/S4H"
+		},
+		"annotations": []
+	}
+}

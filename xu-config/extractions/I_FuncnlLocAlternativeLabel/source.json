@@ -1,0 +1,126 @@
+{
+    "name": "IFUNCTLOCALTLBL$P",
+    "description": "Functional Location Alternative Labels",
+    "guid": "b1b87570-f91e-4dfe-ae82-916b1b2601fb",
+    "semantics": "MasterDataOrAttributes",
+    "context": "ABAP_CDS",
+    "supportsFull": true,
+    "supportsDelta": true,
+    "mode": "Delta",
+    "transferDataOnDeltaInit": true,
+    "columns": 
+    [
+        {
+            "name": "TS_SEQUENCE_NUMBER",
+            "description": "[GENERATED] Sequence number of row in current extraction",
+            "abapType": "FourByteInteger",
+            "isPrimaryKey": true,
+            "isSelected": true,
+            "isDeltaColumn": true,
+            "generated": true,
+            "outputLength": 0
+        },
+        {
+            "name": "FUNCTIONALLOCATION",
+            "description": "Functional Location",
+            "abapType": "CharacterString",
+            "length": 30,
+            "isPrimaryKey": true,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 30
+        },
+        {
+            "name": "FUNCTIONALLOCLABELINGSYST",
+            "description": "Labeling system for functional locations",
+            "abapType": "CharacterString",
+            "length": 1,
+            "isPrimaryKey": true,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 1
+        },
+        {
+            "name": "FUNCTIONALLOCATIONLABELVERSION",
+            "description": "Version of functional location label",
+            "abapType": "NumericCharacterString",
+            "length": 3,
+            "isPrimaryKey": true,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 3
+        },
+        {
+            "name": "FUNCTIONALLOCLABELISACTIVE",
+            "description": "Active version",
+            "abapType": "CharacterString",
+            "length": 1,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 1
+        },
+        {
+            "name": "FUNCTIONALLOCATIONLABELNAME",
+            "description": "Functional Location Label",
+            "abapType": "CharacterString",
+            "length": 40,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 40
+        },
+        {
+            "name": "FUNCNLLOCLABELISPRIMARYLABEL",
+            "description": "Primary labeling system",
+            "abapType": "CharacterString",
+            "length": 1,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 1
+        },
+        {
+            "name": "CREATIONDATE",
+            "description": "Date on which the object was created",
+            "abapType": "Date",
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 8
+        },
+        {
+            "name": "CREATEDBYUSER",
+            "description": "Name of User Who Created the Object",
+            "abapType": "CharacterString",
+            "length": 12,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 12
+        },
+        {
+            "name": "LASTCHANGEDATETIME",
+            "description": "UTC Time Stamp in Short Form (YYYYMMDDhhmmss)",
+            "abapType": "PackedNumber",
+            "length": 15,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 16
+        },
+        {
+            "name": "ODQ_CHANGEMODE",
+            "description": "Change Mode for a Data Record in the Delta",
+            "abapType": "CharacterString",
+            "length": 1,
+            "isSelected": true,
+            "isDeltaColumn": true,
+            "outputLength": 1
+        },
+        {
+            "name": "ODQ_ENTITYCNTR",
+            "description": "Number of Data Units (Data Records for Example)",
+            "abapType": "PackedNumber",
+            "length": 19,
+            "isDeltaColumn": true,
+            "outputLength": 20
+        }
+    ],
+    "parameters": {
+    }
+}

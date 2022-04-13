@@ -1,0 +1,64 @@
+{
+    "functionName": "/SAPDS/RFC_READ_TABLE2",
+    "runInBackgroundJob": false,
+    "tables": 
+    [
+        {
+            "name": "IFICURRENCY",
+            "description": "Generated Table for View",
+            "isView": true,
+            "fields": 
+            [
+                {
+                    "name": "MANDT",
+                    "description": "Client",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CURRENCY",
+                    "description": "Currency Key",
+                    "abapType": "CharacterString",
+                    "length": 5,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CURRENCYISOCODE",
+                    "description": "ISO currency code",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ALTERNATIVECURRENCYKEY",
+                    "description": "Alternative key for currencies",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ISPRIMARYCURRENCYFORISOCRCY",
+                    "description": "Primary SAP Currency Code for ISO Code",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "DECIMALS",
+                    "description": "Int1 Column",
+                    "abapType": "OneByteInteger",
+                    "isSelected": true,
+                    "conversionExit": ""
+                }
+            ]
+        }
+    ]
+}

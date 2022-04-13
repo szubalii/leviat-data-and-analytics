@@ -1,0 +1,86 @@
+24/08/2021 14:02:55	This log contains information about the import schema operation into project 'sqldb-xxxx-orchdb-d-euw-001' on computer 'DESKTOP-EDBITV7' by user 'MichielPors-Just-BI'.
+24/08/2021 14:02:56	Import of database schema has started.
+24/08/2021 14:03:02	Gathering logins
+24/08/2021 14:03:04	Gathering database credentials
+24/08/2021 14:03:04	Gathering database options
+24/08/2021 14:03:04	Gathering generic database scoped configuration option
+24/08/2021 14:03:04	Gathering users
+24/08/2021 14:03:04	Gathering roles
+24/08/2021 14:03:04	Gathering application roles
+24/08/2021 14:03:04	Gathering role memberships
+24/08/2021 14:03:04	Gathering filegroups
+24/08/2021 14:03:04	Gathering files
+24/08/2021 14:03:04	Gathering full-text catalogs
+24/08/2021 14:03:04	Gathering assemblies
+24/08/2021 14:03:04	Gathering certificates
+24/08/2021 14:03:04	Gathering symmetric keys
+24/08/2021 14:03:04	Gathering encrypted symmetric keys
+24/08/2021 14:03:04	Gathering schemas
+24/08/2021 14:03:04	Gathering XML schema collections
+24/08/2021 14:03:04	Gathering user-defined data types
+24/08/2021 14:03:04	Gathering user-defined types
+24/08/2021 14:03:04	Gathering table types
+24/08/2021 14:03:04	Gathering unique keys for table types
+24/08/2021 14:03:04	Gathering primary keys for table types
+24/08/2021 14:03:05	Gathering indexes for table types
+24/08/2021 14:03:05	Gathering check constraints for table types
+24/08/2021 14:03:05	Gathering default constraints for table types
+24/08/2021 14:03:05	Gathering partition functions
+24/08/2021 14:03:05	Gathering partition schemes
+24/08/2021 14:03:05	Gathering functions
+24/08/2021 14:03:05	Gathering encrypted functions
+24/08/2021 14:03:05	Gathering aggregates
+24/08/2021 14:03:05	Gathering procedures
+24/08/2021 14:03:05	Gathering encrypted procedures
+24/08/2021 14:03:05	Gathering tables
+24/08/2021 14:03:05	Gathering primary keys
+24/08/2021 14:03:05	Gathering unique constraints
+24/08/2021 14:03:05	Gathering foreign keys
+24/08/2021 14:03:05	Gathering default constraints
+24/08/2021 14:03:05	Gathering check constraints
+24/08/2021 14:03:05	Gathering views
+24/08/2021 14:03:05	Gathering encrypted views
+24/08/2021 14:03:05	Gathering indexes
+24/08/2021 14:03:05	Gathering statistics
+24/08/2021 14:03:05	Gathering full-text index stoplists
+24/08/2021 14:03:05	Gathering search property lists
+24/08/2021 14:03:05	Gathering search properties
+24/08/2021 14:03:05	Gathering full-text indexes
+24/08/2021 14:03:05	Gathering column store indexes
+24/08/2021 14:03:05	Gathering spatial indexes
+24/08/2021 14:03:05	Gathering XML indexes
+24/08/2021 14:03:05	Gathering Selective XML indexes
+24/08/2021 14:03:05	Gathering encrypted triggers
+24/08/2021 14:03:05	Gathering triggers
+24/08/2021 14:03:05	Gathering encrypted and clr ddl triggers
+24/08/2021 14:03:05	Gathering ddl triggers
+24/08/2021 14:03:05	Creating edge constraints
+24/08/2021 14:03:05	Gathering synonyms
+24/08/2021 14:03:05	Gathering defaults
+24/08/2021 14:03:05	Gathering data constraint uddt bindings
+24/08/2021 14:03:05	Gathering rules
+24/08/2021 14:03:05	Gathering data constraint uddt bindings
+24/08/2021 14:03:05	Gathering message types
+24/08/2021 14:03:05	Gathering queues
+24/08/2021 14:03:05	Gathering contracts
+24/08/2021 14:03:05	Gathering services
+24/08/2021 14:03:05	Gathering event notifications
+24/08/2021 14:03:05	Gathering remote service bindings
+24/08/2021 14:03:05	Gathering broker priorities
+24/08/2021 14:03:05	Gathering signatures
+24/08/2021 14:03:05	Gathering data compression options
+24/08/2021 14:03:05	Gathering sequence types
+24/08/2021 14:03:05	Gathering security policies
+24/08/2021 14:03:05	Gather column encryption keys
+24/08/2021 14:03:05	Gathering column master keys
+24/08/2021 14:03:05	Gathering event notifications
+24/08/2021 14:03:05	Gathering external data sources
+24/08/2021 14:03:05	Gathering external tables
+24/08/2021 14:03:05	Gathering database permissions
+24/08/2021 14:03:05	Gathering extended properties
+24/08/2021 14:03:05	Gathering logins
+24/08/2021 14:03:07	Scanning project for duplicate elements
+24/08/2021 14:03:07	Finished duplicate element processing
+24/08/2021 14:03:08	Finished importing database.
+24/08/2021 14:03:08	A summary of the import was saved to the following location: C:\Users\MichielPors-Just-BI\source\repos\sqldb-xxxx-orchdb-d-euw-001\sqldb-xxxx-orchdb-d-euw-001\Import Schema Logs\sqldb-xxxx-orchdb-d-_20210824120255.log
+24/08/2021 14:03:08	Click Finish to continue...
