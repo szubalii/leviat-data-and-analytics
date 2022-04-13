@@ -1,0 +1,39 @@
+{
+	"name": "tr_AutoPauseSynDW",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "pl_SYNDW_pause",
+					"type": "PipelineReference"
+				},
+				"parameters": {
+					"SynapseServerName": "ws-xxxx-sls-d-euw-001",
+					"SynapseDatabaseName": "syndw_xxxx_sls_d_euw_001",
+					"SubscriptionID": "f199b488-7d9d-4992-aeda-c10a1e1c9b9e",
+					"ResourceGroupName": "rg-xxxx-sls-d-euw-001",
+					"AzureRegionName": "West Europe"
+				}
+			}
+		],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Day",
+				"interval": 1,
+				"startTime": "2021-04-21T18:00:00Z",
+				"timeZone": "UTC",
+				"schedule": {
+					"minutes": [
+						0
+					],
+					"hours": [
+						17
+					]
+				}
+			}
+		}
+	}
+}

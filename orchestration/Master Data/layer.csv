@@ -1,0 +1,8 @@
+layer_id,layer_nk,location_id,layer_description
+1,In,3,Azure Data Lake Storage - In Folder
+2,Out,3,Azure Data Lake Storage - Out Folder
+3,Base,4,Dedicated SQL Pool - Base Layer
+4,EDW,4,Dedicated SQL Pool - EDW Layer
+5,AXBI,1,SQL Server AXBI
+6,S4H,2,S4H CAX
+7,USA,6,Snowflake USA

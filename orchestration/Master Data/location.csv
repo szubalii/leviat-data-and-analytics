@@ -1,0 +1,7 @@
+location_id,location_nk,location_description
+1,SQL Server AXBI,
+2,S4H,
+3,Data Lake,
+4,Dedicated SQL Pool,
+5,PowerBI,
+6,Snowflake USA,

@@ -1,0 +1,359 @@
+{
+    "functionName": "/SAPDS/RFC_READ_TABLE2",
+    "runInBackgroundJob": false,
+    "tables": 
+    [
+        {
+            "name": "IFUNCTLOCATTR",
+            "description": "Generated Table for View",
+            "isView": true,
+            "fields": 
+            [
+                {
+                    "name": "MANDT",
+                    "description": "Client",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "T000",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "FUNCTIONALLOCATION",
+                    "description": "Functional Location",
+                    "abapType": "CharacterString",
+                    "length": 30,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "formattedLength": 40,
+                    "conversionExit": "TPLNR"
+                },
+                {
+                    "name": "FUNCTIONALLOCATIONCATEGORY",
+                    "description": "Functional location category",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "checkTable": "T370F",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MAINWORKCENTERINTERNALID",
+                    "description": "Object ID of the Work Center",
+                    "abapType": "NumericCharacterString",
+                    "length": 8,
+                    "isSelected": true,
+                    "checkTable": "CRID",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "TECHNICALOBJECTTYPE",
+                    "description": "Type of Technical Object",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "checkTable": "T370K",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CONSTRUCTIONMATERIAL",
+                    "description": "Construction type material of the object",
+                    "abapType": "CharacterString",
+                    "length": 40,
+                    "isSelected": true,
+                    "checkTable": "MARA",
+                    "conversionExit": "MATN1"
+                },
+                {
+                    "name": "CREATIONDATE",
+                    "description": "Date on which the object was created",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "LASTCHANGEDATE",
+                    "description": "Date on which the object was last changed",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MAINTENANCEPLANNERGROUP",
+                    "description": "Planner Group for Customer Service and Plant Maintenance",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "checkTable": "T024I",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MAINTENANCEPLANNINGPLANT",
+                    "description": "Maintenance Planning Plant",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "T399I",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "AUTHORIZATIONGROUP",
+                    "description": "Technical object authorization group",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "T370B",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SUPERIORFUNCTIONALLOCATION",
+                    "description": "Superior functional location",
+                    "abapType": "CharacterString",
+                    "length": 30,
+                    "isSelected": true,
+                    "formattedLength": 40,
+                    "checkTable": "IFLOT",
+                    "conversionExit": "TPLNR"
+                },
+                {
+                    "name": "OPERATIONSTARTDATE",
+                    "description": "Start-up Date of the Technical Object",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "LASTCHANGEDATETIME",
+                    "description": "UTC Time Stamp in Short Form (YYYYMMDDhhmmss)",
+                    "abapType": "PackedNumber",
+                    "length": 15,
+                    "isSelected": true,
+                    "formattedLength": 19,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MAINWORKCENTER",
+                    "description": "Work Center",
+                    "abapType": "CharacterString",
+                    "length": 8,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "WORKCENTER",
+                    "description": "Work Center",
+                    "abapType": "CharacterString",
+                    "length": 8,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MAINWORKCENTERPLANT",
+                    "description": "Plant",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "T001W",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "WORKCENTERPLANT",
+                    "description": "Plant",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "T001W",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "WORKCENTERINTERNALID",
+                    "description": "Object ID of PP work center",
+                    "abapType": "NumericCharacterString",
+                    "length": 8,
+                    "isSelected": true,
+                    "checkTable": "CRID",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "WORKCENTERTYPECODE",
+                    "description": "Object types of the CIM resource",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MAINTENANCEPLANT",
+                    "description": "Maintenance Plant",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "T001W",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PLANTSECTION",
+                    "description": "Plant Section",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "checkTable": "T357",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ASSETLOCATION",
+                    "description": "Location of maintenance object",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "checkTable": "T499S",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CONTROLLINGAREA",
+                    "description": "Controlling Area",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "TKA01",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "COSTCENTER",
+                    "description": "Cost Center",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "checkTable": "CSKS",
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "COMPANYCODE",
+                    "description": "Company Code",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "T001",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ASSETROOM",
+                    "description": "Room",
+                    "abapType": "CharacterString",
+                    "length": 8,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ABCINDICATOR",
+                    "description": "ABC Indicator for Technical Object",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "checkTable": "T370C",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ADDRESSID",
+                    "description": "Address Number",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "checkTable": "ADRC",
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "WBSELEMENTINTERNALID",
+                    "description": "Work Breakdown Structure Element (WBS Element)",
+                    "abapType": "NumericCharacterString",
+                    "length": 8,
+                    "isSelected": true,
+                    "formattedLength": 24,
+                    "checkTable": "PRPS",
+                    "conversionExit": "ABPSP"
+                },
+                {
+                    "name": "MASTERFIXEDASSET",
+                    "description": "Main Asset Number",
+                    "abapType": "CharacterString",
+                    "length": 12,
+                    "isSelected": true,
+                    "checkTable": "ANLH",
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "SETTLEMENTORDER",
+                    "description": "Settlement order",
+                    "abapType": "CharacterString",
+                    "length": 12,
+                    "isSelected": true,
+                    "checkTable": "AUFK",
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "WBSELEMENT",
+                    "description": "Work Breakdown Structure Element (WBS Element)",
+                    "abapType": "CharacterString",
+                    "length": 24,
+                    "isSelected": true,
+                    "conversionExit": "ABPSN"
+                },
+                {
+                    "name": "LINEARDATAUNITOFMEASURE",
+                    "description": "Unit of Measurement for Linear Data",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "conversionExit": "CUNIT"
+                },
+                {
+                    "name": "LINEARDATALENGTH",
+                    "abapType": "PackedNumber",
+                    "length": 31,
+                    "decimalCount": 14,
+                    "isSelected": true,
+                    "formattedLength": 37,
+                    "conversionExit": "",
+                    "referenceTable": "ILAMDATA",
+                    "referenceField": "LINEARDATAUNITOFMEASURE"
+                },
+                {
+                    "name": "FUNCTIONALLOCLABELINGSYST",
+                    "description": "Labeling system for functional locations",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "IFLOALT",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "FUNCTIONALLOCATIONLABELVERSION",
+                    "description": "Version of functional location label",
+                    "abapType": "NumericCharacterString",
+                    "length": 3,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "FUNCNLLOCPRIMARYLABELNAME",
+                    "description": "Functional Location Label",
+                    "abapType": "CharacterString",
+                    "length": 40,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "FUNCNLLOCISMARKEDFORDELETION",
+                    "description": "Char Column",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                }
+            ]
+        }
+    ]
+}

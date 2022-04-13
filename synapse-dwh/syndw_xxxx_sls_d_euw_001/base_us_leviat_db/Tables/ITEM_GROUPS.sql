@@ -1,0 +1,33 @@
+﻿CREATE TABLE [base_us_leviat_db].[ITEM_GROUPS]
+(
+    [COMP]            NVARCHAR(24)    NOT NULL,
+    [ItemGroup]       NVARCHAR(40)    NOT NULL,
+    [GroupName]       NVARCHAR(240)   NULL,
+    [CompName]        NVARCHAR(80)    NULL,
+    [REGION]          NVARCHAR(40)    NULL,
+    [SubRegion]       NVARCHAR(40)    NULL,
+    [CAPEX]           DECIMAL(38, 0)  NULL,
+    [TYPE]            NVARCHAR(60)    NULL,
+    [PROJECT]         DECIMAL(38, 0)  NULL,
+    [CalcCategory]    CHAR(10)        NULL,
+    [ExpFrt]          DECIMAL(38, 0)  NULL,
+    [ExpFrtPercent]   DECIMAL(28, 12) NULL,
+    [Frtperlb]        DECIMAL(28, 12) NULL,
+    [GLProdUnit]      NVARCHAR(40)    NULL,
+    [GLSalesUnit]     NVARCHAR(40)    NULL,
+    [TransferMC]      DECIMAL(28, 12) NULL,
+    [ImbFrt]          DECIMAL(38, 0)  NULL,
+    [ImbFrtPercent]   DECIMAL(28, 12) NULL,
+    [ImbFrtItem]      NVARCHAR(80)    NULL,
+    [MC]              DECIMAL(28, 12) NULL,
+    [ProjCategory]    NVARCHAR(80)    NULL,
+    [CompClosed]      NVARCHAR(3)     NULL,
+    [t_applicationId] VARCHAR(32)     NULL,
+    [t_jobId]         VARCHAR(36)     NULL,
+    [t_jobDtm]        DATETIME,
+    [t_jobBy]         VARCHAR(128)    NULL,
+    [t_extractionDtm] DATETIME,
+    [t_filePath]      VARCHAR(1024)   NULL,
+    CONSTRAINT [PK_ITEM_GROUPS] PRIMARY KEY NONCLUSTERED ([COMP], [ItemGroup]) NOT ENFORCED
+)
+    WITH (HEAP, DISTRIBUTION = ROUND_ROBIN);

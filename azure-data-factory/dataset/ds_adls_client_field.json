@@ -1,0 +1,29 @@
+{
+	"name": "ds_adls_client_field",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "stxxxxslsxeuw001",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "control/Object Lists",
+				"fileSystem": "utilities"
+			},
+			"columnDelimiter": ";",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "StructuredObjectName;RawStructuredObjectName;ViewObjectName;ClientField;EXTRACTION_TYPE;UpdateMode",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

@@ -1,0 +1,152 @@
+{
+	"name": "pl_SYNDW_resume",
+	"properties": {
+		"activities": [
+			{
+				"name": "act_until_IsSynapseOnline",
+				"type": "Until",
+				"dependsOn": [
+					{
+						"activity": "act_web_ResumeAzureSynapseAnalytics",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@equals('Online', variables('synapse_status'))",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "act_Wait5Seconds",
+							"type": "Wait",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"waitTimeInSeconds": 5
+							}
+						},
+						{
+							"name": "act_web_CheckSynapseStatus",
+							"type": "WebActivity",
+							"dependsOn": [
+								{
+									"activity": "act_Wait5Seconds",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 10,
+								"retryIntervalInSeconds": 60,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"url": {
+									"value": "@concat(\n\t'https://management.azure.com/subscriptions/'\n\t,pipeline().parameters.SubscriptionId\n\t,'/resourceGroups/'\n\t,pipeline().parameters.ResourceGroupName\n\t,'/providers/Microsoft.Synapse/workspaces/'\n\t,pipeline().parameters.SynapseServerName\n\t,'/sqlPools/'\n\t,pipeline().parameters.SynapseDatabaseName\n\t,'?api-version=2021-03-01'\n)",
+									"type": "Expression"
+								},
+								"method": "GET",
+								"authentication": {
+									"type": "MSI",
+									"resource": "https://management.azure.com/"
+								}
+							}
+						},
+						{
+							"name": "act_set_SynapseStatusVar",
+							"type": "SetVariable",
+							"dependsOn": [
+								{
+									"activity": "act_web_CheckSynapseStatus",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "synapse_status",
+								"value": {
+									"value": "@activity('act_web_CheckSynapseStatus').output.properties.status",
+									"type": "Expression"
+								}
+							}
+						}
+					],
+					"timeout": "7.00:00:00"
+				}
+			},
+			{
+				"name": "act_web_ResumeAzureSynapseAnalytics",
+				"description": "",
+				"type": "WebActivity",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 3,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [
+					{
+						"name": "Azure Synapse Analytics",
+						"value": "Resume or Pause"
+					}
+				],
+				"typeProperties": {
+					"url": {
+						"value": "@concat(\n\t'https://management.azure.com/subscriptions/'\n\t,pipeline().parameters.SubscriptionId\n\t,'/resourceGroups/'\n\t,pipeline().parameters.ResourceGroupName\n\t,'/providers/Microsoft.Synapse/workspaces/'\n\t,pipeline().parameters.SynapseServerName\n\t,'/sqlPools/'\n\t,pipeline().parameters.SynapseDatabaseName\n\t,'/Resume'\n\t,'?api-version=2021-03-01'\n)",
+						"type": "Expression"
+					},
+					"method": "POST",
+					"body": {
+						"value": "{}",
+						"type": "Expression"
+					},
+					"authentication": {
+						"type": "MSI",
+						"resource": "https://management.azure.com/"
+					}
+				}
+			}
+		],
+		"parameters": {
+			"SubscriptionId": {
+				"type": "string",
+				"defaultValue": "f199b488-7d9d-4992-aeda-c10a1e1c9b9e"
+			},
+			"ResourceGroupName": {
+				"type": "string",
+				"defaultValue": "rg-xxxx-sls-d-euw-001"
+			},
+			"SynapseServerName": {
+				"type": "string",
+				"defaultValue": "ws-xxxx-sls-d-euw-001"
+			},
+			"SynapseDatabaseName": {
+				"type": "string",
+				"defaultValue": "syndw_xxxx_sls_d_euw_001"
+			}
+		},
+		"variables": {
+			"synapse_status": {
+				"type": "String"
+			}
+		},
+		"folder": {
+			"name": "90 Utilities/Synapse"
+		},
+		"annotations": [],
+		"lastPublishTime": "2021-10-25T15:24:59Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

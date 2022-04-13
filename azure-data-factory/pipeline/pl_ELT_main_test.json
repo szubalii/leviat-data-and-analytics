@@ -1,0 +1,107 @@
+{
+	"name": "pl_ELT_main_test",
+	"properties": {
+		"activities": [
+			{
+				"name": "Execute ELT for S4H",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Set date",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pl_S4H_entity_main",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"date": {
+							"value": "@variables('date')",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "Set date",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "date",
+					"value": {
+						"value": "@formatDateTime(pipeline().TriggerTime, 'yyyy/MM/dd')",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Execute ELT for AXBI",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Set date",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pl_AXBI_entity_main",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"date": {
+							"value": "@variables('date')",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "Execute ELT for USA Snowflake",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Set date",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pl_USA_Snowflake_entity_main",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"date": {
+							"value": "@variables('date')",
+							"type": "Expression"
+						}
+					}
+				}
+			}
+		],
+		"variables": {
+			"date": {
+				"type": "String"
+			}
+		},
+		"folder": {
+			"name": "70 Test"
+		},
+		"annotations": []
+	}
+}

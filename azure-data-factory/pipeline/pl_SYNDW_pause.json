@@ -1,0 +1,63 @@
+{
+	"name": "pl_SYNDW_pause",
+	"properties": {
+		"activities": [
+			{
+				"name": "act_web_AutoPauseSynDW",
+				"type": "WebActivity",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"url": {
+						"value": "@concat('https://management.azure.com/subscriptions/', pipeline().parameters.SubscriptionID, '/resourceGroups/', pipeline().parameters.ResourceGroupName, '/providers/Microsoft.Synapse/workspaces/',pipeline().parameters.SynapseServerName,'/sqlPools/',pipeline().parameters.SynapseDatabaseName,'/pause?api-version=2021-03-01')",
+						"type": "Expression"
+					},
+					"method": "POST",
+					"headers": {
+						"Content-Type": "application/json"
+					},
+					"body": " ",
+					"authentication": {
+						"type": "MSI",
+						"resource": "https://management.azure.com/"
+					}
+				}
+			}
+		],
+		"parameters": {
+			"SynapseServerName": {
+				"type": "String",
+				"defaultValue": "ws-xxxx-sls-d-euw-001"
+			},
+			"SynapseDatabaseName": {
+				"type": "String",
+				"defaultValue": "syndw_xxxx_sls_d_euw_001"
+			},
+			"SubscriptionID": {
+				"type": "String",
+				"defaultValue": "f199b488-7d9d-4992-aeda-c10a1e1c9b9e"
+			},
+			"ResourceGroupName": {
+				"type": "String",
+				"defaultValue": "rg-xxxx-sls-d-euw-001"
+			},
+			"AzureRegionName": {
+				"type": "String",
+				"defaultValue": "West Europe"
+			}
+		},
+		"folder": {
+			"name": "90 Utilities/Synapse"
+		},
+		"annotations": [],
+		"lastPublishTime": "2021-10-25T15:24:59Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

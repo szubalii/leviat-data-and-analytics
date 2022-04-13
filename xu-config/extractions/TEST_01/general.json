@@ -1,0 +1,12 @@
+{
+    "created": {
+        "machine": "[::ffff:127.0.0.1]:49877",
+        "timestamp": "20210524T130542.705Z"
+    },
+    "lastChange": {
+        "machine": "[::ffff:127.0.0.1]:49894",
+        "timestamp": "20210529T071917.180Z"
+    },
+    "source": "CAA_TEST_ZHAKH",
+    "type": "ODP"
+}

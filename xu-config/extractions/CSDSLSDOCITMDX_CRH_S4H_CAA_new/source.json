@@ -1,0 +1,1251 @@
+{
+    "functionName": "/SAPDS/RFC_READ_TABLE2",
+    "runInBackgroundJob": false,
+    "tables": 
+    [
+        {
+            "name": "CSDSLSDOCITMDX",
+            "description": "Generated Table for View",
+            "isView": true,
+            "fields": 
+            [
+                {
+                    "name": "MANDT",
+                    "description": "Client",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "T000",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SALESDOCUMENT",
+                    "description": "Sales Document",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "VBAK",
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "SALESDOCUMENTITEM",
+                    "description": "Sales Document Item",
+                    "abapType": "NumericCharacterString",
+                    "length": 6,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SALESDOCUMENTITEMCATEGORY",
+                    "description": "Sales document item category",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "TVPT",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ISRETURNSITEM",
+                    "description": "Returns Item",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CREATIONDATE",
+                    "description": "Date on which the record was created",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CREATIONTIME",
+                    "description": "Time at Which Record Was Created",
+                    "abapType": "Time",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "LASTCHANGEDATE",
+                    "description": "Date of Last Change",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "DIVISION",
+                    "description": "Division",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "checkTable": "TSPA",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MATERIAL",
+                    "description": "Material Number",
+                    "abapType": "CharacterString",
+                    "length": 40,
+                    "isSelected": true,
+                    "checkTable": "MARA",
+                    "conversionExit": "MATN1"
+                },
+                {
+                    "name": "ORIGINALLYREQUESTEDMATERIAL",
+                    "description": "Material entered",
+                    "abapType": "CharacterString",
+                    "length": 40,
+                    "isSelected": true,
+                    "checkTable": "MARA",
+                    "conversionExit": "MATN1"
+                },
+                {
+                    "name": "INTERNATIONALARTICLENUMBER",
+                    "description": "International Article Number (EAN/UPC)",
+                    "abapType": "CharacterString",
+                    "length": 18,
+                    "isSelected": true,
+                    "conversionExit": "EAN11"
+                },
+                {
+                    "name": "BATCH",
+                    "description": "Batch Number",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "checkTable": "MCHA",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MATERIALSUBSTITUTIONREASON",
+                    "description": "Reason for material substitution",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "TVSU",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MATERIALGROUP",
+                    "description": "Material Group",
+                    "abapType": "CharacterString",
+                    "length": 9,
+                    "isSelected": true,
+                    "checkTable": "T023",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ADDITIONALMATERIALGROUP1",
+                    "description": "Brand",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "checkTable": "TVM1",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ADDITIONALMATERIALGROUP2",
+                    "description": "Alloy Surcharge",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "checkTable": "TVM2",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ADDITIONALMATERIALGROUP3",
+                    "description": "Material Discount Group",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "checkTable": "TVM3",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ADDITIONALMATERIALGROUP4",
+                    "description": "Material Surcharge Group",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "checkTable": "TVM4",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ADDITIONALMATERIALGROUP5",
+                    "description": "Material group 5",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "checkTable": "TVM5",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ORDERQUANTITY",
+                    "description": "Cumulative order quantity in sales units",
+                    "abapType": "PackedNumber",
+                    "length": 15,
+                    "decimalCount": 3,
+                    "isSelected": true,
+                    "formattedLength": 19,
+                    "conversionExit": "",
+                    "referenceTable": "ISDSALESDOCITEM",
+                    "referenceField": "ORDERQUANTITYUNIT"
+                },
+                {
+                    "name": "ORDERQUANTITYUNIT",
+                    "description": "Sales unit",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "checkTable": "T006",
+                    "conversionExit": "CUNIT"
+                },
+                {
+                    "name": "ORDERTOBASEQUANTITYDNMNTR",
+                    "description": "Denominator (Divisor) for Conversion of Sales Qty into SKU",
+                    "abapType": "PackedNumber",
+                    "length": 5,
+                    "isSelected": true,
+                    "formattedLength": 6,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ORDERTOBASEQUANTITYNMRTR",
+                    "description": "Numerator (factor) for conversion of sales quantity into SKU",
+                    "abapType": "PackedNumber",
+                    "length": 5,
+                    "isSelected": true,
+                    "formattedLength": 6,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "TARGETQUANTITY",
+                    "description": "Target Quantity in Sales Units",
+                    "abapType": "PackedNumber",
+                    "length": 13,
+                    "decimalCount": 3,
+                    "isSelected": true,
+                    "formattedLength": 17,
+                    "conversionExit": "",
+                    "referenceTable": "ISDSALESDOCITEM",
+                    "referenceField": "TARGETQUANTITYUNIT"
+                },
+                {
+                    "name": "TARGETQUANTITYUNIT",
+                    "description": "Target Quantity UoM",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "checkTable": "T006",
+                    "conversionExit": "CUNIT"
+                },
+                {
+                    "name": "TARGETTOBASEQUANTITYDNMNTR",
+                    "description": "Factor for Converting Sales Units to Base Units (Target Qty)",
+                    "abapType": "PackedNumber",
+                    "length": 5,
+                    "isSelected": true,
+                    "formattedLength": 6,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "TARGETTOBASEQUANTITYNMRTR",
+                    "description": "Factor for Converting Sales Units to Base Units (Target Qty)",
+                    "abapType": "PackedNumber",
+                    "length": 5,
+                    "isSelected": true,
+                    "formattedLength": 6,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CONFDDELIVQTYINORDERQTYUNIT",
+                    "description": "Cumulative Confirmed Quantity in Sales Unit",
+                    "abapType": "PackedNumber",
+                    "length": 15,
+                    "decimalCount": 3,
+                    "isSelected": true,
+                    "formattedLength": 19,
+                    "conversionExit": "",
+                    "referenceTable": "ISDSALESDOCITEM",
+                    "referenceField": "ORDERQUANTITYUNIT"
+                },
+                {
+                    "name": "TARGETDELIVQTYINORDERQTYUNIT",
+                    "description": "Cumulative Required Delivery Qty (All Dlv-Relev.Sched.Lines)",
+                    "abapType": "PackedNumber",
+                    "length": 15,
+                    "decimalCount": 3,
+                    "isSelected": true,
+                    "formattedLength": 19,
+                    "conversionExit": "",
+                    "referenceTable": "ISDSALESDOCITEM",
+                    "referenceField": "ORDERQUANTITYUNIT"
+                },
+                {
+                    "name": "CONFDDELIVERYQTYINBASEUNIT",
+                    "description": "Cumulative Confirmed Quantity in Base Unit",
+                    "abapType": "PackedNumber",
+                    "length": 15,
+                    "decimalCount": 3,
+                    "isSelected": true,
+                    "formattedLength": 19,
+                    "conversionExit": "",
+                    "referenceTable": "ISDSALESDOCITEM",
+                    "referenceField": "BASEUNIT"
+                },
+                {
+                    "name": "BASEUNIT",
+                    "description": "Base Unit of Measure",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "checkTable": "T006",
+                    "conversionExit": "CUNIT"
+                },
+                {
+                    "name": "ITEMGROSSWEIGHT",
+                    "description": "Gross Weight of the Item",
+                    "abapType": "PackedNumber",
+                    "length": 15,
+                    "decimalCount": 3,
+                    "isSelected": true,
+                    "formattedLength": 19,
+                    "conversionExit": "",
+                    "referenceTable": "ISDSALESDOCITEM",
+                    "referenceField": "ITEMWEIGHTUNIT"
+                },
+                {
+                    "name": "ITEMNETWEIGHT",
+                    "description": "Net Weight of the Item",
+                    "abapType": "PackedNumber",
+                    "length": 15,
+                    "decimalCount": 3,
+                    "isSelected": true,
+                    "formattedLength": 19,
+                    "conversionExit": "",
+                    "referenceTable": "ISDSALESDOCITEM",
+                    "referenceField": "ITEMWEIGHTUNIT"
+                },
+                {
+                    "name": "ITEMWEIGHTUNIT",
+                    "description": "Weight Unit",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "checkTable": "T006",
+                    "conversionExit": "CUNIT"
+                },
+                {
+                    "name": "ITEMVOLUME",
+                    "description": "Volume of the item",
+                    "abapType": "PackedNumber",
+                    "length": 15,
+                    "decimalCount": 3,
+                    "isSelected": true,
+                    "formattedLength": 19,
+                    "conversionExit": "",
+                    "referenceTable": "ISDSALESDOCITEM",
+                    "referenceField": "ITEMVOLUMEUNIT"
+                },
+                {
+                    "name": "ITEMVOLUMEUNIT",
+                    "description": "Volume unit",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "checkTable": "T006",
+                    "conversionExit": "CUNIT"
+                },
+                {
+                    "name": "SERVICESRENDEREDDATE",
+                    "description": "Date on which services are rendered",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SALESDISTRICT",
+                    "description": "Sales District",
+                    "abapType": "CharacterString",
+                    "length": 6,
+                    "isSelected": true,
+                    "checkTable": "T171",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CUSTOMERGROUP",
+                    "description": "Customer Pillars",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "checkTable": "T151",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SALESDOCUMENTRJCNREASON",
+                    "description": "Reason for Rejection of Sales Documents",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "checkTable": "TVAG",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ITEMORDERPROBABILITYINPERCENT",
+                    "description": "Order Probability of the Item",
+                    "abapType": "NumericCharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "OUTLINEAGREEMENTTARGETAMOUNT",
+                    "description": "Target Value for Outline Agreement in Document Currency",
+                    "abapType": "PackedNumber",
+                    "length": 13,
+                    "decimalCount": 2,
+                    "isSelected": true,
+                    "formattedLength": 16,
+                    "conversionExit": "",
+                    "referenceTable": "ISDSALESDOCITEM",
+                    "referenceField": "TRANSACTIONCURRENCY"
+                },
+                {
+                    "name": "NETAMOUNT",
+                    "description": "Net Value of the Order Item in Document Currency",
+                    "abapType": "PackedNumber",
+                    "length": 15,
+                    "decimalCount": 2,
+                    "isSelected": true,
+                    "formattedLength": 21,
+                    "conversionExit": "",
+                    "referenceTable": "ISDSALESDOCITEM",
+                    "referenceField": "TRANSACTIONCURRENCY"
+                },
+                {
+                    "name": "TRANSACTIONCURRENCY",
+                    "description": "SD document currency",
+                    "abapType": "CharacterString",
+                    "length": 5,
+                    "isSelected": true,
+                    "checkTable": "TCURC",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRICINGDATE",
+                    "description": "Date for Pricing and Exchange Rate",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "EXCHANGERATEDATE",
+                    "description": "Translation date",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRICEDETNEXCHANGERATE",
+                    "description": "Exchange Rate for Price Determination",
+                    "abapType": "PackedNumber",
+                    "length": 9,
+                    "decimalCount": 5,
+                    "isSelected": true,
+                    "formattedLength": 11,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "NETPRICEAMOUNT",
+                    "description": "Net Price",
+                    "abapType": "PackedNumber",
+                    "length": 11,
+                    "decimalCount": 2,
+                    "isSelected": true,
+                    "formattedLength": 16,
+                    "conversionExit": "",
+                    "referenceTable": "ISDSALESDOCITEM",
+                    "referenceField": "TRANSACTIONCURRENCY"
+                },
+                {
+                    "name": "NETPRICEQUANTITY",
+                    "description": "Condition Pricing Unit",
+                    "abapType": "PackedNumber",
+                    "length": 5,
+                    "isSelected": true,
+                    "formattedLength": 5,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "NETPRICEQUANTITYUNIT",
+                    "description": "Condition Unit",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "checkTable": "T006",
+                    "conversionExit": "CUNIT"
+                },
+                {
+                    "name": "STATISTICALVALUECONTROL",
+                    "description": "Statistical Values",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "TAXAMOUNT",
+                    "description": "Tax amount in document currency",
+                    "abapType": "PackedNumber",
+                    "length": 13,
+                    "decimalCount": 2,
+                    "isSelected": true,
+                    "formattedLength": 18,
+                    "conversionExit": "",
+                    "referenceTable": "ISDSALESDOCITEM",
+                    "referenceField": "TRANSACTIONCURRENCY"
+                },
+                {
+                    "name": "COSTAMOUNT",
+                    "description": "Cost in document currency",
+                    "abapType": "PackedNumber",
+                    "length": 13,
+                    "decimalCount": 2,
+                    "isSelected": true,
+                    "formattedLength": 18,
+                    "conversionExit": "",
+                    "referenceTable": "ISDSALESDOCITEM",
+                    "referenceField": "TRANSACTIONCURRENCY"
+                },
+                {
+                    "name": "SUBTOTAL1AMOUNT",
+                    "description": "Subtotal 1 from pricing procedure for condition",
+                    "abapType": "PackedNumber",
+                    "length": 13,
+                    "decimalCount": 2,
+                    "isSelected": true,
+                    "formattedLength": 18,
+                    "conversionExit": "",
+                    "referenceTable": "ISDSALESDOCITEM",
+                    "referenceField": "TRANSACTIONCURRENCY"
+                },
+                {
+                    "name": "SUBTOTAL2AMOUNT",
+                    "description": "Subtotal 2 from pricing procedure for condition",
+                    "abapType": "PackedNumber",
+                    "length": 13,
+                    "decimalCount": 2,
+                    "isSelected": true,
+                    "formattedLength": 18,
+                    "conversionExit": "",
+                    "referenceTable": "ISDSALESDOCITEM",
+                    "referenceField": "TRANSACTIONCURRENCY"
+                },
+                {
+                    "name": "SUBTOTAL3AMOUNT",
+                    "description": "Subtotal 3 from pricing procedure for condition",
+                    "abapType": "PackedNumber",
+                    "length": 13,
+                    "decimalCount": 2,
+                    "isSelected": true,
+                    "formattedLength": 18,
+                    "conversionExit": "",
+                    "referenceTable": "ISDSALESDOCITEM",
+                    "referenceField": "TRANSACTIONCURRENCY"
+                },
+                {
+                    "name": "SUBTOTAL4AMOUNT",
+                    "description": "Subtotal 4 from pricing procedure for condition",
+                    "abapType": "PackedNumber",
+                    "length": 13,
+                    "decimalCount": 2,
+                    "isSelected": true,
+                    "formattedLength": 18,
+                    "conversionExit": "",
+                    "referenceTable": "ISDSALESDOCITEM",
+                    "referenceField": "TRANSACTIONCURRENCY"
+                },
+                {
+                    "name": "SUBTOTAL5AMOUNT",
+                    "description": "Subtotal 5 from pricing procedure for condition",
+                    "abapType": "PackedNumber",
+                    "length": 13,
+                    "decimalCount": 2,
+                    "isSelected": true,
+                    "formattedLength": 18,
+                    "conversionExit": "",
+                    "referenceTable": "ISDSALESDOCITEM",
+                    "referenceField": "TRANSACTIONCURRENCY"
+                },
+                {
+                    "name": "SUBTOTAL6AMOUNT",
+                    "description": "Subtotal 6 from pricing procedure for condition",
+                    "abapType": "PackedNumber",
+                    "length": 13,
+                    "decimalCount": 2,
+                    "isSelected": true,
+                    "formattedLength": 18,
+                    "conversionExit": "",
+                    "referenceTable": "ISDSALESDOCITEM",
+                    "referenceField": "TRANSACTIONCURRENCY"
+                },
+                {
+                    "name": "SHIPPINGPOINT",
+                    "description": "Shipping Point / Receiving Point",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "TVST",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SHIPPINGTYPE",
+                    "description": "Shipping Type",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "checkTable": "T173",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "INVENTORYSPECIALSTOCKTYPE",
+                    "description": "Special Stock Indicator",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "checkTable": "T148",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "DELIVERYPRIORITY",
+                    "description": "Delivery Priority",
+                    "abapType": "NumericCharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "checkTable": "TPRIO",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PLANT",
+                    "description": "Plant (Own or External)",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "STORAGELOCATION",
+                    "description": "Storage location",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "T001L",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ROUTE",
+                    "description": "Route",
+                    "abapType": "CharacterString",
+                    "length": 6,
+                    "isSelected": true,
+                    "checkTable": "TVRO",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PARTIALDELIVERYISALLOWED",
+                    "description": "Partial delivery at item level",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "UNLIMITEDOVERDELIVERYISALLOWED",
+                    "description": "Unlimited Overdelivery Allowed",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "OVERDELIVTOLRTDLMTRATIOINPCT",
+                    "description": "Overdelivery Tolerance",
+                    "abapType": "PackedNumber",
+                    "length": 3,
+                    "decimalCount": 1,
+                    "isSelected": true,
+                    "formattedLength": 4,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "UNDERDELIVTOLRTDLMTRATIOINPCT",
+                    "description": "Underdelivery Tolerance",
+                    "abapType": "PackedNumber",
+                    "length": 3,
+                    "decimalCount": 1,
+                    "isSelected": true,
+                    "formattedLength": 4,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MINDELIVERYQTYINBASEUNIT",
+                    "description": "Minimum Delivery Quantity in Delivery Note Processing",
+                    "abapType": "PackedNumber",
+                    "length": 13,
+                    "decimalCount": 3,
+                    "isSelected": true,
+                    "formattedLength": 17,
+                    "conversionExit": "",
+                    "referenceTable": "ISDSALESDOCITEM",
+                    "referenceField": "BASEUNIT"
+                },
+                {
+                    "name": "BILLINGDOCUMENTDATE",
+                    "description": "Billing Date",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ITEMBILLINGBLOCKREASON",
+                    "description": "Billing Block for Item",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "checkTable": "TVFS",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "INCOTERMSVERSION",
+                    "description": "Incoterms Version",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "TINCV",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "INCOTERMSCLASSIFICATION",
+                    "description": "Incoterms (Part 1)",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "checkTable": "TINC",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "INCOTERMSTRANSFERLOCATION",
+                    "description": "Incoterms (Part 2)",
+                    "abapType": "CharacterString",
+                    "length": 28,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "INCOTERMSLOCATION1",
+                    "description": "Incoterms Location 1",
+                    "abapType": "CharacterString",
+                    "length": 70,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "INCOTERMSLOCATION2",
+                    "description": "Incoterms Location 2",
+                    "abapType": "CharacterString",
+                    "length": 70,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "FISCALYEAR",
+                    "description": "Fiscal Year",
+                    "abapType": "NumericCharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "conversionExit": "GJAHR"
+                },
+                {
+                    "name": "FISCALPERIOD",
+                    "description": "Posting period",
+                    "abapType": "NumericCharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CUSTOMERACCOUNTASSIGNMENTGROUP",
+                    "description": "Account Assignment Group for this customer",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "checkTable": "TVKT",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "BUSINESSAREA",
+                    "description": "Business Area",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "TGSB",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PROFITCENTER",
+                    "description": "Profit Center",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "ORDERID",
+                    "description": "Order Number",
+                    "abapType": "CharacterString",
+                    "length": 12,
+                    "isSelected": true,
+                    "checkTable": "AUFK",
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "PROFITABILITYSEGMENT",
+                    "description": "Profitability Segment Number (CO-PA)",
+                    "abapType": "NumericCharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ORIGINSDDOCUMENT",
+                    "description": "Originating Document",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "ORIGINSDDOCUMENTITEM",
+                    "description": "Originating item",
+                    "abapType": "NumericCharacterString",
+                    "length": 6,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "REFERENCESDDOCUMENT",
+                    "description": "Document number of the reference document",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "REFERENCESDDOCUMENTITEM",
+                    "description": "Item number of the reference item",
+                    "abapType": "NumericCharacterString",
+                    "length": 6,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "REFERENCESDDOCUMENTCATEGORY",
+                    "description": "Document Category of Preceding SD Document",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "DELIVERYBLOCKSTATUS",
+                    "description": "Overall Delivery Block Status (Item)",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "BILLINGBLOCKSTATUS",
+                    "description": "Billing Block Status (Item)",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ITEMGENERALINCOMPLETIONSTATUS",
+                    "description": "Incompletion Status (Item)",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ITEMBILLINGINCOMPLETIONSTATUS",
+                    "description": "Billing Incompletion Status (Item)",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRICINGINCOMPLETIONSTATUS",
+                    "description": "Pricing Incompletion Status (Item)",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ITEMDELIVERYINCOMPLETIONSTATUS",
+                    "description": "Delivery Incompletion Status (Item)",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SDDOCUMENTREJECTIONSTATUS",
+                    "description": "Rejection Status (Item)",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "TOTALSDDOCREFERENCESTATUS",
+                    "description": "Overall Reference Status (Item)",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SDDOCREFERENCESTATUS",
+                    "description": "Reference Status (Item)",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SDDOCUMENTCATEGORY",
+                    "description": "SD Document Category",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SALESDOCUMENTTYPE",
+                    "description": "Sales Document Type",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "TVAK",
+                    "conversionExit": "AUART"
+                },
+                {
+                    "name": "SALESORGANIZATION",
+                    "description": "Sales Organization",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "TVKO",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "DISTRIBUTIONCHANNEL",
+                    "description": "Distribution Channel",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "checkTable": "TVKOV",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SALESGROUP",
+                    "description": "Sales group",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "checkTable": "TVBVK",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SALESOFFICE",
+                    "description": "Sales office",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "TVKBZ",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SOLDTOPARTY",
+                    "description": "Sold-To Party",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "checkTable": "KNA1",
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "ADDITIONALCUSTOMERGROUP1",
+                    "description": "Expt MinVal Surcharge",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "checkTable": "TVV1",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ADDITIONALCUSTOMERGROUP2",
+                    "description": "Print net price only",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "checkTable": "TVV2",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ADDITIONALCUSTOMERGROUP3",
+                    "description": "Freight Rate",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "checkTable": "TVV3",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ADDITIONALCUSTOMERGROUP4",
+                    "description": "Customer group 4",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "checkTable": "TVV4",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ADDITIONALCUSTOMERGROUP5",
+                    "description": "Customer group 5",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "checkTable": "TVV5",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SALESDOCUMENTDATE",
+                    "description": "Document Date (Date Received/Sent)",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SDDOCUMENTREASON",
+                    "description": "Order Reason (Reason for the Business Transaction)",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "checkTable": "TVAU",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "BINDINGPERIODVALIDITYSTARTDATE",
+                    "description": "Quotation/Inquiry is Valid From",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "BINDINGPERIODVALIDITYENDDATE",
+                    "description": "Date Until Which Bid/Quotation is Binding (Valid-To Date)",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "HDRORDERPROBABILITYINPERCENT",
+                    "description": "Sales probability",
+                    "abapType": "NumericCharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "REQUESTEDDELIVERYDATE",
+                    "description": "Requested Delivery Date",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SHIPPINGCONDITION",
+                    "description": "Shipping Conditions",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "checkTable": "TVSB",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "DELIVERYBLOCKREASON",
+                    "description": "Delivery Block (Document Header)",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "checkTable": "TVLS",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "BILLINGCOMPANYCODE",
+                    "description": "Company Code to Be Billed",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "T001",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "HEADERBILLINGBLOCKREASON",
+                    "description": "Billing Block in SD Document",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "checkTable": "TVFS",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "EXCHANGERATETYPE",
+                    "description": "Exchange Rate Type",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "TCURV",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CONTROLLINGAREA",
+                    "description": "Controlling Area",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "TKA01",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "OVERALLSDPROCESSSTATUS",
+                    "description": "Overall Processing Status (Header/All Items)",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "OVERALLSDDOCUMENTREJECTIONSTS",
+                    "description": "Rejection Status (All Items)",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "OVERALLTOTALDELIVERYSTATUS",
+                    "description": "Overall Delivery Status (All Items)",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "OVERALLORDRELTDBILLGSTATUS",
+                    "description": "Billing Status (Order-Related Billing Document)",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "OVERALLTOTALSDDOCREFSTATUS",
+                    "description": "Overall Reference Status (All Items)",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "OVERALLSDDOCREFERENCESTATUS",
+                    "description": "Reference Status (All Items)",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "TOTALCREDITCHECKSTATUS",
+                    "description": "Overall Status of Credit Checks",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SALESORGANIZATIONCURRENCY",
+                    "description": "Statistics currency",
+                    "abapType": "CharacterString",
+                    "length": 5,
+                    "isSelected": true,
+                    "checkTable": "TCURC",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CURRENCY",
+                    "description": "Currency Key",
+                    "abapType": "CharacterString",
+                    "length": 5,
+                    "isSelected": true,
+                    "checkTable": "TCURC",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "FISCALYEARVARIANT",
+                    "description": "Fiscal Year Variant",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "checkTable": "T009",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SHIPTOPARTY",
+                    "description": "Char Column",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PAYERPARTY",
+                    "description": "Char Column",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "BILLTOPARTY",
+                    "description": "Char Column",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": ""
+                }
+            ]
+        }
+    ]
+}

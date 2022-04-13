@@ -1,0 +1,45 @@
+{
+    "name": "IFIPOSTINGKEYTXT$T",
+    "description": "Posting Key Text",
+    "guid": "fa7d3002-4920-4092-ad30-d560107eb4a6",
+    "semantics": "Texts",
+    "context": "ABAP_CDS",
+    "supportsFull": true,
+    "supportsDelta": false,
+    "mode": "Full",
+    "transferDataOnDeltaInit": false,
+    "columns": 
+    [
+        {
+            "name": "LANGUAGE",
+            "description": "Language Key",
+            "abapType": "CharacterString",
+            "length": 1,
+            "isPrimaryKey": true,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 1
+        },
+        {
+            "name": "POSTINGKEY",
+            "description": "Posting Key",
+            "abapType": "CharacterString",
+            "length": 2,
+            "isPrimaryKey": true,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 2
+        },
+        {
+            "name": "POSTINGKEYNAME",
+            "description": "Posting Key Name",
+            "abapType": "CharacterString",
+            "length": 20,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 20
+        }
+    ],
+    "parameters": {
+    }
+}

@@ -1,0 +1,5 @@
+status_id,status_nk,status_description
+1,InProgress,Batch execution is in progress
+2,Succeeded,Batch execution was succeeded
+3,Cancelled,Batch execution was cancelled
+4,Failed,Batch execution was failed

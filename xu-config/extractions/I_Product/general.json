@@ -1,0 +1,13 @@
+{
+    "created": {
+        "machine": "[::ffff:84.82.142.194]:50969",
+        "timestamp": "20210625T101356.000Z"
+    },
+    "destination": "stxxxxslsdeuw001_s4h-uat-caa",
+    "lastChange": {
+        "machine": "[::ffff:127.0.0.1]:52393",
+        "timestamp": "20210802T132836.311Z"
+    },
+    "source": "CRH_Leviat_S4HANA_CAA",
+    "type": "Table"
+}

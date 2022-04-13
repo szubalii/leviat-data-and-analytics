@@ -1,0 +1,1178 @@
+{
+    "functionName": "/SAPDS/RFC_READ_TABLE2",
+    "runInBackgroundJob": false,
+    "tables": 
+    [
+        {
+            "name": "IPRODUCT",
+            "description": "Generated Table for View I_Product: Product active core entity",
+            "isView": true,
+            "fields": 
+            [
+                {
+                    "name": "MANDT",
+                    "description": "Client (key field in client-specific tables)",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "T000",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRODUCT",
+                    "description": "Material Number (C40 Field)",
+                    "abapType": "CharacterString",
+                    "length": 40,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": "MATN1"
+                },
+                {
+                    "name": "PRODUCTEXTERNALID",
+                    "description": "Character Field (Length 40)",
+                    "abapType": "CharacterString",
+                    "length": 40,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRODUCTTYPE",
+                    "description": "Material type",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "T134",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CREATIONDATE",
+                    "description": "Date",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CREATIONTIME",
+                    "description": "Field of type TIMS",
+                    "abapType": "Time",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CREATIONDATETIME",
+                    "description": "UTC time stamp in long form (YYYYMMDDhhmmss,mmmuuun)",
+                    "abapType": "PackedNumber",
+                    "length": 17,
+                    "decimalCount": 7,
+                    "formattedLength": 27,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CREATEDBYUSER",
+                    "description": "User name",
+                    "abapType": "CharacterString",
+                    "length": 12,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "LASTCHANGEDATE",
+                    "description": "Date",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "LASTCHANGEDBYUSER",
+                    "description": "User name",
+                    "abapType": "CharacterString",
+                    "length": 12,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ISMARKEDFORDELETION",
+                    "description": "Yes/No field",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CROSSPLANTSTATUS",
+                    "description": "Material status from MM/PP view",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "checkTable": "T141",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CROSSPLANTSTATUSVALIDITYDATE",
+                    "description": "Date",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRODUCTOLDID",
+                    "description": "Previous material number",
+                    "abapType": "CharacterString",
+                    "length": 40,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "GROSSWEIGHT",
+                    "description": "Quantity field, length 13",
+                    "abapType": "PackedNumber",
+                    "length": 17,
+                    "decimalCount": 3,
+                    "isSelected": true,
+                    "formattedLength": 17,
+                    "conversionExit": "",
+                    "referenceTable": "IPRODUCT",
+                    "referenceField": "WEIGHTUNIT"
+                },
+                {
+                    "name": "PURCHASEORDERQUANTITYUNIT",
+                    "description": "Units of Measurement of Various Types",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "checkTable": "T006",
+                    "conversionExit": "CUNIT"
+                },
+                {
+                    "name": "SOURCEOFSUPPLY",
+                    "description": "Source of supply key",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "checkTable": "TMBW1",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "WEIGHTUNIT",
+                    "description": "Units of Measurement of Various Types",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "checkTable": "T006",
+                    "conversionExit": "CUNIT"
+                },
+                {
+                    "name": "COUNTRYOFORIGIN",
+                    "description": "Country key",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "checkTable": "T005",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "COMPETITORID",
+                    "description": "Customer Number",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "checkTable": "V_KNA1WETT",
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "PRODUCTGROUP",
+                    "description": "Material class",
+                    "abapType": "CharacterString",
+                    "length": 9,
+                    "isSelected": true,
+                    "checkTable": "T023",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "BASEUNIT",
+                    "description": "Units of Measurement of Various Types",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "checkTable": "T006",
+                    "conversionExit": "CUNIT"
+                },
+                {
+                    "name": "ITEMCATEGORYGROUP",
+                    "description": "Item category group",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "TPTM",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "NETWEIGHT",
+                    "description": "Quantity field, length 13",
+                    "abapType": "PackedNumber",
+                    "length": 17,
+                    "decimalCount": 3,
+                    "isSelected": true,
+                    "formattedLength": 17,
+                    "conversionExit": "",
+                    "referenceTable": "IPRODUCT",
+                    "referenceField": "WEIGHTUNIT"
+                },
+                {
+                    "name": "PRODUCTHIERARCHY",
+                    "description": "Product hierarchy",
+                    "abapType": "CharacterString",
+                    "length": 18,
+                    "isSelected": true,
+                    "checkTable": "T179",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "DIVISION",
+                    "description": "Division",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "checkTable": "TSPA",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "VARBLPURORDUNITISACTIVE",
+                    "description": "Variable order unit active",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "VOLUMEUNIT",
+                    "description": "Units of Measurement of Various Types",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "checkTable": "T006",
+                    "conversionExit": "CUNIT"
+                },
+                {
+                    "name": "MATERIALVOLUME",
+                    "description": "Quantity field, length 13",
+                    "abapType": "PackedNumber",
+                    "length": 17,
+                    "decimalCount": 3,
+                    "isSelected": true,
+                    "formattedLength": 17,
+                    "conversionExit": "",
+                    "referenceTable": "IPRODUCT",
+                    "referenceField": "VOLUMEUNIT"
+                },
+                {
+                    "name": "SALESSTATUS",
+                    "description": "Material status from the SD view",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "checkTable": "TVMS",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "TRANSPORTATIONGROUP",
+                    "description": "Transport group",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "TTGR",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SALESSTATUSVALIDITYDATE",
+                    "description": "Date",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "AUTHORIZATIONGROUP",
+                    "description": "Authorization group to data object",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ANPCODE",
+                    "description": "ANP Code",
+                    "abapType": "NumericCharacterString",
+                    "length": 9,
+                    "isSelected": true,
+                    "checkTable": "J_1BTANP",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRODUCTCATEGORY",
+                    "description": "Material Category",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "BRAND",
+                    "description": "Brand",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "WRF_BRANDS",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PROCUREMENTRULE",
+                    "description": "Procurement method",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "checkTable": "T6WP1",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "VALIDITYSTARTDATE",
+                    "description": "Date",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "LOWLEVELCODE",
+                    "description": "Low-level code",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRODNOINGENPRODINPREPACKPROD",
+                    "description": "Material Number (C40 Field)",
+                    "abapType": "CharacterString",
+                    "length": 40,
+                    "isSelected": true,
+                    "checkTable": "MARA",
+                    "conversionExit": "MATN1"
+                },
+                {
+                    "name": "SERIALIDENTIFIERASSGMTPROFILE",
+                    "description": "Serial Number Profile",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "TSERIAL",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SIZEORDIMENSIONTEXT",
+                    "description": "Character field length 32",
+                    "abapType": "CharacterString",
+                    "length": 32,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "INDUSTRYSTANDARDNAME",
+                    "description": "Industry standard description",
+                    "abapType": "CharacterString",
+                    "length": 18,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRODUCTSTANDARDID",
+                    "description": "International Article Number (EAN)",
+                    "abapType": "CharacterString",
+                    "length": 18,
+                    "isSelected": true,
+                    "conversionExit": "EAN11"
+                },
+                {
+                    "name": "INTERNATIONALARTICLENUMBERCAT",
+                    "description": "Number category of International Article Number (EAN)",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "checkTable": "TNTP",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRODUCTISCONFIGURABLE",
+                    "description": "Yes/No field",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ISBATCHMANAGEMENTREQUIRED",
+                    "description": "Yes/No field",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "HASEMPTIESBOM",
+                    "description": "General flag",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "EXTERNALPRODUCTGROUP",
+                    "description": "External material group",
+                    "abapType": "CharacterString",
+                    "length": 18,
+                    "isSelected": true,
+                    "checkTable": "TWEW",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CROSSPLANTCONFIGURABLEPRODUCT",
+                    "description": "Material Number (C40 Field)",
+                    "abapType": "CharacterString",
+                    "length": 40,
+                    "isSelected": true,
+                    "checkTable": "MARA",
+                    "conversionExit": "MATN1"
+                },
+                {
+                    "name": "SERIALNOEXPLICITNESSLEVEL",
+                    "description": "Level of explicitness for serial number",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRODUCTMANUFACTURERNUMBER",
+                    "description": "Character Field (Length 40)",
+                    "abapType": "CharacterString",
+                    "length": 40,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MANUFACTURERNUMBER",
+                    "description": "Account Number of Supplier",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "checkTable": "LFA1",
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "MANUFACTURERPARTPROFILE",
+                    "description": "Control profile for manufacturer part number management",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "TMPPF",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "QLTYMGMTINPROCMTISACTIVE",
+                    "description": "Yes/No field",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ISAPPROVEDBATCHRECORDREQD",
+                    "description": "Yes/No field",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "HANDLINGINDICATOR",
+                    "description": "Character field length 4",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "THNDLCD",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "WAREHOUSEPRODUCTGROUP",
+                    "description": "Character field length 4",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "TWHMATGR",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "WAREHOUSESTORAGECONDITION",
+                    "description": "Character field length 2",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "checkTable": "TWHSTC",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "STANDARDHANDLINGUNITTYPE",
+                    "description": "Character field length 4",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "THUTYP",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SERIALNUMBERPROFILE",
+                    "description": "Serial Number Profile",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "TSERIAL",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ADJUSTMENTPROFILE",
+                    "description": "Merchandise Distribution - Adjustment Profile",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "checkTable": "/SCWM/TMEDI_AP",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PREFERREDUNITOFMEASURE",
+                    "description": "Units of Measurement of Various Types",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "checkTable": "T006",
+                    "conversionExit": "CUNIT"
+                },
+                {
+                    "name": "ISPILFERABLE",
+                    "description": "Yes/No field",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ISRELEVANTFORHZDSSUBSTANCES",
+                    "description": "Yes/No field",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "QUARANTINEPERIOD",
+                    "description": "QUARANTINEPERIOD",
+                    "abapType": "PackedNumber",
+                    "length": 3,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "referenceTable": "IPRODUCT",
+                    "referenceField": "TIMEUNITFORQUARANTINEPERIOD"
+                },
+                {
+                    "name": "TIMEUNITFORQUARANTINEPERIOD",
+                    "description": "Units of Measurement of Various Types",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "checkTable": "T006",
+                    "conversionExit": "CUNIT"
+                },
+                {
+                    "name": "QUALITYINSPECTIONGROUP",
+                    "description": "Quality Inspection Group",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "TQGRP",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "HANDLINGUNITTYPE",
+                    "description": "Character field length 4",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "THUTYP",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "HASVARIABLETAREWEIGHT",
+                    "description": "Yes/No field",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MAXIMUMPACKAGINGLENGTH",
+                    "description": "Domain Quantity 15",
+                    "abapType": "PackedNumber",
+                    "length": 17,
+                    "decimalCount": 3,
+                    "isSelected": true,
+                    "formattedLength": 19,
+                    "conversionExit": "",
+                    "referenceTable": "IPRODUCT",
+                    "referenceField": "UNITFORMAXPACKAGINGDIMENSIONS"
+                },
+                {
+                    "name": "MAXIMUMPACKAGINGWIDTH",
+                    "description": "Domain Quantity 15",
+                    "abapType": "PackedNumber",
+                    "length": 17,
+                    "decimalCount": 3,
+                    "isSelected": true,
+                    "formattedLength": 19,
+                    "conversionExit": "",
+                    "referenceTable": "IPRODUCT",
+                    "referenceField": "UNITFORMAXPACKAGINGDIMENSIONS"
+                },
+                {
+                    "name": "MAXIMUMPACKAGINGHEIGHT",
+                    "description": "Domain Quantity 15",
+                    "abapType": "PackedNumber",
+                    "length": 17,
+                    "decimalCount": 3,
+                    "isSelected": true,
+                    "formattedLength": 19,
+                    "conversionExit": "",
+                    "referenceTable": "IPRODUCT",
+                    "referenceField": "UNITFORMAXPACKAGINGDIMENSIONS"
+                },
+                {
+                    "name": "MAXIMUMCAPACITY",
+                    "description": "Decimal field with 15 length, +/- sign, 3 decimal places",
+                    "abapType": "PackedNumber",
+                    "length": 17,
+                    "decimalCount": 3,
+                    "isSelected": true,
+                    "formattedLength": 20,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "OVERCAPACITYTOLERANCE",
+                    "description": "Standard packed field (2 places, 1 decimal place)",
+                    "abapType": "PackedNumber",
+                    "length": 17,
+                    "decimalCount": 1,
+                    "isSelected": true,
+                    "formattedLength": 4,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "UNITFORMAXPACKAGINGDIMENSIONS",
+                    "description": "Units of Measurement of Various Types",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "checkTable": "T006",
+                    "conversionExit": "CUNIT"
+                },
+                {
+                    "name": "BASEUNITSPECIFICPRODUCTLENGTH",
+                    "description": "Quantity field, length 13",
+                    "abapType": "PackedNumber",
+                    "length": 17,
+                    "decimalCount": 3,
+                    "isSelected": true,
+                    "formattedLength": 17,
+                    "conversionExit": "",
+                    "referenceTable": "IPRODUCT",
+                    "referenceField": "PRODUCTMEASUREMENTUNIT"
+                },
+                {
+                    "name": "BASEUNITSPECIFICPRODUCTWIDTH",
+                    "description": "Quantity field, length 13",
+                    "abapType": "PackedNumber",
+                    "length": 17,
+                    "decimalCount": 3,
+                    "isSelected": true,
+                    "formattedLength": 17,
+                    "conversionExit": "",
+                    "referenceTable": "IPRODUCT",
+                    "referenceField": "PRODUCTMEASUREMENTUNIT"
+                },
+                {
+                    "name": "BASEUNITSPECIFICPRODUCTHEIGHT",
+                    "description": "Quantity field, length 13",
+                    "abapType": "PackedNumber",
+                    "length": 17,
+                    "decimalCount": 3,
+                    "isSelected": true,
+                    "formattedLength": 17,
+                    "conversionExit": "",
+                    "referenceTable": "IPRODUCT",
+                    "referenceField": "PRODUCTMEASUREMENTUNIT"
+                },
+                {
+                    "name": "PRODUCTMEASUREMENTUNIT",
+                    "description": "Units of Measurement of Various Types",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "checkTable": "T006",
+                    "conversionExit": "CUNIT"
+                },
+                {
+                    "name": "PRODUCTVALIDSTARTDATE",
+                    "description": "Date",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ARTICLECATEGORY",
+                    "description": "Material Category",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CONTENTUNIT",
+                    "description": "Units of Measurement of Various Types",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "checkTable": "T006",
+                    "conversionExit": "CUNIT"
+                },
+                {
+                    "name": "NETCONTENT",
+                    "description": "Quantity field, length 13",
+                    "abapType": "PackedNumber",
+                    "length": 17,
+                    "decimalCount": 3,
+                    "isSelected": true,
+                    "formattedLength": 17,
+                    "conversionExit": "",
+                    "referenceTable": "IPRODUCT",
+                    "referenceField": "CONTENTUNIT"
+                },
+                {
+                    "name": "COMPARISONPRICEQUANTITY",
+                    "description": "Packed field length 3",
+                    "abapType": "PackedNumber",
+                    "length": 5,
+                    "isSelected": true,
+                    "formattedLength": 6,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "GROSSCONTENT",
+                    "description": "Quantity field, length 13",
+                    "abapType": "PackedNumber",
+                    "length": 17,
+                    "decimalCount": 3,
+                    "isSelected": true,
+                    "formattedLength": 17,
+                    "conversionExit": "",
+                    "referenceTable": "IPRODUCT",
+                    "referenceField": "CONTENTUNIT"
+                },
+                {
+                    "name": "PRODUCTVALIDENDDATE",
+                    "description": "Date",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ASSORTMENTLISTTYPE",
+                    "description": "Assortment list type",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "HASTEXTILEPARTSWTHANIMALORIGIN",
+                    "description": "Indicator: Contains Non-Textile Parts of Animal Origin",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRODUCTSEASONUSAGECATEGORY",
+                    "description": "Season Use in Fashion Solution",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "INDUSTRYSECTOR",
+                    "description": "Industry sector key (material application type)",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "checkTable": "T137",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CHANGENUMBER",
+                    "description": "Change number",
+                    "abapType": "CharacterString",
+                    "length": 12,
+                    "isSelected": true,
+                    "conversionExit": "AENNR"
+                },
+                {
+                    "name": "MATERIALREVISIONLEVEL",
+                    "description": "Revision level",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "conversionExit": "NUMCV"
+                },
+                {
+                    "name": "ISACTIVEENTITY",
+                    "description": "Boolean values TRUE (='X') and FALSE (= ' ')",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "LASTCHANGEDATETIME",
+                    "description": "UTC time stamp in long form (YYYYMMDDhhmmss,mmmuuun)",
+                    "abapType": "PackedNumber",
+                    "length": 17,
+                    "decimalCount": 7,
+                    "formattedLength": 27,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "LASTCHANGETIME",
+                    "description": "Field of type TIMS",
+                    "abapType": "Time",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "DANGEROUSGOODSINDPROFILE",
+                    "description": "DG: Indicator profile",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "checkTable": "TDG41",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRODUCTUUID",
+                    "description": "Universal Unique Identifier",
+                    "abapType": "ByteSequence",
+                    "length": 16,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRODSUPCHNMGMTUUID22",
+                    "description": "Internal Product Number in APO",
+                    "abapType": "CharacterString",
+                    "length": 22,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRODUCTDOCUMENTCHANGENUMBER",
+                    "description": "Change number",
+                    "abapType": "CharacterString",
+                    "length": 6,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRODUCTDOCUMENTPAGECOUNT",
+                    "description": "Three-digit numerical value",
+                    "abapType": "NumericCharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRODUCTDOCUMENTPAGENUMBER",
+                    "description": "Page number (C3)",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "OWNINVENTORYMANAGEDPRODUCT",
+                    "description": "Material Number (C40 Field)",
+                    "abapType": "CharacterString",
+                    "length": 40,
+                    "isSelected": true,
+                    "checkTable": "MARA",
+                    "conversionExit": "MATN1"
+                },
+                {
+                    "name": "DOCUMENTISCREATEDBYCAD",
+                    "description": "Yes/No field",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRODUCTIONORINSPECTIONMEMOTXT",
+                    "description": "Production memo",
+                    "abapType": "CharacterString",
+                    "length": 18,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRODUCTIONMEMOPAGEFORMAT",
+                    "description": "Page format",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "GLOBALTRADEITEMNUMBERVARIANT",
+                    "description": "Global Trade Item Number Variant",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRODUCTISHIGHLYVISCOUS",
+                    "description": "Yes/No (X/ )",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "TRANSPORTISINBULK",
+                    "description": "Yes/No (X/ )",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRODALLOCDETNPROCEDURE",
+                    "description": "Product allocation: Product allocation procedure",
+                    "abapType": "CharacterString",
+                    "length": 18,
+                    "isSelected": true,
+                    "checkTable": "T190S",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRODEFFCTYPARAMVALSAREASSIGNED",
+                    "description": "Yes/No field",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRODISENVIRONMENTALLYRELEVANT",
+                    "description": "Yes/No field",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "LABORATORYORDESIGNOFFICE",
+                    "description": "Laboratory/office",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "checkTable": "T024L",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PACKAGINGMATERIALGROUP",
+                    "description": "Material group: packaging materials",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "TVEGR",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRODUCTISLOCKED",
+                    "description": "Yes/No field",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "DISCOUNTINKINDELIGIBILITY",
+                    "description": "Material qualifies for discount in kind",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SMARTFORMNAME",
+                    "description": "Smart Forms: Name",
+                    "abapType": "CharacterString",
+                    "length": 30,
+                    "isSelected": true,
+                    "checkTable": "STXFADM",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PACKINGREFERENCEPRODUCT",
+                    "description": "Material Number (C40 Field)",
+                    "abapType": "CharacterString",
+                    "length": 40,
+                    "isSelected": true,
+                    "checkTable": "MARA",
+                    "conversionExit": "MATN1"
+                },
+                {
+                    "name": "BASICMATERIAL",
+                    "description": "Basic material",
+                    "abapType": "CharacterString",
+                    "length": 48,
+                    "isSelected": true,
+                    "checkTable": "TWSPR",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRODUCTDOCUMENTNUMBER",
+                    "description": "Character field length 20",
+                    "abapType": "CharacterString",
+                    "length": 22,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRODUCTDOCUMENTVERSION",
+                    "description": "Version(C2)",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRODUCTDOCUMENTTYPE",
+                    "description": "Document type",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRODUCTDOCUMENTPAGEFORMAT",
+                    "description": "Page format",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRODUCTCONFIGURATION",
+                    "description": "Internal object number",
+                    "abapType": "NumericCharacterString",
+                    "length": 18,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SEGMENTATIONSTRATEGY",
+                    "description": "Segmentation Strategy",
+                    "abapType": "CharacterString",
+                    "length": 8,
+                    "isSelected": true,
+                    "checkTable": "SGT_COVS_T",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SEGMENTATIONISRELEVANT",
+                    "description": "One-Character Field Without Check",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ISCHEMICALCOMPLIANCERELEVANT",
+                    "description": "Chemical Compliance Relevance Indicator",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": "CHCMI"
+                },
+                {
+                    "name": "LOGISTICALPRODUCTCATEGORY",
+                    "description": "Logistical material category",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SALESPRODUCT",
+                    "description": "Material Number (C40 Field)",
+                    "abapType": "CharacterString",
+                    "length": 40,
+                    "isSelected": true,
+                    "checkTable": "MARA",
+                    "conversionExit": "MATN1"
+                },
+                {
+                    "name": "DFSAMMUNITIONGROUPCODE",
+                    "description": "Interchangeability Code for Ammunition",
+                    "abapType": "CharacterString",
+                    "length": 8,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "DFSRICIDENTIFIER",
+                    "description": "RIC-ID - BigInt - 64 Bit Integer",
+                    "length": 19,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ZZ1_CUSTOMFIELDRISKMIT_PRD",
+                    "description": "ZZ1_CustomFieldRiskMit",
+                    "abapType": "CharacterString",
+                    "length": 80,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ZZ1_CUSTOMFIELDHIGHRIS_PRD",
+                    "description": "Custom Field: Boolean",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ZZ1_CUSTOMFIELDRISKREA_PRD",
+                    "description": "ZZ1_CustomFieldRiskRea",
+                    "abapType": "CharacterString",
+                    "length": 80,
+                    "conversionExit": ""
+                }
+            ]
+        }
+    ]
+}

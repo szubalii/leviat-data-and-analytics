@@ -1,0 +1,106 @@
+{
+	"name": "pl_SYNDW_ADLS_calculated_csv",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy data from Syn DWH Artifact to ADLS",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlDWSource",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "ds_syndw",
+						"type": "DatasetReference",
+						"parameters": {
+							"schema": {
+								"value": "@pipeline().parameters.edw_schema_name",
+								"type": "Expression"
+							},
+							"table": {
+								"value": "@pipeline().parameters.edw_view_name",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ds_adls_csv",
+						"type": "DatasetReference",
+						"parameters": {
+							"container": "flat-files",
+							"directory": {
+								"value": "@pipeline().parameters.directory",
+								"type": "Expression"
+							},
+							"file_name": {
+								"value": "@pipeline().parameters.file_name",
+								"type": "Expression"
+							},
+							"field_delimiter": {
+								"value": "@pipeline().parameters.field_delimiter",
+								"type": "Expression"
+							}
+						}
+					}
+				]
+			}
+		],
+		"parameters": {
+			"directory": {
+				"type": "string"
+			},
+			"file_name": {
+				"type": "string",
+				"defaultValue": "dim_ProductCalculated.csv"
+			},
+			"field_delimiter": {
+				"type": "string",
+				"defaultValue": ";"
+			},
+			"edw_schema_name": {
+				"type": "string",
+				"defaultValue": "edw"
+			},
+			"edw_view_name": {
+				"type": "string",
+				"defaultValue": "vw_ProductCalculated"
+			}
+		},
+		"variables": {
+			"extractionDtm": {
+				"type": "String"
+			}
+		},
+		"folder": {
+			"name": "Calculated"
+		},
+		"annotations": []
+	}
+}

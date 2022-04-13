@@ -1,0 +1,22 @@
+{
+    "nameGenerator": {
+        "suffix": ""
+    },
+    "internalSettings": {
+        "nameGenerator": {
+            "suffix": ""
+        },
+        "sapDateConversion": {
+            "enabled": false,
+            "replacementForInvalidDate": null,
+            "replacementForZeroDate": "1970-01-01",
+            "replacementForYear9999": "2099-12-31"
+        },
+        "existingFileAction": "Replace",
+        "columnNameKind": "Code"
+    },
+    "blobType": "BlockBlob",
+    "columnNameKind": "Code",
+    "folderPath": "",
+    "maxBlobSize": 0
+}

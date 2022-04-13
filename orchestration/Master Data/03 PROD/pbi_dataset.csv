@@ -1,0 +1,13 @@
+pbi_dataset_id,workspace_guid,workspace_name,dataset_guid,dataset_name,schedule_recurrence
+1,42ba5d7d-cee0-4837-ac07-9937e34c815b,Leviat_Data_Analytics_Sales,34e7eecb-2c86-4e96-b4ab-42f3382071ca,Customer Card,D
+2,42ba5d7d-cee0-4837-ac07-9937e34c815b,Leviat_Data_Analytics_Sales,79d50e6d-89b2-4be3-9670-6ec99743ae88,Invoiced Products Master Data,D
+3,42ba5d7d-cee0-4837-ac07-9937e34c815b,Leviat_Data_Analytics_Sales,d697bc62-f25b-4b71-9f19-203211daa31c,Orderbook,D
+4,42ba5d7d-cee0-4837-ac07-9937e34c815b,Leviat_Data_Analytics_Sales,a2880655-7d9f-40c0-811e-ecc04213b1d6,Product Top Flop,D
+5,42ba5d7d-cee0-4837-ac07-9937e34c815b,Leviat_Data_Analytics_Sales,f1ca37c1-b7ce-4f7d-9c53-de09b07f14bc,PVM,D
+6,42ba5d7d-cee0-4837-ac07-9937e34c815b,Leviat_Data_Analytics_Sales,2782db55-7533-4334-9328-9f23e52d7698,Quotations,D
+7,42ba5d7d-cee0-4837-ac07-9937e34c815b,Leviat_Data_Analytics_Sales,a5081fc1-9b68-4393-aede-d8f375156af1,Sales View,D
+8,42ba5d7d-cee0-4837-ac07-9937e34c815b,Leviat_Data_Analytics_Sales,7fd8fb91-dc45-474d-bf24-f71223716541,Whale curve,D
+9,93d5be19-4398-4b03-be0f-d2d6c01e7a4c,Leviat_Data_Analytics_FinSales,eb0fd327-dcab-4716-b8c6-62030375963c,Fin View,D
+10,93d5be19-4398-4b03-be0f-d2d6c01e7a4c,Leviat_Data_Analytics_FinSales,8f4df736-52c9-4539-94bd-aa725142cb4a,Fin View (Legacy),D
+11,8d440b01-7316-4e0d-a416-07a6247e31b0,Leviat_Data_Analytics_SCM,c8508ad9-50da-41c8-ac24-c83032834810,OTIF,D
+12,8d440b01-7316-4e0d-a416-07a6247e31b0,Leviat_Data_Analytics_SCM,xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx,Stock Management,

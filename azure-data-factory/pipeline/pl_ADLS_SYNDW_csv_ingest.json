@@ -1,0 +1,112 @@
+{
+	"name": "pl_ADLS_SYNDW_csv_ingest",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy data from csv to base layer",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "SqlDWSink",
+						"preCopyScript": {
+							"value": "IF EXISTS (SELECT * FROM dbo.sysobjects WHERE ID = OBJECT_ID(N'@{Concat(pipeline().parameters.base_schema_name, '.', pipeline().parameters.base_table_name)}'))\nTRUNCATE TABLE @{Concat(pipeline().parameters.base_schema_name, '.', pipeline().parameters.base_table_name)}",
+							"type": "Expression"
+						},
+						"allowCopyCommand": true,
+						"disableMetricsCollection": false
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "ds_adls_csv",
+						"type": "DatasetReference",
+						"parameters": {
+							"container": {
+								"value": "@pipeline().parameters.container",
+								"type": "Expression"
+							},
+							"directory": {
+								"value": "@pipeline().parameters.directory",
+								"type": "Expression"
+							},
+							"file_name": {
+								"value": "@pipeline().parameters.file_name",
+								"type": "Expression"
+							},
+							"field_delimiter": {
+								"value": "@pipeline().parameters.field_delimiter",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ds_syndw",
+						"type": "DatasetReference",
+						"parameters": {
+							"schema": {
+								"value": "@pipeline().parameters.base_schema_name",
+								"type": "Expression"
+							},
+							"table": {
+								"value": "@pipeline().parameters.base_table_name",
+								"type": "Expression"
+							}
+						}
+					}
+				]
+			}
+		],
+		"parameters": {
+			"container": {
+				"type": "string",
+				"defaultValue": "flat-files"
+			},
+			"directory": {
+				"type": "string"
+			},
+			"file_name": {
+				"type": "string",
+				"defaultValue": "dim_ValueType.csv"
+			},
+			"field_delimiter": {
+				"type": "string",
+				"defaultValue": ";"
+			},
+			"base_schema_name": {
+				"type": "string",
+				"defaultValue": "base_ff"
+			},
+			"base_table_name": {
+				"type": "string",
+				"defaultValue": "ValueType"
+			}
+		},
+		"folder": {
+			"name": "80 Manual"
+		},
+		"annotations": []
+	}
+}

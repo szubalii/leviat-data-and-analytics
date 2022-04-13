@@ -1,0 +1,55 @@
+{
+	"name": "pl_SYNDW_updateTableStats",
+	"properties": {
+		"activities": [
+			{
+				"name": "Exec sproc to update stats",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[utilities].[sp_update_statistics]",
+					"storedProcedureParameters": {
+						"schema": {
+							"value": {
+								"value": "@pipeline().parameters.schema",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"table": {
+							"value": {
+								"value": "@pipeline().parameters.table",
+								"type": "Expression"
+							},
+							"type": "String"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_ws_xxxx_sls_x_euw_001__syndw_xxxx_sls_x_euw_001",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"parameters": {
+			"schema": {
+				"type": "string"
+			},
+			"table": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "90 Utilities/Synapse"
+		},
+		"annotations": []
+	}
+}

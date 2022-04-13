@@ -1,0 +1,114 @@
+{
+	"name": "pl_child_daily_etl_process",
+	"properties": {
+		"description": "Starts or Stops Azure VM",
+		"activities": [
+			{
+				"name": "Process Synapse EDW",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Process ADLS and Synapse Ingestion",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pl_SYNDW_EDW_process_main",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"adhoc": {
+							"value": "@pipeline().parameters.adhoc",
+							"type": "Expression"
+						},
+						"parent_run_id": {
+							"value": "@pipeline().RunId",
+							"type": "Expression"
+						},
+						"date": {
+							"value": "@pipeline().parameters.date",
+							"type": "Expression"
+						},
+						"entity_filter": {
+							"value": "layer_nk = 'EDW'",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "Resume Synapse DWH",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pl_SYNDW_checkStatus",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "Process ADLS and Synapse Ingestion",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Resume Synapse DWH",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pl_Base_ELT_main",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"adhoc": {
+							"value": "@pipeline().parameters.adhoc",
+							"type": "Expression"
+						},
+						"entity_filter": {
+							"value": "layer_nk IN ('S4H', 'USA', 'AXBI')",
+							"type": "Expression"
+						},
+						"parent_run_id": {
+							"value": "@pipeline().RunId",
+							"type": "Expression"
+						},
+						"date": {
+							"value": "@pipeline().parameters.date",
+							"type": "Expression"
+						}
+					}
+				}
+			}
+		],
+		"parameters": {
+			"adhoc": {
+				"type": "int",
+				"defaultValue": 0
+			},
+			"date": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "10 Manage"
+		},
+		"annotations": [
+			"Synapse Analytics"
+		],
+		"lastPublishTime": "2021-10-25T15:25:03Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

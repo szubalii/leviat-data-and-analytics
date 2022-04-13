@@ -1,0 +1,28 @@
+{
+	"name": "ds_ls_axbi_x_TimeXtender__master",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_axbi_x_TimeXtender__master",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"database": {
+				"type": "string"
+			},
+			"schema": {
+				"type": "string"
+			},
+			"table": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "",
+			"table": ""
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

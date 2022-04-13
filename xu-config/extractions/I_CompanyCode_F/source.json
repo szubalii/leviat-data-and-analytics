@@ -1,0 +1,231 @@
+{
+    "name": "IFICOMPANYCODE$P",
+    "description": "Company Code",
+    "guid": "6dee71e1-7777-4199-a728-38e9e5dda9df",
+    "semantics": "MasterDataOrAttributes",
+    "context": "ABAP_CDS",
+    "supportsFull": true,
+    "supportsDelta": true,
+    "mode": "Full",
+    "transferDataOnDeltaInit": true,
+    "columns": 
+    [
+        {
+            "name": "TS_SEQUENCE_NUMBER",
+            "description": "[GENERATED] Sequence number of row in current extraction",
+            "abapType": "FourByteInteger",
+            "isPrimaryKey": true,
+            "isDeltaColumn": true,
+            "generated": true,
+            "outputLength": 0
+        },
+        {
+            "name": "ODQ_CHANGEMODE",
+            "description": "Change Mode for a Data Record in the Delta",
+            "abapType": "CharacterString",
+            "length": 1,
+            "isDeltaColumn": true,
+            "outputLength": 1
+        },
+        {
+            "name": "ODQ_ENTITYCNTR",
+            "description": "Number of Data Units (Data Records for Example)",
+            "abapType": "PackedNumber",
+            "length": 19,
+            "isDeltaColumn": true,
+            "outputLength": 20
+        },
+        {
+            "name": "COMPANYCODE",
+            "description": "Company code",
+            "abapType": "CharacterString",
+            "length": 4,
+            "isPrimaryKey": true,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 4
+        },
+        {
+            "name": "COMPANYCODENAME",
+            "description": "25-character text length",
+            "abapType": "CharacterString",
+            "length": 25,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 25
+        },
+        {
+            "name": "CITYNAME",
+            "description": "25-character text length",
+            "abapType": "CharacterString",
+            "length": 25,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 25
+        },
+        {
+            "name": "COUNTRY",
+            "description": "Country key",
+            "abapType": "CharacterString",
+            "length": 3,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 3
+        },
+        {
+            "name": "CURRENCY",
+            "description": "Currency Key",
+            "abapType": "CharacterString",
+            "length": 5,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 5
+        },
+        {
+            "name": "LANGUAGE",
+            "description": "Language Key",
+            "abapType": "CharacterString",
+            "length": 1,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 2
+        },
+        {
+            "name": "CHARTOFACCOUNTS",
+            "description": "Chart of accounts number",
+            "abapType": "CharacterString",
+            "length": 4,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 4
+        },
+        {
+            "name": "FISCALYEARVARIANT",
+            "description": "Period version",
+            "abapType": "CharacterString",
+            "length": 2,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 2
+        },
+        {
+            "name": "COMPANY",
+            "description": "Company",
+            "abapType": "CharacterString",
+            "length": 6,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 6
+        },
+        {
+            "name": "CREDITCONTROLAREA",
+            "description": "Credit control area",
+            "abapType": "CharacterString",
+            "length": 4,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 4
+        },
+        {
+            "name": "COUNTRYCHARTOFACCOUNTS",
+            "description": "Chart of accounts number",
+            "abapType": "CharacterString",
+            "length": 4,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 4
+        },
+        {
+            "name": "FINANCIALMANAGEMENTAREA",
+            "description": "FM area",
+            "abapType": "CharacterString",
+            "length": 4,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 4
+        },
+        {
+            "name": "ADDRESSID",
+            "description": "Address key",
+            "abapType": "CharacterString",
+            "length": 10,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 10
+        },
+        {
+            "name": "TAXABLEENTITY",
+            "description": "Taxes on sales/purchases group",
+            "abapType": "CharacterString",
+            "length": 4,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 4
+        },
+        {
+            "name": "VATREGISTRATION",
+            "description": "VAT Registration Number",
+            "abapType": "CharacterString",
+            "length": 20,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 20
+        },
+        {
+            "name": "EXTENDEDWHLDGTAXISACTIVE",
+            "description": "Yes/No field",
+            "abapType": "CharacterString",
+            "length": 1,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 1
+        },
+        {
+            "name": "CONTROLLINGAREA",
+            "description": "Controlling area",
+            "abapType": "CharacterString",
+            "length": 4,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 4
+        },
+        {
+            "name": "FIELDSTATUSVARIANT",
+            "description": "Field status variant",
+            "abapType": "CharacterString",
+            "length": 4,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 4
+        },
+        {
+            "name": "NONTAXABLETRANSACTIONTAXCODE",
+            "description": "Taxes on sales/puchases code",
+            "abapType": "CharacterString",
+            "length": 2,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 2
+        },
+        {
+            "name": "DOCDATEISUSEDFORTAXDETN",
+            "description": "Yes/No field",
+            "abapType": "CharacterString",
+            "length": 1,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 1
+        },
+        {
+            "name": "TAXRPTGDATEISACTIVE",
+            "description": "Yes/No field",
+            "abapType": "CharacterString",
+            "length": 1,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 1
+        }
+    ],
+    "parameters": {
+    }
+}

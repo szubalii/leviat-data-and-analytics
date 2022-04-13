@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <IncludeCompositeObjects>True</IncludeCompositeObjects>
+        <BlockOnPossibleDataLoss>True</BlockOnPossibleDataLoss>
+        <DropObjectsNotInSource>False</DropObjectsNotInSource>
+        <ProfileVersionNumber>1</ProfileVersionNumber>
+        <ExcludeUsers>True</ExcludeUsers>
+        <ExcludeLogins>True</ExcludeLogins>
+        <ExcludeDatabaseRoles>True</ExcludeDatabaseRoles>
+        <ExcludeRoleMembership>True</ExcludeRoleMembership>
+        <ExcludePermissions>True</ExcludePermissions>
+    </PropertyGroup>
+</Project>

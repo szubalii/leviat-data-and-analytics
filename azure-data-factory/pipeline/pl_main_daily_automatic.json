@@ -1,0 +1,44 @@
+{
+	"name": "pl_main_daily_automatic",
+	"properties": {
+		"activities": [
+			{
+				"name": "act_if_environment_prod",
+				"type": "IfCondition",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@if(equals(pipeline().globalParameters.environment,'prod'),true,false)",
+						"type": "Expression"
+					},
+					"ifTrueActivities": [
+						{
+							"name": "act_exec_pl_main_daily_etl_process",
+							"type": "ExecutePipeline",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"pipeline": {
+									"referenceName": "pl_main_daily_etl_process",
+									"type": "PipelineReference"
+								},
+								"waitOnCompletion": true,
+								"parameters": {
+									"date": {
+										"value": "@formatDateTime(pipeline().TriggerTime, 'yyyy/MM/dd')",
+										"type": "Expression"
+									}
+								}
+							}
+						}
+					]
+				}
+			}
+		],
+		"folder": {
+			"name": "10 Manage"
+		},
+		"annotations": []
+	}
+}

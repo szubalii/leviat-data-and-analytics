@@ -1,0 +1,359 @@
+{
+    "name": "IFIPROFITCENTER$P",
+    "description": "Profit Center",
+    "guid": "8e2fd1bd-f11d-4520-afc0-164ac06de81d",
+    "semantics": "MasterDataOrAttributes",
+    "context": "ABAP_CDS",
+    "supportsFull": true,
+    "supportsDelta": true,
+    "mode": "Delta",
+    "transferDataOnDeltaInit": true,
+    "columns": 
+    [
+        {
+            "name": "TS_SEQUENCE_NUMBER",
+            "description": "[GENERATED] Sequence number of row in current extraction",
+            "abapType": "FourByteInteger",
+            "isPrimaryKey": true,
+            "isSelected": true,
+            "isDeltaColumn": true,
+            "generated": true,
+            "outputLength": 0
+        },
+        {
+            "name": "ODQ_CHANGEMODE",
+            "description": "Change Mode for a Data Record in the Delta",
+            "abapType": "CharacterString",
+            "length": 1,
+            "isSelected": true,
+            "isDeltaColumn": true,
+            "outputLength": 1
+        },
+        {
+            "name": "ODQ_ENTITYCNTR",
+            "description": "Number of Data Units (Data Records for Example)",
+            "abapType": "PackedNumber",
+            "length": 19,
+            "isSelected": true,
+            "isDeltaColumn": true,
+            "outputLength": 20
+        },
+        {
+            "name": "CONTROLLINGAREA",
+            "description": "Controlling area",
+            "abapType": "CharacterString",
+            "length": 4,
+            "isPrimaryKey": true,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 4
+        },
+        {
+            "name": "PROFITCENTER",
+            "description": "Profit center",
+            "abapType": "CharacterString",
+            "length": 10,
+            "isPrimaryKey": true,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 10
+        },
+        {
+            "name": "VALIDITYENDDATE",
+            "description": "Date",
+            "abapType": "Date",
+            "isPrimaryKey": true,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 8
+        },
+        {
+            "name": "PROFITCTRRESPONSIBLEPERSONNAME",
+            "description": "Cost center manager",
+            "abapType": "CharacterString",
+            "length": 20,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 20
+        },
+        {
+            "name": "COMPANYCODE",
+            "description": "Company code",
+            "abapType": "CharacterString",
+            "length": 4,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 4
+        },
+        {
+            "name": "PROFITCTRRESPONSIBLEUSER",
+            "description": "User Name in User Master Record",
+            "abapType": "CharacterString",
+            "length": 12,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 12
+        },
+        {
+            "name": "VALIDITYSTARTDATE",
+            "description": "Date",
+            "abapType": "Date",
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 8
+        },
+        {
+            "name": "DEPARTMENT",
+            "description": "Department",
+            "abapType": "CharacterString",
+            "length": 12,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 12
+        },
+        {
+            "name": "PROFITCENTERSTANDARDHIERARCHY",
+            "description": "Set ID",
+            "abapType": "CharacterString",
+            "length": 12,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 12
+        },
+        {
+            "name": "SEGMENT",
+            "description": "Segment for Segmental Reporting",
+            "abapType": "CharacterString",
+            "length": 10,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 10
+        },
+        {
+            "name": "PROFITCENTERISBLOCKED",
+            "description": "Character field length 1",
+            "abapType": "CharacterString",
+            "length": 1,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 1
+        },
+        {
+            "name": "FORMULAPLANNINGTEMPLATE",
+            "description": "Process template",
+            "abapType": "CharacterString",
+            "length": 10,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 10
+        },
+        {
+            "name": "FORMOFADDRESS",
+            "description": "Text length 15",
+            "abapType": "CharacterString",
+            "length": 15,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 15
+        },
+        {
+            "name": "ADDRESSNAME",
+            "description": "Partner name",
+            "abapType": "CharacterString",
+            "length": 35,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 35
+        },
+        {
+            "name": "ADDITIONALNAME",
+            "description": "Partner name",
+            "abapType": "CharacterString",
+            "length": 35,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 35
+        },
+        {
+            "name": "PROFITCENTERADDRNAME3",
+            "description": "Partner name",
+            "abapType": "CharacterString",
+            "length": 35,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 35
+        },
+        {
+            "name": "PROFITCENTERADDRNAME4",
+            "description": "Partner name",
+            "abapType": "CharacterString",
+            "length": 35,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 35
+        },
+        {
+            "name": "STREETADDRESSNAME",
+            "description": "Text length 35",
+            "abapType": "CharacterString",
+            "length": 35,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 35
+        },
+        {
+            "name": "POBOX",
+            "description": "PO Box",
+            "abapType": "CharacterString",
+            "length": 10,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 10
+        },
+        {
+            "name": "CITYNAME",
+            "description": "Text length 35",
+            "abapType": "CharacterString",
+            "length": 35,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 35
+        },
+        {
+            "name": "POSTALCODE",
+            "description": "Postal code",
+            "abapType": "CharacterString",
+            "length": 10,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 10
+        },
+        {
+            "name": "DISTRICT",
+            "description": "Text length 35",
+            "abapType": "CharacterString",
+            "length": 35,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 35
+        },
+        {
+            "name": "COUNTRY",
+            "description": "Country key",
+            "abapType": "CharacterString",
+            "length": 3,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 3
+        },
+        {
+            "name": "REGION",
+            "description": "Regional code",
+            "abapType": "CharacterString",
+            "length": 3,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 3
+        },
+        {
+            "name": "TAXJURISDICTION",
+            "description": "Tax Jurisdiction",
+            "abapType": "CharacterString",
+            "length": 15,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 15
+        },
+        {
+            "name": "LANGUAGE",
+            "description": "Language Key",
+            "abapType": "CharacterString",
+            "length": 1,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 2
+        },
+        {
+            "name": "PHONENUMBER1",
+            "description": "Text length 16",
+            "abapType": "CharacterString",
+            "length": 16,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 16
+        },
+        {
+            "name": "PHONENUMBER2",
+            "description": "Text length 16",
+            "abapType": "CharacterString",
+            "length": 16,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 16
+        },
+        {
+            "name": "TELEBOXNUMBER",
+            "description": "Text length 15",
+            "abapType": "CharacterString",
+            "length": 15,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 15
+        },
+        {
+            "name": "TELEXNUMBER",
+            "description": "Text (30 Characters)",
+            "abapType": "CharacterString",
+            "length": 30,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 30
+        },
+        {
+            "name": "FAXNUMBER",
+            "description": "Text length 31",
+            "abapType": "CharacterString",
+            "length": 31,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 31
+        },
+        {
+            "name": "DATACOMMUNICATIONPHONENUMBER",
+            "description": "Text length 14",
+            "abapType": "CharacterString",
+            "length": 14,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 14
+        },
+        {
+            "name": "PROFITCENTERPRINTERNAME",
+            "description": "Printer name",
+            "abapType": "CharacterString",
+            "length": 4,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 4
+        },
+        {
+            "name": "PROFITCENTERCREATEDBYUSER",
+            "description": "User name",
+            "abapType": "CharacterString",
+            "length": 12,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 12
+        },
+        {
+            "name": "PROFITCENTERCREATIONDATE",
+            "description": "Date",
+            "abapType": "Date",
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 8
+        }
+    ],
+    "parameters": {
+    }
+}

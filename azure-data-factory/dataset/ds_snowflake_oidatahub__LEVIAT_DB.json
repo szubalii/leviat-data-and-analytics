@@ -1,0 +1,31 @@
+{
+	"name": "ds_snowflake_oidatahub__LEVIAT_DB",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_snowflake_oidatahub__LEVIAT_RPT__LEVIAT_DB",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"schema": {
+				"type": "string",
+				"defaultValue": "LEVIAT_PRODVIEW"
+			},
+			"table": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "SnowflakeTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": {
+				"value": "@dataset().schema",
+				"type": "Expression"
+			},
+			"table": {
+				"value": "@dataset().table",
+				"type": "Expression"
+			}
+		}
+	}
+}

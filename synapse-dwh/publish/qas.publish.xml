@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <IncludeCompositeObjects>True</IncludeCompositeObjects>
+    <BlockOnPossibleDataLoss>True</BlockOnPossibleDataLoss>
+    <DropObjectsNotInSource>False</DropObjectsNotInSource>
+    <DoNotDropPermissions>True</DoNotDropPermissions>
+    <DoNotDropUsers>True</DoNotDropUsers>
+    <DoNotDropDatabaseRoles>True</DoNotDropDatabaseRoles>
+    <DoNotDropRoleMembership>True</DoNotDropRoleMembership>
+    <ProfileVersionNumber>1</ProfileVersionNumber>
+    <DoNotDropApplicationRoles>True</DoNotDropApplicationRoles>
+    <DoNotDropBrokerPriorities>True</DoNotDropBrokerPriorities>
+    <DoNotDropCertificates>True</DoNotDropCertificates>
+    <DoNotDropFilegroups>True</DoNotDropFilegroups>
+    <DoNotDropFileTables>True</DoNotDropFileTables>
+    <DoNotDropFullTextCatalogs>True</DoNotDropFullTextCatalogs>
+    <DoNotDropFullTextStoplists>True</DoNotDropFullTextStoplists>
+    <DoNotDropUserDefinedDataTypes>False</DoNotDropUserDefinedDataTypes>
+    <DoNotDropDatabaseAuditSpecifications>True</DoNotDropDatabaseAuditSpecifications>
+    <DoNotDropEndpoints>True</DoNotDropEndpoints>
+    <DoNotDropEventNotifications>True</DoNotDropEventNotifications>
+    <DoNotDropLinkedServerLogins>True</DoNotDropLinkedServerLogins>
+    <DoNotDropRoutes>True</DoNotDropRoutes>
+    <DoNotDropServerAuditSpecifications>True</DoNotDropServerAuditSpecifications>
+    <DoNotDropServerRoleMembership>True</DoNotDropServerRoleMembership>
+    <DoNotDropServerRoles>True</DoNotDropServerRoles>
+    <DoNotDropServerTriggers>True</DoNotDropServerTriggers>
+    <DoNotDropLogins>True</DoNotDropLogins>
+    <ExcludeUsers>True</ExcludeUsers>
+    <ExcludeLogins>True</ExcludeLogins>
+    <ExcludeDatabaseRoles>True</ExcludeDatabaseRoles>
+	<CommandTimeout>1200</CommandTimeout>
+	<TargetTimeout>1200</TargetTimeout>
+  </PropertyGroup>
+</Project>

@@ -1,0 +1,12 @@
+{
+	"name": "ir-WEXLEVAPP001",
+	"properties": {
+		"type": "SelfHosted",
+		"typeProperties": {
+			"linkedInfo": {
+				"resourceId": "/subscriptions/f199b488-7d9d-4992-aeda-c10a1e1c9b9e/resourcegroups/rg-xxxx-sls-a-euw-001/providers/Microsoft.DataFactory/factories/df-xxxx-shir-a-euw-001/integrationruntimes/ir-WEALEVAPP001",
+				"authorizationType": "Rbac"
+			}
+		}
+	}
+}

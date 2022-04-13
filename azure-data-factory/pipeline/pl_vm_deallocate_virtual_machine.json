@@ -1,0 +1,99 @@
+{
+	"name": "pl_vm_deallocate_virtual_machine",
+	"properties": {
+		"activities": [
+			{
+				"name": "Check Azure VM Status",
+				"type": "WebActivity",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"url": {
+						"value": "@concat(\n  'https://management.azure.com/subscriptions/',\n  pipeline().parameters.SubscriptionId,\n  '/resourceGroups/',\n  pipeline().globalParameters.resourceGroupName,\n  '/providers/Microsoft.Compute/virtualMachines/',\n  pipeline().globalParameters.virtualMachineName,\n  '/InstanceView?api-version=2021-07-01'\n)",
+						"type": "Expression"
+					},
+					"method": "GET",
+					"authentication": {
+						"type": "MSI",
+						"resource": "https://management.azure.com/"
+					}
+				}
+			},
+			{
+				"name": "Deallocate If VM is Running",
+				"type": "IfCondition",
+				"dependsOn": [
+					{
+						"activity": "Check Azure VM Status",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@equals(\n\t\tactivity('Check Azure VM Status').output.statuses[1].displayStatus,'VM running'\n\t       )",
+						"type": "Expression"
+					},
+					"ifTrueActivities": [
+						{
+							"name": "Deallocate Azure VM",
+							"description": "",
+							"type": "WebActivity",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 3,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [
+								{
+									"name": "Azure VM",
+									"value": "Pause"
+								}
+							],
+							"typeProperties": {
+								"url": {
+									"value": "@concat(\n  'https://management.azure.com/subscriptions/',\n  pipeline().parameters.SubscriptionId,\n  '/resourceGroups/',\n  pipeline().globalParameters.resourceGroupName,\n  '/providers/Microsoft.Compute/virtualMachines/',\n  pipeline().globalParameters.virtualMachineName,\n  '/Deallocate?api-version=2021-07-01'\n)",
+									"type": "Expression"
+								},
+								"method": "POST",
+								"body": {
+									"value": "{}",
+									"type": "Expression"
+								},
+								"authentication": {
+									"type": "MSI",
+									"resource": "https://management.azure.com/"
+								}
+							}
+						}
+					]
+				}
+			}
+		],
+		"parameters": {
+			"SubscriptionId": {
+				"type": "string",
+				"defaultValue": "f199b488-7d9d-4992-aeda-c10a1e1c9b9e"
+			},
+			"Region": {
+				"type": "string",
+				"defaultValue": "westeurope"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2021-10-25T15:24:59Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

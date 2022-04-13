@@ -1,0 +1,96 @@
+{
+	"name": "pl_SYNDW_checkStatus",
+	"properties": {
+		"activities": [
+			{
+				"name": "act_web_CheckAzureSynapseAnalyticsStatus",
+				"type": "WebActivity",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"url": {
+						"value": "@concat(\n\t'https://management.azure.com/subscriptions/'\n\t,pipeline().parameters.SubscriptionId\n\t,'/resourceGroups/'\n\t,pipeline().globalParameters.resourceGroupName\n\t,'/providers/Microsoft.Synapse/workspaces/'\n\t,pipeline().globalParameters.synapseServerName\n\t,'/sqlPools/'\n\t,pipeline().globalParameters.synapseDatabaseName\n\t,'?api-version=2021-03-01'\n)",
+						"type": "Expression"
+					},
+					"method": "GET",
+					"authentication": {
+						"type": "MSI",
+						"resource": "https://management.azure.com/"
+					}
+				}
+			},
+			{
+				"name": "Resume If Synapse Analytics is Paused",
+				"type": "IfCondition",
+				"dependsOn": [
+					{
+						"activity": "act_web_CheckAzureSynapseAnalyticsStatus",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@equals(\n              activity('act_web_CheckAzureSynapseAnalyticsStatus').output.properties.status,'Paused'\n              )",
+						"type": "Expression"
+					},
+					"ifTrueActivities": [
+						{
+							"name": "act_exec_pl_syndw_resume_synapse_analytics",
+							"type": "ExecutePipeline",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"pipeline": {
+									"referenceName": "pl_SYNDW_resume",
+									"type": "PipelineReference"
+								},
+								"waitOnCompletion": true,
+								"parameters": {
+									"ResourceGroupName": {
+										"value": "@pipeline().globalParameters.resourceGroupName",
+										"type": "Expression"
+									},
+									"SynapseServerName": {
+										"value": "@pipeline().globalParameters.synapseServerName",
+										"type": "Expression"
+									},
+									"SynapseDatabaseName": {
+										"value": "@pipeline().globalParameters.synapseDatabaseName",
+										"type": "Expression"
+									}
+								}
+							}
+						}
+					]
+				}
+			}
+		],
+		"parameters": {
+			"SubscriptionId": {
+				"type": "string",
+				"defaultValue": "f199b488-7d9d-4992-aeda-c10a1e1c9b9e"
+			}
+		},
+		"variables": {
+			"synapse_status": {
+				"type": "String"
+			}
+		},
+		"folder": {
+			"name": "90 Utilities/Synapse"
+		},
+		"annotations": [],
+		"lastPublishTime": "2021-10-25T15:25:00Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

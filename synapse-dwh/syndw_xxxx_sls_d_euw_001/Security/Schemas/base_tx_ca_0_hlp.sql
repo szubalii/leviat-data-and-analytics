@@ -1,0 +1,1 @@
+﻿CREATE SCHEMA [base_tx_ca_0_hlp]

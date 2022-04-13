@@ -1,0 +1,15 @@
+{
+    "created": {
+        "machine": "[::ffff:127.0.0.1]:54920",
+        "timestamp": "20220103T124331.517Z",
+        "user": "EMATCRHPP\\nbaranava"
+    },
+    "destination": "stxxxxslsaeuw001_s4h-caa",
+    "lastChange": {
+        "machine": "[::ffff:127.0.0.1]:54920",
+        "timestamp": "20220104T085920.760Z",
+        "user": "EMATCRHPP\\nbaranava"
+    },
+    "source": "CRH_Leviat_S4HANA_CAA",
+    "type": "Table"
+}

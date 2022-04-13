@@ -1,0 +1,13 @@
+{
+	"name": "ds_synod__synapse_od",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_ws_xxxx_sls_x_euw_001_ondemand__synapse_od",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlDWTable",
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

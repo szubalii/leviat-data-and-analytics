@@ -1,0 +1,13 @@
+{
+    "created": {
+        "machine": "[::ffff:127.0.0.1]:49992",
+        "timestamp": "20210421T114200.524Z"
+    },
+    "destination": "stxxxxslsdeuw001_s4h-uat-caa",
+    "lastChange": {
+        "machine": "[::ffff:127.0.0.1]:54483",
+        "timestamp": "20210423T141820.850Z"
+    },
+    "source": "Just_S4Hana",
+    "type": "ODP"
+}

@@ -1,0 +1,13 @@
+11/05/2021 15:57:33	This log contains information about the import operation of the script 'MasterKeys.sql' into project 'syndw_xxxx_sls_d_euw_001' on computer 'DESKTOP-EDBITV7' by user'MichielPors-Just-BI.
+11/05/2021 15:57:33	Started importing file: C:\Users\MichielPors-Just-BI\AppData\Local\Temp\tmp1853.tmp 
+11/05/2021 15:57:33	File name C:\Users\MichielPors-Just-BI\AppData\Local\Temp\tmp1853.tmp (size: 2094)
+11/05/2021 15:57:33	Parsing import script
+11/05/2021 15:57:33	Total number of batches in script: 23
+11/05/2021 15:57:33	Total number of statements in script: 23
+11/05/2021 15:57:33	The script was successfully imported into the project.
+11/05/2021 15:57:33	Analyzing schema objects...
+11/05/2021 15:57:33	Scanning project for duplicate elements
+11/05/2021 15:57:33	Element 'base_dw_halfen_0_hlp_uat' was merged into the existing script: 'C:\Users\MichielPors-Just-BI\source\repos\syndw_xxxx_sls_d_euw_001\syndw_xxxx_sls_d_euw_001\Security\Schemas\base_dw_halfen_0_hlp_uat.sql'.
+11/05/2021 15:57:33	Finished duplicate element processing
+11/05/2021 15:57:34	A summary of the import was saved to the following location: C:\Users\MichielPors-Just-BI\source\repos\syndw_xxxx_sls_d_euw_001\syndw_xxxx_sls_d_euw_001\Import Script Logs\MasterKeys_sql_20210511015733.log
+11/05/2021 15:57:34	Click Finish to continue...

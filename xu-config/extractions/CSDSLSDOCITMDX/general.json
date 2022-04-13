@@ -1,0 +1,12 @@
+{
+    "created": {
+        "machine": "[::ffff:127.0.0.1]:54483",
+        "timestamp": "20210423T135647.155Z"
+    },
+    "lastChange": {
+        "machine": "[::ffff:127.0.0.1]:52259",
+        "timestamp": "20210430T104904.958Z"
+    },
+    "source": "Just_S4Hana",
+    "type": "Table"
+}
