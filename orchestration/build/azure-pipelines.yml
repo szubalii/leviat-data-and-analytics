@@ -10,7 +10,7 @@ pool:
   vmImage: 'windows-latest'
 
 variables:
-  solution: '**/*.sln'
+  solution: '**/orchestration/*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
 
@@ -46,19 +46,19 @@ steps:
 
 - task: CopyFiles@2
   inputs:
-    SourceFolder: '$(Build.SourcesDirectory)\Master Data'
+    SourceFolder: '$(Build.SourcesDirectory)\orchestration\Master Data'
     Contents: '**\*.csv'
     TargetFolder: '$(Build.ArtifactStagingDirectory)\Master Data'
 
 - task: CopyFiles@2
   inputs:
-    SourceFolder: '$(Build.SourcesDirectory)\src'
+    SourceFolder: '$(Build.SourcesDirectory)\orchestration\src'
     Contents: '**\*'
     TargetFolder: '$(Build.ArtifactStagingDirectory)\src'
 
 - task: CopyFiles@2
   inputs:
-    SourceFolder: '$(Build.SourcesDirectory)'
+    SourceFolder: '$(Build.SourcesDirectory)\orchestration'
     Contents: 'package.json'
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
