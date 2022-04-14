@@ -4,7 +4,7 @@
 		"annotations": [],
 		"type": "RestService",
 		"typeProperties": {
-			"url": "http://10.109.68.4:8065/log/",
+			"url": "http://10.109.68.4:8065/log",
 			"enableServerCertificateValidation": true,
 			"authenticationType": "Anonymous"
 		},
