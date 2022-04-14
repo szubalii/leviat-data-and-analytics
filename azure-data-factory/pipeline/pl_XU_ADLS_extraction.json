@@ -408,6 +408,12 @@
 						"dependencyConditions": [
 							"Succeeded"
 						]
+					},
+					{
+						"activity": "Copy data1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
 					}
 				],
 				"userProperties": [],
@@ -1201,6 +1207,63 @@
 						"type": "Expression"
 					}
 				}
+			},
+			{
+				"name": "Copy data1",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "act_until_IsExtractionRunning",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "RestSource",
+						"httpRequestTimeout": "00:01:40",
+						"requestInterval": "00.00:00:00.010",
+						"requestMethod": "GET",
+						"paginationRules": {
+							"supportRFC5988": "true"
+						}
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "ds_xu_rest",
+						"type": "DatasetReference",
+						"parameters": {
+							"extraction_name": {
+								"value": "@pipeline().parameters.extraction_name",
+								"type": "Expression"
+							},
+							"timestamp": {
+								"value": "@variables('extraction_timestamp')",
+								"type": "Expression"
+							},
+							"req_type": "extraction",
+							"source": {
+								"value": "@pipeline().globalParameters.XU_sourceName",
+								"type": "Expression"
+							},
+							"destination": {
+								"value": "@concat(\n    pipeline().globalParameters.storageAccountName,\n    '_',\n    pipeline().globalParameters.S4H_systemID\n)",
+								"type": "Expression"
+							}
+						}
+					}
+				]
 			}
 		],
 		"parameters": {
