@@ -20,8 +20,6 @@ WITH (
 --IF OBJECT_ID('batch_activity_log', 'U') IS NOT NULL
 --    TRUNCATE TABLE batch_activity_log;
 
-SET ANSI_NULLS OFF
-
 -- Merge data from temp table with original table
 MERGE
 	batch_activity AS tgt
@@ -30,13 +28,13 @@ USING
 ON
 	(tgt.activity_id = src.activity_id)
 WHEN MATCHED AND (
-	src.activity_nk <> tgt.activity_nk
+	NULLIF(src.activity_nk, tgt.activity_nk) IS NOT NULL
 	OR
-	src.activity_description <> tgt.activity_description
+	NULLIF(src.activity_description, tgt.activity_description) IS NOT NULL
 	OR
-	src.activity_order <> tgt.activity_order
+	NULLIF(src.activity_order, tgt.activity_order) IS NOT NULL
 	OR
-	src.is_deprecated <> tgt.is_deprecated
+	NULLIF(src.is_deprecated, tgt.is_deprecated) IS NOT NULL
 ) THEN
 	UPDATE SET
 		activity_nk = src.activity_nk
@@ -61,8 +59,6 @@ OUTPUT
 ,   Inserted.activity_order
 ,   Inserted.is_deprecated
 ,	GETUTCDATE() INTO [log].batch_activity;
-
-SET ANSI_NULLS ON
 
 -- drop temp table
 DROP TABLE batch_activity_tmp;
