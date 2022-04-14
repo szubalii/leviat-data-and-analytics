@@ -75,7 +75,14 @@
 			{
 				"name": "Set ADLS File Name",
 				"type": "SetVariable",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "Lookup1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"userProperties": [],
 				"typeProperties": {
 					"variableName": "adlsFileName",
@@ -354,6 +361,12 @@
 						"dependencyConditions": [
 							"Succeeded"
 						]
+					},
+					{
+						"activity": "If Condition1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
 					}
 				],
 				"policy": {
@@ -379,6 +392,48 @@
 						"type": "DatasetReference"
 					}
 				}
+			},
+			{
+				"name": "Lookup1",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderQuery": {
+							"value": "DECLARE\n    @date DATE = '2022/04/11',\n    @entity_id SMALLINT = 1;\n\nSELECT\n    e.entity_name,\n    e.entity_id,\n    b.start_date_time,\n    ba.activity_nk,\n    bs.status_nk,\n    b.directory_path,\n    b.file_name\nFROM\n    [dbo].[batch] b\nLEFT JOIN [dbo].[entity] e\n    ON e.entity_id = b.entity_id\nLEFT JOIN [dbo].[layer] las\n    ON las.[layer_id] = b.[source_layer_id]\nLEFT JOIN [dbo].[layer] lat\n    ON lat.[layer_id] = b.[target_layer_id]\n-- LEFT JOIN [dbo].[location] lo\n--     ON lo.[location_id] = la.[location_id]\nLEFT JOIN [dbo].[batch_execution_status] bs\n    ON bs.[status_id] = b.[status_id]\nLEFT JOIN [dbo].[batch_activity] ba\n    ON ba.[activity_id] = b.[activity_id]\nWHERE\n    CONVERT(date, b.start_date_time) = @date\n    AND\n    b.entity_id = @entity_id\nORDER BY\n    entity_name asc, start_date_time desc",
+							"type": "Expression"
+						},
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "ds_orch_db",
+						"type": "DatasetReference"
+					},
+					"firstRowOnly": false
+				}
+			},
+			{
+				"name": "If Condition1",
+				"type": "IfCondition",
+				"dependsOn": [
+					{
+						"activity": "Set ADLS File Name",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": []
 			}
 		],
 		"parameters": {
