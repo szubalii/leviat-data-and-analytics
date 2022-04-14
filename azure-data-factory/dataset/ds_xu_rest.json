@@ -11,13 +11,17 @@
 			},
 			"timestamp": {
 				"type": "string"
+			},
+			"req_type": {
+				"type": "string",
+				"defaultValue": "extraction"
 			}
 		},
 		"annotations": [],
 		"type": "RestResource",
 		"typeProperties": {
 			"relativeUrl": {
-				"value": "@concat(\n    '&timestamp=',\n    dataset().timestamp,\n    '&name=',\n    dataset().extraction_name\n)",
+				"value": "@concat(\n    '&timestamp=',\n    dataset().timestamp,\n    '&name=',\n    dataset().extraction_name,\n    '&req_type=',\n    dataset().req_type\n)",
 				"type": "Expression"
 			}
 		},
