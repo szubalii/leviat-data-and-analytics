@@ -4,7 +4,7 @@
 		"annotations": [],
 		"type": "RestService",
 		"typeProperties": {
-			"url": "http://10.109.68.4:8065/log/?req_type=extraction&source=CRH_Leviat_S4HANA_CAD&destination=stxxxxslsdeuw001_s4h-cad",
+			"url": "http://10.109.68.4:8065/log/",
 			"enableServerCertificateValidation": true,
 			"authenticationType": "Anonymous"
 		},
