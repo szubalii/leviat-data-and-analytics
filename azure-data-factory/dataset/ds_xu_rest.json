@@ -2,7 +2,7 @@
 	"name": "ds_xu_rest",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "ls_XtractUniversal",
+			"referenceName": "ls_XtractUniversalLog",
 			"type": "LinkedServiceReference"
 		},
 		"parameters": {
