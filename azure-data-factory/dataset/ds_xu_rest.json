@@ -1,0 +1,26 @@
+{
+	"name": "ds_xu_rest",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_XtractUniversal",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"extraction_name": {
+				"type": "string"
+			},
+			"timestamp": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "RestResource",
+		"typeProperties": {
+			"relativeUrl": {
+				"value": "@concat(\n    '&timestamp=',\n    dataset().timestamp,\n    '&name=',\n    dataset().extraction_name\n)",
+				"type": "Expression"
+			}
+		},
+		"schema": []
+	}
+}
