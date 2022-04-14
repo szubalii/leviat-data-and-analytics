@@ -18,4 +18,4 @@ pipeline_id,pipeline_name_nk,pipeline_description,parent_pipeline_id,pipeline_or
 18,pl_ADLS_In_Out_USASnowflake_transformation,Pipeline moves single parquet file with USA Snowflake data from In Data Lake folder to Out Data Lake folder and adds technical fields,,2
 19,pl_ADLS_In_duplicatesTest,"Pipeline checks for duplicates in parquet files for sources: Snowflake, AXBI",,
 20,pl_ADLS_In_dataValidation_main,Pipeline checks for duplicates in parquet files for sources: S4H,,
-21,pl_ELT_entity_main,Main pipeline for ELTL,,
+21,pl_Base_ELT_main,Main pipeline for ELTL,,
