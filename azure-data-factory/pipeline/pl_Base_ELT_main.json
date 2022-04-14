@@ -376,6 +376,10 @@
 									"base_table_name": {
 										"value": "@item().base_table_name",
 										"type": "Expression"
+									},
+									"required_activities": {
+										"value": "@item().required_activities",
+										"type": "Expression"
 									}
 								}
 							}
@@ -448,13 +452,14 @@
 			},
 			"entity_filter": {
 				"type": "string",
-				"defaultValue": "entity_name IN ('I_Address','DATAAREA','COMPANIES')"
+				"defaultValue": "entity_name IN ('I_CostCenter_F')"
 			},
 			"parent_run_id": {
 				"type": "string"
 			},
 			"date": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "2022/04/11"
 			}
 		},
 		"folder": {
