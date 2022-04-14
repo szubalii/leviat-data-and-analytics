@@ -4,9 +4,13 @@
 		"annotations": [],
 		"type": "RestService",
 		"typeProperties": {
-			"url": "@{concat(\n\tpipeline().globalParameters.XU_hostName\n\t,'/log/?req_type=extraction&name='\n\t,pipeline().parameters.extraction_name\n\t,'&source='\n\t,pipeline().globalParameters.XU_sourceName\n\t,'&destination='\n\t,pipeline().globalParameters.storageAccountName,'_',pipeline().globalParameters.S4H_systemID\n\t,'&timestamp='\n\t,variables('extraction_timestamp')\n)}",
+			"url": "http://10.109.68.4:8065/log/?req_type=extraction&source=CRH_Leviat_S4HANA_CAD&destination=stxxxxslsdeuw001_s4h-cad",
 			"enableServerCertificateValidation": true,
 			"authenticationType": "Anonymous"
+		},
+		"connectVia": {
+			"referenceName": "ir-WEXLEVAPP001",
+			"type": "IntegrationRuntimeReference"
 		}
 	}
 }
