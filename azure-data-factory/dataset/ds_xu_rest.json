@@ -27,7 +27,7 @@
 		"type": "RestResource",
 		"typeProperties": {
 			"relativeUrl": {
-				"value": "@concat(\n    '&timestamp=',\n    dataset().timestamp,\n    '&name=',\n    dataset().extraction_name,\n    '&req_type=',\n    dataset().req_type,\n    '&source=',\n    dataset().source,\n    '&destination=',\n    dataset().destination\n)",
+				"value": "@concat(\n    '?timestamp=',\n    dataset().timestamp,\n    '&name=',\n    dataset().extraction_name,\n    '&req_type=',\n    dataset().req_type,\n    '&source=',\n    dataset().source,\n    '&destination=',\n    dataset().destination\n)",
 				"type": "Expression"
 			}
 		},
