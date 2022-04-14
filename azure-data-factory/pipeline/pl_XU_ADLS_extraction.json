@@ -410,7 +410,7 @@
 						]
 					},
 					{
-						"activity": "Copy data1",
+						"activity": "Copy Extraction Logs",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -1209,7 +1209,7 @@
 				}
 			},
 			{
-				"name": "Copy data1",
+				"name": "Copy Extraction Logs",
 				"type": "Copy",
 				"dependsOn": [
 					{
@@ -1237,6 +1237,17 @@
 							"supportRFC5988": "true"
 						}
 					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
 					"enableStaging": false
 				},
 				"inputs": [
@@ -1259,6 +1270,23 @@
 							},
 							"destination": {
 								"value": "@concat(\n    pipeline().globalParameters.storageAccountName,\n    '_',\n    pipeline().globalParameters.S4H_systemID\n)",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ds_adls_csv_file_first_row_header_disabled",
+						"type": "DatasetReference",
+						"parameters": {
+							"container": "adf-jobs",
+							"directory": {
+								"value": "@concat(\n    'Xtract Universal/',\n    pipeline().parameters.extraction_name,\n    '/',\n    formatDateTime(pipeline().parameters.date, 'yyyy/MM/dd')\n)",
+								"type": "Expression"
+							},
+							"file": {
+								"value": "@concat(\n    pipeline().parameters.extraction_name,\n    '_extraction_log_',\n    replace(replace(replace(variables('extraction_timestamp'),'-','_'),':','_'),'.','_'),\n    '.csv'\n)",
 								"type": "Expression"
 							}
 						}
