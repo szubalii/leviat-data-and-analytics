@@ -3,86 +3,9 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Execute Entity ADLS Ingestion",
-				"type": "ExecutePipeline",
-				"dependsOn": [
-					{
-						"activity": "Set ADLS File Name",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"userProperties": [],
-				"typeProperties": {
-					"pipeline": {
-						"referenceName": "pl_ADLS_ingestion",
-						"type": "PipelineReference"
-					},
-					"waitOnCompletion": true,
-					"parameters": {
-						"entity_name": {
-							"value": "@pipeline().parameters.entity_name",
-							"type": "Expression"
-						},
-						"entity_id": {
-							"value": "@pipeline().parameters.entity_id",
-							"type": "Expression"
-						},
-						"date": {
-							"value": "@pipeline().parameters.date",
-							"type": "Expression"
-						},
-						"run_id": {
-							"value": "@pipeline().parameters.run_id",
-							"type": "Expression"
-						},
-						"layer_nk": {
-							"value": "@pipeline().parameters.layer_nk",
-							"type": "Expression"
-						},
-						"source_database_name": {
-							"value": "@pipeline().parameters.source_database_name",
-							"type": "Expression"
-						},
-						"source_schema_name": {
-							"value": "@pipeline().parameters.source_schema_name",
-							"type": "Expression"
-						},
-						"source_table_name": {
-							"value": "@pipeline().parameters.source_table_name",
-							"type": "Expression"
-						},
-						"source_date_field_name": {
-							"value": "@pipeline().parameters.source_date_field_name",
-							"type": "Expression"
-						},
-						"adls_container_name": {
-							"value": "@pipeline().parameters.adls_container_name",
-							"type": "Expression"
-						},
-						"adls_directory_path_In": {
-							"value": "@pipeline().parameters.adls_directory_path_In",
-							"type": "Expression"
-						},
-						"adls_file_name": {
-							"value": "@variables('adlsFileName')",
-							"type": "Expression"
-						}
-					}
-				}
-			},
-			{
 				"name": "Set ADLS File Name",
 				"type": "SetVariable",
-				"dependsOn": [
-					{
-						"activity": "Lookup1",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
+				"dependsOn": [],
 				"userProperties": [],
 				"typeProperties": {
 					"variableName": "adlsFileName",
@@ -93,133 +16,11 @@
 				}
 			},
 			{
-				"name": "Ingest Parquet into Synapse Base",
-				"type": "ExecutePipeline",
-				"dependsOn": [
-					{
-						"activity": "Process Parquet File",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"userProperties": [],
-				"typeProperties": {
-					"pipeline": {
-						"referenceName": "pl_ADLS_SYNDW_ingestion",
-						"type": "PipelineReference"
-					},
-					"waitOnCompletion": true,
-					"parameters": {
-						"base_schema_name": {
-							"value": "@pipeline().parameters.base_schema_name",
-							"type": "Expression"
-						},
-						"base_table_name": {
-							"value": "@pipeline().parameters.base_table_name",
-							"type": "Expression"
-						},
-						"entity_id": {
-							"value": "@pipeline().parameters.entity_id",
-							"type": "Expression"
-						},
-						"directory_path": {
-							"value": "@pipeline().parameters.adls_directory_path_Out",
-							"type": "Expression"
-						},
-						"run_id": {
-							"value": "@pipeline().parameters.run_id",
-							"type": "Expression"
-						},
-						"source_layer": "Out",
-						"file_name": {
-							"value": "@variables('adlsFileName')",
-							"type": "Expression"
-						},
-						"adls_container_name": {
-							"value": "@pipeline().parameters.adls_container_name",
-							"type": "Expression"
-						},
-						"target_layer": "Base"
-					}
-				}
-			},
-			{
-				"name": "Process Parquet File",
-				"type": "ExecutePipeline",
-				"dependsOn": [
-					{
-						"activity": "If Test for Duplicates",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"userProperties": [],
-				"typeProperties": {
-					"pipeline": {
-						"referenceName": "pl_ADLS_process",
-						"type": "PipelineReference"
-					},
-					"waitOnCompletion": true,
-					"parameters": {
-						"entity_name": {
-							"value": "@pipeline().parameters.entity_name",
-							"type": "Expression"
-						},
-						"entity_id": {
-							"value": "@pipeline().parameters.entity_id",
-							"type": "Expression"
-						},
-						"date": {
-							"value": "@pipeline().parameters.date",
-							"type": "Expression"
-						},
-						"run_id": {
-							"value": "@pipeline().parameters.run_id",
-							"type": "Expression"
-						},
-						"client_field": {
-							"value": "@pipeline().parameters.client_field",
-							"type": "Expression"
-						},
-						"extraction_type": {
-							"value": "@pipeline().parameters.extraction_type",
-							"type": "Expression"
-						},
-						"adls_container_name": {
-							"value": "@pipeline().parameters.adls_container_name",
-							"type": "Expression"
-						},
-						"adls_directory_path_In": {
-							"value": "@pipeline().parameters.adls_directory_path_In",
-							"type": "Expression"
-						},
-						"adls_directory_path_Out": {
-							"value": "@pipeline().parameters.adls_directory_path_Out",
-							"type": "Expression"
-						},
-						"adls_file_name": {
-							"value": "@variables('adlsFileName')",
-							"type": "Expression"
-						},
-						"layer_nk": {
-							"value": "@pipeline().parameters.layer_nk",
-							"type": "Expression"
-						},
-						"application_id": {
-							"value": "@pipeline().parameters.source_database_name",
-							"type": "Expression"
-						}
-					}
-				}
-			},
-			{
-				"name": "If Required to Process Base",
+				"name": "If Processing Synapse Base Table Required",
 				"type": "IfCondition",
 				"dependsOn": [
 					{
-						"activity": "Ingest Parquet into Synapse Base",
+						"activity": "If Synapse Ingestion Required",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -233,7 +34,7 @@
 					},
 					"ifTrueActivities": [
 						{
-							"name": "Process Base",
+							"name": "Process Synapse Base Table",
 							"type": "ExecutePipeline",
 							"dependsOn": [],
 							"userProperties": [],
@@ -357,13 +158,7 @@
 				"type": "Lookup",
 				"dependsOn": [
 					{
-						"activity": "Execute Entity ADLS Ingestion",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					},
-					{
-						"activity": "If Condition1",
+						"activity": "If ADLS ingestion required",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -394,36 +189,7 @@
 				}
 			},
 			{
-				"name": "Lookup1",
-				"type": "Lookup",
-				"dependsOn": [],
-				"policy": {
-					"timeout": "7.00:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"source": {
-						"type": "AzureSqlSource",
-						"sqlReaderQuery": {
-							"value": "DECLARE\n    @date DATE = '2022/04/11',\n    @entity_id SMALLINT = 1;\n\nSELECT\n    e.entity_name,\n    e.entity_id,\n    b.start_date_time,\n    ba.activity_nk,\n    bs.status_nk,\n    b.directory_path,\n    b.file_name\nFROM\n    [dbo].[batch] b\nLEFT JOIN [dbo].[entity] e\n    ON e.entity_id = b.entity_id\nLEFT JOIN [dbo].[layer] las\n    ON las.[layer_id] = b.[source_layer_id]\nLEFT JOIN [dbo].[layer] lat\n    ON lat.[layer_id] = b.[target_layer_id]\n-- LEFT JOIN [dbo].[location] lo\n--     ON lo.[location_id] = la.[location_id]\nLEFT JOIN [dbo].[batch_execution_status] bs\n    ON bs.[status_id] = b.[status_id]\nLEFT JOIN [dbo].[batch_activity] ba\n    ON ba.[activity_id] = b.[activity_id]\nWHERE\n    CONVERT(date, b.start_date_time) = @date\n    AND\n    b.entity_id = @entity_id\nORDER BY\n    entity_name asc, start_date_time desc",
-							"type": "Expression"
-						},
-						"queryTimeout": "02:00:00",
-						"partitionOption": "None"
-					},
-					"dataset": {
-						"referenceName": "ds_orch_db",
-						"type": "DatasetReference"
-					},
-					"firstRowOnly": false
-				}
-			},
-			{
-				"name": "If Condition1",
+				"name": "If ADLS ingestion required",
 				"type": "IfCondition",
 				"dependsOn": [
 					{
@@ -433,33 +199,262 @@
 						]
 					}
 				],
-				"userProperties": []
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@contains(\n    pipeline().parameters.required_activities,\n    'ADLSIngestion'\n)",
+						"type": "Expression"
+					},
+					"ifTrueActivities": [
+						{
+							"name": "Execute Entity ADLS Ingestion",
+							"type": "ExecutePipeline",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"pipeline": {
+									"referenceName": "pl_ADLS_ingestion",
+									"type": "PipelineReference"
+								},
+								"waitOnCompletion": true,
+								"parameters": {
+									"entity_name": {
+										"value": "@pipeline().parameters.entity_name",
+										"type": "Expression"
+									},
+									"entity_id": {
+										"value": "@pipeline().parameters.entity_id",
+										"type": "Expression"
+									},
+									"date": {
+										"value": "@pipeline().parameters.date",
+										"type": "Expression"
+									},
+									"run_id": {
+										"value": "@pipeline().parameters.run_id",
+										"type": "Expression"
+									},
+									"layer_nk": {
+										"value": "@pipeline().parameters.layer_nk",
+										"type": "Expression"
+									},
+									"source_database_name": {
+										"value": "@pipeline().parameters.source_database_name",
+										"type": "Expression"
+									},
+									"source_schema_name": {
+										"value": "@pipeline().parameters.source_schema_name",
+										"type": "Expression"
+									},
+									"source_table_name": {
+										"value": "@pipeline().parameters.source_table_name",
+										"type": "Expression"
+									},
+									"source_date_field_name": {
+										"value": "@pipeline().parameters.source_date_field_name",
+										"type": "Expression"
+									},
+									"adls_container_name": {
+										"value": "@pipeline().parameters.adls_container_name",
+										"type": "Expression"
+									},
+									"adls_directory_path_In": {
+										"value": "@pipeline().parameters.adls_directory_path_In",
+										"type": "Expression"
+									},
+									"adls_file_name": {
+										"value": "@variables('adlsFileName')",
+										"type": "Expression"
+									}
+								}
+							}
+						}
+					]
+				}
+			},
+			{
+				"name": "If Processing Source File Required",
+				"type": "IfCondition",
+				"dependsOn": [
+					{
+						"activity": "If Test for Duplicates",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@contains(\n    pipeline().parameters.required_activities,\n    'SourceFileProcessing'\n)",
+						"type": "Expression"
+					},
+					"ifTrueActivities": [
+						{
+							"name": "Process Source File",
+							"type": "ExecutePipeline",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"pipeline": {
+									"referenceName": "pl_ADLS_process",
+									"type": "PipelineReference"
+								},
+								"waitOnCompletion": true,
+								"parameters": {
+									"entity_name": {
+										"value": "@pipeline().parameters.entity_name",
+										"type": "Expression"
+									},
+									"entity_id": {
+										"value": "@pipeline().parameters.entity_id",
+										"type": "Expression"
+									},
+									"date": {
+										"value": "@pipeline().parameters.date",
+										"type": "Expression"
+									},
+									"run_id": {
+										"value": "@pipeline().parameters.run_id",
+										"type": "Expression"
+									},
+									"client_field": {
+										"value": "@pipeline().parameters.client_field",
+										"type": "Expression"
+									},
+									"extraction_type": {
+										"value": "@pipeline().parameters.extraction_type",
+										"type": "Expression"
+									},
+									"adls_container_name": {
+										"value": "@pipeline().parameters.adls_container_name",
+										"type": "Expression"
+									},
+									"adls_directory_path_In": {
+										"value": "@pipeline().parameters.adls_directory_path_In",
+										"type": "Expression"
+									},
+									"adls_directory_path_Out": {
+										"value": "@pipeline().parameters.adls_directory_path_Out",
+										"type": "Expression"
+									},
+									"adls_file_name": {
+										"value": "@variables('adlsFileName')",
+										"type": "Expression"
+									},
+									"layer_nk": {
+										"value": "@pipeline().parameters.layer_nk",
+										"type": "Expression"
+									},
+									"application_id": {
+										"value": "@pipeline().parameters.source_database_name",
+										"type": "Expression"
+									}
+								}
+							}
+						}
+					]
+				}
+			},
+			{
+				"name": "If Synapse Ingestion Required",
+				"type": "IfCondition",
+				"dependsOn": [
+					{
+						"activity": "If Processing Source File Required",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@contains(\n    pipeline().parameters.required_activities,\n    'SynapseIngestion'\n)",
+						"type": "Expression"
+					},
+					"ifTrueActivities": [
+						{
+							"name": "Ingest Parquet into Synapse Base",
+							"type": "ExecutePipeline",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"pipeline": {
+									"referenceName": "pl_ADLS_SYNDW_ingestion",
+									"type": "PipelineReference"
+								},
+								"waitOnCompletion": true,
+								"parameters": {
+									"base_schema_name": {
+										"value": "@pipeline().parameters.base_schema_name",
+										"type": "Expression"
+									},
+									"base_table_name": {
+										"value": "@pipeline().parameters.base_table_name",
+										"type": "Expression"
+									},
+									"entity_id": {
+										"value": "@pipeline().parameters.entity_id",
+										"type": "Expression"
+									},
+									"directory_path": {
+										"value": "@pipeline().parameters.adls_directory_path_Out",
+										"type": "Expression"
+									},
+									"run_id": {
+										"value": "@pipeline().parameters.run_id",
+										"type": "Expression"
+									},
+									"source_layer": "Out",
+									"file_name": {
+										"value": "@variables('adlsFileName')",
+										"type": "Expression"
+									},
+									"adls_container_name": {
+										"value": "@pipeline().parameters.adls_container_name",
+										"type": "Expression"
+									},
+									"target_layer": "Base"
+								}
+							}
+						}
+					]
+				}
 			}
 		],
 		"parameters": {
 			"entity_name": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "I_CostCenter_F"
 			},
 			"entity_id": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "1"
 			},
 			"date": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "2022/04/11"
 			},
 			"run_id": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "a1fe4011-b0aa-4e82-814e-5521537c78db"
 			},
 			"layer_nk": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "S4H"
 			},
 			"client_field": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "MANDT"
 			},
 			"extraction_type": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "ODP"
 			},
 			"pk_field_names": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "CONTROLLINGAREA, COSTCENTER, VALIDITYENDDATE"
 			},
 			"source_database_name": {
 				"type": "string"
@@ -468,28 +463,38 @@
 				"type": "string"
 			},
 			"source_table_name": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "I_CostCenter"
 			},
 			"source_date_field_name": {
 				"type": "string"
 			},
 			"adls_container_name": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "s4h-cad"
 			},
 			"adls_directory_path_In": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "DIMENSION/I_CostCenter_F/Theobald/ODP/Full/In/2022/04/11"
 			},
 			"adls_directory_path_Out": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "DIMENSION/I_CostCenter_F/Theobald/ODP/Full/Out/2022/04/11"
 			},
 			"base_schema_name": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "base_s4h_cax"
 			},
 			"base_sproc_name": {
 				"type": "string"
 			},
 			"base_table_name": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "I_CostCenter"
+			},
+			"required_activities": {
+				"type": "string",
+				"defaultValue": "DuplicatesTest"
 			}
 		},
 		"variables": {
