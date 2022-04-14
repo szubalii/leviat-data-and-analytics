@@ -4,7 +4,7 @@
 		"annotations": [],
 		"type": "RestService",
 		"typeProperties": {
-			"url": "test",
+			"url": "@{concat(\n\tpipeline().globalParameters.XU_hostName\n\t,'/log/?req_type=extraction&name='\n\t,pipeline().parameters.extraction_name\n\t,'&source='\n\t,pipeline().globalParameters.XU_sourceName\n\t,'&destination='\n\t,pipeline().globalParameters.storageAccountName,'_',pipeline().globalParameters.S4H_systemID\n\t,'&timestamp='\n\t,variables('extraction_timestamp')\n)}",
 			"enableServerCertificateValidation": true,
 			"authenticationType": "Anonymous"
 		}
