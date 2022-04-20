@@ -256,7 +256,7 @@
 								"source": {
 									"type": "AzureSqlSource",
 									"sqlReaderQuery": {
-										"value": "SELECT output\nFROM get_scheduled_entity_batch_activities\nWHERE \n    entity_id = '@{pipeline().parameters.entity_id}'\n    AND\n    activity_nk = 'CheckXUExtractionStatus'\n",
+										"value": "SELECT output\nFROM get_scheduled_entity_batch_activities\nWHERE \n    entity_id = '@{pipeline().parameters.entity_id}'\n    AND\n    activity_nk = 'StartXUExtraction'\n",
 										"type": "Expression"
 									},
 									"queryTimeout": "02:00:00",
