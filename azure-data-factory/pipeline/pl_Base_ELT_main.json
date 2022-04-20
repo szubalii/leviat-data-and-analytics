@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Get Scheduled Entities",
+				"name": "Get Scheduled Entity Batch Activities",
 				"type": "Lookup",
 				"dependsOn": [
 					{
@@ -167,7 +167,7 @@
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "Get Scheduled Entities",
+						"activity": "Get Scheduled Entity Batch Activities",
 						"dependencyConditions": [
 							"Failed"
 						]
@@ -279,7 +279,7 @@
 				"type": "ForEach",
 				"dependsOn": [
 					{
-						"activity": "Get Scheduled Entities",
+						"activity": "Get Scheduled Entity Batch Activities",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -288,7 +288,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@activity('Get Scheduled Entities').output.value",
+						"value": "@activity('Get Scheduled Entity Batch Activities').output.value",
 						"type": "Expression"
 					},
 					"isSequential": false,
@@ -459,7 +459,7 @@
 			},
 			"date": {
 				"type": "string",
-				"defaultValue": "2022/04/11"
+				"defaultValue": "2022/04/20"
 			}
 		},
 		"folder": {
