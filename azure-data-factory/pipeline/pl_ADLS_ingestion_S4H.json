@@ -230,7 +230,14 @@
 			{
 				"name": "If Starting XU Extraction",
 				"type": "IfCondition",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "If empty run_id",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"userProperties": [],
 				"typeProperties": {
 					"expression": {
@@ -328,7 +335,7 @@
 									},
 									"run_id": {
 										"value": {
-											"value": "@pipeline().parameters.run_id",
+											"value": "@variables('run_id')",
 											"type": "Expression"
 										},
 										"type": "Guid"
@@ -1070,6 +1077,48 @@
 						"type": "Expression"
 					}
 				}
+			},
+			{
+				"name": "If empty run_id",
+				"type": "IfCondition",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@empty(pipeline().parameters.run_id)",
+						"type": "Expression"
+					},
+					"ifFalseActivities": [
+						{
+							"name": "Set run_id from parameter",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "run_id",
+								"value": {
+									"value": "@pipeline().parameters.run_id",
+									"type": "Expression"
+								}
+							}
+						}
+					],
+					"ifTrueActivities": [
+						{
+							"name": "Set run_id from pipeline",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "run_id",
+								"value": {
+									"value": "@pipeline().RunId",
+									"type": "Expression"
+								}
+							}
+						}
+					]
+				}
 			}
 		],
 		"parameters": {
@@ -1107,6 +1156,9 @@
 				"defaultValue": "@guid()"
 			},
 			"adlsFileName": {
+				"type": "String"
+			},
+			"run_id": {
 				"type": "String"
 			}
 		},
