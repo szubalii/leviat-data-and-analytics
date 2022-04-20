@@ -566,7 +566,7 @@
 									},
 									"output": {
 										"value": {
-											"value": "@concat(\n    'timestamp=',\n    variables('extraction_timestamp')\n)",
+											"value": "@concat(\n    '{\"timestamp\":\"',\n    variables('extraction_timestamp'),\n    '\"}'\n)",
 											"type": "Expression"
 										},
 										"type": "String"
