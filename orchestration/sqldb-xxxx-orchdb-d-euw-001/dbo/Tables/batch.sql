@@ -20,6 +20,6 @@ CREATE TABLE [dbo].[batch] (
     CONSTRAINT [FK_batch_entity] FOREIGN KEY ([entity_id]) REFERENCES [dbo].[entity] ([entity_id]),
     CONSTRAINT [FK_batch_layer_source] FOREIGN KEY ([source_layer_id]) REFERENCES [dbo].[layer] ([layer_id]),
     CONSTRAINT [FK_batch_layer_target] FOREIGN KEY ([target_layer_id]) REFERENCES [dbo].[layer] ([layer_id]),
-    CONSTRAINT [FK_batch_pipeline_log] FOREIGN KEY ([run_id]) REFERENCES [dbo].[pipeline_log] ([run_id]),
+    -- CONSTRAINT [FK_batch_pipeline_log] FOREIGN KEY ([run_id]) REFERENCES [dbo].[pipeline_log] ([run_id]),
     CONSTRAINT [FK_batch_status] FOREIGN KEY ([status_id]) REFERENCES [dbo].[batch_execution_status] ([status_id])
 );
