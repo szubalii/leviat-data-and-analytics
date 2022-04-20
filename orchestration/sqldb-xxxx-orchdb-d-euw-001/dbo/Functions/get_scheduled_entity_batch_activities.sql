@@ -150,7 +150,7 @@ RETURNS TABLE AS RETURN
         e.update_mode = 'Full'
         -- and
         -- CONVERT(date, b.start_date_time) = @date
-    order by entity_id, activity_order
+    -- order by entity_id, activity_order
 
 -- select * from get_scheduled_entities(0, '2022/04/11')
 GO
