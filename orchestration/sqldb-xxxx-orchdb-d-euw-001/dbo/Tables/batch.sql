@@ -14,6 +14,7 @@ CREATE TABLE [dbo].[batch] (
     [file_path]                 VARCHAR (250)    NULL,
     [directory_path]            VARCHAR (250)    NULL,
     [file_name]                 VARCHAR (250)    NULL,
+    [output]                    VARCHAR (MAX)    NULL,
     PRIMARY KEY CLUSTERED ([batch_id] ASC),
     CONSTRAINT [FK_batch_activity] FOREIGN KEY ([activity_id]) REFERENCES [dbo].[batch_activity] ([activity_id]),
     CONSTRAINT [FK_batch_entity] FOREIGN KEY ([entity_id]) REFERENCES [dbo].[entity] ([entity_id]),
