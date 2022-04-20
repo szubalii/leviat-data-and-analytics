@@ -568,7 +568,8 @@
 										"value": {
 											"value": "@concat(\n    'timestamp=',\n    variables('extraction_timestamp')\n)",
 											"type": "Expression"
-										}
+										},
+										"type": "String"
 									}
 								}
 							},
