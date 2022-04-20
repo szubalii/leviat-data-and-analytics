@@ -7,7 +7,7 @@
 				"type": "Until",
 				"dependsOn": [
 					{
-						"activity": "Lookup Extraction Timestamp",
+						"activity": "If Timestamp Parameter Empty",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -209,18 +209,41 @@
 								"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
 								"type": "LinkedServiceReference"
 							}
-						},
+						}
+					],
+					"timeout": "7.00:00:00"
+				}
+			},
+			{
+				"name": "If Timestamp Parameter Empty",
+				"type": "IfCondition",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@empty(pipeline().parameters.extraction_timestamp)",
+						"type": "Expression"
+					},
+					"ifFalseActivities": [
 						{
-							"name": "Update Batch Status Succesful",
-							"type": "SqlServerStoredProcedure",
-							"dependsOn": [
-								{
-									"activity": "Get XU Extraction Status",
-									"dependencyConditions": [
-										"Succeeded"
-									]
+							"name": "Set XU Extraction Timestamp Variable",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "extraction_status",
+								"value": {
+									"value": "@pipeline().parameters.extraction_timestamp",
+									"type": "Expression"
 								}
-							],
+							}
+						}
+					],
+					"ifTrueActivities": [
+						{
+							"name": "Lookup Extraction Timestamp",
+							"type": "Lookup",
+							"dependsOn": [],
 							"policy": {
 								"timeout": "7.00:00:00",
 								"retry": 0,
@@ -230,70 +253,55 @@
 							},
 							"userProperties": [],
 							"typeProperties": {
-								"storedProcedureName": "[dbo].[update_batch_status]",
-								"storedProcedureParameters": {
-									"batch_id": {
-										"value": {
-											"value": "@variables('batch_id')",
-											"type": "Expression"
-										},
-										"type": "Guid"
+								"source": {
+									"type": "AzureSqlSource",
+									"sqlReaderQuery": {
+										"value": "SELECT output\nFROM get_scheduled_entity_batch_activities\nWHERE \n    entity_id = '@{pipeline().parameters.entity_id}'\n    AND\n    activity_nk = 'CheckXUExtractionStatus'\n",
+										"type": "Expression"
 									},
-									"end_date_time": {
-										"value": {
-											"value": "@formatDateTime(utcnow(), 'yyyy-MM-dd HH:mm:ss')",
-											"type": "Expression"
-										},
-										"type": "DateTime"
-									},
-									"entity_id": {
-										"value": {
-											"value": "@pipeline().parameters.entity_id",
-											"type": "Expression"
-										},
-										"type": "Int64"
-									},
-									"run_id": {
-										"value": {
-											"value": "@pipeline().parameters.run_id",
-											"type": "Expression"
-										},
-										"type": "Guid"
-									},
-									"size_bytes": {
-										"value": null,
-										"type": "Int64"
-									},
-									"activity": {
-										"value": "CheckXUExtractionStatus",
-										"type": "String"
-									},
-									"status": {
-										"value": "Successful",
-										"type": "String"
-									},
-									"output": {
-										"value": {
-											"value": "@concat(\n    'status=',\n    activity('Get XU Extraction Status').output.response\n)",
-											"type": "Expression"
-										},
-										"type": "String"
-									}
+									"queryTimeout": "02:00:00",
+									"partitionOption": "None"
+								},
+								"dataset": {
+									"referenceName": "ds_orch_db",
+									"type": "DatasetReference"
 								}
-							},
-							"linkedServiceName": {
-								"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
-								"type": "LinkedServiceReference"
+							}
+						},
+						{
+							"name": "Set XU Extraction Status Variable",
+							"type": "SetVariable",
+							"dependsOn": [
+								{
+									"activity": "Lookup Extraction Timestamp",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "extraction_status",
+								"value": {
+									"value": "@activity('Lookup Extraction Timestamp').output",
+									"type": "Expression"
+								}
 							}
 						}
-					],
-					"timeout": "7.00:00:00"
+					]
 				}
 			},
 			{
-				"name": "Lookup Extraction Timestamp",
-				"type": "Lookup",
-				"dependsOn": [],
+				"name": "Update Batch Status Succesful",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "Until Extraction is Running",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "7.00:00:00",
 					"retry": 0,
@@ -303,19 +311,60 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"source": {
-						"type": "AzureSqlSource",
-						"sqlReaderQuery": {
-							"value": "SELECT output\nFROM get_scheduled_entity_batch_activities\nWHERE \n    entity_id = '@{pipeline().parameters.entity_id}'\n    AND\n    activity_nk = 'CheckXUExtractionStatus'\n",
-							"type": "Expression"
+					"storedProcedureName": "[dbo].[update_batch_status]",
+					"storedProcedureParameters": {
+						"batch_id": {
+							"value": {
+								"value": "@variables('batch_id')",
+								"type": "Expression"
+							},
+							"type": "Guid"
 						},
-						"queryTimeout": "02:00:00",
-						"partitionOption": "None"
-					},
-					"dataset": {
-						"referenceName": "ds_orch_db",
-						"type": "DatasetReference"
+						"end_date_time": {
+							"value": {
+								"value": "@formatDateTime(utcnow(), 'yyyy-MM-dd HH:mm:ss')",
+								"type": "Expression"
+							},
+							"type": "DateTime"
+						},
+						"entity_id": {
+							"value": {
+								"value": "@pipeline().parameters.entity_id",
+								"type": "Expression"
+							},
+							"type": "Int64"
+						},
+						"run_id": {
+							"value": {
+								"value": "@pipeline().parameters.run_id",
+								"type": "Expression"
+							},
+							"type": "Guid"
+						},
+						"size_bytes": {
+							"value": null,
+							"type": "Int64"
+						},
+						"activity": {
+							"value": "CheckXUExtractionStatus",
+							"type": "String"
+						},
+						"status": {
+							"value": "Successful",
+							"type": "String"
+						},
+						"output": {
+							"value": {
+								"value": "@concat(\n    'status=',\n    activity('Get XU Extraction Status').output.response\n)",
+								"type": "Expression"
+							},
+							"type": "String"
+						}
 					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
+					"type": "LinkedServiceReference"
 				}
 			}
 		],
@@ -331,9 +380,6 @@
 			},
 			"entity_id": {
 				"type": "int"
-			},
-			"adls_directory_path": {
-				"type": "string"
 			},
 			"extraction_timestamp": {
 				"type": "string"
