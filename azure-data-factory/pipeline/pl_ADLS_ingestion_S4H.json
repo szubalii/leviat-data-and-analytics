@@ -735,11 +735,11 @@
 									"parameters": {
 										"container": "adf-jobs",
 										"directory": {
-											"value": "@concat('Xtract Universal', '/',pipeline().parameters.extraction_name, '/',formatDateTime(pipeline().parameters.date, 'yyyy'), '/', formatDateTime(pipeline().parameters.date, 'MM'), '/', formatDateTime(pipeline().parameters.date, 'dd'))",
+											"value": "@concat(\n    'Xtract Universal/',\n    pipeline().parameters.extraction_name, \n    '/',\n    formatDateTime(pipeline().parameters.date, 'yyyy/MM/dd')\n)",
 											"type": "Expression"
 										},
 										"file": {
-											"value": "@concat(pipeline().parameters.extraction_name,'_extraction_log_', replace(replace(replace(variables('extraction_timestamp'),'-','_'),':','_'),'.','_'), '.csv')",
+											"value": "@concat(\n    pipeline().parameters.extraction_name,\n    '_extraction_log_',\n    replace(replace(replace(variables('extraction_timestamp'),'-','_'),':','_'),'.','_'),\n    '.csv'\n)",
 											"type": "Expression"
 										}
 									}
