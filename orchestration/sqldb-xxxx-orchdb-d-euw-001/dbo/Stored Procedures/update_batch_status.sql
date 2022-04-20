@@ -1,7 +1,6 @@
 CREATE PROCEDURE [dbo].[update_batch_status] 
 	@batch_id UNIQUEIDENTIFIER,
 	@status VARCHAR(50) = NULL,
-	@activity VARCHAR(50),
 	@size_bytes BIGINT = NULL,
 	@file_path NVARCHAR(250) = NULL,
     @directory_path NVARCHAR(250) = NULL,
@@ -13,12 +12,10 @@ CREATE PROCEDURE [dbo].[update_batch_status]
 AS
 BEGIN
     DECLARE @status_id BIGINT = NULL;
-	DECLARE @activity_id BIGINT = NULL;
     DECLARE @error_str VARCHAR(250) = '';
 	DECLARE @sql_str NVARCHAR(4000) = '';
 	DECLARE @params NVARCHAR(500) = N'
         @status_id BIGINT,
-        @activity_id BIGINT,
         @batch_id UNIQUEIDENTIFIER,
         @file_path NVARCHAR(250),
         @directory_path NVARCHAR(250),
@@ -34,10 +31,6 @@ BEGIN
 			IF (@status_id IS NULL)
 				SET @error_str = N'Status ' + @status + ' is not allowed.'
 		END
-
-		SELECT @activity_id = [activity_id] FROM [dbo].[batch_activity] where [activity_nk] = @activity
-		IF (@activity_id IS NULL)
-			SET @error_str = @error_str + N'Activity ' + @activity + ' is not allowed.' + CHAR(13) + CHAR(10)
 
         IF (@batch_id IS NULL)
             SET @error_str = @error_str + N'Batch_Id for entity_id: ' + ltrim(str(@entity_id)) + ', run_id: ' + convert(nvarchar(50), @run_id) + '  is not listed in the batch table.' + CHAR(13) + CHAR(10)
@@ -70,7 +63,6 @@ BEGIN
 		EXEC sp_executesql 
             @sql_str,
             @params,
-            @activity_id = @activity_id,
             @status_id = @status_id,
             @batch_id = @batch_id,
             @size_bytes = @size_bytes,
