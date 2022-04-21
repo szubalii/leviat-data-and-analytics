@@ -393,7 +393,7 @@
 							"type": "Guid"
 						},
 						"directory_path": {
-							"value": "",
+							"value": null,
 							"type": "String"
 						},
 						"entity_id": {
@@ -404,11 +404,11 @@
 							"type": "Int64"
 						},
 						"file_name": {
-							"value": "",
+							"value": null,
 							"type": "String"
 						},
 						"file_path": {
-							"value": "",
+							"value": null,
 							"type": "String"
 						},
 						"run_id": {
@@ -419,11 +419,11 @@
 							"type": "Guid"
 						},
 						"size_bytes": {
-							"value": "",
+							"value": null,
 							"type": "Int64"
 						},
 						"source_layer": {
-							"value": "",
+							"value": null,
 							"type": "String"
 						},
 						"start_date_time": {
@@ -438,7 +438,7 @@
 							"type": "String"
 						},
 						"target_layer": {
-							"value": "",
+							"value": null,
 							"type": "String"
 						}
 					}
