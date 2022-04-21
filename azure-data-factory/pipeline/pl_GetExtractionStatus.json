@@ -104,7 +104,7 @@
 								"storedProcedureParameters": {
 									"batch_id": {
 										"value": {
-											"value": "@variables('batch_id')",
+											"value": "@pipeline().parameters.batch_id",
 											"type": "Expression"
 										},
 										"type": "Guid"
@@ -133,10 +133,6 @@
 									"size_bytes": {
 										"value": null,
 										"type": "Int64"
-									},
-									"activity": {
-										"value": "CheckXUExtractionStatus",
-										"type": "String"
 									},
 									"status": {
 										"value": "Failed",
@@ -315,7 +311,7 @@
 					"storedProcedureParameters": {
 						"batch_id": {
 							"value": {
-								"value": "@variables('batch_id')",
+								"value": "@pipeline().parameters.batch_id",
 								"type": "Expression"
 							},
 							"type": "Guid"
@@ -345,12 +341,8 @@
 							"value": null,
 							"type": "Int64"
 						},
-						"activity": {
-							"value": "CheckXUExtractionStatus",
-							"type": "String"
-						},
 						"status": {
-							"value": "Successful",
+							"value": "Succeeded",
 							"type": "String"
 						},
 						"output": {
@@ -382,6 +374,9 @@
 				"type": "int"
 			},
 			"extraction_timestamp": {
+				"type": "string"
+			},
+			"batch_id": {
 				"type": "string"
 			}
 		},
