@@ -238,7 +238,7 @@
 					},
 					"ifTrueActivities": [
 						{
-							"name": "Start XU Extraction",
+							"name": "Run XU Extraction",
 							"type": "WebActivity",
 							"dependsOn": [
 								{
@@ -273,7 +273,7 @@
 							"type": "SetVariable",
 							"dependsOn": [
 								{
-									"activity": "Start XU Extraction",
+									"activity": "Run XU Extraction",
 									"dependencyConditions": [
 										"Succeeded"
 									]
@@ -283,7 +283,7 @@
 							"typeProperties": {
 								"variableName": "extraction_timestamp",
 								"value": {
-									"value": "@activity('Start XU Extraction').output.response",
+									"value": "@activity('Run XU Extraction').output.response",
 									"type": "Expression"
 								}
 							}
@@ -309,7 +309,7 @@
 									},
 									"batch_id": {
 										"value": {
-											"value": "@variables('batch_id_StartXUExtraction')",
+											"value": "@variables('batch_id_RunXUExtraction')",
 											"type": "Expression"
 										},
 										"type": "Guid"
@@ -373,7 +373,7 @@
 							"type": "SqlServerStoredProcedure",
 							"dependsOn": [
 								{
-									"activity": "Start XU Extraction",
+									"activity": "Run XU Extraction",
 									"dependencyConditions": [
 										"Failed"
 									]
@@ -421,7 +421,7 @@
 									},
 									"batch_id": {
 										"value": {
-											"value": "@variables('batch_id_StartXUExtraction')",
+											"value": "@variables('batch_id_RunXUExtraction')",
 											"type": "Expression"
 										}
 									}
@@ -456,7 +456,7 @@
 								"storedProcedureParameters": {
 									"batch_id": {
 										"value": {
-											"value": "@variables('batch_id_StartXUExtraction')",
+											"value": "@variables('batch_id_RunXUExtraction')",
 											"type": "Expression"
 										},
 										"type": "Guid"
@@ -474,7 +474,7 @@
 									},
 									"error_msg": {
 										"value": {
-											"value": "@activity('Start XU Extraction').Error.Message",
+											"value": "@activity('Run XU Extraction').Error.Message",
 											"type": "Expression"
 										},
 										"type": "String"
@@ -517,7 +517,7 @@
 								"storedProcedureParameters": {
 									"batch_id": {
 										"value": {
-											"value": "@variables('batch_id_StartXUExtraction')",
+											"value": "@variables('batch_id_RunXUExtraction')",
 											"type": "Expression"
 										},
 										"type": "Guid"
@@ -551,7 +551,7 @@
 										"type": "String"
 									},
 									"status": {
-										"value": "Succeeded",
+										"value": null,
 										"type": "String"
 									},
 									"output": {
@@ -562,10 +562,7 @@
 										"type": "String"
 									},
 									"end_date_time": {
-										"value": {
-											"value": "@formatDateTime(utcNow(), 'yyyy-MM-dd HH:mm:ss')",
-											"type": "Expression"
-										}
+										"value": null
 									}
 								}
 							},
@@ -1362,7 +1359,7 @@
 			"extraction_log": {
 				"type": "String"
 			},
-			"batch_id_StartXUExtraction": {
+			"batch_id_RunXUExtraction": {
 				"type": "String",
 				"defaultValue": "@guid()"
 			},
