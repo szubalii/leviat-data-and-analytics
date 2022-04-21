@@ -104,7 +104,7 @@
 								"storedProcedureParameters": {
 									"batch_id": {
 										"value": {
-											"value": "@variables('batch_id')",
+											"value": "@pipeline().parameters.batch_id",
 											"type": "Expression"
 										},
 										"type": "Guid"
@@ -169,7 +169,7 @@
 								"storedProcedureParameters": {
 									"batch_id": {
 										"value": {
-											"value": "@variables('batch_id')",
+											"value": "@pipeline().parameters.batch_id",
 											"type": "Expression"
 										},
 										"type": "Guid"
@@ -318,7 +318,7 @@
 					"storedProcedureParameters": {
 						"batch_id": {
 							"value": {
-								"value": "@variables('batch_id')",
+								"value": "@pipeline().parameters.batch_id",
 								"type": "Expression"
 							},
 							"type": "Guid"
@@ -354,7 +354,7 @@
 						},
 						"output": {
 							"value": {
-								"value": "@concat(\n    '{\"status\"=\"',\n    activity('Get XU Extraction Status').output.response,\n    '\"}'\n)",
+								"value": "@concat(\n    '{\"status\":\"',\n    activity('Get XU Extraction Status').output.response,\n    '\"}'\n)",
 								"type": "Expression"
 							},
 							"type": "String"
@@ -387,7 +387,7 @@
 						},
 						"batch_id": {
 							"value": {
-								"value": "@variables('batch_id')",
+								"value": "@pipeline().parameters.batch_id",
 								"type": "Expression"
 							},
 							"type": "Guid"
@@ -464,6 +464,9 @@
 			},
 			"extraction_timestamp": {
 				"type": "string"
+			},
+			"batch_id": {
+				"type": "string"
 			}
 		},
 		"variables": {
@@ -476,10 +479,6 @@
 			},
 			"extraction_log": {
 				"type": "String"
-			},
-			"batch_id": {
-				"type": "String",
-				"defaultValue": "@guid()"
 			},
 			"adlsFileName": {
 				"type": "String"

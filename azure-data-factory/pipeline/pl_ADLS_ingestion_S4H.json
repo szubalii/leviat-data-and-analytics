@@ -37,7 +37,7 @@
 								"storedProcedureParameters": {
 									"batch_id": {
 										"value": {
-											"value": "@variables('batch_id')",
+											"value": "@pipeline().parameters.batch_id",
 											"type": "Expression"
 										},
 										"type": "Guid"
@@ -98,7 +98,7 @@
 								"storedProcedureParameters": {
 									"batch_id": {
 										"value": {
-											"value": "@variables('batch_id')",
+											"value": "@pipeline().parameters.batch_id",
 											"type": "Expression"
 										},
 										"type": "Guid"
@@ -159,7 +159,7 @@
 					],
 					"ifTrueActivities": [
 						{
-							"name": "act_exec_sproc_update_batch_Succeeded",
+							"name": "Update RunXUExtraction Batch Status",
 							"type": "SqlServerStoredProcedure",
 							"dependsOn": [],
 							"policy": {
@@ -175,7 +175,7 @@
 								"storedProcedureParameters": {
 									"batch_id": {
 										"value": {
-											"value": "@variables('batch_id')",
+											"value": "@variables('batch_id_RunXUExtraction')",
 											"type": "Expression"
 										},
 										"type": "Guid"
@@ -238,7 +238,7 @@
 					},
 					"ifTrueActivities": [
 						{
-							"name": "Start XU Extraction",
+							"name": "Run XU Extraction",
 							"type": "WebActivity",
 							"dependsOn": [
 								{
@@ -273,7 +273,7 @@
 							"type": "SetVariable",
 							"dependsOn": [
 								{
-									"activity": "Start XU Extraction",
+									"activity": "Run XU Extraction",
 									"dependencyConditions": [
 										"Succeeded"
 									]
@@ -283,7 +283,7 @@
 							"typeProperties": {
 								"variableName": "extraction_timestamp",
 								"value": {
-									"value": "@activity('Start XU Extraction').output.response",
+									"value": "@activity('Run XU Extraction').output.response",
 									"type": "Expression"
 								}
 							}
@@ -291,14 +291,7 @@
 						{
 							"name": "Set Start XU Extraction Batch",
 							"type": "SqlServerStoredProcedure",
-							"dependsOn": [
-								{
-									"activity": "Set batch_id",
-									"dependencyConditions": [
-										"Succeeded"
-									]
-								}
-							],
+							"dependsOn": [],
 							"policy": {
 								"timeout": "7.00:00:00",
 								"retry": 0,
@@ -316,7 +309,7 @@
 									},
 									"batch_id": {
 										"value": {
-											"value": "@variables('batch_id')",
+											"value": "@variables('batch_id_RunXUExtraction')",
 											"type": "Expression"
 										},
 										"type": "Guid"
@@ -363,7 +356,7 @@
 									},
 									"start_date_time": {
 										"value": {
-											"value": "@formatDateTime(utcnow(), 'yyyy-MM-dd HH:mm:ss')",
+											"value": "@formatDateTime(utcNow(), 'yyyy-MM-dd HH:mm:ss')",
 											"type": "Expression"
 										},
 										"type": "Datetime"
@@ -380,7 +373,7 @@
 							"type": "SqlServerStoredProcedure",
 							"dependsOn": [
 								{
-									"activity": "Start XU Extraction",
+									"activity": "Run XU Extraction",
 									"dependencyConditions": [
 										"Failed"
 									]
@@ -428,7 +421,7 @@
 									},
 									"batch_id": {
 										"value": {
-											"value": "@variables('batch_id')",
+											"value": "@variables('batch_id_RunXUExtraction')",
 											"type": "Expression"
 										}
 									}
@@ -463,7 +456,7 @@
 								"storedProcedureParameters": {
 									"batch_id": {
 										"value": {
-											"value": "@variables('batch_id')",
+											"value": "@variables('batch_id_RunXUExtraction')",
 											"type": "Expression"
 										},
 										"type": "Guid"
@@ -481,7 +474,7 @@
 									},
 									"error_msg": {
 										"value": {
-											"value": "@activity('Start XU Extraction').Error.Message",
+											"value": "@activity('Run XU Extraction').Error.Message",
 											"type": "Expression"
 										},
 										"type": "String"
@@ -501,7 +494,7 @@
 							}
 						},
 						{
-							"name": "Update Start XU Extraction Batch Succeeded",
+							"name": "Update RunXUExtraction Batch Timestamp",
 							"type": "SqlServerStoredProcedure",
 							"dependsOn": [
 								{
@@ -524,7 +517,7 @@
 								"storedProcedureParameters": {
 									"batch_id": {
 										"value": {
-											"value": "@variables('batch_id')",
+											"value": "@variables('batch_id_RunXUExtraction')",
 											"type": "Expression"
 										},
 										"type": "Guid"
@@ -558,7 +551,7 @@
 										"type": "String"
 									},
 									"status": {
-										"value": "Succeeded",
+										"value": null,
 										"type": "String"
 									},
 									"output": {
@@ -569,10 +562,7 @@
 										"type": "String"
 									},
 									"end_date_time": {
-										"value": {
-											"value": "@formatDateTime(utcNow(), 'yyyy-MM-dd HH:mm:ss')",
-											"type": "Expression"
-										}
+										"value": null
 									}
 								}
 							},
@@ -597,19 +587,6 @@
 								"variableName": "adlsFileName",
 								"value": {
 									"value": "@concat(\n    pipeline().parameters.extraction_name,\n    '_',\n    replace(replace(replace(variables('extraction_timestamp'),'-','_'),':','_'),'.','_'),\n    '.parquet'\n)",
-									"type": "Expression"
-								}
-							}
-						},
-						{
-							"name": "Set batch_id",
-							"type": "SetVariable",
-							"dependsOn": [],
-							"userProperties": [],
-							"typeProperties": {
-								"variableName": "batch_id",
-								"value": {
-									"value": "@guid()",
 									"type": "Expression"
 								}
 							}
@@ -640,7 +617,7 @@
 							"type": "WebActivity",
 							"dependsOn": [
 								{
-									"activity": "Reset batch_id",
+									"activity": "Set Store XU Extraction Logs Batch",
 									"dependencyConditions": [
 										"Succeeded"
 									]
@@ -793,7 +770,7 @@
 								"storedProcedureParameters": {
 									"batch_id": {
 										"value": {
-											"value": "@variables('batch_id')",
+											"value": "@variables('batch_id_StoreXUExtractionLog')",
 											"type": "Expression"
 										},
 										"type": "Guid"
@@ -854,7 +831,7 @@
 								"storedProcedureParameters": {
 									"batch_id": {
 										"value": {
-											"value": "@variables('batch_id')",
+											"value": "@variables('batch_id_StoreXUExtractionLog')",
 											"type": "Expression"
 										},
 										"type": "Guid"
@@ -919,7 +896,7 @@
 								"storedProcedureParameters": {
 									"batch_id": {
 										"value": {
-											"value": "@variables('batch_id')",
+											"value": "@variables('batch_id_StoreXUExtractionLog')",
 											"type": "Expression"
 										},
 										"type": "Guid"
@@ -977,19 +954,6 @@
 							}
 						},
 						{
-							"name": "Reset batch_id",
-							"type": "SetVariable",
-							"dependsOn": [],
-							"userProperties": [],
-							"typeProperties": {
-								"variableName": "batch_id",
-								"value": {
-									"value": "@guid()",
-									"type": "Expression"
-								}
-							}
-						},
-						{
 							"name": "act_exec_sproc_get_logs_update_batch_Faild_copy1",
 							"type": "SqlServerStoredProcedure",
 							"dependsOn": [
@@ -1013,14 +977,14 @@
 								"storedProcedureParameters": {
 									"batch_id": {
 										"value": {
-											"value": "@variables('batch_id')",
+											"value": "@variables('batch_id_StoreXUExtractionLog')",
 											"type": "Expression"
 										},
 										"type": "Guid"
 									},
 									"end_date_time": {
 										"value": {
-											"value": "@formatDateTime(utcnow(), 'yyyy-MM-dd HH:mm:ss')",
+											"value": "@formatDateTime(utcNow(), 'yyyy-MM-dd HH:mm:ss')",
 											"type": "Expression"
 										},
 										"type": "DateTime"
@@ -1078,7 +1042,7 @@
 								"storedProcedureParameters": {
 									"batch_id": {
 										"value": {
-											"value": "@variables('batch_id')",
+											"value": "@variables('batch_id_StoreXUExtractionLog')",
 											"type": "Expression"
 										},
 										"type": "Guid"
@@ -1110,6 +1074,88 @@
 									},
 									"status": {
 										"value": "Succeeded",
+										"type": "String"
+									}
+								}
+							},
+							"linkedServiceName": {
+								"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
+								"type": "LinkedServiceReference"
+							}
+						},
+						{
+							"name": "Set Store XU Extraction Logs Batch",
+							"type": "SqlServerStoredProcedure",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"storedProcedureName": "[dbo].[set_batch]",
+								"storedProcedureParameters": {
+									"activity": {
+										"value": "StoreXUExtractionLog",
+										"type": "String"
+									},
+									"batch_id": {
+										"value": {
+											"value": "@variables('batch_id_StoreXUExtractionLog')",
+											"type": "Expression"
+										},
+										"type": "Guid"
+									},
+									"directory_path": {
+										"value": null,
+										"type": "String"
+									},
+									"entity_id": {
+										"value": {
+											"value": "@pipeline().parameters.entity_id",
+											"type": "Expression"
+										},
+										"type": "Int64"
+									},
+									"file_name": {
+										"value": null,
+										"type": "String"
+									},
+									"file_path": {
+										"value": null,
+										"type": "String"
+									},
+									"run_id": {
+										"value": {
+											"value": "@pipeline().parameters.run_id",
+											"type": "Expression"
+										},
+										"type": "Guid"
+									},
+									"size_bytes": {
+										"value": null,
+										"type": "Int64"
+									},
+									"source_layer": {
+										"value": null,
+										"type": "String"
+									},
+									"start_date_time": {
+										"value": {
+											"value": "@formatDateTime(utcNow(), 'yyyy-MM-dd HH:mm:ss')",
+											"type": "Expression"
+										},
+										"type": "DateTime"
+									},
+									"status": {
+										"value": "InProgress",
+										"type": "String"
+									},
+									"target_layer": {
+										"value": null,
 										"type": "String"
 									}
 								}
@@ -1170,6 +1216,10 @@
 									},
 									"extraction_timestamp": {
 										"value": "@variables('extraction_timestamp')",
+										"type": "Expression"
+									},
+									"batch_id": {
+										"value": "@variables('batch_id_CheckXUExtractionStatus')",
 										"type": "Expression"
 									}
 								}
@@ -1243,7 +1293,7 @@
 					"source": {
 						"type": "AzureSqlSource",
 						"sqlReaderQuery": {
-							"value": "SELECT output\nFROM get_scheduled_entity_batch_activities\nWHERE \n    entity_id = '@{pipeline().parameters.entity_id}'\n    AND\n    activity_nk = 'CheckXUExtractionStatus'",
+							"value": "SELECT output\nFROM batch\nWHERE\n    batch_id = '@{variables('batch_id_CheckXUExtractionStatus')}'",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
@@ -1270,7 +1320,7 @@
 				"typeProperties": {
 					"variableName": "extraction_status",
 					"value": {
-						"value": "@activity('Lookup XU Extraction Status').output.value",
+						"value": "@json(\n    activity('Lookup XU Extraction Status').output.firstRow.output\n).status",
 						"type": "Expression"
 					}
 				}
@@ -1294,6 +1344,9 @@
 			},
 			"required_activities": {
 				"type": "string"
+			},
+			"batch_id": {
+				"type": "string"
 			}
 		},
 		"variables": {
@@ -1306,14 +1359,23 @@
 			"extraction_log": {
 				"type": "String"
 			},
-			"batch_id": {
-				"type": "String"
+			"batch_id_RunXUExtraction": {
+				"type": "String",
+				"defaultValue": "@guid()"
 			},
 			"adlsFileName": {
 				"type": "String"
 			},
 			"run_id": {
 				"type": "String"
+			},
+			"batch_id_CheckXUExtractionStatus": {
+				"type": "String",
+				"defaultValue": "@guid()"
+			},
+			"batch_id_StoreXUExtractionLog": {
+				"type": "String",
+				"defaultValue": "@guid()"
 			}
 		},
 		"folder": {
