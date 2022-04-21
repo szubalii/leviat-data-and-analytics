@@ -354,7 +354,7 @@
 						},
 						"output": {
 							"value": {
-								"value": "@concat(\n    'status=',\n    activity('Get XU Extraction Status').output.response\n)",
+								"value": "@concat(\n    '{\"status\"=\"',\n    activity('Get XU Extraction Status').output.response,\n    '\"}'\n)",
 								"type": "Expression"
 							},
 							"type": "String"
