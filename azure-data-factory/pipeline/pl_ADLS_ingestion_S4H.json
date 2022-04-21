@@ -291,14 +291,7 @@
 						{
 							"name": "Set Start XU Extraction Batch",
 							"type": "SqlServerStoredProcedure",
-							"dependsOn": [
-								{
-									"activity": "Set batch_id",
-									"dependencyConditions": [
-										"Succeeded"
-									]
-								}
-							],
+							"dependsOn": [],
 							"policy": {
 								"timeout": "7.00:00:00",
 								"retry": 0,
@@ -316,7 +309,7 @@
 									},
 									"batch_id": {
 										"value": {
-											"value": "@variables('batch_id')",
+											"value": "@variables('batch_id_StartXUExtraction')",
 											"type": "Expression"
 										},
 										"type": "Guid"
@@ -363,7 +356,7 @@
 									},
 									"start_date_time": {
 										"value": {
-											"value": "@formatDateTime(utcnow(), 'yyyy-MM-dd HH:mm:ss')",
+											"value": "@formatDateTime(utcNow(), 'yyyy-MM-dd HH:mm:ss')",
 											"type": "Expression"
 										},
 										"type": "Datetime"
@@ -428,7 +421,7 @@
 									},
 									"batch_id": {
 										"value": {
-											"value": "@variables('batch_id')",
+											"value": "@variables('batch_id_StartXUExtraction')",
 											"type": "Expression"
 										}
 									}
@@ -463,7 +456,7 @@
 								"storedProcedureParameters": {
 									"batch_id": {
 										"value": {
-											"value": "@variables('batch_id')",
+											"value": "@variables('batch_id_StartXUExtraction')",
 											"type": "Expression"
 										},
 										"type": "Guid"
@@ -524,7 +517,7 @@
 								"storedProcedureParameters": {
 									"batch_id": {
 										"value": {
-											"value": "@variables('batch_id')",
+											"value": "@variables('batch_id_StartXUExtraction')",
 											"type": "Expression"
 										},
 										"type": "Guid"
@@ -597,19 +590,6 @@
 								"variableName": "adlsFileName",
 								"value": {
 									"value": "@concat(\n    pipeline().parameters.extraction_name,\n    '_',\n    replace(replace(replace(variables('extraction_timestamp'),'-','_'),':','_'),'.','_'),\n    '.parquet'\n)",
-									"type": "Expression"
-								}
-							}
-						},
-						{
-							"name": "Set batch_id",
-							"type": "SetVariable",
-							"dependsOn": [],
-							"userProperties": [],
-							"typeProperties": {
-								"variableName": "batch_id",
-								"value": {
-									"value": "@guid()",
 									"type": "Expression"
 								}
 							}
@@ -793,7 +773,7 @@
 								"storedProcedureParameters": {
 									"batch_id": {
 										"value": {
-											"value": "@variables('batch_id')",
+											"value": "@variables('batch_id_StoreXUExtractionLog')",
 											"type": "Expression"
 										},
 										"type": "Guid"
@@ -854,7 +834,7 @@
 								"storedProcedureParameters": {
 									"batch_id": {
 										"value": {
-											"value": "@variables('batch_id')",
+											"value": "@variables('batch_id_StoreXUExtractionLog')",
 											"type": "Expression"
 										},
 										"type": "Guid"
@@ -919,7 +899,7 @@
 								"storedProcedureParameters": {
 									"batch_id": {
 										"value": {
-											"value": "@variables('batch_id')",
+											"value": "@variables('batch_id_StoreXUExtractionLog')",
 											"type": "Expression"
 										},
 										"type": "Guid"
@@ -977,19 +957,6 @@
 							}
 						},
 						{
-							"name": "Reset batch_id",
-							"type": "SetVariable",
-							"dependsOn": [],
-							"userProperties": [],
-							"typeProperties": {
-								"variableName": "batch_id",
-								"value": {
-									"value": "@guid()",
-									"type": "Expression"
-								}
-							}
-						},
-						{
 							"name": "act_exec_sproc_get_logs_update_batch_Faild_copy1",
 							"type": "SqlServerStoredProcedure",
 							"dependsOn": [
@@ -1013,7 +980,7 @@
 								"storedProcedureParameters": {
 									"batch_id": {
 										"value": {
-											"value": "@variables('batch_id')",
+											"value": "@variables('batch_id_StoreXUExtractionLog')",
 											"type": "Expression"
 										},
 										"type": "Guid"
@@ -1078,7 +1045,7 @@
 								"storedProcedureParameters": {
 									"batch_id": {
 										"value": {
-											"value": "@variables('batch_id')",
+											"value": "@variables('batch_id_StoreXUExtractionLog')",
 											"type": "Expression"
 										},
 										"type": "Guid"
@@ -1122,14 +1089,7 @@
 						{
 							"name": "Set Store XU Extraction Logs Batch",
 							"type": "SqlServerStoredProcedure",
-							"dependsOn": [
-								{
-									"activity": "Reset batch_id",
-									"dependencyConditions": [
-										"Succeeded"
-									]
-								}
-							],
+							"dependsOn": [],
 							"policy": {
 								"timeout": "7.00:00:00",
 								"retry": 0,
@@ -1147,7 +1107,7 @@
 									},
 									"batch_id": {
 										"value": {
-											"value": "@variables('batch_id')",
+											"value": "@variables('batch_id_StoreXUExtractionLog')",
 											"type": "Expression"
 										},
 										"type": "Guid"
@@ -1260,6 +1220,10 @@
 									"extraction_timestamp": {
 										"value": "@variables('extraction_timestamp')",
 										"type": "Expression"
+									},
+									"batch_id": {
+										"value": "@variables('batch_id_CheckXUExtractionStatus')",
+										"type": "Expression"
 									}
 								}
 							}
@@ -1332,7 +1296,7 @@
 					"source": {
 						"type": "AzureSqlSource",
 						"sqlReaderQuery": {
-							"value": "SELECT output\nFROM get_scheduled_entity_batch_activities\nWHERE \n    entity_id = '@{pipeline().parameters.entity_id}'\n    AND\n    activity_nk = 'CheckXUExtractionStatus'",
+							"value": "SELECT output\nFROM batch\nWHERE\n    batch_id = '@{variables('batch_id_CheckXUExtractionStatus')}'",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
@@ -1395,14 +1359,23 @@
 			"extraction_log": {
 				"type": "String"
 			},
-			"batch_id": {
-				"type": "String"
+			"batch_id_StartXUExtraction": {
+				"type": "String",
+				"defaultValue": "@guid()"
 			},
 			"adlsFileName": {
 				"type": "String"
 			},
 			"run_id": {
 				"type": "String"
+			},
+			"batch_id_CheckXUExtractionStatus": {
+				"type": "String",
+				"defaultValue": "@guid()"
+			},
+			"batch_id_StoreXUExtractionLog": {
+				"type": "String",
+				"defaultValue": "@guid()"
 			}
 		},
 		"folder": {
