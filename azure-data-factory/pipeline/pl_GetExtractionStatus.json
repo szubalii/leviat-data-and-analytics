@@ -104,7 +104,7 @@
 								"storedProcedureParameters": {
 									"batch_id": {
 										"value": {
-											"value": "@pipeline().parameters.batch_id",
+											"value": "@variables('batch_id')",
 											"type": "Expression"
 										},
 										"type": "Guid"
@@ -311,7 +311,7 @@
 					"storedProcedureParameters": {
 						"batch_id": {
 							"value": {
-								"value": "@pipeline().parameters.batch_id",
+								"value": "@variables('batch_id')",
 								"type": "Expression"
 							},
 							"type": "Guid"
@@ -374,9 +374,6 @@
 				"type": "int"
 			},
 			"extraction_timestamp": {
-				"type": "string"
-			},
-			"batch_id": {
 				"type": "string"
 			}
 		},
