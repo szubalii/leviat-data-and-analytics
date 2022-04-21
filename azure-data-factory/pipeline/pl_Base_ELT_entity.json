@@ -494,7 +494,7 @@
 			},
 			"required_activities": {
 				"type": "string",
-				"defaultValue": "DuplicatesTest"
+				"defaultValue": "ADLSIngestion"
 			}
 		},
 		"variables": {
