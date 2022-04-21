@@ -1130,7 +1130,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"expression": {
-						"value": "@contains(\n    pipeline().parameters.required_activities,\n    'GetXUExtractionStatus'\n)",
+						"value": "@contains(\n    pipeline().parameters.required_activities,\n    'CheckXUExtractionStatus'\n)",
 						"type": "Expression"
 					},
 					"ifTrueActivities": [
