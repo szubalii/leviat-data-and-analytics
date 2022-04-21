@@ -128,10 +128,6 @@
 										"value": null,
 										"type": "Int64"
 									},
-									"activity": {
-										"value": "S4HToBlobIn",
-										"type": "String"
-									},
 									"status": {
 										"value": "Failed",
 										"type": "String"
@@ -208,10 +204,6 @@
 									"size_bytes": {
 										"value": null,
 										"type": "Int64"
-									},
-									"activity": {
-										"value": "S4HToBlobIn",
-										"type": "String"
 									},
 									"status": {
 										"value": "Succeeded",
