@@ -497,8 +497,8 @@
 				"defaultValue": "I_CostCenter"
 			},
 			"required_activities": {
-				"type": "string",
-				"defaultValue": "ADLSIngestion"
+				"type": "array",
+				"defaultValue": "[ADLSIngestion,StartXUExtraction,CheckXUExtractionStatus,StoreXUExtractionLogs]"
 			}
 		},
 		"variables": {
