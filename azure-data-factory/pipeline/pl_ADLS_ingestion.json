@@ -79,7 +79,7 @@
 									"userProperties": [],
 									"typeProperties": {
 										"pipeline": {
-											"referenceName": "pl_XU_ADLS_extraction",
+											"referenceName": "pl_ADLS_ingestion_S4H",
 											"type": "PipelineReference"
 										},
 										"waitOnCompletion": true,
