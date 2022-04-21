@@ -159,7 +159,7 @@
 					],
 					"ifTrueActivities": [
 						{
-							"name": "act_exec_sproc_update_batch_Succeeded",
+							"name": "Update RunXUExtraction Batch Status",
 							"type": "SqlServerStoredProcedure",
 							"dependsOn": [],
 							"policy": {
@@ -175,7 +175,7 @@
 								"storedProcedureParameters": {
 									"batch_id": {
 										"value": {
-											"value": "@pipeline().parameters.batch_id",
+											"value": "@variables('batch_id_RunXUExtraction')",
 											"type": "Expression"
 										},
 										"type": "Guid"
@@ -494,7 +494,7 @@
 							}
 						},
 						{
-							"name": "Update Start XU Extraction Batch Succeeded",
+							"name": "Update RunXUExtraction Batch Timestamp",
 							"type": "SqlServerStoredProcedure",
 							"dependsOn": [
 								{
