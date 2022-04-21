@@ -8,7 +8,7 @@ CREATE PROCEDURE [dbo].[update_batch_status]
 	@run_id UNIQUEIDENTIFIER = NULL,
 	@entity_id BIGINT = NULL,
 	@end_date_time DATETIME = NULL,
-	@output NVARCHAR(MAX)
+	@output NVARCHAR(MAX) = NULL
 
 AS
 BEGIN
