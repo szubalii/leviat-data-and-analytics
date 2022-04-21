@@ -434,7 +434,7 @@
 			},
 			"date": {
 				"type": "string",
-				"defaultValue": "2022/04/11"
+				"defaultValue": "2022/04/21"
 			},
 			"run_id": {
 				"type": "string",
