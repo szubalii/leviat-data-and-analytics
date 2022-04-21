@@ -1323,7 +1323,7 @@
 				"typeProperties": {
 					"variableName": "extraction_status",
 					"value": {
-						"value": "@activity('Lookup XU Extraction Status').output.value",
+						"value": "@json(\n    activity('Lookup XU Extraction Status').output.firstRow.output\n).status",
 						"type": "Expression"
 					}
 				}
