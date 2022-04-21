@@ -73,7 +73,7 @@
 							"value": "S4H",
 							"activities": [
 								{
-									"name": "Run XU Extraction",
+									"name": "Run S4H ADLS Ingestion",
 									"type": "ExecutePipeline",
 									"dependsOn": [],
 									"userProperties": [],
