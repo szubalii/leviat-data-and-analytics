@@ -265,6 +265,10 @@
 									"adls_file_name": {
 										"value": "@variables('adlsFileName')",
 										"type": "Expression"
+									},
+									"required_activities": {
+										"value": "@pipeline().parameters.required_activities",
+										"type": "Expression"
 									}
 								}
 							}
@@ -434,7 +438,7 @@
 			},
 			"date": {
 				"type": "string",
-				"defaultValue": "2022/04/11"
+				"defaultValue": "2022/04/21"
 			},
 			"run_id": {
 				"type": "string",
@@ -493,8 +497,13 @@
 				"defaultValue": "I_CostCenter"
 			},
 			"required_activities": {
-				"type": "string",
-				"defaultValue": "DuplicatesTest"
+				"type": "array",
+				"defaultValue": [
+					"ADLSIngestion",
+					"StartXUExtraction",
+					"CheckXUExtractionStatus",
+					"StoreXUExtractionLogs"
+				]
 			}
 		},
 		"variables": {

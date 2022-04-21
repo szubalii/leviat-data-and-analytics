@@ -269,7 +269,7 @@
 							}
 						},
 						{
-							"name": "Set XU Extraction Status Variable",
+							"name": "Reset XU Extraction Timestamp Variable",
 							"type": "SetVariable",
 							"dependsOn": [
 								{
@@ -281,7 +281,7 @@
 							],
 							"userProperties": [],
 							"typeProperties": {
-								"variableName": "extraction_status",
+								"variableName": "extraction_timestamp",
 								"value": {
 									"value": "@activity('Lookup Extraction Timestamp').output",
 									"type": "Expression"

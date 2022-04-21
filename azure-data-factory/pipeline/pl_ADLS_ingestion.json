@@ -73,13 +73,13 @@
 							"value": "S4H",
 							"activities": [
 								{
-									"name": "Run XU Extraction",
+									"name": "Run S4H ADLS Ingestion",
 									"type": "ExecutePipeline",
 									"dependsOn": [],
 									"userProperties": [],
 									"typeProperties": {
 										"pipeline": {
-											"referenceName": "pl_XU_ADLS_extraction",
+											"referenceName": "pl_ADLS_ingestion_S4H",
 											"type": "PipelineReference"
 										},
 										"waitOnCompletion": true,
@@ -102,6 +102,10 @@
 											},
 											"adls_directory_path": {
 												"value": "@pipeline().parameters.adls_directory_path_In",
+												"type": "Expression"
+											},
+											"required_activities": {
+												"value": "@pipeline().parameters.required_activities",
 												"type": "Expression"
 											}
 										}
@@ -204,6 +208,9 @@
 				"type": "string"
 			},
 			"adls_file_name": {
+				"type": "string"
+			},
+			"required_activities": {
 				"type": "string"
 			}
 		},

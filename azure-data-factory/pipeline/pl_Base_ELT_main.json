@@ -198,7 +198,7 @@
 						},
 						"error_msg": {
 							"value": {
-								"value": "@activity('Get Scheduled Entities').Error.Message",
+								"value": "@activity('Get Scheduled Entity Batch Activities').Error.Message",
 								"type": "Expression"
 							},
 							"type": "String"
@@ -459,7 +459,7 @@
 			},
 			"date": {
 				"type": "string",
-				"defaultValue": "2022/04/20"
+				"defaultValue": "2022/04/21"
 			}
 		},
 		"folder": {
