@@ -399,7 +399,7 @@
 								"storedProcedureParameters": {
 									"end_date_time": {
 										"value": {
-											"value": "@formatDateTime(utcnow(), 'yyyy-MM-dd HH:mm:ss')",
+											"value": "@formatDateTime(utcNow(), 'yyyy-MM-dd HH:mm:ss')",
 											"type": "Expression"
 										},
 										"type": "DateTime"
@@ -567,6 +567,12 @@
 											"type": "Expression"
 										},
 										"type": "String"
+									},
+									"end_date_time": {
+										"value": {
+											"value": "@formatDateTime(utcNow(), 'yyyy-MM-dd HH:mm:ss')",
+											"type": "Expression"
+										}
 									}
 								}
 							},
