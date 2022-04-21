@@ -299,7 +299,14 @@
 						{
 							"name": "Set Start XU Extraction Batch",
 							"type": "SqlServerStoredProcedure",
-							"dependsOn": [],
+							"dependsOn": [
+								{
+									"activity": "Set batch_id",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
 							"policy": {
 								"timeout": "7.00:00:00",
 								"retry": 0,
@@ -398,13 +405,6 @@
 							"typeProperties": {
 								"storedProcedureName": "[dbo].[update_batch_status]",
 								"storedProcedureParameters": {
-									"batch_id": {
-										"value": {
-											"value": "@variables('batch_id')",
-											"type": "Expression"
-										},
-										"type": "Guid"
-									},
 									"end_date_time": {
 										"value": {
 											"value": "@formatDateTime(utcnow(), 'yyyy-MM-dd HH:mm:ss')",
@@ -430,13 +430,15 @@
 										"value": null,
 										"type": "Int64"
 									},
-									"activity": {
-										"value": "StartXUExtraction",
-										"type": "String"
-									},
 									"status": {
 										"value": "Failed",
 										"type": "String"
+									},
+									"batch_id": {
+										"value": {
+											"value": "@variables('batch_id')",
+											"type": "Expression"
+										}
 									}
 								}
 							},
@@ -563,10 +565,6 @@
 										},
 										"type": "String"
 									},
-									"activity": {
-										"value": "StartXUExtraction",
-										"type": "String"
-									},
 									"status": {
 										"value": "Successful",
 										"type": "String"
@@ -601,6 +599,19 @@
 								"variableName": "adlsFileName",
 								"value": {
 									"value": "@concat(\n    pipeline().parameters.extraction_name,\n    '_',\n    replace(replace(replace(variables('extraction_timestamp'),'-','_'),':','_'),'.','_'),\n    '.parquet'\n)",
+									"type": "Expression"
+								}
+							}
+						},
+						{
+							"name": "Set batch_id",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "batch_id",
+								"value": {
+									"value": "@guid()",
 									"type": "Expression"
 								}
 							}
@@ -1231,8 +1242,7 @@
 				"type": "String"
 			},
 			"batch_id": {
-				"type": "String",
-				"defaultValue": "@guid()"
+				"type": "String"
 			},
 			"adlsFileName": {
 				"type": "String"
