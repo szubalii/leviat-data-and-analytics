@@ -479,11 +479,11 @@
 			},
 			"adls_directory_path_In": {
 				"type": "string",
-				"defaultValue": "DIMENSION/I_CostCenter_F/Theobald/ODP/Full/In/2022/04/11"
+				"defaultValue": "DIMENSION/I_CostCenter_F/Theobald/ODP/Full/In/2022/04/21"
 			},
 			"adls_directory_path_Out": {
 				"type": "string",
-				"defaultValue": "DIMENSION/I_CostCenter_F/Theobald/ODP/Full/Out/2022/04/11"
+				"defaultValue": "DIMENSION/I_CostCenter_F/Theobald/ODP/Full/Out/2022/04/21"
 			},
 			"base_schema_name": {
 				"type": "string",
