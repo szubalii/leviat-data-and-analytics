@@ -103,6 +103,10 @@
 											"adls_directory_path": {
 												"value": "@pipeline().parameters.adls_directory_path_In",
 												"type": "Expression"
+											},
+											"required_activities": {
+												"value": "@pipeline().parameters.required_activities",
+												"type": "Expression"
 											}
 										}
 									}
