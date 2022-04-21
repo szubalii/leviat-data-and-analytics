@@ -566,7 +566,7 @@
 										"type": "String"
 									},
 									"status": {
-										"value": "Successful",
+										"value": "Succeeded",
 										"type": "String"
 									},
 									"output": {
@@ -1029,85 +1029,6 @@
 										"type": "Expression"
 									}
 								}
-							}
-						},
-						{
-							"name": "Update Start XU Extraction Batch Succeeded_copy1",
-							"type": "SqlServerStoredProcedure",
-							"dependsOn": [
-								{
-									"activity": "Execute Get Extraction Status",
-									"dependencyConditions": [
-										"Succeeded"
-									]
-								}
-							],
-							"policy": {
-								"timeout": "7.00:00:00",
-								"retry": 0,
-								"retryIntervalInSeconds": 30,
-								"secureOutput": false,
-								"secureInput": false
-							},
-							"userProperties": [],
-							"typeProperties": {
-								"storedProcedureName": "[dbo].[update_batch_status]",
-								"storedProcedureParameters": {
-									"batch_id": {
-										"value": {
-											"value": "@variables('batch_id')",
-											"type": "Expression"
-										},
-										"type": "Guid"
-									},
-									"entity_id": {
-										"value": {
-											"value": "@pipeline().parameters.entity_id",
-											"type": "Expression"
-										},
-										"type": "Int64"
-									},
-									"run_id": {
-										"value": {
-											"value": "@pipeline().parameters.run_id",
-											"type": "Expression"
-										},
-										"type": "Guid"
-									},
-									"file_name": {
-										"value": {
-											"value": "@variables('adlsFileName')",
-											"type": "Expression"
-										},
-										"type": "String"
-									},
-									"directory_path": {
-										"value": {
-											"value": "@pipeline().parameters.adls_directory_path",
-											"type": "Expression"
-										},
-										"type": "String"
-									},
-									"activity": {
-										"value": "StartXUExtraction",
-										"type": "String"
-									},
-									"status": {
-										"value": "Successful",
-										"type": "String"
-									},
-									"output": {
-										"value": {
-											"value": "@concat(\n    '{\"timestamp\":\"',\n    variables('extraction_timestamp'),\n    '\"}'\n)",
-											"type": "Expression"
-										},
-										"type": "String"
-									}
-								}
-							},
-							"linkedServiceName": {
-								"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
-								"type": "LinkedServiceReference"
 							}
 						}
 					]
