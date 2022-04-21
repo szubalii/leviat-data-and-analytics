@@ -205,6 +205,9 @@
 			},
 			"adls_file_name": {
 				"type": "string"
+			},
+			"required_activities": {
+				"type": "string"
 			}
 		},
 		"folder": {

@@ -265,6 +265,10 @@
 									"adls_file_name": {
 										"value": "@variables('adlsFileName')",
 										"type": "Expression"
+									},
+									"required_activities": {
+										"value": "@pipeline().parameters.required_activities",
+										"type": "Expression"
 									}
 								}
 							}
