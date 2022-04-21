@@ -622,7 +622,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"expression": {
-						"value": "@contains(\n    pipeline().parameters.required_activities,\n    'StoreExtractionLogs'\n)",
+						"value": "@contains(\n    pipeline().parameters.required_activities,\n    'StoreXUExtractionLogs'\n)",
 						"type": "Expression"
 					},
 					"ifTrueActivities": [
@@ -981,7 +981,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"expression": {
-						"value": "@contains(\n    pipeline().parameters.required_activities,\n    'GetExtractionStatus'\n)",
+						"value": "@contains(\n    pipeline().parameters.required_activities,\n    'GetXUExtractionStatus'\n)",
 						"type": "Expression"
 					},
 					"ifTrueActivities": [
