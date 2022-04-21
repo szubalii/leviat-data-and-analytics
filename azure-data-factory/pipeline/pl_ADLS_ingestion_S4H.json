@@ -7,7 +7,7 @@
 				"type": "IfCondition",
 				"dependsOn": [
 					{
-						"activity": "If Status Empty",
+						"activity": "Set XU Extraction Status",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -1021,66 +1021,11 @@
 							}
 						},
 						{
-							"name": "Lookup XU Extraction Status",
-							"type": "Lookup",
-							"dependsOn": [
-								{
-									"activity": "Execute Get Extraction Status",
-									"dependencyConditions": [
-										"Succeeded"
-									]
-								}
-							],
-							"policy": {
-								"timeout": "7.00:00:00",
-								"retry": 0,
-								"retryIntervalInSeconds": 30,
-								"secureOutput": false,
-								"secureInput": false
-							},
-							"userProperties": [],
-							"typeProperties": {
-								"source": {
-									"type": "AzureSqlSource",
-									"sqlReaderQuery": {
-										"value": "SELECT output\nFROM get_scheduled_entity_batch_activities\nWHERE \n    entity_id = '@{pipeline().parameters.entity_id}'\n    AND\n    activity_nk = 'CheckXUExtractionStatus'",
-										"type": "Expression"
-									},
-									"queryTimeout": "02:00:00",
-									"partitionOption": "None"
-								},
-								"dataset": {
-									"referenceName": "ds_orch_db",
-									"type": "DatasetReference"
-								}
-							}
-						},
-						{
-							"name": "Set XU Extraction Status",
-							"type": "SetVariable",
-							"dependsOn": [
-								{
-									"activity": "Lookup XU Extraction Status",
-									"dependencyConditions": [
-										"Succeeded"
-									]
-								}
-							],
-							"userProperties": [],
-							"typeProperties": {
-								"variableName": "extraction_status",
-								"value": {
-									"value": "@activity('Lookup XU Extraction Status').output.value",
-									"type": "Expression"
-								}
-							}
-						},
-						{
 							"name": "Update Start XU Extraction Batch Succeeded_copy1",
 							"type": "SqlServerStoredProcedure",
 							"dependsOn": [
 								{
-									"activity": "Set XU Extraction Status",
+									"activity": "Execute Get Extraction Status",
 									"dependencyConditions": [
 										"Succeeded"
 									]
@@ -1200,8 +1145,8 @@
 				}
 			},
 			{
-				"name": "If Status Empty",
-				"type": "IfCondition",
+				"name": "Lookup XU Extraction Status",
+				"type": "Lookup",
 				"dependsOn": [
 					{
 						"activity": "If Get XU Extraction Status",
@@ -1210,77 +1155,48 @@
 						]
 					}
 				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
 				"userProperties": [],
 				"typeProperties": {
-					"expression": {
-						"value": "@empty(variables('extraction_status'))",
-						"type": "Expression"
-					},
-					"ifFalseActivities": [
-						{
-							"name": "Set XU Extraction Timestamp Variable",
-							"type": "SetVariable",
-							"dependsOn": [],
-							"userProperties": [],
-							"typeProperties": {
-								"variableName": "extraction_status",
-								"value": {
-									"value": "@pipeline().parameters.extraction_timestamp",
-									"type": "Expression"
-								}
-							}
-						}
-					],
-					"ifTrueActivities": [
-						{
-							"name": "Lookup Extraction Status",
-							"type": "Lookup",
-							"dependsOn": [],
-							"policy": {
-								"timeout": "7.00:00:00",
-								"retry": 0,
-								"retryIntervalInSeconds": 30,
-								"secureOutput": false,
-								"secureInput": false
-							},
-							"userProperties": [],
-							"typeProperties": {
-								"source": {
-									"type": "AzureSqlSource",
-									"sqlReaderQuery": {
-										"value": "SELECT output\nFROM get_scheduled_entity_batch_activities\nWHERE \n    entity_id = '@{pipeline().parameters.entity_id}'\n    AND\n    activity_nk = 'CheckXUExtractionStatus'\n",
-										"type": "Expression"
-									},
-									"queryTimeout": "02:00:00",
-									"partitionOption": "None"
-								},
-								"dataset": {
-									"referenceName": "ds_orch_db",
-									"type": "DatasetReference"
-								}
-							}
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderQuery": {
+							"value": "SELECT output\nFROM get_scheduled_entity_batch_activities\nWHERE \n    entity_id = '@{pipeline().parameters.entity_id}'\n    AND\n    activity_nk = 'CheckXUExtractionStatus'",
+							"type": "Expression"
 						},
-						{
-							"name": "Set XU Extraction Status Variable",
-							"type": "SetVariable",
-							"dependsOn": [
-								{
-									"activity": "Lookup Extraction Status",
-									"dependencyConditions": [
-										"Succeeded"
-									]
-								}
-							],
-							"userProperties": [],
-							"typeProperties": {
-								"variableName": "extraction_status",
-								"value": {
-									"value": "@activity('Lookup Extraction Status').output",
-									"type": "Expression"
-								}
-							}
-						}
-					]
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "ds_orch_db",
+						"type": "DatasetReference"
+					}
+				}
+			},
+			{
+				"name": "Set XU Extraction Status",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "Lookup XU Extraction Status",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "extraction_status",
+					"value": {
+						"value": "@activity('Lookup XU Extraction Status').output.value",
+						"type": "Expression"
+					}
 				}
 			}
 		],
