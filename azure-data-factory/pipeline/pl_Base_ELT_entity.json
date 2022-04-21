@@ -498,7 +498,12 @@
 			},
 			"required_activities": {
 				"type": "array",
-				"defaultValue": "['ADLSIngestion','StartXUExtraction','CheckXUExtractionStatus','StoreXUExtractionLogs']"
+				"defaultValue": [
+					"ADLSIngestion",
+					"StartXUExtraction",
+					"CheckXUExtractionStatus",
+					"StoreXUExtractionLogs"
+				]
 			}
 		},
 		"variables": {
