@@ -1,0 +1,119 @@
+# .NET Desktop
+# Build and run tests for .NET Desktop or Windows classic desktop solutions.
+# Add steps that publish symbols, save build artifacts, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/apps/windows/dot-net
+
+trigger:
+- main
+
+pool: 
+  vmImage: 'windows-latest'
+
+variables:
+  solution: '**/orchestration/*.sln'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+
+steps:
+# Installs Node and the npm packages saved in your package.json file in the build
+
+- task: NodeTool@0
+  inputs:
+    versionSpec: '10.x'
+  displayName: 'Install Node.js'
+
+- task: Npm@1
+  inputs:
+    command: 'install'
+    workingDir: '$(Build.Repository.LocalPath)' #replace with the package.json folder
+    verbose: true
+  displayName: 'Install npm package'
+
+- task: NuGetToolInstaller@1
+
+- task: NuGetCommand@2
+  inputs:
+    restoreSolution: '$(solution)'
+
+- task: VSBuild@1
+  inputs:
+    solution: '$(solution)'
+    platform: '$(buildPlatform)'
+    configuration: '$(buildConfiguration)'
+
+- task: VSTest@2
+  inputs:
+    platform: '$(buildPlatform)'
+    configuration: '$(buildConfiguration)'
+
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: '$(Build.SourcesDirectory)\orchestration\sqldb-xxxx-orchdb-d-euw-001\bin\Release'
+    Contents: '*.dacpac'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: '$(Build.SourcesDirectory)\orchestration'
+    Contents: '*publish.xml'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: '$(Build.SourcesDirectory)\orchestration\Master Data'
+    Contents: '**\*.csv'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)\Master Data'
+
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: '$(Build.SourcesDirectory)\orchestration\src'
+    Contents: '**\*'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)\src'
+
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: '$(Build.SourcesDirectory)\orchestration'
+    Contents: 'package.json'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
+- task: PublishPipelineArtifact@1
+  inputs:
+    targetPath: '$(Build.ArtifactStagingDirectory)'
+    artifact: 'Release'
+    publishLocation: 'pipeline'
+
+# Validates all of the Data Factory resources in the repository. You'll get the same validation errors as when "Validate All" is selected.
+# Enter the appropriate subscription and name for the source factory.
+
+- task: Npm@1
+  inputs:
+    command: 'custom'
+    workingDir: '$(Build.Repository.LocalPath)' #replace with the package.json folder
+    customCommand: 'run build validate $(Build.Repository.LocalPath)/azure-data-factory /subscriptions/f199b488-7d9d-4992-aeda-c10a1e1c9b9e/resourceGroups/rg-xxxx-sls-d-euw-001/providers/Microsoft.DataFactory/factories/df-xxxx-sls-d-euw-001-restructure'
+  displayName: 'Validate'
+
+# Validate and then generate the ARM template into the destination folder, which is the same as selecting "Publish" from the UX.
+# The ARM template generated isn't published to the live version of the factory. Deployment should be done by using a CI/CD pipeline. 
+
+- task: Npm@1
+  inputs:
+    command: 'custom'
+    workingDir: '$(Build.Repository.LocalPath)' #replace with the package.json folder
+    customCommand: 'run build export $(Build.Repository.LocalPath)/azure-data-factory /subscriptions/f199b488-7d9d-4992-aeda-c10a1e1c9b9e/resourceGroups/rg-xxxx-sls-d-euw-001/providers/Microsoft.DataFactory/factories/df-xxxx-sls-d-euw-001-restructure "ArmTemplate"'
+  displayName: 'Validate and Generate ARM template'
+
+# Publish the build artifact to be used as a source for a release pipeline.
+
+- task: PublishPipelineArtifact@1
+  inputs:
+    targetPath: '$(Build.Repository.LocalPath)/ArmTemplate' #replace with the package.json folder
+    artifact: 'ArmTemplates'
+    publishLocation: 'pipeline'
+
+# Publish the global parameters to be used as a source for a release pipeline.
+  
+- task: PublishPipelineArtifact@1
+  inputs:
+    targetPath: '$(Build.Repository.LocalPath)/GlobalParameters' #replace with the package.json folder
+    artifact: 'GlobalParameters'
+    publishLocation: 'pipeline'
