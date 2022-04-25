@@ -517,8 +517,7 @@
 				"type": "object"
 			},
 			"file_name": {
-				"type": "string",
-				"defaultValue": ".parquet"
+				"type": "string"
 			}
 		},
 		"variables": {
