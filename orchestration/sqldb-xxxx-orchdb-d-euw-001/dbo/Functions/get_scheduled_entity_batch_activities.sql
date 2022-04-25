@@ -122,9 +122,23 @@ RETURNS TABLE AS RETURN
         e.entity_id,
         e.entity_name,
         e.layer_nk,
-        ba.activity_nk,
-        ba.activity_order,
-        lb.status_nk
+        e.client_field,
+        e.extraction_type,
+        e.pk_field_names,
+        e.[axbi_database_name],
+        e.[axbi_schema_name],
+        e.[base_table_name],
+        e.[axbi_date_field_name],
+        e.adls_container_name,
+        e.adls_directory_path_In,
+        e.adls_directory_path_Out,
+        e.[base_schema_name],
+        e.[base_sproc_name],
+        e.file_name,
+        concat('["', string_agg(ba.activity_nk,'","')
+            within group (order by ba.activity_order asc), '"]')
+            as required_activities,
+        '{}' as skipped_activities
     from
         get_scheduled_entities(0, @date) e
     left join
@@ -148,6 +162,26 @@ RETURNS TABLE AS RETURN
         e.layer_nk IN ('S4H', 'AXBI', 'USA')
         AND
         e.update_mode = 'Full'
+        -- and
+        -- CONVERT(date, b.start_date_time) = @date
+    group by
+        e.entity_id,
+        e.entity_name,
+        e.layer_nk,
+        e.client_field,
+        e.extraction_type,
+        e.pk_field_names,
+        e.[axbi_database_name],
+        e.[axbi_schema_name],
+        e.[base_table_name],
+        e.[axbi_date_field_name],
+        e.adls_container_name,
+        e.adls_directory_path_In,
+        e.adls_directory_path_Out,
+        e.[base_schema_name],
+        e.[base_sproc_name],
+        e.file_name
+    order by entity_id--, ba.activity_order
         -- and
         -- CONVERT(date, b.start_date_time) = @date
     -- order by entity_id, activity_order
