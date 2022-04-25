@@ -181,7 +181,7 @@ RETURNS TABLE AS RETURN
         e.[base_schema_name],
         e.[base_sproc_name],
         e.file_name
-    order by entity_id--, ba.activity_order
+    --order by entity_id--, ba.activity_order
         -- and
         -- CONVERT(date, b.start_date_time) = @date
     -- order by entity_id, activity_order
