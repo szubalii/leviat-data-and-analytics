@@ -380,6 +380,14 @@
 									"required_activities": {
 										"value": "@item().required_activities",
 										"type": "Expression"
+									},
+									"skipped_activities": {
+										"value": "@item().skipped_activities",
+										"type": "Expression"
+									},
+									"file_name": {
+										"value": "@item().adls_file_name",
+										"type": "Expression"
 									}
 								}
 							}
