@@ -3,228 +3,17 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "If XU extraction status is FinishedNoErrors",
-				"type": "IfCondition",
-				"dependsOn": [
-					{
-						"activity": "Set XU Extraction Status",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"userProperties": [],
-				"typeProperties": {
-					"expression": {
-						"value": "@equals(variables('extraction_status'),'FinishedNoErrors')",
-						"type": "Expression"
-					},
-					"ifFalseActivities": [
-						{
-							"name": "Log Pipeline Exception",
-							"type": "SqlServerStoredProcedure",
-							"dependsOn": [],
-							"policy": {
-								"timeout": "7.00:00:00",
-								"retry": 0,
-								"retryIntervalInSeconds": 30,
-								"secureOutput": false,
-								"secureInput": false
-							},
-							"userProperties": [],
-							"typeProperties": {
-								"storedProcedureName": "[dbo].[log_exception]",
-								"storedProcedureParameters": {
-									"batch_id": {
-										"value": {
-											"value": "@pipeline().parameters.batch_id",
-											"type": "Expression"
-										},
-										"type": "Guid"
-									},
-									"category": {
-										"value": "FailedExtraction",
-										"type": "String"
-									},
-									"entity_id": {
-										"value": {
-											"value": "@pipeline().parameters.entity_id",
-											"type": "Expression"
-										},
-										"type": "Int64"
-									},
-									"error_msg": {
-										"value": {
-											"value": "@concat(\n\t'XU extraction status is '\n\t,variables('extraction_status')\n        ,' for '\n        ,pipeline().parameters.extraction_name\n        ,' entity.'\n\n)",
-											"type": "Expression"
-										},
-										"type": "String"
-									},
-									"run_id": {
-										"value": {
-											"value": "@pipeline().parameters.run_id",
-											"type": "Expression"
-										},
-										"type": "Guid"
-									}
-								}
-							},
-							"linkedServiceName": {
-								"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
-								"type": "LinkedServiceReference"
-							}
-						},
-						{
-							"name": "Update Run XU Extraction Status",
-							"type": "SqlServerStoredProcedure",
-							"dependsOn": [
-								{
-									"activity": "Log Pipeline Exception",
-									"dependencyConditions": [
-										"Succeeded"
-									]
-								}
-							],
-							"policy": {
-								"timeout": "7.00:00:00",
-								"retry": 0,
-								"retryIntervalInSeconds": 30,
-								"secureOutput": false,
-								"secureInput": false
-							},
-							"userProperties": [],
-							"typeProperties": {
-								"storedProcedureName": "[dbo].[update_batch_status]",
-								"storedProcedureParameters": {
-									"batch_id": {
-										"value": {
-											"value": "@pipeline().parameters.batch_id",
-											"type": "Expression"
-										},
-										"type": "Guid"
-									},
-									"end_date_time": {
-										"value": {
-											"value": "@formatDateTime(utcnow(), 'yyyy-MM-dd HH:mm:ss')",
-											"type": "Expression"
-										},
-										"type": "DateTime"
-									},
-									"entity_id": {
-										"value": {
-											"value": "@pipeline().parameters.entity_id",
-											"type": "Expression"
-										},
-										"type": "Int64"
-									},
-									"run_id": {
-										"value": {
-											"value": "@pipeline().parameters.run_id",
-											"type": "Expression"
-										},
-										"type": "Guid"
-									},
-									"size_bytes": {
-										"value": null,
-										"type": "Int64"
-									},
-									"status": {
-										"value": "Failed",
-										"type": "String"
-									}
-								}
-							},
-							"linkedServiceName": {
-								"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
-								"type": "LinkedServiceReference"
-							}
-						},
-						{
-							"name": "FailedExtraction",
-							"type": "Fail",
-							"dependsOn": [
-								{
-									"activity": "Update Run XU Extraction Status",
-									"dependencyConditions": [
-										"Succeeded"
-									]
-								}
-							],
-							"userProperties": [],
-							"typeProperties": {
-								"message": "FailedExtraction",
-								"errorCode": "XU_extraction_error"
-							}
-						}
-					],
-					"ifTrueActivities": [
-						{
-							"name": "Update RunXUExtraction Batch Status",
-							"type": "SqlServerStoredProcedure",
-							"dependsOn": [],
-							"policy": {
-								"timeout": "7.00:00:00",
-								"retry": 0,
-								"retryIntervalInSeconds": 30,
-								"secureOutput": false,
-								"secureInput": false
-							},
-							"userProperties": [],
-							"typeProperties": {
-								"storedProcedureName": "[dbo].[update_batch_status]",
-								"storedProcedureParameters": {
-									"batch_id": {
-										"value": {
-											"value": "@variables('batch_id_RunXUExtraction')",
-											"type": "Expression"
-										},
-										"type": "Guid"
-									},
-									"end_date_time": {
-										"value": {
-											"value": "@formatDateTime(utcNow(), 'yyyy-MM-dd HH:mm:ss')",
-											"type": "Expression"
-										},
-										"type": "DateTime"
-									},
-									"entity_id": {
-										"value": {
-											"value": "@pipeline().parameters.entity_id",
-											"type": "Expression"
-										},
-										"type": "Int64"
-									},
-									"run_id": {
-										"value": {
-											"value": "@pipeline().parameters.run_id",
-											"type": "Expression"
-										},
-										"type": "Guid"
-									},
-									"size_bytes": {
-										"value": null,
-										"type": "Int64"
-									},
-									"status": {
-										"value": "Succeeded",
-										"type": "String"
-									}
-								}
-							},
-							"linkedServiceName": {
-								"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
-								"type": "LinkedServiceReference"
-							}
-						}
-					]
-				}
-			},
-			{
 				"name": "If Run XU Extraction",
 				"type": "IfCondition",
 				"dependsOn": [
 					{
 						"activity": "If empty run_id",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "If empty batch_id_RunXUExtraction",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -238,7 +27,7 @@
 					},
 					"ifFalseActivities": [
 						{
-							"name": "Set Timestamp Variable_copy1",
+							"name": "Set Timestamp from Parameter",
 							"type": "SetVariable",
 							"dependsOn": [],
 							"userProperties": [],
@@ -1233,8 +1022,12 @@
 										"value": "@variables('extraction_timestamp')",
 										"type": "Expression"
 									},
-									"batch_id": {
+									"batch_id_CheckXUExtractionStatus": {
 										"value": "@variables('batch_id_CheckXUExtractionStatus')",
+										"type": "Expression"
+									},
+									"batch_id_RunXUExtraction": {
+										"value": "@variables('batch_id_RunXUExtraction')",
 										"type": "Expression"
 									}
 								}
@@ -1290,7 +1083,7 @@
 				"type": "Lookup",
 				"dependsOn": [
 					{
-						"activity": "If Get XU Extraction Status",
+						"activity": "If Store Extraction Logs",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -1321,35 +1114,9 @@
 				}
 			},
 			{
-				"name": "Set XU Extraction Status",
-				"type": "SetVariable",
-				"dependsOn": [
-					{
-						"activity": "Lookup XU Extraction Status",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"userProperties": [],
-				"typeProperties": {
-					"variableName": "extraction_status",
-					"value": {
-						"value": "@json(\n    activity('Lookup XU Extraction Status').output.firstRow.output\n).status",
-						"type": "Expression"
-					}
-				}
-			},
-			{
 				"name": "Update Batch Status",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
-					{
-						"activity": "If Store Extraction Logs",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					},
 					{
 						"activity": "If XU extraction status is FinishedNoErrors",
 						"dependencyConditions": [
@@ -1431,6 +1198,143 @@
 				"linkedServiceName": {
 					"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
 					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "If XU extraction status is FinishedNoErrors",
+				"type": "IfCondition",
+				"dependsOn": [
+					{
+						"activity": "Set XU Extraction Status",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@equals(variables('extraction_status'),'FinishedNoErrors')",
+						"type": "Expression"
+					},
+					"ifFalseActivities": [
+						{
+							"name": "Log Pipeline Exception",
+							"type": "SqlServerStoredProcedure",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"storedProcedureName": "[dbo].[log_exception]",
+								"storedProcedureParameters": {
+									"batch_id": {
+										"value": {
+											"value": "@pipeline().parameters.batch_id",
+											"type": "Expression"
+										},
+										"type": "Guid"
+									},
+									"category": {
+										"value": "FailedExtraction",
+										"type": "String"
+									},
+									"entity_id": {
+										"value": {
+											"value": "@pipeline().parameters.entity_id",
+											"type": "Expression"
+										},
+										"type": "Int64"
+									},
+									"error_msg": {
+										"value": {
+											"value": "@concat(\n\t'XU extraction status is '\n\t,variables('extraction_status')\n        ,' for '\n        ,pipeline().parameters.extraction_name\n        ,' entity.'\n\n)",
+											"type": "Expression"
+										},
+										"type": "String"
+									},
+									"run_id": {
+										"value": {
+											"value": "@pipeline().parameters.run_id",
+											"type": "Expression"
+										},
+										"type": "Guid"
+									}
+								}
+							},
+							"linkedServiceName": {
+								"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
+								"type": "LinkedServiceReference"
+							}
+						}
+					]
+				}
+			},
+			{
+				"name": "Set XU Extraction Status",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "Lookup XU Extraction Status",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "extraction_status",
+					"value": {
+						"value": "@json(\n    activity('Lookup XU Extraction Status').output.firstRow.output\n).status",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "If empty batch_id_RunXUExtraction",
+				"type": "IfCondition",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@empty(pipeline().parameters.skipped_activities.RunXUExtraction.batch_id)",
+						"type": "Expression"
+					},
+					"ifFalseActivities": [
+						{
+							"name": "Set batch_id_RunXUExtraction from parameter",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "batch_id_RunXUExtraction",
+								"value": {
+									"value": "@pipeline().parameters.skipped_activities.RunXUExtraction.batch_id",
+									"type": "Expression"
+								}
+							}
+						}
+					],
+					"ifTrueActivities": [
+						{
+							"name": "Set batch_id_RunXUExtraction from pipeline",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "batch_id_RunXUExtraction",
+								"value": {
+									"value": "@guid()",
+									"type": "Expression"
+								}
+							}
+						}
+					]
 				}
 			}
 		],
