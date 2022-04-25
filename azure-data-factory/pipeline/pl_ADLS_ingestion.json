@@ -116,7 +116,7 @@
 												"type": "Expression"
 											},
 											"batch_id": {
-												"value": "@variables('batch_id')",
+												"value": "@pipeline().parameters.batch_id",
 												"type": "Expression"
 											},
 											"skipped_activities": {
