@@ -394,6 +394,81 @@
 									"type": "Expression"
 								}
 							}
+						},
+						{
+							"name": "Store File Name",
+							"type": "SqlServerStoredProcedure",
+							"dependsOn": [
+								{
+									"activity": "Store XU Extraction Timestamp",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"storedProcedureName": "[dbo].[update_batch_status]",
+								"storedProcedureParameters": {
+									"batch_id": {
+										"value": {
+											"value": "@pipeline().parameters.batch_id",
+											"type": "Expression"
+										},
+										"type": "Guid"
+									},
+									"directory_path": {
+										"value": null,
+										"type": "String"
+									},
+									"end_date_time": {
+										"value": null,
+										"type": "DateTime"
+									},
+									"entity_id": {
+										"value": null,
+										"type": "Int64"
+									},
+									"file_name": {
+										"value": {
+											"value": "@variables('adlsFileName')",
+											"type": "Expression"
+										},
+										"type": "String"
+									},
+									"file_path": {
+										"value": null,
+										"type": "String"
+									},
+									"output": {
+										"value": null,
+										"type": "String"
+									},
+									"run_id": {
+										"value": null,
+										"type": "Guid"
+									},
+									"size_bytes": {
+										"value": null,
+										"type": "Int64"
+									},
+									"status": {
+										"value": null,
+										"type": "String"
+									}
+								}
+							},
+							"linkedServiceName": {
+								"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
+								"type": "LinkedServiceReference"
+							}
 						}
 					]
 				}
@@ -1362,6 +1437,9 @@
 			},
 			"skipped_activities": {
 				"type": "object"
+			},
+			"file_name": {
+				"type": "string"
 			}
 		},
 		"variables": {

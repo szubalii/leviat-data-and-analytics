@@ -309,7 +309,10 @@
 							"type": "Guid"
 						},
 						"directory_path": {
-							"value": null,
+							"value": {
+								"value": "@pipeline().parameters.adls_directory_path",
+								"type": "Expression"
+							},
 							"type": "String"
 						},
 						"entity_id": {
@@ -320,7 +323,10 @@
 							"type": "Int64"
 						},
 						"file_name": {
-							"value": null,
+							"value": {
+								"value": "@pipeline().parameters.adls_file_name",
+								"type": "Expression"
+							},
 							"type": "String"
 						},
 						"file_path": {
@@ -408,7 +414,7 @@
 				}
 			},
 			{
-				"name": "Update Run XU Extraction Batch Status_copy1",
+				"name": "Update Run XU Extraction Batch Status",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
@@ -496,6 +502,12 @@
 				"type": "string"
 			},
 			"batch_id_RunXUExtraction": {
+				"type": "string"
+			},
+			"adls_directory_path": {
+				"type": "string"
+			},
+			"adls_file_name": {
 				"type": "string"
 			}
 		},
