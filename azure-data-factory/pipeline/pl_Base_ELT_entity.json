@@ -154,7 +154,7 @@
 			},
 			{
 				"name": "Lookup ADLS File Name",
-				"description": "In case ADLS ingestion was successful, but subsequent activities were not.",
+				"description": "In case S4H ADLS ingestion was successful, but subsequent activities were not.",
 				"type": "Lookup",
 				"dependsOn": [
 					{
@@ -176,7 +176,7 @@
 					"source": {
 						"type": "AzureSqlSource",
 						"sqlReaderQuery": {
-							"value": "SELECT file_name\nFROM [dbo].[get_scheduled_entities] (\n    1,\n    '@{pipeline().parameters.date}'\n)\nWHERE \n    last_run_status = 'Succeeded'\n    AND\n    entity_id = @{pipeline().parameters.entity_id}",
+							"value": "SELECT file_name\nFROM [dbo].[batch]\nWHERE batch_id = '@{variables('batch_id_ExtractAndLoad')}'",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
@@ -205,6 +205,21 @@
 						"value": "@contains(\n    pipeline().parameters.required_activities,\n    'ExtractFromSourceAndLoadInADLS'\n)",
 						"type": "Expression"
 					},
+					"ifFalseActivities": [
+						{
+							"name": "Set Extract and Load Batch ID from Param",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "batch_id_ExtractAndLoad",
+								"value": {
+									"value": "@pipeline().parameters.skipped_activities.ExtractFromSourceAndLoadInADLS.batch_id",
+									"type": "Expression"
+								}
+							}
+						}
+					],
 					"ifTrueActivities": [
 						{
 							"name": "Execute Entity ADLS Ingestion",
@@ -276,6 +291,10 @@
 									},
 									"file_name": {
 										"value": "@pipeline().parameters.file_name",
+										"type": "Expression"
+									},
+									"batch_id": {
+										"value": "@variables('batch_id_ExtractAndLoad')",
 										"type": "Expression"
 									}
 								}
@@ -523,6 +542,10 @@
 		"variables": {
 			"adlsFileName": {
 				"type": "String"
+			},
+			"batch_id_ExtractAndLoad": {
+				"type": "String",
+				"defaultValue": "@guid()"
 			}
 		},
 		"folder": {
