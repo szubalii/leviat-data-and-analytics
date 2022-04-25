@@ -500,10 +500,17 @@
 				"type": "array",
 				"defaultValue": [
 					"ADLSIngestion",
-					"StartXUExtraction",
 					"CheckXUExtractionStatus",
 					"StoreXUExtractionLogs"
 				]
+			},
+			"skipped_activities": {
+				"type": "object",
+				"defaultValue": {
+					"RunXUExtraction": {
+						"timestamp": "2022-04-21_14:49:48.465"
+					}
+				}
 			}
 		},
 		"variables": {

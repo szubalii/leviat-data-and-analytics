@@ -21,7 +21,7 @@
 					},
 					"ifFalseActivities": [
 						{
-							"name": "act_exec_sproc_log_exception_FailedExtraction",
+							"name": "Log Exception",
 							"type": "SqlServerStoredProcedure",
 							"dependsOn": [],
 							"policy": {
@@ -75,11 +75,11 @@
 							}
 						},
 						{
-							"name": "act_exec_update_batch_S4HToBlobIn_Faild",
+							"name": "Update Run XU Extraction Status",
 							"type": "SqlServerStoredProcedure",
 							"dependsOn": [
 								{
-									"activity": "act_exec_sproc_log_exception_FailedExtraction",
+									"activity": "Log Exception",
 									"dependencyConditions": [
 										"Succeeded"
 									]
@@ -144,7 +144,7 @@
 							"type": "Fail",
 							"dependsOn": [
 								{
-									"activity": "act_exec_update_batch_S4HToBlobIn_Faild",
+									"activity": "Update Run XU Extraction Status",
 									"dependencyConditions": [
 										"Succeeded"
 									]
@@ -220,7 +220,7 @@
 				}
 			},
 			{
-				"name": "If Starting XU Extraction",
+				"name": "If Run XU Extraction",
 				"type": "IfCondition",
 				"dependsOn": [
 					{
@@ -233,7 +233,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"expression": {
-						"value": "@contains(\n    pipeline().parameters.required_activities,\n    'StartXUExtraction'\n)",
+						"value": "@contains(\n    pipeline().parameters.required_activities,\n    'RunXUExtraction'\n)",
 						"type": "Expression"
 					},
 					"ifTrueActivities": [
@@ -242,7 +242,7 @@
 							"type": "WebActivity",
 							"dependsOn": [
 								{
-									"activity": "Set Start XU Extraction Batch",
+									"activity": "Set Run XU Extraction Batch",
 									"dependencyConditions": [
 										"Succeeded"
 									]
@@ -289,7 +289,7 @@
 							}
 						},
 						{
-							"name": "Set Start XU Extraction Batch",
+							"name": "Set Run XU Extraction Batch",
 							"type": "SqlServerStoredProcedure",
 							"dependsOn": [],
 							"policy": {
@@ -304,7 +304,7 @@
 								"storedProcedureName": "[dbo].[set_batch]",
 								"storedProcedureParameters": {
 									"activity": {
-										"value": "StartXUExtraction",
+										"value": "RunXUExtraction",
 										"type": "String"
 									},
 									"batch_id": {
@@ -369,7 +369,7 @@
 							}
 						},
 						{
-							"name": "Update Start XU Extraction Batch Failed",
+							"name": "Update Run XU Extraction Batch Failed",
 							"type": "SqlServerStoredProcedure",
 							"dependsOn": [
 								{
@@ -437,7 +437,7 @@
 							"type": "SqlServerStoredProcedure",
 							"dependsOn": [
 								{
-									"activity": "Update Start XU Extraction Batch Failed",
+									"activity": "Update Run XU Extraction Batch Failed",
 									"dependencyConditions": [
 										"Succeeded"
 									]
@@ -494,7 +494,7 @@
 							}
 						},
 						{
-							"name": "Update RunXUExtraction Batch Timestamp",
+							"name": "Store XU Extraction Timestamp",
 							"type": "SqlServerStoredProcedure",
 							"dependsOn": [
 								{
@@ -1173,7 +1173,7 @@
 				"type": "IfCondition",
 				"dependsOn": [
 					{
-						"activity": "If Starting XU Extraction",
+						"activity": "If Run XU Extraction",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -1382,7 +1382,10 @@
 							"type": "Int64"
 						},
 						"file_name": {
-							"value": "",
+							"value": {
+								"value": "@variables('adlsFileName')",
+								"type": "Expression"
+							},
 							"type": "String"
 						},
 						"file_path": {
@@ -1436,6 +1439,9 @@
 				"type": "string"
 			},
 			"batch_id": {
+				"type": "string"
+			},
+			"skipped_activities": {
 				"type": "string"
 			}
 		},
