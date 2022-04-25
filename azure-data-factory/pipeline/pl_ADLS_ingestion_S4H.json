@@ -1377,7 +1377,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"expression": {
-						"value": "@empty(pipeline().parameters.skipped_activities.RunXUExtraction.batch_id)",
+						"value": "@pipeline().parameters.skipped_activities.RunXUExtraction",
 						"type": "Expression"
 					},
 					"ifFalseActivities": [
