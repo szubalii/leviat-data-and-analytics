@@ -314,7 +314,7 @@
 				"type": "string"
 			},
 			"required_activities": {
-				"type": "array"
+				"type": "object"
 			},
 			"skipped_activities": {
 				"type": "object"
