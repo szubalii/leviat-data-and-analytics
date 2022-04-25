@@ -269,6 +269,10 @@
 									"required_activities": {
 										"value": "@pipeline().parameters.required_activities",
 										"type": "Expression"
+									},
+									"skipped_activities": {
+										"value": "@pipeline().parameters.skipped_activities",
+										"type": "Expression"
 									}
 								}
 							}
