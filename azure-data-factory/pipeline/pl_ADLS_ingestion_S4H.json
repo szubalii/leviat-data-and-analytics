@@ -1451,7 +1451,7 @@
 				"type": "string"
 			},
 			"required_activities": {
-				"type": "object"
+				"type": "array"
 			},
 			"batch_id": {
 				"type": "string"
