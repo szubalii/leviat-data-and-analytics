@@ -212,7 +212,7 @@
 						},
 						"batch_id": {
 							"value": {
-								"value": "@variables('batch_id')",
+								"value": "@pipeline().parameters.batch_id",
 								"type": "Expression"
 							},
 							"type": "Guid"
@@ -325,12 +325,9 @@
 			},
 			"file_name": {
 				"type": "string"
-			}
-		},
-		"variables": {
+			},
 			"batch_id": {
-				"type": "String",
-				"defaultValue": "@guid()"
+				"type": "string"
 			}
 		},
 		"folder": {
