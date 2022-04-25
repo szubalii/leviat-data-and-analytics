@@ -1011,7 +1011,7 @@
 									},
 									"file_name": {
 										"value": {
-											"value": "@pipeline().parameters.adls_file_name",
+											"value": "@variables('adlsFileName')",
 											"type": "Expression"
 										},
 										"type": "String"
