@@ -21,7 +21,7 @@
 					},
 					"ifFalseActivities": [
 						{
-							"name": "Log Exception",
+							"name": "Log Pipeline Exception",
 							"type": "SqlServerStoredProcedure",
 							"dependsOn": [],
 							"policy": {
@@ -79,7 +79,7 @@
 							"type": "SqlServerStoredProcedure",
 							"dependsOn": [
 								{
-									"activity": "Log Exception",
+									"activity": "Log Pipeline Exception",
 									"dependencyConditions": [
 										"Succeeded"
 									]
@@ -236,6 +236,21 @@
 						"value": "@contains(\n    pipeline().parameters.required_activities,\n    'RunXUExtraction'\n)",
 						"type": "Expression"
 					},
+					"ifFalseActivities": [
+						{
+							"name": "Set Timestamp Variable_copy1",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "extraction_timestamp",
+								"value": {
+									"value": "@json(pipeline().parameters.skipped_activities).RunXUExtraction.timestamp",
+									"type": "Expression"
+								}
+							}
+						}
+					],
 					"ifTrueActivities": [
 						{
 							"name": "Run XU Extraction",
