@@ -494,7 +494,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"expression": {
-						"value": "@contains(\n    pipeline().parameters.required_activities,\n    'StoreXUExtractionLogs'\n)",
+						"value": "@contains(\n    pipeline().parameters.required_activities,\n    'StoreXUExtractionLog'\n)",
 						"type": "Expression"
 					},
 					"ifTrueActivities": [
