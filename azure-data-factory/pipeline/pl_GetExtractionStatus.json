@@ -7,7 +7,7 @@
 				"type": "Until",
 				"dependsOn": [
 					{
-						"activity": "If Timestamp Parameter Empty",
+						"activity": "Set Batch",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -104,7 +104,7 @@
 								"storedProcedureParameters": {
 									"batch_id": {
 										"value": {
-											"value": "@pipeline().parameters.batch_id",
+											"value": "@pipeline().parameters.batch_id_CheckXUExtractionStatus",
 											"type": "Expression"
 										},
 										"type": "Guid"
@@ -169,7 +169,7 @@
 								"storedProcedureParameters": {
 									"batch_id": {
 										"value": {
-											"value": "@pipeline().parameters.batch_id",
+											"value": "@pipeline().parameters.batch_id_CheckXUExtractionStatus",
 											"type": "Expression"
 										},
 										"type": "Guid"
@@ -211,90 +211,6 @@
 				}
 			},
 			{
-				"name": "If Timestamp Parameter Empty",
-				"type": "IfCondition",
-				"dependsOn": [
-					{
-						"activity": "Set Batch",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"userProperties": [],
-				"typeProperties": {
-					"expression": {
-						"value": "@empty(pipeline().parameters.extraction_timestamp)",
-						"type": "Expression"
-					},
-					"ifFalseActivities": [
-						{
-							"name": "Set XU Extraction Timestamp Variable",
-							"type": "SetVariable",
-							"dependsOn": [],
-							"userProperties": [],
-							"typeProperties": {
-								"variableName": "extraction_status",
-								"value": {
-									"value": "@pipeline().parameters.extraction_timestamp",
-									"type": "Expression"
-								}
-							}
-						}
-					],
-					"ifTrueActivities": [
-						{
-							"name": "Lookup Extraction Timestamp",
-							"type": "Lookup",
-							"dependsOn": [],
-							"policy": {
-								"timeout": "7.00:00:00",
-								"retry": 0,
-								"retryIntervalInSeconds": 30,
-								"secureOutput": false,
-								"secureInput": false
-							},
-							"userProperties": [],
-							"typeProperties": {
-								"source": {
-									"type": "AzureSqlSource",
-									"sqlReaderQuery": {
-										"value": "SELECT output\nFROM get_scheduled_entity_batch_activities\nWHERE \n    entity_id = '@{pipeline().parameters.entity_id}'\n    AND\n    activity_nk = 'StartXUExtraction'\n",
-										"type": "Expression"
-									},
-									"queryTimeout": "02:00:00",
-									"partitionOption": "None"
-								},
-								"dataset": {
-									"referenceName": "ds_orch_db",
-									"type": "DatasetReference"
-								}
-							}
-						},
-						{
-							"name": "Reset XU Extraction Timestamp Variable",
-							"type": "SetVariable",
-							"dependsOn": [
-								{
-									"activity": "Lookup Extraction Timestamp",
-									"dependencyConditions": [
-										"Succeeded"
-									]
-								}
-							],
-							"userProperties": [],
-							"typeProperties": {
-								"variableName": "extraction_timestamp",
-								"value": {
-									"value": "@activity('Lookup Extraction Timestamp').output",
-									"type": "Expression"
-								}
-							}
-						}
-					]
-				}
-			},
-			{
 				"name": "Update Batch Status Succesful",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
@@ -318,7 +234,7 @@
 					"storedProcedureParameters": {
 						"batch_id": {
 							"value": {
-								"value": "@pipeline().parameters.batch_id",
+								"value": "@pipeline().parameters.batch_id_CheckXUExtractionStatus",
 								"type": "Expression"
 							},
 							"type": "Guid"
@@ -387,7 +303,7 @@
 						},
 						"batch_id": {
 							"value": {
-								"value": "@pipeline().parameters.batch_id",
+								"value": "@pipeline().parameters.batch_id_CheckXUExtractionStatus",
 								"type": "Expression"
 							},
 							"type": "Guid"
@@ -447,6 +363,311 @@
 					"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
 					"type": "LinkedServiceReference"
 				}
+			},
+			{
+				"name": "If XU extraction status is FinishedNoErrors",
+				"type": "IfCondition",
+				"dependsOn": [
+					{
+						"activity": "Update Batch Status Succesful",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@equals(variables('extraction_status'),'FinishedNoErrors')",
+						"type": "Expression"
+					},
+					"ifFalseActivities": [
+						{
+							"name": "Log Pipeline Exception",
+							"type": "SqlServerStoredProcedure",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"storedProcedureName": "[dbo].[log_exception]",
+								"storedProcedureParameters": {
+									"batch_id": {
+										"value": {
+											"value": "@pipeline().parameters.batch_id",
+											"type": "Expression"
+										},
+										"type": "Guid"
+									},
+									"category": {
+										"value": "FailedExtraction",
+										"type": "String"
+									},
+									"entity_id": {
+										"value": {
+											"value": "@pipeline().parameters.entity_id",
+											"type": "Expression"
+										},
+										"type": "Int64"
+									},
+									"error_msg": {
+										"value": {
+											"value": "@concat(\n\t'XU extraction status is '\n\t,variables('extraction_status')\n        ,' for '\n        ,pipeline().parameters.extraction_name\n        ,' entity.'\n\n)",
+											"type": "Expression"
+										},
+										"type": "String"
+									},
+									"run_id": {
+										"value": {
+											"value": "@pipeline().parameters.run_id",
+											"type": "Expression"
+										},
+										"type": "Guid"
+									}
+								}
+							},
+							"linkedServiceName": {
+								"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
+								"type": "LinkedServiceReference"
+							}
+						},
+						{
+							"name": "Set Run XU Extraction Status Failed",
+							"type": "SqlServerStoredProcedure",
+							"dependsOn": [
+								{
+									"activity": "Log Pipeline Exception",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"storedProcedureName": "[dbo].[update_batch_status]",
+								"storedProcedureParameters": {
+									"batch_id": {
+										"value": {
+											"value": "@pipeline().parameters.batch_id",
+											"type": "Expression"
+										},
+										"type": "Guid"
+									},
+									"end_date_time": {
+										"value": {
+											"value": "@formatDateTime(utcnow(), 'yyyy-MM-dd HH:mm:ss')",
+											"type": "Expression"
+										},
+										"type": "DateTime"
+									},
+									"entity_id": {
+										"value": {
+											"value": "@pipeline().parameters.entity_id",
+											"type": "Expression"
+										},
+										"type": "Int64"
+									},
+									"run_id": {
+										"value": {
+											"value": "@pipeline().parameters.run_id",
+											"type": "Expression"
+										},
+										"type": "Guid"
+									},
+									"size_bytes": {
+										"value": null,
+										"type": "Int64"
+									},
+									"status": {
+										"value": "Failed",
+										"type": "String"
+									}
+								}
+							},
+							"linkedServiceName": {
+								"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
+								"type": "LinkedServiceReference"
+							}
+						},
+						{
+							"name": "FailedExtraction",
+							"type": "Fail",
+							"dependsOn": [
+								{
+									"activity": "Set Run XU Extraction Status Failed",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"userProperties": [],
+							"typeProperties": {
+								"message": "FailedExtraction",
+								"errorCode": "XU_extraction_error"
+							}
+						},
+						{
+							"name": "Set Batch Status Failed",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "batch_status",
+								"value": "Failed"
+							}
+						}
+					],
+					"ifTrueActivities": [
+						{
+							"name": "Update Run XU Extraction Batch Status",
+							"type": "SqlServerStoredProcedure",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"storedProcedureName": "[dbo].[update_batch_status]",
+								"storedProcedureParameters": {
+									"batch_id": {
+										"value": {
+											"value": "@variables('batch_id_RunXUExtraction')",
+											"type": "Expression"
+										},
+										"type": "Guid"
+									},
+									"end_date_time": {
+										"value": {
+											"value": "@formatDateTime(utcNow(), 'yyyy-MM-dd HH:mm:ss')",
+											"type": "Expression"
+										},
+										"type": "DateTime"
+									},
+									"entity_id": {
+										"value": {
+											"value": "@pipeline().parameters.entity_id",
+											"type": "Expression"
+										},
+										"type": "Int64"
+									},
+									"run_id": {
+										"value": {
+											"value": "@pipeline().parameters.run_id",
+											"type": "Expression"
+										},
+										"type": "Guid"
+									},
+									"size_bytes": {
+										"value": null,
+										"type": "Int64"
+									},
+									"status": {
+										"value": "Succeeded",
+										"type": "String"
+									}
+								}
+							},
+							"linkedServiceName": {
+								"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
+								"type": "LinkedServiceReference"
+							}
+						},
+						{
+							"name": "Set Batch Status Succeeded",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "batch_status",
+								"value": "Succeeded"
+							}
+						}
+					]
+				}
+			},
+			{
+				"name": "Update Run XU Extraction Batch Status_copy1",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "If XU extraction status is FinishedNoErrors",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[update_batch_status]",
+					"storedProcedureParameters": {
+						"batch_id": {
+							"value": {
+								"value": "@pipeline().parameters.batch_id_RunXUExtraction",
+								"type": "Expression"
+							},
+							"type": "Guid"
+						},
+						"end_date_time": {
+							"value": {
+								"value": "@formatDateTime(utcNow(), 'yyyy-MM-dd HH:mm:ss')",
+								"type": "Expression"
+							},
+							"type": "DateTime"
+						},
+						"entity_id": {
+							"value": {
+								"value": "@pipeline().parameters.entity_id",
+								"type": "Expression"
+							},
+							"type": "Int64"
+						},
+						"run_id": {
+							"value": {
+								"value": "@pipeline().parameters.run_id",
+								"type": "Expression"
+							},
+							"type": "Guid"
+						},
+						"size_bytes": {
+							"value": null,
+							"type": "Int64"
+						},
+						"status": {
+							"value": {
+								"value": "@variables('batch_status')",
+								"type": "Expression"
+							},
+							"type": "String"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
+					"type": "LinkedServiceReference"
+				}
 			}
 		],
 		"parameters": {
@@ -465,7 +686,10 @@
 			"extraction_timestamp": {
 				"type": "string"
 			},
-			"batch_id": {
+			"batch_id_CheckXUExtractionStatus": {
+				"type": "string"
+			},
+			"batch_id_RunXUExtraction": {
 				"type": "string"
 			}
 		},
@@ -481,6 +705,9 @@
 				"type": "String"
 			},
 			"adlsFileName": {
+				"type": "String"
+			},
+			"batch_status": {
 				"type": "String"
 			}
 		},
