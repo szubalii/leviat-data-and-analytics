@@ -25,7 +25,7 @@
 					"source": {
 						"type": "AzureSqlSource",
 						"sqlReaderQuery": {
-							"value": "SELECT * \nFROM [dbo].[get_scheduled_entities] (\n    @{pipeline().parameters.adhoc},\n    '@{pipeline().parameters.date}'\n)\nWHERE @{pipeline().parameters.entity_filter}",
+							"value": "SELECT * \nFROM [dbo].[get_scheduled_entity_batch_activities] (\n    @{pipeline().parameters.adhoc},\n    '@{pipeline().parameters.date}'\n)\nWHERE @{pipeline().parameters.entity_filter}",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
@@ -380,6 +380,14 @@
 									"required_activities": {
 										"value": "@item().required_activities",
 										"type": "Expression"
+									},
+									"skipped_activities": {
+										"value": "@item().skipped_activities",
+										"type": "Expression"
+									},
+									"file_name": {
+										"value": "@item().adls_file_name",
+										"type": "Expression"
 									}
 								}
 							}
@@ -459,7 +467,7 @@
 			},
 			"date": {
 				"type": "string",
-				"defaultValue": "2022/04/21"
+				"defaultValue": "2022/04/25"
 			}
 		},
 		"folder": {
