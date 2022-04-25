@@ -123,8 +123,8 @@
 												"value": "@pipeline().parameters.skipped_activities",
 												"type": "Expression"
 											},
-											"file_name": {
-												"value": "@pipeline().parameters.file_name",
+											"adls_file_name": {
+												"value": "@pipeline().parameters.adls_file_name",
 												"type": "Expression"
 											}
 										}

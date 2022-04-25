@@ -996,7 +996,10 @@
 										"type": "Guid"
 									},
 									"directory_path": {
-										"value": null,
+										"value": {
+											"value": "@pipeline().parameters.adls_directory_path",
+											"type": "Expression"
+										},
 										"type": "String"
 									},
 									"entity_id": {
@@ -1007,7 +1010,10 @@
 										"type": "Int64"
 									},
 									"file_name": {
-										"value": null,
+										"value": {
+											"value": "@pipeline().parameters.adls_file_name",
+											"type": "Expression"
+										},
 										"type": "String"
 									},
 									"file_path": {
@@ -1110,6 +1116,14 @@
 									},
 									"batch_id_RunXUExtraction": {
 										"value": "@variables('batch_id_RunXUExtraction')",
+										"type": "Expression"
+									},
+									"adls_directory_path": {
+										"value": "@pipeline().parameters.adls_directory_path",
+										"type": "Expression"
+									},
+									"adls_file_name": {
+										"value": "@pipeline().parameters.adls_file_name",
 										"type": "Expression"
 									}
 								}
@@ -1403,7 +1417,7 @@
 			"skipped_activities": {
 				"type": "object"
 			},
-			"file_name": {
+			"adls_file_name": {
 				"type": "string"
 			}
 		},
