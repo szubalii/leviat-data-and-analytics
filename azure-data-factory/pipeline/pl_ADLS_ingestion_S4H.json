@@ -1100,7 +1100,7 @@
 							"userProperties": [],
 							"typeProperties": {
 								"pipeline": {
-									"referenceName": "pl_GetExtractionStatus",
+									"referenceName": "pl_GetXUExtractionStatus",
 									"type": "PipelineReference"
 								},
 								"waitOnCompletion": true,
@@ -1138,7 +1138,7 @@
 										"type": "Expression"
 									},
 									"adls_file_name": {
-										"value": "@pipeline().parameters.adls_file_name",
+										"value": "@variables('adlsFileName')",
 										"type": "Expression"
 									}
 								}
