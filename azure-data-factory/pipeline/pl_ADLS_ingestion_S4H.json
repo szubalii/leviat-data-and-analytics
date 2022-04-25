@@ -245,7 +245,7 @@
 							"typeProperties": {
 								"variableName": "extraction_timestamp",
 								"value": {
-									"value": "@json(pipeline().parameters.skipped_activities).RunXUExtraction.timestamp",
+									"value": "@pipeline().parameters.skipped_activities[RunXUExtraction][timestamp]",
 									"type": "Expression"
 								}
 							}
@@ -1457,7 +1457,7 @@
 				"type": "string"
 			},
 			"skipped_activities": {
-				"type": "string"
+				"type": "object"
 			}
 		},
 		"variables": {
