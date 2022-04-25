@@ -11,12 +11,6 @@
 						"dependencyConditions": [
 							"Succeeded"
 						]
-					},
-					{
-						"activity": "If empty batch_id_RunXUExtraction",
-						"dependencyConditions": [
-							"Succeeded"
-						]
 					}
 				],
 				"userProperties": [],
@@ -35,6 +29,19 @@
 								"variableName": "extraction_timestamp",
 								"value": {
 									"value": "@pipeline().parameters.skipped_activities.RunXUExtraction.timestamp",
+									"type": "Expression"
+								}
+							}
+						},
+						{
+							"name": "Set batch_id_RunXUExtraction from parameter",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "batch_id_RunXUExtraction",
+								"value": {
+									"value": "@pipeline().parameters.skipped_activities.RunXUExtraction.batch_id",
 									"type": "Expression"
 								}
 							}
@@ -1368,48 +1375,6 @@
 						"value": "@json(\n    activity('Lookup XU Extraction Status').output.firstRow.output\n).status",
 						"type": "Expression"
 					}
-				}
-			},
-			{
-				"name": "If empty batch_id_RunXUExtraction",
-				"type": "IfCondition",
-				"dependsOn": [],
-				"userProperties": [],
-				"typeProperties": {
-					"expression": {
-						"value": "@pipeline().parameters.skipped_activities.RunXUExtraction",
-						"type": "Expression"
-					},
-					"ifFalseActivities": [
-						{
-							"name": "Set batch_id_RunXUExtraction from parameter",
-							"type": "SetVariable",
-							"dependsOn": [],
-							"userProperties": [],
-							"typeProperties": {
-								"variableName": "batch_id_RunXUExtraction",
-								"value": {
-									"value": "@pipeline().parameters.skipped_activities.RunXUExtraction.batch_id",
-									"type": "Expression"
-								}
-							}
-						}
-					],
-					"ifTrueActivities": [
-						{
-							"name": "Set batch_id_RunXUExtraction from pipeline",
-							"type": "SetVariable",
-							"dependsOn": [],
-							"userProperties": [],
-							"typeProperties": {
-								"variableName": "batch_id_RunXUExtraction",
-								"value": {
-									"value": "@guid()",
-									"type": "Expression"
-								}
-							}
-						}
-					]
 				}
 			}
 		],
