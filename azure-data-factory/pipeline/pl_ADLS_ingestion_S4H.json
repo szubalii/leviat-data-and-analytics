@@ -28,7 +28,7 @@
 							"typeProperties": {
 								"variableName": "extraction_timestamp",
 								"value": {
-									"value": "@pipeline().parameters.skipped_activities.RunXUExtraction.timestamp",
+									"value": "@pipeline().parameters.skipped_activities.RunXUExtraction.output.timestamp",
 									"type": "Expression"
 								}
 							}
