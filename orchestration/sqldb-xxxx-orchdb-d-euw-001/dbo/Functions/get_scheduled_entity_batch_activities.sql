@@ -287,5 +287,4 @@ RETURNS TABLE AS RETURN
         [base_schema_name],
         [base_sproc_name],
         file_name
-    order by entity_id
 GO
