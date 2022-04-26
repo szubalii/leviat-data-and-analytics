@@ -386,7 +386,7 @@
 										"type": "Expression"
 									},
 									"file_name": {
-										"value": "@item().adls_file_name",
+										"value": "@item().file_name",
 										"type": "Expression"
 									}
 								}

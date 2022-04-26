@@ -494,7 +494,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"expression": {
-						"value": "@contains(\n    pipeline().parameters.required_activities,\n    'StoreXUExtractionLogs'\n)",
+						"value": "@contains(\n    pipeline().parameters.required_activities,\n    'StoreXUExtractionLog'\n)",
 						"type": "Expression"
 					},
 					"ifTrueActivities": [
@@ -1011,7 +1011,7 @@
 									},
 									"file_name": {
 										"value": {
-											"value": "@pipeline().parameters.adls_file_name",
+											"value": "@variables('adlsFileName')",
 											"type": "Expression"
 										},
 										"type": "String"
@@ -1100,7 +1100,7 @@
 							"userProperties": [],
 							"typeProperties": {
 								"pipeline": {
-									"referenceName": "pl_GetExtractionStatus",
+									"referenceName": "pl_GetXUExtractionStatus",
 									"type": "PipelineReference"
 								},
 								"waitOnCompletion": true,
@@ -1138,7 +1138,7 @@
 										"type": "Expression"
 									},
 									"adls_file_name": {
-										"value": "@pipeline().parameters.adls_file_name",
+										"value": "@variables('adlsFileName')",
 										"type": "Expression"
 									}
 								}
