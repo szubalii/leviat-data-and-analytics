@@ -297,7 +297,7 @@
 					"storedProcedureName": "[dbo].[set_batch]",
 					"storedProcedureParameters": {
 						"activity": {
-							"value": "USASnowflakeBlobInToBlobOut",
+							"value": "ProcessADLS",
 							"type": "String"
 						},
 						"batch_id": {
