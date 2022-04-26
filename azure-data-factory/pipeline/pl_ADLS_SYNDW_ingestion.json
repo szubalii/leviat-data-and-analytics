@@ -3,11 +3,11 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "act_copy_ParquetToBase",
+				"name": "Copy Parquet to Synapse Base",
 				"type": "Copy",
 				"dependsOn": [
 					{
-						"activity": "act_exec_sproc_set_batch_S4HCheckFileName_InProgress",
+						"activity": "Set Batch Load2Base",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -88,7 +88,7 @@
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "act_copy_ParquetToBase",
+						"activity": "Copy Parquet to Synapse Base",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -163,7 +163,7 @@
 				}
 			},
 			{
-				"name": "act_exec_sproc_update_batch_InBaseLayer_Succeeded",
+				"name": "Update Batch Status Succeeded",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
@@ -214,7 +214,7 @@
 						},
 						"size_bytes": {
 							"value": {
-								"value": "@activity('act_copy_ParquetToBase').output.dataWritten",
+								"value": "@activity('Copy Parquet to Synapse Base').output.dataWritten",
 								"type": "Expression"
 							},
 							"type": "Int64"
@@ -245,11 +245,11 @@
 				}
 			},
 			{
-				"name": "act_exec_sproc_log_exception_InternalError_copy_act",
+				"name": "Log Exception - Copy",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "act_copy_ParquetToBase",
+						"activity": "Copy Parquet to Synapse Base",
 						"dependencyConditions": [
 							"Failed"
 						]
@@ -286,7 +286,7 @@
 						},
 						"error_msg": {
 							"value": {
-								"value": "@activity('act_copy_ParquetToBase').Error.Message",
+								"value": "@activity('Copy Parquet to Synapse Base').Error.Message",
 								"type": "Expression"
 							},
 							"type": "String"
@@ -306,11 +306,11 @@
 				}
 			},
 			{
-				"name": "act_exec_sproc_update_batch_InBaseLayer_Failed_copy_act",
+				"name": "Update Batch Status Failed - Copy",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "act_exec_sproc_log_exception_InternalError_copy_act",
+						"activity": "Log Exception - Copy",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -371,7 +371,7 @@
 				}
 			},
 			{
-				"name": "act_exec_sproc_log_exception_InternalError_upd_tech_v",
+				"name": "Log Exception - Tech Fields",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
@@ -432,11 +432,11 @@
 				}
 			},
 			{
-				"name": "act_exec_sproc_update_batch_InBaseLayer_Failed_sproc",
+				"name": "Update Batch Status Failed - Tech Fields",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "act_exec_sproc_log_exception_InternalError_upd_tech_v",
+						"activity": "Log Exception - Tech Fields",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -527,7 +527,7 @@
 				}
 			},
 			{
-				"name": "act_exec_sproc_log_exception_InternalError_upd_stats",
+				"name": "Log Exception - Statistics",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
@@ -588,11 +588,11 @@
 				}
 			},
 			{
-				"name": "act_exec_sproc_update_batch_InBaseLayer_Failed_updstats",
+				"name": "Update Batch Status Failed - Statistics",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "act_exec_sproc_log_exception_InternalError_upd_stats",
+						"activity": "Log Exception - Statistics",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -653,7 +653,7 @@
 				}
 			},
 			{
-				"name": "act_exec_sproc_set_batch_S4HCheckFileName_InProgress",
+				"name": "Set Batch Load2Base",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [],
 				"policy": {
