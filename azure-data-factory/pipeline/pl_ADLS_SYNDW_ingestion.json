@@ -219,10 +219,6 @@
 							},
 							"type": "Int64"
 						},
-						"activity": {
-							"value": "InBaseLayer",
-							"type": "String"
-						},
 						"status": {
 							"value": "Succeeded",
 							"type": "String"
@@ -359,10 +355,6 @@
 							},
 							"type": "Guid"
 						},
-						"activity": {
-							"value": "InBaseLayer",
-							"type": "String"
-						},
 						"status": {
 							"value": "Failed",
 							"type": "String"
@@ -488,10 +480,6 @@
 								"type": "Expression"
 							},
 							"type": "Guid"
-						},
-						"activity": {
-							"value": "InBaseLayer",
-							"type": "String"
 						},
 						"status": {
 							"value": "Failed",
@@ -649,10 +637,6 @@
 							},
 							"type": "Guid"
 						},
-						"activity": {
-							"value": "InBaseLayer",
-							"type": "String"
-						},
 						"status": {
 							"value": "Failed",
 							"type": "String"
@@ -684,7 +668,7 @@
 					"storedProcedureName": "[dbo].[set_batch]",
 					"storedProcedureParameters": {
 						"activity": {
-							"value": "InBaseLayer",
+							"value": "Load2Base",
 							"type": "String"
 						},
 						"batch_id": {
