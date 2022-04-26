@@ -147,9 +147,6 @@
 						"status": {
 							"value": "Succeeded",
 							"type": "String"
-						},
-						"activity": {
-							"value": "ADLSInToADLSOut"
 						}
 					}
 				},
@@ -215,9 +212,6 @@
 						"size_bytes": {
 							"value": null,
 							"type": "Int64"
-						},
-						"activity": {
-							"value": "USASnowflakeBlobInToBlobOut"
 						}
 					}
 				},
