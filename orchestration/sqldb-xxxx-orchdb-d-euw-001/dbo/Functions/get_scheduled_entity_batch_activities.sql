@@ -5,65 +5,46 @@ CREATE FUNCTION [dbo].[get_scheduled_entity_batch_activities](
 )
 RETURNS TABLE AS RETURN
 
-    WITH latest_pipeline AS (
-        select top 1
+    WITH latest_batch_activities AS (
+        select
             b.entity_id,
-            pl.run_id,
-            MIN(pl.start_date_time) as run_start_time
-        from
+            b.activity_id,
+            MAX(b.start_date_time) as start_date_time
+        FROM
             batch b
-        LEFT JOIN [dbo].[pipeline_log] pl
-            ON pl.[run_id] = b.[run_id]
         WHERE
-            CONVERT(date, pl.start_date_time) = @date
-            -- AND
-            -- b.entity_id = @entity_id
-        group by
+            CONVERT(date, b.start_date_time) = @date
+        GROUP BY
             b.entity_id,
-            pl.run_id
-        order by run_start_time desc
+            b.activity_id
     )
-    -- ,
-    -- latest_pipeline AS (
-    --     select
-    --         pl.run_id
-    --     from
-    --         latest_pipeline_start_dtm pl
-    --     LEFT JOIN latest_pipeline_start_dtm lpsd
-    --         ON lpsd.[run_start_time] = pl.[run_id]
-    --     WHERE
-    --         CONVERT(date, pl.start_date_time) = @date
-    --         -- AND
-    --         -- b.entity_id = @entity_id
-    --     group by
-    --         b.entity_id--,
-    --         -- pl.run_id
-    --     -- HAVING
-    --     --     MAX(pl.start_date_time)
-    -- )
     , latest_batch AS (
 
         SELECT
-            -- pl.parent_run_id,
-            -- pl.start_date_time AS pipeline_start_date_time,
-            b.batch_id,
-            lp.run_id,
-            lp.run_start_time,
+            lb.entity_id,
             e.entity_name,
-            e.entity_id,
             e.layer_id,
             e.update_mode,
-            b.start_date_time,
+            b.run_id,
+            b.batch_id,
             ba.activity_nk,
             ba.activity_order,
+            lb.start_date_time,
             bs.status_nk,
             b.directory_path,
             b.file_name,
             b.output
         FROM
-            [dbo].[batch] b
+            latest_batch_activities lb
         LEFT JOIN [dbo].[entity] e
-            ON e.entity_id = b.entity_id
+            ON e.entity_id = lb.entity_id
+        LEFT JOIN batch b
+            ON 
+                lb.entity_id = b.entity_id
+                AND
+                lb.activity_id = b.activity_id
+                AND
+                lb.start_date_time = b.start_date_time
         LEFT JOIN [dbo].[layer] las
             ON las.[layer_id] = b.[source_layer_id]
         LEFT JOIN [dbo].[layer] lat
@@ -74,14 +55,11 @@ RETURNS TABLE AS RETURN
             ON bs.[status_id] = b.[status_id]
         LEFT JOIN [dbo].[batch_activity] ba
             ON ba.[activity_id] = b.[activity_id]
-        -- LEFT JOIN [dbo].[pipeline_log] pl
-        --     ON pl.[run_id] = b.[run_id]
-        INNER JOIN latest_pipeline lp
-            ON lp.run_id = b.run_id
+            
 
 
         WHERE
-            CONVERT(date, b.start_date_time) = @date
+            CONVERT(date, lb.start_date_time) = @date
             -- AND
             -- b.entity_id = @entity_id
             AND
@@ -89,7 +67,7 @@ RETURNS TABLE AS RETURN
             -- and
             -- lp.parent_run_id is not null
         -- ORDER BY
-        --     entity_name asc, start_date_time desc
+        --     entity_name asc, lb.start_date_time desc
         -- select * from batch
     )
 
@@ -147,9 +125,6 @@ RETURNS TABLE AS RETURN
                 when lb.output is null then '{}'
                 else lb.output
             end as output,
-            -- concat('["', string_agg(ba.activity_nk,'","')
-            --     within group (order by ba.activity_order asc), '"]')
-            --     as required_activities,
             case when status_nk = 'Succeeded' then 0 else 1 end as [isRequired]
         from
             get_scheduled_entities(0, @date) e
@@ -173,26 +148,7 @@ RETURNS TABLE AS RETURN
         WHERE
             e.layer_nk IN ('S4H', 'AXBI', 'USA')
             AND
-            e.update_mode = 'Full'
-            -- and
-            -- CONVERT(date, b.start_date_time) = @date
-        -- group by
-        --     e.entity_id,
-        --     e.entity_name,
-        --     e.layer_nk,
-        --     e.client_field,
-        --     e.extraction_type,
-        --     e.pk_field_names,
-        --     e.[axbi_database_name],
-        --     e.[axbi_schema_name],
-        --     e.[base_table_name],
-        --     e.[axbi_date_field_name],
-        --     e.adls_container_name,
-        --     e.adls_directory_path_In,
-        --     e.adls_directory_path_Out,
-        --     e.[base_schema_name],
-        --     e.[base_sproc_name],
-        --     e.file_name
+            e.update_mode = 'Full' 
     )
     , activities as (
         select
@@ -212,20 +168,15 @@ RETURNS TABLE AS RETURN
             [base_schema_name],
             [base_sproc_name],
             file_name,
-            -- ba.activity_nk,
-            -- ba.activity_order,
-            -- lb.batch_id,
-            -- lb.status_nk,
-            -- lb.output,
             case
                 when isRequired = 1 then
-                    concat('["', string_agg(activity_nk, '","')
+                    concat('["', string_agg(activity_nk,'","')
                     within group (order by activity_order asc), '"]')
                 else null
             end as required_activities,
             case
                 when isRequired = 0 then
-                    concat('{', string_agg(concat('"', activity_nk, '": {"batch_id":"', batch_id, '", "output":', [output], '}'), ',')
+                    concat('{', string_agg(concat('"',activity_nk, '": {"batch_id":"', batch_id, '", "output":',output, '}'),',')
                     within group (order by activity_order asc), '}')
                 else null
             end as skipped_activities
