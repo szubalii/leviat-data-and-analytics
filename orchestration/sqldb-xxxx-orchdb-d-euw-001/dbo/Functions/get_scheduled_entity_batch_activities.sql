@@ -148,7 +148,19 @@ RETURNS TABLE AS RETURN
         WHERE
             e.layer_nk IN ('S4H', 'AXBI', 'USA')
             AND
-            e.update_mode = 'Full' 
+            e.update_mode = 'Full'
+            AND
+            (
+                (ba.activity_nk = 'TestDuplicates' AND e.pk_field_names IS NOT NULL)
+                OR
+                ba.activity_nk != 'TestDuplicates'
+            )
+            AND
+            (
+                (ba.activity_nk = 'ProcessBase' AND e.base_sproc_name IS NOT NULL)
+                OR
+                ba.activity_nk != 'ProcessBase'
+            )
     )
     , activities as (
         select
