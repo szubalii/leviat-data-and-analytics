@@ -378,11 +378,11 @@
 										"type": "Expression"
 									},
 									"required_activities": {
-										"value": "@item().required_activities",
+										"value": "@json(\n    item().required_activities\n)",
 										"type": "Expression"
 									},
 									"skipped_activities": {
-										"value": "@item().skipped_activities",
+										"value": "@json(\n    item().skipped_activities\n)",
 										"type": "Expression"
 									},
 									"file_name": {
@@ -467,7 +467,7 @@
 			},
 			"date": {
 				"type": "string",
-				"defaultValue": "2022/04/25"
+				"defaultValue": "2022/04/26"
 			}
 		},
 		"folder": {

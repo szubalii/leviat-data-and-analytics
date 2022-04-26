@@ -29,7 +29,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"expression": {
-						"value": "@not(\n    equals(\n        pipeline().parameters.base_sproc_name,\n        null\n    )\n)",
+						"value": "@contains(\n    pipeline().parameters.required_activities,\n    'ProcessBase'\n)",
 						"type": "Expression"
 					},
 					"ifTrueActivities": [
@@ -85,7 +85,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"expression": {
-						"value": "@not(\r\n    equals(\r\n        pipeline().parameters.pk_field_names,\r\n        null\r\n    )\r\n)",
+						"value": "@contains(\n    pipeline().parameters.required_activities,\n    'TestDuplicates'\n)",
 						"type": "Expression"
 					},
 					"ifTrueActivities": [
@@ -202,7 +202,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"expression": {
-						"value": "@contains(\n    pipeline().parameters.required_activities,\n    'ExtractFromSourceAndLoadInADLS'\n)",
+						"value": "@contains(\n    pipeline().parameters.required_activities,\n    'Extract'\n)",
 						"type": "Expression"
 					},
 					"ifFalseActivities": [
@@ -214,7 +214,7 @@
 							"typeProperties": {
 								"variableName": "batch_id_ExtractAndLoad",
 								"value": {
-									"value": "@pipeline().parameters.skipped_activities.ExtractFromSourceAndLoadInADLS.batch_id",
+									"value": "@pipeline().parameters.skipped_activities.Extract.batch_id",
 									"type": "Expression"
 								}
 							}
@@ -317,7 +317,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"expression": {
-						"value": "@contains(\n    pipeline().parameters.required_activities,\n    'SourceFileProcessing'\n)",
+						"value": "@contains(\n    pipeline().parameters.required_activities,\n    'ProcessADLS'\n)",
 						"type": "Expression"
 					},
 					"ifTrueActivities": [
@@ -401,7 +401,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"expression": {
-						"value": "@contains(\n    pipeline().parameters.required_activities,\n    'SynapseIngestion'\n)",
+						"value": "@contains(\n    pipeline().parameters.required_activities,\n    'Load2Base'\n)",
 						"type": "Expression"
 					},
 					"ifTrueActivities": [
