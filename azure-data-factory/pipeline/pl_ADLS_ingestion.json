@@ -207,7 +207,7 @@
 					"storedProcedureName": "[dbo].[set_batch]",
 					"storedProcedureParameters": {
 						"activity": {
-							"value": "ExtractFromSourceAndLoadInADLS",
+							"value": "Extract",
 							"type": "String"
 						},
 						"batch_id": {
