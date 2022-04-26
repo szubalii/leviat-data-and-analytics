@@ -79,7 +79,7 @@ steps:
 - task: PublishPipelineArtifact@1
   inputs:
     targetPath: '$(Build.ArtifactStagingDirectory)'
-    artifact: 'Release'
+    artifact: 'OrchestrationDB'
     publishLocation: 'pipeline'
 
 # Validates all of the Data Factory resources in the repository. You'll get the same validation errors as when "Validate All" is selected.
