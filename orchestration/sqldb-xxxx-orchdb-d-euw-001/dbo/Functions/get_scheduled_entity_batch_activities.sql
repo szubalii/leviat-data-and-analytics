@@ -62,8 +62,9 @@ RETURNS TABLE AS RETURN
             CONVERT(date, lb.start_date_time) = @date
             -- AND
             -- b.entity_id = @entity_id
-            AND
-            e.update_mode = 'Full'
+            AND (
+                e.update_mode = 'Full' OR e.update_mode IS NULL
+            )
             -- and
             -- lp.parent_run_id is not null
         -- ORDER BY
@@ -147,8 +148,9 @@ RETURNS TABLE AS RETURN
 
         WHERE
             e.layer_nk IN ('S4H', 'AXBI', 'USA')
-            AND
-            e.update_mode = 'Full'
+            AND (
+                e.update_mode = 'Full' OR e.update_mode IS NULL
+            )
             AND
             (
                 (ba.activity_nk = 'TestDuplicates' AND e.pk_field_names IS NOT NULL)
