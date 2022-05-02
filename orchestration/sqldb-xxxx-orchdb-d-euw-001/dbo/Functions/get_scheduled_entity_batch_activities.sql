@@ -251,8 +251,8 @@ RETURNS TABLE AS RETURN
         [base_schema_name],
         [base_sproc_name],
         file_name,
-        MAX(required_activities) as required_activities,
-        MAX(skipped_activities) as skipped_activities
+        MIN(required_activities) as required_activities,
+        MIN(skipped_activities) as skipped_activities
     from activities
     group by
         entity_id,
