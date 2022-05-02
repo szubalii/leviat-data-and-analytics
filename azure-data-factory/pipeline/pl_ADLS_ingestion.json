@@ -7,7 +7,7 @@
 				"type": "Switch",
 				"dependsOn": [
 					{
-						"activity": "Set ADLSIngestion Batch",
+						"activity": "Set Extract Batch",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -69,6 +69,10 @@
 											},
 											"entity_id": {
 												"value": "@pipeline().parameters.entity_id",
+												"type": "Expression"
+											},
+											"batch_id": {
+												"value": "@pipeline().parameters.batch_id",
 												"type": "Expression"
 											}
 										}
@@ -182,6 +186,10 @@
 											"entity_id": {
 												"value": "@pipeline().parameters.entity_id",
 												"type": "Expression"
+											},
+											"batch_id": {
+												"value": "@pipeline().parameters.batch_id",
+												"type": "Expression"
 											}
 										}
 									}
@@ -192,7 +200,7 @@
 				}
 			},
 			{
-				"name": "Set ADLSIngestion Batch",
+				"name": "Set Extract Batch",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [],
 				"policy": {
