@@ -182,18 +182,37 @@ RETURNS TABLE AS RETURN
             [base_schema_name],
             [base_sproc_name],
             file_name,
-            case
-                when isRequired = 1 then
-                    concat('["', string_agg(activity_nk,'","')
-                    within group (order by activity_order asc), '"]')
-                else null
-            end as required_activities,
-            case
-                when isRequired = 0 then
-                    concat('{', string_agg(concat('"',activity_nk, '": {"batch_id":"', batch_id, '", "output":',output, '}'),',')
-                    within group (order by activity_order asc), '}')
-                else null
-            end as skipped_activities
+            concat(
+                '[',
+                case
+                    when isRequired = 1
+                    then concat(
+                        '"',
+                        string_agg(activity_nk, '","') within group (order by activity_order asc),
+                        '"'
+                    )
+                end,
+                ']'
+            ) as required_activities,
+            concat(
+                '{',
+                case
+                    when isRequired = 0
+                    then string_agg(
+                        concat(
+                            '"',
+                            activity_nk,
+                            '": {"batch_id":"',
+                            batch_id,
+                            '", "output":',
+                            output,
+                            '}'
+                        ),
+                        ','
+                    ) within group (order by activity_order asc)
+                end,
+                '}'
+            ) as skipped_activities
         from scheduled_entity_batch_activities
         group by
             entity_id,
