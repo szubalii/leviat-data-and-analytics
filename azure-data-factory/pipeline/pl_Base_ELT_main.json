@@ -163,7 +163,7 @@
 				}
 			},
 			{
-				"name": "Log Exception",
+				"name": "Log Exception Get Entities",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
@@ -222,9 +222,9 @@
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "For Each Entity",
+						"activity": "Log Exception ForEach",
 						"dependencyConditions": [
-							"Failed"
+							"Succeeded"
 						]
 					}
 				],
@@ -378,11 +378,11 @@
 										"type": "Expression"
 									},
 									"required_activities": {
-										"value": "@json(\n    item().required_activities\n)",
+										"value": "@if(\n    empty(item().required_activities),\n    null,\n    json(item().required_activities)\n)",
 										"type": "Expression"
 									},
 									"skipped_activities": {
-										"value": "@json(\n    item().skipped_activities\n)",
+										"value": "@if(\n    empty(item().skipped_activities),\n    null,\n    json(item().skipped_activities)\n)",
 										"type": "Expression"
 									},
 									"file_name": {
@@ -400,7 +400,7 @@
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "Log Exception",
+						"activity": "Log Exception Get Entities",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -451,6 +451,61 @@
 					"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
 					"type": "LinkedServiceReference"
 				}
+			},
+			{
+				"name": "Log Exception ForEach",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "For Each Entity",
+						"dependencyConditions": [
+							"Failed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[log_exception]",
+					"storedProcedureParameters": {
+						"batch_id": {
+							"value": null,
+							"type": "Guid"
+						},
+						"category": {
+							"value": "InternalError",
+							"type": "String"
+						},
+						"entity_id": {
+							"value": null,
+							"type": "Int64"
+						},
+						"error_msg": {
+							"value": {
+								"value": "@activity('Execute ELT').output.Error.Message",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"run_id": {
+							"value": {
+								"value": "@pipeline().RunId",
+								"type": "Expression"
+							},
+							"type": "Guid"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
+					"type": "LinkedServiceReference"
+				}
 			}
 		],
 		"parameters": {
@@ -460,14 +515,14 @@
 			},
 			"entity_filter": {
 				"type": "string",
-				"defaultValue": "entity_name IN ('I_CostCenter_F')"
+				"defaultValue": "entity_name IN ('I_CostCenter_F','DATAAREA','ITEM_GROUPS')"
 			},
 			"parent_run_id": {
 				"type": "string"
 			},
 			"date": {
 				"type": "string",
-				"defaultValue": "2022/04/26"
+				"defaultValue": "2022/05/02"
 			}
 		},
 		"folder": {
