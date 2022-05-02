@@ -3,11 +3,11 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "act_copy_AXBI_toParquet",
+				"name": "Copy AXBI to ADLS",
 				"type": "Copy",
 				"dependsOn": [
 					{
-						"activity": "GetQueryWithoutColumnNameSpaces",
+						"activity": "Get Query Without ColumnName Spaces",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -55,7 +55,7 @@
 							}
 						],
 						"sqlReaderQuery": {
-							"value": "@activity('GetQueryWithoutColumnNameSpaces').output.firstRow.Query",
+							"value": "@activity('Get Query Without ColumnName Spaces').output.firstRow.Query",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
@@ -121,11 +121,11 @@
 				]
 			},
 			{
-				"name": "GetQueryWithoutColumnNameSpaces",
+				"name": "Get Query Without ColumnName Spaces",
 				"type": "Lookup",
 				"dependsOn": [
 					{
-						"activity": "act_exec_sproc_set_batch_AXBIToBlobIn_InProgress",
+						"activity": "Set Batch Extract",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -171,7 +171,7 @@
 				}
 			},
 			{
-				"name": "act_exec_sproc_set_batch_AXBIToBlobIn_InProgress",
+				"name": "Set Batch Extract",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [],
 				"policy": {
@@ -186,7 +186,7 @@
 					"storedProcedureName": "[dbo].[set_batch]",
 					"storedProcedureParameters": {
 						"activity": {
-							"value": "AXBIToBlobIn",
+							"value": "Extract",
 							"type": "String"
 						},
 						"batch_id": {
@@ -260,11 +260,11 @@
 				}
 			},
 			{
-				"name": "act_exec_sproc_update_batch_AXBIToBlobIn_Succeeded",
+				"name": "Update Batch Succeeded",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "act_copy_AXBI_toParquet",
+						"activity": "Copy AXBI to ADLS",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -311,14 +311,10 @@
 						},
 						"size_bytes": {
 							"value": {
-								"value": "@activity('act_copy_AXBI_toParquet').output.dataWritten",
+								"value": "@activity('Copy AXBI to ADLS').output.dataWritten",
 								"type": "Expression"
 							},
 							"type": "Int64"
-						},
-						"activity": {
-							"value": "AXBIToBlobIn",
-							"type": "String"
 						},
 						"status": {
 							"value": "Succeeded",
@@ -332,11 +328,11 @@
 				}
 			},
 			{
-				"name": "act_exec_sproc_update_batch_AXBIToBlobIn_copy_Failed",
+				"name": "Update Batch Failed - Copy",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "act_exec_sproc_log_exception_InternalError_copy1",
+						"activity": "Log Exception - Copy",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -381,10 +377,6 @@
 							},
 							"type": "Guid"
 						},
-						"activity": {
-							"value": "AXBIToBlobIn",
-							"type": "String"
-						},
 						"status": {
 							"value": "Failed",
 							"type": "String"
@@ -401,11 +393,11 @@
 				}
 			},
 			{
-				"name": "act_exec_sproc_log_exception_InternalError",
+				"name": "Log Exception - Get Query",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "GetQueryWithoutColumnNameSpaces",
+						"activity": "Get Query Without ColumnName Spaces",
 						"dependencyConditions": [
 							"Failed"
 						]
@@ -442,7 +434,7 @@
 						},
 						"error_msg": {
 							"value": {
-								"value": "@activity('GetQueryWithoutColumnNameSpaces').Error.Message",
+								"value": "@activity('Get Query Without ColumnName Spaces').Error.Message",
 								"type": "Expression"
 							},
 							"type": "String"
@@ -462,11 +454,11 @@
 				}
 			},
 			{
-				"name": "act_exec_sproc_update_batch_AXBIToBlobIn_lookup_Failed",
+				"name": "Update Batch Failed - Get Query",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "act_exec_sproc_log_exception_InternalError",
+						"activity": "Log Exception - Get Query",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -511,10 +503,6 @@
 							},
 							"type": "Guid"
 						},
-						"activity": {
-							"value": "AXBIToBlobIn",
-							"type": "String"
-						},
 						"status": {
 							"value": "Failed",
 							"type": "String"
@@ -531,11 +519,11 @@
 				}
 			},
 			{
-				"name": "act_exec_sproc_log_exception_InternalError_copy1",
+				"name": "Log Exception - Copy",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "act_copy_AXBI_toParquet",
+						"activity": "Copy AXBI to ADLS",
 						"dependencyConditions": [
 							"Failed"
 						]
@@ -572,7 +560,7 @@
 						},
 						"error_msg": {
 							"value": {
-								"value": "@activity('act_copy_AXBI_toParquet').Error.Message",
+								"value": "@activity('Copy AXBI to ADLS').Error.Message",
 								"type": "Expression"
 							},
 							"type": "String"
