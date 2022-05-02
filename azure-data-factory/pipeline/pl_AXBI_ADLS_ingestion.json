@@ -125,7 +125,7 @@
 				"type": "Lookup",
 				"dependsOn": [
 					{
-						"activity": "Set Batch Extract",
+						"activity": "Update Batch File Name",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -171,7 +171,7 @@
 				}
 			},
 			{
-				"name": "Set Batch Extract",
+				"name": "Update Batch File Name",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [],
 				"policy": {
@@ -183,61 +183,14 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"storedProcedureName": "[dbo].[set_batch]",
+					"storedProcedureName": "[dbo].[update_batch_status]",
 					"storedProcedureParameters": {
-						"activity": {
-							"value": "Extract",
-							"type": "String"
-						},
 						"batch_id": {
 							"value": {
-								"value": "@variables('batch_id')",
+								"value": "@pipeline().parameters.batch_id",
 								"type": "Expression"
 							},
 							"type": "Guid"
-						},
-						"entity_id": {
-							"value": {
-								"value": "@pipeline().parameters.entity_id",
-								"type": "Expression"
-							},
-							"type": "Int64"
-						},
-						"file_path": {
-							"value": {
-								"value": "@join(createArray(\n        pipeline().parameters.adls_container_name,\n        pipeline().parameters.adls_directory_path,\n        pipeline().parameters.file_name),\n        '/'\n    )",
-								"type": "Expression"
-							},
-							"type": "String"
-						},
-						"run_id": {
-							"value": {
-								"value": "@pipeline().parameters.run_id",
-								"type": "Expression"
-							},
-							"type": "Guid"
-						},
-						"size_bytes": {
-							"value": null,
-							"type": "Int64"
-						},
-						"source_layer": {
-							"value": "AXBI",
-							"type": "String"
-						},
-						"status": {
-							"value": "InProgress",
-							"type": "String"
-						},
-						"target_layer": {
-							"value": "In",
-							"type": "String"
-						},
-						"start_date_time": {
-							"value": {
-								"value": "@formatDateTime(utcnow(), 'yyyy-MM-dd HH:mm:ss')",
-								"type": "Expression"
-							}
 						},
 						"file_name": {
 							"value": {
@@ -245,12 +198,6 @@
 								"type": "Expression"
 							},
 							"type": "String"
-						},
-						"directory_path": {
-							"value": {
-								"value": "@pipeline().parameters.adls_directory_path",
-								"type": "Expression"
-							}
 						}
 					}
 				},
@@ -283,7 +230,7 @@
 					"storedProcedureParameters": {
 						"batch_id": {
 							"value": {
-								"value": "@variables('batch_id')",
+								"value": "@pipeline().parameters.batch_id",
 								"type": "Expression"
 							},
 							"type": "Guid"
@@ -351,7 +298,7 @@
 					"storedProcedureParameters": {
 						"batch_id": {
 							"value": {
-								"value": "@variables('batch_id')",
+								"value": "@pipeline().parameters.batch_id",
 								"type": "Expression"
 							},
 							"type": "Guid"
@@ -416,7 +363,7 @@
 					"storedProcedureParameters": {
 						"batch_id": {
 							"value": {
-								"value": "@variables('batch_id')",
+								"value": "@pipeline().parameters.batch_id",
 								"type": "Expression"
 							},
 							"type": "Guid"
@@ -477,7 +424,7 @@
 					"storedProcedureParameters": {
 						"batch_id": {
 							"value": {
-								"value": "@variables('batch_id')",
+								"value": "@pipeline().parameters.batch_id",
 								"type": "Expression"
 							},
 							"type": "Guid"
@@ -542,7 +489,7 @@
 					"storedProcedureParameters": {
 						"batch_id": {
 							"value": {
-								"value": "@variables('batch_id')",
+								"value": "@pipeline().parameters.batch_id",
 								"type": "Expression"
 							},
 							"type": "Guid"
@@ -607,12 +554,9 @@
 			},
 			"entity_id": {
 				"type": "string"
-			}
-		},
-		"variables": {
+			},
 			"batch_id": {
-				"type": "String",
-				"defaultValue": "@guid()"
+				"type": "string"
 			}
 		},
 		"folder": {
