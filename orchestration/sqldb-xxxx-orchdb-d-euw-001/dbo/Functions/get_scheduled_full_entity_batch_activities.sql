@@ -1,9 +1,10 @@
 -- Write your own SQL object definition here, and it'll be included in your package.
-CREATE FUNCTION [dbo].[get_scheduled_edw_entity_batch_activities](
+CREATE FUNCTION [dbo].[get_scheduled_full_entity_batch_activities](
     @adhoc bit = 0,
     @date DATE
 )
 RETURNS TABLE AS RETURN
+
     WITH latest_batch_activities AS (
         select
             b.entity_id,
@@ -29,13 +30,16 @@ RETURNS TABLE AS RETURN
             ba.activity_nk,
             ba.activity_order,
             lb.start_date_time,
-            bs.status_nk
+            bs.status_nk,
+            b.directory_path,
+            b.file_name,
+            b.output
         FROM
             latest_batch_activities lb
         LEFT JOIN [dbo].[entity] e
             ON e.entity_id = lb.entity_id
         LEFT JOIN batch b
-            ON
+            ON 
                 lb.entity_id = b.entity_id
                 AND
                 lb.activity_id = b.activity_id
@@ -51,6 +55,8 @@ RETURNS TABLE AS RETURN
             ON bs.[status_id] = b.[status_id]
         LEFT JOIN [dbo].[batch_activity] ba
             ON ba.[activity_id] = b.[activity_id]
+            
+
 
         WHERE
             CONVERT(date, lb.start_date_time) = @date
@@ -99,17 +105,27 @@ RETURNS TABLE AS RETURN
             e.entity_id,
             e.entity_name,
             e.layer_nk,
-            e.execution_order,
-            sproc_schema_name,
-            sproc_name,
-            source_schema_name,
-            source_view_name,
-            dest_schema_name,
-            dest_table_name,
+            e.client_field,
+            e.extraction_type,
+            e.pk_field_names,
+            e.[axbi_database_name],
+            e.[axbi_schema_name],
+            e.[base_table_name],
+            e.[axbi_date_field_name],
+            e.adls_container_name,
+            e.adls_directory_path_In,
+            e.adls_directory_path_Out,
+            e.[base_schema_name],
+            e.[base_sproc_name],
+            e.file_name,
             ba.activity_nk,
             ba.activity_order,
             lb.batch_id,
             lb.status_nk,
+            case
+                when lb.output is null then '{}'
+                else lb.output
+            end as output,
             case when status_nk = 'Succeeded' then 0 else 1 end as [isRequired]
         from
             get_scheduled_entities(0, @date) e
@@ -131,9 +147,21 @@ RETURNS TABLE AS RETURN
                 lb.activity_nk = ba.activity_nk
 
         WHERE
-            e.layer_nk IN ('EDW')
+            e.layer_nk IN ('S4H', 'AXBI', 'USA')
             AND (
                 e.update_mode = 'Full' OR e.update_mode IS NULL
+            )
+            AND
+            (
+                (ba.activity_nk = 'TestDuplicates' AND e.pk_field_names IS NOT NULL)
+                OR
+                ba.activity_nk != 'TestDuplicates'
+            )
+            AND
+            (
+                (ba.activity_nk = 'ProcessBase' AND e.base_sproc_name IS NOT NULL)
+                OR
+                ba.activity_nk != 'ProcessBase'
             )
     )
     , activities as (
@@ -141,13 +169,19 @@ RETURNS TABLE AS RETURN
             entity_id,
             entity_name,
             layer_nk,
-            execution_order,
-            sproc_schema_name,
-            sproc_name,
-            source_schema_name,
-            source_view_name,
-            dest_schema_name,
-            dest_table_name,
+            client_field,
+            extraction_type,
+            pk_field_names,
+            [axbi_database_name],
+            [axbi_schema_name],
+            [base_table_name],
+            [axbi_date_field_name],
+            adls_container_name,
+            adls_directory_path_In,
+            adls_directory_path_Out,
+            [base_schema_name],
+            [base_sproc_name],
+            file_name,
             concat(
                 '[',
                 case
@@ -170,6 +204,8 @@ RETURNS TABLE AS RETURN
                             activity_nk,
                             '": {"batch_id":"',
                             batch_id,
+                            '", "output":',
+                            output,
                             '}'
                         ),
                         ','
@@ -182,13 +218,19 @@ RETURNS TABLE AS RETURN
             entity_id,
             entity_name,
             layer_nk,
-            execution_order,
-            sproc_schema_name,
-            sproc_name,
-            source_schema_name,
-            source_view_name,
-            dest_schema_name,
-            dest_table_name,
+            client_field,
+            extraction_type,
+            pk_field_names,
+            [axbi_database_name],
+            [axbi_schema_name],
+            [base_table_name],
+            [axbi_date_field_name],
+            adls_container_name,
+            adls_directory_path_In,
+            adls_directory_path_Out,
+            [base_schema_name],
+            [base_sproc_name],
+            file_name,
             isRequired
     )
 
@@ -196,13 +238,19 @@ RETURNS TABLE AS RETURN
         entity_id,
         entity_name,
         layer_nk,
-        execution_order,
-        sproc_schema_name,
-        sproc_name,
-        source_schema_name,
-        source_view_name,
-        dest_schema_name,
-        dest_table_name,
+        client_field,
+        extraction_type,
+        pk_field_names,
+        [axbi_database_name],
+        [axbi_schema_name],
+        [base_table_name],
+        [axbi_date_field_name],
+        adls_container_name,
+        adls_directory_path_In,
+        adls_directory_path_Out,
+        [base_schema_name],
+        [base_sproc_name],
+        file_name,
         MIN(required_activities) as required_activities,
         MIN(skipped_activities) as skipped_activities
     from activities
@@ -210,11 +258,17 @@ RETURNS TABLE AS RETURN
         entity_id,
         entity_name,
         layer_nk,
-        execution_order,
-        sproc_schema_name,
-        sproc_name,
-        source_schema_name,
-        source_view_name,
-        dest_schema_name,
-        dest_table_name
+        client_field,
+        extraction_type,
+        pk_field_names,
+        [axbi_database_name],
+        [axbi_schema_name],
+        [base_table_name],
+        [axbi_date_field_name],
+        adls_container_name,
+        adls_directory_path_In,
+        adls_directory_path_Out,
+        [base_schema_name],
+        [base_sproc_name],
+        file_name
 GO
