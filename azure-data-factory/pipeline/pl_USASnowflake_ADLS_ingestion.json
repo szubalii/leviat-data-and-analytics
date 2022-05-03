@@ -147,7 +147,7 @@
 					"storedProcedureParameters": {
 						"batch_id": {
 							"value": {
-								"value": "@pipeline().parameters.batch_id",
+								"value": "@variables('batch_id')",
 								"type": "Expression"
 							},
 							"type": "Guid"
@@ -190,7 +190,7 @@
 					"storedProcedureParameters": {
 						"batch_id": {
 							"value": {
-								"value": "@pipeline().parameters.batch_id",
+								"value": "@variables('batch_id')",
 								"type": "Expression"
 							},
 							"type": "Guid"
@@ -272,7 +272,7 @@
 					"storedProcedureParameters": {
 						"batch_id": {
 							"value": {
-								"value": "@pipeline().parameters.batch_id",
+								"value": "@variables('batch_id')",
 								"type": "Expression"
 							},
 							"type": "Guid"
@@ -337,7 +337,7 @@
 					"storedProcedureParameters": {
 						"batch_id": {
 							"value": {
-								"value": "@pipeline().parameters.batch_id",
+								"value": "@variables('batch_id')",
 								"type": "Expression"
 							},
 							"type": "Guid"
@@ -398,7 +398,7 @@
 					"storedProcedureParameters": {
 						"batch_id": {
 							"value": {
-								"value": "@pipeline().parameters.batch_id",
+								"value": "@variables('batch_id')",
 								"type": "Expression"
 							},
 							"type": "Guid"
@@ -463,7 +463,7 @@
 					"storedProcedureParameters": {
 						"batch_id": {
 							"value": {
-								"value": "@pipeline().parameters.batch_id",
+								"value": "@variables('batch_id')",
 								"type": "Expression"
 							},
 							"type": "Guid"
@@ -531,6 +531,12 @@
 			},
 			"batch_id": {
 				"type": "string"
+			}
+		},
+		"variables": {
+			"batch_id": {
+				"type": "String",
+				"defaultValue": "@guid()"
 			}
 		},
 		"folder": {

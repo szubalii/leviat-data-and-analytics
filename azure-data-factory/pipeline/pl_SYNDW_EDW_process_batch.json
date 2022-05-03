@@ -18,7 +18,7 @@
 					"source": {
 						"type": "AzureSqlSource",
 						"sqlReaderQuery": {
-							"value": "SELECT *\nFROM [dbo].[get_scheduled_entities] (\n    @{pipeline().parameters.adhoc},\n    '@{pipeline().parameters.date}'\n) \nWHERE \n    [execution_order] = @{pipeline().parameters.OrderNumber}\n    AND\n    @{pipeline().parameters.entity_filter}",
+							"value": "SELECT *\nFROM [dbo].[get_scheduled_edw_entity_batch_activities] (\n    @{pipeline().parameters.adhoc},\n    '@{pipeline().parameters.date}'\n) \nWHERE \n    [execution_order] = @{pipeline().parameters.OrderNumber}\n    AND\n    @{pipeline().parameters.entity_filter}",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
@@ -32,7 +32,7 @@
 				}
 			},
 			{
-				"name": "act_foreach_EDWParallelLoad",
+				"name": "ForEach Entity",
 				"type": "ForEach",
 				"dependsOn": [
 					{
@@ -52,63 +52,77 @@
 					"batchCount": 10,
 					"activities": [
 						{
-							"name": "Process EDW Entity",
-							"type": "ExecutePipeline",
+							"name": "If Required to Process EDW",
+							"type": "IfCondition",
 							"dependsOn": [],
 							"userProperties": [],
 							"typeProperties": {
-								"pipeline": {
-									"referenceName": "pl_SYNDW_EDW_process_entity",
-									"type": "PipelineReference"
+								"expression": {
+									"value": "@contains(\n    item().required_activities,\n    'ProcessEDW'\n)",
+									"type": "Expression"
 								},
-								"waitOnCompletion": true,
-								"parameters": {
-									"sproc_schema_name": {
-										"value": "@item().sproc_schema_name",
-										"type": "Expression"
-									},
-									"sproc_name": {
-										"value": "@item().sproc_name",
-										"type": "Expression"
-									},
-									"source_schema_name": {
-										"value": "@item().source_schema_name",
-										"type": "Expression"
-									},
-									"source_view_name": {
-										"value": "@item().source_view_name",
-										"type": "Expression"
-									},
-									"dest_schema_name": {
-										"value": "@item().dest_schema_name",
-										"type": "Expression"
-									},
-									"dest_table_name": {
-										"value": "@item().dest_table_name",
-										"type": "Expression"
-									},
-									"entity_id": {
-										"value": "@item().entity_id",
-										"type": "Expression"
-									},
-									"run_id": {
-										"value": "@pipeline().parameters.run_id",
-										"type": "Expression"
-									},
-									"source_layer": "EDW",
-									"target_layer": "EDW",
-									"entity_name": {
-										"value": "@item().entity_name",
-										"type": "Expression"
+								"ifTrueActivities": [
+									{
+										"name": "Process EDW Entity",
+										"type": "ExecutePipeline",
+										"dependsOn": [],
+										"userProperties": [],
+										"typeProperties": {
+											"pipeline": {
+												"referenceName": "pl_SYNDW_EDW_process_entity",
+												"type": "PipelineReference"
+											},
+											"waitOnCompletion": true,
+											"parameters": {
+												"sproc_schema_name": {
+													"value": "@item().sproc_schema_name",
+													"type": "Expression"
+												},
+												"sproc_name": {
+													"value": "@item().sproc_name",
+													"type": "Expression"
+												},
+												"source_schema_name": {
+													"value": "@item().source_schema_name",
+													"type": "Expression"
+												},
+												"source_view_name": {
+													"value": "@item().source_view_name",
+													"type": "Expression"
+												},
+												"dest_schema_name": {
+													"value": "@item().dest_schema_name",
+													"type": "Expression"
+												},
+												"dest_table_name": {
+													"value": "@item().dest_table_name",
+													"type": "Expression"
+												},
+												"entity_id": {
+													"value": "@item().entity_id",
+													"type": "Expression"
+												},
+												"run_id": {
+													"value": "@pipeline().parameters.run_id",
+													"type": "Expression"
+												},
+												"source_layer": "EDW",
+												"target_layer": "EDW",
+												"entity_name": {
+													"value": "@item().entity_name",
+													"type": "Expression"
+												}
+											}
+										}
 									}
-								}
+								]
 							}
 						}
 					]
 				}
 			},
 			{
-				"name": "act_exec_sproc_log_exception",
+				"name": "Log Exception",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
@@ -163,11 +177,11 @@
 				}
 			},
 			{
-				"name": "act_exec_log_failure_InternalError",
+				"name": "Set Status Failed",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "act_exec_sproc_log_exception",
+						"activity": "Log Exception",
 						"dependencyConditions": [
 							"Succeeded"
 						]

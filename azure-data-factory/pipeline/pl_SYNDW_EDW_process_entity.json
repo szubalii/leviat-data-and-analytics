@@ -22,7 +22,7 @@
 					},
 					"ifFalseActivities": [
 						{
-							"name": "act_sproc_LoadBaseToEDWLayer",
+							"name": "Materialize Custom View",
 							"type": "SqlServerStoredProcedure",
 							"dependsOn": [
 								{
@@ -110,7 +110,7 @@
 							"type": "SqlServerStoredProcedure",
 							"dependsOn": [
 								{
-									"activity": "act_sproc_LoadBaseToEDWLayer",
+									"activity": "Materialize Custom View",
 									"dependencyConditions": [
 										"Failed"
 									]
@@ -150,7 +150,7 @@
 									},
 									"error_msg": {
 										"value": {
-											"value": "@activity('act_sproc_LoadBaseToEDWLayer').Error.Message",
+											"value": "@activity('Materialize Custom View').Error.Message",
 											"type": "Expression"
 										},
 										"type": "String"
@@ -192,7 +192,7 @@
 					],
 					"ifTrueActivities": [
 						{
-							"name": "act_sproc_materialize_view",
+							"name": "Materialize Generic View",
 							"type": "SqlServerStoredProcedure",
 							"dependsOn": [],
 							"policy": {
@@ -205,7 +205,7 @@
 							"userProperties": [],
 							"typeProperties": {
 								"storedProcedureName": {
-									"value": "@{Concat(pipeline().parameters.sproc_schema_name, '.', pipeline().parameters.sproc_name)}",
+									"value": "@concat(\n    '[',\n    pipeline().parameters.sproc_schema_name,\n    '].[',\n    pipeline().parameters.sproc_name,\n    ']'\n)",
 									"type": "Expression"
 								},
 								"storedProcedureParameters": {
@@ -274,7 +274,7 @@
 							"type": "SqlServerStoredProcedure",
 							"dependsOn": [
 								{
-									"activity": "act_sproc_materialize_view",
+									"activity": "Materialize Generic View",
 									"dependencyConditions": [
 										"Failed"
 									]
@@ -314,7 +314,7 @@
 									},
 									"error_msg": {
 										"value": {
-											"value": "@activity('act_sproc_materialize_view').Error.Message",
+											"value": "@activity('Materialize Generic View').Error.Message",
 											"type": "Expression"
 										},
 										"type": "String"
@@ -372,7 +372,7 @@
 					"storedProcedureName": "[dbo].[set_batch]",
 					"storedProcedureParameters": {
 						"activity": {
-							"value": "InEDWLayer",
+							"value": "ProcessEDW",
 							"type": "String"
 						},
 						"batch_id": {
