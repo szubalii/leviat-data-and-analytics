@@ -515,14 +515,14 @@
 			},
 			"entity_filter": {
 				"type": "string",
-				"defaultValue": "entity_name IN ('I_CostCenter_F','DATAAREA','ITEM_GROUPS')"
+				"defaultValue": "entity_name IN ('C_BillingDocumentItemBasicDEX')"
 			},
 			"parent_run_id": {
 				"type": "string"
 			},
 			"date": {
 				"type": "string",
-				"defaultValue": "2022/05/02"
+				"defaultValue": "2022/04/13"
 			}
 		},
 		"folder": {

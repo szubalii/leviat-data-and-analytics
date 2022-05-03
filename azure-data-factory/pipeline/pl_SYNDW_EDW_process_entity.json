@@ -490,13 +490,6 @@
 							"value": null,
 							"type": "Int64"
 						},
-						"activity": {
-							"value": {
-								"value": "@variables('activity')",
-								"type": "Expression"
-							},
-							"type": "String"
-						},
 						"status": {
 							"value": "Succeeded",
 							"type": "String"
@@ -558,13 +551,6 @@
 							},
 							"type": "Guid"
 						},
-						"activity": {
-							"value": {
-								"value": "@variables('activity')",
-								"type": "Expression"
-							},
-							"type": "String"
-						},
 						"status": {
 							"value": "Failed",
 							"type": "String"
@@ -611,11 +597,11 @@
 				}
 			},
 			{
-				"name": "Update Batch Status to Failed_2",
+				"name": "Set Status Failed - Statistics",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "Log Exception for Updating EDW Table Stats",
+						"activity": "Log Exception - Statistics",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -660,13 +646,6 @@
 							},
 							"type": "Guid"
 						},
-						"activity": {
-							"value": {
-								"value": "@variables('activity')",
-								"type": "Expression"
-							},
-							"type": "String"
-						},
 						"status": {
 							"value": "Failed",
 							"type": "String"
@@ -683,7 +662,7 @@
 				}
 			},
 			{
-				"name": "Log Exception for Updating EDW Table Stats",
+				"name": "Log Exception - Statistics",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{

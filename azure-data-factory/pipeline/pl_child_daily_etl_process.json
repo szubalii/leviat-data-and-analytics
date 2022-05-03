@@ -8,7 +8,7 @@
 				"type": "ExecutePipeline",
 				"dependsOn": [
 					{
-						"activity": "Process ADLS and Synapse Ingestion",
+						"activity": "Process Synapse Base",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -83,6 +83,40 @@
 						},
 						"parent_run_id": {
 							"value": "@pipeline().RunId",
+							"type": "Expression"
+						},
+						"date": {
+							"value": "@pipeline().parameters.date",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "Process Synapse Base",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Process ADLS and Synapse Ingestion",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pl_SYNDW_Base_process_main",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"parent_run_id": {
+							"value": "@pipeline().RunId",
+							"type": "Expression"
+						},
+						"adhoc": {
+							"value": "@pipeline().parameters.adhoc",
 							"type": "Expression"
 						},
 						"date": {
