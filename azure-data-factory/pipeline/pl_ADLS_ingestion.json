@@ -331,9 +331,6 @@
 			"skipped_activities": {
 				"type": "object"
 			},
-			"file_name": {
-				"type": "string"
-			},
 			"batch_id": {
 				"type": "string"
 			}
