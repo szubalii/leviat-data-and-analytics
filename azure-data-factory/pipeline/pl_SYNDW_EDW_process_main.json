@@ -25,7 +25,7 @@
 					"source": {
 						"type": "AzureSqlSource",
 						"sqlReaderQuery": {
-							"value": "SELECT DISTINCT [execution_order] AS [ExecOrder] \nFROM [dbo].[get_scheduled_entities] (\n    @{pipeline().parameters.adhoc},\n    '@{pipeline().parameters.date}'\n)\nWHERE @{pipeline().parameters.entity_filter}\nORDER BY [execution_order]",
+							"value": "SELECT DISTINCT [execution_order] AS [ExecOrder] \nFROM [dbo].[get_scheduled_edw_entity_batch_activities] (\n    @{pipeline().parameters.adhoc},\n    '@{pipeline().parameters.date}'\n)\nWHERE @{pipeline().parameters.entity_filter}\nORDER BY [execution_order]",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
@@ -398,11 +398,12 @@
 				"type": "string"
 			},
 			"date": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "2022/05/02"
 			},
 			"entity_filter": {
 				"type": "string",
-				"defaultValue": "layer_nk = 'EDW'"
+				"defaultValue": "1 = 1"
 			}
 		},
 		"folder": {

@@ -8,7 +8,7 @@
 				"type": "ExecutePipeline",
 				"dependsOn": [
 					{
-						"activity": "Process ADLS and Synapse Ingestion",
+						"activity": "Process Synapse Base",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -77,12 +77,43 @@
 							"value": "@pipeline().parameters.adhoc",
 							"type": "Expression"
 						},
-						"entity_filter": {
-							"value": "layer_nk IN ('S4H', 'USA', 'AXBI')",
-							"type": "Expression"
-						},
+						"entity_filter": "entity_name IN ('C_BillingDocumentItemBasicDEX')",
 						"parent_run_id": {
 							"value": "@pipeline().RunId",
+							"type": "Expression"
+						},
+						"date": {
+							"value": "@pipeline().parameters.date",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "Process Synapse Base",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Process ADLS and Synapse Ingestion",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pl_SYNDW_Base_process_main",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"parent_run_id": {
+							"value": "@pipeline().RunId",
+							"type": "Expression"
+						},
+						"adhoc": {
+							"value": "@pipeline().parameters.adhoc",
 							"type": "Expression"
 						},
 						"date": {
@@ -99,7 +130,8 @@
 				"defaultValue": 0
 			},
 			"date": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "2022/04/13"
 			}
 		},
 		"folder": {
