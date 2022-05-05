@@ -77,10 +77,7 @@
 							"value": "@pipeline().parameters.adhoc",
 							"type": "Expression"
 						},
-						"entity_filter": {
-							"value": "layer_nk IN ('S4H', 'USA', 'AXBI')",
-							"type": "Expression"
-						},
+						"entity_filter": "entity_name IN ('C_BillingDocumentItemBasicDEX')",
 						"parent_run_id": {
 							"value": "@pipeline().RunId",
 							"type": "Expression"
@@ -133,7 +130,8 @@
 				"defaultValue": 0
 			},
 			"date": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "2022/04/13"
 			}
 		},
 		"folder": {

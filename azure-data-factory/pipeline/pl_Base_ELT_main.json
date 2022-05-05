@@ -388,6 +388,10 @@
 									"file_name": {
 										"value": "@item().file_name",
 										"type": "Expression"
+									},
+									"directory_path": {
+										"value": "@item().directory_path",
+										"type": "Expression"
 									}
 								}
 							}
