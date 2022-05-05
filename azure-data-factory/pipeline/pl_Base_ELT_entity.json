@@ -489,7 +489,7 @@
 										"type": "Expression"
 									},
 									"extraction_timestamp": {
-										"value": "@variables('extraction_timestamp')",
+										"value": "@json(\n    variables('extraction_Output')\n).timestamp",
 										"type": "Expression"
 									},
 									"batch_id_CheckXUExtractionStatus": {
@@ -497,7 +497,7 @@
 										"type": "Expression"
 									},
 									"batch_id_RunXUExtraction": {
-										"value": "@variables('batch_id_RunXUExtraction')",
+										"value": "@variables('batch_id_ExtractAndLoad')",
 										"type": "Expression"
 									},
 									"adls_directory_path": {
