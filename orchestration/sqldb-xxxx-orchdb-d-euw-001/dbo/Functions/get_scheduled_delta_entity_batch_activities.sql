@@ -18,6 +18,7 @@ RETURNS TABLE AS RETURN
             ba.activity_order,
             b.start_date_time,
             bs.status_nk,
+            b.directory_path,
             b.file_name,
             b.output
             -- MAX(b.start_date_time) as start_date_time
@@ -63,6 +64,7 @@ RETURNS TABLE AS RETURN
             -- dfba.activity_order,
             -- dfba.start_date_time,
             -- dfba.status_nk,
+            dfba.directory_path,
             dfba.file_name,
             la.activity_id
         from delta_file_batch_activities dfba
@@ -79,6 +81,7 @@ RETURNS TABLE AS RETURN
             -- dfba.activity_order,
             -- dfba.start_date_time,
             -- dfba.status_nk,
+            dfba.directory_path,
             dfba.file_name,
             la.activity_id
         -- order by file_name, activity_id
@@ -89,6 +92,7 @@ RETURNS TABLE AS RETURN
             fba.entity_name,
             fba.layer_id,
             fba.update_mode,
+            fba.directory_path,
             fba.file_name,
             fba.activity_id,
             dfba.run_id,
@@ -160,6 +164,7 @@ RETURNS TABLE AS RETURN
             e.adls_directory_path_Out,
             e.[base_schema_name],
             e.[base_sproc_name],
+            pba.directory_path,
             pba.file_name,
             pba.activity_nk,
             pba.activity_order,
@@ -206,7 +211,7 @@ RETURNS TABLE AS RETURN
                 OR
                 pba.activity_nk != 'ProcessBase'
             )
-            and e.entity_id = 386
+            and e.entity_id = 386 --TODO remove
         -- order by 
     )
     , activities as (
@@ -226,6 +231,7 @@ RETURNS TABLE AS RETURN
             adls_directory_path_Out,
             [base_schema_name],
             [base_sproc_name],
+            directory_path,
             file_name,
             concat(
                 '[',
@@ -275,6 +281,7 @@ RETURNS TABLE AS RETURN
             adls_directory_path_Out,
             [base_schema_name],
             [base_sproc_name],
+            directory_path,
             file_name,
             isRequired
     )
@@ -295,6 +302,7 @@ RETURNS TABLE AS RETURN
         adls_directory_path_Out,
         [base_schema_name],
         [base_sproc_name],
+        directory_path,
         file_name,
         MIN(required_activities) as required_activities,
         MIN(skipped_activities) as skipped_activities
@@ -315,5 +323,6 @@ RETURNS TABLE AS RETURN
         adls_directory_path_Out,
         [base_schema_name],
         [base_sproc_name],
+        directory_path,
         file_name
 GO

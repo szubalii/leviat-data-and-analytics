@@ -3,6 +3,7 @@ AS
 SELECT
 	 ent.[entity_id]
 	,ent.[entity_name]
+	,ent.[layer_id]
 	,la.[layer_nk]
 	,lo.[location_nk]
 	,ent.[adls_container_name]
