@@ -414,7 +414,7 @@
 				}
 			},
 			{
-				"name": "Update Run XU Extraction Batch Status",
+				"name": "Update Extract Batch Status",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
@@ -437,7 +437,7 @@
 					"storedProcedureParameters": {
 						"batch_id": {
 							"value": {
-								"value": "@pipeline().parameters.batch_id_RunXUExtraction",
+								"value": "@pipeline().parameters.batch_id_Extract",
 								"type": "Expression"
 							},
 							"type": "Guid"
@@ -530,7 +530,7 @@
 								"source": {
 									"type": "AzureSqlSource",
 									"sqlReaderQuery": {
-										"value": "SELECT output\nFROM batch\nWHERE batch_id = '@{pipeline().parameters.batch_id_RunXUExtraction}'",
+										"value": "SELECT output\nFROM batch\nWHERE batch_id = '@{pipeline().parameters.batch_id_Extract}'",
 										"type": "Expression"
 									},
 									"queryTimeout": "02:00:00",
@@ -585,7 +585,7 @@
 			"batch_id_CheckXUExtractionStatus": {
 				"type": "string"
 			},
-			"batch_id_RunXUExtraction": {
+			"batch_id_Extract": {
 				"type": "string"
 			},
 			"adls_directory_path": {
