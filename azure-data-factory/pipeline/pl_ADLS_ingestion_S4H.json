@@ -3,58 +3,9 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "If empty run_id",
-				"type": "IfCondition",
-				"dependsOn": [],
-				"userProperties": [],
-				"typeProperties": {
-					"expression": {
-						"value": "@empty(pipeline().parameters.run_id)",
-						"type": "Expression"
-					},
-					"ifFalseActivities": [
-						{
-							"name": "Set run_id from parameter",
-							"type": "SetVariable",
-							"dependsOn": [],
-							"userProperties": [],
-							"typeProperties": {
-								"variableName": "run_id",
-								"value": {
-									"value": "@pipeline().parameters.run_id",
-									"type": "Expression"
-								}
-							}
-						}
-					],
-					"ifTrueActivities": [
-						{
-							"name": "Set run_id from pipeline",
-							"type": "SetVariable",
-							"dependsOn": [],
-							"userProperties": [],
-							"typeProperties": {
-								"variableName": "run_id",
-								"value": {
-									"value": "@pipeline().RunId",
-									"type": "Expression"
-								}
-							}
-						}
-					]
-				}
-			},
-			{
 				"name": "Run XU Extraction",
 				"type": "WebActivity",
-				"dependsOn": [
-					{
-						"activity": "Set Run XU Extraction Batch",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
+				"dependsOn": [],
 				"policy": {
 					"timeout": "7.00:00:00",
 					"retry": 0,
@@ -93,93 +44,6 @@
 						"value": "@activity('Run XU Extraction').output.response",
 						"type": "Expression"
 					}
-				}
-			},
-			{
-				"name": "Set Run XU Extraction Batch",
-				"type": "SqlServerStoredProcedure",
-				"dependsOn": [
-					{
-						"activity": "If empty run_id",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"policy": {
-					"timeout": "7.00:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"storedProcedureName": "[dbo].[set_batch]",
-					"storedProcedureParameters": {
-						"activity": {
-							"value": "RunXUExtraction",
-							"type": "String"
-						},
-						"batch_id": {
-							"value": {
-								"value": "@variables('batch_id_RunXUExtraction')",
-								"type": "Expression"
-							},
-							"type": "Guid"
-						},
-						"entity_id": {
-							"value": {
-								"value": "@pipeline().parameters.entity_id",
-								"type": "Expression"
-							},
-							"type": "Int64"
-						},
-						"file_path": {
-							"value": null,
-							"type": "String"
-						},
-						"run_id": {
-							"value": {
-								"value": "@variables('run_id')",
-								"type": "Expression"
-							},
-							"type": "Guid"
-						},
-						"size_bytes": {
-							"value": null,
-							"type": "Int64"
-						},
-						"source_layer": {
-							"value": {
-								"value": "S4H",
-								"type": "Expression"
-							},
-							"type": "String"
-						},
-						"status": {
-							"value": "InProgress",
-							"type": "String"
-						},
-						"target_layer": {
-							"value": {
-								"value": "In",
-								"type": "Expression"
-							},
-							"type": "String"
-						},
-						"start_date_time": {
-							"value": {
-								"value": "@formatDateTime(utcNow(), 'yyyy-MM-dd HH:mm:ss')",
-								"type": "Expression"
-							},
-							"type": "Datetime"
-						}
-					}
-				},
-				"linkedServiceName": {
-					"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
-					"type": "LinkedServiceReference"
 				}
 			},
 			{
@@ -235,7 +99,7 @@
 						},
 						"batch_id": {
 							"value": {
-								"value": "@variables('batch_id_RunXUExtraction')",
+								"value": "@variables('batch_id_Extract')",
 								"type": "Expression"
 							}
 						}
@@ -270,7 +134,7 @@
 					"storedProcedureParameters": {
 						"batch_id": {
 							"value": {
-								"value": "@variables('batch_id_RunXUExtraction')",
+								"value": "@variables('batch_id_Extract')",
 								"type": "Expression"
 							},
 							"type": "Guid"
@@ -331,7 +195,7 @@
 					"storedProcedureParameters": {
 						"batch_id": {
 							"value": {
-								"value": "@variables('batch_id_RunXUExtraction')",
+								"value": "@variables('batch_id_Extract')",
 								"type": "Expression"
 							},
 							"type": "Guid"
@@ -384,19 +248,6 @@
 					"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
 					"type": "LinkedServiceReference"
 				}
-			},
-			{
-				"name": "Set S4H ADLS File Name",
-				"type": "SetVariable",
-				"dependsOn": [],
-				"userProperties": [],
-				"typeProperties": {
-					"variableName": "adlsFileName",
-					"value": {
-						"value": "@concat(\n    pipeline().parameters.extraction_name,\n    '_',\n    replace(replace(replace(variables('extraction_timestamp'),'-','_'),':','_'),'.','_'),\n    '.parquet'\n)",
-						"type": "Expression"
-					}
-				}
 			}
 		],
 		"parameters": {
@@ -432,7 +283,7 @@
 			"extraction_timestamp": {
 				"type": "String"
 			},
-			"batch_id_RunXUExtraction": {
+			"batch_id_Extract": {
 				"type": "String",
 				"defaultValue": "@guid()"
 			},
