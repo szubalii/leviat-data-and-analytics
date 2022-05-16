@@ -47,7 +47,7 @@
 				}
 			},
 			{
-				"name": "Update Run XU Extraction Batch Failed",
+				"name": "Update Extract Batch Failed",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
@@ -115,7 +115,7 @@
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "Update Run XU Extraction Batch Failed",
+						"activity": "Update Extract Batch Failed",
 						"dependencyConditions": [
 							"Succeeded"
 						]
