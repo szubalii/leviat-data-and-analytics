@@ -602,7 +602,7 @@
 										{
 											"name": "OutputText",
 											"value": {
-												"value": "@activity('act_web_GetExtractionLogs').output.response",
+												"value": "@activity('Get Extraction Logs').output.response",
 												"type": "Expression"
 											}
 										}
@@ -668,11 +668,11 @@
 									"parameters": {
 										"container": "adf-jobs",
 										"directory": {
-											"value": "@concat(\n    'Xtract Universal/',\n    pipeline().parameters.extraction_name, \n    '/',\n    formatDateTime(pipeline().parameters.date, 'yyyy/MM/dd')\n)",
+											"value": "@concat(\n    'Xtract Universal/',\n    pipeline().parameters.entity_name, \n    '/',\n    formatDateTime(pipeline().parameters.date, 'yyyy/MM/dd')\n)",
 											"type": "Expression"
 										},
 										"file": {
-											"value": "@concat(\n    pipeline().parameters.extraction_name,\n    '_extraction_log_',\n    replace(replace(replace(variables('extraction_timestamp'),'-','_'),':','_'),'.','_'),\n    '.csv'\n)",
+											"value": "@concat(\n    pipeline().parameters.entity_name,\n    '_extraction_log_',\n    replace(replace(replace(variables('extraction_Timestamp'),'-','_'),':','_'),'.','_'),\n    '.csv'\n)",
 											"type": "Expression"
 										}
 									}
@@ -721,7 +721,7 @@
 									},
 									"error_msg": {
 										"value": {
-											"value": "@activity('act_copy_ExtractionLogsToAdls').Error.Message",
+											"value": "@activity('Copy Extraction Logs To ADLS').Error.Message",
 											"type": "Expression"
 										},
 										"type": "String"
@@ -847,7 +847,7 @@
 									},
 									"error_msg": {
 										"value": {
-											"value": "@activity('act_web_GetExtractionLogs').Error.Message",
+											"value": "@activity('Get Extraction Logs').Error.Message",
 											"type": "Expression"
 										},
 										"type": "String"
@@ -864,26 +864,6 @@
 							"linkedServiceName": {
 								"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
 								"type": "LinkedServiceReference"
-							}
-						},
-						{
-							"name": "act_set_ExtractionResultVar",
-							"type": "SetVariable",
-							"dependsOn": [
-								{
-									"activity": "Copy Extraction Logs To ADLS",
-									"dependencyConditions": [
-										"Succeeded"
-									]
-								}
-							],
-							"userProperties": [],
-							"typeProperties": {
-								"variableName": "extraction_log",
-								"value": {
-									"value": "@activity('act_web_GetExtractionLogs').output.response",
-									"type": "Expression"
-								}
 							}
 						},
 						{
@@ -956,7 +936,7 @@
 							"type": "SqlServerStoredProcedure",
 							"dependsOn": [
 								{
-									"activity": "act_set_ExtractionResultVar",
+									"activity": "Copy Extraction Logs To ADLS",
 									"dependencyConditions": [
 										"Succeeded"
 									]
@@ -982,7 +962,7 @@
 									},
 									"end_date_time": {
 										"value": {
-											"value": "@formatDateTime(utcnow(), 'yyyy-MM-dd HH:mm:ss')",
+											"value": "@formatDateTime(utcNow(), 'yyyy-MM-dd HH:mm:ss')",
 											"type": "Expression"
 										},
 										"type": "DateTime"
@@ -1124,24 +1104,9 @@
 						"value": "@empty(variables('extraction_Timestamp'))",
 						"type": "Expression"
 					},
-					"ifFalseActivities": [
-						{
-							"name": "Set Timestamp from Param",
-							"type": "SetVariable",
-							"dependsOn": [],
-							"userProperties": [],
-							"typeProperties": {
-								"variableName": "extraction_Timestamp",
-								"value": {
-									"value": "@pipeline().parameters.extraction_timestamp",
-									"type": "Expression"
-								}
-							}
-						}
-					],
 					"ifTrueActivities": [
 						{
-							"name": "Lookup Timestamp",
+							"name": "Lookup XU Extraction Timestamp",
 							"type": "Lookup",
 							"dependsOn": [],
 							"policy": {
@@ -1156,7 +1121,7 @@
 								"source": {
 									"type": "AzureSqlSource",
 									"sqlReaderQuery": {
-										"value": "SELECT output\nFROM batch\nWHERE batch_id = '@{variables('batch_id_ExtractAndLoad')}'",
+										"value": "SELECT output\nFROM batch\nWHERE batch_id = '@{variables('batch_id_Extract')}'",
 										"type": "Expression"
 									},
 									"queryTimeout": "02:00:00",
@@ -1169,11 +1134,11 @@
 							}
 						},
 						{
-							"name": "Set Timestamp",
+							"name": "Set XU Extraction Timestamp",
 							"type": "SetVariable",
 							"dependsOn": [
 								{
-									"activity": "Lookup Timestamp",
+									"activity": "Lookup XU Extraction Timestamp",
 									"dependencyConditions": [
 										"Succeeded"
 									]
@@ -1183,7 +1148,7 @@
 							"typeProperties": {
 								"variableName": "extraction_Timestamp",
 								"value": {
-									"value": "@activity('Lookup Timestamp').output.firstRow.timestamp",
+									"value": "@activity('Lookup XU Extraction Timestamp').output.firstRow.timestamp",
 									"type": "Expression"
 								}
 							}
@@ -1290,6 +1255,10 @@
 			},
 			"extraction_Timestamp": {
 				"type": "String"
+			},
+			"batch_id_StoreXUExtractionLog": {
+				"type": "String",
+				"defaultValue": "@guid()"
 			}
 		},
 		"folder": {
