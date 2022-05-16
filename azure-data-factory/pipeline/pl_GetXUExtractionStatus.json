@@ -7,7 +7,7 @@
 				"type": "Until",
 				"dependsOn": [
 					{
-						"activity": "Set Batch",
+						"activity": "If Timestamp Parameter Empty",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -50,7 +50,7 @@
 							"userProperties": [],
 							"typeProperties": {
 								"url": {
-									"value": "@concat(\n\tpipeline().globalParameters.XU_hostName\n\t,'/status/?name='\n\t,pipeline().parameters.extraction_name\n\t,'&source='\n\t,pipeline().globalParameters.XU_sourceName\n\t,'&destination='\n\t,pipeline().globalParameters.storageAccountName,'_',pipeline().globalParameters.S4H_systemID\n\t,'&timestamp='\n\t,pipeline().parameters.extraction_timestamp\n)",
+									"value": "@concat(\n\tpipeline().globalParameters.XU_hostName\n\t,'/status/?name='\n\t,pipeline().parameters.extraction_name\n\t,'&source='\n\t,pipeline().globalParameters.XU_sourceName\n\t,'&destination='\n\t,pipeline().globalParameters.storageAccountName,'_',pipeline().globalParameters.S4H_systemID\n\t,'&timestamp='\n\t,variables('extraction_timestamp')\n)",
 									"type": "Expression"
 								},
 								"connectVia": {
@@ -479,6 +479,90 @@
 				"linkedServiceName": {
 					"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
 					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "If Timestamp Parameter Empty",
+				"type": "IfCondition",
+				"dependsOn": [
+					{
+						"activity": "Set Batch",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@empty(pipeline().parameters.extraction_timestamp)",
+						"type": "Expression"
+					},
+					"ifFalseActivities": [
+						{
+							"name": "Set Timestamp from Param",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "extraction_Timestamp",
+								"value": {
+									"value": "@pipeline().parameters.extraction_timestamp",
+									"type": "Expression"
+								}
+							}
+						}
+					],
+					"ifTrueActivities": [
+						{
+							"name": "Lookup Timestamp",
+							"type": "Lookup",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "AzureSqlSource",
+									"sqlReaderQuery": {
+										"value": "SELECT output\nFROM batch\nWHERE batch_id = '@{pipeline().parameters.batch_id_RunXUExtraction}'",
+										"type": "Expression"
+									},
+									"queryTimeout": "02:00:00",
+									"partitionOption": "None"
+								},
+								"dataset": {
+									"referenceName": "ds_orch_db",
+									"type": "DatasetReference"
+								}
+							}
+						},
+						{
+							"name": "Set Timestamp",
+							"type": "SetVariable",
+							"dependsOn": [
+								{
+									"activity": "Lookup Timestamp",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "extraction_Timestamp",
+								"value": {
+									"value": "@activity('Lookup Timestamp').output.firstRow.timestamp",
+									"type": "Expression"
+								}
+							}
+						}
+					]
 				}
 			}
 		],
