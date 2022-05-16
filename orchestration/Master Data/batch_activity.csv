@@ -6,7 +6,7 @@ activity_id,activity_nk,activity_description,activity_order,is_deprecated
 5,S4HCheckFileName,Checking S4H files in blob storage,,1
 6,BasetoEDWExecGenericSP,Load data using a generic function sp_materialize_view,,1
 7,BasetoEDWExecCustomSP,Load data using a custom function,,1
-8,RunXUExtraction,Start Xtract Universal Extraction via web url call,120,
+8,RunXUExtraction,Start Xtract Universal Extraction via web url call,120,1
 9,StoreXUExtractionLog,Get Logs,160,0
 10,ProcessEDW,Load data into edw layer - Dedicated SQL Pool,600,0
 11,S4HBlobInToBlobOut,S4H Data is loaded from In to Out blob storage folder - Data Lake,,1
