@@ -32,7 +32,7 @@ BEGIN
     --Scenario 2: load already happened on same day
     --check which batch activities failed or did not happen and return them for corresponding scheduled entities
     
-    declare @adhoc bit = 0, @date DATE = '2022/05/17';
+    -- declare @adhoc bit = 0, @date DATE = '2022/05/17';
 
     DECLARE
         @BATCH_ACTIVITY_ID__EXTRACT SMALLINT = 21,
@@ -997,7 +997,7 @@ BEGIN
             isRequired
     )
 
-    -- INSERT INTO @scheduled_entity_batch_activities
+    INSERT INTO @scheduled_entity_batch_activities
     select
         entity_id,
         entity_name,
