@@ -1,8 +1,30 @@
+-- drop function [dbo].[get_scheduled_entity_batch_activities]
 CREATE FUNCTION [dbo].[get_scheduled_entity_batch_activities](
     @adhoc bit = 0,
     @date DATE
 )
-RETURNS TABLE AS RETURN
+RETURNS @scheduled_entity_batch_activities TABLE (
+    entity_id BIGINT NOT NULL,
+    entity_name VARCHAR(122),
+    layer_nk VARCHAR(50),
+    client_field VARCHAR(127),
+    extraction_type VARCHAR(5),
+    pk_field_names VARCHAR(MAX),
+    [axbi_database_name] VARCHAR(128),
+    [axbi_schema_name] VARCHAR(128),
+    [base_table_name] VARCHAR(128),
+    [axbi_date_field_name] VARCHAR(128),
+    adls_container_name VARCHAR(63),
+    adls_directory_path_In NVARCHAR(255),
+    adls_directory_path_Out NVARCHAR(255),
+    [base_schema_name] VARCHAR(128),
+    [base_sproc_name] VARCHAR(128),
+    file_name VARCHAR(250),
+    required_activities VARCHAR(MAX),
+    skipped_activities VARCHAR(MAX)
+) 
+AS
+BEGIN
 
     --Scenario 1: no batches done on new day
     --return complete list of scheduled entities, cross join with batch activity
@@ -10,7 +32,9 @@ RETURNS TABLE AS RETURN
     --Scenario 2: load already happened on same day
     --check which batch activities failed or did not happen and return them for corresponding scheduled entities
     
-    declare @adhoc bit = 0, @date DATE = '2022/05/02';
+    -- declare @adhoc bit = 0, @date DATE = '2022/05/02';
+
+    DECLARE @BATCH_ACTIVITY_ID_EXTRACT SMALLINT = 21;
 
     WITH
     -- -- get the scheduled entities based on the day
@@ -88,7 +112,7 @@ RETURNS TABLE AS RETURN
         WHERE
             CONVERT(date, b.start_date_time) = @date
             AND
-            b.activity_id = 21 -- Extract
+            b.activity_id = @BATCH_ACTIVITY_ID_EXTRACT -- Extract
             AND
             b.status_id IN (1, 2) -- InProgress, Succeeded
         GROUP BY
@@ -193,13 +217,11 @@ RETURNS TABLE AS RETURN
 
     -- For entities with update_mode = Full,
     -- get the latest start_date_time for each logged batch activity
-    -- TODO change logic to getting latest timestamp/file name for where activity = Extract and status = Succeeded, e.g.
+    -- Logic to getting latest timestamp/file name for where activity = Extract and status = Succeeded, e.g.
     -- in case where logged batch activities for the same day are missing but earlier on the same day subsequent 
     -- activities are logged and succeeded:
     -- 9:00	Extract	        I_Test_2022_04_13_09_00	Succeeded
     -- 8:00	RunXUExtraction	I_Test_2022_04_13_08_00	Succeeded
-
-    -- TODO remove RunXUExtraction for S4H? just use Extract for both S4H and AXBI and USA
 
     -- scheduled full entities with potential batch activities and statuses
     , scheduled_full_entity_potential_batch_activities as (
@@ -249,15 +271,17 @@ RETURNS TABLE AS RETURN
 
         TODO Enable loading multiple delta files for single entity into base layer. What in case of failure,
         truncate base table? 
-        TODO Process base as separate step, maybe even separete entity?
+        TODO Process base as separate step, maybe even separate entity?
 
         Get all file names based on Extract activity and status is Successful or InProgress
         Get all corresponding batch activities and statuses for the file names
 
         Check what the first file name is for which there is a Failed activity. 
         For the first failed file name, check which activities were successful before the first failed activity
-        TODO: All subsequent activities (minus Extract) and file names activities need to be executed again
-        
+        All subsequent activities (minus Extract) and file names activities need to be executed again
+
+        TODO what about entities that are not scheduled but do have historic failed activities?
+
     */
 
     -- Get all scheduled delta entities
@@ -280,7 +304,7 @@ RETURNS TABLE AS RETURN
             e.adls_directory_path_Out,
             e.[base_schema_name],
             e.[base_sproc_name],
-            e.file_name
+            NULL AS file_name
         FROM
             scheduled_source_entities e
         WHERE
@@ -291,6 +315,22 @@ RETURNS TABLE AS RETURN
     , successful_extract_file_names_scheduled_delta_entities AS (
         select
             e.entity_id,
+            e.entity_name,
+            e.layer_id,
+            e.layer_nk,
+            e.client_field,
+            e.extraction_type,
+            e.update_mode,
+            e.pk_field_names,
+            e.[axbi_database_name],
+            e.[axbi_schema_name],
+            e.[base_table_name],
+            e.[axbi_date_field_name],
+            e.adls_container_name,
+            NULL AS adls_directory_path_In,
+            NULL AS adls_directory_path_Out,
+            e.[base_schema_name],
+            e.[base_sproc_name],
             b.file_name
         FROM
             scheduled_delta_entities e
@@ -300,12 +340,12 @@ RETURNS TABLE AS RETURN
         WHERE
             b.status_id IN (1, 2) -- InProgress, Succeeded
             AND
-            b.activity_id = 21 -- Extract
+            b.activity_id = @BATCH_ACTIVITY_ID_EXTRACT -- Extract
             AND
             CONVERT(date, b.start_date_time) <= @date
     )
 
-    -- get all potential delta batch activities
+    -- get all potential delta batch activities for the new load
     , scheduled_delta_entity_batch_activities AS (
         select
             sde.entity_id,
@@ -325,14 +365,14 @@ RETURNS TABLE AS RETURN
             sde.adls_directory_path_Out,
             sde.[base_schema_name],
             sde.[base_sproc_name],
-            sefnsde.file_name,
+            sde.file_name,
             la.activity_id
         FROM
             scheduled_delta_entities sde
-        LEFT JOIN
-            successful_extract_file_names_scheduled_delta_entities sefnsde
-            ON
-                sefnsde.entity_id = sde.entity_id
+        -- LEFT JOIN
+        --     successful_extract_file_names_scheduled_delta_entities sefnsde
+        --     ON
+        --         sefnsde.entity_id = sde.entity_id
         left join layer_activity la
             on la.layer_id = sde.layer_id
     )
@@ -341,42 +381,106 @@ RETURNS TABLE AS RETURN
     , successful_extract_delta_file_name_batch_activities AS (
         SELECT
             sefnsde.entity_id,
-            -- sefnsde.entity_name,
-            -- sefnsde.layer_id,
-            -- sefnsde.layer_nk,
-            -- sefnsde.client_field,
-            -- sefnsde.extraction_type,
-            -- sefnsde.update_mode,
-            -- sefnsde.pk_field_names,
-            -- sefnsde.axbi_database_name,
-            -- sefnsde.axbi_schema_name,
-            -- sefnsde.base_table_name,
-            -- sefnsde.axbi_date_field_name,
-            -- sefnsde.adls_container_name,
-            -- sefnsde.base_schema_name,
-            -- sefnsde.base_sproc_name,
-            b.activity_id,
+            sefnsde.entity_name,
+            sefnsde.layer_id,
+            sefnsde.layer_nk,
+            sefnsde.client_field,
+            sefnsde.extraction_type,
+            sefnsde.update_mode,
+            sefnsde.pk_field_names,
+            sefnsde.[axbi_database_name],
+            sefnsde.[axbi_schema_name],
+            sefnsde.[base_table_name],
+            sefnsde.[axbi_date_field_name],
+            sefnsde.adls_container_name,
+            dir.base_dir_path + '/In/' + FORMAT(b.start_date_time, 'yyyy/MM/dd', 'en-US') AS adls_directory_path_In,
+            dir.base_dir_path + '/Out/' + FORMAT(b.start_date_time, 'yyyy/MM/dd', 'en-US') AS adls_directory_path_Out,
+            sefnsde.[base_schema_name],
+            sefnsde.[base_sproc_name],
+            la.activity_id,
             ba.activity_order,
+            sefnsde.file_name,
             b.run_id,
             b.batch_id,
             b.start_date_time,
             b.status_id,
             b.directory_path,
-            b.file_name,
+            -- b.file_name,
             b.output
         FROM
             successful_extract_file_names_scheduled_delta_entities sefnsde
-        INNER JOIN
+        LEFT JOIN
+            layer_activity la
+            ON
+                la.layer_id = sefnsde.layer_id 
+        LEFT JOIN
             batch b
             ON
                 b.entity_id = sefnsde.entity_id
                 AND
                 b.file_name = sefnsde.file_name
+                AND
+                b.activity_id = la.activity_id
         LEFT JOIN [dbo].[batch_activity] ba
-            ON ba.[activity_id] = b.[activity_id]
-    ) 
+            ON ba.[activity_id] = la.[activity_id]
+        LEFT JOIN [dbo].[vw_adls_base_directory_path] dir
+            ON dir.entity_id = sefnsde.entity_id
+    )
 
-    -- Check what the first file name is for which there is a Failed activity. 
+    -- Get all potential scheduled entity batch activities
+    -- Union the activities to be run for the new day
+    -- and those based on succesful extracted file names
+    , potential_delta_entity_batch_activities AS (
+        select
+            sde.entity_id,
+            sde.entity_name,
+            sde.layer_id,
+            sde.layer_nk,
+            sde.client_field,
+            sde.extraction_type,
+            sde.update_mode,
+            sde.pk_field_names,
+            sde.[axbi_database_name],
+            sde.[axbi_schema_name],
+            sde.[base_table_name],
+            sde.[axbi_date_field_name],
+            sde.adls_container_name,
+            sde.adls_directory_path_In,
+            sde.adls_directory_path_Out,
+            sde.[base_schema_name],
+            sde.[base_sproc_name],
+            sde.file_name,
+            sde.activity_id
+        FROM
+            scheduled_delta_entity_batch_activities sde
+        
+        UNION ALL
+
+        select
+            sedfnba.entity_id,
+            sedfnba.entity_name,
+            sedfnba.layer_id,
+            sedfnba.layer_nk,
+            sedfnba.client_field,
+            sedfnba.extraction_type,
+            sedfnba.update_mode,
+            sedfnba.pk_field_names,
+            sedfnba.[axbi_database_name],
+            sedfnba.[axbi_schema_name],
+            sedfnba.[base_table_name],
+            sedfnba.[axbi_date_field_name],
+            sedfnba.adls_container_name,
+            sedfnba.adls_directory_path_In,
+            sedfnba.adls_directory_path_Out,
+            sedfnba.[base_schema_name],
+            sedfnba.[base_sproc_name],
+            sedfnba.file_name,
+            sedfnba.activity_id
+        FROM
+            successful_extract_delta_file_name_batch_activities sedfnba
+    )
+
+    -- Check what the first file name is for which there is a Failed or missing logged activity. 
     , first_failed_file_name AS (
         select
             entity_id,
@@ -385,6 +489,8 @@ RETURNS TABLE AS RETURN
             successful_extract_delta_file_name_batch_activities
         WHERE
             status_id = 4 -- 'Failed'
+            OR
+            status_id IS NULL
         group by
             entity_id
     )
@@ -398,6 +504,8 @@ RETURNS TABLE AS RETURN
             sdfnba.batch_id,
             sdfnba.start_date_time,
             sdfnba.status_id,
+            sdfnba.adls_directory_path_In,
+            sdfnba.adls_directory_path_Out,
             sdfnba.directory_path,
             sdfnba.file_name,
             sdfnba.output
@@ -409,9 +517,16 @@ RETURNS TABLE AS RETURN
                 fffn.entity_id = sdfnba.entity_id
         WHERE
             sdfnba.file_name < fffn.file_name -- smaller than this should work as tested
+            OR (
+            -- for file names after the failure only return the extract activity
+            -- this extract activity should not re-run
+                sdfnba.file_name > fffn.file_name
+                AND
+                sdfnba.activity_id = @BATCH_ACTIVITY_ID_EXTRACT -- Extract
+            )
     )
 
-    -- get the activity order of the first failed batch activity
+    -- get the activity order of the first failed or missing logged batch activity
     , first_failed_file_name_activity_order AS (
         select
             sdfnba.entity_id,
@@ -427,6 +542,8 @@ RETURNS TABLE AS RETURN
                 fffn.file_name = sdfnba.file_name
         WHERE
             status_id = 4 -- 'Failed'
+            OR
+            status_id IS NULL
         group by
             sdfnba.entity_id,
             sdfnba.file_name
@@ -441,6 +558,8 @@ RETURNS TABLE AS RETURN
             sdfnba.batch_id,
             sdfnba.start_date_time,
             sdfnba.status_id,
+            sdfnba.adls_directory_path_In,
+            sdfnba.adls_directory_path_Out,
             sdfnba.directory_path,
             sdfnba.file_name,
             sdfnba.output
@@ -467,6 +586,8 @@ RETURNS TABLE AS RETURN
             fffnao.batch_id,
             fffnao.start_date_time,
             fffnao.status_id,
+            fffnao.adls_directory_path_In,
+            fffnao.adls_directory_path_Out,
             fffnao.directory_path,
             fffnao.file_name,
             fffnao.output
@@ -482,6 +603,8 @@ RETURNS TABLE AS RETURN
             sdfnba.batch_id,
             sdfnba.start_date_time,
             sdfnba.status_id,
+            sdfnba.adls_directory_path_In,
+            sdfnba.adls_directory_path_Out,
             sdfnba.directory_path,
             sdfnba.file_name,
             sdfnba.output
@@ -489,113 +612,6 @@ RETURNS TABLE AS RETURN
             successful_file_names_before_failure sdfnba
     )
 
-    -- get the successful batch activities before the first failed batch activity
-    -- , **** AS (
-    --     select
-    --         sflnba.entity_id,
-    --         sflnba.activity_id,
-    --         sflnba.run_id,
-    --         sflnba.batch_id,
-    --         sflnba.start_date_time,
-    --         sflnba.status_id,
-    --         -- bs.status_nk,
-    --         sflnba.directory_path,
-    --         sflnba.file_name,
-    --         sflnba.output
-    --     FROM
-    --         successful_delta_file_name_batch_activities sflnba
-    --     LEFT JOIN
-    --         first_failed_file_name_activity_order fffnao
-    --         ON
-    --             fffnao.entity_id = sflnba.entity_id
-    --     WHERE
-    --         sflnba.activity_order < fffnao.activity_order
-    -- )
-
-
-    -- -- Get logged batch activities for delta entities
-    -- , scheduled_delta_entity_logged_batch_activities AS (
-    --     select
-    --         b.entity_id,
-    --         e.entity_name,
-    --         e.layer_id,
-    --         e.layer_nk,
-    --         e.update_mode,
-    --         e.client_field,
-    --         e.extraction_type,
-    --         e.pk_field_names,
-    --         e.axbi_database_name,
-    --         e.axbi_schema_name,
-    --         e.base_table_name,
-    --         e.axbi_date_field_name,
-    --         e.adls_container_name,
-    --         e.base_schema_name,
-    --         e.base_sproc_name,
-    --         b.run_id,
-    --         b.batch_id,
-    --         b.activity_id,
-    --         -- ba.activity_nk,
-    --         -- ba.activity_order,
-    --         b.start_date_time,
-    --         bs.status_nk,
-    --         b.directory_path,
-    --         b.file_name,
-    --         b.output
-    --     FROM
-    --         batch b
-    --     INNER JOIN scheduled_source_entities e
-    --         ON e.entity_id = b.entity_id
-    --     -- LEFT JOIN [dbo].[layer] las
-    --     --     ON las.[layer_id] = b.[source_layer_id]
-    --     -- LEFT JOIN [dbo].[layer] lat
-    --     --     ON lat.[layer_id] = b.[target_layer_id]
-    --     LEFT JOIN [dbo].[batch_execution_status] bs
-    --         ON bs.[status_id] = b.[status_id]
-    --     -- LEFT JOIN [dbo].[batch_activity] ba
-    --     --     ON ba.[activity_id] = b.[activity_id]
-    --     WHERE
-    --         e.update_mode = 'Delta'
-    -- )
-    -- -- get list of files and join with corresponding layer activity
-    -- -- this returns list of file names joined with each batch activity that should exist
-    -- , delta_file_batch_activities as (
-    --     select
-    --         deba.entity_id,
-    --         -- deba.entity_name,
-    --         -- deba.layer_id,
-    --         -- deba.layer_nk,
-    --         -- deba.update_mode,
-    --         -- deba.pk_field_names,
-    --         -- deba.axbi_database_name,
-    --         -- deba.axbi_schema_name,
-    --         -- deba.base_table_name,
-    --         -- deba.axbi_date_field_name,
-    --         -- deba.adls_container_name,
-    --         -- deba.base_schema_name,
-    --         -- deba.base_sproc_name,
-    --         deba.file_name,
-    --         la.activity_id
-    --     from scheduled_delta_entity_logged_batch_activities deba
-    --     left join layer_activity la
-    --     on la.layer_id = deba.layer_id
-    --     group by
-    --         deba.entity_id,
-    --         -- deba.entity_name,
-    --         -- deba.layer_id,
-    --         -- deba.layer_nk,
-    --         -- deba.update_mode,
-    --         -- deba.pk_field_names,
-    --         -- deba.axbi_database_name,
-    --         -- deba.axbi_schema_name,
-    --         -- deba.base_table_name,
-    --         -- deba.axbi_date_field_name,
-    --         -- deba.adls_container_name,
-    --         -- deba.base_schema_name,
-    --         -- deba.base_sproc_name,
-    --         deba.file_name,
-    --         la.activity_id
-    -- --     -- order by file_name, activity_id
-    -- )
     -- Get the potential batch activities for delta entities
     , scheduled_delta_entity_potential_batch_activities as (
         SELECT
@@ -614,6 +630,8 @@ RETURNS TABLE AS RETURN
             dfba.adls_container_name,
             dfba.base_schema_name,
             dfba.base_sproc_name,
+            dfba.adls_directory_path_In,
+            dfba.adls_directory_path_Out,
             deba.directory_path,
             dfba.file_name,
             dfba.activity_id,
@@ -622,7 +640,7 @@ RETURNS TABLE AS RETURN
             deba.start_date_time,
             deba.status_id,
             deba.output
-        from scheduled_delta_entity_batch_activities dfba
+        from potential_delta_entity_batch_activities dfba
         -- left JOIN
         --     scheduled_source_entities e
         --     on
@@ -687,8 +705,8 @@ RETURNS TABLE AS RETURN
             base_table_name,
             axbi_date_field_name,
             adls_container_name,
-            null as adls_directory_path_In, --TODO
-            null as adls_directory_path_Out,
+            adls_directory_path_In,
+            adls_directory_path_Out,
             base_schema_name,
             base_sproc_name,
             -- directory_path,
@@ -833,6 +851,7 @@ RETURNS TABLE AS RETURN
             isRequired
     )
 
+    INSERT INTO @scheduled_entity_batch_activities
     select
         entity_id,
         entity_name,
@@ -845,8 +864,8 @@ RETURNS TABLE AS RETURN
         [base_table_name],
         [axbi_date_field_name],
         adls_container_name,
-        adls_directory_path_In,
-        adls_directory_path_Out,
+        MIN(adls_directory_path_In) AS adls_directory_path_In,
+        MIN(adls_directory_path_Out) AS adls_directory_path_Out,
         [base_schema_name],
         [base_sproc_name],
         -- directory_path,
@@ -867,13 +886,14 @@ RETURNS TABLE AS RETURN
         [base_table_name],
         [axbi_date_field_name],
         adls_container_name,
-        adls_directory_path_In,--TODO
-        adls_directory_path_Out,
         [base_schema_name],
         [base_sproc_name]
         ,
         -- directory_path,
         file_name
+
+    RETURN;
+END
 
     -- select * from get_scheduled_full_entity_batch_activities(@adhoc, @date)
 
