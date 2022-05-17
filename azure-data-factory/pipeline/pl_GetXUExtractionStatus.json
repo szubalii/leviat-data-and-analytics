@@ -505,7 +505,7 @@
 							"dependsOn": [],
 							"userProperties": [],
 							"typeProperties": {
-								"variableName": "extraction_Timestamp",
+								"variableName": "extraction_timestamp",
 								"value": {
 									"value": "@pipeline().parameters.extraction_timestamp",
 									"type": "Expression"
@@ -555,7 +555,7 @@
 							],
 							"userProperties": [],
 							"typeProperties": {
-								"variableName": "extraction_Timestamp",
+								"variableName": "extraction_timestamp",
 								"value": {
 									"value": "@activity('Lookup Timestamp').output.firstRow.timestamp",
 									"type": "Expression"
