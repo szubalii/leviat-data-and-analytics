@@ -130,6 +130,9 @@
     <Folder Include="log\" />
     <Folder Include="log\Tables" />
     <Folder Include="Security\Schemas" />
+    <Folder Include="Security\Database Scoped Credentials\" />
+    <Folder Include="External resources\" />
+    <Folder Include="External resources\External data sources\" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Security\Database Scoped Credentials\dsc_SAS_OrchDB.sql" />
