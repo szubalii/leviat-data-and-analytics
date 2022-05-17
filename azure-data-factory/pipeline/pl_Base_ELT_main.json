@@ -388,10 +388,6 @@
 									"file_name": {
 										"value": "@item().file_name",
 										"type": "Expression"
-									},
-									"directory_path": {
-										"value": "@item().directory_path",
-										"type": "Expression"
 									}
 								}
 							}
@@ -526,7 +522,7 @@
 			},
 			"date": {
 				"type": "string",
-				"defaultValue": "2022/04/13"
+				"defaultValue": "2022/05/17"
 			}
 		},
 		"folder": {

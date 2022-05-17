@@ -99,7 +99,7 @@
 						},
 						"batch_id": {
 							"value": {
-								"value": "@variables('batch_id_Extract')",
+								"value": "@pipeline().parameters.batch_id",
 								"type": "Expression"
 							}
 						}
@@ -134,7 +134,7 @@
 					"storedProcedureParameters": {
 						"batch_id": {
 							"value": {
-								"value": "@variables('batch_id_Extract')",
+								"value": "@pipeline().parameters.batch_id",
 								"type": "Expression"
 							},
 							"type": "Guid"
@@ -195,7 +195,7 @@
 					"storedProcedureParameters": {
 						"batch_id": {
 							"value": {
-								"value": "@variables('batch_id_Extract')",
+								"value": "@pipeline().parameters.batch_id",
 								"type": "Expression"
 							},
 							"type": "Guid"
@@ -282,10 +282,6 @@
 		"variables": {
 			"extraction_timestamp": {
 				"type": "String"
-			},
-			"batch_id_Extract": {
-				"type": "String",
-				"defaultValue": "@guid()"
 			},
 			"adlsFileName": {
 				"type": "String"
