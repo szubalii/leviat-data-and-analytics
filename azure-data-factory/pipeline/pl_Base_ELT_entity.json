@@ -64,7 +64,7 @@
 				}
 			},
 			{
-				"name": "If Extract and Load required",
+				"name": "If Extract Required",
 				"type": "IfCondition",
 				"dependsOn": [
 					{
@@ -82,14 +82,27 @@
 					},
 					"ifFalseActivities": [
 						{
-							"name": "Set Extract and Load Batch ID from Param",
+							"name": "Set Extract Batch ID from Param",
 							"type": "SetVariable",
 							"dependsOn": [],
 							"userProperties": [],
 							"typeProperties": {
-								"variableName": "batch_id_ExtractAndLoad",
+								"variableName": "batch_id_Extract",
 								"value": {
 									"value": "@pipeline().parameters.skipped_activities.Extract.batch_id",
+									"type": "Expression"
+								}
+							}
+						},
+						{
+							"name": "Set S4H Extraction Timestamp",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "extraction_Timestamp",
+								"value": {
+									"value": "@pipeline().parameters.skipped_activities.Extract.output.timestamp",
 									"type": "Expression"
 								}
 							}
@@ -165,7 +178,7 @@
 										"type": "Expression"
 									},
 									"batch_id": {
-										"value": "@variables('batch_id_ExtractAndLoad')",
+										"value": "@variables('batch_id_Extract')",
 										"type": "Expression"
 									}
 								}
@@ -215,7 +228,7 @@
 								"source": {
 									"type": "AzureSqlSource",
 									"sqlReaderQuery": {
-										"value": "SELECT file_name, output\nFROM [dbo].[batch]\nWHERE batch_id = '@{variables('batch_id_ExtractAndLoad')}'",
+										"value": "SELECT file_name, output\nFROM [dbo].[batch]\nWHERE batch_id = '@{variables('batch_id_Extract')}'",
 										"type": "Expression"
 									},
 									"queryTimeout": "02:00:00",
@@ -447,7 +460,7 @@
 				"type": "IfCondition",
 				"dependsOn": [
 					{
-						"activity": "If Extract and Load required",
+						"activity": "If S4H Extraction Timestamp Empty",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -489,19 +502,19 @@
 										"type": "Expression"
 									},
 									"extraction_timestamp": {
-										"value": "@json(\n    variables('extraction_Output')\n).timestamp",
+										"value": "@variables('extraction_Timestamp')",
 										"type": "Expression"
 									},
 									"batch_id_CheckXUExtractionStatus": {
 										"value": "@guid()",
 										"type": "Expression"
 									},
-									"batch_id_RunXUExtraction": {
-										"value": "@variables('batch_id_ExtractAndLoad')",
+									"batch_id_Extract": {
+										"value": "@variables('batch_id_Extract')",
 										"type": "Expression"
 									},
 									"adls_directory_path": {
-										"value": "@pipeline().parameters.directory_path",
+										"value": "@pipeline().parameters.adls_directory_path_In",
 										"type": "Expression"
 									},
 									"adls_file_name": {
@@ -553,7 +566,7 @@
 							"userProperties": [],
 							"typeProperties": {
 								"url": {
-									"value": "@concat(\n\tpipeline().globalParameters.XU_hostName\n\t,'/log/?req_type=extraction&name='\n\t,pipeline().parameters.extraction_name\n\t,'&source='\n\t,pipeline().globalParameters.XU_sourceName\n\t,'&destination='\n\t,pipeline().globalParameters.storageAccountName,'_',pipeline().globalParameters.S4H_systemID\n\t,'&timestamp='\n\t,variables('extraction_timestamp')\n)",
+									"value": "@concat(\n\tpipeline().globalParameters.XU_hostName\n\t,'/log/?req_type=extraction&name='\n\t,pipeline().parameters.entity_name\n\t,'&source='\n\t,pipeline().globalParameters.XU_sourceName\n\t,'&destination='\n\t,pipeline().globalParameters.storageAccountName,'_',pipeline().globalParameters.S4H_systemID\n\t,'&timestamp='\n\t,variables('extraction_Timestamp')\n)",
 									"type": "Expression"
 								},
 								"connectVia": {
@@ -589,7 +602,7 @@
 										{
 											"name": "OutputText",
 											"value": {
-												"value": "@activity('act_web_GetExtractionLogs').output.response",
+												"value": "@activity('Get Extraction Logs').output.response",
 												"type": "Expression"
 											}
 										}
@@ -655,11 +668,11 @@
 									"parameters": {
 										"container": "adf-jobs",
 										"directory": {
-											"value": "@concat(\n    'Xtract Universal/',\n    pipeline().parameters.extraction_name, \n    '/',\n    formatDateTime(pipeline().parameters.date, 'yyyy/MM/dd')\n)",
+											"value": "@concat(\n    'Xtract Universal/',\n    pipeline().parameters.entity_name, \n    '/',\n    formatDateTime(pipeline().parameters.date, 'yyyy/MM/dd')\n)",
 											"type": "Expression"
 										},
 										"file": {
-											"value": "@concat(\n    pipeline().parameters.extraction_name,\n    '_extraction_log_',\n    replace(replace(replace(variables('extraction_timestamp'),'-','_'),':','_'),'.','_'),\n    '.csv'\n)",
+											"value": "@concat(\n    pipeline().parameters.entity_name,\n    '_extraction_log_',\n    replace(replace(replace(variables('extraction_Timestamp'),'-','_'),':','_'),'.','_'),\n    '.csv'\n)",
 											"type": "Expression"
 										}
 									}
@@ -708,7 +721,7 @@
 									},
 									"error_msg": {
 										"value": {
-											"value": "@activity('act_copy_ExtractionLogsToAdls').Error.Message",
+											"value": "@activity('Copy Extraction Logs To ADLS').Error.Message",
 											"type": "Expression"
 										},
 										"type": "String"
@@ -834,7 +847,7 @@
 									},
 									"error_msg": {
 										"value": {
-											"value": "@activity('act_web_GetExtractionLogs').Error.Message",
+											"value": "@activity('Get Extraction Logs').Error.Message",
 											"type": "Expression"
 										},
 										"type": "String"
@@ -851,26 +864,6 @@
 							"linkedServiceName": {
 								"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
 								"type": "LinkedServiceReference"
-							}
-						},
-						{
-							"name": "act_set_ExtractionResultVar",
-							"type": "SetVariable",
-							"dependsOn": [
-								{
-									"activity": "Copy Extraction Logs To ADLS",
-									"dependencyConditions": [
-										"Succeeded"
-									]
-								}
-							],
-							"userProperties": [],
-							"typeProperties": {
-								"variableName": "extraction_log",
-								"value": {
-									"value": "@activity('act_web_GetExtractionLogs').output.response",
-									"type": "Expression"
-								}
 							}
 						},
 						{
@@ -943,7 +936,7 @@
 							"type": "SqlServerStoredProcedure",
 							"dependsOn": [
 								{
-									"activity": "act_set_ExtractionResultVar",
+									"activity": "Copy Extraction Logs To ADLS",
 									"dependencyConditions": [
 										"Succeeded"
 									]
@@ -969,7 +962,7 @@
 									},
 									"end_date_time": {
 										"value": {
-											"value": "@formatDateTime(utcnow(), 'yyyy-MM-dd HH:mm:ss')",
+											"value": "@formatDateTime(utcNow(), 'yyyy-MM-dd HH:mm:ss')",
 											"type": "Expression"
 										},
 										"type": "DateTime"
@@ -1031,7 +1024,7 @@
 									},
 									"directory_path": {
 										"value": {
-											"value": "@pipeline().parameters.adls_directory_path",
+											"value": "@pipeline().parameters.adls_directory_path_In",
 											"type": "Expression"
 										},
 										"type": "String"
@@ -1089,6 +1082,75 @@
 							"linkedServiceName": {
 								"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
 								"type": "LinkedServiceReference"
+							}
+						}
+					]
+				}
+			},
+			{
+				"name": "If S4H Extraction Timestamp Empty",
+				"type": "IfCondition",
+				"dependsOn": [
+					{
+						"activity": "If Extract Required",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@empty(variables('extraction_Timestamp'))",
+						"type": "Expression"
+					},
+					"ifTrueActivities": [
+						{
+							"name": "Lookup XU Extraction Timestamp",
+							"type": "Lookup",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "AzureSqlSource",
+									"sqlReaderQuery": {
+										"value": "SELECT output\nFROM batch\nWHERE batch_id = '@{variables('batch_id_Extract')}'",
+										"type": "Expression"
+									},
+									"queryTimeout": "02:00:00",
+									"partitionOption": "None"
+								},
+								"dataset": {
+									"referenceName": "ds_orch_db",
+									"type": "DatasetReference"
+								}
+							}
+						},
+						{
+							"name": "Set XU Extraction Timestamp",
+							"type": "SetVariable",
+							"dependsOn": [
+								{
+									"activity": "Lookup XU Extraction Timestamp",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "extraction_Timestamp",
+								"value": {
+									"value": "@activity('Lookup XU Extraction Timestamp').output.firstRow.timestamp",
+									"type": "Expression"
+								}
 							}
 						}
 					]
@@ -1178,21 +1240,25 @@
 			},
 			"file_name": {
 				"type": "string"
-			},
-			"directory_path": {
-				"type": "string"
 			}
 		},
 		"variables": {
 			"adlsFileName": {
 				"type": "String"
 			},
-			"batch_id_ExtractAndLoad": {
+			"batch_id_Extract": {
 				"type": "String",
 				"defaultValue": "@guid()"
 			},
 			"extraction_Output": {
 				"type": "String"
+			},
+			"extraction_Timestamp": {
+				"type": "String"
+			},
+			"batch_id_StoreXUExtractionLog": {
+				"type": "String",
+				"defaultValue": "@guid()"
 			}
 		},
 		"folder": {
