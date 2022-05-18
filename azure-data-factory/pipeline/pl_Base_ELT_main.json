@@ -546,7 +546,8 @@
 					"dataset": {
 						"referenceName": "ds_orch_db",
 						"type": "DatasetReference"
-					}
+					},
+					"firstRowOnly": false
 				}
 			},
 			{
