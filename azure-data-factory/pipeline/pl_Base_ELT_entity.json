@@ -385,7 +385,7 @@
 				"type": "IfCondition",
 				"dependsOn": [
 					{
-						"activity": "If S4H Extraction",
+						"activity": "Retrieve File Name if S4H Extraction",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -1013,7 +1013,7 @@
 				}
 			},
 			{
-				"name": "If S4H Extraction",
+				"name": "Retrieve File Name if S4H Extraction",
 				"description": "In case S4H Extraction is executed, retrieve the XU extraction timestamp, for completing status and storing of log activities",
 				"type": "IfCondition",
 				"dependsOn": [
