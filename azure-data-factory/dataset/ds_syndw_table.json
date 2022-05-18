@@ -1,5 +1,5 @@
 {
-	"name": "ds_syndw",
+	"name": "ds_syndw_table",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "ls_ws_xxxx_sls_x_euw_001__syndw_xxxx_sls_x_euw_001",
