@@ -330,7 +330,11 @@
 										"value": "@pipeline().parameters.adls_container_name",
 										"type": "Expression"
 									},
-									"target_layer": "Base"
+									"target_layer": "Base",
+									"update_mode": {
+										"value": "@pipeline().parameters.update_mode",
+										"type": "Expression"
+									}
 								}
 							}
 						}
@@ -1206,6 +1210,9 @@
 				"type": "object"
 			},
 			"file_name": {
+				"type": "string"
+			},
+			"update_mode": {
 				"type": "string"
 			}
 		},

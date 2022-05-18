@@ -394,6 +394,10 @@
 									"file_name": {
 										"value": "@item().file_name",
 										"type": "Expression"
+									},
+									"update_mode": {
+										"value": "@item().update_mode",
+										"type": "Expression"
 									}
 								}
 							}
