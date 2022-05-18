@@ -33,7 +33,7 @@
 					"sink": {
 						"type": "SqlDWSink",
 						"preCopyScript": {
-							"value": "IF EXISTS (SELECT * FROM dbo.sysobjects WHERE ID = OBJECT_ID(N'@{Concat(pipeline().parameters.base_schema_name, '.', pipeline().parameters.base_table_name)}'))\nTRUNCATE TABLE @{Concat(pipeline().parameters.base_schema_name, '.', pipeline().parameters.base_table_name)}",
+							"value": "IF EXISTS (\n    SELECT * \n    FROM dbo.sysobjects \n    WHERE ID = OBJECT_ID(N'@{concat(pipeline().parameters.base_schema_name, '.', pipeline().parameters.base_table_name)}')\n)\nTRUNCATE TABLE @{concat(pipeline().parameters.base_schema_name, '.', pipeline().parameters.base_table_name)}",
 							"type": "Expression"
 						},
 						"allowPolyBase": true,
@@ -68,7 +68,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "ds_syndw",
+						"referenceName": "ds_syndw_table",
 						"type": "DatasetReference",
 						"parameters": {
 							"schema": {
