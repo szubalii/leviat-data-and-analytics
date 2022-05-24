@@ -385,8 +385,7 @@
 				"type": "string"
 			},
 			"additional_columns": {
-				"type": "string",
-				"defaultValue": []
+				"type": "string"
 			}
 		},
 		"variables": {
