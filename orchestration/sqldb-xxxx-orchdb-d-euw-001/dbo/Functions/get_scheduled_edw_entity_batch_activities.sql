@@ -4,6 +4,9 @@ CREATE FUNCTION [dbo].[get_scheduled_edw_entity_batch_activities](
     @date DATE
 )
 RETURNS TABLE AS RETURN
+
+    -- DECLARE @adhoc bit = 0, @date DATE = '2022/05/24';
+
     WITH latest_batch_activities AS (
         select
             b.entity_id,
@@ -11,8 +14,12 @@ RETURNS TABLE AS RETURN
             MAX(b.start_date_time) as start_date_time
         FROM
             batch b
+        LEFT JOIN [dbo].[entity] e
+            ON e.entity_id = b.entity_id
         WHERE
             CONVERT(date, b.start_date_time) = @date
+            AND
+            e.layer_id = 4 -- 'EDW'
         GROUP BY
             b.entity_id,
             b.activity_id
@@ -21,19 +28,13 @@ RETURNS TABLE AS RETURN
 
         SELECT
             lb.entity_id,
-            e.entity_name,
-            e.layer_id,
-            e.update_mode,
             b.run_id,
             b.batch_id,
-            ba.activity_nk,
-            ba.activity_order,
+            b.activity_id,
             lb.start_date_time,
-            bs.status_nk
+            b.status_id
         FROM
             latest_batch_activities lb
-        LEFT JOIN [dbo].[entity] e
-            ON e.entity_id = lb.entity_id
         LEFT JOIN batch b
             ON
                 lb.entity_id = b.entity_id
@@ -41,56 +42,7 @@ RETURNS TABLE AS RETURN
                 lb.activity_id = b.activity_id
                 AND
                 lb.start_date_time = b.start_date_time
-        LEFT JOIN [dbo].[layer] las
-            ON las.[layer_id] = b.[source_layer_id]
-        LEFT JOIN [dbo].[layer] lat
-            ON lat.[layer_id] = b.[target_layer_id]
-        -- LEFT JOIN [dbo].[location] lo
-        --     ON lo.[location_id] = la.[location_id]
-        LEFT JOIN [dbo].[batch_execution_status] bs
-            ON bs.[status_id] = b.[status_id]
-        LEFT JOIN [dbo].[batch_activity] ba
-            ON ba.[activity_id] = b.[activity_id]
-
-        WHERE
-            CONVERT(date, lb.start_date_time) = @date
-            -- AND
-            -- b.entity_id = @entity_id
-            AND (
-                e.update_mode = 'Full' OR e.update_mode IS NULL
-            )
-            -- and
-            -- lp.parent_run_id is not null
-        -- ORDER BY
-        --     entity_name asc, lb.start_date_time desc
-        -- select * from batch
     )
-
-    -- select * from latest_batch
-
-
-    -- select
-    --     entity_id,
-    --     string_agg(activity_nk, ',') as required_activities
-    -- from
-    --     latest_batch
-    -- WHERE
-    --     status_nk <> 'Succeeded'
-    -- group by 
-    --     entity_id
-
-    --Scenario 1: no batches done on new day
-    --return complete list of scheduled entities, cross join with batch activity
-
-    --Scenario 2: load already happened on same day
-    --check which batch activities failed or did not happen and return them for corresponding scheduled entities
-
-
-
-
-
-
-
 
     -- DECLARE
     --     @date DATE = '2022/04/11';
@@ -100,19 +52,23 @@ RETURNS TABLE AS RETURN
             e.entity_name,
             e.layer_nk,
             e.execution_order,
-            sproc_schema_name,
-            sproc_name,
-            source_schema_name,
-            source_view_name,
-            dest_schema_name,
-            dest_table_name,
+            e.sproc_schema_name,
+            e.sproc_name,
+            e.source_schema_name,
+            e.source_view_name,
+            e.dest_schema_name,
+            e.dest_table_name,
             ba.activity_nk,
             ba.activity_order,
             lb.batch_id,
-            lb.status_nk,
-            case when status_nk = 'Succeeded' then 0 else 1 end as [isRequired]
+            lb.status_id,
+            case
+                when status_id = 2 --'Succeeded'
+                then 0
+                else 1
+            end as [isRequired]
         from
-            get_scheduled_entities(0, @date) e
+            get_scheduled_entities(@adhoc, @date) e
         left join
             layer l
             ON
@@ -127,14 +83,16 @@ RETURNS TABLE AS RETURN
                 ba.activity_id = la.activity_id
         left join
             latest_batch lb
-            on lb.entity_id = e.entity_id and
-                lb.activity_nk = ba.activity_nk
+            on 
+                lb.entity_id = e.entity_id
+                and
+                lb.activity_id = ba.activity_id
 
         WHERE
             e.layer_nk IN ('EDW')
-            AND (
-                e.update_mode = 'Full' OR e.update_mode IS NULL
-            )
+            -- AND (
+            --     e.update_mode = 'Full' OR e.update_mode IS NULL
+            -- )
     )
     , activities as (
         select
