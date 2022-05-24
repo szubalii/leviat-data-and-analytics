@@ -421,7 +421,7 @@
 			}
 		},
 		"folder": {
-			"name": "03 Synapse Ingestion/USA Snowflake"
+			"name": "00 ELT/04 Synapse Ingestion/USA Snowflake"
 		},
 		"annotations": [],
 		"lastPublishTime": "2021-10-25T15:25:00Z"

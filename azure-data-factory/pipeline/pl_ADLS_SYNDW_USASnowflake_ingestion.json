@@ -68,7 +68,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "ds_syndw",
+						"referenceName": "ds_syndw_table",
 						"type": "DatasetReference",
 						"parameters": {
 							"schema": {
@@ -783,7 +783,7 @@
 			}
 		},
 		"folder": {
-			"name": "03 Synapse Ingestion/USA Snowflake"
+			"name": "00 ELT/04 Synapse Ingestion/USA Snowflake"
 		},
 		"annotations": []
 	}

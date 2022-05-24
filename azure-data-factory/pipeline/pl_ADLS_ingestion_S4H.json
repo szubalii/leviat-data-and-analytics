@@ -99,7 +99,7 @@
 						},
 						"batch_id": {
 							"value": {
-								"value": "@variables('batch_id_Extract')",
+								"value": "@pipeline().parameters.batch_id",
 								"type": "Expression"
 							}
 						}
@@ -134,7 +134,7 @@
 					"storedProcedureParameters": {
 						"batch_id": {
 							"value": {
-								"value": "@variables('batch_id_Extract')",
+								"value": "@pipeline().parameters.batch_id",
 								"type": "Expression"
 							},
 							"type": "Guid"
@@ -176,7 +176,7 @@
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "Set Timestamp Variable",
+						"activity": "Set ADLS File Name",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -195,7 +195,7 @@
 					"storedProcedureParameters": {
 						"batch_id": {
 							"value": {
-								"value": "@variables('batch_id_Extract')",
+								"value": "@pipeline().parameters.batch_id",
 								"type": "Expression"
 							},
 							"type": "Guid"
@@ -248,6 +248,26 @@
 					"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
 					"type": "LinkedServiceReference"
 				}
+			},
+			{
+				"name": "Set ADLS File Name",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "Set Timestamp Variable",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "adlsFileName",
+					"value": {
+						"value": "@concat(\n    pipeline().parameters.extraction_name,\n    '_',\n    replace(replace(replace(variables('extraction_timestamp'),'-','_'),':','_'),'.','_'),\n    '.parquet'\n)",
+						"type": "Expression"
+					}
+				}
 			}
 		],
 		"parameters": {
@@ -282,10 +302,6 @@
 		"variables": {
 			"extraction_timestamp": {
 				"type": "String"
-			},
-			"batch_id_Extract": {
-				"type": "String",
-				"defaultValue": "@guid()"
 			},
 			"adlsFileName": {
 				"type": "String"
