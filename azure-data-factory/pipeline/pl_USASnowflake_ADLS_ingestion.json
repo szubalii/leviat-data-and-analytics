@@ -143,7 +143,7 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"storedProcedureName": "[dbo].[set_batch]",
+					"storedProcedureName": "[dbo].[update_batch_status]",
 					"storedProcedureParameters": {
 						"batch_id": {
 							"value": {
