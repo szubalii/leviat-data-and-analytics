@@ -460,6 +460,25 @@
 								"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
 								"type": "LinkedServiceReference"
 							}
+						},
+						{
+							"name": "Fail Pipeline",
+							"type": "Fail",
+							"dependsOn": [
+								{
+									"activity": "Log Exception ELT",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"userProperties": [],
+							"typeProperties": {
+								"message": {
+									"value": "Pipeline 'Execute ELT' failed for entity @{item().entity_name}",
+									"type": "Expression"
+								}
+							}
 						}
 					]
 				}

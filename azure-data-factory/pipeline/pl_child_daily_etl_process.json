@@ -123,6 +123,10 @@
 						"date": {
 							"value": "@pipeline().parameters.date",
 							"type": "Expression"
+						},
+						"rerunSuccessfulScheduledFullEntities": {
+							"value": "@pipeline().parameters.rerunSuccessfulScheduledFullEntities",
+							"type": "Expression"
 						}
 					}
 				}
