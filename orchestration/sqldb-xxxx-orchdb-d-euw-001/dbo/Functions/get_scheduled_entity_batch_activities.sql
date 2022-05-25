@@ -171,6 +171,30 @@ BEGIN
                 f.entity_id = e.entity_id
     )
 
+    -- get the latest start_date_time for each logged batch activity
+    , logged_batch_activities AS (
+        SELECT
+            b.entity_id,
+            b.activity_id,
+            MAX(b.start_date_time) AS start_date_time,
+            b.file_name
+        FROM
+            latest_started_extract_for_day lsefd
+        INNER JOIN
+            batch b
+            ON
+                b.entity_id = lsefd.entity_id
+                AND
+                b.file_name = lsefd.file_name
+        -- LEFT JOIN [dbo].[batch_activity] ba
+        --     ON ba.[activity_id] = b.[activity_id]
+        -- where b.entity_id = 86
+        GROUP BY
+            b.entity_id,
+            b.activity_id,
+            b.file_name
+    )
+
     -- get the corresponding logged batch activities for the latest started extracted file name
     , latest_logged_batch_activities AS (
         SELECT
@@ -181,20 +205,23 @@ BEGIN
             b.batch_id,
             b.start_date_time,
             b.status_id,
-            -- bs.status_nk,
-            -- b.directory_path,
             b.file_name,
             b.output
         FROM
-            latest_started_extract_for_day lsefd
+            logged_batch_activities lba
         INNER JOIN
             batch b
             ON
-                b.entity_id = lsefd.entity_id
+                b.entity_id = lba.entity_id
                 AND
-                b.file_name = lsefd.file_name
+                b.file_name = lba.file_name
+                AND
+                b.activity_id = lba.activity_id
+                AND
+                b.start_date_time = lba.start_date_time
         LEFT JOIN [dbo].[batch_activity] ba
             ON ba.[activity_id] = b.[activity_id]
+        -- where b.entity_id = 86
     )
 
     -- get the latest successful logged batch activities up to the first not successful activity
@@ -294,7 +321,8 @@ BEGIN
         First get all the logged batch activities for the scheduled delta entities incl. statuses.
         Then, get all the unique file names joined to the related activities for that entity layer.
         
-        For delta entities, a new extraction will always be triggered.
+        For delta entities, a new extraction will be triggered only if the provided date is the same
+        as the current date.
 
         Multiple delta files for single entity can be loaded into Synapse base layer. In case of failure in one 
         of the file-names batch activities, the rest will continue until whole pipeline is finished. 
@@ -515,6 +543,8 @@ BEGIN
             sde.activity_id
         FROM
             scheduled_delta_entity_batch_activities sde
+        WHERE -- Make sure to create new extraction only if provided date equals current date
+            @date = CONVERT(date, GETUTCDATE())
         
         UNION ALL
 
