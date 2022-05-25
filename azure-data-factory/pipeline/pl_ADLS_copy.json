@@ -404,7 +404,7 @@
 							"typeProperties": {
 								"variableName": "additional_columns",
 								"value": {
-									"value": "@string([])",
+									"value": "@string('[]')",
 									"type": "Expression"
 								}
 							}
