@@ -35,7 +35,7 @@ BEGIN
     --Scenario 2: load already happened on same day
     --check which batch activities failed or did not happen and return them for corresponding scheduled entities
     
-    -- declare @adhoc bit = 0, @date DATE = '2022/05/18', @rerunSuccessfulScheduledFullEntities BIT = 0;
+    -- declare @adhoc bit = 0, @date DATE = '2022/05/24', @rerunSuccessfulScheduledFullEntities BIT = 0;
 
     DECLARE
         @BATCH_ACTIVITY_ID__EXTRACT SMALLINT = 21,
@@ -126,7 +126,16 @@ BEGIN
             AND
             b.activity_id = @BATCH_ACTIVITY_ID__EXTRACT -- Extract
             AND
-            b.status_id IN (1, 2) -- InProgress, Succeeded
+            (   -- For S4H entities, get all successful or in progress extracted file names 
+                b.status_id IN (@BATCH_EXECUTION_STATUS_ID__IN_PROGRESS, @BATCH_EXECUTION_STATUS_ID__SUCCESSFUL)
+                AND
+                e.layer_id = @LAYER_ID__S4H
+            )
+            OR ( -- For other base source entities, get only successful extracted file names
+                b.status_id = @BATCH_EXECUTION_STATUS_ID__SUCCESSFUL
+                AND
+                e.layer_id IN (@LAYER_ID__AXBI, @LAYER_ID__USA)
+            )
         GROUP BY
             b.entity_id--,
             -- b.activity_id
