@@ -477,7 +477,8 @@
 								"message": {
 									"value": "Pipeline 'Execute ELT' failed for entity @{item().entity_name}",
 									"type": "Expression"
-								}
+								},
+								"errorCode": "500"
 							}
 						}
 					]
