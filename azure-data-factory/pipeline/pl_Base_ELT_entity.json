@@ -93,19 +93,6 @@
 									"type": "Expression"
 								}
 							}
-						},
-						{
-							"name": "Set S4H Extraction Timestamp",
-							"type": "SetVariable",
-							"dependsOn": [],
-							"userProperties": [],
-							"typeProperties": {
-								"variableName": "extraction_Timestamp",
-								"value": {
-									"value": "@pipeline().parameters.skipped_activities.Extract.output.timestamp",
-									"type": "Expression"
-								}
-							}
 						}
 					],
 					"ifTrueActivities": [
@@ -1026,6 +1013,12 @@
 						"dependencyConditions": [
 							"Succeeded"
 						]
+					},
+					{
+						"activity": "If S4H Extract Not Required",
+						"dependencyConditions": [
+							"Succeeded"
+						]
 					}
 				],
 				"userProperties": [],
@@ -1120,6 +1113,41 @@
 								"variableName": "extraction_Output",
 								"value": {
 									"value": "@activity('Lookup ADLS File Name And Output').output.firstRow.output",
+									"type": "Expression"
+								}
+							}
+						}
+					]
+				}
+			},
+			{
+				"name": "If S4H Extract Not Required",
+				"description": "In case of S4H Extraction already done, get the S4H Extraction Timestamp from the 'skipped' parameter",
+				"type": "IfCondition",
+				"dependsOn": [
+					{
+						"activity": "If FileName Param Empty",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@and(\n    equals(pipeline().parameters.layer_nk, 'S4H'),\n    contains(\n        pipeline().parameters.skipped_activities,\n        'Extract'\n    )\n)",
+						"type": "Expression"
+					},
+					"ifTrueActivities": [
+						{
+							"name": "Set S4H Extraction Timestamp",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "extraction_Timestamp",
+								"value": {
+									"value": "@pipeline().parameters.skipped_activities.Extract.output.timestamp",
 									"type": "Expression"
 								}
 							}
