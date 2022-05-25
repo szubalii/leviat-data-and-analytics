@@ -442,7 +442,7 @@
 									},
 									"error_msg": {
 										"value": {
-											"value": "@activity('Execute ELT').output.Error.Message",
+											"value": "@activity('Execute ELT').Error.Message",
 											"type": "Expression"
 										},
 										"type": "String"
