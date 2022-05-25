@@ -12,6 +12,12 @@
 						"dependencyConditions": [
 							"Succeeded"
 						]
+					},
+					{
+						"activity": "If Additional Columns Param Empty",
+						"dependencyConditions": [
+							"Succeeded"
+						]
 					}
 				],
 				"policy": {
@@ -27,7 +33,7 @@
 						"type": "ParquetSource",
 						"additionalColumns": {
 							"type": "Expression",
-							"value": "@json(pipeline().parameters.additional_columns)"
+							"value": "@json(variables('additional_columns'))"
 						},
 						"storeSettings": {
 							"type": "AzureBlobFSReadSettings",
@@ -363,26 +369,74 @@
 					"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
 					"type": "LinkedServiceReference"
 				}
+			},
+			{
+				"name": "If Additional Columns Param Empty",
+				"type": "IfCondition",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@empty(pipeline().parameters.additional_columns)",
+						"type": "Expression"
+					},
+					"ifFalseActivities": [
+						{
+							"name": "Set Additional Columns from Param",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "additional_columns",
+								"value": {
+									"value": "@pipeline().parameters.additional_columns",
+									"type": "Expression"
+								}
+							}
+						}
+					],
+					"ifTrueActivities": [
+						{
+							"name": "Set Additional Columns",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "additional_columns",
+								"value": {
+									"value": "@string([])",
+									"type": "Expression"
+								}
+							}
+						}
+					]
+				}
 			}
 		],
 		"parameters": {
 			"source_adls_directory_path": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "CUSTINVOICETRANS/In/2022/05/24"
 			},
 			"file_name": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "CUSTINVOICETRANS_2022_05_24_14_29_29_479.parquet"
 			},
 			"entity_id": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "16"
 			},
 			"run_id": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "2286ccd5-7c50-4e4f-8dd4-d2b2264feb0f"
 			},
 			"adls_container_name": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "tx-ca-0-hlp-uat"
 			},
 			"target_adls_directory_path": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "CUSTINVOICETRANS/Out/2022/05/24"
 			},
 			"additional_columns": {
 				"type": "string"
@@ -392,6 +446,9 @@
 			"batch_id": {
 				"type": "String",
 				"defaultValue": "@guid()"
+			},
+			"additional_columns": {
+				"type": "String"
 			}
 		},
 		"folder": {
