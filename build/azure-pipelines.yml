@@ -135,10 +135,15 @@ jobs:
     vmImage: 'windows-latest'
   
   steps:
+  - task: CopyFiles@2
+    inputs:
+      SourceFolder: '$(Build.SourcesDirectory)/xu-config/extractions'
+      Contents: '**\*'
+      TargetFolder: '$(Build.ArtifactStagingDirectory)/extractions'
 
   - task: PublishPipelineArtifact@1
     inputs:
-      targetPath: '$(Build.Repository.LocalPath)/xu-config'
+      targetPath: '$(Build.ArtifactStagingDirectory)'
       artifact: 'XtractUniversal'
       publishLocation: 'pipeline'
 
