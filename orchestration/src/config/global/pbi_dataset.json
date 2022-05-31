@@ -74,6 +74,16 @@
                     "dim_Product",
                     "dim_SalesOrganization"
                 ]
+            },"Project Card": {
+                "pbi_dataset_id": 13,
+                "schedule_recurrence": "D",
+                "entities": [
+                    "fact_BillingDocumentItem",
+                    "dim_Customer",
+                    "dim_Product",
+                    "dim_SalesOrganization",
+                    "fact_SalesDocumentItem"
+                ]
             }
         }
     },
@@ -115,11 +125,35 @@
                 ]
             },"Stock Management": {
                 "pbi_dataset_id": 12,
-                "schedule_recurrence": "D",
                 "entities":[
                     "dim_Customer",
                     "dim_Product",
                     "fact_MaterialDocumentItem"
+                ]
+            },"Data Quality Checks": {
+                "pbi_dataset_id": 14,
+                "schedule_recurrence": "D",
+                "entities":[
+                    "fact_OutboundDeliveryItem",
+                    "fact_SalesDocumentItem",
+                    "dim_Customer",
+                    "dim_Product",
+                    "dim_DataQualityCode"
+                ]
+            }
+        }
+    },
+    "Leviat_Data_Analytics Performance Team Tools": {
+        "datasets": {
+            "Price Floor": {
+                "pbi_dataset_id": 15,
+                "schedule_recurrence": "W",
+                "schedule_day": 2,
+                "entities": [
+                    "fact_BillingDocumentItem",
+                    "dim_Customer",
+                    "dim_Product",
+                    "dim_SalesOrganization"
                 ]
             }
         }

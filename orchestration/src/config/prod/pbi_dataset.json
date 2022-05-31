@@ -18,6 +18,8 @@
                 "dataset_guid": "a5081fc1-9b68-4393-aede-d8f375156af1"
             },"Whale Curve": {
                 "dataset_guid": "7fd8fb91-dc45-474d-bf24-f71223716541"
+            },"Project Card": {
+                "dataset_guid": "4bab9014-0e66-42a6-8405-9686d7f1e1d8"
             }
         }
     },"Leviat_Data_Analytics_FinSales": {
@@ -37,6 +39,15 @@
                 "dataset_guid": "c8508ad9-50da-41c8-ac24-c83032834810"
             },"Stock Management": {
                 "dataset_guid": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+            },"Data Quality Checks": {
+                "dataset_guid": "b62f4e1a-3ed8-44d8-a743-b097345d2f05"
+            }
+        }
+    },"Leviat_Data_Analytics Performance Team Tools": {
+        "workspace_guid": "acd73a8e-c087-4568-bade-3c5856cdfbc8",
+        "datasets": {
+            "Price Floor": {
+                "dataset_guid": "1113f27b-7786-4708-8fd6-c12e7a6f6408"
             }
         }
     }

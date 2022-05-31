@@ -18,6 +18,8 @@
                 "dataset_guid": "43f00a84-a251-4099-81c5-af9ed3c0c2ee"
             },"Whale Curve": {
                 "dataset_guid": "3e6d8d25-f883-4f03-b5fd-607c2f0278a6"
+            },"Project Card": {
+                "dataset_guid": "12ba65f2-be7a-4079-8b62-4b46a5d95aaa"
             }
         }
     },
@@ -38,6 +40,16 @@
                 "dataset_guid": "3f3dab9d-c7d1-479f-86b5-1f6f87085d48"
             },"Stock Management": {
                 "dataset_guid": "a8ad7e91-4bd6-41fb-b175-ba084fdf4cba"
+            },"Data Quality Checks": {
+                "dataset_guid": "1aea2e45-f5d3-46f7-8098-247a35ff3eaa"
+            }
+        }
+    },
+    "Leviat_Data_Analytics Performance Team Tools": {
+        "workspace_guid": "0e38feaf-a447-443f-b988-a3700fb13dbc",
+        "datasets": {
+            "Price Floor": {
+                "dataset_guid": "хххххххх-хххх-хххх-хххх-хххххххххххх"
             }
         }
     }

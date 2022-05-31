@@ -1,22 +1,21 @@
-activity_id,activity_nk,activity_description,activity_order,is_deprecated
-1,AXBIToBlobIn,AXBI Data is loaded from SQL Server into In blob storage folder - Data Lake,,1
-2,Load2Base,Data is loaded into Synapse base layer - Dedicated SQL Pool,400,0
-3,Skipped,Skipped batch,,1
-4,CheckExtraction,Checking that the data has been extraction from S4H,,1
-5,S4HCheckFileName,Checking S4H files in blob storage,,1
-6,BasetoEDWExecGenericSP,Load data using a generic function sp_materialize_view,,1
-7,BasetoEDWExecCustomSP,Load data using a custom function,,1
-8,RunXUExtraction,Start Xtract Universal Extraction via web url call,120,1
-9,StoreXUExtractionLog,Get Logs,160,0
-10,ProcessEDW,Load data into edw layer - Dedicated SQL Pool,600,0
-11,S4HBlobInToBlobOut,S4H Data is loaded from In to Out blob storage folder - Data Lake,,1
-12,S4HToBlobIn,The data has been extracted to a folder IN on the Blob Storage,,1
-13,CheckXUExtractionStatus,Get the status of the XU Extraction,140,0
-14,XUExtractionLogsToBlobStorage,Load XU extraction logs to blob storage,,1
-15,ProcessBase,Execute any logic in the Synapse Base layer,500,0
-16,USASnowflakeToBlobIn,Snowflake USA Data is loaded from SQL Server into In blob storage folder - Data Lake,,1
-17,USASnowflakeBlobInToBlobOut,Snowflake USA Data is loaded from In to Out blob storage folder - Data Lake,,1
-18,USASnowflakeCheckFileName,Checking Snowflake USA files in blob storage,,1
-19,TestDuplicates,Checking for duplicates in parquet files,200,0
-20,ProcessADLS,Process raw parquet files from the ADLS In folder and copy them to the ADLS Out folder,300,0
-21,Extract,Extract source data and store in the ADLS In folder,100,0
+activity_id,activity_nk,activity_description
+1,AXBIToBlobIn,AXBI Data is loaded from SQL Server into In blob storage folder - Data Lake
+2,InBaseLayer,Data is loaded into base layer - Dedicated SQL Pool
+3,Skipped,Skipped batch
+4,CheckExtraction,Checking that the data has been extraction from S4H
+5,S4HCheckFileName,Checking S4H files in blob storage
+6,BasetoEDWExecGenericSP,Load data using a generic function sp_materialize_view
+7,BasetoEDWExecCustomSP,Load data using a custom function
+8,StartXUExtraction,Start Xtract Universal Extraction via web url call
+9,LogsXUExtraction,Get Logs
+10,InEDWLayer,Load data into edw layer - Dedicated SQL Pool
+11,S4HBlobInToBlobOut,S4H Data is loaded from In to Out blob storage folder - Data Lake
+12,S4HToBlobIn,The data has been extracted to a folder IN on the Blob Storage
+13,CheckXUExtractionStatus,Get the status of the XU Extraction
+14,XUExtractionLogsToBlobStorage,Load XU extraction logs to blob storage
+15,ProcessBase,Execute any logic in the Synapse Base layer
+16,USASnowflakeToBlobIn,Snowflake USA Data is loaded from SQL Server into In blob storage folder - Data Lake
+17,USASnowflakeBlobInToBlobOut,Snowflake USA Data is loaded from In to Out blob storage folder - Data Lake
+18,USASnowflakeCheckFileName,Checking Snowflake USA files in blob storage
+19,TestDuplicates,Checking for duplicates in parquet files
+20,ADLSInToADLSOut,Process raw parquet files from the ADLS In folder and copy them to the ADLS Out folder

@@ -1,5 +1,8 @@
 {
   "dependencies": {
+    "@azure/core-http": "^2.2.4",
+    "@azure/identity": "^2.0.4",
+    "@azure/storage-blob": "^12.9.0",
     "lodash": "^4.17.21"
   }
 }

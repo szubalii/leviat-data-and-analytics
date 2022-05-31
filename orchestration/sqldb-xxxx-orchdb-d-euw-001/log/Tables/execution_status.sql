@@ -1,4 +1,4 @@
-CREATE TABLE [log].batch_activity (
+CREATE TABLE [log].execution_status (
     ExistingId BIGINT
 ,   ExistingNK varchar(50)
 ,   ExistingDescription VARCHAR(250)

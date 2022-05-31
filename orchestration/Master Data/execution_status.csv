@@ -1,0 +1,5 @@
+status_id,status_nk,status_description
+1,InProgress,Execution is in progress
+2,Succeeded,Execution was succeeded
+3,Cancelled,Execution was cancelled
+4,Failed,Execution was failed
