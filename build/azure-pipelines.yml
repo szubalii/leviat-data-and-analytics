@@ -8,7 +8,7 @@ trigger:
 
 jobs:
 
-# Orchestration Database Build Job
+  # Orchestration Database Build Job
 - job: OrchDB
   pool:
     vmImage: 'windows-latest'
@@ -18,7 +18,7 @@ jobs:
     buildConfiguration: 'Release'
 
   steps:
-  # Installs Node and the npm packages saved in your package.json file in the build
+    # Installs Node and the npm packages saved in your package.json file in the build
   - task: NuGetToolInstaller@1
 
   - task: NuGetCommand@2
@@ -72,7 +72,7 @@ jobs:
       artifact: 'OrchestrationDB'
       publishLocation: 'pipeline'
 
-# Azure Data Factory Build Job
+  # Azure Data Factory Build Job
 - job: ADF
   pool:
     vmImage: 'ubuntu-latest'
@@ -93,8 +93,8 @@ jobs:
       verbose: true
     displayName: 'Install npm package'
 
-  # Validates all of the Data Factory resources in the repository. You'll get the same validation errors as when "Validate All" is selected.
-  # Enter the appropriate subscription and name for the source factory.
+    # Validates all of the Data Factory resources in the repository. You'll get the same validation errors as when "Validate All" is selected.
+    # Enter the appropriate subscription and name for the source factory.
 
   - task: Npm@1
     inputs:
@@ -103,8 +103,8 @@ jobs:
       customCommand: 'run build validate $(Build.Repository.LocalPath)/azure-data-factory /subscriptions/f199b488-7d9d-4992-aeda-c10a1e1c9b9e/resourceGroups/rg-xxxx-sls-d-euw-001/providers/Microsoft.DataFactory/factories/df-xxxx-sls-d-euw-001-restructure'
     displayName: 'Validate'
 
-  # Validate and then generate the ARM template into the destination folder, which is the same as selecting "Publish" from the UX.
-  # The ARM template generated isn't published to the live version of the factory. Deployment should be done by using a CI/CD pipeline. 
+    # Validate and then generate the ARM template into the destination folder, which is the same as selecting "Publish" from the UX.
+    # The ARM template generated isn't published to the live version of the factory. Deployment should be done by using a CI/CD pipeline. 
 
   - task: Npm@1
     inputs:
@@ -113,7 +113,7 @@ jobs:
       customCommand: 'run build export $(Build.Repository.LocalPath)/azure-data-factory /subscriptions/f199b488-7d9d-4992-aeda-c10a1e1c9b9e/resourceGroups/rg-xxxx-sls-d-euw-001/providers/Microsoft.DataFactory/factories/df-xxxx-sls-d-euw-001-restructure "ArmTemplate"'
     displayName: 'Validate and Generate ARM template'
 
-  # Publish the build artifact to be used as a source for a release pipeline.
+    # Publish the build artifact to be used as a source for a release pipeline.
 
   - task: PublishPipelineArtifact@1
     inputs:
@@ -129,7 +129,20 @@ jobs:
       artifact: 'GlobalParameters'
       publishLocation: 'pipeline'
 
-# Azure Synapse Dedicated SQL Pool Build Job
+  # Theobald Xtract Universal Build Job
+- job: XtractUniversal
+  pool:
+    vmImage: 'windows-latest'
+  
+  steps:
+
+  - task: PublishPipelineArtifact@1
+    inputs:
+      targetPath: '$(Build.Repository.LocalPath)/xu-config'
+      artifact: 'XtractUniversal'
+      publishLocation: 'pipeline'
+
+  # Azure Synapse Dedicated SQL Pool Build Job
 - job: SynapseDWH
   pool: 
     vmImage: 'windows-latest'
@@ -141,7 +154,7 @@ jobs:
 
   steps:
 
-  # Check for duplicates in Master Data csv-files
+    # Check for duplicates in Master Data csv-files
   - task: PythonScript@0
     inputs:
       scriptSource: 'filePath'
@@ -153,8 +166,8 @@ jobs:
     inputs:
       restoreSolution: '$(synapseDWHSolution)'
 
-  # Substitute the connection string for the Test Project 
-  # so Azure DevOps can run the Test Cases
+    # Substitute the connection string for the Test Project 
+    # so Azure DevOps can run the Test Cases
   - task: FileTransform@1
     displayName: 'Update Connection String for Test Project'
     inputs:
@@ -162,7 +175,7 @@ jobs:
       fileType: 'xml'
       targetFiles: 'app.config'
 
-  # Build the Test Project
+    # Build the Test Project
   - task: VSBuild@1
     displayName: 'Build Test Project'
     inputs:
@@ -170,7 +183,7 @@ jobs:
       platform: '$(buildPlatform)'
       configuration: '$(buildConfiguration)'
 
-  # Build the SQL DB Project
+    # Build the SQL DB Project
   - task: VSBuild@1
     displayName: 'Build SQL DB Project'
     inputs:
@@ -186,7 +199,7 @@ jobs:
   #    platform: '$(buildPlatform)'
   #    configuration: '$(buildConfiguration)'
 
-  # expose dacpac as build artifact
+    # expose dacpac as build artifact
   - task: CopyFiles@2
     displayName: 'Copy SQL DB dacpac'
     inputs:
@@ -201,7 +214,7 @@ jobs:
       Contents: '**'
       TargetFolder: '$(Build.ArtifactStagingDirectory)\Test'
 
-  # expose publish config as build artifact
+    # expose publish config as build artifact
   - task: CopyFiles@2
     displayName: 'Copy publish config'
     inputs:
@@ -209,7 +222,7 @@ jobs:
       Contents: '*.xml'
       TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
-  # expose src folder as build artifact
+    # expose src folder as build artifact
   - task: CopyFiles@2
     displayName: 'Copy src folder'
     inputs:
@@ -217,7 +230,7 @@ jobs:
       Contents: '**\*'
       TargetFolder: '$(Build.ArtifactStagingDirectory)\src'
 
-  # expose Master Data as build artifact
+    # expose Master Data as build artifact
   - task: CopyFiles@2
     displayName: 'Copy Master Data files'
     inputs:
@@ -225,7 +238,7 @@ jobs:
       Contents: '**\*.csv'
       TargetFolder: '$(Build.ArtifactStagingDirectory)\Master Data'
 
-  # publish artifacts
+    # publish artifacts
   - task: PublishPipelineArtifact@1
     inputs:
       targetPath: '$(Build.ArtifactStagingDirectory)'
