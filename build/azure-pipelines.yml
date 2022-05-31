@@ -166,7 +166,7 @@ jobs:
   - task: VSBuild@1
     displayName: 'Build Test Project'
     inputs:
-      solution: '**/synapse-dwh/*.csproj'
+      solution: '**/synapse-dwh/**/*.csproj'
       platform: '$(buildPlatform)'
       configuration: '$(buildConfiguration)'
 
