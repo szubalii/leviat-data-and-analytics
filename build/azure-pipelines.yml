@@ -9,7 +9,7 @@ trigger:
 jobs:
 
 # Orchestration Database Build Job
-- job: Orch DB
+- job: OrchDB
   pool:
     vmImage: 'windows-latest'
   variables:
