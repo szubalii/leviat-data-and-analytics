@@ -3,11 +3,11 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Copy Parquet to Synapse Base",
+				"name": "act_copy_ParquetToBase",
 				"type": "Copy",
 				"dependsOn": [
 					{
-						"activity": "Set Batch Load2Base",
+						"activity": "act_exec_sproc_set_batch_S4HCheckFileName_InProgress",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -33,7 +33,7 @@
 					"sink": {
 						"type": "SqlDWSink",
 						"preCopyScript": {
-							"value": "IF EXISTS (\n    SELECT * \n    FROM dbo.sysobjects \n    WHERE ID = OBJECT_ID(N'@{concat(pipeline().parameters.base_schema_name, '.', pipeline().parameters.base_table_name)}')\n) AND '@{pipeline().parameters.update_mode}' <> 'Delta'\nTRUNCATE TABLE @{concat(pipeline().parameters.base_schema_name, '.', pipeline().parameters.base_table_name)}",
+							"value": "IF EXISTS (SELECT * FROM dbo.sysobjects WHERE ID = OBJECT_ID(N'@{Concat(pipeline().parameters.base_schema_name, '.', pipeline().parameters.base_table_name)}'))\nTRUNCATE TABLE @{Concat(pipeline().parameters.base_schema_name, '.', pipeline().parameters.base_table_name)}",
 							"type": "Expression"
 						},
 						"allowPolyBase": true,
@@ -68,7 +68,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "ds_syndw_table",
+						"referenceName": "ds_syndw",
 						"type": "DatasetReference",
 						"parameters": {
 							"schema": {
@@ -88,7 +88,7 @@
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "Copy Parquet to Synapse Base",
+						"activity": "act_copy_ParquetToBase",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -163,7 +163,7 @@
 				}
 			},
 			{
-				"name": "Update Batch Status Succeeded",
+				"name": "act_exec_sproc_update_batch_InBaseLayer_Succeeded",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
@@ -214,10 +214,14 @@
 						},
 						"size_bytes": {
 							"value": {
-								"value": "@activity('Copy Parquet to Synapse Base').output.dataWritten",
+								"value": "@activity('act_copy_ParquetToBase').output.dataWritten",
 								"type": "Expression"
 							},
 							"type": "Int64"
+						},
+						"activity": {
+							"value": "InBaseLayer",
+							"type": "String"
 						},
 						"status": {
 							"value": "Succeeded",
@@ -245,11 +249,11 @@
 				}
 			},
 			{
-				"name": "Log Exception - Copy",
+				"name": "act_exec_sproc_log_exception_InternalError_copy_act",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "Copy Parquet to Synapse Base",
+						"activity": "act_copy_ParquetToBase",
 						"dependencyConditions": [
 							"Failed"
 						]
@@ -286,7 +290,7 @@
 						},
 						"error_msg": {
 							"value": {
-								"value": "@activity('Copy Parquet to Synapse Base').Error.Message",
+								"value": "@activity('act_copy_ParquetToBase').Error.Message",
 								"type": "Expression"
 							},
 							"type": "String"
@@ -306,11 +310,11 @@
 				}
 			},
 			{
-				"name": "Update Batch Status Failed - Copy",
+				"name": "act_exec_sproc_update_batch_InBaseLayer_Failed_copy_act",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "Log Exception - Copy",
+						"activity": "act_exec_sproc_log_exception_InternalError_copy_act",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -355,6 +359,10 @@
 							},
 							"type": "Guid"
 						},
+						"activity": {
+							"value": "InBaseLayer",
+							"type": "String"
+						},
 						"status": {
 							"value": "Failed",
 							"type": "String"
@@ -371,7 +379,7 @@
 				}
 			},
 			{
-				"name": "Log Exception - Tech Fields",
+				"name": "act_exec_sproc_log_exception_InternalError_upd_tech_v",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
@@ -432,11 +440,11 @@
 				}
 			},
 			{
-				"name": "Update Batch Status Failed - Tech Fields",
+				"name": "act_exec_sproc_update_batch_InBaseLayer_Failed_sproc",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "Log Exception - Tech Fields",
+						"activity": "act_exec_sproc_log_exception_InternalError_upd_tech_v",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -480,6 +488,10 @@
 								"type": "Expression"
 							},
 							"type": "Guid"
+						},
+						"activity": {
+							"value": "InBaseLayer",
+							"type": "String"
 						},
 						"status": {
 							"value": "Failed",
@@ -527,7 +539,7 @@
 				}
 			},
 			{
-				"name": "Log Exception - Statistics",
+				"name": "act_exec_sproc_log_exception_InternalError_upd_stats",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
@@ -588,11 +600,11 @@
 				}
 			},
 			{
-				"name": "Update Batch Status Failed - Statistics",
+				"name": "act_exec_sproc_update_batch_InBaseLayer_Failed_updstats",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "Log Exception - Statistics",
+						"activity": "act_exec_sproc_log_exception_InternalError_upd_stats",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -637,6 +649,10 @@
 							},
 							"type": "Guid"
 						},
+						"activity": {
+							"value": "InBaseLayer",
+							"type": "String"
+						},
 						"status": {
 							"value": "Failed",
 							"type": "String"
@@ -653,7 +669,7 @@
 				}
 			},
 			{
-				"name": "Set Batch Load2Base",
+				"name": "act_exec_sproc_set_batch_S4HCheckFileName_InProgress",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [],
 				"policy": {
@@ -668,7 +684,7 @@
 					"storedProcedureName": "[dbo].[set_batch]",
 					"storedProcedureParameters": {
 						"activity": {
-							"value": "Load2Base",
+							"value": "InBaseLayer",
 							"type": "String"
 						},
 						"batch_id": {
@@ -753,6 +769,14 @@
 			"entity_id": {
 				"type": "string"
 			},
+			"adhoc": {
+				"type": "int",
+				"defaultValue": 0
+			},
+			"manual_run": {
+				"type": "int",
+				"defaultValue": 1
+			},
 			"directory_path": {
 				"type": "string"
 			},
@@ -770,9 +794,6 @@
 			},
 			"target_layer": {
 				"type": "string"
-			},
-			"update_mode": {
-				"type": "string"
 			}
 		},
 		"variables": {
@@ -782,7 +803,7 @@
 			}
 		},
 		"folder": {
-			"name": "00 ELT/04 Synapse Ingestion"
+			"name": "04 Synapse Ingestion"
 		},
 		"annotations": []
 	}

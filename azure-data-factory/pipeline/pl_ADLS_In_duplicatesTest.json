@@ -7,7 +7,7 @@
 				"type": "Lookup",
 				"dependsOn": [
 					{
-						"activity": "Set Batch TestDuplicates",
+						"activity": "act_exec_sproc_set_batch_testData_InProgress",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -38,7 +38,7 @@
 				}
 			},
 			{
-				"name": "Set Batch TestDuplicates",
+				"name": "act_exec_sproc_set_batch_testData_InProgress",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [],
 				"policy": {
@@ -154,7 +154,7 @@
 				}
 			},
 			{
-				"name": "Log Exception - Duplicates",
+				"name": "act_exec_sproc_log_exception",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
@@ -215,11 +215,11 @@
 				}
 			},
 			{
-				"name": "Update Batch Status Failed - Duplicates",
+				"name": "act_exec_sproc_update_batch_testData_Failed",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "Log Exception - Duplicates",
+						"activity": "act_exec_sproc_log_exception",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -264,6 +264,10 @@
 							},
 							"type": "Guid"
 						},
+						"activity": {
+							"value": "TestDuplicates",
+							"type": "String"
+						},
 						"status": {
 							"value": "Failed",
 							"type": "String"
@@ -280,7 +284,7 @@
 				}
 			},
 			{
-				"name": "Update Batch Status - Succeeded",
+				"name": "act_exec_sproc_update_batch_testData_Succeeded",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
@@ -329,6 +333,10 @@
 							},
 							"type": "Guid"
 						},
+						"activity": {
+							"value": "TestDuplicates",
+							"type": "String"
+						},
 						"status": {
 							"value": "Succeeded",
 							"type": "String"
@@ -345,7 +353,7 @@
 				}
 			},
 			{
-				"name": "Log Exception - Lookup",
+				"name": "act_exec_sproc_log_exception_lookup",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
@@ -403,11 +411,11 @@
 				}
 			},
 			{
-				"name": "Update Batch Status Failed - Lookup",
+				"name": "act_exec_sproc_update_batch_testData_lookup_Failed",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "Log Exception - Lookup",
+						"activity": "act_exec_sproc_log_exception_lookup",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -451,6 +459,10 @@
 								"type": "Expression"
 							},
 							"type": "Guid"
+						},
+						"activity": {
+							"value": "TestDuplicates",
+							"type": "String"
 						},
 						"status": {
 							"value": "Failed",
@@ -498,7 +510,7 @@
 			}
 		},
 		"folder": {
-			"name": "00 ELT/02 ADLS Data Validation"
+			"name": "02 ADLS Data Validation"
 		},
 		"annotations": []
 	}

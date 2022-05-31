@@ -87,7 +87,7 @@
 						"partitionOption": "None"
 					},
 					"dataset": {
-						"referenceName": "ds_orch_db",
+						"referenceName": "ds_orc_control_table",
 						"type": "DatasetReference"
 					},
 					"firstRowOnly": false
@@ -426,7 +426,7 @@
 			}
 		},
 		"folder": {
-			"name": "00 ELT/04 Synapse Ingestion"
+			"name": "04 Synapse Ingestion"
 		},
 		"annotations": [],
 		"lastPublishTime": "2021-10-25T15:25:00Z"

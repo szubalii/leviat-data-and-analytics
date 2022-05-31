@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Set Batch ProcessBase",
+				"name": "act_exec_sproc_set_batch",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [],
 				"policy": {
@@ -83,11 +83,11 @@
 				}
 			},
 			{
-				"name": "Process Base",
+				"name": "act_sproc_ProcessBaseLayer",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "Set Batch ProcessBase",
+						"activity": "act_exec_sproc_set_batch",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -113,11 +113,11 @@
 				}
 			},
 			{
-				"name": "Update Batch Status Succeeded",
+				"name": "act_exec_sproc_process_base_batch_Succeeded",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "Process Base",
+						"activity": "act_sproc_ProcessBaseLayer",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -166,6 +166,10 @@
 							"value": null,
 							"type": "Int64"
 						},
+						"activity": {
+							"value": "ProcessBase",
+							"type": "String"
+						},
 						"status": {
 							"value": "Succeeded",
 							"type": "String"
@@ -178,11 +182,11 @@
 				}
 			},
 			{
-				"name": "Update Batch Status Failed",
+				"name": "act_exec_sproc_process_base_batch_Failed",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "Log Exception",
+						"activity": "act_exec_sproc_log_exception",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -226,6 +230,10 @@
 								"type": "Expression"
 							},
 							"type": "Guid"
+						},
+						"activity": {
+							"value": "ProcessBase",
+							"type": "String"
 						},
 						"status": {
 							"value": "Failed",
@@ -243,11 +251,11 @@
 				}
 			},
 			{
-				"name": "Log Exception",
+				"name": "act_exec_sproc_log_exception",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "Process Base",
+						"activity": "act_sproc_ProcessBaseLayer",
 						"dependencyConditions": [
 							"Failed"
 						]
@@ -284,7 +292,7 @@
 						},
 						"error_msg": {
 							"value": {
-								"value": "@activity('Process Base').Error.Message",
+								"value": "@activity('act_sproc_ProcessBaseLayer').Error.Message",
 								"type": "Expression"
 							},
 							"type": "String"
@@ -328,7 +336,7 @@
 			}
 		},
 		"folder": {
-			"name": "00 ELT/05 Synapse Transformation/01 Base"
+			"name": "05 Synapse Transformation/01 Base"
 		},
 		"annotations": [],
 		"lastPublishTime": "2021-10-25T15:24:59Z"
