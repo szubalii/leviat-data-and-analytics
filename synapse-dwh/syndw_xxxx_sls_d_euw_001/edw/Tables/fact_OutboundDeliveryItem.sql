@@ -59,7 +59,7 @@
       ,[SalesOffice] nvarchar(4)
       ,[SDDocumentItem] char(6) collate Latin1_General_100_BIN2
       ,[SubsequentMovementType] nvarchar(3)
-      ,[TotalNetAmount_LC] decimal(15,2)
+      ,[HDR_TotalNetAmount_LC] decimal(15,2)
       ,[VarblShipgProcgDurationInDays] decimal(5,2)
       ,[UnlimitedOverdeliveryIsAllowed] nvarchar(1)
       ,[GLAccountID] nvarchar(10)
@@ -99,6 +99,8 @@
       ,[HDR_ReceivingPlantID] nvarchar(4)
       ,[HDR_DeletionIndicator] nvarchar(1)
       ,[HDR_DeliveryDate] date
+      ,[HDR_CarrierID] nvarchar(10)
+      ,[HDR_Carrier] nvarchar(80)
       ,[SDI_CreationDate] date
       ,[SDI_RequestedDeliveryDate] date
       ,[SDI_PricePerPiece_LC] decimal(38,12)
@@ -212,6 +214,7 @@
       ,[ProposedDeliveryRouteDurationInDays] decimal(11)
       ,[InOutID] char(1) collate Latin1_General_100_BIN2
       ,[SDICreationDateIsODICreationDateFlag] char(1) collate Latin1_General_100_BIN2
+      ,[IF_Total_Group] nvarchar (17)
       ,[IF_Group] nvarchar (17)
       ,[IF_IsInFullFlag] char(1) collate Latin1_General_100_BIN2
       ,[IF_IsInFull] bit
@@ -227,6 +230,8 @@
       ,[OTD_DataQualityCode] nvarchar (6)
       ,[OTS_DataQualityCode] nvarchar (6)
       ,[CalculatedDelDate] date
+      ,[ActualLeadTime] int
+      ,[RequestedLeadTime] int
       ,[OTD_DaysDiff] int
       ,[OTD_Group]  nvarchar (7)
       ,[OTD_EarlyDays] int

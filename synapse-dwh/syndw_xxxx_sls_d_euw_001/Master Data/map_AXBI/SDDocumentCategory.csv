@@ -1,0 +1,5 @@
+source_SalesTypeID|target_SDDocumentCategoryID|target_SDDocumentCategoryName
+4|H|Returns
+3|C|Order
+110|NULL|NULL
+101|NULL|NULL

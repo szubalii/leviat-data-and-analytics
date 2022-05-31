@@ -1,0 +1,43 @@
+source_DataAreaID,source_UDFSystem,source_UDFOpCo,source_UDFCountryCode,source_UDFLegacyID,target_CompanyCodeID,target_CompanyCodeName,target_SalesOrganizationID,target_SalesOrganizationName,CountryID,CountryName,RegionID,RegionName,Access_Control_Unit,IsMigrated
+5300,AXH,HALFEN,DE,G,DE35,,5300,Leviat Germany Production,DE,Germany,EURCI,Operations,DEOPS,N
+5302,AXH,HALFEN,DE,I,DE35,,5302,Leviat International,EX,International,EURCI,Europe Central & International,DEINT,N
+5303,AXH,HALFEN,DE,H,DE35,,5303,Halfen Germany SU,DE,Germany,EURCI,Europe Central & International,DE,N
+5307,AXH,HALFEN,FR,T,TBD,,5307,Halfen France SU,FR,France,EURSN,Europe South & Nordics,FR,N
+5308,AXH,HALFEN,SE,P,SE35,,5308,Leviat Sweden,SE,Sweden,EURSN,Europe South & Nordics,SE,N
+5309,AXH,HALFEN,BE,S,TBD,,5309,Halfen Belgium SU,BE,Belgium,EURSN,Europe South & Nordics,BE,N
+5310,AXH,HALFEN,UK,Z,TBD,,5310,Halfen UK SU,GB,United Kingdom,EURWA,Europe West & APAC,GB,N
+5311,AXH,HALFEN,CH,B,CH35,Leviat AG,CH01,Leviat Schweiz,CH,Switzerland,EURCI,Europe Central & International,CH,Y
+5313,AXH,HALFEN,AT,A,AT35,Leviat Austria AG,AT01,Leviat Austria,AT,Austria,EURCI,Europe Central & International,AT,Y
+5314,AXH,HALFEN,NL,L,NL35,,5314,Leviat Netherlands,NL,Netherlands,EURSN,Europe South & Nordics,NL,N
+5315,AXH,HALFEN,IT,K,IT35,,5315,Leviat Italy,IT,Italy,EURSN,Europe South & Nordics,IT,N
+5316,AXH,HALFEN,PL,N,PL35,,5316,Leviat Poland Sales,PL,Poland,EURCI,Europe Central & International,PL,N
+5317,AXH,HALFEN,CZ,F,CZ35,,5317,Leviat Czech Republic,CZ,Czech Republic,EURCI,Europe Central & International,CZ,N
+5320,AXH,HALFEN,ES,J,ES35,,5320,Leviat Spain,ES,Spain,EURSN,Europe South & Nordics,ES,N
+5321,AXH,HALFEN,PL,O,PL35,,5321,Leviat Poland Prod,PL,Poland,EURCI,Operations,PLOPS,N
+5325,AXH,HALFEN,NO,M,NO35,,5325,Leviat Norway,NO,Norway,EURSN,Europe South & Nordics,NO,N
+5327,AXH,HALFEN,CN,Q,CN35,,5327,Leviat China,CN,China,EURWA,Europe West & APAC,CN,N
+ANAC,MYOB-EXO,ANCON,AU,TBD,TBD,,ANAC,Ancon Australia Conolly,AU,Australia,EURWA,Europe West & APAC,AU,N
+ANAH,AXC,ANCON,AU,TBD,TBD,,ANAH,Ancon Australia Helifix,AU,Australia,EURWA,Europe West & APAC,AU,N
+ANAT,AXA2,ANCON,AT,D,AT35,Leviat Austria AG,AT01,Leviat Austria,AT,Austria,EURCI,Europe Central & International,AT,Y
+ANAU,AXA1,ANCON,AU,W,TBD,,ANAU,Ancon Australia,AU,Australia,EURWA,Europe West & APAC,AU,N
+ANCH,AXA2,ANCON,CH,E,CH35,Leviat AG,CH01,Leviat Schweiz,CH,Switzerland,EURCI,Europe Central & International,CH,Y
+ANDE,AXA2,ANCON,DE,R,DE35,,ANDE,Ancon Germany SU,DE,Germany,EURCI,Europe Central & International,DE,N
+ANME,Quickbooks,ANCON,EX,TBD,TBD,,ANME,Leviat Middle East,EX,International,EURCI,Europe Central & International,INT,N
+ANNZ,AXC,ANCON,NZ,TBD,TBD,,ANNZ,Leviat New Zealand,NZ,New Zealand,EURWA,Europe West & APAC,NZ,N
+ANUK,M3,ANCON,GB,TBD,TBD,,ANUK,Ancon UK,GB,United Kingdom,EURWA,Europe West & APAC,GB,N
+ASCH,AXP,ASHWANDEN,CH,C,CH35,Leviat AG,CH01,Leviat Schweiz,CH,Switzerland,EURCI,Europe Central & International,CH,Y
+ASS,AXP,ASHWANDEN,CH,C,CH35,Leviat AG,CH01,Leviat Schweiz,CH,Switzerland,EURCI,Europe Central & International,CH,Y
+HLAU,AXA1,ANCON,AU,Y,TBD,,HLAU,Ancon Australia Helifix,AU,Australia,EURWA,Europe West & APAC,AU,N
+HLNZ,AXA1,ANCON,NZ,X,TBD,,HLNZ,Leviat New Zealand,NZ,New Zealand,EURWA,Europe West & APAC,NZ,N
+HMIN,TBD,TBD,IN,TBD,TBD,,HMIN,Leviat India,IN,India,EURWA,Europe West & APAC,IN,N
+HMMY,TBD,TBD,MY,TBD,TBD,,HMMY,Leviat Malaysia,MY,Malaysia,EURWA,Europe West & APAC,MY,N
+HMPH,TBD,TBD,PH,TBD,TBD,,HMPH,Leviat Philippines,PH,Philippines,EURWA,Europe West & APAC,PH,N
+HMSG,TBD,TBD,SG,TBD,TBD,,HMSG,Leviat Singapore,SG,Singapore,EURWA,Europe West & APAC,SG,N
+ISAU,TBD,TBD,AU,TBD,TBD,,ISAU,Isedio Australia,AU,Australia,EURWA,Europe West & APAC,AU,N
+ISUK,TBD,TBD,GB,TBD,TBD,,ISUK,Isedio UK,GB,United Kingdom,EURWA,Europe West & APAC,GB,N
+PLB,AXP,PLAKA,BE,U,TBD,,PLBE,Plaka Belgium,BE,Belgium,EURSN,Europe South & Nordics,BE,N
+PLBE,AXP,PLAKA,BE,U,TBD,,PLBE,Plaka Belgium,BE,Belgium,EURSN,Europe South & Nordics,BE,N
+PLF,AXP,PLAKA,FR,V,TBD,,PLFR,Plaka France,FR,France,EURSN,Europe South & Nordics,FR,N
+PLFR,AXP,PLAKA,FR,V,TBD,,PLFR,Plaka France,FR,France,EURSN,Europe South & Nordics,FR,N
+UNKNOWN,M3,ANCON,UK,TBD,TBD,,TBD,TBD,GB,United Kingdom,EURWA,Europe West & APAC,GB,N
+UNKNOWN,LOCAL,ANCON,UAE,TBD,TBD,,TBD,TBD,UAE,United Arab Emirates,EURWA,Europe West & APAC,UAE,N

@@ -1,12 +1,198 @@
 ﻿CREATE VIEW [edw].[vw_Product]
 AS
 SELECT
-    product.[Product] AS [ProductID]
-,   [ProductExternalID]
+    product.[Product] AS [sk_dim_Product]
+,   product.[Product] AS [ProductID]
+,   product.[ProductExternalID]
 ,   pr_text.[ProductName] AS [Product]
 ,   product.[ProductExternalID] + '_' + pr_text.[ProductName] AS [ProductID_Name]
 ,   product.[ProductType] AS [MaterialTypeID]
 ,   type_text.[MaterialTypeName] AS [MaterialType]
+,   [CreationDate]
+,   [CreationTime]
+,   [CreationDateTime]
+,   [CreatedByUser]
+,   [LastChangeDate]
+,   [LastChangedByUser]
+,   [IsMarkedForDeletion]
+,   [CrossPlantStatus]
+,   [CrossPlantStatusValidityDate]
+,   [ProductOldID]
+,   [GrossWeight]
+,   [PurchaseOrderQuantityUnit]
+,   [SourceOfSupply]
+,   [WeightUnit]
+,   [CountryOfOrigin]
+,   [CompetitorID]
+,   [ProductGroup]
+,   [BaseUnit]
+,   [ItemCategoryGroup]
+,   [NetWeight]
+,   COALESCE(config_prodhier.[ProductHierarchyNode],prodhier.[ProductHierarchyNode]) AS [ProductHierarchy]
+,   COALESCE(config_prodhier.[Product_L1_PillarID],prodhier.[Product_L1_PillarID]) AS [Product_L1_PillarID]
+,   COALESCE(config_prodhier.[Product_L2_GroupID],prodhier.[Product_L2_GroupID]) AS [Product_L2_GroupID]
+,   COALESCE(config_prodhier.[Product_L3_TypeID],prodhier.[Product_L3_TypeID]) AS [Product_L3_TypeID]
+,   COALESCE(config_prodhier.[Product_L4_FamilyID],prodhier.[Product_L4_FamilyID]) AS [Product_L4_FamilyID]
+,   COALESCE(config_prodhier.[Product_L5_SubFamilyID],prodhier.[Product_L5_SubFamilyID]) AS [Product_L5_SubFamilyID]
+,   COALESCE(config_prodhier.[Product_L1_Pillar],prodhier.[Product_L1_Pillar],sapDummyProd.[Product_L1_Pillar]) AS [Product_L1_Pillar]
+,   COALESCE(config_prodhier.[Product_L2_Group],prodhier.[Product_L2_Group],sapDummyProd.[Product_L2_Group]) AS [Product_L2_Group]
+,   COALESCE(config_prodhier.[Product_L3_Type],prodhier.[Product_L3_Type],sapDummyProd.[Product_L3_Type]) AS [Product_L3_Type]
+,   COALESCE(config_prodhier.[Product_L4_Family],prodhier.[Product_L4_Family],sapDummyProd.[Product_L4_Family]) AS [Product_L4_Family]
+,   COALESCE(config_prodhier.[Product_L5_SubFamily],prodhier.[Product_L5_SubFamily],sapDummyProd.[Product_L5_SubFamily]) AS [Product_L5_SubFamily]
+,   [Division]
+,   [VarblPurOrdUnitIsActive]
+,   [VolumeUnit]
+,   [MaterialVolume]
+,   [SalesStatus]
+,   [TransportationGroup]
+,   [SalesStatusValidityDate]
+,   [AuthorizationGroup]
+,   [ANPCode]
+,   [ProductCategory]
+,   [Brand]
+,   [ProcurementRule]
+,   [ValidityStartDate]
+,   [LowLevelCode]
+,   [ProdNoInGenProdInPrepackProd]
+,   [SerialIdentifierAssgmtProfile]
+,   [SizeOrDimensionText]
+,   [IndustryStandardName]
+,   [ProductStandardID]
+,   [InternationalArticleNumberCat]
+,   [ProductIsConfigurable]
+,   [IsBatchManagementRequired]
+,   [HasEmptiesBOM]
+,   [ExternalProductGroup]
+,   [CrossPlantConfigurableProduct]
+,   [SerialNoExplicitnessLevel]
+,   [ProductManufacturerNumber]
+,   [ManufacturerNumber]
+,   [ManufacturerPartProfile]
+,   [QltyMgmtInProcmtIsActive]
+,   [IsApprovedBatchRecordReqd]
+,   [HandlingIndicator]
+,   [WarehouseProductGroup]
+,   [WarehouseStorageCondition]
+,   [StandardHandlingUnitType]
+,   [SerialNumberProfile]
+,   [AdjustmentProfile]
+,   [PreferredUnitOfMeasure]
+,   [IsPilferable]
+,   [IsRelevantForHzdsSubstances]
+,   [QuarantinePeriod]
+,   [TimeUnitForQuarantinePeriod]
+,   [QualityInspectionGroup]
+,   [HandlingUnitType]
+,   [HasVariableTareWeight]
+,   [MaximumPackagingLength]
+,   [MaximumPackagingWidth]
+,   [MaximumPackagingHeight]
+,   [MaximumCapacity]
+,   [OvercapacityTolerance]
+,   [UnitForMaxPackagingDimensions]
+,   [BaseUnitSpecificProductLength]
+,   [BaseUnitSpecificProductWidth]
+,   [BaseUnitSpecificProductHeight]
+,   [ProductMeasurementUnit]
+,   [ProductValidStartDate]
+,   [ArticleCategory]
+,   [ContentUnit]
+,   [NetContent]
+,   [ComparisonPriceQuantity]
+,   [GrossContent]
+,   [ProductValidEndDate]
+,   [AssortmentListType]
+,   [HasTextilePartsWthAnimalOrigin]
+,   [ProductSeasonUsageCategory]
+,   [IndustrySector]
+,   [ChangeNumber]
+,   [MaterialRevisionLevel]
+,   [IsActiveEntity]
+,   [LastChangeDateTime]
+,   [LastChangeTime]
+,   [DangerousGoodsIndProfile]
+,   [ProductUUID]
+,   [ProdSupChnMgmtUUID22]
+,   [ProductDocumentChangeNumber]
+,   [ProductDocumentPageCount]
+,   [ProductDocumentPageNumber]
+,   [OwnInventoryManagedProduct]
+,   [DocumentIsCreatedByCAD]
+,   [ProductionOrInspectionMemoTxt]
+,   [ProductionMemoPageFormat]
+,   [GlobalTradeItemNumberVariant]
+,   [ProductIsHighlyViscous]
+,   [TransportIsInBulk]
+,   [ProdAllocDetnProcedure]
+,   [ProdEffctyParamValsAreAssigned]
+,   [ProdIsEnvironmentallyRelevant]
+,   [LaboratoryOrDesignOffice]
+,   [PackagingMaterialGroup]
+,   [ProductIsLocked]
+,   [DiscountInKindEligibility]
+,   [SmartFormName]
+,   [PackingReferenceProduct]
+,   [BasicMaterial]
+,   [ProductDocumentNumber]
+,   [ProductDocumentVersion]
+,   [ProductDocumentType]
+,   [ProductDocumentPageFormat]
+,   [ProductConfiguration]
+,   [SegmentationStrategy]
+,   [SegmentationIsRelevant]
+,   [IsChemicalComplianceRelevant]
+,   [LogisticalProductCategory]
+,   [SalesProduct]
+,   [DfsAmmunitionGroupCode]
+,   [DfsRICIdentifier]
+,   [ZZ1_CustomFieldRiskMit_PRD]
+,   [ZZ1_CustomFieldHighRis_PRD]
+,   [ZZ1_CustomFieldRiskRea_PRD]
+,   product.[t_applicationId]
+,   product.[t_extractionDtm]
+FROM 
+    [base_s4h_cax].[I_Product] product
+LEFT JOIN 
+    [base_s4h_cax].[I_ProductText] pr_text
+    ON 
+        product.[Product] = pr_text.[Product]
+        AND
+        pr_text.[Language] = 'E'
+LEFT JOIN 
+    [base_s4h_cax].[I_ProductTypeText] type_text
+    ON
+        product.[ProductType] = type_text.[ProductType]
+        AND
+        type_text.[Language] = 'E'
+LEFT JOIN 
+    [edw].[dim_ProductHierarchy] prodhier
+    ON
+            product.[ProductHierarchy] = prodhier.[ProductHierarchyNode]
+LEFT JOIN
+    [base_ff].[SAPDummyProduct] sapDummyProd
+    ON
+        product.[ProductExternalID] = sapDummyProd.[ProductExternalID]
+LEFT JOIN
+    [base_ff].[ConfigurableProduct] config_pr
+    ON
+        product.[Product] = config_pr.[ProductID]
+LEFT JOIN 
+    [edw].[dim_ProductHierarchy] config_prodhier
+    ON
+        config_pr.[ProductHierarchyNode] = config_prodhier.[ProductHierarchyNode]
+--    WHERE product.MANDT = 200 
+--    AND pr_text.MANDT = 200 
+--    AND type_text.MANDT = 200 MPS 2021/11/01: commented out due to different client values between dev,qas, and prod
+UNION ALL
+
+SELECT
+    [sk_dim_ConfigurableProductHierarchy]
+,   [ProductID]
+,   [ProductExternalID]
+,   [Product]
+,   [ProductID_Name]
+,   [MaterialTypeID]
+,   [MaterialType]
 ,   [CreationDate]
 ,   [CreationTime]
 ,   [CreationDateTime]
@@ -147,33 +333,16 @@ SELECT
 ,   [ZZ1_CustomFieldRiskMit_PRD]
 ,   [ZZ1_CustomFieldHighRis_PRD]
 ,   [ZZ1_CustomFieldRiskRea_PRD]
-,   product.[t_applicationId]
-,   product.[t_extractionDtm]
+,   [t_applicationId]
+,   [t_extractionDtm]
 FROM 
-    [base_s4h_cax].[I_Product] product
-LEFT JOIN 
-    [base_s4h_cax].[I_ProductText] pr_text
-    ON 
-        product.[Product] = pr_text.[Product]
-        AND
-        pr_text.[Language] = 'E'
-LEFT JOIN 
-    [base_s4h_cax].[I_ProductTypeText] type_text
-    ON
-        product.[ProductType] = type_text.[ProductType]
-        AND
-        type_text.[Language] = 'E'
-LEFT JOIN 
-    [edw].[dim_ProductHierarchy] prodhier
-    ON
-            product.[ProductHierarchy] = prodhier.[ProductHierarchyNode]
---    WHERE product.MANDT = 200 
---    AND pr_text.MANDT = 200 
---    AND type_text.MANDT = 200 MPS 2021/11/01: commented out due to different client values between dev,qas, and prod
+    [edw].[dim_ConfigurableProductHierarchy]
+
 UNION ALL
 
 SELECT 
-    'ZZZDUMMY01' AS [ProductID]
+    'ZZZDUMMY01' AS [sk_dim_Product]
+,   'ZZZDUMMY01' AS [ProductID]
 ,   'ZZZDUMMY01' AS [ProductExternalID]
 ,   'Non-SAP Undefined Service Item'            AS [Product]
 ,   'ZZZDUMMY01_Non-SAP Undefined Service Item' AS [ProductID_Name]
@@ -343,7 +512,8 @@ SELECT
 UNION ALL
  
 SELECT
-    'ZZZDUMMY02'                                AS [ProductID]
+    'ZZZDUMMY02'                                AS [sk_dim_Product]
+,   'ZZZDUMMY02'                                AS [ProductID]
 ,   'ZZZDUMMY02'                                AS [ProductExternalID]
 ,   'SAP Undefined Service Item'                AS [Product]
 ,   'ZZZDUMMY02_SAP Undefined Service Item'     AS [ProductID_Name]

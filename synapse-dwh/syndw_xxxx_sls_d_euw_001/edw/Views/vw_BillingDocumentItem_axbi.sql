@@ -54,7 +54,7 @@ BillingDocumentItemBase_axbi AS (
             '0' collate Latin1_General_100_BIN2               AS [BillingDocumentItem]
     ,   ''                                                    AS [ReturnItemProcessingType]
     ,   DA.[LOCALCURRENCY]                                    AS [CurrencyIDLocal]
-    ,   Null                                                  AS [CurrencyIDGroupEUR]
+    ,   'EUR'                                                 AS [CurrencyIDGroupEUR]
     ,   Null                                                  AS [ExchangeRate]
     ,   Null                                                  AS [SalesType]
     ,   CITQ.ACCOUNTINGDATE                                   AS [BillingDocumentDate]
@@ -98,6 +98,8 @@ BillingDocumentItemBase_axbi AS (
     ,   sum(CAST(CITQ.[PRODUCTSALESEUR] as DECIMAL(19, 6)))         AS [FinNetAmountEUR]             -- FinNetAmount
     ,   sum(CAST(CITQ.[OTHERSALESLOCAL] as DECIMAL(19, 6)))         AS [FinNetAmountOtherSalesLOCAL] -- [FinNetAmountOtherSales]
     ,   sum(CAST(CITQ.[OTHERSALESEUR] as DECIMAL(19, 6)))           AS [FinNetAmountOtherSalesEUR]   -- [FinNetAmountOtherSales]
+    ,   sum(CAST(CITQ.[OTHERSALESLOCAL] as DECIMAL(19, 6)))         AS [FinNetAmountServOtherLOCAL] -- [FinNetAmountServOther]
+    ,   sum(CAST(CITQ.[OTHERSALESEUR] as DECIMAL(19, 6)))           AS [FinNetAmountServOtherEUR]   -- [FinNetAmountServOther]    
     ,   sum(CAST(CITQ.[ALLOWANCESLOCAL] as DECIMAL(19, 6)))         AS [FinNetAmountAllowancesLOCAL] --[FinNetAmountAllowances]
     ,   sum(CAST(CITQ.[ALLOWANCESEUR] as DECIMAL(19, 6)))           AS [FinNetAmountAllowancesEUR]   --[FinNetAmountAllowances]
     ,   sum(CAST(CITQ.[PRODUCTSALESLOCAL] as DECIMAL(19, 6))) +
@@ -209,7 +211,7 @@ BillingDocumentItemBase_axbi AS (
             THEN
                 'ZZ'
         END                                                                 AS [CustomerGroupID]
-    ,   FH.[Postalcode]                                                     AS [Postalcode]            --SD.target_SalesDistrictID                               AS [SalesDistrictID],
+    ,   FH.[Postalcode]                                                     AS [Postalcode]            
     ,   DA.DATAAREAID2 + '-' + FH.[Customerno]                              AS [Customerno]
     ,   FH.[Salesperson]                                                    AS [Salesperson]
     ,   FH.[Projectno]                                                      AS [Projectno]
@@ -225,6 +227,8 @@ BillingDocumentItemBase_axbi AS (
     ,   [InvoicedsalesCRHEUR]                                               AS [FinNetAmountEUR]
     ,   [Othersaleslocal]                                                   AS [FinNetAmountOtherSalesLOCAL]
     ,   [OthersalesCRHEUR]                                                  AS [FinNetAmountOtherSalesEUR]
+    ,   [Othersaleslocal]                                                   AS [FinNetAmountServOtherLOCAL] -- [FinNetAmountServOther]
+    ,   [OthersalesCRHEUR]                                                  AS [FinNetAmountServOtherEUR]   -- [FinNetAmountServOther]
     ,   [Allowanceslocal]                                                   AS [FinNetAmountAllowancesLOCAL]
     ,   [AllowancesCRHEUR]                                                  AS [FinNetAmountAllowancesEUR]
     ,   [Invoicedsaleslocal] + [Othersaleslocal] + [Allowanceslocal]        as [FinSales100LOCAL]
@@ -237,7 +241,7 @@ BillingDocumentItemBase_axbi AS (
     ,   DA.DATAAREAID2 + '-' + FH.[Customerno]                              AS [axbi_CustomerID]
     ,   CT.[INOUT]                                                          AS [InOutID]
     ,   'HALF-' + FH.[Itemno]                                               AS [axbi_ItemNoCalc]
-    ,   DA.DATAAREAID2                                                      AS [axbi_DataAreaID2]
+    ,   DA.DATAAREAID2                                                      AS [axbi_DataAreaID2] 
     ,   FH.[t_applicationId]                                                AS [t_applicationId]
     ,   FH.[t_extractionDtm]                                                AS [t_extractionDtm]
     FROM    
@@ -361,7 +365,7 @@ BillingDocumentItemBase_axbi_mapped AS (
     ,   SubQ.[CountryID]
     ,   SubQ.[SalesDocumentID]
     ,   SubQ.[CustomerGroupID]
-    ,   SD.target_SalesDistrictID                                        AS [SalesDistrictID]
+    ,   SD.[SalesDistrictID]                                             AS [SalesDistrictID]
     ,   DimCust.[CustomerID]                                             AS [SoldToParty]
     ,   ESA.target_ExternalSalesAgentID                                  AS [ExternalSalesAgentID]
     ,   RIGHT('0000000000' + CAST(MBP.target_XRefID as VARCHAR(10)), 10) AS [ProjectID]
@@ -427,6 +431,8 @@ BillingDocumentItemBase_axbi_mapped AS (
     ,   SubQ.[FinNetAmountEUR]
     ,   SubQ.[FinNetAmountOtherSalesLOCAL]
     ,   SubQ.[FinNetAmountOtherSalesEUR]
+    ,   SubQ.[FinNetAmountServOtherLOCAL]
+    ,   SubQ.[FinNetAmountServOtherEUR]    
     ,   SubQ.[FinNetAmountAllowancesLOCAL]
     ,   SubQ.[FinNetAmountAllowancesEUR]
     ,   SubQ.[FinSales100LOCAL]
@@ -461,8 +467,8 @@ BillingDocumentItemBase_axbi_mapped AS (
                 SubQ.[axbi_CustomerID]
         END AS [SoldToPartyCalculated]
 
-    ,   NULL AS [BrandID]
-    ,   mapBrand.[Brand] as [Brand]
+    ,   mapBrand.[BrandID]  AS [BrandID]
+    ,   mapBrand.[Brand]    AS [Brand]
   --,   CT.[INOUT] AS [InOutID]
     ,   SubQ.[InOutID]
     ,   SubQ.[axbi_ItemNoCalc]
@@ -473,17 +479,41 @@ BillingDocumentItemBase_axbi_mapped AS (
     FROM 
         BillingDocumentItemBase_axbi as SubQ
     LEFT JOIN
-        [map_AXBI].[SalesDistrict] AS SD
-        ON
-            SubQ.[DataAreaID] = [source_CountryCode]
-            AND
-            SubQ.[Postalcode] = source_ZipCode
-    LEFT JOIN
         [map_AXBI].[SalesOrganization] AS SO
         ON
             SubQ.[DataAreaID] = source_DataAreaID 
             AND 
-            [target_SalesOrganizationID] != 'TBD'
+            [target_SalesOrganizationID] != 'TBD'        
+    LEFT JOIN
+        [base_ff].[SalesDistrict] SD 
+        ON 
+            SD.[CountryID] = SubQ.[CountryID] 
+            AND
+            SD.[SalesOrganizationID] = SO.[target_SalesOrganizationID]
+            AND
+            SD.[ZipCodeFrom] = SubQ.[Postalcode]  
+            -- while we do not have data for Germany, we temporarily comment on these conditions 
+            /*
+            -- for Germany,  range is used relative to the postcode fields ZipCodeFrom, ZipCodeTo 
+            -- for other countries these values are equal
+            (
+                (
+                    SD.[CountryID] <> 'DE'
+                    AND
+                    SD.[ZipCodeFrom] = SubQ.[Postalcode]  
+                )
+                OR
+                (
+                    SD.[CountryID] = 'DE'
+                    AND
+                    (   
+                        SD.[ZipCodeFrom] >= SubQ.[Postalcode] 
+                        AND 
+                        SubQ.[Postalcode] <= SD.[ZipCodeTo]
+                    )
+                                                           
+                )
+            ) */
     LEFT JOIN
         [map_AXBI].[SalesEmployee] AS ESA
         ON
@@ -545,7 +575,7 @@ BillingDocumentItemBase_axbi_mapped AS (
         mapBrand.[source_DataAreaID]= SubQ.[axbi_DataAreaID]
 ), BillingDocumentItemBase_axbi_mapped_calc as (
     SELECT
-        SubQ.[BillingDocument]
+        CONCAT(TRIM(SubQ.[SalesOrganizationID]),'_',TRIM(SubQ.[BillingDocument]) COLLATE SQL_Latin1_General_CP1_CS_AS) AS [BillingDocument]
     ,   SubQ.[BillingDocumentItem]
     ,   SubQ.[ReturnItemProcessingType]
     ,   SubQ.[DataAreaID]
@@ -592,6 +622,8 @@ BillingDocumentItemBase_axbi_mapped AS (
     ,   SubQ.[FinNetAmountEUR]
     ,   SubQ.[FinNetAmountOtherSalesLOCAL]
     ,   SubQ.[FinNetAmountOtherSalesEUR]
+    ,   SubQ.[FinNetAmountServOtherLOCAL]
+    ,   SubQ.[FinNetAmountServOtherEUR]  
     ,   SubQ.[FinNetAmountAllowancesLOCAL]
     ,   SubQ.[FinNetAmountAllowancesEUR]
     ,   SubQ.[FinSales100LOCAL]
@@ -673,6 +705,8 @@ BillingDocumentItemBase_axbi_mapped AS (
     ,   NULL AS [FinNetAmountEUR]
     ,   NULL AS [FinNetAmountOtherSalesLOCAL]
     ,   NULL AS [FinNetAmountOtherSalesEUR]
+    ,   NULL AS [FinNetAmountServOtherLOCAL]
+    ,   NULL AS [FinNetAmountServOtherEUR]
     ,   NULL AS [FinNetAmountAllowancesLOCAL]
     ,   NULL AS [FinNetAmountAllowancesEUR]
     ,   NULL AS [FinSales100LOCAL]
@@ -719,65 +753,164 @@ BillingDocumentItemBase_axbi_mapped AS (
         AND
         TargetCurrency = 'EUR'
 )
-
+,EuroBudgetExchangeRateUSD as (
+    select
+         TargetCurrency
+        ,ExchangeRateEffectiveDate
+        ,ExchangeRate
+    from
+        edw.dim_ExchangeRates
+    where
+        ExchangeRateType = 'ZAXBIBUD'
+        AND
+        SourceCurrency = 'USD')
+, BDIAXBI_DUMMY_30 AS(
+    SELECT 
+            [BillingDocument]
+        ,   [BillingDocumentItem]
+        ,   [ReturnItemProcessingType]
+        ,   CurrencyIDGroupEUR                       AS [CurrencyID]
+        ,   [ExchangeRate]
+        ,   [SDDocumentCategoryID]
+        ,   [BillingDocumentDate]
+        ,   [SalesOrganizationID]
+        ,   [DistributionChannelID]
+        ,   [Material]
+        ,   [LengthInMPer1]
+        ,   [LengthInM]
+        ,   [PlantID]
+        ,   [BillingQuantity]
+        ,   [BillingQuantityUnitID]
+        ,   [NetAmountGroupEUR]                      AS [NetAmount]
+        ,   [CostAmountGroupEUR]                     AS [CostAmount]
+        ,   [QuantitySold]
+        ,   [CountryID]
+        ,   [SalesDocumentID]
+        ,   [CustomerGroupID]
+        ,   [SalesDistrictID]
+        ,   [SoldToParty]
+        ,   [ExternalSalesAgentID]
+        ,   [ProjectID]
+        ,   [Project]
+        ,   [SalesEmployeeID]
+        ,   [GlobalParentID]
+        ,   [GlobalParentCalculatedID]
+        ,   [GlobalParentCalculated]
+        ,   [LocalParentCalculatedID]
+        ,   [LocalParentCalculated]
+        ,   [SalesOrderTypeID]
+        ,   COALESCE([FinNetAmountEUR], 0)           AS [FinNetAmountRealProduct]
+        ,   COALESCE([FinNetAmountOtherSalesEUR], 0) AS [FinNetAmountOtherSales]
+        ,   COALESCE([FinNetAmountServOtherEUR], 0)  AS [FinNetAmountServOther]        
+        ,   COALESCE([FinNetAmountAllowancesEUR], 0) AS [FinNetAmountAllowances]
+        ,   COALESCE([FinSales100EUR], 0)            AS [FinSales100]
+        ,   [AccountingDate]
+        ,   [axbi_DataAreaID]
+        ,   [axbi_DataAreaName]
+        ,   [axbi_DataAreaGroup]
+        ,   [axbi_MaterialID]
+        ,   [axbi_CustomerID]
+        ,   [MaterialCalculated]
+        ,   [SoldToPartyCalculated]
+        ,   [BrandID]
+        ,   [Brand]
+        ,   [InOutID]
+        ,   [axbi_ItemNoCalc]
+        ,   BDIAXBI_DUMMY.[t_applicationId]
+        ,   BDIAXBI_DUMMY.[t_extractionDtm]
+    FROM 
+        BDIAXBI_DUMMY
+)
+,ExchangeRateUSD AS(
+    SELECT
+            [BillingDocument]
+        ,   [BillingDocumentItem]
+        ,   EuroBudgetExchangeRateUSD.[ExchangeRate] AS [ExchangeRate]
+    FROM
+        (SELECT
+                [BillingDocument]
+            ,   [BillingDocumentItem]
+            ,   [CurrencyID]
+            ,    MAX([ExchangeRateEffectiveDate]) AS [ExchangeRateEffectiveDate]
+        FROM 
+            BDIAXBI_DUMMY_30 axbi_dummy_40
+        LEFT JOIN
+            EuroBudgetExchangeRateUSD
+            ON
+                axbi_dummy_40.[CurrencyID] = EuroBudgetExchangeRateUSD.TargetCurrency
+        WHERE
+            [ExchangeRateEffectiveDate] <= [BillingDocumentDate]
+        GROUP BY
+                [BillingDocument]
+            ,   [BillingDocumentItem]
+            ,   [CurrencyID]
+        ) axbiUSD
+    LEFT JOIN
+        EuroBudgetExchangeRateUSD
+        ON
+            axbiUSD.[CurrencyID] = EuroBudgetExchangeRateUSD.[TargetCurrency]
+            AND
+            axbiUSD.[ExchangeRateEffectiveDate] = EuroBudgetExchangeRateUSD.[ExchangeRateEffectiveDate]
+)
 /*
     Local currency data from AX BI
 */
 
 SELECT 
-    [BillingDocument]
-,   [BillingDocumentItem]
-,   [ReturnItemProcessingType]
-,   CT.[CurrencyTypeID]                      as [CurrencyTypeID]
-,   CT.[CurrencyType]                        as [CurrencyType]
-,   CurrencyIDLocal                          as [CurrencyID]
-,   1.0                                      as [ExchangeRate]
-,   [SDDocumentCategoryID]
-,   [BillingDocumentDate]
-,   [SalesOrganizationID]
-,   [DistributionChannelID]
-,   [Material]
-,   [LengthInMPer1]
-,   [LengthInM]
-,   [PlantID]
-,   [BillingQuantity]
-,   [BillingQuantityUnitID]
-,   [NetAmountLocal]                         as [NetAmount]
-,   [CostAmountLocal]                        as [CostAmount]
-,   [QuantitySold]
-,   [CountryID]
-,   [SalesDocumentID]
-,   [CustomerGroupID]
-,   [SalesDistrictID]
-,   [SoldToParty]
-,   [ExternalSalesAgentID]
-,   [ProjectID]
-,   [Project]
-,   [SalesEmployeeID]
-,   [GlobalParentID]
-,   [GlobalParentCalculatedID]
-,   [GlobalParentCalculated]
-,   [LocalParentCalculatedID]
-,   [LocalParentCalculated]
-,   [SalesOrderTypeID]
-,   COALESCE([FinNetAmountLOCAL], 0)           AS [FinNetAmountRealProduct]
-,   COALESCE([FinNetAmountOtherSalesLOCAL], 0) AS [FinNetAmountOtherSales]
-,   COALESCE([FinNetAmountAllowancesLOCAL], 0) AS [FinNetAmountAllowances]
-,   COALESCE([FinSales100LOCAL], 0)            AS [FinSales100]
-,   [AccountingDate]
-,   [axbi_DataAreaID]
-,   [axbi_DataAreaName]
-,   [axbi_DataAreaGroup]
-,   [axbi_MaterialID]
-,   [axbi_CustomerID]
-,   [MaterialCalculated]
-,   [SoldToPartyCalculated]
-,   [BrandID]
-,   [Brand]
-,   [InOutID]
-,   [axbi_ItemNoCalc]
-,   BDIAXBI_DUMMY.[t_applicationId]
-,   BDIAXBI_DUMMY.[t_extractionDtm]
+        [BillingDocument]
+    ,   [BillingDocumentItem]
+    ,   [ReturnItemProcessingType]
+    ,   CT.[CurrencyTypeID]                      as [CurrencyTypeID]
+    ,   CT.[CurrencyType]                        as [CurrencyType]
+    ,   CurrencyIDLocal                          as [CurrencyID]
+    ,   1.0                                      as [ExchangeRate]
+    ,   [SDDocumentCategoryID]
+    ,   [BillingDocumentDate]
+    ,   [SalesOrganizationID]
+    ,   [DistributionChannelID]
+    ,   [Material]
+    ,   [LengthInMPer1]
+    ,   [LengthInM]
+    ,   [PlantID]
+    ,   [BillingQuantity]
+    ,   [BillingQuantityUnitID]
+    ,   [NetAmountLocal]                         as [NetAmount]
+    ,   [CostAmountLocal]                        as [CostAmount]
+    ,   [QuantitySold]
+    ,   [CountryID]
+    ,   [SalesDocumentID]
+    ,   [CustomerGroupID]
+    ,   [SalesDistrictID]
+    ,   [SoldToParty]
+    ,   [ExternalSalesAgentID]
+    ,   [ProjectID]
+    ,   [Project]
+    ,   [SalesEmployeeID]
+    ,   [GlobalParentID]
+    ,   [GlobalParentCalculatedID]
+    ,   [GlobalParentCalculated]
+    ,   [LocalParentCalculatedID]
+    ,   [LocalParentCalculated]
+    ,   [SalesOrderTypeID]
+    ,   COALESCE([FinNetAmountLOCAL], 0)           AS [FinNetAmountRealProduct]
+    ,   COALESCE([FinNetAmountOtherSalesLOCAL], 0) AS [FinNetAmountOtherSales]
+    ,   COALESCE([FinNetAmountServOtherLOCAL], 0)  AS [FinNetAmountServOther]
+    ,   COALESCE([FinNetAmountAllowancesLOCAL], 0) AS [FinNetAmountAllowances]
+    ,   COALESCE([FinSales100LOCAL], 0)            AS [FinSales100]
+    ,   [AccountingDate]
+    ,   [axbi_DataAreaID]
+    ,   [axbi_DataAreaName]
+    ,   [axbi_DataAreaGroup]
+    ,   [axbi_MaterialID]
+    ,   [axbi_CustomerID]
+    ,   [MaterialCalculated]
+    ,   [SoldToPartyCalculated]
+    ,   [BrandID]
+    ,   [Brand]
+    ,   [InOutID]
+    ,   [axbi_ItemNoCalc]
+    ,   BDIAXBI_DUMMY.[t_applicationId]
+    ,   BDIAXBI_DUMMY.[t_extractionDtm]
 FROM 
     BDIAXBI_DUMMY
 CROSS JOIN
@@ -792,62 +925,133 @@ UNION ALL
 */
 
 SELECT 
-    [BillingDocument]
-,   [BillingDocumentItem]
-,   [ReturnItemProcessingType]
-,   CT.[CurrencyTypeID]                      AS [CurrencyTypeID]
-,   CT.[CurrencyType]                        AS [CurrencyType]
-,   CurrencyIDGroupEUR                       AS [CurrencyID]
-,   [ExchangeRate]
-,   [SDDocumentCategoryID]
-,   [BillingDocumentDate]
-,   [SalesOrganizationID]
-,   [DistributionChannelID]
-,   [Material]
-,   [LengthInMPer1]
-,   [LengthInM]
-,   [PlantID]
-,   [BillingQuantity]
-,   [BillingQuantityUnitID]
-,   [NetAmountGroupEUR]                      AS [NetAmount]
-,   [CostAmountGroupEUR]                     AS [CostAmount]
-,   [QuantitySold]
-,   [CountryID]
-,   [SalesDocumentID]
-,   [CustomerGroupID]
-,   [SalesDistrictID]
-,   [SoldToParty]
-,   [ExternalSalesAgentID]
-,   [ProjectID]
-,   [Project]
-,   [SalesEmployeeID]
-,   [GlobalParentID]
-,   [GlobalParentCalculatedID]
-,   [GlobalParentCalculated]
-,   [LocalParentCalculatedID]
-,   [LocalParentCalculated]
-,   [SalesOrderTypeID]
-,   COALESCE([FinNetAmountEUR], 0)           AS [FinNetAmountRealProduct]
-,   COALESCE([FinNetAmountOtherSalesEUR], 0) AS [FinNetAmountOtherSales]
-,   COALESCE([FinNetAmountAllowancesEUR], 0) AS [FinNetAmountAllowances]
-,   COALESCE([FinSales100EUR], 0)            AS [FinSales100]
-,   [AccountingDate]
-,   [axbi_DataAreaID]
-,   [axbi_DataAreaName]
-,   [axbi_DataAreaGroup]
-,   [axbi_MaterialID]
-,   [axbi_CustomerID]
-,   [MaterialCalculated]
-,   [SoldToPartyCalculated]
-,   [BrandID]
-,   [Brand]
-,   [InOutID]
-,   [axbi_ItemNoCalc]
-,   BDIAXBI_DUMMY.[t_applicationId]
-,   BDIAXBI_DUMMY.[t_extractionDtm]
+        [BillingDocument]
+    ,   [BillingDocumentItem]
+    ,   [ReturnItemProcessingType]
+    ,   CT.[CurrencyTypeID]                      AS [CurrencyTypeID]
+    ,   CT.[CurrencyType]                        AS [CurrencyType]
+    ,   [CurrencyID]
+    ,   [ExchangeRate]
+    ,   [SDDocumentCategoryID]
+    ,   [BillingDocumentDate]
+    ,   [SalesOrganizationID]
+    ,   [DistributionChannelID]
+    ,   [Material]
+    ,   [LengthInMPer1]
+    ,   [LengthInM]
+    ,   [PlantID]
+    ,   [BillingQuantity]
+    ,   [BillingQuantityUnitID]
+    ,   [NetAmount]
+    ,   [CostAmount]
+    ,   [QuantitySold]
+    ,   [CountryID]
+    ,   [SalesDocumentID]
+    ,   [CustomerGroupID]
+    ,   [SalesDistrictID]
+    ,   [SoldToParty]
+    ,   [ExternalSalesAgentID]
+    ,   [ProjectID]
+    ,   [Project]
+    ,   [SalesEmployeeID]
+    ,   [GlobalParentID]
+    ,   [GlobalParentCalculatedID]
+    ,   [GlobalParentCalculated]
+    ,   [LocalParentCalculatedID]
+    ,   [LocalParentCalculated]
+    ,   [SalesOrderTypeID]
+    ,   [FinNetAmountRealProduct]
+    ,   [FinNetAmountOtherSales]    
+    ,   [FinNetAmountServOther]
+    ,   [FinNetAmountAllowances]
+    ,   [FinSales100]
+    ,   [AccountingDate]
+    ,   [axbi_DataAreaID]
+    ,   [axbi_DataAreaName]
+    ,   [axbi_DataAreaGroup]
+    ,   [axbi_MaterialID]
+    ,   [axbi_CustomerID]
+    ,   [MaterialCalculated]
+    ,   [SoldToPartyCalculated]
+    ,   [BrandID]
+    ,   [Brand]
+    ,   [InOutID]
+    ,   [axbi_ItemNoCalc]
+    ,   BDIAXBI_DUMMY_30.[t_applicationId]
+    ,   BDIAXBI_DUMMY_30.[t_extractionDtm]
 FROM 
-    BDIAXBI_DUMMY
+    BDIAXBI_DUMMY_30
 CROSS JOIN
     [edw].[dim_CurrencyType] CT
 WHERE
     CT.[CurrencyTypeID] = '30'
+
+UNION ALL
+
+SELECT 
+        ExchangeRateUSD.[BillingDocument]
+    ,   ExchangeRateUSD.[BillingDocumentItem]
+    ,   [ReturnItemProcessingType]
+    ,   CT.[CurrencyTypeID]                      AS [CurrencyTypeID]
+    ,   CT.[CurrencyType]                        AS [CurrencyType]
+    ,   'USD'                                    AS [CurrencyID]
+    ,   1/ExchangeRateUSD.[ExchangeRate] AS [ExchangeRate]
+    ,   [SDDocumentCategoryID]
+    ,   [BillingDocumentDate]
+    ,   [SalesOrganizationID]
+    ,   [DistributionChannelID]
+    ,   [Material]
+    ,   [LengthInMPer1]
+    ,   [LengthInM]
+    ,   [PlantID]
+    ,   [BillingQuantity]
+    ,   [BillingQuantityUnitID]
+    ,   [NetAmount]*(1/ExchangeRateUSD.[ExchangeRate]) AS [NetAmount]
+    ,   [CostAmount]*(1/ExchangeRateUSD.[ExchangeRate]) AS [CostAmount]
+    ,   [QuantitySold]
+    ,   [CountryID]
+    ,   [SalesDocumentID]
+    ,   [CustomerGroupID]
+    ,   [SalesDistrictID]
+    ,   [SoldToParty]
+    ,   [ExternalSalesAgentID]
+    ,   [ProjectID]
+    ,   [Project]
+    ,   [SalesEmployeeID]
+    ,   [GlobalParentID]
+    ,   [GlobalParentCalculatedID]
+    ,   [GlobalParentCalculated]
+    ,   [LocalParentCalculatedID]
+    ,   [LocalParentCalculated]
+    ,   [SalesOrderTypeID]
+    ,   [FinNetAmountRealProduct]*(1/ExchangeRateUSD.[ExchangeRate]) AS [FinNetAmountRealProduct]
+    ,   [FinNetAmountOtherSales]*(1/ExchangeRateUSD.[ExchangeRate]) AS [FinNetAmountOtherSales]
+    ,   [FinNetAmountServOther]*(1/ExchangeRateUSD.[ExchangeRate]) AS [FinNetAmountServOther]  
+    ,   [FinNetAmountAllowances]*(1/ExchangeRateUSD.[ExchangeRate]) AS [FinNetAmountAllowances]
+    ,   [FinSales100]*(1/ExchangeRateUSD.[ExchangeRate]) AS [FinSales100]
+    ,   [AccountingDate]
+    ,   [axbi_DataAreaID]
+    ,   [axbi_DataAreaName]
+    ,   [axbi_DataAreaGroup]
+    ,   [axbi_MaterialID]
+    ,   [axbi_CustomerID]
+    ,   [MaterialCalculated]
+    ,   [SoldToPartyCalculated]
+    ,   [BrandID]
+    ,   [Brand]
+    ,   [InOutID]
+    ,   [axbi_ItemNoCalc]
+    ,   BDIAXBI_DUMMY_30.[t_applicationId]
+    ,   BDIAXBI_DUMMY_30.[t_extractionDtm]
+FROM 
+    ExchangeRateUSD
+LEFT JOIN
+    BDIAXBI_DUMMY_30
+    ON 
+        BDIAXBI_DUMMY_30.BillingDocument=ExchangeRateUSD.BillingDocument 
+        AND     
+        BDIAXBI_DUMMY_30.BillingDocumentItem=ExchangeRateUSD.BillingDocumentItem  
+CROSS JOIN
+    [edw].[dim_CurrencyType] CT
+WHERE
+    CT.[CurrencyTypeID] = '40'

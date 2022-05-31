@@ -505,6 +505,8 @@ BEGIN
                         then 'I'
                     when src.[ODQ_CHANGEMODE] = 'D' and src.[ODQ_ENTITYCNTR] = -1
                         then 'D'
+                    when src.[ODQ_CHANGEMODE] = 'С' and src.[ODQ_ENTITYCNTR] = 1
+                        then 'I'
                 end) as [t_lastActionCd]
             , GETUTCDATE() as [t_lastActionDtm]
         FROM [base_s4h_cax].[vw_C_BillingDocumentItemBasicDEX] as src

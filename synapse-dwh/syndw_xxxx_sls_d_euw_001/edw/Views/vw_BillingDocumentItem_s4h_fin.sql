@@ -1,6 +1,17 @@
 ﻿CREATE VIEW [edw].[vw_BillingDocumentItem_s4h_fin]
 AS
-WITH BDIwithMatType AS (
+WITH Product AS (
+    SELECT 
+        [ProductID]
+        ,[MaterialTypeID]
+    FROM
+        [edw].[dim_Product]
+    GROUP BY
+        [ProductID]
+        ,[MaterialTypeID]
+)
+,
+BDIwithMatType AS (
     SELECT 
         BDI.[BillingDocument]
     ,   BDI.[BillingDocumentItem]
@@ -26,6 +37,7 @@ WITH BDIwithMatType AS (
     ,   BDI.[SalesOrganizationID]
     ,   BDI.[DistributionChannelID]
     ,   BDI.[Material]
+    ,   COALESCE(VC.[ProductSurrogateKey],Product.[ProductID]) AS [ProductSurrogateKey]
     ,   BDI.[OriginallyRequestedMaterial]
     ,   BDI.[InternationalArticleNumber]
     ,   BDI.[PricingReferenceMaterial]
@@ -181,11 +193,19 @@ WITH BDIwithMatType AS (
     FROM 
         [edw].[vw_BillingDocumentItem_s4h] BDI
     LEFT JOIN
-        [edw].[dim_Product] Product
+        Product
         ON
             BDI.[Material] = Product.[ProductID]
+    LEFT JOIN
+        [edw].[fact_ProductHierarchyVariantConfigCharacteristic_active] AS VC
+        ON
+            BDI.[OriginSDDocument] = VC.[SalesDocument]
+            AND
+            BDI.[OriginSDDocumentItem] = VC.[SalesDocumentItem]    
+    WHERE BDI.[Material]<>'000000000070000019'
 )
-,BDwithFreight AS (
+,
+BDwithFreight AS (
     SELECT 
         [BillingDocument]
     ,   CurrencyTypeID
@@ -330,6 +350,29 @@ WITH BDIwithMatType AS (
         BillingDocument
     ,   CurrencyTypeID
 )
+,BDwithConditionAmount AS (
+    SELECT 
+        BDI.BillingDocument
+    ,   BDI.BillingDocumentItem
+    ,   BDI.CurrencyTypeID
+    ,   BDI.CurrencyID
+    ,   SUM(BDIPE.ConditionAmount) AS ConditionAmount 
+    FROM 
+        BDIwithMatType BDI
+    LEFT JOIN
+        [base_s4h_cax].[I_BillingDocumentItemPrcgElmnt] BDIPE
+        ON
+            BDI.[BillingDocument] = BDIPE.[BillingDocument]
+            AND
+            BDI.[BillingDocumentItem] = BDIPE.[BillingDocumentItem]
+            AND
+            BDIPE.[ConditionType] IN ('ZF60', 'ZF20', 'ZTMF', 'ZF10', 'ZM40')
+    GROUP BY 
+        BDI.BillingDocument
+    ,   BDI.BillingDocumentItem
+    ,   BDI.CurrencyTypeID
+    ,   BDI.CurrencyID
+)
 ,BDITotals AS (
     /*
 
@@ -359,6 +402,7 @@ WITH BDIwithMatType AS (
     ,   BDIwithMatType.[SalesOrganizationID]
     ,   BDIwithMatType.[DistributionChannelID]
     ,   BDIwithMatType.[Material]
+    ,   BDIwithMatType.[ProductSurrogateKey]
     ,   BDIwithMatType.[OriginallyRequestedMaterial]
     ,   BDIwithMatType.[InternationalArticleNumber]
     ,   BDIwithMatType.[PricingReferenceMaterial]
@@ -519,6 +563,7 @@ WITH BDIwithMatType AS (
     ,   BDwithEngServ.NetAmountEngServ
     ,   BDwithMisc.NetAmountMisc
     ,   BDwithServOther.NetAmountServOther
+    ,   BDwithConditionAmount.ConditionAmount
 --  ,   BDwithZVER.NetAmountZVER -- MPS 2021/11/04: removed as NetAmountZVER same as NetAmountVerp
     FROM 
         BDIwithMatType
@@ -575,7 +620,15 @@ WITH BDIwithMatType AS (
         ON
             BDIwithMatType.BillingDocument = BDexclZVERandZSER.BillingDocument
             AND
-            BDIwithMatType.CurrencyTypeID = BDexclZVERandZSER.CurrencyTypeID
+            BDIwithMatType.CurrencyTypeID = BDexclZVERandZSER.CurrencyTypeID    
+    LEFT JOIN
+        BDwithConditionAmount
+        ON 
+            BDIwithMatType.BillingDocument = BDwithConditionAmount.BillingDocument
+            AND            
+            BDIwithMatType.BillingDocumentItem = BDwithConditionAmount.BillingDocumentItem
+            AND
+            BDIwithMatType.CurrencyTypeID = BDwithConditionAmount.CurrencyTypeID
 )
 ,BDIFinancials AS (
     SELECT 
@@ -603,6 +656,7 @@ WITH BDIwithMatType AS (
     ,   [SalesOrganizationID]
     ,   [DistributionChannelID]
     ,   [Material]
+    ,   [ProductSurrogateKey]
     ,   [OriginallyRequestedMaterial]
     ,   [InternationalArticleNumber]
     ,   [PricingReferenceMaterial]
@@ -751,7 +805,7 @@ WITH BDIwithMatType AS (
     ,   [BillTo]
     ,   CASE
             WHEN [MaterialTypeID] NOT IN ('ZSER', 'ZVER')
-            THEN [NetAmount]
+            THEN [NetAmount] - [ConditionAmount]
             ELSE NULL
         END AS [FinNetAmountRealProduct]
     ,   CASE
@@ -760,7 +814,7 @@ WITH BDIwithMatType AS (
                 AND
                 [MaterialTypeID] NOT IN ('ZVER', 'ZSER')
             THEN 
-                [NetAmount] / [FinNetAmountSumBD] * NetAmountFreight
+                ([NetAmount] / [FinNetAmountSumBD] * NetAmountFreight) + [ConditionAmount]
             ELSE NULL
         END AS [FinNetAmountFreight]
     ,   CASE
@@ -846,6 +900,7 @@ WITH BDIwithMatType AS (
     ,   [SalesOrganizationID]
     ,   [DistributionChannelID]
     ,   'ZZZDUMMY02' AS [Material]
+    ,   'ZZZDUMMY02' AS [ProductSurrogateKey]
     ,   [OriginallyRequestedMaterial]
     ,   [InternationalArticleNumber]
     ,   [PricingReferenceMaterial]
@@ -1114,6 +1169,7 @@ SELECT
 ,   [SalesOrganizationID]
 ,   [DistributionChannelID]
 ,   [Material]
+,   [ProductSurrogateKey]
 ,   [OriginallyRequestedMaterial]
 ,   [InternationalArticleNumber]
 ,   [PricingReferenceMaterial]

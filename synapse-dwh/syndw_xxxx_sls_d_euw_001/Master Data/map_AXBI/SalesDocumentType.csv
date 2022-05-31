@@ -1,0 +1,5 @@
+source_SalesTypeID|target_SalesDocumentTypeID|target_SalesDocumentTypeName
+110|NULL|NULL
+4|RE|Returns
+3|ZOR|Standard Order
+101|NULL|NULL

@@ -14,7 +14,7 @@
 , [t_extractionDtm]		  DATETIME
 , [t_filePath]            NVARCHAR (1024)
 , CONSTRAINT [PK_I_PaymentTermsConditions] PRIMARY KEY NONCLUSTERED (
-    [PaymentTerms]
+    [PaymentTerms], [PaymentTermsValidityMonthDay]
   ) NOT ENFORCED
 )
 WITH (

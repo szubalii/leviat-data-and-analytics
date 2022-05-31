@@ -78,6 +78,7 @@
     [RETURNREASONCODEID]                     NVARCHAR (10)    NULL,
     [RETURNREASONCODEDESC]                   NVARCHAR (60)    NULL,
     [DW_Id_Itemid]                           BIGINT           NULL,
+	[OpenOrderId]                            NVARCHAR (20)    NULL,
     [DW_Batch]                               BIGINT           NULL,
     [DW_SourceCode]                          VARCHAR (15)     NOT NULL,
     [DW_TimeStamp]                           DATETIME         NOT NULL,

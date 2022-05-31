@@ -10,7 +10,7 @@ WITH BudgetBase_axbi as (
             docBud.[ITEMID],
             CAST(docBud.[ACCOUNTINGDATE] AS DATE)
         ) AS [nk_fact_Budget]
-    ,   DA.[LOCALCURRENCY]                                                                                                             AS [LOCALCURRENCY]
+    ,   DA.[LOCALCURRENCY] collate Latin1_General_100_BIN2                                                                             AS [LOCALCURRENCY]
     ,   CASE
             WHEN docBud.[BUDGETEUR] <> 0
                 THEN docBud.[BUDGETLOC] / docBud.[BUDGETEUR]
@@ -50,7 +50,18 @@ WITH BudgetBase_axbi as (
                    DA.[DATAAREAID] = SO.[source_DataAreaID]
                    and
                    [target_SalesOrganizationID] != 'TBD'
-)
+),
+EuroBudgetExchangeRateUSD as (
+    select
+         TargetCurrency
+        ,ExchangeRateEffectiveDate
+        ,ExchangeRate
+    from
+        edw.dim_ExchangeRates
+    where        
+        ExchangeRateType = 'ZAXBIBUD'
+        AND
+        SourceCurrency = 'USD')
 
 /*
     Local currency data from AX BI
@@ -115,3 +126,90 @@ FROM BudgetBase_axbi axbi30
 CROSS JOIN
      [edw].[dim_CurrencyType] CT
 WHERE CT.[CurrencyTypeID] = '30'
+
+UNION ALL
+/*
+    USD currency data from AX BI
+*/
+SELECT
+    axbi40.[nk_fact_Budget],
+    CT.[CurrencyTypeID] AS [CurrencyTypeID],
+    CT.[CurrencyType]   AS [CurrencyType],
+    'USD' AS [CurrencyID],
+    1/EuroBudgetExchangeRateUSD.[ExchangeRate] AS [ExchangeRate],
+    axbi40.[AccountingDate],
+    axbi40.[SalesOrganizationID],
+    axbi40.[SoldToParty],
+    axbi40.[BudgetEUR]*(1/EuroBudgetExchangeRateUSD.[ExchangeRate]) AS [FinSales100],
+    axbi40.[Year],
+    axbi40.[Month],
+    axbi40.[YearMonth],
+    axbi40.[axbi_DataAreaID],
+    axbi40.[axbi_DataAreaName],
+    axbi40.[axbi_DataAreaGroup],
+    axbi40.[axbi_MaterialID],
+    axbi40.[axbi_CustomerID],
+    axbi40.[MaterialCalculated],
+    axbi40.[SoldToPartyCalculated],
+    axbi40.[InOutID],
+    axbi40.[t_applicationId],
+    axbi40.[t_extractionDtm]
+FROM
+(SELECT
+    axbiUSD.[nk_fact_Budget],
+    axbiUSD.[AccountingDate],
+    axbiUSD.[SalesOrganizationID],
+    axbiUSD.[SoldToParty],
+    axbiUSD.[BudgetEUR],
+    axbiUSD.[Year],
+    axbiUSD.[Month],
+    axbiUSD.[YearMonth],
+    axbiUSD.[axbi_DataAreaID],
+    axbiUSD.[axbi_DataAreaName],
+    axbiUSD.[axbi_DataAreaGroup],
+    axbiUSD.[axbi_MaterialID],
+    axbiUSD.[axbi_CustomerID],
+    axbiUSD.[MaterialCalculated],
+    axbiUSD.[SoldToPartyCalculated],
+    axbiUSD.[InOutID],
+    axbiUSD.[t_applicationId],
+    axbiUSD.[t_extractionDtm],    
+    MAX([ExchangeRateEffectiveDate]) as [ExchangeRateEffectiveDate]
+FROM 
+    BudgetBase_axbi axbiUSD
+LEFT JOIN
+  EuroBudgetExchangeRateUSD
+      on
+          EuroBudgetExchangeRateUSD.TargetCurrency = 'EUR'
+where
+  [ExchangeRateEffectiveDate] <= [AccountingDate]
+group by
+    axbiUSD.[nk_fact_Budget],
+    axbiUSD.[AccountingDate],
+    axbiUSD.[SalesOrganizationID],
+    axbiUSD.[SoldToParty],
+    axbiUSD.[BudgetEUR],
+    axbiUSD.[Year],
+    axbiUSD.[Month],
+    axbiUSD.[YearMonth],
+    axbiUSD.[axbi_DataAreaID],
+    axbiUSD.[axbi_DataAreaName],
+    axbiUSD.[axbi_DataAreaGroup],
+    axbiUSD.[axbi_MaterialID],
+    axbiUSD.[axbi_CustomerID],
+    axbiUSD.[MaterialCalculated],
+    axbiUSD.[SoldToPartyCalculated],
+    axbiUSD.[InOutID],
+    axbiUSD.[t_applicationId],
+    axbiUSD.[t_extractionDtm]
+) axbi40
+left join
+    EuroBudgetExchangeRateUSD
+    ON
+        EuroBudgetExchangeRateUSD.[TargetCurrency] = 'EUR'
+        AND
+        axbi40.[ExchangeRateEffectiveDate] = EuroBudgetExchangeRateUSD.[ExchangeRateEffectiveDate]
+CROSS JOIN
+    [edw].[dim_CurrencyType] CT
+WHERE
+    CT.[CurrencyTypeID] = '40'

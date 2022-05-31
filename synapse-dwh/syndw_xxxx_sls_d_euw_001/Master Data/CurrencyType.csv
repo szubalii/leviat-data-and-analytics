@@ -1,0 +1,5 @@
+CurrencyTypeID;CurrencyType
+00;Transaction Currency
+10;Local Currency
+30;Group Currency EUR
+40;Group Currency USD

@@ -145,6 +145,7 @@ SalesDocumentItem_LC_EUR AS (
         ,SDI.[SDDocumentCategoryID] AS [SDI_SDDocumentCategory]
         ,SDI.[SDDocumentRejectionStatusID] AS [SDI_SDDocumentRejectionStatusID]
         ,SDI.[StorageLocationID] AS [SDI_StorageLocationID]
+        ,SDI.[SalesDocumentDate] AS [SDI_SalesDocumentDate]
     FROM
         [edw].[fact_SalesDocumentItem] AS SDI
     LEFT JOIN
@@ -195,6 +196,7 @@ SalesDocumentItem_LC_EUR AS (
         ,SDI.[SDDocumentCategoryID]
         ,SDI.[SDDocumentRejectionStatusID]
         ,SDI.[StorageLocationID]
+        ,SDI.[SalesDocumentDate]
 )
 ,
 ODIPerSDI AS (   
@@ -325,7 +327,7 @@ OutboundDeliveryItem_s4h AS (
         ,ODI.[SalesOffice]
         ,ODI.[SDDocumentItem]
         ,ODI.[SubsequentMovementType]
-        ,ODI.[TotalNetAmount] AS [TotalNetAmount_LC]
+        ,ODI.[TotalNetAmount] AS [HDR_TotalNetAmount_LC]
         ,ODI.[VarblShipgProcgDurationInDays]
         ,ODI.[UnlimitedOverdeliveryIsAllowed]
         ,ODI.[GLAccount] AS [GLAccountID]
@@ -364,6 +366,8 @@ OutboundDeliveryItem_s4h AS (
         ,OD.[ReceivingPlant] AS [HDR_ReceivingPlantID]
         ,OD.[DeletionIndicator] AS [HDR_DeletionIndicator]
         ,OD.[DeliveryDate] AS [HDR_DeliveryDate]
+        ,SDDCP.[Supplier] AS [HDR_CarrierID]
+        ,SPL.[SupplierName] AS [HDR_Carrier]
         ,SDI.[SDI_CreationDate]
         ,SDI.[SDI_RequestedDeliveryDate]
         ,SDI.[SDI_PricePerPiece_LC]
@@ -410,7 +414,71 @@ OutboundDeliveryItem_s4h AS (
         ,ODIPerSDI.[NrODIPerSDIAndQtyNot0]
         ,SDSLPerSDI.[NrSLInScope]
         ,OD.[PlannedGoodsIssueDate] AS [HDR_PlannedGoodsIssueDate]
+        ,CASE
+            WHEN
+                (OD.[PlannedGoodsIssueDate] IS NULL
+                OR
+                OD.[PlannedGoodsIssueDate]  = '0001-01-01')
+            THEN NULL
+            WHEN
+                DATENAME(weekday, OD.[PlannedGoodsIssueDate]) = 'Saturday'
+                AND
+                (OD.[PlannedGoodsIssueDate] < OD.[ActualGoodsMovementDate]
+                OR
+                OD.[ActualGoodsMovementDate] IS NULL)
+            THEN DATEADD(day, -1, OD.[PlannedGoodsIssueDate])
+            WHEN
+                DATENAME(weekday, OD.[PlannedGoodsIssueDate]) = 'Saturday'
+                AND
+                OD.[PlannedGoodsIssueDate] > OD.[ActualGoodsMovementDate]
+            THEN DATEADD(day, 2, OD.[PlannedGoodsIssueDate])
+            WHEN
+                DATENAME(weekday, OD.[PlannedGoodsIssueDate]) = 'Sunday'
+                AND
+                (OD.[PlannedGoodsIssueDate] < OD.[ActualGoodsMovementDate]
+                OR
+                OD.[ActualGoodsMovementDate] IS NULL)
+            THEN DATEADD(day, -2, OD.[PlannedGoodsIssueDate])
+            WHEN
+                DATENAME(weekday, OD.[PlannedGoodsIssueDate]) = 'Sunday'
+                AND
+                OD.[PlannedGoodsIssueDate] > OD.[ActualGoodsMovementDate]
+            THEN  DATEADD(day, 1, OD.[PlannedGoodsIssueDate])
+            ELSE OD.[PlannedGoodsIssueDate]
+        END AS [HDR_PlannedGoodsIssueDate_weekday] -- including logic to exclude weekends from HDR_PlannedGoodsIssueDate column
         ,OD.[ActualGoodsMovementDate] AS [HDR_ActualGoodsMovementDate]
+        ,CASE
+            WHEN
+                (OD.[ActualGoodsMovementDate] IS NULL
+                OR
+                OD.[ActualGoodsMovementDate]  = '0001-01-01')
+            THEN NULL
+            WHEN
+                DATENAME(weekday, OD.[ActualGoodsMovementDate]) = 'Saturday'
+                AND
+                (OD.[PlannedGoodsIssueDate] < OD.[ActualGoodsMovementDate]
+                OR
+                OD.[ActualGoodsMovementDate] IS NULL)
+            THEN DATEADD(day, 2, OD.[ActualGoodsMovementDate])
+            WHEN
+                DATENAME(weekday, OD.[ActualGoodsMovementDate]) = 'Saturday'
+                AND
+                OD.[PlannedGoodsIssueDate] > OD.[ActualGoodsMovementDate]
+            THEN DATEADD(day, -1, OD.[ActualGoodsMovementDate])
+           WHEN
+                DATENAME(weekday, OD.[ActualGoodsMovementDate]) = 'Sunday'
+                AND
+                (OD.[PlannedGoodsIssueDate] < OD.[ActualGoodsMovementDate]
+                OR
+                OD.[ActualGoodsMovementDate] IS NULL)
+            THEN DATEADD(day, 1, OD.[ActualGoodsMovementDate])
+             WHEN
+                DATENAME(weekday, OD.[ActualGoodsMovementDate]) = 'Sunday'
+                AND
+                OD.[PlannedGoodsIssueDate] > OD.[ActualGoodsMovementDate]
+            THEN  DATEADD(day, -2, OD.[ActualGoodsMovementDate])
+            ELSE OD.[ActualGoodsMovementDate]
+        END AS [HDR_ActualGoodsMovementDate_weekday] -- including logic to exclude weekends from HDR_ActualGoodsMovementDate column
         ,OD.[ShippingPoint] AS [HDR_ShippingPointID]
         ,OD.[OrderCombinationIsAllowed] AS [HDR_OrderCombinationIsAllowed]
         ,OD.[DeliveryPriority] AS	[HDR_DeliveryPriority]
@@ -515,6 +583,18 @@ OutboundDeliveryItem_s4h AS (
             WHEN ODIPerSDI.[ActDelQtyTotalForSDI] > SDI.[SDI_OrderQuantity]
             THEN 'Over Delivered'
             ELSE 'Under Delivered'
+         END AS [IF_Total_Group]
+        ,CASE
+            WHEN
+                ODI.[ActualDeliveryQuantity] IS NULL
+                OR
+                ODI.[ActualDeliveryQuantity] = 0
+            THEN NULL
+            WHEN SDI.[SDI_ConfdDelivQtyInOrderQtyUnit] = ODI.[ActualDeliveryQuantity]
+            THEN 'In Full Delivered'
+            WHEN SDI.[SDI_ConfdDelivQtyInOrderQtyUnit] > ODI.[ActualDeliveryQuantity]
+            THEN 'Over Delivered'
+            ELSE 'Under Delivered'
          END AS [IF_Group]
         ,CASE
             WHEN
@@ -538,21 +618,6 @@ OutboundDeliveryItem_s4h AS (
             THEN 'Y'
             ELSE 'N'
         END AS [NoActualDeliveredQtyFlag]
-        ,CASE
-            WHEN
-                (OD.[PlannedGoodsIssueDate] IS NULL
-                OR
-                OD.[PlannedGoodsIssueDate] = '0001-01-01')
-            THEN NULL
-            WHEN
-                (OD.[ActualGoodsMovementDate] IS NULL 
-                OR
-                OD.[ActualGoodsMovementDate] = '0001-01-01')
-                AND
-                OD.[PlannedGoodsIssueDate] < CONVERT (DATE, ODI.[t_extractionDtm])
-            THEN DATEDIFF(day, OD.[PlannedGoodsIssueDate], CONVERT(DATE,ODI.[t_extractionDtm]))
-            ELSE DATEDIFF(day, OD.[PlannedGoodsIssueDate],OD.[ActualGoodsMovementDate])
-        END AS [OTS_DaysDiff]
         ,CASE
             WHEN
                 OD.[PlannedGoodsIssueDate] IS NULL
@@ -582,25 +647,6 @@ OutboundDeliveryItem_s4h AS (
             ELSE 'Early'
         END AS [OTS_GIDateCheckGroup]
         ,CASE
-            WHEN
-                (OD.[PlannedGoodsIssueDate] IS NULL
-                OR
-                OD.[PlannedGoodsIssueDate] = '0001-01-01')
-            THEN NULL
-            WHEN
-                (OD.[ActualGoodsMovementDate] IS NULL
-                OR
-                OD.[ActualGoodsMovementDate] = '0001-01-01')
-                AND 
-                OD.[PlannedGoodsIssueDate] < CONVERT (DATE, ODI.[t_extractionDtm])
-            THEN 'Late'
-            WHEN OD.[ActualGoodsMovementDate] = OD.[PlannedGoodsIssueDate]
-            THEN 'OnTime'
-            WHEN OD.[ActualGoodsMovementDate] > OD.[PlannedGoodsIssueDate]
-            THEN 'Late'
-            ELSE 'Early'
-        END AS [OTS_Group]
-        ,CASE
             WHEN SDI.[SalesDocument] IS NULL
             THEN 'N'
             ELSE 'Y'
@@ -629,6 +675,34 @@ OutboundDeliveryItem_s4h AS (
             THEN NULL
             ELSE cdd.[CalculatedDelDate]
         END AS [CalculatedDelDate]
+      ,CASE
+           WHEN
+               OD.[ActualGoodsMovementDate] IS NULL
+               OR
+               OD.[ActualGoodsMovementDate] = '0001-01-01'
+               OR
+               SDI.[SDI_SalesDocumentDate] IS NULL
+               OR
+               SDI.[SDI_SalesDocumentDate] = '0001-01-01'
+           THEN 
+               NULL
+           ELSE 
+               DATEDIFF(day,SDI.[SDI_SalesDocumentDate],OD.[ActualGoodsMovementDate])
+       END AS [ActualLeadTime]
+      ,CASE
+           WHEN
+               SDI.[SDI_RequestedDeliveryDate] IS NULL
+               OR
+               SDI.[SDI_RequestedDeliveryDate] = '0001-01-01'
+               OR
+               SDI.[SDI_SalesDocumentDate] IS NULL
+               OR
+               SDI.[SDI_SalesDocumentDate] = '0001-01-01'
+           THEN 
+               NULL
+           ELSE 
+               DATEDIFF(day,SDI.[SDI_SalesDocumentDate],[SDI_RequestedDeliveryDate])
+       END AS [RequestedLeadTime] 
       ,ODI.[t_applicationId]
       ,ODI.[t_extractionDtm]
     FROM
@@ -673,6 +747,16 @@ OutboundDeliveryItem_s4h AS (
         CalculatedDelDate_calculation AS cdd
         ON
             ODI.[OutboundDelivery] = cdd.[OutboundDelivery]
+    LEFT JOIN 
+        [base_s4h_cax].[I_SDDocumentCompletePartners] AS SDDCP
+        ON
+            ODI.[OutboundDelivery] collate SQL_Latin1_General_CP1_CS_AS = SDDCP.[SDDocument]
+            AND
+            SDDCP.[PartnerFunction] = 'SP'
+    LEFT JOIN
+        [base_s4h_cax].[I_Supplier] AS SPL
+	    ON
+		    SDDCP.[Supplier] = SPL.[Supplier]
 )
 ,
 OutboundDeliveryItem_s4h_calculated AS (
@@ -736,7 +820,7 @@ OutboundDeliveryItem_s4h_calculated AS (
         ,[SalesOffice]
         ,[SDDocumentItem]
         ,[SubsequentMovementType]
-        ,[TotalNetAmount_LC]
+        ,[HDR_TotalNetAmount_LC]
         ,[VarblShipgProcgDurationInDays]
         ,[UnlimitedOverdeliveryIsAllowed]
         ,[GLAccountID]
@@ -763,6 +847,38 @@ OutboundDeliveryItem_s4h_calculated AS (
         ,[IntercompanyBillingStatusID]
         ,[IsReturnsItem] 
         ,[SL_ConfirmedDeliveryDate]
+        ,CASE
+            WHEN
+                ([SL_ConfirmedDeliveryDate] IS NULL
+                OR
+                [SL_ConfirmedDeliveryDate]  = '0001-01-01')
+            THEN NULL
+            WHEN
+                DATENAME(weekday, [SL_ConfirmedDeliveryDate]) = 'Saturday'
+                AND
+                ([SL_ConfirmedDeliveryDate] < [CalculatedDelDate]
+                OR
+                [CalculatedDelDate] IS NULL)
+            THEN DATEADD(day, -1, [SL_ConfirmedDeliveryDate])
+            WHEN
+                DATENAME(weekday, [SL_ConfirmedDeliveryDate]) = 'Saturday'
+                AND
+                [SL_ConfirmedDeliveryDate] > [CalculatedDelDate]
+            THEN DATEADD(day, 2, [SL_ConfirmedDeliveryDate])
+            WHEN
+                DATENAME(weekday, [SL_ConfirmedDeliveryDate]) = 'Sunday'
+                AND
+                ([SL_ConfirmedDeliveryDate] < [CalculatedDelDate]
+                OR
+                [CalculatedDelDate] IS NULL)
+            THEN DATEADD(day, -2, [SL_ConfirmedDeliveryDate])
+            WHEN
+                DATENAME(weekday, [SL_ConfirmedDeliveryDate]) = 'Sunday'
+                AND
+                [SL_ConfirmedDeliveryDate] > [CalculatedDelDate]
+            THEN  DATEADD(day, 1, [SL_ConfirmedDeliveryDate])
+            ELSE [SL_ConfirmedDeliveryDate]
+        END AS [SL_ConfirmedDeliveryDate_weekday] -- including logic to exclude weekends from SL_ConfirmedDeliveryDate column
         ,[SL_GoodsIssueDate]
         ,[SL_ScheduleLine]
         ,[HDR_SalesDistrictID]
@@ -775,6 +891,8 @@ OutboundDeliveryItem_s4h_calculated AS (
         ,[HDR_ReceivingPlantID]
         ,[HDR_DeletionIndicator]
         ,[HDR_DeliveryDate]
+        ,[HDR_CarrierID]
+        ,[HDR_Carrier]
         ,[SDI_CreationDate]
         ,[SDI_RequestedDeliveryDate]
         ,[SDI_PricePerPiece_LC]
@@ -804,36 +922,13 @@ OutboundDeliveryItem_s4h_calculated AS (
         ,[SDI_SDDocumentCategory]
         ,[SDI_SDDocumentRejectionStatusID]
         ,[SDI_StorageLocationID]
-        ,CASE
-            WHEN [OTS_Group] = 'OnTime'
-            THEN 1
-            ELSE 0
-        END AS [OTS_IsOnTime]
-      ,CASE
-            WHEN [OTS_Group] = 'Early'
-            THEN [OTS_DaysDiff]
-            ELSE 0
-        END AS [OTS_EarlyDays]
-      ,CASE
-            WHEN [OTS_Group] = 'Late'
-            THEN [OTS_DaysDiff]
-            ELSE 0
-        END AS [OTS_LateDays]
-      ,CASE
-            WHEN [OTS_Group] = 'Early'
-            THEN 1
-            ELSE 0
-        END AS [OTS_IsEarly]
-      ,CASE
-            WHEN [OTS_Group] = 'Late'
-            THEN 1
-            ELSE 0
-        END AS [OTS_IsLate]
         ,[RouteIsChangedFlag]
         ,[NrODIPerSDIAndQtyNot0]
         ,[NrSLInScope]
         ,[HDR_PlannedGoodsIssueDate]
+        ,[HDR_PlannedGoodsIssueDate_weekday]
         ,[HDR_ActualGoodsMovementDate]
+        ,[HDR_ActualGoodsMovementDate_weekday]
         ,[HDR_ShippingPointID]
         ,[HDR_OrderCombinationIsAllowed]
         ,[HDR_DeliveryPriority]
@@ -907,6 +1002,7 @@ OutboundDeliveryItem_s4h_calculated AS (
         ,[ProposedDeliveryRouteDurationInDays]
         ,[InOutID]
         ,[SDICreationDateIsODICreationDateFlag]
+        ,[IF_Total_Group]
         ,[IF_Group]
         ,[IF_IsInFullFlag]
         ,CASE
@@ -915,10 +1011,8 @@ OutboundDeliveryItem_s4h_calculated AS (
             ELSE 0
         END AS [IF_IsInFull]
         ,[NoActualDeliveredQtyFlag]
-        ,[OTS_DaysDiff]
         ,[OTS_GoodsIssueDateDiffInDays]
         ,[OTS_GIDateCheckGroup]
-        ,[OTS_Group]
         ,[SDAvailableFlag]
         ,[SDI_ConfQtyEqOrderQtyFlag]
         ,[SLAvailableFlag]
@@ -935,8 +1029,8 @@ OutboundDeliveryItem_s4h_calculated AS (
                 [SDI_ConfdDelivQtyInOrderQtyUnit] = 0
             THEN 'IF003'
             ELSE NULL
-      END AS [IF_DataQualityCode]
-      ,CASE
+        END AS [IF_DataQualityCode]
+        ,CASE
             WHEN [SDAvailableFlag] = 'N' 
             THEN 'OTD001'
             WHEN [SLAvailableFlag] = 'N' 
@@ -959,58 +1053,23 @@ OutboundDeliveryItem_s4h_calculated AS (
                 [SDI_StorageLocationID] IS NULL
             THEN 'OTD006'
             ELSE NULL
-      END AS [OTD_DataQualityCode]
-      ,CASE
+        END AS [OTD_DataQualityCode]
+        ,CASE
             WHEN [HDR_PlannedGoodsIssueDate] = '0001-01-01'
             THEN 'OTS001'
             WHEN [HDR_ActualGoodsMovementDate] = '0001-01-01'
             THEN 'OTS002'
             ELSE NULL
-      END AS [OTS_DataQualityCode]
-      ,[CalculatedDelDate]
-      ,CASE
-            WHEN
-                ([SL_ConfirmedDeliveryDate] IS NULL
-                OR
-                [SL_ConfirmedDeliveryDate]  = '0001-01-01')
-            THEN NULL
-            WHEN
-                ([CalculatedDelDate] IS NULL 
-                OR
-                [CalculatedDelDate] = '0001-01-01')
-                AND
-                [SL_ConfirmedDeliveryDate] < CONVERT (DATE, [t_extractionDtm])
-            THEN DATEDIFF(day, [SL_ConfirmedDeliveryDate], CONVERT(DATE, [t_extractionDtm]))
-            ELSE DATEDIFF(day, [SL_ConfirmedDeliveryDate], [CalculatedDelDate])
-      END AS [OTD_DaysDiff]
-      ,CASE
-            WHEN
-                [SL_ConfirmedDeliveryDate] IS NULL
-                OR
-                [SL_ConfirmedDeliveryDate] = '0001-01-01'
-				OR
-                [ActualDeliveryRouteDurationInDays] = 0
-            THEN NULL
-			WHEN
-                ([CalculatedDelDate] IS NULL
-                OR
-                [CalculatedDelDate] = '0001-01-01')
-				AND
-				[SL_ConfirmedDeliveryDate] < CONVERT (DATE, [t_extractionDtm])
-            THEN 'Late'
-            WHEN [CalculatedDelDate] = [SL_ConfirmedDeliveryDate]
-            THEN 'OnTime'
-            WHEN
-                [CalculatedDelDate] > [SL_ConfirmedDeliveryDate]
-            THEN 'Late'
-            ELSE 'Early'
-      END AS [OTD_Group]
+        END AS [OTS_DataQualityCode]
+        ,[CalculatedDelDate]
+        ,[ActualLeadTime]
+        ,[RequestedLeadTime]
         ,[t_applicationId]
         ,[t_extractionDtm]
     FROM OutboundDeliveryItem_s4h
 )
 ,
-OutboundDeliveryItem_s4h_OTDIF_calculated AS (
+OTS_OTD_DaysDiff_calculation AS (
 SELECT
         [nk_fact_OutboundDeliveryItem]
         ,[OutboundDelivery]
@@ -1071,7 +1130,7 @@ SELECT
         ,[SalesOffice]
         ,[SDDocumentItem]
         ,[SubsequentMovementType]
-        ,[TotalNetAmount_LC]
+        ,[HDR_TotalNetAmount_LC]
         ,[VarblShipgProcgDurationInDays]
         ,[UnlimitedOverdeliveryIsAllowed]
         ,[GLAccountID]
@@ -1110,6 +1169,8 @@ SELECT
         ,[HDR_ReceivingPlantID]
         ,[HDR_DeletionIndicator]
         ,[HDR_DeliveryDate]
+        ,[HDR_CarrierID]
+        ,[HDR_Carrier]
         ,[SDI_CreationDate]
         ,[SDI_RequestedDeliveryDate]
         ,[SDI_PricePerPiece_LC]
@@ -1139,37 +1200,9 @@ SELECT
         ,[SDI_SDDocumentCategory]
         ,[SDI_SDDocumentRejectionStatusID]
         ,[SDI_StorageLocationID]
-        ,[OTS_IsOnTime]
-        ,[OTS_EarlyDays]
-        ,[OTS_LateDays]
-        ,[OTS_IsEarly]
-        ,[OTS_IsLate]
         ,[RouteIsChangedFlag]
         ,[NrODIPerSDIAndQtyNot0]
         ,[NrSLInScope]
-        ,CASE
-            WHEN [OTS_Group] IS NULL
-            THEN NULL
-            WHEN
-                [OTS_IsOnTime] = 1 
-                AND
-                [IF_IsInFull] = 1
-            THEN 'OTIF'
-            WHEN
-                [OTS_IsOnTime] = 1
-                AND [IF_IsInFull] = 0
-            THEN 'OTNIF'
-            WHEN
-                [OTS_IsOnTime] = 0
-                AND
-                [IF_IsInFull] = 1
-            THEN 'NOTIF'
-            WHEN
-                [OTS_IsOnTime] = 0
-                AND
-                [IF_IsInFull] = 0
-            THEN 'NOTNIF'
-        END AS [OTSIF_OnTimeShipInFull]
         ,[HDR_PlannedGoodsIssueDate]
         ,[HDR_ActualGoodsMovementDate]
         ,[HDR_ShippingPointID]
@@ -1245,14 +1278,34 @@ SELECT
         ,[ProposedDeliveryRouteDurationInDays]
         ,[InOutID]
         ,[SDICreationDateIsODICreationDateFlag]
+        ,[IF_Total_Group]
         ,[IF_Group]
         ,[IF_IsInFullFlag]
         ,[IF_IsInFull]
         ,[NoActualDeliveredQtyFlag]
-        ,[OTS_DaysDiff]
+        ,CASE
+            WHEN
+                ([HDR_PlannedGoodsIssueDate_weekday] IS NULL
+                OR
+                [HDR_PlannedGoodsIssueDate_weekday] = '0001-01-01')
+            THEN NULL
+            WHEN
+                ([HDR_ActualGoodsMovementDate_weekday] IS NULL 
+                OR
+                [HDR_ActualGoodsMovementDate_weekday] = '0001-01-01')
+                AND
+                [HDR_PlannedGoodsIssueDate_weekday] < CONVERT (DATE, GETUTCDATE())
+            THEN
+                (DATEDIFF(day, [HDR_PlannedGoodsIssueDate_weekday], CONVERT (DATE, GETUTCDATE()))) -- count of all days diff
+                 -(DATEDIFF(week, [HDR_PlannedGoodsIssueDate_weekday], CONVERT (DATE, GETUTCDATE())) * 2) -- count of weekends
+            WHEN [HDR_ActualGoodsMovementDate_weekday] = '0001-01-01'
+			THEN NULL
+            ELSE
+                (DATEDIFF(day, [HDR_PlannedGoodsIssueDate_weekday], [HDR_ActualGoodsMovementDate_weekday])) -- count of all days diff
+                 -(DATEDIFF(week, [HDR_PlannedGoodsIssueDate_weekday], [HDR_ActualGoodsMovementDate_weekday]) * 2) -- count of weekends
+        END AS [OTS_DaysDiff]
         ,[OTS_GoodsIssueDateDiffInDays]
         ,[OTS_GIDateCheckGroup]
-        ,[OTS_Group]
         ,[SDAvailableFlag]
         ,[SDI_ConfQtyEqOrderQtyFlag]
         ,[SLAvailableFlag]
@@ -1260,37 +1313,33 @@ SELECT
         ,[OTD_DataQualityCode]
         ,[OTS_DataQualityCode]
         ,[CalculatedDelDate]
-        ,[OTD_DaysDiff]
-        ,[OTD_Group]
+        ,[ActualLeadTime]
+        ,[RequestedLeadTime]
         ,CASE
-            WHEN [OTD_Group] = 'Early'
-            THEN [OTD_DaysDiff]
-            ELSE 0
-        END AS [OTD_EarlyDays]
-      ,CASE
-            WHEN [OTD_Group] = 'Early'
-            THEN 1
-            ELSE 0
-        END AS [OTD_IsEarly]
-      ,CASE
-            WHEN [OTD_Group] = 'Late'
-            THEN 1
-            ELSE 0
-        END AS [OTD_IsLate]
-      ,CASE
-            WHEN [OTD_Group] = 'OnTime'
-            THEN 1
-            ELSE 0
-        END AS [OTD_IsOnTime]
-      ,CASE
-            WHEN [OTD_Group] = 'Late'
-            THEN [OTD_DaysDiff]
-            ELSE 0
-        END AS [OTD_LateDays]
+            WHEN
+                ([SL_ConfirmedDeliveryDate_weekday] IS NULL
+                OR
+                [SL_ConfirmedDeliveryDate_weekday]  = '0001-01-01')
+            THEN NULL
+            WHEN
+                ([CalculatedDelDate] IS NULL 
+                OR
+                [CalculatedDelDate] = '0001-01-01')
+                AND
+                [SL_ConfirmedDeliveryDate_weekday] < CONVERT (DATE, GETUTCDATE())
+            THEN
+                (DATEDIFF(day, [SL_ConfirmedDeliveryDate_weekday], CONVERT (DATE, GETUTCDATE()))) -- count of all days diff
+                 -(DATEDIFF(week, [SL_ConfirmedDeliveryDate_weekday], CONVERT (DATE, GETUTCDATE())) * 2) -- subtracting the amount of weekends
+            ELSE
+                (DATEDIFF(day, [SL_ConfirmedDeliveryDate_weekday], [CalculatedDelDate])) -- count of all days diff
+                 -(DATEDIFF(week, [SL_ConfirmedDeliveryDate_weekday], [CalculatedDelDate]) * 2) -- count of weekends
+        END AS [OTD_DaysDiff]
         ,[t_applicationId]
         ,[t_extractionDtm]
     FROM OutboundDeliveryItem_s4h_calculated
 )
+,
+OTS_OTD_Group_calculation AS (
 SELECT
     [nk_fact_OutboundDeliveryItem]
     ,[OutboundDelivery]
@@ -1351,7 +1400,7 @@ SELECT
     ,[SalesOffice]
     ,[SDDocumentItem]
     ,[SubsequentMovementType]
-    ,[TotalNetAmount_LC]
+    ,[HDR_TotalNetAmount_LC]
     ,[VarblShipgProcgDurationInDays]
     ,[UnlimitedOverdeliveryIsAllowed]
     ,[GLAccountID]
@@ -1390,6 +1439,8 @@ SELECT
     ,[HDR_ReceivingPlantID]
     ,[HDR_DeletionIndicator]
     ,[HDR_DeliveryDate]
+    ,[HDR_CarrierID]
+    ,[HDR_Carrier]
     ,[SDI_CreationDate]
     ,[SDI_RequestedDeliveryDate]
     ,[SDI_PricePerPiece_LC]
@@ -1419,15 +1470,9 @@ SELECT
     ,[SDI_SDDocumentCategory]
     ,[SDI_SDDocumentRejectionStatusID]
     ,[SDI_StorageLocationID]
-    ,[OTS_IsOnTime]
-    ,[OTS_EarlyDays]
-    ,[OTS_LateDays]
-    ,[OTS_IsEarly]
-    ,[OTS_IsLate]
     ,[RouteIsChangedFlag]
     ,[NrODIPerSDIAndQtyNot0]
     ,[NrSLInScope]
-    ,[OTSIF_OnTimeShipInFull]
     ,[HDR_PlannedGoodsIssueDate]
     ,[HDR_ActualGoodsMovementDate]
     ,[HDR_ShippingPointID]
@@ -1503,6 +1548,285 @@ SELECT
     ,[ProposedDeliveryRouteDurationInDays]
     ,[InOutID]
     ,[SDICreationDateIsODICreationDateFlag]
+    ,[IF_Total_Group]
+    ,[IF_Group]
+    ,[IF_IsInFullFlag]
+    ,[IF_IsInFull]
+    ,[NoActualDeliveredQtyFlag]
+    ,[OTS_DaysDiff]
+    ,[OTS_GoodsIssueDateDiffInDays]
+    ,[OTS_GIDateCheckGroup]
+        ,CASE
+	        WHEN [OTS_DaysDiff] IS NULL
+	        THEN NULL
+	        WHEN [OTS_DaysDiff] = 0
+	        THEN 'OnTime'
+	        WHEN [OTS_DaysDiff] < 0
+	        THEN 'Early'
+	        WHEN [OTS_DaysDiff] > 0
+            THEN 'Late'
+        END AS [OTS_Group]
+    ,[SDAvailableFlag]
+    ,[SDI_ConfQtyEqOrderQtyFlag]
+    ,[SLAvailableFlag]
+    ,[IF_DataQualityCode]
+    ,[OTD_DataQualityCode]
+    ,[OTS_DataQualityCode]
+    ,[CalculatedDelDate]
+    ,[ActualLeadTime]
+    ,[RequestedLeadTime]
+    ,[OTD_DaysDiff]
+    ,CASE
+        WHEN [OTD_DaysDiff] IS NULL
+        THEN NULL
+        WHEN [OTD_DaysDiff] = 0
+        THEN 'OnTime'
+        WHEN [OTD_DaysDiff] < 0
+        THEN 'Early'
+        WHEN [OTD_DaysDiff] > 0
+        THEN 'Late'
+    END AS [OTD_Group]
+    ,[t_applicationId]
+    ,[t_extractionDtm]
+FROM
+	OTS_OTD_DaysDiff_calculation
+)
+,
+OTS_OTD_Is_Days_calculation AS (
+SELECT
+    [nk_fact_OutboundDeliveryItem]
+    ,[OutboundDelivery]
+    ,[OutboundDeliveryItem]
+    ,[DeliveryDocumentItemCategoryID]
+    ,[SalesDocumentItemTypeID]
+    ,[CreatedByUserID]
+    ,[CreationDate]
+    ,[CreationTime]
+    ,[LastChangeDate]
+    ,[DistributionChannelID]
+    ,[ProductID]
+    ,[OriginallyRequestedMaterialID]
+    ,[ProductGroupID]
+    ,[PlantID]
+    ,[WarehouseID]
+    ,[StorageLocationID]
+    ,[HigherLevelItem]
+    ,[ActualDeliveryQuantity]
+    ,[ActDelQtyTotalForSDI]
+    ,[DeliveryQuantityUnit]
+    ,[ActualDeliveredQtyInBaseUnit]
+    ,[BaseUnit]
+    ,[Batch]
+    ,[BatchClassification]
+    ,[BusinessArea]
+    ,[ChmlCmplncStatusID]
+    ,[ControllingArea]
+    ,[CostCenter]
+    ,[CostInDocumentCurrency]
+    ,[CreditRelatedPrice]
+    ,[DangerousGoodsStatusID]
+    ,[DeliveryGroup]
+    ,[Division]
+    ,[FixedShipgProcgDurationInDays]
+    ,[FunctionalArea]
+    ,[GoodsMovementType]
+    ,[InventorySpecialStockType]
+    ,[IsNotGoodsMovementsRelevant]
+    ,[ItemGrossWeight]
+    ,[ItemNetWeight]
+    ,[ItemVolume]
+    ,[ItemVolumeUnit]
+    ,[ItemWeightUnit]
+    ,[LoadingGroup]
+    ,[NetPriceAmount_LC]
+    ,[OrderDocument]
+    ,[OrderID]
+    ,[OrderItem]
+    ,[OriginalDeliveryQuantity]
+    ,[OriginSDDocument]
+    ,[OverdelivTolrtdLmtRatioInPct]
+    ,[PartialDeliveryIsAllowed]
+    ,[PlanningPlant]
+    ,[ProductAvailabilityDate]
+    ,[ProfitCenterID]
+    ,[SalesGroup]
+    ,[SalesOffice]
+    ,[SDDocumentItem]
+    ,[SubsequentMovementType]
+    ,[HDR_TotalNetAmount_LC]
+    ,[VarblShipgProcgDurationInDays]
+    ,[UnlimitedOverdeliveryIsAllowed]
+    ,[GLAccountID]
+    ,[IsCompletelyDelivered]
+    ,[ReceivingPoint]
+    ,[ItemIsBillingRelevant]
+    ,[ReferenceSDDocument]
+    ,[ReferenceSDDocumentItem]
+    ,[ReferenceSDDocumentCategoryID]
+    ,[SDProcessStatusID]
+    ,[PickingConfirmationStatusID]
+    ,[PickingStatusID]
+    ,[WarehouseActivityStatusID]
+    ,[PackingStatusID]
+    ,[GoodsMovementStatusID]
+    ,[DeliveryRelatedBillingStatusID]
+    ,[ProofOfDeliveryStatusID]
+    ,[ItemGeneralIncompletionStatusID]
+    ,[ItemDeliveryIncompletionStatusID]
+    ,[ItemPickingIncompletionStatusID]
+    ,[ItemGdsMvtIncompletionStsID]
+    ,[ItemPackingIncompletionStatusID]
+    ,[ItemBillingIncompletionStatusID]
+    ,[IntercompanyBillingStatusID]
+    ,[IsReturnsItem] 
+    ,[SL_ConfirmedDeliveryDate]
+    ,[SL_GoodsIssueDate]
+    ,[SL_ScheduleLine]
+    ,[HDR_SalesDistrictID]
+    ,[HDR_SalesOrganizationID]
+    ,[HDR_SoldToPartyID]
+    ,[HDR_ShipToPartyID]
+    ,[HDR_DeliveryDocumentTypeID]
+    ,[HDR_CompleteDeliveryIsDefined]
+    ,[HDR_SupplierID]
+    ,[HDR_ReceivingPlantID]
+    ,[HDR_DeletionIndicator]
+    ,[HDR_DeliveryDate]
+    ,[HDR_CarrierID]
+    ,[HDR_Carrier]
+    ,[SDI_CreationDate]
+    ,[SDI_RequestedDeliveryDate]
+    ,[SDI_PricePerPiece_LC]
+    ,[SDI_PricePerPiece_EUR]
+    ,[SDI_LocalCurrency]
+    ,[SDI_SalesDocumentTypeID]
+    ,[SDI_IsReturnsItemID]
+    ,[SDI_BillToParty]
+    ,[SDI_ConfdDeliveryQtyInBaseUnit]
+    ,[SDI_ConfdDelivQtyInOrderQtyUnit]
+    ,[SDI_CostAmount_LC]
+    ,[SDI_CostAmount_EUR]
+    ,[SDI_DeliveryBlockStatusID]
+    ,[SDI_ExchangeRateDate]
+    ,[SDI_ExchangeRateType]
+    ,[SDI_NetAmount_LC]
+    ,[SDI_NetAmount_EUR]
+    ,[SDI_NetPriceQuantityUnit]
+    ,[SDI_OrderID]
+    ,[SDI_OrderQuantity]
+    ,[SDI_OrderQuantityUnit]
+    ,[SDI_OverallTotalDeliveryStatusID]
+    ,[SDI_PayerParty]
+    ,[SDI_Route]
+    ,[SDI_SalesDocumentItemCategory]
+    ,[SDI_SalesOrganizationCurrency]
+    ,[SDI_SDDocumentCategory]
+    ,[SDI_SDDocumentRejectionStatusID]
+    ,[SDI_StorageLocationID]
+    ,CASE
+        WHEN [OTS_Group] = 'OnTime'
+        THEN 1
+        ELSE 0
+        END AS [OTS_IsOnTime]
+    ,CASE
+        WHEN [OTS_Group] = 'Early'
+        THEN [OTS_DaysDiff]
+        ELSE 0
+        END AS [OTS_EarlyDays]
+    ,CASE
+        WHEN [OTS_Group] = 'Late'
+        THEN [OTS_DaysDiff]
+        ELSE 0
+        END AS [OTS_LateDays]
+    ,CASE
+        WHEN [OTS_Group] = 'Early'
+        THEN 1
+        ELSE 0
+    END AS [OTS_IsEarly]
+    ,CASE
+        WHEN [OTS_Group] = 'Late'
+        THEN 1
+        ELSE 0
+    END AS [OTS_IsLate]
+    ,[RouteIsChangedFlag]
+    ,[NrODIPerSDIAndQtyNot0]
+    ,[NrSLInScope]
+    ,[HDR_PlannedGoodsIssueDate]
+    ,[HDR_ActualGoodsMovementDate]
+    ,[HDR_ShippingPointID]
+    ,[HDR_OrderCombinationIsAllowed]
+    ,[HDR_DeliveryPriority]
+    ,[HDR_DeliveryBlockReason]
+    ,[HDR_DeliveryDocumentBySupplier]
+    ,[HDR_DeliveryIsInPlant]
+    ,[HDR_OrderID]
+    ,[HDR_PickingDate]
+    ,[HDR_LoadingDate]
+    ,[HDR_ShippingType]
+    ,[HDR_ShippingCondition]
+    ,[HDR_ShipmentBlockReason]
+    ,[HDR_TransportationPlanningDate]
+    ,[HDR_ProposedDeliveryRoute]
+    ,[HDR_ActualDeliveryRoute]
+    ,[HDR_RouteSchedule]
+    ,[HDR_IncotermsClassification]
+    ,[HDR_IncotermsTransferLocation]
+    ,[HDR_TransportationGroup]
+    ,[HDR_MeansOfTransport]
+    ,[HDR_MeansOfTransportType]
+    ,[HDR_ProofOfDeliveryDate]
+    ,[HDR_CustomerGroup]
+    ,[HDR_TotalBlockStatusID]
+    ,[HDR_TransportationPlanningStatusID]
+    ,[HDR_OverallPickingConfStatusID]
+    ,[HDR_OverallPickingStatusID]
+    ,[HDR_OverallPackingStatusID]
+    ,[HDR_OverallGoodsMovementStatusID]
+    ,[HDR_OverallProofOfDeliveryStatusID]
+    ,[HDR_IntercompanyBillingType]
+    ,[HDR_IntercompanyBillingCustomer]
+    ,[HDR_TotalNetAmount]
+    ,[HDR_ReferenceDocumentNumber]
+    ,[HDR_CreatedByUser]
+    ,[HDR_DocumentDate]
+    ,[HDR_ExternalTransportSystem]
+    ,[HDR_HdrGeneralIncompletionStatusID]
+    ,[HDR_HdrGoodsMvtIncompletionStatusID]
+    ,[HDR_HeaderBillgIncompletionStatusID]
+    ,[HDR_HeaderBillingBlockReason]
+    ,[HDR_HeaderDelivIncompletionStatusID]
+    ,[HDR_HeaderPackingIncompletionSts]
+    ,[HDR_HeaderPickgIncompletionStatusID]
+    ,[HDR_IsExportDelivery]
+    ,[HDR_LastChangeDate]
+    ,[HDR_LastChangedByUser]
+    ,[HDR_LoadingPoint]
+    ,[HDR_OverallChmlCmplncStatusID]
+    ,[HDR_OverallDangerousGoodsStatusID]
+    ,[HDR_OverallDelivConfStatusID]
+    ,[HDR_OverallDelivReltdBillgStatusID]
+    ,[HDR_OverallIntcoBillingStatusID]
+    ,[HDR_OverallSafetyDataSheetStatusID]
+    ,[HDR_OverallSDProcessStatusID]
+    ,[HDR_OverallWarehouseActivityStatusID]
+    ,[HDR_OvrlItmDelivIncompletionSts]
+    ,[HDR_OvrlItmGdsMvtIncompletionSts]
+    ,[HDR_OvrlItmGeneralIncompletionSts]
+    ,[HDR_OvrlItmPackingIncompletionSts]
+    ,[HDR_OvrlItmPickingIncompletionSts]
+    ,[HDR_ShippingGroupNumber]
+    ,[HDR_TotalNumberOfPackage]
+    ,[HDR_TransactionCurrency]
+    ,[Currency_EUR]
+    ,[ActualDeliveryRouteName]
+    ,[ActualDeliveryRouteDurationInHrs]
+    ,[ProposedDeliveryRouteName]
+    ,[ProposedDeliveryRouteDurationInHrs]
+    ,[ActualDeliveryRouteDurationInDays]
+    ,[ProposedDeliveryRouteDurationInDays]
+    ,[InOutID]
+    ,[SDICreationDateIsODICreationDateFlag]
+    ,[IF_Total_Group]
     ,[IF_Group]
     ,[IF_IsInFullFlag]
     ,[IF_IsInFull]
@@ -1518,6 +1842,294 @@ SELECT
     ,[OTD_DataQualityCode]
     ,[OTS_DataQualityCode]
     ,[CalculatedDelDate]
+    ,[ActualLeadTime]
+    ,[RequestedLeadTime]
+    ,[OTD_DaysDiff]
+    ,[OTD_Group]
+    ,CASE
+        WHEN [OTD_Group] = 'Early'
+        THEN [OTD_DaysDiff]
+        ELSE 0
+    END AS [OTD_EarlyDays]
+    ,CASE
+        WHEN [OTD_Group] = 'Early'
+        THEN 1
+            ELSE 0
+        END AS [OTD_IsEarly]
+    ,CASE
+        WHEN [OTD_Group] = 'Late'
+        THEN 1
+        ELSE 0
+    END AS [OTD_IsLate]
+    ,CASE
+        WHEN [OTD_Group] = 'OnTime'
+        THEN 1
+        ELSE 0
+    END AS [OTD_IsOnTime]
+    ,CASE
+        WHEN [OTD_Group] = 'Late'
+        THEN [OTD_DaysDiff]
+        ELSE 0
+    END AS [OTD_LateDays]
+    ,[t_applicationId]
+    ,[t_extractionDtm]
+FROM
+	OTS_OTD_Group_calculation
+)
+SELECT
+    [nk_fact_OutboundDeliveryItem]
+    ,[OutboundDelivery]
+    ,[OutboundDeliveryItem]
+    ,[DeliveryDocumentItemCategoryID]
+    ,[SalesDocumentItemTypeID]
+    ,[CreatedByUserID]
+    ,[CreationDate]
+    ,[CreationTime]
+    ,[LastChangeDate]
+    ,[DistributionChannelID]
+    ,[ProductID]
+    ,[OriginallyRequestedMaterialID]
+    ,[ProductGroupID]
+    ,[PlantID]
+    ,[WarehouseID]
+    ,[StorageLocationID]
+    ,[HigherLevelItem]
+    ,[ActualDeliveryQuantity]
+    ,[ActDelQtyTotalForSDI]
+    ,[DeliveryQuantityUnit]
+    ,[ActualDeliveredQtyInBaseUnit]
+    ,[BaseUnit]
+    ,[Batch]
+    ,[BatchClassification]
+    ,[BusinessArea]
+    ,[ChmlCmplncStatusID]
+    ,[ControllingArea]
+    ,[CostCenter]
+    ,[CostInDocumentCurrency]
+    ,[CreditRelatedPrice]
+    ,[DangerousGoodsStatusID]
+    ,[DeliveryGroup]
+    ,[Division]
+    ,[FixedShipgProcgDurationInDays]
+    ,[FunctionalArea]
+    ,[GoodsMovementType]
+    ,[InventorySpecialStockType]
+    ,[IsNotGoodsMovementsRelevant]
+    ,[ItemGrossWeight]
+    ,[ItemNetWeight]
+    ,[ItemVolume]
+    ,[ItemVolumeUnit]
+    ,[ItemWeightUnit]
+    ,[LoadingGroup]
+    ,[NetPriceAmount_LC]
+    ,[OrderDocument]
+    ,[OrderID]
+    ,[OrderItem]
+    ,[OriginalDeliveryQuantity]
+    ,[OriginSDDocument]
+    ,[OverdelivTolrtdLmtRatioInPct]
+    ,[PartialDeliveryIsAllowed]
+    ,[PlanningPlant]
+    ,[ProductAvailabilityDate]
+    ,[ProfitCenterID]
+    ,[SalesGroup]
+    ,[SalesOffice]
+    ,[SDDocumentItem]
+    ,[SubsequentMovementType]
+    ,[HDR_TotalNetAmount_LC]
+    ,[VarblShipgProcgDurationInDays]
+    ,[UnlimitedOverdeliveryIsAllowed]
+    ,[GLAccountID]
+    ,[IsCompletelyDelivered]
+    ,[ReceivingPoint]
+    ,[ItemIsBillingRelevant]
+    ,[ReferenceSDDocument]
+    ,[ReferenceSDDocumentItem]
+    ,[ReferenceSDDocumentCategoryID]
+    ,[SDProcessStatusID]
+    ,[PickingConfirmationStatusID]
+    ,[PickingStatusID]
+    ,[WarehouseActivityStatusID]
+    ,[PackingStatusID]
+    ,[GoodsMovementStatusID]
+    ,[DeliveryRelatedBillingStatusID]
+    ,[ProofOfDeliveryStatusID]
+    ,[ItemGeneralIncompletionStatusID]
+    ,[ItemDeliveryIncompletionStatusID]
+    ,[ItemPickingIncompletionStatusID]
+    ,[ItemGdsMvtIncompletionStsID]
+    ,[ItemPackingIncompletionStatusID]
+    ,[ItemBillingIncompletionStatusID]
+    ,[IntercompanyBillingStatusID]
+    ,[IsReturnsItem] 
+    ,[SL_ConfirmedDeliveryDate]
+    ,[SL_GoodsIssueDate]
+    ,[SL_ScheduleLine]
+    ,[HDR_SalesDistrictID]
+    ,[HDR_SalesOrganizationID]
+    ,[HDR_SoldToPartyID]
+    ,[HDR_ShipToPartyID]
+    ,[HDR_DeliveryDocumentTypeID]
+    ,[HDR_CompleteDeliveryIsDefined]
+    ,[HDR_SupplierID]
+    ,[HDR_ReceivingPlantID]
+    ,[HDR_DeletionIndicator]
+    ,[HDR_DeliveryDate]
+    ,[HDR_CarrierID]
+    ,[HDR_Carrier]
+    ,[SDI_CreationDate]
+    ,[SDI_RequestedDeliveryDate]
+    ,[SDI_PricePerPiece_LC]
+    ,[SDI_PricePerPiece_EUR]
+    ,[SDI_LocalCurrency]
+    ,[SDI_SalesDocumentTypeID]
+    ,[SDI_IsReturnsItemID]
+    ,[SDI_BillToParty]
+    ,[SDI_ConfdDeliveryQtyInBaseUnit]
+    ,[SDI_ConfdDelivQtyInOrderQtyUnit]
+    ,[SDI_CostAmount_LC]
+    ,[SDI_CostAmount_EUR]
+    ,[SDI_DeliveryBlockStatusID]
+    ,[SDI_ExchangeRateDate]
+    ,[SDI_ExchangeRateType]
+    ,[SDI_NetAmount_LC]
+    ,[SDI_NetAmount_EUR]
+    ,[SDI_NetPriceQuantityUnit]
+    ,[SDI_OrderID]
+    ,[SDI_OrderQuantity]
+    ,[SDI_OrderQuantityUnit]
+    ,[SDI_OverallTotalDeliveryStatusID]
+    ,[SDI_PayerParty]
+    ,[SDI_Route]
+    ,[SDI_SalesDocumentItemCategory]
+    ,[SDI_SalesOrganizationCurrency]
+    ,[SDI_SDDocumentCategory]
+    ,[SDI_SDDocumentRejectionStatusID]
+    ,[SDI_StorageLocationID]
+    ,[OTS_IsOnTime]
+    ,[OTS_EarlyDays]
+    ,[OTS_LateDays]
+    ,[OTS_IsEarly]
+    ,[OTS_IsLate]
+    ,[RouteIsChangedFlag]
+    ,[NrODIPerSDIAndQtyNot0]
+    ,[NrSLInScope]
+    ,CASE
+            WHEN [OTS_Group] IS NULL
+            THEN NULL
+            WHEN
+                [OTS_IsOnTime] = 1 
+                AND
+                [IF_IsInFull] = 1
+            THEN 'OTIF'
+            WHEN
+                [OTS_IsOnTime] = 1
+                AND [IF_IsInFull] = 0
+            THEN 'OTNIF'
+            WHEN
+                [OTS_IsOnTime] = 0
+                AND
+                [IF_IsInFull] = 1
+            THEN 'NOTIF'
+            WHEN
+                [OTS_IsOnTime] = 0
+                AND
+                [IF_IsInFull] = 0
+            THEN 'NOTNIF'
+        END AS [OTSIF_OnTimeShipInFull]
+    ,[HDR_PlannedGoodsIssueDate]
+    ,[HDR_ActualGoodsMovementDate]
+    ,[HDR_ShippingPointID]
+    ,[HDR_OrderCombinationIsAllowed]
+    ,[HDR_DeliveryPriority]
+    ,[HDR_DeliveryBlockReason]
+    ,[HDR_DeliveryDocumentBySupplier]
+    ,[HDR_DeliveryIsInPlant]
+    ,[HDR_OrderID]
+    ,[HDR_PickingDate]
+    ,[HDR_LoadingDate]
+    ,[HDR_ShippingType]
+    ,[HDR_ShippingCondition]
+    ,[HDR_ShipmentBlockReason]
+    ,[HDR_TransportationPlanningDate]
+    ,[HDR_ProposedDeliveryRoute]
+    ,[HDR_ActualDeliveryRoute]
+    ,[HDR_RouteSchedule]
+    ,[HDR_IncotermsClassification]
+    ,[HDR_IncotermsTransferLocation]
+    ,[HDR_TransportationGroup]
+    ,[HDR_MeansOfTransport]
+    ,[HDR_MeansOfTransportType]
+    ,[HDR_ProofOfDeliveryDate]
+    ,[HDR_CustomerGroup]
+    ,[HDR_TotalBlockStatusID]
+    ,[HDR_TransportationPlanningStatusID]
+    ,[HDR_OverallPickingConfStatusID]
+    ,[HDR_OverallPickingStatusID]
+    ,[HDR_OverallPackingStatusID]
+    ,[HDR_OverallGoodsMovementStatusID]
+    ,[HDR_OverallProofOfDeliveryStatusID]
+    ,[HDR_IntercompanyBillingType]
+    ,[HDR_IntercompanyBillingCustomer]
+    ,[HDR_TotalNetAmount]
+    ,[HDR_ReferenceDocumentNumber]
+    ,[HDR_CreatedByUser]
+    ,[HDR_DocumentDate]
+    ,[HDR_ExternalTransportSystem]
+    ,[HDR_HdrGeneralIncompletionStatusID]
+    ,[HDR_HdrGoodsMvtIncompletionStatusID]
+    ,[HDR_HeaderBillgIncompletionStatusID]
+    ,[HDR_HeaderBillingBlockReason]
+    ,[HDR_HeaderDelivIncompletionStatusID]
+    ,[HDR_HeaderPackingIncompletionSts]
+    ,[HDR_HeaderPickgIncompletionStatusID]
+    ,[HDR_IsExportDelivery]
+    ,[HDR_LastChangeDate]
+    ,[HDR_LastChangedByUser]
+    ,[HDR_LoadingPoint]
+    ,[HDR_OverallChmlCmplncStatusID]
+    ,[HDR_OverallDangerousGoodsStatusID]
+    ,[HDR_OverallDelivConfStatusID]
+    ,[HDR_OverallDelivReltdBillgStatusID]
+    ,[HDR_OverallIntcoBillingStatusID]
+    ,[HDR_OverallSafetyDataSheetStatusID]
+    ,[HDR_OverallSDProcessStatusID]
+    ,[HDR_OverallWarehouseActivityStatusID]
+    ,[HDR_OvrlItmDelivIncompletionSts]
+    ,[HDR_OvrlItmGdsMvtIncompletionSts]
+    ,[HDR_OvrlItmGeneralIncompletionSts]
+    ,[HDR_OvrlItmPackingIncompletionSts]
+    ,[HDR_OvrlItmPickingIncompletionSts]
+    ,[HDR_ShippingGroupNumber]
+    ,[HDR_TotalNumberOfPackage]
+    ,[HDR_TransactionCurrency]
+    ,[Currency_EUR]
+    ,[ActualDeliveryRouteName]
+    ,[ActualDeliveryRouteDurationInHrs]
+    ,[ProposedDeliveryRouteName]
+    ,[ProposedDeliveryRouteDurationInHrs]
+    ,[ActualDeliveryRouteDurationInDays]
+    ,[ProposedDeliveryRouteDurationInDays]
+    ,[InOutID]
+    ,[SDICreationDateIsODICreationDateFlag]
+    ,[IF_Total_Group]
+    ,[IF_Group]
+    ,[IF_IsInFullFlag]
+    ,[IF_IsInFull]
+    ,[NoActualDeliveredQtyFlag]
+    ,[OTS_DaysDiff]
+    ,[OTS_GoodsIssueDateDiffInDays]
+    ,[OTS_GIDateCheckGroup]
+    ,[OTS_Group]
+    ,[SDAvailableFlag]
+    ,[SDI_ConfQtyEqOrderQtyFlag]
+    ,[SLAvailableFlag]
+    ,[IF_DataQualityCode]
+    ,[OTD_DataQualityCode]
+    ,[OTS_DataQualityCode]
+    ,[CalculatedDelDate]
+    ,[ActualLeadTime]
+    ,[RequestedLeadTime]
     ,[OTD_DaysDiff]
     ,[OTD_Group]
     ,[OTD_EarlyDays]
@@ -1552,4 +2164,4 @@ SELECT
     ,[t_applicationId]
     ,[t_extractionDtm]
 FROM
-	OutboundDeliveryItem_s4h_OTDIF_calculated
+	OTS_OTD_Is_Days_calculation

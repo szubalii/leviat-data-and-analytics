@@ -1,6 +1,6 @@
 ﻿CREATE VIEW [edw].[vw_Calendar]
 	AS SELECT 
-		   [CalendarDate]
+		 [CalendarDate]
          , [CalendarYear]
          , [CalendarQuarter]
          , cd.[CalendarMonth]     
@@ -13,6 +13,7 @@
          , [WeekDay]
          , [FirstDayOfWeekDate]
          , [FirstDayOfMonthDate]
+         , EOMONTH([CalendarDate]) as [LastDayOfMonthDate]         
          , [CalendarDayOfYear]
          , [YearDay]
          , cd.t_applicationId

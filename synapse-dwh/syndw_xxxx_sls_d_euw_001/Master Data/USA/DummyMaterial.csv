@@ -1,0 +1,14 @@
+COMP,MaterialID,PCAT,ProductPillarID,ProductPillar,CAProductGroupID
+045,DUMMY_US_A.1.,Masonry,M,MASONRY SYSTEMS,A.1.
+045,DUMMY_US_H.8.,Tilt lifting,R,REINFORCEMENT,H.8.
+045,DUMMY_US_H.3.,Precast lifting,R,REINFORCEMENT,H.3.
+045,DUMMY_US_E.5.,Supporting Rebar,R,REINFORCEMENT,E.5.
+045,DUMMY_US_E.2.,Reinforcing/Couplers,R,REINFORCEMENT,E.2.
+045,DUMMY_US_I.9.,Concrete Connections,A,ANCHORING & FIXING,I.9.
+044,DUMMY_US_I.8.,Thermomass,A,ANCHORING & FIXING,I.8.
+045,DUMMY_US_I.1.,Anchoring & Fixing,A,ANCHORING & FIXING,I.1.
+045,DUMMY_US_F.6.,Concrete forming; bridge,O,OTHERS,F.6.
+045,DUMMY_US_N.3.,Other,O,OTHERS,N.3.
+045,DUMMY_US_N.4.,Delivery,O,OTHERS,N.4.
+045,DUMMY_US_N.5.,Rebates,O,OTHERS,N.5.
+045,DUMMY_US_N.6.,Discounts,O,OTHERS,N.6.
