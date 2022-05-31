@@ -6,114 +6,227 @@
 trigger:
 - main
 
-pool: 
-  vmImage: 'windows-latest'
+jobs:
 
-variables:
-  solution: '**/orchestration/*.sln'
-  buildPlatform: 'Any CPU'
-  buildConfiguration: 'Release'
+# Orchestration Database Build Job
+- job: Orch DB
+  pool:
+    vmImage: 'windows-latest'
+  variables:
+    orchDBSolution: '**/orchestration/*.sln'
+    buildPlatform: 'Any CPU'
+    buildConfiguration: 'Release'
 
-steps:
-# Installs Node and the npm packages saved in your package.json file in the build
+  steps:
+  # Installs Node and the npm packages saved in your package.json file in the build
 
-- task: NodeTool@0
-  inputs:
-    versionSpec: '10.x'
-  displayName: 'Install Node.js'
+  - task: NodeTool@0
+    inputs:
+      versionSpec: '10.x'
+    displayName: 'Install Node.js'
 
-- task: Npm@1
-  inputs:
-    command: 'install'
-    workingDir: '$(Build.Repository.LocalPath)' #replace with the package.json folder
-    verbose: true
-  displayName: 'Install npm package'
+  - task: Npm@1
+    inputs:
+      command: 'install'
+      workingDir: '$(Build.Repository.LocalPath)' #replace with the package.json folder
+      verbose: true
+    displayName: 'Install npm package'
 
-- task: NuGetToolInstaller@1
+  - task: NuGetToolInstaller@1
 
-- task: NuGetCommand@2
-  inputs:
-    restoreSolution: '$(solution)'
+  - task: NuGetCommand@2
+    inputs:
+      restoreSolution: '$(orchDBSolution)'
 
-- task: VSBuild@1
-  inputs:
-    solution: '$(solution)'
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
+  - task: VSBuild@1
+    inputs:
+      solution: '$(orchDBSolution)'
+      platform: '$(buildPlatform)'
+      configuration: '$(buildConfiguration)'
 
-- task: VSTest@2
-  inputs:
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
+  - task: VSTest@2
+    inputs:
+      platform: '$(buildPlatform)'
+      configuration: '$(buildConfiguration)'
 
-- task: CopyFiles@2
-  inputs:
-    SourceFolder: '$(Build.SourcesDirectory)\orchestration\sqldb-xxxx-orchdb-d-euw-001\bin\Release'
-    Contents: '*.dacpac'
-    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+  - task: CopyFiles@2
+    inputs:
+      SourceFolder: '$(Build.SourcesDirectory)\orchestration\sqldb-xxxx-orchdb-d-euw-001\bin\Release'
+      Contents: '*.dacpac'
+      TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
-- task: CopyFiles@2
-  inputs:
-    SourceFolder: '$(Build.SourcesDirectory)\orchestration'
-    Contents: '*publish.xml'
-    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+  - task: CopyFiles@2
+    inputs:
+      SourceFolder: '$(Build.SourcesDirectory)\orchestration'
+      Contents: '*publish.xml'
+      TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
-- task: CopyFiles@2
-  inputs:
-    SourceFolder: '$(Build.SourcesDirectory)\orchestration\Master Data'
-    Contents: '**\*.csv'
-    TargetFolder: '$(Build.ArtifactStagingDirectory)\Master Data'
+  - task: CopyFiles@2
+    inputs:
+      SourceFolder: '$(Build.SourcesDirectory)\orchestration\Master Data'
+      Contents: '**\*.csv'
+      TargetFolder: '$(Build.ArtifactStagingDirectory)\Master Data'
 
-- task: CopyFiles@2
-  inputs:
-    SourceFolder: '$(Build.SourcesDirectory)\orchestration\src'
-    Contents: '**\*'
-    TargetFolder: '$(Build.ArtifactStagingDirectory)\src'
+  - task: CopyFiles@2
+    inputs:
+      SourceFolder: '$(Build.SourcesDirectory)\orchestration\src'
+      Contents: '**\*'
+      TargetFolder: '$(Build.ArtifactStagingDirectory)\src'
 
-- task: CopyFiles@2
-  inputs:
-    SourceFolder: '$(Build.SourcesDirectory)\orchestration'
-    Contents: 'package.json'
-    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+  - task: CopyFiles@2
+    inputs:
+      SourceFolder: '$(Build.SourcesDirectory)\orchestration'
+      Contents: 'package.json'
+      TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
-- task: PublishPipelineArtifact@1
-  inputs:
-    targetPath: '$(Build.ArtifactStagingDirectory)'
-    artifact: 'OrchestrationDB'
-    publishLocation: 'pipeline'
+  - task: PublishPipelineArtifact@1
+    inputs:
+      targetPath: '$(Build.ArtifactStagingDirectory)'
+      artifact: 'OrchestrationDB'
+      publishLocation: 'pipeline'
 
-# Validates all of the Data Factory resources in the repository. You'll get the same validation errors as when "Validate All" is selected.
-# Enter the appropriate subscription and name for the source factory.
+# Azure Data Factory Build Job
+- job: ADF
+  pool:
+    vmImage: 'ubuntu-latest'
 
-- task: Npm@1
-  inputs:
-    command: 'custom'
-    workingDir: '$(Build.Repository.LocalPath)' #replace with the package.json folder
-    customCommand: 'run build validate $(Build.Repository.LocalPath)/azure-data-factory /subscriptions/f199b488-7d9d-4992-aeda-c10a1e1c9b9e/resourceGroups/rg-xxxx-sls-d-euw-001/providers/Microsoft.DataFactory/factories/df-xxxx-sls-d-euw-001-restructure'
-  displayName: 'Validate'
+  steps:
 
-# Validate and then generate the ARM template into the destination folder, which is the same as selecting "Publish" from the UX.
-# The ARM template generated isn't published to the live version of the factory. Deployment should be done by using a CI/CD pipeline. 
+  # Validates all of the Data Factory resources in the repository. You'll get the same validation errors as when "Validate All" is selected.
+  # Enter the appropriate subscription and name for the source factory.
 
-- task: Npm@1
-  inputs:
-    command: 'custom'
-    workingDir: '$(Build.Repository.LocalPath)' #replace with the package.json folder
-    customCommand: 'run build export $(Build.Repository.LocalPath)/azure-data-factory /subscriptions/f199b488-7d9d-4992-aeda-c10a1e1c9b9e/resourceGroups/rg-xxxx-sls-d-euw-001/providers/Microsoft.DataFactory/factories/df-xxxx-sls-d-euw-001-restructure "ArmTemplate"'
-  displayName: 'Validate and Generate ARM template'
+  - task: Npm@1
+    inputs:
+      command: 'custom'
+      workingDir: '$(Build.Repository.LocalPath)' #replace with the package.json folder
+      customCommand: 'run build validate $(Build.Repository.LocalPath)/azure-data-factory /subscriptions/f199b488-7d9d-4992-aeda-c10a1e1c9b9e/resourceGroups/rg-xxxx-sls-d-euw-001/providers/Microsoft.DataFactory/factories/df-xxxx-sls-d-euw-001-restructure'
+    displayName: 'Validate'
 
-# Publish the build artifact to be used as a source for a release pipeline.
+  # Validate and then generate the ARM template into the destination folder, which is the same as selecting "Publish" from the UX.
+  # The ARM template generated isn't published to the live version of the factory. Deployment should be done by using a CI/CD pipeline. 
 
-- task: PublishPipelineArtifact@1
-  inputs:
-    targetPath: '$(Build.Repository.LocalPath)/ArmTemplate' #replace with the package.json folder
-    artifact: 'ArmTemplates'
-    publishLocation: 'pipeline'
+  - task: Npm@1
+    inputs:
+      command: 'custom'
+      workingDir: '$(Build.Repository.LocalPath)' #replace with the package.json folder
+      customCommand: 'run build export $(Build.Repository.LocalPath)/azure-data-factory /subscriptions/f199b488-7d9d-4992-aeda-c10a1e1c9b9e/resourceGroups/rg-xxxx-sls-d-euw-001/providers/Microsoft.DataFactory/factories/df-xxxx-sls-d-euw-001-restructure "ArmTemplate"'
+    displayName: 'Validate and Generate ARM template'
 
-# Publish the global parameters to be used as a source for a release pipeline.
-  
-- task: PublishPipelineArtifact@1
-  inputs:
-    targetPath: '$(Build.Repository.LocalPath)/azure-data-factory/GlobalParameters' #replace with the package.json folder
-    artifact: 'GlobalParameters'
-    publishLocation: 'pipeline'
+  # Publish the build artifact to be used as a source for a release pipeline.
+
+  - task: PublishPipelineArtifact@1
+    inputs:
+      targetPath: '$(Build.Repository.LocalPath)/ArmTemplate' #replace with the package.json folder
+      artifact: 'ArmTemplates'
+      publishLocation: 'pipeline'
+
+  # Publish the global parameters to be used as a source for a release pipeline.
+    
+  - task: PublishPipelineArtifact@1
+    inputs:
+      targetPath: '$(Build.Repository.LocalPath)/azure-data-factory/GlobalParameters' #replace with the package.json folder
+      artifact: 'GlobalParameters'
+      publishLocation: 'pipeline'
+
+# Azure Synapse Dedicated SQL Pool Build Job
+- job: SynapseDWH
+  pool: 
+    vmImage: 'windows-latest'
+
+  variables:
+    synapseDWHSolution: '**/synapse-dwh/*.sln'
+    buildPlatform: 'Any CPU'
+    buildConfiguration: 'Release'
+
+  steps:
+
+  # Check for duplicates in Master Data csv-files
+  - task: PythonScript@0
+    inputs:
+      scriptSource: 'filePath'
+      scriptPath: './synapse-dwh/src/libs/check_duplicates.py'
+      
+  - task: NuGetToolInstaller@1
+
+  - task: NuGetCommand@2
+    inputs:
+      restoreSolution: '$(synapseDWHSolution)'
+
+  # Substitute the connection string for the Test Project 
+  # so Azure DevOps can run the Test Cases
+  - task: FileTransform@1
+    displayName: 'Update Connection String for Test Project'
+    inputs:
+      folderPath: '$(System.DefaultWorkingDirectory)/synapse-dwh/Test/'
+      fileType: 'xml'
+      targetFiles: 'app.config'
+
+  # Build the Test Project
+  - task: VSBuild@1
+    displayName: 'Build Test Project'
+    inputs:
+      solution: '**/synapse-dwh/*.csproj'
+      platform: '$(buildPlatform)'
+      configuration: '$(buildConfiguration)'
+
+  # Build the SQL DB Project
+  - task: VSBuild@1
+    displayName: 'Build SQL DB Project'
+    inputs:
+      solution: '$(synapseDWHSolution)'
+      platform: '$(buildPlatform)'
+      configuration: '$(buildConfiguration)'
+  #    msbuildArgs: '/v:SqlCmdVar__1=stxxxxslsdeuw001'
+
+
+
+  #- task: VSTest@2
+  #  inputs:
+  #    platform: '$(buildPlatform)'
+  #    configuration: '$(buildConfiguration)'
+
+  # expose dacpac as build artifact
+  - task: CopyFiles@2
+    displayName: 'Copy SQL DB dacpac'
+    inputs:
+      SourceFolder: '$(Build.SourcesDirectory)\synapse-dwh\syndw_xxxx_sls_d_euw_001\bin\Release'
+      Contents: '*.dacpac'
+      TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
+  - task: CopyFiles@2
+    displayName: 'Copy Test Assemblies'
+    inputs:
+      SourceFolder: '$(Build.SourcesDirectory)\synapse-dwh\Test\bin\Release'
+      Contents: '**'
+      TargetFolder: '$(Build.ArtifactStagingDirectory)\Test'
+
+  # expose publish config as build artifact
+  - task: CopyFiles@2
+    displayName: 'Copy publish config'
+    inputs:
+      SourceFolder: '$(Build.SourcesDirectory)\synapse-dwh\publish'
+      Contents: '*.xml'
+      TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
+  # expose src folder as build artifact
+  - task: CopyFiles@2
+    displayName: 'Copy src folder'
+    inputs:
+      SourceFolder: '$(Build.SourcesDirectory)\synapse-dwh\src'
+      Contents: '**\*'
+      TargetFolder: '$(Build.ArtifactStagingDirectory)\src'
+
+  # expose Master Data as build artifact
+  - task: CopyFiles@2
+    displayName: 'Copy Master Data files'
+    inputs:
+      SourceFolder: '$(Build.SourcesDirectory)\synapse-dwh\syndw_xxxx_sls_d_euw_001\Master Data'
+      Contents: '**\*.csv'
+      TargetFolder: '$(Build.ArtifactStagingDirectory)\Master Data'
+
+  # publish artifacts
+  - task: PublishPipelineArtifact@1
+    inputs:
+      targetPath: '$(Build.ArtifactStagingDirectory)'
+      artifact: 'SynapseDWH'
+      publishLocation: 'pipeline'
