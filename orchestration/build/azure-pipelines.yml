@@ -10,7 +10,7 @@ pool:
   vmImage: 'windows-latest'
 
 variables:
-  solution: '**/orchestration/*.sln'
+  solution: '**/*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
 
@@ -34,31 +34,31 @@ steps:
 
 - task: CopyFiles@2
   inputs:
-    SourceFolder: '$(Build.SourcesDirectory)\orchestration\sqldb-xxxx-orchdb-d-euw-001\bin\Release'
+    SourceFolder: '$(Build.SourcesDirectory)\sqldb-xxxx-orchdb-d-euw-001\bin\Release'
     Contents: '*.dacpac'
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
 - task: CopyFiles@2
   inputs:
-    SourceFolder: '$(Build.SourcesDirectory)\orchestration'
+    SourceFolder: '$(Build.SourcesDirectory)'
     Contents: '*publish.xml'
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
 - task: CopyFiles@2
   inputs:
-    SourceFolder: '$(Build.SourcesDirectory)\orchestration\Master Data'
+    SourceFolder: '$(Build.SourcesDirectory)\Master Data'
     Contents: '**\*.csv'
     TargetFolder: '$(Build.ArtifactStagingDirectory)\Master Data'
 
 - task: CopyFiles@2
   inputs:
-    SourceFolder: '$(Build.SourcesDirectory)\orchestration\src'
+    SourceFolder: '$(Build.SourcesDirectory)\src'
     Contents: '**\*'
     TargetFolder: '$(Build.ArtifactStagingDirectory)\src'
 
 - task: CopyFiles@2
   inputs:
-    SourceFolder: '$(Build.SourcesDirectory)\orchestration'
+    SourceFolder: '$(Build.SourcesDirectory)'
     Contents: 'package.json'
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
 

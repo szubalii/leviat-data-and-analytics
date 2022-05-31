@@ -25,7 +25,7 @@
 						"partitionOption": "None"
 					},
 					"dataset": {
-						"referenceName": "ds_orch_db",
+						"referenceName": "ds_orc_control_table",
 						"type": "DatasetReference"
 					},
 					"firstRowOnly": false

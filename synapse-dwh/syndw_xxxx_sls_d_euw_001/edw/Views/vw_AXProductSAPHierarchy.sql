@@ -37,24 +37,24 @@ AXProductSAPHierarchy_Calculated_Sub AS (
     , TRIM(AXPSH.[MIGRATE])
     , TRIM(AXPSH.[ORIGINAL_MATERIAL])
 ),
-AXProductSAPHierarchy_ProductID_Sub  AS (
-      select
-           AXPSHsub.[DATAAREAID_Calculated] + '-' + AXPSHsub.[ITEMID]    AS [ProductID]
-       ,   AXPSHsub.[FINAL_TEXT]
-       ,   AXPSHsub.[MATERIAL_TYPE]
-       ,   AXPSHsub.[SALES_PROD_HIER_L1]
-       ,   AXPSHsub.[SALES_PROD_HIER_L2]
-       ,   AXPSHsub.[SALES_PROD_HIER_L3]
-       ,   AXPSHsub.[SALES_PROD_HIER_L4]
-       ,   AXPSHsub.[SALES_PROD_HIER_L5]
-       ,   AXPSHsub.[DATAAREAID]
-       ,   AXPSHsub.[DATAAREAID_Calculated]
-       ,   AXPSHsub.[SAP_MATERIAL]
-       ,   AXPSHsub.[MIGRATE]
-       ,   AXPSHsub.[ORIGINAL_MATERIAL]
-       from
+AXProductSAPHierarchy_ProductID_Sub AS (
+    SELECT
+        AXPSHsub.[DATAAREAID_Calculated] + '-' + AXPSHsub.[ITEMID] AS [ProductID]
+    ,   AXPSHsub.[FINAL_TEXT]
+    ,   AXPSHsub.[MATERIAL_TYPE]
+    ,   AXPSHsub.[SALES_PROD_HIER_L1]
+    ,   AXPSHsub.[SALES_PROD_HIER_L2]
+    ,   AXPSHsub.[SALES_PROD_HIER_L3]
+    ,   AXPSHsub.[SALES_PROD_HIER_L4]
+    ,   AXPSHsub.[SALES_PROD_HIER_L5]
+    ,   AXPSHsub.[DATAAREAID]
+    ,   AXPSHsub.[DATAAREAID_Calculated]
+    ,   AXPSHsub.[SAP_MATERIAL]
+    ,   AXPSHsub.[MIGRATE]
+    ,   AXPSHsub.[ORIGINAL_MATERIAL]
+    FROM
         AXProductSAPHierarchy_Calculated_Sub AXPSHsub
-     )
+    )
 
 select
     AXPSHProdSub.[ProductID]                                           AS [ProductID]

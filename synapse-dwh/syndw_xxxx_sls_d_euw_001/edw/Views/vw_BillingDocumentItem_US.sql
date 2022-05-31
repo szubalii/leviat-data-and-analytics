@@ -37,7 +37,7 @@ WITH EuroBudgetExchangeRate AS (
     ,   CS.[InvDate] AS [BillingDocumentDate]                      
     ,   CONCAT('US-',CS.[COMP]) AS [SalesOrganizationID]
     ,   CS.[ItemGroup] AS [MaterialGroupID]                          
-    ,   CS.[InvAmount] AS [NetAmount]                                
+    ,   CS.[SALES] AS [NetAmount]                                
     ,   CS.[CUR] AS [TransactionCurrencyID]                    
     ,   CS.[SalesTax] AS [TaxAmount]                                
     ,   CS.[COGS] AS [CostAmount]                               
@@ -46,11 +46,11 @@ WITH EuroBudgetExchangeRate AS (
     ,   MAPCUST.[Country] AS [CountryID]                                
     ,   CS.[SalesQty] AS [QuantitySold]                             
     --,   (CS.[NetAmount]-CS.[Cost]) AS [GrossMargin]                      
-    ,   CS.[InvAmount] AS [FinNetAmount]                             
+    ,   CS.[SALES] AS [FinNetAmount]                             
     ,   CS.[ImbFrtCost] AS [FinNetAmountFreight]
     ,   CS.[ImbFrtCost] AS [FinNetAmountOtherSales]
     ,   0 AS [FinNetAmountAllowances]                   
-    ,   CS.[InvAmount] + CS.[ImbFrtCost] AS [FinSales100]  --temporary
+    ,   CS.[SALES] + CS.[ImbFrtCost] AS [FinSales100]  --temporary
     ,   CS.[InvDate] AS [AccountingDate]                           
     ,   CONCAT(CS.[COMP],'-',CS.[ITEM]) AS [MaterialCalculated]                       
     ,   CONCAT(CS.[COMP],'-',CS.[CUSTOMER]) AS [SoldToPartyCalculated]  
@@ -66,18 +66,16 @@ WITH EuroBudgetExchangeRate AS (
     ,   CS.[CostCenter] AS [axbi_CostCenter]
     ,   MAPCUST.[Region] AS [SalesDistrictID]
     ,   MAPCUST.[CustomerPillar] AS [CustomerGroupID]
-    ,   MAPCUST.[InsideOutside] AS [InOutID]
+    ,   CASE WHEN MAPCUST.[InsideOutside] IS NOT NULL
+        THEN
+            MAPCUST.[InsideOutside]
+        ELSE
+            'O'
+        END AS [InOutID]
     ,   CS.[t_applicationId]                          
     ,   CS.[t_extractionDtm]
 FROM 
     [base_us_leviat_db].[CUSTOMER_SALES] CS
-LEFT JOIN
-    [base_us_leviat_db].[ITEMS] I
-        ON I.[ITEM] = CS.[ITEM] 
-           AND 
-           I.[COMP] = CS.[COMP]
-           AND 
-           I.[WH] = CS.[WH]
 LEFT JOIN
     [base_us_leviat_db].[CUSTOMERS] CUST
         ON CS.[CUSTOMER] = CUST.[CUSTOMER] 
@@ -87,7 +85,7 @@ LEFT JOIN
     [map_USA].[Customer] MAPCUST
         ON MAPCUST.[UniqueCustomerNumber] = CONCAT(CS.[COMP],'-',CS.[CUSTOMER])
 LEFT JOIN
-    [base_us_leviat_db].[SubPCAT_Pillar] PCAT
+    [base_ff_USA].[SubPCAT_Pillar] PCAT
         ON PCAT.[PCAT] = CS.[PCAT]
            AND 
            PCAT.[SubPCAT] = CS.[SubPCAT]
@@ -286,3 +284,55 @@ CROSS JOIN
     [edw].[dim_CurrencyType] CT
 WHERE
     CT.[CurrencyTypeID] = '30'
+
+UNION ALL
+
+SELECT
+        BDI_Base.[BillingDocument]                          
+    ,   BDI_Base.[BillingDocumentItem]                      
+    ,   CT.[CurrencyTypeID]                           
+    ,   CT.[CurrencyType]                 
+    ,   BDI_Base.[BillingDocumentTypeID]
+    ,   BDI_Base.[SDDocumentCategoryID]
+    ,   BDI_Base.[BillingDocumentDate]                      
+    ,   BDI_Base.[SalesOrganizationID]
+    ,   BDI_Base.[MaterialGroupID]                          
+    ,   BDI_Base.[NetAmount]                                
+    ,   BDI_Base.[TransactionCurrencyID]                    
+    ,   BDI_Base.[TaxAmount]                                
+    ,   BDI_Base.[CostAmount]                               
+    ,   BDI_Base.[CostCenter]                               
+    ,   'USD' AS [CurrencyID]                               
+    ,   BDI_Base.[SalesDocumentID]                          
+    ,   BDI_Base.[CountryID]                                
+    ,   BDI_Base.[QuantitySold]                             
+    ,   (BDI_Base.[NetAmount] - BDI_Base.[CostAmount]) AS [GrossMargin]                              
+    ,   1.0 AS [ExchangeRate]                             
+    ,   BDI_Base.[FinNetAmount]                             
+    ,   BDI_Base.[FinNetAmountFreight]
+    ,   BDI_Base.[FinNetAmountOtherSales]
+    ,   BDI_Base.[FinNetAmountAllowances]                   
+    ,   BDI_Base.[FinSales100]  --temporary
+    ,   BDI_Base.[AccountingDate]                           
+    ,   BDI_Base.[MaterialCalculated]                       
+    ,   BDI_Base.[SoldToPartyCalculated]  
+    ,   BDI_Base.[axbi_MaterialID]                          
+    ,   BDI_Base.[axbi_CustomerID]                          
+    ,   BDI_Base.[axbi_SalesTypeID]                         
+    ,   BDI_Base.[SalesOrgname]                             
+    ,   BDI_Base.[Pillar]                                   
+    ,   BDI_Base.[MaterialLongDescription]                  
+    ,   BDI_Base.[MaterialShortDescription]                 
+    ,   BDI_Base.[CustomerName]                             
+    ,   BDI_Base.[axbi_StorageLocationID]                   
+    ,   BDI_Base.[axbi_CostCenter] 
+    ,   BDI_Base.[SalesDistrictID]
+    ,   BDI_Base.[CustomerGroupID]
+    ,   BDI_Base.[InOutID]                         
+    ,   BDI_Base.[t_applicationId]                          
+    ,   BDI_Base.[t_extractionDtm]
+FROM BillingDocumentItemBase BDI_Base
+CROSS JOIN
+    [edw].[dim_CurrencyType] CT
+WHERE
+    CT.[CurrencyTypeID] = '40'

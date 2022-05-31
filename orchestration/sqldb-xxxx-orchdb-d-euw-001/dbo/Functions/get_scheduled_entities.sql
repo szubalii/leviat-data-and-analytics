@@ -6,7 +6,6 @@ RETURNS @schedule_entities_table TABLE
 (
     [entity_id]                 BIGINT NOT NULL
     ,[entity_name]              VARCHAR(112)
-    ,[layer_id]                 BIGINT NOT NULL
     ,[layer_nk]                 VARCHAR (50) NOT NULL
     ,[location_nk]              VARCHAR (50) NOT NULL
     ,[adls_container_name]      VARCHAR(63)
@@ -72,7 +71,6 @@ BEGIN
     SELECT
          ent.[entity_id]
         ,ent.[entity_name]
-        ,ent.[layer_id]
         ,ent.[layer_nk]
         ,ent.[location_nk]
         ,ent.[adls_container_name]

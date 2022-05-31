@@ -1,0 +1,23 @@
+ADLSDirectory;ADLSFileName;FieldDelimiter;BaseSchemaName;BaseTableName
+;SAP Dummy Products.csv;",";base_ff;SAPDummyProduct
+;ValueType.csv;";";base_ff;ValueType
+;CurrencyType.csv;";";base_ff;CurrencyType
+;ConfigurableProductCharacteristic.csv;",";base_ff;ConfigurableProductCharacteristic
+;ConfigurableProduct.csv;";";base_ff;ConfigurableProduct
+map_AXBI;AXProductSAPHierarchy.csv;",";map_AXBI;AXProductSAPHierarchy
+map_AXBI;BillingDocumentItem.csv;"|";map_AXBI;BillingDocumentItem
+map_AXBI;Brand.csv;",";map_AXBI;Brand
+map_AXBI;BusinessPartner.csv;"|";map_AXBI;BusinessPartner
+map_AXBI;Material.csv;"|";map_AXBI;Material
+map_AXBI;SalesDocumentType.csv;"|";map_AXBI;SalesDocumentType
+map_AXBI;SalesOrganization.csv;",";map_AXBI;SalesOrganization
+map_AXBI;SDDocumentCategory.csv;"|";map_AXBI;SDDocumentCategory
+map_USA;Customer.csv;",";map_USA;Customer
+USA;Budget.csv;",";base_ff_USA;Budget
+USA;CAProductGroup.csv;",";base_ff_USA;CAProductGroup
+USA;DummyMaterial.csv;",";base_ff_USA;DummyMaterial
+USA;SubPCAT_Pillar.csv;",";base_ff_USA;SubPCAT_Pillar
+;DataQualityCode.csv;";";base_ff;DataQualityCode
+;CustomerCalculated.csv;";";base_ff;CustomerCalculated
+;ProductCalculated.csv;";";base_ff;ProductCalculated
+;SalesDistrict.csv;",";base_ff;SalesDistrict

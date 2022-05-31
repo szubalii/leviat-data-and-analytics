@@ -32,7 +32,7 @@
 						"partitionOption": "None"
 					},
 					"dataset": {
-						"referenceName": "ds_orch_db",
+						"referenceName": "ds_orc_control_table",
 						"type": "DatasetReference"
 					},
 					"firstRowOnly": false
@@ -86,7 +86,7 @@
 										"value": "@item().entity_id",
 										"type": "Expression"
 									},
-									"adls_directory_path": {
+									"base_directory_path": {
 										"value": "@item().base_directory_path",
 										"type": "Expression"
 									}
@@ -407,7 +407,7 @@
 			}
 		},
 		"folder": {
-			"name": "00 ELT/01 ADLS Ingestion/S4H"
+			"name": "01 ADLS Ingestion/S4H"
 		},
 		"annotations": [],
 		"lastPublishTime": "2021-10-25T15:25:01Z"

@@ -22,7 +22,7 @@
     [TERMS]                 NVARCHAR(40)    NULL,
     [DISCOUNT]              NVARCHAR(40)    NULL,
     [CUR]                   NVARCHAR(6)     NULL,
-    [STOPPED]               CHAR(3)         NULL,
+    [STOPPED]               VARCHAR(7)      NULL,
     [STATEMENT]             NVARCHAR(6)     NULL,
     [CreditLimit]           DECIMAL(28, 12) NULL,
     [PriceGroup]            NVARCHAR(20)    NULL,

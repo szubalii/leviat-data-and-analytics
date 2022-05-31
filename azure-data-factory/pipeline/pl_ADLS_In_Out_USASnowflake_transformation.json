@@ -423,7 +423,7 @@
 			}
 		},
 		"folder": {
-			"name": "00 ELT/03 ADLS Transformation/USA Snowflake"
+			"name": "03 ADLS Transformation/USA Snowflake"
 		},
 		"annotations": [],
 		"lastPublishTime": "2021-10-25T15:25:00Z"

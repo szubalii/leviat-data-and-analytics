@@ -1,15 +1,13 @@
 ﻿CREATE TABLE [edw].[dim_Product]
 (
 -- Product
-    [ProductID]                      nvarchar(80) NOT NULL -- renamed (ex Product)
-    ,
+    [sk_dim_Product]                 nvarchar(117) NOT NULL,
+    [ProductID]                      nvarchar(80) NOT NULL, -- renamed (ex Product)
     [ProductExternalID]              nvarchar(80),
     [Product]                        nvarchar(80),
     [ProductID_Name]                 nvarchar(160),
-    [MaterialTypeID]                 nvarchar(8)           -- renamed (ex ProductType) from [base_s4h_cax].[I_ProductTypeText]
-    ,
-    [MaterialType]                   nvarchar(50)          -- from [base_s4h_cax].[I_ProductTypeText]
-    ,
+    [MaterialTypeID]                 nvarchar(8),           -- renamed (ex ProductType) from [base_s4h_cax].[I_ProductTypeText]
+    [MaterialType]                   nvarchar(50),          -- from [base_s4h_cax].[I_ProductTypeText]
     [CreationDate]                   date,
     [CreationTime]                   time(0),
     [CreationDateTime]               decimal(21, 7),
@@ -26,6 +24,7 @@
     [WeightUnit]                     nvarchar(6) collate Latin1_General_100_BIN2,
     [CountryOfOrigin]                nvarchar(6),
     [CompetitorID]                   nvarchar(20),
+    [ProductGroup]                   nvarchar(9),
     [MaterialGroup]                  nvarchar(18),
     [BaseUnit]                       nvarchar(6) collate Latin1_General_100_BIN2,
     [ItemCategoryGroup]              nvarchar(8),
@@ -168,7 +167,7 @@
     [t_lastActionCd]                 VARCHAR(1),
     [t_jobBy]                        NVARCHAR(128),
     [t_extractionDtm]                DATETIME,
-    CONSTRAINT [PK_dim_Product] PRIMARY KEY NONCLUSTERED ([ProductID]) NOT ENFORCED
+    CONSTRAINT [PK_dim_Product] PRIMARY KEY NONCLUSTERED ([sk_dim_Product]) NOT ENFORCED
 )
     WITH
         (

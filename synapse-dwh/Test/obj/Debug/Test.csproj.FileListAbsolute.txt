@@ -1,0 +1,17 @@
+C:\Users\Michiel_Pors\source\repos\syndw_xxxx_sls_d_euw_001\Test\bin\Debug\Test.dll.config
+C:\Users\Michiel_Pors\source\repos\syndw_xxxx_sls_d_euw_001\Test\bin\Debug\Test.dll
+C:\Users\Michiel_Pors\source\repos\syndw_xxxx_sls_d_euw_001\Test\bin\Debug\Test.pdb
+C:\Users\Michiel_Pors\source\repos\syndw_xxxx_sls_d_euw_001\Test\bin\Debug\Microsoft.Data.Tools.Schema.Sql.UnitTesting.dll
+C:\Users\Michiel_Pors\source\repos\syndw_xxxx_sls_d_euw_001\Test\bin\Debug\Microsoft.Data.Tools.Schema.Sql.UnitTestingAdapter.dll
+C:\Users\Michiel_Pors\source\repos\syndw_xxxx_sls_d_euw_001\Test\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+C:\Users\Michiel_Pors\source\repos\syndw_xxxx_sls_d_euw_001\Test\obj\Debug\Test.csproj.AssemblyReference.cache
+C:\Users\Michiel_Pors\source\repos\syndw_xxxx_sls_d_euw_001\Test\obj\Debug\Test.csproj.CoreCompileInputs.cache
+C:\Users\Michiel_Pors\source\repos\syndw_xxxx_sls_d_euw_001\Test\obj\Debug\Test.csproj.CopyComplete
+C:\Users\Michiel_Pors\source\repos\syndw_xxxx_sls_d_euw_001\Test\obj\Debug\Test.dll
+C:\Users\Michiel_Pors\source\repos\syndw_xxxx_sls_d_euw_001\Test\obj\Debug\Test.pdb
+C:\Users\Michiel_Pors\source\repos\syndw_xxxx_sls_d_euw_001\Test\bin\Debug\Microsoft.Data.Tools.Components.dll
+C:\Users\Michiel_Pors\source\repos\syndw_xxxx_sls_d_euw_001\Test\bin\Debug\Microsoft.Data.Tools.Schema.Sql.dll
+C:\Users\Michiel_Pors\source\repos\syndw_xxxx_sls_d_euw_001\Test\bin\Debug\Microsoft.Data.Tools.Utilities.dll
+C:\Users\Michiel_Pors\source\repos\syndw_xxxx_sls_d_euw_001\Test\bin\Debug\Microsoft.SqlServer.TransactSql.ScriptDom.dll
+C:\Users\Michiel_Pors\source\repos\syndw_xxxx_sls_d_euw_001\Test\obj\Debug\Test.edw_vw_BillingDocumentItem_s4h.resources
+C:\Users\Michiel_Pors\source\repos\syndw_xxxx_sls_d_euw_001\Test\obj\Debug\Test.csproj.GenerateResource.cache

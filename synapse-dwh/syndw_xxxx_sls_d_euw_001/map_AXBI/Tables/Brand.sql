@@ -1,6 +1,7 @@
 CREATE TABLE [map_AXBI].[Brand]
 ( 
     [source_DataAreaID] NVARCHAR (8)   NOT NULL,
+    [BrandID]           NVARCHAR(3), -- NOT NULL, Temp fix for deployment
     [Brand]             NVARCHAR(20)   NOT NULL,
     [t_applicationId]   VARCHAR(32)    NULL,
     [t_jobId]           VARCHAR(36)    NULL,

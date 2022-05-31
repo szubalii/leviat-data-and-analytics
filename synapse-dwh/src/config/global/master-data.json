@@ -1,0 +1,15 @@
+[{
+    "container": "flat-files",
+    "file_name": "SAP Dummy Products.csv",
+    "field_delimiter": ",",
+    "base_schema_name": "base_ff",
+    "base_table_name": "SAPDummyProduct",
+    "applicationId":"flat-files"
+}, {
+    "container":"flat-files",
+    "file_name":"ValueType.csv",
+    "field_delimiter":";",
+    "base_schema_name":"base_ff",
+    "base_table_name":"ValueType",
+    "applicationId":"flat-files"
+}]

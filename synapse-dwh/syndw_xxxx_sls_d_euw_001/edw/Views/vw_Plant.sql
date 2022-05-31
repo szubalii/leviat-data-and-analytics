@@ -13,6 +13,7 @@ AS SELECT
 ,    [DistributionChannel]
 ,    [Division]
 ,    [t_applicationId]
+,    [t_extractionDtm]
 FROM 
      [base_s4h_cax].[I_Plant] Plant
 -- WHERE 

@@ -187,22 +187,3 @@ FROM
     [base_ff].[CustomerCalculated] CC
 WHERE
     CC.[isReviewed] = 1
-
-UNION ALL
-
-SELECT
-    'ZZZDUMMY_BUD_AXBI'             as [CustomerIDCalculated]
-,   'Dummy Customer Budget data'    as [CustomerCalculated]
-,   'OTHER'                         as [CustomerPillarCalculated]
-,   0                               as [isReviewed]
-,   'no_SAP'                        as [mappingType]
-,   NULL                            as [axbiCustomeraccount]
-,   NULL                            as [axbiCustomerName]
-,   NULL                            as [axbiCustomerPillarCalculated]
-,   'synapse-dwh'                   as [t_applicationId]
-,   NULL                            as [t_jobId]
-,   NULL                            as [t_jobDtm]
-,   NULL                            as [t_jobBy]
-,   NULL                            as [t_extractionDtm]
-,   NULL                            as [t_filePath]
-

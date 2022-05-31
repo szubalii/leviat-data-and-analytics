@@ -3096,18 +3096,6 @@
             "schedule_recurrence": "A"
         },
         {
-            "entity_id": 375,
-            "entity_name": "I_GoodsMovementType",
-            "data_category": "DIMENSION",
-            "client_field": "MANDT",
-            "tool_name": "Theobald",
-            "extraction_type": "Table",
-            "update_mode": "Full",
-            "base_table_name": "I_GoodsMovementType",
-            "pk_field_names": "GOODSMOVEMENTTYPE",
-            "schedule_recurrence": "A"
-        },
-        {
             "entity_id": 386,
             "entity_name": "C_BillingDocumentItemBasicDEX",
             "data_category": "FACT",
@@ -3202,6 +3190,17 @@
             "pk_field_names": "INVENTORYSTOCKTYPE, LANGUAGE",
             "schedule_recurrence": "D"
         },{
+            "entity_id": 413,
+            "entity_name": "I_GoodsMovementType",
+            "data_category": "DIMENSION",
+            "client_field": "MANDT",
+            "tool_name": "Theobald",
+            "extraction_type": "Table",
+            "update_mode": "Full",
+            "base_table_name": "I_GoodsMovementType",
+            "pk_field_names": "GOODSMOVEMENTTYPE",
+            "schedule_recurrence": "D"
+        },{
             "entity_id": 416,
             "entity_name": "I_PurchasingDocument",
             "data_category": "DIMENSION",
@@ -3244,7 +3243,8 @@
             "update_mode": "Delta",
             "base_table_name": "Z_C_VariantConfig_delta",
             "base_sproc_name": "sp_load_Z_C_VariantConfig",
-            "pk_field_names": "TS_SEQUENCE_NUMBER, SALESDOCUMENT, SALESDOCUMENTITEM"
+            "pk_field_names": "TS_SEQUENCE_NUMBER, SALESDOCUMENT, SALESDOCUMENTITEM",
+            "schedule_recurrence": "A"
         },
         {
             "entity_id": 424,
@@ -3303,6 +3303,18 @@
             "update_mode": "Full",
             "base_table_name": "T025L",
             "pk_field_names": "MANDT, SPRAS, KKREF",
+            "schedule_recurrence": "D"
+        },
+        {
+            "entity_id": 434,
+            "entity_name": "MBEWH",
+            "data_category": "NULL",
+            "client_field": "MANDT",
+            "tool_name": "Theobald",
+            "extraction_type": "Table",
+            "update_mode": "Full",
+            "base_table_name": "MBEWH",
+            "pk_field_names": "MANDT, MATNR, BWKEY, BWTAR, LFGJA, LFMON",
             "schedule_recurrence": "D"
         }
         ]
@@ -3662,7 +3674,7 @@
             "edw_sproc_name": "sp_materialize_view",
             "edw_source_view_name": "vw_ProductCalculated",
             "edw_dest_table_name": "dim_ProductCalculated",
-            "edw_execution_order": 1,
+            "edw_execution_order": 2,
             "schedule_recurrence": "D"
         },
         {
@@ -4393,6 +4405,23 @@
             "edw_dest_table_name": "dim_ProductValuation",
             "edw_execution_order": 0,
             "schedule_recurrence": "D"
-        }]
+        },{
+            "entity_id": 433,
+            "entity_name": "dim_PurchasingDocument",
+            "edw_sproc_name": "sp_materialize_view",
+            "edw_source_view_name": "vw_PurchasingDocument",
+            "edw_dest_table_name": "dim_PurchasingDocument",
+            "edw_execution_order": 0,
+            "schedule_recurrence": "D"
+            },{
+            "entity_id": 435,
+            "entity_name": "dim_ProductValuationPUP",
+            "edw_sproc_name": "sp_materialize_view",
+            "edw_source_view_name": "vw_ProductValuationPUP",
+            "edw_dest_table_name": "dim_ProductValuationPUP",
+            "edw_execution_order": 0,
+            "schedule_recurrence": "D"
+        }
+        ]
     }
 }

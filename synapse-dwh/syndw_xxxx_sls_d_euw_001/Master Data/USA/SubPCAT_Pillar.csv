@@ -1,0 +1,53 @@
+PCAT,SubPCAT,ReportedPCATCategory,Pillar,ProductPillarID,ProductPillar,CAProductGroupID
+Bridge,Bridge Deck,Concrete forming; bridge,Other,O,OTHERS,F.6.
+Chemicals,Form Release,Other*,Other,O,OTHERS,L.4.
+Chemicals,Repair Products,Other*,Other,O,OTHERS,L.4.
+Concrete Connections,Precast Connections,Concrete Connections,Achoring & Fixing,A,ANCHORING & FIXING,I.9.
+Concrete Connections,Rebar Connections,Reinforcing/Couplers,Reinforcing,R,REINFORCEMENT,E.2.
+Concrete Connections,Shear Connections,Concrete Connections,Achoring & Fixing,A,ANCHORING & FIXING,I.9.
+Concrete Connections,Tilt Connection,Concrete Connections,Achoring & Fixing,A,ANCHORING & FIXING,I.9.
+Concrete Forming,Heavy Forming,Concrete forming; bridge,Other,O,OTHERS,F.6.
+Concrete Forming,Light Forming,Concrete forming; bridge,Other,O,OTHERS,F.6.
+Concrete Forming,Medium Forming,Concrete forming; bridge,Other,O,OTHERS,F.6.
+Concrete Forming,Residential,Concrete forming; bridge,Other,O,OTHERS,F.6.
+Delivery Charge,None,Delivery,Other,O,OTHERS,N.4.
+Engineering,Central Engineering,Tilt lifting,Reinforcing,R,REINFORCEMENT,H.8.
+Engineering,Tilt Engineering,Tilt lifting,Reinforcing,R,REINFORCEMENT,H.8.
+Halfen,Anchoring Technology,Anchoring & Fixing,Achoring & Fixing,A,ANCHORING & FIXING,I.1.
+Halfen,Brickwork Support Sy,Masonry,Masonry,M,MASONRY SYSTEMS,A.1.
+Halfen,Concrete Lifting Sys,Precast lifting,Reinforcing,R,REINFORCEMENT,H.3.
+Halfen,Framing Systems,Anchoring & Fixing,Achoring & Fixing,A,ANCHORING & FIXING,I.6.
+Halfen,General Accessories,Anchoring & Fixing,Achoring & Fixing,A,ANCHORING & FIXING,I.2.
+Halfen,None,Other*,Other,O,OTHERS,N.3.
+Halfen,Other locally,Masonry,Masonry,M,MASONRY SYSTEMS,B.4.
+Halfen,Powerclick,Anchoring & Fixing,Other,O,OTHERS,I.6.
+Halfen,Reinforcement Techno,Reinforcing/Couplers,Reinforcing,R,REINFORCEMENT,E.5.
+Halfen,Stone Support System,Masonry,Masonry,M,MASONRY SYSTEMS,B.1.
+Halfen,Tension rod systems,Anchoring & Fixing,Achoring & Fixing,A,ANCHORING & FIXING,N.1.
+None,Miscellaneous,Other*,Other,O,OTHERS,N.3.
+None,None,Other*,Other,O,OTHERS,N.3.
+Paving/Load Transfer,Heavy Paving,Concrete Connections,Achoring & Fixing,A,ANCHORING & FIXING,I.9.
+Precast Lifting,Heavy Lifting System,Precast lifting,Reinforcing,R,REINFORCEMENT,H.3.
+Precast Lifting,Panel Lifting System,Precast lifting,Reinforcing,R,REINFORCEMENT,H.3.
+Precast Lifting,Precast Miscellaneou,Precast lifting,Reinforcing,R,REINFORCEMENT,H.3.
+Precast Lifting,SLII Lifting System,Precast lifting,Reinforcing,R,REINFORCEMENT,H.3.
+Precast Lifting,Utility Lifting Syst,Precast lifting,Reinforcing,R,REINFORCEMENT,H.3.
+Prestress Strand Pos,Strand Devices,Reinforcing/Couplers,Reinforcing,R,REINFORCEMENT,E.2.
+Prestress Strand Pos,Strand Sheathing,Reinforcing/Couplers,Reinforcing,R,REINFORCEMENT,E.2.
+Rentals,Bridge Rentals,Tilt lifting,Reinforcing,R,REINFORCEMENT,H.8.
+Rentals,Precast Brace Rental,Tilt lifting,Reinforcing,R,REINFORCEMENT,H.8.
+Rentals,Super Brace Rentals,Tilt lifting,Reinforcing,R,REINFORCEMENT,H.8.
+Supporting Rebar,Continuous Supports,Supporting Rebar,Reinforcing,R,REINFORCEMENT,E.5.
+Supporting Rebar,Individual Supports,Supporting Rebar,Reinforcing,R,REINFORCEMENT,E.5.
+Supporting Rebar,Miscellaneous,Supporting Rebar,Reinforcing,R,REINFORCEMENT,E.5.
+Tilt Lifting,SLII Lifting System,Tilt lifting,Reinforcing,R,REINFORCEMENT,H.8.
+Tilt Lifting,SLIII Lifting System,Tilt lifting,Reinforcing,R,REINFORCEMENT,H.8.
+Tilt Lifting,Tilt Connection,Tilt lifting,Reinforcing,R,REINFORCEMENT,H.8.
+,,Thermomass,Achoring & Fixing,A,ANCHORING & FIXING,I.8.
+Braces & Anchorage,Brace Anchorage,Tilt lifting,Reinforcing,R,REINFORCEMENT,H.8.
+Braces & Anchorage,Brace Components,Tilt lifting,Reinforcing,R,REINFORCEMENT,H.8.
+Braces & Anchorage,Brace Sales,Tilt lifting,Reinforcing,R,REINFORCEMENT,H.8.
+Braces & Anchorage,Miscellaneous,Other*,Other,O,OTHERS,N.3.
+Halfen,,Other*,Other,O,OTHERS,N.3.
+Halfen,Not allocated,Other*,Other,O,OTHERS,N.3.
+Halfen,Concrete Facade,Anchoring & Fixing,Achoring & Fixing,A,ANCHORING & FIXING,B.2.

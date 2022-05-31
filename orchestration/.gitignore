@@ -2,4 +2,7 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
-/.vs
+/.vs/**
+/Master Data/entity.csv
+/Master Data/pbi_dataset_entity.csv
+/Master Data/pbi_dataset.csv

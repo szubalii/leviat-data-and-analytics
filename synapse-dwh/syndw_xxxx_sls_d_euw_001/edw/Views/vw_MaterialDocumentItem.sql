@@ -72,13 +72,34 @@ SELECT
 , MDI.[MaterialDocumentItemText]
 , '10' as [CurrencyTypeID]
 , MDH.[AccountingDocumentType] as [HDR_AccountingDocumentTypeID]
-, MDH.[InventoryTransactionType] as [HDR_InventoryTransactionType]
+, MDH.[InventoryTransactionType] as [HDR_InventoryTransactionTypeID]
 , MDH.[CreatedByUser] as [HDR_CreatedByUser]
 , MDH.[CreationDate] as [HDR_CreationDate]
 , MDH.[CreationTime] as [HDR_CreationTime]
 , MDH.[MaterialDocumentHeaderText] as [HDR_MaterialDocumentHeaderText]
 , MDH.[ReferenceDocument] as [HDR_ReferenceDocument]
-, MDH.[BillOfLading] as [HDR_BillOfLading] 
+, MDH.[BillOfLading] as [HDR_BillOfLading]
+, MDI.[MatlStkChangeQtyInBaseUnit]
+, CASE WHEN ISNULL(MDI.[PurchaseOrder],'') <>''
+    THEN MDI.[MatlCnsmpnQtyInMatlBaseUnit]
+    ELSE NULL  
+  END AS [ConsumptionQtyICPOInBaseUnit]
+, CASE WHEN ISNULL(MDI.[OrderID],'') <>''
+    THEN MDI.[MatlCnsmpnQtyInMatlBaseUnit]
+    ELSE NULL
+  END AS [ConsumptionQtyOBDProInBaseUnit]
+, CASE WHEN ISNULL(MDI.[SalesOrder],'') <>''
+    THEN MDI.[MatlCnsmpnQtyInMatlBaseUnit]
+    ELSE NULL
+  END AS [ConsumptionQtySOInBaseUnit]
+, MDI.[MatlCnsmpnQtyInMatlBaseUnit]
+, MDI.[GoodsReceiptQtyInOrderUnit]
+, MDI.[GoodsMovementIsCancelled]
+, MDI.[GoodsMovementCancellationType]
+, MDI.[ConsumptionPosting]
+, MDI.[ManufacturingOrder]
+, MDI.[ManufacturingOrderItem]
+, MDI.[IsReversalMovementType]
 , MDI.[t_applicationId]
 , MDI.[t_extractionDtm]
 FROM [base_s4h_cax].[I_MaterialDocumentItem] MDI

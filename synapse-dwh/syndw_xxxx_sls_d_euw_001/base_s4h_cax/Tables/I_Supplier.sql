@@ -1,6 +1,6 @@
 CREATE TABLE [base_s4h_cax].[I_Supplier](
   [MANDT] char(3) collate Latin1_General_100_BIN2 NOT NULL
-, [Supplier] nvarchar(10) NOT NULL
+, [Supplier] nvarchar(10) collate Latin1_General_100_BIN2 NOT NULL
 , [SupplierAccountGroup] nvarchar(4)
 , [SupplierName] nvarchar(80)
 , [SupplierFullName] nvarchar(220)

@@ -1,0 +1,31 @@
+ProductID,ProductExternalID,Product,ProductType,ProductHierarchyNode,Product_L1_Pillar,Product_L2_Group,Product_L3_Type,Product_L4_Family,Product_L5_SubFamily
+000000003000021825,3000021825,Dummy HIT Range,ZHAW,,Reinforcement & Building Physics,Building Physics,Balcony Connectors,Concrete-to-Concrete,HIT
+000000001000201884,1000201884,BC ANCON ISO HFK KS/KV ETO Dummy,ZFER,,Anchoring & Fixing,Accessories for channel systems,Interim Dummy Channel Acc,Interim Dummy Channel Acc,Interim Dummy Channel Acc
+000000003000021827,3000021827,"Dummy HL/HM/HZL/HZM Range - <50, A4, A2",ZHAW,,Anchoring & Fixing,Cast-in Channels,Channels,Interim Dummy Channel,Interim Dummy Channel
+000000003000021828,3000021828,"Dummy HL/HM/HZL/HZM Range - <50, WB, FV",ZHAW,,Anchoring & Fixing,Cast-in Channels,Channels,Interim Dummy Channel,Interim Dummy Channel
+000000003000021820,3000021820,Dummy FPA Range,ZHAW,,Anchoring & Fixing,Suspended concrete façade,Precast panel anchor FPA Subcomponents,Interim Dummy FPA,Interim Dummy FPA
+000000003000021872,3000021872,Dummy SUK Range,ZHAW,,Masonry,Stone Fixing,Stone Fixing,Stone Fixing,Stone Fixing
+000000003000021873,3000021873,Dummy TPA Range,ZHAW,,Reinforcement & Building Physics,Lifting,Flat Steel Anchor System,FRIMEDA Lifting System,Lifting Anchor
+000000003000021874,3000021874,Dummy UMA Rage,ZHAW,,Masonry,Stone Fixing,Grouted,Halfen,UMA / UHA
+000000003000021829,3000021829,"Dummy HL/HM/HZL/HZM Range - >50, A4, A2",ZHAW,,Anchoring & Fixing,Cast-in Channels,Channels,Interim Dummy Channel,Interim Dummy Channel
+000000003000021830,3000021830,"Dummy HL/HM/HZL/HZM Range - >50, WB, FV",ZHAW,,Anchoring & Fixing,Cast-in Channels,Channels,Interim Dummy Channel,Interim Dummy Channel
+000000003000021849,3000021849,Dummy HTA/HZA Range,ZHAW,,Anchoring & Fixing,Cast-in Channels,Channels,Interim Dummy Channel,Interim Dummy Channel
+000000003000021866,3000021866,Dummy HVG Range,ZHAW,,Anchoring & Fixing,Industrial solutions,Versatile interior systems,VERSOGRID,VC HVG channels
+000000003000021848,3000021848,Dummy HTA/HZA Range,ZHAW,,Anchoring & Fixing,Cast-in Channels,Channels,Interim Dummy Channel,Interim Dummy Channel
+000000003000022838,3000022838,Dummy HSC Range,ZHAW,,Reinforcement & Building Physics,Reinforcement,Stud Connector,HSC,HSC
+000000003000021841,3000021841,"Dummy HSC Range - 045, 0001, B14",ZHAW,,Reinforcement & Building Physics,Reinforcement,Stud Connector,HSC,HSC
+000000003000021842,3000021842,"Dummy HSC Range - 045, 0044, B11",ZHAW,,Reinforcement & Building Physics,Reinforcement,Stud Connector,HSC,HSC
+000000003000021844,3000021844,"Dummy HTA/HZA Range - <50, FV",ZHAW,,Anchoring & Fixing,Cast-in Channels,Channels,Interim Dummy Channel,Interim Dummy Channel
+000000003000021845,3000021845,"Dummy HTA/HZA Range - <50, HCR",ZHAW,,Anchoring & Fixing,Cast-in Channels,Channels,Interim Dummy Channel,Interim Dummy Channel
+000000003000021819,3000021819,Dummy FK5 Range,ZHAW,,Masonry,Brickwork Support,Angle Brackets,Halfen,Interim Dummy FK5
+000000003000021834,3000021834,Dummy HM/HZM Range,ZHAW,,Anchoring & Fixing,Cast-in Channels,Channels,Interim Dummy Channel,Interim Dummy Channel
+000000007000201389,7000201389,Dummy RINO-EXO,ZROH,,Reinforcement & Building Physics,Reinforcement,RINO,Interim Dumy RINO,Interim Dumy RINO
+000000003000021826,3000021826,Dummy HK5 Range,ZHAW,,Masonry,Brickwork Support,Single Brackets,Halfen,HK5-U
+000000003000021831,3000021831,Dummy HL/HZL Range,ZHAW,,Anchoring & Fixing,Cast-in Channels,Channels,Interim Dummy Channel,Interim Dummy Channel
+000000003000021840,3000021840,"Dummy HSC Range - 045, 0001, B11",ZHAW,,Anchoring & Fixing,Cast-in Channels,Channels,Interim Dummy Channel,Interim Dummy Channel
+000000003000021822,3000021822,Dummy HBS Range,ZHAW,,Reinforcement & Building Physics,Reinforcement,Continuity Systems,Starter Bar [ with Couplers - M / F ],HBS
+000000003000021843,3000021843,"Dummy HTA/HZA Range - <50, A4, A2",ZHAW,,Anchoring & Fixing,Cast-in Channels,Channels,Interim Dummy Channel,Interim Dummy Channel
+000000003000021846,3000021846,"Dummy HTA/HZA Range - <50, SV",ZHAW,,Anchoring & Fixing,Cast-in Channels,Channels,Interim Dummy Channel,Interim Dummy Channel
+000000003000021847,3000021847,"Dummy HTA/HZA Range - >50, A4, A2",ZHAW,,Anchoring & Fixing,Cast-in Channels,Channels,Interim Dummy Channel,Interim Dummy Channel
+000000001000201856,1000201856,DUMMY SUBCON CH,ZFER,,Other,Other,Other,Other,Other
+000000003000021823,3000021823,Dummy HBT Range,ZHAW,,Reinforcement & Building Physics,Reinforcement,Continuity Systems,Rebend,HBT

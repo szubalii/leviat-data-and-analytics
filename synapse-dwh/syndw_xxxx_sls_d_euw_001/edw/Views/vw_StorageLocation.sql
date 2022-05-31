@@ -8,6 +8,7 @@ AS SELECT
 ,    [Division]
 ,    [IsStorLocAuthznCheckActive]
 ,    [t_applicationId]
+,    [t_extractionDtm]
 FROM 
      [base_s4h_cax].[I_StorageLocation] StorageLocation
 -- WHERE 

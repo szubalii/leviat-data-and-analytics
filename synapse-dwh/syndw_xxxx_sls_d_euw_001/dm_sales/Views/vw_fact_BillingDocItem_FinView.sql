@@ -342,6 +342,118 @@ left join
 CROSS JOIN
     [edw].[dim_ValueType] VT
 WHERE VT.ValueTypeID= '20'
+
+UNION ALL
+SELECT
+    CONCAT('BUDGETUS', docBillingBudget_US.[sk_fact_Budget_US]) AS [BillingDocument]
+,   '00010' AS [BillingDocumentItem]
+,   docBillingBudget_US.[CurrencyType]
+,   dimCr.[CurrencyID]
+,   dimCr.[Currency]
+,   NULL AS [SalesDocumentItemCategoryID]
+,   NULL AS [SalesDocumentItemCategory]
+,   NULL AS [SalesDocumentItemTypeID]
+,   NULL AS [SalesDocumentItemType]
+,   NULL AS [ReturnItemProcessingType]
+,   NULL AS [BillingDocumentTypeID]
+,   NULL AS [BillingDocumentType]
+,   NULL AS [BillingDocumentCategoryID]
+,   NULL AS [BillingDocumentCategory]
+,   NULL AS [SDDocumentCategoryID]
+,   NULL AS [SDDocumentCategory]
+,   docBillingBudget_US.[BillingDocumentDate]
+,   docBillingBudget_US.[SalesOrganizationID]
+,   docBillingBudget_US.[SalesOrgname] AS [SalesOrganization]
+,   NULL AS [DistributionChannelID]
+,   NULL AS [DistributionChannel]
+,   NULL AS [Material]
+,   NULL AS [BrandID]
+,   NULL AS [Brand]
+,   NULL AS [BillingDocumentIsCancelled]
+,   NULL AS [BillingQuantity]
+--,   NULL AS [BillingQuantityUnitID]
+--,   NULL AS [BillingQuantityUnit]
+,   docBillingBudget_US.[NetAmount]
+,   docBillingBudget_US.[TransactionCurrencyID]
+,   NULL AS [GrossAmount]
+,   NULL AS [TaxAmount]
+,   NULL AS [CostAmount]
+,   NULL AS [FiscalYear]
+,   NULL AS [FiscalPeriod]
+,   NULL AS [ProfitCenter]
+--,   NULL AS [OriginSDDocument]
+--,   NULL AS [OriginSDDocumentItem]
+,   NULL AS ExchangeRateTypeID
+,   NULL AS ExchangeRateType
+,   NULL AS SDDocumentCategoryID
+,   NULL AS SDDocumentCategory
+,   NULL AS SalesDocumentID
+,   NULL AS SalesDocumentItemID
+,   NULL AS SDDocumentCategoryID
+,   NULL AS SDDocumentCategory
+,   NULL AS HigherLevelItem
+,   NULL AS SDDocumentReasonID
+,   NULL AS SDDocumentReason
+,   NULL AS SalesDistrictID
+,   NULL AS SalesDistrict
+,   NULL AS [CustomerGroup]
+,   NULL AS [SoldToParty]
+,   NULL as [CountryID]
+,   NULL AS [Country]
+--,   NULL AS [ShipToParty]
+,   NULL AS [BillToParty]
+,   NULL AS [QuantitySold]
+,   NULL AS [GrossMargin]
+,   NULL AS [ExternalSalesAgentID]
+,   NULL AS [ExternalSalesAgent]
+,   NULL AS [ProjectID]
+,   NULL AS [Project]
+,   NULL AS [SalesEmployeeID]
+,   NULL AS [SalesEmployee]
+,   NULL AS [GlobalParentID]
+,   NULL AS [GlobalParent]
+,   NULL AS [LocalParentID]
+,   NULL AS [LocalParent]
+,   NULL AS [SalesOrderTypeID]
+,   NULL AS [GlobalParentCalculatedID]
+,   NULL AS [GlobalParentCalculated]
+,   NULL AS [LocalParentCalculatedID]
+,   NULL AS [LocalParentCalculated]
+,   NULL AS [SalesDocumentType]
+,   NULL AS [FinNetAmountRealProduct]
+,   NULL AS [FinNetAmountFreight]
+,   NULL AS [FinNetAmountMinQty]
+,   NULL AS [FinNetAmountEngServ]
+,   NULL AS [FinNetAmountMisc]
+,   NULL AS [FinNetAmountServOther]
+,   NULL AS [FinNetAmountVerp]
+,   NULL AS [FinRebateAccrual]
+,   NULL AS [FinReserveCashDiscount]
+,   docBillingBudget_US.[FinSales100]
+,   NULL AS [FinNetAmountOtherSales]
+,   NULL AS [FinNetAmountAllowances]
+,   NULL AS [axbi_DataAreaID]
+,   NULL AS [axbi_DataAreaName]
+,   NULL AS [axbi_DataAreaGroup]
+,   NULL AS [axbi_MaterialID]
+,   NULL AS [axbi_CustomerID]
+,   docBillingBudget_US.[MaterialCalculated]
+,   NULL AS [SoldToPartyCalculated]
+,   'O' AS [InOutID]
+,   VT.[ValueTypeID]
+,   VT.[ValueType]
+,   docBillingBudget_US.[t_applicationId]
+,   docBillingBudget_US.[t_extractionDtm]
+FROM
+    [edw].[fact_Budget_US] docBillingBudget_US
+LEFT JOIN
+    [edw].[dim_Currency] dimCr
+    ON
+        dimCr.[CurrencyID] = docBillingBudget_US.[CurrencyID]
+CROSS JOIN
+    [edw].[dim_ValueType] VT
+WHERE VT.ValueTypeID= '20'
+
 /*
 SELECT
     docBillingBudget.[BillingDocument]
