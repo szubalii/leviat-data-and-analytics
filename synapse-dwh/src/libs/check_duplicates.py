@@ -5,7 +5,7 @@ import re
 
 class file_paths(Exception):
     MASTER_DATA_ROOT = 'Master Data'
-    SCRIPT_ROOT = 'syndw_xxxx_sls_d_euw_001'
+    SCRIPT_ROOT = 'synapse-dwh\syndw_xxxx_sls_d_euw_001'
     MASTER_DATA_CONFIG = 'master-data-config.csv'
 
 def get_table_pk_from_sql_file(source_path):
