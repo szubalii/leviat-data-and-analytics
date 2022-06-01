@@ -1,7 +1,15 @@
+[CmdletBinding()] #attribute allows to pass params from Azure Key Vault and Azure Pipelines
+param (
+	$SharePointUsername,
+	$SharePointPassword,
+	$SharePointURL,
+	$SharePointFolder,
+	$AzureRepoFolder
+)
+
 #Function to Copy Multiple Files with Folder structure to SharePoint Online
 Function UploadFilesToSharePoint() {
     param (
-	    [CmdletBinding()] #attribute allows to pass params from Azure Key Vault and Azure Pipelines
         [Parameter(Mandatory = $true )]
         [ValidateNotNullOrEmpty()]
         [string]$SharePointUsername,
