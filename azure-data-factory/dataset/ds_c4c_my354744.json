@@ -1,0 +1,24 @@
+{
+	"name": "ds_c4c_my354744",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_c4c_my354744",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"path": {
+				"type": "string",
+				"defaultValue": "BusinessPartnerCollection"
+			}
+		},
+		"annotations": [],
+		"type": "SapCloudForCustomerResource",
+		"schema": [],
+		"typeProperties": {
+			"path": {
+				"value": "@dataset().path",
+				"type": "Expression"
+			}
+		}
+	}
+}

@@ -1,0 +1,75 @@
+{
+	"name": "pl_C4C_ADLS_ingestion",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy C4C data",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SapCloudForCustomerSource",
+						"httpRequestTimeout": "00:05:00"
+					},
+					"sink": {
+						"type": "ParquetSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "ParquetWriteSettings"
+						}
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "ds_c4c_my354744",
+						"type": "DatasetReference",
+						"parameters": {
+							"path": {
+								"value": "@pipeline().parameters.collectionName",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ds_adls_parquet_file",
+						"type": "DatasetReference",
+						"parameters": {
+							"container": "c4c",
+							"directory": {
+								"value": "@concat(\n    pipeline().parameters.collectionName,\n    '/In/',\n    formatDateTime(utcNow(),'yyyy/MM/dd')\n)",
+								"type": "Expression"
+							},
+							"file": {
+								"value": "@concat(\n    pipeline().parameters.collectionName\n    ,'_'\n    ,formatDateTime(utcNow(),'yyyy_MM_dd_HH_mm_ss_fff')\n    ,'.parquet'\n)",
+								"type": "Expression"
+							}
+						}
+					}
+				]
+			}
+		],
+		"parameters": {
+			"collectionName": {
+				"type": "string",
+				"defaultValue": "BusinessPartnerCollection"
+			}
+		},
+		"folder": {
+			"name": "01 ADLS Ingestion/C4C"
+		},
+		"annotations": []
+	}
+}
