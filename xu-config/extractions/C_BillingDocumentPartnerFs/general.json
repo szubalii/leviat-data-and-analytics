@@ -1,1 +1,14 @@
-{"created":{"machine":"[::ffff:84.82.142.194]:50969","timestamp":"20210802T081756.000Z"},"destination":"stxxxxslsdeuw001_s4h-uat-caa","lastChange":{"machine":"[::ffff:84.82.142.194]:50969","timestamp":"20210802T081756.000Z"},"source":"CRH_Leviat_S4HANA_CAA","type":"Table"}
+{
+    "created": {
+        "machine": "[::ffff:84.82.142.194]:50969",
+        "timestamp": "20210802T081756.000Z"
+    },
+    "destination": "stxxxxslsaeuw001_s4h-caa",
+    "lastChange": {
+        "machine": "WEALEVAPP001",
+        "timestamp": "20220524T123006.834Z",
+        "user": "EMATCRHPP\\rbarannik"
+    },
+    "source": "CRH_Leviat_S4HANA_CAA",
+    "type": "Table"
+}

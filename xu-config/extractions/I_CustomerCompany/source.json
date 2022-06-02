@@ -1,1 +1,375 @@
-{"functionName":"\/SAPDS\/RFC_READ_TABLE2","runInBackgroundJob":false,"tables":[{"name":"ICUSTCMPY","description":"Generated Table for View I_CustomerCompany: Customer Company","isView":true,"fields":[{"name":"MANDT","description":"Client (key field in client-specific tables)","abapType":"CharacterString","length":3,"isPrimaryKey":true,"isSelected":true,"checkTable":"T000","conversionExit":""},{"name":"CUSTOMER","description":"Customer Number","abapType":"CharacterString","length":10,"isPrimaryKey":true,"isSelected":true,"checkTable":"KNA1","conversionExit":"ALPHA"},{"name":"COMPANYCODE","description":"Company code","abapType":"CharacterString","length":4,"isPrimaryKey":true,"isSelected":true,"checkTable":"T001","conversionExit":""},{"name":"ACCOUNTINGCLERK","description":"Accounting clerk number","abapType":"CharacterString","length":2,"isSelected":true,"checkTable":"T001S","conversionExit":""},{"name":"RECONCILIATIONACCOUNT","description":"G\/L account number","abapType":"CharacterString","length":10,"isSelected":true,"checkTable":"SKB1","conversionExit":"ALPHA"},{"name":"AUTHORIZATIONGROUP","description":"Authorization Group","abapType":"CharacterString","length":4,"isSelected":true,"conversionExit":""},{"name":"CUSTOMERHEADOFFICE","description":"Customer Number","abapType":"CharacterString","length":10,"isSelected":true,"checkTable":"KNA1","conversionExit":"ALPHA"},{"name":"ALTERNATIVEPAYERACCOUNT","description":"Customer Number","abapType":"CharacterString","length":10,"isSelected":true,"checkTable":"KNA1","conversionExit":"ALPHA"},{"name":"PAYMENTBLOCKINGREASON","description":"Block key for payment","abapType":"CharacterString","length":1,"isSelected":true,"checkTable":"T008","conversionExit":""},{"name":"INTERESTCALCULATIONCODE","description":"Interest calculation indicator","abapType":"CharacterString","length":2,"isSelected":true,"checkTable":"T056","conversionExit":""},{"name":"INTERESTCALCULATIONDATE","description":"Date","abapType":"Date","isSelected":true,"conversionExit":""},{"name":"INTRSTCALCFREQUENCYINMONTHS","description":"Interest calculation frequency in months","abapType":"NumericCharacterString","length":2,"isSelected":true,"conversionExit":""},{"name":"CUSTOMERACCOUNTNOTE","description":"Text (30 Characters)","abapType":"CharacterString","length":30,"isSelected":true,"conversionExit":""},{"name":"APARTOLERANCEGROUP","description":"Tolerance group","abapType":"CharacterString","length":4,"isSelected":true,"checkTable":"T043G","conversionExit":""},{"name":"HOUSEBANK","description":"Short key for a house bank","abapType":"CharacterString","length":5,"isSelected":true,"checkTable":"T012","conversionExit":""},{"name":"ITEMISTOBEPAIDSEPARATELY","description":"Yes\/No field","abapType":"CharacterString","length":1,"isSelected":true,"conversionExit":""},{"name":"PAYTADVICEISSENTBYEDI","description":"Yes\/No field","abapType":"CharacterString","length":1,"isSelected":true,"conversionExit":""},{"name":"PHYSICALINVENTORYBLOCKIND","description":"Yes\/No field","abapType":"CharacterString","length":1,"isSelected":true,"conversionExit":""},{"name":"USERATCUSTOMER","description":"Text length 15","abapType":"CharacterString","length":15,"isSelected":true,"conversionExit":""},{"name":"ACCOUNTINGCLERKPHONENUMBER","description":"Character field length 30 without check","abapType":"CharacterString","length":30,"isSelected":true,"conversionExit":""},{"name":"ACCOUNTINGCLERKFAXNUMBER","description":"Text length 31","abapType":"CharacterString","length":31,"isSelected":true,"conversionExit":""},{"name":"ACCOUNTINGCLERKINTERNETADDRESS","description":"Text length 130","abapType":"CharacterString","length":130,"isSelected":true,"conversionExit":""},{"name":"ACCOUNTBYCUSTOMER","description":"Character field length 12","abapType":"CharacterString","length":12,"isSelected":true,"conversionExit":""},{"name":"ISTOBELOCALLYPROCESSED","description":"Yes\/No field","abapType":"CharacterString","length":1,"isSelected":true,"conversionExit":""},{"name":"COLLECTIVEINVOICEVARIANT","description":"Period indicator for collective invoices","abapType":"CharacterString","length":1,"isSelected":true,"conversionExit":""},{"name":"LAYOUTSORTINGRULE","description":"Selection key for allocation number layout","abapType":"CharacterString","length":3,"isSelected":true,"checkTable":"TZUN","conversionExit":""},{"name":"PAYMENTTERMS","description":"Terms of payment key","abapType":"CharacterString","length":4,"isSelected":true,"conversionExit":""},{"name":"CUSTOMERSUPPLIERCLEARINGISUSED","description":"Yes\/No field","abapType":"CharacterString","length":1,"isSelected":true,"conversionExit":""},{"name":"RECORDPAYMENTHISTORYINDICATOR","description":"Yes\/No field","abapType":"CharacterString","length":1,"isSelected":true,"conversionExit":""},{"name":"PAYMENTMETHODSLIST","description":"List of payment methods permitted","abapType":"CharacterString","length":10,"isSelected":true,"conversionExit":""},{"name":"DELETIONINDICATOR","description":"Yes\/No field","abapType":"CharacterString","length":1,"isSelected":true,"conversionExit":""},{"name":"CREDITMEMOPAYMENTTERMS","description":"Terms of payment key","abapType":"CharacterString","length":4,"isSelected":true,"conversionExit":""},{"name":"DUNNINGNOTICEGROUP","description":"Grouping keys for dunning notices","abapType":"CharacterString","length":2,"isSelected":true,"checkTable":"T047R","conversionExit":""},{"name":"LASTINTERESTCALCRUNDATE","description":"Date","abapType":"Date","isSelected":true,"conversionExit":""},{"name":"CUSTPREVIOUSMASTERRECORDNUMBER","description":"Character Field of Length 10","abapType":"CharacterString","length":10,"isSelected":true,"conversionExit":""},{"name":"VALUEADJUSTMENTKEY","description":"Value adjustment key","abapType":"CharacterString","length":2,"isSelected":true,"checkTable":"T044G","conversionExit":""},{"name":"ISBUSINESSPURPOSECOMPLETED","description":"Indicator for blocked debitor and creditor master data","abapType":"CharacterString","length":1,"isSelected":true,"conversionExit":""},{"name":"LASTDUNNEDON","description":"Date","abapType":"Date","isSelected":true,"conversionExit":""},{"name":"DUNNINGPROCEDURE","description":"Dunning type","abapType":"CharacterString","length":4,"isSelected":true,"checkTable":"T047A","conversionExit":""},{"name":"DUNNINGLEVEL","description":"Dunning level","abapType":"NumericCharacterString","length":1,"isSelected":true,"conversionExit":""},{"name":"DUNNINGBLOCK","description":"Dunning block","abapType":"CharacterString","length":1,"isSelected":true,"checkTable":"T040S","conversionExit":""},{"name":"DUNNINGRECIPIENT","description":"Customer Number","abapType":"CharacterString","length":10,"isSelected":true,"checkTable":"KNA1","conversionExit":"ALPHA"},{"name":"LEGDUNNINGPROCEDUREON","description":"Date","abapType":"Date","isSelected":true,"conversionExit":""}]}]}
+{
+    "functionName": "Z_THEO_READ_TABLE",
+    "runInBackgroundJob": false,
+    "tables": 
+    [
+        {
+            "name": "ICUSTCMPY",
+            "description": "Generated Table for View I_CustomerCompany: Customer Company",
+            "isView": true,
+            "fields": 
+            [
+                {
+                    "name": "MANDT",
+                    "description": "Client",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "T000",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CUSTOMER",
+                    "description": "Customer Number",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "KNA1",
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "COMPANYCODE",
+                    "description": "Company Code",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "T001",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PHYSICALINVENTORYBLOCKIND",
+                    "description": "Posting block for company code",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "DELETIONINDICATOR",
+                    "description": "Deletion Flag for Master Record (Company Code Level)",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "LAYOUTSORTINGRULE",
+                    "description": "Key for sorting according to assignment numbers",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "checkTable": "TZUN",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ACCOUNTINGCLERK",
+                    "description": "Accounting Clerk Abbreviation",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "checkTable": "T001S",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "RECONCILIATIONACCOUNT",
+                    "description": "Reconciliation Account in General Ledger",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "checkTable": "SKB1",
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "AUTHORIZATIONGROUP",
+                    "description": "Authorization Group",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CUSTOMERHEADOFFICE",
+                    "description": "Head office account number (in branch accounts)",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "checkTable": "KNA1",
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "ALTERNATIVEPAYERACCOUNT",
+                    "description": "Account number of an alternative payer",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "checkTable": "KNA1",
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "PAYMENTMETHODSLIST",
+                    "description": "List of Respected Payment Methods",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CUSTOMERSUPPLIERCLEARINGISUSED",
+                    "description": "Indicator: Clearing between customer and vendor ?",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PAYMENTBLOCKINGREASON",
+                    "description": "Block Key for Payment",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "checkTable": "T008",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PAYMENTTERMS",
+                    "description": "Terms of payment key",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "INTERESTCALCULATIONCODE",
+                    "description": "Interest calculation indicator",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "checkTable": "T056",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "INTERESTCALCULATIONDATE",
+                    "description": "Key Date of Last Interest Calculation",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "INTRSTCALCFREQUENCYINMONTHS",
+                    "description": "Interest Calculation Frequency in Months",
+                    "abapType": "NumericCharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ACCOUNTBYCUSTOMER",
+                    "description": "Our account number at customer",
+                    "abapType": "CharacterString",
+                    "length": 12,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "USERATCUSTOMER",
+                    "description": "User at customer",
+                    "abapType": "CharacterString",
+                    "length": 15,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CUSTOMERACCOUNTNOTE",
+                    "description": "Memo",
+                    "abapType": "CharacterString",
+                    "length": 30,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "COLLECTIVEINVOICEVARIANT",
+                    "description": "Collective Invoice Variant",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ISTOBELOCALLYPROCESSED",
+                    "description": "Indicator: Local Processing?",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "LASTINTERESTCALCRUNDATE",
+                    "description": "Date of Last Interest Calculation Run",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "RECORDPAYMENTHISTORYINDICATOR",
+                    "description": "Indicator: Record Payment History ?",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "APARTOLERANCEGROUP",
+                    "description": "Tolerance Group for Business Partner/G/L Account",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "T043G",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "HOUSEBANK",
+                    "description": "Short key for a house bank",
+                    "abapType": "CharacterString",
+                    "length": 5,
+                    "isSelected": true,
+                    "checkTable": "T012",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ITEMISTOBEPAIDSEPARATELY",
+                    "description": "Indicator: Pay All Items Separately?",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CUSTPREVIOUSMASTERRECORDNUMBER",
+                    "description": "Previous Master Record Number",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "DUNNINGNOTICEGROUP",
+                    "description": "Key for Dunning Notice Grouping",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "checkTable": "T047R",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PAYTADVICEISSENTBYEDI",
+                    "description": "Indicator: Send Payment Advices by EDI",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ACCOUNTINGCLERKFAXNUMBER",
+                    "description": "Accounting clerk's fax number at the customer/vendor",
+                    "abapType": "CharacterString",
+                    "length": 31,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ACCOUNTINGCLERKINTERNETADDRESS",
+                    "description": "Internet address of partner company clerk",
+                    "abapType": "CharacterString",
+                    "length": 130,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CREDITMEMOPAYMENTTERMS",
+                    "description": "Payment Terms Key for Credit Memos",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "VALUEADJUSTMENTKEY",
+                    "description": "Value Adjustment Key",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "checkTable": "T044G",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ACCOUNTINGCLERKPHONENUMBER",
+                    "description": "Accounting clerk's telephone number at business partner",
+                    "abapType": "CharacterString",
+                    "length": 30,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ISBUSINESSPURPOSECOMPLETED",
+                    "description": "Business Purpose Completed Flag",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "LASTDUNNEDON",
+                    "description": "Date of Last Dunning Notice",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "DUNNINGPROCEDURE",
+                    "description": "Dunning Procedure",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "T047A",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "DUNNINGLEVEL",
+                    "description": "Dunning Level",
+                    "abapType": "NumericCharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "DUNNINGBLOCK",
+                    "description": "Dunning Block",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "checkTable": "T040S",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "DUNNINGRECIPIENT",
+                    "description": "Account Number of the Dunning Recipient",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "checkTable": "KNA1",
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "LEGDUNNINGPROCEDUREON",
+                    "description": "Date of the Legal Dunning Proceedings",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                }
+            ]
+        }
+    ]
+}

@@ -1,1 +1,51 @@
-{"functionName":"\/SAPDS\/RFC_READ_TABLE2","runInBackgroundJob":false,"tables":[{"name":"IBOTYPET","description":"Generated Table for View I_BusinessObjTypeText: Business Object Type Text","isView":true,"fields":[{"name":"BUSINESSOBJECTTYPE","description":"Object type","abapType":"CharacterString","length":10,"isPrimaryKey":true,"isSelected":true,"conversionExit":""},{"name":"LANGUAGE","description":"Language Key","abapType":"CharacterString","length":1,"isPrimaryKey":true,"isSelected":true,"checkTable":"T002","conversionExit":"ISOLA"},{"name":"BUSINESSOBJECTTYPENAME","description":"Text (20 characters)","abapType":"CharacterString","length":20,"isSelected":true,"conversionExit":""},{"name":"BUSINESSOBJECTTYPEDESCRIPTION","description":"Text length 80","abapType":"CharacterString","length":80,"isSelected":true,"conversionExit":""}]}]}
+{
+    "functionName": "Z_THEO_READ_TABLE",
+    "runInBackgroundJob": false,
+    "tables": 
+    [
+        {
+            "name": "IBOTYPET",
+            "description": "Generated Table for View I_BusinessObjTypeText: Business Object Type Text",
+            "isView": true,
+            "fields": 
+            [
+                {
+                    "name": "BUSINESSOBJECTTYPE",
+                    "description": "Object type",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "LANGUAGE",
+                    "description": "Language Key",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "formattedLength": 2,
+                    "checkTable": "T002",
+                    "conversionExit": "ISOLA"
+                },
+                {
+                    "name": "BUSINESSOBJECTTYPEDESCRIPTION",
+                    "description": "Description",
+                    "abapType": "CharacterString",
+                    "length": 80,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "BUSINESSOBJECTTYPENAME",
+                    "description": "Name",
+                    "abapType": "CharacterString",
+                    "length": 20,
+                    "isSelected": true,
+                    "conversionExit": ""
+                }
+            ]
+        }
+    ]
+}

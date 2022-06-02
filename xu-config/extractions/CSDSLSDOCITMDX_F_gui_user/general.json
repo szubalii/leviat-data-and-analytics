@@ -7,6 +7,6 @@
         "machine": "[::ffff:127.0.0.1]:50699",
         "timestamp": "20210430T071437.069Z"
     },
-    "source": "CRH_Leviat_S4HANA_CAA_gui_user",
+    "source": "CRH_Leviat_S4HANA_CAA",
     "type": "ODP"
 }

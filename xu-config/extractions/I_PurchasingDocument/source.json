@@ -1,0 +1,686 @@
+{
+    "functionName": "Z_THEO_READ_TABLE",
+    "runInBackgroundJob": false,
+    "tables": 
+    [
+        {
+            "name": "IMMPURCHASINGDOC",
+            "description": "Generated Table for View",
+            "isView": true,
+            "fields": 
+            [
+                {
+                    "name": "MANDT",
+                    "description": "Client",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "T000",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PURCHASINGDOCUMENT",
+                    "description": "Purchasing Document Number",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "COMPANYCODE",
+                    "description": "Company Code",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "T001",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PURCHASINGDOCUMENTCATEGORY",
+                    "description": "Purchasing Document Category",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PURCHASINGDOCUMENTTYPE",
+                    "description": "Purchasing Document Type",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "T161",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PURCHASINGDOCUMENTSUBTYPE",
+                    "description": "Control indicator for purchasing document type",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PURCHASINGDOCUMENTDELETIONCODE",
+                    "description": "Deletion indicator in purchasing document",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PURCHASINGDOCUMENTORIGIN",
+                    "description": "Status of Purchasing Document",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CREATIONDATE",
+                    "description": "Date on which the record was created",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CREATEDBYUSER",
+                    "description": "Name of Person who Created the Object",
+                    "abapType": "CharacterString",
+                    "length": 12,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "LASTCHANGEDATETIME",
+                    "description": "Change Time Stamp",
+                    "abapType": "PackedNumber",
+                    "length": 21,
+                    "decimalCount": 7,
+                    "isSelected": true,
+                    "formattedLength": 27,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ITEMNUMBERINTERVAL",
+                    "description": "Item Number Interval",
+                    "abapType": "NumericCharacterString",
+                    "length": 5,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SUPPLIER",
+                    "description": "Vendor's account number",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "checkTable": "LFA1",
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "LANGUAGE",
+                    "description": "Language Key",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "formattedLength": 2,
+                    "checkTable": "T002",
+                    "conversionExit": "ISOLA"
+                },
+                {
+                    "name": "PAYMENTTERMS",
+                    "description": "Terms of payment key",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CASHDISCOUNT1DAYS",
+                    "description": "Cash (Prompt Payment) Discount Days",
+                    "abapType": "PackedNumber",
+                    "length": 3,
+                    "isSelected": true,
+                    "formattedLength": 3,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CASHDISCOUNT2DAYS",
+                    "description": "Cash (Prompt Payment) Discount Days",
+                    "abapType": "PackedNumber",
+                    "length": 3,
+                    "isSelected": true,
+                    "formattedLength": 3,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "NETPAYMENTDAYS",
+                    "description": "Cash (Prompt Payment) Discount Days",
+                    "abapType": "PackedNumber",
+                    "length": 3,
+                    "isSelected": true,
+                    "formattedLength": 3,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CASHDISCOUNT1PERCENT",
+                    "description": "Cash discount percentage 1",
+                    "abapType": "PackedNumber",
+                    "length": 5,
+                    "decimalCount": 3,
+                    "isSelected": true,
+                    "formattedLength": 6,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CASHDISCOUNT2PERCENT",
+                    "description": "Cash Discount Percentage 2",
+                    "abapType": "PackedNumber",
+                    "length": 5,
+                    "decimalCount": 3,
+                    "isSelected": true,
+                    "formattedLength": 6,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PURCHASINGORGANIZATION",
+                    "description": "Purchasing organization",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "T024E",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PURCHASINGGROUP",
+                    "description": "Purchasing Group",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "checkTable": "T024",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "DOCUMENTCURRENCY",
+                    "description": "Currency Key",
+                    "abapType": "CharacterString",
+                    "length": 5,
+                    "isSelected": true,
+                    "checkTable": "TCURC",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "EXCHANGERATE",
+                    "description": "Exchange Rate",
+                    "abapType": "PackedNumber",
+                    "length": 9,
+                    "decimalCount": 5,
+                    "isSelected": true,
+                    "formattedLength": 12,
+                    "conversionExit": "EXCRT"
+                },
+                {
+                    "name": "EXCHANGERATEISFIXED",
+                    "description": "Indicator for Fixed Exchange Rate",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PURCHASINGDOCUMENTORDERDATE",
+                    "description": "Purchasing Document Date",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "VALIDITYSTARTDATE",
+                    "description": "Start of Validity Period",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "VALIDITYENDDATE",
+                    "description": "End of Validity Period",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "LATESTREGISTRATIONDATE",
+                    "description": "Closing Date for Applications",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "QUOTATIONLATESTSUBMISSIONDATE",
+                    "description": "Deadline for Submission of Bid/Quotation",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "BINDINGPERIODVALIDITYENDDATE",
+                    "description": "Binding Period for Quotation",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "REQUESTFORQUOTATION",
+                    "description": "Bid invitation number",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "checkTable": "EKKO",
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "SUPPLIERQUOTATIONEXTERNALID",
+                    "description": "Quotation Number",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "QUOTATIONSUBMISSIONDATE",
+                    "description": "Quotation Submission Date",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CORRESPNCEXTERNALREFERENCE",
+                    "description": "Your Reference",
+                    "abapType": "CharacterString",
+                    "length": 12,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SUPPLIERRESPSALESPERSONNAME",
+                    "description": "Responsible Salesperson at Supplier's Office",
+                    "abapType": "CharacterString",
+                    "length": 30,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SUPPLIERPHONENUMBER",
+                    "description": "Supplier's Telephone Number",
+                    "abapType": "CharacterString",
+                    "length": 16,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SUPPLYINGSUPPLIER",
+                    "description": "Goods Supplier",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "checkTable": "LFA1",
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "CUSTOMER",
+                    "description": "Customer Number",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "checkTable": "KNA1",
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "PURCHASECONTRACT",
+                    "description": "Number of principal purchase agreement",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "checkTable": "EKKO",
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "SUPPLYINGPLANT",
+                    "description": "Supplying (issuing) plant in case of stock transport order",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "T001W",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "INCOTERMSCLASSIFICATION",
+                    "description": "Incoterms (Part 1)",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "checkTable": "TINC",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "INCOTERMSTRANSFERLOCATION",
+                    "description": "Incoterms (Part 2)",
+                    "abapType": "CharacterString",
+                    "length": 28,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "TARGETAMOUNT",
+                    "description": "Target Value for Header Area per Distribution",
+                    "abapType": "PackedNumber",
+                    "length": 15,
+                    "decimalCount": 2,
+                    "isSelected": true,
+                    "formattedLength": 20,
+                    "conversionExit": "",
+                    "referenceTable": "EKKO",
+                    "referenceField": "WAERS"
+                },
+                {
+                    "name": "PURGDOCUMENTDISTRIBUTIONTYPE",
+                    "description": "Distribution Type for Purchasing Document",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PURCHASINGDOCUMENTCONDITION",
+                    "description": "Number of the Document Condition",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRICINGPROCEDURE",
+                    "description": "Procedure (Pricing, Output Control, Acct. Det., Costing,...)",
+                    "abapType": "CharacterString",
+                    "length": 6,
+                    "isSelected": true,
+                    "checkTable": "T683",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "INVOICINGPARTY",
+                    "description": "Different Invoicing Party",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "checkTable": "LFA1",
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "CORRESPNCINTERNALREFERENCE",
+                    "description": "Our Reference",
+                    "abapType": "CharacterString",
+                    "length": 12,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ITEMNUMBERINTERVALFORSUBITEMS",
+                    "description": "Item Number Interval for Subitems",
+                    "abapType": "NumericCharacterString",
+                    "length": 5,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PURCHASINGRELEASESTRATEGY",
+                    "description": "Release Strategy",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "checkTable": "T16FS",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "RELEASECODE",
+                    "description": "Release Indicator: Purchasing Document",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "checkTable": "T16FB",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PURGRELEASESEQUENCESTATUS",
+                    "description": "Release State",
+                    "abapType": "CharacterString",
+                    "length": 8,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "RELEASEISNOTCOMPLETED",
+                    "description": "Release Not Yet Completely Effected",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "TAXRETURNCOUNTRY",
+                    "description": "Country for Tax Return",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "checkTable": "T005",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SCHEDULEAGREEMENTHASRELEASEDOC",
+                    "description": "Indicator for scheduling agreement release documentation",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SUPPLIERADDRESSID",
+                    "description": "Address Number",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "MANUALSUPPLIERADDRESSID",
+                    "description": "Address Number",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "VATREGISTRATIONCOUNTRY",
+                    "description": "Country of Sales Tax ID Number",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "VATREGISTRATION",
+                    "description": "VAT Registration Number",
+                    "abapType": "CharacterString",
+                    "length": 20,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PURGREASONFORDOCCANCELLATION",
+                    "description": "Reason for Cancellation",
+                    "abapType": "NumericCharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "checkTable": "T165R",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PURCHASINGCOMPLETENESSSTATUS",
+                    "description": "Purchase order not yet complete",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PURCHASINGPROCESSINGSTATUS",
+                    "description": "Purchasing document processing state",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PURGRELEASETIMETOTALAMOUNT",
+                    "description": "Total value at time of release",
+                    "abapType": "PackedNumber",
+                    "length": 15,
+                    "decimalCount": 2,
+                    "isSelected": true,
+                    "formattedLength": 20,
+                    "conversionExit": "",
+                    "referenceTable": "EKKO",
+                    "referenceField": "WAERS"
+                },
+                {
+                    "name": "DOWNPAYMENTTYPE",
+                    "description": "Down Payment Indicator",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "DOWNPAYMENTPERCENTAGEOFTOTAMT",
+                    "description": "Down Payment Percentage",
+                    "abapType": "PackedNumber",
+                    "length": 5,
+                    "decimalCount": 2,
+                    "isSelected": true,
+                    "formattedLength": 6,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "DOWNPAYMENTAMOUNT",
+                    "description": "Down Payment Amount in Document Currency",
+                    "abapType": "PackedNumber",
+                    "length": 11,
+                    "decimalCount": 2,
+                    "isSelected": true,
+                    "formattedLength": 14,
+                    "conversionExit": "",
+                    "referenceTable": "EKKO",
+                    "referenceField": "WAERS"
+                },
+                {
+                    "name": "DOWNPAYMENTDUEDATE",
+                    "description": "Due Date for Down Payment",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PURCHASINGDOCUMENTNAME",
+                    "description": "Contract Name",
+                    "abapType": "CharacterString",
+                    "length": 40,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "INCOTERMSVERSION",
+                    "description": "Incoterms Version",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "TINCV",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "INCOTERMSLOCATION1",
+                    "description": "Incoterms Location 1",
+                    "abapType": "CharacterString",
+                    "length": 70,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "INCOTERMSLOCATION2",
+                    "description": "Incoterms Location 2",
+                    "abapType": "CharacterString",
+                    "length": 70,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ISINTRASTATREPORTINGRELEVANT",
+                    "description": "Relevant for Intrastat Reporting",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ISINTRASTATREPORTINGEXCLUDED",
+                    "description": "Exclude from Intrastat Reporting",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "QUOTATIONEARLIESTSUBMSNDATE",
+                    "description": "The date as of which Quotations can be submitted",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "FOLLOWONDOCUMENTCATEGORY",
+                    "description": "Follow-On Purchasing Document Category",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "FOLLOWONDOCUMENTTYPE",
+                    "description": "Follow-On Purchasing Document Type",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ISENDOFPURPOSEBLOCKED",
+                    "description": "Business Purpose Completed",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PURCHASINGDOCUMENTISAGED",
+                    "description": "Document is aged",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                }
+            ]
+        }
+    ]
+}

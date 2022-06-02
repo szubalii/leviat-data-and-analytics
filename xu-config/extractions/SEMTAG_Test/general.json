@@ -1,0 +1,14 @@
+{
+    "created": {
+        "machine": "[::ffff:127.0.0.1]:59101",
+        "timestamp": "20220217T130714.840Z",
+        "user": "EMATCRHPP\\fbouw"
+    },
+    "lastChange": {
+        "machine": "[::ffff:127.0.0.1]:59101",
+        "timestamp": "20220217T132053.034Z",
+        "user": "EMATCRHPP\\fbouw"
+    },
+    "source": "CRH_Leviat_S4HANA_CAA",
+    "type": "Table"
+}

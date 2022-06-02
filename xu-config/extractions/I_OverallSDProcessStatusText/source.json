@@ -1,1 +1,52 @@
-{"functionName":"\/SAPDS\/RFC_READ_TABLE2","runInBackgroundJob":false,"tables":[{"name":"ISDOVRLSDPRCSTST","description":"Generated Table for View I_OverallSDProcessStatusText: Overall SD Process Status Text","isView":true,"fields":[{"name":"MANDT","description":"Client (key field in client-specific tables)","abapType":"CharacterString","length":3,"isPrimaryKey":true,"isSelected":true,"conversionExit":""},{"name":"OVERALLSDPROCESSSTATUS","description":"General SD Status","abapType":"CharacterString","length":1,"isPrimaryKey":true,"isSelected":true,"conversionExit":""},{"name":"LANGUAGE","description":"Language Key","abapType":"CharacterString","length":1,"isPrimaryKey":true,"isSelected":true,"checkTable":"T002","conversionExit":"ISOLA"},{"name":"OVERALLSDPROCESSSTATUSDESC","description":"Text (20 characters)","abapType":"CharacterString","length":20,"isSelected":true,"conversionExit":""}]}]}
+{
+    "functionName": "Z_THEO_READ_TABLE",
+    "runInBackgroundJob": false,
+    "tables": 
+    [
+        {
+            "name": "ISDOVRLSDPRCSTST",
+            "description": "Generated Table for View I_OverallSDProcessStatusText: Overall SD Process Status Text",
+            "isView": true,
+            "fields": 
+            [
+                {
+                    "name": "MANDT",
+                    "description": "Client",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "LANGUAGE",
+                    "description": "Language Key",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "formattedLength": 2,
+                    "checkTable": "T002",
+                    "conversionExit": "ISOLA"
+                },
+                {
+                    "name": "OVERALLSDPROCESSSTATUS",
+                    "description": "General SD status",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "OVERALLSDPROCESSSTATUSDESC",
+                    "description": "Status Description",
+                    "abapType": "CharacterString",
+                    "length": 20,
+                    "isSelected": true,
+                    "conversionExit": ""
+                }
+            ]
+        }
+    ]
+}

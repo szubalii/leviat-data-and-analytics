@@ -1,1 +1,41 @@
-{"functionName":"\/SAPDS\/RFC_READ_TABLE2","runInBackgroundJob":false,"tables":[{"name":"ISDBILLRELVCODET","description":"Generated Table for View I_BillingRelevanceCodeText: Billing Relevance Code Text","isView":true,"fields":[{"name":"BILLINGRELEVANCECODE","description":"BILLINGRELEVANCECODE","abapType":"CharacterString","length":1,"isPrimaryKey":true,"isSelected":true,"conversionExit":""},{"name":"LANGUAGE","description":"Language Key","abapType":"CharacterString","length":1,"isPrimaryKey":true,"isSelected":true,"conversionExit":"ISOLA"},{"name":"BILLINGRELEVANCECODENAME","description":"Short descriptive text for DD objects","abapType":"CharacterString","length":60,"isSelected":true,"conversionExit":""}]}]}
+{
+    "functionName": "Z_THEO_READ_TABLE",
+    "runInBackgroundJob": false,
+    "tables": 
+    [
+        {
+            "name": "ISDBILLRELVCODET",
+            "description": "Generated Table for View I_BillingRelevanceCodeText: Billing Relevance Code Text",
+            "isView": true,
+            "fields": 
+            [
+                {
+                    "name": "LANGUAGE",
+                    "description": "Language Key",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "formattedLength": 2,
+                    "conversionExit": "ISOLA"
+                },
+                {
+                    "name": "BILLINGRELEVANCECODENAME",
+                    "description": "Short Text for Fixed Values",
+                    "abapType": "CharacterString",
+                    "length": 60,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "BILLINGRELEVANCECODE",
+                    "description": "Char Column",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                }
+            ]
+        }
+    ]
+}

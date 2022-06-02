@@ -1,1 +1,87 @@
-{"functionName":"\/SAPDS\/RFC_READ_TABLE2","runInBackgroundJob":false,"tables":[{"name":"ISTORAGELOCATION","description":"Generated Table for View I_StorageLocation: Storage Location","isView":true,"fields":[{"name":"MANDT","description":"Client (key field in client-specific tables)","abapType":"CharacterString","length":3,"isPrimaryKey":true,"isSelected":true,"checkTable":"T000","conversionExit":""},{"name":"PLANT","description":"Plant","abapType":"CharacterString","length":4,"isPrimaryKey":true,"isSelected":true,"checkTable":"T001W","conversionExit":""},{"name":"STORAGELOCATION","description":"Storage location","abapType":"CharacterString","length":4,"isPrimaryKey":true,"isSelected":true,"conversionExit":""},{"name":"STORAGELOCATIONNAME","description":"Text length 16","abapType":"CharacterString","length":16,"isSelected":true,"conversionExit":""},{"name":"SALESORGANIZATION","description":"Sales Organization","abapType":"CharacterString","length":4,"isSelected":true,"checkTable":"TVKO","conversionExit":""},{"name":"DISTRIBUTIONCHANNEL","description":"Distribution channel","abapType":"CharacterString","length":2,"isSelected":true,"checkTable":"TVTW","conversionExit":""},{"name":"DIVISION","description":"Division","abapType":"CharacterString","length":2,"isSelected":true,"checkTable":"TSPA","conversionExit":""},{"name":"ISSTORLOCAUTHZNCHECKACTIVE","description":"Yes\/No field","abapType":"CharacterString","length":1,"isSelected":true,"conversionExit":""}]}]}
+{
+    "functionName": "Z_THEO_READ_TABLE",
+    "runInBackgroundJob": false,
+    "tables": 
+    [
+        {
+            "name": "ISTORAGELOCATION",
+            "description": "Generated Table for View I_StorageLocation: Storage Location",
+            "isView": true,
+            "fields": 
+            [
+                {
+                    "name": "MANDT",
+                    "description": "Client",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "T000",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PLANT",
+                    "description": "Plant",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "T001W",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "STORAGELOCATION",
+                    "description": "Storage location",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "STORAGELOCATIONNAME",
+                    "description": "Description of Storage Location",
+                    "abapType": "CharacterString",
+                    "length": 16,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "DIVISION",
+                    "description": "Division",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "checkTable": "TSPA",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ISSTORLOCAUTHZNCHECKACTIVE",
+                    "description": "Storage location authorization for goods movements active",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SALESORGANIZATION",
+                    "description": "Sales Organization",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "TVKO",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "DISTRIBUTIONCHANNEL",
+                    "description": "Distribution Channel",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "checkTable": "TVTW",
+                    "conversionExit": ""
+                }
+            ]
+        }
+    ]
+}

@@ -1,1 +1,62 @@
-{"functionName":"\/SAPDS\/RFC_READ_TABLE2","runInBackgroundJob":false,"tables":[{"name":"ILEWRHSSTGGAREAT","description":"Generated Table for View I_WarehouseStagingAreaText: Warehouse Staging Area Text","isView":true,"fields":[{"name":"MANDT","description":"Client (key field in client-specific tables)","abapType":"CharacterString","length":3,"isPrimaryKey":true,"isSelected":true,"conversionExit":""},{"name":"WAREHOUSE","description":"Warehouse Number","abapType":"CharacterString","length":3,"isPrimaryKey":true,"isSelected":true,"checkTable":"T300","conversionExit":""},{"name":"WAREHOUSESTAGINGAREA","description":"Staging area for warehouse complex","abapType":"CharacterString","length":10,"isPrimaryKey":true,"isSelected":true,"conversionExit":""},{"name":"LANGUAGE","description":"Language Key","abapType":"CharacterString","length":1,"isPrimaryKey":true,"isSelected":true,"checkTable":"T002","conversionExit":"ISOLA"},{"name":"WAREHOUSESTAGINGAREANAME","description":"25-character text length","abapType":"CharacterString","length":25,"isSelected":true,"conversionExit":""}]}]}
+{
+    "functionName": "Z_THEO_READ_TABLE",
+    "runInBackgroundJob": false,
+    "tables": 
+    [
+        {
+            "name": "ILEWRHSSTGGAREAT",
+            "description": "Generated Table for View I_WarehouseStagingAreaText: Warehouse Staging Area Text",
+            "isView": true,
+            "fields": 
+            [
+                {
+                    "name": "MANDT",
+                    "description": "Client",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "LANGUAGE",
+                    "description": "Language Key",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "formattedLength": 2,
+                    "checkTable": "T002",
+                    "conversionExit": "ISOLA"
+                },
+                {
+                    "name": "WAREHOUSE",
+                    "description": "Warehouse Number / Warehouse Complex",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "T300",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "WAREHOUSESTAGINGAREA",
+                    "description": "Staging Area for Warehouse Complex",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "WAREHOUSESTAGINGAREANAME",
+                    "description": "Text for matl staging area",
+                    "abapType": "CharacterString",
+                    "length": 25,
+                    "isSelected": true,
+                    "conversionExit": ""
+                }
+            ]
+        }
+    ]
+}

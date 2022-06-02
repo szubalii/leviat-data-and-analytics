@@ -1,0 +1,103 @@
+{
+    "functionName": "Z_THEO_READ_TABLE",
+    "runInBackgroundJob": false,
+    "tables": 
+    [
+        {
+            "name": "ISDDOCCMPLTPART",
+            "description": "Generated Table for View",
+            "isView": true,
+            "fields": 
+            [
+                {
+                    "name": "MANDT",
+                    "description": "Client",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "T000",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SDDOCUMENT",
+                    "description": "Sales and Distribution Document Number",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "SDDOCUMENTITEM",
+                    "description": "Item number of the SD document",
+                    "abapType": "NumericCharacterString",
+                    "length": 6,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PARTNERFUNCTION",
+                    "description": "Partner Function",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "TPAR",
+                    "conversionExit": "PARVW"
+                },
+                {
+                    "name": "CUSTOMER",
+                    "description": "Customer Number",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "checkTable": "KNA1",
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "SUPPLIER",
+                    "description": "Account Number of Vendor or Creditor",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "checkTable": "LFA1",
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "PERSONNEL",
+                    "description": "Personnel Number",
+                    "abapType": "NumericCharacterString",
+                    "length": 8,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CONTACTPERSON",
+                    "description": "Number of contact person",
+                    "abapType": "NumericCharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ADDRESSID",
+                    "description": "Address",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "PARTNERISONETIMEACCOUNT",
+                    "description": "Indicator: Is the account a one-time account?",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                }
+            ]
+        }
+    ]
+}

@@ -1,1 +1,53 @@
-{"functionName":"\/SAPDS\/RFC_READ_TABLE2","runInBackgroundJob":false,"tables":[{"name":"ISDPAYTGUARFORMT","description":"Generated Table for View I_PaymentGuaranteeFormText: Payment Guarantee Form Text","isView":true,"fields":[{"name":"MANDT","description":"Client (key field in client-specific tables)","abapType":"CharacterString","length":3,"isPrimaryKey":true,"isSelected":true,"checkTable":"T000","conversionExit":""},{"name":"PAYMENTGUARANTEEFORM","description":"Form of payment guarantee","abapType":"CharacterString","length":2,"isPrimaryKey":true,"isSelected":true,"conversionExit":""},{"name":"LANGUAGE","description":"Language Key","abapType":"CharacterString","length":1,"isPrimaryKey":true,"isSelected":true,"checkTable":"T002","conversionExit":"ISOLA"},{"name":"PAYMENTGUARANTEEFORMNAME","description":"Text (60 Characters)","abapType":"CharacterString","length":60,"isSelected":true,"conversionExit":""}]}]}
+{
+    "functionName": "Z_THEO_READ_TABLE",
+    "runInBackgroundJob": false,
+    "tables": 
+    [
+        {
+            "name": "ISDPAYTGUARFORMT",
+            "description": "Generated Table for View I_PaymentGuaranteeFormText: Payment Guarantee Form Text",
+            "isView": true,
+            "fields": 
+            [
+                {
+                    "name": "MANDT",
+                    "description": "Client",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "T000",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "LANGUAGE",
+                    "description": "Language Key",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "formattedLength": 2,
+                    "checkTable": "T002",
+                    "conversionExit": "ISOLA"
+                },
+                {
+                    "name": "PAYMENTGUARANTEEFORM",
+                    "description": "Form of payment guarantee",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PAYMENTGUARANTEEFORMNAME",
+                    "description": "Description for form of payment guarantee",
+                    "abapType": "CharacterString",
+                    "length": 60,
+                    "isSelected": true,
+                    "conversionExit": ""
+                }
+            ]
+        }
+    ]
+}

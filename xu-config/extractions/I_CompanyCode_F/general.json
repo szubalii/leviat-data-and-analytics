@@ -3,7 +3,7 @@
         "machine": "[::ffff:127.0.0.1]:50006",
         "timestamp": "20210920T101544.686Z"
     },
-    "destination": "stxxxxslsdeuw001_s4h-uat-caa",
+    "destination": "stxxxxslsaeuw001_s4h-caa",
     "lastChange": {
         "machine": "[::ffff:127.0.0.1]:54755",
         "timestamp": "20210920T141514.978Z"

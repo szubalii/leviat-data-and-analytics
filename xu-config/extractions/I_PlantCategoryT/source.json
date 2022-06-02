@@ -1,1 +1,41 @@
-{"functionName":"\/SAPDS\/RFC_READ_TABLE2","runInBackgroundJob":false,"tables":[{"name":"IPLANTCATEGORYT","description":"Generated Table for View I_PlantCategoryT: Plant category Text","isView":true,"fields":[{"name":"PLANTCATEGORY","description":"Plant category","abapType":"CharacterString","length":1,"isPrimaryKey":true,"isSelected":true,"conversionExit":""},{"name":"LANGUAGE","description":"Language Key","abapType":"CharacterString","length":1,"isPrimaryKey":true,"isSelected":true,"conversionExit":"ISOLA"},{"name":"PLANTCATEGORYNAME","description":"Short descriptive text for DD objects","abapType":"CharacterString","length":60,"isSelected":true,"conversionExit":""}]}]}
+{
+    "functionName": "Z_THEO_READ_TABLE",
+    "runInBackgroundJob": false,
+    "tables": 
+    [
+        {
+            "name": "IPLANTCATEGORYT",
+            "description": "Generated Table for View I_PlantCategoryT: Plant category Text",
+            "isView": true,
+            "fields": 
+            [
+                {
+                    "name": "LANGUAGE",
+                    "description": "Language Key",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "formattedLength": 2,
+                    "conversionExit": "ISOLA"
+                },
+                {
+                    "name": "PLANTCATEGORYNAME",
+                    "description": "Short Text for Fixed Values",
+                    "abapType": "CharacterString",
+                    "length": 60,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PLANTCATEGORY",
+                    "description": "Char Column",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                }
+            ]
+        }
+    ]
+}
