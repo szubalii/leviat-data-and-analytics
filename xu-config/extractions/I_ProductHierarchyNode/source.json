@@ -1,1 +1,42 @@
-{"functionName":"\/SAPDS\/RFC_READ_TABLE2","runInBackgroundJob":false,"tables":[{"name":"IPRODHIERNODE","description":"Generated Table for View I_ProductHierarchyNode: Product Hierarchy Node","isView":true,"fields":[{"name":"MANDT","description":"Client (key field in client-specific tables)","abapType":"CharacterString","length":3,"isPrimaryKey":true,"isSelected":true,"checkTable":"T000","conversionExit":""},{"name":"PRODUCTHIERARCHYNODE","description":"Product hierarchy","abapType":"CharacterString","length":18,"isPrimaryKey":true,"isSelected":true,"conversionExit":""},{"name":"PRODUCTHIERARCHYNODELEVEL","description":"1-character numeric fields without check","abapType":"NumericCharacterString","length":1,"isSelected":true,"conversionExit":""}]}]}
+{
+    "functionName": "Z_THEO_READ_TABLE",
+    "runInBackgroundJob": false,
+    "tables": 
+    [
+        {
+            "name": "IPRODHIERNODE",
+            "description": "Generated Table for View I_ProductHierarchyNode: Product Hierarchy Node",
+            "isView": true,
+            "fields": 
+            [
+                {
+                    "name": "MANDT",
+                    "description": "Client",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "T000",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRODUCTHIERARCHYNODE",
+                    "description": "Product hierarchy",
+                    "abapType": "CharacterString",
+                    "length": 18,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRODUCTHIERARCHYNODELEVEL",
+                    "description": "Number of the level in the product hierarchy",
+                    "abapType": "NumericCharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                }
+            ]
+        }
+    ]
+}

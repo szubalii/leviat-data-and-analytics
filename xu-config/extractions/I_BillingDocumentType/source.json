@@ -1,1 +1,58 @@
-{"functionName":"\/SAPDS\/RFC_READ_TABLE2","runInBackgroundJob":false,"tables":[{"name":"ISDBILLGDOCTYPE","description":"Generated Table for View I_BillingDocumentType: Billing Document Type","isView":true,"fields":[{"name":"MANDT","description":"Client (key field in client-specific tables)","abapType":"CharacterString","length":3,"isPrimaryKey":true,"isSelected":true,"checkTable":"T000","conversionExit":""},{"name":"BILLINGDOCUMENTTYPE","description":"Billing Type","abapType":"CharacterString","length":4,"isPrimaryKey":true,"isSelected":true,"conversionExit":""},{"name":"SDDOCUMENTCATEGORY","description":"SD Document Category","abapType":"CharacterString","length":4,"isSelected":true,"conversionExit":""},{"name":"INCREMENTITEMNUMBER","description":"Numeric field length 6","abapType":"NumericCharacterString","length":6,"isSelected":true,"conversionExit":""},{"name":"BILLINGDOCUMENTCATEGORY","description":"Billing category","abapType":"CharacterString","length":1,"isSelected":true,"conversionExit":""}]}]}
+{
+    "functionName": "Z_THEO_READ_TABLE",
+    "runInBackgroundJob": false,
+    "tables": 
+    [
+        {
+            "name": "ISDBILLGDOCTYPE",
+            "description": "Generated Table for View I_BillingDocumentType: Billing Document Type",
+            "isView": true,
+            "fields": 
+            [
+                {
+                    "name": "MANDT",
+                    "description": "Client",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "T000",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "BILLINGDOCUMENTTYPE",
+                    "description": "Billing Type",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "INCREMENTITEMNUMBER",
+                    "description": "Item Number Increment of SD Documents",
+                    "abapType": "NumericCharacterString",
+                    "length": 6,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SDDOCUMENTCATEGORY",
+                    "description": "SD Document Category",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "BILLINGDOCUMENTCATEGORY",
+                    "description": "Billing category",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                }
+            ]
+        }
+    ]
+}

@@ -1,1 +1,125 @@
-{"functionName":"\/SAPDS\/RFC_READ_TABLE2","runInBackgroundJob":false,"tables":[{"name":"ICONTACTPERSON","description":"Generated Table for View I_ContactPerson: View for contact person data","isView":true,"fields":[{"name":"MANDT","description":"Client (key field in client-specific tables)","abapType":"CharacterString","length":3,"isPrimaryKey":true,"isSelected":true,"conversionExit":""},{"name":"CONTACTPERSON","description":"Activity partner number","abapType":"NumericCharacterString","length":10,"isPrimaryKey":true,"isSelected":true,"conversionExit":""},{"name":"CUSTOMER","description":"Customer Number","abapType":"CharacterString","length":10,"isSelected":true,"checkTable":"KNA1","conversionExit":"ALPHA"},{"name":"SUPPLIER","description":"Account Number of Supplier","abapType":"CharacterString","length":10,"isSelected":true,"checkTable":"LFA1","conversionExit":"ALPHA"},{"name":"CONTACTPERSONFUNCTION","description":"Contact person function","abapType":"CharacterString","length":2,"isSelected":true,"checkTable":"TPFK","conversionExit":""},{"name":"CONTACTPERSONDEPARTMENT","description":"Department classification","abapType":"CharacterString","length":4,"isSelected":true,"checkTable":"TSAB","conversionExit":""},{"name":"SEARCHTERM1","description":"Character Field of Length 10","abapType":"CharacterString","length":10,"isSelected":true,"conversionExit":""},{"name":"PERSONNUMBER","description":"Person Number (Key) (Business Address Services)","abapType":"CharacterString","length":10,"isSelected":true,"conversionExit":"ALPHA"},{"name":"UPPERCASEFIRSTNAME","description":"Character field length 25","abapType":"CharacterString","length":25,"isSelected":true,"conversionExit":""},{"name":"UPPERCASELASTNAME","description":"Character field length 25","abapType":"CharacterString","length":25,"isSelected":true,"conversionExit":""},{"name":"FIRSTNAME","description":"Text (40 characters)","abapType":"CharacterString","length":40,"isSelected":true,"conversionExit":""},{"name":"LASTNAME","description":"Text (40 characters)","abapType":"CharacterString","length":40,"isSelected":true,"conversionExit":""},{"name":"ISBUSINESSPURPOSECOMPLETED","description":"Indicator for blocked debitor and creditor master data","abapType":"CharacterString","length":1,"isSelected":true,"conversionExit":""}]}]}
+{
+    "functionName": "Z_THEO_READ_TABLE",
+    "runInBackgroundJob": false,
+    "tables": 
+    [
+        {
+            "name": "ICONTACTPERSON",
+            "description": "Generated Table for View I_ContactPerson: View for contact person data",
+            "isView": true,
+            "fields": 
+            [
+                {
+                    "name": "MANDT",
+                    "description": "Client",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CONTACTPERSON",
+                    "description": "Number of contact person",
+                    "abapType": "NumericCharacterString",
+                    "length": 10,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CUSTOMER",
+                    "description": "Customer Number",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "checkTable": "KNA1",
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "CONTACTPERSONDEPARTMENT",
+                    "description": "Contact person department",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "TSAB",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CONTACTPERSONFUNCTION",
+                    "description": "Contact person function",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "checkTable": "TPFK",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SEARCHTERM1",
+                    "description": "Sort field",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SUPPLIER",
+                    "description": "Account Number of Vendor or Creditor",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "checkTable": "LFA1",
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "PERSONNUMBER",
+                    "description": "Person number",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "ISBUSINESSPURPOSECOMPLETED",
+                    "description": "Business Purpose Completed Flag",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "FIRSTNAME",
+                    "description": "First name",
+                    "abapType": "CharacterString",
+                    "length": 40,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "LASTNAME",
+                    "description": "Last name",
+                    "abapType": "CharacterString",
+                    "length": 40,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "UPPERCASEFIRSTNAME",
+                    "description": "First Name in Uppercase for Search Help",
+                    "abapType": "CharacterString",
+                    "length": 25,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "UPPERCASELASTNAME",
+                    "description": "Last Name in Uppercase for Search Help",
+                    "abapType": "CharacterString",
+                    "length": 25,
+                    "isSelected": true,
+                    "conversionExit": ""
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,96 @@
+{
+    "functionName": "Z_THEO_READ_TABLE",
+    "runInBackgroundJob": false,
+    "tables": 
+    [
+        {
+            "name": "PFISEMTAGGLACRG",
+            "description": "Generated Table for View",
+            "isView": true,
+            "fields": 
+            [
+                {
+                    "name": "MANDT",
+                    "description": "Client",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "T000",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "GLACCOUNTHIERARCHY",
+                    "description": "Hierarchy ID",
+                    "abapType": "CharacterString",
+                    "length": 42,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "HRRP_DIRECTORY",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "HIERARCHYNODE",
+                    "description": "Hierarchy node",
+                    "abapType": "CharacterString",
+                    "length": 50,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "HRRP_NODE",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "VALIDITYENDDATE",
+                    "description": "Valid To Date",
+                    "abapType": "Date",
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "HRRP_NODE",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SEMANTICTAG",
+                    "description": "Semantic Tag of a Hierarchy Node",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "FINSC_SEM_TAG",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "VALIDITYSTARTDATE",
+                    "description": "Valid-From Date",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CHARTOFACCOUNTS",
+                    "description": "Node class",
+                    "abapType": "CharacterString",
+                    "length": 12,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "BALANCEINDICATOR",
+                    "description": "Balance indicator",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "GLACCOUNT",
+                    "description": "Node value",
+                    "abapType": "CharacterString",
+                    "length": 40,
+                    "isSelected": true,
+                    "conversionExit": ""
+                }
+            ]
+        }
+    ]
+}

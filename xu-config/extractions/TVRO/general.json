@@ -6,9 +6,9 @@
     },
     "destination": "stxxxxslsaeuw001_s4h-caa",
     "lastChange": {
-        "machine": "[::ffff:127.0.0.1]:54920",
-        "timestamp": "20220104T094141.531Z",
-        "user": "EMATCRHPP\\nbaranava"
+        "machine": "[::ffff:127.0.0.1]:64949",
+        "timestamp": "20220207T103736.553Z",
+        "user": "EMATCRHPP\\fbouw"
     },
     "source": "CRH_Leviat_S4HANA_CAA",
     "type": "Table"

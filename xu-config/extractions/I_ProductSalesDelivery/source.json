@@ -1,1 +1,577 @@
-{"functionName":"\/SAPDS\/RFC_READ_TABLE2","runInBackgroundJob":false,"tables":[{"name":"IPRDSALESDELIV","description":"Generated Table for View I_ProductSalesDelivery: Product Sales Delivery Core Entity","isView":true,"fields":[{"name":"MANDT","description":"Client (key field in client-specific tables)","abapType":"CharacterString","length":3,"isPrimaryKey":true,"isSelected":true,"checkTable":"T000","conversionExit":""},{"name":"PRODUCT","description":"Material Number (C40 Field)","abapType":"CharacterString","length":40,"isPrimaryKey":true,"isSelected":true,"checkTable":"MARA","conversionExit":"MATN1"},{"name":"PRODUCTSALESORG","description":"Sales Organization","abapType":"CharacterString","length":4,"isPrimaryKey":true,"isSelected":true,"checkTable":"TVKO","conversionExit":""},{"name":"PRODUCTDISTRIBUTIONCHNL","description":"Distribution channel","abapType":"CharacterString","length":2,"isPrimaryKey":true,"isSelected":true,"checkTable":"TVTW","conversionExit":""},{"name":"MINIMUMORDERQUANTITY","description":"Quantity field, length 13","abapType":"PackedNumber","length":17,"decimalCount":3,"isSelected":true,"formattedLength":17,"conversionExit":"","referenceTable":"MARA","referenceField":"MEINS"},{"name":"SUPPLYINGPLANT","description":"Plant","abapType":"CharacterString","length":4,"isSelected":true,"checkTable":"TVKWZ","conversionExit":""},{"name":"PRICESPECIFICATIONPRODUCTGROUP","description":"Material Price Group","abapType":"CharacterString","length":2,"isSelected":true,"checkTable":"T178","conversionExit":""},{"name":"ACCOUNTDETNPRODUCTGROUP","description":"Account assignment group for material","abapType":"CharacterString","length":2,"isSelected":true,"checkTable":"TVKM","conversionExit":""},{"name":"DELIVERYNOTEPROCMINDELIVQTY","description":"Quantity field, length 13","abapType":"PackedNumber","length":17,"decimalCount":3,"isSelected":true,"formattedLength":17,"conversionExit":"","referenceTable":"MARA","referenceField":"MEINS"},{"name":"ITEMCATEGORYGROUP","description":"Item category group","abapType":"CharacterString","length":4,"isSelected":true,"checkTable":"TPTM","conversionExit":""},{"name":"DELIVERYQUANTITYUNIT","description":"Units of Measurement of Various Types","abapType":"CharacterString","length":3,"isSelected":true,"checkTable":"T006","conversionExit":"CUNIT"},{"name":"DELIVERYQUANTITY","description":"Quantity field, length 13","abapType":"PackedNumber","length":17,"decimalCount":3,"isSelected":true,"formattedLength":17,"conversionExit":"","referenceTable":"MARA","referenceField":"MEINS"},{"name":"PRODUCTSALESSTATUS","description":"Material status from the SD view","abapType":"CharacterString","length":2,"isSelected":true,"checkTable":"TVMS","conversionExit":""},{"name":"PRODUCTSALESSTATUSVALIDITYDATE","description":"Date","abapType":"Date","isSelected":true,"conversionExit":""},{"name":"SALESMEASUREUNIT","description":"Units of Measurement of Various Types","abapType":"CharacterString","length":3,"isSelected":true,"checkTable":"T006","conversionExit":"CUNIT"},{"name":"ISMARKEDFORDELETION","description":"Yes\/No field","abapType":"CharacterString","length":1,"isSelected":true,"conversionExit":""},{"name":"PRODUCTHIERARCHY","description":"Product hierarchy","abapType":"CharacterString","length":18,"isSelected":true,"checkTable":"T179","conversionExit":""},{"name":"FIRSTSALESSPECPRODUCTGROUP","description":"Material Group 1","abapType":"CharacterString","length":3,"isSelected":true,"checkTable":"TVM1","conversionExit":""},{"name":"SECONDSALESSPECPRODUCTGROUP","description":"Material Group 2","abapType":"CharacterString","length":3,"isSelected":true,"checkTable":"TVM2","conversionExit":""},{"name":"THIRDSALESSPECPRODUCTGROUP","description":"Material Group 3","abapType":"CharacterString","length":3,"isSelected":true,"checkTable":"TVM3","conversionExit":""},{"name":"FOURTHSALESSPECPRODUCTGROUP","description":"Material Group 4","abapType":"CharacterString","length":3,"isSelected":true,"checkTable":"TVM4","conversionExit":""},{"name":"FIFTHSALESSPECPRODUCTGROUP","description":"Material Group 5","abapType":"CharacterString","length":3,"isSelected":true,"checkTable":"TVM5","conversionExit":""},{"name":"MINIMUMMAKETOORDERORDERQTY","description":"Quantity field, length 13","abapType":"PackedNumber","length":17,"decimalCount":3,"isSelected":true,"formattedLength":17,"conversionExit":"","referenceTable":"MARA","referenceField":"MEINS"},{"name":"LOGISTICSSTATISTICSGROUP","description":"Material statistics group","abapType":"CharacterString","length":1,"isSelected":true,"checkTable":"TVSM","conversionExit":""},{"name":"VOLUMEREBATEGROUP","description":"Volume rebate groups in sales","abapType":"CharacterString","length":2,"isSelected":true,"checkTable":"TVBO","conversionExit":""},{"name":"PRODUCTCOMMISSIONGROUP","description":"Commission group","abapType":"CharacterString","length":2,"isSelected":true,"checkTable":"TVPR","conversionExit":""},{"name":"CASHDISCOUNTISDEDUCTIBLE","description":"Yes\/No field","abapType":"CharacterString","length":1,"isSelected":true,"conversionExit":""},{"name":"PRICINGREFERENCEPRODUCT","description":"Material Number (C40 Field)","abapType":"CharacterString","length":40,"isSelected":true,"checkTable":"MARA","conversionExit":"MATN1"},{"name":"ASSORTMENTGRADE","description":"Range level IS-R","abapType":"CharacterString","length":2,"isSelected":true,"checkTable":"TWSS","conversionExit":""},{"name":"STORELISTINGPROCEDURE","description":"Listing procedure IS-R Assortments","abapType":"CharacterString","length":2,"isSelected":true,"checkTable":"TWLV","conversionExit":""},{"name":"DISTRCNTRLISTINGPROCEDURE","description":"Listing procedure IS-R Assortments","abapType":"CharacterString","length":2,"isSelected":true,"checkTable":"TWLV","conversionExit":""},{"name":"STORELISTINGSTARTDATE","description":"Field of type DATS","abapType":"Date","isSelected":true,"conversionExit":""},{"name":"STORELISTINGENDDATE","description":"Field of type DATS","abapType":"Date","isSelected":true,"conversionExit":""},{"name":"DISTRCNTRLISTINGSTARTDATE","description":"Field of type DATS","abapType":"Date","isSelected":true,"conversionExit":""},{"name":"DISTRCNTRLISTINGENDDATE","description":"Field of type DATS","abapType":"Date","isSelected":true,"conversionExit":""},{"name":"STORESALESTARTDATE","description":"Field of type DATS","abapType":"Date","isSelected":true,"conversionExit":""},{"name":"STORESALEENDDATE","description":"Field of type DATS","abapType":"Date","isSelected":true,"conversionExit":""},{"name":"DISTRCNTRSALESTARTDATE","description":"Field of type DATS","abapType":"Date","isSelected":true,"conversionExit":""},{"name":"DISTRCNTRSALEENDDATE","description":"Field of type DATS","abapType":"Date","isSelected":true,"conversionExit":""},{"name":"ROUNDINGPROFILE","description":"Rounding profile","abapType":"CharacterString","length":4,"isSelected":true,"checkTable":"RDPR","conversionExit":""},{"name":"PRODUCTUNITGROUP","description":"Unit of measure group","abapType":"CharacterString","length":4,"isSelected":true,"checkTable":"TWMEG","conversionExit":""},{"name":"MAXDELIVERYQTYSTOREORDER","description":"Quantity field, length 13","abapType":"PackedNumber","length":17,"decimalCount":3,"isSelected":true,"formattedLength":17,"conversionExit":"","referenceTable":"MARA","referenceField":"MEINS"},{"name":"PRICEFIXINGCATEGORY","description":"Indicator for price fixing","abapType":"CharacterString","length":1,"isSelected":true,"conversionExit":""},{"name":"VARIABLESALESUNITISNOTALLOWED","description":"Yes\/No field","abapType":"CharacterString","length":1,"isSelected":true,"conversionExit":""},{"name":"COMPETITIONPRESSURECATEGORY","description":"Competition characterization of a material","abapType":"CharacterString","length":1,"isSelected":true,"conversionExit":""},{"name":"PRODUCTHASATTRIBUTEID01","description":"ID for product attribute","abapType":"CharacterString","length":1,"isSelected":true,"conversionExit":""},{"name":"PRODUCTHASATTRIBUTEID02","description":"ID for product attribute","abapType":"CharacterString","length":1,"isSelected":true,"conversionExit":""},{"name":"PRODUCTHASATTRIBUTEID03","description":"ID for product attribute","abapType":"CharacterString","length":1,"isSelected":true,"conversionExit":""},{"name":"PRODUCTHASATTRIBUTEID04","description":"ID for product attribute","abapType":"CharacterString","length":1,"isSelected":true,"conversionExit":""},{"name":"PRODUCTHASATTRIBUTEID05","description":"ID for product attribute","abapType":"CharacterString","length":1,"isSelected":true,"conversionExit":""},{"name":"PRODUCTHASATTRIBUTEID06","description":"ID for product attribute","abapType":"CharacterString","length":1,"isSelected":true,"conversionExit":""},{"name":"PRODUCTHASATTRIBUTEID07","description":"ID for product attribute","abapType":"CharacterString","length":1,"isSelected":true,"conversionExit":""},{"name":"PRODUCTHASATTRIBUTEID08","description":"ID for product attribute","abapType":"CharacterString","length":1,"isSelected":true,"conversionExit":""},{"name":"PRODUCTHASATTRIBUTEID09","description":"ID for product attribute","abapType":"CharacterString","length":1,"isSelected":true,"conversionExit":""},{"name":"PRODUCTHASATTRIBUTEID10","description":"ID for product attribute","abapType":"CharacterString","length":1,"isSelected":true,"conversionExit":""},{"name":"ISACTIVEENTITY","description":"Boolean values TRUE (='X') and FALSE (= ' ')","abapType":"CharacterString","length":1,"isSelected":true,"conversionExit":""},{"name":"PRODEXTASSORTMENTPRIORITY","description":"Range priority (compulsory\/optional range)","abapType":"CharacterString","length":1,"isSelected":true,"checkTable":"TWSP","conversionExit":""},{"name":"SUBSCRPNCONTRDFLTDURATION","description":"Contract Term","abapType":"NumericCharacterString","length":3,"isSelected":true,"conversionExit":""},{"name":"SUBSCRPNCONTRALTVDURATION1","description":"Contract Term","abapType":"NumericCharacterString","length":3,"isSelected":true,"conversionExit":""},{"name":"SUBSCRPNCONTRALTVDURATION2","description":"Contract Term","abapType":"NumericCharacterString","length":3,"isSelected":true,"conversionExit":""},{"name":"SUBSCRPNCONTRDURATIONUNIT","description":"Unit for time period","abapType":"CharacterString","length":1,"isSelected":true,"conversionExit":""},{"name":"SUBSCRPNCONTRDFLTEXTNDURN","description":"Extension Period","abapType":"NumericCharacterString","length":3,"isSelected":true,"conversionExit":""},{"name":"SUBSCRPNCONTRALTVEXTNDURN1","description":"Extension Period","abapType":"NumericCharacterString","length":3,"isSelected":true,"conversionExit":""},{"name":"SUBSCRPNCONTRALTVEXTNDURN2","description":"Extension Period","abapType":"NumericCharacterString","length":3,"isSelected":true,"conversionExit":""},{"name":"SUBSCRPNCONTREXTNDURNUNIT","description":"Unit for time period","abapType":"CharacterString","length":1,"isSelected":true,"conversionExit":""}]}]}
+{
+    "functionName": "/SAPDS/RFC_READ_TABLE2",
+    "runInBackgroundJob": false,
+    "tables": 
+    [
+        {
+            "name": "IPRDSALESDELIV",
+            "description": "Generated Table for View I_ProductSalesDelivery: Product Sales Delivery Core Entity",
+            "isView": true,
+            "fields": 
+            [
+                {
+                    "name": "MANDT",
+                    "description": "Client (key field in client-specific tables)",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "T000",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRODUCT",
+                    "description": "Material Number (C40 Field)",
+                    "abapType": "CharacterString",
+                    "length": 40,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "MARA",
+                    "conversionExit": "MATN1"
+                },
+                {
+                    "name": "PRODUCTSALESORG",
+                    "description": "Sales Organization",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "TVKO",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRODUCTDISTRIBUTIONCHNL",
+                    "description": "Distribution channel",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "TVTW",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MINIMUMORDERQUANTITY",
+                    "description": "Quantity field, length 13",
+                    "abapType": "PackedNumber",
+                    "length": 17,
+                    "decimalCount": 3,
+                    "isSelected": true,
+                    "formattedLength": 17,
+                    "conversionExit": "",
+                    "referenceTable": "MARA",
+                    "referenceField": "MEINS"
+                },
+                {
+                    "name": "SUPPLYINGPLANT",
+                    "description": "Plant",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "TVKWZ",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRICESPECIFICATIONPRODUCTGROUP",
+                    "description": "Material Price Group",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "checkTable": "T178",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ACCOUNTDETNPRODUCTGROUP",
+                    "description": "Account assignment group for material",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "checkTable": "TVKM",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "DELIVERYNOTEPROCMINDELIVQTY",
+                    "description": "Quantity field, length 13",
+                    "abapType": "PackedNumber",
+                    "length": 17,
+                    "decimalCount": 3,
+                    "isSelected": true,
+                    "formattedLength": 17,
+                    "conversionExit": "",
+                    "referenceTable": "MARA",
+                    "referenceField": "MEINS"
+                },
+                {
+                    "name": "ITEMCATEGORYGROUP",
+                    "description": "Item category group",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "TPTM",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "DELIVERYQUANTITYUNIT",
+                    "description": "Units of Measurement of Various Types",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "checkTable": "T006",
+                    "conversionExit": "CUNIT"
+                },
+                {
+                    "name": "DELIVERYQUANTITY",
+                    "description": "Quantity field, length 13",
+                    "abapType": "PackedNumber",
+                    "length": 17,
+                    "decimalCount": 3,
+                    "isSelected": true,
+                    "formattedLength": 17,
+                    "conversionExit": "",
+                    "referenceTable": "MARA",
+                    "referenceField": "MEINS"
+                },
+                {
+                    "name": "PRODUCTSALESSTATUS",
+                    "description": "Material status from the SD view",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "checkTable": "TVMS",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRODUCTSALESSTATUSVALIDITYDATE",
+                    "description": "Date",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SALESMEASUREUNIT",
+                    "description": "Units of Measurement of Various Types",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "checkTable": "T006",
+                    "conversionExit": "CUNIT"
+                },
+                {
+                    "name": "ISMARKEDFORDELETION",
+                    "description": "Yes/No field",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRODUCTHIERARCHY",
+                    "description": "Product hierarchy",
+                    "abapType": "CharacterString",
+                    "length": 18,
+                    "isSelected": true,
+                    "checkTable": "T179",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "FIRSTSALESSPECPRODUCTGROUP",
+                    "description": "Material Group 1",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "checkTable": "TVM1",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SECONDSALESSPECPRODUCTGROUP",
+                    "description": "Material Group 2",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "checkTable": "TVM2",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "THIRDSALESSPECPRODUCTGROUP",
+                    "description": "Material Group 3",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "checkTable": "TVM3",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "FOURTHSALESSPECPRODUCTGROUP",
+                    "description": "Material Group 4",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "checkTable": "TVM4",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "FIFTHSALESSPECPRODUCTGROUP",
+                    "description": "Material Group 5",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "checkTable": "TVM5",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MINIMUMMAKETOORDERORDERQTY",
+                    "description": "Quantity field, length 13",
+                    "abapType": "PackedNumber",
+                    "length": 17,
+                    "decimalCount": 3,
+                    "isSelected": true,
+                    "formattedLength": 17,
+                    "conversionExit": "",
+                    "referenceTable": "MARA",
+                    "referenceField": "MEINS"
+                },
+                {
+                    "name": "LOGISTICSSTATISTICSGROUP",
+                    "description": "Material statistics group",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "checkTable": "TVSM",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "VOLUMEREBATEGROUP",
+                    "description": "Volume rebate groups in sales",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "checkTable": "TVBO",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRODUCTCOMMISSIONGROUP",
+                    "description": "Commission group",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "checkTable": "TVPR",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CASHDISCOUNTISDEDUCTIBLE",
+                    "description": "Yes/No field",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRICINGREFERENCEPRODUCT",
+                    "description": "Material Number (C40 Field)",
+                    "abapType": "CharacterString",
+                    "length": 40,
+                    "isSelected": true,
+                    "checkTable": "MARA",
+                    "conversionExit": "MATN1"
+                },
+                {
+                    "name": "ASSORTMENTGRADE",
+                    "description": "Range level IS-R",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "checkTable": "TWSS",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "STORELISTINGPROCEDURE",
+                    "description": "Listing procedure IS-R Assortments",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "checkTable": "TWLV",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "DISTRCNTRLISTINGPROCEDURE",
+                    "description": "Listing procedure IS-R Assortments",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "checkTable": "TWLV",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "STORELISTINGSTARTDATE",
+                    "description": "Field of type DATS",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "STORELISTINGENDDATE",
+                    "description": "Field of type DATS",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "DISTRCNTRLISTINGSTARTDATE",
+                    "description": "Field of type DATS",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "DISTRCNTRLISTINGENDDATE",
+                    "description": "Field of type DATS",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "STORESALESTARTDATE",
+                    "description": "Field of type DATS",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "STORESALEENDDATE",
+                    "description": "Field of type DATS",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "DISTRCNTRSALESTARTDATE",
+                    "description": "Field of type DATS",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "DISTRCNTRSALEENDDATE",
+                    "description": "Field of type DATS",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ROUNDINGPROFILE",
+                    "description": "Rounding profile",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "RDPR",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRODUCTUNITGROUP",
+                    "description": "Unit of measure group",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "TWMEG",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MAXDELIVERYQTYSTOREORDER",
+                    "description": "Quantity field, length 13",
+                    "abapType": "PackedNumber",
+                    "length": 17,
+                    "decimalCount": 3,
+                    "isSelected": true,
+                    "formattedLength": 17,
+                    "conversionExit": "",
+                    "referenceTable": "MARA",
+                    "referenceField": "MEINS"
+                },
+                {
+                    "name": "PRICEFIXINGCATEGORY",
+                    "description": "Indicator for price fixing",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "VARIABLESALESUNITISNOTALLOWED",
+                    "description": "Yes/No field",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "COMPETITIONPRESSURECATEGORY",
+                    "description": "Competition characterization of a material",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRODUCTHASATTRIBUTEID01",
+                    "description": "ID for product attribute",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRODUCTHASATTRIBUTEID02",
+                    "description": "ID for product attribute",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRODUCTHASATTRIBUTEID03",
+                    "description": "ID for product attribute",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRODUCTHASATTRIBUTEID04",
+                    "description": "ID for product attribute",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRODUCTHASATTRIBUTEID05",
+                    "description": "ID for product attribute",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRODUCTHASATTRIBUTEID06",
+                    "description": "ID for product attribute",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRODUCTHASATTRIBUTEID07",
+                    "description": "ID for product attribute",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRODUCTHASATTRIBUTEID08",
+                    "description": "ID for product attribute",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRODUCTHASATTRIBUTEID09",
+                    "description": "ID for product attribute",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRODUCTHASATTRIBUTEID10",
+                    "description": "ID for product attribute",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ISACTIVEENTITY",
+                    "description": "Boolean values TRUE (='X') and FALSE (= ' ')",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRODEXTASSORTMENTPRIORITY",
+                    "description": "Range priority (compulsory/optional range)",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "checkTable": "TWSP",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SUBSCRPNCONTRDFLTDURATION",
+                    "description": "Contract Term",
+                    "abapType": "NumericCharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SUBSCRPNCONTRALTVDURATION1",
+                    "description": "Contract Term",
+                    "abapType": "NumericCharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SUBSCRPNCONTRALTVDURATION2",
+                    "description": "Contract Term",
+                    "abapType": "NumericCharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SUBSCRPNCONTRDURATIONUNIT",
+                    "description": "Unit for time period",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SUBSCRPNCONTRDFLTEXTNDURN",
+                    "description": "Extension Period",
+                    "abapType": "NumericCharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SUBSCRPNCONTRALTVEXTNDURN1",
+                    "description": "Extension Period",
+                    "abapType": "NumericCharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SUBSCRPNCONTRALTVEXTNDURN2",
+                    "description": "Extension Period",
+                    "abapType": "NumericCharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SUBSCRPNCONTREXTNDURNUNIT",
+                    "description": "Unit for time period",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                }
+            ]
+        }
+    ]
+}

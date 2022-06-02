@@ -1,1 +1,68 @@
-{"functionName":"\/SAPDS\/RFC_READ_TABLE2","runInBackgroundJob":false,"tables":[{"name":"IFISTMTHERT","description":"Generated Table for View I_FinancialStatementHierT: Financial Statement Hierarchy Text","isView":true,"fields":[{"name":"MANDT","description":"Client (key field in client-specific tables)","abapType":"CharacterString","length":3,"isPrimaryKey":true,"isSelected":true,"checkTable":"T000","conversionExit":""},{"name":"FINANCIALSTATEMENTHIERARCHY","description":"Hierarchy Long ID","abapType":"CharacterString","length":42,"isPrimaryKey":true,"isSelected":true,"conversionExit":""},{"name":"VALIDITYENDDATE","description":"Date","abapType":"Date","isPrimaryKey":true,"isSelected":true,"conversionExit":""},{"name":"LANGUAGE","description":"Language Key","abapType":"CharacterString","length":1,"isPrimaryKey":true,"isSelected":true,"checkTable":"T002","conversionExit":"ISOLA"},{"name":"VALIDITYSTARTDATE","description":"Date","abapType":"Date","isPrimaryKey":true,"isSelected":true,"conversionExit":""},{"name":"FINANCIALSTMNTHIERARCHYNAME","description":"Text (50 characters)","abapType":"CharacterString","length":50,"isPrimaryKey":true,"isSelected":true,"conversionExit":""}]}]}
+{
+    "functionName": "Z_THEO_READ_TABLE",
+    "runInBackgroundJob": false,
+    "tables": 
+    [
+        {
+            "name": "IFISTMTHERT",
+            "description": "Generated Table for View I_FinancialStatementHierT: Financial Statement Hierarchy Text",
+            "isView": true,
+            "fields": 
+            [
+                {
+                    "name": "MANDT",
+                    "description": "Client",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "T000",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "LANGUAGE",
+                    "description": "Language Key",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "formattedLength": 2,
+                    "checkTable": "T002",
+                    "conversionExit": "ISOLA"
+                },
+                {
+                    "name": "FINANCIALSTATEMENTHIERARCHY",
+                    "description": "Hierarchy ID",
+                    "abapType": "CharacterString",
+                    "length": 42,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "VALIDITYENDDATE",
+                    "description": "Valid To Date",
+                    "abapType": "Date",
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "VALIDITYSTARTDATE",
+                    "description": "Valid-From Date",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "FINANCIALSTMNTHIERARCHYNAME",
+                    "description": "Hierarchy description",
+                    "abapType": "CharacterString",
+                    "length": 50,
+                    "isSelected": true,
+                    "conversionExit": ""
+                }
+            ]
+        }
+    ]
+}

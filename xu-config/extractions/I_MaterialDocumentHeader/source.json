@@ -1,1 +1,124 @@
-{"functionName":"\/SAPDS\/RFC_READ_TABLE2","runInBackgroundJob":false,"tables":[{"name":"IMATDOCHEADER","description":"Generated Table for View I_MaterialDocumentHeader: Material Document Header","isView":true,"fields":[{"name":"MANDT","description":"Client (key field in client-specific tables)","abapType":"CharacterString","length":3,"isPrimaryKey":true,"isSelected":true,"conversionExit":""},{"name":"MATERIALDOCUMENTYEAR","description":"Fiscal year","abapType":"NumericCharacterString","length":4,"isPrimaryKey":true,"isSelected":true,"conversionExit":"GJAHR"},{"name":"MATERIALDOCUMENT","description":"Accounting document number","abapType":"CharacterString","length":10,"isPrimaryKey":true,"isSelected":true,"conversionExit":"ALPHA"},{"name":"DOCUMENTDATE","description":"Date","abapType":"Date","isSelected":true,"conversionExit":""},{"name":"POSTINGDATE","description":"Date","abapType":"Date","isSelected":true,"conversionExit":""},{"name":"ACCOUNTINGDOCUMENTTYPE","description":"Document type","abapType":"CharacterString","length":2,"isSelected":true,"conversionExit":""},{"name":"INVENTORYTRANSACTIONTYPE","description":"Transaction\/event type","abapType":"CharacterString","length":2,"isSelected":true,"conversionExit":""},{"name":"CREATEDBYUSER","description":"User Name in User Master Record","abapType":"CharacterString","length":12,"isSelected":true,"conversionExit":""},{"name":"CREATIONDATE","description":"Date","abapType":"Date","isSelected":true,"conversionExit":""},{"name":"CREATIONTIME","description":"Time","abapType":"Time","isSelected":true,"conversionExit":""},{"name":"MATERIALDOCUMENTHEADERTEXT","description":"25-character text length","abapType":"CharacterString","length":25,"isSelected":true,"conversionExit":""},{"name":"DELIVERYDOCUMENT","description":"Sales and distribution document number","abapType":"CharacterString","length":10,"isSelected":true,"conversionExit":"ALPHA"},{"name":"REFERENCEDOCUMENT","description":"Reference Document Number","abapType":"CharacterString","length":16,"isSelected":true,"conversionExit":""},{"name":"BILLOFLADING","description":"Reference Document Number","abapType":"CharacterString","length":16,"isSelected":true,"conversionExit":""}]}]}
+{
+    "functionName": "Z_THEO_READ_TABLE",
+    "runInBackgroundJob": false,
+    "tables": 
+    [
+        {
+            "name": "IMATDOCHEADER",
+            "description": "Generated Table for View I_MaterialDocumentHeader: Material Document Header",
+            "isView": true,
+            "fields": 
+            [
+                {
+                    "name": "MANDT",
+                    "description": "Client",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MATERIALDOCUMENTYEAR",
+                    "description": "Material Document Year",
+                    "abapType": "NumericCharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "conversionExit": "GJAHR"
+                },
+                {
+                    "name": "MATERIALDOCUMENT",
+                    "description": "Number of Material Document",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "DOCUMENTDATE",
+                    "description": "Document Date in Document",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ACCOUNTINGDOCUMENTTYPE",
+                    "description": "Document type",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "INVENTORYTRANSACTIONTYPE",
+                    "description": "Transaction/Event Type",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CREATIONDATE",
+                    "description": "Day On Which Accounting Document Was Entered",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CREATIONTIME",
+                    "description": "Time of Entry",
+                    "abapType": "Time",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CREATEDBYUSER",
+                    "description": "User Name",
+                    "abapType": "CharacterString",
+                    "length": 12,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MATERIALDOCUMENTHEADERTEXT",
+                    "description": "Document Header Text",
+                    "abapType": "CharacterString",
+                    "length": 25,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "DELIVERYDOCUMENT",
+                    "description": "Delivery",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "BILLOFLADING",
+                    "description": "Number of Bill of Lading at Time of Goods Receipt",
+                    "abapType": "CharacterString",
+                    "length": 16,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "REFERENCEDOCUMENT",
+                    "description": "Reference Document Number",
+                    "abapType": "CharacterString",
+                    "length": 16,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "POSTINGDATE",
+                    "description": "Posting Date in the Document",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                }
+            ]
+        }
+    ]
+}

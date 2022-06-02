@@ -1,1 +1,134 @@
-{"functionName":"\/SAPDS\/RFC_READ_TABLE2","runInBackgroundJob":false,"tables":[{"name":"CBILLDOCPAFS","description":"Generated Table for View C_BillingDocumentPartnerFs: Billing Document Partner Fact Sheet","isView":true,"fields":[{"name":"MANDT","description":"Client (key field in client-specific tables)","abapType":"CharacterString","length":3,"isPrimaryKey":true,"isSelected":true,"checkTable":"T000","conversionExit":""},{"name":"SDDOCUMENT","description":"Sales and distribution document number","abapType":"CharacterString","length":10,"isPrimaryKey":true,"isSelected":true,"conversionExit":"ALPHA"},{"name":"PARTNERFUNCTION","description":"Partner Function","abapType":"CharacterString","length":2,"isPrimaryKey":true,"isSelected":true,"checkTable":"TPAR","conversionExit":"PARVW"},{"name":"PARTNERFUNCTIONNAME","description":"Text (20 characters)","abapType":"CharacterString","length":20,"isSelected":true,"conversionExit":""},{"name":"ADDRESSID","description":"Address key","abapType":"CharacterString","length":10,"isSelected":true,"conversionExit":"ALPHA"},{"name":"CUSTOMER","description":"Customer Number","abapType":"CharacterString","length":10,"isSelected":true,"checkTable":"KNA1","conversionExit":"ALPHA"},{"name":"PERSONNEL","description":"Personnel number","abapType":"NumericCharacterString","length":8,"isSelected":true,"conversionExit":""},{"name":"FULLNAME","description":"Text length 80","abapType":"CharacterString","length":80,"isSelected":true,"conversionExit":""},{"name":"CITYNAME","description":"Text (40 characters)","abapType":"CharacterString","length":40,"isSelected":true,"conversionExit":""},{"name":"STREETNAME","description":"Text (60 Characters)","abapType":"CharacterString","length":60,"isSelected":true,"conversionExit":""},{"name":"POSTALCODE","description":"Character Field of Length 10","abapType":"CharacterString","length":10,"isSelected":true,"conversionExit":""},{"name":"EMAILADDRESS","description":"SMTP Internet Mail Address (Business Address Services)","abapType":"CharacterString","length":241,"isSelected":true,"conversionExit":"SXIDN"},{"name":"PHONENUMBER","description":"Character field length 30 without check","abapType":"CharacterString","length":30,"isSelected":true,"conversionExit":""},{"name":"MOBILEPHONENUMBER","description":"Character field length 30 without check","abapType":"CharacterString","length":30,"isSelected":true,"conversionExit":""}]}]}
+{
+    "functionName": "Z_THEO_READ_TABLE",
+    "runInBackgroundJob": false,
+    "backgroundJobTimeout": 180,
+    "tables": 
+    [
+        {
+            "name": "CBILLDOCPAFS",
+            "description": "Generated Table for View C_BillingDocumentPartnerFs: Billing Document Partner Fact Sheet",
+            "isView": true,
+            "fields": 
+            [
+                {
+                    "name": "MANDT",
+                    "description": "Client",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "T000",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SDDOCUMENT",
+                    "description": "Sales and Distribution Document Number",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "PARTNERFUNCTION",
+                    "description": "Partner Function",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "TPAR",
+                    "conversionExit": "PARVW"
+                },
+                {
+                    "name": "PARTNERFUNCTIONNAME",
+                    "description": "Name",
+                    "abapType": "CharacterString",
+                    "length": 20,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ADDRESSID",
+                    "description": "Address",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "CUSTOMER",
+                    "description": "Customer Number",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "checkTable": "KNA1",
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "PERSONNEL",
+                    "description": "Personnel Number",
+                    "abapType": "NumericCharacterString",
+                    "length": 8,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "FULLNAME",
+                    "description": "Full Name",
+                    "abapType": "CharacterString",
+                    "length": 80,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CITYNAME",
+                    "description": "City",
+                    "abapType": "CharacterString",
+                    "length": 40,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "STREETNAME",
+                    "description": "Street",
+                    "abapType": "CharacterString",
+                    "length": 60,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "POSTALCODE",
+                    "description": "City postal code",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "EMAILADDRESS",
+                    "description": "E-Mail Address",
+                    "abapType": "CharacterString",
+                    "length": 241,
+                    "isSelected": true,
+                    "conversionExit": "SXIDN"
+                },
+                {
+                    "name": "PHONENUMBER",
+                    "description": "Telephone no.: dialling code+number",
+                    "abapType": "CharacterString",
+                    "length": 30,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MOBILEPHONENUMBER",
+                    "description": "Telephone no.: dialling code+number",
+                    "abapType": "CharacterString",
+                    "length": 30,
+                    "isSelected": true,
+                    "conversionExit": ""
+                }
+            ]
+        }
+    ]
+}

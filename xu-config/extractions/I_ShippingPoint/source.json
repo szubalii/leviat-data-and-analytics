@@ -1,1 +1,59 @@
-{"functionName":"\/SAPDS\/RFC_READ_TABLE2","runInBackgroundJob":false,"tables":[{"name":"ISDSHIPPINGPNT","description":"Generated Table for View I_ShippingPoint: Shipping Point","isView":true,"fields":[{"name":"MANDT","description":"Client (key field in client-specific tables)","abapType":"CharacterString","length":3,"isPrimaryKey":true,"isSelected":true,"checkTable":"T000","conversionExit":""},{"name":"SHIPPINGPOINT","description":"Shipping point","abapType":"CharacterString","length":4,"isPrimaryKey":true,"isSelected":true,"conversionExit":""},{"name":"ACTIVEDEPARTURECOUNTRY","description":"Country key","abapType":"CharacterString","length":3,"isSelected":true,"checkTable":"T005","conversionExit":""},{"name":"ADDRESSID","description":"Address key","abapType":"CharacterString","length":10,"isSelected":true,"conversionExit":"ALPHA"},{"name":"PICKINGCONFIRMATION","description":"Picking confirmation","abapType":"CharacterString","length":1,"isSelected":true,"conversionExit":""}]}]}
+{
+    "functionName": "Z_THEO_READ_TABLE",
+    "runInBackgroundJob": false,
+    "tables": 
+    [
+        {
+            "name": "ISDSHIPPINGPNT",
+            "description": "Generated Table for View I_ShippingPoint: Shipping Point",
+            "isView": true,
+            "fields": 
+            [
+                {
+                    "name": "MANDT",
+                    "description": "Client",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "T000",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SHIPPINGPOINT",
+                    "description": "Shipping Point / Receiving Point",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ADDRESSID",
+                    "description": "Address",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "ACTIVEDEPARTURECOUNTRY",
+                    "description": "Departure country (country from which the goods are sent)",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "checkTable": "T005",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PICKINGCONFIRMATION",
+                    "description": "Subject to Pick Confirmation",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                }
+            ]
+        }
+    ]
+}

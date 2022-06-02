@@ -1,1 +1,23 @@
-{"functionName":"\/SAPDS\/RFC_READ_TABLE2","runInBackgroundJob":false,"tables":[{"name":"ISDDOCCAT","description":"Generated Table for View I_SDDocumentCategory: SD Document Category","isView":true,"fields":[{"name":"SDDOCUMENTCATEGORY","description":"SD Document Category","abapType":"CharacterString","length":4,"isPrimaryKey":true,"isSelected":true,"conversionExit":""}]}]}
+{
+    "functionName": "Z_THEO_READ_TABLE",
+    "runInBackgroundJob": false,
+    "tables": 
+    [
+        {
+            "name": "ISDDOCCAT",
+            "description": "Generated Table for View I_SDDocumentCategory: SD Document Category",
+            "isView": true,
+            "fields": 
+            [
+                {
+                    "name": "SDDOCUMENTCATEGORY",
+                    "description": "Char Column",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "conversionExit": ""
+                }
+            ]
+        }
+    ]
+}

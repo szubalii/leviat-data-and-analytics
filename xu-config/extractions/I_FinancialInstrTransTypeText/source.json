@@ -1,1 +1,63 @@
-{"functionName":"\/SAPDS\/RFC_READ_TABLE2","runInBackgroundJob":false,"tables":[{"name":"IFININSTRTPTXT","description":"Generated Table for View I_FinancialInstrTransTypeText: Transaction Type Text","isView":true,"fields":[{"name":"MANDT","description":"Client (key field in client-specific tables)","abapType":"CharacterString","length":3,"isPrimaryKey":true,"isSelected":true,"checkTable":"T000","conversionExit":""},{"name":"LANGUAGE","description":"Language Key","abapType":"CharacterString","length":1,"isPrimaryKey":true,"isSelected":true,"checkTable":"T002","conversionExit":"ISOLA"},{"name":"FINANCIALINSTRUMENTPRODUCTTYPE","description":"Financial Assets Management product type","abapType":"CharacterString","length":3,"isPrimaryKey":true,"isSelected":true,"checkTable":"TZPA","conversionExit":""},{"name":"FINANCIALINSTRTRANSACTIONTYPE","description":"Transaction type","abapType":"CharacterString","length":3,"isPrimaryKey":true,"isSelected":true,"conversionExit":""},{"name":"FINANCIALINSTRTRANSTYPENAME","description":"Treasury text, length 30","abapType":"CharacterString","length":30,"isSelected":true,"conversionExit":""}]}]}
+{
+    "functionName": "Z_THEO_READ_TABLE",
+    "runInBackgroundJob": false,
+    "tables": 
+    [
+        {
+            "name": "IFININSTRTPTXT",
+            "description": "Generated Table for View I_FinancialInstrTransTypeText: Transaction Type Text",
+            "isView": true,
+            "fields": 
+            [
+                {
+                    "name": "MANDT",
+                    "description": "Client",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "T000",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "LANGUAGE",
+                    "description": "Language Key",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "formattedLength": 2,
+                    "checkTable": "T002",
+                    "conversionExit": "ISOLA"
+                },
+                {
+                    "name": "FINANCIALINSTRUMENTPRODUCTTYPE",
+                    "description": "Product Type",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "TZPA",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "FINANCIALINSTRTRANSACTIONTYPE",
+                    "description": "Financial Transaction Type",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "FINANCIALINSTRTRANSTYPENAME",
+                    "description": "Name of Transaction Type",
+                    "abapType": "CharacterString",
+                    "length": 30,
+                    "isSelected": true,
+                    "conversionExit": ""
+                }
+            ]
+        }
+    ]
+}

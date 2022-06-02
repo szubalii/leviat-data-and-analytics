@@ -1,1 +1,41 @@
-{"functionName":"\/SAPDS\/RFC_READ_TABLE2","runInBackgroundJob":false,"tables":[{"name":"IGLACCTYPETXT","description":"Generated Table for View I_GLAccountTypeText: GL Account Type Description","isView":true,"fields":[{"name":"GLACCOUNTTYPE","description":"Domain value","abapType":"CharacterString","length":10,"isPrimaryKey":true,"isSelected":true,"conversionExit":""},{"name":"LANGUAGE","description":"Language Key","abapType":"CharacterString","length":1,"isPrimaryKey":true,"isSelected":true,"conversionExit":"ISOLA"},{"name":"GLACCOUNTTYPENAME","description":"Short descriptive text for DD objects","abapType":"CharacterString","length":60,"isPrimaryKey":true,"isSelected":true,"conversionExit":""}]}]}
+{
+    "functionName": "Z_THEO_READ_TABLE",
+    "runInBackgroundJob": false,
+    "tables": 
+    [
+        {
+            "name": "IGLACCTYPETXT",
+            "description": "Generated Table for View I_GLAccountTypeText: GL Account Type Description",
+            "isView": true,
+            "fields": 
+            [
+                {
+                    "name": "LANGUAGE",
+                    "description": "Language Key",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "formattedLength": 2,
+                    "conversionExit": "ISOLA"
+                },
+                {
+                    "name": "GLACCOUNTTYPENAME",
+                    "description": "Short Text for Fixed Values",
+                    "abapType": "CharacterString",
+                    "length": 60,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "GLACCOUNTTYPE",
+                    "description": "Values for Domains: Single Value / Upper Limit",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": ""
+                }
+            ]
+        }
+    ]
+}
