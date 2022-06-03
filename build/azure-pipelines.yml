@@ -19,6 +19,23 @@ jobs:
 
   steps:
     # Installs Node and the npm packages saved in your package.json file in the build
+  - task: NodeTool@0
+    inputs:
+      versionSpec: '10.x'
+    displayName: 'Install Node.js'
+
+  - task: Npm@1
+    inputs:
+      command: 'install'
+      workingDir: '$(Build.Repository.LocalPath)/orchestration' #replace with the package.json folder
+      verbose: true
+    displayName: 'Install npm package'
+
+  # Validate the Orchestration config
+  - task: CmdLine@2
+    inputs:
+      script: 'node -e require(./orchestration/src/libs/validate-config.js)'
+
   - task: NuGetToolInstaller@1
 
   - task: NuGetCommand@2
