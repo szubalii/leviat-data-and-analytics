@@ -1,0 +1,49 @@
+{
+    "functionName": "Z_THEO_READ_TABLE",
+    "runInBackgroundJob": false,
+    "backgroundJobTimeout": 180,
+    "tables": 
+    [
+        {
+            "name": "IINVTRANSTYPE",
+            "description": "Generated Table for View",
+            "isView": true,
+            "fields": 
+            [
+                {
+                    "name": "INVENTORYTRANSACTIONTYPE",
+                    "description": "Transaction/Event Type",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ISPHYSICALINVENTORYRELEVANT",
+                    "description": "Physical inventory document",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ISMATERIALDOCUMENTRELEVANT",
+                    "description": "Material Document",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ISRESERVATIONRELEVANT",
+                    "description": "Reservation document",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                }
+            ]
+        }
+    ]
+}
