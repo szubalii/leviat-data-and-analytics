@@ -1,1 +1,552 @@
-{"functionName":"\/SAPDS\/RFC_READ_TABLE2","runInBackgroundJob":false,"tables":[{"name":"I_SUPPLIER_CDS","description":"Generated Table for View I_Supplier: Supplier","isView":true,"fields":[{"name":"MANDT","description":"Client (key field in client-specific tables)","abapType":"CharacterString","length":3,"isPrimaryKey":true,"isSelected":true,"checkTable":"T000","conversionExit":""},{"name":"SUPPLIER","description":"Account Number of Supplier","abapType":"CharacterString","length":10,"isPrimaryKey":true,"isSelected":true,"conversionExit":"ALPHA"},{"name":"SUPPLIERACCOUNTGROUP","description":"Vendor account group","abapType":"CharacterString","length":4,"isSelected":true,"checkTable":"T077K","conversionExit":""},{"name":"SUPPLIERNAME","description":"Text length 80","abapType":"CharacterString","length":80,"isSelected":true,"conversionExit":""},{"name":"SUPPLIERFULLNAME","description":"Text 220 characters","abapType":"CharacterString","length":220,"isSelected":true,"conversionExit":""},{"name":"ISBUSINESSPURPOSECOMPLETED","description":"Indicator for blocked debitor and creditor master data","abapType":"CharacterString","length":1,"isSelected":true,"conversionExit":""},{"name":"CREATEDBYUSER","description":"User name","abapType":"CharacterString","length":12,"isSelected":true,"conversionExit":""},{"name":"CREATIONDATE","description":"Date","abapType":"Date","isSelected":true,"conversionExit":""},{"name":"ISONETIMEACCOUNT","description":"Yes\/No field","abapType":"CharacterString","length":1,"isSelected":true,"conversionExit":""},{"name":"AUTHORIZATIONGROUP","description":"Authorization Group","abapType":"CharacterString","length":4,"isSelected":true,"conversionExit":""},{"name":"VATREGISTRATION","description":"VAT Registration Number","abapType":"CharacterString","length":20,"isSelected":true,"conversionExit":""},{"name":"ACCOUNTISBLOCKEDFORPOSTING","description":"Yes\/No field","abapType":"CharacterString","length":1,"isSelected":true,"conversionExit":""},{"name":"TAXJURISDICTION","description":"Tax Jurisdiction","abapType":"CharacterString","length":15,"isSelected":true,"checkTable":"TTXJ","conversionExit":""},{"name":"SUPPLIERCORPORATEGROUP","description":"Group keys","abapType":"CharacterString","length":10,"isSelected":true,"conversionExit":""},{"name":"CUSTOMER","description":"Customer Number","abapType":"CharacterString","length":10,"isSelected":true,"checkTable":"KNA1","conversionExit":"ALPHA"},{"name":"INDUSTRY","description":"Industry key","abapType":"CharacterString","length":4,"isSelected":true,"checkTable":"T016","conversionExit":""},{"name":"TAXNUMBER1","description":"Tax code 1","abapType":"CharacterString","length":16,"isSelected":true,"conversionExit":""},{"name":"TAXNUMBER2","description":"Tax number 2","abapType":"CharacterString","length":11,"isSelected":true,"conversionExit":""},{"name":"TAXNUMBER3","description":"Character field length 18","abapType":"CharacterString","length":18,"isSelected":true,"conversionExit":""},{"name":"TAXNUMBER4","description":"Character field length 18","abapType":"CharacterString","length":18,"isSelected":true,"conversionExit":""},{"name":"TAXNUMBER5","description":"Character field length 60 without check","abapType":"CharacterString","length":60,"isSelected":true,"conversionExit":""},{"name":"POSTINGISBLOCKED","description":"Yes\/No field","abapType":"CharacterString","length":1,"isSelected":true,"conversionExit":""},{"name":"PURCHASINGISBLOCKED","description":"Yes\/No field","abapType":"CharacterString","length":1,"isSelected":true,"conversionExit":""},{"name":"INTERNATIONALLOCATIONNUMBER1","description":"Numeric field length 7","abapType":"NumericCharacterString","length":7,"isSelected":true,"conversionExit":""},{"name":"INTERNATIONALLOCATIONNUMBER2","description":"Numeric field length 5","abapType":"NumericCharacterString","length":5,"isSelected":true,"conversionExit":""},{"name":"INTERNATIONALLOCATIONNUMBER3","description":"Numeric Field, Length 1","abapType":"NumericCharacterString","length":1,"isSelected":true,"conversionExit":""},{"name":"ADDRESSID","description":"Address key","abapType":"CharacterString","length":10,"isSelected":true,"conversionExit":"ALPHA"},{"name":"REGION","description":"Regional code","abapType":"CharacterString","length":3,"isSelected":true,"checkTable":"T005S","conversionExit":""},{"name":"ORGANIZATIONBPNAME1","description":"Partner name","abapType":"CharacterString","length":35,"isSelected":true,"conversionExit":""},{"name":"ORGANIZATIONBPNAME2","description":"Partner name","abapType":"CharacterString","length":35,"isSelected":true,"conversionExit":""},{"name":"CITYNAME","description":"Text length 35","abapType":"CharacterString","length":35,"isSelected":true,"conversionExit":""},{"name":"POSTALCODE","description":"Postal code","abapType":"CharacterString","length":10,"isSelected":true,"conversionExit":""},{"name":"STREETNAME","description":"Text length 35","abapType":"CharacterString","length":35,"isSelected":true,"conversionExit":""},{"name":"COUNTRY","description":"Country key","abapType":"CharacterString","length":3,"isSelected":true,"checkTable":"T005","conversionExit":""},{"name":"CONCATENATEDINTERNATIONALLOCNO","description":"Text (20 characters)","abapType":"CharacterString","length":20,"isSelected":true,"conversionExit":""},{"name":"SUPPLIERPROCUREMENTBLOCK","description":"Blocked functions","abapType":"CharacterString","length":2,"isSelected":true,"checkTable":"TQ04A","conversionExit":""},{"name":"SUPLRQUALITYMANAGEMENTSYSTEM","description":"QS system family","abapType":"CharacterString","length":4,"isSelected":true,"checkTable":"TQ02B","conversionExit":""},{"name":"SUPLRQLTYINPROCMTCERTFNVALIDTO","description":"Release-to date","abapType":"Date","isSelected":true,"conversionExit":""},{"name":"SUPPLIERLANGUAGE","description":"Language Key","abapType":"CharacterString","length":1,"isSelected":true,"checkTable":"T002","conversionExit":"ISOLA"},{"name":"ALTERNATIVEPAYEEACCOUNTNUMBER","description":"Account Number of Supplier","abapType":"CharacterString","length":10,"isSelected":true,"checkTable":"LFA1","conversionExit":"ALPHA"},{"name":"PHONENUMBER1","description":"Text length 16","abapType":"CharacterString","length":16,"isSelected":true,"conversionExit":""},{"name":"FAXNUMBER","description":"Text length 31","abapType":"CharacterString","length":31,"isSelected":true,"conversionExit":""},{"name":"ISNATURALPERSON","description":"Natural Person","abapType":"CharacterString","length":1,"isSelected":true,"conversionExit":""},{"name":"TAXNUMBERRESPONSIBLE","description":"Character field length 18","abapType":"CharacterString","length":18,"isSelected":true,"conversionExit":""},{"name":"UK_CONTRACTORBUSINESSTYPE","description":"Category of CIS Vendors","abapType":"CharacterString","length":12,"isSelected":true,"conversionExit":""},{"name":"UK_PARTNERTRADINGNAME","description":"Text (30 Characters)","abapType":"CharacterString","length":30,"isSelected":true,"conversionExit":""},{"name":"UK_PARTNERTAXREFERENCE","description":"Character Field Length 20","abapType":"CharacterString","length":20,"isSelected":true,"conversionExit":""},{"name":"UK_VERIFICATIONSTATUS","description":"Verification status for CIS Vendors","abapType":"CharacterString","length":3,"isSelected":true,"conversionExit":""},{"name":"UK_VERIFICATIONNUMBER","description":"Character Field Length 20","abapType":"CharacterString","length":20,"isSelected":true,"conversionExit":""},{"name":"UK_COMPANYREGISTRATIONNUMBER","description":"UK_COMPANYREGISTRATIONNUMBER","abapType":"CharacterString","length":8,"isSelected":true,"conversionExit":""},{"name":"UK_VERIFIEDTAXSTATUS","description":"Verification ID for CIS Subcontractors","abapType":"CharacterString","length":1,"isSelected":true,"conversionExit":""},{"name":"FORMOFADDRESS","description":"Text length 15","abapType":"CharacterString","length":15,"isSelected":true,"conversionExit":""},{"name":"REFERENCEACCOUNTGROUP","description":"Vendor account group","abapType":"CharacterString","length":4,"isSelected":true,"checkTable":"T077K","conversionExit":""},{"name":"VATLIABILITY","description":"Yes\/No field","abapType":"CharacterString","length":1,"isSelected":true,"conversionExit":""},{"name":"RESPONSIBLETYPE","description":"Fiscal Type","abapType":"CharacterString","length":2,"isSelected":true,"checkTable":"J_1AFITP","conversionExit":""},{"name":"TAXNUMBERTYPE","description":"Type of identification","abapType":"CharacterString","length":2,"isSelected":true,"checkTable":"J_1ATODC","conversionExit":""},{"name":"FISCALADDRESS","description":"Account Number of Supplier","abapType":"CharacterString","length":10,"isSelected":true,"checkTable":"LFA1","conversionExit":"ALPHA"},{"name":"BUSINESSTYPE","description":"Type of business","abapType":"CharacterString","length":30,"isSelected":true,"checkTable":"BUSTYPE","conversionExit":""},{"name":"BIRTHDATE","description":"Date","abapType":"Date","isSelected":true,"conversionExit":""},{"name":"PAYMENTISBLOCKEDFORSUPPLIER","description":"Yes\/No field","abapType":"CharacterString","length":1,"isSelected":true,"conversionExit":""},{"name":"SORTFIELD","description":"Character Field of Length 10","abapType":"CharacterString","length":10,"isSelected":true,"conversionExit":""},{"name":"PHONENUMBER2","description":"Text length 16","abapType":"CharacterString","length":16,"isSelected":true,"conversionExit":""},{"name":"DELETIONINDICATOR","description":"Yes\/No field","abapType":"CharacterString","length":1,"isSelected":true,"conversionExit":""},{"name":"TRADINGPARTNER","description":"Company","abapType":"CharacterString","length":6,"isSelected":true,"checkTable":"T880","conversionExit":"ALPHA"},{"name":"TAXINVOICEREPRESENTATIVENAME","description":"Representative","abapType":"CharacterString","length":10,"isSelected":true,"conversionExit":""},{"name":"INDUSTRYTYPE","description":"Type of industry","abapType":"CharacterString","length":30,"isSelected":true,"checkTable":"INDUSTYPE","conversionExit":""}]}]}
+{
+    "functionName": "Z_THEO_READ_TABLE",
+    "runInBackgroundJob": false,
+    "tables": 
+    [
+        {
+            "name": "I_SUPPLIER_CDS",
+            "description": "Generated Table for View I_Supplier: Supplier",
+            "isView": true,
+            "fields": 
+            [
+                {
+                    "name": "MANDT",
+                    "description": "Client",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "T000",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SUPPLIER",
+                    "description": "Account Number of Vendor or Creditor",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "COUNTRY",
+                    "description": "Country Key",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "checkTable": "T005",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ORGANIZATIONBPNAME1",
+                    "description": "Name 1",
+                    "abapType": "CharacterString",
+                    "length": 35,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ORGANIZATIONBPNAME2",
+                    "description": "Name 2",
+                    "abapType": "CharacterString",
+                    "length": 35,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CITYNAME",
+                    "description": "City",
+                    "abapType": "CharacterString",
+                    "length": 35,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "POSTALCODE",
+                    "description": "Postal Code",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "REGION",
+                    "description": "Region (State, Province, County)",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "checkTable": "T005S",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SORTFIELD",
+                    "description": "Sort field",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "STREETNAME",
+                    "description": "Street and House Number",
+                    "abapType": "CharacterString",
+                    "length": 35,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ADDRESSID",
+                    "description": "Address",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "FORMOFADDRESS",
+                    "description": "Title",
+                    "abapType": "CharacterString",
+                    "length": 15,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "INTERNATIONALLOCATIONNUMBER1",
+                    "description": "International location number  (part 1)",
+                    "abapType": "NumericCharacterString",
+                    "length": 7,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "INTERNATIONALLOCATIONNUMBER2",
+                    "description": "International location number (Part 2)",
+                    "abapType": "NumericCharacterString",
+                    "length": 5,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "AUTHORIZATIONGROUP",
+                    "description": "Authorization Group",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "INDUSTRY",
+                    "description": "Industry key",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "T016",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "INTERNATIONALLOCATIONNUMBER3",
+                    "description": "Check digit for the international location number",
+                    "abapType": "NumericCharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CREATIONDATE",
+                    "description": "Date on which the Record Was Created",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CREATEDBYUSER",
+                    "description": "Name of Person who Created the Object",
+                    "abapType": "CharacterString",
+                    "length": 12,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SUPPLIERCORPORATEGROUP",
+                    "description": "Group key",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SUPPLIERACCOUNTGROUP",
+                    "description": "Vendor account group",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "T077K",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CUSTOMER",
+                    "description": "Customer Number",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "checkTable": "KNA1",
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "ALTERNATIVEPAYEEACCOUNTNUMBER",
+                    "description": "Account Number of the Alternative Payee",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "checkTable": "LFA1",
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "DELETIONINDICATOR",
+                    "description": "Central Deletion Flag for Master Record",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ACCOUNTISBLOCKEDFORPOSTING",
+                    "description": "Central posting block",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "POSTINGISBLOCKED",
+                    "description": "Central posting block",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PURCHASINGISBLOCKED",
+                    "description": "Centrally imposed purchasing block",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SUPPLIERLANGUAGE",
+                    "description": "Language Key",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "formattedLength": 2,
+                    "checkTable": "T002",
+                    "conversionExit": "ISOLA"
+                },
+                {
+                    "name": "TAXNUMBER1",
+                    "description": "Tax Number 1",
+                    "abapType": "CharacterString",
+                    "length": 16,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "TAXNUMBER2",
+                    "description": "Tax Number 2",
+                    "abapType": "CharacterString",
+                    "length": 11,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "VATLIABILITY",
+                    "description": "Liable for VAT",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PHONENUMBER1",
+                    "description": "First telephone number",
+                    "abapType": "CharacterString",
+                    "length": 16,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PHONENUMBER2",
+                    "description": "Second telephone number",
+                    "abapType": "CharacterString",
+                    "length": 16,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "FAXNUMBER",
+                    "description": "Fax Number",
+                    "abapType": "CharacterString",
+                    "length": 31,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ISONETIMEACCOUNT",
+                    "description": "Indicator: Is the account a one-time account?",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "TRADINGPARTNER",
+                    "description": "Company ID of Trading Partner",
+                    "abapType": "CharacterString",
+                    "length": 6,
+                    "isSelected": true,
+                    "checkTable": "T880",
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "FISCALADDRESS",
+                    "description": "Account number of the master record with fiscal address",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "checkTable": "LFA1",
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "VATREGISTRATION",
+                    "description": "VAT Registration Number",
+                    "abapType": "CharacterString",
+                    "length": 20,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ISNATURALPERSON",
+                    "description": "Natural Person",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SUPPLIERPROCUREMENTBLOCK",
+                    "description": "Function That Will Be Blocked",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "checkTable": "TQ04A",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "BIRTHDATE",
+                    "description": "Date of Birth of the Person Subject to Withholding Tax",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SUPLRQUALITYMANAGEMENTSYSTEM",
+                    "description": "Supplier's QM system",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "TQ02B",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "REFERENCEACCOUNTGROUP",
+                    "description": "Reference Account Group for One-Time Account (Vendor)",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "T077K",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "TAXJURISDICTION",
+                    "description": "Tax Jurisdiction",
+                    "abapType": "CharacterString",
+                    "length": 15,
+                    "isSelected": true,
+                    "checkTable": "TTXJ",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PAYMENTISBLOCKEDFORSUPPLIER",
+                    "description": "Payment Block",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "RESPONSIBLETYPE",
+                    "description": "Tax type",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "checkTable": "J_1AFITP",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "TAXNUMBERTYPE",
+                    "description": "Tax Number Type",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "checkTable": "J_1ATODC",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "TAXNUMBER3",
+                    "description": "Tax Number 3",
+                    "abapType": "CharacterString",
+                    "length": 18,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "TAXNUMBER4",
+                    "description": "Tax Number 4",
+                    "abapType": "CharacterString",
+                    "length": 18,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "TAXNUMBER5",
+                    "description": "Tax Number 5",
+                    "abapType": "CharacterString",
+                    "length": 60,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "TAXINVOICEREPRESENTATIVENAME",
+                    "description": "Name of Representative",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "BUSINESSTYPE",
+                    "description": "Type of Business",
+                    "abapType": "CharacterString",
+                    "length": 30,
+                    "isSelected": true,
+                    "checkTable": "BUSTYPE",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "INDUSTRYTYPE",
+                    "description": "Type of Industry",
+                    "abapType": "CharacterString",
+                    "length": 30,
+                    "isSelected": true,
+                    "checkTable": "INDUSTYPE",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SUPLRQLTYINPROCMTCERTFNVALIDTO",
+                    "description": "Validity date of certification",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "TAXNUMBERRESPONSIBLE",
+                    "description": "Tax Number at Responsible Tax Authority",
+                    "abapType": "CharacterString",
+                    "length": 18,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ISBUSINESSPURPOSECOMPLETED",
+                    "description": "Business Purpose Completed Flag",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "UK_CONTRACTORBUSINESSTYPE",
+                    "description": "Subcontractor's Business Type",
+                    "abapType": "CharacterString",
+                    "length": 12,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "UK_PARTNERTRADINGNAME",
+                    "description": "Partner's Trading Name",
+                    "abapType": "CharacterString",
+                    "length": 30,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "UK_PARTNERTAXREFERENCE",
+                    "description": "Partner's Unique Tax Reference (UTR)",
+                    "abapType": "CharacterString",
+                    "length": 20,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "UK_VERIFICATIONSTATUS",
+                    "description": "Verification Status",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "UK_VERIFICATIONNUMBER",
+                    "description": "Verification Number",
+                    "abapType": "CharacterString",
+                    "length": 20,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "UK_VERIFIEDTAXSTATUS",
+                    "description": "Tax Status of the Verified Subcontractor",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "UK_COMPANYREGISTRATIONNUMBER",
+                    "description": "Companies House Registration Number",
+                    "abapType": "CharacterString",
+                    "length": 8,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "IN_GSTSUPPLIERCLASSIFICATION",
+                    "description": "Vendor Classification for GST",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SUPPLIERFULLNAME",
+                    "description": "Text 220 characters",
+                    "abapType": "CharacterString",
+                    "length": 220,
+                    "isSelected": true,
+                    "conversionExit": ""
+                }
+            ]
+        }
+    ]
+}

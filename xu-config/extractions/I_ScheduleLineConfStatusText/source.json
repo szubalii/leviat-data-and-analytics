@@ -1,1 +1,41 @@
-{"functionName":"\/SAPDS\/RFC_READ_TABLE2","runInBackgroundJob":false,"tables":[{"name":"ISDSCHDLCONFSTST","description":"Generated Table for View I_ScheduleLineConfStatusText: Schedule Line Confirmation Status Text","isView":true,"fields":[{"name":"SCHEDULELINECONFIRMATIONSTATUS","description":"SCHEDULELINECONFIRMATIONSTATUS","abapType":"CharacterString","length":1,"isPrimaryKey":true,"isSelected":true,"conversionExit":""},{"name":"LANGUAGE","description":"Language Key","abapType":"CharacterString","length":1,"isPrimaryKey":true,"isSelected":true,"conversionExit":"ISOLA"},{"name":"SCHEDULELINECONFSTATUSDESC","description":"Short descriptive text for DD objects","abapType":"CharacterString","length":60,"isPrimaryKey":true,"isSelected":true,"conversionExit":""}]}]}
+{
+    "functionName": "Z_THEO_READ_TABLE",
+    "runInBackgroundJob": false,
+    "tables": 
+    [
+        {
+            "name": "ISDSCHDLCONFSTST",
+            "description": "Generated Table for View I_ScheduleLineConfStatusText: Schedule Line Confirmation Status Text",
+            "isView": true,
+            "fields": 
+            [
+                {
+                    "name": "LANGUAGE",
+                    "description": "Language Key",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "formattedLength": 2,
+                    "conversionExit": "ISOLA"
+                },
+                {
+                    "name": "SCHEDULELINECONFSTATUSDESC",
+                    "description": "Short Text for Fixed Values",
+                    "abapType": "CharacterString",
+                    "length": 60,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SCHEDULELINECONFIRMATIONSTATUS",
+                    "description": "Char Column",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                }
+            ]
+        }
+    ]
+}

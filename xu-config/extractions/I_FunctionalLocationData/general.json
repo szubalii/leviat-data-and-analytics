@@ -3,11 +3,11 @@
         "machine": "[::ffff:127.0.0.1]:49784",
         "timestamp": "20210601T203047.492Z"
     },
-    "destination": "stxxxxslsdeuw001_s4h-uat-caa",
+    "destination": "stxxxxslsaeuw001_s4h-caa",
     "lastChange": {
         "machine": "[::ffff:127.0.0.1]:49773",
         "timestamp": "20210603T201405.903Z"
     },
-    "source": "CRH_Leviat_S4HANA_CAA_gui_user",
+    "source": "CRH_Leviat_S4HANA_CAA",
     "type": "ODP"
 }

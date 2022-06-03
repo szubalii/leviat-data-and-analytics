@@ -1,0 +1,28 @@
+{
+    "nameGenerator": {
+        "suffix": "",
+        "customName": "I_InventoryValuationType",
+        "objectNamingMode": "Custom",
+        "appendsTimestamp": true
+    },
+    "internalSettings": {
+        "nameGenerator": {
+            "suffix": "",
+            "customName": "I_InventoryValuationType",
+            "objectNamingMode": "Custom",
+            "appendsTimestamp": true
+        },
+        "sapDateConversion": {
+            "enabled": true,
+            "replacementForInvalidDate": null,
+            "replacementForZeroDate": "1970-01-01",
+            "replacementForYear9999": "2099-12-31"
+        },
+        "existingFileAction": "Replace",
+        "columnNameKind": "Code"
+    },
+    "blobType": "BlockBlob",
+    "columnNameKind": "Code",
+    "folderPath": "DIMENSION/I_InventoryValuationType/Theobald/ODP/Full/In/#{ DateTime.Now.ToString(\"yyyy/MM/dd\") }#",
+    "maxBlobSize": 0
+}

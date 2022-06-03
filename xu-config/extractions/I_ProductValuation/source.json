@@ -1,0 +1,356 @@
+{
+    "functionName": "Z_THEO_READ_TABLE",
+    "runInBackgroundJob": false,
+    "backgroundJobTimeout": 180,
+    "tables": 
+    [
+        {
+            "name": "IPRDVALUATION",
+            "description": "Generated Table for View",
+            "isView": true,
+            "fields": 
+            [
+                {
+                    "name": "MANDT",
+                    "description": "Client",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "T000",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRODUCT",
+                    "description": "Material Number",
+                    "abapType": "CharacterString",
+                    "length": 40,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "MARA",
+                    "conversionExit": "MATN1"
+                },
+                {
+                    "name": "VALUATIONAREA",
+                    "description": "Valuation area",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "T001K",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "VALUATIONTYPE",
+                    "description": "Valuation Type",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "VALUATIONCLASS",
+                    "description": "Valuation Class",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "T025",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRICEDETERMINATIONCONTROL",
+                    "description": "Material Price Determination: Control",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "FISCALMONTHCURRENTPERIOD",
+                    "description": "Current period (posting period)",
+                    "abapType": "NumericCharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "FISCALYEARCURRENTPERIOD",
+                    "description": "Fiscal Year of Current Period",
+                    "abapType": "NumericCharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "conversionExit": "GJAHR"
+                },
+                {
+                    "name": "STANDARDPRICE",
+                    "description": "Standard price",
+                    "abapType": "PackedNumber",
+                    "length": 11,
+                    "decimalCount": 2,
+                    "isSelected": true,
+                    "formattedLength": 15,
+                    "conversionExit": "",
+                    "referenceTable": "IPRDVALUATION",
+                    "referenceField": "CURRENCY",
+                    "isCurrency": true
+                },
+                {
+                    "name": "PRICEUNITQTY",
+                    "description": "Price unit",
+                    "abapType": "PackedNumber",
+                    "length": 5,
+                    "isSelected": true,
+                    "formattedLength": 6,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "INVENTORYVALUATIONPROCEDURE",
+                    "description": "Price control indicator",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "FUTUREEVALUATEDAMOUNTVALUE",
+                    "description": "Future price",
+                    "abapType": "PackedNumber",
+                    "length": 11,
+                    "decimalCount": 2,
+                    "isSelected": true,
+                    "formattedLength": 14,
+                    "conversionExit": "",
+                    "referenceTable": "IPRDVALUATION",
+                    "referenceField": "CURRENCY",
+                    "isCurrency": true
+                },
+                {
+                    "name": "FUTUREPRICEVALIDITYSTARTDATE",
+                    "description": "Date as of which the price is valid",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PREVINVTRYPRICEINCOCODECRCY",
+                    "description": "Previous price",
+                    "abapType": "PackedNumber",
+                    "length": 11,
+                    "decimalCount": 2,
+                    "isSelected": true,
+                    "formattedLength": 15,
+                    "conversionExit": "",
+                    "referenceTable": "IPRDVALUATION",
+                    "referenceField": "CURRENCY",
+                    "isCurrency": true
+                },
+                {
+                    "name": "MOVINGAVERAGEPRICE",
+                    "description": "Moving Average Price/Periodic Unit Price",
+                    "abapType": "PackedNumber",
+                    "length": 11,
+                    "decimalCount": 2,
+                    "isSelected": true,
+                    "formattedLength": 15,
+                    "conversionExit": "",
+                    "referenceTable": "IPRDVALUATION",
+                    "referenceField": "CURRENCY",
+                    "isCurrency": true
+                },
+                {
+                    "name": "VALUATIONCATEGORY",
+                    "description": "Valuation Category",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "checkTable": "T149",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRODUCTUSAGETYPE",
+                    "description": "Usage of the material",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRODUCTORIGINTYPE",
+                    "description": "Origin of the material",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ISPRODUCEDINHOUSE",
+                    "description": "Produced in-house",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRODCOSTESTNUMBER",
+                    "description": "Cost Estimate Number - Product Costing",
+                    "abapType": "NumericCharacterString",
+                    "length": 12,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ISMARKEDFORDELETION",
+                    "description": "Deletion flag for all material data of a valuation type",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "VALUATIONMARGIN",
+                    "description": "Valuation margin",
+                    "abapType": "PackedNumber",
+                    "length": 7,
+                    "decimalCount": 2,
+                    "isSelected": true,
+                    "formattedLength": 9,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ISACTIVEENTITY",
+                    "description": "Char Column",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "COMPANYCODE",
+                    "description": "Company Code",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "T001",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "VALUATIONCLASSSALESORDERSTOCK",
+                    "description": "Valuation Class for Sales Order Stock",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "T025",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PROJECTSTOCKVALUATIONCLASS",
+                    "description": "Valuation Class for Project Stock",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "T025",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PLANNEDPRICE1INCOCODECRCY",
+                    "description": "Future Planned Price 1",
+                    "abapType": "PackedNumber",
+                    "length": 11,
+                    "decimalCount": 2,
+                    "isSelected": true,
+                    "formattedLength": 14,
+                    "conversionExit": "",
+                    "referenceTable": "IPRDVALUATION",
+                    "referenceField": "CURRENCY",
+                    "isCurrency": true
+                },
+                {
+                    "name": "PLANNEDPRICE2INCOCODECRCY",
+                    "description": "Future Planned Price 2",
+                    "abapType": "PackedNumber",
+                    "length": 11,
+                    "decimalCount": 2,
+                    "isSelected": true,
+                    "formattedLength": 14,
+                    "conversionExit": "",
+                    "referenceTable": "IPRDVALUATION",
+                    "referenceField": "CURRENCY",
+                    "isCurrency": true
+                },
+                {
+                    "name": "PLANNEDPRICE3INCOCODECRCY",
+                    "description": "Future Planned Price 3",
+                    "abapType": "PackedNumber",
+                    "length": 11,
+                    "decimalCount": 2,
+                    "isSelected": true,
+                    "formattedLength": 14,
+                    "conversionExit": "",
+                    "referenceTable": "IPRDVALUATION",
+                    "referenceField": "CURRENCY",
+                    "isCurrency": true
+                },
+                {
+                    "name": "FUTUREPLNDPRICE1VALDTYDATE",
+                    "description": "Date from Which Future Planned Price 1 Is Valid",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "FUTUREPLNDPRICE2VALDTYDATE",
+                    "description": "Date from Which Future Planned Price 2 Is Valid",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "FUTUREPLNDPRICE3VALDTYDATE",
+                    "description": "Date from Which Future Planned Price 3 Is Valid",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "TAXBASEDPRICESPRICEUNITQTY",
+                    "description": "Price unit for valuation prices based on tax/commercial law",
+                    "abapType": "PackedNumber",
+                    "length": 5,
+                    "isSelected": true,
+                    "formattedLength": 6,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRICELASTCHANGEDATE",
+                    "description": "Date of the last price change",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PLANNEDPRICE",
+                    "description": "Future planned price",
+                    "abapType": "PackedNumber",
+                    "length": 11,
+                    "decimalCount": 2,
+                    "isSelected": true,
+                    "formattedLength": 14,
+                    "conversionExit": "",
+                    "referenceTable": "IPRDVALUATION",
+                    "referenceField": "CURRENCY",
+                    "isCurrency": true
+                },
+                {
+                    "name": "CURRENCY",
+                    "description": "Currency Key",
+                    "abapType": "CharacterString",
+                    "length": 5,
+                    "isSelected": true,
+                    "checkTable": "TCURC",
+                    "conversionExit": ""
+                }
+            ]
+        }
+    ]
+}

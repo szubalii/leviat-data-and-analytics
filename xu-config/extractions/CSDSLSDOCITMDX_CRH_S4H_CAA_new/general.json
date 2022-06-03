@@ -3,10 +3,11 @@
         "machine": "[::ffff:127.0.0.1]:49770",
         "timestamp": "20210429T151110.502Z"
     },
-    "destination": "stxxxxslsdeuw001_s4h-uat-caa",
+    "destination": "stxxxxslsaeuw001_s4h-caa",
     "lastChange": {
-        "machine": "[::ffff:127.0.0.1]:49770",
-        "timestamp": "20210429T151316.744Z"
+        "machine": "[::ffff:127.0.0.1]:64949",
+        "timestamp": "20220207T102752.747Z",
+        "user": "EMATCRHPP\\fbouw"
     },
     "source": "CRH_Leviat_S4HANA_CAA",
     "type": "Table"

@@ -1,1 +1,81 @@
-{"functionName":"\/SAPDS\/RFC_READ_TABLE2","runInBackgroundJob":false,"tables":[{"name":"IFIGLACCINCOCDT","description":"Generated Table for View I_GlAccountTextInCompanycode: G\/L Account Text in Company Code","isView":true,"fields":[{"name":"MANDT","description":"Client (key field in client-specific tables)","abapType":"CharacterString","length":3,"isPrimaryKey":true,"isSelected":true,"checkTable":"T000","conversionExit":""},{"name":"GLACCOUNT","description":"G\/L account number","abapType":"CharacterString","length":10,"isPrimaryKey":true,"isSelected":true,"conversionExit":"ALPHA"},{"name":"COMPANYCODE","description":"Company code","abapType":"CharacterString","length":4,"isPrimaryKey":true,"isSelected":true,"checkTable":"T001","conversionExit":""},{"name":"LANGUAGE","description":"Language Key","abapType":"CharacterString","length":1,"isPrimaryKey":true,"isSelected":true,"checkTable":"T002","conversionExit":"ISOLA"},{"name":"CHARTOFACCOUNTS","description":"Chart of accounts number","abapType":"CharacterString","length":4,"isSelected":true,"checkTable":"T004","conversionExit":""},{"name":"GLACCOUNTNAME","description":"Text (20 characters)","abapType":"CharacterString","length":20,"isSelected":true,"conversionExit":""},{"name":"GLACCOUNTLONGNAME","description":"Text (50 characters)","abapType":"CharacterString","length":50,"isSelected":true,"conversionExit":""}]}]}
+{
+    "functionName": "Z_THEO_READ_TABLE",
+    "runInBackgroundJob": false,
+    "tables": 
+    [
+        {
+            "name": "IFIGLACCINCOCDT",
+            "description": "Generated Table for View I_GlAccountTextInCompanycode: G/L Account Text in Company Code",
+            "isView": true,
+            "fields": 
+            [
+                {
+                    "name": "MANDT",
+                    "description": "Client",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "T000",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CHARTOFACCOUNTS",
+                    "description": "Chart of Accounts",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "T004",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "GLACCOUNT",
+                    "description": "G/L Account Number",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "LANGUAGE",
+                    "description": "Language Key",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "formattedLength": 2,
+                    "checkTable": "T002",
+                    "conversionExit": "ISOLA"
+                },
+                {
+                    "name": "GLACCOUNTNAME",
+                    "description": "G/L account short text",
+                    "abapType": "CharacterString",
+                    "length": 20,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "GLACCOUNTLONGNAME",
+                    "description": "G/L Account Long Text",
+                    "abapType": "CharacterString",
+                    "length": 50,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "COMPANYCODE",
+                    "description": "Company Code",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "T001",
+                    "conversionExit": ""
+                }
+            ]
+        }
+    ]
+}
