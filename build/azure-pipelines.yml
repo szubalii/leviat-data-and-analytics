@@ -91,6 +91,7 @@ jobs:
 
   # Azure Data Factory Build Job
 - job: ADF
+  dependsOn: OrchDB
   pool:
     vmImage: 'ubuntu-latest'
 
@@ -148,6 +149,7 @@ jobs:
 
   # Theobald Xtract Universal Build Job
 - job: XtractUniversal
+  dependsOn: OrchDB
   pool:
     vmImage: 'windows-latest'
   
@@ -166,6 +168,7 @@ jobs:
 
   # Azure Synapse Dedicated SQL Pool Build Job
 - job: SynapseDWH
+  dependsOn: OrchDB
   pool: 
     vmImage: 'windows-latest'
 
