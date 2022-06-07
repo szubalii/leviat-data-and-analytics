@@ -35,15 +35,14 @@ WITH Hash_Calc AS (
         viewMD.[MaterialBaseUnitID],
         viewMD.[PurchaseOrderTypeID],
         viewMD.[PurchaseOrderType],
-        sum(viewMD.MatlStkChangeQtyInBaseUnit) AS MatlStkChangeQtyInBaseUnit,
+        sum(viewMD.MatlStkChangeQtyInBaseUnit)   AS MatlStkChangeQtyInBaseUnit,
         viewMD.[StockPricePerUnit],
         viewMD.[StockPricePerUnit_EUR],
-        min(viewMD.HDR_PostingDate) minHDR_PostingDate,
-        MONTH(viewMD.HDR_PostingDate) AS HDR_PostingDate_Month,
-        YEAR(viewMD.HDR_PostingDate)  AS HDR_PostingDate_Year,
-        HDR_PostingDate,
-        [PriceControlIndicatorID],
-        [PriceControlIndicator]
+        FORMAT(viewMD.[HDR_PostingDate],'yyyy')  AS HDR_PostingDate_Year,
+        FORMAT(viewMD.[HDR_PostingDate],'MM')    AS HDR_PostingDate_Month,
+        EOMONTH(CAST(FORMAT(viewMD.[HDR_PostingDate],'yyyy-MM') + '-01' AS DATE)) AS HDR_PostingDate_LMD,
+        viewMD.[nk_dim_ProductValuationPUP],
+        viewMD.[InventoryValuationTypeID]
     FROM [dm_sales].[vw_fact_MaterialDocumentItem] viewMD
     group by
         viewMD.[MaterialID],
@@ -65,11 +64,34 @@ WITH Hash_Calc AS (
         viewMD.[PurchaseOrderType],
         viewMD.[StockPricePerUnit],
         viewMD.[StockPricePerUnit_EUR],
-        MONTH(viewMD.HDR_PostingDate),
-        YEAR(viewMD.HDR_PostingDate),
-        HDR_PostingDate,
-        [PriceControlIndicatorID],
-        [PriceControlIndicator] 
+        FORMAT(viewMD.[HDR_PostingDate],'yyyy'),
+        FORMAT(viewMD.[HDR_PostingDate],'MM'),
+        EOMONTH(CAST(FORMAT(viewMD.[HDR_PostingDate],'yyyy-MM') + '-01' AS DATE)),
+        viewMD.[nk_dim_ProductValuationPUP],
+        viewMD.[InventoryValuationTypeID] 
+), Hash_Calc_Min AS(
+    SELECT
+        _hash,
+        [MaterialID],
+        [PlantID],
+        [StorageLocationID],
+        [InventorySpecialStockTypeID],
+        [InventorySpecialStockTypeName],
+        [InventoryStockTypeID],
+        [InventoryStockTypeName],
+        [StockOwner],
+        [CostCenterID],
+        [CompanyCodeID],
+        [SalesDocumentTypeID],
+        [SalesDocumentType],
+        [SalesDocumentItemCategoryID],
+        [SalesDocumentItemCategory],
+        [MaterialBaseUnitID],
+        [PurchaseOrderTypeID],
+        [PurchaseOrderType],
+        [InventoryValuationTypeID],
+        min([HDR_PostingDate_LMD]) over(PARTITION BY _hash) AS minHDR_PostingDate       
+    FROM Hash_Calc viewMD   
 ), Calendar_Calc AS (
     Select
         _hash,
@@ -93,9 +115,8 @@ WITH Hash_Calc AS (
         HC.[MaterialBaseUnitID],
         HC.[PurchaseOrderTypeID],
         HC.[PurchaseOrderType],
-        HC.[PriceControlIndicatorID],
-        HC.[PriceControlIndicator] 
-    FROM Hash_Calc HC
+        HC.[InventoryValuationTypeID]    
+    FROM Hash_Calc_Min HC
     CROSS JOIN [edw].[dim_Calendar] AS dimC
     WHERE
         dimC.[CalendarDate] >= DATEADD(DAY, 1, EOMONTH(minHDR_PostingDate,-1))
@@ -124,10 +145,10 @@ WITH Hash_Calc AS (
         HC.[MaterialBaseUnitID],
         HC.[PurchaseOrderTypeID],
         HC.[PurchaseOrderType],
-        HC.[PriceControlIndicatorID],
-        HC.[PriceControlIndicator] 
+        HC.[InventoryValuationTypeID] 
 ), Calendar_TotalAmount AS (
     SELECT
+        CC._hash,
         CC.CalendarYear          AS ReportingYear,
         CC.CalendarMonth         AS ReportingMonth,
         CC.LastDayOfMonthDate    AS ReportingDate,
@@ -150,39 +171,13 @@ WITH Hash_Calc AS (
         CC.PurchaseOrderType,
         HC.MatlStkChangeQtyInBaseUnit,
         SUM(ISNULL(HC.MatlStkChangeQtyInBaseUnit, 0))
-        OVER (PARTITION BY CC._hash ORDER BY CC.CalendarYear, CC.CalendarMonth) AS StockLevelQtyInBaseUnit,
-        CASE -- if StockPricePerUnit Is NULL then needs to take the previous non-empty value
-            WHEN 
-               HC.[StockPricePerUnit] IS NULL
-            THEN 
-               (
-                   SELECT TOP 1 [StockPricePerUnit]
-                   FROM Hash_Calc
-                   WHERE HDR_PostingDate <= CAST( CC.[CalendarYear] + '-' + CC.CalendarMonth + '-01' AS DATE)
-                   AND _hash = CC._hash
-                   AND [StockPricePerUnit] is not NULL
-                   ORDER BY HDR_PostingDate DESC
-               )
-            ELSE     
-                HC.[StockPricePerUnit]
-        END AS [StockPricePerUnit],
-        CASE -- if StockPricePerUnit_EUR Is NULL then needs to take the previous non-empty value
-            WHEN 
-               HC.[StockPricePerUnit_EUR] IS NULL
-            THEN 
-               (
-                   SELECT TOP 1 [StockPricePerUnit_EUR]
-                   FROM Hash_Calc
-                   WHERE HDR_PostingDate <= CAST( CC.[CalendarYear] + '-' + CC.CalendarMonth + '-01' AS DATE)
-                   AND _hash = CC._hash
-                   AND [StockPricePerUnit] is not NULL                   
-                   ORDER BY HDR_PostingDate DESC
-               )
-            ELSE     
-                HC.[StockPricePerUnit_EUR]
-        END AS [StockPricePerUnit_EUR],
-        HC.[PriceControlIndicatorID],
-        HC.[PriceControlIndicator] 
+            OVER (PARTITION BY CC._hash ORDER BY CC.CalendarYear, CC.CalendarMonth) AS StockLevelQtyInBaseUnit,
+        CPPUP.[StockPricePerUnit]             AS [StockPricePerUnit],
+        CPPUP.[StockPricePerUnit_EUR]         AS [StockPricePerUnit_EUR],
+        CPPUP.[PriceControlIndicatorID],
+        CPPUP.[PriceControlIndicator], 
+        CPPUP.[sk_dim_ProductValuationPUP]    AS [sk_dim_ProductValuationPUP],
+        CPPUP.[nk_dim_ProductValuationPUP]    AS [nk_dim_ProductValuationPUP]
         FROM Calendar_Calc CC
         LEFT JOIN Hash_Calc HC
             ON
@@ -191,6 +186,18 @@ WITH Hash_Calc AS (
                 CC.[CalendarYear] = HC.HDR_PostingDate_Year
             AND
                 CC.[CalendarMonth] = HC.HDR_PostingDate_Month
+        LEFT JOIN [edw].[dim_ProductValuationPUP]  CPPUP 
+        ON             
+            CPPUP.[ValuationTypeID] = CC.[InventoryValuationTypeID] 
+            AND
+            CPPUP.[ValuationAreaID] = CC.[PlantID]
+            AND
+            CPPUP.[ProductID] = CC.[MaterialID]     
+            AND 
+            CPPUP.[CalendarYear] = CC.[CalendarYear] COLLATE Latin1_General_100_BIN2
+            AND
+            CPPUP.[CalendarMonth] = CC.[CalendarMonth] COLLATE Latin1_General_100_BIN2
+
 )   SELECT 
     [ReportingYear],
     [ReportingMonth],
@@ -217,6 +224,8 @@ WITH Hash_Calc AS (
     [StockLevelQtyInBaseUnit] * [StockPricePerUnit]     AS StockLevelStandardPPU,
     [StockLevelQtyInBaseUnit] * [StockPricePerUnit_EUR] AS StockLevelStandardPPU_EUR,
     [PriceControlIndicatorID],
-    [PriceControlIndicator] 
+    [PriceControlIndicator],
+    [nk_dim_ProductValuationPUP],
+    [sk_dim_ProductValuationPUP]  
 FROM 
     Calendar_TotalAmount

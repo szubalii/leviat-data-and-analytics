@@ -1,6 +1,9 @@
 CREATE VIEW [dm_sales].[vw_dim_ProductValuationPUP]
 	AS
-    SELECT PV.[ProductID],
+    SELECT 
+       PV.[sk_dim_ProductValuationPUP], 
+       PV.[nk_dim_ProductValuationPUP], 
+       PV.[ProductID],
        PV.[ValuationAreaID],
        PV.[ValuationArea],
        PV.[ValuationTypeID],
@@ -30,8 +33,7 @@ CREATE VIEW [dm_sales].[vw_dim_ProductValuationPUP]
     LEFT JOIN
         [edw].[dim_ValuationType] AS VT
             ON
-            VT.[ValuationTypeID] = PV.[ValuationTypeID]
- 
+            VT.[ValuationTypeID] = PV.[ValuationTypeID] 
     LEFT JOIN 
         [edw].[dim_SalesOrganization] AS SO      
             ON
