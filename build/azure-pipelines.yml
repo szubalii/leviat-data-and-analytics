@@ -35,6 +35,7 @@ jobs:
   - task: CmdLine@2
     inputs:
       script: 'node -e require(''./orchestration/src/libs/validate-config.js'')'
+    displayName: 'Validate Orchestration Config'
 
   - task: NuGetToolInstaller@1
 

@@ -34,7 +34,7 @@ function validateEnvConfig (env) {
     } catch (e) {
         // console.error(e.message, e.object);
 
-        throw 'Validation Error: ' + e.message + ': ' + JSON.stringify(e.message, null, 2);
+        throw e.message + ': ' + JSON.stringify(e.object, null, 2);
     }
 
 
