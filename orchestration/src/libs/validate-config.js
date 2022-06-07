@@ -33,6 +33,8 @@ function validateEnvConfig (env) {
     
     } catch (e) {
         console.error(e.message, e.object);
+
+        throw e;
     }
 
 
