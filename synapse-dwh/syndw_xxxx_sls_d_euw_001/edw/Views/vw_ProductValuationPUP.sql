@@ -1,139 +1,131 @@
 CREATE VIEW [edw].[vw_ProductValuationPUP]
 AS
-WITH ProductValuationPUP AS (
+/*
+    Since the prices are not filled for all periods, 
+    the price values for the month are calculated according to the following rule: 
+    if the price is indicated for the period, we take it
+    if not, we take it for the nearest past period
+*/
+WITH Hash_Calc AS (
     SELECT 
-        [MATNR]                                                 AS [ProductID],
-        [BWKEY]                                                 AS [ValuationAreaID],
-        dim_org.[SalesOrganization]                             AS [ValuationArea],        
-        [BKLAS]                                                 AS [ValuationClassID],
-        [BWTAR]                                                 AS [ValuationTypeID],
-        [LFGJA]                                                 AS [FiscalYearPeriod],
-        [LFMON]                                                 AS [FiscalMonthPeriod],
-        CAST([LFGJA] + '.' + [LFMON] + '.01' AS DATE)           AS [FiscalPeriodDate],  
-        CAST([LFGJA] + '.01.01' AS DATE)                        AS [FiscalStartYearPeriodDate],        
-        [LBKUM] AS [TotalValuatedStock],
-        [SALK3] AS [TotalValuatedStockValue], 
-        CASE WHEN [VPRSV] IN ('S', 'V')
-            THEN [VPRSV]
-            ELSE NULL 
-        END                                                     AS [PriceControlIndicatorID],
-        CASE 
-            WHEN [VPRSV] = 'S' 
-            THEN 'Standard Price'
-            WHEN [VPRSV] = 'V'  
-            THEN 'Periodic Unit Price (PUP)'
-            ELSE NULL           
-        END                                                     AS [PriceControlIndicator],
-        [VERPR]                                                 AS [PeriodicUnitPrice],
-        [STPRS]                                                 AS [StandardPrice],
-        [PEINH]                                                 AS [PriceUnit], 
-        [SALKV]                                                 AS [SAPTotalStockValuePUP],
-        [VKSAL]                                                 AS [SAPTotalStockValueAtSalesPrice], 
-        dim_org.[SalesOrganizationCurrency]                     AS [CurrencyID],         
-        CASE 
-            WHEN [VPRSV] = 'S' and ISNULL([PEINH], 0) != 0
-            THEN  --StandardPrice / Price Unit
-                [STPRS] / [PEINH]
-            WHEN [VPRSV] = 'V' and ISNULL([PEINH], 0) != 0  
-            THEN --PeriodicUnitPrice / Price Unit
-                [VERPR] / [PEINH] 
-            ELSE 
-                0
-        END                                                     AS [StockPricePerUnit],
-        [MBEWH].[t_applicationId],
-        [MBEWH].[t_extractionDtm]
-    FROM 
-        [base_s4h_cax].[MBEWH]
-    LEFT JOIN  
-        [edw].[dim_SalesOrganization] dim_org
-         ON  
-            dim_org.[SalesOrganizationID] = [BWKEY] COLLATE Latin1_General_100_BIN2
-), EuroBudgetExchangeRate AS (
-    SELECT
-            SourceCurrency
-        ,   ExchangeRateEffectiveDate
-        ,   ExchangeRate
+        dim_PPUP.[ValuationTypeID],
+        dim_PPUP.[ValuationAreaID],
+        dim_PPUP.[ProductID],
+        min(dim_PPUP.[FiscalPeriodDate]) 
+            OVER ( PARTITION BY dim_PPUP.[ValuationTypeID], dim_PPUP.[ValuationAreaID], dim_PPUP.[ProductID]) AS [min_FiscalPeriodDate],
+        FORMAT(dim_PPUP.[FiscalPeriodDate],'yyyy')  AS HDR_PostingDate_Year,
+        FORMAT(dim_PPUP.[FiscalPeriodDate],'MM')    AS HDR_PostingDate_Month,
+        dim_PPUP.[nk_dim_ProductValuationPUP]
     FROM
-        edw.dim_ExchangeRates
-    WHERE
-        ExchangeRateType = 'ZAXBIBUD'
-        AND
-        TargetCurrency = 'EUR'
-), ProductValuationEuroExchangeRate AS (
+        [edw].[vw_StockPricePerUnit] dim_PPUP 
+), Calendar_Calc AS (
     SELECT
-            [ProductID]
-        ,   [ValuationAreaID]
-        ,   [ValuationTypeID]
-        ,   [CurrencyID]
-        ,   EuroBudgetExchangeRate.[ExchangeRate] AS [ExchangeRate]
-    FROM
-    (    
-        SELECT
-                PV.[ProductID]
-            ,   PV.[ValuationAreaID]
-            ,   PV.[ValuationTypeID]
-            ,   PV.[CurrencyID]
-            ,   MAX([ExchangeRateEffectiveDate]) AS [ExchangeRateEffectiveDate]
-        FROM 
-            ProductValuationPUP AS PV
-        LEFT JOIN 
-            EuroBudgetExchangeRate
-            ON 
-                PV.[CurrencyID] = EuroBudgetExchangeRate.SourceCurrency
-        WHERE 
-                PV.[FiscalStartYearPeriodDate] = [ExchangeRateEffectiveDate] 
-        GROUP BY
-                PV.[ProductID]
-            ,   PV.[ValuationAreaID]
-            ,   PV.[ValuationTypeID]
-            ,   PV.[CurrencyID]
-    ) date_eur
-    LEFT JOIN 
-        EuroBudgetExchangeRate
-        ON
-            date_eur.[CurrencyID] = EuroBudgetExchangeRate.[SourceCurrency]
-            AND
-            date_eur.[ExchangeRateEffectiveDate] = EuroBudgetExchangeRate.[ExchangeRateEffectiveDate]
-)   
-SELECT 
+        dimC.[CalendarYear],
+        dimC.[CalendarMonth],
+        dimC.[FirstDayOfMonthDate],
+        HC.[ValuationTypeID],
+        HC.[ValuationAreaID],
+        HC.[ProductID],
         CONCAT_WS(
             '¦' COLLATE Latin1_General_100_BIN2,
-            PV.[ProductID],
-            PV.[ValuationAreaID],
-            PV.[ValuationTypeID],
-            PV.[FiscalYearPeriod],
-            PV.[FiscalMonthPeriod]
-
-        ) AS [nk_dim_ProductValuationPUP],
-        PV.[ProductID],
-        PV.[ValuationAreaID],
-        PV.[ValuationArea],        
-        PV.[ValuationTypeID],
-        PV.[ValuationClassID],        
-        PV.[FiscalYearPeriod],
-        PV.[FiscalMonthPeriod],
-        PV.[FiscalPeriodDate],
-        PV.[TotalValuatedStock],
-        PV.[TotalValuatedStockValue], 
-        PV.[PriceControlIndicatorID],
-        PV.[PriceControlIndicator],
-        PV.[PeriodicUnitPrice],
-        PV.[StandardPrice],
-        PV.[PriceUnit], 
-        PV.[SAPTotalStockValuePUP],
-        PV.[SAPTotalStockValueAtSalesPrice],
-        PV.[CurrencyID],         
-        PV.[StockPricePerUnit],
-        CONVERT(decimal(19,6), PV.[StockPricePerUnit] * PVEER.[ExchangeRate]) AS [StockPricePerUnit_EUR],
-        PV.[t_applicationId],
-        PV.[t_extractionDtm]
+            HC.[ProductID],
+            HC.[ValuationAreaID],
+            HC.[ValuationTypeID],
+            dimC.[CalendarYear] COLLATE Latin1_General_100_BIN2,
+            dimC.[CalendarMonth] COLLATE Latin1_General_100_BIN2
+        ) as  nk_dim_ProductValuationPUP
+    FROM Hash_Calc HC
+    CROSS JOIN [edw].[dim_Calendar] AS dimC
+    WHERE
+        dimC.[CalendarDate] >= DATEADD(DAY, 1, EOMONTH([min_FiscalPeriodDate],-1))
+    AND
+        dimC.[CalendarDate] <=  GETDATE()
+    AND
+        dimC.CalendarDay = '01'
+    GROUP BY 
+        dimC.[CalendarYear],
+        dimC.[CalendarMonth],
+        dimC.[FirstDayOfMonthDate],  
+        HC.[ValuationTypeID],
+        HC.[ValuationAreaID],
+        HC.[ProductID]    
+), Calendar_Total AS (
+    SELECT
+        CC.[nk_dim_ProductValuationPUP],
+        CASE
+            WHEN HC.[nk_dim_ProductValuationPUP] IS NOT NULL
+            THEN
+                HC.[nk_dim_ProductValuationPUP]
+            ELSE
+                (
+                    SELECT TOP 1
+                    dimPVs.[nk_dim_ProductValuationPUP] COLLATE Latin1_General_100_BIN2
+                    FROM [edw].[vw_StockPricePerUnit] dimPVs
+                    WHERE  
+                        dimPVs.[ValuationTypeID] = CC.[ValuationTypeID] 
+                        AND
+                        dimPVs.[ValuationAreaID] = CC.[ValuationAreaID]
+                        AND
+                        dimPVs.[ProductID] = CC.[ProductID]    
+                        AND [FiscalPeriodDate] <=  CC.[FirstDayOfMonthDate]
+                    ORDER BY dimPVs.[FiscalPeriodDate] DESC               
+                )             
+        END  AS [original_nk_dim_ProductValuationPUP],       
+        CC.[CalendarYear],
+        CC.[CalendarMonth],
+        CC.[FirstDayOfMonthDate],
+        CC.[ValuationTypeID],
+        CC.[ValuationAreaID],
+        CC.[ProductID],
+        CASE
+            WHEN HC.[nk_dim_ProductValuationPUP] IS NOT NULL 
+            THEN NULL
+            ELSE 1
+        END                             AS isAddedMissingMonth 
+    FROM Calendar_Calc CC    
+    LEFT JOIN Hash_Calc HC 
+        ON
+            CC.[ValuationTypeID] = HC.[ValuationTypeID] 
+        AND
+            CC.[ValuationAreaID] = HC.[ValuationAreaID] 
+        AND 
+            CC.[ProductID] = HC.[ProductID]      
+        AND
+            CC.[CalendarYear] = HC.HDR_PostingDate_Year
+        AND
+            CC.[CalendarMonth] = HC.HDR_PostingDate_Month                      
+)  
+SELECT 
+    CT.[nk_dim_ProductValuationPUP],         
+    CT.[CalendarYear],
+    CT.[CalendarMonth],
+    CT.[FirstDayOfMonthDate],
+    CT.[ProductID],
+    CT.[ValuationAreaID],
+    dimPVs.[ValuationArea],
+    CT.[ValuationTypeID],
+    dimPVs.[ValuationClassID],               
+    dimPVs.[FiscalYearPeriod],               
+    dimPVs.[FiscalMonthPeriod],              
+    dimPVs.[FiscalPeriodDate],              
+    dimPVs.[TotalValuatedStock],             
+    dimPVs.[TotalValuatedStockValue],        
+    dimPVs.[PriceControlIndicatorID],        
+    dimPVs.[PriceControlIndicator],          
+    dimPVs.[PeriodicUnitPrice],              
+    dimPVs.[StandardPrice],                  
+    dimPVs.[PriceUnit],                      
+    dimPVs.[SAPTotalStockValuePUP],          
+    dimPVs.[SAPTotalStockValueAtSalesPrice],
+    dimPVs.[CurrencyID],                     
+    dimPVs.[StockPricePerUnit],              
+    dimPVs.[StockPricePerUnit_EUR],
+    CT.isAddedMissingMonth,
+    dimPVs.[t_applicationId],
+    dimPVs.[t_extractionDtm]
 FROM 
-    ProductValuationPUP AS PV
-LEFT JOIN
-    ProductValuationEuroExchangeRate PVEER 
-        ON 
-            PVEER.[ProductID] = PV.[ProductID]
-            AND
-            PVEER.[ValuationAreaID] = PV.[ValuationAreaID]
-            AND
-            PVEER.[ValuationTypeID] = PV.[ValuationTypeID]
+    Calendar_Total CT
+LEFT JOIN 
+    [edw].[vw_StockPricePerUnit] dimPVs
+    ON 
+        dimPVs.[nk_dim_ProductValuationPUP] = CT.[original_nk_dim_ProductValuationPUP]
