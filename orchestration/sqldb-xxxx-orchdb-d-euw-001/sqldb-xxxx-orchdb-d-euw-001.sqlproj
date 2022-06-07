@@ -135,6 +135,7 @@
     <Folder Include="log\Tables" />
   </ItemGroup>
   <ItemGroup>
+    <Build Include="Security\MasterKey.sql" />
     <Build Include="Security\Database Scoped Credentials\dsc_SAS_OrchDB.sql" />
     <Build Include="External resources\External data sources\eds_OrchDB.sql" />
     <Build Include="dbo\Tables\error_category.sql">
