@@ -32,9 +32,9 @@ function validateEnvConfig (env) {
         checkTargetTableExists(entityCfg);
     
     } catch (e) {
-        console.error(e.message, e.object);
+        // console.error(e.message, e.object);
 
-        throw e;
+        throw 'Validation Error: ' + e.message + ': ' + JSON.stringify(e.message, null, 2);
     }
 
 
@@ -46,7 +46,7 @@ function checkS4HExtractionExists (baseS4HEntityArray) {
     let missingExtractions = baseS4HEntityArray.filter(e => files.indexOf(e.entity_name) === -1);
 
     // throw Exception
-    throw new Exception('Missing S4H Extraction', missingExtractions);
+    throw new Exception('Missing S4H Extraction(s)', missingExtractions);
     // console.error('Missing S4H Extraction', missingExtractions);
 }
 
