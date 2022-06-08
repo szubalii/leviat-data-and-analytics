@@ -799,12 +799,20 @@
     <Build Include="Security\Schemas\dq.sql" />
     <Build Include="Security\Schemas\dm_dq.sql" />
     <Build Include="dq\Tables\Rule.sql" />
-    <Build Include="dq\Views\vw_Product.sql" />
+    <Build Include="dq\Views\vw_Product_1_2.sql" />
     <Build Include="dm_dq\Views\vw_Product.sql" />
     <Build Include="dq\Tables\Totals.sql" />
     <Build Include="dq\Views\vw_Totals.sql" />
     <Build Include="edw\Views\vw_StockPricePerUnit.sql" />
     <Build Include="dm_sales\Views\vw_dim_CurrencyType.sql" />
+    <Build Include="dq\Views\vw_Product_1_17.sql" />
+    <Build Include="dq\Views\vw_Product_1_19.sql" />
+    <Build Include="dq\Views\vw_Product_1_20.sql" />
+    <Build Include="dq\Views\vw_Product_1_18.sql" />
+    <Build Include="dq\Views\vw_Product_1_16.sql" />
+    <Build Include="dq\Views\vw_Product_1_8.sql" />
+    <Build Include="dm_dq\Views\vw_Totals.sql" />
+    <Build Include="dm_dq\Views\vw_Rule.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\Post-Deploy\Script.PostDeployment.sql" />
