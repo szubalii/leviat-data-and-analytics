@@ -4,7 +4,11 @@ WITH
 AXProductSAPHierarchy_Calculated_Sub AS (
     select
            TRIM(AXPSH.[ITEMID])                             AS [ITEMID]
-         , TRIM(AXPSH.[FINAL_TEXT])                         AS [FINAL_TEXT]
+         , CASE 
+                WHEN TRIM(AXPSH.[FINAL_TEXT]) = '0'
+                    THEN ITEM.[ITEMNAME]
+                ELSE TRIM(AXPSH.[FINAL_TEXT])
+           END                                              AS [FINAL_TEXT]
          --, AXPSH.[MATERIAL_TYPE]
          , NULL                                             AS [MATERIAL_TYPE]
          , TRIM(AXPSH.[SALES_PROD_HIER_L1])                 AS [SALES_PROD_HIER_L1]
@@ -25,9 +29,12 @@ AXProductSAPHierarchy_Calculated_Sub AS (
          , TRIM(AXPSH.[MIGRATE])                             AS [MIGRATE]
          , TRIM(AXPSH.[ORIGINAL_MATERIAL])                   AS [ORIGINAL_MATERIAL]
     from [map_AXBI].[AXProductSAPHierarchy] AXPSH
+    LEFT JOIN [base_tx_ca_0_hlp].[ITEMTABLE] AS ITEM 
+        ON AXPSH.[ITEMID] = ITEM.[ITEMID]
     GROUP BY
       TRIM(AXPSH.[ITEMID])
     , TRIM(AXPSH.[FINAL_TEXT])
+    , ITEM.[ITEMNAME]
     , TRIM(AXPSH.[SALES_PROD_HIER_L1])
     , TRIM(AXPSH.[SALES_PROD_HIER_L2])
     , TRIM(AXPSH.[SALES_PROD_HIER_L3])
