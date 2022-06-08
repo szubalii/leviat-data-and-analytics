@@ -11,24 +11,24 @@ GROUP BY
     [ProductType]
 )
 ,
--- Calculate count rows per RuleCodeID from Rule table
-CountRowsPerRuleCodeID AS (
+-- Calculate count rows per RuleID from Rule table
+CountRowsPerRuleID AS (
 SELECT
-    [RuleCodeID]
-    ,SUBSTRING(r.[RuleCodeID],CHARINDEX('_',r.[RuleCodeID])+1,LEN(r.[RuleCodeID]))  AS [ProductType]
+    [RuleID]
+    ,SUBSTRING(r.[RuleID],CHARINDEX('_',r.[RuleID])+1,LEN(r.[RuleID]))  AS [ProductType]
     ,[RecordTotals]
 FROM
     [dq].[Rule] AS r
 LEFT JOIN
     CountRowsPerProductType AS cnt
     ON
-        SUBSTRING(r.[RuleCodeID],CHARINDEX('_',r.[RuleCodeID])+1,LEN(r.[RuleCodeID])) = cnt.[ProductType]
+        SUBSTRING(r.[RuleID],CHARINDEX('_',r.[RuleID])+1,LEN(r.[RuleID])) = cnt.[ProductType]
 WHERE
     [DataArea] = 'Material'
 )
 
 SELECT
-    cnt.[RuleCodeID],
+    cnt.[RuleID],
     CASE
         WHEN cnt.[ProductType] LIKE '%All%'
         THEN (SELECT COUNT(*) FROM [base_s4h_cax].[I_Product])
@@ -36,12 +36,12 @@ SELECT
     END AS [RecordTotals],
     COUNT(p.Count) AS [ErrorTotals]
 FROM
-    CountRowsPerRuleCodeID AS cnt
+    CountRowsPerRuleID AS cnt
 INNER JOIN
     [dq].[vw_Product] AS p
     ON
-        cnt.[RuleCodeID] = p.[RuleCodeID]
+        cnt.[RuleID] = p.[RuleID]
 GROUP BY
-    cnt.[RuleCodeID],
+    cnt.[RuleID],
     cnt.[ProductType],
     cnt.[RecordTotals]

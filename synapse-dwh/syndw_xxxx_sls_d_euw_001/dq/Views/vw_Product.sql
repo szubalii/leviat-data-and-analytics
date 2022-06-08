@@ -12,7 +12,7 @@ Rule_1_2 AS (
             THEN 0
             ELSE 1
         END AS [IsError],
-        CONCAT('1.2_',[ProductType]) AS [RuleCodeID],
+        CONCAT('1.2_',[ProductType]) AS [RuleID],
         1 AS [Count]
     FROM
         [base_s4h_cax].[I_Product]
@@ -43,7 +43,7 @@ Rule_1_17 AS (
         p.[ProductType],
         p.[ProductManufacturerNumber],
         1 AS [IsError],
-        CONCAT('1.17_',p.[ProductType]) AS [RuleCodeID],
+        CONCAT('1.17_',p.[ProductType]) AS [RuleID],
         1 AS [Count]
     FROM
         [base_s4h_cax].[I_Product] AS p
@@ -62,7 +62,7 @@ Rule_1_19 AS (
             THEN 0
             ELSE 1
         END AS [IsError],
-        CONCAT('1.19_','All') AS [RuleCodeID],
+        CONCAT('1.19_','All') AS [RuleID],
         1 AS [Count]
     FROM
         [base_s4h_cax].[I_Product]
@@ -77,7 +77,7 @@ Rule_1_20 AS (
             THEN 0
             ELSE 1
         END AS [IsError],
-        CONCAT('1.20_',[ProductType]) AS [RuleCodeID],
+        CONCAT('1.20_',[ProductType]) AS [RuleID],
         1 AS [Count]
     FROM
         [base_s4h_cax].[I_Product]
@@ -94,7 +94,7 @@ Rule_1_18 AS (
             THEN 0
             ELSE 1
         END AS [IsError],
-        CONCAT('1.18_','All') AS [RuleCodeID],
+        CONCAT('1.18_','All') AS [RuleID],
         1 AS [Count]
     FROM
         [base_s4h_cax].[I_Product]
@@ -109,7 +109,7 @@ Rule_1_16 AS (
             THEN 0
             ELSE 1
         END AS [IsError],
-        CONCAT('1.16_',[ProductType]) AS [RuleCodeID],
+        CONCAT('1.16_',[ProductType]) AS [RuleID],
         1 AS [Count]
     FROM
         [base_s4h_cax].[I_Product]
@@ -126,7 +126,7 @@ Rule_1_8 AS (
             THEN 0
             ELSE 1
         END AS [IsError],
-        CONCAT('1.8_',[ProductType]) AS [RuleCodeID],
+        CONCAT('1.8_',[ProductType]) AS [RuleID],
         1 AS [Count]
     FROM
         [base_s4h_cax].[I_Product]
@@ -270,7 +270,7 @@ SELECT
     ,[ZZ1_CustomFieldHighRis_PRD] 
     ,[ZZ1_CustomFieldRiskRea_PRD] 
     ,Rule_1_2.[IsError]
-    ,Rule_1_2.[RuleCodeID]
+    ,Rule_1_2.[RuleID]
     ,Rule_1_2.[Count]
 FROM   
     [base_s4h_cax].[I_Product] AS main
@@ -419,7 +419,7 @@ SELECT
     ,[ZZ1_CustomFieldHighRis_PRD] 
     ,[ZZ1_CustomFieldRiskRea_PRD] 
     ,Rule_1_17.[IsError]
-    ,Rule_1_17.[RuleCodeID]
+    ,Rule_1_17.[RuleID]
     ,Rule_1_17.[Count]
 FROM   
     [base_s4h_cax].[I_Product] AS main
@@ -568,7 +568,7 @@ SELECT
     ,[ZZ1_CustomFieldHighRis_PRD] 
     ,[ZZ1_CustomFieldRiskRea_PRD] 
     ,Rule_1_19.[IsError]
-    ,Rule_1_19.[RuleCodeID]
+    ,Rule_1_19.[RuleID]
     ,Rule_1_19.[Count]
 FROM   
     [base_s4h_cax].[I_Product] AS main
@@ -717,7 +717,7 @@ SELECT
     ,[ZZ1_CustomFieldHighRis_PRD] 
     ,[ZZ1_CustomFieldRiskRea_PRD] 
     ,Rule_1_20.[IsError]
-    ,Rule_1_20.[RuleCodeID]
+    ,Rule_1_20.[RuleID]
     ,Rule_1_20.[Count]
 FROM   
     [base_s4h_cax].[I_Product] AS main
@@ -866,7 +866,7 @@ SELECT
     ,[ZZ1_CustomFieldHighRis_PRD] 
     ,[ZZ1_CustomFieldRiskRea_PRD] 
     ,Rule_1_18.[IsError]
-    ,Rule_1_18.[RuleCodeID]
+    ,Rule_1_18.[RuleID]
     ,Rule_1_18.[Count]
 FROM   
     [base_s4h_cax].[I_Product] AS main
@@ -1015,7 +1015,7 @@ SELECT
     ,[ZZ1_CustomFieldHighRis_PRD] 
     ,[ZZ1_CustomFieldRiskRea_PRD] 
     ,Rule_1_16.[IsError]
-    ,Rule_1_16.[RuleCodeID]
+    ,Rule_1_16.[RuleID]
     ,Rule_1_16.[Count]
 FROM   
     [base_s4h_cax].[I_Product] AS main
@@ -1164,7 +1164,7 @@ SELECT
     ,[ZZ1_CustomFieldHighRis_PRD] 
     ,[ZZ1_CustomFieldRiskRea_PRD] 
     ,Rule_1_8.[IsError]
-    ,Rule_1_8.[RuleCodeID]
+    ,Rule_1_8.[RuleID]
     ,Rule_1_8.[Count]
 FROM   
     [base_s4h_cax].[I_Product] AS main

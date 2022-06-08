@@ -1,4 +1,4 @@
-RuleCodeID;RuleBusinessDescription;RuleClass;DataArea
+RuleID;RuleBusinessDescription;RuleClass;DataArea
 1.2_ZFER;Gross Weight for ZFER is derived from Net Weight plus Packaging. Gross weight should be between 100 - 120% of Net weight and both should not be same.;Consistency;Material
 1.2_ZHAW;Gross Weight for ZHAW is derived from Net Weight plus Packaging. Gross weight should be between 100 - 120% of Net weight and both should not be same.;Consistency;Material
 1.3_ZERS;Check on duplicate names/descriptions of ZERS materials;Uniqueness;Material
