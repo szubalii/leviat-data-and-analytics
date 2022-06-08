@@ -61,6 +61,17 @@ namespace Test
             rowCountCondition1.ResultSet = 1;
             rowCountCondition1.RowCount = 0;
             // 
+            // notEmpty_TestAction
+            // 
+            notEmpty_TestAction.Conditions.Add(notEmptyResultSetCondition1);
+            resources.ApplyResources(notEmpty_TestAction, "notEmpty_TestAction");
+            // 
+            // notEmptyResultSetCondition1
+            // 
+            notEmptyResultSetCondition1.Enabled = true;
+            notEmptyResultSetCondition1.Name = "notEmptyResultSetCondition1";
+            notEmptyResultSetCondition1.ResultSet = 1;
+            // 
             // CurrencyConversionData
             // 
             this.CurrencyConversionData.PosttestAction = null;
@@ -72,17 +83,6 @@ namespace Test
             this.notEmptyData.PosttestAction = null;
             this.notEmptyData.PretestAction = null;
             this.notEmptyData.TestAction = notEmpty_TestAction;
-            // 
-            // notEmpty_TestAction
-            // 
-            notEmpty_TestAction.Conditions.Add(notEmptyResultSetCondition1);
-            resources.ApplyResources(notEmpty_TestAction, "notEmpty_TestAction");
-            // 
-            // notEmptyResultSetCondition1
-            // 
-            notEmptyResultSetCondition1.Enabled = true;
-            notEmptyResultSetCondition1.Name = "notEmptyResultSetCondition1";
-            notEmptyResultSetCondition1.ResultSet = 1;
         }
 
         #endregion
