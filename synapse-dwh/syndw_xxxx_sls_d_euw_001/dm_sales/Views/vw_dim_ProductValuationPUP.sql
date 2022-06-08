@@ -3,6 +3,8 @@ CREATE VIEW [dm_sales].[vw_dim_ProductValuationPUP]
     SELECT 
        PV.[sk_dim_ProductValuationPUP], 
        PV.[nk_dim_ProductValuationPUP], 
+       PV.[CalendarYear],
+       PV.[CalendarMonth],
        PV.[ProductID],
        PV.[ValuationAreaID],
        PV.[ValuationArea],
@@ -24,7 +26,8 @@ CREATE VIEW [dm_sales].[vw_dim_ProductValuationPUP]
        PV.[SAPTotalStockValueAtSalesPrice],
        PV.[CurrencyID],
        PV.[StockPricePerUnit],
-       PV.[StockPricePerUnit_EUR]
+       PV.[StockPricePerUnit_EUR],
+       PV.[isAddedMissingMonth]
     FROM [edw].[dim_ProductValuationPUP] AS PV
     LEFT JOIN
         [edw].[dim_ValuationClass] AS VC
