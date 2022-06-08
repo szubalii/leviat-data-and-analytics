@@ -1,5 +1,4 @@
-﻿CREATE TABLE [dq].[Rule]
-(
+﻿CREATE TABLE [dq].[Rule](
 [RuleCodeID]                    NVARCHAR(50)    NOT NULL
 ,[RuleBusinessDescription]      NVARCHAR(300)
 ,[RuleClass]                    NVARCHAR(20)
