@@ -35,6 +35,7 @@ function validateEnvConfig (env) {
     );
 
     if (exceptions.length > 0) {
+        console.error('##[error]Error Message');
         console.error('Validation Error(s): ' + JSON.stringify(exceptions, null, 2));
         // exit 1;
         throw 'Validation Error(s): ' + JSON.stringify(exceptions, null, 2);
