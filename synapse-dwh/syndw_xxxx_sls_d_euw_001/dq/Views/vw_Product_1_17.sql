@@ -23,8 +23,7 @@ Rule_1_17 AS (
         p.[ProductType],
         p.[ProductManufacturerNumber],
         1 AS [IsError],
-        CONCAT('1.17_',p.[ProductType]) AS [RuleID],
-        1 AS [Count]
+        CONCAT('1.17_',p.[ProductType]) AS [RuleID]
     FROM
         [base_s4h_cax].[I_Product] AS p
     JOIN
@@ -167,10 +166,9 @@ SELECT
     ,[DfsRICIdentifier]
     ,[ZZ1_CustomFieldRiskMit_PRD] 
     ,[ZZ1_CustomFieldHighRis_PRD] 
-    ,[ZZ1_CustomFieldRiskRea_PRD] 
-    ,Rule_1_17.[IsError]
+    ,[ZZ1_CustomFieldRiskRea_PRD]
     ,Rule_1_17.[RuleID]
-    ,Rule_1_17.[Count]
+    ,Rule_1_17.[IsError] AS [Count]
 FROM   
     [base_s4h_cax].[I_Product] AS main
 LEFT JOIN

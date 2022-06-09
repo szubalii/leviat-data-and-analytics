@@ -9,8 +9,7 @@ Rule_1_19 AS (
             THEN 0
             ELSE 1
         END AS [IsError],
-        CONCAT('1.19_','All') AS [RuleID],
-        1 AS [Count]
+        CONCAT('1.19_','All') AS [RuleID]
     FROM
         [base_s4h_cax].[I_Product]
 )
@@ -149,10 +148,9 @@ SELECT
     ,[DfsRICIdentifier]
     ,[ZZ1_CustomFieldRiskMit_PRD] 
     ,[ZZ1_CustomFieldHighRis_PRD] 
-    ,[ZZ1_CustomFieldRiskRea_PRD] 
-    ,Rule_1_19.[IsError]
+    ,[ZZ1_CustomFieldRiskRea_PRD]
     ,Rule_1_19.[RuleID]
-    ,Rule_1_19.[Count]
+    ,Rule_1_19.[IsError] AS [Count]
 FROM   
     [base_s4h_cax].[I_Product] AS main
 LEFT JOIN
