@@ -142,4 +142,8 @@ FROM
 WHERE
     [ProductType] IN ('ZFER','ZHAL','ZHAW')
     AND
-    [TransportationGroup] != '0001'
+    (
+        [TransportationGroup] != '0001'
+        OR
+        [TransportationGroup] IS NULL
+    )

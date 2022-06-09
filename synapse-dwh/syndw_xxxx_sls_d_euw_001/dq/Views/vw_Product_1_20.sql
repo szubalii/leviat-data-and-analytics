@@ -142,4 +142,8 @@ FROM
 WHERE
     [ProductType] = 'ZFER'
     AND
-    [WeightUnit] != 'KG'
+    (
+        [WeightUnit] != 'KG'
+        OR
+        [WeightUnit] IS NULL
+    )

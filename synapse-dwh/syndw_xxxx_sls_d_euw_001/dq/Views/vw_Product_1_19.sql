@@ -141,3 +141,5 @@ FROM
     [base_s4h_cax].[I_Product]
 WHERE
     [IndustrySector] != 'A'
+    OR
+    [IndustrySector] IS NULL
