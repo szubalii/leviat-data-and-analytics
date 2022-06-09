@@ -1,6 +1,7 @@
 {
     "s4h": {
         "layer_id": 6,
+        "schema_name": "base_s4h_cax",
         "base_schema_name": "base_s4h_cax",
         "entities": [
             {
@@ -3321,6 +3322,7 @@
     },
     "dw-halfen-0-hlp": {
         "layer_id": 5,
+        "schema_name": "base_dw_halfen_0_hlp",
         "base_schema_name": "base_dw_halfen_0_hlp",
         "axbi_schema_name": "dbo",
         "entities": [
@@ -3339,6 +3341,7 @@
     },
     "dw-halfen-2-dwh": {
         "layer_id": 5,
+        "schema_name": "base_dw_halfen_2_dwh",
         "base_schema_name": "base_dw_halfen_2_dwh",
         "axbi_schema_name": "dbo",
         "entities": [
@@ -3366,6 +3369,7 @@
     },
     "tx-ca-0-hlp": {
         "layer_id": 5,
+        "schema_name": "base_tx_ca_0_hlp",
         "base_schema_name": "base_tx_ca_0_hlp",
         "axbi_schema_name": "dbo",
         "entities": [
@@ -3420,6 +3424,7 @@
     },
     "tx-halfen-2-dwh":{
         "layer_id": 5,
+        "schema_name": "base_tx_halfen_2_dwh",
         "base_schema_name": "base_tx_halfen_2_dwh",
         "axbi_schema_name": "dbo",
         "entities": [
@@ -3474,6 +3479,7 @@
     },
     "leviat-db-us": {
         "layer_id": 7,
+        "schema_name": "base_us_leviat_db",
         "base_schema_name": "base_us_leviat_db",
         "adls_container_name": "leviat-db-us",
         "axbi_database_name": "LEVIAT_DB",
@@ -3517,6 +3523,7 @@
     },
     "edw": {
         "layer_id": 4,
+        "schema_name": "edw",
         "edw_sproc_schema_name": "edw",
         "edw_source_schema_name": "edw",
         "edw_dest_schema_name": "edw",

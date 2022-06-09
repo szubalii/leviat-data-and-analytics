@@ -32,6 +32,15 @@ jobs:
     displayName: 'Install npm package'
 
   # Validate the Orchestration config
+  - task: Npm@1
+    inputs:
+      command: 'custom'
+      workingDir: '$(Build.Repository.LocalPath)/orchestration'
+      customCommand: 'run validate'
+      verbose: true
+    displayName: 'Validate Orchestration Config'
+
+  # Validate the Orchestration config
   - task: CmdLine@2
     inputs:
       script: 'node -e require(''./orchestration/src/libs/validate-config.js'')'
