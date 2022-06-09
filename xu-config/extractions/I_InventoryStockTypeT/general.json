@@ -1,0 +1,15 @@
+{
+    "created": {
+        "machine": "WEALEVAPP001",
+        "timestamp": "20220407T110210.986Z",
+        "user": "EMATCRHPP\\nbaranava"
+    },
+    "destination": "stxxxxslsaeuw001_s4h-caa",
+    "lastChange": {
+        "machine": "WEALEVAPP001",
+        "timestamp": "20220407T144858.818Z",
+        "user": "EMATCRHPP\\rbarannik"
+    },
+    "source": "CRH_Leviat_S4HANA_CAA",
+    "type": "Table"
+}
