@@ -106,20 +106,7 @@ WITH MaterialDocumentItem_CTE AS (
     END                                                 AS ConsumptionQtySTOInBaseUnit
     , dimPDT.[PurchasingDocumentTypeID]                 AS [PurchaseOrderTypeID]
     , dimPDT.[PurchasingDocumentTypeName]               AS [PurchaseOrderType]
-    , (
-        SELECT TOP 1
-            [nk_dim_ProductValuationPUP] 
-        FROM [edw].[dim_ProductValuationPUP] dimPVs
-        WHERE  
-            dimPVs.[ValuationTypeID] =  MDI.[InventoryValuationTypeID] 
-            AND
-            dimPVs.[ValuationAreaID] = MDI.[PlantID]
-            AND
-            dimPVs.[ProductID] = MDI.[MaterialID]    
-            AND [FiscalPeriodDate] <=  MDI.[HDR_PostingDate]
-        ORDER BY [FiscalPeriodDate] DESC   
-        
-    )                                                   AS [nk_dim_ProductValuationPUP]
+    , dimPVs.[nk_dim_ProductValuationPUP]               AS [nk_dim_ProductValuationPUP]
     , MDI.[t_applicationId]
     , MDI.[t_extractionDtm]
     FROM [edw].[fact_MaterialDocumentItem] MDI
@@ -147,13 +134,30 @@ WITH MaterialDocumentItem_CTE AS (
             ON MDI.[PurchaseOrder] COLLATE Latin1_General_100_BIN2 = dimPD.[PurchasingDocumentID] 
     LEFT JOIN  
         [edw].[dim_PurchasingDocumentType] dimPDT 
-            ON  dimPDT.[PurchasingDocumentTypeID]  = dimPD.PurchasingDocumentType
+            ON  
+                dimPDT.[PurchasingDocumentTypeID]  = dimPD.[PurchasingDocumentType] 
+                AND
+                dimPDT.[PurchasingDocumentCategory]  = dimPD.[PurchasingDocumentCategory]             
     LEFT JOIN 
         [edw].[dim_DeliveryDocument] dimDel 
             ON dimDel.DeliveryDocumentID = MDI.[HDR_ReferenceDocument]     
     LEFT JOIN 
         [edw].[dim_SalesDocumentItemCategory] dimSDIC
             ON SDI.[SalesDocumentItemCategoryID] = dimSDIC.[SalesDocumentItemCategoryID]
+
+    LEFT JOIN 
+        [edw].[dim_ProductValuationPUP] dimPVs
+            ON  
+                dimPVs.[ValuationTypeID] =  MDI.[InventoryValuationTypeID] 
+                AND
+                dimPVs.[ValuationAreaID] = MDI.[PlantID]
+                AND
+                dimPVs.[ProductID] = MDI.[MaterialID]    
+                AND 
+                dimPVs.[CalendarYear] =  FORMAT(MDI.[HDR_PostingDate],'yyyy')
+                AND
+                dimPVs.[CalendarMonth] = FORMAT(MDI.[HDR_PostingDate],'MM') 
+          
 )
 select       
       MDI_CTE.[MaterialDocumentYear]
@@ -280,5 +284,4 @@ FROM MaterialDocumentItem_CTE AS MDI_CTE
 LEFT JOIN 
     [edw].[dim_ProductValuationPUP] dimPV
         ON 
-            MDI_CTE.[nk_dim_ProductValuationPUP] = dimPV.[nk_dim_ProductValuationPUP]
-            
+            MDI_CTE.[nk_dim_ProductValuationPUP] = dimPV.[nk_dim_ProductValuationPUP] 

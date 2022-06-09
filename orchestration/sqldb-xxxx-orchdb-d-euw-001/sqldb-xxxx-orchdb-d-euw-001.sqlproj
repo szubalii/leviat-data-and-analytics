@@ -125,13 +125,17 @@
     <Folder Include="dbo\Functions\" />
     <Folder Include="dbo\Stored Procedures\" />
     <Folder Include="dbo\Views\" />
+    <Folder Include="External resources" />
+    <Folder Include="External resources\External data sources" />
     <Folder Include="Security" />
+    <Folder Include="Security\Schemas" />
+    <Folder Include="Security\Database Scoped Credentials" />
     <Folder Include="Scripts" />
     <Folder Include="log\" />
     <Folder Include="log\Tables" />
-    <Folder Include="Security\Schemas" />
   </ItemGroup>
   <ItemGroup>
+    <Build Include="Security\MasterKey.sql" />
     <Build Include="Security\Database Scoped Credentials\dsc_SAS_OrchDB.sql" />
     <Build Include="External resources\External data sources\eds_OrchDB.sql" />
     <Build Include="dbo\Tables\error_category.sql">

@@ -790,6 +790,8 @@
     <Build Include="edw\Tables\dim_ProductValuationPUP.sql" />
     <Build Include="edw\Views\vw_ProductValuationPUP.sql" />
     <Build Include="dm_sales\Views\vw_dim_ProductValuationPUP.sql" />
+    <Build Include="edw\Views\vw_StockPricePerUnit.sql" />
+    <Build Include="dm_sales\Views\vw_dim_CurrencyType.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\Post-Deploy\Script.PostDeployment.sql" />

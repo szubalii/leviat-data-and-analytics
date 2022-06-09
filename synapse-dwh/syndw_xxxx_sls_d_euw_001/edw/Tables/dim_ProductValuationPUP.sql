@@ -2,6 +2,9 @@ CREATE TABLE [edw].[dim_ProductValuationPUP]
 (   
     [sk_dim_ProductValuationPUP]     BIGINT IDENTITY (1,1)                        NOT NULL,
     [nk_dim_ProductValuationPUP]     NVARCHAR(54)                                 NOT NULL,
+    [CalendarYear]                   CHAR(4) COLLATE Latin1_General_100_BIN2      NOT NULL,
+    [CalendarMonth]                  CHAR(2) COLLATE Latin1_General_100_BIN2      NOT NULL,
+    [FirstDayOfMonthDate]            DATE,
     [ProductID]                      NVARCHAR(40) COLLATE Latin1_General_100_BIN2 NOT NULL,
     [ValuationAreaID]                NVARCHAR(4) COLLATE Latin1_General_100_BIN2  NOT NULL,
     [ValuationArea]                  NVARCHAR(50),
@@ -22,6 +25,7 @@ CREATE TABLE [edw].[dim_ProductValuationPUP]
     [CurrencyID]                     CHAR(5) COLLATE Latin1_General_100_BIN2,
     [StockPricePerUnit]              DECIMAL(13, 2),
     [StockPricePerUnit_EUR]          DECIMAL(13, 2),
+    [isAddedMissingMonth]            BIT,    
     [t_applicationId]                VARCHAR(32),
     [t_extractionDtm]                DATETIME,
     [t_jobId]                        VARCHAR(36),

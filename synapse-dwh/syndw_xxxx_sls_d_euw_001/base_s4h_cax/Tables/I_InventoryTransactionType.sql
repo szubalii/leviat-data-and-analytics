@@ -1,6 +1,5 @@
 CREATE TABLE [base_s4h_cax].[I_InventoryTransactionType]
 (
-    [MANDT]                       char(3) collate Latin1_General_100_BIN2     NOT NULL,
     [InventoryTransactionType]    nvarchar(2) collate Latin1_General_100_BIN2 NOT NULL,
     [IsPhysicalInventoryRelevant] nvarchar(1) collate Latin1_General_100_BIN2,
     [IsMaterialDocumentRelevant]  nvarchar(1) collate Latin1_General_100_BIN2,
@@ -12,7 +11,7 @@ CREATE TABLE [base_s4h_cax].[I_InventoryTransactionType]
     [t_extractionDtm]             DATETIME,
     [t_filePath]                  NVARCHAR(1024),
     CONSTRAINT [PK_I_InventoryTransactionType] PRIMARY KEY NONCLUSTERED (
-        [MANDT], [InventoryTransactionType]
+        [InventoryTransactionType]
     ) NOT ENFORCED
 )
 WITH (
