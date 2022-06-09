@@ -1,10 +1,10 @@
 ﻿CREATE TABLE [dq].[Rule]
 (
-    [RuleID]                NVARCHAR(50) NOT NULL,
-    [RuleBusinessDescription]   NVARCHAR(300),
-    [RuleClass]                 NVARCHAR(20),
+    [RuleID]                    NVARCHAR(50) NOT NULL,
     [DataArea]                  NVARCHAR(20),
+    [RuleClass]                 NVARCHAR(20),
     [ProductType]               NVARCHAR(4),
+    [RuleBusinessDescription]   NVARCHAR(300),
     [t_applicationId]           VARCHAR (32),
     [t_jobId]                   VARCHAR(36),
     [t_jobDtm]                  DATETIME,

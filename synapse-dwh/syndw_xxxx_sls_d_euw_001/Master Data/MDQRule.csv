@@ -1,70 +1,70 @@
-RuleID;RuleBusinessDescription;RuleClass;DataArea;ProductType
-1.2_ZFER;Gross Weight for ZFER is derived from Net Weight plus Packaging. Gross weight should be between 100 - 120% of Net weight and both should not be same.;Consistency;Material;ZFER
-1.2_ZHAW;Gross Weight for ZHAW is derived from Net Weight plus Packaging. Gross weight should be between 100 - 120% of Net weight and both should not be same.;Consistency;Material;ZHAW
-1.3_ZERS;Check on duplicate names/descriptions of ZERS materials;Uniqueness;Material;ZERS
-1.3_ZFER;Check on duplicate names/descriptions of ZFER materials;Uniqueness;Material;ZFER
-1.3_ZROH;Check on duplicate names/descriptions of ZROH materials;Uniqueness;Material;ZROH
-1.14_All;Materials that have sales views need an entry in Account Assignment Group MVKE-KTGRM;Consistency;Material;All
-1.15_All;Materials with procurement type F AND X needs purchasing view;Consistency;Material;All
-1.17_ZHAW;Check for duplicate materials based on unique Manufacturer Part Number across all buying material types;Uniqueness;Material;ZHAW
-1.17_ZVER;Check for duplicate materials based on unique Manufacturer Part Number across all buying material types;Uniqueness;Material;ZVER
-1.19_All;Industry sector is always A (Plant engin./construction) for all material types;Conformity;Material;All
-1.20_ZFER;Weight Unit for ZFER materials is always KG (Kilogram);Conformity;Material;ZFER
-1.18_All;Division is always 01  for all material types in UNICA when Sales View is created;Conformity;Material;All
-1.16_ZFER;Transportation group is always 0001 for ZFER materials;Conformity;Material;ZFER
-1.16_ZHAL;Transportation group is always 0001 for ZHAL materials;Conformity;Material;ZHAL
-1.16_ZHAW;Transportation group is always 0001 for ZHAW materials;Conformity;Material;ZHAW
-1.16_ZVER;Transportation group is always 0001 for ZVER materials;Conformity;Material;ZVER
-1.16_ZROH;Transportation group is always 0001 for ZROH materials;Conformity;Material;ZROH
-2.10_Third party;Search Term 1 of 3rd Party and Ship-To BP's should have format: first 5 characters of the name_first 5 characters of the city (skipping special characters and spaces);Conformity;BP;
-2.2.13_Intercompany;IP vendors (account group Y005) should have NO assignment to a Company Code;Conformity;BP Vendor;
-2.2_3rd Party;Search for similar name data;Uniqueness;BP;
-2.3_Third party;Standard duplicate check on 3rd Party Business Partners  (Address);Uniqueness;BP;
-2.1_All;Search for identical bank account data (Combination of Bank Country, Bank Key & Bank Acc or IBAN);Uniqueness;BP;
-2.2.7_All;Vendor company code payment terms and purchase organization payment terms should be identical;Consistency;BP Vendor;
-2.2.8_All;List discrepancies between different purchase organization payment terms for the same vendor. ;Integrity;BP Vendor;
-2.3.10_All;Customer company code payment terms and Sales Org. payment terms are identical;Consistency;BP Customer;
-2.3.11_All;List discrepancies between different sales organization payment terms for the same customer. ;Integrity;BP Customer;
-2.3.12_Third party;Each Ship-To customer (account group Y002) must be assigned to at least 1 Sold-To customer.;Completeness;BP Customer;
-2.3.3_Third Party;Each Sold-To and Ship-To customer (account groups Y001 and Y002) should be assigned to at least 1 Sales Organisation;Completeness;BP Customer;
-2.3.2_Third party;Customer record with account group Y002 (Ship-To) should not have Company Code data;Integrity;BP Customer;
-2.8_All;Search for identical tax / VAT numbers;Uniqueness;BP;
-2.4_All;Search for identical telephone numbers;Uniqueness;BP;
-1.7_ZFER;Cash Discount indicator is always checked for ZFER materials;Completeness;Material;ZFER
-2.2.5_Intercompany;All IC vendors in Europe must have Payment term L017 as agreed Leviat intercompany term in both purchasing and company code view, else L020;Conformity;BP Vendor;
-2.3.1_Intercompany;All IC customers in Europe must have Payment term L017 as agreed Leviat intercompany term in both sales and company code view, else L020;Conformity;BP Customer;
-2.2.11_Third party;LFM1-KALSK should be filled with code TP (external vendor pricing);Completeness;BP Vendor;
-1.12_ZFER;Commodity codes (MARC-STAWN) should not be empty.;Completeness;Material;ZFER
-2.2.3_Third party;If country of origin is not equal to country of the company code then Cash Management group is A2 and else A1;Consistency;BP Vendor;
-1.12_ZHAW;Commodity codes (MARC-STAWN) should not be empty.;Completeness;Material;ZHAW
-1.11_All;if MVKE-LVORM is marked for all active sales org's and if MARC-LVORM for all active plants is marked as well, but there is NO block on MARA-LVORM, then give result.;Consistency;Material ;All
-1.6_All;X-plant material status (MARA-MSTAE) is 70 for all materials marked for deletion.;Consistency;Material;All
-1.5_ZHAW;For ZHAW materials the Country of Origin should be identical in all active Plants;Consistency;Material;ZHAW
-1.4_ZHAW;For ZHAW materials the first 6 digits of the Commodity code should be identical in all active Plants;Consistency;Material;ZHAW
-2.2.1_Third party;Check if used payment term is a Leviat payment term;Conformity;BP Vendor;
-2.2.1_Intercompany;Check if used payment term is a Leviat payment term;Conformity;BP Vendor;
-1.10_ZHAW;ZHAW materials always have Procurement type F maintained. Only If the “special procurement key (MARC-SOBSL)” is used, than the procurement key should be E;Conformity;Material;ZHAW
-2.13_Third party;Check on EU Business Partners without VAT number maintained;Completeness;BP;
-2.13_Intercompany;Check on EU Business Partners without VAT number maintained;Completeness;BP;
-1.8_ZHAW;General Item Category Group is always NORM for ZHAW materials;Conformity;Material;ZHAW
-2.14_Third Party;Italian Business Partners with Natural Person indicator should have Tax code 1 maintained (excluding Employee vendors);Conformity;BP;
-2.5_All;If country of customer is US, CA, BR, MX, AU, IT, IE or GB the regions field should have a value (part of address print);Completeness;BP;
-2.3.5_Third party;if KNB1-LVORM is marked for all active company codes and if KNVV-LVORM for all active sales org's is marked as well, but there is NO block on KNA1-LVORM, then give result.;Consistency;BP Customer;
-2.3.5_Intercompany;if KNB1-LVORM is marked for all active company codes and if KNVV-LVORM for all active sales org's is marked as well, but there is NO block on KNA1-LVORM, then give result.;Consistency;BP Customer;
-2.2.10_All;if LFB1-LVORM is marked for all active company codes and if LFM1-LVORM for all active purchase org's is marked as well, but there is NO block on LFA1-LVORM, then give result.;Consistency;BP Vendor;
-1.9_ZROH;Material-related origin is always checked in Production Plants for ZROH materials;Completeness;Material;ZROH
-1.9_ZHAL;Material-related origin is always checked in Production Plants for ZHAL materials;Completeness;Material;ZHAL
-2.3.4_Third Party;If country of origin is not equal to country of the company code then Cash Management group is E3, else E2;Consistency;BP Customer;
-2.3.4_Intercompany;All Intercompany customers have cash management group E4 maintained;Consistency;BP Customer;
-1.13_All;Material should have an assignment to at least 1 Plant and/or Sales Org;Consistency;Material;All
-2.6_All;Business Partners with central deletion flag should have DELETED, DUPLICATE, MERGED, CLOSED or DO NOT USE in Search Term 1;Consistency;BP;
-2.9_Third party;BP's without bank account data while all possible payment methods require a bank account;Consistency;BP;
-2.9_Intercompany;BP's without bank account data while all possible payment methods require a bank account;Consistency;BP;
-2.3.9_Third party;Field Collect. auth. marked when bank account then payment method F;Consistency;BP Customer;
-2.3.9_Intercompany;Field Collect. auth. marked when bank account then payment method F;Consistency;BP Customer;
-2.3.7_Third party;This checkbox should be defaulted marked in each Sales Org;Completeness;BP Customer;
-2.3.7_Intercompany;This checkbox should be defaulted marked in each Sales Org;Completeness;BP Customer;
-2.7_All;Check if email is entered in correct format in all BP groups;Conformity;BP;
-2.11_Employee;When Title Mr. or Mrs. is used, the gender of the employee cannot be Unknown;Consistency;BP;
-1.1_ZHAW;Cash Discount indicator is always checked for ZHAW materials;Completeness;Material;ZHAW
-1.1_ZVER;Cash Discount indicator is always checked for ZVER materials;Completeness;Material;ZVER
+RuleID;DataArea;RuleClass;ProductType;RuleBusinessDescription
+1.2_ZFER;Material;Consistency;ZFER;Gross Weight for ZFER is derived from Net Weight plus Packaging. Gross weight should be between 100 - 120% of Net weight and both should not be same.
+1.2_ZHAW;Material;Consistency;ZHAW;Gross Weight for ZHAW is derived from Net Weight plus Packaging. Gross weight should be between 100 - 120% of Net weight and both should not be same.
+1.3_ZERS;Material;Uniqueness;ZERS;Check on duplicate names/descriptions of ZERS materials
+1.3_ZFER;Material;Uniqueness;ZFER;Check on duplicate names/descriptions of ZFER materials
+1.3_ZROH;Material;Uniqueness;ZROH;Check on duplicate names/descriptions of ZROH materials
+1.14_All;Material;Consistency;All;Materials that have sales views need an entry in Account Assignment Group MVKE-KTGRM
+1.15_All;Material;Consistency;All;Materials with procurement type F AND X needs purchasing view
+1.17_ZHAW;Material;Uniqueness;ZHAW;Check for duplicate materials based on unique Manufacturer Part Number across all buying material types
+1.17_ZVER;Material;Uniqueness;ZVER;Check for duplicate materials based on unique Manufacturer Part Number across all buying material types
+1.19_All;Material;Conformity;All;Industry sector is always A (Plant engin./construction) for all material types
+1.20_ZFER;Material;Conformity;ZFER;Weight Unit for ZFER materials is always KG (Kilogram)
+1.18_All;Material;Conformity;All;Division is always 01  for all material types in UNICA when Sales View is created
+1.16_ZFER;Material;Conformity;ZFER;Transportation group is always 0001 for ZFER materials
+1.16_ZHAL;Material;Conformity;ZHAL;Transportation group is always 0001 for ZHAL materials
+1.16_ZHAW;Material;Conformity;ZHAW;Transportation group is always 0001 for ZHAW materials
+1.16_ZVER;Material;Conformity;ZVER;Transportation group is always 0001 for ZVER materials
+1.16_ZROH;Material;Conformity;ZROH;Transportation group is always 0001 for ZROH materials
+2.10_Third party;BP;Conformity;;Search Term 1 of 3rd Party and Ship-To BP's should have format: first 5 characters of the name_first 5 characters of the city (skipping special characters and spaces)
+2.2.13_Intercompany;BP Vendor;Conformity;;IP vendors (account group Y005) should have NO assignment to a Company Code
+2.2_3rd Party;BP;Uniqueness;;Search for similar name data
+2.3_Third party;BP;Uniqueness;;Standard duplicate check on 3rd Party Business Partners  (Address)
+2.1_All;BP;Uniqueness;;Search for identical bank account data (Combination of Bank Country, Bank Key & Bank Acc or IBAN)
+2.2.7_All;BP Vendor;Consistency;;Vendor company code payment terms and purchase organization payment terms should be identical
+2.2.8_All;BP Vendor;Integrity;;List discrepancies between different purchase organization payment terms for the same vendor. 
+2.3.10_All;BP Customer;Consistency;;Customer company code payment terms and Sales Org. payment terms are identical
+2.3.11_All;BP Customer;Integrity;;List discrepancies between different sales organization payment terms for the same customer. 
+2.3.12_Third party;BP Customer;Completeness;;Each Ship-To customer (account group Y002) must be assigned to at least 1 Sold-To customer.
+2.3.3_Third Party;BP Customer;Completeness;;Each Sold-To and Ship-To customer (account groups Y001 and Y002) should be assigned to at least 1 Sales Organisation
+2.3.2_Third party;BP Customer;Integrity;;Customer record with account group Y002 (Ship-To) should not have Company Code data
+2.8_All;BP;Uniqueness;;Search for identical tax / VAT numbers
+2.4_All;BP;Uniqueness;;Search for identical telephone numbers
+1.7_ZFER;Material;Completeness;ZFER;Cash Discount indicator is always checked for ZFER materials
+2.2.5_Intercompany;BP Vendor;Conformity;;All IC vendors in Europe must have Payment term L017 as agreed Leviat intercompany term in both purchasing and company code view, else L020
+2.3.1_Intercompany;BP Customer;Conformity;;All IC customers in Europe must have Payment term L017 as agreed Leviat intercompany term in both sales and company code view, else L020
+2.2.11_Third party;BP Vendor;Completeness;;LFM1-KALSK should be filled with code TP (external vendor pricing)
+1.12_ZFER;Material;Completeness;ZFER;Commodity codes (MARC-STAWN) should not be empty.
+2.2.3_Third party;BP Vendor;Consistency;;If country of origin is not equal to country of the company code then Cash Management group is A2 and else A1
+1.12_ZHAW;Material;Completeness;ZHAW;Commodity codes (MARC-STAWN) should not be empty.
+1.11_All;Material ;Consistency;All;if MVKE-LVORM is marked for all active sales org's and if MARC-LVORM for all active plants is marked as well, but there is NO block on MARA-LVORM, then give result.
+1.6_All;Material;Consistency;All;X-plant material status (MARA-MSTAE) is 70 for all materials marked for deletion.
+1.5_ZHAW;Material;Consistency;ZHAW;For ZHAW materials the Country of Origin should be identical in all active Plants
+1.4_ZHAW;Material;Consistency;ZHAW;For ZHAW materials the first 6 digits of the Commodity code should be identical in all active Plants
+2.2.1_Third party;BP Vendor;Conformity;;Check if used payment term is a Leviat payment term
+2.2.1_Intercompany;BP Vendor;Conformity;;Check if used payment term is a Leviat payment term
+1.10_ZHAW;Material;Conformity;ZHAW;ZHAW materials always have Procurement type F maintained. Only If the “special procurement key (MARC-SOBSL)” is used, than the procurement key should be E
+2.13_Third party;BP;Completeness;;Check on EU Business Partners without VAT number maintained
+2.13_Intercompany;BP;Completeness;;Check on EU Business Partners without VAT number maintained
+1.8_ZHAW;Material;Conformity;ZHAW;General Item Category Group is always NORM for ZHAW materials
+2.14_Third Party;BP;Conformity;;Italian Business Partners with Natural Person indicator should have Tax code 1 maintained (excluding Employee vendors)
+2.5_All;BP;Completeness;;If country of customer is US, CA, BR, MX, AU, IT, IE or GB the regions field should have a value (part of address print)
+2.3.5_Third party;BP Customer;Consistency;;if KNB1-LVORM is marked for all active company codes and if KNVV-LVORM for all active sales org's is marked as well, but there is NO block on KNA1-LVORM, then give result.
+2.3.5_Intercompany;BP Customer;Consistency;;if KNB1-LVORM is marked for all active company codes and if KNVV-LVORM for all active sales org's is marked as well, but there is NO block on KNA1-LVORM, then give result.
+2.2.10_All;BP Vendor;Consistency;;if LFB1-LVORM is marked for all active company codes and if LFM1-LVORM for all active purchase org's is marked as well, but there is NO block on LFA1-LVORM, then give result.
+1.9_ZROH;Material;Completeness;ZROH;Material-related origin is always checked in Production Plants for ZROH materials
+1.9_ZHAL;Material;Completeness;ZHAL;Material-related origin is always checked in Production Plants for ZHAL materials
+2.3.4_Third Party;BP Customer;Consistency;;If country of origin is not equal to country of the company code then Cash Management group is E3, else E2
+2.3.4_Intercompany;BP Customer;Consistency;;All Intercompany customers have cash management group E4 maintained
+1.13_All;Material;Consistency;All;Material should have an assignment to at least 1 Plant and/or Sales Org
+2.6_All;BP;Consistency;;Business Partners with central deletion flag should have DELETED, DUPLICATE, MERGED, CLOSED or DO NOT USE in Search Term 1
+2.9_Third party;BP;Consistency;;BP's without bank account data while all possible payment methods require a bank account
+2.9_Intercompany;BP;Consistency;;BP's without bank account data while all possible payment methods require a bank account
+2.3.9_Third party;BP Customer;Consistency;;Field Collect. auth. marked when bank account then payment method F
+2.3.9_Intercompany;BP Customer;Consistency;;Field Collect. auth. marked when bank account then payment method F
+2.3.7_Third party;BP Customer;Completeness;;This checkbox should be defaulted marked in each Sales Org
+2.3.7_Intercompany;BP Customer;Completeness;;This checkbox should be defaulted marked in each Sales Org
+2.7_All;BP;Conformity;;Check if email is entered in correct format in all BP groups
+2.11_Employee;BP;Consistency;;When Title Mr. or Mrs. is used, the gender of the employee cannot be Unknown
+1.1_ZHAW;Material;Completeness;ZHAW;Cash Discount indicator is always checked for ZHAW materials
+1.1_ZVER;Material;Completeness;ZVER;Cash Discount indicator is always checked for ZVER materials
