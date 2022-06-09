@@ -15,14 +15,14 @@ GROUP BY
 CountRowsPerRuleID AS (
 SELECT
     [RuleID]
-    ,SUBSTRING(r.[RuleID],CHARINDEX('_',r.[RuleID])+1,LEN(r.[RuleID]))  AS [ProductType]
+    ,r.[ProductType]
     ,[RecordTotals]
 FROM
     [dq].[Rule] AS r
 LEFT JOIN
     CountRowsPerProductType AS cnt
     ON
-        SUBSTRING(r.[RuleID],CHARINDEX('_',r.[RuleID])+1,LEN(r.[RuleID])) = cnt.[ProductType]
+        r.[ProductType] = cnt.[ProductType]
 WHERE
     [DataArea] = 'Material'
 )

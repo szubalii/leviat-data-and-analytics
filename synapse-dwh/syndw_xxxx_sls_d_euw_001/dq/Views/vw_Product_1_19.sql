@@ -1,22 +1,8 @@
 ﻿CREATE VIEW [dq].[vw_Product_1_19] AS
-WITH
-Rule_1_19 AS (
-    SELECT
-        [Product],
-        [IndustrySector],
-        CASE
-            WHEN [IndustrySector] = 'A'
-            THEN 0
-            ELSE 1
-        END AS [IsError],
-        CONCAT('1.19_','All') AS [RuleID]
-    FROM
-        [base_s4h_cax].[I_Product]
-)
 
 SELECT
     [MANDT] 
-    ,main.[Product] 
+    ,[Product] 
     ,[ProductExternalID] 
     ,[ProductType] 
     ,[CreationDate] 
@@ -105,7 +91,7 @@ SELECT
     ,[AssortmentListType] 
     ,[HasTextilePartsWthAnimalOrigin] 
     ,[ProductSeasonUsageCategory] 
-    ,main.[IndustrySector] 
+    ,[IndustrySector] 
     ,[ChangeNumber]
     ,[MaterialRevisionLevel] 
     ,[IsActiveEntity] 
@@ -149,13 +135,9 @@ SELECT
     ,[ZZ1_CustomFieldRiskMit_PRD] 
     ,[ZZ1_CustomFieldHighRis_PRD] 
     ,[ZZ1_CustomFieldRiskRea_PRD]
-    ,Rule_1_19.[RuleID]
-    ,Rule_1_19.[IsError] AS [Count]
+    ,CONCAT('1.19_','All') AS [RuleID]
+    ,1 AS [Count]
 FROM   
-    [base_s4h_cax].[I_Product] AS main
-LEFT JOIN
-    Rule_1_19
-    ON
-        main.[Product] = Rule_1_19.[Product]
+    [base_s4h_cax].[I_Product]
 WHERE
-    Rule_1_19.[IsError] = 1
+    [IndustrySector] != 'A'

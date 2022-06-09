@@ -4,6 +4,7 @@
     [RuleBusinessDescription]   NVARCHAR(300),
     [RuleClass]                 NVARCHAR(20),
     [DataArea]                  NVARCHAR(20),
+    [ProductType]               NVARCHAR(4),
     [t_applicationId]           VARCHAR (32),
     [t_jobId]                   VARCHAR(36),
     [t_jobDtm]                  DATETIME,

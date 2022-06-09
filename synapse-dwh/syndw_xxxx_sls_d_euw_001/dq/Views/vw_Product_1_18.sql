@@ -1,22 +1,8 @@
 ﻿CREATE VIEW [dq].[vw_Product_1_18] AS
-WITH
-Rule_1_18 AS (
-    SELECT
-        [Product],
-        [Division],
-        CASE
-            WHEN [Division] = '01'
-            THEN 0
-            ELSE 1
-        END AS [IsError],
-        CONCAT('1.18_','All') AS [RuleID]
-    FROM
-        [base_s4h_cax].[I_Product]
-)
 
 SELECT
     [MANDT] 
-    ,main.[Product] 
+    ,[Product] 
     ,[ProductExternalID] 
     ,[ProductType] 
     ,[CreationDate] 
@@ -40,7 +26,7 @@ SELECT
     ,[ItemCategoryGroup] 
     ,[NetWeight] 
     ,[ProductHierarchy]
-    ,main.[Division] 
+    ,[Division] 
     ,[VarblPurOrdUnitIsActive] 
     ,[VolumeUnit]
     ,[MaterialVolume] 
@@ -149,13 +135,9 @@ SELECT
     ,[ZZ1_CustomFieldRiskMit_PRD] 
     ,[ZZ1_CustomFieldHighRis_PRD] 
     ,[ZZ1_CustomFieldRiskRea_PRD]
-    ,Rule_1_18.[RuleID]
-    ,Rule_1_18.[IsError] AS [Count]
+    ,CONCAT('1.18_','All') AS [RuleID]
+    ,1 AS [Count]
 FROM   
-    [base_s4h_cax].[I_Product] AS main
-LEFT JOIN
-    Rule_1_18
-    ON
-        main.[Product] = Rule_1_18.[Product]
+    [base_s4h_cax].[I_Product]
 WHERE
-    Rule_1_18.[IsError] = 1
+    [Division] != '01'

@@ -1,27 +1,8 @@
 ﻿CREATE VIEW [dq].[vw_Product_1_2] AS
-WITH
-Rule_1_2 AS (
-    SELECT 
-        [Product],
-        [GrossWeight],
-        [NetWeight],
-        CASE 
-            WHEN [GrossWeight] > [NetWeight] 
-                AND
-                [GrossWeight] <= [NetWeight]*1.2
-            THEN 0
-            ELSE 1
-        END AS [IsError],
-        CONCAT('1.2_',[ProductType]) AS [RuleID]
-    FROM
-        [base_s4h_cax].[I_Product]
-    WHERE
-        [ProductType] IN ('ZFER','ZHAW')
-)
 
 SELECT
     [MANDT] 
-    ,main.[Product] 
+    ,[Product] 
     ,[ProductExternalID] 
     ,[ProductType] 
     ,[CreationDate] 
@@ -34,7 +15,7 @@ SELECT
     ,[CrossPlantStatus] 
     ,[CrossPlantStatusValidityDate] 
     ,[ProductOldID] 
-    ,main.[GrossWeight] 
+    ,[GrossWeight] 
     ,[PurchaseOrderQuantityUnit]
     ,[SourceOfSupply] 
     ,[WeightUnit]
@@ -43,7 +24,7 @@ SELECT
     ,[ProductGroup] 
     ,[BaseUnit]
     ,[ItemCategoryGroup] 
-    ,main.[NetWeight] 
+    ,[NetWeight] 
     ,[ProductHierarchy]
     ,[Division] 
     ,[VarblPurOrdUnitIsActive] 
@@ -154,13 +135,15 @@ SELECT
     ,[ZZ1_CustomFieldRiskMit_PRD] 
     ,[ZZ1_CustomFieldHighRis_PRD] 
     ,[ZZ1_CustomFieldRiskRea_PRD]
-    ,Rule_1_2.[RuleID]
-    ,Rule_1_2.[IsError] AS [Count]
+    ,CONCAT('1.2_',[ProductType]) AS [RuleID]
+    ,1 AS [Count]
 FROM   
-    [base_s4h_cax].[I_Product] AS main
-LEFT JOIN
-    Rule_1_2
-    ON
-        main.[Product] = Rule_1_2.[Product]
+    [base_s4h_cax].[I_Product]
 WHERE
-    Rule_1_2.[IsError] = 1
+    [ProductType] IN ('ZFER','ZHAW')
+    AND
+    (
+        [GrossWeight] <= [NetWeight] 
+        OR
+        [GrossWeight] > [NetWeight]*1.2
+    )

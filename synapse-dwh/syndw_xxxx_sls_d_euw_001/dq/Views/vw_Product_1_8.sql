@@ -1,24 +1,8 @@
 ﻿CREATE VIEW [dq].[vw_Product_1_8] AS
-WITH
-Rule_1_8 AS (
-    SELECT
-        [Product],
-        [ItemCategoryGroup],
-        CASE
-            WHEN [ItemCategoryGroup] = 'NORM'
-            THEN 0
-            ELSE 1
-        END AS [IsError],
-        CONCAT('1.8_',[ProductType]) AS [RuleID]
-    FROM
-        [base_s4h_cax].[I_Product]
-    WHERE
-        [ProductType] = 'ZHAW'
-)
 
 SELECT
     [MANDT] 
-    ,main.[Product] 
+    ,[Product] 
     ,[ProductExternalID] 
     ,[ProductType] 
     ,[CreationDate] 
@@ -39,7 +23,7 @@ SELECT
     ,[CompetitorID] 
     ,[ProductGroup] 
     ,[BaseUnit]
-    ,main.[ItemCategoryGroup] 
+    ,[ItemCategoryGroup] 
     ,[NetWeight] 
     ,[ProductHierarchy]
     ,[Division] 
@@ -151,13 +135,11 @@ SELECT
     ,[ZZ1_CustomFieldRiskMit_PRD] 
     ,[ZZ1_CustomFieldHighRis_PRD] 
     ,[ZZ1_CustomFieldRiskRea_PRD]
-    ,Rule_1_8.[RuleID]
-    ,Rule_1_8.[IsError] AS [Count]
+    ,CONCAT('1.8_',[ProductType]) AS [RuleID]
+    ,1 AS [Count]
 FROM   
-    [base_s4h_cax].[I_Product] AS main
-LEFT JOIN
-    Rule_1_8
-    ON
-        main.[Product] = Rule_1_8.[Product]
+    [base_s4h_cax].[I_Product]
 WHERE
-    Rule_1_8.[IsError] = 1
+    [ProductType] = 'ZHAW'
+    AND
+    [ItemCategoryGroup] != 'NORM'

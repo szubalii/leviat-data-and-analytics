@@ -1,10 +1,12 @@
 ﻿CREATE VIEW [dq].[vw_Product_1_17] AS
 WITH
-Rule_1_17_duplicates AS (
+Rule_1_17 AS (
     SELECT
         COUNT(*) as [CountDuplicates],
         [ProductType],
-        [ProductManufacturerNumber]
+        [ProductManufacturerNumber],
+        1 AS [IsError],
+        CONCAT('1.17_',[ProductType]) AS [RuleID]
     FROM
         [base_s4h_cax].[I_Product]
     WHERE
@@ -15,21 +17,6 @@ Rule_1_17_duplicates AS (
         [ProductType],
         [ProductManufacturerNumber]
     HAVING COUNT(*) >1
-)
-,
-Rule_1_17 AS (
-    SELECT
-        [Product],
-        p.[ProductType],
-        p.[ProductManufacturerNumber],
-        1 AS [IsError],
-        CONCAT('1.17_',p.[ProductType]) AS [RuleID]
-    FROM
-        [base_s4h_cax].[I_Product] AS p
-    JOIN
-        Rule_1_17_duplicates AS p_dpl
-        ON
-            p.[ProductType] = p_dpl.[ProductType]
 )
 
 SELECT
@@ -174,6 +161,6 @@ FROM
 LEFT JOIN
     Rule_1_17
     ON
-        main.[Product] = Rule_1_17.[Product]
+        main.[ProductType] = Rule_1_17.[ProductType]
 WHERE
     Rule_1_17.[IsError] = 1
