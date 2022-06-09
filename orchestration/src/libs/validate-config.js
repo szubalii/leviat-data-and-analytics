@@ -1,4 +1,4 @@
-const globalEntityCfg = require('../config/global/entity.json');
+const globalEntityCfg = require('./src/config/global/entity.json');
 const fs = require('fs');
 
 var _ = require('lodash');
@@ -15,7 +15,7 @@ function validateEnvConfig (env) {
 
     // try {
 
-        const envEntityCfg = require('../config/' + env + '/entity.json');
+        const envEntityCfg = require('./src/config/' + env + '/entity.json');
         // let pbiDatasetCfg = _.merge(globalPBIDatasetCfg, envPBIDatasetCfg);
         let entityCfg = _.merge(globalEntityCfg, envEntityCfg);
         
@@ -47,7 +47,7 @@ function validateEnvConfig (env) {
 }
 
 function checkS4HExtractionExists (baseS4HEntityArray) {
-    const dir = './xu-config/extractions';
+    const dir = '../xu-config/extractions';
     const files = fs.readdirSync(dir);
     let missingExtractions = baseS4HEntityArray.filter(e => !files.includes(e.entity_name));
     let exceptions = [];
@@ -90,7 +90,7 @@ function checkNoDuplicateEntityId (entityCfg) {
 }
 
 function checkTargetTableExists (entityCfg) {
-    const dir = './synapse-dwh/syndw_xxxx_sls_d_euw_001'
+    const dir = '../synapse-dwh/syndw_xxxx_sls_d_euw_001'
     // const schemaDir = dir + '/Security/Schemas';
     const schemas = Object.keys(entityCfg)
         .map(k => entityCfg[k].schema_name);

@@ -35,7 +35,7 @@ jobs:
   - task: Npm@1
     inputs:
       command: 'custom'
-      workingDir: '$(Build.Repository.LocalPath)'
+      workingDir: '$(Build.Repository.LocalPath)/orchestration'
       customCommand: 'run validate'
       verbose: true
     displayName: 'Validate Orchestration Config'
