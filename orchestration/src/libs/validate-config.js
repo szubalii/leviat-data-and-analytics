@@ -35,10 +35,13 @@ function validateEnvConfig (env) {
     );
 
     if (exceptions.length > 0) {
-        console.error('##[error]Error Message');
-        console.error('Validation Error(s): ' + JSON.stringify(exceptions, null, 2));
+        console.error('##[error]Validation Error(s)');
+        exceptions.forEach(function(e) {
+            console.error('##[error]' + e.message, JSON.stringify(e.object, null, 2));
+        });
+        
         // exit 1;
-        throw 'Validation Error(s): ' + JSON.stringify(exceptions, null, 2);
+        throw 'Validation Error(s)';
     }
     
     // } catch (e) {
