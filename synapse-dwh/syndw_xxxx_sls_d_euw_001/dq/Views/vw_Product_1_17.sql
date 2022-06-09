@@ -158,7 +158,7 @@ SELECT
     ,Rule_1_17.[IsError] AS [Count]
 FROM   
     [base_s4h_cax].[I_Product] AS main
-LEFT JOIN
+INNER JOIN
     Rule_1_17
     ON
         main.[ProductType] = Rule_1_17.[ProductType]
