@@ -37,7 +37,7 @@ function validateEnvConfig (env) {
     if (exceptions.length > 0) {
         console.error('##[error]Validation Error(s)');
         exceptions.forEach(function(e) {
-            console.error('##[error]' + e.message, JSON.stringify(e.object, null, 2));
+            console.error('##[error]' + e.message, JSON.stringify(e.object));//, null, 2));
         });
         
         // exit 1;
@@ -56,7 +56,8 @@ function validateEnvConfig (env) {
 function checkS4HExtractionExists (baseS4HEntityArray) {
     const dir = root + '/xu-config/extractions';
     const files = fs.readdirSync(dir);
-    let missingExtractions = baseS4HEntityArray.filter(e => !files.includes(e.entity_name));
+    let missingExtractions = baseS4HEntityArray.filter(e => !files.includes(e.entity_name))
+        .map(e => ({entity_id: e.entity_id, entity_name: e.entity_name}));
     let exceptions = [];
 
     // throw Exception
@@ -82,7 +83,7 @@ function checkNoDuplicateEntityId (entityCfg) {
             if (entityObject[e.entity_id] === undefined){
                 entityObject[e.entity_id] = e;
             } else {
-                duplicateEntityIds.push(e);
+                duplicateEntityIds.push(e.entity_id);
             }
         });
     });
