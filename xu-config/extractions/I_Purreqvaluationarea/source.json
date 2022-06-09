@@ -1,0 +1,52 @@
+{
+    "functionName": "Z_THEO_READ_TABLE",
+    "runInBackgroundJob": false,
+    "backgroundJobTimeout": 180,
+    "tables": 
+    [
+        {
+            "name": "IPURREQVA",
+            "description": "Generated Table for View",
+            "isView": true,
+            "fields": 
+            [
+                {
+                    "name": "MANDT",
+                    "description": "Client",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "T000",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "VALUATIONAREA",
+                    "description": "Valuation area",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "COMPANYCODE",
+                    "description": "Company Code",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "T001",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "COMPANYCODENAME",
+                    "description": "Name of Company Code or Company",
+                    "abapType": "CharacterString",
+                    "length": 25,
+                    "isSelected": true,
+                    "conversionExit": ""
+                }
+            ]
+        }
+    ]
+}
