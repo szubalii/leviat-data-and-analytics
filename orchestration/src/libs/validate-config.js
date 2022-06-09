@@ -48,7 +48,7 @@ function validateEnvConfig (env) {
 
 function checkS4HExtractionExists (baseS4HEntityArray) {
     const dir = '../../xu-config/extractions';
-    const files = fs.readdirSync();
+    const files = fs.readdirSync(dir);
     let missingExtractions = baseS4HEntityArray.filter(e => !files.includes(e.entity_name));
     let exceptions = [];
 
