@@ -142,4 +142,8 @@ FROM
 WHERE
     [ProductType] = 'ZHAW'
     AND
-    [ItemCategoryGroup] != 'NORM'
+    (
+        [ItemCategoryGroup] != 'NORM'
+        OR
+        [ItemCategoryGroup] IS NULL
+    )
