@@ -21,3 +21,4 @@ USA;SubPCAT_Pillar.csv;",";base_ff_USA;SubPCAT_Pillar
 ;CustomerCalculated.csv;";";base_ff;CustomerCalculated
 ;ProductCalculated.csv;";";base_ff;ProductCalculated
 ;SalesDistrict.csv;",";base_ff;SalesDistrict
+;MDQRule.csv;";";dq;Rule
