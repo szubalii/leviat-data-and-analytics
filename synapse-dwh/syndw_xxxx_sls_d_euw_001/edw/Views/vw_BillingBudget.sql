@@ -1,3 +1,4 @@
+-- This view is obsolete
 CREATE VIEW [edw].[vw_BillingBudget]
 AS
 WITH BillingBudgetBase_axbi AS (

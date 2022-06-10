@@ -1,3 +1,6 @@
+-- This table is obsolete. Separate budget tables exist now:
+-- [edw].[fact_Budget_US]
+-- [edw].[fact_Budget_axbi]
 CREATE TABLE [edw].[fact_BillingBudget]
 (
     [BillingDocument]       NVARCHAR(20)                                 NOT NULL,

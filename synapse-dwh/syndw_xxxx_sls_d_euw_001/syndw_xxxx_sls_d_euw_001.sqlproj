@@ -654,8 +654,8 @@
     <Build Include="edw\Views\vw_CustomerCalculated.sql" />
     <Build Include="utilities\Stored Procedures\sp_update_statistics.sql" />
     <Build Include="base_dw_halfen_2_dwh\Tables\DIM_CUSTOMER.sql" />
-    <Build Include="edw\Views\vw_BillingBudget_obsolete.sql" />
-    <Build Include="edw\Tables\fact_BillingBudget_obsolete.sql" />
+    <Build Include="edw\Views\vw_BillingBudget.sql" />
+    <Build Include="edw\Tables\fact_BillingBudget.sql" />
     <Build Include="base_ff\Tables\ValueType.sql" />
     <Build Include="edw\Tables\dim_ValueType.sql" />
     <Build Include="edw\Views\vw_ValueType.sql" />
