@@ -39,12 +39,6 @@ jobs:
       customCommand: 'run validate $(Build.Repository.LocalPath)'
     displayName: 'Validate Orchestration Config'
 
-  # Validate the Orchestration config
-  - task: CmdLine@2
-    inputs:
-      script: 'node -e require(''./orchestration/src/libs/validate-config.js'')'
-    displayName: 'Validate Orchestration Config'
-
   - task: NuGetToolInstaller@1
 
   - task: NuGetCommand@2
