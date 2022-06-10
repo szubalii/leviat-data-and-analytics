@@ -11,14 +11,32 @@ jobs:
   # Orchestration Database Build Job
 - job: OrchDB
   pool:
-    vmImage: 'windows-latest'
+    name: 'VM'
+    demands:
+    - node.js
+    - VisualStudio
   variables:
     orchDBSolution: '**/orchestration/*.sln'
     buildPlatform: 'Any CPU'
     buildConfiguration: 'Release'
 
   steps:
-    # Installs Node and the npm packages saved in your package.json file in the build
+
+  - task: Npm@1
+    inputs:
+      command: 'install'
+      workingDir: '$(Build.Repository.LocalPath)/orchestration' #replace with the package.json folder
+      verbose: true
+    displayName: 'Install npm package'
+
+  # Validate the Orchestration config
+  - task: Npm@1
+    inputs:
+      command: 'custom'
+      workingDir: '$(Build.Repository.LocalPath)/orchestration'
+      customCommand: 'run validate $(Build.Repository.LocalPath)'
+    displayName: 'Validate Orchestration Config'
+
   - task: NuGetToolInstaller@1
 
   - task: NuGetCommand@2
@@ -41,30 +59,35 @@ jobs:
       SourceFolder: '$(Build.SourcesDirectory)\orchestration\sqldb-xxxx-orchdb-d-euw-001\bin\Release'
       Contents: '*.dacpac'
       TargetFolder: '$(Build.ArtifactStagingDirectory)'
+    displayName: 'Copy dacpac file'
 
   - task: CopyFiles@2
     inputs:
       SourceFolder: '$(Build.SourcesDirectory)\orchestration'
       Contents: '*publish.xml'
       TargetFolder: '$(Build.ArtifactStagingDirectory)'
+    displayName: 'Copy publish config file'
 
   - task: CopyFiles@2
     inputs:
       SourceFolder: '$(Build.SourcesDirectory)\orchestration\Master Data'
       Contents: '**\*.csv'
       TargetFolder: '$(Build.ArtifactStagingDirectory)\Master Data'
+    displayName: 'Copy Master Data'
 
   - task: CopyFiles@2
     inputs:
       SourceFolder: '$(Build.SourcesDirectory)\orchestration\src'
       Contents: '**\*'
       TargetFolder: '$(Build.ArtifactStagingDirectory)\src'
+    displayName: 'Copy src folder'
 
   - task: CopyFiles@2
     inputs:
       SourceFolder: '$(Build.SourcesDirectory)\orchestration'
       Contents: 'package.json'
       TargetFolder: '$(Build.ArtifactStagingDirectory)'
+    displayName: 'Copy npm package'
 
   - task: PublishPipelineArtifact@1
     inputs:
@@ -74,18 +97,16 @@ jobs:
 
   # Azure Data Factory Build Job
 - job: ADF
+  dependsOn: OrchDB
   pool:
-    vmImage: 'ubuntu-latest'
+    name: 'VM'
+    demands:
+    - node.js
+    - VisualStudio
 
   steps:
 
-    # Installs Node and the npm packages saved in your package.json file in the build
-
-  - task: NodeTool@0
-    inputs:
-      versionSpec: '10.x'
-    displayName: 'Install Node.js'
-
+    # Installs the npm packages saved in your package.json file in the build
   - task: Npm@1
     inputs:
       command: 'install'
@@ -131,8 +152,12 @@ jobs:
 
   # Theobald Xtract Universal Build Job
 - job: XtractUniversal
+  dependsOn: OrchDB
   pool:
-    vmImage: 'windows-latest'
+    name: 'VM'
+    demands:
+    - node.js
+    - VisualStudio
   
   steps:
   - task: CopyFiles@2
@@ -149,8 +174,13 @@ jobs:
 
   # Azure Synapse Dedicated SQL Pool Build Job
 - job: SynapseDWH
-  pool: 
-    vmImage: 'windows-latest'
+  dependsOn: OrchDB
+  pool:
+    name: 'VM'
+    demands:
+    - node.js
+    - VisualStudio
+    - Python.Version
 
   variables:
     synapseDWHSolution: '**/synapse-dwh/*.sln'
@@ -164,6 +194,7 @@ jobs:
     inputs:
       scriptSource: 'filePath'
       scriptPath: './synapse-dwh/src/libs/check_duplicates.py'
+    displayName: 'Check for duplicates in Master Data csv-files'
       
   - task: NuGetToolInstaller@1
 

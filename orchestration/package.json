@@ -1,4 +1,7 @@
 {
+  "scripts":{
+    "validate":"node ./src/libs/validate-config.js"
+  },
   "dependencies": {
     "@azure/core-http": "^2.2.4",
     "@azure/identity": "^2.0.4",
