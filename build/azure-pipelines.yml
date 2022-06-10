@@ -13,8 +13,8 @@ jobs:
   pool:
     name: 'VM'
     demands:
-    - NodeJS.Version
-    - VisualStudio.Version
+    - node.js
+    - VisualStudio
   variables:
     orchDBSolution: '**/orchestration/*.sln'
     buildPlatform: 'Any CPU'
@@ -101,8 +101,8 @@ jobs:
   pool:
     name: 'VM'
     demands:
-    - NodeJS.Version
-    - VisualStudio.Version
+    - node.js
+    - VisualStudio
 
   steps:
 
@@ -156,8 +156,8 @@ jobs:
   pool:
     name: 'VM'
     demands:
-    - NodeJS.Version
-    - VisualStudio.Version
+    - node.js
+    - VisualStudio
   
   steps:
   - task: CopyFiles@2
@@ -178,8 +178,8 @@ jobs:
   pool:
     name: 'VM'
     demands:
-    - NodeJS.Version
-    - VisualStudio.Version
+    - node.js
+    - VisualStudio
     - Python.Version
 
   variables:
