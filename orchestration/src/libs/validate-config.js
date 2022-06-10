@@ -4,14 +4,34 @@ const root = process.argv[2];
 
 var _ = require('lodash');
 
+/**
+ * main function called for this js-file.
+ * starts validation for each environment.
+ * Throws error in case validation errors exist.
+ */
+function main () {
+    let exceptions = [];
+    ['dev', 'qas', 'prod'].forEach(e => exceptions = exceptions.concat(validateEnvConfig(e)));
+
+    if (exceptions.length > 0) {
+        throw 'Validation Error(s)';
+    }
+}
+
 function Exception (message, object) {
     this.message = message + ': ';
     this.object = object;
 
+    console.error('##[error] ' + message, JSON.stringify(object));
 }
 
+/**
+ * Executes each validation check and returns any validation errors.
+ * @param {String} env dev, qas, or prod
+ * @returns {Array}
+ */
 function validateEnvConfig (env) {
-    console.log('Starting to validate orchestration configuration.');
+    console.log('Starting to validate orchestration configuration for ' + env + '.');
 
     const envEntityCfg = require('../config/' + env + '/entity.json');
     let entityCfg = _.merge(globalEntityCfg, envEntityCfg);
@@ -24,21 +44,19 @@ function validateEnvConfig (env) {
         checkTargetTableExists(entityCfg)
     );
 
-    if (exceptions.length > 0) {
-        console.error('##[error]Validation Error(s)');
-        exceptions.forEach(function(e) {
-            console.error('##[error]' + e.message, JSON.stringify(e.object));//, null, 2));
-        });
-        
-        throw 'Validation Error(s)';
-    }
-    else {
-        console.log('Validation finished. No errors found.');
-    }
+    console.log('Validation for ' + env + ' finished: ' + exceptions.length + ' error(s) found.');
+
+    return exceptions;
 }
 
+/**
+ * Checks if for each s4h entity a corresponding XU extraction folder exist
+ * @param {Array} baseS4HEntityArray 
+ * @returns array of exceptions
+ */
 function checkS4HExtractionExists (baseS4HEntityArray) {
-    console.log('Checking if each S4H entity has a defined XU Extraction config.');
+    const message = 'Checking if each S4H entity has a defined XU Extraction config';
+    console.log(message);
     const dir = root + '/xu-config/extractions';
     const files = fs.readdirSync(dir);
     let missingExtractions = baseS4HEntityArray.filter(e => !files.includes(e.entity_name))
@@ -50,12 +68,19 @@ function checkS4HExtractionExists (baseS4HEntityArray) {
         exceptions.push(new Exception('Missing S4H Extraction(s)', missingExtractions));
     }
 
+    console.log(message + ': Complete');
+
     return exceptions;
 }
 
-
+/**
+ * Checks if no duplicate entity-ids exist
+ * @param {Object} entityCfg 
+ * @returns array of exceptions
+ */
 function checkNoDuplicateEntityId (entityCfg) {
-    console.log('Checking if no duplicate entity ids exist.');
+    const message = 'Checking if no duplicate entity ids exist';
+    console.log(message);
     let entityObject = {};
     let duplicateEntityIds = [];
     let exceptions = [];
@@ -76,11 +101,19 @@ function checkNoDuplicateEntityId (entityCfg) {
         exceptions.push(new Exception('Duplicate Entity Id(s)', duplicateEntityIds));
     }
 
+    console.log(message + ': Complete');
+
     return exceptions;
 }
 
+/**
+ * Checks if for each entity the target table has a defined sql-file.
+ * @param {Object} entityCfg 
+ * @returns array of exceptions
+ */
 function checkTargetTableExists (entityCfg) {
-    console.log('Checking if each target table has a defined SQL Table DDL.');
+    const message = 'Checking if each target table has a defined SQL Table DDL';
+    console.log(message);
     const dir = root + '/synapse-dwh/syndw_xxxx_sls_d_euw_001'
     const schemas = Object.keys(entityCfg)
         .map(k => entityCfg[k].schema_name);
@@ -124,23 +157,9 @@ function checkTargetTableExists (entityCfg) {
         exceptions.push(new Exception('Missing Target Table(s)', missingTargetTables));
     }
 
+    console.log(message + ': Complete');
+
     return exceptions;
 }
 
-
-// validateEnvConfig ('dev')
-
-module.exports = validateEnvConfig('dev'); //function () {
-//     const envEntityCfg = require('../config/' + env + '/entity.json');
-//     // let pbiDatasetCfg = _.merge(globalPBIDatasetCfg, envPBIDatasetCfg);
-//     let entityCfg = _.merge(globalEntityCfg, envEntityCfg);
-
-    // validateEnvConfig('dev');
-// }
-
-// {
-//     validateConfig: function () {
-//         ['dev', 'qas', 'prod'].forEach(e => validateEnvConfig(e));
-//         // validateEnvConfig(env);
-//     }
-// };
+module.exports = main();
