@@ -11,6 +11,7 @@ function Exception (message, object) {
 }
 
 function validateEnvConfig (env) {
+    console.log('Starting to validate orchestration configuration.');
 
     let exceptions = [];
 
@@ -43,6 +44,9 @@ function validateEnvConfig (env) {
         // exit 1;
         throw 'Validation Error(s)';
     }
+    else {
+        console.log('Validation finished. No errors found.');
+    }
     
     // } catch (e) {
     //     // console.error(e.message, e.object);
@@ -54,6 +58,7 @@ function validateEnvConfig (env) {
 }
 
 function checkS4HExtractionExists (baseS4HEntityArray) {
+    console.log('Checking if each S4H entity has a defined XU Extraction config.');
     const dir = root + '/xu-config/extractions';
     const files = fs.readdirSync(dir);
     let missingExtractions = baseS4HEntityArray.filter(e => !files.includes(e.entity_name))
@@ -73,6 +78,7 @@ function checkS4HExtractionExists (baseS4HEntityArray) {
 
 
 function checkNoDuplicateEntityId (entityCfg) {
+    console.log('Checking if no duplicate entity ids exist.');
     let entityObject = {};
     let duplicateEntityIds = [];
     let exceptions = [];
@@ -98,6 +104,7 @@ function checkNoDuplicateEntityId (entityCfg) {
 }
 
 function checkTargetTableExists (entityCfg) {
+    console.log('Checking if each target table has a defined SQL Table DDL.');
     const dir = root + '/synapse-dwh/syndw_xxxx_sls_d_euw_001'
     // const schemaDir = dir + '/Security/Schemas';
     const schemas = Object.keys(entityCfg)
