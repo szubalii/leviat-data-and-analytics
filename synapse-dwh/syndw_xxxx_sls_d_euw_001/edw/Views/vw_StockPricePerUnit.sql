@@ -59,7 +59,7 @@ WITH ProductValuationPUP AS (
     LEFT JOIN 
         [edw].[vw_CompanyCode] dim_comCode   
         ON 
-            dim_comCode.[CompanyCodeID] = purArea.[CompanyCode]    
+            dim_comCode.[CompanyCodeID] = purArea.[CompanyCode] COLLATE Latin1_General_100_BIN2  
 ), EuroBudgetExchangeRate AS (
     SELECT
             SourceCurrency
