@@ -11,18 +11,16 @@ jobs:
   # Orchestration Database Build Job
 - job: OrchDB
   pool:
-    vmImage: 'windows-latest'
+    name: 'VM'
+    demands:
+    - NodeJS.Version
+    - VisualStudio.Version
   variables:
     orchDBSolution: '**/orchestration/*.sln'
     buildPlatform: 'Any CPU'
     buildConfiguration: 'Release'
 
   steps:
-    # Installs Node and the npm packages saved in your package.json file in the build
-  - task: NodeTool@0
-    inputs:
-      versionSpec: '10.x'
-    displayName: 'Install Node.js'
 
   - task: Npm@1
     inputs:
@@ -101,17 +99,14 @@ jobs:
 - job: ADF
   dependsOn: OrchDB
   pool:
-    vmImage: 'ubuntu-latest'
+    name: 'VM'
+    demands:
+    - NodeJS.Version
+    - VisualStudio.Version
 
   steps:
 
-    # Installs Node and the npm packages saved in your package.json file in the build
-
-  - task: NodeTool@0
-    inputs:
-      versionSpec: '10.x'
-    displayName: 'Install Node.js'
-
+    # Installs the npm packages saved in your package.json file in the build
   - task: Npm@1
     inputs:
       command: 'install'
@@ -159,7 +154,10 @@ jobs:
 - job: XtractUniversal
   dependsOn: OrchDB
   pool:
-    vmImage: 'windows-latest'
+    name: 'VM'
+    demands:
+    - NodeJS.Version
+    - VisualStudio.Version
   
   steps:
   - task: CopyFiles@2
@@ -177,8 +175,12 @@ jobs:
   # Azure Synapse Dedicated SQL Pool Build Job
 - job: SynapseDWH
   dependsOn: OrchDB
-  pool: 
-    vmImage: 'windows-latest'
+  pool:
+    name: 'VM'
+    demands:
+    - NodeJS.Version
+    - VisualStudio.Version
+    - Python.Version
 
   variables:
     synapseDWHSolution: '**/synapse-dwh/*.sln'
