@@ -192,6 +192,7 @@ jobs:
     inputs:
       scriptSource: 'filePath'
       scriptPath: './synapse-dwh/src/libs/check_duplicates.py'
+    displayName: 'Check for duplicates in Master Data csv-files'
       
   - task: NuGetToolInstaller@1
 
