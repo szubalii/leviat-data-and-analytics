@@ -33,7 +33,7 @@ WITH ProductValuationPUP AS (
         [PEINH]                                                 AS [PriceUnit], 
         [SALKV]                                                 AS [SAPTotalStockValuePUP],
         [VKSAL]                                                 AS [SAPTotalStockValueAtSalesPrice], 
-        dim_org.[SalesOrganizationCurrency]                     AS [CurrencyID],         
+        dim_comCode.[Currency]                                  AS [CurrencyID],         
         CASE 
             WHEN [VPRSV] = 'S' and ISNULL([PEINH], 0) != 0
             THEN  --StandardPrice / Price Unit
@@ -49,9 +49,17 @@ WITH ProductValuationPUP AS (
     FROM 
         [base_s4h_cax].[MBEWH]
     LEFT JOIN  
-        [edw].[dim_SalesOrganization] dim_org
-         ON  
+        [edw].[dim_SalesOrganization] dim_org   
+        ON    
             dim_org.[SalesOrganizationID] = [BWKEY] COLLATE Latin1_General_100_BIN2
+    LEFT JOIN 
+        [base_s4h_cax].[I_Purreqvaluationarea] purArea  
+        ON 
+            purArea.[ValuationArea] = [BWKEY]  
+    LEFT JOIN 
+        [edw].[vw_CompanyCode] dim_comCode   
+        ON 
+            dim_comCode.[CompanyCodeID] = purArea.[CompanyCode]    
 ), EuroBudgetExchangeRate AS (
     SELECT
             SourceCurrency

@@ -3316,6 +3316,18 @@
             "base_table_name": "MBEWH",
             "pk_field_names": "MANDT, MATNR, BWKEY, BWTAR, LFGJA, LFMON",
             "schedule_recurrence": "D"
+        },
+        {
+            "entity_id": 436,
+            "entity_name": "I_Purreqvaluationarea",
+            "data_category": "NULL",
+            "client_field": "MANDT",
+            "tool_name": "Theobald",
+            "extraction_type": "Table",
+            "update_mode": "Full",
+            "base_table_name": "I_Purreqvaluationarea",
+            "pk_field_names": "MANDT, ValuationArea",
+            "schedule_recurrence": "D"
         }
         ]
     },

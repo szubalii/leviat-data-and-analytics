@@ -792,6 +792,7 @@
     <Build Include="dm_sales\Views\vw_dim_ProductValuationPUP.sql" />
     <Build Include="edw\Views\vw_StockPricePerUnit.sql" />
     <Build Include="dm_sales\Views\vw_dim_CurrencyType.sql" />
+    <Build Include="base_s4h_cax\Tables\I_Purreqvaluationarea.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\Post-Deploy\Script.PostDeployment.sql" />
