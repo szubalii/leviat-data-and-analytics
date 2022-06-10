@@ -13,21 +13,10 @@ function Exception (message, object) {
 function validateEnvConfig (env) {
     console.log('Starting to validate orchestration configuration.');
 
+    const envEntityCfg = require('../config/' + env + '/entity.json');
+    let entityCfg = _.merge(globalEntityCfg, envEntityCfg);
+    let baseS4HEntityArray = entityCfg.s4h.entities;
     let exceptions = [];
-
-    // try {
-
-        const envEntityCfg = require('../config/' + env + '/entity.json');
-        // let pbiDatasetCfg = _.merge(globalPBIDatasetCfg, envPBIDatasetCfg);
-        let entityCfg = _.merge(globalEntityCfg, envEntityCfg);
-        
-        let baseS4HEntityArray = entityCfg.s4h.entities;
-
-        // Object.keys(entityCfg).forEach(function(key) {
-        //     if (entityCfg[key].base_schema_name) {
-        //         baseEntityArray = baseEntityArray.concat(entityCfg[key].entities);
-        //     }
-        // });
 
     exceptions = exceptions.concat(
         checkS4HExtractionExists(baseS4HEntityArray),
@@ -41,20 +30,11 @@ function validateEnvConfig (env) {
             console.error('##[error]' + e.message, JSON.stringify(e.object));//, null, 2));
         });
         
-        // exit 1;
         throw 'Validation Error(s)';
     }
     else {
         console.log('Validation finished. No errors found.');
     }
-    
-    // } catch (e) {
-    //     // console.error(e.message, e.object);
-
-    //     throw e.message + ': ' + JSON.stringify(e.object, null, 2);
-    // }
-
-
 }
 
 function checkS4HExtractionExists (baseS4HEntityArray) {
@@ -68,10 +48,7 @@ function checkS4HExtractionExists (baseS4HEntityArray) {
     // throw Exception
     if (missingExtractions.length > 0) {
         exceptions.push(new Exception('Missing S4H Extraction(s)', missingExtractions));
-    //     // throw new Exception('Missing S4H Extraction(s)', missingExtractions);
     }
-    
-    // console.error('Missing S4H Extraction', missingExtractions);
 
     return exceptions;
 }
@@ -97,7 +74,6 @@ function checkNoDuplicateEntityId (entityCfg) {
     // throw Exception
     if (duplicateEntityIds.length > 0) {
         exceptions.push(new Exception('Duplicate Entity Id(s)', duplicateEntityIds));
-    //     // throw new Exception('Duplicate Entity Id(s)', duplicateEntityIds);
     }
 
     return exceptions;
@@ -106,13 +82,8 @@ function checkNoDuplicateEntityId (entityCfg) {
 function checkTargetTableExists (entityCfg) {
     console.log('Checking if each target table has a defined SQL Table DDL.');
     const dir = root + '/synapse-dwh/syndw_xxxx_sls_d_euw_001'
-    // const schemaDir = dir + '/Security/Schemas';
     const schemas = Object.keys(entityCfg)
         .map(k => entityCfg[k].schema_name);
-    // fs.readdirSync(schemaDir)
-    //     .map(f => f.substring(0, f.length-4));
-        // .filter(dirent => dirent.isDirectory())
-        // .filter(dirent => dirent.name.substring(0,5) === 'base_' );
     let tables = {};
     let missingSchemas = [];
     let missingTargetTables = [];
@@ -147,19 +118,13 @@ function checkTargetTableExists (entityCfg) {
 
     if (missingSchemas.length > 0) {
         exceptions.push(new Exception('Missing Schema(s)', missingSchemas));
-    //     throw new Exception('Missing Base Schema(s): ' + missingSchemas);
     }
 
     if (missingTargetTables.length > 0) {
         exceptions.push(new Exception('Missing Target Table(s)', missingTargetTables));
-    //     throw new Exception('Missing Target Table(s): ', missingTargetTables);
     }
 
-    
-
     return exceptions;
-
-    
 }
 
 
