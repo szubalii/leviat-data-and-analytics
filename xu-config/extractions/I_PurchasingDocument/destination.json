@@ -11,8 +11,8 @@
         "sapDateConversion": {
             "enabled": true,
             "replacementForInvalidDate": null,
-            "replacementForZeroDate": "1970-01-01",
-            "replacementForYear9999": "2099-12-31"
+            "replacementForZeroDate": "0001-01-01",
+            "replacementForYear9999": "9999-12-31"
         },
         "existingFileAction": "Replace",
         "columnNameKind": "Code"

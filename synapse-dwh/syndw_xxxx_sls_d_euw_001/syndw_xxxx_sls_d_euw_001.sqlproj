@@ -813,6 +813,7 @@
     <Build Include="dq\Views\vw_Product_1_8.sql" />
     <Build Include="dm_dq\Views\vw_Totals.sql" />
     <Build Include="dm_dq\Views\vw_Rule.sql" />
+    <Build Include="base_s4h_cax\Tables\I_Purreqvaluationarea.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\Post-Deploy\Script.PostDeployment.sql" />
