@@ -23,6 +23,6 @@
     },
     "blobType": "BlockBlob",
     "columnNameKind": "Code",
-    "folderPath": "TEXT/I_Purreqvaluationarea/Theobald/Table/Full/In/#{ DateTime.Now.ToString(\"yyyy/MM/dd\") }#",
+    "folderPath": "NULL/I_Purreqvaluationarea/Theobald/Table/Full/In/#{ DateTime.Now.ToString(\"yyyy/MM/dd\") }#",
     "maxBlobSize": 0
 }
