@@ -40,12 +40,14 @@ WITH BillingDocumentItemBase as (
         , doc.[StorageLocation]                           as [StorageLocationID]
         , doc.[BillingDocumentIsCancelled]
         , doc.[CancelledBillingDocument]
-        , case
-            when doc.[BillingDocumentIsCancelled] = 'X' 
-                 or doc.[CancelledBillingDocument]<>'' then 'Yes'
-            else 
-                'No' 
-         end as [CancelledInvoiceEffect]
+        , CASE
+              WHEN
+                  doc.[BillingDocumentIsCancelled] = 'X' 
+                  OR
+                  doc.[CancelledBillingDocument]<>''
+              THEN 'Yes'
+              ELSE 'No' 
+          END AS [CancelledInvoiceEffect]
         , doc.[BillingDocumentItemText]
         , doc.[ServicesRenderedDate]
         , doc.[BillingQuantity]
