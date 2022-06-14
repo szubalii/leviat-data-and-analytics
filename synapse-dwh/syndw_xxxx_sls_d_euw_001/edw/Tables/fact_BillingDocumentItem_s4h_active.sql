@@ -41,7 +41,7 @@ CREATE TABLE [edw].[fact_BillingDocumentItem_s4h_active]
     [StorageLocationID]                     NVARCHAR(8)                                  NULL,
     [BillingDocumentIsCancelled]            NVARCHAR(2)                                  NULL,
     [CancelledBillingDocument]              NVARCHAR(20)                                 NULL,
-    [CancelledInvoiceEffect]                NVARCHAR(3)                                  NULL,
+    [CancelledInvoiceEffect]                NVARCHAR(1)                                  NULL,
     [BillingDocumentItemText]               NVARCHAR(80)                                 NULL,
     [ServicesRenderedDate]                  DATE                                         NULL,
     [BillingQuantity]                       DECIMAL(13, 3)                               NULL,

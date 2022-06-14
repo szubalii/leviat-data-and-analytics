@@ -679,7 +679,7 @@ BEGIN
         ,   NULL AS [StorageLocationID]
         ,   NULL AS [BillingDocumentIsCancelled]
         ,   NULL AS [CancelledBillingDocument]
-        ,   'No' AS [CancelledInvoiceEffect]
+        ,   'N'  AS [CancelledInvoiceEffect]
         ,   NULL AS [BillingDocumentItemText]
         ,   NULL AS [ServicesRenderedDate]
         ,   [BillingQuantity]

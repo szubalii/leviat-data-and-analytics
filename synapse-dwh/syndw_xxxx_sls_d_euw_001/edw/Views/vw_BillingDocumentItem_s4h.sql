@@ -45,8 +45,8 @@ WITH BillingDocumentItemBase as (
                   doc.[BillingDocumentIsCancelled] = 'X' 
                   OR
                   doc.[CancelledBillingDocument]<>''
-              THEN 'Yes'
-              ELSE 'No' 
+              THEN 'Y'
+              ELSE 'N' 
           END AS [CancelledInvoiceEffect]
         , doc.[BillingDocumentItemText]
         , doc.[ServicesRenderedDate]
