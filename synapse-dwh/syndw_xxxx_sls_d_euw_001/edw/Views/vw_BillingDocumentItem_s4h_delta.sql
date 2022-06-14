@@ -39,6 +39,14 @@ WITH BillingDocumentItemBase as (
         , doc.[StorageLocation]                           as [StorageLocationID]
         , doc.[BillingDocumentIsCancelled]
         , doc.[CancelledBillingDocument]
+        , CASE
+              WHEN
+                  doc.[BillingDocumentIsCancelled] = 'X' 
+                  OR
+                  doc.[CancelledBillingDocument]<>''
+              THEN 'Y'
+              ELSE 'N' 
+          END AS [CancelledInvoiceEffect]
         , doc.[BillingDocumentItemText]
         , doc.[ServicesRenderedDate]
         , doc.[BillingQuantity]
@@ -371,6 +379,7 @@ WITH BillingDocumentItemBase as (
             ,   [StorageLocationID]
             ,   [BillingDocumentIsCancelled]
             ,   [CancelledBillingDocument]
+            ,   [CancelledInvoiceEffect]
             ,   [BillingDocumentItemText]
             ,   [ServicesRenderedDate]
             ,   [BillingQuantity]
@@ -593,6 +602,7 @@ SELECT [BillingDocument]
       ,[StorageLocationID]
       ,[BillingDocumentIsCancelled]
       ,[CancelledBillingDocument]
+      ,[CancelledInvoiceEffect]
       ,[BillingDocumentItemText]
       ,[ServicesRenderedDate]
       ,[BillingQuantity]
@@ -785,6 +795,7 @@ SELECT
     ,[StorageLocationID]
     ,[BillingDocumentIsCancelled]
     ,[CancelledBillingDocument]
+    ,[CancelledInvoiceEffect]
     ,[BillingDocumentItemText]
     ,[ServicesRenderedDate]
     ,[BillingQuantity]
@@ -1020,6 +1031,7 @@ SELECT
     ,[StorageLocationID]
     ,[BillingDocumentIsCancelled]
     ,[CancelledBillingDocument]
+    ,[CancelledInvoiceEffect]
     ,[BillingDocumentItemText]
     ,[ServicesRenderedDate]
     ,[BillingQuantity]
@@ -1209,6 +1221,7 @@ SELECT
     ,[StorageLocationID]
     ,[BillingDocumentIsCancelled]
     ,[CancelledBillingDocument]
+    ,[CancelledInvoiceEffect]
     ,[BillingDocumentItemText]
     ,[ServicesRenderedDate]
     ,[BillingQuantity]
