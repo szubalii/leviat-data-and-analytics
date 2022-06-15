@@ -1,13 +1,13 @@
 {
-	"name": "pl_USASnowflake_ADLS_ingestion",
+	"name": "pl_StoreXUExtractionLogs",
 	"properties": {
 		"activities": [
 			{
-				"name": "Copy SnowFlake to ADLS",
-				"type": "Copy",
+				"name": "Get Extraction Logs",
+				"type": "WebActivity",
 				"dependsOn": [
 					{
-						"activity": "Get Query Without ColumnName Spaces",
+						"activity": "Set Store XU Extraction Logs Batch",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -22,61 +22,114 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
+					"url": {
+						"value": "@concat(\n\tpipeline().globalParameters.XU_hostName\n\t,'/log/?req_type=extraction&name='\n\t,pipeline().parameters.entity_name\n\t,'&source='\n\t,pipeline().globalParameters.XU_sourceName\n\t,'&destination='\n\t,pipeline().globalParameters.storageAccountName,'_',pipeline().globalParameters.S4H_systemID\n\t,'&timestamp='\n\t,pipeline().parameters.extraction_timestamp\n)",
+						"type": "Expression"
+					},
+					"connectVia": {
+						"referenceName": "ir-WEXLEVAPP001",
+						"type": "IntegrationRuntimeReference"
+					},
+					"method": "GET"
+				}
+			},
+			{
+				"name": "Copy Extraction Logs To ADLS",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "Get Extraction Logs",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
 					"source": {
-						"type": "SnowflakeSource",
-						"query": {
-							"value": "@{activity('Get Query Without ColumnName Spaces').output.value[0].QUERY}",
-							"type": "Expression"
-						},
-						"exportSettings": {
-							"type": "SnowflakeExportCopyCommand",
-							"additionalCopyOptions": {
-								"MAX_FILE_SIZE": "104857600"
+						"type": "DelimitedTextSource",
+						"additionalColumns": [
+							{
+								"name": "OutputText",
+								"value": {
+									"value": "@activity('Get Extraction Logs').output.response",
+									"type": "Expression"
+								}
 							}
+						],
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
 						}
 					},
 					"sink": {
-						"type": "ParquetSink",
+						"type": "DelimitedTextSink",
 						"storeSettings": {
-							"type": "AzureBlobStorageWriteSettings"
+							"type": "AzureBlobFSWriteSettings"
 						},
 						"formatSettings": {
-							"type": "ParquetWriteSettings"
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".csv"
 						}
 					},
-					"enableStaging": false
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "OutputText",
+									"type": "String"
+								},
+								"sink": {
+									"type": "String",
+									"physicalType": "String",
+									"ordinal": 1
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
 				},
 				"inputs": [
 					{
-						"referenceName": "ds_snowflake_oidatahub__LEVIAT_DB",
+						"referenceName": "ds_adls_csv_file_first_row_header_disabled",
 						"type": "DatasetReference",
 						"parameters": {
-							"schema": {
-								"value": "@pipeline().parameters.source_schema_name",
-								"type": "Expression"
-							},
-							"table": {
-								"value": "@pipeline().parameters.source_table_name",
-								"type": "Expression"
-							}
+							"container": "adf-jobs",
+							"directory": "Xtract Universal",
+							"file": "empty_csv_source.csv"
 						}
 					}
 				],
 				"outputs": [
 					{
-						"referenceName": "ds_blob_parquet_file",
+						"referenceName": "ds_adls_csv_file_first_row_header_disabled",
 						"type": "DatasetReference",
 						"parameters": {
-							"container": {
-								"value": "@pipeline().parameters.adls_container_name",
-								"type": "Expression"
-							},
+							"container": "adf-jobs",
 							"directory": {
-								"value": "@pipeline().parameters.target_adls_directory_path",
+								"value": "@concat(\n    'Xtract Universal/',\n    pipeline().parameters.entity_name, \n    '/',\n    formatDateTime(pipeline().parameters.date, 'yyyy/MM/dd')\n)",
 								"type": "Expression"
 							},
 							"file": {
-								"value": "@pipeline().parameters.file_name",
+								"value": "@concat(\n    pipeline().parameters.entity_name,\n    '_extraction_log_',\n    replace(replace(replace(pipeline().parameters.extraction_timestamp,'-','_'),':','_'),'.','_'),\n    '.csv'\n)",
 								"type": "Expression"
 							}
 						}
@@ -84,13 +137,13 @@
 				]
 			},
 			{
-				"name": "Get Query Without ColumnName Spaces",
-				"type": "Lookup",
+				"name": "Log Exception - Copy",
+				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "Update Batch File Name",
+						"activity": "Copy Extraction Logs To ADLS",
 						"dependencyConditions": [
-							"Succeeded"
+							"Failed"
 						]
 					}
 				],
@@ -103,104 +156,18 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"source": {
-						"type": "SnowflakeSource",
-						"query": {
-							"value": "select CONCAT('SELECT ',a.listclmns,' FROM ','@{pipeline().parameters.source_database_name}','.', \n              '@{pipeline().parameters.source_schema_name}','.',\n              '@{pipeline().parameters.source_table_name}',\n              ' ',where_condition) as query \nfrom(\nSELECT \n  LISTAGG(concat('\"',c.column_name,'\"',' as ','\"',replace(c.column_name,' ',''),'\"'),', ') within group (order by c.ORDINAL_POSITION) as listclmns,\n  CASE \n    WHEN '@{pipeline().parameters.source_date_field_name}' != '' AND '@{pipeline().parameters.source_date_field_name}' IS NOT NULL\n    THEN ' WHERE @{pipeline().parameters.source_date_field_name} >= ''2020-01-01'''\n    ELSE ''\n  END as where_condition\n                \nFROM LEVIAT_DB.information_schema.columns c \nJOIN LEVIAT_DB.information_schema.tables t\nON c.table_name = t.table_name\nWHERE t.table_name =  '@{pipeline().parameters.source_table_name}') a",
-							"type": "Expression"
-						},
-						"exportSettings": {
-							"type": "SnowflakeExportCopyCommand"
-						}
-					},
-					"dataset": {
-						"referenceName": "ds_snowflake_oidatahub__LEVIAT_DB",
-						"type": "DatasetReference",
-						"parameters": {
-							"schema": {
-								"value": "@pipeline().parameters.source_schema_name",
-								"type": "Expression"
-							},
-							"table": {
-								"value": "@pipeline().parameters.source_table_name",
-								"type": "Expression"
-							}
-						}
-					},
-					"firstRowOnly": false
-				}
-			},
-			{
-				"name": "Update Batch File Name",
-				"type": "SqlServerStoredProcedure",
-				"dependsOn": [],
-				"policy": {
-					"timeout": "7.00:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"storedProcedureName": "[dbo].[update_batch_status]",
+					"storedProcedureName": "[dbo].[log_exception]",
 					"storedProcedureParameters": {
 						"batch_id": {
 							"value": {
-								"value": "@pipeline().parameters.batch_id",
+								"value": "@pipeline().parameters.batch_id_StoreXUExtractionLog",
 								"type": "Expression"
 							},
 							"type": "Guid"
 						},
-						"file_name": {
-							"value": {
-								"value": "@pipeline().parameters.file_name",
-								"type": "Expression"
-							},
+						"category": {
+							"value": "InternalError",
 							"type": "String"
-						}
-					}
-				},
-				"linkedServiceName": {
-					"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
-					"type": "LinkedServiceReference"
-				}
-			},
-			{
-				"name": "Update Batch Succeeded",
-				"type": "SqlServerStoredProcedure",
-				"dependsOn": [
-					{
-						"activity": "Copy SnowFlake to ADLS",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"policy": {
-					"timeout": "7.00:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"storedProcedureName": "[dbo].[update_batch_status]",
-					"storedProcedureParameters": {
-						"batch_id": {
-							"value": {
-								"value": "@pipeline().parameters.batch_id",
-								"type": "Expression"
-							},
-							"type": "Guid"
-						},
-						"end_date_time": {
-							"value": {
-								"value": "@formatDateTime(utcnow(), 'yyyy-MM-dd HH:mm:ss')",
-								"type": "Expression"
-							},
-							"type": "DateTime"
 						},
 						"entity_id": {
 							"value": {
@@ -209,37 +176,19 @@
 							},
 							"type": "Int64"
 						},
+						"error_msg": {
+							"value": {
+								"value": "@activity('Copy Extraction Logs To ADLS').Error.Message",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
 						"run_id": {
 							"value": {
 								"value": "@pipeline().parameters.run_id",
 								"type": "Expression"
 							},
 							"type": "Guid"
-						},
-						"size_bytes": {
-							"value": {
-								"value": "@activity('Copy SnowFlake to ADLS').output.dataWritten",
-								"type": "Expression"
-							},
-							"type": "Int64"
-						},
-						"status": {
-							"value": "Succeeded",
-							"type": "String"
-						},
-						"directory_path": {
-							"value": {
-								"value": "@pipeline().parameters.target_adls_directory_path",
-								"type": "Expression"
-							},
-							"type": "String"
-						},
-						"file_name": {
-							"value": {
-								"value": "@pipeline().parameters.file_name",
-								"type": "Expression"
-							},
-							"type": "String"
 						}
 					}
 				},
@@ -249,7 +198,7 @@
 				}
 			},
 			{
-				"name": "Update Batch Failed - Copy",
+				"name": "Set Batch Failed - Copy",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
@@ -272,7 +221,7 @@
 					"storedProcedureParameters": {
 						"batch_id": {
 							"value": {
-								"value": "@pipeline().parameters.batch_id",
+								"value": "@pipeline().parameters.batch_id_StoreXUExtractionLog",
 								"type": "Expression"
 							},
 							"type": "Guid"
@@ -298,13 +247,13 @@
 							},
 							"type": "Guid"
 						},
-						"status": {
-							"value": "Failed",
-							"type": "String"
-						},
 						"size_bytes": {
 							"value": null,
 							"type": "Int64"
+						},
+						"status": {
+							"value": "Failed",
+							"type": "String"
 						}
 					}
 				},
@@ -314,11 +263,11 @@
 				}
 			},
 			{
-				"name": "Log Exception - Get Query",
+				"name": "Log Exception - Get Logs",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "Get Query Without ColumnName Spaces",
+						"activity": "Get Extraction Logs",
 						"dependencyConditions": [
 							"Failed"
 						]
@@ -337,13 +286,13 @@
 					"storedProcedureParameters": {
 						"batch_id": {
 							"value": {
-								"value": "@pipeline().parameters.batch_id",
+								"value": "@pipeline().parameters.batch_id_StoreXUExtractionLog",
 								"type": "Expression"
 							},
 							"type": "Guid"
 						},
 						"category": {
-							"value": "InternalError",
+							"value": "FailedLogsXUExtraction",
 							"type": "String"
 						},
 						"entity_id": {
@@ -355,7 +304,7 @@
 						},
 						"error_msg": {
 							"value": {
-								"value": "@activity('Get Query Without ColumnName Spaces').Error.Message",
+								"value": "@activity('Get Extraction Logs').Error.Message",
 								"type": "Expression"
 							},
 							"type": "String"
@@ -375,11 +324,11 @@
 				}
 			},
 			{
-				"name": "Update Batch Failed - Get Query",
+				"name": "Set Batch Failed - Get Logs",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "Log Exception - Get Query",
+						"activity": "Log Exception - Get Logs",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -398,14 +347,14 @@
 					"storedProcedureParameters": {
 						"batch_id": {
 							"value": {
-								"value": "@pipeline().parameters.batch_id",
+								"value": "@pipeline().parameters.batch_id_StoreXUExtractionLog",
 								"type": "Expression"
 							},
 							"type": "Guid"
 						},
 						"end_date_time": {
 							"value": {
-								"value": "@formatDateTime(utcnow(), 'yyyy-MM-dd HH:mm:ss')",
+								"value": "@formatDateTime(utcNow(), 'yyyy-MM-dd HH:mm:ss')",
 								"type": "Expression"
 							},
 							"type": "DateTime"
@@ -424,13 +373,13 @@
 							},
 							"type": "Guid"
 						},
-						"status": {
-							"value": "Failed",
-							"type": "String"
-						},
 						"size_bytes": {
 							"value": null,
 							"type": "Int64"
+						},
+						"status": {
+							"value": "Failed",
+							"type": "String"
 						}
 					}
 				},
@@ -440,13 +389,13 @@
 				}
 			},
 			{
-				"name": "Log Exception - Copy",
+				"name": "Set Batch Succesful",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "Copy SnowFlake to ADLS",
+						"activity": "Copy Extraction Logs To ADLS",
 						"dependencyConditions": [
-							"Failed"
+							"Succeeded"
 						]
 					}
 				],
@@ -459,18 +408,21 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"storedProcedureName": "[dbo].[log_exception]",
+					"storedProcedureName": "[dbo].[update_batch_status]",
 					"storedProcedureParameters": {
 						"batch_id": {
 							"value": {
-								"value": "@pipeline().parameters.batch_id",
+								"value": "@pipeline().parameters.batch_id_StoreXUExtractionLog",
 								"type": "Expression"
 							},
 							"type": "Guid"
 						},
-						"category": {
-							"value": "InternalError",
-							"type": "String"
+						"end_date_time": {
+							"value": {
+								"value": "@formatDateTime(utcNow(), 'yyyy-MM-dd HH:mm:ss')",
+								"type": "Expression"
+							},
+							"type": "DateTime"
 						},
 						"entity_id": {
 							"value": {
@@ -479,19 +431,20 @@
 							},
 							"type": "Int64"
 						},
-						"error_msg": {
-							"value": {
-								"value": "@activity('Copy SnowFlake to ADLS').Error.Message",
-								"type": "Expression"
-							},
-							"type": "String"
-						},
 						"run_id": {
 							"value": {
 								"value": "@pipeline().parameters.run_id",
 								"type": "Expression"
 							},
 							"type": "Guid"
+						},
+						"size_bytes": {
+							"value": null,
+							"type": "Int64"
+						},
+						"status": {
+							"value": "Succeeded",
+							"type": "String"
 						}
 					}
 				},
@@ -501,31 +454,99 @@
 				}
 			},
 			{
-				"name": "Fail Getting Query without ColumnName Spaces",
-				"type": "Fail",
-				"dependsOn": [
-					{
-						"activity": "Update Batch Failed - Get Query",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
+				"name": "Set Store XU Extraction Logs Batch",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
 				"userProperties": [],
 				"typeProperties": {
-					"message": {
-						"value": "@concat(\n    'Failed getting query without ColumnName Spaces',\n    activity('Get Query Without ColumnName Spaces').Error.Message\n)",
-						"type": "Expression"
-					},
-					"errorCode": "500"
+					"storedProcedureName": "[dbo].[set_batch]",
+					"storedProcedureParameters": {
+						"activity": {
+							"value": "StoreXUExtractionLog",
+							"type": "String"
+						},
+						"batch_id": {
+							"value": {
+								"value": "@pipeline().parameters.batch_id_StoreXUExtractionLog",
+								"type": "Expression"
+							},
+							"type": "Guid"
+						},
+						"directory_path": {
+							"value": {
+								"value": "@pipeline().parameters.adls_directory_path_In",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"entity_id": {
+							"value": {
+								"value": "@pipeline().parameters.entity_id",
+								"type": "Expression"
+							},
+							"type": "Int64"
+						},
+						"file_name": {
+							"value": {
+								"value": "@pipeline().parameters.adls_file_name",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"file_path": {
+							"value": null,
+							"type": "String"
+						},
+						"run_id": {
+							"value": {
+								"value": "@pipeline().parameters.run_id",
+								"type": "Expression"
+							},
+							"type": "Guid"
+						},
+						"size_bytes": {
+							"value": null,
+							"type": "Int64"
+						},
+						"source_layer": {
+							"value": null,
+							"type": "String"
+						},
+						"start_date_time": {
+							"value": {
+								"value": "@formatDateTime(utcNow(), 'yyyy-MM-dd HH:mm:ss')",
+								"type": "Expression"
+							},
+							"type": "DateTime"
+						},
+						"status": {
+							"value": "InProgress",
+							"type": "String"
+						},
+						"target_layer": {
+							"value": null,
+							"type": "String"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
+					"type": "LinkedServiceReference"
 				}
 			},
 			{
-				"name": "Fail2",
+				"name": "Fail Getting XU Extraction Logs",
 				"type": "Fail",
 				"dependsOn": [
 					{
-						"activity": "Update Batch Failed - Copy",
+						"activity": "Set Batch Failed - Get Logs",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -534,7 +555,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"message": {
-						"value": "@concat(\n    'Failed to copy Snowflake data',\n    activity('Copy SnowFlake to ADLS').Error.Message\n)",
+						"value": "@concat(\n    'Failed to retrieve XU Extraction Logs: ',\n    activity('Get Extraction Logs').Error.Message\n)",
 						"type": "Expression"
 					},
 					"errorCode": "500"
@@ -542,42 +563,34 @@
 			}
 		],
 		"parameters": {
-			"source_database_name": {
-				"type": "string"
-			},
-			"source_schema_name": {
-				"type": "string"
-			},
-			"source_table_name": {
-				"type": "string"
-			},
-			"source_date_field_name": {
-				"type": "string"
-			},
-			"adls_container_name": {
-				"type": "string"
-			},
-			"target_adls_directory_path": {
-				"type": "string"
-			},
-			"file_name": {
-				"type": "string"
-			},
-			"run_id": {
+			"entity_name": {
 				"type": "string"
 			},
 			"entity_id": {
 				"type": "string"
 			},
-			"batch_id": {
+			"run_id": {
+				"type": "string"
+			},
+			"adls_directory_path_In": {
+				"type": "string"
+			},
+			"adls_file_name": {
+				"type": "string"
+			},
+			"batch_id_StoreXUExtractionLog": {
+				"type": "string"
+			},
+			"date": {
+				"type": "string"
+			},
+			"extraction_timestamp": {
 				"type": "string"
 			}
 		},
 		"folder": {
-			"name": "00 ELT/01 ADLS Ingestion/USA Snowflake"
+			"name": "00 ELT/01 ADLS Ingestion/S4H"
 		},
-		"annotations": [],
-		"lastPublishTime": "2021-10-25T15:25:00Z"
-	},
-	"type": "Microsoft.DataFactory/factories/pipelines"
+		"annotations": []
+	}
 }

@@ -125,14 +125,14 @@
     <Folder Include="dbo\Functions\" />
     <Folder Include="dbo\Stored Procedures\" />
     <Folder Include="dbo\Views\" />
-    <Folder Include="External resources" />
-    <Folder Include="External resources\External data sources" />
+    <Folder Include="External resources\" />
+    <Folder Include="External resources\External data sources\" />
     <Folder Include="Security" />
-    <Folder Include="Security\Schemas" />
-    <Folder Include="Security\Database Scoped Credentials" />
+    <Folder Include="Security\Schemas\" />
+    <Folder Include="Security\Database Scoped Credentials\" />
     <Folder Include="Scripts" />
     <Folder Include="log\" />
-    <Folder Include="log\Tables" />
+    <Folder Include="log\Tables\" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Security\MasterKey.sql" />
@@ -258,7 +258,7 @@
       <AnsiNulls>On</AnsiNulls>
       <QuotedIdentifier>On</QuotedIdentifier>
     </Build>
-    <Build Include="dbo\Tables\execution_status.sql">
+    <Build Include="dbo\Tables\batch_execution_status.sql">
       <AnsiNulls>On</AnsiNulls>
       <QuotedIdentifier>On</QuotedIdentifier>
     </Build>
@@ -292,7 +292,7 @@
     </Build>
     <Build Include="dbo\Functions\get_USASnowflake_entities_InBaseLayer.sql" />
     <Build Include="log\Tables\batch_activity.sql" />
-    <Build Include="log\Tables\execution_status.sql" />
+    <Build Include="log\Tables\batch_execution_status.sql" />
     <Build Include="log\Tables\entity.sql" />
     <Build Include="log\Tables\error_category.sql" />
     <Build Include="log\Tables\layer.sql" />
@@ -310,6 +310,12 @@
     <Build Include="dbo\Functions\get_s4h_entities_testDuplicates.sql" />
     <Build Include="dbo\Functions\get_USASnowflake_entities_testDuplicates.sql" />
     <Build Include="dbo\Functions\get_entity_attributes.sql" />
+    <Build Include="dbo\Tables\layer_activity.sql" />
+    <Build Include="dbo\Functions\get_scheduled_entity_batch_activities.sql" />
+    <Build Include="dbo\Functions\get_scheduled_full_entity_batch_activities.sql" />
+    <Build Include="dbo\Functions\get_scheduled_edw_entity_batch_activities.sql" />
+    <Build Include="dbo\Functions\get_scheduled_delta_entity_batch_activities.sql" />
+    <Build Include="dbo\Views\vw_adls_base_directory_path.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\Script.PostDeployment.sql" />
@@ -319,20 +325,20 @@
     <PackageReference Condition="'$(NetCoreBuild)' == 'true'" Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.0" PrivateAssets="All" />
   </ItemGroup>
   <ItemGroup>
-    <SqlCmdVariable Include="sasToken_OrchDB">
+    <SqlCmdVariable Include="containerURL">
       <DefaultValue>
       </DefaultValue>
-      <Value>$(SqlCmdVar__1)</Value>
+      <Value>$(SqlCmdVar__3)</Value>
     </SqlCmdVariable>
     <SqlCmdVariable Include="masterKeyPwd">
       <DefaultValue>
       </DefaultValue>
       <Value>$(SqlCmdVar__2)</Value>
     </SqlCmdVariable>
-    <SqlCmdVariable Include="containerURL">
+    <SqlCmdVariable Include="sasToken_OrchDB">
       <DefaultValue>
       </DefaultValue>
-      <Value>$(SqlCmdVar__3)</Value>
+      <Value>$(SqlCmdVar__1)</Value>
     </SqlCmdVariable>
   </ItemGroup>
   <Target Name="BeforeBuild">

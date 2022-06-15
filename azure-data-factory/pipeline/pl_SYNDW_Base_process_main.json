@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "act_exec_sproc_start_log",
+				"name": "Log Pipeline",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [],
 				"policy": {
@@ -70,11 +70,11 @@
 				}
 			},
 			{
-				"name": "act_lookup_get_extractions_delta_S4HToBlobIn",
+				"name": "Get Synapse Base Procedures",
 				"type": "Lookup",
 				"dependsOn": [
 					{
-						"activity": "act_exec_sproc_start_log",
+						"activity": "Log Pipeline",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -92,25 +92,25 @@
 					"source": {
 						"type": "AzureSqlSource",
 						"sqlReaderQuery": {
-							"value": "SELECT * FROM [dbo].[get_entities_ProcessBaseLayer]\n (\n @{pipeline().parameters.adhoc},\n @{pipeline().parameters.manual_run},\n '@{pipeline().parameters.date}'\n )",
+							"value": "SELECT\n    entity_id,\n    entity_name,\n    base_schema_name,\n    base_table_name,\n    base_sproc_name\nFROM [dbo].[get_scheduled_entity_batch_activities] \n (\n @{pipeline().parameters.adhoc},\n '@{pipeline().parameters.date}',\n @{pipeline().parameters.rerunSuccessfulScheduledFullEntities}\n )\nWHERE base_sproc_name IS NOT NULL\nGROUP BY\n    entity_id,\n    entity_name,\n    base_schema_name,\n    base_table_name,\n    base_sproc_name",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
 					"dataset": {
-						"referenceName": "ds_orc_control_table",
+						"referenceName": "ds_orch_db",
 						"type": "DatasetReference"
 					},
 					"firstRowOnly": false
 				}
 			},
 			{
-				"name": "act_foreach_Load_Delta_InBaseLayer",
+				"name": "ForEach Procedure",
 				"type": "ForEach",
 				"dependsOn": [
 					{
-						"activity": "act_lookup_get_extractions_delta_S4HToBlobIn",
+						"activity": "Get Synapse Base Procedures",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -119,14 +119,14 @@
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@activity('act_lookup_get_extractions_delta_S4HToBlobIn').output.value",
+						"value": "@activity('Get Synapse Base Procedures').output.value",
 						"type": "Expression"
 					},
 					"isSequential": false,
 					"batchCount": 10,
 					"activities": [
 						{
-							"name": "pl_syndw_load_delta_s4h",
+							"name": "Process Synapse Base Procedure",
 							"type": "ExecutePipeline",
 							"dependsOn": [],
 							"userProperties": [],
@@ -164,11 +164,11 @@
 				}
 			},
 			{
-				"name": "act_exec_sproc_log_exception_InBaseLayer",
+				"name": "Log Exception - Get Procedures",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "act_lookup_get_extractions_delta_S4HToBlobIn",
+						"activity": "Get Synapse Base Procedures",
 						"dependencyConditions": [
 							"Failed"
 						]
@@ -199,7 +199,7 @@
 						},
 						"error_msg": {
 							"value": {
-								"value": "@activity('act_lookup_get_extractions_delta_S4HToBlobIn').Error.Message",
+								"value": "@activity('Get Synapse Base Procedures').Error.Message",
 								"type": "Expression"
 							},
 							"type": "String"
@@ -219,11 +219,11 @@
 				}
 			},
 			{
-				"name": "act_exec_log_failure_InternalError_InBaseLayer",
+				"name": "Set Status Failed - Get Procedures",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "act_exec_sproc_log_exception_InBaseLayer",
+						"activity": "Log Exception - Get Procedures",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -276,11 +276,11 @@
 				}
 			},
 			{
-				"name": "act_exec_sproc_log_success",
+				"name": "Set Status Succeeded",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "act_foreach_Load_Delta_InBaseLayer",
+						"activity": "ForEach Procedure",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -333,11 +333,11 @@
 				}
 			},
 			{
-				"name": "act_exec_log_failure",
+				"name": "Set Status Failed - ForEach",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "act_foreach_Load_Delta_InBaseLayer",
+						"activity": "ForEach Procedure",
 						"dependencyConditions": [
 							"Failed"
 						]
@@ -388,6 +388,46 @@
 					"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
 					"type": "LinkedServiceReference"
 				}
+			},
+			{
+				"name": "Fail Getting Base Procedures",
+				"type": "Fail",
+				"dependsOn": [
+					{
+						"activity": "Set Status Failed - Get Procedures",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"message": {
+						"value": "@concat(\n    'Failed to get Synapse Base Procedures: ',\n    activity('Get Synapse Base Procedures').Error.Message\n)",
+						"type": "Expression"
+					},
+					"errorCode": "500"
+				}
+			},
+			{
+				"name": "Fail ForEach",
+				"type": "Fail",
+				"dependsOn": [
+					{
+						"activity": "Set Status Failed - ForEach",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"message": {
+						"value": "@concat(\n    'One or more Synapse base procedures failed: ',\n    activity('Process Synapse Base Procedure').Error.Message\n)",
+						"type": "Expression"
+					},
+					"errorCode": "500"
+				}
 			}
 		],
 		"parameters": {
@@ -396,18 +436,19 @@
 			},
 			"adhoc": {
 				"type": "int",
-				"defaultValue": 1
-			},
-			"manual_run": {
-				"type": "int",
-				"defaultValue": 1
+				"defaultValue": 0
 			},
 			"date": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "2022/04/13"
+			},
+			"rerunSuccessfulScheduledFullEntities": {
+				"type": "int",
+				"defaultValue": 0
 			}
 		},
 		"folder": {
-			"name": "05 Synapse Transformation/01 Base"
+			"name": "00 ELT/03 ADLS Transformation/S4H"
 		},
 		"annotations": []
 	}

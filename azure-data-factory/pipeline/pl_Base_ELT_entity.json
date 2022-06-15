@@ -462,542 +462,50 @@
 					},
 					"ifTrueActivities": [
 						{
-							"name": "Get Extraction Logs",
-							"type": "WebActivity",
-							"dependsOn": [
-								{
-									"activity": "Set Store XU Extraction Logs Batch",
-									"dependencyConditions": [
-										"Succeeded"
-									]
-								}
-							],
-							"policy": {
-								"timeout": "7.00:00:00",
-								"retry": 10,
-								"retryIntervalInSeconds": 60,
-								"secureOutput": false,
-								"secureInput": false
-							},
-							"userProperties": [],
-							"typeProperties": {
-								"url": {
-									"value": "@concat(\n\tpipeline().globalParameters.XU_hostName\n\t,'/log/?req_type=extraction&name='\n\t,pipeline().parameters.entity_name\n\t,'&source='\n\t,pipeline().globalParameters.XU_sourceName\n\t,'&destination='\n\t,pipeline().globalParameters.storageAccountName,'_',pipeline().globalParameters.S4H_systemID\n\t,'&timestamp='\n\t,variables('extraction_Timestamp')\n)",
-									"type": "Expression"
-								},
-								"connectVia": {
-									"referenceName": "ir-WEXLEVAPP001",
-									"type": "IntegrationRuntimeReference"
-								},
-								"method": "GET"
-							}
-						},
-						{
-							"name": "Copy Extraction Logs To ADLS",
-							"type": "Copy",
-							"dependsOn": [
-								{
-									"activity": "Get Extraction Logs",
-									"dependencyConditions": [
-										"Succeeded"
-									]
-								}
-							],
-							"policy": {
-								"timeout": "7.00:00:00",
-								"retry": 0,
-								"retryIntervalInSeconds": 30,
-								"secureOutput": false,
-								"secureInput": false
-							},
-							"userProperties": [],
-							"typeProperties": {
-								"source": {
-									"type": "DelimitedTextSource",
-									"additionalColumns": [
-										{
-											"name": "OutputText",
-											"value": {
-												"value": "@activity('Get Extraction Logs').output.response",
-												"type": "Expression"
-											}
-										}
-									],
-									"storeSettings": {
-										"type": "AzureBlobFSReadSettings",
-										"recursive": true,
-										"enablePartitionDiscovery": false
-									},
-									"formatSettings": {
-										"type": "DelimitedTextReadSettings"
-									}
-								},
-								"sink": {
-									"type": "DelimitedTextSink",
-									"storeSettings": {
-										"type": "AzureBlobFSWriteSettings"
-									},
-									"formatSettings": {
-										"type": "DelimitedTextWriteSettings",
-										"quoteAllText": true,
-										"fileExtension": ".csv"
-									}
-								},
-								"enableStaging": false,
-								"translator": {
-									"type": "TabularTranslator",
-									"mappings": [
-										{
-											"source": {
-												"name": "OutputText",
-												"type": "String"
-											},
-											"sink": {
-												"type": "String",
-												"physicalType": "String",
-												"ordinal": 1
-											}
-										}
-									],
-									"typeConversion": true,
-									"typeConversionSettings": {
-										"allowDataTruncation": true,
-										"treatBooleanAsNumber": false
-									}
-								}
-							},
-							"inputs": [
-								{
-									"referenceName": "ds_adls_csv_file_first_row_header_disabled",
-									"type": "DatasetReference",
-									"parameters": {
-										"container": "adf-jobs",
-										"directory": "Xtract Universal",
-										"file": "empty_csv_source.csv"
-									}
-								}
-							],
-							"outputs": [
-								{
-									"referenceName": "ds_adls_csv_file_first_row_header_disabled",
-									"type": "DatasetReference",
-									"parameters": {
-										"container": "adf-jobs",
-										"directory": {
-											"value": "@concat(\n    'Xtract Universal/',\n    pipeline().parameters.entity_name, \n    '/',\n    formatDateTime(pipeline().parameters.date, 'yyyy/MM/dd')\n)",
-											"type": "Expression"
-										},
-										"file": {
-											"value": "@concat(\n    pipeline().parameters.entity_name,\n    '_extraction_log_',\n    replace(replace(replace(variables('extraction_Timestamp'),'-','_'),':','_'),'.','_'),\n    '.csv'\n)",
-											"type": "Expression"
-										}
-									}
-								}
-							]
-						},
-						{
-							"name": "Log Exception - Copy",
-							"type": "SqlServerStoredProcedure",
-							"dependsOn": [
-								{
-									"activity": "Copy Extraction Logs To ADLS",
-									"dependencyConditions": [
-										"Failed"
-									]
-								}
-							],
-							"policy": {
-								"timeout": "7.00:00:00",
-								"retry": 0,
-								"retryIntervalInSeconds": 30,
-								"secureOutput": false,
-								"secureInput": false
-							},
-							"userProperties": [],
-							"typeProperties": {
-								"storedProcedureName": "[dbo].[log_exception]",
-								"storedProcedureParameters": {
-									"batch_id": {
-										"value": {
-											"value": "@variables('batch_id_StoreXUExtractionLog')",
-											"type": "Expression"
-										},
-										"type": "Guid"
-									},
-									"category": {
-										"value": "InternalError",
-										"type": "String"
-									},
-									"entity_id": {
-										"value": {
-											"value": "@pipeline().parameters.entity_id",
-											"type": "Expression"
-										},
-										"type": "Int64"
-									},
-									"error_msg": {
-										"value": {
-											"value": "@activity('Copy Extraction Logs To ADLS').Error.Message",
-											"type": "Expression"
-										},
-										"type": "String"
-									},
-									"run_id": {
-										"value": {
-											"value": "@pipeline().parameters.run_id",
-											"type": "Expression"
-										},
-										"type": "Guid"
-									}
-								}
-							},
-							"linkedServiceName": {
-								"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
-								"type": "LinkedServiceReference"
-							}
-						},
-						{
-							"name": "Set Batch Failed - Copy",
-							"type": "SqlServerStoredProcedure",
-							"dependsOn": [
-								{
-									"activity": "Log Exception - Copy",
-									"dependencyConditions": [
-										"Succeeded"
-									]
-								}
-							],
-							"policy": {
-								"timeout": "7.00:00:00",
-								"retry": 0,
-								"retryIntervalInSeconds": 30,
-								"secureOutput": false,
-								"secureInput": false
-							},
-							"userProperties": [],
-							"typeProperties": {
-								"storedProcedureName": "[dbo].[update_batch_status]",
-								"storedProcedureParameters": {
-									"batch_id": {
-										"value": {
-											"value": "@variables('batch_id_StoreXUExtractionLog')",
-											"type": "Expression"
-										},
-										"type": "Guid"
-									},
-									"end_date_time": {
-										"value": {
-											"value": "@formatDateTime(utcnow(), 'yyyy-MM-dd HH:mm:ss')",
-											"type": "Expression"
-										},
-										"type": "DateTime"
-									},
-									"entity_id": {
-										"value": {
-											"value": "@pipeline().parameters.entity_id",
-											"type": "Expression"
-										},
-										"type": "Int64"
-									},
-									"run_id": {
-										"value": {
-											"value": "@pipeline().parameters.run_id",
-											"type": "Expression"
-										},
-										"type": "Guid"
-									},
-									"size_bytes": {
-										"value": null,
-										"type": "Int64"
-									},
-									"status": {
-										"value": "Failed",
-										"type": "String"
-									}
-								}
-							},
-							"linkedServiceName": {
-								"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
-								"type": "LinkedServiceReference"
-							}
-						},
-						{
-							"name": "Log Exception - Get Logs",
-							"type": "SqlServerStoredProcedure",
-							"dependsOn": [
-								{
-									"activity": "Get Extraction Logs",
-									"dependencyConditions": [
-										"Failed"
-									]
-								}
-							],
-							"policy": {
-								"timeout": "7.00:00:00",
-								"retry": 0,
-								"retryIntervalInSeconds": 30,
-								"secureOutput": false,
-								"secureInput": false
-							},
-							"userProperties": [],
-							"typeProperties": {
-								"storedProcedureName": "[dbo].[log_exception]",
-								"storedProcedureParameters": {
-									"batch_id": {
-										"value": {
-											"value": "@variables('batch_id_StoreXUExtractionLog')",
-											"type": "Expression"
-										},
-										"type": "Guid"
-									},
-									"category": {
-										"value": "FailedLogsXUExtraction",
-										"type": "String"
-									},
-									"entity_id": {
-										"value": {
-											"value": "@pipeline().parameters.entity_id",
-											"type": "Expression"
-										},
-										"type": "Int64"
-									},
-									"error_msg": {
-										"value": {
-											"value": "@activity('Get Extraction Logs').Error.Message",
-											"type": "Expression"
-										},
-										"type": "String"
-									},
-									"run_id": {
-										"value": {
-											"value": "@pipeline().parameters.run_id",
-											"type": "Expression"
-										},
-										"type": "Guid"
-									}
-								}
-							},
-							"linkedServiceName": {
-								"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
-								"type": "LinkedServiceReference"
-							}
-						},
-						{
-							"name": "Set Batch Failed - Get Logs",
-							"type": "SqlServerStoredProcedure",
-							"dependsOn": [
-								{
-									"activity": "Log Exception - Get Logs",
-									"dependencyConditions": [
-										"Succeeded"
-									]
-								}
-							],
-							"policy": {
-								"timeout": "7.00:00:00",
-								"retry": 0,
-								"retryIntervalInSeconds": 30,
-								"secureOutput": false,
-								"secureInput": false
-							},
-							"userProperties": [],
-							"typeProperties": {
-								"storedProcedureName": "[dbo].[update_batch_status]",
-								"storedProcedureParameters": {
-									"batch_id": {
-										"value": {
-											"value": "@variables('batch_id_StoreXUExtractionLog')",
-											"type": "Expression"
-										},
-										"type": "Guid"
-									},
-									"end_date_time": {
-										"value": {
-											"value": "@formatDateTime(utcNow(), 'yyyy-MM-dd HH:mm:ss')",
-											"type": "Expression"
-										},
-										"type": "DateTime"
-									},
-									"entity_id": {
-										"value": {
-											"value": "@pipeline().parameters.entity_id",
-											"type": "Expression"
-										},
-										"type": "Int64"
-									},
-									"run_id": {
-										"value": {
-											"value": "@pipeline().parameters.run_id",
-											"type": "Expression"
-										},
-										"type": "Guid"
-									},
-									"size_bytes": {
-										"value": null,
-										"type": "Int64"
-									},
-									"status": {
-										"value": "Failed",
-										"type": "String"
-									}
-								}
-							},
-							"linkedServiceName": {
-								"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
-								"type": "LinkedServiceReference"
-							}
-						},
-						{
-							"name": "Set Batch Succesful",
-							"type": "SqlServerStoredProcedure",
-							"dependsOn": [
-								{
-									"activity": "Copy Extraction Logs To ADLS",
-									"dependencyConditions": [
-										"Succeeded"
-									]
-								}
-							],
-							"policy": {
-								"timeout": "7.00:00:00",
-								"retry": 0,
-								"retryIntervalInSeconds": 30,
-								"secureOutput": false,
-								"secureInput": false
-							},
-							"userProperties": [],
-							"typeProperties": {
-								"storedProcedureName": "[dbo].[update_batch_status]",
-								"storedProcedureParameters": {
-									"batch_id": {
-										"value": {
-											"value": "@variables('batch_id_StoreXUExtractionLog')",
-											"type": "Expression"
-										},
-										"type": "Guid"
-									},
-									"end_date_time": {
-										"value": {
-											"value": "@formatDateTime(utcNow(), 'yyyy-MM-dd HH:mm:ss')",
-											"type": "Expression"
-										},
-										"type": "DateTime"
-									},
-									"entity_id": {
-										"value": {
-											"value": "@pipeline().parameters.entity_id",
-											"type": "Expression"
-										},
-										"type": "Int64"
-									},
-									"run_id": {
-										"value": {
-											"value": "@pipeline().parameters.run_id",
-											"type": "Expression"
-										},
-										"type": "Guid"
-									},
-									"size_bytes": {
-										"value": null,
-										"type": "Int64"
-									},
-									"status": {
-										"value": "Succeeded",
-										"type": "String"
-									}
-								}
-							},
-							"linkedServiceName": {
-								"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
-								"type": "LinkedServiceReference"
-							}
-						},
-						{
-							"name": "Set Store XU Extraction Logs Batch",
-							"type": "SqlServerStoredProcedure",
+							"name": "Execute Pipeline Store XU Extraction Logs 2",
+							"type": "ExecutePipeline",
 							"dependsOn": [],
-							"policy": {
-								"timeout": "7.00:00:00",
-								"retry": 0,
-								"retryIntervalInSeconds": 30,
-								"secureOutput": false,
-								"secureInput": false
-							},
 							"userProperties": [],
 							"typeProperties": {
-								"storedProcedureName": "[dbo].[set_batch]",
-								"storedProcedureParameters": {
-									"activity": {
-										"value": "StoreXUExtractionLog",
-										"type": "String"
-									},
-									"batch_id": {
-										"value": {
-											"value": "@variables('batch_id_StoreXUExtractionLog')",
-											"type": "Expression"
-										},
-										"type": "Guid"
-									},
-									"directory_path": {
-										"value": {
-											"value": "@pipeline().parameters.adls_directory_path_In",
-											"type": "Expression"
-										},
-										"type": "String"
+								"pipeline": {
+									"referenceName": "pl_StoreXUExtractionLogs",
+									"type": "PipelineReference"
+								},
+								"waitOnCompletion": true,
+								"parameters": {
+									"entity_name": {
+										"value": "@pipeline().parameters.entity_name",
+										"type": "Expression"
 									},
 									"entity_id": {
-										"value": {
-											"value": "@pipeline().parameters.entity_id",
-											"type": "Expression"
-										},
-										"type": "Int64"
-									},
-									"file_name": {
-										"value": {
-											"value": "@variables('adlsFileName')",
-											"type": "Expression"
-										},
-										"type": "String"
-									},
-									"file_path": {
-										"value": null,
-										"type": "String"
+										"value": "@pipeline().parameters.entity_id",
+										"type": "Expression"
 									},
 									"run_id": {
-										"value": {
-											"value": "@pipeline().parameters.run_id",
-											"type": "Expression"
-										},
-										"type": "Guid"
+										"value": "@pipeline().parameters.run_id",
+										"type": "Expression"
 									},
-									"size_bytes": {
-										"value": null,
-										"type": "Int64"
+									"adls_directory_path_In": {
+										"value": "@pipeline().parameters.adls_directory_path_In",
+										"type": "Expression"
 									},
-									"source_layer": {
-										"value": null,
-										"type": "String"
+									"adls_file_name": {
+										"value": "@variables('adlsFileName')",
+										"type": "Expression"
 									},
-									"start_date_time": {
-										"value": {
-											"value": "@formatDateTime(utcNow(), 'yyyy-MM-dd HH:mm:ss')",
-											"type": "Expression"
-										},
-										"type": "DateTime"
+									"batch_id_StoreXUExtractionLog": {
+										"value": "@variables('batch_id_StoreXUExtractionLog')",
+										"type": "Expression"
 									},
-									"status": {
-										"value": "InProgress",
-										"type": "String"
+									"date": {
+										"value": "@pipeline().parameters.date",
+										"type": "Expression"
 									},
-									"target_layer": {
-										"value": null,
-										"type": "String"
+									"extraction_timestamp": {
+										"value": "@variables('extraction_Timestamp')",
+										"type": "Expression"
 									}
 								}
-							},
-							"linkedServiceName": {
-								"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
-								"type": "LinkedServiceReference"
 							}
 						}
 					]
@@ -1153,6 +661,95 @@
 							}
 						}
 					]
+				}
+			},
+			{
+				"name": "If Store Extraction Logs 2",
+				"description": "Retrieve the extraction logs in case the extraction failed.",
+				"type": "IfCondition",
+				"dependsOn": [
+					{
+						"activity": "If Get Extraction Status",
+						"dependencyConditions": [
+							"Failed"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@contains(\n    pipeline().parameters.required_activities,\n    'StoreXUExtractionLog'\n)",
+						"type": "Expression"
+					},
+					"ifTrueActivities": [
+						{
+							"name": "Execute Pipeline Store XU Extraction Logs",
+							"type": "ExecutePipeline",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"pipeline": {
+									"referenceName": "pl_StoreXUExtractionLogs",
+									"type": "PipelineReference"
+								},
+								"waitOnCompletion": true,
+								"parameters": {
+									"entity_name": {
+										"value": "@pipeline().parameters.entity_name",
+										"type": "Expression"
+									},
+									"entity_id": {
+										"value": "@pipeline().parameters.entity_id",
+										"type": "Expression"
+									},
+									"run_id": {
+										"value": "@pipeline().parameters.run_id",
+										"type": "Expression"
+									},
+									"adls_directory_path_In": {
+										"value": "@pipeline().parameters.adls_directory_path_In",
+										"type": "Expression"
+									},
+									"adls_file_name": {
+										"value": "@variables('adlsFileName')",
+										"type": "Expression"
+									},
+									"batch_id_StoreXUExtractionLog": {
+										"value": "@variables('batch_id_StoreXUExtractionLog')",
+										"type": "Expression"
+									},
+									"date": {
+										"value": "@pipeline().parameters.date",
+										"type": "Expression"
+									},
+									"extraction_timestamp": {
+										"value": "@variables('extraction_Timestamp')",
+										"type": "Expression"
+									}
+								}
+							}
+						}
+					]
+				}
+			},
+			{
+				"name": "Failed XU Extraction",
+				"type": "Fail",
+				"dependsOn": [
+					{
+						"activity": "If Store Extraction Logs 2",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"message": {
+						"value": "@concat(\n    'Extraction FinishedWithErrors:',\n    pipeline().parameters.entity_name\n)",
+						"type": "Expression"
+					},
+					"errorCode": "500"
 				}
 			}
 		],

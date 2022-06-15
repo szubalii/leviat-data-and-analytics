@@ -63,7 +63,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "ds_syndw",
+						"referenceName": "ds_syndw_table",
 						"type": "DatasetReference",
 						"parameters": {
 							"schema": {

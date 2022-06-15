@@ -411,6 +411,26 @@
 						}
 					]
 				}
+			},
+			{
+				"name": "Fail Copy",
+				"type": "Fail",
+				"dependsOn": [
+					{
+						"activity": "Update Batch Status Failed",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"message": {
+						"value": "@concat(\n    'Failed to copy ADLS In to ADLS Out: ',\n    activity('Copy from ADLS In to Out').Error.Message\n)",
+						"type": "Expression"
+					},
+					"errorCode": "500"
+				}
 			}
 		],
 		"parameters": {

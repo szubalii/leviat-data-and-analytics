@@ -1,0 +1,42 @@
+{
+	"resourceGroupName": {
+		"type": "string",
+		"value": "rg-xxxx-sls-p-euw-001"
+	},
+	"synapseServerName": {
+		"type": "string",
+		"value": "ws-xxxx-sls-p-euw-001"
+	},
+	"synapseDatabaseName": {
+		"type": "string",
+		"value": "syndw_xxxx_sls_p_euw_001"
+	},
+	"keyVaultUrl": {
+		"type": "string",
+		"value": "https://kv-xxxx-sls-p-euw-001.vault.azure.net/"
+	},
+	"XU_hostName": {
+		"type": "string",
+		"value": "http://10.105.68.4:8065"
+	},
+	"XU_sourceName": {
+		"type": "string",
+		"value": "CRH_Leviat_S4HANA_CAP"
+	},
+	"storageAccountName": {
+		"type": "string",
+		"value": "stxxxxslspeuw001"
+	},
+	"S4H_clientValue": {
+		"type": "string",
+		"value": "100"
+	},
+	"S4H_systemID": {
+		"type": "string",
+		"value": "s4h-cap"
+	},
+	"environment": {
+		"type": "string",
+		"value": "prod"
+	}
+}

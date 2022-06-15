@@ -32,7 +32,7 @@
 						"partitionOption": "None"
 					},
 					"dataset": {
-						"referenceName": "ds_orc_control_table",
+						"referenceName": "ds_orch_db",
 						"type": "DatasetReference"
 					},
 					"firstRowOnly": false
@@ -422,7 +422,7 @@
 			}
 		},
 		"folder": {
-			"name": "02 ADLS Data Validation"
+			"name": "00 ELT/02 ADLS Data Validation"
 		},
 		"annotations": [],
 		"lastPublishTime": "2021-10-25T15:25:02Z"

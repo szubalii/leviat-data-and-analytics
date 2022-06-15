@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "act_exec_pl_child_daily_etl_process",
+				"name": "Process ETL",
 				"type": "ExecutePipeline",
 				"dependsOn": [],
 				"userProperties": [],
@@ -18,10 +18,6 @@
 							"value": "@pipeline().parameters.adhoc",
 							"type": "Expression"
 						},
-						"manual_run": {
-							"value": "@pipeline().parameters.manual_run",
-							"type": "Expression"
-						},
 						"date": {
 							"value": "@pipeline().parameters.date",
 							"type": "Expression"
@@ -30,11 +26,11 @@
 				}
 			},
 			{
-				"name": "act_exec_pl_etl_status_email_sending_failure",
+				"name": "Send Process ETL Failure Mail",
 				"type": "ExecutePipeline",
 				"dependsOn": [
 					{
-						"activity": "act_exec_pl_child_daily_etl_process",
+						"activity": "Process ETL",
 						"dependencyConditions": [
 							"Failed"
 						]
@@ -49,27 +45,27 @@
 					"waitOnCompletion": true,
 					"parameters": {
 						"PipelineRunId": {
-							"value": "@activity('act_exec_pl_child_daily_etl_process').output.pipelineRunId",
+							"value": "@activity('Process ETL').output.pipelineRunId",
 							"type": "Expression"
 						},
 						"PipelineName": {
-							"value": "@activity('act_exec_pl_child_daily_etl_process').output.pipelineName",
+							"value": "@activity('Process ETL').output.pipelineName",
 							"type": "Expression"
 						},
 						"status": "failed",
 						"parent_run_id": {
-							"value": "@activity('act_exec_pl_child_daily_etl_process').output.pipelineRunId",
+							"value": "@activity('Process ETL').output.pipelineRunId",
 							"type": "Expression"
 						}
 					}
 				}
 			},
 			{
-				"name": "act_exec_pl_etl_status_email_sending_success",
+				"name": "Send Process ETL Success Mail",
 				"type": "ExecutePipeline",
 				"dependsOn": [
 					{
-						"activity": "act_exec_pl_child_daily_etl_process",
+						"activity": "Process ETL",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -84,27 +80,27 @@
 					"waitOnCompletion": true,
 					"parameters": {
 						"PipelineRunId": {
-							"value": "@activity('act_exec_pl_child_daily_etl_process').output.pipelineRunId",
+							"value": "@activity('Process ETL').output.pipelineRunId",
 							"type": "Expression"
 						},
 						"PipelineName": {
-							"value": "@activity('act_exec_pl_child_daily_etl_process').output.pipelineName",
+							"value": "@activity('Process ETL').output.pipelineName",
 							"type": "Expression"
 						},
 						"status": "succeeded",
 						"parent_run_id": {
-							"value": "@activity('act_exec_pl_child_daily_etl_process').output.pipelineRunId",
+							"value": "@activity('Process ETL').output.pipelineRunId",
 							"type": "Expression"
 						}
 					}
 				}
 			},
 			{
-				"name": "act_exec_pl_pbi_refresh",
+				"name": "Refresh PBI Datasets",
 				"type": "ExecutePipeline",
 				"dependsOn": [
 					{
-						"activity": "act_exec_pl_etl_status_email_sending_success",
+						"activity": "Send Process ETL Success Mail",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -119,7 +115,7 @@
 					"waitOnCompletion": true,
 					"parameters": {
 						"parent_run_id": {
-							"value": "@activity('act_exec_pl_child_daily_etl_process').output.pipelineRunId",
+							"value": "@activity('Process ETL').output.pipelineRunId",
 							"type": "Expression"
 						},
 						"adhoc": {
@@ -134,11 +130,11 @@
 				}
 			},
 			{
-				"name": "act_exec_pl_pbi_refresh_status_email_sending_success",
+				"name": "Send PBI Refresh Success Mail",
 				"type": "ExecutePipeline",
 				"dependsOn": [
 					{
-						"activity": "act_exec_pl_pbi_refresh",
+						"activity": "Refresh PBI Datasets",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -154,26 +150,26 @@
 					"parameters": {
 						"status": "succeeded",
 						"PipelineRunId": {
-							"value": "@activity('act_exec_pl_pbi_refresh').output.pipelineRunId",
+							"value": "@activity('Refresh PBI Datasets').output.pipelineRunId",
 							"type": "Expression"
 						},
 						"PipelineName": {
-							"value": "@activity('act_exec_pl_pbi_refresh').output.pipelineName",
+							"value": "@activity('Refresh PBI Datasets').output.pipelineName",
 							"type": "Expression"
 						},
 						"parent_run_id": {
-							"value": "@activity('act_exec_pl_pbi_refresh').output.pipelineRunId",
+							"value": "@activity('Refresh PBI Datasets').output.pipelineRunId",
 							"type": "Expression"
 						}
 					}
 				}
 			},
 			{
-				"name": "act_exec_pl_pbi_refresh_status_email_sending_failure",
+				"name": "Send PBI Refresh Failure Mail",
 				"type": "ExecutePipeline",
 				"dependsOn": [
 					{
-						"activity": "act_exec_pl_pbi_refresh",
+						"activity": "Refresh PBI Datasets",
 						"dependencyConditions": [
 							"Failed"
 						]
@@ -189,15 +185,15 @@
 					"parameters": {
 						"status": "failed",
 						"PipelineRunId": {
-							"value": "@activity('act_exec_pl_pbi_refresh').output.pipelineRunId",
+							"value": "@activity('Refresh PBI Datasets').output.pipelineRunId",
 							"type": "Expression"
 						},
 						"PipelineName": {
-							"value": "@activity('act_exec_pl_pbi_refresh').output.pipelineName",
+							"value": "@activity('Refresh PBI Datasets').output.pipelineName",
 							"type": "Expression"
 						},
 						"parent_run_id": {
-							"value": "@activity('act_exec_pl_pbi_refresh').output.pipelineRunId",
+							"value": "@activity('Refresh PBI Datasets').output.pipelineRunId",
 							"type": "Expression"
 						}
 					}
@@ -206,10 +202,6 @@
 		],
 		"parameters": {
 			"adhoc": {
-				"type": "int",
-				"defaultValue": 0
-			},
-			"manual_run": {
 				"type": "int",
 				"defaultValue": 0
 			},

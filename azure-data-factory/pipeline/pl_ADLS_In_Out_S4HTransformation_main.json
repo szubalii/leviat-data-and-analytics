@@ -32,7 +32,7 @@
 						"partitionOption": "None"
 					},
 					"dataset": {
-						"referenceName": "ds_orc_control_table",
+						"referenceName": "ds_orch_db",
 						"type": "DatasetReference"
 					},
 					"firstRowOnly": false
@@ -434,7 +434,7 @@
 			}
 		},
 		"folder": {
-			"name": "03 ADLS Transformation/S4H"
+			"name": "00 ELT/03 ADLS Transformation/S4H"
 		},
 		"annotations": [],
 		"lastPublishTime": "2021-10-25T15:25:02Z"

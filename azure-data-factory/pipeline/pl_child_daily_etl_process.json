@@ -4,42 +4,11 @@
 		"description": "Starts or Stops Azure VM",
 		"activities": [
 			{
-				"name": "act_exec_pl_adls_main_generic_XU_extraction",
-				"type": "ExecutePipeline",
-				"dependsOn": [],
-				"userProperties": [],
-				"typeProperties": {
-					"pipeline": {
-						"referenceName": "pl_XU_ADLS_extraction_main",
-						"type": "PipelineReference"
-					},
-					"waitOnCompletion": true,
-					"parameters": {
-						"date": {
-							"value": "@pipeline().parameters.date",
-							"type": "Expression"
-						},
-						"adhoc": {
-							"value": "@pipeline().parameters.adhoc",
-							"type": "Expression"
-						},
-						"parent_run_id": {
-							"value": "@pipeline().RunId",
-							"type": "Expression"
-						},
-						"manual_run": {
-							"value": "@pipeline().parameters.manual_run",
-							"type": "Expression"
-						}
-					}
-				}
-			},
-			{
-				"name": "act_exec_pl_syndw_main_generic_load_edw",
+				"name": "Process Synapse EDW",
 				"type": "ExecutePipeline",
 				"dependsOn": [
 					{
-						"activity": "act_exec_process_base_layer",
+						"activity": "Process Synapse Base",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -61,94 +30,19 @@
 							"value": "@pipeline().RunId",
 							"type": "Expression"
 						},
-						"manual_run": {
-							"value": "@pipeline().parameters.manual_run",
-							"type": "Expression"
-						},
 						"date": {
 							"value": "@pipeline().parameters.date",
+							"type": "Expression"
+						},
+						"entity_filter": {
+							"value": "layer_nk = 'EDW'",
 							"type": "Expression"
 						}
 					}
 				}
 			},
 			{
-				"name": "act_exec_ingest_s4h_BlobInToBlobOut",
-				"type": "ExecutePipeline",
-				"dependsOn": [
-					{
-						"activity": "act_exec_pl_syndw_check_synapse_analytics_status",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					},
-					{
-						"activity": "act_exec_ingest_s4h_testData",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"userProperties": [],
-				"typeProperties": {
-					"pipeline": {
-						"referenceName": "pl_ADLS_In_Out_S4HTransformation_main",
-						"type": "PipelineReference"
-					},
-					"waitOnCompletion": true,
-					"parameters": {
-						"date": {
-							"value": "@pipeline().parameters.date",
-							"type": "Expression"
-						},
-						"adhoc": {
-							"value": "@pipeline().parameters.adhoc",
-							"type": "Expression"
-						},
-						"parent_run_id": {
-							"value": "@pipeline().RunId",
-							"type": "Expression"
-						},
-						"manual_run": {
-							"value": "@pipeline().parameters.manual_run",
-							"type": "Expression"
-						}
-					}
-				}
-			},
-			{
-				"name": "act_exec_ingest_axbi_AXBIToBlobIn",
-				"type": "ExecutePipeline",
-				"dependsOn": [],
-				"userProperties": [],
-				"typeProperties": {
-					"pipeline": {
-						"referenceName": "pl_AXBI_ADLS_ingestion_main",
-						"type": "PipelineReference"
-					},
-					"waitOnCompletion": true,
-					"parameters": {
-						"adhoc": {
-							"value": "@pipeline().parameters.adhoc",
-							"type": "Expression"
-						},
-						"parent_run_id": {
-							"value": "@pipeline().RunId",
-							"type": "Expression"
-						},
-						"manual_run": {
-							"value": "@pipeline().parameters.manual_run",
-							"type": "Expression"
-						},
-						"date": {
-							"value": "@pipeline().parameters.date",
-							"type": "Expression"
-						}
-					}
-				}
-			},
-			{
-				"name": "act_exec_pl_syndw_check_synapse_analytics_status",
+				"name": "Resume Synapse DWH",
 				"type": "ExecutePipeline",
 				"dependsOn": [],
 				"userProperties": [],
@@ -161,11 +55,11 @@
 				}
 			},
 			{
-				"name": "act_exec_ingest_s4h_InBaseLayer",
+				"name": "Process ADLS and Synapse Ingestion",
 				"type": "ExecutePipeline",
 				"dependsOn": [
 					{
-						"activity": "act_exec_ingest_s4h_BlobInToBlobOut",
+						"activity": "Resume Synapse DWH",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -174,7 +68,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"pipeline": {
-						"referenceName": "pl_ADLS_SYNDW_ingestion_main",
+						"referenceName": "pl_Base_ELT_main",
 						"type": "PipelineReference"
 					},
 					"waitOnCompletion": true,
@@ -183,11 +77,7 @@
 							"value": "@pipeline().parameters.adhoc",
 							"type": "Expression"
 						},
-						"manual_run": {
-							"value": "@pipeline().parameters.manual_run",
-							"type": "Expression"
-						},
-						"function_name": "get_s4h_entities_InBaseLayer",
+						"entity_filter": "1 = 1",
 						"parent_run_id": {
 							"value": "@pipeline().RunId",
 							"type": "Expression"
@@ -195,73 +85,20 @@
 						"date": {
 							"value": "@pipeline().parameters.date",
 							"type": "Expression"
-						}
-					}
-				}
-			},
-			{
-				"name": "act_exec_ingest_axbi_InBaseLayer",
-				"type": "ExecutePipeline",
-				"dependsOn": [
-					{
-						"activity": "act_exec_ingest_axbi_testData",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					},
-					{
-						"activity": "act_exec_pl_syndw_check_synapse_analytics_status",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"userProperties": [],
-				"typeProperties": {
-					"pipeline": {
-						"referenceName": "pl_ADLS_SYNDW_ingestion_main",
-						"type": "PipelineReference"
-					},
-					"waitOnCompletion": true,
-					"parameters": {
-						"adhoc": {
-							"value": "@pipeline().parameters.adhoc",
-							"type": "Expression"
 						},
-						"manual_run": {
-							"value": "@pipeline().parameters.manual_run",
-							"type": "Expression"
-						},
-						"function_name": "get_axbi_entities_InBaseLayer",
-						"parent_run_id": {
-							"value": "@pipeline().RunId",
-							"type": "Expression"
-						},
-						"date": {
-							"value": "@pipeline().parameters.date",
+						"rerunSuccessfulScheduledFullEntities": {
+							"value": "@pipeline().parameters.rerunSuccessfulScheduledFullEntities",
 							"type": "Expression"
 						}
 					}
 				}
 			},
 			{
-				"name": "act_exec_process_base_layer",
+				"name": "Process Synapse Base",
 				"type": "ExecutePipeline",
 				"dependsOn": [
 					{
-						"activity": "act_exec_ingest_s4h_InBaseLayer",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					},
-					{
-						"activity": "act_exec_ingest_axbi_InBaseLayer",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					},
-					{
-						"activity": "act_exec_pl_adls_syndw_USASnowflake_ingestion_main",
+						"activity": "Process ADLS and Synapse Ingestion",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -283,258 +120,12 @@
 							"value": "@pipeline().parameters.adhoc",
 							"type": "Expression"
 						},
-						"manual_run": {
-							"value": "@pipeline().parameters.manual_run",
-							"type": "Expression"
-						},
-						"date": {
-							"value": "@pipeline().parameters.date",
-							"type": "Expression"
-						}
-					}
-				}
-			},
-			{
-				"name": "act_exec_pl_adls_in_out_USASnowflake_transform_main",
-				"type": "ExecutePipeline",
-				"dependsOn": [
-					{
-						"activity": "act_exec_pl_syndw_check_synapse_analytics_status",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					},
-					{
-						"activity": "act_exec_pl_USASnowflake_adls_testData_main",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"userProperties": [],
-				"typeProperties": {
-					"pipeline": {
-						"referenceName": "pl_ADLS_In_Out_USASnowflake_transformation_main",
-						"type": "PipelineReference"
-					},
-					"waitOnCompletion": true,
-					"parameters": {
 						"date": {
 							"value": "@pipeline().parameters.date",
 							"type": "Expression"
 						},
-						"adhoc": {
-							"value": "@pipeline().parameters.adhoc",
-							"type": "Expression"
-						},
-						"manual_run": {
-							"value": "@pipeline().parameters.manual_run",
-							"type": "Expression"
-						},
-						"parent_run_id": {
-							"value": "@pipeline().RunId",
-							"type": "Expression"
-						}
-					}
-				}
-			},
-			{
-				"name": "act_exec_pl_adls_syndw_USASnowflake_ingestion_main",
-				"type": "ExecutePipeline",
-				"dependsOn": [
-					{
-						"activity": "act_exec_pl_adls_in_out_USASnowflake_transform_main",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"userProperties": [],
-				"typeProperties": {
-					"pipeline": {
-						"referenceName": "pl_ADLS_SYNDW_ingestion_main",
-						"type": "PipelineReference"
-					},
-					"waitOnCompletion": true,
-					"parameters": {
-						"adhoc": {
-							"value": "@pipeline().parameters.adhoc",
-							"type": "Expression"
-						},
-						"manual_run": {
-							"value": "@pipeline().parameters.manual_run",
-							"type": "Expression"
-						},
-						"function_name": {
-							"value": "get_USASnowflake_entities_InBaseLayer",
-							"type": "Expression"
-						},
-						"parent_run_id": {
-							"value": "@pipeline().RunId",
-							"type": "Expression"
-						},
-						"date": {
-							"value": "@pipeline().parameters.date",
-							"type": "Expression"
-						}
-					}
-				}
-			},
-			{
-				"name": "act_exec_pl_USASowflake_adls_ingestion_main",
-				"type": "ExecutePipeline",
-				"dependsOn": [],
-				"userProperties": [],
-				"typeProperties": {
-					"pipeline": {
-						"referenceName": "pl_USASnowflake_ADLS_ingestion_main",
-						"type": "PipelineReference"
-					},
-					"waitOnCompletion": true,
-					"parameters": {
-						"adhoc": {
-							"value": "@pipeline().parameters.adhoc",
-							"type": "Expression"
-						},
-						"manual_run": {
-							"value": "@pipeline().parameters.manual_run",
-							"type": "Expression"
-						},
-						"parent_run_id": {
-							"value": "@pipeline().RunId",
-							"type": "Expression"
-						},
-						"date": {
-							"value": "@pipeline().parameters.date",
-							"type": "Expression"
-						}
-					}
-				}
-			},
-			{
-				"name": "act_exec_pl_USASnowflake_adls_testData_main",
-				"type": "ExecutePipeline",
-				"dependsOn": [
-					{
-						"activity": "act_exec_pl_USASowflake_adls_ingestion_main",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"userProperties": [],
-				"typeProperties": {
-					"pipeline": {
-						"referenceName": "pl_ADLS_In_dataValidation_main",
-						"type": "PipelineReference"
-					},
-					"waitOnCompletion": true,
-					"parameters": {
-						"date": {
-							"value": "@pipeline().parameters.date",
-							"type": "Expression"
-						},
-						"adhoc": {
-							"value": "@pipeline().parameters.adhoc",
-							"type": "Expression"
-						},
-						"source_layer": "In",
-						"function_name": {
-							"value": "get_USASnowflake_entities_testDuplicates",
-							"type": "Expression"
-						},
-						"parent_run_id": {
-							"value": "@pipeline().RunId",
-							"type": "Expression"
-						},
-						"manual_run": {
-							"value": "@pipeline().parameters.manual_run",
-							"type": "Expression"
-						}
-					}
-				}
-			},
-			{
-				"name": "act_exec_ingest_axbi_testData",
-				"type": "ExecutePipeline",
-				"dependsOn": [
-					{
-						"activity": "act_exec_ingest_axbi_AXBIToBlobIn",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"userProperties": [],
-				"typeProperties": {
-					"pipeline": {
-						"referenceName": "pl_ADLS_In_dataValidation_main",
-						"type": "PipelineReference"
-					},
-					"waitOnCompletion": true,
-					"parameters": {
-						"date": {
-							"value": "@pipeline().parameters.date",
-							"type": "Expression"
-						},
-						"adhoc": {
-							"value": "@pipeline().parameters.adhoc",
-							"type": "Expression"
-						},
-						"source_layer": "In",
-						"function_name": {
-							"value": "get_axbi_entities_testDuplicates",
-							"type": "Expression"
-						},
-						"parent_run_id": {
-							"value": "@pipeline().RunId",
-							"type": "Expression"
-						},
-						"manual_run": {
-							"value": "@pipeline().parameters.manual_run",
-							"type": "Expression"
-						}
-					}
-				}
-			},
-			{
-				"name": "act_exec_ingest_s4h_testData",
-				"type": "ExecutePipeline",
-				"dependsOn": [
-					{
-						"activity": "act_exec_pl_adls_main_generic_XU_extraction",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"userProperties": [],
-				"typeProperties": {
-					"pipeline": {
-						"referenceName": "pl_ADLS_In_dataValidation_main",
-						"type": "PipelineReference"
-					},
-					"waitOnCompletion": true,
-					"parameters": {
-						"date": {
-							"value": "@pipeline().parameters.date",
-							"type": "Expression"
-						},
-						"adhoc": {
-							"value": "@pipeline().parameters.adhoc",
-							"type": "Expression"
-						},
-						"source_layer": "In",
-						"function_name": {
-							"value": "get_s4h_entities_testDuplicates",
-							"type": "Expression"
-						},
-						"parent_run_id": {
-							"value": "@pipeline().RunId",
-							"type": "Expression"
-						},
-						"manual_run": {
-							"value": "@pipeline().parameters.manual_run",
+						"rerunSuccessfulScheduledFullEntities": {
+							"value": "@pipeline().parameters.rerunSuccessfulScheduledFullEntities",
 							"type": "Expression"
 						}
 					}
@@ -546,12 +137,13 @@
 				"type": "int",
 				"defaultValue": 0
 			},
-			"manual_run": {
+			"date": {
+				"type": "string",
+				"defaultValue": "2022/04/13"
+			},
+			"rerunSuccessfulScheduledFullEntities": {
 				"type": "int",
 				"defaultValue": 0
-			},
-			"date": {
-				"type": "string"
 			}
 		},
 		"folder": {
