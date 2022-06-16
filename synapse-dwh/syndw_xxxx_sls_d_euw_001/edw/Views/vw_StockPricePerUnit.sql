@@ -57,7 +57,7 @@ WITH ProductValuationPUP AS (
         ON 
             purArea.[ValuationArea] = [BWKEY]  
     LEFT JOIN 
-        [edw].[vw_CompanyCode] dim_comCode   
+        [edw].[dim_CompanyCode] dim_comCode   
         ON 
             dim_comCode.[CompanyCodeID] = purArea.[CompanyCode] COLLATE Latin1_General_100_BIN2  
 ), EuroBudgetExchangeRate AS (

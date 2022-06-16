@@ -1,6 +1,5 @@
 ﻿CREATE VIEW [dm_sales].[vw_fact_MaterialDocumentItem]
 	AS 
-WITH MaterialDocumentItem_CTE AS (
     SELECT 
       MDI.[MaterialDocumentYear]
     , MDI.[MaterialDocument]
@@ -103,10 +102,25 @@ WITH MaterialDocumentItem_CTE AS (
     , CASE WHEN ISNULL(MDI.[PurchaseOrder],'') <>'' AND dimPDT.[PurchasingDocumentTypeID] = 'STO' 
         THEN  MDI.[MatlStkChangeQtyInBaseUnit]
         ELSE NULL
-    END                                                 AS ConsumptionQtySTOInBaseUnit
-    , dimPDT.[PurchasingDocumentTypeID]                 AS [PurchaseOrderTypeID]
-    , dimPDT.[PurchasingDocumentTypeName]               AS [PurchaseOrderType]
-    , dimPVs.[nk_dim_ProductValuationPUP]               AS [nk_dim_ProductValuationPUP]
+    END                                                                        AS ConsumptionQtySTOInBaseUnit
+    , dimPDT.[PurchasingDocumentTypeID]                                        AS [PurchaseOrderTypeID]
+    , dimPDT.[PurchasingDocumentTypeName]                                      AS [PurchaseOrderType]
+    , dimPVs.[nk_dim_ProductValuationPUP]                                      AS [nk_dim_ProductValuationPUP]
+    , dimPVs.[StockPricePerUnit]
+    , dimPVs.[StockPricePerUnit_EUR]
+    , MDI.[ConsumptionQtyICPOInBaseUnit] * dimPVs.[StockPricePerUnit]           AS ConsumptionQtyICPOInStandardValue
+    , MDI.[ConsumptionQtyICPOInBaseUnit] * dimPVs.[StockPricePerUnit_EUR]       AS ConsumptionQtyICPOInStandardValue_EUR
+    , MDI.[ConsumptionQtyOBDProInBaseUnit] * dimPVs.[StockPricePerUnit]         AS ConsumptionQtyOBDProStandardValue
+    , MDI.[ConsumptionQtyOBDProInBaseUnit] * dimPVs.[StockPricePerUnit_EUR]     AS ConsumptionQtyOBDProStandardValue_EUR
+    , MDI.[ConsumptionQtySOInBaseUnit] * dimPVs.[StockPricePerUnit]             AS ConsumptionQtySOStandardValue
+    , MDI.[ConsumptionQtySOInBaseUnit] * dimPVs.[StockPricePerUnit_EUR]         AS ConsumptionQtySOStandardValue_EUR
+    , MDI.[MatlStkChangeQtyInBaseUnit] * dimPVs.[StockPricePerUnit]             AS MatlStkChangeStandardValue
+    , MDI.[MatlStkChangeQtyInBaseUnit] * dimPVs.[StockPricePerUnit_EUR]         AS MatlStkChangeStandardValue_EUR
+    , MDI.[QuantityInBaseUnit] * dimPVs.[StockPricePerUnit]                     AS QuantityInBaseUnitStandardValue
+    , MDI.[QuantityInBaseUnit] * dimPVs.[StockPricePerUnit_EUR]                 AS QuantityInBaseUnitStandardValue_EUR
+    -- fields PriceControlIndicatorID, PriceControlIndicator are being used in [vw_fact_MaterialStockLevel]
+    , dimPVs.[PriceControlIndicatorID]
+    , dimPVs.[PriceControlIndicator]
     , MDI.[t_applicationId]
     , MDI.[t_extractionDtm]
     FROM [edw].[fact_MaterialDocumentItem] MDI
@@ -156,132 +170,4 @@ WITH MaterialDocumentItem_CTE AS (
                 AND 
                 dimPVs.[CalendarYear] =  FORMAT(MDI.[HDR_PostingDate],'yyyy')
                 AND
-                dimPVs.[CalendarMonth] = FORMAT(MDI.[HDR_PostingDate],'MM') 
-          
-)
-select       
-      MDI_CTE.[MaterialDocumentYear]
-    , MDI_CTE.[MaterialDocument]
-    , MDI_CTE.[MaterialDocumentItem]
-    , MDI_CTE.[MaterialID]
-    , MDI_CTE.[PlantID]
-    , MDI_CTE.[StorageLocationID]
-    , MDI_CTE.[StorageTypeID]
-    , MDI_CTE.[StorageBin]
-    , MDI_CTE.[Batch]
-    , MDI_CTE.[ShelfLifeExpirationDate]
-    , MDI_CTE.[ManufactureDate]
-    , MDI_CTE.[SupplierID]
-    , MDI_CTE.[SalesOrder]
-    , MDI_CTE.[SalesOrderItem]
-    , MDI_CTE.[SalesOrderScheduleLine]
-    , MDI_CTE.[WBSElementInternalID]
-    , MDI_CTE.[CustomerID]
-    , MDI_CTE.[InventorySpecialStockTypeID]
-    , MDI_CTE.[InventorySpecialStockTypeName]
-    , MDI_CTE.[InventoryStockTypeID]
-    , MDI_CTE.[InventoryStockTypeName]
-    , MDI_CTE.[StockOwner]
-    , MDI_CTE.[GoodsMovementTypeID]
-    , MDI_CTE.[GoodsMovementTypeName]
-    , MDI_CTE.[DebitCreditCode]
-    , MDI_CTE.[InventoryUsabilityCode]
-    , MDI_CTE.[QuantityInBaseUnit]
-    , MDI_CTE.[MaterialBaseUnitID]
-    , MDI_CTE.[QuantityInEntryUnit]
-    , MDI_CTE.[EntryUnitID]
-    , MDI_CTE.[HDR_PostingDate]
-    , MDI_CTE.[DocumentDate]
-    , MDI_CTE.[TotalGoodsMvtAmtInCCCrcy]
-    , MDI_CTE.[CompanyCodeCurrency]
-    , MDI_CTE.[InventoryValuationTypeID]
-    , MDI_CTE.[ReservationIsFinallyIssued]
-    , MDI_CTE.[PurchaseOrder]
-    , MDI_CTE.[PurchaseOrderItem]
-    , MDI_CTE.[ProjectNetwork]
-    , MDI_CTE.[Order]
-    , MDI_CTE.[OrderItem]
-    , MDI_CTE.[Reservation]
-    , MDI_CTE.[ReservationItem]
-    , MDI_CTE.[DeliveryDocument]
-    , MDI_CTE.[DeliveryDocumentItem]
-    , MDI_CTE.[ReversedMaterialDocumentYear]
-    , MDI_CTE.[ReversedMaterialDocument]
-    , MDI_CTE.[ReversedMaterialDocumentItem]
-    , MDI_CTE.[RvslOfGoodsReceiptIsAllowed]
-    , MDI_CTE.[GoodsRecipientName]
-    , MDI_CTE.[UnloadingPointName]
-    , MDI_CTE.[CostCenterID]
-    , MDI_CTE.[GLAccountID]
-    , MDI_CTE.[ServicePerformer]
-    , MDI_CTE.[EmploymentInternalID]
-    , MDI_CTE.[AccountAssignmentCategory]
-    , MDI_CTE.[WorkItem]
-    , MDI_CTE.[ServicesRenderedDate]
-    , MDI_CTE.[IssgOrRcvgMaterial]
-    , MDI_CTE.[CompanyCodeID]
-    , MDI_CTE.[GoodsMovementRefDocTypeID]
-    , MDI_CTE.[IsAutomaticallyCreated]
-    , MDI_CTE.[IsCompletelyDelivered]
-    , MDI_CTE.[IssuingOrReceivingPlantID]
-    , MDI_CTE.[IssuingOrReceivingStorageLocID]
-    , MDI_CTE.[BusinessAreaID]
-    , MDI_CTE.[ControllingAreaID]
-    , MDI_CTE.[FiscalYearPeriod]
-    , MDI_CTE.[FiscalYearVariant]
-    , MDI_CTE.[IssgOrRcvgBatch]
-    , MDI_CTE.[IssgOrRcvgSpclStockInd]
-    , MDI_CTE.[MaterialDocumentItemText]
-    , MDI_CTE.[CurrencyTypeID]
-    , MDI_CTE.[HDR_AccountingDocumentTypeID]
-    , MDI_CTE.[HDR_InventoryTransactionTypeID]
-    , MDI_CTE.[HDR_CreatedByUser]
-    , MDI_CTE.[HDR_CreationDate]
-    , MDI_CTE.[HDR_CreationTime]
-    , MDI_CTE.[HDR_MaterialDocumentHeaderText]
-    , MDI_CTE.[HDR_ReferenceDocument]
-    , MDI_CTE.[HDR_BillOfLading]
-    , MDI_CTE.[SalesDocumentTypeID]
-    , MDI_CTE.[SalesDocumentType] 
-    , MDI_CTE.[SalesDocumentItemCategoryID] 
-    , MDI_CTE.[SalesDocumentItemCategory]
-    , MDI_CTE.[HDR_DeliveryDocumentTypeID]
-    , MDI_CTE.[MatlStkChangeQtyInBaseUnit]
-    , MDI_CTE.[ConsumptionQtyICPOInBaseUnit]     
-    , MDI_CTE.[ConsumptionQtyOBDProInBaseUnit]
-    , MDI_CTE.[ConsumptionQtySOInBaseUnit]
-    , MDI_CTE.[MatlCnsmpnQtyInMatlBaseUnit]
-    , MDI_CTE.[GoodsReceiptQtyInOrderUnit]
-    , MDI_CTE.[GoodsMovementIsCancelled]
-    , MDI_CTE.[GoodsMovementCancellationType]
-    , MDI_CTE.[ConsumptionPosting]
-    , MDI_CTE.[ManufacturingOrder]
-    , MDI_CTE.[ManufacturingOrderItem]
-    , MDI_CTE.[IsReversalMovementType]
-    , MDI_CTE.[ConsumptionQtySTOInBaseUnit]
-    , MDI_CTE.[PurchaseOrderTypeID]
-    , MDI_CTE.[PurchaseOrderType]
-    , dimPV.[StockPricePerUnit]
-    , dimPV.[StockPricePerUnit_EUR]
-    , MDI_CTE.[ConsumptionQtyICPOInBaseUnit] * dimPV.[StockPricePerUnit]           AS ConsumptionQtyICPOInStandardValue
-    , MDI_CTE.[ConsumptionQtyICPOInBaseUnit] * dimPV.[StockPricePerUnit_EUR]       AS ConsumptionQtyICPOInStandardValue_EUR
-    , MDI_CTE.[ConsumptionQtyOBDProInBaseUnit] * dimPV.[StockPricePerUnit]         AS ConsumptionQtyOBDProStandardValue
-    , MDI_CTE.[ConsumptionQtyOBDProInBaseUnit] * dimPV.[StockPricePerUnit_EUR]     AS ConsumptionQtyOBDProStandardValue_EUR
-    , MDI_CTE.[ConsumptionQtySOInBaseUnit] * dimPV.[StockPricePerUnit]             AS ConsumptionQtySOStandardValue
-    , MDI_CTE.[ConsumptionQtySOInBaseUnit] * dimPV.[StockPricePerUnit_EUR]         AS ConsumptionQtySOStandardValue_EUR
-    , MDI_CTE.[MatlStkChangeQtyInBaseUnit] * dimPV.[StockPricePerUnit]             AS MatlStkChangeStandardValue
-    , MDI_CTE.[MatlStkChangeQtyInBaseUnit] * dimPV.[StockPricePerUnit_EUR]         AS MatlStkChangeStandardValue_EUR
-    , MDI_CTE.[QuantityInBaseUnit] * dimPV.[StockPricePerUnit]                     AS QuantityInBaseUnitStandardValue
-    , MDI_CTE.[QuantityInBaseUnit] * dimPV.[StockPricePerUnit_EUR]                 AS QuantityInBaseUnitStandardValue_EUR
-    , dimPV.[nk_dim_ProductValuationPUP]
-    -- fields PriceControlIndicatorID, PriceControlIndicator are being used in [vw_fact_MaterialStockLevel]
-    , dimPV.[PriceControlIndicatorID]
-    , dimPV.[PriceControlIndicator]
-    , MDI_CTE.[t_applicationId]
-    , MDI_CTE.[t_extractionDtm]
-
-FROM MaterialDocumentItem_CTE AS MDI_CTE  
-LEFT JOIN 
-    [edw].[dim_ProductValuationPUP] dimPV
-        ON 
-            MDI_CTE.[nk_dim_ProductValuationPUP] = dimPV.[nk_dim_ProductValuationPUP] 
+                dimPVs.[CalendarMonth] = FORMAT(MDI.[HDR_PostingDate],'MM')         
