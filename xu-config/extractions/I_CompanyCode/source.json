@@ -12,15 +12,6 @@
     "columns": 
     [
         {
-            "name": "TS_SEQUENCE_NUMBER",
-            "description": "[GENERATED] Sequence number of row in current extraction",
-            "abapType": "FourByteInteger",
-            "isPrimaryKey": true,
-            "isDeltaColumn": true,
-            "generated": true,
-            "outputLength": 0
-        },
-        {
             "name": "COMPANYCODE",
             "description": "Company Code",
             "abapType": "CharacterString",
@@ -209,22 +200,6 @@
             "isSelected": true,
             "selectionPermission": "All",
             "outputLength": 1
-        },
-        {
-            "name": "ODQ_CHANGEMODE",
-            "description": "Change Mode for a Data Record in the Delta",
-            "abapType": "CharacterString",
-            "length": 1,
-            "isDeltaColumn": true,
-            "outputLength": 1
-        },
-        {
-            "name": "ODQ_ENTITYCNTR",
-            "description": "Number of Data Units (Data Records for Example)",
-            "abapType": "PackedNumber",
-            "length": 19,
-            "isDeltaColumn": true,
-            "outputLength": 20
         }
     ],
     "parameters": {
