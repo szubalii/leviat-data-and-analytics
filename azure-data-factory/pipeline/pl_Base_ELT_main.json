@@ -657,7 +657,7 @@
 				}
 			},
 			{
-				"name": "Fail ",
+				"name": "Fail",
 				"type": "Fail",
 				"dependsOn": [
 					{
