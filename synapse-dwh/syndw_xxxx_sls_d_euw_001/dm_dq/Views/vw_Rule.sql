@@ -2,7 +2,10 @@
 SELECT
     [RuleID]
     ,[RuleBusinessDescription]
+    ,[RuleTechnicalDescription]
+    ,[Formula]
     ,[RuleClass]
+    ,[RuleGroup]
     ,[DataArea]
     ,[t_jobDtm]
 FROM
