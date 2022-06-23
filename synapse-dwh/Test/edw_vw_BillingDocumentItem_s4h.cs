@@ -42,12 +42,25 @@ namespace Test
             Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.RowCountCondition rowCountCondition1;
             Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction notEmpty_TestAction;
             Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.NotEmptyResultSetCondition notEmptyResultSetCondition1;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction lgc_InOutIDInIsNotFalse_TestAction;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.EmptyResultSetCondition emptyResultSetCondition1;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction sum_BaseAndEDWNetAmountAreEqual_TestAction;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction cnt_BaseAndEDWAreEqual_TestAction;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.EmptyResultSetCondition emptyResultSetCondition2;
             this.CurrencyConversionData = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestActions();
             this.notEmptyData = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestActions();
+            this.lgc_InOutIDInIsNotFalseData = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestActions();
+            this.sum_BaseAndEDWNetAmountAreEqualData = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestActions();
+            this.cnt_BaseAndEDWAreEqualData = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestActions();
             CurrencyConversion_TestAction = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction();
             rowCountCondition1 = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.RowCountCondition();
             notEmpty_TestAction = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction();
             notEmptyResultSetCondition1 = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.NotEmptyResultSetCondition();
+            lgc_InOutIDInIsNotFalse_TestAction = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction();
+            emptyResultSetCondition1 = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.EmptyResultSetCondition();
+            sum_BaseAndEDWNetAmountAreEqual_TestAction = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction();
+            cnt_BaseAndEDWAreEqual_TestAction = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction();
+            emptyResultSetCondition2 = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.EmptyResultSetCondition();
             // 
             // CurrencyConversion_TestAction
             // 
@@ -83,6 +96,50 @@ namespace Test
             this.notEmptyData.PosttestAction = null;
             this.notEmptyData.PretestAction = null;
             this.notEmptyData.TestAction = notEmpty_TestAction;
+            // 
+            // lgc_InOutIDInIsNotFalseData
+            // 
+            this.lgc_InOutIDInIsNotFalseData.PosttestAction = null;
+            this.lgc_InOutIDInIsNotFalseData.PretestAction = null;
+            this.lgc_InOutIDInIsNotFalseData.TestAction = lgc_InOutIDInIsNotFalse_TestAction;
+            // 
+            // lgc_InOutIDInIsNotFalse_TestAction
+            // 
+            lgc_InOutIDInIsNotFalse_TestAction.Conditions.Add(emptyResultSetCondition1);
+            resources.ApplyResources(lgc_InOutIDInIsNotFalse_TestAction, "lgc_InOutIDInIsNotFalse_TestAction");
+            // 
+            // emptyResultSetCondition1
+            // 
+            emptyResultSetCondition1.Enabled = true;
+            emptyResultSetCondition1.Name = "emptyResultSetCondition1";
+            emptyResultSetCondition1.ResultSet = 1;
+            // 
+            // sum_BaseAndEDWNetAmountAreEqualData
+            // 
+            this.sum_BaseAndEDWNetAmountAreEqualData.PosttestAction = null;
+            this.sum_BaseAndEDWNetAmountAreEqualData.PretestAction = null;
+            this.sum_BaseAndEDWNetAmountAreEqualData.TestAction = sum_BaseAndEDWNetAmountAreEqual_TestAction;
+            // 
+            // sum_BaseAndEDWNetAmountAreEqual_TestAction
+            // 
+            resources.ApplyResources(sum_BaseAndEDWNetAmountAreEqual_TestAction, "sum_BaseAndEDWNetAmountAreEqual_TestAction");
+            // 
+            // cnt_BaseAndEDWAreEqualData
+            // 
+            this.cnt_BaseAndEDWAreEqualData.PosttestAction = null;
+            this.cnt_BaseAndEDWAreEqualData.PretestAction = null;
+            this.cnt_BaseAndEDWAreEqualData.TestAction = cnt_BaseAndEDWAreEqual_TestAction;
+            // 
+            // cnt_BaseAndEDWAreEqual_TestAction
+            // 
+            cnt_BaseAndEDWAreEqual_TestAction.Conditions.Add(emptyResultSetCondition2);
+            resources.ApplyResources(cnt_BaseAndEDWAreEqual_TestAction, "cnt_BaseAndEDWAreEqual_TestAction");
+            // 
+            // emptyResultSetCondition2
+            // 
+            emptyResultSetCondition2.Enabled = true;
+            emptyResultSetCondition2.Name = "emptyResultSetCondition2";
+            emptyResultSetCondition2.ResultSet = 1;
         }
 
         #endregion
@@ -148,8 +205,83 @@ namespace Test
                 SqlExecutionResult[] posttestResults = TestService.Execute(this.PrivilegedContext, this.PrivilegedContext, testActions.PosttestAction);
             }
         }
+        [TestMethod()]
+        public void lgc_InOutIDInIsNotFalse()
+        {
+            SqlDatabaseTestActions testActions = this.lgc_InOutIDInIsNotFalseData;
+            // Execute the pre-test script
+            // 
+            System.Diagnostics.Trace.WriteLineIf((testActions.PretestAction != null), "Executing pre-test script...");
+            SqlExecutionResult[] pretestResults = TestService.Execute(this.PrivilegedContext, this.PrivilegedContext, testActions.PretestAction);
+            try
+            {
+                // Execute the test script
+                // 
+                System.Diagnostics.Trace.WriteLineIf((testActions.TestAction != null), "Executing test script...");
+                SqlExecutionResult[] testResults = TestService.Execute(this.ExecutionContext, this.PrivilegedContext, testActions.TestAction);
+            }
+            finally
+            {
+                // Execute the post-test script
+                // 
+                System.Diagnostics.Trace.WriteLineIf((testActions.PosttestAction != null), "Executing post-test script...");
+                SqlExecutionResult[] posttestResults = TestService.Execute(this.PrivilegedContext, this.PrivilegedContext, testActions.PosttestAction);
+            }
+        }
+        [TestMethod()]
+        public void sum_BaseAndEDWNetAmountAreEqual()
+        {
+            SqlDatabaseTestActions testActions = this.sum_BaseAndEDWNetAmountAreEqualData;
+            // Execute the pre-test script
+            // 
+            System.Diagnostics.Trace.WriteLineIf((testActions.PretestAction != null), "Executing pre-test script...");
+            SqlExecutionResult[] pretestResults = TestService.Execute(this.PrivilegedContext, this.PrivilegedContext, testActions.PretestAction);
+            try
+            {
+                // Execute the test script
+                // 
+                System.Diagnostics.Trace.WriteLineIf((testActions.TestAction != null), "Executing test script...");
+                SqlExecutionResult[] testResults = TestService.Execute(this.ExecutionContext, this.PrivilegedContext, testActions.TestAction);
+            }
+            finally
+            {
+                // Execute the post-test script
+                // 
+                System.Diagnostics.Trace.WriteLineIf((testActions.PosttestAction != null), "Executing post-test script...");
+                SqlExecutionResult[] posttestResults = TestService.Execute(this.PrivilegedContext, this.PrivilegedContext, testActions.PosttestAction);
+            }
+        }
+        [TestMethod()]
+        public void cnt_BaseAndEDWAreEqual()
+        {
+            SqlDatabaseTestActions testActions = this.cnt_BaseAndEDWAreEqualData;
+            // Execute the pre-test script
+            // 
+            System.Diagnostics.Trace.WriteLineIf((testActions.PretestAction != null), "Executing pre-test script...");
+            SqlExecutionResult[] pretestResults = TestService.Execute(this.PrivilegedContext, this.PrivilegedContext, testActions.PretestAction);
+            try
+            {
+                // Execute the test script
+                // 
+                System.Diagnostics.Trace.WriteLineIf((testActions.TestAction != null), "Executing test script...");
+                SqlExecutionResult[] testResults = TestService.Execute(this.ExecutionContext, this.PrivilegedContext, testActions.TestAction);
+            }
+            finally
+            {
+                // Execute the post-test script
+                // 
+                System.Diagnostics.Trace.WriteLineIf((testActions.PosttestAction != null), "Executing post-test script...");
+                SqlExecutionResult[] posttestResults = TestService.Execute(this.PrivilegedContext, this.PrivilegedContext, testActions.PosttestAction);
+            }
+        }
+
+
+
 
         private SqlDatabaseTestActions CurrencyConversionData;
         private SqlDatabaseTestActions notEmptyData;
+        private SqlDatabaseTestActions lgc_InOutIDInIsNotFalseData;
+        private SqlDatabaseTestActions sum_BaseAndEDWNetAmountAreEqualData;
+        private SqlDatabaseTestActions cnt_BaseAndEDWAreEqualData;
     }
 }

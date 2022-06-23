@@ -138,6 +138,106 @@ you expect.
 SELECT COUNT(*)
 FROM edw.vw_BillingDocumentItem_s4h</value>
   </data>
+  <data name="lgc_InOutIDInIsNotFalse_TestAction.SqlScript" xml:space="preserve">
+    <value>/*
+Add SQL statements here to exercise the database object 
+that you want to test.
+
+To test a stored procedure, invoke it here by adding 
+an EXEC statement that has appropriate parameters.
+
+In the lower pane, you can add test conditions that verify 
+whether the results of your SQL statements match what 
+you expect.
+*/
+
+--17.06.2022 FB: This test verifies that any customers marked as Inside don't match the 
+--definition of InOutID.
+
+WITH A AS (
+	SELECT InOutID, SoldToParty
+	FROM edw.vw_BillingDocumentItem_s4h
+	WHERE InOutID = 'I'
+)
+
+SELECT *
+FROM A
+WHERE LEFT(SoldToParty, 2) NOT IN ('IP', 'IC')</value>
+  </data>
+  <data name="sum_BaseAndEDWNetAmountAreEqual_TestAction.SqlScript" xml:space="preserve">
+    <value>/*
+Add SQL statements here to exercise the database object 
+that you want to test.
+
+To test a stored procedure, invoke it here by adding 
+an EXEC statement that has appropriate parameters.
+
+In the lower pane, you can add test conditions that verify 
+whether the results of your SQL statements match what 
+you expect.
+*/
+
+--FB 17.06.2022: This test verifies that the Net Invoiced Sales in local currency is the
+--same between base and EDW for items which are not marked as return.
+
+WITH A AS (
+	SELECT sum(NetAmount) as NetAmount
+	FROM base_s4h_cax.C_BillingDocumentItemBasicDEX
+	WHERE ReturnItemProcessingType &lt;&gt; 'X'
+)
+
+, B AS (
+	SELECT sum(NetAmount) as NetAmount
+	FROM edw.vw_BillingDocumentItem_s4h
+	WHERE
+		CurrencyType = 'Transaction Currency'
+		AND
+		ReturnItemProcessingType &lt;&gt; 'X'
+)
+
+SELECT NetAmount
+FROM A
+
+EXCEPT
+
+SELECT NetAmount
+FROM B</value>
+  </data>
+  <data name="cnt_BaseAndEDWAreEqual_TestAction.SqlScript" xml:space="preserve">
+    <value>/*
+Add SQL statements here to exercise the database object 
+that you want to test.
+
+To test a stored procedure, invoke it here by adding 
+an EXEC statement that has appropriate parameters.
+
+In the lower pane, you can add test conditions that verify 
+whether the results of your SQL statements match what 
+you expect.
+*/
+
+--FB 17.06.2022: This test verifies that the same amount of records exist in base and edw for
+--transaction currency.
+
+WITH A AS (
+	SELECT count(*) as Cnt
+	FROM base_s4h_cax.C_BillingDocumentItemBasicDEX
+)
+
+, B AS (
+	SELECT count(*) as Cnt
+	FROM edw.vw_BillingDocumentItem_s4h
+	WHERE CurrencyType = 'Transaction Currency'
+)
+
+SELECT Cnt
+FROM A
+
+EXCEPT
+
+SELECT Cnt
+FROM B</value>
+  </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
