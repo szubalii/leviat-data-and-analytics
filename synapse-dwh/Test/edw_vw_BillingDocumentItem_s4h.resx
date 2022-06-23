@@ -154,15 +154,12 @@ you expect.
 --17.06.2022 FB: This test verifies that any customers marked as Inside don't match the 
 --definition of InOutID.
 
-WITH A AS (
-	SELECT InOutID, SoldToParty
-	FROM edw.vw_BillingDocumentItem_s4h
-	WHERE InOutID = 'I'
-)
-
-SELECT *
-FROM A
-WHERE LEFT(SoldToParty, 2) NOT IN ('IP', 'IC')</value>
+SELECT InOutID, SoldToParty
+FROM edw.vw_BillingDocumentItem_s4h
+WHERE 
+    LEFT(SoldToParty, 2) NOT IN ('IP', 'IC')
+    AND
+    InOutID = 'I'</value>
   </data>
   <data name="sum_BaseAndEDWNetAmountAreEqual_TestAction.SqlScript" xml:space="preserve">
     <value>/*
