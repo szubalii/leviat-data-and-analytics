@@ -77,17 +77,8 @@
     <Compile Include="edw_vw_BillingDocumentItem_s4h.cs">
       <SubType>Designer</SubType>
     </Compile>
-    <Compile Include="edw_vw_BillingDocumentItem_s4h\lgc_InOutIDInIsNotFalse.cs">
-      <SubType>Designer</SubType>
-    </Compile>
     <Compile Include="SqlDatabaseSetup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="edw_vw_BillingDocumentItem_s4h\cnt_BaseandEDWAreEqual.cs">
-      <SubType>Designer</SubType>
-    </Compile>
-    <Compile Include="edw_vw_BillingDocumentItem_s4h\sum_BaseandEDWNetAmountAreEqual.cs">
-      <SubType>Designer</SubType>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -96,15 +87,6 @@
     <EmbeddedResource Include="edw_vw_BillingDocumentItem_s4h.resx">
       <DependentUpon>edw_vw_BillingDocumentItem_s4h.cs</DependentUpon>
       <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="edw_vw_BillingDocumentItem_s4h\cnt_BaseandEDWAreEqual.resx">
-      <DependentUpon>cnt_BaseandEDWAreEqual.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="edw_vw_BillingDocumentItem_s4h\sum_BaseandEDWNetAmountAreEqual.resx">
-      <DependentUpon>sum_BaseandEDWNetAmountAreEqual.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="edw_vw_BillingDocumentItem_s4h\lgc_InOutIDInIsNotFalse.resx">
-      <DependentUpon>lgc_InOutIDInIsNotFalse.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />
