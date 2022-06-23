@@ -315,6 +315,8 @@
     <Build Include="dbo\Functions\get_scheduled_edw_entity_batch_activities.sql" />
     <Build Include="dbo\Views\vw_adls_base_directory_path.sql" />
     <Build Include="dbo\Views\vw_entity_batch_activity_status.sql" />
+    <Build Include="dbo\Views\vw_full_entity_activity_batch_ids.sql" />
+    <Build Include="dbo\Views\vw_delta_entity_activity_batch_ids.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\Script.PostDeployment.sql" />
