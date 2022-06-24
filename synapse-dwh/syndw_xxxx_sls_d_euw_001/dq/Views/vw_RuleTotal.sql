@@ -1,4 +1,4 @@
-﻿CREATE VIEW [dq].[vw_Totals] AS
+﻿CREATE VIEW [dq].[vw_RuleTotal] AS
 
 -- Calculate count rows per ProductType from I_Product table
 WITH CountRowsPerProductType AS (

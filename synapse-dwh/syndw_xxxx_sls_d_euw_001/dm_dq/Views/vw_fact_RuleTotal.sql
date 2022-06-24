@@ -1,4 +1,4 @@
-﻿CREATE VIEW [dm_dq].[vw_Totals] AS
+﻿CREATE VIEW [dm_dq].[vw_fact_RuleTotal] AS
 SELECT
 	[RuleID]
     ,[RecordTotals]

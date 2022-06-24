@@ -1,4 +1,4 @@
-﻿CREATE PROC [dq].[usp_dim_RuleProduct]
+﻿CREATE PROC [dq].[usp_materialize_MDQ]
     @t_jobId        [varchar](36),
     @t_jobDtm       [datetime],
     @t_lastActionCd [varchar](1),
@@ -113,7 +113,7 @@ INSERT INTO [dq].[dim_RuleProduct] (
 SELECT *
 FROM #Totals
   
-INSERT INTO [dq].[TotalsProduct] (
+INSERT INTO [dq].[fact_ProductTotal] (
       [ProductTotals]     
     , [ErrorTotals]      
     , [t_jobId]         
@@ -122,21 +122,19 @@ INSERT INTO [dq].[TotalsProduct] (
     , [t_jobBy]        
 )
 
-SELECT * 
-FROM (
-    SELECT 
-	      @ProductTotal                             AS [ProductTotals]     
-        , COUNT(DISTINCT t.[Product])			    AS [ErrorTotals]
-        , @t_jobId     
-        , @t_jobDtm     
-        , @t_lastActionCd
-        , @t_jobBy
-    FROM 
-	    #Totals t
-) AS Products
+
+SELECT 
+	  @ProductTotal                             AS [ProductTotals]     
+    , COUNT(DISTINCT t.[Product])			    AS [ErrorTotals]
+    , @t_jobId     
+    , @t_jobDtm     
+    , @t_lastActionCd
+    , @t_jobBy
+FROM 
+	#Totals t
 
 
-INSERT INTO [dq].[Totals] (
+INSERT INTO [dq].[fact_RuleTotal] (
       [RuleID]
     , [RecordTotals]
     , [ErrorTotals]
@@ -154,6 +152,6 @@ SELECT
     , @t_jobDtm     
     , @t_lastActionCd
     , @t_jobBy
-FROM [dq].[vw_Totals]
+FROM [dq].[vw_RuleTotal]
 
 END

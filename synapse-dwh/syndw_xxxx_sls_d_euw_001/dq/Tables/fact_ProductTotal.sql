@@ -1,4 +1,4 @@
-﻿CREATE TABLE [dq].[TotalsProduct]
+﻿CREATE TABLE [dq].[fact_ProductTotal]
 (
     [ProductTotals]      INT,
     [ErrorTotals]       INT,

@@ -1,4 +1,4 @@
-﻿CREATE TABLE [dq].[Rule]
+﻿CREATE TABLE [dq].[dim_Rule]
 (
     [RuleID]                    NVARCHAR(50) NOT NULL,
     [DataArea]                  NVARCHAR(20),

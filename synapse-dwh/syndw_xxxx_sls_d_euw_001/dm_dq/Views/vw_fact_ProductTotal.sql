@@ -1,4 +1,4 @@
-﻿CREATE VIEW [dm_dq].[vw_Totals_Product] AS 
+﻿CREATE VIEW [dm_dq].[vw_fact_ProductTotal] AS 
 
 SELECT 
 	[ProductTotals]    

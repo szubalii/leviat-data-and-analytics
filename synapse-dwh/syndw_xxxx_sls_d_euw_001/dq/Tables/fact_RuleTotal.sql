@@ -1,4 +1,4 @@
-﻿CREATE TABLE [dq].[Totals]
+﻿CREATE TABLE [dq].[fact_RuleTotal]
 (
     [RuleID]            NVARCHAR(50) NOT NULL,
     [RecordTotals]      INT,
