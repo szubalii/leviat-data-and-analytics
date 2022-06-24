@@ -119,7 +119,7 @@ SELECT *
 FROM (
         SELECT 
 	        @ProductTotal                                   AS [ProductTotals]     
-          , COUNT(DISTINCT pr.[Product])					AS [ErrorTotals]
+          , COUNT(DISTINCT Rules.[Product])					AS [ErrorTotals]
           , @t_jobId     
           , @t_jobDtm     
           , @t_lastActionCd
