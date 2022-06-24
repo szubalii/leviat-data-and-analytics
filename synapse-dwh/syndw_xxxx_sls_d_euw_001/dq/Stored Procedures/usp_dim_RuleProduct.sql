@@ -9,19 +9,16 @@ BEGIN
 DECLARE @ProductTotal INT
 
 SET @ProductTotal = (SELECT COUNT([Product]) as [ProductTotals] FROM [base_s4h_cax].[I_Product])
-	
-INSERT INTO [dq].[dim_RuleProduct] (
-      [RuleID]  
-    , [Product]
-    , [t_jobId]     
-    , [t_jobDtm]     
-    , [t_lastActionCd]
-    , [t_jobBy]         
-)
 
-SELECT *
-FROM (
-        SELECT
+CREATE TABLE #Totals
+WITH
+(
+    DISTRIBUTION = REPLICATE,
+    HEAP
+)
+AS 
+(
+          SELECT
               [RuleID]
             , [Product]     
             , @t_jobId     
@@ -102,10 +99,22 @@ FROM (
             , @t_jobBy
         FROM
             [dq].[vw_Product_1_20]
-  )
-  AS Rules
-  
+ )
 
+
+	
+INSERT INTO [dq].[dim_RuleProduct] (
+      [RuleID]  
+    , [Product]
+    , [t_jobId]     
+    , [t_jobDtm]     
+    , [t_lastActionCd]
+    , [t_jobBy]         
+)
+
+SELECT *
+FROM #Totals
+  
 INSERT INTO [dq].[TotalsProduct] (
       [ProductTotals]     
     , [ErrorTotals]      
@@ -115,18 +124,17 @@ INSERT INTO [dq].[TotalsProduct] (
     , [t_jobBy]        
 )
 
-SELECT *
+SELECT * 
 FROM (
-        SELECT 
-	        @ProductTotal                                   AS [ProductTotals]     
-          , COUNT(DISTINCT Rules.[Product])					AS [ErrorTotals]
-          , @t_jobId     
-          , @t_jobDtm     
-          , @t_lastActionCd
-          , @t_jobBy
-        FROM 
-	        Rules
-) 
-AS Totals
+    SELECT 
+	      @ProductTotal                             AS [ProductTotals]     
+        , COUNT(DISTINCT t.[Product])			    AS [ErrorTotals]
+        , @t_jobId     
+        , @t_jobDtm     
+        , @t_lastActionCd
+        , @t_jobBy
+    FROM 
+	    #Totals t
+) AS Products
 
 END
