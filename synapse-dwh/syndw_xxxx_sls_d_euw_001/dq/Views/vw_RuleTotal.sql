@@ -18,7 +18,7 @@ SELECT
     ,r.[RuleGroup]
     ,[RecordTotals]
 FROM
-    [dq].[Rule] AS r
+    [dq].[dim_Rule] AS r
 LEFT JOIN
     CountRowsPerProductType AS cnt
     ON
