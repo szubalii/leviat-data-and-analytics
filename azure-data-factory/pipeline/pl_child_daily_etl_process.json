@@ -86,8 +86,8 @@
 							"value": "@pipeline().parameters.date",
 							"type": "Expression"
 						},
-						"rerunSuccessfulScheduledFullEntities": {
-							"value": "@pipeline().parameters.rerunSuccessfulScheduledFullEntities",
+						"rerun_successful_full_entities": {
+							"value": "@pipeline().parameters.rerun_successful_full_entities",
 							"type": "Expression"
 						}
 					}
@@ -124,8 +124,8 @@
 							"value": "@pipeline().parameters.date",
 							"type": "Expression"
 						},
-						"rerunSuccessfulScheduledFullEntities": {
-							"value": "@pipeline().parameters.rerunSuccessfulScheduledFullEntities",
+						"rerun_successful_full_entities": {
+							"value": "@pipeline().parameters.rerun_successful_full_entities",
 							"type": "Expression"
 						}
 					}
@@ -141,7 +141,7 @@
 				"type": "string",
 				"defaultValue": "2022/04/13"
 			},
-			"rerunSuccessfulScheduledFullEntities": {
+			"rerun_successful_full_entities": {
 				"type": "int",
 				"defaultValue": 0
 			}

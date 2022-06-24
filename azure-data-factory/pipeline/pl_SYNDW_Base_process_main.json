@@ -92,7 +92,7 @@
 					"source": {
 						"type": "AzureSqlSource",
 						"sqlReaderQuery": {
-							"value": "SELECT\n    entity_id,\n    entity_name,\n    base_schema_name,\n    base_table_name,\n    base_sproc_name\nFROM [dbo].[get_scheduled_entity_batch_activities] \n (\n @{pipeline().parameters.adhoc},\n '@{pipeline().parameters.date}',\n @{pipeline().parameters.rerunSuccessfulScheduledFullEntities}\n )\nWHERE base_sproc_name IS NOT NULL\nGROUP BY\n    entity_id,\n    entity_name,\n    base_schema_name,\n    base_table_name,\n    base_sproc_name",
+							"value": "SELECT\n    entity_id,\n    entity_name,\n    base_schema_name,\n    base_table_name,\n    base_sproc_name\nFROM [dbo].[get_scheduled_entity_batch_activities] \n (\n @{pipeline().parameters.adhoc},\n '@{pipeline().parameters.date}',\n @{pipeline().parameters.rerun_successful_full_entities}\n )\nWHERE base_sproc_name IS NOT NULL\nGROUP BY\n    entity_id,\n    entity_name,\n    base_schema_name,\n    base_table_name,\n    base_sproc_name",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
@@ -442,7 +442,7 @@
 				"type": "string",
 				"defaultValue": "2022/04/13"
 			},
-			"rerunSuccessfulScheduledFullEntities": {
+			"rerun_successful_full_entities": {
 				"type": "int",
 				"defaultValue": 0
 			}

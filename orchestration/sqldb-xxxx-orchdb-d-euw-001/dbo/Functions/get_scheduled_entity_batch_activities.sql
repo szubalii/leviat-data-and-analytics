@@ -2,7 +2,7 @@
 CREATE FUNCTION [dbo].[get_scheduled_entity_batch_activities](
     @adhoc bit = 0,
     @date DATE,
-    @rerunSuccessfulScheduledFullEntities BIT = 0 -- In case a new run is required
+    @rerunSuccessfulFullEntities BIT = 0 -- In case a new run is required
     -- for full entities that have a successful run for the day already, set it to 1
 )
 RETURNS @scheduled_entity_batch_activities TABLE (
@@ -35,7 +35,7 @@ BEGIN
     --Scenario 2: load already happened on same day
     --check which batch activities failed or did not happen and return them for corresponding scheduled entities
     
-    -- declare @adhoc bit = 0, @date DATE = '2022/05/27', @rerunSuccessfulScheduledFullEntities BIT = 0;
+    -- declare @adhoc bit = 0, @date DATE = '2022/05/27', @rerunSuccessfulFullEntities BIT = 0;
 
     DECLARE
         @BATCH_ACTIVITY_ID__EXTRACT SMALLINT = 21,
@@ -266,7 +266,7 @@ BEGIN
                 ffao.activity_order IS NULL
             )
             AND
-            @rerunSuccessfulScheduledFullEntities != 1 -- Only get the statuses if required
+            @rerunSuccessfulFullEntities != 1 -- Only get the statuses if required
             --TODO test
     )
 
