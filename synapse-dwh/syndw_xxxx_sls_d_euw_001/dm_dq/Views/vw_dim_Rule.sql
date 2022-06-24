@@ -1,4 +1,4 @@
-﻿CREATE VIEW [dm_dq].[vw_Rule] AS
+﻿CREATE VIEW [dm_dq].[vw_dim_Rule] AS
 SELECT
     [RuleID]
     ,[RuleBusinessDescription]

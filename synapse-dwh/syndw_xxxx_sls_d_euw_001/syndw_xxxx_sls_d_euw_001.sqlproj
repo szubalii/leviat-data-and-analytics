@@ -800,7 +800,7 @@
     <Build Include="Security\Schemas\dm_dq.sql" />
     <Build Include="dq\Tables\Rule.sql" />
     <Build Include="dq\Views\vw_Product_1_2.sql" />
-    <Build Include="dm_dq\Views\vw_Product.sql" />
+    <Build Include="dm_dq\Views\vw_dim_RuleProduct.sql" />
     <Build Include="dq\Tables\Totals.sql" />
     <Build Include="dq\Views\vw_Totals.sql" />
     <Build Include="edw\Views\vw_StockPricePerUnit.sql" />
@@ -812,10 +812,13 @@
     <Build Include="dq\Views\vw_Product_1_16.sql" />
     <Build Include="dq\Views\vw_Product_1_8.sql" />
     <Build Include="dm_dq\Views\vw_Totals.sql" />
-    <Build Include="dm_dq\Views\vw_Rule.sql" />
+    <Build Include="dm_dq\Views\vw_dim_Rule.sql" />
     <Build Include="base_s4h_cax\Tables\I_Purreqvaluationarea.sql" />
     <Build Include="dm_dq\Views\vw_dim_Product.sql" />
     <Build Include="dm_dq\Views\vw_Totals_Product.sql" />
+    <Build Include="dq\Stored Procedures\usp_dim_RuleProduct.sql" />
+    <Build Include="dq\Tables\dim_RuleProduct.sql" />
+    <Build Include="dq\Tables\TotalsProduct.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\Post-Deploy\Script.PostDeployment.sql" />
