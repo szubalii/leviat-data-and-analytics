@@ -5,4 +5,4 @@ SELECT
     ,[ErrorTotals]
     ,[t_jobDtm]
 FROM
-    [dq].[Totals]
+    [dq].[fact_RuleTotal]

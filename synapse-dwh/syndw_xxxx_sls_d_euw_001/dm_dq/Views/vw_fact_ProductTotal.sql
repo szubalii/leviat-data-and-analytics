@@ -5,4 +5,4 @@ SELECT
   , [ErrorTotals]
   , [t_jobDtm]
 FROM 
-	[dq].[TotalsProduct] pr
+	[dq].[fact_ProductTotal] pr

@@ -9,4 +9,4 @@ SELECT
     ,[DataArea]
     ,[t_jobDtm]
 FROM
-    [dq].[Rule]
+    [dq].[dim_Rule]
