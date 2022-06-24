@@ -100,8 +100,6 @@ AS
         FROM
             [dq].[vw_Product_1_20]
  )
-
-
 	
 INSERT INTO [dq].[dim_RuleProduct] (
       [RuleID]  
@@ -136,5 +134,26 @@ FROM (
     FROM 
 	    #Totals t
 ) AS Products
+
+
+INSERT INTO [dq].[Totals] (
+      [RuleID]
+    , [RecordTotals]
+    , [ErrorTotals]
+    , [t_jobId]
+    , [t_jobDtm]
+    , [t_lastActionCd]
+    , [t_jobBy]
+)
+
+SELECT 
+      [RuleID]
+    , [RecordTotals]
+    , [ErrorTotals]
+    , @t_jobId     
+    , @t_jobDtm     
+    , @t_lastActionCd
+    , @t_jobBy
+FROM [dq].[vw_Totals]
 
 END
