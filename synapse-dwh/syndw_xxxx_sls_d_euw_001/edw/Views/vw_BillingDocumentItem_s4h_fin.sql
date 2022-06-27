@@ -560,7 +560,10 @@ BDwithFreight AS (
     ,   BDexclZVERandZSER.FinNetAmountSumBD
     ,   BDwithZVER.NetAmountZVER
     ,   BDwithZSER.NetAmountZSER
-    ,   BDwithFreight.NetAmountFreight
+    ,   CASE 
+            WHEN BDwithFreight.NetAmountFreight IS NULL THEN 0
+            ELSE BDwithFreight.NetAmountFreight
+        END AS NetAmountFreight
     ,   BDwithMinQty.NetAmountMinQty
     ,   BDwithEngServ.NetAmountEngServ
     ,   BDwithMisc.NetAmountMisc
