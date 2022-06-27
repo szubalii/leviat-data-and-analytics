@@ -566,7 +566,7 @@ BDwithConditionAmount AS (
     ,   BDexclZVERandZSER.FinNetAmountSumBD
     ,   BDwithZVER.NetAmountZVER
     ,   BDwithZSER.NetAmountZSER
-    ,   BDwithFreight.NetAmountFreight
+    ,   ISNULL(BDwithFreight.NetAmountFreight,0) AS NetAmountFreight
     ,   BDwithMinQty.NetAmountMinQty
     ,   BDwithEngServ.NetAmountEngServ
     ,   BDwithMisc.NetAmountMisc
