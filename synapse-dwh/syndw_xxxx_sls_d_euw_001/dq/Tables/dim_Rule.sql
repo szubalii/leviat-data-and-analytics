@@ -12,7 +12,7 @@
     [t_jobDtm]                  DATETIME,
     [t_jobBy]                   VARCHAR(128),
     [t_filePath]                NVARCHAR(1024),
-    CONSTRAINT [PK_Rule] PRIMARY KEY NONCLUSTERED ([RuleID]) NOT ENFORCED
+    CONSTRAINT [PK_RuleID] PRIMARY KEY NONCLUSTERED ([RuleID]) NOT ENFORCED
 )
 WITH
 (
