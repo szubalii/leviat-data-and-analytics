@@ -1,4 +1,4 @@
-﻿CREATE VIEW [dq].[vw_Totals] AS
+﻿CREATE VIEW [dq].[vw_RuleTotal] AS
 
 -- Calculate count rows per ProductType from I_Product table
 WITH CountRowsPerProductType AS (
@@ -15,14 +15,14 @@ GROUP BY
 CountRowsPerRuleID AS (
 SELECT
     [RuleID]
-    ,r.[ProductType]
+    ,r.[RuleGroup]
     ,[RecordTotals]
 FROM
-    [dq].[Rule] AS r
+    [dq].[dim_Rule] AS r
 LEFT JOIN
     CountRowsPerProductType AS cnt
     ON
-        r.[ProductType] = cnt.[ProductType]
+        r.[RuleGroup] = cnt.[ProductType]
 WHERE
     [DataArea] = 'Material'
 )
@@ -39,7 +39,7 @@ INNER JOIN
         cnt.[RuleID] = p.[RuleID]
 GROUP BY
     cnt.[RuleID],
-    cnt.[ProductType],
+    cnt.[RuleGroup],
     cnt.[RecordTotals]
 
 UNION ALL
@@ -56,7 +56,7 @@ INNER JOIN
         cnt.[RuleID] = p.[RuleID]
 GROUP BY
     cnt.[RuleID],
-    cnt.[ProductType],
+    cnt.[RuleGroup],
     cnt.[RecordTotals]
 
 UNION ALL
@@ -73,7 +73,7 @@ INNER JOIN
         cnt.[RuleID] = p.[RuleID]
 GROUP BY
     cnt.[RuleID],
-    cnt.[ProductType],
+    cnt.[RuleGroup],
     cnt.[RecordTotals]
 
 UNION ALL
@@ -90,7 +90,7 @@ INNER JOIN
         cnt.[RuleID] = p.[RuleID]
 GROUP BY
     cnt.[RuleID],
-    cnt.[ProductType],
+    cnt.[RuleGroup],
     cnt.[RecordTotals]
 
 UNION ALL
@@ -98,7 +98,7 @@ UNION ALL
 SELECT
     cnt.[RuleID],
     CASE
-        WHEN cnt.[ProductType] LIKE '%All%'
+        WHEN cnt.[RuleGroup] LIKE '%All%'
         THEN (SELECT COUNT(*) FROM [base_s4h_cax].[I_Product])
         ELSE cnt.[RecordTotals]
     END AS [RecordTotals],
@@ -111,7 +111,7 @@ INNER JOIN
         cnt.[RuleID] = p.[RuleID]
 GROUP BY
     cnt.[RuleID],
-    cnt.[ProductType],
+    cnt.[RuleGroup],
     cnt.[RecordTotals]
 
 UNION ALL
@@ -119,7 +119,7 @@ UNION ALL
 SELECT
     cnt.[RuleID],
     CASE
-        WHEN cnt.[ProductType] LIKE '%All%'
+        WHEN cnt.[RuleGroup] LIKE '%All%'
         THEN (SELECT COUNT(*) FROM [base_s4h_cax].[I_Product])
         ELSE cnt.[RecordTotals]
     END AS [RecordTotals],
@@ -132,7 +132,7 @@ INNER JOIN
         cnt.[RuleID] = p.[RuleID]
 GROUP BY
     cnt.[RuleID],
-    cnt.[ProductType],
+    cnt.[RuleGroup],
     cnt.[RecordTotals]
 
 UNION ALL
@@ -149,5 +149,5 @@ INNER JOIN
         cnt.[RuleID] = p.[RuleID]
 GROUP BY
     cnt.[RuleID],
-    cnt.[ProductType],
+    cnt.[RuleGroup],
     cnt.[RecordTotals]
