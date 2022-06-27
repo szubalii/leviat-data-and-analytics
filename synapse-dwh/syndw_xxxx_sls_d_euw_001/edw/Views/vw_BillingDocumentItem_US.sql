@@ -41,7 +41,7 @@ WITH EuroBudgetExchangeRate AS (
     ,   CS.[CUR] AS [TransactionCurrencyID]                    
     ,   CS.[SalesTax] AS [TaxAmount]                                
     ,   CS.[COGS] AS [CostAmount]
-    ,   (CS.[SalesTax]+CS.[COGS]) AS [ProfitMargin]
+    ,   (CS.[SALES]+CS.[COGS]) AS [ProfitMargin]
     ,   CONCAT('US-',CS.[CostCenter]) AS [CostCenter]                               
     ,   CS.[SalesOrder] AS [SalesDocumentID]                          
     ,   MAPCUST.[Country] AS [CountryID]                                
