@@ -6,9 +6,9 @@
 AS
 BEGIN
 
-DECLARE @ProductTotal INT
+DECLARE @ProductTotal INT;
 
-SET @ProductTotal = (SELECT COUNT([Product]) as [ProductTotals] FROM [base_s4h_cax].[I_Product])
+SET @ProductTotal = (SELECT COUNT([Product]) as [ProductTotals] FROM [base_s4h_cax].[I_Product]);
 
 WITH Totals AS 
 (
