@@ -6,7 +6,7 @@
     [t_jobDtm]          DATETIME,
     [t_lastActionCd]    VARCHAR(1),
     [t_jobBy]           NVARCHAR(128),
-    CONSTRAINT [PK_ProductTotals] PRIMARY KEY NONCLUSTERED ([RuleID],[Product],[t_jobDtm]) NOT ENFORCED
+    CONSTRAINT [PK_RuleProduct] PRIMARY KEY NONCLUSTERED ([RuleID],[Product],[t_jobDtm]) NOT ENFORCED
 )
 WITH
 (
