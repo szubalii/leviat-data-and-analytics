@@ -9,6 +9,63 @@ BEGIN
 DECLARE @ProductTotal INT
 
 SET @ProductTotal = (SELECT COUNT([Product]) as [ProductTotals] FROM [base_s4h_cax].[I_Product])
+
+WITH Totals AS 
+(
+    SELECT
+        [RuleID]
+        , [Product] 
+    FROM
+        [dq].[vw_Product_1_2]
+
+    UNION ALL
+
+    SELECT
+        [RuleID]
+        , [Product]  
+    FROM
+        [dq].[vw_Product_1_8]
+
+    UNION ALL
+
+    SELECT
+        [RuleID]
+        , [Product]    
+    FROM
+        [dq].[vw_Product_1_16]
+
+    UNION ALL
+
+    SELECT
+        [RuleID]
+        , [Product]   
+    FROM
+        [dq].[vw_Product_1_17]
+
+    UNION ALL
+
+    SELECT
+        [RuleID]
+        , [Product]    
+    FROM
+        [dq].[vw_Product_1_18]
+
+    UNION ALL
+
+    SELECT
+        [RuleID]
+        , [Product] 
+    FROM
+        [dq].[vw_Product_1_19]
+
+    UNION ALL
+
+    SELECT
+        [RuleID]
+        , [Product]   
+    FROM
+        [dq].[vw_Product_1_20]
+)
 	
 INSERT INTO [dq].[dim_RuleProduct] (
       [RuleID]  
@@ -26,7 +83,7 @@ SELECT
     , @t_jobDtm     
     , @t_lastActionCd
     , @t_jobBy
-FROM [dq].[vw_Totals]
+FROM Totals
   
 
 INSERT INTO [dq].[fact_ProductTotal] (
@@ -46,7 +103,7 @@ SELECT
     , @t_lastActionCd
     , @t_jobBy
 FROM 
-	[dq].[vw_Totals] t
+	Totals t
 
 
 INSERT INTO [dq].[fact_RuleTotal] (

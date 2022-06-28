@@ -819,7 +819,6 @@
     <Build Include="dq\Stored Procedures\usp_materialize_MDQ.sql" />
     <Build Include="dq\Tables\dim_RuleProduct.sql" />
     <Build Include="dq\Tables\fact_ProductTotal.sql" />
-    <Build Include="dq\Views\vw_Totals.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\Post-Deploy\Script.PostDeployment.sql" />
