@@ -85,6 +85,8 @@ CREATE TABLE [edw].[fact_BillingDocumentItem_s4h_active]
     [PricingScaleQuantityInBaseUnit]        DECIMAL(13, 3)                               NULL,
     [TaxAmount]                             DECIMAL(19, 6)                               NULL,
     [CostAmount]                            DECIMAL(19, 6)                               NULL,
+    [ProfitMargin]                          DECIMAL(19, 6)                               NULL,
+    [MarginPercent]                         DECIMAL(19, 6)                               NULL,
     [Subtotal1Amount]                       DECIMAL(19, 6)                               NULL,
     [Subtotal2Amount]                       DECIMAL(19, 6)                               NULL,
     [Subtotal3Amount]                       DECIMAL(19, 6)                               NULL,
