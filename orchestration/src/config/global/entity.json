@@ -4450,21 +4450,21 @@
         "edw_sproc_schema_name": "dq",
         "entities": [
         {
-            "entity_id": 436,
+            "entity_id": 437,
             "entity_name": "dim_RuleProduct",
             "edw_sproc_name": "usp_materialize_MDQ",
             "edw_execution_order": 4,
             "schedule_recurrence": "A"
         },
         {
-            "entity_id": 437,
+            "entity_id": 438,
             "entity_name": "fact_ProductTotal",
             "edw_sproc_name": "usp_materialize_MDQ",
             "edw_execution_order": 4,
             "schedule_recurrence": "A"
         },
         {
-            "entity_id": 438,
+            "entity_id": 439,
             "entity_name": "fact_RuleTotal",
             "edw_sproc_name": "usp_materialize_MDQ",
             "edw_execution_order": 4,
