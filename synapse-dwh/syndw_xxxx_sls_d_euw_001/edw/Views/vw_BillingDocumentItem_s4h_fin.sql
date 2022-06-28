@@ -353,87 +353,53 @@ BDwithFreight AS (
 )
 ,BDwithConditionAmountFreight AS (
     SELECT 
-            BillingDocument
-       ,    BillingDocumentItem
-       ,    CurrencyTypeID
-       ,    CurrencyID
-       ,    SUM(ConditionAmountFreight) AS ConditionAmountFreight 
-    FROM(
-        SELECT 
-                BDI.BillingDocument
-            ,   BDI.BillingDocumentItem
-            ,   BDI.CurrencyTypeID
-            ,   BDI.CurrencyID
-            ,   BDI.ExchangeRate
-            ,   BDIPE.ConditionCurrency
-            ,   CASE
-                    WHEN
-                        BDIPE.ConditionCurrency <> '' 
-                        AND
-                        BDIPE.ConditionCurrency <> BDI.CurrencyID
-                    THEN
-                        BDIPE.ConditionAmount * BDI.ExchangeRate
-                    ELSE
-                        BDIPE.ConditionAmount
-                END AS ConditionAmountFreight
-        FROM 
-            BDIwithMatType BDI
-        LEFT JOIN
-            [base_s4h_cax].[I_BillingDocumentItemPrcgElmnt] BDIPE
-            ON
-                BDI.[BillingDocument] = BDIPE.[BillingDocument]
-                AND
-                BDI.[BillingDocumentItem] = BDIPE.[BillingDocumentItem]
-                AND
-                BDIPE.[ConditionType]  IN ('ZF60', 'ZF20', 'ZTMF', 'ZF10', 'ZM40')
-        ) CondAmountFreightTable
+            BDI.BillingDocument
+        ,   BDI.BillingDocumentItem
+        ,   BDI.CurrencyTypeID
+        ,   BDI.CurrencyID
+        ,   BDI.ExchangeRate
+        ,   SUM(BDIPE.ConditionAmount * BDI.ExchangeRate) AS ConditionAmountFreight
+    FROM             
+        BDIwithMatType BDI
+    LEFT JOIN
+        [base_s4h_cax].[I_BillingDocumentItemPrcgElmnt] BDIPE
+        ON
+            BDI.[BillingDocument] = BDIPE.[BillingDocument]
+            AND
+            BDI.[BillingDocumentItem] = BDIPE.[BillingDocumentItem]
+            AND
+            BDIPE.[ConditionType] IN ('ZF60', 'ZF20', 'ZTMF', 'ZF10', 'ZM40')
     GROUP BY 
-         BillingDocument
-        ,BillingDocumentItem
-        ,CurrencyTypeID
-        ,CurrencyID
+         BDI.BillingDocument
+        ,BDI.BillingDocumentItem
+        ,BDI.CurrencyTypeID
+        ,BDI.CurrencyID
+        ,BDI.ExchangeRate
 )
 ,BDwithConditionAmountMinQty AS (
     SELECT 
-            BillingDocument
-       ,    BillingDocumentItem
-       ,    CurrencyTypeID
-       ,    CurrencyID
-       ,    SUM(ConditionAmountMinQty) AS ConditionAmountMinQty 
-    FROM(
-        SELECT 
-                BDI.BillingDocument
-            ,   BDI.BillingDocumentItem
-            ,   BDI.CurrencyTypeID
-            ,   BDI.CurrencyID
-            ,   BDI.ExchangeRate
-            ,   BDIPE.ConditionCurrency
-            ,   CASE
-                    WHEN
-                        BDIPE.ConditionCurrency <> '' 
-                        AND
-                        BDIPE.ConditionCurrency <> BDI.CurrencyID
-                    THEN
-                        BDIPE.ConditionAmount * BDI.ExchangeRate
-                    ELSE
-                        BDIPE.ConditionAmount
-                END AS ConditionAmountMinQty
-        FROM 
-            BDIwithMatType BDI
-        LEFT JOIN
-            [base_s4h_cax].[I_BillingDocumentItemPrcgElmnt] BDIPE
-            ON
-                BDI.[BillingDocument] = BDIPE.[BillingDocument]
-                AND
-                BDI.[BillingDocumentItem] = BDIPE.[BillingDocumentItem]
-                AND
-                BDIPE.[ConditionType]  IN ('AMIZ','AMIW')
-        ) CondAmountMinQtyTable
+            BDI.BillingDocument
+        ,   BDI.BillingDocumentItem
+        ,   BDI.CurrencyTypeID
+        ,   BDI.CurrencyID
+        ,   BDI.ExchangeRate
+        ,   SUM(BDIPE.ConditionAmount * BDI.ExchangeRate) AS ConditionAmountMinQty
+    FROM             
+        BDIwithMatType BDI
+    LEFT JOIN
+        [base_s4h_cax].[I_BillingDocumentItemPrcgElmnt] BDIPE
+        ON
+            BDI.[BillingDocument] = BDIPE.[BillingDocument]
+            AND
+            BDI.[BillingDocumentItem] = BDIPE.[BillingDocumentItem]
+            AND
+            BDIPE.[ConditionType] IN ('AMIZ','AMIW')
     GROUP BY 
-         BillingDocument
-        ,BillingDocumentItem
-        ,CurrencyTypeID
-        ,CurrencyID
+         BDI.BillingDocument
+        ,BDI.BillingDocumentItem
+        ,BDI.CurrencyTypeID
+        ,BDI.CurrencyID
+        ,BDI.ExchangeRate
 )
 ,BDITotals AS (
     /*
