@@ -791,10 +791,7 @@ BillingDocumentItemBase_axbi_mapped AS (
         ,   [CostAmountGroupEUR]                     AS [CostAmount]
         ,   [ProfitMarginGroupEUR]                   AS [ProfitMargin]
         ,   CASE
-                WHEN
-                    [NetAmountGroupEUR] = 0
-                    OR
-                    [NetAmountGroupEUR] IS NULL
+                WHEN ISNULL([NetAmountGroupEUR], 0) = 0
                 THEN 0
                 ELSE [ProfitMarginGroupEUR]/[NetAmountGroupEUR]
             END AS [MarginPercent]
@@ -893,10 +890,7 @@ SELECT
     ,   [CostAmountLocal]                        as [CostAmount]
     ,   [ProfitMarginLocal]                      as [ProfitMargin]
     ,   CASE
-            WHEN
-                [NetAmountLocal] = 0
-                OR
-                [NetAmountLocal] IS NULL
+            WHEN ISNULL([NetAmountLocal], 0) = 0
             THEN 0
             ELSE [ProfitMarginLocal]/[NetAmountLocal]
         END AS [MarginPercent]

@@ -368,10 +368,7 @@ WITH BillingDocumentItemBase as (
             , BDI_Base.[CostAmount] 
             , BDI_Base.[ProfitMargin]
             ,   CASE
-                    WHEN
-                        BDI_Base.[NetAmount] = 0
-                        OR
-                        BDI_Base.[NetAmount] IS NULL
+                    WHEN ISNULL(BDI_Base.[NetAmount], 0) = 0
                     THEN 0
                     ELSE BDI_Base.[ProfitMargin]/BDI_Base.[NetAmount]
                 END AS [MarginPercent]
