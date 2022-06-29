@@ -1062,8 +1062,16 @@ OutboundDeliveryItem_s4h_calculated AS (
             ELSE NULL
         END AS [OTS_DataQualityCode]
         ,[CalculatedDelDate]
-        ,[ActualLeadTime]
-        ,[RequestedLeadTime]
+        ,CASE
+             WHEN [ActualLeadTime]<0
+             THEN 0
+             ELSE [ActualLeadTime]
+         END AS [ActualLeadTime]
+        ,CASE
+             WHEN [RequestedLeadTime]<0
+             THEN 0
+             ELSE [RequestedLeadTime]
+         END AS [RequestedLeadTime] 
         ,[t_applicationId]
         ,[t_extractionDtm]
     FROM OutboundDeliveryItem_s4h
