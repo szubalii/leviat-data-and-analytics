@@ -209,7 +209,7 @@ SELECT
     ,   CONVERT(decimal(28,12),(BDI_ExchangeRate_Date.[TaxAmount]*EuroBudgetExchangeRate.[ExchangeRate])) AS [TaxAmount]   
     ,   CONVERT(decimal(38,12),(BDI_ExchangeRate_Date.[CostAmount]*EuroBudgetExchangeRate.[ExchangeRate])) AS [CostAmount]  
     ,   CONVERT(decimal(38,12),(BDI_ExchangeRate_Date.[ProfitMargin]*EuroBudgetExchangeRate.[ExchangeRate])) AS [ProfitMargin]
-    ,   CONVERT(decimal(38,12),(BDI_ExchangeRate_Date.[MarginPercent]*EuroBudgetExchangeRate.[ExchangeRate])) AS [MarginPercent]
+    ,   [MarginPercent]
     ,   BDI_ExchangeRate_Date.[CostCenter]                               
     ,   BDI_ExchangeRate_Date.[CurrencyID]                               
     ,   BDI_ExchangeRate_Date.[SalesDocumentID]                          

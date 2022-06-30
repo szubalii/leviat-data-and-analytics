@@ -1029,7 +1029,7 @@ SELECT
     ,   [NetAmount]*(1/ExchangeRateUSD.[ExchangeRate]) AS [NetAmount]
     ,   [CostAmount]*(1/ExchangeRateUSD.[ExchangeRate]) AS [CostAmount]
     ,   [ProfitMargin]*(1/ExchangeRateUSD.[ExchangeRate]) AS [ProfitMargin]
-    ,   [MarginPercent]*(1/ExchangeRateUSD.[ExchangeRate]) AS [MarginPercent]
+    ,   [MarginPercent]
     ,   [QuantitySold]
     ,   [CountryID]
     ,   [SalesDocumentID]
