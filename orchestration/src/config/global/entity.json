@@ -4455,6 +4455,8 @@
             "entity_id": 437,
             "entity_name": "dim_RuleProduct",
             "edw_sproc_name": "sp_materialize_view",
+            "edw_source_view_name": "vw_RuleProduct",
+            "edw_dest_table_name": "dim_RuleProduct",
             "edw_execution_order": 0,
             "schedule_recurrence": "A"
         },
@@ -4462,6 +4464,8 @@
             "entity_id": 438,
             "entity_name": "fact_ProductTotal",
             "edw_sproc_name": "sp_materialize_view",
+            "edw_source_view_name": "vw_ProductTotal",
+            "edw_dest_table_name": "fact_ProductTotal",
             "edw_execution_order": 0,
             "schedule_recurrence": "A"
         },
