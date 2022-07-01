@@ -816,9 +816,12 @@
     <Build Include="base_s4h_cax\Tables\I_Purreqvaluationarea.sql" />
     <Build Include="dm_dq\Views\vw_dim_Product.sql" />
     <Build Include="dm_dq\Views\vw_fact_ProductTotal.sql" />
-    <Build Include="dq\Stored Procedures\usp_materialize_MDQ.sql" />
     <Build Include="dq\Tables\dim_RuleProduct.sql" />
     <Build Include="dq\Tables\fact_ProductTotal.sql" />
+    <Build Include="dq\Views\vw_Product_1_3.sql" />
+    <Build Include="dq\Views\vw_Product_1_6.sql" />
+    <Build Include="dq\Views\vw_RuleProduct.sql" />
+    <Build Include="dq\Views\vw_ProductTotal.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\Post-Deploy\Script.PostDeployment.sql" />
