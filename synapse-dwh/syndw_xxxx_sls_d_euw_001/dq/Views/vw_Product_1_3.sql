@@ -2,26 +2,26 @@
 WITH
 Rule_1_3 AS (
     SELECT
-    COUNT(*) AS [CountDuplicates],
-    pt.[Product],
-    pt.[Language],
-    pt.[ProductName],
-    1 AS [IsError],
-CONCAT('1.3_',p.[ProductType]) AS [RuleID]
-FROM
-    [base_s4h_cax].[I_ProductText] AS pt
-LEFT JOIN
-    [base_s4h_cax].[I_Product] AS p
-    ON
-        pt.[Product] = p.[Product]
-WHERE
-    p.[ProductType] IN ('ZERS','ZFER','ZROH')
-GROUP BY
-    pt.[Product],
-    p.[ProductType],
-    pt.[Language],
-    pt.[ProductName]
-HAVING COUNT(*) >1
+        COUNT(*) AS [CountDuplicates],
+        pt.[Product],
+        pt.[Language],
+        pt.[ProductName],
+        1 AS [IsError],
+        CONCAT('1.3_',p.[ProductType]) AS [RuleID]
+    FROM
+        [base_s4h_cax].[I_ProductText] AS pt
+    LEFT JOIN
+        [base_s4h_cax].[I_Product] AS p
+        ON
+            pt.[Product] = p.[Product]
+    WHERE
+        p.[ProductType] IN ('ZERS','ZFER','ZROH')
+    GROUP BY
+        pt.[Product],
+        p.[ProductType],
+        pt.[Language],
+        pt.[ProductName]
+    HAVING COUNT(*) >1
 )
 
 SELECT

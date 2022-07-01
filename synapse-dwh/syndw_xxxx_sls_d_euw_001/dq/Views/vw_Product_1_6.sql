@@ -1,52 +1,53 @@
 ﻿CREATE VIEW [dq].[vw_Product_1_6] AS
-WITH DeletedProducts AS (
-SELECT
-    p.[Product]
-    ,pt.[Language]
-    ,p.[IsMarkedForDeletion]
-    ,p.[CrossPlantStatus]
-    ,pt.[ProductName]
-FROM
-    [base_s4h_cax].[I_ProductText] AS pt
-LEFT JOIN
-    [base_s4h_cax].[I_Product] AS p
-    ON
-        pt.[Product] = p.[Product]
-WHERE
-    p.[IsMarkedForDeletion] = 'X'
-    AND
-    p.[CrossPlantStatus] = '70'
-    AND
-    (
-        pt.ProductName LIKE 'DEL%'
-        OR
-        pt.ProductName LIKE 'DUP%'
-    )
+WITH
+DeletedProducts AS (
+    SELECT
+        p.[Product],
+        pt.[Language],
+        p.[IsMarkedForDeletion],
+        p.[CrossPlantStatus],
+        pt.[ProductName]
+    FROM
+        [base_s4h_cax].[I_ProductText] AS pt
+    LEFT JOIN
+        [base_s4h_cax].[I_Product] AS p
+        ON
+            pt.[Product] = p.[Product]
+    WHERE
+        p.[IsMarkedForDeletion] = 'X'
+        AND
+        p.[CrossPlantStatus] = '70'
+        AND
+        (
+            pt.ProductName LIKE 'DEL%'
+            OR
+            pt.ProductName LIKE 'DUP%'
+        )
 )
 ,
 NotDeletedProducts AS (
-SELECT
-    p.[Product]
-    ,pt.[Language]
-    ,p.[IsMarkedForDeletion]
-    ,p.[CrossPlantStatus]
-    ,pt.[ProductName]
-FROM
-    [base_s4h_cax].[I_ProductText] AS pt
-LEFT JOIN
-    [base_s4h_cax].[I_Product] AS p
-    ON
-        pt.[Product] = p.[Product]
-WHERE
-    p.[IsMarkedForDeletion] != 'X'
-    AND
-    p.[CrossPlantStatus] != '70'
-    AND
-    (
-        pt.[ProductName] NOT LIKE 'DEL%'
-        OR
-        pt.[ProductName] NOT LIKE 'DUP%'
-    )
+    SELECT
+        p.[Product],
+        pt.[Language],
+        p.[IsMarkedForDeletion],
+        p.[CrossPlantStatus],
+        pt.[ProductName]
+    FROM
+        [base_s4h_cax].[I_ProductText] AS pt
+    LEFT JOIN
+        [base_s4h_cax].[I_Product] AS p
+        ON
+            pt.[Product] = p.[Product]
+    WHERE
+        p.[IsMarkedForDeletion] != 'X'
+        AND
+        p.[CrossPlantStatus] != '70'
+        AND
+        (
+            pt.[ProductName] NOT LIKE 'DEL%'
+            OR
+            pt.[ProductName] NOT LIKE 'DUP%'
+        )
 )
 
 SELECT 
