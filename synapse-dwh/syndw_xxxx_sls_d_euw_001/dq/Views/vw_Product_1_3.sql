@@ -16,6 +16,12 @@ Rule_1_3 AS (
             pt.[Product] = p.[Product]
     WHERE
         p.[ProductType] IN ('ZERS','ZFER','ZROH')
+        AND
+        (
+            pt.[ProductName] IS NULL
+            OR
+            pt.[ProductName] = ''
+        )
     GROUP BY
         pt.[Product],
         p.[ProductType],

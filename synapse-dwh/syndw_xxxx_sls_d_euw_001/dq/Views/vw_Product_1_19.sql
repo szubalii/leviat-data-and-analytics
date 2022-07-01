@@ -143,3 +143,5 @@ WHERE
     [IndustrySector] != 'A'
     OR
     [IndustrySector] IS NULL
+    OR
+    [IndustrySector] = ''

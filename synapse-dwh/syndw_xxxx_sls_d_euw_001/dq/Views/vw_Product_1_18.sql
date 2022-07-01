@@ -143,3 +143,5 @@ WHERE
     [Division] != '01'
     OR
     [Division] IS NULL
+    OR
+    [Division] = ''

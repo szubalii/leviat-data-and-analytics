@@ -140,10 +140,12 @@ SELECT
 FROM   
     [base_s4h_cax].[I_Product]
 WHERE
-    [ProductType] = 'ZHAW'
+    [ProductType] IN ('ZHAW','ZROH','ZKMA','ZSER')
     AND
     (
         [ItemCategoryGroup] != 'NORM'
         OR
         [ItemCategoryGroup] IS NULL
+        OR
+        [ItemCategoryGroup] = ''
     )
