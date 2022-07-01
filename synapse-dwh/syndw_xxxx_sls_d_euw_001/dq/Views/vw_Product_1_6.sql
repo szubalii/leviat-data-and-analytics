@@ -187,7 +187,7 @@ SELECT
     ,p.[ZZ1_CustomFieldRiskMit_PRD] 
     ,p.[ZZ1_CustomFieldHighRis_PRD] 
     ,p.[ZZ1_CustomFieldRiskRea_PRD]
-    ,'1.6_All' AS [RuleID]
+    ,'1.6_ALL' AS [RuleID]
     ,1 AS [Count]
 FROM
     [base_s4h_cax].[I_ProductText] AS pt

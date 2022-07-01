@@ -143,7 +143,7 @@ WHERE
     [ProductType] IN ('ZFER','ZHAW')
     AND
     (
-        [GrossWeight] <= [NetWeight] 
+        [GrossWeight] < [NetWeight]
         OR
         [GrossWeight] > [NetWeight]*1.2
     )
