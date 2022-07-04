@@ -822,6 +822,7 @@
     <Build Include="dq\Views\vw_Product_1_6.sql" />
     <Build Include="dq\Views\vw_RuleProduct.sql" />
     <Build Include="dq\Views\vw_ProductTotal.sql" />
+    <Build Include="dq\Stored Procedures\sp_dq_materialize_view.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\Post-Deploy\Script.PostDeployment.sql" />
