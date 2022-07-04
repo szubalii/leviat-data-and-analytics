@@ -135,15 +135,19 @@ SELECT
     ,P.[ZZ1_CustomFieldRiskMit_PRD] 
     ,P.[ZZ1_CustomFieldHighRis_PRD] 
     ,P.[ZZ1_CustomFieldRiskRea_PRD] 
+    ,PSD.[AccountDetnProductGroup]
     ,CONCAT('1.23_',P.[ProductType]) AS [RuleID]
     ,1 AS [Count]
 FROM   
-    [base_s4h_cax].[I_Product] P  LEFT JOIN 
-    [base_s4h_cax].[I_ProductSalesDelivery] PSD ON P.Product = PSD.Product
+    [base_s4h_cax].[I_Product] P  
+LEFT JOIN 
+    [base_s4h_cax].[I_ProductSalesDelivery] PSD 
+    ON 
+      P.Product = PSD.Product
 WHERE
-    [ProductType] = 'ZHAW'
+    P.[ProductType] = 'ZHAW'
     AND
-    [AccountDetnProductGroup] != '01'
+    PSD.[AccountDetnProductGroup] != '01'
     
 
 	

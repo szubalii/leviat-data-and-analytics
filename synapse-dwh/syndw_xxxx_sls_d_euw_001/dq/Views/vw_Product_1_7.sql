@@ -135,6 +135,7 @@ SELECT
     ,P.[ZZ1_CustomFieldRiskMit_PRD] 
     ,P.[ZZ1_CustomFieldHighRis_PRD] 
     ,P.[ZZ1_CustomFieldRiskRea_PRD] 
+    ,PSD.[CashDiscountIsDeductible] 
     ,CONCAT('1.7_',P.[ProductType]) AS [RuleID]
     ,1 AS [Count]
 FROM   

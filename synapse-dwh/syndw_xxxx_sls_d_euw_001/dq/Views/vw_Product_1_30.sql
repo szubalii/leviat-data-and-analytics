@@ -135,12 +135,21 @@ SELECT
     ,P.[ZZ1_CustomFieldRiskMit_PRD] 
     ,P.[ZZ1_CustomFieldHighRis_PRD] 
     ,P.[ZZ1_CustomFieldRiskRea_PRD] 
+    ,PP.[ProcurementType] 
+    ,PP.SpecialProcurementType
+    ,PP.[CountryOfOrigin]
     ,CONCAT('1.30_',P.[ProductType]) AS [RuleID]
     ,1 AS [Count]
 FROM   
     [base_s4h_cax].[I_Product] P  LEFT JOIN 
     [base_s4h_cax].[I_ProductPlant] PP ON P.Product = PP.Product
 WHERE
-    P.[ProductType] = 'ZFER' AND PP.[ProcurementType] = 'E'
+        P.[ProductType] = 'ZFER' 
     AND 
-   (PP.SpecialProcurementType!='' OR PP.[CountryOfOrigin]!= LEFT(PP.[Plant],2))
+        PP.[ProcurementType] = 'E'
+    AND 
+   (
+       PP.SpecialProcurementType!='' 
+       OR 
+       PP.[CountryOfOrigin]!= LEFT(PP.[Plant],2)
+    )

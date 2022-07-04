@@ -135,16 +135,22 @@ SELECT
     ,P.[ZZ1_CustomFieldRiskMit_PRD] 
     ,P.[ZZ1_CustomFieldHighRis_PRD] 
     ,P.[ZZ1_CustomFieldRiskRea_PRD] 
+    ,PP.[Commodity]
     ,CONCAT('1.12_',P.[ProductType]) AS [RuleID]
     ,1 AS [Count]
 FROM   
-    [base_s4h_cax].[I_Product] P  LEFT JOIN 
-    [base_s4h_cax].[I_ProductPlant] PP ON P.Product = PP.Product
+    [base_s4h_cax].[I_Product] P  
+LEFT JOIN 
+    [base_s4h_cax].[I_ProductPlant] PP 
+    ON 
+       P.Product = PP.Product
 WHERE
-    [ProductType] IN ('ZFER','ZHAW')
+    P.[ProductType] IN ('ZFER','ZHAW')
     AND
     (
-        PP.Commodity IS NULL OR  PP.Commodity =''
+        PP.Commodity IS NULL 
+        OR  
+        PP.Commodity =''
     )
 
 	
