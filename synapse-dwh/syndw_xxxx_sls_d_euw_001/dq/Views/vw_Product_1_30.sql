@@ -137,7 +137,6 @@ SELECT
     ,P.[ZZ1_CustomFieldRiskRea_PRD] 
     ,PP.[ProcurementType] 
     ,PP.SpecialProcurementType
-    ,PP.[CountryOfOrigin]
     ,CONCAT('1.30_',P.[ProductType]) AS [RuleID]
     ,1 AS [Count]
 FROM   
