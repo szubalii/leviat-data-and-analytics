@@ -185,3 +185,71 @@ GROUP BY
     cnt.[RuleID],
     cnt.[RuleGroup],
     cnt.[RecordTotals]
+
+UNION ALL
+
+SELECT
+    cnt.[RuleID],
+    cnt.[RecordTotals],
+    COUNT(p.Count) AS [ErrorTotals]
+FROM
+    CountRowsPerRuleID AS cnt
+INNER JOIN
+    [dq].[vw_Product_1_7] AS p
+    ON
+        cnt.[RuleID] = p.[RuleID]
+GROUP BY
+    cnt.[RuleID],
+    cnt.[RuleGroup],
+    cnt.[RecordTotals]
+
+UNION ALL
+
+SELECT
+    cnt.[RuleID],
+    cnt.[RecordTotals],
+    COUNT(p.Count) AS [ErrorTotals]
+FROM
+    CountRowsPerRuleID AS cnt
+INNER JOIN
+    [dq].[vw_Product_1_12] AS p
+    ON
+        cnt.[RuleID] = p.[RuleID]
+GROUP BY
+    cnt.[RuleID],
+    cnt.[RuleGroup],
+    cnt.[RecordTotals]
+
+UNION ALL
+
+SELECT
+    cnt.[RuleID],
+    cnt.[RecordTotals],
+    COUNT(p.Count) AS [ErrorTotals]
+FROM
+    CountRowsPerRuleID AS cnt
+INNER JOIN
+    [dq].[vw_Product_1_23] AS p
+    ON
+        cnt.[RuleID] = p.[RuleID]
+GROUP BY
+    cnt.[RuleID],
+    cnt.[RuleGroup],
+    cnt.[RecordTotals]
+
+UNION ALL
+
+SELECT
+    cnt.[RuleID],
+    cnt.[RecordTotals],
+    COUNT(p.Count) AS [ErrorTotals]
+FROM
+    CountRowsPerRuleID AS cnt
+INNER JOIN
+    [dq].[vw_Product_1_30] AS p
+    ON
+        cnt.[RuleID] = p.[RuleID]
+GROUP BY
+    cnt.[RuleID],
+    cnt.[RuleGroup],
+    cnt.[RecordTotals]

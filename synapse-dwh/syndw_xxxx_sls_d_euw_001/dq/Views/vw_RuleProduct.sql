@@ -68,3 +68,35 @@ SELECT
     , [Product]   
 FROM
     [dq].[vw_Product_1_20]
+
+UNION ALL
+
+SELECT
+    [RuleID]
+    , [Product]   
+FROM
+    [dq].[vw_Product_1_7]
+
+UNION ALL
+
+SELECT
+    [RuleID]
+    , [Product]   
+FROM
+    [dq].[vw_Product_1_12]
+
+UNION ALL
+
+SELECT
+    [RuleID]
+    , [Product]   
+FROM
+    [dq].[vw_Product_1_23]
+
+UNION ALL
+
+SELECT
+    [RuleID]
+    , [Product]   
+FROM
+    [dq].[vw_Product_1_30]
