@@ -1,36 +1,19 @@
-CREATE VIEW [dq].[vw_Product_1_11] AS
-
-WITH psd
-     AS (SELECT DISTINCT Product
-         FROM   [base_s4h_cax].[I_ProductSalesDelivery]
-         WHERE  [IsMarkedForDeletion] = 'X'
-         EXCEPT
-         SELECT DISTINCT Product
-         FROM   [base_s4h_cax].[I_ProductSalesDelivery] A
-         WHERE  EXISTS (SELECT 1
-                        FROM   [base_s4h_cax].[I_ProductSalesDelivery] B
-                        WHERE  A.Product = B.Product
-                               AND B.[IsMarkedForDeletion] = 'X')
-                AND A.[IsMarkedForDeletion] != 'X'),
-     pp
-     AS (SELECT DISTINCT Product
-         FROM   [base_s4h_cax].[I_ProductPlant]
-         WHERE  [IsMarkedForDeletion] = 'X'
-         EXCEPT
-         SELECT DISTINCT Product
-         FROM   [base_s4h_cax].[I_ProductPlant] A
-         WHERE  EXISTS (SELECT 1
-                        FROM   [base_s4h_cax].[I_ProductPlant] B
-                        WHERE  A.Product = B.Product
-                               AND B.[IsMarkedForDeletion] = 'X')
-                AND A.[IsMarkedForDeletion] != 'X'),
-     ptd
-     AS (SELECT psd.*
-         FROM   psd
-                INNER JOIN pp
-                        ON psd.Product = pp.Product)
-SELECT 
-	 P.[MANDT] 
+CREATE VIEW [dq].[vw_Product_1_29] AS
+WITH 
+Products AS (
+	SELECT 
+		Product 
+	FROM [base_s4h_cax].[I_ProductPlant] PP 
+	WHERE EXISTS (
+					SELECT 1 
+					FROM [base_s4h_cax].[I_Product] P 
+					WHERE P.Product=PP.Product 
+						  AND P.ProductType ='ZHAW'
+			  ) 
+	GROUP BY Product 
+	HAVING COUNT(DISTINCT [CountryOfOrigin])>1
+			)
+SELECT P.[MANDT] 
     ,P.[Product] 
     ,P.[ProductExternalID] 
     ,P.[ProductType] 
@@ -164,10 +147,14 @@ SELECT
     ,P.[ZZ1_CustomFieldRiskMit_PRD] 
     ,P.[ZZ1_CustomFieldHighRis_PRD] 
     ,P.[ZZ1_CustomFieldRiskRea_PRD] 
-    ,CONCAT('1.11_','All') AS [RuleID]
+    ,CONCAT('1.29_',P.[ProductType]) AS [RuleID]
     ,1 AS [Count]
-FROM   [base_s4h_cax].[I_Product] P
-WHERE  EXISTS (SELECT 1
-               FROM   ptd
-               WHERE  ptd.Product = P.Product)
-       AND P.[IsMarkedForDeletion] != 'X' 
+	FROM   
+		[base_s4h_cax].[I_Product] P 
+	INNER JOIN
+		Products 
+		ON 
+			P.Product = Products.Product
+
+
+
