@@ -17,7 +17,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"expression": {
-						"value": "@equals(\n    pipeline().parameters.sproc_name,\n    'sp_materialize_view'\n)",
+						"value": "@or(\n    equals(\n        pipeline().parameters.sproc_name,\n        'sp_materialize_view')\n    ,\n    equals(\n        pipeline().parameters.sproc_name,\n        'sp_dq_materialize_view')\n)",
 						"type": "Expression"
 					},
 					"ifFalseActivities": [

@@ -4447,14 +4447,14 @@
     "dq": {
         "layer_id": 4,
         "schema_name": "dq",
-        "edw_sproc_schema_name": "edw",
+        "edw_sproc_schema_name": "dq",
         "edw_source_schema_name": "dq",
         "edw_dest_schema_name": "dq",
         "entities": [
         {
             "entity_id": 437,
             "entity_name": "dim_RuleProduct",
-            "edw_sproc_name": "sp_materialize_view",
+            "edw_sproc_name": "sp_dq_materialize_view",
             "edw_source_view_name": "vw_RuleProduct",
             "edw_dest_table_name": "dim_RuleProduct",
             "edw_execution_order": 0,
@@ -4463,7 +4463,7 @@
         {
             "entity_id": 438,
             "entity_name": "fact_ProductTotal",
-            "edw_sproc_name": "sp_materialize_view",
+            "edw_sproc_name": "sp_dq_materialize_view",
             "edw_source_view_name": "vw_ProductTotal",
             "edw_dest_table_name": "fact_ProductTotal",
             "edw_execution_order": 0,
@@ -4472,7 +4472,7 @@
         {
             "entity_id": 439,
             "entity_name": "fact_RuleTotal",
-            "edw_sproc_name": "sp_materialize_view",
+            "edw_sproc_name": "sp_dq_materialize_view",
             "edw_source_view_name": "vw_RuleTotal",
             "edw_dest_table_name": "fact_RuleTotal",
             "edw_execution_order": 0,
