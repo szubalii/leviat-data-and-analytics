@@ -1,34 +1,34 @@
 CREATE VIEW [dq].[vw_Product_1_11] AS
 
 WITH psd
-     AS (SELECT DISTINCT product
-         FROM   [base_s4h_cax].[i_productsalesdelivery]
-         WHERE  [ismarkedfordeletion] = 'X'
+     AS (SELECT DISTINCT Product
+         FROM   [base_s4h_cax].[I_ProductSalesDelivery]
+         WHERE  [IsMarkedForDeletion] = 'X'
          EXCEPT
-         SELECT DISTINCT product
-         FROM   [base_s4h_cax].[i_productsalesdelivery] A
+         SELECT DISTINCT Product
+         FROM   [base_s4h_cax].[I_ProductSalesDelivery] A
          WHERE  EXISTS (SELECT 1
-                        FROM   [base_s4h_cax].[i_productsalesdelivery] B
-                        WHERE  A.product = B.product
-                               AND B.[ismarkedfordeletion] = 'X')
-                AND A.[ismarkedfordeletion] != 'X'),
+                        FROM   [base_s4h_cax].[I_ProductSalesDelivery] B
+                        WHERE  A.Product = B.Product
+                               AND B.[IsMarkedForDeletion] = 'X')
+                AND A.[IsMarkedForDeletion] != 'X'),
      pp
-     AS (SELECT DISTINCT product
-         FROM   [base_s4h_cax].[i_productplant]
-         WHERE  [ismarkedfordeletion] = 'X'
+     AS (SELECT DISTINCT Product
+         FROM   [base_s4h_cax].[I_ProductPlant]
+         WHERE  [IsMarkedForDeletion] = 'X'
          EXCEPT
-         SELECT DISTINCT product
-         FROM   [base_s4h_cax].[i_productplant] A
+         SELECT DISTINCT Product
+         FROM   [base_s4h_cax].[I_ProductPlant] A
          WHERE  EXISTS (SELECT 1
-                        FROM   [base_s4h_cax].[i_productplant] B
-                        WHERE  A.product = B.product
-                               AND B.[ismarkedfordeletion] = 'X')
-                AND A.[ismarkedfordeletion] != 'X'),
+                        FROM   [base_s4h_cax].[I_ProductPlant] B
+                        WHERE  A.Product = B.Product
+                               AND B.[IsMarkedForDeletion] = 'X')
+                AND A.[IsMarkedForDeletion] != 'X'),
      ptd
      AS (SELECT psd.*
          FROM   psd
                 INNER JOIN pp
-                        ON psd.product = pp.product)
+                        ON psd.Product = pp.Product)
 SELECT 
 	 P.[MANDT] 
     ,P.[Product] 
@@ -164,12 +164,10 @@ SELECT
     ,P.[ZZ1_CustomFieldRiskMit_PRD] 
     ,P.[ZZ1_CustomFieldHighRis_PRD] 
     ,P.[ZZ1_CustomFieldRiskRea_PRD] 
-    ,PP.[ProcurementType] 
-    ,PP.SpecialProcurementType
     ,CONCAT('1.11_',P.[ProductType]) AS [RuleID]
     ,1 AS [Count]
-FROM   [base_s4h_cax].[i_product] P
+FROM   [base_s4h_cax].[I_Product] P
 WHERE  EXISTS (SELECT 1
                FROM   ptd
-               WHERE  ptd.product = P.product)
-       AND P.[ismarkedfordeletion] != 'X' 
+               WHERE  ptd.Product = P.Product)
+       AND P.[IsMarkedForDeletion] != 'X' 
