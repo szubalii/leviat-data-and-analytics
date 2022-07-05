@@ -824,6 +824,7 @@
     <Build Include="dq\Views\vw_Product_1_23.sql" />
     <Build Include="dq\Views\vw_Product_1_30.sql" />
     <Build Include="dq\Views\vw_Product_1_12.sql" />
+    <Build Include="dq\Views\vw_Product_1_11.sql" />
     <Build Include="dq\Views\vw_RuleProduct.sql" />
     <Build Include="dq\Views\vw_ProductTotal.sql" />
   </ItemGroup>
