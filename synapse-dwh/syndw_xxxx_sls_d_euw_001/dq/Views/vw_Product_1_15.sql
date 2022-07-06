@@ -1,4 +1,50 @@
-﻿CREATE VIEW [dq].[vw_Product_1_14] AS
+﻿CREATE VIEW [dq].[vw_Product_1_15] AS
+WITH ProductEStatus AS (
+SELECT
+    pp.[Product]
+    ,pp.[Plant]
+    ,pp.[ProcurementType]
+FROM
+    [base_s4h_cax].[I_ProductPlant] AS pp
+INNER JOIN
+    [base_s4h_cax].[MSTA] AS msta
+    ON
+        pp.[Product] = msta.[MATNR]
+        AND
+        pp.[Plant] = msta.[WERKS]
+WHERE   
+    pp.[ProcurementType] IN ('F','X')
+    AND
+    msta.[STATM] = 'E'
+)
+,
+ProductOtherStatus AS (
+SELECT
+    pp.[Product]
+    ,pp.[Plant]
+    ,pp.[ProcurementType]
+FROM
+    [base_s4h_cax].[I_ProductPlant] pp
+INNER JOIN
+    [base_s4h_cax].[MSTA] msta
+    ON
+        pp.[Product] = msta.[MATNR]
+        AND
+        pp.[Plant] = msta.[WERKS]
+WHERE   
+    pp.[ProcurementType] IN ('F','X')
+)
+,
+ErrorProducts AS (
+SELECT *
+FROM
+    ProductOtherStatus
+EXCEPT
+SELECT * 
+FROM
+    ProductEStatus
+)
+
 SELECT
     p.[MANDT] 
     ,p.[Product] 
@@ -134,29 +180,13 @@ SELECT
     ,p.[ZZ1_CustomFieldRiskMit_PRD] 
     ,p.[ZZ1_CustomFieldHighRis_PRD] 
     ,p.[ZZ1_CustomFieldRiskRea_PRD]
-    ,psd.[ProductSalesOrg]
-    ,psd.[ProductDistributionChnl]
-    ,psd.[AccountDetnProductGroup]
-    ,msta.[VKORG]
-    ,msta.[VTWEG]
-    ,msta.[STATM]
-    ,'1.14_ALL' AS [RuleID]
+    ,ep.[Plant]
+    ,ep.[ProcurementType] 
+    ,'1.15_ALL' AS [RuleID]
     ,1 AS [Count]
 FROM
-    [base_s4h_cax].[I_ProductSalesDelivery] AS psd
+    ErrorProducts ep
 INNER JOIN
-    [base_s4h_cax].[MSTA] msta
-    ON
-        msta.[MATNR] = psd.[Product]
-        AND
-        msta.[VKORG] = psd.[ProductSalesOrg]
-        AND
-        msta.[VTWEG] = psd.[ProductDistributionChnl]
-LEFT JOIN
     [base_s4h_cax].[I_Product] AS p
     ON
-        psd.[Product] = p.[Product]
-WHERE
-    STATM = 'V'
-    AND
-    ISNULL(psd.[AccountDetnProductGroup], '') = ''
+        ep.[Product] = p.[Product]
