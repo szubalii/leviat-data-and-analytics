@@ -1,34 +1,35 @@
 CREATE VIEW [dq].[vw_Product_1_11] AS
 
-WITH psd
-     AS (SELECT DISTINCT Product
-         FROM   [base_s4h_cax].[I_ProductSalesDelivery]
-         WHERE  [IsMarkedForDeletion] = 'X'
-         EXCEPT
-         SELECT DISTINCT Product
-         FROM   [base_s4h_cax].[I_ProductSalesDelivery] A
-         WHERE  EXISTS (SELECT 1
-                        FROM   [base_s4h_cax].[I_ProductSalesDelivery] B
-                        WHERE  A.Product = B.Product
-                               AND B.[IsMarkedForDeletion] = 'X')
-                AND A.[IsMarkedForDeletion] != 'X'),
-     pp
-     AS (SELECT DISTINCT Product
-         FROM   [base_s4h_cax].[I_ProductPlant]
-         WHERE  [IsMarkedForDeletion] = 'X'
-         EXCEPT
-         SELECT DISTINCT Product
-         FROM   [base_s4h_cax].[I_ProductPlant] A
-         WHERE  EXISTS (SELECT 1
-                        FROM   [base_s4h_cax].[I_ProductPlant] B
-                        WHERE  A.Product = B.Product
-                               AND B.[IsMarkedForDeletion] = 'X')
-                AND A.[IsMarkedForDeletion] != 'X'),
-     ptd
-     AS (SELECT psd.*
-         FROM   psd
-                INNER JOIN pp
-                        ON psd.Product = pp.Product)
+WITH deleted_ProductSalesDelivery AS
+(
+SELECT DISTINCT 
+    psd1.Product
+FROM
+    [base_s4h_cax].[I_ProductSalesDelivery] psd1
+LEFT JOIN
+    [base_s4h_cax].[I_ProductSalesDelivery] psd2
+    ON
+        psd1.Product = psd2.Product
+        AND
+        psd2.[IsMarkedForDeletion] != 'X'  
+WHERE
+    psd2.Product IS NULL
+),
+deleted_ProductPlant AS
+(
+SELECT DISTINCT 
+    pp1.Product
+FROM
+    [base_s4h_cax].[I_ProductPlant] pp1
+LEFT JOIN
+    [base_s4h_cax].[I_ProductPlant] pp2
+    ON
+        pp1.Product = pp2.Product
+        AND
+        pp2.[IsMarkedForDeletion] != 'X'  
+WHERE
+    pp2.Product IS NULL
+)
 SELECT 
 	 P.[MANDT] 
     ,P.[Product] 
@@ -167,7 +168,13 @@ SELECT
     ,CONCAT('1.11_','All') AS [RuleID]
     ,1 AS [Count]
 FROM   [base_s4h_cax].[I_Product] P
-WHERE  EXISTS (SELECT 1
-               FROM   ptd
-               WHERE  ptd.Product = P.Product)
-       AND P.[IsMarkedForDeletion] != 'X' 
+INNER JOIN
+    deleted_ProductSalesDelivery dpsd
+ON
+    P.Product = dpsd.Product
+INNER JOIN
+    deleted_ProductPlant dpp
+ON
+    P.Product = dpp.Product
+WHERE
+    P.[IsMarkedForDeletion] != 'X'
