@@ -36,11 +36,17 @@ WHERE
 )
 ,
 ErrorProducts AS (
-SELECT *
+SELECT
+    [Product]
+    ,[Plant]
+    ,[ProcurementType]
 FROM
     ProductOtherStatus
 EXCEPT
-SELECT * 
+SELECT
+    [Product]
+    ,[Plant]
+    ,[ProcurementType] 
 FROM
     ProductEStatus
 )
