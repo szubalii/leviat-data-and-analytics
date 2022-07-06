@@ -39,7 +39,7 @@
     ,[FinNetAmountAllowances]                   DECIMAL(19, 6)                                       NULL
     ,[FinSales100]                              DECIMAL(19, 6)                                       NULL
     ,[AccountingDate]                           DATETIME                                             NULL
-    ,[MaterialCalculated]                       NVARCHAR(80)                                         NULL
+    ,[MaterialCalculated]                       NVARCHAR(100)                                         NULL
     ,[SoldToPartyCalculated]                    NVARCHAR(100)                                        NULL
     ,[InOutID]                                  CHAR(1) collate Latin1_General_100_BIN2              NULL
     ,[axbi_MaterialID]                          NVARCHAR (100)                                       NULL
