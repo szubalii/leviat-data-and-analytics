@@ -19,6 +19,8 @@ FROM
 WHERE
     [ProductType] = 'ZKMA'
     AND
+    ProductIsConfigurable = 'X'
+    AND
     [ItemCategoryGroup] != '0002'
 
 UNION ALL
