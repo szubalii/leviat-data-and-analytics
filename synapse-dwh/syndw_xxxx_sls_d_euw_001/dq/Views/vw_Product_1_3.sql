@@ -17,11 +17,7 @@ Rule_1_3 AS (
     WHERE
         p.[ProductType] IN ('ZERS','ZFER','ZROH')
         AND
-        (
-            pt.[ProductName] IS NULL
-            OR
-            pt.[ProductName] = ''
-        )
+        ISNULL([ProductName], '') = ''
     GROUP BY
         pt.[Product],
         p.[ProductType],

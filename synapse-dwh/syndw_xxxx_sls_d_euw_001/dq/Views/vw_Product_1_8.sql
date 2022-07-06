@@ -145,7 +145,5 @@ WHERE
     (
         [ItemCategoryGroup] != 'NORM'
         OR
-        [ItemCategoryGroup] IS NULL
-        OR
-        [ItemCategoryGroup] = ''
+        ISNULL([ItemCategoryGroup], '') = ''
     )

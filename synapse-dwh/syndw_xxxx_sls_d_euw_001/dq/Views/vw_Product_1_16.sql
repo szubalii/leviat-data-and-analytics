@@ -145,7 +145,5 @@ WHERE
     (
         [TransportationGroup] != '0001'
         OR
-        [TransportationGroup] IS NULL
-        OR
-        [TransportationGroup] = ''
+        ISNULL([TransportationGroup], '') = ''
     )

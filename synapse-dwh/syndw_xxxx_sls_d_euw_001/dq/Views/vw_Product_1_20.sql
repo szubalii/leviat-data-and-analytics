@@ -145,7 +145,5 @@ WHERE
     (
         [WeightUnit] != 'KG'
         OR
-        [WeightUnit] IS NULL
-        OR
-        [WeightUnit] = ''
+        ISNULL([WeightUnit], '') = ''
     )
