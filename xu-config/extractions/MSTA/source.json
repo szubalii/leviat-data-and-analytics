@@ -1,0 +1,156 @@
+{
+    "functionName": "Z_THEO_READ_TABLE",
+    "runInBackgroundJob": false,
+    "backgroundJobTimeout": 180,
+    "tables": 
+    [
+        {
+            "name": "MSTA",
+            "description": "Material Master Status",
+            "isView": false,
+            "fields": 
+            [
+                {
+                    "name": "MANDT",
+                    "description": "Client",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MATNR",
+                    "description": "Material Number",
+                    "abapType": "CharacterString",
+                    "length": 40,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "MARA",
+                    "conversionExit": "MATN1"
+                },
+                {
+                    "name": "STATM",
+                    "description": "Maintenance Status of Material Master Record",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "T132",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ZHLER",
+                    "description": "Counter",
+                    "abapType": "CharacterString",
+                    "length": 5,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ERSDA",
+                    "description": "Created On",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ERNAM",
+                    "description": "Name of Person who Created the Object",
+                    "abapType": "CharacterString",
+                    "length": 12,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "LAEDA",
+                    "description": "Date of Last Change",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "AENAM",
+                    "description": "Name of person who changed object",
+                    "abapType": "CharacterString",
+                    "length": 12,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "WERKS",
+                    "description": "Plant",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "MARC",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "LGORT",
+                    "description": "Storage location",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "MARD",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "LGNUM",
+                    "description": "Warehouse Number / Warehouse Complex",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "checkTable": "MLGN",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "LGTYP",
+                    "description": "Storage Type",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "checkTable": "MLGT",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "VKORG",
+                    "description": "Sales Organization",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "TVKO",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "VTWEG",
+                    "description": "Distribution Channel",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "checkTable": "MVKE",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "BWKEY",
+                    "description": "Valuation area",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "T001K",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "BWTAR",
+                    "description": "Valuation Type",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "checkTable": "MBEW",
+                    "conversionExit": ""
+                }
+            ]
+        }
+    ]
+}
