@@ -1,8 +1,41 @@
 ﻿CREATE VIEW [dq].[vw_Product_1_8] AS
 
+WITH ErrorProducts AS (
+SELECT
+    [Product]
+FROM   
+    [base_s4h_cax].[I_Product]
+WHERE
+    [ProductType] = 'ZROH'
+    AND
+    [ItemCategoryGroup] != 'NORM'
+
+UNION ALL
+
+SELECT
+    [Product]
+FROM   
+    [base_s4h_cax].[I_Product]
+WHERE
+    [ProductType] = 'ZKMA'
+    AND
+    [ItemCategoryGroup] != '0002'
+
+UNION ALL
+
+SELECT
+    [Product]
+FROM   
+    [base_s4h_cax].[I_Product]
+WHERE
+    [ProductType] = 'ZSER'
+    AND
+    [ItemCategoryGroup] != 'LEIS'
+)
+
 SELECT
     [MANDT] 
-    ,[Product] 
+    ,p.[Product] 
     ,[ProductExternalID] 
     ,[ProductType] 
     ,[CreationDate] 
@@ -138,12 +171,8 @@ SELECT
     ,CONCAT('1.8_',[ProductType]) AS [RuleID]
     ,1 AS [Count]
 FROM   
-    [base_s4h_cax].[I_Product]
-WHERE
-    [ProductType] IN ('ZHAW','ZROH','ZKMA','ZSER')
-    AND
-    (
-        [ItemCategoryGroup] != 'NORM'
-        OR
-        ISNULL([ItemCategoryGroup], '') = ''
-    )
+    [base_s4h_cax].[I_Product] AS p
+INNER JOIN
+    ErrorProducts AS errp
+    ON
+        p.[Product] = errp.[Product]
