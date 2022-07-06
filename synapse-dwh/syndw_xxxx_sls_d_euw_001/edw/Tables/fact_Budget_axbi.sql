@@ -18,7 +18,7 @@ CREATE TABLE [edw].[fact_Budget_axbi]
     [axbi_DataAreaGroup]    NVARCHAR(8)                                  NULL,
     [axbi_MaterialID]       NVARCHAR(100)                                NULL,
     [axbi_CustomerID]       NVARCHAR(100)                                NULL,
-    [MaterialCalculated]    NVARCHAR(80)                                 NULL,
+    [MaterialCalculated]    NVARCHAR(100)                                 NULL,
     [SoldToPartyCalculated] NVARCHAR(20)                                 NULL,
     [InOutID]               CHAR(1) collate Latin1_General_100_BIN2      NULL,
     [t_applicationId]       VARCHAR(32),
