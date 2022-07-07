@@ -158,7 +158,7 @@ SELECT
     ,p.[ZZ1_CustomFieldRiskMit_PRD] 
     ,p.[ZZ1_CustomFieldHighRis_PRD] 
     ,p.[ZZ1_CustomFieldRiskRea_PRD]
-    ,1 AS [IsError]
+    ,1 AS [Count]
     ,CONCAT('1.3_',p.[ProductType]) AS [RuleID]
 FROM
    [base_s4h_cax].[I_ProductText] AS pt
