@@ -2,7 +2,7 @@ CREATE VIEW [dq].[vw_Product_1_29] AS
 WITH 
 Products AS (
 	SELECT DISTINCT
-		Product 
+		PP.Product 
 	FROM 
         [base_s4h_cax].[I_ProductPlant] PP 
 	INNER JOIN 
@@ -10,8 +10,8 @@ Products AS (
         ON 
             P.Product=PP.Product 
             AND P.ProductType ='ZHAW'
-	GROUP BY Product 
-	HAVING COUNT(DISTINCT [CountryOfOrigin])>1
+	GROUP BY PP.Product 
+	HAVING COUNT(DISTINCT PP.[CountryOfOrigin])>1
 			)
 SELECT P.[MANDT] 
     ,P.[Product] 
