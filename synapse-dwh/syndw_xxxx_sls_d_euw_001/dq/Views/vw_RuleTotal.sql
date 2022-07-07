@@ -132,7 +132,7 @@ UNION ALL
 SELECT
     cnt.[RuleID],
     CASE
-        WHEN cnt.[RuleGroup] LIKE '%All%'
+        WHEN cnt.[RuleGroup] LIKE '%ALL%'
         THEN (SELECT COUNT(*) FROM [base_s4h_cax].[I_Product])
         ELSE cnt.[RecordTotals]
     END AS [RecordTotals],
@@ -153,7 +153,7 @@ UNION ALL
 SELECT
     cnt.[RuleID],
     CASE
-        WHEN cnt.[RuleGroup] LIKE '%All%'
+        WHEN cnt.[RuleGroup] LIKE '%ALL%'
         THEN (SELECT COUNT(*) FROM [base_s4h_cax].[I_Product])
         ELSE cnt.[RecordTotals]
     END AS [RecordTotals],
@@ -259,7 +259,7 @@ UNION ALL
 SELECT
     cnt.[RuleID],
     CASE
-        WHEN cnt.[RuleGroup] LIKE '%All%'
+        WHEN cnt.[RuleGroup] LIKE '%ALL%'
         THEN (SELECT COUNT(*) FROM [base_s4h_cax].[I_Product])
         ELSE cnt.[RecordTotals]
     END AS [RecordTotals],
@@ -280,7 +280,7 @@ UNION ALL
 SELECT
     cnt.[RuleID],
     CASE
-        WHEN cnt.[RuleGroup] LIKE '%All%'
+        WHEN cnt.[RuleGroup] LIKE '%ALL%'
         THEN (SELECT COUNT(*) FROM [base_s4h_cax].[I_Product])
         ELSE cnt.[RecordTotals]
     END AS [RecordTotals],
