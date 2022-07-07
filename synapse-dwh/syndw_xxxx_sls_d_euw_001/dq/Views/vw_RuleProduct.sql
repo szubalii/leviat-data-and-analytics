@@ -124,3 +124,11 @@ SELECT
     , [Product]   
 FROM
     [dq].[vw_Product_1_29]
+
+UNION ALL
+
+SELECT
+    [RuleID]
+    , [Product]   
+FROM
+    [dq].[vw_Product_1_22]
