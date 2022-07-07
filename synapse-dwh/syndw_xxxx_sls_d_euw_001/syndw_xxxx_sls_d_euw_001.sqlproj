@@ -822,6 +822,9 @@
     <Build Include="dq\Views\vw_Product_1_6.sql" />
     <Build Include="dq\Views\vw_RuleProduct.sql" />
     <Build Include="dq\Views\vw_ProductTotal.sql" />
+    <Build Include="base_s4h_cax\Tables\MSTA.sql" />
+    <Build Include="dq\Views\vw_Product_1_14.sql" />
+    <Build Include="dq\Views\vw_Product_1_15.sql" />
     <Build Include="dq\Stored Procedures\sp_dq_materialize_view.sql" />
   </ItemGroup>
   <ItemGroup>

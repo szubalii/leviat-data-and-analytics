@@ -1,61 +1,8 @@
-﻿CREATE VIEW [dq].[vw_Product_1_6] AS
-WITH
-DeletedProducts AS (
-    SELECT
-        p.[Product],
-        pt.[Language],
-        p.[IsMarkedForDeletion],
-        p.[CrossPlantStatus],
-        pt.[ProductName]
-    FROM
-        [base_s4h_cax].[I_ProductText] AS pt
-    LEFT JOIN
-        [base_s4h_cax].[I_Product] AS p
-        ON
-            pt.[Product] = p.[Product]
-    WHERE
-        p.[IsMarkedForDeletion] = 'X'
-        AND
-        p.[CrossPlantStatus] = '70'
-        AND
-        (
-            pt.ProductName LIKE 'DEL%'
-            OR
-            pt.ProductName LIKE 'DUP%'
-        )
-)
-,
-NotDeletedProducts AS (
-    SELECT
-        p.[Product],
-        pt.[Language],
-        p.[IsMarkedForDeletion],
-        p.[CrossPlantStatus],
-        pt.[ProductName]
-    FROM
-        [base_s4h_cax].[I_ProductText] AS pt
-    LEFT JOIN
-        [base_s4h_cax].[I_Product] AS p
-        ON
-            pt.[Product] = p.[Product]
-    WHERE
-        p.[IsMarkedForDeletion] != 'X'
-        AND
-        p.[CrossPlantStatus] != '70'
-        AND
-        (
-            pt.[ProductName] NOT LIKE 'DEL%'
-            OR
-            pt.[ProductName] NOT LIKE 'DUP%'
-        )
-)
-
-SELECT 
+﻿CREATE VIEW [dq].[vw_Product_1_14] AS
+SELECT
     p.[MANDT] 
     ,p.[Product] 
     ,p.[ProductExternalID] 
-    ,pt.[Language]
-    ,pt.[ProductName]
     ,p.[ProductType] 
     ,p.[CreationDate] 
     ,p.[CreationTime]
@@ -187,23 +134,29 @@ SELECT
     ,p.[ZZ1_CustomFieldRiskMit_PRD] 
     ,p.[ZZ1_CustomFieldHighRis_PRD] 
     ,p.[ZZ1_CustomFieldRiskRea_PRD]
-    ,'1.6_ALL' AS [RuleID]
+    ,psd.[ProductSalesOrg]
+    ,psd.[ProductDistributionChnl]
+    ,psd.[AccountDetnProductGroup]
+    ,msta.[VKORG]
+    ,msta.[VTWEG]
+    ,msta.[STATM]
+    ,'1.14_ALL' AS [RuleID]
     ,1 AS [Count]
 FROM
-    [base_s4h_cax].[I_ProductText] AS pt
+    [base_s4h_cax].[I_ProductSalesDelivery] AS psd
+INNER JOIN
+    [base_s4h_cax].[MSTA] msta
+    ON
+        msta.[MATNR] = psd.[Product]
+        AND
+        msta.[VKORG] = psd.[ProductSalesOrg]
+        AND
+        msta.[VTWEG] = psd.[ProductDistributionChnl]
 LEFT JOIN
     [base_s4h_cax].[I_Product] AS p
     ON
-        pt.[Product] = p.[Product]
-LEFT JOIN
-    DeletedProducts AS del
-    ON
-        del.[Product] = pt.[Product]
-LEFT JOIN
-    NotDeletedProducts AS notdel
-    ON
-        notdel.[Product] = p.[Product]
+        psd.[Product] = p.[Product]
 WHERE
-    del.[Product] IS NULL
+    STATM = 'V'
     AND
-    notdel.[Product] IS NULL
+    ISNULL(psd.[AccountDetnProductGroup], '') = ''

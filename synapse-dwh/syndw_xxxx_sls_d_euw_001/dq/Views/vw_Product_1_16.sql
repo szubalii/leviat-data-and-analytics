@@ -140,10 +140,10 @@ SELECT
 FROM   
     [base_s4h_cax].[I_Product]
 WHERE
-    [ProductType] IN ('ZFER','ZHAL','ZHAW')
+    [ProductType] IN ('ZFER','ZHAL','ZHAW','ZVER','ZROH')
     AND
     (
         [TransportationGroup] != '0001'
         OR
-        [TransportationGroup] IS NULL
+        ISNULL([TransportationGroup], '') = ''
     )

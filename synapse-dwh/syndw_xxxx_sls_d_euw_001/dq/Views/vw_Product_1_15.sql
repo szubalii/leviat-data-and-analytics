@@ -1,61 +1,60 @@
-﻿CREATE VIEW [dq].[vw_Product_1_6] AS
-WITH
-DeletedProducts AS (
-    SELECT
-        p.[Product],
-        pt.[Language],
-        p.[IsMarkedForDeletion],
-        p.[CrossPlantStatus],
-        pt.[ProductName]
-    FROM
-        [base_s4h_cax].[I_ProductText] AS pt
-    LEFT JOIN
-        [base_s4h_cax].[I_Product] AS p
-        ON
-            pt.[Product] = p.[Product]
-    WHERE
-        p.[IsMarkedForDeletion] = 'X'
+﻿CREATE VIEW [dq].[vw_Product_1_15] AS
+WITH ProductEStatus AS (
+SELECT
+    pp.[Product]
+    ,pp.[Plant]
+    ,pp.[ProcurementType]
+FROM
+    [base_s4h_cax].[I_ProductPlant] AS pp
+INNER JOIN
+    [base_s4h_cax].[MSTA] AS msta
+    ON
+        pp.[Product] = msta.[MATNR]
         AND
-        p.[CrossPlantStatus] = '70'
-        AND
-        (
-            pt.ProductName LIKE 'DEL%'
-            OR
-            pt.ProductName LIKE 'DUP%'
-        )
+        pp.[Plant] = msta.[WERKS]
+WHERE   
+    pp.[ProcurementType] IN ('F','X')
+    AND
+    msta.[STATM] = 'E'
 )
 ,
-NotDeletedProducts AS (
-    SELECT
-        p.[Product],
-        pt.[Language],
-        p.[IsMarkedForDeletion],
-        p.[CrossPlantStatus],
-        pt.[ProductName]
-    FROM
-        [base_s4h_cax].[I_ProductText] AS pt
-    LEFT JOIN
-        [base_s4h_cax].[I_Product] AS p
-        ON
-            pt.[Product] = p.[Product]
-    WHERE
-        p.[IsMarkedForDeletion] != 'X'
+ProductOtherStatus AS (
+SELECT
+    pp.[Product]
+    ,pp.[Plant]
+    ,pp.[ProcurementType]
+FROM
+    [base_s4h_cax].[I_ProductPlant] pp
+INNER JOIN
+    [base_s4h_cax].[MSTA] msta
+    ON
+        pp.[Product] = msta.[MATNR]
         AND
-        p.[CrossPlantStatus] != '70'
-        AND
-        (
-            pt.[ProductName] NOT LIKE 'DEL%'
-            OR
-            pt.[ProductName] NOT LIKE 'DUP%'
-        )
+        pp.[Plant] = msta.[WERKS]
+WHERE   
+    pp.[ProcurementType] IN ('F','X')
+)
+,
+ErrorProducts AS (
+SELECT
+    [Product]
+    ,[Plant]
+    ,[ProcurementType]
+FROM
+    ProductOtherStatus
+EXCEPT
+SELECT
+    [Product]
+    ,[Plant]
+    ,[ProcurementType] 
+FROM
+    ProductEStatus
 )
 
-SELECT 
+SELECT
     p.[MANDT] 
     ,p.[Product] 
     ,p.[ProductExternalID] 
-    ,pt.[Language]
-    ,pt.[ProductName]
     ,p.[ProductType] 
     ,p.[CreationDate] 
     ,p.[CreationTime]
@@ -187,23 +186,13 @@ SELECT
     ,p.[ZZ1_CustomFieldRiskMit_PRD] 
     ,p.[ZZ1_CustomFieldHighRis_PRD] 
     ,p.[ZZ1_CustomFieldRiskRea_PRD]
-    ,'1.6_ALL' AS [RuleID]
+    ,ep.[Plant]
+    ,ep.[ProcurementType] 
+    ,'1.15_ALL' AS [RuleID]
     ,1 AS [Count]
 FROM
-    [base_s4h_cax].[I_ProductText] AS pt
-LEFT JOIN
+    ErrorProducts ep
+INNER JOIN
     [base_s4h_cax].[I_Product] AS p
     ON
-        pt.[Product] = p.[Product]
-LEFT JOIN
-    DeletedProducts AS del
-    ON
-        del.[Product] = pt.[Product]
-LEFT JOIN
-    NotDeletedProducts AS notdel
-    ON
-        notdel.[Product] = p.[Product]
-WHERE
-    del.[Product] IS NULL
-    AND
-    notdel.[Product] IS NULL
+        ep.[Product] = p.[Product]
