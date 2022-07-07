@@ -145,7 +145,7 @@ SELECT P.[MANDT]
     ,P.[ZZ1_CustomFieldRiskMit_PRD] 
     ,P.[ZZ1_CustomFieldHighRis_PRD] 
     ,P.[ZZ1_CustomFieldRiskRea_PRD] 
-    ,CONCAT('1.13_','ALL') AS [RuleID]
+    ,'1.13_ALL' AS [RuleID]
     ,1 AS [Count]
 	FROM   [base_s4h_cax].[I_Product] P
 	WHERE 

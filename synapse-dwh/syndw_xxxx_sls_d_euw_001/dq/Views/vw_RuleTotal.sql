@@ -253,3 +253,79 @@ GROUP BY
     cnt.[RuleID],
     cnt.[RuleGroup],
     cnt.[RecordTotals]
+
+UNION ALL
+
+SELECT
+    cnt.[RuleID],
+    CASE
+        WHEN cnt.[RuleGroup] LIKE '%All%'
+        THEN (SELECT COUNT(*) FROM [base_s4h_cax].[I_Product])
+        ELSE cnt.[RecordTotals]
+    END AS [RecordTotals],
+    COUNT(p.Count) AS [ErrorTotals]
+FROM
+    CountRowsPerRuleID AS cnt
+INNER JOIN
+    [dq].[vw_Product_1_13] AS p
+    ON
+        cnt.[RuleID] = p.[RuleID]
+GROUP BY
+    cnt.[RuleID],
+    cnt.[RuleGroup],
+    cnt.[RecordTotals]
+
+UNION ALL
+
+SELECT
+    cnt.[RuleID],
+    CASE
+        WHEN cnt.[RuleGroup] LIKE '%All%'
+        THEN (SELECT COUNT(*) FROM [base_s4h_cax].[I_Product])
+        ELSE cnt.[RecordTotals]
+    END AS [RecordTotals],
+    COUNT(p.Count) AS [ErrorTotals]
+FROM
+    CountRowsPerRuleID AS cnt
+INNER JOIN
+    [dq].[vw_Product_1_11] AS p
+    ON
+        cnt.[RuleID] = p.[RuleID]
+GROUP BY
+    cnt.[RuleID],
+    cnt.[RuleGroup],
+    cnt.[RecordTotals]
+
+UNION ALL
+
+SELECT
+    cnt.[RuleID],
+    cnt.[RecordTotals],
+    COUNT(p.Count) AS [ErrorTotals]
+FROM
+    CountRowsPerRuleID AS cnt
+INNER JOIN
+    [dq].[vw_Product_1_29] AS p
+    ON
+        cnt.[RuleID] = p.[RuleID]
+GROUP BY
+    cnt.[RuleID],
+    cnt.[RuleGroup],
+    cnt.[RecordTotals]
+
+UNION ALL
+
+SELECT
+    cnt.[RuleID],
+    cnt.[RecordTotals],
+    COUNT(p.Count) AS [ErrorTotals]
+FROM
+    CountRowsPerRuleID AS cnt
+INNER JOIN
+    [dq].[vw_Product_1_22] AS p
+    ON
+        cnt.[RuleID] = p.[RuleID]
+GROUP BY
+    cnt.[RuleID],
+    cnt.[RuleGroup],
+    cnt.[RecordTotals]

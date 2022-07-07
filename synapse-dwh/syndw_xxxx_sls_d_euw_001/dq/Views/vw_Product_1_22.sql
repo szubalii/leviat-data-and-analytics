@@ -3,7 +3,8 @@ WITH
 Products AS (
 SELECT 
 	Product 
-FROM [base_s4h_cax].[I_ProductPlant] PP 
+FROM 
+    [base_s4h_cax].[I_ProductPlant] PP 
 WHERE EXISTS (
 				SELECT 1 
 				FROM 
@@ -17,7 +18,18 @@ GROUP BY
 	Product 
 HAVING 
 	COUNT(DISTINCT LEFT(PP.[Commodity],6))>1
+
+UNION
+
+SELECT 
+    Product
+FROM 
+    [base_s4h_cax].[I_ProductPlant]
+WHERE
+    [Commodity] = ''
+
 ) 
+
 SELECT P.[MANDT] 
     ,P.[Product] 
     ,P.[ProductExternalID] 

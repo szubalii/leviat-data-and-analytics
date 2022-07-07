@@ -1,15 +1,15 @@
 CREATE VIEW [dq].[vw_Product_1_29] AS
 WITH 
 Products AS (
-	SELECT 
+	SELECT DISTINCT
 		Product 
-	FROM [base_s4h_cax].[I_ProductPlant] PP 
-	WHERE EXISTS (
-					SELECT 1 
-					FROM [base_s4h_cax].[I_Product] P 
-					WHERE P.Product=PP.Product 
-						  AND P.ProductType ='ZHAW'
-			  ) 
+	FROM 
+        [base_s4h_cax].[I_ProductPlant] PP 
+	INNER JOIN 
+        [base_s4h_cax].[I_Product] P 
+        ON 
+            P.Product=PP.Product 
+            AND P.ProductType ='ZHAW'
 	GROUP BY Product 
 	HAVING COUNT(DISTINCT [CountryOfOrigin])>1
 			)
