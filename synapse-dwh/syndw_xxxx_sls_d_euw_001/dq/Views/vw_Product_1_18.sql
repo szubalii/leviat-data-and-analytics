@@ -141,5 +141,3 @@ FROM
     [base_s4h_cax].[I_Product]
 WHERE
     [Division] != ''
-    OR
-    [Division] IS NULL
