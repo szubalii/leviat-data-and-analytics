@@ -1,12 +1,16 @@
 CREATE VIEW [dq].[vw_Product_1_13] AS
 
 WITH Products AS (
-SELECT DISTINCT Product
-         FROM   [base_s4h_cax].[I_ProductSalesDelivery] 
+SELECT DISTINCT 
+        Product
+FROM   
+    [base_s4h_cax].[I_ProductSalesDelivery] 
 UNION
-SELECT DISTINCT Product
-         FROM   [base_s4h_cax].[I_ProductPlant]
-		 )
+SELECT DISTINCT
+    Product
+FROM   
+    [base_s4h_cax].[I_ProductPlant]
+)
 SELECT P.[MANDT] 
     ,P.[Product] 
     ,P.[ProductExternalID] 
@@ -141,13 +145,15 @@ SELECT P.[MANDT]
     ,P.[ZZ1_CustomFieldRiskMit_PRD] 
     ,P.[ZZ1_CustomFieldHighRis_PRD] 
     ,P.[ZZ1_CustomFieldRiskRea_PRD] 
-    ,CONCAT('1.13_','All') AS [RuleID]
+    ,CONCAT('1.13_','ALL') AS [RuleID]
     ,1 AS [Count]
 	FROM   [base_s4h_cax].[I_Product] P
 	WHERE 
 		NOT EXISTS (
-						SELECT 1 FROM Products PRD WHERE PRD.Product=P.Product
-					)
+		SELECT 1 
+        FROM Products PRD 
+        WHERE PRD.Product=P.Product
+		)
 
 
 			

@@ -148,9 +148,7 @@ WHERE
     P.[ProductType] IN ('ZFER','ZHAW')
     AND
     (
-        PP.Commodity IS NULL 
-        OR  
-        PP.Commodity =''
+       ISNULL(PP.[Commodity], '') = ''
     )
 
 	

@@ -139,8 +139,11 @@ SELECT
     ,CONCAT('1.7_',P.[ProductType]) AS [RuleID]
     ,1 AS [Count]
 FROM   
-    [base_s4h_cax].[I_Product] P  LEFT JOIN 
-    [base_s4h_cax].[I_ProductSalesDelivery] PSD ON P.Product = PSD.Product
+    [base_s4h_cax].[I_Product] P  
+LEFT JOIN 
+    [base_s4h_cax].[I_ProductSalesDelivery] PSD 
+ON 
+    P.Product = PSD.Product
 WHERE
     [ProductType] IN ('ZFER','ZHAW','ZVER')
     AND

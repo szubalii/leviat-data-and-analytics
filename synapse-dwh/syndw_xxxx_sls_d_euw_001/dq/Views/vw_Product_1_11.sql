@@ -165,9 +165,10 @@ SELECT
     ,P.[ZZ1_CustomFieldRiskMit_PRD] 
     ,P.[ZZ1_CustomFieldHighRis_PRD] 
     ,P.[ZZ1_CustomFieldRiskRea_PRD] 
-    ,CONCAT('1.11_','All') AS [RuleID]
+    ,CONCAT('1.11_','ALL') AS [RuleID]
     ,1 AS [Count]
-FROM   [base_s4h_cax].[I_Product] P
+FROM   
+    [base_s4h_cax].[I_Product] P
 INNER JOIN
     deleted_ProductSalesDelivery dpsd
 ON

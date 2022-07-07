@@ -140,8 +140,10 @@ SELECT
     ,CONCAT('1.30_',P.[ProductType]) AS [RuleID]
     ,1 AS [Count]
 FROM   
-    [base_s4h_cax].[I_Product] P  LEFT JOIN 
-    [base_s4h_cax].[I_ProductPlant] PP ON P.Product = PP.Product
+    [base_s4h_cax].[I_Product] P  
+LEFT JOIN 
+    [base_s4h_cax].[I_ProductPlant] PP 
+    ON P.Product = PP.Product
 WHERE
         P.[ProductType] = 'ZFER' 
     AND 
