@@ -7,7 +7,7 @@
 				"type": "WebActivity",
 				"dependsOn": [
 					{
-						"activity": "set_pbi_refresh_guid",
+						"activity": "act_exec_sproc_start_log",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -155,74 +155,6 @@
 								"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
 								"type": "LinkedServiceReference"
 							}
-						},
-						{
-							"name": "act_update_pbi_status_fail_get_refresh_status",
-							"type": "SqlServerStoredProcedure",
-							"dependsOn": [
-								{
-									"activity": "act_exec_sproc_log_exception_RefreshStatus",
-									"dependencyConditions": [
-										"Succeeded"
-									]
-								}
-							],
-							"policy": {
-								"timeout": "7.00:00:00",
-								"retry": 0,
-								"retryIntervalInSeconds": 30,
-								"secureOutput": false,
-								"secureInput": false
-							},
-							"userProperties": [],
-							"typeProperties": {
-								"storedProcedureName": "[dbo].[update_pbi_status]",
-								"storedProcedureParameters": {
-									"pbi_refresh_guid": {
-										"value": {
-											"value": "@variables('pbi_refresh_guid')",
-											"type": "Expression"
-										},
-										"type": "Guid"
-									},
-									"end_date_time": {
-										"value": {
-											"value": "@formatDateTime(utcnow(), 'yyyy-MM-dd HH:mm:ss')",
-											"type": "Expression"
-										},
-										"type": "Datetime"
-									},
-									"run_id": {
-										"value": {
-											"value": "@pipeline().RunId",
-											"type": "Expression"
-										},
-										"type": "Guid"
-									},
-									"status": {
-										"value": "Failed",
-										"type": "String"
-									},
-									"message": {
-										"value": {
-											"value": "@string(json(first(json(string(activity('Get dataset refresh status').output)).value).serviceExceptionJson))",
-											"type": "Expression"
-										},
-										"type": "String"
-									},
-									"pbi_dataset_id": {
-										"value": {
-											"value": "@pipeline().parameters.pbi_dataset_id",
-											"type": "Expression"
-										},
-										"type": "Int64"
-									}
-								}
-							},
-							"linkedServiceName": {
-								"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
-								"type": "LinkedServiceReference"
-							}
 						}
 					],
 					"timeout": "0.03:00:00"
@@ -323,7 +255,7 @@
 							"type": "Fail",
 							"dependsOn": [
 								{
-									"activity": "act_update_pbi_status_fail_refresh_dataset",
+									"activity": "act_exec_sproc_log_exception_Refresh_error",
 									"dependencyConditions": [
 										"Succeeded"
 									]
@@ -336,74 +268,6 @@
 									"type": "Expression"
 								},
 								"errorCode": "RefreshPBIDatasetFailed"
-							}
-						},
-						{
-							"name": "act_update_pbi_status_fail_refresh_dataset",
-							"type": "SqlServerStoredProcedure",
-							"dependsOn": [
-								{
-									"activity": "act_exec_sproc_log_exception_Refresh_error",
-									"dependencyConditions": [
-										"Succeeded"
-									]
-								}
-							],
-							"policy": {
-								"timeout": "7.00:00:00",
-								"retry": 0,
-								"retryIntervalInSeconds": 30,
-								"secureOutput": false,
-								"secureInput": false
-							},
-							"userProperties": [],
-							"typeProperties": {
-								"storedProcedureName": "[dbo].[update_pbi_status]",
-								"storedProcedureParameters": {
-									"pbi_refresh_guid": {
-										"value": {
-											"value": "@variables('pbi_refresh_guid')",
-											"type": "Expression"
-										},
-										"type": "Guid"
-									},
-									"end_date_time": {
-										"value": {
-											"value": "@formatDateTime(utcnow(), 'yyyy-MM-dd HH:mm:ss')",
-											"type": "Expression"
-										},
-										"type": "Datetime"
-									},
-									"run_id": {
-										"value": {
-											"value": "@pipeline().RunId",
-											"type": "Expression"
-										},
-										"type": "Guid"
-									},
-									"status": {
-										"value": "Failed",
-										"type": "String"
-									},
-									"message": {
-										"value": {
-											"value": "@variables('ProcessingErrors')",
-											"type": "Expression"
-										},
-										"type": "String"
-									},
-									"pbi_dataset_id": {
-										"value": {
-											"value": "@pipeline().parameters.pbi_dataset_id",
-											"type": "Expression"
-										},
-										"type": "Int64"
-									}
-								}
-							},
-							"linkedServiceName": {
-								"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
-								"type": "LinkedServiceReference"
 							}
 						}
 					]
@@ -590,197 +454,6 @@
 					"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
 					"type": "LinkedServiceReference"
 				}
-			},
-			{
-				"name": "act_update_pbi_status_fail_web_call",
-				"type": "SqlServerStoredProcedure",
-				"dependsOn": [
-					{
-						"activity": "act_exec_sproc_log_exception_Refresh",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"policy": {
-					"timeout": "7.00:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"storedProcedureName": "[dbo].[update_pbi_status]",
-					"storedProcedureParameters": {
-						"pbi_refresh_guid": {
-							"value": {
-								"value": "@variables('pbi_refresh_guid')",
-								"type": "Expression"
-							},
-							"type": "Guid"
-						},
-						"end_date_time": {
-							"value": {
-								"value": "@formatDateTime(utcnow(), 'yyyy-MM-dd HH:mm:ss')",
-								"type": "Expression"
-							},
-							"type": "Datetime"
-						},
-						"run_id": {
-							"value": {
-								"value": "@pipeline().RunId",
-								"type": "Expression"
-							},
-							"type": "Guid"
-						},
-						"status": {
-							"value": "Failed",
-							"type": "String"
-						},
-						"message": {
-							"value": "Failed to call dataset refresh",
-							"type": "String"
-						},
-						"pbi_dataset_id": {
-							"value": {
-								"value": "@pipeline().parameters.pbi_dataset_id",
-								"type": "Expression"
-							},
-							"type": "Int64"
-						}
-					}
-				},
-				"linkedServiceName": {
-					"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
-					"type": "LinkedServiceReference"
-				}
-			},
-			{
-				"name": "set_pbi_refresh_guid",
-				"type": "SqlServerStoredProcedure",
-				"dependsOn": [
-					{
-						"activity": "act_exec_sproc_start_log",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"policy": {
-					"timeout": "7.00:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"storedProcedureName": "[dbo].[set_pbi_log]",
-					"storedProcedureParameters": {
-						"pbi_refresh_guid": {
-							"value": {
-								"value": "@variables('pbi_refresh_guid')",
-								"type": "Expression"
-							},
-							"type": "Guid"
-						},
-						"run_id": {
-							"value": {
-								"value": "@pipeline().RunId",
-								"type": "Expression"
-							},
-							"type": "Guid"
-						},
-						"status": {
-							"value": "InProgress",
-							"type": "String"
-						},
-						"start_date_time": {
-							"value": {
-								"value": "@formatDateTime(utcnow(), 'yyyy-MM-dd HH:mm:ss')",
-								"type": "Expression"
-							},
-							"type": "Datetime"
-						},
-						"pbi_dataset_id": {
-							"value": {
-								"value": "@pipeline().parameters.pbi_dataset_id",
-								"type": "Expression"
-							},
-							"type": "Int64"
-						}
-					}
-				},
-				"linkedServiceName": {
-					"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
-					"type": "LinkedServiceReference"
-				}
-			},
-			{
-				"name": "act_update_pbi_status_success",
-				"type": "SqlServerStoredProcedure",
-				"dependsOn": [
-					{
-						"activity": "act_exec_sproc_log_success",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"policy": {
-					"timeout": "7.00:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"storedProcedureName": "[dbo].[update_pbi_status]",
-					"storedProcedureParameters": {
-						"pbi_refresh_guid": {
-							"value": {
-								"value": "@variables('pbi_refresh_guid')",
-								"type": "Expression"
-							},
-							"type": "Guid"
-						},
-						"end_date_time": {
-							"value": {
-								"value": "@formatDateTime(utcnow(), 'yyyy-MM-dd HH:mm:ss')",
-								"type": "Expression"
-							},
-							"type": "Datetime"
-						},
-						"run_id": {
-							"value": {
-								"value": "@pipeline().RunId",
-								"type": "Expression"
-							},
-							"type": "Guid"
-						},
-						"status": {
-							"value": "Succeeded",
-							"type": "String"
-						},
-						"message": {
-							"value": "Finished successfully",
-							"type": "String"
-						},
-						"pbi_dataset_id": {
-							"value": {
-								"value": "@pipeline().parameters.pbi_dataset_id",
-								"type": "Expression"
-							},
-							"type": "Int64"
-						}
-					}
-				},
-				"linkedServiceName": {
-					"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
-					"type": "LinkedServiceReference"
-				}
 			}
 		],
 		"parameters": {
@@ -801,22 +474,15 @@
 			},
 			"pbi_dataset_id": {
 				"type": "string"
-			},
-			"run_id": {
-				"type": "string"
 			}
 		},
 		"variables": {
 			"ProcessingErrors": {
 				"type": "String"
-			},
-			"pbi_refresh_guid": {
-				"type": "String",
-				"defaultValue": "@guid()"
 			}
 		},
 		"folder": {
-			"name": "06 Power BI"
+			"name": "00 ELT/06 Power BI"
 		},
 		"annotations": []
 	}
