@@ -1,13 +1,10 @@
 ﻿CREATE VIEW [dq].[vw_Product_1_3] AS
 WITH
-Rule_1_3 AS (
+DuplicateProductName AS (
     SELECT
         COUNT(*) AS [CountDuplicates],
-        pt.[Product],
         pt.[Language],
-        pt.[ProductName],
-        1 AS [IsError],
-        CONCAT('1.3_',p.[ProductType]) AS [RuleID]
+        pt.[ProductName]
     FROM
         [base_s4h_cax].[I_ProductText] AS pt
     LEFT JOIN
@@ -16,11 +13,9 @@ Rule_1_3 AS (
             pt.[Product] = p.[Product]
     WHERE
         p.[ProductType] IN ('ZERS','ZFER','ZROH')
-        AND
+        OR
         ISNULL([ProductName], '') = ''
     GROUP BY
-        pt.[Product],
-        p.[ProductType],
         pt.[Language],
         pt.[ProductName]
     HAVING COUNT(*) >1
@@ -163,17 +158,17 @@ SELECT
     ,p.[ZZ1_CustomFieldRiskMit_PRD] 
     ,p.[ZZ1_CustomFieldHighRis_PRD] 
     ,p.[ZZ1_CustomFieldRiskRea_PRD]
-    ,Rule_1_3.[RuleID]
-    ,Rule_1_3.[IsError] AS [Count]
+    ,1 AS [Count]
+    ,CONCAT('1.3_',p.[ProductType]) AS [RuleID]
 FROM
-    [base_s4h_cax].[I_ProductText] AS pt
+   [base_s4h_cax].[I_ProductText] AS pt
 LEFT JOIN
     [base_s4h_cax].[I_Product] AS p
     ON
         pt.[Product] = p.[Product]
 INNER JOIN
-    Rule_1_3
+    DuplicateProductName dpl
     ON
-        p.[Product] = Rule_1_3.[Product]
-WHERE
-    Rule_1_3.[IsError] = 1
+        pt.[Language] = dpl.[Language]
+    AND
+        pt.[ProductName] = dpl.[ProductName]
