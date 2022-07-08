@@ -831,6 +831,7 @@
     <Build Include="dq\Views\vw_RuleProduct.sql" />
     <Build Include="dq\Views\vw_ProductTotal.sql" />
     <Build Include="dm_dq\Views\vw_dim_ProductSalesDelivery.sql" />
+    <Build Include="dm_dq\Views\vw_dim_ProductPlant.sql" />
     <Build Include="base_s4h_cax\Tables\MSTA.sql" />
     <Build Include="dq\Views\vw_Product_1_14.sql" />
     <Build Include="dq\Views\vw_Product_1_15.sql" />
