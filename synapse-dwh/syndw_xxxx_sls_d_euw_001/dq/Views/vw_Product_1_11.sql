@@ -30,7 +30,7 @@ LEFT JOIN
 WHERE
     pp2.Product IS NULL
 )
-SELECT 
+SELECT DISTINCT
 	 P.[MANDT] 
     ,P.[Product] 
     ,P.[ProductExternalID] 

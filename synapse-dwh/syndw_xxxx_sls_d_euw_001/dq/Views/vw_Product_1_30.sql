@@ -1,6 +1,6 @@
 CREATE VIEW [dq].[vw_Product_1_30] AS
 
-SELECT 
+SELECT DISTINCT
      P.[MANDT] 
     ,P.[Product] 
     ,P.[ProductExternalID] 
