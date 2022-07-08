@@ -1,7 +1,7 @@
 CREATE VIEW [dq].[vw_Product_1_22] AS
 WITH 
 Products AS (
-SELECT 
+SELECT DISTINCT
 	Product 
 FROM 
     [base_s4h_cax].[I_ProductPlant] PP 
