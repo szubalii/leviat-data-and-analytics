@@ -8,7 +8,6 @@ SELECT
 	,[ProcurementType]
 	,[Commodity]
 	,[IsMarkedForDeletion]
-	,[CountryOfOrigin]
 FROM
 	[base_s4h_cax].[I_ProductPlant]
 
