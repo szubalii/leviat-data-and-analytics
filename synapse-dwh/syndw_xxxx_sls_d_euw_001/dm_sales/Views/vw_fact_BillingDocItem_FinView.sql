@@ -189,7 +189,7 @@ SELECT
 ,   NULL AS [LocalParentCalculatedID]
 ,   NULL AS [LocalParentCalculated]
 ,   NULL AS [SalesOrderType]
-,   NULL AS [FinNetAmountRealProduct]
+,   docBillingUS.[FinNetAmount] AS [FinNetAmountRealProduct]
 ,   docBillingUS.[FinNetAmountFreight]
 ,   docBillingUS.[FinNetAmountMinQty]
 ,   docBillingUS.[FinNetAmountEngServ]

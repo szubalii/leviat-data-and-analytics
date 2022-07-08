@@ -3,11 +3,11 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "act_copy_Snowflake_toParquet",
+				"name": "Copy SnowFlake to ADLS",
 				"type": "Copy",
 				"dependsOn": [
 					{
-						"activity": "GetQueryWithoutColumnNameSpaces",
+						"activity": "Get Query Without ColumnName Spaces",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -25,7 +25,7 @@
 					"source": {
 						"type": "SnowflakeSource",
 						"query": {
-							"value": "@{activity('GetQueryWithoutColumnNameSpaces').output.value[0].QUERY}",
+							"value": "@{activity('Get Query Without ColumnName Spaces').output.value[0].QUERY}",
 							"type": "Expression"
 						},
 						"exportSettings": {
@@ -84,11 +84,11 @@
 				]
 			},
 			{
-				"name": "GetQueryWithoutColumnNameSpaces",
+				"name": "Get Query Without ColumnName Spaces",
 				"type": "Lookup",
 				"dependsOn": [
 					{
-						"activity": "act_exec_sproc_set_batch_SnowflakeToBlobIn_InProgress",
+						"activity": "Update Batch File Name",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -131,7 +131,7 @@
 				}
 			},
 			{
-				"name": "act_exec_sproc_set_batch_SnowflakeToBlobIn_InProgress",
+				"name": "Update Batch File Name",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [],
 				"policy": {
@@ -143,61 +143,14 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"storedProcedureName": "[dbo].[set_batch]",
+					"storedProcedureName": "[dbo].[update_batch_status]",
 					"storedProcedureParameters": {
-						"activity": {
-							"value": "USASnowflakeToBlobIn",
-							"type": "String"
-						},
 						"batch_id": {
 							"value": {
-								"value": "@variables('batch_id')",
+								"value": "@pipeline().parameters.batch_id",
 								"type": "Expression"
 							},
 							"type": "Guid"
-						},
-						"entity_id": {
-							"value": {
-								"value": "@pipeline().parameters.entity_id",
-								"type": "Expression"
-							},
-							"type": "Int64"
-						},
-						"run_id": {
-							"value": {
-								"value": "@pipeline().parameters.run_id",
-								"type": "Expression"
-							},
-							"type": "Guid"
-						},
-						"size_bytes": {
-							"value": null,
-							"type": "Int64"
-						},
-						"source_layer": {
-							"value": "USA",
-							"type": "String"
-						},
-						"status": {
-							"value": "InProgress",
-							"type": "String"
-						},
-						"target_layer": {
-							"value": "In",
-							"type": "String"
-						},
-						"start_date_time": {
-							"value": {
-								"value": "@formatDateTime(utcnow(), 'yyyy-MM-dd HH:mm:ss')",
-								"type": "Expression"
-							}
-						},
-						"directory_path": {
-							"value": {
-								"value": "@pipeline().parameters.target_adls_directory_path",
-								"type": "Expression"
-							},
-							"type": "String"
 						},
 						"file_name": {
 							"value": {
@@ -214,11 +167,11 @@
 				}
 			},
 			{
-				"name": "act_exec_sproc_update_batch_SnowflakeToBlobIn_Succeeded",
+				"name": "Update Batch Succeeded",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "act_copy_Snowflake_toParquet",
+						"activity": "Copy SnowFlake to ADLS",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -237,7 +190,7 @@
 					"storedProcedureParameters": {
 						"batch_id": {
 							"value": {
-								"value": "@variables('batch_id')",
+								"value": "@pipeline().parameters.batch_id",
 								"type": "Expression"
 							},
 							"type": "Guid"
@@ -265,14 +218,10 @@
 						},
 						"size_bytes": {
 							"value": {
-								"value": "@activity('act_copy_Snowflake_toParquet').output.dataWritten",
+								"value": "@activity('Copy SnowFlake to ADLS').output.dataWritten",
 								"type": "Expression"
 							},
 							"type": "Int64"
-						},
-						"activity": {
-							"value": "USASnowflakeToBlobIn",
-							"type": "String"
 						},
 						"status": {
 							"value": "Succeeded",
@@ -300,11 +249,11 @@
 				}
 			},
 			{
-				"name": "act_exec_sproc_update_batch_SnwflToBlobIn_copy_Failed",
+				"name": "Update Batch Failed - Copy",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "act_exec_sproc_log_exception_InternalError_copy1",
+						"activity": "Log Exception - Copy",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -323,7 +272,7 @@
 					"storedProcedureParameters": {
 						"batch_id": {
 							"value": {
-								"value": "@variables('batch_id')",
+								"value": "@pipeline().parameters.batch_id",
 								"type": "Expression"
 							},
 							"type": "Guid"
@@ -349,10 +298,6 @@
 							},
 							"type": "Guid"
 						},
-						"activity": {
-							"value": "USASnowflakeToBlobIn",
-							"type": "String"
-						},
 						"status": {
 							"value": "Failed",
 							"type": "String"
@@ -369,11 +314,11 @@
 				}
 			},
 			{
-				"name": "act_exec_sproc_log_exception_InternalError",
+				"name": "Log Exception - Get Query",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "GetQueryWithoutColumnNameSpaces",
+						"activity": "Get Query Without ColumnName Spaces",
 						"dependencyConditions": [
 							"Failed"
 						]
@@ -392,7 +337,7 @@
 					"storedProcedureParameters": {
 						"batch_id": {
 							"value": {
-								"value": "@variables('batch_id')",
+								"value": "@pipeline().parameters.batch_id",
 								"type": "Expression"
 							},
 							"type": "Guid"
@@ -410,7 +355,7 @@
 						},
 						"error_msg": {
 							"value": {
-								"value": "@activity('GetQueryWithoutColumnNameSpaces').Error.Message",
+								"value": "@activity('Get Query Without ColumnName Spaces').Error.Message",
 								"type": "Expression"
 							},
 							"type": "String"
@@ -430,11 +375,11 @@
 				}
 			},
 			{
-				"name": "act_exec_sproc_update_batch_SnwflToBlobIn_lookup_Failed",
+				"name": "Update Batch Failed - Get Query",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "act_exec_sproc_log_exception_InternalError",
+						"activity": "Log Exception - Get Query",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -453,7 +398,7 @@
 					"storedProcedureParameters": {
 						"batch_id": {
 							"value": {
-								"value": "@variables('batch_id')",
+								"value": "@pipeline().parameters.batch_id",
 								"type": "Expression"
 							},
 							"type": "Guid"
@@ -479,10 +424,6 @@
 							},
 							"type": "Guid"
 						},
-						"activity": {
-							"value": "USASnowflakeToBlobIn",
-							"type": "String"
-						},
 						"status": {
 							"value": "Failed",
 							"type": "String"
@@ -499,11 +440,11 @@
 				}
 			},
 			{
-				"name": "act_exec_sproc_log_exception_InternalError_copy1",
+				"name": "Log Exception - Copy",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "act_copy_Snowflake_toParquet",
+						"activity": "Copy SnowFlake to ADLS",
 						"dependencyConditions": [
 							"Failed"
 						]
@@ -522,7 +463,7 @@
 					"storedProcedureParameters": {
 						"batch_id": {
 							"value": {
-								"value": "@variables('batch_id')",
+								"value": "@pipeline().parameters.batch_id",
 								"type": "Expression"
 							},
 							"type": "Guid"
@@ -540,7 +481,7 @@
 						},
 						"error_msg": {
 							"value": {
-								"value": "@activity('act_copy_Snowflake_toParquet').Error.Message",
+								"value": "@activity('Copy SnowFlake to ADLS').Error.Message",
 								"type": "Expression"
 							},
 							"type": "String"
@@ -557,6 +498,46 @@
 				"linkedServiceName": {
 					"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
 					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "Fail Getting Query without ColumnName Spaces",
+				"type": "Fail",
+				"dependsOn": [
+					{
+						"activity": "Update Batch Failed - Get Query",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"message": {
+						"value": "@concat(\n    'Failed getting query without ColumnName Spaces',\n    activity('Get Query Without ColumnName Spaces').Error.Message\n)",
+						"type": "Expression"
+					},
+					"errorCode": "500"
+				}
+			},
+			{
+				"name": "Fail2",
+				"type": "Fail",
+				"dependsOn": [
+					{
+						"activity": "Update Batch Failed - Copy",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"message": {
+						"value": "@concat(\n    'Failed to copy Snowflake data',\n    activity('Copy SnowFlake to ADLS').Error.Message\n)",
+						"type": "Expression"
+					},
+					"errorCode": "500"
 				}
 			}
 		],
@@ -587,16 +568,13 @@
 			},
 			"entity_id": {
 				"type": "string"
-			}
-		},
-		"variables": {
+			},
 			"batch_id": {
-				"type": "String",
-				"defaultValue": "@guid()"
+				"type": "string"
 			}
 		},
 		"folder": {
-			"name": "01 ADLS Ingestion/USA Snowflake"
+			"name": "00 ELT/01 ADLS Ingestion/USA Snowflake"
 		},
 		"annotations": [],
 		"lastPublishTime": "2021-10-25T15:25:00Z"

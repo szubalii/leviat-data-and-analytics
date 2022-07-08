@@ -135,11 +135,11 @@ SELECT
     ,[ZZ1_CustomFieldRiskMit_PRD] 
     ,[ZZ1_CustomFieldHighRis_PRD] 
     ,[ZZ1_CustomFieldRiskRea_PRD]
-    ,CONCAT('1.19_','All') AS [RuleID]
+    ,'1.19_ALL' AS [RuleID]
     ,1 AS [Count]
 FROM   
     [base_s4h_cax].[I_Product]
 WHERE
     [IndustrySector] != 'A'
     OR
-    [IndustrySector] IS NULL
+    ISNULL([IndustrySector], '') = ''

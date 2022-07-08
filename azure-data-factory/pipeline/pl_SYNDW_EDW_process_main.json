@@ -3,11 +3,11 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "act_lookup_EDWLayerControlTableOrder",
+				"name": "Get EDW Execution Order",
 				"type": "Lookup",
 				"dependsOn": [
 					{
-						"activity": "act_exec_sproc_start_log",
+						"activity": "Log Pipeline",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -25,25 +25,25 @@
 					"source": {
 						"type": "AzureSqlSource",
 						"sqlReaderQuery": {
-							"value": "select distinct [execution_order] as [ExecOrder] from [dbo].[get_edw_entities] (@{pipeline().parameters.adhoc}, @{pipeline().parameters.manual_run},'@{pipeline().parameters.date}') order by [execution_order]",
+							"value": "SELECT DISTINCT [execution_order] AS [ExecOrder] \nFROM [dbo].[get_scheduled_edw_entity_batch_activities] (\n    @{pipeline().parameters.adhoc},\n    '@{pipeline().parameters.date}'\n)\nWHERE @{pipeline().parameters.entity_filter}\nORDER BY [execution_order]",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
 					"dataset": {
-						"referenceName": "ds_orc_control_table",
+						"referenceName": "ds_orch_db",
 						"type": "DatasetReference"
 					},
 					"firstRowOnly": false
 				}
 			},
 			{
-				"name": "act_foreach_EDWSequentialLoadByOrder",
+				"name": "ForEach Order",
 				"type": "ForEach",
 				"dependsOn": [
 					{
-						"activity": "act_lookup_EDWLayerControlTableOrder",
+						"activity": "Get EDW Execution Order",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -52,13 +52,13 @@
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@activity('act_lookup_EDWLayerControlTableOrder').output.value",
+						"value": "@activity('Get EDW Execution Order').output.value",
 						"type": "Expression"
 					},
 					"isSequential": true,
 					"activities": [
 						{
-							"name": "act_exec_pipeline_ChildGenericLoadEDW",
+							"name": "Process EDW Batch",
 							"type": "ExecutePipeline",
 							"dependsOn": [],
 							"userProperties": [],
@@ -81,12 +81,12 @@
 										"value": "@pipeline().RunId",
 										"type": "Expression"
 									},
-									"manual_run": {
-										"value": "@pipeline().parameters.manual_run",
-										"type": "Expression"
-									},
 									"date": {
 										"value": "@pipeline().parameters.date",
+										"type": "Expression"
+									},
+									"entity_filter": {
+										"value": "@pipeline().parameters.entity_filter",
 										"type": "Expression"
 									}
 								}
@@ -96,7 +96,7 @@
 				}
 			},
 			{
-				"name": "act_exec_sproc_start_log",
+				"name": "Log Pipeline",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [],
 				"policy": {
@@ -163,11 +163,11 @@
 				}
 			},
 			{
-				"name": "act_exec_sproc_log_success",
+				"name": "Set Status Succeeded",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "act_foreach_EDWSequentialLoadByOrder",
+						"activity": "ForEach Order",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -220,11 +220,11 @@
 				}
 			},
 			{
-				"name": "act_exec_log_failure",
+				"name": "Set Status Failed - ForEach",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "act_foreach_EDWSequentialLoadByOrder",
+						"activity": "ForEach Order",
 						"dependencyConditions": [
 							"Failed"
 						]
@@ -277,11 +277,11 @@
 				}
 			},
 			{
-				"name": "act_exec_sproc_log_exception",
+				"name": "Log Exception - Get Order",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "act_lookup_EDWLayerControlTableOrder",
+						"activity": "Get EDW Execution Order",
 						"dependencyConditions": [
 							"Failed"
 						]
@@ -312,7 +312,7 @@
 						},
 						"error_msg": {
 							"value": {
-								"value": "@activity('act_lookup_EDWLayerControlTableOrder').Error.Message",
+								"value": "@activity('Get EDW Execution Order').Error.Message",
 								"type": "Expression"
 							},
 							"type": "String"
@@ -332,11 +332,11 @@
 				}
 			},
 			{
-				"name": "act_exec_log_failure_InternalError",
+				"name": "Set Status Failed - Get Order",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "act_exec_sproc_log_exception",
+						"activity": "Log Exception - Get Order",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -387,6 +387,46 @@
 					"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
 					"type": "LinkedServiceReference"
 				}
+			},
+			{
+				"name": "Fail Getting Execution Order",
+				"type": "Fail",
+				"dependsOn": [
+					{
+						"activity": "Set Status Failed - Get Order",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"message": {
+						"value": "@concat(\n    'Failed to get EDW execution order: ',\n    activity('Get EDW Execution Order').Error.Message\n)",
+						"type": "Expression"
+					},
+					"errorCode": "500"
+				}
+			},
+			{
+				"name": "Fail EDW Batch",
+				"type": "Fail",
+				"dependsOn": [
+					{
+						"activity": "Set Status Failed - ForEach",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"message": {
+						"value": "@concat(\n    'Failed to process EDW Batch',\n    activity('Process EDW Batch').Error.Message\n)",
+						"type": "Expression"
+					},
+					"errorCode": "500"
+				}
 			}
 		],
 		"parameters": {
@@ -397,16 +437,17 @@
 			"parent_run_id": {
 				"type": "string"
 			},
-			"manual_run": {
-				"type": "int",
-				"defaultValue": 0
-			},
 			"date": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "2022/05/02"
+			},
+			"entity_filter": {
+				"type": "string",
+				"defaultValue": "1 = 1"
 			}
 		},
 		"folder": {
-			"name": "05 Synapse Transformation/02 EDW"
+			"name": "00 ELT/05 Synapse Transformation/02 EDW"
 		},
 		"annotations": [],
 		"lastPublishTime": "2021-10-25T15:25:01Z"

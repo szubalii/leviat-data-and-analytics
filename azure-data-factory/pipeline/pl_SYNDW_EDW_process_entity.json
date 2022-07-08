@@ -17,12 +17,12 @@
 				"userProperties": [],
 				"typeProperties": {
 					"expression": {
-						"value": "@equals(\n    pipeline().parameters.sproc_name,\n    'sp_materialize_view'\n)",
+						"value": "@or(\n    equals(\n        pipeline().parameters.sproc_name,\n        'sp_materialize_view')\n    ,\n    equals(\n        pipeline().parameters.sproc_name,\n        'sp_dq_materialize_view')\n)",
 						"type": "Expression"
 					},
 					"ifFalseActivities": [
 						{
-							"name": "act_sproc_LoadBaseToEDWLayer",
+							"name": "Materialize Custom View",
 							"type": "SqlServerStoredProcedure",
 							"dependsOn": [
 								{
@@ -110,7 +110,7 @@
 							"type": "SqlServerStoredProcedure",
 							"dependsOn": [
 								{
-									"activity": "act_sproc_LoadBaseToEDWLayer",
+									"activity": "Materialize Custom View",
 									"dependencyConditions": [
 										"Failed"
 									]
@@ -150,7 +150,7 @@
 									},
 									"error_msg": {
 										"value": {
-											"value": "@activity('act_sproc_LoadBaseToEDWLayer').Error.Message",
+											"value": "@activity('Materialize Custom View').Error.Message",
 											"type": "Expression"
 										},
 										"type": "String"
@@ -192,7 +192,7 @@
 					],
 					"ifTrueActivities": [
 						{
-							"name": "act_sproc_materialize_view",
+							"name": "Materialize Generic View",
 							"type": "SqlServerStoredProcedure",
 							"dependsOn": [],
 							"policy": {
@@ -205,7 +205,7 @@
 							"userProperties": [],
 							"typeProperties": {
 								"storedProcedureName": {
-									"value": "@{Concat(pipeline().parameters.sproc_schema_name, '.', pipeline().parameters.sproc_name)}",
+									"value": "@concat(\n    '[',\n    pipeline().parameters.sproc_schema_name,\n    '].[',\n    pipeline().parameters.sproc_name,\n    ']'\n)",
 									"type": "Expression"
 								},
 								"storedProcedureParameters": {
@@ -274,7 +274,7 @@
 							"type": "SqlServerStoredProcedure",
 							"dependsOn": [
 								{
-									"activity": "act_sproc_materialize_view",
+									"activity": "Materialize Generic View",
 									"dependencyConditions": [
 										"Failed"
 									]
@@ -314,7 +314,7 @@
 									},
 									"error_msg": {
 										"value": {
-											"value": "@activity('act_sproc_materialize_view').Error.Message",
+											"value": "@activity('Materialize Generic View').Error.Message",
 											"type": "Expression"
 										},
 										"type": "String"
@@ -372,7 +372,7 @@
 					"storedProcedureName": "[dbo].[set_batch]",
 					"storedProcedureParameters": {
 						"activity": {
-							"value": "InEDWLayer",
+							"value": "ProcessEDW",
 							"type": "String"
 						},
 						"batch_id": {
@@ -490,13 +490,6 @@
 							"value": null,
 							"type": "Int64"
 						},
-						"activity": {
-							"value": {
-								"value": "@variables('activity')",
-								"type": "Expression"
-							},
-							"type": "String"
-						},
 						"status": {
 							"value": "Succeeded",
 							"type": "String"
@@ -558,13 +551,6 @@
 							},
 							"type": "Guid"
 						},
-						"activity": {
-							"value": {
-								"value": "@variables('activity')",
-								"type": "Expression"
-							},
-							"type": "String"
-						},
 						"status": {
 							"value": "Failed",
 							"type": "String"
@@ -611,11 +597,11 @@
 				}
 			},
 			{
-				"name": "Update Batch Status to Failed_2",
+				"name": "Set Status Failed - Statistics",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "Log Exception for Updating EDW Table Stats",
+						"activity": "Log Exception - Statistics",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -660,13 +646,6 @@
 							},
 							"type": "Guid"
 						},
-						"activity": {
-							"value": {
-								"value": "@variables('activity')",
-								"type": "Expression"
-							},
-							"type": "String"
-						},
 						"status": {
 							"value": "Failed",
 							"type": "String"
@@ -683,7 +662,7 @@
 				}
 			},
 			{
-				"name": "Log Exception for Updating EDW Table Stats",
+				"name": "Log Exception - Statistics",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
@@ -742,6 +721,43 @@
 					"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
 					"type": "LinkedServiceReference"
 				}
+			},
+			{
+				"name": "Fail EDW sproc",
+				"type": "Fail",
+				"dependsOn": [
+					{
+						"activity": "Update Batch Status to Failed",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"message": "Failed to run EDW procedure",
+					"errorCode": "500"
+				}
+			},
+			{
+				"name": "Fail Update EDW Table Statistics",
+				"type": "Fail",
+				"dependsOn": [
+					{
+						"activity": "Set Status Failed - Statistics",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"message": {
+						"value": "@concat(\n    'Failed to update EDW Table Statistics: ',\n    activity('Update EDW Table Statistics').Error.Message\n)",
+						"type": "Expression"
+					},
+					"errorCode": "500"
+				}
 			}
 		],
 		"parameters": {
@@ -770,10 +786,12 @@
 				"type": "string"
 			},
 			"source_layer": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "EDW"
 			},
 			"target_layer": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "EDW"
 			},
 			"entity_name": {
 				"type": "string"
@@ -794,7 +812,7 @@
 			}
 		},
 		"folder": {
-			"name": "05 Synapse Transformation/02 EDW"
+			"name": "00 ELT/05 Synapse Transformation/02 EDW"
 		},
 		"annotations": [],
 		"lastPublishTime": "2021-10-25T15:24:59Z"

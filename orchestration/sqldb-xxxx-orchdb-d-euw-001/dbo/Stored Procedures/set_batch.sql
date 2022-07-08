@@ -22,7 +22,7 @@ BEGIN
 	DECLARE @source_layer_id BIGINT;
 	DECLARE @target_layer_id BIGINT;
 
-    SET @status_id = (SELECT [status_id] FROM [dbo].[execution_status] where [status_nk] = @status);
+    SET @status_id = (SELECT [status_id] FROM [dbo].[batch_execution_status] where [status_nk] = @status);
     IF (@status_id IS NULL)
         SET @error_str += N'Status ' + @status + ' is not allowed.' + CHAR(13) + CHAR(10);
 

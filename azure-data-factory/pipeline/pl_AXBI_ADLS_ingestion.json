@@ -3,11 +3,11 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "act_copy_AXBI_toParquet",
+				"name": "Copy AXBI to ADLS",
 				"type": "Copy",
 				"dependsOn": [
 					{
-						"activity": "GetQueryWithoutColumnNameSpaces",
+						"activity": "Get Query Without ColumnName Spaces",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -55,7 +55,7 @@
 							}
 						],
 						"sqlReaderQuery": {
-							"value": "@activity('GetQueryWithoutColumnNameSpaces').output.firstRow.Query",
+							"value": "@activity('Get Query Without ColumnName Spaces').output.firstRow.Query",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
@@ -121,11 +121,11 @@
 				]
 			},
 			{
-				"name": "GetQueryWithoutColumnNameSpaces",
+				"name": "Get Query Without ColumnName Spaces",
 				"type": "Lookup",
 				"dependsOn": [
 					{
-						"activity": "act_exec_sproc_set_batch_AXBIToBlobIn_InProgress",
+						"activity": "Update Batch File Name",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -171,7 +171,7 @@
 				}
 			},
 			{
-				"name": "act_exec_sproc_set_batch_AXBIToBlobIn_InProgress",
+				"name": "Update Batch File Name",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [],
 				"policy": {
@@ -183,61 +183,14 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"storedProcedureName": "[dbo].[set_batch]",
+					"storedProcedureName": "[dbo].[update_batch_status]",
 					"storedProcedureParameters": {
-						"activity": {
-							"value": "AXBIToBlobIn",
-							"type": "String"
-						},
 						"batch_id": {
 							"value": {
-								"value": "@variables('batch_id')",
+								"value": "@pipeline().parameters.batch_id",
 								"type": "Expression"
 							},
 							"type": "Guid"
-						},
-						"entity_id": {
-							"value": {
-								"value": "@pipeline().parameters.entity_id",
-								"type": "Expression"
-							},
-							"type": "Int64"
-						},
-						"file_path": {
-							"value": {
-								"value": "@join(createArray(\n        pipeline().parameters.adls_container_name,\n        pipeline().parameters.adls_directory_path,\n        pipeline().parameters.file_name),\n        '/'\n    )",
-								"type": "Expression"
-							},
-							"type": "String"
-						},
-						"run_id": {
-							"value": {
-								"value": "@pipeline().parameters.run_id",
-								"type": "Expression"
-							},
-							"type": "Guid"
-						},
-						"size_bytes": {
-							"value": null,
-							"type": "Int64"
-						},
-						"source_layer": {
-							"value": "AXBI",
-							"type": "String"
-						},
-						"status": {
-							"value": "InProgress",
-							"type": "String"
-						},
-						"target_layer": {
-							"value": "In",
-							"type": "String"
-						},
-						"start_date_time": {
-							"value": {
-								"value": "@formatDateTime(utcnow(), 'yyyy-MM-dd HH:mm:ss')",
-								"type": "Expression"
-							}
 						},
 						"file_name": {
 							"value": {
@@ -245,12 +198,6 @@
 								"type": "Expression"
 							},
 							"type": "String"
-						},
-						"directory_path": {
-							"value": {
-								"value": "@pipeline().parameters.adls_directory_path",
-								"type": "Expression"
-							}
 						}
 					}
 				},
@@ -260,11 +207,11 @@
 				}
 			},
 			{
-				"name": "act_exec_sproc_update_batch_AXBIToBlobIn_Succeeded",
+				"name": "Update Batch Succeeded",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "act_copy_AXBI_toParquet",
+						"activity": "Copy AXBI to ADLS",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -283,7 +230,7 @@
 					"storedProcedureParameters": {
 						"batch_id": {
 							"value": {
-								"value": "@variables('batch_id')",
+								"value": "@pipeline().parameters.batch_id",
 								"type": "Expression"
 							},
 							"type": "Guid"
@@ -311,14 +258,10 @@
 						},
 						"size_bytes": {
 							"value": {
-								"value": "@activity('act_copy_AXBI_toParquet').output.dataWritten",
+								"value": "@activity('Copy AXBI to ADLS').output.dataWritten",
 								"type": "Expression"
 							},
 							"type": "Int64"
-						},
-						"activity": {
-							"value": "AXBIToBlobIn",
-							"type": "String"
 						},
 						"status": {
 							"value": "Succeeded",
@@ -332,11 +275,11 @@
 				}
 			},
 			{
-				"name": "act_exec_sproc_update_batch_AXBIToBlobIn_copy_Failed",
+				"name": "Update Batch Failed - Copy",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "act_exec_sproc_log_exception_InternalError_copy1",
+						"activity": "Log Exception - Copy",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -355,7 +298,7 @@
 					"storedProcedureParameters": {
 						"batch_id": {
 							"value": {
-								"value": "@variables('batch_id')",
+								"value": "@pipeline().parameters.batch_id",
 								"type": "Expression"
 							},
 							"type": "Guid"
@@ -381,10 +324,6 @@
 							},
 							"type": "Guid"
 						},
-						"activity": {
-							"value": "AXBIToBlobIn",
-							"type": "String"
-						},
 						"status": {
 							"value": "Failed",
 							"type": "String"
@@ -401,11 +340,11 @@
 				}
 			},
 			{
-				"name": "act_exec_sproc_log_exception_InternalError",
+				"name": "Log Exception - Get Query",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "GetQueryWithoutColumnNameSpaces",
+						"activity": "Get Query Without ColumnName Spaces",
 						"dependencyConditions": [
 							"Failed"
 						]
@@ -424,7 +363,7 @@
 					"storedProcedureParameters": {
 						"batch_id": {
 							"value": {
-								"value": "@variables('batch_id')",
+								"value": "@pipeline().parameters.batch_id",
 								"type": "Expression"
 							},
 							"type": "Guid"
@@ -442,7 +381,7 @@
 						},
 						"error_msg": {
 							"value": {
-								"value": "@activity('GetQueryWithoutColumnNameSpaces').Error.Message",
+								"value": "@activity('Get Query Without ColumnName Spaces').Error.Message",
 								"type": "Expression"
 							},
 							"type": "String"
@@ -462,11 +401,11 @@
 				}
 			},
 			{
-				"name": "act_exec_sproc_update_batch_AXBIToBlobIn_lookup_Failed",
+				"name": "Update Batch Failed - Get Query",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "act_exec_sproc_log_exception_InternalError",
+						"activity": "Log Exception - Get Query",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -485,7 +424,7 @@
 					"storedProcedureParameters": {
 						"batch_id": {
 							"value": {
-								"value": "@variables('batch_id')",
+								"value": "@pipeline().parameters.batch_id",
 								"type": "Expression"
 							},
 							"type": "Guid"
@@ -511,10 +450,6 @@
 							},
 							"type": "Guid"
 						},
-						"activity": {
-							"value": "AXBIToBlobIn",
-							"type": "String"
-						},
 						"status": {
 							"value": "Failed",
 							"type": "String"
@@ -531,11 +466,11 @@
 				}
 			},
 			{
-				"name": "act_exec_sproc_log_exception_InternalError_copy1",
+				"name": "Log Exception - Copy",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "act_copy_AXBI_toParquet",
+						"activity": "Copy AXBI to ADLS",
 						"dependencyConditions": [
 							"Failed"
 						]
@@ -554,7 +489,7 @@
 					"storedProcedureParameters": {
 						"batch_id": {
 							"value": {
-								"value": "@variables('batch_id')",
+								"value": "@pipeline().parameters.batch_id",
 								"type": "Expression"
 							},
 							"type": "Guid"
@@ -572,7 +507,7 @@
 						},
 						"error_msg": {
 							"value": {
-								"value": "@activity('act_copy_AXBI_toParquet').Error.Message",
+								"value": "@activity('Copy AXBI to ADLS').Error.Message",
 								"type": "Expression"
 							},
 							"type": "String"
@@ -589,6 +524,46 @@
 				"linkedServiceName": {
 					"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
 					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "Fail Getting Query Without ColumnName Spaces",
+				"type": "Fail",
+				"dependsOn": [
+					{
+						"activity": "Update Batch Failed - Get Query",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"message": {
+						"value": "@concat(\n    'Failed getting query without ColumnName Spaces',\n    activity('Get Query Without ColumnName Spaces').Error.Message\n)",
+						"type": "Expression"
+					},
+					"errorCode": "500"
+				}
+			},
+			{
+				"name": "Fail Copy",
+				"type": "Fail",
+				"dependsOn": [
+					{
+						"activity": "Update Batch Failed - Copy",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"message": {
+						"value": "@concat(\n    'Failed to copy AXBI data',\n    activity('Copy AXBI to ADLS').Error.Message\n)",
+						"type": "Expression"
+					},
+					"errorCode": "500"
 				}
 			}
 		],
@@ -619,16 +594,13 @@
 			},
 			"entity_id": {
 				"type": "string"
-			}
-		},
-		"variables": {
+			},
 			"batch_id": {
-				"type": "String",
-				"defaultValue": "@guid()"
+				"type": "string"
 			}
 		},
 		"folder": {
-			"name": "01 ADLS Ingestion/AXBI"
+			"name": "00 ELT/01 ADLS Ingestion/AXBI"
 		},
 		"annotations": [],
 		"lastPublishTime": "2021-10-25T15:25:00Z"

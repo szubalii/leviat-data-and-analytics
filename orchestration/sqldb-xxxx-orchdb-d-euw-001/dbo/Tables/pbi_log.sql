@@ -9,5 +9,5 @@ CREATE TABLE [dbo].[pbi_log] (
     PRIMARY KEY CLUSTERED ([pbi_refresh_guid] ASC),
     CONSTRAINT [FK_pbi_dataset_id] FOREIGN KEY ([pbi_dataset_id]) REFERENCES [dbo].[pbi_dataset] ([pbi_dataset_id]),
     CONSTRAINT [FK_pbi_pipeline_log] FOREIGN KEY ([run_id]) REFERENCES [dbo].[pipeline_log] ([run_id]),
-    CONSTRAINT [FK_pbi_status] FOREIGN KEY ([status_id]) REFERENCES [dbo].[execution_status] ([status_id])
+    CONSTRAINT [FK_pbi_status] FOREIGN KEY ([status_id]) REFERENCES [dbo].[batch_execution_status] ([status_id])
 );

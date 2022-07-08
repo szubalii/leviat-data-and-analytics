@@ -12,7 +12,7 @@
     ,   [ExchangeRate]                             DECIMAL(15, 6)                                       NULL
     ,   [FinNetAmount]                             DECIMAL(28,12)                                       NULL
     ,   [AccountingDate]                           DATETIME                                             NULL
-    ,   [MaterialCalculated]                       NVARCHAR(80)                                         NULL
+    ,   [MaterialCalculated]                       NVARCHAR(105)                                        NULL
     ,   [SalesOrgname]                             NVARCHAR(80)                                         NULL
     ,   [MaterialLongDescription]                  NVARCHAR(2000)                                       NULL
     ,   [MaterialShortDescription]                 NVARCHAR(2000)                                       NULL

@@ -139,14 +139,14 @@
 					"source": {
 						"type": "AzureSqlSource",
 						"sqlReaderQuery": {
-							"value": "select * from [dbo].[get_pbi_entities]  (@{pipeline().parameters.adhoc},'@{pipeline().parameters.date}')",
+							"value": "select * from [dbo].[get_pbi_entities]  (@{pipeline().parameters.adhoc},'@{pipeline().parameters.date}'",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
 					"dataset": {
-						"referenceName": "ds_orc_control_table",
+						"referenceName": "ds_orch_db",
 						"type": "DatasetReference"
 					},
 					"firstRowOnly": false
@@ -771,7 +771,7 @@
 			}
 		},
 		"folder": {
-			"name": "06 Power BI"
+			"name": "00 ELT/06 Power BI"
 		},
 		"annotations": []
 	},
