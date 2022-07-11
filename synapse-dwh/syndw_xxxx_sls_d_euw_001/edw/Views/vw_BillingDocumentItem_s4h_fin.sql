@@ -395,7 +395,7 @@ BDwithFreight AS (
             AND
             BDI.[BillingDocumentItem] = BDIPE.[BillingDocumentItem]
             AND
-            BDIPE.[ConditionType] IN ('AMIZ','AMIW')
+            BDIPE.[ConditionType] = 'AMIZ'
     GROUP BY 
          BDI.BillingDocument
         ,BDI.BillingDocumentItem
