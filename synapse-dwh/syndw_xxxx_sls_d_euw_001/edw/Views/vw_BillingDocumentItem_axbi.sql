@@ -906,6 +906,7 @@ SELECT
             THEN 0
             ELSE [ProfitMarginLocal]/[NetAmountLocal]
         END AS [MarginPercent]
+    ,   [FinProfitMarginLocal]                   as [FinProfitMargin]
     ,   CASE
             WHEN ISNULL([FinSales100LOCAL], 0) = 0
             THEN 0
