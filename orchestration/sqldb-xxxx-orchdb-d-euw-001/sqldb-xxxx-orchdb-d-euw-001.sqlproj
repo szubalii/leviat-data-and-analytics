@@ -135,9 +135,9 @@
     <Folder Include="log\Tables\" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="Security\MasterKey.sql" />
-    <Build Include="Security\Database Scoped Credentials\dsc_SAS_OrchDB.sql" />
-    <Build Include="External resources\External data sources\eds_OrchDB.sql" />
+    <None Include="Security\MasterKey.sql" />
+    <None Include="Security\Database Scoped Credentials\dsc_SAS_OrchDB.sql" />
+    <None Include="External resources\External data sources\eds_OrchDB.sql" />
     <Build Include="dbo\Tables\error_category.sql">
       <AnsiNulls>On</AnsiNulls>
       <QuotedIdentifier>On</QuotedIdentifier>
@@ -341,6 +341,9 @@
       </DefaultValue>
       <Value>$(SqlCmdVar__1)</Value>
     </SqlCmdVariable>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Scripts\DatabaseScopedCredential.sql" />
   </ItemGroup>
   <Target Name="BeforeBuild">
     <Delete Files="$(BaseIntermediateOutputPath)\project.assets.json" />
