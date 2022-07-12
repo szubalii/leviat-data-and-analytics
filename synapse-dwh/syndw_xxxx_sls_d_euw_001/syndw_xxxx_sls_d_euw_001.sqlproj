@@ -836,6 +836,14 @@
     <Build Include="dq\Views\vw_Product_1_14.sql" />
     <Build Include="dq\Views\vw_Product_1_15.sql" />
     <Build Include="dq\Stored Procedures\sp_dq_materialize_view.sql" />
+    <Build Include="base_tx_halfen_2_dwh\Tables\DIM_ADUENUMTRANSLATIONS.sql" />    
+    <Build Include="base_tx_halfen_2_dwh\Tables\DIM_INVENTDIM.sql" />
+    <Build Include="base_tx_halfen_2_dwh\Tables\DIM_INVENTLOCATION.sql" />    
+    <Build Include="base_tx_halfen_2_dwh\Tables\DIM_INVENTSITE.sql" />
+    <Build Include="base_tx_halfen_2_dwh\Tables\DIM_INVENTTABLE.sql" />    
+    <Build Include="base_tx_halfen_2_dwh\Tables\FACT_CUSTPACKINGSLIPTRANS.sql" />
+    <Build Include="base_tx_halfen_2_dwh\Tables\FACT_INVENTSUM.sql" />    
+    <Build Include="base_tx_halfen_2_dwh\Tables\FACT_INVENTTRANS.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\Post-Deploy\Script.PostDeployment.sql" />
