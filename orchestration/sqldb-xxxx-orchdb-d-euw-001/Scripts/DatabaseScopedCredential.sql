@@ -1,0 +1,15 @@
+﻿CREATE MASTER KEY ENCRYPTION BY PASSWORD = 'TestPWD123';
+GO
+
+CREATE DATABASE SCOPED CREDENTIAL dsc_SAS_OrchDB
+WITH IDENTITY = 'SHARED ACCESS SIGNATURE',
+SECRET = '$(sasToken_OrchDB)';
+GO
+
+CREATE EXTERNAL DATA SOURCE eds_OrchDB
+WITH (
+  TYPE = BLOB_STORAGE,
+  LOCATION = '$(containerURL)',--https://$(storageAccount).blob.core.windows.net/orch-db',
+  CREDENTIAL= dsc_SAS_OrchDB
+);
+GO

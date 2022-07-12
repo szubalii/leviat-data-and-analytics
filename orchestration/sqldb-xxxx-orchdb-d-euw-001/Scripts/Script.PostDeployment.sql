@@ -10,6 +10,7 @@ Post-Deployment Script Template
 --------------------------------------------------------------------------------------
 */
 
+:r .\DatabaseScopedCredential.sql
 :r .\Merge.batch_activity.sql
 :r .\Merge.batch_execution_status.sql
 :r .\Merge.error_category.sql
