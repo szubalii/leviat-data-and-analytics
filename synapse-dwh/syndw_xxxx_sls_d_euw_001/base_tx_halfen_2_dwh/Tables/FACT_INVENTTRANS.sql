@@ -1,6 +1,6 @@
 CREATE TABLE [base_tx_halfen_2_dwh].[FACT_INVENTTRANS]
 (
-	[DW_Id]                   		BIGINT IDENTITY(1,1) NOT NULL,
+	[DW_Id]                   		BIGINT NOT NULL,
 	[DATAAREAID]              		NVARCHAR(4) NULL,
 	[DATEPHYSICAL]            		DATETIME NULL,
 	[HasPysicalDate]          		BIGINT NULL,

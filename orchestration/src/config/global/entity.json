@@ -3499,7 +3499,56 @@
             "base_table_name": "DIM_CUSTOMEROBJECT",
             "pk_field_names": "DW_Id",
             "schedule_recurrence": "A"
-        }
+        },        
+        {
+            "entity_id": 441,
+            "entity_name": "DIM_ADUENUMTRANSLATIONS",
+            "base_table_name": "DIM_ADUENUMTRANSLATIONS",
+            "pk_field_names": "DW_Id",
+            "schedule_recurrence": "A"
+        },
+        {
+            "entity_id": 442,
+            "entity_name": "DIM_INVENTDIM",
+            "base_table_name": "DIM_INVENTDIM",
+            "pk_field_names": "DW_Id",
+            "schedule_recurrence": "A"
+        },
+        {
+            "entity_id": 443,
+            "entity_name": "DIM_INVENTLOCATION",
+            "base_table_name": "DIM_INVENTLOCATION",
+            "pk_field_names": "DW_Id",
+            "schedule_recurrence": "A"
+        },
+        {
+            "entity_id": 444,
+            "entity_name": "DIM_INVENTSITE",
+            "base_table_name": "DIM_INVENTSITE",
+            "pk_field_names": "DW_Id",
+            "schedule_recurrence": "A"
+        },
+        {
+            "entity_id": 445,
+            "entity_name": "DIM_INVENTTABLE",
+            "base_table_name": "DIM_INVENTTABLE",
+            "pk_field_names": "DW_Id",
+            "schedule_recurrence": "A"
+        },
+        {
+            "entity_id": 446,
+            "entity_name": "FACT_INVENTSUM",
+            "base_table_name": "FACT_INVENTSUM",
+            "pk_field_names": "DW_Id",
+            "schedule_recurrence": "A"
+        },
+        {
+            "entity_id": 447,
+            "entity_name": "FACT_INVENTTRANS",
+            "base_table_name": "FACT_INVENTTRANS",
+            "pk_field_names": "DW_Id",
+            "schedule_recurrence": "A"
+        }    
         ]
     },
     "leviat-db-us": {

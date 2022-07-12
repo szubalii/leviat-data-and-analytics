@@ -1,6 +1,6 @@
 CREATE TABLE [base_tx_halfen_2_dwh].[DIM_INVENTTABLE](
 
-	[DW_Id]                            	 		BIGINT IDENTITY(1,1) NOT NULL,
+	[DW_Id]                            	 		BIGINT NOT NULL,
 	[ITEMID]                             		NVARCHAR(20) NULL,
 	[ITEMGROUPID]                        		NVARCHAR(20) NULL,
 	[ITEMNAME]                           		NVARCHAR(140) NULL,
