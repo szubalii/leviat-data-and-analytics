@@ -3,17 +3,7 @@
 	"properties": {
 		"annotations": [],
 		"runtimeState": "Started",
-		"pipelines": [
-			{
-				"pipelineReference": {
-					"referenceName": "pl_SYNDW_checkStatus",
-					"type": "PipelineReference"
-				},
-				"parameters": {
-					"SubscriptionId": "f199b488-7d9d-4992-aeda-c10a1e1c9b9e"
-				}
-			}
-		],
+		"pipelines": [],
 		"type": "ScheduleTrigger",
 		"typeProperties": {
 			"recurrence": {
