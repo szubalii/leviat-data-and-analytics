@@ -1,0 +1,37 @@
+CREATE TABLE [base_dw_halfen_1_stg].[AX_Halfen_dbo_INVENTITEMPRICE]
+(
+    [DW_Id]                           BIGINT NOT NULL,
+    [DATAAREAID]                      NVARCHAR(4) NULL,
+    [INVENTDIMID]                     NVARCHAR(20) NULL,
+    [ITEMID]                          NVARCHAR(20) NULL,
+    [PRICE]                           DECIMAL(38, 12) NULL,
+    [VERSIONID]                       NVARCHAR(10) NULL,
+    [MARKUP]                          DECIMAL(38, 12) NULL,
+    [PRICEQTY]                        DECIMAL(38, 12) NULL,
+    [ACTIVATIONDATE]                  DATETIME NULL,
+    [PriceStatus]                     BIGINT NULL,
+    [PRICEUNIT]                       DECIMAL(38, 12) NULL,
+    [UNITID]                          NVARCHAR(10) NULL,
+    [PRICECALCID]                     NVARCHAR(20) NULL,
+    [Year]                            BIGINT NULL,
+    [Month]                           BIGINT NULL,
+    [Day]                             BIGINT NULL,
+    [Month_Day]                       BIGINT NULL,
+    [CurrentYear]                     DECIMAL(38, 0) NULL,
+    [PreviousYear]                    DECIMAL(38, 0) NULL,
+    [PriceForInventoryReporting_YN]   DECIMAL(38, 0) NULL,
+    [PricePerUnit]                    DECIMAL(38, 12) NULL,
+    [INVENTSITEID]                    NVARCHAR(10) NULL,
+    [DW_Batch]                        BIGINT NULL,
+    [DW_SourceCode]                   VARCHAR(15) NOT NULL,
+    [DW_TimeStamp]                    DATETIME NOT NULL,
+	[t_applicationId]                 VARCHAR    (32)  NULL,
+    [t_jobId]                         VARCHAR    (36)  NULL,
+    [t_jobDtm]                        DATETIME,
+    [t_jobBy]                         NVARCHAR  (128)  NULL,
+    [t_extractionDtm]                 DATETIME,
+    [t_filePath]                      NVARCHAR (1024)  NULL,
+    CONSTRAINT [PK_AX_Halfen_dbo_INVENTITEMPRICE] PRIMARY KEY NONCLUSTERED (
+        [DW_Id] ASC
+    ) NOT ENFORCED
+)    

@@ -3392,6 +3392,21 @@
         }
         ]
     },
+    "base_dw_halfen_1_stg": {
+        "layer_id": 5,
+        "schema_name": "base_dw_halfen_1_stg",
+        "base_schema_name": "base_dw_halfen_1_stg",
+        "axbi_schema_name": "dbo",
+        "entities": [
+        {
+            "entity_id": 448,
+            "entity_name": "AX_Halfen_dbo_INVENTITEMPRICE",
+            "base_table_name": "AX_Halfen_dbo_INVENTITEMPRICE",
+            "pk_field_names": "DW_Id",
+            "schedule_recurrence": "A"
+        }
+        ]      
+    },
     "tx-ca-0-hlp": {
         "layer_id": 5,
         "schema_name": "base_tx_ca_0_hlp",
