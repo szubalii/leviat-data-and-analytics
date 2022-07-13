@@ -1,5 +1,5 @@
 ﻿CREATE VIEW [dq].[vw_Product_1_3] AS
-With
+WITH
 DuplicateProductName AS (
     SELECT
         pt.[Language],
@@ -7,7 +7,7 @@ DuplicateProductName AS (
 		
     FROM
         [base_s4h_cax].[I_ProductText] AS pt
-    JOIN
+    INNER JOIN
         [base_s4h_cax].[I_Product] AS p
         ON
             pt.[Product] = p.[Product]
