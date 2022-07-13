@@ -4,9 +4,12 @@ IF002;S4H;Outbound Delivery;Outbound Delivery Item;Act.Del.Qty. missing;Actual D
 IF003;S4H;Outbound Delivery;Sales Document Item;Conf.Del.Qty missing;Confirmed Deliver Quantity is missing
 OTD001;S4H;Outbound Delivery;Sales Document;SD missing;Sales Document is missing
 OTD002;S4H;Outbound Delivery;Sales Document Schedule Line;SL missing;Schedule Line is missing
-OTD003;S4H;Outbound Delivery;Sales Document Schedule Line;Leading SL missing;Leading Schedule Linbe is missing
+OTD003;S4H;Outbound Delivery;Sales Document Schedule Line;Leading SL missing;Leading Schedule Line is missing
 OTD004;S4H;Outbound Delivery;Outbound Delivery;Del.Route missing;Actual Delivery Route is missing
 OTD005;S4H;Outbound Delivery;Route Master Data;Route days = 0;Route delivery days = 0
 OTD006;S4H;Outbound Delivery;Sales Document Item;Storage Location missing;Storage Location is missing
 OTS001;S4H;Outbound Delivery;Outbound Delivery;Plan.GI.Date missing;Planned Goods Issue date is missing
 OTS002;S4H;Outbound Delivery;Outbound Delivery;Act.GM.Date missing;Actual Goods Movement date is missing
+WGT001;S4H;Outbound Delivery;Outbound Delivery;Gross weight is less than the net weight.;Gross weight is less than the net weight
+ALT001;S4H;Outbound Delivery;Outbound Delivery;Requested lead time KPI is negative.;Requested lead time KPI is negative
+RLT001;S4H;Outbound Delivery;Outbound Delivery;Actual lead time KPI is negative.;Actual lead time KPI is negative.

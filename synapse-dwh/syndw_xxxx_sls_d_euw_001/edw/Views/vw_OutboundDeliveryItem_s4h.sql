@@ -688,7 +688,7 @@ OutboundDeliveryItem_s4h AS (
                NULL
            ELSE 
                DATEDIFF(day,SDI.[SDI_SalesDocumentDate],OD.[ActualGoodsMovementDate])
-       END AS [ActualLeadTime]
+       END AS [ActualLeadTime]       
       ,CASE
            WHEN
                SDI.[SDI_RequestedDeliveryDate] IS NULL
@@ -1068,10 +1068,20 @@ OutboundDeliveryItem_s4h_calculated AS (
              ELSE [ActualLeadTime]
          END AS [ActualLeadTime]
         ,CASE
+           WHEN [ActualLeadTime] < 0
+           THEN 
+            'ALT001'
+        END AS [ALT001_DataQualityCode]  
+        ,CASE
              WHEN [RequestedLeadTime]<0
              THEN 0
              ELSE [RequestedLeadTime]
-         END AS [RequestedLeadTime] 
+         END AS [RequestedLeadTime]
+        ,CASE
+           WHEN RequestedLeadTime < 0
+           THEN 
+            'RLT001'
+        END AS [RLT001_DataQualityCode]
         ,[t_applicationId]
         ,[t_extractionDtm]
     FROM OutboundDeliveryItem_s4h
@@ -1322,7 +1332,9 @@ SELECT
         ,[OTS_DataQualityCode]
         ,[CalculatedDelDate]
         ,[ActualLeadTime]
+        ,[ALT001_DataQualityCode]  
         ,[RequestedLeadTime]
+        ,[RLT001_DataQualityCode]  
         ,CASE
             WHEN
                 ([SL_ConfirmedDeliveryDate_weekday] IS NULL
@@ -1582,7 +1594,9 @@ SELECT
     ,[OTS_DataQualityCode]
     ,[CalculatedDelDate]
     ,[ActualLeadTime]
+    ,[ALT001_DataQualityCode]  
     ,[RequestedLeadTime]
+    ,[RLT001_DataQualityCode]  
     ,[OTD_DaysDiff]
     ,CASE
         WHEN [OTD_DaysDiff] IS NULL
@@ -1851,7 +1865,9 @@ SELECT
     ,[OTS_DataQualityCode]
     ,[CalculatedDelDate]
     ,[ActualLeadTime]
+    ,[ALT001_DataQualityCode]  
     ,[RequestedLeadTime]
+    ,[RLT001_DataQualityCode]  
     ,[OTD_DaysDiff]
     ,[OTD_Group]
     ,CASE
@@ -1925,6 +1941,11 @@ SELECT
     ,[IsNotGoodsMovementsRelevant]
     ,[ItemGrossWeight]
     ,[ItemNetWeight]
+    ,CASE
+        WHEN [ItemGrossWeight] < [ItemNetWeight]
+        THEN 
+        'WGT001'
+    END AS [WGT001_DataQualityCode]     
     ,[ItemVolume]
     ,[ItemVolumeUnit]
     ,[ItemWeightUnit]
@@ -2137,7 +2158,9 @@ SELECT
     ,[OTS_DataQualityCode]
     ,[CalculatedDelDate]
     ,[ActualLeadTime]
+    ,[ALT001_DataQualityCode]  
     ,[RequestedLeadTime]
+    ,[RLT001_DataQualityCode]  
     ,[OTD_DaysDiff]
     ,[OTD_Group]
     ,[OTD_EarlyDays]
