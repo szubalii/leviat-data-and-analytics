@@ -2,12 +2,12 @@
 WITH
 DuplicateProductName AS (
     SELECT
-        COUNT(*) AS [CountDuplicates],
         pt.[Language],
         pt.[ProductName]
+		
     FROM
         [base_s4h_cax].[I_ProductText] AS pt
-    LEFT JOIN
+    INNER JOIN
         [base_s4h_cax].[I_Product] AS p
         ON
             pt.[Product] = p.[Product]
@@ -18,15 +18,30 @@ DuplicateProductName AS (
     GROUP BY
         pt.[Language],
         pt.[ProductName]
+		
+
     HAVING COUNT(*) >1
+), 
+PText AS (
+	SELECT DISTINCT
+		 Product
+	FROM	
+		[base_s4h_cax].[I_ProductText] pt
+	WHERE EXISTS
+			( SELECT 1
+			  FROM 
+				DuplicateProductName dpn 
+			  WHERE
+				pt.[Language] = dpn.[Language]
+			  AND
+				pt.[ProductName] = dpn.[ProductName]
+) 
 )
 
-SELECT
+SELECT 
     p.[MANDT] 
     ,p.[Product] 
     ,p.[ProductExternalID] 
-    ,pt.[Language]
-    ,pt.[ProductName]
     ,p.[ProductType] 
     ,p.[CreationDate] 
     ,p.[CreationTime]
@@ -161,14 +176,10 @@ SELECT
     ,1 AS [Count]
     ,CONCAT('1.3_',p.[ProductType]) AS [RuleID]
 FROM
-   [base_s4h_cax].[I_ProductText] AS pt
-LEFT JOIN
     [base_s4h_cax].[I_Product] AS p
-    ON
-        pt.[Product] = p.[Product]
 INNER JOIN
-    DuplicateProductName dpl
+    PText pt
     ON
-        pt.[Language] = dpl.[Language]
-    AND
-        pt.[ProductName] = dpl.[ProductName]
+		pt.Product=p.Product 
+WHERE
+	p.[ProductType] IN ('ZERS','ZFER','ZROH')
