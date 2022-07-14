@@ -839,14 +839,19 @@
     <Build Include="dq\Views\vw_Product_1_14.sql" />
     <Build Include="dq\Views\vw_Product_1_15.sql" />
     <Build Include="dq\Stored Procedures\sp_dq_materialize_view.sql" />
-    <Build Include="base_tx_halfen_2_dwh\Tables\DIM_ADUENUMTRANSLATIONS.sql" />    
+    <Build Include="base_tx_halfen_2_dwh\Tables\DIM_ADUENUMTRANSLATIONS.sql" />
     <Build Include="base_tx_halfen_2_dwh\Tables\DIM_INVENTDIM.sql" />
-    <Build Include="base_tx_halfen_2_dwh\Tables\DIM_INVENTLOCATION.sql" />    
+    <Build Include="base_tx_halfen_2_dwh\Tables\DIM_INVENTLOCATION.sql" />
     <Build Include="base_tx_halfen_2_dwh\Tables\DIM_INVENTSITE.sql" />
-    <Build Include="base_tx_halfen_2_dwh\Tables\DIM_INVENTTABLE.sql" />    
-    <Build Include="base_tx_halfen_2_dwh\Tables\FACT_INVENTSUM.sql" />    
+    <Build Include="base_tx_halfen_2_dwh\Tables\DIM_INVENTTABLE.sql" />
+    <Build Include="base_tx_halfen_2_dwh\Tables\FACT_INVENTSUM.sql" />
     <Build Include="base_tx_halfen_2_dwh\Tables\FACT_INVENTTRANS.sql" />
     <Build Include="base_dw_halfen_1_stg\Tables\AX_Halfen_dbo_INVENTITEMPRICE.sql" />
+    <Build Include="base_s4h_cax\Tables\C_MngProdnOrderMfgOrder.sql" />
+    <Build Include="base_s4h_cax\Tables\C_MfgOrderObjPgOpr.sql" />
+    <Build Include="base_s4h_cax\Tables\I_MfgOrderWithStatus.sql" />
+    <Build Include="base_s4h_cax\Tables\I_WorkCenterBySemanticKey.sql" />
+    <Build Include="base_s4h_cax\Tables\I_WorkCenterCapacity.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\Post-Deploy\Script.PostDeployment.sql" />
