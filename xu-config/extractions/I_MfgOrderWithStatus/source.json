@@ -1,0 +1,1124 @@
+{
+    "functionName": "\/SAPDS\/RFC_READ_TABLE2",
+    "runInBackgroundJob": false,
+    "tables": [
+        {
+            "name": "IMFGORDERWSTTS",
+            "description": "Generated Table for View I_MfgOrderWithStatus: Manufacturing Order Header with Status",
+            "isView": true,
+            "fields": [
+                {
+                    "name": "MANDT",
+                    "description": "Client (key field in client-specific tables)",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "T000",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MANUFACTURINGORDER",
+                    "description": "Order number",
+                    "abapType": "CharacterString",
+                    "length": 12,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "MANUFACTURINGORDERCATEGORY",
+                    "description": "Order category",
+                    "abapType": "NumericCharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MANUFACTURINGORDERTYPE",
+                    "description": "Order Type",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "T003O",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MANUFACTURINGORDERTEXT",
+                    "description": "Text (40 characters)",
+                    "abapType": "CharacterString",
+                    "length": 40,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MANUFACTURINGORDERHASLONGTEXT",
+                    "description": "Yes\/No field",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "LONGTEXTLANGUAGECODE",
+                    "description": "Language Key",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": "ISOLA"
+                },
+                {
+                    "name": "MANUFACTURINGORDERIMPORTANCE",
+                    "description": "One-Character Field Without Check",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MFGORDERISTOBEDELETED",
+                    "description": "Yes\/No field",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MFGORDERHASMULTIPLEITEMS",
+                    "description": "Selection field",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MFGORDERISPARTOFCOLLVORDER",
+                    "description": "Selection field",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ORDERISCREATED",
+                    "description": "ORDERISCREATED",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ORDERISRELEASED",
+                    "description": "ORDERISRELEASED",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ORDERISPRINTED",
+                    "description": "ORDERISPRINTED",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ORDERISCONFIRMED",
+                    "description": "ORDERISCONFIRMED",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ORDERISPARTIALLYCONFIRMED",
+                    "description": "ORDERISPARTIALLYCONFIRMED",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ORDERISDELIVERED",
+                    "description": "ORDERISDELIVERED",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ORDERISDELETED",
+                    "description": "ORDERISDELETED",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ORDERISPRECOSTED",
+                    "description": "ORDERISPRECOSTED",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SETTLEMENTRULEISCREATED",
+                    "description": "SETTLEMENTRULEISCREATED",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ORDERISPARTIALLYRELEASED",
+                    "description": "ORDERISPARTIALLYRELEASED",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ORDERISLOCKED",
+                    "description": "ORDERISLOCKED",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ORDERISTECHNICALLYCOMPLETED",
+                    "description": "ORDERISTECHNICALLYCOMPLETED",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ORDERISCLOSED",
+                    "description": "ORDERISCLOSED",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ORDERISPARTIALLYDELIVERED",
+                    "description": "ORDERISPARTIALLYDELIVERED",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ORDERISMARKEDFORDELETION",
+                    "description": "ORDERISMARKEDFORDELETION",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SETTLEMENTRULEISCRTEDMANUALLY",
+                    "description": "SETTLEMENTRULEISCRTEDMANUALLY",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ORDERISSCHEDULED",
+                    "description": "ORDERISSCHEDULED",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ORDERHASGENERATEDOPERATIONS",
+                    "description": "ORDERHASGENERATEDOPERATIONS",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ORDERISTOBEHANDLEDINBATCHES",
+                    "description": "ORDERISTOBEHANDLEDINBATCHES",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MATERIALAVAILYISNOTCHECKED",
+                    "description": "MATERIALAVAILYISNOTCHECKED",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ORDERISSHOPFLOORORDER",
+                    "description": "ORDERISSHOPFLOORORDER",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MFGORDERCREATIONDATE",
+                    "description": "Date",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MFGORDERCREATIONTIME",
+                    "description": "Time",
+                    "abapType": "Time",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CREATEDBYUSER",
+                    "description": "User name",
+                    "abapType": "CharacterString",
+                    "length": 12,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "LASTCHANGEDATE",
+                    "description": "Date",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "LASTCHANGETIME",
+                    "description": "Time",
+                    "abapType": "Time",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "LASTCHANGEDBYUSER",
+                    "description": "User name",
+                    "abapType": "CharacterString",
+                    "length": 12,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MATERIAL",
+                    "description": "Material Number (C40 Field)",
+                    "abapType": "CharacterString",
+                    "length": 40,
+                    "isSelected": true,
+                    "checkTable": "MARA",
+                    "conversionExit": "MATN1"
+                },
+                {
+                    "name": "STORAGELOCATION",
+                    "description": "Storage location",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "T001L",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "BATCH",
+                    "description": "Batch number",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "GOODSRECIPIENTNAME",
+                    "description": "Goods recipient",
+                    "abapType": "CharacterString",
+                    "length": 12,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "UNLOADINGPOINTNAME",
+                    "description": "25-character text length",
+                    "abapType": "CharacterString",
+                    "length": 25,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "INVENTORYUSABILITYCODE",
+                    "description": "Stock type",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MATERIALGOODSRECEIPTDURATION",
+                    "description": "Decimal field, length 3",
+                    "abapType": "PackedNumber",
+                    "length": 3,
+                    "isSelected": true,
+                    "formattedLength": 3,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "QUANTITYDISTRIBUTIONKEY",
+                    "description": "Quantity distribution key",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "STOCKSEGMENT",
+                    "description": "Stock-\/ Requirement-Segmentation",
+                    "abapType": "CharacterString",
+                    "length": 40,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ORDERINTERNALBILLOFOPERATIONS",
+                    "description": "Routing number for operations",
+                    "abapType": "NumericCharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SUPERIORORDER",
+                    "description": "Order number",
+                    "abapType": "CharacterString",
+                    "length": 12,
+                    "isSelected": true,
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "REFERENCEORDER",
+                    "description": "Order number",
+                    "abapType": "CharacterString",
+                    "length": 12,
+                    "isSelected": true,
+                    "checkTable": "AUFK",
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "LEADINGORDER",
+                    "description": "Order number",
+                    "abapType": "CharacterString",
+                    "length": 12,
+                    "isSelected": true,
+                    "checkTable": "AUFK",
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "CURRENCY",
+                    "description": "Currency Key",
+                    "abapType": "CharacterString",
+                    "length": 5,
+                    "isSelected": true,
+                    "checkTable": "TCURC",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRODUCTIONPLANT",
+                    "description": "Plant",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "T001W",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MRPPLANT",
+                    "description": "Plant",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "T001W",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MRPAREA",
+                    "description": "MRP area",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MRPCONTROLLER",
+                    "description": "MRP controller",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "checkTable": "T024D",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRODUCTIONSUPERVISOR",
+                    "description": "Production Supervisor",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "checkTable": "T024F",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "RESPONSIBLEPLANNERGROUP",
+                    "description": "Responsible group\/department",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "checkTable": "T024A",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRODUCTIONSCHEDULINGPROFILE",
+                    "description": "Profile for production scheduler",
+                    "abapType": "CharacterString",
+                    "length": 6,
+                    "isSelected": true,
+                    "checkTable": "TCO43",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRODUCTIONVERSION",
+                    "description": "Version identification",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PLANNEDORDER",
+                    "description": "Planned order number",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "SALESORDER",
+                    "description": "Sales and distribution document number",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "checkTable": "VBAK",
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "SALESORDERITEM",
+                    "description": "Item number of the SD document",
+                    "abapType": "NumericCharacterString",
+                    "length": 6,
+                    "isSelected": true,
+                    "checkTable": "VBAP",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "WBSELEMENTINTERNALID",
+                    "description": "WBS element number (internal counter as DB key)",
+                    "abapType": "NumericCharacterString",
+                    "length": 8,
+                    "isSelected": true,
+                    "checkTable": "PRPS",
+                    "conversionExit": "ABPSP"
+                },
+                {
+                    "name": "RESERVATION",
+                    "description": "Reservation\/dependent requirements number",
+                    "abapType": "NumericCharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MFGORDERCONFIRMATION",
+                    "description": "Number for creating completion confirmation",
+                    "abapType": "NumericCharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "NUMBEROFMFGORDERCONFIRMATIONS",
+                    "description": "Numerator",
+                    "abapType": "NumericCharacterString",
+                    "length": 8,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CAPACITYREQUIREMENT",
+                    "description": "ID of the capacity requirements record",
+                    "abapType": "NumericCharacterString",
+                    "length": 12,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "INSPECTIONLOT",
+                    "description": "Inspection Lot Number",
+                    "abapType": "NumericCharacterString",
+                    "length": 12,
+                    "isSelected": true,
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "CHANGENUMBER",
+                    "description": "Change number",
+                    "abapType": "CharacterString",
+                    "length": 12,
+                    "isSelected": true,
+                    "checkTable": "AENR",
+                    "conversionExit": "AENNR"
+                },
+                {
+                    "name": "BASICSCHEDULINGTYPE",
+                    "description": "Scheduling type",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "checkTable": "T482",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "FORECASTSCHEDULINGTYPE",
+                    "description": "Scheduling type",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MANUFACTURINGOBJECT",
+                    "description": "Object number",
+                    "abapType": "CharacterString",
+                    "length": 22,
+                    "isSelected": true,
+                    "checkTable": "ONR00",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRODUCTCONFIGURATION",
+                    "description": "Internal object number",
+                    "abapType": "NumericCharacterString",
+                    "length": 18,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "EFFECTIVITYPARAMETERVARIANT",
+                    "description": "Effectivity object",
+                    "abapType": "CharacterString",
+                    "length": 12,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CONDITIONAPPLICATION",
+                    "description": "Condition application",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "checkTable": "T681A",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CAPACITYACTIVEVERSION",
+                    "description": "Available capacity version",
+                    "abapType": "NumericCharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CAPACITYRQMTHASNOTTOBECREATED",
+                    "description": "Yes\/No field",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ORDERSEQUENCENUMBER",
+                    "description": "Sequence number for sequencing",
+                    "abapType": "NumericCharacterString",
+                    "length": 14,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "BILLOFOPERATIONSMATERIAL",
+                    "description": "Material Number (C40 Field)",
+                    "abapType": "CharacterString",
+                    "length": 40,
+                    "isSelected": true,
+                    "checkTable": "MARA",
+                    "conversionExit": "MATN1"
+                },
+                {
+                    "name": "BILLOFOPERATIONSTYPE",
+                    "description": "Task list type",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "BILLOFOPERATIONS",
+                    "description": "Number of the task list",
+                    "abapType": "CharacterString",
+                    "length": 8,
+                    "isSelected": true,
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "BILLOFOPERATIONSVARIANT",
+                    "description": "Alternative",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "BOOINTERNALVERSIONCOUNTER",
+                    "description": "Numerator",
+                    "abapType": "NumericCharacterString",
+                    "length": 8,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "BILLOFOPERATIONSUSAGE",
+                    "description": "Usage of the task list",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "checkTable": "T411",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "BILLOFOPERATIONSVERSION",
+                    "description": "Task List Version",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "BOOEXPLOSIONDATE",
+                    "description": "Date",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "BOOVALIDITYSTARTDATE",
+                    "description": "Date",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "BILLOFMATERIALCATEGORY",
+                    "description": "BOM category",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "BILLOFMATERIAL",
+                    "description": "BOM number",
+                    "abapType": "CharacterString",
+                    "length": 8,
+                    "isSelected": true,
+                    "conversionExit": "NUMCV"
+                },
+                {
+                    "name": "BILLOFMATERIALVARIANT",
+                    "description": "Alternative",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "BILLOFMATERIALVARIANTUSAGE",
+                    "description": "BOM usage",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "checkTable": "T416",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "BILLOFMATERIALVERSION",
+                    "description": "BOM Version",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "BOMEXPLOSIONDATE",
+                    "description": "Date",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "BOMVALIDITYSTARTDATE",
+                    "description": "Date",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "BUSINESSAREA",
+                    "description": "Business area",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "TGSB",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "COMPANYCODE",
+                    "description": "Company code",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "T001",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CONTROLLINGAREA",
+                    "description": "Controlling area",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "TKA01",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PROFITCENTER",
+                    "description": "Profit center",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "checkTable": "CEPC",
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "COSTCENTER",
+                    "description": "Cost center",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "checkTable": "CSKS",
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "RESPONSIBLECOSTCENTER",
+                    "description": "Cost center",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "checkTable": "CSKS",
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "COSTELEMENT",
+                    "description": "Cost element",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "checkTable": "CSKB",
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "COSTINGSHEET",
+                    "description": "Costing Sheet",
+                    "abapType": "CharacterString",
+                    "length": 6,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "GLACCOUNT",
+                    "description": "G\/L account number",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "checkTable": "SKB1",
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "PRODUCTCOSTCOLLECTOR",
+                    "description": "Order number",
+                    "abapType": "CharacterString",
+                    "length": 12,
+                    "isSelected": true,
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "ACTUALCOSTSCOSTINGVARIANT",
+                    "description": "Costing Variant",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PLANNEDCOSTSCOSTINGVARIANT",
+                    "description": "Costing Variant",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CONTROLLINGOBJECTCLASS",
+                    "description": "Object class",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "FUNCTIONALAREA",
+                    "description": "Functional area",
+                    "abapType": "CharacterString",
+                    "length": 16,
+                    "isSelected": true,
+                    "checkTable": "TFKB",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MFGORDERPLANNEDSTARTDATE",
+                    "description": "Date",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MFGORDERPLANNEDSTARTTIME",
+                    "description": "Time",
+                    "abapType": "Time",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MFGORDERPLANNEDENDDATE",
+                    "description": "Date",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MFGORDERPLANNEDENDTIME",
+                    "description": "Time",
+                    "abapType": "Time",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MFGORDERPLANNEDRELEASEDATE",
+                    "description": "Date",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MFGORDERSCHEDULEDSTARTDATE",
+                    "description": "Date",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MFGORDERSCHEDULEDSTARTTIME",
+                    "description": "Time",
+                    "abapType": "Time",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MFGORDERSCHEDULEDENDDATE",
+                    "description": "Date",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MFGORDERSCHEDULEDENDTIME",
+                    "description": "Time",
+                    "abapType": "Time",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MFGORDERSCHEDULEDRELEASEDATE",
+                    "description": "Date",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MFGORDERACTUALSTARTDATE",
+                    "description": "Date",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MFGORDERACTUALSTARTTIME",
+                    "description": "Time",
+                    "abapType": "Time",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MFGORDERACTUALENDDATE",
+                    "description": "Date",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MFGORDERACTUALRELEASEDATE",
+                    "description": "Date",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MFGORDERCONFIRMEDENDDATE",
+                    "description": "Date",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MFGORDERCONFIRMEDENDTIME",
+                    "description": "Time",
+                    "abapType": "Time",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MFGORDERTOTALCOMMITMENTDATE",
+                    "description": "Date",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRODUCTIONUNIT",
+                    "description": "Units of Measurement of Various Types",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "checkTable": "T006",
+                    "conversionExit": "CUNIT"
+                },
+                {
+                    "name": "MFGORDERPLANNEDTOTALQTY",
+                    "description": "Quantity field, length 13",
+                    "abapType": "PackedNumber",
+                    "length": 17,
+                    "decimalCount": 3,
+                    "isSelected": true,
+                    "formattedLength": 17,
+                    "conversionExit": "",
+                    "referenceTable": "IMFGORDERWSTTS",
+                    "referenceField": "PRODUCTIONUNIT"
+                },
+                {
+                    "name": "MFGORDERPLANNEDSCRAPQTY",
+                    "description": "Quantity field, length 13",
+                    "abapType": "PackedNumber",
+                    "length": 17,
+                    "decimalCount": 3,
+                    "isSelected": true,
+                    "formattedLength": 17,
+                    "conversionExit": "",
+                    "referenceTable": "IMFGORDERWSTTS",
+                    "referenceField": "PRODUCTIONUNIT"
+                },
+                {
+                    "name": "MFGORDERCONFIRMEDYIELDQTY",
+                    "description": "Quantity field, length 13",
+                    "abapType": "PackedNumber",
+                    "length": 17,
+                    "decimalCount": 3,
+                    "isSelected": true,
+                    "formattedLength": 17,
+                    "conversionExit": "",
+                    "referenceTable": "IMFGORDERWSTTS",
+                    "referenceField": "PRODUCTIONUNIT"
+                },
+                {
+                    "name": "MFGORDERCONFIRMEDSCRAPQTY",
+                    "description": "Quantity field, length 13",
+                    "abapType": "PackedNumber",
+                    "length": 17,
+                    "decimalCount": 3,
+                    "isSelected": true,
+                    "formattedLength": 17,
+                    "conversionExit": "",
+                    "referenceTable": "IMFGORDERWSTTS",
+                    "referenceField": "PRODUCTIONUNIT"
+                },
+                {
+                    "name": "MFGORDERCONFIRMEDREWORKQTY",
+                    "description": "Quantity field, length 13, with +\/- sign",
+                    "abapType": "PackedNumber",
+                    "length": 17,
+                    "decimalCount": 3,
+                    "isSelected": true,
+                    "formattedLength": 18,
+                    "conversionExit": "",
+                    "referenceTable": "IMFGORDERWSTTS",
+                    "referenceField": "PRODUCTIONUNIT"
+                },
+                {
+                    "name": "EXPECTEDDEVIATIONQUANTITY",
+                    "description": "Quantity field, length 13, with +\/- sign",
+                    "abapType": "PackedNumber",
+                    "length": 17,
+                    "decimalCount": 3,
+                    "isSelected": true,
+                    "formattedLength": 18,
+                    "conversionExit": "",
+                    "referenceTable": "IMFGORDERWSTTS",
+                    "referenceField": "PRODUCTIONUNIT"
+                },
+                {
+                    "name": "ACTUALDELIVEREDQUANTITY",
+                    "description": "Quantity field, length 13",
+                    "abapType": "PackedNumber",
+                    "length": 17,
+                    "decimalCount": 3,
+                    "isSelected": true,
+                    "formattedLength": 17,
+                    "conversionExit": "",
+                    "referenceTable": "IMFGORDERWSTTS",
+                    "referenceField": "PRODUCTIONUNIT"
+                }
+            ]
+        }
+    ]
+}
