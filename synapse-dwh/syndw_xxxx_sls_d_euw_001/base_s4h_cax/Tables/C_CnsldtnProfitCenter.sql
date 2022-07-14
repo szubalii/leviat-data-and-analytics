@@ -1,8 +1,8 @@
 CREATE TABLE [base_s4h_cax].[C_CnsldtnProfitCenter](
-  [MANDT] char(3) collate Latin1_General_100_BIN2 NOT NULL
-, [ProfitCenter] nvarchar(10) NOT NULL
-, [ControllingArea] nvarchar(4) NOT NULL
-, [AdditionalMasterDataText] nvarchar(20)
+  [MANDT] CHAR(3) COLLATE Latin1_General_100_BIN2 NOT NULL
+, [ProfitCenter] NVARCHAR(10) NOT NULL
+, [ControllingArea] NVARCHAR(4) NOT NULL
+, [AdditionalMasterDataText] NVARCHAR(20)
 , [t_applicationId]       VARCHAR (32)
 , [t_jobId]               VARCHAR (36)
 , [t_jobDtm]              DATETIME

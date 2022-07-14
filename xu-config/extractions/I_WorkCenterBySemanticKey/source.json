@@ -1,1 +1,465 @@
-{"functionName":"\/SAPDS\/RFC_READ_TABLE2","runInBackgroundJob":false,"tables":[{"name":"IPPWRKCNTRBYSEMK","description":"Generated Table for View I_WorkCenterBySemanticKey: Work Center By Semantic Key","isView":true,"fields":[{"name":"MANDT","description":"Client (key field in client-specific tables)","abapType":"CharacterString","length":3,"isPrimaryKey":true,"isSelected":true,"checkTable":"T000","conversionExit":""},{"name":"PLANT","description":"Plant","abapType":"CharacterString","length":4,"isPrimaryKey":true,"isSelected":true,"checkTable":"T001W","conversionExit":""},{"name":"WORKCENTER","description":"Work Center","abapType":"CharacterString","length":8,"isPrimaryKey":true,"isSelected":true,"conversionExit":""},{"name":"WORKCENTERINTERNALID","description":"Object ID of the CIM resource","abapType":"NumericCharacterString","length":8,"isSelected":true,"checkTable":"CRID","conversionExit":""},{"name":"WORKCENTERTYPECODE","description":"Object types of the CIM resource","abapType":"CharacterString","length":2,"isSelected":true,"conversionExit":""},{"name":"WORKCENTERISTOBEDELETED","description":"General flag","abapType":"CharacterString","length":1,"isSelected":true,"conversionExit":""},{"name":"WORKCENTERISLOCKED","description":"Yes\/No field","abapType":"CharacterString","length":1,"isSelected":true,"conversionExit":""},{"name":"WORKCENTERISMNTNDFORCOSTING","description":"Yes\/No field","abapType":"CharacterString","length":1,"isSelected":true,"conversionExit":""},{"name":"WORKCENTERISMNTNDFORSCHEDULING","description":"Yes\/No field","abapType":"CharacterString","length":1,"isSelected":true,"conversionExit":""},{"name":"NUMBEROFCONFIRMATIONSLIPS","description":"Numerical field length 3","abapType":"NumericCharacterString","length":3,"isSelected":true,"conversionExit":""},{"name":"ADVANCEDPLANNINGISSUPPORTED","description":"Boolean values TRUE (='X') and FALSE (= ' ')","abapType":"CharacterString","length":1,"isSelected":true,"conversionExit":""},{"name":"WORKCENTERCATEGORYCODE","description":"Work center category","abapType":"CharacterString","length":4,"isSelected":true,"checkTable":"TC30","conversionExit":""},{"name":"WORKCENTERLOCATION","description":"Work center location","abapType":"CharacterString","length":10,"isSelected":true,"checkTable":"T499S","conversionExit":""},{"name":"WORKCENTERLOCATIONGROUP","description":"Location group for the move time matrix","abapType":"CharacterString","length":4,"isSelected":true,"conversionExit":""},{"name":"WORKCENTERUSAGE","description":"Work center usage","abapType":"CharacterString","length":3,"isSelected":true,"checkTable":"TC23","conversionExit":""},{"name":"WORKCENTERRESPONSIBLE","description":"Person responsible for the work center","abapType":"CharacterString","length":3,"isSelected":true,"checkTable":"TC24","conversionExit":""},{"name":"SUPPLYAREA","description":"Supply Area","abapType":"CharacterString","length":10,"isSelected":true,"checkTable":"PVBE","conversionExit":""},{"name":"CAPACITYINTERNALID","description":"Capacity ID","abapType":"NumericCharacterString","length":8,"isSelected":true,"checkTable":"KAKO","conversionExit":""},{"name":"MACHINETYPE","description":"Machine type","abapType":"CharacterString","length":10,"isSelected":true,"checkTable":"TMATY","conversionExit":""},{"name":"OPERATIONCONTROLPROFILE","description":"Control key","abapType":"CharacterString","length":4,"isSelected":true,"checkTable":"T430","conversionExit":""},{"name":"MATLCOMPISMARKEDFORBACKFLUSH","description":"Yes\/No field","abapType":"CharacterString","length":1,"isSelected":true,"conversionExit":""},{"name":"WORKCENTERSETUPTYPE","description":"Setup key","abapType":"CharacterString","length":2,"isSelected":true,"checkTable":"T428","conversionExit":""},{"name":"FREEDEFINEDTABLEFIELDSEMANTIC","description":"Key word ID for PS user-defined fields","abapType":"CharacterString","length":7,"isSelected":true,"checkTable":"TCN00","conversionExit":""},{"name":"OBJECTINTERNALID","description":"Object number","abapType":"CharacterString","length":22,"isSelected":true,"conversionExit":""},{"name":"STANDARDTEXTINTERNALID","description":"Short text key","abapType":"CharacterString","length":7,"isSelected":true,"checkTable":"T435","conversionExit":""},{"name":"EMPLOYEEWAGETYPE","description":"Wage type","abapType":"CharacterString","length":4,"isSelected":true,"conversionExit":""},{"name":"EMPLOYEEWAGEGROUP","description":"Wage Group","abapType":"CharacterString","length":3,"isSelected":true,"checkTable":"T421","conversionExit":""},{"name":"EMPLOYEESUITABILITY","description":"Qualifications","abapType":"CharacterString","length":2,"isSelected":true,"checkTable":"T423","conversionExit":""},{"name":"NUMBEROFTIMETICKETS","description":"Number of Time Tickets","abapType":"PackedNumber","length":3,"isSelected":true,"formattedLength":3,"conversionExit":""},{"name":"PLANVERSION","description":"Plan version","abapType":"CharacterString","length":2,"isSelected":true,"checkTable":"T778P","conversionExit":""},{"name":"VALIDITYSTARTDATE","description":"Date","abapType":"Date","isSelected":true,"conversionExit":""},{"name":"VALIDITYENDDATE","description":"Date","abapType":"Date","isSelected":true,"conversionExit":""},{"name":"STANDARDTEXTIDISREFERENCED","description":"Yes\/No field","abapType":"CharacterString","length":1,"isSelected":true,"conversionExit":""},{"name":"EMPLOYEEWAGETYPEISREFERENCED","description":"Yes\/No field","abapType":"CharacterString","length":1,"isSelected":true,"conversionExit":""},{"name":"NMBROFTIMETICKETSISREFERENCED","description":"Yes\/No field","abapType":"CharacterString","length":1,"isSelected":true,"conversionExit":""},{"name":"EMPLOYEEWAGEGROUPISREFERENCED","description":"Yes\/No field","abapType":"CharacterString","length":1,"isSelected":true,"conversionExit":""},{"name":"EMPLSUITABILITYISREFERENCED","description":"Yes\/No field","abapType":"CharacterString","length":1,"isSelected":true,"conversionExit":""},{"name":"WORKCENTERSETPTYPEISREFERENCED","description":"Yes\/No field","abapType":"CharacterString","length":1,"isSelected":true,"conversionExit":""},{"name":"OPCONTROLPROFILEISREFERENCED","description":"Yes\/No field","abapType":"CharacterString","length":1,"isSelected":true,"conversionExit":""},{"name":"NUMBEROFCONFSLIPSISREFERENCED","description":"Yes\/No field","abapType":"CharacterString","length":1,"isSelected":true,"conversionExit":""},{"name":"WORKCENTERSTDQUEUEDURNUNIT","description":"Units of Measurement of Various Types","abapType":"CharacterString","length":3,"isSelected":true,"checkTable":"T006","conversionExit":"CUNIT"},{"name":"WORKCENTERSTANDARDQUEUEDURN","description":"Standard value","abapType":"PackedNumber","length":17,"decimalCount":3,"isSelected":true,"formattedLength":11,"conversionExit":"","referenceTable":"IPPWRKCNTRBYSEMK","referenceField":"WORKCENTERSTDQUEUEDURNUNIT"},{"name":"WORKCENTERMINIMUMQUEUEDURNUNIT","description":"Units of Measurement of Various Types","abapType":"CharacterString","length":3,"isSelected":true,"checkTable":"T006","conversionExit":"CUNIT"},{"name":"WORKCENTERMINIMUMQUEUEDURATION","description":"Standard value","abapType":"PackedNumber","length":17,"decimalCount":3,"isSelected":true,"formattedLength":11,"conversionExit":"","referenceTable":"IPPWRKCNTRBYSEMK","referenceField":"WORKCENTERMINIMUMQUEUEDURNUNIT"},{"name":"WORKCENTERSTANDARDWORKQTYUNIT1","description":"Units of Measurement of Various Types","abapType":"CharacterString","length":3,"isSelected":true,"checkTable":"T006","conversionExit":"CUNIT"},{"name":"WORKCENTERSTANDARDWORKQTYUNIT2","description":"Units of Measurement of Various Types","abapType":"CharacterString","length":3,"isSelected":true,"checkTable":"T006","conversionExit":"CUNIT"},{"name":"WORKCENTERSTANDARDWORKQTYUNIT3","description":"Units of Measurement of Various Types","abapType":"CharacterString","length":3,"isSelected":true,"checkTable":"T006","conversionExit":"CUNIT"},{"name":"WORKCENTERSTANDARDWORKQTYUNIT4","description":"Units of Measurement of Various Types","abapType":"CharacterString","length":3,"isSelected":true,"checkTable":"T006","conversionExit":"CUNIT"},{"name":"WORKCENTERSTANDARDWORKQTYUNIT5","description":"Units of Measurement of Various Types","abapType":"CharacterString","length":3,"isSelected":true,"checkTable":"T006","conversionExit":"CUNIT"},{"name":"WORKCENTERSTANDARDWORKQTYUNIT6","description":"Units of Measurement of Various Types","abapType":"CharacterString","length":3,"isSelected":true,"checkTable":"T006","conversionExit":"CUNIT"},{"name":"STANDARDWORKQUANTITYUNIT","description":"Units of Measurement of Various Types","abapType":"CharacterString","length":3,"isSelected":true,"checkTable":"T006","conversionExit":"CUNIT"},{"name":"LABORTRACKINGISREQUIRED","description":"Yes\/No field","abapType":"CharacterString","length":1,"isSelected":true,"conversionExit":""}]}]}
+{
+    "functionName": "\/SAPDS\/RFC_READ_TABLE2",
+    "runInBackgroundJob": false,
+    "tables": [
+        {
+            "name": "IPPWRKCNTRBYSEMK",
+            "description": "Generated Table for View I_WorkCenterBySemanticKey: Work Center By Semantic Key",
+            "isView": true,
+            "fields": [
+                {
+                    "name": "MANDT",
+                    "description": "Client (key field in client-specific tables)",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "T000",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PLANT",
+                    "description": "Plant",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "T001W",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "WORKCENTER",
+                    "description": "Work Center",
+                    "abapType": "CharacterString",
+                    "length": 8,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "WORKCENTERINTERNALID",
+                    "description": "Object ID of the CIM resource",
+                    "abapType": "NumericCharacterString",
+                    "length": 8,
+                    "isSelected": true,
+                    "checkTable": "CRID",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "WORKCENTERTYPECODE",
+                    "description": "Object types of the CIM resource",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "WORKCENTERISTOBEDELETED",
+                    "description": "General flag",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "WORKCENTERISLOCKED",
+                    "description": "Yes\/No field",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "WORKCENTERISMNTNDFORCOSTING",
+                    "description": "Yes\/No field",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "WORKCENTERISMNTNDFORSCHEDULING",
+                    "description": "Yes\/No field",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "NUMBEROFCONFIRMATIONSLIPS",
+                    "description": "Numerical field length 3",
+                    "abapType": "NumericCharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ADVANCEDPLANNINGISSUPPORTED",
+                    "description": "Boolean values TRUE (='X') and FALSE (= ' ')",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "WORKCENTERCATEGORYCODE",
+                    "description": "Work center category",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "TC30",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "WORKCENTERLOCATION",
+                    "description": "Work center location",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "checkTable": "T499S",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "WORKCENTERLOCATIONGROUP",
+                    "description": "Location group for the move time matrix",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "WORKCENTERUSAGE",
+                    "description": "Work center usage",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "checkTable": "TC23",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "WORKCENTERRESPONSIBLE",
+                    "description": "Person responsible for the work center",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "checkTable": "TC24",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SUPPLYAREA",
+                    "description": "Supply Area",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "checkTable": "PVBE",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CAPACITYINTERNALID",
+                    "description": "Capacity ID",
+                    "abapType": "NumericCharacterString",
+                    "length": 8,
+                    "isSelected": true,
+                    "checkTable": "KAKO",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MACHINETYPE",
+                    "description": "Machine type",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "checkTable": "TMATY",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "OPERATIONCONTROLPROFILE",
+                    "description": "Control key",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "T430",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MATLCOMPISMARKEDFORBACKFLUSH",
+                    "description": "Yes\/No field",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "WORKCENTERSETUPTYPE",
+                    "description": "Setup key",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "checkTable": "T428",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "FREEDEFINEDTABLEFIELDSEMANTIC",
+                    "description": "Key word ID for PS user-defined fields",
+                    "abapType": "CharacterString",
+                    "length": 7,
+                    "isSelected": true,
+                    "checkTable": "TCN00",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "OBJECTINTERNALID",
+                    "description": "Object number",
+                    "abapType": "CharacterString",
+                    "length": 22,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "STANDARDTEXTINTERNALID",
+                    "description": "Short text key",
+                    "abapType": "CharacterString",
+                    "length": 7,
+                    "isSelected": true,
+                    "checkTable": "T435",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "EMPLOYEEWAGETYPE",
+                    "description": "Wage type",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "EMPLOYEEWAGEGROUP",
+                    "description": "Wage Group",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "checkTable": "T421",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "EMPLOYEESUITABILITY",
+                    "description": "Qualifications",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "checkTable": "T423",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "NUMBEROFTIMETICKETS",
+                    "description": "Number of Time Tickets",
+                    "abapType": "PackedNumber",
+                    "length": 3,
+                    "isSelected": true,
+                    "formattedLength": 3,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PLANVERSION",
+                    "description": "Plan version",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "checkTable": "T778P",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "VALIDITYSTARTDATE",
+                    "description": "Date",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "VALIDITYENDDATE",
+                    "description": "Date",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "STANDARDTEXTIDISREFERENCED",
+                    "description": "Yes\/No field",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "EMPLOYEEWAGETYPEISREFERENCED",
+                    "description": "Yes\/No field",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "NMBROFTIMETICKETSISREFERENCED",
+                    "description": "Yes\/No field",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "EMPLOYEEWAGEGROUPISREFERENCED",
+                    "description": "Yes\/No field",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "EMPLSUITABILITYISREFERENCED",
+                    "description": "Yes\/No field",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "WORKCENTERSETPTYPEISREFERENCED",
+                    "description": "Yes\/No field",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "OPCONTROLPROFILEISREFERENCED",
+                    "description": "Yes\/No field",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "NUMBEROFCONFSLIPSISREFERENCED",
+                    "description": "Yes\/No field",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "WORKCENTERSTDQUEUEDURNUNIT",
+                    "description": "Units of Measurement of Various Types",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "checkTable": "T006",
+                    "conversionExit": "CUNIT"
+                },
+                {
+                    "name": "WORKCENTERSTANDARDQUEUEDURN",
+                    "description": "Standard value",
+                    "abapType": "PackedNumber",
+                    "length": 17,
+                    "decimalCount": 3,
+                    "isSelected": true,
+                    "formattedLength": 11,
+                    "conversionExit": "",
+                    "referenceTable": "IPPWRKCNTRBYSEMK",
+                    "referenceField": "WORKCENTERSTDQUEUEDURNUNIT"
+                },
+                {
+                    "name": "WORKCENTERMINIMUMQUEUEDURNUNIT",
+                    "description": "Units of Measurement of Various Types",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "checkTable": "T006",
+                    "conversionExit": "CUNIT"
+                },
+                {
+                    "name": "WORKCENTERMINIMUMQUEUEDURATION",
+                    "description": "Standard value",
+                    "abapType": "PackedNumber",
+                    "length": 17,
+                    "decimalCount": 3,
+                    "isSelected": true,
+                    "formattedLength": 11,
+                    "conversionExit": "",
+                    "referenceTable": "IPPWRKCNTRBYSEMK",
+                    "referenceField": "WORKCENTERMINIMUMQUEUEDURNUNIT"
+                },
+                {
+                    "name": "WORKCENTERSTANDARDWORKQTYUNIT1",
+                    "description": "Units of Measurement of Various Types",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "checkTable": "T006",
+                    "conversionExit": "CUNIT"
+                },
+                {
+                    "name": "WORKCENTERSTANDARDWORKQTYUNIT2",
+                    "description": "Units of Measurement of Various Types",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "checkTable": "T006",
+                    "conversionExit": "CUNIT"
+                },
+                {
+                    "name": "WORKCENTERSTANDARDWORKQTYUNIT3",
+                    "description": "Units of Measurement of Various Types",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "checkTable": "T006",
+                    "conversionExit": "CUNIT"
+                },
+                {
+                    "name": "WORKCENTERSTANDARDWORKQTYUNIT4",
+                    "description": "Units of Measurement of Various Types",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "checkTable": "T006",
+                    "conversionExit": "CUNIT"
+                },
+                {
+                    "name": "WORKCENTERSTANDARDWORKQTYUNIT5",
+                    "description": "Units of Measurement of Various Types",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "checkTable": "T006",
+                    "conversionExit": "CUNIT"
+                },
+                {
+                    "name": "WORKCENTERSTANDARDWORKQTYUNIT6",
+                    "description": "Units of Measurement of Various Types",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "checkTable": "T006",
+                    "conversionExit": "CUNIT"
+                },
+                {
+                    "name": "STANDARDWORKQUANTITYUNIT",
+                    "description": "Units of Measurement of Various Types",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "checkTable": "T006",
+                    "conversionExit": "CUNIT"
+                },
+                {
+                    "name": "LABORTRACKINGISREQUIRED",
+                    "description": "Yes\/No field",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                }
+            ]
+        }
+    ]
+}

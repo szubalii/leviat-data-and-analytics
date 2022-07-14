@@ -1,40 +1,41 @@
 ﻿CREATE TABLE [base_s4h_cax].[C_MfgOrderObjPgOpr]
 (
-  [MANDT] nchar(3) collate Latin1_General_100_BIN2 NOT NULL
-, [OrderInternalBillOfOperations] char(10) collate Latin1_General_100_BIN2 NOT NULL
-, [OrderIntBillOfOperationsItem] char(8) collate Latin1_General_100_BIN2 NOT NULL
-, [ManufacturingOrder] nvarchar(12) collate Latin1_General_100_BIN2
-, [ManufacturingOrderOperation] nvarchar(4) collate Latin1_General_100_BIN2
-, [MfgOrderOperationIsPhase] nvarchar(1) collate Latin1_General_100_BIN2
-, [ManufacturingOrderSequence] nvarchar(6) collate Latin1_General_100_BIN2
-, [MfgOrderSequenceCategoryName] nvarchar(30) collate Latin1_General_100_BIN2
-, [MfgOrderSequenceText] nvarchar(40) collate Latin1_General_100_BIN2
-, [MfgOrderOperationText] nvarchar(40) collate Latin1_General_100_BIN2
-, [ManufacturingOrderType] nvarchar(4) collate Latin1_General_100_BIN2
-, [BusinessProcessEntryUnit] nvarchar(3) collate Latin1_General_100_BIN2
-, [ManufacturingOrderCategory] char(2) collate Latin1_General_100_BIN2
-, [Material] nvarchar(40) collate Latin1_General_100_BIN2
-, [WorkCenterTypeCode] nvarchar(1) collate Latin1_General_100_BIN2
-, [WorkCenterTypeName] nvarchar(60) collate Latin1_General_100_BIN2
-, [WorkCenter] nvarchar(8) collate Latin1_General_100_BIN2
-, [OpErlstSchedldExecStrtDte] date
-, [OpErlstSchedldExecStrtTme] time(0)
-, [OpErlstSchedldExecEndDte] date
-, [OpErlstSchedldExecEndTme] time(0)
-, [OpActualExecutionStartDate] date
-, [OpActualExecutionStartTime] time(0)
-, [OpActualExecutionEndDate] date
-, [OpActualExecutionEndTime] time(0)
-, [OperationUnit] nvarchar(3) collate Latin1_General_100_BIN2
-, [OpPlannedTotalQuantity] decimal(13,3)
-, [ErlstSchedldExecDurnInWorkdays] int
-, [OpActualExecutionDays] int
-, [OpTotalConfirmedYieldQty] decimal(13,3)
-, [WorkCenterInternalID] char(8) collate Latin1_General_100_BIN2
+  [MANDT] NCHAR(3) COLLATE Latin1_General_100_BIN2 NOT NULL
+, [OrderInternalBillOfOperations] CHAR(10) COLLATE Latin1_General_100_BIN2 NOT NULL
+, [OrderIntBillOfOperationsItem] CHAR(8) COLLATE Latin1_General_100_BIN2 NOT NULL
+, [ManufacturingOrder] NVARCHAR(12) COLLATE Latin1_General_100_BIN2
+, [ManufacturingOrderOperation] NVARCHAR(4) COLLATE Latin1_General_100_BIN2
+, [MfgOrderOperationIsPhase] NVARCHAR(1) COLLATE Latin1_General_100_BIN2
+, [ManufacturingOrderSequence] NVARCHAR(6) COLLATE Latin1_General_100_BIN2
+, [MfgOrderSequenceCategoryName] NVARCHAR(30) COLLATE Latin1_General_100_BIN2
+, [MfgOrderSequenceText] NVARCHAR(40) COLLATE Latin1_General_100_BIN2
+, [MfgOrderOperationText] NVARCHAR(40) COLLATE Latin1_General_100_BIN2
+, [ManufacturingOrderType] NVARCHAR(4) COLLATE Latin1_General_100_BIN2
+, [BusinessProcessEntryUnit] NVARCHAR(3) COLLATE Latin1_General_100_BIN2
+, [ManufacturingOrderCategory] CHAR(2) COLLATE Latin1_General_100_BIN2
+, [Material] NVARCHAR(40) COLLATE Latin1_General_100_BIN2
+, [WorkCenterTypeCode] NVARCHAR(1) COLLATE Latin1_General_100_BIN2
+, [WorkCenterTypeName] NVARCHAR(60) COLLATE Latin1_General_100_BIN2
+, [WorkCenter] NVARCHAR(8) COLLATE Latin1_General_100_BIN2
+, [OpErlstSchedldExecStrtDte] DATE
+, [OpErlstSchedldExecStrtTme] TIME(0)
+, [OpErlstSchedldExecEndDte] DATE
+, [OpErlstSchedldExecEndTme] TIME(0)
+, [OpActualExecutionStartDate] DATE
+, [OpActualExecutionStartTime] TIME(0)
+, [OpActualExecutionEndDate] DATE
+, [OpActualExecutionEndTime] TIME(0)
+, [OperationUnit] NVARCHAR(3) COLLATE Latin1_General_100_BIN2
+, [OpPlannedTotalQuantity] DECIMAL(13,3)
+, [ErlstSchedldExecDurnInWorkdays] INT
+, [OpActualExecutionDays] INT
+, [OpTotalConfirmedYieldQty] DECIMAL(13,3)
+, [WorkCenterInternalID] CHAR(8) COLLATE Latin1_General_100_BIN2
 , [t_applicationId]       VARCHAR (32)
 , [t_jobId]               VARCHAR (36)
-, [t_lastDtm]             DATETIME
-, [t_lastActionBy]        VARCHAR (128)
+, [t_jobDtm]              DATETIME
+, [t_jobBy]        		  NVARCHAR (128)
+, [t_extractionDtm]		  DATETIME
 , [t_filePath]            NVARCHAR (1024)
 , CONSTRAINT [PK_C_MfgOrderObjPgOpr] PRIMARY KEY NONCLUSTERED (
     [MANDT], [OrderInternalBillOfOperations], [OrderIntBillOfOperationsItem]
