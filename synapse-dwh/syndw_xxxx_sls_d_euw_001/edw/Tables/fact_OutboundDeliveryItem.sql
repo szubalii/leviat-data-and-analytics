@@ -40,6 +40,7 @@
       ,[IsNotGoodsMovementsRelevant] nvarchar(1)
       ,[ItemGrossWeight] decimal(15,3)
       ,[ItemNetWeight] decimal(15,3)
+      ,[WGT001_DataQualityCode]  nvarchar (6)      
       ,[ItemVolume] decimal(15,3)
       ,[ItemVolumeUnit] nvarchar(3) collate Latin1_General_100_BIN2
       ,[ItemWeightUnit] nvarchar(3) collate Latin1_General_100_BIN2
@@ -231,7 +232,9 @@
       ,[OTS_DataQualityCode] nvarchar (6)
       ,[CalculatedDelDate] date
       ,[ActualLeadTime] int
+      ,[ALT001_DataQualityCode] nvarchar (6)
       ,[RequestedLeadTime] int
+      ,[RLT001_DataQualityCode] nvarchar (6)
       ,[OTD_DaysDiff] int
       ,[OTD_Group]  nvarchar (7)
       ,[OTD_EarlyDays] int
