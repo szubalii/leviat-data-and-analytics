@@ -355,7 +355,18 @@ BDwithFreight AS (
     GROUP BY
         BillingDocument
     ,   CurrencyTypeID
-),BDwithConditionAmountFreight AS (
+),
+BDIPE_ZF20 as (
+    SELECT
+            BDIPE_ZF20.[BillingDocument]
+        ,   BDIPE_ZF20.[BillingDocumentItem]
+        ,   BDIPE_ZF20.[ConditionAmount]
+    FROM
+        [base_s4h_cax].[I_BillingDocumentItemPrcgElmnt] BDIPE_ZF20  
+    WHERE
+        BDIPE_ZF20.[ConditionType] = 'ZF20'
+),
+BDwithConditionAmountFreight AS (
     SELECT 
             BDI.BillingDocument
         ,   BDI.BillingDocumentItem
@@ -371,8 +382,18 @@ BDwithFreight AS (
             BDI.[BillingDocument] = BDIPE.[BillingDocument]
             AND
             BDI.[BillingDocumentItem] = BDIPE.[BillingDocumentItem]
+    LEFT JOiN
+        BDIPE_ZF20
+        ON 
+            BDIPE.[BillingDocument] = BDIPE_ZF20.[BillingDocument]
             AND
-            BDIPE.[ConditionType] IN ('ZF60', 'ZF20', 'ZTMF', 'ZF10', 'ZM40')
+            BDIPE.[BillingDocumentItem] = BDIPE_ZF20.[BillingDocumentItem]
+    WHERE
+        (
+            (BDIPE_ZF20.[BillingDocument] IS NOT NULL AND  BDIPE.[ConditionType] IN ('ZF60', 'ZF20', 'ZTMF', 'ZM40'))
+            OR 
+            (BDIPE_ZF20.[BillingDocument] IS NULL AND BDIPE.[ConditionType] IN ('ZF60', 'ZTMF', 'ZF20', 'ZF10', 'ZM40'))
+        )
     GROUP BY 
          BDI.BillingDocument
         ,BDI.BillingDocumentItem
