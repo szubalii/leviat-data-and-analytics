@@ -803,9 +803,9 @@ BillingDocumentItemBase_axbi_mapped AS (
             END AS [MarginPercent]
         ,   [FinProfitMarginGroupEUR]                AS [FinProfitMargin]
         ,   CASE
-                WHEN ISNULL([FinSales100EUR], 0) = 0 OR ISNULL([FinProfitMarginGroupEUR]) = 0
+                WHEN ISNULL([FinSales100EUR], 0) = 0
                 THEN 0
-                ELSE [FinProfitMarginGroupEUR]/[FinSales100EUR]
+                ELSE ISNULL([FinProfitMarginGroupEUR], 0)/[FinSales100EUR]
             END AS [FinMarginPercent]
         ,   [QuantitySold]
         ,   [CountryID]
@@ -908,9 +908,9 @@ SELECT
         END AS [MarginPercent]
     ,   [FinProfitMarginLocal]                   as [FinProfitMargin]
     ,   CASE
-            WHEN ISNULL([FinSales100LOCAL], 0) = 0 OR ISNULL([FinProfitMarginLocal], 0) = 0
+            WHEN ISNULL([FinSales100LOCAL], 0) = 0
             THEN 0
-            ELSE [FinProfitMarginLocal]/[FinSales100LOCAL]
+            ELSE ISNULL([FinProfitMarginLocal], 0)/[FinSales100LOCAL]
         END AS [FinMarginPercent]
     ,   [QuantitySold]
     ,   [CountryID]
