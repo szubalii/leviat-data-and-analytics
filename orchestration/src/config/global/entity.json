@@ -3458,7 +3458,7 @@
         }
         ]
     },
-    "base_dw_halfen_1_stg": {
+    "dw_halfen_1_stg": {
         "layer_id": 5,
         "schema_name": "base_dw_halfen_1_stg",
         "base_schema_name": "base_dw_halfen_1_stg",
