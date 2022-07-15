@@ -17,5 +17,9 @@
     "tx-halfen-2-dwh":{
         "adls_container_name": "tx-halfen-2-dwh-prod",
         "axbi_database_name": "TX_HALFEN_2_DWH_PROD"
-    }
+    },
+    "dw_halfen_1_stg":{
+        "adls_container_name": "dw-halfen-1-stg-prod",
+        "axbi_database_name": "TX_HALFEN_1_STG_PROD"  
+    }   
 }
