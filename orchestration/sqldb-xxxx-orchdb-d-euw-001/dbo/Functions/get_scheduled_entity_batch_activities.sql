@@ -164,7 +164,13 @@ BEGIN
             e.[base_schema_name],
             e.[base_sproc_name],
             e.activity_id,
-            f.file_name
+            -- return NULL value for file_name in case successful 
+            -- scheduled full entities need to rerun
+            CASE
+                WHEN @rerunSuccessfulScheduledFullEntities = 1
+                THEN NULL
+                ELSE f.file_name
+            END AS file_name
         FROM
             scheduled_full_entity_batch_activities e
         LEFT JOIN
