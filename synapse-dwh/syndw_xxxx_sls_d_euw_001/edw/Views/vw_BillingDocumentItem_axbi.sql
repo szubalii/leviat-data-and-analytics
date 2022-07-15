@@ -795,13 +795,13 @@ BillingDocumentItemBase_axbi_mapped AS (
         ,   [BillingQuantityUnitID]
         ,   [NetAmountGroupEUR]                      AS [NetAmount]
         ,   [CostAmountGroupEUR]                     AS [CostAmount]
-        ,   [ProfitMarginGroupEUR]                   AS [ProfitMargin]
+        ,   ISNULL([ProfitMarginGroupEUR],0)         AS [ProfitMargin]
         ,   CASE
                 WHEN ISNULL([NetAmountGroupEUR], 0) = 0
                 THEN 0
-                ELSE [ProfitMarginGroupEUR]/[NetAmountGroupEUR]
+                ELSE ISNULL([ProfitMarginGroupEUR],0)/[NetAmountGroupEUR]
             END AS [MarginPercent]
-        ,   [FinProfitMarginGroupEUR]                AS [FinProfitMargin]
+        ,   ISNULL([FinProfitMarginGroupEUR],0)      AS [FinProfitMargin]
         ,   CASE
                 WHEN ISNULL([FinSales100EUR], 0) = 0
                 THEN 0
@@ -900,13 +900,13 @@ SELECT
     ,   [BillingQuantityUnitID]
     ,   [NetAmountLocal]                         as [NetAmount]
     ,   [CostAmountLocal]                        as [CostAmount]
-    ,   [ProfitMarginLocal]                      as [ProfitMargin]
+    ,   ISNULL([ProfitMarginLocal], 0)           as [ProfitMargin]
     ,   CASE
             WHEN ISNULL([NetAmountLocal], 0) = 0
             THEN 0
-            ELSE [ProfitMarginLocal]/[NetAmountLocal]
+            ELSE ISNULL([ProfitMarginLocal], 0)/[NetAmountLocal]
         END AS [MarginPercent]
-    ,   [FinProfitMarginLocal]                   as [FinProfitMargin]
+    ,   ISNULL([FinProfitMarginLocal], 0)        as [FinProfitMargin]
     ,   CASE
             WHEN ISNULL([FinSales100LOCAL], 0) = 0
             THEN 0
