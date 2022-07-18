@@ -389,7 +389,7 @@ BDwithConditionAmountFreight AS (
         (
             (BDIPE_ZF20.[BillingDocument] IS NOT NULL AND  BDIPE.[ConditionType] IN ('ZF60', 'ZF20', 'ZTMF', 'ZM40'))
             OR 
-            (ISNULL(BDIPE_ZF20.[BillingDocument], 0) = 0 AND BDIPE.[ConditionType] IN ('ZF60', 'ZTMF', 'ZF10', 'ZM40'))
+            ((BDIPE_ZF20.[BillingDocument] IS NULL OR BDIPE_ZF20.ConditionAmount=0) AND BDIPE.[ConditionType] IN ('ZF60', 'ZTMF', 'ZF10', 'ZM40'))
         )
     GROUP BY 
          BDI.BillingDocument
