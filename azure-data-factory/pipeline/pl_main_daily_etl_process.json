@@ -198,6 +198,26 @@
 						}
 					}
 				}
+			},
+			{
+				"name": "Materialiazing MDQ in synapse",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Send Process ETL Success Mail",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pl_mdq__synapse",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
 			}
 		],
 		"parameters": {
