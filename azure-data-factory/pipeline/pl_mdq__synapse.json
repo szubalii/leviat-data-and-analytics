@@ -1,6 +1,452 @@
 {
 	"name": "pl_mdq__synapse",
 	"properties": {
+		"activities": [
+			{
+				"name": "Log Pipeline",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[set_pipeline_log]",
+					"storedProcedureParameters": {
+						"message": {
+							"value": {
+								"value": "@{pipeline().TriggerType} execution triggered at @{pipeline().TriggerTime}",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"pipeline_name": {
+							"value": {
+								"value": "@pipeline().Pipeline",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"run_id": {
+							"value": {
+								"value": "@pipeline().RunId",
+								"type": "Expression"
+							},
+							"type": "Guid"
+						},
+						"start_date_time": {
+							"value": {
+								"value": "@formatDateTime(utcnow(), 'yyyy-MM-dd HH:mm:ss')",
+								"type": "Expression"
+							},
+							"type": "DateTime"
+						},
+						"status": {
+							"value": "InProgress",
+							"type": "String"
+						},
+						"user_name": {
+							"value": {
+								"value": "@pipeline().GroupId",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"parent_run_id": {
+							"value": {
+								"value": "@pipeline().parameters.parent_run_id",
+								"type": "Expression"
+							}
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "Get Synapse Base Procedures",
+				"type": "Lookup",
+				"dependsOn": [
+					{
+						"activity": "Log Pipeline",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderQuery": {
+							"value": "SELECT\n    entity_id,\n    entity_name,\n    base_schema_name,\n    base_table_name,\n    base_sproc_name\nFROM [dbo].[get_scheduled_entity_batch_activities] \n (\n @{pipeline().parameters.adhoc},\n '@{pipeline().parameters.date}',\n @{pipeline().parameters.rerun_successful_full_entities}\n )\nWHERE base_sproc_name IS NOT NULL\nGROUP BY\n    entity_id,\n    entity_name,\n    base_schema_name,\n    base_table_name,\n    base_sproc_name",
+							"type": "Expression"
+						},
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "ds_orch_db",
+						"type": "DatasetReference"
+					},
+					"firstRowOnly": false
+				}
+			},
+			{
+				"name": "ForEach Procedure",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "Get Synapse Base Procedures",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('Get Synapse Base Procedures').output.value",
+						"type": "Expression"
+					},
+					"isSequential": false,
+					"batchCount": 10,
+					"activities": [
+						{
+							"name": "Process Synapse Base Procedure",
+							"type": "ExecutePipeline",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"pipeline": {
+									"referenceName": "pl_SYNDW_Base_process",
+									"type": "PipelineReference"
+								},
+								"waitOnCompletion": true,
+								"parameters": {
+									"base_schema_name": {
+										"value": "@item().base_schema_name",
+										"type": "Expression"
+									},
+									"base_table_name": {
+										"value": "@item().base_table_name",
+										"type": "Expression"
+									},
+									"base_sproc_name": {
+										"value": "@item().base_sproc_name",
+										"type": "Expression"
+									},
+									"entity_id": {
+										"value": "@item().entity_id",
+										"type": "Expression"
+									},
+									"run_id": {
+										"value": "@pipeline().RunId",
+										"type": "Expression"
+									}
+								}
+							}
+						}
+					]
+				}
+			},
+			{
+				"name": "Log Exception - Get Procedures",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "Get Synapse Base Procedures",
+						"dependencyConditions": [
+							"Failed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[log_exception]",
+					"storedProcedureParameters": {
+						"batch_id": {
+							"value": null,
+							"type": "Guid"
+						},
+						"category": {
+							"value": "InternalError",
+							"type": "String"
+						},
+						"entity_id": {
+							"value": null,
+							"type": "Int64"
+						},
+						"error_msg": {
+							"value": {
+								"value": "@activity('Get Synapse Base Procedures').Error.Message",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"run_id": {
+							"value": {
+								"value": "@pipeline().RunId",
+								"type": "Expression"
+							},
+							"type": "Guid"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "Set Status Failed - Get Procedures",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "Log Exception - Get Procedures",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[change_status_pipeline_log]",
+					"storedProcedureParameters": {
+						"end_date_time": {
+							"value": {
+								"value": "@formatDateTime(utcnow(), 'yyyy-MM-dd HH:mm:ss')",
+								"type": "Expression"
+							},
+							"type": "DateTime"
+						},
+						"message": {
+							"value": {
+								"value": "Execution Failed",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"run_id": {
+							"value": {
+								"value": "@pipeline().RunId",
+								"type": "Expression"
+							},
+							"type": "Guid"
+						},
+						"status": {
+							"value": {
+								"value": "Failed",
+								"type": "Expression"
+							},
+							"type": "String"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "Set Status Succeeded",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "ForEach Procedure",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[change_status_pipeline_log]",
+					"storedProcedureParameters": {
+						"end_date_time": {
+							"value": {
+								"value": "@formatDateTime(utcnow(), 'yyyy-MM-dd HH:mm:ss')",
+								"type": "Expression"
+							},
+							"type": "DateTime"
+						},
+						"message": {
+							"value": {
+								"value": "Finished successfully",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"run_id": {
+							"value": {
+								"value": "@pipeline().RunId",
+								"type": "Expression"
+							},
+							"type": "Guid"
+						},
+						"status": {
+							"value": {
+								"value": "Succeeded",
+								"type": "Expression"
+							},
+							"type": "String"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "Set Status Failed - ForEach",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "ForEach Procedure",
+						"dependencyConditions": [
+							"Failed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[change_status_pipeline_log]",
+					"storedProcedureParameters": {
+						"end_date_time": {
+							"value": {
+								"value": "@formatDateTime(utcnow(), 'yyyy-MM-dd HH:mm:ss')",
+								"type": "Expression"
+							},
+							"type": "DateTime"
+						},
+						"message": {
+							"value": {
+								"value": "Execution Failed",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"run_id": {
+							"value": {
+								"value": "@pipeline().RunId",
+								"type": "Expression"
+							},
+							"type": "Guid"
+						},
+						"status": {
+							"value": {
+								"value": "Failed",
+								"type": "Expression"
+							},
+							"type": "String"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "Fail Getting Base Procedures",
+				"type": "Fail",
+				"dependsOn": [
+					{
+						"activity": "Set Status Failed - Get Procedures",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"message": {
+						"value": "@concat(\n    'Failed to get Synapse Base Procedures: ',\n    activity('Get Synapse Base Procedures').Error.Message\n)",
+						"type": "Expression"
+					},
+					"errorCode": "500"
+				}
+			},
+			{
+				"name": "Fail ForEach",
+				"type": "Fail",
+				"dependsOn": [
+					{
+						"activity": "Set Status Failed - ForEach",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"message": {
+						"value": "@concat(\n    'One or more Synapse base procedures failed: ',\n    activity('Process Synapse Base Procedure').Error.Message\n)",
+						"type": "Expression"
+					},
+					"errorCode": "500"
+				}
+			}
+		],
+		"parameters": {
+			"parent_run_id": {
+				"type": "string"
+			},
+			"adhoc": {
+				"type": "int",
+				"defaultValue": 0
+			},
+			"date": {
+				"type": "string",
+				"defaultValue": "2022/07/20"
+			},
+			"rerun_successful_full_entities": {
+				"type": "int",
+				"defaultValue": 0
+			}
+		},
 		"annotations": []
 	}
 }
