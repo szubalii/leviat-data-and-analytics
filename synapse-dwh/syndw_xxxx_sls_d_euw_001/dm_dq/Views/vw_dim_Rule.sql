@@ -2,7 +2,7 @@
 SELECT
     [RuleID]
     ,[RuleBusinessDescription]
-    ,[RuleTechnicalDescription]
+    ,[RuleTechnicalDefinition]
     ,[Formula]
     ,[RuleClass]
     ,[RuleGroup]

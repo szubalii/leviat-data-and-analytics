@@ -1,31 +1,34 @@
 -- Write your own SQL object definition here, and it'll be included in your package.
-CREATE FUNCTION [dbo].[get_scheduled_edw_entity_batch_activities](
+CREATE FUNCTION [dbo].[get_scheduled_entity_batch_activities_by_layer](
     @adhoc bit = 0,
-    @date DATE
+    @date DATE,
+    @layer_nk VARCHAR(50) = 'EDW'
 )
 RETURNS TABLE AS RETURN
 
     -- DECLARE @adhoc bit = 0, @date DATE = '2022/05/24';
 
     WITH latest_batch_activities AS (
-        select
+        SELECT
             b.entity_id,
             b.activity_id,
-            MAX(b.start_date_time) as start_date_time
+            MAX(b.start_date_time) AS start_date_time
         FROM
             batch b
         LEFT JOIN [dbo].[entity] e
             ON e.entity_id = b.entity_id
+        LEFT JOIN
+            [dbo].[layer] l 
+            ON l.[layer_id] = e.[layer_id]
         WHERE
-            CONVERT(date, b.start_date_time) = @date
+            CONVERT(DATE, b.start_date_time) = @date
             AND
-            e.layer_id = 4 -- 'EDW'
+            l.layer_nk = @layer_nk
         GROUP BY
             b.entity_id,
             b.activity_id
     )
     , latest_batch AS (
-
         SELECT
             lb.entity_id,
             b.run_id,
@@ -46,8 +49,8 @@ RETURNS TABLE AS RETURN
 
     -- DECLARE
     --     @date DATE = '2022/04/11';
-    , scheduled_entity_batch_activities as (
-        select
+    , scheduled_entity_batch_activities AS (
+        SELECT
             e.entity_id,
             e.entity_name,
             e.layer_nk,
@@ -62,40 +65,39 @@ RETURNS TABLE AS RETURN
             ba.activity_order,
             lb.batch_id,
             lb.status_id,
-            case
-                when status_id = 2 --'Succeeded'
-                then 0
-                else 1
-            end as [isRequired]
-        from
+            CASE
+                WHEN status_id = 2 --'Succeeded'
+                THEN 0
+                ELSE 1
+            END AS [isRequired]
+        FROM
             get_scheduled_entities(@adhoc, @date) e
-        left join
+        LEFT JOIN
             layer l
             ON
                 l.layer_nk = e.layer_nk
-        left join
+        LEFT JOIN
             layer_activity la
-            on
+            ON
                 la.layer_id = l.layer_id
-        left join
+        LEFT JOIN
             batch_activity ba
-            on
+            ON
                 ba.activity_id = la.activity_id
-        left join
+        LEFT JOIN
             latest_batch lb
-            on 
+            ON 
                 lb.entity_id = e.entity_id
-                and
+                AND
                 lb.activity_id = ba.activity_id
-
         WHERE
-            e.layer_nk IN ('EDW')
+            e.layer_nk = @layer_nk
             -- AND (
             --     e.update_mode = 'Full' OR e.update_mode IS NULL
             -- )
     )
-    , activities as (
-        select
+    , activities AS (
+        SELECT
             entity_id,
             entity_name,
             layer_nk,
@@ -108,21 +110,21 @@ RETURNS TABLE AS RETURN
             dest_table_name,
             concat(
                 '[',
-                case
-                    when isRequired = 1
-                    then concat(
+                CASE
+                    WHEN isRequired = 1
+                    THEN concat(
                         '"',
-                        string_agg(activity_nk, '","') within group (order by activity_order asc),
+                        string_agg(activity_nk, '","') WITHIN group (ORDER BY activity_order asc),
                         '"'
                     )
-                end,
+                END,
                 ']'
-            ) as required_activities,
+            ) AS required_activities,
             concat(
                 '{',
-                case
-                    when isRequired = 0
-                    then string_agg(
+                CASE
+                    WHEN isRequired = 0
+                    THEN string_agg(
                         concat(
                             '"',
                             activity_nk,
@@ -131,12 +133,12 @@ RETURNS TABLE AS RETURN
                             '}'
                         ),
                         ','
-                    ) within group (order by activity_order asc)
-                end,
+                    ) WITHIN group (ORDER BY activity_order asc)
+                END,
                 '}'
-            ) as skipped_activities
-        from scheduled_entity_batch_activities
-        group by
+            ) AS skipped_activities
+        FROM scheduled_entity_batch_activities
+        GROUP BY
             entity_id,
             entity_name,
             layer_nk,
@@ -149,8 +151,7 @@ RETURNS TABLE AS RETURN
             dest_table_name,
             isRequired
     )
-
-    select
+    SELECT
         entity_id,
         entity_name,
         layer_nk,
@@ -161,10 +162,10 @@ RETURNS TABLE AS RETURN
         source_view_name,
         dest_schema_name,
         dest_table_name,
-        MIN(required_activities) as required_activities,
-        MIN(skipped_activities) as skipped_activities
-    from activities
-    group by
+        MIN(required_activities) AS required_activities,
+        MIN(skipped_activities) AS skipped_activities
+    FROM activities
+    GROUP BY
         entity_id,
         entity_name,
         layer_nk,

@@ -4587,7 +4587,7 @@
         ]
     },
     "dq": {
-        "layer_id": 4,
+        "layer_id": 10,
         "schema_name": "dq",
         "edw_sproc_schema_name": "dq",
         "edw_source_schema_name": "dq",
@@ -4596,7 +4596,7 @@
         {
             "entity_id": 437,
             "entity_name": "dim_RuleProduct",
-            "edw_sproc_name": "sp_dq_materialize_view",
+            "edw_sproc_name": "sp_materialize_view",
             "edw_source_view_name": "vw_RuleProduct",
             "edw_dest_table_name": "dim_RuleProduct",
             "edw_execution_order": 0,

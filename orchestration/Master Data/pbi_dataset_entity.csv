@@ -49,3 +49,6 @@ pbi_dataset_entity_id,pbi_dataset_id,dataset_name,entity_id,entity_name
 48,12,Stock Management,49,dim_Customer
 49,12,Stock Management,54,dim_Product
 50,12,Stock Management,64,fact_MaterialDocumentItem
+51,13,Data Quality,432,dim_ProductValuation
+52,13,Data Quality,433,dim_PurchasingDocument
+53,13,Data Quality,435,dim_ProductValuationPUP
