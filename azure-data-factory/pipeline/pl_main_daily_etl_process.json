@@ -213,7 +213,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"pipeline": {
-						"referenceName": "pl_mdq__synapse",
+						"referenceName": "pl_SYNDW_DQ_process_main",
 						"type": "PipelineReference"
 					},
 					"waitOnCompletion": true
