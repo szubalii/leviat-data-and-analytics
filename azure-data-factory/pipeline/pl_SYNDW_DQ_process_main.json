@@ -123,44 +123,7 @@
 						"type": "Expression"
 					},
 					"isSequential": false,
-					"batchCount": 10,
-					"activities": [
-						{
-							"name": "Process Synapse Base Procedure",
-							"type": "ExecutePipeline",
-							"dependsOn": [],
-							"userProperties": [],
-							"typeProperties": {
-								"pipeline": {
-									"referenceName": "pl_SYNDW_Base_process",
-									"type": "PipelineReference"
-								},
-								"waitOnCompletion": true,
-								"parameters": {
-									"base_schema_name": {
-										"value": "@item().base_schema_name",
-										"type": "Expression"
-									},
-									"base_table_name": {
-										"value": "@item().base_table_name",
-										"type": "Expression"
-									},
-									"base_sproc_name": {
-										"value": "@item().base_sproc_name",
-										"type": "Expression"
-									},
-									"entity_id": {
-										"value": "@item().entity_id",
-										"type": "Expression"
-									},
-									"run_id": {
-										"value": "@pipeline().RunId",
-										"type": "Expression"
-									}
-								}
-							}
-						}
-					]
+					"batchCount": 10
 				}
 			},
 			{
