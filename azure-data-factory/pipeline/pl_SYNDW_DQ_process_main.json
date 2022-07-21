@@ -410,6 +410,9 @@
 				"defaultValue": 0
 			}
 		},
+		"folder": {
+			"name": "00 ELT/05 Synapse Transformation/03 DQ"
+		},
 		"annotations": []
 	}
 }
