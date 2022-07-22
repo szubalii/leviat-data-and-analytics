@@ -20,5 +20,4 @@ activity_id,activity_nk,activity_description,activity_order,is_deprecated
 19,TestDuplicates,Checking for duplicates in parquet files,200,0
 20,ProcessADLS,Process raw parquet files from the ADLS In folder and copy them to the ADLS Out folder,300,0
 21,Extract,Extract source data and store in the ADLS In folder,100,0
-22,BaseToDataQuality,Load data to the Data Quality schema,100,0
-
+22,ProcessDQ,Load data to the Data Quality schema,500,0
