@@ -1181,18 +1181,7 @@ BDwithConditionAmountFreight AS (
     ,   BDI.CurrencyTypeID
     ,   BDI.CurrencyID
     ,   BDI.ExchangeRate
-    ,   SUM(BDIPE.ConditionAmount) AS ConditionAmount -- ???
-    ,   BDIPE.ConditionCurrency
-    ,   CASE
-            WHEN
-                BDIPE.ConditionCurrency <> '' -- TODO (2021/08/19), ConditionCurrency is always empty string ('')
-                AND
-                BDIPE.ConditionCurrency <> BDI.CurrencyID
-            THEN
-                SUM(BDIPE.ConditionAmount) * BDI.ExchangeRate
-            ELSE
-                SUM(BDIPE.ConditionAmount)
-        END AS FinRebateAccrual
+    ,   SUM(BDIPE.ConditionAmount * BDI.ExchangeRate) AS FinRebateAccrual
     FROM 
         BDIwithMatType BDI
     LEFT JOIN
