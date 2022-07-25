@@ -361,6 +361,7 @@ CTE_BDIPE_ZF20 AS (
             BDIPE_ZF20.[BillingDocument]
         ,   BDIPE_ZF20.[BillingDocumentItem]
         ,   BDIPE_ZF20.[PricingProcedureCounter]
+        ,   BDIPE_ZF20.[PricingProcedureStep]
         ,   BDIPE_ZF20.[ConditionAmount]
     FROM
         [base_s4h_cax].[I_BillingDocumentItemPrcgElmnt] BDIPE_ZF20  
@@ -383,7 +384,9 @@ CTE_BDIPE AS(
                 AND
                 BDIPE.[BillingDocumentItem] = BDIPE_ZF20.[BillingDocumentItem]
                 AND
-                BDIPE.[PricingProcedureCounter] = BDIPE_ZF20.[PricingProcedureCounter]  
+                BDIPE.[PricingProcedureCounter] = BDIPE_ZF20.[PricingProcedureCounter]
+                AND
+                BDIPE.[PricingProcedureStep] = BDIPE_ZF20.[PricingProcedureStep]
     WHERE 
         BDIPE.ConditionInactiveReason<>'X'
         AND
