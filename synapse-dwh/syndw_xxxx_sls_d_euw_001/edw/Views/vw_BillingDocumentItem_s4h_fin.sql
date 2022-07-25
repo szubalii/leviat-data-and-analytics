@@ -353,15 +353,55 @@ BDwithFreight AS (
         BillingDocument
     ,   CurrencyTypeID
 ),
-BDIPE_ZF20 as (
-    SELECT
+CTE_BDIPE_ZF20 AS (
+    SELECT 
             BDIPE_ZF20.[BillingDocument]
         ,   BDIPE_ZF20.[BillingDocumentItem]
+        ,   BDIPE_ZF20.[PricingProcedureCounter]
+        ,   BDIPE_ZF20.[PricingProcedureStep]
         ,   BDIPE_ZF20.[ConditionAmount]
     FROM
         [base_s4h_cax].[I_BillingDocumentItemPrcgElmnt] BDIPE_ZF20  
-    WHERE
+    WHERE 
         BDIPE_ZF20.[ConditionType] = 'ZF20'
+        AND
+        BDIPE_ZF20.ConditionInactiveReason <>'X'
+),
+CTE_BDIPE AS(
+    SELECT
+        BDIPE.BillingDocument
+       ,    BDIPE.BillingDocumentItem
+       ,    sum(BDIPE.ConditionAmount) as ConditionAmountFreight
+    FROM 
+        [base_s4h_cax].[I_BillingDocumentItemPrcgElmnt] AS BDIPE
+    LEFT JOIN 
+        CTE_BDIPE_ZF20 AS BDIPE_ZF20
+            ON 
+                BDIPE.[BillingDocument] = BDIPE_ZF20.[BillingDocument]
+                AND
+                BDIPE.[BillingDocumentItem] = BDIPE_ZF20.[BillingDocumentItem]
+                AND
+                BDIPE.[PricingProcedureCounter] = BDIPE_ZF20.[PricingProcedureCounter]
+                AND
+                BDIPE.[PricingProcedureStep] = BDIPE_ZF20.[PricingProcedureStep]
+    WHERE 
+        BDIPE.ConditionInactiveReason<>'X'
+        AND
+        (
+            (BDIPE_ZF20.[BillingDocument] IS NOT NULL 
+            AND
+            BDIPE.[ConditionType] IN ('ZF60', 'ZF20', 'ZTMF', 'ZM40')
+            )
+            OR 
+            (
+            (BDIPE_ZF20.[BillingDocument] IS NULL OR BDIPE_ZF20.ConditionAmount=0) 
+            AND
+            BDIPE.[ConditionType] IN ('ZF60', 'ZTMF', 'ZF10', 'ZM40')
+            )
+        )
+    GROUP BY 
+        BDIPE.BillingDocument,
+        BDIPE.BillingDocumentItem
 ),
 BDwithConditionAmountFreight AS (
     SELECT 
@@ -370,33 +410,15 @@ BDwithConditionAmountFreight AS (
         ,   BDI.CurrencyTypeID
         ,   BDI.CurrencyID
         ,   BDI.ExchangeRate
-        ,   SUM(BDIPE.ConditionAmount * BDI.ExchangeRate) AS ConditionAmountFreight
+        ,   CTE_BDIPE.ConditionAmountFreight * BDI.ExchangeRate AS ConditionAmountFreight
     FROM             
         BDIwithMatType BDI
-    LEFT JOIN
-        [base_s4h_cax].[I_BillingDocumentItemPrcgElmnt] BDIPE
+    JOIN
+        CTE_BDIPE
         ON
-            BDI.[BillingDocument] = BDIPE.[BillingDocument]
+            BDI.[BillingDocument] = CTE_BDIPE.[BillingDocument]
             AND
-            BDI.[BillingDocumentItem] = BDIPE.[BillingDocumentItem]
-    LEFT JOiN
-        BDIPE_ZF20
-        ON 
-            BDI.[BillingDocument] = BDIPE_ZF20.[BillingDocument]
-            AND
-            BDI.[BillingDocumentItem] = BDIPE_ZF20.[BillingDocumentItem]
-    WHERE
-        (
-            (BDIPE_ZF20.[BillingDocument] IS NOT NULL AND  BDIPE.[ConditionType] IN ('ZF60', 'ZF20', 'ZTMF', 'ZM40'))
-            OR 
-            ((BDIPE_ZF20.[BillingDocument] IS NULL OR BDIPE_ZF20.ConditionAmount=0) AND BDIPE.[ConditionType] IN ('ZF60', 'ZTMF', 'ZF10', 'ZM40'))
-        )
-    GROUP BY 
-         BDI.BillingDocument
-        ,BDI.BillingDocumentItem
-        ,BDI.CurrencyTypeID
-        ,BDI.CurrencyID
-        ,BDI.ExchangeRate
+            BDI.[BillingDocumentItem] = CTE_BDIPE.[BillingDocumentItem]
 )
 ,BDwithConditionAmountMinQty AS (
     SELECT 
