@@ -1,4 +1,7 @@
-﻿CREATE FUNCTION [dbo].[get_edw_entities] (@adhoc bit = 0, @manual_run bit = 0, @date DATE)
+﻿/*
+    DEPRECATED FUNCTION
+*/
+CREATE FUNCTION [dbo].[get_edw_entities] (@adhoc bit = 0, @manual_run bit = 0, @date DATE)
 RETURNS TABLE
 AS RETURN
 SELECT
@@ -41,7 +44,7 @@ WHERE
                     ent.[last_run_status] IN ('Failed', 'InProgress')
                     AND 
                     ent.[last_run_activity] IN (
-                        'InEDWLayer',
+                        'ProcessEDW',
                         'BasetoEDWExecGenericSP',
                         'BasetoEDWExecCustomSP'
                     )

@@ -2,8 +2,8 @@
 SELECT
     [RuleID]
     ,[RuleBusinessDescription]
-    ,[RuleTechnicalDescription]
-    ,[Formula]
+    ,[RuleTechnicalDefinition]
+    ,[FieldNameChecked]
     ,[RuleClass]
     ,[RuleGroup]
     ,[DataArea]

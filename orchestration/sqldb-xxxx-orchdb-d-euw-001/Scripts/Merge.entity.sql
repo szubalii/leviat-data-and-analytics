@@ -56,19 +56,19 @@ WHEN MATCHED AND (
     OR
     ISNULL(src.axbi_date_field_name, '') <> ISNULL(tgt.axbi_date_field_name, '')
     OR
-    ISNULL(src.edw_sproc_schema_name, '') <> ISNULL(tgt.edw_sproc_schema_name, '')
+    ISNULL(src.sproc_schema_name, '') <> ISNULL(tgt.sproc_schema_name, '')
     OR
-    ISNULL(src.edw_sproc_name, '') <> ISNULL(tgt.edw_sproc_name, '')
+    ISNULL(src.sproc_name, '') <> ISNULL(tgt.sproc_name, '')
     OR
-    ISNULL(src.edw_source_schema_name, '') <> ISNULL(tgt.edw_source_schema_name, '')
+    ISNULL(src.source_schema_name, '') <> ISNULL(tgt.source_schema_name, '')
     OR
-    ISNULL(src.edw_source_view_name, '') <> ISNULL(tgt.edw_source_view_name, '')
+    ISNULL(src.source_view_name, '') <> ISNULL(tgt.source_view_name, '')
     OR
-    ISNULL(src.edw_dest_schema_name, '') <> ISNULL(tgt.edw_dest_schema_name, '')
+    ISNULL(src.dest_schema_name, '') <> ISNULL(tgt.dest_schema_name, '')
     OR
-    ISNULL(src.edw_dest_table_name, '') <> ISNULL(tgt.edw_dest_table_name, '')
+    ISNULL(src.dest_table_name, '') <> ISNULL(tgt.dest_table_name, '')
     OR
-    ISNULL(src.edw_execution_order, -1) <> ISNULL(tgt.edw_execution_order, -1)
+    ISNULL(src.execution_order, -1) <> ISNULL(tgt.execution_order, -1)
     OR
     ISNULL(src.pk_field_names, '') <> ISNULL(tgt.pk_field_names, '')
     OR
@@ -93,13 +93,13 @@ WHEN MATCHED AND (
     ,   axbi_database_name      = src.axbi_database_name
     ,   axbi_schema_name	    = src.axbi_schema_name	
     ,   axbi_date_field_name    = src.axbi_date_field_name
-    ,   edw_sproc_schema_name   = src.edw_sproc_schema_name
-    ,   edw_sproc_name	        = src.edw_sproc_name	
-    ,   edw_source_schema_name  = src.edw_source_schema_name
-    ,   edw_source_view_name    = src.edw_source_view_name
-    ,   edw_dest_schema_name    = src.edw_dest_schema_name
-    ,   edw_dest_table_name     = src.edw_dest_table_name
-    ,   edw_execution_order     = src.edw_execution_order
+    ,   sproc_schema_name   = src.sproc_schema_name
+    ,   sproc_name	        = src.sproc_name	
+    ,   source_schema_name  = src.source_schema_name
+    ,   source_view_name    = src.source_view_name
+    ,   dest_schema_name    = src.dest_schema_name
+    ,   dest_table_name     = src.dest_table_name
+    ,   execution_order     = src.execution_order
     ,   pk_field_names               = src.pk_field_names
     ,   schedule_recurrence     = src.schedule_recurrence
     ,   schedule_start_date     = src.schedule_start_date
@@ -121,13 +121,13 @@ WHEN NOT MATCHED BY TARGET THEN
     ,   axbi_database_name
     ,   axbi_schema_name
     ,   axbi_date_field_name
-    ,   edw_sproc_schema_name
-    ,   edw_sproc_name
-    ,   edw_source_schema_name
-    ,   edw_source_view_name
-    ,   edw_dest_schema_name
-    ,   edw_dest_table_name
-    ,   edw_execution_order
+    ,   sproc_schema_name
+    ,   sproc_name
+    ,   source_schema_name
+    ,   source_view_name
+    ,   dest_schema_name
+    ,   dest_table_name
+    ,   execution_order
     ,   pk_field_names
     ,   schedule_recurrence
     ,   schedule_start_date
@@ -149,13 +149,13 @@ WHEN NOT MATCHED BY TARGET THEN
     ,   src.axbi_database_name
     ,   src.axbi_schema_name
     ,   src.axbi_date_field_name
-    ,   src.edw_sproc_schema_name
-    ,   src.edw_sproc_name
-    ,   src.edw_source_schema_name
-    ,   src.edw_source_view_name
-    ,   src.edw_dest_schema_name
-    ,   src.edw_dest_table_name
-    ,   src.edw_execution_order
+    ,   src.sproc_schema_name
+    ,   src.sproc_name
+    ,   src.source_schema_name
+    ,   src.source_view_name
+    ,   src.dest_schema_name
+    ,   src.dest_table_name
+    ,   src.execution_order
     ,   src.pk_field_names
     ,   src.schedule_recurrence
     ,   src.schedule_start_date
@@ -179,13 +179,13 @@ OUTPUT
 ,   Deleted.axbi_database_name
 ,   Deleted.axbi_schema_name
 ,   Deleted.axbi_date_field_name
-,   Deleted.edw_sproc_schema_name
-,   Deleted.edw_sproc_name
-,   Deleted.edw_source_schema_name
-,   Deleted.edw_source_view_name
-,   Deleted.edw_dest_schema_name
-,   Deleted.edw_dest_table_name
-,   Deleted.edw_execution_order
+,   Deleted.sproc_schema_name
+,   Deleted.sproc_name
+,   Deleted.source_schema_name
+,   Deleted.source_view_name
+,   Deleted.dest_schema_name
+,   Deleted.dest_table_name
+,   Deleted.execution_order
 ,   Deleted.pk_field_names
 ,   Deleted.schedule_recurrence
 ,   Deleted.schedule_start_date
@@ -206,13 +206,13 @@ OUTPUT
 ,   Inserted.axbi_database_name
 ,   Inserted.axbi_schema_name
 ,   Inserted.axbi_date_field_name
-,   Inserted.edw_sproc_schema_name
-,   Inserted.edw_sproc_name
-,   Inserted.edw_source_schema_name
-,   Inserted.edw_source_view_name
-,   Inserted.edw_dest_schema_name
-,   Inserted.edw_dest_table_name
-,   Inserted.edw_execution_order
+,   Inserted.sproc_schema_name
+,   Inserted.sproc_name
+,   Inserted.source_schema_name
+,   Inserted.source_view_name
+,   Inserted.dest_schema_name
+,   Inserted.dest_table_name
+,   Inserted.execution_order
 ,   Inserted.pk_field_names
 ,   Inserted.schedule_recurrence
 ,   Inserted.schedule_start_date

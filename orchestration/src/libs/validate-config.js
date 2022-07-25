@@ -138,7 +138,7 @@ function checkTargetTableExists (entityCfg) {
         } 
         else {
 
-            let propName = (schema === 'edw') ? 'edw_dest_table_name' : 'base_table_name';
+            let propName = (schema === 'edw') ? 'dest_table_name' : 'base_table_name';
 
             source.entities.forEach(function(e){
                 let table_name = e[propName];
