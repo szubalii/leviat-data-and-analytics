@@ -3,7 +3,7 @@ SELECT
     [RuleID]
     ,[RuleBusinessDescription]
     ,[RuleTechnicalDefinition]
-    ,[Formula]
+    ,[FieldNameChecked]
     ,[RuleClass]
     ,[RuleGroup]
     ,[DataArea]

@@ -313,6 +313,7 @@
     <Build Include="dbo\Tables\layer_activity.sql" />
     <Build Include="dbo\Functions\get_scheduled_entity_batch_activities.sql" />
     <Build Include="dbo\Functions\get_scheduled_entity_batch_activities_by_layer.sql" />
+    <Build Include="dbo\Functions\get_scheduled_edw_entity_batch_activities.sql" />
     <Build Include="dbo\Views\vw_adls_base_directory_path.sql" />
     <Build Include="dbo\Views\vw_entity_batch_activity_status.sql" />
     <Build Include="dbo\Views\vw_full_entity_activity_batch_ids.sql" />
