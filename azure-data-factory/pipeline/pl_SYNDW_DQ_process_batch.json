@@ -94,7 +94,7 @@
 					{
 						"activity": "Materialize Generic View",
 						"dependencyConditions": [
-							"Succeeded"
+							"Failed"
 						]
 					}
 				],
@@ -132,7 +132,7 @@
 						},
 						"error_msg": {
 							"value": {
-								"value": "@activity('Materialize Generic View').Error.Message",
+								"value": "@activity('Materialize Generic View').Error",
 								"type": "Expression"
 							},
 							"type": "String"
@@ -294,7 +294,7 @@
 			},
 			"exception": {
 				"type": "String",
-				"defaultValue": "FailedDQSP"
+				"defaultValue": "FailedEDWGenericSP"
 			}
 		},
 		"folder": {

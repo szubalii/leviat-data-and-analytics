@@ -125,7 +125,8 @@
 						"date": {
 							"value": "@pipeline().parameters.date",
 							"type": "Expression"
-						}
+						},
+						"entity_filter": "dataset_name != 'Data Quality Checks'"
 					}
 				}
 			},
@@ -220,7 +221,7 @@
 				}
 			},
 			{
-				"name": "Refresh PBI Datasets_copy1",
+				"name": "Refresh PBI DQ Datasets",
 				"type": "ExecutePipeline",
 				"dependsOn": [
 					{
@@ -249,7 +250,8 @@
 						"date": {
 							"value": "@pipeline().parameters.date",
 							"type": "Expression"
-						}
+						},
+						"entity_filter": "dataset_name = 'Data Quality Checks'"
 					}
 				}
 			}

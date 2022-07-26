@@ -166,7 +166,7 @@
 										"type": "Expression"
 									},
 									"run_id": {
-										"value": "@item().run_id",
+										"value": "@pipeline().RunId",
 										"type": "Expression"
 									},
 									"entity_name": {
