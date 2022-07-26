@@ -5,7 +5,14 @@
 			{
 				"name": "Materialize Generic View",
 				"type": "SqlServerStoredProcedure",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "Set Batch",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "7.00:00:00",
 					"retry": 0,
@@ -163,6 +170,86 @@
 					},
 					"errorCode": "GenericSPFailure"
 				}
+			},
+			{
+				"name": "Set Batch",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[set_batch]",
+					"storedProcedureParameters": {
+						"activity": {
+							"value": "ProcessEDW",
+							"type": "String"
+						},
+						"batch_id": {
+							"value": {
+								"value": "@variables('batch_id')",
+								"type": "Expression"
+							},
+							"type": "Guid"
+						},
+						"entity_id": {
+							"value": {
+								"value": "@pipeline().parameters.entity_id",
+								"type": "Expression"
+							},
+							"type": "Int64"
+						},
+						"file_path": {
+							"value": null,
+							"type": "String"
+						},
+						"run_id": {
+							"value": {
+								"value": "@pipeline().parameters.run_id",
+								"type": "Expression"
+							},
+							"type": "Guid"
+						},
+						"size_bytes": {
+							"value": null,
+							"type": "Int64"
+						},
+						"source_layer": {
+							"value": {
+								"value": "@pipeline().parameters.source_layer",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"status": {
+							"value": "InProgress",
+							"type": "String"
+						},
+						"target_layer": {
+							"value": {
+								"value": "@pipeline().parameters.target_layer",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"start_date_time": {
+							"value": {
+								"value": "@formatDateTime(utcnow(), 'yyyy-MM-dd HH:mm:ss')",
+								"type": "Expression"
+							},
+							"type": "Datetime"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
+					"type": "LinkedServiceReference"
+				}
 			}
 		],
 		"parameters": {
@@ -192,6 +279,12 @@
 			},
 			"entity_name": {
 				"type": "string"
+			},
+			"source_layer": {
+				"type": "string"
+			},
+			"target_layer": {
+				"type": "string"
 			}
 		},
 		"variables": {
@@ -200,7 +293,8 @@
 				"defaultValue": "@guid()"
 			},
 			"exception": {
-				"type": "String"
+				"type": "String",
+				"defaultValue": "FailedDQSP"
 			}
 		},
 		"folder": {

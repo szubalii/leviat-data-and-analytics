@@ -169,7 +169,12 @@
 										"value": "@item().run_id",
 										"type": "Expression"
 									},
-									"entity_name": "@item().entity_name"
+									"entity_name": {
+										"value": "@item().entity_name",
+										"type": "Expression"
+									},
+									"source_layer": "Base",
+									"target_layer": "DQ"
 								}
 							}
 						}
@@ -436,7 +441,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"message": {
-						"value": "@concat(\n    'One or more Synapse base procedures failed: ',\n    activity('Process Synapse Base Procedure').Error.Message\n)",
+						"value": "@concat(\n    'One or more Synapse base procedures failed: ',\n    activity('Process DQ Batch').Error.Message\n)",
 						"type": "Expression"
 					},
 					"errorCode": "500"
@@ -449,7 +454,7 @@
 			},
 			"adhoc": {
 				"type": "int",
-				"defaultValue": 0
+				"defaultValue": 1
 			},
 			"date": {
 				"type": "string",
