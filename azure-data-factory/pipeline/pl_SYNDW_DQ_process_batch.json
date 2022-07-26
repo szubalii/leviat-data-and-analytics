@@ -195,6 +195,9 @@
 			"batch_id": {
 				"type": "String",
 				"defaultValue": "@guid()"
+			},
+			"exception": {
+				"type": "String"
 			}
 		},
 		"folder": {
