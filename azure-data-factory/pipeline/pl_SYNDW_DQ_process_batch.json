@@ -193,7 +193,8 @@
 		},
 		"variables": {
 			"batch_id": {
-				"type": "String"
+				"type": "String",
+				"defaultValue": "@guid()"
 			}
 		},
 		"folder": {
