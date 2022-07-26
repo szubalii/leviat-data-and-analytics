@@ -189,6 +189,9 @@
 			},
 			"run_id": {
 				"type": "string"
+			},
+			"entity_name": {
+				"type": "string"
 			}
 		},
 		"variables": {

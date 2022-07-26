@@ -137,14 +137,39 @@
 								},
 								"waitOnCompletion": true,
 								"parameters": {
-									"sproc_schema_name": "@item().sproc_schema_name",
-									"sproc_name": "@item().sproc_name",
-									"source_schema_name": "@item().source_schema_name",
-									"source_view_name": "@item().source_view_name",
-									"dest_schema_name": "@item().dest_schema_name",
-									"dest_table_name": "@item().dest_table_name",
-									"entity_id": "@item().entity_id",
-									"run_id": "@item().run_id"
+									"sproc_schema_name": {
+										"value": "@item().sproc_schema_name",
+										"type": "Expression"
+									},
+									"sproc_name": {
+										"value": "@item().sproc_name",
+										"type": "Expression"
+									},
+									"source_schema_name": {
+										"value": "@item().source_schema_name",
+										"type": "Expression"
+									},
+									"source_view_name": {
+										"value": "@item().source_view_name",
+										"type": "Expression"
+									},
+									"dest_schema_name": {
+										"value": "@item().dest_schema_name",
+										"type": "Expression"
+									},
+									"dest_table_name": {
+										"value": "@item().dest_table_name",
+										"type": "Expression"
+									},
+									"entity_id": {
+										"value": "@item().entity_id",
+										"type": "Expression"
+									},
+									"run_id": {
+										"value": "@item().run_id",
+										"type": "Expression"
+									},
+									"entity_name": "@item().entity_name"
 								}
 							}
 						}
