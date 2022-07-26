@@ -578,6 +578,7 @@
     <Build Include="dm_sales\Views\vw_dim_SalesDocumentScheduleLine.sql" />
     <Build Include="edw\Views\vw_OutboundDeliveryItem_axbi.sql" />
     <Build Include="edw\Stored Procedures\sp_materialize_view.sql" />
+    <Build Include="dq\Stored Procedures\sp_materialize_view.sql" />
     <Build Include="map_AXBI\Tables\Material.sql" />
     <Build Include="edw\Views\vw_AccountingDocumentType.sql" />
     <Build Include="edw\Views\vw_BillingBlockStatus.sql" />
