@@ -198,6 +198,60 @@
 						}
 					}
 				}
+			},
+			{
+				"name": "Materialiazing MDQ in synapse",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Send Process ETL Success Mail",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pl_SYNDW_DQ_process_main",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "Refresh PBI Datasets_copy1",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Materialiazing MDQ in synapse",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pl_PBI_datasetRefresh_main",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"parent_run_id": {
+							"value": "@activity('Process ETL').output.pipelineRunId",
+							"type": "Expression"
+						},
+						"adhoc": {
+							"value": "@pipeline().parameters.adhoc",
+							"type": "Expression"
+						},
+						"date": {
+							"value": "@pipeline().parameters.date",
+							"type": "Expression"
+						}
+					}
+				}
 			}
 		],
 		"parameters": {
