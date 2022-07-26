@@ -1,22 +1,22 @@
 {
-    "nameGenerator": {
-        "suffix": "",
-        "objectNamingMode": "Custom",
-        "customName": "I_WorkCenterCapacity",
-        "appendsTimestamp": true
+  "nameGenerator": {
+    "suffix": "",
+    "objectNamingMode": "Custom",
+    "customName": "I_WorkCenterCapacity",
+    "appendsTimestamp": true
+  },
+  "internalSettings": {
+    "sapDateConversion": {
+      "enabled": true,
+      "replacementForInvalidDate": null,
+      "replacementForZeroDate": "0001-01-01",
+      "replacementForYear9999": "9999-12-31"
     },
-    "internalSettings": {
-        "sapDateConversion": {
-            "enabled": true,
-            "replacementForInvalidDate": null,
-            "replacementForZeroDate": "0001-01-01",
-            "replacementForYear9999": "9999-12-31"
-        },
-        "columnNameKind": "Code"
-    },
-    "compress": true,
-    "blobType": "BlockBlob",
-    "columnNameKind": "Code",
-    "folderPath": "DIMENSION\/I_WorkCenterCapacity\/Theobald\/Table\/Full\/In\/#{ DateTime.Now.ToString(\"yyyy\/MM\/dd\") }#",
-    "maxBlobSize": 0
+    "columnNameKind": "Code"
+  },
+  "compress": true,
+  "blobType": "BlockBlob",
+  "columnNameKind": "Code",
+  "folderPath": "DIMENSION\/I_WorkCenterCapacity\/Theobald\/Table\/Full\/In\/#{ DateTime.Now.ToString(\"yyyy\/MM\/dd\") }#",
+  "maxBlobSize": 0
 }

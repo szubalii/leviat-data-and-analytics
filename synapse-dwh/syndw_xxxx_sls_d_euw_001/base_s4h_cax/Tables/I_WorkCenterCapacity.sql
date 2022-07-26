@@ -19,7 +19,6 @@
 , [ValidityStartDate] DATE
 , [ValidityEndDate] DATE
 , [CapacityQuantityUnit] NVARCHAR(3) COLLATE Latin1_General_100_BIN2
-, [WorkCenterLastChangeDateTime] DATETIME
 , [t_applicationId]       VARCHAR (32)
 , [t_jobId]               VARCHAR (36)
 , [t_jobDtm]              DATETIME
