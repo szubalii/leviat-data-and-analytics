@@ -1,3 +1,6 @@
+/*
+    DEPRECATED FUNCTION
+*/
 CREATE FUNCTION [dbo].[get_s4h_entities_S4HBlobInToBlobOut] (@adhoc bit = 0, @manual_run bit = 0, @date DATE)
 RETURNS TABLE
 AS RETURN
