@@ -1,5 +1,5 @@
 {
-	"name": "pl_vm_start_virtual_machine",
+	"name": "pl_VM_start",
 	"properties": {
 		"activities": [
 			{
@@ -91,6 +91,9 @@
 				"type": "string",
 				"defaultValue": "westeurope"
 			}
+		},
+		"folder": {
+			"name": "90 Utilities/VM"
 		},
 		"annotations": [],
 		"lastPublishTime": "2021-10-25T15:24:59Z"

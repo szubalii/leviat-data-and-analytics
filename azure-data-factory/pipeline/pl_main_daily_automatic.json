@@ -14,11 +14,17 @@
 					},
 					"ifTrueActivities": [
 						{
-							"name": "act_exec_pl_main_daily_etl_process",
+							"name": "Main Daily ETL",
 							"type": "ExecutePipeline",
 							"dependsOn": [
 								{
-									"activity": "pl_SYNDW_resume",
+									"activity": "Resume Synapse Dedicated SQL Pool",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								},
+								{
+									"activity": "Start VM",
 									"dependencyConditions": [
 										"Succeeded"
 									]
@@ -40,7 +46,7 @@
 							}
 						},
 						{
-							"name": "pl_SYNDW_resume",
+							"name": "Resume Synapse Dedicated SQL Pool",
 							"type": "ExecutePipeline",
 							"dependsOn": [],
 							"userProperties": [],
@@ -67,11 +73,11 @@
 							}
 						},
 						{
-							"name": "pl_SYNDW_pause",
+							"name": "Pause Synapse Dedicated SQL Pool",
 							"type": "ExecutePipeline",
 							"dependsOn": [
 								{
-									"activity": "act_exec_pl_main_daily_etl_process",
+									"activity": "Main Daily ETL",
 									"dependencyConditions": [
 										"Succeeded"
 									]
@@ -98,6 +104,39 @@
 										"type": "Expression"
 									}
 								}
+							}
+						},
+						{
+							"name": "Start VM",
+							"type": "ExecutePipeline",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"pipeline": {
+									"referenceName": "pl_VM_start",
+									"type": "PipelineReference"
+								},
+								"waitOnCompletion": true
+							}
+						},
+						{
+							"name": "Stop VM",
+							"type": "ExecutePipeline",
+							"dependsOn": [
+								{
+									"activity": "Main Daily ETL",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"userProperties": [],
+							"typeProperties": {
+								"pipeline": {
+									"referenceName": "pl_VM_stop",
+									"type": "PipelineReference"
+								},
+								"waitOnCompletion": true
 							}
 						}
 					]
