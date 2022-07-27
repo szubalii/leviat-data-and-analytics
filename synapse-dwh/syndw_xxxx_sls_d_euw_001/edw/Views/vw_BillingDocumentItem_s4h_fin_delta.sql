@@ -368,7 +368,7 @@ CTE_BDIPE_ZF20 AS (
     WHERE 
         BDIPE_ZF20.[ConditionType] = 'ZF20'
         AND
-        BDIPE_ZF20.ConditionInactiveReason <>'X'
+        BDIPE_ZF20.ConditionInactiveReason = ''
 ),
 CTE_BDIPE AS(
     SELECT
@@ -388,7 +388,7 @@ CTE_BDIPE AS(
                 AND
                 BDIPE.[PricingProcedureStep] = BDIPE_ZF20.[PricingProcedureStep]
     WHERE 
-        BDIPE.ConditionInactiveReason<>'X'
+        BDIPE.ConditionInactiveReason = ''
         AND
         (
             (BDIPE_ZF20.[BillingDocument] IS NOT NULL 
@@ -441,6 +441,8 @@ BDwithConditionAmountFreight AS (
             BDI.[BillingDocumentItem] = BDIPE.[BillingDocumentItem]
             AND
             BDIPE.[ConditionType] = 'AMIZ'
+    WHERE 
+        BDIPE.ConditionInactiveReason = ''
     GROUP BY 
          BDI.BillingDocument
         ,BDI.BillingDocumentItem
