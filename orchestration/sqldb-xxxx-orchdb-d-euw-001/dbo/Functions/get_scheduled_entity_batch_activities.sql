@@ -71,7 +71,7 @@ BEGIN
             e.[base_sproc_name],
             e.file_name
         from
-            get_scheduled_entities(@adhoc, @date) e
+            [dbo].get_scheduled_entities(@adhoc, @date) e
         WHERE
             e.layer_id IN (@LAYER_ID__AXBI, @LAYER_ID__S4H, @LAYER_ID__USA)
     )
@@ -167,7 +167,7 @@ BEGIN
             -- return NULL value for file_name in case successful 
             -- scheduled full entities need to rerun
             CASE
-                WHEN @rerunSuccessfulScheduledFullEntities = 1
+                WHEN @rerunSuccessfulFullEntities = 1
                 THEN NULL
                 ELSE f.file_name
             END AS file_name
