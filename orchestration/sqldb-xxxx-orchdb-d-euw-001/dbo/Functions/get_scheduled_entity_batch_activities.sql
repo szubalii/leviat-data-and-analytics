@@ -37,6 +37,12 @@ BEGIN
     
     -- declare @adhoc bit = 0, @date DATE = '2022/05/27', @rerunSuccessfulFullEntities BIT = 0;
 
+    -- TODO
+    -- When a specific activity (e.g. TestDuplicates) has NULL for file_name, but is failed, 
+    -- and subsequent activities are successful with file_name value filled, 
+    -- the function get_scheduled_entity_batch_activities will return TestDuplicates for required, 
+    -- but the subsequent for skipped.
+
     DECLARE
         @BATCH_ACTIVITY_ID__EXTRACT SMALLINT = 21,
         @BATCH_ACTIVITY_ID__TEST_DUPLICATES SMALLINT = 19,
