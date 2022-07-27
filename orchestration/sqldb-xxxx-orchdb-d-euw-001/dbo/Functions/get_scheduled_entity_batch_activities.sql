@@ -716,7 +716,7 @@ BEGIN
     )
 
     -- Get the potential batch activities for delta entities
-    , scheduled_delta_entity_potential_batch_activities as (
+    , scheduled_delta_entity_potential_batch_activities AS (
         SELECT
             dfba.entity_id,
             dfba.entity_name,
@@ -983,8 +983,8 @@ BEGIN
             base_schema_name,
             base_sproc_name,
             file_name,
-            MIN(required_activities) as required_activities,
-            MIN(skipped_activities) as skipped_activities
+            MIN(required_activities) AS required_activities,
+            MIN(skipped_activities) AS skipped_activities
         FROM transposed
         GROUP BY
             entity_id,
