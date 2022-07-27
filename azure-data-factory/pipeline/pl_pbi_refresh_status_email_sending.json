@@ -22,7 +22,7 @@
 						"partitionOption": "None"
 					},
 					"dataset": {
-						"referenceName": "ds_orc_control_table",
+						"referenceName": "ds_orch_db",
 						"type": "DatasetReference"
 					},
 					"firstRowOnly": false
@@ -90,14 +90,14 @@
 								"source": {
 									"type": "AzureSqlSource",
 									"sqlReaderQuery": {
-										"value": "select p.[pipeline_name_nk] as [pipeline_name],\n\tlex.run_id,\n\te.[dataset_name],\n\tlex.message\n\tfrom [dbo].[pipeline_log] lex\n\tleft join [dbo].[pipeline] p on p.[pipeline_id] = lex.[pipeline_id]\n\tleft join dbo.exception ex on ex.run_id = lex.run_id\n\tleft join [dbo].[pbi_dataset] e on e.[pbi_dataset_id] = ex.[pbi_dataset_id]\n\twhere lex.[parent_run_id] = '@{pipeline().parameters.parent_run_id}'\norder by [error_timestamp]",
+										"value": "select p.[pipeline_name_nk] as [pipeline_name],\n\tl.run_id,\n\te.[dataset_name],\n\ts.status_description\n\tfrom [dbo].[pipeline_log] l\n\tleft join [dbo].[pipeline] p on p.[pipeline_id] = l.[pipeline_id]\n\tleft join [dbo].[pbi_log] log on log.[run_id] = l.run_id\n    left join [dbo].[pbi_dataset] e on e.[pbi_dataset_id] = log.[pbi_dataset_id]\n\tleft join [dbo].[execution_status] s on s.status_id = log.status_id\n\twhere l.[parent_run_id] = '@{pipeline().parameters.parent_run_id}'\norder by log.[start_date_time]",
 										"type": "Expression"
 									},
 									"queryTimeout": "02:00:00",
 									"partitionOption": "None"
 								},
 								"dataset": {
-									"referenceName": "ds_orc_control_table",
+									"referenceName": "ds_orch_db",
 									"type": "DatasetReference"
 								},
 								"firstRowOnly": false
@@ -149,14 +149,14 @@
 								"source": {
 									"type": "AzureSqlSource",
 									"sqlReaderQuery": {
-										"value": "select p.[pipeline_name_nk] as [pipeline_name],\n\tlex.run_id,\n\te.[dataset_name],\n\tlex.message\n\tfrom [dbo].[pipeline_log] lex\n\tleft join [dbo].[pipeline] p on p.[pipeline_id] = lex.[pipeline_id]\n\tleft join dbo.exception ex on ex.run_id = lex.run_id\n\tleft join [dbo].[pbi_dataset] e on e.[pbi_dataset_id] = ex.[pbi_dataset_id]\n\twhere lex.[parent_run_id] = '@{pipeline().parameters.parent_run_id}'\norder by [error_timestamp]",
+										"value": "select p.[pipeline_name_nk] as [pipeline_name],\n\tl.run_id,\n\te.[dataset_name],\n\ts.status_description\n\tfrom [dbo].[pipeline_log] l\n\tleft join [dbo].[pipeline] p on p.[pipeline_id] = l.[pipeline_id]\n\tleft join [dbo].[pbi_log] log on log.[run_id] = l.run_id\n    left join [dbo].[pbi_dataset] e on e.[pbi_dataset_id] = log.[pbi_dataset_id]\n\tleft join [dbo].[execution_status] s on s.status_id = log.status_id\n\twhere l.[parent_run_id] = '@{pipeline().parameters.parent_run_id}'\norder by log.[start_date_time]",
 										"type": "Expression"
 									},
 									"queryTimeout": "02:00:00",
 									"partitionOption": "None"
 								},
 								"dataset": {
-									"referenceName": "ds_orc_control_table",
+									"referenceName": "ds_orch_db",
 									"type": "DatasetReference"
 								},
 								"firstRowOnly": false
