@@ -15,6 +15,10 @@
 		"type": "string",
 		"value": "https://kv-xxxx-sls-p-euw-001.vault.azure.net/"
 	},
+	"virtualMachineName": {
+		"type": "string",
+		"value": "WEPLEVAPP001"
+	},
 	"XU_hostName": {
 		"type": "string",
 		"value": "http://10.105.68.4:8065"
