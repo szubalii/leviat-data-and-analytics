@@ -13,15 +13,15 @@ RETURNS @scheduled_entity_batch_activities TABLE (
     client_field VARCHAR(127),
     extraction_type VARCHAR(5),
     pk_field_names VARCHAR(MAX),
-    [axbi_database_name] VARCHAR(128),
-    [axbi_schema_name] VARCHAR(128),
-    [base_table_name] VARCHAR(128),
-    [axbi_date_field_name] VARCHAR(128),
+    axbi_database_name VARCHAR(128),
+    axbi_schema_name VARCHAR(128),
+    base_table_name VARCHAR(128),
+    axbi_date_field_name VARCHAR(128),
     adls_container_name VARCHAR(63),
     adls_directory_path_In NVARCHAR(255),
     adls_directory_path_Out NVARCHAR(255),
-    [base_schema_name] VARCHAR(128),
-    [base_sproc_name] VARCHAR(128),
+    base_schema_name VARCHAR(128),
+    base_sproc_name VARCHAR(128),
     file_name VARCHAR(250),
     required_activities VARCHAR(MAX),
     skipped_activities VARCHAR(MAX)
@@ -66,18 +66,18 @@ BEGIN
             e.extraction_type,
             e.update_mode,
             e.pk_field_names,
-            e.[axbi_database_name],
-            e.[axbi_schema_name],
-            e.[base_table_name],
-            e.[axbi_date_field_name],
+            e.axbi_database_name,
+            e.axbi_schema_name,
+            e.base_table_name,
+            e.axbi_date_field_name,
             e.adls_container_name,
             e.adls_directory_path_In,
             e.adls_directory_path_Out,
-            e.[base_schema_name],
-            e.[base_sproc_name],
+            e.base_schema_name,
+            e.base_sproc_name,
             e.file_name
         FROM
-            [dbo].get_scheduled_entities(@adhoc, @date) e
+            dbo.get_scheduled_entities(@adhoc, @date) e
         WHERE
             e.layer_id IN (@LAYER_ID__AXBI, @LAYER_ID__S4H, @LAYER_ID__USA)
     )
@@ -92,21 +92,21 @@ BEGIN
             e.extraction_type,
             e.update_mode,
             e.pk_field_names,
-            e.[axbi_database_name],
-            e.[axbi_schema_name],
-            e.[base_table_name],
-            e.[axbi_date_field_name],
+            e.axbi_database_name,
+            e.axbi_schema_name,
+            e.base_table_name,
+            e.axbi_date_field_name,
             e.adls_container_name,
             e.adls_directory_path_In,
             e.adls_directory_path_Out,
-            e.[base_schema_name],
-            e.[base_sproc_name],
+            e.base_schema_name,
+            e.base_sproc_name,
             e.file_name,
             la.activity_id
         FROM
             scheduled_source_entities e
         LEFT JOIN
-            [dbo].layer_activity la
+            dbo.layer_activity la
             ON
                 la.layer_id = e.layer_id
         WHERE
@@ -123,7 +123,7 @@ BEGIN
             -- b.activity_id,
             MAX(b.file_name) AS file_name 
         FROM
-            [dbo].batch b
+            dbo.batch b
         INNER JOIN
             scheduled_full_entity_batch_activities e
             ON e.entity_id = b.entity_id
@@ -160,15 +160,15 @@ BEGIN
             e.extraction_type,
             e.update_mode,
             e.pk_field_names,
-            e.[axbi_database_name],
-            e.[axbi_schema_name],
-            e.[base_table_name],
-            e.[axbi_date_field_name],
+            e.axbi_database_name,
+            e.axbi_schema_name,
+            e.base_table_name,
+            e.axbi_date_field_name,
             e.adls_container_name,
             e.adls_directory_path_In,
             e.adls_directory_path_Out,
-            e.[base_schema_name],
-            e.[base_sproc_name],
+            e.base_schema_name,
+            e.base_sproc_name,
             e.activity_id,
             -- return NULL value for file_name in case successful 
             -- scheduled full entities need to rerun
@@ -195,13 +195,13 @@ BEGIN
         FROM
             latest_started_extract_for_day lsefd
         INNER JOIN
-            [dbo].batch b
+            dbo.batch b
             ON
                 b.entity_id = lsefd.entity_id
                 AND
                 b.file_name = lsefd.file_name
-        -- LEFT JOIN [dbo].[batch_activity] ba
-        --     ON ba.[activity_id] = b.[activity_id]
+        -- LEFT JOIN dbo.batch_activity ba
+        --     ON ba.activity_id = b.activity_id
         -- where b.entity_id = 86
         GROUP BY
             b.entity_id,
@@ -224,7 +224,7 @@ BEGIN
         FROM
             logged_batch_activities lba
         INNER JOIN
-            [dbo].batch b
+            dbo.batch b
             ON
                 b.entity_id = lba.entity_id
                 AND
@@ -233,8 +233,8 @@ BEGIN
                 b.activity_id = lba.activity_id
                 AND
                 b.start_date_time = lba.start_date_time
-        LEFT JOIN [dbo].[batch_activity] ba
-            ON ba.[activity_id] = b.[activity_id]
+        LEFT JOIN dbo.batch_activity ba
+            ON ba.activity_id = b.activity_id
         -- where b.entity_id = 86
     )
 
@@ -301,15 +301,15 @@ BEGIN
             sfeba.extraction_type,
             sfeba.update_mode,
             sfeba.pk_field_names,
-            sfeba.[axbi_database_name],
-            sfeba.[axbi_schema_name],
-            sfeba.[base_table_name],
-            sfeba.[axbi_date_field_name],
+            sfeba.axbi_database_name,
+            sfeba.axbi_schema_name,
+            sfeba.base_table_name,
+            sfeba.axbi_date_field_name,
             sfeba.adls_container_name,
             sfeba.adls_directory_path_In,
             sfeba.adls_directory_path_Out,
-            sfeba.[base_schema_name],
-            sfeba.[base_sproc_name],
+            sfeba.base_schema_name,
+            sfeba.base_sproc_name,
             sfeba.activity_id,
             lslba.batch_id,
             lslba.run_id,
@@ -376,15 +376,15 @@ BEGIN
             e.extraction_type,
             e.update_mode,
             e.pk_field_names,
-            e.[axbi_database_name],
-            e.[axbi_schema_name],
-            e.[base_table_name],
-            e.[axbi_date_field_name],
+            e.axbi_database_name,
+            e.axbi_schema_name,
+            e.base_table_name,
+            e.axbi_date_field_name,
             e.adls_container_name,
             e.adls_directory_path_In,
             e.adls_directory_path_Out,
-            e.[base_schema_name],
-            e.[base_sproc_name],
+            e.base_schema_name,
+            e.base_sproc_name,
             NULL AS file_name
         FROM
             scheduled_source_entities e
@@ -403,21 +403,21 @@ BEGIN
             sde.extraction_type,
             sde.update_mode,
             sde.pk_field_names,
-            sde.[axbi_database_name],
-            sde.[axbi_schema_name],
-            sde.[base_table_name],
-            sde.[axbi_date_field_name],
+            sde.axbi_database_name,
+            sde.axbi_schema_name,
+            sde.base_table_name,
+            sde.axbi_date_field_name,
             sde.adls_container_name,
             sde.adls_directory_path_In,
             sde.adls_directory_path_Out,
-            sde.[base_schema_name],
-            sde.[base_sproc_name],
+            sde.base_schema_name,
+            sde.base_sproc_name,
             sde.file_name,
             la.activity_id
         FROM
             scheduled_delta_entities sde
         LEFT JOIN 
-            [dbo].layer_activity la
+            dbo.layer_activity la
             ON 
                 la.layer_id = sde.layer_id
     )
@@ -433,22 +433,22 @@ BEGIN
             e.extraction_type,
             e.update_mode,
             e.pk_field_names,
-            e.[axbi_database_name],
-            e.[axbi_schema_name],
-            e.[base_table_name],
-            e.[axbi_date_field_name],
+            e.axbi_database_name,
+            e.axbi_schema_name,
+            e.base_table_name,
+            e.axbi_date_field_name,
             e.adls_container_name,
             dir.base_dir_path + '/In/' + FORMAT(b.start_date_time, 'yyyy/MM/dd', 'en-US') AS adls_directory_path_In,
             dir.base_dir_path + '/Out/' + FORMAT(b.start_date_time, 'yyyy/MM/dd', 'en-US') AS adls_directory_path_Out,
-            e.[base_schema_name],
-            e.[base_sproc_name],
+            e.base_schema_name,
+            e.base_sproc_name,
             b.file_name
         FROM
             scheduled_delta_entities e
         INNER JOIN 
-            [dbo].batch b
+            dbo.batch b
             ON b.entity_id = e.entity_id
-        LEFT JOIN [dbo].[vw_adls_base_directory_path] dir
+        LEFT JOIN dbo.vw_adls_base_directory_path dir
             ON dir.entity_id = e.entity_id
         WHERE
             (
@@ -481,15 +481,15 @@ BEGIN
             sefnsde.extraction_type,
             sefnsde.update_mode,
             sefnsde.pk_field_names,
-            sefnsde.[axbi_database_name],
-            sefnsde.[axbi_schema_name],
-            sefnsde.[base_table_name],
-            sefnsde.[axbi_date_field_name],
+            sefnsde.axbi_database_name,
+            sefnsde.axbi_schema_name,
+            sefnsde.base_table_name,
+            sefnsde.axbi_date_field_name,
             sefnsde.adls_container_name,
             sefnsde.adls_directory_path_In,
             sefnsde.adls_directory_path_Out,
-            sefnsde.[base_schema_name],
-            sefnsde.[base_sproc_name],
+            sefnsde.base_schema_name,
+            sefnsde.base_sproc_name,
             sefnsde.file_name,
             la.activity_id,
             ba.activity_order,
@@ -497,11 +497,11 @@ BEGIN
         FROM
             successful_extract_file_names_scheduled_delta_entities sefnsde
         LEFT JOIN
-            [dbo].layer_activity la
+            dbo.layer_activity la
             ON
                 la.layer_id = sefnsde.layer_id 
         LEFT JOIN
-            [dbo].batch b
+            dbo.batch b
             ON
                 b.entity_id = sefnsde.entity_id
                 AND
@@ -509,9 +509,9 @@ BEGIN
                 AND
                 b.activity_id = la.activity_id
         LEFT JOIN 
-            [dbo].[batch_activity] ba
+            dbo.batch_activity ba
             ON 
-                ba.[activity_id] = la.[activity_id]
+                ba.activity_id = la.activity_id
         GROUP BY
             sefnsde.entity_id,
             sefnsde.entity_name,
@@ -521,15 +521,15 @@ BEGIN
             sefnsde.extraction_type,
             sefnsde.update_mode,
             sefnsde.pk_field_names,
-            sefnsde.[axbi_database_name],
-            sefnsde.[axbi_schema_name],
-            sefnsde.[base_table_name],
-            sefnsde.[axbi_date_field_name],
+            sefnsde.axbi_database_name,
+            sefnsde.axbi_schema_name,
+            sefnsde.base_table_name,
+            sefnsde.axbi_date_field_name,
             sefnsde.adls_container_name,
             sefnsde.adls_directory_path_In,
             sefnsde.adls_directory_path_Out,
-            sefnsde.[base_schema_name],
-            sefnsde.[base_sproc_name],
+            sefnsde.base_schema_name,
+            sefnsde.base_sproc_name,
             sefnsde.file_name,
             la.activity_id,
             ba.activity_order
@@ -548,15 +548,15 @@ BEGIN
             sde.extraction_type,
             sde.update_mode,
             sde.pk_field_names,
-            sde.[axbi_database_name],
-            sde.[axbi_schema_name],
-            sde.[base_table_name],
-            sde.[axbi_date_field_name],
+            sde.axbi_database_name,
+            sde.axbi_schema_name,
+            sde.base_table_name,
+            sde.axbi_date_field_name,
             sde.adls_container_name,
             sde.adls_directory_path_In,
             sde.adls_directory_path_Out,
-            sde.[base_schema_name],
-            sde.[base_sproc_name],
+            sde.base_schema_name,
+            sde.base_sproc_name,
             sde.file_name,
             sde.activity_id
         FROM
@@ -575,15 +575,15 @@ BEGIN
             sedfnba.extraction_type,
             sedfnba.update_mode,
             sedfnba.pk_field_names,
-            sedfnba.[axbi_database_name],
-            sedfnba.[axbi_schema_name],
-            sedfnba.[base_table_name],
-            sedfnba.[axbi_date_field_name],
+            sedfnba.axbi_database_name,
+            sedfnba.axbi_schema_name,
+            sedfnba.base_table_name,
+            sedfnba.axbi_date_field_name,
             sedfnba.adls_container_name,
             sedfnba.adls_directory_path_In,
             sedfnba.adls_directory_path_Out,
-            sedfnba.[base_schema_name],
-            sedfnba.[base_sproc_name],
+            sedfnba.base_schema_name,
+            sedfnba.base_sproc_name,
             sedfnba.file_name,
             sedfnba.activity_id
         FROM
@@ -601,15 +601,15 @@ BEGIN
             ldfnba.extraction_type,
             ldfnba.update_mode,
             ldfnba.pk_field_names,
-            ldfnba.[axbi_database_name],
-            ldfnba.[axbi_schema_name],
-            ldfnba.[base_table_name],
-            ldfnba.[axbi_date_field_name],
+            ldfnba.axbi_database_name,
+            ldfnba.axbi_schema_name,
+            ldfnba.base_table_name,
+            ldfnba.axbi_date_field_name,
             ldfnba.adls_container_name,
             ldfnba.adls_directory_path_In,
             ldfnba.adls_directory_path_Out,
-            ldfnba.[base_schema_name],
-            ldfnba.[base_sproc_name],
+            ldfnba.base_schema_name,
+            ldfnba.base_sproc_name,
             ldfnba.activity_id,
             ldfnba.activity_order,
             ldfnba.file_name,
@@ -623,7 +623,7 @@ BEGIN
         FROM
             latest_delta_file_name_batch_activities ldfnba
         LEFT JOIN
-            [dbo].batch b
+            dbo.batch b
             ON
                 b.entity_id = ldfnba.entity_id
                 AND
@@ -829,15 +829,15 @@ BEGIN
             sepba.client_field,
             sepba.extraction_type,
             sepba.pk_field_names,
-            sepba.[axbi_database_name],
-            sepba.[axbi_schema_name],
-            sepba.[base_table_name],
-            sepba.[axbi_date_field_name],
+            sepba.axbi_database_name,
+            sepba.axbi_schema_name,
+            sepba.base_table_name,
+            sepba.axbi_date_field_name,
             sepba.adls_container_name,
             sepba.adls_directory_path_In,
             sepba.adls_directory_path_Out,
-            sepba.[base_schema_name],
-            sepba.[base_sproc_name],
+            sepba.base_schema_name,
+            sepba.base_sproc_name,
             -- sepba.directory_path,
             sepba.file_name,
             sepba.activity_id,
@@ -908,24 +908,24 @@ BEGIN
             base_sproc_name,
             -- directory_path,
             file_name,
-            concat(
+            CONCAT(
                 '[',
                 CASE
                     WHEN isRequired = 1
-                    THEN concat(
+                    THEN CONCAT(
                         '"',
-                        string_agg(activity_nk, '","') WITHIN group (ORDER BY activity_order ASC),
+                        STRING_AGG(activity_nk, '","') WITHIN GROUP (ORDER BY activity_order ASC),
                         '"'
                     )
                 END,
                 ']'
             ) AS required_activities,
-            concat(
+            CONCAT(
                 '{',
                 CASE
                     WHEN isRequired = 0
-                    THEN string_agg(
-                        concat(
+                    THEN STRING_AGG(
+                        CONCAT(
                             '"',
                             activity_nk,
                             '": {"batch_id":"',
@@ -935,7 +935,7 @@ BEGIN
                             '}'
                         ),
                         ','
-                    ) WITHIN group (ORDER BY activity_order ASC)
+                    ) WITHIN GROUP (ORDER BY activity_order ASC)
                 END,
                 '}'
             ) AS skipped_activities
@@ -973,15 +973,15 @@ BEGIN
             client_field,
             extraction_type,
             pk_field_names,
-            [axbi_database_name],
-            [axbi_schema_name],
-            [base_table_name],
-            [axbi_date_field_name],
+            axbi_database_name,
+            axbi_schema_name,
+            base_table_name,
+            axbi_date_field_name,
             adls_container_name,
             MIN(adls_directory_path_In) AS adls_directory_path_In,
             MIN(adls_directory_path_Out) AS adls_directory_path_Out,
-            [base_schema_name],
-            [base_sproc_name],
+            base_schema_name,
+            base_sproc_name,
             file_name,
             MIN(required_activities) as required_activities,
             MIN(skipped_activities) as skipped_activities
@@ -994,13 +994,13 @@ BEGIN
             client_field,
             extraction_type,
             pk_field_names,
-            [axbi_database_name],
-            [axbi_schema_name],
-            [base_table_name],
-            [axbi_date_field_name],
+            axbi_database_name,
+            axbi_schema_name,
+            base_table_name,
+            axbi_date_field_name,
             adls_container_name,
-            [base_schema_name],
-            [base_sproc_name],
+            base_schema_name,
+            base_sproc_name,
             file_name
     )
 
@@ -1042,15 +1042,15 @@ BEGIN
         client_field,
         extraction_type,
         pk_field_names,
-        [axbi_database_name],
-        [axbi_schema_name],
-        [base_table_name],
-        [axbi_date_field_name],
+        axbi_database_name,
+        axbi_schema_name,
+        base_table_name,
+        axbi_date_field_name,
         adls_container_name,
         adls_directory_path_In,
         adls_directory_path_Out,
-        [base_schema_name],
-        [base_sproc_name],
+        base_schema_name,
+        base_sproc_name,
         file_name,
         required_activities,
         skipped_activities
