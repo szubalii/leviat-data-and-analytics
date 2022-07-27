@@ -57,7 +57,7 @@ BEGIN
     WITH
     -- -- get the scheduled entities based on the day
     scheduled_source_entities AS (
-        select
+        SELECT
             e.entity_id,
             e.entity_name,
             e.layer_id,
@@ -76,14 +76,14 @@ BEGIN
             e.[base_schema_name],
             e.[base_sproc_name],
             e.file_name
-        from
+        FROM
             [dbo].get_scheduled_entities(@adhoc, @date) e
         WHERE
             e.layer_id IN (@LAYER_ID__AXBI, @LAYER_ID__S4H, @LAYER_ID__USA)
     )
     -- get the scheduled full entity batch activities
     , scheduled_full_entity_batch_activities AS (
-        select
+        SELECT
             e.entity_id,
             e.entity_name,
             e.layer_id,
@@ -103,10 +103,10 @@ BEGIN
             e.[base_sproc_name],
             e.file_name,
             la.activity_id
-        from
+        FROM
             scheduled_source_entities e
         LEFT JOIN
-            layer_activity la
+            [dbo].layer_activity la
             ON
                 la.layer_id = e.layer_id
         WHERE
@@ -118,17 +118,17 @@ BEGIN
     -- 9:00	Extract	        I_Test_2022_04_13_09_00	Succeeded
     -- 8:00	RunXUExtraction	I_Test_2022_04_13_08_00	Succeeded
     , latest_started_extract_for_day AS (
-        select
+        SELECT
             b.entity_id,
             -- b.activity_id,
-            MAX(b.file_name) as file_name 
+            MAX(b.file_name) AS file_name 
         FROM
-            batch b
+            [dbo].batch b
         INNER JOIN
             scheduled_full_entity_batch_activities e
             ON e.entity_id = b.entity_id
         WHERE
-            CONVERT(date, b.start_date_time) = @date
+            CONVERT(DATE, b.start_date_time) = @date
             AND
             b.activity_id = @BATCH_ACTIVITY_ID__EXTRACT -- Extract
             AND
@@ -151,7 +151,7 @@ BEGIN
 
     -- join the file name to each scheduled batch activity
     , scheduled_full_entity_batch_activities_file_name AS (
-        select
+        SELECT
             e.entity_id,
             e.entity_name,
             e.layer_id,
@@ -195,7 +195,7 @@ BEGIN
         FROM
             latest_started_extract_for_day lsefd
         INNER JOIN
-            batch b
+            [dbo].batch b
             ON
                 b.entity_id = lsefd.entity_id
                 AND
@@ -224,7 +224,7 @@ BEGIN
         FROM
             logged_batch_activities lba
         INNER JOIN
-            batch b
+            [dbo].batch b
             ON
                 b.entity_id = lba.entity_id
                 AND
@@ -241,20 +241,20 @@ BEGIN
     -- get the latest successful logged batch activities up to the first not successful activity
     -- any successful activity after failed activities need to re-run in any case
     , first_failed_activity_order AS (
-        select
+        SELECT
             entity_id,
-            min(activity_order) as activity_order
-        from 
+            MIN(activity_order) AS activity_order
+        FROM 
             latest_logged_batch_activities
         WHERE
             status_id <> @BATCH_EXECUTION_STATUS_ID__SUCCESSFUL -- 'Successful'
-        group by
+        GROUP BY
             entity_id
     )
 
     -- get the successful batch activities before the first failed batch activity
     , successful_logged_batch_activities_before_failure AS (
-        select
+        SELECT
             llba.entity_id,
             llba.activity_id,
             llba.run_id,
@@ -291,8 +291,8 @@ BEGIN
     -- 8:00	RunXUExtraction	I_Test_2022_04_13_08_00	Succeeded
 
     -- scheduled full entities with potential batch activities and statuses
-    , scheduled_full_entity_potential_batch_activities as (
-        select
+    , scheduled_full_entity_potential_batch_activities AS (
+        SELECT
             sfeba.entity_id,
             sfeba.entity_name,
             sfeba.layer_id,
@@ -317,13 +317,13 @@ BEGIN
             lslba.status_id,
             sfeba.file_name,
             lslba.output
-        from
+        FROM
             scheduled_full_entity_batch_activities_file_name sfeba
-        left JOIN
+        LEFT JOIN
             successful_logged_batch_activities_before_failure lslba
-            on 
+            ON 
                 lslba.entity_id = sfeba.entity_id
-                and
+                AND
                 lslba.activity_id = sfeba.activity_id
     )
     /*
@@ -367,7 +367,7 @@ BEGIN
 
     -- Get all scheduled delta entities
     , scheduled_delta_entities AS (
-        select
+        SELECT
             e.entity_id,
             e.entity_name,
             e.layer_id,
@@ -394,7 +394,7 @@ BEGIN
 
     -- get all potential delta batch activities for the new load
     , scheduled_delta_entity_batch_activities AS (
-        select
+        SELECT
             sde.entity_id,
             sde.entity_name,
             sde.layer_id,
@@ -416,13 +416,15 @@ BEGIN
             la.activity_id
         FROM
             scheduled_delta_entities sde
-        left join layer_activity la
-            on la.layer_id = sde.layer_id
+        LEFT JOIN 
+            [dbo].layer_activity la
+            ON 
+                la.layer_id = sde.layer_id
     )
     
     -- For delta entities: get all file names based on Extract activity where status is Successful or InProgress (S4H)
     , successful_extract_file_names_scheduled_delta_entities AS (
-        select
+        SELECT
             e.entity_id,
             e.entity_name,
             e.layer_id,
@@ -444,7 +446,7 @@ BEGIN
         FROM
             scheduled_delta_entities e
         INNER JOIN 
-            batch b
+            [dbo].batch b
             ON b.entity_id = e.entity_id
         LEFT JOIN [dbo].[vw_adls_base_directory_path] dir
             ON dir.entity_id = e.entity_id
@@ -464,7 +466,7 @@ BEGIN
             AND
             b.activity_id = @BATCH_ACTIVITY_ID__EXTRACT -- Extract
             AND
-            CONVERT(date, b.start_date_time) <= @date
+            CONVERT(DATE, b.start_date_time) <= @date
     )   
 
     -- get the latest batch activities corresponding to the file names
@@ -495,19 +497,21 @@ BEGIN
         FROM
             successful_extract_file_names_scheduled_delta_entities sefnsde
         LEFT JOIN
-            layer_activity la
+            [dbo].layer_activity la
             ON
                 la.layer_id = sefnsde.layer_id 
         LEFT JOIN
-            batch b
+            [dbo].batch b
             ON
                 b.entity_id = sefnsde.entity_id
                 AND
                 b.file_name = sefnsde.file_name
                 AND
                 b.activity_id = la.activity_id
-        LEFT JOIN [dbo].[batch_activity] ba
-            ON ba.[activity_id] = la.[activity_id]
+        LEFT JOIN 
+            [dbo].[batch_activity] ba
+            ON 
+                ba.[activity_id] = la.[activity_id]
         GROUP BY
             sefnsde.entity_id,
             sefnsde.entity_name,
@@ -535,7 +539,7 @@ BEGIN
     -- Union the activities to be run for the new load
     -- and those based on successful extracted file names
     , potential_delta_entity_batch_activities AS (
-        select
+        SELECT
             sde.entity_id,
             sde.entity_name,
             sde.layer_id,
@@ -558,11 +562,11 @@ BEGIN
         FROM
             scheduled_delta_entity_batch_activities sde
         WHERE -- Make sure to create new extraction only if provided date equals current date
-            @date = CONVERT(date, GETUTCDATE())
+            @date = CONVERT(DATE, GETUTCDATE())
         
         UNION ALL
 
-        select
+        SELECT
             sedfnba.entity_id,
             sedfnba.entity_name,
             sedfnba.layer_id,
@@ -619,7 +623,7 @@ BEGIN
         FROM
             latest_delta_file_name_batch_activities ldfnba
         LEFT JOIN
-            batch b
+            [dbo].batch b
             ON
                 b.entity_id = ldfnba.entity_id
                 AND
@@ -653,18 +657,18 @@ BEGIN
 
     -- Check what the first file name is for which there is a non Successful logged activity. 
     , first_non_successful_delta_file_name AS (
-        select
+        SELECT
             entity_id,
-            MIN(file_name) as file_name
-        from 
+            MIN(file_name) AS file_name
+        FROM 
             first_non_successful_delta_file_name_activity
-        group by
+        GROUP BY
             entity_id
     )
 
     -- get the successful file name batch activities before the first non successful activity
     , successful_delta_file_name_activities_before_failure AS (
-        select
+        SELECT
             sdfnba.entity_id,
             sdfnba.adls_directory_path_In,
             sdfnba.adls_directory_path_Out,
@@ -739,15 +743,15 @@ BEGIN
             deba.start_date_time,
             deba.status_id,
             deba.output
-        from
+        FROM
             potential_delta_entity_batch_activities dfba
-        left JOIN
+        LEFT JOIN
             successful_delta_file_name_activities_before_failure deba
-            on
+            ON
                 deba.entity_id = dfba.entity_id
-                and
+                AND
                 deba.activity_id = dfba.activity_id
-                and
+                AND
                 deba.file_name = dfba.file_name
         -- order by dfba.entity_id, dfba.file_name, activity_id
     )
@@ -756,7 +760,7 @@ BEGIN
 
     -- union the full and delta entities
     , scheduled_entity_potential_batch_activities AS (
-        select
+        SELECT
             entity_id,
             entity_name,
             layer_id,
@@ -781,12 +785,12 @@ BEGIN
             start_date_time,
             status_id,
             output  
-        from
+        FROM
             scheduled_full_entity_potential_batch_activities
 
         UNION ALL
 
-        select
+        SELECT
             entity_id,
             entity_name,
             layer_id,
@@ -811,12 +815,12 @@ BEGIN
             start_date_time,
             status_id,
             output
-        from
+        FROM
             scheduled_delta_entity_potential_batch_activities
     )
     -- remove the potential batches if for that entity no primary keys and base_procedure is defined
     , scheduled_entity_potential_batch_activities_filtered AS (
-        select
+        SELECT
             sepba.entity_id,
             sepba.entity_name,
             sepba.layer_id,
@@ -843,17 +847,17 @@ BEGIN
             sepba.batch_id,
             sepba.start_date_time,
             sepba.status_id,
-            case
-                when sepba.output is null then '{}'
-                else sepba.output
-            end as output,
-            case
+            CASE
+                WHEN sepba.output IS NULL THEN '{}'
+                ELSE sepba.output
+            END AS output,
+            CASE
                 -- The Extract activity can be skipped if it's already in progress
                 -- For other activities they will re-run if still in progress.
-                when sepba.activity_id = @BATCH_ACTIVITY_ID__EXTRACT
-                then
-                    case 
-                        when sepba.status_id IN (@BATCH_EXECUTION_STATUS_ID__IN_PROGRESS, @BATCH_EXECUTION_STATUS_ID__SUCCESSFUL)
+                WHEN sepba.activity_id = @BATCH_ACTIVITY_ID__EXTRACT
+                THEN
+                    CASE 
+                        WHEN sepba.status_id IN (@BATCH_EXECUTION_STATUS_ID__IN_PROGRESS, @BATCH_EXECUTION_STATUS_ID__SUCCESSFUL)
                         THEN 0
                         ELSE 1
                     END
@@ -863,12 +867,12 @@ BEGIN
                         THEN 0
                         ELSE 1
                     END
-            end as [isRequired]
+            END AS [isRequired]
         FROM
             scheduled_entity_potential_batch_activities sepba
-        left JOIN
-            batch_activity ba
-            on 
+        LEFT JOIN
+            [dbo].batch_activity ba
+            ON 
                 ba.activity_id = sepba.activity_id
         WHERE
             (
@@ -884,8 +888,8 @@ BEGIN
             )
         -- order by entity_id, file_name, activity_order
     )
-    , transposed as (
-        select
+    , transposed AS (
+        SELECT
             entity_id,
             entity_name,
             layer_nk,
@@ -906,21 +910,21 @@ BEGIN
             file_name,
             concat(
                 '[',
-                case
-                    when isRequired = 1
-                    then concat(
+                CASE
+                    WHEN isRequired = 1
+                    THEN concat(
                         '"',
-                        string_agg(activity_nk, '","') within group (order by activity_order asc),
+                        string_agg(activity_nk, '","') WITHIN group (ORDER BY activity_order ASC),
                         '"'
                     )
-                end,
+                END,
                 ']'
-            ) as required_activities,
+            ) AS required_activities,
             concat(
                 '{',
-                case
-                    when isRequired = 0
-                    then string_agg(
+                CASE
+                    WHEN isRequired = 0
+                    THEN string_agg(
                         concat(
                             '"',
                             activity_nk,
@@ -931,12 +935,12 @@ BEGIN
                             '}'
                         ),
                         ','
-                    ) within group (order by activity_order asc)
-                end,
+                    ) WITHIN group (ORDER BY activity_order ASC)
+                END,
                 '}'
-            ) as skipped_activities
-        from scheduled_entity_potential_batch_activities_filtered
-        group by
+            ) AS skipped_activities
+        FROM scheduled_entity_potential_batch_activities_filtered
+        GROUP BY
             entity_id,
             entity_name,
             layer_nk,
@@ -961,7 +965,7 @@ BEGIN
     -- aggregate to make sure required_activities and skipped_activities
     -- are on a single line for a single file_name
     , transposed_aggregated AS (
-        select
+        SELECT
             entity_id,
             entity_name,
             layer_nk,
@@ -981,8 +985,8 @@ BEGIN
             file_name,
             MIN(required_activities) as required_activities,
             MIN(skipped_activities) as skipped_activities
-        from transposed
-        group by
+        FROM transposed
+        GROUP BY
             entity_id,
             entity_name,
             layer_nk,
@@ -1002,8 +1006,8 @@ BEGIN
 
     -- Filter out the file name lines for which there are no required activities,
     -- i.e. all required activities are successful
-    , transposed_filtered as (
-        select
+    , transposed_filtered AS (
+        SELECT
             entity_id,
             entity_name,
             layer_nk,
@@ -1023,14 +1027,14 @@ BEGIN
             file_name,
             required_activities,
             skipped_activities
-        from
+        FROM
             transposed_aggregated
         WHERE
             required_activities <> '[]'
     )
 
     INSERT INTO @scheduled_entity_batch_activities
-    select
+    SELECT
         entity_id,
         entity_name,
         layer_nk,
@@ -1050,7 +1054,7 @@ BEGIN
         file_name,
         required_activities,
         skipped_activities
-    from transposed_filtered
+    FROM transposed_filtered
 
     RETURN;
 END
