@@ -15,3 +15,4 @@ error_category_id,category_nk,category_description
 14,GetSecretFromAKVFailed,
 15,GetAADTokenFailed,
 16,DuplicateRows,
+17,FailedDQSP,
