@@ -1,5 +1,5 @@
 {
-	"name": "pl_vm_deallocate_virtual_machine",
+	"name": "pl_VM_start",
 	"properties": {
 		"activities": [
 			{
@@ -16,7 +16,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"url": {
-						"value": "@concat(\n  'https://management.azure.com/subscriptions/',\n  pipeline().parameters.SubscriptionId,\n  '/resourceGroups/',\n  pipeline().globalParameters.resourceGroupName,\n  '/providers/Microsoft.Compute/virtualMachines/',\n  pipeline().globalParameters.virtualMachineName,\n  '/InstanceView?api-version=2021-07-01'\n)",
+						"value": "@concat(\n 'https://management.azure.com/subscriptions/',\n  pipeline().parameters.SubscriptionId,\n  '/resourceGroups/',\n  pipeline().globalParameters.resourceGroupName,\n  '/providers/Microsoft.Compute/virtualMachines/',\n  pipeline().globalParameters.virtualMachineName,\n  '/InstanceView?api-version=2021-07-01'\n)",
 						"type": "Expression"
 					},
 					"method": "GET",
@@ -27,7 +27,7 @@
 				}
 			},
 			{
-				"name": "Deallocate If VM is Running",
+				"name": "Start If VM is Deallocated",
 				"type": "IfCondition",
 				"dependsOn": [
 					{
@@ -40,12 +40,12 @@
 				"userProperties": [],
 				"typeProperties": {
 					"expression": {
-						"value": "@equals(\n\t\tactivity('Check Azure VM Status').output.statuses[1].displayStatus,'VM running'\n\t       )",
+						"value": "@equals(\n\t\tactivity('Check Azure VM Status').output.statuses[1].displayStatus,'VM deallocated'\n\t       )",
 						"type": "Expression"
 					},
 					"ifTrueActivities": [
 						{
-							"name": "Deallocate Azure VM",
+							"name": "Start Azure VM",
 							"description": "",
 							"type": "WebActivity",
 							"dependsOn": [],
@@ -64,7 +64,7 @@
 							],
 							"typeProperties": {
 								"url": {
-									"value": "@concat(\n  'https://management.azure.com/subscriptions/',\n  pipeline().parameters.SubscriptionId,\n  '/resourceGroups/',\n  pipeline().globalParameters.resourceGroupName,\n  '/providers/Microsoft.Compute/virtualMachines/',\n  pipeline().globalParameters.virtualMachineName,\n  '/Deallocate?api-version=2021-07-01'\n)",
+									"value": "@concat(\n  'https://management.azure.com/subscriptions/',\n  pipeline().parameters.SubscriptionId,\n  '/resourceGroups/',\n  pipeline().globalParameters.resourceGroupName,\n  '/providers/Microsoft.Compute/virtualMachines/',\n  pipeline().globalParameters.virtualMachineName,\n  '/Start?api-version=2021-07-01'\n)",
 									"type": "Expression"
 								},
 								"method": "POST",
@@ -91,6 +91,9 @@
 				"type": "string",
 				"defaultValue": "westeurope"
 			}
+		},
+		"folder": {
+			"name": "90 Utilities/VM"
 		},
 		"annotations": [],
 		"lastPublishTime": "2021-10-25T15:24:59Z"
