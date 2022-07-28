@@ -32,10 +32,13 @@ ON
 WHEN MATCHED AND (
 	ISNULL(src.dataset_name,'') <> ISNULL(tgt.dataset_name,'')
     OR
+	ISNULL(src.schema_name,'') <> ISNULL(tgt.schema_name,'')
+    OR
 	ISNULL(src.entity_name,'') <> ISNULL(tgt.entity_name,'')
 ) THEN
     UPDATE SET
         dataset_name = src.dataset_name
+    ,   schema_name = src.schema_name
     ,   entity_name = src.entity_name
 WHEN NOT MATCHED BY TARGET THEN
     INSERT (
