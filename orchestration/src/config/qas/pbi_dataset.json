@@ -50,7 +50,7 @@
             }
         }
     },
-    "Leviat_Data_Analytics MDQ_QAS": {
+    "Leviat_Data_Analytics MDQ": {
         "workspace_guid": "3923274b-fee8-4d08-bba7-6281339e79b2",
         "datasets": {
             "Master Data Quality Checks": {
