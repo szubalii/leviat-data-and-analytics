@@ -30,5 +30,5 @@ SELECT
     , [Division]
     , [TransportationGroup]
     , [ItemCategoryGroup]
-FROM 
-	[dm_sales].[vw_dim_Product]
+FROM
+    [edw].[dim_Product]
