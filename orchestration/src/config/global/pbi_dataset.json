@@ -157,5 +157,19 @@
                 ]
             }
         }
+    },
+    "Leviat_Data_Analytics MDQ": {
+        "datasets": {
+            "Master Data Quality Checks": {
+                "pbi_dataset_id": 16,
+                "schedule_recurrence": "D",
+                "schedule_day": 2,
+                "entities": [
+                    "dim_RuleProduct",
+                    "fact_ProductTotal",
+                    "fact_RuleTotal"
+                ]
+            }
+        }
     }
 }
