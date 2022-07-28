@@ -6,4 +6,5 @@ layer_id,layer_nk,location_id,layer_description
 5,AXBI,1,SQL Server AXBI
 6,S4H,2,S4H CAX
 7,USA,6,Snowflake USA
+8,C4C,7,SAP C4C
 10,DQ,4,Data Quality
