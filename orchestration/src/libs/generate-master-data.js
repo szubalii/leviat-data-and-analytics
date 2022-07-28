@@ -178,11 +178,10 @@ function writeEntityCSV (env) {
     );
 }
 
-module.exports = writePBIDatasetEntityCSV('dev');
-// {
-//     writeMasterDataCSV: function (env) {
-//         writePBIDatasetCSV(env);
-        
-//         writeEntityCSV(env);
-//     }
-// };
+module.exports = {
+    writeMasterDataCSV: function (env) {
+        writePBIDatasetCSV(env);
+        writePBIDatasetEntityCSV(end);
+        writeEntityCSV(env);
+    }
+};
