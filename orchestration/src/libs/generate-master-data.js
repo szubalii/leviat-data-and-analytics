@@ -72,20 +72,26 @@ function pbiDatasetEntityGenerateCSV (env) {
         "entity_name"
     ]];
     let csvContent = "";
-    let edwEntities = require('../config/global/entity.json').edw.entities;
+    let entities = require('../config/global/entity.json');//.edw.entities;
     
     Object.keys(pbiDatasetCfg).forEach(function(workspaceKey){
         let workspace = pbiDatasetCfg[workspaceKey];
         Object.keys(workspace.datasets).forEach(function(datasetKey){
             let dataset = workspace.datasets[datasetKey];
-            dataset.entities.forEach(function(entityName){
-                let entity_id = edwEntities.find(e => e.entity_name === entityName).entity_id;
-                pbiDatasetEntityArray.push([
-                    dataset.pbi_dataset_id,
-                    datasetKey,
-                    entity_id,
-                    entityName
-                ]);
+            Object.keys(dataset.entities).forEach(function(sourceKey){
+                let datasetEntities = dataset.entities[sourceKey];
+                datasetEntities.forEach(function(entityName){
+                    let entitySource = entities[sourceKey];
+                    let schemaName = entitySource.schema_name;
+                    let entity_id = entitySource.entities.find(e => e.entity_name === entityName).entity_id;
+                    pbiDatasetEntityArray.push([
+                        dataset.pbi_dataset_id,
+                        datasetKey,
+                        entity_id,
+                        schemaName,
+                        entityName
+                    ]);
+                });
             });                
         });       
     });

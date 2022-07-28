@@ -4,86 +4,104 @@
             "Customer Card": {
                 "pbi_dataset_id": 1,
                 "schedule_recurrence": "D",
-                "entities": [
-                    "fact_BillingDocumentItem",
-                    "dim_Customer",
-                    "dim_Product",
-                    "dim_SalesOrganization",
-                    "fact_SalesDocumentItem"
-                ]
+                "entities": {
+                    "edw": [
+                        "fact_BillingDocumentItem",
+                        "dim_Customer",
+                        "dim_Product",
+                        "dim_SalesOrganization",
+                        "fact_SalesDocumentItem"
+                    ]
+                }
             },"Invoiced Products Master Data": {
                 "pbi_dataset_id": 2,
                 "schedule_recurrence": "D",
-                "entities": [
-                    "fact_BillingDocumentItem",
-                    "dim_Product"
-                ]
+                "entities": {
+                    "edw": [
+                        "fact_BillingDocumentItem",
+                        "dim_Product"
+                    ]
+                }
             },"Orderbook": {
                 "pbi_dataset_id": 3,
                 "schedule_recurrence": "D",
-                "entities": [
-                    "dim_Customer",
-                    "dim_Product",
-                    "dim_SalesOrganization",
-                    "fact_SalesDocumentItem"
-                ]
+                "entities": {
+                    "edw": [
+                        "dim_Customer",
+                        "dim_Product",
+                        "dim_SalesOrganization",
+                        "fact_SalesDocumentItem"
+                    ]
+                }
 
             },"Product Top Flop": {
                 "pbi_dataset_id": 4,
                 "schedule_recurrence": "D",
-                "entities": [
-                    "fact_BillingDocumentItem",
-                    "dim_Customer",
-                    "dim_Product",
-                    "dim_SalesOrganization"
-                ]
+                "entities": {
+                    "edw": [
+                        "fact_BillingDocumentItem",
+                        "dim_Customer",
+                        "dim_Product",
+                        "dim_SalesOrganization"
+                    ]
+                }
             },"PVM": {
                 "pbi_dataset_id": 5,
                 "schedule_recurrence": "D",
-                "entities": [
-                    "fact_BillingDocumentItem",
-                    "dim_Customer",
-                    "dim_Product",
-                    "dim_SalesOrganization"
-                ]
+                "entities": {
+                    "edw": [
+                        "fact_BillingDocumentItem",
+                        "dim_Customer",
+                        "dim_Product",
+                        "dim_SalesOrganization"
+                    ]
+                }
             },"Quotations": {
                 "pbi_dataset_id": 6,
                 "schedule_recurrence": "D",
-                "entities": [
-                    "dim_Customer",
-                    "dim_Product",
-                    "dim_SalesOrganization",
-                    "fact_SalesDocumentItem"
-                ]
+                "entities": {
+                    "edw": [
+                        "dim_Customer",
+                        "dim_Product",
+                        "dim_SalesOrganization",
+                        "fact_SalesDocumentItem"
+                    ]
+                }
             },"Sales View": {
                 "pbi_dataset_id": 7,
                 "schedule_recurrence": "D",
-                "entities": [
-                    "fact_BillingDocumentItem",
-                    "dim_Customer",
-                    "dim_Product",
-                    "dim_SalesOrganization"
-                ]
+                "entities": {
+                    "edw": [
+                        "fact_BillingDocumentItem",
+                        "dim_Customer",
+                        "dim_Product",
+                        "dim_SalesOrganization"
+                    ]
+                }
             },"Whale Curve": {
                 "pbi_dataset_id": 8,
                 "schedule_recurrence": "W",
                 "schedule_day": 2,
-                "entities": [
-                    "fact_BillingDocumentItem",
-                    "dim_Customer",
-                    "dim_Product",
-                    "dim_SalesOrganization"
-                ]
+                "entities": {
+                    "edw": [
+                        "fact_BillingDocumentItem",
+                        "dim_Customer",
+                        "dim_Product",
+                        "dim_SalesOrganization"
+                    ]
+                }
             },"Project Card": {
                 "pbi_dataset_id": 13,
                 "schedule_recurrence": "D",
-                "entities": [
-                    "fact_BillingDocumentItem",
-                    "dim_Customer",
-                    "dim_Product",
-                    "dim_SalesOrganization",
-                    "fact_SalesDocumentItem"
-                ]
+                "entities": {
+                    "edw": [
+                        "fact_BillingDocumentItem",
+                        "dim_Customer",
+                        "dim_Product",
+                        "dim_SalesOrganization",
+                        "fact_SalesDocumentItem"
+                    ]
+                }
             }
         }
     },
@@ -91,24 +109,28 @@
         "datasets": {
             "Fin View": {
                 "pbi_dataset_id": 9,
-                "entities": [
-                    "fact_BillingDocumentItem",
-                    "dim_Customer",
-                    "dim_Product",
-                    "dim_SalesOrganization"
-                ]
+                "entities": {
+                    "edw": [
+                        "fact_BillingDocumentItem",
+                        "dim_Customer",
+                        "dim_Product",
+                        "dim_SalesOrganization"
+                    ]
+                }
             },"Fin View (Legacy)": {
                 "pbi_dataset_id": 10,
-                "entities": [
-                    "dim_SalesOrganization",
-                    "fact_BillingDocumentItem",
-                    "fact_BillingDocumentItem_US",
-                    "fact_BillingBudget",
-                    "dim_CustomerCalculated",
-                    "dim_ProductCalculated",
-                    "dim_CustomerCalculated_US",
-                    "dim_ProductCalculated_US"
-                ]
+                "entities": {
+                    "edw": [
+                        "dim_SalesOrganization",
+                        "fact_BillingDocumentItem",
+                        "fact_BillingDocumentItem_US",
+                        "fact_BillingBudget",
+                        "dim_CustomerCalculated",
+                        "dim_ProductCalculated",
+                        "dim_CustomerCalculated_US",
+                        "dim_ProductCalculated_US"
+                    ]
+                }
             }
         }
     },
@@ -117,29 +139,35 @@
             "OTIF": {
                 "pbi_dataset_id": 11,
                 "schedule_recurrence": "D",
-                "entities":[
-                    "fact_OutboundDeliveryItem",
-                    "fact_SalesDocumentItem",
-                    "dim_Customer",
-                    "dim_Product"
-                ]
+                "entities":{
+                    "edw": [
+                        "fact_OutboundDeliveryItem",
+                        "fact_SalesDocumentItem",
+                        "dim_Customer",
+                        "dim_Product"
+                    ]
+                }
             },"Stock Management": {
                 "pbi_dataset_id": 12,
-                "entities":[
-                    "dim_Customer",
-                    "dim_Product",
-                    "fact_MaterialDocumentItem"
-                ]
+                "entities":{
+                    "edw": [
+                        "dim_Customer",
+                        "dim_Product",
+                        "fact_MaterialDocumentItem"
+                    ]
+                }
             },"Data Quality Checks": {
                 "pbi_dataset_id": 14,
                 "schedule_recurrence": "D",
-                "entities":[
-                    "fact_OutboundDeliveryItem",
-                    "fact_SalesDocumentItem",
-                    "dim_Customer",
-                    "dim_Product",
-                    "dim_DataQualityCode"
-                ]
+                "entities":{
+                    "edw": [
+                        "fact_OutboundDeliveryItem",
+                        "fact_SalesDocumentItem",
+                        "dim_Customer",
+                        "dim_Product",
+                        "dim_DataQualityCode"
+                    ]
+                }
             }
         }
     },
@@ -149,12 +177,14 @@
                 "pbi_dataset_id": 15,
                 "schedule_recurrence": "W",
                 "schedule_day": 2,
-                "entities": [
-                    "fact_BillingDocumentItem",
-                    "dim_Customer",
-                    "dim_Product",
-                    "dim_SalesOrganization"
-                ]
+                "entities": {
+                    "edw": [
+                        "fact_BillingDocumentItem",
+                        "dim_Customer",
+                        "dim_Product",
+                        "dim_SalesOrganization"
+                    ]
+                }
             }
         }
     },
@@ -164,11 +194,13 @@
                 "pbi_dataset_id": 16,
                 "schedule_recurrence": "D",
                 "schedule_day": 2,
-                "entities": [
-                    "dim_RuleProduct",
-                    "fact_ProductTotal",
-                    "fact_RuleTotal"
-                ]
+                "entities": {
+                    "dq": [
+                        "dim_RuleProduct",
+                        "fact_ProductTotal",
+                        "fact_RuleTotal"
+                    ]
+                }
             }
         }
     }

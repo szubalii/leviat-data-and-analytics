@@ -3,6 +3,7 @@ CREATE TABLE [dbo].[pbi_dataset_entity]
     [pbi_dataset_id]		BIGINT NOT NULL,
     [dataset_name]          NVARCHAR(68),
     [entity_id]				BIGINT NOT NULL,
+    [schema_name]           NVARCHAR(68),
     [entity_name]           NVARCHAR(68),
 
     PRIMARY KEY CLUSTERED ([pbi_dataset_id], [entity_id]),
