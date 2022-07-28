@@ -49,5 +49,13 @@
                 "dataset_guid": "38456d38-8586-4e6a-a4ee-111b3bc5bb51"
             }
         }
+    },
+    "Leviat_Data_Analytics MDQ_QAS": {
+        "workspace_guid": "3923274b-fee8-4d08-bba7-6281339e79b2",
+        "datasets": {
+            "Master Data Quality Checks": {
+                "dataset_guid": "909ca565-af0b-457f-a0ec-19a60436f405"
+            }
+        }
     }
 }
