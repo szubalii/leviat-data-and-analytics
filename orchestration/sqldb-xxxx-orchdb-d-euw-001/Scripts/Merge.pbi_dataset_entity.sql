@@ -42,12 +42,14 @@ WHEN NOT MATCHED BY TARGET THEN
         pbi_dataset_id
     ,	dataset_name
     ,   entity_id
+    ,   schema_name
     ,   entity_name
     )
     VALUES (
         src.pbi_dataset_id
     ,   src.dataset_name
     ,   src.entity_id
+    ,   src.schema_name
     ,   src.entity_name
     )
 WHEN NOT MATCHED BY SOURCE THEN
@@ -56,11 +58,13 @@ OUTPUT
     Deleted.pbi_dataset_id
 ,   Deleted.dataset_name
 ,   Deleted.entity_id
+,   Deleted.schema_name
 ,   Deleted.entity_name
 ,   $action
 ,   Inserted.pbi_dataset_id
 ,   Inserted.dataset_name
 ,   Inserted.entity_id
+,   Inserted.schema_name
 ,   Inserted.entity_name
 ,   GETUTCDATE() INTO [log].pbi_dataset_entity;
 
