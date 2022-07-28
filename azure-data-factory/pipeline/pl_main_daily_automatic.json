@@ -120,7 +120,7 @@
 							}
 						},
 						{
-							"name": "Stop VM",
+							"name": "Deallocate VM",
 							"type": "ExecutePipeline",
 							"dependsOn": [
 								{
@@ -133,7 +133,7 @@
 							"userProperties": [],
 							"typeProperties": {
 								"pipeline": {
-									"referenceName": "pl_VM_stop",
+									"referenceName": "pl_VM_deallocate",
 									"type": "PipelineReference"
 								},
 								"waitOnCompletion": true

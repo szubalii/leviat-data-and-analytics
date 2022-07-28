@@ -16,6 +16,12 @@
 					"ResourceGroupName": "rg-xxxx-sls-d-euw-001",
 					"AzureRegionName": "West Europe"
 				}
+			},
+			{
+				"pipelineReference": {
+					"referenceName": "pl_VM_deallocate",
+					"type": "PipelineReference"
+				}
 			}
 		],
 		"type": "ScheduleTrigger",
