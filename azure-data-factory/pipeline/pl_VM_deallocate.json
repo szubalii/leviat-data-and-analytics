@@ -1,5 +1,5 @@
 {
-	"name": "pl_VM_stop",
+	"name": "pl_VM_deallocate",
 	"properties": {
 		"activities": [
 			{
