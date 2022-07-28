@@ -21,11 +21,20 @@ HAVING
 
 UNION
 
-SELECT 
+SELECT DISTINCT
     Product
 FROM 
-    [base_s4h_cax].[I_ProductPlant]
-WHERE
+    [base_s4h_cax].[I_ProductPlant] PP
+WHERE EXISTS (
+				SELECT 1 
+				FROM 
+                    [base_s4h_cax].[I_Product] P 
+				WHERE 
+                    P.Product=PP.Product 
+				AND 
+                    P.ProductType ='ZHAW'
+			) 
+AND
     [Commodity] = ''
 
 ) 
