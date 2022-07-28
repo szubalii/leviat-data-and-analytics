@@ -69,6 +69,7 @@ function pbiDatasetEntityGenerateCSV (env) {
         "pbi_dataset_id",
         "dataset_name",
         "entity_id",
+        "schema_name",
         "entity_name"
     ]];
     let csvContent = "";
