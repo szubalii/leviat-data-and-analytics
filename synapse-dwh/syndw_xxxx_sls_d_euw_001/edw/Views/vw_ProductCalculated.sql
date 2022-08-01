@@ -41,12 +41,12 @@ ITEMTABLE_without_quotes AS (
         SBMT.[SAPItemnumberLeadingZeros] AS [ProductIDCalculated]
     ,   SBMT.[SAPItemnumber]    AS [ProductExternalIDCalculated]
     ,   PT.[ProductName]        AS [ProductCalculated]
-    ,   PG.[PRODUCTPILLAR]      AS [ProductPillarIDCalculated] 
-    ,   PG.[PRODUCTPILLARNAME]  AS [ProductPillarCalculated] 
-    ,   PG.[PRODUCTGROUPID]     AS [ProductGroupIDCalculated] 
-    ,   PG.[PRODUCTGROUPNAME]   AS [ProductGroupCalculated] 
-    ,   PG.[MAINGROUPID]        AS [MainGroupIDCalculated] 
-    ,   PG.[MAINGROUPNAME]      AS [MainGroupCalculated] 
+    ,   IFNULL(PG.[PRODUCTPILLAR], PCF.[ProductPillarIDCalculated]) AS [ProductPillarIDCalculated]
+    ,   IFNULL(PG.[PRODUCTPILLARNAME], PCF.[ProductPillarCalculated]) AS [ProductPillarCalculated]
+    ,   IFNULL(PG.[PRODUCTGROUPID], PCF.[ProductGroupIDCalculated]) AS [ProductGroupIDCalculated]
+    ,   IFNULL(PG.[PRODUCTGROUPNAME], PCF.[ProductGroupCalculated]) AS [ProductGroupCalculated]
+    ,   IFNULL(PG.[MAINGROUPID], PCF.[MainGroupIDCalculated]) AS [MainGroupIDCalculated]
+    ,   IFNULL(PG.[MAINGROUPNAME], PCF.[MainGroupCalculated]) AS [MainGroupCalculated]
     ,   NULL AS [isReviewed] 
     ,   CASE 
             WHEN 
@@ -60,7 +60,7 @@ ITEMTABLE_without_quotes AS (
         END AS [mappingType] 
     ,   SBMT.[AXDataAreaId]     AS [axbiDataAreaID]
     ,   SBMT.[axbi_ItemNoCalc]  AS [axbiItemNo]
-    ,   ITQ.[ITEMNAME]           AS [axbiItemName]
+    ,   ITQ.[ITEMNAME]           AS [axbiItemName]    
     ,   PG.[PRODUCTPILLAR]      AS [axbiProductPillarIDCalculated]
     ,   PG.[PRODUCTPILLARNAME]  AS [axbiProductPillarCalculated] 
     ,   PG.[PRODUCTGROUPID]     AS [axbiProductGroupIDCalculated] 
@@ -111,6 +111,10 @@ ITEMTABLE_without_quotes AS (
         [base_tx_ca_0_hlp].[PRODUCTGROUP] PG
         ON 
             ITQ.[PRODUCTGROUPID] = PG.[PRODUCTGROUPID]
+    LEFT JOIN    
+        [base_ff].[ProductCalculated] PCF
+        ON
+            SBMT.[SAPItemnumber]=PCF.[ProductExternalIDCalculated]
     WHERE 
         SBMT.RN = 1
 
