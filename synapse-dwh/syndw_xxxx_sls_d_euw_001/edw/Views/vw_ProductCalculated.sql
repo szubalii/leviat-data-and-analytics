@@ -41,12 +41,54 @@ ITEMTABLE_without_quotes AS (
         SBMT.[SAPItemnumberLeadingZeros] AS [ProductIDCalculated]
     ,   SBMT.[SAPItemnumber]    AS [ProductExternalIDCalculated]
     ,   PT.[ProductName]        AS [ProductCalculated]
-    ,   PG.[PRODUCTPILLAR]      AS [ProductPillarIDCalculated] 
-    ,   PG.[PRODUCTPILLARNAME]  AS [ProductPillarCalculated] 
-    ,   PG.[PRODUCTGROUPID]     AS [ProductGroupIDCalculated] 
-    ,   PG.[PRODUCTGROUPNAME]   AS [ProductGroupCalculated] 
-    ,   PG.[MAINGROUPID]        AS [MainGroupIDCalculated] 
-    ,   PG.[MAINGROUPNAME]      AS [MainGroupCalculated] 
+    ,   CASE
+            WHEN
+                PG.[PRODUCTPILLAR] IS NULL
+                AND
+                SBMT.[SAPItemnumberLeadingZeros] IS NOT NULL
+            THEN PCF.[ProductPillarIDCalculated]
+            ELSE PG.[PRODUCTPILLAR]
+        END AS [ProductPillarIDCalculated]
+    ,   CASE
+            WHEN
+                PG.[PRODUCTPILLARNAME] IS NULL
+                AND
+                SBMT.[SAPItemnumberLeadingZeros] IS NOT NULL
+            THEN PCF.[ProductPillarCalculated]
+            ELSE PG.[PRODUCTPILLARNAME]
+        END AS [ProductPillarCalculated]
+    ,   CASE
+            WHEN
+                PG.[PRODUCTGROUPID] IS NULL
+                AND
+                SBMT.[SAPItemnumberLeadingZeros] IS NOT NULL
+            THEN PCF.[ProductGroupIDCalculated]
+            ELSE PG.[PRODUCTGROUPID]
+        END AS [ProductGroupIDCalculated]
+    ,   CASE 
+            WHEN
+                PG.[PRODUCTGROUPNAME] IS NULL
+                AND
+                SBMT.[SAPItemnumberLeadingZeros] IS NOT NULL
+            THEN PCF.[ProductGroupCalculated]
+            ELSE PG.[PRODUCTGROUPNAME]
+        END AS [ProductGroupCalculated]
+    ,   CASE
+            WHEN
+                PG.[MAINGROUPID] IS NULL
+                AND
+                SBMT.[SAPItemnumberLeadingZeros] IS NOT NULL
+            THEN PCF.[MainGroupIDCalculated]
+            ELSE PG.[MAINGROUPID]
+        END AS [MainGroupIDCalculated]
+    ,   CASE
+            WHEN
+                PG.[MAINGROUPNAME] IS NULL
+                AND
+                SBMT.[SAPItemnumberLeadingZeros] IS NOT NULL
+            THEN PCF.[MainGroupCalculated]
+            ELSE PG.[MAINGROUPNAME]
+        END AS [MainGroupCalculated]
     ,   NULL AS [isReviewed] 
     ,   CASE 
             WHEN 
@@ -60,7 +102,7 @@ ITEMTABLE_without_quotes AS (
         END AS [mappingType] 
     ,   SBMT.[AXDataAreaId]     AS [axbiDataAreaID]
     ,   SBMT.[axbi_ItemNoCalc]  AS [axbiItemNo]
-    ,   ITQ.[ITEMNAME]           AS [axbiItemName]
+    ,   ITQ.[ITEMNAME]           AS [axbiItemName]    
     ,   PG.[PRODUCTPILLAR]      AS [axbiProductPillarIDCalculated]
     ,   PG.[PRODUCTPILLARNAME]  AS [axbiProductPillarCalculated] 
     ,   PG.[PRODUCTGROUPID]     AS [axbiProductGroupIDCalculated] 
@@ -111,6 +153,10 @@ ITEMTABLE_without_quotes AS (
         [base_tx_ca_0_hlp].[PRODUCTGROUP] PG
         ON 
             ITQ.[PRODUCTGROUPID] = PG.[PRODUCTGROUPID]
+    LEFT JOIN    
+        [base_ff].[ProductCalculated] PCF
+        ON
+            SBMT.[SAPItemnumber]=PCF.[ProductExternalIDCalculated]
     WHERE 
         SBMT.RN = 1
 
@@ -215,8 +261,8 @@ ITEMTABLE_without_quotes AS (
             WHERE 
                 SIBMT.[SAPProductID] IS NOT NULL
         )
-),
-ProductCalculated AS(
+)
+
 SELECT 
         C.[ProductIDCalculated] 
     ,   C.[ProductExternalIDCalculated]
@@ -331,85 +377,4 @@ FROM
     [edw].[vw_Product] PR
 CROSS JOIN
     [base_tx_ca_0_hlp].[PRODUCTGROUP] as PG
-WHERE PR.[ProductID] in ('ZZZDUMMY01', 'ZZZDUMMY02') AND PG.[PRODUCTGROUPID] = 'K.3.')
-SELECT
-        PC.[ProductIDCalculated] 
-    ,   PC.[ProductExternalIDCalculated]
-    ,   PC.[ProductCalculated]
-    ,   PC.[ProductID_NameCalculated]
-    ,   CASE
-            WHEN
-                PC.[ProductPillarIDCalculated] IS NULL
-                AND
-                SAP.[SAPProductID] IS NOT NULL
-            THEN PCF.[ProductPillarIDCalculated]
-            ELSE PC.[ProductPillarIDCalculated]
-        END AS [ProductPillarIDCalculated]
-    ,   CASE
-            WHEN
-                PC.[ProductPillarCalculated] IS NULL
-                AND
-                SAP.[SAPProductID] IS NOT NULL
-            THEN PCF.[ProductPillarCalculated]
-            ELSE PC.[ProductPillarCalculated]
-        END AS [ProductPillarCalculated]
-    ,   CASE
-            WHEN
-                PC.[ProductGroupIDCalculated] IS NULL
-                AND
-                SAP.[SAPProductID] IS NOT NULL
-            THEN PCF.[ProductGroupIDCalculated]
-            ELSE PC.[ProductGroupIDCalculated]
-        END AS [ProductGroupIDCalculated]
-    ,   CASE 
-            WHEN
-                PC.[ProductGroupCalculated] IS NULL
-                AND
-                SAP.[SAPProductID] IS NOT NULL
-            THEN PCF.[ProductGroupCalculated]
-            ELSE PC.[ProductGroupCalculated]
-        END AS [ProductGroupCalculated]
-    ,   CASE
-            WHEN
-                PC.[MainGroupIDCalculated] IS NULL
-                AND
-                SAP.[SAPProductID] IS NOT NULL
-            THEN PCF.[MainGroupIDCalculated]
-            ELSE PC.[MainGroupIDCalculated]
-        END AS [MainGroupIDCalculated]
-    ,   CASE
-            WHEN
-                PC.[MainGroupCalculated] IS NULL
-                AND
-                SAP.[SAPProductID] IS NOT NULL
-            THEN PCF.[MainGroupCalculated]
-            ELSE PC.[MainGroupCalculated]
-        END AS [MainGroupCalculated]
-    ,   PC.[isReviewed] 
-    ,   PC.[mappingType] 
-    ,   PC.[axbiDataAreaID]
-    ,   PC.[axbiItemNo]
-    ,   PC.[axbiItemName]
-    ,   PC.[axbiProductPillarIDCalculated]
-    ,   PC.[axbiProductPillarCalculated] 
-    ,   PC.[axbiProductGroupIDCalculated] 
-    ,   PC.[axbiProductGroupCalculated] 
-    ,   PC.[axbiMainGroupIDCalculated] 
-    ,   PC.[axbiMainGroupCalculated] 
-    ,   PC.[t_applicationId]
-    ,   PC.[t_jobId]
-    ,   PC.[t_jobDtm]
-    ,   PC.[t_jobBy]
-    ,   PC.[t_extractionDtm]
-    ,   PC.[t_filePath]
-    ,   PC.[t_source]
-FROM 
-    ProductCalculated PC
-LEFT JOIN
-    [edw].[dim_SAPItemNumberBasicMappingTable] SAP
-        ON
-            PC.ProductIDCalculated=SAP.SAPProductID
-LEFT JOIN    
-    [base_ff].[ProductCalculated] PCF
-        ON
-            SAP.SAPItemnumber=PCF.ProductExternalIDCalculated
+WHERE PR.[ProductID] in ('ZZZDUMMY01', 'ZZZDUMMY02') AND PG.[PRODUCTGROUPID] = 'K.3.'
