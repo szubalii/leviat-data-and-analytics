@@ -41,54 +41,12 @@ ITEMTABLE_without_quotes AS (
         SBMT.[SAPItemnumberLeadingZeros] AS [ProductIDCalculated]
     ,   SBMT.[SAPItemnumber]    AS [ProductExternalIDCalculated]
     ,   PT.[ProductName]        AS [ProductCalculated]
-    ,   CASE
-            WHEN
-                PG.[PRODUCTPILLAR] IS NULL
-                AND
-                SBMT.[SAPItemnumberLeadingZeros] IS NOT NULL
-            THEN PCF.[ProductPillarIDCalculated]
-            ELSE PG.[PRODUCTPILLAR]
-        END AS [ProductPillarIDCalculated]
-    ,   CASE
-            WHEN
-                PG.[PRODUCTPILLARNAME] IS NULL
-                AND
-                SBMT.[SAPItemnumberLeadingZeros] IS NOT NULL
-            THEN PCF.[ProductPillarCalculated]
-            ELSE PG.[PRODUCTPILLARNAME]
-        END AS [ProductPillarCalculated]
-    ,   CASE
-            WHEN
-                PG.[PRODUCTGROUPID] IS NULL
-                AND
-                SBMT.[SAPItemnumberLeadingZeros] IS NOT NULL
-            THEN PCF.[ProductGroupIDCalculated]
-            ELSE PG.[PRODUCTGROUPID]
-        END AS [ProductGroupIDCalculated]
-    ,   CASE 
-            WHEN
-                PG.[PRODUCTGROUPNAME] IS NULL
-                AND
-                SBMT.[SAPItemnumberLeadingZeros] IS NOT NULL
-            THEN PCF.[ProductGroupCalculated]
-            ELSE PG.[PRODUCTGROUPNAME]
-        END AS [ProductGroupCalculated]
-    ,   CASE
-            WHEN
-                PG.[MAINGROUPID] IS NULL
-                AND
-                SBMT.[SAPItemnumberLeadingZeros] IS NOT NULL
-            THEN PCF.[MainGroupIDCalculated]
-            ELSE PG.[MAINGROUPID]
-        END AS [MainGroupIDCalculated]
-    ,   CASE
-            WHEN
-                PG.[MAINGROUPNAME] IS NULL
-                AND
-                SBMT.[SAPItemnumberLeadingZeros] IS NOT NULL
-            THEN PCF.[MainGroupCalculated]
-            ELSE PG.[MAINGROUPNAME]
-        END AS [MainGroupCalculated]
+    ,   ISNULL(PG.[PRODUCTPILLAR], PCF.[ProductPillarIDCalculated]) AS [ProductPillarIDCalculated]
+    ,   ISNULL(PG.[PRODUCTPILLARNAME], PCF.[ProductPillarCalculated]) AS [ProductPillarCalculated]
+    ,   ISNULL(PG.[PRODUCTGROUPID], PCF.[ProductGroupIDCalculated]) AS [ProductGroupIDCalculated]
+    ,   ISNULL(PG.[PRODUCTGROUPNAME], PCF.[ProductGroupCalculated]) AS [ProductGroupCalculated]
+    ,   ISNULL(PG.[MAINGROUPID], PCF.[MainGroupIDCalculated]) AS [MainGroupIDCalculated]
+    ,   ISNULL(PG.[MAINGROUPNAME], PCF.[MainGroupCalculated]) AS [MainGroupCalculated]
     ,   NULL AS [isReviewed] 
     ,   CASE 
             WHEN 
