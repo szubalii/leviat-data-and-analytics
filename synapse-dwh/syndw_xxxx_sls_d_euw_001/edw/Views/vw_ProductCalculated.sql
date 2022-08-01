@@ -41,12 +41,12 @@ ITEMTABLE_without_quotes AS (
         SBMT.[SAPItemnumberLeadingZeros] AS [ProductIDCalculated]
     ,   SBMT.[SAPItemnumber]    AS [ProductExternalIDCalculated]
     ,   PT.[ProductName]        AS [ProductCalculated]
-    ,   IFNULL(PG.[PRODUCTPILLAR], PCF.[ProductPillarIDCalculated]) AS [ProductPillarIDCalculated]
-    ,   IFNULL(PG.[PRODUCTPILLARNAME], PCF.[ProductPillarCalculated]) AS [ProductPillarCalculated]
-    ,   IFNULL(PG.[PRODUCTGROUPID], PCF.[ProductGroupIDCalculated]) AS [ProductGroupIDCalculated]
-    ,   IFNULL(PG.[PRODUCTGROUPNAME], PCF.[ProductGroupCalculated]) AS [ProductGroupCalculated]
-    ,   IFNULL(PG.[MAINGROUPID], PCF.[MainGroupIDCalculated]) AS [MainGroupIDCalculated]
-    ,   IFNULL(PG.[MAINGROUPNAME], PCF.[MainGroupCalculated]) AS [MainGroupCalculated]
+    ,   COALESCE(PG.[PRODUCTPILLAR], PCF.[ProductPillarIDCalculated]) AS [ProductPillarIDCalculated]
+    ,   COALESCE(PG.[PRODUCTPILLARNAME], PCF.[ProductPillarCalculated]) AS [ProductPillarCalculated]
+    ,   COALESCE(PG.[PRODUCTGROUPID], PCF.[ProductGroupIDCalculated]) AS [ProductGroupIDCalculated]
+    ,   COALESCE(PG.[PRODUCTGROUPNAME], PCF.[ProductGroupCalculated]) AS [ProductGroupCalculated]
+    ,   COALESCE(PG.[MAINGROUPID], PCF.[MainGroupIDCalculated]) AS [MainGroupIDCalculated]
+    ,   COALESCE(PG.[MAINGROUPNAME], PCF.[MainGroupCalculated]) AS [MainGroupCalculated]
     ,   NULL AS [isReviewed] 
     ,   CASE 
             WHEN 
