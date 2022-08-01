@@ -337,35 +337,53 @@ SELECT
     ,   PC.[ProductExternalIDCalculated]
     ,   PC.[ProductCalculated]
     ,   PC.[ProductID_NameCalculated]
-    ,   CASE WHEN PC.[ProductPillarIDCalculated] IS NULL
-             AND SAP.[SAPProductID] IS NOT NULL
-             THEN PCF.[ProductPillarIDCalculated]
-        ELSE PC.[ProductPillarIDCalculated]
+    ,   CASE
+            WHEN
+                PC.[ProductPillarIDCalculated] IS NULL
+                AND
+                SAP.[SAPProductID] IS NOT NULL
+            THEN PCF.[ProductPillarIDCalculated]
+            ELSE PC.[ProductPillarIDCalculated]
         END AS [ProductPillarIDCalculated]
-    ,   CASE WHEN PC.[ProductPillarCalculated] IS NULL
-             AND SAP.[SAPProductID] IS NOT NULL
-             THEN PCF.[ProductPillarCalculated]
-        ELSE PC.[ProductPillarCalculated]
+    ,   CASE
+            WHEN
+                PC.[ProductPillarCalculated] IS NULL
+                AND
+                SAP.[SAPProductID] IS NOT NULL
+            THEN PCF.[ProductPillarCalculated]
+            ELSE PC.[ProductPillarCalculated]
         END AS [ProductPillarCalculated]
-    ,   CASE WHEN PC.[ProductGroupIDCalculated] IS NULL
-             AND SAP.[SAPProductID] IS NOT NULL
-             THEN PCF.[ProductGroupIDCalculated]
-        ELSE PC.[ProductGroupIDCalculated]
+    ,   CASE
+            WHEN
+                PC.[ProductGroupIDCalculated] IS NULL
+                AND
+                SAP.[SAPProductID] IS NOT NULL
+            THEN PCF.[ProductGroupIDCalculated]
+            ELSE PC.[ProductGroupIDCalculated]
         END AS [ProductGroupIDCalculated]
-    ,   CASE WHEN PC.[ProductGroupCalculated] IS NULL
-             AND SAP.[SAPProductID] IS NOT NULL
-             THEN PCF.[ProductGroupCalculated]
-        ELSE PC.[ProductGroupCalculated]
+    ,   CASE 
+            WHEN
+                PC.[ProductGroupCalculated] IS NULL
+                AND
+                SAP.[SAPProductID] IS NOT NULL
+            THEN PCF.[ProductGroupCalculated]
+            ELSE PC.[ProductGroupCalculated]
         END AS [ProductGroupCalculated]
-    ,   CASE WHEN PC.[MainGroupIDCalculated] IS NULL
-             AND SAP.[SAPProductID] IS NOT NULL
-             THEN PCF.[MainGroupIDCalculated]
-        ELSE PC.[MainGroupIDCalculated]
+    ,   CASE
+            WHEN
+                PC.[MainGroupIDCalculated] IS NULL
+                AND
+                SAP.[SAPProductID] IS NOT NULL
+            THEN PCF.[MainGroupIDCalculated]
+            ELSE PC.[MainGroupIDCalculated]
         END AS [MainGroupIDCalculated]
-    ,   CASE WHEN PC.[MainGroupCalculated] IS NULL
-             AND SAP.[SAPProductID] IS NOT NULL
-             THEN PCF.[MainGroupCalculated]
-        ELSE PC.[MainGroupCalculated]
+    ,   CASE
+            WHEN
+                PC.[MainGroupCalculated] IS NULL
+                AND
+                SAP.[SAPProductID] IS NOT NULL
+            THEN PCF.[MainGroupCalculated]
+            ELSE PC.[MainGroupCalculated]
         END AS [MainGroupCalculated]
     ,   PC.[isReviewed] 
     ,   PC.[mappingType] 
