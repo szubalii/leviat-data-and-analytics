@@ -70,7 +70,7 @@
 				}
 			},
 			{
-				"name": "Get Synapse Base Procedures",
+				"name": "Get Synapse DQ Procedures",
 				"type": "Lookup",
 				"dependsOn": [
 					{
@@ -110,7 +110,7 @@
 				"type": "ForEach",
 				"dependsOn": [
 					{
-						"activity": "Get Synapse Base Procedures",
+						"activity": "Get Synapse DQ Procedures",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -119,7 +119,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@activity('Get Synapse Base Procedures').output.value",
+						"value": "@activity('Get Synapse DQ Procedures').output.value",
 						"type": "Expression"
 					},
 					"isSequential": false,
@@ -186,7 +186,7 @@
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "Get Synapse Base Procedures",
+						"activity": "Get Synapse DQ Procedures",
 						"dependencyConditions": [
 							"Failed"
 						]
@@ -217,7 +217,7 @@
 						},
 						"error_msg": {
 							"value": {
-								"value": "@activity('Get Synapse Base Procedures').Error.Message",
+								"value": "@activity('Get Synapse DQ Procedures').Error.Message",
 								"type": "Expression"
 							},
 							"type": "String"
@@ -408,7 +408,7 @@
 				}
 			},
 			{
-				"name": "Fail Getting Base Procedures",
+				"name": "Fail Getting DQ Procedures",
 				"type": "Fail",
 				"dependsOn": [
 					{
@@ -421,7 +421,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"message": {
-						"value": "@concat(\n    'Failed to get Synapse Base Procedures: ',\n    activity('Get Synapse Base Procedures').Error.Message\n)",
+						"value": "@concat(\n    'Failed to get Synapse DQ Procedures: ',\n    activity('Get Synapse DQ Procedures').Error.Message\n)",
 						"type": "Expression"
 					},
 					"errorCode": "500"
@@ -458,7 +458,7 @@
 			},
 			"date": {
 				"type": "string",
-				"defaultValue": "2022/07/20"
+				"defaultValue": "2022/08/01"
 			},
 			"rerun_successful_full_entities": {
 				"type": "int",

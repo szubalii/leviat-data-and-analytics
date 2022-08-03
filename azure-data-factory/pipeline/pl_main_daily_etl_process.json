@@ -126,7 +126,7 @@
 							"value": "@pipeline().parameters.date",
 							"type": "Expression"
 						},
-						"entity_filter": "dataset_name != 'Data Quality Checks'"
+						"entity_filter": "dataset_name != 'Master Data Quality Checks'"
 					}
 				}
 			},
@@ -201,7 +201,7 @@
 				}
 			},
 			{
-				"name": "Materialiazing MDQ in synapse",
+				"name": "Materialiazing DQ in synapse",
 				"type": "ExecutePipeline",
 				"dependsOn": [
 					{
@@ -225,7 +225,7 @@
 				"type": "ExecutePipeline",
 				"dependsOn": [
 					{
-						"activity": "Materialiazing MDQ in synapse",
+						"activity": "Materialiazing DQ in synapse",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -251,7 +251,7 @@
 							"value": "@pipeline().parameters.date",
 							"type": "Expression"
 						},
-						"entity_filter": "dataset_name = 'Data Quality Checks'"
+						"entity_filter": "dataset_name = 'Master Data Quality Checks'"
 					}
 				}
 			}
