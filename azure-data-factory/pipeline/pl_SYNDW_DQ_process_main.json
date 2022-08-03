@@ -119,7 +119,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@activity('Get Synapse DQ Procedures').output.value",
+						"value": "@activity('Get Synapse DQ Entities').output.value",
 						"type": "Expression"
 					},
 					"isSequential": false,
@@ -217,7 +217,7 @@
 						},
 						"error_msg": {
 							"value": {
-								"value": "@activity('Get Synapse DQ Procedures').Error.Message",
+								"value": "@activity('Get Synapse DQ Entities').Error.Message",
 								"type": "Expression"
 							},
 							"type": "String"
@@ -421,7 +421,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"message": {
-						"value": "@concat(\n    'Failed to get Synapse DQ Procedures: ',\n    activity('Get Synapse DQ Procedures').Error.Message\n)",
+						"value": "@concat(\n    'Failed to get Synapse DQ Entities: ',\n    activity('Get Synapse DQ Entities').Error.Message\n)",
 						"type": "Expression"
 					},
 					"errorCode": "500"
