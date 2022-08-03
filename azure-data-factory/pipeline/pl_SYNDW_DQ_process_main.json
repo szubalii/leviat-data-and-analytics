@@ -70,7 +70,7 @@
 				}
 			},
 			{
-				"name": "Get Synapse DQ Procedures",
+				"name": "Get Synapse DQ Entities",
 				"type": "Lookup",
 				"dependsOn": [
 					{
@@ -110,7 +110,7 @@
 				"type": "ForEach",
 				"dependsOn": [
 					{
-						"activity": "Get Synapse DQ Procedures",
+						"activity": "Get Synapse DQ Entities",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -186,7 +186,7 @@
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "Get Synapse DQ Procedures",
+						"activity": "Get Synapse DQ Entities",
 						"dependencyConditions": [
 							"Failed"
 						]
