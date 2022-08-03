@@ -132,7 +132,7 @@
 							"userProperties": [],
 							"typeProperties": {
 								"pipeline": {
-									"referenceName": "pl_SYNDW_DQ_process_batch",
+									"referenceName": "pl_SYNDW_DQ_process_entity",
 									"type": "PipelineReference"
 								},
 								"waitOnCompletion": true,
