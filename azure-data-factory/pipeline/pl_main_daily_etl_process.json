@@ -125,7 +125,8 @@
 						"date": {
 							"value": "@pipeline().parameters.date",
 							"type": "Expression"
-						}
+						},
+						"pbi_entity_filter": "dataset_name != 'Master Data Quality Checks'"
 					}
 				}
 			},
@@ -204,7 +205,7 @@
 				"type": "ExecutePipeline",
 				"dependsOn": [
 					{
-						"activity": "Process ETL",
+						"activity": "Send Process ETL Success Mail",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -249,7 +250,8 @@
 						"date": {
 							"value": "@pipeline().parameters.date",
 							"type": "Expression"
-						}
+						},
+						"pbi_entity_filter": "dataset_name = 'Master Data Quality Checks'"
 					}
 				}
 			}
