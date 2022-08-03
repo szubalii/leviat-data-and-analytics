@@ -1,0 +1,117 @@
+{
+    "name": "IFIFSITM$P",
+    "description": "Items in Financial Statement Version",
+    "guid": "b37ce156-8d01-4f4e-8b2b-9f2cd8f8bd49",
+    "hierarchy": "",
+    "semantics": "MasterDataOrAttributes",
+    "context": "ABAP_CDS",
+    "supportsFull": true,
+    "supportsDelta": false,
+    "mode": "Full",
+    "transferDataOnDeltaInit": false,
+    "columns": 
+    [
+        {
+            "name": "FINANCIALSTATEMENTVARIANT",
+            "description": "Financial Statement Version",
+            "abapType": "CharacterString",
+            "length": 4,
+            "isPrimaryKey": true,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 4
+        },
+        {
+            "name": "HIERARCHYNODE",
+            "description": "Internal: Node ID",
+            "abapType": "NumericCharacterString",
+            "length": 6,
+            "isPrimaryKey": true,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 6
+        },
+        {
+            "name": "NODETYPE",
+            "description": "Node type",
+            "abapType": "CharacterString",
+            "length": 4,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 4
+        },
+        {
+            "name": "FINANCIALSTATEMENTITEM",
+            "description": "Financial Statement Item",
+            "abapType": "CharacterString",
+            "length": 10,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 10
+        },
+        {
+            "name": "PARENTNODE",
+            "description": "Internal: Node ID",
+            "abapType": "NumericCharacterString",
+            "length": 6,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 6
+        },
+        {
+            "name": "CHILDNODE",
+            "description": "Internal: Node ID",
+            "abapType": "NumericCharacterString",
+            "length": 6,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 6
+        },
+        {
+            "name": "SIBLINGNODE",
+            "description": "Internal: Node ID",
+            "abapType": "NumericCharacterString",
+            "length": 6,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 6
+        },
+        {
+            "name": "FINSTATEMENTHIERARCHYLEVELVAL",
+            "description": "Financial Statement Item Hierarchy Level",
+            "abapType": "NumericCharacterString",
+            "length": 2,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 2
+        },
+        {
+            "name": "LASTCHANGEDATE",
+            "description": "Date of Last Change",
+            "abapType": "Date",
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 8
+        },
+        {
+            "name": "RESPONSIBLEPERSON",
+            "description": "User Name",
+            "abapType": "CharacterString",
+            "length": 12,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 12
+        },
+        {
+            "name": "OFFSETTINGITEM",
+            "description": "Credit Item Key",
+            "abapType": "CharacterString",
+            "length": 10,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 10
+        }
+    ],
+    "parameters": {
+    }
+}

@@ -1,0 +1,109 @@
+{
+    "functionName": "Z_THEO_READ_TABLE",
+    "runInBackgroundJob": false,
+    "backgroundJobTimeout": 180,
+    "tables": 
+    [
+        {
+            "name": "ICADEFSLEAFITM",
+            "description": "Generated Table for View",
+            "isView": true,
+            "fields": 
+            [
+                {
+                    "name": "MANDT",
+                    "description": "Client",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "T000",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "FINANCIALSTATEMENTVARIANT",
+                    "description": "Financial Statement Version",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "T011",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "FINANCIALSTATEMENTITEM",
+                    "description": "Financial Statement Item",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CHARTOFACCOUNTS",
+                    "description": "Char Column",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "T004",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "LOWERBOUNDARYACCOUNT",
+                    "description": "Char Column",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "LOWERBOUNDARYFUNCTIONALAREA",
+                    "description": "Functional Area Interval Lower Limit",
+                    "abapType": "CharacterString",
+                    "length": 16,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "UPPERBOUNDARYACCOUNT",
+                    "description": "Account Interval Upper Limit",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "UPPERBOUNDARYFUNCTIONALAREA",
+                    "description": "Functional Area Interval Upper Limit",
+                    "abapType": "CharacterString",
+                    "length": 16,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ISDEBITBALANCERELEVANT",
+                    "description": "Char Column",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ISCREDITBALANCERELEVANT",
+                    "description": "Indicator: Is Entry Relevant If there Is a Credit Balance ?",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": ""
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,64 @@
+{
+    "functionName": "Z_THEO_READ_TABLE",
+    "runInBackgroundJob": false,
+    "backgroundJobTimeout": 180,
+    "tables": 
+    [
+        {
+            "name": "IFIFSITMT",
+            "description": "Generated Table for View",
+            "isView": true,
+            "fields": 
+            [
+                {
+                    "name": "MANDT",
+                    "description": "Client",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "T000",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "FINANCIALSTATEMENTVARIANT",
+                    "description": "Financial Statement Version",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "T011",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "FINANCIALSTATEMENTITEM",
+                    "description": "Financial Statement Item",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "LANGUAGE",
+                    "description": "Language Key",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "formattedLength": 2,
+                    "checkTable": "T002",
+                    "conversionExit": "ISOLA"
+                },
+                {
+                    "name": "FINSTATEMENTITEMDESCRIPTION",
+                    "description": "Financial Statement Item Text",
+                    "abapType": "CharacterString",
+                    "length": 45,
+                    "isSelected": true,
+                    "conversionExit": ""
+                }
+            ]
+        }
+    ]
+}
