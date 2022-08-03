@@ -443,7 +443,7 @@
 			},
 			"entity_filter": {
 				"type": "string",
-				"defaultValue": "1 = 1"
+				"defaultValue": "--  WHERE layer_nk = 'S4H'"
 			}
 		},
 		"folder": {
