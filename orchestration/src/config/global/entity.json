@@ -3408,7 +3408,54 @@
           "base_table_name": "I_WorkCenterCapacity",
           "pk_field_names": "MANDT, WORKCENTERINTERNALID, WORKCENTERTYPECODE, CAPACITYCATEGORYALLOCATION",
           "schedule_recurrence": "A"
-        }
+        },
+        {
+          "entity_id": 454,
+          "entity_name": "I_CN_CADEFinStatementLeafItem",
+          "data_category": "NULL",
+          "client_field": "MANDT",
+          "tool_name": "Theobald",
+          "extraction_type": "Table",
+          "update_mode": "Full",
+          "base_table_name": "I_CN_CADEFinStatementLeafItem",
+          "pk_field_names": "MANDT, FinancialStatementVariant, FinancialStatementItem, ChartOfAccounts, LowerBoundaryAccount, LowerBoundaryFunctionalArea",
+          "schedule_recurrence": "D"
+        },
+        {
+          "entity_id": 455,
+          "entity_name": "I_FinancialStatementItem",
+          "data_category": "DIMENSION",
+          "tool_name": "Theobald",
+          "extraction_type": "ODP",
+          "update_mode": "Full",
+          "base_table_name": "I_FinancialStatementItem",
+          "pk_field_names": "FinancialStatementVariant, HierarchyNode",
+          "schedule_recurrence": "D"
+        },
+        {
+          "entity_id": 456,
+          "entity_name": "I_FinancialStatementItemText",
+          "data_category": "TEXT",
+          "client_field": "MANDT",
+          "tool_name": "Theobald",
+          "extraction_type": "Table",
+          "update_mode": "Full",
+          "base_table_name": "I_FinancialStatementItemText",
+          "pk_field_names": "MANDT, FinancialStatementVariant, FinancialStatementItem, Language",
+          "schedule_recurrence": "D"
+        },
+        {
+          "entity_id": 457,
+          "entity_name": "I_CN_CADEFinancialStatementItm",
+          "data_category": "NULL",
+          "client_field": "MANDT",
+          "tool_name": "Theobald",
+          "extraction_type": "Table",
+          "update_mode": "Full",
+          "base_table_name": "I_CN_CADEFinancialStatementItm",
+          "pk_field_names": "MANDT, FinancialStatementVariant, HierarchyNode",
+          "schedule_recurrence": "D"
+        }                           
       ]
     },
     "dw-halfen-0-hlp": {
@@ -4600,7 +4647,7 @@
             "source_view_name": "vw_RuleProduct",
             "dest_table_name": "dim_RuleProduct",
             "execution_order": 0,
-            "schedule_recurrence": "A"
+            "schedule_recurrence": "D"
         },
         {
             "entity_id": 438,
@@ -4609,7 +4656,7 @@
             "source_view_name": "vw_ProductTotal",
             "dest_table_name": "fact_ProductTotal",
             "execution_order": 0,
-            "schedule_recurrence": "A"
+            "schedule_recurrence": "D"
         },
         {
             "entity_id": 439,
@@ -4618,7 +4665,7 @@
             "source_view_name": "vw_RuleTotal",
             "dest_table_name": "fact_RuleTotal",
             "execution_order": 0,
-            "schedule_recurrence": "A"
+            "schedule_recurrence": "D"
         }
         ]
     }

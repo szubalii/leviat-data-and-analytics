@@ -1,0 +1,108 @@
+{
+    "functionName": "Z_THEO_READ_TABLE",
+    "runInBackgroundJob": false,
+    "backgroundJobTimeout": 180,
+    "tables": 
+    [
+        {
+            "name": "ICADEFINSTMNTITM",
+            "description": "Generated Table for View",
+            "isView": true,
+            "fields": 
+            [
+                {
+                    "name": "MANDT",
+                    "description": "Client",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "T000",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "FINANCIALSTATEMENTVARIANT",
+                    "description": "Financial Statement Version",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "T011",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "HIERARCHYNODE",
+                    "description": "Internal: Node ID",
+                    "abapType": "NumericCharacterString",
+                    "length": 6,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "NODETYPE",
+                    "description": "Node type",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "FINANCIALSTATEMENTITEM",
+                    "description": "Financial Statement Item",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PARENTNODE",
+                    "description": "Internal: Node ID",
+                    "abapType": "NumericCharacterString",
+                    "length": 6,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CHILDNODE",
+                    "description": "Internal: Node ID",
+                    "abapType": "NumericCharacterString",
+                    "length": 6,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SIBLINGNODE",
+                    "description": "Internal: Node ID",
+                    "abapType": "NumericCharacterString",
+                    "length": 6,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "FINSTATEMENTHIERARCHYLEVELVAL",
+                    "description": "Financial Statement Item Hierarchy Level",
+                    "abapType": "NumericCharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SIGNISINVERTED",
+                    "description": "Change of Sign (+/-)",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "LASTCHANGEDATE",
+                    "description": "Date of Last Change",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                }
+            ]
+        }
+    ]
+}
