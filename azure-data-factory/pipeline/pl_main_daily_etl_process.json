@@ -125,8 +125,7 @@
 						"date": {
 							"value": "@pipeline().parameters.date",
 							"type": "Expression"
-						},
-						"entity_filter": "dataset_name != 'Master Data Quality Checks'"
+						}
 					}
 				}
 			},
@@ -250,8 +249,7 @@
 						"date": {
 							"value": "@pipeline().parameters.date",
 							"type": "Expression"
-						},
-						"entity_filter": "dataset_name = 'Master Data Quality Checks'"
+						}
 					}
 				}
 			}
