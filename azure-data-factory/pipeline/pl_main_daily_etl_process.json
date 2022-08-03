@@ -204,7 +204,7 @@
 				"type": "ExecutePipeline",
 				"dependsOn": [
 					{
-						"activity": "Send Process ETL Success Mail",
+						"activity": "Process ETL",
 						"dependencyConditions": [
 							"Succeeded"
 						]
