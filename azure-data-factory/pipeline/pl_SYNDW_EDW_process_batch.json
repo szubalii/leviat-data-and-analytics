@@ -269,7 +269,7 @@
 			},
 			"entity_filter": {
 				"type": "string",
-				"defaultValue": "layer_nk = 'EDW'"
+				"defaultValue": "'a' = 'a'"
 			}
 		},
 		"folder": {
