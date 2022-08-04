@@ -3418,8 +3418,8 @@
           "extraction_type": "Table",
           "update_mode": "Full",
           "base_table_name": "I_CN_CADEFinStatementLeafItem",
-          "pk_field_names": "MANDT, FinancialStatementVariant, FinancialStatementItem, ChartOfAccounts, LowerBoundaryAccount, LowerBoundaryFunctionalArea",
-          "schedule_recurrence": "D"
+          "pk_field_names": "MANDT, FINANCIALSTATEMENTVARIANT, FINANCIALSTATEMENTITEM, CHARTOFACCOUNTS, LOWERBOUNDARYACCOUNT, LOWERBOUNDARYFUNCTIONALAREA",
+          "schedule_recurrence": "A"
         },
         {
           "entity_id": 455,
@@ -3429,8 +3429,8 @@
           "extraction_type": "ODP",
           "update_mode": "Full",
           "base_table_name": "I_FinancialStatementItem",
-          "pk_field_names": "FinancialStatementVariant, HierarchyNode",
-          "schedule_recurrence": "D"
+          "pk_field_names": "FINANCIALSTATEMENTVARIANT, HIERARCHYNODE",
+          "schedule_recurrence": "A"
         },
         {
           "entity_id": 456,
@@ -3441,8 +3441,8 @@
           "extraction_type": "Table",
           "update_mode": "Full",
           "base_table_name": "I_FinancialStatementItemText",
-          "pk_field_names": "MANDT, FinancialStatementVariant, FinancialStatementItem, Language",
-          "schedule_recurrence": "D"
+          "pk_field_names": "MANDT, FINANCIALSTATEMENTVARIANT, FINANCIALSTATEMENTITEM, LANGUAGE",
+          "schedule_recurrence": "A"
         },
         {
           "entity_id": 457,
@@ -3453,8 +3453,8 @@
           "extraction_type": "Table",
           "update_mode": "Full",
           "base_table_name": "I_CN_CADEFinancialStatementItm",
-          "pk_field_names": "MANDT, FinancialStatementVariant, HierarchyNode",
-          "schedule_recurrence": "D"
+          "pk_field_names": "MANDT, FINANCIALSTATEMENTVARIANT, HIERARCHYNODE",
+          "schedule_recurrence": "A"
         }                           
       ]
     },
