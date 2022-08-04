@@ -220,9 +220,8 @@
 					"waitOnCompletion": true,
 					"parameters": {
 						"parent_run_id": "@activity('Process ETL').output.pipelineRunId",
-						"adhoc": 0,
-						"date": "2022/08/04",
-						"rerun_successful_full_entities": 0,
+						"adhoc": "@pipeline().parameters.adhoc",
+						"date": "@pipeline().parameters.date",
 						"entity_filter": "-- WHERE entity_id = 437"
 					}
 				}
