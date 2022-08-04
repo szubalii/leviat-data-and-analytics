@@ -128,12 +128,12 @@ ITEMTABLE_without_quotes AS (
         P.[Product] AS [ProductIDCalculated]
     ,   P.[ProductExternalID] AS [ProductExternalIDCalculated]
     ,   PT.[ProductName] AS [ProductCalculated]
-    ,   NULL AS [ProductPillarIDCalculated] 
-    ,   NULL AS [ProductPillarCalculated] 
-    ,   NULL AS [ProductGroupIDCalculated] 
-    ,   NULL AS [ProductGroupCalculated] 
-    ,   NULL AS [MainGroupIDCalculated] 
-    ,   NULL AS [MainGroupCalculated] 
+    ,   PCF.[ProductPillarIDCalculated] AS [ProductPillarIDCalculated]
+    ,   PCF.[ProductPillarCalculated] AS [ProductPillarCalculated]
+    ,   PCF.[ProductGroupIDCalculated] AS [ProductGroupIDCalculated]
+    ,   PCF.[ProductGroupCalculated] AS [ProductGroupCalculated]
+    ,   PCF.[MainGroupIDCalculated] AS [MainGroupIDCalculated]
+    ,   PCF.[MainGroupCalculated] AS [MainGroupCalculated]
     ,   NULL AS [isReviewed] 
     ,   'no_TOM' AS [mappingType] 
     ,   NULL AS [axbiDataAreaID]
@@ -160,6 +160,10 @@ ITEMTABLE_without_quotes AS (
             P.[Product]=PT.[Product]
         AND 
             PT.[Language]='E'
+    LEFT JOIN    
+        [base_ff].[ProductCalculated] PCF
+        ON
+            P.[ProductExternalID]=PCF.[ProductExternalIDCalculated]
     WHERE 
         NOT EXISTS(
             SELECT 
