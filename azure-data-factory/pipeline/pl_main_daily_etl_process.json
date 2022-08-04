@@ -126,7 +126,7 @@
 							"value": "@pipeline().parameters.date",
 							"type": "Expression"
 						},
-						"pbi_entity_filter": "dataset_name != 'Master Data Quality Checks'"
+						"pbi_entity_filter": "WHERE dataset_name != 'Master Data Quality Checks'"
 					}
 				}
 			},
@@ -251,7 +251,7 @@
 							"value": "@pipeline().parameters.date",
 							"type": "Expression"
 						},
-						"pbi_entity_filter": "dataset_name = 'Master Data Quality Checks'"
+						"pbi_entity_filter": "WHERE dataset_name = 'Master Data Quality Checks'"
 					}
 				}
 			}
