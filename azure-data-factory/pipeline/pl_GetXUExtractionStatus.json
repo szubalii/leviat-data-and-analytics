@@ -204,7 +204,7 @@
 								"storedProcedureParameters": {
 									"batch_id": {
 										"value": {
-											"value": "@pipeline().parameters.batch_id_CheckXUExtractionStatus",
+											"value": "@pipeline().parameters.batch_id_Extract",
 											"type": "Expression"
 										},
 										"type": "Guid"
@@ -280,7 +280,7 @@
 									},
 									"error_msg": {
 										"value": {
-											"value": "@activity('Get XU Extraction Status').Error.Message",
+											"value": "Extraction failed, check the logs",
 											"type": "Expression"
 										},
 										"type": "String"
