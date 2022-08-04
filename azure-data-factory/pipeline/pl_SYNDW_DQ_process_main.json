@@ -460,10 +460,6 @@
 				"type": "string",
 				"defaultValue": "2022/08/01"
 			},
-			"rerun_successful_full_entities": {
-				"type": "int",
-				"defaultValue": 0
-			},
 			"entity_filter": {
 				"type": "string",
 				"defaultValue": "-- WHERE entity_id = 437"
