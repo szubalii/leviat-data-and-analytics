@@ -33,10 +33,6 @@
 						"date": {
 							"value": "@pipeline().parameters.date",
 							"type": "Expression"
-						},
-						"entity_filter": {
-							"value": "layer_nk = 'EDW'",
-							"type": "Expression"
 						}
 					}
 				}
