@@ -126,7 +126,7 @@
 							"value": "@pipeline().parameters.date",
 							"type": "Expression"
 						},
-						"pbi_entity_filter": "dataset_name != 'Master Data Quality Checks'"
+						"pbi_entity_filter": "WHERE dataset_name != 'Master Data Quality Checks'"
 					}
 				}
 			},
@@ -205,7 +205,7 @@
 				"type": "ExecutePipeline",
 				"dependsOn": [
 					{
-						"activity": "Send Process ETL Success Mail",
+						"activity": "Process ETL",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -217,7 +217,13 @@
 						"referenceName": "pl_SYNDW_DQ_process_main",
 						"type": "PipelineReference"
 					},
-					"waitOnCompletion": true
+					"waitOnCompletion": true,
+					"parameters": {
+						"parent_run_id": "@activity('Process ETL').output.pipelineRunId",
+						"adhoc": "@pipeline().parameters.adhoc",
+						"date": "@pipeline().parameters.date",
+						"entity_filter": "-- WHERE entity_id = 437"
+					}
 				}
 			},
 			{
@@ -251,7 +257,7 @@
 							"value": "@pipeline().parameters.date",
 							"type": "Expression"
 						},
-						"pbi_entity_filter": "dataset_name = 'Master Data Quality Checks'"
+						"pbi_entity_filter": "WHERE dataset_name = 'Master Data Quality Checks'"
 					}
 				}
 			}
