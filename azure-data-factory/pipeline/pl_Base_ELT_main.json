@@ -565,7 +565,7 @@
 					"source": {
 						"type": "AzureSqlSource",
 						"sqlReaderQuery": {
-							"value": "SELECT base_schema_name, base_table_name \nFROM dbo.get_scheduled_entities(\n    @{pipeline().parameters.adhoc},\n    '@{pipeline().parameters.date}'\n)\nWHERE update_mode = 'Delta' and layer_nk <> 'EDW'",
+							"value": "SELECT base_schema_name, base_table_name \nFROM dbo.get_scheduled_entities(\n    @{pipeline().parameters.adhoc},\n    '@{pipeline().parameters.date}'\n)\nWHERE\n    update_mode = 'Delta'\n    AND\n    layer_nk <> 'EDW'\n    AND\n    @{pipeline().parameters.entity_filter}",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
@@ -681,7 +681,7 @@
 			},
 			"entity_filter": {
 				"type": "string",
-				"defaultValue": "-- WHERE entity_id = 18"
+				"defaultValue": "'a' = 'a'"
 			},
 			"parent_run_id": {
 				"type": "string"
