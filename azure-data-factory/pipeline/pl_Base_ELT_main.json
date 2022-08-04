@@ -688,7 +688,7 @@
 			},
 			"date": {
 				"type": "string",
-				"defaultValue": "2022/05/18"
+				"defaultValue": "2022/08/04"
 			},
 			"rerun_successful_full_entities": {
 				"type": "int",
