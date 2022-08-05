@@ -84,7 +84,7 @@ SELECT
 , NULL AS [SourceOfSupply]
 , NULL AS [CountryOfOrigin]
 , NULL AS [CompetitorID]
-, NULL AS [ProductGroup]
+, NULL AS [MaterialGroup]
 , NULL AS [BaseUnit]
 , NULL AS [ItemCategoryGroup]
 , [ProductHierarchy]
