@@ -15,7 +15,7 @@ SELECT
 , [SourceOfSupply]
 , [CountryOfOrigin]
 , [CompetitorID]
-, [ProductGroup]
+, [ProductGroup] AS MaterialGroup -- So all PBI datasets still work
 , [BaseUnit]
 , [ItemCategoryGroup]
 , [ProductHierarchy]
