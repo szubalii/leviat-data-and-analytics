@@ -1,4 +1,4 @@
- CREATE TABLE [edw].[fact_FinancialStatementItem] (
+ CREATE TABLE [edw].[dim_FinancialStatementItem] (
       [FinancialStatementVariant]     NVARCHAR(4) COLLATE Latin1_General_100_BIN2 NOT NULL
     , [HierarchyNode]                 CHAR(6) COLLATE Latin1_General_100_BIN2     NOT NULL
     , [NodeType]                      NVARCHAR(4) COLLATE Latin1_General_100_BIN2
@@ -12,6 +12,7 @@
     , [OffsettingItem]                NVARCHAR(10) COLLATE Latin1_General_100_BIN2
     , [FinStatementItemDescription]   NVARCHAR(45) COLLATE Latin1_General_100_BIN2
     , [t_applicationId]               VARCHAR (32)
+    , [t_extractionDtm]               DATETIME       NULL
     , [t_jobId]                       VARCHAR (36)
     , [t_jobDtm]                      DATETIME
     , [t_lastActionCd]                VARCHAR(1)

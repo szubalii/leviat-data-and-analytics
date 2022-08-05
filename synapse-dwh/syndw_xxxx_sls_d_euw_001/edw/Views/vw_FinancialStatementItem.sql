@@ -12,7 +12,9 @@ CREATE VIEW [edw].[vw_FinancialStatementItem]
         icns.[SignIsInverted],
         icns.[LastChangeDate],
     --I_FinancialStatementItemText      
-        ifsix.[FinStatementItemDescription]                      
+        ifsix.[FinStatementItemDescription], 
+        icns.[t_applicationId],
+        icns.[t_extractionDtm]                     
     FROM  
         [base_s4h_cax].[I_CN_CADEFinancialStatementItm] icns 
     LEFT JOIN 

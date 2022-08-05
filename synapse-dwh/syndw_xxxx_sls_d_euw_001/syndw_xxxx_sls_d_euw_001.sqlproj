@@ -858,8 +858,8 @@
     <Build Include="base_s4h_cax\Tables\I_FinancialStatementItem.sql" />
     <Build Include="base_s4h_cax\Tables\I_FinancialStatementItemText.sql" />
     <Build Include="base_s4h_cax\Tables\I_CN_CADEFinancialStatementItm.sql" />
-    <Build Include="edw\Tables\fact_FinancialStatementItem.sql" />
-    <Build Include="edw\Tables\fact_FinancialStatementHierarchy.sql" />
+    <Build Include="edw\Tables\dim_FinancialStatementItem.sql" />
+    <Build Include="edw\Tables\dim_FinancialStatementHierarchy.sql" />
     <Build Include="edw\Views\vw_FinancialStatementItem.sql" />   
     <Build Include="edw\Views\vw_FinancialStatementHierarchy.sql" />   
     <Build Include="dm_sales\Views\vw_dim_FinancialStatementHierarchy.sql" />      

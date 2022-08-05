@@ -4634,7 +4634,7 @@
             "schedule_recurrence": "D"
         },
         {
-          "entity_id": 457,
+          "entity_id": 458,
           "entity_name": "dim_FinancialStatementItem",
           "sproc_name": "sp_materialize_view",
           "source_view_name": "vw_FinancialStatementItem",
@@ -4643,7 +4643,7 @@
           "schedule_recurrence": "A"
         },
         {
-          "entity_id": 458,
+          "entity_id": 459,
           "entity_name": "dim_FinancialStatementHierarchy",
           "sproc_name": "sp_materialize_view",
           "source_view_name": "vw_FinancialStatementHierarchy",

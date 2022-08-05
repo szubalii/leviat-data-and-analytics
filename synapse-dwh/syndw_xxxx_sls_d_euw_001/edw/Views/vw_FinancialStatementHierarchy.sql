@@ -11,7 +11,9 @@ CREATE VIEW [edw].[vw_FinancialStatementHierarchy]
         icn.[IsDebitBalanceRelevant],
         icn.[IsCreditBalanceRelevant],
     --I_FinancialStatementItemText  
-        ifsix.[FinStatementItemDescription]   
+        ifsix.[FinStatementItemDescription],   
+        icn.[t_applicationId],
+        icn.[t_extractionDtm]
     FROM 
         [base_s4h_cax].[I_CN_CADEFinStatementLeafItem] icn 
     LEFT JOIN 

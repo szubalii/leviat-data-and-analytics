@@ -11,4 +11,4 @@ SELECT
        [t_jobDtm],
        [t_applicationId]
 FROM
-     [edw].[fact_FinancialStatementHierarchy]
+     [edw].[dim_FinancialStatementHierarchy]
