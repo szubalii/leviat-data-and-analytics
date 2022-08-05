@@ -10,7 +10,7 @@ SELECT
 	, [MaterialTypeID]
 	, [MaterialType]
 	, [CrossPlantStatus]
-	, [MaterialGroup] AS [ProductGroup]
+	, [ProductGroup]
 	, [ProductHierarchy]
 	, [Product_L1_PillarID]
 	, [Product_L2_GroupID]
