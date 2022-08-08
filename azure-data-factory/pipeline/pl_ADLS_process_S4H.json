@@ -95,7 +95,7 @@
 							"typeProperties": {
 								"variableName": "additionalColumns",
 								"value": {
-									"value": "@json(\n    concat(\n        '{\"name\":\"',\n        pipeline().parameters.client_field,\n        '\",\"value\":\"',\n        pipeline().globalParameters.S4H_clientValue,\n        '\"'\n    )\n)",
+									"value": "@json(\n    concat(\n        '{\"name\":\"',\n        pipeline().parameters.client_field,\n        '\",\"value\":\"',\n        string(pipeline().parameters.client_id),\n        '\"'\n    )\n)",
 									"type": "Expression"
 								}
 							}
@@ -236,6 +236,10 @@
 			"adls_file_name": {
 				"type": "string",
 				"defaultValue": "I_Address_2022_04_06"
+			},
+			"client_id": {
+				"type": "int",
+				"defaultValue": 200
 			}
 		},
 		"variables": {
