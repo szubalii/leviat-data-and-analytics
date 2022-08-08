@@ -20,7 +20,7 @@ jobs:
         method: 'POST'
         urlSuffix: '/subscriptions/f199b488-7d9d-4992-aeda-c10a1e1c9b9e/resourceGroups/$(VMResourceGroup)/providers/Microsoft.Compute/virtualMachines/$(VMName)/start?api-version=2022-03-01'
         waitForCompletion: 'true'
-      displayname: 'Start VM'
+      displayName: 'Start VM'
 
   # Orchestration Database Build Job
 - job: OrchDB
