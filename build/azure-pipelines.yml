@@ -8,6 +8,19 @@ trigger:
 
 jobs:
 
+- # Start VM
+- job: StartVM
+  pool: 
+    vmImage: 'ubuntu-latest'
+  steps:
+    - task: InvokeRESTAPI@1
+      inputs:
+        connectionType: 'connectedServiceNameARM'
+        azureServiceConnection: 'arm-pipeline'
+        method: 'POST'
+        urlSuffix: '/subscriptions/f199b488-7d9d-4992-aeda-c10a1e1c9b9e/resourceGroups/$(VMResourceGroup)/providers/Microsoft.Compute/virtualMachines/$(VMName)/start?api-version=2022-03-01'
+        waitForCompletion: 'true'
+
   # Orchestration Database Build Job
 - job: OrchDB
   pool:
