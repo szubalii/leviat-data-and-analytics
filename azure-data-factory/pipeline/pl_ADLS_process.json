@@ -67,6 +67,10 @@
 											"adls_file_name": {
 												"value": "@pipeline().parameters.adls_file_name",
 												"type": "Expression"
+											},
+											"client_id": {
+												"value": "@pipeline().parameters.s4h_client_id",
+												"type": "Expression"
 											}
 										}
 									}
@@ -205,6 +209,9 @@
 			},
 			"application_id": {
 				"type": "string"
+			},
+			"s4h_client_id": {
+				"type": "int"
 			}
 		},
 		"variables": {
