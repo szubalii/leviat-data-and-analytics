@@ -10,8 +10,7 @@ jobs:
 
   # Start VM
 - job: StartVM
-  pool: 
-    vmImage: 'ubuntu-latest'
+  pool: server
   steps:
     - task: InvokeRESTAPI@1
       inputs:
@@ -24,6 +23,7 @@ jobs:
 
   # Orchestration Database Build Job
 - job: OrchDB
+  dependsOn: StartVM
   pool:
     name: 'VM'
     demands:
@@ -111,7 +111,9 @@ jobs:
 
   # Azure Data Factory Build Job
 - job: ADF
-  dependsOn: OrchDB
+  dependsOn: 
+  - OrchDB
+  - StartVM
   pool:
     name: 'VM'
     demands:
@@ -166,7 +168,9 @@ jobs:
 
   # Theobald Xtract Universal Build Job
 - job: XtractUniversal
-  dependsOn: OrchDB
+  dependsOn: 
+  - OrchDB
+  - StartVM
   pool:
     name: 'VM'
     demands:
@@ -188,7 +192,9 @@ jobs:
 
   # Azure Synapse Dedicated SQL Pool Build Job
 - job: SynapseDWH
-  dependsOn: OrchDB
+  dependsOn: 
+  - OrchDB
+  - StartVM
   pool:
     name: 'VM'
     demands:
