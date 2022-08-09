@@ -24,11 +24,38 @@
                 }
             },"Orderbook": {
                 "pbi_dataset_id": 3,
-                "schedule_recurrence": "D",
                 "entities": {
                     "edw": [
                         "dim_Customer",
                         "dim_Product",
+                        "dim_SalesOrganization",
+                        "fact_SalesDocumentItem"
+                    ]
+                }
+
+            },"Orderbook - Intake": {
+                "pbi_dataset_id": 17,
+                "schedule_recurrence": "D",
+                "entities": {
+                    "edw": [
+                        "dim_CompanyCode",
+                        "dim_Customer",
+                        "dim_Product",
+                        "dim_ProfitCenter",
+                        "dim_SalesOrganization",
+                        "fact_SalesDocumentItem"
+                    ]
+                }
+
+            },"Orderbook - Open Orders": {
+                "pbi_dataset_id": 18,
+                "schedule_recurrence": "D",
+                "entities": {
+                    "edw": [
+                        "dim_CompanyCode",
+                        "dim_Customer",
+                        "dim_Product",
+                        "dim_ProfitCenter",
                         "dim_SalesOrganization",
                         "fact_SalesDocumentItem"
                     ]
@@ -75,6 +102,20 @@
                         "fact_BillingDocumentItem",
                         "dim_Customer",
                         "dim_Product",
+                        "dim_SalesOrganization"
+                    ]
+                }
+            },"Sales View Invoiced Cost Outliers": {
+                "pbi_dataset_id": 19,
+                "schedule_recurrence": "D",
+                "entities": {
+                    "edw": [
+                        "fact_BillingDocumentItem",
+                        "dim_CompanyCode",
+                        "dim_CostCenter",
+                        "dim_Customer",
+                        "dim_Product",
+                        "dim_ProfitCenter",
                         "dim_SalesOrganization"
                     ]
                 }
@@ -127,6 +168,23 @@
                         "fact_BillingBudget",
                         "dim_CustomerCalculated",
                         "dim_ProductCalculated",
+                        "dim_CustomerCalculated_US",
+                        "dim_ProductCalculated_US"
+                    ]
+                }
+            },"Fin View (Legacy) - Budgeting": {
+                "pbi_dataset_id": 20,
+                "entities": {
+                    "edw": [
+                        "dim_CompanyCode",
+                        "dim_CostCenter",
+                        "dim_ProductCalculated",
+                        "dim_ProfitCenter",
+                        "dim_CustomerCalculated",
+                        "fact_BillingDocumentItem",
+                        "fact_BillingDocumentItem_US",
+                        "fact_BillingBudget",
+                        "dim_SalesOrganization",
                         "dim_CustomerCalculated_US",
                         "dim_ProductCalculated_US"
                     ]
@@ -193,7 +251,6 @@
             "Master Data Quality Checks": {
                 "pbi_dataset_id": 16,
                 "schedule_recurrence": "D",
-                "schedule_day": 2,
                 "entities": {
                     "dq": [
                         "dim_RuleProduct",
