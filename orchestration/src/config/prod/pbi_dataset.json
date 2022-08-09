@@ -8,6 +8,10 @@
                 "dataset_guid": "79d50e6d-89b2-4be3-9670-6ec99743ae88"
             },"Orderbook": {
                 "dataset_guid": "d697bc62-f25b-4b71-9f19-203211daa31c"
+            },"Orderbook - Intake": {
+                "dataset_guid": "af094db9-4f11-4b60-b1b6-79e71bfca662"
+            },"Orderbook - Open Orders": {
+                "dataset_guid": "6de5bbe9-ccf0-4b85-8471-0efb9687311a"
             },"Product Top Flop": {
                 "dataset_guid": "a2880655-7d9f-40c0-811e-ecc04213b1d6"
             },"PVM": {
@@ -16,6 +20,8 @@
                 "dataset_guid": "2782db55-7533-4334-9328-9f23e52d7698"
             },"Sales View": {
                 "dataset_guid": "a5081fc1-9b68-4393-aede-d8f375156af1"
+            },"Sales View Invoiced Cost Outliers": {
+                "dataset_guid": "45a5de05-f226-4a6a-8345-8c2a9f57df0f"
             },"Whale Curve": {
                 "dataset_guid": "7fd8fb91-dc45-474d-bf24-f71223716541"
             },"Project Card": {
@@ -28,8 +34,14 @@
             "Fin View": {
                 "dataset_guid": "eb0fd327-dcab-4716-b8c6-62030375963c"
             },
+            "Fin View Invoiced Cost Outliers": {
+                "dataset_guid": "0528c746-38c8-4aab-ad7c-c022ba2ba01d"
+            },
             "Fin View (Legacy)": {
                 "dataset_guid": "8f4df736-52c9-4539-94bd-aa725142cb4a"
+            },
+            "Fin View (Legacy) - Budgeting": {
+                "dataset_guid": "9dc1adfb-8dc0-453c-bca4-6f0b482e878f"
             }
         }
     },"Leviat_Data_Analytics_SCM": {
@@ -37,8 +49,8 @@
         "datasets": {
             "OTIF": {
                 "dataset_guid": "c8508ad9-50da-41c8-ac24-c83032834810"
-            },"Stock Management": {
-                "dataset_guid": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+            },"Stock Usage": {
+                "dataset_guid": "15188896-8289-4517-96ab-49cf5b93ed7e"
             },"Data Quality Checks": {
                 "dataset_guid": "b62f4e1a-3ed8-44d8-a743-b097345d2f05"
             }
@@ -55,7 +67,7 @@
         "workspace_guid": "66ed8f0a-80d4-41d2-852d-3bdff14a0efa",
         "datasets": {
             "Master Data Quality Checks": {
-                "dataset_guid": "909ca565-af0b-457f-a0ec-19a60436f405"
+                "dataset_guid": "75fc2a75-7825-4d43-b13a-1aa3a4efb85a"
             }
         }
     }

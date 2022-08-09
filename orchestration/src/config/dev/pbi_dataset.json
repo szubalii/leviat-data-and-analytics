@@ -8,6 +8,10 @@
                 "dataset_guid": "f62df8b8-787b-4895-be52-5f1cb267c232"
             },"Orderbook": {
                 "dataset_guid": "f5ea11ff-5c6a-4c49-9bda-dc29cbc7733e"
+            },"Orderbook - Intake": {
+                "dataset_guid": "b36f010e-8dd7-419d-be4c-ddef911f1a42"
+            },"Orderbook - Open Orders": {
+                "dataset_guid": "fd17a94f-53ae-4770-a60a-de5c910201d1"
             },"Product Top Flop": {
                 "dataset_guid": "de7265f5-645c-4e89-b3a6-7c937c7946fe"
             },"PVM": {
@@ -16,6 +20,8 @@
                 "dataset_guid": "ba723504-29ce-4f52-bda6-aee54d891537"
             },"Sales View": {
                 "dataset_guid": "43f00a84-a251-4099-81c5-af9ed3c0c2ee"
+            },"Sales View Invoiced Cost Outliers": {
+                "dataset_guid": "57b4b830-18f5-468f-8449-da8e14ce7b72"
             },"Whale Curve": {
                 "dataset_guid": "3e6d8d25-f883-4f03-b5fd-607c2f0278a6"
             },"Project Card": {
@@ -28,8 +34,12 @@
         "datasets": {
             "Fin View": {
                 "dataset_guid": "bb8a0473-48c0-4927-88a7-98f98105faa7"
+            },"Fin View Invoiced Cost Outliers": {
+                "dataset_guid": "d5956a90-5068-42bc-ab68-95d516679b45"
             },"Fin View (Legacy)": {
                 "dataset_guid": "dc9d0797-e1ea-4110-97fd-123d92c152c6"
+            },"Fin View (Legacy) - Budgeting": {
+                "dataset_guid": "45efe381-9061-4e88-9c5b-a87f93cedd33"
             }
         }
     },
@@ -38,8 +48,8 @@
         "datasets": {
             "OTIF": {
                 "dataset_guid": "3f3dab9d-c7d1-479f-86b5-1f6f87085d48"
-            },"Stock Management": {
-                "dataset_guid": "a8ad7e91-4bd6-41fb-b175-ba084fdf4cba"
+            },"Stock Usage": {
+                "dataset_guid": "56884447-2c8a-4c44-bba5-c9d9e99eaffc"
             },"Data Quality Checks": {
                 "dataset_guid": "1aea2e45-f5d3-46f7-8098-247a35ff3eaa"
             }
