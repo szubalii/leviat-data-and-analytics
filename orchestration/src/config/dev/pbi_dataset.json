@@ -48,8 +48,8 @@
         "datasets": {
             "OTIF": {
                 "dataset_guid": "3f3dab9d-c7d1-479f-86b5-1f6f87085d48"
-            },"Stock Management": {
-                "dataset_guid": "a8ad7e91-4bd6-41fb-b175-ba084fdf4cba"
+            },"Stock Usage": {
+                "dataset_guid": "56884447-2c8a-4c44-bba5-c9d9e99eaffc"
             },"Data Quality Checks": {
                 "dataset_guid": "1aea2e45-f5d3-46f7-8098-247a35ff3eaa"
             }

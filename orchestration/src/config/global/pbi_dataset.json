@@ -217,8 +217,9 @@
                         "dim_Product"
                     ]
                 }
-            },"Stock Management": {
+            },"Stock Usage": {
                 "pbi_dataset_id": 12,
+                "schedule_recurrence": "D",
                 "entities":{
                     "edw": [
                         "dim_Customer",
