@@ -158,7 +158,19 @@
                         "dim_SalesOrganization"
                     ]
                 }
-            },"Fin View (Legacy)": {
+            },
+            "Fin View Invoiced Cost Outliers": {
+                "pbi_dataset_id": 21,
+                "entities": {
+                    "edw": [
+                        "fact_BillingDocumentItem",
+                        "dim_Customer",
+                        "dim_Product",
+                        "dim_SalesOrganization"
+                    ]
+                }
+            },
+            "Fin View (Legacy)": {
                 "pbi_dataset_id": 10,
                 "entities": {
                     "edw": [

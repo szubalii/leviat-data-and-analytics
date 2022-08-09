@@ -34,6 +34,9 @@
             "Fin View": {
                 "dataset_guid": "eb0fd327-dcab-4716-b8c6-62030375963c"
             },
+            "Fin View Invoiced Cost Outliers": {
+                "dataset_guid": "0528c746-38c8-4aab-ad7c-c022ba2ba01d"
+            },
             "Fin View (Legacy)": {
                 "dataset_guid": "8f4df736-52c9-4539-94bd-aa725142cb4a"
             },
