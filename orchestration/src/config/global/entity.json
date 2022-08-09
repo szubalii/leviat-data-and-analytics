@@ -3455,7 +3455,55 @@
           "base_table_name": "I_CN_CADEFinancialStatementItm",
           "pk_field_names": "MANDT, FinancialStatementVariant, HierarchyNode",
           "schedule_recurrence": "D"
-        }                           
+        },
+        {
+          "entity_id": 458,
+          "entity_name": "I_AccountingDocumentTypeText_F",
+          "data_category": "TEXT",
+          "client_field": "MANDT",
+          "tool_name": "Theobald",
+          "extraction_type": "ODP",
+          "update_mode": "Full",
+          "base_table_name": "I_AccountingDocumentTypeText",
+          "pk_field_names": " ACCOUNTINGDOCUMENTTYPE, LANGUAGE",
+          "schedule_recurrence": "A"
+        },   
+        {
+          "entity_id": 459,
+          "entity_name": "I_FunctionalAreaText_F",
+          "data_category": "TEXT",
+          "client_field": "MANDT",
+          "tool_name": "Theobald",
+          "extraction_type": "ODP",
+          "update_mode": "Full",
+          "base_table_name": "I_FunctionalAreaText",
+          "pk_field_names": "LANGUAGE, FUNCTIONALAREA",
+          "schedule_recurrence": "A"
+        }, 
+        {
+          "entity_id": 460,
+          "entity_name": "I_GLAccountLineItemRawData_F",
+          "data_category": "CUBE",
+          "client_field": "MANDT",
+          "tool_name": "Theobald",
+          "extraction_type": "ODP",
+          "update_mode": "Full",
+          "base_table_name": "I_GLAccountLineItemRawData",
+          "pk_field_names": "SOURCELEDGER, COMPANYCODE, FISCALYEAR, ACCOUNTINGDOCUMENT, LEDGERGLLINEITEM",
+          "schedule_recurrence": "D"
+        },
+        {
+          "entity_id": 461,
+          "entity_name": "I_FinancialInstrTransTypeText",
+          "data_category": "TEXT",
+          "client_field": "MANDT",
+          "tool_name": "Theobald",
+          "extraction_type": "Table",
+          "update_mode": "Full",
+          "base_table_name": "I_FinancialInstrTransTypeText",
+          "pk_field_names": "LANGUAGE,FINANCIALINSTRUMENTPRODUCTTYPE,FINANCIALINSTRTRANSACTIONTYPE",
+          "schedule_recurrence": "A"
+        }                              
       ]
     },
     "dw-halfen-0-hlp": {
@@ -4328,11 +4376,11 @@
             "schedule_recurrence": "A"
         },
         {
-            "entity_id": 370,
-            "entity_name": "fact_GLAccountLineItemRawData",
-            "sproc_name": "sp_load_fact_GLAccountLineItemRawData",
-            "execution_order": 1
-        },
+          "entity_id": 370,
+          "entity_name": "fact_GLAccountLineItemRawData",
+          "sproc_name": "sp_load_fact_GLAccountLineItemRawData",
+          "execution_order": 1
+         },
         {
             "entity_id": 373,
             "entity_name": "fact_BillingBudget",
