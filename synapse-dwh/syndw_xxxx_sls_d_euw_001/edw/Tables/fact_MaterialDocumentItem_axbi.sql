@@ -69,13 +69,12 @@ CREATE TABLE [edw].[fact_MaterialDocumentItem_axbi]
     --[IssgOrRcvgBatch]                 nvarchar(10) COLLATE Latin1_General_100_BIN2,
     --[IssgOrRcvgSpclStockInd]          nvarchar(1) COLLATE Latin1_General_100_BIN2,
     --[MaterialDocumentItemText]        nvarchar(50) COLLATE Latin1_General_100_BIN2,
------new fields-----------------------------------------------------------------------------------
     [SalesDocumentItemCategoryID]               CHAR(1),
     [SalesDocumentItemCategory]                 NVARCHAR(120),
-    [HDR_DeliveryDocumentTypeID]                NVARCHAR(40),
     [StandardPricePerUnit]                      DECIMAL(38, 16)         NULL,
     [StandardPricePerUnit_EUR]                  DECIMAL(38, 16)         NULL,
-    [PriceControlIndicator]                     DECIMAL(38, 12)         NULL,
+    [PriceControlIndicatorID]                   CHAR(1),
+    [PriceControlIndicator]                     CHAR(13),
     [ConsumptionQtyICPOInStandardValue]         DECIMAL(31, 14),
     [ConsumptionQtyICPOInStandardValue_EUR]     DECIMAL(31, 14),
     [ConsumptionQtySOStandardValue]             DECIMAL(31, 14),
@@ -84,7 +83,6 @@ CREATE TABLE [edw].[fact_MaterialDocumentItem_axbi]
     [MatlStkChangeStandardValue_EUR]            DECIMAL(31, 14),
     [ConsumptionQtyProStandardValue]            DECIMAL(31, 14),
     [ConsumptionQtyProStandardValue_EUR]        DECIMAL(31, 14),
---------------------------------------------------------------------------------------------------
     [CurrencyTypeID]                            CHAR(2),
     --[HDR_AccountingDocumentTypeID]    nvarchar(2) COLLATE Latin1_General_100_BIN2,
     --[HDR_InventoryTransactionTypeID]  nvarchar(2) COLLATE Latin1_General_100_BIN2,
