@@ -8,22 +8,8 @@ trigger:
 
 jobs:
 
-  # Start VM
-- job: StartVM
-  pool: server
-  steps:
-    - task: InvokeRESTAPI@1
-      inputs:
-        connectionType: 'connectedServiceNameARM'
-        azureServiceConnection: 'arm-pipeline'
-        method: 'POST'
-        urlSuffix: '/subscriptions/f199b488-7d9d-4992-aeda-c10a1e1c9b9e/resourceGroups/$(VMResourceGroup)/providers/Microsoft.Compute/virtualMachines/$(VMName)/start?api-version=2022-03-01'
-        waitForCompletion: 'false'
-      displayName: 'Start VM'
-
   # Orchestration Database Build Job
 - job: OrchDB
-  dependsOn: StartVM
   pool:
     name: 'VM'
     demands:
@@ -111,9 +97,7 @@ jobs:
 
   # Azure Data Factory Build Job
 - job: ADF
-  dependsOn: 
-  - OrchDB
-  - StartVM
+  dependsOn: OrchDB
   pool:
     name: 'VM'
     demands:
@@ -168,9 +152,7 @@ jobs:
 
   # Theobald Xtract Universal Build Job
 - job: XtractUniversal
-  dependsOn: 
-  - OrchDB
-  - StartVM
+  dependsOn: OrchDB
   pool:
     name: 'VM'
     demands:
@@ -192,9 +174,7 @@ jobs:
 
   # Azure Synapse Dedicated SQL Pool Build Job
 - job: SynapseDWH
-  dependsOn: 
-  - OrchDB
-  - StartVM
+  dependsOn: OrchDB
   pool:
     name: 'VM'
     demands:
