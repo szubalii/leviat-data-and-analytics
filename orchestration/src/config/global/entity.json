@@ -3533,104 +3533,119 @@
         "schema_name": "base_tx_halfen_2_dwh",
         "base_schema_name": "base_tx_halfen_2_dwh",
         "axbi_schema_name": "dbo",
-        "entities": [
+      "entities": [
         {
-            "entity_id": 42,
-            "entity_name": "FACT_SALESLINE",
-            "base_table_name": "FACT_SALESLINE",
-            "axbi_date_field_name": "CREATEDDATETIME",
-            "pk_field_names": "SALESID, INVENTTRANSID",
-            "schedule_recurrence": "D"
+          "entity_id": 42,
+          "entity_name": "FACT_SALESLINE",
+          "base_table_name": "FACT_SALESLINE",
+          "axbi_date_field_name": "CREATEDDATETIME",
+          "pk_field_names": "SALESID, INVENTTRANSID",
+          "schedule_recurrence": "D"
         },
         {
-            "entity_id": 43,
-            "entity_name": "FACT_SALESTABLE",
-            "base_table_name": "FACT_SALESTABLE",
-            "axbi_date_field_name": "CREATEDDATETIME",
-            "pk_field_names": "DW_Id",
-            "schedule_recurrence": "D"
-        },{
-            "entity_id": 48,
-            "entity_name": "DIM_DATAAREA",
-            "base_table_name": "DIM_DATAAREA",
-            "pk_field_names": "ID",
-            "schedule_recurrence": "D"
-        },
-        
-        
-        {
-            "entity_id": 89,
-            "entity_name": "FACT_CUSTPACKINGSLIPJOUR",
-            "base_table_name": "FACT_CUSTPACKINGSLIPJOUR",
-            "axbi_date_field_name": "DELIVERYDATE",
-            "pk_field_names": "PACKINGSLIPID",
-            "schedule_recurrence": "A"
+          "entity_id": 43,
+          "entity_name": "FACT_SALESTABLE",
+          "base_table_name": "FACT_SALESTABLE",
+          "axbi_date_field_name": "CREATEDDATETIME",
+          "pk_field_names": "DW_Id",
+          "schedule_recurrence": "D"
         },
         {
-            "entity_id": 90,
-            "entity_name": "FACT_CUSTPACKINGSLIPTRANS",
-            "base_table_name": "FACT_CUSTPACKINGSLIPTRANS",
-            "axbi_date_field_name": "DELIVERYDATE",
-            "pk_field_names": "PACKINGSLIPID, INVENTTRANSID",
-            "schedule_recurrence": "A"
+          "entity_id": 48,
+          "entity_name": "DIM_DATAAREA",
+          "base_table_name": "DIM_DATAAREA",
+          "pk_field_names": "ID",
+          "schedule_recurrence": "D"
+        },
+
+
+        {
+          "entity_id": 89,
+          "entity_name": "FACT_CUSTPACKINGSLIPJOUR",
+          "base_table_name": "FACT_CUSTPACKINGSLIPJOUR",
+          "axbi_date_field_name": "DELIVERYDATE",
+          "pk_field_names": "PACKINGSLIPID",
+          "schedule_recurrence": "A"
         },
         {
-            "entity_id": 91,
-            "entity_name": "DIM_CUSTOMEROBJECT",
-            "base_table_name": "DIM_CUSTOMEROBJECT",
-            "pk_field_names": "DW_Id",
-            "schedule_recurrence": "A"
-        },        
-        {
-            "entity_id": 441,
-            "entity_name": "DIM_ADUENUMTRANSLATIONS",
-            "base_table_name": "DIM_ADUENUMTRANSLATIONS",
-            "pk_field_names": "DW_Id",
-            "schedule_recurrence": "A"
+          "entity_id": 90,
+          "entity_name": "FACT_CUSTPACKINGSLIPTRANS",
+          "base_table_name": "FACT_CUSTPACKINGSLIPTRANS",
+          "axbi_date_field_name": "DELIVERYDATE",
+          "pk_field_names": "PACKINGSLIPID, INVENTTRANSID",
+          "schedule_recurrence": "A"
         },
         {
-            "entity_id": 442,
-            "entity_name": "DIM_INVENTDIM",
-            "base_table_name": "DIM_INVENTDIM",
-            "pk_field_names": "DW_Id",
-            "schedule_recurrence": "A"
+          "entity_id": 91,
+          "entity_name": "DIM_CUSTOMEROBJECT",
+          "base_table_name": "DIM_CUSTOMEROBJECT",
+          "pk_field_names": "DW_Id",
+          "schedule_recurrence": "A"
         },
         {
-            "entity_id": 443,
-            "entity_name": "DIM_INVENTLOCATION",
-            "base_table_name": "DIM_INVENTLOCATION",
-            "pk_field_names": "DW_Id",
-            "schedule_recurrence": "A"
+          "entity_id": 441,
+          "entity_name": "DIM_ADUENUMTRANSLATIONS",
+          "base_table_name": "DIM_ADUENUMTRANSLATIONS",
+          "pk_field_names": "DW_Id",
+          "schedule_recurrence": "A"
         },
         {
-            "entity_id": 444,
-            "entity_name": "DIM_INVENTSITE",
-            "base_table_name": "DIM_INVENTSITE",
-            "pk_field_names": "DW_Id",
-            "schedule_recurrence": "A"
+          "entity_id": 442,
+          "entity_name": "DIM_INVENTDIM",
+          "base_table_name": "DIM_INVENTDIM",
+          "pk_field_names": "DW_Id",
+          "schedule_recurrence": "A"
         },
         {
-            "entity_id": 445,
-            "entity_name": "DIM_INVENTTABLE",
-            "base_table_name": "DIM_INVENTTABLE",
-            "pk_field_names": "DW_Id",
-            "schedule_recurrence": "A"
+          "entity_id": 443,
+          "entity_name": "DIM_INVENTLOCATION",
+          "base_table_name": "DIM_INVENTLOCATION",
+          "pk_field_names": "DW_Id",
+          "schedule_recurrence": "A"
         },
         {
-            "entity_id": 446,
-            "entity_name": "FACT_INVENTSUM",
-            "base_table_name": "FACT_INVENTSUM",
-            "pk_field_names": "DW_Id",
-            "schedule_recurrence": "A"
+          "entity_id": 444,
+          "entity_name": "DIM_INVENTSITE",
+          "base_table_name": "DIM_INVENTSITE",
+          "pk_field_names": "DW_Id",
+          "schedule_recurrence": "A"
         },
         {
-            "entity_id": 447,
-            "entity_name": "FACT_INVENTTRANS",
-            "base_table_name": "FACT_INVENTTRANS",
-            "pk_field_names": "DW_Id",
-            "schedule_recurrence": "A"
-        }    
-        ]
+          "entity_id": 445,
+          "entity_name": "DIM_INVENTTABLE",
+          "base_table_name": "DIM_INVENTTABLE",
+          "pk_field_names": "DW_Id",
+          "schedule_recurrence": "A"
+        },
+        {
+          "entity_id": 446,
+          "entity_name": "FACT_INVENTSUM",
+          "base_table_name": "FACT_INVENTSUM",
+          "pk_field_names": "DW_Id",
+          "schedule_recurrence": "A"
+        },
+        {
+          "entity_id": 447,
+          "entity_name": "FACT_INVENTTRANS",
+          "base_table_name": "FACT_INVENTTRANS",
+          "pk_field_names": "DW_Id",
+          "schedule_recurrence": "A"
+        },
+        {
+          "entity_id": 459,
+          "entity_name": "FACT_PRODJOURNALPROD",
+          "base_table_name": "FACT_PRODJOURNALPROD",
+          "pk_field_names": "DW_Id, DW_SourceCode, DW_TimeStamp",
+          "schedule_recurrence": "A"
+        },
+        {
+          "entity_id": 460,
+          "entity_name": "FACT_PURCHLINE",
+          "base_table_name": "FACT_PURCHLINE",
+          "pk_field_names": "DW_Id, DW_SourceCode, DW_TimeStamp",
+          "schedule_recurrence": "A"
+        }
+      ]
     },
     "leviat-db-us": {
         "layer_id": 7,
@@ -4612,13 +4627,22 @@
             "schedule_recurrence": "A"
         },
         {
-            "entity_id": 439,
-            "entity_name": "fact_RuleTotal",
-            "sproc_name": "sp_dq_materialize_view",
-            "source_view_name": "vw_RuleTotal",
-            "dest_table_name": "fact_RuleTotal",
-            "execution_order": 0,
-            "schedule_recurrence": "A"
+          "entity_id": 439,
+          "entity_name": "fact_RuleTotal",
+          "sproc_name": "sp_dq_materialize_view",
+          "source_view_name": "vw_RuleTotal",
+          "dest_table_name": "fact_RuleTotal",
+          "execution_order": 0,
+          "schedule_recurrence": "A"
+        },
+        {
+          "entity_id": 458,
+          "entity_name": "fact_MaterialDocumentItem_axbi",
+          "sproc_name": "sp_materialize_view",
+          "source_view_name": "vw_MaterialDocumentItem_axbi",
+          "dest_table_name": "fact_MaterialDocumentItem_axbi",
+          "execution_order": 1,
+          "schedule_recurrence": "D"
         }
         ]
     }

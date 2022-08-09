@@ -856,6 +856,7 @@
     <Build Include="base_s4h_cax\Tables\I_WorkCenterCapacity.sql" />
     <Build Include="base_tx_halfen_2_dwh\Tables\FACT_PRODJOURNALPROD.sql" />
     <Build Include="base_tx_halfen_2_dwh\Tables\FACT_PURCHLINE.sql" />
+    <Build Include="edw\Tables\fact_MaterialDocumentItem_axbi.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\Post-Deploy\Script.PostDeployment.sql" />
