@@ -1,6 +1,7 @@
 {
     "functionName": "Z_THEO_READ_TABLE",
     "runInBackgroundJob": false,
+    "backgroundJobTimeout": 180,
     "tables": 
     [
         {

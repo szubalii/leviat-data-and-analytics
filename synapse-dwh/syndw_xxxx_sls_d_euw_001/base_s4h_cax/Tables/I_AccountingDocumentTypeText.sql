@@ -1,9 +1,6 @@
 CREATE TABLE [base_s4h_cax].[I_AccountingDocumentTypeText](
-  [TS_SEQUENCE_NUMBER] INTEGER NOT NULL
-, [ODQ_CHANGEMODE] CHAR(1)
-, [ODQ_ENTITYCNTR] NUMERIC(19,0)
+  [AccountingDocumentType] nvarchar(2) NOT NULL
 , [MANDT] char(3) collate Latin1_General_100_BIN2 NOT NULL
-, [AccountingDocumentType] nvarchar(2) NOT NULL
 , [Language] char(1) collate  Latin1_General_100_BIN2 NOT NULL
 , [AccountingDocumentTypeName] nvarchar(20)
 , [t_applicationId]       VARCHAR (32)
@@ -13,7 +10,7 @@ CREATE TABLE [base_s4h_cax].[I_AccountingDocumentTypeText](
 , [t_extractionDtm]		  DATETIME
 , [t_filePath]            NVARCHAR (1024)
 , CONSTRAINT [PK_I_AccountingDocumentTypeText] PRIMARY KEY NONCLUSTERED (
-    [TS_SEQUENCE_NUMBER], [MANDT], [AccountingDocumentType], [Language]
+    [MANDT], [AccountingDocumentType], [Language]
   ) NOT ENFORCED
 )
 WITH (

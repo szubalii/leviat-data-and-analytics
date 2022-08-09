@@ -1,0 +1,71 @@
+{
+    "name": "IFIACCDOCTYPET$T",
+    "description": "Accounting Document Type Text",
+    "guid": "e16b703c-2f73-4994-9280-641f6c997425",
+    "hierarchy": "",
+    "semantics": "Texts",
+    "context": "ABAP_CDS",
+    "supportsFull": true,
+    "supportsDelta": true,
+    "mode": "Full",
+    "transferDataOnDeltaInit": true,
+    "columns": 
+    [
+        {
+            "name": "TS_SEQUENCE_NUMBER",
+            "description": "[GENERATED] Sequence number of row in current extraction",
+            "abapType": "FourByteInteger",
+            "isPrimaryKey": true,
+            "isDeltaColumn": true,
+            "generated": true,
+            "outputLength": 0
+        },
+        {
+            "name": "ACCOUNTINGDOCUMENTTYPE",
+            "description": "Journal Entry Type",
+            "abapType": "CharacterString",
+            "length": 2,
+            "isPrimaryKey": true,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 2
+        },
+        {
+            "name": "LANGUAGE",
+            "description": "Language Key",
+            "abapType": "CharacterString",
+            "length": 1,
+            "isPrimaryKey": true,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 1
+        },
+        {
+            "name": "ACCOUNTINGDOCUMENTTYPENAME",
+            "description": "Document Type Name",
+            "abapType": "CharacterString",
+            "length": 20,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 20
+        },
+        {
+            "name": "ODQ_CHANGEMODE",
+            "description": "Change Mode for a Data Record in the Delta",
+            "abapType": "CharacterString",
+            "length": 1,
+            "isDeltaColumn": true,
+            "outputLength": 1
+        },
+        {
+            "name": "ODQ_ENTITYCNTR",
+            "description": "Number of Data Units (Data Records for Example)",
+            "abapType": "PackedNumber",
+            "length": 19,
+            "isDeltaColumn": true,
+            "outputLength": 20
+        }
+    ],
+    "parameters": {
+    }
+}
