@@ -1,8 +1,5 @@
 CREATE TABLE [base_s4h_cax].[I_GLAccountLineItemRawData](
-  [TS_SEQUENCE_NUMBER] INTEGER NOT NULL
-, [ODQ_CHANGEMODE] CHAR(1)
-, [ODQ_ENTITYCNTR] NUMERIC(19,0)
-, [MANDT] char(3) collate Latin1_General_100_BIN2 NOT NULL
+  [MANDT] char(3) collate Latin1_General_100_BIN2 NOT NULL
 , [SourceLedger] nvarchar(2) NOT NULL
 , [CompanyCode] nvarchar(4) NOT NULL
 , [FiscalYear] char(4) collate Latin1_General_100_BIN2 NOT NULL
@@ -312,7 +309,7 @@ CREATE TABLE [base_s4h_cax].[I_GLAccountLineItemRawData](
 , [t_extractionDtm]		  DATETIME
 , [t_filePath]            NVARCHAR (1024)
 , CONSTRAINT [PK_I_GLAccountLineItemRawData] PRIMARY KEY NONCLUSTERED (
-    [TS_SEQUENCE_NUMBER], [MANDT], [SourceLedger], [CompanyCode], [FiscalYear], [AccountingDocument], [LedgerGLLineItem]
+    [MANDT], [SourceLedger], [CompanyCode], [FiscalYear], [AccountingDocument], [LedgerGLLineItem]
   ) NOT ENFORCED
 )
 WITH (
