@@ -31,14 +31,6 @@
 		"type": "string",
 		"value": "stxxxxslspeuw001"
 	},
-	"S4H_clientValue": {
-		"type": "string",
-		"value": "100"
-	},
-	"S4H_systemID": {
-		"type": "string",
-		"value": "s4h-cap"
-	},
 	"environment": {
 		"type": "string",
 		"value": "prod"

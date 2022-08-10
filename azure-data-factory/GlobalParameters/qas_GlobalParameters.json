@@ -31,14 +31,6 @@
 		"type": "string",
 		"value": "stxxxxslsaeuw001"
 	},
-	"S4H_clientValue": {
-		"type": "string",
-		"value": "200"
-	},
-	"S4H_systemID": {
-		"type": "string",
-		"value": "s4h-caa"
-	},
 	"environment": {
 		"type": "string",
 		"value": "qas"

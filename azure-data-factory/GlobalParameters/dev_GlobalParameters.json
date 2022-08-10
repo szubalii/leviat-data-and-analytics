@@ -31,14 +31,6 @@
 		"type": "string",
 		"value": "stxxxxslsdeuw001"
 	},
-	"S4H_clientValue": {
-		"type": "string",
-		"value": "200"
-	},
-	"S4H_systemID": {
-		"type": "string",
-		"value": "s4h-cad"
-	},
 	"environment": {
 		"type": "string",
 		"value": "dev"
