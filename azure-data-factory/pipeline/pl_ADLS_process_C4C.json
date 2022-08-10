@@ -131,7 +131,7 @@
 				"typeProperties": {
 					"variableName": "t_applicationId",
 					"value": {
-						"value": "@concat(\n    pipeline().globalParameters.C4C_systemID,\n    '-',\n    pipeline().globalParameters.C4C_clientValue\n)",
+						"value": "@pipeline().parameters.adls_container_name",
 						"type": "Expression"
 					}
 				}
