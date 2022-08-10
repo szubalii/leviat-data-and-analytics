@@ -1,0 +1,220 @@
+{
+	"name": "pl_ADLS_process_C4C",
+	"properties": {
+		"activities": [
+			{
+				"name": "Execute ADLS Copy C4C",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Append t_applicationId",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "Append t_jobId",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "Append jobBy",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "Append t_filePath",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pl_ADLS_copy",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"source_adls_directory_path": {
+							"value": "@pipeline().parameters.adls_directory_path_In",
+							"type": "Expression"
+						},
+						"file_name": {
+							"value": "@pipeline().parameters.adls_file_name",
+							"type": "Expression"
+						},
+						"entity_id": {
+							"value": "@pipeline().parameters.entity_id",
+							"type": "Expression"
+						},
+						"run_id": {
+							"value": "@pipeline().parameters.run_id",
+							"type": "Expression"
+						},
+						"adls_container_name": {
+							"value": "@pipeline().parameters.adls_container_name",
+							"type": "Expression"
+						},
+						"target_adls_directory_path": {
+							"value": "@pipeline().parameters.adls_directory_path_Out",
+							"type": "Expression"
+						},
+						"additional_columns": {
+							"value": "@string(variables('additionalColumns'))",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "Set t_filePath",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "t_filePath",
+					"value": {
+						"value": "@join(\n    createArray(\n        pipeline().parameters.adls_container_name,\n        pipeline().parameters.adls_directory_path_Out,\n        pipeline().parameters.adls_file_name\n    ),'/'\n)",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Append t_filePath",
+				"type": "AppendVariable",
+				"dependsOn": [
+					{
+						"activity": "Set t_filePath",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "additionalColumns",
+					"value": {
+						"value": "@json(\n    concat(\n        '{\"name\":\"t_filePath\",\"value\":\"',\n        variables('t_filePath'),\n        '\"}'\n    )\n)",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Append t_applicationId",
+				"type": "AppendVariable",
+				"dependsOn": [
+					{
+						"activity": "Set t_applicationId",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "additionalColumns",
+					"value": {
+						"value": "@json(\n    concat(\n        '{\"name\":\"t_applicationId\",\"value\":\"',\n        variables('t_applicationId'),\n        '\"}'\n    )\n)",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Set t_applicationId",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "t_applicationId",
+					"value": {
+						"value": "@concat(\n    pipeline().globalParameters.C4C_systemID,\n    '-',\n    pipeline().globalParameters.C4C_clientValue\n)",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Append t_jobId",
+				"type": "AppendVariable",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "additionalColumns",
+					"value": {
+						"value": "@json(\n    concat(\n        '{\"name\":\"t_jobId\",\"value\":\"',\n        pipeline().RunId,\n        '\"}'\n    )\n)",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Append jobBy",
+				"type": "AppendVariable",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "additionalColumns",
+					"value": {
+						"value": "@json(\n    concat(\n        '{\"name\":\"t_jobBy\",\"value\":\"',\n        pipeline().DataFactory,\n        '\"}'\n    )\n)",
+						"type": "Expression"
+					}
+				}
+			}
+		],
+		"parameters": {
+			"entity_name": {
+				"type": "string",
+				"defaultValue": "I_Address"
+			},
+			"entity_id": {
+				"type": "string",
+				"defaultValue": "1"
+			},
+			"date": {
+				"type": "string",
+				"defaultValue": "2022/04/06"
+			},
+			"run_id": {
+				"type": "string",
+				"defaultValue": "2345"
+			},
+			"adls_container_name": {
+				"type": "string",
+				"defaultValue": "s4h-cad"
+			},
+			"adls_directory_path_In": {
+				"type": "string",
+				"defaultValue": "In"
+			},
+			"adls_directory_path_Out": {
+				"type": "string",
+				"defaultValue": "Out"
+			},
+			"adls_file_name": {
+				"type": "string",
+				"defaultValue": "I_Address_2022_04_06"
+			}
+		},
+		"variables": {
+			"additionalColumns": {
+				"type": "Array",
+				"defaultValue": []
+			},
+			"t_filePath": {
+				"type": "String"
+			},
+			"t_applicationId": {
+				"type": "String"
+			},
+			"test": {
+				"type": "String"
+			}
+		},
+		"folder": {
+			"name": "00 ELT/03 ADLS Transformation/C4C"
+		},
+		"annotations": []
+	}
+}

@@ -17,7 +17,7 @@
 							"value": "S4H",
 							"activities": [
 								{
-									"name": "Process Parquet on ADLS",
+									"name": "Process Parquet on ADLS S4H",
 									"type": "ExecutePipeline",
 									"dependsOn": [],
 									"userProperties": [],
@@ -158,6 +158,58 @@
 											},
 											"target_adls_directory_path": {
 												"value": "@pipeline().parameters.adls_directory_path_Out",
+												"type": "Expression"
+											}
+										}
+									}
+								}
+							]
+						},
+						{
+							"value": "C4C",
+							"activities": [
+								{
+									"name": "Process Parquet on ADLS C4C",
+									"type": "ExecutePipeline",
+									"dependsOn": [],
+									"userProperties": [],
+									"typeProperties": {
+										"pipeline": {
+											"referenceName": "pl_ADLS_process_C4C",
+											"type": "PipelineReference"
+										},
+										"waitOnCompletion": true,
+										"parameters": {
+											"entity_name": {
+												"value": "@pipeline().parameters.entity_name",
+												"type": "Expression"
+											},
+											"entity_id": {
+												"value": "@pipeline().parameters.entity_id",
+												"type": "Expression"
+											},
+											"date": {
+												"value": "@pipeline().parameters.date",
+												"type": "Expression"
+											},
+											"run_id": {
+												"value": "@pipeline().parameters.run_id",
+												"type": "Expression"
+											},
+											"adls_container_name": {
+												"value": "@pipeline().parameters.adls_container_name",
+												"type": "Expression"
+											},
+											"adls_directory_path_In": {
+												"value": "@pipeline().parameters.adls_directory_path_In",
+												"type": "Expression"
+											},
+											"adls_directory_path_Out": {
+												"value": "@pipeline().parameters.adls_directory_path_Out",
+												"type": "Expression"
+											},
+											"adls_file_name": {
+												"value": "@pipeline().parameters.adls_file_name",
 												"type": "Expression"
 											}
 										}
