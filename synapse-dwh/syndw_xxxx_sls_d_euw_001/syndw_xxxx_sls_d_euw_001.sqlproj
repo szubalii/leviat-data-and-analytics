@@ -857,6 +857,8 @@
     <Build Include="base_tx_halfen_2_dwh\Tables\FACT_PRODJOURNALPROD.sql" />
     <Build Include="base_tx_halfen_2_dwh\Tables\FACT_PURCHLINE.sql" />
     <Build Include="edw\Tables\fact_MaterialDocumentItem_axbi.sql" />
+    <Build Include="map_AXBI\Tables\InventSite.sql" />
+    <Build Include="map_AXBI\Tables\StockUnit.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\Post-Deploy\Script.PostDeployment.sql" />

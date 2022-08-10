@@ -34,7 +34,7 @@ SELECT
     ,   NULL AS [DistributionChannel]
     ,   NULL AS [Division]
     ,   [t_applicationId]
-    ,   [t_extractionDtm]
+    ,   NULL AS [t_extractionDtm]
 FROM 
     [map_AXBI].[InventSite] InvS
 
