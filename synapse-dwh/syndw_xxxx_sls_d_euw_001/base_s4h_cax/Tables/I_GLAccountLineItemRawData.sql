@@ -75,6 +75,7 @@ CREATE TABLE [base_s4h_cax].[I_GLAccountLineItemRawData](
 , [FixedAmountInGlobalCrcy] decimal(23,2)
 , [GrpValnFixedAmtInGlobCrcy] decimal(23,2)
 , [PrftCtrValnFxdAmtInGlobCrcy] decimal(23,2)
+, [FixedAmountInCoCoDeCrcy] decimal(23,2)
 , [TotalPriceVarcInGlobalCrcy] decimal(23,2)
 , [GrpValnTotPrcVarcInGlobCrcy] decimal(23,2)
 , [PrftCtrValnTotPrcVarcInGlbCrcy] decimal(23,2)
