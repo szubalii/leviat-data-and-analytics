@@ -4662,7 +4662,8 @@
             "dest_table_name": "dim_ProductValuation",
             "execution_order": 0,
             "schedule_recurrence": "D"
-        },{
+        },
+        {
             "entity_id": 433,
             "entity_name": "dim_PurchasingDocument",
             "sproc_name": "sp_materialize_view",
@@ -4670,7 +4671,8 @@
             "dest_table_name": "dim_PurchasingDocument",
             "execution_order": 0,
             "schedule_recurrence": "D"
-            },{
+        },
+        {
             "entity_id": 435,
             "entity_name": "dim_ProductValuationPUP",
             "sproc_name": "sp_materialize_view",
@@ -4678,7 +4680,25 @@
             "dest_table_name": "dim_ProductValuationPUP",
             "execution_order": 1,
             "schedule_recurrence": "D"
-        }
+        },
+        {
+          "entity_id": 462,
+          "entity_name": "dim_FinancialStatementItem",
+          "sproc_name": "sp_materialize_view",
+          "source_view_name": "vw_FinancialStatementItem",
+          "dest_table_name": "dim_FinancialStatementItem",
+          "execution_order": 1,
+          "schedule_recurrence": "A"
+        },
+        {
+          "entity_id": 463,
+          "entity_name": "dim_FinancialStatementHierarchy",
+          "sproc_name": "sp_materialize_view",
+          "source_view_name": "vw_FinancialStatementHierarchy",
+          "dest_table_name": "dim_FinancialStatementHierarchy",
+          "execution_order": 1,
+          "schedule_recurrence": "A"
+        }         
         ]
     },
     "dq": {
