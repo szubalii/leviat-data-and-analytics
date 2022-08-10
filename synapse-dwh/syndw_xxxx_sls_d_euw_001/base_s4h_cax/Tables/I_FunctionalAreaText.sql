@@ -1,8 +1,5 @@
 CREATE TABLE [base_s4h_cax].[I_FunctionalAreaText](
-  [TS_SEQUENCE_NUMBER] INTEGER NOT NULL
-, [ODQ_CHANGEMODE] CHAR(1)
-, [ODQ_ENTITYCNTR] NUMERIC(19,0)
-, [MANDT] char(3) collate Latin1_General_100_BIN2 NOT NULL
+  [MANDT] char(3) collate Latin1_General_100_BIN2 NOT NULL
 , [Language] char(1) collate  Latin1_General_100_BIN2 NOT NULL
 , [FunctionalArea] nvarchar(16) NOT NULL
 , [FunctionalAreaName] nvarchar(25)
@@ -13,7 +10,7 @@ CREATE TABLE [base_s4h_cax].[I_FunctionalAreaText](
 , [t_extractionDtm]		  DATETIME
 , [t_filePath]            NVARCHAR (1024)
 , CONSTRAINT [PK_I_FunctionalAreaText] PRIMARY KEY NONCLUSTERED (
-    [TS_SEQUENCE_NUMBER], [MANDT], [Language], [FunctionalArea]
+    [MANDT], [Language], [FunctionalArea]
   ) NOT ENFORCED
 )
 WITH (
