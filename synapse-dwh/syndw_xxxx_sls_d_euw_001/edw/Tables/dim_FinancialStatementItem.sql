@@ -12,7 +12,7 @@
     , [OffsettingItem]                NVARCHAR(10) COLLATE Latin1_General_100_BIN2
     , [FinStatementItemDescription]   NVARCHAR(45) COLLATE Latin1_General_100_BIN2
     , [t_applicationId]               VARCHAR (32)
-    , [t_extractionDtm]               DATETIME       NULL
+    , [t_extractionDtm]               DATETIME
     , [t_jobId]                       VARCHAR (36)
     , [t_jobDtm]                      DATETIME
     , [t_lastActionCd]                VARCHAR(1)

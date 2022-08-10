@@ -8,7 +8,7 @@ SELECT
        [UpperBoundaryAccount],
        [UpperBoundaryFunctionalArea],
        [IsDebitBalanceRelevant],
-       [t_jobDtm],
+       [t_extractionDtm],
        [t_applicationId]
 FROM
      [edw].[dim_FinancialStatementHierarchy]
