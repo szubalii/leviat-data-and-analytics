@@ -30,14 +30,6 @@
 				"type": "string",
 				"value": "syndw_xxxx_sls_d_euw_001"
 			},
-			"S4H_clientValue": {
-				"type": "string",
-				"value": "200"
-			},
-			"S4H_systemID": {
-				"type": "string",
-				"value": "s4h-cad"
-			},
 			"keyVaultUrl": {
 				"type": "string",
 				"value": "https://kv-xxxx-sls-d-euw-001.vault.azure.net/"
