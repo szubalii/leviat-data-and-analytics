@@ -1,8 +1,9 @@
 {
     "s4h": {
-        "layer_id": 6,
-        "schema_name": "base_s4h_cax",
-        "base_schema_name": "base_s4h_cax",
+      "layer_id": 6,
+      "schema_name": "base_s4h_cax",
+      "base_schema_name": "base_s4h_cax",
+      "adls_container_name": "s4h",
       "entities": [
         {
           "entity_id": 1,
