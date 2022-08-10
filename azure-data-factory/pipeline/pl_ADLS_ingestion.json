@@ -195,6 +195,20 @@
 									}
 								}
 							]
+						},
+						{
+							"value": "C4C",
+							"activities": [
+								{
+									"name": "Run C4C ADLS Ingestion",
+									"type": "ExecutePipeline",
+									"dependsOn": [],
+									"userProperties": [],
+									"typeProperties": {
+										"waitOnCompletion": true
+									}
+								}
+							]
 						}
 					]
 				}
