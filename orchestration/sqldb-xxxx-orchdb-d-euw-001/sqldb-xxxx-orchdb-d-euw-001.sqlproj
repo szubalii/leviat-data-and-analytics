@@ -213,7 +213,7 @@
     <Build Include="dbo\Functions\get_pbi_entities.sql">
       <AnsiNulls>On</AnsiNulls>
       <QuotedIdentifier>On</QuotedIdentifier>
-    </Build> 
+    </Build>
     <Build Include="dbo\Stored Procedures\update_batch_nr_of_records_read.sql">
       <AnsiNulls>On</AnsiNulls>
       <QuotedIdentifier>On</QuotedIdentifier>
@@ -327,6 +327,10 @@
     <PackageReference Condition="'$(NetCoreBuild)' == 'true'" Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.0" PrivateAssets="All" />
   </ItemGroup>
   <ItemGroup>
+    <SqlCmdVariable Include="deployToSchema">
+      <DefaultValue>dbo</DefaultValue>
+      <Value>$(SqlCmdVar__4)</Value>
+    </SqlCmdVariable>
     <SqlCmdVariable Include="containerURL">
       <DefaultValue>
       </DefaultValue>
