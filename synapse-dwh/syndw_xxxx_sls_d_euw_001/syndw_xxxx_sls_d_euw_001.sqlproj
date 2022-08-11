@@ -279,7 +279,7 @@
     <Build Include="base_s4h_cax\Tables\I_GLAccountTypeText.sql" />
     <Build Include="base_s4h_cax\Tables\I_GLRecordTypeText.sql" />
     <Build Include="base_s4h_cax\Tables\I_GLAccountLineItemRawData.sql" />
-    <Build Include="edw\Tables\fact_GLAccountLineItemRawData.sql" />
+    <Build Include="edw\Tables\fact_ACDOCA.sql" />
     <Build Include="Security\Schemas\dm_sales.sql" />
     <Build Include="dm_sales\Views\vw_dim_Customer.sql" />
     <Build Include="dm_sales\Views\vw_fact_BillingDocumentItem.sql" />
@@ -297,7 +297,6 @@
     <Build Include="base_s4h_cax\Tables\I_SDDocumentCategoryText.sql" />
     <Build Include="base_s4h_cax\Tables\I_SDDocumentReason.sql" />
     <Build Include="base_s4h_cax\Tables\I_SDDocumentReasonText.sql" />
-    <Build Include="edw\Stored Procedures\sp_load_fact_GLAccountLineItemRawData.sql" />
     <Build Include="edw\Tables\dim_Calendar.sql" />
     <Build Include="edw\Tables\dim_BillingDocumentCategory.sql" />
     <Build Include="edw\Tables\dim_BillingDocumentType.sql" />
@@ -621,7 +620,7 @@
     <Build Include="edw\Views\vw_TotalSDDocReferenceStatus.sql" />
     <Build Include="edw\Views\vw_UnitOfMeasure.sql" />
     <Build Include="edw\Views\vw_Warehouse.sql" />
-    <Build Include="edw\Views\vw_GLAccountLineItemRawData.sql" />
+    <Build Include="edw\Views\vw_ACDOCA.sql" />
     <Build Include="edw\Views\vw_OutboundDeliveryItem.sql" />
     <Build Include="edw\Views\vw_OverallSDProcessStatus.sql" />
     <Build Include="edw\Views\vw_OverallTotalDeliveryStatus.sql" />
@@ -858,6 +857,7 @@
     <Build Include="base_s4h_cax\Tables\I_FinancialStatementItem.sql" />
     <Build Include="base_s4h_cax\Tables\I_FinancialStatementItemText.sql" />
     <Build Include="base_s4h_cax\Tables\I_CN_CADEFinancialStatementItm.sql" />
+    <Build Include="dm_sales\Views\vw_fact_ACDOCA_SalesView.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\Post-Deploy\Script.PostDeployment.sql" />
