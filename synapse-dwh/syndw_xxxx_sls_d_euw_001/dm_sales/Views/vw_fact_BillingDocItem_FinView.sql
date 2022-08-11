@@ -36,7 +36,7 @@ SELECT
 ,   CAST (docBilling.[GrossAmount] AS decimal (15,2)) as [GrossAmount] 
 ,   CAST (docBilling.[TaxAmount] AS decimal (15,2)) as [TaxAmount] 
 ,   CAST (docBilling.[CostAmount] AS decimal (15,2)) as [CostAmount] 
-,   CAST (docBilling.[ProfitMargin] AS decimal (15,2)) as [QuantitySold] 
+,   CAST (docBilling.[ProfitMargin] AS decimal (15,2)) as [ProfitMargin] 
 ,   docBilling.[MarginPercent] 
 ,   CAST (docBilling.[FinProfitMargin] AS decimal (15,2)) as [FinProfitMargin] 
 ,   docBilling.[FinMarginPercent]  
