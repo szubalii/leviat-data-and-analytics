@@ -4100,7 +4100,7 @@
             "entity_id": 339,
             "entity_name": "dim_GLAccountInChartOfAccounts",
             "sproc_name": "sp_materialize_view",
-            "source_view_name": "vw_GLAccountLineItemRawData",
+            "source_view_name": "vw_GLAccount",
             "dest_table_name": "dim_GLAccountInChartOfAccounts",
             "execution_order": 0,
             "schedule_recurrence": "A"
@@ -4377,10 +4377,13 @@
         },
         {
           "entity_id": 370,
-          "entity_name": "fact_GLAccountLineItemRawData",
-          "sproc_name": "sp_load_fact_GLAccountLineItemRawData",
-          "execution_order": 1
-         },
+          "entity_name": "fact_ACDOCA",
+          "sproc_name": "sp_materialize_view",
+          "source_view_name": "vw_ACDOCA",
+          "dest_table_name": "fact_ACDOCA",
+          "execution_order": 1,
+          "schedule_recurrence": "A"
+        },
         {
             "entity_id": 373,
             "entity_name": "fact_BillingBudget",
