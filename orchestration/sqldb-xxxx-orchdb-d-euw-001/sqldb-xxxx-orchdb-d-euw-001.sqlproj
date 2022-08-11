@@ -327,10 +327,6 @@
     <PackageReference Condition="'$(NetCoreBuild)' == 'true'" Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.0" PrivateAssets="All" />
   </ItemGroup>
   <ItemGroup>
-    <SqlCmdVariable Include="deployToSchema">
-      <DefaultValue>dbo</DefaultValue>
-      <Value>$(SqlCmdVar__4)</Value>
-    </SqlCmdVariable>
     <SqlCmdVariable Include="containerURL">
       <DefaultValue>
       </DefaultValue>
