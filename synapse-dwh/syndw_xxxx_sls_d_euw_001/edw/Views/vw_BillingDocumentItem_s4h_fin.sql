@@ -641,8 +641,8 @@ BDwithConditionAmountFreight AS (
     ,   BDwithEngServ.NetAmountEngServ
     ,   BDwithMisc.NetAmountMisc
     ,   BDwithServOther.NetAmountServOther
-    ,   COALESCE(BDwithConditionAmountFreight.ConditionAmountFreight, 0) AS ConditionAmountFreight
-    ,   COALESCE(BDwithConditionAmountMinQty.ConditionAmountMinQty, 0) AS ConditionAmountMinQty
+    ,   ISNULL(BDwithConditionAmountFreight.ConditionAmountFreight, 0) AS ConditionAmountFreight
+    ,   ISNULL(BDwithConditionAmountMinQty.ConditionAmountMinQty, 0) AS ConditionAmountMinQty
 --  ,   BDwithZVER.NetAmountZVER -- MPS 2021/11/04: removed as NetAmountZVER same as NetAmountVerp
     FROM 
         BDIwithMatType
