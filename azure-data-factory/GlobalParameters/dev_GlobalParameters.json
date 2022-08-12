@@ -23,10 +23,6 @@
 		"type": "string",
 		"value": "http://10.109.68.4:8065"
 	},
-	"XU_sourceName": {
-		"type": "string",
-		"value": "CRH_Leviat_S4HANA_CAD"
-	},
 	"storageAccountName": {
 		"type": "string",
 		"value": "stxxxxslsdeuw001"
