@@ -318,8 +318,6 @@
     <Build Include="dbo\Views\vw_entity_batch_activity_status.sql" />
     <Build Include="dbo\Views\vw_full_entity_activity_batch_ids.sql" />
     <Build Include="dbo\Views\vw_delta_entity_activity_batch_ids.sql" />
-    <Build Include="dbo\Functions\get_c4c_entities.sql" />
-    <Build Include="dbo\Functions\get_c4c_entities_testDuplicates.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\Script.PostDeployment.sql" />

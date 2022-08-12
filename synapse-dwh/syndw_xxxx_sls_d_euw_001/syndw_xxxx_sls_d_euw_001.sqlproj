@@ -169,6 +169,8 @@
     <Folder Include="dq\Stored Procedures" />
     <Folder Include="dm_dq" />
     <Folder Include="dm_dq\Views" />
+    <Folder Include="base_c4c" />
+    <Folder Include="base_c4c\Tables" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Security\Database Scoped Credentials\dsc_MSI.sql" />
@@ -852,6 +854,8 @@
     <Build Include="base_s4h_cax\Tables\I_MfgOrderWithStatus.sql" />
     <Build Include="base_s4h_cax\Tables\I_WorkCenterBySemanticKey.sql" />
     <Build Include="base_s4h_cax\Tables\I_WorkCenterCapacity.sql" />
+    <Build Include="base_c4c\Tables\OpportunityCollection.sql" />
+    <Build Include="Security\Schemas\base_c4c.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\Post-Deploy\Script.PostDeployment.sql" />
