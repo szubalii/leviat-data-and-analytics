@@ -707,8 +707,8 @@
 				"defaultValue": "CAA"
 			},
 			"s4h_client_id": {
-				"type": "string",
-				"defaultValue": "200"
+				"type": "int",
+				"defaultValue": 200
 			}
 		},
 		"folder": {
