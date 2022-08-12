@@ -139,32 +139,12 @@
 			{
 				"name": "Append t_applicationId",
 				"type": "AppendVariable",
-				"dependsOn": [
-					{
-						"activity": "Set t_applicationId",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
+				"dependsOn": [],
 				"userProperties": [],
 				"typeProperties": {
 					"variableName": "additionalColumns",
 					"value": {
-						"value": "@json(\n    concat(\n        '{\"name\":\"t_applicationId\",\"value\":\"',\n        variables('t_applicationId'),\n        '\"}'\n    )\n)",
-						"type": "Expression"
-					}
-				}
-			},
-			{
-				"name": "Set t_applicationId",
-				"type": "SetVariable",
-				"dependsOn": [],
-				"userProperties": [],
-				"typeProperties": {
-					"variableName": "t_applicationId",
-					"value": {
-						"value": "@concat(\n    pipeline().globalParameters.S4H_systemID,\n    '-',\n    pipeline().globalParameters.S4H_clientValue\n)",
+						"value": "@json(\n    concat(\n        '{\"name\":\"t_applicationId\",\"value\":\"',\n        pipeline().parameters.adls_container_name,\n        '\"}'\n    )\n)",
 						"type": "Expression"
 					}
 				}
@@ -248,12 +228,6 @@
 				"defaultValue": []
 			},
 			"t_filePath": {
-				"type": "String"
-			},
-			"t_applicationId": {
-				"type": "String"
-			},
-			"test": {
 				"type": "String"
 			}
 		},
