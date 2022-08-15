@@ -212,11 +212,11 @@
 				}
 			},
 			{
-				"name": "Update Batch Failed - Copy",
+				"name": "Update Batch Failed",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "Log Exception - Copy",
+						"activity": "Log Exception",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -277,7 +277,7 @@
 				}
 			},
 			{
-				"name": "Log Exception - Copy",
+				"name": "Log Exception",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
@@ -338,11 +338,11 @@
 				}
 			},
 			{
-				"name": "Fail Copy",
+				"name": "Fail",
 				"type": "Fail",
 				"dependsOn": [
 					{
-						"activity": "Update Batch Failed - Copy",
+						"activity": "Update Batch Failed",
 						"dependencyConditions": [
 							"Succeeded"
 						]
