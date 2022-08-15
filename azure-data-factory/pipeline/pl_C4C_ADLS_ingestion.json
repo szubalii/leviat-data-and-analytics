@@ -24,6 +24,36 @@
 				"typeProperties": {
 					"source": {
 						"type": "SapCloudForCustomerSource",
+						"additionalColumns": [
+							{
+								"name": "t_jobId",
+								"value": {
+									"value": "@pipeline().RunId",
+									"type": "Expression"
+								}
+							},
+							{
+								"name": "t_jobBy",
+								"value": {
+									"value": "@pipeline().DataFactory",
+									"type": "Expression"
+								}
+							},
+							{
+								"name": "t_applicationId",
+								"value": {
+									"value": "@pipeline().parameters.adls_container_name",
+									"type": "Expression"
+								}
+							},
+							{
+								"name": "t_filePath",
+								"value": {
+									"value": "@join(createArray(\n    pipeline().parameters.adls_container_name\n    ,pipeline().parameters.entity_name\n    ,pipeline().parameters.file_name)\n    ,'/'\n)",
+									"type": "Expression"
+								}
+							}
+						],
 						"httpRequestTimeout": "00:05:00"
 					},
 					"sink": {
