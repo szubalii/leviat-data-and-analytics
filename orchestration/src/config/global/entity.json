@@ -3418,10 +3418,10 @@
     "adls_container_name": "c4c",
     "entities": [
       {
-        "entity_id": 454,
+        "entity_id": 464,
         "entity_name": "OpportunityCollection",
         "base_table_name": "OpportunityCollection",
-        "pk_field_names": "OBJECTID, PROSPECTPARTYID, NAME, MAINEMPLOYEERESPONSIBLEPARTYID,CREATIONDATE,LASTCHANGEDATE,CREATIONDATETIME,LASTCHANGEDATETIME",
+        "pk_field_names": "OBJECTID",
         "schedule_recurrence": "A"
       }
     ]
