@@ -175,44 +175,10 @@
 									"userProperties": [],
 									"typeProperties": {
 										"pipeline": {
-											"referenceName": "pl_ADLS_process_C4C",
+											"referenceName": "pl_ADLS_copy",
 											"type": "PipelineReference"
 										},
-										"waitOnCompletion": true,
-										"parameters": {
-											"entity_name": {
-												"value": "@pipeline().parameters.entity_name",
-												"type": "Expression"
-											},
-											"entity_id": {
-												"value": "@pipeline().parameters.entity_id",
-												"type": "Expression"
-											},
-											"date": {
-												"value": "@pipeline().parameters.date",
-												"type": "Expression"
-											},
-											"run_id": {
-												"value": "@pipeline().parameters.run_id",
-												"type": "Expression"
-											},
-											"adls_container_name": {
-												"value": "@pipeline().parameters.adls_container_name",
-												"type": "Expression"
-											},
-											"adls_directory_path_In": {
-												"value": "@pipeline().parameters.adls_directory_path_In",
-												"type": "Expression"
-											},
-											"adls_directory_path_Out": {
-												"value": "@pipeline().parameters.adls_directory_path_Out",
-												"type": "Expression"
-											},
-											"adls_file_name": {
-												"value": "@pipeline().parameters.adls_file_name",
-												"type": "Expression"
-											}
-										}
+										"waitOnCompletion": true
 									}
 								}
 							]
