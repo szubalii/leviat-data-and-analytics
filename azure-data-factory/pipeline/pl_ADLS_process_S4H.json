@@ -203,7 +203,7 @@
 			},
 			"adls_container_name": {
 				"type": "string",
-				"defaultValue": "s4h-cad"
+				"defaultValue": "s4h-cad-200"
 			},
 			"adls_directory_path_In": {
 				"type": "string",
