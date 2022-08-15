@@ -5,7 +5,7 @@
 		"annotations": [],
 		"type": "SapCloudForCustomer",
 		"typeProperties": {
-			"url": "https://my354744.crm.ondemand.com/sap/c4c/odata/v1/c4codata",
+			"url": "https://my354744.crm.ondemand.com/sap/c4c/odata/v1/c4codataapi",
 			"username": "BI_EXTRACT",
 			"password": {
 				"type": "AzureKeyVaultSecret",

@@ -17,7 +17,7 @@
 							"value": "S4H",
 							"activities": [
 								{
-									"name": "Process Parquet on ADLS",
+									"name": "Process Parquet on ADLS S4H",
 									"type": "ExecutePipeline",
 									"dependsOn": [],
 									"userProperties": [],
@@ -161,6 +161,24 @@
 												"type": "Expression"
 											}
 										}
+									}
+								}
+							]
+						},
+						{
+							"value": "C4C",
+							"activities": [
+								{
+									"name": "Process Parquet on ADLS C4C",
+									"type": "ExecutePipeline",
+									"dependsOn": [],
+									"userProperties": [],
+									"typeProperties": {
+										"pipeline": {
+											"referenceName": "pl_ADLS_copy",
+											"type": "PipelineReference"
+										},
+										"waitOnCompletion": true
 									}
 								}
 							]

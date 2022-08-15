@@ -213,7 +213,7 @@
     <Build Include="dbo\Functions\get_pbi_entities.sql">
       <AnsiNulls>On</AnsiNulls>
       <QuotedIdentifier>On</QuotedIdentifier>
-    </Build> 
+    </Build>
     <Build Include="dbo\Stored Procedures\update_batch_nr_of_records_read.sql">
       <AnsiNulls>On</AnsiNulls>
       <QuotedIdentifier>On</QuotedIdentifier>

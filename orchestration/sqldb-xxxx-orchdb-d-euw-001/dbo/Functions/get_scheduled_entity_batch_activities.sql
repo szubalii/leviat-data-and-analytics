@@ -52,7 +52,8 @@ BEGIN
         @BATCH_EXECUTION_STATUS_ID__SUCCESSFUL SMALLINT = 2,
         @LAYER_ID__AXBI SMALLINT = 5,
         @LAYER_ID__S4H SMALLINT = 6,
-        @LAYER_ID__USA SMALLINT = 7;
+        @LAYER_ID__USA SMALLINT = 7,
+        @LAYER_ID__C4C SMALLINT = 8;
 
     WITH
     -- -- get the scheduled entities based on the day
@@ -79,7 +80,7 @@ BEGIN
         FROM
             dbo.get_scheduled_entities(@adhoc, @date) e
         WHERE
-            e.layer_id IN (@LAYER_ID__AXBI, @LAYER_ID__S4H, @LAYER_ID__USA)
+            e.layer_id IN (@LAYER_ID__AXBI, @LAYER_ID__S4H, @LAYER_ID__USA,@LAYER_ID__C4C)
     )
     -- get the scheduled full entity batch activities
     , scheduled_full_entity_batch_activities AS (
@@ -141,7 +142,7 @@ BEGIN
                 OR ( -- For other base source entities, get only successful extracted file names
                     b.status_id = @BATCH_EXECUTION_STATUS_ID__SUCCESSFUL
                     AND
-                    e.layer_id IN (@LAYER_ID__AXBI, @LAYER_ID__USA)
+                    e.layer_id IN (@LAYER_ID__AXBI, @LAYER_ID__USA, @LAYER_ID__C4C)
                 )
             )
         GROUP BY
@@ -460,7 +461,7 @@ BEGIN
                 OR ( -- For other base source entities, get only successful extracted file names
                     b.status_id = @BATCH_EXECUTION_STATUS_ID__SUCCESSFUL
                     AND
-                    e.layer_id IN (@LAYER_ID__AXBI, @LAYER_ID__USA)
+                    e.layer_id IN (@LAYER_ID__AXBI, @LAYER_ID__USA, @LAYER_ID__C4C)
                 )
             )
             AND
