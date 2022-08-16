@@ -123,14 +123,7 @@
 			{
 				"name": "Get Query Without ColumnName Spaces",
 				"type": "Lookup",
-				"dependsOn": [
-					{
-						"activity": "Update Batch File Name",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
+				"dependsOn": [],
 				"policy": {
 					"timeout": "7.00:00:00",
 					"retry": 0,
@@ -168,42 +161,6 @@
 						}
 					},
 					"firstRowOnly": true
-				}
-			},
-			{
-				"name": "Update Batch File Name",
-				"type": "SqlServerStoredProcedure",
-				"dependsOn": [],
-				"policy": {
-					"timeout": "7.00:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"storedProcedureName": "[dbo].[update_batch_status]",
-					"storedProcedureParameters": {
-						"batch_id": {
-							"value": {
-								"value": "@pipeline().parameters.batch_id",
-								"type": "Expression"
-							},
-							"type": "Guid"
-						},
-						"file_name": {
-							"value": {
-								"value": "@pipeline().parameters.file_name",
-								"type": "Expression"
-							},
-							"type": "String"
-						}
-					}
-				},
-				"linkedServiceName": {
-					"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
-					"type": "LinkedServiceReference"
 				}
 			},
 			{
@@ -567,7 +524,7 @@
 				}
 			},
 			{
-				"name": "Get DW_TimeStamp",
+				"name": "Get Source DW_TimeStamp",
 				"type": "Lookup",
 				"dependsOn": [],
 				"policy": {
@@ -581,6 +538,10 @@
 				"typeProperties": {
 					"source": {
 						"type": "SqlServerSource",
+						"sqlReaderQuery": {
+							"value": "SELECT\n    DISTINCT DW_TimeStamp\nFROM\n    [@{pipeline().parameters.axbi_database_name}].[@{pipeline().parameters.axbi_schema_name}].[@{pipeline().parameters.axbi_table_name}]\nORDER BY\n    DW_TimeStamp DESC",
+							"type": "Expression"
+						},
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
@@ -601,28 +562,63 @@
 								"type": "Expression"
 							}
 						}
-					}
+					},
+					"firstRowOnly": false
+				}
+			},
+			{
+				"name": "Get Latest DW_TimeStamp",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlDWSource",
+						"sqlReaderQuery": {
+							"value": "SELECT\n    CAST(DW_TimeStamp AS DATETIME) AS DW_TimeStamp\nFROM\n    OPENROWSET(\n        BULK 'https://@{pipeline().globalParameters.storageAccountName}.dfs.core.windows.net/@{pipeline().parameters.adls_container_name}/@{pipeline().parameters.axbi_table_name}/In/*/*/**',\n        FORMAT = 'PARQUET'\n    ) AS [result]\nGROUP BY\n    [result].filename(),\n    CAST(DW_TimeStamp AS DATETIME)\nORDER BY\n    result.filename() DESC,\n    CAST(DW_TimeStamp AS DATETIME) DESC",
+							"type": "Expression"
+						},
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "ds_synod__synapse_od",
+						"type": "DatasetReference"
+					},
+					"firstRowOnly": false
 				}
 			}
 		],
 		"parameters": {
 			"axbi_database_name": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "DW_HALFEN_2_DWH_UAT"
 			},
 			"axbi_schema_name": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "dbo"
 			},
 			"axbi_table_name": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "FACT_HGDAWA"
 			},
 			"axbi_date_field_name": {
 				"type": "string"
 			},
 			"adls_container_name": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "dw-halfen-2-dwh-uat"
 			},
 			"adls_directory_path": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "FACT_HGDAWA"
 			},
 			"file_name": {
 				"type": "string"
