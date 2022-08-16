@@ -3517,7 +3517,7 @@
         "entity_id": 464,
         "entity_name": "OpportunityCollection",
         "base_table_name": "OpportunityCollection",
-        "pk_field_names": "OBJECTID",
+        "pk_field_names": "ObjectID",
         "schedule_recurrence": "A"
       }
     ]
