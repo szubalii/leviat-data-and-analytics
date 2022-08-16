@@ -25,3 +25,4 @@ CREATE VIEW [edw].[vw_FinancialStatementItem]
             ifsix.[FinancialStatementItem] =  icns.[FinancialStatementItem] 
             AND 
             ifsix.[Language] = 'E'
+    WHERE icns.FinancialStatementVariant = 'EXQL'                     
