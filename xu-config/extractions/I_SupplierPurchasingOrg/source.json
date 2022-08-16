@@ -1,0 +1,266 @@
+{
+    "functionName": "Z_THEO_READ_TABLE",
+    "runInBackgroundJob": false,
+    "backgroundJobTimeout": 180,
+    "tables": 
+    [
+        {
+            "name": "ISUPPLPURCH",
+            "description": "Generated Table for View",
+            "isView": true,
+            "fields": 
+            [
+                {
+                    "name": "MANDT",
+                    "description": "Client",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "T000",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SUPPLIER",
+                    "description": "Vendor's account number",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "LFA1",
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "PURCHASINGORGANIZATION",
+                    "description": "Purchasing organization",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "T024E",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PURCHASINGGROUP",
+                    "description": "Purchasing Group",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "T024",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MATERIALPLANNEDDELIVERYDURN",
+                    "description": "Planned Delivery Time in Days",
+                    "abapType": "PackedNumber",
+                    "length": 3,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "formattedLength": 3,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PURCHASINGISBLOCKEDFORSUPPLIER",
+                    "description": "Purchasing block at purchasing organization level",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SUPPLIERRESPSALESPERSONNAME",
+                    "description": "Responsible Salesperson at Supplier's Office",
+                    "abapType": "CharacterString",
+                    "length": 30,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SUPPLIERPHONENUMBER",
+                    "description": "Supplier's Telephone Number",
+                    "abapType": "CharacterString",
+                    "length": 16,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PURCHASEORDERCURRENCY",
+                    "description": "Purchase order currency",
+                    "abapType": "CharacterString",
+                    "length": 5,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "TCURC",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MINIMUMORDERAMOUNT",
+                    "description": "Minimum order value",
+                    "abapType": "PackedNumber",
+                    "length": 13,
+                    "decimalCount": 2,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "formattedLength": 16,
+                    "conversionExit": "",
+                    "referenceTable": "ISUPPLPURCH",
+                    "referenceField": "PURCHASEORDERCURRENCY",
+                    "isCurrency": true
+                },
+                {
+                    "name": "CALCULATIONSCHEMAGROUPCODE",
+                    "description": "Group for Calculation Schema (Supplier)",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "TMKK",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PAYMENTTERMS",
+                    "description": "Terms of payment key",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRICINGDATECONTROL",
+                    "description": "Price Determination (Pricing) Date Control",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SUPPLIERABCCLASSIFICATIONCODE",
+                    "description": "ABC indicator",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SHIPPINGCONDITION",
+                    "description": "Shipping Conditions",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "TVSB",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PURORDAUTOGENERATIONISALLOWED",
+                    "description": "Automatic Generation of Purchase Order Allowed",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "INVOICEISGOODSRECEIPTBASED",
+                    "description": "Indicator: GR-Based Invoice Verification",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "INCOTERMSCLASSIFICATION",
+                    "description": "Incoterms (Part 1)",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "TINC",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "INCOTERMSTRANSFERLOCATION",
+                    "description": "Incoterms (Part 2)",
+                    "abapType": "CharacterString",
+                    "length": 28,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "INCOTERMSVERSION",
+                    "description": "Incoterms Version",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "TINCV",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "INCOTERMSLOCATION1",
+                    "description": "Incoterms Location 1",
+                    "abapType": "CharacterString",
+                    "length": 70,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "INCOTERMSLOCATION2",
+                    "description": "Incoterms Location 2",
+                    "abapType": "CharacterString",
+                    "length": 70,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "DELETIONINDICATOR",
+                    "description": "Deletion Indicator for Supplier at Purchasing Level",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PLANNEDDELIVERYDURATIONINDAYS",
+                    "description": "Planned Delivery Time in Days",
+                    "abapType": "PackedNumber",
+                    "length": 3,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "formattedLength": 3,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CONTACTPERSONPHONENUMBER",
+                    "description": "Supplier's Telephone Number",
+                    "abapType": "CharacterString",
+                    "length": 16,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "AUTHORIZATIONGROUP",
+                    "description": "Authorization Group",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": ""
+                }
+            ]
+        }
+    ]
+}

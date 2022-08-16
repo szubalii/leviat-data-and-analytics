@@ -1,0 +1,373 @@
+{
+    "functionName": "Z_THEO_READ_TABLE",
+    "runInBackgroundJob": false,
+    "backgroundJobTimeout": 180,
+    "tables": 
+    [
+        {
+            "name": "ISUPPLCOMPANY",
+            "description": "Generated Table for View",
+            "isView": true,
+            "fields": 
+            [
+                {
+                    "name": "MANDT",
+                    "description": "Client",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "T000",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SUPPLIER",
+                    "description": "Account Number of Vendor or Creditor",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "LFA1",
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "COMPANYCODE",
+                    "description": "Company Code",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "T001",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "AUTHORIZATIONGROUP",
+                    "description": "Authorization Group",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "COMPANYCODENAME",
+                    "description": "Name of Company Code or Company",
+                    "abapType": "CharacterString",
+                    "length": 25,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PAYMENTBLOCKINGREASON",
+                    "description": "Block Key for Payment",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "checkTable": "T008",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SUPPLIERISBLOCKEDFORPOSTING",
+                    "description": "Posting block for company code",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ISBUSINESSPURPOSECOMPLETED",
+                    "description": "Business Purpose Completed Flag",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ACCOUNTINGCLERK",
+                    "description": "Accounting Clerk Abbreviation",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "checkTable": "T001S",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ACCOUNTINGCLERKFAXNUMBER",
+                    "description": "Accounting clerk's fax number at the customer/vendor",
+                    "abapType": "CharacterString",
+                    "length": 31,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ACCOUNTINGCLERKPHONENUMBER",
+                    "description": "Accounting clerk's telephone number at business partner",
+                    "abapType": "CharacterString",
+                    "length": 30,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ACCOUNTINGCLERKINTERNETADDRESS",
+                    "description": "Internet address of partner company clerk",
+                    "abapType": "CharacterString",
+                    "length": 130,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SUPPLIERCLERK",
+                    "description": "Clerk at vendor",
+                    "abapType": "CharacterString",
+                    "length": 15,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SUPPLIERCLERKURL",
+                    "description": "Internet address of partner company clerk",
+                    "abapType": "CharacterString",
+                    "length": 130,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PAYMENTMETHODSLIST",
+                    "description": "List of Respected Payment Methods",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PAYMENTTERMS",
+                    "description": "Terms of payment key",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CLEARCUSTOMERSUPPLIER",
+                    "description": "Indicator: Clearing between customer and vendor?",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ISTOBELOCALLYPROCESSED",
+                    "description": "Indicator: Local Processing?",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ITEMISTOBEPAIDSEPARATELY",
+                    "description": "Indicator: Pay All Items Separately?",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PAYMENTISTOBESENTBYEDI",
+                    "description": "Indicator: Send Payment Advices by EDI",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "HOUSEBANK",
+                    "description": "Short key for a house bank",
+                    "abapType": "CharacterString",
+                    "length": 5,
+                    "isSelected": true,
+                    "checkTable": "T012",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CHECKPAIDDURATIONINDAYS",
+                    "description": "Probable Time Until Check Is Paid",
+                    "abapType": "PackedNumber",
+                    "length": 3,
+                    "isSelected": true,
+                    "formattedLength": 3,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "BILLOFEXCHLMTAMTINCOCODECRCY",
+                    "description": "Bill of Exchange Limit (in Local Currency)",
+                    "abapType": "PackedNumber",
+                    "length": 13,
+                    "decimalCount": 2,
+                    "isSelected": true,
+                    "formattedLength": 16,
+                    "conversionExit": "",
+                    "referenceTable": "T001",
+                    "referenceField": "WAERS",
+                    "isCurrency": true
+                },
+                {
+                    "name": "SUPPLIERCLERKIDBYSUPPLIER",
+                    "description": "Our account number with the vendor",
+                    "abapType": "CharacterString",
+                    "length": 12,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ISDOUBLEINVOICE",
+                    "description": "Check Flag for Double Invoices or Credit Memos",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CUSTOMERSUPPLIERCLEARINGISUSED",
+                    "description": "Indicator: Clearing between customer and vendor?",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "RECONCILIATIONACCOUNT",
+                    "description": "Reconciliation Account in General Ledger",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "checkTable": "SKB1",
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "INTERESTCALCULATIONCODE",
+                    "description": "Interest calculation indicator",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "checkTable": "T056",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "INTERESTCALCULATIONDATE",
+                    "description": "Key Date of Last Interest Calculation",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "INTRSTCALCFREQUENCYINMONTHS",
+                    "description": "Interest Calculation Frequency in Months",
+                    "abapType": "NumericCharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SUPPLIERHEADOFFICE",
+                    "description": "Head office account number",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "checkTable": "LFA1",
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "ALTERNATIVEPAYEE",
+                    "description": "Account number of the alternative payee",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "checkTable": "LFA1",
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "LAYOUTSORTINGRULE",
+                    "description": "Key for sorting according to assignment numbers",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "checkTable": "TZUN",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "APARTOLERANCEGROUP",
+                    "description": "Tolerance Group for Business Partner/G/L Account",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "T043G",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SUPPLIERCERTIFICATIONDATE",
+                    "description": "Certification Date",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SUPPLIERACCOUNTNOTE",
+                    "description": "Memo",
+                    "abapType": "CharacterString",
+                    "length": 30,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "WITHHOLDINGTAXCOUNTRY",
+                    "description": "Withholding Tax Country Key",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "checkTable": "T005Q",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "DELETIONINDICATOR",
+                    "description": "Deletion Flag for Master Record (Company Code Level)",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CASHPLANNINGGROUP",
+                    "description": "Planning Group",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "checkTable": "T035",
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "ISTOBECHECKEDFORDUPLICATES",
+                    "description": "Check Flag for Double Invoices or Credit Memos",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PERSONNELNUMBER",
+                    "description": "Personnel Number",
+                    "abapType": "NumericCharacterString",
+                    "length": 8,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PREVIOUSACCOUNTNUMBER",
+                    "description": "Previous Master Record Number",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": ""
+                }
+            ]
+        }
+    ]
+}
