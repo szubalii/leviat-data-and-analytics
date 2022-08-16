@@ -67,11 +67,11 @@
 		"parameters": {
 			"current_adls_directory_path": {
 				"type": "string",
-				"defaultValue": "FACT_HGDAWA/In/2022/07/08"
+				"defaultValue": "FACT_HGDAWA/In/2021/07/22"
 			},
 			"current_file_name": {
 				"type": "string",
-				"defaultValue": "FACT_HGDAWA_2022_07_08_08_23_39_946.parquet"
+				"defaultValue": "FACT_HGDAWA_2021_07_22_21_48_49_309.parquet"
 			},
 			"adls_container_name": {
 				"type": "string",
@@ -79,15 +79,15 @@
 			},
 			"new_file_name": {
 				"type": "string",
-				"defaultValue": "FACT_HGDAWA_2022_07_13_14_37_16_907.parquet"
+				"defaultValue": "FACT_HGDAWA_2022_08_04_09_19_45_887.parquet"
 			},
 			"new_adls_directory_path": {
 				"type": "string",
-				"defaultValue": "FACT_HGDAWA/In/2022/07/13"
+				"defaultValue": "FACT_HGDAWA/In/2022/08/04"
 			},
 			"target_adls_directory_path": {
 				"type": "string",
-				"defaultValue": "FACT_HGDAWA/Delta/2022/07/13"
+				"defaultValue": "FACT_HGDAWA/Delta/2022/08/04"
 			}
 		},
 		"variables": {
