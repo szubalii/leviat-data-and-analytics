@@ -1,7 +1,4 @@
 {
-    "s4h":{
-        "adls_container_name": "s4h-cap"
-    },
     "dw-halfen-0-hlp": {
         "adls_container_name": "dw-halfen-0-hlp-prod",
         "axbi_database_name": "DW_HALFEN_0_HLP_PROD"

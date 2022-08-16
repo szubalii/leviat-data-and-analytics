@@ -95,7 +95,7 @@
 							"typeProperties": {
 								"variableName": "additionalColumns",
 								"value": {
-									"value": "@json(\n    concat(\n        '{\"name\":\"',\n        pipeline().parameters.client_field,\n        '\",\"value\":\"',\n        pipeline().globalParameters.S4H_clientValue,\n        '\"'\n    )\n)",
+									"value": "@json(\n    concat(\n        '{\"name\":\"',\n        pipeline().parameters.client_field,\n        '\",\"value\":\"',\n        string(pipeline().parameters.client_id),\n        '\"'\n    )\n)",
 									"type": "Expression"
 								}
 							}
@@ -139,32 +139,12 @@
 			{
 				"name": "Append t_applicationId",
 				"type": "AppendVariable",
-				"dependsOn": [
-					{
-						"activity": "Set t_applicationId",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
+				"dependsOn": [],
 				"userProperties": [],
 				"typeProperties": {
 					"variableName": "additionalColumns",
 					"value": {
-						"value": "@json(\n    concat(\n        '{\"name\":\"t_applicationId\",\"value\":\"',\n        variables('t_applicationId'),\n        '\"}'\n    )\n)",
-						"type": "Expression"
-					}
-				}
-			},
-			{
-				"name": "Set t_applicationId",
-				"type": "SetVariable",
-				"dependsOn": [],
-				"userProperties": [],
-				"typeProperties": {
-					"variableName": "t_applicationId",
-					"value": {
-						"value": "@concat(\n    pipeline().globalParameters.S4H_systemID,\n    '-',\n    pipeline().globalParameters.S4H_clientValue\n)",
+						"value": "@json(\n    concat(\n        '{\"name\":\"t_applicationId\",\"value\":\"',\n        pipeline().parameters.adls_container_name,\n        '\"}'\n    )\n)",
 						"type": "Expression"
 					}
 				}
@@ -223,7 +203,7 @@
 			},
 			"adls_container_name": {
 				"type": "string",
-				"defaultValue": "s4h-cad"
+				"defaultValue": "s4h-cad-200"
 			},
 			"adls_directory_path_In": {
 				"type": "string",
@@ -236,6 +216,10 @@
 			"adls_file_name": {
 				"type": "string",
 				"defaultValue": "I_Address_2022_04_06"
+			},
+			"client_id": {
+				"type": "int",
+				"defaultValue": 200
 			}
 		},
 		"variables": {
@@ -244,12 +228,6 @@
 				"defaultValue": []
 			},
 			"t_filePath": {
-				"type": "String"
-			},
-			"t_applicationId": {
-				"type": "String"
-			},
-			"test": {
 				"type": "String"
 			}
 		},

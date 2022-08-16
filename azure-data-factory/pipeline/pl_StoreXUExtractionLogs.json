@@ -23,7 +23,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"url": {
-						"value": "@concat(\n\tpipeline().globalParameters.XU_hostName\n\t,'/log/?req_type=extraction&name='\n\t,pipeline().parameters.entity_name\n\t,'&source='\n\t,pipeline().globalParameters.XU_sourceName\n\t,'&destination='\n\t,pipeline().globalParameters.storageAccountName,'_',pipeline().globalParameters.S4H_systemID\n\t,'&timestamp='\n\t,pipeline().parameters.extraction_timestamp\n)",
+						"value": "@concat(\n\tpipeline().globalParameters.XU_hostName\n\t,'/log/?req_type=extraction&name='\n\t,pipeline().parameters.entity_name\n\t,'&source='\n\t,'CRH_Leviat_S4HANA_'\n\t,pipeline().parameters.s4h_system_id\n\t,'_'\n\t,string(pipeline().parameters.s4h_client_id)\n\t,'&destination='\n\t,pipeline().globalParameters.storageAccountName\n\t,'_s4h-'\n\t,pipeline().parameters.s4h_system_id\n\t,'-'\n\t,string(pipeline().parameters.s4h_client_id)\n\t,'&timestamp='\n\t,pipeline().parameters.extraction_timestamp\n)",
 						"type": "Expression"
 					},
 					"connectVia": {
@@ -586,6 +586,12 @@
 			},
 			"extraction_timestamp": {
 				"type": "string"
+			},
+			"s4h_system_id": {
+				"type": "string"
+			},
+			"s4h_client_id": {
+				"type": "int"
 			}
 		},
 		"folder": {

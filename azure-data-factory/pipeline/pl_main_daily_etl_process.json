@@ -21,6 +21,14 @@
 						"date": {
 							"value": "@pipeline().parameters.date",
 							"type": "Expression"
+						},
+						"s4h_system_id": {
+							"value": "@pipeline().parameters.s4h_system_id",
+							"type": "Expression"
+						},
+						"s4h_client_id": {
+							"value": "@pipeline().parameters.s4h_client_id",
+							"type": "Expression"
 						}
 					}
 				}
@@ -219,9 +227,18 @@
 					},
 					"waitOnCompletion": true,
 					"parameters": {
-						"parent_run_id": "@activity('Process ETL').output.pipelineRunId",
-						"adhoc": "@pipeline().parameters.adhoc",
-						"date": "@pipeline().parameters.date",
+						"parent_run_id": {
+							"value": "@activity('Process ETL').output.pipelineRunId",
+							"type": "Expression"
+						},
+						"adhoc": {
+							"value": "@pipeline().parameters.adhoc",
+							"type": "Expression"
+						},
+						"date": {
+							"value": "@pipeline().parameters.date",
+							"type": "Expression"
+						},
 						"entity_filter": "-- WHERE entity_id = 437"
 					}
 				}
@@ -269,6 +286,14 @@
 			},
 			"date": {
 				"type": "string"
+			},
+			"s4h_system_id": {
+				"type": "string",
+				"defaultValue": "CAA"
+			},
+			"s4h_client_id": {
+				"type": "int",
+				"defaultValue": 200
 			}
 		},
 		"folder": {
