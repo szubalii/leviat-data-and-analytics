@@ -3504,7 +3504,43 @@
           "base_table_name": "I_FinancialInstrTransTypeText",
           "pk_field_names": "LANGUAGE,FINANCIALINSTRUMENTPRODUCTTYPE,FINANCIALINSTRTRANSACTIONTYPE",
           "schedule_recurrence": "A"
-        }                              
+        },
+        {
+          "entity_id": 465,
+          "entity_name": "I_BusinessPartnerBank",
+          "data_category": "NULL",
+          "client_field": "MANDT",
+          "tool_name": "Theobald",
+          "extraction_type": "Table",
+          "update_mode": "Full",
+          "base_table_name": "I_BusinessPartnerBank",
+          "pk_field_names": "MANDT, BUSINESSPARTNER, BANKIDENTIFICATION",
+          "schedule_recurrence": "D"
+        },
+        {
+          "entity_id": 466,
+          "entity_name": "I_SupplierCompany",
+          "data_category": "FACT",
+          "client_field": "MANDT",
+          "tool_name": "Theobald",
+          "extraction_type": "Table",
+          "update_mode": "Full",
+          "base_table_name": "I_SupplierCompany",
+          "pk_field_names": "MANDT, SUPPLIER, COMPANYCODE",
+          "schedule_recurrence": "D"
+        },
+        {
+          "entity_id": 467,
+          "entity_name": "I_SupplierPurchasingOrg",
+          "data_category": "FACT",
+          "client_field": "MANDT",
+          "tool_name": "Theobald",
+          "extraction_type": "Table",
+          "update_mode": "Full",
+          "base_table_name": "I_SupplierPurchasingOrg",
+          "pk_field_names": "MANDT, SUPPLIER, PURCHASINGORGANIZATION",
+          "schedule_recurrence": "D"
+        }                                
     ]
   },
   "c4c": {
