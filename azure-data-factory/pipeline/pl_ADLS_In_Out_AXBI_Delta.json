@@ -67,7 +67,7 @@
 		"parameters": {
 			"current_adls_directory_path": {
 				"type": "string",
-				"defaultValue": "FACT_HGDAWA/In/20212/01/27"
+				"defaultValue": "FACT_HGDAWA/In/2022/01/27"
 			},
 			"current_file_name": {
 				"type": "string",
