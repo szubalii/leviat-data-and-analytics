@@ -33,13 +33,6 @@
 								}
 							},
 							{
-								"name": "t_jobDtm",
-								"value": {
-									"value": "@formatDateTime(pipeline().TriggerTime, 'yyyy-MM-dd HH:mm:ss')",
-									"type": "Expression"
-								}
-							},
-							{
 								"name": "t_jobBy",
 								"value": {
 									"value": "@pipeline().DataFactory",
