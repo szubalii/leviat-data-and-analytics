@@ -1,0 +1,28 @@
+{
+    "nameGenerator": {
+        "suffix": "",
+        "customName": "I_GLAccountText",
+        "objectNamingMode": "Custom",
+        "appendsTimestamp": true
+    },
+    "internalSettings": {
+        "nameGenerator": {
+            "suffix": "",
+            "customName": "I_GLAccountText",
+            "objectNamingMode": "Custom",
+            "appendsTimestamp": true
+        },
+        "sapDateConversion": {
+            "enabled": true,
+            "replacementForInvalidDate": null,
+            "replacementForZeroDate": "0001-01-01",
+            "replacementForYear9999": "9999-12-31"
+        },
+        "existingFileAction": "Replace",
+        "columnNameKind": "Code"
+    },
+    "blobType": "BlockBlob",
+    "columnNameKind": "Code",
+    "folderPath": "TEXT/I_GLAccountText/Theobald/ODP/Full/In/#{ DateTime.Now.ToString(\"yyyy/MM/dd\") }#",
+    "maxBlobSize": 0
+}

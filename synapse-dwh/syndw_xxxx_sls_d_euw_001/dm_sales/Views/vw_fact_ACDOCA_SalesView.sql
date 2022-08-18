@@ -15,8 +15,9 @@ SELECT
 [FinancialTransactionTypeID],
 --TODO https://dev.azure.com/leviatazure/Leviat_Data_and_Analytics_DevOps/_workitems/edit/1615
 --fITTT.[FinancialInstrTransTypeName],
-[BaseUnit][BusinessTransactionTypeID],
-bTTT.[BusinessTransactionType] as [BusinessTransactionTypeName],
+[BaseUnit],
+[BusinessTransactionTypeID],
+bTTT.[BusinessTransactionTypeName],
 acdoca.[ReferenceDocumentTypeID],
 rDTT.[ReferenceDocumentTypeName],
 [ReferenceDocumentItem],
@@ -36,18 +37,20 @@ rsDTT.[ReferenceDocumentTypeName]   AS [SourceReferenceDocumentTypeName],
 [IsCommitment],
 [JrnlEntryItemObsoleteReasonID],
 [GLAccountID],
+glaT.[GLAccountName],
 [CostCenterID],
 [ProfitCenterID],
 [FunctionalAreaID],
 fAT.[FunctionalAreaName],
+[BusinessAreaID],
 [TransactionCurrency],
 [AmountInTransactionCurrency],
 [CompanyCodeCurrency],
 [AmountInCompanyCodeCurrency],
 [GlobalCurrency],
 [AmountInGlobalCurrency],
-[DebitCreditCodeID],
-dCCT.[DebitCreditCodeName],
+[DebitCreditID],
+dCCT.[DebitCreditCodeName] AS [DebitCreditName],
 [DocumentDate],
 [AccountingDocumentTypeID],
 accDT.[AccountingDocumentTypeName],
@@ -56,7 +59,7 @@ accDT.[AccountingDocumentTypeName],
 accDCT.[AccountingDocumentCategoryName],
 [PostingKeyID],
 pKT.[PostingKeyName],
-[LastChangeDateTime],
+acdoca.[LastChangeDateTime],
 [CreationDateTime],
 [CreationDate],
 acdoca.[GLAccountTypeID],
@@ -112,7 +115,7 @@ LEFT JOIN
 LEFT JOIN          
     [base_s4h_cax].[I_DebitCreditCodeText] dCCT
      ON 
-        acdoca.[DebitCreditCodeID] = dCCT.[DebitCreditCode]
+        acdoca.[DebitCreditID] = dCCT.[DebitCreditCode]
         AND 
         dCCT.[Language] = 'E'
 /* 
@@ -160,3 +163,11 @@ LEFT JOIN
         acdoca.[GLAccountTypeID] = glaTT.[GLAccountType]
         AND 
         glaTT.[Language] = 'E'        
+LEFT JOIN     
+    [base_s4h_cax].[I_GLAccountText] glaT
+     ON 
+        acdoca.[GLAccountID] = glaT.[GLAccount]
+        AND 
+        acdoca.[ChartOfAccountsID] = glaT.[ChartOfAccounts]
+        AND
+        glaT.[Language] = 'E'          
