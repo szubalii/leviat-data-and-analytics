@@ -842,7 +842,6 @@
         "extraction_type": "Table",
         "update_mode": "Full",
         "base_table_name": "I_ProductSalesDelivery",
-        "pk_field_names": "PRODUCT, PRODUCTSALESORG, PRODUCTDISTRIBUTIONCHNL",
         "schedule_recurrence": "A"
       },
       {

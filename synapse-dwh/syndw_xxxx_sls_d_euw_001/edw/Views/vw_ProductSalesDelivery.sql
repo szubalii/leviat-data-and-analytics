@@ -1,6 +1,6 @@
 ﻿CREATE VIEW [edw].[vw_ProductSalesDelivery]
-AS 
-SELECT 
+AS
+SELECT
 	CONCAT_WS('¦',psd.[Product], [ProductSalesOrg], [ProductDistributionChnl]) as [nk_ProductSalesDelivery]
 	,psd.[Product] AS ProductID
 	,psd.[ProductSalesOrg] AS [SalesOrganizationID]
@@ -89,6 +89,14 @@ LEFT JOIN
 		psd.[ProductDistributionChnl] = dt.[DistributionChannel]
 		AND
 		dt.[Language] = 'E'
+-- ProductSalesDelivery extraction fails using Z_THEO_READ_TABLE
+-- so set back to /SAPDS/RFC_READ_TABLE2, but this results in duplicates.
+-- Hence as workaround include GROUP BY on primary key fields
+-- entity.json file updated accordingly
+GROUP BY
+	psd.[Product],
+	psd.[ProductSalesOrg],
+	psd.[ProductDistributionChnl]
 -- WHERE 
 -- 	psd.[MANDT] = 200 
 -- 	AND 
