@@ -3463,15 +3463,22 @@
         "schema_name": "base_dw_halfen_1_stg",
         "base_schema_name": "base_dw_halfen_1_stg",
         "axbi_schema_name": "dbo",
-        "entities": [
+      "entities": [
         {
-            "entity_id": 448,
-            "entity_name": "AX_Halfen_dbo_INVENTITEMPRICE",
-            "base_table_name": "AX_Halfen_dbo_INVENTITEMPRICE",
-            "pk_field_names": "DW_Id",
-            "schedule_recurrence": "A"
+          "entity_id": 448,
+          "entity_name": "AX_Halfen_dbo_INVENTITEMPRICE",
+          "base_table_name": "AX_Halfen_dbo_INVENTITEMPRICE",
+          "pk_field_names": "DW_Id",
+          "schedule_recurrence": "A"
+        },
+        {
+          "entity_id": 470,
+          "entity_name": "AX_Halfen_dbo_COMPANYINFO",
+          "base_table_name": "AX_Halfen_dbo_COMPANYINFO",
+          "pk_field_names": "DW_Id",
+          "schedule_recurrence": "A"
         }
-        ]      
+      ]      
     },
     "tx-ca-0-hlp": {
         "layer_id": 5,
@@ -3635,14 +3642,21 @@
           "entity_id": 459,
           "entity_name": "FACT_PRODJOURNALPROD",
           "base_table_name": "FACT_PRODJOURNALPROD",
-          "pk_field_names": "DW_Id, DW_SourceCode, DW_TimeStamp",
+          "pk_field_names": "DW_Id",
           "schedule_recurrence": "A"
         },
         {
           "entity_id": 460,
           "entity_name": "FACT_PURCHLINE",
           "base_table_name": "FACT_PURCHLINE",
-          "pk_field_names": "DW_Id, DW_SourceCode, DW_TimeStamp",
+          "pk_field_names": "DW_Id",
+          "schedule_recurrence": "A"
+        },
+        {
+          "entity_id": 469,
+          "entity_name": "DIM_VENDTABLE",
+          "base_table_name": "DIM_VENDTABLE",
+          "pk_field_names": "DW_Id",
           "schedule_recurrence": "A"
         }
       ]

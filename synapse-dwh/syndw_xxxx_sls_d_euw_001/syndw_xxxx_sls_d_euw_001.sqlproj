@@ -861,6 +861,7 @@
     <Build Include="map_AXBI\Tables\StockUnit.sql" />
     <Build Include="edw\Views\vw_MaterialDocumentItem_axbi.sql" />
     <Build Include="base_tx_halfen_2_dwh\Tables\DIM_VENDTABLE.sql" />
+    <Build Include="base_dw_halfen_1_stg\Tables\AX_Halfen_dbo_COMPANYINFO.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\Post-Deploy\Script.PostDeployment.sql" />

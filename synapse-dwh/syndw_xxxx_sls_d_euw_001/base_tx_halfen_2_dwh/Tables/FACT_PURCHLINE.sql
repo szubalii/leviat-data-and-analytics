@@ -45,7 +45,7 @@
     [t_extractionDtm]                   DATETIME,
     [t_filePath]                        NVARCHAR (1024)       NULL,
     CONSTRAINT [PK_FACT_PURCHLINE] PRIMARY KEY NONCLUSTERED (
-       [DW_Id],[DW_SourceCode],[DW_TimeStamp]
+       [DW_Id]
     ) NOT ENFORCED
 
 )

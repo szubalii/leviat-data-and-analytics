@@ -26,7 +26,7 @@
     [t_extractionDtm]       DATETIME,
     [t_filePath]            NVARCHAR(1024)      NULL,
     CONSTRAINT [PK_FACT_PRODJOURNALPROD] PRIMARY KEY NONCLUSTERED (
-        [DW_Id],[DW_SourceCode],[DW_TimeStamp]
+        [DW_Id]
     ) NOT ENFORCED
 )
     WITH (HEAP, DISTRIBUTION = ROUND_ROBIN);
