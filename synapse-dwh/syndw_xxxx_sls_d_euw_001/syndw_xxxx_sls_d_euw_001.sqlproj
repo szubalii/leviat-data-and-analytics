@@ -859,6 +859,8 @@
     <Build Include="edw\Tables\fact_MaterialDocumentItem_axbi.sql" />
     <Build Include="map_AXBI\Tables\InventSite.sql" />
     <Build Include="map_AXBI\Tables\StockUnit.sql" />
+    <Build Include="edw\Views\vw_MaterialDocumentItem_axbi.sql" />
+    <Build Include="base_tx_halfen_2_dwh\Tables\DIM_VENDTABLE.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\Post-Deploy\Script.PostDeployment.sql" />
