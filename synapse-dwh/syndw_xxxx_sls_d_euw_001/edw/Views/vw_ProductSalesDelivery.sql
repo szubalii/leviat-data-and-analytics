@@ -1,6 +1,6 @@
 ﻿CREATE VIEW [edw].[vw_ProductSalesDelivery]
-AS 
-SELECT 
+AS
+SELECT
 	CONCAT_WS('¦',psd.[Product], [ProductSalesOrg], [ProductDistributionChnl]) as [nk_ProductSalesDelivery]
 	,psd.[Product] AS ProductID
 	,psd.[ProductSalesOrg] AS [SalesOrganizationID]
@@ -89,6 +89,10 @@ LEFT JOIN
 		psd.[ProductDistributionChnl] = dt.[DistributionChannel]
 		AND
 		dt.[Language] = 'E'
+GROUP BY
+	psd.[Product],
+	psd.[ProductSalesOrg],
+	psd.[ProductDistributionChnl]
 -- WHERE 
 -- 	psd.[MANDT] = 200 
 -- 	AND 
