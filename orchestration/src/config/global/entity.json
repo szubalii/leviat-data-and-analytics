@@ -3,6 +3,7 @@
     "layer_id": 6,
     "schema_name": "base_s4h_cax",
     "base_schema_name": "base_s4h_cax",
+    "adls_container_name": "s4h",
     "entities": [
       {
         "entity_id": 1,
@@ -841,7 +842,6 @@
         "extraction_type": "Table",
         "update_mode": "Full",
         "base_table_name": "I_ProductSalesDelivery",
-        "pk_field_names": "PRODUCT, PRODUCTSALESORG, PRODUCTDISTRIBUTIONCHNL",
         "schedule_recurrence": "A"
       },
       {
@@ -1544,7 +1544,7 @@
         "update_mode": "Full",
         "base_table_name": "I_FinancialStatementHierT",
         "pk_field_names": "FINANCIALSTATEMENTHIERARCHY, VALIDITYENDDATE, LANGUAGE",
-        "schedule_recurrence": "A"
+        "schedule_recurrence": "D"
       },
       {
         "entity_id": 192,
@@ -3408,6 +3408,163 @@
         "base_table_name": "I_WorkCenterCapacity",
         "pk_field_names": "MANDT, WORKCENTERINTERNALID, WORKCENTERTYPECODE, CAPACITYCATEGORYALLOCATION",
         "schedule_recurrence": "A"
+      },
+      {
+        "entity_id": 454,
+        "entity_name": "I_CN_CADEFinStatementLeafItem",
+        "data_category": "NULL",
+        "client_field": "MANDT",
+        "tool_name": "Theobald",
+        "extraction_type": "Table",
+        "update_mode": "Full",
+        "base_table_name": "I_CN_CADEFinStatementLeafItem",
+        "pk_field_names": "MANDT, FINANCIALSTATEMENTVARIANT, FINANCIALSTATEMENTITEM, CHARTOFACCOUNTS, LOWERBOUNDARYACCOUNT, LOWERBOUNDARYFUNCTIONALAREA",
+        "schedule_recurrence": "A"
+      },
+      {
+        "entity_id": 455,
+        "entity_name": "I_FinancialStatementItem",
+        "data_category": "DIMENSION",
+        "tool_name": "Theobald",
+        "extraction_type": "ODP",
+        "update_mode": "Full",
+        "base_table_name": "I_FinancialStatementItem",
+        "pk_field_names": "FINANCIALSTATEMENTVARIANT, HIERARCHYNODE",
+        "schedule_recurrence": "A"
+      },
+      {
+        "entity_id": 456,
+        "entity_name": "I_FinancialStatementItemText",
+        "data_category": "TEXT",
+        "client_field": "MANDT",
+        "tool_name": "Theobald",
+        "extraction_type": "Table",
+        "update_mode": "Full",
+        "base_table_name": "I_FinancialStatementItemText",
+        "pk_field_names": "MANDT, FINANCIALSTATEMENTVARIANT, FINANCIALSTATEMENTITEM, LANGUAGE",
+        "schedule_recurrence": "A"
+      },
+      {
+        "entity_id": 457,
+        "entity_name": "I_CN_CADEFinancialStatementItm",
+        "data_category": "NULL",
+        "client_field": "MANDT",
+        "tool_name": "Theobald",
+        "extraction_type": "Table",
+        "update_mode": "Full",
+        "base_table_name": "I_CN_CADEFinancialStatementItm",
+        "pk_field_names": "MANDT, FINANCIALSTATEMENTVARIANT, HIERARCHYNODE",
+        "schedule_recurrence": "A"
+      },
+      {
+        "entity_id": 458,
+        "entity_name": "I_AccountingDocumentTypeText_F",
+        "data_category": "TEXT",
+        "client_field": "MANDT",
+        "tool_name": "Theobald",
+        "extraction_type": "ODP",
+        "update_mode": "Full",
+        "base_table_name": "I_AccountingDocumentTypeText",
+        "pk_field_names": " ACCOUNTINGDOCUMENTTYPE, LANGUAGE",
+        "schedule_recurrence": "A"
+      },
+      {
+        "entity_id": 459,
+        "entity_name": "I_FunctionalAreaText_F",
+        "data_category": "TEXT",
+        "client_field": "MANDT",
+        "tool_name": "Theobald",
+        "extraction_type": "ODP",
+        "update_mode": "Full",
+        "base_table_name": "I_FunctionalAreaText",
+        "pk_field_names": "LANGUAGE, FUNCTIONALAREA",
+        "schedule_recurrence": "A"
+      },
+      {
+        "entity_id": 460,
+        "entity_name": "I_GLAccountLineItemRawData_F",
+        "data_category": "CUBE",
+        "client_field": "MANDT",
+        "tool_name": "Theobald",
+        "extraction_type": "ODP",
+        "update_mode": "Full",
+        "base_table_name": "I_GLAccountLineItemRawData",
+        "pk_field_names": "SOURCELEDGER, COMPANYCODE, FISCALYEAR, ACCOUNTINGDOCUMENT, LEDGERGLLINEITEM",
+        "schedule_recurrence": "D"
+      },
+      {
+        "entity_id": 461,
+        "entity_name": "I_FinancialInstrTransTypeText",
+        "data_category": "TEXT",
+        "client_field": "MANDT",
+        "tool_name": "Theobald",
+        "extraction_type": "Table",
+        "update_mode": "Full",
+        "base_table_name": "I_FinancialInstrTransTypeText",
+        "pk_field_names": "LANGUAGE,FINANCIALINSTRUMENTPRODUCTTYPE,FINANCIALINSTRTRANSACTIONTYPE",
+        "schedule_recurrence": "A"
+      },
+      {
+        "entity_id": 465,
+        "entity_name": "I_BusinessPartnerBank",
+        "data_category": "NULL",
+        "client_field": "MANDT",
+        "tool_name": "Theobald",
+        "extraction_type": "Table",
+        "update_mode": "Full",
+        "base_table_name": "I_BusinessPartnerBank",
+        "pk_field_names": "MANDT, BUSINESSPARTNER, BANKIDENTIFICATION",
+        "schedule_recurrence": "D"
+      },
+      {
+        "entity_id": 466,
+        "entity_name": "I_SupplierCompany",
+        "data_category": "FACT",
+        "client_field": "MANDT",
+        "tool_name": "Theobald",
+        "extraction_type": "Table",
+        "update_mode": "Full",
+        "base_table_name": "I_SupplierCompany",
+        "pk_field_names": "MANDT, SUPPLIER, COMPANYCODE",
+        "schedule_recurrence": "D"
+      },
+      {
+        "entity_id": 467,
+        "entity_name": "I_SupplierPurchasingOrg",
+        "data_category": "FACT",
+        "client_field": "MANDT",
+        "tool_name": "Theobald",
+        "extraction_type": "Table",
+        "update_mode": "Full",
+        "base_table_name": "I_SupplierPurchasingOrg",
+        "pk_field_names": "MANDT, SUPPLIER, PURCHASINGORGANIZATION",
+        "schedule_recurrence": "D"
+      },
+      {
+        "entity_id": 468,
+        "entity_name": "I_GLAccountText_F",
+        "data_category": "TEXT",
+        "client_field": "MANDT",
+        "tool_name": "Theobald",
+        "extraction_type": "ODP",
+        "update_mode": "Full",
+        "base_table_name": "I_GLAccountText",
+        "pk_field_names": "MANDT, CHARTOFACCOUNTS, GLACCOUNT, LANGUAGE"
+      }
+    ]
+  },
+  "c4c": {
+    "layer_id": 8,
+    "schema_name": "base_c4c",
+    "base_schema_name": "base_c4c",
+    "adls_container_name": "c4c",
+    "entities": [
+      {
+        "entity_id": 464,
+        "entity_name": "OpportunityCollection",
+        "base_table_name": "OpportunityCollection",
+        "pk_field_names": "ObjectID",
+        "schedule_recurrence": "A"
       }
     ]
   },
@@ -4037,7 +4194,8 @@
         "entity_id": 339,
         "entity_name": "dim_GLAccountInChartOfAccounts",
         "sproc_name": "sp_materialize_view",
-        "source_view_name": "vw_GLAccountLineItemRawData",
+        "source_view_name": "vw_GLAccount",
+
         "dest_table_name": "dim_GLAccountInChartOfAccounts",
         "execution_order": 0,
         "schedule_recurrence": "A"
@@ -4314,9 +4472,12 @@
       },
       {
         "entity_id": 370,
-        "entity_name": "fact_GLAccountLineItemRawData",
-        "sproc_name": "sp_load_fact_GLAccountLineItemRawData",
-        "execution_order": 1
+        "entity_name": "fact_ACDOCA",
+        "sproc_name": "sp_materialize_view",
+        "source_view_name": "vw_ACDOCA",
+        "dest_table_name": "fact_ACDOCA",
+        "execution_order": 1,
+        "schedule_recurrence": "D"
       },
       {
         "entity_id": 373,
@@ -4375,7 +4536,8 @@
         "source_view_name": "vw_BillingDocumentItem_US",
         "dest_table_name": "fact_BillingDocumentItem_US",
         "execution_order": 0,
-        "schedule_recurrence": "A"
+        "schedule_recurrence": "M",
+        "schedule_day": 1
       },
       {
         "entity_id": 384,
@@ -4630,6 +4792,24 @@
         "dest_table_name": "dim_ProductValuationPUP",
         "execution_order": 1,
         "schedule_recurrence": "D"
+      },
+      {
+        "entity_id": 462,
+        "entity_name": "dim_FinancialStatementItem",
+        "sproc_name": "sp_materialize_view",
+        "source_view_name": "vw_FinancialStatementItem",
+        "dest_table_name": "dim_FinancialStatementItem",
+        "execution_order": 1,
+        "schedule_recurrence": "A"
+      },
+      {
+        "entity_id": 463,
+        "entity_name": "dim_FinancialStatementHierarchy",
+        "sproc_name": "sp_materialize_view",
+        "source_view_name": "vw_FinancialStatementHierarchy",
+        "dest_table_name": "dim_FinancialStatementHierarchy",
+        "execution_order": 1,
+        "schedule_recurrence": "A"
       }
     ]
   },
@@ -4647,7 +4827,7 @@
         "source_view_name": "vw_RuleProduct",
         "dest_table_name": "dim_RuleProduct",
         "execution_order": 0,
-        "schedule_recurrence": "A"
+        "schedule_recurrence": "D"
       },
       {
         "entity_id": 438,
@@ -4656,7 +4836,7 @@
         "source_view_name": "vw_ProductTotal",
         "dest_table_name": "fact_ProductTotal",
         "execution_order": 0,
-        "schedule_recurrence": "A"
+        "schedule_recurrence": "D"
       },
       {
         "entity_id": 439,
@@ -4665,7 +4845,7 @@
         "source_view_name": "vw_RuleTotal",
         "dest_table_name": "fact_RuleTotal",
         "execution_order": 0,
-        "schedule_recurrence": "A"
+        "schedule_recurrence": "D"
       },
       {
         "entity_id": 471,

@@ -70,19 +70,14 @@ SELECT
                             WHEN SL.[LineAmount_MST_TransDate] = 0
                             THEN    
                                 CASE 
-                                    WHEN SL.[OrderQuantity] > 0 THEN 'L'
-                                    WHEN SL.[OrderQuantity] < 0 THEN 'K'
+                                    WHEN SL.[SALESQTY] > 0 THEN 'L'
+                                    WHEN SL.[SALESQTY] < 0 THEN 'K'
                                 END
                         END
                 END
         END                           AS [SalesDocumentItemCategoryID]
-    ,   CASE
-            WHEN FINV.[TRANSTYPE] = '0'
-            THEN vwSDDC.[SDDocumentCategory]
-            ELSE NULL
-        END                           AS [SalesDocumentItemCategory]
     ,   FINV.[QTY]                    AS [MatlStkChangeQtyInBaseUnit]
-    ,   [QTY]                    AS [MatlCnsmpnQtyInMatlBaseUnit]
+    ,   FINV.[QTY]                    AS [MatlCnsmpnQtyInMatlBaseUnit]
     ,   CASE
             WHEN FINV.[TRANSTYPE] = '2'
             THEN FPJRNL.[PRODID]
@@ -95,8 +90,8 @@ SELECT
         END                           AS [ManufacturingOrderItem]
     ,   'A'                           AS [PriceControlIndicatorID]
     ,   'Average Price'               AS [PriceControlIndicator]
-    ,   [t_applicationId]
-    ,   [t_extractionDtm]
+    ,   FINV.[t_applicationId]
+    ,   FINV.[t_extractionDtm]
 FROM
     [base_tx_halfen_2_dwh].[FACT_INVENTTRANS] FINV
 LEFT JOIN
@@ -132,19 +127,15 @@ LEFT JOIN
 LEFT JOIN
     [base_tx_halfen_2_dwh].[FACT_PURCHLINE] FPURL
     ON
-        FINV.[INVENTRANSID] = FPURL.[INVENTRANSID]
+        FINV.[INVENTTRANSID] = FPURL.[INVENTTRANSID]
 LEFT JOIN
     [base_tx_halfen_2_dwh].[FACT_PRODJOURNALPROD] FPJRNL
     ON
-        FINV.[INVENTRANSID] = FPJRNL.[INVENTRANSID]
+        FINV.[INVENTTRANSID] = FPJRNL.[INVENTTRANSID]
 LEFT JOIN
     [base_tx_halfen_2_dwh].[FACT_CUSTPACKINGSLIPTRANS] FCPLT
     ON
-        FINV.[INVENTRANSID] = FCPLT.[INVENTRANSID]
-LEFT JOIN
-    [edw].[vw_SDDocumentCategory] vwSDDC
-    ON 
-        FINV.SalesDocumentItemCategoryID = vwSDDC.SDDocumentCategoryID
+        FINV.[INVENTTRANSID] = FCPLT.[INVENTTRANSID]
 WHERE
     FINV.[STATUSRECEIPT] in ('1','2')
     AND
@@ -158,7 +149,7 @@ WHERE
     AND
     dmINVTBL.HPLBUSINESSRULESTATUSID NOT IN ('0000.NEW ITEM', '9999.NOT ACTIVE')
     AND
-    LEFT(CdmINVTBL.ITEMID,4) <> '9910'
+    LEFT(dmINVTBL.ITEMID,4) <> '9910'
     AND
     dmINVTBL.HPLSTATISTICGROUPID <> 'YYYY'
 ),
@@ -206,10 +197,10 @@ GROUP BY
 ),
 CQtyOICPInBU AS(
 SELECT
-        DATAAREAID
+        FI.DATAAREAID
     ,   INVENTSITEID
     ,   INVENTLOCATIONID
-    ,   ITEMID
+    ,   FI.ITEMID
     ,   TRANSTYPE
     ,   TRANSTYPENAME
     ,   SUM(QTY) as ConsumptionQtyICPOInBaseUnit
@@ -241,10 +232,10 @@ WHERE
     AND
     dmVend.[ACCOUNTNUM] = '200'
 GROUP BY
-        DATAAREAID
+        FI.DATAAREAID
     ,   INVENTSITEID
     ,   INVENTLOCATIONID
-    ,   ITEMID
+    ,   FI.ITEMID
     ,   TRANSTYPE
     ,   TRANSTYPENAME
 ),
@@ -276,7 +267,7 @@ EuroExchangeRate AS (
 ExchangeRateEuro as (
     SELECT
             [MaterialDocument]
-        ,   [MateriaDocumentItem]
+        ,   [MaterialDocumentItem]
         ,   EuroExchangeRate.[ExchangeRate] AS [ExchangeRate]
     FROM (
         SELECT
@@ -306,9 +297,9 @@ ExchangeRateEuro as (
 ),
 INVTRANS_QTY AS(
 SELECT
-        ExchangeRateEuro.[MaterialDocumentYear]
+        INV.[MaterialDocumentYear]
     ,   ExchangeRateEuro.[MaterialDocument]
-    ,   INV.[MaterialDocumentItem]
+    ,   ExchangeRateEuro.[MaterialDocumentItem]
     ,   INV.[MaterialID]
     ,   INV.[PlantID]
     ,   dmInvLocation.[INVENTLOCATIONID] AS [StorageLocationID]
@@ -326,12 +317,16 @@ SELECT
     ,   INV.[OrderItem]
     ,   INV.[DeliveryDocument]
     ,   INV.[DeliveryDocumentItem]
-    ,   INV.[SalesDocumentItemCategoryID]
-    ,   INV.[SalesDocumentItemCategory]
+    ,   INV.[SalesDocumentItemCategoryID]    
+    ,   CASE
+            WHEN INV.[GoodsMovementTypeID] = '0'
+            THEN vwSDDC.[SDDocumentCategory]
+            ELSE NULL
+        END                           AS [SalesDocumentItemCategory]
     ,   INV.[MatlStkChangeQtyInBaseUnit]
     ,   QtySO.[ConsumptionQtySOInBaseUnit] AS [ConsumptionQtySOInBaseUnit]
     ,   QtyOBD.[ConsumptionQtyOBDProInBaseUnit] AS [ConsumptionQtyOBDProInBaseUnit]
-    ,   CQtyOICPInBU.[ConsumptionQtyICPOInBaseUnit] AS [ConsumptionQtyICPOInBaseUnit]
+    ,   QtyOICP.[ConsumptionQtyICPOInBaseUnit] AS [ConsumptionQtyICPOInBaseUnit]
     ,   INV.[MatlCnsmpnQtyInMatlBaseUnit]
     ,   INV.[ManufacturingOrder]
     ,   INV.[ManufacturingOrderItem]
@@ -352,7 +347,11 @@ LEFT JOIN
     ON
         INV.MaterialDocument = ExchangeRateEuro.MaterialDocument
         AND
-        INV.MaterialDocumentItem = ExchangeRateEuro.MaterialDocument
+        INV.MaterialDocumentItem = ExchangeRateEuro.MaterialDocument        
+LEFT JOIN
+    [edw].[vw_SDDocumentCategory] vwSDDC
+    ON 
+        INV.[SalesDocumentItemCategoryID] = vwSDDC.SDDocumentCategoryID
 LEFT JOIN
     [base_tx_halfen_2_dwh].[DIM_INVENTLOCATION] dmInvLocation
         ON
