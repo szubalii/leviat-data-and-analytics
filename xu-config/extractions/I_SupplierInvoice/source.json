@@ -1,0 +1,586 @@
+{
+    "functionName": "Z_THEO_READ_TABLE",
+    "runInBackgroundJob": false,
+    "tables": [
+        {
+            "name": "ISUPPLIERINVOICE",
+            "description": "Generated Table for View I_SupplierInvoice: Supplier Invoice",
+            "isView": true,
+            "fields": [
+                {
+                    "name": "MANDT",
+                    "description": "Client (key field in client-specific tables)",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "T000",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SUPPLIERINVOICE",
+                    "description": "Accounting document number",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "FISCALYEAR",
+                    "description": "Fiscal year",
+                    "abapType": "NumericCharacterString",
+                    "length": 4,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": "GJAHR"
+                },
+                {
+                    "name": "SUPPLIERINVOICEUUID",
+                    "description": "Supplier Invoice GUID in S-Innovations",
+                    "abapType": "ByteSequence",
+                    "length": 16,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "COMPANYCODE",
+                    "description": "Company code",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "T001",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "DOCUMENTDATE",
+                    "description": "Date",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "POSTINGDATE",
+                    "description": "Date",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "INVOICERECEIPTDATE",
+                    "description": "Date",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SUPPLIERINVOICEIDBYINVCGPARTY",
+                    "description": "Reference Document Number",
+                    "abapType": "CharacterString",
+                    "length": 16,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "INVOICINGPARTY",
+                    "description": "Account Number of Supplier",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "checkTable": "LFA1",
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "DOCUMENTCURRENCY",
+                    "description": "Currency Key",
+                    "abapType": "CharacterString",
+                    "length": 5,
+                    "isSelected": true,
+                    "checkTable": "TCURC",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "INVOICEGROSSAMOUNT",
+                    "description": "Amount field PL7",
+                    "abapType": "PackedNumber",
+                    "length": 17,
+                    "decimalCount": 2,
+                    "isSelected": true,
+                    "formattedLength": 16,
+                    "conversionExit": "",
+                    "referenceTable": "ISUPPLIERINVOICE",
+                    "referenceField": "DOCUMENTCURRENCY"
+                },
+                {
+                    "name": "ISINVOICE",
+                    "description": "Radiobutton - yes\/no decision",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "UNPLANNEDDELIVERYCOST",
+                    "description": "Cumulative asset value",
+                    "abapType": "PackedNumber",
+                    "length": 17,
+                    "decimalCount": 2,
+                    "isSelected": true,
+                    "formattedLength": 16,
+                    "conversionExit": "",
+                    "referenceTable": "ISUPPLIERINVOICE",
+                    "referenceField": "DOCUMENTCURRENCY"
+                },
+                {
+                    "name": "DOCUMENTHEADERTEXT",
+                    "description": "25-character text length",
+                    "abapType": "CharacterString",
+                    "length": 25,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CREATEDBYUSER",
+                    "description": "User name",
+                    "abapType": "CharacterString",
+                    "length": 12,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "LASTCHANGEDBYUSER",
+                    "description": "User Name in User Master Record",
+                    "abapType": "CharacterString",
+                    "length": 12,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SUPLRINVCEXTCREATEDBYUSER",
+                    "description": "Person responsible",
+                    "abapType": "CharacterString",
+                    "length": 12,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CREATIONDATE",
+                    "description": "Date",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MANUALCASHDISCOUNT",
+                    "description": "Amount field PL7",
+                    "abapType": "PackedNumber",
+                    "length": 17,
+                    "decimalCount": 2,
+                    "isSelected": true,
+                    "formattedLength": 16,
+                    "conversionExit": "",
+                    "referenceTable": "ISUPPLIERINVOICE",
+                    "referenceField": "DOCUMENTCURRENCY"
+                },
+                {
+                    "name": "PAYMENTTERMS",
+                    "description": "Terms of payment key",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "DUECALCULATIONBASEDATE",
+                    "description": "Date",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CASHDISCOUNT1PERCENT",
+                    "description": "Packed percentage rate NN,NNN",
+                    "abapType": "PackedNumber",
+                    "length": 17,
+                    "decimalCount": 3,
+                    "isSelected": true,
+                    "formattedLength": 6,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CASHDISCOUNT1DAYS",
+                    "description": "Number of days",
+                    "abapType": "PackedNumber",
+                    "length": 3,
+                    "isSelected": true,
+                    "formattedLength": 3,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CASHDISCOUNT2PERCENT",
+                    "description": "Packed percentage rate NN,NNN",
+                    "abapType": "PackedNumber",
+                    "length": 17,
+                    "decimalCount": 3,
+                    "isSelected": true,
+                    "formattedLength": 6,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CASHDISCOUNT2DAYS",
+                    "description": "Number of days",
+                    "abapType": "PackedNumber",
+                    "length": 3,
+                    "isSelected": true,
+                    "formattedLength": 3,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "NETPAYMENTDAYS",
+                    "description": "Number of days",
+                    "abapType": "PackedNumber",
+                    "length": 3,
+                    "isSelected": true,
+                    "formattedLength": 3,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PAYMENTBLOCKINGREASON",
+                    "description": "Block key for payment",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "checkTable": "T008",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ACCOUNTINGDOCUMENTTYPE",
+                    "description": "Document type",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "checkTable": "T003",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SUPPLIERINVOICESTATUS",
+                    "description": "Invoice document status",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SUPPLIERINVOICEORIGIN",
+                    "description": "Origin of Logistics Invoice Verification Document",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "BUSINESSNETWORKORIGIN",
+                    "description": "Business Network Draft Origin",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "REVERSEDOCUMENT",
+                    "description": "Accounting document number",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "REVERSEDOCUMENTFISCALYEAR",
+                    "description": "Fiscal year",
+                    "abapType": "NumericCharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "conversionExit": "GJAHR"
+                },
+                {
+                    "name": "SUPLRINVCTRANSACTIONCATEGORY",
+                    "description": "Transaction type in AG08 (internal document type)",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SUPLRINVCMANUALLYREDUCEDAMOUNT",
+                    "description": "Signed value field PL7",
+                    "abapType": "PackedNumber",
+                    "length": 17,
+                    "decimalCount": 2,
+                    "isSelected": true,
+                    "formattedLength": 18,
+                    "conversionExit": "",
+                    "referenceTable": "ISUPPLIERINVOICE",
+                    "referenceField": "DOCUMENTCURRENCY"
+                },
+                {
+                    "name": "SUPLRINVCMANUALREDUCTIONTAXAMT",
+                    "description": "Signed value field PL7",
+                    "abapType": "PackedNumber",
+                    "length": 17,
+                    "decimalCount": 2,
+                    "isSelected": true,
+                    "formattedLength": 18,
+                    "conversionExit": "",
+                    "referenceTable": "ISUPPLIERINVOICE",
+                    "referenceField": "DOCUMENTCURRENCY"
+                },
+                {
+                    "name": "SUPLRINVCAUTOMREDUCEDAMOUNT",
+                    "description": "Signed value field PL7",
+                    "abapType": "PackedNumber",
+                    "length": 17,
+                    "decimalCount": 2,
+                    "isSelected": true,
+                    "formattedLength": 18,
+                    "conversionExit": "",
+                    "referenceTable": "ISUPPLIERINVOICE",
+                    "referenceField": "DOCUMENTCURRENCY"
+                },
+                {
+                    "name": "SUPLRINVCAUTOMREDUCTIONTAXAMT",
+                    "description": "Signed value field PL7",
+                    "abapType": "PackedNumber",
+                    "length": 17,
+                    "decimalCount": 2,
+                    "isSelected": true,
+                    "formattedLength": 18,
+                    "conversionExit": "",
+                    "referenceTable": "ISUPPLIERINVOICE",
+                    "referenceField": "DOCUMENTCURRENCY"
+                },
+                {
+                    "name": "BPBANKACCOUNTINTERNALID",
+                    "description": "Indicator for the use of bank data",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "EXCHANGERATE",
+                    "description": "Exchange rate",
+                    "abapType": "PackedNumber",
+                    "length": 17,
+                    "decimalCount": 5,
+                    "isSelected": true,
+                    "formattedLength": 12,
+                    "conversionExit": "EXCRT"
+                },
+                {
+                    "name": "STATECENTRALBANKPAYMENTREASON",
+                    "description": "State central bank indicator",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "checkTable": "T015L",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SUPPLYINGCOUNTRY",
+                    "description": "Country key",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "checkTable": "T005",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PAYMENTMETHOD",
+                    "description": "Payment key",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "checkTable": "T042Z",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PAYMENTMETHODSUPPLEMENT",
+                    "description": "Payment method supplement",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PAYMENTREFERENCE",
+                    "description": "Character field length 30 without check",
+                    "abapType": "CharacterString",
+                    "length": 30,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "INVOICEREFERENCE",
+                    "description": "Interface information: Reference document number",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "INVOICEREFERENCEFISCALYEAR",
+                    "description": "Fiscal year",
+                    "abapType": "NumericCharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "conversionExit": "GJAHR"
+                },
+                {
+                    "name": "FIXEDCASHDISCOUNT",
+                    "description": "Payment terms set",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "UNPLANNEDDELIVERYCOSTTAXCODE",
+                    "description": "Taxes on sales\/puchases code",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "checkTable": "T007A",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "UNPLNDDELIVCOSTTAXJURISDICTION",
+                    "description": "Tax Jurisdiction",
+                    "abapType": "CharacterString",
+                    "length": 15,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ASSIGNMENTREFERENCE",
+                    "description": "Assignment number",
+                    "abapType": "CharacterString",
+                    "length": 18,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SUPPLIERPOSTINGLINEITEMTEXT",
+                    "description": "Text (50 characters)",
+                    "abapType": "CharacterString",
+                    "length": 50,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "TAXISCALCULATEDAUTOMATICALLY",
+                    "description": "Yes\/No field",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "BUSINESSPLACE",
+                    "description": "Branch",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PAYTSLIPWTHREFSUBSCRIBER",
+                    "description": "ISR subscriber number",
+                    "abapType": "CharacterString",
+                    "length": 11,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PAYTSLIPWTHREFCHECKDIGIT",
+                    "description": "Character field length 2",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PAYTSLIPWTHREFREFERENCE",
+                    "description": "POR reference number",
+                    "abapType": "CharacterString",
+                    "length": 27,
+                    "isSelected": true,
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "ISENDOFPURPOSEBLOCKED",
+                    "description": "Business Purpose Completed",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "BUSINESSSECTIONCODE",
+                    "description": "Section code",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "SECCODE",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "BUSINESSAREA",
+                    "description": "Business area",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ELECTRONICINVOICEUUID",
+                    "description": "ELECTRONICINVOICEUUID",
+                    "abapType": "CharacterString",
+                    "length": 36,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "TAXDETERMINATIONDATE",
+                    "description": "Date",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "DELIVERYOFGOODSREPORTINGCNTRY",
+                    "description": "Country key",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SUPPLIERVATREGISTRATION",
+                    "description": "VAT Registration Number",
+                    "abapType": "CharacterString",
+                    "length": 20,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ISEUTRIANGULARDEAL",
+                    "description": "Yes\/No field",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                }
+            ]
+        }
+    ]
+}

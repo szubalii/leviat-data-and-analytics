@@ -1,0 +1,319 @@
+{
+    "functionName": "Z_THEO_READ_TABLE",
+    "runInBackgroundJob": false,
+    "tables": [
+        {
+            "name": "ISIITMPURORDREF",
+            "description": "Generated Table for View I_SupplierInvoiceItemPurOrdRef: Supplier Invoice Item Purchase Order Reference",
+            "isView": true,
+            "fields": [
+                {
+                    "name": "MANDT",
+                    "description": "Client (key field in client-specific tables)",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "T000",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SUPPLIERINVOICE",
+                    "description": "Accounting document number",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "FISCALYEAR",
+                    "description": "Fiscal year",
+                    "abapType": "NumericCharacterString",
+                    "length": 4,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": "GJAHR"
+                },
+                {
+                    "name": "SUPPLIERINVOICEITEM",
+                    "description": "4 digit numerical fields without check",
+                    "abapType": "NumericCharacterString",
+                    "length": 6,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PURCHASEORDER",
+                    "description": "Purchasing document number",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "checkTable": "EKKO",
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "PURCHASEORDERITEM",
+                    "description": "Item in purchasing document",
+                    "abapType": "NumericCharacterString",
+                    "length": 5,
+                    "isSelected": true,
+                    "checkTable": "EKPO",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PLANT",
+                    "description": "Plant",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "T001W",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SUPPLIERINVOICEITEMTEXT",
+                    "description": "Text (50 characters)",
+                    "abapType": "CharacterString",
+                    "length": 50,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PURCHASEORDERITEMMATERIAL",
+                    "description": "Material Number (C40 Field)",
+                    "abapType": "CharacterString",
+                    "length": 40,
+                    "isSelected": true,
+                    "checkTable": "MARA",
+                    "conversionExit": "MATN1"
+                },
+                {
+                    "name": "PURCHASEORDERQUANTITYUNIT",
+                    "description": "Units of Measurement of Various Types",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "checkTable": "T006",
+                    "conversionExit": "CUNIT"
+                },
+                {
+                    "name": "QUANTITYINPURCHASEORDERUNIT",
+                    "description": "Quantity field, length 13",
+                    "abapType": "PackedNumber",
+                    "length": 17,
+                    "decimalCount": 3,
+                    "isSelected": true,
+                    "formattedLength": 17,
+                    "conversionExit": "",
+                    "referenceTable": "ISIITMPURORDREF",
+                    "referenceField": "PURCHASEORDERQUANTITYUNIT"
+                },
+                {
+                    "name": "PURCHASEORDERPRICEUNIT",
+                    "description": "Units of Measurement of Various Types",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "checkTable": "T006",
+                    "conversionExit": "CUNIT"
+                },
+                {
+                    "name": "QTYINPURCHASEORDERPRICEUNIT",
+                    "description": "Quantity field, length 13",
+                    "abapType": "PackedNumber",
+                    "length": 17,
+                    "decimalCount": 3,
+                    "isSelected": true,
+                    "formattedLength": 17,
+                    "conversionExit": "",
+                    "referenceTable": "ISIITMPURORDREF",
+                    "referenceField": "PURCHASEORDERPRICEUNIT"
+                },
+                {
+                    "name": "SUPLRINVCDELIVERYCOSTCNDNTYPE",
+                    "description": "Condition key",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SUPLRINVCDELIVERYCOSTCNDNSTEP",
+                    "description": "Level number",
+                    "abapType": "NumericCharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SUPLRINVCDELIVERYCOSTCNDNCOUNT",
+                    "description": "Numerator conditions",
+                    "abapType": "NumericCharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "DOCUMENTCURRENCY",
+                    "description": "Currency Key",
+                    "abapType": "CharacterString",
+                    "length": 5,
+                    "isSelected": true,
+                    "checkTable": "TCURC",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SUPPLIERINVOICEITEMAMOUNT",
+                    "description": "Amount field PL7",
+                    "abapType": "PackedNumber",
+                    "length": 17,
+                    "decimalCount": 2,
+                    "isSelected": true,
+                    "formattedLength": 16,
+                    "conversionExit": "",
+                    "referenceTable": "ISIITMPURORDREF",
+                    "referenceField": "DOCUMENTCURRENCY"
+                },
+                {
+                    "name": "ISSUBSEQUENTDEBITCREDIT",
+                    "description": "Partial amount indicator",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "TAXCODE",
+                    "description": "Taxes on sales\/puchases code",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "checkTable": "T007A",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "TAXJURISDICTION",
+                    "description": "Tax Jurisdiction",
+                    "abapType": "CharacterString",
+                    "length": 15,
+                    "isSelected": true,
+                    "checkTable": "TTXJ",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "REFERENCEDOCUMENT",
+                    "description": "Accounting document number",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "REFERENCEDOCUMENTFISCALYEAR",
+                    "description": "Fiscal year",
+                    "abapType": "NumericCharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "conversionExit": "GJAHR"
+                },
+                {
+                    "name": "REFERENCEDOCUMENTITEM",
+                    "description": "Item in Material Document",
+                    "abapType": "NumericCharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "DEBITCREDITCODE",
+                    "description": "Debit\/credit indicator",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "FREIGHTSUPPLIER",
+                    "description": "Account Number of Supplier",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "ISNOTCASHDISCOUNTLIABLE",
+                    "description": "Yes\/No field",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SUPLRINVCITEMHASPRICEVARIANCE",
+                    "description": "Yes\/No field",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SUPLRINVCITEMHASQTYVARIANCE",
+                    "description": "Yes\/No field",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SUPLRINVCITEMHASDATEVARIANCE",
+                    "description": "Yes\/No field",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SUPLRINVCITEMHASORDPRCQTYVARC",
+                    "description": "Yes\/No field",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SUPLRINVCITEMHASOTHERVARIANCE",
+                    "description": "Yes\/No field",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SUPLRINVCITEMHASAMOUNTOUTSDTOL",
+                    "description": "Yes\/No field",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SUPLRINVCITMHASQUALITYVARIANCE",
+                    "description": "Yes\/No field",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ISONLINESUPPLIERINVOICEITEM",
+                    "description": "ISONLINESUPPLIERINVOICEITEM",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                }
+            ]
+        }
+    ]
+}

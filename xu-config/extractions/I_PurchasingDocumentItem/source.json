@@ -1,0 +1,1605 @@
+{
+    "functionName": "Z_THEO_READ_TABLE",
+    "runInBackgroundJob": false,
+    "tables": [
+        {
+            "name": "IMMPURGDOCITEM",
+            "description": "Generated Table for View I_PurchasingDocumentItem: Purchasing Document Item",
+            "isView": true,
+            "fields": [
+                {
+                    "name": "MANDT",
+                    "description": "Client (key field in client-specific tables)",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "T000",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PURCHASINGDOCUMENT",
+                    "description": "Purchasing document number",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "EKKO",
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "PURCHASINGDOCUMENTITEM",
+                    "description": "Item in purchasing document",
+                    "abapType": "NumericCharacterString",
+                    "length": 5,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PURCHASINGDOCUMENTITEMUNIQUEID",
+                    "description": "Concatenation of EBELN and EBELP",
+                    "abapType": "CharacterString",
+                    "length": 15,
+                    "isSelected": true,
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "PURCHASINGDOCUMENTCATEGORY",
+                    "description": "Purchasing Document Category",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PURCHASINGDOCUMENTDELETIONCODE",
+                    "description": "Deletion indicator, purchasing structures",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MATERIAL",
+                    "description": "Material Number (C40 Field)",
+                    "abapType": "CharacterString",
+                    "length": 40,
+                    "isSelected": true,
+                    "checkTable": "MARA",
+                    "conversionExit": "MATN1"
+                },
+                {
+                    "name": "SUPPLIERMATERIALNUMBER",
+                    "description": "External Material Number",
+                    "abapType": "CharacterString",
+                    "length": 35,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MANUFACTURERMATERIAL",
+                    "description": "Material Number (C40 Field)",
+                    "abapType": "CharacterString",
+                    "length": 40,
+                    "isSelected": true,
+                    "checkTable": "MARA",
+                    "conversionExit": "MATN1"
+                },
+                {
+                    "name": "MANUFACTURERPARTNMBR",
+                    "description": "Character Field (Length 40)",
+                    "abapType": "CharacterString",
+                    "length": 40,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MANUFACTURER",
+                    "description": "Account Number of Supplier",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "checkTable": "LFA1",
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "PURCHASINGDOCUMENTITEMTEXT",
+                    "description": "Text (40 characters)",
+                    "abapType": "CharacterString",
+                    "length": 40,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "COMPANYCODE",
+                    "description": "Company code",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "T001",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PLANT",
+                    "description": "Plant",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "T001W",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MANUALDELIVERYADDRESSID",
+                    "description": "Address Number (Business Address Services)",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "REFERENCEDELIVERYADDRESSID",
+                    "description": "Address Number (Business Address Services)",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "checkTable": "ADRC",
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "CUSTOMER",
+                    "description": "Customer Number",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "checkTable": "KNA1",
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "SUBCONTRACTOR",
+                    "description": "Account Number of Supplier",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "checkTable": "LFA1",
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "SUPPLIERISSUBCONTRACTOR",
+                    "description": "Yes\/No field",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CROSSPLANTCONFIGURABLEPRODUCT",
+                    "description": "Material Number (C40 Field)",
+                    "abapType": "CharacterString",
+                    "length": 40,
+                    "isSelected": true,
+                    "checkTable": "MARA",
+                    "conversionExit": "MATN1"
+                },
+                {
+                    "name": "ARTICLECATEGORY",
+                    "description": "Material Category",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PLNDORDERREPLNMTELMNTTYPE",
+                    "description": "Supply-to-Production Indicator",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRODUCTPURCHASEPOINTSQTYUNIT",
+                    "description": "Units of Measurement of Various Types",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "checkTable": "T006",
+                    "conversionExit": "CUNIT"
+                },
+                {
+                    "name": "PRODUCTPURCHASEPOINTSQTY",
+                    "description": "Quantity field, length 13",
+                    "abapType": "PackedNumber",
+                    "length": 17,
+                    "decimalCount": 3,
+                    "isSelected": true,
+                    "formattedLength": 17,
+                    "conversionExit": "",
+                    "referenceTable": "IMMPURGDOCITEM",
+                    "referenceField": "PRODUCTPURCHASEPOINTSQTYUNIT"
+                },
+                {
+                    "name": "STORAGELOCATION",
+                    "description": "Storage location",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "T001L",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MATERIALGROUP",
+                    "description": "Material class",
+                    "abapType": "CharacterString",
+                    "length": 9,
+                    "isSelected": true,
+                    "checkTable": "T023",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ORDERQUANTITYUNIT",
+                    "description": "Units of Measurement of Various Types",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "checkTable": "T006",
+                    "conversionExit": "CUNIT"
+                },
+                {
+                    "name": "ORDERITEMQTYTOBASEQTYNMRTR",
+                    "description": "Numerator for the conversion factor",
+                    "abapType": "PackedNumber",
+                    "length": 5,
+                    "isSelected": true,
+                    "formattedLength": 6,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ORDERITEMQTYTOBASEQTYDNMNTR",
+                    "description": "Denominator: conversion factor",
+                    "abapType": "PackedNumber",
+                    "length": 5,
+                    "isSelected": true,
+                    "formattedLength": 6,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "NETPRICEQUANTITY",
+                    "description": "Decimal field, length 5",
+                    "abapType": "PackedNumber",
+                    "length": 5,
+                    "isSelected": true,
+                    "formattedLength": 6,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ISCOMPLETELYDELIVERED",
+                    "description": "Yes\/No field",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ISFINALLYINVOICED",
+                    "description": "Yes\/No field",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "GOODSRECEIPTISEXPECTED",
+                    "description": "Yes\/No field",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "INVOICEISEXPECTED",
+                    "description": "Yes\/No field",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "INVOICEISGOODSRECEIPTBASED",
+                    "description": "Yes\/No field",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "GOODSRECEIPTISNONVALUATED",
+                    "description": "Yes\/No field",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PURCHASEREQUISITION",
+                    "description": "Purchase requisition number",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "PURCHASEREQUISITIONITEM",
+                    "description": "Purchase requisition item",
+                    "abapType": "NumericCharacterString",
+                    "length": 5,
+                    "isSelected": true,
+                    "checkTable": "EBAN",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SERVICEPACKAGE",
+                    "description": "Service package number",
+                    "abapType": "NumericCharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "checkTable": "ESLH",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SERVICEPERFORMER",
+                    "description": "Business partners",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "PRODUCTTYPE",
+                    "description": "Character field length 2",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MATERIALTYPE",
+                    "description": "Material type",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "T134",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PURCHASECONTRACTITEM",
+                    "description": "Item in purchasing document",
+                    "abapType": "NumericCharacterString",
+                    "length": 5,
+                    "isSelected": true,
+                    "checkTable": "EKPO",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PURCHASECONTRACT",
+                    "description": "Purchasing document number",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "checkTable": "EKKO",
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "REQUESTFORQUOTATION",
+                    "description": "Purchasing document number",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "REQUESTFORQUOTATIONITEM",
+                    "description": "Item in purchasing document",
+                    "abapType": "NumericCharacterString",
+                    "length": 5,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "EVALDRCPTSETTLMTISALLOWED",
+                    "description": "Yes\/No field",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "UNLIMITEDOVERDELIVERYISALLOWED",
+                    "description": "Yes\/No field",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "OVERDELIVTOLRTDLMTRATIOINPCT",
+                    "description": "Percentage packed, NN,N",
+                    "abapType": "PackedNumber",
+                    "length": 17,
+                    "decimalCount": 1,
+                    "isSelected": true,
+                    "formattedLength": 4,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "UNDERDELIVTOLRTDLMTRATIOINPCT",
+                    "description": "Percentage packed, NN,N",
+                    "abapType": "PackedNumber",
+                    "length": 17,
+                    "decimalCount": 1,
+                    "isSelected": true,
+                    "formattedLength": 4,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "REQUISITIONERNAME",
+                    "description": "Name of requisitioner\/requester in purchase requisition",
+                    "abapType": "CharacterString",
+                    "length": 12,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MRPAREA",
+                    "description": "MRP area",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "checkTable": "MDLV",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "INCOTERMSCLASSIFICATION",
+                    "description": "Incoterms part 1",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "checkTable": "TINC",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "INCOTERMSTRANSFERLOCATION",
+                    "description": "Incoterms part 2",
+                    "abapType": "CharacterString",
+                    "length": 28,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "INCOTERMSLOCATION1",
+                    "description": "Incoterms Location",
+                    "abapType": "CharacterString",
+                    "length": 70,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "INCOTERMSLOCATION2",
+                    "description": "Incoterms Location",
+                    "abapType": "CharacterString",
+                    "length": 70,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRIORSUPPLIER",
+                    "description": "Account Number of Supplier",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "checkTable": "LFA1",
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "INTERNATIONALARTICLENUMBER",
+                    "description": "International Article Number (EAN)",
+                    "abapType": "CharacterString",
+                    "length": 18,
+                    "isSelected": true,
+                    "conversionExit": "EAN11"
+                },
+                {
+                    "name": "SUPPLIERCONFIRMATIONCONTROLKEY",
+                    "description": "Confirmation Control Key",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "T163L",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRICEISTOBEPRINTED",
+                    "description": "Yes\/No field",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "BASEUNIT",
+                    "description": "Units of Measurement of Various Types",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "checkTable": "T006",
+                    "conversionExit": "CUNIT"
+                },
+                {
+                    "name": "PURCHASINGDOCUMENTITEMCATEGORY",
+                    "description": "Item category in purchasing document",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "checkTable": "T163",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PROFITCENTER",
+                    "description": "Profit center",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "checkTable": "CEPC",
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "ORDERPRICEUNIT",
+                    "description": "Units of Measurement of Various Types",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "checkTable": "T006",
+                    "conversionExit": "CUNIT"
+                },
+                {
+                    "name": "VOLUMEUNIT",
+                    "description": "Units of Measurement of Various Types",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "checkTable": "T006",
+                    "conversionExit": "CUNIT"
+                },
+                {
+                    "name": "WEIGHTUNIT",
+                    "description": "Units of Measurement of Various Types",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "checkTable": "T006",
+                    "conversionExit": "CUNIT"
+                },
+                {
+                    "name": "MULTIPLEACCTASSGMTDISTRIBUTION",
+                    "description": "Distribution Indicator for Account Assignment",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PARTIALINVOICEDISTRIBUTION",
+                    "description": "Control indicator for IR after partial goods receipt",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRICINGDATECONTROL",
+                    "description": "Pricing date control",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ISSTATISTICALITEM",
+                    "description": "Yes\/No field",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PURCHASINGPARENTITEM",
+                    "description": "Item in purchasing document",
+                    "abapType": "NumericCharacterString",
+                    "length": 5,
+                    "isSelected": true,
+                    "checkTable": "EKPO",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "GOODSRECEIPTLATESTCREATIONDATE",
+                    "description": "Date",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ISRETURNSITEM",
+                    "description": "Yes\/No field",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PURCHASINGORDERREASON",
+                    "description": "Reason for ordering",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "checkTable": "TBSG",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ACCOUNTASSIGNMENTCATEGORY",
+                    "description": "Account assignment category",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "checkTable": "T163K",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PURCHASINGINFORECORD",
+                    "description": "Number of purchasing info record",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "checkTable": "EINA",
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "NETAMOUNT",
+                    "description": "Amount field PL7",
+                    "abapType": "PackedNumber",
+                    "length": 17,
+                    "decimalCount": 2,
+                    "isSelected": true,
+                    "formattedLength": 16,
+                    "conversionExit": "",
+                    "referenceTable": "IMMPURGDOCITEM",
+                    "referenceField": "DOCUMENTCURRENCY"
+                },
+                {
+                    "name": "GROSSAMOUNT",
+                    "description": "Amount field PL7",
+                    "abapType": "PackedNumber",
+                    "length": 17,
+                    "decimalCount": 2,
+                    "isSelected": true,
+                    "formattedLength": 16,
+                    "conversionExit": "",
+                    "referenceTable": "IMMPURGDOCITEM",
+                    "referenceField": "DOCUMENTCURRENCY"
+                },
+                {
+                    "name": "EFFECTIVEAMOUNT",
+                    "description": "Amount field PL7",
+                    "abapType": "PackedNumber",
+                    "length": 17,
+                    "decimalCount": 2,
+                    "isSelected": true,
+                    "formattedLength": 16,
+                    "conversionExit": "",
+                    "referenceTable": "IMMPURGDOCITEM",
+                    "referenceField": "DOCUMENTCURRENCY"
+                },
+                {
+                    "name": "SUBTOTAL1AMOUNT",
+                    "description": "Signed value field PL7",
+                    "abapType": "PackedNumber",
+                    "length": 17,
+                    "decimalCount": 2,
+                    "isSelected": true,
+                    "formattedLength": 18,
+                    "conversionExit": "",
+                    "referenceTable": "IMMPURGDOCITEM",
+                    "referenceField": "DOCUMENTCURRENCY"
+                },
+                {
+                    "name": "SUBTOTAL2AMOUNT",
+                    "description": "Signed value field PL7",
+                    "abapType": "PackedNumber",
+                    "length": 17,
+                    "decimalCount": 2,
+                    "isSelected": true,
+                    "formattedLength": 18,
+                    "conversionExit": "",
+                    "referenceTable": "IMMPURGDOCITEM",
+                    "referenceField": "DOCUMENTCURRENCY"
+                },
+                {
+                    "name": "SUBTOTAL3AMOUNT",
+                    "description": "Signed value field PL7",
+                    "abapType": "PackedNumber",
+                    "length": 17,
+                    "decimalCount": 2,
+                    "isSelected": true,
+                    "formattedLength": 18,
+                    "conversionExit": "",
+                    "referenceTable": "IMMPURGDOCITEM",
+                    "referenceField": "DOCUMENTCURRENCY"
+                },
+                {
+                    "name": "SUBTOTAL4AMOUNT",
+                    "description": "Signed value field PL7",
+                    "abapType": "PackedNumber",
+                    "length": 17,
+                    "decimalCount": 2,
+                    "isSelected": true,
+                    "formattedLength": 18,
+                    "conversionExit": "",
+                    "referenceTable": "IMMPURGDOCITEM",
+                    "referenceField": "DOCUMENTCURRENCY"
+                },
+                {
+                    "name": "SUBTOTAL5AMOUNT",
+                    "description": "Signed value field PL7",
+                    "abapType": "PackedNumber",
+                    "length": 17,
+                    "decimalCount": 2,
+                    "isSelected": true,
+                    "formattedLength": 18,
+                    "conversionExit": "",
+                    "referenceTable": "IMMPURGDOCITEM",
+                    "referenceField": "DOCUMENTCURRENCY"
+                },
+                {
+                    "name": "SUBTOTAL6AMOUNT",
+                    "description": "Signed value field PL7",
+                    "abapType": "PackedNumber",
+                    "length": 17,
+                    "decimalCount": 2,
+                    "isSelected": true,
+                    "formattedLength": 18,
+                    "conversionExit": "",
+                    "referenceTable": "IMMPURGDOCITEM",
+                    "referenceField": "DOCUMENTCURRENCY"
+                },
+                {
+                    "name": "TARGETQUANTITY",
+                    "description": "Quantities of different types",
+                    "abapType": "PackedNumber",
+                    "length": 17,
+                    "decimalCount": 3,
+                    "isSelected": true,
+                    "formattedLength": 17,
+                    "conversionExit": "",
+                    "referenceTable": "IMMPURGDOCITEM",
+                    "referenceField": "ORDERQUANTITYUNIT"
+                },
+                {
+                    "name": "ORDERQUANTITY",
+                    "description": "Quantity field, length 13",
+                    "abapType": "PackedNumber",
+                    "length": 17,
+                    "decimalCount": 3,
+                    "isSelected": true,
+                    "formattedLength": 17,
+                    "conversionExit": "",
+                    "referenceTable": "IMMPURGDOCITEM",
+                    "referenceField": "ORDERQUANTITYUNIT"
+                },
+                {
+                    "name": "NETPRICEAMOUNT",
+                    "description": "Value field length 11",
+                    "abapType": "PackedNumber",
+                    "length": 17,
+                    "decimalCount": 2,
+                    "isSelected": true,
+                    "formattedLength": 14,
+                    "conversionExit": "",
+                    "referenceTable": "IMMPURGDOCITEM",
+                    "referenceField": "DOCUMENTCURRENCY"
+                },
+                {
+                    "name": "TARGETAMOUNT",
+                    "description": "Amount field PL7",
+                    "abapType": "PackedNumber",
+                    "length": 17,
+                    "decimalCount": 2,
+                    "isSelected": true,
+                    "formattedLength": 16,
+                    "conversionExit": "",
+                    "referenceTable": "IMMPURGDOCITEM",
+                    "referenceField": "DOCUMENTCURRENCY"
+                },
+                {
+                    "name": "ITEMVOLUME",
+                    "description": "Quantity field, length 13",
+                    "abapType": "PackedNumber",
+                    "length": 17,
+                    "decimalCount": 3,
+                    "isSelected": true,
+                    "formattedLength": 17,
+                    "conversionExit": "",
+                    "referenceTable": "IMMPURGDOCITEM",
+                    "referenceField": "VOLUMEUNIT"
+                },
+                {
+                    "name": "ITEMGROSSWEIGHT",
+                    "description": "Quantity field, length 13",
+                    "abapType": "PackedNumber",
+                    "length": 17,
+                    "decimalCount": 3,
+                    "isSelected": true,
+                    "formattedLength": 17,
+                    "conversionExit": "",
+                    "referenceTable": "IMMPURGDOCITEM",
+                    "referenceField": "WEIGHTUNIT"
+                },
+                {
+                    "name": "ITEMNETWEIGHT",
+                    "description": "Quantity field, length 13",
+                    "abapType": "PackedNumber",
+                    "length": 17,
+                    "decimalCount": 3,
+                    "isSelected": true,
+                    "formattedLength": 17,
+                    "conversionExit": "",
+                    "referenceTable": "IMMPURGDOCITEM",
+                    "referenceField": "WEIGHTUNIT"
+                },
+                {
+                    "name": "ORDERPRICEUNITTOORDERUNITNMRTR",
+                    "description": "Numerator for the conversion factor",
+                    "abapType": "PackedNumber",
+                    "length": 5,
+                    "isSelected": true,
+                    "formattedLength": 6,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ORDPRICEUNITTOORDERUNITDNMNTR",
+                    "description": "Denominator: conversion factor",
+                    "abapType": "PackedNumber",
+                    "length": 5,
+                    "isSelected": true,
+                    "formattedLength": 6,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SCHEDAGRMTCUMQTYRECONCILEDATE",
+                    "description": "Date",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SCHEDAGRMTAGREEDCUMQTY",
+                    "description": "Quantity field, length 13",
+                    "abapType": "PackedNumber",
+                    "length": 17,
+                    "decimalCount": 3,
+                    "isSelected": true,
+                    "formattedLength": 17,
+                    "conversionExit": "",
+                    "referenceTable": "IMMPURGDOCITEM",
+                    "referenceField": "ORDERQUANTITYUNIT"
+                },
+                {
+                    "name": "ITEMLASTTRANSMISSIONDATE",
+                    "description": "Date",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SCHEDULELINEFIRMORDERINDAYS",
+                    "description": "Packed field length 2",
+                    "abapType": "PackedNumber",
+                    "length": 3,
+                    "isSelected": true,
+                    "formattedLength": 3,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SCHEDLINESEMIFIRMORDERINDAYS",
+                    "description": "Packed field length 2",
+                    "abapType": "PackedNumber",
+                    "length": 3,
+                    "isSelected": true,
+                    "formattedLength": 3,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "NODAYSREMINDER1",
+                    "description": "Reminder days",
+                    "abapType": "PackedNumber",
+                    "length": 3,
+                    "isSelected": true,
+                    "formattedLength": 4,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "NODAYSREMINDER2",
+                    "description": "Reminder days",
+                    "abapType": "PackedNumber",
+                    "length": 3,
+                    "isSelected": true,
+                    "formattedLength": 4,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "NODAYSREMINDER3",
+                    "description": "Reminder days",
+                    "abapType": "PackedNumber",
+                    "length": 3,
+                    "isSelected": true,
+                    "formattedLength": 4,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "REQUIREMENTTRACKING",
+                    "description": "Character Field of Length 10",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ISORDERACKNRQD",
+                    "description": "Yes\/No field",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "STOCKTYPE",
+                    "description": "Stock type",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "TAXCODE",
+                    "description": "Taxes on sales\/puchases code",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "checkTable": "T007A",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "TAXJURISDICTION",
+                    "description": "Tax Jurisdiction",
+                    "abapType": "CharacterString",
+                    "length": 15,
+                    "isSelected": true,
+                    "checkTable": "TTXJ",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SHIPPINGINSTRUCTION",
+                    "description": "Shipping instructions",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "checkTable": "T027A",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "NONDEDUCTIBLEINPUTTAXAMOUNT",
+                    "description": "Amount field PL7",
+                    "abapType": "PackedNumber",
+                    "length": 17,
+                    "decimalCount": 2,
+                    "isSelected": true,
+                    "formattedLength": 16,
+                    "conversionExit": "",
+                    "referenceTable": "IMMPURGDOCITEM",
+                    "referenceField": "DOCUMENTCURRENCY"
+                },
+                {
+                    "name": "VALUATIONTYPE",
+                    "description": "Valuation type",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "checkTable": "T149D",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "VALUATIONCATEGORY",
+                    "description": "Valuation Category",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "checkTable": "T149C",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ITEMISREJECTEDBYSUPPLIER",
+                    "description": "Yes\/No field",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PURGDOCPRICEDATE",
+                    "description": "Date",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ISINFORECORDUPDATED",
+                    "description": "Info record update",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PURGDOCRELEASEORDERQUANTITY",
+                    "description": "Quantity field, length 13",
+                    "abapType": "PackedNumber",
+                    "length": 17,
+                    "decimalCount": 3,
+                    "isSelected": true,
+                    "formattedLength": 17,
+                    "conversionExit": "",
+                    "referenceTable": "IMMPURGDOCITEM",
+                    "referenceField": "ORDERQUANTITYUNIT"
+                },
+                {
+                    "name": "PURGDOCORDERACKNNUMBER",
+                    "description": "Text (20 characters)",
+                    "abapType": "CharacterString",
+                    "length": 20,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PURGDOCESTIMATEDPRICE",
+                    "description": "Yes\/No field",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ISINFOATREGISTRATION",
+                    "description": "One-Character Field Without Check",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SUPPLIERSUBRANGE",
+                    "description": "Vendor Subrange",
+                    "abapType": "CharacterString",
+                    "length": 6,
+                    "isSelected": true,
+                    "checkTable": "WYT1",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "COSTCENTER",
+                    "description": "Cost center",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "GLACCOUNT",
+                    "description": "G\/L account number",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "checkTable": "SKA1",
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "WBSELEMENTINTERNALID",
+                    "description": "WBS element number (internal counter as DB key)",
+                    "abapType": "NumericCharacterString",
+                    "length": 8,
+                    "isSelected": true,
+                    "checkTable": "PRPS",
+                    "conversionExit": "ABPSP"
+                },
+                {
+                    "name": "FUND",
+                    "description": "Sponsor\/fund",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "BUDGETPERIOD",
+                    "description": "FM: Budget Period",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "FUNDSCENTER",
+                    "description": "Funds center",
+                    "abapType": "CharacterString",
+                    "length": 16,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "COMMITMENTITEM",
+                    "description": "Commitment item",
+                    "abapType": "CharacterString",
+                    "length": 14,
+                    "isSelected": true,
+                    "checkTable": "FMFPO",
+                    "conversionExit": "FMCIS"
+                },
+                {
+                    "name": "FUNCTIONALAREA",
+                    "description": "Functional area",
+                    "abapType": "CharacterString",
+                    "length": 16,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "GRANTID",
+                    "description": "Grant",
+                    "abapType": "CharacterString",
+                    "length": 20,
+                    "isSelected": true,
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "EARMARKEDFUNDS",
+                    "description": "Document Number: Manual Document Entry",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "EARMARKEDFUNDSDOCUMENT",
+                    "description": "Document Number: Manual Document Entry",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "EARMARKEDFUNDSITEM",
+                    "description": "Document Item: Manual Document Entry",
+                    "abapType": "NumericCharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "EARMARKEDFUNDSDOCUMENTITEM",
+                    "description": "Document Item: Manual Document Entry",
+                    "abapType": "NumericCharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PLANNEDDELIVERYDURATIONINDAYS",
+                    "description": "Decimal field, length 3",
+                    "abapType": "PackedNumber",
+                    "length": 3,
+                    "isSelected": true,
+                    "formattedLength": 3,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "GOODSRECEIPTDURATIONINDAYS",
+                    "description": "Decimal field, length 3",
+                    "abapType": "PackedNumber",
+                    "length": 3,
+                    "isSelected": true,
+                    "formattedLength": 3,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PARTIALDELIVERYISALLOWED",
+                    "description": "Partial-delivery control for item",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CONSUMPTIONPOSTING",
+                    "description": "Indicator: consumpt. posting (e.g. PO item with acct assgt)",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SCHEDGAGRMTRELCREATIONPROFILE",
+                    "description": "Forecast delivery schedule: Transmission profile",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "T163P",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SCHEDAGRMTCUMULATIVEQTYCONTROL",
+                    "description": "CQ Control Type",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CUMULATIVEQUANTITYISNOTSENT",
+                    "description": "Yes\/No field",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MINREMAININGSHELFLIFE",
+                    "description": "Decimal field of length 4",
+                    "abapType": "PackedNumber",
+                    "length": 4,
+                    "isSelected": true,
+                    "formattedLength": 5,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SHELFLIFEEXPIRATIONDATEPERIOD",
+                    "description": "Period Indicator",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "QUALITYMGMTCTRLKEY",
+                    "description": "Control key for QM in procurement",
+                    "abapType": "CharacterString",
+                    "length": 8,
+                    "isSelected": true,
+                    "checkTable": "TQ08",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "INVENTORYSPECIALSTOCKTYPE",
+                    "description": "Special Stock Indicator",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "checkTable": "T148",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ISRELEVANTFORJITDELIVSCHEDULE",
+                    "description": "Indicator: Relevance to JIT delivery schedules",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "NEXTJITDELIVSCHEDSENDINGDATE",
+                    "description": "Date",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "NEXTFCSTDELIVSCHEDSENDINGDATE",
+                    "description": "Date",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "FIRMTRADEOFFZONEBINDMRP",
+                    "description": "Fixed indicator",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "QUALITYCERTIFICATETYPE",
+                    "description": "QM Certificate Type",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "TQ05",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SUPPLIERQUOTATION",
+                    "description": "Purchasing document number",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "checkTable": "EKKO",
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "SUPPLIERQUOTATIONITEM",
+                    "description": "Item in purchasing document",
+                    "abapType": "NumericCharacterString",
+                    "length": 5,
+                    "isSelected": true,
+                    "checkTable": "EKPO",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "INTRASTATSERVICECODE",
+                    "description": "Legal & Logistics Srv.: Customs Tariff Number - Generic Part",
+                    "abapType": "CharacterString",
+                    "length": 30,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "COMMODITYCODE",
+                    "description": "Legal & Logistics Srv.: Customs Tariff Number - Generic Part",
+                    "abapType": "CharacterString",
+                    "length": 30,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "DELIVERYDOCUMENTTYPE",
+                    "description": "Delivery note type",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "TVLK",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MATERIALFREIGHTGROUP",
+                    "description": "Material freight group",
+                    "abapType": "CharacterString",
+                    "length": 8,
+                    "isSelected": true,
+                    "checkTable": "TMFG",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "DISCOUNTINKINDELIGIBILITY",
+                    "description": "Material qualifies for discount in kind",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PURGITEMISBLOCKEDFORDELIVERY",
+                    "description": "Yes\/No field",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ISSUINGSTORAGELOCATION",
+                    "description": "Storage location",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "T001L",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ALLOCATIONTABLE",
+                    "description": "Purchasing document number",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "checkTable": "AUKO",
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "ALLOCATIONTABLEITEM",
+                    "description": "Item in alloc. tbl document",
+                    "abapType": "NumericCharacterString",
+                    "length": 5,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "RETAILPROMOTION",
+                    "description": "Promotion number IS-R",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "checkTable": "WAKH",
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "DOWNPAYMENTTYPE",
+                    "description": "Down Payment Category",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "DOWNPAYMENTPERCENTAGEOFTOTAMT",
+                    "description": "Packed percentage NNN,NN",
+                    "abapType": "PackedNumber",
+                    "length": 17,
+                    "decimalCount": 2,
+                    "isSelected": true,
+                    "formattedLength": 6,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "DOWNPAYMENTAMOUNT",
+                    "description": "Value field length 11",
+                    "abapType": "PackedNumber",
+                    "length": 17,
+                    "decimalCount": 2,
+                    "isSelected": true,
+                    "formattedLength": 14,
+                    "conversionExit": "",
+                    "referenceTable": "EKKO",
+                    "referenceField": "WAERS"
+                },
+                {
+                    "name": "DOWNPAYMENTDUEDATE",
+                    "description": "Field of type DATS",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "EXPECTEDOVERALLLIMITAMOUNT",
+                    "description": "Amount field PL7",
+                    "abapType": "PackedNumber",
+                    "length": 17,
+                    "decimalCount": 2,
+                    "isSelected": true,
+                    "formattedLength": 16,
+                    "conversionExit": "",
+                    "referenceTable": "EKKO",
+                    "referenceField": "WAERS"
+                },
+                {
+                    "name": "OVERALLLIMITAMOUNT",
+                    "description": "Amount field PL7",
+                    "abapType": "PackedNumber",
+                    "length": 17,
+                    "decimalCount": 2,
+                    "isSelected": true,
+                    "formattedLength": 16,
+                    "conversionExit": "",
+                    "referenceTable": "EKKO",
+                    "referenceField": "WAERS"
+                },
+                {
+                    "name": "REQUIREMENTSEGMENT",
+                    "description": "Stock-\/ Requirement-Segmentation",
+                    "abapType": "CharacterString",
+                    "length": 40,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "BR_MATERIALORIGIN",
+                    "description": "Origin of material",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "BR_MATERIALUSAGE",
+                    "description": "Usage of Material",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "BR_CFOPCATEGORY",
+                    "description": "CFOP category of the material",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "BR_NCM",
+                    "description": "Foreign Trade: Control code",
+                    "abapType": "CharacterString",
+                    "length": 16,
+                    "isSelected": true,
+                    "checkTable": "T604F",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CONSUMPTIONTAXCTRLCODE",
+                    "description": "Foreign Trade: Control code",
+                    "abapType": "CharacterString",
+                    "length": 16,
+                    "isSelected": true,
+                    "checkTable": "T604F",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "BR_ISPRODUCEDINHOUSE",
+                    "description": "Yes\/No field",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PURCHASINGCENTRALMATERIAL",
+                    "description": "Material Number (C40 Field)",
+                    "abapType": "CharacterString",
+                    "length": 40,
+                    "isSelected": true,
+                    "conversionExit": "MATN1"
+                },
+                {
+                    "name": "PURGDOCITMTARGETAMOUNT",
+                    "description": "Value length 15",
+                    "abapType": "PackedNumber",
+                    "length": 17,
+                    "decimalCount": 2,
+                    "isSelected": true,
+                    "formattedLength": 20,
+                    "conversionExit": "",
+                    "referenceTable": "EKKO",
+                    "referenceField": "WAERS"
+                },
+                {
+                    "name": "ISENDOFPURPOSEBLOCKED",
+                    "description": "Business Purpose Completed",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "DOCUMENTCURRENCY",
+                    "description": "Currency Key",
+                    "abapType": "CharacterString",
+                    "length": 5,
+                    "isSelected": true,
+                    "checkTable": "TCURC",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "STOCKSEGMENT",
+                    "description": "Stock-\/ Requirement-Segmentation",
+                    "abapType": "CharacterString",
+                    "length": 40,
+                    "isSelected": true,
+                    "conversionExit": ""
+                }
+            ]
+        }
+    ]
+}

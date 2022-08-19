@@ -1,0 +1,80 @@
+{
+    "functionName": "Z_THEO_READ_TABLE",
+    "runInBackgroundJob": false,
+    "tables": [
+        {
+            "name": "IMMPURCHGROUP",
+            "description": "Generated Table for View I_PurchasingGroup: Purchasing Group",
+            "isView": true,
+            "fields": [
+                {
+                    "name": "MANDT",
+                    "description": "Client (key field in client-specific tables)",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "T000",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PURCHASINGGROUP",
+                    "description": "Purchasing Group",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PURCHASINGGROUPNAME",
+                    "description": "Text field, 18 characters in length",
+                    "abapType": "CharacterString",
+                    "length": 18,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PURCHASINGGROUPPHONENUMBER",
+                    "description": "Character field length 12",
+                    "abapType": "CharacterString",
+                    "length": 12,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "FAXNUMBER",
+                    "description": "Text length 31",
+                    "abapType": "CharacterString",
+                    "length": 31,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PHONENUMBER",
+                    "description": "Character field length 30 without check",
+                    "abapType": "CharacterString",
+                    "length": 30,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PHONENUMBEREXTENSION",
+                    "description": "Character Field of Length 10",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "EMAILADDRESS",
+                    "description": "SMTP Internet Mail Address (Business Address Services)",
+                    "abapType": "CharacterString",
+                    "length": 241,
+                    "isSelected": true,
+                    "conversionExit": "SXIDN"
+                }
+            ]
+        }
+    ]
+}

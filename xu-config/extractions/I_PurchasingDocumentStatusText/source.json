@@ -1,0 +1,39 @@
+{
+    "functionName": "Z_THEO_READ_TABLE",
+    "runInBackgroundJob": false,
+    "tables": [
+        {
+            "name": "IMMPURGDOCSTATXT",
+            "description": "Generated Table for View I_PurchasingDocumentStatusText: MM: Status Description of Purchasing Document",
+            "isView": true,
+            "fields": [
+                {
+                    "name": "PURCHASINGDOCUMENTSTATUS",
+                    "description": "Status Descriptions for Purchasing Documents",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "LANGUAGE",
+                    "description": "Language Key",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": "ISOLA"
+                },
+                {
+                    "name": "PURCHASINGDOCUMENTSTATUSNAME",
+                    "description": "Short descriptive text for DD objects",
+                    "abapType": "CharacterString",
+                    "length": 60,
+                    "isSelected": true,
+                    "conversionExit": ""
+                }
+            ]
+        }
+    ]
+}
