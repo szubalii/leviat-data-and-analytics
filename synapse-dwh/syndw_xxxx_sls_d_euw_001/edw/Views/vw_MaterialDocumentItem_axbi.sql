@@ -25,7 +25,7 @@ SELECT
     ,   dmINVTBL.[StockUnit]
     ,   FINV.[DATEPHYSICAL]           AS [HDR_PostingDate]
     ,   FINV.[DATEPHYSICAL]           AS [DocumentDate]
-    ,   dmSO.[SalesOrganizationCurrency]               AS [CompanyCodeCurrency]
+    ,   AX_Cmpny.[CURRENCYCODE]       AS [CompanyCodeCurrency]
     ,   CASE
             WHEN FINV.[TRANSTYPE] = '3'
             THEN FPURL.[PURCHID]
@@ -126,9 +126,9 @@ LEFT JOIN
     ON
         FINV.[ITEMID] = dmINVTBL.[ITEMID]
 LEFT JOIN
-    [edw].[dim_SalesOrganization] dmSO
+    [base_dw_halfen_1_stg].[AX_Halfen_dbo_COMPANYINFO] AX_Cmpny
     ON
-        FINV.[DATAAREAID] = dmSO.[SalesOrganizationID]
+        FINV.[DATAAREAID] = AX_Cmpny.[DATAAREAID]
 LEFT JOIN
     [base_tx_halfen_2_dwh].[FACT_PURCHLINE] FPURL
     ON
@@ -261,11 +261,53 @@ GROUP BY
     ,   [INVENTSITEID]
     ,   [DATAAREAID]
 ),
+EuroExchangeRate AS (
+    SELECT 
+        SourceCurrency
+        ,ExchangeRateEffectiveDate
+        ,ExchangeRate
+    FROM 
+        edw.dim_ExchangeRates
+    WHERE
+        ExchangeRateType = 'ZAXBIBUD'
+        and
+        TargetCurrency = 'EUR'
+),
+ExchangeRateEuro as (
+    SELECT
+            [MaterialDocument]
+        ,   [MayerialDocumentItem]
+        ,   EuroBudgetExchangeRate.[ExchangeRate] AS [ExchangeRate]
+    FROM (
+        SELECT
+                [MaterialDocument]
+            ,   [MayerialDocumentItem]
+            ,   [CompanyCodeCurrency]
+            ,   MAX([ExchangeRateEffectiveDate]) as [ExchangeRateEffectiveDate]
+        FROM 
+            INVTRANS INV
+        LEFT JOIN 
+            EuroExchangeRate
+            ON 
+                INV.[CompanyCodeCurrency] = EuroExchangeRate.SourceCurrency
+        WHERE 
+            [ExchangeRateEffectiveDate] <= [DocumentDate]
+        GROUP BY
+                [BillingDocument]
+            ,   [BillingDocumentItem]
+            ,   [CompanyCodeCurrency] 
+    ) inv_er_date_eur
+    LEFT JOIN 
+        EuroExchangeRate
+        ON
+            inv_er_date_eur.[CompanyCodeCurrency] = EuroExchangeRate.[SourceCurrency]
+            AND
+            inv_er_date_eur.[ExchangeRateEffectiveDate] = EuroExchangeRate.[ExchangeRateEffectiveDate]
+),
 INVTRANS_QTY AS(
 SELECT
-
-        INV.[MaterialDocumentYear]
-    ,   INV.[MaterialDocument]
+        ExchangeRateEuro.[MaterialDocumentYear]
+    ,   ExchangeRateEuro.[MaterialDocument]
     ,   INV.[MaterialDocumentItem]
     ,   INV.[MaterialID]
     ,   INV.[PlantID]
@@ -295,12 +337,22 @@ SELECT
     ,   INV.[ManufacturingOrderItem]
     ,   INV.[PriceControlIndicatorID]
     ,   INV.[PriceControlIndicator]
+    ,   '10' AS [CurrencyTypeID]
     ,   APU.AvgPrice AS [StandardPricePerUnit]
-    ,   NULL AS [StandardPricePerUnit_EUR]
+    ,   CASE 
+            WHEN [CompanyCodeCurrency]='EUR' THEN APU.AvgPrice
+            ELSE APU.AvgPrice*ExchangeRateEuro.ExchangeRate
+        END AS [StandardPricePerUnit_EUR]
     ,   INV.[t_applicationId]
     ,   INV.[t_extractionDtm]
 FROM
+    ExchangeRateEuro
+LEFT JOIN
     INVTRANS AS INV
+    ON
+        INV.MaterialDocument = ExchangeRateEuro.MaterialDocument
+        AND
+        INV.MaterialDocumentItem = ExchangeRateEuro.MaterialDocument
 LEFT JOIN
     [base_tx_halfen_2_dwh].[DIM_INVENTLOCATION] dmInvLocation
         ON
@@ -359,8 +411,7 @@ LEFT JOIN
         QtyOICP.[TRANSTYPE] = INV.[GoodsMovementTypeID]
         AND
         QtyOICP.[TRANSTYPENAME] = INV.[GoodsMovementTypeName]
-),
-INVTRANS_CALCS AS(
+)
 SELECT
         INV_QTY.[MaterialDocumentYear]
     ,   INV_QTY.[MaterialDocument]
@@ -392,6 +443,7 @@ SELECT
     ,   INV_QTY.[ManufacturingOrderItem]
     ,   INV_QTY.[PriceControlIndicatorID]
     ,   INV_QTY.[PriceControlIndicator]
+    ,   INV_QTY.[CurrencyTypeID]
     ,   INV_QTY.[StandardPricePerUnit]
     ,   INV_QTY.[StandardPricePerUnit_EUR]
     ,   INV_QTY.[StandardPricePerUnit]*INV_QTY.[ConsumptionQtyICPOInBaseUnit] AS [ConsumptionQtyICPOInStandardValue]
@@ -406,7 +458,5 @@ SELECT
     ,   INV_QTY.[t_extractionDtm]
 FROM
     INVTRANS_QTY AS INV_QTY
-),
-SELECT * FROM INVTRANS_CALCS
 
 
