@@ -276,12 +276,12 @@ EuroExchangeRate AS (
 ExchangeRateEuro as (
     SELECT
             [MaterialDocument]
-        ,   [MayerialDocumentItem]
-        ,   EuroBudgetExchangeRate.[ExchangeRate] AS [ExchangeRate]
+        ,   [MateriaDocumentItem]
+        ,   EuroExchangeRate.[ExchangeRate] AS [ExchangeRate]
     FROM (
         SELECT
                 [MaterialDocument]
-            ,   [MayerialDocumentItem]
+            ,   [MaterialDocumentItem]
             ,   [CompanyCodeCurrency]
             ,   MAX([ExchangeRateEffectiveDate]) as [ExchangeRateEffectiveDate]
         FROM 
@@ -293,8 +293,8 @@ ExchangeRateEuro as (
         WHERE 
             [ExchangeRateEffectiveDate] <= [DocumentDate]
         GROUP BY
-                [BillingDocument]
-            ,   [BillingDocumentItem]
+                [MaterialDocument]
+            ,   [MaterialDocumentItem]
             ,   [CompanyCodeCurrency] 
     ) inv_er_date_eur
     LEFT JOIN 
@@ -448,7 +448,7 @@ SELECT
     ,   INV_QTY.[StandardPricePerUnit_EUR]
     ,   INV_QTY.[StandardPricePerUnit]*INV_QTY.[ConsumptionQtyICPOInBaseUnit] AS [ConsumptionQtyICPOInStandardValue]
     ,   INV_QTY.[ConsumptionQtyICPOInBaseUnit]*INV_QTY.[StandardPricePerUnit_EUR] AS [ConsumptionQtyICPOInStandardValue_EUR]
-    ,   INV_QTY.[ConsumptionQtySOInBaseUnit]*INV_QTY.[StandardPricePerUnitAS] AS [ConsumptionQtySOStandardValue]
+    ,   INV_QTY.[ConsumptionQtySOInBaseUnit]*INV_QTY.[StandardPricePerUnit] AS [ConsumptionQtySOStandardValue]
     ,   INV_QTY.[ConsumptionQtySOInBaseUnit]*INV_QTY.[StandardPricePerUnit_EUR] AS [ConsumptionQtySOStandardValue_EUR]
     ,   INV_QTY.[MatlStkChangeQtyInBaseUnit]*INV_QTY.[StandardPricePerUnit] AS [MatlStkChangeStandardValue]
     ,   INV_QTY.[MatlStkChangeQtyInBaseUnit]*INV_QTY.[StandardPricePerUnit_EUR] AS [MatlStkChangeStandardValue_EUR]
