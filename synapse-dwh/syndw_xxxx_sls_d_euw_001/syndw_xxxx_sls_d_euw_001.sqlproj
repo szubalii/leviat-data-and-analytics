@@ -169,6 +169,8 @@
     <Folder Include="dq\Stored Procedures" />
     <Folder Include="dm_dq" />
     <Folder Include="dm_dq\Views" />
+    <Folder Include="base_c4c" />
+    <Folder Include="base_c4c\Tables" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Security\Database Scoped Credentials\dsc_MSI.sql" />
@@ -279,7 +281,7 @@
     <Build Include="base_s4h_cax\Tables\I_GLAccountTypeText.sql" />
     <Build Include="base_s4h_cax\Tables\I_GLRecordTypeText.sql" />
     <Build Include="base_s4h_cax\Tables\I_GLAccountLineItemRawData.sql" />
-    <Build Include="edw\Tables\fact_GLAccountLineItemRawData.sql" />
+    <Build Include="edw\Tables\fact_ACDOCA.sql" />
     <Build Include="Security\Schemas\dm_sales.sql" />
     <Build Include="dm_sales\Views\vw_dim_Customer.sql" />
     <Build Include="dm_sales\Views\vw_fact_BillingDocumentItem.sql" />
@@ -297,7 +299,6 @@
     <Build Include="base_s4h_cax\Tables\I_SDDocumentCategoryText.sql" />
     <Build Include="base_s4h_cax\Tables\I_SDDocumentReason.sql" />
     <Build Include="base_s4h_cax\Tables\I_SDDocumentReasonText.sql" />
-    <Build Include="edw\Stored Procedures\sp_load_fact_GLAccountLineItemRawData.sql" />
     <Build Include="edw\Tables\dim_Calendar.sql" />
     <Build Include="edw\Tables\dim_BillingDocumentCategory.sql" />
     <Build Include="edw\Tables\dim_BillingDocumentType.sql" />
@@ -621,7 +622,7 @@
     <Build Include="edw\Views\vw_TotalSDDocReferenceStatus.sql" />
     <Build Include="edw\Views\vw_UnitOfMeasure.sql" />
     <Build Include="edw\Views\vw_Warehouse.sql" />
-    <Build Include="edw\Views\vw_GLAccountLineItemRawData.sql" />
+    <Build Include="edw\Views\vw_ACDOCA.sql" />
     <Build Include="edw\Views\vw_OutboundDeliveryItem.sql" />
     <Build Include="edw\Views\vw_OverallSDProcessStatus.sql" />
     <Build Include="edw\Views\vw_OverallTotalDeliveryStatus.sql" />
@@ -854,6 +855,32 @@
     <Build Include="base_s4h_cax\Tables\I_MfgOrderWithStatus.sql" />
     <Build Include="base_s4h_cax\Tables\I_WorkCenterBySemanticKey.sql" />
     <Build Include="base_s4h_cax\Tables\I_WorkCenterCapacity.sql" />
+    <Build Include="base_s4h_cax\Tables\I_CN_CADEFinStatementLeafItem.sql" />
+    <Build Include="base_s4h_cax\Tables\I_FinancialStatementItem.sql" />
+    <Build Include="base_s4h_cax\Tables\I_FinancialStatementItemText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_CN_CADEFinancialStatementItm.sql" />
+    <Build Include="edw\Tables\dim_FinancialStatementItem.sql" />
+    <Build Include="edw\Tables\dim_FinancialStatementHierarchy.sql" />
+    <Build Include="edw\Views\vw_FinancialStatementItem.sql" />
+    <Build Include="edw\Views\vw_FinancialStatementHierarchy.sql" />
+    <Build Include="dm_sales\Views\vw_dim_FinancialStatementHierarchy.sql" />
+    <Build Include="dm_sales\Views\vw_fact_ACDOCA_SalesView.sql" />
+    <Build Include="base_c4c\Tables\OpportunityCollection.sql" />
+    <Build Include="Security\Schemas\base_c4c.sql" />
+    <Build Include="dm_sales\Views\vw_dim_FinancialStatementItem.sql" />
+    <Build Include="base_s4h_cax\Tables\I_SupplierCompany.sql" />
+    <Build Include="base_s4h_cax\Tables\I_BusinessPartnerBank.sql" />
+    <Build Include="base_s4h_cax\Tables\I_SupplierPurchasingOrg.sql" />
+    <Build Include="base_s4h_cax\Tables\I_PurchasingDocumentItem.sql" />
+    <Build Include="base_s4h_cax\Tables\I_PurchasingOrganization.sql" />
+    <Build Include="base_s4h_cax\Tables\I_PurchasingGroup.sql" />
+    <Build Include="base_s4h_cax\Tables\I_PurchasingDocumentStatusText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_PurgDocScheduleLineEnhanced.sql" />
+    <Build Include="base_s4h_cax\Tables\I_PurchaseOrderHistory.sql" />
+    <Build Include="base_s4h_cax\Tables\I_PurchasingCategory.sql" />
+    <Build Include="base_s4h_cax\Tables\I_SupplierInvoiceItemPurOrdRef.sql" />
+    <Build Include="base_s4h_cax\Tables\I_SupplierInvoice.sql" />
+    <Build Include="base_s4h_cax\Tables\I_SupplierInvoiceItemGLAcct.sql" />
     <Build Include="base_tx_halfen_2_dwh\Tables\FACT_PRODJOURNALPROD.sql" />
     <Build Include="base_tx_halfen_2_dwh\Tables\FACT_PURCHLINE.sql" />
     <Build Include="edw\Tables\fact_MaterialDocumentItem_axbi.sql" />
