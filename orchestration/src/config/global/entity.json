@@ -3639,14 +3639,14 @@
           "schedule_recurrence": "A"
         },
         {
-          "entity_id": 459,
+          "entity_id": 469,
           "entity_name": "FACT_PRODJOURNALPROD",
           "base_table_name": "FACT_PRODJOURNALPROD",
           "pk_field_names": "DW_Id",
           "schedule_recurrence": "A"
         },
         {
-          "entity_id": 460,
+          "entity_id": 470,
           "entity_name": "FACT_PURCHLINE",
           "base_table_name": "FACT_PURCHLINE",
           "pk_field_names": "DW_Id",
@@ -4650,7 +4650,7 @@
           "schedule_recurrence": "A"
         },
         {
-          "entity_id": 465,
+          "entity_id": 471,
           "entity_name": "fact_MaterialDocumentItem_axbi",
           "sproc_name": "sp_materialize_view",
           "source_view_name": "vw_MaterialDocumentItem_axbi",
