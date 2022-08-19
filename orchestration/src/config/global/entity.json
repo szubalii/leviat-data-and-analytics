@@ -1638,8 +1638,7 @@
         "extraction_type": "ODP",
         "update_mode": "Delta",
         "base_table_name": "I_GLAccountText",
-        "pk_field_names": "TS_SEQUENCE_NUMBER, CHARTOFACCOUNTS, GLACCOUNT, LANGUAGE",
-        "schedule_recurrence": "A"
+        "pk_field_names": "TS_SEQUENCE_NUMBER, CHARTOFACCOUNTS, GLACCOUNT, LANGUAGE"
       },
       {
         "entity_id": 200,
@@ -3550,7 +3549,8 @@
           "extraction_type": "ODP",
           "update_mode": "Full",
           "base_table_name": "I_GLAccountText",
-          "pk_field_names": "MANDT, CHARTOFACCOUNTS, GLACCOUNT, LANGUAGE"                              
+          "pk_field_names": "MANDT, CHARTOFACCOUNTS, GLACCOUNT, LANGUAGE",
+          "schedule_recurrence": "A"                              
         },     
         {
           "entity_id": 469,
