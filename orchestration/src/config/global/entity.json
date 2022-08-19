@@ -3540,7 +3540,139 @@
           "base_table_name": "I_SupplierPurchasingOrg",
           "pk_field_names": "MANDT, SUPPLIER, PURCHASINGORGANIZATION",
           "schedule_recurrence": "D"
-        }                                
+        },     
+        {
+          "entity_id": 469,
+          "entity_name": "I_PurchasingDocumentItem",
+          "data_category": "NULL",
+          "client_field": "MANDT",
+          "tool_name": "Theobald",
+          "extraction_type": "Table",
+          "update_mode": "Full",
+          "base_table_name": "I_PurchasingDocumentItem",
+          "pk_field_names": "MANDT, PURCHASINGDOCUMENT, PURCHASINGDOCUMENTITEM",
+          "schedule_recurrence": "D"
+        },
+        {
+          "entity_id": 470,
+          "entity_name": "I_PurchasingDocument",
+          "data_category": "NULL",
+          "client_field": "MANDT",
+          "tool_name": "Theobald",
+          "extraction_type": "Table",
+          "update_mode": "Full",
+          "base_table_name": "I_PurchasingDocument",
+          "pk_field_names": "MANDT, PURCHASINGDOCUMENT",
+          "schedule_recurrence": "D"
+        },
+        {
+          "entity_id": 471,
+          "entity_name": "I_PurchasingOrganization",
+          "data_category": "DIMENSION",
+          "client_field": "MANDT",
+          "tool_name": "Theobald",
+          "extraction_type": "Table",
+          "update_mode": "Full",
+          "base_table_name": "I_PurchasingOrganization",
+          "pk_field_names": "MANDT, PURCHASINGORGANIZATION",
+          "schedule_recurrence": "D"
+        },
+        {
+          "entity_id": 472,
+          "entity_name": "I_PurchasingGroup",
+          "data_category": "DIMENSION",
+          "client_field": "MANDT",
+          "tool_name": "Theobald",
+          "extraction_type": "Table",
+          "update_mode": "Full",
+          "base_table_name": "I_PurchasingGroup",
+          "pk_field_names": "MANDT, PURCHASINGGROUP",
+          "schedule_recurrence": "D"
+        },
+        {
+          "entity_id": 473,
+          "entity_name": "I_PurchasingDocumentStatusText",
+          "data_category": "TEXT",
+          "client_field": "MANDT",
+          "tool_name": "Theobald",
+          "extraction_type": "Table",
+          "update_mode": "Full",
+          "base_table_name": "I_PurchasingDocumentStatusText",
+          "pk_field_names": "PURCHASINGDOCUMENTSTATUS, LANGUAGE",
+          "schedule_recurrence": "D"
+        },
+        {
+          "entity_id": 474,
+          "entity_name": "I_PurgDocScheduleLineEnhanced",
+          "data_category": "NULL",
+          "client_field": "MANDT",
+          "tool_name": "Theobald",
+          "extraction_type": "Table",
+          "update_mode": "Full",
+          "base_table_name": "I_PurgDocScheduleLineEnhanced",
+          "pk_field_names": "MANDT, PURCHASINGDOCUMENT, PURCHASINGDOCUMENTITEM, SCHEDULELINE, PROCUREMENTHUBSOURCESYSTEM",
+          "schedule_recurrence": "D"
+        },
+        {
+          "entity_id": 475,
+          "entity_name": "I_PurchaseOrderHistory",
+          "data_category": "NULL",
+          "client_field": "MANDT",
+          "tool_name": "Theobald",
+          "extraction_type": "Table",
+          "update_mode": "Full",
+          "base_table_name": "I_PurchaseOrderHistory",
+          "pk_field_names": "MANDT, PURCHASEORDER, PURCHASEORDERITEM, ACCOUNTASSIGNMENTNUMBER, PURCHASEORDERTRANSACTIONTYPE, MATERIALDOCUMENTYEAR, MATERIALDOCUMENT, MATERIALDOCUMENTITEM",
+          "schedule_recurrence": "D"
+        },
+        {
+          "entity_id": 476,
+          "entity_name": "I_PurchasingCategory",
+          "data_category": "NULL",
+          "client_field": "MANDT",
+          "tool_name": "Theobald",
+          "extraction_type": "Table",
+          "update_mode": "Full",
+          "base_table_name": "I_PurchasingCategory",
+          "pk_field_names": "MANDT, PURGCATUUID",
+          "schedule_recurrence": "D"
+        },
+        {
+          "entity_id": 477,
+          "entity_name": "I_SupplierInvoiceItemPurOrdRef",
+          "data_category": "NULL",
+          "client_field": "MANDT",
+          "tool_name": "Theobald",
+          "extraction_type": "Table",
+          "update_mode": "Full",
+          "base_table_name": "I_SupplierInvoiceItemPurOrdRef",
+          "pk_field_names": "MANDT, SUPPLIERINVOICE, FISCALYEAR, SUPPLIERINVOICEITEM",
+          "schedule_recurrence": "D"
+        },
+        {
+          "entity_id": 478,
+          "entity_name": "I_SupplierInvoice",
+          "data_category": "NULL",
+          "client_field": "MANDT",
+          "tool_name": "Theobald",
+          "extraction_type": "Table",
+          "update_mode": "Full",
+          "base_table_name": "I_SupplierInvoice",
+          "pk_field_names": "MANDT, SUPPLIERINVOICE, FISCALYEAR",
+          "schedule_recurrence": "D"
+        },
+        {
+          "entity_id": 479,
+          "entity_name": "I_SupplierInvoiceItemGLAcct",
+          "data_category": "NULL",
+          "client_field": "MANDT",
+          "tool_name": "Theobald",
+          "extraction_type": "Table",
+          "update_mode": "Full",
+          "base_table_name": "I_SupplierInvoiceItemGLAcct",
+          "pk_field_names": "MANDT, SUPPLIERINVOICE, FISCALYEAR, ORDINALNUMBER",
+          "schedule_recurrence": "D"
+        }
     ]
   },
   "c4c": {

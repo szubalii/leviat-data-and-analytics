@@ -170,7 +170,7 @@
     <Folder Include="dm_dq" />
     <Folder Include="dm_dq\Views" />
     <Folder Include="base_c4c" />
-    <Folder Include="base_c4c\Tables" />    
+    <Folder Include="base_c4c\Tables" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Security\Database Scoped Credentials\dsc_MSI.sql" />
@@ -861,16 +861,26 @@
     <Build Include="base_s4h_cax\Tables\I_CN_CADEFinancialStatementItm.sql" />
     <Build Include="edw\Tables\dim_FinancialStatementItem.sql" />
     <Build Include="edw\Tables\dim_FinancialStatementHierarchy.sql" />
-    <Build Include="edw\Views\vw_FinancialStatementItem.sql" />   
-    <Build Include="edw\Views\vw_FinancialStatementHierarchy.sql" />   
-    <Build Include="dm_sales\Views\vw_dim_FinancialStatementHierarchy.sql" />          
+    <Build Include="edw\Views\vw_FinancialStatementItem.sql" />
+    <Build Include="edw\Views\vw_FinancialStatementHierarchy.sql" />
+    <Build Include="dm_sales\Views\vw_dim_FinancialStatementHierarchy.sql" />
     <Build Include="dm_sales\Views\vw_fact_ACDOCA_SalesView.sql" />
     <Build Include="base_c4c\Tables\OpportunityCollection.sql" />
     <Build Include="Security\Schemas\base_c4c.sql" />
-    <Build Include="dm_sales\Views\vw_dim_FinancialStatementItem.sql" />       
+    <Build Include="dm_sales\Views\vw_dim_FinancialStatementItem.sql" />
     <Build Include="base_s4h_cax\Tables\I_SupplierCompany.sql" />
     <Build Include="base_s4h_cax\Tables\I_BusinessPartnerBank.sql" />
-    <Build Include="base_s4h_cax\Tables\I_SupplierPurchasingOrg.sql" />    
+    <Build Include="base_s4h_cax\Tables\I_SupplierPurchasingOrg.sql" />
+    <Build Include="base_s4h_cax\Tables\I_PurchasingDocumentItem.sql" />
+    <Build Include="base_s4h_cax\Tables\I_PurchasingOrganization.sql" />
+    <Build Include="base_s4h_cax\Tables\I_PurchasingGroup.sql" />
+    <Build Include="base_s4h_cax\Tables\I_PurchasingDocumentStatusText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_PurgDocScheduleLineEnhanced.sql" />
+    <Build Include="base_s4h_cax\Tables\I_PurchaseOrderHistory.sql" />
+    <Build Include="base_s4h_cax\Tables\I_PurchasingCategory.sql" />
+    <Build Include="base_s4h_cax\Tables\I_SupplierInvoiceItemPurOrdRef.sql" />
+    <Build Include="base_s4h_cax\Tables\I_SupplierInvoice.sql" />
+    <Build Include="base_s4h_cax\Tables\I_SupplierInvoiceItemGLAcct.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\Post-Deploy\Script.PostDeployment.sql" />

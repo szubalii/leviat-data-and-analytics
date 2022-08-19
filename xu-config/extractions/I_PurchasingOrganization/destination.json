@@ -1,14 +1,14 @@
 {
     "nameGenerator": {
         "suffix": "",
-        "customName": "I_PurchasingDocument",
+        "customName": "I_PurchasingOrganization",
         "objectNamingMode": "Custom",
         "appendsTimestamp": true
     },
     "internalSettings": {
         "nameGenerator": {
             "suffix": "",
-            "customName": "I_PurchasingDocument",
+            "customName": "I_PurchasingOrganization",
             "objectNamingMode": "Custom",
             "appendsTimestamp": true
         },
@@ -23,6 +23,6 @@
     },
     "blobType": "BlockBlob",
     "columnNameKind": "Code",
-    "folderPath": "DIMENSION/I_PurchasingDocument/Theobald/Table/Full/In/#{ DateTime.Now.ToString(\"yyyy/MM/dd\") }#",
+    "folderPath": "DIMENSION/I_PurchasingOrganization/Theobald/Table/Full/In/#{ DateTime.Now.ToString(\"yyyy/MM/dd\") }#",
     "maxBlobSize": 0
 }
