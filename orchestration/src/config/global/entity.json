@@ -3762,7 +3762,7 @@
         "base_table_name": "AX_Halfen_dbo_INVENTITEMPRICE",
         "pk_field_names": "DW_Id",
         "schedule_recurrence": "A"
-      }
+      },
       {
         "entity_id": 483,
         "entity_name": "AX_Halfen_dbo_COMPANYINFO",
@@ -3930,7 +3930,7 @@
         "base_table_name": "FACT_INVENTTRANS",
         "pk_field_names": "DW_Id",
         "schedule_recurrence": "A"
-      }
+      },
       {
         "entity_id": 480,
         "entity_name": "FACT_PRODJOURNALPROD",
@@ -4979,7 +4979,7 @@
         "dest_table_name": "fact_RuleTotal",
         "execution_order": 0,
         "schedule_recurrence": "D"
-      }
+      },
       {
         "entity_id": 484,
         "entity_name": "fact_MaterialDocumentItem_axbi",
