@@ -9,7 +9,7 @@ CREATE TABLE [map_AXBI].[StockUnit]
     [t_jobDtm]          DATETIME       NULL,
     [t_jobBy]           NVARCHAR(128)  NULL,
     [t_filePath]        NVARCHAR(1024) NULL,
-    CONSTRAINT [PK_StoclUnit] PRIMARY KEY NONCLUSTERED ([AXUnit],[AXUnitname],[SAPUnit],[SAPUoM]) NOT ENFORCED
+    CONSTRAINT [PK_StockUnit] PRIMARY KEY NONCLUSTERED ([AXUnit],[AXUnitname],[SAPUnit],[SAPUoM]) NOT ENFORCED
 )
 WITH
 (
