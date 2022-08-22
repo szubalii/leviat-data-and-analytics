@@ -307,7 +307,7 @@ SELECT
     ,   INV.[SalesOrderItem]
     ,   INV.[GoodsMovementTypeID]
     ,   INV.[GoodsMovementTypeName]
-    ,   SU.[SAPUoM] AS [MaterialBaseUnitID]
+    ,   SU.[target_UnitName] AS [MaterialBaseUnitID]
     ,   INV.[HDR_PostingDate]
     ,   INV.[DocumentDate]
     ,   INV.[CompanyCodeCurrency]
@@ -359,7 +359,7 @@ LEFT JOIN
 LEFT JOIN
     map_AXBI.[StockUnit] SU
         ON
-        INV.[StockUnit] = SU.[SAPUnit]
+        INV.[StockUnit] = SU.[target_UnitID]
 LEFT JOIN
     AvgPricePerUnit APU
         ON

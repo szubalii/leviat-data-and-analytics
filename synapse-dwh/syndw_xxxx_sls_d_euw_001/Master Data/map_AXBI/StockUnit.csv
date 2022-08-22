@@ -1,4 +1,4 @@
-AXUnit,AXUnitname,SAPUnit,SAPUoM
+source_UnitID,source_UnitName,target_UnitID,target_UnitName
 BD,BUNDLE,PK,PAC
 BG,SACK,BG,BG
 BGS,SACK SMALL,BG,BG
