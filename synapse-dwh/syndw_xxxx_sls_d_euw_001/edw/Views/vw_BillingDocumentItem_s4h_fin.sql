@@ -1133,15 +1133,43 @@ BDwithConditionAmountFreight AS (
     ,   [BillToID]
     ,   [BillTo]
     ,   NULL AS [FinNetAmountRealProduct]
-    ,   NULL AS [FinNetAmountFreight]
-    ,   NULL AS [FinNetAmountMinQty]
-    ,   NULL AS [FinNetAmountEngServ]
-    ,   NULL AS [FinNetAmountMisc]
     ,   CASE
-            WHEN
-                MaterialTypeID = 'ZSER'
-            THEN
-                NetAmount
+            WHEN 
+                [Material] = '70000011'
+                AND
+                [FinNetAmountSumBD] != 0
+                AND
+                [MaterialTypeID] = 'ZSER'
+           THEN
+               (BDIwithMatType.[NetAmount] / BDexclZVERandZSER.[FinNetAmountSumBD] * ISNULL(BDwithFreight.NetAmountFreight,0)) + ISNULL(BDwithConditionAmountFreight.[ConditionAmountFreight],0)
+           ELSE NULL
+        END AS [FinNetAmountFreight]
+    ,   NULL AS [FinNetAmountMinQty]
+    ,   CASE
+            WHEN 
+                ([Material] = '70000010'
+                OR
+                [Material] = '70000051')
+                AND
+                [FinNetAmountSumBD] != 0
+                AND
+                [MaterialTypeID] = 'ZSER'
+           THEN
+               BDIwithMatType.[NetAmount] / BDexclZVERandZSER.[FinNetAmountSumBD] * ISNULL(BDwithEngServ.NetAmountEngServ,0)
+           ELSE NULL
+        END AS [FinNetAmountEngServ]
+    ,   NULL AS [FinNetAmountMisc]
+--  ,   BDwithZVER.NetAmountZVER -- MPS 2021/11/04: removed as NetAmountZVER same as NetAmountVerp
+    ,   CASE
+            WHEN 
+                [Material] NOT IN ('70000010','70000051','70000011')
+                AND
+                [FinNetAmountSumBD] != 0
+                AND
+                [MaterialTypeID] = 'ZSER'
+           THEN
+               BDIwithMatType.[NetAmount] / BDexclZVERandZSER.[FinNetAmountSumBD] * ISNULL(BDwithServOther.NetAmountServOther,0)
+           ELSE NULL
         END AS [FinNetAmountServOther]
     ,   CASE
             WHEN
@@ -1157,6 +1185,38 @@ BDwithConditionAmountFreight AS (
     ,   [t_extractionDtm]
     FROM 
         BDIwithMatType
+    LEFT JOIN
+        BDexclZVERandZSER
+        ON
+            BDIwithMatType.BillingDocument = BDexclZVERandZSER.BillingDocument
+            AND
+            BDIwithMatType.CurrencyTypeID = BDexclZVERandZSER.CurrencyTypeID
+    LEFT JOIN
+        BDwithFreight
+        ON
+            BDIwithMatType.BillingDocument = BDwithFreight.BillingDocument
+            AND
+            BDIwithMatType.CurrencyTypeID = BDwithFreight.CurrencyTypeID
+    LEFT JOIN
+        BDwithConditionAmountFreight
+        ON 
+            BDIwithMatType.BillingDocument = BDwithConditionAmountFreight.BillingDocument
+            AND            
+            BDIwithMatType.BillingDocumentItem = BDwithConditionAmountFreight.BillingDocumentItem
+            AND
+            BDIwithMatType.CurrencyTypeID = BDwithConditionAmountFreight.CurrencyTypeID
+    LEFT JOIN
+        BDwithEngServ
+        ON
+            BDIwithMatType.BillingDocument = BDwithEngServ.BillingDocument
+            AND
+            BDIwithMatType.CurrencyTypeID = BDwithEngServ.CurrencyTypeID
+    LEFT JOIN
+        BDwithServOther
+        ON
+            BDIwithMatType.BillingDocument = BDwithServOther.BillingDocument
+            AND
+            BDIwithMatType.CurrencyTypeID = BDwithServOther.CurrencyTypeID
     WHERE 
         [BillingDocument] NOT IN (
             SELECT
