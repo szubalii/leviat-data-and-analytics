@@ -3,7 +3,7 @@ CREATE TABLE [map_AXBI].[InventSite]
     [source_SITEID]            NVARCHAR(5)    NOT NULL, 
     [source_DATAAREAID]        NVARCHAR(4)    NOT NULL,
     [source_NAME]              NVARCHAR(40)   NOT NULL,
-    [target_PlantID]           NVARCHAR(5)    NULL,
+    [target_PlantID]           NVARCHAR(4)    NULL,
     [t_applicationId]   VARCHAR(32)    NULL,
     [t_jobId]           VARCHAR(36)    NULL,
     [t_jobDtm]          DATETIME       NULL,
