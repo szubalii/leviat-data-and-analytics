@@ -3,7 +3,7 @@ CREATE VIEW [dm_sales].[vw_fact_ACDOCA_SalesView]
     AS
 
 SELECT
-[SourceLedgerID]
+[SourceLedgerID],
 [CompanyCodeID],
 [FiscalYear],
 [AccountingDocument],
