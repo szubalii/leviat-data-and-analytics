@@ -1,6 +1,7 @@
 ﻿CREATE VIEW [dm_sales].[vw_fact_MaterialDocumentItem]
 	AS 
-    SELECT 
+WITH MDI_UNION AS(
+SELECT 
       MDI.[MaterialDocumentYear]
     , MDI.[MaterialDocument]
     , MDI.[MaterialDocumentItem]
@@ -24,7 +25,6 @@
     , dimIST.[InventoryStockTypeName]
     , MDI.[StockOwner]
     , MDI.[GoodsMovementTypeID]
-    , dimGMT.[GoodsMovementTypeName]
     , MDI.[DebitCreditCode]
     , MDI.[InventoryUsabilityCode]
     , MDI.[QuantityInBaseUnit]
@@ -99,12 +99,6 @@
     , MDI.[ManufacturingOrder]
     , MDI.[ManufacturingOrderItem]
     , MDI.[IsReversalMovementType]
-    , CASE WHEN ISNULL(MDI.[PurchaseOrder],'') <>'' AND dimPDT.[PurchasingDocumentTypeID] = 'STO' 
-        THEN  MDI.[MatlStkChangeQtyInBaseUnit]
-        ELSE NULL
-    END                                                                        AS ConsumptionQtySTOInBaseUnit
-    , dimPDT.[PurchasingDocumentTypeID]                                        AS [PurchaseOrderTypeID]
-    , dimPDT.[PurchasingDocumentTypeName]                                      AS [PurchaseOrderType]
     , dimPVs.[nk_dim_ProductValuationPUP]                                      AS [nk_dim_ProductValuationPUP]
     , dimPVs.[StockPricePerUnit]
     , dimPVs.[StockPricePerUnit_EUR]
@@ -137,23 +131,11 @@
         [edw].[dim_SalesDocumentType] SDT
             ON SDI.[SalesDocumentTypeID] = SDT.[SalesDocumentTypeID]
     LEFT JOIN
-        [edw].[dim_GoodsMovementType] dimGMT
-            ON dimGMT.GoodsMovementTypeID = MDI.[GoodsMovementTypeID]
-    LEFT JOIN
         [edw].[dim_InventorySpecialStockType] dimISST
             ON  dimISST.[InventorySpecialStockTypeID] = MDI.[InventorySpecialStockTypeID]
     LEFT JOIN
         [edw].[dim_InventoryStockType] dimIST
-            ON dimIST.[InventoryStockTypeID] = MDI.[InventoryStockTypeID]
-    LEFT JOIN 
-        [edw].[dim_PurchasingDocument] dimPD 
-            ON MDI.[PurchaseOrder] COLLATE Latin1_General_100_BIN2 = dimPD.[PurchasingDocumentID] 
-    LEFT JOIN  
-        [edw].[dim_PurchasingDocumentType] dimPDT 
-            ON  
-                dimPDT.[PurchasingDocumentTypeID]  = dimPD.[PurchasingDocumentType] 
-                AND
-                dimPDT.[PurchasingDocumentCategory]  = dimPD.[PurchasingDocumentCategory]             
+            ON dimIST.[InventoryStockTypeID] = MDI.[InventoryStockTypeID]      
     LEFT JOIN 
         [edw].[dim_DeliveryDocument] dimDel 
             ON dimDel.DeliveryDocumentID = MDI.[HDR_ReferenceDocument]     
@@ -200,7 +182,6 @@
     , NULL AS [InventoryStockTypeName]
     , NULL AS [StockOwner]
     , MDI_axbi.[GoodsMovementTypeID]
-    , dimGMT.[GoodsMovementTypeName]
     , NULL AS [DebitCreditCode]
     , NULL AS [InventoryUsabilityCode]
     , NULL AS [QuantityInBaseUnit]
@@ -275,12 +256,6 @@
     , MDI_axbi.[ManufacturingOrder]
     , MDI_axbi.[ManufacturingOrderItem]
     , NULL AS [IsReversalMovementType]
-    , CASE WHEN ISNULL(MDI_axbi.[PurchaseOrder],'') <>'' AND dimPDT.[PurchasingDocumentTypeID] = 'STO' 
-        THEN  MDI_axbi.[MatlStkChangeQtyInBaseUnit]
-        ELSE NULL
-      END                                                                        AS [ConsumptionQtySTOInBaseUnit]
-    , dimPDT.[PurchasingDocumentTypeID]                                           AS [PurchaseOrderTypeID]
-    , dimPDT.[PurchasingDocumentTypeName]                                         AS [PurchaseOrderType]
     , NULL AS [nk_dim_ProductValuationPUP]
     , NULL AS [StockPricePerUnit]
     , NULL AS [StockPricePerUnit_EUR]
@@ -302,17 +277,144 @@
     , MDI_axbi.[t_extractionDtm]
     FROM
         [edw].[fact_MaterialDocumentItem_axbi] MDI_axbi
-    LEFT JOIN
-        [edw].[dim_GoodsMovementType] dimGMT
-            ON 
-                dimGMT.GoodsMovementTypeID = MDI_axbi.[GoodsMovementTypeID]
-    LEFT JOIN 
-        [edw].[dim_PurchasingDocument] dimPD 
-            ON 
-                MDI_axbi.[PurchaseOrder] COLLATE Latin1_General_100_BIN2 = dimPD.[PurchasingDocumentID] 
-    LEFT JOIN  
-        [edw].[dim_PurchasingDocumentType] dimPDT 
-            ON  
-                dimPDT.[PurchasingDocumentTypeID]  = dimPD.[PurchasingDocumentType] 
-                AND
-                dimPDT.[PurchasingDocumentCategory]  = dimPD.[PurchasingDocumentCategory]
+)
+SELECT
+      MDIU.[MaterialDocumentYear]
+    , MDIU.[MaterialDocument]
+    , MDIU.[MaterialDocumentItem]
+    , MDIU.[MaterialID]
+    , MDIU.[PlantID]
+    , MDIU.[StorageLocationID]
+    , MDIU.[StorageTypeID]
+    , MDIU.[StorageBin]
+    , MDIU.[Batch]
+    , MDIU.[ShelfLifeExpirationDate]
+    , MDIU.[ManufactureDate]
+    , MDIU.[SupplierID]
+    , MDIU.[SalesOrder]
+    , MDIU.[SalesOrderItem]
+    , MDIU.[SalesOrderScheduleLine]
+    , MDIU.[WBSElementInternalID]
+    , MDIU.[CustomerID]
+    , MDIU.[InventorySpecialStockTypeID]
+    , MDIU.[InventorySpecialStockTypeName]
+    , MDIU.[InventoryStockTypeID]
+    , MDIU.[InventoryStockTypeName]
+    , MDIU.[StockOwner]
+    , MDIU.[GoodsMovementTypeID]
+    , dimGMT.[GoodsMovementTypeName]
+    , MDIU.[DebitCreditCode]
+    , MDIU.[InventoryUsabilityCode]
+    , MDIU.[QuantityInBaseUnit]
+    , MDIU.[MaterialBaseUnitID]
+    , MDIU.[QuantityInEntryUnit]
+    , MDIU.[EntryUnitID]
+    , MDIU.[HDR_PostingDate]
+    , MDIU.[DocumentDate]
+    , MDIU.[TotalGoodsMvtAmtInCCCrcy]
+    , MDIU.[CompanyCodeCurrency]
+    , MDIU.[InventoryValuationTypeID]
+    , MDIU.[ReservationIsFinallyIssued]
+    , MDIU.[PurchaseOrder]
+    , MDIU.[PurchaseOrderItem]
+    , MDIU.[ProjectNetwork]
+    , MDIU.[Order]
+    , MDIU.[OrderItem]
+    , MDIU.[Reservation]
+    , MDIU.[ReservationItem]
+    , MDIU.[DeliveryDocument]
+    , MDIU.[DeliveryDocumentItem]
+    , MDIU.[ReversedMaterialDocumentYear]
+    , MDIU.[ReversedMaterialDocument]
+    , MDIU.[ReversedMaterialDocumentItem]
+    , MDIU.[RvslOfGoodsReceiptIsAllowed]
+    , MDIU.[GoodsRecipientName]
+    , MDIU.[UnloadingPointName]
+    , MDIU.[CostCenterID]
+    , MDIU.[GLAccountID]
+    , MDIU.[ServicePerformer]
+    , MDIU.[EmploymentInternalID]
+    , MDIU.[AccountAssignmentCategory]
+    , MDIU.[WorkItem]
+    , MDIU.[ServicesRenderedDate]
+    , MDIU.[IssgOrRcvgMaterial]
+    , MDIU.[CompanyCodeID]
+    , MDIU.[GoodsMovementRefDocTypeID]
+    , MDIU.[IsAutomaticallyCreated]
+    , MDIU.[IsCompletelyDelivered]
+    , MDIU.[IssuingOrReceivingPlantID]
+    , MDIU.[IssuingOrReceivingStorageLocID]
+    , MDIU.[BusinessAreaID]
+    , MDIU.[ControllingAreaID]
+    , MDIU.[FiscalYearPeriod]
+    , MDIU.[FiscalYearVariant]
+    , MDIU.[IssgOrRcvgBatch]
+    , MDIU.[IssgOrRcvgSpclStockInd]
+    , MDIU.[MaterialDocumentItemText]
+    , MDIU.[CurrencyTypeID]
+    , MDIU.[HDR_AccountingDocumentTypeID]
+    , MDIU.[HDR_InventoryTransactionTypeID]
+    , MDIU.[HDR_CreatedByUser]
+    , MDIU.[HDR_CreationDate]
+    , MDIU.[HDR_CreationTime]
+    , MDIU.[HDR_MaterialDocumentHeaderText]
+    , MDIU.[HDR_ReferenceDocument]
+    , MDIU.[HDR_BillOfLading]
+    , MDIU.[SalesDocumentTypeID]
+    , MDIU.[SalesDocumentType] 
+    , MDIU.[SalesDocumentItemCategoryID] 
+    , MDIU.[SalesDocumentItemCategory]
+    , MDIU.[HDR_DeliveryDocumentTypeID]
+    , MDIU.[MatlStkChangeQtyInBaseUnit]
+    , MDIU.[ConsumptionQtyICPOInBaseUnit]     
+    , MDIU.[ConsumptionQtyOBDProInBaseUnit]
+    , MDIU.[ConsumptionQtySOInBaseUnit]
+    , MDIU.[MatlCnsmpnQtyInMatlBaseUnit]
+    , MDIU.[GoodsReceiptQtyInOrderUnit]
+    , MDIU.[GoodsMovementIsCancelled]
+    , MDIU.[GoodsMovementCancellationType]
+    , MDIU.[ConsumptionPosting]
+    , MDIU.[ManufacturingOrder]
+    , MDIU.[ManufacturingOrderItem]
+    , MDIU.[IsReversalMovementType]
+    , CASE WHEN ISNULL(MDIU.[PurchaseOrder],'') <>'' AND dimPDT.[PurchasingDocumentTypeID] = 'STO' 
+        THEN  MDIU.[MatlStkChangeQtyInBaseUnit]
+        ELSE NULL
+      END                                                                        AS [ConsumptionQtySTOInBaseUnit]
+    , dimPDT.[PurchasingDocumentTypeID]                                           AS [PurchaseOrderTypeID]
+    , dimPDT.[PurchasingDocumentTypeName]                                         AS [PurchaseOrderType]
+    , MDIU.[nk_dim_ProductValuationPUP]
+    , MDIU.[StockPricePerUnit]
+    , MDIU.[StockPricePerUnit_EUR]
+    , MDIU.[ConsumptionQtyICPOInStandardValue]
+    , MDIU.[ConsumptionQtyICPOInStandardValue_EUR]
+    , MDIU.[ConsumptionQtyOBDProStandardValue]
+    , MDIU.[ConsumptionQtyOBDProStandardValue_EUR]
+    , MDIU.[ConsumptionQtySOStandardValue]
+    , MDIU.[ConsumptionQtySOStandardValue_EUR]
+    , MDIU.[MatlStkChangeStandardValue]
+    , MDIU.[MatlStkChangeStandardValue_EUR]
+    , MDIU.[QuantityInBaseUnitStandardValue]
+    , MDIU.[QuantityInBaseUnitStandardValue_EUR]
+    , MDIU.[StandardPricePerUnit]
+    , MDIU.[StandardPricePerUnit_EUR]
+    , MDIU.[PriceControlIndicatorID]
+    , MDIU.[PriceControlIndicator]
+    , MDIU.[t_applicationId]
+    , MDIU.[t_extractionDtm]
+FROM
+    MDI_UNION MDIU
+LEFT JOIN
+    [edw].[dim_GoodsMovementType] dimGMT
+        ON 
+            dimGMT.GoodsMovementTypeID = MDIU.[GoodsMovementTypeID]
+LEFT JOIN 
+    [edw].[dim_PurchasingDocument] dimPD 
+        ON 
+            MDIU.[PurchaseOrder] COLLATE Latin1_General_100_BIN2 = dimPD.[PurchasingDocumentID] 
+LEFT JOIN  
+    [edw].[dim_PurchasingDocumentType] dimPDT 
+        ON  
+            dimPDT.[PurchasingDocumentTypeID]  = dimPD.[PurchasingDocumentType] 
+            AND
+            dimPDT.[PurchasingDocumentCategory]  = dimPD.[PurchasingDocumentCategory]

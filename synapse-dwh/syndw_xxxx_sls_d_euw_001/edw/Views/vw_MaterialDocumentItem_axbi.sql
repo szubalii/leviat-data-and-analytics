@@ -22,6 +22,7 @@ SELECT
         END                           AS [SalesOrderItem]
     ,   FINV.[TRANSTYPE]              AS [GoodsMovementTypeID]
     ,   dmATRNS.[ENUMLABELEN]         AS [GoodsMovementTypeName]
+    ,   FINV.[TRANSTYPENAME]
     ,   dmINVTBL.[StockUnit]
     ,   FINV.[DATEPHYSICAL]           AS [HDR_PostingDate]
     ,   FINV.[DATEPHYSICAL]           AS [DocumentDate]
@@ -78,6 +79,8 @@ SELECT
         END                           AS [SalesDocumentItemCategoryID]
     ,   FINV.[QTY]                    AS [MatlStkChangeQtyInBaseUnit]
     ,   FINV.[QTY]                    AS [MatlCnsmpnQtyInMatlBaseUnit]
+    ,   FINV.[CostAmount_Total]
+    ,   FINV.[INVENTTRANSID]
     ,   CASE
             WHEN FINV.[TRANSTYPE] = '2'
             THEN FPJRNL.[PRODID]
@@ -98,8 +101,6 @@ LEFT JOIN
     [edw].[dim_SAPItemNumberBasicMappingTable] SINMT 
     ON
         FINV.[ITEMID] = SINMT.AXItemnumber
-        AND
-        SINMT.[Migrate] IN ('Y', 'D')
         AND
         UPPER(SINMT.[AXDataAreaId]) = UPPER(DATAAREAID)
         AND
@@ -156,100 +157,91 @@ WHERE
 CQtySOInBU AS(
 SELECT
         DATAAREAID
-    ,   INVENTSITEID
+    ,   PlantID
     ,   INVENTLOCATIONID
-    ,   ITEMID
-    ,   TRANSTYPE
+    ,   MaterialID
+    ,   GoodsMovementTypeID
     ,   TRANSTYPENAME
-    ,   SUM(QTY) as ConsumptionQtySOInBaseUnit
+    ,   SUM(MatlStkChangeQtyInBaseUnit) as ConsumptionQtySOInBaseUnit
 FROM
-    [base_tx_halfen_2_dwh].[FACT_INVENTTRANS]
+    INVTRANS
 WHERE
-    TRANSTYPE = '1'
+    GoodsMovementTypeID = '1'
 GROUP BY
         DATAAREAID
-    ,   INVENTSITEID
+    ,   PlantID
     ,   INVENTLOCATIONID
-    ,   ITEMID
-    ,   TRANSTYPE
+    ,   MaterialID
+    ,   GoodsMovementTypeID
     ,   TRANSTYPENAME
 ),
 CQtyOBDProInBU AS(
 SELECT
         DATAAREAID
-    ,   INVENTSITEID
+    ,   PlantID
     ,   INVENTLOCATIONID
-    ,   ITEMID
-    ,   TRANSTYPE
+    ,   MaterialID
+    ,   GoodsMovementTypeID
     ,   TRANSTYPENAME
-    ,   SUM(QTY) as ConsumptionQtyOBDProInBaseUnit
+    ,   SUM(MatlStkChangeQtyInBaseUnit) as ConsumptionQtyOBDProInBaseUnit
 FROM
-    [base_tx_halfen_2_dwh].[FACT_INVENTTRANS]
+    INVTRANS
 WHERE
-    TRANSTYPE = '2'
+    GoodsMovementTypeID = '2'
 GROUP BY
         DATAAREAID
-    ,   INVENTSITEID
+    ,   PlantID
     ,   INVENTLOCATIONID
-    ,   ITEMID
-    ,   TRANSTYPE
+    ,   MaterialID
+    ,   GoodsMovementTypeID
     ,   TRANSTYPENAME
 ),
 CQtyOICPInBU AS(
 SELECT
-        FI.DATAAREAID
-    ,   INVENTSITEID
+        INVT.DATAAREAID
+    ,   PlantID
     ,   INVENTLOCATIONID
-    ,   FI.ITEMID
-    ,   TRANSTYPE
+    ,   INVT.MaterialID
+    ,   GoodsMovementTypeID
     ,   TRANSTYPENAME
-    ,   SUM(QTY) as ConsumptionQtyICPOInBaseUnit
+    ,   SUM(MatlStkChangeQtyInBaseUnit) as ConsumptionQtyICPOInBaseUnit
 FROM
-    [base_tx_halfen_2_dwh].[FACT_INVENTTRANS] FI
+    INVTRANS INVT
 LEFT JOIN
     [base_tx_halfen_2_dwh].[FACT_PURCHLINE] FP
         ON
-        FP.[INVENTDIMID] = FI.[INVENTDIMID]
+        FP.[INVENTDIMID] = INVT.[MaterialDocument]
         AND
-        FI.[ITEMID] = FP.[ITEMID]
+        INVT.[MaterialID] = FP.[ITEMID]
         AND
-        FI.[INVENTSITEID] = FI.[INVENTSITEID]
-
-LEFT JOIN
-    [base_tx_halfen_2_dwh].[FACT_PURCHLINE] FP
-        ON
-        FP.[INVENTDIMID] = FI.[INVENTDIMID]
-        AND
-        FI.[ITEMID] = FP.[ITEMID]
-        AND
-        FI.[INVENTSITEID] = FI.[INVENTSITEID]
+        INVT.[INVENTTRANSID] = FP.[INVENTTRANSID]
 LEFT JOIN
     [base_tx_halfen_2_dwh].[DIM_VENDTABLE] dmVend
         ON
         FP.[VENDACCOUNT] = dmVend.[ACCOUNTNUM]
 WHERE
-    FI.TRANSTYPE = '3'
+    INVT.GoodsMovementTypeID = '3'
     AND
     dmVend.[ACCOUNTNUM] = '200'
 GROUP BY
-        FI.DATAAREAID
-    ,   INVENTSITEID
+        INVT.DATAAREAID
+    ,   PlantID
     ,   INVENTLOCATIONID
-    ,   FI.ITEMID
-    ,   TRANSTYPE
+    ,   INVT.MaterialID
+    ,   GoodsMovementTypeID
     ,   TRANSTYPENAME
 ),
 AvgPricePerUnit AS(
 SELECT
-        [ITEMID]
-    ,   [INVENTSITEID]
+        [MaterialID]
+    ,   [PlantID]
     ,   [DATAAREAID]
-    ,   SUM(QTY)/SUM([CostAmount_Total]) as AvgPrice
+    ,   SUM(MatlStkChangeQtyInBaseUnit)/SUM([CostAmount_Total]) as AvgPrice
 FROM
-    [base_tx_halfen_2_dwh].[FACT_INVENTTRANS] FINV    
+    INVTRANS INVT
 GROUP BY
-        [ITEMID]
-    ,   [INVENTSITEID]
+        [MaterialID]
+    ,   [PlantID]
     ,   [DATAAREAID]
 ),
 EuroExchangeRate AS (
@@ -307,7 +299,7 @@ SELECT
     ,   INV.[SalesOrderItem]
     ,   INV.[GoodsMovementTypeID]
     ,   INV.[GoodsMovementTypeName]
-    ,   SU.[target_UnitName] AS [MaterialBaseUnitID]
+    ,   SU.[target_Unit] AS [MaterialBaseUnitID]
     ,   INV.[HDR_PostingDate]
     ,   INV.[DocumentDate]
     ,   INV.[CompanyCodeCurrency]
@@ -363,9 +355,9 @@ LEFT JOIN
 LEFT JOIN
     AvgPricePerUnit APU
         ON
-        APU.[ITEMID] =  INV.[MaterialID]
+        APU.[MaterialID] =  INV.[MaterialID]
         AND
-        APU.[INVENTSITEID] = INV.[PlantID]
+        APU.[PlantID] = INV.[PlantID]
         AND
         APU.[DATAAREAID] = INV.[DATAAREAID]
 LEFT JOIN
@@ -373,13 +365,13 @@ LEFT JOIN
         ON 
         QtySO.[DATAAREAID] = INV.[DATAAREAID]
         AND
-        QtySO.[INVENTSITEID] = INV.[PlantID]
+        QtySO.[PlantID] = INV.[PlantID]
         AND
         QtySO.[INVENTLOCATIONID] = INV.[INVENTLOCATIONID]
         AND
-        QtySO.[ITEMID] = INV.[MaterialID]
+        QtySO.[MaterialID] = INV.[MaterialID]
         AND
-        QtySO.[TRANSTYPE] = INV.[GoodsMovementTypeID]
+        QtySO.[GoodsMovementTypeID] = INV.[GoodsMovementTypeID]
         AND
         QtySO.[TRANSTYPENAME] = INV.[GoodsMovementTypeName]
 LEFT JOIN
@@ -387,13 +379,13 @@ LEFT JOIN
         ON 
         QtyOBD.[DATAAREAID] = INV.[DATAAREAID]
         AND
-        QtyOBD.[INVENTSITEID] = INV.[PlantID]
+        QtyOBD.[PlantID] = INV.[PlantID]
         AND
         QtyOBD.[INVENTLOCATIONID] = INV.[INVENTLOCATIONID]
         AND
-        QtyOBD.[ITEMID] = INV.[MaterialID]
+        QtyOBD.[MaterialID] = INV.[MaterialID]
         AND
-        QtyOBD.[TRANSTYPE] = INV.[GoodsMovementTypeID]
+        QtyOBD.[GoodsMovementTypeID] = INV.[GoodsMovementTypeID]
         AND
         QtyOBD.[TRANSTYPENAME] = INV.[GoodsMovementTypeName]
 LEFT JOIN
@@ -401,13 +393,13 @@ LEFT JOIN
         ON 
         QtyOICP.[DATAAREAID] = INV.[DATAAREAID]
         AND
-        QtyOICP.[INVENTSITEID] = INV.[PlantID]
+        QtyOICP.[PlantID] = INV.[PlantID]
         AND
         QtyOICP.[INVENTLOCATIONID] = INV.[INVENTLOCATIONID]
         AND
-        QtyOICP.[ITEMID] = INV.[MaterialID]
+        QtyOICP.[MaterialID] = INV.[MaterialID]
         AND
-        QtyOICP.[TRANSTYPE] = INV.[GoodsMovementTypeID]
+        QtyOICP.[GoodsMovementTypeID] = INV.[GoodsMovementTypeID]
         AND
         QtyOICP.[TRANSTYPENAME] = INV.[GoodsMovementTypeName]
 )
