@@ -3549,7 +3549,7 @@
           "extraction_type": "ODP",
           "update_mode": "Full",
           "base_table_name": "I_GLAccountText",
-          "pk_field_names": "MANDT, CHARTOFACCOUNTS, GLACCOUNT, LANGUAGE",
+          "pk_field_names": "CHARTOFACCOUNTS, GLACCOUNT, LANGUAGE",
           "schedule_recurrence": "A"                              
         },     
         {
