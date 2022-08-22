@@ -11,6 +11,19 @@ WITH EuroBudgetExchangeRate AS (
         ExchangeRateType = 'ZAXBIBUD'
         AND
         TargetCurrency = 'EUR'
+), 
+CTE_DeliveryCharge AS
+(SELECT
+        CS.[INVOICE]
+    ,   CS.[LineNo]
+    ,   SUM(CS.[SALES]) AS [DeliveryCharge]
+FROM
+    [base_us_leviat_db].[CUSTOMER_SALES] CS
+WHERE
+    CS.[ItemName] LIKE 'Delivery Charge%'
+GROUP BY
+     CS.[INVOICE]
+    ,CS.[LineNo]
 )
 ,BillingDocumentItemBase AS
 (SELECT
@@ -48,11 +61,11 @@ WITH EuroBudgetExchangeRate AS (
     ,   MAPCUST.[Country] AS [CountryID]                                
     ,   CS.[SalesQty] AS [QuantitySold]                             
     --,   (CS.[NetAmount]-CS.[Cost]) AS [GrossMargin]                      
-    ,   CS.[SALES] AS [FinNetAmount]                             
-    ,   CS.[ImbFrtCost] AS [FinNetAmountFreight]
+    ,   CS.[SALES] AS [FinNetAmount]       
+    ,   DC.[DeliveryCharge] AS [FinNetAmountFreight]
     ,   CS.[ImbFrtCost] AS [FinNetAmountOtherSales]
-    ,   0 AS [FinNetAmountAllowances]                   
-    ,   CS.[SALES] + CS.[ImbFrtCost] AS [FinSales100]  --temporary
+    ,   0 AS [FinNetAmountAllowances]
+    ,   CS.[SALES] + ISNULL(DC.[DeliveryCharge],0) AS [FinSales100]
     ,   CS.[InvDate] AS [AccountingDate]                           
     ,   CONCAT(CS.[COMP],'-',CS.[ITEM]) AS [MaterialCalculated]                       
     ,   CONCAT(CS.[COMP],'-',CS.[CUSTOMER]) AS [SoldToPartyCalculated]  
@@ -91,6 +104,11 @@ LEFT JOIN
         ON PCAT.[PCAT] = CS.[PCAT]
            AND 
            PCAT.[SubPCAT] = CS.[SubPCAT]
+LEFT JOIN
+    CTE_DeliveryCharge DC
+        ON DC.[INVOICE] = CS.[INVOICE]
+           AND
+           DC.[LineNo] = CS.[LineNo]
 ),
 BillingDocumentItemBase_Margin AS
 (SELECT
@@ -125,8 +143,8 @@ BillingDocumentItemBase_Margin AS
     ,   BDI_Base.[FinNetAmount]                             
     ,   BDI_Base.[FinNetAmountFreight]
     ,   BDI_Base.[FinNetAmountOtherSales]
-    ,   BDI_Base.[FinNetAmountAllowances]                   
-    ,   BDI_Base.[FinSales100]  --temporary
+    ,   BDI_Base.[FinNetAmountAllowances]    
+    ,   BDI_Base.[FinSales100]
     ,   BDI_Base.[AccountingDate]                           
     ,   BDI_Base.[MaterialCalculated]                       
     ,   BDI_Base.[SoldToPartyCalculated]  
