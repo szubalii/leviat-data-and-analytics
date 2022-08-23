@@ -95,9 +95,11 @@
     [t_jobId]                         VARCHAR(36),
     [t_jobDtm]                        DATETIME,
     [t_lastActionCd]                  varchar(1),
-    [t_jobBy]                         VARCHAR(128)
-, CONSTRAINT [PK_fact_MaterialDocumentItem] PRIMARY KEY NONCLUSTERED ([MaterialDocumentYear], [MaterialDocument], [MaterialDocumentItem])  NOT ENFORCED
+    [t_jobBy]                         VARCHAR(128),
+    CONSTRAINT [PK_fact_MaterialDocumentItem] PRIMARY KEY NONCLUSTERED (
+        [MaterialDocumentYear],
+        [MaterialDocument],
+        [MaterialDocumentItem]
+    ) NOT ENFORCED
 )
-WITH (
-    DISTRIBUTION = HASH ([MaterialDocument]), CLUSTERED COLUMNSTORE INDEX
-)
+WITH ( DISTRIBUTION = HASH ([MaterialDocument]), CLUSTERED COLUMNSTORE INDEX )

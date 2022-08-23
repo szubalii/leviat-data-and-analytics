@@ -3550,7 +3550,7 @@
           "update_mode": "Full",
           "base_table_name": "I_GLAccountText",
           "pk_field_names": "CHARTOFACCOUNTS, GLACCOUNT, LANGUAGE",
-          "schedule_recurrence": "A"                              
+          "schedule_recurrence": "A"
         },     
         {
           "entity_id": 469,
@@ -3762,6 +3762,13 @@
         "base_table_name": "AX_Halfen_dbo_INVENTITEMPRICE",
         "pk_field_names": "DW_Id",
         "schedule_recurrence": "A"
+      },
+      {
+        "entity_id": 483,
+        "entity_name": "AX_Halfen_dbo_COMPANYINFO",
+        "base_table_name": "AX_Halfen_dbo_COMPANYINFO",
+        "pk_field_names": "DW_Id",
+        "schedule_recurrence": "A"
       }
     ]
   },
@@ -3921,6 +3928,27 @@
         "entity_id": 447,
         "entity_name": "FACT_INVENTTRANS",
         "base_table_name": "FACT_INVENTTRANS",
+        "pk_field_names": "DW_Id",
+        "schedule_recurrence": "A"
+      },
+      {
+        "entity_id": 480,
+        "entity_name": "FACT_PRODJOURNALPROD",
+        "base_table_name": "FACT_PRODJOURNALPROD",
+        "pk_field_names": "DW_Id",
+        "schedule_recurrence": "A"
+      },
+      {
+        "entity_id": 481,
+        "entity_name": "FACT_PURCHLINE",
+        "base_table_name": "FACT_PURCHLINE",
+        "pk_field_names": "DW_Id",
+        "schedule_recurrence": "A"
+      },
+      {
+        "entity_id": 482,
+        "entity_name": "DIM_VENDTABLE",
+        "base_table_name": "DIM_VENDTABLE",
         "pk_field_names": "DW_Id",
         "schedule_recurrence": "A"
       }
@@ -4879,8 +4907,8 @@
         "dest_table_name": "dim_ProductValuation",
         "execution_order": 0,
         "schedule_recurrence": "D"
-        },
-        {
+      },
+      {
         "entity_id": 433,
         "entity_name": "dim_PurchasingDocument",
         "sproc_name": "sp_materialize_view",
@@ -4888,8 +4916,8 @@
         "dest_table_name": "dim_PurchasingDocument",
         "execution_order": 0,
         "schedule_recurrence": "D"
-        },
-        {
+      },
+      {
         "entity_id": 435,
         "entity_name": "dim_ProductValuationPUP",
         "sproc_name": "sp_materialize_view",
@@ -4897,25 +4925,25 @@
         "dest_table_name": "dim_ProductValuationPUP",
         "execution_order": 1,
         "schedule_recurrence": "D"
-        },
-        {
-          "entity_id": 462,
-          "entity_name": "dim_FinancialStatementItem",
-          "sproc_name": "sp_materialize_view",
-          "source_view_name": "vw_FinancialStatementItem",
-          "dest_table_name": "dim_FinancialStatementItem",
-          "execution_order": 1,
-          "schedule_recurrence": "A"
-        },
-        {
-          "entity_id": 463,
-          "entity_name": "dim_FinancialStatementHierarchy",
-          "sproc_name": "sp_materialize_view",
-          "source_view_name": "vw_FinancialStatementHierarchy",
-          "dest_table_name": "dim_FinancialStatementHierarchy",
-          "execution_order": 1,
-          "schedule_recurrence": "A"
-        }
+      },
+      {
+        "entity_id": 462,
+        "entity_name": "dim_FinancialStatementItem",
+        "sproc_name": "sp_materialize_view",
+        "source_view_name": "vw_FinancialStatementItem",
+        "dest_table_name": "dim_FinancialStatementItem",
+        "execution_order": 1,
+        "schedule_recurrence": "A"
+      },
+      {
+        "entity_id": 463,
+        "entity_name": "dim_FinancialStatementHierarchy",
+        "sproc_name": "sp_materialize_view",
+        "source_view_name": "vw_FinancialStatementHierarchy",
+        "dest_table_name": "dim_FinancialStatementHierarchy",
+        "execution_order": 1,
+        "schedule_recurrence": "A"
+      }
     ]
   },
   "dq": {
@@ -4950,6 +4978,15 @@
         "source_view_name": "vw_RuleTotal",
         "dest_table_name": "fact_RuleTotal",
         "execution_order": 0,
+        "schedule_recurrence": "D"
+      },
+      {
+        "entity_id": 484,
+        "entity_name": "fact_MaterialDocumentItem_axbi",
+        "sproc_name": "sp_materialize_view",
+        "source_view_name": "vw_MaterialDocumentItem_axbi",
+        "dest_table_name": "fact_MaterialDocumentItem_axbi",
+        "execution_order": 1,
         "schedule_recurrence": "D"
       }
     ]
