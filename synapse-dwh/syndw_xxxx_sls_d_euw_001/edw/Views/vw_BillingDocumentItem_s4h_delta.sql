@@ -104,10 +104,7 @@ WITH BillingDocumentItemBase as (
         , case 
             when doc.[ReturnItemProcessingType] = 'X' then doc.[CostAmount]  
             else 
-                doc.[CostAmount] * (-1) end                    as [CostAmount] 
-        , case 
-            when doc.[ReturnItemProcessingType] = 'X' then (doc.[NetAmount] + doc.[CostAmount]) * (-1) 
-            else doc.[NetAmount] + doc.[CostAmount] end as [ProfitMargin]
+                doc.[CostAmount] * (-1) end                    as [CostAmount]
         , case 
             when doc.[ReturnItemProcessingType] = 'X' then doc.[Subtotal1Amount] * (-1) 
             else 
@@ -369,13 +366,7 @@ WITH BillingDocumentItemBase as (
         , BDI_Base.[PriceDetnExchangeRate]
         , BDI_Base.[PricingScaleQuantityInBaseUnit]
         , BDI_Base.[TaxAmount] 
-        , BDI_Base.[CostAmount] 
-        , BDI_Base.[ProfitMargin]
-        , CASE
-              WHEN ISNULL(BDI_Base.[NetAmount], 0) = 0
-              THEN 0
-              ELSE BDI_Base.[ProfitMargin]/BDI_Base.[NetAmount]
-          END AS [MarginPercent]
+        , BDI_Base.[CostAmount]
         , BDI_Base.[Subtotal1Amount] 
         , BDI_Base.[Subtotal2Amount] 
         , BDI_Base.[Subtotal3Amount] 
@@ -611,8 +602,6 @@ WITH BillingDocumentItemBase as (
             ,   [PricingScaleQuantityInBaseUnit]
             ,   CONVERT(decimal(19,6), [TaxAmount] * ExchangeRateEuro.[ExchangeRate]) as [TaxAmount]
             ,   CONVERT(decimal(19,6), [CostAmount] * ExchangeRateEuro.[ExchangeRate]) as [CostAmount]
-            ,   CONVERT(decimal(19,6), [ProfitMargin] * ExchangeRateEuro.[ExchangeRate]) as [ProfitMargin]
-            ,   [MarginPercent]
             ,   CONVERT(decimal(19,6), [Subtotal1Amount] * ExchangeRateEuro.[ExchangeRate]) as [Subtotal1Amount]
             ,   CONVERT(decimal(19,6), [Subtotal2Amount] * ExchangeRateEuro.[ExchangeRate]) as [Subtotal2Amount]
             ,   CONVERT(decimal(19,6), [Subtotal3Amount] * ExchangeRateEuro.[ExchangeRate]) as [Subtotal3Amount]
@@ -836,8 +825,6 @@ SELECT [BillingDocument]
       ,[PricingScaleQuantityInBaseUnit]
       ,[TaxAmount]
       ,[CostAmount]
-      ,[ProfitMargin]
-      ,[MarginPercent]
       ,[Subtotal1Amount]
       ,[Subtotal2Amount]
       ,[Subtotal3Amount]
@@ -1043,11 +1030,6 @@ SELECT
                                         THEN 1 / [AccountingExchangeRate] 
                                         ELSE [AccountingExchangeRate] 
                                         END)) as [CostAmount]
-    ,CONVERT(decimal(19,6), [ProfitMargin] * (CASE WHEN [AccountingExchangeRate] < 0 
-                                        THEN 1 / [AccountingExchangeRate] 
-                                        ELSE [AccountingExchangeRate] 
-                                        END)) as [ProfitMargin]
-    ,[MarginPercent]
     ,CONVERT(decimal(19,6), [Subtotal1Amount] * (CASE WHEN [AccountingExchangeRate] < 0 
                                         THEN 1 / [AccountingExchangeRate] 
                                         ELSE [AccountingExchangeRate] 
@@ -1272,8 +1254,6 @@ SELECT
     ,[PricingScaleQuantityInBaseUnit]
     ,[TaxAmount]
     ,[CostAmount]
-    ,[ProfitMargin]
-    ,[MarginPercent]
     ,[Subtotal1Amount]
     ,[Subtotal2Amount]
     ,[Subtotal3Amount]
@@ -1464,8 +1444,6 @@ SELECT
     ,[PricingScaleQuantityInBaseUnit]
     ,CONVERT(decimal(19,6), [TaxAmount] * (1/ExchangeRateUSD.[ExchangeRate])) as [TaxAmount]
     ,CONVERT(decimal(19,6), [CostAmount] * (1/ExchangeRateUSD.[ExchangeRate])) as [CostAmount]
-    ,CONVERT(decimal(19,6), [ProfitMargin] * (1/ExchangeRateUSD.[ExchangeRate])) as [ProfitMargin]
-    ,[MarginPercent]
     ,CONVERT(decimal(19,6), [Subtotal1Amount] * (1/ExchangeRateUSD.[ExchangeRate])) as [Subtotal1Amount]
     ,CONVERT(decimal(19,6), [Subtotal2Amount] * (1/ExchangeRateUSD.[ExchangeRate])) as [Subtotal2Amount]
     ,CONVERT(decimal(19,6), [Subtotal3Amount] * (1/ExchangeRateUSD.[ExchangeRate])) as [Subtotal3Amount]

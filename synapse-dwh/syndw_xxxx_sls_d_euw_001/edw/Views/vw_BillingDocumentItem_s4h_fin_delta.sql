@@ -99,8 +99,6 @@ BDIwithMatType AS (
     ,   BDI.[PricingScaleQuantityInBaseUnit]
     ,   BDI.[TaxAmount]
     ,   BDI.[CostAmount]
-    ,   BDI.[ProfitMargin]
-    ,   BDI.[MarginPercent]
     ,   BDI.[Subtotal1Amount]
     ,   BDI.[Subtotal2Amount]
     ,   BDI.[Subtotal3Amount]
@@ -541,8 +539,6 @@ BDwithConditionAmountFreight AS (
     ,   BDIwithMatType.[PricingScaleQuantityInBaseUnit]
     ,   BDIwithMatType.[TaxAmount]
     ,   BDIwithMatType.[CostAmount]
-    ,   BDIwithMatType.[ProfitMargin]
-    ,   BDIwithMatType.[MarginPercent]
     ,   BDIwithMatType.[Subtotal1Amount]
     ,   BDIwithMatType.[Subtotal2Amount]
     ,   BDIwithMatType.[Subtotal3Amount]
@@ -810,8 +806,6 @@ BDwithConditionAmountFreight AS (
     ,   [PricingScaleQuantityInBaseUnit]
     ,   [TaxAmount]
     ,   [CostAmount]
-    ,   [ProfitMargin]
-    ,   [MarginPercent]
     ,   [Subtotal1Amount]
     ,   [Subtotal2Amount]
     ,   [Subtotal3Amount]
@@ -1061,8 +1055,6 @@ BDwithConditionAmountFreight AS (
     ,   [PricingScaleQuantityInBaseUnit]
     ,   [TaxAmount]
     ,   [CostAmount]
-    ,   [ProfitMargin]
-    ,   [MarginPercent]
     ,   [Subtotal1Amount]
     ,   [Subtotal2Amount]
     ,   [Subtotal3Amount]
@@ -1149,15 +1141,43 @@ BDwithConditionAmountFreight AS (
     ,   [BillToID]
     ,   [BillTo]
     ,   NULL AS [FinNetAmountRealProduct]
-    ,   NULL AS [FinNetAmountFreight]
-    ,   NULL AS [FinNetAmountMinQty]
-    ,   NULL AS [FinNetAmountEngServ]
-    ,   NULL AS [FinNetAmountMisc]
     ,   CASE
-            WHEN
-                MaterialTypeID = 'ZSER'
-            THEN
-                NetAmount
+            WHEN 
+                [Material] = '70000011'
+                AND
+                [FinNetAmountSumBD] != 0
+                AND
+                [MaterialTypeID] = 'ZSER'
+           THEN
+               (BDIwithMatType.[NetAmount] / BDexclZVERandZSER.[FinNetAmountSumBD] * ISNULL(BDwithFreight.NetAmountFreight,0)) + ISNULL(BDwithConditionAmountFreight.[ConditionAmountFreight],0)
+           ELSE NULL
+        END AS [FinNetAmountFreight]
+    ,   NULL AS [FinNetAmountMinQty]
+    ,   CASE
+            WHEN 
+                ([Material] = '70000010'
+                OR
+                [Material] = '70000051')
+                AND
+                [FinNetAmountSumBD] != 0
+                AND
+                [MaterialTypeID] = 'ZSER'
+           THEN
+               BDIwithMatType.[NetAmount] / BDexclZVERandZSER.[FinNetAmountSumBD] * ISNULL(BDwithEngServ.NetAmountEngServ,0)
+           ELSE NULL
+        END AS [FinNetAmountEngServ]
+    ,   NULL AS [FinNetAmountMisc]
+--  ,   BDwithZVER.NetAmountZVER -- MPS 2021/11/04: removed as NetAmountZVER same as NetAmountVerp
+    ,   CASE
+            WHEN 
+                [Material] NOT IN ('70000010','70000051','70000011')
+                AND
+                [FinNetAmountSumBD] != 0
+                AND
+                [MaterialTypeID] = 'ZSER'
+           THEN
+               BDIwithMatType.[NetAmount] / BDexclZVERandZSER.[FinNetAmountSumBD] * ISNULL(BDwithServOther.NetAmountServOther,0)
+           ELSE NULL
         END AS [FinNetAmountServOther]
     ,   CASE
             WHEN
@@ -1171,12 +1191,40 @@ BDwithConditionAmountFreight AS (
     ,   [InOutID]
     ,   [t_applicationId]
     ,   [t_extractionDtm]
-    ,   [t_lastActionBy]
-    ,   [t_lastActionCd]
-    ,   [t_lastActionDtm]
-    ,   [t_filePath]      
     FROM 
         BDIwithMatType
+    LEFT JOIN
+        BDexclZVERandZSER
+        ON
+            BDIwithMatType.BillingDocument = BDexclZVERandZSER.BillingDocument
+            AND
+            BDIwithMatType.CurrencyTypeID = BDexclZVERandZSER.CurrencyTypeID
+    LEFT JOIN
+        BDwithFreight
+        ON
+            BDIwithMatType.BillingDocument = BDwithFreight.BillingDocument
+            AND
+            BDIwithMatType.CurrencyTypeID = BDwithFreight.CurrencyTypeID
+    LEFT JOIN
+        BDwithConditionAmountFreight
+        ON 
+            BDIwithMatType.BillingDocument = BDwithConditionAmountFreight.BillingDocument
+            AND            
+            BDIwithMatType.BillingDocumentItem = BDwithConditionAmountFreight.BillingDocumentItem
+            AND
+            BDIwithMatType.CurrencyTypeID = BDwithConditionAmountFreight.CurrencyTypeID
+    LEFT JOIN
+        BDwithEngServ
+        ON
+            BDIwithMatType.BillingDocument = BDwithEngServ.BillingDocument
+            AND
+            BDIwithMatType.CurrencyTypeID = BDwithEngServ.CurrencyTypeID
+    LEFT JOIN
+        BDwithServOther
+        ON
+            BDIwithMatType.BillingDocument = BDwithServOther.BillingDocument
+            AND
+            BDIwithMatType.CurrencyTypeID = BDwithServOther.CurrencyTypeID
     WHERE 
         [BillingDocument] NOT IN (
             SELECT
@@ -1237,8 +1285,6 @@ BDwithConditionAmountFreight AS (
     ,   BDI.ExchangeRate
     ,   BDIPE.ConditionCurrency
 )
-, BDI_FinNetAmountCalcualtions AS
-(
 SELECT
     [BillingDocument]
 ,   [BillingDocumentItem]
@@ -1325,8 +1371,6 @@ SELECT
 ,   [PricingScaleQuantityInBaseUnit]
 ,   [TaxAmount]
 ,   [CostAmount]
-,   [ProfitMargin]
-,   [MarginPercent]
 ,   [Subtotal1Amount]
 ,   [Subtotal2Amount]
 ,   [Subtotal3Amount]
@@ -1480,208 +1524,3 @@ FROM (
         ) subQ_FinNetAmountOtherSales
     ) subQ_FinReserveCashDiscount
 ) subQ_FinNetAmountAllowances
-)
-SELECT
-    [BillingDocument]
-,   [BillingDocumentItem]
-,   [CurrencyTypeID]
-,   [CurrencyType]
-,   [CurrencyID]
-,   [ExchangeRate]
-,   [SalesDocumentItemCategoryID]
-,   [SalesDocumentItemTypeID]
-,   [ReturnItemProcessingType]
-,   [BillingDocumentTypeID]
-,   [BillingDocumentCategoryID]
-,   [SDDocumentCategoryID]
-,   [CreationDate]
-,   [CreationTime]
-,   [LastChangeDate]
-,   [BillingDocumentDate]
-,   [BillingDocumentIsTemporary]
-,   [OrganizationDivision]
-,   [Division]
-,   [SalesOfficeID]
-,   [SalesOrganizationID]
-,   [DistributionChannelID]
-,   [Material]
-,   [ProductSurrogateKey]
-,   [OriginallyRequestedMaterial]
-,   [InternationalArticleNumber]
-,   [PricingReferenceMaterial]
-,   [LengthInMPer1]
-,   [LengthInM]
-,   [Batch]
-,   [MaterialGroupID]
-,   [BrandID]
-,   [AdditionalMaterialGroup2]
-,   [AdditionalMaterialGroup3]
-,   [AdditionalMaterialGroup4]
-,   [AdditionalMaterialGroup5]
-,   [MaterialCommissionGroup]
-,   [PlantID]
-,   [StorageLocationID]
-,   [BillingDocumentIsCancelled]
-,   [CancelledBillingDocument]
-,   [CancelledInvoiceEffect]
-,   [BillingDocumentItemText]
-,   [ServicesRenderedDate]
-,   [BillingQuantity]
-,   [BillingQuantityUnitID]
-,   [BillingQuantityInBaseUnit]
-,   [BaseUnit]
-,   [MRPRequiredQuantityInBaseUnit]
-,   [BillingToBaseQuantityDnmntr]
-,   [BillingToBaseQuantityNmrtr]
-,   [ItemGrossWeight]
-,   [ItemNetWeight]
-,   [ItemWeightUnit]
-,   [ItemVolume]
-,   [ItemVolumeUnit]
-,   [BillToPartyCountry]
-,   [BillToPartyRegion]
-,   [BillingPlanRule]
-,   [BillingPlan]
-,   [BillingPlanItem]
-,   [CustomerPriceGroupID]
-,   [PriceListTypeID]
-,   [TaxDepartureCountry]
-,   [VATRegistration]
-,   [VATRegistrationCountry]
-,   [VATRegistrationOrigin]
-,   [CustomerTaxClassification1]
-,   [CustomerTaxClassification2]
-,   [CustomerTaxClassification3]
-,   [CustomerTaxClassification4]
-,   [CustomerTaxClassification5]
-,   [CustomerTaxClassification6]
-,   [CustomerTaxClassification7]
-,   [CustomerTaxClassification8]
-,   [CustomerTaxClassification9]
-,   [SDPricingProcedure]
-,   [NetAmount]
-,   [TransactionCurrencyID]
-,   [GrossAmount]
-,   [PricingDate]
-,   [PriceDetnExchangeRate]
-,   [PricingScaleQuantityInBaseUnit]
-,   [TaxAmount]
-,   [CostAmount]
-,   [ProfitMargin]
-,   [MarginPercent]
-,   [FinSales100] + [CostAmount] AS [FinProfitMargin]
-,   CASE
-        WHEN ISNULL([FinSales100], 0) = 0
-        THEN 0
-        ELSE ([FinSales100] + [CostAmount])/[FinSales100]
-    END AS [FinMarginPercent]
-,   [Subtotal1Amount]
-,   [Subtotal2Amount]
-,   [Subtotal3Amount]
-,   [Subtotal4Amount]
-,   [Subtotal5Amount]
-,   [Subtotal6Amount]
-,   [StatisticalValueControl]
-,   [StatisticsExchangeRate]
-,   [StatisticsCurrency]
-,   [SalesOrganizationCurrency]
-,   [EligibleAmountForCashDiscount]
-,   [ContractAccount]
-,   [CustomerPaymentTerms]
-,   [PaymentMethod]
-,   [PaymentReference]
-,   [FixedValueDate]
-,   [AdditionalValueDays]
-,   [PayerParty]
-,   [CompanyCode]
-,   [FiscalYear]
-,   [FiscalPeriod]
-,   [CustomerAccountAssignmentGroupID]
-,   [BusinessArea]
-,   [ProfitCenter]
-,   [OrderID]
-,   [ControllingArea]
-,   [ProfitabilitySegment]
-,   [CostCenter]
-,   [OriginSDDocument]
-,   [OriginSDDocumentItem]
-,   [PriceDetnExchangeRateDate]
-,   [ExchangeRateTypeID]
-,   [FiscalYearVariant]
-,   [CompanyCodeCurrencyID]
-,   [AccountingExchangeRate]
-,   [AccountingExchangeRateIsSet]
-,   [ReferenceSDDocument]
-,   [ReferenceSDDocumentItem]
-,   [ReferenceSDDocumentCategoryID]
-,   [SalesDocumentID]
-,   [SalesDocumentItemID]
-,   [SalesSDDocumentCategoryID]
-,   [HigherLevelItem]
-,   [BillingDocumentItemInPartSgmt]
-,   [SalesGroup]
-,   [AdditionalCustomerGroup1]
-,   [AdditionalCustomerGroup2]
-,   [AdditionalCustomerGroup3]
-,   [AdditionalCustomerGroup4]
-,   [AdditionalCustomerGroup5]
-,   [SDDocumentReasonID]
-,   [ItemIsRelevantForCredit]
-,   [CreditRelatedPrice]
-,   [SalesDistrictID]
-,   [CustomerGroupID]
-,   [SoldToParty]
-,   [CountryID]
-,   [ShipToParty]
-,   [BillToParty]
-,   [ShippingPoint]
-,   [IncotermsVersion]
-,   [IncotermsClassification]
-,   [IncotermsTransferLocation]
-,   [IncotermsLocation1]
-,   [IncotermsLocation2]
-,   [ShippingCondition]
-,   [QuantitySold]
-,   [GrossMargin]
-,   [ExternalSalesAgentID]
-,   [ExternalSalesAgent]
-,   [ProjectID]
-,   [Project]
-,   [SalesEmployeeID]
-,   [SalesEmployee]
-,   [GlobalParentID]
-,   [GlobalParent]
-,   [GlobalParentCalculatedID]
-,   [GlobalParentCalculated]
-,   [LocalParentID]
-,   [LocalParent]
-,   [LocalParentCalculatedID]
-,   [LocalParentCalculated]
-,   [SalesOrderTypeID]
-,   [BillToID]
-,   [BillTo]
-,   [FinNetAmountRealProduct]
-,   [FinNetAmountFreight]
-,   [FinNetAmountMinQty]
-,   [FinNetAmountEngServ]
-,   [FinNetAmountMisc]
-,   [FinNetAmountServOther]
-,   [FinNetAmountVerp]
-,   [FinRebateAccrual]
-,   [PaymentTermCashDiscountPercentageRate]
-,   [FinNetAmountOtherSales]
-,   [FinReserveCashDiscount]
-,   [FinNetAmountAllowances]
-,   [FinSales100]
-,   [AccountingDate]
-,   [MaterialCalculated]
-,   [SoldToPartyCalculated]
-,   [InOutID]
-,   [t_applicationId]
-,   [t_extractionDtm]
-,   [t_lastActionBy]
-,   [t_lastActionCd]
-,   [t_lastActionDtm]
-,   [t_filePath]      
-FROM
-    BDI_FinNetAmountCalcualtions

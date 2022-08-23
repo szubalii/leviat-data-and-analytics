@@ -361,10 +361,6 @@ BillingDocumentItemBase_axbi_mapped AS (
     ,   SubQ.[NetAmountGroupEUR]
     ,   SubQ.[CostAmountLocal]
     ,   SubQ.[CostAmountGroupEUR]
-    ,   (SubQ.[NetAmountLocal]+SubQ.[CostAmountLocal]) AS [ProfitMarginLocal]
-    ,   (SubQ.[NetAmountGroupEUR]+SubQ.[CostAmountGroupEUR]) AS [ProfitMarginGroupEUR]
-    ,   (SubQ.[FinSales100LOCAL]+SubQ.[CostAmountLocal]) AS [FinProfitMarginLocal]
-    ,   (SubQ.[FinSales100EUR]+SubQ.[CostAmountGroupEUR]) AS [FinProfitMarginGroupEUR]
     ,   SubQ.[QuantitySold]
     ,   SubQ.[CountryID]
     ,   SubQ.[SalesDocumentID]
@@ -600,10 +596,6 @@ BillingDocumentItemBase_axbi_mapped AS (
     ,   SubQ.[NetAmountGroupEUR]
     ,   SubQ.[CostAmountLocal]
     ,   SubQ.[CostAmountGroupEUR]
-    ,   SubQ.[ProfitMarginLocal]
-    ,   SubQ.[ProfitMarginGroupEUR]
-    ,   SubQ.[FinProfitMarginLocal]
-    ,   SubQ.[FinProfitMarginGroupEUR]
     ,   SubQ.[QuantitySold]
     ,   SubQ.[CountryID]
     ,   SubQ.[SalesDocumentID]
@@ -693,10 +685,6 @@ BillingDocumentItemBase_axbi_mapped AS (
     ,   [FinNetAmountOtherSalesEUR]   AS [NetAmountGroupEUR]
     ,   NULL                          AS [CostAmountLocal]
     ,   NULL                          AS [CostAmountGroupEUR]
-    ,   [FinNetAmountOtherSalesLOCAL] AS [ProfitMarginLocal]
-    ,   [FinNetAmountOtherSalesEUR]   AS [ProfitMarginGroupEUR]
-    ,   NULL                          AS [FinProfitMarginLocal]
-    ,   NULL                          AS [FinProfitMarginGroupEUR]
     ,   [QuantitySold]
     ,   [CountryID]
     ,   [SalesDocumentID]
@@ -795,18 +783,6 @@ BillingDocumentItemBase_axbi_mapped AS (
         ,   [BillingQuantityUnitID]
         ,   [NetAmountGroupEUR]                      AS [NetAmount]
         ,   [CostAmountGroupEUR]                     AS [CostAmount]
-        ,   ISNULL([ProfitMarginGroupEUR],0)         AS [ProfitMargin]
-        ,   CASE
-                WHEN ISNULL([NetAmountGroupEUR], 0) = 0
-                THEN 0
-                ELSE ISNULL([ProfitMarginGroupEUR],0)/[NetAmountGroupEUR]
-            END AS [MarginPercent]
-        ,   ISNULL([FinProfitMarginGroupEUR],0)      AS [FinProfitMargin]
-        ,   CASE
-                WHEN ISNULL([FinSales100EUR], 0) = 0
-                THEN 0
-                ELSE ISNULL([FinProfitMarginGroupEUR], 0)/[FinSales100EUR]
-            END AS [FinMarginPercent]
         ,   [QuantitySold]
         ,   [CountryID]
         ,   [SalesDocumentID]
@@ -900,18 +876,6 @@ SELECT
     ,   [BillingQuantityUnitID]
     ,   [NetAmountLocal]                         as [NetAmount]
     ,   [CostAmountLocal]                        as [CostAmount]
-    ,   ISNULL([ProfitMarginLocal], 0)           as [ProfitMargin]
-    ,   CASE
-            WHEN ISNULL([NetAmountLocal], 0) = 0
-            THEN 0
-            ELSE ISNULL([ProfitMarginLocal], 0)/[NetAmountLocal]
-        END AS [MarginPercent]
-    ,   ISNULL([FinProfitMarginLocal], 0)        as [FinProfitMargin]
-    ,   CASE
-            WHEN ISNULL([FinSales100LOCAL], 0) = 0
-            THEN 0
-            ELSE ISNULL([FinProfitMarginLocal], 0)/[FinSales100LOCAL]
-        END AS [FinMarginPercent]
     ,   [QuantitySold]
     ,   [CountryID]
     ,   [SalesDocumentID]
@@ -980,10 +944,6 @@ SELECT
     ,   [BillingQuantityUnitID]
     ,   [NetAmount]
     ,   [CostAmount]
-    ,   [ProfitMargin]
-    ,   [MarginPercent]
-    ,   [FinProfitMargin]
-    ,   [FinMarginPercent]
     ,   [QuantitySold]
     ,   [CountryID]
     ,   [SalesDocumentID]
@@ -1048,10 +1008,6 @@ SELECT
     ,   [BillingQuantityUnitID]
     ,   [NetAmount]*(1/ExchangeRateUSD.[ExchangeRate]) AS [NetAmount]
     ,   [CostAmount]*(1/ExchangeRateUSD.[ExchangeRate]) AS [CostAmount]
-    ,   [ProfitMargin]*(1/ExchangeRateUSD.[ExchangeRate]) AS [ProfitMargin]
-    ,   [MarginPercent]
-    ,   [FinProfitMargin]*(1/ExchangeRateUSD.[ExchangeRate]) AS [FinProfitMargin]
-    ,   [FinMarginPercent]
     ,   [QuantitySold]
     ,   [CountryID]
     ,   [SalesDocumentID]
