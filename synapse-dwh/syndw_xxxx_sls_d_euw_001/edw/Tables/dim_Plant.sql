@@ -1,6 +1,6 @@
 CREATE TABLE [edw].[dim_Plant]
 (
-    [PlantID]                       NVARCHAR(4)    NOT NULL,
+    [PlantID]                       NVARCHAR(5)    NOT NULL,
     [Plant]                         NVARCHAR(40)   NULL,
     [ValuationArea]                 NVARCHAR(4),
     [PlantCustomer]                 NVARCHAR(10),
