@@ -1144,7 +1144,7 @@ BDwithConditionAmountFreight AS (
     ,   NULL AS [FinNetAmountRealProduct]
     ,   CASE
             WHEN 
-                [Material] = '70000011'
+                [Material] = '000000000070000011'
                 AND
                 [FinNetAmountSumBD] != 0
                 AND
@@ -1156,9 +1156,9 @@ BDwithConditionAmountFreight AS (
     ,   NULL AS [FinNetAmountMinQty]
     ,   CASE
             WHEN 
-                ([Material] = '70000010'
+                ([Material] = '000000000070000010'
                 OR
-                [Material] = '70000051')
+                [Material] = '000000000070000051')
                 AND
                 [FinNetAmountSumBD] != 0
                 AND
@@ -1171,7 +1171,7 @@ BDwithConditionAmountFreight AS (
 --  ,   BDwithZVER.NetAmountZVER -- MPS 2021/11/04: removed as NetAmountZVER same as NetAmountVerp
     ,   CASE
             WHEN 
-                [Material] NOT IN ('70000010','70000051','70000011')
+                [Material] NOT IN ('000000000070000010','000000000070000051','000000000070000011')
                 AND
                 [FinNetAmountSumBD] != 0
                 AND
