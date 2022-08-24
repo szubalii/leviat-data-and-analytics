@@ -69,7 +69,7 @@ GROUP BY
     ,   CS.[SalesQty] AS [QuantitySold]                             
     ,   (CS.[SALES]-CS.[COGS]) AS [GrossMargin]                      
     ,   CS.[SALES] AS [FinNetAmount]       
-    ,   CS.[SALES]/DC.[DeliveryCharge]*SS.[SumSales] AS [FinNetAmountFreight]
+    ,   CS.[SALES]/SS.[SumSales] AS [Weight]
     --,   CS.[ImbFrtCost] AS [FinNetAmountOtherSales]
     ,   0 AS [FinNetAmountAllowances]
     --,   CS.[SALES] + ISNULL(DC.[DeliveryCharge],0) AS [FinSales100]
@@ -112,13 +112,10 @@ LEFT JOIN
            AND 
            PCAT.[SubPCAT] = CS.[SubPCAT]
 LEFT JOIN
-    CTE_DeliveryCharge DC
-        ON DC.[INVOICE] = CS.[INVOICE]
-LEFT JOIN
     CTE_SumSales SS
-        ON DC.[INVOICE] = CS.[INVOICE]
+        ON CS.[INVOICE] = SS.[INVOICE]
 ),
-BillingDocumentItemBase_KPI AS (
+BillingDocumentItemBase_Freight AS (
 SELECT
         BDI_Base.[BillingDocument]                          
     ,   BDI_Base.[BillingDocumentItem] 
@@ -137,10 +134,8 @@ SELECT
     ,   BDI_Base.[QuantitySold]                             
     ,   BDI_Base.[GrossMargin]              
     ,   BDI_Base.[FinNetAmount]                             
-    ,   BDI_Base.[FinNetAmountFreight]
-    ,   BDI_Base.[FinNetAmountFreight] AS [FinNetAmountOtherSales]
+    ,   BDI_Base.[Weight]*DC.[DeliveryCharge] AS [FinNetAmountFreight]
     ,   BDI_Base.[FinNetAmountAllowances]                   
-    ,   (BDI_Base.[NetAmount] + ISNULL([FinNetAmountFreight],0)) AS [FinSales100]  --temporary
     ,   BDI_Base.[AccountingDate]                           
     ,   BDI_Base.[MaterialCalculated]                       
     ,   BDI_Base.[SoldToPartyCalculated]  
@@ -160,7 +155,55 @@ SELECT
     ,   BDI_Base.[t_applicationId]                          
     ,   BDI_Base.[t_extractionDtm]
 FROM
-    BillingDocumentItemBase BDI_Base)
+    BillingDocumentItemBase BDI_Base
+LEFT JOIN
+    CTE_DeliveryCharge DC
+        ON BDI_Base.[BillingDocument] = DC.[INVOICE]
+),
+BillingDocumentItemBase_KPI AS (
+SELECT
+        BDI_Base_Freight.[BillingDocument]                          
+    ,   BDI_Base_Freight.[BillingDocumentItem] 
+    ,   BDI_Base_Freight.[BillingDocumentTypeID]
+    ,   BDI_Base_Freight.[SDDocumentCategoryID]
+    ,   BDI_Base_Freight.[BillingDocumentDate]                      
+    ,   BDI_Base_Freight.[SalesOrganizationID]
+    ,   BDI_Base_Freight.[MaterialGroupID]                          
+    ,   BDI_Base_Freight.[NetAmount]                                
+    ,   BDI_Base_Freight.[TransactionCurrencyID]                    
+    ,   BDI_Base_Freight.[TaxAmount]                                
+    ,   BDI_Base_Freight.[CostAmount]
+    ,   BDI_Base_Freight.[CostCenter]  
+    ,   BDI_Base_Freight.[SalesDocumentID]                          
+    ,   BDI_Base_Freight.[CountryID]                                
+    ,   BDI_Base_Freight.[QuantitySold]                             
+    ,   BDI_Base_Freight.[GrossMargin]              
+    ,   BDI_Base_Freight.[FinNetAmount]                             
+    ,   BDI_Base_Freight.[FinNetAmountFreight]
+    ,   BDI_Base_Freight.[FinNetAmountFreight] AS [FinNetAmountOtherSales]
+    ,   BDI_Base_Freight.[FinNetAmountAllowances]                   
+    ,   (BDI_Base_Freight.[NetAmount] + ISNULL(BDI_Base_Freight.[FinNetAmountFreight],0)) AS [FinSales100]  --temporary
+    ,   BDI_Base_Freight.[AccountingDate]                           
+    ,   BDI_Base_Freight.[MaterialCalculated]                       
+    ,   BDI_Base_Freight.[SoldToPartyCalculated]  
+    ,   BDI_Base_Freight.[axbi_MaterialID]                          
+    ,   BDI_Base_Freight.[axbi_CustomerID]                          
+    ,   BDI_Base_Freight.[axbi_SalesTypeID]                         
+    ,   BDI_Base_Freight.[SalesOrgname]                             
+    ,   BDI_Base_Freight.[Pillar]                                   
+    ,   BDI_Base_Freight.[MaterialLongDescription]                  
+    ,   BDI_Base_Freight.[MaterialShortDescription]                 
+    ,   BDI_Base_Freight.[CustomerName]                             
+    ,   BDI_Base_Freight.[axbi_StorageLocationID]                   
+    ,   BDI_Base_Freight.[axbi_CostCenter] 
+    ,   BDI_Base_Freight.[SalesDistrictID]
+    ,   BDI_Base_Freight.[CustomerGroupID]
+    ,   BDI_Base_Freight.[InOutID]                         
+    ,   BDI_Base_Freight.[t_applicationId]                          
+    ,   BDI_Base_Freight.[t_extractionDtm]
+FROM
+    BillingDocumentItemBase_Freight BDI_Base_Freight
+)
 SELECT
         BDI_Base_KPI.[BillingDocument]                          
     ,   BDI_Base_KPI.[BillingDocumentItem]                      
