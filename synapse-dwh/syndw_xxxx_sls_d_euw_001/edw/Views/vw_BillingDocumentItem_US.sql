@@ -69,7 +69,7 @@ GROUP BY
     ,   CS.[SalesQty] AS [QuantitySold]                             
     ,   (CS.[SALES]-CS.[COGS]) AS [GrossMargin]                      
     ,   CS.[SALES] AS [FinNetAmount]       
-    ,   CS.[SALES]/DC.[DeliveryCharge]*SS.[SumSales] AS [FinNetAmountFreight]
+    ,   CS.[SALES]/SS.[SumSales]*DC.[DeliveryCharge] AS [FinNetAmountFreight]
     --,   CS.[ImbFrtCost] AS [FinNetAmountOtherSales]
     ,   0 AS [FinNetAmountAllowances]
     --,   CS.[SALES] + ISNULL(DC.[DeliveryCharge],0) AS [FinSales100]
