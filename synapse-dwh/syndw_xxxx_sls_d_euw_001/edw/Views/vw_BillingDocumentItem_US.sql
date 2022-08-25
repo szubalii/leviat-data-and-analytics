@@ -71,8 +71,10 @@ GROUP BY
     ,   CS.[SALES] AS [FinNetAmount]
     ,   CASE 
             WHEN ISNULL(SS.[SumSales],0) != 0 
+                 AND
+                 CS.[ItemName] NOT LIKE 'Delivery Charge%'
             THEN CS.[SALES]/SS.[SumSales]*DC.[DeliveryCharge] 
-            ELSE NULL
+            ELSE 0
         END AS [FinNetAmountFreight]
     --,   CS.[ImbFrtCost] AS [FinNetAmountOtherSales]
     ,   0 AS [FinNetAmountAllowances]
@@ -144,7 +146,11 @@ SELECT
     ,   BDI_Base.[FinNetAmountFreight]
     ,   BDI_Base.[FinNetAmountFreight] AS [FinNetAmountOtherSales]
     ,   BDI_Base.[FinNetAmountAllowances]                   
-    ,   (BDI_Base.[NetAmount] + ISNULL([FinNetAmountFreight],0)) AS [FinSales100]  --temporary
+    ,   CASE
+            WHEN BDI_Base.[MaterialLongDescription] NOT LIKE 'Delivery Charge%'
+            THEN (BDI_Base.[NetAmount] + ISNULL([FinNetAmountFreight],0))
+            ELSE 0
+        END AS [FinSales100]  --temporary
     ,   BDI_Base.[AccountingDate]                           
     ,   BDI_Base.[MaterialCalculated]                       
     ,   BDI_Base.[SoldToPartyCalculated]  
