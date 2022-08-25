@@ -45,7 +45,8 @@ CREATE TABLE [base_s4h_cax].[I_PurgDocScheduleLineEnhanced]
     [CreationDate]                   date,
     [PurchasingDocumentStatus]       nvarchar(1) collate Latin1_General_100_BIN2,
     [CreatedByUser]                  nvarchar(12) collate Latin1_General_100_BIN2,
-    [LastChangeDateTime]             decimal(21, 7),
+    --commented out due to issue while copying parquet file from In to Out. Potential cause is DateTime defined as Decima
+    --[LastChangeDateTime]             decimal(21, 7),
     [PurchasingProcessingStatus]     nvarchar(2) collate Latin1_General_100_BIN2,
     [PurchasingDocumentOrderDate]    date,
     [PurchasingDocumentIsAged]       nvarchar(1) collate Latin1_General_100_BIN2,
