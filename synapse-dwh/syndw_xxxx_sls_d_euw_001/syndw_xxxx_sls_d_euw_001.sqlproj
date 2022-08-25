@@ -876,7 +876,6 @@
     <Build Include="base_s4h_cax\Tables\I_PurchasingGroup.sql" />
     <Build Include="base_s4h_cax\Tables\I_PurchasingDocumentStatusText.sql" />
     <Build Include="base_s4h_cax\Tables\I_PurgDocScheduleLineEnhanced.sql" />
-    <Build Include="base_s4h_cax\Tables\I_PurchaseOrderHistory.sql" />
     <Build Include="base_s4h_cax\Tables\I_PurchasingCategory.sql" />
     <Build Include="base_s4h_cax\Tables\I_SupplierInvoiceItemPurOrdRef.sql" />
     <Build Include="base_s4h_cax\Tables\I_SupplierInvoice.sql" />
