@@ -3506,14 +3506,14 @@
         },
         {
           "entity_id": 465,
-          "entity_name": "I_BusinessPartnerBank",
+          "entity_name": "I_SupplierBankDetails",
           "data_category": "NULL",
           "client_field": "MANDT",
           "tool_name": "Theobald",
           "extraction_type": "Table",
           "update_mode": "Full",
-          "base_table_name": "I_BusinessPartnerBank",
-          "pk_field_names": "MANDT, BUSINESSPARTNER, BANKIDENTIFICATION",
+          "base_table_name": "I_SupplierBankDetails",
+          "pk_field_names": "MANDT, SUPPLIER, BANKCOUNTRY, BANK, BANKACCOUNT",
           "schedule_recurrence": "D"
         },
         {
@@ -3613,15 +3613,14 @@
           "schedule_recurrence": "D"
         },
         {
-          "entity_id": 476,
-          "entity_name": "I_PurchasingCategory",
-          "data_category": "NULL",
-          "client_field": "MANDT",
+          "entity_id": 475,
+          "entity_name": "I_PurgDocumentCategoryText",
+          "data_category": "TEXT",
           "tool_name": "Theobald",
           "extraction_type": "Table",
           "update_mode": "Full",
-          "base_table_name": "I_PurchasingCategory",
-          "pk_field_names": "MANDT, PURGCATUUID",
+          "base_table_name": "I_PurgDocumentCategoryText",
+          "pk_field_names": "PURCHASINGDOCUMENTCATEGORY, LANGUAGE",
           "schedule_recurrence": "D"
         },
         {
@@ -3658,6 +3657,30 @@
           "update_mode": "Full",
           "base_table_name": "I_SupplierInvoiceItemGLAcct",
           "pk_field_names": "MANDT, SUPPLIERINVOICE, FISCALYEAR, ORDINALNUMBER",
+          "schedule_recurrence": "D"
+        },
+        {
+          "entity_id": 485,
+          "entity_name": "I_PurgDocumentItemCategoryText",
+          "data_category": "TEXT",
+          "client_field": "MANDT",
+          "tool_name": "Theobald",
+          "extraction_type": "Table",
+          "update_mode": "Full",
+          "base_table_name": "I_PurgDocumentItemCategoryText",
+          "pk_field_names": "MANDT, PURCHASINGDOCUMENTITEMCATEGORY, LANGUAGE",
+          "schedule_recurrence": "D"
+        },
+        {
+          "entity_id": 486,
+          "entity_name": "I_PurgDocumentItemCategory",
+          "data_category": "DIMENSION",
+          "client_field": "MANDT",
+          "tool_name": "Theobald",
+          "extraction_type": "Table",
+          "update_mode": "Full",
+          "base_table_name": "I_PurgDocumentItemCategory",
+          "pk_field_names": "MANDT, PURCHASINGDOCUMENTITEMCATEGORY",
           "schedule_recurrence": "D"
         }
     ]

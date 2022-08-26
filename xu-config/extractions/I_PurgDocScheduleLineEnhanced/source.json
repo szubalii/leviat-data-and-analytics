@@ -424,7 +424,6 @@
                     "abapType": "PackedNumber",
                     "length": 17,
                     "decimalCount": 7,
-                    "isSelected": true,
                     "formattedLength": 27,
                     "conversionExit": ""
                 },
