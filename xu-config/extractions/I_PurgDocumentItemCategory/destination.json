@@ -1,16 +1,14 @@
 {
     "nameGenerator": {
         "suffix": "",
-        "customName": "I_BUSINESSPARTNERBANK",
-        "objectNamingMode": "Custom",
-        "appendsTimestamp": true
+        "customName": "I_PurgDocumentItemCategory",
+        "objectNamingMode": "Custom"
     },
     "internalSettings": {
         "nameGenerator": {
             "suffix": "",
-            "customName": "I_BUSINESSPARTNERBANK",
-            "objectNamingMode": "Custom",
-            "appendsTimestamp": true
+            "customName": "I_PurgDocumentItemCategory",
+            "objectNamingMode": "Custom"
         },
         "sapDateConversion": {
             "enabled": true,
@@ -23,6 +21,6 @@
     },
     "blobType": "BlockBlob",
     "columnNameKind": "Code",
-    "folderPath": "NULL/I_BUSINESSPARTNERBANK/Theobald/Table/Full/In/#{ DateTime.Now.ToString(\"yyyy/MM/dd\") }#",
+    "folderPath": "DIMENSION/I_PurgDocumentItemCategory/Theobald/Table/Full/In/#{ DateTime.Now.ToString(\\\"yyyy/MM/dd\\\") }#",
     "maxBlobSize": 0
 }

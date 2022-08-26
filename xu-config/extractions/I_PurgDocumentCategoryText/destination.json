@@ -1,14 +1,14 @@
 {
     "nameGenerator": {
         "suffix": "",
-        "customName": "I_PurchasingCategory",
+        "customName": "I_PurgDocumentCategoryText",
         "objectNamingMode": "Custom",
         "appendsTimestamp": true
     },
     "internalSettings": {
         "nameGenerator": {
             "suffix": "",
-            "customName": "I_PurchasingCategory",
+            "customName": "I_PurgDocumentCategoryText",
             "objectNamingMode": "Custom",
             "appendsTimestamp": true
         },
@@ -23,6 +23,6 @@
     },
     "blobType": "BlockBlob",
     "columnNameKind": "Code",
-    "folderPath": "NULL/I_PurchasingCategory/Theobald/Table/Full/In/#{ DateTime.Now.ToString(\"yyyy/MM/dd\") }#",
+    "folderPath": "TEXT/I_PurgDocumentCategoryText/Theobald/Table/Full/In/#{ DateTime.Now.ToString(\\\"yyyy/MM/dd\\\") }#",
     "maxBlobSize": 0
 }

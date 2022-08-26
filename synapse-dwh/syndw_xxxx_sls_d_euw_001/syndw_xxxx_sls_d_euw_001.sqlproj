@@ -869,17 +869,19 @@
     <Build Include="Security\Schemas\base_c4c.sql" />
     <Build Include="dm_sales\Views\vw_dim_FinancialStatementItem.sql" />
     <Build Include="base_s4h_cax\Tables\I_SupplierCompany.sql" />
-    <Build Include="base_s4h_cax\Tables\I_BusinessPartnerBank.sql" />
     <Build Include="base_s4h_cax\Tables\I_SupplierPurchasingOrg.sql" />
     <Build Include="base_s4h_cax\Tables\I_PurchasingDocumentItem.sql" />
     <Build Include="base_s4h_cax\Tables\I_PurchasingOrganization.sql" />
     <Build Include="base_s4h_cax\Tables\I_PurchasingGroup.sql" />
     <Build Include="base_s4h_cax\Tables\I_PurchasingDocumentStatusText.sql" />
     <Build Include="base_s4h_cax\Tables\I_PurgDocScheduleLineEnhanced.sql" />
-    <Build Include="base_s4h_cax\Tables\I_PurchasingCategory.sql" />
     <Build Include="base_s4h_cax\Tables\I_SupplierInvoiceItemPurOrdRef.sql" />
     <Build Include="base_s4h_cax\Tables\I_SupplierInvoice.sql" />
     <Build Include="base_s4h_cax\Tables\I_SupplierInvoiceItemGLAcct.sql" />
+    <Build Include="base_s4h_cax\Tables\I_PurgDocumentItemCategory.sql" />
+    <Build Include="base_s4h_cax\Tables\I_PurgDocumentCategoryText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_PurgDocumentItemCategoryText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_SupplierBankDetails.sql" />    
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\Post-Deploy\Script.PostDeployment.sql" />
