@@ -1146,11 +1146,11 @@ BDwithConditionAmountFreight AS (
             WHEN 
                 [Material] = '000000000070000011'
                 AND
-                [FinNetAmountSumBD] != 0
+                ISNULL([NetAmountZSER],0) != 0
                 AND
                 [MaterialTypeID] = 'ZSER'
            THEN
-               (BDIwithMatType.[NetAmount] / BDexclZVERandZSER.[FinNetAmountSumBD] * ISNULL(BDwithFreight.NetAmountFreight,0)) + ISNULL(BDwithConditionAmountFreight.[ConditionAmountFreight],0)
+               (BDIwithMatType.[NetAmount] / BDwithZSER.[NetAmountZSER] * ISNULL(BDwithFreight.NetAmountFreight,0)) + ISNULL(BDwithConditionAmountFreight.[ConditionAmountFreight],0)
            ELSE NULL
         END AS [FinNetAmountFreight]
     ,   NULL AS [FinNetAmountMinQty]
@@ -1160,11 +1160,11 @@ BDwithConditionAmountFreight AS (
                 OR
                 [Material] = '000000000070000051')
                 AND
-                [FinNetAmountSumBD] != 0
+                ISNULL([NetAmountZSER],0) != 0
                 AND
                 [MaterialTypeID] = 'ZSER'
            THEN
-               BDIwithMatType.[NetAmount] / BDexclZVERandZSER.[FinNetAmountSumBD] * ISNULL(BDwithEngServ.NetAmountEngServ,0)
+               BDIwithMatType.[NetAmount] / BDwithZSER.[NetAmountZSER] * ISNULL(BDwithEngServ.NetAmountEngServ,0)
            ELSE NULL
         END AS [FinNetAmountEngServ]
     ,   NULL AS [FinNetAmountMisc]
@@ -1173,11 +1173,11 @@ BDwithConditionAmountFreight AS (
             WHEN 
                 [Material] NOT IN ('000000000070000010','000000000070000051','000000000070000011')
                 AND
-                [FinNetAmountSumBD] != 0
+                ISNULL([NetAmountZSER],0) != 0
                 AND
                 [MaterialTypeID] = 'ZSER'
            THEN
-               BDIwithMatType.[NetAmount] / BDexclZVERandZSER.[FinNetAmountSumBD] * ISNULL(BDwithServOther.NetAmountServOther,0)
+               BDIwithMatType.[NetAmount] / BDwithZSER.[NetAmountZSER] * ISNULL(BDwithServOther.NetAmountServOther,0)
            ELSE NULL
         END AS [FinNetAmountServOther]
     ,   CASE
@@ -1199,11 +1199,11 @@ BDwithConditionAmountFreight AS (
     FROM 
         BDIwithMatType
     LEFT JOIN
-        BDexclZVERandZSER
+        BDwithZSER
         ON
-            BDIwithMatType.BillingDocument = BDexclZVERandZSER.BillingDocument
+            BDIwithMatType.BillingDocument = BDwithZSER.BillingDocument
             AND
-            BDIwithMatType.CurrencyTypeID = BDexclZVERandZSER.CurrencyTypeID
+            BDIwithMatType.CurrencyTypeID = BDwithZSER.CurrencyTypeID
     LEFT JOIN
         BDwithFreight
         ON
