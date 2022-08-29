@@ -351,19 +351,6 @@ BDwithFreight AS (
         BillingDocument
     ,   CurrencyTypeID
 ),
-BDexclZSERDummy AS (
-    SELECT 
-        [BillingDocument]
-    ,   CurrencyTypeID
-    ,   SUM(NetAmount) AS FinNetAmountSumBDDummy
-    FROM  
-        BDIwithMatType
-    WHERE 
-        [MaterialTypeID] = ('ZSER')
-    GROUP BY
-        BillingDocument
-    ,   CurrencyTypeID
-),
 CTE_BDIPE_ZF20 AS (
     SELECT 
             BDIPE_ZF20.[BillingDocument]
@@ -1150,11 +1137,11 @@ BDwithConditionAmountFreight AS (
             WHEN 
                 [Material] = '000000000070000011'
                 AND
-                ISNULL([FinNetAmountSumBDDummy],0) != 0
+                ISNULL([NetAmountZSER],0) != 0
                 AND
                 [MaterialTypeID] = 'ZSER'
            THEN
-               (BDIwithMatType.[NetAmount] / BDexclZSERDummy.[FinNetAmountSumBDDummy] * ISNULL(BDwithFreight.NetAmountFreight,0)) + ISNULL(BDwithConditionAmountFreight.[ConditionAmountFreight],0)
+               (BDIwithMatType.[NetAmount] / BDwithZSER.[NetAmountZSER] * ISNULL(BDwithFreight.NetAmountFreight,0)) + ISNULL(BDwithConditionAmountFreight.[ConditionAmountFreight],0)
            ELSE NULL
         END AS [FinNetAmountFreight]
     ,   NULL AS [FinNetAmountMinQty]
@@ -1164,11 +1151,11 @@ BDwithConditionAmountFreight AS (
                 OR
                 [Material] = '000000000070000051')
                 AND
-                ISNULL([FinNetAmountSumBDDummy],0) != 0
+                ISNULL([NetAmountZSER],0) != 0
                 AND
                 [MaterialTypeID] = 'ZSER'
            THEN
-               BDIwithMatType.[NetAmount] / BDexclZSERDummy.[FinNetAmountSumBDDummy] * ISNULL(BDwithEngServ.NetAmountEngServ,0)
+               BDIwithMatType.[NetAmount] / BDwithZSER.[NetAmountZSER] * ISNULL(BDwithEngServ.NetAmountEngServ,0)
            ELSE NULL
         END AS [FinNetAmountEngServ]
     ,   NULL AS [FinNetAmountMisc]
@@ -1177,11 +1164,11 @@ BDwithConditionAmountFreight AS (
             WHEN 
                 [Material] NOT IN ('000000000070000010','000000000070000051','000000000070000011')
                 AND
-                ISNULL([FinNetAmountSumBDDummy],0) != 0
+                ISNULL([NetAmountZSER],0) != 0
                 AND
                 [MaterialTypeID] = 'ZSER'
            THEN
-               BDIwithMatType.[NetAmount] / BDexclZSERDummy.[FinNetAmountSumBDDummy] * ISNULL(BDwithServOther.NetAmountServOther,0)
+               BDIwithMatType.[NetAmount] / BDwithZSER.[NetAmountZSER] * ISNULL(BDwithServOther.NetAmountServOther,0)
            ELSE NULL
         END AS [FinNetAmountServOther]
     ,   CASE
@@ -1199,11 +1186,11 @@ BDwithConditionAmountFreight AS (
     FROM 
         BDIwithMatType
     LEFT JOIN
-        BDexclZSERDummy
+        BDwithZSER
         ON
-            BDIwithMatType.BillingDocument = BDexclZSERDummy.BillingDocument
+            BDIwithMatType.BillingDocument = BDwithZSER.BillingDocument
             AND
-            BDIwithMatType.CurrencyTypeID = BDexclZSERDummy.CurrencyTypeID
+            BDIwithMatType.CurrencyTypeID = BDwithZSER.CurrencyTypeID
     LEFT JOIN
         BDwithFreight
         ON
