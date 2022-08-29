@@ -141,6 +141,40 @@
 						}
 					}
 				}
+			},
+			{
+				"name": "Deallocate VM if PROD",
+				"type": "IfCondition",
+				"dependsOn": [
+					{
+						"activity": "Process ADLS and Synapse Ingestion",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@if(\n    equals(\n        pipeline().globalParameters.environment,\n        'prod'\n    ),\n    true,\n    false\n)",
+						"type": "Expression"
+					},
+					"ifTrueActivities": [
+						{
+							"name": "pl_VM_deallocate",
+							"type": "ExecutePipeline",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"pipeline": {
+									"referenceName": "pl_VM_deallocate",
+									"type": "PipelineReference"
+								},
+								"waitOnCompletion": true
+							}
+						}
+					]
+				}
 			}
 		],
 		"parameters": {
