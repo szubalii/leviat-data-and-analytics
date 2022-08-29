@@ -485,7 +485,7 @@
 						},
 						"pbi_refresh_guid": {
 							"value": {
-								"value": "@pipeline().parameters.dataset_guid",
+								"value": "@variables('RefreshGuid')",
 								"type": "Expression"
 							},
 							"type": "Guid"
@@ -516,7 +516,7 @@
 				}
 			},
 			{
-				"name": "Stored procedure1",
+				"name": "Update PBI Dataset Log Status",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
@@ -538,7 +538,10 @@
 					"storedProcedureName": "[dbo].[update_pbi_status]",
 					"storedProcedureParameters": {
 						"end_date_time": {
-							"value": "",
+							"value": {
+								"value": "@formatDateTime(utcNow(), 'yyyy-MM-dd HH:mm:ss')",
+								"type": "Expression"
+							},
 							"type": "DateTime"
 						},
 						"message": {
@@ -554,7 +557,7 @@
 						},
 						"pbi_refresh_guid": {
 							"value": {
-								"value": "@pipeline().parameters.dataset_guid",
+								"value": "@variables('RefreshGuid')",
 								"type": "Expression"
 							},
 							"type": "Guid"
@@ -601,6 +604,10 @@
 		"variables": {
 			"ProcessingErrors": {
 				"type": "String"
+			},
+			"RefreshGuid": {
+				"type": "String",
+				"defaultValue": "@guid()"
 			}
 		},
 		"folder": {
