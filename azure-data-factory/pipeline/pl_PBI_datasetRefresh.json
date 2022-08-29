@@ -7,7 +7,13 @@
 				"type": "WebActivity",
 				"dependsOn": [
 					{
-						"activity": "act_exec_sproc_start_log",
+						"activity": "Start Pipeline Log",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "Set PBI Dataset Log",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -23,7 +29,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"url": {
-						"value": "@concat('https://api.powerbi.com/v1.0/myorg/groups/',pipeline().parameters.Workspace,'/datasets/',pipeline().parameters.Dataset,'/refreshes')",
+						"value": "@concat(\n    'https://api.powerbi.com/v1.0/myorg/groups/',\n    pipeline().parameters.workspace_guid,\n    '/datasets/',\n    pipeline().parameters.dataset_guid,\n    '/refreshes'\n)",
 						"type": "Expression"
 					},
 					"method": "POST",
@@ -86,7 +92,7 @@
 							"userProperties": [],
 							"typeProperties": {
 								"url": {
-									"value": "@concat('https://api.powerbi.com/v1.0/myorg/groups/',pipeline().parameters.Workspace,'/datasets/',pipeline().parameters.Dataset,'/refreshes?$top=1')",
+									"value": "@concat(\n    'https://api.powerbi.com/v1.0/myorg/groups/',\n    pipeline().parameters.workspace_guid,\n    '/datasets/',\n    pipeline().parameters.dataset_guid,\n    '/refreshes?$top=1'\n)",
 									"type": "Expression"
 								},
 								"method": "GET",
@@ -100,7 +106,7 @@
 							}
 						},
 						{
-							"name": "act_exec_sproc_log_exception_RefreshStatus",
+							"name": "Log Exception Refresh Status",
 							"type": "SqlServerStoredProcedure",
 							"dependsOn": [
 								{
@@ -193,7 +199,7 @@
 							}
 						},
 						{
-							"name": "act_exec_sproc_log_exception_Refresh_error",
+							"name": "Log Exception Refresh Failed",
 							"type": "SqlServerStoredProcedure",
 							"dependsOn": [
 								{
@@ -255,7 +261,7 @@
 							"type": "Fail",
 							"dependsOn": [
 								{
-									"activity": "act_exec_sproc_log_exception_Refresh_error",
+									"activity": "Log Exception Refresh Failed",
 									"dependencyConditions": [
 										"Succeeded"
 									]
@@ -274,7 +280,7 @@
 				}
 			},
 			{
-				"name": "act_exec_sproc_log_exception_Refresh",
+				"name": "Log Exception Refresh",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
@@ -332,7 +338,7 @@
 				}
 			},
 			{
-				"name": "act_exec_sproc_start_log",
+				"name": "Start Pipeline Log",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [],
 				"policy": {
@@ -369,7 +375,7 @@
 						},
 						"start_date_time": {
 							"value": {
-								"value": "@formatDateTime(utcnow(), 'yyyy-MM-dd HH:mm:ss')",
+								"value": "@formatDateTime(utcNow(), 'yyyy-MM-dd HH:mm:ss')",
 								"type": "Expression"
 							},
 							"type": "DateTime"
@@ -399,7 +405,7 @@
 				}
 			},
 			{
-				"name": "act_exec_sproc_log_success",
+				"name": "Update Pipeline Status",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
@@ -454,13 +460,129 @@
 					"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
 					"type": "LinkedServiceReference"
 				}
+			},
+			{
+				"name": "Set PBI Dataset Log",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[set_pbi_log]",
+					"storedProcedureParameters": {
+						"pbi_dataset_id": {
+							"value": {
+								"value": "@pipeline().parameters.pbi_dataset_id",
+								"type": "Expression"
+							},
+							"type": "Int64"
+						},
+						"pbi_refresh_guid": {
+							"value": {
+								"value": "@pipeline().parameters.dataset_guid",
+								"type": "Expression"
+							},
+							"type": "Guid"
+						},
+						"run_id": {
+							"value": {
+								"value": "@pipeline().RunId",
+								"type": "Expression"
+							},
+							"type": "Guid"
+						},
+						"start_date_time": {
+							"value": {
+								"value": "@formatDateTime(utcNow(), 'yyyy-MM-dd HH:mm:ss')",
+								"type": "Expression"
+							},
+							"type": "DateTime"
+						},
+						"status": {
+							"value": "InProgress",
+							"type": "String"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "Stored procedure1",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "If dataset refresh failed",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[update_pbi_status]",
+					"storedProcedureParameters": {
+						"end_date_time": {
+							"value": "",
+							"type": "DateTime"
+						},
+						"message": {
+							"value": "",
+							"type": "String"
+						},
+						"pbi_dataset_id": {
+							"value": {
+								"value": "@pipeline().parameters.pbi_dataset_id",
+								"type": "Expression"
+							},
+							"type": "Int64"
+						},
+						"pbi_refresh_guid": {
+							"value": {
+								"value": "@pipeline().parameters.dataset_guid",
+								"type": "Expression"
+							},
+							"type": "Guid"
+						},
+						"run_id": {
+							"value": {
+								"value": "@pipeline().RunId",
+								"type": "Expression"
+							},
+							"type": "Guid"
+						},
+						"status": {
+							"value": "Succeeded",
+							"type": "String"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
+					"type": "LinkedServiceReference"
+				}
 			}
 		],
 		"parameters": {
-			"Workspace": {
+			"workspace_guid": {
 				"type": "string"
 			},
-			"Dataset": {
+			"dataset_guid": {
 				"type": "string"
 			},
 			"AAD_Token_Type": {
