@@ -26,7 +26,7 @@
 					"sink": {
 						"type": "SqlDWSink",
 						"preCopyScript": {
-							"value": "IF EXISTS (\n    SELECT * \n    FROM dbo.sysobjects \n    WHERE ID = OBJECT_ID(N'@{concat(pipeline().parameters.base_schema_name, '.', pipeline().parameters.base_table_name)}')\n) AND '@{pipeline().parameters.update_mode}' <> 'Delta'\nTRUNCATE TABLE @{concat(pipeline().parameters.base_schema_name, '.', pipeline().parameters.base_table_name)}",
+							"value": "TRUNCATE TABLE @{pipeline().parameters.base_schema_name}.@{pipeline().parameters.base_table_name}",
 							"type": "Expression"
 						},
 						"allowPolyBase": true,
@@ -188,34 +188,24 @@
 		],
 		"parameters": {
 			"base_schema_name": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "pgr"
 			},
 			"base_table_name": {
-				"type": "string"
-			},
-			"entity_id": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "FACT_HGDAWA_active_basic"
 			},
 			"directory_path": {
-				"type": "string"
-			},
-			"run_id": {
-				"type": "string"
-			},
-			"source_layer": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "FACT_HGDAWA/In/2022/01/27/"
 			},
 			"file_name": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "FACT_HGDAWA_2022_01_27_09_43_53_650.parquet"
 			},
 			"adls_container_name": {
-				"type": "string"
-			},
-			"target_layer": {
-				"type": "string"
-			},
-			"update_mode": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "dw-halfen-2-dwh-uat"
 			}
 		},
 		"variables": {
