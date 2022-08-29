@@ -149,7 +149,8 @@
 					{
 						"activity": "Process ADLS and Synapse Ingestion",
 						"dependencyConditions": [
-							"Succeeded"
+							"Succeeded",
+							"Failed"
 						]
 					}
 				],
