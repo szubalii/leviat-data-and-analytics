@@ -23,6 +23,6 @@
     },
     "blobType": "BlockBlob",
     "columnNameKind": "Code",
-    "folderPath": "DIMENSION/I_SupplierBankDetails/Theobald/Table/Full/In/#{ DateTime.Now.ToString(\\\"yyyy/MM/dd\\\") }#",
+    "folderPath": "DIMENSION/I_SupplierBankDetails/Theobald/Table/Full/In/#{ DateTime.Now.ToString(\"yyyy/MM/dd\") }#",
     "maxBlobSize": 0
 }

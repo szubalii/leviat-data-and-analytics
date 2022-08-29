@@ -3507,7 +3507,7 @@
         {
           "entity_id": 465,
           "entity_name": "I_SupplierBankDetails",
-          "data_category": "NULL",
+          "data_category": "DIMENSION",
           "client_field": "MANDT",
           "tool_name": "Theobald",
           "extraction_type": "Table",
