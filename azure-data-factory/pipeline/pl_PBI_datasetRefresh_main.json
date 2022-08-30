@@ -139,7 +139,7 @@
 					"source": {
 						"type": "AzureSqlSource",
 						"sqlReaderQuery": {
-							"value": "select * \nfrom [dbo].[get_pbi_entities] (\n    @{pipeline().parameters.adhoc},\n    '@{pipeline().parameters.date}'\n) \n@{pipeline().parameters.pbi_entity_filter}",
+							"value": "select * \nfrom [dbo].[get_pbi_entities] (\n    @{pipeline().parameters.adhoc},\n    '@{utcNow('yyyy-MM-dd')}'\n) \n@{pipeline().parameters.pbi_entity_filter}",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
@@ -740,9 +740,6 @@
 				"defaultValue": "PowerBIClientSecret"
 			},
 			"adhoc": {
-				"type": "string"
-			},
-			"date": {
 				"type": "string"
 			},
 			"pbi_entity_filter": {
