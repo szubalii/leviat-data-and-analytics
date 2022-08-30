@@ -617,7 +617,7 @@
 							"type": "DateTime"
 						},
 						"message": {
-							"value": "",
+							"value": "Finished successfully",
 							"type": "String"
 						},
 						"pbi_dataset_id": {
