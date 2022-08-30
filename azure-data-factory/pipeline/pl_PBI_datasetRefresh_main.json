@@ -351,7 +351,7 @@
 						},
 						"parent_run_id": {
 							"value": {
-								"value": "@pipeline().parameters.parent_run_id",
+								"value": "@pipeline()?.TriggeredByPipelineRunId",
 								"type": "Expression"
 							}
 						}
@@ -742,9 +742,6 @@
 			"SecretName_SPSecret": {
 				"type": "String",
 				"defaultValue": "PowerBIClientSecret"
-			},
-			"parent_run_id": {
-				"type": "string"
 			},
 			"adhoc": {
 				"type": "string"
