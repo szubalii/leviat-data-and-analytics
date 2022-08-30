@@ -7,7 +7,7 @@
 				"type": "WebActivity",
 				"dependsOn": [
 					{
-						"activity": "act_exec_sproc_start_log",
+						"activity": "Set Pipeline Log",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -23,7 +23,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"url": {
-						"value": "@concat(\n   pipeline().globalParameters.keyVaultUrl\n,   'secrets/'\n,   pipeline().parameters.SecretName_TenantId\n,   '/?api-version=7.0'\n)",
+						"value": "@concat(\n   pipeline().globalParameters.keyVaultUrl,\n   'secrets/',\n   variables('SecretName_TenantId'),\n   '/?api-version=7.0'\n)",
 						"type": "Expression"
 					},
 					"method": "GET",
@@ -41,7 +41,7 @@
 				"type": "WebActivity",
 				"dependsOn": [
 					{
-						"activity": "act_exec_sproc_start_log",
+						"activity": "Set Pipeline Log",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -57,7 +57,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"url": {
-						"value": "@concat(\n    pipeline().globalParameters.keyVaultUrl\n,   'secrets/'\n,   pipeline().parameters.SecretName_SPClientId\n,   '/?api-version=7.0'\n)",
+						"value": "@concat(\n    pipeline().globalParameters.keyVaultUrl,\n    'secrets/',\n    variables('SecretName_SPClientId'),\n    '/?api-version=7.0'\n)",
 						"type": "Expression"
 					},
 					"method": "GET",
@@ -75,7 +75,7 @@
 				"type": "WebActivity",
 				"dependsOn": [
 					{
-						"activity": "act_exec_sproc_start_log",
+						"activity": "Set Pipeline Log",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -91,7 +91,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"url": {
-						"value": "@concat(\n   pipeline().globalParameters.keyVaultUrl\n,   'secrets/'\n,   pipeline().parameters.SecretName_SPSecret\n,   '/?api-version=7.0')",
+						"value": "@concat(\n   pipeline().globalParameters.keyVaultUrl\n,   'secrets/'\n,   variables('SecretName_SPSecret')\n,   '/?api-version=7.0')",
 						"type": "Expression"
 					},
 					"method": "GET",
@@ -105,7 +105,7 @@
 				}
 			},
 			{
-				"name": "act_lookup_pbi_entity",
+				"name": "Retrieve PBI Dataset GUIDs",
 				"type": "Lookup",
 				"dependsOn": [
 					{
@@ -139,7 +139,7 @@
 					"source": {
 						"type": "AzureSqlSource",
 						"sqlReaderQuery": {
-							"value": "select * from [dbo].[get_pbi_entities]  (@{pipeline().parameters.adhoc},'@{pipeline().parameters.date}'\n) @{pipeline().parameters.pbi_entity_filter}",
+							"value": "select * \nfrom [dbo].[get_pbi_entities] (\n    @{pipeline().parameters.adhoc},\n    '@{utcNow('yyyy-MM-dd')}'\n) \n@{pipeline().parameters.pbi_entity_filter}",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
@@ -153,11 +153,11 @@
 				}
 			},
 			{
-				"name": "act_foreach_dataset",
+				"name": "ForEach Dataset",
 				"type": "ForEach",
 				"dependsOn": [
 					{
-						"activity": "act_lookup_pbi_entity",
+						"activity": "Retrieve PBI Dataset GUIDs",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -166,14 +166,14 @@
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@activity('act_lookup_pbi_entity').output.value",
+						"value": "@activity('Retrieve PBI Dataset GUIDs').output.value",
 						"type": "Expression"
 					},
 					"isSequential": false,
 					"batchCount": 3,
 					"activities": [
 						{
-							"name": "exec_pl_pbi_call_dataset_refresh",
+							"name": "Refresh PBI Dataset",
 							"type": "ExecutePipeline",
 							"dependsOn": [
 								{
@@ -191,11 +191,11 @@
 								},
 								"waitOnCompletion": true,
 								"parameters": {
-									"Workspace": {
+									"workspace_guid": {
 										"value": "@item().workspace_guid",
 										"type": "Expression"
 									},
-									"Dataset": {
+									"dataset_guid": {
 										"value": "@item().dataset_guid",
 										"type": "Expression"
 									},
@@ -205,10 +205,6 @@
 									},
 									"AAD_Access_Token": {
 										"value": "@activity('Get AAD Token').output.access_token",
-										"type": "Expression"
-									},
-									"parent_run_id": {
-										"value": "@pipeline().RunId",
 										"type": "Expression"
 									},
 									"pbi_dataset_id": {
@@ -232,7 +228,7 @@
 							"userProperties": [],
 							"typeProperties": {
 								"url": {
-									"value": "@concat('https://login.microsoftonline.com/',activity('Get TenantId from AKV').output.value,'/oauth2/token')",
+									"value": "@concat(\n    'https://login.microsoftonline.com/',\n    activity('Get TenantId from AKV').output.value,'/oauth2/token'\n)",
 									"type": "Expression"
 								},
 								"method": "POST",
@@ -240,13 +236,13 @@
 									"Content-Type": "application/x-www-form-urlencoded"
 								},
 								"body": {
-									"value": "@concat('grant_type=client_credentials&resource=https://analysis.windows.net/powerbi/api&client_id=',activity('Get ClientId from AKV').output.value,'&client_secret=',encodeUriComponent(activity('Get Secret from AKV').output.value))",
+									"value": "@concat(\n    'grant_type=client_credentials&resource=https://analysis.windows.net/powerbi/api&client_id=',\n    activity('Get ClientId from AKV').output.value,'&client_secret=',\n    encodeUriComponent(activity('Get Secret from AKV').output.value)\n)",
 									"type": "Expression"
 								}
 							}
 						},
 						{
-							"name": "act_exec_sproc_log_exception_AADToken",
+							"name": "Log Eception AAD Token",
 							"type": "SqlServerStoredProcedure",
 							"dependsOn": [
 								{
@@ -296,7 +292,7 @@
 				}
 			},
 			{
-				"name": "act_exec_sproc_start_log",
+				"name": "Set Pipeline Log",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [],
 				"policy": {
@@ -351,7 +347,7 @@
 						},
 						"parent_run_id": {
 							"value": {
-								"value": "@pipeline().parameters.parent_run_id",
+								"value": "@pipeline()?.TriggeredByPipelineRunId",
 								"type": "Expression"
 							}
 						}
@@ -363,11 +359,11 @@
 				}
 			},
 			{
-				"name": "act_exec_sproc_log_exception",
+				"name": "Log Exception PBI Datasets",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "act_lookup_pbi_entity",
+						"activity": "Retrieve PBI Dataset GUIDs",
 						"dependencyConditions": [
 							"Failed"
 						]
@@ -398,7 +394,7 @@
 						},
 						"error_msg": {
 							"value": {
-								"value": "@activity('act_lookup_pbi_entity').Error.Message",
+								"value": "@activity('Retrieve PBI Dataset GUIDs').Error.Message",
 								"type": "Expression"
 							},
 							"type": "String"
@@ -418,11 +414,11 @@
 				}
 			},
 			{
-				"name": "act_exec_log_failure_internalerror",
+				"name": "Update Pipeline Log Failed",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "act_exec_sproc_log_exception",
+						"activity": "Log Exception PBI Datasets",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -475,11 +471,11 @@
 				}
 			},
 			{
-				"name": "act_exec_log_failure",
+				"name": "Update Pipeline Log Failed Refresh",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "act_foreach_dataset",
+						"activity": "ForEach Dataset",
 						"dependencyConditions": [
 							"Failed"
 						]
@@ -532,11 +528,11 @@
 				}
 			},
 			{
-				"name": "act_exec_sproc_log_success",
+				"name": "Update Pipeline Log Successful",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "act_foreach_dataset",
+						"activity": "ForEach Dataset",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -589,7 +585,7 @@
 				}
 			},
 			{
-				"name": "act_exec_sproc_log_exception_Secret",
+				"name": "Log Exception Secret",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
@@ -636,7 +632,7 @@
 				}
 			},
 			{
-				"name": "act_exec_sproc_log_exception_ClientId",
+				"name": "Log Exception ClientId",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
@@ -683,7 +679,7 @@
 				}
 			},
 			{
-				"name": "act_exec_sproc_log_exception_ClientId_copy1",
+				"name": "Log Exception TenantId",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
@@ -731,6 +727,25 @@
 			}
 		],
 		"parameters": {
+			"adhoc": {
+				"type": "string",
+				"defaultValue": "0"
+			},
+			"pbi_entity_filter": {
+				"type": "string",
+				"defaultValue": "WHERE 'a' = 'a'"
+			}
+		},
+		"variables": {
+			"ProcessingErrors": {
+				"type": "Boolean"
+			},
+			"AAD Token Type": {
+				"type": "String"
+			},
+			"AAD Access Token": {
+				"type": "String"
+			},
 			"SecretName_TenantId": {
 				"type": "String",
 				"defaultValue": "AADTenantId"
@@ -742,35 +757,6 @@
 			"SecretName_SPSecret": {
 				"type": "String",
 				"defaultValue": "PowerBIClientSecret"
-			},
-			"parent_run_id": {
-				"type": "string"
-			},
-			"adhoc": {
-				"type": "string"
-			},
-			"date": {
-				"type": "string"
-			},
-			"pbi_entity_filter": {
-				"type": "string"
-			}
-		},
-		"variables": {
-			"ProcessingErrors": {
-				"type": "Boolean"
-			},
-			"Dataset": {
-				"type": "String"
-			},
-			"Workspace": {
-				"type": "String"
-			},
-			"AAD Token Type": {
-				"type": "String"
-			},
-			"AAD Access Token": {
-				"type": "String"
 			}
 		},
 		"folder": {
