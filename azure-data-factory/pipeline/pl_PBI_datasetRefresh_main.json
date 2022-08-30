@@ -7,7 +7,7 @@
 				"type": "WebActivity",
 				"dependsOn": [
 					{
-						"activity": "act_exec_sproc_start_log",
+						"activity": "Set Pipeline Log",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -41,7 +41,7 @@
 				"type": "WebActivity",
 				"dependsOn": [
 					{
-						"activity": "act_exec_sproc_start_log",
+						"activity": "Set Pipeline Log",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -75,7 +75,7 @@
 				"type": "WebActivity",
 				"dependsOn": [
 					{
-						"activity": "act_exec_sproc_start_log",
+						"activity": "Set Pipeline Log",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -105,7 +105,7 @@
 				}
 			},
 			{
-				"name": "act_lookup_pbi_entity",
+				"name": "Retrieve PBI Dataset GUIDs",
 				"type": "Lookup",
 				"dependsOn": [
 					{
@@ -153,11 +153,11 @@
 				}
 			},
 			{
-				"name": "act_foreach_dataset",
+				"name": "ForEach Dataset",
 				"type": "ForEach",
 				"dependsOn": [
 					{
-						"activity": "act_lookup_pbi_entity",
+						"activity": "Retrieve PBI Dataset GUIDs",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -166,14 +166,14 @@
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@activity('act_lookup_pbi_entity').output.value",
+						"value": "@activity('Retrieve PBI Dataset GUIDs').output.value",
 						"type": "Expression"
 					},
 					"isSequential": false,
 					"batchCount": 3,
 					"activities": [
 						{
-							"name": "exec_pl_pbi_call_dataset_refresh",
+							"name": "Refresh PBI Dataset",
 							"type": "ExecutePipeline",
 							"dependsOn": [
 								{
@@ -191,12 +191,12 @@
 								},
 								"waitOnCompletion": true,
 								"parameters": {
-									"Workspace": {
-										"value": "@item().workspace_guid",
+									"workspace_guid": {
+										"value": "@variables('WorkspaceGUID')",
 										"type": "Expression"
 									},
-									"Dataset": {
-										"value": "@item().dataset_guid",
+									"dataset_guid": {
+										"value": "@variables('DatasetGUID')",
 										"type": "Expression"
 									},
 									"AAD_Token_Type": {
@@ -246,7 +246,7 @@
 							}
 						},
 						{
-							"name": "act_exec_sproc_log_exception_AADToken",
+							"name": "Log Eception AAD Token",
 							"type": "SqlServerStoredProcedure",
 							"dependsOn": [
 								{
@@ -296,7 +296,7 @@
 				}
 			},
 			{
-				"name": "act_exec_sproc_start_log",
+				"name": "Set Pipeline Log",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [],
 				"policy": {
@@ -363,11 +363,11 @@
 				}
 			},
 			{
-				"name": "act_exec_sproc_log_exception",
+				"name": "Log Exception PBI Datasets",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "act_lookup_pbi_entity",
+						"activity": "Retrieve PBI Dataset GUIDs",
 						"dependencyConditions": [
 							"Failed"
 						]
@@ -398,7 +398,7 @@
 						},
 						"error_msg": {
 							"value": {
-								"value": "@activity('act_lookup_pbi_entity').Error.Message",
+								"value": "@activity('Retrieve PBI Dataset GUIDs').Error.Message",
 								"type": "Expression"
 							},
 							"type": "String"
@@ -418,11 +418,11 @@
 				}
 			},
 			{
-				"name": "act_exec_log_failure_internalerror",
+				"name": "Update Pipeline Log Failed",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "act_exec_sproc_log_exception",
+						"activity": "Log Exception PBI Datasets",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -475,11 +475,11 @@
 				}
 			},
 			{
-				"name": "act_exec_log_failure",
+				"name": "Update Pipeline Log Failed Refresh",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "act_foreach_dataset",
+						"activity": "ForEach Dataset",
 						"dependencyConditions": [
 							"Failed"
 						]
@@ -532,11 +532,11 @@
 				}
 			},
 			{
-				"name": "act_exec_sproc_log_success",
+				"name": "Update Pipeline Log Successful",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "act_foreach_dataset",
+						"activity": "ForEach Dataset",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -589,7 +589,7 @@
 				}
 			},
 			{
-				"name": "act_exec_sproc_log_exception_Secret",
+				"name": "Log Exception Secret",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
@@ -636,7 +636,7 @@
 				}
 			},
 			{
-				"name": "act_exec_sproc_log_exception_ClientId",
+				"name": "Log Exception ClientId",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
@@ -683,7 +683,7 @@
 				}
 			},
 			{
-				"name": "act_exec_sproc_log_exception_ClientId_copy1",
+				"name": "Log Exception TenantId",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
@@ -760,10 +760,10 @@
 			"ProcessingErrors": {
 				"type": "Boolean"
 			},
-			"Dataset": {
+			"DatasetGUID": {
 				"type": "String"
 			},
-			"Workspace": {
+			"WorkspaceGUID": {
 				"type": "String"
 			},
 			"AAD Token Type": {
