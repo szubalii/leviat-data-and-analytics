@@ -740,7 +740,8 @@
 				"defaultValue": "PowerBIClientSecret"
 			},
 			"adhoc": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "0"
 			},
 			"pbi_entity_filter": {
 				"type": "string",
