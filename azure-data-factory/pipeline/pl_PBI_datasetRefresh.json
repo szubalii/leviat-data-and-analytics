@@ -265,6 +265,12 @@
 									"dependencyConditions": [
 										"Succeeded"
 									]
+								},
+								{
+									"activity": "Update PBI Dataset Log Status Failed",
+									"dependencyConditions": [
+										"Succeeded"
+									]
 								}
 							],
 							"userProperties": [],
@@ -274,6 +280,71 @@
 									"type": "Expression"
 								},
 								"errorCode": "RefreshPBIDatasetFailed"
+							}
+						},
+						{
+							"name": "Update PBI Dataset Log Status Failed",
+							"type": "SqlServerStoredProcedure",
+							"dependsOn": [
+								{
+									"activity": "SaveErrorMessages",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"storedProcedureName": "[dbo].[update_pbi_status]",
+								"storedProcedureParameters": {
+									"end_date_time": {
+										"value": {
+											"value": "@formatDateTime(utcNow(), 'yyyy-MM-dd HH:mm:ss')",
+											"type": "Expression"
+										},
+										"type": "DateTime"
+									},
+									"message": {
+										"value": "",
+										"type": "String"
+									},
+									"pbi_dataset_id": {
+										"value": {
+											"value": "@pipeline().parameters.pbi_dataset_id",
+											"type": "Expression"
+										},
+										"type": "Int64"
+									},
+									"pbi_refresh_guid": {
+										"value": {
+											"value": "@variables('RefreshGuid')",
+											"type": "Expression"
+										},
+										"type": "Guid"
+									},
+									"run_id": {
+										"value": {
+											"value": "@pipeline().RunId",
+											"type": "Expression"
+										},
+										"type": "Guid"
+									},
+									"status": {
+										"value": "Failed",
+										"type": "String"
+									}
+								}
+							},
+							"linkedServiceName": {
+								"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
+								"type": "LinkedServiceReference"
 							}
 						}
 					]
@@ -571,6 +642,71 @@
 						},
 						"status": {
 							"value": "Succeeded",
+							"type": "String"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "Update PBI Dataset Log Status Failed Call",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "Call dataset refresh",
+						"dependencyConditions": [
+							"Failed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[update_pbi_status]",
+					"storedProcedureParameters": {
+						"end_date_time": {
+							"value": {
+								"value": "@formatDateTime(utcNow(), 'yyyy-MM-dd HH:mm:ss')",
+								"type": "Expression"
+							},
+							"type": "DateTime"
+						},
+						"message": {
+							"value": "Failed to call PBI dataset refresh",
+							"type": "String"
+						},
+						"pbi_dataset_id": {
+							"value": {
+								"value": "@pipeline().parameters.pbi_dataset_id",
+								"type": "Expression"
+							},
+							"type": "Int64"
+						},
+						"pbi_refresh_guid": {
+							"value": {
+								"value": "@variables('RefreshGuid')",
+								"type": "Expression"
+							},
+							"type": "Guid"
+						},
+						"run_id": {
+							"value": {
+								"value": "@pipeline().RunId",
+								"type": "Expression"
+							},
+							"type": "Guid"
+						},
+						"status": {
+							"value": "Failed",
 							"type": "String"
 						}
 					}
