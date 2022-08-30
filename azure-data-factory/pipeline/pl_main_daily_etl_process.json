@@ -130,16 +130,8 @@
 					},
 					"waitOnCompletion": true,
 					"parameters": {
-						"parent_run_id": {
-							"value": "@activity('Process ETL').output.pipelineRunId",
-							"type": "Expression"
-						},
 						"adhoc": {
 							"value": "@pipeline().parameters.adhoc",
-							"type": "Expression"
-						},
-						"date": {
-							"value": "@pipeline().parameters.date",
 							"type": "Expression"
 						},
 						"pbi_entity_filter": "WHERE dataset_name != 'Master Data Quality Checks'"
@@ -270,16 +262,8 @@
 					},
 					"waitOnCompletion": true,
 					"parameters": {
-						"parent_run_id": {
-							"value": "@activity('Process ETL').output.pipelineRunId",
-							"type": "Expression"
-						},
 						"adhoc": {
 							"value": "@pipeline().parameters.adhoc",
-							"type": "Expression"
-						},
-						"date": {
-							"value": "@pipeline().parameters.date",
 							"type": "Expression"
 						},
 						"pbi_entity_filter": "WHERE dataset_name = 'Master Data Quality Checks'"
