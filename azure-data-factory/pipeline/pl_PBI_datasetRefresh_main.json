@@ -23,7 +23,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"url": {
-						"value": "@concat(\n   pipeline().globalParameters.keyVaultUrl\n,   'secrets/'\n,   pipeline().parameters.SecretName_TenantId\n,   '/?api-version=7.0'\n)",
+						"value": "@concat(\n   pipeline().globalParameters.keyVaultUrl,\n   'secrets/',\n   variables('SecretName_TenantId'),\n   '/?api-version=7.0'\n)",
 						"type": "Expression"
 					},
 					"method": "GET",
@@ -57,7 +57,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"url": {
-						"value": "@concat(\n    pipeline().globalParameters.keyVaultUrl\n,   'secrets/'\n,   pipeline().parameters.SecretName_SPClientId\n,   '/?api-version=7.0'\n)",
+						"value": "@concat(\n    pipeline().globalParameters.keyVaultUrl,\n    'secrets/',\n    variables('SecretName_SPClientId'),\n    '/?api-version=7.0'\n)",
 						"type": "Expression"
 					},
 					"method": "GET",
@@ -91,7 +91,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"url": {
-						"value": "@concat(\n   pipeline().globalParameters.keyVaultUrl\n,   'secrets/'\n,   pipeline().parameters.SecretName_SPSecret\n,   '/?api-version=7.0')",
+						"value": "@concat(\n   pipeline().globalParameters.keyVaultUrl\n,   'secrets/'\n,   variables('SecretName_SPSecret')\n,   '/?api-version=7.0')",
 						"type": "Expression"
 					},
 					"method": "GET",
@@ -727,18 +727,6 @@
 			}
 		],
 		"parameters": {
-			"SecretName_TenantId": {
-				"type": "String",
-				"defaultValue": "AADTenantId"
-			},
-			"SecretName_SPClientId": {
-				"type": "String",
-				"defaultValue": "PowerBIClientId"
-			},
-			"SecretName_SPSecret": {
-				"type": "String",
-				"defaultValue": "PowerBIClientSecret"
-			},
 			"adhoc": {
 				"type": "string",
 				"defaultValue": "0"
@@ -757,6 +745,18 @@
 			},
 			"AAD Access Token": {
 				"type": "String"
+			},
+			"SecretName_TenantId": {
+				"type": "String",
+				"defaultValue": "AADTenantId"
+			},
+			"SecretName_SPClientId": {
+				"type": "String",
+				"defaultValue": "PowerBIClientId"
+			},
+			"SecretName_SPSecret": {
+				"type": "String",
+				"defaultValue": "PowerBIClientSecret"
 			}
 		},
 		"folder": {
