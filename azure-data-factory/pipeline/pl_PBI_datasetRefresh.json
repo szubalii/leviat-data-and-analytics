@@ -464,7 +464,7 @@
 						},
 						"parent_run_id": {
 							"value": {
-								"value": "@pipeline().parameters.parent_run_id",
+								"value": "@pipeline()?.TriggeredByPipelineRunId",
 								"type": "Expression"
 							}
 						}
@@ -728,9 +728,6 @@
 				"type": "string"
 			},
 			"AAD_Access_Token": {
-				"type": "string"
-			},
-			"parent_run_id": {
 				"type": "string"
 			},
 			"pbi_dataset_id": {
