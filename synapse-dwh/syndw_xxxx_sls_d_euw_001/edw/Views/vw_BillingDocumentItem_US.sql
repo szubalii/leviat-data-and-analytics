@@ -39,9 +39,9 @@ GROUP BY
         CS.[INVOICE] AS [BillingDocument]
     ,   RIGHT(
              CONCAT(
-                    '0000',
+                    '000',
                     CAST(CS.[LineNo] as INT),
-                    10*ROW_NUMBER() OVER(PARTITION BY CS.[COMP],CS.[INVOICE],CAST(CS.[LineNo] AS INT) ORDER BY CS.[LineNo] ASC)
+                    10*ROW_NUMBER() OVER(PARTITION BY CS.[INVOICE],CAST(CS.[LineNo] AS INT) ORDER BY CS.[LineNo] ASC)
              )
              ,6
         ) AS [BillingDocumentItem]
