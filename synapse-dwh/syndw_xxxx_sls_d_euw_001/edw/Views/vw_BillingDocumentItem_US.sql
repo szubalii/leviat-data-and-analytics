@@ -36,8 +36,15 @@ GROUP BY
 )
 ,BillingDocumentItemBase AS
 (SELECT
-        CS.[INVOICE] AS [BillingDocument]                          
-    ,   CAST(CAST(CS.[LineNo] as INT) AS CHAR(7)) AS [BillingDocumentItem]    
+        CS.[INVOICE] AS [BillingDocument]
+    ,   RIGHT(
+             CONCAT(
+                    '0000',
+                    CAST(CS.[LineNo] as INT),
+                    10*ROW_NUMBER() OVER(PARTITION BY CS.[COMP],CS.[INVOICE],CAST(CS.[LineNo] AS INT) ORDER BY CS.[LineNo] ASC)
+             )
+             ,6
+        ) AS [BillingDocumentItem]
     ,    CASE
             WHEN 
 			     CS.[INVOICE] LIKE 'C%' 
