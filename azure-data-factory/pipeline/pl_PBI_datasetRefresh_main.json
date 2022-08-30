@@ -192,11 +192,11 @@
 								"waitOnCompletion": true,
 								"parameters": {
 									"workspace_guid": {
-										"value": "@variables('WorkspaceGUID')",
+										"value": "@item().workspace_guid",
 										"type": "Expression"
 									},
 									"dataset_guid": {
-										"value": "@variables('DatasetGUID')",
+										"value": "@item().dataset_guid",
 										"type": "Expression"
 									},
 									"AAD_Token_Type": {
@@ -750,12 +750,6 @@
 		"variables": {
 			"ProcessingErrors": {
 				"type": "Boolean"
-			},
-			"DatasetGUID": {
-				"type": "String"
-			},
-			"WorkspaceGUID": {
-				"type": "String"
 			},
 			"AAD Token Type": {
 				"type": "String"
