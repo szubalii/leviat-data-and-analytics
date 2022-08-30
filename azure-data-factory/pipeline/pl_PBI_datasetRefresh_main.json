@@ -139,7 +139,7 @@
 					"source": {
 						"type": "AzureSqlSource",
 						"sqlReaderQuery": {
-							"value": "select * from [dbo].[get_pbi_entities]  (@{pipeline().parameters.adhoc},'@{pipeline().parameters.date}'\n) @{pipeline().parameters.pbi_entity_filter}",
+							"value": "select * \nfrom [dbo].[get_pbi_entities] (\n    @{pipeline().parameters.adhoc},\n    '@{pipeline().parameters.date}'\n) \n@{pipeline().parameters.pbi_entity_filter}",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
@@ -753,7 +753,8 @@
 				"type": "string"
 			},
 			"pbi_entity_filter": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "WHERE 'a' = 'a'"
 			}
 		},
 		"variables": {
