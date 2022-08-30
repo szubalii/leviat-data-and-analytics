@@ -207,10 +207,6 @@
 										"value": "@activity('Get AAD Token').output.access_token",
 										"type": "Expression"
 									},
-									"parent_run_id": {
-										"value": "@pipeline().RunId",
-										"type": "Expression"
-									},
 									"pbi_dataset_id": {
 										"value": "@item().pbi_dataset_id",
 										"type": "Expression"
