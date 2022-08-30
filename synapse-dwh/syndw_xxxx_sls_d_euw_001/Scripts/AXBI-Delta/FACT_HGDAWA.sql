@@ -37,6 +37,18 @@ from [pgr].[FACT_HGDAWA_active]
 -- 5:48:59 PMStarted executing query at Line 36
 -- (0 rows affected)
 -- Total execution time: 00:00:27.310
+
+-- active: FACT_HGDAWA/Out/2022/03/28/FACT_HGDAWA_2022_03_28_12_10_08_760.parquet
+-- new:    FACT_HGDAWA/Out/2022/07/26/FACT_HGDAWA_2022_07_26_13_16_11_434.parquet
+-- 10:46:53 AM
+-- (0 rows affected)
+-- Total execution time: 00:00:19.960
+
+-- active: FACT_HGDAWA/In/2022/01/27/FACT_HGDAWA_2022_01_27_09_43_53_650.parquet
+-- new:    FACT_HGDAWA/In/2022/01/31/FACT_HGDAWA_2022_01_31_09_35_46_452.parquet
+-- 3:55:01 PM
+-- (2.801.530 rows affected)
+-- Total execution time: 00:07:47.481
 MERGE
     [pgr].[FACT_HGDAWA_active] AS dest
 USING (
@@ -1637,45 +1649,70 @@ where t_lastActionCd = 'I'
 
 select 
     *
-from pgr.FACT_HGDAWA_active
+from pgr.FACT_HGDAWA_new_basic
 where 
 -- Invoiceno = '5316SIN037237       '
 CONCAT(Invoiceno, Posno) IN (
-select CONCAT(Invoiceno, Posno)
-from pgr.FACT_HGDAWA_active
-group by 
-Invoiceno, Posno
-Having COUNT(*) > 1
+    select CONCAT(Invoiceno, Posno)
+    from pgr.FACT_HGDAWA_new_basic
+    group by 
+        Invoiceno, Posno
+    Having COUNT(*) > 1
 ) 
+order by Invoiceno, Posno
+
+delete from pgr.FACT_HGDAWA_new_basic
+where Invoiceno = '9999999999999       '
 
 delete from pgr.FACT_HGDAWA_active
 where Invoiceno = '9999999999999       '
 
+delete from pgr.FACT_HGDAWA_new_basic
+where DW_Id in (1231057, 1231106)
+
 delete from pgr.FACT_HGDAWA_active
-where DW_Id in (1231106, 1231057)
+where DW_Id in (8376794, 8376797)
 
 select *
-into pgr.FACT_HGDAWA_new_basic
-from pgr.FACT_HGDAWA_new
+into pgr.FACT_HGDAWA_new
+from pgr.FACT_HGDAWA_new_basic
 
 select *
-into pgr.FACT_HGDAWA_active_basic
-from pgr.FACT_HGDAWA_active
+into pgr.FACT_HGDAWA_active
+from pgr.FACT_HGDAWA_active_basic
 
--- drop table pgr.FACT_HGDAWA_active_basic
--- drop table pgr.FACT_HGDAWA_new_basic
+-- drop table pgr.FACT_HGDAWA_active
+-- drop table pgr.FACT_HGDAWA_new
 
 -------------------------------------------------------------------------
 --BASIC
 -------------------------------------------------------------------------
+
+-- active: FACT_HGDAWA/Out/2022/07/08/FACT_HGDAWA_2022_07_08_08_23_39_946.parquet
+-- new:    FACT_HGDAWA/Out/2022/07/26/FACT_HGDAWA_2022_07_26_13_16_11_434.parquet
 -- 5:55:02 PMStarted executing query at Line 1673
 -- (0 rows affected)
 -- (0 rows affected)
 -- (0 rows affected)
 -- Total execution time: 00:01:52.912
 
+-- active: FACT_HGDAWA/Out/2022/03/28/FACT_HGDAWA_2022_03_28_12_10_08_760.parquet
+-- new:    FACT_HGDAWA/Out/2022/07/26/FACT_HGDAWA_2022_07_26_13_16_11_434.parquet
+-- 10:49:10 AMStarted executing query at Line 1688
 -- (0 rows affected)
--- Total execution time: 00:00:08.995
+-- (0 rows affected)
+-- (0 rows affected)
+-- Total execution time: 00:01:36.601
+
+-- active: FACT_HGDAWA/In/2022/01/27/FACT_HGDAWA_2022_01_27_09_43_53_650.parquet (ingestion 2:39)
+-- new:    FACT_HGDAWA/In/2022/01/31/FACT_HGDAWA_2022_01_31_09_35_46_452.parquet (ingestion 2:27)
+-- 2:57:28 PM
+-- (0 rows affected)
+-- (1.245.627 rows affected)
+-- (  155.138 rows affected)
+-- Total execution time: 00:02:29.179
+
+-- INSERT
 INSERT [pgr].[FACT_HGDAWA_active_basic] (
     -- [DW_Id],
     [Company],
@@ -2147,8 +2184,7 @@ WHERE NOT EXISTS (
         active.Posno = [pgr].[FACT_HGDAWA_new_basic].Posno
 );
 
--- (1245638 rows affected)
--- Total execution time: 00:01:56.157
+-- UPDATE
 UPDATE
     [pgr].[FACT_HGDAWA_active_basic]
 SET
@@ -2822,8 +2858,7 @@ INNER JOIN
             active.[Companycountryname]
         )
 
--- (0 rows affected)
--- Total execution time: 00:00:05.153
+-- DELETE
 UPDATE
     [pgr].[FACT_HGDAWA_active_basic]
 SET
