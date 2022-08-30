@@ -7,12 +7,6 @@
 				"type": "WebActivity",
 				"dependsOn": [
 					{
-						"activity": "Start Pipeline Log",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					},
-					{
 						"activity": "Set PBI Dataset Log",
 						"dependencyConditions": [
 							"Succeeded"
@@ -535,7 +529,14 @@
 			{
 				"name": "Set PBI Dataset Log",
 				"type": "SqlServerStoredProcedure",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "Start Pipeline Log",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "7.00:00:00",
 					"retry": 0,
