@@ -228,7 +228,7 @@
 							"userProperties": [],
 							"typeProperties": {
 								"url": {
-									"value": "@concat('https://login.microsoftonline.com/',activity('Get TenantId from AKV').output.value,'/oauth2/token')",
+									"value": "@concat(\n    'https://login.microsoftonline.com/',\n    activity('Get TenantId from AKV').output.value,'/oauth2/token'\n)",
 									"type": "Expression"
 								},
 								"method": "POST",
@@ -236,7 +236,7 @@
 									"Content-Type": "application/x-www-form-urlencoded"
 								},
 								"body": {
-									"value": "@concat('grant_type=client_credentials&resource=https://analysis.windows.net/powerbi/api&client_id=',activity('Get ClientId from AKV').output.value,'&client_secret=',encodeUriComponent(activity('Get Secret from AKV').output.value))",
+									"value": "@concat(\n    'grant_type=client_credentials&resource=https://analysis.windows.net/powerbi/api&client_id=',\n    activity('Get ClientId from AKV').output.value,'&client_secret=',\n    encodeUriComponent(activity('Get Secret from AKV').output.value)\n)",
 									"type": "Expression"
 								}
 							}
