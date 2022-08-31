@@ -742,9 +742,6 @@
 			"pbi_dataset_id": {
 				"type": "string"
 			},
-			"workspace_name": {
-				"type": "string"
-			},
 			"dataset_name": {
 				"type": "string"
 			}
