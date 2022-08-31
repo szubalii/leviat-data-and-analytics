@@ -210,6 +210,10 @@
 									"pbi_dataset_id": {
 										"value": "@item().pbi_dataset_id",
 										"type": "Expression"
+									},
+									"dataset_name": {
+										"value": "@item().dataset_name",
+										"type": "Expression"
 									}
 								}
 							}
