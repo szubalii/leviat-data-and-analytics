@@ -157,7 +157,7 @@
 				"type": "ForEach",
 				"dependsOn": [
 					{
-						"activity": "Retrieve PBI Dataset GUIDs",
+						"activity": "Start VM",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -723,6 +723,61 @@
 				"linkedServiceName": {
 					"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
 					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "Start VM",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Retrieve PBI Dataset GUIDs",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pl_VM_start",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "Deallocate VM if PROD",
+				"type": "IfCondition",
+				"dependsOn": [
+					{
+						"activity": "ForEach Dataset",
+						"dependencyConditions": [
+							"Succeeded",
+							"Failed"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@if(\n    equals(\n        pipeline().globalParameters.environment,\n        'prod'\n    ),\n    true,\n    false\n)",
+						"type": "Expression"
+					},
+					"ifTrueActivities": [
+						{
+							"name": "pl_VM_deallocate",
+							"type": "ExecutePipeline",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"pipeline": {
+									"referenceName": "pl_VM_deallocate",
+									"type": "PipelineReference"
+								},
+								"waitOnCompletion": true
+							}
+						}
+					]
 				}
 			}
 		],
