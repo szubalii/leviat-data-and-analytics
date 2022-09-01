@@ -1567,6 +1567,7 @@ SELECT
 ,   [Batch]
 ,   [MaterialGroupID]
 ,   [BrandID]
+,   [Brand]
 ,   [AdditionalMaterialGroup2]
 ,   [AdditionalMaterialGroup3]
 ,   [AdditionalMaterialGroup4]
@@ -1717,7 +1718,7 @@ SELECT
 ,   [FinNetAmountOtherSales]
 ,   [FinReserveCashDiscount]
 ,   [FinNetAmountAllowances]
-,   FinSales100
+,   [FinSales100]
 ,   [AccountingDate]
 ,   [MaterialCalculated]
 ,   [SoldToPartyCalculated]
@@ -1764,6 +1765,7 @@ SELECT
 ,   BDI_CancellDocs.[Batch]
 ,   BDI_CancellDocs.[MaterialGroupID]
 ,   BDI_CancellDocs.[BrandID]
+,   BDI_CancellDocs.[Brand]
 ,   BDI_CancellDocs.[AdditionalMaterialGroup2]
 ,   BDI_CancellDocs.[AdditionalMaterialGroup3]
 ,   BDI_CancellDocs.[AdditionalMaterialGroup4]
@@ -1914,7 +1916,7 @@ SELECT
 ,   [FinNetAmountOtherSales]
 ,   BDI_AllKPI.[FinReserveCashDiscount]*(-1) AS [FinReserveCashDiscount]
 ,   [FinNetAmountAllowances]
-,   FinSales100
+,   [FinSales100]
 ,   [AccountingDate]
 ,   [MaterialCalculated]
 ,   [SoldToPartyCalculated]
