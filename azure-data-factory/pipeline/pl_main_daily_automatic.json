@@ -81,7 +81,8 @@
 								{
 									"activity": "Main Daily ETL",
 									"dependencyConditions": [
-										"Succeeded"
+										"Succeeded",
+										"Failed"
 									]
 								}
 							],
@@ -128,7 +129,8 @@
 								{
 									"activity": "Main Daily ETL",
 									"dependencyConditions": [
-										"Succeeded"
+										"Succeeded",
+										"Failed"
 									]
 								}
 							],
