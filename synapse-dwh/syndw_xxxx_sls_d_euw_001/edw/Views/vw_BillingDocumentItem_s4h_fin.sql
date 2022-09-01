@@ -1534,6 +1534,7 @@ FROM (
     ) subQ_FinReserveCashDiscount
 ) subQ_FinNetAmountAllowances
 )
+,BDIFinancialsZZZDUMMYAllKPIWithoutS1 AS(
 SELECT
     [BillingDocument]
 ,   [BillingDocumentItem]
@@ -1728,7 +1729,9 @@ SELECT
 FROM
     BDIFinancialsZZZDUMMYAllKPI
 WHERE
-    BillingDocumentTypeID <> 'S1'
+    BillingDocumentTypeID <> 'S1')
+
+SELECT * FROM BDIFinancialsZZZDUMMYAllKPIWithoutS1
 
 UNION ALL
 
@@ -1912,21 +1915,21 @@ SELECT
 ,   BDI_AllKPI.[FinNetAmountServOther]*(-1) AS [FinNetAmountServOther]
 ,   BDI_AllKPI.[FinNetAmountVerp]*(-1) AS [FinNetAmountVerp]
 ,   BDI_AllKPI.[FinRebateAccrual]*(-1) AS [FinRebateAccrual]
-,   [PaymentTermCashDiscountPercentageRate]
-,   [FinNetAmountOtherSales]
+,   BDI_CancellDocs.[PaymentTermCashDiscountPercentageRate]
+,   BDI_CancellDocs.[FinNetAmountOtherSales]
 ,   BDI_AllKPI.[FinReserveCashDiscount]*(-1) AS [FinReserveCashDiscount]
-,   [FinNetAmountAllowances]
-,   [FinSales100]
-,   [AccountingDate]
-,   [MaterialCalculated]
-,   [SoldToPartyCalculated]
-,   [InOutID]
-,   [t_applicationId]
-,   [t_extractionDtm]
+,   BDI_CancellDocs.[FinNetAmountAllowances]
+,   BDI_CancellDocs.[FinSales100]
+,   BDI_CancellDocs.[AccountingDate]
+,   BDI_CancellDocs.[MaterialCalculated]
+,   BDI_CancellDocs.[SoldToPartyCalculated]
+,   BDI_CancellDocs.[InOutID]
+,   BDI_CancellDocs.[t_applicationId]
+,   BDI_CancellDocs.[t_extractionDtm]
 FROM
     BDIFinancialsZZZDUMMYAllKPI BDI_AllKPI
 LEFT JOIN 
-    BDIFinancialsZZZDUMMYAllKPI BDI_CancellDocs
+    BDIFinancialsZZZDUMMYAllKPIWithoutS1 BDI_CancellDocs
     ON
         BDI_AllKPI.BillingDocument = BDI_CancellDocs.CancelledBillingDocument
         AND
@@ -1937,5 +1940,3 @@ LEFT JOIN
         BDI_AllKPI.Material = BDI_CancellDocs.Material
 WHERE
     BDI_CancellDocs.BillingDocumentTypeID = 'S1'
-    AND
-    BDI_AllKPI.BillingDocumentTypeID <> 'S1'
