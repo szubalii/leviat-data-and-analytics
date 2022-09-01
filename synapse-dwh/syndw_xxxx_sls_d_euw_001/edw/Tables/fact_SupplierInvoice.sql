@@ -1,14 +1,14 @@
 CREATE TABLE [edw].[fact_SupplierInvoice]
 (
-    [SupplierInvoice]                nvarchar(10) collate Latin1_General_100_BIN2 NOT NULL,
+    [SupplierInvoiceID]              nvarchar(10) collate Latin1_General_100_BIN2 NOT NULL,
     [FiscalYear]                     char(4) collate Latin1_General_100_BIN2      NOT NULL,
     [SupplierInvoiceUUID]            binary(16),
-    [CompanyCode]                    nvarchar(4) collate Latin1_General_100_BIN2,
+    [CompanyCodeID]                  nvarchar(4) collate Latin1_General_100_BIN2,
     [DocumentDate]                   date,
     [PostingDate]                    date,
     [InvoiceReceiptDate]             date,
     [SupplierInvoiceIDByInvcgParty]  nvarchar(16) collate Latin1_General_100_BIN2,
-    [InvoicingParty]                 nvarchar(10) collate Latin1_General_100_BIN2,
+    [InvoicingPartyID]               nvarchar(10) collate Latin1_General_100_BIN2,
     [DocumentCurrency]               nchar(5) collate Latin1_General_100_BIN2,
     [InvoiceGrossAmount]             decimal(13, 2),
     [IsInvoice]                      nvarchar(1) collate Latin1_General_100_BIN2,
@@ -39,7 +39,8 @@ CREATE TABLE [edw].[fact_SupplierInvoice]
     [BPBankAccountInternalID]        nvarchar(4) collate Latin1_General_100_BIN2,
     [ExchangeRate]                   decimal(9, 5),
     [StateCentralBankPaymentReason]  nvarchar(3) collate Latin1_General_100_BIN2,
-    [SupplyingCountry]               nvarchar(3) collate Latin1_General_100_BIN2,
+    [SupplyingCountryID]             nvarchar(3) collate Latin1_General_100_BIN2,
+    [SupplyingCountry]               nvarchar(50),
     [PaymentMethod]                  nvarchar(1) collate Latin1_General_100_BIN2,
     [PaymentMethodSupplement]        nvarchar(2) collate Latin1_General_100_BIN2,
     [PaymentReference]               nvarchar(30) collate Latin1_General_100_BIN2,
@@ -69,7 +70,7 @@ CREATE TABLE [edw].[fact_SupplierInvoice]
     [t_jobDtm]                       DATETIME,
     [t_lastActionCd]                 VARCHAR(1),
     [t_jobBy]                        NVARCHAR(128),
-    CONSTRAINT [PK_fact_SupplierInvoiceWithoutReverseDoc] PRIMARY KEY NONCLUSTERED ( [SupplierInvoice], [FiscalYear]) NOT ENFORCED
+    CONSTRAINT [PK_fact_SupplierInvoice] PRIMARY KEY NONCLUSTERED ( [SupplierInvoiceID], [FiscalYear]) NOT ENFORCED
 )
 WITH
     (DISTRIBUTION = REPLICATE, HEAP )

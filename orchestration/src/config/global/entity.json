@@ -4945,10 +4945,10 @@
       },
       {
         "entity_id": 489,
-        "entity_name": "dim_PurchasingDocumentItem",
+        "entity_name": "fact_PurchasingDocumentItem",
         "sproc_name": "sp_materialize_view",
         "source_view_name": "vw_PurchasingDocumentItem",
-        "dest_table_name": "dim_PurchasingDocumentItem",
+        "dest_table_name": "fact_PurchasingDocumentItem",
         "execution_order": 1,
         "schedule_recurrence": "D"
       },

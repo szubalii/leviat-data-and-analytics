@@ -892,18 +892,20 @@
     <Build Include="base_s4h_cax\Tables\I_PurgDocumentItemCategoryText.sql" />
     <Build Include="base_s4h_cax\Tables\I_SupplierBankDetails.sql" />
     <Build Include="edw\Views\vw_PurchasingDocumentItem.sql" />
-    <Build Include="edw\Tables\dim_PurchasingDocumentItem.sql" />
+    <Build Include="edw\Tables\fact_PurchasingDocumentItem.sql" />
+    <Build Include="edw\Views\vw_SupplierInvoice.sql" />
+    <Build Include="edw\Tables\fact_SupplierInvoice.sql" />
     <Build Include="edw\Views\vw_SupplierBankDetails.sql" />
     <Build Include="edw\Tables\dim_SupplierBankDetails.sql" />
     <Build Include="edw\Views\vw_SupplierCompany.sql" />
     <Build Include="edw\Tables\dim_SupplierCompany.sql" />
     <Build Include="edw\Views\vw_SupplierPurchasingOrg.sql" />
-    <Build Include="edw\Tables\dim_SupplierPurchasingOrg.sql" />    
+    <Build Include="edw\Tables\dim_SupplierPurchasingOrg.sql" />
     <Build Include="dm_sales\Views\vw_dim_SupplierBankDetails.sql" />
     <Build Include="dm_sales\Views\vw_dim_SupplierPurchasingOrg.sql" />
     <Build Include="dm_sales\Views\vw_dim_SupplierCompany.sql" />
     <Build Include="dm_sales\Views\vw_fact_PurchasingDocumentItem.sql" />
-    <Build Include="dm_sales\Views\vw_fact_PurchasingDocumentItemScheduleLine.sql" />
+    <Build Include="dm_sales\Views\vw_fact_SupplierInvoice.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\Post-Deploy\Script.PostDeployment.sql" />

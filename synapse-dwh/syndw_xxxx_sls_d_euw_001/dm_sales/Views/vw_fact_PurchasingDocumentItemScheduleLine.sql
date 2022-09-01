@@ -1,3 +1,4 @@
+-- vw_fact_PurchasingDocumentItemScheduleLine this view is not required yet
 CREATE VIEW [dm_sales].[vw_fact_PurchasingDocumentItemScheduleLine]
   AS
   SELECT 

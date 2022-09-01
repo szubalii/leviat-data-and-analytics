@@ -1,16 +1,15 @@
-CREATE VIEW [dbo].[vw_SupplierInvoice]
+CREATE VIEW [edw].[vw_SupplierInvoice]
   AS 
-  
   SELECT 
     [SupplierInvoice]     AS [SupplierInvoiceID],                
     [FiscalYear],                     
     [SupplierInvoiceUUID],            
-    [CompanyCode],                    
+    [CompanyCode]         AS [CompanyCodeID],                  
     [DocumentDate],                   
     [PostingDate],                    
     [InvoiceReceiptDate],             
     [SupplierInvoiceIDByInvcgParty],  
-    [InvoicingParty],                 
+    [InvoicingParty]      AS [InvoicingPartyID],                 
     [DocumentCurrency],               
     [InvoiceGrossAmount],             
     [IsInvoice],                      
@@ -41,7 +40,8 @@ CREATE VIEW [dbo].[vw_SupplierInvoice]
     [BPBankAccountInternalID],        
     [ExchangeRate],                   
     [StateCentralBankPaymentReason],  
-    [SupplyingCountry],               
+    [SupplyingCountry]                  AS [SupplyingCountryID],    
+    Country.[CountryName]               AS [SupplyingCountry],             
     [PaymentMethod],                  
     [PaymentMethodSupplement],        
     [PaymentReference],               
@@ -65,9 +65,12 @@ CREATE VIEW [dbo].[vw_SupplierInvoice]
     [DeliveryOfGoodsReportingCntry],  
     [SupplierVATRegistration],        
     [IsEUTriangularDeal],    
-    [t_applicationId],
-    [t_extractionDtm]        
+    SuppInv.[t_applicationId],
+    SuppInv.[t_extractionDtm]        
   FROM 
-    [base_s4h_cax].[I_SupplierInvoice]
-Where 
-  [ReverseDocument] IS NULL            
+    [base_s4h_cax].[I_SupplierInvoice] SuppInv
+  LEFT JOIN 
+    [base_s4h_cax].[I_CountryText] Country
+  ON
+    SuppInv.[SupplyingCountry]= Country.[Country]
+          
