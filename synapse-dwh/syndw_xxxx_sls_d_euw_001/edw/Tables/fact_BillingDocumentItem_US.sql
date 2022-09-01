@@ -14,10 +14,6 @@
     ,[TransactionCurrencyID]                    CHAR(6) collate Latin1_General_100_BIN2              NULL
     ,[TaxAmount]                                DECIMAL(28,12)                                       NULL
     ,[CostAmount]                               DECIMAL(38,12)                                       NULL
-    ,[ProfitMargin]                             DECIMAL(28,12)                                       NULL
-    ,[MarginPercent]                            DECIMAL(28,12)                                       NULL
-    ,[FinProfitMargin]                          DECIMAL(28,12)                                       NULL
-    ,[FinMarginPercent]                         DECIMAL(28,12)                                       NULL
     ,[CostCenter]                               NVARCHAR(30)                                         NULL
     ,[CurrencyID]                               NVARCHAR(3) collate Latin1_General_100_BIN2          NULL
     ,[SalesDocumentID]                          NVARCHAR(40)                                         NULL

@@ -3,7 +3,7 @@ CREATE TABLE [edw].[dim_PurchasingDocument]
     [PurchasingDocumentID]              nvarchar(10) collate Latin1_General_100_BIN2 NOT NULL,
     [SupplierID]                        nvarchar(10) collate Latin1_General_100_BIN2,
     [PurchasingDocumentCategoryID]      nvarchar(1) collate Latin1_General_100_BIN2,
-    [PurchasingDocumentType]            nvarchar(4) collate Latin1_General_100_BIN2,
+    [PurchasingDocumentTypeID]          nvarchar(4) collate Latin1_General_100_BIN2,
     [CreationDate]                      date,
     [CreatedByUser]                     nvarchar(12) collate Latin1_General_100_BIN2,
     [CompanyCode]                       nvarchar(4) collate Latin1_General_100_BIN2,

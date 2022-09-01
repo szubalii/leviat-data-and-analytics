@@ -33,6 +33,10 @@
 						"date": {
 							"value": "@pipeline().parameters.date",
 							"type": "Expression"
+						},
+						"entity_filter": {
+							"value": "@pipeline().parameters.entity_filter",
+							"type": "Expression"
 						}
 					}
 				}
@@ -73,7 +77,10 @@
 							"value": "@pipeline().parameters.adhoc",
 							"type": "Expression"
 						},
-						"entity_filter": "1 = 1",
+						"entity_filter": {
+							"value": "@pipeline().parameters.entity_filter",
+							"type": "Expression"
+						},
 						"parent_run_id": {
 							"value": "@pipeline().RunId",
 							"type": "Expression"
@@ -156,6 +163,10 @@
 			"s4h_client_id": {
 				"type": "int",
 				"defaultValue": 200
+			},
+			"entity_filter": {
+				"type": "string",
+				"defaultValue": "'a' = 'a'"
 			}
 		},
 		"folder": {

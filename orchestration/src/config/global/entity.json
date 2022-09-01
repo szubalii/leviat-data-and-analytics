@@ -842,7 +842,6 @@
         "extraction_type": "Table",
         "update_mode": "Full",
         "base_table_name": "I_ProductSalesDelivery",
-        "pk_field_names": "PRODUCT, PRODUCTSALESORG, PRODUCTDISTRIBUTIONCHNL",
         "schedule_recurrence": "A"
       },
       {
@@ -3491,7 +3490,7 @@
           "update_mode": "Full",
           "base_table_name": "I_GLAccountLineItemRawData",
           "pk_field_names": "SOURCELEDGER, COMPANYCODE, FISCALYEAR, ACCOUNTINGDOCUMENT, LEDGERGLLINEITEM",
-          "schedule_recurrence": "D"
+          "schedule_recurrence": "A"
         },
         {
           "entity_id": 461,
@@ -3540,6 +3539,18 @@
           "base_table_name": "I_SupplierPurchasingOrg",
           "pk_field_names": "MANDT, SUPPLIER, PURCHASINGORGANIZATION",
           "schedule_recurrence": "D"
+        },
+        {
+          "entity_id": 468,
+          "entity_name": "I_GLAccountText_F",
+          "data_category": "TEXT",
+          "client_field": "MANDT",
+          "tool_name": "Theobald",
+          "extraction_type": "ODP",
+          "update_mode": "Full",
+          "base_table_name": "I_GLAccountText",
+          "pk_field_names": "CHARTOFACCOUNTS, GLACCOUNT, LANGUAGE",
+          "schedule_recurrence": "A"
         },     
         {
           "entity_id": 469,
@@ -3750,6 +3761,13 @@
         "base_table_name": "AX_Halfen_dbo_INVENTITEMPRICE",
         "pk_field_names": "DW_Id",
         "schedule_recurrence": "A"
+      },
+      {
+        "entity_id": 483,
+        "entity_name": "AX_Halfen_dbo_COMPANYINFO",
+        "base_table_name": "AX_Halfen_dbo_COMPANYINFO",
+        "pk_field_names": "DW_Id",
+        "schedule_recurrence": "A"
       }
     ]
   },
@@ -3909,6 +3927,27 @@
         "entity_id": 447,
         "entity_name": "FACT_INVENTTRANS",
         "base_table_name": "FACT_INVENTTRANS",
+        "pk_field_names": "DW_Id",
+        "schedule_recurrence": "A"
+      },
+      {
+        "entity_id": 480,
+        "entity_name": "FACT_PRODJOURNALPROD",
+        "base_table_name": "FACT_PRODJOURNALPROD",
+        "pk_field_names": "DW_Id",
+        "schedule_recurrence": "A"
+      },
+      {
+        "entity_id": 481,
+        "entity_name": "FACT_PURCHLINE",
+        "base_table_name": "FACT_PURCHLINE",
+        "pk_field_names": "DW_Id",
+        "schedule_recurrence": "A"
+      },
+      {
+        "entity_id": 482,
+        "entity_name": "DIM_VENDTABLE",
+        "base_table_name": "DIM_VENDTABLE",
         "pk_field_names": "DW_Id",
         "schedule_recurrence": "A"
       }
@@ -4570,7 +4609,7 @@
           "source_view_name": "vw_ACDOCA",
           "dest_table_name": "fact_ACDOCA",
           "execution_order": 1,
-          "schedule_recurrence": "A"
+          "schedule_recurrence": "D"
       },
       {
         "entity_id": 373,
@@ -4983,6 +5022,15 @@
         "source_view_name": "vw_RuleTotal",
         "dest_table_name": "fact_RuleTotal",
         "execution_order": 0,
+        "schedule_recurrence": "D"
+      },
+      {
+        "entity_id": 484,
+        "entity_name": "fact_MaterialDocumentItem_axbi",
+        "sproc_name": "sp_materialize_view",
+        "source_view_name": "vw_MaterialDocumentItem_axbi",
+        "dest_table_name": "fact_MaterialDocumentItem_axbi",
+        "execution_order": 1,
         "schedule_recurrence": "D"
       }
     ]

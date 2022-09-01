@@ -1,14 +1,14 @@
 {
     "nameGenerator": {
         "suffix": "",
-        "customName": "I_SupplierCompany",
+        "customName": "I_GLAccountText_F",
         "objectNamingMode": "Custom",
         "appendsTimestamp": true
     },
     "internalSettings": {
         "nameGenerator": {
             "suffix": "",
-            "customName": "I_SupplierCompany",
+            "customName": "I_GLAccountText_F",
             "objectNamingMode": "Custom",
             "appendsTimestamp": true
         },
@@ -23,6 +23,6 @@
     },
     "blobType": "BlockBlob",
     "columnNameKind": "Code",
-    "folderPath": "FACT/I_SupplierCompany/Theobald/Table/Full/In/#{ DateTime.Now.ToString(\"yyyy/MM/dd\") }#",
+    "folderPath": "TEXT/I_GLAccountText_F/Theobald/ODP/Full/In/#{ DateTime.Now.ToString(\"yyyy/MM/dd\") }#",
     "maxBlobSize": 0
 }
