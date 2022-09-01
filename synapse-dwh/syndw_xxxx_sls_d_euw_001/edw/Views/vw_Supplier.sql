@@ -1,9 +1,9 @@
 ﻿CREATE VIEW [edw].[vw_Supplier]
 	AS SELECT 
-	   [Supplier] AS [SupplierId]
-      ,Supplier.[SupplierAccountGroup] AS [SupplierAccountGroupId]
+	     [Supplier]                      AS [SupplierID]
+      ,[SupplierName] 
+      ,Supplier.[SupplierAccountGroup] AS [SupplierAccountGroupID]
       ,SupplierAccountGroupText.[AccountGroupName] AS [AccountGroup]
-      ,[SupplierName] AS [Supplier]
       ,[SupplierFullName]
       ,[IsBusinessPurposeCompleted]
       ,[CreatedByUser]
@@ -33,7 +33,8 @@
       ,[CityName]
       ,[PostalCode]
       ,[StreetName]
-      ,[Country]
+      ,Supplier.[Country]                        AS [CountryID]
+      ,Country.[CountryName]  
       ,[ConcatenatedInternationalLocNo]
       ,[SupplierProcurementBlock]
       ,[SuplrQualityManagementSystem]
@@ -67,8 +68,17 @@
       ,[TaxInvoiceRepresentativeName]
       ,[IndustryType]
       ,Supplier.t_applicationId
-    FROM [base_s4h_cax].[I_Supplier] Supplier
-    LEFT JOIN [base_s4h_cax].[I_SupplierAccountGroupText] SupplierAccountGroupText 
-      ON Supplier.[SupplierAccountGroup] = SupplierAccountGroupText.[SupplierAccountGroup]
-     AND SupplierAccountGroupText.[Language] = 'E' 
+    FROM 
+      [base_s4h_cax].[I_Supplier] Supplier
+    LEFT JOIN 
+      [base_s4h_cax].[I_SupplierAccountGroupText] SupplierAccountGroupText 
+      ON 
+        Supplier.[SupplierAccountGroup] = SupplierAccountGroupText.[SupplierAccountGroup]
+        AND 
+        SupplierAccountGroupText.[Language] = 'E' 
+     LEFT JOIN 
+      [base_s4h_cax].[I_CountryText] Country
+      ON
+        Supplier.[Country] = Country.[Country]
+      
   --  WHERE Supplier.[MANDT] = 200 AND SupplierAccountGroupText.[MANDT] = 200 MPS 2021/11/01: commented out due to different client values between dev,qas, and prod

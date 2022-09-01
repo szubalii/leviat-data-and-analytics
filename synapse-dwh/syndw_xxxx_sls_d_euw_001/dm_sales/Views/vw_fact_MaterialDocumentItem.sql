@@ -151,7 +151,7 @@
             ON  
                 dimPDT.[PurchasingDocumentTypeID]  = dimPD.[PurchasingDocumentType] 
                 AND
-                dimPDT.[PurchasingDocumentCategory]  = dimPD.[PurchasingDocumentCategory]             
+                dimPDT.[PurchasingDocumentCategory]  = dimPD.[PurchasingDocumentCategoryID]             
     LEFT JOIN 
         [edw].[dim_DeliveryDocument] dimDel 
             ON dimDel.DeliveryDocumentID = MDI.[HDR_ReferenceDocument]     
