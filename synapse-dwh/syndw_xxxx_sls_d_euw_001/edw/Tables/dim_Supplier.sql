@@ -70,7 +70,7 @@
   [t_jobDtm]                       DATETIME,
   [t_lastActionCd]                 VARCHAR(1),
   [t_jobBy]                        NVARCHAR(128)
-, CONSTRAINT [PK_dim_Supplier] PRIMARY KEY NONCLUSTERED ([SupplierId]) NOT ENFORCED
+, CONSTRAINT [PK_dim_Supplier] PRIMARY KEY NONCLUSTERED ([SupplierID]) NOT ENFORCED
 )
     WITH
         (

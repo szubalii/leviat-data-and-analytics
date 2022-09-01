@@ -27,7 +27,7 @@ CREATE VIEW [dm_sales].[vw_dim_PurchasingDocument]
       ON 
             dim_PDT.[PurchasingDocumentTypeID] = PD.[PurchasingDocumentTypeID]
          AND
-            dim_PDT.[PurchasingDocumentCategory] = PD.[PurchasingDocumentCategoryID]
+            dim_PDT.[PurchasingDocumentCategoryID] = PD.[PurchasingDocumentCategoryID]
    LEFT JOIN      
       [base_s4h_cax].[I_PurchasingOrganization] PO
       ON
