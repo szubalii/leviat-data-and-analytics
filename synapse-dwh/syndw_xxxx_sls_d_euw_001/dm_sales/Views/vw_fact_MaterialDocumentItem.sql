@@ -415,6 +415,6 @@ LEFT JOIN
 LEFT JOIN  
     [edw].[dim_PurchasingDocumentType] dimPDT 
         ON  
-            dimPDT.[PurchasingDocumentTypeID]  = dimPD.[PurchasingDocumentType] 
+            dimPDT.[PurchasingDocumentTypeID]  = dimPD.[PurchasingDocumentTypeID] 
             AND
-            dimPDT.[PurchasingDocumentCategory]  = dimPD.[PurchasingDocumentCategory]
+            dimPDT.[PurchasingDocumentCategoryID]  = dimPD.[PurchasingDocumentCategoryID]

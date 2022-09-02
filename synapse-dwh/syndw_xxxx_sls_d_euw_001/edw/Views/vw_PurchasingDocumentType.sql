@@ -1,8 +1,8 @@
 ﻿CREATE VIEW [edw].[vw_PurchasingDocumentType]
 	AS
 SELECT
-       PDT.[PurchasingDocumentType] as [PurchasingDocumentTypeID],
-       PDT.[PurchasingDocumentCategory],
+       PDT.[PurchasingDocumentType]     AS [PurchasingDocumentTypeID],
+       PDT.[PurchasingDocumentCategory] AS [PurchasingDocumentCategoryID],
        PDT.[PurgDocFieldSelControlKey],
        PDT.[PurgHasFlxblWorkflowApproval],
        PDTT.[PurchasingDocumentTypeName],
