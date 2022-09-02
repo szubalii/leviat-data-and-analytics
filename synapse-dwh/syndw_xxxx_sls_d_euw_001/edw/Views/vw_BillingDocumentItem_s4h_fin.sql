@@ -1927,9 +1927,9 @@ SELECT
 ,   BDI_CancellDocs.[t_applicationId]
 ,   BDI_CancellDocs.[t_extractionDtm]
 FROM
-    BDIFinancialsZZZDUMMYAllKPI BDI_AllKPI
+    BDIFinancialsZZZDUMMYAllKPI BDI_CancellDocs
 LEFT JOIN 
-    BDIFinancialsZZZDUMMYAllKPIWithoutS1 BDI_CancellDocs
+    BDIFinancialsZZZDUMMYAllKPIWithoutS1 BDI_AllKPI
     ON
         BDI_AllKPI.BillingDocument = BDI_CancellDocs.CancelledBillingDocument
         AND
@@ -1939,4 +1939,4 @@ LEFT JOIN
         AND
         BDI_AllKPI.Material = BDI_CancellDocs.Material
 WHERE
-    BDI_AllKPI.BillingDocumentTypeID = 'S1'
+    BDI_CancellDocs.BillingDocumentTypeID = 'S1'
