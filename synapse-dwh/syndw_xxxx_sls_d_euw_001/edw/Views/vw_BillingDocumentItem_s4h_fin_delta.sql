@@ -1935,7 +1935,7 @@ SELECT
 ,   BDI_AllKPI.[FinNetAmountOtherSales]*(-1) AS [FinNetAmountOtherSales]
 ,   BDI_AllKPI.[FinReserveCashDiscount]*(-1) AS [FinReserveCashDiscount]
 ,   BDI_AllKPI.[FinNetAmountAllowances]*(-1) AS [FinNetAmountAllowances]
-,   [FinSales100]
+,   BDI_CancellDocs.[FinSales100]
 ,   BDI_CancellDocs.[AccountingDate]
 ,   BDI_CancellDocs.[MaterialCalculated]
 ,   BDI_CancellDocs.[SoldToPartyCalculated]
