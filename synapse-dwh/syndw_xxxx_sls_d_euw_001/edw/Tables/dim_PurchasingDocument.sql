@@ -21,6 +21,5 @@ CREATE TABLE [edw].[dim_PurchasingDocument]
     [t_jobBy]                           NVARCHAR(128),
     CONSTRAINT [PK_dim_PurchasingDocument] PRIMARY KEY NONCLUSTERED (PurchasingDocumentID, PurchasingDocumentCategoryID) NOT ENFORCED
 )
-WITH
-    (DISTRIBUTION = REPLICATE, HEAP )
+WITH ( DISTRIBUTION = HASH (PurchasingDocumentID), CLUSTERED COLUMNSTORE INDEX )
 GO

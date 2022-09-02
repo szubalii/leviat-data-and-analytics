@@ -4949,7 +4949,7 @@
         "sproc_name": "sp_materialize_view",
         "source_view_name": "vw_PurchasingDocumentItem",
         "dest_table_name": "fact_PurchasingDocumentItem",
-        "execution_order": 1,
+        "execution_order": 0,
         "schedule_recurrence": "D"
       },
       {
@@ -4958,7 +4958,7 @@
         "sproc_name": "sp_materialize_view",
         "source_view_name": "vw_SupplierBankDetails",
         "dest_table_name": "dim_SupplierBankDetails",
-        "execution_order": 1,
+        "execution_order": 0,
         "schedule_recurrence": "D"
       },
       {
@@ -4967,7 +4967,7 @@
         "sproc_name": "sp_materialize_view",
         "source_view_name": "vw_SupplierCompany",
         "dest_table_name": "dim_SupplierCompany",
-        "execution_order": 1,
+        "execution_order": 0,
         "schedule_recurrence": "D"
       },
       {
@@ -4976,7 +4976,7 @@
         "sproc_name": "sp_materialize_view",
         "source_view_name": "vw_SupplierPurchasingOrg",
         "dest_table_name": "dim_SupplierPurchasingOrg",
-        "execution_order": 1,
+        "execution_order": 0,
         "schedule_recurrence": "D"
       },
       {
@@ -4985,7 +4985,7 @@
         "sproc_name": "sp_materialize_view",
         "source_view_name": "vw_SupplierInvoice",
         "dest_table_name": "fact_SupplierInvoice",
-        "execution_order": 1,
+        "execution_order": 0,
         "schedule_recurrence": "D"
       }
     ]

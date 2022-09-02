@@ -72,7 +72,6 @@ CREATE TABLE [edw].[fact_SupplierInvoice]
     [t_jobBy]                        NVARCHAR(128),
     CONSTRAINT [PK_fact_SupplierInvoice] PRIMARY KEY NONCLUSTERED ( [SupplierInvoiceID], [FiscalYear]) NOT ENFORCED
 )
-WITH
-    (DISTRIBUTION = REPLICATE, HEAP )
+WITH ( DISTRIBUTION = HASH (SupplierInvoiceID), CLUSTERED COLUMNSTORE INDEX )
 GO
 

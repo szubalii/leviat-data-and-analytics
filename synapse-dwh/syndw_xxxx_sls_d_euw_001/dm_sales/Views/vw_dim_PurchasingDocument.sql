@@ -13,7 +13,7 @@ CREATE VIEW [dm_sales].[vw_dim_PurchasingDocument]
       PD.[PurchasingOrganizationID],
       PO.[PurchasingOrganizationName]        AS [PurchasingOrganization],
       PD.[PurchasingGroupID],
-      PG.[PurchasingGroupName], 
+      PG.[PurchasingGroupName]               AS [PurchasingGroup], 
       PD.[PlantID],
       PD.[CompanyCodeID], 
       PD.[PurchasingProcessingStatusID],

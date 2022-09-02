@@ -4,7 +4,7 @@ SELECT
    PD.[PurchasingDocument]                AS [PurchasingDocumentID],
    PD.[Supplier]                          AS [SupplierID],
    PD.[PurchasingDocumentCategory]        AS [PurchasingDocumentCategoryID],
-   PD.[PurchasingDocumentType],
+   PD.[PurchasingDocumentType]            AS [PurchasingDocumentTypeID],
    PD.[CreationDate],
    PD.[CreatedByUser],
    PD.[CompanyCode]                       AS [CompanyCodeID],

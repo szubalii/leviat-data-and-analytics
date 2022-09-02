@@ -906,6 +906,8 @@
     <Build Include="dm_sales\Views\vw_dim_SupplierCompany.sql" />
     <Build Include="dm_sales\Views\vw_fact_PurchasingDocumentItem.sql" />
     <Build Include="dm_sales\Views\vw_fact_SupplierInvoice.sql" />
+    <Build Include="dm_sales\Views\vw_dim_PurchasingDocument.sql" />
+    <Build Include="dm_sales\Views\vw_dim_Supplier.sql" />      
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\Post-Deploy\Script.PostDeployment.sql" />
