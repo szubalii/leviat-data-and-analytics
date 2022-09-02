@@ -1,13 +1,13 @@
 {
-	"created": {
-		"machine": "[::ffff:84.82.142.194]:50969",
-		"timestamp": "20210702T034122.000Z"
-	},
-	"destination": "jbi-datalake-s4hana",
-	"lastChange": {
-		"machine": "[::ffff:84.82.142.194]:50969",
-		"timestamp": "20210702T034122.000Z"
-	},
-	"source": "CRH_Leviat_S4HANA_CAA",
-	"type": "Table"
+  "created": {
+    "machine": "[::ffff:84.82.142.194]:50969",
+    "timestamp": "20210702T034122.000Z"
+  },
+  "destination": "stxxxxslsaeuw001_s4h-caa-200",
+  "lastChange": {
+    "machine": "[::ffff:84.82.142.194]:50969",
+    "timestamp": "20210702T034122.000Z"
+  },
+  "source": "CRH_Leviat_S4HANA_CAA",
+  "type": "Table"
 }

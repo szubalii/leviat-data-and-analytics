@@ -3696,16 +3696,16 @@
           "schedule_recurrence": "A"
         },
         {
-          "base_table_name": "I_CapacityText",
-          "client_field": "MANDT",
-          "data_category": "TEXT",
           "entity_id": 495,
           "entity_name": "I_CapacityText",
-          "extraction_type": "Table",
-          "pk_field_names": "MANDT, CAPACITYINTERNALID,LANGUAGE",
-          "schedule_recurrence": "A",
+          "data_category": "TEXT",
+          "client_field": "MANDT",
           "tool_name": "Theobald",
-          "update_mode": "Full"
+          "extraction_type": "Table",
+          "update_mode": "Full",
+          "base_table_name": "I_CapacityText",
+          "pk_field_names": "MANDT, CAPACITYINTERNALID,LANGUAGE",
+          "schedule_recurrence": "A"
         }
     ]
   },
