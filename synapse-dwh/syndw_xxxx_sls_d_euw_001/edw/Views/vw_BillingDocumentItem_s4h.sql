@@ -1,6 +1,5 @@
 ﻿CREATE VIEW [edw].[vw_BillingDocumentItem_s4h]
 AS
-
 WITH BillingDocumentItemBase as (
     select 
           doc.[BillingDocument]                           as [BillingDocument]
@@ -83,61 +82,135 @@ WITH BillingDocumentItemBase as (
         , doc.[CustomerTaxClassification8]
         , doc.[CustomerTaxClassification9]
         , doc.[SDPricingProcedure]
-        , case
-            when doc.[ReturnItemProcessingType] = 'X' then doc.[NetAmount] * (-1) 
-            else 
-                doc.[NetAmount] end 
-                                                        as [NetAmount]
-        , doc.[TransactionCurrency]                       as [TransactionCurrencyID]
-        , case
-            when doc.[ReturnItemProcessingType] = 'X' then doc.[GrossAmount] * (-1) 
-            else 
-                doc.[GrossAmount] end 
-                                                        as [GrossAmount]
+        , CASE
+              WHEN 
+                  doc.[ReturnItemProcessingType] = 'X'
+                  OR                
+                  (doc.[BillingDocumentType] = 'ZG2'
+                  AND
+                  doc.[SalesDocumentItemCategory] = 'ZL2N')
+              THEN doc.[NetAmount] * (-1) 
+              ELSE 
+                  doc.[NetAmount]
+         END AS [NetAmount]
+        , doc.[TransactionCurrency]                       AS [TransactionCurrencyID]
+        , CASE
+              WHEN 
+                  doc.[ReturnItemProcessingType] = 'X'
+                  OR                
+                  (doc.[BillingDocumentType] = 'ZG2'
+                  AND
+                  doc.[SalesDocumentItemCategory] = 'ZL2N')
+              THEN doc.[GrossAmount] * (-1) 
+              ELSE 
+                  doc.[GrossAmount]
+          END AS [GrossAmount]
         , doc.[PricingDate]
         , doc.[PriceDetnExchangeRate]
         , doc.[PricingScaleQuantityInBaseUnit]
-        , case
-            when doc.[ReturnItemProcessingType] = 'X' then doc.[TaxAmount]  
-            else  
-                doc.[TaxAmount] * (-1) end 
-                                                        as [TaxAmount] 
-        , case 
-            when doc.[ReturnItemProcessingType] = 'X' then doc.[CostAmount]  
-            else 
-                doc.[CostAmount] * (-1) end                    as [CostAmount] 
-        , case 
-            when doc.[ReturnItemProcessingType] = 'X' then doc.[Subtotal1Amount] * (-1) 
-            else 
-                doc.[Subtotal1Amount] end               as [Subtotal1Amount] 
-        , case 
-            when doc.[ReturnItemProcessingType] = 'X' then doc.[Subtotal2Amount] * (-1) 
-            else 
-                doc.[Subtotal2Amount] end               as [Subtotal2Amount] 
-        , case 
-            when doc.[ReturnItemProcessingType] = 'X' then doc.[Subtotal3Amount] * (-1) 
-            else 
-                doc.[Subtotal3Amount] end               as [Subtotal3Amount] 
-        , case 
-            when doc.[ReturnItemProcessingType] = 'X' then doc.[Subtotal4Amount] * (-1) 
-            else 
-                doc.[Subtotal4Amount] end               as [Subtotal4Amount] 
-        , case 
-            when doc.[ReturnItemProcessingType] = 'X' then doc.[Subtotal5Amount] * (-1) 
-            else 
-                doc.[Subtotal5Amount] end               as [Subtotal5Amount] 
-        , case 
-            when doc.[ReturnItemProcessingType] = 'X' then doc.[Subtotal6Amount] * (-1) 
-            else 
-                doc.[Subtotal6Amount] end               as [Subtotal6Amount]
+        , CASE
+              WHEN 
+                  doc.[ReturnItemProcessingType] = 'X'
+                  OR                
+                  (doc.[BillingDocumentType] = 'ZG2'
+                  AND
+                  doc.[SalesDocumentItemCategory] = 'ZL2N')
+              THEN doc.[TaxAmount]  
+              ELSE  
+                  doc.[TaxAmount] * (-1)
+          END AS [TaxAmount] 
+        , CASE 
+              WHEN 
+                  doc.[ReturnItemProcessingType] = 'X'
+                  OR                
+                  (doc.[BillingDocumentType] = 'ZG2'
+                  AND
+                  doc.[SalesDocumentItemCategory] = 'ZL2N')
+              THEN doc.[CostAmount]  
+              ELSE 
+                  doc.[CostAmount] * (-1)
+          END AS [CostAmount]
+        , CASE             
+              WHEN 
+                  doc.[ReturnItemProcessingType] = 'X'
+                  OR                
+                  (doc.[BillingDocumentType] = 'ZG2'
+                  AND
+                  doc.[SalesDocumentItemCategory] = 'ZL2N')
+              THEN doc.[Subtotal1Amount] * (-1) 
+              ELSE 
+                  doc.[Subtotal1Amount]
+          END AS [Subtotal1Amount] 
+        , CASE 
+            WHEN 
+                doc.[ReturnItemProcessingType] = 'X'
+                OR                
+                (doc.[BillingDocumentType] = 'ZG2'
+                AND
+                doc.[SalesDocumentItemCategory] = 'ZL2N')
+            THEN doc.[Subtotal2Amount] * (-1) 
+            ELSE 
+                doc.[Subtotal2Amount]
+          END AS [Subtotal2Amount] 
+        , CASE 
+              WHEN 
+                  doc.[ReturnItemProcessingType] = 'X'
+                  OR                
+                  (doc.[BillingDocumentType] = 'ZG2'
+                  AND
+                  doc.[SalesDocumentItemCategory] = 'ZL2N')
+              THEN doc.[Subtotal3Amount] * (-1) 
+              ELSE 
+                  doc.[Subtotal3Amount]
+          END AS [Subtotal3Amount] 
+        , CASE 
+              WHEN 
+                  doc.[ReturnItemProcessingType] = 'X'
+                  OR                
+                  (doc.[BillingDocumentType] = 'ZG2'
+                  AND
+                  doc.[SalesDocumentItemCategory] = 'ZL2N')
+              THEN doc.[Subtotal4Amount] * (-1) 
+              ELSE 
+                  doc.[Subtotal4Amount]
+          END AS [Subtotal4Amount] 
+        , CASE 
+              WHEN 
+                  doc.[ReturnItemProcessingType] = 'X'
+                  OR                
+                  (doc.[BillingDocumentType] = 'ZG2'
+                  AND
+                  doc.[SalesDocumentItemCategory] = 'ZL2N')
+              THEN doc.[Subtotal5Amount] * (-1) 
+              ELSE 
+                  doc.[Subtotal5Amount]
+          END AS [Subtotal5Amount] 
+        , CASE 
+              WHEN 
+                  doc.[ReturnItemProcessingType] = 'X'
+                  OR                
+                  (doc.[BillingDocumentType] = 'ZG2'
+                  AND
+                  doc.[SalesDocumentItemCategory] = 'ZL2N')
+              THEN doc.[Subtotal6Amount] * (-1) 
+              ELSE 
+                  doc.[Subtotal6Amount]
+          END AS [Subtotal6Amount]
         , doc.[StatisticalValueControl]
         , doc.[StatisticsExchangeRate]
         , doc.[StatisticsCurrency]
         , doc.[SalesOrganizationCurrency]
-        , case
-            when doc.[ReturnItemProcessingType] = 'X' then doc.[EligibleAmountForCashDiscount] * (-1) 
-            else 
-                doc.[EligibleAmountForCashDiscount] end as [EligibleAmountForCashDiscount]
+        , CASE
+              WHEN 
+                  doc.[ReturnItemProcessingType] = 'X'
+                  OR                
+                  (doc.[BillingDocumentType] = 'ZG2'
+                  AND
+                  doc.[SalesDocumentItemCategory] = 'ZL2N')
+              THEN doc.[EligibleAmountForCashDiscount] * (-1) 
+              ELSE 
+                  doc.[EligibleAmountForCashDiscount]
+          END AS [EligibleAmountForCashDiscount]
         , doc.[ContractAccount]
         , doc.[CustomerPaymentTerms]
         , doc.[PaymentMethod]
@@ -193,13 +266,27 @@ WITH BillingDocumentItemBase as (
         , doc.[IncotermsLocation1]
         , doc.[IncotermsLocation2]
         , doc.[ShippingCondition]
-        , case
-            when doc.[ReturnItemProcessingType] = 'X' then [BillingQuantity] * (-1)
-            else
-                [BillingQuantity] end                   as QuantitySold 
-        , case 
-            when doc.[ReturnItemProcessingType] = 'X' then (doc.[NetAmount] - doc.[CostAmount]) * (-1) 
-            else doc.[NetAmount] - doc.[CostAmount] end as GrossMargin
+        , CASE
+              WHEN 
+                  doc.[ReturnItemProcessingType] = 'X'
+                  OR                
+                  (doc.[BillingDocumentType] = 'ZG2'
+                  AND
+                  doc.[SalesDocumentItemCategory] = 'ZL2N')
+              THEN [BillingQuantity] * (-1)
+              ELSE
+                  [BillingQuantity]
+          END AS QuantitySold 
+        , CASE 
+              WHEN 
+                  doc.[ReturnItemProcessingType] = 'X'
+                  OR                
+                  (doc.[BillingDocumentType] = 'ZG2'
+                  AND
+                  doc.[SalesDocumentItemCategory] = 'ZL2N')
+              THEN (doc.[NetAmount] - doc.[CostAmount]) * (-1) 
+              ELSE doc.[NetAmount] - doc.[CostAmount]
+          END AS GrossMargin
         , ZB.Customer                                     as ExternalSalesAgentID
         , ZB.FullName                                     as ExternalSalesAgent
         , ZP.Customer                                     as ProjectID
