@@ -1939,4 +1939,4 @@ LEFT JOIN
         AND
         BDI_AllKPI.Material = BDI_CancellDocs.Material
 WHERE
-    BDI_CancellDocs.BillingDocumentTypeID = 'S1'
+    BDI_AllKPI.BillingDocumentTypeID = 'S1'
