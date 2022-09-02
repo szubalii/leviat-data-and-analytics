@@ -1927,9 +1927,9 @@ SELECT
 ,   BDI_CancellDocs.[t_applicationId]
 ,   BDI_CancellDocs.[t_extractionDtm]
 FROM
-    BDIFinancialsZZZDUMMYAllKPI BDI_AllKPI
+    BDIFinancialsZZZDUMMYAllKPI BDI_CancellDocs
 LEFT JOIN 
-    BDIFinancialsZZZDUMMYAllKPIWithoutS1 BDI_CancellDocs
+    BDIFinancialsZZZDUMMYAllKPIWithoutS1 BDI_AllKPI
     ON
         BDI_AllKPI.BillingDocument = BDI_CancellDocs.CancelledBillingDocument
         AND
