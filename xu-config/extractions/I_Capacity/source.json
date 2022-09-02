@@ -1,0 +1,226 @@
+{
+    "name": "IPPCAPACITY$P",
+    "description": "Capacity Header",
+    "guid": "9e111b75-197c-4ebb-b257-3689ca08b5d4",
+    "semantics": "MasterDataOrAttributes",
+    "context": "ABAP_CDS",
+    "supportsFull": true,
+    "supportsDelta": false,
+    "mode": "Full",
+    "transferDataOnDeltaInit": true,
+    "columns": [
+        {
+            "name": "CAPACITYINTERNALID",
+            "description": "Capacity ID",
+            "abapType": "NumericCharacterString",
+            "length": 8,
+            "isPrimaryKey": true,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 8
+        },
+        {
+            "name": "CAPACITY",
+            "description": "Capacity name",
+            "abapType": "CharacterString",
+            "length": 8,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 8
+        },
+        {
+            "name": "CAPACITYCATEGORYCODE",
+            "description": "Capacity category",
+            "abapType": "CharacterString",
+            "length": 3,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 3
+        },
+        {
+            "name": "CAPACITYACTIVEVERSION",
+            "description": "Available capacity version",
+            "abapType": "NumericCharacterString",
+            "length": 2,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 2
+        },
+        {
+            "name": "CAPACITYISFINITE",
+            "description": "Yes\/No field",
+            "abapType": "CharacterString",
+            "length": 1,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 1
+        },
+        {
+            "name": "CAPACITYISPOOLED",
+            "description": "Yes\/No field",
+            "abapType": "CharacterString",
+            "length": 1,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 1
+        },
+        {
+            "name": "CAPACITYHASINDIVCAPACITIES",
+            "description": "Yes\/No field",
+            "abapType": "CharacterString",
+            "length": 1,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 1
+        },
+        {
+            "name": "CAPACITYISEXCLDFRMLONGTERMPLNG",
+            "description": "Yes\/No field",
+            "abapType": "CharacterString",
+            "length": 1,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 1
+        },
+        {
+            "name": "CAPACITYNUMBEROFCAPACITIES",
+            "description": "Number of individual capacities",
+            "abapType": "TwoByteInteger",
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 5
+        },
+        {
+            "name": "CAPACITYRESPONSIBLEPLANNER",
+            "description": "Capacity planner group",
+            "abapType": "CharacterString",
+            "length": 3,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 3
+        },
+        {
+            "name": "CAPACITYPLANUTILIZATIONPERCENT",
+            "description": "Three-digit numerical value",
+            "abapType": "NumericCharacterString",
+            "length": 3,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 3
+        },
+        {
+            "name": "CAPACITYBREAKDURATION",
+            "description": "4 Byte Signed Integer",
+            "abapType": "FourByteInteger",
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 11
+        },
+        {
+            "name": "CAPISUSEDINMULTIOPERATIONS",
+            "description": "Yes\/No field",
+            "abapType": "CharacterString",
+            "length": 1,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 1
+        },
+        {
+            "name": "REFERENCEDCAPACITYINTERNALID",
+            "description": "Capacity ID",
+            "abapType": "NumericCharacterString",
+            "length": 8,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 8
+        },
+        {
+            "name": "CAPOVERLOADTHRESHOLDINPERCENT",
+            "description": "Three-digit numerical value",
+            "abapType": "NumericCharacterString",
+            "length": 3,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 3
+        },
+        {
+            "name": "PLANT",
+            "description": "Plant",
+            "abapType": "CharacterString",
+            "length": 4,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 4
+        },
+        {
+            "name": "FACTORYCALENDAR",
+            "description": "Factory calendar ID",
+            "abapType": "CharacterString",
+            "length": 2,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 2
+        },
+        {
+            "name": "AUTHORIZATIONGROUP",
+            "description": "Authorization Group",
+            "abapType": "CharacterString",
+            "length": 4,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 4
+        },
+        {
+            "name": "SHIFTGROUP",
+            "description": "Grouping for Shift Definitions and Shift Sequences",
+            "abapType": "CharacterString",
+            "length": 2,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 2
+        },
+        {
+            "name": "CAPACITYSTARTTIME",
+            "description": "4 Byte Signed Integer",
+            "abapType": "FourByteInteger",
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 11
+        },
+        {
+            "name": "CAPACITYENDTIME",
+            "description": "4 Byte Signed Integer",
+            "abapType": "FourByteInteger",
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 11
+        },
+        {
+            "name": "CAPACITYQUANTITYUNIT",
+            "description": "Units of Measurement of Various Types",
+            "abapType": "CharacterString",
+            "length": 3,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 3
+        },
+        {
+            "name": "CAPACITYBASEQTYUNIT",
+            "description": "Units of Measurement of Various Types",
+            "abapType": "CharacterString",
+            "length": 3,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 3
+        },
+        {
+            "name": "CAPACITYLASTCHANGEDATETIME",
+            "description": "UTC time stamp in long form (YYYYMMDDhhmmss,mmmuuun)",
+            "abapType": "PackedNumber",
+            "length": 17,
+            "decimalCount": 7,
+            "isSelected": true,
+            "outputLength": 19
+        }
+    ]
+}
