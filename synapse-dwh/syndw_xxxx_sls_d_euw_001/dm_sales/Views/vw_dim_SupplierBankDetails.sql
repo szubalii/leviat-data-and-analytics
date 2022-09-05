@@ -4,7 +4,7 @@ CREATE VIEW [dm_sales].[vw_dim_SupplierBankDetails]
   [SupplierID],
   [BankCountryID],
   [BankID],
-  [BankAccountID]
+  [BankAccountID],
   [t_applicationId],
   [t_extractionDtm]
 FROM 
