@@ -3682,6 +3682,30 @@
           "base_table_name": "I_PurgDocumentItemCategory",
           "pk_field_names": "MANDT, PURCHASINGDOCUMENTITEMCATEGORY",
           "schedule_recurrence": "D"
+        },
+        {
+          "entity_id": 494,
+          "entity_name": "I_Capacity",
+          "data_category": "DIMENSION",
+          "client_field": "MANDT",
+          "tool_name": "Theobald",
+          "extraction_type": "ODP",
+          "update_mode": "Full",
+          "base_table_name": "I_Capacity",
+          "pk_field_names": "MANDT, CAPACITYINTERNALID",
+          "schedule_recurrence": "A"
+        },
+        {
+          "entity_id": 495,
+          "entity_name": "I_CapacityText",
+          "data_category": "TEXT",
+          "client_field": "MANDT",
+          "tool_name": "Theobald",
+          "extraction_type": "Table",
+          "update_mode": "Full",
+          "base_table_name": "I_CapacityText",
+          "pk_field_names": "MANDT, CAPACITYINTERNALID,LANGUAGE",
+          "schedule_recurrence": "A"
         }
     ]
   },

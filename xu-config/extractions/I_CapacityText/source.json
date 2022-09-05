@@ -1,0 +1,51 @@
+{
+  "functionName": "Z_THEO_READ_TABLE",
+  "runInBackgroundJob": false,
+  "tables": [
+    {
+      "name": "IPPCAPACITYTEXT",
+      "description": "Generated Table for View I_CapacityText: Capacity Text",
+      "isView": true,
+      "fields": [
+        {
+          "name": "MANDT",
+          "description": "Client (key field in client-specific tables)",
+          "abapType": "CharacterString",
+          "length": 3,
+          "isPrimaryKey": true,
+          "isSelected": true,
+          "checkTable": "T000",
+          "conversionExit": ""
+        },
+        {
+          "name": "CAPACITYINTERNALID",
+          "description": "Capacity ID",
+          "abapType": "NumericCharacterString",
+          "length": 8,
+          "isPrimaryKey": true,
+          "isSelected": true,
+          "checkTable": "KAKO",
+          "conversionExit": ""
+        },
+        {
+          "name": "LANGUAGE",
+          "description": "Language Key",
+          "abapType": "CharacterString",
+          "length": 1,
+          "isPrimaryKey": true,
+          "isSelected": true,
+          "checkTable": "T002",
+          "conversionExit": "ISOLA"
+        },
+        {
+          "name": "CAPACITYTEXT",
+          "description": "Text (40 characters)",
+          "abapType": "CharacterString",
+          "length": 40,
+          "isSelected": true,
+          "conversionExit": ""
+        }
+      ]
+    }
+  ]
+}
