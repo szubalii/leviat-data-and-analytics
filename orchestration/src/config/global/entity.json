@@ -3692,7 +3692,7 @@
           "extraction_type": "ODP",
           "update_mode": "Full",
           "base_table_name": "I_Capacity",
-          "pk_field_names": "MANDT, CAPACITYINTERNALID",
+          "pk_field_names": "CAPACITYINTERNALID",
           "schedule_recurrence": "A"
         },
         {
