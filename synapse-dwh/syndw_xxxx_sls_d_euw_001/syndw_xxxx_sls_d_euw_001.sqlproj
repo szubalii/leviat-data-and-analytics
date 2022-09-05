@@ -909,7 +909,10 @@
     <Build Include="dm_sales\Views\vw_dim_PurchasingDocument.sql" />
     <Build Include="dm_sales\Views\vw_dim_Supplier.sql" />
     <Build Include="base_s4h_cax\Tables\I_Capacity.sql" />
-    <Build Include="base_s4h_cax\Tables\I_CapacityText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_CapacityCategoryText.sql" />
+    <Build Include="edw\Tables\dim_WorkCenterCapacity.sql" />
+    <Build Include="edw\Views\vw_WorkCenterCapacity.sql" />
+    <Build Include="dm_sales\Views\vw_dim_WorkCenterCapacity.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\Post-Deploy\Script.PostDeployment.sql" />

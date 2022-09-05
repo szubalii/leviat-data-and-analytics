@@ -3695,18 +3695,18 @@
           "pk_field_names": "CAPACITYINTERNALID",
           "schedule_recurrence": "A"
         },
-        {
-          "entity_id": 495,
-          "entity_name": "I_CapacityText",
-          "data_category": "TEXT",
-          "client_field": "MANDT",
-          "tool_name": "Theobald",
-          "extraction_type": "Table",
-          "update_mode": "Full",
-          "base_table_name": "I_CapacityText",
-          "pk_field_names": "MANDT, CAPACITYINTERNALID,LANGUAGE",
-          "schedule_recurrence": "A"
-        }
+      {
+        "entity_id": 495,
+        "entity_name": "I_CapacityCategoryText",
+        "data_category": "TEXT",
+        "client_field": "MANDT",
+        "tool_name": "Theobald",
+        "extraction_type": "Table",
+        "update_mode": "Full",
+        "base_table_name": "I_CapacityText",
+        "pk_field_names": "MANDT, CAPACITYCATEGORYCODE,LANGUAGE",
+        "schedule_recurrence": "A"
+      }
     ]
   },
   "c4c": {
@@ -4627,13 +4627,13 @@
         "schedule_recurrence": "A"
       },
       {
-          "entity_id": 370,
-          "entity_name": "fact_ACDOCA",
-          "sproc_name": "sp_materialize_view",
-          "source_view_name": "vw_ACDOCA",
-          "dest_table_name": "fact_ACDOCA",
-          "execution_order": 1,
-          "schedule_recurrence": "D"
+        "entity_id": 370,
+        "entity_name": "fact_ACDOCA",
+        "sproc_name": "sp_materialize_view",
+        "source_view_name": "vw_ACDOCA",
+        "dest_table_name": "fact_ACDOCA",
+        "execution_order": 1,
+        "schedule_recurrence": "D"
       },
       {
         "entity_id": 373,
@@ -5009,6 +5009,15 @@
         "sproc_name": "sp_materialize_view",
         "source_view_name": "vw_SupplierInvoice",
         "dest_table_name": "fact_SupplierInvoice",
+        "execution_order": 0,
+        "schedule_recurrence": "D"
+      },
+      {
+        "entity_id": 496,
+        "entity_name": "dim_WorkCenterCapacity",
+        "sproc_name": "sp_materialize_view",
+        "source_view_name": "vw_dim_WorkCenterCapacity",
+        "dest_table_name": "dim_WorkCenterCapacity",
         "execution_order": 0,
         "schedule_recurrence": "D"
       }

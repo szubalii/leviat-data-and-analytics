@@ -2,7 +2,7 @@
 	"nameGenerator": {
 		"suffix": "",
 		"objectNamingMode": "Custom",
-		"customName": "I_CapacityText",
+		"customName": "I_CapacityCategoryText",
 		"appendsTimestamp": true
 	},
 	"internalSettings": {
@@ -16,6 +16,6 @@
 	},
 	"blobType": "BlockBlob",
 	"columnNameKind": "Code",
-	"folderPath": "TEXT/I_CapacityText/Theobald/Table/Full/In/#{ DateTime.Now.ToString(\"yyyy/MM/dd\") }#",
+	"folderPath": "TEXT/I_CapacityCategoryText/Theobald/Table/Full/In/#{ DateTime.Now.ToString(\"yyyy/MM/dd\") }#",
 	"maxBlobSize": 0
 }
