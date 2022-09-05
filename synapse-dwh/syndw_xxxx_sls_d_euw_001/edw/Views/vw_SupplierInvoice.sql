@@ -73,4 +73,4 @@ CREATE VIEW [edw].[vw_SupplierInvoice]
     [base_s4h_cax].[I_CountryText] Country
   ON
     SuppInv.[SupplyingCountry] collate Latin1_General_100_BIN2 = Country.[Country]
-          
+  and [Language] = 'E'
