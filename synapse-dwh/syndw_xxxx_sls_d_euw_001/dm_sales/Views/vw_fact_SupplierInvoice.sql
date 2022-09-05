@@ -1,4 +1,4 @@
-CREATE VIEW [dbo].[vw_fact_SupplierInvoice]
+CREATE VIEW [dm_sales].[vw_fact_SupplierInvoice]
   AS 
   SELECT
     [SupplierInvoiceID],
