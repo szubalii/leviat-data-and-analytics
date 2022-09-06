@@ -3703,7 +3703,7 @@
         "tool_name": "Theobald",
         "extraction_type": "Table",
         "update_mode": "Full",
-        "base_table_name": "I_CapacityText",
+        "base_table_name": "I_CapacityCategoryText",
         "pk_field_names": "MANDT, CAPACITYCATEGORYCODE,LANGUAGE",
         "schedule_recurrence": "A"
       }
