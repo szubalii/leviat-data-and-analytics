@@ -914,6 +914,8 @@
     <Build Include="edw\Views\vw_WorkCenterCapacity.sql" />
     <Build Include="dm_sales\Views\vw_dim_WorkCenterCapacity.sql" />
     <Build Include="edw\Tables\fact_ManufacturingOrder.sql" />
+    <Build Include="edw\Views\vw_ManufacturingOrder.sql" />
+    <Build Include="dm_sales\Views\vw_fact_ManufacturingOrder.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\Post-Deploy\Script.PostDeployment.sql" />
