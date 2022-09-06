@@ -11,7 +11,6 @@
     [OrderIsPartiallyDelivered]     NVARCHAR(1),
     [SalesOrder]                    NVARCHAR(10),
     [SalesOrderItem]                NVARCHAR(6),
-    [HDR_ActualGoodsMovementDate]   DATE,
     [Material]                      NVARCHAR(40),
     [MfgOrderPlannedTotalQty]       DECIMAL(13,3),
     [MfgOrderPlannedScrapQty]       DECIMAL(13,3),

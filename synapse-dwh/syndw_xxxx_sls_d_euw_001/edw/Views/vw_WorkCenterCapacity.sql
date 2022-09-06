@@ -26,3 +26,5 @@ LEFT JOIN
     [base_s4h_cax].[I_CapacityCategoryText] ICCT
     ON
         WCC.[CapacityCategoryCode] = ICCT.[CapacityCategoryCode]
+        AND
+        ICCT.[Language] = 'E'

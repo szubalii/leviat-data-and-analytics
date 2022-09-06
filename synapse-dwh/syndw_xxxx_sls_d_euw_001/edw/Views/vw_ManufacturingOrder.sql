@@ -12,7 +12,6 @@ SELECT
     ,   MFGOWS.[OrderIsPartiallyDelivered]
     ,   MFGOWS.[SalesOrder]
     ,   MFGOWS.[SalesOrderItem]
-    ,   ODI.[HDR_ActualGoodsMovementDate]
     ,   MFGO.[Material]
     ,   MFGO.[MfgOrderPlannedTotalQty]
     ,   MFGO.[MfgOrderPlannedScrapQty]
@@ -49,10 +48,4 @@ LEFT JOIN
 LEFT JOIN
     [base_s4h_cax].[I_MfgOrderWithStatus] MFGOWS
     ON
-        MFGO.[ManufacturingOrder] = MFGOWS.[ManufacturingOrder]        
-LEFT JOIN
-    [edw].[vw_OutboundDeliveryItem_s4h] ODI
-    ON 
-        MFGOWS.[SalesOrder] = ODI.[ReferenceSDDocument]
-        AND
-        MFGOWS.[SalesOrderItem] = ODI.[ReferenceSDDocumentItem]
+        MFGO.[ManufacturingOrder] = MFGOWS.[ManufacturingOrder]
