@@ -650,7 +650,7 @@ BDwithConditionAmountFreight AS (
     ,   BDIwithMatType.[t_lastActionDtm]
     ,   BDIwithMatType.[t_filePath]          
     ,   BDexclZVERandZSER.FinNetAmountSumBD
-    ,   BDwithZVER.NetAmountZVER
+    ,   ISNULL(BDwithZVER.NetAmountZVER,0) AS NetAmountZVER
     ,   BDwithZSER.NetAmountZSER
     ,   ISNULL(BDwithFreight.NetAmountFreight,0) AS NetAmountFreight
     ,   ISNULL(BDwithMinQty.NetAmountMinQty,0) AS NetAmountMinQty
