@@ -913,6 +913,7 @@
     <Build Include="edw\Tables\dim_WorkCenterCapacity.sql" />
     <Build Include="edw\Views\vw_WorkCenterCapacity.sql" />
     <Build Include="dm_sales\Views\vw_dim_WorkCenterCapacity.sql" />
+    <Build Include="edw\Tables\fact_ManufacturingOrder.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\Post-Deploy\Script.PostDeployment.sql" />
