@@ -1,0 +1,5 @@
+C:\Users\Michiel_Pors\source\repos\leviat-data-and-analytics\testDWH\bin\Debug\testDWH.dacpac
+C:\Users\Michiel_Pors\source\repos\leviat-data-and-analytics\testDWH\bin\Debug\testDWH.dll
+C:\Users\Michiel_Pors\source\repos\leviat-data-and-analytics\testDWH\bin\Debug\testDWH.pdb
+C:\Users\Michiel_Pors\source\repos\leviat-data-and-analytics\testDWH\obj\Debug\testDWH.dll
+C:\Users\Michiel_Pors\source\repos\leviat-data-and-analytics\testDWH\obj\Debug\testDWH.pdb

@@ -1,10 +1,10 @@
-CREATE PROCEDURE [utilities].[sp_process_axbi_delta](
+CREATE PROCEDURE [utilities].[sp_process_axbi_delta]
     @schema_name VARCHAR(128),
     @table_name VARCHAR(128),
     @pk_field_names VARCHAR(MAX)
-)
+
 AS
-BEGIN TRANSACTION
+BEGIN
 
     DECLARE
         @schema_name VARCHAR(128) = 'base_dw_halfen_2_dwh_uat',
@@ -71,13 +71,13 @@ BEGIN TRANSACTION
         );
 
     -- INSERT
-    EXEC [utilities].[sp_process_axbi_delta_insert]
-        @schema_name,
-        @table_name,
-        @columns,
-        @pk_field_names,
-        @join_clause
-    ;
+    -- EXEC [utilities].[sp_process_axbi_delta_insert]
+    --     @schema_name,
+    --     @table_name,
+    --     @columns,
+    --     @pk_field_names,
+    --     @join_clause
+    -- ;
 
     -- UPDATE
     EXEC [utilities].[sp_process_axbi_delta_update]
@@ -97,6 +97,4 @@ BEGIN TRANSACTION
     ;
 
 
-COMMIT TRANSACTION;
-
-select PATINDEX('%Invoiceno%', 'Invoiceno,Posno')
+END;

@@ -3,8 +3,5 @@
   <PropertyGroup>
     <StartupScript>(Blank)</StartupScript>
     <StartAction>StartNone</StartAction>
-    <SqlCmdVar__1>stxxxxslsdeuw001</SqlCmdVar__1>
-    <SqlCmdVar__2>testpassword</SqlCmdVar__2>
-    <CreateNewDatabase>False</CreateNewDatabase>
   </PropertyGroup>
 </Project>
