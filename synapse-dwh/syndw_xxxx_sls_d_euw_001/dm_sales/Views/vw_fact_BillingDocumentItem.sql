@@ -46,8 +46,8 @@ WITH original AS (
          , doc.[CancelledInvoiceEffect]
          --, doc.[ServicesRenderedDate]
          , doc.[BillingQuantity] 
-         --, dimBQU.[UnitOfMeasureID] as [BillingQuantityUnitID]
-         --, dimBQU.[UnitOfMeasure] as [BillingQuantityUnit]
+         , doc.[BillingQuantityUnitID]
+         , dimBQU.[UnitOfMeasure] as [BillingQuantityUnit]
          --, doc.[ItemGrossWeight]
          --, doc.[ItemNetWeight]
          --, doc.[ItemWeightUnit]
@@ -194,8 +194,8 @@ WITH original AS (
              left join [edw].[dim_Plant] dimP on dimP.[PlantID] = doc.[PlantID]
              left join [edw].[dim_StorageLocation] dimSL
                        on dimSL.[StorageLocationID] = doc.[StorageLocationID] and dimSL.[Plant] = doc.[PlantID]
-             --left join [edw].[dim_UnitOfMeasure] dimBQU
-                       --on dimBQU.[UnitOfMeasureID] = doc.[BillingQuantityUnitID]
+             left join [edw].[dim_UnitOfMeasure] dimBQU
+                       on dimBQU.[UnitOfMeasureID] = doc.[BillingQuantityUnitID]
              --left join [edw].[dim_PriceListType] dimPT
                        --on dimPT.[PriceListTypeID] = doc.[PriceListTypeID]
              left join [edw].[dim_CustomerAccountAssignmentGroup] dimCAAG
@@ -259,8 +259,8 @@ SELECT [BillingDocument]
       ,[CancelledInvoiceEffect]
       --,[ServicesRenderedDate]
       ,[BillingQuantity]
-      --,[BillingQuantityUnitID]
-      --,[BillingQuantityUnit]
+      ,[BillingQuantityUnitID]
+      ,[BillingQuantityUnit]
       --,[ItemGrossWeight]
       --,[ItemNetWeight]
       --,[ItemWeightUnit]
