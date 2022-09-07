@@ -5,15 +5,16 @@ SELECT
     ,   WCC.[Plant]
     ,   WCC.[WorkCenter]
     ,   WCC.[WorkCenterCategoryCode]
+    ,   WCCT.[WorkCenterCategoryName]
     ,   WCC.[CapacityInternalID]
     ,   WCC.[CapacityCategoryCode]
+    ,   ICCT.[CapacityCategoryName]
     ,   WCC.[ValidityStartDate]
     ,   WCC.[ValidityEndDate]
     ,   IC.[CapacityBreakDuration]
     ,   IC.[CapacityStartTime]
     ,   IC.[CapacityEndTime]
     ,   ((IC.[CapacityEndTime] - IC.[CapacityStartTime] - IC.[CapacityBreakDuration])/60)/60 AS [DailyCapacityHrs]
-    ,   ICCT.[CapacityCategoryName]
     ,   WCC.[t_applicationId]
     ,   WCC.[t_extractionDtm]
 FROM
@@ -28,3 +29,9 @@ LEFT JOIN
         WCC.[CapacityCategoryCode] = ICCT.[CapacityCategoryCode]
         AND
         ICCT.[Language] = 'E'
+LEFT JOIN 
+    [base_s4h_cax].[I_WorkCenterCategoryText] WCCT
+    ON
+        WCC.[WorkCenterCategoryCode] = WCCT.[WorkCenterCategoryCode]
+        AND
+        WCCT.[Language] = 'E'

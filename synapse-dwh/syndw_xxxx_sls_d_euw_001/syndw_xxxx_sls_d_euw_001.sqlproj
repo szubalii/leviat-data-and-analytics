@@ -916,6 +916,8 @@
     <Build Include="edw\Tables\fact_ManufacturingOrder.sql" />
     <Build Include="edw\Views\vw_ManufacturingOrder.sql" />
     <Build Include="dm_sales\Views\vw_fact_ManufacturingOrder.sql" />
+    <Build Include="base_s4h_cax\Tables\I_MfgOrderCategoryText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_WorkCenterCategoryText.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\Post-Deploy\Script.PostDeployment.sql" />

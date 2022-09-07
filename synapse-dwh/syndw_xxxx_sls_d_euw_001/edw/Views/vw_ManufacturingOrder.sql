@@ -3,6 +3,7 @@ AS
 SELECT
         MFGO.[ManufacturingOrder]
     ,   MFGO.[ManufacturingOrderCategory]
+    ,   MNGCT.[ManufacturingOrderCategoryName]
     ,   MFGOPR.[ManufacturingOrderOperation]
     ,   MFGOPR.[OpActualExecutionStartDate]
     ,   MFGOPR.[OpActualExecutionStartTime]
@@ -49,3 +50,9 @@ LEFT JOIN
     [base_s4h_cax].[I_MfgOrderWithStatus] MFGOWS
     ON
         MFGO.[ManufacturingOrder] = MFGOWS.[ManufacturingOrder]
+LEFT JOIN
+    [base_s4h_cax].[I_MfgOrderCategoryText] MNGCT
+    ON
+        MFGO.[ManufacturingOrderCategory] = MNGCT.[ManufacturingOrderCategory]
+        AND
+        MNGCT.[Language] = 'E'

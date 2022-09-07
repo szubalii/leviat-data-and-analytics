@@ -3,6 +3,7 @@ AS
 SELECT
         MFGO.[ManufacturingOrder]
     ,   MFGO.[ManufacturingOrderCategory]
+    ,   MFGO.[ManufacturingOrderCategoryName]
     ,   MFGO.[ManufacturingOrderOperation]
     ,   MFGO.[OpActualExecutionStartDate]
     ,   MFGO.[OpActualExecutionStartTime]
