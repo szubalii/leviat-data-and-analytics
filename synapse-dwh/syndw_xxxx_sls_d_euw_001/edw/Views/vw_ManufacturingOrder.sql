@@ -2,8 +2,8 @@
 AS
 SELECT
         MFGO.[ManufacturingOrder]
-    ,   MFGO.[ManufacturingOrderCategory]
-    ,   MNGCT.[ManufacturingOrderCategoryName]
+    ,   MFGO.[ManufacturingOrderCategory] AS [ManufacturingOrderCategoryID]
+    ,   MNGCT.[ManufacturingOrderCategoryName] AS [ManufacturingOrderCategory]
     ,   MFGOPR.[ManufacturingOrderOperation]
     ,   MFGOPR.[OpActualExecutionStartDate]
     ,   MFGOPR.[OpActualExecutionStartTime]
@@ -52,7 +52,7 @@ LEFT JOIN
     ON
         MFGO.[ManufacturingOrder] = MFGOWS.[ManufacturingOrder]
 LEFT JOIN
-    [edw].[vw_OutboundDeliveryItem_s4h] ODI
+    [edw].[fact_OutboundDeliveryItem] ODI
     ON 
         MFGOWS.[SalesOrder] = ODI.[ReferenceSDDocument]
         AND

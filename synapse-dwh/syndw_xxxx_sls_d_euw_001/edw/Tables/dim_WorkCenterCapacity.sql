@@ -4,7 +4,7 @@
     [Plant]                     NVARCHAR(4),
     [WorkCenter]                NVARCHAR(8),
     [WorkCenterCategoryCode]    NVARCHAR(4),
-    [WorkCenterCategoryName]    NVARCHAR(20),
+    [WorkCenterCategory]        NVARCHAR(20),
     [CapacityInternalID]        CHAR(8),
     [CapacityCategoryCode]      NVARCHAR(3),
     [CapacityCategoryName]      NVARCHAR(40),

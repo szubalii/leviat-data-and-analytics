@@ -5,7 +5,7 @@ SELECT
     ,   [Plant]
     ,   [WorkCenter]
     ,   [WorkCenterCategoryCode]
-    ,   [WorkCenterCategoryName]
+    ,   [WorkCenterCategory]
     ,   [CapacityInternalID]
     ,   [CapacityCategoryCode]
     ,   [CapacityCategoryName]

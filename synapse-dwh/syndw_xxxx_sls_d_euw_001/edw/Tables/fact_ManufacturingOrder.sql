@@ -1,8 +1,8 @@
 ﻿CREATE TABLE [edw].[fact_ManufacturingOrder]
 (
     [ManufacturingOrder]                NVARCHAR(12)    NOT NULL,
-    [ManufacturingOrderCategory]        CHAR(2),
-    [ManufacturingOrderCategoryName]    NVARCHAR(60),
+    [ManufacturingOrderCategoryID]      CHAR(2),
+    [ManufacturingOrderCategory]        NVARCHAR(60),
     [ManufacturingOrderOperation]       NVARCHAR(4)     NOT NULL,
     [OpActualExecutionStartDate]        DATE,
     [OpActualExecutionStartTime]        TIME(0),

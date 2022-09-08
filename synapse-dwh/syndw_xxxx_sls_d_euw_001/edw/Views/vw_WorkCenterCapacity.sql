@@ -5,7 +5,7 @@ SELECT
     ,   WCC.[Plant]
     ,   WCC.[WorkCenter]
     ,   WCC.[WorkCenterCategoryCode]
-    ,   WCCT.[WorkCenterCategoryName]
+    ,   WCCT.[WorkCenterCategoryName] AS [WorkCenterCategory]
     ,   WCC.[CapacityInternalID]
     ,   WCC.[CapacityCategoryCode]
     ,   ICCT.[CapacityCategoryName]

@@ -5041,7 +5041,7 @@
         "entity_id": 496,
         "entity_name": "dim_WorkCenterCapacity",
         "sproc_name": "sp_materialize_view",
-        "source_view_name": "vw_dim_WorkCenterCapacity",
+        "source_view_name": "vw_WorkCenterCapacity",
         "dest_table_name": "dim_WorkCenterCapacity",
         "execution_order": 0,
         "schedule_recurrence": "D"
@@ -5052,7 +5052,7 @@
         "sproc_name": "sp_materialize_view",
         "source_view_name": "vw_ManufacturingOrder",
         "dest_table_name": "fact_ManufacturingOrder",
-        "execution_order": 0,
+        "execution_order": 5,
         "schedule_recurrence": "D"
       }
     ]

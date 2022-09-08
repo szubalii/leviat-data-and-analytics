@@ -2,8 +2,8 @@
 AS
 SELECT
         MFGO.[ManufacturingOrder]
+    ,   MFGO.[ManufacturingOrderCategoryID]
     ,   MFGO.[ManufacturingOrderCategory]
-    ,   MFGO.[ManufacturingOrderCategoryName]
     ,   MFGO.[ManufacturingOrderOperation]
     ,   MFGO.[OpActualExecutionStartDate]
     ,   MFGO.[OpActualExecutionStartTime]
