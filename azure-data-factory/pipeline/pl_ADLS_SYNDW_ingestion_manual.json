@@ -193,7 +193,7 @@
 			},
 			"base_table_name": {
 				"type": "string",
-				"defaultValue": "FACT_HGDAWA_active_basic"
+				"defaultValue": "FACT_HGDAWA_active"
 			},
 			"directory_path": {
 				"type": "string",
