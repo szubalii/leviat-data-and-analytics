@@ -100,15 +100,15 @@ FROM
 LEFT JOIN
     [edw].[dim_SAPItemNumberBasicMappingTable] SINMT 
     ON
-        FINV.[ITEMID] = SINMT.AXItemnumber
+        FINV.[ITEMID] = SINMT.[AXItemnumber]
         AND
-        UPPER(SINMT.[AXDataAreaId]) = UPPER(DATAAREAID)
+        UPPER(SINMT.[AXDataAreaId]) = UPPER(FINV.[DATAAREAID])
         AND
         SINMT.[SAPProductID] IS NOT NULL
 LEFT JOIN
-    [base_tx_halfen_2_dwh].[DIM_INVENTDIM] dmINV
+ [base_tx_halfen_2_dwh].[DIM_INVENTDIM] dmINV
     ON
-        dmINV.INVENTDIMID = FINV.INVENTDIMID
+        dmINV.[INVENTDIMID] = FINV.[INVENTDIMID]
 LEFT JOIN
     [base_tx_halfen_2_dwh].[FACT_SALESLINE] SL
     ON
@@ -121,6 +121,8 @@ LEFT JOIN
     [base_tx_halfen_2_dwh].[DIM_INVENTTABLE] dmINVTBL
     ON
         FINV.[ITEMID] = dmINVTBL.[ITEMID]
+        AND 
+        FINV.[DATAAREAID] = dmINVTBL.[DATAAREAID]
 LEFT JOIN
     [base_dw_halfen_1_stg].[AX_Halfen_dbo_COMPANYINFO] AX_Cmpny
     ON
@@ -138,73 +140,73 @@ LEFT JOIN
     ON
         FINV.[INVENTTRANSID] = FCPLT.[INVENTTRANSID]
 WHERE
-    FINV.[STATUSRECEIPT] in ('1','2')
-    AND
-    FINV.[STATUSISSUE] in ('1','2')
+    (FINV.[STATUSRECEIPT] in ('1','2')
+    OR
+    FINV.[STATUSISSUE] in ('1','2'))
     AND
     FINV.[DATEPHYSICAL]<>''
     AND 
-    dmATRNS.ENUMID = '107'
+    dmATRNS.[ENUMID] = '107'
     AND
-    dmINVTBL.ITEMTYPE <> '2'
+    dmINVTBL.[ITEMTYPE] <> '2'
     AND
-    dmINVTBL.HPLBUSINESSRULESTATUSID NOT IN ('0000.NEW ITEM', '9999.NOT ACTIVE')
+    dmINVTBL.[HPLBUSINESSRULESTATUSID] NOT IN ('0000.NEW ITEM', '9999.NOT ACTIVE')
     AND
-    LEFT(dmINVTBL.ITEMID,4) <> '9910'
+    LEFT(dmINVTBL.[ITEMID],4) <> '9910'
     AND
-    dmINVTBL.HPLSTATISTICGROUPID <> 'YYYY'
+    dmINVTBL.[HPLSTATISTICGROUPID] <> 'YYYY'
 ),
 CQtySOInBU AS(
-SELECT
-        DATAAREAID
-    ,   PlantID
-    ,   INVENTLOCATIONID
-    ,   MaterialID
-    ,   GoodsMovementTypeID
-    ,   TRANSTYPENAME
-    ,   SUM(MatlStkChangeQtyInBaseUnit) as ConsumptionQtySOInBaseUnit
+SELECT 
+        [DATAAREAID]
+    ,   [PlantID]
+    ,   [INVENTLOCATIONID]
+    ,   [MaterialID]
+    ,   [GoodsMovementTypeID]
+    ,   [TRANSTYPENAME]
+    ,   SUM([MatlStkChangeQtyInBaseUnit]) as [ConsumptionQtySOInBaseUnit]
 FROM
     INVTRANS
 WHERE
-    GoodsMovementTypeID = '1'
+    [GoodsMovementTypeID] = '1'
 GROUP BY
-        DATAAREAID
-    ,   PlantID
-    ,   INVENTLOCATIONID
-    ,   MaterialID
-    ,   GoodsMovementTypeID
-    ,   TRANSTYPENAME
+        [DATAAREAID]
+    ,   [PlantID]
+    ,   [INVENTLOCATIONID]
+    ,   [MaterialID]
+    ,   [GoodsMovementTypeID]
+    ,   [TRANSTYPENAME]
 ),
 CQtyOBDProInBU AS(
-SELECT
-        DATAAREAID
-    ,   PlantID
-    ,   INVENTLOCATIONID
-    ,   MaterialID
-    ,   GoodsMovementTypeID
-    ,   TRANSTYPENAME
-    ,   SUM(MatlStkChangeQtyInBaseUnit) as ConsumptionQtyOBDProInBaseUnit
+SELECT  
+        [DATAAREAID]
+    ,   [PlantID]
+    ,   [INVENTLOCATIONID]
+    ,   [MaterialID]
+    ,   [GoodsMovementTypeID]
+    ,   [TRANSTYPENAME]
+    ,   SUM([MatlStkChangeQtyInBaseUnit]) as [ConsumptionQtyOBDProInBaseUnit]
 FROM
     INVTRANS
 WHERE
-    GoodsMovementTypeID = '2'
+    [GoodsMovementTypeID] = '2'
 GROUP BY
-        DATAAREAID
-    ,   PlantID
-    ,   INVENTLOCATIONID
-    ,   MaterialID
-    ,   GoodsMovementTypeID
-    ,   TRANSTYPENAME
+        [DATAAREAID]
+    ,   [PlantID]
+    ,   [INVENTLOCATIONID]
+    ,   [MaterialID]
+    ,   [GoodsMovementTypeID]
+    ,   [TRANSTYPENAME]
 ),
 CQtyOICPInBU AS(
 SELECT
-        INVT.DATAAREAID
-    ,   PlantID
-    ,   INVENTLOCATIONID
-    ,   INVT.MaterialID
-    ,   GoodsMovementTypeID
-    ,   TRANSTYPENAME
-    ,   SUM(MatlStkChangeQtyInBaseUnit) as ConsumptionQtyICPOInBaseUnit
+        INVT.[DATAAREAID]
+    ,   [PlantID]
+    ,   [INVENTLOCATIONID]
+    ,   INVT.[MaterialID]
+    ,   [GoodsMovementTypeID]
+    ,   [TRANSTYPENAME]
+    ,   SUM([MatlStkChangeQtyInBaseUnit]) as [ConsumptionQtyICPOInBaseUnit]
 FROM
     INVTRANS INVT
 LEFT JOIN
@@ -215,28 +217,32 @@ LEFT JOIN
         INVT.[MaterialID] = FP.[ITEMID]
         AND
         INVT.[INVENTTRANSID] = FP.[INVENTTRANSID]
-LEFT JOIN
+LEFT JOIN 
     [base_tx_halfen_2_dwh].[DIM_VENDTABLE] dmVend
         ON
-        FP.[VENDACCOUNT] = dmVend.[ACCOUNTNUM]
+        FP.[VENDACCOUNT] = CAST(dmVend.[ACCOUNTNUM] AS NVARCHAR(20))
 WHERE
-    INVT.GoodsMovementTypeID = '3'
+    INVT.[GoodsMovementTypeID] = '3'
     AND
     dmVend.[ACCOUNTNUM] = '200'
 GROUP BY
-        INVT.DATAAREAID
-    ,   PlantID
-    ,   INVENTLOCATIONID
-    ,   INVT.MaterialID
-    ,   GoodsMovementTypeID
-    ,   TRANSTYPENAME
+        INVT.[DATAAREAID]
+    ,   [PlantID]
+    ,   [INVENTLOCATIONID]
+    ,   INVT.[MaterialID]
+    ,   [GoodsMovementTypeID]
+    ,   [TRANSTYPENAME]
 ),
 AvgPricePerUnit AS(
 SELECT
         [MaterialID]
     ,   [PlantID]
-    ,   [DATAAREAID]
-    ,   SUM(MatlStkChangeQtyInBaseUnit)/SUM([CostAmount_Total]) as AvgPrice
+    ,   [DATAAREAID]    
+    ,   CASE
+            WHEN ISNULL(SUM([CostAmount_Total]),0) != 0
+            THEN SUM([MatlStkChangeQtyInBaseUnit])/SUM([CostAmount_Total])
+            ELSE 0
+        END AS [AvgPrice]
 FROM
     INVTRANS INVT
 GROUP BY
@@ -246,15 +252,15 @@ GROUP BY
 ),
 EuroExchangeRate AS (
     SELECT 
-        SourceCurrency
-        ,ExchangeRateEffectiveDate
-        ,ExchangeRate
+         [SourceCurrency]
+        ,[ExchangeRateEffectiveDate]
+        ,[ExchangeRate]
     FROM 
         edw.dim_ExchangeRates
     WHERE
-        ExchangeRateType = 'ZAXBIBUD'
+        [ExchangeRateType] = 'ZAXBIBUD'
         and
-        TargetCurrency = 'EUR'
+        [TargetCurrency] = 'EUR'
 ),
 ExchangeRateEuro as (
     SELECT
@@ -337,9 +343,9 @@ FROM
 LEFT JOIN
     INVTRANS AS INV
     ON
-        INV.MaterialDocument = ExchangeRateEuro.MaterialDocument
+        INV.[MaterialDocument] = ExchangeRateEuro.[MaterialDocument]
         AND
-        INV.MaterialDocumentItem = ExchangeRateEuro.MaterialDocument        
+        INV.[MaterialDocumentItem] = ExchangeRateEuro.[MaterialDocumentItem]
 LEFT JOIN
     [edw].[vw_SDDocumentCategory] vwSDDC
     ON 
@@ -449,5 +455,3 @@ SELECT
     ,   INV_QTY.[t_extractionDtm]
 FROM
     INVTRANS_QTY AS INV_QTY
-
-
