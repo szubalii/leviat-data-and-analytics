@@ -8,7 +8,7 @@ SELECT
     ,   [WorkCenterCategory]
     ,   [CapacityInternalID]
     ,   [CapacityCategoryCode]
-    ,   [CapacityCategoryName]
+    ,   [CapacityCategory]
     ,   [ValidityStartDate]
     ,   [ValidityEndDate]
     ,   [CapacityBreakDuration]

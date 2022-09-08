@@ -7,7 +7,7 @@
     [WorkCenterCategory]        NVARCHAR(20),
     [CapacityInternalID]        CHAR(8),
     [CapacityCategoryCode]      NVARCHAR(3),
-    [CapacityCategoryName]      NVARCHAR(40),
+    [CapacityCategory]          NVARCHAR(40),
     [ValidityStartDate]         DATE,
     [ValidityEndDate]           DATE,
     [CapacityBreakDuration]     INT,
