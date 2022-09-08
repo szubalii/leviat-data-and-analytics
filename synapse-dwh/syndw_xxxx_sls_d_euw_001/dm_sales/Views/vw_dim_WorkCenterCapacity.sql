@@ -1,0 +1,21 @@
+﻿CREATE VIEW [dm_sales].[vw_dim_WorkCenterCapacity]
+AS
+SELECT
+        [WorkCenterInternalID]
+    ,   [Plant]
+    ,   [WorkCenter]
+    ,   [WorkCenterCategoryCode]
+    ,   [WorkCenterCategory]
+    ,   [CapacityInternalID]
+    ,   [CapacityCategoryCode]
+    ,   [CapacityCategory]
+    ,   [ValidityStartDate]
+    ,   [ValidityEndDate]
+    ,   [CapacityBreakDuration]
+    ,   [CapacityStartTime]
+    ,   [CapacityEndTime]
+    ,   [DailyCapacityHrs]
+    ,   [t_applicationId]
+    ,   [t_extractionDtm]
+FROM
+    [edw].[dim_WorkCenterCapacity]
