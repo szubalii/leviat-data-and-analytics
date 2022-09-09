@@ -3,7 +3,8 @@ CREATE VIEW [dm_sales].[vw_fact_SupplierInvoiceItemPurOrdRef]
   SELECT 
     [SupplierInvoice],              
     [FiscalYear],                     
-    [SupplierInvoiceItem],          
+    [SupplierInvoiceItem],  
+    [sk_fact_PurchasingDocumentItem],
     [PurchaseOrder],                
     [PurchaseOrderItem]           
   FROM

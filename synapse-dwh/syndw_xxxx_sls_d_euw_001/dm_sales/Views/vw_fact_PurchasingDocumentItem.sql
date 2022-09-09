@@ -2,6 +2,7 @@
 CREATE VIEW [dm_sales].[vw_fact_PurchasingDocumentItem]
 AS
 SELECT 
+  [sk_fact_PurchasingDocumentItem],
   [PurchasingDocument],
   [PurchasingDocumentItem],
   [MaterialID],
