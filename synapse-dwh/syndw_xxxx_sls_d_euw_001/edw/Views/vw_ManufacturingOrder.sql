@@ -57,6 +57,10 @@ LEFT JOIN
         MFGOWS.[SalesOrder] = ODI.[ReferenceSDDocument] COLLATE Latin1_General_100_BIN2 
         AND
         MFGOWS.[SalesOrderItem] = ODI.[ReferenceSDDocumentItem]
+        AND 
+        MFGOWS.[SalesOrder] <>''
+        AND
+        MFGOWS.[SalesOrderItem] <>'000000'
 LEFT JOIN
     [base_s4h_cax].[I_MfgOrderCategoryText] MNGCT
     ON
