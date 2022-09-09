@@ -25,6 +25,7 @@ SELECT
     , dimIST.[InventoryStockTypeName]
     , MDI.[StockOwner]
     , MDI.[GoodsMovementTypeID]
+    , dimGMT.[GoodsMovementTypeName]
     , MDI.[DebitCreditCode]
     , MDI.[InventoryUsabilityCode]
     , MDI.[QuantityInBaseUnit]
@@ -155,6 +156,10 @@ SELECT
                 dimPVs.[CalendarYear] =  FORMAT(MDI.[HDR_PostingDate],'yyyy')
                 AND
                 dimPVs.[CalendarMonth] = FORMAT(MDI.[HDR_PostingDate],'MM')
+    LEFT JOIN
+        [edw].[dim_GoodsMovementType] dimGMT
+            ON 
+                dimGMT.GoodsMovementTypeID = MDI.[GoodsMovementTypeID]
     
     UNION ALL
     
@@ -182,10 +187,11 @@ SELECT
     , NULL AS [InventoryStockTypeName]
     , NULL AS [StockOwner]
     , MDI_axbi.[GoodsMovementTypeID]
+    , MDI_axbi.[GoodsMovementTypeName]
     , NULL AS [DebitCreditCode]
     , NULL AS [InventoryUsabilityCode]
     , NULL AS [QuantityInBaseUnit]
-    , NULL AS [MaterialBaseUnitID]
+    , MDI_axbi.[MaterialBaseUnitID]
     , NULL AS [QuantityInEntryUnit]
     , NULL AS [EntryUnitID]
     , MDI_axbi.[HDR_PostingDate]
@@ -302,7 +308,7 @@ SELECT
     , MDIU.[InventoryStockTypeName]
     , MDIU.[StockOwner]
     , MDIU.[GoodsMovementTypeID]
-    , dimGMT.[GoodsMovementTypeName]
+    , MDIU.[GoodsMovementTypeName]
     , MDIU.[DebitCreditCode]
     , MDIU.[InventoryUsabilityCode]
     , MDIU.[QuantityInBaseUnit]
@@ -404,10 +410,6 @@ SELECT
     , MDIU.[t_extractionDtm]
 FROM
     MDI_UNION MDIU
-LEFT JOIN
-    [edw].[dim_GoodsMovementType] dimGMT
-        ON 
-            dimGMT.GoodsMovementTypeID = MDIU.[GoodsMovementTypeID]
 LEFT JOIN 
     [edw].[dim_PurchasingDocument] dimPD 
         ON 
