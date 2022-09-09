@@ -5011,6 +5011,15 @@
         "dest_table_name": "fact_SupplierInvoice",
         "execution_order": 0,
         "schedule_recurrence": "D"
+      },
+      {
+        "entity_id": 500,
+        "entity_name": "fact_SupplierInvoiceItemPurOrdRef",
+        "sproc_name": "sp_materialize_view",
+        "source_view_name": "vw_SupplierInvoiceItemPurOrdRef",
+        "dest_table_name": "fact_SupplierInvoiceItemPurOrdRef",
+        "execution_order": 0,
+        "schedule_recurrence": "D"
       }
     ]
   },

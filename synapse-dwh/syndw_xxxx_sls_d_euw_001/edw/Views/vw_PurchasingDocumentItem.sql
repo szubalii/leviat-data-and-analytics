@@ -1,27 +1,9 @@
 CREATE VIEW [edw].[vw_PurchasingDocumentItem]
 AS 
-WITH CTE_SupplierInvoiceWithoutReverseDoc AS (
-    SELECT
-        siipor.SupplierInvoice,
-        siipor.PurchaseOrder,
-        siipor.PurchaseOrderItem
-    FROM
-        base_s4h_cax.I_SupplierInvoiceItemPurOrdRef siipor
-    JOIN
-        base_s4h_cax.I_SupplierInvoice si
-        ON
-            si.SupplierInvoice = siipor.SupplierInvoice
-            AND
-            ISNULL(si.ReverseDocument, '') = ''
-    GROUP BY        
-        siipor.SupplierInvoice,
-        siipor.PurchaseOrder,
-        siipor.PurchaseOrderItem
-),
-CTE_PurgDocScheduleLineHasNextDelivery as (
+WITH CTE_PurgDocScheduleLineHasNextDelivery as (
     SELECT 
-        [PurchasingDocument]              AS [PurchasingDocumentID],
-        [PurchasingDocumentItem]          AS [PurchasingDocumentItemID],
+        [PurchasingDocument],
+        [PurchasingDocumentItem],
         sum([ScheduleLineOpenQuantity])   AS [ScheduleLineOpenQuantity],
         max([ScheduleLineDeliveryDate])   AS [ScheduleLineDeliveryDate]         
     FROM 
@@ -33,9 +15,8 @@ CTE_PurgDocScheduleLineHasNextDelivery as (
         [PurchasingDocumentItem]
 )   
 SELECT 
-    PDI.[PurchasingDocument]                                      AS [PurchasingDocumentID],
-    PDI.[PurchasingDocumentItem]                                  AS [PurchasingDocumentItemID],
-    SIWRD.[SupplierInvoice]                                       AS [SupplierInvoiceID],
+    PDI.[PurchasingDocument],
+    PDI.[PurchasingDocumentItem],
     PDI.[Material]                                                AS [MaterialID],
     PDI.[DocumentCurrency]                                        AS [DocumentCurrencyID],
     PDI.[Plant]                                                   AS [PlantID],
@@ -56,15 +37,9 @@ SELECT
     PDI.[t_extractionDtm]       
 FROM 
   [base_s4h_cax].[I_PurchasingDocumentItem] AS PDI
-  LEFT JOIN
-      CTE_SupplierInvoiceWithoutReverseDoc SIWRD
-      ON
-          SIWRD.PurchaseOrder = PDI.PurchasingDocument
-          AND
-          SIWRD.PurchaseOrderItem = PDI.PurchasingDocumentItem
   LEFT JOIN 
       CTE_PurgDocScheduleLineHasNextDelivery PDSLHND
       ON
-          PDSLHND.[PurchasingDocumentID] = PDI.[PurchasingDocument]
+          PDSLHND.[PurchasingDocument] = PDI.[PurchasingDocument]
           AND 
-          PDSLHND.[PurchasingDocumentItemID] = PDI.[PurchasingDocumentItem]
+          PDSLHND.[PurchasingDocumentItem] = PDI.[PurchasingDocumentItem]

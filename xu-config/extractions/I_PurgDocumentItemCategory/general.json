@@ -4,12 +4,12 @@
         "timestamp": "20220826T114405.039Z",
         "user": "EMATCRHPP\\rbarannik"
     },
-    "destination": "stxxxxslsaeuw001_s4h-caa",
+    "destination": "stxxxxslsdeuw001_s4h-cad-200",
     "lastChange": {
         "machine": "WEALEVAPP001",
         "timestamp": "20220826T114505.271Z",
         "user": "EMATCRHPP\\rbarannik"
     },
-    "source": "CRH_Leviat_S4HANA_CAA",
+    "source": "CRH_Leviat_S4HANA_CAD_200",
     "type": "Table"
 }

@@ -1,13 +1,13 @@
 CREATE TABLE [edw].[fact_PurchasingDocumentItem]
 (
 
-    [PurchasingDocumentID]             nvarchar(10) collate Latin1_General_100_BIN2 NOT NULL,
-    [PurchasingDocumentItemID]         char(5) collate Latin1_General_100_BIN2      NOT NULL,
-    [MaterialID]                         nvarchar(40) collate Latin1_General_100_BIN2,
+    [PurchasingDocument]               nvarchar(10) collate Latin1_General_100_BIN2 NOT NULL,
+    [PurchasingDocumentItem]           char(5) collate Latin1_General_100_BIN2      NOT NULL,
+    [MaterialID]                       nvarchar(40) collate Latin1_General_100_BIN2,
     [DocumentCurrencyID]               nchar(5) collate Latin1_General_100_BIN2,
 --edw.vw_Currency	Currency		X	PurchaseOrderCurrency		
     [PlantID]                          nvarchar(4) collate Latin1_General_100_BIN2,
-    [CompanyCodeID]                      nvarchar(4) collate Latin1_General_100_BIN2,
+    [CompanyCodeID]                    nvarchar(4) collate Latin1_General_100_BIN2,
     [MaterialGroupID]                  nvarchar(9) collate Latin1_General_100_BIN2,
     [PurchaseContract]                 nvarchar(10) collate Latin1_General_100_BIN2,
     [PurchaseContractItem]             char(5) collate Latin1_General_100_BIN2,
@@ -26,8 +26,8 @@ CREATE TABLE [edw].[fact_PurchasingDocumentItem]
     [t_jobDtm]                         DATETIME,
     [t_lastActionCd]                   VARCHAR(1),
     [t_jobBy]                          NVARCHAR(128),
-    CONSTRAINT [PK_fact_PurchasingDocumentItem] PRIMARY KEY NONCLUSTERED ([PurchasingDocumentID], [PurchasingDocumentItemID]) NOT ENFORCED
+    CONSTRAINT [PK_fact_PurchasingDocumentItem] PRIMARY KEY NONCLUSTERED ([PurchasingDocument], [PurchasingDocumentItem]) NOT ENFORCED
 )
-WITH ( DISTRIBUTION = HASH (PurchasingDocumentID), CLUSTERED COLUMNSTORE INDEX )
+WITH ( DISTRIBUTION = HASH (PurchasingDocument), CLUSTERED COLUMNSTORE INDEX )
 GO
 

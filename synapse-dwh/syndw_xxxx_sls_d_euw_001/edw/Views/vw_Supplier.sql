@@ -81,5 +81,6 @@
       [base_s4h_cax].[I_CountryText] Country
       ON
         Supplier.[Country] = Country.[Country]
-                  
+        AND 
+        Country.[Language] = 'E'        
   --  WHERE Supplier.[MANDT] = 200 AND SupplierAccountGroupText.[MANDT] = 200 MPS 2021/11/01: commented out due to different client values between dev,qas, and prod
