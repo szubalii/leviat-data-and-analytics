@@ -1,5 +1,5 @@
 {
-    "functionName": "/SAPDS/RFC_READ_TABLE2",
+    "functionName": "Z_THEO_READ_TABLE",
     "runInBackgroundJob": false,
     "tables": [
         {

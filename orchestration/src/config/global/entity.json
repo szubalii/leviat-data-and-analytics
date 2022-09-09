@@ -5054,6 +5054,15 @@
         "dest_table_name": "fact_ManufacturingOrder",
         "execution_order": 5,
         "schedule_recurrence": "D"
+      },
+      {
+        "entity_id": 500,
+        "entity_name": "fact_SupplierInvoiceItemPurOrdRef",
+        "sproc_name": "sp_materialize_view",
+        "source_view_name": "vw_SupplierInvoiceItemPurOrdRef",
+        "dest_table_name": "fact_SupplierInvoiceItemPurOrdRef",
+        "execution_order": 1,
+        "schedule_recurrence": "D"
       }
     ]
   },
