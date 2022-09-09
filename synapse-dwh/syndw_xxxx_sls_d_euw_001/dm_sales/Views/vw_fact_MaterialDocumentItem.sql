@@ -25,7 +25,7 @@ SELECT
     , dimIST.[InventoryStockTypeName]
     , MDI.[StockOwner]
     , MDI.[GoodsMovementTypeID]
-    , dimGMT.[GoodsMovementTypeName]
+    , dimGMT.[GoodsMovementTypeName] COLLATE Latin1_General_100_BIN2 as GoodsMovementTypeName
     , MDI.[DebitCreditCode]
     , MDI.[InventoryUsabilityCode]
     , MDI.[QuantityInBaseUnit]
