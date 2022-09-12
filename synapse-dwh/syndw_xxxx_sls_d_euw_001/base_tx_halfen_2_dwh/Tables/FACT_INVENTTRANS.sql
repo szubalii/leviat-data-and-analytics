@@ -40,6 +40,7 @@ CREATE TABLE [base_tx_halfen_2_dwh].[FACT_INVENTTRANS]
 	[VOUCHERPHYSICAL] 			    NVARCHAR(20) NULL,
 	[TRANSREFID] 				    NVARCHAR(20) NULL,
 	[INVENTREFTRANSID] 			    NVARCHAR(24) NULL,	
+	[DIRECTION]						INT NULL,
 	[DW_Batch]                		BIGINT NULL,
 	[DW_SourceCode]           		VARCHAR(15) NOT NULL,
 	[DW_TimeStamp]            		DATETIME NOT NULL, 
