@@ -40,6 +40,7 @@ CREATE TABLE [edw].[fact_SupplierInvoiceItemPurOrdRef]
     [t_jobDtm]                                  DATETIME,
     [t_jobBy]                                   NVARCHAR(128),
     [t_extractionDtm]                           DATETIME,
+    [t_lastActionCd]                            VARCHAR(1),
     [t_filePath]                                NVARCHAR(1024),
     CONSTRAINT [PK_fact_SupplierInvoiceItemPurOrdRef] PRIMARY KEY NONCLUSTERED ([SupplierInvoice], [FiscalYear], [SupplierInvoiceItem]) NOT ENFORCED
 )
