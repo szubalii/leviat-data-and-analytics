@@ -6,6 +6,8 @@ CREATE VIEW [dm_sales].[vw_fact_SupplierInvoiceItemPurOrdRef]
     [SupplierInvoiceItem],  
     [sk_fact_PurchasingDocumentItem],
     [PurchaseOrder],                
-    [PurchaseOrderItem]           
+    [PurchaseOrderItem],
+    [QuantityInPurchaseOrderUnit],
+    [SupplierInvoiceItemAmount]  
   FROM
     [edw].[fact_SupplierInvoiceItemPurOrdRef]

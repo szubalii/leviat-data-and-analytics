@@ -5,7 +5,8 @@ CREATE VIEW [dm_sales].[vw_fact_SupplierInvoice]
     [FiscalYear],
     [InvoicingPartyID],
     [CompanyCodeID],
-    [DocumentDate] 
+    [DocumentDate],
+    [CreationDate], 
     [PostingDate],  
     [SupplyingCountryID],
     [SupplyingCountry],   

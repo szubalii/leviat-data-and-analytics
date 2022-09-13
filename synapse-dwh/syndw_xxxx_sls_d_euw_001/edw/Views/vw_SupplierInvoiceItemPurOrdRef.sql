@@ -35,7 +35,7 @@ CREATE VIEW [edw].[vw_SupplierInvoiceItemPurOrdRef]
     SIIPOR.[SuplrInvcItemHasOtherVariance],  
     SIIPOR.[SuplrInvcItemHasAmountOutsdTol], 
     SIIPOR.[SuplrInvcItmHasQualityVariance], 
-    SIIPOR.[IsOnlineSupplierInvoiceItem],    
+    SIIPOR.[IsOnlineSupplierInvoiceItem],   
     SIIPOR.[t_applicationId],
     SIIPOR.[t_extractionDtm]
   FROM 
@@ -43,6 +43,12 @@ CREATE VIEW [edw].[vw_SupplierInvoiceItemPurOrdRef]
   LEFT JOIN 
     [edw].[fact_PurchasingDocumentItem] factPDI
     ON 
-    SIIPOR.[PurchaseOrder] = factPDI.[PurchasingDocument]
-    AND     
-    SIIPOR.[PurchaseOrderItem] = factPDI.[PurchasingDocumentItem]    
+      SIIPOR.[PurchaseOrder] = factPDI.[PurchasingDocument]
+      AND     
+      SIIPOR.[PurchaseOrderItem] = factPDI.[PurchasingDocumentItem]
+  JOIN 
+    [edw].[fact_SupplierInvoice] fact_SpI 
+    ON 
+      fact_SpI.[SupplierInvoiceID] = SIIPOR.[SupplierInvoice]
+      AND
+      fact_SpI.[FiscalYear] = SIIPOR.[FiscalYear]
