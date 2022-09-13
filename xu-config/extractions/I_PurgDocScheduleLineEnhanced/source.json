@@ -1,15 +1,18 @@
 {
     "functionName": "Z_THEO_READ_TABLE",
     "runInBackgroundJob": false,
-    "tables": [
+    "backgroundJobTimeout": 180,
+    "tables": 
+    [
         {
             "name": "IPDSCHLINEEXT",
             "description": "Generated Table for View I_PurgDocScheduleLineEnhanced: Schedule Line of Purchasing Document – Enhanced",
             "isView": true,
-            "fields": [
+            "fields": 
+            [
                 {
                     "name": "MANDT",
-                    "description": "Client (key field in client-specific tables)",
+                    "description": "Client",
                     "abapType": "CharacterString",
                     "length": 3,
                     "isPrimaryKey": true,
@@ -19,7 +22,7 @@
                 },
                 {
                     "name": "PURCHASINGDOCUMENT",
-                    "description": "Purchasing document number",
+                    "description": "Purchasing Document Number",
                     "abapType": "CharacterString",
                     "length": 10,
                     "isPrimaryKey": true,
@@ -29,7 +32,7 @@
                 },
                 {
                     "name": "PURCHASINGDOCUMENTITEM",
-                    "description": "Item in purchasing document",
+                    "description": "Item Number of Purchasing Document",
                     "abapType": "NumericCharacterString",
                     "length": 5,
                     "isPrimaryKey": true,
@@ -39,7 +42,7 @@
                 },
                 {
                     "name": "SCHEDULELINE",
-                    "description": "SD document schedule line",
+                    "description": "Schedule Line Number",
                     "abapType": "NumericCharacterString",
                     "length": 4,
                     "isPrimaryKey": true,
@@ -48,7 +51,7 @@
                 },
                 {
                     "name": "PROCUREMENTHUBSOURCESYSTEM",
-                    "description": "PROCUREMENTHUBSOURCESYSTEM",
+                    "description": "Connected System ID",
                     "abapType": "CharacterString",
                     "length": 10,
                     "isPrimaryKey": true,
@@ -81,7 +84,7 @@
                 },
                 {
                     "name": "COMPANYCODE",
-                    "description": "Company code",
+                    "description": "Company Code",
                     "abapType": "CharacterString",
                     "length": 4,
                     "isSelected": true,
@@ -89,7 +92,7 @@
                 },
                 {
                     "name": "SUPPLIER",
-                    "description": "Account Number of Supplier",
+                    "description": "Account Number of Vendor or Creditor",
                     "abapType": "CharacterString",
                     "length": 10,
                     "isSelected": true,
@@ -105,7 +108,7 @@
                 },
                 {
                     "name": "MATERIAL",
-                    "description": "Material Number (C40 Field)",
+                    "description": "Material Number",
                     "abapType": "CharacterString",
                     "length": 40,
                     "isSelected": true,
@@ -113,7 +116,7 @@
                 },
                 {
                     "name": "MATERIALGROUP",
-                    "description": "Material class",
+                    "description": "Material Group",
                     "abapType": "CharacterString",
                     "length": 9,
                     "isSelected": true,
@@ -121,7 +124,7 @@
                 },
                 {
                     "name": "SERVICEPERFORMER",
-                    "description": "Business partners",
+                    "description": "Service Performer",
                     "abapType": "CharacterString",
                     "length": 10,
                     "isSelected": true,
@@ -137,7 +140,7 @@
                 },
                 {
                     "name": "ANALYTICALREPORTINGCURRENCY",
-                    "description": "Currency Key",
+                    "description": "Reporting Currency 1",
                     "abapType": "CharacterString",
                     "length": 5,
                     "isSelected": true,
@@ -145,7 +148,7 @@
                 },
                 {
                     "name": "ANALYTICALREPORTINGCURRENCY2",
-                    "description": "Currency Key",
+                    "description": "Reporting Currency 2",
                     "abapType": "CharacterString",
                     "length": 5,
                     "isSelected": true,
@@ -161,7 +164,7 @@
                 },
                 {
                     "name": "COMPANYCODECURRENCY",
-                    "description": "Currency Key",
+                    "description": "Company Currency",
                     "abapType": "CharacterString",
                     "length": 5,
                     "isSelected": true,
@@ -169,153 +172,165 @@
                 },
                 {
                     "name": "NETPRICEINREPORTINGCURRENCY",
-                    "description": "Spend Amount",
+                    "description": "Net Price: Reporting Currency 1",
                     "abapType": "PackedNumber",
-                    "length": 17,
+                    "length": 21,
                     "decimalCount": 5,
                     "isSelected": true,
                     "formattedLength": 27,
                     "conversionExit": "",
                     "referenceTable": "IPDSCHLINEEXT",
-                    "referenceField": "ANALYTICALREPORTINGCURRENCY"
+                    "referenceField": "ANALYTICALREPORTINGCURRENCY",
+                    "isCurrency": true
                 },
                 {
                     "name": "NETPRICEINREPORTINGCURRENCY2",
-                    "description": "Spend Amount",
+                    "description": "Net Price: Reporting Currency 2",
                     "abapType": "PackedNumber",
-                    "length": 17,
+                    "length": 21,
                     "decimalCount": 5,
                     "isSelected": true,
                     "formattedLength": 27,
                     "conversionExit": "",
                     "referenceTable": "IPDSCHLINEEXT",
-                    "referenceField": "ANALYTICALREPORTINGCURRENCY2"
+                    "referenceField": "ANALYTICALREPORTINGCURRENCY2",
+                    "isCurrency": true
                 },
                 {
                     "name": "NETPRICEAMOUNT",
-                    "description": "Value field length 11",
+                    "description": "Net Price in Purchasing Document (in Document Currency)",
                     "abapType": "PackedNumber",
-                    "length": 17,
+                    "length": 11,
                     "decimalCount": 2,
                     "isSelected": true,
                     "formattedLength": 14,
                     "conversionExit": "",
                     "referenceTable": "IPDSCHLINEEXT",
-                    "referenceField": "DOCUMENTCURRENCY"
+                    "referenceField": "DOCUMENTCURRENCY",
+                    "isCurrency": true
                 },
                 {
                     "name": "NETPRICEINCOMPANYCODECRCY",
-                    "description": "Spend Amount",
+                    "description": "Net Price: Company Currency",
                     "abapType": "PackedNumber",
-                    "length": 17,
+                    "length": 21,
                     "decimalCount": 5,
                     "isSelected": true,
                     "formattedLength": 27,
                     "conversionExit": "",
                     "referenceTable": "IPDSCHLINEEXT",
-                    "referenceField": "COMPANYCODECURRENCY"
+                    "referenceField": "COMPANYCODECURRENCY",
+                    "isCurrency": true
                 },
                 {
                     "name": "NETAMOUNTINREPORTINGCURRENCY",
-                    "description": "Spend Amount",
+                    "description": "Net Amount (in Reporting Currency 1)",
                     "abapType": "PackedNumber",
-                    "length": 17,
+                    "length": 21,
                     "decimalCount": 5,
                     "isSelected": true,
                     "formattedLength": 27,
                     "conversionExit": "",
                     "referenceTable": "IPDSCHLINEEXT",
-                    "referenceField": "ANALYTICALREPORTINGCURRENCY"
+                    "referenceField": "ANALYTICALREPORTINGCURRENCY",
+                    "isCurrency": true
                 },
                 {
                     "name": "NETAMOUNTINREPORTINGCURRENCY2",
-                    "description": "Spend Amount",
+                    "description": "Net Amount (in Reporting Currency 2)",
                     "abapType": "PackedNumber",
-                    "length": 17,
+                    "length": 21,
                     "decimalCount": 5,
                     "isSelected": true,
                     "formattedLength": 27,
                     "conversionExit": "",
                     "referenceTable": "IPDSCHLINEEXT",
-                    "referenceField": "ANALYTICALREPORTINGCURRENCY2"
+                    "referenceField": "ANALYTICALREPORTINGCURRENCY2",
+                    "isCurrency": true
                 },
                 {
                     "name": "NETAMOUNT",
-                    "description": "Amount field PL7",
+                    "description": "Net Order Value in PO Currency",
                     "abapType": "PackedNumber",
-                    "length": 17,
+                    "length": 13,
                     "decimalCount": 2,
                     "isSelected": true,
                     "formattedLength": 16,
                     "conversionExit": "",
                     "referenceTable": "IPDSCHLINEEXT",
-                    "referenceField": "DOCUMENTCURRENCY"
+                    "referenceField": "DOCUMENTCURRENCY",
+                    "isCurrency": true
                 },
                 {
                     "name": "NETAMOUNTINCOCODECURRENCY",
-                    "description": "Spend Amount",
+                    "description": "Net Amount in Company Currency",
                     "abapType": "PackedNumber",
-                    "length": 17,
+                    "length": 21,
                     "decimalCount": 5,
                     "isSelected": true,
                     "formattedLength": 27,
                     "conversionExit": "",
                     "referenceTable": "IPDSCHLINEEXT",
-                    "referenceField": "COMPANYCODECURRENCY"
+                    "referenceField": "COMPANYCODECURRENCY",
+                    "isCurrency": true
                 },
                 {
                     "name": "OPENAMOUNTINREPORTINGCURRENCY",
-                    "description": "Spend Amount",
+                    "description": "Open Amount (in Reporting Currency 1)",
                     "abapType": "PackedNumber",
-                    "length": 17,
+                    "length": 21,
                     "decimalCount": 5,
                     "isSelected": true,
                     "formattedLength": 27,
                     "conversionExit": "",
                     "referenceTable": "IPDSCHLINEEXT",
-                    "referenceField": "ANALYTICALREPORTINGCURRENCY"
+                    "referenceField": "ANALYTICALREPORTINGCURRENCY",
+                    "isCurrency": true
                 },
                 {
                     "name": "OPENAMOUNTINREPORTINGCURRENCY2",
-                    "description": "Spend Amount",
+                    "description": "Open Amount (in Reporting Currency 2)",
                     "abapType": "PackedNumber",
-                    "length": 17,
+                    "length": 21,
                     "decimalCount": 5,
                     "isSelected": true,
                     "formattedLength": 27,
                     "conversionExit": "",
                     "referenceTable": "IPDSCHLINEEXT",
-                    "referenceField": "ANALYTICALREPORTINGCURRENCY2"
+                    "referenceField": "ANALYTICALREPORTINGCURRENCY2",
+                    "isCurrency": true
                 },
                 {
                     "name": "OPENAMOUNTINDOCUMENTCURRENCY",
-                    "description": "Spend Amount",
+                    "description": "Open Amount (in Document Currency)",
                     "abapType": "PackedNumber",
-                    "length": 17,
+                    "length": 21,
                     "decimalCount": 5,
                     "isSelected": true,
                     "formattedLength": 27,
                     "conversionExit": "",
                     "referenceTable": "IPDSCHLINEEXT",
-                    "referenceField": "DOCUMENTCURRENCY"
+                    "referenceField": "DOCUMENTCURRENCY",
+                    "isCurrency": true
                 },
                 {
                     "name": "OPENAMOUNTINCOMPANYCODECRCY",
-                    "description": "Spend Amount",
+                    "description": "Open Amount (in Company Currency)",
                     "abapType": "PackedNumber",
-                    "length": 17,
+                    "length": 21,
                     "decimalCount": 5,
                     "isSelected": true,
                     "formattedLength": 27,
                     "conversionExit": "",
                     "referenceTable": "IPDSCHLINEEXT",
-                    "referenceField": "COMPANYCODECURRENCY"
+                    "referenceField": "COMPANYCODECURRENCY",
+                    "isCurrency": true
                 },
                 {
                     "name": "SCHEDULELINEOPENQUANTITY",
-                    "description": "Quantity field, length 13",
+                    "description": "Open Quantity",
                     "abapType": "PackedNumber",
-                    "length": 17,
+                    "length": 13,
                     "decimalCount": 3,
                     "isSelected": true,
                     "formattedLength": 17,
@@ -325,7 +340,7 @@
                 },
                 {
                     "name": "ORDERQUANTITYUNIT",
-                    "description": "Units of Measurement of Various Types",
+                    "description": "Purchase Order Unit of Measure",
                     "abapType": "CharacterString",
                     "length": 3,
                     "isSelected": true,
@@ -333,7 +348,7 @@
                 },
                 {
                     "name": "ISCOMPLETELYDELIVERED",
-                    "description": "Yes\/No field",
+                    "description": "\"Delivery Completed\" Indicator",
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
@@ -341,7 +356,7 @@
                 },
                 {
                     "name": "GOODSRECEIPTISEXPECTED",
-                    "description": "Yes\/No field",
+                    "description": "Goods Receipt Indicator",
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
@@ -349,7 +364,7 @@
                 },
                 {
                     "name": "PURCHASINGDOCUMENTDELETIONCODE",
-                    "description": "Yes\/No field",
+                    "description": "Asset class marked for deletion",
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
@@ -357,7 +372,7 @@
                 },
                 {
                     "name": "PURCHASINGCOMPLETENESSSTATUS",
-                    "description": "Yes\/No field",
+                    "description": "Purchase order not yet complete",
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
@@ -373,7 +388,7 @@
                 },
                 {
                     "name": "PURCHASINGDOCUMENTTYPE",
-                    "description": "Type of purchasing document",
+                    "description": "Order Type (Purchasing)",
                     "abapType": "CharacterString",
                     "length": 4,
                     "isSelected": true,
@@ -389,7 +404,7 @@
                 },
                 {
                     "name": "ACCOUNTASSIGNMENTCATEGORY",
-                    "description": "Account assignment category",
+                    "description": "Account Assignment Category",
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
@@ -397,7 +412,7 @@
                 },
                 {
                     "name": "CREATIONDATE",
-                    "description": "Date",
+                    "description": "Date of Last Change",
                     "abapType": "Date",
                     "isSelected": true,
                     "conversionExit": ""
@@ -412,7 +427,7 @@
                 },
                 {
                     "name": "CREATEDBYUSER",
-                    "description": "User name",
+                    "description": "Name of Person who Created the Object",
                     "abapType": "CharacterString",
                     "length": 12,
                     "isSelected": true,
@@ -420,16 +435,16 @@
                 },
                 {
                     "name": "LASTCHANGEDATETIME",
-                    "description": "UTC time stamp in long form (YYYYMMDDhhmmss,mmmuuun)",
+                    "description": "Change Time Stamp",
                     "abapType": "PackedNumber",
-                    "length": 17,
+                    "length": 21,
                     "decimalCount": 7,
                     "formattedLength": 27,
                     "conversionExit": ""
                 },
                 {
                     "name": "PURCHASINGPROCESSINGSTATUS",
-                    "description": "Processing state of purchasing document",
+                    "description": "Purchasing document processing state",
                     "abapType": "CharacterString",
                     "length": 2,
                     "isSelected": true,
@@ -437,14 +452,14 @@
                 },
                 {
                     "name": "PURCHASINGDOCUMENTORDERDATE",
-                    "description": "Date",
+                    "description": "Purchasing Document Date",
                     "abapType": "Date",
                     "isSelected": true,
                     "conversionExit": ""
                 },
                 {
                     "name": "PURCHASINGDOCUMENTISAGED",
-                    "description": "Yes\/No field",
+                    "description": "Document is aged",
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
@@ -452,9 +467,9 @@
                 },
                 {
                     "name": "ORDERQUANTITY",
-                    "description": "Quantity field, length 13",
+                    "description": "Purchase Order Quantity",
                     "abapType": "PackedNumber",
-                    "length": 17,
+                    "length": 13,
                     "decimalCount": 3,
                     "isSelected": true,
                     "formattedLength": 17,
@@ -464,7 +479,7 @@
                 },
                 {
                     "name": "PURCHASEORDERQUANTITYUNIT",
-                    "description": "Units of Measurement of Various Types",
+                    "description": "Purchase Order Unit of Measure",
                     "abapType": "CharacterString",
                     "length": 3,
                     "isSelected": true,
@@ -472,7 +487,7 @@
                 },
                 {
                     "name": "PRODUCTTYPE",
-                    "description": "Material type",
+                    "description": "Product Type",
                     "abapType": "CharacterString",
                     "length": 4,
                     "isSelected": true,
@@ -480,7 +495,7 @@
                 },
                 {
                     "name": "RELEASEISNOTCOMPLETED",
-                    "description": "Yes\/No field",
+                    "description": "Release Not Yet Completely Effected",
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
@@ -488,7 +503,7 @@
                 },
                 {
                     "name": "ISRETURNSITEM",
-                    "description": "Yes\/No field",
+                    "description": "Returns Item",
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
@@ -496,7 +511,7 @@
                 },
                 {
                     "name": "PURGDOCSCHDLNHASNEXTDELIVERY",
-                    "description": "Yes\/No field",
+                    "description": "Indicator for Next Delivery Line",
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
@@ -504,21 +519,21 @@
                 },
                 {
                     "name": "PURORDITMFIRSTGRPOSTINGDATE",
-                    "description": "PURORDITMFIRSTGRPOSTINGDATE",
+                    "description": "Goods Receipt Start Date",
                     "abapType": "Date",
                     "isSelected": true,
                     "conversionExit": ""
                 },
                 {
                     "name": "PURORDITMFINALGRPOSTINGDATE",
-                    "description": "PURORDITMFINALGRPOSTINGDATE",
+                    "description": "Goods Receipt End Date",
                     "abapType": "Date",
                     "isSelected": true,
                     "conversionExit": ""
                 },
                 {
                     "name": "POITMFINALSCHEDULELINEISACTIVE",
-                    "description": "Yes\/No field",
+                    "description": "Final Schedule Line for the Purchase Order Item",
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
@@ -526,9 +541,9 @@
                 },
                 {
                     "name": "POSCHEDULELINETOTALEXPECTEDQTY",
-                    "description": "Quantities of different types",
+                    "description": "Expected Quantity",
                     "abapType": "PackedNumber",
-                    "length": 17,
+                    "length": 13,
                     "decimalCount": 3,
                     "isSelected": true,
                     "formattedLength": 17,
@@ -538,9 +553,9 @@
                 },
                 {
                     "name": "POPREVSCHDLNTOTALEXPECTEDQTY",
-                    "description": "Quantity field, length 13",
+                    "description": "Expected Quantity",
                     "abapType": "PackedNumber",
-                    "length": 17,
+                    "length": 13,
                     "decimalCount": 3,
                     "isSelected": true,
                     "formattedLength": 17,
@@ -550,25 +565,27 @@
                 },
                 {
                     "name": "TIMEVARIANCEINDAYS",
-                    "description": "TIMEVARIANCEINDAYS",
+                    "description": "Overdue days",
                     "abapType": "FourByteInteger",
                     "isSelected": true,
+                    "formattedLength": 11,
                     "conversionExit": ""
                 },
                 {
                     "name": "TIMEVARIANCEINPCT",
-                    "description": "TIMEVARIANCEINPCT",
+                    "description": "Variance % for Statistical Delivery Date",
                     "abapType": "PackedNumber",
-                    "length": 17,
+                    "length": 13,
                     "decimalCount": 2,
                     "isSelected": true,
+                    "formattedLength": 17,
                     "conversionExit": ""
                 },
                 {
                     "name": "TIMEVARIANCEINPCTBYDELIVDATE",
-                    "description": "Proportion of Goods Receipt Quantity to PO Quantity",
+                    "description": "Variance for Delivery Date",
                     "abapType": "PackedNumber",
-                    "length": 17,
+                    "length": 15,
                     "decimalCount": 3,
                     "isSelected": true,
                     "formattedLength": 7,
@@ -576,37 +593,39 @@
                 },
                 {
                     "name": "TIMEVARIANCESCORE",
-                    "description": "TIMEVARIANCESCORE",
+                    "description": "Variance Score for Statistical Delivery Date",
                     "abapType": "PackedNumber",
                     "length": 3,
                     "isSelected": true,
+                    "formattedLength": 3,
                     "conversionExit": ""
                 },
                 {
                     "name": "TIMEVARIANCESCOREBYDELIVDATE",
-                    "description": "TIMEVARIANCESCOREBYDELIVDATE",
+                    "description": "MM_A_TIMEVARC_SCORE_DELIV_DATE",
                     "abapType": "PackedNumber",
                     "length": 3,
                     "isSelected": true,
+                    "formattedLength": 3,
                     "conversionExit": ""
                 },
                 {
                     "name": "SCHEDULELINEDELIVERYDATE",
-                    "description": "Date",
+                    "description": "Item delivery date",
                     "abapType": "Date",
                     "isSelected": true,
                     "conversionExit": ""
                 },
                 {
                     "name": "SCHEDLINESTSCDELIVERYDATE",
-                    "description": "Date",
+                    "description": "Statistics-Relevant Delivery Date",
                     "abapType": "Date",
                     "isSelected": true,
                     "conversionExit": ""
                 },
                 {
                     "name": "DELIVDATECATEGORY",
-                    "description": "External date type",
+                    "description": "Category of delivery date",
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
@@ -615,9 +634,9 @@
                 },
                 {
                     "name": "SCHEDULELINEORDERQUANTITY",
-                    "description": "Quantities of different types",
+                    "description": "Scheduled Quantity",
                     "abapType": "PackedNumber",
-                    "length": 17,
+                    "length": 13,
                     "decimalCount": 3,
                     "isSelected": true,
                     "formattedLength": 17,
@@ -627,9 +646,9 @@
                 },
                 {
                     "name": "PREVDELIVQTYOFSCHEDULELINE",
-                    "description": "Quantity field 13 with +\/- sign",
+                    "description": "Previous Quantity (Delivery Schedule Lines)",
                     "abapType": "PackedNumber",
-                    "length": 17,
+                    "length": 13,
                     "decimalCount": 3,
                     "isSelected": true,
                     "formattedLength": 18,
@@ -639,9 +658,9 @@
                 },
                 {
                     "name": "GOODSRECEIPTQUANTITY",
-                    "description": "Quantity field, length 13",
+                    "description": "Quantity of goods received",
                     "abapType": "PackedNumber",
-                    "length": 17,
+                    "length": 13,
                     "decimalCount": 3,
                     "isSelected": true,
                     "formattedLength": 17,
@@ -651,9 +670,9 @@
                 },
                 {
                     "name": "SCHEDULELINEISSUEDQUANTITY",
-                    "description": "Quantity field, length 13",
+                    "description": "Issued Quantity",
                     "abapType": "PackedNumber",
-                    "length": 17,
+                    "length": 13,
                     "decimalCount": 3,
                     "isSelected": true,
                     "formattedLength": 17,
@@ -663,14 +682,14 @@
                 },
                 {
                     "name": "SCHEDULELINEDELIVERYTIME",
-                    "description": "Time",
+                    "description": "Delivery Date Time-Spot",
                     "abapType": "Time",
                     "isSelected": true,
                     "conversionExit": ""
                 },
                 {
                     "name": "PURCHASEREQUISITION",
-                    "description": "Purchase requisition number",
+                    "description": "Purchase Requisition Number",
                     "abapType": "CharacterString",
                     "length": 10,
                     "isSelected": true,
@@ -678,7 +697,7 @@
                 },
                 {
                     "name": "PURCHASEREQUISITIONITEM",
-                    "description": "Purchase requisition item",
+                    "description": "Item number of purchase requisition",
                     "abapType": "NumericCharacterString",
                     "length": 5,
                     "isSelected": true,
@@ -687,7 +706,7 @@
                 },
                 {
                     "name": "SOURCEOFCREATION",
-                    "description": "Creation indicator in purchasing document",
+                    "description": "Creation indicator (purchase requisition/schedule lines)",
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
@@ -695,7 +714,7 @@
                 },
                 {
                     "name": "NOOFREMINDERSOFSCHEDULELINE",
-                    "description": "Packed field length 2",
+                    "description": "No. of Reminders/Expediters for Schedule Line",
                     "abapType": "PackedNumber",
                     "length": 3,
                     "isSelected": true,
@@ -704,7 +723,7 @@
                 },
                 {
                     "name": "SCHEDULINGAGREEMENTRELEASETYPE",
-                    "description": "Release type",
+                    "description": "Scheduling agreement release type",
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
@@ -712,9 +731,9 @@
                 },
                 {
                     "name": "SCHEDULELINECOMMITTEDQUANTITY",
-                    "description": "Quantity field, length 13, with +\/- sign",
+                    "description": "Committed Quantity",
                     "abapType": "PackedNumber",
-                    "length": 17,
+                    "length": 13,
                     "decimalCount": 3,
                     "isSelected": true,
                     "formattedLength": 18,
@@ -724,56 +743,58 @@
                 },
                 {
                     "name": "PRODUCTAVAILABILITYDATE",
-                    "description": "Date",
+                    "description": "Material Staging/Availability Date",
                     "abapType": "Date",
                     "isSelected": true,
                     "conversionExit": ""
                 },
                 {
                     "name": "MATERIALSTAGINGTIME",
-                    "description": "Local time, with reference to one plant",
+                    "description": "Material Staging Time (Local, Relating to a Plant)",
                     "abapType": "Time",
                     "isSelected": true,
                     "conversionExit": ""
                 },
                 {
                     "name": "LOADINGDATE",
-                    "description": "Date",
+                    "description": "Loading Date",
                     "abapType": "Date",
                     "isSelected": true,
                     "conversionExit": ""
                 },
                 {
                     "name": "LOADINGTIME",
-                    "description": "Local time, with reference to one shipping point",
+                    "description": "Loading Time (Local Time Relating to a Shipping Point)",
                     "abapType": "Time",
                     "isSelected": true,
+                    "formattedLength": 5,
                     "conversionExit": ""
                 },
                 {
                     "name": "TRANSPORTATIONPLANNINGDATE",
-                    "description": "Date",
+                    "description": "Transportation Planning Date",
                     "abapType": "Date",
                     "isSelected": true,
                     "conversionExit": ""
                 },
                 {
                     "name": "TRANSPORTATIONPLANNINGTIME",
-                    "description": "Local time, with reference to one shipping point",
+                    "description": "Transp. Planning Time (Local, Relating to a Shipping Point)",
                     "abapType": "Time",
                     "isSelected": true,
+                    "formattedLength": 5,
                     "conversionExit": ""
                 },
                 {
                     "name": "GOODSISSUEDATE",
-                    "description": "Date",
+                    "description": "Goods Issue Date",
                     "abapType": "Date",
                     "isSelected": true,
                     "conversionExit": ""
                 },
                 {
                     "name": "GOODSISSUETIME",
-                    "description": "Local time, with reference to one plant",
+                    "description": "Time of Goods Issue (Local, Relating to a Plant)",
                     "abapType": "Time",
                     "isSelected": true,
                     "conversionExit": ""
@@ -787,16 +808,16 @@
                 },
                 {
                     "name": "STOLATESTPOSSIBLEGRTIME",
-                    "description": "Goods Receipt End Time",
+                    "description": "Goods Receipt End Time (Local, Relating to a Plant)",
                     "abapType": "Time",
                     "isSelected": true,
                     "conversionExit": ""
                 },
                 {
                     "name": "ROUGHGOODSRECEIPTQTY",
-                    "description": "Quantity field, length 13",
+                    "description": "Quantity of goods received",
                     "abapType": "PackedNumber",
-                    "length": 17,
+                    "length": 13,
                     "decimalCount": 3,
                     "isSelected": true,
                     "formattedLength": 17,
@@ -806,7 +827,7 @@
                 },
                 {
                     "name": "PURCHASECONTRACTITEM",
-                    "description": "Item in purchasing document",
+                    "description": "Item number of principal purchase agreement",
                     "abapType": "NumericCharacterString",
                     "length": 5,
                     "isSelected": true,
@@ -814,7 +835,7 @@
                 },
                 {
                     "name": "PURCHASECONTRACT",
-                    "description": "Purchasing document number",
+                    "description": "Number of principal purchase agreement",
                     "abapType": "CharacterString",
                     "length": 10,
                     "isSelected": true,
@@ -822,7 +843,7 @@
                 },
                 {
                     "name": "MULTIPLEACCTASSGMTDISTRIBUTION",
-                    "description": "Distribution Indicator for Account Assignment",
+                    "description": "Distribution Indicator for Multiple Account Assignment",
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
@@ -830,14 +851,14 @@
                 },
                 {
                     "name": "PURCHASEORDERDATE",
-                    "description": "Date",
+                    "description": "Order date of schedule line",
                     "abapType": "Date",
                     "isSelected": true,
                     "conversionExit": ""
                 },
                 {
                     "name": "ORDERPRICEUNITTOORDERUNITNMRTR",
-                    "description": "Numerator for the conversion factor",
+                    "description": "Numerator for Conversion of Order Price Unit into Order Unit",
                     "abapType": "PackedNumber",
                     "length": 5,
                     "isSelected": true,
@@ -846,7 +867,7 @@
                 },
                 {
                     "name": "ORDPRICEUNITTOORDERUNITDNMNTR",
-                    "description": "Denominator: conversion factor",
+                    "description": "Denominator for Conv. of Order Price Unit into Order Unit",
                     "abapType": "PackedNumber",
                     "length": 5,
                     "isSelected": true,
@@ -855,7 +876,7 @@
                 },
                 {
                     "name": "NETPRICEQUANTITY",
-                    "description": "Decimal field, length 5",
+                    "description": "Price unit",
                     "abapType": "PackedNumber",
                     "length": 5,
                     "isSelected": true,
@@ -864,14 +885,14 @@
                 },
                 {
                     "name": "PERFORMANCEPERIODSTARTDATE",
-                    "description": "Field of type DATS",
+                    "description": "Start Date for Period of Performance",
                     "abapType": "Date",
                     "isSelected": true,
                     "conversionExit": ""
                 },
                 {
                     "name": "PERFORMANCEPERIODENDDATE",
-                    "description": "Field of type DATS",
+                    "description": "End Date for Period of Performance",
                     "abapType": "Date",
                     "isSelected": true,
                     "conversionExit": ""
