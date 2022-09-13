@@ -120,6 +120,7 @@ select doc.[SalesDocument]           as [QuotationID]
      , ord.[SO_NetAmount]
      , ord.[SO_CostAmount]
      , ord.[SO_Margin]
+     , doc.[CorrespncExternalReference] 
      , doc.[t_applicationId]
      , doc.[t_extractionDtm]
 from [edw].[fact_SalesDocumentItem] doc

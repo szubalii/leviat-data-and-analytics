@@ -161,6 +161,7 @@ SELECT
     ,   [LocalParentCalculated]
     ,   [SDoc_ControllingObjectID]
     ,   [SDItem_ControllingObjectID]
+    ,   [CorrespncExternalReference] 
     ,   [InOutID]
     ,   CONCAT(
             YEAR([t_jobDtm]),

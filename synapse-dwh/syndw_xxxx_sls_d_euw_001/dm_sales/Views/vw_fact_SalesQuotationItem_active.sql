@@ -113,6 +113,7 @@ select
     , ord.[SO_NetAmount]
     , ord.[SO_CostAmount]
     , ord.[SO_Margin]
+    , doc.[CorrespncExternalReference] 
     , doc.[t_applicationId]
     , doc.[t_extractionDtm]
     , doc.[t_lastActionCd]      

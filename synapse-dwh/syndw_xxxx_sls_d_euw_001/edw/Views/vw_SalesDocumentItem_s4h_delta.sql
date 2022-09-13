@@ -181,6 +181,7 @@ C_SalesDocumentItemDEXBase as (
     end                                   as [LocalParentCalculated]
     , doc.[SDoc_ControllingObject]        as [SDoc_ControllingObjectID]
     , doc.[SDItem_ControllingObject]      as [SDItem_ControllingObjectID]
+    , doc.[CorrespncExternalReference]    as [CorrespncExternalReference] 
     , case
           when left(doc.[SoldToParty], 2) = 'IC' or left(doc.[SoldToParty], 2) = 'IP'
           then 'I'
@@ -453,6 +454,7 @@ SalesDocument_30 AS (
       ,[LocalParentCalculated]
       ,[SDoc_ControllingObjectID]
       ,[SDItem_ControllingObjectID]
+      ,[CorrespncExternalReference] 
       ,[InOutID]
       ,SDI.[t_applicationId]
       ,SDI.[t_lastActionBy]
@@ -672,6 +674,7 @@ SELECT
     , [LocalParentCalculated]
     , [SDoc_ControllingObjectID]
     , [SDItem_ControllingObjectID]
+    , [CorrespncExternalReference] 
     , [InOutID]
 
     , SDI.[t_applicationId]
@@ -851,6 +854,7 @@ SELECT
     , [LocalParentCalculated]
     , [SDoc_ControllingObjectID]
     , [SDItem_ControllingObjectID]
+    , [CorrespncExternalReference] 
     , [InOutID]
     , SDI.[t_applicationId]
     , SDI.[t_extractionDtm]
@@ -1043,6 +1047,7 @@ SELECT
       ,[LocalParentCalculated]
       ,[SDoc_ControllingObjectID]
       ,[SDItem_ControllingObjectID]
+      ,[CorrespncExternalReference] 
       ,[InOutID]
       ,SD_30.[t_applicationId]
       ,SD_30.[t_extractionDtm]
@@ -1221,6 +1226,7 @@ SELECT
       ,[LocalParentCalculated]
       ,[SDoc_ControllingObjectID]
       ,[SDItem_ControllingObjectID]
+      ,[CorrespncExternalReference] 
       ,[InOutID]
       ,SD_30.[t_applicationId]
       ,SD_30.[t_extractionDtm]
