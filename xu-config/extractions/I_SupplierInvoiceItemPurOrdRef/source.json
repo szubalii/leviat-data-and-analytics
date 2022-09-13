@@ -1,15 +1,18 @@
 {
     "functionName": "Z_THEO_READ_TABLE",
     "runInBackgroundJob": false,
-    "tables": [
+    "backgroundJobTimeout": 180,
+    "tables": 
+    [
         {
             "name": "ISIITMPURORDREF",
             "description": "Generated Table for View I_SupplierInvoiceItemPurOrdRef: Supplier Invoice Item Purchase Order Reference",
             "isView": true,
-            "fields": [
+            "fields": 
+            [
                 {
                     "name": "MANDT",
-                    "description": "Client (key field in client-specific tables)",
+                    "description": "Client",
                     "abapType": "CharacterString",
                     "length": 3,
                     "isPrimaryKey": true,
@@ -19,7 +22,7 @@
                 },
                 {
                     "name": "SUPPLIERINVOICE",
-                    "description": "Accounting document number",
+                    "description": "Accounting Document Number",
                     "abapType": "CharacterString",
                     "length": 10,
                     "isPrimaryKey": true,
@@ -28,7 +31,7 @@
                 },
                 {
                     "name": "FISCALYEAR",
-                    "description": "Fiscal year",
+                    "description": "Fiscal Year",
                     "abapType": "NumericCharacterString",
                     "length": 4,
                     "isPrimaryKey": true,
@@ -37,7 +40,7 @@
                 },
                 {
                     "name": "SUPPLIERINVOICEITEM",
-                    "description": "4 digit numerical fields without check",
+                    "description": "Document Item in Invoice Document",
                     "abapType": "NumericCharacterString",
                     "length": 6,
                     "isPrimaryKey": true,
@@ -46,7 +49,7 @@
                 },
                 {
                     "name": "PURCHASEORDER",
-                    "description": "Purchasing document number",
+                    "description": "Purchasing Document Number",
                     "abapType": "CharacterString",
                     "length": 10,
                     "isSelected": true,
@@ -55,7 +58,7 @@
                 },
                 {
                     "name": "PURCHASEORDERITEM",
-                    "description": "Item in purchasing document",
+                    "description": "Item Number of Purchasing Document",
                     "abapType": "NumericCharacterString",
                     "length": 5,
                     "isSelected": true,
@@ -73,7 +76,7 @@
                 },
                 {
                     "name": "SUPPLIERINVOICEITEMTEXT",
-                    "description": "Text (50 characters)",
+                    "description": "Item Text",
                     "abapType": "CharacterString",
                     "length": 50,
                     "isSelected": true,
@@ -81,7 +84,7 @@
                 },
                 {
                     "name": "PURCHASEORDERITEMMATERIAL",
-                    "description": "Material Number (C40 Field)",
+                    "description": "Material Number",
                     "abapType": "CharacterString",
                     "length": 40,
                     "isSelected": true,
@@ -90,7 +93,7 @@
                 },
                 {
                     "name": "PURCHASEORDERQUANTITYUNIT",
-                    "description": "Units of Measurement of Various Types",
+                    "description": "Purchase Order Unit of Measure",
                     "abapType": "CharacterString",
                     "length": 3,
                     "isSelected": true,
@@ -99,9 +102,9 @@
                 },
                 {
                     "name": "QUANTITYINPURCHASEORDERUNIT",
-                    "description": "Quantity field, length 13",
+                    "description": "Quantity",
                     "abapType": "PackedNumber",
-                    "length": 17,
+                    "length": 13,
                     "decimalCount": 3,
                     "isSelected": true,
                     "formattedLength": 17,
@@ -111,7 +114,7 @@
                 },
                 {
                     "name": "PURCHASEORDERPRICEUNIT",
-                    "description": "Units of Measurement of Various Types",
+                    "description": "Order Price Unit (Purchasing)",
                     "abapType": "CharacterString",
                     "length": 3,
                     "isSelected": true,
@@ -120,9 +123,9 @@
                 },
                 {
                     "name": "QTYINPURCHASEORDERPRICEUNIT",
-                    "description": "Quantity field, length 13",
+                    "description": "Quantity in Purchase Order Price Unit",
                     "abapType": "PackedNumber",
-                    "length": 17,
+                    "length": 13,
                     "decimalCount": 3,
                     "isSelected": true,
                     "formattedLength": 17,
@@ -132,7 +135,7 @@
                 },
                 {
                     "name": "SUPLRINVCDELIVERYCOSTCNDNTYPE",
-                    "description": "Condition key",
+                    "description": "Condition type",
                     "abapType": "CharacterString",
                     "length": 4,
                     "isSelected": true,
@@ -140,7 +143,7 @@
                 },
                 {
                     "name": "SUPLRINVCDELIVERYCOSTCNDNSTEP",
-                    "description": "Level number",
+                    "description": "Step Number",
                     "abapType": "NumericCharacterString",
                     "length": 3,
                     "isSelected": true,
@@ -148,7 +151,7 @@
                 },
                 {
                     "name": "SUPLRINVCDELIVERYCOSTCNDNCOUNT",
-                    "description": "Numerator conditions",
+                    "description": "Condition Counter",
                     "abapType": "NumericCharacterString",
                     "length": 3,
                     "isSelected": true,
@@ -165,19 +168,20 @@
                 },
                 {
                     "name": "SUPPLIERINVOICEITEMAMOUNT",
-                    "description": "Amount field PL7",
+                    "description": "Amount in Document Currency",
                     "abapType": "PackedNumber",
-                    "length": 17,
+                    "length": 13,
                     "decimalCount": 2,
                     "isSelected": true,
                     "formattedLength": 16,
                     "conversionExit": "",
                     "referenceTable": "ISIITMPURORDREF",
-                    "referenceField": "DOCUMENTCURRENCY"
+                    "referenceField": "DOCUMENTCURRENCY",
+                    "isCurrency": true
                 },
                 {
                     "name": "ISSUBSEQUENTDEBITCREDIT",
-                    "description": "Partial amount indicator",
+                    "description": "Indicator: Subsequent Debit/Credit",
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
@@ -185,7 +189,7 @@
                 },
                 {
                     "name": "TAXCODE",
-                    "description": "Taxes on sales\/puchases code",
+                    "description": "Tax on sales/purchases code",
                     "abapType": "CharacterString",
                     "length": 2,
                     "isSelected": true,
@@ -203,7 +207,7 @@
                 },
                 {
                     "name": "REFERENCEDOCUMENT",
-                    "description": "Accounting document number",
+                    "description": "Document No. of a Reference Document",
                     "abapType": "CharacterString",
                     "length": 10,
                     "isSelected": true,
@@ -211,7 +215,7 @@
                 },
                 {
                     "name": "REFERENCEDOCUMENTFISCALYEAR",
-                    "description": "Fiscal year",
+                    "description": "Fiscal Year of Current Period",
                     "abapType": "NumericCharacterString",
                     "length": 4,
                     "isSelected": true,
@@ -219,7 +223,7 @@
                 },
                 {
                     "name": "REFERENCEDOCUMENTITEM",
-                    "description": "Item in Material Document",
+                    "description": "Item of a Reference Document",
                     "abapType": "NumericCharacterString",
                     "length": 4,
                     "isSelected": true,
@@ -227,7 +231,7 @@
                 },
                 {
                     "name": "DEBITCREDITCODE",
-                    "description": "Debit\/credit indicator",
+                    "description": "Debit/Credit Indicator",
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
@@ -235,7 +239,7 @@
                 },
                 {
                     "name": "FREIGHTSUPPLIER",
-                    "description": "Account Number of Supplier",
+                    "description": "Account Number of Vendor or Creditor",
                     "abapType": "CharacterString",
                     "length": 10,
                     "isSelected": true,
@@ -243,7 +247,7 @@
                 },
                 {
                     "name": "ISNOTCASHDISCOUNTLIABLE",
-                    "description": "Yes\/No field",
+                    "description": "Indicator: Line Item Not Liable to Cash Discount?",
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
@@ -251,7 +255,7 @@
                 },
                 {
                     "name": "SUPLRINVCITEMHASPRICEVARIANCE",
-                    "description": "Yes\/No field",
+                    "description": "Blocking Reason: Price",
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
@@ -259,7 +263,7 @@
                 },
                 {
                     "name": "SUPLRINVCITEMHASQTYVARIANCE",
-                    "description": "Yes\/No field",
+                    "description": "Blocking Reason: Quantity",
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
@@ -267,7 +271,7 @@
                 },
                 {
                     "name": "SUPLRINVCITEMHASDATEVARIANCE",
-                    "description": "Yes\/No field",
+                    "description": "Blocking Reason: Date",
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
@@ -275,7 +279,7 @@
                 },
                 {
                     "name": "SUPLRINVCITEMHASORDPRCQTYVARC",
-                    "description": "Yes\/No field",
+                    "description": "Blocking Reason: Order Price Quantity",
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
@@ -283,7 +287,7 @@
                 },
                 {
                     "name": "SUPLRINVCITEMHASOTHERVARIANCE",
-                    "description": "Yes\/No field",
+                    "description": "Manual Blocking Reason",
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
@@ -291,7 +295,7 @@
                 },
                 {
                     "name": "SUPLRINVCITEMHASAMOUNTOUTSDTOL",
-                    "description": "Yes\/No field",
+                    "description": "Blocking Reason: Item Amount",
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
@@ -299,7 +303,7 @@
                 },
                 {
                     "name": "SUPLRINVCITMHASQUALITYVARIANCE",
-                    "description": "Yes\/No field",
+                    "description": "Blocking Reason: Quality",
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
@@ -307,7 +311,6 @@
                 },
                 {
                     "name": "ISONLINESUPPLIERINVOICEITEM",
-                    "description": "ISONLINESUPPLIERINVOICEITEM",
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
