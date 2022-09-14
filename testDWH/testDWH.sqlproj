@@ -62,6 +62,10 @@
     <Folder Include="edw\" />
     <Folder Include="edw\Tables\" />
     <Folder Include="Security\" />
+    <Folder Include="utilities\" />
+    <Folder Include="utilities\Stored Procedures\" />
+    <Folder Include="base_dw_halfen_2_dwh\" />
+    <Folder Include="base_dw_halfen_2_dwh\Tables\" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="base_s4h_cax\Tables\I_AccountingDocumentCategoryT.sql" />
@@ -69,5 +73,14 @@
     <Build Include="edw\Tables\fact_SalesDocumentItem.sql" />
     <Build Include="Security\edw.sql" />
     <Build Include="Security\base_s4h_cax.sql" />
+    <Build Include="Security\utilities.sql" />
+    <Build Include="utilities\Stored Procedures\sp_process_axbi_delta.sql" />
+    <Build Include="utilities\Stored Procedures\sp_process_axbi_delta_delete.sql" />
+    <Build Include="utilities\Stored Procedures\sp_process_axbi_delta_insert.sql" />
+    <Build Include="utilities\Stored Procedures\sp_process_axbi_delta_update.sql" />
+    <Build Include="base_dw_halfen_2_dwh\Tables\FACT_HGDAWA.sql" />
+    <Build Include="base_dw_halfen_2_dwh\Tables\FACT_HGDAWA_active.sql" />
+    <Build Include="base_dw_halfen_2_dwh\Tables\FACT_HGDAWA_new.sql" />
+    <Build Include="Security\base_dw_halfen_2_dwh.sql" />
   </ItemGroup>
 </Project>
