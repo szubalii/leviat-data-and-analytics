@@ -1,0 +1,54 @@
+{
+    "functionName": "Z_THEO_READ_TABLE",
+    "runInBackgroundJob": false,
+    "backgroundJobTimeout": 180,
+    "tables": 
+    [
+        {
+            "name": "IFIBANKACCOUNTT",
+            "description": "Generated Table for View",
+            "isView": true,
+            "fields": 
+            [
+                {
+                    "name": "MANDT",
+                    "description": "Client",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "FCLM_BAM_AMD",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "BANKACCOUNTINTERNALID",
+                    "description": "Bank Account Technical ID",
+                    "abapType": "NumericCharacterString",
+                    "length": 10,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "LANGUAGE",
+                    "description": "Language Key",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "formattedLength": 2,
+                    "checkTable": "T002",
+                    "conversionExit": "ISOLA"
+                },
+                {
+                    "name": "BANKACCOUNTDESCRIPTION",
+                    "description": "Account Description",
+                    "abapType": "CharacterString",
+                    "length": 60,
+                    "isSelected": true,
+                    "conversionExit": ""
+                }
+            ]
+        }
+    ]
+}

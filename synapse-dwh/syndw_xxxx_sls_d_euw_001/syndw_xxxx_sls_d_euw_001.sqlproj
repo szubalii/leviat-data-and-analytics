@@ -171,7 +171,6 @@
     <Folder Include="dm_dq\Views" />
     <Folder Include="base_c4c" />
     <Folder Include="base_c4c\Tables" />
-    <Folder Include="edw\Table\" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Security\Database Scoped Credentials\dsc_MSI.sql" />
@@ -922,6 +921,8 @@
     <Build Include="edw\Views\vw_SupplierInvoiceItemPurOrdRef.sql" />
     <Build Include="dm_sales\Views\vw_fact_SupplierInvoiceItemPurOrdRef.sql" />
     <Build Include="dm_sales\Views\vw_dim_Currency.sql" />
+    <Build Include="base_s4h_cax\Tables\I_BankAccountText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_Bank.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\Post-Deploy\Script.PostDeployment.sql" />

@@ -4,8 +4,8 @@ WITH CTE_PurgDocScheduleLineHasNextDelivery AS (
     SELECT
         [PurchasingDocument],
         [PurchasingDocumentItem],
-        SUM([ScheduleLineOpenQuantity])   AS [ScheduleLineOpenQuantity],
-        MAX([ScheduleLineDeliveryDate])   AS [ScheduleLineDeliveryDate]
+        SUM([ScheduleLineOpenQuantity])   AS [NextDeliveryOpenQuantity], --TODO correct field?
+        MAX([ScheduleLineDeliveryDate])   AS [NextDeliveryDate]
     FROM
         [base_s4h_cax].[I_PurgDocScheduleLineEnhanced]
     WHERE

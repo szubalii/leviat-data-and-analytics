@@ -3730,6 +3730,30 @@
         "base_table_name": "I_MfgOrderCategoryText",
         "pk_field_names": "MANUFACTURINGORDERCATEGORY,LANGUAGE",
         "schedule_recurrence": "A"
+      },
+      {
+        "entity_id": 500,
+        "entity_name": "I_Bank",
+        "data_category": "DIMENSION",
+        "client_field": "MANDT",
+        "tool_name": "Theobald",
+        "extraction_type": "ODP",
+        "update_mode": "Full",
+        "base_table_name": "I_Bank",
+        "pk_field_names": "MANDT,BANKCOUNTRY,BANKINTERNALID",
+        "schedule_recurrence": "A"
+      },
+      {
+        "entity_id": 501,
+        "entity_name": "I_BankAccountText",
+        "data_category": "TEXT",
+        "client_field": "MANDT",
+        "tool_name": "Theobald",
+        "extraction_type": "Table",
+        "update_mode": "Full",
+        "base_table_name": "I_BankAccountText",
+        "pk_field_names": "MANDT,BANKACCOUNTINTERNALID,LANGUAGE",
+        "schedule_recurrence": "A"
       }
         
   ]
@@ -4958,10 +4982,10 @@
       },
       {
         "entity_id": 433,
-        "entity_name": "dim_PurchasingDocument",
+        "entity_name": "fact_PurchasingDocument",
         "sproc_name": "sp_materialize_view",
         "source_view_name": "vw_PurchasingDocument",
-        "dest_table_name": "dim_PurchasingDocument",
+        "dest_table_name": "fact_PurchasingDocument",
         "execution_order": 0,
         "schedule_recurrence": "D"
       },

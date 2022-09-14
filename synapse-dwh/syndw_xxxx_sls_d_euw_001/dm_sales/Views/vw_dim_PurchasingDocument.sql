@@ -1,4 +1,4 @@
-CREATE VIEW [dm_sales].[vw_dim_PurchasingDocument]
+CREATE VIEW [dm_sales].[vw_fact_PurchasingDocument]
   AS 
    SELECT
       PD.[PurchasingDocumentID],
@@ -14,7 +14,7 @@ CREATE VIEW [dm_sales].[vw_dim_PurchasingDocument]
       PO.[PurchasingOrganizationName]        AS [PurchasingOrganization],
       PD.[PurchasingGroupID],
       PG.[PurchasingGroupName]               AS [PurchasingGroup], 
-      PD.[PlantID],
+      PD.[SupplyingPlantID],
       PD.[CompanyCodeID], 
       PD.[PurchasingProcessingStatusID],
       PDST.[PurchasingDocumentStatusName]    AS [PurchasingDocumentStatus], 

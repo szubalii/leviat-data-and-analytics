@@ -11,7 +11,7 @@ SELECT
    PD.[PurchasingDocumentOrderDate],
    PD.[PurchasingOrganization]            AS [PurchasingOrganizationID],
    PD.[PurchasingGroup]                   AS [PurchasingGroupID],
-   PD.[SupplyingPlant]                    AS [PlantID],
+   PD.[SupplyingPlant]                    AS [SupplyingPlantID],
    PD.[PurchasingProcessingStatus]        AS [PurchasingProcessingStatusID],
    PD.[PurchaseContract],
    PD.[t_applicationId],

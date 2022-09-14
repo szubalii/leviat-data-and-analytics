@@ -1,0 +1,180 @@
+{
+    "name": "IFIBANKMASTER$P",
+    "description": "Bank Master Details",
+    "guid": "5db9c40b-f1af-4df8-ac37-daeaa46efdfd",
+    "hierarchy": "",
+    "semantics": "MasterDataOrAttributes",
+    "context": "ABAP_CDS",
+    "supportsFull": true,
+    "supportsDelta": false,
+    "mode": "Full",
+    "transferDataOnDeltaInit": false,
+    "columns": 
+    [
+        {
+            "name": "BANKCOUNTRY",
+            "description": "Bank country key",
+            "abapType": "CharacterString",
+            "length": 3,
+            "isPrimaryKey": true,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 3
+        },
+        {
+            "name": "BANKINTERNALID",
+            "description": "Bank Keys",
+            "abapType": "CharacterString",
+            "length": 15,
+            "isPrimaryKey": true,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 15
+        },
+        {
+            "name": "CREATIONDATE",
+            "description": "Date on which the record was created",
+            "abapType": "Date",
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 8
+        },
+        {
+            "name": "CREATEDBYUSER",
+            "description": "Name of person who created the object",
+            "abapType": "CharacterString",
+            "length": 12,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 12
+        },
+        {
+            "name": "BANKNAME",
+            "description": "Name of bank",
+            "abapType": "CharacterString",
+            "length": 60,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 60
+        },
+        {
+            "name": "REGION",
+            "description": "Region (State, Province, County)",
+            "abapType": "CharacterString",
+            "length": 3,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 3
+        },
+        {
+            "name": "STREETNAME",
+            "description": "Street and House Number",
+            "abapType": "CharacterString",
+            "length": 35,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 35
+        },
+        {
+            "name": "CITYNAME",
+            "description": "City",
+            "abapType": "CharacterString",
+            "length": 35,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 35
+        },
+        {
+            "name": "SWIFTCODE",
+            "description": "SWIFT/BIC for International Payments",
+            "abapType": "CharacterString",
+            "length": 11,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 11
+        },
+        {
+            "name": "BANKGROUP",
+            "description": "Bank group (bank network)",
+            "abapType": "CharacterString",
+            "length": 2,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 2
+        },
+        {
+            "name": "ISPOSTBANKACCOUNT",
+            "description": "Post Office Bank Current Account",
+            "abapType": "CharacterString",
+            "length": 1,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 1
+        },
+        {
+            "name": "ISMARKEDFORDELETION",
+            "description": "Deletion Indicator",
+            "abapType": "CharacterString",
+            "length": 1,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 1
+        },
+        {
+            "name": "BANK",
+            "description": "Bank number",
+            "abapType": "CharacterString",
+            "length": 15,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 15
+        },
+        {
+            "name": "POSTOFFICEBANKACCOUNT",
+            "description": "Post office bank current account number",
+            "abapType": "CharacterString",
+            "length": 16,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 16
+        },
+        {
+            "name": "BRANCH",
+            "description": "Bank Branch",
+            "abapType": "CharacterString",
+            "length": 40,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 40
+        },
+        {
+            "name": "CHECKDIGITCALCULATIONMETHOD",
+            "description": "Check digit calculation method",
+            "abapType": "CharacterString",
+            "length": 4,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 4
+        },
+        {
+            "name": "BANKDATAFILEFORMAT",
+            "description": "Format of File with Bank Data",
+            "abapType": "CharacterString",
+            "length": 3,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 3
+        },
+        {
+            "name": "ADDRESSID",
+            "description": "Address Number",
+            "abapType": "CharacterString",
+            "length": 10,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 10
+        }
+    ],
+    "parameters": {
+    }
+}
