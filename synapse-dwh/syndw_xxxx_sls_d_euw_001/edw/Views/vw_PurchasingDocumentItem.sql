@@ -1,33 +1,33 @@
 CREATE VIEW [edw].[vw_PurchasingDocumentItem]
-AS 
-WITH CTE_PurgDocScheduleLineHasNextDelivery as (
-    SELECT 
+AS
+WITH CTE_PurgDocScheduleLineHasNextDelivery AS (
+    SELECT
         [PurchasingDocument],
         [PurchasingDocumentItem],
-        sum([ScheduleLineOpenQuantity])   AS [ScheduleLineOpenQuantity],
-        max([ScheduleLineDeliveryDate])   AS [ScheduleLineDeliveryDate],
-        min([IsCompletelyDelivered])      AS [IsCompletelyDelivered]  
-    FROM 
+        SUM([ScheduleLineOpenQuantity])   AS [ScheduleLineOpenQuantity],
+        MAX([ScheduleLineDeliveryDate])   AS [ScheduleLineDeliveryDate]
+    FROM
         [base_s4h_cax].[I_PurgDocScheduleLineEnhanced]
-    WHERE 
+    WHERE
         [PurgDocSchdLnHasNextDelivery] = 'X'
-    GROUP BY 
+    GROUP BY
         [PurchasingDocument],
         [PurchasingDocumentItem]
 ),
-CTE_PurgDocScheduleLineSums as (
-    SELECT 
+CTE_PurgDocScheduleLineSums AS (
+    SELECT
         [PurchasingDocument],
         [PurchasingDocumentItem],
-        SUM([GoodsReceiptQuantity])         AS [sum_GoodsReceiptQuantity],
-        MAX([OrderQuantityUnit])            AS [max_OrderQuantityUnit]  
-    FROM 
+        SUM([GoodsReceiptQuantity])         AS [GoodsReceiptQuantity],
+        MAX([OrderQuantityUnit])            AS [OrderQuantityUnit]
+    FROM
         [base_s4h_cax].[I_PurgDocScheduleLineEnhanced]
-    GROUP BY 
+    GROUP BY
         [PurchasingDocument],
         [PurchasingDocumentItem]
-)   
-SELECT 
+)
+
+SELECT
     PDI.[PurchasingDocument],
     PDI.[PurchasingDocumentItem],
     PDI.[Material]                          AS [MaterialID],
@@ -45,27 +45,27 @@ SELECT
     PDI.[NetPriceQuantity],
     PDI.[PurchasingDocumentItemCategory]    AS [PurchasingDocumentItemCategoryID],
     PDSLHND.[ScheduleLineOpenQuantity],
-    PDSLHND.[ScheduleLineDeliveryDate], 
-    PDSLHND.[IsCompletelyDelivered], 
+    PDSLHND.[ScheduleLineDeliveryDate],
+    PDI.[IsCompletelyDelivered],
     PDI.[OrderQuantityUnit],
-    PDI.[CostCenter]                        AS [CostCenterID], 
+    PDI.[CostCenter]                        AS [CostCenterID],
     PDI.[GLAccount],
-    PDSLSum.[sum_GoodsReceiptQuantity],
-    PDSLSum.[max_OrderQuantityUnit],
+    PDSLSum.[GoodsReceiptQuantity],
+    PDSLSum.[OrderQuantityUnit],
     PDI.[t_applicationId],
-    PDI.[t_extractionDtm]       
-FROM 
+    PDI.[t_extractionDtm]
+FROM
     [base_s4h_cax].[I_PurchasingDocumentItem] AS PDI
-    LEFT JOIN 
+    LEFT JOIN
         CTE_PurgDocScheduleLineHasNextDelivery PDSLHND
         ON
             PDSLHND.[PurchasingDocument] = PDI.[PurchasingDocument]
-            AND 
+            AND
             PDSLHND.[PurchasingDocumentItem] = PDI.[PurchasingDocumentItem]
-    LEFT JOIN 
+    LEFT JOIN
         CTE_PurgDocScheduleLineSums PDSLSum
         ON
             PDSLSum.[PurchasingDocument] = PDI.[PurchasingDocument]
-            AND 
+            AND
             PDSLSum.[PurchasingDocumentItem] = PDI.[PurchasingDocumentItem]
         

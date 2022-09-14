@@ -1,13 +1,12 @@
-
 CREATE VIEW [dm_sales].[vw_fact_PurchasingDocumentItem]
 AS
-SELECT 
+SELECT
   [sk_fact_PurchasingDocumentItem],
   [PurchasingDocument],
   [PurchasingDocumentItem],
   [MaterialID],
   [DocumentCurrencyID],
-  dim_C.[Currency], 
+  dim_C.[Currency],
   [PlantID],
   [CompanyCodeID],
   [MaterialGroupID],
@@ -21,18 +20,18 @@ SELECT
   [NetPriceQuantity],
   [PurchasingDocumentItemCategoryID],
   [ScheduleLineOpenQuantity],
-  [ScheduleLineDeliveryDate], 
+  [ScheduleLineDeliveryDate],
   [IsCompletelyDelivered],
-  [OrderQuantityUnit], 
-  [CostCenterID],      
-  [GLAccount],    
-  [sum_GoodsReceiptQuantity], 
-  [max_OrderQuantityUnit],         
+  [OrderQuantityUnit],
+  [CostCenterID],
+  [GLAccount],
+  [GoodsReceiptQuantity],
+  [OrderQuantityUnit],
   fact_PDI.[t_applicationId],
   fact_PDI.[t_extractionDtm]
-FROM 
+FROM
   [edw].[fact_PurchasingDocumentItem] fact_PDI
-  LEFT JOIN
+LEFT JOIN
     [edw].[dim_Currency] dim_C
-    ON 
+    ON
       fact_PDI.[DocumentCurrencyID] = dim_C.[CurrencyID]

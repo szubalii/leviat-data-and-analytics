@@ -1,13 +1,15 @@
 CREATE VIEW [dm_sales].[vw_fact_SupplierInvoiceItemPurOrdRef]
-  AS 
-  SELECT 
-    [SupplierInvoice],              
-    [FiscalYear],                     
-    [SupplierInvoiceItem],  
+AS
+SELECT
+    [SupplierInvoice],
+    [FiscalYear],
+    [SupplierInvoiceItem],
     [sk_fact_PurchasingDocumentItem],
-    [PurchaseOrder],                
+    [PurchaseOrder],
     [PurchaseOrderItem],
     [QuantityInPurchaseOrderUnit],
-    [SupplierInvoiceItemAmount]  
-  FROM
+    [PurchaseOrderQuantityUnit],
+    [SupplierInvoiceItemAmount],
+    [DocumentCurrencyID]
+FROM
     [edw].[fact_SupplierInvoiceItemPurOrdRef]
