@@ -765,7 +765,7 @@
     <Build Include="base_s4h_cax\Tables\I_PurchasingDocumentType.sql" />
     <Build Include="edw\Tables\dim_PurchasingDocumentType.sql" />
     <Build Include="edw\Views\vw_PurchasingDocumentType.sql" />
-    <Build Include="edw\Tables\dim_PurchasingDocument.sql" />
+    <Build Include="edw\Tables\fact_PurchasingDocument.sql" />
     <Build Include="edw\Views\vw_PurchasingDocument.sql" />
     <Build Include="edw\Tables\dim_DeliveryDocument.sql" />
     <Build Include="edw\Views\vw_DeliveryDocument.sql" />
