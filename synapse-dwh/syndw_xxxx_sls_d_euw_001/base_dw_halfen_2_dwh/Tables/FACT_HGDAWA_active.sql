@@ -1,12 +1,11 @@
-CREATE TABLE [base_dw_halfen_2_dwh].[FACT_HGDAWA_active] (
-    [DW_Id]                                   BIGINT           NOT NULL,
+﻿CREATE TABLE [base_dw_halfen_2_dwh].[FACT_HGDAWA_active] (
     [Company]                                 NVARCHAR (8)     NULL,
     [Distributioncompany]                     NVARCHAR (8)     NULL,
     [Salesarea]                               NVARCHAR (3)     NULL,
     [Inside_Outside]                          NVARCHAR (1)     NULL,
     [Inside_Outside-Text]                     VARCHAR (50)     NULL,
     [Site]                                    NVARCHAR (8)     NULL,
-    [Invoiceno]                               CHAR (20)        NULL,
+    [Invoiceno]                               CHAR (20)        NOT NULL,
     [Invoicedate]                             DATETIME         NULL,
     [Accountingdate]                          DATETIME         NULL,
     [Year]                                    BIGINT           NULL,
@@ -14,7 +13,7 @@ CREATE TABLE [base_dw_halfen_2_dwh].[FACT_HGDAWA_active] (
     [Day]                                     BIGINT           NULL,
     [Orderno]                                 CHAR (20)        NULL,
     [Deliveryno]                              CHAR (20)        NULL,
-    [Posno]                                   DECIMAL (38, 12) NULL,
+    [Posno]                                   DECIMAL (38, 12) NOT NULL,
     [Orderdate]                               DATETIME         NULL,
     [Deldateplan]                             DATETIME         NULL,
     [Deldateconfirmed]                        DATETIME         NULL,
@@ -214,9 +213,6 @@ CREATE TABLE [base_dw_halfen_2_dwh].[FACT_HGDAWA_active] (
     [Projectdeliverycity]					  NVARCHAR(140)    NULL,
     [Companycountrycode]					  CHAR(10)         NULL,
     [Companycountryname]					  CHAR(50)         NULL,
-    [DW_Batch]                                BIGINT           NULL,
-    [DW_SourceCode]                           VARCHAR (15)     NOT NULL,
-    [DW_TimeStamp]                            DATETIME         NOT NULL,
     [t_applicationId]                        VARCHAR    (32)  NULL,
     [t_jobId]                                VARCHAR    (36)  NULL,
     [t_jobDtm]                               DATETIME,
@@ -226,7 +222,6 @@ CREATE TABLE [base_dw_halfen_2_dwh].[FACT_HGDAWA_active] (
     [t_lastActionCd]                 CHAR(1),
     [t_lastActionDtm]                DATETIME,
     [t_filePath]                             NVARCHAR (1024)  NULL
-    CONSTRAINT [PK_FACT_HGDAWA_active] PRIMARY KEY NONCLUSTERED ([DW_Id] ASC) NOT ENFORCED
+    CONSTRAINT [PK_FACT_HGDAWA_active] PRIMARY KEY NONCLUSTERED ([Invoiceno], [Posno] ASC) NOT ENFORCED
 )
 WITH ( DISTRIBUTION = HASH (Invoiceno), CLUSTERED COLUMNSTORE INDEX );
-

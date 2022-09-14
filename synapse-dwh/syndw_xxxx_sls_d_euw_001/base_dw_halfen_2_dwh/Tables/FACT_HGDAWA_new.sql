@@ -1,4 +1,4 @@
-CREATE TABLE [base_dw_halfen_2_dwh].[FACT_HGDAWA_new] (
+﻿CREATE TABLE [base_dw_halfen_2_dwh].[FACT_HGDAWA_new] (
     [DW_Id]                                   BIGINT           NOT NULL,
     [Company]                                 NVARCHAR (8)     NULL,
     [Distributioncompany]                     NVARCHAR (8)     NULL,
@@ -226,4 +226,3 @@ CREATE TABLE [base_dw_halfen_2_dwh].[FACT_HGDAWA_new] (
     CONSTRAINT [PK_FACT_HGDAWA_new] PRIMARY KEY NONCLUSTERED ([DW_Id] ASC) NOT ENFORCED
 )
 WITH (HEAP, DISTRIBUTION = ROUND_ROBIN);
-
