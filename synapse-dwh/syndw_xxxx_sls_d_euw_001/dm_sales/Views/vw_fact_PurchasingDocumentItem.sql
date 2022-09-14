@@ -6,7 +6,6 @@ SELECT
   [PurchasingDocumentItem],
   [MaterialID],
   [DocumentCurrencyID],
-  dim_C.[Currency],
   [PlantID],
   [CompanyCodeID],
   [MaterialGroupID],
@@ -31,7 +30,3 @@ SELECT
   fact_PDI.[t_extractionDtm]
 FROM
   [edw].[fact_PurchasingDocumentItem] fact_PDI
-LEFT JOIN
-    [edw].[dim_Currency] dim_C
-    ON
-      fact_PDI.[DocumentCurrencyID] = dim_C.[CurrencyID]
