@@ -921,6 +921,9 @@
     <Build Include="edw\Tables\fact_SupplierInvoiceItemPurOrdRef.sql" />
     <Build Include="edw\Views\vw_SupplierInvoiceItemPurOrdRef.sql" />
     <Build Include="dm_sales\Views\vw_fact_SupplierInvoiceItemPurOrdRef.sql" />
+    <Build Include="edw\Tables\fact_OpportunityCollection.sql" />
+    <Build Include="edw\Views\vw_OpportunityCollection.sql" />
+    <Build Include="dm_sales\Views\vw_fact_OpportunityCollection.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\Post-Deploy\Script.PostDeployment.sql" />
