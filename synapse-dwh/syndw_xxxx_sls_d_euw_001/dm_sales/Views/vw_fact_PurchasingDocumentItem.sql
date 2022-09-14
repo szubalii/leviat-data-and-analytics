@@ -25,7 +25,6 @@ SELECT
   [CostCenterID],
   [GLAccount],
   [GoodsReceiptQuantity],
-  [OrderQuantityUnit],
   fact_PDI.[t_applicationId],
   fact_PDI.[t_extractionDtm]
 FROM
