@@ -411,7 +411,7 @@ SELECT
 FROM
     MDI_UNION MDIU
 LEFT JOIN 
-    [edw].[dim_PurchasingDocument] dimPD 
+    [edw].[fact_PurchasingDocument] dimPD 
         ON 
             MDIU.[PurchaseOrder] COLLATE Latin1_General_100_BIN2 = dimPD.[PurchasingDocumentID] 
 LEFT JOIN  

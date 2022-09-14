@@ -14,9 +14,9 @@ FROM
 LEFT JOIN
   [base_s4h_cax].[I_Bank] AS b
   ON
-    b.BankCountry = sbd.BankCountry
+    b.BankCountry = sbd.BankCountryID
     AND
-    b.BankInternalID = sbd.Bank
+    b.BankInternalID = sbd.BankID
 LEFT JOIN
   [base_s4h_cax].[I_BankAccountText] bat
   ON
