@@ -102,6 +102,7 @@ SELECT
     , dimPVs.[nk_dim_ProductValuationPUP]                                      AS [nk_dim_ProductValuationPUP]
     , dimPVs.[StockPricePerUnit]
     , dimPVs.[StockPricePerUnit_EUR]
+    , dimPVs.[StockPricePerUnit_USD]
     , MDI.[ConsumptionQtyICPOInBaseUnit] * dimPVs.[StockPricePerUnit]           AS ConsumptionQtyICPOInStandardValue
     , MDI.[ConsumptionQtyICPOInBaseUnit] * dimPVs.[StockPricePerUnit_EUR]       AS ConsumptionQtyICPOInStandardValue_EUR
     , MDI.[ConsumptionQtyICPOInBaseUnit] * dimPVs.[StockPricePerUnit_USD]       AS ConsumptionQtyICPOInStandardValue_USD
