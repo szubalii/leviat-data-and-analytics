@@ -397,6 +397,7 @@ SELECT
     , MDIU.[nk_dim_ProductValuationPUP]
     , MDIU.[StockPricePerUnit]
     , MDIU.[StockPricePerUnit_EUR]
+    , MDIU.[StockPricePerUnit_USD]
     , MDIU.[ConsumptionQtyICPOInStandardValue]
     , MDIU.[ConsumptionQtyICPOInStandardValue_EUR]
     , MDIU.[ConsumptionQtyOBDProStandardValue]
