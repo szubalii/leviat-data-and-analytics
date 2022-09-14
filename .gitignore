@@ -14,6 +14,6 @@
 /orchestration/Master Data/entity.csv
 /orchestration/Master Data/pbi_dataset_entity.csv
 /orchestration/Master Data/pbi_dataset.csv
-/testDWH/.vs/
+/testDWH/.vs
 /testDWH/testDWH.jfm
 /testDWH/testDWH.dbmdl
