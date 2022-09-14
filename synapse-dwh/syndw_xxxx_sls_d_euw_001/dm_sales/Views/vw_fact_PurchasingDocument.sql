@@ -21,7 +21,7 @@ CREATE VIEW [dm_sales].[vw_fact_PurchasingDocument]
       PD.[t_applicationId],
       PD.[t_extractionDtm]
    FROM  
-      [edw].[dim_PurchasingDocument] PD
+      [edw].[fact_PurchasingDocument] PD
    LEFT JOIN   
       [edw].[dim_PurchasingDocumentType] dim_PDT
       ON 
