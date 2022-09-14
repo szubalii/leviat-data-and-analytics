@@ -104,14 +104,19 @@ SELECT
     , dimPVs.[StockPricePerUnit_EUR]
     , MDI.[ConsumptionQtyICPOInBaseUnit] * dimPVs.[StockPricePerUnit]           AS ConsumptionQtyICPOInStandardValue
     , MDI.[ConsumptionQtyICPOInBaseUnit] * dimPVs.[StockPricePerUnit_EUR]       AS ConsumptionQtyICPOInStandardValue_EUR
+    , MDI.[ConsumptionQtyICPOInBaseUnit] * dimPVs.[StockPricePerUnit_USD]       AS ConsumptionQtyICPOInStandardValue_USD
     , MDI.[ConsumptionQtyOBDProInBaseUnit] * dimPVs.[StockPricePerUnit]         AS ConsumptionQtyOBDProStandardValue
     , MDI.[ConsumptionQtyOBDProInBaseUnit] * dimPVs.[StockPricePerUnit_EUR]     AS ConsumptionQtyOBDProStandardValue_EUR
+    , MDI.[ConsumptionQtyOBDProInBaseUnit] * dimPVs.[StockPricePerUnit_USD]     AS ConsumptionQtyOBDProStandardValue_USD
     , MDI.[ConsumptionQtySOInBaseUnit] * dimPVs.[StockPricePerUnit]             AS ConsumptionQtySOStandardValue
     , MDI.[ConsumptionQtySOInBaseUnit] * dimPVs.[StockPricePerUnit_EUR]         AS ConsumptionQtySOStandardValue_EUR
+    , MDI.[ConsumptionQtySOInBaseUnit] * dimPVs.[StockPricePerUnit_USD]         AS ConsumptionQtySOStandardValue_USD
     , MDI.[MatlStkChangeQtyInBaseUnit] * dimPVs.[StockPricePerUnit]             AS MatlStkChangeStandardValue
     , MDI.[MatlStkChangeQtyInBaseUnit] * dimPVs.[StockPricePerUnit_EUR]         AS MatlStkChangeStandardValue_EUR
+    , MDI.[MatlStkChangeQtyInBaseUnit] * dimPVs.[StockPricePerUnit_USD]         AS MatlStkChangeStandardValue_USD
     , MDI.[QuantityInBaseUnit] * dimPVs.[StockPricePerUnit]                     AS QuantityInBaseUnitStandardValue
     , MDI.[QuantityInBaseUnit] * dimPVs.[StockPricePerUnit_EUR]                 AS QuantityInBaseUnitStandardValue_EUR
+    , MDI.[QuantityInBaseUnit] * dimPVs.[StockPricePerUnit_USD]                 AS QuantityInBaseUnitStandardValue_USD
     , NULL AS [StandardPricePerUnit]
     , NULL AS [StandardPricePerUnit_EUR]
     -- fields PriceControlIndicatorID, PriceControlIndicator are being used in [vw_fact_MaterialStockLevel] 
@@ -261,14 +266,19 @@ SELECT
     , NULL AS [StockPricePerUnit_EUR]
     , MDI_axbi.[ConsumptionQtyICPOInStandardValue]
     , MDI_axbi.[ConsumptionQtyICPOInStandardValue_EUR]
+    , NULL AS [ConsumptionQtyICPOInStandardValue_USD]
     , NULL AS [ConsumptionQtyOBDProStandardValue]
     , NULL AS [ConsumptionQtyOBDProStandardValue_EUR]
+    , NULL AS [ConsumptionQtyOBDProStandardValue_USD]
     , MDI_axbi.[ConsumptionQtySOStandardValue]
     , MDI_axbi.[ConsumptionQtySOStandardValue_EUR]
+    , NULL AS [ConsumptionQtySOStandardValue_USD]
     , MDI_axbi.[MatlStkChangeStandardValue]
     , MDI_axbi.[MatlStkChangeStandardValue_EUR]
+    , NULL AS [MatlStkChangeStandardValue_USD]
     , NULL AS [QuantityInBaseUnitStandardValue]
     , NULL AS [QuantityInBaseUnitStandardValue_EUR]
+    , NULL AS [QuantityInBaseUnitStandardValue_USD]
     , MDI_axbi.[StandardPricePerUnit]
     , MDI_axbi.[StandardPricePerUnit_EUR]
     , NULL AS [PriceControlIndicatorID]

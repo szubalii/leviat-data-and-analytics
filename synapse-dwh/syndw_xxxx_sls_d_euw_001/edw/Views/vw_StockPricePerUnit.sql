@@ -60,7 +60,9 @@ WITH ProductValuationPUP AS (
         [edw].[dim_CompanyCode] dim_comCode   
         ON 
             dim_comCode.[CompanyCodeID] = purArea.[CompanyCode] COLLATE Latin1_General_100_BIN2  
-), EuroBudgetExchangeRate AS (
+), 
+
+EuroBudgetExchangeRate AS (
     SELECT
             SourceCurrency
         ,   ExchangeRateEffectiveDate
@@ -71,12 +73,16 @@ WITH ProductValuationPUP AS (
         ExchangeRateType = 'ZAXBIBUD'
         AND
         TargetCurrency = 'EUR'
-), ProductValuationEuroExchangeRate AS (
+), 
+
+ProductValuationEuroExchangeRate AS (
     SELECT
             [ProductID]
         ,   [ValuationAreaID]
         ,   [ValuationTypeID]
         ,   [CurrencyID]
+        ,   [FiscalYearPeriod]
+        ,   [FiscalMonthPeriod]
         ,   EuroBudgetExchangeRate.[ExchangeRate] AS [ExchangeRate]
     FROM
     (    
@@ -85,6 +91,8 @@ WITH ProductValuationPUP AS (
             ,   PV.[ValuationAreaID]
             ,   PV.[ValuationTypeID]
             ,   PV.[CurrencyID]
+            ,   PV.[FiscalYearPeriod]
+            ,   PV.[FiscalMonthPeriod]
             ,   MAX([ExchangeRateEffectiveDate]) AS [ExchangeRateEffectiveDate]
         FROM 
             ProductValuationPUP AS PV
@@ -93,12 +101,14 @@ WITH ProductValuationPUP AS (
             ON 
                 PV.[CurrencyID] = EuroBudgetExchangeRate.SourceCurrency
         WHERE 
-                PV.[FiscalStartYearPeriodDate] = [ExchangeRateEffectiveDate] 
+                [ExchangeRateEffectiveDate] <=  PV.[FiscalStartYearPeriodDate]
         GROUP BY
                 PV.[ProductID]
             ,   PV.[ValuationAreaID]
             ,   PV.[ValuationTypeID]
             ,   PV.[CurrencyID]
+            ,   PV.[FiscalYearPeriod]
+            ,   PV.[FiscalMonthPeriod]
     ) date_eur
     LEFT JOIN 
         EuroBudgetExchangeRate
@@ -106,7 +116,10 @@ WITH ProductValuationPUP AS (
             date_eur.[CurrencyID] = EuroBudgetExchangeRate.[SourceCurrency]
             AND
             date_eur.[ExchangeRateEffectiveDate] = EuroBudgetExchangeRate.[ExchangeRateEffectiveDate]
-)   
+),   
+
+PUP_EUR AS(
+
 SELECT 
     CONCAT_WS(
         '¦' COLLATE Latin1_General_100_BIN2,
@@ -121,7 +134,8 @@ SELECT
     PV.[ValuationAreaID],
     PV.[ValuationArea],        
     PV.[ValuationTypeID],
-    PV.[ValuationClassID],        
+    PV.[ValuationClassID],  
+    PV.[FiscalStartYearPeriodDate],
     PV.[FiscalYearPeriod],
     PV.[FiscalMonthPeriod],
     PV.[FiscalPeriodDate],
@@ -134,7 +148,8 @@ SELECT
     PV.[PriceUnit], 
     PV.[SAPTotalStockValuePUP],
     PV.[SAPTotalStockValueAtSalesPrice],
-    PV.[CurrencyID],         
+    PV.[CurrencyID],        
+    PVEER.[ExchangeRate], 
     PV.[StockPricePerUnit],
     CONVERT(decimal(19,6), PV.[StockPricePerUnit] * PVEER.[ExchangeRate]) AS [StockPricePerUnit_EUR],
     PV.[t_applicationId],
@@ -149,3 +164,108 @@ LEFT JOIN
             PVEER.[ValuationAreaID] = PV.[ValuationAreaID]
             AND
             PVEER.[ValuationTypeID] = PV.[ValuationTypeID]
+            AND 
+            PVEER.[FiscalYearPeriod] = PV.[FiscalYearPeriod]
+            AND 
+            PVEER.[FiscalMonthPeriod] = PV.[FiscalMonthPeriod]
+
+),
+
+ EuroBudgetExchangeRateUSD as (
+       select
+            TargetCurrency
+           ,ExchangeRateEffectiveDate
+           ,ExchangeRate
+       from
+           edw.dim_ExchangeRates
+       where
+           ExchangeRateType = 'ZAXBIBUD'
+           AND
+           SourceCurrency = 'USD'
+),
+
+    ExchangeRateUSD as (
+        SELECT
+            [ProductID]
+        ,   [ValuationAreaID]
+        ,   [ValuationTypeID]
+        ,   [CurrencyID]
+        ,   [FiscalYearPeriod]
+        ,   [FiscalMonthPeriod]
+        ,   EuroBudgetExchangeRateUSD.[ExchangeRate] AS [ExchangeRate]
+        FROM (
+            SELECT
+                PUP_EUR.[ProductID]
+            ,   PUP_EUR.[ValuationAreaID]
+            ,   PUP_EUR.[ValuationTypeID]
+            ,   PUP_EUR.[FiscalYearPeriod]
+            ,   PUP_EUR.[FiscalMonthPeriod]
+            ,   'EUR' as [CurrencyID]
+            ,   MAX([ExchangeRateEffectiveDate]) AS [ExchangeRateEffectiveDate]
+        FROM 
+            PUP_EUR
+            LEFT JOIN 
+                EuroBudgetExchangeRateUSD
+                ON 
+                    EuroBudgetExchangeRateUSD.TargetCurrency = 'EUR'
+            WHERE 
+                [ExchangeRateEffectiveDate] <= PUP_EUR.[FiscalStartYearPeriodDate]
+            GROUP BY
+                PUP_EUR.[ProductID]
+            ,   PUP_EUR.[ValuationAreaID]
+            ,   PUP_EUR.[ValuationTypeID]
+            ,   PUP_EUR.[CurrencyID]
+            ,   PUP_EUR.[FiscalYearPeriod]
+            ,   PUP_EUR.[FiscalMonthPeriod]
+        ) bdi_er_date_usd            
+        LEFT JOIN 
+            EuroBudgetExchangeRateUSD
+            ON
+                bdi_er_date_usd.[CurrencyID] = EuroBudgetExchangeRateUSD.[TargetCurrency]
+                AND
+                bdi_er_date_usd.[ExchangeRateEffectiveDate] = EuroBudgetExchangeRateUSD.[ExchangeRateEffectiveDate]
+)
+
+
+SELECT
+   PUP_EUR.[nk_dim_ProductValuationPUP],
+   PUP_EUR.[ProductID],
+   PUP_EUR.[ValuationAreaID],
+   PUP_EUR.[ValuationArea],        
+   PUP_EUR.[ValuationTypeID],
+   PUP_EUR.[ValuationClassID],        
+   PUP_EUR.[FiscalYearPeriod],
+   PUP_EUR.[FiscalMonthPeriod],
+   PUP_EUR.[FiscalPeriodDate],
+   PUP_EUR.[TotalValuatedStock],
+   PUP_EUR.[TotalValuatedStockValue], 
+   PUP_EUR.[PriceControlIndicatorID],
+   PUP_EUR.[PriceControlIndicator],
+   PUP_EUR.[PeriodicUnitPrice],
+   PUP_EUR.[StandardPrice],
+   PUP_EUR.[PriceUnit], 
+   PUP_EUR.[SAPTotalStockValuePUP],
+   PUP_EUR.[SAPTotalStockValueAtSalesPrice],
+   PUP_EUR.[CurrencyID],    
+   PUP_EUR.ExchangeRate as ExchangeRate_EUR,
+   PVUSD.ExchangeRate as ExchangeRate_USD,     
+   PUP_EUR.[StockPricePerUnit],
+   PUP_EUR.[StockPricePerUnit_EUR],
+   CONVERT(decimal(19,6), PUP_EUR.[StockPricePerUnit_EUR] * (1/PVUSD.[ExchangeRate])) AS [StockPricePerUnit_USD],
+   PUP_EUR.[t_applicationId],
+   PUP_EUR.[t_extractionDtm]
+FROM 
+    PUP_EUR
+
+    LEFT JOIN
+    ExchangeRateUSD PVUSD 
+        ON 
+            PVUSD.[ProductID] = PUP_EUR.[ProductID]
+            AND
+            PVUSD.[ValuationAreaID] = PUP_EUR.[ValuationAreaID]
+            AND
+            PVUSD.[ValuationTypeID] = PUP_EUR.[ValuationTypeID]
+            AND 
+            PVUSD.[FiscalYearPeriod] = PUP_EUR.[FiscalYearPeriod]
+            AND 
+            PVUSD.[FiscalMonthPeriod] = PUP_EUR.[FiscalMonthPeriod]
