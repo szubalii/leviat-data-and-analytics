@@ -18,8 +18,7 @@ CTE_PurgDocScheduleLineSums AS (
     SELECT
         [PurchasingDocument],
         [PurchasingDocumentItem],
-        SUM([GoodsReceiptQuantity])         AS [GoodsReceiptQuantity],
-        MAX([OrderQuantityUnit])            AS [OrderQuantityUnit]
+        SUM([GoodsReceiptQuantity])         AS [GoodsReceiptQuantity]
     FROM
         [base_s4h_cax].[I_PurgDocScheduleLineEnhanced]
     GROUP BY
@@ -51,7 +50,6 @@ SELECT
     PDI.[CostCenter]                        AS [CostCenterID],
     PDI.[GLAccount],
     PDSLSum.[GoodsReceiptQuantity],
-    PDSLSum.[OrderQuantityUnit],
     PDI.[t_applicationId],
     PDI.[t_extractionDtm]
 FROM

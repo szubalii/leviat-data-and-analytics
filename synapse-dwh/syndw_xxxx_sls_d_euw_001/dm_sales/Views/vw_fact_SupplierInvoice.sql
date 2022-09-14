@@ -16,7 +16,3 @@ SELECT
     [t_extractionDtm]
 FROM
     [edw].[fact_SupplierInvoice]
-LEFT JOIN
-    [edw].[dim_Currency] dim_C
-    ON
-      fact_PDI.[DocumentCurrencyID] = dim_C.[CurrencyID]

@@ -16,7 +16,7 @@ CREATE TABLE [edw].[fact_SupplierInvoiceItemPurOrdRef]
     [SuplrInvcDeliveryCostCndnType]             nvarchar(4) collate Latin1_General_100_BIN2,
     [SuplrInvcDeliveryCostCndnStep]             char(3) collate Latin1_General_100_BIN2,
     [SuplrInvcDeliveryCostCndnCount]            char(3) collate Latin1_General_100_BIN2,
-    [DocumentCurrency]                          nchar(5) collate Latin1_General_100_BIN2,
+    [DocumentCurrencyID]                        nchar(5) collate Latin1_General_100_BIN2,
     [SupplierInvoiceItemAmount]                 decimal(13, 2),
     [IsSubsequentDebitCredit]                   nvarchar(1) collate Latin1_General_100_BIN2,
     [TaxCode]                                   nvarchar(2) collate Latin1_General_100_BIN2,
