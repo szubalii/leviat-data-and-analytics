@@ -1,4 +1,4 @@
-CREATE PROCEDURE [utilities].[sp_process_axbi_delta]
+﻿CREATE PROCEDURE [utilities].[sp_process_axbi_delta]
     @schema_name VARCHAR(128),
     @table_name VARCHAR(128),
     @pk_field_names VARCHAR(MAX)
@@ -6,11 +6,11 @@ CREATE PROCEDURE [utilities].[sp_process_axbi_delta]
 AS
 BEGIN
 
-    DECLARE
-        @schema_name VARCHAR(128) = 'base_dw_halfen_2_dwh_uat',
-        @table_name VARCHAR(128) = 'FACT_HGDAWA',
-        @pk_field_names VARCHAR(128) = 'Invoiceno,Posno',
-        @axbi_sys_fields VARCHAR(MAX) = 'DW_Id'',''DW_Batch'',''DW_SourceCode'',''DW_TimeStamp';
+    --DECLARE
+    --    @schema_name VARCHAR(128) = 'base_dw_halfen_2_dwh_uat',
+    --    @table_name VARCHAR(128) = 'FACT_HGDAWA',
+    --    @pk_field_names VARCHAR(128) = 'Invoiceno,Posno',
+    --    @axbi_sys_fields VARCHAR(MAX) = 'DW_Id'',''DW_Batch'',''DW_SourceCode'',''DW_TimeStamp';
 
     -- Create temp table to store the table columns 
     -- excluding AXBI system fields
@@ -40,6 +40,15 @@ BEGIN
             'DW_SourceCode',
             'DW_TimeStamp'
         )
+        AND
+        c.name NOT IN (
+            't_applicationId',
+            't_jobId',
+            't_jobDtm',
+            't_jobBy',
+            't_extractionDtm',
+            't_filePath'
+        )
 
     DECLARE
         @join_clause VARCHAR(MAX) = (
@@ -53,31 +62,39 @@ BEGIN
             ) A
         ),
         -- Get list of columns incl. primary key fields
-        @columns VARCHAR(MAX) = (
+        @columns VARCHAR(MAX) = CONCAT(
+            '[',
+            (
             SELECT
-                STRING_AGG(name, ',') WITHIN GROUP (ORDER BY column_id ASC) 
+                STRING_AGG(CONVERT(NVARCHAR(MAX), name), '],[') WITHIN GROUP (ORDER BY column_id ASC) 
             FROM
                 #columns
+            ),
+            ']'
         ),
         -- Get list of columns excl. primary key fields
-        @columns_wo_pk VARCHAR(MAX) = (
-            SELECT
-                STRING_AGG(name, ',') WITHIN GROUP (ORDER BY column_id ASC) 
-            FROM
-                #columns
-            WHERE
-                -- Exclude the primary key fields from the list of columns
-                PATINDEX(CONCAT('%',name,'%'), @pk_field_names) = 0
+        @columns_wo_pk VARCHAR(MAX) = CONCAT(
+            '[',
+            (
+                SELECT
+                    STRING_AGG(CONVERT(NVARCHAR(MAX), name), '],[') WITHIN GROUP (ORDER BY column_id ASC) 
+                FROM
+                    #columns
+                WHERE
+                    -- Exclude the primary key fields from the list of columns
+                    PATINDEX(CONCAT('%',name,'%'), @pk_field_names) = 0
+            ),
+            ']'
         );
 
-    -- INSERT
-    -- EXEC [utilities].[sp_process_axbi_delta_insert]
-    --     @schema_name,
-    --     @table_name,
-    --     @columns,
-    --     @pk_field_names,
-    --     @join_clause
-    -- ;
+     --INSERT
+     EXEC [utilities].[sp_process_axbi_delta_insert]
+         @schema_name,
+         @table_name,
+         @columns,
+         @pk_field_names,
+         @join_clause
+     ;
 
     -- UPDATE
     EXEC [utilities].[sp_process_axbi_delta_update]
@@ -89,7 +106,7 @@ BEGIN
     ;
 
     -- DELETE
-    EXEC [utilities].[sp_process_axbi_delta_deletet]
+    EXEC [utilities].[sp_process_axbi_delta_delete]
         @schema_name,
         @table_name,
         @pk_field_names,

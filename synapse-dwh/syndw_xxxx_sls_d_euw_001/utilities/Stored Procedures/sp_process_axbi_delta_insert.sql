@@ -1,4 +1,4 @@
-CREATE PROCEDURE [utilities].[sp_process_axbi_delta_insert]
+﻿CREATE PROCEDURE [utilities].[sp_process_axbi_delta_insert]
     @schema_name VARCHAR(128),
     @table_name VARCHAR(128),
     @columns VARCHAR(MAX),
@@ -8,7 +8,8 @@ CREATE PROCEDURE [utilities].[sp_process_axbi_delta_insert]
 AS
 BEGIN
     -- INSERT
-    DECLARE @sql_script NVARCHAR(MAX) = N'
+    DECLARE @date_string CHAR(19) = FORMAT(GETDATE(), 'yyyy-MM-dd HH:mm:ss');
+    DECLARE @insert_sql_script NVARCHAR(MAX) = N'
         INSERT ['+@schema_name+'].['+@table_name+'_active] ('+
             @columns+',
             [t_applicationId],
@@ -21,7 +22,7 @@ BEGIN
             [t_lastActionDtm],
             [t_filePath]
         )
-        SELECT'+
+        SELECT '+
             @columns+',
             [t_applicationId],
             [t_jobId],
@@ -30,19 +31,19 @@ BEGIN
             [t_extractionDtm],'''+
             SYSTEM_USER+''' AS [t_lastActionBy],
             ''I'' AS[t_lastActionCd],'''+
-            GETDATE()+''' AS [t_lastActionDtm],
+            @date_string+''' AS [t_lastActionDtm],
             [t_filePath]
         FROM
             ['+@schema_name+'].['+@table_name+'_new] new
         WHERE NOT EXISTS (
-            SELECT'+
+            SELECT '+
                 @pk_field_names+'
             FROM
                 ['+@schema_name+'].['+@table_name+'_active] active
-            WHERE'+
+            WHERE '+
                 @join_clause+'
         )
     ';
 
-    EXEC sp_execute_sql @sql_script;
+    EXEC sp_executesql @insert_sql_script;
 END;
