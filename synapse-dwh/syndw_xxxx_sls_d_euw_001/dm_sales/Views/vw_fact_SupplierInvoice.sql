@@ -12,7 +12,6 @@ SELECT
     [SupplyingCountry],
     [InvoiceGrossAmount],
     [DocumentCurrencyID],
-    
     [t_applicationId],
     [t_extractionDtm]
 FROM
