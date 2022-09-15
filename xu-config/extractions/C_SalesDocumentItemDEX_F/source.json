@@ -2,6 +2,7 @@
     "name": "CSDSLSDOCITMDX$F",
     "description": "Data Extraction for Sales Document Item",
     "guid": "7a8f6236-9c4a-4181-9e4f-bd98091b0169",
+    "hierarchy": "",
     "semantics": "TransactionalDataOrFacts",
     "context": "ABAP_CDS",
     "supportsFull": true,
@@ -596,6 +597,7 @@
             "length": 17,
             "decimalCount": 2,
             "isSelected": true,
+            "isCurrency": true,
             "outputLength": 19,
             "referenceField": "TRANSACTIONCURRENCY"
         },
@@ -624,6 +626,7 @@
             "length": 17,
             "decimalCount": 2,
             "isSelected": true,
+            "isCurrency": true,
             "outputLength": 19,
             "referenceField": "TRANSACTIONCURRENCY"
         },
@@ -653,6 +656,7 @@
             "length": 17,
             "decimalCount": 2,
             "isSelected": true,
+            "isCurrency": true,
             "outputLength": 19,
             "referenceField": "TRANSACTIONCURRENCY"
         },
@@ -663,6 +667,7 @@
             "length": 17,
             "decimalCount": 2,
             "isSelected": true,
+            "isCurrency": true,
             "outputLength": 19,
             "referenceField": "TRANSACTIONCURRENCY"
         },
@@ -673,6 +678,7 @@
             "length": 17,
             "decimalCount": 2,
             "isSelected": true,
+            "isCurrency": true,
             "outputLength": 19,
             "referenceField": "TRANSACTIONCURRENCY"
         },
@@ -683,6 +689,7 @@
             "length": 17,
             "decimalCount": 2,
             "isSelected": true,
+            "isCurrency": true,
             "outputLength": 19,
             "referenceField": "TRANSACTIONCURRENCY"
         },
@@ -693,6 +700,7 @@
             "length": 17,
             "decimalCount": 2,
             "isSelected": true,
+            "isCurrency": true,
             "outputLength": 19,
             "referenceField": "TRANSACTIONCURRENCY"
         },
@@ -703,6 +711,7 @@
             "length": 17,
             "decimalCount": 2,
             "isSelected": true,
+            "isCurrency": true,
             "outputLength": 19,
             "referenceField": "TRANSACTIONCURRENCY"
         },
@@ -713,6 +722,7 @@
             "length": 17,
             "decimalCount": 2,
             "isSelected": true,
+            "isCurrency": true,
             "outputLength": 19,
             "referenceField": "TRANSACTIONCURRENCY"
         },
@@ -723,6 +733,7 @@
             "length": 17,
             "decimalCount": 2,
             "isSelected": true,
+            "isCurrency": true,
             "outputLength": 19,
             "referenceField": "TRANSACTIONCURRENCY"
         },
@@ -929,6 +940,7 @@
             "length": 17,
             "decimalCount": 2,
             "isSelected": true,
+            "isCurrency": true,
             "outputLength": 19,
             "referenceField": "TRANSACTIONCURRENCY"
         },
@@ -1272,6 +1284,15 @@
             "isSelected": true,
             "selectionPermission": "All",
             "outputLength": 22
+        },
+        {
+            "name": "CORRESPNCEXTERNALREFERENCE",
+            "description": "Your Reference",
+            "abapType": "CharacterString",
+            "length": 12,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 12
         },
         {
             "name": "ODQ_CHANGEMODE",

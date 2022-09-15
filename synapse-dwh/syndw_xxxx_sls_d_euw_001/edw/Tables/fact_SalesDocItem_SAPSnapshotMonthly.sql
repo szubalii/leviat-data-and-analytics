@@ -159,6 +159,7 @@
 , [LocalParentCalculated] NVARCHAR(160)  NULL
 , [SDoc_ControllingObjectID]   NVARCHAR(22) collate Latin1_General_100_BIN2
 , [SDItem_ControllingObjectID] NVARCHAR(22) collate Latin1_General_100_BIN2
+, [CorrespncExternalReference] VARCHAR(12)
 , [InOutID] CHAR(1) collate Latin1_General_100_BIN2 NULL
 , [SnapshotCalMonth]      CHAR(6)
 , [SnapshotDate]          DATETIME

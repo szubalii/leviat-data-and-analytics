@@ -162,6 +162,7 @@
     [SDoc_ControllingObjectID]         NVARCHAR(22) collate Latin1_General_100_BIN2,
     [SDItem_ControllingObjectID]       NVARCHAR(22) collate Latin1_General_100_BIN2,
     [InOutID]                          CHAR(1) collate Latin1_General_100_BIN2      NULL,  
+    [CorrespncExternalReference]       VARCHAR(12),
     [t_applicationId]                  VARCHAR(32),
     [t_extractionDtm]                  DATETIME,
     [t_jobId]                          VARCHAR(36),
