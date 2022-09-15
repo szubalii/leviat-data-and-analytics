@@ -62,6 +62,13 @@ WITH ProductValuationPUP AS (
             dim_comCode.[CompanyCodeID] = purArea.[CompanyCode] COLLATE Latin1_General_100_BIN2  
 ), 
 
+/*
+   FB 15/09/2022:
+   
+   The conversion rate to USD is not available for AXBI Budgeted Rates. 
+   First, calculate the value in EUR. Then, multiply with the inverted exchange rate (1 / ExchangeRate EUR to USD) for USD to EUR. 
+*/
+
 EuroBudgetExchangeRate AS (
     SELECT
             SourceCurrency
