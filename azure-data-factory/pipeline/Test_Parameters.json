@@ -23,6 +23,16 @@
 				}
 			}
 		],
+		"variables": {
+			"run_id": {
+				"type": "String",
+				"defaultValue": "@(activity('Get Parameters for Runs').output)"
+			},
+			"Parameters": {
+				"type": "String",
+				"defaultValue": "@(activity('Get Parameters for Runs').output)"
+			}
+		},
 		"annotations": []
 	}
 }
