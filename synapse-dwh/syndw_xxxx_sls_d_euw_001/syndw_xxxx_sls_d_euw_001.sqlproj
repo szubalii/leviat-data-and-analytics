@@ -176,6 +176,23 @@
     <Build Include="External resources\External data sources\eds_MasterData.sql" />
     <Build Include="External resources\External file formats\eff_MasterDataConfigFileFormat.sql" />
     <Build Include="utilities\External Tables\ext_MasterDataConfig.sql" />
+    <Build Include="edw\Stored Procedures\sp_load_dim_ProductHierarchy.sql" />
+    <Build Include="edw\Stored Procedures\sp_load_dim_ProductSalesDelivery_delta.sql" />
+    <Build Include="edw\Stored Procedures\sp_load_fact_BillingDocumentItem.sql" />
+    <Build Include="edw\Stored Procedures\sp_load_fact_GLAccountLineItemRawData.sql" />
+    <Build Include="edw\Stored Procedures\sp_load_fact_SalesDocumentItem.sql" />
+    <Build Include="base_s4h_cax\Stored Procedures\sp_load_C_BillingDocumentItemBasicDEX.sql" />
+    <Build Include="edw\Stored Procedures\sp_load_fact_OutboundDeliveryItem.sql" />
+    <Build Include="base_s4h_cax\Stored Procedures\sp_load_C_SalesDocumentItemDEX.sql" />
+    <Build Include="edw\Stored Procedures\sp_load_fact_SalesDocItem_SAPSnapshotMonthly.sql" />
+    <Build Include="edw\Stored Procedures\sp_load_fact_Budget_axbi.sql" />
+    <Build Include="edw\Stored Procedures\sp_load_fact_BillingDocumentItem_s4h_active.sql" />
+    <Build Include="edw\Stored Procedures\sp_load_fact_BillingDocumentItem_axbi.sql" />
+    <Build Include="edw\Stored Procedures\sp_load_fact_SalesDocumentItem_s4h_active.sql" />
+    <Build Include="edw\Stored Procedures\sp_load_fact_SalesDocumentItem_axbi.sql" />
+    <Build Include="base_s4h_cax\Stored Procedures\sp_load_Z_C_VariantConfig.sql" />
+    <Build Include="edw\Stored Procedures\sp_load_fact_ProductHierarchyVariantConfigCharacteristic_active.sql" />
+    <Build Include="utilities\Stored Procedures\sp_ingest_master_data.sql" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="base_tx_ca_0_hlp\Tables\CRHCURRENCY.sql" />
@@ -232,7 +249,6 @@
     <Build Include="edw\Tables\dim_ProductSalesDelivery.sql" />
     <Build Include="base_s4h_cax\Tables\I_CompanyCode.sql" />
     <Build Include="base_s4h_cax\Tables\I_Globalcompany.sql" />
-    <Build Include="edw\Stored Procedures\sp_load_dim_ProductHierarchy.sql" />
     <Build Include="edw\Tables\dim_ProductHierarchy.sql" />
     <Build Include="base_s4h_cax\Tables\I_CostCenter.sql" />
     <Build Include="base_s4h_cax\Tables\I_ControllingArea.sql" />
@@ -252,7 +268,6 @@
     <Build Include="base_s4h_cax\Tables\I_ExchangeRate.sql" />
     <Build Include="base_s4h_cax\Tables\I_CostCenterText.sql" />
     <Build Include="base_s4h_cax\Tables\I_ProfitCenterText.sql" />
-    <Build Include="edw\Stored Procedures\sp_load_dim_ProductSalesDelivery_delta.sql" />
     <Build Include="base_s4h_cax\Tables\I_ProductSalesDelivery_delta.sql" />
     <Build Include="edw\Tables\dim_CostCenter.sql" />
     <Build Include="edw\Tables\dim_CompanyCode.sql" />
@@ -261,7 +276,6 @@
     <Build Include="edw\Tables\dim_PostingKey.sql" />
     <Build Include="edw\Tables\dim_ProfitCenter.sql" />
     <Build Include="edw\Tables\dim_ExchangeRates.sql" />
-    <Build Include="edw\Stored Procedures\sp_load_fact_BillingDocumentItem.sql" />
     <Build Include="edw\Tables\fact_BillingDocumentItem.sql" />
     <Build Include="base_s4h_cax\Tables\I_BillingDocumentItemPrcgElmnt.sql" />
     <Build Include="base_s4h_cax\Tables\I_BillingDocumentPrcgElmnt.sql" />
@@ -300,7 +314,6 @@
     <Build Include="base_s4h_cax\Tables\I_SDDocumentCategoryText.sql" />
     <Build Include="base_s4h_cax\Tables\I_SDDocumentReason.sql" />
     <Build Include="base_s4h_cax\Tables\I_SDDocumentReasonText.sql" />
-    <Build Include="edw\Stored Procedures\sp_load_fact_GLAccountLineItemRawData.sql" />
     <Build Include="edw\Tables\dim_Calendar.sql" />
     <Build Include="edw\Tables\dim_BillingDocumentCategory.sql" />
     <Build Include="edw\Tables\dim_BillingDocumentType.sql" />
@@ -523,7 +536,6 @@
     <Build Include="Security\Schemas\base_ff.sql" />
     <Build Include="base_ff\Tables\CurrencyType.sql" />
     <Build Include="edw\Views\vw_CurrencyType.sql" />
-    <Build Include="edw\Stored Procedures\sp_load_fact_SalesDocumentItem.sql" />
     <Build Include="edw\Views\vw_BillingDocumentItem_s4h.sql" />
     <Build Include="edw\Views\vw_BillingDocumentItem_axbi.sql" />
     <Build Include="dm_sales\Views\vw_fact_SalesOrderItem.sql" />
@@ -559,12 +571,10 @@
     <Build Include="base_s4h_cax\Tables\C_BillingDocumentItemBasicDEX_delta.sql" />
     <Build Include="base_s4h_cax\Tables\C_BillingDocumentItemBasicDEX_active.sql" />
     <Build Include="base_s4h_cax\Views\vw_C_BillingDocumentItemBasicDEX.sql" />
-    <Build Include="base_s4h_cax\Stored Procedures\sp_load_C_BillingDocumentItemBasicDEX.sql" />
     <Build Include="edw\Views\vw_OutboundDeliveryItem_s4h.sql" />
     <Build Include="edw\Tables\fact_OutboundDeliveryItem.sql" />
     <Build Include="edw\Tables\dim_Supplier.sql" />
     <Build Include="edw\Tables\dim_Warehouse.sql" />
-    <Build Include="edw\Stored Procedures\sp_load_fact_OutboundDeliveryItem.sql" />
     <Build Include="dm_sales\Views\vw_fact_OutboundDeliveryItem.sql" />
     <Build Include="base_s4h_cax\Tables\I_PaymentTermsConditions.sql" />
     <Build Include="map_AXBI\Tables\BillingDocumentItem.sql" />
@@ -645,7 +655,6 @@
     <Build Include="base_s4h_cax\Tables\C_SalesDocumentItemDEX_delta.sql" />
     <Build Include="base_s4h_cax\Tables\C_SalesDocumentItemDEX_active.sql" />
     <Build Include="base_s4h_cax\Views\vw_C_SalesDocumentItemDEX.sql" />
-    <Build Include="base_s4h_cax\Stored Procedures\sp_load_C_SalesDocumentItemDEX.sql" />
     <Build Include="base_s4h_cax\Tables\I_MaterialDocumentHeader.sql" />
     <Build Include="base_s4h_cax\Tables\I_MaterialDocumentItem.sql" />
     <Build Include="edw\Tables\fact_MaterialDocumentItem.sql" />
@@ -704,7 +713,6 @@
     <Build Include="edw\Tables\dim_Brand.sql" />
     <Build Include="edw\Views\vw_Brand.sql" />
     <Build Include="map_AXBI\Tables\Brand.sql" />
-    <Build Include="edw\Stored Procedures\sp_load_fact_SalesDocItem_SAPSnapshotMonthly.sql" />
     <Build Include="base_s4h_cax\Tables\TVRO.sql" />
     <Build Include="base_s4h_cax\Tables\TVROT.sql" />
     <Build Include="edw\Tables\dim_Route.sql" />
@@ -716,7 +724,6 @@
     <Build Include="edw\Views\vw_ShippingPoint.sql" />
     <Build Include="dm_sales\Views\vw_dim_DataQualityCode.sql" />
     <Build Include="dm_sales\Views\vw_dim_ShippingPoint.sql" />
-    <Build Include="edw\Stored Procedures\sp_load_fact_Budget_axbi.sql" />
     <Build Include="edw\Tables\dim_BillingDocumentPartnerFs.sql" />
     <Build Include="edw\Views\vw_BillingDocumentPartnerFs.sql" />
     <Build Include="Security\Schemas\base_ff_USA.sql" />
@@ -729,13 +736,9 @@
     <Build Include="base_s4h_cax\Tables\I_SDDocumentCompletePartners.sql" />
     <Build Include="edw\Views\vw_BillingDocumentItem_s4h_delta.sql" />
     <Build Include="edw\Views\vw_BillingDocumentItem_s4h_fin_delta.sql" />
-    <Build Include="edw\Stored Procedures\sp_load_fact_BillingDocumentItem_s4h_active.sql" />
-    <Build Include="edw\Stored Procedures\sp_load_fact_BillingDocumentItem_axbi.sql" />
     <Build Include="edw\Tables\fact_BillingDocumentItem_s4h_active.sql" />
     <Build Include="edw\Tables\fact_BillingDocumentItem_axbi.sql" />
     <Build Include="edw\Views\vw_SalesDocumentItem_s4h_delta.sql" />
-    <Build Include="edw\Stored Procedures\sp_load_fact_SalesDocumentItem_s4h_active.sql" />
-    <Build Include="edw\Stored Procedures\sp_load_fact_SalesDocumentItem_axbi.sql" />
     <Build Include="edw\Tables\fact_SalesDocumentItem_s4h_active.sql" />
     <Build Include="edw\Tables\fact_SalesDocumentItem_axbi.sql" />
     <Build Include="dm_sales\Views\vw_fact_BillingDocumentItem_active.sql" />
@@ -745,11 +748,9 @@
     <Build Include="base_s4h_cax\Tables\Z_C_VariantConfig_delta.sql" />
     <Build Include="base_s4h_cax\Tables\Z_C_VariantConfig_active.sql" />
     <Build Include="base_s4h_cax\Views\vw_Z_C_VariantConfig.sql" />
-    <Build Include="base_s4h_cax\Stored Procedures\sp_load_Z_C_VariantConfig.sql" />
     <Build Include="edw\Tables\dim_ConfigurableProductHierarchy.sql" />
     <Build Include="edw\Views\vw_ConfigurableProductHierarchy.sql" />
     <Build Include="base_ff\Tables\SAPDummyProduct.sql" />
-    <Build Include="utilities\Stored Procedures\sp_ingest_master_data.sql" />
     <Build Include="utilities\Functions\Scalar-valued Functions\svf_get_file_path.sql" />
     <Build Include="edw\Tables\dim_InventoryTransactionType.sql" />
     <Build Include="edw\Tables\dim_GoodsMovementType.sql" />
@@ -774,7 +775,6 @@
     <Build Include="dm_sales\Views\vw_fact_MaterialStockLevel.sql" />
     <Build Include="edw\Tables\fact_ProductHierarchyVariantConfigCharacteristic_active.sql" />
     <Build Include="edw\Views\vw_ProductHierarchyVariantConfigCharacteristic_delta.sql" />
-    <Build Include="edw\Stored Procedures\sp_load_fact_ProductHierarchyVariantConfigCharacteristic_active.sql" />
     <Build Include="base_ff\Tables\ConfigurableProduct.sql" />
     <Build Include="dm_sales\Views\vw_dim_InventoryStockType.sql" />
     <Build Include="dm_sales\Views\vw_dim_InventorySpecialStockType.sql" />
