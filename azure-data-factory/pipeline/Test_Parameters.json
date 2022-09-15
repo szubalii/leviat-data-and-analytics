@@ -1,9 +1,9 @@
 {
-	"name": "New",
+	"name": "Test_Parameters",
 	"properties": {
 		"activities": [
 			{
-				"name": "Web1",
+				"name": "Get Parameters for Runs",
 				"type": "WebActivity",
 				"dependsOn": [],
 				"policy": {
