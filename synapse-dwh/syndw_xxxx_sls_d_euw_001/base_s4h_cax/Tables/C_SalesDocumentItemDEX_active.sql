@@ -139,7 +139,7 @@ CREATE TABLE [base_s4h_cax].[C_SalesDocumentItemDEX_active]
     [ItemDeliveryIncompletionStatus] nvarchar(1),
     [SDoc_ControllingObject]         nvarchar(22) collate Latin1_General_100_BIN2,
     [SDItem_ControllingObject]       nvarchar(22) collate Latin1_General_100_BIN2,
-    [CorrespncExternalReference]     char(12),
+    [CorrespncExternalReference]     varchar(12),
     [t_applicationId]                VARCHAR(32),
     [t_jobId]                        VARCHAR(36),
     [t_jobDtm]                       DATETIME,
