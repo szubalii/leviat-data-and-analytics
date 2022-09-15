@@ -1,0 +1,13 @@
+CREATE TABLE [base_tx_crh_2_dwh].[DIM_ADUASCHWITEMGROUP4](
+	[DW_Id] [bigint] IDENTITY(1,1) NOT NULL,
+	[DATAAREAID] [nvarchar](4) NULL,
+	[DESCRIPTION] [nvarchar](60) NULL,
+	[ITEMGROUP4] [nvarchar](10) NULL,
+	[DW_Batch] [bigint] NULL,
+	[DW_SourceCode] [varchar](15) NOT NULL,
+	[DW_TimeStamp] [datetime] NOT NULL,
+ CONSTRAINT [PK_DIM_ADUASCHWITEMGROUP4] PRIMARY KEY NONCLUSTERED 
+(
+	[DW_Id] ASC
+)NOT ENFORCED
+)

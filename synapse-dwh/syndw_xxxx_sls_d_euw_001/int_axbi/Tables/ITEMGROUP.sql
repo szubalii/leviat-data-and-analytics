@@ -1,0 +1,5 @@
+CREATE TABLE [int_axbi].[ITEMGROUP](
+	[DATAAREAID] [nvarchar](8) NOT NULL,
+	[ITEMGROUPID] [nvarchar](60) NOT NULL,
+	[ITEMGROUPNAME] [nvarchar](100) NOT NULL
+)
