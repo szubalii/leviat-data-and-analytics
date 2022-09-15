@@ -172,6 +172,8 @@
     <Folder Include="base_c4c" />
     <Folder Include="base_c4c\Tables" />
     <Folder Include="edw\Table\" />
+    <Folder Include="int_axbi" />
+    <Folder Include="int_axbi\Tables" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Security\Database Scoped Credentials\dsc_MSI.sql" />
@@ -921,6 +923,8 @@
     <Build Include="edw\Tables\fact_SupplierInvoiceItemPurOrdRef.sql" />
     <Build Include="edw\Views\vw_SupplierInvoiceItemPurOrdRef.sql" />
     <Build Include="dm_sales\Views\vw_fact_SupplierInvoiceItemPurOrdRef.sql" />
+    <Build Include="int_axbi\Tables\ITEMTABLE.sql" />
+    <Build Include="Security\Schemas\int_axbi.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\Post-Deploy\Script.PostDeployment.sql" />
