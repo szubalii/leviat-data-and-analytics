@@ -807,7 +807,7 @@
         "update_mode": "Full",
         "base_table_name": "I_ProductPlant",
         "pk_field_names": "PRODUCT, PLANT",
-        "schedule_recurrence": "A"
+        "schedule_recurrence": "D"
       },
       {
         "entity_id": 130,
@@ -842,7 +842,7 @@
         "extraction_type": "Table",
         "update_mode": "Full",
         "base_table_name": "I_ProductSalesDelivery",
-        "schedule_recurrence": "A"
+        "schedule_recurrence": "D"
       },
       {
         "entity_id": 133,
@@ -1473,7 +1473,7 @@
         "update_mode": "Full",
         "base_table_name": "I_DistributionChannelText",
         "pk_field_names": "DISTRIBUTIONCHANNEL, LANGUAGE",
-        "schedule_recurrence": "A"
+        "schedule_recurrence": "D"
       },
       {
         "entity_id": 186,
@@ -1986,7 +1986,7 @@
         "update_mode": "Full",
         "base_table_name": "I_MaterialText",
         "pk_field_names": "MATERIAL, LANGUAGE",
-        "schedule_recurrence": "A"
+        "schedule_recurrence": "D"
       },
       {
         "entity_id": 229,
@@ -2549,7 +2549,7 @@
         "update_mode": "Full",
         "base_table_name": "I_ProductTypeText",
         "pk_field_names": "PRODUCTTYPE, LANGUAGE",
-        "schedule_recurrence": "A"
+        "schedule_recurrence": "D"
       },
       {
         "entity_id": 276,
@@ -3252,7 +3252,7 @@
         "base_table_name": "Z_C_VariantConfig_delta",
         "base_sproc_name": "sp_load_Z_C_VariantConfig",
         "pk_field_names": "TS_SEQUENCE_NUMBER, SALESDOCUMENT, SALESDOCUMENTITEM",
-        "schedule_recurrence": "A"
+        "schedule_recurrence": "D"
       },
       {
         "entity_id": 424,
@@ -4529,7 +4529,7 @@
         "source_view_name": "vw_ProductSalesDelivery",
         "dest_table_name": "dim_ProductSalesDelivery",
         "execution_order": 0,
-        "schedule_recurrence": "A"
+        "schedule_recurrence": "D"
       },
       {
         "entity_id": 354,
