@@ -1,6 +1,6 @@
 CREATE TABLE [base_dw_halfen_1_stg].[AX_Halfen_dbo_COMPANYINFO]
 (   [DW_Id]                           BIGINT            NOT NULL,
-    [DATAAREAID]                      NVARCHAR   (4)    NULL,
+    [DATAAREAIDD]                      NVARCHAR   (4)    NULL,
     [CURRENCYCODE]                    NVARCHAR   (3)    NULL,
     [SHIPPINGCALENDARID]              NVARCHAR   (10)   NULL,
     [DW_Batch]                        BIGINT            NULL,
