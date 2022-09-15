@@ -3740,7 +3740,7 @@
         "extraction_type": "ODP",
         "update_mode": "Full",
         "base_table_name": "I_Bank",
-        "pk_field_names": "MANDT,BANKCOUNTRY,BANKINTERNALID",
+        "pk_field_names": "BANKCOUNTRY,BANKINTERNALID",
         "schedule_recurrence": "A"
       },
       {
