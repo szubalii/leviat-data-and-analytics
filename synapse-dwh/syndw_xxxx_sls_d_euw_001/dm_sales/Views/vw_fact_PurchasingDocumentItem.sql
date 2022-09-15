@@ -1,7 +1,6 @@
-
 CREATE VIEW [dm_sales].[vw_fact_PurchasingDocumentItem]
 AS
-SELECT 
+SELECT
   [sk_fact_PurchasingDocumentItem],
   [PurchasingDocument],
   [PurchasingDocumentItem],
@@ -19,9 +18,14 @@ SELECT
   [NetPriceAmount],
   [NetPriceQuantity],
   [PurchasingDocumentItemCategoryID],
-  [ScheduleLineOpenQuantity],
-  [ScheduleLineDeliveryDate], 
-  [t_applicationId],
-  [t_extractionDtm]
-FROM 
-   [edw].[fact_PurchasingDocumentItem]
+  [NextDeliveryOpenQuantity],
+  [NextDeliveryDate],
+  [IsCompletelyDelivered],
+  [OrderQuantityUnit],
+  [CostCenterID],
+  [GLAccount],
+  [GoodsReceiptQuantity],
+  fact_PDI.[t_applicationId],
+  fact_PDI.[t_extractionDtm]
+FROM
+  [edw].[fact_PurchasingDocumentItem] fact_PDI

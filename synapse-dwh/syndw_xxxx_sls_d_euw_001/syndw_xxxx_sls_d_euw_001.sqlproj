@@ -171,7 +171,6 @@
     <Folder Include="dm_dq\Views" />
     <Folder Include="base_c4c" />
     <Folder Include="base_c4c\Tables" />
-    <Folder Include="edw\Table\" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Security\Database Scoped Credentials\dsc_MSI.sql" />
@@ -766,7 +765,7 @@
     <Build Include="base_s4h_cax\Tables\I_PurchasingDocumentType.sql" />
     <Build Include="edw\Tables\dim_PurchasingDocumentType.sql" />
     <Build Include="edw\Views\vw_PurchasingDocumentType.sql" />
-    <Build Include="edw\Tables\dim_PurchasingDocument.sql" />
+    <Build Include="edw\Tables\fact_PurchasingDocument.sql" />
     <Build Include="edw\Views\vw_PurchasingDocument.sql" />
     <Build Include="edw\Tables\dim_DeliveryDocument.sql" />
     <Build Include="edw\Views\vw_DeliveryDocument.sql" />
@@ -906,7 +905,7 @@
     <Build Include="dm_sales\Views\vw_dim_SupplierCompany.sql" />
     <Build Include="dm_sales\Views\vw_fact_PurchasingDocumentItem.sql" />
     <Build Include="dm_sales\Views\vw_fact_SupplierInvoice.sql" />
-    <Build Include="dm_sales\Views\vw_dim_PurchasingDocument.sql" />
+    <Build Include="dm_sales\Views\vw_fact_PurchasingDocument.sql" />
     <Build Include="dm_sales\Views\vw_dim_Supplier.sql" />
     <Build Include="base_s4h_cax\Tables\I_Capacity.sql" />
     <Build Include="base_s4h_cax\Tables\I_CapacityCategoryText.sql" />
@@ -921,6 +920,9 @@
     <Build Include="edw\Tables\fact_SupplierInvoiceItemPurOrdRef.sql" />
     <Build Include="edw\Views\vw_SupplierInvoiceItemPurOrdRef.sql" />
     <Build Include="dm_sales\Views\vw_fact_SupplierInvoiceItemPurOrdRef.sql" />
+    <Build Include="dm_sales\Views\vw_dim_Currency.sql" />
+    <Build Include="base_s4h_cax\Tables\I_BankAccountText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_Bank.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\Post-Deploy\Script.PostDeployment.sql" />

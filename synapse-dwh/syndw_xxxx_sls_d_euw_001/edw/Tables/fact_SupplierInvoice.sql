@@ -9,7 +9,7 @@ CREATE TABLE [edw].[fact_SupplierInvoice]
     [InvoiceReceiptDate]             date,
     [SupplierInvoiceIDByInvcgParty]  nvarchar(16) collate Latin1_General_100_BIN2,
     [InvoicingPartyID]               nvarchar(10) collate Latin1_General_100_BIN2,
-    [DocumentCurrency]               nchar(5) collate Latin1_General_100_BIN2,
+    [DocumentCurrencyID]             nchar(5) collate Latin1_General_100_BIN2,
     [InvoiceGrossAmount]             decimal(13, 2),
     [IsInvoice]                      nvarchar(1) collate Latin1_General_100_BIN2,
     [UnplannedDeliveryCost]          decimal(13, 2),

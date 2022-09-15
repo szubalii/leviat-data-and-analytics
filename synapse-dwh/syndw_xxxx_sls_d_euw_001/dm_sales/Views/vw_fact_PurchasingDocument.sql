@@ -1,4 +1,4 @@
-CREATE VIEW [dm_sales].[vw_dim_PurchasingDocument]
+CREATE VIEW [dm_sales].[vw_fact_PurchasingDocument]
   AS 
    SELECT
       PD.[PurchasingDocumentID],
@@ -14,14 +14,14 @@ CREATE VIEW [dm_sales].[vw_dim_PurchasingDocument]
       PO.[PurchasingOrganizationName]        AS [PurchasingOrganization],
       PD.[PurchasingGroupID],
       PG.[PurchasingGroupName]               AS [PurchasingGroup], 
-      PD.[PlantID],
+      PD.[SupplyingPlantID],
       PD.[CompanyCodeID], 
       PD.[PurchasingProcessingStatusID],
       PDST.[PurchasingDocumentStatusName]    AS [PurchasingDocumentStatus], 
       PD.[t_applicationId],
       PD.[t_extractionDtm]
    FROM  
-      [edw].[dim_PurchasingDocument] PD
+      [edw].[fact_PurchasingDocument] PD
    LEFT JOIN   
       [edw].[dim_PurchasingDocumentType] dim_PDT
       ON 

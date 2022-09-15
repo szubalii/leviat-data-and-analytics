@@ -1,4 +1,4 @@
-CREATE TABLE [edw].[dim_PurchasingDocument]
+CREATE TABLE [edw].[fact_PurchasingDocument]
 (
     [PurchasingDocumentID]              nvarchar(10) collate Latin1_General_100_BIN2 NOT NULL,
     [SupplierID]                        nvarchar(10) collate Latin1_General_100_BIN2,
@@ -10,7 +10,7 @@ CREATE TABLE [edw].[dim_PurchasingDocument]
     [PurchasingDocumentOrderDate]       date,
     [PurchasingOrganizationID]          nvarchar(4) collate Latin1_General_100_BIN2,
     [PurchasingGroupID]                 nvarchar(3) collate Latin1_General_100_BIN2,
-    [PlantID]                           nvarchar(4) collate Latin1_General_100_BIN2,
+    [SupplyingPlantID]                  nvarchar(4) collate Latin1_General_100_BIN2,
     [PurchasingProcessingStatusID]      nvarchar(2) collate Latin1_General_100_BIN2, 
     [PurchaseContract]                  nvarchar(10) collate Latin1_General_100_BIN2,
     [t_applicationId]                   VARCHAR(32),
