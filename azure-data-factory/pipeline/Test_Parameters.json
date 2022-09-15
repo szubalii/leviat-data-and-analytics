@@ -57,7 +57,7 @@
 				"typeProperties": {
 					"variableName": "Parameters",
 					"value": {
-						"value": "@string(activity('Get Parameters for Runs').output)",
+						"value": "@string(activity('Get Parameters for Runs').output.parameters)",
 						"type": "Expression"
 					}
 				}
@@ -68,9 +68,6 @@
 				"type": "String"
 			},
 			"Parameters": {
-				"type": "String"
-			},
-			"Paramater New": {
 				"type": "String"
 			}
 		},
