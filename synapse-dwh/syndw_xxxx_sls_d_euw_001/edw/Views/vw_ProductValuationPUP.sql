@@ -120,6 +120,7 @@ SELECT
     dimPVs.[CurrencyID],                     
     dimPVs.[StockPricePerUnit],              
     dimPVs.[StockPricePerUnit_EUR],
+    dimPVs.[StockPricePerUnit_USD],
     CT.isAddedMissingMonth,
     dimPVs.[t_applicationId],
     dimPVs.[t_extractionDtm]

@@ -25,6 +25,7 @@ CREATE TABLE [edw].[dim_ProductValuationPUP]
     [CurrencyID]                     CHAR(5) COLLATE Latin1_General_100_BIN2,
     [StockPricePerUnit]              DECIMAL(15, 4),
     [StockPricePerUnit_EUR]          DECIMAL(15, 4),
+    [StockPricePerUnit_USD]          DECIMAL(15, 4),
     [isAddedMissingMonth]            BIT,    
     [t_applicationId]                VARCHAR(32),
     [t_extractionDtm]                DATETIME,
