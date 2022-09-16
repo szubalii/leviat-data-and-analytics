@@ -61,6 +61,35 @@
 						"type": "Expression"
 					}
 				}
+			},
+			{
+				"name": "Get Parameters for Runs_copy1",
+				"type": "WebActivity",
+				"dependsOn": [
+					{
+						"activity": "Get Parameters for Runs",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"url": "https://management.azure.com/subscriptions/f199b488-7d9d-4992-aeda-c10a1e1c9b9e/resourceGroups/rg-xxxx-sls-d-euw-001/providers/Microsoft.DataFactory/factories/df-xxxx-sls-d-euw-001/pipelineruns/7c3b84c1-0e24-450f-927c-523919324ff2?api-version=2018-06-01",
+					"method": "GET",
+					"authentication": {
+						"type": "ServicePrincipal",
+						"userTenant": "c3ce31d5-61f3-4ee3-88c4-2f15f5bae9f5",
+						"resource": "47052e7c-18a8-4fc4-a5d0-819409490115"
+					}
+				}
 			}
 		],
 		"variables": {
