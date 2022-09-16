@@ -5087,6 +5087,15 @@
         "dest_table_name": "fact_SupplierInvoiceItemPurOrdRef",
         "execution_order": 1,
         "schedule_recurrence": "D"
+      },
+      {
+        "entity_id": 503,
+        "entity_name": "fact_OpportunityCollection",
+        "sproc_name": "sp_materialize_view",
+        "source_view_name": "vw_OpportunityCollection",
+        "dest_table_name": "fact_OpportunityCollection",
+        "execution_order": 1,
+        "schedule_recurrence": "D"
       }
     ]
   },
