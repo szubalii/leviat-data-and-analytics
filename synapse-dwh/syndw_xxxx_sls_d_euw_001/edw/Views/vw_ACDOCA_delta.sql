@@ -1,4 +1,4 @@
-﻿CREATE VIEW [edw].[vw_ACDOCA]
+﻿CREATE VIEW [edw].[vw_ACDOCA_delta]
 AS
 SELECT 
        [SourceLedger]                           AS [SourceLedgerID],
@@ -36,7 +36,7 @@ SELECT
        [CostCenter]                             AS [CostCenterID],
        [ProfitCenter]                           AS [ProfitCenterID],
        [FunctionalArea]                         AS [FunctionalAreaID],
-       [BusinessArea]                           AS [BusinessAreaID],          
+       [BusinessArea]                           AS [BusinessAreaID],        
        [Segment]                                AS [SegmentID],
        [PartnerCostCenter]                      AS [PartnerCostCenterID],
        [PartnerProfitCenter]                    AS [PartnerProfitCenterID],
@@ -121,10 +121,14 @@ SELECT
        [BillingDocumentType]                    AS [BillingDocumentTypeID],
        [SalesOrganization]                      AS [SalesOrganizationID],
        [DistributionChannel]                    AS [DistributionChannelID],
-       GLAccountLineItemRawData.[SalesDistrict] AS [SalesDistrictID],
+       [SalesDistrict]                          AS [SalesDistrictID],
        [BillToParty]                            AS [BillToPartyID],
-       GLAccountLineItemRawData.[t_applicationId],
-       GLAccountLineItemRawData.[t_extractionDtm]
-FROM [base_s4h_cax].[I_GLAccountLineItemRawData] GLAccountLineItemRawData 
+       [t_applicationId],
+       [t_extractionDtm],
+       [t_lastActionBy],
+       [t_lastActionCd],
+       [t_lastActionDtm],
+       [t_filePath]
+FROM [base_s4h_cax].[I_GLAccountLineItemRawData_active] GLAccountLineItemRawData 
 -- WHERE
 --     GLAccountLineItemRawData.MANDT = 200 MPS 2021/11/01: commented out due to different client values between dev,qas, and prod

@@ -286,6 +286,9 @@
     <Build Include="base_s4h_cax\Views\vw_I_GLAccountLineItemRawData.sql" />
     <Build Include="base_s4h_cax\Stored Procedures\sp_load_I_GLAccountLineItemRawData.sql" />    
     <Build Include="edw\Tables\fact_ACDOCA.sql" />
+    <Build Include="edw\Views\vw_ACDOCA_delta.sql" />
+    <Build Include="edw\Tables\fact_ACDOCA_active.sql" />
+    <Build Include="edw\Stored Procedures\sp_load_fact_ACDOCA_active.sql" />
     <Build Include="Security\Schemas\dm_sales.sql" />
     <Build Include="dm_sales\Views\vw_dim_Customer.sql" />
     <Build Include="dm_sales\Views\vw_fact_BillingDocumentItem.sql" />
