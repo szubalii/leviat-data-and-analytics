@@ -4,7 +4,8 @@ CREATE   PROCEDURE [dbo].[set_pipeline_log] @pipeline_name varchar(50),
                                                     @run_id UNIQUEIDENTIFIER,
                                                     @parent_run_id varchar(36),
                                                     @user_name varchar(50) = Null,
-                                                    @message nvarchar(max) = Null
+                                                    @message nvarchar(max) = Null,
+                                                    @parameters nvarchar(max)
 AS
 begin
     declare @pipeline_id BIGINT = Null;
@@ -24,8 +25,28 @@ begin
         IF (@error_str != '')
              THROW 51001, @error_str, 1;
 
-        Insert into [dbo].[pipeline_log] ([run_id], [parent_run_id], [pipeline_id], [start_date_time], [status_id], [user_name], [message])
-        values (@run_id, @parent_run_id, @pipeline_id, @start_date_time, @status_id, @user_name, @message)
+        Insert into [dbo].[pipeline_log] 
+        (
+          [run_id]
+        , [parent_run_id]
+        , [pipeline_id]
+        , [start_date_time]
+        , [status_id]
+        , [user_name]
+        , [message]
+        , [parameters]
+        )
+        values 
+        (
+              @run_id
+            , @parent_run_id
+            , @pipeline_id
+            , @start_date_time
+            , @status_id
+            , @user_name
+            , @message
+            , @parameters
+        )
     END TRY
     BEGIN CATCH
 		exec dbo.[error_handler] @run_id = @run_id;
