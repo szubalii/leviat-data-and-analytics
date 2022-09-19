@@ -3,7 +3,27 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Get Parameters for Runs",
+				"name": "Set variable2",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "Get Parameters for Runs_copy1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "Parameters",
+					"value": {
+						"value": "@string(activity('Get Parameters for Runs_copy1').output.parameters)",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Get Parameters for Runs_copy1",
 				"type": "WebActivity",
 				"dependsOn": [],
 				"policy": {
@@ -17,77 +37,9 @@
 				"typeProperties": {
 					"url": "https://management.azure.com/subscriptions/f199b488-7d9d-4992-aeda-c10a1e1c9b9e/resourceGroups/rg-xxxx-sls-d-euw-001/providers/Microsoft.DataFactory/factories/df-xxxx-sls-d-euw-001/pipelineruns/7c3b84c1-0e24-450f-927c-523919324ff2?api-version=2018-06-01",
 					"method": "GET",
-					"headers": {
-						"Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6IjJaUXBKM1VwYmpBWVhZR2FYRUpsOGxWMFRPSSIsImtpZCI6IjJaUXBKM1VwYmpBWVhZR2FYRUpsOGxWMFRPSSJ9.eyJhdWQiOiJodHRwczovL21hbmFnZW1lbnQuY29yZS53aW5kb3dzLm5ldCIsImlzcyI6Imh0dHBzOi8vc3RzLndpbmRvd3MubmV0L2MzY2UzMWQ1LTYxZjMtNGVlMy04OGM0LTJmMTVmNWJhZTlmNS8iLCJpYXQiOjE2NjMzMTUwNTYsIm5iZiI6MTY2MzMxNTA1NiwiZXhwIjoxNjYzMzE5NTk0LCJhY3IiOiIxIiwiYWlvIjoiQVZRQXEvOFRBQUFBSzU0VjhwZ0YrVWUyZzk2ZWlqQklXZXNVWlJHamlBQ3RlYnBpY2IvdCtRVnl5OWgvMENVVGVwRkVmMVpqS01KdXF0ckgrbWJlTXZZZXhLcFVESTQycmJZaW9XdjRuUEtubjhjc3VENEF5eUE9IiwiYW1yIjpbInB3ZCIsIm1mYSJdLCJhcHBpZCI6IjE4ZmJjYTE2LTIyMjQtNDVmNi04NWIwLWY3YmYyYjM5YjNmMyIsImFwcGlkYWNyIjoiMCIsImZhbWlseV9uYW1lIjoiQm91dyIsImdpdmVuX25hbWUiOiJGcmVkIiwiZ3JvdXBzIjpbIjAzYzA4Yzc5LTA1ZDEtNDZmYS05MzcxLTUyM2YyNTAzNGUwOSIsIjU5MGM0NGU2LWYzYjYtNDc5OC1hYmI4LWQ5MDhkYjNmYmYxNiIsIjlmNGE5YmExLTczNzYtNDg3NS1hNWFiLTZmNDdkMDlhMDhmMSIsIjY1NWU5Y2YxLTNjMjUtNDAxOS1iMWQyLWQyOTkyM2EzYmNhYyIsIjY1YjQ2MzEwLWM4NmUtNDVjNi1hMmYyLTRlZWI1OTlhMzg1MSIsImUxMGYyMDM5LWI5NWQtNDYzNC04MWRiLTIzMTJmMDU3ZTlkMyIsIjkxMWJiYmYzLTE1NjUtNDE0ZS1iODU2LWYyYmJiM2MzOGQ4ZCIsImRkZjMzMjFhLThlMmEtNGU1Mi05NDkyLTkwNmY4YjViNmZkNiIsIjdlMzVkYzg2LWNhNWEtNGJlMy1iNTYwLTc0ZTU2ZTMwOWQxNSIsImRhNzczYzBkLTI1MmUtNDkxMi04YTM2LTQwMjE0N2NiYmU5YiIsImYyOGQzNjU4LTZjNTItNDk4Mi05MzlkLTJiMzUwZDdlMGVkZCIsIjZjYjk0MDIzLTJmOWYtNDA0MC04OTAyLTI3MzZmMWZmM2MwMCIsIjI2ZjNmNWM4LTAxM2YtNGU1OS1iMzMxLWFlMTVlNmQ5NTk4YyIsImY2OWJiZmNmLWU2ZDItNDVkOC1iYmVmLWE0ZDFlZDRlMjhlYyIsIjU5ZjllZTViLWY4ZjktNDUzOC1iYWU2LTQxZWE2Y2EwNzY5YyIsIjYyZGY4ODI1LTYyYmItNDdjNi04YmY2LTBhMzU1YzRhODU1NSIsImI1ZjQ1YjI0LTFlM2YtNDQ0OS1hNGYzLTI5OTYwNjUzNGMwNSIsIjczZmIwZTRhLTg3NGQtNGU2Zi1hZWEyLWIzYmIwMjIyZTcxOCIsIjg2MmM3MzE3LTc3N2YtNDM2NC1iY2E5LTM3NzJlODI4ZmJjYiIsImVkYzM2NjUwLTU4NWItNDgzNi04MjgyLTY2MmFjNmVmYWFjMSIsIjAxYzMwMDBiLWMzOWQtNDBjMC04MTQ5LTQxZDczZTRlNmU0YiIsIjMyY2I2YTcyLWI0MWYtNDM0ZC1hYzRjLWUxMDllZmQyYThmYyIsIjcyYzc1OWMyLTM5MTItNDI0OS04NDkzLWI5YmI1NDVmOWMxZiIsIjVhYjQ1Y2IzLTc5NjAtNDNlNS1hZjg3LTg4NzUzYjBlMWJjNyIsIjBkMDNjNmRhLTRhNjctNDgxZS05MThjLThlOGNjZDJkYTEwNCIsIjIwMDBlMTRjLTEzNWItNDdkNC1iOWZjLTMyY2M2YmZlMzdkOSJdLCJpcGFkZHIiOiIyNC4xMzIuNjkuMjI1IiwibmFtZSI6IkJvdXcsIEZyZWQiLCJvaWQiOiIwMTA5NDVlYi1mYzUzLTQ1ZWQtYTU4NC1lNDc0MzczMzFmYmIiLCJvbnByZW1fc2lkIjoiUy0xLTUtMjEtMzAxMDcwNTg2NS0zNjg4MjE4MTI1LTQwOTg0ODc4LTc3MDA4IiwicHVpZCI6IjEwMDMyMDAxMkE0N0ZCRjMiLCJyaCI6IjAuQVFrQTFUSE93X05oNDA2SXhDOFY5YnJwOVVaSWYza0F1dGRQdWtQYXdmajJNQk1KQUF3LiIsInNjcCI6InVzZXJfaW1wZXJzb25hdGlvbiIsInN1YiI6Ik5JMUZwNlhyaVRFbjEtc1VXcDI0cldybTd0N0J0VXZTSDM3a1JyN2I0c0EiLCJ0aWQiOiJjM2NlMzFkNS02MWYzLTRlZTMtODhjNC0yZjE1ZjViYWU5ZjUiLCJ1bmlxdWVfbmFtZSI6ImZib3V3QGNyaC5jb20iLCJ1cG4iOiJmYm91d0BjcmguY29tIiwidXRpIjoicDJHdk5HZXFvRXF1eDdjWkRxUUdBQSIsInZlciI6IjEuMCIsIndpZHMiOlsiYjc5ZmJmNGQtM2VmOS00Njg5LTgxNDMtNzZiMTk0ZTg1NTA5Il0sInhtc190Y2R0IjoxMzYwOTEzODg2fQ.A4voZS0jUQpTvZn6_4L_6aL1243pDjX-CyiXVXXXGk4ACwGMEukMgf7aAb_iIfbCvJ831xmDcLgHpQv8zxCOBVNfikS3d8SD6QHbL7_lVuzItCSHbCP8gjbZCbYWLKG7F_H9Sr6MFR7h8rpit-nqPCA_NFBsBBSG0QQup1M-lODBs5DDVUbUnZ6b7eeKytPemQVb96RY1PmyrMQubknirmK3YpAteXBoQHeCaLpGlfOvS5zpHU1XvZ80oTnVSGnbk1kzEfjTLLnrHLXeJeq1T5I_uRfv4P-4uCnz0n2qpKY1tDOF8f5i_GeykuFk2oe4y0pijedGDGyuPXFLtYTASA"
-					}
-				}
-			},
-			{
-				"name": "Set variable1",
-				"type": "SetVariable",
-				"dependsOn": [
-					{
-						"activity": "Get Parameters for Runs",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"userProperties": [],
-				"typeProperties": {
-					"variableName": "run_id",
-					"value": {
-						"value": "@activity('Get Parameters for Runs').output.runid",
-						"type": "Expression"
-					}
-				}
-			},
-			{
-				"name": "Set variable2",
-				"type": "SetVariable",
-				"dependsOn": [
-					{
-						"activity": "Get Parameters for Runs",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"userProperties": [],
-				"typeProperties": {
-					"variableName": "Parameters",
-					"value": {
-						"value": "@string(activity('Get Parameters for Runs').output.parameters)",
-						"type": "Expression"
-					}
-				}
-			},
-			{
-				"name": "Get Parameters for Runs_copy1",
-				"type": "WebActivity",
-				"dependsOn": [
-					{
-						"activity": "Get Parameters for Runs",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"policy": {
-					"timeout": "0.12:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"url": "https://management.azure.com/subscriptions/f199b488-7d9d-4992-aeda-c10a1e1c9b9e/resourceGroups/rg-xxxx-sls-d-euw-001/providers/Microsoft.DataFactory/factories/df-xxxx-sls-d-euw-001/pipelineruns/7c3b84c1-0e24-450f-927c-523919324ff2?api-version=2018-06-01",
-					"method": "GET",
 					"authentication": {
-						"type": "ServicePrincipal",
-						"userTenant": "c3ce31d5-61f3-4ee3-88c4-2f15f5bae9f5",
-						"resource": "47052e7c-18a8-4fc4-a5d0-819409490115"
+						"type": "MSI",
+						"resource": "https://management.core.windows.net/"
 					}
 				}
 			}
