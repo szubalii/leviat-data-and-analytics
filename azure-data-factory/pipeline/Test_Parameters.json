@@ -35,7 +35,10 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"url": "https://management.azure.com/subscriptions/f199b488-7d9d-4992-aeda-c10a1e1c9b9e/resourceGroups/rg-xxxx-sls-d-euw-001/providers/Microsoft.DataFactory/factories/df-xxxx-sls-d-euw-001/pipelineruns/7c3b84c1-0e24-450f-927c-523919324ff2?api-version=2018-06-01",
+					"url": {
+						"value": "@CONCAT('https://management.azure.com/subscriptions/','f199b488-7d9d-4992-aeda-c10a1e1c9b9e','/resourceGroups/', pipeline().globalParameters.resourceGroupName,'/providers/Microsoft.DataFactory/factories/', pipeline().DataFactory,'/pipelineruns/','ee52fa74-761a-4ca3-8fee-da73aade2cc4', '?api-version=2018-06-01')",
+						"type": "Expression"
+					},
 					"method": "GET",
 					"authentication": {
 						"type": "MSI",
