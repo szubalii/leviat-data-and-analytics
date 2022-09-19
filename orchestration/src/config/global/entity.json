@@ -3440,6 +3440,7 @@
             "entity_id": 44,
             "entity_name": "FACT_HGDAWA",
             "base_table_name": "FACT_HGDAWA",
+            "base_sproc_name": "sp_load_FACT_HGDAWA",
             "axbi_date_field_name": "Invoice date",
             "pk_field_names": "DW_Id",
             "schedule_recurrence": "D"
