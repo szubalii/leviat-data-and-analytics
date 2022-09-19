@@ -4,7 +4,7 @@ CREATE   PROCEDURE [dbo].[set_pipeline_log] @pipeline_name varchar(50),
                                                     @run_id UNIQUEIDENTIFIER,
                                                     @parent_run_id varchar(36),
                                                     @user_name varchar(50) = Null,
-                                                    @message nvarchar(max) = Null
+                                                    @message nvarchar(max) = Null,
                                                     @parameters nvarchar(max)
 AS
 begin
