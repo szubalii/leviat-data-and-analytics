@@ -50,8 +50,10 @@
         "extraction_type": "ODP",
         "update_mode": "Delta",
         "base_table_name": "I_GLAccountLineItemRawData_delta",
+        "base_sproc_name": "sp_load_I_GLAccountLineItemRawData",
         "pk_field_names": "TS_SEQUENCE_NUMBER, SOURCELEDGER, COMPANYCODE, FISCALYEAR, ACCOUNTINGDOCUMENT, LEDGERGLLINEITEM",
         "schedule_recurrence": "D"
+        
       },
       {
         "entity_id": 5,
