@@ -15,7 +15,7 @@
 				],
 				"userProperties": [],
 				"typeProperties": {
-					"variableName": "Parameters",
+					"variableName": "Parameters_String",
 					"value": {
 						"value": "@string(activity('Get Parameters for Runs_copy1').output.parameters)",
 						"type": "Expression"
@@ -45,14 +45,40 @@
 						"resource": "https://management.core.windows.net/"
 					}
 				}
+			},
+			{
+				"name": "Set variable2_copy1",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "Get Parameters for Runs_copy1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "Parameters_Array",
+					"value": {
+						"value": "@array(activity('Get Parameters for Runs_copy1').output.parameters)",
+						"type": "Expression"
+					}
+				}
 			}
 		],
 		"variables": {
 			"run_id": {
 				"type": "String"
 			},
-			"Parameters": {
+			"Parameters_String": {
 				"type": "String"
+			},
+			"Run_Parameters": {
+				"type": "String"
+			},
+			"Parameters_Array": {
+				"type": "Array"
 			}
 		},
 		"annotations": []
