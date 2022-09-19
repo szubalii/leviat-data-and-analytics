@@ -94,3 +94,8 @@ CREATE TABLE [base_tx_crh_2_dwh].[FACT_SALESLINE](
 	[DW_Id] ASC
 )NOT ENFORCED
 )
+GO
+ALTER TABLE [base_tx_crh_2_dwh].[FACT_SALESLINE] ADD  CONSTRAINT [DF_FACT_SALESLINE_DW_SourceCode]  DEFAULT ('Unknown') FOR [DW_SourceCode]
+GO
+ALTER TABLE [base_tx_crh_2_dwh].[FACT_SALESLINE] ADD  CONSTRAINT [DF_FACT_SALESLINE_DW_TimeStamp]  DEFAULT (getdate()) FOR [DW_TimeStamp]
+GO

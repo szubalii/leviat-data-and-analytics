@@ -3731,9 +3731,9 @@
         "pk_field_names": "MANUFACTURINGORDERCATEGORY,LANGUAGE",
         "schedule_recurrence": "A"
       }
-        
-  ]
-},
+
+    ]
+  },
   "c4c": {
     "layer_id": 8,
     "schema_name": "base_c4c",
@@ -3766,6 +3766,30 @@
         "entity_name": "SAPItemNumberBasicMappingTable",
         "base_table_name": "SAPItemNumberBasicMappingTable",
         "schedule_recurrence": "A"
+      },
+      {
+        "entity_id": 501,
+        "entity_name": "CALENDAR",
+        "base_table_name": "CALENDAR",
+        "schedule_recurrence": "D"
+      },
+      {
+        "entity_id": 502,
+        "entity_name": "CUSTOMER",
+        "base_table_name": "CUSTOMER",
+        "schedule_recurrence": "D"
+      },
+      {
+        "entity_id": 503,
+        "entity_name": "HGDAWA",
+        "base_table_name": "HGDAWA",
+        "schedule_recurrence": "D"
+      },
+      {
+        "entity_id": 504,
+        "entity_name": "PRODUCTLINE",
+        "base_table_name": "PRODUCTLINE",
+        "schedule_recurrence": "D"
       }
     ]
   },
@@ -3794,6 +3818,12 @@
         "entity_id": 376,
         "entity_name": "DIM_CUSTOMER",
         "base_table_name": "DIM_CUSTOMER",
+        "schedule_recurrence": "D"
+      },
+      {
+        "entity_id": 505,
+        "entity_name": "DIM_ARTICLE",
+        "base_table_name": "DIM_ARTICLE",
         "schedule_recurrence": "D"
       }
     ]
@@ -3873,6 +3903,135 @@
         "entity_name": "BUDGET",
         "base_table_name": "BUDGET",
         "axbi_schema_name": "dbo"
+      }
+    ]
+  },
+  "ancon_australia_2_dwh": {
+    "layer_id": 5,
+    "schema_name": "base_ancon_australia_2_dwh",
+    "base_schema_name": "base_ancon_australia_2_dwh",
+    "axbi_schema_name": "dbo",
+    "entities": [
+      {
+        "entity_id": 506,
+        "entity_name": "DIM_CUSTTABLE",
+        "base_table_name": "DIM_CUSTTABLE",
+        "axbi_date_field_name": "DW_Id",
+        "schedule_recurrence": "D"
+      },
+      {
+        "entity_id": 507,
+        "entity_name": "DIM_INVENTTABLE",
+        "base_table_name": "DIM_INVENTTABLE",
+        "pk_field_names": "DW_Id",
+        "schedule_recurrence": "D"
+      },
+      {
+        "entity_id": 508,
+        "entity_name": "DIM_ITEMGROUP",
+        "base_table_name": "DIM_ITEMGROUP",
+        "pk_field_names": "DW_Id",
+        "schedule_recurrence": "D"
+      },
+      {
+        "entity_id": 509,
+        "entity_name": "FACT_CUSTINVOICEJOUR",
+        "base_table_name": "FACT_CUSTINVOICEJOUR",
+        "pk_field_names": "DW_Id",
+        "schedule_recurrence": "D"
+      },
+      {
+        "entity_id": 510,
+        "entity_name": "FACT_CUSTINVOICETRANS",
+        "base_table_name": "FACT_CUSTINVOICETRANS",
+        "pk_field_names": "DW_Id",
+        "schedule_recurrence": "D"
+      },
+      {
+        "entity_id": 511,
+        "entity_name": "FACT_INVENTTRANS",
+        "base_table_name": "FACT_INVENTTRANS",
+        "pk_field_names": "DW_Id",
+        "schedule_recurrence": "D"
+      }
+    ]
+  },
+  "tx_crh_1_stg": {
+    "layer_id": 5,
+    "schema_name": "base_tx_crh_1_stg",
+    "base_schema_name": "base_tx_crh_1_stg",
+    "axbi_schema_name": "dbo",
+    "entities": [
+      {
+        "entity_id": 512,
+        "entity_name": "AX_CRH_A_dbo_INVENTTABLE",
+        "base_table_name": "AX_CRH_A_dbo_INVENTTABLE",
+        "axbi_date_field_name": "DW_Id",
+        "schedule_recurrence": "D"
+      },
+      {
+        "entity_id": 513,
+        "entity_name": "AX_CRH_A_dbo_INVENTTRANS",
+        "base_table_name": "AX_CRH_A_dbo_INVENTTRANS",
+        "pk_field_names": "DW_Id",
+        "schedule_recurrence": "D"
+      }
+    ]
+  },
+  "tx_crh_2_dwh": {
+    "layer_id": 5,
+    "schema_name": "base_tx_crh_2_dwh",
+    "base_schema_name": "base_tx_crh_2_dwh",
+    "axbi_schema_name": "dbo",
+    "entities": [
+      {
+        "entity_id": 514,
+        "entity_name": "DIM_CUSTTABLE",
+        "base_table_name": "DIM_CUSTTABLE",
+        "axbi_date_field_name": "DW_Id",
+        "schedule_recurrence": "D"
+      },
+      {
+        "entity_id": 515,
+        "entity_name": "DIM_INVENTTABLE",
+        "base_table_name": "DIM_INVENTTABLE",
+        "pk_field_names": "DW_Id",
+        "schedule_recurrence": "D"
+      },
+      {
+        "entity_id": 516,
+        "entity_name": "FACT_CUSTINVOICETRANS",
+        "base_table_name": "FACT_CUSTINVOICETRANS",
+        "pk_field_names": "DW_Id",
+        "schedule_recurrence": "D"
+      },
+      {
+        "entity_id": 517,
+        "entity_name": "FACT_INVENTRANS_NOT_INVOICED",
+        "base_table_name": "FACT_INVENTRANS_NOT_INVOICED",
+        "pk_field_names": "DW_Id",
+        "schedule_recurrence": "D"
+      },
+      {
+        "entity_id": 518,
+        "entity_name": "FACT_SALESLINE",
+        "base_table_name": "FACT_SALESLINE",
+        "pk_field_names": "DW_Id",
+        "schedule_recurrence": "D"
+      },
+      {
+        "entity_id": 519,
+        "entity_name": "DIM_ADUASCHWITEMGROUP4",
+        "base_table_name": "DIM_ADUASCHWITEMGROUP4",
+        "pk_field_names": "DW_Id",
+        "schedule_recurrence": "D"
+      },
+      {
+        "entity_id": 520,
+        "entity_name": "DIM_CUSTINVOICEJOUR",
+        "base_table_name": "DIM_CUSTINVOICEJOUR",
+        "pk_field_names": "DW_Id",
+        "schedule_recurrence": "D"
       }
     ]
   },

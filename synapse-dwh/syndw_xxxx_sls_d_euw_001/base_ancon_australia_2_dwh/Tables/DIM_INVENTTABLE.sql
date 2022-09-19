@@ -13,3 +13,8 @@ CREATE TABLE [base_ancon_australia_2_dwh].[DIM_INVENTTABLE](
 	[DW_Id] ASC
 )NOT ENFORCED
 )
+GO
+ALTER TABLE [base_ancon_australia_2_dwh].[DIM_INVENTTABLE] ADD  CONSTRAINT [DF_DIM_INVENTTABLE_DW_SourceCode]  DEFAULT ('Unknown') FOR [DW_SourceCode]
+GO
+ALTER TABLE [base_ancon_australia_2_dwh].[DIM_INVENTTABLE] ADD  CONSTRAINT [DF_DIM_INVENTTABLE_DW_TimeStamp]  DEFAULT (getdate()) FOR [DW_TimeStamp]
+GO

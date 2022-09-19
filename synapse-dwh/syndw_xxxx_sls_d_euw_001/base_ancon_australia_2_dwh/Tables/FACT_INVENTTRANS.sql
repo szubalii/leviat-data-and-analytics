@@ -17,3 +17,8 @@ CREATE TABLE [base_ancon_australia_2_dwh].[FACT_INVENTTRANS](
 	[DW_Id] ASC
 )NOT ENFORCED
 )
+GO
+ALTER TABLE [base_ancon_australia_2_dwh].[FACT_INVENTTRANS] ADD  CONSTRAINT [DF_FACT_INVENTTRANS_DW_SourceCode]  DEFAULT ('Unknown') FOR [DW_SourceCode]
+GO
+ALTER TABLE [base_ancon_australia_2_dwh].[FACT_INVENTTRANS] ADD  CONSTRAINT [DF_FACT_INVENTTRANS_DW_TimeStamp]  DEFAULT (getdate()) FOR [DW_TimeStamp]
+GO
