@@ -729,7 +729,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"url": {
-						"value": "@CONCAT('https://management.azure.com/subscriptions/','f199b488-7d9d-4992-aeda-c10a1e1c9b9e','/resourceGroups/', pipeline().globalParameters.resourceGroupName,'/providers/Microsoft.DataFactory/factories/', pipeline().DataFactory,'/pipelineruns/','ee52fa74-761a-4ca3-8fee-da73aade2cc4', '?api-version=2018-06-01')",
+						"value": "@concat(\n    'https://management.azure.com/subscriptions/',\n    'f199b488-7d9d-4992-aeda-c10a1e1c9b9e',\n    '/resourceGroups/',\n    pipeline().globalParameters.resourceGroupName,\n    '/providers/Microsoft.DataFactory/factories/',\n    pipeline().DataFactory,'/pipelineruns/',\n    pipeline().RunId,\n    '?api-version=2018-06-01'\n)",
 						"type": "Expression"
 					},
 					"method": "GET",
