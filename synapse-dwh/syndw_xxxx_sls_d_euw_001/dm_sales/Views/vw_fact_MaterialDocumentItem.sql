@@ -431,7 +431,7 @@ FROM
 LEFT JOIN 
     [edw].[fact_PurchasingDocument] dimPD 
         ON 
-            MDIU.[PurchaseOrder] COLLATE Latin1_General_100_BIN2 = dimPD.[PurchasingDocumentID] 
+            MDIU.[PurchaseOrder] COLLATE Latin1_General_100_BIN2 = dimPD.[PurchasingDocument] 
 LEFT JOIN  
     [edw].[dim_PurchasingDocumentType] dimPDT 
         ON  
