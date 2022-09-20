@@ -1,6 +1,6 @@
 CREATE TABLE [edw].[fact_PurchasingDocument]
 (
-    [PurchasingDocumentID]              nvarchar(10) collate Latin1_General_100_BIN2 NOT NULL,
+    [PurchasingDocument]              nvarchar(10) collate Latin1_General_100_BIN2 NOT NULL,
     [SupplierID]                        nvarchar(10) collate Latin1_General_100_BIN2,
     [PurchasingDocumentCategoryID]      nvarchar(1) collate Latin1_General_100_BIN2,
     [PurchasingDocumentTypeID]          nvarchar(4) collate Latin1_General_100_BIN2,
@@ -19,7 +19,7 @@ CREATE TABLE [edw].[fact_PurchasingDocument]
     [t_jobDtm]                          DATETIME,
     [t_lastActionCd]                    VARCHAR(1),
     [t_jobBy]                           NVARCHAR(128),
-    CONSTRAINT [PK_dim_PurchasingDocument] PRIMARY KEY NONCLUSTERED (PurchasingDocumentID) NOT ENFORCED
+    CONSTRAINT [PK_dim_PurchasingDocument] PRIMARY KEY NONCLUSTERED (PurchasingDocument) NOT ENFORCED
 )
-WITH ( DISTRIBUTION = HASH (PurchasingDocumentID), CLUSTERED COLUMNSTORE INDEX )
+WITH ( DISTRIBUTION = HASH (PurchasingDocument), CLUSTERED COLUMNSTORE INDEX )
 GO

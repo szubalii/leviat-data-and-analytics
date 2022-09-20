@@ -1,7 +1,7 @@
 ﻿CREATE VIEW [edw].[vw_PurchasingDocument]
 	AS 
 SELECT
-   PD.[PurchasingDocument]                AS [PurchasingDocumentID],
+   PD.[PurchasingDocument],
    PD.[Supplier]                          AS [SupplierID],
    PD.[PurchasingDocumentCategory]        AS [PurchasingDocumentCategoryID],
    PD.[PurchasingDocumentType]            AS [PurchasingDocumentTypeID],
