@@ -8,7 +8,7 @@
     [OriginTypeID]                                  CHAR(3)             NULL,
     [OriginType]                                    NVARCHAR(18)        NULL,
     [ExternalUserStatusID]                          CHAR(5)             NULL,
-    [ExternalUserStatus]                            NVARCHAR(10)        NULL,
+    [ExternalUserStatus]                            NVARCHAR(11)        NULL,
     [ResultReasonID]                                CHAR(3)             NULL,
     [ResultReason]                                  NVARCHAR(54)        NULL,
     [ExpectedRevenueAmount]                         DECIMAL(28, 6)      NULL,
@@ -27,7 +27,7 @@
     [t_jobDtm]                                      DATETIME,
     [t_lastActionCd]                                VARCHAR(1),
     [t_jobBy]                                       VARCHAR(128),
-    CONSTRAINT [PK_fact_OppoertunityCollection] PRIMARY KEY NONCLUSTERED (
+    CONSTRAINT [PK_fact_OpportunityCollection] PRIMARY KEY NONCLUSTERED (
         [ObjectID]
     )  NOT ENFORCED
 )
