@@ -203,7 +203,7 @@
     [GrosssalesCRHEUR]                        DECIMAL (38, 6)  NULL,
     [CostCenter]                              NVARCHAR (3)     NULL,
     [DAGRWE]                                  DECIMAL (38, 3)  NULL,
-    [CurrencyRatelocaltoCRH1EUR] DECIMAL (38, 9)  NULL,
+    [CurrencyRatelocaltoCRH1EUR]              DECIMAL (38, 9)  NULL,
     [CurrencyEUR]							  CHAR(3)          NULL,
     [Currencylocal]				     		  CHAR(3)          NULL,
     [Salespersonname]						  NVARCHAR(140)    NULL,
@@ -218,9 +218,11 @@
     [t_jobDtm]                               DATETIME,
     [t_jobBy]                                NVARCHAR  (128)  NULL,
     [t_extractionDtm]                        DATETIME,
-    [t_lastActionBy]                 VARCHAR(128),
-    [t_lastActionCd]                 CHAR(1),
-    [t_lastActionDtm]                DATETIME,
+    [t_lastActionBy]                         VARCHAR(128),
+    [t_lastActionCd]                         CHAR(1),
+    [t_lastActionDtm]                        DATETIME,
+    --TODO
+    [t_checkSum]
     [t_filePath]                             NVARCHAR (1024)  NULL
     CONSTRAINT [PK_FACT_HGDAWA_active] PRIMARY KEY NONCLUSTERED ([Invoiceno], [Posno] ASC) NOT ENFORCED
 )
