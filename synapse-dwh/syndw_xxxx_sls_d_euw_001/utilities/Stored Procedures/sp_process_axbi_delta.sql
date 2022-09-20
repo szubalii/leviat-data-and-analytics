@@ -7,9 +7,9 @@ AS
 BEGIN
 
     --DECLARE
-    --    @schema_name VARCHAR(128) = 'base_dw_halfen_2_dwh_uat',
+    --    @schema_name VARCHAR(128) = 'base_dw_halfen_2_dwh',
     --    @table_name VARCHAR(128) = 'FACT_HGDAWA',
-    --    @pk_field_names VARCHAR(128) = 'Invoiceno,Posno',
+    --    @pk_field_names VARCHAR(128) = 'Company,Orderno,Invoiceno,Posno',
     --    @axbi_sys_fields VARCHAR(MAX) = 'DW_Id'',''DW_Batch'',''DW_SourceCode'',''DW_TimeStamp';
 
     -- Create temp table to store the table columns 
@@ -47,6 +47,7 @@ BEGIN
             't_jobDtm',
             't_jobBy',
             't_extractionDtm',
+            't_binaryCheckSum',
             't_filePath'
         )
 
@@ -86,6 +87,36 @@ BEGIN
             ),
             ']'
         );
+    DECLARE
+        @set_script NVARCHAR(MAX) = (
+            SELECT
+                STRING_AGG(Clause, ',')
+            FROM (
+                SELECT
+                    N'' + value + ' = new.' + value + '' AS Clause
+                FROM
+                    STRING_SPLIT(@columns_wo_pk, ',')
+            ) A
+        ),
+        -- Set checksum of columns
+        @checksum_script NVARCHAR(MAX) = (
+            SELECT
+                CONCAT(
+                    'BINARY_CHECKSUM(',
+                    Columns,
+                    ')'
+                )
+            FROM (
+                SELECT
+                    STRING_AGG(Clause, ',') AS Columns
+                FROM (
+                    SELECT
+                        N'new.' + value + '' AS Clause
+                    FROM
+                        STRING_SPLIT(@columns_wo_pk, ',')
+                ) A
+            ) B
+        );
 
      --INSERT
      EXEC [utilities].[sp_process_axbi_delta_insert]
@@ -93,15 +124,16 @@ BEGIN
          @table_name,
          @columns,
          @pk_field_names,
-         @join_clause
-     ;
+         @join_clause,
+         @checksum_script
+    ;
 
     -- UPDATE
     EXEC [utilities].[sp_process_axbi_delta_update]
         @schema_name,
         @table_name,
-        @columns_wo_pk,
-        @pk_field_names,
+        @set_script,
+        @checksum_script,
         @join_clause
     ;
 

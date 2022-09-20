@@ -3,7 +3,8 @@
     @table_name VARCHAR(128),
     @columns VARCHAR(MAX),
     @pk_field_names VARCHAR(MAX),
-    @join_clause VARCHAR(MAX)
+    @join_clause VARCHAR(MAX),
+    @checksum_script VARCHAR(MAX)
 
 AS
 BEGIN
@@ -20,6 +21,7 @@ BEGIN
             [t_lastActionBy],
             [t_lastActionCd],
             [t_lastActionDtm],
+            [t_binaryCheckSum],
             [t_filePath]
         )
         SELECT '+
@@ -30,8 +32,9 @@ BEGIN
             [t_jobBy],
             [t_extractionDtm],'''+
             SYSTEM_USER+''' AS [t_lastActionBy],
-            ''I'' AS[t_lastActionCd],'''+
-            @date_string+''' AS [t_lastActionDtm],
+            ''I'' AS [t_lastActionCd],'''+
+            @date_string+''' AS [t_lastActionDtm],'+
+            @checksum_script+' AS [t_binaryCheckSum],
             [t_filePath]
         FROM
             ['+@schema_name+'].['+@table_name+'] new

@@ -221,8 +221,7 @@
     [t_lastActionBy]                         VARCHAR(128),
     [t_lastActionCd]                         CHAR(1),
     [t_lastActionDtm]                        DATETIME,
-    --TODO
-    [t_checkSum]
+    [t_binaryCheckSum]                       BIGINT,
     [t_filePath]                             NVARCHAR (1024)  NULL
     CONSTRAINT [PK_FACT_HGDAWA_active] PRIMARY KEY NONCLUSTERED ([Invoiceno], [Posno] ASC) NOT ENFORCED
 )
