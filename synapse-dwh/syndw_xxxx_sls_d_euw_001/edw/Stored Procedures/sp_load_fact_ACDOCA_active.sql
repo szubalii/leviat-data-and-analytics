@@ -279,6 +279,7 @@ BEGIN
             , vw.[t_lastActionBy]  
             , vw.[t_lastActionCd]  
             , vw.[t_lastActionDtm])
+            
         SELECT
               vw.[SourceLedgerID]                   
             , vw.[CompanyCodeID]                    
@@ -401,10 +402,15 @@ BEGIN
             , vw.[SalesOrganizationID]              
             , vw.[DistributionChannelID]            
             , vw.[SalesDistrictID]                  
-            , vw.[BillToPartyID]    
+            , vw.[BillToPartyID] 
+            , vw.[t_applicationId] 
+            , vw.[t_extractionDtm] 
             , @t_jobId
             , @t_jobDtm
-            , @t_jobBy
+            , @t_jobBy       
+            , vw.[t_lastActionBy]  
+            , vw.[t_lastActionCd]  
+            , vw.[t_lastActionDtm]            
             , vw.[t_lastActionBy]  
             , vw.[t_lastActionCd]  
             , vw.[t_lastActionDtm]                             
