@@ -1,4 +1,4 @@
-﻿CREATE VIEW [dm_sales].[vw_fact_OpportunityCollection]
+﻿CREATE VIEW [dm_c4c].[vw_fact_OpportunityCollection]
 AS
 SELECT
         [ObjectID]
