@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [base_dw_halfen_2_dwh].[DIM_CRHPRODUCTGROUP] (
-    [DW_Id]                    BIGINT          IDENTITY (1, 1) NOT NULL,
+    [DW_Id]                    BIGINT          NOT NULL,
     [CRHPRODUCTPILLARKEY]      TINYINT         NULL,
     [CRHPRODUCTPILLARID]       NVARCHAR (10)   NULL,
     [CRHPRODUCTPILLARDESC]     NVARCHAR (60)   NULL,

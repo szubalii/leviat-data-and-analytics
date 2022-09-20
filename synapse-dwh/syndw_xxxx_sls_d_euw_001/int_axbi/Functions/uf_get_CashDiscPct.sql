@@ -3,7 +3,7 @@
 -- Create date: <05.11.2019,,>
 -- Description:	<Get CashDiscPct >
 -- =============================================
-CREATE FUNCTION [dbo].[uf_get_CashDiscPct]
+CREATE FUNCTION [intm_axbi].[uf_get_CashDiscPct]
 (
 	-- Input Variables --
 	@CASHDISC nvarchar(5)

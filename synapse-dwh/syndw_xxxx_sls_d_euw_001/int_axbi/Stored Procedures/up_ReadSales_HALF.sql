@@ -4,7 +4,7 @@
 -- Description:	<Übernahme Umsatzdaten Halfen für TX Construction Accessories>
 -- =============================================
 --
-CREATE PROCEDURE [int_axbi].[up_ReadSales_HALF] 
+CREATE PROCEDURE [intm_axbi].[up_ReadSales_HALF] 
 	-- Add the parameters for the stored procedure here
 (
 	@P_Year smallint,

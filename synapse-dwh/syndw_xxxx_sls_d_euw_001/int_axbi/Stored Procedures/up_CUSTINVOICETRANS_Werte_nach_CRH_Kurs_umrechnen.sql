@@ -3,7 +3,7 @@
 -- Create date: <Create Date: 15.01.2020>
 -- Description:	<CUSTINVOICETRANS in aktuelle Währung umrechnen>
 -- =============================================
-CREATE PROCEDURE [dbo].[up_CUSTINVOICETRANS_Werte_nach_CRH_Kurs_umrechnen] 
+CREATE PROCEDURE [intm_axbi].[up_CUSTINVOICETRANS_Werte_nach_CRH_Kurs_umrechnen] 
 	-- Add the parameters for the stored procedure here
 (
 	@P_DATAAREAID nvarchar(4),

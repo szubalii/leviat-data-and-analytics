@@ -4,7 +4,7 @@
 -- Description:	<Ermitteln <Umsatz für Ancon Germany>
 -- =============================================
 --
-CREATE PROCEDURE [int_axbi].[up_ReadSales_ANDE] 
+CREATE PROCEDURE [intm_axbi].[up_ReadSales_ANDE] 
 	-- Add the parameters for the stored procedure here
 (
 	@P_Year smallint,
@@ -47,13 +47,13 @@ BEGIN
 	t.LINENUM as LINENUM, 
 	i.DATEFINANCIAL as datefinancial, 
 	i.PACKINGSLIPID as packingslipid, 
-	sum(i.COSTAMOUNT) as costamount 
+	sum(i.CostAmount) as costamount 
 	into #inventtrans_ANDE
 	from [base_tx_crh_2_dwh].[FACT_CUSTINVOICETRANS] as t
-	inner join [TX_CRH_2_DWH_UAT].dbo.DIM_CUSTINVOICEJOUR as j
+	inner join [base_tx_crh_2_dwh].[DIM_CUSTINVOICEJOUR] as j
 	on t.DATAAREAID = j.DATAAREAID and
 	   t.INVOICEID = j.INVOICEID
-	inner join [TX_CRH_1_STG_UAT].[dbo].[AX_CRH_A_dbo_INVENTTRANS] as i
+	inner join [base_tx_crh_1_stg].[AX_CRH_A_dbo_INVENTTRANS] as i
 	on t.DATAAREAID = i.DATAAREAID and
 	   t.INVOICEID = i.INVOICEID and
 	   t.INVENTTRANSID = i.INVENTTRANSID
@@ -89,8 +89,8 @@ BEGIN
 	t.LINEAMOUNTMST,
 	0,
 	0,
-	t.LINEAMOUNTMST * [dbo].[uf_get_CashDiscPct](u.cashdisc) / 100 * (-1),
-	t.LINEAMOUNTMST * [dbo].[uf_get_CashDiscPct](u.cashdisc) / 100 * (-1),
+	t.LINEAMOUNTMST * [intm_axbi].[uf_get_CashDiscPct](u.cashdisc) / 100 * (-1),
+	t.LINEAMOUNTMST * [intm_axbi].[uf_get_CashDiscPct](u.cashdisc) / 100 * (-1),
 	0, -- Sales 100 für Ancon DE später addieren
 	0,
 	t.lineamountmst * 0.034 * (-1), -- Interne Fracht 3,4 %
@@ -101,7 +101,7 @@ BEGIN
 	inner join [base_tx_crh_2_dwh].[DIM_CUSTTABLE] as u
 	on t.DATAAREAID = u.DATAAREAID and
 	   t.INVOICEACCOUNT = u.ACCOUNTNUM
-	inner join [TX_CRH_2_DWH_UAT].dbo.DIM_CUSTINVOICEJOUR as j
+	inner join [base_tx_crh_2_dwh].[DIM_CUSTINVOICEJOUR] as j
 	on t.DATAAREAID = j.DATAAREAID and
 	   t.INVOICEID = j.INVOICEID
 	inner join #inventtrans_ANDE as i
@@ -127,7 +127,7 @@ BEGIN
 	t.qty,
 	t.lineamountmst
 	from [base_tx_crh_2_dwh].[FACT_CUSTINVOICETRANS] as t
-	inner join [TX_CRH_2_DWH_UAT].dbo.DIM_CUSTINVOICEJOUR as j
+	inner join [base_tx_crh_2_dwh].[DIM_CUSTINVOICEJOUR] as j
 	on t.DATAAREAID = j.DATAAREAID and
 	   t.INVOICEID = j.INVOICEID
 	inner join #inventtrans_ANDE as i

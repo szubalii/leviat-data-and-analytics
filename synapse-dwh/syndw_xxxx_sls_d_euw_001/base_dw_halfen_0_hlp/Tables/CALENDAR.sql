@@ -11,4 +11,4 @@ CREATE TABLE [base_dw_halfen_0_hlp].[CALENDAR](
 	[WORKDAY_ACT] [smallint] NULL,
 	[WORKDAY_SUM] [smallint] NULL,
 	[DISTRIBUTIONCOMPANYGROUP] [nvarchar](50) NULL
-)
+) WITH (HEAP, DISTRIBUTION = ROUND_ROBIN);

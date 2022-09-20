@@ -4,7 +4,7 @@
 -- Description:	<Ermitteln Sales Ancon Helifix Australia>
 -- =============================================
 --
-CREATE PROCEDURE [int_axbi].[up_ReadSales_ANAH] 
+CREATE PROCEDURE [intm_axbi].[up_ReadSales_ANAH] 
 	-- Add the parameters for the stored procedure here
 (
 	@P_Year smallint,

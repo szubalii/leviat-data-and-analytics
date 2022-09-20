@@ -1,5 +1,5 @@
 CREATE TABLE [base_ancon_australia_2_dwh].[DIM_CUSTTABLE](
-	[DW_Id] [bigint] IDENTITY(1,1) NOT NULL,
+	[DW_Id] [bigint] NOT NULL,
 	[ACCOUNTNUM] [nvarchar](20) NULL,
 	[DATAAREAID] [nvarchar](4) NULL,
 	[NAME] [nvarchar](60) NULL,
@@ -17,10 +17,4 @@ CREATE TABLE [base_ancon_australia_2_dwh].[DIM_CUSTTABLE](
 (
 	[DW_Id] ASC
 )NOT ENFORCED
-)
-GO
-ALTER TABLE [base_ancon_australia_2_dwh].[DIM_CUSTTABLE] ADD  CONSTRAINT [DF_DIM_CUSTTABLE_DW_SourceCode]  DEFAULT ('Unknown') FOR [DW_SourceCode]
-GO
-ALTER TABLE [base_ancon_australia_2_dwh].[DIM_CUSTTABLE] ADD  CONSTRAINT [DF_DIM_CUSTTABLE_DW_TimeStamp]  DEFAULT (getdate()) FOR [DW_TimeStamp]
-GO
-
+) WITH (HEAP, DISTRIBUTION = ROUND_ROBIN);

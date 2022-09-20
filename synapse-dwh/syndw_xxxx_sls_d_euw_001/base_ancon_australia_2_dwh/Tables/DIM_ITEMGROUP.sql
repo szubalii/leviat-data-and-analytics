@@ -1,5 +1,5 @@
 CREATE TABLE [base_ancon_australia_2_dwh].[DIM_ITEMGROUP](
-	[DW_Id] [bigint] IDENTITY(1,1) NOT NULL,
+	[DW_Id] [bigint] NOT NULL,
 	[DATAAREAID] [nvarchar](4) NULL,
 	[ITEMGROUPID] [nvarchar](10) NULL,
 	[NAME] [nvarchar](60) NULL,
@@ -10,9 +10,4 @@ CREATE TABLE [base_ancon_australia_2_dwh].[DIM_ITEMGROUP](
 (
 	[DW_Id] ASC
 )NOT ENFORCED
-)
-GO
-ALTER TABLE [base_ancon_australia_2_dwh].[DIM_ITEMGROUP] ADD  CONSTRAINT [DF_DIM_ITEMGROUP_DW_SourceCode]  DEFAULT ('Unknown') FOR [DW_SourceCode]
-GO
-ALTER TABLE [base_ancon_australia_2_dwh].[DIM_ITEMGROUP] ADD  CONSTRAINT [DF_DIM_ITEMGROUP_DW_TimeStamp]  DEFAULT (getdate()) FOR [DW_TimeStamp]
-GO
+) WITH (HEAP, DISTRIBUTION = ROUND_ROBIN);

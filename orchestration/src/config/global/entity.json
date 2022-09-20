@@ -3824,6 +3824,7 @@
         "entity_id": 505,
         "entity_name": "DIM_ARTICLE",
         "base_table_name": "DIM_ARTICLE",
+        "pk_field_names": "DW_Id",
         "schedule_recurrence": "D"
       }
     ]
@@ -3937,6 +3938,7 @@
         "entity_id": 509,
         "entity_name": "FACT_CUSTINVOICEJOUR",
         "base_table_name": "FACT_CUSTINVOICEJOUR",
+        "axbi_date_field_name": "INVOICEDATE",
         "pk_field_names": "DW_Id",
         "schedule_recurrence": "D"
       },
@@ -3944,6 +3946,7 @@
         "entity_id": 510,
         "entity_name": "FACT_CUSTINVOICETRANS",
         "base_table_name": "FACT_CUSTINVOICETRANS",
+        "axbi_date_field_name": "INVOICEDATE",
         "pk_field_names": "DW_Id",
         "schedule_recurrence": "D"
       },
@@ -4016,6 +4019,7 @@
         "entity_id": 518,
         "entity_name": "FACT_SALESLINE",
         "base_table_name": "FACT_SALESLINE",
+        "axbi_date_field_name": "CREATEDDATETIME",
         "pk_field_names": "DW_Id",
         "schedule_recurrence": "D"
       },
@@ -4135,6 +4139,7 @@
         "entity_id": 447,
         "entity_name": "FACT_INVENTTRANS",
         "base_table_name": "FACT_INVENTTRANS",
+        "axbi_date_field_name": "DATEFINANCIAL",
         "pk_field_names": "DW_Id",
         "schedule_recurrence": "A"
       },

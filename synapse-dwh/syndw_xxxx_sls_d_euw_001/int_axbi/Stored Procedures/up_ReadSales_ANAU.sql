@@ -4,7 +4,7 @@
 -- Description:	<Ermitteln Sales Ancon Australia>
 -- =============================================
 --
-CREATE PROCEDURE [int_axbi].[up_ReadSales_ANAU] 
+CREATE PROCEDURE [intm_axbi].[up_ReadSales_ANAU] 
 	-- Add the parameters for the stored procedure here
 (
 	@P_Year smallint,
@@ -178,7 +178,7 @@ BEGIN
 	where t.DATAAREAID = 'ANAU' and t.INVOICEID = @lINVOICEID and t.ITEMID not in ('ANAU-AIR', 'ANAU-DHL', 'ANAU-FRA', 'ANAU-FRA1KG', 'ANAU-FRA3KG', 'ANAU-FRA5KG', 'ANAU-MISC')
 
 	-- LineamountMST nach EUR umrechnen
-	select @lLineAmountEUR = @lLineAmountMST / crhrate from [dbo].[CRHCURRENCY] where year = Datepart(YYYY, @lDATEFINANCIAL) and currency = 'AUD'
+	select @lLineAmountEUR = @lLineAmountMST / CRHRATE from [base_tx_ca_0_hlp].[CRHCURRENCY] where YEAR = Datepart(YYYY, @lDATEFINANCIAL) and CURRENCY = 'AUD'
 
 	IF @lSalesBalance <> 0
 	BEGIN

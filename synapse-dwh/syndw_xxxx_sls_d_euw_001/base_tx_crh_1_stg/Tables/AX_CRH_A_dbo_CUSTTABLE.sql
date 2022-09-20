@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [base_tx_crh_1_stg].[AX_CRH_A_dbo_CUSTTABLE](
-	[DW_Id] [bigint] IDENTITY(1,1) NOT NULL,
+	[DW_Id] [bigint] NOT NULL,
 	[ACCOUNTNUM] [nvarchar](20) NULL,
 	[COUNTRYREGIONID] [nvarchar](10) NULL,
 	[CountryName] [nvarchar](60) NULL,
@@ -56,9 +56,4 @@
 (
 	[DW_Id] ASC
 )NOT ENFORCED
-)
-GO
-ALTER TABLE [base_tx_crh_1_stg].[AX_CRH_A_dbo_CUSTTABLE] ADD  CONSTRAINT [DF_AX_CRH_A_dbo_CUSTTABLE_DW_SourceCode]  DEFAULT ('Unknown') FOR [DW_SourceCode]
-GO
-ALTER TABLE [base_tx_crh_1_stg].[AX_CRH_A_dbo_CUSTTABLE] ADD  CONSTRAINT [DF_AX_CRH_A_dbo_CUSTTABLE_DW_TimeStamp]  DEFAULT (getdate()) FOR [DW_TimeStamp]
-GO
+) WITH (HEAP, DISTRIBUTION = ROUND_ROBIN);

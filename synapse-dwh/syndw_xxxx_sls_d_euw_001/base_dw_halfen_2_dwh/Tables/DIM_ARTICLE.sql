@@ -1,5 +1,5 @@
 CREATE TABLE [base_dw_halfen_2_dwh].[DIM_ARTICLE](
-	[DW_Id] [bigint] IDENTITY(1,1) NOT NULL,
+	[DW_Id] [bigint] NOT NULL,
 	[Item no] [nvarchar](40) NULL,
 	[Item description] [nvarchar](280) NULL,
 	[Product line] [nvarchar](20) NULL,
@@ -42,9 +42,4 @@ CREATE TABLE [base_dw_halfen_2_dwh].[DIM_ARTICLE](
 (
 	[DW_Id] ASC
 )NOT ENFORCED
-)
-GO
-ALTER TABLE [base_dw_halfen_2_dwh].[DIM_ARTICLE] ADD  CONSTRAINT [DF_DIM_ARTICLE_DW_SourceCode]  DEFAULT ('Unknown') FOR [DW_SourceCode]
-GO
-ALTER TABLE [base_dw_halfen_2_dwh].[DIM_ARTICLE] ADD  CONSTRAINT [DF_DIM_ARTICLE_DW_TimeStamp]  DEFAULT (getdate()) FOR [DW_TimeStamp]
-GO
+) WITH (HEAP, DISTRIBUTION = ROUND_ROBIN);

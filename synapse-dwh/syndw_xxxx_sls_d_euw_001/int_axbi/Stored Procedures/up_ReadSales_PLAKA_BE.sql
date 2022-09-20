@@ -4,7 +4,7 @@
 -- Description:	<Ermitteln Sales Plaka Belgien>
 -- =============================================
 --
-CREATE PROCEDURE [int_axbi].[up_ReadSales_PLAKA_BE] 
+CREATE PROCEDURE [intm_axbi].[up_ReadSales_PLAKA_BE] 
 	-- Add the parameters for the stored procedure here
 (
 	@P_Year smallint,

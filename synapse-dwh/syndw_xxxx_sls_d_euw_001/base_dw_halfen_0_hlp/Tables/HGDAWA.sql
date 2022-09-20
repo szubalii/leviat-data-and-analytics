@@ -389,4 +389,4 @@ CREATE TABLE [base_dw_halfen_0_hlp].[HGDAWA](
 	[DADZIP] [nvarchar](20) NULL,
 	[DADSTA] [nvarchar](20) NULL,
 	[DADCOU] [nvarchar](20) NULL
-)
+) WITH (HEAP, DISTRIBUTION = ROUND_ROBIN);

@@ -4,7 +4,7 @@
 -- Description:	<Aufbau Artikel- und Kundenstamm für TX Construction Accessories>
 -- =============================================
 --
-CREATE PROCEDURE [int_axbi].[up_CollectSales_CA] 
+CREATE PROCEDURE [intm_axbi].[up_CollectSales_CA] 
 	-- Add the parameters for the stored procedure here
 (
 	@P_Year smallint,
@@ -21,36 +21,36 @@ BEGIN
 
 --out of sprint 32
 /*
-	EXEC dbo.up_ReadSales_ANUK_pkg
-	EXEC dbo.up_ReadSales_ANAC_pkg
-	EXEC dbo.up_ReadSales_ANME_pkg
+	EXEC intm.up_ReadSales_ANUK_pkg
+	EXEC intm.up_ReadSales_ANAC_pkg
+	EXEC intm.up_ReadSales_ANME_pkg
 */
 
-	EXEC dbo.up_createAxBiBasicData
+	EXEC intm.up_createAxBiBasicData
 
-	EXEC dbo.up_ReadSales_HALF @P_Year, @P_Month
+	EXEC intm.up_ReadSales_HALF @P_Year, @P_Month
 
-	EXEC dbo.up_ReadSales_PLAKA_BE @P_Year, @P_Month, @P_DelNotInv
-	EXEC dbo.up_ReadSales_PLAKA_FR @P_Year, @P_Month, @P_DelNotInv
+	EXEC intm.up_ReadSales_PLAKA_BE @P_Year, @P_Month, @P_DelNotInv
+	EXEC intm.up_ReadSales_PLAKA_FR @P_Year, @P_Month, @P_DelNotInv
 
 ----out of sprint 32
 /*
-	EXEC dbo.up_ReadSales_ANAT @P_Year, @P_Month
-	EXEC dbo.up_ReadSales_ANCH @P_Year, @P_Month 
+	EXEC intm.up_ReadSales_ANAT @P_Year, @P_Month
+	EXEC intm.up_ReadSales_ANCH @P_Year, @P_Month 
 */
-	EXEC dbo.up_ReadSales_ANDE @P_Year, @P_Month 
+	EXEC intm.up_ReadSales_ANDE @P_Year, @P_Month 
 
-	EXEC dbo.up_ReadSales_ANAU @P_Year, @P_Month
-	EXEC dbo.up_ReadSales_ANAH @P_Year, @P_Month
-	EXEC dbo.up_ReadSales_ANNZ @P_Year, @P_Month
+	EXEC intm.up_ReadSales_ANAU @P_Year, @P_Month
+	EXEC intm.up_ReadSales_ANAH @P_Year, @P_Month
+	EXEC intm.up_ReadSales_ANNZ @P_Year, @P_Month
 	
 --out of sprint 32
 /*	
-    EXEC dbo.up_ReadSales_ASCH @P_Year, @P_Month
+    EXEC intm.up_ReadSales_ASCH @P_Year, @P_Month
 */
 
 --old logic commented by Erich
-	-- EXEC dbo.up_ReadSales_ANAC -- Hie muss ab Januar das Jahr und der Monat übergeben werden.
+	-- EXEC up_ReadSales_ANAC -- Hie muss ab Januar das Jahr und der Monat übergeben werden.
 
 END
 GO

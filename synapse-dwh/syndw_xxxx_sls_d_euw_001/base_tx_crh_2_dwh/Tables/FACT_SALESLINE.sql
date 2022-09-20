@@ -1,5 +1,5 @@
 CREATE TABLE [base_tx_crh_2_dwh].[FACT_SALESLINE](
-	[DW_Id] [bigint] IDENTITY(1,1) NOT NULL,
+	[DW_Id] [bigint] NOT NULL,
 	[CUSTACCOUNT] [nvarchar](20) NULL,
 	[DATAAREAID] [nvarchar](4) NULL,
 	[ITEMID] [nvarchar](20) NULL,
@@ -93,9 +93,4 @@ CREATE TABLE [base_tx_crh_2_dwh].[FACT_SALESLINE](
 (
 	[DW_Id] ASC
 )NOT ENFORCED
-)
-GO
-ALTER TABLE [base_tx_crh_2_dwh].[FACT_SALESLINE] ADD  CONSTRAINT [DF_FACT_SALESLINE_DW_SourceCode]  DEFAULT ('Unknown') FOR [DW_SourceCode]
-GO
-ALTER TABLE [base_tx_crh_2_dwh].[FACT_SALESLINE] ADD  CONSTRAINT [DF_FACT_SALESLINE_DW_TimeStamp]  DEFAULT (getdate()) FOR [DW_TimeStamp]
-GO
+) WITH (HEAP, DISTRIBUTION = ROUND_ROBIN);

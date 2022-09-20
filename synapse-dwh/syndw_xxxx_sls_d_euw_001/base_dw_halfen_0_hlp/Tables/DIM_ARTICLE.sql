@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [base_dw_halfen_0_hlp].[DIM_ARTICLE] (
-    [DW_Id]                                   BIGINT          IDENTITY (1, 1) NOT NULL,
+    [DW_Id]                                   BIGINT          NOT NULL,
     [Item no]                                 NVARCHAR (40)   NULL,
     [Item description]                        NVARCHAR (280)  NULL,
     [Product line]                            NVARCHAR (20)   NULL,

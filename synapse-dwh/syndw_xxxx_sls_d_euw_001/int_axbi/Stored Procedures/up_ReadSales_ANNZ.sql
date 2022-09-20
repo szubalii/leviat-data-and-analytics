@@ -4,7 +4,7 @@
 -- Description:	<Ermitteln Sales Ancon New Zealand>
 -- =============================================
 --
-CREATE PROCEDURE [int_axbi].[up_ReadSales_ANNZ] 
+CREATE PROCEDURE [intm_axbi].[up_ReadSales_ANNZ] 
 	-- Add the parameters for the stored procedure here
 (
 	@P_Year smallint,
@@ -167,7 +167,7 @@ BEGIN
 	where t.DATAAREAID = 'ANNZ' and t.INVOICEID = @lInvoiceID and t.ITEMID not in ('ANNZ-FRA', 'ANNZ-FRU')
 
 	-- LineamountMST nach EUR umrechnen
-	select @lLineAmountEUR = @lLineAmountMST / CRHRATE from [dbo].[CRHCURRENCY] where year = Datepart(YYYY, @lDatefinancial) and CURRENCY = 'NZD'
+	select @lLineAmountEUR = @lLineAmountMST / CRHRATE from [intm_axbi].[CRHCURRENCY] where year = Datepart(YYYY, @lDatefinancial) and CURRENCY = 'NZD'
 
 	IF @lSalesBalance <> 0
 	BEGIN

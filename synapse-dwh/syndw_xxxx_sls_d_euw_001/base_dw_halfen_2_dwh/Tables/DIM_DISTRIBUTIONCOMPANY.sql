@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [base_dw_halfen_2_dwh].[DIM_DISTRIBUTIONCOMPANY] (
-    [DW_Id]                                    BIGINT          IDENTITY (1, 1) NOT NULL,
+    [DW_Id]                                    BIGINT          NOT NULL,
     [Distribution company]                     NVARCHAR (10)   NULL,
     [Distribution company description]         NCHAR (40)      NULL,
     [Distribution company distcmp_description] VARCHAR (500)   NULL,

@@ -1,5 +1,5 @@
 CREATE TABLE [base_tx_crh_1_stg].[AX_CRH_A_dbo_INVENTTABLE](
-	[DW_Id] [bigint] IDENTITY(1,1) NOT NULL,
+	[DW_Id] [bigint] NOT NULL,
 	[ADUASCHWITEMGROUP2] [nvarchar](10) NULL,
 	[ADUASCHWITEMGROUP2DESCRIPTION] [nvarchar](60) NULL,
 	[ADUASCHWITEMGROUP3] [varchar](50) NULL,
@@ -53,9 +53,4 @@ CREATE TABLE [base_tx_crh_1_stg].[AX_CRH_A_dbo_INVENTTABLE](
 (
 	[DW_Id] ASC
 )NOT ENFORCED
-)
-GO
-ALTER TABLE [base_tx_crh_1_stg].[AX_CRH_A_dbo_INVENTTABLE] ADD  CONSTRAINT [DF_AX_CRH_A_dbo_INVENTTABLE_DW_SourceCode]  DEFAULT ('Unknown') FOR [DW_SourceCode]
-GO
-ALTER TABLE [base_tx_crh_1_stg].[AX_CRH_A_dbo_INVENTTABLE] ADD  CONSTRAINT [DF_AX_CRH_A_dbo_INVENTTABLE_DW_TimeStamp]  DEFAULT (getdate()) FOR [DW_TimeStamp]
-GO
+) WITH (HEAP, DISTRIBUTION = ROUND_ROBIN);

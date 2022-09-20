@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [base_ancon_australia_2_dwh].[FACT_CUSTINVOICETRANS](
-	[DW_Id] [bigint] IDENTITY(1,1) NOT NULL,
+	[DW_Id] [bigint] NOT NULL,
 	[DATAAREAID] [nvarchar](4) NULL,
 	[SALESID] [nvarchar](20) NULL,
 	[INVOICEID] [nvarchar](20) NULL,
@@ -27,9 +27,4 @@
 (
 	[DW_Id] ASC
 )NOT ENFORCED
-)
-GO
-ALTER TABLE [base_ancon_australia_2_dwh].[FACT_CUSTINVOICETRANS] ADD  CONSTRAINT [DF_FACT_CUSTINVOICETRANS_DW_SourceCode]  DEFAULT ('Unknown') FOR [DW_SourceCode]
-GO
-ALTER TABLE [base_ancon_australia_2_dwh].[FACT_CUSTINVOICETRANS] ADD  CONSTRAINT [DF_FACT_CUSTINVOICETRANS_DW_TimeStamp]  DEFAULT (getdate()) FOR [DW_TimeStamp]
-GO
+) WITH (HEAP, DISTRIBUTION = ROUND_ROBIN);
