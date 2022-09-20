@@ -130,5 +130,14 @@ SELECT
        [t_lastActionDtm],
        [t_filePath]
 FROM [base_s4h_cax].[I_GLAccountLineItemRawData_active] GLAccountLineItemRawData 
+WHERE
+       -- casting the left and right sides of equality to the same data type DATE              
+       CAST([t_lastActionDtm] as DATE) >  -- the view displays new data that is not yet in the fact table
+       (
+              SELECT 
+              CAST(isNull(max(gla.[t_lastActionDtm]), '1900-01-01') as DATE) AS [max_lastActionDay]
+              FROM 
+                [edw].[fact_ACDOCA_active] gla
+       )
 -- WHERE
 --     GLAccountLineItemRawData.MANDT = 200 MPS 2021/11/01: commented out due to different client values between dev,qas, and prod
