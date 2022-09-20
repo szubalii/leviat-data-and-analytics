@@ -28,7 +28,7 @@ BEGIN
         FROM
             ['+@schema_name+'].['+@table_name+'_active] AS active
         LEFT JOIN
-            ['+@schema_name+'].['+@table_name+'_new] AS new
+            ['+@schema_name+'].['+@table_name+'] AS new
             ON '+
                 @join_clause+'
         WHERE '+

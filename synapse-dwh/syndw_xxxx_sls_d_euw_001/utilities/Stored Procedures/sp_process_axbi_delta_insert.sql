@@ -34,7 +34,7 @@ BEGIN
             @date_string+''' AS [t_lastActionDtm],
             [t_filePath]
         FROM
-            ['+@schema_name+'].['+@table_name+'_new] new
+            ['+@schema_name+'].['+@table_name+'] new
         WHERE NOT EXISTS (
             SELECT '+
                 @pk_field_names+'

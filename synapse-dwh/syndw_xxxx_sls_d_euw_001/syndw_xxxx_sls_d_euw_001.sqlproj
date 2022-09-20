@@ -132,6 +132,7 @@
     <Folder Include="base_dw_halfen_2_dwh\Tables" />
     <Folder Include="base_tx_halfen_2_dwh" />
     <Folder Include="base_tx_halfen_2_dwh\Tables" />
+    <Folder Include="base_tx_halfen_2_dwh\Stored Procedures" />
     <Folder Include="base_dw_halfen_1_stg" />
     <Folder Include="base_dw_halfen_1_stg\Tables" />
     <Folder Include="Security\Schemas" />
@@ -170,6 +171,7 @@
     <Folder Include="dq\Stored Procedures" />
     <Folder Include="dm_dq" />
     <Folder Include="dm_dq\Views" />
+    <Folder Include="base_dw_halfen_2_dwh\Stored Procedures\" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <Build Include="Security\Database Scoped Credentials\dsc_MSI.sql" />
@@ -202,6 +204,7 @@
     <Build Include="base_dw_halfen_2_dwh\Tables\DIM_CRHPRODUCTGROUP.sql" />
     <Build Include="base_dw_halfen_2_dwh\Tables\DIM_DISTRIBUTIONCOMPANY.sql" />
     <Build Include="base_dw_halfen_2_dwh\Tables\FACT_HGDAWA.sql" />
+    <Build Include="base_dw_halfen_2_dwh\Stored Procedures\sp_load_FACT_HGDAWA.sql" />
     <Build Include="base_dw_halfen_2_dwh\Tables\FACT_HGPLUM.sql" />
     <Build Include="base_tx_halfen_2_dwh\Tables\FACT_SALESLINE.sql" />
     <Build Include="base_dw_halfen_0_hlp\Tables\SAPCustomerBasicMappingTable.sql" />
@@ -856,7 +859,6 @@
     <Build Include="base_s4h_cax\Tables\I_WorkCenterBySemanticKey.sql" />
     <Build Include="base_s4h_cax\Tables\I_WorkCenterCapacity.sql" />
     <Build Include="base_dw_halfen_2_dwh\Tables\FACT_HGDAWA_active.sql" />
-    <Build Include="base_dw_halfen_2_dwh\Tables\FACT_HGDAWA_new.sql" />
     <Build Include="utilities\Stored Procedures\sp_process_axbi_delta_insert.sql" />
     <Build Include="utilities\Stored Procedures\sp_process_axbi_delta_update.sql" />
     <Build Include="utilities\Stored Procedures\sp_process_axbi_delta_delete.sql" />
