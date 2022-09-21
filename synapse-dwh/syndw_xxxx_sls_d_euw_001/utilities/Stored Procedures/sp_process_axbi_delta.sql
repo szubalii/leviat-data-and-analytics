@@ -13,7 +13,8 @@ BEGIN
     --    @axbi_sys_fields VARCHAR(MAX) = 'DW_Id'',''DW_Batch'',''DW_SourceCode'',''DW_TimeStamp';
 
     -- Create temp table to store the table columns 
-    -- excluding AXBI system fields
+    -- excluding AXBI and Azure DWH system fields
+
     SELECT
         c.name,
         c.column_id
@@ -51,6 +52,7 @@ BEGIN
             't_filePath'
         )
 
+    -- Need use of multiple DECLARE statements because variables are dependent on each other.
     DECLARE
         @join_clause VARCHAR(MAX) = (
             SELECT
@@ -99,6 +101,11 @@ BEGIN
             ) A
         ),
         -- Set checksum of columns
+        -- Investigated use of HASH_BYTES but too many drawbacks:
+        -- HASHBYTES does not support multiple parameters, so one first needs to create massive concatenation
+        -- CONCAT has limit for number of parameters (255) but FACT_HGDAWA has more fields than that
+        -- CONCAT_WS ignores NULL values, so one needs to use COALESCE
+        -- All this complicates use of generic approach too much, so let's use BINARY_CHECKSUM instead.
         @checksum_script NVARCHAR(MAX) = (
             SELECT
                 CONCAT(
