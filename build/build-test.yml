@@ -1,0 +1,221 @@
+# .NET Desktop
+# Build and run tests for .NET Desktop or Windows classic desktop solutions.
+# Add steps that publish symbols, save build artifacts, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/apps/windows/dot-net
+
+trigger:
+- main
+
+jobs:
+
+  # Start VM
+- job: StartVM
+  pool: server
+  steps:
+    - task: InvokeRESTAPI@1
+      inputs:
+        connectionType: 'connectedServiceNameARM'
+        azureServiceConnection: 'arm-pipeline'
+        method: 'POST'
+        urlSuffix: '/subscriptions/f199b488-7d9d-4992-aeda-c10a1e1c9b9e/resourceGroups/$(VMResourceGroup)/providers/Microsoft.Compute/virtualMachines/$(VMName)/start?api-version=2022-03-01'
+        waitForCompletion: 'false'
+      displayName: 'Start VM'
+
+  # Orchestration Database Build Job
+- job: OrchDB
+  dependsOn: StartVM
+  pool:
+    name: 'VM'
+    demands:
+    - node.js
+    - VisualStudio
+  variables:
+    orchDBSolution: '**/orchestration/*.sln'
+    buildPlatform: 'Any CPU'
+    buildConfiguration: 'Release'
+
+  steps:
+
+  - task: Npm@1
+    inputs:
+      command: 'install'
+      workingDir: '$(Build.Repository.LocalPath)/orchestration' #replace with the package.json folder
+      verbose: true
+    displayName: 'Install npm package'
+
+  # Validate the Orchestration config
+  - task: Npm@1
+    inputs:
+      command: 'custom'
+      workingDir: '$(Build.Repository.LocalPath)/orchestration'
+      customCommand: 'run validate $(Build.Repository.LocalPath)'
+    displayName: 'Validate Orchestration Config'
+
+  - task: NuGetToolInstaller@1
+
+  - task: NuGetCommand@2
+    inputs:
+      restoreSolution: '$(orchDBSolution)'
+
+  - task: VSBuild@1
+    inputs:
+      solution: '$(orchDBSolution)'
+      platform: '$(buildPlatform)'
+      configuration: '$(buildConfiguration)'
+
+  # - task: VSTest@2
+  #   inputs:
+  #     platform: '$(buildPlatform)'
+  #     configuration: '$(buildConfiguration)'
+
+  - task: CopyFiles@2
+    inputs:
+      SourceFolder: '$(Build.SourcesDirectory)\orchestration\sqldb-xxxx-orchdb-d-euw-001\bin\Release'
+      Contents: '*.dacpac'
+      TargetFolder: '$(Build.ArtifactStagingDirectory)'
+    displayName: 'Copy dacpac file'
+
+  - task: CopyFiles@2
+    inputs:
+      SourceFolder: '$(Build.SourcesDirectory)\orchestration'
+      Contents: '*publish.xml'
+      TargetFolder: '$(Build.ArtifactStagingDirectory)'
+    displayName: 'Copy publish config file'
+
+  - task: CopyFiles@2
+    inputs:
+      SourceFolder: '$(Build.SourcesDirectory)\orchestration\Master Data'
+      Contents: '**\*.csv'
+      TargetFolder: '$(Build.ArtifactStagingDirectory)\Master Data'
+    displayName: 'Copy Master Data'
+
+  - task: CopyFiles@2
+    inputs:
+      SourceFolder: '$(Build.SourcesDirectory)\orchestration\src'
+      Contents: '**\*'
+      TargetFolder: '$(Build.ArtifactStagingDirectory)\src'
+    displayName: 'Copy src folder'
+
+  - task: CopyFiles@2
+    inputs:
+      SourceFolder: '$(Build.SourcesDirectory)\orchestration'
+      Contents: 'package.json'
+      TargetFolder: '$(Build.ArtifactStagingDirectory)'
+    displayName: 'Copy npm package'
+
+  - task: PublishPipelineArtifact@1
+    inputs:
+      targetPath: '$(Build.ArtifactStagingDirectory)'
+      artifact: 'OrchestrationDB'
+      publishLocation: 'pipeline'
+
+  # Azure Synapse Dedicated SQL Pool Build Job
+- job: SynapseDWH
+  dependsOn: 
+  - OrchDB
+  - StartVM
+  pool:
+    name: 'VM'
+    demands:
+    - node.js
+    - VisualStudio
+    - Python.Version
+
+  variables:
+    synapseDWHSolution: '**/synapse-dwh/*.sln'
+    buildPlatform: 'Any CPU'
+    buildConfiguration: 'Debug'
+
+  steps:
+
+    # Check for duplicates in Master Data csv-files
+  - task: PythonScript@0
+    inputs:
+      scriptSource: 'filePath'
+      scriptPath: './synapse-dwh/src/libs/check_duplicates.py'
+    displayName: 'Check for duplicates in Master Data csv-files'
+      
+  - task: NuGetToolInstaller@1
+
+  - task: NuGetCommand@2
+    inputs:
+      restoreSolution: '$(synapseDWHSolution)'
+
+    # Substitute the connection string for the Test Project 
+    # so Azure DevOps can run the Test Cases
+  - task: FileTransform@1
+    displayName: 'Update Connection String for Test Project'
+    inputs:
+      folderPath: '$(System.DefaultWorkingDirectory)/synapse-dwh/Test/'
+      fileType: 'xml'
+      targetFiles: 'app.config'
+
+    # Build the Test Project
+  - task: VSBuild@1
+    displayName: 'Build Test Project'
+    inputs:
+      solution: '**/synapse-dwh/**/*.csproj'
+      platform: '$(buildPlatform)'
+      configuration: '$(buildConfiguration)'
+
+    # Build the SQL DB Project
+  - task: VSBuild@1
+    displayName: 'Build SQL DB Project'
+    inputs:
+      solution: '$(synapseDWHSolution)'
+      platform: '$(buildPlatform)'
+      configuration: '$(buildConfiguration)'
+  #    msbuildArgs: '/v:SqlCmdVar__1=stxxxxslsdeuw001'
+
+
+
+  #- task: VSTest@2
+  #  inputs:
+  #    platform: '$(buildPlatform)'
+  #    configuration: '$(buildConfiguration)'
+
+    # expose dacpac as build artifact
+  - task: CopyFiles@2
+    displayName: 'Copy SQL DB dacpac'
+    inputs:
+      SourceFolder: '$(Build.SourcesDirectory)\synapse-dwh\syndw_xxxx_sls_d_euw_001\bin\Release'
+      Contents: '*.dacpac'
+      TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
+  - task: CopyFiles@2
+    displayName: 'Copy Test Assemblies'
+    inputs:
+      SourceFolder: '$(Build.SourcesDirectory)\synapse-dwh\Test\bin\Release'
+      Contents: '**'
+      TargetFolder: '$(Build.ArtifactStagingDirectory)\Test'
+
+    # expose publish config as build artifact
+  - task: CopyFiles@2
+    displayName: 'Copy publish config'
+    inputs:
+      SourceFolder: '$(Build.SourcesDirectory)\synapse-dwh\publish'
+      Contents: '*.xml'
+      TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
+    # expose src folder as build artifact
+  - task: CopyFiles@2
+    displayName: 'Copy src folder'
+    inputs:
+      SourceFolder: '$(Build.SourcesDirectory)\synapse-dwh\src'
+      Contents: '**\*'
+      TargetFolder: '$(Build.ArtifactStagingDirectory)\src'
+
+    # expose Master Data as build artifact
+  - task: CopyFiles@2
+    displayName: 'Copy Master Data files'
+    inputs:
+      SourceFolder: '$(Build.SourcesDirectory)\synapse-dwh\syndw_xxxx_sls_d_euw_001\Master Data'
+      Contents: '**\*.csv'
+      TargetFolder: '$(Build.ArtifactStagingDirectory)\Master Data'
+
+    # publish artifacts
+  - task: PublishPipelineArtifact@1
+    inputs:
+      targetPath: '$(Build.ArtifactStagingDirectory)'
+      artifact: 'SynapseDWH'
+      publishLocation: 'pipeline'
