@@ -2,6 +2,7 @@
 AS
 SELECT
         [ObjectID]
+    ,   [ID]
     ,   [ProcessingTypeCode] AS [ProcessingTypeID]
     ,   [ProcessingTypeCodeText] AS [ProcessingType]
     ,   [ProspectPartyID] AS [ProspectPartyCustomerID]
