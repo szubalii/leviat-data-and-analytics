@@ -1,6 +1,7 @@
 ﻿CREATE TABLE [edw].[fact_OpportunityCollection]
 (   
     [ObjectID]                                      NVARCHAR(70)        NOT NULL,
+    [ID]                                            NVARCHAR(35)        NULL,
     [ProcessingTypeID]                              NVARCHAR(4)         NULL,
     [ProcessingType]                                NVARCHAR(11)        NULL,
     [ProspectPartyCustomerID]                       NVARCHAR(60)        NOT NULL,
