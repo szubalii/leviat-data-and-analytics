@@ -178,14 +178,14 @@ jobs:
   - task: CopyFiles@2
     displayName: 'Copy SQL DB dacpac'
     inputs:
-      SourceFolder: '$(Build.SourcesDirectory)\synapse-dwh\syndw_xxxx_sls_d_euw_001\bin\Release'
+      SourceFolder: '$(Build.SourcesDirectory)\synapse-dwh\syndw_xxxx_sls_d_euw_001\bin\$(buildConfiguration)'
       Contents: '*.dacpac'
       TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
   - task: CopyFiles@2
     displayName: 'Copy Test Assemblies'
     inputs:
-      SourceFolder: '$(Build.SourcesDirectory)\synapse-dwh\Test\bin\Release'
+      SourceFolder: '$(Build.SourcesDirectory)\synapse-dwh\Test\bin\$(buildConfiguration)'
       Contents: '**'
       TargetFolder: '$(Build.ArtifactStagingDirectory)\Test'
 
