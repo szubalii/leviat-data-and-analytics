@@ -5099,6 +5099,14 @@
         "dest_table_name": "fact_OpportunityCollection",
         "execution_order": 1,
         "schedule_recurrence": "D"
+      },
+      {
+        "entity_id": 504,
+        "entity_name": "fact_ACDOCA_active",
+        "sproc_name": "sp_load_fact_ACDOCA_active",
+        "update_mode": "Delta",
+        "execution_order": 3,
+        "schedule_recurrence": "D"
       }
     ]
   },

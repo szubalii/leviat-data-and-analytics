@@ -145,6 +145,8 @@
     <Folder Include="edw\Stored Procedures" />
     <Folder Include="dm_sales" />
     <Folder Include="dm_sales\Views" />
+    <Folder Include="dm_finance" />    
+    <Folder Include="dm_finance\Views" />
     <Folder Include="map_AXBI" />
     <Folder Include="map_AXBI\Tables" />
     <Folder Include="edw\Views" />
@@ -284,11 +286,15 @@
     <Build Include="base_s4h_cax\Tables\I_GLRecordTypeText.sql" />
     <Build Include="base_s4h_cax\Tables\I_GLAccountLineItemRawData.sql" />
     <Build Include="base_s4h_cax\Tables\I_GLAccountLineItemRawData_delta.sql" />
-    <Build Include="base_s4h_cax\Tables\I_GLAccountLineItemRawData_active.sql" />  
+    <Build Include="base_s4h_cax\Tables\I_GLAccountLineItemRawData_active.sql" />
     <Build Include="base_s4h_cax\Views\vw_I_GLAccountLineItemRawData.sql" />
-    <Build Include="base_s4h_cax\Stored Procedures\sp_load_I_GLAccountLineItemRawData.sql" />    
+    <Build Include="base_s4h_cax\Stored Procedures\sp_load_I_GLAccountLineItemRawData.sql" />
     <Build Include="edw\Tables\fact_ACDOCA.sql" />
+    <Build Include="edw\Views\vw_ACDOCA_delta.sql" />
+    <Build Include="edw\Tables\fact_ACDOCA_active.sql" />
+    <Build Include="edw\Stored Procedures\sp_load_fact_ACDOCA_active.sql" />
     <Build Include="Security\Schemas\dm_sales.sql" />
+    <Build Include="Security\Schemas\dm_finance.sql" />
     <Build Include="dm_sales\Views\vw_dim_Customer.sql" />
     <Build Include="dm_sales\Views\vw_fact_BillingDocumentItem.sql" />
     <Build Include="dm_sales\Views\vw_dim_Product.sql" />
@@ -870,7 +876,7 @@
     <Build Include="edw\Views\vw_FinancialStatementItem.sql" />
     <Build Include="edw\Views\vw_FinancialStatementHierarchy.sql" />
     <Build Include="dm_sales\Views\vw_dim_FinancialStatementHierarchy.sql" />
-    <Build Include="dm_sales\Views\vw_fact_ACDOCA_SalesView.sql" />
+    <Build Include="dm_finance\Views\vw_fact_ACDOCA_SalesView.sql" />
     <Build Include="base_c4c\Tables\OpportunityCollection.sql" />
     <Build Include="Security\Schemas\base_c4c.sql" />
     <Build Include="dm_sales\Views\vw_dim_FinancialStatementItem.sql" />
@@ -933,6 +939,7 @@
     <Build Include="edw\Views\vw_OpportunityCollection.sql" />
     <Build Include="dm_c4c\Views\vw_fact_OpportunityCollection.sql" />
     <Build Include="Security\Schemas\dm_c4c.sql" />
+    <Build Include="dm_finance\Views\vw_fact_ACDOCA_SalesView_active.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\Post-Deploy\Script.PostDeployment.sql" />
