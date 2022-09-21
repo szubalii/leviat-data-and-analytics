@@ -410,10 +410,7 @@ BEGIN
             , @t_jobBy       
             , vw.[t_lastActionBy]  
             , vw.[t_lastActionCd]  
-            , vw.[t_lastActionDtm]            
-            , vw.[t_lastActionBy]  
-            , vw.[t_lastActionCd]  
-            , vw.[t_lastActionDtm]                             
+            , vw.[t_lastActionDtm]                                       
             FROM [edw].[vw_ACDOCA_delta] AS vw
         WHERE NOT EXISTS (
             SELECT 1 FROM [edw].[fact_ACDOCA_active]  
