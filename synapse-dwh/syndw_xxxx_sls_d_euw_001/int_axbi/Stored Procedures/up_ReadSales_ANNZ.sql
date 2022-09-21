@@ -43,7 +43,7 @@ BEGIN
 
 	--  Ancon New Zealand 
 
-	delete from [CUSTINVOICETRANS] where DATAAREAID = 'ANNZ' and datepart(YYYY, ACCOUNTINGDATE) = @P_Year and datepart(MM, ACCOUNTINGDATE) = @P_Month
+	delete from [intm_axbi].[fact_CUSTINVOICETRANS] where DATAAREAID = 'ANNZ' and datepart(YYYY, ACCOUNTINGDATE) = @P_Year and datepart(MM, ACCOUNTINGDATE) = @P_Month
 
 	Select 
 	t.DATAAREAID as DATAAREAID, 
@@ -79,7 +79,7 @@ BEGIN
 	)
 	DELETE FROM CTE_inventtrans WHERE RowNumber > 1
 
-	insert custinvoicetrans
+	insert [intm_axbi].[fact_CUSTINVOICETRANS]
 	select
 	'ANNZ',
 	t.ORIGSALESID,
@@ -172,10 +172,10 @@ BEGIN
 	IF @lSalesBalance <> 0
 	BEGIN
 	-- Falls reguläre Postionen mit Umsatz vorhanden
-	update CUSTINVOICETRANS
-	set CUSTINVOICETRANS.OTHERSALESLOCAL += @lLineAmountMST * t.PRODUCTSALESLOCAL/@lSalesBalance,
-	    CUSTINVOICETRANS.OTHERSALESEUR   += @lLineAmountEUR * t.PRODUCTSALESEUR/@lSalesBalanceEUR
-	from [CUSTINVOICETRANS] as t
+	update [intm_axbi].[fact_CUSTINVOICETRANS]
+	set [intm_axbi].[fact_CUSTINVOICETRANS].OTHERSALESLOCAL += @lLineAmountMST * t.PRODUCTSALESLOCAL/@lSalesBalance,
+	    [intm_axbi].[fact_CUSTINVOICETRANS].OTHERSALESEUR   += @lLineAmountEUR * t.PRODUCTSALESEUR/@lSalesBalanceEUR
+	from [intm_axbi].[fact_CUSTINVOICETRANS] as t
 	where t.DATAAREAID = 'ANNZ' and t.INVOICEID = @lInvoiceID and t.ITEMID not in ('ANNZ-FRA', 'ANNZ-FRU')
 	END 
 	ELSE
@@ -183,16 +183,16 @@ BEGIN
 	If @lcounter > 0
 	BEGIN
 	-- Falls Positionen vorhanden, aber ohne Umsatz
-	update CUSTINVOICETRANS
-	set CUSTINVOICETRANS.OTHERSALESLOCAL += @lLineAmountMST / @lcounter,
-	    CUSTINVOICETRANS.OTHERSALESEUR   += @lLineAmountEUR / @lcounter
-	from [CUSTINVOICETRANS] as t
+	update [intm_axbi].[fact_CUSTINVOICETRANS]
+	set [intm_axbi].[fact_CUSTINVOICETRANS].OTHERSALESLOCAL += @lLineAmountMST / @lcounter,
+	    [intm_axbi].[fact_CUSTINVOICETRANS].OTHERSALESEUR   += @lLineAmountEUR / @lcounter
+	from [intm_axbi].[fact_CUSTINVOICETRANS] as t
 	where t.DATAAREAID = 'ANNZ' and t.INVOICEID = @lInvoiceID and t.ITEMID not in ('ANNZ-FRA', 'ANNZ-FRU')
 	END
 	ELSE
 	BEGIN
 	-- Falls keine Positionen vorhanden, aber Miscellaneous Charges vorhanden, dann Position für die Miscellaneous Charge anlegen
-	insert custinvoicetrans
+	insert [intm_axbi].[fact_CUSTINVOICETRANS]
 	select
 	@lDataAreaID
 	,@lOrigSalesID
@@ -239,17 +239,17 @@ BEGIN
 	DEALLOCATE OtherSalesCursor
 
 	-- SALES100 aufbauen
-	update CUSTINVOICETRANS
-	set CUSTINVOICETRANS.SALES100LOCAL = i.PRODUCTSALESLOCAL + i.OTHERSALESLOCAL + i.ALLOWANCESLOCAL,
-	    CUSTINVOICETRANS.SALES100EUR   = i.PRODUCTSALESEUR + i.OTHERSALESEUR + i.ALLOWANCESEUR
-	from CUSTTABLE as c
-	inner join [CUSTINVOICETRANS] as i
+	update [intm_axbi].[fact_CUSTINVOICETRANS]
+	set [intm_axbi].[fact_CUSTINVOICETRANS].SALES100LOCAL = i.PRODUCTSALESLOCAL + i.OTHERSALESLOCAL + i.ALLOWANCESLOCAL,
+	    [intm_axbi].[fact_CUSTINVOICETRANS].SALES100EUR   = i.PRODUCTSALESEUR + i.OTHERSALESEUR + i.ALLOWANCESEUR
+	from [intm_axbi].[dim_CUSTTABLE] as c
+	inner join [intm_axbi].[fact_CUSTINVOICETRANS] as i
 	on c.DATAAREAID = i.DATAAREAID and
 	   c.ACCOUNTNUM = i.CUSTOMERNO
 	where c.DATAAREAID = 'ANNZ' and Datepart(yyyy, i.ACCOUNTINGDATE) = @P_Year and Datepart(mm, i.ACCOUNTINGDATE) = @P_Month
 	
 	-- update deliverycountryregion = NZ, if ' '
-	update CUSTINVOICETRANS
+	update [intm_axbi].[fact_CUSTINVOICETRANS]
 	set DELIVERYCOUNTRYID = 'NZ'
 	where DATAAREAID = 'ANNZ' and DELIVERYCOUNTRYID = ' ' and Datepart(yyyy, ACCOUNTINGDATE) = @P_Year and Datepart(mm, ACCOUNTINGDATE) = @P_Month
 

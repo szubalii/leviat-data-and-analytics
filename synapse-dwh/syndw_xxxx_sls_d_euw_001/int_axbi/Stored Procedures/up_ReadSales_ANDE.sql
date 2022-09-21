@@ -38,7 +38,7 @@ BEGIN
 
 	--  Ancon DE 
 
-	delete from [CUSTINVOICETRANS] where DATAAREAID = 'ANDE' and datepart(YYYY, ACCOUNTINGDATE) = @P_Year and datepart(MM, ACCOUNTINGDATE) = @P_Month
+	delete from [intm_axbi].[fact_CUSTINVOICETRANS] where DATAAREAID = 'ANDE' and datepart(YYYY, ACCOUNTINGDATE) = @P_Year and datepart(MM, ACCOUNTINGDATE) = @P_Month
 
 	Select t.DATAAREAID as DATAAREAID, 
 	t.INVOICEID as INVOICEID, 
@@ -72,7 +72,7 @@ BEGIN
 	)
 	DELETE FROM CTE_inventtrans WHERE RowNumber > 1
 
-	insert custinvoicetrans
+	insert [intm_axbi].[fact_CUSTINVOICETRANS]
 	select
 	'ANDE',
 	t.ORIGSALESID,
@@ -155,16 +155,16 @@ BEGIN
 	
 	set @lcounter = 0
 
-	select @lSalesBalance = ISNULL(sum(t.PRODUCTSALESLOCAL),0), @lcounter = count(*) from [CUSTINVOICETRANS] as t
+	select @lSalesBalance = ISNULL(sum(t.PRODUCTSALESLOCAL),0), @lcounter = count(*) from [intm_axbi].[fact_CUSTINVOICETRANS] as t
 	where t.DATAAREAID = 'ANDE' and t.INVOICEID = @lInvoiceID and t.ITEMID not in ('ANDE-DIENST', 'ANDE-FRACHT', 'ANDE-MINDERMENGE', 'ANDE-POSZU')
 
 	IF @lSalesBalance <> 0
 	BEGIN
 	-- Falls reguläre Postionen mit Umsatz vorhanden
-	update CUSTINVOICETRANS
-	set CUSTINVOICETRANS.OTHERSALESLOCAL += @lLineAmountMST * t.PRODUCTSALESLOCAL/@lSalesBalance,
-	    CUSTINVOICETRANS.OTHERSALESEUR   += @lLineAmountMST * t.PRODUCTSALESEUR/@lSalesBalance
-	from [CUSTINVOICETRANS] as t
+	update [intm_axbi].[fact_CUSTINVOICETRANS]
+	set [intm_axbi].[fact_CUSTINVOICETRANS].OTHERSALESLOCAL += @lLineAmountMST * t.PRODUCTSALESLOCAL/@lSalesBalance,
+	    [intm_axbi].[fact_CUSTINVOICETRANS].OTHERSALESEUR   += @lLineAmountMST * t.PRODUCTSALESEUR/@lSalesBalance
+	from [intm_axbi].[fact_CUSTINVOICETRANS] as t
 	where t.DATAAREAID = 'ANDE' and t.INVOICEID = @lInvoiceID and t.ITEMID not in ('ANDE-DIENST', 'ANDE-FRACHT', 'ANDE-MINDERMENGE', 'ANDE-POSZU')
 	END 
 	ELSE
@@ -172,10 +172,10 @@ BEGIN
 	If @lcounter > 0
 	BEGIN
 	-- Falls Positionen vorhanden, aber ohne Umsatz
-	update CUSTINVOICETRANS
-	set CUSTINVOICETRANS.OTHERSALESLOCAL += @lLineAmountMST / @lcounter,
-	    CUSTINVOICETRANS.OTHERSALESEUR   += @lLineAmountMST / @lcounter
-	from [CUSTINVOICETRANS] as t
+	update [intm_axbi].[fact_CUSTINVOICETRANS]
+	set [intm_axbi].[fact_CUSTINVOICETRANS].OTHERSALESLOCAL += @lLineAmountMST / @lcounter,
+	    [intm_axbi].[fact_CUSTINVOICETRANS].OTHERSALESEUR   += @lLineAmountMST / @lcounter
+	from [intm_axbi].[fact_CUSTINVOICETRANS] as t
 	where t.DATAAREAID = 'ANDE' and t.INVOICEID = @lInvoiceID and t.ITEMID not in ('ANDE-DIENST', 'ANDE-FRACHT', 'ANDE-MINDERMENGE', 'ANDE-POSZU')
 	END
 	ELSE
@@ -228,17 +228,17 @@ BEGIN
 	DEALLOCATE OtherSalesCursor
 
 	-- SALES100 aufbauen
-	update CUSTINVOICETRANS
-	set CUSTINVOICETRANS.SALES100LOCAL = i.PRODUCTSALESLOCAL + i.OTHERSALESLOCAL + i.ALLOWANCESLOCAL,
-	    CUSTINVOICETRANS.SALES100EUR   = i.PRODUCTSALESEUR + i.OTHERSALESEUR + i.ALLOWANCESEUR
-	from CUSTTABLE as c
-	inner join [CUSTINVOICETRANS] as i
+	update [intm_axbi].[fact_CUSTINVOICETRANS]
+	set [intm_axbi].[fact_CUSTINVOICETRANS].SALES100LOCAL = i.PRODUCTSALESLOCAL + i.OTHERSALESLOCAL + i.ALLOWANCESLOCAL,
+	    [intm_axbi].[fact_CUSTINVOICETRANS].SALES100EUR   = i.PRODUCTSALESEUR + i.OTHERSALESEUR + i.ALLOWANCESEUR
+	from [intm_axbi].[dim_CUSTTABLE] as c
+	inner join [intm_axbi].[fact_CUSTINVOICETRANS] as i
 	on c.DATAAREAID = i.DATAAREAID and
 	   c.ACCOUNTNUM = i.CUSTOMERNO
 	where c.DATAAREAID = 'ANDE' and Datepart(yyyy, i.ACCOUNTINGDATE) = @P_Year and Datepart(mm, i.ACCOUNTINGDATE) = @P_Month
 	
 	-- Fehlendes DUMMY Lieferland eintragen 
-	update CUSTINVOICETRANS
+	update [intm_axbi].[fact_CUSTINVOICETRANS]
 	set DELIVERYCOUNTRYID = 'DE'
 	where DATAAREAID = 'ANDE' and DELIVERYCOUNTRYID = ' '
 

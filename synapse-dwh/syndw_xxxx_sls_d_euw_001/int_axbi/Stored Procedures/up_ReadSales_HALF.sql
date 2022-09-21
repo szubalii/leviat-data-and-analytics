@@ -21,9 +21,9 @@ BEGIN
 
 	-- Halfen
 
-	delete from [CUSTINVOICETRANS] where substring(DATAAREAID, 1, 2) = 'HA' and datepart(YYYY, ACCOUNTINGDATE) = @P_Year and datepart(MM, ACCOUNTINGDATE) = @P_Month
+	delete from [intm_axbi].[fact_CUSTINVOICETRANS] where substring(DATAAREAID, 1, 2) = 'HA' and datepart(YYYY, ACCOUNTINGDATE) = @P_Year and datepart(MM, ACCOUNTINGDATE) = @P_Month
 
-	insert custinvoicetrans
+	insert [intm_axbi].[fact_CUSTINVOICETRANS]
 	select case DACONO
 	       when '5300' then 'HADP'
 		   when '5302' then 'HAIN' 

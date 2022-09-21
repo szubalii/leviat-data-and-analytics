@@ -41,7 +41,7 @@ BEGIN
 
 	--  Plaka FR 
 
-	delete from [CUSTINVOICETRANS] where DATAAREAID = 'PLFR' and datepart(YYYY, ACCOUNTINGDATE) = @P_Year and datepart(MM, ACCOUNTINGDATE) = @P_Month
+	delete from [intm_axbi].[fact_CUSTINVOICETRANS] where DATAAREAID = 'PLFR' and datepart(YYYY, ACCOUNTINGDATE) = @P_Year and datepart(MM, ACCOUNTINGDATE) = @P_Month
 
 	Select t.DATAAREAID as DATAAREAID, t.INVOICEID as INVOICEID, t.ORIGSALESID as ORIGSALESID, t.INVENTTRANSID as INVENTTRANSID, t.LINENUM as LINENUM, i.DATEFINANCIAL as DATEFINANCIAL, i.PACKINGSLIPID as PACKINGSLIPID, sum(i.CostAmount) as CostAmount into #inventtrans_PLFR
 	from [base_tx_crh_2_dwh].[FACT_CUSTINVOICETRANS] as t
@@ -67,7 +67,7 @@ BEGIN
 	)
 	DELETE FROM CTE_inventtrans WHERE RowNumber > 1
 
-	insert custinvoicetrans
+	insert [intm_axbi].[fact_CUSTINVOICETRANS]
 	select
 	'PLFR',
 	t.ORIGSALESID,
@@ -147,7 +147,7 @@ BEGIN
 	group by i.DATAAREAID, a.SALESID, i.INVENTTRANSID, i.DATEPHYSICAL, i.INVOICEACCOUNT, i.ITEMID, a.DELIVERYCOUNTRYREGIONID, i.PACKINGSLIPID, i.Dimension 
 	order by i.DATAAREAID, a.SALESID, i.INVENTTRANSID, i.DATEPHYSICAL, i.INVOICEACCOUNT, i.ITEMID, a.DELIVERYCOUNTRYREGIONID, i.PACKINGSLIPID, i.Dimension 
 
-	insert custinvoicetrans
+	insert [intm_axbi].[fact_CUSTINVOICETRANS]
 	select
 	'PLFR',
 	SALESID,
@@ -199,7 +199,7 @@ BEGIN
 
 	-- PLAKA Verpackungsartikel MB15066 nach OtherSales übertragen 
 
-	insert custinvoicetrans
+	insert [intm_axbi].[fact_CUSTINVOICETRANS]
 	select
 	'PLFR',
 	t.ORIGSALESID,
@@ -235,315 +235,315 @@ BEGIN
 	where t.DATAAREAID = 'plf' and Datepart(yyyy, i.DATEFINANCIAL) = @P_Year and Datepart(mm, i.DATEFINANCIAL) = @P_Month and t.ITEMID = 'MB15066'
 
 	-- Sales ohne Kunde in Kundenstamm löschen 
-	delete from t from [CUSTINVOICETRANS] as t
-		     left outer join CUSTTABLE as c
+	delete from t from [intm_axbi].[fact_CUSTINVOICETRANS] as t
+		     left outer join [intm_axbi].[dim_CUSTTABLE] as c
 			 on t.DATAAREAID = c.DATAAREAID and
 				t.CUSTOMERNO = c.ACCOUNTNUM
 	where t.DATAAREAID = 'PLFR' and c.ACCOUNTNUM is null
 
 	-- Fehlendes DUMMY Lieferland eintragen 
-	update CUSTINVOICETRANS
+	update [intm_axbi].[fact_CUSTINVOICETRANS]
 	set DELIVERYCOUNTRYID = 'FR'
 	where DATAAREAID = 'PLFR' and DELIVERYCOUNTRYID = ' '
 
 	-- PLAKA Customer Bonus nach Allowances übertragen 
 
 	-- BOUYGUES 2,00 %
-	update CUSTINVOICETRANS
-	set CUSTINVOICETRANS.ALLOWANCESLOCAL += i.PRODUCTSALESLOCAL * 0.0200 * -1,
-	    CUSTINVOICETRANS.ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0200 * -1
-	from CUSTTABLE as c
-	inner join [CUSTINVOICETRANS] as i
+	update [intm_axbi].[fact_CUSTINVOICETRANS]
+	set [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESLOCAL += i.PRODUCTSALESLOCAL * 0.0200 * -1,
+	    [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0200 * -1
+	from [intm_axbi].[dim_CUSTTABLE] as c
+	inner join [intm_axbi].[fact_CUSTINVOICETRANS] as i
 	on c.DATAAREAID = i.DATAAREAID and
 	   c.ACCOUNTNUM = i.CUSTOMERNO
 	where c.DATAAREAID = 'PLFR' and c.COMPANYCHAINID = 'BOUYGUES' and datepart(YYYY, i.ACCOUNTINGDATE) = @P_Year and datepart(MM, i.ACCOUNTINGDATE) = @P_Month
 
 	-- CGC CONSTRUCTIONS 1,50 %
-	update CUSTINVOICETRANS
-	set CUSTINVOICETRANS.ALLOWANCESLOCAL += i.PRODUCTSALESLOCAL * 0.0150 * -1,
-	    CUSTINVOICETRANS.ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0150 * -1
-	from CUSTTABLE as c
-	inner join [CUSTINVOICETRANS] as i
+	update [intm_axbi].[fact_CUSTINVOICETRANS]
+	set [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESLOCAL += i.PRODUCTSALESLOCAL * 0.0150 * -1,
+	    [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0150 * -1
+	from [intm_axbi].[dim_CUSTTABLE] as c
+	inner join [intm_axbi].[fact_CUSTINVOICETRANS] as i
 	on c.DATAAREAID = i.DATAAREAID and
 	   c.ACCOUNTNUM = i.CUSTOMERNO
 	where c.DATAAREAID = 'PLFR' and c.COMPANYCHAINID = 'CGC CONSTRUCTIONS' and datepart(YYYY, i.ACCOUNTINGDATE) = @P_Year and datepart(MM, i.ACCOUNTINGDATE) = @P_Month
 
 	-- CHAUSSON 3,00 %
-	update CUSTINVOICETRANS
-	set CUSTINVOICETRANS.ALLOWANCESLOCAL += i.PRODUCTSALESLOCAL * 0.0300 * -1,
-	    CUSTINVOICETRANS.ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0300 * -1
-	from CUSTTABLE as c
-	inner join [CUSTINVOICETRANS] as i
+	update [intm_axbi].[fact_CUSTINVOICETRANS]
+	set [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESLOCAL += i.PRODUCTSALESLOCAL * 0.0300 * -1,
+	    [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0300 * -1
+	from [intm_axbi].[dim_CUSTTABLE] as c
+	inner join [intm_axbi].[fact_CUSTINVOICETRANS] as i
 	on c.DATAAREAID = i.DATAAREAID and
 	   c.ACCOUNTNUM = i.CUSTOMERNO
 	where c.DATAAREAID = 'PLFR' and c.COMPANYCHAINID = 'CHAUSSON' and datepart(YYYY, i.ACCOUNTINGDATE) = @P_Year and datepart(MM, i.ACCOUNTINGDATE) = @P_Month
 
 	-- CHAZELLE 1,00 %
-	update CUSTINVOICETRANS
-	set CUSTINVOICETRANS.ALLOWANCESLOCAL += i.PRODUCTSALESLOCAL * 0.0100 * -1,
-	    CUSTINVOICETRANS.ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0100 * -1
-	from CUSTTABLE as c
-	inner join [CUSTINVOICETRANS] as i
+	update [intm_axbi].[fact_CUSTINVOICETRANS]
+	set [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESLOCAL += i.PRODUCTSALESLOCAL * 0.0100 * -1,
+	    [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0100 * -1
+	from [intm_axbi].[dim_CUSTTABLE] as c
+	inner join [intm_axbi].[fact_CUSTINVOICETRANS] as i
 	on c.DATAAREAID = i.DATAAREAID and
 	   c.ACCOUNTNUM = i.CUSTOMERNO
 	where c.DATAAREAID = 'PLFR' and c.COMPANYCHAINID = 'CHAZELLE' and datepart(YYYY, i.ACCOUNTINGDATE) = @P_Year and datepart(MM, i.ACCOUNTINGDATE) = @P_Month
 
 	-- COSTANTINI FRANCE 4,50 %
-	update CUSTINVOICETRANS
-	set CUSTINVOICETRANS.ALLOWANCESLOCAL += i.PRODUCTSALESLOCAL * 0.0450 * -1,
-	    CUSTINVOICETRANS.ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0450 * -1
-	from CUSTTABLE as c
-	inner join [CUSTINVOICETRANS] as i
+	update [intm_axbi].[fact_CUSTINVOICETRANS]
+	set [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESLOCAL += i.PRODUCTSALESLOCAL * 0.0450 * -1,
+	    [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0450 * -1
+	from [intm_axbi].[dim_CUSTTABLE] as c
+	inner join [intm_axbi].[fact_CUSTINVOICETRANS] as i
 	on c.DATAAREAID = i.DATAAREAID and
 	   c.ACCOUNTNUM = i.CUSTOMERNO
 	where c.DATAAREAID = 'PLFR' and c.COMPANYCHAINID = 'COSTANTINI FRANCE' and datepart(YYYY, i.ACCOUNTINGDATE) = @P_Year and datepart(MM, i.ACCOUNTINGDATE) = @P_Month
 
 	-- CRH IDF DISTRIBUTION 1,00 %
-	update CUSTINVOICETRANS
-	set CUSTINVOICETRANS.ALLOWANCESLOCAL += i.PRODUCTSALESLOCAL * 0.0100 * -1,
-	    CUSTINVOICETRANS.ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0100 * -1
-	from CUSTTABLE as c
-	inner join [CUSTINVOICETRANS] as i
+	update [intm_axbi].[fact_CUSTINVOICETRANS]
+	set [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESLOCAL += i.PRODUCTSALESLOCAL * 0.0100 * -1,
+	    [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0100 * -1
+	from [intm_axbi].[dim_CUSTTABLE] as c
+	inner join [intm_axbi].[fact_CUSTINVOICETRANS] as i
 	on c.DATAAREAID = i.DATAAREAID and
 	   c.ACCOUNTNUM = i.CUSTOMERNO
 	where c.DATAAREAID = 'PLFR' and (c.COMPANYCHAINID like 'CRH %' or c.COMPANYCHAINID like '% CRH %') and datepart(YYYY, i.ACCOUNTINGDATE) = @P_Year and datepart(MM, i.ACCOUNTINGDATE) = @P_Month
 
 	-- C. S A M 3,00 %
-	update CUSTINVOICETRANS
-	set CUSTINVOICETRANS.ALLOWANCESLOCAL += i.PRODUCTSALESLOCAL * 0.0300 * -1,
-	    CUSTINVOICETRANS.ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0300 * -1
-	from CUSTTABLE as c
-	inner join [CUSTINVOICETRANS] as i
+	update [intm_axbi].[fact_CUSTINVOICETRANS]
+	set [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESLOCAL += i.PRODUCTSALESLOCAL * 0.0300 * -1,
+	    [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0300 * -1
+	from [intm_axbi].[dim_CUSTTABLE] as c
+	inner join [intm_axbi].[fact_CUSTINVOICETRANS] as i
 	on c.DATAAREAID = i.DATAAREAID and
 	   c.ACCOUNTNUM = i.CUSTOMERNO
 	where c.DATAAREAID = 'PLFR' and c.COMPANYCHAINID like '% S A M %' and datepart(YYYY, i.ACCOUNTINGDATE) = @P_Year and datepart(MM, i.ACCOUNTINGDATE) = @P_Month
 
 	-- DEMATHIEU 2,50 %
-	update CUSTINVOICETRANS
-	set CUSTINVOICETRANS.ALLOWANCESLOCAL += i.PRODUCTSALESLOCAL * 0.0250 * -1,
-	    CUSTINVOICETRANS.ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0250 * -1
-	from CUSTTABLE as c
-	inner join [CUSTINVOICETRANS] as i
+	update [intm_axbi].[fact_CUSTINVOICETRANS]
+	set [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESLOCAL += i.PRODUCTSALESLOCAL * 0.0250 * -1,
+	    [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0250 * -1
+	from [intm_axbi].[dim_CUSTTABLE] as c
+	inner join [intm_axbi].[fact_CUSTINVOICETRANS] as i
 	on c.DATAAREAID = i.DATAAREAID and
 	   c.ACCOUNTNUM = i.CUSTOMERNO
 	where c.DATAAREAID = 'PLFR' and c.COMPANYCHAINID like '%DEMATHIEU%' and datepart(YYYY, i.ACCOUNTINGDATE) = @P_Year and datepart(MM, i.ACCOUNTINGDATE) = @P_Month
 
 	-- DESCOURS 1,50 %
-	update CUSTINVOICETRANS
-	set CUSTINVOICETRANS.ALLOWANCESLOCAL += i.PRODUCTSALESLOCAL * 0.0150 * -1,
-	    CUSTINVOICETRANS.ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0150 * -1
-	from CUSTTABLE as c
-	inner join [CUSTINVOICETRANS] as i
+	update [intm_axbi].[fact_CUSTINVOICETRANS]
+	set [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESLOCAL += i.PRODUCTSALESLOCAL * 0.0150 * -1,
+	    [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0150 * -1
+	from [intm_axbi].[dim_CUSTTABLE] as c
+	inner join [intm_axbi].[fact_CUSTINVOICETRANS] as i
 	on c.DATAAREAID = i.DATAAREAID and
 	   c.ACCOUNTNUM = i.CUSTOMERNO
 	where c.DATAAREAID = 'PLFR' and c.COMPANYCHAINID like '%DESCOURS%' and datepart(YYYY, i.ACCOUNTINGDATE) = @P_Year and datepart(MM, i.ACCOUNTINGDATE) = @P_Month
 
 	-- EIFFAGE 3,00 %
-	update CUSTINVOICETRANS
-	set CUSTINVOICETRANS.ALLOWANCESLOCAL += i.PRODUCTSALESLOCAL * 0.0300 * -1,
-	    CUSTINVOICETRANS.ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0300 * -1
-	from CUSTTABLE as c
-	inner join [CUSTINVOICETRANS] as i
+	update [intm_axbi].[fact_CUSTINVOICETRANS]
+	set [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESLOCAL += i.PRODUCTSALESLOCAL * 0.0300 * -1,
+	    [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0300 * -1
+	from [intm_axbi].[dim_CUSTTABLE] as c
+	inner join [intm_axbi].[fact_CUSTINVOICETRANS] as i
 	on c.DATAAREAID = i.DATAAREAID and
 	   c.ACCOUNTNUM = i.CUSTOMERNO
 	where c.DATAAREAID = 'PLFR' and c.COMPANYCHAINID = 'EIFFAGE' and datepart(YYYY, i.ACCOUNTINGDATE) = @P_Year and datepart(MM, i.ACCOUNTINGDATE) = @P_Month
 
 	-- FAYAT 3,00 %
-	update CUSTINVOICETRANS
-	set CUSTINVOICETRANS.ALLOWANCESLOCAL += i.PRODUCTSALESLOCAL * 0.0300 * -1,
-	    CUSTINVOICETRANS.ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0300 * -1
-	from CUSTTABLE as c
-	inner join [CUSTINVOICETRANS] as i
+	update [intm_axbi].[fact_CUSTINVOICETRANS]
+	set [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESLOCAL += i.PRODUCTSALESLOCAL * 0.0300 * -1,
+	    [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0300 * -1
+	from [intm_axbi].[dim_CUSTTABLE] as c
+	inner join [intm_axbi].[fact_CUSTINVOICETRANS] as i
 	on c.DATAAREAID = i.DATAAREAID and
 	   c.ACCOUNTNUM = i.CUSTOMERNO
 	where c.DATAAREAID = 'PLFR' and datepart(YYYY, ACCOUNTINGDATE) = @P_Year and c.COMPANYCHAINID = 'FAYAT' and datepart(YYYY, i.ACCOUNTINGDATE) = @P_Year and datepart(MM, i.ACCOUNTINGDATE) = @P_Month
 
 	-- FORBAT SARL 2,00 %
-	update CUSTINVOICETRANS
-	set CUSTINVOICETRANS.ALLOWANCESLOCAL += i.PRODUCTSALESLOCAL * 0.0200 * -1,
-	    CUSTINVOICETRANS.ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0200 * -1
-	from CUSTTABLE as c
-	inner join [CUSTINVOICETRANS] as i
+	update [intm_axbi].[fact_CUSTINVOICETRANS]
+	set [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESLOCAL += i.PRODUCTSALESLOCAL * 0.0200 * -1,
+	    [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0200 * -1
+	from [intm_axbi].[dim_CUSTTABLE] as c
+	inner join [intm_axbi].[fact_CUSTINVOICETRANS] as i
 	on c.DATAAREAID = i.DATAAREAID and
 	   c.ACCOUNTNUM = i.CUSTOMERNO
 	where c.DATAAREAID = 'PLFR' and c.COMPANYCHAINID = 'FORBAT SARL' and datepart(YYYY, i.ACCOUNTINGDATE) = @P_Year and datepart(MM, i.ACCOUNTINGDATE) = @P_Month
 
 	-- GAGNEREAU 3,00 %
-	update CUSTINVOICETRANS
-	set CUSTINVOICETRANS.ALLOWANCESLOCAL += i.PRODUCTSALESLOCAL * 0.0300 * -1,
-	    CUSTINVOICETRANS.ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0300 * -1
-	from CUSTTABLE as c
-	inner join [CUSTINVOICETRANS] as i
+	update [intm_axbi].[fact_CUSTINVOICETRANS]
+	set [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESLOCAL += i.PRODUCTSALESLOCAL * 0.0300 * -1,
+	    [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0300 * -1
+	from [intm_axbi].[dim_CUSTTABLE] as c
+	inner join [intm_axbi].[fact_CUSTINVOICETRANS] as i
 	on c.DATAAREAID = i.DATAAREAID and
 	   c.ACCOUNTNUM = i.CUSTOMERNO
 	where c.DATAAREAID = 'PLFR' and c.COMPANYCHAINID = 'GAGNEREAU' and datepart(YYYY, i.ACCOUNTINGDATE) = @P_Year and datepart(MM, i.ACCOUNTINGDATE) = @P_Month
 
 	-- GB FINANCE 2,50 %
-	update CUSTINVOICETRANS
-	set CUSTINVOICETRANS.ALLOWANCESLOCAL += i.PRODUCTSALESLOCAL * 0.0250 * -1,
-	    CUSTINVOICETRANS.ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0250 * -1
-	from CUSTTABLE as c
-	inner join [CUSTINVOICETRANS] as i
+	update [intm_axbi].[fact_CUSTINVOICETRANS]
+	set [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESLOCAL += i.PRODUCTSALESLOCAL * 0.0250 * -1,
+	    [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0250 * -1
+	from [intm_axbi].[dim_CUSTTABLE] as c
+	inner join [intm_axbi].[fact_CUSTINVOICETRANS] as i
 	on c.DATAAREAID = i.DATAAREAID and
 	   c.ACCOUNTNUM = i.CUSTOMERNO
 	where c.DATAAREAID = 'PLFR' and c.COMPANYCHAINID = 'GB FINANCE' and datepart(YYYY, i.ACCOUNTINGDATE) = @P_Year and datepart(MM, i.ACCOUNTINGDATE) = @P_Month
 
 	-- ENTREPRISE GUENO 2,50 %
-	update CUSTINVOICETRANS
-	set CUSTINVOICETRANS.ALLOWANCESLOCAL += i.PRODUCTSALESLOCAL * 0.0250 * -1,
-	    CUSTINVOICETRANS.ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0250 * -1
-	from CUSTTABLE as c
-	inner join [CUSTINVOICETRANS] as i
+	update [intm_axbi].[fact_CUSTINVOICETRANS]
+	set [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESLOCAL += i.PRODUCTSALESLOCAL * 0.0250 * -1,
+	    [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0250 * -1
+	from [intm_axbi].[dim_CUSTTABLE] as c
+	inner join [intm_axbi].[fact_CUSTINVOICETRANS] as i
 	on c.DATAAREAID = i.DATAAREAID and
 	   c.ACCOUNTNUM = i.CUSTOMERNO
 	where c.DATAAREAID = 'PLFR' and c.COMPANYCHAINID = 'ENTREPRISE GUENO' and datepart(YYYY, i.ACCOUNTINGDATE) = @P_Year and datepart(MM, i.ACCOUNTINGDATE) = @P_Month
 
 	-- JOUVENT 2,00 %
-	update CUSTINVOICETRANS
-	set CUSTINVOICETRANS.ALLOWANCESLOCAL += i.PRODUCTSALESLOCAL * 0.0200 * -1,
-	    CUSTINVOICETRANS.ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0200 * -1
-	from CUSTTABLE as c
-	inner join [CUSTINVOICETRANS] as i
+	update [intm_axbi].[fact_CUSTINVOICETRANS]
+	set [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESLOCAL += i.PRODUCTSALESLOCAL * 0.0200 * -1,
+	    [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0200 * -1
+	from [intm_axbi].[dim_CUSTTABLE] as c
+	inner join [intm_axbi].[fact_CUSTINVOICETRANS] as i
 	on c.DATAAREAID = i.DATAAREAID and
 	   c.ACCOUNTNUM = i.CUSTOMERNO
 	where c.DATAAREAID = 'PLFR' and c.COMPANYCHAINID = 'JOUVENT' and datepart(YYYY, i.ACCOUNTINGDATE) = @P_Year and datepart(MM, i.ACCOUNTINGDATE) = @P_Month
 
 	-- GROUPE LB 3,50 %
-	update CUSTINVOICETRANS
-	set CUSTINVOICETRANS.ALLOWANCESLOCAL += i.PRODUCTSALESLOCAL * 0.0350 * -1,
-	    CUSTINVOICETRANS.ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0350 * -1
-	from CUSTTABLE as c
-	inner join [CUSTINVOICETRANS] as i
+	update [intm_axbi].[fact_CUSTINVOICETRANS]
+	set [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESLOCAL += i.PRODUCTSALESLOCAL * 0.0350 * -1,
+	    [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0350 * -1
+	from [intm_axbi].[dim_CUSTTABLE] as c
+	inner join [intm_axbi].[fact_CUSTINVOICETRANS] as i
 	on c.DATAAREAID = i.DATAAREAID and
 	   c.ACCOUNTNUM = i.CUSTOMERNO
 	where c.DATAAREAID = 'PLFR' and c.COMPANYCHAINID = 'GROUPE LB' and datepart(YYYY, i.ACCOUNTINGDATE) = @P_Year and datepart(MM, i.ACCOUNTINGDATE) = @P_Month
 
 	-- LEGROS 1,70 %
-	update CUSTINVOICETRANS
-	set CUSTINVOICETRANS.ALLOWANCESLOCAL += i.PRODUCTSALESLOCAL * 0.0170 * -1,
-	    CUSTINVOICETRANS.ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0170 * -1
-	from CUSTTABLE as c
-	inner join [CUSTINVOICETRANS] as i
+	update [intm_axbi].[fact_CUSTINVOICETRANS]
+	set [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESLOCAL += i.PRODUCTSALESLOCAL * 0.0170 * -1,
+	    [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0170 * -1
+	from [intm_axbi].[dim_CUSTTABLE] as c
+	inner join [intm_axbi].[fact_CUSTINVOICETRANS] as i
 	on c.DATAAREAID = i.DATAAREAID and
 	   c.ACCOUNTNUM = i.CUSTOMERNO
 	where c.DATAAREAID = 'PLFR' and c.COMPANYCHAINID = 'LEGROS' and datepart(YYYY, i.ACCOUNTINGDATE) = @P_Year and datepart(MM, i.ACCOUNTINGDATE) = @P_Month
 
 	-- GROSSE 3,50 %
-	update CUSTINVOICETRANS
-	set CUSTINVOICETRANS.ALLOWANCESLOCAL += i.PRODUCTSALESLOCAL * 0.0350 * -1,
-	    CUSTINVOICETRANS.ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0350 * -1
-	from CUSTTABLE as c
-	inner join [CUSTINVOICETRANS] as i
+	update [intm_axbi].[fact_CUSTINVOICETRANS]
+	set [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESLOCAL += i.PRODUCTSALESLOCAL * 0.0350 * -1,
+	    [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0350 * -1
+	from [intm_axbi].[dim_CUSTTABLE] as c
+	inner join [intm_axbi].[fact_CUSTINVOICETRANS] as i
 	on c.DATAAREAID = i.DATAAREAID and
 	   c.ACCOUNTNUM = i.CUSTOMERNO
 	where c.DATAAREAID = 'PLFR' and c.COMPANYCHAINID = 'GROSSE' and datepart(YYYY, i.ACCOUNTINGDATE) = @P_Year and datepart(MM, i.ACCOUNTINGDATE) = @P_Month
 
 	-- REVILLON 1,00 %
-	update CUSTINVOICETRANS
-	set CUSTINVOICETRANS.ALLOWANCESLOCAL += i.PRODUCTSALESLOCAL * 0.0100 * -1,
-	    CUSTINVOICETRANS.ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0100 * -1
-	from CUSTTABLE as c
-	inner join [CUSTINVOICETRANS] as i
+	update [intm_axbi].[fact_CUSTINVOICETRANS]
+	set [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESLOCAL += i.PRODUCTSALESLOCAL * 0.0100 * -1,
+	    [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0100 * -1
+	from [intm_axbi].[dim_CUSTTABLE] as c
+	inner join [intm_axbi].[fact_CUSTINVOICETRANS] as i
 	on c.DATAAREAID = i.DATAAREAID and
 	   c.ACCOUNTNUM = i.CUSTOMERNO
 	where c.DATAAREAID = 'PLFR' and c.COMPANYCHAINID = 'REVILLON' and datepart(YYYY, i.ACCOUNTINGDATE) = @P_Year and datepart(MM, i.ACCOUNTINGDATE) = @P_Month
 
 	-- MDO 2,50 %
-	update CUSTINVOICETRANS
-	set CUSTINVOICETRANS.ALLOWANCESLOCAL += i.PRODUCTSALESLOCAL * 0.0250 * -1,
-	    CUSTINVOICETRANS.ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0250 * -1
-	from CUSTTABLE as c
-	inner join [CUSTINVOICETRANS] as i
+	update [intm_axbi].[fact_CUSTINVOICETRANS]
+	set [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESLOCAL += i.PRODUCTSALESLOCAL * 0.0250 * -1,
+	    [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0250 * -1
+	from [intm_axbi].[dim_CUSTTABLE] as c
+	inner join [intm_axbi].[fact_CUSTINVOICETRANS] as i
 	on c.DATAAREAID = i.DATAAREAID and
 	   c.ACCOUNTNUM = i.CUSTOMERNO
 	where c.DATAAREAID = 'PLFR' and c.COMPANYCHAINID = 'MDO' and datepart(YYYY, i.ACCOUNTINGDATE) = @P_Year and datepart(MM, i.ACCOUNTINGDATE) = @P_Month
 
 	-- MAZAUD ENTR GENERALE SAS 2,00 %
-	update CUSTINVOICETRANS
-	set CUSTINVOICETRANS.ALLOWANCESLOCAL += i.PRODUCTSALESLOCAL * 0.0200 * -1,
-	    CUSTINVOICETRANS.ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0200 * -1
-	from CUSTTABLE as c
-	inner join [CUSTINVOICETRANS] as i
+	update [intm_axbi].[fact_CUSTINVOICETRANS]
+	set [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESLOCAL += i.PRODUCTSALESLOCAL * 0.0200 * -1,
+	    [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0200 * -1
+	from [intm_axbi].[dim_CUSTTABLE] as c
+	inner join [intm_axbi].[fact_CUSTINVOICETRANS] as i
 	on c.DATAAREAID = i.DATAAREAID and
 	   c.ACCOUNTNUM = i.CUSTOMERNO
 	where c.DATAAREAID = 'PLFR' and c.COMPANYCHAINID = 'MAZAUD ENTR GENERALE SAS' and datepart(YYYY, i.ACCOUNTINGDATE) = @P_Year and datepart(MM, i.ACCOUNTINGDATE) = @P_Month
 
 	-- MBC 4,00 %
-	update CUSTINVOICETRANS
-	set CUSTINVOICETRANS.ALLOWANCESLOCAL += i.PRODUCTSALESLOCAL * 0.0400 * -1,
-	    CUSTINVOICETRANS.ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0400 * -1
-	from CUSTTABLE as c
-	inner join [CUSTINVOICETRANS] as i
+	update [intm_axbi].[fact_CUSTINVOICETRANS]
+	set [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESLOCAL += i.PRODUCTSALESLOCAL * 0.0400 * -1,
+	    [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0400 * -1
+	from [intm_axbi].[dim_CUSTTABLE] as c
+	inner join [intm_axbi].[fact_CUSTINVOICETRANS] as i
 	on c.DATAAREAID = i.DATAAREAID and
 	   c.ACCOUNTNUM = i.CUSTOMERNO
 	where c.DATAAREAID = 'PLFR' and c.COMPANYCHAINID = 'MBC' and datepart(YYYY, i.ACCOUNTINGDATE) = @P_Year and datepart(MM, i.ACCOUNTINGDATE) = @P_Month
 
 	-- POINT P 4,50 %
-	update CUSTINVOICETRANS
-	set CUSTINVOICETRANS.ALLOWANCESLOCAL += i.PRODUCTSALESLOCAL * 0.0450 * -1,
-	    CUSTINVOICETRANS.ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0450 * -1
-	from CUSTTABLE as c
-	inner join [CUSTINVOICETRANS] as i
+	update [intm_axbi].[fact_CUSTINVOICETRANS]
+	set [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESLOCAL += i.PRODUCTSALESLOCAL * 0.0450 * -1,
+	    [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0450 * -1
+	from [intm_axbi].[dim_CUSTTABLE] as c
+	inner join [intm_axbi].[fact_CUSTINVOICETRANS] as i
 	on c.DATAAREAID = i.DATAAREAID and
 	   c.ACCOUNTNUM = i.CUSTOMERNO
 	where c.DATAAREAID = 'PLFR' and c.COMPANYCHAINID like '%POINT P%' and datepart(YYYY, i.ACCOUNTINGDATE) = @P_Year and datepart(MM, i.ACCOUNTINGDATE) = @P_Month
 
 	-- RABOT 2,50 %
-	update CUSTINVOICETRANS
-	set CUSTINVOICETRANS.ALLOWANCESLOCAL += i.PRODUCTSALESLOCAL * 0.0250 * -1,
-	    CUSTINVOICETRANS.ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0250 * -1
-	from CUSTTABLE as c
-	inner join [CUSTINVOICETRANS] as i
+	update [intm_axbi].[fact_CUSTINVOICETRANS]
+	set [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESLOCAL += i.PRODUCTSALESLOCAL * 0.0250 * -1,
+	    [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0250 * -1
+	from [intm_axbi].[dim_CUSTTABLE] as c
+	inner join [intm_axbi].[fact_CUSTINVOICETRANS] as i
 	on c.DATAAREAID = i.DATAAREAID and
 	   c.ACCOUNTNUM = i.CUSTOMERNO
 	where c.DATAAREAID = 'PLFR' and c.COMPANYCHAINID = 'RABOT' and datepart(YYYY, i.ACCOUNTINGDATE) = @P_Year and datepart(MM, i.ACCOUNTINGDATE) = @P_Month
 
 	-- RAMERY 3,00 %
-	update CUSTINVOICETRANS
-	set CUSTINVOICETRANS.ALLOWANCESLOCAL += i.PRODUCTSALESLOCAL * 0.0300 * -1,
-	    CUSTINVOICETRANS.ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0300 * -1
-	from CUSTTABLE as c
-	inner join [CUSTINVOICETRANS] as i
+	update [intm_axbi].[fact_CUSTINVOICETRANS]
+	set [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESLOCAL += i.PRODUCTSALESLOCAL * 0.0300 * -1,
+	    [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0300 * -1
+	from [intm_axbi].[dim_CUSTTABLE] as c
+	inner join [intm_axbi].[fact_CUSTINVOICETRANS] as i
 	on c.DATAAREAID = i.DATAAREAID and
 	   c.ACCOUNTNUM = i.CUSTOMERNO
 	where c.DATAAREAID = 'PLFR' and c.COMPANYCHAINID = 'RAMERY' and datepart(YYYY, i.ACCOUNTINGDATE) = @P_Year and datepart(MM, i.ACCOUNTINGDATE) = @P_Month
 
 	-- SAMSE 6,50 %
-	update CUSTINVOICETRANS
-	set CUSTINVOICETRANS.ALLOWANCESLOCAL += i.PRODUCTSALESLOCAL * 0.0650 * -1,
-	    CUSTINVOICETRANS.ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0650 * -1
-	from CUSTTABLE as c
-	inner join [CUSTINVOICETRANS] as i
+	update [intm_axbi].[fact_CUSTINVOICETRANS]
+	set [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESLOCAL += i.PRODUCTSALESLOCAL * 0.0650 * -1,
+	    [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0650 * -1
+	from [intm_axbi].[dim_CUSTTABLE] as c
+	inner join [intm_axbi].[fact_CUSTINVOICETRANS] as i
 	on c.DATAAREAID = i.DATAAREAID and
 	   c.ACCOUNTNUM = i.CUSTOMERNO
 	where c.DATAAREAID = 'PLFR' and c.COMPANYCHAINID = 'SAMSE' and datepart(YYYY, i.ACCOUNTINGDATE) = @P_Year and datepart(MM, i.ACCOUNTINGDATE) = @P_Month
 
 	-- SAVOIE SAS 1,00 %
-	update CUSTINVOICETRANS
-	set CUSTINVOICETRANS.ALLOWANCESLOCAL += i.PRODUCTSALESLOCAL * 0.0100 * -1,
-	    CUSTINVOICETRANS.ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0100 * -1
-	from CUSTTABLE as c
-	inner join [CUSTINVOICETRANS] as i
+	update [intm_axbi].[fact_CUSTINVOICETRANS]
+	set [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESLOCAL += i.PRODUCTSALESLOCAL * 0.0100 * -1,
+	    [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0100 * -1
+	from [intm_axbi].[dim_CUSTTABLE] as c
+	inner join [intm_axbi].[fact_CUSTINVOICETRANS] as i
 	on c.DATAAREAID = i.DATAAREAID and
 	   c.ACCOUNTNUM = i.CUSTOMERNO
 	where c.DATAAREAID = 'PLFR' and c.COMPANYCHAINID = 'SAVOIE SAS' and datepart(YYYY, i.ACCOUNTINGDATE) = @P_Year and datepart(MM, i.ACCOUNTINGDATE) = @P_Month
 
 	-- SRB CONSTRUCTION 2,50 %
-	update CUSTINVOICETRANS
-	set CUSTINVOICETRANS.ALLOWANCESLOCAL += i.PRODUCTSALESLOCAL * 0.0250 * -1,
-	    CUSTINVOICETRANS.ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0250 * -1
-	from CUSTTABLE as c
-	inner join [CUSTINVOICETRANS] as i
+	update [intm_axbi].[fact_CUSTINVOICETRANS]
+	set [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESLOCAL += i.PRODUCTSALESLOCAL * 0.0250 * -1,
+	    [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0250 * -1
+	from [intm_axbi].[dim_CUSTTABLE] as c
+	inner join [intm_axbi].[fact_CUSTINVOICETRANS] as i
 	on c.DATAAREAID = i.DATAAREAID and
 	   c.ACCOUNTNUM = i.CUSTOMERNO
 	where c.DATAAREAID = 'PLFR' and c.COMPANYCHAINID = 'SRB CONSTRUCTION' and datepart(YYYY, i.ACCOUNTINGDATE) = @P_Year and datepart(MM, i.ACCOUNTINGDATE) = @P_Month
 
 	-- VINCI 4,50 %
-	update CUSTINVOICETRANS
-	set CUSTINVOICETRANS.ALLOWANCESLOCAL += i.PRODUCTSALESLOCAL * 0.0450 * -1,
-	    CUSTINVOICETRANS.ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0450 * -1
-	from CUSTTABLE as c
-	inner join [CUSTINVOICETRANS] as i
+	update [intm_axbi].[fact_CUSTINVOICETRANS]
+	set [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESLOCAL += i.PRODUCTSALESLOCAL * 0.0450 * -1,
+	    [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0450 * -1
+	from [intm_axbi].[dim_CUSTTABLE] as c
+	inner join [intm_axbi].[fact_CUSTINVOICETRANS] as i
 	on c.DATAAREAID = i.DATAAREAID and
 	   c.ACCOUNTNUM = i.CUSTOMERNO
 	where c.DATAAREAID = 'PLFR' and c.COMPANYCHAINID = 'VINCI' and datepart(YYYY, i.ACCOUNTINGDATE) = @P_Year and datepart(MM, i.ACCOUNTINGDATE) = @P_Month
@@ -596,8 +596,8 @@ BEGIN
 
 	set @lcounter = 0
 
-	select @lSalesBalance = ISNULL(sum(t.PRODUCTSALESLOCAL),0), @lcounter = count(*) from [CUSTINVOICETRANS] as t
-	                                                                                 inner join ITEMTABLE as g
+	select @lSalesBalance = ISNULL(sum(t.PRODUCTSALESLOCAL),0), @lcounter = count(*) from [intm_axbi].[fact_CUSTINVOICETRANS] as t
+	                                                                                 inner join [intm_axbi].[dim_ITEMTABLE] as g
 																					 on t.DATAAREAID = g.DATAAREAID and
 																					    t.ITEMID = g.ITEMID  
 	where t.DATAAREAID = 'PLFR' and t.INVOICEID = @lInvoiceID and g.ITEMGROUPID <> 'PLFR-EL'
@@ -605,11 +605,11 @@ BEGIN
 	IF @lSalesBalance <> 0
 	BEGIN
 	-- Falls reguläre Postionen mit Umsatz vorhanden
-	update CUSTINVOICETRANS
-	set CUSTINVOICETRANS.OTHERSALESLOCAL += @lLINEAMOUNTMST * t.PRODUCTSALESLOCAL/@lSalesBalance,
-	    CUSTINVOICETRANS.OTHERSALESEUR   += @lLINEAMOUNTMST * t.PRODUCTSALESEUR/@lSalesBalance
-	from [CUSTINVOICETRANS] as t
-    inner join ITEMTABLE as g
+	update [intm_axbi].[fact_CUSTINVOICETRANS]
+	set [intm_axbi].[fact_CUSTINVOICETRANS].OTHERSALESLOCAL += @lLINEAMOUNTMST * t.PRODUCTSALESLOCAL/@lSalesBalance,
+	    [intm_axbi].[fact_CUSTINVOICETRANS].OTHERSALESEUR   += @lLINEAMOUNTMST * t.PRODUCTSALESEUR/@lSalesBalance
+	from [intm_axbi].[fact_CUSTINVOICETRANS] as t
+    inner join [intm_axbi].[dim_ITEMTABLE] as g
 	on t.DATAAREAID = g.DATAAREAID and
 	   t.ITEMID     = g.ITEMID  
 	where t.DATAAREAID = 'PLFR' and datepart(YYYY, t.ACCOUNTINGDATE) = @P_Year and datepart(MM, t.ACCOUNTINGDATE) = @P_Month and t.INVOICEID = @lInvoiceID and g.ITEMGROUPID <> 'PLFR-EL'
@@ -619,11 +619,11 @@ BEGIN
 	If @lcounter > 0
 	BEGIN
 	-- Falls Positionen vorhanden, aber ohne Umsatz
-	update CUSTINVOICETRANS
-	set CUSTINVOICETRANS.OTHERSALESLOCAL += @lLINEAMOUNTMST / @lcounter,
-	    CUSTINVOICETRANS.OTHERSALESEUR   += @lLINEAMOUNTMST / @lcounter
-	from [CUSTINVOICETRANS] as t
-    inner join ITEMTABLE as g
+	update [intm_axbi].[fact_CUSTINVOICETRANS]
+	set [intm_axbi].[fact_CUSTINVOICETRANS].OTHERSALESLOCAL += @lLINEAMOUNTMST / @lcounter,
+	    [intm_axbi].[fact_CUSTINVOICETRANS].OTHERSALESEUR   += @lLINEAMOUNTMST / @lcounter
+	from [intm_axbi].[fact_CUSTINVOICETRANS] as t
+    inner join [intm_axbi].[dim_ITEMTABLE] as g
 	on t.DATAAREAID = g.DATAAREAID and
 	   t.ITEMID     = g.ITEMID  
 	where t.DATAAREAID = 'PLFR' and datepart(YYYY, t.ACCOUNTINGDATE) = @P_Year and datepart(MM, t.ACCOUNTINGDATE) = @P_Month and t.INVOICEID = @lInvoiceID and g.ITEMGROUPID <> 'PLFR-EL'
@@ -631,7 +631,7 @@ BEGIN
 	ELSE
 	BEGIN
 	-- Falls keine Positionen vorhanden, aber Miscellaneous Charges vorhanden, dann Position für die Miscellaneous Charge anlegen
-	insert custinvoicetrans
+	insert [intm_axbi].[fact_CUSTINVOICETRANS]
 	select
 	@lDataAreaID
 	,@lOrigSalesID
@@ -678,11 +678,11 @@ BEGIN
 	DEALLOCATE OtherSalesCursor
 
 	-- SALES100 aufbauen
-	update CUSTINVOICETRANS
-	set CUSTINVOICETRANS.SALES100LOCAL = i.PRODUCTSALESLOCAL + i.OTHERSALESLOCAL + i.ALLOWANCESLOCAL,
-	    CUSTINVOICETRANS.SALES100EUR   = i.PRODUCTSALESEUR + i.OTHERSALESEUR + i.ALLOWANCESEUR
-	from CUSTTABLE as c
-	inner join [CUSTINVOICETRANS] as i
+	update [intm_axbi].[fact_CUSTINVOICETRANS]
+	set [intm_axbi].[fact_CUSTINVOICETRANS].SALES100LOCAL = i.PRODUCTSALESLOCAL + i.OTHERSALESLOCAL + i.ALLOWANCESLOCAL,
+	    [intm_axbi].[fact_CUSTINVOICETRANS].SALES100EUR   = i.PRODUCTSALESEUR + i.OTHERSALESEUR + i.ALLOWANCESEUR
+	from [intm_axbi].[dim_CUSTTABLE] as c
+	inner join [intm_axbi].[fact_CUSTINVOICETRANS] as i
 	on c.DATAAREAID = i.DATAAREAID and
 	   c.ACCOUNTNUM = i.CUSTOMERNO
 	where c.DATAAREAID = 'PLFR' and datepart(YYYY, i.ACCOUNTINGDATE) = @P_Year and datepart(MM, i.ACCOUNTINGDATE) = @P_Month
