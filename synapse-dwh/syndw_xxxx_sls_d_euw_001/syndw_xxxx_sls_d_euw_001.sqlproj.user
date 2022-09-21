@@ -3,5 +3,9 @@
   <PropertyGroup>
     <StartupScript>(Blank)</StartupScript>
     <StartAction>StartNone</StartAction>
+    <SqlCmdVar__1>stxxxxslsdeuw001</SqlCmdVar__1>
+    <SqlCmdVar__2>testpassword</SqlCmdVar__2>
+    <CreateNewDatabase>False</CreateNewDatabase>
+    <TargetConnectionString>Data Source=(localdb)\ProjectModels;Initial Catalog=syndw_xxxx_sls_d_euw_001;Integrated Security=True;Persist Security Info=False;Pooling=False;MultipleActiveResultSets=False;Connect Timeout=60;Encrypt=False;TrustServerCertificate=False</TargetConnectionString>
   </PropertyGroup>
 </Project>

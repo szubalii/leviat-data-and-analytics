@@ -82,6 +82,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="Data\FACT_HGDAWA_2022_01_27_09_43_53_650.csv" />
+    <None Include="Data\FACT_HGDAWA_2022_01_31_09_35_46_452.csv" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="edw_vw_BillingDocumentItem_s4h.resx">
