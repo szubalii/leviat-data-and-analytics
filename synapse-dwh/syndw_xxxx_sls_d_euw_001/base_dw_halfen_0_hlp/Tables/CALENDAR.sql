@@ -1,0 +1,20 @@
+CREATE TABLE [base_dw_halfen_0_hlp].[CALENDAR](
+	[DATAAREAID] [nvarchar](8) NULL,
+	[CALENDARDATE] [datetime] NULL,
+	[YEAR] [smallint] NULL,
+	[MONTH] [smallint] NULL,
+	[DAY] [smallint] NULL,
+	[WEEKDAY] [smallint] NULL,
+	[WEEKDAY_A] [nchar](3) NULL,
+	[DAYOFYEAR] [smallint] NULL,
+	[DATEFLAG] [nchar](1) NULL,
+	[WORKDAY_ACT] [smallint] NULL,
+	[WORKDAY_SUM] [smallint] NULL,
+	[DISTRIBUTIONCOMPANYGROUP] [nvarchar](50) NULL,
+	[t_applicationId] VARCHAR    (32)  NULL,
+    [t_jobId]         VARCHAR    (36)  NULL,
+    [t_jobDtm]        DATETIME,
+    [t_jobBy]         NVARCHAR  (128)  NULL,
+    [t_extractionDtm] DATETIME,
+    [t_filePath]      NVARCHAR (1024)  NULL
+) WITH (HEAP, DISTRIBUTION = ROUND_ROBIN);

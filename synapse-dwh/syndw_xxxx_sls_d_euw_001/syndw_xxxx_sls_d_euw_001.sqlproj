@@ -178,6 +178,17 @@
     <Folder Include="dm_c4c" />
     <Folder Include="dm_c4c\Views" />
     <Folder Include="base_dw_halfen_2_dwh\Stored Procedures\" />
+    <Folder Include="edw\Table\" />
+    <Folder Include="intm_axbi" />
+    <Folder Include="intm_axbi\Tables" />
+    <Folder Include="intm_axbi\Stored Procedures" />
+    <Folder Include="base_ancon_australia_2_dwh" />
+    <Folder Include="base_ancon_australia_2_dwh\Tables" />
+    <Folder Include="base_tx_crh_1_stg" />
+    <Folder Include="base_tx_crh_1_stg\Tables" />
+    <Folder Include="base_tx_crh_2_dwh" />
+    <Folder Include="base_tx_crh_2_dwh\Tables" />
+    <Folder Include="intm_axbi\Functions" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <Build Include="Security\Database Scoped Credentials\dsc_MSI.sql" />
@@ -951,6 +962,45 @@
     <Build Include="utilities\Stored Procedures\sp_process_axbi_delta_update.sql" />
     <Build Include="utilities\Stored Procedures\sp_process_axbi_delta_delete.sql" />
     <Build Include="utilities\Stored Procedures\sp_process_axbi_delta.sql" />
+    <Build Include="intm_axbi\Tables\dim_ITEMTABLE.sql" />
+    <Build Include="Security\Schemas\intm_axbi.sql" />
+    <Build Include="Security\Schemas\base_ancon_australia_2_dwh.sql" />
+    <Build Include="base_ancon_australia_2_dwh\Tables\FACT_CUSTINVOICEJOUR.sql" />
+    <Build Include="base_ancon_australia_2_dwh\Tables\FACT_CUSTINVOICETRANS.sql" />
+    <Build Include="base_ancon_australia_2_dwh\Tables\DIM_CUSTTABLE.sql" />
+    <Build Include="base_ancon_australia_2_dwh\Tables\DIM_INVENTTABLE.sql" />
+    <Build Include="base_ancon_australia_2_dwh\Tables\DIM_ITEMGROUP.sql" />
+    <Build Include="base_ancon_australia_2_dwh\Tables\FACT_INVENTTRANS.sql" />
+    <Build Include="base_dw_halfen_0_hlp\Tables\CALENDAR.sql" />
+    <Build Include="base_dw_halfen_0_hlp\Tables\HGDAWA.sql" />
+    <Build Include="base_dw_halfen_0_hlp\Tables\PRODUCTLINE.sql" />
+    <Build Include="base_dw_halfen_2_dwh\Tables\DIM_ARTICLE.sql" />
+    <Build Include="intm_axbi\Tables\fact_CUSTINVOICETRANS.sql" />
+    <Build Include="intm_axbi\Tables\dim_CUSTTABLE.sql" />
+    <Build Include="intm_axbi\Tables\dim_ITEMGROUP.sql" />
+    <Build Include="base_tx_crh_1_stg\Tables\AX_CRH_A_dbo_INVENTTABLE.sql" />
+    <Build Include="base_tx_crh_1_stg\Tables\AX_CRH_A_dbo_INVENTTRANS.sql" />
+    <Build Include="Security\Schemas\base_tx_crh_1_stg.sql" />
+    <Build Include="base_tx_crh_2_dwh\Tables\DIM_ADUASCHWITEMGROUP4.sql" />
+    <Build Include="base_tx_crh_2_dwh\Tables\DIM_CUSTINVOICEJOUR.sql" />
+    <Build Include="base_tx_crh_2_dwh\Tables\DIM_CUSTTABLE.sql" />
+    <Build Include="base_tx_crh_2_dwh\Tables\DIM_INVENTTABLE.sql" />
+    <Build Include="base_tx_crh_2_dwh\Tables\FACT_CUSTINVOICETRANS.sql" />
+    <Build Include="base_tx_crh_2_dwh\Tables\FACT_INVENTRANS_NOT_INVOICED.sql" />
+    <Build Include="base_tx_crh_2_dwh\Tables\FACT_SALESLINE.sql" />
+    <Build Include="Security\Schemas\base_tx_crh_2_dwh.sql" />
+    <Build Include="intm_axbi\Stored Procedures\up_ReadSales_ANAH.sql" />
+    <Build Include="intm_axbi\Stored Procedures\up_ReadSales_ANAU.sql" />
+    <Build Include="intm_axbi\Stored Procedures\up_ReadSales_ANDE.sql" />
+    <Build Include="intm_axbi\Stored Procedures\up_ReadSales_ANNZ.sql" />
+    <Build Include="intm_axbi\Stored Procedures\up_ReadSales_HALF.sql" />
+    <Build Include="intm_axbi\Stored Procedures\up_ReadSales_PLAKA_BE.sql" />
+    <Build Include="intm_axbi\Stored Procedures\up_ReadSales_PLAKA_FR.sql" />
+    <Build Include="intm_axbi\Functions\uf_get_CashDiscPct.sql" />
+    <Build Include="intm_axbi\Stored Procedures\up_CUSTINVOICETRANS_Werte_nach_CRH_Kurs_umrechnen.sql" />
+    <Build Include="base_tx_crh_1_stg\Tables\AX_CRH_A_dbo_CUSTTABLE.sql" />
+    <Build Include="intm_axbi\Stored Procedures\up_createAxBiBasicData.sql" />
+    <Build Include="intm_axbi\Stored Procedures\up_CollectSales_CA.sql" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PostDeploy Include="Scripts\Post-Deploy\Script.PostDeployment.sql" />
