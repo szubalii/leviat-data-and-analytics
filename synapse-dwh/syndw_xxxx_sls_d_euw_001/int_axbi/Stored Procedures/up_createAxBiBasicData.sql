@@ -703,12 +703,12 @@ BEGIN
 	insert [intm_axbi].[dim_ITEMTABLE]
 	select distinct
 	'HALF',
-	'HALF-' + [Item no],
-	[Item description],
+	'HALF-' + [Itemno],
+	[Itemdescription],
 	case when [CRHProductgroupid] is null then ' ' else [CRHProductgroupid] end,
-	'HALF-' + [Product line]
+	'HALF-' + [Productline]
 	from [base_dw_halfen_2_dwh].[DIM_ARTICLE]
-	where [Item no] <> ' ' -- ohne Dummy Artikel blank 
+	where [Itemno] <> ' ' -- ohne Dummy Artikel blank 
 
 	-- Dummy article for the Budget
 	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HALF', 'HALF-A.1.', 'BRICKWORK SUPPORT', 'A.1.', ' ')
