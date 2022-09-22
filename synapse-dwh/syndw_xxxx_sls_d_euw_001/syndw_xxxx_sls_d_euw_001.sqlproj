@@ -999,7 +999,7 @@
     <Build Include="intm_axbi\Functions\uf_get_CashDiscPct.sql" />
     <Build Include="intm_axbi\Stored Procedures\up_CUSTINVOICETRANS_Werte_nach_CRH_Kurs_umrechnen.sql" />
     <Build Include="base_tx_crh_1_stg\Tables\AX_CRH_A_dbo_CUSTTABLE.sql" />
-    <Build Include="intm_axbi\Stored Procedures\up_createAxBiBasicData.sql" />
+    <None Include="intm_axbi\Stored Procedures\up_createAxBiBasicData.sql" />
     <Build Include="intm_axbi\Stored Procedures\up_CollectSales_CA.sql" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
