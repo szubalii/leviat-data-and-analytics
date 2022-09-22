@@ -38,6 +38,12 @@ CREATE TABLE [base_dw_halfen_2_dwh].[DIM_ARTICLE](
 	[DW_Batch] [bigint] NULL,
 	[DW_SourceCode] [varchar](15) NOT NULL,
 	[DW_TimeStamp] [datetime] NOT NULL,
+	[t_applicationId] VARCHAR    (32)  NULL,
+    [t_jobId]         VARCHAR    (36)  NULL,
+    [t_jobDtm]        DATETIME,
+    [t_jobBy]         NVARCHAR  (128)  NULL,
+    [t_extractionDtm] DATETIME,
+    [t_filePath]      NVARCHAR (1024)  NULL
  CONSTRAINT [PK_DIM_ARTICLE] PRIMARY KEY NONCLUSTERED 
 (
 	[DW_Id] ASC

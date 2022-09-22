@@ -22,6 +22,12 @@ CREATE TABLE [intm_axbi].[fact_CUSTINVOICETRANS](
 	[FREIGHTEUR] [numeric](38, 12) NOT NULL,
 	[COSTAMOUNTLOCAL] [numeric](38, 12) NOT NULL,
 	[COSTAMOUNTEUR] [numeric](38, 12) NOT NULL,
+	[t_applicationId] VARCHAR    (32)  NULL,
+    [t_jobId]         VARCHAR    (36)  NULL,
+    [t_jobDtm]        DATETIME,
+    [t_jobBy]         NVARCHAR  (128)  NULL,
+    [t_extractionDtm] DATETIME,
+    [t_filePath]      NVARCHAR (1024)  NULL
     CONSTRAINT [PK_fact_CUSTINVOICETRANS] PRIMARY KEY NONCLUSTERED ([DATAAREAID],[INVOICEID],[LINENUM]) NOT ENFORCED
 )
 WITH (
