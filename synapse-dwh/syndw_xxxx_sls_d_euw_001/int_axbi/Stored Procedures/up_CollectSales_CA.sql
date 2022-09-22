@@ -26,27 +26,27 @@ BEGIN
 	EXEC intm.up_ReadSales_ANME_pkg
 */
 
-	EXEC intm.up_createAxBiBasicData
+	EXEC intm_axbi.up_createAxBiBasicData
 
-	EXEC intm.up_ReadSales_HALF @P_Year, @P_Month
+	EXEC intm_axbi.up_ReadSales_HALF @P_Year, @P_Month
 
-	EXEC intm.up_ReadSales_PLAKA_BE @P_Year, @P_Month, @P_DelNotInv
-	EXEC intm.up_ReadSales_PLAKA_FR @P_Year, @P_Month, @P_DelNotInv
+	EXEC intm_axbi.up_ReadSales_PLAKA_BE @P_Year, @P_Month, @P_DelNotInv
+	EXEC intm_axbi.up_ReadSales_PLAKA_FR @P_Year, @P_Month, @P_DelNotInv
 
 ----out of sprint 32
 /*
-	EXEC intm.up_ReadSales_ANAT @P_Year, @P_Month
-	EXEC intm.up_ReadSales_ANCH @P_Year, @P_Month 
+	EXEC intm_axbi.up_ReadSales_ANAT @P_Year, @P_Month
+	EXEC intm_axbi.up_ReadSales_ANCH @P_Year, @P_Month 
 */
-	EXEC intm.up_ReadSales_ANDE @P_Year, @P_Month 
+	EXEC intm_axbi.up_ReadSales_ANDE @P_Year, @P_Month 
 
-	EXEC intm.up_ReadSales_ANAU @P_Year, @P_Month
-	EXEC intm.up_ReadSales_ANAH @P_Year, @P_Month
-	EXEC intm.up_ReadSales_ANNZ @P_Year, @P_Month
+	EXEC intm_axbi.up_ReadSales_ANAU @P_Year, @P_Month
+	EXEC intm_axbi.up_ReadSales_ANAH @P_Year, @P_Month
+	EXEC intm_axbi.up_ReadSales_ANNZ @P_Year, @P_Month
 	
 --out of sprint 32
 /*	
-    EXEC intm.up_ReadSales_ASCH @P_Year, @P_Month
+    EXEC intm_axbi.up_ReadSales_ASCH @P_Year, @P_Month
 */
 
 --old logic commented by Erich
