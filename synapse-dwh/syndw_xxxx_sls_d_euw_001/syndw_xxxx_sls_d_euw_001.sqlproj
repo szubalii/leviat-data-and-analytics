@@ -931,7 +931,7 @@
     <Build Include="edw\Tables\fact_SupplierInvoiceItemPurOrdRef.sql" />
     <Build Include="edw\Views\vw_SupplierInvoiceItemPurOrdRef.sql" />
     <Build Include="dm_sales\Views\vw_fact_SupplierInvoiceItemPurOrdRef.sql" />
-    <Build Include="int_axbi\Tables\ITEMTABLE.sql" />
+    <Build Include="int_axbi\Tables\dim_ITEMTABLE.sql" />
     <Build Include="Security\Schemas\intm_axbi.sql" />
     <Build Include="Security\Schemas\base_ancon_australia_2_dwh.sql" />
     <Build Include="base_ancon_australia_2_dwh\Tables\FACT_CUSTINVOICEJOUR.sql" />
@@ -944,9 +944,9 @@
     <Build Include="base_dw_halfen_0_hlp\Tables\HGDAWA.sql" />
     <Build Include="base_dw_halfen_0_hlp\Tables\PRODUCTLINE.sql" />
     <Build Include="base_dw_halfen_2_dwh\Tables\DIM_ARTICLE.sql" />
-    <Build Include="int_axbi\Tables\CUSTINVOICETRANS.sql" />
-    <Build Include="int_axbi\Tables\CUSTTABLE.sql" />
-    <Build Include="int_axbi\Tables\ITEMGROUP.sql" />
+    <Build Include="int_axbi\Tables\fact_CUSTINVOICETRANS.sql" />
+    <Build Include="int_axbi\Tables\dim_CUSTTABLE.sql" />
+    <Build Include="int_axbi\Tables\dim_ITEMGROUP.sql" />
     <Build Include="base_tx_crh_1_stg\Tables\AX_CRH_A_dbo_INVENTTABLE.sql" />
     <Build Include="base_tx_crh_1_stg\Tables\AX_CRH_A_dbo_INVENTTRANS.sql" />
     <Build Include="Security\Schemas\base_tx_crh_1_stg.sql" />
