@@ -3,7 +3,7 @@
 	"type": "Microsoft.DataFactory/factories/linkedservices",
 	"properties": {
 		"annotations": [],
-		"type": "AzureSqlDW",
+		"type": "AzureSqlDatabase",
 		"typeProperties": {
 			"connectionString": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=ws-xxxx-sls-d-euw-001.sql.azuresynapse.net;Initial Catalog=syndw_xxxx_sls_d_euw_001"
 		}
