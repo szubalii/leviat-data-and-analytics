@@ -108,6 +108,70 @@ jobs:
       targetPath: '$(Build.ArtifactStagingDirectory)'
       artifact: 'OrchestrationDB'
       publishLocation: 'pipeline'
+  
+  # Azure Data Factory Build Job
+- job: ADF
+  dependsOn: 
+  - OrchDB
+  - StartVM
+  pool:
+    name: 'VM'
+    demands:
+    - node.js
+    - VisualStudio
+
+  steps:
+  
+  - task: FileTransform@1
+    displayName: 'Change linked service type from Synapse to SQL DB'
+    inputs:
+      folderPath: '$(System.DefaultWorkingDirectory)/azure-data-factory/linkedService'
+      fileType: 'json'
+      targetFiles: 'ls_ws_xxxx_sls_x_euw_001__syndw_xxxx_sls_x_euw_001.json'
+
+    # Installs the npm packages saved in your package.json file in the build
+  - task: Npm@1
+    inputs:
+      command: 'install'
+      workingDir: '$(Build.Repository.LocalPath)/azure-data-factory' #replace with the package.json folder
+      verbose: true
+    displayName: 'Install npm package'
+
+    # Validates all of the Data Factory resources in the repository. You'll get the same validation errors as when "Validate All" is selected.
+    # Enter the appropriate subscription and name for the source factory.
+
+  - task: Npm@1
+    inputs:
+      command: 'custom'
+      workingDir: '$(Build.Repository.LocalPath)/azure-data-factory' #replace with the package.json folder
+      customCommand: 'run build validate $(Build.Repository.LocalPath)/azure-data-factory /subscriptions/f199b488-7d9d-4992-aeda-c10a1e1c9b9e/resourceGroups/rg-xxxx-sls-d-euw-001/providers/Microsoft.DataFactory/factories/df-xxxx-sls-d-euw-001'
+    displayName: 'Validate'
+
+    # Validate and then generate the ARM template into the destination folder, which is the same as selecting "Publish" from the UX.
+    # The ARM template generated isn't published to the live version of the factory. Deployment should be done by using a CI/CD pipeline. 
+
+  - task: Npm@1
+    inputs:
+      command: 'custom'
+      workingDir: '$(Build.Repository.LocalPath)/azure-data-factory' #replace with the package.json folder
+      customCommand: 'run build export $(Build.Repository.LocalPath)/azure-data-factory /subscriptions/f199b488-7d9d-4992-aeda-c10a1e1c9b9e/resourceGroups/rg-xxxx-sls-d-euw-001/providers/Microsoft.DataFactory/factories/df-xxxx-sls-d-euw-001 "ArmTemplate"'
+    displayName: 'Validate and Generate ARM template'
+
+    # Publish the build artifact to be used as a source for a release pipeline.
+
+  - task: PublishPipelineArtifact@1
+    inputs:
+      targetPath: '$(Build.Repository.LocalPath)/azure-data-factory/ArmTemplate' #replace with the package.json folder
+      artifact: 'ArmTemplates'
+      publishLocation: 'pipeline'
+
+  # Publish the global parameters to be used as a source for a release pipeline.
+    
+  - task: PublishPipelineArtifact@1
+    inputs:
+      targetPath: '$(Build.Repository.LocalPath)/azure-data-factory/GlobalParameters' #replace with the package.json folder
+      artifact: 'GlobalParameters'
+      publishLocation: 'pipeline'
 
   # Azure Synapse Dedicated SQL Pool Build Job
 - job: SynapseDWH
