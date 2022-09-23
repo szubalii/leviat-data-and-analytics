@@ -1,498 +1,525 @@
 {
-	"name": "pl_ADLS_SYNDW_ingestion_main",
-	"properties": {
-		"activities": [
-			{
-				"name": "Log Exception",
-				"type": "SqlServerStoredProcedure",
-				"dependsOn": [
-					{
-						"activity": "act_lookup_get_path_FromOutBlobToBase",
-						"dependencyConditions": [
-							"Failed"
-						]
-					}
-				],
-				"policy": {
-					"timeout": "7.00:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"storedProcedureName": "[dbo].[log_exception]",
-					"storedProcedureParameters": {
-						"batch_id": {
-							"value": null,
-							"type": "Guid"
-						},
-						"category": {
-							"value": "InternalError",
-							"type": "String"
-						},
-						"entity_id": {
-							"value": null,
-							"type": "Int64"
-						},
-						"error_msg": {
-							"value": {
-								"value": "@activity('act_lookup_get_path_FromOutBlobToBase').Error.Message",
-								"type": "Expression"
-							},
-							"type": "String"
-						},
-						"run_id": {
-							"value": {
-								"value": "@pipeline().RunId",
-								"type": "Expression"
-							},
-							"type": "Guid"
-						}
-					}
-				},
-				"linkedServiceName": {
-					"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
-					"type": "LinkedServiceReference"
-				}
-			},
-			{
-				"name": "act_lookup_get_path_FromOutBlobToBase",
-				"type": "Lookup",
-				"dependsOn": [
-					{
-						"activity": "act_exec_sproc_start_log",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"policy": {
-					"timeout": "7.00:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"source": {
-						"type": "AzureSqlSource",
-						"sqlReaderQuery": {
-							"value": "SELECT * FROM [dbo].[@{pipeline().parameters.function_name}](@{pipeline().parameters.adhoc},@{pipeline().parameters.manual_run}, '@{pipeline().parameters.date}')",
-							"type": "Expression"
-						},
-						"queryTimeout": "02:00:00",
-						"partitionOption": "None"
-					},
-					"dataset": {
-						"referenceName": "ds_orch_db",
-						"type": "DatasetReference"
-					},
-					"firstRowOnly": false
-				}
-			},
-			{
-				"name": "act_foreach_Load_InBaseLayer",
-				"type": "ForEach",
-				"dependsOn": [
-					{
-						"activity": "act_lookup_get_path_FromOutBlobToBase",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"userProperties": [],
-				"typeProperties": {
-					"items": {
-						"value": "@activity('act_lookup_get_path_FromOutBlobToBase').output.value",
-						"type": "Expression"
-					},
-					"isSequential": false,
-					"activities": [
-						{
-							"name": "exec_pl_adls_syndw_ingest_base_tbls",
-							"type": "ExecutePipeline",
-							"dependsOn": [],
-							"userProperties": [],
-							"typeProperties": {
-								"pipeline": {
-									"referenceName": "pl_ADLS_SYNDW_ingestion",
-									"type": "PipelineReference"
-								},
-								"waitOnCompletion": true,
-								"parameters": {
-									"base_schema_name": {
-										"value": "@item().base_schema_name",
-										"type": "Expression"
-									},
-									"base_table_name": {
-										"value": "@item().base_table_name",
-										"type": "Expression"
-									},
-									"entity_id": {
-										"value": "@item().entity_id",
-										"type": "Expression"
-									},
-									"adhoc": {
-										"value": "@pipeline().parameters.adhoc",
-										"type": "Expression"
-									},
-									"manual_run": {
-										"value": "@pipeline().parameters.manual_run",
-										"type": "Expression"
-									},
-									"directory_path": {
-										"value": "@item().directory_path",
-										"type": "Expression"
-									},
-									"run_id": {
-										"value": "@pipeline().RunId",
-										"type": "Expression"
-									},
-									"source_layer": {
-										"value": "@item().source_layer",
-										"type": "Expression"
-									},
-									"file_name": {
-										"value": "@item().file_name",
-										"type": "Expression"
-									},
-									"adls_container_name": {
-										"value": "@item().adls_container_name",
-										"type": "Expression"
-									},
-									"target_layer": {
-										"value": "@item().target_layer",
-										"type": "Expression"
-									}
-								}
-							}
-						}
-					]
-				}
-			},
-			{
-				"name": "act_exec_log_failure_InternalError_InBaseLayer",
-				"type": "SqlServerStoredProcedure",
-				"dependsOn": [
-					{
-						"activity": "Log Exception",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"policy": {
-					"timeout": "7.00:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"storedProcedureName": "[dbo].[change_status_pipeline_log]",
-					"storedProcedureParameters": {
-						"end_date_time": {
-							"value": {
-								"value": "@formatDateTime(utcnow(), 'yyyy-MM-dd HH:mm:ss')",
-								"type": "Expression"
-							},
-							"type": "DateTime"
-						},
-						"message": {
-							"value": {
-								"value": "Execution Failed",
-								"type": "Expression"
-							},
-							"type": "String"
-						},
-						"run_id": {
-							"value": {
-								"value": "@pipeline().RunId",
-								"type": "Expression"
-							},
-							"type": "Guid"
-						},
-						"status": {
-							"value": {
-								"value": "Failed",
-								"type": "Expression"
-							},
-							"type": "String"
-						}
-					}
-				},
-				"linkedServiceName": {
-					"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
-					"type": "LinkedServiceReference"
-				}
-			},
-			{
-				"name": "act_exec_sproc_log_success",
-				"type": "SqlServerStoredProcedure",
-				"dependsOn": [
-					{
-						"activity": "act_foreach_Load_InBaseLayer",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"policy": {
-					"timeout": "7.00:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"storedProcedureName": "[dbo].[change_status_pipeline_log]",
-					"storedProcedureParameters": {
-						"end_date_time": {
-							"value": {
-								"value": "@formatDateTime(utcnow(), 'yyyy-MM-dd HH:mm:ss')",
-								"type": "Expression"
-							},
-							"type": "DateTime"
-						},
-						"message": {
-							"value": {
-								"value": "Finished successfully",
-								"type": "Expression"
-							},
-							"type": "String"
-						},
-						"run_id": {
-							"value": {
-								"value": "@pipeline().RunId",
-								"type": "Expression"
-							},
-							"type": "Guid"
-						},
-						"status": {
-							"value": {
-								"value": "Succeeded",
-								"type": "Expression"
-							},
-							"type": "String"
-						}
-					}
-				},
-				"linkedServiceName": {
-					"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
-					"type": "LinkedServiceReference"
-				}
-			},
-			{
-				"name": "act_exec_log_failure",
-				"type": "SqlServerStoredProcedure",
-				"dependsOn": [
-					{
-						"activity": "act_foreach_Load_InBaseLayer",
-						"dependencyConditions": [
-							"Failed"
-						]
-					}
-				],
-				"policy": {
-					"timeout": "7.00:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"storedProcedureName": "[dbo].[change_status_pipeline_log]",
-					"storedProcedureParameters": {
-						"end_date_time": {
-							"value": {
-								"value": "@formatDateTime(utcnow(), 'yyyy-MM-dd HH:mm:ss')",
-								"type": "Expression"
-							},
-							"type": "DateTime"
-						},
-						"message": {
-							"value": {
-								"value": "Execution Failed",
-								"type": "Expression"
-							},
-							"type": "String"
-						},
-						"run_id": {
-							"value": {
-								"value": "@pipeline().RunId",
-								"type": "Expression"
-							},
-							"type": "Guid"
-						},
-						"status": {
-							"value": {
-								"value": "Failed",
-								"type": "Expression"
-							},
-							"type": "String"
-						}
-					}
-				},
-				"linkedServiceName": {
-					"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
-					"type": "LinkedServiceReference"
-				}
-			},
-			{
-				"name": "act_exec_sproc_start_log",
-				"type": "SqlServerStoredProcedure",
-				"dependsOn": [
-					{
-						"activity": "Stringify Parameters",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"policy": {
-					"timeout": "7.00:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"storedProcedureName": "[dbo].[set_pipeline_log]",
-					"storedProcedureParameters": {
-						"message": {
-							"value": {
-								"value": "@{pipeline().TriggerType} execution triggered at @{pipeline().TriggerTime}",
-								"type": "Expression"
-							},
-							"type": "String"
-						},
-						"pipeline_name": {
-							"value": {
-								"value": "@pipeline().Pipeline",
-								"type": "Expression"
-							},
-							"type": "String"
-						},
-						"run_id": {
-							"value": {
-								"value": "@pipeline().RunId",
-								"type": "Expression"
-							},
-							"type": "Guid"
-						},
-						"start_date_time": {
-							"value": {
-								"value": "@formatDateTime(utcnow(), 'yyyy-MM-dd HH:mm:ss')",
-								"type": "Expression"
-							},
-							"type": "DateTime"
-						},
-						"status": {
-							"value": "InProgress",
-							"type": "String"
-						},
-						"parent_run_id": {
-							"value": {
-								"value": "@pipeline().parameters.parent_run_id",
-								"type": "Expression"
-							}
-						},
-						"parameters": {
-							"value": {
-								"value": "@variables('parameters')",
-								"type": "Expression"
-							},
-							"type": "String"
-						}
-					}
-				},
-				"linkedServiceName": {
-					"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
-					"type": "LinkedServiceReference"
-				}
-			},
-			{
-				"name": "Stringify Parameters",
-				"type": "SetVariable",
-				"dependsOn": [
-					{
-						"activity": "Get Parameters for Run",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"userProperties": [],
-				"typeProperties": {
-					"variableName": "parameters",
-					"value": {
-						"value": "@string(activity('Get Parameters for Run').output.parameters)",
-						"type": "Expression"
-					}
-				}
-			},
-			{
-				"name": "Get Parameters for Run",
-				"type": "WebActivity",
-				"dependsOn": [],
-				"policy": {
-					"timeout": "0.12:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"url": {
-						"value": "@concat(\n    'https://management.azure.com/subscriptions/',\n    'f199b488-7d9d-4992-aeda-c10a1e1c9b9e',\n    '/resourceGroups/',\n    pipeline().globalParameters.resourceGroupName,\n    '/providers/Microsoft.DataFactory/factories/',\n    pipeline().DataFactory,\n    if(equals(pipeline().TriggerName, 'Sandbox'), '/sandboxpipelineruns/', '/pipelineruns/'),\n    pipeline().RunId,\n    if(equals(pipeline().TriggerName, 'Sandbox'), '?api-version=2017-09-01-preview', '?api-version=2018-06-01')\n)",
-						"type": "Expression"
-					},
-					"method": "GET",
-					"authentication": {
-						"type": "MSI",
-						"resource": "https://management.core.windows.net/"
-					}
-				}
-			}
-		],
-		"parameters": {
-			"adhoc": {
-				"type": "int",
-				"defaultValue": 0
-			},
-			"manual_run": {
-				"type": "int",
-				"defaultValue": 1
-			},
-			"function_name": {
-				"type": "string"
-			},
-			"parent_run_id": {
-				"type": "string"
-			},
-			"date": {
-				"type": "string"
-			}
-		},
-		"variables": {
-			"parameters": {
-				"type": "String"
-			}
-		},
-		"folder": {
-			"name": "00 ELT/04 Synapse Ingestion"
-		},
-		"annotations": [],
-		"lastPublishTime": "2021-10-25T15:25:00Z"
-	},
-	"type": "Microsoft.DataFactory/factories/pipelines"
+    "name": "pl_ADLS_SYNDW_ingestion_main",
+    "properties": {
+        "activities": [
+            {
+                "name": "Log Exception",
+                "type": "SqlServerStoredProcedure",
+                "dependsOn": [
+                    {
+                        "activity": "Get Latest Entity Files",
+                        "dependencyConditions": [
+                            "Failed"
+                        ]
+                    }
+                ],
+                "policy": {
+                    "timeout": "7.00:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "storedProcedureName": "[dbo].[log_exception]",
+                    "storedProcedureParameters": {
+                        "batch_id": {
+                            "value": null,
+                            "type": "Guid"
+                        },
+                        "category": {
+                            "value": "InternalError",
+                            "type": "String"
+                        },
+                        "entity_id": {
+                            "value": null,
+                            "type": "Int64"
+                        },
+                        "error_msg": {
+                            "value": {
+                                "value": "@activity('act_lookup_get_path_FromOutBlobToBase').Error.Message",
+                                "type": "Expression"
+                            },
+                            "type": "String"
+                        },
+                        "run_id": {
+                            "value": {
+                                "value": "@pipeline().RunId",
+                                "type": "Expression"
+                            },
+                            "type": "Guid"
+                        }
+                    }
+                },
+                "linkedServiceName": {
+                    "referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
+                    "type": "LinkedServiceReference"
+                }
+            },
+            {
+                "name": "Get Latest Entity Files",
+                "type": "Lookup",
+                "dependsOn": [
+                    {
+                        "activity": "Set Pipeline Log",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "policy": {
+                    "timeout": "7.00:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "source": {
+                        "type": "AzureSqlSource",
+                        "sqlReaderQuery": {
+                            "value": "with max_date AS (\n    select top 100\n        entity_id,\n        MAX(start_date_time) as start_date_time\n    from \n        batch\n    WHERE\n        activity_id = 2\n        and\n        status_id = 2\n        AND\n        file_name is not null\n    group by\n        entity_id\n)\n\nSELECT\n    m.entity_id,\n    e.base_schema_name,\n    e.base_table_name,\n    e.layer_id,\n    e.adls_container_name,\n    b.directory_path,\n    b.file_name,\n    m.start_date_time,\n    'Out' AS source_layer,\n    'Base' AS target_layer\nfrom\n    max_date m\nleft JOIN\n    batch b\n    on \n        b.entity_id = m.entity_id\n        and\n        b.start_date_time = m.start_date_time\nleft JOIN\n    entity e\n    ON\n        e.entity_id = m.entity_id\norder by entity_id",
+                            "type": "Expression"
+                        },
+                        "queryTimeout": "02:00:00",
+                        "partitionOption": "None"
+                    },
+                    "dataset": {
+                        "referenceName": "ds_orch_db",
+                        "type": "DatasetReference"
+                    },
+                    "firstRowOnly": false
+                }
+            },
+            {
+                "name": "Process Each Entity",
+                "type": "ForEach",
+                "dependsOn": [
+                    {
+                        "activity": "Get Latest Entity Files",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "userProperties": [],
+                "typeProperties": {
+                    "items": {
+                        "value": "@activity('Get Scheduled Entities').output.value",
+                        "type": "Expression"
+                    },
+                    "isSequential": false,
+                    "activities": [
+                        {
+                            "name": "Execute SYNDW Ingestion",
+                            "type": "ExecutePipeline",
+                            "dependsOn": [
+                                {
+                                    "activity": "Set ADLS Container Name",
+                                    "dependencyConditions": [
+                                        "Succeeded"
+                                    ]
+                                }
+                            ],
+                            "userProperties": [],
+                            "typeProperties": {
+                                "pipeline": {
+                                    "referenceName": "pl_ADLS_SYNDW_ingestion",
+                                    "type": "PipelineReference"
+                                },
+                                "waitOnCompletion": true,
+                                "parameters": {
+                                    "base_schema_name": {
+                                        "value": "@item().base_schema_name",
+                                        "type": "Expression"
+                                    },
+                                    "base_table_name": {
+                                        "value": "@item().base_table_name",
+                                        "type": "Expression"
+                                    },
+                                    "entity_id": {
+                                        "value": "@item().entity_id",
+                                        "type": "Expression"
+                                    },
+                                    "directory_path": {
+                                        "value": "@item().directory_path",
+                                        "type": "Expression"
+                                    },
+                                    "run_id": {
+                                        "value": "@pipeline().RunId",
+                                        "type": "Expression"
+                                    },
+                                    "source_layer": {
+                                        "value": "@item().source_layer",
+                                        "type": "Expression"
+                                    },
+                                    "file_name": {
+                                        "value": "@item().file_name",
+                                        "type": "Expression"
+                                    },
+                                    "adls_container_name": {
+                                        "value": "@item().adls_container_name",
+                                        "type": "Expression"
+                                    },
+                                    "target_layer": {
+                                        "value": "@item().target_layer",
+                                        "type": "Expression"
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "name": "Set ADLS Container Name",
+                            "type": "SetVariable",
+                            "dependsOn": [],
+                            "userProperties": [],
+                            "typeProperties": {
+                                "variableName": "adls_container_name",
+                                "value": {
+                                    "value": "@if(\n    equals(\n        item().layer_id,\n        6\n    ),\n    concat(\n        item().adls_container_name,\n        '-',\n        toLower(pipeline().parameters.s4h_system_id),\n        '-',\n        string(pipeline().parameters.s4h_client_id)\n    ),\n    item().adls_container_name\n)",
+                                    "type": "Expression"
+                                }
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "Log Pipeline Failure",
+                "type": "SqlServerStoredProcedure",
+                "dependsOn": [
+                    {
+                        "activity": "Log Exception",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "policy": {
+                    "timeout": "7.00:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "storedProcedureName": "[dbo].[change_status_pipeline_log]",
+                    "storedProcedureParameters": {
+                        "end_date_time": {
+                            "value": {
+                                "value": "@formatDateTime(utcnow(), 'yyyy-MM-dd HH:mm:ss')",
+                                "type": "Expression"
+                            },
+                            "type": "DateTime"
+                        },
+                        "message": {
+                            "value": {
+                                "value": "Execution Failed",
+                                "type": "Expression"
+                            },
+                            "type": "String"
+                        },
+                        "run_id": {
+                            "value": {
+                                "value": "@pipeline().RunId",
+                                "type": "Expression"
+                            },
+                            "type": "Guid"
+                        },
+                        "status": {
+                            "value": {
+                                "value": "Failed",
+                                "type": "Expression"
+                            },
+                            "type": "String"
+                        }
+                    }
+                },
+                "linkedServiceName": {
+                    "referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
+                    "type": "LinkedServiceReference"
+                }
+            },
+            {
+                "name": "Log Pipeline Success",
+                "type": "SqlServerStoredProcedure",
+                "dependsOn": [
+                    {
+                        "activity": "Process Each Entity",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "policy": {
+                    "timeout": "7.00:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "storedProcedureName": "[dbo].[change_status_pipeline_log]",
+                    "storedProcedureParameters": {
+                        "end_date_time": {
+                            "value": {
+                                "value": "@formatDateTime(utcnow(), 'yyyy-MM-dd HH:mm:ss')",
+                                "type": "Expression"
+                            },
+                            "type": "DateTime"
+                        },
+                        "message": {
+                            "value": {
+                                "value": "Finished successfully",
+                                "type": "Expression"
+                            },
+                            "type": "String"
+                        },
+                        "run_id": {
+                            "value": {
+                                "value": "@pipeline().RunId",
+                                "type": "Expression"
+                            },
+                            "type": "Guid"
+                        },
+                        "status": {
+                            "value": {
+                                "value": "Succeeded",
+                                "type": "Expression"
+                            },
+                            "type": "String"
+                        }
+                    }
+                },
+                "linkedServiceName": {
+                    "referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
+                    "type": "LinkedServiceReference"
+                }
+            },
+            {
+                "name": "act_exec_log_failure",
+                "type": "SqlServerStoredProcedure",
+                "dependsOn": [
+                    {
+                        "activity": "Process Each Entity",
+                        "dependencyConditions": [
+                            "Failed"
+                        ]
+                    }
+                ],
+                "policy": {
+                    "timeout": "7.00:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "storedProcedureName": "[dbo].[change_status_pipeline_log]",
+                    "storedProcedureParameters": {
+                        "end_date_time": {
+                            "value": {
+                                "value": "@formatDateTime(utcnow(), 'yyyy-MM-dd HH:mm:ss')",
+                                "type": "Expression"
+                            },
+                            "type": "DateTime"
+                        },
+                        "message": {
+                            "value": {
+                                "value": "Execution Failed",
+                                "type": "Expression"
+                            },
+                            "type": "String"
+                        },
+                        "run_id": {
+                            "value": {
+                                "value": "@pipeline().RunId",
+                                "type": "Expression"
+                            },
+                            "type": "Guid"
+                        },
+                        "status": {
+                            "value": {
+                                "value": "Failed",
+                                "type": "Expression"
+                            },
+                            "type": "String"
+                        }
+                    }
+                },
+                "linkedServiceName": {
+                    "referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
+                    "type": "LinkedServiceReference"
+                }
+            },
+            {
+                "name": "Set Pipeline Log",
+                "type": "SqlServerStoredProcedure",
+                "dependsOn": [
+                    {
+                        "activity": "Stringify Parameters",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "policy": {
+                    "timeout": "7.00:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "storedProcedureName": "[dbo].[set_pipeline_log]",
+                    "storedProcedureParameters": {
+                        "message": {
+                            "value": {
+                                "value": "@{pipeline().TriggerType} execution triggered at @{pipeline().TriggerTime}",
+                                "type": "Expression"
+                            },
+                            "type": "String"
+                        },
+                        "pipeline_name": {
+                            "value": {
+                                "value": "@pipeline().Pipeline",
+                                "type": "Expression"
+                            },
+                            "type": "String"
+                        },
+                        "run_id": {
+                            "value": {
+                                "value": "@pipeline().RunId",
+                                "type": "Expression"
+                            },
+                            "type": "Guid"
+                        },
+                        "start_date_time": {
+                            "value": {
+                                "value": "@formatDateTime(utcnow(), 'yyyy-MM-dd HH:mm:ss')",
+                                "type": "Expression"
+                            },
+                            "type": "DateTime"
+                        },
+                        "status": {
+                            "value": "InProgress",
+                            "type": "String"
+                        },
+                        "parent_run_id": {
+                            "value": {
+                                "value": "@pipeline().parameters.parent_run_id",
+                                "type": "Expression"
+                            }
+                        },
+                        "parameters": {
+                            "value": {
+                                "value": "@variables('parameters')",
+                                "type": "Expression"
+                            },
+                            "type": "String"
+                        }
+                    }
+                },
+                "linkedServiceName": {
+                    "referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
+                    "type": "LinkedServiceReference"
+                }
+            },
+            {
+                "name": "Stringify Parameters",
+                "type": "SetVariable",
+                "dependsOn": [
+                    {
+                        "activity": "Get Parameters for Run",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "userProperties": [],
+                "typeProperties": {
+                    "variableName": "parameters",
+                    "value": {
+                        "value": "@string(activity('Get Parameters for Run').output.parameters)",
+                        "type": "Expression"
+                    }
+                }
+            },
+            {
+                "name": "Get Parameters for Run",
+                "type": "WebActivity",
+                "dependsOn": [],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "url": {
+                        "value": "@concat(\n    'https://management.azure.com/subscriptions/',\n    'f199b488-7d9d-4992-aeda-c10a1e1c9b9e',\n    '/resourceGroups/',\n    pipeline().globalParameters.resourceGroupName,\n    '/providers/Microsoft.DataFactory/factories/',\n    pipeline().DataFactory,\n    if(equals(pipeline().TriggerName, 'Sandbox'), '/sandboxpipelineruns/', '/pipelineruns/'),\n    pipeline().RunId,\n    if(equals(pipeline().TriggerName, 'Sandbox'), '?api-version=2017-09-01-preview', '?api-version=2018-06-01')\n)",
+                        "type": "Expression"
+                    },
+                    "method": "GET",
+                    "authentication": {
+                        "type": "MSI",
+                        "resource": "https://management.core.windows.net/"
+                    }
+                }
+            }
+        ],
+        "parameters": {
+            "adhoc": {
+                "type": "int",
+                "defaultValue": 0
+            },
+            "function_name": {
+                "type": "string"
+            },
+            "parent_run_id": {
+                "type": "string"
+            },
+            "date": {
+                "type": "string"
+            },
+            "rerun_successful_full_entities": {
+                "type": "int",
+                "defaultValue": 0
+            },
+            "entity_filter": {
+                "type": "string",
+                "defaultValue": "'a' = 'a'"
+            },
+            "s4h_system_id": {
+                "type": "string",
+                "defaultValue": "CAD"
+            },
+            "s4h_client_id": {
+                "type": "string",
+                "defaultValue": "200"
+            }
+        },
+        "variables": {
+            "parameters": {
+                "type": "String"
+            },
+            "adls_container_name": {
+                "type": "String"
+            }
+        },
+        "folder": {
+            "name": "00 ELT/04 Synapse Ingestion"
+        },
+        "annotations": [],
+        "lastPublishTime": "2022-09-22T12:19:10Z"
+    },
+    "type": "Microsoft.DataFactory/factories/pipelines"
 }
