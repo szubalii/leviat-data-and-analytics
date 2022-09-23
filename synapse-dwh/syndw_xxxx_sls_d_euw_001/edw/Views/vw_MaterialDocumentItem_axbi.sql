@@ -235,6 +235,10 @@ SELECT
         END AS [AvgPrice]
 FROM
     INVTRANS INVT
+WHERE
+    [GoodsMovementTypeID] IN ('13','2','8','3','6','22','21')
+    AND
+    [MatlStkChangeQtyInBaseUnit] > 0
 GROUP BY
         [MaterialID]
     ,   [PlantID]
