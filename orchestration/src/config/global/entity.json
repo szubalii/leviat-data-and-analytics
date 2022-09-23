@@ -4161,7 +4161,7 @@
         "entity_name": "FACT_INVENTSUM",
         "base_table_name": "FACT_INVENTSUM",
         "pk_field_names": "DW_Id",
-        "schedule_recurrence": "A"
+        "schedule_recurrence": "D"
       },
       {
         "entity_id": 447,
@@ -4169,21 +4169,21 @@
         "base_table_name": "FACT_INVENTTRANS",
         "axbi_date_field_name": "DATEFINANCIAL",
         "pk_field_names": "DW_Id",
-        "schedule_recurrence": "A"
+        "schedule_recurrence": "D"
       },
       {
         "entity_id": 480,
         "entity_name": "FACT_PRODJOURNALPROD",
         "base_table_name": "FACT_PRODJOURNALPROD",
         "pk_field_names": "DW_Id",
-        "schedule_recurrence": "A"
+        "schedule_recurrence": "D"
       },
       {
         "entity_id": 481,
         "entity_name": "FACT_PURCHLINE",
         "base_table_name": "FACT_PURCHLINE",
         "pk_field_names": "DW_Id",
-        "schedule_recurrence": "A"
+        "schedule_recurrence": "D"
       },
       {
         "entity_id": 482,

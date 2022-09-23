@@ -6,7 +6,11 @@ SELECT
         YEAR(FINV.[DATEPHYSICAL])     AS [MaterialDocumentYear]
     ,   FINV.[INVENTDIMID]            AS [MaterialDocument]
     ,   FINV.[RECID]                  AS [MaterialDocumentItem]
-    ,   FINV.[ITEMID]                 AS [MaterialID]
+    ,   CASE
+            WHEN SINMT.[SAPItemnumber] IS NULL
+            THEN CONCAT(FINV.[ITEMID],'_',UPPER(FINV.[DATAAREAID]))
+            ELSE CONCAT(SINMT.[SAPItemnumber],'_',UPPER(SINMT.[AXDataAreaId]))
+        END                           AS [MaterialID]
     ,   dmINV.[INVENTSITEID]          AS [PlantID]
     ,   dmINV.[INVENTLOCATIONID]
     ,   FINV.[DATAAREAID]
@@ -47,16 +51,6 @@ SELECT
             THEN FPJRNL.[INVENTTRANSID]
             ELSE NULL
         END                           AS [OrderItem]
-    ,   CASE
-            WHEN FINV.[TRANSTYPE] = '0'
-            THEN FCPLT.[PACKINGSLIPID]
-            ELSE NULL
-        END                           AS [DeliveryDocument]
-    ,   CASE
-            WHEN FINV.[TRANSTYPE] = '0'
-            THEN FCPLT.[RECID]
-            ELSE NULL
-        END                           AS [DeliveryDocumentItem]
     ,   CASE 
             WHEN FINV.[TRANSTYPE] = '0'
             THEN
@@ -135,16 +129,14 @@ LEFT JOIN
     [base_tx_halfen_2_dwh].[FACT_PRODJOURNALPROD] FPJRNL
     ON
         FINV.[INVENTTRANSID] = FPJRNL.[INVENTTRANSID]
-LEFT JOIN
-    [base_tx_halfen_2_dwh].[FACT_CUSTPACKINGSLIPTRANS] FCPLT
-    ON
-        FINV.[INVENTTRANSID] = FCPLT.[INVENTTRANSID]
 WHERE
     (FINV.[STATUSRECEIPT] in ('1','2')
     OR
     FINV.[STATUSISSUE] in ('1','2'))
     AND
     FINV.[DATEPHYSICAL]<>''
+    AND
+    dmINV.[INVENTSITEID] NOT LIKE '%D%'
     AND 
     dmATRNS.[ENUMID] = '107'
     AND
@@ -168,7 +160,7 @@ SELECT
 FROM
     INVTRANS
 WHERE
-    [GoodsMovementTypeID] = '1'
+    [GoodsMovementTypeID] = '0'
 GROUP BY
         [DATAAREAID]
     ,   [PlantID]
@@ -212,19 +204,17 @@ FROM
 LEFT JOIN
     [base_tx_halfen_2_dwh].[FACT_PURCHLINE] FP
         ON
-        FP.[INVENTDIMID] = INVT.[MaterialDocument]
-        AND
-        INVT.[MaterialID] = FP.[ITEMID]
-        AND
         INVT.[INVENTTRANSID] = FP.[INVENTTRANSID]
 LEFT JOIN 
     [base_tx_halfen_2_dwh].[DIM_VENDTABLE] dmVend
         ON
         FP.[VENDACCOUNT] = CAST(dmVend.[ACCOUNTNUM] AS NVARCHAR(20))
+        AND
+        FP.[DATAAREAID] = dmVend.[DATAAREAID]
 WHERE
     INVT.[GoodsMovementTypeID] = '3'
     AND
-    dmVend.[ACCOUNTNUM] = '200'
+    dmVend.[VENDGROUP] = '200'
 GROUP BY
         INVT.[DATAAREAID]
     ,   [PlantID]
@@ -245,6 +235,10 @@ SELECT
         END AS [AvgPrice]
 FROM
     INVTRANS INVT
+WHERE
+    [GoodsMovementTypeID] IN ('13','2','8','3','6','22','21')
+    AND
+    [MatlStkChangeQtyInBaseUnit] > 0
 GROUP BY
         [MaterialID]
     ,   [PlantID]
@@ -313,9 +307,7 @@ SELECT
     ,   INV.[PurchaseOrderItem]
     ,   INV.[Order]
     ,   INV.[OrderItem]
-    ,   INV.[DeliveryDocument]
-    ,   INV.[DeliveryDocumentItem]
-    ,   INV.[SalesDocumentItemCategoryID]    
+    ,   INV.[SalesDocumentItemCategoryID]
     ,   CASE
             WHEN INV.[GoodsMovementTypeID] = '0'
             THEN vwSDDC.[SDDocumentCategory]
@@ -347,7 +339,7 @@ LEFT JOIN
         AND
         INV.[MaterialDocumentItem] = ExchangeRateEuro.[MaterialDocumentItem]
 LEFT JOIN
-    [edw].[vw_SDDocumentCategory] vwSDDC
+    [edw].[dim_SDDocumentCategory] vwSDDC
     ON 
         INV.[SalesDocumentItemCategoryID] = vwSDDC.SDDocumentCategoryID
 LEFT JOIN
@@ -357,7 +349,7 @@ LEFT JOIN
 LEFT JOIN
     map_AXBI.[StockUnit] SU
         ON
-        INV.[StockUnit] = SU.[target_UnitID]
+        INV.[StockUnit] = SU.[source_UnitID]
 LEFT JOIN
     AvgPricePerUnit APU
         ON
@@ -428,8 +420,6 @@ SELECT
     ,   INV_QTY.[PurchaseOrderItem]
     ,   INV_QTY.[Order]
     ,   INV_QTY.[OrderItem]
-    ,   INV_QTY.[DeliveryDocument]
-    ,   INV_QTY.[DeliveryDocumentItem]
     ,   INV_QTY.[SalesDocumentItemCategoryID]
     ,   INV_QTY.[SalesDocumentItemCategory]
     ,   INV_QTY.[StandardPricePerUnit]
