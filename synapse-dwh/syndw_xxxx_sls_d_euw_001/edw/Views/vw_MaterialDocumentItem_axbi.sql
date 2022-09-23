@@ -51,16 +51,6 @@ SELECT
             THEN FPJRNL.[INVENTTRANSID]
             ELSE NULL
         END                           AS [OrderItem]
-    ,   CASE
-            WHEN FINV.[TRANSTYPE] = '0'
-            THEN FCPLT.[PACKINGSLIPID]
-            ELSE NULL
-        END                           AS [DeliveryDocument]
-    ,   CASE
-            WHEN FINV.[TRANSTYPE] = '0'
-            THEN FCPLT.[RECID]
-            ELSE NULL
-        END                           AS [DeliveryDocumentItem]
     ,   CASE 
             WHEN FINV.[TRANSTYPE] = '0'
             THEN
@@ -139,10 +129,6 @@ LEFT JOIN
     [base_tx_halfen_2_dwh].[FACT_PRODJOURNALPROD] FPJRNL
     ON
         FINV.[INVENTTRANSID] = FPJRNL.[INVENTTRANSID]
-LEFT JOIN
-    [base_tx_halfen_2_dwh].[FACT_CUSTPACKINGSLIPTRANS] FCPLT
-    ON
-        FINV.[INVENTTRANSID] = FCPLT.[INVENTTRANSID]
 WHERE
     (FINV.[STATUSRECEIPT] in ('1','2')
     OR
@@ -317,9 +303,7 @@ SELECT
     ,   INV.[PurchaseOrderItem]
     ,   INV.[Order]
     ,   INV.[OrderItem]
-    ,   INV.[DeliveryDocument]
-    ,   INV.[DeliveryDocumentItem]
-    ,   INV.[SalesDocumentItemCategoryID]    
+    ,   INV.[SalesDocumentItemCategoryID]
     ,   CASE
             WHEN INV.[GoodsMovementTypeID] = '0'
             THEN vwSDDC.[SDDocumentCategory]
@@ -432,8 +416,6 @@ SELECT
     ,   INV_QTY.[PurchaseOrderItem]
     ,   INV_QTY.[Order]
     ,   INV_QTY.[OrderItem]
-    ,   INV_QTY.[DeliveryDocument]
-    ,   INV_QTY.[DeliveryDocumentItem]
     ,   INV_QTY.[SalesDocumentItemCategoryID]
     ,   INV_QTY.[SalesDocumentItemCategory]
     ,   INV_QTY.[StandardPricePerUnit]
