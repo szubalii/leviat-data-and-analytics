@@ -3831,8 +3831,7 @@
         "entity_name": "FACT_HGDAWA",
         "base_table_name": "FACT_HGDAWA",
         "axbi_date_field_name": "Invoice date",
-        "base_sproc_name": "sp_load_FACT_HGDAWA",
-        "pk_field_names": "Company,Orderno,Invoiceno,Posno",
+        "pk_field_names": "DW_Id",
         "schedule_recurrence": "D"
       },
       {
