@@ -11,28 +11,6 @@ WITH EuroBudgetExchangeRate AS (
         ExchangeRateType = 'ZAXBIBUD'
         AND
         TargetCurrency = 'EUR'
-), 
-CTE_DeliveryCharge AS
-(SELECT
-        CS.[INVOICE]
-    ,   SUM(CS.[SALES]) AS [DeliveryCharge]
-FROM
-    [base_us_leviat_db].[CUSTOMER_SALES] CS
-WHERE
-    CS.[ItemName] LIKE 'Delivery Charge%'
-GROUP BY
-     CS.[INVOICE]
-),
-CTE_SumSales AS
-(SELECT
-        CS.[INVOICE]
-    ,   SUM(CS.[SALES]) AS [SumSales]
-FROM
-    [base_us_leviat_db].[CUSTOMER_SALES] CS
-WHERE
-    CS.[ItemName] NOT LIKE 'Delivery Charge%'
-GROUP BY
-     CS.[INVOICE]
 )
 ,BillingDocumentItemBase AS
 (SELECT
@@ -74,17 +52,11 @@ GROUP BY
     ,   MAPCUST.[Country] AS [CountryID]                                
     ,   CS.[SalesQty] AS [QuantitySold]                             
     ,   (CS.[SALES]-CS.[COGS]) AS [GrossMargin]                      
-    ,   CS.[SALES] AS [FinNetAmount]
-    ,   CASE 
-            WHEN ISNULL(SS.[SumSales],0) != 0 
-                 AND
-                 CS.[ItemName] NOT LIKE 'Delivery Charge%'
-            THEN CS.[SALES]/SS.[SumSales]*DC.[DeliveryCharge] 
-            ELSE 0
-        END AS [FinNetAmountFreight]
-    --,   CS.[ImbFrtCost] AS [FinNetAmountOtherSales]
-    ,   0 AS [FinNetAmountAllowances]
-    --,   CS.[SALES] + ISNULL(DC.[DeliveryCharge],0) AS [FinSales100]
+    ,   CS.[SALES] AS [FinNetAmount]                             
+    ,   CS.[ImbFrtCost] AS [FinNetAmountFreight]
+    ,   CS.[ImbFrtCost] AS [FinNetAmountOtherSales]
+    ,   0 AS [FinNetAmountAllowances]                   
+    ,   CS.[SALES] + CS.[ImbFrtCost] AS [FinSales100]  --temporary
     ,   CS.[InvDate] AS [AccountingDate]                           
     ,   CONCAT(CS.[COMP],'-',CS.[ITEM]) AS [MaterialCalculated]                       
     ,   CONCAT(CS.[COMP],'-',CS.[CUSTOMER]) AS [SoldToPartyCalculated]  
@@ -123,17 +95,12 @@ LEFT JOIN
         ON PCAT.[PCAT] = CS.[PCAT]
            AND 
            PCAT.[SubPCAT] = CS.[SubPCAT]
-LEFT JOIN
-    CTE_DeliveryCharge DC
-        ON DC.[INVOICE] = CS.[INVOICE]
-LEFT JOIN
-    CTE_SumSales SS
-        ON SS.[INVOICE] = CS.[INVOICE]
-),
-BillingDocumentItemBase_KPI AS (
+)
 SELECT
         BDI_Base.[BillingDocument]                          
-    ,   BDI_Base.[BillingDocumentItem] 
+    ,   BDI_Base.[BillingDocumentItem]                      
+    ,   CT.[CurrencyTypeID]                           
+    ,   CT.[CurrencyType]                 
     ,   BDI_Base.[BillingDocumentTypeID]
     ,   BDI_Base.[SDDocumentCategoryID]
     ,   BDI_Base.[BillingDocumentDate]                      
@@ -143,20 +110,18 @@ SELECT
     ,   BDI_Base.[TransactionCurrencyID]                    
     ,   BDI_Base.[TaxAmount]                                
     ,   BDI_Base.[CostAmount]
-    ,   BDI_Base.[CostCenter]  
+    ,   BDI_Base.[CostCenter]                               
+    ,   'USD' AS [CurrencyID]                               
     ,   BDI_Base.[SalesDocumentID]                          
     ,   BDI_Base.[CountryID]                                
     ,   BDI_Base.[QuantitySold]                             
-    ,   BDI_Base.[GrossMargin]              
+    ,   BDI_Base.[GrossMargin]
+    ,   1.0 AS [ExchangeRate]                             
     ,   BDI_Base.[FinNetAmount]                             
     ,   BDI_Base.[FinNetAmountFreight]
-    ,   BDI_Base.[FinNetAmountFreight] AS [FinNetAmountOtherSales]
+    ,   BDI_Base.[FinNetAmountOtherSales]
     ,   BDI_Base.[FinNetAmountAllowances]                   
-    ,   CASE
-            WHEN BDI_Base.[MaterialLongDescription] NOT LIKE 'Delivery Charge%'
-            THEN (BDI_Base.[NetAmount] + ISNULL([FinNetAmountFreight],0))
-            ELSE 0
-        END AS [FinSales100]  --temporary
+    ,   BDI_Base.[FinSales100]  --temporary
     ,   BDI_Base.[AccountingDate]                           
     ,   BDI_Base.[MaterialCalculated]                       
     ,   BDI_Base.[SoldToPartyCalculated]  
@@ -175,53 +140,7 @@ SELECT
     ,   BDI_Base.[InOutID]                         
     ,   BDI_Base.[t_applicationId]                          
     ,   BDI_Base.[t_extractionDtm]
-FROM
-    BillingDocumentItemBase BDI_Base)
-SELECT
-        BDI_Base_KPI.[BillingDocument]                          
-    ,   BDI_Base_KPI.[BillingDocumentItem]                      
-    ,   CT.[CurrencyTypeID]                           
-    ,   CT.[CurrencyType]                 
-    ,   BDI_Base_KPI.[BillingDocumentTypeID]
-    ,   BDI_Base_KPI.[SDDocumentCategoryID]
-    ,   BDI_Base_KPI.[BillingDocumentDate]                      
-    ,   BDI_Base_KPI.[SalesOrganizationID]
-    ,   BDI_Base_KPI.[MaterialGroupID]                          
-    ,   BDI_Base_KPI.[NetAmount]                                
-    ,   BDI_Base_KPI.[TransactionCurrencyID]                    
-    ,   BDI_Base_KPI.[TaxAmount]                                
-    ,   BDI_Base_KPI.[CostAmount]
-    ,   BDI_Base_KPI.[CostCenter]                               
-    ,   'USD' AS [CurrencyID]                               
-    ,   BDI_Base_KPI.[SalesDocumentID]                          
-    ,   BDI_Base_KPI.[CountryID]                                
-    ,   BDI_Base_KPI.[QuantitySold]                             
-    ,   BDI_Base_KPI.[GrossMargin]                              
-    ,   1.0 AS [ExchangeRate]                             
-    ,   BDI_Base_KPI.[FinNetAmount]                             
-    ,   BDI_Base_KPI.[FinNetAmountFreight]
-    ,   BDI_Base_KPI.[FinNetAmountOtherSales]
-    ,   BDI_Base_KPI.[FinNetAmountAllowances]                   
-    ,   BDI_Base_KPI.[FinSales100]  --temporary
-    ,   BDI_Base_KPI.[AccountingDate]                           
-    ,   BDI_Base_KPI.[MaterialCalculated]                       
-    ,   BDI_Base_KPI.[SoldToPartyCalculated]  
-    ,   BDI_Base_KPI.[axbi_MaterialID]                          
-    ,   BDI_Base_KPI.[axbi_CustomerID]                          
-    ,   BDI_Base_KPI.[axbi_SalesTypeID]                         
-    ,   BDI_Base_KPI.[SalesOrgname]                             
-    ,   BDI_Base_KPI.[Pillar]                                   
-    ,   BDI_Base_KPI.[MaterialLongDescription]                  
-    ,   BDI_Base_KPI.[MaterialShortDescription]                 
-    ,   BDI_Base_KPI.[CustomerName]                             
-    ,   BDI_Base_KPI.[axbi_StorageLocationID]                   
-    ,   BDI_Base_KPI.[axbi_CostCenter] 
-    ,   BDI_Base_KPI.[SalesDistrictID]
-    ,   BDI_Base_KPI.[CustomerGroupID]
-    ,   BDI_Base_KPI.[InOutID]                         
-    ,   BDI_Base_KPI.[t_applicationId]                          
-    ,   BDI_Base_KPI.[t_extractionDtm]
-FROM BillingDocumentItemBase_KPI BDI_Base_KPI
+FROM BillingDocumentItemBase BDI_Base
 CROSS JOIN
     [edw].[dim_CurrencyType] CT
 WHERE
@@ -242,7 +161,7 @@ SELECT
     ,   CONVERT(decimal(28,12),(BDI_ExchangeRate_Date.[NetAmount]*EuroBudgetExchangeRate.[ExchangeRate])) AS [NetAmount]                                
     ,   BDI_ExchangeRate_Date.[TransactionCurrencyID]                    
     ,   CONVERT(decimal(28,12),(BDI_ExchangeRate_Date.[TaxAmount]*EuroBudgetExchangeRate.[ExchangeRate])) AS [TaxAmount]   
-    ,   CONVERT(decimal(38,12),(BDI_ExchangeRate_Date.[CostAmount]*EuroBudgetExchangeRate.[ExchangeRate])) AS [CostAmount] 
+    ,   CONVERT(decimal(38,12),(BDI_ExchangeRate_Date.[CostAmount]*EuroBudgetExchangeRate.[ExchangeRate])) AS [CostAmount]
     ,   BDI_ExchangeRate_Date.[CostCenter]                               
     ,   BDI_ExchangeRate_Date.[CurrencyID]                               
     ,   BDI_ExchangeRate_Date.[SalesDocumentID]                          
@@ -275,93 +194,93 @@ SELECT
     ,   BDI_ExchangeRate_Date.[t_extractionDtm]
 FROM
 (SELECT 
-        BDI_Base_KPI.[BillingDocument]                          
-    ,   BDI_Base_KPI.[BillingDocumentItem]      
-    ,   BDI_Base_KPI.[BillingDocumentTypeID]
-    ,   BDI_Base_KPI.[SDDocumentCategoryID]                                
-    ,   BDI_Base_KPI.[BillingDocumentDate]               
-    ,   BDI_Base_KPI.[SalesOrganizationID]
-    ,   BDI_Base_KPI.[MaterialGroupID]                          
-    ,   BDI_Base_KPI.[NetAmount]                                
-    ,   BDI_Base_KPI.[TransactionCurrencyID]                    
-    ,   BDI_Base_KPI.[TaxAmount]   
-    ,   BDI_Base_KPI.[CostAmount]
-    ,   BDI_Base_KPI.[CostCenter]                               
+        BDI_Base.[BillingDocument]                          
+    ,   BDI_Base.[BillingDocumentItem]      
+    ,   BDI_Base.[BillingDocumentTypeID]
+    ,   BDI_Base.[SDDocumentCategoryID]                                
+    ,   BDI_Base.[BillingDocumentDate]               
+    ,   BDI_Base.[SalesOrganizationID]
+    ,   BDI_Base.[MaterialGroupID]                          
+    ,   BDI_Base.[NetAmount]                                
+    ,   BDI_Base.[TransactionCurrencyID]                    
+    ,   BDI_Base.[TaxAmount]   
+    ,   BDI_Base.[CostAmount]
+    ,   BDI_Base.[CostCenter]                               
     ,   'EUR' AS [CurrencyID]                               
-    ,   BDI_Base_KPI.[SalesDocumentID]                          
-    ,   BDI_Base_KPI.[CountryID]                                
-    ,   BDI_Base_KPI.[QuantitySold]                             
-    ,   BDI_Base_KPI.[GrossMargin]                                
-    ,   BDI_Base_KPI.[FinNetAmount]                             
-    ,   BDI_Base_KPI.[FinNetAmountFreight]
-    ,   BDI_Base_KPI.[FinNetAmountOtherSales]
-    ,   BDI_Base_KPI.[FinNetAmountAllowances]                   
-    ,   BDI_Base_KPI.[FinSales100] -- temporary 
-    ,   BDI_Base_KPI.[AccountingDate]                           
-    ,   BDI_Base_KPI.[MaterialCalculated]                       
-    ,   BDI_Base_KPI.[SoldToPartyCalculated]  
-    ,   BDI_Base_KPI.[axbi_MaterialID]                          
-    ,   BDI_Base_KPI.[axbi_CustomerID]                          
-    ,   BDI_Base_KPI.[axbi_SalesTypeID]                         
-    ,   BDI_Base_KPI.[SalesOrgname]                             
-    ,   BDI_Base_KPI.[Pillar]                                   
-    ,   BDI_Base_KPI.[MaterialLongDescription]                  
-    ,   BDI_Base_KPI.[MaterialShortDescription]                 
-    ,   BDI_Base_KPI.[CustomerName]                             
-    ,   BDI_Base_KPI.[axbi_StorageLocationID]                   
-    ,   BDI_Base_KPI.[axbi_CostCenter]                   
-    ,   BDI_Base_KPI.[SalesDistrictID]
-    ,   BDI_Base_KPI.[CustomerGroupID]
-    ,   BDI_Base_KPI.[InOutID]                     
-    ,   BDI_Base_KPI.[t_applicationId]                          
-    ,   BDI_Base_KPI.[t_extractionDtm]
+    ,   BDI_Base.[SalesDocumentID]                          
+    ,   BDI_Base.[CountryID]                                
+    ,   BDI_Base.[QuantitySold]                             
+    ,   BDI_Base.[GrossMargin]                                
+    ,   BDI_Base.[FinNetAmount]                             
+    ,   BDI_Base.[FinNetAmountFreight]
+    ,   BDI_Base.[FinNetAmountOtherSales]
+    ,   BDI_Base.[FinNetAmountAllowances]                   
+    ,   BDI_Base.[FinSales100] -- temporary 
+    ,   BDI_Base.[AccountingDate]                           
+    ,   BDI_Base.[MaterialCalculated]                       
+    ,   BDI_Base.[SoldToPartyCalculated]  
+    ,   BDI_Base.[axbi_MaterialID]                          
+    ,   BDI_Base.[axbi_CustomerID]                          
+    ,   BDI_Base.[axbi_SalesTypeID]                         
+    ,   BDI_Base.[SalesOrgname]                             
+    ,   BDI_Base.[Pillar]                                   
+    ,   BDI_Base.[MaterialLongDescription]                  
+    ,   BDI_Base.[MaterialShortDescription]                 
+    ,   BDI_Base.[CustomerName]                             
+    ,   BDI_Base.[axbi_StorageLocationID]                   
+    ,   BDI_Base.[axbi_CostCenter]                   
+    ,   BDI_Base.[SalesDistrictID]
+    ,   BDI_Base.[CustomerGroupID]
+    ,   BDI_Base.[InOutID]                     
+    ,   BDI_Base.[t_applicationId]                          
+    ,   BDI_Base.[t_extractionDtm]
     ,   MAX(EuroBudgetExchangeRate.ExchangeRateEffectiveDate) AS [ExchangeRateEffectiveDate]
-FROM BillingDocumentItemBase_KPI BDI_Base_KPI
+FROM BillingDocumentItemBase BDI_Base
 LEFT JOIN 
     EuroBudgetExchangeRate
         ON EuroBudgetExchangeRate.SourceCurrency = 'USD'
 WHERE
-           EuroBudgetExchangeRate.ExchangeRateEffectiveDate <= BDI_Base_KPI.[BillingDocumentDate]
+           EuroBudgetExchangeRate.ExchangeRateEffectiveDate <= BDI_Base.[BillingDocumentDate]
 GROUP BY
-        BDI_Base_KPI.[BillingDocument]                          
-    ,   BDI_Base_KPI.[BillingDocumentItem]      
-    ,   BDI_Base_KPI.[BillingDocumentTypeID]
-    ,   BDI_Base_KPI.[SDDocumentCategoryID]                                
-    ,   BDI_Base_KPI.[BillingDocumentDate]               
-    ,   BDI_Base_KPI.[SalesOrganizationID]
-    ,   BDI_Base_KPI.[MaterialGroupID]                          
-    ,   BDI_Base_KPI.[NetAmount]                                
-    ,   BDI_Base_KPI.[TransactionCurrencyID]                    
-    ,   BDI_Base_KPI.[TaxAmount]   
-    ,   BDI_Base_KPI.[CostAmount]
-    ,   BDI_Base_KPI.[CostCenter]                               
-    ,   BDI_Base_KPI.[SalesDocumentID]                          
-    ,   BDI_Base_KPI.[CountryID]                                
-    ,   BDI_Base_KPI.[QuantitySold]                             
-    ,   BDI_Base_KPI.[GrossMargin]                                
-    ,   BDI_Base_KPI.[FinNetAmount]                             
-    ,   BDI_Base_KPI.[FinNetAmountFreight]
-    ,   BDI_Base_KPI.[FinNetAmountOtherSales]
-    ,   BDI_Base_KPI.[FinNetAmountAllowances]                   
-    ,   BDI_Base_KPI.[FinSales100] -- temporary 
-    ,   BDI_Base_KPI.[AccountingDate]                           
-    ,   BDI_Base_KPI.[MaterialCalculated]                       
-    ,   BDI_Base_KPI.[SoldToPartyCalculated]  
-    ,   BDI_Base_KPI.[axbi_MaterialID]                          
-    ,   BDI_Base_KPI.[axbi_CustomerID]                          
-    ,   BDI_Base_KPI.[axbi_SalesTypeID]                         
-    ,   BDI_Base_KPI.[SalesOrgname]                             
-    ,   BDI_Base_KPI.[Pillar]                                   
-    ,   BDI_Base_KPI.[MaterialLongDescription]                  
-    ,   BDI_Base_KPI.[MaterialShortDescription]                 
-    ,   BDI_Base_KPI.[CustomerName]                             
-    ,   BDI_Base_KPI.[axbi_StorageLocationID]                   
-    ,   BDI_Base_KPI.[axbi_CostCenter]                   
-    ,   BDI_Base_KPI.[SalesDistrictID]
-    ,   BDI_Base_KPI.[CustomerGroupID]
-    ,   BDI_Base_KPI.[InOutID]                     
-    ,   BDI_Base_KPI.[t_applicationId]                          
-    ,   BDI_Base_KPI.[t_extractionDtm]
+        BDI_Base.[BillingDocument]                          
+    ,   BDI_Base.[BillingDocumentItem]      
+    ,   BDI_Base.[BillingDocumentTypeID]
+    ,   BDI_Base.[SDDocumentCategoryID]                                
+    ,   BDI_Base.[BillingDocumentDate]               
+    ,   BDI_Base.[SalesOrganizationID]
+    ,   BDI_Base.[MaterialGroupID]                          
+    ,   BDI_Base.[NetAmount]                                
+    ,   BDI_Base.[TransactionCurrencyID]                    
+    ,   BDI_Base.[TaxAmount]   
+    ,   BDI_Base.[CostAmount]
+    ,   BDI_Base.[CostCenter]                               
+    ,   BDI_Base.[SalesDocumentID]                          
+    ,   BDI_Base.[CountryID]                                
+    ,   BDI_Base.[QuantitySold]                             
+    ,   BDI_Base.[GrossMargin]                                
+    ,   BDI_Base.[FinNetAmount]                             
+    ,   BDI_Base.[FinNetAmountFreight]
+    ,   BDI_Base.[FinNetAmountOtherSales]
+    ,   BDI_Base.[FinNetAmountAllowances]                   
+    ,   BDI_Base.[FinSales100] -- temporary 
+    ,   BDI_Base.[AccountingDate]                           
+    ,   BDI_Base.[MaterialCalculated]                       
+    ,   BDI_Base.[SoldToPartyCalculated]  
+    ,   BDI_Base.[axbi_MaterialID]                          
+    ,   BDI_Base.[axbi_CustomerID]                          
+    ,   BDI_Base.[axbi_SalesTypeID]                         
+    ,   BDI_Base.[SalesOrgname]                             
+    ,   BDI_Base.[Pillar]                                   
+    ,   BDI_Base.[MaterialLongDescription]                  
+    ,   BDI_Base.[MaterialShortDescription]                 
+    ,   BDI_Base.[CustomerName]                             
+    ,   BDI_Base.[axbi_StorageLocationID]                   
+    ,   BDI_Base.[axbi_CostCenter]                   
+    ,   BDI_Base.[SalesDistrictID]
+    ,   BDI_Base.[CustomerGroupID]
+    ,   BDI_Base.[InOutID]                     
+    ,   BDI_Base.[t_applicationId]                          
+    ,   BDI_Base.[t_extractionDtm]
 ) BDI_ExchangeRate_Date
 LEFT JOIN 
     EuroBudgetExchangeRate
@@ -377,50 +296,50 @@ WHERE
 UNION ALL
 
 SELECT
-        BDI_Base_KPI.[BillingDocument]                          
-    ,   BDI_Base_KPI.[BillingDocumentItem]                      
+        BDI_Base.[BillingDocument]                          
+    ,   BDI_Base.[BillingDocumentItem]                      
     ,   CT.[CurrencyTypeID]                           
     ,   CT.[CurrencyType]                 
-    ,   BDI_Base_KPI.[BillingDocumentTypeID]
-    ,   BDI_Base_KPI.[SDDocumentCategoryID]
-    ,   BDI_Base_KPI.[BillingDocumentDate]                      
-    ,   BDI_Base_KPI.[SalesOrganizationID]
-    ,   BDI_Base_KPI.[MaterialGroupID]                          
-    ,   BDI_Base_KPI.[NetAmount]                                
-    ,   BDI_Base_KPI.[TransactionCurrencyID]                    
-    ,   BDI_Base_KPI.[TaxAmount]                                
-    ,   BDI_Base_KPI.[CostAmount]
-    ,   BDI_Base_KPI.[CostCenter]                               
+    ,   BDI_Base.[BillingDocumentTypeID]
+    ,   BDI_Base.[SDDocumentCategoryID]
+    ,   BDI_Base.[BillingDocumentDate]                      
+    ,   BDI_Base.[SalesOrganizationID]
+    ,   BDI_Base.[MaterialGroupID]                          
+    ,   BDI_Base.[NetAmount]                                
+    ,   BDI_Base.[TransactionCurrencyID]                    
+    ,   BDI_Base.[TaxAmount]                                
+    ,   BDI_Base.[CostAmount]
+    ,   BDI_Base.[CostCenter]                               
     ,   'USD' AS [CurrencyID]                               
-    ,   BDI_Base_KPI.[SalesDocumentID]                          
-    ,   BDI_Base_KPI.[CountryID]                                
-    ,   BDI_Base_KPI.[QuantitySold]                             
-    ,   BDI_Base_KPI.[GrossMargin]                              
+    ,   BDI_Base.[SalesDocumentID]                          
+    ,   BDI_Base.[CountryID]                                
+    ,   BDI_Base.[QuantitySold]                             
+    ,   BDI_Base.[GrossMargin]                              
     ,   1.0 AS [ExchangeRate]                             
-    ,   BDI_Base_KPI.[FinNetAmount]                             
-    ,   BDI_Base_KPI.[FinNetAmountFreight]
-    ,   BDI_Base_KPI.[FinNetAmountFreight] AS [FinNetAmountOtherSales]
-    ,   BDI_Base_KPI.[FinNetAmountAllowances]                   
-    ,   BDI_Base_KPI.[FinSales100]  --temporary
-    ,   BDI_Base_KPI.[AccountingDate]                           
-    ,   BDI_Base_KPI.[MaterialCalculated]                       
-    ,   BDI_Base_KPI.[SoldToPartyCalculated]  
-    ,   BDI_Base_KPI.[axbi_MaterialID]                          
-    ,   BDI_Base_KPI.[axbi_CustomerID]                          
-    ,   BDI_Base_KPI.[axbi_SalesTypeID]                         
-    ,   BDI_Base_KPI.[SalesOrgname]                             
-    ,   BDI_Base_KPI.[Pillar]                                   
-    ,   BDI_Base_KPI.[MaterialLongDescription]                  
-    ,   BDI_Base_KPI.[MaterialShortDescription]                 
-    ,   BDI_Base_KPI.[CustomerName]                             
-    ,   BDI_Base_KPI.[axbi_StorageLocationID]                   
-    ,   BDI_Base_KPI.[axbi_CostCenter] 
-    ,   BDI_Base_KPI.[SalesDistrictID]
-    ,   BDI_Base_KPI.[CustomerGroupID]
-    ,   BDI_Base_KPI.[InOutID]                         
-    ,   BDI_Base_KPI.[t_applicationId]                          
-    ,   BDI_Base_KPI.[t_extractionDtm]
-FROM BillingDocumentItemBase_KPI BDI_Base_KPI
+    ,   BDI_Base.[FinNetAmount]                             
+    ,   BDI_Base.[FinNetAmountFreight]
+    ,   BDI_Base.[FinNetAmountOtherSales]
+    ,   BDI_Base.[FinNetAmountAllowances]                   
+    ,   BDI_Base.[FinSales100]  --temporary
+    ,   BDI_Base.[AccountingDate]                           
+    ,   BDI_Base.[MaterialCalculated]                       
+    ,   BDI_Base.[SoldToPartyCalculated]  
+    ,   BDI_Base.[axbi_MaterialID]                          
+    ,   BDI_Base.[axbi_CustomerID]                          
+    ,   BDI_Base.[axbi_SalesTypeID]                         
+    ,   BDI_Base.[SalesOrgname]                             
+    ,   BDI_Base.[Pillar]                                   
+    ,   BDI_Base.[MaterialLongDescription]                  
+    ,   BDI_Base.[MaterialShortDescription]                 
+    ,   BDI_Base.[CustomerName]                             
+    ,   BDI_Base.[axbi_StorageLocationID]                   
+    ,   BDI_Base.[axbi_CostCenter] 
+    ,   BDI_Base.[SalesDistrictID]
+    ,   BDI_Base.[CustomerGroupID]
+    ,   BDI_Base.[InOutID]                         
+    ,   BDI_Base.[t_applicationId]                          
+    ,   BDI_Base.[t_extractionDtm]
+FROM BillingDocumentItemBase BDI_Base
 CROSS JOIN
     [edw].[dim_CurrencyType] CT
 WHERE
