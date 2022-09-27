@@ -126,7 +126,7 @@ LEFT JOIN
         ON DC.[INVOICE] = CS.[INVOICE]
 LEFT JOIN
     CTE_SumSales SS
-        ON SS.[INVOICE] = CS.[INVOICE]
+        ON DC.[INVOICE] = CS.[INVOICE]
 ),
 BillingDocumentItemBase_KPI AS (
 SELECT
