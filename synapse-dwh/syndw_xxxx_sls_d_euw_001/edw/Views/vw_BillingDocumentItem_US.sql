@@ -74,12 +74,8 @@ GROUP BY
     ,   MAPCUST.[Country] AS [CountryID]                                
     ,   CS.[SalesQty] AS [QuantitySold]                             
     ,   (CS.[SALES]-CS.[COGS]) AS [GrossMargin]                      
-    ,   CS.[SALES] AS [FinNetAmount]
-    ,   CASE 
-            WHEN ISNULL(SS.[SumSales],0) != 0 
-            THEN CS.[SALES]/SS.[SumSales]*DC.[DeliveryCharge] 
-            ELSE NULL
-        END AS [FinNetAmountFreight]
+    ,   CS.[SALES] AS [FinNetAmount]       
+    ,   CS.[SALES]/SS.[SumSales]*DC.[DeliveryCharge] AS [FinNetAmountFreight]
     --,   CS.[ImbFrtCost] AS [FinNetAmountOtherSales]
     ,   0 AS [FinNetAmountAllowances]
     --,   CS.[SALES] + ISNULL(DC.[DeliveryCharge],0) AS [FinSales100]
