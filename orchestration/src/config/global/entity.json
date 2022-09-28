@@ -3945,7 +3945,7 @@
         "entity_name": "DIM_CUSTTABLE",
         "base_table_name": "DIM_CUSTTABLE",
         "axbi_date_field_name": "DW_Id",
-        "schedule_recurrence": "D"
+        "schedule_recurrence": "A"
       },
       {
         "entity_id": 507,
@@ -3997,7 +3997,7 @@
         "entity_name": "AX_CRH_A_dbo_INVENTTABLE",
         "base_table_name": "AX_CRH_A_dbo_INVENTTABLE",
         "axbi_date_field_name": "DW_Id",
-        "schedule_recurrence": "D"
+        "schedule_recurrence": "A"
       },
       {
         "entity_id": 513,
@@ -4019,14 +4019,14 @@
         "entity_name": "DIM_CUSTTABLE",
         "base_table_name": "DIM_CUSTTABLE",
         "axbi_date_field_name": "DW_Id",
-        "schedule_recurrence": "D"
+        "schedule_recurrence": "A"
       },
       {
         "entity_id": 515,
         "entity_name": "DIM_INVENTTABLE",
         "base_table_name": "DIM_INVENTTABLE",
         "pk_field_names": "DW_Id",
-        "schedule_recurrence": "D"
+        "schedule_recurrence": "A"
       },
       {
         "entity_id": 516,
