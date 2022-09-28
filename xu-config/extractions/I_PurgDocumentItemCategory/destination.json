@@ -2,13 +2,15 @@
     "nameGenerator": {
         "suffix": "",
         "customName": "I_PurgDocumentItemCategory",
-        "objectNamingMode": "Custom"
+        "objectNamingMode": "Custom",
+        "appendsTimestamp": true
     },
     "internalSettings": {
         "nameGenerator": {
             "suffix": "",
             "customName": "I_PurgDocumentItemCategory",
-            "objectNamingMode": "Custom"
+            "objectNamingMode": "Custom",
+            "appendsTimestamp": true
         },
         "sapDateConversion": {
             "enabled": true,
