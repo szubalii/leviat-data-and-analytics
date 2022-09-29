@@ -8,8 +8,8 @@ SELECT
     ,   FINV.[RECID]                  AS [MaterialDocumentItem]
     ,   CASE
             WHEN SINMT.[SAPItemnumber] IS NULL
-            THEN CONCAT(FINV.[ITEMID],'_',UPPER(FINV.[DATAAREAID]))
-            ELSE CONCAT(SINMT.[SAPItemnumber],'_',UPPER(SINMT.[AXDataAreaId]))
+            THEN CONCAT(UPPER(FINV.[DATAAREAID]),'-',FINV.[ITEMID])
+            ELSE CONCAT(UPPER(SINMT.[AXDataAreaId]),'-',SINMT.[SAPItemnumber])
         END                           AS [MaterialID]
     ,   dmINV.[INVENTSITEID]          AS [PlantID]
     ,   dmINV.[INVENTLOCATIONID]
@@ -129,6 +129,8 @@ LEFT JOIN
     [base_tx_halfen_2_dwh].[FACT_PRODJOURNALPROD] FPJRNL
     ON
         FINV.[INVENTTRANSID] = FPJRNL.[INVENTTRANSID]
+        AND
+        FINV.[INVENTDIMID] = FPJRNL.[INVENTDIMID]
 WHERE
     (FINV.[STATUSRECEIPT] in ('1','2')
     OR
