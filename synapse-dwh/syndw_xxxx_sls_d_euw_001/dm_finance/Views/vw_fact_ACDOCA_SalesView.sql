@@ -19,6 +19,7 @@ AS
     bTTT.[BusinessTransactionTypeName],
     acdoca.[ReferenceDocumentTypeID],
     rDTT.[ReferenceDocumentTypeName],
+    [ReferenceDocument],
     [ReferenceDocumentItem],
     [IsReversal],
     [IsReversed],
