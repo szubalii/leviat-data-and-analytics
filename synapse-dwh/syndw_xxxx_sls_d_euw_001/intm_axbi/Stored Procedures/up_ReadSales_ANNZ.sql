@@ -16,29 +16,6 @@ BEGIN
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 
-	-- take-up variables from the cursor:
-	DECLARE
-	 @lDataAreaID nvarchar(8)
-	,@lOrigSalesID nvarchar(20)
-	,@lInvoiceID nvarchar(20)
-	,@lLineNum numeric(28,12)
-	,@lInventtransID nvarchar(20)
-	,@lDatefinancial datetime
-	,@lOrderAccount nvarchar(20)
-	,@lItemID nvarchar(20)
-	,@lDlvcountryregionid nvarchar(20)
-	,@lPackingslipID nvarchar(20)
-	,@lQty numeric(28,12)
-	,@lLineAmountMST numeric(28,12)
-	,@lLineAmountEUR numeric(28,12)
-
-	,@lSalesBalance numeric(28,12)
-	,@lSalesBalanceEUR numeric(28,12)
-	,@lcurrencycode nvarchar(3)
-	,@lcounter smallint
-
-	,@I_Currentdate datetime = convert(date, getdate())
-
     -- Insert statements for procedure here
 
 	--  Ancon New Zealand 
@@ -64,9 +41,8 @@ BEGIN
 	on t.DATAAREAID = i.DATAAREAID and
 	   t.INVOICEID = i.INVOICEID and
 	   t.INVENTTRANSID = i.INVENTTRANSID
-	where t.DATAAREAID = 'hlnz' and Datepart(yyyy, i.DATEFINANCIAL) = @P_Year and Datepart(mm, i.DATEFINANCIAL) = @P_Month and i.DATEFINANCIAL < @I_Currentdate
-	group by t.DATAAREAID, t.INVOICEID, t.SALESID, t.INVENTTRANSID, t.LINENUM, i.DATEFINANCIAL, i.PACKINGSLIPID 
-	order by t.DATAAREAID, t.INVOICEID, t.SALESID, t.INVENTTRANSID, t.LINENUM, i.DATEFINANCIAL, i.PACKINGSLIPID; 
+	where t.DATAAREAID = 'hlnz' and Datepart(yyyy, i.DATEFINANCIAL) = @P_Year and Datepart(mm, i.DATEFINANCIAL) = @P_Month and i.DATEFINANCIAL < convert(date, getdate())
+	group by t.DATAAREAID, t.INVOICEID, t.SALESID, t.INVENTTRANSID, t.LINENUM, i.DATEFINANCIAL, i.PACKINGSLIPID; 
 
 	-- Doppelte Sätze löschen. Geht leider ein Datefinancial und eine PackingslipID verloren, dafür werden die Zahlen richtig.
 	-- Obwohl wir in der COMMON TABLE EXPRESSION table löschen, werden die doppelten Sätze in der temporären Tabelle #inventtrans_ANNZ gelöscht.
@@ -115,14 +91,14 @@ BEGIN
 	inner join [base_tx_ca_0_hlp].[CRHCURRENCY] as c
 	on Datepart(YYYY, i.DATEFINANCIAL) = c.year and
 	   'NZD' = c.CURRENCY
-	where t.DATAAREAID = 'hlnz' and Datepart(yyyy, i.DATEFINANCIAL) = @P_Year and Datepart(mm, i.DATEFINANCIAL) = @P_Month and t.ITEMID not in ('FRA', 'FRU') -- HIRE TOOL, HIRE RETURN?
+	where t.DATAAREAID = 'hlnz' 
+	and Datepart(yyyy, i.DATEFINANCIAL) = @P_Year 
+	and Datepart(mm, i.DATEFINANCIAL) = @P_Month 
+	and t.ITEMID not in ('FRA', 'FRU') -- HIRE TOOL, HIRE RETURN?
 
 
-	-- other sales
-
-	DECLARE OtherSalesCursor CURSOR FAST_FORWARD FOR
-
-	select 'ANNZ',
+-- other sales
+select 'ANAH',
 	t.ORIGSALESID,
 	t.INVOICEID,
 	t.LINENUM,
@@ -132,8 +108,11 @@ BEGIN
 	t.ITEMID,
 	ISNULL(t.DLVCOUNTRYREGIONID,' '),
 	ISNULL(i.PACKINGSLIPID,' '),
-	t.QTY,
-	t.LINEAMOUNTMST
+	t.qty,
+	t.LINEAMOUNTMST lineamountmst_os,
+	t.LINEAMOUNTMST / c.CRHRATE lineamounteur_os,
+	count(t.invoiceid) over (partition by t.invoiceid) cnt_inv
+	into #inventtrans_ANAH_OS
 	from [base_ancon_australia_2_dwh].[FACT_CUSTINVOICETRANS] as t
 	inner join [base_ancon_australia_2_dwh].[FACT_CUSTINVOICEJOUR] as j
 	on t.DATAAREAID = j.DATAAREAID and
@@ -142,101 +121,99 @@ BEGIN
 	on t.DATAAREAID = i.DATAAREAID and
 	   t.INVOICEID = i.INVOICEID and
 	   t.INVENTTRANSID = i.INVENTTRANSID
-	where t.DATAAREAID = 'hlnz' and Datepart(yyyy, i.DATEFINANCIAL) = @P_Year and Datepart(mm, i.DATEFINANCIAL) = @P_Month and t.ITEMID in ('FRA', 'FRU')
+	inner join [base_tx_ca_0_hlp].[CRHCURRENCY] c
+	on c.year = Datepart(YYYY, i.DATEFINANCIAL) 
+	and c.CURRENCY = 'NZD'
+	where t.DATAAREAID = 'hlnz' 
+	and Datepart(yyyy, i.DATEFINANCIAL) = @P_Year 
+	and Datepart(mm, i.DATEFINANCIAL) = @P_Month 
+	and t.ITEMID in ('FRA', 'FRU')
 
-	OPEN OtherSalesCursor FETCH NEXT FROM OtherSalesCursor INTO	@lDataAreaID
-	,@lOrigSalesID
-	,@lInvoiceID
-	,@lLineNum
-	,@lInventtransID
-	,@lDatefinancial
-	,@lOrderAccount
-	,@lItemID
-	,@lDlvcountryregionid
-	,@lPackingslipID
-	,@lQty
-	,@lLineAmountMST
 
-	-- now loop cursor rows...
-	WHILE @@FETCH_STATUS = 0 
-	BEGIN -- do row specific stuff here
-	
-	set @lcounter = 0
-
-	select @lSalesBalance = ISNULL(sum(t.PRODUCTSALESLOCAL),0), @lSalesBalanceEUR = ISNULL(sum(t.PRODUCTSALESEUR),0), @lcounter = count(*) from [CUSTINVOICETRANS] as t
-	where t.DATAAREAID = 'ANNZ' and t.INVOICEID = @lInvoiceID and t.ITEMID not in ('ANNZ-FRA', 'ANNZ-FRU')
-
-	-- LineamountMST nach EUR umrechnen
-	select @lLineAmountEUR = @lLineAmountMST / CRHRATE from [intm_axbi].[CRHCURRENCY] where year = Datepart(YYYY, @lDatefinancial) and CURRENCY = 'NZD'
-
-	IF @lSalesBalance <> 0
-	BEGIN
-	-- Falls reguläre Postionen mit Umsatz vorhanden
-	update [intm_axbi].[fact_CUSTINVOICETRANS]
-	set [intm_axbi].[fact_CUSTINVOICETRANS].OTHERSALESLOCAL += @lLineAmountMST * t.PRODUCTSALESLOCAL/@lSalesBalance,
-	    [intm_axbi].[fact_CUSTINVOICETRANS].OTHERSALESEUR   += @lLineAmountEUR * t.PRODUCTSALESEUR/@lSalesBalanceEUR
+--salesbalance calculation
+	select 
+	t.invoiceid,
+	ISNULL(sum(t.productsaleslocal),0) salesbalance,
+	ISNULL(sum(t.PRODUCTSALESEUR),0) salesbalanceeur,
+	count(*) lcounter
+	into #inventtrans_ANAH_SB
 	from [intm_axbi].[fact_CUSTINVOICETRANS] as t
-	where t.DATAAREAID = 'ANNZ' and t.INVOICEID = @lInvoiceID and t.ITEMID not in ('ANNZ-FRA', 'ANNZ-FRU')
-	END 
-	ELSE
-	BEGIN
-	If @lcounter > 0
-	BEGIN
-	-- Falls Positionen vorhanden, aber ohne Umsatz
-	update [intm_axbi].[fact_CUSTINVOICETRANS]
-	set [intm_axbi].[fact_CUSTINVOICETRANS].OTHERSALESLOCAL += @lLineAmountMST / @lcounter,
-	    [intm_axbi].[fact_CUSTINVOICETRANS].OTHERSALESEUR   += @lLineAmountEUR / @lcounter
-	from [intm_axbi].[fact_CUSTINVOICETRANS] as t
-	where t.DATAAREAID = 'ANNZ' and t.INVOICEID = @lInvoiceID and t.ITEMID not in ('ANNZ-FRA', 'ANNZ-FRU')
-	END
-	ELSE
-	BEGIN
-	-- Falls keine Positionen vorhanden, aber Miscellaneous Charges vorhanden, dann Position für die Miscellaneous Charge anlegen
-	insert [intm_axbi].[fact_CUSTINVOICETRANS]
+	inner join #inventtrans_ANNZ_OS os
+	on t.invoiceid COLLATE DATABASE_DEFAULT= os.invoiceid COLLATE DATABASE_DEFAULT
+	where t.dataareaid = 'ANNZ' 
+	and t.itemid not in ('ANNZ-FRA', 'ANNZ-FRU')
+	group by t.invoiceid
+
+
+--lineamountmst sum calculation
+	select invoiceid,
+	sum(lineamountmst_os) lineamountmst_os_sum,
+	sum(lineamounteur_os) lineamounteur_os_sum
+	into #inventtrans_ANNZ_LA
+	from #inventtrans_ANNZ_OS
+	group by invoiceid
+
+
+--update #1
+update [intm_axbi].[fact_CUSTINVOICETRANS]
+set [intm_axbi].[fact_CUSTINVOICETRANS].OTHERSALESLOCAL += (la.lineamountmst_os_sum * t.PRODUCTSALESLOCAL/ sb.salesbalance) * os.cnt_inv,
+    [intm_axbi].[fact_CUSTINVOICETRANS].OTHERSALESEUR   += (la.lineamountmst_os_sum * t.PRODUCTSALESEUR/sb.salesbalance) * os.cnt_inv
+from [intm_axbi].[fact_CUSTINVOICETRANS] as t
+inner join #inventtrans_ANAH_OS os
+on t.invoiceid  COLLATE DATABASE_DEFAULT= os.invoiceid  COLLATE DATABASE_DEFAULT
+inner join #inventtrans_ANAH_SB sb
+on t.INVOICEID COLLATE DATABASE_DEFAULT=sb.INVOICEID COLLATE DATABASE_DEFAULT
+inner join #inventtrans_ANNZ_LA la
+on t.invoiceid COLLATE DATABASE_DEFAULT=la.invoiceid COLLATE DATABASE_DEFAULT
+where t.DATAAREAID = 'ANNZ' 
+and t.ITEMID not in ('ANNZ-FRA', 'ANNZ-FRU')
+and sb.salesbalance<>0
+
+
+--update #2
+update [intm_axbi].[fact_CUSTINVOICETRANS]
+   set [intm_axbi].[fact_CUSTINVOICETRANS].OTHERSALESLOCAL += la.lineamountmst_os_sum / sb.lcounter,
+	   [intm_axbi].[fact_CUSTINVOICETRANS].OTHERSALESEUR   += la.lineamountmst_os_sum / sb.lcounter
+from [intm_axbi].[fact_CUSTINVOICETRANS] as t
+inner join #inventtrans_ANAH_SB sb
+on t.INVOICEID COLLATE DATABASE_DEFAULT=sb.INVOICEID COLLATE DATABASE_DEFAULT
+inner join #inventtrans_ANNZ_LA la
+on t.invoiceid COLLATE DATABASE_DEFAULT=la.invoiceid COLLATE DATABASE_DEFAULT
+where t.DATAAREAID = 'ANNZ' 
+and t.ITEMID not in ('ANNZ-FRA', 'ANNZ-FRU')
+and lcounter>0
+and salesbalance = 0
+
+
+--insert for other sales
+insert [intm_axbi].[fact_CUSTINVOICETRANS]
 	select
-	@lDataAreaID
-	,@lOrigSalesID
-	,@lInvoiceID
-	,@lLineNum
-	,@lInventtransID
-	,@lDatefinancial
-	,'ANNZ-' + @lOrderAccount
-	,'ANNZ-' + @lItemID
-	,@lDlvcountryregionid
-	,@lPackingslipID
-	,@lQty
-	,0
-	,0
-	,@lLineAmountMST
-	,@lLineAmountEUR
-	,0
-	,0
-	,0
-	,0
-	,0
-	,0
-	,0
-	,0
-	END
-	END
+	DATAAREAID,
+	SALESID,
+	INVOICEID,
+	LINENUM,
+	INVENTTRANSID,
+	ACCOUNTINGDATE,
+	'ANNZ-' + CUSTOMERNO,
+	'ANNZ-' + ITEMID,
+	DELIVERYCOUNTRYID,
+	PACKINGSLIPID,
+	QTY,
+	0,
+	0,
+	lineamountmst_os,
+	lineamounteur_os,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0
+	from #inventtrans_ANNZ_OS
+	where invoiceid COLLATE DATABASE_DEFAULT not in (select invoiceid from [intm_axbi].[fact_CUSTINVOICETRANS])
 
-	FETCH NEXT FROM OtherSalesCursor INTO 	@lDataAreaID
-	,@lOrigSalesID
-	,@lInvoiceID
-	,@lLineNum
-	,@lInventtransID
-	,@lDatefinancial
-	,@lOrderAccount
-	,@lItemID
-	,@lDlvcountryregionid
-	,@lPackingslipID
-	,@lQty
-	,@lLineAmountMST
-	END
-
-	-- clean cursor 
-	CLOSE OtherSalesCursor 
-	DEALLOCATE OtherSalesCursor
 
 	-- SALES100 aufbauen
 	update [intm_axbi].[fact_CUSTINVOICETRANS]
@@ -253,6 +230,10 @@ BEGIN
 	set DELIVERYCOUNTRYID = 'NZ'
 	where DATAAREAID = 'ANNZ' and DELIVERYCOUNTRYID = ' ' and Datepart(yyyy, ACCOUNTINGDATE) = @P_Year and Datepart(mm, ACCOUNTINGDATE) = @P_Month
 
-	Drop table #inventtrans_ANNZ
+--drop temp tables
+drop table #inventtrans_ANNZ
+drop table #inventtrans_ANNZ_OS
+drop table #inventtrans_ANNZ_SB
+drop table #inventtrans_ANNZ_LA
 
 END
