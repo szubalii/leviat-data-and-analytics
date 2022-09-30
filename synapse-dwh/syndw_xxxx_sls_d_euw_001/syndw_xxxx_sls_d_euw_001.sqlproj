@@ -989,17 +989,17 @@
     <Build Include="base_tx_crh_2_dwh\Tables\FACT_INVENTRANS_NOT_INVOICED.sql" />
     <Build Include="base_tx_crh_2_dwh\Tables\FACT_SALESLINE.sql" />
     <Build Include="Security\Schemas\base_tx_crh_2_dwh.sql" />
-    <None Include="intm_axbi\Stored Procedures\up_ReadSales_ANAH.sql" />
-    <None Include="intm_axbi\Stored Procedures\up_ReadSales_ANAU.sql" />
-    <None Include="intm_axbi\Stored Procedures\up_ReadSales_ANDE.sql" />
-    <None Include="intm_axbi\Stored Procedures\up_ReadSales_ANNZ.sql" />
+    <Build Include="intm_axbi\Stored Procedures\up_ReadSales_ANAH.sql" />
+	<Build Include="intm_axbi\Stored Procedures\up_ReadSales_ANAU.sql" />
+	<Build Include="intm_axbi\Stored Procedures\up_ReadSales_ANDE.sql" />
+    <Build Include="intm_axbi\Stored Procedures\up_ReadSales_ANNZ.sql" />
     <Build Include="intm_axbi\Stored Procedures\up_ReadSales_HALF.sql" />
-    <None Include="intm_axbi\Stored Procedures\up_ReadSales_PLAKA_BE.sql" />
-    <None Include="intm_axbi\Stored Procedures\up_ReadSales_PLAKA_FR.sql" />
+	<Build Include="intm_axbi\Stored Procedures\up_ReadSales_PLAKA_BE.sql" />
+	<Build Include="intm_axbi\Stored Procedures\up_ReadSales_PLAKA_FR.sql" />
     <Build Include="intm_axbi\Functions\uf_get_CashDiscPct.sql" />
     <Build Include="intm_axbi\Stored Procedures\up_CUSTINVOICETRANS_Werte_nach_CRH_Kurs_umrechnen.sql" />
     <Build Include="base_tx_crh_1_stg\Tables\AX_CRH_A_dbo_CUSTTABLE.sql" />
-    <None Include="intm_axbi\Stored Procedures\up_createAxBiBasicData.sql" />
+	<Build Include="intm_axbi\Stored Procedures\up_createAxBiBasicData.sql" />
     <Build Include="intm_axbi\Stored Procedures\up_CollectSales_CA.sql" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
