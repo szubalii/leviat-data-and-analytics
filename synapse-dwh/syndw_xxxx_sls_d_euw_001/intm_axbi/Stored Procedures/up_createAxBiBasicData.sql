@@ -629,41 +629,41 @@ BEGIN
 	-- Halfen
 	delete [intm_axbi].[dim_ITEMGROUP] where DATAAREAID = 'HALF'
 	insert [intm_axbi].[dim_ITEMGROUP]
-	select 'HALF', 'HALF-' + PRODUCTLINEID, 'HALF-' + PRODUCTLINEDESC from [base_dw_halfen_0_hlp].[PRODUCTLINE] order by PRODUCTLINEID
+	select 'HALF', 'HALF-' + PRODUCTLINEID, 'HALF-' + PRODUCTLINEDESC from [base_dw_halfen_0_hlp].[PRODUCTLINE]
 
 	-- Plaka BE
 	delete [intm_axbi].[dim_ITEMGROUP] where DATAAREAID = 'PLBE'
 	insert [intm_axbi].[dim_ITEMGROUP]
-	select 'PLBE', 'PLBE-' + ITEMGROUP4, 'PLBE-' + DESCRIPTION from [base_tx_crh_2_dwh].[DIM_ADUASCHWITEMGROUP4] where DATAAREAID = 'plb' and DESCRIPTION <> ' ' and DESCRIPTION is not null group by DATAAREAID, ITEMGROUP4, DESCRIPTION order by DATAAREAID, ITEMGROUP4, DESCRIPTION
+	select 'PLBE', 'PLBE-' + ITEMGROUP4, 'PLBE-' + DESCRIPTION from [base_tx_crh_2_dwh].[DIM_ADUASCHWITEMGROUP4] where DATAAREAID = 'plb' and DESCRIPTION <> ' ' and DESCRIPTION is not null group by DATAAREAID, ITEMGROUP4, DESCRIPTION
 
 	-- Plaka FR
 	delete [intm_axbi].[dim_ITEMGROUP] where DATAAREAID = 'PLFR'
 	insert [intm_axbi].[dim_ITEMGROUP]
-	select 'PLFR', 'PLFR-' + ITEMGROUP4, 'PLFR-' + DESCRIPTION from [base_tx_crh_2_dwh].[DIM_ADUASCHWITEMGROUP4] where DATAAREAID = 'plf' and DESCRIPTION <> ' ' and DESCRIPTION is not null group by DATAAREAID, ITEMGROUP4, DESCRIPTION order by DATAAREAID, ITEMGROUP4, DESCRIPTION
+	select 'PLFR', 'PLFR-' + ITEMGROUP4, 'PLFR-' + DESCRIPTION from [base_tx_crh_2_dwh].[DIM_ADUASCHWITEMGROUP4] where DATAAREAID = 'plf' and DESCRIPTION <> ' ' and DESCRIPTION is not null group by DATAAREAID, ITEMGROUP4, DESCRIPTION
 
 	-- Aschwanden
 	delete [intm_axbi].[dim_ITEMGROUP] where DATAAREAID = 'ASCH'
 	insert [intm_axbi].[dim_ITEMGROUP]
-	select 'ASCH', 'ASCH-' + ITEMGROUP4, 'ASCH-' + DESCRIPTION from [base_tx_crh_2_dwh].[DIM_ADUASCHWITEMGROUP4] where DATAAREAID = 'ass' and DESCRIPTION <> ' ' and DESCRIPTION is not null group by DATAAREAID, ITEMGROUP4, DESCRIPTION order by DATAAREAID, ITEMGROUP4, DESCRIPTION
+	select 'ASCH', 'ASCH-' + ITEMGROUP4, 'ASCH-' + DESCRIPTION from [base_tx_crh_2_dwh].[DIM_ADUASCHWITEMGROUP4] where DATAAREAID = 'ass' and DESCRIPTION <> ' ' and DESCRIPTION is not null group by DATAAREAID, ITEMGROUP4, DESCRIPTION
 
 	-- Ancon D-A-CH
 	delete [intm_axbi].[dim_ITEMGROUP] where DATAAREAID = 'ANAT'
 	insert [intm_axbi].[dim_ITEMGROUP]
-	select 'ANAT', 'ANAT-' + ITEMGROUPID, 'ANAT-' + ItemGroupName from [base_tx_crh_1_stg].[AX_CRH_A_dbo_INVENTTABLE] where DATAAREAID = 'anat' group by ITEMGROUPID, ItemGroupName order by ITEMGROUPID, ItemGroupName
+	select 'ANAT', 'ANAT-' + ITEMGROUPID, 'ANAT-' + ItemGroupName from [base_tx_crh_1_stg].[AX_CRH_A_dbo_INVENTTABLE] where DATAAREAID = 'anat' group by ITEMGROUPID, ItemGroupName
 
 	delete [intm_axbi].[dim_ITEMGROUP] where DATAAREAID = 'ANCH'
 	insert [intm_axbi].[dim_ITEMGROUP]
-	select 'ANCH', 'ANCH-' + ITEMGROUPID, 'ANCH-' + ItemGroupName from [base_tx_crh_1_stg].[AX_CRH_A_dbo_INVENTTABLE] where DATAAREAID = 'anch' group by ITEMGROUPID, ItemGroupName order by ITEMGROUPID, ItemGroupName
+	select 'ANCH', 'ANCH-' + ITEMGROUPID, 'ANCH-' + ItemGroupName from [base_tx_crh_1_stg].[AX_CRH_A_dbo_INVENTTABLE] where DATAAREAID = 'anch' group by ITEMGROUPID, ItemGroupName
 
 	delete [intm_axbi].[dim_ITEMGROUP] where DATAAREAID = 'ANDE'
 	insert [intm_axbi].[dim_ITEMGROUP]
-	select 'ANDE', 'ANDE-' + ITEMGROUPID, 'ANDE-' + ItemGroupName from [base_tx_crh_1_stg].[AX_CRH_A_dbo_INVENTTABLE] where DATAAREAID = 'ande' group by ITEMGROUPID, ItemGroupName order by ITEMGROUPID, ItemGroupName
+	select 'ANDE', 'ANDE-' + ITEMGROUPID, 'ANDE-' + ItemGroupName from [base_tx_crh_1_stg].[AX_CRH_A_dbo_INVENTTABLE] where DATAAREAID = 'ande' group by ITEMGROUPID, ItemGroupName
 
 --out of sprint 32
 /*
 	delete [intm_axbi].[dim_ITEMGROUP] where DATAAREAID = 'ANAC'
 	insert [intm_axbi].[dim_ITEMGROUP]
-	select distinct 'ANAC', 'ANAC-' + CAST(STOCKGROUP as NVARCHAR(2)), 'ANAC-' + GROUPNAME from [dbo].[ITEMTABLE_ANAC$] group by 'ANAC-' + CAST(STOCKGROUP as NVARCHAR(2)), 'ANAC-' + GROUPNAME order by 'ANAC-' + CAST(STOCKGROUP as NVARCHAR(2)), 'ANAC-' + GROUPNAME
+	select distinct 'ANAC', 'ANAC-' + CAST(STOCKGROUP as NVARCHAR(2)), 'ANAC-' + GROUPNAME from [dbo].[ITEMTABLE_ANAC$] group by 'ANAC-' + CAST(STOCKGROUP as NVARCHAR(2)), 'ANAC-' + GROUPNAME
 */
 
 	delete [intm_axbi].[dim_ITEMGROUP] where DATAAREAID = 'ANAU'
