@@ -149,6 +149,10 @@ WHERE
     LEFT(dmINVTBL.[ITEMID],4) <> '9910'
     AND
     dmINVTBL.[HPLSTATISTICGROUPID] <> 'YYYY'
+    AND
+    FINV.DATEFINANCIAL<>'1900-01-01'
+    AND
+    FINV.DATEPHYSICAL<>'1900-01-01'
 ),
 CQtySOInBU AS(
 SELECT 
@@ -403,7 +407,7 @@ LEFT JOIN
         AND
         QtyOICP.[TRANSTYPENAME] = INV.[GoodsMovementTypeName]
 )
-SELECT
+SELECT  DISTINCT
         INV_QTY.[MaterialDocumentYear]
     ,   INV_QTY.[MaterialDocument]
     ,   INV_QTY.[MaterialDocumentItem]
