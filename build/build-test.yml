@@ -146,7 +146,7 @@ jobs:
     inputs:
       command: 'custom'
       workingDir: '$(Build.Repository.LocalPath)/azure-data-factory' #replace with the package.json folder
-      customCommand: 'run build validate $(Build.Repository.LocalPath)/azure-data-factory /subscriptions/f199b488-7d9d-4992-aeda-c10a1e1c9b9e/resourceGroups/rg-xxxx-sls-d-euw-001/providers/Microsoft.DataFactory/factories/df-xxxx-sls-d-euw-001'
+      customCommand: 'run build validate $(Build.Repository.LocalPath)/azure-data-factory /subscriptions/f199b488-7d9d-4992-aeda-c10a1e1c9b9e/resourceGroups/rg-xxxx-sls-d-euw-001/providers/Microsoft.DataFactory/factories/$(dataFactoryName)'
     displayName: 'Validate'
 
     # Validate and then generate the ARM template into the destination folder, which is the same as selecting "Publish" from the UX.
@@ -156,15 +156,15 @@ jobs:
     inputs:
       command: 'custom'
       workingDir: '$(Build.Repository.LocalPath)/azure-data-factory' #replace with the package.json folder
-      customCommand: 'run build export $(Build.Repository.LocalPath)/azure-data-factory /subscriptions/f199b488-7d9d-4992-aeda-c10a1e1c9b9e/resourceGroups/rg-xxxx-sls-d-euw-001/providers/Microsoft.DataFactory/factories/df-xxxx-sls-d-euw-001 "ArmTemplate"'
+      customCommand: 'run build export $(Build.Repository.LocalPath)/azure-data-factory /subscriptions/f199b488-7d9d-4992-aeda-c10a1e1c9b9e/resourceGroups/rg-xxxx-sls-d-euw-001/providers/Microsoft.DataFactory/factories/$(dataFactoryName) "ArmTemplate"'
     displayName: 'Validate and Generate ARM template'
 
   - task: AzurePowerShell@5
     displayName: 'Stop Triggers'
     inputs:
       azureSubscription: 'arm-pipeline'
-      ScriptPath: '$(System.DefaultWorkingDirectory)/$(Release.PrimaryArtifactSourceAlias)/ArmTemplates/PrePostDeploymentScript.ps1'
-      ScriptArguments: '-armTemplate "$(System.DefaultWorkingDirectory)/$(Release.PrimaryArtifactSourceAlias)/ArmTemplates/ARMTemplateForFactory.json" -ResourceGroupName $(resourceGroupName) -DataFactoryName $(dataFactoryName) -predeployment $true -deleteDeployment $false'
+      ScriptPath: '$(Build.Repository.LocalPath)/azure-data-factory/ArmTemplate/PrePostDeploymentScript.ps1'
+      ScriptArguments: '-armTemplate "$(Build.Repository.LocalPath)/azure-data-factory/ArmTemplate/ARMTemplateForFactory.json" -ResourceGroupName $(resourceGroupName) -DataFactoryName $(dataFactoryName) -predeployment $true -deleteDeployment $false'
       azurePowerShellVersion: LatestVersion
       pwsh: true
 
@@ -172,8 +172,8 @@ jobs:
     displayName: 'Azure PowerShell script: FilePath'
     inputs:
       azureSubscription: 'arm-pipeline'
-      ScriptPath: '$(System.DefaultWorkingDirectory)/$(Release.PrimaryArtifactSourceAlias)/ArmTemplates/GlobalParametersUpdateScript.ps1'
-      ScriptArguments: '-globalParametersFilePath $(System.DefaultWorkingDirectory)/$(Release.PrimaryArtifactSourceAlias)/GlobalParameters/dev_GlobalParameters.json -resourceGroupName $(resourceGroupName) -dataFactoryName $(dataFactoryName)'
+      ScriptPath: '$(Build.Repository.LocalPath)/azure-data-factory/ArmTemplate/GlobalParametersUpdateScript.ps1'
+      ScriptArguments: '-globalParametersFilePath $(Build.Repository.LocalPath)/azure-data-factory/GlobalParameters/dev_GlobalParameters.json -resourceGroupName $(resourceGroupName) -dataFactoryName $(dataFactoryName)'
       azurePowerShellVersion: LatestVersion
       pwsh: true
     
@@ -184,16 +184,16 @@ jobs:
       subscriptionId: 'f199b488-7d9d-4992-aeda-c10a1e1c9b9e'
       resourceGroupName: '$(resourceGroupName)'
       location: 'West Europe'
-      csmFile: '$(System.DefaultWorkingDirectory)/$(Release.PrimaryArtifactSourceAlias)/ArmTemplates/ARMTemplateForFactory.json'
-      csmParametersFile: '$(System.DefaultWorkingDirectory)/$(Release.PrimaryArtifactSourceAlias)/ArmTemplates/ARMTemplateParametersForFactory.json'
+      csmFile: '$(Build.Repository.LocalPath)/azure-data-factory/ArmTemplate/ARMTemplateForFactory.json'
+      csmParametersFile: '$(Build.Repository.LocalPath)/azure-data-factory/ArmTemplate/ARMTemplateParametersForFactory.json'
       overrideParameters: '-ls_ws_xxxx_sls_x_euw_001_ondemand__synapse_od_connectionString "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=$(synapseServer)-ondemand.sql.azuresynapse.net;Initial Catalog=synapse_od" -ls_ws_xxxx_sls_x_euw_001_ondemand__master_connectionString "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=$(synapseServer)-ondemand.sql.azuresynapse.net;Initial Catalog=master" -ls_ws_xxxx_sls_x_euw_001__syndw_xxxx_sls_x_euw_001_connectionString "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=$(synapseServer);Initial Catalog=$(synapseDatabase)" -ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001_connectionString "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=$(sqlServer);Initial Catalog=$(sqlDatabase)" -ls_axbi_x_TimeXtender__master_connectionString "Integrated Security=False;Data Source=$(axbiServer);Initial Catalog=master;User ID=JustBI" -factoryName "$(dataFactoryName)" -ls_kv_xxxx_sls_x_euw_001_properties_typeProperties_baseUrl "https://$(keyVaultName).vault.azure.net/" -stxxxxslsxeuw001_properties_typeProperties_url "https://$(storageAccountName).dfs.core.windows.net/" -tr_AutoPauseSynDW_properties_pl_SYNDW_pause_parameters_SynapseServerName "$(synapseServer)" -tr_AutoPauseSynDW_properties_pl_SYNDW_pause_parameters_SynapseDatabaseName "$(synapseDatabase)" -tr_AutoPauseSynDW_properties_pl_SYNDW_pause_parameters_ResourceGroupName "$(resourceGroupName)" -tr_OrchDB_Update_properties_typeProperties_scope "/subscriptions/f199b488-7d9d-4992-aeda-c10a1e1c9b9e/resourceGroups/$(resourceGroupName)/providers/Microsoft.Storage/storageAccounts/$(storageAccountName)" -ir-WEXLEVAPP001_properties_typeProperties_linkedInfo_resourceId "$(SHIRResourceId)" -ls_c4c_my354744_properties_typeProperties_url "$(sapC4Curl)"'
   
   - task: AzurePowerShell@5
     displayName: 'Start Triggers'
     inputs:
       azureSubscription: 'arm-pipeline'
-      ScriptPath: '$(System.DefaultWorkingDirectory)/$(Release.PrimaryArtifactSourceAlias)/ArmTemplates/PrePostDeploymentScript.ps1'
-      ScriptArguments: '-armTemplate "$(System.DefaultWorkingDirectory)/$(Release.PrimaryArtifactSourceAlias)/ArmTemplates/ARMTemplateForFactory.json" -ResourceGroupName $(resourceGroupName) -DataFactoryName $(dataFactoryName) -predeployment $false -deleteDeployment $true'
+      ScriptPath: '$(Build.Repository.LocalPath)/azure-data-factory/ArmTemplate/PrePostDeploymentScript.ps1'
+      ScriptArguments: '-armTemplate "$(Build.Repository.LocalPath)/azure-data-factory/ArmTemplate/ARMTemplateForFactory.json" -ResourceGroupName $(resourceGroupName) -DataFactoryName $(dataFactoryName) -predeployment $false -deleteDeployment $true'
       azurePowerShellVersion: LatestVersion
       pwsh: true
 
