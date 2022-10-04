@@ -127,7 +127,7 @@ jobs:
   - task: AzureKeyVault@2
     inputs:
       azureSubscription: 'Leviat-we-sub-01 (f199b488-7d9d-4992-aeda-c10a1e1c9b9e)'
-      KeyVaultName: 'kv-xxxx-sls-d-euw-001'
+      KeyVaultName: '$(keyVaultName)'
       SecretsFilter: '*'
       RunAsPreJob: true
   
