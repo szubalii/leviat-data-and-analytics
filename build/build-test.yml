@@ -114,7 +114,7 @@ jobs:
   # Azure Data Factory Build & Deploy Job
 - job: ADF
   dependsOn: 
-  - OrchDB
+  # - OrchDB
   - StartVM
   pool:
     name: 'VM'
