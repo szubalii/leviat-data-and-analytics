@@ -990,18 +990,19 @@
     <Build Include="base_tx_crh_2_dwh\Tables\FACT_SALESLINE.sql" />
     <Build Include="Security\Schemas\base_tx_crh_2_dwh.sql" />
     <Build Include="intm_axbi\Stored Procedures\up_ReadSales_ANAH.sql" />
-	<Build Include="intm_axbi\Stored Procedures\up_ReadSales_ANAU.sql" />
-	<Build Include="intm_axbi\Stored Procedures\up_ReadSales_ANDE.sql" />
+    <Build Include="intm_axbi\Stored Procedures\up_ReadSales_ANAU.sql" />
+    <Build Include="intm_axbi\Stored Procedures\up_ReadSales_ANDE.sql" />
     <Build Include="intm_axbi\Stored Procedures\up_ReadSales_ANNZ.sql" />
     <Build Include="intm_axbi\Stored Procedures\up_ReadSales_HALF.sql" />
-	<Build Include="intm_axbi\Stored Procedures\up_ReadSales_PLAKA_BE.sql" />
-	<Build Include="intm_axbi\Stored Procedures\up_ReadSales_PLAKA_FR.sql" />
+    <Build Include="intm_axbi\Stored Procedures\up_ReadSales_PLAKA_BE.sql" />
+    <Build Include="intm_axbi\Stored Procedures\up_ReadSales_PLAKA_FR.sql" />
     <Build Include="intm_axbi\Functions\uf_get_CashDiscPct.sql" />
     <Build Include="intm_axbi\Stored Procedures\up_CUSTINVOICETRANS_Werte_nach_CRH_Kurs_umrechnen.sql" />
     <Build Include="base_tx_crh_1_stg\Tables\AX_CRH_A_dbo_CUSTTABLE.sql" />
-	<Build Include="intm_axbi\Stored Procedures\up_createAxBiBasicData.sql" />
+    <Build Include="intm_axbi\Stored Procedures\up_createAxBiBasicData.sql" />
     <Build Include="intm_axbi\Stored Procedures\up_CollectSales_CA.sql" />
-	<Build Include="dm_sales\Views\vw_dim_MaterialGroup.sql" />
+    <Build Include="dm_sales\Views\vw_dim_MaterialGroup.sql" />
+    <Build Include="base_s4h_cax\Tables\I_ProductValuationCosting.sql" />       
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PostDeploy Include="Scripts\Post-Deploy\Script.PostDeployment.sql" />
