@@ -3757,6 +3757,18 @@
         "base_table_name": "I_BankAccountText",
         "pk_field_names": "MANDT,BANKACCOUNTINTERNALID,LANGUAGE",
         "schedule_recurrence": "A"
+      },
+      {
+        "entity_id": 525,
+        "entity_name": "I_ProductValuationCosting",
+        "data_category": "TEXT",
+        "client_field": "MANDT",
+        "tool_name": "Theobald",
+        "extraction_type": "Table",
+        "update_mode": "Full",
+        "base_table_name": "I_ProductValuationCosting",
+        "pk_field_names": "MANDT,PRODUCT,VALUATIONAREA,VALUATIONTYPE",
+        "schedule_recurrence": "A"
       }
 
     ]
