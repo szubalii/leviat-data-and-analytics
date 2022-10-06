@@ -4,20 +4,18 @@
 -- Description:	<Ermitteln Sales France>
 -- =============================================
 --
-CREATE PROCEDURE [intm_axbi].[up_ReadSales_PLAKA_FR] 
+ALTER PROCEDURE [intm_axbi].[up_ReadSales_PLAKA_FR] 
 	-- Add the parameters for the stored procedure here
 (
 	@P_Year smallint,
 	@P_Month tinyint,
-	@P_DelNotInv nvarchar(1),
-	@lTecDlvNotInv datetime
+	@P_DelNotInv nvarchar(1)
 )
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
-
 
     -- Insert statements for procedure here
 
@@ -54,9 +52,41 @@ BEGIN
 			ORDER BY DATAAREAID, INVOICEID, ORIGSALESID, INVENTTRANSID, LINENUM ) RowNumber
 		FROM #inventtrans_PLFR
 	)
-	DELETE FROM CTE_inventtrans WHERE RowNumber > 1
+	DELETE FROM #inventtrans_PLFR
+	where exists (select * from 
+	CTE_inventtrans c inner join #inventtrans_PLFR i
+	on c.DATAAREAID=i.DATAAREAID
+	and c.INVOICEID=i.INVOICEID
+	and c.ORIGSALESID=i.ORIGSALESID
+	and c.INVENTTRANSID=i.INVENTTRANSID
+	and c.INVOICEID=i.INVOICEID
+	WHERE RowNumber > 1)
 
+	--insert main sales
 	insert [intm_axbi].[fact_CUSTINVOICETRANS]
+	(DATAAREAID
+    ,SALESID
+    ,INVOICEID
+    ,LINENUM
+    ,INVENTTRANSID
+    ,ACCOUNTINGDATE
+    ,CUSTOMERNO
+    ,ITEMID
+    ,DELIVERYCOUNTRYID
+    ,PACKINGSLIPID
+    ,QTY
+    ,PRODUCTSALESLOCAL
+    ,PRODUCTSALESEUR
+    ,OTHERSALESLOCAL
+    ,OTHERSALESEUR
+    ,ALLOWANCESLOCAL
+    ,ALLOWANCESEUR
+    ,SALES100LOCAL
+    ,SALES100EUR
+    ,FREIGHTLOCAL
+    ,FREIGHTEUR
+    ,COSTAMOUNTLOCAL
+    ,COSTAMOUNTEUR)
 	select
 	'PLFR',
 	t.ORIGSALESID,
@@ -64,9 +94,9 @@ BEGIN
 	t.LINENUM,
 	ISNULL(t.INVENTTRANSID,' '),
 	i.DATEFINANCIAL,
-	'PLFR-' + j.orderaccount,
+	'PLFR-' + j.ORDERACCOUNT,
 	'PLFR-' + t.ITEMID,
-	ISNULL(t.dlvcountryregionid,' '),
+	ISNULL(t.DLVCOUNTRYREGIONID,' '),
 	ISNULL(i.PACKINGSLIPID,' '),
 	t.QTY,
 	t.LINEAMOUNTMST,
@@ -78,26 +108,26 @@ BEGIN
 	0, -- Sales 100 für PLAKA FR später addieren
 	0,
 	case
-	when t.dimension = 'SFCA' then ISNULL(t.LINEAMOUNTMST * 0.080,0) * (-1)
-	when t.dimension = 'SFLI' then ISNULL(t.LINEAMOUNTMST * 0.077,0) * (-1)
-	when t.dimension = 'SFLY' then ISNULL(t.LINEAMOUNTMST * 0.080,0) * (-1)
-	when t.dimension = 'SFNA' then ISNULL(t.LINEAMOUNTMST * 0.077,0) * (-1)
-	when t.dimension = 'SFPA' then ISNULL(t.LINEAMOUNTMST * 0.056,0) * (-1)
-	when t.dimension = 'SFRO' then ISNULL(t.LINEAMOUNTMST * 0.077,0) * (-1)
-	when t.dimension = 'SFTL' then ISNULL(t.LINEAMOUNTMST * 0.061,0) * (-1)
-	when t.dimension = 'SFTO' then ISNULL(t.LINEAMOUNTMST * 0.078,0) * (-1)
+	when t.DIMENSION = 'SFCA' then ISNULL(t.LINEAMOUNTMST * 0.080,0) * (-1)
+	when t.DIMENSION = 'SFLI' then ISNULL(t.LINEAMOUNTMST * 0.077,0) * (-1)
+	when t.DIMENSION = 'SFLY' then ISNULL(t.LINEAMOUNTMST * 0.080,0) * (-1)
+	when t.DIMENSION = 'SFNA' then ISNULL(t.LINEAMOUNTMST * 0.077,0) * (-1)
+	when t.DIMENSION = 'SFPA' then ISNULL(t.LINEAMOUNTMST * 0.056,0) * (-1)
+	when t.DIMENSION = 'SFRO' then ISNULL(t.LINEAMOUNTMST * 0.077,0) * (-1)
+	when t.DIMENSION = 'SFTL' then ISNULL(t.LINEAMOUNTMST * 0.061,0) * (-1)
+	when t.DIMENSION = 'SFTO' then ISNULL(t.LINEAMOUNTMST * 0.078,0) * (-1)
 	else
 	ISNULL(t.LINEAMOUNTMST * 0.068,0) * (-1)
 	end,
 	case
-	when t.dimension = 'SFCA' then ISNULL(t.LINEAMOUNTMST * 0.080,0) * (-1)
-	when t.dimension = 'SFLI' then ISNULL(t.LINEAMOUNTMST * 0.077,0) * (-1)
-	when t.dimension = 'SFLY' then ISNULL(t.LINEAMOUNTMST * 0.080,0) * (-1)
-	when t.dimension = 'SFNA' then ISNULL(t.LINEAMOUNTMST * 0.077,0) * (-1)
-	when t.dimension = 'SFPA' then ISNULL(t.LINEAMOUNTMST * 0.056,0) * (-1)
-	when t.dimension = 'SFRO' then ISNULL(t.LINEAMOUNTMST * 0.077,0) * (-1)
-	when t.dimension = 'SFTL' then ISNULL(t.LINEAMOUNTMST * 0.061,0) * (-1)
-	when t.dimension = 'SFTO' then ISNULL(t.LINEAMOUNTMST * 0.078,0) * (-1)
+	when t.DIMENSION = 'SFCA' then ISNULL(t.LINEAMOUNTMST * 0.080,0) * (-1)
+	when t.DIMENSION = 'SFLI' then ISNULL(t.LINEAMOUNTMST * 0.077,0) * (-1)
+	when t.DIMENSION = 'SFLY' then ISNULL(t.LINEAMOUNTMST * 0.080,0) * (-1)
+	when t.DIMENSION = 'SFNA' then ISNULL(t.LINEAMOUNTMST * 0.077,0) * (-1)
+	when t.DIMENSION = 'SFPA' then ISNULL(t.LINEAMOUNTMST * 0.056,0) * (-1)
+	when t.DIMENSION = 'SFRO' then ISNULL(t.LINEAMOUNTMST * 0.077,0) * (-1)
+	when t.DIMENSION = 'SFTL' then ISNULL(t.LINEAMOUNTMST * 0.061,0) * (-1)
+	when t.DIMENSION = 'SFTO' then ISNULL(t.LINEAMOUNTMST * 0.078,0) * (-1)
 	else
 	ISNULL(t.LINEAMOUNTMST * 0.068,0) * (-1)
 	end,
@@ -124,13 +154,6 @@ BEGIN
 	Begin
 
 	-- Erster Wochentag des Monats lesen; für nicht fakturierte Lieferscheine aus den Vormonaten, das ACCOUNTINGDATE auf den ersten Tag des aktuellen Monats legen  
-	select @lTecDlvNotInv = CALENDARDATE 
-	from [base_dw_halfen_0_hlp].[CALENDAR] 
-	where DATAAREAID = '5300' 
-	and YEAR = @P_Year 
-	and MONTH = @P_Month 
-	and DATEFLAG = 'W' 
-	and WORKDAY_ACT = 1
 
 	Select 
 	i.DATAAREAID as DATAAREAID, 
@@ -141,9 +164,9 @@ BEGIN
 	i.DATEPHYSICAL as DATEPHYSICAL, 
 	i.INVOICEACCOUNT as INVOICEACCOUNT, 
 	i.ITEMID as ITEMID,
-	a.DELIVERYCOUNTRYREGIONID as deliverycountryregionid,  
+	a.DELIVERYCOUNTRYREGIONID as DELIVERYCOUNTRYREGIONID,  
 	i.PACKINGSLIPID as PACKINGSLIPID, 
-	i.Dimension as dimension,
+	i.Dimension as DIMENSION,
 	sum(i.QTY) * (-1) as QTY, 
 	sum(i.ValueCalc) as PRODUCTSALESLOCAL, 
 	sum(i.CostAmount) as CostAmount 
@@ -160,16 +183,40 @@ BEGIN
 	group by i.DATAAREAID, a.SALESID, i.INVENTTRANSID, i.DATEPHYSICAL, i.INVOICEACCOUNT, i.ITEMID, a.DELIVERYCOUNTRYREGIONID, i.PACKINGSLIPID, i.Dimension
 
 	insert [intm_axbi].[fact_CUSTINVOICETRANS]
+	(DATAAREAID
+    ,SALESID
+    ,INVOICEID
+    ,LINENUM
+    ,INVENTTRANSID
+    ,ACCOUNTINGDATE
+    ,CUSTOMERNO
+    ,ITEMID
+    ,DELIVERYCOUNTRYID
+    ,PACKINGSLIPID
+    ,QTY
+    ,PRODUCTSALESLOCAL
+    ,PRODUCTSALESEUR
+    ,OTHERSALESLOCAL
+    ,OTHERSALESEUR
+    ,ALLOWANCESLOCAL
+    ,ALLOWANCESEUR
+    ,SALES100LOCAL
+    ,SALES100EUR
+    ,FREIGHTLOCAL
+    ,FREIGHTEUR
+    ,COSTAMOUNTLOCAL
+    ,COSTAMOUNTEUR)
 	select
 	'PLFR',
 	SALESID,
 	INVOICEID,
 	LINENUM,
 	ISNULL(INVENTTRANSID,' '),
-	case when DATEPHYSICAL < @lTecDlvNotInv then @lTecDlvNotInv else DATEPHYSICAL end, -- für nicht fakturierte Lieferscheine aus den Vormonaten, das ACCOUNTINGDATE auf den ersten Tag des aktuellen Monats legen, sonst das Lieferdatum
+	case when DATEPHYSICAL < (select CALENDARDATE from [base_dw_halfen_0_hlp].[CALENDAR] where DATAAREAID = '5300' and YEAR = @P_Year and MONTH = @P_Month and DATEFLAG = 'W' and WORKDAY_ACT = 1)
+	then (select CALENDARDATE from [base_dw_halfen_0_hlp].[CALENDAR] where DATAAREAID = '5300' and YEAR = @P_Year and MONTH = @P_Month and DATEFLAG = 'W' and WORKDAY_ACT = 1) else DATEPHYSICAL end, -- für nicht fakturierte Lieferscheine aus den Vormonaten, das ACCOUNTINGDATE auf den ersten Tag des aktuellen Monats legen, sonst das Lieferdatum
 	'PLFR-' + INVOICEACCOUNT,
 	'PLFR-' + ITEMID,
-	ISNULL(deliverycountryregionid,' '),
+	ISNULL(DELIVERYCOUNTRYREGIONID,' '),
 	ISNULL(PACKINGSLIPID,' '),
 	QTY,
 	PRODUCTSALESLOCAL,
@@ -181,26 +228,26 @@ BEGIN
 	0, -- Sales 100 für PLAKA FR später addieren
 	0,
 	case
-	when dimension = 'SFCA' then ISNULL(PRODUCTSALESLOCAL * 0.080,0) * (-1)
-	when dimension = 'SFLI' then ISNULL(PRODUCTSALESLOCAL * 0.077,0) * (-1)
-	when dimension = 'SFLY' then ISNULL(PRODUCTSALESLOCAL * 0.080,0) * (-1)
-	when dimension = 'SFNA' then ISNULL(PRODUCTSALESLOCAL * 0.077,0) * (-1)
-	when dimension = 'SFPA' then ISNULL(PRODUCTSALESLOCAL * 0.056,0) * (-1)
-	when dimension = 'SFRO' then ISNULL(PRODUCTSALESLOCAL * 0.077,0) * (-1)
-	when dimension = 'SFTL' then ISNULL(PRODUCTSALESLOCAL * 0.061,0) * (-1)
-	when dimension = 'SFTO' then ISNULL(PRODUCTSALESLOCAL * 0.078,0) * (-1)
+	when DIMENSION = 'SFCA' then ISNULL(PRODUCTSALESLOCAL * 0.080,0) * (-1)
+	when DIMENSION = 'SFLI' then ISNULL(PRODUCTSALESLOCAL * 0.077,0) * (-1)
+	when DIMENSION = 'SFLY' then ISNULL(PRODUCTSALESLOCAL * 0.080,0) * (-1)
+	when DIMENSION = 'SFNA' then ISNULL(PRODUCTSALESLOCAL * 0.077,0) * (-1)
+	when DIMENSION = 'SFPA' then ISNULL(PRODUCTSALESLOCAL * 0.056,0) * (-1)
+	when DIMENSION = 'SFRO' then ISNULL(PRODUCTSALESLOCAL * 0.077,0) * (-1)
+	when DIMENSION = 'SFTL' then ISNULL(PRODUCTSALESLOCAL * 0.061,0) * (-1)
+	when DIMENSION = 'SFTO' then ISNULL(PRODUCTSALESLOCAL * 0.078,0) * (-1)
 	else
 	ISNULL(PRODUCTSALESLOCAL * 0.068,0) * (-1)
 	end,
 	case
-	when dimension = 'SFCA' then ISNULL(PRODUCTSALESLOCAL * 0.080,0) * (-1)
-	when dimension = 'SFLI' then ISNULL(PRODUCTSALESLOCAL * 0.077,0) * (-1)
-	when dimension = 'SFLY' then ISNULL(PRODUCTSALESLOCAL * 0.080,0) * (-1)
-	when dimension = 'SFNA' then ISNULL(PRODUCTSALESLOCAL * 0.077,0) * (-1)
-	when dimension = 'SFPA' then ISNULL(PRODUCTSALESLOCAL * 0.056,0) * (-1)
-	when dimension = 'SFRO' then ISNULL(PRODUCTSALESLOCAL * 0.077,0) * (-1)
-	when dimension = 'SFTL' then ISNULL(PRODUCTSALESLOCAL * 0.061,0) * (-1)
-	when dimension = 'SFTO' then ISNULL(PRODUCTSALESLOCAL * 0.078,0) * (-1)
+	when DIMENSION = 'SFCA' then ISNULL(PRODUCTSALESLOCAL * 0.080,0) * (-1)
+	when DIMENSION = 'SFLI' then ISNULL(PRODUCTSALESLOCAL * 0.077,0) * (-1)
+	when DIMENSION = 'SFLY' then ISNULL(PRODUCTSALESLOCAL * 0.080,0) * (-1)
+	when DIMENSION = 'SFNA' then ISNULL(PRODUCTSALESLOCAL * 0.077,0) * (-1)
+	when DIMENSION = 'SFPA' then ISNULL(PRODUCTSALESLOCAL * 0.056,0) * (-1)
+	when DIMENSION = 'SFRO' then ISNULL(PRODUCTSALESLOCAL * 0.077,0) * (-1)
+	when DIMENSION = 'SFTL' then ISNULL(PRODUCTSALESLOCAL * 0.061,0) * (-1)
+	when DIMENSION = 'SFTO' then ISNULL(PRODUCTSALESLOCAL * 0.078,0) * (-1)
 	else
 	ISNULL(PRODUCTSALESLOCAL * 0.068,0) * (-1)
 	end,
@@ -212,6 +259,29 @@ BEGIN
 	-- PLAKA Verpackungsartikel MB15066 nach OtherSales übertragen 
 
 	insert [intm_axbi].[fact_CUSTINVOICETRANS]
+		(DATAAREAID
+        ,SALESID
+        ,INVOICEID
+        ,LINENUM
+        ,INVENTTRANSID
+        ,ACCOUNTINGDATE
+        ,CUSTOMERNO
+        ,ITEMID
+        ,DELIVERYCOUNTRYID
+        ,PACKINGSLIPID
+        ,QTY
+        ,PRODUCTSALESLOCAL
+        ,PRODUCTSALESEUR
+        ,OTHERSALESLOCAL
+        ,OTHERSALESEUR
+        ,ALLOWANCESLOCAL
+        ,ALLOWANCESEUR
+        ,SALES100LOCAL
+        ,SALES100EUR
+        ,FREIGHTLOCAL
+        ,FREIGHTEUR
+        ,COSTAMOUNTLOCAL
+        ,COSTAMOUNTEUR)
 	select
 	'PLFR',
 	t.ORIGSALESID,
@@ -219,9 +289,9 @@ BEGIN
 	t.LINENUM,
 	ISNULL(t.INVENTTRANSID,' '),
 	i.DATEFINANCIAL,
-	'PLFR-' + j.orderaccount,
+	'PLFR-' + j.ORDERACCOUNT,
 	'PLFR-' + t.ITEMID,
-	ISNULL(t.dlvcountryregionid,' '),
+	ISNULL(t.DLVCOUNTRYREGIONID,' '),
 	ISNULL(i.PACKINGSLIPID,' '),
 	t.QTY,
 	0,
@@ -655,19 +725,19 @@ BEGIN
 	and datepart(MM, i.ACCOUNTINGDATE) = @P_Month
 
 	-- other sales
-	select 'PLFR',
-	t.ORIGSALESID,
-	t.INVOICEID,
-	t.LINENUM,
-	ISNULL(t.INVENTTRANSID,' '),
-	i.DATEFINANCIAL,
-	j.orderaccount,
-	t.ITEMID,
-	ISNULL(t.dlvcountryregionid,' '),
-	ISNULL(i.PACKINGSLIPID,' '),
-	t.QTY,
+	select 'PLFR' as DATAAREAID,
+	t.ORIGSALESID as SALESID,
+	t.INVOICEID as INVOICEID,
+	t.LINENUM as LINENUM,
+	ISNULL(t.INVENTTRANSID,' ') as INVENTTRANSID,
+	i.DATEFINANCIAL as ACCOUNTINGDATE,
+	j.ORDERACCOUNT as CUSTOMERNO,
+	t.ITEMID as ITEMID,
+	ISNULL(t.DLVCOUNTRYREGIONID,' ') as DELIVERYCOUNTRYID,
+	ISNULL(i.PACKINGSLIPID,' ') as PACKINGSLIPID,
+	t.QTY as QTY,
 	t.LINEAMOUNTMST LINEAMOUNTMST_OS,
-	count(t.invoiceid) over (partition by t.invoiceid) cnt_inv
+	count(t.INVOICEID) over (partition by t.INVOICEID) cnt_inv
 	into #inventtrans_PLFR_OS
 	from [base_tx_crh_2_dwh].[FACT_CUSTINVOICETRANS] as t
 	inner join [base_tx_crh_2_dwh].[DIM_CUSTINVOICEJOUR] as j
@@ -688,26 +758,27 @@ BEGIN
 
 	--salesbalance calculation
 	select 
-	t.invoiceid,
-	ISNULL(sum(t.productsaleslocal),0) salesbalance,
+	t.INVOICEID,
+	ISNULL(sum(t.PRODUCTSALESLOCAL),0) salesbalance,
 	count(*) lcounter
-	into #inventtrans_PLBE_SB
+	into #inventtrans_PLFR_SB
 	from [intm_axbi].[fact_CUSTINVOICETRANS] as t
 	inner join [intm_axbi].[dim_ITEMTABLE] as g
 	on t.DATAAREAID = g.DATAAREAID and
 	t.ITEMID = g.ITEMID
 	inner join #inventtrans_PLFR_OS os
-	on t.invoiceid COLLATE DATABASE_DEFAULT= os.invoiceid COLLATE DATABASE_DEFAULT
+	on t.INVOICEID COLLATE DATABASE_DEFAULT= os.INVOICEID COLLATE DATABASE_DEFAULT
 	where t.DATAAREAID = 'PLFR' 
 	and g.ITEMGROUPID <> 'PLFR-EL'
+	group by t.INVOICEID
 
 
 --lineamountmst sum calculation
-	select invoiceid,
-	sum(lineamountmst_os) lineamountmst_os_sum
+	select INVOICEID,
+	sum(LINEAMOUNTMST_OS) lineamountmst_os_sum
 	into #inventtrans_PLFR_LA
 	from #inventtrans_PLFR_OS
-	group by invoiceid
+	group by INVOICEID
 
 	
 	--update #1
@@ -718,15 +789,15 @@ from [intm_axbi].[fact_CUSTINVOICETRANS] as t
  inner join [intm_axbi].[dim_ITEMTABLE] as g
 on t.DATAAREAID = g.DATAAREAID and
    t.ITEMID     = g.ITEMID 
-inner join #inventtrans_ANAH_OS os
-on t.invoiceid  COLLATE DATABASE_DEFAULT= os.invoiceid  COLLATE DATABASE_DEFAULT
-inner join #inventtrans_ANAH_SB sb
+inner join #inventtrans_PLFR_OS os
+on t.INVOICEID  COLLATE DATABASE_DEFAULT= os.INVOICEID  COLLATE DATABASE_DEFAULT
+inner join #inventtrans_PLFR_SB sb
 on t.INVOICEID COLLATE DATABASE_DEFAULT=sb.INVOICEID COLLATE DATABASE_DEFAULT
-inner join #inventtrans_ANNZ_LA la
-on t.invoiceid COLLATE DATABASE_DEFAULT=la.invoiceid COLLATE DATABASE_DEFAULT
+inner join #inventtrans_PLFR_LA la
+on t.INVOICEID COLLATE DATABASE_DEFAULT=la.INVOICEID COLLATE DATABASE_DEFAULT
 where t.DATAAREAID = 'PLFR' 
 and datepart(YYYY, t.ACCOUNTINGDATE) = @P_Year 
-and datepart(MM, t.ACCOUNTINGDATE) = @P_Month 
+and datepart(MM, t.ACCOUNTINGDATE) = @P_Month
 and g.ITEMGROUPID <> 'PLFR-EL'
 and sb.salesbalance<>0
 
@@ -739,10 +810,10 @@ from [intm_axbi].[fact_CUSTINVOICETRANS] as t
 inner join [intm_axbi].[dim_ITEMTABLE] as g
 on t.DATAAREAID = g.DATAAREAID and
 t.ITEMID = g.ITEMID  
-inner join #inventtrans_ANAH_SB sb
+inner join #inventtrans_PLFR_SB sb
 on t.INVOICEID COLLATE DATABASE_DEFAULT=sb.INVOICEID COLLATE DATABASE_DEFAULT
-inner join #inventtrans_ANNZ_LA la
-on t.invoiceid COLLATE DATABASE_DEFAULT=la.invoiceid COLLATE DATABASE_DEFAULT
+inner join #inventtrans_PLFR_LA la
+on t.INVOICEID COLLATE DATABASE_DEFAULT=la.INVOICEID COLLATE DATABASE_DEFAULT
 where t.DATAAREAID = 'PLFR' 
 and datepart(YYYY, t.ACCOUNTINGDATE) = @P_Year 
 and datepart(MM, t.ACCOUNTINGDATE) = @P_Month 
@@ -753,6 +824,29 @@ and salesbalance = 0
 
 --insert for other sales
 insert [intm_axbi].[fact_CUSTINVOICETRANS]
+   (DATAAREAID
+   ,SALESID
+   ,INVOICEID
+   ,LINENUM
+   ,INVENTTRANSID
+   ,ACCOUNTINGDATE
+   ,CUSTOMERNO
+   ,ITEMID
+   ,DELIVERYCOUNTRYID
+   ,PACKINGSLIPID
+   ,QTY
+   ,PRODUCTSALESLOCAL
+   ,PRODUCTSALESEUR
+   ,OTHERSALESLOCAL
+   ,OTHERSALESEUR
+   ,ALLOWANCESLOCAL
+   ,ALLOWANCESEUR
+   ,SALES100LOCAL
+   ,SALES100EUR
+   ,FREIGHTLOCAL
+   ,FREIGHTEUR
+   ,COSTAMOUNTLOCAL
+   ,COSTAMOUNTEUR)
 	select
 	DATAAREAID,
 	SALESID,
@@ -767,8 +861,8 @@ insert [intm_axbi].[fact_CUSTINVOICETRANS]
 	QTY,
 	0,
 	0,
-	lineamountmst_os,
-	lineamountmst_os,
+	LINEAMOUNTMST_OS,
+	LINEAMOUNTMST_OS,
 	0,
 	0,
 	0,
@@ -778,7 +872,15 @@ insert [intm_axbi].[fact_CUSTINVOICETRANS]
 	0,
 	0
 	from #inventtrans_PLFR_OS
-	where invoiceid COLLATE DATABASE_DEFAULT not in (select invoiceid from [intm_axbi].[fact_CUSTINVOICETRANS])
+	where INVOICEID COLLATE DATABASE_DEFAULT not in 
+	(select t.INVOICEID from [intm_axbi].[fact_CUSTINVOICETRANS] as t
+     inner join [intm_axbi].[dim_ITEMTABLE] as g
+     on t.DATAAREAID = g.DATAAREAID and
+     t.ITEMID = g.ITEMID  
+	 where t.DATAAREAID = 'PLFR' 
+     and datepart(YYYY, t.ACCOUNTINGDATE) = @P_Year 
+     and datepart(MM, t.ACCOUNTINGDATE) = @P_Month 
+     and g.ITEMGROUPID <> 'PLFR-EL')
 
 
 	-- SALES100 aufbauen
@@ -790,4 +892,12 @@ insert [intm_axbi].[fact_CUSTINVOICETRANS]
 	on c.DATAAREAID = i.DATAAREAID and
 	   c.ACCOUNTNUM = i.CUSTOMERNO
 	where c.DATAAREAID = 'PLFR' and datepart(YYYY, i.ACCOUNTINGDATE) = @P_Year and datepart(MM, i.ACCOUNTINGDATE) = @P_Month
+
+	--drop temp tables
+drop table #inventtrans_PLFR
+drop table #inventtrans_PLFR_OS
+drop table #inventtrans_PLFR_SB
+drop table #inventtrans_PLFR_LA
+drop table #cust_delivered_not_invoiced_PLFR
+
 END

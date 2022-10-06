@@ -1,4 +1,10 @@
-﻿CREATE PROCEDURE [intm_axbi].[up_ReadSales_ANDE] 
+﻿-- =============================================
+-- Author:		<Kallnik, Erich>
+-- Create date: <08.08.2019>
+-- Description:	<Ermitteln <Umsatz für Ancon Germany>
+-- =============================================
+--
+ALTER PROCEDURE [intm_axbi].[up_ReadSales_ANDE] 
 	-- Add the parameters for the stored procedure here
 (
 	@P_Year smallint,
@@ -13,9 +19,8 @@ BEGIN
 --clear the table for reporting date
 delete from [intm_axbi].[fact_CUSTINVOICETRANS]
 where DATAAREAID = 'ANDE' 
-and datepart(YYYY, ACCOUNTINGDATE) = @P_Year 
+and datepart(YYYY, ACCOUNTINGDATE) = @P_Year
 and datepart(MM, ACCOUNTINGDATE) = @P_Month
-
 
 --create a temp table with all invoices for reporting period
 Select 
@@ -37,7 +42,7 @@ inner join [base_tx_crh_1_stg].[AX_CRH_A_dbo_INVENTTRANS] as i
    and t.INVOICEID = i.INVOICEID 
    and t.INVENTTRANSID = i.INVENTTRANSID
 	where t.DATAAREAID = 'ande' 
-	and Datepart(yyyy, i.DATEFINANCIAL) = @P_Year 
+	and Datepart(yyyy, i.DATEFINANCIAL) = @P_Year
 	and Datepart(mm, i.DATEFINANCIAL) = @P_Month
 	group by t.DATAAREAID, t.INVOICEID, t.ORIGSALESID, t.INVENTTRANSID, t.LINENUM, i.DATEFINANCIAL, i.PACKINGSLIPID;
 
@@ -45,38 +50,69 @@ inner join [base_tx_crh_1_stg].[AX_CRH_A_dbo_INVENTTRANS] as i
 --remove duplicates, non-determenistic set
 	WITH CTE_inventtrans AS
 	(
-		SELECT dataareaid, invoiceid, origsalesid, inventtransid, linenum, ROW_NUMBER() 
-		OVER(PARTITION BY dataareaid, invoiceid, origsalesid, inventtransid, linenum 
-			ORDER BY dataareaid, invoiceid, origsalesid, inventtransid, linenum ) RowNumber
+		SELECT DATAAREAID, INVOICEID, ORIGSALESID, INVENTTRANSID, LINENUM, ROW_NUMBER() 
+		OVER(PARTITION BY DATAAREAID, INVOICEID, ORIGSALESID, INVENTTRANSID, LINENUM 
+			ORDER BY DATAAREAID, INVOICEID, ORIGSALESID, INVENTTRANSID, LINENUM ) RowNumber
 		FROM #inventtrans_ANDE
 	)
-	DELETE FROM CTE_inventtrans WHERE RowNumber > 1
+	DELETE FROM #inventtrans_ANDE
+	where exists (select * from 
+	CTE_inventtrans c inner join #inventtrans_ANDE i
+	on c.DATAAREAID=i.DATAAREAID
+	and c.INVOICEID=i.INVOICEID
+	and c.ORIGSALESID=i.ORIGSALESID
+	and c.INVENTTRANSID=i.INVENTTRANSID
+	and c.INVOICEID=i.INVOICEID
+	WHERE RowNumber > 1)
 
 
 --insert main sales
 insert [intm_axbi].[fact_CUSTINVOICETRANS]
+    (DATAAREAID
+    ,SALESID
+    ,INVOICEID
+    ,LINENUM
+    ,INVENTTRANSID
+    ,ACCOUNTINGDATE
+    ,CUSTOMERNO
+    ,ITEMID
+    ,DELIVERYCOUNTRYID
+    ,PACKINGSLIPID
+    ,QTY
+    ,PRODUCTSALESLOCAL
+    ,PRODUCTSALESEUR
+    ,OTHERSALESLOCAL
+    ,OTHERSALESEUR
+    ,ALLOWANCESLOCAL
+    ,ALLOWANCESEUR
+    ,SALES100LOCAL
+    ,SALES100EUR
+    ,FREIGHTLOCAL
+    ,FREIGHTEUR
+    ,COSTAMOUNTLOCAL
+    ,COSTAMOUNTEUR)
 	select
     'ANDE' as DATAAREAID,
-	t.origsalesid as SALESID,
-	t.invoiceid as INVOICEID,
-	t.linenum as LINENUM,
-	ISNULL(t.inventtransid,' ') as INVENTTRANSID,
+	t.ORIGSALESID as SALESID,
+	t.INVOICEID as INVOICEID,
+	t.LINENUM as LINENUM,
+	ISNULL(t.INVENTTRANSID,' ') as INVENTTRANSID,
 	i.datefinancial as ACCOUNTINGDATE,
-	'ANDE-' + j.orderaccount as CUSTOMERNO,
-	'ANDE-' + t.itemid as ITEMID,
-	ISNULL(t.dlvcountryregionid,' ') as DELIVERYCOUNTRYID,
+	'ANDE-' + j.ORDERACCOUNT as CUSTOMERNO,
+	'ANDE-' + t.ITEMID as ITEMID,
+	ISNULL(t.DLVCOUNTRYREGIONID,' ') as DELIVERYCOUNTRYID,
 	ISNULL(i.packingslipid,' ') as PACKINGSLIPID,
-	t.qty as QTY,
-	t.lineamountmst as PRODUCTSALESLOCAL,
-	t.lineamountmst as PRODUCTSALESEUR,
+	t.QTY as QTY,
+	t.LINEAMOUNTMST as PRODUCTSALESLOCAL,
+	t.LINEAMOUNTMST as PRODUCTSALESEUR,
 	0 as OTHERSALESLOCAL,
 	0 as OTHERSALESEUR,
-	t.lineamountmst * [intm_axbi].[uf_get_CashDiscPct](u.cashdisc) / 100 * (-1) as ALLOWANCESLOCAL,
-	t.lineamountmst * [intm_axbi]..[uf_get_CashDiscPct](u.cashdisc) / 100 * (-1) as ALLOWANCESEUR,
+	t.LINEAMOUNTMST * [intm_axbi].[uf_get_CashDiscPct](u.CASHDISC) / 100 * (-1) as ALLOWANCESLOCAL,
+	t.LINEAMOUNTMST * [intm_axbi].[uf_get_CashDiscPct](u.CASHDISC) / 100 * (-1) as ALLOWANCESEUR,
 	0 as SALES100LOCAL, -- Sales 100 für Ancon DE später addieren
 	0 as SALES100EUR,
-	t.lineamountmst * 0.034 * (-1) as FREIGHTLOCAL, -- Interne Fracht 3,4 %
-	t.lineamountmst * 0.034 * (-1) as FREIGHTEUR,
+	t.LINEAMOUNTMST * 0.034 * (-1) as FREIGHTLOCAL, -- Interne Fracht 3,4 %
+	t.LINEAMOUNTMST * 0.034 * (-1) as FREIGHTEUR,
 	i.costamount as COSTAMOUNTLOCAL,
 	i.costamount as COSTAMOUNTEUR
 	from [base_tx_crh_2_dwh].[FACT_CUSTINVOICETRANS] as t
@@ -87,96 +123,118 @@ insert [intm_axbi].[fact_CUSTINVOICETRANS]
 	on t.DATAAREAID = j.DATAAREAID 
 	and t.INVOICEID = j.INVOICEID
 	inner join #inventtrans_ANDE as i
-	on t.dataareaid = i.dataareaid and
-	   t.invoiceid = i.invoiceid and
-	   t.inventtransid = i.inventtransid
-	where t.dataareaid = 'ande' 
-	and Datepart(yyyy, i.datefinancial) = @P_Year 
-	and Datepart(mm, i.datefinancial) = @P_Month 
-	and t.itemid not in ('DIENST', 'FRACHT', 'MINDERMENGE', 'POSZU') 
-
+	on t.DATAAREAID = i.DATAAREAID and
+	   t.INVOICEID = i.INVOICEID and
+	   t.INVENTTRANSID = i.INVENTTRANSID
+	where t.DATAAREAID = 'ande' 
+	and Datepart(yyyy, i.datefinancial) = @P_Year
+	and Datepart(mm, i.datefinancial) = @P_Month
+	and t.ITEMID not in ('DIENST', 'FRACHT', 'MINDERMENGE', 'POSZU') 
 
 --create temp table with other sales (obsolete cursor)
 select     
     'ANDE' as DATAAREAID,
-	t.origsalesid as SALESID,
-	t.invoiceid as INVOICEID,
-	t.linenum as LINENUM,
-	ISNULL(t.inventtransid,' ') as INVENTTRANSID,
+	t.ORIGSALESID as SALESID,
+	t.INVOICEID as INVOICEID,
+	t.LINENUM as LINENUM,
+	ISNULL(t.INVENTTRANSID,' ') as INVENTTRANSID,
 	i.datefinancial as ACCOUNTINGDATE,
-	j.orderaccount as CUSTOMERNO,
-	t.itemid as ITEMID,
-	ISNULL(t.dlvcountryregionid,' ') as DELIVERYCOUNTRYID,
+	j.ORDERACCOUNT as CUSTOMERNO,
+	t.ITEMID as ITEMID,
+	ISNULL(t.DLVCOUNTRYREGIONID,' ') as DELIVERYCOUNTRYID,
 	ISNULL(i.packingslipid,' ') as PACKINGSLIPID,
-	t.qty as QTY,
-	t.lineamountmst as lineamountmst_os,
-	count(t.invoiceid) over (partition by t.invoiceid) cnt_inv
+	t.QTY as QTY,
+	t.LINEAMOUNTMST as LINEAMOUNTMST_os,
+	count(t.INVOICEID) over (partition by t.INVOICEID) cnt_inv
 	into #inventtrans_ANDE_OS
 	from [base_tx_crh_2_dwh].[FACT_CUSTINVOICETRANS] as t
 	inner join [base_tx_crh_2_dwh].[DIM_CUSTINVOICEJOUR] as j
 	on t.DATAAREAID = j.DATAAREAID and
 	   t.INVOICEID = j.INVOICEID
 	inner join #inventtrans_ANDE as i
-	on t.dataareaid = i.dataareaid and
-	   t.invoiceid = i.invoiceid and
-	   t.inventtransid = i.inventtransid
-	where t.dataareaid = 'ande' 
-	and Datepart(yyyy, i.datefinancial) = @P_Year 
-	and Datepart(mm, i.datefinancial) = @P_Month 
-	and t.itemid in ('DIENST', 'FRACHT', 'MINDERMENGE', 'POSZU')
+	on t.DATAAREAID = i.DATAAREAID and
+	   t.INVOICEID = i.INVOICEID and
+	   t.INVENTTRANSID = i.INVENTTRANSID
+	where t.DATAAREAID = 'ande' 
+	and Datepart(yyyy, i.datefinancial) = @P_Year
+	and Datepart(mm, i.datefinancial) = @P_Month
+	and t.ITEMID in ('DIENST', 'FRACHT', 'MINDERMENGE', 'POSZU')
 
 
 --salesbalance calculation
 	select 
-	t.invoiceid,
-	ISNULL(sum(t.productsaleslocal),0) salesbalance,
+	t.INVOICEID,
+	ISNULL(sum(t.PRODUCTSALESLOCAL),0) salesbalance,
 	count(*) lcounter
 	into #inventtrans_ANDE_SB
 	from [intm_axbi].[fact_CUSTINVOICETRANS] as t
 	inner join #inventtrans_ANDE_OS os
-	on t.invoiceid COLLATE DATABASE_DEFAULT= os.invoiceid COLLATE DATABASE_DEFAULT
-	where t.dataareaid = 'ANDE' and t.itemid not in ('ANDE-DIENST', 'ANDE-FRACHT', 'ANDE-MINDERMENGE', 'ANDE-POSZU')
-	group by t.invoiceid
+	on t.INVOICEID COLLATE DATABASE_DEFAULT= os.INVOICEID COLLATE DATABASE_DEFAULT
+	where t.DATAAREAID = 'ANDE' and t.ITEMID not in ('ANDE-DIENST', 'ANDE-FRACHT', 'ANDE-MINDERMENGE', 'ANDE-POSZU')
+	group by t.INVOICEID
 
---lineamountmst sum calculation
-	select invoiceid,
-	sum(lineamountmst_os) lineamountmst_os_sum
+--LINEAMOUNTMST sum calculation
+	select INVOICEID,
+	sum(LINEAMOUNTMST_os) LINEAMOUNTMST_os_sum
 	into #inventtrans_ANDE_LA
 	from #inventtrans_ANDE_OS
-	group by invoiceid
+	group by INVOICEID
 
 
 --update #1
 update [intm_axbi].[fact_CUSTINVOICETRANS]
-set [intm_axbi].[fact_CUSTINVOICETRANS].OTHERSALESLOCAL += (la.lineamountmst_os_sum * t.PRODUCTSALESLOCAL/ sb.salesbalance) * os.cnt_inv,
-    [intm_axbi].[fact_CUSTINVOICETRANS].OTHERSALESEUR   += (la.lineamountmst_os_sum * t.PRODUCTSALESEUR/sb.salesbalance) * os.cnt_inv
+set [intm_axbi].[fact_CUSTINVOICETRANS].OTHERSALESLOCAL += (la.LINEAMOUNTMST_os_sum * t.PRODUCTSALESLOCAL/ sb.salesbalance) * os.cnt_inv,
+    [intm_axbi].[fact_CUSTINVOICETRANS].OTHERSALESEUR   += (la.LINEAMOUNTMST_os_sum * t.PRODUCTSALESEUR/sb.salesbalance) * os.cnt_inv
 from [intm_axbi].[fact_CUSTINVOICETRANS] as t
 inner join #inventtrans_ANDE_OS os
-on t.invoiceid  COLLATE DATABASE_DEFAULT= os.invoiceid  COLLATE DATABASE_DEFAULT
+on t.INVOICEID  COLLATE DATABASE_DEFAULT= os.INVOICEID  COLLATE DATABASE_DEFAULT
 inner join #inventtrans_ANDE_SB sb
 on t.INVOICEID COLLATE DATABASE_DEFAULT=sb.INVOICEID COLLATE DATABASE_DEFAULT
 inner join #inventtrans_ANDE_LA la
-on t.invoiceid COLLATE DATABASE_DEFAULT=la.invoiceid COLLATE DATABASE_DEFAULT
-where t.dataareaid = 'ANDE'  and t.itemid not in ('ANDE-DIENST', 'ANDE-FRACHT', 'ANDE-MINDERMENGE', 'ANDE-POSZU')
+on t.INVOICEID COLLATE DATABASE_DEFAULT=la.INVOICEID COLLATE DATABASE_DEFAULT
+where t.DATAAREAID = 'ANDE'  and t.ITEMID not in ('ANDE-DIENST', 'ANDE-FRACHT', 'ANDE-MINDERMENGE', 'ANDE-POSZU')
 and sb.salesbalance<>0
 
 
 --update #2
 update [intm_axbi].[fact_CUSTINVOICETRANS]
-   set [intm_axbi].[fact_CUSTINVOICETRANS].OTHERSALESLOCAL += la.lineamountmst_os_sum / sb.lcounter,
-	   [intm_axbi].[fact_CUSTINVOICETRANS].OTHERSALESEUR   += la.lineamountmst_os_sum / sb.lcounter
+   set [intm_axbi].[fact_CUSTINVOICETRANS].OTHERSALESLOCAL += la.LINEAMOUNTMST_os_sum / sb.lcounter,
+	   [intm_axbi].[fact_CUSTINVOICETRANS].OTHERSALESEUR   += la.LINEAMOUNTMST_os_sum / sb.lcounter
 from [intm_axbi].[fact_CUSTINVOICETRANS] as t
 inner join #inventtrans_ANDE_SB sb
 on t.INVOICEID COLLATE DATABASE_DEFAULT=sb.INVOICEID COLLATE DATABASE_DEFAULT
 inner join #inventtrans_ANDE_LA la
-on t.invoiceid COLLATE DATABASE_DEFAULT=la.invoiceid COLLATE DATABASE_DEFAULT
-where t.dataareaid = 'ANDE'  and t.itemid not in ('ANDE-DIENST', 'ANDE-FRACHT', 'ANDE-MINDERMENGE', 'ANDE-POSZU')
+on t.INVOICEID COLLATE DATABASE_DEFAULT=la.INVOICEID COLLATE DATABASE_DEFAULT
+where t.DATAAREAID = 'ANDE'  and t.ITEMID not in ('ANDE-DIENST', 'ANDE-FRACHT', 'ANDE-MINDERMENGE', 'ANDE-POSZU')
 and lcounter>0
 and salesbalance = 0
 
 
 --insert for other sales
 insert [intm_axbi].[fact_CUSTINVOICETRANS]
+   (DATAAREAID
+   ,SALESID
+   ,INVOICEID
+   ,LINENUM
+   ,INVENTTRANSID
+   ,ACCOUNTINGDATE
+   ,CUSTOMERNO
+   ,ITEMID
+   ,DELIVERYCOUNTRYID
+   ,PACKINGSLIPID
+   ,QTY
+   ,PRODUCTSALESLOCAL
+   ,PRODUCTSALESEUR
+   ,OTHERSALESLOCAL
+   ,OTHERSALESEUR
+   ,ALLOWANCESLOCAL
+   ,ALLOWANCESEUR
+   ,SALES100LOCAL
+   ,SALES100EUR
+   ,FREIGHTLOCAL
+   ,FREIGHTEUR
+   ,COSTAMOUNTLOCAL
+   ,COSTAMOUNTEUR)
 	select
 	DATAAREAID,
 	SALESID,
@@ -191,8 +249,8 @@ insert [intm_axbi].[fact_CUSTINVOICETRANS]
 	QTY,
 	0,
 	0,
-	lineamountmst_os,
-	lineamountmst_os,
+	LINEAMOUNTMST_os,
+	LINEAMOUNTMST_os,
 	0,
 	0,
 	0,
@@ -202,7 +260,8 @@ insert [intm_axbi].[fact_CUSTINVOICETRANS]
 	0,
 	0
 	from #inventtrans_ANDE_OS
-	where invoiceid COLLATE DATABASE_DEFAULT not in (select invoiceid from [intm_axbi].[fact_CUSTINVOICETRANS])
+	where INVOICEID COLLATE DATABASE_DEFAULT not in (select INVOICEID from [intm_axbi].[fact_CUSTINVOICETRANS]
+	where DATAAREAID = 'ANDE'  and ITEMID not in ('ANDE-DIENST', 'ANDE-FRACHT', 'ANDE-MINDERMENGE', 'ANDE-POSZU'))
 
 
 --update SALES100 
@@ -214,7 +273,7 @@ insert [intm_axbi].[fact_CUSTINVOICETRANS]
 	on c.DATAAREAID = i.DATAAREAID and
 	   c.ACCOUNTNUM = i.CUSTOMERNO
 	where c.DATAAREAID = 'ANDE' 
-	and Datepart(yyyy, i.ACCOUNTINGDATE) = @P_Year 
+	and Datepart(yyyy, i.ACCOUNTINGDATE) = @P_Year
 	and Datepart(mm, i.ACCOUNTINGDATE) = @P_Month
 
 

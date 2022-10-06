@@ -4,19 +4,18 @@
 -- Description:	<Ermitteln Sales Plaka Belgien>
 -- =============================================
 
-CREATE PROCEDURE [intm_axbi].[up_ReadSales_PLAKA_BE] 
-	-- Add the parameters for the stored procedure here
+ALTER PROCEDURE [intm_axbi].[up_ReadSales_PLAKA_BE] 
 (
-	@P_Year smallint,
-	@P_Month tinyint,
-	@P_DelNotInv nvarchar(1),
-	@lTecDlvNotInv datetime
-)
+@P_Year [smallint],
+@P_Month [tinyint],
+@P_DelNotInv [nvarchar](1) )
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
+
+		SET NOCOUNT ON;
 
     -- Insert statements for procedure here
 
@@ -53,9 +52,41 @@ BEGIN
 			ORDER BY DATAAREAID, INVOICEID, ORIGSALESID, INVENTTRANSID, LINENUM ) RowNumber
 		FROM #inventtrans_PLBE
 	)
-	DELETE FROM CTE_inventtrans WHERE RowNumber > 1
+	DELETE FROM #inventtrans_PLBE
+	where exists (select * from 
+	CTE_inventtrans c inner join #inventtrans_PLBE i
+	on c.DATAAREAID=i.DATAAREAID
+	and c.INVOICEID=i.INVOICEID
+	and c.ORIGSALESID=i.ORIGSALESID
+	and c.INVENTTRANSID=i.INVENTTRANSID
+	and c.LINENUM=i.LINENUM
+	WHERE RowNumber > 1)
 
+	--insert main sales
 	insert [intm_axbi].[fact_CUSTINVOICETRANS]
+	(DATAAREAID
+    ,SALESID
+    ,INVOICEID
+    ,LINENUM
+    ,INVENTTRANSID
+    ,ACCOUNTINGDATE
+    ,CUSTOMERNO
+    ,ITEMID
+    ,DELIVERYCOUNTRYID
+    ,PACKINGSLIPID
+    ,QTY
+    ,PRODUCTSALESLOCAL
+    ,PRODUCTSALESEUR
+    ,OTHERSALESLOCAL
+    ,OTHERSALESEUR
+    ,ALLOWANCESLOCAL
+    ,ALLOWANCESEUR
+    ,SALES100LOCAL
+    ,SALES100EUR
+    ,FREIGHTLOCAL
+    ,FREIGHTEUR
+    ,COSTAMOUNTLOCAL
+    ,COSTAMOUNTEUR)
 	select
 	'PLBE',
 	t.ORIGSALESID,
@@ -97,21 +128,13 @@ BEGIN
 
 	delete from [intm_axbi].[fact_CUSTINVOICETRANS] where DATAAREAID = 'PLBE' and SALESID = 'SO/2026711' and INVOICEID = 'SIN/2013953'
 
-	
 	--
 	-- Geliefert nicht fakturiert
 	If @P_DelNotInv = 'Y'
 	Begin
 
-
 	-- Erster Wochentag des Monats lesen; für nicht fakturierte Lieferscheine aus den Vormonaten, das ACCOUNTINGDATE auf den ersten Tag des aktuellen Monats legen  
-	select @lTecDlvNotInv = CALENDARDATE 
-	from [base_dw_halfen_0_hlp].[CALENDAR] 
-	where DATAAREAID = '5300' 
-	and YEAR = @P_Year 
-	and MONTH = @P_Month 
-	and DATEFLAG = 'W' 
-	and WORKDAY_ACT = 1
+
 
 	Select 
 	i.DATAAREAID as DATAAREAID, 
@@ -122,7 +145,7 @@ BEGIN
 	i.DATEPHYSICAL as DATEPHYSICAL, 
 	i.INVOICEACCOUNT as INVOICEACCOUNT, 
 	i.ITEMID as ITEMID,
-	a.DELIVERYCOUNTRYREGIONID as deliverycountryregionid,  
+	a.DELIVERYCOUNTRYREGIONID as DELIVERYCOUNTRYREGIONID,  
 	i.PACKINGSLIPID as PACKINGSLIPID,
 	sum(i.QTY) * (-1) as QTY, 
 	sum(i.ValueCalc) as PRODUCTSALESLOCAL, 
@@ -134,12 +157,35 @@ BEGIN
 	   i.TRANSREFID    = a.SALESID and
 	   i.INVENTTRANSID = a.INVENTTRANSID
 	where i.DATAAREAID = 'plb' 
-	and Datepart(yyyy, i.DATEPHYSICAL) = @P_Year 
-	and Datepart(mm, i.DATEPHYSICAL) = @P_Month 
+	and Datepart(yyyy, i.DATEPHYSICAL) = @P_Year
+	and Datepart(mm, i.DATEPHYSICAL) = @P_Month
 	and i.ValueCalc is not null 
 	group by i.DATAAREAID, a.SALESID, i.INVENTTRANSID, i.DATEPHYSICAL, i.INVOICEACCOUNT, i.ITEMID, a.DELIVERYCOUNTRYREGIONID, i.PACKINGSLIPID
 
 	insert [intm_axbi].[fact_CUSTINVOICETRANS]
+	(DATAAREAID
+    ,SALESID
+    ,INVOICEID
+    ,LINENUM
+    ,INVENTTRANSID
+    ,ACCOUNTINGDATE
+    ,CUSTOMERNO
+    ,ITEMID
+    ,DELIVERYCOUNTRYID
+    ,PACKINGSLIPID
+    ,QTY
+    ,PRODUCTSALESLOCAL
+    ,PRODUCTSALESEUR
+    ,OTHERSALESLOCAL
+    ,OTHERSALESEUR
+    ,ALLOWANCESLOCAL
+    ,ALLOWANCESEUR
+    ,SALES100LOCAL
+    ,SALES100EUR
+    ,FREIGHTLOCAL
+    ,FREIGHTEUR
+    ,COSTAMOUNTLOCAL
+    ,COSTAMOUNTEUR)
 	select
 	'PLBE',
 	SALESID,
@@ -147,8 +193,10 @@ BEGIN
 	LINENUM,
 	ISNULL(INVENTTRANSID,' '),
 	case 
-	when DATEPHYSICAL < @lTecDlvNotInv 
-	then @lTecDlvNotInv 
+	when DATEPHYSICAL < (select CALENDARDATE from [base_dw_halfen_0_hlp].[CALENDAR] where DATAAREAID = '5300' and YEAR = @P_Year and MONTH = @P_Month and DATEFLAG = 'W' 
+	and WORKDAY_ACT = 1)
+	then (select CALENDARDATE from [base_dw_halfen_0_hlp].[CALENDAR] where DATAAREAID = '5300' and YEAR = @P_Year and MONTH = @P_Month and DATEFLAG = 'W' 
+	and WORKDAY_ACT = 1)
 	else DATEPHYSICAL 
 	end, -- für nicht fakturierte Lieferscheine aus den Vormonaten, das ACCOUNTINGDATE auf den ersten Tag des aktuellen Monats legen, sonst das Lieferdatum
 	'PLBE-' + INVOICEACCOUNT,
@@ -174,6 +222,29 @@ BEGIN
 	-- PLAKA Verpackungsartikel MB15066 nach OtherSales übertragen 
 
 	insert [intm_axbi].[fact_CUSTINVOICETRANS]
+	(DATAAREAID
+    ,SALESID
+    ,INVOICEID
+    ,LINENUM
+    ,INVENTTRANSID
+    ,ACCOUNTINGDATE
+    ,CUSTOMERNO
+    ,ITEMID
+    ,DELIVERYCOUNTRYID
+    ,PACKINGSLIPID
+    ,QTY
+    ,PRODUCTSALESLOCAL
+    ,PRODUCTSALESEUR
+    ,OTHERSALESLOCAL
+    ,OTHERSALESEUR
+    ,ALLOWANCESLOCAL
+    ,ALLOWANCESEUR
+    ,SALES100LOCAL
+    ,SALES100EUR
+    ,FREIGHTLOCAL
+    ,FREIGHTEUR
+    ,COSTAMOUNTLOCAL
+    ,COSTAMOUNTEUR)
 	select
 	'PLBE',
 	t.ORIGSALESID,
@@ -181,7 +252,7 @@ BEGIN
 	t.LINENUM,
 	ISNULL(t.INVENTTRANSID,' '),
 	i.DATEFINANCIAL,
-	'PLBE-' + j.Invoiceaccount,
+	'PLBE-' + j.INVOICEACCOUNT,
 	'PLBE-' + t.ITEMID,
 	ISNULL(t.DLVCOUNTRYREGIONID,' '),
 	ISNULL(i.PACKINGSLIPID,' '),
@@ -207,8 +278,8 @@ BEGIN
 	   t.INVOICEID = i.INVOICEID and
 	   t.INVENTTRANSID = i.INVENTTRANSID
 	where t.DATAAREAID = 'plb' 
-	and Datepart(yyyy, i.DATEFINANCIAL) = @P_Year 
-	and Datepart(mm, i.DATEFINANCIAL) = @P_Month 
+	and Datepart(yyyy, i.DATEFINANCIAL) = @P_Year
+	and Datepart(mm, i.DATEFINANCIAL) = @P_Month
 	and t.ITEMID = 'MB15066'
 
 	-- Sales ohne Kunde in Kundenstamm löschen 
@@ -235,7 +306,7 @@ BEGIN
 	   c.ACCOUNTNUM = i.CUSTOMERNO
 	where c.DATAAREAID = 'PLBE' 
 	and c.COMPANYCHAINID = 'BAM'
-	and datepart(YYYY, i.ACCOUNTINGDATE) = @P_Year 
+	and datepart(YYYY, i.ACCOUNTINGDATE) = @P_Year
 	and Datepart(mm, i.ACCOUNTINGDATE) = @P_Month
 
 
@@ -249,7 +320,7 @@ BEGIN
 	   c.ACCOUNTNUM = i.CUSTOMERNO
 	where c.DATAAREAID = 'PLBE' 
 	and (c.COMPANYCHAINID like 'PMO %' or c.COMPANYCHAINID like '% PMO %') 
-	and datepart(YYYY, i.ACCOUNTINGDATE) = @P_Year 
+	and datepart(YYYY, i.ACCOUNTINGDATE) = @P_Year
 	and Datepart(mm, i.ACCOUNTINGDATE) = @P_Month
 
 	-- ALLMAT 6,50 %
@@ -262,7 +333,7 @@ BEGIN
 	   c.ACCOUNTNUM = i.CUSTOMERNO
 	where c.DATAAREAID = 'PLBE' 
 	and (c.COMPANYCHAINID like 'ALLMAT %' or c.COMPANYCHAINID like '% ALLMAT %') 
-	and datepart(YYYY, i.ACCOUNTINGDATE) = @P_Year 
+	and datepart(YYYY, i.ACCOUNTINGDATE) = @P_Year
 	and Datepart(mm, i.ACCOUNTINGDATE) = @P_Month
 
 	-- GEDIMAT 3,50 %
@@ -275,7 +346,7 @@ BEGIN
 	   c.ACCOUNTNUM = i.CUSTOMERNO
 	where c.DATAAREAID = 'PLBE' 
 	and c.COMPANYCHAINID = 'GEDIMAT' 
-	and datepart(YYYY, i.ACCOUNTINGDATE) = @P_Year 
+	and datepart(YYYY, i.ACCOUNTINGDATE) = @P_Year
 	and Datepart(mm, i.ACCOUNTINGDATE) = @P_Month
 
 
@@ -289,7 +360,7 @@ BEGIN
 	   c.ACCOUNTNUM = i.CUSTOMERNO
 	where c.DATAAREAID = 'PLBE' 
 	and c.COMPANYCHAINID = 'TOUT FAIRE CMEM' 
-	and datepart(YYYY, i.ACCOUNTINGDATE) = @P_Year 
+	and datepart(YYYY, i.ACCOUNTINGDATE) = @P_Year
 	and Datepart(mm, i.ACCOUNTINGDATE) = @P_Month
 	
 
@@ -303,7 +374,7 @@ BEGIN
 	   c.ACCOUNTNUM = i.CUSTOMERNO
 	where c.DATAAREAID = 'PLBE' 
 	and (c.COMPANYCHAINID like 'BINJE ACKERMANS %' or c.COMPANYCHAINID like '% BINJE ACKERMANS %') 
-	and datepart(YYYY, i.ACCOUNTINGDATE) = @P_Year 
+	and datepart(YYYY, i.ACCOUNTINGDATE) = @P_Year
 	and Datepart(mm, i.ACCOUNTINGDATE) = @P_Month
 
 	-- GROUP VANDERSTRAETEN 0,32 %
@@ -315,8 +386,8 @@ BEGIN
 	on c.DATAAREAID = i.DATAAREAID and
 	   c.ACCOUNTNUM = i.CUSTOMERNO
 	where c.DATAAREAID = 'PLBE' and c.COMPANYCHAINID = 'VANDERSTRAETEN' 
-	and datepart(YYYY, i.ACCOUNTINGDATE) = @P_Year 
-	and Datepart(mm, i.ACCOUNTINGDATE) = @P_Month 
+	and datepart(YYYY, i.ACCOUNTINGDATE) = @P_Year
+	and Datepart(mm, i.ACCOUNTINGDATE) = @P_Month
 
 
 	-- LO.VE.MAT 1,40 %
@@ -329,7 +400,7 @@ BEGIN
 	   c.ACCOUNTNUM = i.CUSTOMERNO
 	where c.DATAAREAID = 'PLBE' 
 	and (c.COMPANYCHAINID like 'LO.VE.MAT %' or c.COMPANYCHAINID like '% LO.VE.MAT %') 
-	and datepart(YYYY, i.ACCOUNTINGDATE) = @P_Year 
+	and datepart(YYYY, i.ACCOUNTINGDATE) = @P_Year
 	and Datepart(mm, i.ACCOUNTINGDATE) = @P_Month
 
 	-- JAN DE NUL 0,37 %
@@ -342,7 +413,7 @@ BEGIN
 	   c.ACCOUNTNUM = i.CUSTOMERNO
 	where c.DATAAREAID = 'PLBE' 
 	and (c.COMPANYCHAINID like 'JAN DE NUL %' or c.COMPANYCHAINID like '% JAN DE NUL %' or c.COMPANYCHAINID like 'DE NUL JAN%' or c.COMPANYCHAINID like '% DE NUL JAN %') 
-	and datepart(YYYY, i.ACCOUNTINGDATE) = @P_Year 
+	and datepart(YYYY, i.ACCOUNTINGDATE) = @P_Year
 	and Datepart(mm, i.ACCOUNTINGDATE) = @P_Month
 
 	-- BESIX - QPRODOR 0,00%
@@ -357,24 +428,24 @@ BEGIN
 	   c.ACCOUNTNUM = i.CUSTOMERNO
 	where c.DATAAREAID = 'PLBE' 
 	and c.COMPANYCHAINID = 'MBG CFE BOUW VLAANDE' 
-	and datepart(YYYY, i.ACCOUNTINGDATE) = @P_Year 
+	and datepart(YYYY, i.ACCOUNTINGDATE) = @P_Year
 	and Datepart(mm, i.ACCOUNTINGDATE) = @P_Month
 
 -- other sales
 
-	select 'PLBE',
-	t.ORIGSALESID,
-	t.INVOICEID,
-	t.LINENUM,
-	ISNULL(t.INVENTTRANSID,' '),
-	i.DATEFINANCIAL,
-	j.INVOICEACCOUNT,
-	t.ITEMID,
-	ISNULL(t.dlvcountryregionid,' '),
-	ISNULL(i.PACKINGSLIPID,' '),
+	select 'PLBE' as DATAAREAID,
+	t.ORIGSALESID as SALESID,
+	t.INVOICEID as INVOICEID,
+	t.LINENUM as LINENUM,
+	ISNULL(t.INVENTTRANSID,' ') as INVENTTRANSID,
+	i.DATEFINANCIAL as ACCOUNTINGDATE,
+	j.INVOICEACCOUNT as CUSTOMERNO,
+	t.ITEMID as ITEMID,
+	ISNULL(t.DLVCOUNTRYREGIONID,' ') as DELIVERYCOUNTRYID,
+	ISNULL(i.PACKINGSLIPID,' ') as PACKINGSLIPID,
 	t.QTY,
 	t.LINEAMOUNTMST LINEAMOUNTMST_OS,
-	count(t.invoiceid) over (partition by t.invoiceid) cnt_inv
+	count(t.INVOICEID) over (partition by t.INVOICEID) cnt_inv
 	into #inventtrans_PLBE_OS
 	from [base_tx_crh_2_dwh].[FACT_CUSTINVOICETRANS] as t
 	inner join [base_tx_crh_2_dwh].[DIM_CUSTINVOICEJOUR] as j
@@ -388,16 +459,16 @@ BEGIN
 	   t.INVOICEID = i.INVOICEID and
 	   t.INVENTTRANSID = i.INVENTTRANSID 
 	where t.DATAAREAID = 'plb' 
-	and Datepart(yyyy, i.DATEFINANCIAL) = @P_Year 
-	and Datepart(mm, i.DATEFINANCIAL) = @P_Month 
+	and Datepart(yyyy, i.DATEFINANCIAL) = @P_Year
+	and Datepart(mm, i.DATEFINANCIAL) = @P_Month
 	and t.ITEMID <> 'MB15066' 
 	and g.ADUASCHWITEMGROUP4 = 'EL' 
 
 	
 --salesbalance calculation
 	select 
-	t.invoiceid,
-	ISNULL(sum(t.productsaleslocal),0) salesbalance,
+	t.INVOICEID,
+	ISNULL(sum(t.PRODUCTSALESLOCAL),0) salesbalance,
 	count(*) lcounter
 	into #inventtrans_PLBE_SB
 	from [intm_axbi].[fact_CUSTINVOICETRANS] as t
@@ -405,17 +476,18 @@ BEGIN
 	on t.DATAAREAID = g.DATAAREAID and
 	t.ITEMID = g.ITEMID
 	inner join #inventtrans_PLBE_OS os
-	on t.invoiceid COLLATE DATABASE_DEFAULT= os.invoiceid COLLATE DATABASE_DEFAULT
+	on t.INVOICEID COLLATE DATABASE_DEFAULT= os.INVOICEID COLLATE DATABASE_DEFAULT
 	where t.DATAAREAID = 'PLBE' 
 	and g.ITEMGROUPID <> 'PLBE-EL'
+	group by t.INVOICEID
 
 
 --lineamountmst sum calculation
-	select invoiceid,
-	sum(lineamountmst_os) lineamountmst_os_sum
+	select INVOICEID,
+	sum(LINEAMOUNTMST_OS) lineamountmst_os_sum
 	into #inventtrans_PLBE_LA
 	from #inventtrans_PLBE_OS
-	group by invoiceid
+	group by INVOICEID
 
 --update #1
 update [intm_axbi].[fact_CUSTINVOICETRANS]
@@ -425,14 +497,14 @@ from [intm_axbi].[fact_CUSTINVOICETRANS] as t
  inner join [intm_axbi].[dim_ITEMTABLE] as g
 on t.DATAAREAID = g.DATAAREAID and
    t.ITEMID     = g.ITEMID 
-inner join #inventtrans_ANAH_OS os
-on t.invoiceid  COLLATE DATABASE_DEFAULT= os.invoiceid  COLLATE DATABASE_DEFAULT
-inner join #inventtrans_ANAH_SB sb
+inner join #inventtrans_PLBE_OS os
+on t.INVOICEID  COLLATE DATABASE_DEFAULT= os.INVOICEID  COLLATE DATABASE_DEFAULT
+inner join #inventtrans_PLBE_SB sb
 on t.INVOICEID COLLATE DATABASE_DEFAULT=sb.INVOICEID COLLATE DATABASE_DEFAULT
-inner join #inventtrans_ANNZ_LA la
-on t.invoiceid COLLATE DATABASE_DEFAULT=la.invoiceid COLLATE DATABASE_DEFAULT
+inner join #inventtrans_PLBE_LA la
+on t.INVOICEID COLLATE DATABASE_DEFAULT=la.INVOICEID COLLATE DATABASE_DEFAULT
 where t.DATAAREAID = 'PLBE' 
-and datepart(YYYY, t.ACCOUNTINGDATE) = @P_Year 
+and datepart(YYYY, t.ACCOUNTINGDATE) = @P_Year
 and g.ITEMGROUPID <> 'PLBE-EL'
 and sb.salesbalance<>0
 
@@ -445,12 +517,12 @@ from [intm_axbi].[fact_CUSTINVOICETRANS] as t
 inner join [intm_axbi].[dim_ITEMTABLE] as g
 on t.DATAAREAID = g.DATAAREAID and
 t.ITEMID = g.ITEMID  
-inner join #inventtrans_ANAH_SB sb
+inner join #inventtrans_PLBE_SB sb
 on t.INVOICEID COLLATE DATABASE_DEFAULT=sb.INVOICEID COLLATE DATABASE_DEFAULT
-inner join #inventtrans_ANNZ_LA la
-on t.invoiceid COLLATE DATABASE_DEFAULT=la.invoiceid COLLATE DATABASE_DEFAULT
+inner join #inventtrans_PLBE_LA la
+on t.INVOICEID COLLATE DATABASE_DEFAULT=la.INVOICEID COLLATE DATABASE_DEFAULT
 where t.DATAAREAID = 'PLBE' 
-and datepart(YYYY, t.ACCOUNTINGDATE) = @P_Year 
+and datepart(YYYY, t.ACCOUNTINGDATE) = @P_Year
 and g.ITEMGROUPID <> 'PLBE-EL'
 and lcounter>0
 and salesbalance = 0
@@ -458,6 +530,29 @@ and salesbalance = 0
 
 --insert for other sales
 insert [intm_axbi].[fact_CUSTINVOICETRANS]
+   (DATAAREAID
+   ,SALESID
+   ,INVOICEID
+   ,LINENUM
+   ,INVENTTRANSID
+   ,ACCOUNTINGDATE
+   ,CUSTOMERNO
+   ,ITEMID
+   ,DELIVERYCOUNTRYID
+   ,PACKINGSLIPID
+   ,QTY
+   ,PRODUCTSALESLOCAL
+   ,PRODUCTSALESEUR
+   ,OTHERSALESLOCAL
+   ,OTHERSALESEUR
+   ,ALLOWANCESLOCAL
+   ,ALLOWANCESEUR
+   ,SALES100LOCAL
+   ,SALES100EUR
+   ,FREIGHTLOCAL
+   ,FREIGHTEUR
+   ,COSTAMOUNTLOCAL
+   ,COSTAMOUNTEUR)
 	select
 	DATAAREAID,
 	SALESID,
@@ -472,8 +567,8 @@ insert [intm_axbi].[fact_CUSTINVOICETRANS]
 	QTY,
 	0,
 	0,
-	lineamountmst_os,
-	lineamountmst_os,
+	LINEAMOUNTMST_OS,
+	LINEAMOUNTMST_OS,
 	0,
 	0,
 	0,
@@ -483,8 +578,14 @@ insert [intm_axbi].[fact_CUSTINVOICETRANS]
 	0,
 	0
 	from #inventtrans_PLBE_OS
-	where invoiceid COLLATE DATABASE_DEFAULT not in (select invoiceid from [intm_axbi].[fact_CUSTINVOICETRANS])
-
+	where INVOICEID COLLATE DATABASE_DEFAULT not in 
+	(select t.INVOICEID from [intm_axbi].[fact_CUSTINVOICETRANS] as t
+     inner join [intm_axbi].[dim_ITEMTABLE] as g
+     on t.DATAAREAID = g.DATAAREAID and
+     t.ITEMID = g.ITEMID 
+	where t.DATAAREAID = 'PLBE' 
+    and datepart(YYYY, t.ACCOUNTINGDATE) = @P_Year
+    and g.ITEMGROUPID <> 'PLBE-EL')
 
 
 	-- SALES100 aufbauen
@@ -493,7 +594,7 @@ insert [intm_axbi].[fact_CUSTINVOICETRANS]
 	    [intm_axbi].[fact_CUSTINVOICETRANS].SALES100EUR   = ISNULL(i.PRODUCTSALESEUR,0) + ISNULL(i.OTHERSALESEUR,0) + ISNULL(i.ALLOWANCESEUR,0)
 	from [intm_axbi].[fact_CUSTINVOICETRANS] as i
 	where i.DATAAREAID = 'PLBE' 
-	and datepart(YYYY, i.ACCOUNTINGDATE) = @P_Year 
+	and datepart(YYYY, i.ACCOUNTINGDATE) = @P_Year
 	and datepart(MM, i.ACCOUNTINGDATE) = @P_Month
 
 	-- für die Item Group ACT und Cost Amount = 0 and 3P customer, Cost amount rechnen, so daß Marge 40%
@@ -509,8 +610,8 @@ insert [intm_axbi].[fact_CUSTINVOICETRANS]
 	   t.CUSTOMERNO = c.ACCOUNTNUM
 	where i.DATAAREAID = 'PLBE' 
 	and i.ITEMGROUPID = 'PLBE-ACT' 
-	and datepart(YYYY, t.ACCOUNTINGDATE) = @P_Year 
-	and datepart(MM, t.ACCOUNTINGDATE) = @P_Month 
+	and datepart(YYYY, t.ACCOUNTINGDATE) = @P_Year
+	and datepart(MM, t.ACCOUNTINGDATE) = @P_Month
 	and t.COSTAMOUNTLOCAL = 0 
 	and c.COMPANYCHAINID <> 'PLAKA FRANCE'
 
@@ -527,8 +628,8 @@ insert [intm_axbi].[fact_CUSTINVOICETRANS]
 	   t.CUSTOMERNO = c.ACCOUNTNUM
 	where i.DATAAREAID = 'PLBE' 
 	and i.ITEMGROUPID = 'PLBE-ACT' 
-	and datepart(YYYY, t.ACCOUNTINGDATE) = @P_Year 
-	and datepart(MM, t.ACCOUNTINGDATE) = @P_Month 
+	and datepart(YYYY, t.ACCOUNTINGDATE) = @P_Year
+	and datepart(MM, t.ACCOUNTINGDATE) = @P_Month
 	and t.COSTAMOUNTLOCAL = 0 
 	and c.COMPANYCHAINID = 'PLAKA FRANCE'
 
@@ -545,8 +646,8 @@ insert [intm_axbi].[fact_CUSTINVOICETRANS]
 	   t.CUSTOMERNO = c.ACCOUNTNUM
 	where i.DATAAREAID = 'PLBE' 
 	and i.ITEMID in ('PLBE-KORG', 'PLBE-KORI2', 'PLBE-KORSBS', 'PLBE-KORSGS') 
-	and datepart(YYYY, t.ACCOUNTINGDATE) = @P_Year 
-	and datepart(MM, t.ACCOUNTINGDATE) = @P_Month 
+	and datepart(YYYY, t.ACCOUNTINGDATE) = @P_Year
+	and datepart(MM, t.ACCOUNTINGDATE) = @P_Month
 	and t.COSTAMOUNTLOCAL = 0 
 	and c.COMPANYCHAINID <> 'PLAKA FRANCE'
 
@@ -563,8 +664,8 @@ insert [intm_axbi].[fact_CUSTINVOICETRANS]
 	   t.CUSTOMERNO = c.ACCOUNTNUM
 	where i.DATAAREAID = 'PLBE' 
 	and i.ITEMID in ('PLBE-KORG', 'PLBE-KORI2', 'PLBE-KORSBS', 'PLBE-KORSGS') 
-	and datepart(YYYY, t.ACCOUNTINGDATE) = @P_Year 
-	and datepart(MM, t.ACCOUNTINGDATE) = @P_Month 
+	and datepart(YYYY, t.ACCOUNTINGDATE) = @P_Year
+	and datepart(MM, t.ACCOUNTINGDATE) = @P_Month
 	and t.COSTAMOUNTLOCAL = 0 
 	and c.COMPANYCHAINID = 'PLAKA FRANCE'
 
@@ -578,8 +679,8 @@ insert [intm_axbi].[fact_CUSTINVOICETRANS]
 	   i.ITEMID     = t.ITEMID
 	where i.DATAAREAID = 'PLBE' 
 	and i.ITEMID in ('PLBE-KORI', 'PLBE-KORSI2S', 'PLBE-KORSI4S') 
-	and datepart(YYYY, t.ACCOUNTINGDATE) = @P_Year 
-	and datepart(MM, t.ACCOUNTINGDATE) = @P_Month 
+	and datepart(YYYY, t.ACCOUNTINGDATE) = @P_Year
+	and datepart(MM, t.ACCOUNTINGDATE) = @P_Month
 	and t.COSTAMOUNTLOCAL = 0
 
 	-- für Item “KORCOM” und Cost Amount = 0, Cost amount rechnen so daß 5€ Marge pro M
@@ -592,8 +693,8 @@ insert [intm_axbi].[fact_CUSTINVOICETRANS]
 	   i.ITEMID     = t.ITEMID
 	where i.DATAAREAID = 'PLBE' 
 	and i.ITEMID = 'PLBE-KORCOM' 
-	and datepart(YYYY, t.ACCOUNTINGDATE) = @P_Year 
-	and datepart(MM, t.ACCOUNTINGDATE) = @P_Month 
+	and datepart(YYYY, t.ACCOUNTINGDATE) = @P_Year
+	and datepart(MM, t.ACCOUNTINGDATE) = @P_Month
 	and t.COSTAMOUNTLOCAL = 0
 
 	-- für die Items “VGATERAND”, “PSSPEC” und Cost Amount = 0 and 3P Customer, Cost amount rechnen so daß 39.4% Marge
@@ -609,8 +710,8 @@ insert [intm_axbi].[fact_CUSTINVOICETRANS]
 	   t.CUSTOMERNO = c.ACCOUNTNUM
 	where i.DATAAREAID = 'PLBE' 
 	and i.ITEMID in ('PLBE-VGATERAND', 'PLBE-PSSPEC') 
-	and datepart(YYYY, t.ACCOUNTINGDATE) = @P_Year 
-	and datepart(MM, t.ACCOUNTINGDATE) = @P_Month 
+	and datepart(YYYY, t.ACCOUNTINGDATE) = @P_Year
+	and datepart(MM, t.ACCOUNTINGDATE) = @P_Month
 	and t.COSTAMOUNTLOCAL = 0 
 	and c.COMPANYCHAINID <> 'PLAKA FRANCE'
 
@@ -627,8 +728,8 @@ insert [intm_axbi].[fact_CUSTINVOICETRANS]
 	   t.CUSTOMERNO = c.ACCOUNTNUM
 	where i.DATAAREAID = 'PLBE' 
 	and i.ITEMID in ('PLBE-VGATERAND', 'PLBE-PSSPEC') 
-	and datepart(YYYY, t.ACCOUNTINGDATE) = @P_Year 
-	and datepart(MM, t.ACCOUNTINGDATE) = @P_Month 
+	and datepart(YYYY, t.ACCOUNTINGDATE) = @P_Year
+	and datepart(MM, t.ACCOUNTINGDATE) = @P_Month
 	and t.COSTAMOUNTLOCAL = 0 
 	and c.COMPANYCHAINID = 'PLAKA FRANCE'
 
@@ -645,8 +746,8 @@ insert [intm_axbi].[fact_CUSTINVOICETRANS]
 	   t.CUSTOMERNO = c.ACCOUNTNUM
 	where i.DATAAREAID = 'PLBE' 
 	and i.ITEMID = 'PLBE-LASER' 
-	and datepart(YYYY, t.ACCOUNTINGDATE) = @P_Year 
-	and datepart(MM, t.ACCOUNTINGDATE) = @P_Month 
+	and datepart(YYYY, t.ACCOUNTINGDATE) = @P_Year
+	and datepart(MM, t.ACCOUNTINGDATE) = @P_Month
 	and t.COSTAMOUNTLOCAL = 0 
 	and c.COMPANYCHAINID <> 'PLAKA FRANCE'
 
@@ -663,8 +764,8 @@ insert [intm_axbi].[fact_CUSTINVOICETRANS]
 	   t.CUSTOMERNO = c.ACCOUNTNUM
 	where i.DATAAREAID = 'PLBE' 
 	and i.ITEMID = 'PLBE-LASER' 
-	and datepart(YYYY, t.ACCOUNTINGDATE) = @P_Year 
-	and datepart(MM, t.ACCOUNTINGDATE) = @P_Month 
+	and datepart(YYYY, t.ACCOUNTINGDATE) = @P_Year
+	and datepart(MM, t.ACCOUNTINGDATE) = @P_Month
 	and t.COSTAMOUNTLOCAL = 0 
 	and c.COMPANYCHAINID = 'PLAKA FRANCE'
 
@@ -673,4 +774,6 @@ drop table #inventtrans_PLBE
 drop table #inventtrans_PLBE_OS
 drop table #inventtrans_PLBE_SB
 drop table #inventtrans_PLBE_LA
+drop table #cust_delivered_not_invoiced_PLBE
+
 End
