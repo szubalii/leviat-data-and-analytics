@@ -4,7 +4,7 @@
 -- Description:	<Ermitteln <Umsatz für Ancon Germany>
 -- =============================================
 --
-ALTER PROCEDURE [intm_axbi].[up_ReadSales_ANDE] 
+CREATE PROCEDURE [intm_axbi].[up_ReadSales_ANDE] 
 	-- Add the parameters for the stored procedure here
 (
 	@P_Year smallint,

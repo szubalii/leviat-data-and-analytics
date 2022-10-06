@@ -4,7 +4,7 @@
 -- Description:	<Ermitteln Sales Ancon Australia>
 -- =============================================
 --
-ALTER PROCEDURE [intm_axbi].[up_ReadSales_ANAU] 
+CREATE PROCEDURE [intm_axbi].[up_ReadSales_ANAU] 
 	-- Add the parameters for the stored procedure here
 (
 	@P_Year smallint,

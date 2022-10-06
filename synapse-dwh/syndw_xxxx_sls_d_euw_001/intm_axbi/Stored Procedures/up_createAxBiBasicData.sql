@@ -10,7 +10,7 @@
 -- Description:	<Aufbau Artikel- und Kundenstamm für TX Construction Accessories>
 -- =============================================
 --
-ALTER PROCEDURE [intm_axbi].[up_createAxBiBasicData] 
+CREATE PROCEDURE [intm_axbi].[up_createAxBiBasicData] 
 	-- Add the parameters for the stored procedure here
 AS
 BEGIN

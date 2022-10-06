@@ -4,7 +4,7 @@
 -- Description:	<Ermitteln Sales Plaka Belgien>
 -- =============================================
 
-ALTER PROCEDURE [intm_axbi].[up_ReadSales_PLAKA_BE] 
+CREATE PROCEDURE [intm_axbi].[up_ReadSales_PLAKA_BE] 
 (
 @P_Year [smallint],
 @P_Month [tinyint],
