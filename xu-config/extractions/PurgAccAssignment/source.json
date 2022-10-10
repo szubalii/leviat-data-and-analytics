@@ -1,0 +1,587 @@
+{
+    "functionName": "Z_THEO_READ_TABLE",
+    "runInBackgroundJob": false,
+    "tables": [
+        {
+            "name": "PURGACCASSROW",
+            "description": "Generated Table for View PurgAccAssignment: ",
+            "isView": true,
+            "fields": [
+                {
+                    "name": "MANDT",
+                    "description": "Client (key field in client-specific tables)",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "T000",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "EBELN",
+                    "description": "Purchasing document number",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "EKKO",
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "EBELP",
+                    "description": "Item in purchasing document",
+                    "abapType": "NumericCharacterString",
+                    "length": 5,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "EKPO",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ZEKKN",
+                    "description": "Numerical field (length 2)",
+                    "abapType": "NumericCharacterString",
+                    "length": 2,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "LOEKZ",
+                    "description": "Yes/No field",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "AEDAT",
+                    "description": "Date",
+                    "abapType": "Date",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "KFLAG",
+                    "description": "Yes/No field",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MENGE",
+                    "description": "Quantity field, length 13",
+                    "abapType": "PackedNumber",
+                    "length": 17,
+                    "decimalCount": 3,
+                    "formattedLength": 17,
+                    "conversionExit": "",
+                    "referenceTable": "EKPO",
+                    "referenceField": "MEINS"
+                },
+                {
+                    "name": "VPROZ",
+                    "description": "Distribution (apportionment) percentage",
+                    "abapType": "PackedNumber",
+                    "length": 17,
+                    "decimalCount": 1,
+                    "formattedLength": 5,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "NETWR",
+                    "description": "Amount field PL7",
+                    "abapType": "PackedNumber",
+                    "length": 17,
+                    "decimalCount": 2,
+                    "formattedLength": 16,
+                    "conversionExit": "",
+                    "referenceTable": "EKKO",
+                    "referenceField": "WAERS"
+                },
+                {
+                    "name": "SAKTO",
+                    "description": "G/L account number",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "checkTable": "SKA1",
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "GSBER",
+                    "description": "Business area",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "checkTable": "TGSB",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "KOSTL",
+                    "description": "Cost center",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "checkTable": "CSKS",
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "PROJN",
+                    "description": "Project number: DO NOT use -> PS_POSNR",
+                    "abapType": "CharacterString",
+                    "length": 16,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "VBELN",
+                    "description": "Sales and distribution document number",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "VBELP",
+                    "description": "Item number of the SD document",
+                    "abapType": "NumericCharacterString",
+                    "length": 6,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "VETEN",
+                    "description": "SD document schedule line",
+                    "abapType": "NumericCharacterString",
+                    "length": 4,
+                    "checkTable": "VBEP",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "KZBRB",
+                    "description": "One-Character Field Without Check",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ANLN1",
+                    "description": "Main Asset Number",
+                    "abapType": "CharacterString",
+                    "length": 12,
+                    "checkTable": "ANLH",
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "ANLN2",
+                    "description": "Asset subnumber",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "checkTable": "ANLA",
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "AUFNR",
+                    "description": "Order number",
+                    "abapType": "CharacterString",
+                    "length": 12,
+                    "checkTable": "AUFK",
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "WEMPF",
+                    "description": "Goods recipient",
+                    "abapType": "CharacterString",
+                    "length": 12,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ABLAD",
+                    "description": "25-character text length",
+                    "abapType": "CharacterString",
+                    "length": 25,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "KOKRS",
+                    "description": "Controlling area",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "checkTable": "TKA01",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "XBKST",
+                    "description": "Yes/No field",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "XBAUF",
+                    "description": "Yes/No field",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "XBPRO",
+                    "description": "Yes/No field",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "EREKZ",
+                    "description": "Yes/No field",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "KSTRG",
+                    "description": "Cost object: Hierarchy node for process costing",
+                    "abapType": "CharacterString",
+                    "length": 12,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PAOBJNR",
+                    "description": "Profitability segment number (CO-PA)",
+                    "abapType": "NumericCharacterString",
+                    "length": 10,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRCTR",
+                    "description": "Profit center",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "PS_PSP_PNR",
+                    "description": "WBS element number (internal counter as DB key)",
+                    "abapType": "NumericCharacterString",
+                    "length": 8,
+                    "checkTable": "PRPS",
+                    "conversionExit": "ABPSP"
+                },
+                {
+                    "name": "NPLNR",
+                    "description": "Order number",
+                    "abapType": "CharacterString",
+                    "length": 12,
+                    "checkTable": "AUFK",
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "AUFPL",
+                    "description": "Routing number for operations",
+                    "abapType": "NumericCharacterString",
+                    "length": 10,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "IMKEY",
+                    "description": "Internal key for Real Estate object",
+                    "abapType": "CharacterString",
+                    "length": 8,
+                    "conversionExit": "IMKEY"
+                },
+                {
+                    "name": "APLZL",
+                    "description": "Numerator",
+                    "abapType": "NumericCharacterString",
+                    "length": 8,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "VPTNR",
+                    "description": "Customer Number",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "checkTable": "KNA1",
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "FIPOS",
+                    "description": "Commitment item",
+                    "abapType": "CharacterString",
+                    "length": 14,
+                    "checkTable": "FMFPO",
+                    "conversionExit": "FMCIS"
+                },
+                {
+                    "name": "RECID",
+                    "description": "Recovery indicator",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "SERVICE_DOC_TYPE",
+                    "description": "Transaction Type",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SERVICE_DOC_ID",
+                    "description": "Transaction ID",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "SERVICE_DOC_ITEM_ID",
+                    "description": "Service Document Item ID",
+                    "abapType": "NumericCharacterString",
+                    "length": 6,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "DUMMY_INCL_EEW_COBL",
+                    "description": "DUMMY_INCL_EEW_COBL",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "FISTL",
+                    "description": "Funds center",
+                    "abapType": "CharacterString",
+                    "length": 16,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "GEBER",
+                    "description": "Sponsor/fund",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "FKBER",
+                    "description": "Functional area",
+                    "abapType": "CharacterString",
+                    "length": 16,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "DABRZ",
+                    "description": "General date",
+                    "abapType": "Date",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "AUFPL_ORD",
+                    "description": "Routing number for operations",
+                    "abapType": "NumericCharacterString",
+                    "length": 10,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "APLZL_ORD",
+                    "description": "General counter",
+                    "abapType": "NumericCharacterString",
+                    "length": 8,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MWSKZ",
+                    "description": "Taxes on sales/puchases code",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "TXJCD",
+                    "description": "Tax Jurisdiction",
+                    "abapType": "CharacterString",
+                    "length": 15,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "NAVNW",
+                    "description": "Amount field PL7",
+                    "abapType": "PackedNumber",
+                    "length": 17,
+                    "decimalCount": 2,
+                    "formattedLength": 16,
+                    "conversionExit": "",
+                    "referenceTable": "EKKO",
+                    "referenceField": "WAERS"
+                },
+                {
+                    "name": "KBLNR",
+                    "description": "Document Number: Manual Document Entry",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "KBLPOS",
+                    "description": "Document Item: Manual Document Entry",
+                    "abapType": "NumericCharacterString",
+                    "length": 3,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "LSTAR",
+                    "description": "Activity type",
+                    "abapType": "CharacterString",
+                    "length": 6,
+                    "checkTable": "CSLA",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRZNR",
+                    "description": "Number of CO business process",
+                    "abapType": "CharacterString",
+                    "length": 12,
+                    "checkTable": "CBPR",
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "GRANT_NBR",
+                    "description": "Grant",
+                    "abapType": "CharacterString",
+                    "length": 20,
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "BUDGET_PD",
+                    "description": "FM: Budget Period",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "FM_SPLIT_BATCH",
+                    "description": "3-Digit Numerical Fields Without Check",
+                    "abapType": "NumericCharacterString",
+                    "length": 3,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "FM_SPLIT_BEGRU",
+                    "description": "Authorization group for PSM account assignment splitting",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "AA_FINAL_IND",
+                    "description": "Yes/No field",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "AA_FINAL_REASON",
+                    "description": "Character field length 2",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "checkTable": "T163RC",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "AA_FINAL_QTY",
+                    "description": "Quantity field, length 13",
+                    "abapType": "PackedNumber",
+                    "length": 17,
+                    "decimalCount": 3,
+                    "formattedLength": 17,
+                    "conversionExit": "",
+                    "referenceTable": "EKPO",
+                    "referenceField": "MEINS"
+                },
+                {
+                    "name": "AA_FINAL_QTY_F",
+                    "description": "AA_FINAL_QTY_F",
+                    "abapType": "FloatingPoint",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MENGE_F",
+                    "description": "MENGE_F",
+                    "abapType": "FloatingPoint",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "FMFGUS_KEY",
+                    "description": "UUID in compressed form (22 character UUENCODEd)",
+                    "abapType": "CharacterString",
+                    "length": 22,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "_DATAAGING",
+                    "description": "Data Filter Value for Data Aging",
+                    "abapType": "Date",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "EGRUP",
+                    "description": "Equity group",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "VNAME",
+                    "description": "Joint Venture",
+                    "abapType": "CharacterString",
+                    "length": 6,
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "KBLNR_CAB",
+                    "description": "Document Number: Manual Document Entry",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "KBLPOS_CAB",
+                    "description": "Document Item: Manual Document Entry",
+                    "abapType": "NumericCharacterString",
+                    "length": 3,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "TCOBJNR",
+                    "description": "Object number",
+                    "abapType": "CharacterString",
+                    "length": 22,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "DATEOFSERVICE",
+                    "description": "Date",
+                    "abapType": "Date",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "NOTAXCORR",
+                    "description": "Boolean values TRUE (='X') and FALSE (= ' ')",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "DIFFOPTRATE",
+                    "description": "Real estate option rate",
+                    "abapType": "PackedNumber",
+                    "length": 17,
+                    "decimalCount": 6,
+                    "formattedLength": 10,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "HASDIFFOPTRATE",
+                    "description": "Boolean values TRUE (='X') and FALSE (= ' ')",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                }
+            ]
+        }
+    ]
+}

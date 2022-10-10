@@ -3769,6 +3769,18 @@
         "base_table_name": "I_ProductValuationCosting",
         "pk_field_names": "MANDT,PRODUCT,VALUATIONAREA,VALUATIONTYPE",
         "schedule_recurrence": "A"
+      },
+      {
+        "entity_id": 526,
+        "entity_name": "PurgAccAssignment",
+        "data_category": "UNSPECIFIED",
+        "client_field": "MANDT",
+        "tool_name": "Theobald",
+        "extraction_type": "Table",
+        "update_mode": "Full",
+        "base_table_name": "PurgAccAssignment",
+        "pk_field_names": "MANDT,EBELN,EBELP,ZEKKN",
+        "schedule_recurrence": "A"
       }
 
     ]
