@@ -47,23 +47,28 @@ SELECT
     PDSLHND.[NextDeliveryDate],
     PDI.[IsCompletelyDelivered],
     PDI.[OrderQuantityUnit],
-    PDI.[CostCenter]                        AS [CostCenterID],
-    PDI.[GLAccount],
+    PAA.[KOSTL]                             AS [CostCenterID],
+    PAA.[SAKTO]                             AS [GLAccount],
     PDSLSum.[GoodsReceiptQuantity],
     PDI.[t_applicationId],
     PDI.[t_extractionDtm]
 FROM
     [base_s4h_cax].[I_PurchasingDocumentItem] AS PDI
-    LEFT JOIN
-        CTE_PurgDocScheduleLineHasNextDelivery PDSLHND
+LEFT JOIN
+    CTE_PurgDocScheduleLineHasNextDelivery PDSLHND
         ON
             PDSLHND.[PurchasingDocument] = PDI.[PurchasingDocument]
             AND
             PDSLHND.[PurchasingDocumentItem] = PDI.[PurchasingDocumentItem]
-    LEFT JOIN
-        CTE_PurgDocScheduleLineSums PDSLSum
+LEFT JOIN
+    CTE_PurgDocScheduleLineSums PDSLSum
         ON
             PDSLSum.[PurchasingDocument] = PDI.[PurchasingDocument]
             AND
             PDSLSum.[PurchasingDocumentItem] = PDI.[PurchasingDocumentItem]
-        
+LEFT JOIN
+    [base_s4h_cax].[PurgAccAssignment] PAA
+        ON
+            PDI.[PurchasingDocument] = PAA.[EBELN]
+            AND            
+            PDI.[PurchasingDocumentItem] = PAA.[EBELP]
