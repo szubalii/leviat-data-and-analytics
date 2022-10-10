@@ -4,7 +4,7 @@
     [entity_name]				VARCHAR(112),
     [layer_id]					BIGINT NOT NULL,
     [adls_container_name]		VARCHAR(63),
-    [data_category]				VARCHAR(9),
+    [data_category]				VARCHAR(11),
     [client_field]              VARCHAR(127),
     [tool_name]					VARCHAR(8),
     [extraction_type]			VARCHAR(5),
