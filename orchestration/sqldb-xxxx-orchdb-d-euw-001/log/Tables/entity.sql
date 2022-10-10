@@ -3,7 +3,7 @@ CREATE TABLE [log].entity (
 ,   [Existing_entity_name]				VARCHAR(112)
 ,   [Existing_layer_id]					BIGINT
 ,   [Existing_adls_container_name]		VARCHAR(63)
-,   [Existing_data_category]			VARCHAR(9)
+,   [Existing_data_category]			VARCHAR(11)
 ,   [Existing_client_field]             VARCHAR(127)
 ,   [Existing_tool_name]				VARCHAR(8)
 ,   [Existing_extraction_type]			VARCHAR(5)
@@ -30,7 +30,7 @@ CREATE TABLE [log].entity (
 ,   [New_entity_name]				VARCHAR(112)
 ,   [New_layer_id]					BIGINT
 ,   [New_adls_container_name]		VARCHAR(63)
-,   [New_data_category]				VARCHAR(9)
+,   [New_data_category]				VARCHAR(11)
 ,   [New_client_field]              VARCHAR(127)
 ,   [New_tool_name]					VARCHAR(8)
 ,   [New_extraction_type]			VARCHAR(5)
