@@ -12,7 +12,7 @@ RETURNS @schedule_entities_table TABLE
     ,[adls_container_name]      VARCHAR(63)
     ,[adls_directory_path_In]   NVARCHAR(255)
     ,[adls_directory_path_Out]  NVARCHAR(255)
-    ,[data_category]            VARCHAR(9)
+    ,[data_category]            VARCHAR(11)
     ,[client_field]             VARCHAR(127)
     ,[tool_name]                VARCHAR(8)
     ,[extraction_type]          VARCHAR(5)
