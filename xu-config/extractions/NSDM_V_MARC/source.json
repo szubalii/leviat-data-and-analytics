@@ -1,0 +1,2405 @@
+{
+    "functionName": "Z_THEO_READ_TABLE",
+    "runInBackgroundJob": false,
+    "backgroundJobTimeout": 180,
+    "tables": 
+    [
+        {
+            "name": "NSDM_V_MARC",
+            "description": "Generated Table for View",
+            "isView": true,
+            "fields": 
+            [
+                {
+                    "name": "MANDT",
+                    "description": "Client",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "isPrimaryKey": true,
+                    "checkTable": "T000",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MATNR",
+                    "description": "Material Number",
+                    "abapType": "CharacterString",
+                    "length": 40,
+                    "isSelected": true,
+                    "isPrimaryKey": true,
+                    "checkTable": "MARA",
+                    "conversionExit": "MATN1"
+                },
+                {
+                    "name": "WERKS",
+                    "description": "Plant",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "isPrimaryKey": true,
+                    "checkTable": "T001W",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PSTAT",
+                    "description": "Maintenance status",
+                    "abapType": "CharacterString",
+                    "length": 15,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "LVORM",
+                    "description": "Flag Material for Deletion at Plant Level",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "BWTTY",
+                    "description": "Valuation Category",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "checkTable": "T149C",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "XCHAR",
+                    "description": "Batch management indicator (internal)",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MMSTA",
+                    "description": "Plant-Specific Material Status",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "checkTable": "T141",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MMSTD",
+                    "description": "Date from Which the Plant-Specific Material Status Is Valid",
+                    "abapType": "Date",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MAABC",
+                    "description": "ABC Indicator",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "checkTable": "TMABC",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "KZKRI",
+                    "description": "Indicator: Critical part",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "EKGRP",
+                    "description": "Purchasing Group",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "checkTable": "T024",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "AUSME",
+                    "description": "Unit of issue",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "checkTable": "T006",
+                    "conversionExit": "CUNIT"
+                },
+                {
+                    "name": "DISPR",
+                    "description": "Material: MRP profile",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "checkTable": "MDIP",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "DISMM",
+                    "description": "MRP Type",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "checkTable": "T438A",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "DISPO",
+                    "description": "MRP Controller",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "checkTable": "T024D",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "KZDIE",
+                    "description": "Indicator: MRP controller is buyer (deactivated)",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PLIFZ",
+                    "description": "Planned Delivery Time in Days",
+                    "abapType": "PackedNumber",
+                    "length": 3,
+                    "formattedLength": 3,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "WEBAZ",
+                    "description": "Goods receipt processing time in days",
+                    "abapType": "PackedNumber",
+                    "length": 3,
+                    "formattedLength": 3,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PERKZ",
+                    "description": "Period Indicator",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "AUSSS",
+                    "description": "Assembly scrap in percent",
+                    "abapType": "PackedNumber",
+                    "length": 5,
+                    "decimalCount": 2,
+                    "formattedLength": 6,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "DISLS",
+                    "description": "Lot Sizing Procedure within Materials Planning",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "checkTable": "T439A",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "BESKZ",
+                    "description": "Procurement Type",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SOBSL",
+                    "description": "Special procurement type",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "checkTable": "T460A",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MINBE",
+                    "description": "Reorder Point",
+                    "abapType": "PackedNumber",
+                    "length": 13,
+                    "isSelected": true,
+                    "decimalCount": 3,
+                    "formattedLength": 17,
+                    "conversionExit": "",
+                    "referenceTable": "MARA",
+                    "referenceField": "MEINS"
+                },
+                {
+                    "name": "EISBE",
+                    "description": "Safety stock",
+                    "abapType": "PackedNumber",
+                    "length": 13,
+                    "decimalCount": 3,
+                    "formattedLength": 17,
+                    "conversionExit": "",
+                    "referenceTable": "MARA",
+                    "referenceField": "MEINS"
+                },
+                {
+                    "name": "BSTMI",
+                    "description": "Minimum Lot Size",
+                    "abapType": "PackedNumber",
+                    "length": 13,
+                    "decimalCount": 3,
+                    "formattedLength": 17,
+                    "conversionExit": "",
+                    "referenceTable": "MARA",
+                    "referenceField": "MEINS"
+                },
+                {
+                    "name": "BSTMA",
+                    "description": "Maximum Lot Size",
+                    "abapType": "PackedNumber",
+                    "length": 13,
+                    "decimalCount": 3,
+                    "formattedLength": 17,
+                    "conversionExit": "",
+                    "referenceTable": "MARA",
+                    "referenceField": "MEINS"
+                },
+                {
+                    "name": "BSTFE",
+                    "description": "Fixed lot size",
+                    "abapType": "PackedNumber",
+                    "length": 13,
+                    "decimalCount": 3,
+                    "formattedLength": 17,
+                    "conversionExit": "",
+                    "referenceTable": "MARA",
+                    "referenceField": "MEINS"
+                },
+                {
+                    "name": "BSTRF",
+                    "description": "Rounding value for purchase order quantity",
+                    "abapType": "PackedNumber",
+                    "length": 13,
+                    "decimalCount": 3,
+                    "formattedLength": 17,
+                    "conversionExit": "",
+                    "referenceTable": "MARA",
+                    "referenceField": "MEINS"
+                },
+                {
+                    "name": "MABST",
+                    "description": "Maximum Stock Level",
+                    "abapType": "PackedNumber",
+                    "length": 13,
+                    "decimalCount": 3,
+                    "formattedLength": 17,
+                    "conversionExit": "",
+                    "referenceTable": "MARA",
+                    "referenceField": "MEINS"
+                },
+                {
+                    "name": "LOSFX",
+                    "description": "Lot-Size-Independent Costs",
+                    "abapType": "PackedNumber",
+                    "length": 11,
+                    "decimalCount": 2,
+                    "formattedLength": 14,
+                    "conversionExit": "",
+                    "referenceTable": "T001",
+                    "referenceField": "WAERS",
+                    "isCurrency": true
+                },
+                {
+                    "name": "SBDKZ",
+                    "description": "Dependent requirements ind. for individual and coll. reqmts",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "LAGPR",
+                    "description": "Storage Costs Percentage Code",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "checkTable": "T439L",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ALTSL",
+                    "description": "Method for Selecting Alternative Bills of Material",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "KZAUS",
+                    "description": "Discontinuation indicator",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "AUSDT",
+                    "description": "Effective-Out Date",
+                    "abapType": "Date",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "NFMAT",
+                    "description": "Follow-Up Material",
+                    "abapType": "CharacterString",
+                    "length": 40,
+                    "checkTable": "MARA",
+                    "conversionExit": "MATN1"
+                },
+                {
+                    "name": "KZBED",
+                    "description": "Indicator for Requirements Grouping",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MISKZ",
+                    "description": "Mixed MRP indicator",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "FHORI",
+                    "description": "Scheduling Margin Key for Floats",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "checkTable": "T436A",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PFREI",
+                    "description": "Indicator: automatic fixing of planned orders",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "FFREI",
+                    "description": "Release indicator for production orders",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "RGEKZ",
+                    "description": "Indicator: Backflush",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "FEVOR",
+                    "description": "Production Supervisor",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "checkTable": "T024F",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "BEARZ",
+                    "description": "Processing time",
+                    "abapType": "PackedNumber",
+                    "length": 5,
+                    "decimalCount": 2,
+                    "formattedLength": 6,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "RUEZT",
+                    "description": "Setup and teardown time",
+                    "abapType": "PackedNumber",
+                    "length": 5,
+                    "decimalCount": 2,
+                    "formattedLength": 6,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "TRANZ",
+                    "description": "Interoperation time",
+                    "abapType": "PackedNumber",
+                    "length": 5,
+                    "decimalCount": 2,
+                    "formattedLength": 6,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "BASMG",
+                    "description": "Base quantity",
+                    "abapType": "PackedNumber",
+                    "length": 13,
+                    "decimalCount": 3,
+                    "formattedLength": 17,
+                    "conversionExit": "",
+                    "referenceTable": "MARA",
+                    "referenceField": "MEINS"
+                },
+                {
+                    "name": "DZEIT",
+                    "description": "In-house production time",
+                    "abapType": "PackedNumber",
+                    "length": 3,
+                    "formattedLength": 3,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MAXLZ",
+                    "description": "Maximum Storage Period",
+                    "abapType": "PackedNumber",
+                    "length": 5,
+                    "formattedLength": 6,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "LZEIH",
+                    "description": "Unit for maximum storage period",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "checkTable": "T006",
+                    "conversionExit": "CUNIT"
+                },
+                {
+                    "name": "KZPRO",
+                    "description": "Indicator: withdrawal of stock from production bin",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "GPMKZ",
+                    "description": "Indicator: Material Included in Rough-Cut Planning",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "UEETO",
+                    "description": "Overdelivery tolerance limit",
+                    "abapType": "PackedNumber",
+                    "length": 3,
+                    "decimalCount": 1,
+                    "formattedLength": 4,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "UEETK",
+                    "description": "Indicator: Unlimited Overdelivery Allowed",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "UNETO",
+                    "description": "Underdelivery tolerance limit",
+                    "abapType": "PackedNumber",
+                    "length": 3,
+                    "decimalCount": 1,
+                    "formattedLength": 4,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "WZEIT",
+                    "description": "Total replenishment lead time (in workdays)",
+                    "abapType": "PackedNumber",
+                    "length": 3,
+                    "formattedLength": 3,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ATPKZ",
+                    "description": "Replacement part",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "VZUSL",
+                    "description": "Surcharge factor for cost in percent",
+                    "abapType": "PackedNumber",
+                    "length": 5,
+                    "decimalCount": 2,
+                    "formattedLength": 6,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "HERBL",
+                    "description": "State of manufacture",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "INSMK",
+                    "description": "Post to Inspection Stock",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SPROZ",
+                    "description": "Sample for quality inspection (in %) (deactivated)",
+                    "abapType": "PackedNumber",
+                    "length": 3,
+                    "decimalCount": 1,
+                    "formattedLength": 4,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "QUAZT",
+                    "description": "Quarantine period (deactivated)",
+                    "abapType": "PackedNumber",
+                    "length": 3,
+                    "formattedLength": 3,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SSQSS",
+                    "description": "Control Key for Quality Management in Procurement",
+                    "abapType": "CharacterString",
+                    "length": 8,
+                    "checkTable": "TQ08",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MPDAU",
+                    "description": "Mean inspection duration (deactivated)",
+                    "abapType": "PackedNumber",
+                    "length": 5,
+                    "formattedLength": 6,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "KZPPV",
+                    "description": "Indicator for inspection plan (deactivated)",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "KZDKZ",
+                    "description": "Documentation required indicator",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "WSTGH",
+                    "description": "Active substance content (deactivated)",
+                    "abapType": "PackedNumber",
+                    "length": 9,
+                    "formattedLength": 11,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRFRQ",
+                    "description": "Interval Until Next Recurring Inspection",
+                    "abapType": "PackedNumber",
+                    "length": 5,
+                    "formattedLength": 6,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "NKMPR",
+                    "description": "Date according to check sampling inspection (deactivated)",
+                    "abapType": "Date",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "UMLMC",
+                    "description": "Quantity Column",
+                    "abapType": "PackedNumber",
+                    "length": 13,
+                    "decimalCount": 3,
+                    "formattedLength": 17,
+                    "conversionExit": "",
+                    "referenceTable": "DDDDLCHARTYPES",
+                    "referenceField": "CUNIT"
+                },
+                {
+                    "name": "LADGR",
+                    "description": "Loading Group",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "checkTable": "TLGR",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "XCHPF",
+                    "description": "Batch Management Requirement Indicator for Plant",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "USEQU",
+                    "description": "Quota arrangement usage",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "checkTable": "TMQ2",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "LGRAD",
+                    "description": "Service level",
+                    "abapType": "PackedNumber",
+                    "length": 3,
+                    "decimalCount": 1,
+                    "formattedLength": 4,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "AUFTL",
+                    "description": "Splitting Indicator",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "checkTable": "T439P",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PLVAR",
+                    "description": "Plan Version",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "checkTable": "T778P",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "OTYPE",
+                    "description": "Object Type",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "checkTable": "T778O",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "OBJID",
+                    "description": "Object ID",
+                    "abapType": "NumericCharacterString",
+                    "length": 8,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MTVFP",
+                    "description": "Checking Group for Availability Check",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "checkTable": "TMVF",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PERIV",
+                    "description": "Fiscal Year Variant",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "checkTable": "T009",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "KZKFK",
+                    "description": "Indicator: take correction factors into account",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "VRVEZ",
+                    "description": "Shipping setup time",
+                    "abapType": "PackedNumber",
+                    "length": 5,
+                    "decimalCount": 2,
+                    "formattedLength": 6,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "VBAMG",
+                    "description": "Base quantity for capacity planning in shipping",
+                    "abapType": "PackedNumber",
+                    "length": 13,
+                    "decimalCount": 3,
+                    "formattedLength": 17,
+                    "conversionExit": "",
+                    "referenceTable": "MARA",
+                    "referenceField": "MEINS"
+                },
+                {
+                    "name": "VBEAZ",
+                    "description": "Shipping processing time",
+                    "abapType": "PackedNumber",
+                    "length": 5,
+                    "decimalCount": 2,
+                    "formattedLength": 6,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "LIZYK",
+                    "description": "Deactivated",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "BWSCL",
+                    "description": "Source of Supply",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "checkTable": "TMBW1",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "KAUTB",
+                    "description": "Indicator: \"automatic purchase order allowed\"",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "KORDB",
+                    "description": "Indicator: Source list requirement",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "STAWN",
+                    "abapType": "CharacterString",
+                    "length": 17,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "HERKL",
+                    "description": "Country of Origin of Material (Non-Preferential Origin)",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "checkTable": "T005",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "HERKR",
+                    "description": "Region of Origin of Material (Non-Preferential Origin)",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "checkTable": "T005S",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "EXPME",
+                    "description": "Supplementary Unit",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "checkTable": "T006",
+                    "conversionExit": "CUNIT"
+                },
+                {
+                    "name": "MTVER",
+                    "description": "Material Group for Intrastat",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "checkTable": "TVFM",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRCTR",
+                    "description": "Profit Center",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "TRAME",
+                    "abapType": "PackedNumber",
+                    "length": 13,
+                    "decimalCount": 3,
+                    "formattedLength": 17,
+                    "conversionExit": "",
+                    "referenceTable": "DDDDLCHARTYPES",
+                    "referenceField": "CUNIT"
+                },
+                {
+                    "name": "MRPPP",
+                    "description": "PPC Planning Calendar",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "checkTable": "T439G",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SAUFT",
+                    "description": "Indicator: Repetitive Manufacturing Allowed",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "FXHOR",
+                    "description": "Planning time fence",
+                    "abapType": "NumericCharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "VRMOD",
+                    "description": "Consumption mode",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "VINT1",
+                    "description": "Consumption period: backward",
+                    "abapType": "NumericCharacterString",
+                    "length": 3,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "VINT2",
+                    "description": "Consumption period: forward",
+                    "abapType": "NumericCharacterString",
+                    "length": 3,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "VERKZ",
+                    "description": "Version Indicator",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "STLAL",
+                    "description": "Alternative BOM",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "STLAN",
+                    "description": "BOM Usage",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "checkTable": "T416",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PLNNR",
+                    "description": "Key for Task List Group",
+                    "abapType": "CharacterString",
+                    "length": 8,
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "APLAL",
+                    "description": "Group Counter",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "LOSGR",
+                    "description": "Lot Size for Product Costing",
+                    "abapType": "PackedNumber",
+                    "length": 13,
+                    "decimalCount": 3,
+                    "formattedLength": 17,
+                    "conversionExit": "",
+                    "referenceTable": "MARA",
+                    "referenceField": "MEINS"
+                },
+                {
+                    "name": "SOBSK",
+                    "description": "Special Procurement Type for Costing",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "checkTable": "T460A",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "FRTME",
+                    "description": "Production unit",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "checkTable": "T006",
+                    "conversionExit": "CUNIT"
+                },
+                {
+                    "name": "LGPRO",
+                    "description": "Issue Storage Location",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "checkTable": "T001L",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "DISGR",
+                    "description": "MRP Group",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "checkTable": "T438M",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "KAUSF",
+                    "description": "Component Scrap in Percent",
+                    "abapType": "PackedNumber",
+                    "length": 5,
+                    "decimalCount": 2,
+                    "formattedLength": 6,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "QZGTP",
+                    "description": "Certificate Type",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "checkTable": "TQ05",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "QMATV",
+                    "description": "Inspection Setup Exists for Material/Plant",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "TAKZT",
+                    "description": "Takt time",
+                    "abapType": "PackedNumber",
+                    "length": 3,
+                    "formattedLength": 3,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "RWPRO",
+                    "description": "Range of coverage profile",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "checkTable": "T438R",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "COPAM",
+                    "description": "Local field name for CO/PA link to SOP",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ABCIN",
+                    "description": "Physical Inventory Indicator for Cycle Counting",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "checkTable": "T159C",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "AWSLS",
+                    "description": "Variance Key",
+                    "abapType": "CharacterString",
+                    "length": 6,
+                    "checkTable": "TKV01",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SERNP",
+                    "description": "Serial Number Profile",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "checkTable": "T377P",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CUOBJ",
+                    "description": "Internal object number",
+                    "abapType": "NumericCharacterString",
+                    "length": 18,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "STDPD",
+                    "description": "Configurable material",
+                    "abapType": "CharacterString",
+                    "length": 40,
+                    "checkTable": "MARA",
+                    "conversionExit": "MATN1"
+                },
+                {
+                    "name": "SFEPR",
+                    "description": "Repetitive Manufacturing Profile",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "checkTable": "T437S",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "XMCNG",
+                    "description": "Negative stocks allowed in plant",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "QSSYS",
+                    "description": "Required QM System for Supplier",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "checkTable": "TQ02",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "LFRHY",
+                    "description": "Planning cycle",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "checkTable": "T439G",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "RDPRF",
+                    "description": "Rounding Profile",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "checkTable": "RDPR",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "VRBMT",
+                    "description": "Reference material for consumption",
+                    "abapType": "CharacterString",
+                    "length": 40,
+                    "checkTable": "MARA",
+                    "conversionExit": "MATN1"
+                },
+                {
+                    "name": "VRBWK",
+                    "description": "Reference plant for consumption",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "checkTable": "T001W",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "VRBDT",
+                    "description": "To date of the material to be copied for consumption",
+                    "abapType": "Date",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "VRBFK",
+                    "description": "Multiplier for reference material for consumption",
+                    "abapType": "PackedNumber",
+                    "length": 5,
+                    "decimalCount": 2,
+                    "formattedLength": 5,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "AUTRU",
+                    "description": "Reset Forecast Model Automatically",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PREFE",
+                    "description": "Customs Preference",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRENC",
+                    "description": "Exemption certificate: Indicator for legal control",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRENO",
+                    "description": "Exemption certificate number for legal control",
+                    "abapType": "CharacterString",
+                    "length": 8,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PREND",
+                    "description": "Exemption certificate: Issue date of exemption certificate",
+                    "abapType": "Date",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRENE",
+                    "description": "Indicator: Vendor declaration exists",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRENG",
+                    "description": "Validity date of vendor declaration",
+                    "abapType": "Date",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ITARK",
+                    "description": "Indicator: Military goods",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SERVG",
+                    "description": "IS-R service level",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "checkTable": "TWSG",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "KZKUP",
+                    "description": "Indicator: Material can be co-product",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "STRGR",
+                    "description": "Planning Strategy Group",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "checkTable": "T461P",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CUOBV",
+                    "description": "Internal object number of configurable material for planning",
+                    "abapType": "NumericCharacterString",
+                    "length": 18,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "LGFSB",
+                    "description": "Default storage location for external procurement",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "checkTable": "T001L",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SCHGT",
+                    "description": "Indicator: bulk material",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CCFIX",
+                    "description": "CC indicator is fixed",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "EPRIO",
+                    "description": "Stock determination group",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "checkTable": "T434G",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "QMATA",
+                    "description": "Material Authorization Group for Activities in QM",
+                    "abapType": "CharacterString",
+                    "length": 6,
+                    "checkTable": "TQ01B",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "RESVP",
+                    "description": "Period of adjustment for planned independent requirements",
+                    "abapType": "PackedNumber",
+                    "length": 3,
+                    "formattedLength": 3,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PLNTY",
+                    "description": "Task List Type",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "checkTable": "TCA01",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "UOMGR",
+                    "description": "Unit of Mearsure Group (Oil, Natural Gas,...)",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "checkTable": "OIB06",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "UMRSL",
+                    "description": "Conversion Group (Oil, Natural Gas,..)",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "checkTable": "OIB01",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ABFAC",
+                    "description": "Air Bouyancy Factor",
+                    "abapType": "PackedNumber",
+                    "length": 3,
+                    "decimalCount": 1,
+                    "formattedLength": 3,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SFCPF",
+                    "description": "Production Scheduling Profile",
+                    "abapType": "CharacterString",
+                    "length": 6,
+                    "checkTable": "TCO43",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SHFLG",
+                    "description": "Safety time indicator (with or without safety time)",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SHZET",
+                    "description": "Safety time (in workdays)",
+                    "abapType": "NumericCharacterString",
+                    "length": 2,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MDACH",
+                    "description": "Action control: planned order processing",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "checkTable": "T46AC",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "KZECH",
+                    "description": "Determination of batch entry in the production/process order",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MEGRU",
+                    "description": "Unit of Measure Group",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "checkTable": "TWMEG",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MFRGR",
+                    "description": "Material freight group",
+                    "abapType": "CharacterString",
+                    "length": 8,
+                    "checkTable": "TMFG",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PROFIL",
+                    "description": "Name of Backflush Profile",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "checkTable": "PPC_PROFILE",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "VKUMC",
+                    "description": "Currency Column",
+                    "abapType": "PackedNumber",
+                    "length": 13,
+                    "decimalCount": 2,
+                    "formattedLength": 17,
+                    "conversionExit": "",
+                    "referenceTable": "DDDDLCHARTYPES",
+                    "referenceField": "CCUKY",
+                    "isCurrency": true
+                },
+                {
+                    "name": "VKTRW",
+                    "abapType": "PackedNumber",
+                    "length": 13,
+                    "decimalCount": 2,
+                    "formattedLength": 17,
+                    "conversionExit": "",
+                    "referenceTable": "DDDDLCHARTYPES",
+                    "referenceField": "CCUKY",
+                    "isCurrency": true
+                },
+                {
+                    "name": "KZAGL",
+                    "description": "Indicator: smooth promotion consumption",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "FVIDK",
+                    "description": "Production Version To Be Costed",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "FXPRU",
+                    "description": "Fixed-Price Co-Product",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "LOGGR",
+                    "description": "Logistics handling group for workload calculation",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "checkTable": "TLOG",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "FPRFM",
+                    "description": "Distribution profile of material in plant",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "checkTable": "TMFPF",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "GLGMG",
+                    "abapType": "PackedNumber",
+                    "length": 13,
+                    "decimalCount": 3,
+                    "formattedLength": 17,
+                    "conversionExit": "",
+                    "referenceTable": "DDDDLCHARTYPES",
+                    "referenceField": "CUNIT"
+                },
+                {
+                    "name": "VKGLG",
+                    "abapType": "PackedNumber",
+                    "length": 13,
+                    "decimalCount": 2,
+                    "formattedLength": 17,
+                    "conversionExit": "",
+                    "referenceTable": "DDDDLCHARTYPES",
+                    "referenceField": "CCUKY",
+                    "isCurrency": true
+                },
+                {
+                    "name": "INDUS",
+                    "description": "Material CFOP category",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "MOWNR",
+                    "description": "CAP: Number of CAP products list",
+                    "abapType": "CharacterString",
+                    "length": 12,
+                    "checkTable": "T618M",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MOGRU",
+                    "description": "Common Agricultural Policy: CAP products group-Foreign Trade",
+                    "abapType": "CharacterString",
+                    "length": 6,
+                    "checkTable": "T618G",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CASNR",
+                    "description": "CAS number for pharmaceutical products in foreign trade",
+                    "abapType": "CharacterString",
+                    "length": 15,
+                    "checkTable": "T610C",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "GPNUM",
+                    "description": "Production statistics: PRODCOM number for foreign trade",
+                    "abapType": "CharacterString",
+                    "length": 9,
+                    "checkTable": "T609G",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "STEUC",
+                    "description": "Control code for consumption taxes in foreign trade",
+                    "abapType": "CharacterString",
+                    "length": 16,
+                    "checkTable": "T604F",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "FABKZ",
+                    "description": "Indicator: Item Relevant to JIT Delivery Schedules",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MATGR",
+                    "description": "Group of Materials for Transition Matrix",
+                    "abapType": "CharacterString",
+                    "length": 20,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "VSPVB",
+                    "description": "Proposed Supply Area in Material Master Record",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "checkTable": "PVBE",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "DPLFS",
+                    "description": "Fair share rule",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "DPLPU",
+                    "description": "Indicator: push distribution",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "DPLHO",
+                    "description": "Deployment horizon in days",
+                    "abapType": "PackedNumber",
+                    "length": 3,
+                    "formattedLength": 3,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MINLS",
+                    "description": "Minimum lot size for Supply Demand Match",
+                    "abapType": "PackedNumber",
+                    "length": 13,
+                    "decimalCount": 3,
+                    "formattedLength": 17,
+                    "conversionExit": "",
+                    "referenceTable": "MARA",
+                    "referenceField": "MEINS"
+                },
+                {
+                    "name": "MAXLS",
+                    "description": "Maximum lot size for Supply Demand Match",
+                    "abapType": "PackedNumber",
+                    "length": 13,
+                    "decimalCount": 3,
+                    "formattedLength": 17,
+                    "conversionExit": "",
+                    "referenceTable": "MARA",
+                    "referenceField": "MEINS"
+                },
+                {
+                    "name": "FIXLS",
+                    "description": "Fixed lot size for Supply Demand Match",
+                    "abapType": "PackedNumber",
+                    "length": 13,
+                    "decimalCount": 3,
+                    "formattedLength": 17,
+                    "conversionExit": "",
+                    "referenceTable": "MARA",
+                    "referenceField": "MEINS"
+                },
+                {
+                    "name": "LTINC",
+                    "description": "Lot size increment for  Supply Demand Match",
+                    "abapType": "PackedNumber",
+                    "length": 13,
+                    "decimalCount": 3,
+                    "formattedLength": 17,
+                    "conversionExit": "",
+                    "referenceTable": "MARA",
+                    "referenceField": "MEINS"
+                },
+                {
+                    "name": "COMPL",
+                    "description": "This field is no longer used",
+                    "abapType": "NumericCharacterString",
+                    "length": 2,
+                    "checkTable": "TCSCP_COMP_LVL",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CONVT",
+                    "description": "Conversion types for production figures",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "checkTable": "TCSCP_CONV_TYPE",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SHPRO",
+                    "description": "Period Profile for Safety Time",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "checkTable": "T438V",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "AHDIS",
+                    "description": "MRP relevancy for dependent requirements",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "DIBER",
+                    "description": "Indicator: MRP area exists",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "KZPSP",
+                    "description": "Indicator for cross-project material",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "OCMPF",
+                    "description": "Overall profile for order change management",
+                    "abapType": "CharacterString",
+                    "length": 6,
+                    "checkTable": "TCO48",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "APOKZ",
+                    "description": "Indicator: Is material relevant for APO",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MCRUE",
+                    "description": "Char Column",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "LFMON",
+                    "description": "Numc Column",
+                    "abapType": "NumericCharacterString",
+                    "length": 2,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "LFGJA",
+                    "description": "Numc Column",
+                    "abapType": "NumericCharacterString",
+                    "length": 4,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "EISLO",
+                    "description": "Minimum Safety Stock",
+                    "abapType": "PackedNumber",
+                    "length": 13,
+                    "decimalCount": 3,
+                    "formattedLength": 17,
+                    "conversionExit": "",
+                    "referenceTable": "MARA",
+                    "referenceField": "MEINS"
+                },
+                {
+                    "name": "NCOST",
+                    "description": "Do Not Cost",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ROTATION_DATE",
+                    "description": "Strategy for Putaway and Stock Removal",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "UCHKZ",
+                    "description": "Indicator for Original Batch Management",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "UCMAT",
+                    "description": "Reference Material for Original Batches",
+                    "abapType": "CharacterString",
+                    "length": 40,
+                    "checkTable": "MARA",
+                    "conversionExit": "MATN1"
+                },
+                {
+                    "name": "BWESB",
+                    "abapType": "PackedNumber",
+                    "length": 13,
+                    "decimalCount": 3,
+                    "formattedLength": 17,
+                    "conversionExit": "",
+                    "referenceTable": "DDDDLCHARTYPES",
+                    "referenceField": "CUNIT"
+                },
+                {
+                    "name": "SGT_COVS",
+                    "description": "Segmentation Strategy",
+                    "abapType": "CharacterString",
+                    "length": 8,
+                    "checkTable": "SGT_COVS_T",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SGT_STATC",
+                    "description": "Segmentation Status",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SGT_SCOPE",
+                    "description": "Segmentation Strategy Scope",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SGT_MRPSI",
+                    "description": "Sort Stock based on Segment",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SGT_PRCM",
+                    "description": "Consumption Priority",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SGT_CHINT",
+                    "description": "Discrete Batch Number",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SGT_STK_PRT",
+                    "description": "Stock Protection Indicator",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SGT_DEFSC",
+                    "description": "Default Stock Segment value",
+                    "abapType": "CharacterString",
+                    "length": 40,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SGT_MRP_ATP_STATUS",
+                    "description": "ATP/MRP Status for Material and Segment",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SGT_MMSTD",
+                    "description": "Date from which the plant-specific material status is valid",
+                    "abapType": "Date",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "FSH_MG_ARUN_REQ",
+                    "description": "Supply Assignment (ARun)",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "FSH_SEAIM",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "FSH_VAR_GROUP",
+                    "description": "Variant Group",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "FSH_KZECH",
+                    "description": "Indicator: Batch Assignment during TR to TO conversion",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "FSH_CALENDAR_GROUP",
+                    "description": "Calendar Group",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ARUN_FIX_BATCH",
+                    "description": "Assign Batches in Supply Assignment (ARun)",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PPSKZ",
+                    "description": "Indicator for Advanced Planning",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CONS_PROCG",
+                    "description": "Consignment Control",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "checkTable": "WRFT_CONS_PROCG",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "GI_PR_TIME",
+                    "description": "Goods Issue Processing Time in Days",
+                    "abapType": "PackedNumber",
+                    "length": 3,
+                    "formattedLength": 3,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MULTIPLE_EKGRP",
+                    "description": "Purchasing Across Purchasing Group",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "REF_SCHEMA",
+                    "description": "Reference Determination Schema",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "checkTable": "WRF_REF_RFS",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MIN_TROC",
+                    "description": "Minimum Target Range of Coverage",
+                    "abapType": "NumericCharacterString",
+                    "length": 3,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MAX_TROC",
+                    "description": "Maximum Target Range of Coverage",
+                    "abapType": "NumericCharacterString",
+                    "length": 3,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "TARGET_STOCK",
+                    "description": "Target Stock",
+                    "abapType": "PackedNumber",
+                    "length": 13,
+                    "decimalCount": 3,
+                    "formattedLength": 17,
+                    "conversionExit": "",
+                    "referenceTable": "MARA",
+                    "referenceField": "MEINS"
+                },
+                {
+                    "name": "NF_FLAG",
+                    "description": "Indicator: Material Contains NF Metals",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "/CWM/UMLMC",
+                    "abapType": "PackedNumber",
+                    "length": 13,
+                    "decimalCount": 3,
+                    "formattedLength": 17,
+                    "conversionExit": "",
+                    "referenceTable": "DDDDLCHARTYPES",
+                    "referenceField": "CUNIT"
+                },
+                {
+                    "name": "/CWM/TRAME",
+                    "abapType": "PackedNumber",
+                    "length": 13,
+                    "decimalCount": 3,
+                    "formattedLength": 17,
+                    "conversionExit": "",
+                    "referenceTable": "DDDDLCHARTYPES",
+                    "referenceField": "CUNIT"
+                },
+                {
+                    "name": "/CWM/BWESB",
+                    "abapType": "PackedNumber",
+                    "length": 13,
+                    "decimalCount": 3,
+                    "formattedLength": 17,
+                    "conversionExit": "",
+                    "referenceTable": "DDDDLCHARTYPES",
+                    "referenceField": "CUNIT"
+                },
+                {
+                    "name": "SCM_MATLOCID_GUID16",
+                    "description": "Internal Key for Product",
+                    "abapType": "ByteSequence",
+                    "length": 16,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SCM_MATLOCID_GUID22",
+                    "description": "Internal Number (UID) for Location Product",
+                    "abapType": "CharacterString",
+                    "length": 22,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SCM_GRPRT",
+                    "description": "Goods Receipt Processing Time",
+                    "abapType": "PackedNumber",
+                    "length": 11,
+                    "formattedLength": 10,
+                    "conversionExit": "TSTRG"
+                },
+                {
+                    "name": "SCM_GIPRT",
+                    "description": "Goods Issue Processing Time",
+                    "abapType": "PackedNumber",
+                    "length": 11,
+                    "formattedLength": 10,
+                    "conversionExit": "TSTRG"
+                },
+                {
+                    "name": "SCM_SCOST",
+                    "description": "Product-Dependent Storage Costs",
+                    "abapType": "PackedNumber",
+                    "length": 13,
+                    "decimalCount": 3,
+                    "formattedLength": 17,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SCM_RELDT",
+                    "description": "Replenishment Lead Time in Calendar Days",
+                    "abapType": "PackedNumber",
+                    "length": 3,
+                    "formattedLength": 3,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SCM_RRP_TYPE",
+                    "description": "PP Planning Procedure",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SCM_HEUR_ID",
+                    "description": "PPC Heuristics",
+                    "abapType": "CharacterString",
+                    "length": 12,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SCM_PACKAGE_ID",
+                    "description": "Planning Package to Which Product Belongs",
+                    "abapType": "CharacterString",
+                    "length": 12,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SCM_SSPEN",
+                    "description": "Penalty Costs for Safety Stock Violation",
+                    "abapType": "PackedNumber",
+                    "length": 13,
+                    "decimalCount": 3,
+                    "formattedLength": 17,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SCM_GET_ALERTS",
+                    "description": "Alert Relevance of Product",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SCM_RES_NET_NAME",
+                    "description": "Resource Network",
+                    "abapType": "CharacterString",
+                    "length": 40,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SCM_CONHAP",
+                    "description": "Handling Capacity Consumption in Unit of Measure (Gds Rcpt)",
+                    "abapType": "PackedNumber",
+                    "length": 13,
+                    "decimalCount": 3,
+                    "formattedLength": 17,
+                    "conversionExit": "",
+                    "referenceTable": "NSDM_V_MARC",
+                    "referenceField": "SCM_HUNIT"
+                },
+                {
+                    "name": "SCM_HUNIT",
+                    "description": "Unit of Measure: Handling Capacity in Goods Receipt",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "conversionExit": "CUNIT"
+                },
+                {
+                    "name": "SCM_CONHAP_OUT",
+                    "description": "Handling Capacity Consumption in Unit of Measure (Gds Issue)",
+                    "abapType": "PackedNumber",
+                    "length": 13,
+                    "decimalCount": 3,
+                    "formattedLength": 17,
+                    "conversionExit": "",
+                    "referenceTable": "NSDM_V_MARC",
+                    "referenceField": "SCM_HUNIT_OUT"
+                },
+                {
+                    "name": "SCM_HUNIT_OUT",
+                    "description": "Unit of Measure: Handling Capacity in Goods Issue",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "conversionExit": "CUNIT"
+                },
+                {
+                    "name": "SCM_SHELF_LIFE_LOC",
+                    "description": "Use Location-Dependent Shelf Life of Product when Planning",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SCM_SHELF_LIFE_DUR",
+                    "description": "Location-Dependent Shelf Life",
+                    "abapType": "PackedNumber",
+                    "length": 11,
+                    "formattedLength": 10,
+                    "conversionExit": "TSTRG"
+                },
+                {
+                    "name": "SCM_MATURITY_DUR",
+                    "description": "Location-Dependent Maturation Time",
+                    "abapType": "PackedNumber",
+                    "length": 11,
+                    "formattedLength": 10,
+                    "conversionExit": "TSTRG"
+                },
+                {
+                    "name": "SCM_SHLF_LFE_REQ_MIN",
+                    "description": "Minimum Shelf Life Required: Location-Dependent",
+                    "abapType": "PackedNumber",
+                    "length": 11,
+                    "formattedLength": 10,
+                    "conversionExit": "TSTRG"
+                },
+                {
+                    "name": "SCM_SHLF_LFE_REQ_MAX",
+                    "description": "Maximum Shelf Life Required: Location-Dependent",
+                    "abapType": "PackedNumber",
+                    "length": 11,
+                    "formattedLength": 10,
+                    "conversionExit": "TSTRG"
+                },
+                {
+                    "name": "SCM_LSUOM",
+                    "description": "Unit of Measure of Lot Size",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "checkTable": "T006",
+                    "conversionExit": "CUNIT"
+                },
+                {
+                    "name": "SCM_REORD_DUR",
+                    "description": "Reorder Days' Supply (in Workdays)",
+                    "abapType": "PackedNumber",
+                    "length": 11,
+                    "formattedLength": 10,
+                    "conversionExit": "TSTRG"
+                },
+                {
+                    "name": "SCM_TARGET_DUR",
+                    "description": "Target Days' Supply in Workdays",
+                    "abapType": "PackedNumber",
+                    "length": 11,
+                    "formattedLength": 10,
+                    "conversionExit": "TSTRG"
+                },
+                {
+                    "name": "SCM_TSTRID",
+                    "description": "Planning Calendar for Periodic Lot Sizing Procedure",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SCM_STRA1",
+                    "description": "Requirement Strategy",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SCM_PEG_PAST_ALERT",
+                    "description": "Alert threshold for delayed receipts",
+                    "abapType": "PackedNumber",
+                    "length": 11,
+                    "formattedLength": 10,
+                    "conversionExit": "TSTRN"
+                },
+                {
+                    "name": "SCM_PEG_FUTURE_ALERT",
+                    "description": "Alert threshold for early receipts",
+                    "abapType": "PackedNumber",
+                    "length": 11,
+                    "formattedLength": 10,
+                    "conversionExit": "TSTRN"
+                },
+                {
+                    "name": "SCM_PEG_STRATEGY",
+                    "description": "Pegging strategy for dynamic pegging",
+                    "abapType": "NumericCharacterString",
+                    "length": 2,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SCM_PEG_WO_ALERT_FST",
+                    "description": "Avoid Alerts in Pegging",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SCM_FIXPEG_PROD_SET",
+                    "description": "Retain Fixed Pegging for Product on Document Change",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SCM_WHATBOM",
+                    "description": "Plan Explosion",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "DUMMY_PLNT_INCL_EEW_PS",
+                    "description": "MD product plant extensible field element",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SCM_RRP_SEL_GROUP",
+                    "description": "Planning Group",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SCM_INTSRC_PROF",
+                    "description": "Profile for Interactive Sourcing",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SCM_PRIO",
+                    "description": "Priority of Product",
+                    "abapType": "OneByteInteger",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SCM_MIN_PASS_AMOUNT",
+                    "description": "Minimum Passing Amount for Continuous I/O Pegging",
+                    "abapType": "PackedNumber",
+                    "length": 15,
+                    "decimalCount": 3,
+                    "formattedLength": 19,
+                    "conversionExit": "",
+                    "referenceTable": "MARA",
+                    "referenceField": "MEINS"
+                },
+                {
+                    "name": "SCM_PROFID",
+                    "description": "Conversion Rule",
+                    "abapType": "CharacterString",
+                    "length": 12,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SCM_GES_MNG_USE",
+                    "description": "Use/Consume Entire Quantity of a Receipt Element",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SCM_GES_BST_USE",
+                    "description": "Use/Consume Entire Quantity of a Stock Element",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SCM_THRUPUT_TIME",
+                    "description": "Throughput Time",
+                    "abapType": "PackedNumber",
+                    "length": 11,
+                    "formattedLength": 10,
+                    "conversionExit": "TSTRG"
+                },
+                {
+                    "name": "SCM_TPOP",
+                    "description": "Third-Party Order Processing",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SCM_SAFTY_V",
+                    "description": "Safety Stock for Virtual Child Location",
+                    "abapType": "PackedNumber",
+                    "length": 13,
+                    "decimalCount": 3,
+                    "formattedLength": 17,
+                    "conversionExit": "",
+                    "referenceTable": "MARA",
+                    "referenceField": "MEINS"
+                },
+                {
+                    "name": "SCM_PPSAFTYSTK",
+                    "description": "Safety Stock at Parent Location",
+                    "abapType": "PackedNumber",
+                    "length": 13,
+                    "decimalCount": 3,
+                    "formattedLength": 17,
+                    "conversionExit": "",
+                    "referenceTable": "MARA",
+                    "referenceField": "MEINS"
+                },
+                {
+                    "name": "SCM_PPSAFTYSTK_V",
+                    "description": "Safety Stock of Parent Location Virtual Child Location",
+                    "abapType": "PackedNumber",
+                    "length": 13,
+                    "decimalCount": 3,
+                    "formattedLength": 17,
+                    "conversionExit": "",
+                    "referenceTable": "MARA",
+                    "referenceField": "MEINS"
+                },
+                {
+                    "name": "SCM_REPSAFTY",
+                    "description": "Repair Safety Stock",
+                    "abapType": "PackedNumber",
+                    "length": 13,
+                    "decimalCount": 3,
+                    "formattedLength": 17,
+                    "conversionExit": "",
+                    "referenceTable": "MARA",
+                    "referenceField": "MEINS"
+                },
+                {
+                    "name": "SCM_REPSAFTY_V",
+                    "description": "Repair Safety Stock for Virtual Child Location",
+                    "abapType": "PackedNumber",
+                    "length": 13,
+                    "decimalCount": 3,
+                    "formattedLength": 17,
+                    "conversionExit": "",
+                    "referenceTable": "MARA",
+                    "referenceField": "MEINS"
+                },
+                {
+                    "name": "SCM_REORD_V",
+                    "description": "Reorder Point for Virtual Child Location",
+                    "abapType": "PackedNumber",
+                    "length": 13,
+                    "decimalCount": 3,
+                    "formattedLength": 17,
+                    "conversionExit": "",
+                    "referenceTable": "MARA",
+                    "referenceField": "MEINS"
+                },
+                {
+                    "name": "SCM_MAXSTOCK_V",
+                    "description": "Maximum Stock Level for Virtual Child Locations",
+                    "abapType": "PackedNumber",
+                    "length": 13,
+                    "decimalCount": 3,
+                    "formattedLength": 17,
+                    "conversionExit": "",
+                    "referenceTable": "MARA",
+                    "referenceField": "MEINS"
+                },
+                {
+                    "name": "SCM_SCOST_PRCNT",
+                    "description": "Cost Factor for Stockholding Costs",
+                    "abapType": "PackedNumber",
+                    "length": 3,
+                    "decimalCount": 2,
+                    "formattedLength": 4,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SCM_PROC_COST",
+                    "description": "Procurement Costs for Product",
+                    "abapType": "PackedNumber",
+                    "length": 13,
+                    "decimalCount": 3,
+                    "formattedLength": 17,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SCM_NDCOSTWA",
+                    "description": "Goods Issue Costs (Network Design)",
+                    "abapType": "PackedNumber",
+                    "length": 13,
+                    "decimalCount": 3,
+                    "formattedLength": 17,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SCM_NDCOSTWE",
+                    "description": "Goods Receiving Costs (Network Design)",
+                    "abapType": "PackedNumber",
+                    "length": 13,
+                    "decimalCount": 3,
+                    "formattedLength": 17,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "EXCISE_TAX_RLVNCE",
+                    "description": "Excise Tax Relevance Indicator",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "/SAPMP/TOLPRPL",
+                    "description": "Percentage Tolerance Plus",
+                    "abapType": "PackedNumber",
+                    "length": 3,
+                    "decimalCount": 1,
+                    "formattedLength": 4,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "/SAPMP/TOLPRMI",
+                    "description": "Percentage Tolerance Minus",
+                    "abapType": "PackedNumber",
+                    "length": 3,
+                    "decimalCount": 1,
+                    "formattedLength": 4,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "/STTPEC/SERVALID",
+                    "description": "Serialization Valid From",
+                    "abapType": "Date",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "/VSO/R_PKGRP",
+                    "description": "Packing Group of the Material (VSO)",
+                    "abapType": "CharacterString",
+                    "length": 18,
+                    "checkTable": "/VSO/M_PKG",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "/VSO/R_LANE_NUM",
+                    "description": "Line within the Automatic Picking Zone (VSO)",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "/VSO/R_PAL_VEND",
+                    "description": "Material No. of the Packaging Material of the Vendor (VSO)",
+                    "abapType": "CharacterString",
+                    "length": 40,
+                    "conversionExit": "MATN1"
+                },
+                {
+                    "name": "/VSO/R_FORK_DIR",
+                    "description": "Pick Packaging Materials only Lengthwise (VSO)",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "IUID_RELEVANT",
+                    "description": "IUID-Relevant",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "IUID_TYPE",
+                    "description": "Structure Type of UII",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "checkTable": "TIUID_TYPE",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "UID_IEA",
+                    "description": "External Allocation of UII",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "DPCBT",
+                    "description": "Single-Unit Batch Def. Value",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ZMAX_ORD_QTY",
+                    "description": "Maximum order quantity",
+                    "abapType": "PackedNumber",
+                    "length": 13,
+                    "decimalCount": 3,
+                    "formattedLength": 17,
+                    "conversionExit": "",
+                    "referenceTable": "MARA",
+                    "referenceField": "MEINS"
+                }
+            ]
+        }
+    ]
+}

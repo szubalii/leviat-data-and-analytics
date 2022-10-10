@@ -3761,7 +3761,7 @@
       {
         "entity_id": 525,
         "entity_name": "I_ProductValuationCosting",
-        "data_category": "TEXT",
+        "data_category": "NULL",
         "client_field": "MANDT",
         "tool_name": "Theobald",
         "extraction_type": "Table",
@@ -3781,8 +3781,31 @@
         "base_table_name": "PurgAccAssignment",
         "pk_field_names": "MANDT,EBELN,EBELP,ZEKKN",
         "schedule_recurrence": "A"
+      },
+      {
+        "entity_id": 527,
+        "entity_name": "NSDM_V_MARC",
+        "data_category": "NULL",
+        "client_field": "MANDT",
+        "tool_name": "Theobald",
+        "extraction_type": "Table",
+        "update_mode": "Full",
+        "base_table_name": "NSDM_V_MARC",
+        "pk_field_names": "MANDT,MATNR,WERKS",
+        "schedule_recurrence": "D"
+      },
+      {
+        "entity_id": 528,
+        "entity_name": "NSDM_V_MAWEV",
+        "data_category": "NULL",
+        "client_field": "MANDT",
+        "tool_name": "Theobald",
+        "extraction_type": "Table",
+        "update_mode": "Full",
+        "base_table_name": "NSDM_V_MAWEV",
+        "pk_field_names": "MANDT,MATNR,WERKS,ALAND",
+        "schedule_recurrence": "D"
       }
-
     ]
   },
   "c4c": {

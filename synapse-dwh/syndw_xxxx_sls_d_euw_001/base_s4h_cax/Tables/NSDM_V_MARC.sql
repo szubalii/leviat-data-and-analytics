@@ -1,0 +1,315 @@
+CREATE TABLE [base_s4h_cax].[NSDM_V_MARC]
+-- MARC Compatibility View
+(
+  [MANDT] nchar(3) collate Latin1_General_100_BIN2 NOT NULL
+, [MATNR] nvarchar(40) collate Latin1_General_100_BIN2 NOT NULL
+, [WERKS] nvarchar(4) collate Latin1_General_100_BIN2 NOT NULL
+, [FXHOR] char(3) collate Latin1_General_100_BIN2
+, [MINBE] decimal(13,3)
+, [NCOST] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [pstat] nvarchar(15) collate Latin1_General_100_BIN2
+-- , [lvorm] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [bwtty] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [xchar] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [mmsta] nvarchar(2) collate Latin1_General_100_BIN2
+-- , [mmstd] date
+-- , [maabc] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [kzkri] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [ekgrp] nvarchar(3) collate Latin1_General_100_BIN2
+-- , [ausme] nvarchar(3) collate Latin1_General_100_BIN2
+-- , [dispr] nvarchar(4) collate Latin1_General_100_BIN2
+-- , [dismm] nvarchar(2) collate Latin1_General_100_BIN2
+-- , [dispo] nvarchar(3) collate Latin1_General_100_BIN2
+-- , [kzdie] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [plifz] decimal(3)
+-- , [webaz] decimal(3)
+-- , [perkz] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [ausss] decimal(5,2)
+-- , [disls] nvarchar(2) collate Latin1_General_100_BIN2
+-- , [beskz] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [sobsl] nvarchar(2) collate Latin1_General_100_BIN2
+-- , [minbe] decimal(13,3)
+-- , [eisbe] decimal(13,3)
+-- , [bstmi] decimal(13,3)
+-- , [bstma] decimal(13,3)
+-- , [bstfe] decimal(13,3)
+-- , [bstrf] decimal(13,3)
+-- , [mabst] decimal(13,3)
+-- , [losfx] decimal(11,2)
+-- , [sbdkz] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [lagpr] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [altsl] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [kzaus] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [ausdt] date
+-- , [nfmat] nvarchar(40) collate Latin1_General_100_BIN2
+-- , [kzbed] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [miskz] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [fhori] nvarchar(3) collate Latin1_General_100_BIN2
+-- , [pfrei] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [ffrei] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [rgekz] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [fevor] nvarchar(3) collate Latin1_General_100_BIN2
+-- , [bearz] decimal(5,2)
+-- , [ruezt] decimal(5,2)
+-- , [tranz] decimal(5,2)
+-- , [basmg] decimal(13,3)
+-- , [dzeit] decimal(3)
+-- , [maxlz] decimal(5)
+-- , [lzeih] nvarchar(3) collate Latin1_General_100_BIN2
+-- , [kzpro] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [gpmkz] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [ueeto] decimal(3,1)
+-- , [ueetk] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [uneto] decimal(3,1)
+-- , [wzeit] decimal(3)
+-- , [atpkz] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [vzusl] decimal(5,2)
+-- , [herbl] nvarchar(2) collate Latin1_General_100_BIN2
+-- , [insmk] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [sproz] decimal(3,1)
+-- , [quazt] decimal(3)
+-- , [ssqss] nvarchar(8) collate Latin1_General_100_BIN2
+-- , [mpdau] decimal(5)
+-- , [kzppv] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [kzdkz] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [wstgh] decimal(9)
+-- , [prfrq] decimal(5)
+-- , [nkmpr] date
+-- , [umlmc] decimal(13,3)
+-- , [ladgr] nvarchar(4) collate Latin1_General_100_BIN2
+-- , [xchpf] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [usequ] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [lgrad] decimal(3,1)
+-- , [auftl] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [plvar] nvarchar(2) collate Latin1_General_100_BIN2
+-- , [otype] nvarchar(2) collate Latin1_General_100_BIN2
+-- , [objid] char(8) collate Latin1_General_100_BIN2
+-- , [mtvfp] nvarchar(2) collate Latin1_General_100_BIN2
+-- , [periv] nvarchar(2) collate Latin1_General_100_BIN2
+-- , [kzkfk] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [vrvez] decimal(5,2)
+-- , [vbamg] decimal(13,3)
+-- , [vbeaz] decimal(5,2)
+-- , [lizyk] nvarchar(4) collate Latin1_General_100_BIN2
+-- , [bwscl] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [kautb] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [kordb] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [stawn] nvarchar(17) collate Latin1_General_100_BIN2
+-- , [herkl] nvarchar(3) collate Latin1_General_100_BIN2
+-- , [herkr] nvarchar(3) collate Latin1_General_100_BIN2
+-- , [expme] nvarchar(3) collate Latin1_General_100_BIN2
+-- , [mtver] nvarchar(4) collate Latin1_General_100_BIN2
+-- , [prctr] nvarchar(10) collate Latin1_General_100_BIN2
+-- , [trame] decimal(13,3)
+-- , [mrppp] nvarchar(3) collate Latin1_General_100_BIN2
+-- , [sauft] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [fxhor] char(3) collate Latin1_General_100_BIN2
+-- , [vrmod] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [vint1] char(3) collate Latin1_General_100_BIN2
+-- , [vint2] char(3) collate Latin1_General_100_BIN2
+-- , [verkz] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [stlal] nvarchar(2) collate Latin1_General_100_BIN2
+-- , [stlan] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [plnnr] nvarchar(8) collate Latin1_General_100_BIN2
+-- , [aplal] nvarchar(2) collate Latin1_General_100_BIN2
+-- , [losgr] decimal(13,3)
+-- , [sobsk] nvarchar(2) collate Latin1_General_100_BIN2
+-- , [frtme] nvarchar(3) collate Latin1_General_100_BIN2
+-- , [lgpro] nvarchar(4) collate Latin1_General_100_BIN2
+-- , [disgr] nvarchar(4) collate Latin1_General_100_BIN2
+-- , [kausf] decimal(5,2)
+-- , [qzgtp] nvarchar(4) collate Latin1_General_100_BIN2
+-- , [qmatv] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [takzt] decimal(3)
+-- , [rwpro] nvarchar(3) collate Latin1_General_100_BIN2
+-- , [copam] nvarchar(10) collate Latin1_General_100_BIN2
+-- , [abcin] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [awsls] nvarchar(6) collate Latin1_General_100_BIN2
+-- , [sernp] nvarchar(4) collate Latin1_General_100_BIN2
+-- , [cuobj] char(18) collate Latin1_General_100_BIN2
+-- , [stdpd] nvarchar(40) collate Latin1_General_100_BIN2
+-- , [sfepr] nvarchar(4) collate Latin1_General_100_BIN2
+-- , [xmcng] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [qssys] nvarchar(4) collate Latin1_General_100_BIN2
+-- , [lfrhy] nvarchar(3) collate Latin1_General_100_BIN2
+-- , [rdprf] nvarchar(4) collate Latin1_General_100_BIN2
+-- , [vrbmt] nvarchar(40) collate Latin1_General_100_BIN2
+-- , [vrbwk] nvarchar(4) collate Latin1_General_100_BIN2
+-- , [vrbdt] date
+-- , [vrbfk] decimal(4,2)
+-- , [autru] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [prefe] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [prenc] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [preno] nvarchar(8) collate Latin1_General_100_BIN2
+-- , [prend] date
+-- , [prene] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [preng] date
+-- , [itark] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [servg] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [kzkup] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [strgr] nvarchar(2) collate Latin1_General_100_BIN2
+-- , [cuobv] char(18) collate Latin1_General_100_BIN2
+-- , [lgfsb] nvarchar(4) collate Latin1_General_100_BIN2
+-- , [schgt] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [ccfix] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [eprio] nvarchar(4) collate Latin1_General_100_BIN2
+-- , [qmata] nvarchar(6) collate Latin1_General_100_BIN2
+-- , [resvp] decimal(3)
+-- , [plnty] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [uomgr] nvarchar(3) collate Latin1_General_100_BIN2
+-- , [umrsl] nvarchar(4) collate Latin1_General_100_BIN2
+-- , [abfac] decimal(2,1)
+-- , [sfcpf] nvarchar(6) collate Latin1_General_100_BIN2
+-- , [shflg] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [shzet] char(2) collate Latin1_General_100_BIN2
+-- , [mdach] nvarchar(2) collate Latin1_General_100_BIN2
+-- , [kzech] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [megru] nvarchar(4) collate Latin1_General_100_BIN2
+-- , [mfrgr] nvarchar(8) collate Latin1_General_100_BIN2
+-- , [profil] nvarchar(4) collate Latin1_General_100_BIN2
+-- , [vkumc] decimal(13,2)
+-- , [vktrw] decimal(13,2)
+-- , [kzagl] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [fvidk] nvarchar(4) collate Latin1_General_100_BIN2
+-- , [fxpru] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [loggr] nvarchar(4) collate Latin1_General_100_BIN2
+-- , [fprfm] nvarchar(3) collate Latin1_General_100_BIN2
+-- , [glgmg] decimal(13,3)
+-- , [vkglg] decimal(13,2)
+-- , [indus] nvarchar(2) collate Latin1_General_100_BIN2
+-- , [mownr] nvarchar(12) collate Latin1_General_100_BIN2
+-- , [mogru] nvarchar(6) collate Latin1_General_100_BIN2
+-- , [casnr] nvarchar(15) collate Latin1_General_100_BIN2
+-- , [gpnum] nvarchar(9) collate Latin1_General_100_BIN2
+-- , [steuc] nvarchar(16) collate Latin1_General_100_BIN2
+-- , [fabkz] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [matgr] nvarchar(20) collate Latin1_General_100_BIN2
+-- , [vspvb] nvarchar(10) collate Latin1_General_100_BIN2
+-- , [dplfs] nvarchar(2) collate Latin1_General_100_BIN2
+-- , [dplpu] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [dplho] decimal(3)
+-- , [minls] decimal(13,3)
+-- , [maxls] decimal(13,3)
+-- , [fixls] decimal(13,3)
+-- , [ltinc] decimal(13,3)
+-- , [compl] char(2) collate Latin1_General_100_BIN2
+-- , [convt] nvarchar(2) collate Latin1_General_100_BIN2
+-- , [shpro] nvarchar(3) collate Latin1_General_100_BIN2
+-- , [ahdis] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [diber] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [kzpsp] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [ocmpf] nvarchar(6) collate Latin1_General_100_BIN2
+-- , [apokz] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [mcrue] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [lfmon] char(2) collate Latin1_General_100_BIN2
+-- , [lfgja] char(4) collate Latin1_General_100_BIN2
+-- , [eislo] decimal(13,3)
+-- , [ncost] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [rotation_date] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [uchkz] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [ucmat] nvarchar(40) collate Latin1_General_100_BIN2
+-- , [bwesb] decimal(13,3)
+-- , [sgt_covs] nvarchar(8) collate Latin1_General_100_BIN2
+-- , [sgt_statc] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [sgt_scope] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [sgt_mrpsi] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [sgt_prcm] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [sgt_chint] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [sgt_stk_prt] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [sgt_defsc] nvarchar(40) collate Latin1_General_100_BIN2
+-- , [sgt_mrp_atp_status] nvarchar(2) collate Latin1_General_100_BIN2
+-- , [sgt_mmstd] date
+-- , [fsh_mg_arun_req] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [fsh_seaim] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [fsh_var_group] nvarchar(2) collate Latin1_General_100_BIN2
+-- , [fsh_kzech] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [fsh_calendar_group] nvarchar(4) collate Latin1_General_100_BIN2
+-- , [arun_fix_batch] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [ppskz] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [cons_procg] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [gi_pr_time] decimal(3)
+-- , [multiple_ekgrp] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [ref_schema] nvarchar(2) collate Latin1_General_100_BIN2
+-- , [min_troc] char(3) collate Latin1_General_100_BIN2
+-- , [max_troc] char(3) collate Latin1_General_100_BIN2
+-- , [target_stock] decimal(13,3)
+-- , [nf_flag] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [/cwm/umlmc] decimal(13,3)
+-- , [/cwm/trame] decimal(13,3)
+-- , [/cwm/bwesb] decimal(13,3)
+-- , [scm_matlocid_guid16] binary(16)
+-- , [scm_matlocid_guid22] nvarchar(22) collate Latin1_General_100_BIN2
+-- , [scm_grprt] decimal(11)
+-- , [scm_giprt] decimal(11)
+-- , [scm_scost] decimal(13,3)
+-- , [scm_reldt] decimal(3)
+-- , [scm_rrp_type] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [scm_heur_id] nvarchar(12) collate Latin1_General_100_BIN2
+-- , [scm_package_id] nvarchar(12) collate Latin1_General_100_BIN2
+-- , [scm_sspen] decimal(13,3)
+-- , [scm_get_alerts] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [scm_res_net_name] nvarchar(40) collate Latin1_General_100_BIN2
+-- , [scm_conhap] decimal(13,3)
+-- , [scm_hunit] nvarchar(3) collate Latin1_General_100_BIN2
+-- , [scm_conhap_out] decimal(13,3)
+-- , [scm_hunit_out] nvarchar(3) collate Latin1_General_100_BIN2
+-- , [scm_shelf_life_loc] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [scm_shelf_life_dur] decimal(11)
+-- , [scm_maturity_dur] decimal(11)
+-- , [scm_shlf_lfe_req_min] decimal(11)
+-- , [scm_shlf_lfe_req_max] decimal(11)
+-- , [scm_lsuom] nvarchar(3) collate Latin1_General_100_BIN2
+-- , [scm_reord_dur] decimal(11)
+-- , [scm_target_dur] decimal(11)
+-- , [scm_tstrid] nvarchar(10) collate Latin1_General_100_BIN2
+-- , [scm_stra1] nvarchar(2) collate Latin1_General_100_BIN2
+-- , [scm_peg_past_alert] decimal(11)
+-- , [scm_peg_future_alert] decimal(11)
+-- , [scm_peg_strategy] char(2) collate Latin1_General_100_BIN2
+-- , [scm_peg_wo_alert_fst] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [scm_fixpeg_prod_set] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [scm_whatbom] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [dummy_plnt_incl_eew_ps] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [scm_rrp_sel_group] nvarchar(2) collate Latin1_General_100_BIN2
+-- , [scm_intsrc_prof] nvarchar(10) collate Latin1_General_100_BIN2
+-- , [scm_prio] tinyint
+-- , [scm_min_pass_amount] decimal(15,3)
+-- , [scm_profid] nvarchar(12) collate Latin1_General_100_BIN2
+-- , [scm_ges_mng_use] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [scm_ges_bst_use] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [scm_thruput_time] decimal(11)
+-- , [scm_tpop] nvarchar(2) collate Latin1_General_100_BIN2
+-- , [scm_safty_v] decimal(13,3)
+-- , [scm_ppsaftystk] decimal(13,3)
+-- , [scm_ppsaftystk_v] decimal(13,3)
+-- , [scm_repsafty] decimal(13,3)
+-- , [scm_repsafty_v] decimal(13,3)
+-- , [scm_reord_v] decimal(13,3)
+-- , [scm_maxstock_v] decimal(13,3)
+-- , [scm_scost_prcnt] decimal(3,2)
+-- , [scm_proc_cost] decimal(13,3)
+-- , [scm_ndcostwa] decimal(13,3)
+-- , [scm_ndcostwe] decimal(13,3)
+-- , [excise_tax_rlvnce] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [/sapmp/tolprpl] decimal(3,1)
+-- , [/sapmp/tolprmi] decimal(3,1)
+-- , [/sttpec/servalid] date
+-- , [/vso/r_pkgrp] nvarchar(18) collate Latin1_General_100_BIN2
+-- , [/vso/r_lane_num] nvarchar(3) collate Latin1_General_100_BIN2
+-- , [/vso/r_pal_vend] nvarchar(40) collate Latin1_General_100_BIN2
+-- , [/vso/r_fork_dir] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [iuid_relevant] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [iuid_type] nvarchar(10) collate Latin1_General_100_BIN2
+-- , [uid_iea] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [dpcbt] nvarchar(1) collate Latin1_General_100_BIN2
+, [t_applicationId]       VARCHAR (32)
+, [t_jobId]               VARCHAR (36)
+, [t_jobDtm]             DATETIME
+, [t_jobBy]        NVARCHAR (128)
+, [t_filePath]            NVARCHAR (1024)
+, [t_extractionDtm]             DATETIME
+, CONSTRAINT [PK_NSDM_V_MARC] PRIMARY KEY NONCLUSTERED([MANDT],[MATNR],[WERKS]) NOT ENFORCED 
+)
+WITH ( 
+  HEAP
+)
