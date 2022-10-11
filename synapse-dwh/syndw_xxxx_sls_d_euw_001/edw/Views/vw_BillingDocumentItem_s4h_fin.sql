@@ -643,18 +643,7 @@ BDwithConditionAmountFreight AS (
     ,   BDIwithMatType.[InOutID]
     ,   BDIwithMatType.[t_applicationId]
     ,   BDIwithMatType.[t_extractionDtm]
-    ,   CASE
-            WHEN
-                 ISNULL(BDexclZVERandZSER.[FinNetAmountSumBD],0) != 0
-            THEN 
-                [NetAmount] / BDexclZVERandZSER.[FinNetAmountSumBD]
-            ELSE 0
-        END AS [FinNetAmountCalc]
-    ,   CASE
-            WHEN ISNULL(BDwithZSER.[NetAmountZSER],0) != 0
-            THEN [NetAmount] / BDwithZSER.[NetAmountZSER]
-            ELSE 0
-        END AS [FinNetAmountDummyCalc]
+    ,   BDexclZVERandZSER.FinNetAmountSumBD
     ,   ISNULL(BDwithZVER.NetAmountZVER,0) AS NetAmountZVER
     ,   BDwithZSER.NetAmountZSER
     ,   ISNULL(BDwithFreight.NetAmountFreight,0) AS NetAmountFreight
@@ -922,31 +911,59 @@ BDwithConditionAmountFreight AS (
             ELSE NULL
         END AS [FinNetAmountRealProduct]
     ,   CASE
-            WHEN [MaterialTypeID] NOT IN ('ZVER', 'ZSER')
-            THEN [FinNetAmountCalc] * [NetAmountFreight] + [ConditionAmountFreight]
+            WHEN
+                [FinNetAmountSumBD] != 0
+                AND
+                [MaterialTypeID] NOT IN ('ZVER', 'ZSER')
+            THEN 
+                ([NetAmount] / [FinNetAmountSumBD] * NetAmountFreight) + [ConditionAmountFreight]
             ELSE NULL
         END AS [FinNetAmountFreight]
     ,   CASE
-            WHEN [MaterialTypeID] NOT IN ('ZVER', 'ZSER')
-            THEN [FinNetAmountCalc] * [NetAmountMinQty] + [ConditionAmountMinQty]
-            ELSE NULL
+            WHEN
+                [FinNetAmountSumBD] != 0
+                AND
+                [MaterialTypeID] NOT IN ('ZVER', 'ZSER')
+            THEN 
+                ([NetAmount] / [FinNetAmountSumBD] * NetAmountMinQty) + [ConditionAmountMinQty]
+            ELSE 
+                NULL
         END AS [FinNetAmountMinQty]
     ,   CASE
-            WHEN [MaterialTypeID] NOT IN ('ZVER', 'ZSER')
-            THEN [FinNetAmountCalc] * [NetAmountEngServ]
-            ELSE NULL
+            WHEN
+                [FinNetAmountSumBD] != 0
+                AND
+                [MaterialTypeID] NOT IN ('ZVER', 'ZSER')
+            THEN
+                [NetAmount] / [FinNetAmountSumBD] * NetAmountEngServ
+            ELSE
+                NULL
         END AS [FinNetAmountEngServ]
     ,   CASE
-            WHEN [MaterialTypeID] NOT IN ('ZVER', 'ZSER')
-            THEN [FinNetAmountCalc] * [NetAmountMisc]
-            ELSE NULL
+            WHEN
+                [FinNetAmountSumBD] != 0
+                AND
+                [MaterialTypeID] NOT IN ('ZVER', 'ZSER')
+            THEN
+                [NetAmount] / [FinNetAmountSumBD] * NetAmountMisc
+            ELSE
+                NULL
         END AS [FinNetAmountMisc]
     ,   CASE
-            WHEN [MaterialTypeID] NOT IN ('ZVER', 'ZSER')
-            THEN [FinNetAmountCalc] * [NetAmountServOther]
-            ELSE NULL
+            WHEN
+                [FinNetAmountSumBD] != 0
+                AND
+                [MaterialTypeID] NOT IN ('ZVER', 'ZSER')
+            THEN 
+                [NetAmount] / [FinNetAmountSumBD] * NetAmountServOther
+            ELSE
+                NULL
         END AS [FinNetAmountServOther]
-    ,   [FinNetAmountCalc] * [NetAmountZVER] + [ConditionAmountVerp] AS [FinNetAmountVerp]
+    ,   CASE
+            WHEN [FinNetAmountSumBD] != 0
+            THEN [NetAmount] / [FinNetAmountSumBD] * NetAmountZVER + [ConditionAmountVerp]
+            ELSE NULL
+        END AS [FinNetAmountVerp]
     ,   [AccountingDate]
     ,   [MaterialCalculated]
     ,   [SoldToPartyCalculated]
@@ -961,13 +978,13 @@ BDwithConditionAmountFreight AS (
     Generate additional records for documents that consist of [MaterialTypeID] = 'ZSER' or 'ZVER' only
 */
     SELECT 
-        BDITotals.[BillingDocument]
-    ,   STUFF(BDITotals.[BillingDocumentItem], 1, 1, 'Z') + '0' AS [BillingDocumentItem]
+        BDIwithMatType.[BillingDocument]
+    ,   STUFF(BDIwithMatType.[BillingDocumentItem], 1, 1, 'Z') + '0' AS [BillingDocumentItem]
     ,   NULL AS [MaterialTypeID] --MPS 2021/11/04 MaterialTypeID is not used in output but required for UNION
-    ,   BDITotals.[CurrencyTypeID]
-    ,   BDITotals.[CurrencyType]
-    ,   BDITotals.[CurrencyID]
-    ,   BDITotals.[ExchangeRate]
+    ,   BDIwithMatType.[CurrencyTypeID]
+    ,   BDIwithMatType.[CurrencyType]
+    ,   BDIwithMatType.[CurrencyID]
+    ,   BDIwithMatType.[ExchangeRate]
     ,   [SalesDocumentItemCategoryID]
     ,   [SalesDocumentItemTypeID]
     ,   [ReturnItemProcessingType]
@@ -1138,9 +1155,11 @@ BDwithConditionAmountFreight AS (
             WHEN 
                 [Material] = '000000000070000011'
                 AND
+                ISNULL([NetAmountZSER],0) != 0
+                AND
                 [MaterialTypeID] = 'ZSER'
            THEN
-               ([FinNetAmountDummyCalc] * ISNULL(NetAmountFreight,0)) + ISNULL([ConditionAmountFreight],0)
+               (BDIwithMatType.[NetAmount] / BDwithZSER.[NetAmountZSER] * ISNULL(BDwithFreight.NetAmountFreight,0)) + ISNULL(BDwithConditionAmountFreight.[ConditionAmountFreight],0)
            ELSE NULL
         END AS [FinNetAmountFreight]
     ,   NULL AS [FinNetAmountMinQty]
@@ -1150,9 +1169,11 @@ BDwithConditionAmountFreight AS (
                 OR
                 [Material] = '000000000070000051')
                 AND
+                ISNULL([NetAmountZSER],0) != 0
+                AND
                 [MaterialTypeID] = 'ZSER'
            THEN
-               [FinNetAmountDummyCalc] * ISNULL([NetAmountEngServ],0)
+               BDIwithMatType.[NetAmount] / BDwithZSER.[NetAmountZSER] * ISNULL(BDwithEngServ.NetAmountEngServ,0)
            ELSE NULL
         END AS [FinNetAmountEngServ]
     ,   NULL AS [FinNetAmountMisc]
@@ -1161,16 +1182,18 @@ BDwithConditionAmountFreight AS (
             WHEN 
                 [Material] NOT IN ('000000000070000010','000000000070000051','000000000070000011')
                 AND
+                ISNULL([NetAmountZSER],0) != 0
+                AND
                 [MaterialTypeID] = 'ZSER'
            THEN
-               [FinNetAmountDummyCalc] * ISNULL([NetAmountServOther],0)
+               BDIwithMatType.[NetAmount] / BDwithZSER.[NetAmountZSER] * ISNULL(BDwithServOther.NetAmountServOther,0)
            ELSE NULL
         END AS [FinNetAmountServOther]
     ,   CASE
             WHEN
-                [MaterialTypeID] = 'ZVER'
+                MaterialTypeID = 'ZVER'
             THEN
-                [NetAmount]
+                NetAmount
         END AS [FinNetAmountVerp]
     ,   [AccountingDate]
     ,   'ZZZDUMMY02' AS [MaterialCalculated]
@@ -1179,9 +1202,41 @@ BDwithConditionAmountFreight AS (
     ,   [t_applicationId]
     ,   [t_extractionDtm]
     FROM 
-        BDITotals
+        BDIwithMatType
+    LEFT JOIN
+        BDwithZSER
+        ON
+            BDIwithMatType.BillingDocument = BDwithZSER.BillingDocument
+            AND
+            BDIwithMatType.CurrencyTypeID = BDwithZSER.CurrencyTypeID
+    LEFT JOIN
+        BDwithFreight
+        ON
+            BDIwithMatType.BillingDocument = BDwithFreight.BillingDocument
+            AND
+            BDIwithMatType.CurrencyTypeID = BDwithFreight.CurrencyTypeID
+    LEFT JOIN
+        BDwithConditionAmountFreight
+        ON 
+            BDIwithMatType.BillingDocument = BDwithConditionAmountFreight.BillingDocument
+            AND            
+            BDIwithMatType.BillingDocumentItem = BDwithConditionAmountFreight.BillingDocumentItem
+            AND
+            BDIwithMatType.CurrencyTypeID = BDwithConditionAmountFreight.CurrencyTypeID
+    LEFT JOIN
+        BDwithEngServ
+        ON
+            BDIwithMatType.BillingDocument = BDwithEngServ.BillingDocument
+            AND
+            BDIwithMatType.CurrencyTypeID = BDwithEngServ.CurrencyTypeID
+    LEFT JOIN
+        BDwithServOther
+        ON
+            BDIwithMatType.BillingDocument = BDwithServOther.BillingDocument
+            AND
+            BDIwithMatType.CurrencyTypeID = BDwithServOther.CurrencyTypeID
     WHERE 
-        BDITotals.[BillingDocument] NOT IN (
+        BDIwithMatType.[BillingDocument] NOT IN (
             SELECT
                 [BillingDocument]
             FROM 
