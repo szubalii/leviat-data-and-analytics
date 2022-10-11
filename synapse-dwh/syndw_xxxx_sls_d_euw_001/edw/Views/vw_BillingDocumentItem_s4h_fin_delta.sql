@@ -293,12 +293,15 @@ BDwithFreight AS (
     ,   SUM(NetAmount) AS NetAmountServOther
     FROM 
         BDIwithMatType
-    INNER JOIN
-        [map_AXBI].[BillingDocumentItem] mbdi
-        ON
-            mbdi.[ProductID] IS NULL
     WHERE
         [MaterialTypeID] = 'ZSER'
+        AND
+        [Material] NOT IN (
+            SELECT
+                [ProductID]
+            FROM
+                [map_AXBI].[BillingDocumentItem]
+        )
     GROUP BY
         BillingDocument
     ,   CurrencyTypeID
