@@ -178,7 +178,6 @@
     <Folder Include="dm_c4c" />
     <Folder Include="dm_c4c\Views" />
     <Folder Include="base_dw_halfen_2_dwh\Stored Procedures\" />
-    <Folder Include="edw\Table\" />
     <Folder Include="intm_axbi" />
     <Folder Include="intm_axbi\Tables" />
     <Folder Include="intm_axbi\Stored Procedures" />
@@ -1005,7 +1004,11 @@
     <Build Include="base_s4h_cax\Tables\I_ProductValuationCosting.sql" />
     <Build Include="base_s4h_cax\Tables\PurgAccAssignment.sql" />
     <Build Include="base_s4h_cax\Tables\NSDM_V_MARC.sql" />
-    <Build Include="base_s4h_cax\Tables\NSDM_V_MAWEV.sql" />    
+    <Build Include="base_s4h_cax\Tables\NSDM_V_MAWEV.sql" />
+    <Build Include="edw\Tables\fact_MaterialDocumentItem_temp.sql" />
+    <Build Include="edw\Views\vw_fact_MaterialDocumentItem_temp.sql" />
+    <Build Include="edw\Views\vw_fact_MaterialStockLevel_temp.sql" />
+    <Build Include="edw\Tables\fact_MaterialStockLevel_temp.sql" />    
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PostDeploy Include="Scripts\Post-Deploy\Script.PostDeployment.sql" />

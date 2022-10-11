@@ -1,39 +1,6 @@
-CREATE VIEW [dm_sales].[vw_fact_MaterialStockLevel]
-AS
-SELECT
-    [ReportingYear],
-    [ReportingMonth],
-    [ReportingDate],
-    [MaterialID],
-    [PlantID],
-    [StorageLocationID],
-    [InventorySpecialStockTypeID],
-    [InventorySpecialStockTypeName],
-    [InventoryStockTypeID],
-    [InventoryStockTypeName],
-    [StockOwner],
-    [CostCenterID],
-    [CompanyCodeID],
-    [SalesDocumentTypeID],
-    [SalesDocumentType],
-    [SalesDocumentItemCategoryID],
-    [SalesDocumentItemCategory],
-    [MaterialBaseUnitID],
-    [PurchaseOrderTypeID],
-    [PurchaseOrderType],
-    [MatlStkChangeQtyInBaseUnit],
-    [StockLevelQtyInBaseUnit],
-    [StockLevelStandardPPU],
-    [StockLevelStandardPPU_EUR],
-    [StockLevelStandardPPU_USD],
-    [PriceControlIndicatorID],
-    [PriceControlIndicator],
-    [nk_dim_ProductValuationPUP],
-    [sk_dim_ProductValuationPUP]  
-FROM 
-    [edw].[fact_MaterialStockLevel_temp]
-    
-/*  -- 10.11.2022  US 2191
+CREATE VIEW [edw].[vw_fact_MaterialStockLevel_temp]
+  AS 
+
 WITH Hash_Calc AS (
     SELECT
         CONVERT(NVARCHAR(32),
@@ -78,7 +45,7 @@ WITH Hash_Calc AS (
         EOMONTH(CAST(FORMAT(viewMD.[HDR_PostingDate],'yyyy-MM') + '-01' AS DATE)) AS HDR_PostingDate_LMD,
         viewMD.[nk_dim_ProductValuationPUP],
         viewMD.[InventoryValuationTypeID]
-    FROM [dm_sales].[vw_fact_MaterialDocumentItem] viewMD
+    FROM [edw].[fact_MaterialDocumentItem_temp] viewMD
     group by
         viewMD.[MaterialID],
         viewMD.[PlantID],
@@ -267,4 +234,3 @@ WITH Hash_Calc AS (
     [sk_dim_ProductValuationPUP]  
 FROM 
     Calendar_TotalAmount
-*/
