@@ -3780,7 +3780,7 @@
         "update_mode": "Full",
         "base_table_name": "PurgAccAssignment",
         "pk_field_names": "MANDT,EBELN,EBELP,ZEKKN",
-        "schedule_recurrence": "A"
+        "schedule_recurrence": "D"
       }
 
     ]
@@ -3796,7 +3796,7 @@
         "entity_name": "OpportunityCollection",
         "base_table_name": "OpportunityCollection",
         "pk_field_names": "ObjectID",
-        "schedule_recurrence": "A"
+        "schedule_recurrence": "D"
       }
     ]
   },
