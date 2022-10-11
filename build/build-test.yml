@@ -121,6 +121,8 @@ jobs:
     demands:
     - node.js
     - VisualStudio
+  variables:
+    dataFactoryName: 'df-$[variables['member']]-d-euw-001'
 
   steps:
 
