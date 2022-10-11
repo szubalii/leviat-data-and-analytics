@@ -35,7 +35,7 @@ CREATE TABLE [base_tx_crh_2_dwh].[DIM_INVENTTABLE](
 	[StockPriceUnit] [decimal](38, 2) NULL,
 	[PurchasePriceUnit] [decimal](38, 2) NULL,
 	[SalesPriceUnit] [decimal](38, 2) NULL,
-	[ActiveInactive] [varchar](8) NULL,
+	[Active/Inactive] [varchar](8) NULL,
 	[InventoryStoppedYN] [varchar](3) NULL,
 	[PurchaseStoppedYN] [varchar](3) NULL,
 	[SalesStoppedYN] [varchar](3) NULL,
