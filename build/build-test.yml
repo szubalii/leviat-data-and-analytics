@@ -128,6 +128,12 @@ jobs:
   - group: KeyVault_DEV
   - name: accountName # runtime variable
     value: $[replace(variables['Build.RequestedForEmail'], '@crh.com','')] #runtime expression
+  - name: testa
+    value: 'c'
+  - name: testb
+    value: $[variables.testa]
+  - name: testc
+    value: 'test-$[variables.testb]'
   - name: dataFactoryName
     value: 'df-$[variables[''accountName'']]-d-euw-001'
   - name: sqlDatabase
