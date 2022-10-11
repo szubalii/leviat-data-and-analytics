@@ -136,13 +136,6 @@ jobs:
     value: 'syndw_$[variables.accountName])_d_euw_001'
 
   steps:
-
-  - task: AzureKeyVault@2
-    inputs:
-      azureSubscription: 'Leviat-we-sub-01 (f199b488-7d9d-4992-aeda-c10a1e1c9b9e)'
-      KeyVaultName: '$(keyVaultName)'
-      SecretsFilter: '*'
-      RunAsPreJob: true
   
     # Installs the npm packages saved in your package.json file in the build
   - task: Npm@1
