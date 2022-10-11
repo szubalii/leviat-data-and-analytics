@@ -1,0 +1,27 @@
+{
+	"nameGenerator": {
+		"suffix": "",
+		"objectNamingMode": "Custom",
+		"customName": "NSDM_V_MARC",
+		"appendsTimestamp": true
+	},
+	"internalSettings": {
+		"sapDateConversion": {
+			"enabled": true,
+			"replacementForInvalidDate": null,
+			"replacementForZeroDate": "0001-01-01",
+			"replacementForYear9999": "9999-12-31"
+		},     
+		"nameGenerator": {
+            "suffix": "",
+            "customName": "NSDM_V_MARC",
+            "objectNamingMode": "Custom",
+            "appendsTimestamp": true
+        },
+		"columnNameKind": "Code"
+	},
+	"blobType": "BlockBlob",
+	"columnNameKind": "Code",
+	"folderPath": "NULL/NSDM_V_MARC/Theobald/Table/Full/In/#{ DateTime.Now.ToString(\"yyyy/MM/dd\") }#",
+	"maxBlobSize": 0
+}
