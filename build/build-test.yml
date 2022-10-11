@@ -133,7 +133,7 @@ jobs:
   - name: testb
     value: $[variables.testa]
   - name: testc
-    value: 'test-$[variables.testb]'
+    value: $['test-'variables.testb]
   - name: dataFactoryName
     value: 'df-$[variables[''accountName'']]-d-euw-001'
   - name: sqlDatabase
