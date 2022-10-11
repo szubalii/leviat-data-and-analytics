@@ -286,6 +286,23 @@ BDwithFreight AS (
         BillingDocument
     ,   CurrencyTypeID
 )
+,BDwithServOther AS (
+    SELECT 
+        [BillingDocument]
+    ,   CurrencyTypeID
+    ,   SUM(NetAmount) AS NetAmountServOther
+    FROM 
+        BDIwithMatType
+    INNER JOIN
+        [map_AXBI].[BillingDocumentItem] mbdi
+        ON
+            mbdi.[ProductID] IS NULL
+    WHERE
+        [MaterialTypeID] = 'ZSER'
+    GROUP BY
+        BillingDocument
+    ,   CurrencyTypeID
+)
 ,BDwithZVER AS (
     SELECT 
         [BillingDocument]
@@ -639,6 +656,7 @@ BDwithConditionAmountFreight AS (
     ,   ISNULL(BDwithMinQty.NetAmountMinQty,0) AS NetAmountMinQty
     ,   BDwithEngServ.NetAmountEngServ
     ,   BDwithMisc.NetAmountMisc
+    ,   BDwithServOther.NetAmountServOther
     ,   ISNULL(BDwithConditionAmountFreight.ConditionAmountFreight, 0) AS ConditionAmountFreight
     ,   ISNULL(BDwithConditionAmountMinQty.ConditionAmountMinQty, 0) AS ConditionAmountMinQty
     ,   ISNULL(BDwithConditionAmountVerp.ConditionAmountVerp, 0) AS ConditionAmountVerp
@@ -669,6 +687,12 @@ BDwithConditionAmountFreight AS (
             BDIwithMatType.BillingDocument = BDwithMisc.BillingDocument
             AND
             BDIwithMatType.CurrencyTypeID = BDwithMisc.CurrencyTypeID
+    LEFT JOIN
+        BDwithServOther
+        ON
+            BDIwithMatType.BillingDocument = BDwithServOther.BillingDocument
+            AND
+            BDIwithMatType.CurrencyTypeID = BDwithServOther.CurrencyTypeID
     LEFT JOIN
         BDwithZVER
         ON
@@ -935,7 +959,7 @@ BDwithConditionAmountFreight AS (
                 AND
                 [MaterialTypeID] NOT IN ('ZVER', 'ZSER')
             THEN 
-                [NetAmount] / [FinNetAmountSumBD] * NetAmountZSER
+                [NetAmount] / [FinNetAmountSumBD] * NetAmountServOther
             ELSE
                 NULL
         END AS [FinNetAmountServOther]
@@ -1170,7 +1194,7 @@ BDwithConditionAmountFreight AS (
                 AND
                 [MaterialTypeID] = 'ZSER'
            THEN
-               BDIwithMatType.[NetAmount] / BDwithZSER.[NetAmountZSER] * ISNULL(BDwithZSER.[NetAmountZSER],0)
+               BDIwithMatType.[NetAmount] / BDwithZSER.[NetAmountZSER] * ISNULL(BDwithServOther.NetAmountServOther,0)
            ELSE NULL
         END AS [FinNetAmountServOther]
     ,   CASE
@@ -1217,6 +1241,12 @@ BDwithConditionAmountFreight AS (
             BDIwithMatType.BillingDocument = BDwithEngServ.BillingDocument
             AND
             BDIwithMatType.CurrencyTypeID = BDwithEngServ.CurrencyTypeID
+    LEFT JOIN
+        BDwithServOther
+        ON
+            BDIwithMatType.BillingDocument = BDwithServOther.BillingDocument
+            AND
+            BDIwithMatType.CurrencyTypeID = BDwithServOther.CurrencyTypeID
     WHERE 
         BDIwithMatType.[BillingDocument] NOT IN (
             SELECT
