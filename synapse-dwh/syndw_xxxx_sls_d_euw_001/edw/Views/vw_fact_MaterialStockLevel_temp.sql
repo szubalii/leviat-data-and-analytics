@@ -192,11 +192,11 @@ WITH Hash_Calc AS (
                 CC.[CalendarMonth] = HC.HDR_PostingDate_Month
         LEFT JOIN [edw].[dim_ProductValuationPUP]  CPPUP 
         ON             
-            CPPUP.[ValuationTypeID] = CC.[InventoryValuationTypeID] 
+            CPPUP.[ValuationTypeID] = CC.[InventoryValuationTypeID]  COLLATE Latin1_General_100_BIN2
             AND
-            CPPUP.[ValuationAreaID] = CC.[PlantID]
+            CPPUP.[ValuationAreaID] = CC.[PlantID] COLLATE Latin1_General_100_BIN2
             AND
-            CPPUP.[ProductID] = CC.[MaterialID]     
+            CPPUP.[ProductID] = CC.[MaterialID] COLLATE Latin1_General_100_BIN2     
             AND 
             CPPUP.[CalendarYear] = CC.[CalendarYear] COLLATE Latin1_General_100_BIN2
             AND
