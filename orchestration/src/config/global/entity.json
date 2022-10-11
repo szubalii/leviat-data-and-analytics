@@ -5318,6 +5318,15 @@
         "update_mode": "Delta",
         "execution_order": 3,
         "schedule_recurrence": "D"
+      },
+      {
+        "entity_id": 484,
+        "entity_name": "fact_MaterialDocumentItem_axbi",
+        "sproc_name": "sp_materialize_view",
+        "source_view_name": "vw_MaterialDocumentItem_axbi",
+        "dest_table_name": "fact_MaterialDocumentItem_axbi",
+        "execution_order": 1,
+        "schedule_recurrence": "D"
       }
     ]
   },
@@ -5353,15 +5362,6 @@
         "source_view_name": "vw_RuleTotal",
         "dest_table_name": "fact_RuleTotal",
         "execution_order": 0,
-        "schedule_recurrence": "D"
-      },
-      {
-        "entity_id": 484,
-        "entity_name": "fact_MaterialDocumentItem_axbi",
-        "sproc_name": "sp_materialize_view",
-        "source_view_name": "vw_MaterialDocumentItem_axbi",
-        "dest_table_name": "fact_MaterialDocumentItem_axbi",
-        "execution_order": 1,
         "schedule_recurrence": "D"
       }
     ]
