@@ -301,8 +301,6 @@ BDwithFreight AS (
                 [ProductID]
             FROM
                 [map_AXBI].[BillingDocumentItem]
-            WHERE
-                [FinNetAmountColumnName] = 'FinNetAmountServOther'
         )
     GROUP BY
         BillingDocument
