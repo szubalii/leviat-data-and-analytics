@@ -11,6 +11,8 @@ jobs:
   # Start VM
 - job: StartVM
   pool: server
+  variables:
+  - group: DnA_DEV
   steps:
     - task: InvokeRESTAPI@1
       inputs:
