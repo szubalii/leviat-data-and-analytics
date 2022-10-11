@@ -122,7 +122,16 @@ jobs:
     - node.js
     - VisualStudio
   variables:
-    dataFactoryName: 'df-$[variables['member']]-d-euw-001'
+  - group: DnA_DEV
+  - group: KeyVault_DEV
+  - name: accountName # runtime variable
+    value: $[replace(variables['Build.RequestedForEmail'], '@crh.com','')] #runtime expression
+  - name: dataFactoryName
+    value: 'df-$[variables.accountName])-d-euw-001'
+  - name: sqlDatabase
+    value: 'sqldb-$[variables.accountName])-d-euw-001'
+  - name: synapseDatabase
+    value: 'syndw_$[variables.accountName])_d_euw_001'
 
   steps:
 
