@@ -13,7 +13,7 @@ Supplier AS (
 				WHEN
 				LEFT(s.[SupplierID],2) = '00'
 				THEN CONCAT(RIGHT(s.[SupplierID], 8), ' (', s.[Supplier], ')') 
-				ELSE s.[SupplierID]
+				ELSE CONCAT(s.[SupplierID], ' (', s.[Supplier], ')') 
 			END AS [SupplierID_Name]
 		,	s.[SupplierAccountGroupID] 
 		,	s.[AccountGroup]
