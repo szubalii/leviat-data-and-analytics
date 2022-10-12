@@ -42,7 +42,7 @@ CREATE TABLE [base_tx_crh_1_stg].[AX_CRH_A_dbo_INVENTTABLE](
 	[PurchaseStopped] [int] NULL,
 	[SalesStopped] [int] NULL,
 	[Stopped3] [varchar](3) NULL,
-	[ActiveInactive] [varchar](8) NULL,
+	[Active/Inactive] [varchar](8) NULL,
 	[InventoryStoppedYN] [varchar](3) NULL,
 	[PurchaseStoppedYN] [varchar](3) NULL,
 	[SalesStoppedYN] [varchar](3) NULL,

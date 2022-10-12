@@ -53,9 +53,40 @@ BEGIN
 			ORDER BY DATAAREAID, INVOICEID, SALESID, INVENTTRANSID, LINENUM ) RowNumber
 		FROM #inventtrans_ANAU
 	)
-	DELETE FROM CTE_inventtrans WHERE RowNumber > 1
+		DELETE FROM #inventtrans_ANAU
+	where exists (select * from 
+	CTE_inventtrans c inner join #inventtrans_ANAU i
+	on c.DATAAREAID=i.DATAAREAID
+	and c.SALESID=i.SALESID
+	and c.INVENTTRANSID=i.INVENTTRANSID
+	and c.LINENUM=i.LINENUM
+	WHERE RowNumber > 1)
 
+	--insert main sales
 	insert [intm_axbi].[fact_CUSTINVOICETRANS]
+	(DATAAREAID
+    ,SALESID
+    ,INVOICEID
+    ,LINENUM
+    ,INVENTTRANSID
+    ,ACCOUNTINGDATE
+    ,CUSTOMERNO
+    ,ITEMID
+    ,DELIVERYCOUNTRYID
+    ,PACKINGSLIPID
+    ,QTY
+    ,PRODUCTSALESLOCAL
+    ,PRODUCTSALESEUR
+    ,OTHERSALESLOCAL
+    ,OTHERSALESEUR
+    ,ALLOWANCESLOCAL
+    ,ALLOWANCESEUR
+    ,SALES100LOCAL
+    ,SALES100EUR
+    ,FREIGHTLOCAL
+    ,FREIGHTEUR
+    ,COSTAMOUNTLOCAL
+    ,COSTAMOUNTEUR)
 	select
 	'ANAU',
 	t.ORIGSALESID,
@@ -67,7 +98,7 @@ BEGIN
 	'ANAU-' + t.ITEMID,
 	ISNULL(t.DLVCOUNTRYREGIONID,' '),
 	ISNULL(i.PACKINGSLIPID,' '),
-	t.qty,
+	t.QTY,
 	t.LINEAMOUNTMST,
 	t.LINEAMOUNTMST / c.CRHRATE,
 	0,
@@ -89,7 +120,7 @@ BEGIN
 	   t.INVOICEID = i.INVOICEID and
 	   t.INVENTTRANSID = i.INVENTTRANSID
 	inner join [base_tx_ca_0_hlp].[CRHCURRENCY] as c
-	on Datepart(YYYY, i.DATEFINANCIAL) = c.year and
+	on Datepart(YYYY, i.DATEFINANCIAL) = c.YEAR and
 	   'AUD' = c.CURRENCY
 	where t.DATAAREAID = 'anau' 
 	and Datepart(yyyy, i.DATEFINANCIAL) = @P_Year 
@@ -110,16 +141,17 @@ BEGIN
 
 --create temp table with other sales (obsolete cursor)
 
-	select 'ANAU',
+	select 
+	'ANAU' as DATAAREAID,
 	t.ORIGSALESID,
 	t.INVOICEID,
 	t.LINENUM,
-	ISNULL(t.INVENTTRANSID,' '),
-	i.DATEFINANCIAL,
-	j.ORDERACCOUNT,
+	ISNULL(t.INVENTTRANSID,' ') as INVENTTRANSID,
+	i.DATEFINANCIAL as ACCOUNTINGDATE,
+	j.ORDERACCOUNT as CUSTOMERNO,
 	t.ITEMID,
-	ISNULL(t.DLVCOUNTRYREGIONID,' '),
-	i.PACKINGSLIPID,
+	ISNULL(t.DLVCOUNTRYREGIONID,' ') as DELIVERYCOUNTRYID,
+	i.PACKINGSLIPID as PACKINGSLIPID,
 	t.QTY,
 	t.LINEAMOUNTMST lineamountmst_os,
 	t.LINEAMOUNTMST / c.CRHRATE lineamounteur_os,
@@ -143,26 +175,26 @@ BEGIN
 
 	--salesbalance calculation
 	select 
-	t.invoiceid,
-	ISNULL(sum(t.productsaleslocal),0) salesbalance,
+	t.INVOICEID,
+	ISNULL(sum(t.PRODUCTSALESLOCAL),0) salesbalance,
 	ISNULL(sum(t.PRODUCTSALESEUR),0) salesbalanceeur,
 	count(*) lcounter
 	into #inventtrans_ANAU_SB
 	from [intm_axbi].[fact_CUSTINVOICETRANS] as t
 	inner join #inventtrans_ANAU_OS os
-	on t.invoiceid COLLATE DATABASE_DEFAULT= os.invoiceid COLLATE DATABASE_DEFAULT
+	on t.INVOICEID COLLATE DATABASE_DEFAULT= os.INVOICEID COLLATE DATABASE_DEFAULT
 	where t.DATAAREAID = 'ANAU' 
 	and t.ITEMID not in ('ANAU-AIR', 'ANAU-DHL', 'ANAU-FRA', 'ANAU-FRA1KG', 'ANAU-FRA3KG', 'ANAU-FRA5KG', 'ANAU-MISC')
-	group by t.invoiceid
+	group by t.INVOICEID
 
 
 --lineamountmst sum calculation
-	select invoiceid,
+	select INVOICEID,
 	sum(lineamountmst_os) lineamountmst_os_sum,
 	sum(lineamounteur_os) lineamounteur_os_sum
-	into #inventtrans_ANAH_LA
-	from #inventtrans_ANAH_OS
-	group by invoiceid
+	into #inventtrans_ANAU_LA
+	from #inventtrans_ANAU_OS
+	group by INVOICEID
 
 
 --update #1
@@ -171,11 +203,11 @@ set [intm_axbi].[fact_CUSTINVOICETRANS].OTHERSALESLOCAL += (la.lineamountmst_os_
     [intm_axbi].[fact_CUSTINVOICETRANS].OTHERSALESEUR   += (la.lineamountmst_os_sum * t.PRODUCTSALESEUR/sb.salesbalance) * os.cnt_inv
 from [intm_axbi].[fact_CUSTINVOICETRANS] as t
 inner join #inventtrans_ANAU_OS os
-on t.invoiceid  COLLATE DATABASE_DEFAULT= os.invoiceid  COLLATE DATABASE_DEFAULT
+on t.INVOICEID  COLLATE DATABASE_DEFAULT= os.INVOICEID  COLLATE DATABASE_DEFAULT
 inner join #inventtrans_ANAU_SB sb
 on t.INVOICEID COLLATE DATABASE_DEFAULT=sb.INVOICEID COLLATE DATABASE_DEFAULT
 inner join #inventtrans_ANAU_LA la
-on t.invoiceid COLLATE DATABASE_DEFAULT=la.invoiceid COLLATE DATABASE_DEFAULT
+on t.INVOICEID COLLATE DATABASE_DEFAULT=la.INVOICEID COLLATE DATABASE_DEFAULT
 where t.DATAAREAID = 'ANAU' 
 and t.ITEMID not in ('ANAU-AIR', 'ANAU-DHL', 'ANAU-FRA', 'ANAU-FRA1KG', 'ANAU-FRA3KG', 'ANAU-FRA5KG', 'ANAU-MISC')
 and sb.salesbalance<>0
@@ -189,7 +221,7 @@ from [intm_axbi].[fact_CUSTINVOICETRANS] as t
 inner join #inventtrans_ANAU_SB sb
 on t.INVOICEID COLLATE DATABASE_DEFAULT=sb.INVOICEID COLLATE DATABASE_DEFAULT
 inner join #inventtrans_ANAU_LA la
-on t.invoiceid COLLATE DATABASE_DEFAULT=la.invoiceid COLLATE DATABASE_DEFAULT
+on t.INVOICEID COLLATE DATABASE_DEFAULT=la.INVOICEID COLLATE DATABASE_DEFAULT
 where t.DATAAREAID = 'ANAU'
 and t.ITEMID not in ('ANAU-AIR', 'ANAU-DHL', 'ANAU-FRA', 'ANAU-FRA1KG', 'ANAU-FRA3KG', 'ANAU-FRA5KG', 'ANAU-MISC')
 and lcounter>0
@@ -198,9 +230,32 @@ and salesbalance = 0
 
 --insert for other sales
 insert [intm_axbi].[fact_CUSTINVOICETRANS]
+   (DATAAREAID
+   ,SALESID
+   ,INVOICEID
+   ,LINENUM
+   ,INVENTTRANSID
+   ,ACCOUNTINGDATE
+   ,CUSTOMERNO
+   ,ITEMID
+   ,DELIVERYCOUNTRYID
+   ,PACKINGSLIPID
+   ,QTY
+   ,PRODUCTSALESLOCAL
+   ,PRODUCTSALESEUR
+   ,OTHERSALESLOCAL
+   ,OTHERSALESEUR
+   ,ALLOWANCESLOCAL
+   ,ALLOWANCESEUR
+   ,SALES100LOCAL
+   ,SALES100EUR
+   ,FREIGHTLOCAL
+   ,FREIGHTEUR
+   ,COSTAMOUNTLOCAL
+   ,COSTAMOUNTEUR)
 	select
 	DATAAREAID,
-	SALESID,
+	ORIGSALESID,
 	INVOICEID,
 	LINENUM,
 	INVENTTRANSID,
@@ -223,7 +278,9 @@ insert [intm_axbi].[fact_CUSTINVOICETRANS]
 	0,
 	0
 	from #inventtrans_ANAU_OS
-	where invoiceid COLLATE DATABASE_DEFAULT not in (select invoiceid from [intm_axbi].[fact_CUSTINVOICETRANS])
+	where INVOICEID COLLATE DATABASE_DEFAULT not in (select INVOICEID from [intm_axbi].[fact_CUSTINVOICETRANS]
+	where DATAAREAID = 'ANAU'
+    and ITEMID not in ('ANAU-AIR', 'ANAU-DHL', 'ANAU-FRA', 'ANAU-FRA1KG', 'ANAU-FRA3KG', 'ANAU-FRA5KG', 'ANAU-MISC'))
 
 	-- SALES100 aufbauen
 	update [intm_axbi].[fact_CUSTINVOICETRANS]
@@ -245,5 +302,6 @@ drop table #inventtrans_ANAU
 drop table #inventtrans_ANAU_OS
 drop table #inventtrans_ANAU_SB
 drop table #inventtrans_ANAU_LA
+
 
 END
