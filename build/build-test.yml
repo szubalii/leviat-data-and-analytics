@@ -24,9 +24,10 @@ variables:
 - name: testc
   value: ${{variables.testb}}
 - name: testd
-  value: ${{concat('a','a')}}
-- name: testd
   value: 'df-$(testa)-d-euw-001'
+  
+- name: teste
+  value: ${{variables.testd}}
 # - name: dataFactoryName
 #   value: 'df-$[join('-', split('df',variables[''accountName'']]-d-euw-001'
 # - name: sqlDatabase
