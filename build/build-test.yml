@@ -10,7 +10,7 @@ parameters:
 - name: user
   displayName: User Name
   type: string
-  default: replace(variables['Build.RequestedForEmail'], '@crh.com','')
+  default: "${{ replace(variables['Build.RequestedForEmail'], '@crh.com','') }}"
 
 variables:
 - group: DnA_DEV
