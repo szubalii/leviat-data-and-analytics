@@ -1,24 +1,25 @@
 CREATE TABLE [edw].[fact_MaterialStockLevel_temp]
 (
-	[ReportingYear] [char](4) NULL,
-	[ReportingMonth] [nvarchar](12) NULL,
-	[ReportingDate] [date] NULL,
-	[MaterialID] [nvarchar](40) NOT NULL,
-	[PlantID] [nvarchar](5) NOT NULL,
-	[StorageLocationID] [nvarchar](10) NOT NULL,
-	[InventorySpecialStockTypeID] [nvarchar](1) NOT NULL,
+	[_hash] 		 	NVARCHAR(32) NOT NULL,	
+	[ReportingYear] 	[char](4) NOT NULL,
+	[ReportingMonth] 	[nvarchar](12) NOT NULL,
+	[ReportingDate] 	[date] NULL,
+	[MaterialID]		[nvarchar](40) NOT  NULL,
+	[PlantID] [nvarchar](5) NULL,
+	[StorageLocationID] [nvarchar](10) NULL,
+	[InventorySpecialStockTypeID] [nvarchar](1) NULL,
 	[InventorySpecialStockTypeName] [nvarchar](20) NULL,
-	[InventoryStockTypeID] [nvarchar](2) NOT NULL,
+	[InventoryStockTypeID] [nvarchar](2) NULL,
 	[InventoryStockTypeName] [nvarchar](60) NULL,
-	[StockOwner] [nvarchar](10) NOT NULL,
-	[CostCenterID] [nvarchar](10) NOT NULL,
-	[CompanyCodeID] [nvarchar](4) NOT NULL,
-	[SalesDocumentTypeID] [nvarchar](4) NOT NULL,
+	[StockOwner] [nvarchar](10) NULL,
+	[CostCenterID] [nvarchar](10) NULL,
+	[CompanyCodeID] [nvarchar](4) NULL,
+	[SalesDocumentTypeID] [nvarchar](4) NULL,
 	[SalesDocumentType] [nvarchar](20) NULL,
-	[SalesDocumentItemCategoryID] [nvarchar](8) NOT NULL,
+	[SalesDocumentItemCategoryID] [nvarchar](8) NULL,
 	[SalesDocumentItemCategory] [nvarchar](120) NULL,
-	[MaterialBaseUnitID] [nvarchar](4) NOT NULL,
-	[PurchaseOrderTypeID] [nvarchar](4) NOT NULL,
+	[MaterialBaseUnitID] [nvarchar](4) NULL,
+	[PurchaseOrderTypeID] [nvarchar](4) NULL,
 	[PurchaseOrderType] [nvarchar](20) NULL,
 	[MatlStkChangeQtyInBaseUnit] [decimal](38, 14) NULL,
 	[StockLevelQtyInBaseUnit] [decimal](38, 14) NULL,
@@ -36,18 +37,7 @@ CREATE TABLE [edw].[fact_MaterialStockLevel_temp]
   	[t_lastActionCd]                            VARCHAR(1),
   	[t_jobBy]                                   VARCHAR(128),
   	CONSTRAINT [PK_fact_MaterialStockLevel_temp] PRIMARY KEY NONCLUSTERED (
-  	      [MaterialID],
-  	      [PlantID],
-  	      [StorageLocationID],
-  	      [InventorySpecialStockTypeID],
-  	      [InventoryStockTypeID],
-  	      [StockOwner],
-  	      [CostCenterID] ,
-  	      [CompanyCodeID],
-  	      [SalesDocumentTypeID],
-  	      [SalesDocumentItemCategoryID],
-  	      [MaterialBaseUnitID],
-  	      [PurchaseOrderTypeID]
-  	)  NOT ENFORCED
+		 [_hash], [ReportingYear], [ReportingMonth] 
+  	) NOT ENFORCED
 )
-    WITH (DISTRIBUTION = HASH ([MaterialID]), CLUSTERED COLUMNSTORE INDEX )
+    WITH (DISTRIBUTION = HASH ([_hash]), CLUSTERED COLUMNSTORE INDEX )
