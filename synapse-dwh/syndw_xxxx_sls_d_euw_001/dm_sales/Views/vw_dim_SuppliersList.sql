@@ -7,9 +7,9 @@ WITH
 Supplier AS (
 	SELECT 
 			s.[SupplierID] AS [SupplierID_init]
-		,	SUBSTRING(s.SupplierID, PATINDEX('%[^0]%', s.SupplierID+'.'), LEN(s.SupplierID)) AS [SupplierID]
+		,	SUBSTRING(s.SupplierID, PATINDEX('%[^0]%', s.SupplierID+'.'), LEN(s.SupplierID)) AS [SupplierID] -- Remove leading zeros
 		,	s.[Supplier] AS [SupplierName]
-		,	CONCAT(SUBSTRING(s.SupplierID, PATINDEX('%[^0]%', s.SupplierID+'.'), LEN(s.SupplierID)), ' (', s.[Supplier], ')') AS [SupplierID_Name]
+		,	CONCAT(SUBSTRING(s.SupplierID, PATINDEX('%[^0]%', s.SupplierID+'.'), LEN(s.SupplierID)), ' (', s.[Supplier], ')') AS [SupplierID_Name] -- Remove leading zeros and concantenate string
 		,	s.[SupplierAccountGroupID] 
 		,	s.[AccountGroup]
 		,	CONCAT(s.[SupplierAccountGroupID], ' (', s.[AccountGroup], ')') AS [SupplierAccGroupID_Name]
