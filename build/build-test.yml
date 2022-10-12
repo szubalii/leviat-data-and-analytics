@@ -10,7 +10,7 @@ parameters:
 - name: user
   displayName: User Name
   type: string
-  default: ${{ replace(variables['Build.RequestedForEmail'], '@crh.com','') }}
+  default: $[ replace(variables['Build.RequestedForEmail'], '@crh.com','') ]
 
 variables:
 - group: DnA_DEV
@@ -49,6 +49,7 @@ jobs:
       echo "varC ${{variables.varC}}"
       echo "accountName ${{variables.accountName}}"
       echo "user ${{parameters.user}}"
+      echo "member %MEMBER%"
 
   # Start VM
 - job: StartVM
