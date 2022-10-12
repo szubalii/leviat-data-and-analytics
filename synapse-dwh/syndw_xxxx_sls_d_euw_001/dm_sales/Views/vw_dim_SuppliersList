@@ -2,9 +2,6 @@
 -- last modifyed on 12/10/22 
 -- this view is need to create a Suppliers List Report and contains only Dim tables 
 
-DROP VIEW IF EXISTS dm_sales.vw_dim_SuppliersList
-GO
-
 CREATE VIEW dm_sales.vw_dim_SuppliersList AS
 WITH 
 Supplier AS (
@@ -12,7 +9,12 @@ Supplier AS (
 			s.[SupplierID] AS [SupplierID_init]
 		,	SUBSTRING(s.[SupplierID], 3, 8) AS  [SupplierID]
 		,	s.[Supplier] AS [SupplierName]
-		,	CONCAT(s.[SupplierID], ' (', s.[Supplier], ')') AS [SupplierID_Name]
+		,	CASE
+				WHEN
+				LEFT(s.[SupplierID],2) = '00'
+				THEN CONCAT(RIGHT(s.[SupplierID], 8), ' (', s.[Supplier], ')') 
+				ELSE s.[SupplierID]
+			END AS [SupplierID_Name]
 		,	s.[SupplierAccountGroupID] 
 		,	s.[AccountGroup]
 		,	CONCAT(s.[SupplierAccountGroupID], ' (', s.[AccountGroup], ')') AS [SupplierAccGroupID_Name]
