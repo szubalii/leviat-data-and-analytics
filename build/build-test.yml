@@ -24,9 +24,9 @@ variables:
 - name: varB
   value: "df-${{ variables.accountName }}-d-euw-001"
 - name: varC
-  value: "df-${{ ${{ parameters.user }} }}-d-euw-001"
+  value: ${{ parameters.user }}
 - name: varD
-  value: "df-$[ variables['varA'] ]-d-euw-001"
+  value: "df-${{ variables.varC }}-d-euw-001"
 - name: sqlDatabase
   value: 'sqldb-$[variables[''accountName'']]-d-euw-001'
 - name: synapseDatabase
