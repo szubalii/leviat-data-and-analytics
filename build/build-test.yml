@@ -24,7 +24,7 @@ variables:
 - name: testc
   value: ${{variables.testb}}
 - name: testd
-  value: 'df-$(testa)-d-euw-001'
+  value: 'df-$(VMName)-d-euw-001'
   
 - name: teste
   value: ${{variables.testd}}
