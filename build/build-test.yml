@@ -19,8 +19,8 @@ variables:
   value: "${{ replace(variables['Build.RequestedForEmail'], '@crh.com','') }}" #runtime expression
 - name: varA
   value: "$(variables.member)"
-- name: dataFactoryName
-  value: "df-$(variables.member)-d-euw-001"
+# - name: dataFactoryName
+#   value: "df-$(variables.member)-d-euw-001"
 - name: varB
   value: "df-${{ variables.accountName }}-d-euw-001"
 - name: varC
@@ -51,7 +51,7 @@ jobs:
       echo "accountName ${{variables.accountName}}"
       echo "user ${{parameters.user}}"
       echo "member %MEMBER%"
-      echo "dfName %DFNAME%"
+      echo "dataFactoryName %DATAFACTORYNAME%"
 
   # Start VM
 - job: StartVM
