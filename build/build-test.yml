@@ -10,7 +10,7 @@ parameters:
 - name: user
   displayName: User Name
   type: string
-  default: $[replace(variables['Build.RequestedForEmail'], '@crh.com','')]
+  default: ${{ replace(variables['Build.RequestedForEmail'], '@crh.com','') }}
 
 variables:
 - group: DnA_DEV
@@ -22,7 +22,7 @@ variables:
 - name: dataFactoryName
   value: "df-${{ variables.varA }}-d-euw-001"
 - name: varB
-  value: "${{ parameters.user }}"
+  value: "df-${{ variables.accountName }}-d-euw-001"
 - name: varC
   value: "df-${{ parameters.user }}-d-euw-001"
 - name: varD
@@ -47,6 +47,8 @@ jobs:
       echo "varA ${{variables.varA}}"
       echo "varB ${{variables.varB}}"
       echo "varC ${{variables.varC}}"
+      echo "accountName ${{variables.accountName}}"
+      echo "user ${{parameters.user}}"
 
   # Start VM
 - job: StartVM
