@@ -15,9 +15,11 @@ BEGIN
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 
-		SET NOCOUNT ON;
-
     -- Insert statements for procedure here
+	
+	declare @lTecDlvNotInv datetime
+	
+	select @lTecDlvNotInv = CALENDARDATE from [base_dw_halfen_0_hlp].[CALENDAR] where DATAAREAID = '5300' and YEAR = @P_Year and MONTH = @P_Month and DATEFLAG = 'W' and WORKDAY_ACT = 1
 
 	--  Plaka BE 
 
@@ -193,10 +195,8 @@ BEGIN
 	LINENUM,
 	ISNULL(INVENTTRANSID,' '),
 	case 
-	when DATEPHYSICAL < (select CALENDARDATE from [base_dw_halfen_0_hlp].[CALENDAR] where DATAAREAID = '5300' and YEAR = @P_Year and MONTH = @P_Month and DATEFLAG = 'W' 
-	and WORKDAY_ACT = 1)
-	then (select CALENDARDATE from [base_dw_halfen_0_hlp].[CALENDAR] where DATAAREAID = '5300' and YEAR = @P_Year and MONTH = @P_Month and DATEFLAG = 'W' 
-	and WORKDAY_ACT = 1)
+	when DATEPHYSICAL < @lTecDlvNotInv
+	then @lTecDlvNotInv
 	else DATEPHYSICAL 
 	end, -- für nicht fakturierte Lieferscheine aus den Vormonaten, das ACCOUNTINGDATE auf den ersten Tag des aktuellen Monats legen, sonst das Lieferdatum
 	'PLBE-' + INVOICEACCOUNT,
@@ -774,6 +774,9 @@ drop table #inventtrans_PLBE
 drop table #inventtrans_PLBE_OS
 drop table #inventtrans_PLBE_SB
 drop table #inventtrans_PLBE_LA
-drop table #cust_delivered_not_invoiced_PLBE
+IF OBJECT_ID(N'tempdb..#cust_delivered_not_invoiced_PLBE') IS NOT NULL
+BEGIN
+DROP TABLE #cust_delivered_not_invoiced_PLBE
+END
 
 End
