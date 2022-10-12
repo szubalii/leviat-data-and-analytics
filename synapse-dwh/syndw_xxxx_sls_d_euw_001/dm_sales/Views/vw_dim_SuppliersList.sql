@@ -7,23 +7,9 @@ WITH
 Supplier AS (
 	SELECT 
 			s.[SupplierID] AS [SupplierID_init]
-		,	CASE
-				WHEN
-				LEFT(s.[SupplierID],4) = '0000'
-				THEN RIGHT(s.[SupplierID], 6) 
-				WHEN LEFT(s.[SupplierID],2) = '00'
-				THEN RIGHT(s.[SupplierID], 8)
-				ELSE s.[SupplierID]
-			END AS [SupplierID]
+		,	SUBSTRING(s.SupplierID, PATINDEX('%[^0]%', s.SupplierID+'.'), LEN(s.SupplierID)) AS [SupplierID]
 		,	s.[Supplier] AS [SupplierName]
-		,	CASE
-				WHEN
-				LEFT(s.[SupplierID],4) = '0000'
-				THEN CONCAT(RIGHT(s.[SupplierID], 6), ' (', s.[Supplier], ')') 
-				WHEN LEFT(s.[SupplierID],2) = '00'
-				THEN CONCAT(RIGHT(s.[SupplierID], 8), ' (', s.[Supplier], ')') 
-				ELSE CONCAT(s.[SupplierID], ' (', s.[Supplier], ')') 
-			END AS [SupplierID_Name]
+		,	CONCAT(SUBSTRING(s.SupplierID, PATINDEX('%[^0]%', s.SupplierID+'.'), LEN(s.SupplierID)), ' (', s.[Supplier], ')') AS [SupplierID_Name]
 		,	s.[SupplierAccountGroupID] 
 		,	s.[AccountGroup]
 		,	CONCAT(s.[SupplierAccountGroupID], ' (', s.[AccountGroup], ')') AS [SupplierAccGroupID_Name]
