@@ -24,7 +24,7 @@ variables:
 - name: testc
   value: ${{variables.testb}}
 - name: testd
-  value: ${{'a'+'a'}}
+  value: ${{concat('a','a')}}
 - name: testd
   value: 'df-$(testa)-d-euw-001'
 # - name: dataFactoryName
