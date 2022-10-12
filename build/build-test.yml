@@ -21,10 +21,10 @@ variables:
   value: mpors
 - name: dataFactoryName
   value: "df-${{ variables.varA }}-d-euw-001"
-- name: varC
+- name: varB
   value: "df-$[ variables.accountName ]-d-euw-001"
-- name: varD
-  value: "df-$[ variables.varA ]-d-euw-001"
+- name: varC
+  value: "df-$[ variables['varA'] ]-d-euw-001"
 - name: sqlDatabase
   value: 'sqldb-$[variables[''accountName'']]-d-euw-001'
 - name: synapseDatabase
@@ -40,10 +40,11 @@ jobs:
     - node.js
     - VisualStudio
   steps:
-  - script: echo "dataFactoryName ${{variables.dataFactoryName}}"
-  - script: echo "varA ${{variables.varA}}"
-  - script: echo "varB ${{variables.varB}}"
-  - script: echo "varC ${{variables.varC}}"
+  - script: |
+      echo "dataFactoryName ${{variables.dataFactoryName}}
+        varA ${{variables.varA}}
+        varB ${{variables.varB}}
+        varC ${{variables.varC}}"
 
   # Start VM
 - job: StartVM
