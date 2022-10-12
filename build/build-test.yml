@@ -24,7 +24,7 @@ variables:
 - name: varB
   value: "df-${{ variables.accountName }}-d-euw-001"
 - name: varC
-  value: $[ parameters.user ]
+  value: ${{ parameters.user }}
 - name: varD
   value: "df-${{ variables.varC }}-d-euw-001"
 - name: sqlDatabase
