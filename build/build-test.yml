@@ -18,9 +18,9 @@ variables:
 - name: accountName # runtime variable
   value: $[replace(variables['Build.RequestedForEmail'], '@crh.com','')] #runtime expression
 - name: varA
-  value: test
-- name: varB
-  value: df-${{ variables.varA }}-d-euw-001
+  value: mpors
+- name: dataFactoryName
+  value: "df-${{ variables.varA }}-d-euw-001"
 - name: varC
   value: df-$[ variables.accountName ]-d-euw-001
 - name: varD
