@@ -16,7 +16,7 @@ variables:
 - group: DnA_DEV
 - group: KeyVault_DEV
 - name: accountName # runtime variable
-  value: $[replace(variables['Build.RequestedForEmail'], '@crh.com','')] #runtime expression
+  value: "replace(variables['Build.RequestedForEmail'], '@crh.com','')" #runtime expression
 - name: varA
   value: mpors
 - name: dataFactoryName
