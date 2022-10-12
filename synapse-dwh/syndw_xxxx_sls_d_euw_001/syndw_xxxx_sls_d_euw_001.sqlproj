@@ -1008,7 +1008,8 @@
     <Build Include="edw\Tables\fact_MaterialDocumentItem_temp.sql" />
     <Build Include="edw\Views\vw_fact_MaterialDocumentItem_temp.sql" />
     <Build Include="edw\Views\vw_fact_MaterialStockLevel_temp.sql" />
-    <Build Include="edw\Tables\fact_MaterialStockLevel_temp.sql" />    
+    <Build Include="edw\Tables\fact_MaterialStockLevel_temp.sql" />
+    <Build Include="dm_sales\Views\vw_dim_SuppliersList.sql" />    
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PostDeploy Include="Scripts\Post-Deploy\Script.PostDeployment.sql" />
