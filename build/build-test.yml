@@ -6,13 +6,37 @@
 trigger:
 - main
 
+parameters:
+- name: user
+  displayName: User Name
+  type: string
+  default: $[replace(variables['Build.RequestedForEmail'], '@crh.com','')]
+
+variables:
+- group: DnA_DEV
+- group: KeyVault_DEV
+- name: accountName # runtime variable
+  value: $[replace(variables['Build.RequestedForEmail'], '@crh.com','')] #runtime expression
+- name: testa
+  value: 'c'
+- name: testb
+  value: $[variables.testa]
+- name: testc
+  value: ${{'test-'variables.testb}}
+- name: testd
+  value: 'df-$(testa)-d-euw-001'
+# - name: dataFactoryName
+#   value: 'df-$[join('-', split('df',variables[''accountName'']]-d-euw-001'
+# - name: sqlDatabase
+#   value: 'sqldb-$[variables[''accountName'']]-d-euw-001'
+# - name: synapseDatabase
+#   value: 'syndw_$[variables[''accountName'']]_d_euw_001'
+
 jobs:
 
   # Start VM
 - job: StartVM
   pool: server
-  variables:
-  - group: DnA_DEV
   steps:
     - task: InvokeRESTAPI@1
       inputs:
@@ -123,23 +147,6 @@ jobs:
     demands:
     - node.js
     - VisualStudio
-  variables:
-  - group: DnA_DEV
-  - group: KeyVault_DEV
-  - name: accountName # runtime variable
-    value: $[replace(variables['Build.RequestedForEmail'], '@crh.com','')] #runtime expression
-  - name: testa
-    value: 'c'
-  - name: testb
-    value: $[variables.testa]
-  - name: testc
-    value: ${{'test-'variables.testb}}
-  - name: dataFactoryName
-    value: 'df-$[variables[''accountName'']]-d-euw-001'
-  - name: sqlDatabase
-    value: 'sqldb-$[variables[''accountName'']]-d-euw-001'
-  - name: synapseDatabase
-    value: 'syndw_$[variables[''accountName'']]_d_euw_001'
 
   steps:
   
