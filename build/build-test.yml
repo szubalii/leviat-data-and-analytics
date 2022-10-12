@@ -51,6 +51,7 @@ jobs:
       echo "accountName ${{variables.accountName}}"
       echo "user ${{parameters.user}}"
       echo "member %MEMBER%"
+      echo "dfName %DFNAME%"
 
   # Start VM
 - job: StartVM
