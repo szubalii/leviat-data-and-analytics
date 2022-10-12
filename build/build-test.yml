@@ -22,27 +22,28 @@ variables:
 - name: dataFactoryName
   value: "df-${{ variables.varA }}-d-euw-001"
 - name: varC
-  value: df-$[ variables.accountName ]-d-euw-001
+  value: "df-$[ variables.accountName ]-d-euw-001"
 - name: varD
-  value: df-$[ variables['accountName'] ]-d-euw-001
-# - name: dataFactoryName
-#   value: 'df-$[join('-', split('df',variables[''accountName'']]-d-euw-001'
-# - name: sqlDatabase
-#   value: 'sqldb-$[variables[''accountName'']]-d-euw-001'
-# - name: synapseDatabase
-#   value: 'syndw_$[variables[''accountName'']]_d_euw_001'
+  value: "df-$[ variables.varA ]-d-euw-001"
+- name: sqlDatabase
+  value: 'sqldb-$[variables[''accountName'']]-d-euw-001'
+- name: synapseDatabase
+  value: 'syndw_$[variables[''accountName'']]_d_euw_001'
 
 jobs:
 
   # Set variables
-- job: SetVariables
+- job: PrintVariables
   pool:
     name: 'VM'
     demands:
     - node.js
     - VisualStudio
   steps:
-  - bash: echo "##vso[task.setvariable variable=dataFactoryName;isoutput=true]df-$ACCOUNTNAME-d-euw-001"
+  - script: echo "dataFactoryName ${{variables.dataFactoryName}}"
+  - script: echo "varA ${{variables.varA}}"
+  - script: echo "varB ${{variables.varB}}"
+  - script: echo "varC ${{variables.varC}}"
 
   # Start VM
 - job: StartVM
