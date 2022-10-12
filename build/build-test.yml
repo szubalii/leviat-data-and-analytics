@@ -22,7 +22,7 @@ variables:
 - name: dataFactoryName
   value: "df-${{ variables.varA }}-d-euw-001"
 - name: varB
-  value: "$[ parameters.user ]"
+  value: "${{ parameters.user }}"
 - name: varC
   value: "df-${{ variables.accountName }}-d-euw-001"
 - name: varD
