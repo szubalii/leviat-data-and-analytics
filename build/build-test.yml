@@ -20,7 +20,7 @@ variables:
 - name: varA
   value: "$(variables.member)"
 - name: dataFactoryName
-  value: "df-${{ variables.member }}-d-euw-001"
+  value: "df-$(variables.member)-d-euw-001"
 - name: varB
   value: "df-${{ variables.accountName }}-d-euw-001"
 - name: varC
