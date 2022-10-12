@@ -203,6 +203,7 @@ WITH Hash_Calc AS (
             CPPUP.[CalendarMonth] = CC.[CalendarMonth] COLLATE Latin1_General_100_BIN2
 
 )   SELECT 
+    _hash,
     [ReportingYear],
     [ReportingMonth],
     [ReportingDate],
