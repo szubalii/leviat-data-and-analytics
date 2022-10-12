@@ -17,16 +17,14 @@ variables:
 - group: KeyVault_DEV
 - name: accountName # runtime variable
   value: $[replace(variables['Build.RequestedForEmail'], '@crh.com','')] #runtime expression
-- name: vara
-  value: 'c'
-- name: varb
-  value: $[variables.vara]
-- name: varc
-  value: ${{variables.varb}}
-- name: vard
-  value: 'df-$(variables.accountName)-d-euw-001'
-- name: vare
-  value: ${{variables.vard}}
+- name: varA
+  value: test
+- name: varB
+  value: df-${{ variables.varA }}-d-euw-001
+- name: varC
+  value: df-$[ variables.accountName ]-d-euw-001
+- name: varD
+  value: df-$[ variables['accountName'] ]-d-euw-001
 # - name: dataFactoryName
 #   value: 'df-$[join('-', split('df',variables[''accountName'']]-d-euw-001'
 # - name: sqlDatabase
