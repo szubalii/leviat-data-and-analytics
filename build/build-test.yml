@@ -24,6 +24,8 @@ variables:
 - name: varB
   value: "df-$[ variables.accountName ]-d-euw-001"
 - name: varC
+  value: "df-${{ variables.accountName }}-d-euw-001"
+- name: varD
   value: "df-$[ variables['varA'] ]-d-euw-001"
 - name: sqlDatabase
   value: 'sqldb-$[variables[''accountName'']]-d-euw-001'
