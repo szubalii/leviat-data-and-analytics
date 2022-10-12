@@ -10,7 +10,7 @@ parameters:
 - name: user
   displayName: User Name
   type: string
-  default: $[ replace(variables['Build.RequestedForEmail'], '@crh.com','') ]
+  default: replace(variables['Build.RequestedForEmail'], '@crh.com','')
 
 variables:
 - group: DnA_DEV
@@ -24,7 +24,7 @@ variables:
 - name: varB
   value: "df-${{ variables.accountName }}-d-euw-001"
 - name: varC
-  value: "df-${{ parameters.user }}-d-euw-001"
+  value: "df-${{ ${{ parameters.user }} }}-d-euw-001"
 - name: varD
   value: "df-$[ variables['varA'] ]-d-euw-001"
 - name: sqlDatabase
