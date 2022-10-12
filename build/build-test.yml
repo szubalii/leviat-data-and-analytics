@@ -41,10 +41,10 @@ jobs:
     - VisualStudio
   steps:
   - script: |
-      echo "dataFactoryName ${{variables.dataFactoryName}}
-        varA ${{variables.varA}}
-        varB ${{variables.varB}}
-        varC ${{variables.varC}}"
+      echo "dataFactoryName ${{variables.dataFactoryName}}"
+      echo "varA ${{variables.varA}}"
+      echo "varB ${{variables.varB}}"
+      echo "varC ${{variables.varC}}"
 
   # Start VM
 - job: StartVM
