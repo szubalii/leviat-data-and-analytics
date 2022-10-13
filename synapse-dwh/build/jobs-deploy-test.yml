@@ -15,3 +15,7 @@ jobs:
     synapseDWHSolution: '**/synapse-dwh/*.sln'
     buildPlatform: 'Any CPU'
     buildConfiguration: 'Release'
+
+  steps:
+  - template: ./steps-build.yml
+  - template: ./steps-deploy.yml
