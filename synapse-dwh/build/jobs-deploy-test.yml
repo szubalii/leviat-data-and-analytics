@@ -1,0 +1,17 @@
+# Azure Synapse Dedicated SQL Pool Build & Deploy Job
+jobs:
+- job: SynapseDWH
+  # dependsOn: 
+  # - OrchDB
+  # - StartVM
+  pool:
+    name: 'VM'
+    demands:
+    - node.js
+    - VisualStudio
+    - Python.Version
+
+  variables:
+    synapseDWHSolution: '**/synapse-dwh/*.sln'
+    buildPlatform: 'Any CPU'
+    buildConfiguration: 'Release'

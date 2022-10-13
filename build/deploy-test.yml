@@ -60,7 +60,7 @@ jobs:
 
 # Build and deploy jobs
 - template: ../orchestration/build/jobs-deploy-test.yml
-# - template: ../synapse-dwh/build/jobs-deploy-test.yml
+- template: ../synapse-dwh/build/jobs-deploy-test.yml
 - template: ../azure-data-factory/build/jobs-deploy-test.yml
 # - template: ../xu-config/build/jobs-deploy-test.yml
 
