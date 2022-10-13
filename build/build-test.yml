@@ -10,27 +10,15 @@ parameters:
 - name: user
   displayName: User Name
   type: string
-  default: $[ replace(variables['Build.RequestedForEmail'], '@crh.com','') ]
+  default: $[ replace(variables['Build.RequestedForEmail'], '@crh.com','') ] # runtime expression to get user name
 
 variables:
 - group: DnA_DEV
 - group: KeyVault_DEV
-# - name: accountName # runtime variable
-#   value: "${{ replace(variables['Build.RequestedForEmail'], '@crh.com','') }}" #runtime expression
-# - name: varA
-#   value: $(parameters.user)
-# - name: dataFactoryName
-#   value: "df-$(variables.member)-d-euw-001"
 - name: user
-  value: ${{ parameters.user }}
-# - name: varB1
-#   value: "df-${{ variables.varB }}-d-euw-001"
+  value: ${{ parameters.user }} # template expression to expand template parameter
 - name: dataFactoryName
   value: "df-$(user)-d-euw-001"
-# - name: varC
-#   value: "df-${{ parameters.user }}-d-euw-001"
-# - name: varD
-#   value: "df-${{ variables.varC }}-d-euw-001"
 - name: sqlDatabase
   value: "sqldb-$(user)-d-euw-001"
 - name: synapseDatabase
