@@ -19,7 +19,7 @@ variables:
   value: ${{ parameters.user }} # template expression to expand template parameter
 - name: dataFactoryName
   value: "df-$(user)-d-euw-001"
-- name: sqlDatabase
+- name: sqlDatabaseName
   value: "sqldb-$(user)-d-euw-001"
 - name: synapseDatabase
   value: "syndw_$(user)_d_euw_001"
@@ -40,8 +40,8 @@ jobs:
       echo "dataFactoryName ${{variables.dataFactoryName}}"
       echo "dataFactoryName $(dataFactoryName)"
       echo "dataFactoryName %DATAFACTORYNAME%"
-      echo "sqlDatabase ${{variables.sqlDatabase}}"
-      echo "sqlDatabase $(sqlDatabase)"
+      echo "sqlDatabaseName ${{variables.sqlDatabaseName}}"
+      echo "sqlDatabaseName $(sqlDatabaseName)"
       echo "synapseDatabase ${{variables.synapseDatabase}}"
       echo "synapseDatabase $(synapseDatabase)"
 
@@ -59,17 +59,7 @@ jobs:
       displayName: 'Start VM'
 
   # Orchestration Database Build Job
-# - job: OrchDB
-#   dependsOn: StartVM
-#   pool:
-#     name: 'VM'
-#     demands:
-#     - node.js
-#     - VisualStudio
-#   variables:
-#     orchDBSolution: '**/orchestration/*.sln'
-#     buildPlatform: 'Any CPU'
-#     buildConfiguration: 'Release'
+- template: ../orchestration/build/deploy-test-job.yml
 
 #   steps:
 

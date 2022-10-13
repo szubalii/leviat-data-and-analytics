@@ -1,0 +1,101 @@
+# Orchestration Database Build Job
+jobs:
+- job: OrchDB
+  pool:
+    name: 'VM'
+    demands:
+    - node.js
+    - VisualStudio
+  variables:
+    orchDBSolution: '**/orchestration/*.sln'
+    buildPlatform: 'Any CPU'
+    buildConfiguration: 'Release'
+    serverName: sqlsrv-xxxx-sls-d-euw-001.database.windows.net
+    databaseName: sqldb-mpors-d-euw-001
+    storageAccount: stxxxxslsdeuw001
+    orchDBContainerURL: https://$(storageAccount).blob.core.windows.net/orch-db
+
+
+  steps:
+
+  - task: Npm@1
+    inputs:
+      command: 'install'
+      workingDir: '$(Build.Repository.LocalPath)/orchestration' #replace with the package.json folder
+      verbose: true
+    displayName: 'Install npm package'
+
+  # Validate the Orchestration config
+  - task: Npm@1
+    inputs:
+      command: 'custom'
+      workingDir: '$(Build.Repository.LocalPath)/orchestration'
+      customCommand: 'run validate $(Build.Repository.LocalPath)'
+    displayName: 'Validate Orchestration Config'
+
+  - task: NuGetToolInstaller@1
+
+  - task: NuGetCommand@2
+    inputs:
+      restoreSolution: '$(orchDBSolution)'
+
+  - task: VSBuild@1
+    inputs:
+      solution: '$(orchDBSolution)'
+      platform: '$(buildPlatform)'
+      configuration: '$(buildConfiguration)'
+
+  - script: |
+      cd $(Build.Repository.LocalPath)/orchestration
+      node -e require('./src/libs/generate-master-data').writeMasterDataCSV('dev')
+    displayName: 'CMD: Write Environment Specific Master Data'
+    
+
+    
+
+
+  # - task: VSTest@2
+  #   inputs:
+  #     platform: '$(buildPlatform)'
+  #     configuration: '$(buildConfiguration)'
+
+  # - task: CopyFiles@2
+  #   inputs:
+  #     SourceFolder: '$(Build.SourcesDirectory)\orchestration\sqldb-xxxx-orchdb-d-euw-001\bin\Release'
+  #     Contents: '*.dacpac'
+  #     TargetFolder: '$(Build.ArtifactStagingDirectory)'
+  #   displayName: 'Copy dacpac file'
+
+  # - task: CopyFiles@2
+  #   inputs:
+  #     SourceFolder: '$(Build.SourcesDirectory)\orchestration'
+  #     Contents: '*publish.xml'
+  #     TargetFolder: '$(Build.ArtifactStagingDirectory)'
+  #   displayName: 'Copy publish config file'
+
+  # - task: CopyFiles@2
+  #   inputs:
+  #     SourceFolder: '$(Build.SourcesDirectory)\orchestration\Master Data'
+  #     Contents: '**\*.csv'
+  #     TargetFolder: '$(Build.ArtifactStagingDirectory)\Master Data'
+  #   displayName: 'Copy Master Data'
+
+  # - task: CopyFiles@2
+  #   inputs:
+  #     SourceFolder: '$(Build.SourcesDirectory)\orchestration\src'
+  #     Contents: '**\*'
+  #     TargetFolder: '$(Build.ArtifactStagingDirectory)\src'
+  #   displayName: 'Copy src folder'
+
+  # - task: CopyFiles@2
+  #   inputs:
+  #     SourceFolder: '$(Build.SourcesDirectory)\orchestration'
+  #     Contents: 'package.json'
+  #     TargetFolder: '$(Build.ArtifactStagingDirectory)'
+  #   displayName: 'Copy npm package'
+
+  # - task: PublishPipelineArtifact@1
+  #   inputs:
+  #     targetPath: '$(Build.ArtifactStagingDirectory)'
+  #     artifact: 'OrchestrationDB'
+  #     publishLocation: 'pipeline'
