@@ -48,7 +48,7 @@ jobs:
       echo "varA ${{variables.varA}}"
       echo "varB ${{variables.varB}}"
       echo "varC ${{variables.varC}}"
-      echo "varC $(variables.varC)"
+      echo "varC $(varC)"
       echo "accountName ${{variables.accountName}}"
       echo "user ${{parameters.user}}"
       echo "member $(member)"
