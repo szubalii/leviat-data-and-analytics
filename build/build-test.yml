@@ -17,12 +17,16 @@ variables:
 - group: KeyVault_DEV
 - name: accountName # runtime variable
   value: "${{ replace(variables['Build.RequestedForEmail'], '@crh.com','') }}" #runtime expression
-# - name: varA
-#   value: "$(variables.member)"
+- name: varA
+  value: $(parameters.user)
 # - name: dataFactoryName
 #   value: "df-$(variables.member)-d-euw-001"
 - name: varB
   value: ${{ parameters.user }}
+- name: varB1
+  value: "df-${{ variables.varB }}-d-euw-001"
+- name: varB2
+  value: "df-$(varB)-d-euw-001"
 - name: varC
   value: "df-${{ parameters.user }}-d-euw-001"
 - name: varD
@@ -46,8 +50,13 @@ jobs:
       echo "dataFactoryName ${{variables.dataFactoryName}}"
       echo "dataFactoryName $(dataFactoryName)"
       echo "varA ${{variables.varA}}"
+      echo "varA $(varA)"
       echo "varB ${{variables.varB}}"
       echo "varB $(varB)"
+      echo "varB1 ${{variables.varB1}}"
+      echo "varB1 $(varB1)"
+      echo "varB2 ${{variables.varB2}}"
+      echo "varB2 $(varB2)"
       echo "varC ${{variables.varC}}"
       echo "varC $(varC)"
       echo "accountName ${{variables.accountName}}"
