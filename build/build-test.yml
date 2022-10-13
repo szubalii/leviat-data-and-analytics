@@ -17,8 +17,8 @@ variables:
 - group: KeyVault_DEV
 - name: accountName # runtime variable
   value: "${{ replace(variables['Build.RequestedForEmail'], '@crh.com','') }}" #runtime expression
-- name: varA
-  value: "$(variables.member)"
+# - name: varA
+#   value: "$(variables.member)"
 # - name: dataFactoryName
 #   value: "df-$(variables.member)-d-euw-001"
 - name: varB
@@ -50,7 +50,7 @@ jobs:
       echo "varC ${{variables.varC}}"
       echo "accountName ${{variables.accountName}}"
       echo "user ${{parameters.user}}"
-      echo "member %MEMBER%"
+      echo "member $(member)"
       echo "dataFactoryName %DATAFACTORYNAME%"
 
   # Start VM
