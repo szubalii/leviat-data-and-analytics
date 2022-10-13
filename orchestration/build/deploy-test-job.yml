@@ -10,7 +10,7 @@ jobs:
     orchDBSolution: '**/orchestration/*.sln'
     buildPlatform: 'Any CPU'
     buildConfiguration: 'Release'
-    orchDBContainerURL: https://$(storageAccount).blob.core.windows.net/orch-db
+    orchDBContainerURL: https://$(storageAccountName).blob.core.windows.net/orch-db
 
   steps:
 
