@@ -13,7 +13,7 @@ steps:
   inputs:
     azureSubscription: 'arm-pipeline'
     AuthenticationType: servicePrincipal
-    ServerName: '$(sqlServerName)'
+    ServerName: '$(sqlServerName).database.windows.net'
     DatabaseName: '$(sqlDatabaseName)'
     DacpacFile: '$(Build.Repository.LocalPath)/orchestration/sqldb-xxxx-orchdb-d-euw-001/bin/Release/sqldb-xxxx-orchdb-d-euw-001.dacpac'
     AdditionalArguments: '/v:masterKeyPwd=$(sqlsrv-xxxx-sls-x-euw-001-masterKeyPwd) /v:sasToken_OrchDB=$(sasToken-OrchDB) /v:containerURL=$(orchDBContainerURL)'
