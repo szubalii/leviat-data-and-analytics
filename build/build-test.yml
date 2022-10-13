@@ -22,7 +22,7 @@ variables:
 # - name: dataFactoryName
 #   value: "df-$(variables.member)-d-euw-001"
 - name: varB
-  value: "df-${{ variables.accountName }}-d-euw-001"
+  value: ${{ parameters.user }}
 - name: varC
   value: "df-${{ parameters.user }}-d-euw-001"
 - name: varD
@@ -47,6 +47,7 @@ jobs:
       echo "dataFactoryName $(dataFactoryName)"
       echo "varA ${{variables.varA}}"
       echo "varB ${{variables.varB}}"
+      echo "varB $(varB)"
       echo "varC ${{variables.varC}}"
       echo "varC $(varC)"
       echo "accountName ${{variables.accountName}}"
