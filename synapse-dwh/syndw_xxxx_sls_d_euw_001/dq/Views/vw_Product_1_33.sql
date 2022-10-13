@@ -1,4 +1,4 @@
-CREATE VIEW [dbo].[vw_Product_1_33]
+CREATE VIEW [dq].[vw_Product_1_33]
 AS
 SELECT DISTINCT
      P.[MANDT] 
@@ -143,8 +143,8 @@ FROM
 LEFT JOIN 
     [base_s4h_cax].[I_ProductSalesDelivery] AS PSD
     ON
-    PSD.[Product] = P.[Product]     
+        PSD.[Product] = P.[Product]     
 WHERE
-      P.[ProductType] in ('ZROH')
+        P.[ProductType] in ('ZROH')
     AND 
-      PSD.[ItemCategoryGroup] != 'NORM'
+        PSD.[ItemCategoryGroup] != 'NORM'

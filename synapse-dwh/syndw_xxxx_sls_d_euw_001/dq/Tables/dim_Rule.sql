@@ -7,6 +7,7 @@
     [RuleBusinessDescription]   NVARCHAR(300),
     [RuleTechnicalDefinition]   NVARCHAR(300),
     [FieldNameChecked]          NVARCHAR(300),
+    [RAGStatus]                 CHAR(1),
     [t_applicationId]           VARCHAR (32),
     [t_jobId]                   VARCHAR(36),
     [t_jobDtm]                  DATETIME,

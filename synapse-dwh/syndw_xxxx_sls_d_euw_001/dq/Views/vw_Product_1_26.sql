@@ -1,4 +1,4 @@
-CREATE VIEW [dbo].[vw_Product_1_26]
+CREATE VIEW [dq].[vw_Product_1_26]
 AS
   SELECT DISTINCT
      P.[MANDT] 
@@ -135,6 +135,7 @@ AS
     ,P.[ZZ1_CustomFieldRiskMit_PRD] 
     ,P.[ZZ1_CustomFieldHighRis_PRD] 
     ,P.[ZZ1_CustomFieldRiskRea_PRD] 
+    ,PP.[MRPType] 
     ,CONCAT('1.26_',P.[ProductType]) AS [RuleID]
     ,1 AS [Count]
 FROM   
@@ -142,8 +143,8 @@ FROM
 LEFT JOIN 
     [base_s4h_cax].[I_ProductPlant] PP 
     ON 
-      P.Product = PP.Product
+      P.[Product] = PP.[Product]
 WHERE
       P.[CrossPlantStatus] = '70'
     AND
-      PP.[MRPType] = 'ND'
+      PP.[MRPType] != 'ND'

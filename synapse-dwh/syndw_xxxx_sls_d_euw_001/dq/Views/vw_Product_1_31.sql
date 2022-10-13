@@ -1,4 +1,4 @@
-CREATE VIEW [dbo].[vw_Product_1_31]
+CREATE VIEW [dq].[vw_Product_1_31]
 AS
 
 SELECT DISTINCT
@@ -137,7 +137,7 @@ SELECT DISTINCT
     ,P.[ZZ1_CustomFieldHighRis_PRD] 
     ,P.[ZZ1_CustomFieldRiskRea_PRD] 
     ,PP.[ProcurementType] 
-    ,PP.SpecialProcurementType
+    ,PP.[SpecialProcurementType]
     ,CONCAT('1.31_',P.[ProductType]) AS [RuleID]
     ,1 AS [Count]
 FROM   
@@ -149,6 +149,6 @@ LEFT JOIN
 WHERE
         P.[ProductType] in ('ZHAW', 'ZVER')
     AND 
-        PP.[ProcurementType] = 'F'
+        PP.[ProcurementType] != 'F'
     AND 
-        ISNULL(PP.SpecialProcurementType, '') != '' 
+        ISNULL(PP.[SpecialProcurementType], '') = '' 

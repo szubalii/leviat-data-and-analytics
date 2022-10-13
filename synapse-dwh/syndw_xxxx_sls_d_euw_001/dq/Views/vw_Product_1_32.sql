@@ -1,6 +1,5 @@
-CREATE VIEW [dbo].[vw_Product_1_32]
+CREATE VIEW [dq].[vw_Product_1_32]
 AS
-
 SELECT DISTINCT
      P.[MANDT] 
     ,P.[Product] 
@@ -137,7 +136,7 @@ SELECT DISTINCT
     ,P.[ZZ1_CustomFieldHighRis_PRD] 
     ,P.[ZZ1_CustomFieldRiskRea_PRD] 
     ,PPr.[PurchasingAcknProfile]
-    ,CONCAT('1.31_',P.[ProductType]) AS [RuleID]
+    ,CONCAT('1.32_',P.[ProductType]) AS [RuleID]
     ,1 AS [Count]
 FROM   
     [base_s4h_cax].[I_Product] P  
@@ -148,11 +147,8 @@ LEFT JOIN
 LEFT JOIN 
     [base_s4h_cax].[I_Productprocurement]   PPr 
     ON
-    PPr.[Product] =  PP.[Product] 
+        PPr.[Product] =  PP.[Product] 
 WHERE
-      P.[ProductType] in ('ZROH', 'ZVER')
+        P.[ProductType] in ('ZROH', 'ZHAW')
     AND 
-      PPr.[PurchasingAcknProfile] = 'ZMT1'
-
-
--- select distinct [PurchasingAcknProfile] from [base_s4h_cax].[I_Productprocurement]       
+        PPr.[PurchasingAcknProfile] != 'ZMT1'

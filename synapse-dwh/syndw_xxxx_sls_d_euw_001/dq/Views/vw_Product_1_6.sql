@@ -1,57 +1,7 @@
-﻿CREATE VIEW [dq].[vw_Product_1_6] AS
-WITH
-DeletedProducts AS (
-    SELECT
-        p.[Product],
-        pt.[Language],
-        p.[IsMarkedForDeletion],
-        p.[CrossPlantStatus],
-        pt.[ProductName]
-    FROM
-        [base_s4h_cax].[I_ProductText] AS pt
-    LEFT JOIN
-        [base_s4h_cax].[I_Product] AS p
-        ON
-            pt.[Product] = p.[Product]
-    WHERE
-        p.[IsMarkedForDeletion] = 'X'
-        AND
-        p.[CrossPlantStatus] = '70'
-        AND
-        (
-            pt.ProductName LIKE 'DEL%'
-            OR
-            pt.ProductName LIKE 'DUP%'
-        )
-)
-,
-NotDeletedProducts AS (
-    SELECT
-        p.[Product],
-        pt.[Language],
-        p.[IsMarkedForDeletion],
-        p.[CrossPlantStatus],
-        pt.[ProductName]
-    FROM
-        [base_s4h_cax].[I_ProductText] AS pt
-    LEFT JOIN
-        [base_s4h_cax].[I_Product] AS p
-        ON
-            pt.[Product] = p.[Product]
-    WHERE
-        p.[IsMarkedForDeletion] != 'X'
-        AND
-        p.[CrossPlantStatus] != '70'
-        AND
-        (
-            pt.[ProductName] NOT LIKE 'DEL%'
-            OR
-            pt.[ProductName] NOT LIKE 'DUP%'
-        )
-)
-
+﻿CREATE VIEW [dq].[vw_Product_1_6] 
+AS
 SELECT 
-    p.[MANDT] 
+     p.[MANDT] 
     ,p.[Product] 
     ,p.[ProductExternalID] 
     ,pt.[Language]
@@ -195,15 +145,13 @@ LEFT JOIN
     [base_s4h_cax].[I_Product] AS p
     ON
         pt.[Product] = p.[Product]
-LEFT JOIN
-    DeletedProducts AS del
-    ON
-        del.[Product] = pt.[Product]
-LEFT JOIN
-    NotDeletedProducts AS notdel
-    ON
-        notdel.[Product] = p.[Product]
 WHERE
-    del.[Product] IS NULL
+    p.[IsMarkedForDeletion] = 'X'
     AND
-    notdel.[Product] IS NULL
+    p.[CrossPlantStatus] != '70'
+    AND
+    (
+        pt.ProductName NOT LIKE 'DEL%'
+        OR
+        pt.ProductName NOT LIKE 'DUP%'
+    )    

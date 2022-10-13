@@ -1,4 +1,4 @@
-CREATE VIEW [dbo].[vw_Product_1_30_all]
+CREATE VIEW [dq].[vw_Product_1_30_all]
 AS
 SELECT DISTINCT
      P.[MANDT] 
@@ -135,9 +135,9 @@ SELECT DISTINCT
     ,P.[ZZ1_CustomFieldRiskMit_PRD] 
     ,P.[ZZ1_CustomFieldHighRis_PRD] 
     ,P.[ZZ1_CustomFieldRiskRea_PRD] 
-    ,NAM.[matnr]
-    ,NAM.[werks]
-    ,NAM.[fxhor]
+    ,NAM.[MATNR] AS [MaterialNumber]
+    ,NAM.[WERKS] AS [Plant]
+    ,NAM.[FXHOR] AS [PlanningTimeFence]
     ,PP.[MRPType]
     ,CONCAT('1.30_All',P.[ProductType]) AS [RuleID]
     ,1 AS [Count]
@@ -145,17 +145,17 @@ FROM
     [base_s4h_cax].[I_Product] P  
 LEFT JOIN 
     [base_s4h_cax].[I_ProductPlant] PP 
-    ON P.Product = PP.Product
-LEFT JOIN 
-    [base_s4h_cax].[nsdm_e_marc] NAM
     ON 
-      PP.[Product] = NAM.[matnr]
+      P.[Product] = PP.[Product]
+LEFT JOIN 
+    [base_s4h_cax].[NSDM_V_MARC] NAM
+    ON 
+        PP.[Product] = NAM.[MATNR] COLLATE Latin1_General_100_BIN2
       AND
-      PP.[Plant] = NAM.[werks]
+        PP.[Plant] = NAM.[WERKS] COLLATE Latin1_General_100_BIN2
 WHERE
-    PP.[MRPType]= 'V1'
-  AND
-    NAM.[fxhor] = 'F'
-  AND
-    ISNULL(NAM.[minbe])  = ''
-  
+      ISNULL(NAM.[MINBE], 0) != 0   
+    AND
+      PP.[MRPType] != 'V1'
+    AND
+      NAM.[FXHOR] != 'F'

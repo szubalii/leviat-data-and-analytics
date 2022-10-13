@@ -1,7 +1,7 @@
-CREATE VIEW [dbo].[vw_Product_1_25]
+CREATE VIEW [dq].[vw_Product_1_25]
   AS 
   
-  SELECT DISTINCT
+SELECT DISTINCT
      P.[MANDT] 
     ,P.[Product] 
     ,P.[ProductExternalID] 
@@ -136,9 +136,10 @@ CREATE VIEW [dbo].[vw_Product_1_25]
     ,P.[ZZ1_CustomFieldRiskMit_PRD] 
     ,P.[ZZ1_CustomFieldHighRis_PRD] 
     ,P.[ZZ1_CustomFieldRiskRea_PRD] 
-    ,NAM.[matnr]
-    ,NAM.[werks]
-    ,NAM.[fxhor]
+    ,NVM.[MATNR]                    AS [MaterialNumber]
+    ,NVM.[WERKS]                    AS [Plant]
+    ,NVM.[FXHOR]                    AS [PlanningTimeFence]
+    ,NVM.[MINBE]                    AS [ReorderPoint]
     ,PP.[MRPType]    
     ,CONCAT('1.25_',P.[ProductType]) AS [RuleID]
     ,1 AS [Count]
@@ -147,16 +148,16 @@ FROM
 LEFT JOIN 
     [base_s4h_cax].[I_ProductPlant] PP 
     ON 
-      P.Product = PP.Product
+      P.[Product] = PP.[Product]
 LEFT JOIN 
-    [base_s4h_cax].[nsdm_e_marc] NAM
+    [base_s4h_cax].[NSDM_V_MARC] NVM
     ON 
-      PP.[Product] = NAM.[matnr]
+      PP.[Product] = NVM.[MATNR]  COLLATE Latin1_General_100_BIN2
       AND
-      PP.[Plant] = NAM.[werks] 
+      PP.[Plant] = NVM.[WERKS]  COLLATE Latin1_General_100_BIN2
 WHERE
       P.[ProductType] in ('ZVER')
+      AND 
+      ISNULL(NVM.[MINBE], 0) != 0
     AND
-      PP.[MRPType] = 'V1' 
-    AND 
-      ISNULL(NAM.[minbe])  != ''
+      PP.[MRPType] != 'V1' 

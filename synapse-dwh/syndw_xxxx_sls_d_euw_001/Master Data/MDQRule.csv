@@ -1,4 +1,4 @@
-RuleID;DataArea;RuleClass;RuleGroup;RuleBusinessDescription;RuleTechnicalDefinition;FieldNameChecked
+RuleID;DataArea;RuleClass;RuleGroup;RuleBusinessDescription;RuleTechnicalDefinition;FieldNameChecked;RAGStatus
 1.2_ZFER;Material;Consistency;ZFER;Gross Weight for ZFER is derived from Net Weight plus Packaging.  Gross weight should be between 100 - 120% of Net weight or the same.;Gross weight (BGREW) should be equal or bigger than 100% of Nett weight (NTGEW) and smaller than 120%. ;Gross Wt. (MARA-BRGEW) & Net Wt. (MARA-NTGEW)
 1.2_ZHAW;Material;Consistency;ZHAW;Gross Weight for ZHAW is derived from Net Weight plus Packaging.  Gross weight should be between 100 - 120% of Net weight or the same.;Gross weight (BGREW) should be equal or bigger than 100% of Nett weight (NTGEW) and smaller than 120%. ;Gross Wt. (MARA-BRGEW) & Net Wt. (MARA-NTGEW)
 1.3_ZERS;Material;Uniqueness;ZERS;Check on duplicate names/descriptions of ZERS materials;If (MARA-MTART= ZERS), then MAKT-MAKTX (language specific i.e IN combination with SPRAS) is not existing already in MAKT;Material Description (MARA-MAKTX)
@@ -85,3 +85,14 @@ RuleID;DataArea;RuleClass;RuleGroup;RuleBusinessDescription;RuleTechnicalDefinit
 2.3.38_Third party Intercompany;BP Customer;Completeness;Third party Intercompany;This checkbox should be defaulted marked in each Sales Org;KNVV-BOKRE;Rebates
 2.7_All;BP;Conformity;All;Check if email is entered in correct format in all BP groups;(ADRC-FLAGCOMM6) Should include @ and . ;Email address
 2.19_Employee;BP;Consistency;Employee;When Title Mr. or Mrs. is used, the gender of the employee cannot be Unknown;HR Title (Q0002-ANREX) BP Title (BUS000FLDS-TITLE_MEDI);HR Title BP Title
+1.1_ALL;Material;Completeness;ALL;Material-related origin is always checked;(MBEW-HKMAT) = X;Material-related origin (MBEW-HKMAT)
+1.25_ZVER;Material;Consistency;ZVER;For Packaging materials the MRP Type is V1 if a reorder point is defined. If reorder point is 0 then the MRP Type is PD;If (MARA-MTART= ZVER) AND (MARC-MINBE ≠ Null) then (MARC-DISMM) = V1;MRP Type (MARC-DISMM)
+1.26_ALL;Material;Consistency;ALL;If X-Plant material status is 70 (deactivated), MRP Type should be ND (no planning) in all Plants;If (MARA-MSTAE= 70)  then (MARC-DISMM) = ND;MRP Type (MARC-DISMM)
+1.29_ALL;Material;Consistency;ALL;If X-Plant material status is 70 (deactivated), Do Not Cost indicator should be set in all Plants;If (MARA-MSTAE= 70)  then  (MARC-NCOST) = X;Do Not Cost (MARC-NCOST)
+1.30_ALL;Material;Consistency;ALL;Has an entry only when MRP Type is V1 and Planning time fence is maintained;MARC-MINBE has value when (MARC-DISMM = V1) AND (MARC-FXHOR) has a value;Reorder Point (MARC-MINBE)
+1.31_ZHAW;Material;Conformity;ZHAW;ZHAW materials always have Procurement type F maintained. Only If the “special procurement key (MARC-SOBSL)” is used, than the procurement type should be E;If (MARA-MTART= ZHAW) then (MARC-BESKZ = F, unless (MARC-SOBSL) ≠ Null ;Procurement type (MARC-BESKZ)
+1.31_ZVER;Material;Conformity;ZVER;Packaging materials always have Procurement type F maintained. Only If the “special procurement key (MARC-SOBSL)” is used, than the procurement key should be E;If (MARA-MTART= ZVER) then (MARC-BESKZ = F, unless (MARC-SOBSL) ≠ Null ;Procurement type (MARC-B
+1.32_ZROH;Material;Consistency;ZROH;Puchasing value key is Z1 for Raw materials;If (MARA-MTART= ZROH), then (MARC-EKWSL) = ZMT1;Purchasing Value Key (MARC-EKWSL)
+1.32_ZHAW;Material;Consistency;ZHAW;Puchasing value key is Z1 for Trade goods;If (MARA-MTART= ZHAW), then (MARC-EKWSL) = ZMT1;Purchasing Value Key (MARC-EKWSL)
+1.33_ZROH;Material;Conformity;ZROH;Item Category Group is always NORM for ZROH materials;If (MARA-MTART= ZROH) then (MVKE-MTPOS = NORM;Item Category Group (MVKE-MTPOS)
+1.41_ZVER;Material;Completeness;ZVER;Packaging Material Type is ZMT1 for ZVER materials;If (MARA-MTART= ZVER), then (MARA-VHART) = ZMT1;Packaging Material Type (MARA-VHART)
