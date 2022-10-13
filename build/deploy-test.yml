@@ -21,7 +21,7 @@ variables:
   value: "df-$(user)-d-euw-001"
 - name: sqlDatabaseName
   value: "sqldb-$(user)-d-euw-001"
-- name: synapseDatabase
+- name: synapseSqlPool
   value: "syndw_$(user)_d_euw_001"
 
 jobs:
@@ -42,8 +42,8 @@ jobs:
       echo "dataFactoryName %DATAFACTORYNAME%"
       echo "sqlDatabaseName ${{variables.sqlDatabaseName}}"
       echo "sqlDatabaseName $(sqlDatabaseName)"
-      echo "synapseDatabase ${{variables.synapseDatabase}}"
-      echo "synapseDatabase $(synapseDatabase)"
+      echo "synapseSqlPool ${{variables.synapseSqlPool}}"
+      echo "synapseSqlPool $(synapseSqlPool)"
 
   # Start VM
 - job: StartVM
