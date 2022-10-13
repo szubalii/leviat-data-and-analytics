@@ -4,7 +4,7 @@
 # https://docs.microsoft.com/azure/devops/pipelines/apps/windows/dot-net
 
 trigger:
-- main
+- none
 
 parameters:
 - name: user
@@ -58,8 +58,11 @@ jobs:
         waitForCompletion: 'false'
       displayName: 'Start VM'
 
-  # Orchestration Database Build Job
-- template: ../orchestration/build/deploy-test-job.yml
+# Build and deploy jobs
+- template: ../orchestration/build/jobs-deploy-test.yml
+# - template: ../synapse-dwh/build/jobs-deploy-test.yml
+- template: ../azure-data-factory/build/jobs-deploy-test.yml
+# - template: ../xu-config/build/jobs-deploy-test.yml
 
 #   steps:
 

@@ -1,0 +1,13 @@
+# Azure Data Factory Build & Deploy Job
+jobs:
+- job: ADF
+  pool:
+    name: 'VM'
+    demands:
+    - node.js
+    - VisualStudio
+
+  steps:
+
+  - template: ./steps-build.yml
+  - template: ./steps-deploy.yml
