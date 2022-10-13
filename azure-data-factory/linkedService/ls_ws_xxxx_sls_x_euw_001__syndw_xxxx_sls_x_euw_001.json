@@ -1,11 +1,11 @@
 {
 	"name": "ls_ws_xxxx_sls_x_euw_001__syndw_xxxx_sls_x_euw_001",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
 	"properties": {
 		"annotations": [],
-		"type": "AzureSqlDatabase",
+		"type": "AzureSqlDW",
 		"typeProperties": {
-			"connectionString": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=sqlsrv-xxxx-sls-d-euw-001.database.windows.net;Initial Catalog=syndw_mpors_d_euw_001"
+			"connectionString": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=ws-xxxx-sls-d-euw-001.sql.azuresynapse.net;Initial Catalog=syndw_xxxx_sls_d_euw_001"
 		}
-	},
-	"type": "Microsoft.DataFactory/factories/linkedservices"
+	}
 }
