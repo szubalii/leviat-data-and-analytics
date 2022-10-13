@@ -10,6 +10,7 @@ steps:
      
      Resume-AzSynapseSqlPool -WorkspaceName "$(workspaceName)" -Name "$(synapseSqlPool)"
     azurePowerShellVersion: LatestVersion
+    pwsh: true
 
 - task: AzureFileCopy@4
   displayName: 'AzureBlob File Copy'
