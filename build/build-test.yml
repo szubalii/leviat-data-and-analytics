@@ -15,26 +15,26 @@ parameters:
 variables:
 - group: DnA_DEV
 - group: KeyVault_DEV
-- name: accountName # runtime variable
-  value: "${{ replace(variables['Build.RequestedForEmail'], '@crh.com','') }}" #runtime expression
-- name: varA
-  value: $(parameters.user)
+# - name: accountName # runtime variable
+#   value: "${{ replace(variables['Build.RequestedForEmail'], '@crh.com','') }}" #runtime expression
+# - name: varA
+#   value: $(parameters.user)
 # - name: dataFactoryName
 #   value: "df-$(variables.member)-d-euw-001"
-- name: varB
+- name: user
   value: ${{ parameters.user }}
-- name: varB1
-  value: "df-${{ variables.varB }}-d-euw-001"
-- name: varB2
-  value: "df-$(varB)-d-euw-001"
-- name: varC
-  value: "df-${{ parameters.user }}-d-euw-001"
-- name: varD
-  value: "df-${{ variables.varC }}-d-euw-001"
+# - name: varB1
+#   value: "df-${{ variables.varB }}-d-euw-001"
+- name: dataFactoryName
+  value: "df-$(user)-d-euw-001"
+# - name: varC
+#   value: "df-${{ parameters.user }}-d-euw-001"
+# - name: varD
+#   value: "df-${{ variables.varC }}-d-euw-001"
 - name: sqlDatabase
-  value: 'sqldb-$[variables[''accountName'']]-d-euw-001'
+  value: "sqldb-$(user)-d-euw-001"
 - name: synapseDatabase
-  value: 'syndw_$[variables[''accountName'']]_d_euw_001'
+  value: "syndw_$(user)_d_euw_001"
 
 jobs:
 
@@ -47,22 +47,15 @@ jobs:
     - VisualStudio
   steps:
   - script: |
+      echo "user ${{variables.user}}"
+      echo "user $(user)"
       echo "dataFactoryName ${{variables.dataFactoryName}}"
       echo "dataFactoryName $(dataFactoryName)"
-      echo "varA ${{variables.varA}}"
-      echo "varA $(varA)"
-      echo "varB ${{variables.varB}}"
-      echo "varB $(varB)"
-      echo "varB1 ${{variables.varB1}}"
-      echo "varB1 $(varB1)"
-      echo "varB2 ${{variables.varB2}}"
-      echo "varB2 $(varB2)"
-      echo "varC ${{variables.varC}}"
-      echo "varC $(varC)"
-      echo "accountName ${{variables.accountName}}"
-      echo "user ${{parameters.user}}"
-      echo "member $(member)"
       echo "dataFactoryName %DATAFACTORYNAME%"
+      echo "sqlDatabase ${{variables.sqlDatabase}}"
+      echo "sqlDatabase $(sqlDatabase)"
+      echo "synapseDatabase ${{variables.synapseDatabase}}"
+      echo "synapseDatabase $(synapseDatabase)"
 
   # Start VM
 - job: StartVM
