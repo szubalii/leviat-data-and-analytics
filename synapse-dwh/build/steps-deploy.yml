@@ -15,7 +15,7 @@ steps:
 - task: AzureFileCopy@4
   displayName: 'AzureBlob File Copy'
   inputs:
-    SourcePath: '$(System.DefaultWorkingDirectory)/$(Release.PrimaryArtifactSourceAlias)/SynapseDWH/Master Data/*'
+    SourcePath: '$(Build.Repository.LocalPath)/synapse-dwh/syndw_xxxx_sls_d_euw_001/Master Data/*'
     azureSubscription: 'arm-pipeline'
     Destination: AzureBlob
     storage: '$(storageAccountName)'
@@ -28,5 +28,5 @@ steps:
     AuthenticationType: servicePrincipal
     ServerName: '$(workspaceName).sql.azuresynapse.net'
     DatabaseName: '$(synapseSqlPool)'
-    DacpacFile: '$(System.DefaultWorkingDirectory)/$(Release.PrimaryArtifactSourceAlias)/SynapseDWH/syndw_xxxx_sls_d_euw_001.dacpac'
+    DacpacFile: '$(Build.Repository.LocalPath)/synapse-dwh/syndw_xxxx_sls_d_euw_001/bin/Release/syndw_xxxx_sls_d_euw_001.dacpac'
     AdditionalArguments: '/v:masterKeyPwd=$(ws-xxxx-sls-x-euw-001-masterKeyPwd) /v:storageAccount=$(storageAccountName)'
