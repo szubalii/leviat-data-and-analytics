@@ -1,0 +1,19 @@
+# Azure Synapse Dedicated SQL Pool Build Job
+jobs:
+- job: SynapseDWHBuild&Deploy
+  dependsOn: StartVM
+  pool:
+    name: 'VM'
+    demands:
+    - node.js
+    - VisualStudio
+    - Python.Version
+
+  variables:
+    synapseDWHSolution: '**/synapse-dwh/*.sln'
+    buildPlatform: 'Any CPU'
+    buildConfiguration: 'Release'
+
+  steps:
+  - template: ./steps-build.yml
+  - template: ./steps-deploy.yml

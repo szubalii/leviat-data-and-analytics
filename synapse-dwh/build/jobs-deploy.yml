@@ -1,7 +1,7 @@
 # Azure Synapse Dedicated SQL Pool Deploy Job
 jobs:
 - job: SynapseDWHDeploy
-  # dependsOn: SynapseDWHBuild
+  dependsOn: ${{if(eq($(deployEnv),'personal'),SynapseDWHBuild,)}}
   pool:
     name: 'VM'
     demands:
