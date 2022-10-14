@@ -1,7 +1,7 @@
 # Orchestration Database Build & Deploy Job
 jobs:
 - job: OrchDBDeploy
-  dependsOn: ${{if(eq($(deployEnv),'personal'),OrchDBBuild,)}}
+  # dependsOn: ${{if eq($(deployEnv),'personal'),OrchDBBuild,)}}
   pool:
     name: 'VM'
     demands:

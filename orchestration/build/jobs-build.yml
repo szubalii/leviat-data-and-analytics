@@ -13,5 +13,8 @@ jobs:
     buildConfiguration: 'Release'
 
   steps:
-
   - template: ./steps-build.yml
+  # TODO check if condition works, or else maybe extending from a template
+  # https://learn.microsoft.com/en-us/azure/devops/pipelines/process/templates?view=azure-devops#extend-from-a-template
+  - ${{ if eq(variables.deployEnv, 'personal') }}: 
+    - template: ./steps-deploy.yml
