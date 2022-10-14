@@ -27,7 +27,7 @@ stages:
         echo "synapseSqlPool $(synapseSqlPool)"
 
     # Start VM
-  - template: ./jobs-start-vm
+  - template: ./jobs-start-vm.yml
 
   # Build and deploy jobs
   - template: ../orchestration/build/jobs-deploy.yml
