@@ -1,7 +1,7 @@
 # Azure Data Factory Deploy Job
 jobs:
 - job: ADFDeploy
-  dependsOn: ADFBuild
+  # dependsOn: ADFBuild
   pool:
     name: 'VM'
     demands:
