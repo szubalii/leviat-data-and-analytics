@@ -8,7 +8,8 @@ parameters:
   default: $[ replace(variables['Build.RequestedForEmail'], '@crh.com','') ] # runtime expression to get user name
 - name: deployEnv
   type: string
-  values: personal
+  values: 
+  - personal
 
 variables:
 - group: DnA_DEV
