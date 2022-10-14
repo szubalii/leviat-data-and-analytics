@@ -1,7 +1,7 @@
 # Azure Synapse Dedicated SQL Pool Artifacts Job
 jobs:
 - job: SynapseDWHArtifacts
-  dependsOn: SynapseDWHBuild
+  # dependsOn: SynapseDWHBuild
   pool:
     name: 'VM'
     demands:

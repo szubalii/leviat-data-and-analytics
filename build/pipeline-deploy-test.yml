@@ -18,7 +18,10 @@ variables:
   value: "sqldb-$(user)-d-euw-001"
 - name: synapseSqlPool
   value: "syndw_$(user)_d_euw_001"
+# - name: createArtifacts
+#   value: true
 
-stages:
-- template: ./stages-build.yml
-- template: ./stages-deploy.yml
+jobs:
+- template: ./jobs-pre-build.yml
+- template: ./jobs-build.yml
+- template: ./jobs-deploy.yml

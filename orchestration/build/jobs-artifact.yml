@@ -2,6 +2,7 @@
 jobs:
 - job: OrchDBArtifact
   dependsOn: OrchDBBuild
+  # condition: $(createArtifacts)
   pool:
     name: 'VM'
     demands:

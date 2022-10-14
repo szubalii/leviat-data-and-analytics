@@ -6,14 +6,8 @@
 stages:
 - stage: Build
   jobs:
-
-    # Start VM
-  - template: ./jobs-start-vm.yml
-
   # Build jobs
-  - template: ../orchestration/build/jobs-build.yml
-  - template: ../synapse-dwh/build/jobs-build.yml
-  - template: ../azure-data-factory/build/jobs-build.yml
+  - template: ./jobs-build.yml
 # - template: ../xu-config/build/jobs-deploy-test.yml
 
 #   steps:

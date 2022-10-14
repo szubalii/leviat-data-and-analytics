@@ -1,0 +1,4 @@
+stages:
+- stage: Pre-Build
+  jobs:
+  - template: ./jobs-pre-build.yml

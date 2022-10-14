@@ -4,10 +4,31 @@
 # https://docs.microsoft.com/azure/devops/pipelines/apps/windows/dot-net
 
 
-stages:
-- stage: Deploy
-  jobs:
-  - template: ./jobs-deploy.yml
+jobs:
+  # Set variables
+- job: PrintVariables
+  pool:
+    name: 'VM'
+    demands:
+    - node.js
+    - VisualStudio
+  steps:
+  - script: |
+      echo "user ${{variables.user}}"
+      echo "user $(user)"
+      echo "dataFactoryName ${{variables.dataFactoryName}}"
+      echo "dataFactoryName $(dataFactoryName)"
+      echo "dataFactoryName %DATAFACTORYNAME%"
+      echo "sqlDatabaseName ${{variables.sqlDatabaseName}}"
+      echo "sqlDatabaseName $(sqlDatabaseName)"
+      echo "synapseSqlPool ${{variables.synapseSqlPool}}"
+      echo "synapseSqlPool $(synapseSqlPool)"
+
+# Deploy jobs
+- template: ../orchestration/build/jobs-deploy.yml
+- template: ../synapse-dwh/build/jobs-deploy.yml
+- template: ../azure-data-factory/build/jobs-deploy.yml
+# - template: ../xu-config/build/jobs-deploy-test.yml
 
 #   steps:
 
