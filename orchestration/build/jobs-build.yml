@@ -14,7 +14,9 @@ jobs:
 
   steps:
   - template: ./steps-build.yml
-  # TODO check if condition works, or else maybe extending from a template
+  # TODO check if condition works which should according to doc:
+  # https://learn.microsoft.com/en-us/azure/devops/pipelines/process/templates?view=azure-devops#parameters-to-select-a-template-at-runtime
+  # or else maybe extending from a template
   # https://learn.microsoft.com/en-us/azure/devops/pipelines/process/templates?view=azure-devops#extend-from-a-template
-  - ${{ if eq(variables.deployEnv, 'personal') }}: 
+  - ${{ if eq(parameters.deployEnv, 'personal') }}: 
     - template: ./steps-deploy.yml
