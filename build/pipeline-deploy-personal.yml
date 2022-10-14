@@ -26,4 +26,4 @@ variables:
 jobs:
 - template: ./jobs-pre-build.yml
 - template: ./jobs-build.yml
-- template: ./jobs-deploy.yml
+# - template: ./jobs-deploy.yml
