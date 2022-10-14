@@ -3,65 +3,36 @@
 # Add steps that publish symbols, save build artifacts, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/apps/windows/dot-net
 
-trigger:
-- none
 
-parameters:
-- name: user
-  displayName: User Name
-  type: string
-  default: $[ replace(variables['Build.RequestedForEmail'], '@crh.com','') ] # runtime expression to get user name
+stages:
+- stage: Deploy
+  jobs:
+    # Set variables
+  - job: PrintVariables
+    pool:
+      name: 'VM'
+      demands:
+      - node.js
+      - VisualStudio
+    steps:
+    - script: |
+        echo "user ${{variables.user}}"
+        echo "user $(user)"
+        echo "dataFactoryName ${{variables.dataFactoryName}}"
+        echo "dataFactoryName $(dataFactoryName)"
+        echo "dataFactoryName %DATAFACTORYNAME%"
+        echo "sqlDatabaseName ${{variables.sqlDatabaseName}}"
+        echo "sqlDatabaseName $(sqlDatabaseName)"
+        echo "synapseSqlPool ${{variables.synapseSqlPool}}"
+        echo "synapseSqlPool $(synapseSqlPool)"
 
-variables:
-- group: DnA_DEV
-- group: KeyVault_DEV
-- name: user
-  value: ${{ parameters.user }} # template expression to expand template parameter
-- name: dataFactoryName
-  value: "df-$(user)-d-euw-001"
-- name: sqlDatabaseName
-  value: "sqldb-$(user)-d-euw-001"
-- name: synapseSqlPool
-  value: "syndw_$(user)_d_euw_001"
+    # Start VM
+  - template: ./jobs-start-vm
 
-jobs:
-
-  # Set variables
-- job: PrintVariables
-  pool:
-    name: 'VM'
-    demands:
-    - node.js
-    - VisualStudio
-  steps:
-  - script: |
-      echo "user ${{variables.user}}"
-      echo "user $(user)"
-      echo "dataFactoryName ${{variables.dataFactoryName}}"
-      echo "dataFactoryName $(dataFactoryName)"
-      echo "dataFactoryName %DATAFACTORYNAME%"
-      echo "sqlDatabaseName ${{variables.sqlDatabaseName}}"
-      echo "sqlDatabaseName $(sqlDatabaseName)"
-      echo "synapseSqlPool ${{variables.synapseSqlPool}}"
-      echo "synapseSqlPool $(synapseSqlPool)"
-
-  # Start VM
-- job: StartVM
-  pool: server
-  steps:
-    - task: InvokeRESTAPI@1
-      inputs:
-        connectionType: 'connectedServiceNameARM'
-        azureServiceConnection: 'arm-pipeline'
-        method: 'POST'
-        urlSuffix: '/subscriptions/f199b488-7d9d-4992-aeda-c10a1e1c9b9e/resourceGroups/$(VMResourceGroup)/providers/Microsoft.Compute/virtualMachines/$(VMName)/start?api-version=2022-03-01'
-        waitForCompletion: 'false'
-      displayName: 'Start VM'
-
-# Build and deploy jobs
-# - template: ../orchestration/build/jobs-deploy-test.yml
-# - template: ../synapse-dwh/build/jobs-deploy-test.yml
-- template: ../azure-data-factory/build/jobs-deploy-test.yml
+  # Build and deploy jobs
+  - template: ../orchestration/build/jobs-deploy.yml
+  - template: ../synapse-dwh/build/jobs-deploy.yml
+  - template: ../azure-data-factory/build/jobs-deploy.yml
 # - template: ../xu-config/build/jobs-deploy-test.yml
 
 #   steps:

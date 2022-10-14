@@ -1,0 +1,24 @@
+trigger:
+- none
+
+parameters:
+- name: user
+  displayName: User Name
+  type: string
+  default: $[ replace(variables['Build.RequestedForEmail'], '@crh.com','') ] # runtime expression to get user name
+
+variables:
+- group: DnA_DEV
+- group: KeyVault_DEV
+- name: user
+  value: ${{ parameters.user }} # template expression to expand template parameter
+- name: dataFactoryName
+  value: "df-$(user)-d-euw-001"
+- name: sqlDatabaseName
+  value: "sqldb-$(user)-d-euw-001"
+- name: synapseSqlPool
+  value: "syndw_$(user)_d_euw_001"
+
+stages:
+- template: ./stages-build.yml
+- template: ./stages-deploy.yml

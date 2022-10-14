@@ -1,0 +1,17 @@
+# Orchestration Database Build & Deploy Job
+jobs:
+- job: OrchDBBuild
+  dependsOn: StartVM
+  pool:
+    name: 'VM'
+    demands:
+    - node.js
+    - VisualStudio
+  variables:
+    orchDBSolution: '**/orchestration/*.sln'
+    buildPlatform: 'Any CPU'
+    buildConfiguration: 'Release'
+
+  steps:
+
+  - template: ./steps-build.yml

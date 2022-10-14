@@ -1,9 +1,7 @@
-# Azure Synapse Dedicated SQL Pool Build & Deploy Job
+# Azure Synapse Dedicated SQL Pool Build Job
 jobs:
-- job: SynapseDWH
-  # dependsOn: 
-  # - OrchDB
-  # - StartVM
+- job: SynapseDWHBuild
+  dependsOn: StartVM
   pool:
     name: 'VM'
     demands:
@@ -18,4 +16,3 @@ jobs:
 
   steps:
   - template: ./steps-build.yml
-  - template: ./steps-deploy.yml

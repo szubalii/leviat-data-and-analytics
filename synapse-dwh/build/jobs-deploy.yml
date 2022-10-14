@@ -1,0 +1,13 @@
+# Azure Synapse Dedicated SQL Pool Deploy Job
+jobs:
+- job: SynapseDWHDeploy
+  dependsOn: SynapseDWHBuild
+  pool:
+    name: 'VM'
+    demands:
+    - node.js
+    - VisualStudio
+    - Python.Version
+
+  steps:
+  - template: ./steps-deploy.yml

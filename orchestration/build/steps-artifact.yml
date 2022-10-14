@@ -1,6 +1,7 @@
+steps:
 - task: CopyFiles@2
   inputs:
-    SourceFolder: '$(Build.SourcesDirectory)\orchestration\sqldb-xxxx-orchdb-d-euw-001\bin\Release'
+    SourceFolder: '$(Build.SourcesDirectory)\orchestration\sqldb-xxxx-orchdb-d-euw-001\bin\$(buildConfiguration)'
     Contents: '*.dacpac'
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
   displayName: 'Copy dacpac file'

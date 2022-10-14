@@ -1,6 +1,7 @@
-# Azure Data Factory Build & Deploy Job
+# Azure Data Factory Deploy Job
 jobs:
-- job: ADF
+- job: ADFDeploy
+  dependsOn: ADFBuild
   pool:
     name: 'VM'
     demands:
@@ -9,5 +10,4 @@ jobs:
 
   steps:
 
-  - template: ./steps-build.yml
   - template: ./steps-deploy.yml

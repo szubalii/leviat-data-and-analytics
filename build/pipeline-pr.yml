@@ -1,0 +1,5 @@
+trigger:
+- none
+
+stages:
+- template: ./stages-build.yml

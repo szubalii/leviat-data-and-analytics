@@ -1,0 +1,13 @@
+# Azure Data Factory Build Job
+jobs:
+- job: ADFBuild
+  dependsOn: StartVM
+  pool:
+    name: 'VM'
+    demands:
+    - node.js
+    - VisualStudio
+
+  steps:
+
+  - template: ./steps-build.yml

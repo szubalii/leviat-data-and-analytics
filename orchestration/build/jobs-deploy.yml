@@ -1,18 +1,15 @@
 # Orchestration Database Build & Deploy Job
 jobs:
-- job: OrchDB
+- job: OrchDBDeploy
+  dependsOn: OrchDBBuild
   pool:
     name: 'VM'
     demands:
     - node.js
     - VisualStudio
   variables:
-    orchDBSolution: '**/orchestration/*.sln'
-    buildPlatform: 'Any CPU'
-    buildConfiguration: 'Release'
     orchDBContainerURL: https://$(storageAccountName).blob.core.windows.net/orch-db
 
   steps:
 
-  - template: ./steps-build.yml
   - template: ./steps-deploy.yml
