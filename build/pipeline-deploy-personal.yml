@@ -28,6 +28,6 @@ jobs:
 - template: ./jobs-build.yml
   parameters:
     deploy: true
-- ${{ if and(succeeded(OrchDBBuild)) }}:
+- ${{ if and(succeeded('OrchDBBuild')) }}:
   - template: ./jobs-deploy.yml
 #   condition
