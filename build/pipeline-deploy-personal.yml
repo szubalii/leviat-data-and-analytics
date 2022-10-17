@@ -6,10 +6,10 @@ parameters:
   displayName: User Name
   type: string
   default: $[ replace(variables['Build.RequestedForEmail'], '@crh.com','') ] # runtime expression to get user name
-- name: deployEnv
-  type: string
-  values: 
-  - personal
+- name: deployPersonal
+  displayName: 'Deploy to personal developement environment?'
+  type: boolean
+  default: true
 
 variables:
 - group: DnA_DEV

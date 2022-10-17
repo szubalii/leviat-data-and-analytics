@@ -13,10 +13,16 @@ jobs:
     buildConfiguration: 'Release'
 
   steps:
-  - template: ./steps-build.yml
+  - ${{ if not(eq(parameters.deployPersonal, true)) }}:
+    - template: ./steps-build.yml
+  - ${{ if eq(parameters.deployPersonal, true) }}:
+    - template: ./steps-build.yml
+    - template: ./steps-deploy.yml
+
+  # - template: ./steps-build.yml
   # TODO check if condition works which should according to doc:
   # https://learn.microsoft.com/en-us/azure/devops/pipelines/process/templates?view=azure-devops#parameters-to-select-a-template-at-runtime
   # or else maybe extending from a template
   # https://learn.microsoft.com/en-us/azure/devops/pipelines/process/templates?view=azure-devops#extend-from-a-template
-  - ${{ if eq(parameters.deployEnv, 'personal') }}: 
-    - template: ./steps-deploy.yml
+  # - ${{ if eq(parameters.deployEnv, 'personal') }}: 
+  #   - template: ./steps-deploy.yml
