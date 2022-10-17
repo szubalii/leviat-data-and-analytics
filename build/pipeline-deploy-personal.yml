@@ -18,16 +18,12 @@ variables:
   value: "sqldb-$(user)-d-euw-001"
 - name: synapseSqlPool
   value: "syndw_$(user)_d_euw_001"
-- name: deployEnv
-  value: "personal"
-# - name: createArtifacts
-#   value: true
 
 jobs:
 - template: ./jobs-pre-build.yml
 - template: ./jobs-build.yml
   parameters:
     deploy: true
-- ${{ if and(succeeded('OrchDBBuild')) }}:
-  - template: ./jobs-deploy.yml
+# - ${{ if and(succeeded('OrchDBBuild')) }}:
+#   - template: ./jobs-deploy.yml
 #   condition

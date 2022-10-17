@@ -2,15 +2,14 @@
 jobs:
 - job: OrchDBDeploy
   # ${{ if eq(parameters.deploy, true) }}:
-  # dependsOn: OrchDBBuild
+  # - dependsOn: OrchDBBuild
+  # - condition: succeeded('OrchDBBuild')
   # dependsOn: ${{if eq($(deployEnv),'personal'),OrchDBBuild,)}}
   pool:
     name: 'VM'
     demands:
     - node.js
     - VisualStudio
-  variables:
-    orchDBContainerURL: https://$(storageAccountName).blob.core.windows.net/orch-db
 
   steps:
 

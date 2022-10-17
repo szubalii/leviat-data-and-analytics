@@ -21,7 +21,7 @@ jobs:
   - template: ./steps-build.yml
   # deploy only if required.
   - ${{ if eq(parameters.deploy, true) }}: 
-    # - template: ./steps-deploy.yml
+    - template: ./steps-deploy.yml
 
   # - template: ./steps-build.yml
   # TODO check if condition works which should according to doc:
