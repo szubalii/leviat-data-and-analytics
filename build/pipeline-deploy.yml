@@ -2,6 +2,10 @@ trigger:
 # - main
 - none
 
+variables:
+- group: DnA_DEV
+- group: KeyVault_DEV
+
 stages:
 # - template: ./stages-pre-build.yml
 
