@@ -13,7 +13,7 @@ stages:
   # Build jobs
   - template: ./jobs-build.yml
     parameters:
-    - artifact: ${{ parameters.artifact }}
+      artifact: ${{ parameters.artifact }}
 # - template: ../xu-config/build/jobs-deploy-test.yml
 
 #   steps:
