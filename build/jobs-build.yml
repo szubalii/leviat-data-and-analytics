@@ -11,7 +11,7 @@ jobs:
 # Build jobs
 - template: ../orchestration/build/jobs-build.yml
   parameters:
-    deploy: {{ parameters.deploy }}
+    deploy: ${{ parameters.deploy }}
 # - template: ../orchestration/build/jobs-artifact.yml
 # - template: ../synapse-dwh/build/jobs-build.yml
 # - template: ../azure-data-factory/build/jobs-build.yml
