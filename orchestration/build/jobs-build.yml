@@ -2,7 +2,7 @@
 parameters:
 - name: deploy
   type: boolean
-  default: true
+  default: false
 
 jobs:
 - job: OrchDBBuild
@@ -23,7 +23,7 @@ jobs:
   - template: ./steps-build.yml
   # - ${{ if not(eq(parameters.deployPersonal, true)) }}:
   #   - template: ./steps-deploy.yml
-  - ${{ if eq(parameters.deployPersonal, true) }}:
+  - ${{ if eq(parameters.deploy, true) }}:
     - template: ./steps-deploy.yml
 
   # - template: ./steps-build.yml
