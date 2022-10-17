@@ -3,6 +3,12 @@ parameters:
 - name: deploy
   type: boolean
   default: false
+- name: test
+  type: boolean
+  default: false
+- name: artifact
+  type: boolean
+  default: false
 
 jobs:
 - job: OrchDBBuild
@@ -22,6 +28,13 @@ jobs:
   # deploy only if required.
   - ${{ if eq(parameters.deploy, true) }}: 
     - template: ./steps-deploy.yml
+  # test only if required
+  - ${{ if eq(parameters.test, true) }}: 
+    - template: ./steps-test.yml
+  # create artifacts only if required
+  - ${{ if eq(parameters.artifact, true) }}: 
+    - template: ./steps-artifact.yml
+    
 
   # - template: ./steps-build.yml
   # TODO check if condition works which should according to doc:

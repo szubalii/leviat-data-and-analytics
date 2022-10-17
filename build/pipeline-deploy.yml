@@ -1,0 +1,18 @@
+trigger:
+- main
+
+stages:
+- template: ./stages-pre-build.yml
+
+- template: ./stages-build.yml
+  parameters:
+    artifact: true
+
+# - stage: deploy
+#   jobs:
+#   - template: ./jobs-deploy.yml
+
+# - stage: test
+#   jobs:
+#   - template: ./jobs-test.yml
+

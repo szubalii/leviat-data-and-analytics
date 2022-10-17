@@ -6,6 +6,11 @@
 trigger:
 - none
 
+parameters:
+- name: artifact
+  type: boolean
+  default: false
+
 variables:
 - group: DnA_DEV
 - group: KeyVault_DEV
@@ -13,12 +18,14 @@ variables:
 jobs:
 
   # Start VM
-- template: ./jobs-start-vm
+# - template: ./jobs-start-vm
 
 # Build jobs
 - template: ../orchestration/build/jobs-build.yml
-- template: ../orchestration/build/jobs-artifact.yml
-- template: ../synapse-dwh/build/jobs-build.yml
-- template: ../synapse-dwh/build/jobs-artifact.yml
-- template: ../azure-data-factory/build/jobs-build.yml
-- template: ../azure-data-factory/build/jobs-artifact.yml
+  parameters:
+    artifact: ${{ parameters.artifact }}
+# - template: ../orchestration/build/jobs-artifact.yml
+# - template: ../synapse-dwh/build/jobs-build.yml
+# - template: ../synapse-dwh/build/jobs-artifact.yml
+# - template: ../azure-data-factory/build/jobs-build.yml
+# - template: ../azure-data-factory/build/jobs-artifact.yml

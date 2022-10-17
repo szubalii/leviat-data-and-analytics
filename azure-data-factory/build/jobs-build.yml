@@ -18,4 +18,4 @@ jobs:
   - template: ./steps-build.yml
   # deploy only if required.
   - ${{ if eq(parameters.deploy, true) }}: 
-    # - template: ./steps-deploy.yml
+    - template: ./steps-deploy.yml
