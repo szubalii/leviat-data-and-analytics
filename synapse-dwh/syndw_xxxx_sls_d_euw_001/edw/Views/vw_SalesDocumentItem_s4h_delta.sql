@@ -7,8 +7,25 @@ WITH Product AS (
         [edw].[dim_Product]
     GROUP BY
         [ProductID]
-)
-,
+),
+
+
+OpenOrderAmount AS(
+SELECT    DISTINCT(doc.SalesDocument)
+        , doc.SalesDocumentItem 
+        , COALESCE(SUM(SL.OpenDeliveryNetAmount), 0) as OpenDeliveryNetAmount
+
+
+FROM base_s4h_cax.C_SalesDocumentItemDEX AS doc
+
+LEFT OUTER JOIN base_s4h_cax.I_SalesDocumentScheduleLine AS SL 
+ON SL.SalesDocument = doc.SalesDocument
+AND SL.SalesDocumentItem = doc.SalesDocumentItem
+
+GROUP BY doc.SalesDocument, doc.SalesDocumentItem
+),
+
+
 C_SalesDocumentItemDEXBase as (
   SELECT
       doc.[SalesDocument]
@@ -187,6 +204,7 @@ C_SalesDocumentItemDEXBase as (
           then 'I'
           else 'O'
       end                                  as [InOutID]
+    , ORDAM.OpenDeliveryNetAmount
     ,doc.[t_applicationId]
     ,doc.[t_extractionDtm]
     ,doc.[t_lastActionBy]
@@ -243,6 +261,12 @@ C_SalesDocumentItemDEXBase as (
             doc.[SalesDocument] = VC.[SalesDocument]
             AND
             doc.[SalesDocumentItem] = VC.[SalesDocumentItem]
+     LEFT JOIN 
+        OpenOrderAmount AS ORDAM 
+        ON 
+            ORDAM.SalesDocument = doc.SalesDocument 
+            AND 
+            ORDAM.SalesDocumentItem = doc.SalesDocumentItem
     WHERE 
     -- casting the left and right sides of equality to the same data type DATE
         CAST(doc.[t_lastActionDtm] as DATE) >  -- the view displays new data that is not yet in the fact table
@@ -456,6 +480,7 @@ SalesDocument_30 AS (
       ,[SDItem_ControllingObjectID]
       ,[CorrespncExternalReference] 
       ,[InOutID]
+      ,CONVERT(decimal(19,6), OpenDeliveryNetAmount * ExchangeRateEuro.[ExchangeRate]) as OpenDeliveryNetAmount
       ,SDI.[t_applicationId]
       ,SDI.[t_lastActionBy]
       ,SDI.[t_lastActionCd]
@@ -676,7 +701,7 @@ SELECT
     , [SDItem_ControllingObjectID]
     , [CorrespncExternalReference] 
     , [InOutID]
-
+    , OpenDeliveryNetAmount
     , SDI.[t_applicationId]
     , SDI.[t_extractionDtm]
     , SDI.[t_lastActionBy]
@@ -856,6 +881,7 @@ SELECT
     , [SDItem_ControllingObjectID]
     , [CorrespncExternalReference] 
     , [InOutID]
+    , CONVERT(decimal(19,6), CASE WHEN ER.[ExchangeRate] IS NOT NULL THEN OpenDeliveryNetAmount * ER.[ExchangeRate] ELSE OpenDeliveryNetAmount END) as OpenDeliveryNetAmount
     , SDI.[t_applicationId]
     , SDI.[t_extractionDtm]
     , SDI.[t_lastActionBy]
@@ -1049,6 +1075,7 @@ SELECT
       ,[SDItem_ControllingObjectID]
       ,[CorrespncExternalReference] 
       ,[InOutID]
+      ,OpenDeliveryNetAmount
       ,SD_30.[t_applicationId]
       ,SD_30.[t_extractionDtm]
       ,SD_30.[t_lastActionBy]
@@ -1228,6 +1255,7 @@ SELECT
       ,[SDItem_ControllingObjectID]
       ,[CorrespncExternalReference] 
       ,[InOutID]
+      ,CONVERT(decimal(19,6), OpenDeliveryNetAmount * (1/ExchangeRateUSD.[ExchangeRate])) as OpenDeliveryNetAmount
       ,SD_30.[t_applicationId]
       ,SD_30.[t_extractionDtm]
       ,SD_30.[t_lastActionBy]

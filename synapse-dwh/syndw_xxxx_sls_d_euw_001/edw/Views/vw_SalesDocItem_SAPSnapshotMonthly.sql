@@ -163,6 +163,7 @@ SELECT
     ,   [SDItem_ControllingObjectID]
     ,   [CorrespncExternalReference] 
     ,   [InOutID]
+    ,   [OpenDeliveryNetAmount] 
     ,   CONCAT(
             YEAR([t_jobDtm]),
              RIGHT('00'+CONVERT(VARCHAR(2), MONTH([t_jobDtm])), 2)
