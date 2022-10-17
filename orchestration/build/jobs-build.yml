@@ -13,10 +13,12 @@ jobs:
     buildConfiguration: 'Release'
 
   steps:
+  - script: echo $(parameters.deployPersonal)
+  - template: ./steps-deploy.yml
   - ${{ if not(eq(parameters.deployPersonal, true)) }}:
-    - template: ./steps-build.yml
+    - template: ./steps-deploy.yml
   - ${{ if eq(parameters.deployPersonal, true) }}:
-    - template: ./steps-build.yml
+    - template: ./steps-deploy.yml
     - template: ./steps-deploy.yml
 
   # - template: ./steps-build.yml
