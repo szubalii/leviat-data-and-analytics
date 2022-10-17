@@ -1,4 +1,9 @@
 # Orchestration Database Build & Deploy Job
+parameters:
+- name: deploy
+  type: boolean
+  default: true
+
 jobs:
 - job: OrchDBBuild
   dependsOn: StartVM
@@ -13,7 +18,8 @@ jobs:
     buildConfiguration: 'Release'
 
   steps:
-  - script: echo ${{ if parameters.deployPersonal 'true'}}
+  - script: echo ${{ parameters.deploy }}
+  - script: echo ${{ parameters.deployPersonal }}
   - template: ./steps-build.yml
   # - ${{ if not(eq(parameters.deployPersonal, true)) }}:
   #   - template: ./steps-deploy.yml
