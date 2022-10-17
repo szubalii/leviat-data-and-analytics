@@ -9,6 +9,7 @@ parameters:
 
 jobs:
 # Build jobs
+- template: ./jobs-pre-build.yml
 - template: ../orchestration/build/jobs-build.yml
   parameters:
     deploy: ${{ parameters.deploy }}

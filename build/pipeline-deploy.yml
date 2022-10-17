@@ -3,7 +3,7 @@ trigger:
 - none
 
 stages:
-- template: ./stages-pre-build.yml
+# - template: ./stages-pre-build.yml
 
 - template: ./stages-build.yml
   parameters:

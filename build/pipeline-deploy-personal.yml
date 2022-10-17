@@ -20,7 +20,7 @@ variables:
   value: "syndw_$(user)_d_euw_001"
 
 jobs:
-- template: ./jobs-pre-build.yml
+# - template: ./jobs-pre-build.yml
 - template: ./jobs-build.yml
   parameters:
     deploy: true
