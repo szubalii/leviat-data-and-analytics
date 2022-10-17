@@ -1,5 +1,6 @@
 trigger:
-- main
+# - main
+- none
 
 stages:
 - template: ./stages-pre-build.yml
