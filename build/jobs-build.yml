@@ -13,8 +13,12 @@ jobs:
   parameters:
     deploy: ${{ parameters.deploy }}
 # - template: ../orchestration/build/jobs-artifact.yml
-# - template: ../synapse-dwh/build/jobs-build.yml
-# - template: ../azure-data-factory/build/jobs-build.yml
+- template: ../synapse-dwh/build/jobs-build.yml
+  parameters:
+    deploy: ${{ parameters.deploy }}
+- template: ../azure-data-factory/build/jobs-build.yml
+  parameters:
+    deploy: ${{ parameters.deploy }}
 # - template: ../xu-config/build/jobs-deploy-test.yml
 
 #   steps:

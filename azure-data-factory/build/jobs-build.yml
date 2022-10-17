@@ -1,4 +1,9 @@
 # Azure Data Factory Build Job
+parameters:
+- name: deploy
+  type: boolean
+  default: false
+
 jobs:
 - job: ADFBuild
   dependsOn: StartVM
@@ -11,3 +16,6 @@ jobs:
   steps:
 
   - template: ./steps-build.yml
+  # deploy only if required.
+  - ${{ if eq(parameters.deploy, true) }}: 
+    - template: ./steps-deploy.yml

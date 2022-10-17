@@ -18,12 +18,9 @@ jobs:
     buildConfiguration: 'Release'
 
   steps:
-  - script: echo ${{ parameters.deploy }}
-  # - script: echo ${{ parameters.deployPersonal }}
   - template: ./steps-build.yml
-  # - ${{ if not(eq(parameters.deployPersonal, true)) }}:
-  #   - template: ./steps-deploy.yml
-  - ${{ if eq(parameters.deploy, true) }}:
+  # deploy only if required.
+  - ${{ if eq(parameters.deploy, true) }}: 
     - template: ./steps-deploy.yml
 
   # - template: ./steps-build.yml
