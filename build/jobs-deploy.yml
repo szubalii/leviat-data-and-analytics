@@ -26,8 +26,8 @@ jobs:
 
 # Deploy jobs
 - template: ../orchestration/build/jobs-deploy.yml
-- template: ../synapse-dwh/build/jobs-deploy.yml
-- template: ../azure-data-factory/build/jobs-deploy.yml
+# - template: ../synapse-dwh/build/jobs-deploy.yml
+# - template: ../azure-data-factory/build/jobs-deploy.yml
 # - template: ../xu-config/build/jobs-deploy-test.yml
 
 #   steps:
