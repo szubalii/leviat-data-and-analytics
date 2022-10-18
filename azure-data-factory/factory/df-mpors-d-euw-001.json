@@ -1,0 +1,12 @@
+{
+	"name": "df-mpors-d-euw-001",
+	"properties": {
+		"globalParameters": {
+			"test": {
+				"type": "string",
+				"value": "test"
+			}
+		}
+	},
+	"location": "westeurope"
+}
