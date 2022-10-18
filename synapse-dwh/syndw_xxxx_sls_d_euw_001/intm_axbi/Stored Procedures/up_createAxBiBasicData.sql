@@ -129,7 +129,7 @@ BEGIN
     ,COMPANYCHAINID
     ,DIMENSION3_)
 	select distinct
-	case DATAAREAID
+	case LOWER(DATAAREAID)
 	when 'anat' then 'ANAT'
 	when 'anch' then 'ANCH'
 	when 'ande' then 'ANDE'
@@ -137,7 +137,7 @@ BEGIN
 	when 'plb' then 'PLBE'
 	when 'plf' then 'PLFR'
 	end,
-	case DATAAREAID
+	case LOWER(DATAAREAID)
 	when 'anat' then 'ANAT-' + ACCOUNTNUM
 	when 'anch' then 'ANCH-' + ACCOUNTNUM
 	when 'ande' then 'ANDE-' + ACCOUNTNUM
@@ -147,7 +147,7 @@ BEGIN
 	end,
 	NAME,
 	'O',
-	case DATAAREAID
+	case LOWER(DATAAREAID)
 	when 'ass' then
 		Case SEGMENTID
 		when 'PRECAST' then 'PRECAST'
@@ -169,13 +169,13 @@ BEGIN
  end,
 	--ISNULL(COMPANYCHAINID, ' '), ausgesternt wegen STATITICSGROUP nicht in DIM_CUSTABLE
 	ISNULL([Chaintouse], ' '),
-	case DATAAREAID
+	case LOWER(DATAAREAID)
 	when 'ass' then
 	ISNULL(DIMENSION5_, ' ')
 	else
 	ISNULL(DIMENSION3_, ' ')
 	end
-	from [base_tx_crh_1_stg].[AX_CRH_A_dbo_CUSTTABLE] where DATAAREAID in ('anat', 'anch', 'ande', 'ass', 'plb', 'plf')
+	from [base_tx_crh_1_stg].[AX_CRH_A_dbo_CUSTTABLE] where LOWER(DATAAREAID) in ('anat', 'anch', 'ande', 'ass', 'plb', 'plf')
 
 --old logic commented by Erich
 	/* update [intm_axbi].[dim_CUSTTABLE]
@@ -184,21 +184,21 @@ BEGIN
 
 	update [intm_axbi].[dim_CUSTTABLE]
 	set DIMENSION3_ = 'S060U01'
-	where DATAAREAID = 'PLFR' and ACCOUNTNUM in ('PLFR-I_101-063', 'PLFR-I_102-061')
+	where UPPER(DATAAREAID) = 'PLFR' and ACCOUNTNUM in ('PLFR-I_101-063', 'PLFR-I_102-061')
 
 	delete from [intm_axbi].[dim_CUSTTABLE]
-	where DATAAREAID ='PLBE' and ACCOUNTNUM in ('PLBE-11120', 'PLBE-3562', 'PLBE-49249', 'PLBE-I_505')
+	where UPPER(DATAAREAID) ='PLBE' and ACCOUNTNUM in ('PLBE-11120', 'PLBE-3562', 'PLBE-49249', 'PLBE-I_505')
 
 --old logic commented by Erich
 	--delete from [intm_axbi].[dim_CUSTTABLE]
 	--where DATAAREAID ='PLBE' and ACCOUNTNUM like '%PLBE-I_050%'
 
 	delete from [intm_axbi].[dim_CUSTTABLE]
-	where DATAAREAID ='PLFR' and ACCOUNTNUM in ('PLFR-11243', 'PLFR-I_050', 'PLFR-I_505')
+	where UPPER(DATAAREAID) ='PLFR' and ACCOUNTNUM in ('PLFR-11243', 'PLFR-I_050', 'PLFR-I_505')
 
 	update [intm_axbi].[dim_CUSTTABLE]
 	set INOUT = 'I'
-	 where DATAAREAID in ('ANAT', 'ANCH', 'ANDE', 'ASCH', 'PLBE', 'PLFR') and  substring(NAME, 1, 5) = 'Ancon'
+	 where UPPER(DATAAREAID) in ('ANAT', 'ANCH', 'ANDE', 'ASCH', 'PLBE', 'PLFR') and  substring(NAME, 1, 5) = 'Ancon'
 
 	update [intm_axbi].[dim_CUSTTABLE]
 	set INOUT = 'I'
@@ -206,15 +206,15 @@ BEGIN
 
 	update [intm_axbi].[dim_CUSTTABLE]
 	set INOUT = 'I'
-	 where DATAAREAID in ('ANAT', 'ANCH', 'ANDE', 'ASCH', 'PLBE', 'PLFR') and  substring(NAME, 1, 6) = 'Halfen'
+	 where UPPER(DATAAREAID) in ('ANAT', 'ANCH', 'ANDE', 'ASCH', 'PLBE', 'PLFR') and  substring(NAME, 1, 6) = 'Halfen'
 
 	update [intm_axbi].[dim_CUSTTABLE]
 	set INOUT = 'I'
-	 where DATAAREAID in ('ANAT', 'ANCH', 'ANDE', 'ASCH', 'PLBE', 'PLFR') and  NAME like '%Aschwanden%'
+	 where UPPER(DATAAREAID) in ('ANAT', 'ANCH', 'ANDE', 'ASCH', 'PLBE', 'PLFR') and  NAME like '%Aschwanden%'
 
 	update [intm_axbi].[dim_CUSTTABLE]
 	set INOUT = 'I'
-	 where DATAAREAID in ('ANAT', 'ANCH', 'ANDE', 'ASCH', 'PLBE', 'PLFR') and  NAME like '%Helifix (Australia)%'
+	 where UPPER(DATAAREAID) in ('ANAT', 'ANCH', 'ANDE', 'ASCH', 'PLBE', 'PLFR') and  NAME like '%Helifix (Australia)%'
 
 	-- Ancon AU, NZ
 
@@ -227,12 +227,12 @@ BEGIN
     ,COMPANYCHAINID
     ,DIMENSION3_)
 	select distinct
-	case DATAAREAID
+	case LOWER(DATAAREAID)
 	when 'anau' then 'ANAU'
 	when 'hlau' then 'ANAH'
 	when 'hlnz' then 'ANNZ'
 	end,
-	case DATAAREAID
+	case LOWER(DATAAREAID)
 	when 'anau' then 'ANAU-' + ACCOUNTNUM
 	when 'hlau' then 'ANAH-' + ACCOUNTNUM
 	when 'hlnz' then 'ANNZ-' + ACCOUNTNUM
@@ -244,27 +244,27 @@ BEGIN
 	else 'OTHER' end,
 	' ',
 	ISNULL(DIMENSION3_, ' ')
-	from [base_ancon_australia_2_dwh].[DIM_CUSTTABLE] where DATAAREAID in ('anau', 'hlau', 'hlnz')
+	from [base_ancon_australia_2_dwh].[DIM_CUSTTABLE] where LOWER(DATAAREAID) in ('anau', 'hlau', 'hlnz')
 
 	update [intm_axbi].[dim_CUSTTABLE]
 	set INOUT = 'I'
-	 where DATAAREAID in ('ANAU', 'ANAH', 'ANNZ') and  substring(NAME, 1, 5) = 'Ancon'
+	 where UPPER(DATAAREAID) in ('ANAU', 'ANAH', 'ANNZ') and  substring(NAME, 1, 5) = 'Ancon'
 
 	update [intm_axbi].[dim_CUSTTABLE]
 	set INOUT = 'I'
-	 where DATAAREAID in ('ANAU', 'ANAH', 'ANNZ') and  substring(NAME, 1, 5) = 'Plaka'
+	 where UPPER(DATAAREAID) in ('ANAU', 'ANAH', 'ANNZ') and  substring(NAME, 1, 5) = 'Plaka'
 
 	update [intm_axbi].[dim_CUSTTABLE]
 	set INOUT = 'I'
-	 where DATAAREAID in ('ANAU', 'ANAH', 'ANNZ') and  substring(NAME, 1, 6) = 'Halfen'
+	 where UPPER(DATAAREAID) in ('ANAU', 'ANAH', 'ANNZ') and  substring(NAME, 1, 6) = 'Halfen'
 
 	update [intm_axbi].[dim_CUSTTABLE]
 	set INOUT = 'I'
-	 where DATAAREAID in ('ANAU', 'ANAH', 'ANNZ') and  NAME like '%Aschwanden%'
+	 where UPPER(DATAAREAID) in ('ANAU', 'ANAH', 'ANNZ') and  NAME like '%Aschwanden%'
 
 	update [intm_axbi].[dim_CUSTTABLE]
 	set INOUT = 'I'
-	 where DATAAREAID in ('ANAU', 'ANAH', 'ANNZ') and  NAME like '%Helifix (Australia)%'
+	 where UPPER(DATAAREAID) in ('ANAU', 'ANAH', 'ANNZ') and  NAME like '%Helifix (Australia)%'
 
 	-- Ancon UK
 --out of sprint 32
@@ -633,7 +633,7 @@ BEGIN
     -- Alle CUSTOMERPILLAR auf OTHER setzen, die leer sind. Außer bei Halfen. Set all CUSTOMERPILLAR to OTHER that are empty. Except for Halfen
 	update [intm_axbi].[dim_CUSTTABLE]
 	set CUSTOMERPILLAR = 'OTHER'
-	where substring(DATAAREAID, 1, 2) <> 'HA' and CUSTOMERPILLAR = ' ' 
+	where substring(UPPER(DATAAREAID), 1, 2) <> 'HA' and CUSTOMERPILLAR = ' ' 
 
     -- Alle LEVIAT Kunden auf Inside setzen, außer Meadow Burke
 	update [intm_axbi].[dim_CUSTTABLE]
@@ -648,37 +648,37 @@ BEGIN
 	--------	itemgroup table AX-BI	-------------------
 
 	-- Halfen
-	delete [intm_axbi].[dim_ITEMGROUP] where DATAAREAID = 'HALF'
+	delete [intm_axbi].[dim_ITEMGROUP] where UPPER(DATAAREAID) = 'HALF'
 	insert [intm_axbi].[dim_ITEMGROUP] (DATAAREAID,ITEMGROUPID,ITEMGROUPNAME)
 	select 'HALF', 'HALF-' + PRODUCTLINEID, 'HALF-' + PRODUCTLINEDESC from [base_dw_halfen_0_hlp].[PRODUCTLINE]
 
 	-- Plaka BE
-	delete [intm_axbi].[dim_ITEMGROUP] where DATAAREAID = 'PLBE'
+	delete [intm_axbi].[dim_ITEMGROUP] where UPPER(DATAAREAID) = 'PLBE'
 	insert [intm_axbi].[dim_ITEMGROUP] (DATAAREAID,ITEMGROUPID,ITEMGROUPNAME)
-	select 'PLBE', 'PLBE-' + ITEMGROUP4, 'PLBE-' + DESCRIPTION from [base_tx_crh_2_dwh].[DIM_ADUASCHWITEMGROUP4] where DATAAREAID = 'plb' and DESCRIPTION <> ' ' and DESCRIPTION is not null group by DATAAREAID, ITEMGROUP4, DESCRIPTION
+	select 'PLBE', 'PLBE-' + ITEMGROUP4, 'PLBE-' + DESCRIPTION from [base_tx_crh_2_dwh].[DIM_ADUASCHWITEMGROUP4] where LOWER(DATAAREAID) = 'plb' and DESCRIPTION <> ' ' and DESCRIPTION is not null group by DATAAREAID, ITEMGROUP4, DESCRIPTION
 
 	-- Plaka FR
-	delete [intm_axbi].[dim_ITEMGROUP] where DATAAREAID = 'PLFR'
+	delete [intm_axbi].[dim_ITEMGROUP] where UPPER(DATAAREAID) = 'PLFR'
 	insert [intm_axbi].[dim_ITEMGROUP] (DATAAREAID,ITEMGROUPID,ITEMGROUPNAME)
-	select 'PLFR', 'PLFR-' + ITEMGROUP4, 'PLFR-' + DESCRIPTION from [base_tx_crh_2_dwh].[DIM_ADUASCHWITEMGROUP4] where DATAAREAID = 'plf' and DESCRIPTION <> ' ' and DESCRIPTION is not null group by DATAAREAID, ITEMGROUP4, DESCRIPTION
+	select 'PLFR', 'PLFR-' + ITEMGROUP4, 'PLFR-' + DESCRIPTION from [base_tx_crh_2_dwh].[DIM_ADUASCHWITEMGROUP4] where LOWER(DATAAREAID) = 'plf' and DESCRIPTION <> ' ' and DESCRIPTION is not null group by DATAAREAID, ITEMGROUP4, DESCRIPTION
 
 	-- Aschwanden
-	delete [intm_axbi].[dim_ITEMGROUP] where DATAAREAID = 'ASCH'
+	delete [intm_axbi].[dim_ITEMGROUP] where UPPER(DATAAREAID) = 'ASCH'
 	insert [intm_axbi].[dim_ITEMGROUP] (DATAAREAID,ITEMGROUPID,ITEMGROUPNAME)
-	select 'ASCH', 'ASCH-' + ITEMGROUP4, 'ASCH-' + DESCRIPTION from [base_tx_crh_2_dwh].[DIM_ADUASCHWITEMGROUP4] where DATAAREAID = 'ass' and DESCRIPTION <> ' ' and DESCRIPTION is not null group by DATAAREAID, ITEMGROUP4, DESCRIPTION
+	select 'ASCH', 'ASCH-' + ITEMGROUP4, 'ASCH-' + DESCRIPTION from [base_tx_crh_2_dwh].[DIM_ADUASCHWITEMGROUP4] where LOWER(DATAAREAID) = 'ass' and DESCRIPTION <> ' ' and DESCRIPTION is not null group by DATAAREAID, ITEMGROUP4, DESCRIPTION
 
 	-- Ancon D-A-CH
-	delete [intm_axbi].[dim_ITEMGROUP] where DATAAREAID = 'ANAT'
+	delete [intm_axbi].[dim_ITEMGROUP] where UPPER(DATAAREAID) = 'ANAT'
 	insert [intm_axbi].[dim_ITEMGROUP] (DATAAREAID,ITEMGROUPID,ITEMGROUPNAME)
-	select 'ANAT', 'ANAT-' + ITEMGROUPID, 'ANAT-' + ItemGroupName from [base_tx_crh_1_stg].[AX_CRH_A_dbo_INVENTTABLE] where DATAAREAID = 'anat' group by ITEMGROUPID, ItemGroupName
+	select 'ANAT', 'ANAT-' + ITEMGROUPID, 'ANAT-' + ItemGroupName from [base_tx_crh_1_stg].[AX_CRH_A_dbo_INVENTTABLE] where LOWER(DATAAREAID) = 'anat' group by ITEMGROUPID, ItemGroupName
 
-	delete [intm_axbi].[dim_ITEMGROUP] where DATAAREAID = 'ANCH'
+	delete [intm_axbi].[dim_ITEMGROUP] where UPPER(DATAAREAID) = 'ANCH'
 	insert [intm_axbi].[dim_ITEMGROUP] (DATAAREAID,ITEMGROUPID,ITEMGROUPNAME)
-	select 'ANCH', 'ANCH-' + ITEMGROUPID, 'ANCH-' + ItemGroupName from [base_tx_crh_1_stg].[AX_CRH_A_dbo_INVENTTABLE] where DATAAREAID = 'anch' group by ITEMGROUPID, ItemGroupName
+	select 'ANCH', 'ANCH-' + ITEMGROUPID, 'ANCH-' + ItemGroupName from [base_tx_crh_1_stg].[AX_CRH_A_dbo_INVENTTABLE] where LOWER(DATAAREAID) = 'anch' group by ITEMGROUPID, ItemGroupName
 
-	delete [intm_axbi].[dim_ITEMGROUP] where DATAAREAID = 'ANDE'
+	delete [intm_axbi].[dim_ITEMGROUP] where UPPER(DATAAREAID) = 'ANDE'
 	insert [intm_axbi].[dim_ITEMGROUP] (DATAAREAID,ITEMGROUPID,ITEMGROUPNAME)
-	select 'ANDE', 'ANDE-' + ITEMGROUPID, 'ANDE-' + ItemGroupName from [base_tx_crh_1_stg].[AX_CRH_A_dbo_INVENTTABLE] where DATAAREAID = 'ande' group by ITEMGROUPID, ItemGroupName
+	select 'ANDE', 'ANDE-' + ITEMGROUPID, 'ANDE-' + ItemGroupName from [base_tx_crh_1_stg].[AX_CRH_A_dbo_INVENTTABLE] where LOWER(DATAAREAID) = 'ande' group by ITEMGROUPID, ItemGroupName
 
 --out of sprint 32
 /*
@@ -687,17 +687,17 @@ BEGIN
 	select distinct 'ANAC', 'ANAC-' + CAST(STOCKGROUP as NVARCHAR(2)), 'ANAC-' + GROUPNAME from [dbo].[ITEMTABLE_ANAC$] group by 'ANAC-' + CAST(STOCKGROUP as NVARCHAR(2)), 'ANAC-' + GROUPNAME
 */
 
-	delete [intm_axbi].[dim_ITEMGROUP] where DATAAREAID = 'ANAU'
+	delete [intm_axbi].[dim_ITEMGROUP] where UPPER(DATAAREAID) = 'ANAU'
 	insert [intm_axbi].[dim_ITEMGROUP] (DATAAREAID,ITEMGROUPID,ITEMGROUPNAME)
-	select 'ANAU', 'ANAU-' + ITEMGROUPID, 'ANAU-' + NAME from [base_ancon_australia_2_dwh].[DIM_ITEMGROUP] where DATAAREAID = 'vmd'
+	select 'ANAU', 'ANAU-' + ITEMGROUPID, 'ANAU-' + NAME from [base_ancon_australia_2_dwh].[DIM_ITEMGROUP] where LOWER(DATAAREAID) = 'vmd'
 
-	delete [intm_axbi].[dim_ITEMGROUP] where DATAAREAID = 'ANAH'
+	delete [intm_axbi].[dim_ITEMGROUP] where UPPER(DATAAREAID) = 'ANAH'
 	insert [intm_axbi].[dim_ITEMGROUP] (DATAAREAID,ITEMGROUPID,ITEMGROUPNAME)
-	select 'ANAH', 'ANAH-' + ITEMGROUPID, 'ANAH-' + NAME from [base_ancon_australia_2_dwh].[DIM_ITEMGROUP] where DATAAREAID = 'vmd'
+	select 'ANAH', 'ANAH-' + ITEMGROUPID, 'ANAH-' + NAME from [base_ancon_australia_2_dwh].[DIM_ITEMGROUP] where LOWER(DATAAREAID) = 'vmd'
 
-	delete [intm_axbi].[dim_ITEMGROUP] where DATAAREAID = 'ANNZ'
+	delete [intm_axbi].[dim_ITEMGROUP] where UPPER(DATAAREAID) = 'ANNZ'
 	insert [intm_axbi].[dim_ITEMGROUP] (DATAAREAID,ITEMGROUPID,ITEMGROUPNAME)
-	select 'ANNZ', 'ANNZ-' + ITEMGROUPID, 'ANNZ-' + NAME from [base_ancon_australia_2_dwh].[DIM_ITEMGROUP] where DATAAREAID = 'vmd'
+	select 'ANNZ', 'ANNZ-' + ITEMGROUPID, 'ANNZ-' + NAME from [base_ancon_australia_2_dwh].[DIM_ITEMGROUP] where LOWER(DATAAREAID) = 'vmd'
 
 --out of sprint 32
 /*
@@ -803,30 +803,30 @@ BEGIN
 	insert [intm_axbi].[dim_ITEMTABLE]
 	(DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID)
 	select distinct
-	case when [DATAAREAID] = 'anat' then 'ANAT'
-	     when [DATAAREAID] = 'anch' then 'ANCH'
-		 when [DATAAREAID] = 'ande' then 'ANDE'
-		 when [DATAAREAID] = 'ass' then 'ASCH'
-		 when [DATAAREAID] = 'plb' then 'PLBE'
-		 when [DATAAREAID] = 'plf' then 'PLFR'
+	case when LOWER([DATAAREAID]) = 'anat' then 'ANAT'
+	     when LOWER([DATAAREAID]) = 'anch' then 'ANCH'
+		 when LOWER([DATAAREAID]) = 'ande' then 'ANDE'
+		 when LOWER([DATAAREAID]) = 'ass' then 'ASCH'
+		 when LOWER([DATAAREAID]) = 'plb' then 'PLBE'
+		 when LOWER([DATAAREAID]) = 'plf' then 'PLFR'
 	end,
-	case when [DATAAREAID] = 'anat' then 'ANAT-' + [ITEMID]
-	     when [DATAAREAID] = 'anch' then 'ANCH-' + [ITEMID]
-		 when [DATAAREAID] = 'ande' then 'ANDE-' + [ITEMID]
-		 when [DATAAREAID] = 'ass' then 'ASCH-' + [ITEMID]
-		 when [DATAAREAID] = 'plb' then 'PLBE-' + [ITEMID]
-		 when [DATAAREAID] = 'plf' then 'PLFR-' + [ITEMID]
+	case when LOWER([DATAAREAID]) = 'anat' then 'ANAT-' + [ITEMID]
+	     when LOWER([DATAAREAID]) = 'anch' then 'ANCH-' + [ITEMID]
+		 when LOWER([DATAAREAID]) = 'ande' then 'ANDE-' + [ITEMID]
+		 when LOWER([DATAAREAID]) = 'ass' then 'ASCH-' + [ITEMID]
+		 when LOWER([DATAAREAID]) = 'plb' then 'PLBE-' + [ITEMID]
+		 when LOWER([DATAAREAID]) = 'plf' then 'PLFR-' + [ITEMID]
 	end,
 	[ITEMNAME],
 	substring([ADUTYPECRHCA], 1, 4),
-	case when [DATAAREAID] = 'anat' then 'ANAT-' + [ITEMGROUPID]
-	     when [DATAAREAID] = 'anch' then 'ANCH-' + [ITEMGROUPID]
-		 when [DATAAREAID] = 'ande' then 'ANDE-' + [ITEMGROUPID]
-		 when [DATAAREAID] = 'ass' then 'ASCH-'  + [ADUASCHWITEMGROUP4]
-		 when [DATAAREAID] = 'plb' then 'PLBE-'  + [ADUASCHWITEMGROUP4]
-		 when [DATAAREAID] = 'plf' then 'PLFR-'  + [ADUASCHWITEMGROUP4]
+	case when LOWER([DATAAREAID]) = 'anat' then 'ANAT-' + [ITEMGROUPID]
+	     when LOWER([DATAAREAID]) = 'anch' then 'ANCH-' + [ITEMGROUPID]
+		 when LOWER([DATAAREAID]) = 'ande' then 'ANDE-' + [ITEMGROUPID]
+		 when LOWER([DATAAREAID]) = 'ass' then 'ASCH-'  + [ADUASCHWITEMGROUP4]
+		 when LOWER([DATAAREAID]) = 'plb' then 'PLBE-'  + [ADUASCHWITEMGROUP4]
+		 when LOWER([DATAAREAID]) = 'plf' then 'PLFR-'  + [ADUASCHWITEMGROUP4]
 	end
-	from [base_tx_crh_2_dwh].[DIM_INVENTTABLE] where DATAAREAID in ('anat', 'anch', 'ande', 'ass', 'plb', 'plf')
+	from [base_tx_crh_2_dwh].[DIM_INVENTTABLE] where LOWER(DATAAREAID) in ('anat', 'anch', 'ande', 'ass', 'plb', 'plf')
 
 	-- Dummy article for the Budget
 	insert into [intm_axbi].[dim_ITEMTABLE] (DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('PLBE', 'PLBE-A.1.', 'BRICKWORK SUPPORT', 'A.1.', ' ')
@@ -1203,31 +1203,31 @@ BEGIN
 	-- Korrektur R.x. Itemgroups
 	update [intm_axbi].[dim_ITEMTABLE]
 	set PRODUCTGROUPID = 'N.1.'
-	where DATAAREAID in ('PLBE', 'PLFR') and PRODUCTGROUPID in ('R.1.','R.6.','R.7.','R.9.') 
+	where UPPER(DATAAREAID) in ('PLBE', 'PLFR') and PRODUCTGROUPID in ('R.1.','R.6.','R.7.','R.9.') 
 	update [intm_axbi].[dim_ITEMTABLE]
 	set PRODUCTGROUPID = 'N.3.'
-	where DATAAREAID in ('PLBE', 'PLFR') and PRODUCTGROUPID = 'R.3.' 
+	where UPPER(DATAAREAID) in ('PLBE', 'PLFR') and PRODUCTGROUPID = 'R.3.' 
 
 	-- Ancon AU, NZ, Helifix
 
 	insert [intm_axbi].[dim_ITEMTABLE]
 	(DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID)
 	select distinct
-	case when [DATAAREAID] = 'anau' then 'ANAU'
-	     when [DATAAREAID] = 'hlau' then 'ANAH'
-	     when [DATAAREAID] = 'hlnz' then 'ANNZ'
+	case when LOWER([DATAAREAID]) = 'anau' then 'ANAU'
+	     when LOWER([DATAAREAID]) = 'hlau' then 'ANAH'
+	     when LOWER([DATAAREAID]) = 'hlnz' then 'ANNZ'
 	End,
-	case when [DATAAREAID] = 'anau' then 'ANAU-' + [ITEMID]
-	     when [DATAAREAID] = 'hlau' then 'ANAH-' + [ITEMID]
-	     when [DATAAREAID] = 'hlnz' then 'ANNZ-' + [ITEMID]
+	case when LOWER([DATAAREAID]) = 'anau' then 'ANAU-' + [ITEMID]
+	     when LOWER([DATAAREAID]) = 'hlau' then 'ANAH-' + [ITEMID]
+	     when LOWER([DATAAREAID]) = 'hlnz' then 'ANNZ-' + [ITEMID]
 	End,
 	[ITEMNAME],
 	substring([ADUTYPECRHCA], 1, 4),
-	case when [DATAAREAID] = 'anau' then 'ANAU-' + ISNULL([ITEMGROUPID], ' ')
-	     when [DATAAREAID] = 'hlau' then 'ANAH-' + ISNULL([ITEMGROUPID], ' ')
-		 when [DATAAREAID] = 'hlnz' then 'ANNZ-' + ISNULL([ITEMGROUPID], ' ')
+	case when LOWER([DATAAREAID]) = 'anau' then 'ANAU-' + ISNULL([ITEMGROUPID], ' ')
+	     when LOWER([DATAAREAID]) = 'hlau' then 'ANAH-' + ISNULL([ITEMGROUPID], ' ')
+		 when LOWER([DATAAREAID]) = 'hlnz' then 'ANNZ-' + ISNULL([ITEMGROUPID], ' ')
 	end
-	from [base_ancon_australia_2_dwh].[DIM_INVENTTABLE] where DATAAREAID in ('anau', 'hlau', 'hlnz')
+	from [base_ancon_australia_2_dwh].[DIM_INVENTTABLE] where LOWER(DATAAREAID) in ('anau', 'hlau', 'hlnz')
 
 	-- Dummy article for the Budget
 	insert into [intm_axbi].[dim_ITEMTABLE] (DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANAU', 'ANAU-A.1.', 'BRICKWORK SUPPORT', 'A.1.', ' ')
