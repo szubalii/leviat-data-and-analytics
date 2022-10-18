@@ -30,5 +30,6 @@ SELECT
     , [Division]
     , [TransportationGroup]
     , [ItemCategoryGroup]
+	, [CreatedByUser]
 FROM
     [edw].[dim_Product]

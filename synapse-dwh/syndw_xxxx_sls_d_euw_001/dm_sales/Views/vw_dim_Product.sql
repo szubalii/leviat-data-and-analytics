@@ -61,6 +61,7 @@ SELECT
   [ZZ1_CustomFieldRiskMit_PRD],
   [ZZ1_CustomFieldHighRis_PRD],
   [ZZ1_CustomFieldRiskRea_PRD],
+  [CreatedByUser],
   [t_jobDtm],
   [t_applicationId],
   [t_extractionDtm]
@@ -130,6 +131,7 @@ SELECT
   NULL AS [ZZ1_CustomFieldRiskMit_PRD],
   NULL AS [ZZ1_CustomFieldHighRis_PRD],
   NULL AS [ZZ1_CustomFieldRiskRea_PRD],
+  NULL AS [CreatedByUser],
   [t_jobDtm],
   [t_applicationId],
   [t_extractionDtm]

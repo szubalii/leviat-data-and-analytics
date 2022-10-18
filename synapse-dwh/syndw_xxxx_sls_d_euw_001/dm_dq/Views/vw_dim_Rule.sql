@@ -7,6 +7,7 @@ SELECT
     ,[RuleClass]
     ,[RuleGroup]
     ,[DataArea]
+    ,[RAGStatus]
     ,[t_jobDtm]
 FROM
     [dq].[dim_Rule]
