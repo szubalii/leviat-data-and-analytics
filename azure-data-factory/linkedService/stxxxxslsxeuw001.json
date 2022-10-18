@@ -1,11 +1,17 @@
 {
 	"name": "stxxxxslsxeuw001",
-	"type": "Microsoft.DataFactory/factories/linkedservices",
 	"properties": {
+		"parameters": {
+			"storageAccount": {
+				"type": "string",
+				"defaultValue": "stxxxxslsdeuw001"
+			}
+		},
 		"annotations": [],
 		"type": "AzureBlobFS",
 		"typeProperties": {
-			"url": "https://stxxxxslsdeuw001.dfs.core.windows.net"
+			"url": "@{concat(\n    'https://',\n    linkedService().storageAccount,\n    '.dfs.core.windows.net'\n)}"
 		}
-	}
+	},
+	"type": "Microsoft.DataFactory/factories/linkedservices"
 }
