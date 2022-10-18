@@ -11,18 +11,14 @@ WITH Product AS (
 
 
 OpenOrderAmount AS(
-SELECT    DISTINCT(doc.SalesDocument)
-        , doc.SalesDocumentItem 
+SELECT    SL.SalesDocument
+        , SL.SalesDocumentItem 
         , COALESCE(SUM(SL.OpenDeliveryNetAmount), 0) as OpenDeliveryNetAmount
 
 
-FROM base_s4h_cax.C_SalesDocumentItemDEX AS doc
+FROM base_s4h_cax.I_SalesDocumentScheduleLine AS SL 
 
-LEFT OUTER JOIN base_s4h_cax.I_SalesDocumentScheduleLine AS SL 
-ON SL.SalesDocument = doc.SalesDocument
-AND SL.SalesDocumentItem = doc.SalesDocumentItem
-
-GROUP BY doc.SalesDocument, doc.SalesDocumentItem
+GROUP BY SL.SalesDocument, SL.SalesDocumentItem
 ),
 
 
