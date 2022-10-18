@@ -141,13 +141,9 @@ SELECT DISTINCT
 FROM   
     [base_s4h_cax].[I_Product] P  
 LEFT JOIN 
-    [base_s4h_cax].[I_ProductPlant] PP 
-    ON 
-    P.[Product] = PP.[Product]
-LEFT JOIN 
     [base_s4h_cax].[I_Productprocurement]   PPr 
     ON
-        PPr.[Product] =  PP.[Product] 
+        PPr.[Product] =  P.[Product] 
 WHERE
         P.[ProductType] in ('ZROH', 'ZHAW')
     AND 

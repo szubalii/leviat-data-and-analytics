@@ -1004,7 +1004,14 @@
     <Build Include="dm_sales\Views\vw_dim_MaterialGroup.sql" />
     <Build Include="base_s4h_cax\Tables\I_ProductValuationCosting.sql" />
     <Build Include="base_s4h_cax\Tables\NSDM_V_MARC.sql" />
-    <Build Include="base_s4h_cax\Tables\NSDM_V_MAWEV.sql" />    
+    <Build Include="base_s4h_cax\Tables\NSDM_V_MAWEV.sql" />  
+    <Build Include="dq\Views\vw_Product_1_1.sql" />
+    <Build Include="dq\Views\vw_Product_1_26.sql" />
+    <Build Include="dq\Views\vw_Product_1_29_all.sql" />
+    <Build Include="dq\Views\vw_Product_1_31.sql" />
+    <Build Include="dq\Views\vw_Product_1_32.sql" />
+    <Build Include="dq\Views\vw_Product_1_33.sql" />
+    <Build Include="dq\Views\vw_Product_1_41.sql" />     
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PostDeploy Include="Scripts\Post-Deploy\Script.PostDeployment.sql" />

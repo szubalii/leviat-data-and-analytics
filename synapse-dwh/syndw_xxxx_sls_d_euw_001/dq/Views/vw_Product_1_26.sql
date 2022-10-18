@@ -136,7 +136,7 @@ AS
     ,P.[ZZ1_CustomFieldHighRis_PRD] 
     ,P.[ZZ1_CustomFieldRiskRea_PRD] 
     ,PP.[MRPType] 
-    ,CONCAT('1.26_',P.[ProductType]) AS [RuleID]
+    ,'1.26_ALL'  AS [RuleID]
     ,1 AS [Count]
 FROM   
     [base_s4h_cax].[I_Product] P  

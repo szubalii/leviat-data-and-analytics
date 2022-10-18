@@ -139,7 +139,7 @@ SELECT DISTINCT
     ,NAM.[WERKS] AS [Plant]
     ,NAM.[FXHOR] AS [PlanningTimeFence]
     ,PP.[MRPType]
-    ,CONCAT('1.30_All',P.[ProductType]) AS [RuleID]
+    ,'1.30_ALL'  AS [RuleID]
     ,1 AS [Count]
 FROM   
     [base_s4h_cax].[I_Product] P  

@@ -139,7 +139,7 @@ AS
     ,NAM.[WERKS] AS Plant
     ,NAM.[NCOST] AS DoNotCost
     ,PP.[MRPType]    
-    ,CONCAT('1.29_all', P.[ProductType]) AS [RuleID]
+    ,'1.29_ALL'  AS [RuleID]
     ,1 AS [Count]
 FROM   
     [base_s4h_cax].[I_Product] P  

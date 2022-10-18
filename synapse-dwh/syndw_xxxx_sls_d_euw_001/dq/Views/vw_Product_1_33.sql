@@ -23,7 +23,7 @@ SELECT DISTINCT
     ,P.[CompetitorID] 
     ,P.[ProductGroup] 
     ,P.[BaseUnit]
-    ,P.[ItemCategoryGroup] 
+    ,PSD.[ItemCategoryGroup] 
     ,P.[NetWeight] 
     ,P.[ProductHierarchy]
     ,P.[Division] 
@@ -135,7 +135,6 @@ SELECT DISTINCT
     ,P.[ZZ1_CustomFieldRiskMit_PRD] 
     ,P.[ZZ1_CustomFieldHighRis_PRD] 
     ,P.[ZZ1_CustomFieldRiskRea_PRD] 
-    ,PSD.[ItemCategoryGroup] 
     ,CONCAT('1.33_',P.[ProductType]) AS [RuleID]
     ,1 AS [Count]
 FROM   

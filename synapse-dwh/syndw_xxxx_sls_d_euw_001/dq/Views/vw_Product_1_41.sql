@@ -8,6 +8,12 @@ WITH CTE_NSDM_V_MAWEV AS (
         NVM.[VHART] AS PackagingMaterialType
     FROM 
         [base_s4h_cax].[NSDM_V_MAWEV] NVM 
+    JOIN 
+        [base_s4h_cax].[I_ProductPlant] PP 
+        ON 
+            NVM.[MATNR] COLLATE Latin1_General_100_BIN2 = PP.[Product]
+        AND  
+            NVM.[WERKS] COLLATE Latin1_General_100_BIN2  = PP.[Plant]         
     WHERE
         NVM.[VHART] != 'ZMT1'
 )
@@ -147,19 +153,13 @@ SELECT
     ,P.[ZZ1_CustomFieldHighRis_PRD] 
     ,P.[ZZ1_CustomFieldRiskRea_PRD]
     ,CNVM.[PackagingMaterialType]
-    ,'1.41_'       AS [RuleID]
+    ,CONCAT('1.41_',P.[ProductType])    AS [RuleID]
     ,1             AS [Count]
 FROM   
     [base_s4h_cax].[I_Product] P       
-LEFT JOIN 
-    [base_s4h_cax].[I_ProductPlant] PP 
-    ON 
-        P.Product = PP.Product
 JOIN 
     CTE_NSDM_V_MAWEV CNVM
     ON 
-        CNVM.[MaterialNumber] COLLATE Latin1_General_100_BIN2 = PP.[Product]
-    AND  
-        CNVM.[Plant] COLLATE Latin1_General_100_BIN2  = PP.[Plant] 
+        CNVM.[MaterialNumber] COLLATE Latin1_General_100_BIN2 = P.[Product]
 WHERE
     P.[ProductType] ='ZVER'

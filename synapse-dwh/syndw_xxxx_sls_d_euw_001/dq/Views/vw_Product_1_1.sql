@@ -1,14 +1,6 @@
 CREATE VIEW [dq].[vw_Product_1_1]
   AS  
-WITH ErrorProductValuationCosting AS (
-  SELECT 
-    PVC.[Product],
-    PVC.[IsMaterialRelatedOrigin]
-  FROM
-    [base_s4h_cax].[I_ProductValuationCosting] PVC
-  WHERE 
-    PVC.[IsMaterialRelatedOrigin] != 'X'    
-)  
+
 SELECT DISTINCT
      P.[MANDT] 
     ,P.[Product] 
@@ -145,11 +137,13 @@ SELECT DISTINCT
     ,P.[ZZ1_CustomFieldHighRis_PRD] 
     ,P.[ZZ1_CustomFieldRiskRea_PRD] 
     ,PVC.[IsMaterialRelatedOrigin]
-    ,CONCAT('1.1_',P.[ProductType]) AS [RuleID]
+    ,'1.1_ALL' AS [RuleID]
     ,1 AS [Count]
 FROM   
     [base_s4h_cax].[I_Product] P  
 JOIN 
-    ErrorProductValuationCosting PVC
+    [base_s4h_cax].[I_ProductValuationCosting] PVC
     ON 
-      P.Product = PVC.Product COLLATE Latin1_General_100_BIN2
+      P.Product = PVC.Product COLLATE Latin1_General_100_BIN2      
+WHERE 
+    PVC.[IsMaterialRelatedOrigin] != 'X'          
