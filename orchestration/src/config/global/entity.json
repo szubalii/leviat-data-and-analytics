@@ -4052,6 +4052,13 @@
         "base_table_name": "AX_CRH_A_dbo_INVENTTRANS",
         "pk_field_names": "DW_Id",
         "schedule_recurrence": "D"
+      },
+      {
+        "entity_id": 531,
+        "entity_name": "AX_CRH_A_dbo_CUSTTABLE",
+        "base_table_name": "AX_CRH_A_dbo_CUSTTABLE",
+        "pk_field_names": "DW_Id",
+        "schedule_recurrence": "D"
       }
     ]
   },

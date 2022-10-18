@@ -36,36 +36,47 @@ BEGIN
 	i.DATEFINANCIAL as DATEFINANCIAL, 
 	i.PACKINGSLIPID as PACKINGSLIPID, 
 	sum(i.CostAmount) as CostAmount 
-	into #inventtrans_PLFR
+	into #inventtrans_PLFR_dup
 	from [base_tx_crh_2_dwh].[FACT_CUSTINVOICETRANS] as t
 	inner join [base_tx_crh_2_dwh].[DIM_CUSTINVOICEJOUR] as j
-	on t.DATAAREAID = j.DATAAREAID and
+	on lower(t.DATAAREAID) = lower(j.DATAAREAID) and
 	   t.INVOICEID = j.INVOICEID
 	inner join [base_tx_crh_1_stg].[AX_CRH_A_dbo_INVENTTRANS] as i
-	on t.DATAAREAID = i.DATAAREAID and
+	on lower(t.DATAAREAID) = lower(i.DATAAREAID) and
 	   t.INVOICEID = i.INVOICEID and
 	   t.INVENTTRANSID = i.INVENTTRANSID
-	where t.DATAAREAID = 'plf' and Datepart(yyyy, i.DATEFINANCIAL) = @P_Year and Datepart(mm, i.DATEFINANCIAL) = @P_Month
+	where lower(t.DATAAREAID) = 'plf' and Datepart(yyyy, i.DATEFINANCIAL) = @P_Year and Datepart(mm, i.DATEFINANCIAL) = @P_Month
 	group by t.DATAAREAID, t.INVOICEID, t.ORIGSALESID, t.INVENTTRANSID, t.LINENUM, i.DATEFINANCIAL, i.PACKINGSLIPID; 
 
 	-- Doppelte Sätze löschen. Geht leider ein Datefinancial und eine PackingslipID verloren, dafür werden die Zahlen richtig.
 	-- Obwohl wir haben in COMMON TABLE EXPRESSION table löschen, werden die doppelten Sätze in der temporären Tabelle #inventtrans_PLFR gelöscht.
-	WITH CTE_inventtrans AS
-	(
-		SELECT DATAAREAID, INVOICEID, ORIGSALESID, INVENTTRANSID, LINENUM, ROW_NUMBER() 
+	SELECT 
+    DATAAREAID, 
+	INVOICEID, 
+	ORIGSALESID, 
+	INVENTTRANSID, 
+	LINENUM, 
+	DATEFINANCIAL, 
+	PACKINGSLIPID, 
+    CostAmount
+	into #inventtrans_PLFR
+	FROM 
+	(SELECT 
+	DATAAREAID, 
+	INVOICEID, 
+	ORIGSALESID, 
+	INVENTTRANSID, 
+	LINENUM, 
+	DATEFINANCIAL, 
+	PACKINGSLIPID, 
+    CostAmount,
+	ROW_NUMBER() 
 		OVER(PARTITION BY DATAAREAID, INVOICEID, ORIGSALESID, INVENTTRANSID, LINENUM 
 			ORDER BY DATAAREAID, INVOICEID, ORIGSALESID, INVENTTRANSID, LINENUM ) RowNumber
-		FROM #inventtrans_PLFR
-	)
-	DELETE FROM #inventtrans_PLFR
-	where exists (select * from 
-	CTE_inventtrans c inner join #inventtrans_PLFR i
-	on c.DATAAREAID=i.DATAAREAID
-	and c.INVOICEID=i.INVOICEID
-	and c.ORIGSALESID=i.ORIGSALESID
-	and c.INVENTTRANSID=i.INVENTTRANSID
-	and c.INVOICEID=i.INVOICEID
-	WHERE RowNumber > 1)
+	from #inventtrans_PLFR_dup
+	) d
+	where d.RowNumber=1
+	
 
 	--insert main sales
 	insert [intm_axbi].[fact_CUSTINVOICETRANS]
@@ -140,16 +151,16 @@ BEGIN
 	i.CostAmount
 	from [base_tx_crh_2_dwh].[FACT_CUSTINVOICETRANS] as t
 	inner join [base_tx_crh_2_dwh].[DIM_CUSTINVOICEJOUR] as j
-	on t.DATAAREAID = j.DATAAREAID and
+	on lower(t.DATAAREAID) = lower(j.DATAAREAID) and
 	   t.INVOICEID = j.INVOICEID
 	inner join [base_tx_crh_2_dwh].[DIM_INVENTTABLE] as g
-	on t.DATAAREAID = g.DATAAREAID and
+	on lower(t.DATAAREAID) = lower(g.DATAAREAID) and
 	   t.ITEMID = g.ITEMID
 	inner join #inventtrans_PLFR as i
-	on t.DATAAREAID = i.DATAAREAID and
+	on lower(t.DATAAREAID) = lower(i.DATAAREAID) and
 	   t.INVOICEID = i.INVOICEID and
 	   t.INVENTTRANSID = i.INVENTTRANSID
-	where t.DATAAREAID = 'plf' 
+	where lower(t.DATAAREAID) = 'plf' 
 	and Datepart(yyyy, i.DATEFINANCIAL) = @P_Year 
 	and Datepart(mm, i.DATEFINANCIAL) = @P_Month 
 	and g.ADUASCHWITEMGROUP4 <> 'EL' 
@@ -178,10 +189,10 @@ BEGIN
 	into #cust_delivered_not_invoiced_PLFR
 	from [base_tx_crh_2_dwh].[FACT_INVENTRANS_NOT_INVOICED] as i
 	inner join [base_tx_crh_2_dwh].[FACT_SALESLINE] as a
-	on i.DATAAREAID    = a.DATAAREAID and
+	on lower(i.DATAAREAID)  = lower(a.DATAAREAID) and
 	   i.TRANSREFID    = a.SALESID and
 	   i.INVENTTRANSID = a.INVENTTRANSID
-	where i.DATAAREAID = 'plf' 
+	where lower(i.DATAAREAID) = 'plf' 
 	and Datepart(yyyy, i.DATEPHYSICAL) = @P_Year 
 	and Datepart(mm, i.DATEPHYSICAL) = @P_Month 
 	and i.ValueCalc is not null 
@@ -313,13 +324,13 @@ BEGIN
 	i.CostAmount
 	from [base_tx_crh_2_dwh].[FACT_CUSTINVOICETRANS] as t
 	inner join [base_tx_crh_2_dwh].[DIM_CUSTINVOICEJOUR] as j
-	on t.DATAAREAID = j.DATAAREAID and
+	on lower(t.DATAAREAID) = lower(j.DATAAREAID) and
 	   t.INVOICEID = j.INVOICEID
 	inner join #inventtrans_PLFR as i
-	on t.DATAAREAID = i.DATAAREAID and
+	on lower(t.DATAAREAID) = lower(i.DATAAREAID) and
 	   t.INVOICEID = i.INVOICEID and
 	   t.INVENTTRANSID = i.INVENTTRANSID
-	where t.DATAAREAID = 'plf' 
+	where lower(t.DATAAREAID) = 'plf' 
 	and Datepart(yyyy, i.DATEFINANCIAL) = @P_Year 
 	and Datepart(mm, i.DATEFINANCIAL) = @P_Month 
 	and t.ITEMID = 'MB15066'
@@ -327,14 +338,14 @@ BEGIN
 	-- Sales ohne Kunde in Kundenstamm löschen 
 	delete from t from [intm_axbi].[fact_CUSTINVOICETRANS] as t
 		     left outer join [intm_axbi].[dim_CUSTTABLE] as c
-			 on t.DATAAREAID = c.DATAAREAID and
+			 on lower(t.DATAAREAID) = lower(c.DATAAREAID) and
 				t.CUSTOMERNO = c.ACCOUNTNUM
-	where t.DATAAREAID = 'PLFR' and c.ACCOUNTNUM is null
+	where upper(t.DATAAREAID) = 'PLFR' and c.ACCOUNTNUM is null
 
 	-- Fehlendes DUMMY Lieferland eintragen 
 	update [intm_axbi].[fact_CUSTINVOICETRANS]
 	set DELIVERYCOUNTRYID = 'FR'
-	where DATAAREAID = 'PLFR' and DELIVERYCOUNTRYID = ' '
+	where upper(DATAAREAID) = 'PLFR' and DELIVERYCOUNTRYID = ' '
 
 	-- PLAKA Customer Bonus nach Allowances übertragen 
 
@@ -344,9 +355,9 @@ BEGIN
 	    [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0200 * -1
 	from [intm_axbi].[dim_CUSTTABLE] as c
 	inner join [intm_axbi].[fact_CUSTINVOICETRANS] as i
-	on c.DATAAREAID = i.DATAAREAID and
+	on lower(c.DATAAREAID) = lower(i.DATAAREAID) and
 	   c.ACCOUNTNUM = i.CUSTOMERNO
-	where c.DATAAREAID = 'PLFR' 
+	where upper(c.DATAAREAID) = 'PLFR' 
 	and c.COMPANYCHAINID = 'BOUYGUES' 
 	and datepart(YYYY, i.ACCOUNTINGDATE) = @P_Year 
 	and datepart(MM, i.ACCOUNTINGDATE) = @P_Month
@@ -357,9 +368,9 @@ BEGIN
 	    [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0150 * -1
 	from [intm_axbi].[dim_CUSTTABLE] as c
 	inner join [intm_axbi].[fact_CUSTINVOICETRANS] as i
-	on c.DATAAREAID = i.DATAAREAID and
+	on lower(c.DATAAREAID) = lower(i.DATAAREAID) and
 	   c.ACCOUNTNUM = i.CUSTOMERNO
-	where c.DATAAREAID = 'PLFR' 
+	where upper(c.DATAAREAID) = 'PLFR' 
 	and c.COMPANYCHAINID = 'CGC CONSTRUCTIONS' 
 	and datepart(YYYY, i.ACCOUNTINGDATE) = @P_Year 
 	and datepart(MM, i.ACCOUNTINGDATE) = @P_Month
@@ -370,9 +381,9 @@ BEGIN
 	    [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0300 * -1
 	from [intm_axbi].[dim_CUSTTABLE] as c
 	inner join [intm_axbi].[fact_CUSTINVOICETRANS] as i
-	on c.DATAAREAID = i.DATAAREAID and
+	on lower(c.DATAAREAID) = lower(i.DATAAREAID) and
 	   c.ACCOUNTNUM = i.CUSTOMERNO
-	where c.DATAAREAID = 'PLFR' 
+	where upper(c.DATAAREAID) = 'PLFR' 
 	and c.COMPANYCHAINID = 'CHAUSSON' 
 	and datepart(YYYY, i.ACCOUNTINGDATE) = @P_Year 
 	and datepart(MM, i.ACCOUNTINGDATE) = @P_Month
@@ -383,9 +394,9 @@ BEGIN
 	    [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0100 * -1
 	from [intm_axbi].[dim_CUSTTABLE] as c
 	inner join [intm_axbi].[fact_CUSTINVOICETRANS] as i
-	on c.DATAAREAID = i.DATAAREAID and
+	on lower(c.DATAAREAID) = lower(i.DATAAREAID) and
 	   c.ACCOUNTNUM = i.CUSTOMERNO
-	where c.DATAAREAID = 'PLFR' 
+	where upper(c.DATAAREAID) = 'PLFR' 
 	and c.COMPANYCHAINID = 'CHAZELLE' 
 	and datepart(YYYY, i.ACCOUNTINGDATE) = @P_Year 
 	and datepart(MM, i.ACCOUNTINGDATE) = @P_Month
@@ -396,9 +407,9 @@ BEGIN
 	    [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0450 * -1
 	from [intm_axbi].[dim_CUSTTABLE] as c
 	inner join [intm_axbi].[fact_CUSTINVOICETRANS] as i
-	on c.DATAAREAID = i.DATAAREAID and
+	on lower(c.DATAAREAID) = lower(i.DATAAREAID) and
 	   c.ACCOUNTNUM = i.CUSTOMERNO
-	where c.DATAAREAID = 'PLFR' 
+	where upper(c.DATAAREAID) = 'PLFR' 
 	and c.COMPANYCHAINID = 'COSTANTINI FRANCE' 
 	and datepart(YYYY, i.ACCOUNTINGDATE) = @P_Year 
 	and datepart(MM, i.ACCOUNTINGDATE) = @P_Month
@@ -409,9 +420,9 @@ BEGIN
 	    [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0100 * -1
 	from [intm_axbi].[dim_CUSTTABLE] as c
 	inner join [intm_axbi].[fact_CUSTINVOICETRANS] as i
-	on c.DATAAREAID = i.DATAAREAID and
+	on lower(c.DATAAREAID) = lower(i.DATAAREAID) and
 	   c.ACCOUNTNUM = i.CUSTOMERNO
-	where c.DATAAREAID = 'PLFR' 
+	where upper(c.DATAAREAID) = 'PLFR' 
 	and (c.COMPANYCHAINID like 'CRH %' or c.COMPANYCHAINID like '% CRH %') 
 	and datepart(YYYY, i.ACCOUNTINGDATE) = @P_Year 
 	and datepart(MM, i.ACCOUNTINGDATE) = @P_Month
@@ -422,9 +433,9 @@ BEGIN
 	    [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0300 * -1
 	from [intm_axbi].[dim_CUSTTABLE] as c
 	inner join [intm_axbi].[fact_CUSTINVOICETRANS] as i
-	on c.DATAAREAID = i.DATAAREAID and
+	on lower(c.DATAAREAID) = lower(i.DATAAREAID) and
 	   c.ACCOUNTNUM = i.CUSTOMERNO
-	where c.DATAAREAID = 'PLFR' 
+	where upper(c.DATAAREAID) = 'PLFR' 
 	and c.COMPANYCHAINID like '% S A M %' 
 	and datepart(YYYY, i.ACCOUNTINGDATE) = @P_Year 
 	and datepart(MM, i.ACCOUNTINGDATE) = @P_Month
@@ -435,9 +446,9 @@ BEGIN
 	    [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0250 * -1
 	from [intm_axbi].[dim_CUSTTABLE] as c
 	inner join [intm_axbi].[fact_CUSTINVOICETRANS] as i
-	on c.DATAAREAID = i.DATAAREAID and
+	on lower(c.DATAAREAID) = lower(i.DATAAREAID) and
 	   c.ACCOUNTNUM = i.CUSTOMERNO
-	where c.DATAAREAID = 'PLFR' 
+	where upper(c.DATAAREAID) = 'PLFR' 
 	and c.COMPANYCHAINID like '%DEMATHIEU%' 
 	and datepart(YYYY, i.ACCOUNTINGDATE) = @P_Year 
 	and datepart(MM, i.ACCOUNTINGDATE) = @P_Month
@@ -448,9 +459,9 @@ BEGIN
 	    [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0150 * -1
 	from [intm_axbi].[dim_CUSTTABLE] as c
 	inner join [intm_axbi].[fact_CUSTINVOICETRANS] as i
-	on c.DATAAREAID = i.DATAAREAID and
+	on lower(c.DATAAREAID) = lower(i.DATAAREAID) and
 	   c.ACCOUNTNUM = i.CUSTOMERNO
-	where c.DATAAREAID = 'PLFR' 
+	where upper(c.DATAAREAID) = 'PLFR' 
 	and c.COMPANYCHAINID like '%DESCOURS%' 
 	and datepart(YYYY, i.ACCOUNTINGDATE) = @P_Year 
 	and datepart(MM, i.ACCOUNTINGDATE) = @P_Month
@@ -461,9 +472,9 @@ BEGIN
 	    [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0300 * -1
 	from [intm_axbi].[dim_CUSTTABLE] as c
 	inner join [intm_axbi].[fact_CUSTINVOICETRANS] as i
-	on c.DATAAREAID = i.DATAAREAID and
+	on lower(c.DATAAREAID) = lower(i.DATAAREAID) and
 	   c.ACCOUNTNUM = i.CUSTOMERNO
-	where c.DATAAREAID = 'PLFR' 
+	where upper(c.DATAAREAID) = 'PLFR' 
 	and c.COMPANYCHAINID = 'EIFFAGE' 
 	and datepart(YYYY, i.ACCOUNTINGDATE) = @P_Year 
 	and datepart(MM, i.ACCOUNTINGDATE) = @P_Month
@@ -474,9 +485,9 @@ BEGIN
 	    [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0300 * -1
 	from [intm_axbi].[dim_CUSTTABLE] as c
 	inner join [intm_axbi].[fact_CUSTINVOICETRANS] as i
-	on c.DATAAREAID = i.DATAAREAID and
+	on lower(c.DATAAREAID) = lower(i.DATAAREAID) and
 	   c.ACCOUNTNUM = i.CUSTOMERNO
-	where c.DATAAREAID = 'PLFR' 
+	where upper(c.DATAAREAID) = 'PLFR' 
 	and datepart(YYYY, ACCOUNTINGDATE) = @P_Year 
 	and c.COMPANYCHAINID = 'FAYAT' 
 	and datepart(YYYY, i.ACCOUNTINGDATE) = @P_Year 
@@ -488,9 +499,9 @@ BEGIN
 	    [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0200 * -1
 	from [intm_axbi].[dim_CUSTTABLE] as c
 	inner join [intm_axbi].[fact_CUSTINVOICETRANS] as i
-	on c.DATAAREAID = i.DATAAREAID and
+	on lower(c.DATAAREAID) = lower(i.DATAAREAID) and
 	   c.ACCOUNTNUM = i.CUSTOMERNO
-	where c.DATAAREAID = 'PLFR' 
+	where upper(c.DATAAREAID) = 'PLFR' 
 	and c.COMPANYCHAINID = 'FORBAT SARL' 
 	and datepart(YYYY, i.ACCOUNTINGDATE) = @P_Year 
 	and datepart(MM, i.ACCOUNTINGDATE) = @P_Month
@@ -501,9 +512,9 @@ BEGIN
 	    [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0300 * -1
 	from [intm_axbi].[dim_CUSTTABLE] as c
 	inner join [intm_axbi].[fact_CUSTINVOICETRANS] as i
-	on c.DATAAREAID = i.DATAAREAID and
+	on lower(c.DATAAREAID) = lower(i.DATAAREAID) and
 	   c.ACCOUNTNUM = i.CUSTOMERNO
-	where c.DATAAREAID = 'PLFR' 
+	where upper(c.DATAAREAID) = 'PLFR' 
 	and c.COMPANYCHAINID = 'GAGNEREAU' 
 	and datepart(YYYY, i.ACCOUNTINGDATE) = @P_Year 
 	and datepart(MM, i.ACCOUNTINGDATE) = @P_Month
@@ -514,9 +525,9 @@ BEGIN
 	    [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0250 * -1
 	from [intm_axbi].[dim_CUSTTABLE] as c
 	inner join [intm_axbi].[fact_CUSTINVOICETRANS] as i
-	on c.DATAAREAID = i.DATAAREAID and
+	on lower(c.DATAAREAID) = lower(i.DATAAREAID) and
 	   c.ACCOUNTNUM = i.CUSTOMERNO
-	where c.DATAAREAID = 'PLFR' 
+	where upper(c.DATAAREAID) = 'PLFR' 
 	and c.COMPANYCHAINID = 'GB FINANCE' 
 	and datepart(YYYY, i.ACCOUNTINGDATE) = @P_Year 
 	and datepart(MM, i.ACCOUNTINGDATE) = @P_Month
@@ -527,9 +538,9 @@ BEGIN
 	    [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0250 * -1
 	from [intm_axbi].[dim_CUSTTABLE] as c
 	inner join [intm_axbi].[fact_CUSTINVOICETRANS] as i
-	on c.DATAAREAID = i.DATAAREAID and
+	on lower(c.DATAAREAID) = lower(i.DATAAREAID) and
 	   c.ACCOUNTNUM = i.CUSTOMERNO
-	where c.DATAAREAID = 'PLFR' 
+	where upper(c.DATAAREAID) = 'PLFR' 
 	and c.COMPANYCHAINID = 'ENTREPRISE GUENO' 
 	and datepart(YYYY, i.ACCOUNTINGDATE) = @P_Year 
 	and datepart(MM, i.ACCOUNTINGDATE) = @P_Month
@@ -540,9 +551,9 @@ BEGIN
 	    [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0200 * -1
 	from [intm_axbi].[dim_CUSTTABLE] as c
 	inner join [intm_axbi].[fact_CUSTINVOICETRANS] as i
-	on c.DATAAREAID = i.DATAAREAID and
+	on lower(c.DATAAREAID) = lower(i.DATAAREAID) and
 	   c.ACCOUNTNUM = i.CUSTOMERNO
-	where c.DATAAREAID = 'PLFR' 
+	where upper(c.DATAAREAID) = 'PLFR' 
 	and c.COMPANYCHAINID = 'JOUVENT' 
 	and datepart(YYYY, i.ACCOUNTINGDATE) = @P_Year 
 	and datepart(MM, i.ACCOUNTINGDATE) = @P_Month
@@ -553,9 +564,9 @@ BEGIN
 	    [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0350 * -1
 	from [intm_axbi].[dim_CUSTTABLE] as c
 	inner join [intm_axbi].[fact_CUSTINVOICETRANS] as i
-	on c.DATAAREAID = i.DATAAREAID and
+	on lower(c.DATAAREAID) = lower(i.DATAAREAID) and
 	   c.ACCOUNTNUM = i.CUSTOMERNO
-	where c.DATAAREAID = 'PLFR' 
+	where upper(c.DATAAREAID) = 'PLFR' 
 	and c.COMPANYCHAINID = 'GROUPE LB' 
 	and datepart(YYYY, i.ACCOUNTINGDATE) = @P_Year 
 	and datepart(MM, i.ACCOUNTINGDATE) = @P_Month
@@ -566,9 +577,9 @@ BEGIN
 	    [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0170 * -1
 	from [intm_axbi].[dim_CUSTTABLE] as c
 	inner join [intm_axbi].[fact_CUSTINVOICETRANS] as i
-	on c.DATAAREAID = i.DATAAREAID and
+	on lower(c.DATAAREAID) = lower(i.DATAAREAID) and
 	   c.ACCOUNTNUM = i.CUSTOMERNO
-	where c.DATAAREAID = 'PLFR' 
+	where upper(c.DATAAREAID) = 'PLFR' 
 	and c.COMPANYCHAINID = 'LEGROS' 
 	and datepart(YYYY, i.ACCOUNTINGDATE) = @P_Year
 	and datepart(MM, i.ACCOUNTINGDATE) = @P_Month
@@ -579,9 +590,9 @@ BEGIN
 	    [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0350 * -1
 	from [intm_axbi].[dim_CUSTTABLE] as c
 	inner join [intm_axbi].[fact_CUSTINVOICETRANS] as i
-	on c.DATAAREAID = i.DATAAREAID and
+	on lower(c.DATAAREAID) = lower(i.DATAAREAID) and
 	   c.ACCOUNTNUM = i.CUSTOMERNO
-	where c.DATAAREAID = 'PLFR' 
+	where upper(c.DATAAREAID) = 'PLFR' 
 	and c.COMPANYCHAINID = 'GROSSE' 
 	and datepart(YYYY, i.ACCOUNTINGDATE) = @P_Year 
 	and datepart(MM, i.ACCOUNTINGDATE) = @P_Month
@@ -592,9 +603,9 @@ BEGIN
 	    [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0100 * -1
 	from [intm_axbi].[dim_CUSTTABLE] as c
 	inner join [intm_axbi].[fact_CUSTINVOICETRANS] as i
-	on c.DATAAREAID = i.DATAAREAID and
+	on lower(c.DATAAREAID) = lower(i.DATAAREAID) and
 	   c.ACCOUNTNUM = i.CUSTOMERNO
-	where c.DATAAREAID = 'PLFR' 
+	where upper(c.DATAAREAID) = 'PLFR' 
 	and c.COMPANYCHAINID = 'REVILLON' 
 	and datepart(YYYY, i.ACCOUNTINGDATE) = @P_Year 
 	and datepart(MM, i.ACCOUNTINGDATE) = @P_Month
@@ -605,9 +616,9 @@ BEGIN
 	    [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0250 * -1
 	from [intm_axbi].[dim_CUSTTABLE] as c
 	inner join [intm_axbi].[fact_CUSTINVOICETRANS] as i
-	on c.DATAAREAID = i.DATAAREAID and
+	on lower(c.DATAAREAID) = lower(i.DATAAREAID) and
 	   c.ACCOUNTNUM = i.CUSTOMERNO
-	where c.DATAAREAID = 'PLFR' 
+	where upper(c.DATAAREAID) = 'PLFR' 
 	and c.COMPANYCHAINID = 'MDO' 
 	and datepart(YYYY, i.ACCOUNTINGDATE) = @P_Year 
 	and datepart(MM, i.ACCOUNTINGDATE) = @P_Month
@@ -618,9 +629,9 @@ BEGIN
 	    [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0200 * -1
 	from [intm_axbi].[dim_CUSTTABLE] as c
 	inner join [intm_axbi].[fact_CUSTINVOICETRANS] as i
-	on c.DATAAREAID = i.DATAAREAID and
+	on lower(c.DATAAREAID) = lower(i.DATAAREAID) and
 	   c.ACCOUNTNUM = i.CUSTOMERNO
-	where c.DATAAREAID = 'PLFR' 
+	where upper(c.DATAAREAID) = 'PLFR' 
 	and c.COMPANYCHAINID = 'MAZAUD ENTR GENERALE SAS' 
 	and datepart(YYYY, i.ACCOUNTINGDATE) = @P_Year 
 	and datepart(MM, i.ACCOUNTINGDATE) = @P_Month
@@ -631,9 +642,9 @@ BEGIN
 	    [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0400 * -1
 	from [intm_axbi].[dim_CUSTTABLE] as c
 	inner join [intm_axbi].[fact_CUSTINVOICETRANS] as i
-	on c.DATAAREAID = i.DATAAREAID and
+	on lower(c.DATAAREAID) = lower(i.DATAAREAID) and
 	   c.ACCOUNTNUM = i.CUSTOMERNO
-	where c.DATAAREAID = 'PLFR' 
+	where upper(c.DATAAREAID) = 'PLFR' 
 	and c.COMPANYCHAINID = 'MBC' 
 	and datepart(YYYY, i.ACCOUNTINGDATE) = @P_Year 
 	and datepart(MM, i.ACCOUNTINGDATE) = @P_Month
@@ -644,9 +655,9 @@ BEGIN
 	    [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0450 * -1
 	from [intm_axbi].[dim_CUSTTABLE] as c
 	inner join [intm_axbi].[fact_CUSTINVOICETRANS] as i
-	on c.DATAAREAID = i.DATAAREAID and
+	on lower(c.DATAAREAID) = lower(i.DATAAREAID) and
 	   c.ACCOUNTNUM = i.CUSTOMERNO
-	where c.DATAAREAID = 'PLFR' 
+	where upper(c.DATAAREAID) = 'PLFR' 
 	and c.COMPANYCHAINID like '%POINT P%' 
 	and datepart(YYYY, i.ACCOUNTINGDATE) = @P_Year 
 	and datepart(MM, i.ACCOUNTINGDATE) = @P_Month
@@ -657,9 +668,9 @@ BEGIN
 	    [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0250 * -1
 	from [intm_axbi].[dim_CUSTTABLE] as c
 	inner join [intm_axbi].[fact_CUSTINVOICETRANS] as i
-	on c.DATAAREAID = i.DATAAREAID and
+	on lower(c.DATAAREAID) = lower(i.DATAAREAID) and
 	   c.ACCOUNTNUM = i.CUSTOMERNO
-	where c.DATAAREAID = 'PLFR' 
+	where upper(c.DATAAREAID) = 'PLFR' 
 	and c.COMPANYCHAINID = 'RABOT' 
 	and datepart(YYYY, i.ACCOUNTINGDATE) = @P_Year 
 	and datepart(MM, i.ACCOUNTINGDATE) = @P_Month
@@ -670,9 +681,9 @@ BEGIN
 	    [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0300 * -1
 	from [intm_axbi].[dim_CUSTTABLE] as c
 	inner join [intm_axbi].[fact_CUSTINVOICETRANS] as i
-	on c.DATAAREAID = i.DATAAREAID and
+	on lower(c.DATAAREAID) = lower(i.DATAAREAID) and
 	   c.ACCOUNTNUM = i.CUSTOMERNO
-	where c.DATAAREAID = 'PLFR' 
+	where upper(c.DATAAREAID) = 'PLFR' 
 	and c.COMPANYCHAINID = 'RAMERY' 
 	and datepart(YYYY, i.ACCOUNTINGDATE) = @P_Year 
 	and datepart(MM, i.ACCOUNTINGDATE) = @P_Month
@@ -683,9 +694,9 @@ BEGIN
 	    [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0650 * -1
 	from [intm_axbi].[dim_CUSTTABLE] as c
 	inner join [intm_axbi].[fact_CUSTINVOICETRANS] as i
-	on c.DATAAREAID = i.DATAAREAID and
+	on lower(c.DATAAREAID) = lower(i.DATAAREAID) and
 	   c.ACCOUNTNUM = i.CUSTOMERNO
-	where c.DATAAREAID = 'PLFR' 
+	where upper(c.DATAAREAID) = 'PLFR' 
 	and c.COMPANYCHAINID = 'SAMSE' 
 	and datepart(YYYY, i.ACCOUNTINGDATE) = @P_Year 
 	and datepart(MM, i.ACCOUNTINGDATE) = @P_Month
@@ -696,9 +707,9 @@ BEGIN
 	    [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0100 * -1
 	from [intm_axbi].[dim_CUSTTABLE] as c
 	inner join [intm_axbi].[fact_CUSTINVOICETRANS] as i
-	on c.DATAAREAID = i.DATAAREAID and
+	on lower(c.DATAAREAID) = lower(i.DATAAREAID) and
 	   c.ACCOUNTNUM = i.CUSTOMERNO
-	where c.DATAAREAID = 'PLFR' 
+	where upper(c.DATAAREAID) = 'PLFR' 
 	and c.COMPANYCHAINID = 'SAVOIE SAS' 
 	and datepart(YYYY, i.ACCOUNTINGDATE) = @P_Year 
 	and datepart(MM, i.ACCOUNTINGDATE) = @P_Month
@@ -709,9 +720,9 @@ BEGIN
 	    [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0250 * -1
 	from [intm_axbi].[dim_CUSTTABLE] as c
 	inner join [intm_axbi].[fact_CUSTINVOICETRANS] as i
-	on c.DATAAREAID = i.DATAAREAID and
+	on lower(c.DATAAREAID) = lower(i.DATAAREAID) and
 	   c.ACCOUNTNUM = i.CUSTOMERNO
-	where c.DATAAREAID = 'PLFR' 
+	where upper(c.DATAAREAID) = 'PLFR' 
 	and c.COMPANYCHAINID = 'SRB CONSTRUCTION' 
 	and datepart(YYYY, i.ACCOUNTINGDATE) = @P_Year 
 	and datepart(MM, i.ACCOUNTINGDATE) = @P_Month
@@ -722,9 +733,9 @@ BEGIN
 	    [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0450 * -1
 	from [intm_axbi].[dim_CUSTTABLE] as c
 	inner join [intm_axbi].[fact_CUSTINVOICETRANS] as i
-	on c.DATAAREAID = i.DATAAREAID and
+	on lower(c.DATAAREAID) = lower(i.DATAAREAID) and
 	   c.ACCOUNTNUM = i.CUSTOMERNO
-	where c.DATAAREAID = 'PLFR' 
+	where upper(c.DATAAREAID) = 'PLFR' 
 	and c.COMPANYCHAINID = 'VINCI' 
 	and datepart(YYYY, i.ACCOUNTINGDATE) = @P_Year 
 	and datepart(MM, i.ACCOUNTINGDATE) = @P_Month
@@ -746,16 +757,16 @@ BEGIN
 	into #inventtrans_PLFR_OS
 	from [base_tx_crh_2_dwh].[FACT_CUSTINVOICETRANS] as t
 	inner join [base_tx_crh_2_dwh].[DIM_CUSTINVOICEJOUR] as j
-	on t.DATAAREAID = j.DATAAREAID and
+	on lower(t.DATAAREAID) = lower(j.DATAAREAID) and
 	   t.INVOICEID = j.INVOICEID
 	inner join [base_tx_crh_2_dwh].[DIM_INVENTTABLE] as g
-	on t.DATAAREAID = g.DATAAREAID and
+	on lower(t.DATAAREAID) = lower(g.DATAAREAID) and
 	   t.ITEMID = g.ITEMID
 	inner join #inventtrans_PLFR as i
-	on t.DATAAREAID = i.DATAAREAID and
+	on lower(t.DATAAREAID) = lower(i.DATAAREAID) and
 	   t.INVOICEID = i.INVOICEID and
 	   t.INVENTTRANSID = i.INVENTTRANSID
-	where t.DATAAREAID = 'plf' 
+	where lower(t.DATAAREAID) = 'plf' 
 	and Datepart(yyyy, i.DATEFINANCIAL) = @P_Year 
 	and datepart(MM, i.DATEFINANCIAL) = @P_Month 
 	and t.ITEMID <> 'MB15066'  
@@ -769,11 +780,11 @@ BEGIN
 	into #inventtrans_PLFR_SB
 	from [intm_axbi].[fact_CUSTINVOICETRANS] as t
 	inner join [intm_axbi].[dim_ITEMTABLE] as g
-	on t.DATAAREAID = g.DATAAREAID and
+	on lower(t.DATAAREAID) = lower(g.DATAAREAID) and
 	t.ITEMID = g.ITEMID
 	inner join #inventtrans_PLFR_OS os
 	on t.INVOICEID COLLATE DATABASE_DEFAULT= os.INVOICEID COLLATE DATABASE_DEFAULT
-	where t.DATAAREAID = 'PLFR' 
+	where upper(t.DATAAREAID) = 'PLFR' 
 	and g.ITEMGROUPID <> 'PLFR-EL'
 	group by t.INVOICEID
 
@@ -792,7 +803,7 @@ set [intm_axbi].[fact_CUSTINVOICETRANS].OTHERSALESLOCAL += (la.lineamountmst_os_
     [intm_axbi].[fact_CUSTINVOICETRANS].OTHERSALESEUR   += (la.lineamountmst_os_sum * t.PRODUCTSALESEUR/sb.salesbalance) * os.cnt_inv
 from [intm_axbi].[fact_CUSTINVOICETRANS] as t
  inner join [intm_axbi].[dim_ITEMTABLE] as g
-on t.DATAAREAID = g.DATAAREAID and
+on lower(t.DATAAREAID) = lower(g.DATAAREAID) and
    t.ITEMID     = g.ITEMID 
 inner join #inventtrans_PLFR_OS os
 on t.INVOICEID  COLLATE DATABASE_DEFAULT= os.INVOICEID  COLLATE DATABASE_DEFAULT
@@ -800,7 +811,7 @@ inner join #inventtrans_PLFR_SB sb
 on t.INVOICEID COLLATE DATABASE_DEFAULT=sb.INVOICEID COLLATE DATABASE_DEFAULT
 inner join #inventtrans_PLFR_LA la
 on t.INVOICEID COLLATE DATABASE_DEFAULT=la.INVOICEID COLLATE DATABASE_DEFAULT
-where t.DATAAREAID = 'PLFR' 
+where upper(t.DATAAREAID) = 'PLFR' 
 and datepart(YYYY, t.ACCOUNTINGDATE) = @P_Year 
 and datepart(MM, t.ACCOUNTINGDATE) = @P_Month
 and g.ITEMGROUPID <> 'PLFR-EL'
@@ -813,13 +824,13 @@ update [intm_axbi].[fact_CUSTINVOICETRANS]
 	   [intm_axbi].[fact_CUSTINVOICETRANS].OTHERSALESEUR   += la.lineamountmst_os_sum / sb.lcounter
 from [intm_axbi].[fact_CUSTINVOICETRANS] as t
 inner join [intm_axbi].[dim_ITEMTABLE] as g
-on t.DATAAREAID = g.DATAAREAID and
+on lower(t.DATAAREAID) = lower(g.DATAAREAID) and
 t.ITEMID = g.ITEMID  
 inner join #inventtrans_PLFR_SB sb
 on t.INVOICEID COLLATE DATABASE_DEFAULT=sb.INVOICEID COLLATE DATABASE_DEFAULT
 inner join #inventtrans_PLFR_LA la
 on t.INVOICEID COLLATE DATABASE_DEFAULT=la.INVOICEID COLLATE DATABASE_DEFAULT
-where t.DATAAREAID = 'PLFR' 
+where upper(t.DATAAREAID) = 'PLFR' 
 and datepart(YYYY, t.ACCOUNTINGDATE) = @P_Year 
 and datepart(MM, t.ACCOUNTINGDATE) = @P_Month 
 and g.ITEMGROUPID <> 'PLFR-EL'
@@ -880,9 +891,9 @@ insert [intm_axbi].[fact_CUSTINVOICETRANS]
 	where INVOICEID COLLATE DATABASE_DEFAULT not in 
 	(select t.INVOICEID from [intm_axbi].[fact_CUSTINVOICETRANS] as t
      inner join [intm_axbi].[dim_ITEMTABLE] as g
-     on t.DATAAREAID = g.DATAAREAID and
+     on lower(t.DATAAREAID) = lower(g.DATAAREAID) and
      t.ITEMID = g.ITEMID  
-	 where t.DATAAREAID = 'PLFR' 
+	 where upper(t.DATAAREAID) = 'PLFR' 
      and datepart(YYYY, t.ACCOUNTINGDATE) = @P_Year 
      and datepart(MM, t.ACCOUNTINGDATE) = @P_Month 
      and g.ITEMGROUPID <> 'PLFR-EL')
@@ -894,11 +905,12 @@ insert [intm_axbi].[fact_CUSTINVOICETRANS]
 	    [intm_axbi].[fact_CUSTINVOICETRANS].SALES100EUR   = i.PRODUCTSALESEUR + i.OTHERSALESEUR + i.ALLOWANCESEUR
 	from [intm_axbi].[dim_CUSTTABLE] as c
 	inner join [intm_axbi].[fact_CUSTINVOICETRANS] as i
-	on c.DATAAREAID = i.DATAAREAID and
+	on lower(c.DATAAREAID) = lower(i.DATAAREAID) and
 	   c.ACCOUNTNUM = i.CUSTOMERNO
-	where c.DATAAREAID = 'PLFR' and datepart(YYYY, i.ACCOUNTINGDATE) = @P_Year and datepart(MM, i.ACCOUNTINGDATE) = @P_Month
+	where upper(c.DATAAREAID) = 'PLFR' and datepart(YYYY, i.ACCOUNTINGDATE) = @P_Year and datepart(MM, i.ACCOUNTINGDATE) = @P_Month
 
 	--drop temp tables
+drop table #inventtrans_PLFR_dup
 drop table #inventtrans_PLFR
 drop table #inventtrans_PLFR_OS
 drop table #inventtrans_PLFR_SB
