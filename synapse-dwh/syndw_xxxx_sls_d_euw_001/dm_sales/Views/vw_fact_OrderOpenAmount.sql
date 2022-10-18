@@ -3,24 +3,24 @@
 SELECT
 		  doc.SalesDocument 
 		, doc.SalesDocumentItem
-		, dimSDDC.SDDocumentCategoryID
+		, doc.SDDocumentCategoryID
 		, dimSDDC.SDDocumentCategory
-		, dimSDT.SalesDocumentTypeID
+		, doc.SalesDocumentTypeID
 		, dimSDT.SalesDocumentType
 		, doc.NetAmount
 		, doc.OpenDeliveryNetAmount
 		, doc.MaterialID
 		, doc.BillingDocumentDate
 		, doc.CreationDate
-		, dimIBIS.ItemBillingIncompletionStatusID
+		, doc.ItemBillingIncompletionStatusID
 		, dimIBIS.ItemBillingIncompletionStatus
-		, dimSDDRjS.SDDocumentRejectionStatusID
+		, doc.SDDocumentRejectionStatusID
 		, dimSDDRjS.SDDocumentRejectionStatus
-		, dimOSS.OverallSDProcessStatusID
+		, doc.OverallSDProcessStatusID
 		, dimOSS.OverallSDProcessStatus
-		, dimOTDS.OverallTotalDeliveryStatusID
+		, doc.OverallTotalDeliveryStatusID
 		, dimOTDS.OverallTotalDeliveryStatus
-		, dimTSDDRS.TotalSDDocReferenceStatusID
+		, doc.TotalSDDocReferenceStatusID
 		, dimTSDDRS.TotalSDDocReferenceStatus
 
 FROM [edw].[fact_SalesDocumentItem] doc
