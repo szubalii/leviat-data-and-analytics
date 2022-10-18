@@ -78,6 +78,10 @@
 							"table": {
 								"value": "@pipeline().parameters.base_table_name",
 								"type": "Expression"
+							},
+							"sqlPool": {
+								"value": "@pipeline().globalParameters.synapseDatabaseName",
+								"type": "Expression"
 							}
 						}
 					}
