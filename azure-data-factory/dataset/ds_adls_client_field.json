@@ -3,7 +3,10 @@
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "stxxxxslsxeuw001",
-			"type": "LinkedServiceReference"
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"storageAccount": "stxxxxslsdeuw001"
+			}
 		},
 		"annotations": [],
 		"type": "DelimitedText",
