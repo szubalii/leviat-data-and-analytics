@@ -3,13 +3,22 @@
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "stxxxxslsxeuw001",
-			"type": "LinkedServiceReference"
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"storageAccount": {
+					"value": "@dataset().storageAccount",
+					"type": "Expression"
+				}
+			}
 		},
 		"parameters": {
 			"directory": {
 				"type": "string"
 			},
 			"file_name": {
+				"type": "string"
+			},
+			"storageAccount": {
 				"type": "string"
 			}
 		},
