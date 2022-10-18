@@ -180,7 +180,7 @@ select
 	from [intm_axbi].[fact_CUSTINVOICETRANS] as t
 	inner join #inventtrans_ANDE_OS os
 	on t.INVOICEID COLLATE DATABASE_DEFAULT= os.INVOICEID COLLATE DATABASE_DEFAULT
-	where t.DATAAREAID = 'ANDE' and t.ITEMID not in ('ANDE-DIENST', 'ANDE-FRACHT', 'ANDE-MINDERMENGE', 'ANDE-POSZU')
+	where upper(t.DATAAREAID) = 'ANDE' and t.ITEMID not in ('ANDE-DIENST', 'ANDE-FRACHT', 'ANDE-MINDERMENGE', 'ANDE-POSZU')
 	group by t.INVOICEID
 
 --LINEAMOUNTMST sum calculation
@@ -202,7 +202,7 @@ inner join #inventtrans_ANDE_SB sb
 on t.INVOICEID COLLATE DATABASE_DEFAULT=sb.INVOICEID COLLATE DATABASE_DEFAULT
 inner join #inventtrans_ANDE_LA la
 on t.INVOICEID COLLATE DATABASE_DEFAULT=la.INVOICEID COLLATE DATABASE_DEFAULT
-where t.DATAAREAID = 'ANDE'  and t.ITEMID not in ('ANDE-DIENST', 'ANDE-FRACHT', 'ANDE-MINDERMENGE', 'ANDE-POSZU')
+where upper(t.DATAAREAID) = 'ANDE'  and t.ITEMID not in ('ANDE-DIENST', 'ANDE-FRACHT', 'ANDE-MINDERMENGE', 'ANDE-POSZU')
 and sb.salesbalance<>0
 
 
@@ -215,7 +215,7 @@ inner join #inventtrans_ANDE_SB sb
 on t.INVOICEID COLLATE DATABASE_DEFAULT=sb.INVOICEID COLLATE DATABASE_DEFAULT
 inner join #inventtrans_ANDE_LA la
 on t.INVOICEID COLLATE DATABASE_DEFAULT=la.INVOICEID COLLATE DATABASE_DEFAULT
-where t.DATAAREAID = 'ANDE'  and t.ITEMID not in ('ANDE-DIENST', 'ANDE-FRACHT', 'ANDE-MINDERMENGE', 'ANDE-POSZU')
+where upper(t.DATAAREAID) = 'ANDE'  and t.ITEMID not in ('ANDE-DIENST', 'ANDE-FRACHT', 'ANDE-MINDERMENGE', 'ANDE-POSZU')
 and lcounter>0
 and salesbalance = 0
 
@@ -271,7 +271,7 @@ insert [intm_axbi].[fact_CUSTINVOICETRANS]
 	0
 	from #inventtrans_ANDE_OS
 	where INVOICEID COLLATE DATABASE_DEFAULT not in (select INVOICEID from [intm_axbi].[fact_CUSTINVOICETRANS]
-	where DATAAREAID = 'ANDE'  and ITEMID not in ('ANDE-DIENST', 'ANDE-FRACHT', 'ANDE-MINDERMENGE', 'ANDE-POSZU'))
+	where upper(DATAAREAID) = 'ANDE'  and ITEMID not in ('ANDE-DIENST', 'ANDE-FRACHT', 'ANDE-MINDERMENGE', 'ANDE-POSZU'))
 
 
 --update SALES100 
@@ -280,9 +280,9 @@ insert [intm_axbi].[fact_CUSTINVOICETRANS]
 	       [intm_axbi].[fact_CUSTINVOICETRANS].SALES100EUR   = i.PRODUCTSALESEUR + i.OTHERSALESEUR + i.ALLOWANCESEUR
 	from [intm_axbi].[dim_CUSTTABLE] as c
 	inner join [intm_axbi].[fact_CUSTINVOICETRANS] as i
-	on c.DATAAREAID = i.DATAAREAID and
+	on lower(c.DATAAREAID) = lower(i.DATAAREAID) and
 	   c.ACCOUNTNUM = i.CUSTOMERNO
-	where c.DATAAREAID = 'ANDE' 
+	where upper(c.DATAAREAID) = 'ANDE' 
 	and Datepart(yyyy, i.ACCOUNTINGDATE) = @P_Year
 	and Datepart(mm, i.ACCOUNTINGDATE) = @P_Month
 
@@ -290,7 +290,7 @@ insert [intm_axbi].[fact_CUSTINVOICETRANS]
 -- Enter missing DUMMY delivery country
 	update [intm_axbi].[fact_CUSTINVOICETRANS]
 	set DELIVERYCOUNTRYID = 'DE'
-	where DATAAREAID = 'ANDE' and DELIVERYCOUNTRYID = ' '
+	where upper(DATAAREAID) = 'ANDE' and DELIVERYCOUNTRYID = ' '
 
 --drop temp tables
 drop table #inventtrans_ANDE_dup

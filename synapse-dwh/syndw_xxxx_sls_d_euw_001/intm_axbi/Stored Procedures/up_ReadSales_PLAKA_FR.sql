@@ -192,7 +192,7 @@ BEGIN
 	on lower(i.DATAAREAID)  = lower(a.DATAAREAID) and
 	   i.TRANSREFID    = a.SALESID and
 	   i.INVENTTRANSID = a.INVENTTRANSID
-	where i.DATAAREAID = 'plf' 
+	where lower(i.DATAAREAID) = 'plf' 
 	and Datepart(yyyy, i.DATEPHYSICAL) = @P_Year 
 	and Datepart(mm, i.DATEPHYSICAL) = @P_Month 
 	and i.ValueCalc is not null 
