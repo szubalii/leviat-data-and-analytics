@@ -45,6 +45,10 @@
 							"table": {
 								"value": "@pipeline().parameters.edw_view_name",
 								"type": "Expression"
+							},
+							"sqlPool": {
+								"value": "@pipeline().globalParameters.synapseDatabaseName",
+								"type": "Expression"
 							}
 						}
 					}

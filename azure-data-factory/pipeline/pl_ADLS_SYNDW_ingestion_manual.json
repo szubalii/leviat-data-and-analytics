@@ -55,7 +55,8 @@
 							"file": {
 								"value": "@pipeline().parameters.file_name",
 								"type": "Expression"
-							}
+							},
+							"storageAccount": "stxxxxslsdeuw001"
 						}
 					}
 				],
@@ -70,6 +71,10 @@
 							},
 							"table": {
 								"value": "@pipeline().parameters.base_table_name",
+								"type": "Expression"
+							},
+							"sqlPool": {
+								"value": "@pipeline().globalParameters.synapseDatabaseName",
 								"type": "Expression"
 							}
 						}
