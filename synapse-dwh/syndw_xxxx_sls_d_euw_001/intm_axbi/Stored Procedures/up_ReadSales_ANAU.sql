@@ -32,35 +32,50 @@ BEGIN
 	i.PACKINGSLIPID as PACKINGSLIPID, 
 	sum(i.COSTAMOUNTPOSTED) as COSTAMOUNTPOSTED,  
 	sum(i.COSTAMOUNTADJUSTMENT) as COSTAMOUNTADJUSTMENT 
-	into #inventtrans_ANAU
+	into #inventtrans_ANAU_dup
 	from [base_ancon_australia_2_dwh].[FACT_CUSTINVOICETRANS] as t
 	inner join [base_ancon_australia_2_dwh].[FACT_CUSTINVOICEJOUR] as j
-	on t.DATAAREAID = j.DATAAREAID and
+	on lower(t.DATAAREAID) = lower(j.DATAAREAID) and
 	   t.INVOICEID = j.INVOICEID
 	inner join [base_ancon_australia_2_dwh].[FACT_INVENTTRANS] as i
-	on t.DATAAREAID = i.DATAAREAID and
+	on lower(t.DATAAREAID) = lower(i.DATAAREAID) and
 	   t.INVOICEID = i.INVOICEID and
 	   t.INVENTTRANSID = i.INVENTTRANSID
-	where t.DATAAREAID = 'anau' and Datepart(yyyy, i.DATEFINANCIAL) = @P_Year and Datepart(mm, i.DATEFINANCIAL) = @P_Month and i.DATEFINANCIAL < convert(date, getdate())
+	where lower(t.DATAAREAID) = 'anau' and Datepart(yyyy, i.DATEFINANCIAL) = @P_Year and Datepart(mm, i.DATEFINANCIAL) = @P_Month and i.DATEFINANCIAL < convert(date, getdate())
 	group by t.DATAAREAID, t.INVOICEID, t.SALESID, t.INVENTTRANSID, t.LINENUM, i.DATEFINANCIAL, i.PACKINGSLIPID; 
 
 	-- Doppelte Sätze löschen. Geht leider ein DATEFINANCIAL und eine PACKINGSLIPID verloren, dafür werden die Zahlen richtig.
 	-- Obwohl wir in der COMMON TABLE EXPRESSION table löschen, werden die doppelten Sätze in der temporären Tabelle #inventtrans_ANAH gelöscht.
-	WITH CTE_inventtrans AS
-	(
-		SELECT DATAAREAID, INVOICEID, SALESID, INVENTTRANSID, LINENUM, ROW_NUMBER() 
+	
+		SELECT 
+	DATAAREAID, 
+	INVOICEID, 
+	SALESID, 
+	INVENTTRANSID, 
+	LINENUM, 
+	DATEFINANCIAL, 
+	PACKINGSLIPID, 
+    COSTAMOUNTPOSTED,  
+	COSTAMOUNTADJUSTMENT
+	into #inventtrans_ANAU
+	FROM 
+	(SELECT 
+	DATAAREAID, 
+	INVOICEID, 
+	SALESID, 
+	INVENTTRANSID, 
+	LINENUM, 
+	DATEFINANCIAL, 
+	PACKINGSLIPID, 
+    COSTAMOUNTPOSTED,  
+	COSTAMOUNTADJUSTMENT,
+	ROW_NUMBER() 
 		OVER(PARTITION BY DATAAREAID, INVOICEID, SALESID, INVENTTRANSID, LINENUM 
 			ORDER BY DATAAREAID, INVOICEID, SALESID, INVENTTRANSID, LINENUM ) RowNumber
-		FROM #inventtrans_ANAU
-	)
-		DELETE FROM #inventtrans_ANAU
-	where exists (select * from 
-	CTE_inventtrans c inner join #inventtrans_ANAU i
-	on c.DATAAREAID=i.DATAAREAID
-	and c.SALESID=i.SALESID
-	and c.INVENTTRANSID=i.INVENTTRANSID
-	and c.LINENUM=i.LINENUM
-	WHERE RowNumber > 1)
+	from #inventtrans_ANAU_dup
+	) d
+	where d.RowNumber=1
+	
 
 	--insert main sales
 	insert [intm_axbi].[fact_CUSTINVOICETRANS]
@@ -113,16 +128,16 @@ BEGIN
 	(i.COSTAMOUNTPOSTED + i.COSTAMOUNTADJUSTMENT) / c.CRHRATE
 	from [base_ancon_australia_2_dwh].[FACT_CUSTINVOICETRANS] as t
 	inner join [base_ancon_australia_2_dwh].[FACT_CUSTINVOICEJOUR] as j
-	on t.DATAAREAID = j.DATAAREAID and
+	on lower(t.DATAAREAID) = lower(j.DATAAREAID) and
 	   t.INVOICEID = j.INVOICEID
 	inner join #inventtrans_ANAU as i
-	on t.DATAAREAID = i.DATAAREAID and
+	on lower(t.DATAAREAID) = lower(i.DATAAREAID) and
 	   t.INVOICEID = i.INVOICEID and
 	   t.INVENTTRANSID = i.INVENTTRANSID
 	inner join [base_tx_ca_0_hlp].[CRHCURRENCY] as c
 	on Datepart(YYYY, i.DATEFINANCIAL) = c.YEAR and
 	   'AUD' = c.CURRENCY
-	where t.DATAAREAID = 'anau' 
+	where lower(t.DATAAREAID) = 'anau' 
 	and Datepart(yyyy, i.DATEFINANCIAL) = @P_Year 
 	and Datepart(mm, i.DATEFINANCIAL) = @P_Month 
 	and t.ITEMID not in ('AIR', 'DHL', 'FRA', 'FRA1KG', 'FRA3KG', 'FRA5KG', 'MISC')
@@ -135,9 +150,9 @@ BEGIN
 	    [intm_axbi].[fact_CUSTINVOICETRANS].ALLOWANCESEUR   += i.PRODUCTSALESEUR   * 0.0200 * -1
 	from [intm_axbi].[dim_CUSTTABLE] as c
 	inner join [intm_axbi].[fact_CUSTINVOICETRANS] as i
-	on c.DATAAREAID = i.DATAAREAID and
+	on lower(c.DATAAREAID) = lower(i.DATAAREAID) and
 	   c.ACCOUNTNUM = i.CUSTOMERNO
-	where c.DATAAREAID = 'ANAU' and c.ACCOUNTNUM in ('ANAU-3865', 'ANAU-4063', 'ANAU-4128', 'ANAU-8381') and Datepart(yyyy, i.ACCOUNTINGDATE) = @P_Year and Datepart(mm, i.ACCOUNTINGDATE) = @P_Month
+	where upper(c.DATAAREAID) = 'ANAU' and c.ACCOUNTNUM in ('ANAU-3865', 'ANAU-4063', 'ANAU-4128', 'ANAU-8381') and Datepart(yyyy, i.ACCOUNTINGDATE) = @P_Year and Datepart(mm, i.ACCOUNTINGDATE) = @P_Month
 
 --create temp table with other sales (obsolete cursor)
 
@@ -159,16 +174,16 @@ BEGIN
 	into #inventtrans_ANAU_OS
 	from [base_ancon_australia_2_dwh].[FACT_CUSTINVOICETRANS] as t
 	inner join [base_ancon_australia_2_dwh].[FACT_CUSTINVOICEJOUR] as j
-	on t.DATAAREAID = j.DATAAREAID and
+	on lower(t.DATAAREAID) = lower(j.DATAAREAID) and
 	   t.INVOICEID = j.INVOICEID
 	inner join [base_ancon_australia_2_dwh].[FACT_INVENTTRANS] as i
-	on t.DATAAREAID = i.DATAAREAID and
+	on lower(t.DATAAREAID) = lower(i.DATAAREAID) and
 	   t.INVOICEID = i.INVOICEID and
 	   t.INVENTTRANSID = i.INVENTTRANSID
 	inner join [base_tx_ca_0_hlp].[CRHCURRENCY] c
 	on c.YEAR = Datepart(YYYY, i.DATEFINANCIAL) 
 	and c.CURRENCY = 'AUD'
-	where t.DATAAREAID = 'anau' 
+	where lower(t.DATAAREAID) = 'anau' 
 	and Datepart(yyyy, i.DATEFINANCIAL) = @P_Year 
 	and Datepart(mm, i.DATEFINANCIAL) = @P_Month 
 	and t.ITEMID in ('AIR', 'DHL', 'FRA', 'FRA1KG', 'FRA3KG', 'FRA5KG', 'MISC')
@@ -183,7 +198,7 @@ BEGIN
 	from [intm_axbi].[fact_CUSTINVOICETRANS] as t
 	inner join #inventtrans_ANAU_OS os
 	on t.INVOICEID COLLATE DATABASE_DEFAULT= os.INVOICEID COLLATE DATABASE_DEFAULT
-	where t.DATAAREAID = 'ANAU' 
+	where upper(t.DATAAREAID) = 'ANAU' 
 	and t.ITEMID not in ('ANAU-AIR', 'ANAU-DHL', 'ANAU-FRA', 'ANAU-FRA1KG', 'ANAU-FRA3KG', 'ANAU-FRA5KG', 'ANAU-MISC')
 	group by t.INVOICEID
 
@@ -208,7 +223,7 @@ inner join #inventtrans_ANAU_SB sb
 on t.INVOICEID COLLATE DATABASE_DEFAULT=sb.INVOICEID COLLATE DATABASE_DEFAULT
 inner join #inventtrans_ANAU_LA la
 on t.INVOICEID COLLATE DATABASE_DEFAULT=la.INVOICEID COLLATE DATABASE_DEFAULT
-where t.DATAAREAID = 'ANAU' 
+where upper(t.DATAAREAID) = 'ANAU' 
 and t.ITEMID not in ('ANAU-AIR', 'ANAU-DHL', 'ANAU-FRA', 'ANAU-FRA1KG', 'ANAU-FRA3KG', 'ANAU-FRA5KG', 'ANAU-MISC')
 and sb.salesbalance<>0
 
@@ -222,7 +237,7 @@ inner join #inventtrans_ANAU_SB sb
 on t.INVOICEID COLLATE DATABASE_DEFAULT=sb.INVOICEID COLLATE DATABASE_DEFAULT
 inner join #inventtrans_ANAU_LA la
 on t.INVOICEID COLLATE DATABASE_DEFAULT=la.INVOICEID COLLATE DATABASE_DEFAULT
-where t.DATAAREAID = 'ANAU'
+where upper(t.DATAAREAID) = 'ANAU'
 and t.ITEMID not in ('ANAU-AIR', 'ANAU-DHL', 'ANAU-FRA', 'ANAU-FRA1KG', 'ANAU-FRA3KG', 'ANAU-FRA5KG', 'ANAU-MISC')
 and lcounter>0
 and salesbalance = 0
@@ -279,7 +294,7 @@ insert [intm_axbi].[fact_CUSTINVOICETRANS]
 	0
 	from #inventtrans_ANAU_OS
 	where INVOICEID COLLATE DATABASE_DEFAULT not in (select INVOICEID from [intm_axbi].[fact_CUSTINVOICETRANS]
-	where DATAAREAID = 'ANAU'
+	where upper(DATAAREAID) = 'ANAU'
     and ITEMID not in ('ANAU-AIR', 'ANAU-DHL', 'ANAU-FRA', 'ANAU-FRA1KG', 'ANAU-FRA3KG', 'ANAU-FRA5KG', 'ANAU-MISC'))
 
 	-- SALES100 aufbauen
@@ -288,16 +303,17 @@ insert [intm_axbi].[fact_CUSTINVOICETRANS]
 	    [intm_axbi].[fact_CUSTINVOICETRANS].SALES100EUR   = i.PRODUCTSALESEUR + i.OTHERSALESEUR + i.ALLOWANCESEUR
 	from [intm_axbi].[dim_CUSTTABLE] as c
 	inner join [intm_axbi].[fact_CUSTINVOICETRANS] as i
-	on c.DATAAREAID = i.DATAAREAID and
+	on lower(c.DATAAREAID) = lower(i.DATAAREAID) and
 	   c.ACCOUNTNUM = i.CUSTOMERNO
-	where c.DATAAREAID = 'ANAU' and Datepart(yyyy, i.ACCOUNTINGDATE) = @P_Year and Datepart(mm, i.ACCOUNTINGDATE) = @P_Month
+	where upper(c.DATAAREAID) = 'ANAU' and Datepart(yyyy, i.ACCOUNTINGDATE) = @P_Year and Datepart(mm, i.ACCOUNTINGDATE) = @P_Month
 
 	-- update deliverycountryregion = AU, if ' '
 	update [intm_axbi].[fact_CUSTINVOICETRANS]
 	set DELIVERYCOUNTRYID = 'AU'
-	where DATAAREAID = 'ANAU' and DELIVERYCOUNTRYID = ' ' and Datepart(yyyy, ACCOUNTINGDATE) = @P_Year and Datepart(mm, ACCOUNTINGDATE) = @P_Month
+	where upper(DATAAREAID) = 'ANAU' and DELIVERYCOUNTRYID = ' ' and Datepart(yyyy, ACCOUNTINGDATE) = @P_Year and Datepart(mm, ACCOUNTINGDATE) = @P_Month
 
 --drop temp tables
+drop table #inventtrans_ANAU_dup
 drop table #inventtrans_ANAU
 drop table #inventtrans_ANAU_OS
 drop table #inventtrans_ANAU_SB

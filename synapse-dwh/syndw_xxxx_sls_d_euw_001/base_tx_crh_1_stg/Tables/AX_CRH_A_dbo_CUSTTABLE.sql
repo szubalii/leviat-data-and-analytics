@@ -35,7 +35,7 @@
 	[PotentialGroup] [varchar](50) NULL,
 	[ADUSOFTWAREID] [nvarchar](10) NULL,
 	[CITY] [nvarchar](60) NULL,
-	[Chain to use] [nvarchar](60) NULL,
+	[Chaintouse] [nvarchar](60) NULL,
 	[ADUHASBONUS] [int] NULL,
 	[ADUHASBONUSYN] [varchar](3) NULL,
 	[INVOICEACCOUNT] [nvarchar](20) NULL,

@@ -168,7 +168,7 @@ BEGIN
 		else 'OTHER' end
  end,
 	--ISNULL(COMPANYCHAINID, ' '), ausgesternt wegen STATITICSGROUP nicht in DIM_CUSTABLE
-	ISNULL([Chain to use], ' '),
+	ISNULL([Chaintouse], ' '),
 	case DATAAREAID
 	when 'ass' then
 	ISNULL(DIMENSION5_, ' ')
