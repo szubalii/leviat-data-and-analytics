@@ -3,7 +3,10 @@
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "ls_ws_xxxx_sls_x_euw_001__syndw_xxxx_sls_x_euw_001",
-			"type": "LinkedServiceReference"
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"sqlPool": "syndw_xxxx_sls_d_euw_001"
+			}
 		},
 		"annotations": [],
 		"type": "AzureSqlDWTable",
