@@ -60,6 +60,10 @@
 							"file_name": {
 								"value": "@pipeline().parameters.file_name",
 								"type": "Expression"
+							},
+							"storageAccount": {
+								"value": "@pipeline().globalParameters.synapseDatabaseName",
+								"type": "Expression"
 							}
 						}
 					}
@@ -72,6 +76,10 @@
 							"schema": "dbo",
 							"table": {
 								"value": "@variables('table')",
+								"type": "Expression"
+							},
+							"sqlDb": {
+								"value": "@pipeline().globalParameters.synapseDatabaseName",
 								"type": "Expression"
 							}
 						}
@@ -152,6 +160,10 @@
 							"file_name": {
 								"value": "@pipeline().parameters.file_name",
 								"type": "Expression"
+							},
+							"storageAccount": {
+								"value": "@pipeline().globalParameters.synapseDatabaseName",
+								"type": "Expression"
 							}
 						}
 					}
@@ -167,6 +179,10 @@
 							},
 							"file_name": {
 								"value": "@pipeline().parameters.file_name",
+								"type": "Expression"
+							},
+							"storageAccount": {
+								"value": "@pipeline().globalParameters.synapseDatabaseName",
 								"type": "Expression"
 							}
 						}
@@ -201,13 +217,20 @@
 							"file_name": {
 								"value": "@pipeline().parameters.file_name",
 								"type": "Expression"
+							},
+							"storageAccount": {
+								"value": "@pipeline().globalParameters.synapseDatabaseName",
+								"type": "Expression"
 							}
 						}
 					},
 					"logStorageSettings": {
 						"linkedServiceName": {
 							"referenceName": "stxxxxslsxeuw001",
-							"type": "LinkedServiceReference"
+							"type": "LinkedServiceReference",
+							"parameters": {
+								"storageAccount": "stxxxxslsdeuw001"
+							}
 						},
 						"path": "utilities/logging"
 					},
