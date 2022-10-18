@@ -3,7 +3,19 @@
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
-			"type": "LinkedServiceReference"
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"sqlDb": {
+					"value": "@dataset().sqlDb",
+					"type": "Expression"
+				}
+			}
+		},
+		"parameters": {
+			"sqlDb": {
+				"type": "string",
+				"defaultValue": "sqldb-xxxx-sls-d-euw-001"
+			}
 		},
 		"annotations": [],
 		"type": "AzureSqlTable",
