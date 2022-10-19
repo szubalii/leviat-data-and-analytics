@@ -8,27 +8,32 @@ steps:
     storage: '$(storageAccountName)'
     ContainerName: 'orch-db'
 
-- pwsh: |
-    # connect to Azure using VM
-    Connect-AzAccount -Identity
-    
-    # get storage account context
-    $ctx = New-AzStorageContext -StorageAccountName $(storageAccountName) -UseConnectedAccount
+- task: PowerShell@2
+  displayName: Get SAS key for orch-db container
+  inputs:
+    targetType: 'inline'
+    pswh: true
+    script: |
+      # connect to Azure using VM
+      Connect-AzAccount -Identity
+      
+      # get storage account context
+      $ctx = New-AzStorageContext -StorageAccountName $(storageAccountName) -UseConnectedAccount
 
-    # get tomorrow's date
-    $tomorrow = (Get-Date).AddDays(1)
-    
-    # get sas key
-    $sasKey = New-AzStorageContainerSASToken -Context $ctx `
-    -Name orch-db `
-    -Permission ral `
-    -ExpiryTime $tomorrow
+      # get tomorrow's date
+      $tomorrow = (Get-Date).AddDays(1)
+      
+      # get sas key
+      $sasKey = New-AzStorageContainerSASToken -Context $ctx `
+      -Name orch-db `
+      -Permission ral `
+      -ExpiryTime $tomorrow
 
-    # remove the first character which is a question mark (?)
-    $sasKey = $sasKey.substring(1)
+      # remove the first character which is a question mark (?)
+      $sasKey = $sasKey.substring(1)
 
-    # set variable in script
-    Write-Host "##vso[task.setvariable variable=sasToken_OrchDB;issecret=true]$sasKey"
+      # set variable in script
+      Write-Host "##vso[task.setvariable variable=sasToken_OrchDB;issecret=true]$sasKey"
 
 - task: SqlAzureDacpacDeployment@1
   displayName: 'Azure SQL DacpacTask'
