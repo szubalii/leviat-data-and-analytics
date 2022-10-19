@@ -8,11 +8,12 @@ steps:
     storage: '$(storageAccountName)'
     ContainerName: 'orch-db'
 
-- task: AzurePowerShell@5
+- task: PowerShell@2
   inputs:
-    azureSubscription: 'arm-pipeline'
-    ScriptType: 'InlineScript'
-    Inline: |
+    targetType: 'inline'
+    # azureSubscription: 'arm-pipeline'
+    # ScriptType: 'InlineScript'
+    script: |
       # connect to Azure using VM
       Connect-AzAccount -Identity
       
@@ -34,8 +35,7 @@ steps:
       # set variable in script
       Write-Host "##vso[task.variable variable=sasToken_OrchDB;issecret=true]$sasKey"
 
-
-    azurePowerShellVersion: 'LatestVersion'
+    # azurePowerShellVersion: 'LatestVersion'
     pwsh: true
 
 - task: SqlAzureDacpacDeployment@1
