@@ -33,6 +33,8 @@ steps:
       $sasKey = $sasKey.substring(1)
 
       # set variable in script
+      Write-Host "##vso[task.variable variable=test]test"
+      # Write-Host "##vso[task.variable variable=sasToken_OrchDB;issecret=true]$sasKey"
       Write-Host "##vso[task.variable variable=sasToken_OrchDB;issecret=true]$sasKey"
 
     # azurePowerShellVersion: 'LatestVersion'
