@@ -8,37 +8,32 @@ steps:
     storage: '$(storageAccountName)'
     ContainerName: 'orch-db'
 
-- task: PowerShell@2
-  inputs:
-    targetType: 'inline'
-    # azureSubscription: 'arm-pipeline'
-    # ScriptType: 'InlineScript'
-    script: |
-      # connect to Azure using VM
-      Connect-AzAccount -Identity
-      
-      # get storage account context
-      $ctx = New-AzStorageContext -StorageAccountName $(storageAccountName) -UseConnectedAccount
+- powershell: |
+    # connect to Azure using VM
+    Connect-AzAccount -Identity
+    
+    # get storage account context
+    $ctx = New-AzStorageContext -StorageAccountName $(storageAccountName) -UseConnectedAccount
 
-      # get tomorrow's date
-      $tomorrow = (Get-Date).AddDays(1)
-      
-      # get sas key
-      $sasKey = New-AzStorageContainerSASToken -Context $ctx `
-      -Name orch-db `
-      -Permission ral `
-      -ExpiryTime $tomorrow
+    # get tomorrow's date
+    $tomorrow = (Get-Date).AddDays(1)
+    
+    # get sas key
+    $sasKey = New-AzStorageContainerSASToken -Context $ctx `
+    -Name orch-db `
+    -Permission ral `
+    -ExpiryTime $tomorrow
 
-      # remove the first character which is a question mark (?)
-      $sasKey = $sasKey.substring(1)
+    # remove the first character which is a question mark (?)
+    $sasKey = $sasKey.substring(1)
 
-      # set variable in script
-      Write-Host "##vso[task.variable variable=test]test"
-      # Write-Host "##vso[task.variable variable=sasToken_OrchDB;issecret=true]$sasKey"
-      Write-Host "##vso[task.variable variable=sasToken_OrchDB;issecret=true]$sasKey"
+    # set variable in script
+    Write-Host "##vso[task.variable variable=test]test"
+    # Write-Host "##vso[task.variable variable=sasToken_OrchDB;issecret=true]$sasKey"
+    Write-Host "##vso[task.variable variable=sasToken_OrchDB;issecret=true]$sasKey"
 
     # azurePowerShellVersion: 'LatestVersion'
-    pwsh: true
+    # pwsh: true
 
 - task: SqlAzureDacpacDeployment@1
   displayName: 'Azure SQL DacpacTask'
