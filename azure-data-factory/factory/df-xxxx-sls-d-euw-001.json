@@ -33,6 +33,10 @@
 			"environment": {
 				"type": "string",
 				"value": "dev"
+			},
+			"sqlDb": {
+				"type": "string",
+				"value": "sqldb-xxxx-sls-d-euw-001"
 			}
 		}
 	},
