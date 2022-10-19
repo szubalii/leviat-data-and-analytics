@@ -202,7 +202,7 @@ BEGIN
 
 	update [intm_axbi].[dim_CUSTTABLE]
 	set INOUT = 'I'
-	 where DATAAREAID in ('ANAT', 'ANCH', 'ANDE', 'ASCH', 'PLBE', 'PLFR') and  substring(NAME, 1, 5) = 'Plaka'
+	 where UPPER(DATAAREAID) in ('ANAT', 'ANCH', 'ANDE', 'ASCH', 'PLBE', 'PLFR') and  substring(NAME, 1, 5) = 'Plaka'
 
 	update [intm_axbi].[dim_CUSTTABLE]
 	set INOUT = 'I'
@@ -803,28 +803,31 @@ BEGIN
 	insert [intm_axbi].[dim_ITEMTABLE]
 	(DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID)
 	select distinct
-	case when LOWER([DATAAREAID]) = 'anat' then 'ANAT'
-	     when LOWER([DATAAREAID]) = 'anch' then 'ANCH'
-		 when LOWER([DATAAREAID]) = 'ande' then 'ANDE'
-		 when LOWER([DATAAREAID]) = 'ass' then 'ASCH'
-		 when LOWER([DATAAREAID]) = 'plb' then 'PLBE'
-		 when LOWER([DATAAREAID]) = 'plf' then 'PLFR'
+	case LOWER([DATAAREAID])
+	     when  'anat' then 'ANAT'
+	     when  'anch' then 'ANCH'
+		 when  'ande' then 'ANDE'
+		 when  'ass'  then 'ASCH'
+		 when  'plb'  then 'PLBE'
+		 when  'plf'  then 'PLFR'
 	end,
-	case when LOWER([DATAAREAID]) = 'anat' then 'ANAT-' + [ITEMID]
-	     when LOWER([DATAAREAID]) = 'anch' then 'ANCH-' + [ITEMID]
-		 when LOWER([DATAAREAID]) = 'ande' then 'ANDE-' + [ITEMID]
-		 when LOWER([DATAAREAID]) = 'ass' then 'ASCH-' + [ITEMID]
-		 when LOWER([DATAAREAID]) = 'plb' then 'PLBE-' + [ITEMID]
-		 when LOWER([DATAAREAID]) = 'plf' then 'PLFR-' + [ITEMID]
+	case LOWER([DATAAREAID])
+	     when 'anat' then 'ANAT-' + [ITEMID]
+	     when 'anch' then 'ANCH-' + [ITEMID]
+		 when 'ande' then 'ANDE-' + [ITEMID]
+		 when 'ass'  then 'ASCH-' + [ITEMID]
+		 when 'plb'  then 'PLBE-' + [ITEMID]
+		 when 'plf'  then 'PLFR-' + [ITEMID]
 	end,
 	[ITEMNAME],
 	substring([ADUTYPECRHCA], 1, 4),
-	case when LOWER([DATAAREAID]) = 'anat' then 'ANAT-' + [ITEMGROUPID]
-	     when LOWER([DATAAREAID]) = 'anch' then 'ANCH-' + [ITEMGROUPID]
-		 when LOWER([DATAAREAID]) = 'ande' then 'ANDE-' + [ITEMGROUPID]
-		 when LOWER([DATAAREAID]) = 'ass' then 'ASCH-'  + [ADUASCHWITEMGROUP4]
-		 when LOWER([DATAAREAID]) = 'plb' then 'PLBE-'  + [ADUASCHWITEMGROUP4]
-		 when LOWER([DATAAREAID]) = 'plf' then 'PLFR-'  + [ADUASCHWITEMGROUP4]
+	case LOWER([DATAAREAID])
+	     when 'anat' then 'ANAT-' + [ITEMGROUPID]
+	     when 'anch' then 'ANCH-' + [ITEMGROUPID]
+		 when 'ande' then 'ANDE-' + [ITEMGROUPID]
+		 when 'ass'  then 'ASCH-'  + [ADUASCHWITEMGROUP4]
+		 when 'plb'  then 'PLBE-'  + [ADUASCHWITEMGROUP4]
+		 when 'plf'  then 'PLFR-'  + [ADUASCHWITEMGROUP4]
 	end
 	from [base_tx_crh_2_dwh].[DIM_INVENTTABLE] where LOWER(DATAAREAID) in ('anat', 'anch', 'ande', 'ass', 'plb', 'plf')
 
@@ -1213,19 +1216,22 @@ BEGIN
 	insert [intm_axbi].[dim_ITEMTABLE]
 	(DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID)
 	select distinct
-	case when LOWER([DATAAREAID]) = 'anau' then 'ANAU'
-	     when LOWER([DATAAREAID]) = 'hlau' then 'ANAH'
-	     when LOWER([DATAAREAID]) = 'hlnz' then 'ANNZ'
+	case LOWER([DATAAREAID])
+	     when 'anau' then 'ANAU'
+	     when 'hlau' then 'ANAH'
+	     when 'hlnz' then 'ANNZ'
 	End,
-	case when LOWER([DATAAREAID]) = 'anau' then 'ANAU-' + [ITEMID]
-	     when LOWER([DATAAREAID]) = 'hlau' then 'ANAH-' + [ITEMID]
-	     when LOWER([DATAAREAID]) = 'hlnz' then 'ANNZ-' + [ITEMID]
+	case LOWER([DATAAREAID])
+	     when 'anau' then 'ANAU-' + [ITEMID]
+	     when 'hlau' then 'ANAH-' + [ITEMID]
+	     when 'hlnz' then 'ANNZ-' + [ITEMID]
 	End,
 	[ITEMNAME],
 	substring([ADUTYPECRHCA], 1, 4),
-	case when LOWER([DATAAREAID]) = 'anau' then 'ANAU-' + ISNULL([ITEMGROUPID], ' ')
-	     when LOWER([DATAAREAID]) = 'hlau' then 'ANAH-' + ISNULL([ITEMGROUPID], ' ')
-		 when LOWER([DATAAREAID]) = 'hlnz' then 'ANNZ-' + ISNULL([ITEMGROUPID], ' ')
+	case LOWER([DATAAREAID])
+	     when 'anau' then 'ANAU-' + ISNULL([ITEMGROUPID], ' ')
+	     when 'hlau' then 'ANAH-' + ISNULL([ITEMGROUPID], ' ')
+		 when 'hlnz' then 'ANNZ-' + ISNULL([ITEMGROUPID], ' ')
 	end
 	from [base_ancon_australia_2_dwh].[DIM_INVENTTABLE] where LOWER(DATAAREAID) in ('anau', 'hlau', 'hlnz')
 
