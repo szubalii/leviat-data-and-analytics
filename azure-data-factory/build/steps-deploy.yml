@@ -9,14 +9,14 @@ steps:
       azurePowerShellVersion: LatestVersion
       pwsh: true
 
-  - task: AzurePowerShell@5
-    displayName: 'Azure PowerShell script: FilePath'
-    inputs:
-      azureSubscription: 'arm-pipeline'
-      ScriptPath: '$(Build.Repository.LocalPath)\azure-data-factory\ArmTemplate\GlobalParametersUpdateScript.ps1'
-      ScriptArguments: '-globalParametersFilePath $(Build.Repository.LocalPath)\azure-data-factory\factory\$(dataFactoryName).json -resourceGroupName $(resourceGroupName) -dataFactoryName $(dataFactoryName)'
-      azurePowerShellVersion: LatestVersion
-      pwsh: true
+  # - task: AzurePowerShell@5
+  #   displayName: 'Azure PowerShell script: FilePath'
+  #   inputs:
+  #     azureSubscription: 'arm-pipeline'
+  #     ScriptPath: '$(Build.Repository.LocalPath)\azure-data-factory\ArmTemplate\GlobalParametersUpdateScript.ps1'
+  #     ScriptArguments: '-globalParametersFilePath $(Build.Repository.LocalPath)\azure-data-factory\factory\$(dataFactoryName).json -resourceGroupName $(resourceGroupName) -dataFactoryName $(dataFactoryName)'
+  #     azurePowerShellVersion: LatestVersion
+  #     pwsh: true
     
   - task: AzureResourceManagerTemplateDeployment@3
     displayName: 'ARM Template deployment: Resource Group scope'
