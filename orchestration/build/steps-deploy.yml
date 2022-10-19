@@ -12,7 +12,7 @@ steps:
   displayName: Get SAS key for orch-db container
   inputs:
     targetType: 'inline'
-    pswh: true
+    pwsh: true
     script: |
       # connect to Azure using VM
       Connect-AzAccount -Identity
