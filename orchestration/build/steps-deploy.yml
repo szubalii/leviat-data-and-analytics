@@ -28,12 +28,7 @@ steps:
     $sasKey = $sasKey.substring(1)
 
     # set variable in script
-    Write-Host "##vso[task.variable variable=test]test"
-    # Write-Host "##vso[task.variable variable=sasToken_OrchDB;issecret=true]$sasKey"
-    Write-Host "##vso[task.variable variable=sasToken_OrchDB;issecret=true]$sasKey"
-
-    # azurePowerShellVersion: 'LatestVersion'
-    # pwsh: true
+    Write-Host "##vso[task.setvariable variable=sasToken_OrchDB;issecret=true]$sasKey"
 
 - task: SqlAzureDacpacDeployment@1
   displayName: 'Azure SQL DacpacTask'
