@@ -1,5 +1,8 @@
 # Azure Data Factory Build Job
 parameters:
+- name: artifact
+  type: boolean
+  default: false
 - name: deploy
   type: boolean
   default: false
@@ -19,3 +22,6 @@ jobs:
   # deploy only if required.
   - ${{ if eq(parameters.deploy, true) }}: 
     - template: ./steps-deploy.yml
+  # publish artifact only if required.
+  - ${{ if eq(parameters.artifact, true) }}: 
+    - template: ./steps-artifact.yml

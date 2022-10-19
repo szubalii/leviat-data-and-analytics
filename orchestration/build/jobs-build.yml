@@ -1,12 +1,12 @@
 # Orchestration Database Build & Deploy Job
 parameters:
+- name: artifact
+  type: boolean
+  default: false
 - name: deploy
   type: boolean
   default: false
 - name: test
-  type: boolean
-  default: false
-- name: artifact
   type: boolean
   default: false
 
@@ -31,7 +31,7 @@ jobs:
   # test only if required
   - ${{ if eq(parameters.test, true) }}: 
     - template: ./steps-test.yml
-  # create artifacts only if required
+  # create artifact only if required
   - ${{ if eq(parameters.artifact, true) }}: 
     - template: ./steps-artifact.yml
     

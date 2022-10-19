@@ -19,9 +19,11 @@ jobs:
     deploy: ${{ parameters.deploy }}
 - template: ../synapse-dwh/build/jobs-build.yml
   parameters:
+    artifact: ${{ parameters.artifact }}
     deploy: ${{ parameters.deploy }}
 - template: ../azure-data-factory/build/jobs-build.yml
   parameters:
+    artifact: ${{ parameters.artifact }}
     deploy: ${{ parameters.deploy }}
 # - template: ../xu-config/build/jobs-deploy-test.yml
 
