@@ -479,13 +479,12 @@ BEGIN
 --salesbalance calculation
 	select 
 	t.INVOICEID,
-	ISNULL(sum(t.PRODUCTSALESLOCAL),0) salesbalance,
-	count(*) lcounter
+	ISNULL(sum(t.PRODUCTSALESLOCAL),0) salesbalance
 	into #inventtrans_PLBE_SB
 	from [intm_axbi].[fact_CUSTINVOICETRANS] as t
 	inner join [intm_axbi].[dim_ITEMTABLE] as g
-	on lower(t.DATAAREAID) = lower(g.DATAAREAID) and
-	t.ITEMID = g.ITEMID
+	on lower(t.DATAAREAID) = lower(g.DATAAREAID) 
+	and	t.ITEMID = g.ITEMID
 	inner join #inventtrans_PLBE_OS os
 	on t.INVOICEID COLLATE DATABASE_DEFAULT= os.INVOICEID COLLATE DATABASE_DEFAULT
 	where upper(t.DATAAREAID) = 'PLBE' 
@@ -499,6 +498,19 @@ BEGIN
 	into #inventtrans_PLBE_LA
 	from #inventtrans_PLBE_OS
 	group by INVOICEID
+	
+--lcounter calculation	
+	select INVOICEID, 
+	count (*) lcounter
+    into #inventtrans_PLBE_cnt
+    from [intm_axbi].[fact_CUSTINVOICETRANS] as t
+	inner join [intm_axbi].[dim_ITEMTABLE] as g
+	on lower(t.DATAAREAID) = lower(g.DATAAREAID) 
+	and	t.ITEMID = g.ITEMID
+	where upper(t.DATAAREAID) = 'PLBE' 
+	and g.ITEMGROUPID <> 'PLBE-EL'
+	group by INVOICEID
+
 
 --update #1
 update [intm_axbi].[fact_CUSTINVOICETRANS]
@@ -522,8 +534,8 @@ and sb.salesbalance<>0
 
 --update #2
 update [intm_axbi].[fact_CUSTINVOICETRANS]
-   set [intm_axbi].[fact_CUSTINVOICETRANS].OTHERSALESLOCAL += la.lineamountmst_os_sum / sb.lcounter,
-	   [intm_axbi].[fact_CUSTINVOICETRANS].OTHERSALESEUR   += la.lineamountmst_os_sum / sb.lcounter
+   set [intm_axbi].[fact_CUSTINVOICETRANS].OTHERSALESLOCAL += la.lineamountmst_os_sum / cnt.lcounter,
+	   [intm_axbi].[fact_CUSTINVOICETRANS].OTHERSALESEUR   += la.lineamountmst_os_sum / cnt.lcounter
 from [intm_axbi].[fact_CUSTINVOICETRANS] as t
 inner join [intm_axbi].[dim_ITEMTABLE] as g
 on lower(t.DATAAREAID) = lower(g.DATAAREAID) and
@@ -532,11 +544,12 @@ inner join #inventtrans_PLBE_SB sb
 on t.INVOICEID COLLATE DATABASE_DEFAULT=sb.INVOICEID COLLATE DATABASE_DEFAULT
 inner join #inventtrans_PLBE_LA la
 on t.INVOICEID COLLATE DATABASE_DEFAULT=la.INVOICEID COLLATE DATABASE_DEFAULT
+inner join #inventtrans_PLBE_cnt cnt
+on t.INVOICEID COLLATE DATABASE_DEFAULT=cnt.INVOICEID COLLATE DATABASE_DEFAULT
 where upper(t.DATAAREAID) = 'PLBE' 
 and datepart(YYYY, t.ACCOUNTINGDATE) = @P_Year
 and g.ITEMGROUPID <> 'PLBE-EL'
-and lcounter>0
-and salesbalance = 0
+and sb.salesbalance = 0
 
 
 --insert for other sales
@@ -790,5 +803,6 @@ IF OBJECT_ID(N'tempdb..#cust_delivered_not_invoiced_PLBE') IS NOT NULL
 BEGIN
 DROP TABLE #cust_delivered_not_invoiced_PLBE
 END
+drop table #inventtrans_PLBE_cnt
 
 End

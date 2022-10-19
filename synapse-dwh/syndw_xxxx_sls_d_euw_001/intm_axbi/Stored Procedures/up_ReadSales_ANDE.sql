@@ -174,8 +174,7 @@ select
 --salesbalance calculation
 	select 
 	t.INVOICEID,
-	ISNULL(sum(t.PRODUCTSALESLOCAL),0) salesbalance,
-	count(*) lcounter
+	ISNULL(sum(t.PRODUCTSALESLOCAL),0) salesbalance
 	into #inventtrans_ANDE_SB
 	from [intm_axbi].[fact_CUSTINVOICETRANS] as t
 	inner join #inventtrans_ANDE_OS os
@@ -190,6 +189,13 @@ select
 	from #inventtrans_ANDE_OS
 	group by INVOICEID
 
+--lcounter calculation	
+	select INVOICEID , count (*) lcounter
+    into #inventtrans_ANDE_cnt
+    from [intm_axbi].[fact_CUSTINVOICETRANS]
+    where upper(DATAAREAID) = 'ANDE'
+    and ITEMID not in ('ANDE-DIENST', 'ANDE-FRACHT', 'ANDE-MINDERMENGE', 'ANDE-POSZU')
+    group by INVOICEID
 
 --update #1
 update [intm_axbi].[fact_CUSTINVOICETRANS]
@@ -208,16 +214,17 @@ and sb.salesbalance<>0
 
 --update #2
 update [intm_axbi].[fact_CUSTINVOICETRANS]
-   set [intm_axbi].[fact_CUSTINVOICETRANS].OTHERSALESLOCAL += la.LINEAMOUNTMST_os_sum / sb.lcounter,
-	   [intm_axbi].[fact_CUSTINVOICETRANS].OTHERSALESEUR   += la.LINEAMOUNTMST_os_sum / sb.lcounter
+   set [intm_axbi].[fact_CUSTINVOICETRANS].OTHERSALESLOCAL += la.LINEAMOUNTMST_os_sum / cnt.lcounter,
+	   [intm_axbi].[fact_CUSTINVOICETRANS].OTHERSALESEUR   += la.LINEAMOUNTMST_os_sum / cnt.lcounter
 from [intm_axbi].[fact_CUSTINVOICETRANS] as t
 inner join #inventtrans_ANDE_SB sb
 on t.INVOICEID COLLATE DATABASE_DEFAULT=sb.INVOICEID COLLATE DATABASE_DEFAULT
 inner join #inventtrans_ANDE_LA la
 on t.INVOICEID COLLATE DATABASE_DEFAULT=la.INVOICEID COLLATE DATABASE_DEFAULT
+inner join #inventtrans_ANDE_cnt cnt
+on t.INVOICEID COLLATE DATABASE_DEFAULT=cnt.INVOICEID COLLATE DATABASE_DEFAULT
 where upper(t.DATAAREAID) = 'ANDE'  and t.ITEMID not in ('ANDE-DIENST', 'ANDE-FRACHT', 'ANDE-MINDERMENGE', 'ANDE-POSZU')
-and lcounter>0
-and salesbalance = 0
+and sb.salesbalance = 0
 
 
 --insert for other sales
@@ -298,5 +305,6 @@ drop table #inventtrans_ANDE
 drop table #inventtrans_ANDE_OS
 drop table #inventtrans_ANDE_SB
 drop table #inventtrans_ANDE_LA
+drop table #inventtrans_ANDE_cnt
 
 END

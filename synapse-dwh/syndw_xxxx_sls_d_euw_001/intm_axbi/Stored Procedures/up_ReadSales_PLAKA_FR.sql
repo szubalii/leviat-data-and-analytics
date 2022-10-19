@@ -775,8 +775,7 @@ BEGIN
 	--salesbalance calculation
 	select 
 	t.INVOICEID,
-	ISNULL(sum(t.PRODUCTSALESLOCAL),0) salesbalance,
-	count(*) lcounter
+	ISNULL(sum(t.PRODUCTSALESLOCAL),0) salesbalance
 	into #inventtrans_PLFR_SB
 	from [intm_axbi].[fact_CUSTINVOICETRANS] as t
 	inner join [intm_axbi].[dim_ITEMTABLE] as g
@@ -795,7 +794,18 @@ BEGIN
 	into #inventtrans_PLFR_LA
 	from #inventtrans_PLFR_OS
 	group by INVOICEID
-
+	
+--lcounter calculation	
+	select INVOICEID, 
+	count (*) lcounter
+    into #inventtrans_PLFR_cnt
+    from [intm_axbi].[fact_CUSTINVOICETRANS] as t
+	inner join [intm_axbi].[dim_ITEMTABLE] as g
+	on lower(t.DATAAREAID) = lower(g.DATAAREAID) and
+	t.ITEMID = g.ITEMID
+    where upper(t.DATAAREAID) = 'PLFR' 
+	and g.ITEMGROUPID <> 'PLFR-EL'
+	group by t.INVOICEID
 	
 	--update #1
 update [intm_axbi].[fact_CUSTINVOICETRANS]
@@ -820,8 +830,8 @@ and sb.salesbalance<>0
 
 --update #2
 update [intm_axbi].[fact_CUSTINVOICETRANS]
-   set [intm_axbi].[fact_CUSTINVOICETRANS].OTHERSALESLOCAL += la.lineamountmst_os_sum / sb.lcounter,
-	   [intm_axbi].[fact_CUSTINVOICETRANS].OTHERSALESEUR   += la.lineamountmst_os_sum / sb.lcounter
+   set [intm_axbi].[fact_CUSTINVOICETRANS].OTHERSALESLOCAL += la.lineamountmst_os_sum / cnt.lcounter,
+	   [intm_axbi].[fact_CUSTINVOICETRANS].OTHERSALESEUR   += la.lineamountmst_os_sum / cnt.lcounter
 from [intm_axbi].[fact_CUSTINVOICETRANS] as t
 inner join [intm_axbi].[dim_ITEMTABLE] as g
 on lower(t.DATAAREAID) = lower(g.DATAAREAID) and
@@ -830,6 +840,8 @@ inner join #inventtrans_PLFR_SB sb
 on t.INVOICEID COLLATE DATABASE_DEFAULT=sb.INVOICEID COLLATE DATABASE_DEFAULT
 inner join #inventtrans_PLFR_LA la
 on t.INVOICEID COLLATE DATABASE_DEFAULT=la.INVOICEID COLLATE DATABASE_DEFAULT
+inner join #inventtrans_PLFR_cnt cnt
+on t.INVOICEID COLLATE DATABASE_DEFAULT=cnt.INVOICEID COLLATE DATABASE_DEFAULT
 where upper(t.DATAAREAID) = 'PLFR' 
 and datepart(YYYY, t.ACCOUNTINGDATE) = @P_Year 
 and datepart(MM, t.ACCOUNTINGDATE) = @P_Month 
@@ -919,5 +931,6 @@ IF OBJECT_ID(N'tempdb..#cust_delivered_not_invoiced_PLFR') IS NOT NULL
 BEGIN
 DROP TABLE #cust_delivered_not_invoiced_PLFR
 END
+drop table #inventtrans_PLFR_cnt
 
 END
