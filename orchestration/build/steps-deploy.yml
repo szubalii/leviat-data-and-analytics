@@ -8,7 +8,7 @@ steps:
     storage: '$(storageAccountName)'
     ContainerName: 'orch-db'
 
-- powershell: |
+- pwsh: |
     # connect to Azure using VM
     Connect-AzAccount -Identity
     
