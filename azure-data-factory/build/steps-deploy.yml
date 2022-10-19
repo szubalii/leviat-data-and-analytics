@@ -5,7 +5,7 @@ steps:
     inputs:
       azureSubscription: 'arm-pipeline'
       ScriptPath: '$(Build.Repository.LocalPath)\azure-data-factory\ArmTemplate\PrePostDeploymentScript.ps1'
-      ScriptArguments: '-armTemplate "$(Build.Repository.LocalPath)\azure-data-factory\ArmTemplate\ARMTemplateForFactory.json" -ResourceGroupName $(resourceGroupName) -DataFactoryName $(dataFactoryName) -predeployment $true -deleteDeployment $false -ArmTemplateParameters "$(Build.Repository.LocalPath)\azure-data-factory\ArmTemplate\ARMTemplateParametersForFactory.json" -ExplicitStopTriggerList "tr_AutoPauseSynDW"'
+      ScriptArguments: '-armTemplate "$(Build.Repository.LocalPath)\azure-data-factory\ArmTemplate\ARMTemplateForFactory.json" -ResourceGroupName $(resourceGroupName) -DataFactoryName $(dataFactoryName) -predeployment $true -deleteDeployment $false -ArmTemplateParameters "$(Build.Repository.LocalPath)\azure-data-factory\ArmTemplate\ARMTemplateParametersForFactory.json" -ExplicitStopTriggerList "tr_AutoPauseSynDW", "tr_AutoDailyETL", "tr_OrchDB_Update"'
       azurePowerShellVersion: LatestVersion
       pwsh: true
 
@@ -14,7 +14,7 @@ steps:
     inputs:
       azureSubscription: 'arm-pipeline'
       ScriptPath: '$(Build.Repository.LocalPath)\azure-data-factory\ArmTemplate\GlobalParametersUpdateScript.ps1'
-      ScriptArguments: '-globalParametersFilePath $(Build.Repository.LocalPath)\azure-data-factory\GlobalParameters\dev_GlobalParameters.json -resourceGroupName $(resourceGroupName) -dataFactoryName $(dataFactoryName)'
+      ScriptArguments: '-globalParametersFilePath $(Build.Repository.LocalPath)\azure-data-factory\factory\$(dataFactoryName).json -resourceGroupName $(resourceGroupName) -dataFactoryName $(dataFactoryName)'
       azurePowerShellVersion: LatestVersion
       pwsh: true
     
