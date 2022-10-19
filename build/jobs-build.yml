@@ -21,9 +21,9 @@ jobs:
 - template: ../synapse-dwh/build/jobs-build.yml
   parameters:
     deploy: ${{ parameters.deploy }}
-- template: ../azure-data-factory/build/jobs-build.yml
-  parameters:
-    deploy: ${{ parameters.deploy }}
+# - template: ../azure-data-factory/build/jobs-build.yml
+#   parameters:
+#     deploy: ${{ parameters.deploy }}
 # - template: ../xu-config/build/jobs-deploy-test.yml
 
 #   steps:
