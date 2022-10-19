@@ -8,6 +8,36 @@ steps:
     storage: '$(storageAccountName)'
     ContainerName: 'orch-db'
 
+- task: AzurePowerShell@5
+  inputs:
+    azureSubscription: 'arm-pipeline'
+    ScriptType: 'InlineScript'
+    Inline: |
+      # connect to Azure using VM
+      Connect-AzAccount -Identity
+      
+      # get storage account context
+      $ctx = New-AzStorageContext -StorageAccountName $(storageAccountName) -UseConnectedAccount
+
+      # get tomorrow's date
+      $tomorrow = (Get-Date).AddDays(1)
+      
+      # get sas key
+      $sasKey = New-AzStorageContainerSASToken -Context $ctx `
+      -Name orch-db `
+      -Permission ral `
+      -ExpiryTime $tomorrow
+
+      # remove the first character which is a question mark (?)
+      $sasKey = $sasKey.substring(1)
+
+      # set variable in script
+      Write-Host "##vso[task.variable variable=sasToken_OrchDB;issecret=true]$sasKey"
+
+
+    azurePowerShellVersion: 'LatestVersion'
+    pwsh: true
+
 - task: SqlAzureDacpacDeployment@1
   displayName: 'Azure SQL DacpacTask'
   inputs:
@@ -16,4 +46,4 @@ steps:
     ServerName: '$(sqlServerName).database.windows.net'
     DatabaseName: '$(sqlDatabaseName)'
     DacpacFile: '$(Build.Repository.LocalPath)/orchestration/sqldb-xxxx-orchdb-d-euw-001/bin/Release/sqldb-xxxx-orchdb-d-euw-001.dacpac'
-    AdditionalArguments: '/v:masterKeyPwd=$(sqlsrv-xxxx-sls-x-euw-001-masterKeyPwd) /v:sasToken_OrchDB=$(sasToken-OrchDB) /v:containerURL=https://$(storageAccountName).blob.core.windows.net/orch-db'
+    AdditionalArguments: '/v:masterKeyPwd=$(sqlsrv-xxxx-sls-x-euw-001-masterKeyPwd) /v:sasToken_OrchDB=$(sasToken_OrchDB) /v:containerURL=https://$(storageAccountName).blob.core.windows.net/orch-db'
