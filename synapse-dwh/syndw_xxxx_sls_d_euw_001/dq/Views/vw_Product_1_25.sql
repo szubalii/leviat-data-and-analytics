@@ -157,7 +157,7 @@ LEFT JOIN
       PP.[Plant] = NVM.[WERKS]  COLLATE Latin1_General_100_BIN2
 WHERE
       P.[ProductType] in ('ZVER')
-      AND 
-      ISNULL(NVM.[MINBE], 0) != 0
+    AND 
+      NVM.[MINBE] != 0
     AND
       PP.[MRPType] != 'V1' 

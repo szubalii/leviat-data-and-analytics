@@ -1017,6 +1017,8 @@
     <Build Include="dq\Views\vw_Product_1_32.sql" />
     <Build Include="dq\Views\vw_Product_1_33.sql" />
     <Build Include="dq\Views\vw_Product_1_41.sql" />     
+    <Build Include="dq\Views\vw_Product_1_25.sql" />   
+    <Build Include="dq\Views\vw_Product_1_30.sql" />   
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PostDeploy Include="Scripts\Post-Deploy\Script.PostDeployment.sql" />
