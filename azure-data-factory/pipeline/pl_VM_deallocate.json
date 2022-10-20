@@ -40,7 +40,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"expression": {
-						"value": "@equals(\n\t\tactivity('Check Azure VM Status').output.statuses[1].displayStatus,'VM running'\n\t       )",
+						"value": "@equals(\n\tactivity('Check Azure VM Status').output.statuses[1].displayStatus,\n\t'VM running'\n)",
 						"type": "Expression"
 					},
 					"ifTrueActivities": [
