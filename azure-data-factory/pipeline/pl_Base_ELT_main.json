@@ -339,7 +339,7 @@
 										"type": "Expression"
 									},
 									"run_id": {
-										"value": "@pipeline().RunId",
+										"value": "@pipeline().parameters.parent_run_id",
 										"type": "Expression"
 									},
 									"layer_nk": {

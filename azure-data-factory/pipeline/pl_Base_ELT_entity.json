@@ -860,7 +860,7 @@
 										"type": "Expression"
 									},
 									"run_id": {
-										"value": "@pipeline().RunId",
+										"value": "@pipeline().parameters.run_id",
 										"type": "Expression"
 									}
 								}
