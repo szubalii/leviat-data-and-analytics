@@ -1,5 +1,6 @@
 ﻿CREATE VIEW [edw].[vw_SalesDocumentItem_s4h]
 	AS
+
 WITH Product AS (
     SELECT 
         [ProductID]
@@ -7,8 +8,20 @@ WITH Product AS (
         [edw].[dim_Product]
     GROUP BY
         [ProductID]
-)
-,
+),
+
+
+OpenOrderAmount AS(
+SELECT    SL.SalesDocument
+        , SL.SalesDocumentItem 
+        , COALESCE(SUM(SL.OpenDeliveryNetAmount), 0) as OpenDeliveryNetAmount
+
+
+FROM base_s4h_cax.I_SalesDocumentScheduleLine AS SL 
+
+GROUP BY SL.SalesDocument, SL.SalesDocumentItem
+),
+
 C_SalesDocumentItemDEXBase as (
     SELECT
          -- doc.[TS_SEQUENCE_NUMBER]
@@ -187,6 +200,7 @@ C_SalesDocumentItemDEXBase as (
                    then 'I'
                else 'O'
            end                                  as [InOutID]
+         , ORDAM.OpenDeliveryNetAmount
          , doc.[t_applicationId]
          , doc.[t_jobId]
          , doc.[t_jobDtm]
@@ -252,8 +266,17 @@ C_SalesDocumentItemDEXBase as (
             doc.[SalesDocument] = VC.[SalesDocument]
             AND
             doc.[SalesDocumentItem] = VC.[SalesDocumentItem]
-
+    LEFT JOIN 
+        OpenOrderAmount AS ORDAM 
+        ON 
+            ORDAM.SalesDocument = doc.SalesDocument 
+            AND 
+            ORDAM.SalesDocumentItem = doc.SalesDocumentItem
 ),
+
+
+
+
 EuroBudgetExchangeRate as (
     select
          SourceCurrency
@@ -458,6 +481,7 @@ SalesDocument_30 AS (
       ,[SDItem_ControllingObjectID]
       ,[CorrespncExternalReference] 
       ,[InOutID]
+      ,CONVERT(decimal(19,6), [OpenDeliveryNetAmount] * ExchangeRateEuro.[ExchangeRate]) as [OpenDeliveryNetAmount]
       ,SDI.[t_applicationId]
       ,SDI.[t_jobId]
       ,SDI.[t_jobDtm]
@@ -516,6 +540,9 @@ ExchangeRateUSD as (
             AND
             bdi_er_date_usd.[ExchangeRateEffectiveDate] = EuroBudgetExchangeRateUSD.[ExchangeRateEffectiveDate]
      )
+
+
+
 SELECT 
       -- [TS_SEQUENCE_NUMBER]
       --,[ODQ_CHANGEMODE]
@@ -682,6 +709,7 @@ SELECT
       ,[SDItem_ControllingObjectID]
       ,[CorrespncExternalReference] 
       ,[InOutID]
+      ,OpenDeliveryNetAmount
       ,SDI.[t_applicationId]
       ,SDI.[t_jobId]
       ,SDI.[t_jobDtm]
@@ -862,6 +890,7 @@ SELECT
       ,[SDItem_ControllingObjectID]
       ,[CorrespncExternalReference] 
       ,[InOutID]
+      ,CONVERT(decimal(19,6), CASE WHEN ER.[ExchangeRate] IS NOT NULL THEN [OpenDeliveryNetAmount] * ER.[ExchangeRate] ELSE [OpenDeliveryNetAmount] END) as [OpenDeliveryNetAmount]
       ,SDI.[t_applicationId]
       ,SDI.[t_jobId]
       ,SDI.[t_jobDtm]
@@ -1065,6 +1094,7 @@ SELECT
       ,[SDItem_ControllingObjectID]
       ,[CorrespncExternalReference] 
       ,[InOutID]
+      ,OpenDeliveryNetAmount
       ,SD_30.[t_applicationId]
       ,SD_30.[t_jobId]
       ,SD_30.[t_jobDtm]
@@ -1245,6 +1275,7 @@ SELECT
       ,[SDItem_ControllingObjectID]
       ,[CorrespncExternalReference] 
       ,[InOutID]
+      ,CONVERT(decimal(19,6), [OpenDeliveryNetAmount] * (1/ExchangeRateUSD.[ExchangeRate])) as [OpenDeliveryNetAmount]
       ,SD_30.[t_applicationId]
       ,SD_30.[t_jobId]
       ,SD_30.[t_jobDtm]
@@ -1263,5 +1294,3 @@ CROSS JOIN
     [edw].[dim_CurrencyType] CR
 WHERE
     CR.[CurrencyTypeID] = '40'
-
-
