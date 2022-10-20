@@ -75,7 +75,7 @@
 							"typeProperties": {
 								"variableName": "status",
 								"value": {
-									"value": "activity('Check Azure VM Status').output.statuses[1].displayStatus",
+									"value": "@activity('Check Azure VM Status').output.statuses[1].displayStatus",
 									"type": "Expression"
 								}
 							}
