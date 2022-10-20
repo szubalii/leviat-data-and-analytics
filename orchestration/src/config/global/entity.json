@@ -3978,6 +3978,13 @@
         "entity_name": "BUDGET",
         "base_table_name": "BUDGET",
         "axbi_schema_name": "dbo"
+      },
+      {
+        "entity_id": 532,
+        "entity_name": "CUSTTABLE_ANUK",
+        "base_table_name": "CUSTTABLE_ANUK$_bulk",
+        "pk_field_names": "CUSTOMERID",
+        "schedule_recurrence": "D"
       }
     ]
   },
