@@ -1,0 +1,8 @@
+﻿CREATE TABLE [base_tx_ca_0_hlp].[ITEMTABLE_ANUK](
+	[DATAAREAID] [nvarchar](255) NULL,
+	[ITEMID] [nvarchar](255) NULL,
+	[ITEMNAME] [nvarchar](255) NULL,
+	[ITEMGROUPID] [nvarchar](255) NULL,
+	[CRH PRODUCTGROUPID] [nvarchar](255) NULL
+)  NOT ENFORCED
+) WITH (HEAP, DISTRIBUTION = ROUND_ROBIN)

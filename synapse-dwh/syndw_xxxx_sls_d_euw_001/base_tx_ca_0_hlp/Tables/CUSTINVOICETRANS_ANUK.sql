@@ -1,0 +1,26 @@
+﻿CREATE TABLE [base_tx_ca_0_hlp].[CUSTINVOICETRANS_ANUK](
+	[Dataareaid] [nvarchar](8) NULL,
+	[Salesid] [nvarchar](20) NULL,
+	[Invoiceid] [nvarchar](20) NULL,
+	[Linenum] [smallint] NULL,
+	[Accountingdate] [datetime] NULL,
+	[CustomerNo] [nvarchar](20) NULL,
+	[Itemid] [nvarchar](40) NULL,
+	[ProductGroup] [nvarchar](20) NULL,
+	[DeliveryCountryID] [nvarchar](3) NULL,
+	[PackingSlipID] [nvarchar](20) NULL,
+	[Qty] [decimal](38, 12) NULL,
+	[ProductSalesLocal] [decimal](38, 12) NULL,
+	[ProductSalesEUR] [decimal](38, 12) NULL,
+	[OtherSalesLocal] [decimal](38, 12) NULL,
+	[OtherSalesEUR] [decimal](38, 12) NULL,
+	[AllowancesLocal] [decimal](38, 12) NULL,
+	[AllowancesEUR] [decimal](38, 12) NULL,
+	[Sales100Local] [decimal](38, 12) NULL,
+	[Sales100EUR] [decimal](38, 12) NULL,
+	[FreightLocal] [decimal](38, 12) NULL,
+	[FreightEUR] [decimal](38, 12) NULL,
+	[CostAmountLocal] [decimal](38, 12) NULL,
+	[CostAmountEUR] [decimal](38, 12) NULL
+)  NOT ENFORCED
+) WITH (HEAP, DISTRIBUTION = ROUND_ROBIN)

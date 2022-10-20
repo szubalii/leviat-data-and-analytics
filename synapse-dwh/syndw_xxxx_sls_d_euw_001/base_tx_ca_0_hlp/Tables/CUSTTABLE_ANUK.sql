@@ -1,0 +1,9 @@
+﻿CREATE TABLE [base_tx_ca_0_hlp].[CUSTTABLE_ANUK](
+	[DATAAREAID] [nvarchar](255) NULL,
+	[CUSTOMERID] [nvarchar](255) NULL,
+	[CUSTOMERNAME] [nvarchar](255) NULL,
+	[INOUT] [nvarchar](255) NULL,
+	[CUSTOMERPILLAR] [nvarchar](255) NULL,
+	[DIMENSION3_] [nvarchar](255) NULL
+) NOT ENFORCED
+) WITH (HEAP, DISTRIBUTION = ROUND_ROBIN)
