@@ -15,8 +15,8 @@ SupplierInvoice AS (
 		,	inv.[PostingDate]
 		,	inv.[InvoiceGrossAmount]
 		,	inv.[SupplierInvoiceID] 
-	FROM [edw].[vw_SupplierInvoiceItemPurOrdRef] ref
-	LEFT JOIN [edw].[vw_SupplierInvoice] inv 
+	FROM [edw].[fact_SupplierInvoiceItemPurOrdRef] ref
+	LEFT JOIN [edw].[fact_SupplierInvoice] inv 
 		ON ref.[SupplierInvoice] = inv.[SupplierInvoiceID] 
 )
 ,
@@ -38,7 +38,7 @@ SupplierPurchasingOrg AS
 		,	sup.[Country]
 		--,	CONCAT(sup.[CountryID], ' (', sup.[Country], ')') AS [CountryID_Name]
 	FROM [dm_sales].[vw_dim_SupplierPurchasingOrg] org 
-	LEFT JOIN [edw].[vw_Supplier] sup
+	LEFT JOIN [edw].[dim_Supplier] sup
 		ON org.[SupplierID]  = sup.[SupplierID] COLLATE SQL_Latin1_General_CP1_CI_AS 
 )
 	SELECT 
@@ -121,23 +121,22 @@ SupplierPurchasingOrg AS
 		,	CONCAT(itm.[PurchaseOrderQuantity], ' ', itm.[OrderQuantityUnit]) AS POAmount
 			
 	FROM [dm_sales].[vw_fact_PurchasingDocumentItem] itm
-	LEFT JOIN [edw].[vw_PurchasingDocument] doc
+	LEFT JOIN [edw].[fact_PurchasingDocument] doc
 		ON itm.[PurchasingDocument] = doc.[PurchasingDocument]
 	LEFT JOIN SupplierPurchasingOrg org 
 		ON doc.[SupplierID] = org.[SupplierID]
 	LEFT JOIN SupplierInvoice inv
 		ON itm.[sk_fact_PurchasingDocumentItem] = inv.[sk_fact_PurchasingDocumentItem] 
 	-- Dictionaries
-	LEFT JOIN [edw].[vw_UnitOfMeasure] uom
+	LEFT JOIN [edw].[dim_UnitOfMeasure] uom
 		ON itm.[OrderPriceUnit] = uom.[UnitOfMeasureID]
-	LEFT JOIN [edw].[vw_Product] p
+	LEFT JOIN [edw].[dim_Product] p
 		ON itm.[MaterialID] COLLATE SQL_Latin1_General_CP1_CI_AS = p.[ProductID] 
-	LEFT JOIN [edw].[vw_Plant] pl
+	LEFT JOIN [edw].[dim_Plant] pl
 		ON	itm.[PlantID] = pl.[PlantID] COLLATE SQL_Latin1_General_CP1_CI_AS
-	LEFT JOIN [edw].[vw_MaterialGroup] mg 
+	LEFT JOIN [edw].[dim_MaterialGroup] mg 
 		ON itm.[MaterialGroupID] = mg.[MaterialGroupID] COLLATE SQL_Latin1_General_CP1_CI_AS
-	LEFT JOIN [edw].[vw_Currency] cur
+	LEFT JOIN [edw].[dim_Currency] cur
 		ON itm.[DocumentCurrencyID] = cur.[CurrencyID]
-GO
 
 
