@@ -8,7 +8,7 @@
 				"type": "ExecutePipeline",
 				"dependsOn": [
 					{
-						"activity": "Process Synapse Base",
+						"activity": "Process ADLS and Synapse Ingestion",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -99,44 +99,6 @@
 						},
 						"s4h_client_id": {
 							"value": "@pipeline().parameters.s4h_client_id",
-							"type": "Expression"
-						}
-					}
-				}
-			},
-			{
-				"name": "Process Synapse Base",
-				"type": "ExecutePipeline",
-				"dependsOn": [
-					{
-						"activity": "Process ADLS and Synapse Ingestion",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"userProperties": [],
-				"typeProperties": {
-					"pipeline": {
-						"referenceName": "pl_SYNDW_Base_process_main",
-						"type": "PipelineReference"
-					},
-					"waitOnCompletion": true,
-					"parameters": {
-						"parent_run_id": {
-							"value": "@pipeline().RunId",
-							"type": "Expression"
-						},
-						"adhoc": {
-							"value": "@pipeline().parameters.adhoc",
-							"type": "Expression"
-						},
-						"date": {
-							"value": "@pipeline().parameters.date",
-							"type": "Expression"
-						},
-						"rerun_successful_full_entities": {
-							"value": "@pipeline().parameters.rerun_successful_full_entities",
 							"type": "Expression"
 						}
 					}
