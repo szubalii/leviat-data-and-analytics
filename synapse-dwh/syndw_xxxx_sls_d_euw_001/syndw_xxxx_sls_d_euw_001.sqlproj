@@ -1004,19 +1004,24 @@
     <Build Include="base_s4h_cax\Tables\I_ProductValuationCosting.sql" />
     <Build Include="base_s4h_cax\Tables\PurgAccAssignment.sql" />
     <Build Include="base_s4h_cax\Tables\NSDM_V_MARC.sql" />
-    <Build Include="base_s4h_cax\Tables\NSDM_V_MAWEV.sql" />  
+    <Build Include="base_s4h_cax\Tables\NSDM_V_MAWEV.sql" />
     <Build Include="edw\Tables\fact_MaterialDocumentItem_temp.sql" />
     <Build Include="edw\Views\vw_fact_MaterialDocumentItem_temp.sql" />
     <Build Include="edw\Views\vw_fact_MaterialStockLevel_temp.sql" />
     <Build Include="edw\Tables\fact_MaterialStockLevel_temp.sql" />
-    <Build Include="dm_sales\Views\vw_dim_SuppliersList.sql" />    
+    <Build Include="dm_sales\Views\vw_dim_SuppliersList.sql" />
     <Build Include="dq\Views\vw_Product_1_1.sql" />
     <Build Include="dq\Views\vw_Product_1_26.sql" />
     <Build Include="dq\Views\vw_Product_1_29_all.sql" />
     <Build Include="dq\Views\vw_Product_1_31.sql" />
     <Build Include="dq\Views\vw_Product_1_32.sql" />
     <Build Include="dq\Views\vw_Product_1_33.sql" />
-    <Build Include="dq\Views\vw_Product_1_41.sql" />     
+    <Build Include="dq\Views\vw_Product_1_41.sql" />
+    <Build Include="base_tx_ca_0_hlp\Tables\CUSTINVOICETRANS_ANUK.sql" />
+    <Build Include="base_tx_ca_0_hlp\Tables\CUSTTABLE_ANUK.sql" />
+    <Build Include="base_tx_ca_0_hlp\Tables\INVOICEDFREIGHT_ANUK.sql" />
+    <Build Include="base_tx_ca_0_hlp\Tables\ITEMTABLE_ANUK.sql" />
+    <Build Include="base_tx_ca_0_hlp\Tables\MAPPING_ITEMGROUP_ANUK.sql" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PostDeploy Include="Scripts\Post-Deploy\Script.PostDeployment.sql" />
