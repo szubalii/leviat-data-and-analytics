@@ -154,8 +154,8 @@ LEFT JOIN
       AND
         PP.[Plant] = NAM.[WERKS] COLLATE Latin1_General_100_BIN2
 WHERE
-      ISNULL(NAM.[MINBE], 0) != 0   
+      NAM.[MINBE] = 0   
     AND
-      PP.[MRPType] != 'V1'
+      PP.[MRPType] = 'V1'
     AND
-      NAM.[FXHOR] != 'F'
+      NAM.[FXHOR] != '000'

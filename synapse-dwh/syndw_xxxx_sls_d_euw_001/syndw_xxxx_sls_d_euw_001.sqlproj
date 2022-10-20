@@ -1024,6 +1024,8 @@
     <Build Include="base_tx_ca_0_hlp\Tables\INVOICEDFREIGHT_ANUK.sql" />
     <Build Include="base_tx_ca_0_hlp\Tables\ITEMTABLE_ANUK.sql" />
     <Build Include="base_tx_ca_0_hlp\Tables\MAPPING_ITEMGROUP_ANUK.sql" />
+    <Build Include="dq\Views\vw_Product_1_25.sql" />   
+    <Build Include="dq\Views\vw_Product_1_30.sql" />   
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PostDeploy Include="Scripts\Post-Deploy\Script.PostDeployment.sql" />
