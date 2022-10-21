@@ -827,7 +827,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"expression": {
-						"value": "@contains(\n    pipeline().parameters.update_mode,\n    'Delta'\n)",
+						"value": "@contains(pipeline().parameters.required_activities, 'ProcessBase')",
 						"type": "Expression"
 					},
 					"ifTrueActivities": [
