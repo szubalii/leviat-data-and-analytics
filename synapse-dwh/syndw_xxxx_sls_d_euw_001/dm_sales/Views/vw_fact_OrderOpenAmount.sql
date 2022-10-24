@@ -3,10 +3,14 @@
 SELECT
 		  doc.SalesDocument 
 		, doc.SalesDocumentItem
+		, doc.CurrencyTypeID
+		, doc.CurrencyType
+		, doc.CurrencyID
 		, doc.SDDocumentCategoryID
 		, dimSDDC.SDDocumentCategory
 		, doc.SalesDocumentTypeID
 		, dimSDT.SalesDocumentType
+		, doc.SalesOrganizationID
 		, doc.NetAmount
 		, doc.OpenDeliveryNetAmount
 		, doc.MaterialID
@@ -22,6 +26,9 @@ SELECT
 		, dimOTDS.OverallTotalDeliveryStatus
 		, doc.TotalSDDocReferenceStatusID
 		, dimTSDDRS.TotalSDDocReferenceStatus
+		, doc.InOutID
+		, doc.t_applicationId
+		, doc.t_extractionDtm
 
 FROM [edw].[fact_SalesDocumentItem] doc
 
