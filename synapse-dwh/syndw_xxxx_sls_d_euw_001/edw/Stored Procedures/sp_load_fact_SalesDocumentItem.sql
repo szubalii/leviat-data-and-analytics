@@ -193,6 +193,7 @@ BEGIN
         ,   [SDItem_ControllingObjectID]
         ,   [CorrespncExternalReference] 
         ,   [InOutID]
+        ,   [OpenDeliveryNetAmount]
         ,   [t_applicationId]
         ,   [t_extractionDtm]
         ,   [t_jobId]
@@ -363,6 +364,7 @@ BEGIN
         ,   [SDItem_ControllingObjectID]
         ,   [CorrespncExternalReference] 
         ,   [InOutID]
+        ,   [OpenDeliveryNetAmount]
         ,   [t_applicationId]
         ,   [t_extractionDtm]
         ,   @t_jobId AS t_jobId
@@ -544,6 +546,7 @@ BEGIN
         ,   [SDItem_ControllingObjectID]
         ,   [CorrespncExternalReference] 
         ,   [InOutID]     
+        ,   [OpenDeliveryNetAmount]
         ,   [t_applicationId]
         ,   [t_extractionDtm]
         ,   [t_jobId]
@@ -714,6 +717,7 @@ BEGIN
         ,   null            as [SDItem_ControllingObjectID]
         ,   null            as [CorrespncExternalReference] 
         ,   [InOutID]   
+        ,   null            as [OpenDeliveryNetAmount]
         ,   [t_applicationId]            as [t_applicationId]
         ,   [t_extractionDtm]            as [t_extractionDtm]
         ,   @t_jobId        AS t_jobId
