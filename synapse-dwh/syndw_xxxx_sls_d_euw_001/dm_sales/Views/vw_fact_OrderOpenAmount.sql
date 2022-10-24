@@ -25,6 +25,8 @@ SELECT
 		, doc.t_extractionDtm
 		, doc.CurrencyID
 		, doc.CurrencyType
+		, doc.SalesOrganizationID
+		, doc.InOutID
 
 FROM [edw].[fact_SalesDocumentItem] doc
 
