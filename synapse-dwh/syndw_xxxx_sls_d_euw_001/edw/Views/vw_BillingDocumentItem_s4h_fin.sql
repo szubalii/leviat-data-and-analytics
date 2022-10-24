@@ -1183,8 +1183,6 @@ BDwithConditionAmountFreight AS (
 --  ,   BDwithZVER.NetAmountZVER -- MPS 2021/11/04: removed as NetAmountZVER same as NetAmountVerp
     ,   CASE
             WHEN 
-                [Material] NOT IN ('000000000070000010','000000000070000051','000000000070000011')
-                AND
                 ISNULL([NetAmountZSER],0) != 0
                 AND
                 [MaterialTypeID] = 'ZSER'
