@@ -812,6 +812,62 @@
 						"type": "Expression"
 					}
 				}
+			},
+			{
+				"name": "If  Update Mode Delta",
+				"type": "IfCondition",
+				"dependsOn": [
+					{
+						"activity": "If Synapse Ingestion Required",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@contains(pipeline().parameters.required_activities, 'ProcessBase')",
+						"type": "Expression"
+					},
+					"ifTrueActivities": [
+						{
+							"name": "Process Synapse Base Procedure",
+							"type": "ExecutePipeline",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"pipeline": {
+									"referenceName": "pl_SYNDW_Base_process",
+									"type": "PipelineReference"
+								},
+								"waitOnCompletion": true,
+								"parameters": {
+									"base_schema_name": {
+										"value": "@pipeline().parameters.base_schema_name",
+										"type": "Expression"
+									},
+									"base_table_name": {
+										"value": "@pipeline().parameters.base_table_name",
+										"type": "Expression"
+									},
+									"base_sproc_name": {
+										"value": "@pipeline().parameters.base_sproc_name",
+										"type": "Expression"
+									},
+									"entity_id": {
+										"value": "@pipeline().parameters.entity_id",
+										"type": "Expression"
+									},
+									"run_id": {
+										"value": "@pipeline().parameters.run_id",
+										"type": "Expression"
+									}
+								}
+							}
+						}
+					]
+				}
 			}
 		],
 		"parameters": {
