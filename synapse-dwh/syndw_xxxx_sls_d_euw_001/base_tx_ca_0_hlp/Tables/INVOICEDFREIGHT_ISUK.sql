@@ -1,4 +1,4 @@
-﻿CREATE TABLE [base_tx_ca_0_hlp].[INVOICEDFREIGHT_ANUK](
+﻿CREATE TABLE [base_tx_ca_0_hlp].[INVOICEDFREIGHT_ISUK](
 	[Accountingdate]            [DATETIME]          NOT NULL,
 	[InvoicedFreightLocal]      [DECIMAL](38, 12)   NOT NULL,
 	[PackingSlipID]             [NVARCHAR](20)      NOT NULL,
@@ -8,7 +8,7 @@
     [t_jobBy]                   [NVARCHAR](128)     NULL,
     [t_extractionDtm]           [DATETIME],
     [t_filePath]                [NVARCHAR](1024)    NULL,
-    CONSTRAINT [PK_INVOICEDFREIGHT_ANUK] PRIMARY KEY NONCLUSTERED (
+    CONSTRAINT [PK_INVOICEDFREIGHT_ISUK] PRIMARY KEY NONCLUSTERED (
     [Accountingdate], [InvoicedFreightLocal], [PackingSlipID]
 )  NOT ENFORCED
 ) WITH (HEAP, DISTRIBUTION = ROUND_ROBIN)
