@@ -22,6 +22,9 @@ SELECT
 		, dimOTDS.OverallTotalDeliveryStatus
 		, doc.TotalSDDocReferenceStatusID
 		, dimTSDDRS.TotalSDDocReferenceStatus
+		, doc.t_extractionDtm
+		, doc.CurrencyID
+		, doc.CurrencyType
 
 FROM [edw].[fact_SalesDocumentItem] doc
 
