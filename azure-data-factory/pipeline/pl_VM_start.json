@@ -16,7 +16,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"expression": {
-						"value": "@not(equals(\n    variables('status'),\n    'Ready'\n))",
+						"value": "@not(equals(\n    variables('vm_status'),\n    'Ready'\n))",
 						"type": "Expression"
 					},
 					"activities": [
@@ -73,7 +73,7 @@
 							],
 							"userProperties": [],
 							"typeProperties": {
-								"variableName": "status",
+								"variableName": "vm_status",
 								"value": {
 									"value": "@activity('Check Azure VM Status').output.statuses[1].displayStatus",
 									"type": "Expression"
@@ -130,7 +130,7 @@
 			}
 		},
 		"variables": {
-			"status": {
+			"vm_status": {
 				"type": "String"
 			}
 		},
