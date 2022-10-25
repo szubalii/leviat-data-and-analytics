@@ -3,35 +3,11 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Check Azure VM Status",
-				"type": "WebActivity",
-				"dependsOn": [],
-				"policy": {
-					"timeout": "7.00:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"url": {
-						"value": "@concat(\n 'https://management.azure.com/subscriptions/',\n  pipeline().parameters.SubscriptionId,\n  '/resourceGroups/',\n  pipeline().globalParameters.resourceGroupName,\n  '/providers/Microsoft.Compute/virtualMachines/',\n  pipeline().globalParameters.virtualMachineName,\n  '/InstanceView?api-version=2021-07-01'\n)",
-						"type": "Expression"
-					},
-					"method": "GET",
-					"authentication": {
-						"type": "MSI",
-						"resource": "https://management.azure.com/"
-					}
-				}
-			},
-			{
-				"name": "Start If VM is Deallocated",
-				"type": "IfCondition",
+				"name": "Until status is not VM running",
+				"type": "Until",
 				"dependsOn": [
 					{
-						"activity": "Check Azure VM Status",
+						"activity": "Start Azure VM",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -40,45 +16,106 @@
 				"userProperties": [],
 				"typeProperties": {
 					"expression": {
-						"value": "@equals(\n\t\tactivity('Check Azure VM Status').output.statuses[1].displayStatus,'VM deallocated'\n\t       )",
+						"value": "@not(equals(\n    variables('vm_status'),\n    'VM running'\n))",
 						"type": "Expression"
 					},
-					"ifTrueActivities": [
+					"activities": [
 						{
-							"name": "Start Azure VM",
-							"description": "",
-							"type": "WebActivity",
+							"name": "Wait 30sec",
+							"type": "Wait",
 							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"waitTimeInSeconds": 30
+							}
+						},
+						{
+							"name": "Check Azure VM Status",
+							"type": "WebActivity",
+							"dependsOn": [
+								{
+									"activity": "Wait 30sec",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
 							"policy": {
 								"timeout": "7.00:00:00",
-								"retry": 3,
+								"retry": 0,
 								"retryIntervalInSeconds": 30,
 								"secureOutput": false,
 								"secureInput": false
 							},
-							"userProperties": [
-								{
-									"name": "Azure VM",
-									"value": "Pause"
-								}
-							],
+							"userProperties": [],
 							"typeProperties": {
 								"url": {
-									"value": "@concat(\n  'https://management.azure.com/subscriptions/',\n  pipeline().parameters.SubscriptionId,\n  '/resourceGroups/',\n  pipeline().globalParameters.resourceGroupName,\n  '/providers/Microsoft.Compute/virtualMachines/',\n  pipeline().globalParameters.virtualMachineName,\n  '/Start?api-version=2021-07-01'\n)",
+									"value": "@concat(\n 'https://management.azure.com/subscriptions/',\n  pipeline().parameters.SubscriptionId,\n  '/resourceGroups/',\n  pipeline().globalParameters.resourceGroupName,\n  '/providers/Microsoft.Compute/virtualMachines/',\n  pipeline().globalParameters.virtualMachineName,\n  '/InstanceView?api-version=2021-07-01'\n)",
 									"type": "Expression"
 								},
-								"method": "POST",
-								"body": {
-									"value": "{}",
-									"type": "Expression"
-								},
+								"method": "GET",
 								"authentication": {
 									"type": "MSI",
 									"resource": "https://management.azure.com/"
 								}
 							}
+						},
+						{
+							"name": "Set variable status",
+							"type": "SetVariable",
+							"dependsOn": [
+								{
+									"activity": "Check Azure VM Status",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "vm_status",
+								"value": {
+									"value": "@activity('Check Azure VM Status').output.statuses[1].displayStatus",
+									"type": "Expression"
+								}
+							}
 						}
-					]
+					],
+					"timeout": "0.12:00:00"
+				}
+			},
+			{
+				"name": "Start Azure VM",
+				"description": "",
+				"type": "WebActivity",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 3,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [
+					{
+						"name": "Azure VM",
+						"value": "Pause"
+					}
+				],
+				"typeProperties": {
+					"url": {
+						"value": "@concat(\n  'https://management.azure.com/subscriptions/',\n  pipeline().parameters.SubscriptionId,\n  '/resourceGroups/',\n  pipeline().globalParameters.resourceGroupName,\n  '/providers/Microsoft.Compute/virtualMachines/',\n  pipeline().globalParameters.virtualMachineName,\n  '/Start?api-version=2021-07-01'\n)",
+						"type": "Expression"
+					},
+					"method": "POST",
+					"body": {
+						"value": "{}",
+						"type": "Expression"
+					},
+					"authentication": {
+						"type": "MSI",
+						"resource": "https://management.azure.com/"
+					}
 				}
 			}
 		],
@@ -90,6 +127,11 @@
 			"Region": {
 				"type": "string",
 				"defaultValue": "westeurope"
+			}
+		},
+		"variables": {
+			"vm_status": {
+				"type": "String"
 			}
 		},
 		"folder": {
