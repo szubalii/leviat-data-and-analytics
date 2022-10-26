@@ -1162,44 +1162,12 @@ BDwithConditionAmountFreight AS (
     ,   [BillToID]
     ,   [BillTo]
     ,   NULL AS [FinNetAmountRealProduct]
-    ,   CASE
-            WHEN 
-                [Material] = '000000000070000011'
-                AND
-                ISNULL([NetAmountZSER],0) != 0
-                AND
-                [MaterialTypeID] = 'ZSER'
-           THEN
-               (BDIwithMatType.[NetAmount] / BDwithZSER.[NetAmountZSER] * ISNULL(BDwithFreight.NetAmountFreight,0)) + ISNULL(BDwithConditionAmountFreight.[ConditionAmountFreight],0)
-           ELSE NULL
-        END AS [FinNetAmountFreight]
+    ,   ISNULL(BDwithFreight.NetAmountFreight,0) + ISNULL(BDwithConditionAmountFreight.[ConditionAmountFreight],0) AS [FinNetAmountFreight]
     ,   NULL AS [FinNetAmountMinQty]
-    ,   CASE
-            WHEN 
-                ([Material] = '000000000070000010'
-                OR
-                [Material] = '000000000070000051')
-                AND
-                ISNULL([NetAmountZSER],0) != 0
-                AND
-                [MaterialTypeID] = 'ZSER'
-           THEN
-               BDIwithMatType.[NetAmount] / BDwithZSER.[NetAmountZSER] * ISNULL(BDwithEngServ.NetAmountEngServ,0)
-           ELSE NULL
-        END AS [FinNetAmountEngServ]
-    ,   NULL AS [FinNetAmountMisc]
+    ,   ISNULL(BDwithEngServ.NetAmountEngServ,0) AS [FinNetAmountEngServ]
+    ,   ISNULL(BDwithMisc.NetAmountMisc,0) AS [FinNetAmountMisc]
 --  ,   BDwithZVER.NetAmountZVER -- MPS 2021/11/04: removed as NetAmountZVER same as NetAmountVerp
-    ,   CASE
-            WHEN 
-                [Material] NOT IN ('000000000070000010','000000000070000051','000000000070000011')
-                AND
-                ISNULL([NetAmountZSER],0) != 0
-                AND
-                [MaterialTypeID] = 'ZSER'
-           THEN
-               BDIwithMatType.[NetAmount] / BDwithZSER.[NetAmountZSER] * ISNULL(BDwithServOther.NetAmountServOther,0)
-           ELSE NULL
-        END AS [FinNetAmountServOther]
+    ,   ISNULL(BDwithServOther.NetAmountServOther,0) AS [FinNetAmountServOther]
     ,   CASE
             WHEN
                 MaterialTypeID = 'ZVER'
@@ -1250,6 +1218,12 @@ BDwithConditionAmountFreight AS (
             BDIwithMatType.BillingDocument = BDwithServOther.BillingDocument
             AND
             BDIwithMatType.CurrencyTypeID = BDwithServOther.CurrencyTypeID
+    LEFT JOIN
+        BDwithMisc
+        ON
+            BDIwithMatType.BillingDocument = BDwithMisc.BillingDocument
+            AND
+            BDIwithMatType.CurrencyTypeID = BDwithMisc.CurrencyTypeID
     WHERE 
         BDIwithMatType.[BillingDocument] NOT IN (
             SELECT
