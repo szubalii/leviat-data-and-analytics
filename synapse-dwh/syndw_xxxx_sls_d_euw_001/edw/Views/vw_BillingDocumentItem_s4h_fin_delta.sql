@@ -1165,7 +1165,7 @@ BDwithConditionAmountFreight AS (
     ,   ISNULL(BDwithFreight.NetAmountFreight,0) + ISNULL(BDwithConditionAmountFreight.[ConditionAmountFreight],0) AS [FinNetAmountFreight]
     ,   NULL AS [FinNetAmountMinQty]
     ,   ISNULL(BDwithEngServ.NetAmountEngServ,0) AS [FinNetAmountEngServ]
-    ,   NULL AS [FinNetAmountMisc]
+    ,   ISNULL(BDwithMisc.NetAmountMisc,0) AS [FinNetAmountMisc]
 --  ,   BDwithZVER.NetAmountZVER -- MPS 2021/11/04: removed as NetAmountZVER same as NetAmountVerp
     ,   ISNULL(BDwithServOther.NetAmountServOther,0) AS [FinNetAmountServOther]
     ,   CASE
@@ -1218,6 +1218,12 @@ BDwithConditionAmountFreight AS (
             BDIwithMatType.BillingDocument = BDwithServOther.BillingDocument
             AND
             BDIwithMatType.CurrencyTypeID = BDwithServOther.CurrencyTypeID
+    LEFT JOIN
+        BDwithMisc
+        ON
+            BDIwithMatType.BillingDocument = BDwithMisc.BillingDocument
+            AND
+            BDIwithMatType.CurrencyTypeID = BDwithMisc.CurrencyTypeID
     WHERE 
         BDIwithMatType.[BillingDocument] NOT IN (
             SELECT
