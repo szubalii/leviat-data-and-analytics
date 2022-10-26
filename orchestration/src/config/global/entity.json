@@ -822,7 +822,7 @@
         "update_mode": "Full",
         "base_table_name": "I_Productprocurement",
         "pk_field_names": "PRODUCT",
-        "schedule_recurrence": "A"
+        "schedule_recurrence": "D"
       },
       {
         "entity_id": 131,
@@ -3768,7 +3768,7 @@
         "update_mode": "Full",
         "base_table_name": "I_ProductValuationCosting",
         "pk_field_names": "MANDT,PRODUCT,VALUATIONAREA,VALUATIONTYPE",
-        "schedule_recurrence": "A"
+        "schedule_recurrence": "D"
       },
       {
         "entity_id": 526,
