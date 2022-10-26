@@ -222,6 +222,7 @@ ITEMTABLE_without_quotes AS (
                 [edw].[dim_SAPItemNumberBasicMappingTable] SIBMT
             WHERE 
                 SIBMT.[SAPProductID] IS NOT NULL
+                AND [axbi_ItemNoCalc] IS NOT NULL
         )
 )
 
