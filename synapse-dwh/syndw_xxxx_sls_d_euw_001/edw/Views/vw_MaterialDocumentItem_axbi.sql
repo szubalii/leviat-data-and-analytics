@@ -8,8 +8,8 @@ SELECT
     ,   FINV.[RECID]                  AS [MaterialDocumentItem]
     ,   CASE
             WHEN SINMT.[SAPItemnumber] IS NULL
-            THEN CONCAT(UPPER(FINV.[DATAAREAID]),'-',FINV.[ITEMID])
-            ELSE CONCAT(UPPER(SINMT.[AXDataAreaId]),'-',SINMT.[SAPItemnumber])
+            THEN CONCAT('HALF','-',FINV.[ITEMID])
+            ELSE SINMT.[SAPItemnumber]
         END                           AS [MaterialID]
     ,   dmINV.[INVENTSITEID]          AS [PlantID]
     ,   dmINV.[INVENTLOCATIONID]
