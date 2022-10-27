@@ -96,7 +96,7 @@ LEFT JOIN
     ON
         FINV.[ITEMID] = SINMT.[AXItemnumber]
         AND
-        UPPER(SINMT.[AXDataAreaId]) = UPPER(FINV.[DATAAREAID])
+        [AXDataAreaId] = '0000' --Halfen entities are mapped with Data Area '0000'.
         AND
         SINMT.[SAPProductID] IS NOT NULL
 LEFT JOIN
