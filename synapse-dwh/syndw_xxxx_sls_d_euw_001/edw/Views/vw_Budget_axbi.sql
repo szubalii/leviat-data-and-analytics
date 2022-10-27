@@ -10,34 +10,35 @@ WITH BudgetBase_axbi as (
             docBud.[ITEMID],
             CAST(docBud.[ACCOUNTINGDATE] AS DATE)
         ) AS [nk_fact_Budget]
-    ,   DA.[LOCALCURRENCY] collate Latin1_General_100_BIN2   AS [LOCALCURRENCY]
+    ,   DA.[LOCALCURRENCY] collate Latin1_General_100_BIN2                                                                             AS [LOCALCURRENCY]
     ,   CASE
             WHEN docBud.[BUDGETEUR] <> 0
                 THEN docBud.[BUDGETLOC] / docBud.[BUDGETEUR]
             ELSE 0
-        END                                                  AS [ExchangeRate]
-    ,   docBud.[ACCOUNTINGDATE]                              AS [AccountingDate]
+        END                                                                                                                            AS [ExchangeRate]
+    ,   docBud.[ACCOUNTINGDATE]                                                                                                        AS [AccountingDate]
     ,   CASE
             WHEN SO.[target_SalesOrganizationID] is not null
                 THEN SO.[target_SalesOrganizationID]
             ELSE DA.[DATAAREAID]
-        END                                                  AS [SalesOrganizationID]
-    ,   'ZZZ_BUD_AXBI'                                       AS [SoldToParty]
-    ,   docBud.[BUDGETLOC]                                   AS [Budget]             -- [FinSales100]
-    ,   docBud.[BUDGETEUR]                                   AS [BudgetEUR]-- [FinSales100]
-    ,   FORMAT(docBud.[ACCOUNTINGDATE], 'yyyy')              AS [Year]
-    ,   FORMAT(docBud.[ACCOUNTINGDATE], 'MM')                AS [Month]
-    ,   FORMAT(docBud.[ACCOUNTINGDATE], 'yyyyMM')            AS [YearMonth]
-    ,   docBud.[DATAAREAID]                                  AS [axbi_DataAreaID]
-    ,   DA.[NAME]                                            AS [axbi_DataAreaName]
-    ,   DA.[GROUP]                                           AS [axbi_DataAreaGroup]
-    ,   docBud.[ITEMID]                                      AS [axbi_MaterialID]
-    ,   NULL                                                 AS [axbi_CustomerID] -- no update yet
-    ,   docBud.[ITEMID]                                      AS [MaterialCalculated] -- ?????
-    ,   'ZZZDUMMY_BUD_AXBI'                                  AS [SoldToPartyCalculated]
-    ,   docBud.[INOUT]                                       AS [InOutID]
-    ,   docBud.[t_applicationId]                             AS [t_applicationId]
-    ,   docBud.[t_extractionDtm]                             AS [t_extractionDtm]
+        END                                                                                                                            AS [SalesOrganizationID]
+    ,   'ZZZ_BUD_AXBI'                                                                                                                 AS [SoldToParty]
+    ,   docBud.[BUDGETLOC]                                                                                                             AS [Budget]             -- [FinSales100]
+    ,   docBud.[BUDGETEUR]                                                                                                             AS [BudgetEUR]-- [FinSales100]
+    ,   docBud.[ACCOUNTINGDATE]
+    ,   FORMAT(docBud.[ACCOUNTINGDATE], 'yyyy')                                                                                        AS [Year]
+    ,   FORMAT(docBud.[ACCOUNTINGDATE], 'MM')                                                                                          AS [Month]
+    ,   FORMAT(docBud.[ACCOUNTINGDATE], 'yyyyMM')                                                                                      AS [YearMonth]
+    ,   docBud.[DATAAREAID]                                                                                                            AS [axbi_DataAreaID]
+    ,   DA.[NAME]                                                                                                                      AS [axbi_DataAreaName]
+    ,   DA.[GROUP]                                                                                                                     AS [axbi_DataAreaGroup]
+    ,   docBud.[ITEMID]                                                                                                                AS [axbi_MaterialID]
+    ,   NULL                                                                                                                           AS [axbi_CustomerID] -- no update yet
+    ,   docBud.[ITEMID]                                                                                                                AS [MaterialCalculated] -- ?????
+    ,   'ZZZDUMMY_BUD_AXBI'                                                                                                            AS [SoldToPartyCalculated]
+    ,   docBud.[INOUT]                                                                                                                 AS [InOutID]
+    ,   docBud.[t_applicationId]                                                                                                       AS [t_applicationId]
+    ,   docBud.[t_extractionDtm]                                                                                                       AS [t_extractionDtm]
     from [base_tx_ca_0_hlp].[BUDGET] docBud
 
         LEFT JOIN [base_tx_ca_0_hlp].[DATAAREA] DA
