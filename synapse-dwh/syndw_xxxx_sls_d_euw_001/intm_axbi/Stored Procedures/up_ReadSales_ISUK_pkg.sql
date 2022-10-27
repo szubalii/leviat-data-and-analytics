@@ -10,11 +10,11 @@ BEGIN
 
     -- Insert statements for procedure here
 
-	declare @lYear smallint = (select datepart(month,max(Accountingdate)) from [base_tx_ca_0_hlp].[CUSTINVOICETRANS_ISUK]),
-			@lMonth tinyint = (select datepart(year,max(Accountingdate)) from [base_tx_ca_0_hlp].[CUSTINVOICETRANS_ISUK]),
+	declare @lYear smallint = (select datepart(year,max(Accountingdate)) from [base_tx_ca_0_hlp].[CUSTINVOICETRANS_ISUK]),
+			@lMonth tinyint = (select datepart(month,max(Accountingdate)) from [base_tx_ca_0_hlp].[CUSTINVOICETRANS_ISUK]),
 
-			@lFrYear smallint = (select datepart(month,max(Accountingdate)) from [base_tx_ca_0_hlp].[INVOICEDFREIGHT_ISUK]),
-			@lFrMonth tinyint = (select datepart(year,max(Accountingdate)) from [base_tx_ca_0_hlp].[INVOICEDFREIGHT_ISUK])
+			@lFrYear smallint = (select datepart(year,max(Accountingdate)) from [base_tx_ca_0_hlp].[INVOICEDFREIGHT_ISUK]),
+			@lFrMonth tinyint = (select datepart(month,max(Accountingdate)) from [base_tx_ca_0_hlp].[INVOICEDFREIGHT_ISUK])
 
 	-- Voraussetzung für numerische Felder: Keine Tausender Punkt und Dezimaltrennzeichen ist der . und das Negativ Zeichen steht vor der Zahl.
 	-- Als Columnterminator dient das ; oder der Tabstopp
