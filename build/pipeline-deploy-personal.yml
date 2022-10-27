@@ -6,6 +6,18 @@ parameters:
   displayName: User Name
   type: string
   default: $[ replace(variables['Build.RequestedForEmail'], '@crh.com','') ] # runtime expression to get user name
+- name: adf
+  displayName: Build & Deploy Azure Data Factory
+  type: boolean
+  default: true
+- name: orchdb
+  displayName: Build & Deploy Orchestration DB
+  type: boolean
+  default: true
+- name: syn
+  displayName: Build & Deploy Synapse DWH
+  type: boolean
+  default: true
 
 variables:
 - group: DnA_DEV
@@ -26,6 +38,9 @@ jobs:
 - template: ./jobs-build.yml
   parameters:
     deploy: true
+    adf: ${{ parameters.adf }}
+    orchdb: ${{ parameters.orchdb }}
+    syn: ${{ parameters.syn }}
 # - ${{ if and(succeeded('OrchDBBuild')) }}:
 #   - template: ./jobs-deploy.yml
 #   condition

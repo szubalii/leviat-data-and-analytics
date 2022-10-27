@@ -9,22 +9,37 @@ parameters:
 - name: deploy
   type: boolean
   default: false
+- name: adf
+  displayName: Build & Deploy Azure Data Factory
+  type: boolean
+  default: true
+- name: orchdb
+  displayName: Build & Deploy Orchestration DB
+  type: boolean
+  default: true
+- name: syn
+  displayName: Build & Deploy Synapse DWH
+  type: boolean
+  default: true
 
 jobs:
 # Build jobs
 - template: ./jobs-pre-build.yml
-- template: ../orchestration/build/jobs-build.yml
-  parameters:
-    artifact: ${{ parameters.artifact }}
-    deploy: ${{ parameters.deploy }}
-- template: ../synapse-dwh/build/jobs-build.yml
-  parameters:
-    artifact: ${{ parameters.artifact }}
-    deploy: ${{ parameters.deploy }}
-- template: ../azure-data-factory/build/jobs-build.yml
-  parameters:
-    artifact: ${{ parameters.artifact }}
-    deploy: ${{ parameters.deploy }}
+- ${{ if eq(parameters.orchdb, true) }}: 
+  - template: ../orchestration/build/jobs-build.yml
+    parameters:
+      artifact: ${{ parameters.artifact }}
+      deploy: ${{ parameters.deploy }}
+- ${{ if eq(parameters.syn, true) }}: 
+  - template: ../synapse-dwh/build/jobs-build.yml
+    parameters:
+      artifact: ${{ parameters.artifact }}
+      deploy: ${{ parameters.deploy }}
+- ${{ if eq(parameters.adf, true) }}: 
+  - template: ../azure-data-factory/build/jobs-build.yml
+    parameters:
+      artifact: ${{ parameters.artifact }}
+      deploy: ${{ parameters.deploy }}
 # - template: ../xu-config/build/jobs-deploy-test.yml
 
 #   steps:
