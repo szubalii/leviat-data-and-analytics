@@ -1,4 +1,4 @@
-﻿CREATE VIEW [edw].[vw_MaterialDocumentItem]
+﻿CREATE VIEW [edw].[vw_MaterialDocumentItem_s4h]
 	AS 
 SELECT 
   MDI.[MaterialDocumentYear] 
@@ -108,4 +108,16 @@ LEFT JOIN [base_s4h_cax].[I_MaterialDocumentHeader] MDH
   MDI.[MaterialDocumentYear]=MDH.[MaterialDocumentYear]
     AND
   MDI.[MaterialDocument]=MDH.[MaterialDocument]
+LEFT JOIN 
+  [edw].[dim_ProductValuationPUP] dimPVs
+  ON  
+  dimPVs.[ValuationTypeID] =  MDI.[InventoryValuationTypeID] 
+    AND
+  dimPVs.[ValuationAreaID] = MDI.[PlantID]
+    AND
+  dimPVs.[ProductID] = MDI.[MaterialID]    
+    AND 
+  dimPVs.[CalendarYear] =  FORMAT(MDI.[HDR_PostingDate],'yyyy')
+    AND
+  dimPVs.[CalendarMonth] = FORMAT(MDI.[HDR_PostingDate],'MM')
 -- WHERE MDI.[MANDT] = 200 MPS 2021/11/01: commented out due to different client values between dev,qas, and prod
