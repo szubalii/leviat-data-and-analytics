@@ -7,9 +7,9 @@ SELECT
     ,   FINV.[INVENTDIMID]            AS [MaterialDocument]
     ,   FINV.[RECID]                  AS [MaterialDocumentItem]
     ,   CASE
-            WHEN SINMT.[SAPItemnumber] IS NULL
+            WHEN SINMT.[SAPProductID] IS NULL
             THEN CONCAT('HALF','-',FINV.[ITEMID])
-            ELSE SINMT.[SAPItemnumber]
+            ELSE SINMT.[SAPProductID] --Changed to SAPProductID as the Product Dimension uses leading zero's.
         END                           AS [MaterialID]
     ,   dmINV.[INVENTSITEID]          AS [PlantID]
     ,   dmINV.[INVENTLOCATIONID]
