@@ -1,41 +1,8 @@
 CREATE VIEW [dm_sales].[vw_fact_MaterialStockLevel]
 AS
-SELECT
-    [ReportingYear],
-    [ReportingMonth],
-    [ReportingDate],
-    [MaterialID],
-    [PlantID],
-    [StorageLocationID],
-    [InventorySpecialStockTypeID],
-    [InventorySpecialStockTypeName],
-    [InventoryStockTypeID],
-    [InventoryStockTypeName],
-    [StockOwner],
-    [CostCenterID],
-    [CompanyCodeID],
-    [SalesDocumentTypeID],
-    [SalesDocumentType],
-    [SalesDocumentItemCategoryID],
-    [SalesDocumentItemCategory],
-    [MaterialBaseUnitID],
-    [PurchaseOrderTypeID],
-    [PurchaseOrderType],
-    [MatlStkChangeQtyInBaseUnit],
-    [StockLevelQtyInBaseUnit],
-    [StockLevelStandardPPU],
-    [StockLevelStandardPPU_EUR],
-    [StockLevelStandardPPU_USD],
-    [PriceControlIndicatorID],
-    [PriceControlIndicator],
-    [nk_dim_ProductValuationPUP],
-    [sk_dim_ProductValuationPUP]  
-FROM 
-    [edw].[fact_MaterialStockLevel_temp]
-    
-/*  -- 10.11.2022  US 2191
+
 WITH Hash_Calc AS (
-    SELECT
+SELECT
         CONVERT(NVARCHAR(32),
             HashBytes('SHA2_256',
             isNull(CAST(viewMD.[MaterialID] AS VARCHAR) COLLATE Latin1_General_100_BIN2, '')  +
@@ -73,10 +40,7 @@ WITH Hash_Calc AS (
         viewMD.[StockPricePerUnit],
         viewMD.[StockPricePerUnit_EUR],
         viewMD.[StockPricePerUnit_USD],
-        FORMAT(viewMD.[HDR_PostingDate],'yyyy')  AS HDR_PostingDate_Year,
-        FORMAT(viewMD.[HDR_PostingDate],'MM')    AS HDR_PostingDate_Month,
-        EOMONTH(CAST(FORMAT(viewMD.[HDR_PostingDate],'yyyy-MM') + '-01' AS DATE)) AS HDR_PostingDate_LMD,
-        viewMD.[nk_dim_ProductValuationPUP],
+        DATEADD(day, -(DAY(viewMD.[HDR_PostingDate])-1),viewMD.[HDR_PostingDate]) AS HDR_PostingDate_FMD,
         viewMD.[InventoryValuationTypeID]
     FROM [dm_sales].[vw_fact_MaterialDocumentItem] viewMD
     group by
@@ -100,40 +64,39 @@ WITH Hash_Calc AS (
         viewMD.[StockPricePerUnit],
         viewMD.[StockPricePerUnit_EUR],
         viewMD.[StockPricePerUnit_USD],
-        FORMAT(viewMD.[HDR_PostingDate],'yyyy'),
-        FORMAT(viewMD.[HDR_PostingDate],'MM'),
-        EOMONTH(CAST(FORMAT(viewMD.[HDR_PostingDate],'yyyy-MM') + '-01' AS DATE)),
-        viewMD.[nk_dim_ProductValuationPUP],
+        DATEADD(day, -(DAY(viewMD.[HDR_PostingDate])-1),viewMD.[HDR_PostingDate]),
         viewMD.[InventoryValuationTypeID] 
 ), Hash_Calc_Min AS(
     SELECT
         _hash,
-        [MaterialID],
-        [PlantID],
-        [StorageLocationID],
-        [InventorySpecialStockTypeID],
-        [InventorySpecialStockTypeName],
-        [InventoryStockTypeID],
-        [InventoryStockTypeName],
-        [StockOwner],
-        [CostCenterID],
-        [CompanyCodeID],
-        [SalesDocumentTypeID],
-        [SalesDocumentType],
-        [SalesDocumentItemCategoryID],
-        [SalesDocumentItemCategory],
-        [MaterialBaseUnitID],
-        [PurchaseOrderTypeID],
-        [PurchaseOrderType],
-        [InventoryValuationTypeID],
-        min([HDR_PostingDate_LMD]) over(PARTITION BY _hash) AS minHDR_PostingDate       
+        max([MaterialID]) AS MaterialID,
+        max([PlantID]) AS PlantID,
+        max([StorageLocationID]) AS StorageLocationID,
+        max([InventorySpecialStockTypeID]) AS InventorySpecialStockTypeID,
+        max([InventorySpecialStockTypeName]) AS InventorySpecialStockTypeName,
+        max([InventoryStockTypeID]) AS InventoryStockTypeID,
+        max([InventoryStockTypeName]) AS InventoryStockTypeName,
+        max([StockOwner]) AS StockOwner,
+        max([CostCenterID]) AS CostCenterID,
+        max([CompanyCodeID]) AS CompanyCodeID,
+        max([SalesDocumentTypeID]) AS SalesDocumentTypeID,
+        max([SalesDocumentType]) AS SalesDocumentType,
+        max([SalesDocumentItemCategoryID]) AS SalesDocumentItemCategoryID,
+        max([SalesDocumentItemCategory]) AS SalesDocumentItemCategory,
+        max([MaterialBaseUnitID]) AS MaterialBaseUnitID,
+        max([PurchaseOrderTypeID]) AS PurchaseOrderTypeID,
+        max([PurchaseOrderType]) AS PurchaseOrderType,
+        max([InventoryValuationTypeID]) AS InventoryValuationTypeID,
+        min([HDR_PostingDate_FMD]) AS minHDR_PostingDate       
     FROM Hash_Calc viewMD   
+    GROUP BY _hash
 ), Calendar_Calc AS (
     Select
         _hash,
         dimC.[CalendarYear],
         dimC.[CalendarMonth],
         dimC.[LastDayOfMonthDate],
+        dimC.[CalendarDate],
         HC.[MaterialID],
         HC.[PlantID],
         HC.[StorageLocationID],
@@ -151,16 +114,13 @@ WITH Hash_Calc AS (
         HC.[MaterialBaseUnitID],
         HC.[PurchaseOrderTypeID],
         HC.[PurchaseOrderType],
-        HC.[InventoryValuationTypeID]    
+        HC.[InventoryValuationTypeID],
+        HC.[minHDR_PostingDate]
     FROM Hash_Calc_Min HC
     CROSS JOIN [edw].[dim_Calendar] AS dimC
-    WHERE
-        dimC.[CalendarDate] >= DATEADD(DAY, 1, EOMONTH(minHDR_PostingDate,-1))
-    AND
-        dimC.[CalendarDate] <=  GETDATE()
-    AND
-        dimC.CalendarDay = '01'
-    GROUP By _hash,
+    WHERE dimC.[CalendarDate] BETWEEN minHDR_PostingDate AND GETDATE()
+        AND dimC.CalendarDay = '01'
+ /*   GROUP By _hash,
         dimC.[CalendarYear],
         dimC.[CalendarMonth],
         dimC.[LastDayOfMonthDate],
@@ -181,7 +141,7 @@ WITH Hash_Calc AS (
         HC.[MaterialBaseUnitID],
         HC.[PurchaseOrderTypeID],
         HC.[PurchaseOrderType],
-        HC.[InventoryValuationTypeID] 
+        HC.[InventoryValuationTypeID] */
 ), Calendar_TotalAmount AS (
     SELECT
         CC._hash,
@@ -218,11 +178,7 @@ WITH Hash_Calc AS (
         FROM Calendar_Calc CC
         LEFT JOIN Hash_Calc HC
             ON
-                CC._hash = HC._hash
-            AND
-                CC.[CalendarYear] = HC.HDR_PostingDate_Year
-            AND
-                CC.[CalendarMonth] = HC.HDR_PostingDate_Month
+                CC._hash = HC._hash AND CC.CalendarDate=HC.HDR_PostingDate_FMD
         LEFT JOIN [edw].[dim_ProductValuationPUP]  CPPUP 
         ON             
             CPPUP.[ValuationTypeID] = CC.[InventoryValuationTypeID] 
@@ -267,4 +223,3 @@ WITH Hash_Calc AS (
     [sk_dim_ProductValuationPUP]  
 FROM 
     Calendar_TotalAmount
-*/
