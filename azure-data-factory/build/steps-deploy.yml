@@ -9,9 +9,11 @@ steps:
       azurePowerShellVersion: LatestVersion
       pwsh: true
 
-  # When using automated publishing, the Include in ARM template configuration for global parameters is not supported and 
-  # will result in the factory’s Git configuration being removed after the ARM template deployment. 
-  # Instead, use the PowerShell script method to deploy global parameters in your Azure pipelines.
+# Global parameter values are now included in ARM template using new mechanism.
+# (from 'Manage hub' -> 'ARM template' -> 'Include global parameters in ARM template')
+# This will set the property value of 'includeGlobalParamsTemplate' in publish_config.json to true
+# No separate powershell script task required anymore
+# https://learn.microsoft.com/en-us/azure/data-factory/author-global-parameters#cicd
   # - task: AzurePowerShell@5
   #   displayName: 'Azure PowerShell script: FilePath'
   #   inputs:
