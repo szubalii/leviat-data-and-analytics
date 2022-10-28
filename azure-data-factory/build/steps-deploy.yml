@@ -12,14 +12,14 @@ steps:
   # When using automated publishing, the Include in ARM template configuration for global parameters is not supported and 
   # will result in the factory’s Git configuration being removed after the ARM template deployment. 
   # Instead, use the PowerShell script method to deploy global parameters in your Azure pipelines.
-  - task: AzurePowerShell@5
-    displayName: 'Azure PowerShell script: FilePath'
-    inputs:
-      azureSubscription: 'arm-pipeline'
-      ScriptPath: '$(Build.Repository.LocalPath)\azure-data-factory\ArmTemplate\GlobalParametersUpdateScript.ps1'
-      ScriptArguments: '-globalParametersFilePath $(Build.Repository.LocalPath)\azure-data-factory\factory\$(dataFactoryName).json -resourceGroupName $(resourceGroupName) -dataFactoryName $(dataFactoryName)'
-      azurePowerShellVersion: LatestVersion
-      pwsh: true
+  # - task: AzurePowerShell@5
+  #   displayName: 'Azure PowerShell script: FilePath'
+  #   inputs:
+  #     azureSubscription: 'arm-pipeline'
+  #     ScriptPath: '$(Build.Repository.LocalPath)\azure-data-factory\ArmTemplate\GlobalParametersUpdateScript.ps1'
+  #     ScriptArguments: '-globalParametersFilePath $(Build.Repository.LocalPath)\azure-data-factory\factory\$(dataFactoryName).json -resourceGroupName $(resourceGroupName) -dataFactoryName $(dataFactoryName)'
+  #     azurePowerShellVersion: LatestVersion
+  #     pwsh: true
     
   - task: AzureResourceManagerTemplateDeployment@3
     displayName: 'ARM Template deployment: Resource Group scope'
