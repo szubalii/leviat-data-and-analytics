@@ -5,7 +5,14 @@ steps:
     inputs:
       azureSubscription: 'arm-pipeline'
       ScriptPath: '$(Build.Repository.LocalPath)\azure-data-factory\ArmTemplate\PrePostDeploymentScript.ps1'
-      ScriptArguments: '-armTemplate "$(Build.Repository.LocalPath)\azure-data-factory\ArmTemplate\ARMTemplateForFactory.json" -ResourceGroupName $(resourceGroupName) -DataFactoryName $(dataFactoryName) -predeployment $true -deleteDeployment $false -ArmTemplateParameters "$(Build.Repository.LocalPath)\azure-data-factory\ArmTemplate\ARMTemplateParametersForFactory.json" -ExplicitStopTriggerList "tr_AutoPauseSynDW", "tr_AutoDailyETL", "tr_OrchDB_Update"'
+      ScriptArguments: '>-
+        -armTemplate "$(Build.Repository.LocalPath)\azure-data-factory\ArmTemplate\ARMTemplateForFactory.json"
+        -ResourceGroupName $(resourceGroupName)
+        -DataFactoryName $(dataFactoryName)
+        -predeployment $true
+        -deleteDeployment $false
+        -ArmTemplateParameters "$(Build.Repository.LocalPath)\azure-data-factory\ArmTemplate\ARMTemplateParametersForFactory.json"
+        -ExplicitStopTriggerList "tr_AutoPauseSynDW", "tr_AutoDailyETL", "tr_OrchDB_Update"'
       azurePowerShellVersion: LatestVersion
       pwsh: true
 
@@ -32,13 +39,41 @@ steps:
       location: 'West Europe'
       csmFile: '$(Build.Repository.LocalPath)\azure-data-factory\ArmTemplate\ARMTemplateForFactory.json'
       csmParametersFile: '$(Build.Repository.LocalPath)\azure-data-factory\ArmTemplate\ARMTemplateParametersForFactory.json'
-      overrideParameters: '-ls_ws_xxxx_sls_x_euw_001_ondemand__synapse_od_connectionString "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=$(workspaceName)-ondemand.sql.azuresynapse.net;Initial Catalog=synapse_od" -ls_ws_xxxx_sls_x_euw_001_ondemand__master_connectionString "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=$(workspaceName)-ondemand.sql.azuresynapse.net;Initial Catalog=master" -ls_ws_xxxx_sls_x_euw_001__syndw_xxxx_sls_x_euw_001_connectionString "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=$(workspaceName);Initial Catalog=$(synapseSqlPool)" -ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001_connectionString "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=$(sqlServerName);Initial Catalog=$(sqlDatabaseName)" -ls_axbi_x_TimeXtender__master_connectionString "Integrated Security=False;Data Source=$(axbiServer);Initial Catalog=master;User ID=JustBI" -factoryName "$(dataFactoryName)" -ls_kv_xxxx_sls_x_euw_001_properties_typeProperties_baseUrl "https://$(keyVaultName).vault.azure.net/" -stxxxxslsxeuw001_properties_typeProperties_url "https://$(storageAccountName).dfs.core.windows.net/" -tr_AutoPauseSynDW_properties_pl_SYNDW_pause_parameters_SynapseServerName "$(workspaceName)" -tr_AutoPauseSynDW_properties_pl_SYNDW_pause_parameters_SynapseDatabaseName "$(synapseSqlPool)" -tr_AutoPauseSynDW_properties_pl_SYNDW_pause_parameters_ResourceGroupName "$(resourceGroupName)" -tr_OrchDB_Update_properties_typeProperties_scope "/subscriptions/f199b488-7d9d-4992-aeda-c10a1e1c9b9e/resourceGroups/$(resourceGroupName)/providers/Microsoft.Storage/storageAccounts/$(storageAccountName)" -ir-WEXLEVAPP001_properties_typeProperties_linkedInfo_resourceId "$(SHIRResourceId)" -ls_c4c_my354744_properties_typeProperties_url "$(sapC4Curl)"'
+      overrideParameters: '>-
+        -factoryName "$(dataFactoryName)"
+        -ls_c4c_my354744_properties_typeProperties_url "$(sapC4Curl)"
+        -ls_ws_xxxx_sls_x_euw_001_ondemand__synapse_od_connectionString "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=$(workspaceName)-ondemand.sql.azuresynapse.net;Initial Catalog=synapse_od"
+        -ls_ws_xxxx_sls_x_euw_001_ondemand__master_connectionString "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=$(workspaceName)-ondemand.sql.azuresynapse.net;Initial Catalog=master"
+        -ls_ws_xxxx_sls_x_euw_001__syndw_xxxx_sls_x_euw_001_connectionString "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=$(workspaceName);Initial Catalog=$(synapseSqlPool)"
+        -ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001_connectionString "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=$(sqlServerName);Initial Catalog=$(sqlDatabaseName)"
+        -ls_axbi_x_TimeXtender__master_connectionString "Integrated Security=False;Data Source=$(axbiServer);Initial Catalog=master;User ID=JustBI"
+        -ls_kv_xxxx_sls_x_euw_001_properties_typeProperties_baseUrl "https://$(keyVaultName).vault.azure.net/"
+        -stxxxxslsxeuw001_properties_typeProperties_url "https://$(storageAccountName).dfs.core.windows.net/"
+        -tr_AutoPauseSynDW_properties_pl_SYNDW_pause_parameters_SynapseServerName "$(workspaceName)"
+        -tr_AutoPauseSynDW_properties_pl_SYNDW_pause_parameters_SynapseDatabaseName "$(synapseSqlPool)"
+        -tr_AutoPauseSynDW_properties_pl_SYNDW_pause_parameters_ResourceGroupName "$(resourceGroupName)"
+        -tr_OrchDB_Update_properties_typeProperties_scope "/subscriptions/f199b488-7d9d-4992-aeda-c10a1e1c9b9e/resourceGroups/$(resourceGroupName)/providers/Microsoft.Storage/storageAccounts/$(storageAccountName)"
+        -ir-WEXLEVAPP001_properties_typeProperties_linkedInfo_resourceId "$(SHIRResourceId)"
+        -default_properties_XU_hostName_value "$(XUHostName)"
+        -default_properties_storageAccountName_value "$(storageAccountName)"
+        -default_properties_resourceGroupName_value "$(resourceGroupName)"
+        -default_properties_virtualMachineName_value "$(VMName)"
+        -default_properties_synapseServerName_value "$(workspaceName)"
+        -default_properties_synapseDatabaseName_value "$(synapseSqlPool)"
+        -default_properties_keyVaultUrl_value "https://$(keyVaultName).vault.azure.net/"
+        -default_properties_environment_value "$(environment)"
+        -default_properties_sqlDb_value "$(sqlDatabaseName)"'
   
   - task: AzurePowerShell@5
     displayName: 'Start Triggers'
     inputs:
       azureSubscription: 'arm-pipeline'
       ScriptPath: '$(Build.Repository.LocalPath)\azure-data-factory\ArmTemplate\PrePostDeploymentScript.ps1'
-      ScriptArguments: '-armTemplate "$(Build.Repository.LocalPath)\azure-data-factory\ArmTemplate\ARMTemplateForFactory.json" -ResourceGroupName $(resourceGroupName) -DataFactoryName $(dataFactoryName) -predeployment $false -deleteDeployment $true'
+      ScriptArguments: '>-
+        -armTemplate "$(Build.Repository.LocalPath)\azure-data-factory\ArmTemplate\ARMTemplateForFactory.json"
+        -ResourceGroupName $(resourceGroupName)
+        -DataFactoryName $(dataFactoryName)
+        -predeployment $false
+        -deleteDeployment $true'
       azurePowerShellVersion: LatestVersion
       pwsh: true
