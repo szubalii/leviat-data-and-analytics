@@ -1,0 +1,9 @@
+steps:
+
+  # Update the source and destinations in the extractions
+- task: FileTransform@1
+  displayName: 'File Transform: Destination and Source in Extractions'
+  inputs:
+    folderPath: '$(System.DefaultWorkingDirectory)/xu-config/extractions'
+    fileType: json
+    targetFiles: '**/general.json'

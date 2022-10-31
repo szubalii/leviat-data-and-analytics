@@ -148,9 +148,19 @@ function entityGenerateCSV (env) {
             });
 
             entityArray.push(
-                [entityHeader.map(
-                    h => typeof entity[h] === "string" ? '"' + entity[h] + '"' : entity[h]
-                )
+                [entityHeader.map(function(h){
+                    var entityValue = entity[h];
+                    if (typeof entityValue === "string") {
+                        // Add environment as prefix to extraction name
+                        if (h === 'entiy_name') {
+                            entityValue = env + '_' + entityValue;
+                        }
+                        return '"' + entityValue + '"';
+                    }
+                    else {
+                        return entityValue
+                    }
+                })
             ]);
         });       
     });

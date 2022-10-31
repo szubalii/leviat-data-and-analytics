@@ -1,0 +1,12 @@
+# Theobald Xtract Universal Deploy Job
+jobs:
+- job: XtractUniversalDeploy
+
+  pool:
+    name: 'VM'
+    demands:
+    - node.js
+    - VisualStudio
+
+  steps:
+  - template: ./steps-deploy.yml

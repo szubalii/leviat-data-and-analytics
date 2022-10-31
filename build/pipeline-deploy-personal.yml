@@ -41,6 +41,7 @@ jobs:
     adf: ${{ parameters.adf }}
     orchdb: ${{ parameters.orchdb }}
     syn: ${{ parameters.syn }}
+    xu: false
 # - ${{ if and(succeeded('OrchDBBuild')) }}:
 #   - template: ./jobs-deploy.yml
 #   condition
