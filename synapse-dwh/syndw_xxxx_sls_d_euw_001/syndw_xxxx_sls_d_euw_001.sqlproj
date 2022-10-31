@@ -1032,6 +1032,11 @@
     <Build Include="base_tx_ca_0_hlp\Tables\ITEMTABLE_ISUK.sql" />
     <Build Include="intm_axbi\Stored Procedures\up_ReadSales_ANUK_pkg.sql" />
     <Build Include="intm_axbi\Stored Procedures\up_ReadSales_ISUK_pkg.sql" />
+    <Build Include="base_tx_ca_0_hlp\Tables\CUSTINVOICETRANS_ANAC.sql" />
+    <Build Include="base_tx_ca_0_hlp\Tables\CUSTTABLE_ANAK.sql" />
+    <Build Include="base_tx_ca_0_hlp\Tables\ITEMTABLE_ANAC.sql" />
+    <Build Include="intm_axbi\Stored Procedures\up_ReadSales_ANAK_pkg.sql" />
+    <Build Include="intm_axbi\Stored Procedures\up_ReadSales_ANAC_Jahr_Monat.sql" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PostDeploy Include="Scripts\Post-Deploy\Script.PostDeployment.sql" />
