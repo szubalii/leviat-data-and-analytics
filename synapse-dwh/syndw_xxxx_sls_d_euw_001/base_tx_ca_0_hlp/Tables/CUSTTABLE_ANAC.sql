@@ -1,6 +1,6 @@
 CREATE TABLE [base_tx_ca_0_hlp].[CUSTTABLE_ANAC](
 	[DATAAREAID]            [NVARCHAR](255)         NULL,
-	[ACCOUNTNUM]            [FLOAT]                 NULL,
+	[ACCOUNTNUM]            [FLOAT]                 NOT NULL,
 	[NAME]                  [NVARCHAR](255)         NULL,
 	[INOUT]                 [NVARCHAR](1)           NULL,
 	[CUSTOMERPILLAR]        [NVARCHAR](20)          NULL,
