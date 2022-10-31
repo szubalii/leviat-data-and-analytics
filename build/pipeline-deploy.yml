@@ -2,16 +2,44 @@ trigger:
 # - main
 - none
 
+parameters:
+- name: adf
+  displayName: Build & Deploy Azure Data Factory
+  type: boolean
+  default: true
+- name: orchdb
+  displayName: Build & Deploy Orchestration DB
+  type: boolean
+  default: true
+- name: syn
+  displayName: Build & Deploy Synapse DWH
+  type: boolean
+  default: true
+- name: xu
+  displayName: Build & Deploy Theobald Xtract Universal
+  type: boolean
+  default: true
+
 variables:
 - group: DnA_DEV
 - group: KeyVault_DEV
 
-stages:
-# - template: ./stages-pre-build.yml
-
-- template: ./stages-build.yml
+jobs:
+# - template: ./jobs-pre-build.yml
+- template: ./jobs-build.yml
   parameters:
-    artifact: true
+    deploy: true
+    adf: ${{ parameters.adf }}
+    orchdb: ${{ parameters.orchdb }}
+    syn: ${{ parameters.syn }}
+    xu: ${{ parameters.xu }}
+
+# stages:
+# # - template: ./stages-pre-build.yml
+
+# - template: ./stages-build.yml
+#   parameters:
+#     artifact: true
 
 # - stage: deploy
 #   jobs:
