@@ -1057,6 +1057,10 @@
     <Build Include="base_tx_ca_0_hlp\Tables\CUSTTABLE_HMSG.sql" />
     <Build Include="base_tx_ca_0_hlp\Tables\ITEMTABLE_HMSG.sql" />
     <Build Include="intm_axbi\Stored Procedures\up_ReadSales_HMSG_pkg.sql" />
+    <Build Include="base_tx_ca_0_hlp\Tables\CUSTINVOICETRANS_ISAU.sql" />
+    <Build Include="base_tx_ca_0_hlp\Tables\CUSTTABLE_ISAU.sql" />
+    <Build Include="base_tx_ca_0_hlp\Tables\ITEMTABLE_ISAU.sql" />
+    <Build Include="intm_axbi\Stored Procedures\up_ReadSales_ISAU_pkg.sql" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PostDeploy Include="Scripts\Post-Deploy\Script.PostDeployment.sql" />
