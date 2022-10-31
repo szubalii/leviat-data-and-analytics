@@ -1032,6 +1032,10 @@
     <Build Include="base_tx_ca_0_hlp\Tables\ITEMTABLE_ISUK.sql" />
     <Build Include="intm_axbi\Stored Procedures\up_ReadSales_ANUK_pkg.sql" />
     <Build Include="intm_axbi\Stored Procedures\up_ReadSales_ISUK_pkg.sql" />
+    <Build Include="base_s4h_cax\Tables\P_UserAddress.sql" />
+    <Build Include="edw\Views\vw_UserAddress.sql" />
+    <Build Include="edw\Tables\dim_UserAddress.sql" />
+    <Build Include="dm_sales\Views\vw_dim_UserAddress.sql" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PostDeploy Include="Scripts\Post-Deploy\Script.PostDeployment.sql" />

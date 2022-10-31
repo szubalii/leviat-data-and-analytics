@@ -3805,6 +3805,18 @@
         "base_table_name": "NSDM_V_MAWEV",
         "pk_field_names": "MANDT,MATNR,WERKS,ALAND",
         "schedule_recurrence": "D"
+      },
+      {
+        "entity_id": 541,
+        "entity_name": "P_UserAddress",
+        "data_category": "NULL",
+        "client_field": "MANDT",
+        "tool_name": "Theobald",
+        "extraction_type": "Table",
+        "update_mode": "Full",
+        "base_table_name": "P_UserAddress",
+        "pk_field_names": "MANDT,bname",
+        "schedule_recurrence": "A"
       }
     ]
   },
@@ -5412,6 +5424,15 @@
         "dest_table_name": "fact_MaterialStockLevel_temp",
         "execution_order": 5,
         "schedule_recurrence": "D"
+      },
+      {
+        "entity_id": 542,
+        "entity_name": "dim_UserAddress",
+        "sproc_name": "sp_materialize_view",
+        "source_view_name": "vw_UserAddress",
+        "dest_table_name": "dim_UserAddress",
+        "execution_order": 0,
+        "schedule_recurrence": "A"
       }
     ]
   },

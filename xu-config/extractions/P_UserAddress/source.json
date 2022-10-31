@@ -1,0 +1,99 @@
+{
+    "functionName": "Z_THEO_READ_TABLE",
+    "runInBackgroundJob": false,
+    "tables": [
+        {
+            "name": "PUSERADDRESS",
+            "description": "Generated Table for View P_UserAddress: General CDS View for Address",
+            "isView": true,
+            "fields": [
+                {
+                    "name": "MANDT",
+                    "description": "Client (key field in client-specific tables)",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "BNAME",
+                    "description": "User Name in User Master Record",
+                    "abapType": "CharacterString",
+                    "length": 12,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "USR02",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "KOSTL",
+                    "description": "Character Field Length 8",
+                    "abapType": "CharacterString",
+                    "length": 8,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "IDADTYPE",
+                    "description": "Identity Address Type",
+                    "abapType": "NumericCharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PERSNUMBER",
+                    "description": "Person Number (Key) (Business Address Services)",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "checkTable": "ADRP",
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "ADDRNUMBER",
+                    "description": "Address Number (Business Address Services)",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "checkTable": "ADRC",
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "BPPERSON",
+                    "description": "Universal Unique Identifier",
+                    "abapType": "ByteSequence",
+                    "length": 16,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "TEMPLATE_ORGADDR",
+                    "description": "Address Number (Business Address Services)",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "TECHDESC",
+                    "description": "Description of the Technical User Account",
+                    "abapType": "CharacterString",
+                    "length": 80,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CLASS",
+                    "description": "User group",
+                    "abapType": "CharacterString",
+                    "length": 12,
+                    "isSelected": true,
+                    "checkTable": "USGRP",
+                    "conversionExit": ""
+                }
+            ]
+        }
+    ]
+}
