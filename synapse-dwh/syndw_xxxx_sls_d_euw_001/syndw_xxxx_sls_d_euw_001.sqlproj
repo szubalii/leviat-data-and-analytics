@@ -1041,6 +1041,10 @@
     <Build Include="base_tx_ca_0_hlp\Tables\CUSTTABLE_ANME.sql" />
     <Build Include="base_tx_ca_0_hlp\Tables\CUSTINVOICETRANS_ANME.sql" />
     <Build Include="intm_axbi\Stored Procedures\up_ReadSales_ANME_pkg.sql" />
+    <Build Include="base_tx_ca_0_hlp\Tables\CUSTINVOICETRANS_HMIN.sql" />
+    <Build Include="base_tx_ca_0_hlp\Tables\CUSTTABLE_HMIN.sql" />
+    <Build Include="base_tx_ca_0_hlp\Tables\ITEMTABLE_HMIN.sql" />
+    <Build Include="intm_axbi\Stored Procedures\up_ReadSales_HMIN_pkg.sql" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PostDeploy Include="Scripts\Post-Deploy\Script.PostDeployment.sql" />
