@@ -359,7 +359,7 @@ BEGIN
 	select
 	        [DATAAREAID]
 	    ,   [SALESID]
-	    ,   [INVOICEID]
+	    ,   st.[INVOICEID]
 	    ,   [LINENUM]
 	    ,   ' '
 	    ,   [ACCOUNTINGDATE]

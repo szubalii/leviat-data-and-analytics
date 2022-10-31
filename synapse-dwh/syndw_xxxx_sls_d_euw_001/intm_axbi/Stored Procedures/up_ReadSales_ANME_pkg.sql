@@ -142,13 +142,38 @@ BEGIN
     where UPPER(DATAAREAID) = 'ANME' and DATEPART(yyyy, [ACCOUNTINGDATE]) = @P_Year and DATEPART(mm, [ACCOUNTINGDATE]) =  @P_Month 
 
 	insert [intm_axbi].[fact_CUSTINVOICETRANS]
-	select 'ANME', a.salesid, a.invoiceid, a.linenum, ' ', a.accountingdate, a.customerno, a.itemid, a.deliverycountryid, ' ',
-	       a.qty, a.productsaleslocal, a.productsaleslocal/b.crhrate, a.othersaleslocal, a.othersaleslocal/b.crhrate, 0, 0, a.productsaleslocal + a.othersaleslocal, a.productsaleslocal/b.crhrate + a.othersaleslocal/b.crhrate, freightlocal, a.freightlocal/b.crhrate, a.costamountlocal, a.costamountlocal/b.crhrate
-	from [base_tx_ca_0_hlp].[CUSTINVOICETRANS_ANME] as a
-	inner join crhcurrency as b
-	on  @P_Year = b.YEAR and
-	  'AED' = b.currency
-	where DATEPART(yyyy, [ACCOUNTINGDATE]) =  @P_Year and DATEPART(mm, [ACCOUNTINGDATE]) =  @P_Month
+	select
+        'ANME',
+        a.[Salesid],
+        a.[Invoiceid],
+        a.[Linenum],
+        ' ',
+        a.[Accountingdate],
+        a.[CustomerNo],
+        a.[Itemid],
+        a.[DeliveryCountryID],
+        ' ',
+	    a.[Qty],
+        a.[ProductSalesLocal],
+        a.[ProductSalesLocal]/b.[CRHRATE],
+        a.[OtherSalesLocal],
+        a.[OtherSalesLocal]/b.[CRHRATE],
+        0,
+        0,
+        a.[ProductSalesLocal] + a.[OtherSalesLocal],
+        a.[ProductSalesLocal]/b.[CRHRATE] + a.[OtherSalesLocal]/b.[CRHRATE],
+        [FreightLocal], a.[FreightLocal]/b.[CRHRATE],
+        a.[CostAmountLocal],
+        a.[CostAmountLocal]/b.[CRHRATE]
+	from
+        [base_tx_ca_0_hlp].[CUSTINVOICETRANS_ANME] as a
+	inner join
+        [base_tx_ca_0_hlp].[CRHCURRENCY] as b
+	        on
+                b.[YEAR] = @P_Year
+                and
+	            b.CURRENCY = 'AED'
+	where DATEPART(yyyy, [Accountingdate]) =  @P_Year and DATEPART(mm, [Accountingdate]) =  @P_Month
 
 	-- Fehlendes DUMMY Lieferland eintragen 
 	update [intm_axbi].[fact_CUSTINVOICETRANS]
