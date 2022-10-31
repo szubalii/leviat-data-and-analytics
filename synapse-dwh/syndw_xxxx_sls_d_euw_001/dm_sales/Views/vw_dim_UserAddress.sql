@@ -5,10 +5,6 @@ SELECT
 , [UserID]
 , [UserClass]
 , [t_applicationId]  
-, [t_jobId]             
-, [t_jobDtm]          
-, [t_jobBy]      
-, [t_filePath]    
-, [t_extractionDtm]  
+
 
 FROM [edw].[dim_UserAddress]

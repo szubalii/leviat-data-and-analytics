@@ -11,8 +11,8 @@ CREATE TABLE [edw].[dim_UserAddress]
 , [t_jobBy]        NVARCHAR (128)
 , [t_filePath]            NVARCHAR (1024)
 , [t_extractionDtm]             DATETIME
-, CONSTRAINT [dim_UserAddress] PRIMARY KEY NONCLUSTERED([UserName]) NOT ENFORCED 
+, CONSTRAINT [PK_dim_UserAddress] PRIMARY KEY NONCLUSTERED([UserName]) NOT ENFORCED 
 )
 WITH ( 
-  HEAP
+	DISTRIBUTION = REPLICATE,  HEAP
 )
