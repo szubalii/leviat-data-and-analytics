@@ -16,6 +16,6 @@
 	},
 	"blobType": "BlockBlob",
 	"columnNameKind": "Code",
-	"folderPath": "UNSPECIFIED/P_UserAddress/Theobald/Table/Full/In/#{ DateTime.Now.ToString(\"yyyy/MM/dd\") }#",
+	"folderPath": "NULL/P_UserAddress/Theobald/Table/Full/In/#{ DateTime.Now.ToString(\"yyyy/MM/dd\") }#",
 	"maxBlobSize": 0
 }
