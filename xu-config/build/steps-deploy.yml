@@ -6,7 +6,7 @@ steps:
 # 3. returning orch db function called by ADF
 
   # Update the extraction names by renaming the folders to include the environment prefix
-- script: for /d %D in ("%SYSTEM_DEFAULTWORKINGDIRECTORY%\xu-config\extractions\*") do ren "%D" "$(environment)_%~nxD"
+- script: for /d %D in ("$(System.DefaultWorkingDirectory)\xu-config\extractions\*") do ren "%D" "dev_%~nxD"
 
   # Copy Repo XU Config to VM XU Config
 - task: CopyFiles@2
