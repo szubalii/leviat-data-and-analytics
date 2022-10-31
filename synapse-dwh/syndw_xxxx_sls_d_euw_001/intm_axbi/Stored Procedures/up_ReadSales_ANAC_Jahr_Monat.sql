@@ -20,28 +20,6 @@ BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
-
-	-- take-up variables for SQL cursor:
-	DECLARE
-	 @lDataAreaID nvarchar(8) -- The DATAAREAID = ANAC
-	,@lOrigSalesID nvarchar(20) -- The SALESID
-	,@lInvoiceID nvarchar(20) -- The INVOICEID
-	,@lLineNum numeric(28,12) -- The LINENUMBER
-	,@lInventtransID nvarchar(20) -- The INVENTTRANSID of Microsoft Dynamix AX Systems, Ancon Connolly Australia = empty
-	,@lDatefinancial datetime -- The FINANCIAL BOOKING DATE
-	,@lOrderAccount nvarchar(20) -- THE CUSTOMER ACCOUNT
-	,@lItemID nvarchar(40) -- The ARTICLE NUMBER
-	,@lDlvcountryregionid nvarchar(20) -- The DELIVERY COUNTRY Code 
-	,@lPackingslipid nvarchar(20) -- The PACKPINGSLIPID, Ancon Connolly Australia = empty
-	,@lQty numeric(28,12) -- The INVOICED QUANTITY
-	,@lLineAmountMST numeric(28,12) -- The INVOICED SALES AMOUNT per article sales position in local currency
-	,@lLineAmountEUR numeric(28,12) -- The INVOICED SALES AMOUNT per article sales position in CRH EUR currency
-
-	-- Variables for distribute OTHERSALES
-	,@lSalesBalanceMST numeric(28,12) -- Sales amount per Invoice in local currency
-	,@lSalesBalanceEUR numeric(28,12) -- Sales amount per Invoice in CRH EUR currency
-	,@lcounter smallint
-
     -- Insert statements for procedure here
 
 	-- Customer Master Data ---------------------------------------------------------------------------------------------------------------------------
@@ -262,7 +240,7 @@ BEGIN
 	substring([INVOICEID], 1, 5) AS [INVOICEID],
 	[LINENUM],
 	[ACCOUNTINGDATE],
-	cast([CUSTOMETNO] as nvarchar) AS [CUSTOMETNO],
+	cast([CUSTOMERNO] as nvarchar) AS [CUSTOMETNO],
 	[ITEMID],
 	Case
 	    When [DELIVERYCOUNTRYID] = 'Australia' then 'AU'
@@ -326,7 +304,7 @@ BEGIN
         sb.SalesBalanceMST <> 0
 
 	-- If regular positions but without existing sales amount, distribute the lineamount of ADMIN or FREIGHT according to the number of positions.
-	update CUSTINVOICETRANS
+	update [intm_axbi].[fact_CUSTINVOICETRANS] 
 	set OTHERSALESLOCAL += st.OTHERSALESLOCAL / cnt.lcounter,
 	    OTHERSALESEUR   += st.OTHERSALESEUR / cnt.lcounter
 	from 
@@ -424,7 +402,7 @@ BEGIN
 	from [intm_axbi].[dim_CUSTTABLE] as c
 	inner join [intm_axbi].[fact_CUSTINVOICETRANS] as i
 	on UPPER(c.DATAAREAID) = UPPER(i.DATAAREAID) and
-	   c.accountnum = i.customerno
+	   c.ACCOUNTNUM = i.CUSTOMERNO
 	where
         UPPER(c.DATAAREAID) = 'ANAC'
         and

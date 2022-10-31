@@ -1024,7 +1024,7 @@
     <Build Include="base_tx_ca_0_hlp\Tables\INVOICEDFREIGHT_ANUK.sql" />
     <Build Include="base_tx_ca_0_hlp\Tables\ITEMTABLE_ANUK.sql" />
     <Build Include="base_tx_ca_0_hlp\Tables\MAPPING_ITEMGROUP_ANUK.sql" />
-    <Build Include="dq\Views\vw_Product_1_25.sql" />   
+    <Build Include="dq\Views\vw_Product_1_25.sql" />
     <Build Include="dq\Views\vw_Product_1_30.sql" />
     <Build Include="base_tx_ca_0_hlp\Tables\INVOICEDFREIGHT_ISUK.sql" />
     <Build Include="base_tx_ca_0_hlp\Tables\CUSTTABLE_ISUK.sql" />
@@ -1033,10 +1033,14 @@
     <Build Include="intm_axbi\Stored Procedures\up_ReadSales_ANUK_pkg.sql" />
     <Build Include="intm_axbi\Stored Procedures\up_ReadSales_ISUK_pkg.sql" />
     <Build Include="base_tx_ca_0_hlp\Tables\CUSTINVOICETRANS_ANAC.sql" />
-    <Build Include="base_tx_ca_0_hlp\Tables\CUSTTABLE_ANAK.sql" />
+    <Build Include="base_tx_ca_0_hlp\Tables\CUSTTABLE_ANAC.sql" />
     <Build Include="base_tx_ca_0_hlp\Tables\ITEMTABLE_ANAC.sql" />
-    <Build Include="intm_axbi\Stored Procedures\up_ReadSales_ANAK_pkg.sql" />
+    <Build Include="intm_axbi\Stored Procedures\up_ReadSales_ANAC_pkg.sql" />
     <Build Include="intm_axbi\Stored Procedures\up_ReadSales_ANAC_Jahr_Monat.sql" />
+    <Build Include="intm_axbi\Stored Procedures\up_ReadSales_ANME_pkg.sql" />
+    <Build Include="base_tx_ca_0_hlp\Tables\ITEMTABLE_ANME.sql" />
+    <Build Include="base_tx_ca_0_hlp\Tables\CUSTTABLE_ANME.sql" />
+    <Build Include="base_tx_ca_0_hlp\Tables\CUSTINVOICETRANS_ANME.sql" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PostDeploy Include="Scripts\Post-Deploy\Script.PostDeployment.sql" />
