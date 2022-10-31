@@ -271,8 +271,6 @@ BEGIN
 	where
         UPPER(t.DATAAREAID) = 'HMMY'
         and
-        t.INVOICEID = o.INVOICEID
-        and
         datepart(YYYY, t.ACCOUNTINGDATE) = @P_Year
         and
         datepart(MM, t.ACCOUNTINGDATE) = @P_Month
