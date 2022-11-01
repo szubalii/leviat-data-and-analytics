@@ -32,7 +32,7 @@
 			},
 			"environment": {
 				"type": "string",
-				"value": "dev"
+				"value": "fbouw"
 			},
 			"sqlDb": {
 				"type": "string",

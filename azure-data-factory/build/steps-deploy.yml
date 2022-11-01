@@ -61,7 +61,7 @@ steps:
         -default_properties_synapseServerName_value "$(workspaceName)"
         -default_properties_synapseDatabaseName_value "$(synapseSqlPool)"
         -default_properties_keyVaultUrl_value "https://$(keyVaultName).vault.azure.net/"
-        -default_properties_environment_value "$(environment)"
+        -default_properties_environment_value "$(xuPrefix)"
         -default_properties_sqlDb_value "$(sqlDatabaseName)"'
   
   - task: AzurePowerShell@5

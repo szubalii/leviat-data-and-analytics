@@ -32,7 +32,7 @@
 			},
 			"environment": {
 				"type": "string",
-				"value": "dev"
+				"value": "nkukhtenko"
 			},
 			"sqlDb": {
 				"type": "string",
