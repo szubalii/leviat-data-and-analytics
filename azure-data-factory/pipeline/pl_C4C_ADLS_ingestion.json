@@ -95,6 +95,10 @@
 							"file": {
 								"value": "@pipeline().parameters.file_name",
 								"type": "Expression"
+							},
+							"storageAccount": {
+								"value": "@pipeline().globalParameters.storageAccountName",
+								"type": "Expression"
 							}
 						}
 					}

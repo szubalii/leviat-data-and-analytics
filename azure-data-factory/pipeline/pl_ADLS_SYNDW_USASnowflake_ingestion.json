@@ -63,7 +63,10 @@
 								"value": "@pipeline().parameters.file_name",
 								"type": "Expression"
 							},
-							"storageAccount": "stxxxxslsdeuw001"
+							"storageAccount": {
+								"value": "@pipeline().globalParameters.storageAccountName",
+								"type": "Expression"
+							}
 						}
 					}
 				],
