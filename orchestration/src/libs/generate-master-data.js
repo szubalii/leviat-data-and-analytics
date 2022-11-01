@@ -100,7 +100,7 @@ function pbiDatasetEntityGenerateCSV (env) {
     return csvContent + pbiDatasetEntityArray.map(e => e.join(",")).join("\r\n") + "\r\n";
 }
 
-function entityGenerateCSV (env, prefix) {
+function entityGenerateCSV (env) {
 
     const globalEntityCfg = require('../config/global/entity.json');
     const envEntityCfg = require('../config/' + env + '/entity.json');
@@ -151,10 +151,6 @@ function entityGenerateCSV (env, prefix) {
                 [entityHeader.map(function(h){
                     var entityValue = entity[h];
                     if (typeof entityValue === "string") {
-                        // Add environment as prefix to extraction name
-                        if (h === 'entity_name') {
-                            entityValue = prefix + '_' + entityValue;
-                        }
                         return '"' + entityValue + '"';
                     }
                     else {
@@ -182,17 +178,17 @@ function writePBIDatasetEntityCSV (env) {
     );
 }
 
-function writeEntityCSV (env, prefix) {
+function writeEntityCSV (env) {
     fs.writeFileSync(
         './Master Data/entity.csv', 
-        entityGenerateCSV(env, prefix)
+        entityGenerateCSV(env)
     );
 }
 
 module.exports = {
-    writeMasterDataCSV: function (env, prefix) {
+    writeMasterDataCSV: function (env) {
         writePBIDatasetCSV(env);
         writePBIDatasetEntityCSV(env);
-        writeEntityCSV(env, prefix);
+        writeEntityCSV(env);
     }
 };
