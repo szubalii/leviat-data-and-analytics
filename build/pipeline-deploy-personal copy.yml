@@ -19,7 +19,7 @@ parameters:
   type: boolean
   default: true
 - name: xu
-  displayName: Build & Deploy Theobald Xtract Universal
+  displayName: Build & Deploy Theobald XtractUniversal
   type: boolean
   default: true
 
@@ -48,3 +48,6 @@ jobs:
     orchdb: ${{ parameters.orchdb }}
     syn: ${{ parameters.syn }}
     xu: ${{ parameters.xu }}
+# - ${{ if and(succeeded('OrchDBBuild')) }}:
+#   - template: ./jobs-deploy.yml
+#   condition
