@@ -190,9 +190,9 @@ function writeEntityCSV (env, prefix) {
 }
 
 module.exports = {
-    writeMasterDataCSV: function (env) {
+    writeMasterDataCSV: function (env, prefix) {
         writePBIDatasetCSV(env);
         writePBIDatasetEntityCSV(env);
-        writeEntityCSV(env);
+        writeEntityCSV(env, prefix);
     }
 };
