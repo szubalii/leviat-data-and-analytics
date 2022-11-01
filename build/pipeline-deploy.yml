@@ -23,6 +23,8 @@ parameters:
 variables:
 - group: DnA_DEV
 - group: KeyVault_DEV
+- name: xuPrefix
+  value: "$(environment)"
 
 jobs:
 # - template: ./jobs-pre-build.yml

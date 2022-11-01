@@ -9,7 +9,7 @@ steps:
 # - script: for /d %D in ("$(System.DefaultWorkingDirectory)\xu-config\extractions\*") do ren "%D" "$(environment)_%~nxD"
 - pwsh: |
     Get-ChildItem -Path '$(System.DefaultWorkingDirectory)\xu-config\extractions' |
-    Foreach-Object {Rename-Item -Path $_.FullName -NewName ("$(environment)_"+($_.Name))}
+    Foreach-Object {Rename-Item -Path $_.FullName -NewName ("$(xuPrefix)_"+($_.Name))}
 
   # Copy Repo XU Config to VM XU Config
 - task: CopyFiles@2
@@ -17,5 +17,5 @@ steps:
   inputs:
     SourceFolder: '$(System.DefaultWorkingDirectory)\xu-config\extractions'
     Contents: '**/*.json'
-    TargetFolder: 'C:\Program Files\XtractUniversal\config'
+    TargetFolder: 'C:\Program Files\XtractUniversal\config\extractions'
     OverWrite: true
