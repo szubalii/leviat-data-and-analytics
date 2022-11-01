@@ -102,6 +102,16 @@ SELECT
 , MDI.[IsReversalMovementType]
 , MDI.[t_applicationId]
 , MDI.[t_extractionDtm]
+, dimPVs.[nk_dim_ProductValuationPUP]                                      AS [nk_dim_ProductValuationPUP]
+, dimPVs.[StockPricePerUnit]
+, dimPVs.[StockPricePerUnit_EUR]
+, dimPVs.[StockPricePerUnit_USD]
+, SDT.[SalesDocumentTypeID]
+, SDT.[SalesDocumentType] 
+, dimSDIC.[SalesDocumentItemCategoryID] 
+, dimSDIC.[SalesDocumentItemCategory]
+, dimPDT.[PurchasingDocumentTypeID]                                           AS [PurchaseOrderTypeID]
+, dimPDT.[PurchasingDocumentTypeName]                                         AS [PurchaseOrderType]
 FROM [base_s4h_cax].[I_MaterialDocumentItem] MDI
 LEFT JOIN [base_s4h_cax].[I_MaterialDocumentHeader] MDH
   ON 
@@ -120,4 +130,27 @@ LEFT JOIN
   dimPVs.[CalendarYear] =  FORMAT(MDI.[HDR_PostingDate],'yyyy')
     AND
   dimPVs.[CalendarMonth] = FORMAT(MDI.[HDR_PostingDate],'MM')
+LEFT JOIN 
+    [edw].[fact_SalesDocumentItem] SDI
+        ON MDI.[SalesOrder] = SDI.[SalesDocument] collate Latin1_General_100_BIN2
+            AND
+            MDI.[SalesOrderItem] = SDI.[SalesDocumentItem]
+            AND
+            SDI.[CurrencyTypeID] = 10
+LEFT JOIN 
+    [edw].[dim_SalesDocumentType] SDT
+        ON SDI.[SalesDocumentTypeID] = SDT.[SalesDocumentTypeID]
+LEFT JOIN 
+    [edw].[dim_SalesDocumentItemCategory] dimSDIC
+        ON SDI.[SalesDocumentItemCategoryID] = dimSDIC.[SalesDocumentItemCategoryID]
+LEFT JOIN 
+    [edw].[fact_PurchasingDocument] dimPD 
+        ON 
+            MDI.[PurchaseOrder] COLLATE Latin1_General_100_BIN2 = dimPD.[PurchasingDocument] 
+LEFT JOIN  
+    [edw].[dim_PurchasingDocumentType] dimPDT 
+        ON  
+            dimPDT.[PurchasingDocumentTypeID]  = dimPD.[PurchasingDocumentTypeID] 
+            AND
+            dimPDT.[PurchasingDocumentCategoryID]  = dimPD.[PurchasingDocumentCategoryID]
 -- WHERE MDI.[MANDT] = 200 MPS 2021/11/01: commented out due to different client values between dev,qas, and prod

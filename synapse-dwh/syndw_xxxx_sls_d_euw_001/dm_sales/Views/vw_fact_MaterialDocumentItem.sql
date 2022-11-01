@@ -127,7 +127,7 @@ SELECT
     , [t_applicationId]
     , [t_extractionDtm]
 FROM
-    [edw].[fact_MaterialDocumentItem_temp]    
+    [edw].[fact_MaterialDocumentItem]    
 /* -- 10.11.2022  US 2191
 WITH MDI_UNION AS(
 SELECT 

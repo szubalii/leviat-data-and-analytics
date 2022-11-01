@@ -5412,6 +5412,24 @@
         "dest_table_name": "fact_MaterialStockLevel_temp",
         "execution_order": 5,
         "schedule_recurrence": "D"
+      },
+      {
+        "entity_id": 541,
+        "entity_name": "fact_MaterialDocumentItem",
+        "sproc_name": "sp_materialize_view",
+        "source_view_name": "vw_MaterialDocumentItem",
+        "dest_table_name": "fact_MaterialDocumentItem",
+        "execution_order": 1,
+        "schedule_recurrence": "D"
+      },
+      {
+        "entity_id": 542,
+        "entity_name": "fact_MaterialStockLevel",
+        "sproc_name": "sp_materialize_view",
+        "source_view_name": "vw_MaterialStockLevel",
+        "dest_table_name": "fact_MaterialStockLevel",
+        "execution_order": 1,
+        "schedule_recurrence": "D"
       }
     ]
   },
