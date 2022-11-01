@@ -164,7 +164,7 @@ BEGIN
 
 	-- INVOICED FREIGHT RECOVERY TABLE
 
-	delete from [base_tx_ca_0_hlp].[INVOICEDFREIGHT_ANUK] where DATEPART(year, Accountingdate) = @lFrYear and DATEPART(month, Accountingdate) = @lFrMonth 
+	-- delete from [base_tx_ca_0_hlp].[INVOICEDFREIGHT_ANUK] where DATEPART(year, Accountingdate) = @lFrYear and DATEPART(month, Accountingdate) = @lFrMonth 
 
 	-- [intm_axbi].[fact_CUSTINVOICETRANS]
 

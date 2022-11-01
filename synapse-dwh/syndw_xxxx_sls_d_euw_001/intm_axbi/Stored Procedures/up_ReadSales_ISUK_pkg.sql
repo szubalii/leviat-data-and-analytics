@@ -159,11 +159,11 @@ BEGIN
 
 	-- INVOICED FREIGHT RECOVERY TABLE
 
-	delete from [base_tx_ca_0_hlp].[INVOICEDFREIGHT_ISUK] where DATEPART(year, Accountingdate) = @lFrYear and DATEPART(month, Accountingdate) = @lFrMonth 
+	-- delete from [base_tx_ca_0_hlp].[INVOICEDFREIGHT_ISUK] where DATEPART(year, Accountingdate) = @lFrYear and DATEPART(month, Accountingdate) = @lFrMonth 
 
 	-- CUSTINVOICETRANS
 
-	TRUNCATE TABLE [base_tx_ca_0_hlp].[CUSTINVOICETRANS_ISUK]
+	-- update TABLE [base_tx_ca_0_hlp].[CUSTINVOICETRANS_ISUK]
 
 	update [base_tx_ca_0_hlp].[CUSTINVOICETRANS_ISUK]
 	set ProductSalesEUR = a.ProductSalesLocal/c.CRHRATE,
