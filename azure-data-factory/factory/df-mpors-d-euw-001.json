@@ -32,15 +32,11 @@
 			},
 			"environment": {
 				"type": "string",
-				"value": "dev"
+				"value": "mpors"
 			},
 			"sqlDb": {
 				"type": "string",
 				"value": "sqldb-mpors-d-euw-001"
-			},
-			"xuPrefix": {
-				"type": "string",
-				"value": "mpors"
 			}
 		}
 	},
