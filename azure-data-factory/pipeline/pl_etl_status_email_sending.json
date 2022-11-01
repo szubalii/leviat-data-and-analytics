@@ -124,7 +124,13 @@
 					},
 					"dataset": {
 						"referenceName": "ds_orch_db",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"sqlDb": {
+								"value": "@pipeline().globalParameters.sqlDb",
+								"type": "Expression"
+							}
+						}
 					},
 					"firstRowOnly": false
 				}
