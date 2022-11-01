@@ -182,10 +182,10 @@ function writePBIDatasetEntityCSV (env) {
     );
 }
 
-function writeEntityCSV (env) {
+function writeEntityCSV (env, prefix) {
     fs.writeFileSync(
         './Master Data/entity.csv', 
-        entityGenerateCSV(env)
+        entityGenerateCSV(env, prefix)
     );
 }
 
