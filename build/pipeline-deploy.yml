@@ -3,6 +3,10 @@ trigger:
 - none
 
 parameters:
+- name: user
+  displayName: User Name
+  type: string
+  default: $[ replace(variables['Build.RequestedForEmail'], '@crh.com','') ] # runtime expression to get user name
 - name: adf
   displayName: Build & Deploy Azure Data Factory
   type: boolean
@@ -23,6 +27,16 @@ parameters:
 variables:
 - group: DnA_DEV
 - group: KeyVault_DEV
+- name: user
+  value: ${{ parameters.user }} # template expression to expand template parameter
+- name: dataFactoryName
+  value: "$(dataFactoryName)"
+- name: sqlDatabaseName
+  value: "$(sqlDatabaseName)"
+- name: synapseSqlPool
+  value: "$(synapseSqlPool)"
+- name: storageAccountName
+  value: "$(storageAccountName)"
 - name: xuPrefix
   value: "$(environment)"
 

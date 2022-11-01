@@ -3,21 +3,9 @@ trigger:
 
 extends:
   template: pipeline-deploy.yml
-  parameters:
-  - name: user
-    displayName: User Name
-    type: string
-    default: $[ replace(variables['Build.RequestedForEmail'], '@crh.com','') ] # runtime expression to get user name
   variables:
-  - name: user
-    value: ${{ parameters.user }} # template expression to expand template parameter
-  - name: dataFactoryName
-    value: "df-$(user)-d-euw-001"
-  - name: sqlDatabaseName
-    value: "sqldb-$(user)-d-euw-001"
-  - name: synapseSqlPool
-    value: "syndw_$(user)_d_euw_001"
-  - name: storageAccountName
-    value: "st$(user)deuw001"
-  - name: xuPrefix
-    value: "$(user)"
+    dataFactoryName: "df-$(user)-d-euw-001"
+    sqlDatabaseName: "sqldb-$(user)-d-euw-001"
+    synapseSqlPool: "syndw_$(user)_d_euw_001"
+    storageAccountName: "st$(user)deuw001"
+    xuPrefix: "$(user)"
