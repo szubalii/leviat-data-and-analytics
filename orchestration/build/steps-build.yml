@@ -28,5 +28,5 @@ steps:
 
 - script: |
     cd $(Build.Repository.LocalPath)/orchestration
-    node -e require('./src/libs/generate-master-data').writeMasterDataCSV('$(environment)')
+    node -e require('./src/libs/generate-master-data').writeMasterDataCSV('$(environment)', '$(xuPrefix'))
   displayName: 'CMD: Write Environment Specific Master Data'

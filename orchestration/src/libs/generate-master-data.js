@@ -100,7 +100,7 @@ function pbiDatasetEntityGenerateCSV (env) {
     return csvContent + pbiDatasetEntityArray.map(e => e.join(",")).join("\r\n") + "\r\n";
 }
 
-function entityGenerateCSV (env) {
+function entityGenerateCSV (env, prefix) {
 
     const globalEntityCfg = require('../config/global/entity.json');
     const envEntityCfg = require('../config/' + env + '/entity.json');
@@ -152,8 +152,8 @@ function entityGenerateCSV (env) {
                     var entityValue = entity[h];
                     if (typeof entityValue === "string") {
                         // Add environment as prefix to extraction name
-                        if (h === 'entiy_name') {
-                            entityValue = env + '_' + entityValue;
+                        if (h === 'entity_name') {
+                            entityValue = prefix + '_' + entityValue;
                         }
                         return '"' + entityValue + '"';
                     }
