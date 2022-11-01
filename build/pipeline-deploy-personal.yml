@@ -38,6 +38,8 @@ variables:
   value: "st$(user)deuw001"
 - name: xuPrefix
   value: "$(user)"
+- name: destination
+  value: "$(storageAccountName)_s4h-caa-200"
 
 jobs:
 # - template: ./jobs-pre-build.yml
