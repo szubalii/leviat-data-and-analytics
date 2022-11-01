@@ -1,5 +1,5 @@
 {
-	"name": "df-fbouw-d-euw-001",
+	"name": "df-tdorodnova-d-euw-001",
 	"properties": {
 		"globalParameters": {
 			"XU_hostName": {
@@ -8,7 +8,7 @@
 			},
 			"storageAccountName": {
 				"type": "string",
-				"value": "stfbouwdeuw001"
+				"value": "sttdorodnovadeuw001"
 			},
 			"resourceGroupName": {
 				"type": "string",
@@ -24,7 +24,7 @@
 			},
 			"synapseDatabaseName": {
 				"type": "string",
-				"value": "syndw_fbouw_d_euw_001"
+				"value": "syndw_tdorodnova_d_euw_001"
 			},
 			"keyVaultUrl": {
 				"type": "string",
@@ -36,7 +36,7 @@
 			},
 			"sqlDb": {
 				"type": "string",
-				"value": "sqldb-fbouw-d-euw-001"
+				"value": "sqldb-tdorodnova-d-euw-001"
 			}
 		}
 	},
