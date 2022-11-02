@@ -9,7 +9,7 @@ CREATE TABLE [edw].[dim_UserAddress]
 , [t_jobId]               VARCHAR (36)
 , [t_jobDtm]             DATETIME
 , [t_jobBy]        NVARCHAR (128)
-, [t_filePath]            NVARCHAR (1024)
+, [t_lastActionCd]           VARCHAR(1)
 , [t_extractionDtm]             DATETIME
 , CONSTRAINT [PK_dim_UserAddress] PRIMARY KEY NONCLUSTERED([UserName]) NOT ENFORCED 
 )
