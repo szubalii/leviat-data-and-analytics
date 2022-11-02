@@ -33,8 +33,6 @@ variables:
   value: "$(synapseSqlPool)"
 - name: storageAccountName
   value: "$(storageAccountName)"
-- name: xuPrefix
-  value: "$(environment)"
 
 jobs:
 # - template: ./jobs-pre-build.yml
