@@ -1,4 +1,4 @@
-﻿CREATE ROLE db_developer;
+CREATE ROLE db_developer;
 
 
 GRANT

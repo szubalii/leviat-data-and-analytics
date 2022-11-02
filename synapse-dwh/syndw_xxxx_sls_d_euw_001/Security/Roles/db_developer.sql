@@ -8,4 +8,5 @@ GRANT
     CREATE PROCEDURE,
     CREATE FUNCTION,
     CREATE VIEW,
-    CREATE SCHEMA TO db_developer;
+    CREATE SCHEMA,
+    SHOWPLAN TO db_developer;
