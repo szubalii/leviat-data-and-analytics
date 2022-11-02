@@ -1,9 +1,9 @@
 CREATE VIEW [edw].[vw_UserAddress]
 AS
 	SELECT 
-	  [bname] as [UserName]
-	, [persnumber] as [UserID]
-	, [class] as [UserClass]
+	  [BNAME] as [UserName]
+	, [PERSNUMBER] as [UserID]
+	, [CLASS] as [UserClass]
 	, [t_applicationId]
 	, [t_jobId]
 	, [t_jobDtm]
