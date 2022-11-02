@@ -10,8 +10,17 @@
 		"annotations": [],
 		"type": "AzureBlobStorage",
 		"typeProperties": {
-			"serviceEndpoint": "@{concat(\n    'https://',\n    linkedService().storageAccount,\n    '.blob.core.windows.net'\n)}",
-			"accountKind": "StorageV2"
+			"sasUri": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "ls_kv_xxxx_sls_x_euw_001",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": {
+					"value": "@concat(\n    'BlobSASToken-',\n    linkedService().storageAccount\n)",
+					"type": "Expression"
+				}
+			}
 		}
 	}
 }
