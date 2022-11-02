@@ -3815,7 +3815,7 @@
         "extraction_type": "Table",
         "update_mode": "Full",
         "base_table_name": "P_UserAddress",
-        "pk_field_names": "MANDT,bname",
+        "pk_field_names": "MANDT,BNAME",
         "schedule_recurrence": "A"
       }
     ]
