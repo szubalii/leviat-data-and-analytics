@@ -42,6 +42,8 @@ resource storageAccountContainer 'Microsoft.Storage/storageAccounts/blobServices
   }
 }]
 
+//TODO how to auto create folder 'Xtract Universal' in container 'adf-jobs' and place file 'empty_csv_source.csv'?
+
 // resource storageAccount_default_ancon_australia_2_dwh 'Microsoft.Storage/storageAccounts/blobServices/containers@2022-05-01' = {
 //   name: 'ancon-australia-2-dwh'
 //   properties: {

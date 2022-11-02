@@ -410,3 +410,5 @@ resource synapseSqlPool_xlargerc_xlargerc 'Microsoft.Synapse/workspaces/sqlPools
     synapseSqlPool
   ]
 }
+
+// TODO: add personal adf as contributor to synapse workspace, so it can pause its corresponding sql pool
