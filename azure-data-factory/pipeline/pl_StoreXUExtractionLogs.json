@@ -114,7 +114,11 @@
 						"parameters": {
 							"container": "adf-jobs",
 							"directory": "Xtract Universal",
-							"file": "empty_csv_source.csv"
+							"file": "empty_csv_source.csv",
+							"storageAccount": {
+								"value": "@pipeline().globalParameters.storageAccountName",
+								"type": "Expression"
+							}
 						}
 					}
 				],
@@ -130,6 +134,10 @@
 							},
 							"file": {
 								"value": "@concat(\n    pipeline().parameters.entity_name,\n    '_extraction_log_',\n    replace(replace(replace(pipeline().parameters.extraction_timestamp,'-','_'),':','_'),'.','_'),\n    '.csv'\n)",
+								"type": "Expression"
+							},
+							"storageAccount": {
+								"value": "@pipeline().globalParameters.storageAccountName",
 								"type": "Expression"
 							}
 						}

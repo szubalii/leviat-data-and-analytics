@@ -79,13 +79,20 @@
 										"directory": {
 											"value": "@join(\n    createArray(\n     item().adls_directory_path\n     ,pipeline().parameters.in_out\n     ,pipeline().parameters.date\n  ), '/'\n)",
 											"type": "Expression"
+										},
+										"storageAccount": {
+											"value": "@pipeline().globalParameters.storageAccountName",
+											"type": "Expression"
 										}
 									}
 								},
 								"logStorageSettings": {
 									"linkedServiceName": {
 										"referenceName": "stxxxxslsxeuw001",
-										"type": "LinkedServiceReference"
+										"type": "LinkedServiceReference",
+										"parameters": {
+											"storageAccount": "stxxxxslsdeuw001"
+										}
 									},
 									"path": "utilities/logging"
 								},

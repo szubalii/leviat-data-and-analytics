@@ -93,8 +93,14 @@
 						"partitionOption": "None"
 					},
 					"dataset": {
-						"referenceName": "ds_orc_control_table",
-						"type": "DatasetReference"
+						"referenceName": "ds_orch_db",
+						"type": "DatasetReference",
+						"parameters": {
+							"sqlDb": {
+								"value": "@pipeline().globalParameters.sqlDb",
+								"type": "Expression"
+							}
+						}
 					},
 					"firstRowOnly": false
 				}
