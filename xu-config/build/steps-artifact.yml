@@ -1,46 +1,12 @@
 steps:
-  # expose dacpac as build artifact
 - task: CopyFiles@2
-  displayName: 'Copy SQL DB dacpac'
   inputs:
-    SourceFolder: '$(Build.SourcesDirectory)\synapse-dwh\syndw_xxxx_sls_d_euw_001\bin\$(buildConfiguration)'
-    Contents: '*.dacpac'
-    TargetFolder: '$(Build.ArtifactStagingDirectory)'
-
-- task: CopyFiles@2
-  displayName: 'Copy Test Assemblies'
-  inputs:
-    SourceFolder: '$(Build.SourcesDirectory)\synapse-dwh\Test\bin\$(buildConfiguration)'
-    Contents: '**'
-    TargetFolder: '$(Build.ArtifactStagingDirectory)\Test'
-
-  # expose publish config as build artifact
-- task: CopyFiles@2
-  displayName: 'Copy publish config'
-  inputs:
-    SourceFolder: '$(Build.SourcesDirectory)\synapse-dwh\publish'
-    Contents: '*.xml'
-    TargetFolder: '$(Build.ArtifactStagingDirectory)'
-
-  # expose src folder as build artifact
-- task: CopyFiles@2
-  displayName: 'Copy src folder'
-  inputs:
-    SourceFolder: '$(Build.SourcesDirectory)\synapse-dwh\src'
+    SourceFolder: '$(Build.SourcesDirectory)/xu-config/extractions'
     Contents: '**\*'
-    TargetFolder: '$(Build.ArtifactStagingDirectory)\src'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)/extractions'
 
-  # expose Master Data as build artifact
-- task: CopyFiles@2
-  displayName: 'Copy Master Data files'
-  inputs:
-    SourceFolder: '$(Build.SourcesDirectory)\synapse-dwh\syndw_xxxx_sls_d_euw_001\Master Data'
-    Contents: '**\*.csv'
-    TargetFolder: '$(Build.ArtifactStagingDirectory)\Master Data'
-
-  # publish artifacts
 - task: PublishPipelineArtifact@1
   inputs:
     targetPath: '$(Build.ArtifactStagingDirectory)'
-    artifact: 'SynapseDWH'
+    artifact: 'XtractUniversal'
     publishLocation: 'pipeline'
