@@ -1,17 +1,17 @@
 {
 	"name": "ls_stxxxxslsdeuw001_blob",
 	"properties": {
+		"parameters": {
+			"storageAccount": {
+				"type": "string",
+				"defaultValue": "stxxxxslsdeuw001"
+			}
+		},
 		"annotations": [],
 		"type": "AzureBlobStorage",
 		"typeProperties": {
-			"sasUri": {
-				"type": "AzureKeyVaultSecret",
-				"store": {
-					"referenceName": "ls_kv_xxxx_sls_x_euw_001",
-					"type": "LinkedServiceReference"
-				},
-				"secretName": "BlobSASToken"
-			}
+			"serviceEndpoint": "@{concat(\n    'https://',\n    linkedService().storageAccount,\n    '.blob.core.windows.net'\n)}",
+			"accountKind": "StorageV2"
 		}
 	}
 }
