@@ -70,6 +70,10 @@
 							"field_delimiter": {
 								"value": "@pipeline().parameters.field_delimiter",
 								"type": "Expression"
+							},
+							"storageAccount": {
+								"value": "@pipeline().globalParameters.storageAccountName",
+								"type": "Expression"
 							}
 						}
 					}
