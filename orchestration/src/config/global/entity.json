@@ -5387,33 +5387,6 @@
         "schedule_recurrence": "D"
       },
       {
-        "entity_id": 484,
-        "entity_name": "fact_MaterialDocumentItem_axbi",
-        "sproc_name": "sp_materialize_view",
-        "source_view_name": "vw_MaterialDocumentItem_axbi",
-        "dest_table_name": "fact_MaterialDocumentItem_axbi",
-        "execution_order": 1,
-        "schedule_recurrence": "D"
-      },
-      {
-        "entity_id": 529,
-        "entity_name": "fact_MaterialDocumentItem_temp",
-        "sproc_name": "sp_materialize_view",
-        "source_view_name": "vw_fact_MaterialDocumentItem_temp",
-        "dest_table_name": "fact_MaterialDocumentItem_temp",
-        "execution_order": 4,
-        "schedule_recurrence": "D"
-      },
-      {
-        "entity_id": 530,
-        "entity_name": "fact_MaterialStockLevel_temp",
-        "sproc_name": "sp_materialize_view",
-        "source_view_name": "vw_fact_MaterialStockLevel_temp",
-        "dest_table_name": "fact_MaterialStockLevel_temp",
-        "execution_order": 5,
-        "schedule_recurrence": "D"
-      },
-      {
         "entity_id": 541,
         "entity_name": "fact_MaterialDocumentItem",
         "sproc_name": "sp_materialize_view",
