@@ -1,84 +1,84 @@
 ﻿CREATE VIEW [edw].[vw_MaterialDocumentItem_s4h]
 	AS 
 SELECT 
-  MDI.[MaterialDocumentYear] 
-, MDI.[MaterialDocument]
-, MDI.[MaterialDocumentItem]
-, MDI.[Material] as [MaterialID]
-, MDI.[Plant] as [PlantID]
-, MDI.[StorageLocation] as [StorageLocationID]
-, MDI.[StorageType] as [StorageTypeID]
-, MDI.[StorageBin] 
-, MDI.[Batch] 
+  MDI.[MaterialDocumentYear] collate DATABASE_DEFAULT AS MaterialDocumentYear
+, MDI.[MaterialDocument]  collate DATABASE_DEFAULT AS MaterialDocument
+, MDI.[MaterialDocumentItem] collate DATABASE_DEFAULT AS MaterialDocumentItem
+, MDI.[Material] collate DATABASE_DEFAULT as [MaterialID]
+, MDI.[Plant]  collate DATABASE_DEFAULT as [PlantID] 
+, MDI.[StorageLocation]  collate DATABASE_DEFAULT as [StorageLocationID]
+, MDI.[StorageType] collate DATABASE_DEFAULT as [StorageTypeID] 
+, MDI.[StorageBin]  collate DATABASE_DEFAULT AS StorageBin
+, MDI.[Batch]  collate DATABASE_DEFAULT AS Batch
 , MDI.[ShelfLifeExpirationDate] 
 , MDI.[ManufactureDate] 
-, MDI.[Supplier] as [SupplierID]
-, MDI.[SalesOrder]
-, MDI.[SalesOrderItem] 
-, MDI.[SalesOrderScheduleLine] 
-, MDI.[WBSElementInternalID] 
-, MDI.[Customer] as [CustomerID]
-, MDI.[InventorySpecialStockType] as [InventorySpecialStockTypeID]
-, MDI.[InventoryStockType] as [InventoryStockTypeID]
-, MDI.[StockOwner] 
-, MDI.[GoodsMovementType] as [GoodsMovementTypeID]
-, MDI.[DebitCreditCode] 
-, MDI.[InventoryUsabilityCode] 
+, MDI.[Supplier] collate DATABASE_DEFAULT as [SupplierID] 
+, MDI.[SalesOrder] collate DATABASE_DEFAULT AS SalesOrder
+, MDI.[SalesOrderItem]  collate DATABASE_DEFAULT AS SalesOrderItem
+, MDI.[SalesOrderScheduleLine]  collate DATABASE_DEFAULT AS SalesOrderScheduleLine
+, MDI.[WBSElementInternalID]  collate DATABASE_DEFAULT AS WBSElementInternalID
+, MDI.[Customer] collate DATABASE_DEFAULT as [CustomerID]
+, MDI.[InventorySpecialStockType] collate DATABASE_DEFAULT as [InventorySpecialStockTypeID]
+, MDI.[InventoryStockType] collate DATABASE_DEFAULT as [InventoryStockTypeID]
+, MDI.[StockOwner]  collate DATABASE_DEFAULT AS StockOwner
+, MDI.[GoodsMovementType] collate DATABASE_DEFAULT as [GoodsMovementTypeID]
+, MDI.[DebitCreditCode]  collate DATABASE_DEFAULT AS DebitCreditCode
+, MDI.[InventoryUsabilityCode]  collate DATABASE_DEFAULT AS InventoryUsabilityCode
 , MDI.[QuantityInBaseUnit] 
-, MDI.[MaterialBaseUnit] as [MaterialBaseUnitID]
+, MDI.[MaterialBaseUnit] collate DATABASE_DEFAULT as [MaterialBaseUnitID]
 , MDI.[QuantityInEntryUnit] 
-, MDI.[EntryUnit] as [EntryUnitID]
+, MDI.[EntryUnit] collate DATABASE_DEFAULT as [EntryUnitID]
 , MDI.[PostingDate] as [HDR_PostingDate]
 , MDI.[DocumentDate] 
 , MDI.[TotalGoodsMvtAmtInCCCrcy] 
-, MDI.[CompanyCodeCurrency] 
-, MDI.[InventoryValuationType] as [InventoryValuationTypeID]
-, MDI.[ReservationIsFinallyIssued]
-, MDI.[PurchaseOrder] 
-, MDI.[PurchaseOrderItem] 
-, MDI.[ProjectNetwork] 
-, MDI.[OrderID] as [Order]                      
-, MDI.[OrderItem] 
-, MDI.[Reservation]
-, MDI.[ReservationItem]
-, MDI.[DeliveryDocument]
-, MDI.[DeliveryDocumentItem] 
-, MDI.[ReversedMaterialDocumentYear]
-, MDI.[ReversedMaterialDocument] 
-, MDI.[ReversedMaterialDocumentItem] 
-, MDI.[RvslOfGoodsReceiptIsAllowed] 
-, MDI.[GoodsRecipientName] 
-, MDI.[UnloadingPointName] 
-, MDI.[CostCenter] as [CostCenterID]
-, MDI.[GLAccount] as [GLAccountID]
-, MDI.[ServicePerformer]
-, MDI.[EmploymentInternalID] 
-, MDI.[AccountAssignmentCategory] 
-, MDI.[WorkItem] 
+, MDI.[CompanyCodeCurrency]  collate DATABASE_DEFAULT AS CompanyCodeCurrency
+, MDI.[InventoryValuationType] collate DATABASE_DEFAULT as [InventoryValuationTypeID]
+, MDI.[ReservationIsFinallyIssued] collate DATABASE_DEFAULT AS ReservationIsFinallyIssued
+, MDI.[PurchaseOrder]  collate DATABASE_DEFAULT AS PurchaseOrder
+, MDI.[PurchaseOrderItem]  collate DATABASE_DEFAULT AS PurchaseOrderItem
+, MDI.[ProjectNetwork]  collate DATABASE_DEFAULT AS ProjectNetwork
+, MDI.[OrderID] collate DATABASE_DEFAULT as [Order]                       
+, MDI.[OrderItem]  collate DATABASE_DEFAULT AS OrderItem
+, MDI.[Reservation] collate DATABASE_DEFAULT AS Reservation
+, MDI.[ReservationItem] collate DATABASE_DEFAULT AS ReservationItem
+, MDI.[DeliveryDocument] collate DATABASE_DEFAULT AS DeliveryDocument
+, MDI.[DeliveryDocumentItem]  collate DATABASE_DEFAULT AS DeliveryDocumentItem
+, MDI.[ReversedMaterialDocumentYear] collate DATABASE_DEFAULT AS ReversedMaterialDocumentYear
+, MDI.[ReversedMaterialDocument]  collate DATABASE_DEFAULT AS ReversedMaterialDocument
+, MDI.[ReversedMaterialDocumentItem]  collate DATABASE_DEFAULT AS ReversedMaterialDocumentItem
+, MDI.[RvslOfGoodsReceiptIsAllowed]  collate DATABASE_DEFAULT AS RvslOfGoodsReceiptIsAllowed
+, MDI.[GoodsRecipientName]  collate DATABASE_DEFAULT AS GoodsRecipientName
+, MDI.[UnloadingPointName]  collate DATABASE_DEFAULT AS UnloadingPointName
+, MDI.[CostCenter] collate DATABASE_DEFAULT as [CostCenterID]
+, MDI.[GLAccount] collate DATABASE_DEFAULT as [GLAccountID]
+, MDI.[ServicePerformer] collate DATABASE_DEFAULT AS ServicePerformer
+, MDI.[EmploymentInternalID]  collate DATABASE_DEFAULT AS EmploymentInternalID
+, MDI.[AccountAssignmentCategory]  collate DATABASE_DEFAULT AS AccountAssignmentCategory
+, MDI.[WorkItem]  collate DATABASE_DEFAULT AS WorkItem
 , MDI.[ServicesRenderedDate] 
-, MDI.[IssgOrRcvgMaterial] 
-, MDI.[CompanyCode] as [CompanyCodeID]
-, MDI.[GoodsMovementRefDocType] as [GoodsMovementRefDocTypeID]
-, MDI.[IsAutomaticallyCreated]
-, MDI.[IsCompletelyDelivered]
-, MDI.[IssuingOrReceivingPlant] as [IssuingOrReceivingPlantID]
-, MDI.[IssuingOrReceivingStorageLoc] as [IssuingOrReceivingStorageLocID]
-, MDI.[BusinessArea] as [BusinessAreaID]
-, MDI.[ControllingArea] as [ControllingAreaID]
-, MDI.[FiscalYearPeriod]
-, MDI.[FiscalYearVariant]
-, MDI.[IssgOrRcvgBatch]
-, MDI.[IssgOrRcvgSpclStockInd]
-, MDI.[MaterialDocumentItemText]
+, MDI.[IssgOrRcvgMaterial]  collate DATABASE_DEFAULT AS IssgOrRcvgMaterial
+, MDI.[CompanyCode] collate DATABASE_DEFAULT as [CompanyCodeID]
+, MDI.[GoodsMovementRefDocType] collate DATABASE_DEFAULT as [GoodsMovementRefDocTypeID]
+, MDI.[IsAutomaticallyCreated] collate DATABASE_DEFAULT AS IsAutomaticallyCreated
+, MDI.[IsCompletelyDelivered] collate DATABASE_DEFAULT AS IsCompletelyDelivered
+, MDI.[IssuingOrReceivingPlant] collate DATABASE_DEFAULT as [IssuingOrReceivingPlantID]
+, MDI.[IssuingOrReceivingStorageLoc] collate DATABASE_DEFAULT as [IssuingOrReceivingStorageLocID]
+, MDI.[BusinessArea] collate DATABASE_DEFAULT as [BusinessAreaID]
+, MDI.[ControllingArea] collate DATABASE_DEFAULT as [ControllingAreaID]
+, MDI.[FiscalYearPeriod] collate DATABASE_DEFAULT AS FiscalYearPeriod
+, MDI.[FiscalYearVariant] collate DATABASE_DEFAULT AS FiscalYearVariant
+, MDI.[IssgOrRcvgBatch] collate DATABASE_DEFAULT AS IssgOrRcvgBatch
+, MDI.[IssgOrRcvgSpclStockInd] collate DATABASE_DEFAULT AS IssgOrRcvgSpclStockInd
+, MDI.[MaterialDocumentItemText] collate DATABASE_DEFAULT AS MaterialDocumentItemText
 , '10' as [CurrencyTypeID]
-, MDH.[AccountingDocumentType] as [HDR_AccountingDocumentTypeID]
-, MDH.[InventoryTransactionType] as [HDR_InventoryTransactionTypeID]
-, MDH.[CreatedByUser] as [HDR_CreatedByUser]
+, MDH.[AccountingDocumentType] collate DATABASE_DEFAULT as [HDR_AccountingDocumentTypeID]
+, MDH.[InventoryTransactionType] collate DATABASE_DEFAULT as [HDR_InventoryTransactionTypeID]
+, MDH.[CreatedByUser] collate DATABASE_DEFAULT as [HDR_CreatedByUser]
 , MDH.[CreationDate] as [HDR_CreationDate]
 , MDH.[CreationTime] as [HDR_CreationTime]
-, MDH.[MaterialDocumentHeaderText] as [HDR_MaterialDocumentHeaderText]
-, MDH.[ReferenceDocument] as [HDR_ReferenceDocument]
-, MDH.[BillOfLading] as [HDR_BillOfLading]
+, MDH.[MaterialDocumentHeaderText] collate DATABASE_DEFAULT as [HDR_MaterialDocumentHeaderText]
+, MDH.[ReferenceDocument] collate DATABASE_DEFAULT as [HDR_ReferenceDocument]
+, MDH.[BillOfLading] collate DATABASE_DEFAULT as [HDR_BillOfLading]
 , MDI.[MatlStkChangeQtyInBaseUnit]
 , CASE WHEN ISNULL(MDI.[PurchaseOrder],'') <>''
     THEN MDI.[MatlCnsmpnQtyInMatlBaseUnit]
@@ -94,24 +94,24 @@ SELECT
   END AS [ConsumptionQtySOInBaseUnit]
 , MDI.[MatlCnsmpnQtyInMatlBaseUnit]
 , MDI.[GoodsReceiptQtyInOrderUnit]
-, MDI.[GoodsMovementIsCancelled]
-, MDI.[GoodsMovementCancellationType]
-, MDI.[ConsumptionPosting]
-, MDI.[ManufacturingOrder]
-, MDI.[ManufacturingOrderItem]
-, MDI.[IsReversalMovementType]
-, MDI.[t_applicationId]
+, MDI.[GoodsMovementIsCancelled] collate DATABASE_DEFAULT AS GoodsMovementIsCancelled
+, MDI.[GoodsMovementCancellationType] collate DATABASE_DEFAULT AS GoodsMovementCancellationType
+, MDI.[ConsumptionPosting] collate DATABASE_DEFAULT AS ConsumptionPosting
+, MDI.[ManufacturingOrder] collate DATABASE_DEFAULT AS ManufacturingOrder
+, MDI.[ManufacturingOrderItem] collate DATABASE_DEFAULT AS ManufacturingOrderItem
+, MDI.[IsReversalMovementType] collate DATABASE_DEFAULT AS IsReversalMovementType
+, MDI.[t_applicationId] collate DATABASE_DEFAULT AS t_applicationId
 , MDI.[t_extractionDtm]
-, dimPVs.[nk_dim_ProductValuationPUP]                                      AS [nk_dim_ProductValuationPUP]
+, dimPVs.[nk_dim_ProductValuationPUP]   collate DATABASE_DEFAULT                                    AS [nk_dim_ProductValuationPUP]
 , dimPVs.[StockPricePerUnit]
 , dimPVs.[StockPricePerUnit_EUR]
 , dimPVs.[StockPricePerUnit_USD]
-, SDT.[SalesDocumentTypeID]
-, SDT.[SalesDocumentType] 
-, dimSDIC.[SalesDocumentItemCategoryID] 
-, dimSDIC.[SalesDocumentItemCategory]
-, dimPDT.[PurchasingDocumentTypeID]                                           AS [PurchaseOrderTypeID]
-, dimPDT.[PurchasingDocumentTypeName]                                         AS [PurchaseOrderType]
+, SDT.[SalesDocumentTypeID]  collate DATABASE_DEFAULT AS SalesDocumentTypeID
+, SDT.[SalesDocumentType]  collate DATABASE_DEFAULT AS SalesDocumentType
+, dimSDIC.[SalesDocumentItemCategoryID]  collate DATABASE_DEFAULT AS SalesDocumentItemCategoryID
+, dimSDIC.[SalesDocumentItemCategory] collate DATABASE_DEFAULT  AS SalesDocumentItemCategory
+, dimPDT.[PurchasingDocumentTypeID]          collate DATABASE_DEFAULT                                  AS [PurchaseOrderTypeID]
+, dimPDT.[PurchasingDocumentTypeName]         collate DATABASE_DEFAULT                                 AS [PurchaseOrderType]
 FROM [base_s4h_cax].[I_MaterialDocumentItem] MDI
 LEFT JOIN [base_s4h_cax].[I_MaterialDocumentHeader] MDH
   ON 
@@ -121,18 +121,18 @@ LEFT JOIN [base_s4h_cax].[I_MaterialDocumentHeader] MDH
 LEFT JOIN 
   [edw].[dim_ProductValuationPUP] dimPVs
   ON  
-  dimPVs.[ValuationTypeID] =  MDI.[InventoryValuationTypeID] 
+  dimPVs.[ValuationTypeID] =  MDI.[InventoryValuationType] 
     AND
-  dimPVs.[ValuationAreaID] = MDI.[PlantID]
+  dimPVs.[ValuationAreaID] = MDI.[Plant]
     AND
-  dimPVs.[ProductID] = MDI.[MaterialID]    
+  dimPVs.[ProductID] = MDI.[Material]    
     AND 
-  dimPVs.[CalendarYear] =  FORMAT(MDI.[HDR_PostingDate],'yyyy')
+  dimPVs.[CalendarYear] =  FORMAT(MDI.[PostingDate],'yyyy')
     AND
-  dimPVs.[CalendarMonth] = FORMAT(MDI.[HDR_PostingDate],'MM')
+  dimPVs.[CalendarMonth] = FORMAT(MDI.[PostingDate],'MM')
 LEFT JOIN 
     [edw].[fact_SalesDocumentItem] SDI
-        ON MDI.[SalesOrder] = SDI.[SalesDocument] collate Latin1_General_100_BIN2
+        ON MDI.[SalesOrder] = SDI.[SalesDocument] collate DATABASE_DEFAULT
             AND
             MDI.[SalesOrderItem] = SDI.[SalesDocumentItem]
             AND
@@ -146,7 +146,7 @@ LEFT JOIN
 LEFT JOIN 
     [edw].[fact_PurchasingDocument] dimPD 
         ON 
-            MDI.[PurchaseOrder] COLLATE Latin1_General_100_BIN2 = dimPD.[PurchasingDocument] 
+            MDI.[PurchaseOrder] COLLATE DATABASE_DEFAULT = dimPD.[PurchasingDocument] 
 LEFT JOIN  
     [edw].[dim_PurchasingDocumentType] dimPDT 
         ON  

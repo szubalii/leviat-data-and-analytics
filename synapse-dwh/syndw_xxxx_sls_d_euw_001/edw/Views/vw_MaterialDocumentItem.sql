@@ -2,34 +2,34 @@ CREATE VIEW [edw].[vw_MaterialDocumentItem]
 	AS 
 SELECT  CONVERT(NVARCHAR(32),
             HashBytes('SHA2_256',
-            isNull(CAST(UV.[MaterialID] AS VARCHAR) COLLATE Latin1_General_100_BIN2, '')  +
-            isNull(CAST(UV.[PlantID] AS VARCHAR) COLLATE Latin1_General_100_BIN2, '') +
-            isNull(CAST(UV.[StorageLocationID] AS VARCHAR) COLLATE Latin1_General_100_BIN2, '')  +
-            isNull(CAST(UV.[InventorySpecialStockTypeID] AS VARCHAR) COLLATE Latin1_General_100_BIN2, '') +
-            isNull(CAST(UV.[InventoryStockTypeID] AS VARCHAR) COLLATE Latin1_General_100_BIN2, '') +
-            isNull(CAST(UV.[StockOwner] AS VARCHAR) COLLATE Latin1_General_100_BIN2, '') +
-            isNull(CAST(UV.[CostCenterID] AS VARCHAR) COLLATE Latin1_General_100_BIN2, '')  +
-            isNull(CAST(UV.[CompanyCodeID] AS VARCHAR) COLLATE Latin1_General_100_BIN2, '') +
-            isNull(CAST(UV.[SalesDocumentTypeID] AS VARCHAR) COLLATE Latin1_General_100_BIN2, '')  +
-            isNull(CAST(UV.[SalesDocumentItemCategoryID] AS VARCHAR) COLLATE Latin1_General_100_BIN2, '')  +
-            isNull(CAST(UV.[MaterialBaseUnitID] AS VARCHAR) COLLATE Latin1_General_100_BIN2, '') +
-            isNull(CAST(UV.[PurchaseOrderTypeID] AS VARCHAR) COLLATE Latin1_General_100_BIN2, '')
+            isNull(CAST(UV.[MaterialID] COLLATE DATABASE_DEFAULT AS VARCHAR) , '')  +
+            isNull(CAST(UV.[PlantID] COLLATE DATABASE_DEFAULT AS VARCHAR) , '') +
+            isNull(CAST(UV.[StorageLocationID] COLLATE DATABASE_DEFAULT AS VARCHAR) , '')  +
+            isNull(CAST(UV.[InventorySpecialStockTypeID] COLLATE DATABASE_DEFAULT AS VARCHAR) , '') +
+            isNull(CAST(UV.[InventoryStockTypeID] COLLATE DATABASE_DEFAULT AS VARCHAR) , '') +
+            isNull(CAST(UV.[StockOwner] COLLATE DATABASE_DEFAULT AS VARCHAR) , '') +
+            isNull(CAST(UV.[CostCenterID] COLLATE DATABASE_DEFAULT AS VARCHAR) , '')  +
+            isNull(CAST(UV.[CompanyCodeID] COLLATE DATABASE_DEFAULT AS VARCHAR) , '') +
+            isNull(CAST(UV.[SalesDocumentTypeID] COLLATE DATABASE_DEFAULT AS VARCHAR) , '')  +
+            isNull(CAST(UV.[SalesDocumentItemCategoryID] COLLATE DATABASE_DEFAULT AS VARCHAR) , '')  +
+            isNull(CAST(UV.[MaterialBaseUnitID] COLLATE DATABASE_DEFAULT AS VARCHAR) , '') +
+            isNull(CAST(UV.[PurchaseOrderTypeID] COLLATE DATABASE_DEFAULT AS VARCHAR) , '')
             )
         , 2)  _hash
     ,   UV.[MaterialDocumentYear] 
-    ,   UV.[MaterialDocument]
+    ,   UV.[MaterialDocument] COLLATE DATABASE_DEFAULT          AS MaterialDocument
     ,   UV.[MaterialDocumentItem]
-    ,   UV.[MaterialID]
-    ,   UV.[PlantID]
-    ,   UV.[StorageLocationID]
+    ,   UV.[MaterialID] COLLATE DATABASE_DEFAULT                AS MaterialID
+    ,   UV.[PlantID] COLLATE DATABASE_DEFAULT                   AS PlantID
+    ,   UV.[StorageLocationID] COLLATE DATABASE_DEFAULT         AS StorageLocationID
     ,   UV.[StorageTypeID]
     ,   UV.[StorageBin] 
     ,   UV.[Batch] 
     ,   UV.[ShelfLifeExpirationDate] 
     ,   UV.[ManufactureDate] 
     ,   UV.[SupplierID]
-    ,   UV.[SalesOrder]
-    ,   UV.[SalesOrderItem] 
+    ,   UV.[SalesOrder] COLLATE DATABASE_DEFAULT                AS SalesOrder
+    ,   UV.[SalesOrderItem] COLLATE DATABASE_DEFAULT            AS SalesOrderItem
     ,   UV.[SalesOrderScheduleLine] 
     ,   UV.[WBSElementInternalID] 
     ,   UV.[CustomerID]
@@ -40,20 +40,20 @@ SELECT  CONVERT(NVARCHAR(32),
     ,   UV.[DebitCreditCode] 
     ,   UV.[InventoryUsabilityCode] 
     ,   UV.[QuantityInBaseUnit] 
-    ,   UV.[MaterialBaseUnitID]
+    ,   UV.[MaterialBaseUnitID] COLLATE DATABASE_DEFAULT        AS MaterialBaseUnitID
     ,   UV.[QuantityInEntryUnit] 
     ,   UV.[EntryUnitID]
     ,   UV.[HDR_PostingDate]
     ,   UV.[DocumentDate] 
     ,   UV.[TotalGoodsMvtAmtInCCCrcy] 
-    ,   UV.[CompanyCodeCurrency] 
+    ,   UV.[CompanyCodeCurrency]  COLLATE DATABASE_DEFAULT      AS CompanyCodeCurrency
     ,   UV.[InventoryValuationTypeID]
     ,   UV.[ReservationIsFinallyIssued]
-    ,   UV.[PurchaseOrder] 
-    ,   UV.[PurchaseOrderItem] 
+    ,   UV.[PurchaseOrder] COLLATE DATABASE_DEFAULT             AS PurchaseOrder
+    ,   UV.[PurchaseOrderItem] COLLATE DATABASE_DEFAULT         AS PurchaseOrderItem
     ,   UV.[ProjectNetwork] 
-    ,   UV.[Order]                      
-    ,   UV.[OrderItem] 
+    ,   UV.[Order]                 COLLATE DATABASE_DEFAULT     AS [Order]
+    ,   UV.[OrderItem]             COLLATE DATABASE_DEFAULT     AS OrderItem
     ,   UV.[SalesDocumentItemCategoryID]
     ,   UV.[SalesDocumentItemCategory]
     ,   UV.[Reservation]
@@ -105,8 +105,8 @@ SELECT  CONVERT(NVARCHAR(32),
     ,   UV.[GoodsMovementIsCancelled]
     ,   UV.[GoodsMovementCancellationType]
     ,   UV.[ConsumptionPosting]
-    ,   UV.[ManufacturingOrder]
-    ,   UV.[ManufacturingOrderItem]
+    ,   UV.[ManufacturingOrder] COLLATE DATABASE_DEFAULT        AS ManufacturingOrder
+    ,   UV.[ManufacturingOrderItem] COLLATE DATABASE_DEFAULT    AS ManufacturingOrderItem
     ,   UV.[IsReversalMovementType]
     ,   UV.[t_applicationId]
     ,   UV.[t_extractionDtm]
@@ -116,8 +116,9 @@ SELECT  CONVERT(NVARCHAR(32),
     ,   UV.[StockPricePerUnit_USD]
     ,   UV.[SalesDocumentTypeID]
     ,   UV.[SalesDocumentType] 
-    ,   UV.[PurchaseOrderTypeID]
+    ,   UV.[PurchaseOrderTypeID] 
     ,   UV.[PurchaseOrderType]
+    FROM
 (
     SELECT S4H.[MaterialDocumentYear] 
         ,   S4H.[MaterialDocument]
@@ -190,7 +191,7 @@ SELECT  CONVERT(NVARCHAR(32),
         ,   S4H.[IssgOrRcvgBatch]
         ,   S4H.[IssgOrRcvgSpclStockInd]
         ,   S4H.[MaterialDocumentItemText]
-        ,   S4h.[CurrencyTypeID]
+        ,   S4H.[CurrencyTypeID]
         ,   S4H.[HDR_AccountingDocumentTypeID]
         ,   S4H.[HDR_InventoryTransactionTypeID]
         ,   S4H.[HDR_CreatedByUser]

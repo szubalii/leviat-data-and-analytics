@@ -271,14 +271,14 @@ ExchangeRateEuro as (
         SELECT
                 [MaterialDocument]
             ,   [MaterialDocumentItem]
-            ,   [CompanyCodeCurrency] COLLATE Latin1_General_100_BIN2 AS [CompanyCodeCurrency]
+            ,   [CompanyCodeCurrency] COLLATE DATABASE_DEFAULT AS [CompanyCodeCurrency]
             ,   MAX([ExchangeRateEffectiveDate]) as [ExchangeRateEffectiveDate]
         FROM 
             INVTRANS INV
         LEFT JOIN 
             EuroExchangeRate
             ON 
-                INV.[CompanyCodeCurrency] COLLATE Latin1_General_100_BIN2 = EuroExchangeRate.SourceCurrency
+                INV.[CompanyCodeCurrency] COLLATE DATABASE_DEFAULT = EuroExchangeRate.SourceCurrency
         WHERE 
             [ExchangeRateEffectiveDate] <= [DocumentDate]
         GROUP BY
