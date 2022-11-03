@@ -9,4 +9,5 @@ GRANT
     CREATE FUNCTION,
     CREATE VIEW,
     CREATE SCHEMA,
-    SHOWPLAN TO db_developer;
+    SHOWPLAN,
+    VIEW DATABASE STATE TO db_developer;
