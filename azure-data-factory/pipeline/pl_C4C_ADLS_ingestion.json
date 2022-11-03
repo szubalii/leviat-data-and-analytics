@@ -69,7 +69,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "ds_c4c_my354744",
+						"referenceName": "ds_sap_c4c",
 						"type": "DatasetReference",
 						"parameters": {
 							"path": {

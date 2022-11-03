@@ -1,8 +1,8 @@
 {
-	"name": "ds_c4c_my354744",
+	"name": "ds_sap_c4c",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "ls_c4c_my354744",
+			"referenceName": "ls_sap_c4c",
 			"type": "LinkedServiceReference"
 		},
 		"parameters": {
