@@ -3,11 +3,11 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "act_until_IsSynapseOnline",
+				"name": "Until SQL Pool Is Online",
 				"type": "Until",
 				"dependsOn": [
 					{
-						"activity": "act_web_ResumeAzureSynapseAnalytics",
+						"activity": "Resume Synapse SQL Pool",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -21,20 +21,20 @@
 					},
 					"activities": [
 						{
-							"name": "act_Wait5Seconds",
+							"name": "Wait 10 seconds",
 							"type": "Wait",
 							"dependsOn": [],
 							"userProperties": [],
 							"typeProperties": {
-								"waitTimeInSeconds": 5
+								"waitTimeInSeconds": 10
 							}
 						},
 						{
-							"name": "act_web_CheckSynapseStatus",
+							"name": "Get SQL Pool Status",
 							"type": "WebActivity",
 							"dependsOn": [
 								{
-									"activity": "act_Wait5Seconds",
+									"activity": "Wait 10 seconds",
 									"dependencyConditions": [
 										"Succeeded"
 									]
@@ -61,11 +61,11 @@
 							}
 						},
 						{
-							"name": "act_set_SynapseStatusVar",
+							"name": "Set status variable",
 							"type": "SetVariable",
 							"dependsOn": [
 								{
-									"activity": "act_web_CheckSynapseStatus",
+									"activity": "Get SQL Pool Status",
 									"dependencyConditions": [
 										"Succeeded"
 									]
@@ -75,7 +75,7 @@
 							"typeProperties": {
 								"variableName": "synapse_status",
 								"value": {
-									"value": "@activity('act_web_CheckSynapseStatus').output.properties.status",
+									"value": "@activity('Get SQL Pool Status').output.properties.status",
 									"type": "Expression"
 								}
 							}
@@ -85,7 +85,7 @@
 				}
 			},
 			{
-				"name": "act_web_ResumeAzureSynapseAnalytics",
+				"name": "Resume Synapse SQL Pool",
 				"description": "",
 				"type": "WebActivity",
 				"dependsOn": [],
