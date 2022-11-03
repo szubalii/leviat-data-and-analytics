@@ -8,19 +8,14 @@ SELECT
         viewMD.[PlantID],
         viewMD.[StorageLocationID],
         viewMD.[InventorySpecialStockTypeID],
-        viewMD.[InventorySpecialStockTypeName],
         viewMD.[InventoryStockTypeID],
-        viewMD.[InventoryStockTypeName],
         viewMD.[StockOwner],
         viewMD.[CostCenterID],
         viewMD.[CompanyCodeID],
         viewMD.[SalesDocumentTypeID],
-        viewMD.[SalesDocumentType],
         viewMD.[SalesDocumentItemCategoryID],
-        viewMD.[SalesDocumentItemCategory],
         viewMD.[MaterialBaseUnitID],
         viewMD.[PurchaseOrderTypeID],
-        viewMD.[PurchaseOrderType],
         sum(viewMD.MatlStkChangeQtyInBaseUnit)   AS MatlStkChangeQtyInBaseUnit,
         viewMD.[StockPricePerUnit],
         viewMD.[StockPricePerUnit_EUR],
@@ -29,23 +24,19 @@ SELECT
         viewMD.[InventoryValuationTypeID]
     FROM [edw].[fact_MaterialDocumentItem] viewMD
     group by
+        viewMD.[_hash],
         viewMD.[MaterialID],
         viewMD.[PlantID],
         viewMD.[StorageLocationID],
         viewMD.[InventorySpecialStockTypeID],
-        viewMD.[InventorySpecialStockTypeName],
         viewMD.[InventoryStockTypeID],
-        viewMD.[InventoryStockTypeName],
         viewMD.[StockOwner],
         viewMD.[CostCenterID],
         viewMD.[CompanyCodeID],
         viewMD.[SalesDocumentTypeID],
-        viewMD.[SalesDocumentType],
         viewMD.[SalesDocumentItemCategoryID],
-        viewMD.[SalesDocumentItemCategory],
         viewMD.[MaterialBaseUnitID],
         viewMD.[PurchaseOrderTypeID],
-        viewMD.[PurchaseOrderType],
         viewMD.[StockPricePerUnit],
         viewMD.[StockPricePerUnit_EUR],
         viewMD.[StockPricePerUnit_USD],
@@ -58,19 +49,14 @@ SELECT
         max([PlantID]) AS PlantID,
         max([StorageLocationID]) AS StorageLocationID,
         max([InventorySpecialStockTypeID]) AS InventorySpecialStockTypeID,
-        max([InventorySpecialStockTypeName]) AS InventorySpecialStockTypeName,
         max([InventoryStockTypeID]) AS InventoryStockTypeID,
-        max([InventoryStockTypeName]) AS InventoryStockTypeName,
         max([StockOwner]) AS StockOwner,
         max([CostCenterID]) AS CostCenterID,
         max([CompanyCodeID]) AS CompanyCodeID,
         max([SalesDocumentTypeID]) AS SalesDocumentTypeID,
-        max([SalesDocumentType]) AS SalesDocumentType,
         max([SalesDocumentItemCategoryID]) AS SalesDocumentItemCategoryID,
-        max([SalesDocumentItemCategory]) AS SalesDocumentItemCategory,
         max([MaterialBaseUnitID]) AS MaterialBaseUnitID,
         max([PurchaseOrderTypeID]) AS PurchaseOrderTypeID,
-        max([PurchaseOrderType]) AS PurchaseOrderType,
         max([InventoryValuationTypeID]) AS InventoryValuationTypeID,
         min([HDR_PostingDate_FMD]) AS minHDR_PostingDate       
     FROM Hash_Calc viewMD   
@@ -86,19 +72,14 @@ SELECT
         HC.[PlantID],
         HC.[StorageLocationID],
         HC.[InventorySpecialStockTypeID],
-        HC.[InventorySpecialStockTypeName],
         HC.[InventoryStockTypeID],
-        HC.[InventoryStockTypeName],
         HC.[StockOwner],
         HC.[CostCenterID],
         HC.[CompanyCodeID],
         HC.[SalesDocumentTypeID],
-        HC.[SalesDocumentType],
         HC.[SalesDocumentItemCategoryID],
-        HC.[SalesDocumentItemCategory],
         HC.[MaterialBaseUnitID],
         HC.[PurchaseOrderTypeID],
-        HC.[PurchaseOrderType],
         HC.[InventoryValuationTypeID],
         HC.[minHDR_PostingDate]
     FROM Hash_Calc_Min HC
@@ -137,19 +118,14 @@ SELECT
         CC.PlantID,
         CC.StorageLocationID,
         CC.InventorySpecialStockTypeID,
-        CC.InventorySpecialStockTypeName,
         CC.InventoryStockTypeID,
-        CC.InventoryStockTypeName,
         CC.StockOwner,
         CC.CostCenterID,
         CC.CompanyCodeID,
         CC.SalesDocumentTypeID,
-        CC.SalesDocumentType,
         CC.SalesDocumentItemCategoryID,
-        CC.SalesDocumentItemCategory,
         CC.MaterialBaseUnitID,
         CC.PurchaseOrderTypeID,
-        CC.PurchaseOrderType,
         HC.MatlStkChangeQtyInBaseUnit,
         SUM(ISNULL(HC.MatlStkChangeQtyInBaseUnit, 0))
             OVER (PARTITION BY CC._hash ORDER BY CC.CalendarYear, CC.CalendarMonth) AS StockLevelQtyInBaseUnit,
@@ -166,17 +142,18 @@ SELECT
                 CC._hash = HC._hash AND CC.CalendarDate=HC.HDR_PostingDate_FMD
         LEFT JOIN [edw].[dim_ProductValuationPUP]  CPPUP 
         ON             
-            CPPUP.[ValuationTypeID] = CC.[InventoryValuationTypeID] 
+            CPPUP.[ValuationTypeID] = CC.[InventoryValuationTypeID] COLLATE DATABASE_DEFAULT
             AND
-            CPPUP.[ValuationAreaID] = CC.[PlantID]
+            CPPUP.[ValuationAreaID] = CC.[PlantID] COLLATE DATABASE_DEFAULT
             AND
-            CPPUP.[ProductID] = CC.[MaterialID]     
+            CPPUP.[ProductID] = CC.[MaterialID]   COLLATE DATABASE_DEFAULT  
             AND 
-            CPPUP.[CalendarYear] = CC.[CalendarYear] COLLATE Latin1_General_100_BIN2
+            CPPUP.[CalendarYear] = CC.[CalendarYear] COLLATE DATABASE_DEFAULT
             AND
-            CPPUP.[CalendarMonth] = CC.[CalendarMonth] COLLATE Latin1_General_100_BIN2
+            CPPUP.[CalendarMonth] = CC.[CalendarMonth] COLLATE DATABASE_DEFAULT
 
 )   SELECT 
+    [_hash],
     [ReportingYear],
     [ReportingMonth],
     [ReportingDate],
@@ -184,19 +161,14 @@ SELECT
     [PlantID],
     [StorageLocationID],
     [InventorySpecialStockTypeID],
-    [InventorySpecialStockTypeName],
     [InventoryStockTypeID],
-    [InventoryStockTypeName],
     [StockOwner],
     [CostCenterID],
     [CompanyCodeID],
     [SalesDocumentTypeID],
-    [SalesDocumentType],
     [SalesDocumentItemCategoryID],
-    [SalesDocumentItemCategory],
     [MaterialBaseUnitID],
     [PurchaseOrderTypeID],
-    [PurchaseOrderType],
     [MatlStkChangeQtyInBaseUnit],
     [StockLevelQtyInBaseUnit],
     [StockLevelQtyInBaseUnit] * [StockPricePerUnit]     AS StockLevelStandardPPU,

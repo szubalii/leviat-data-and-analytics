@@ -112,6 +112,26 @@ SELECT
 , dimSDIC.[SalesDocumentItemCategory] collate DATABASE_DEFAULT  AS SalesDocumentItemCategory
 , dimPDT.[PurchasingDocumentTypeID]          collate DATABASE_DEFAULT                                  AS [PurchaseOrderTypeID]
 , dimPDT.[PurchasingDocumentTypeName]         collate DATABASE_DEFAULT                                 AS [PurchaseOrderType]
+, dimDel.[DeliveryDocumentType]               collate DATABASE_DEFAULT       AS [HDR_DeliveryDocumentTypeID]
+, dimGMT.[GoodsMovementTypeName]        COLLATE DATABASE_DEFAULT AS GoodsMovementTypeName
+, MDI.[MatlStkChangeQtyInBaseUnit] * dimPVs.[StockPricePerUnit]             AS MatlStkChangeStandardValue
+, MDI.[MatlStkChangeQtyInBaseUnit] * dimPVs.[StockPricePerUnit_EUR]         AS MatlStkChangeStandardValue_EUR
+, MDI.[MatlStkChangeQtyInBaseUnit] * dimPVs.[StockPricePerUnit_USD]         AS MatlStkChangeStandardValue_USD
+, CASE WHEN ISNULL(MDI.[PurchaseOrder],'') <>''
+    THEN MDI.[MatlCnsmpnQtyInMatlBaseUnit]
+    ELSE NULL  
+  END  * dimPVs.[StockPricePerUnit]           AS ConsumptionQtyICPOInStandardValue
+, CASE WHEN ISNULL(MDI.[PurchaseOrder],'') <>''
+    THEN MDI.[MatlCnsmpnQtyInMatlBaseUnit]
+    ELSE NULL  
+  END  * dimPVs.[StockPricePerUnit_EUR]       AS ConsumptionQtyICPOInStandardValue_EUR
+, CASE WHEN ISNULL(MDI.[PurchaseOrder],'') <>''
+    THEN MDI.[MatlCnsmpnQtyInMatlBaseUnit]
+    ELSE NULL  
+  END  * dimPVs.[StockPricePerUnit_USD]       AS ConsumptionQtyICPOInStandardValue_USD
+, MDI.[QuantityInBaseUnit] * dimPVs.[StockPricePerUnit]                     AS QuantityInBaseUnitStandardValue
+, MDI.[QuantityInBaseUnit] * dimPVs.[StockPricePerUnit_EUR]                 AS QuantityInBaseUnitStandardValue_EUR
+, MDI.[QuantityInBaseUnit] * dimPVs.[StockPricePerUnit_USD]                 AS QuantityInBaseUnitStandardValue_USD
 FROM [base_s4h_cax].[I_MaterialDocumentItem] MDI
 LEFT JOIN [base_s4h_cax].[I_MaterialDocumentHeader] MDH
   ON 
@@ -153,4 +173,11 @@ LEFT JOIN
             dimPDT.[PurchasingDocumentTypeID]  = dimPD.[PurchasingDocumentTypeID] 
             AND
             dimPDT.[PurchasingDocumentCategoryID]  = dimPD.[PurchasingDocumentCategoryID]
+LEFT JOIN 
+    [edw].[dim_DeliveryDocument] dimDel 
+        ON dimDel.DeliveryDocumentID = MDH.[ReferenceDocument] 
+LEFT JOIN
+        [edw].[dim_GoodsMovementType] dimGMT
+            ON 
+                dimGMT.GoodsMovementTypeID = MDI.[GoodsMovementType]
 -- WHERE MDI.[MANDT] = 200 MPS 2021/11/01: commented out due to different client values between dev,qas, and prod

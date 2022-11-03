@@ -1,6 +1,7 @@
-CREATE VIEW [dm_sales].[vw_fact_MaterialStockLevel]
+create VIEW [dm_sales].[vw_fact_MaterialStockLevel]
 AS
-SELECT 
+SELECT
+    [_hash],
     [ReportingYear],
     [ReportingMonth],
     [ReportingDate],
@@ -8,24 +9,19 @@ SELECT
     [PlantID],
     [StorageLocationID],
     [InventorySpecialStockTypeID],
-    [InventorySpecialStockTypeName],
     [InventoryStockTypeID],
-    [InventoryStockTypeName],
     [StockOwner],
     [CostCenterID],
     [CompanyCodeID],
     [SalesDocumentTypeID],
-    [SalesDocumentType],
     [SalesDocumentItemCategoryID],
-    [SalesDocumentItemCategory],
     [MaterialBaseUnitID],
     [PurchaseOrderTypeID],
-    [PurchaseOrderType],
     [MatlStkChangeQtyInBaseUnit],
     [StockLevelQtyInBaseUnit],
-    [StockLevelQtyInBaseUnit] * [StockPricePerUnit]     AS StockLevelStandardPPU,
-    [StockLevelQtyInBaseUnit] * [StockPricePerUnit_EUR] AS StockLevelStandardPPU_EUR,
-    [StockLevelQtyInBaseUnit] * [StockPricePerUnit_USD] AS StockLevelStandardPPU_USD,
+    [StockLevelStandardPPU],
+    [StockLevelStandardPPU_EUR],
+    [StockLevelStandardPPU_USD],
     [PriceControlIndicatorID],
     [PriceControlIndicator],
     [nk_dim_ProductValuationPUP],

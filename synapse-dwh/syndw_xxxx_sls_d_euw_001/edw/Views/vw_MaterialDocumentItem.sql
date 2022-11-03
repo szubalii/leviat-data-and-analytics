@@ -118,6 +118,17 @@ SELECT  CONVERT(NVARCHAR(32),
     ,   UV.[SalesDocumentType] 
     ,   UV.[PurchaseOrderTypeID] 
     ,   UV.[PurchaseOrderType]
+    ,   UV.[HDR_DeliveryDocumentTypeID]
+    ,   UV.[GoodsMovementTypeName]
+    ,   UV.[MatlStkChangeStandardValue]
+    ,   UV.[MatlStkChangeStandardValue_EUR]
+    ,   UV.[MatlStkChangeStandardValue_USD]
+    ,   UV.[ConsumptionQtyICPOInStandardValue]
+    ,   UV.[ConsumptionQtyICPOInStandardValue_EUR]
+    ,   UV.[ConsumptionQtyICPOInStandardValue_USD]
+    ,   UV.[QuantityInBaseUnitStandardValue]
+    ,   UV.[QuantityInBaseUnitStandardValue_EUR]
+    ,   UV.[QuantityInBaseUnitStandardValue_USD]
     FROM
 (
     SELECT S4H.[MaterialDocumentYear] 
@@ -222,6 +233,17 @@ SELECT  CONVERT(NVARCHAR(32),
         ,   S4H.[SalesDocumentType] 
         ,   S4H.[PurchaseOrderTypeID]
         ,   S4H.[PurchaseOrderType]
+        ,   S4H.[HDR_DeliveryDocumentTypeID]
+        ,   S4H.[GoodsMovementTypeName]
+        ,   S4H.[MatlStkChangeStandardValue]
+        ,   S4H.[MatlStkChangeStandardValue_EUR]
+        ,   S4H.[MatlStkChangeStandardValue_USD]
+        ,   S4H.[ConsumptionQtyICPOInStandardValue]
+        ,   S4H.[ConsumptionQtyICPOInStandardValue_EUR]
+        ,   S4H.[ConsumptionQtyICPOInStandardValue_USD]
+        ,   S4H.[QuantityInBaseUnitStandardValue]
+        ,   S4H.[QuantityInBaseUnitStandardValue_EUR]
+        ,   S4H.[QuantityInBaseUnitStandardValue_USD]
     FROM [edw].[vw_MaterialDocumentItem_s4h] S4H
 
         UNION ALL
@@ -328,6 +350,17 @@ SELECT  CONVERT(NVARCHAR(32),
         ,   null AS [SalesDocumentType] 
         ,   null AS [PurchaseOrderTypeID]
         ,   null AS [PurchaseOrderType]
+        ,   null AS [HDR_DeliveryDocumentTypeID]
+        ,   null AS [GoodsMovementTypeName]
+        ,   AXBI.[MatlStkChangeQtyInBaseUnit] * AXBI.[StandardPricePerUnit]         AS [MatlStkChangeStandardValue]
+        ,   AXBI.[MatlStkChangeQtyInBaseUnit] * AXBI.[StandardPricePerUnit_EUR]     AS [MatlStkChangeStandardValue_EUR]
+        ,   null AS [MatlStkChangeStandardValue_USD]
+        ,   AXBI.[ConsumptionQtyICPOInBaseUnit] * AXBI.[StandardPricePerUnit]       AS [ConsumptionQtyICPOInStandardValue]
+        ,   AXBI.[ConsumptionQtyICPOInBaseUnit] * AXBI.[StandardPricePerUnit_EUR]   AS [ConsumptionQtyICPOInStandardValue_EUR]
+        ,   null AS [ConsumptionQtyICPOInStandardValue_USD]
+        ,   null AS [QuantityInBaseUnitStandardValue]
+        ,   null AS [QuantityInBaseUnitStandardValue_EUR]
+        ,   null AS [QuantityInBaseUnitStandardValue_USD]
     FROM [edw].[vw_MaterialDocumentItem_axbi] AXBI
 ) UV
 
