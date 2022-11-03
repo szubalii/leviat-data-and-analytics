@@ -104,7 +104,7 @@
 				],
 				"typeProperties": {
 					"url": {
-						"value": "@concat(\n\t'https://management.azure.com/subscriptions/'\n\t,pipeline().parameters.SubscriptionId\n\t,'/resourceGroups/'\n\t,pipeline().parameters.ResourceGroupName\n\t,'/providers/Microsoft.Synapse/workspaces/'\n\t,pipeline().parameters.SynapseServerName\n\t,'/sqlPools/'\n\t,pipeline().parameters.SynapseDatabaseName\n\t,'/Resume'\n\t,'?api-version=2021-03-01'\n)",
+						"value": "@concat(\n\t'https://management.azure.com/subscriptions/'\n\t,'f199b488-7d9d-4992-aeda-c10a1e1c9b9e'\n\t,'/resourceGroups/'\n\t,pipeline().globalParameters.resourceGroupName\n\t,'/providers/Microsoft.Synapse/workspaces/'\n\t,pipeline().globalParameters.synapseServerName\n\t,'/sqlPools/'\n\t,pipeline().globalParameters.synapseDatabaseName\n\t,'/Resume'\n\t,'?api-version=2021-03-01'\n)",
 						"type": "Expression"
 					},
 					"method": "POST",
@@ -119,24 +119,6 @@
 				}
 			}
 		],
-		"parameters": {
-			"SubscriptionId": {
-				"type": "string",
-				"defaultValue": "f199b488-7d9d-4992-aeda-c10a1e1c9b9e"
-			},
-			"ResourceGroupName": {
-				"type": "string",
-				"defaultValue": "rg-xxxx-sls-d-euw-001"
-			},
-			"SynapseServerName": {
-				"type": "string",
-				"defaultValue": "ws-xxxx-sls-d-euw-001"
-			},
-			"SynapseDatabaseName": {
-				"type": "string",
-				"defaultValue": "syndw_xxxx_sls_d_euw_001"
-			}
-		},
 		"variables": {
 			"synapse_status": {
 				"type": "String"
