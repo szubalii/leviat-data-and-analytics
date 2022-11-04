@@ -253,9 +253,15 @@
 								}
 							},
 							"linkedServiceName": {
-								"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
-								"type": "LinkedServiceReference"
-							}
+					"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"sqlDb": {
+							"value": "@pipeline().globalParameters.sqlDb",
+							"type": "Expression"
+						}
+					}
+				}
 						},
 						{
 							"name": "Log Exception 2",
@@ -307,9 +313,15 @@
 								}
 							},
 							"linkedServiceName": {
-								"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
-								"type": "LinkedServiceReference"
-							}
+					"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"sqlDb": {
+							"value": "@pipeline().globalParameters.sqlDb",
+							"type": "Expression"
+						}
+					}
+				}
 						},
 						{
 							"name": "Failed Extraction",
@@ -629,9 +641,15 @@
 								}
 							},
 							"linkedServiceName": {
-								"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
-								"type": "LinkedServiceReference"
-							}
+					"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"sqlDb": {
+							"value": "@pipeline().globalParameters.sqlDb",
+							"type": "Expression"
+						}
+					}
+				}
 						},
 						{
 							"name": "Log Exception",
@@ -690,9 +708,15 @@
 								}
 							},
 							"linkedServiceName": {
-								"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
-								"type": "LinkedServiceReference"
-							}
+					"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"sqlDb": {
+							"value": "@pipeline().globalParameters.sqlDb",
+							"type": "Expression"
+						}
+					}
+				}
 						},
 						{
 							"name": "Fail Getting XU Extraction Status",
