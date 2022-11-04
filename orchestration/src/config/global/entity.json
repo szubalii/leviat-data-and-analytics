@@ -5387,7 +5387,7 @@
         "schedule_recurrence": "D"
       },
       {
-        "entity_id": 541,
+        "entity_id": 543,
         "entity_name": "fact_MaterialDocumentItem",
         "sproc_name": "sp_materialize_view",
         "source_view_name": "vw_MaterialDocumentItem",
@@ -5396,7 +5396,7 @@
         "schedule_recurrence": "D"
       },
       {
-        "entity_id": 542,
+        "entity_id": 544,
         "entity_name": "fact_MaterialStockLevel",
         "sproc_name": "sp_materialize_view",
         "source_view_name": "vw_MaterialStockLevel",
