@@ -1,4 +1,4 @@
-const globalEntityCfg = require('../config/global/entity.json');
+const globalEntityCfg = require('../../orchestration/src/config/global/entity.json');
 const fs = require('fs');
 const root = process.argv[2];
 
