@@ -91,7 +91,10 @@
 										"referenceName": "stxxxxslsxeuw001",
 										"type": "LinkedServiceReference",
 										"parameters": {
-											"storageAccount": "stxxxxslsdeuw001"
+											"storageAccount": {
+												"value": "@pipeline().globalParameters.storageAccountName",
+												"type": "Expression"
+											}
 										}
 									},
 									"path": "utilities/logging"
