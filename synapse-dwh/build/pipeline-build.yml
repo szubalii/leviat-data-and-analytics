@@ -3,7 +3,7 @@ trigger:
 
 variables:
 - group: DnA_DEV
-- group: KeyVault_DEV
+# - group: KeyVault_DEV
 
 jobs:
 - template: ../../build/jobs-pre-build.yml
