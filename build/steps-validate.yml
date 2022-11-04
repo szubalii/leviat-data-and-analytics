@@ -3,7 +3,7 @@ steps:
 - task: Npm@1
   inputs:
     command: 'install'
-    workingDir: '$(Build.Repository.LocalPath)/orchestration' #replace with the package.json folder
+    workingDir: '$(Build.Repository.LocalPath)' #replace with the package.json folder
     verbose: true
   displayName: 'Install npm package'
 
@@ -11,6 +11,6 @@ steps:
 - task: Npm@1
   inputs:
     command: 'custom'
-    workingDir: '$(Build.Repository.LocalPath)/orchestration'
+    workingDir: '$(Build.Repository.LocalPath)'
     customCommand: 'run validate $(Build.Repository.LocalPath)'
   displayName: 'Validate Orchestration Config'
