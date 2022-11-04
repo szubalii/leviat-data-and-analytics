@@ -75,7 +75,13 @@
 							},
 							"linkedServiceName": {
 								"referenceName": "ls_ws_xxxx_sls_x_euw_001__syndw_xxxx_sls_x_euw_001",
-								"type": "LinkedServiceReference"
+								"type": "LinkedServiceReference",
+								"parameters": {
+									"sqlPool": {
+										"value": "@pipeline().globalParameters.synapseDatabaseName",
+										"type": "Expression"
+									}
+								}
 							}
 						},
 						{
@@ -165,9 +171,15 @@
 								}
 							},
 							"linkedServiceName": {
-								"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
-								"type": "LinkedServiceReference"
-							}
+					"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"sqlDb": {
+							"value": "@pipeline().globalParameters.sqlDb",
+							"type": "Expression"
+						}
+					}
+				}
 						},
 						{
 							"name": "CustomSPFailure",
@@ -266,7 +278,13 @@
 							},
 							"linkedServiceName": {
 								"referenceName": "ls_ws_xxxx_sls_x_euw_001__syndw_xxxx_sls_x_euw_001",
-								"type": "LinkedServiceReference"
+								"type": "LinkedServiceReference",
+								"parameters": {
+									"sqlPool": {
+										"value": "@pipeline().globalParameters.synapseDatabaseName",
+										"type": "Expression"
+									}
+								}
 							}
 						},
 						{
@@ -329,9 +347,15 @@
 								}
 							},
 							"linkedServiceName": {
-								"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
-								"type": "LinkedServiceReference"
-							}
+					"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"sqlDb": {
+							"value": "@pipeline().globalParameters.sqlDb",
+							"type": "Expression"
+						}
+					}
+				}
 						},
 						{
 							"name": "GenericSPFailure",
@@ -433,7 +457,13 @@
 				},
 				"linkedServiceName": {
 					"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
-					"type": "LinkedServiceReference"
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"sqlDb": {
+							"value": "@pipeline().globalParameters.sqlDb",
+							"type": "Expression"
+						}
+					}
 				}
 			},
 			{
@@ -498,7 +528,13 @@
 				},
 				"linkedServiceName": {
 					"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
-					"type": "LinkedServiceReference"
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"sqlDb": {
+							"value": "@pipeline().globalParameters.sqlDb",
+							"type": "Expression"
+						}
+					}
 				}
 			},
 			{
@@ -563,7 +599,13 @@
 				},
 				"linkedServiceName": {
 					"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
-					"type": "LinkedServiceReference"
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"sqlDb": {
+							"value": "@pipeline().globalParameters.sqlDb",
+							"type": "Expression"
+						}
+					}
 				}
 			},
 			{
@@ -658,7 +700,13 @@
 				},
 				"linkedServiceName": {
 					"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
-					"type": "LinkedServiceReference"
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"sqlDb": {
+							"value": "@pipeline().globalParameters.sqlDb",
+							"type": "Expression"
+						}
+					}
 				}
 			},
 			{
@@ -719,7 +767,13 @@
 				},
 				"linkedServiceName": {
 					"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
-					"type": "LinkedServiceReference"
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"sqlDb": {
+							"value": "@pipeline().globalParameters.sqlDb",
+							"type": "Expression"
+						}
+					}
 				}
 			},
 			{

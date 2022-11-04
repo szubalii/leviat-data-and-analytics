@@ -1,0 +1,44 @@
+{
+	"name": "df-nkukhtenko-d-euw-001",
+	"properties": {
+		"globalParameters": {
+			"XU_hostName": {
+				"type": "string",
+				"value": "http://10.109.68.4:8065"
+			},
+			"storageAccountName": {
+				"type": "string",
+				"value": "stnkukhtenkodeuw001"
+			},
+			"resourceGroupName": {
+				"type": "string",
+				"value": "rg-xxxx-sls-d-euw-001"
+			},
+			"virtualMachineName": {
+				"type": "string",
+				"value": "WEDLEVAPP001"
+			},
+			"synapseServerName": {
+				"type": "string",
+				"value": "ws-xxxx-sls-d-euw-001"
+			},
+			"synapseDatabaseName": {
+				"type": "string",
+				"value": "syndw_nkukhtenko_d_euw_001"
+			},
+			"keyVaultUrl": {
+				"type": "string",
+				"value": "https://kv-xxxx-sls-d-euw-001.vault.azure.net/"
+			},
+			"environment": {
+				"type": "string",
+				"value": "nkukhtenko"
+			},
+			"sqlDb": {
+				"type": "string",
+				"value": "sqldb-nkukhtenko-d-euw-001"
+			}
+		}
+	},
+	"location": "westeurope"
+}

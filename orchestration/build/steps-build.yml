@@ -1,0 +1,32 @@
+steps:
+- task: Npm@1
+  inputs:
+    command: 'install'
+    workingDir: '$(Build.Repository.LocalPath)/orchestration' #replace with the package.json folder
+    verbose: true
+  displayName: 'Install npm package'
+
+# Validate the Orchestration config
+- task: Npm@1
+  inputs:
+    command: 'custom'
+    workingDir: '$(Build.Repository.LocalPath)/orchestration'
+    customCommand: 'run validate $(Build.Repository.LocalPath)'
+  displayName: 'Validate Orchestration Config'
+
+- task: NuGetToolInstaller@1
+
+- task: NuGetCommand@2
+  inputs:
+    restoreSolution: '$(orchDBSolution)'
+
+- task: VSBuild@1
+  inputs:
+    solution: '$(orchDBSolution)'
+    platform: '$(buildPlatform)'
+    configuration: '$(buildConfiguration)'
+
+- script: |
+    cd $(Build.Repository.LocalPath)/orchestration
+    node -e require('./src/libs/generate-master-data').writeMasterDataCSV('$(environment)')
+  displayName: 'CMD: Write Environment Specific Master Data'

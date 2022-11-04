@@ -1,0 +1,76 @@
+steps:
+
+  - task: AzurePowerShell@5
+    displayName: 'Stop Triggers'
+    inputs:
+      azureSubscription: 'arm-pipeline'
+      ScriptPath: '$(Build.Repository.LocalPath)\azure-data-factory\ArmTemplate\PrePostDeploymentScript.ps1'
+      ScriptArguments: '
+        -armTemplate "$(Build.Repository.LocalPath)\azure-data-factory\ArmTemplate\ARMTemplateForFactory.json"
+        -ResourceGroupName $(resourceGroupName)
+        -DataFactoryName $(dataFactoryName)
+        -predeployment $true
+        -deleteDeployment $false
+        -ArmTemplateParameters "$(Build.Repository.LocalPath)\azure-data-factory\ArmTemplate\ARMTemplateParametersForFactory.json"
+        -ExplicitStopTriggerList "tr_AutoPauseSynDW", "tr_AutoDailyETL", "tr_OrchDB_Update"'
+      azurePowerShellVersion: LatestVersion
+      pwsh: true
+
+# Global parameter values are now included in ARM template using new mechanism.
+# (from 'Manage hub' -> 'ARM template' -> 'Include global parameters in ARM template')
+# This will set the property value of 'includeGlobalParamsTemplate' in publish_config.json to true
+# No separate powershell script task required anymore
+# https://learn.microsoft.com/en-us/azure/data-factory/author-global-parameters#cicd
+  # - task: AzurePowerShell@5
+  #   displayName: 'Azure PowerShell script: FilePath'
+  #   inputs:
+  #     azureSubscription: 'arm-pipeline'
+  #     ScriptPath: '$(Build.Repository.LocalPath)\azure-data-factory\ArmTemplate\GlobalParametersUpdateScript.ps1'
+  #     ScriptArguments: '-globalParametersFilePath $(Build.Repository.LocalPath)\azure-data-factory\factory\$(dataFactoryName).json -resourceGroupName $(resourceGroupName) -dataFactoryName $(dataFactoryName)'
+  #     azurePowerShellVersion: LatestVersion
+  #     pwsh: true
+    
+  - task: AzureResourceManagerTemplateDeployment@3
+    displayName: 'ARM Template deployment: Resource Group scope'
+    inputs:
+      azureResourceManagerConnection: 'arm-pipeline'
+      subscriptionId: 'f199b488-7d9d-4992-aeda-c10a1e1c9b9e'
+      resourceGroupName: '$(resourceGroupName)'
+      location: 'West Europe'
+      csmFile: '$(Build.Repository.LocalPath)\azure-data-factory\ArmTemplate\ARMTemplateForFactory.json'
+      csmParametersFile: '$(Build.Repository.LocalPath)\azure-data-factory\ArmTemplate\ARMTemplateParametersForFactory.json'
+      overrideParameters: '
+        -factoryName "$(dataFactoryName)"
+        -ls_c4c_my354744_properties_typeProperties_url "$(sapC4Curl)"
+        -ls_ws_xxxx_sls_x_euw_001_ondemand__synapse_od_connectionString "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=$(workspaceName)-ondemand.sql.azuresynapse.net;Initial Catalog=synapse_od"
+        -ls_ws_xxxx_sls_x_euw_001_ondemand__master_connectionString "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=$(workspaceName)-ondemand.sql.azuresynapse.net;Initial Catalog=master"
+        -ls_ws_xxxx_sls_x_euw_001__syndw_xxxx_sls_x_euw_001_connectionString "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=$(workspaceName).sql.azuresynapse.net;Initial Catalog=$(synapseSqlPool)"
+        -ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001_connectionString "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=$(sqlServerName).database.windows.net;Initial Catalog=$(sqlDatabaseName)"
+        -ls_axbi_x_TimeXtender__master_connectionString "Integrated Security=False;Data Source=$(axbiServer);Initial Catalog=master;User ID=JustBI"
+        -ls_kv_xxxx_sls_x_euw_001_properties_typeProperties_baseUrl "https://$(keyVaultName).vault.azure.net/"
+        -stxxxxslsxeuw001_properties_typeProperties_url "https://$(storageAccountName).dfs.core.windows.net/"
+        -tr_OrchDB_Update_properties_typeProperties_scope "/subscriptions/f199b488-7d9d-4992-aeda-c10a1e1c9b9e/resourceGroups/$(resourceGroupName)/providers/Microsoft.Storage/storageAccounts/$(storageAccountName)"
+        -ir-WEXLEVAPP001_properties_typeProperties_linkedInfo_resourceId "$(SHIRResourceId)"
+        -default_properties_XU_hostName_value "$(XUHostName)"
+        -default_properties_storageAccountName_value "$(storageAccountName)"
+        -default_properties_resourceGroupName_value "$(resourceGroupName)"
+        -default_properties_virtualMachineName_value "$(VMName)"
+        -default_properties_synapseServerName_value "$(workspaceName)"
+        -default_properties_synapseDatabaseName_value "$(synapseSqlPool)"
+        -default_properties_keyVaultUrl_value "https://$(keyVaultName).vault.azure.net/"
+        -default_properties_environment_value "$(xuPrefix)"
+        -default_properties_sqlDb_value "$(sqlDatabaseName)"'
+  
+  - task: AzurePowerShell@5
+    displayName: 'Start Triggers'
+    inputs:
+      azureSubscription: 'arm-pipeline'
+      ScriptPath: '$(Build.Repository.LocalPath)\azure-data-factory\ArmTemplate\PrePostDeploymentScript.ps1'
+      ScriptArguments: '
+        -armTemplate "$(Build.Repository.LocalPath)\azure-data-factory\ArmTemplate\ARMTemplateForFactory.json"
+        -ResourceGroupName $(resourceGroupName)
+        -DataFactoryName $(dataFactoryName)
+        -predeployment $false
+        -deleteDeployment $true'
+      azurePowerShellVersion: LatestVersion
+      pwsh: true

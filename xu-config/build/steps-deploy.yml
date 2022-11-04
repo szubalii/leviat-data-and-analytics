@@ -1,0 +1,10 @@
+steps:
+
+  # Copy Repo XU Config to VM XU Config
+- task: CopyFiles@2
+  displayName: 'Copy Repo XU Config to VM XU Config'
+  inputs:
+    SourceFolder: '$(System.DefaultWorkingDirectory)\xu-config\extractions'
+    Contents: '**/*.json'
+    TargetFolder: 'C:\Program Files\XtractUniversal\config\extractions'
+    OverWrite: true

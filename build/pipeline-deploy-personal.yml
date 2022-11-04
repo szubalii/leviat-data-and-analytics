@@ -1,0 +1,52 @@
+trigger:
+- none
+
+parameters:
+- name: user
+  displayName: User Name
+  type: string
+  default: $[ replace(variables['Build.RequestedForEmail'], '@crh.com','') ] # runtime expression to get user name
+- name: adf
+  displayName: Build & Deploy Azure Data Factory
+  type: boolean
+  default: true
+- name: orchdb
+  displayName: Build & Deploy Orchestration DB
+  type: boolean
+  default: true
+- name: syn
+  displayName: Build & Deploy Synapse DWH
+  type: boolean
+  default: true
+- name: xu
+  displayName: Build & Deploy Theobald Xtract Universal
+  type: boolean
+  default: true
+
+variables:
+- group: DnA_DEV
+- group: KeyVault_DEV
+- name: user
+  value: ${{ parameters.user }} # template expression to expand template parameter
+- name: dataFactoryName
+  value: "df-$(user)-d-euw-001"
+- name: sqlDatabaseName
+  value: "sqldb-$(user)-d-euw-001"
+- name: synapseSqlPool
+  value: "syndw_$(user)_d_euw_001"
+- name: storageAccountName
+  value: "st$(user)deuw001"
+- name: xuPrefix
+  value: "$(user)"
+- name: destination
+  value: "$(storageAccountName)_s4h-caa-200"
+
+jobs:
+# - template: ./jobs-pre-build.yml
+- template: ./jobs-build.yml
+  parameters:
+    deploy: true
+    adf: ${{ parameters.adf }}
+    orchdb: ${{ parameters.orchdb }}
+    syn: ${{ parameters.syn }}
+    xu: ${{ parameters.xu }}

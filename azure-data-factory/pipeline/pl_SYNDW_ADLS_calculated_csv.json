@@ -45,6 +45,10 @@
 							"table": {
 								"value": "@pipeline().parameters.edw_view_name",
 								"type": "Expression"
+							},
+							"sqlPool": {
+								"value": "@pipeline().globalParameters.synapseDatabaseName",
+								"type": "Expression"
 							}
 						}
 					}
@@ -65,6 +69,10 @@
 							},
 							"field_delimiter": {
 								"value": "@pipeline().parameters.field_delimiter",
+								"type": "Expression"
+							},
+							"storageAccount": {
+								"value": "@pipeline().globalParameters.storageAccountName",
 								"type": "Expression"
 							}
 						}

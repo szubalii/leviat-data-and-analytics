@@ -21,13 +21,6 @@
     <IncludeCompositeObjects>True</IncludeCompositeObjects>
     <TargetDatabaseSet>True</TargetDatabaseSet>
     <DefaultCollation>SQL_Latin1_General_CP1_CS_AS</DefaultCollation>
-    <QueryStoreCaptureMode>None</QueryStoreCaptureMode>
-    <QueryStoreDesiredState>Off</QueryStoreDesiredState>
-    <QueryStoreFlushInterval>900</QueryStoreFlushInterval>
-    <QueryStoreStatsInterval>60</QueryStoreStatsInterval>
-    <QueryStoreMaxPlansPerQuery>0</QueryStoreMaxPlansPerQuery>
-    <QueryStoreStaleQueryThreshold>0</QueryStoreStaleQueryThreshold>
-    <QueryStoreMaxStorageSize>0</QueryStoreMaxStorageSize>
     <DbScopedConfigLegacyCardinalityEstimation>Off</DbScopedConfigLegacyCardinalityEstimation>
     <DbScopedConfigLegacyCardinalityEstimationSecondary>Off</DbScopedConfigLegacyCardinalityEstimationSecondary>
     <DbScopedConfigMaxDOP>0</DbScopedConfigMaxDOP>
@@ -96,6 +89,13 @@
     <DefineTrace>true</DefineTrace>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <QueryStoreCaptureMode>None</QueryStoreCaptureMode>
+    <QueryStoreDesiredState>Off</QueryStoreDesiredState>
+    <QueryStoreFlushInterval>0</QueryStoreFlushInterval>
+    <QueryStoreStatsInterval>0</QueryStoreStatsInterval>
+    <QueryStoreMaxPlansPerQuery>0</QueryStoreMaxPlansPerQuery>
+    <QueryStoreStaleQueryThreshold>0</QueryStoreStaleQueryThreshold>
+    <QueryStoreMaxStorageSize>0</QueryStoreMaxStorageSize>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DSP>Microsoft.Data.Tools.Schema.Sql.SqlAzureV12DatabaseSchemaProvider</DSP>
@@ -109,6 +109,13 @@
     <DefineTrace>true</DefineTrace>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <QueryStoreCaptureMode>Auto</QueryStoreCaptureMode>
+    <QueryStoreDesiredState>ReadWrite</QueryStoreDesiredState>
+    <QueryStoreFlushInterval>900</QueryStoreFlushInterval>
+    <QueryStoreStatsInterval>60</QueryStoreStatsInterval>
+    <QueryStoreMaxPlansPerQuery>200</QueryStoreMaxPlansPerQuery>
+    <QueryStoreStaleQueryThreshold>30</QueryStoreStaleQueryThreshold>
+    <QueryStoreMaxStorageSize>100</QueryStoreMaxStorageSize>
   </PropertyGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
