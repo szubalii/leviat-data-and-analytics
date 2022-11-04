@@ -406,6 +406,12 @@ LEFT JOIN
         QtyOICP.[GoodsMovementTypeID] = INV.[GoodsMovementTypeID]
         AND
         QtyOICP.[TRANSTYPENAME] = INV.[GoodsMovementTypeName]
+LEFT JOIN
+    [edw].[ref_AXMigration] AXM
+        ON
+        dmInvLocation.[INVENTLOCATIONID] = AXM.StorageLocationID
+WHERE
+    INV.[DocumentDate] < COALESCE (AXM.MigrationDate,'9999-12-31')
 )
 SELECT  DISTINCT
         INV_QTY.[MaterialDocumentYear]

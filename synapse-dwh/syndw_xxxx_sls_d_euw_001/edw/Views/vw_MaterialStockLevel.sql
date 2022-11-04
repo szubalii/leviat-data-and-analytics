@@ -127,8 +127,12 @@ SELECT
         CC.MaterialBaseUnitID,
         CC.PurchaseOrderTypeID,
         HC.MatlStkChangeQtyInBaseUnit,
-        SUM(ISNULL(HC.MatlStkChangeQtyInBaseUnit, 0))
-            OVER (PARTITION BY CC._hash ORDER BY CC.CalendarYear, CC.CalendarMonth) AS StockLevelQtyInBaseUnit,
+        CASE
+            WHEN CC.LastDayOfMonthDate > AXM.MigrationDate THEN 0
+            ELSE
+                SUM(ISNULL(HC.MatlStkChangeQtyInBaseUnit, 0))
+                OVER (PARTITION BY CC._hash ORDER BY CC.CalendarYear, CC.CalendarMonth)
+        END AS StockLevelQtyInBaseUnit,
         CPPUP.[StockPricePerUnit]             AS [StockPricePerUnit],
         CPPUP.[StockPricePerUnit_EUR]         AS [StockPricePerUnit_EUR],
         CPPUP.[StockPricePerUnit_USD]         AS [StockPricePerUnit_USD],
@@ -151,6 +155,9 @@ SELECT
             CPPUP.[CalendarYear] = CC.[CalendarYear] COLLATE DATABASE_DEFAULT
             AND
             CPPUP.[CalendarMonth] = CC.[CalendarMonth] COLLATE DATABASE_DEFAULT
+        LEFT JOIN [edw].[ref_AXMigration] AXM
+        ON
+            CC.StorageLocationID = AXM.StorageLocationID
 
 )   SELECT 
     [_hash],
