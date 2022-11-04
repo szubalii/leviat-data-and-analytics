@@ -5401,7 +5401,7 @@
         "sproc_name": "sp_materialize_view",
         "source_view_name": "vw_MaterialStockLevel",
         "dest_table_name": "fact_MaterialStockLevel",
-        "execution_order": 1,
+        "execution_order": 2,
         "schedule_recurrence": "D"
       }
     ]

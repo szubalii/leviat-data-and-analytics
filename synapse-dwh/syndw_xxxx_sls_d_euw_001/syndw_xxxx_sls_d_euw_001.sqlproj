@@ -908,10 +908,10 @@
     <Build Include="base_s4h_cax\Tables\I_SupplierInvoiceItemGLAcct.sql" />
     <Build Include="base_tx_halfen_2_dwh\Tables\FACT_PRODJOURNALPROD.sql" />
     <Build Include="base_tx_halfen_2_dwh\Tables\FACT_PURCHLINE.sql" />
-    <Build Include="edw\Tables\fact_MaterialDocumentItem_axbi.sql" />
     <Build Include="map_AXBI\Tables\InventSite.sql" />
     <Build Include="map_AXBI\Tables\StockUnit.sql" />
     <Build Include="edw\Views\vw_MaterialDocumentItem_axbi.sql" />
+    <Build Include="edw\Views\vw_MaterialDocumentItem_s4h.sql" />
     <Build Include="base_tx_halfen_2_dwh\Tables\DIM_VENDTABLE.sql" />
     <Build Include="base_dw_halfen_1_stg\Tables\AX_Halfen_dbo_COMPANYINFO.sql" />
     <Build Include="base_s4h_cax\Tables\I_PurgDocumentItemCategory.sql" />
@@ -1005,10 +1005,8 @@
     <Build Include="base_s4h_cax\Tables\PurgAccAssignment.sql" />
     <Build Include="base_s4h_cax\Tables\NSDM_V_MARC.sql" />
     <Build Include="base_s4h_cax\Tables\NSDM_V_MAWEV.sql" />
-    <Build Include="edw\Tables\fact_MaterialDocumentItem_temp.sql" />
-    <Build Include="edw\Views\vw_fact_MaterialDocumentItem_temp.sql" />
-    <Build Include="edw\Views\vw_fact_MaterialStockLevel_temp.sql" />
-    <Build Include="edw\Tables\fact_MaterialStockLevel_temp.sql" />
+    <Build Include="edw\Views\vw_MaterialStockLevel.sql" />
+    <Build Include="edw\Tables\fact_MaterialStockLevel.sql" />
     <Build Include="dm_sales\Views\vw_dim_SuppliersList.sql" />
     <Build Include="dm_sales\Views\vw_fact_SpendAnalysis.sql" />
     <Build Include="dq\Views\vw_Product_1_1.sql" />
