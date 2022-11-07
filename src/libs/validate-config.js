@@ -1,4 +1,4 @@
-const globalEntityCfg = require('../config/global/entity.json');
+const globalEntityCfg = require('../../orchestration/src/config/global/entity.json');
 const fs = require('fs');
 const root = process.argv[2];
 
@@ -33,7 +33,7 @@ function Exception (message, object) {
 function validateEnvConfig (env) {
     console.log('Starting to validate orchestration configuration for ' + env + '.');
 
-    const envEntityCfg = require('../config/' + env + '/entity.json');
+    const envEntityCfg = require('../../orchestration/src/config/' + env + '/entity.json');
     let entityCfg = _.merge(globalEntityCfg, envEntityCfg);
     let baseS4HEntityArray = entityCfg.s4h.entities;
     let exceptions = [];

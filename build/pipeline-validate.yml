@@ -1,0 +1,18 @@
+trigger:
+- none
+
+variables:
+- group: DnA_DEV
+
+jobs:
+- template: ./jobs-pre-build.yml
+- job: Validate
+  dependsOn: StartVM
+  pool:
+    name: 'VM'
+    demands:
+    - node.js
+    - VisualStudio
+
+  steps:
+  - template: ./steps-validate.yml
