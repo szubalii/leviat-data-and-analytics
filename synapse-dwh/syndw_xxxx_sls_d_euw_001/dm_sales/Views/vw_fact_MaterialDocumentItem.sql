@@ -1,6 +1,5 @@
 ﻿CREATE VIEW [dm_sales].[vw_fact_MaterialDocumentItem] AS
-SELECT MDI._hash
-    ,   MDI.[MaterialDocumentYear] 
+SELECT  MDI.[MaterialDocumentYear] 
     ,   MDI.[MaterialDocument] COLLATE DATABASE_DEFAULT          AS MaterialDocument
     ,   MDI.[MaterialDocumentItem]
     ,   MDI.[MaterialID] COLLATE DATABASE_DEFAULT                AS MaterialID

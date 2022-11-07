@@ -1,7 +1,6 @@
 create VIEW [dm_sales].[vw_fact_MaterialStockLevel]
 AS
 SELECT
-    [_hash],
     [ReportingYear],
     [ReportingMonth],
     [ReportingDate],
