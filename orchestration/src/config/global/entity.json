@@ -53,7 +53,7 @@
         "base_sproc_name": "sp_load_I_GLAccountLineItemRawData",
         "pk_field_names": "TS_SEQUENCE_NUMBER, SOURCELEDGER, COMPANYCODE, FISCALYEAR, ACCOUNTINGDOCUMENT, LEDGERGLLINEITEM",
         "schedule_recurrence": "D"
-        
+
       },
       {
         "entity_id": 5,
@@ -3817,6 +3817,30 @@
         "base_table_name": "P_UserAddress",
         "pk_field_names": "MANDT,BNAME",
         "schedule_recurrence": "A"
+      },
+      {
+        "entity_id": 542,
+        "entity_name": "P_ConditionTypeText",
+        "data_category": "NULL",
+        "client_field": "MANDT",
+        "tool_name": "Theobald",
+        "extraction_type": "Table",
+        "update_mode": "Full",
+        "base_table_name": "P_ConditionTypeText",
+        "pk_field_names": "MANDT, SPRAS, KSCHL, KAPPL, KVEWE",
+        "schedule_recurrence": "D"
+      },
+      {
+        "entity_id": 543,
+        "entity_name": "I_PricingElement",
+        "data_category": "NULL",
+        "client_field": "MANDT",
+        "tool_name": "Theobald",
+        "extraction_type": "Table",
+        "update_mode": "Full",
+        "base_table_name": "I_PricingElement",
+        "pk_field_names": "MANDT, SPRAS, KSCHL, KAPPL, KVEWE",
+        "schedule_recurrence": "D"
       }
     ]
   },

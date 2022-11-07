@@ -7,6 +7,7 @@ CREATE TABLE [edw].[fact_SupplierInvoiceItemPurOrdRef]
     [PurchaseOrder]                             nvarchar(10) collate Latin1_General_100_BIN2,
     [PurchaseOrderItem]                         char(5) collate Latin1_General_100_BIN2,
     [Plant]                                     nvarchar(4) collate Latin1_General_100_BIN2,
+    [PurchasingDocumentItemShortText]           nvarchar(40) collate Latin1_General_100_BIN2,
     [SupplierInvoiceItemText]                   nvarchar(50) collate Latin1_General_100_BIN2,
     [PurchaseOrderItemMaterial]                 nvarchar(40) collate Latin1_General_100_BIN2,
     [PurchaseOrderQuantityUnit]                 nvarchar(3) collate Latin1_General_100_BIN2,

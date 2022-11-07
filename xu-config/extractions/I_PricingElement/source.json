@@ -1,0 +1,587 @@
+{
+    "functionName": "Z_THEO_READ_TABLE",
+    "runInBackgroundJob": false,
+    "tables": [
+        {
+            "name": "IPRICINGELEMENT",
+            "description": "Generated Table for View I_PricingElement: Pricing Element",
+            "isView": true,
+            "fields": [
+                {
+                    "name": "MANDT",
+                    "description": "Client (key field in client-specific tables)",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRICINGDOCUMENT",
+                    "description": "No.of condition in the document",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRICINGDOCUMENTITEM",
+                    "description": "Numeric field length 6",
+                    "abapType": "NumericCharacterString",
+                    "length": 6,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRICINGPROCEDURESTEP",
+                    "description": "Level number",
+                    "abapType": "NumericCharacterString",
+                    "length": 3,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRICINGPROCEDURECOUNTER",
+                    "description": "Numerator conditions",
+                    "abapType": "NumericCharacterString",
+                    "length": 3,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CONDITIONAPPLICATION",
+                    "description": "Condition application",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CONDITIONTYPE",
+                    "description": "Condition key",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRICINGDATETIME",
+                    "description": "Time stamp consisting of date and time",
+                    "abapType": "CharacterString",
+                    "length": 14,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CONDITIONCALCULATIONTYPE",
+                    "description": "Long Calculation Type for Condition",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CONDITIONBASEVALUE",
+                    "description": "Value Field for Pricing",
+                    "abapType": "PackedNumber",
+                    "length": 17,
+                    "decimalCount": 9,
+                    "isSelected": true,
+                    "formattedLength": 30,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CONDITIONRATEVALUE",
+                    "description": "Value Field for Pricing",
+                    "abapType": "PackedNumber",
+                    "length": 17,
+                    "decimalCount": 9,
+                    "isSelected": true,
+                    "formattedLength": 30,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CONDITIONCURRENCY",
+                    "description": "Currency Key",
+                    "abapType": "CharacterString",
+                    "length": 5,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRICEDETNEXCHANGERATE",
+                    "description": "Condition rate for conversion into local currency",
+                    "abapType": "PackedNumber",
+                    "length": 17,
+                    "decimalCount": 5,
+                    "isSelected": true,
+                    "formattedLength": 12,
+                    "conversionExit": "EXCRT"
+                },
+                {
+                    "name": "CONDITIONQUANTITY",
+                    "description": "Condition pricing unit",
+                    "abapType": "PackedNumber",
+                    "length": 5,
+                    "isSelected": true,
+                    "formattedLength": 5,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CONDITIONQUANTITYUNIT",
+                    "description": "Units of Measurement of Various Types",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "conversionExit": "CUNIT"
+                },
+                {
+                    "name": "CONDITIONTOBASEQTYNMRTR",
+                    "description": "Numerator for Converting in Pricing",
+                    "abapType": "PackedNumber",
+                    "length": 10,
+                    "isSelected": true,
+                    "formattedLength": 13,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CONDITIONTOBASEQTYDNMNTR",
+                    "description": "Denominator for Converting in Pricing",
+                    "abapType": "PackedNumber",
+                    "length": 10,
+                    "isSelected": true,
+                    "formattedLength": 13,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CONDITIONCATEGORY",
+                    "description": "Condition type: Freight, tax, cost,,......",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CONDITIONISFORSTATISTICS",
+                    "description": "Yes/No field",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRICINGSCALETYPE",
+                    "description": "Scale type indicator (from/to)",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ISRELEVANTFORACCRUAL",
+                    "description": "Yes/No field",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CNDNISRELEVANTFORINVOICELIST",
+                    "description": "Condition for invoice list",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CONDITIONORIGIN",
+                    "description": "Origin of condition",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ISGROUPCONDITION",
+                    "description": "Condition is a group/duplicated/header condition",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ACCESSNUMBEROFACCESSSEQUENCE",
+                    "description": "Sequential number of condition access for group key",
+                    "abapType": "NumericCharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CONDITIONRECORD",
+                    "description": "Number of the condition record",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CONDITIONSEQUENTIALNUMBER",
+                    "description": "Numerical field length 3",
+                    "abapType": "NumericCharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ACCOUNTKEYFORGLACCOUNT",
+                    "description": "Transaction Key",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "GLACCOUNT",
+                    "description": "G/L account number",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "TAXCODE",
+                    "description": "Taxes on sales/puchases code",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ACCTKEYFORACCRUALSGLACCOUNT",
+                    "description": "Transaction Key",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ACCRUALSGLACCOUNT",
+                    "description": "G/L account number",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "WITHHOLDINGTAXCODE",
+                    "description": "Withholding tax code",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "FREIGHTSUPPLIER",
+                    "description": "Account Number of Supplier",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "CNDNROUNDINGOFFDIFFAMOUNT",
+                    "description": "Currency Value Field for Pricing",
+                    "abapType": "PackedNumber",
+                    "length": 17,
+                    "decimalCount": 2,
+                    "isSelected": true,
+                    "formattedLength": 7,
+                    "conversionExit": "",
+                    "referenceTable": "IPRICINGELEMENT",
+                    "referenceField": "TRANSACTIONCURRENCY"
+                },
+                {
+                    "name": "CONDITIONAMOUNT",
+                    "description": "Value field PL8 with +/- sign",
+                    "abapType": "PackedNumber",
+                    "length": 17,
+                    "decimalCount": 2,
+                    "isSelected": true,
+                    "formattedLength": 21,
+                    "conversionExit": "",
+                    "referenceTable": "IPRICINGELEMENT",
+                    "referenceField": "TRANSACTIONCURRENCY"
+                },
+                {
+                    "name": "TRANSACTIONCURRENCY",
+                    "description": "Currency Key",
+                    "abapType": "CharacterString",
+                    "length": 5,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CONDITIONCONTROL",
+                    "description": "Condition control",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CONDITIONINACTIVEREASON",
+                    "description": "Condition Inactive",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CONDITIONCLASS",
+                    "description": "Condition ID",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRCGPROCEDURECOUNTERFORHEADER",
+                    "description": "Numerator conditions",
+                    "abapType": "NumericCharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "FACTORFORCONDITIONBASISVALUE",
+                    "description": "Floating period",
+                    "abapType": "FloatingPoint",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "STRUCTURECONDITION",
+                    "description": "Structure Condition",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PERIODFACTORFORCNDNBASISVALUE",
+                    "description": "Floating period",
+                    "abapType": "FloatingPoint",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRICINGSCALEBASIS",
+                    "description": "Scale Basis ID",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CONDITIONSCALEBASISVALUE",
+                    "description": "Value Field for Pricing",
+                    "abapType": "PackedNumber",
+                    "length": 17,
+                    "decimalCount": 9,
+                    "isSelected": true,
+                    "formattedLength": 30,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CONDITIONSCALEBASISUNIT",
+                    "description": "Units of Measurement of Various Types",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "conversionExit": "CUNIT"
+                },
+                {
+                    "name": "CONDITIONSCALEBASISCURRENCY",
+                    "description": "Currency Key",
+                    "abapType": "CharacterString",
+                    "length": 5,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CONDITIONALTERNATIVECURRENCY",
+                    "description": "Currency Key",
+                    "abapType": "CharacterString",
+                    "length": 5,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CONDITIONAMOUNTINLOCALCRCY",
+                    "description": "Value field PL8 with +/- sign",
+                    "abapType": "PackedNumber",
+                    "length": 17,
+                    "decimalCount": 2,
+                    "isSelected": true,
+                    "formattedLength": 21,
+                    "conversionExit": "",
+                    "referenceTable": "IPRICINGELEMENT",
+                    "referenceField": "CONDITIONALTERNATIVECURRENCY"
+                },
+                {
+                    "name": "CNDNISRELEVANTFORINTCOBILLING",
+                    "description": "Yes/No field",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CONDITIONISMANUALLYCHANGED",
+                    "description": "Yes/No field",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "BILLINGPRICESOURCE",
+                    "description": "Price Source",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "TAXJURISDICTIONLEVEL",
+                    "description": "One-Character Field Without Check",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CONDITIONBYTESEQUENCE",
+                    "description": "Area for flags in bit form",
+                    "abapType": "ByteSequence",
+                    "length": 2,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CNDNISRELEVANTFORLIMITVALUE",
+                    "description": "Yes/No field",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CONDITIONBASISLIMITEXCEEDED",
+                    "description": "Maximum Value/Base Flag",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CONDITIONAMOUNTLIMITEXCEEDED",
+                    "description": "Maximum Value/Base Flag",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CUMULATEDCONDITIONBASISVALUE",
+                    "description": "Value Field for Pricing",
+                    "abapType": "PackedNumber",
+                    "length": 17,
+                    "decimalCount": 9,
+                    "isSelected": true,
+                    "formattedLength": 30,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CUSTOMERREBATERECIPIENT",
+                    "description": "Customer Number",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "CONDITIONISFORCONFIGURATION",
+                    "description": "Yes/No field",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "VARIANTCONDITION",
+                    "description": "Variant Condition",
+                    "abapType": "CharacterString",
+                    "length": 26,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CONDITIONACCTASSGMTRELEVANCE",
+                    "description": "Relevance for account assignment",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CONDITIONMATRIXMAINTRELEVANCE",
+                    "description": "Indicator: Matrix maintenance",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CONFIGBLPARAMETERSANDFORMULAS",
+                    "description": "UUID in character form",
+                    "abapType": "CharacterString",
+                    "length": 32,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CONDITIONADJUSTEDQUANTITY",
+                    "description": "Quantity field length 31 with +/- sign",
+                    "abapType": "PackedNumber",
+                    "length": 17,
+                    "decimalCount": 14,
+                    "isSelected": true,
+                    "formattedLength": 38,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CNDNVALUEZEROPROCGCODE",
+                    "description": "Determines how conditions with amount of zero are processed",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CNDNISACCTDETNRELEVANT",
+                    "description": "Yes/No field",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                }
+            ]
+        }
+    ]
+}
