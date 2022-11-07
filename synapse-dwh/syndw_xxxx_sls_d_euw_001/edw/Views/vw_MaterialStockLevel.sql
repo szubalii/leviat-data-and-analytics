@@ -86,28 +86,6 @@ SELECT
     CROSS JOIN [edw].[dim_Calendar] AS dimC
     WHERE dimC.[CalendarDate] BETWEEN minHDR_PostingDate AND GETDATE()
         AND dimC.CalendarDay = '01'
- /*   GROUP By _hash,
-        dimC.[CalendarYear],
-        dimC.[CalendarMonth],
-        dimC.[LastDayOfMonthDate],
-        HC.[MaterialID],
-        HC.[PlantID],
-        HC.[StorageLocationID],
-        HC.[InventorySpecialStockTypeID],
-        HC.[InventorySpecialStockTypeName],
-        HC.[InventoryStockTypeID],
-        HC.[InventoryStockTypeName],
-        HC.[StockOwner],
-        HC.[CostCenterID],
-        HC.[CompanyCodeID],
-        HC.[SalesDocumentTypeID],
-        HC.[SalesDocumentType],
-        HC.[SalesDocumentItemCategoryID],
-        HC.[SalesDocumentItemCategory],
-        HC.[MaterialBaseUnitID],
-        HC.[PurchaseOrderTypeID],
-        HC.[PurchaseOrderType],
-        HC.[InventoryValuationTypeID] */
 ), Calendar_TotalAmount AS (
     SELECT
         CC._hash,
