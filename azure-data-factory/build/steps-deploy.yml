@@ -49,7 +49,6 @@ steps:
         -ls_axbi_x_TimeXtender__master_connectionString "Integrated Security=False;Data Source=$(axbiServer);Initial Catalog=master;User ID=JustBI"
         -ls_kv_xxxx_sls_x_euw_001_properties_typeProperties_baseUrl "https://$(keyVaultName).vault.azure.net/"
         -stxxxxslsxeuw001_properties_typeProperties_url "https://$(storageAccountName).dfs.core.windows.net/"
-        -tr_OrchDB_Update_properties_typeProperties_scope "/subscriptions/f199b488-7d9d-4992-aeda-c10a1e1c9b9e/resourceGroups/$(resourceGroupName)/providers/Microsoft.Storage/storageAccounts/$(storageAccountName)"
         -ir-WEXLEVAPP001_properties_typeProperties_linkedInfo_resourceId "$(SHIRResourceId)"
         -default_properties_XU_hostName_value "$(XUHostName)"
         -default_properties_storageAccountName_value "$(storageAccountName)"
