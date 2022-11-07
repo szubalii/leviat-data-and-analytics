@@ -34,10 +34,17 @@ BEGIN
     where upper(DATAAREAID) = 'ANAK'
 
 	insert [intm_axbi].[dim_CUSTTABLE]
+    ([DATAAREAID]
+    ,[ACCOUNTNUM]
+    ,[NAME]
+    ,[INOUT]
+    ,[CUSTOMERPILLAR]
+    ,[COMPANYCHAINID]
+    ,[DIMENSION3_])
 	select distinct
 	DATAAREAID,
 	'ANAC-' + CAST(ACCOUNTNUM as nvarchar), -- To identify the Leviat's company customer 
-	NAME,
+	[NAME],
 	INOUT,
 	CUSTOMERPILLAR,
 	' ',
@@ -95,6 +102,11 @@ BEGIN
     where upper([DATAAREAID]) = 'ANAC'
 
 	insert [intm_axbi].[dim_ITEMTABLE]
+    ([DATAAREAID]
+	,[ITEMID]
+	,[ITEMNAME]
+	,[PRODUCTGROUPID]
+	,[ITEMGROUPID])
 	select distinct
 	[DATAAREAID],
 	'ANAC-' + [ITEMID], -- To identify the Leviat's company item
@@ -169,6 +181,11 @@ BEGIN
 
 	-- Insert of sales items, where the item is missing in the item master table
 	insert [intm_axbi].[dim_ITEMTABLE]
+    ([DATAAREAID]
+	,[ITEMID]
+	,[ITEMNAME]
+	,[PRODUCTGROUPID]
+	,[ITEMGROUPID])
 	select distinct
 	c.DATAAREAID,
 	c.ITEMID,
@@ -191,6 +208,29 @@ BEGIN
         Datepart(yyyy, ACCOUNTINGDATE) = @P_Year and Datepart(MM, ACCOUNTINGDATE) = @P_Month
 
 	insert [intm_axbi].[fact_CUSTINVOICETRANS]
+    ([DATAAREAID]
+	,[SALESID]
+	,[INVOICEID]
+	,[LINENUM]
+	,[INVENTTRANSID]
+	,[ACCOUNTINGDATE]
+	,[CUSTOMERNO]
+	,[ITEMID]
+	,[DELIVERYCOUNTRYID]
+	,[PACKINGSLIPID]
+	,[QTY]
+	,[PRODUCTSALESLOCAL]
+	,[PRODUCTSALESEUR]
+	,[OTHERSALESLOCAL]
+	,[OTHERSALESEUR]
+	,[ALLOWANCESLOCAL]
+	,[ALLOWANCESEUR]
+	,[SALES100LOCAL]
+	,[SALES100EUR]
+	,[FREIGHTLOCAL]
+	,[FREIGHTEUR]
+	,[COSTAMOUNTLOCAL]
+	,[COSTAMOUNTEUR])
 	select
 	'ANAC',
 	Case

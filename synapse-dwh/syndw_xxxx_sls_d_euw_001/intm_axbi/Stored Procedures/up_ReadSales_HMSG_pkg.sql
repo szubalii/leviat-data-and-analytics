@@ -34,6 +34,13 @@ BEGIN
 	delete from [intm_axbi].[dim_CUSTTABLE] where UPPER(DATAAREAID) = 'HMSG'
 
 	insert [intm_axbi].[dim_CUSTTABLE]
+    ([DATAAREAID]
+    ,[ACCOUNTNUM]
+    ,[NAME]
+    ,[INOUT]
+    ,[CUSTOMERPILLAR]
+    ,[COMPANYCHAINID]
+    ,[DIMENSION3_])
 	select distinct
 	'HMSG',
 	'HMSG-' + ACCOUNTNUM,
@@ -80,6 +87,11 @@ BEGIN
 	delete from [intm_axbi].[dim_ITEMTABLE] where DATAAREAID = 'HMSG'
 
 	insert [intm_axbi].[dim_ITEMTABLE]
+    ([DATAAREAID]
+	,[ITEMID]
+	,[ITEMNAME]
+	,[PRODUCTGROUPID]
+	,[ITEMGROUPID])
 	select distinct
 	'HMSG',
 	'HMSG-' + [ITEMID],
@@ -173,6 +185,29 @@ BEGIN
         DATEPART(mm, [ACCOUNTINGDATE]) =  @P_Month 
 
 	insert [intm_axbi].[fact_CUSTINVOICETRANS]
+    ([DATAAREAID]
+	,[SALESID]
+	,[INVOICEID]
+	,[LINENUM]
+	,[INVENTTRANSID]
+	,[ACCOUNTINGDATE]
+	,[CUSTOMERNO]
+	,[ITEMID]
+	,[DELIVERYCOUNTRYID]
+	,[PACKINGSLIPID]
+	,[QTY]
+	,[PRODUCTSALESLOCAL]
+	,[PRODUCTSALESEUR]
+	,[OTHERSALESLOCAL]
+	,[OTHERSALESEUR]
+	,[ALLOWANCESLOCAL]
+	,[ALLOWANCESEUR]
+	,[SALES100LOCAL]
+	,[SALES100EUR]
+	,[FREIGHTLOCAL]
+	,[FREIGHTEUR]
+	,[COSTAMOUNTLOCAL]
+	,[COSTAMOUNTEUR])
 	select
         'HMSG',
         '999999999999',

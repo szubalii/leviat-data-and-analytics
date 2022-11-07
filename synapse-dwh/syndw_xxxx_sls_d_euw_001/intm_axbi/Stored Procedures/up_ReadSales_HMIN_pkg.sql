@@ -26,6 +26,13 @@ BEGIN
 	delete from [intm_axbi].[dim_CUSTTABLE] where UPPER(DATAAREAID) = 'HMIN'
 
 	insert [intm_axbi].[dim_CUSTTABLE]
+    ([DATAAREAID]
+    ,[ACCOUNTNUM]
+    ,[NAME]
+    ,[INOUT]
+    ,[CUSTOMERPILLAR]
+    ,[COMPANYCHAINID]
+    ,[DIMENSION3_])
 	select distinct
 	'HMIN',
 	CUSTOMERID,
@@ -71,6 +78,11 @@ BEGIN
 	delete from [intm_axbi].[dim_ITEMTABLE] where UPPER(DATAAREAID) = 'HMIN'
 
 	insert [intm_axbi].[dim_ITEMTABLE]
+    ([DATAAREAID]
+	,[ITEMID]
+	,[ITEMNAME]
+	,[PRODUCTGROUPID]
+	,[ITEMGROUPID])
 	select distinct
 	'HMIN',
 	[ITEMID],
@@ -159,7 +171,30 @@ BEGIN
         and
         DATEPART(mm, [ACCOUNTINGDATE]) =  @P_Month 
 
-	insert [intm_axbi].[fact_CUSTINVOICETRANS] 
+	insert [intm_axbi].[fact_CUSTINVOICETRANS]
+    ([DATAAREAID]
+	,[SALESID]
+	,[INVOICEID]
+	,[LINENUM]
+	,[INVENTTRANSID]
+	,[ACCOUNTINGDATE]
+	,[CUSTOMERNO]
+	,[ITEMID]
+	,[DELIVERYCOUNTRYID]
+	,[PACKINGSLIPID]
+	,[QTY]
+	,[PRODUCTSALESLOCAL]
+	,[PRODUCTSALESEUR]
+	,[OTHERSALESLOCAL]
+	,[OTHERSALESEUR]
+	,[ALLOWANCESLOCAL]
+	,[ALLOWANCESEUR]
+	,[SALES100LOCAL]
+	,[SALES100EUR]
+	,[FREIGHTLOCAL]
+	,[FREIGHTEUR]
+	,[COSTAMOUNTLOCAL]
+	,[COSTAMOUNTEUR])
 	select
         'HMIN',
         '999999999999',

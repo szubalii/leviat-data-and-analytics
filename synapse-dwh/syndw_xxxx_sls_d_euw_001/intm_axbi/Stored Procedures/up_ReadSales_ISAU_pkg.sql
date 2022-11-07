@@ -50,6 +50,13 @@ BEGIN
 	delete from [intm_axbi].[dim_CUSTTABLE] where DATAAREAID = 'ISAU'
 
 	insert [intm_axbi].[dim_CUSTTABLE]
+    ([DATAAREAID]
+    ,[ACCOUNTNUM]
+    ,[NAME]
+    ,[INOUT]
+    ,[CUSTOMERPILLAR]
+    ,[COMPANYCHAINID]
+    ,[DIMENSION3_])
 	select distinct
 	DATAAREAID,
 	'ISAU-' + ACCOUNTNUM,
@@ -112,6 +119,11 @@ BEGIN
 	delete from [intm_axbi].[dim_ITEMTABLE] where UPPER(DATAAREAID) = 'ISAU'
 
 	insert [intm_axbi].[dim_ITEMTABLE]
+    ([DATAAREAID]
+	,[ITEMID]
+	,[ITEMNAME]
+	,[PRODUCTGROUPID]
+	,[ITEMGROUPID])
 	select distinct
 	[DATAAREAID],
 	'ISAU-' + [ITEMID],
@@ -232,6 +244,29 @@ BEGIN
         DATEPART(month, [ACCOUNTINGDATE]) = @P_Month 
 
 	insert [intm_axbi].[fact_CUSTINVOICETRANS]
+    ([DATAAREAID]
+	,[SALESID]
+	,[INVOICEID]
+	,[LINENUM]
+	,[INVENTTRANSID]
+	,[ACCOUNTINGDATE]
+	,[CUSTOMERNO]
+	,[ITEMID]
+	,[DELIVERYCOUNTRYID]
+	,[PACKINGSLIPID]
+	,[QTY]
+	,[PRODUCTSALESLOCAL]
+	,[PRODUCTSALESEUR]
+	,[OTHERSALESLOCAL]
+	,[OTHERSALESEUR]
+	,[ALLOWANCESLOCAL]
+	,[ALLOWANCESEUR]
+	,[SALES100LOCAL]
+	,[SALES100EUR]
+	,[FREIGHTLOCAL]
+	,[FREIGHTEUR]
+	,[COSTAMOUNTLOCAL]
+	,[COSTAMOUNTEUR])
 	select
         a.[Dataareaid],
         ISNULL(a.[Salesid], ' '),
@@ -266,6 +301,11 @@ BEGIN
 
 	-- Fehlende Artikelstämme hinzufügen  	
 	insert [intm_axbi].[dim_ITEMTABLE]
+    ([DATAAREAID]
+	,[ITEMID]
+	,[ITEMNAME]
+	,[PRODUCTGROUPID]
+	,[ITEMGROUPID])
 	select distinct
 	c.DATAAREAID,
 	c.ITEMID,
@@ -388,33 +428,30 @@ BEGIN
         and 
         cnt.counter > 0
 	-- Falls keine Positionen vorhanden, aber Miscellaneous Charges vorhanden, dann Position für die Miscellaneous Charge anlegen
-	insert into [intm_axbi].[fact_CUSTINVOICETRANS]
-    values
-    (
-            [DATAAREAID]
-	    ,   [SALESID]
-	    ,   [INVOICEID]
-	    ,   [LINENUM]
-	    ,   [INVENTTRANSID]
-	    ,   [ACCOUNTINGDATE]
-	    ,   [CUSTOMERNO]
-	    ,   [ITEMID]
-	    ,   [DELIVERYCOUNTRYID]
-	    ,   [PACKINGSLIPID]
-	    ,   [QTY]
-	    ,   [PRODUCTSALESLOCAL]
-	    ,   [PRODUCTSALESEUR]
-	    ,   [OTHERSALESLOCAL]
-	    ,   [OTHERSALESEUR]
-	    ,   [ALLOWANCESLOCAL]
-	    ,   [ALLOWANCESEUR]
-	    ,   [SALES100LOCAL]
-	    ,   [SALES100EUR]
-	    ,   [FREIGHTLOCAL]
-	    ,   [FREIGHTEUR]
-	    ,   [COSTAMOUNTLOCAL]
-	    ,   [COSTAMOUNTEUR]
-    )
+	insert [intm_axbi].[fact_CUSTINVOICETRANS]    
+    ([DATAAREAID]
+	,[SALESID]
+	,[INVOICEID]
+	,[LINENUM]
+	,[INVENTTRANSID]
+	,[ACCOUNTINGDATE]
+	,[CUSTOMERNO]
+	,[ITEMID]
+	,[DELIVERYCOUNTRYID]
+	,[PACKINGSLIPID]
+	,[QTY]
+	,[PRODUCTSALESLOCAL]
+	,[PRODUCTSALESEUR]
+	,[OTHERSALESLOCAL]
+	,[OTHERSALESEUR]
+	,[ALLOWANCESLOCAL]
+	,[ALLOWANCESEUR]
+	,[SALES100LOCAL]
+	,[SALES100EUR]
+	,[FREIGHTLOCAL]
+	,[FREIGHTEUR]
+	,[COSTAMOUNTLOCAL]
+	,[COSTAMOUNTEUR])
 	select
 	        [DATAAREAID]
 	    ,   [SALESID]

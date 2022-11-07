@@ -1048,7 +1048,7 @@
     <Build Include="base_tx_ca_0_hlp\Tables\ITEMTABLE_HMMY.sql" />
     <Build Include="base_tx_ca_0_hlp\Tables\CUSTTABLE_HMMY.sql" />
     <Build Include="base_tx_ca_0_hlp\Tables\CUSTINVOICETRANS_HMMY.sql" />
-    <Build Include="intm_axbi\Stored Procedures\up_ReadSales_HMMY.sql" />
+    <Build Include="intm_axbi\Stored Procedures\up_ReadSales_HMMY_pkg.sql" />
     <Build Include="base_tx_ca_0_hlp\Tables\CUSTINVOICETRANS_HMPH.sql" />
     <Build Include="base_tx_ca_0_hlp\Tables\CUSTTABLE_HMPH.sql" />
     <Build Include="base_tx_ca_0_hlp\Tables\ITEMTABLE_HMPH.sql" />
