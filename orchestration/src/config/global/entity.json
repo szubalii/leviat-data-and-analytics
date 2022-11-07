@@ -3819,7 +3819,7 @@
         "schedule_recurrence": "A"
       },
       {
-        "entity_id": 542,
+        "entity_id": 543,
         "entity_name": "P_ConditionTypeText",
         "data_category": "NULL",
         "client_field": "MANDT",
@@ -3831,7 +3831,7 @@
         "schedule_recurrence": "D"
       },
       {
-        "entity_id": 543,
+        "entity_id": 544,
         "entity_name": "I_PricingElement",
         "data_category": "NULL",
         "client_field": "MANDT",
