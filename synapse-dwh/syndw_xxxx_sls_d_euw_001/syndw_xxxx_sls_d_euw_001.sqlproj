@@ -1020,7 +1020,7 @@
     <Build Include="dm_sales\Views\vw_fact_SpendAnalysis.sql" />
     <Build Include="dq\Views\vw_Product_1_1.sql" />
     <Build Include="dq\Views\vw_Product_1_26.sql" />
-    <Build Include="dq\Views\vw_Product_1_29_all.sql" />
+    <Build Include="dq\Views\vw_Product_1_34.sql" />
     <Build Include="dq\Views\vw_Product_1_31.sql" />
     <Build Include="dq\Views\vw_Product_1_32.sql" />
     <Build Include="dq\Views\vw_Product_1_33.sql" />
@@ -1032,7 +1032,7 @@
     <Build Include="base_tx_ca_0_hlp\Tables\ITEMTABLE_ANUK.sql" />
     <Build Include="base_tx_ca_0_hlp\Tables\MAPPING_ITEMGROUP_ANUK.sql" />
     <Build Include="dq\Views\vw_Product_1_25.sql" />   
-    <Build Include="dq\Views\vw_Product_1_30.sql" />
+    <Build Include="dq\Views\vw_Product_1_35.sql" />
     <Build Include="base_tx_ca_0_hlp\Tables\INVOICEDFREIGHT_ISUK.sql" />
     <Build Include="base_tx_ca_0_hlp\Tables\CUSTTABLE_ISUK.sql" />
     <Build Include="base_tx_ca_0_hlp\Tables\CUSTINVOICETRANS_ISUK.sql" />

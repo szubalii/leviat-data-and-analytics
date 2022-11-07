@@ -170,21 +170,21 @@ FROM
 
 UNION ALL
 
---1.29_ALL
+--1.34_ALL
 SELECT
     [RuleID]
     , [Product] 
 FROM
-    [dq].[vw_Product_1_29_all]
+    [dq].[vw_Product_1_34]
 
 UNION ALL
 
---1.30_ALL
+--1.35_ALL
 SELECT
     [RuleID]
     , [Product] 
 FROM
-    [dq].[vw_Product_1_30]             
+    [dq].[vw_Product_1_35]             
 
 UNION ALL
 
