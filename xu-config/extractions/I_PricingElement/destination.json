@@ -16,6 +16,6 @@
 	},
 	"blobType": "BlockBlob",
 	"columnNameKind": "Code",
-	"folderPath": "UNSPECIFIED/I_PricingElement/Theobald/Table/Full/In/#{ DateTime.Now.ToString(\"yyyy/MM/dd\") }#",
+	"folderPath": "NULL/I_PricingElement/Theobald/Table/Full/In/#{ DateTime.Now.ToString(\"yyyy/MM/dd\") }#",
 	"maxBlobSize": 0
 }

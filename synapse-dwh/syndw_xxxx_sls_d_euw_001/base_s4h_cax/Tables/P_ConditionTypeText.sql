@@ -1,9 +1,9 @@
 CREATE TABLE [base_s4h_cax].[P_ConditionTypeText](
   [MANDT] char(3) collate Latin1_General_100_BIN2 NOT NULL
-, [SPRAS] char(3)
-, [KSCHL] char(1)
-, [KAPPL] char(2)
-, [KVEWE] char(1)
+, [SPRAS] char(3) NOT NULL
+, [KSCHL] char(1) NOT NULL
+, [KAPPL] char(2) NOT NULL
+, [KVEWE] char(1) NOT NULL
 , [ACMPRICINGCONDITIONTYPENAME] char(30)
 , [t_applicationId]       VARCHAR (32)
 , [t_jobId]               VARCHAR (36)

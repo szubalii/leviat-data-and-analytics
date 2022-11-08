@@ -9,7 +9,7 @@ SELECT
   SIIPOR.[PurchaseOrderItem],
   SIIPOR.[Plant],
   CASE WHEN SuplrInvcDeliveryCostCndnType = ''
-    THEN SIIPOR.[SupplierInvoiceItemText]
+    THEN factPDI.[PurchasingDocumentItemText]
     ELSE COND.[ACMPRICINGCONDITIONTYPENAME]
         END AS PurchasingDocumentItemShortText,
   factPDI.[PurchasingDocumentItemText],

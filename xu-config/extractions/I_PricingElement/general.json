@@ -3,11 +3,11 @@
 		"machine": "[::ffff:84.82.142.194]:50969",
 		"timestamp": "20210702T034122.000Z"
 	},
-	"destination": "stxxxxslsaeuw001_s4h-CAA-200",
+	"destination": "stxxxxslsdeuw001_s4h-CAD-200",
 	"lastChange": {
 		"machine": "[::ffff:84.82.142.194]:50969",
 		"timestamp": "20210702T034122.000Z"
 	},
-	"source": "CRH_Leviat_S4HANA_CAA_200",
+	"source": "CRH_Leviat_S4HANA_CAD_200",
 	"type": "Table"
 }
