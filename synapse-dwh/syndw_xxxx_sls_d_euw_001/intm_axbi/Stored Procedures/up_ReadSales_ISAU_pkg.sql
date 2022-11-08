@@ -194,8 +194,8 @@ BEGIN
 	insert into [intm_axbi].[dim_ITEMTABLE]([DATAAREAID],[ITEMID],[ITEMNAME],[PRODUCTGROUPID],[ITEMGROUPID]) VALUES('ISAU', 'ISAU-O.2.', 'DRAINAGE FOILS', 'O.2.', ' ')
 	insert into [intm_axbi].[dim_ITEMTABLE]([DATAAREAID],[ITEMID],[ITEMNAME],[PRODUCTGROUPID],[ITEMGROUPID]) VALUES('ISAU', 'ISAU-O.3.', 'VAPOUR BARRIER FOILS + OTHERS', 'O.3.', ' ')
 	insert into [intm_axbi].[dim_ITEMTABLE]([DATAAREAID],[ITEMID],[ITEMNAME],[PRODUCTGROUPID],[ITEMGROUPID]) VALUES('ISAU', 'ISAU-ARMOURFIXEND', 'ISAU-ARMOURFIXEND', 'G.1.', 'ISAU-2')
-
-	-- Alle Artikel, die keinen CRH Productgroup Eintrag haben, auf N.3. setzen
+	
+    -- Alle Artikel, die keinen CRH Productgroup Eintrag haben, auf N.3. setzen
 	update [intm_axbi].[dim_ITEMTABLE]
 	set PRODUCTGROUPID = 'N.3.'
 	where UPPER(DATAAREAID) = 'ISAU' and PRODUCTGROUPID = ' '
@@ -426,7 +426,7 @@ BEGIN
 	    and
         sb.SalesBalanceMST=0
         and 
-        cnt.counter > 0
+        cnt.lcounter > 0
 	-- Falls keine Positionen vorhanden, aber Miscellaneous Charges vorhanden, dann Position für die Miscellaneous Charge anlegen
 	insert [intm_axbi].[fact_CUSTINVOICETRANS]    
     ([DATAAREAID]

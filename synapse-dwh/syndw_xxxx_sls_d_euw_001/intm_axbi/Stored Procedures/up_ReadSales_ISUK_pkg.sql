@@ -265,7 +265,7 @@ BEGIN
 	c.PACKINGSLIPID,
     ISNULL(sum(c.PRODUCTSALESLOCAL),0) SalesBalance,
     ISNULL(sum(c.PRODUCTSALESEUR),0) SalesBalanceEUR
-	into #InvoicedFreightTable_ISUK_SB
+	into #InvoicedFreightTable_ISUK_SB 
     from [intm_axbi].[fact_CUSTINVOICETRANS] c
     inner join #InvoicedFreightTable_ISUK i
     on c.PACKINGSLIPID = substring(i.PackingSlipID, 1, 6)
@@ -273,7 +273,7 @@ BEGIN
 	group by c.PACKINGSLIPID
 	
 	select PACKINGSLIPID, count(*) lcounter
-	into #InvoicedFreightTable_ISUK_cnt
+	into #InvoicedFreightTable_ISUK_cnt 
 	from [intm_axbi].[fact_CUSTINVOICETRANS]
 	where upper(DATAAREAID) = 'ISUK'
 	group by PACKINGSLIPID
@@ -480,4 +480,7 @@ BEGIN
 	set DELIVERYCOUNTRYID = 'GB'
 	where upper(DATAAREAID) = 'ISUK' and DELIVERYCOUNTRYID = ' '
 
+    drop table #InvoicedFreightTable_ISUK
+    drop table #InvoicedFreightTable_ISUK_SB
+    drop table #InvoicedFreightTable_ISUK_cnt
 END

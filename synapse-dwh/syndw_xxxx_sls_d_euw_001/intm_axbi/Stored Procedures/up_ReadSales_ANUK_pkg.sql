@@ -266,7 +266,7 @@ BEGIN
 	group by c.PACKINGSLIPID
 	
 	select PACKINGSLIPID, count(*) lcounter
-	into #InvoicedFreightTable_cnt
+	into #InvoicedFreightTable_cnt 
 	from [intm_axbi].[fact_CUSTINVOICETRANS]
 	where upper(DATAAREAID) = 'ANUK'
 	group by PACKINGSLIPID
@@ -472,4 +472,8 @@ BEGIN
 	set DELIVERYCOUNTRYID = 'GB'
 	where upper(DATAAREAID) = 'ANUK' and DELIVERYCOUNTRYID = ' '
 
-	END
+    drop table #InvoicedFreightTable
+    drop table #InvoicedFreightTable_SB
+    drop table #InvoicedFreightTable_cnt
+
+END

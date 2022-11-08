@@ -313,4 +313,6 @@ BEGIN
 	set DELIVERYCOUNTRYID = 'MY'
 	where DATAAREAID = 'HMSG' and DELIVERYCOUNTRYID = ' '
 
+    drop table #OtherSalesTable
+
 END
