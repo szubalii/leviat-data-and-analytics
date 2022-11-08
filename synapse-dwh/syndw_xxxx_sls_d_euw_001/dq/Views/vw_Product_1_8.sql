@@ -6,20 +6,9 @@ SELECT
 FROM   
     [base_s4h_cax].[I_Product]
 WHERE
-    [ProductType] = 'ZROH'
+    [ProductType] IN ('ZROH', 'ZKMA', 'ZKMB', 'ZKMC')
     AND
     [ItemCategoryGroup] != 'NORM'
-
-UNION ALL
-
-SELECT
-    [Product]
-FROM   
-    [base_s4h_cax].[I_Product]
-WHERE
-    [ProductType] IN ('ZKMA', 'ZKMB', 'ZKMC')
-    AND
-    [ItemCategoryGroup] != '0002'
 
 UNION ALL
 
