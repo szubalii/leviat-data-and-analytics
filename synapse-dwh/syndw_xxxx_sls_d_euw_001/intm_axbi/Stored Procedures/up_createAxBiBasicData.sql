@@ -267,9 +267,8 @@ BEGIN
 	 where UPPER(DATAAREAID) in ('ANAU', 'ANAH', 'ANNZ') and  NAME like '%Helifix (Australia)%'
 
 	-- Ancon UK
---out of sprint 32
-/*
-	update [dbo].[CUSTTABLE_ANUK$_bulk]
+
+	update [base_tx_ca_0_hlp].[CUSTTABLE_ANUK]
 	set DIMENSION3_ = ' '
 	where DATAAREAID = 'ANUK' and DIMENSION3_ is null 
 
@@ -282,24 +281,24 @@ BEGIN
 	CUSTOMERPILLAR,
 	' ',
 	DIMENSION3_
-	from [intm_axbi].[dim_CUSTTABLE]_ANUK$_bulk
-*/
+	from [base_tx_ca_0_hlp].[CUSTTABLE_ANUK]
+
 	-- Ancon Australia CONNOLLY
---out of sprint 32
-/*
+
+
 	insert [intm_axbi].[dim_CUSTTABLE]
 	select distinct
 	DATAAREAID,
-	'ANAC-' + CAST(ACCOUNTNUM as nvarchar),
-	NAME,
+	'ANAC-' + CAST([CUSTOMERID] as nvarchar),
+	[CUSTOMERNAME],
 	INOUT,
 	CUSTOMERPILLAR,
 	' ',
 	' '
-	from [intm_axbi].[dim_CUSTTABLE]_ANAC$_bulk
+	from [base_tx_ca_0_hlp].[CUSTTABLE_ANUK]
 
-	delete from itemtable where PRODUCTGROUPID = 'SCRAP'
-	delete from [dbo].[ITEMTABLE_ANUK$_bulk] where [CRH PRODUCTGROUPID] = 'SCRAP'
+	delete from [intm_axbi].[dim_ITEMTABLE] where PRODUCTGROUPID = 'SCRAP'
+	delete from [base_tx_ca_0_hlp].[ITEMTABLE_ANUK] where [CRH PRODUCTGROUPID] = 'SCRAP'
 
 	update [intm_axbi].[dim_CUSTTABLE]
 	set INOUT = 'I'
@@ -320,7 +319,7 @@ BEGIN
 	update [intm_axbi].[dim_CUSTTABLE]
 	set INOUT = 'I'
 	 where DATAAREAID = 'ANAC' and  NAME like '%Helifix (Australia)%'
-*/
+
 
 --old logic commented by Erich
 	/*
@@ -357,19 +356,17 @@ BEGIN
 	*/
 	
     -- Alle Kunden als OUTSIDE kennzeichnen, die keinen Eintrag in der DATAAREA Tabelle haben. Mark all customers as OUTSIDE who have no entry in the DATAAREA table.
---out of sprint 32
-/*
+
+
 	update [intm_axbi].[dim_CUSTTABLE]
-	set CUSTTABLE.INOUT = 'O'
+	set [INOUT] = 'O'
 	from [intm_axbi].[dim_CUSTTABLE] as c
 	left outer join [base_tx_ca_0_hlp].[DATAAREA] as d
 	on c.DIMENSION3_ = d.CRHCOMPANYID  
 	where c.DATAAREAID = 'ANUK' and d.CRHCOMPANYID is null 
-*/
+
 
 	-- Ancon Middle East
---out of sprint 32
-/*
 	insert [intm_axbi].[dim_CUSTTABLE]
 	select distinct
 	'ANME',
@@ -379,12 +376,9 @@ BEGIN
 	CUSTOMERPILLAR,
 	' ',
 	' '
-	from [intm_axbi].[dim_CUSTTABLE]_ANME$_bulk
-*/
+	from [base_tx_ca_0_hlp].[CUSTTABLE_ANME]
 
 	-- Ancon Isedio UK
---out of sprint 32
-/*
 	insert [intm_axbi].[dim_CUSTTABLE]
 	select distinct
 	DATAAREAID,
@@ -394,7 +388,7 @@ BEGIN
 	CUSTOMERPILLAR,
 	' ',
 	DIMENSION3_
-	from [intm_axbi].[dim_CUSTTABLE]_ISUK$_bulk
+	from [base_tx_ca_0_hlp].[CUSTTABLE_ISUK]
 
 	update [intm_axbi].[dim_CUSTTABLE]
 	set INOUT = 'I'
@@ -422,35 +416,35 @@ BEGIN
 
 
 	update [intm_axbi].[dim_CUSTTABLE]
-	set [CUSTTABLE].DIMENSION3_ =
-	case u.NAME
-	when 'ISEDIO AUSTRALIA PTY LTD' then '2174U01'
-	when 'ANCON (MIDDLE EAST) FZE' then '2165U01'
-	when 'Ancon (New Zealand) Ltd' then '2166U01'
-	when 'ANCON (NEW ZEALAND) LTD' then '2166U01'
-	when 'ANCON (SCHWEIZ) AG' then '2163U01'
-	when 'ANCON BUILDING PRODUCTS (AUSTRALIA)' then '2161U01'	
-	when 'Ancon Building Products Gesmbh' then '2162U01'
-	when 'ANCON BUILDING PRODUCTS GesmbH.' then '2162U01'
-	when 'Ancon GMBH' then '2164U01'
-	when 'ANCON GMBH' then '2164U01'
-	when 'F J ASCHWANDEN AG' then 'S071U01'
-	when 'HALFEN AB' then '5308U01'
-	when 'HALFEN AS' then '5325U01'
-	when 'HALFEN B.V.' then '5314U01'
-	when 'HALFEN GMBH' then '5300U01'
-	when 'HALFEN IBERICA S.L' then 'S060U01'
-	when 'HALFEN LIMITED' then '5310U01'
-	when 'HALFEN S.R.L.' then '5315U01'
-	when 'HALFEN SAS' then '5307U01'
-	when 'HALFEN Sp. Z.o.o (euros)' then '5316U01'
-	when 'HALFEN-MOMENT PTE LTD' then '5333U01'
-	when 'HALFEN -MOMENT INC' then '5334U01'
-	when 'HALFEN MOMENT SDN BHD' then '5331U01'
-	when 'Helifix (Australia) Pty Ltd' then '2167U01'	
-	when 'NV PLAKABETON S.A' then 'S038U01'
-	else ' '
-	end
+	set DIMENSION3_ =
+	    case u.NAME
+	        when 'ISEDIO AUSTRALIA PTY LTD' then '2174U01'
+	        when 'ANCON (MIDDLE EAST) FZE' then '2165U01'
+	        when 'Ancon (New Zealand) Ltd' then '2166U01'
+	        when 'ANCON (NEW ZEALAND) LTD' then '2166U01'
+	        when 'ANCON (SCHWEIZ) AG' then '2163U01'
+	        when 'ANCON BUILDING PRODUCTS (AUSTRALIA)' then '2161U01'	
+	        when 'Ancon Building Products Gesmbh' then '2162U01'
+	        when 'ANCON BUILDING PRODUCTS GesmbH.' then '2162U01'
+	        when 'Ancon GMBH' then '2164U01'
+	        when 'ANCON GMBH' then '2164U01'
+	        when 'F J ASCHWANDEN AG' then 'S071U01'
+	        when 'HALFEN AB' then '5308U01'
+	        when 'HALFEN AS' then '5325U01'
+	        when 'HALFEN B.V.' then '5314U01'
+	        when 'HALFEN GMBH' then '5300U01'
+	        when 'HALFEN IBERICA S.L' then 'S060U01'
+	        when 'HALFEN LIMITED' then '5310U01'
+	        when 'HALFEN S.R.L.' then '5315U01'
+	        when 'HALFEN SAS' then '5307U01'
+	        when 'HALFEN Sp. Z.o.o (euros)' then '5316U01'
+	        when 'HALFEN-MOMENT PTE LTD' then '5333U01'
+	        when 'HALFEN -MOMENT INC' then '5334U01'
+	        when 'HALFEN MOMENT SDN BHD' then '5331U01'
+	        when 'Helifix (Australia) Pty Ltd' then '2167U01'	
+	        when 'NV PLAKABETON S.A' then 'S038U01'
+	    else ' '
+	    end
 	from  [intm_axbi].[dim_CUSTTABLE] as u where DATAAREAID = 'ISUK'
 
 	-- Bereiningung INSIDE CRH Company Spalte DIMENSION3_ 
@@ -460,7 +454,7 @@ BEGIN
 
     -- Alle Kunden als OUTSIDE kennzeichnen, die keinen Eintrag in der DATAAREA Tabelle haben.
 	update [intm_axbi].[dim_CUSTTABLE]
-	set CUSTTABLE.INOUT = 'O'
+	set INOUT = 'O'
 	from [intm_axbi].[dim_CUSTTABLE] as c
 	left outer join [base_tx_ca_0_hlp].[DATAAREA] as d
 	on c.DIMENSION3_ = d.CRHCOMPANYID  
@@ -494,13 +488,11 @@ BEGIN
 	    CUSTOMERPILLAR = 'OTHER',
 	    DIMENSION3_ = '5330U01'
 	where DATAAREAID = 'ANUK' and NAME like '%Halfen USA%' 
-*/
 
 	--======================================================================
 
 	-- Halfen Moment Malaysia
---out of sprint 32
-/*	
+	
 	insert [intm_axbi].[dim_CUSTTABLE]
 	select distinct
 	'HMMY',
@@ -536,7 +528,7 @@ BEGIN
 	CUSTOMERPILLAR,
 	' ',
 	' '
-	from [intm_axbi].[dim_CUSTTABLE]_HMIN$_bulk
+	from [base_tx_ca_0_hlp].[CUSTTABLE_HMIN]
 
 	update [intm_axbi].[dim_CUSTTABLE]
 	set DIMENSION3_ = case ACCOUNTNUM
@@ -557,7 +549,7 @@ BEGIN
 	CUSTOMERPILLAR,
 	' ',
 	' '
-	from [intm_axbi].[dim_CUSTTABLE]_HMPH$_bulk
+	from [base_tx_ca_0_hlp].[CUSTTABLE_HMPH]
 
 	-- Fehlenden Kunden eintragen
 	insert into [intm_axbi].[dim_CUSTTABLE] VALUES('HMPH', 'HMPH-Freyfil Corporation- Limamburao', 'HMPH-Freyfil Corporation- Limamburao', 'O', 'OTHER', ' ', ' ')
@@ -565,7 +557,7 @@ BEGIN
     -- DIMENSION3_ versorgen
 	update [intm_axbi].[dim_CUSTTABLE]
 	set DIMENSION3_ = '5331U01'
-	where DATAAREAID = 'HMPH' and accountnum = 'HMPH-Halfen Moment SDN BHD'
+	where DATAAREAID = 'HMPH' and ACCOUNTNUM = 'HMPH-Halfen Moment SDN BHD'
 
 	-- Isedio Australien
 
@@ -579,7 +571,7 @@ BEGIN
 	CUSTOMERPILLAR,
 	' ',
 	' '
-	from [intm_axbi].[dim_CUSTTABLE]_ISAU$_bulk
+	from [base_tx_ca_0_hlp].[CUSTTABLE_ISAU]
 
 	update [intm_axbi].[dim_CUSTTABLE]
 	set DIMENSION3_ = '2173U01',
@@ -588,7 +580,7 @@ BEGIN
 
     -- Alle Kunden als OUTSIDE kennzeichnen, die keinen Eintrag in der DATAAREA Tabelle haben.
 	update [intm_axbi].[dim_CUSTTABLE]
-	set CUSTTABLE.INOUT = 'O'
+	set INOUT = 'O'
 	from [intm_axbi].[dim_CUSTTABLE] as c
 	left outer join [base_tx_ca_0_hlp].[DATAAREA] as d
 	on c.DIMENSION3_ = d.CRHCOMPANYID  
@@ -627,7 +619,6 @@ BEGIN
 	update [intm_axbi].[dim_CUSTTABLE]
 	set INOUT = 'I'
 	 where NAME like '%Scaldex%'
-*/
 	--======================================================================
 
     -- Alle CUSTOMERPILLAR auf OTHER setzen, die leer sind. Außer bei Halfen. Set all CUSTOMERPILLAR to OTHER that are empty. Except for Halfen
@@ -680,12 +671,14 @@ BEGIN
 	insert [intm_axbi].[dim_ITEMGROUP] (DATAAREAID,ITEMGROUPID,ITEMGROUPNAME)
 	select 'ANDE', 'ANDE-' + ITEMGROUPID, 'ANDE-' + ItemGroupName from [base_tx_crh_1_stg].[AX_CRH_A_dbo_INVENTTABLE] where LOWER(DATAAREAID) = 'ande' group by ITEMGROUPID, ItemGroupName
 
---out of sprint 32
-/*
 	delete [intm_axbi].[dim_ITEMGROUP] where DATAAREAID = 'ANAC'
 	insert [intm_axbi].[dim_ITEMGROUP]
-	select distinct 'ANAC', 'ANAC-' + CAST(STOCKGROUP as NVARCHAR(2)), 'ANAC-' + GROUPNAME from [dbo].[ITEMTABLE_ANAC$] group by 'ANAC-' + CAST(STOCKGROUP as NVARCHAR(2)), 'ANAC-' + GROUPNAME
-*/
+	select 
+        distinct 'ANAC',
+        'ANAC-' + CAST(STOCKGROUP as NVARCHAR(2)),
+        'ANAC-' + GROUPNAME
+    from [base_tx_ca_0_hlp].[ITEMTABLE_ANAC]
+    group by 'ANAC-' + CAST(STOCKGROUP as NVARCHAR(2)), 'ANAC-' + GROUPNAME
 
 	delete [intm_axbi].[dim_ITEMGROUP] where UPPER(DATAAREAID) = 'ANAU'
 	insert [intm_axbi].[dim_ITEMGROUP] (DATAAREAID,ITEMGROUPID,ITEMGROUPNAME)
@@ -699,19 +692,22 @@ BEGIN
 	insert [intm_axbi].[dim_ITEMGROUP] (DATAAREAID,ITEMGROUPID,ITEMGROUPNAME)
 	select 'ANNZ', 'ANNZ-' + ITEMGROUPID, 'ANNZ-' + NAME from [base_ancon_australia_2_dwh].[DIM_ITEMGROUP] where LOWER(DATAAREAID) = 'vmd'
 
---out of sprint 32
-/*
 	delete [intm_axbi].[dim_ITEMGROUP] where DATAAREAID = 'ANUK'
 	insert [intm_axbi].[dim_ITEMGROUP]
-	select 'ANUK', 'ANUK-' + ITEMGROUPID, 'ANUK-' + ITEMGROUPNAME from [dbo].[MAPPING_ITEMGROUP_ANUK$_bulk]
-*/
+	select
+        'ANUK',
+        'ANUK-' + ITEMGROUPID,
+        'ANUK-' + ITEMGROUPNAME
+        from [base_tx_ca_0_hlp].[MAPPING_ITEMGROUP_ANUK]
 
---out of sprint 32
-/*
 	delete [intm_axbi].[dim_ITEMGROUP] where DATAAREAID = 'ISUK'
 	insert [intm_axbi].[dim_ITEMGROUP]
-	select 'ISUK', 'ISUK-' + ITEMGROUPID, 'ISUK-' + ITEMGROUPNAME from [dbo].[MAPPING_ITEMGROUP_ANUK$_bulk]
-*/
+	select
+        'ISUK',
+        'ISUK-' + ITEMGROUPID,
+        'ISUK-' + ITEMGROUPNAME
+    from [base_tx_ca_0_hlp].[MAPPING_ITEMGROUP_ANUK]
+
 
 	-- itemgroup ISAU manuell hinzugefügt. Nicht löschen --
 
@@ -1425,8 +1421,6 @@ BEGIN
 	where ITEMGROUPID in ('ANAU-', 'ANAH-', 'ANNZ-')
 		
 	-- Ancon UK
---out of sprint 32
-/*
 	insert [intm_axbi].[dim_ITEMTABLE]
 	select distinct
 	[DATAAREAID],
@@ -1434,75 +1428,75 @@ BEGIN
 	[ITEMNAME],
 	ISNULL([CRH PRODUCTGROUPID], ' '),
 	ISNULL('ANUK-' + [ITEMGROUPID], ' ')
-	from dbo.[ITEMTABLE_ANUK$_bulk]
+	from [base_tx_ca_0_hlp].[ITEMTABLE_ANUK]
 
 	update [intm_axbi].[dim_ITEMTABLE]
 	set PRODUCTGROUPID = 'A.4.'
 	where DATAAREAID = 'ANUK' and ITEMGROUPID = 'ANUK-HELI'  
 
 	-- Dummy article for the Budget
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANUK', 'ANUK-A.1.', 'BRICKWORK SUPPORT', 'A.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANUK', 'ANUK-A.2.', 'WALL TIES & FIXINGS', 'A.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANUK', 'ANUK-A.3.', 'MURFOR', 'A.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANUK', 'ANUK-A.4.', 'HELIFIX', 'A.4.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANUK', 'ANUK-B.1.', 'NATURAL STONE FIXING', 'B.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANUK', 'ANUK-B.2.', 'CONCRETE FACADE SYSTEMS', 'B.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANUK', 'ANUK-B.3.', 'CURTAIN WALL SYSTEM', 'B.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANUK', 'ANUK-B.4.', 'OTHER FACADE PRODUCTS', 'B.4.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANUK', 'ANUK-C.1.', 'CONCRETE : WET CAST', 'C.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANUK', 'ANUK-C.2.', 'CONCRETE : FIBERS + EXTRUDED', 'C.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANUK', 'ANUK-C.3.', 'PLASTIC', 'C.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANUK', 'ANUK-C.4.', 'STEEL', 'C.4.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANUK', 'ANUK-D.1.', 'BALCONY INSULATION', 'D.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANUK', 'ANUK-D.2.', 'ACOUSTIC PANELS & FORMS', 'D.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANUK', 'ANUK-D.3.', 'ACOUSTIC COMPONENTS', 'D.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANUK', 'ANUK-E.1.', 'REBEND REINFORCEMENT', 'E.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANUK', 'ANUK-E.2.', 'REBAR COUPLERS + CONNECTORS', 'E.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANUK', 'ANUK-E.3.', 'INVISIBLE CONNECTION', 'E.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANUK', 'ANUK-E.4.', 'PUNCHING SHEAR', 'E.4.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANUK', 'ANUK-E.5.', 'STEEL REINFORCEMENT', 'E.5.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANUK', 'ANUK-E.6.', 'SYNTHETIC REINFORCEMENT', 'E.6.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANUK', 'ANUK-E.7.', 'SHEAR LOAD CONNECTOR', 'E.7.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANUK', 'ANUK-E.8.', 'COLUMN SHOE', 'E.8.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANUK', 'ANUK-E.9.', 'POST TENSION', 'E.9.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANUK', 'ANUK-F.1.', 'SINGLE-USE FORMWORK', 'F.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANUK', 'ANUK-F.2.', 'RE-USABLE FORMWORK', 'F.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANUK', 'ANUK-F.3.', 'TUBULAR COLUMNS', 'F.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANUK', 'ANUK-F.4.', 'MAGNETS', 'F.4.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANUK', 'ANUK-F.5.', 'OTHER FORMWORK ACC. (DYWIDAG; PLASTIC PROFILES)', 'F.5.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANUK', 'ANUK-G.1.', 'DILATATION JOINTS', 'G.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANUK', 'ANUK-G.2.', 'JOINT COVER & SEPARATION', 'G.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANUK', 'ANUK-H.1.', 'LOOPING DEVICES', 'H.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANUK', 'ANUK-H.2.', 'SPHERICAL HEAD ANCHORS', 'H.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANUK', 'ANUK-H.3.', 'FLAT STEEL ANCHORS', 'H.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANUK', 'ANUK-H.4.', 'THREADED SYSTEMS', 'H.4.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANUK', 'ANUK-H.5.', 'CHAINS AND CABLES', 'H.5.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANUK', 'ANUK-H.6.', 'OTHER LIFTING SYSTEMS', 'H.6.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANUK', 'ANUK-I.1.', 'CAST IN CHANNELS', 'I.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANUK', 'ANUK-I.2.', 'ANCHORING ACCESSORIES', 'I.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANUK', 'ANUK-I.3.', 'BOLTS', 'I.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANUK', 'ANUK-I.4.', 'INSERTS', 'I.4.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANUK', 'ANUK-I.5.', 'CHEMICAL ANCHORING', 'I.5.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANUK', 'ANUK-I.6.', 'FRAMING', 'I.6.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANUK', 'ANUK-I.7.', 'OTHER FIXING', 'I.7.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANUK', 'ANUK-J.1.', 'BUILDING & CONSTRUCTION BEARINGS', 'J.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANUK', 'ANUK-J.2.', 'CIVIL ENGINEERING BEARINGS', 'J.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANUK', 'ANUK-K.1.', 'WATERSTOP + INJECTION SYSTEM', 'K.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANUK', 'ANUK-K.2.', 'STRIPS & PROFILES', 'K.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANUK', 'ANUK-K.3.', 'OTHERS', 'K.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANUK', 'ANUK-L.1.', 'MORTARS & PASTES', 'L.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANUK', 'ANUK-L.2.', 'DEMOULDING AGENTS', 'L.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANUK', 'ANUK-L.3.', 'ADMIXTURES & GROUTS', 'L.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANUK', 'ANUK-L.4.', 'OTHER CHEMICAL PRODUCTS', 'L.4.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANUK', 'ANUK-M.1.', 'SITE EQUIPMENT', 'M.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANUK', 'ANUK-N.1.', 'TENSION ROD SYSTEMS', 'N.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANUK', 'ANUK-N.2.', 'HEAVY LOAD SYSTEMS', 'N.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANUK', 'ANUK-N.3.', 'OTHERS', 'N.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANUK', 'ANUK-O.1.', 'CONSTRUCTION FOILS', 'O.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANUK', 'ANUK-O.2.', 'DRAINAGE FOILS', 'O.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANUK', 'ANUK-O.3.', 'VAPOUR BARRIER FOILS + OTHERS', 'O.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANUK', 'ANUK-A.1.', 'BRICKWORK SUPPORT', 'A.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANUK', 'ANUK-A.2.', 'WALL TIES & FIXINGS', 'A.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANUK', 'ANUK-A.3.', 'MURFOR', 'A.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANUK', 'ANUK-A.4.', 'HELIFIX', 'A.4.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANUK', 'ANUK-B.1.', 'NATURAL STONE FIXING', 'B.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANUK', 'ANUK-B.2.', 'CONCRETE FACADE SYSTEMS', 'B.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANUK', 'ANUK-B.3.', 'CURTAIN WALL SYSTEM', 'B.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANUK', 'ANUK-B.4.', 'OTHER FACADE PRODUCTS', 'B.4.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANUK', 'ANUK-C.1.', 'CONCRETE : WET CAST', 'C.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANUK', 'ANUK-C.2.', 'CONCRETE : FIBERS + EXTRUDED', 'C.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANUK', 'ANUK-C.3.', 'PLASTIC', 'C.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANUK', 'ANUK-C.4.', 'STEEL', 'C.4.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANUK', 'ANUK-D.1.', 'BALCONY INSULATION', 'D.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANUK', 'ANUK-D.2.', 'ACOUSTIC PANELS & FORMS', 'D.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANUK', 'ANUK-D.3.', 'ACOUSTIC COMPONENTS', 'D.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANUK', 'ANUK-E.1.', 'REBEND REINFORCEMENT', 'E.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANUK', 'ANUK-E.2.', 'REBAR COUPLERS + CONNECTORS', 'E.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANUK', 'ANUK-E.3.', 'INVISIBLE CONNECTION', 'E.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANUK', 'ANUK-E.4.', 'PUNCHING SHEAR', 'E.4.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANUK', 'ANUK-E.5.', 'STEEL REINFORCEMENT', 'E.5.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANUK', 'ANUK-E.6.', 'SYNTHETIC REINFORCEMENT', 'E.6.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANUK', 'ANUK-E.7.', 'SHEAR LOAD CONNECTOR', 'E.7.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANUK', 'ANUK-E.8.', 'COLUMN SHOE', 'E.8.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANUK', 'ANUK-E.9.', 'POST TENSION', 'E.9.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANUK', 'ANUK-F.1.', 'SINGLE-USE FORMWORK', 'F.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANUK', 'ANUK-F.2.', 'RE-USABLE FORMWORK', 'F.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANUK', 'ANUK-F.3.', 'TUBULAR COLUMNS', 'F.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANUK', 'ANUK-F.4.', 'MAGNETS', 'F.4.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANUK', 'ANUK-F.5.', 'OTHER FORMWORK ACC. (DYWIDAG; PLASTIC PROFILES)', 'F.5.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANUK', 'ANUK-G.1.', 'DILATATION JOINTS', 'G.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANUK', 'ANUK-G.2.', 'JOINT COVER & SEPARATION', 'G.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANUK', 'ANUK-H.1.', 'LOOPING DEVICES', 'H.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANUK', 'ANUK-H.2.', 'SPHERICAL HEAD ANCHORS', 'H.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANUK', 'ANUK-H.3.', 'FLAT STEEL ANCHORS', 'H.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANUK', 'ANUK-H.4.', 'THREADED SYSTEMS', 'H.4.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANUK', 'ANUK-H.5.', 'CHAINS AND CABLES', 'H.5.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANUK', 'ANUK-H.6.', 'OTHER LIFTING SYSTEMS', 'H.6.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANUK', 'ANUK-I.1.', 'CAST IN CHANNELS', 'I.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANUK', 'ANUK-I.2.', 'ANCHORING ACCESSORIES', 'I.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANUK', 'ANUK-I.3.', 'BOLTS', 'I.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANUK', 'ANUK-I.4.', 'INSERTS', 'I.4.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANUK', 'ANUK-I.5.', 'CHEMICAL ANCHORING', 'I.5.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANUK', 'ANUK-I.6.', 'FRAMING', 'I.6.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANUK', 'ANUK-I.7.', 'OTHER FIXING', 'I.7.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANUK', 'ANUK-J.1.', 'BUILDING & CONSTRUCTION BEARINGS', 'J.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANUK', 'ANUK-J.2.', 'CIVIL ENGINEERING BEARINGS', 'J.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANUK', 'ANUK-K.1.', 'WATERSTOP + INJECTION SYSTEM', 'K.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANUK', 'ANUK-K.2.', 'STRIPS & PROFILES', 'K.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANUK', 'ANUK-K.3.', 'OTHERS', 'K.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANUK', 'ANUK-L.1.', 'MORTARS & PASTES', 'L.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANUK', 'ANUK-L.2.', 'DEMOULDING AGENTS', 'L.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANUK', 'ANUK-L.3.', 'ADMIXTURES & GROUTS', 'L.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANUK', 'ANUK-L.4.', 'OTHER CHEMICAL PRODUCTS', 'L.4.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANUK', 'ANUK-M.1.', 'SITE EQUIPMENT', 'M.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANUK', 'ANUK-N.1.', 'TENSION ROD SYSTEMS', 'N.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANUK', 'ANUK-N.2.', 'HEAVY LOAD SYSTEMS', 'N.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANUK', 'ANUK-N.3.', 'OTHERS', 'N.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANUK', 'ANUK-O.1.', 'CONSTRUCTION FOILS', 'O.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANUK', 'ANUK-O.2.', 'DRAINAGE FOILS', 'O.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANUK', 'ANUK-O.3.', 'VAPOUR BARRIER FOILS + OTHERS', 'O.3.', ' ')
 
-	insert ITEMTABLE
+	insert [intm_axbi].[dim_ITEMTABLE]
 	select distinct
 	c.DATAAREAID,
 	c.ITEMID,
@@ -1510,15 +1504,12 @@ BEGIN
 	'N.3.',
 	'ANUK-OTH'
 	from [intm_axbi].[fact_CUSTINVOICETRANS] as c
-	left outer join ITEMTABLE as i
+	left outer join [intm_axbi].[dim_ITEMTABLE] as i
 	on c.DATAAREAID = i.DATAAREAID and
 	   c.ITEMID = i.ITEMID
 	where c.DATAAREAID = 'ANUK' and i.ITEMID is null	
-*/
 
 	-- Ancon Australia CONNOLLY
---out of sprint 32
-/*
 	insert [intm_axbi].[dim_ITEMTABLE]
 	select distinct
 	[DATAAREAID],
@@ -1526,71 +1517,71 @@ BEGIN
 	ISNULL([ITEMNAME], ' '),
 	ISNULL([CRHPRODUCTGROUPID], ' '),
 	ISNULL('ANAC-' + Cast([STOCKGROUP] as nvarchar(2)), ' ')
-	from dbo.[ITEMTABLE_ANAC$]
+	from [base_tx_ca_0_hlp].[ITEMTABLE_ANAC]
 
 	-- Dummy article for the Budget
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANAC', 'ANAC-A.1.', 'BRICKWORK SUPPORT', 'A.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANAC', 'ANAC-A.2.', 'WALL TIES & FIXINGS', 'A.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANAC', 'ANAC-A.3.', 'MURFOR', 'A.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANAC', 'ANAC-A.4.', 'HELIFIX', 'A.4.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANAC', 'ANAC-B.1.', 'NATURAL STONE FIXING', 'B.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANAC', 'ANAC-B.2.', 'CONCRETE FACADE SYSTEMS', 'B.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANAC', 'ANAC-B.3.', 'CURTAIN WALL SYSTEM', 'B.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANAC', 'ANAC-B.4.', 'OTHER FACADE PRODUCTS', 'B.4.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANAC', 'ANAC-C.1.', 'CONCRETE : WET CAST', 'C.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANAC', 'ANAC-C.2.', 'CONCRETE : FIBERS + EXTRUDED', 'C.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANAC', 'ANAC-C.3.', 'PLASTIC', 'C.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANAC', 'ANAC-C.4.', 'STEEL', 'C.4.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANAC', 'ANAC-D.1.', 'BALCONY INSULATION', 'D.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANAC', 'ANAC-D.2.', 'ACOUSTIC PANELS & FORMS', 'D.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANAC', 'ANAC-D.3.', 'ACOUSTIC COMPONENTS', 'D.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANAC', 'ANAC-E.1.', 'REBEND REINFORCEMENT', 'E.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANAC', 'ANAC-E.2.', 'REBAR COUPLERS + CONNECTORS', 'E.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANAC', 'ANAC-E.3.', 'INVISIBLE CONNECTION', 'E.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANAC', 'ANAC-E.4.', 'PUNCHING SHEAR', 'E.4.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANAC', 'ANAC-E.5.', 'STEEL REINFORCEMENT', 'E.5.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANAC', 'ANAC-E.6.', 'SYNTHETIC REINFORCEMENT', 'E.6.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANAC', 'ANAC-E.7.', 'SHEAR LOAD CONNECTOR', 'E.7.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANAC', 'ANAC-E.8.', 'COLUMN SHOE', 'E.8.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANAC', 'ANAC-E.9.', 'POST TENSION', 'E.9.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANAC', 'ANAC-F.1.', 'SINGLE-USE FORMWORK', 'F.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANAC', 'ANAC-F.2.', 'RE-USABLE FORMWORK', 'F.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANAC', 'ANAC-F.3.', 'TUBULAR COLUMNS', 'F.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANAC', 'ANAC-F.4.', 'MAGNETS', 'F.4.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANAC', 'ANAC-F.5.', 'OTHER FORMWORK ACC. (DYWIDAG; PLASTIC PROFILES)', 'F.5.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANAC', 'ANAC-G.1.', 'DILATATION JOINTS', 'G.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANAC', 'ANAC-G.2.', 'JOINT COVER & SEPARATION', 'G.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANAC', 'ANAC-H.1.', 'LOOPING DEVICES', 'H.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANAC', 'ANAC-H.2.', 'SPHERICAL HEAD ANCHCORS', 'H.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANAC', 'ANAC-H.3.', 'FLAT STEEL ANCHORS', 'H.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANAC', 'ANAC-H.4.', 'THREADED SYSTEMS', 'H.4.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANAC', 'ANAC-H.5.', 'CHAINS AND CABLES', 'H.5.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANAC', 'ANAC-H.6.', 'OTHER LIFTING SYSTEMS', 'H.6.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANAC', 'ANAC-I.1.', 'CAST IN CHANNELS', 'I.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANAC', 'ANAC-I.2.', 'ANCHORING ACCESSORIES', 'I.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANAC', 'ANAC-I.3.', 'BOLTS', 'I.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANAC', 'ANAC-I.4.', 'INSERTS', 'I.4.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANAC', 'ANAC-I.5.', 'CHEMICAL ANCHORING', 'I.5.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANAC', 'ANAC-I.6.', 'FRAMING', 'I.6.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANAC', 'ANAC-I.7.', 'OTHER FIXING', 'I.7.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANAC', 'ANAC-J.1.', 'BUILDING & CONSTRUCTION BEARINGS', 'J.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANAC', 'ANAC-J.2.', 'CIVIL ENGINEERING BEARINGS', 'J.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANAC', 'ANAC-K.1.', 'WATERSTOP + INJECTION SYSTEM', 'K.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANAC', 'ANAC-K.2.', 'STRIPS & PROFILES', 'K.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANAC', 'ANAC-K.3.', 'OTHERS', 'K.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANAC', 'ANAC-L.1.', 'MORTARS & PASTES', 'L.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANAC', 'ANAC-L.2.', 'DEMOULDING AGENTS', 'L.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANAC', 'ANAC-L.3.', 'ADMIXTURES & GROUTS', 'L.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANAC', 'ANAC-L.4.', 'OTHER CHEMICAL PRODUCTS', 'L.4.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANAC', 'ANAC-M.1.', 'SITE EQUIPMENT', 'M.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANAC', 'ANAC-N.1.', 'TENSION ROD SYSTEMS', 'N.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANAC', 'ANAC-N.2.', 'HEAVY LOAD SYSTEMS', 'N.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANAC', 'ANAC-N.3.', 'OTHERS', 'N.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANAC', 'ANAC-O.1.', 'CONSTRUCTION FOILS', 'O.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANAC', 'ANAC-O.2.', 'DRAINAGE FOILS', 'O.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANAC', 'ANAC-O.3.', 'VAPOUR BARRIER FOILS + OTHERS', 'O.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANAC', 'ANAC-A.1.', 'BRICKWORK SUPPORT', 'A.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANAC', 'ANAC-A.2.', 'WALL TIES & FIXINGS', 'A.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANAC', 'ANAC-A.3.', 'MURFOR', 'A.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANAC', 'ANAC-A.4.', 'HELIFIX', 'A.4.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANAC', 'ANAC-B.1.', 'NATURAL STONE FIXING', 'B.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANAC', 'ANAC-B.2.', 'CONCRETE FACADE SYSTEMS', 'B.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANAC', 'ANAC-B.3.', 'CURTAIN WALL SYSTEM', 'B.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANAC', 'ANAC-B.4.', 'OTHER FACADE PRODUCTS', 'B.4.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANAC', 'ANAC-C.1.', 'CONCRETE : WET CAST', 'C.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANAC', 'ANAC-C.2.', 'CONCRETE : FIBERS + EXTRUDED', 'C.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANAC', 'ANAC-C.3.', 'PLASTIC', 'C.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANAC', 'ANAC-C.4.', 'STEEL', 'C.4.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANAC', 'ANAC-D.1.', 'BALCONY INSULATION', 'D.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANAC', 'ANAC-D.2.', 'ACOUSTIC PANELS & FORMS', 'D.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANAC', 'ANAC-D.3.', 'ACOUSTIC COMPONENTS', 'D.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANAC', 'ANAC-E.1.', 'REBEND REINFORCEMENT', 'E.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANAC', 'ANAC-E.2.', 'REBAR COUPLERS + CONNECTORS', 'E.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANAC', 'ANAC-E.3.', 'INVISIBLE CONNECTION', 'E.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANAC', 'ANAC-E.4.', 'PUNCHING SHEAR', 'E.4.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANAC', 'ANAC-E.5.', 'STEEL REINFORCEMENT', 'E.5.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANAC', 'ANAC-E.6.', 'SYNTHETIC REINFORCEMENT', 'E.6.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANAC', 'ANAC-E.7.', 'SHEAR LOAD CONNECTOR', 'E.7.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANAC', 'ANAC-E.8.', 'COLUMN SHOE', 'E.8.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANAC', 'ANAC-E.9.', 'POST TENSION', 'E.9.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANAC', 'ANAC-F.1.', 'SINGLE-USE FORMWORK', 'F.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANAC', 'ANAC-F.2.', 'RE-USABLE FORMWORK', 'F.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANAC', 'ANAC-F.3.', 'TUBULAR COLUMNS', 'F.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANAC', 'ANAC-F.4.', 'MAGNETS', 'F.4.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANAC', 'ANAC-F.5.', 'OTHER FORMWORK ACC. (DYWIDAG; PLASTIC PROFILES)', 'F.5.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANAC', 'ANAC-G.1.', 'DILATATION JOINTS', 'G.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANAC', 'ANAC-G.2.', 'JOINT COVER & SEPARATION', 'G.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANAC', 'ANAC-H.1.', 'LOOPING DEVICES', 'H.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANAC', 'ANAC-H.2.', 'SPHERICAL HEAD ANCHCORS', 'H.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANAC', 'ANAC-H.3.', 'FLAT STEEL ANCHORS', 'H.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANAC', 'ANAC-H.4.', 'THREADED SYSTEMS', 'H.4.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANAC', 'ANAC-H.5.', 'CHAINS AND CABLES', 'H.5.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANAC', 'ANAC-H.6.', 'OTHER LIFTING SYSTEMS', 'H.6.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANAC', 'ANAC-I.1.', 'CAST IN CHANNELS', 'I.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANAC', 'ANAC-I.2.', 'ANCHORING ACCESSORIES', 'I.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANAC', 'ANAC-I.3.', 'BOLTS', 'I.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANAC', 'ANAC-I.4.', 'INSERTS', 'I.4.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANAC', 'ANAC-I.5.', 'CHEMICAL ANCHORING', 'I.5.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANAC', 'ANAC-I.6.', 'FRAMING', 'I.6.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANAC', 'ANAC-I.7.', 'OTHER FIXING', 'I.7.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANAC', 'ANAC-J.1.', 'BUILDING & CONSTRUCTION BEARINGS', 'J.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANAC', 'ANAC-J.2.', 'CIVIL ENGINEERING BEARINGS', 'J.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANAC', 'ANAC-K.1.', 'WATERSTOP + INJECTION SYSTEM', 'K.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANAC', 'ANAC-K.2.', 'STRIPS & PROFILES', 'K.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANAC', 'ANAC-K.3.', 'OTHERS', 'K.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANAC', 'ANAC-L.1.', 'MORTARS & PASTES', 'L.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANAC', 'ANAC-L.2.', 'DEMOULDING AGENTS', 'L.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANAC', 'ANAC-L.3.', 'ADMIXTURES & GROUTS', 'L.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANAC', 'ANAC-L.4.', 'OTHER CHEMICAL PRODUCTS', 'L.4.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANAC', 'ANAC-M.1.', 'SITE EQUIPMENT', 'M.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANAC', 'ANAC-N.1.', 'TENSION ROD SYSTEMS', 'N.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANAC', 'ANAC-N.2.', 'HEAVY LOAD SYSTEMS', 'N.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANAC', 'ANAC-N.3.', 'OTHERS', 'N.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANAC', 'ANAC-O.1.', 'CONSTRUCTION FOILS', 'O.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANAC', 'ANAC-O.2.', 'DRAINAGE FOILS', 'O.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANAC', 'ANAC-O.3.', 'VAPOUR BARRIER FOILS + OTHERS', 'O.3.', ' ')
 
-	insert ITEMTABLE
+	insert [intm_axbi].[dim_ITEMTABLE]
 	select distinct
 	c.DATAAREAID,
 	c.ITEMID,
@@ -1598,15 +1589,12 @@ BEGIN
 	'N.3.',
 	'ANAC-0'
 	from [intm_axbi].[fact_CUSTINVOICETRANS] as c
-	left outer join ITEMTABLE as i
+	left outer join [intm_axbi].[dim_ITEMTABLE] as i
 	on c.DATAAREAID = i.DATAAREAID and
 	   c.ITEMID = i.ITEMID
 	where c.DATAAREAID = 'ANAC' and i.ITEMID is null
-*/
 	
 	-- Ancon Middle East
---out of sprint 32
-/*
 	insert [intm_axbi].[dim_ITEMTABLE]
 	select distinct
 	'ANME',
@@ -1614,74 +1602,72 @@ BEGIN
 	'ANME-' + ISNULL([ITEMNAME], ' '),
 	ISNULL([CRHPRODUCTGROUPID], ' '),
 	' '
-	from dbo.[ITEMTABLE_ANME$_bulk]
+	from [base_tx_ca_0_hlp].[ITEMTABLE_ANME]
 
 	-- Dummy article for the Budget
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANME', 'ANME-A.1.', 'BRICKWORK SUPPORT', 'A.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANME', 'ANME-A.2.', 'WALL TIES & FIXINGS', 'A.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANME', 'ANME-A.3.', 'MURFOR', 'A.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANME', 'ANME-A.4.', 'HELIFIX', 'A.4.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANME', 'ANME-B.1.', 'NATURAL STONE FIXING', 'B.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANME', 'ANME-B.2.', 'CONCRETE FACADE SYSTEMS', 'B.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANME', 'ANME-B.3.', 'CURTAIN WALL SYSTEM', 'B.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANME', 'ANME-B.4.', 'OTHER FACADE PRODUCTS', 'B.4.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANME', 'ANME-C.1.', 'CONCRETE : WET CAST', 'C.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANME', 'ANME-C.2.', 'CONCRETE : FIBERS + EXTRUDED', 'C.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANME', 'ANME-C.3.', 'PLASTIC', 'C.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANME', 'ANME-C.4.', 'STEEL', 'C.4.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANME', 'ANME-D.1.', 'BALCONY INSULATION', 'D.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANME', 'ANME-D.2.', 'ACOUSTIC PANELS & FORMS', 'D.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANME', 'ANME-D.3.', 'ACOUSTIC COMPONENTS', 'D.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANME', 'ANME-E.1.', 'REBEND REINFORCEMENT', 'E.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANME', 'ANME-E.2.', 'REBAR COUPLERS + CONNECTORS', 'E.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANME', 'ANME-E.3.', 'INVISIBLE CONNECTION', 'E.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANME', 'ANME-E.4.', 'PUNCHING SHEAR', 'E.4.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANME', 'ANME-E.5.', 'STEEL REINFORCEMENT', 'E.5.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANME', 'ANME-E.6.', 'SYNTHETIC REINFORCEMENT', 'E.6.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANME', 'ANME-E.7.', 'SHEAR LOAD CONNECTOR', 'E.7.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANME', 'ANME-E.8.', 'COLUMN SHOE', 'E.8.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANME', 'ANME-E.9.', 'POST TENSION', 'E.9.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANME', 'ANME-F.1.', 'SINGLE-USE FORMWORK', 'F.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANME', 'ANME-F.2.', 'RE-USABLE FORMWORK', 'F.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANME', 'ANME-F.3.', 'TUBULAR COLUMNS', 'F.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANME', 'ANME-F.4.', 'MAGNETS', 'F.4.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANME', 'ANME-F.5.', 'OTHER FORMWORK ACC. (DYWIDAG; PLASTIC PROFILES)', 'F.5.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANME', 'ANME-G.1.', 'DILATATION JOINTS', 'G.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANME', 'ANME-G.2.', 'JOINT COVER & SEPARATION', 'G.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANME', 'ANME-H.1.', 'LOOPING DEVICES', 'H.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANME', 'ANME-H.2.', 'SPHERICAL HEAD ANCHCORS', 'H.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANME', 'ANME-H.3.', 'FLAT STEEL ANCHORS', 'H.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANME', 'ANME-H.4.', 'THREADED SYSTEMS', 'H.4.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANME', 'ANME-H.5.', 'CHAINS AND CABLES', 'H.5.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANME', 'ANME-H.6.', 'OTHER LIFTING SYSTEMS', 'H.6.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANME', 'ANME-I.1.', 'CAST IN CHANNELS', 'I.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANME', 'ANME-I.2.', 'ANCHORING ACCESSORIES', 'I.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANME', 'ANME-I.3.', 'BOLTS', 'I.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANME', 'ANME-I.4.', 'INSERTS', 'I.4.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANME', 'ANME-I.5.', 'CHEMICAL ANCHORING', 'I.5.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANME', 'ANME-I.6.', 'FRAMING', 'I.6.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANME', 'ANME-I.7.', 'OTHER FIXING', 'I.7.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANME', 'ANME-J.1.', 'BUILDING & CONSTRUCTION BEARINGS', 'J.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANME', 'ANME-J.2.', 'CIVIL ENGINEERING BEARINGS', 'J.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANME', 'ANME-K.1.', 'WATERSTOP + INJECTION SYSTEM', 'K.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANME', 'ANME-K.2.', 'STRIPS & PROFILES', 'K.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANME', 'ANME-K.3.', 'OTHERS', 'K.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANME', 'ANME-L.1.', 'MORTARS & PASTES', 'L.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANME', 'ANME-L.2.', 'DEMOULDING AGENTS', 'L.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANME', 'ANME-L.3.', 'ADMIXTURES & GROUTS', 'L.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANME', 'ANME-L.4.', 'OTHER CHEMICAL PRODUCTS', 'L.4.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANME', 'ANME-M.1.', 'SITE EQUIPMENT', 'M.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANME', 'ANME-N.1.', 'TENSION ROD SYSTEMS', 'N.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANME', 'ANME-N.2.', 'HEAVY LOAD SYSTEMS', 'N.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANME', 'ANME-N.3.', 'OTHERS', 'N.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANME', 'ANME-O.1.', 'CONSTRUCTION FOILS', 'O.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANME', 'ANME-O.2.', 'DRAINAGE FOILS', 'O.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ANME', 'ANME-O.3.', 'VAPOUR BARRIER FOILS + OTHERS', 'O.3.', ' ')
-*/
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANME', 'ANME-A.1.', 'BRICKWORK SUPPORT', 'A.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANME', 'ANME-A.2.', 'WALL TIES & FIXINGS', 'A.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANME', 'ANME-A.3.', 'MURFOR', 'A.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANME', 'ANME-A.4.', 'HELIFIX', 'A.4.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANME', 'ANME-B.1.', 'NATURAL STONE FIXING', 'B.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANME', 'ANME-B.2.', 'CONCRETE FACADE SYSTEMS', 'B.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANME', 'ANME-B.3.', 'CURTAIN WALL SYSTEM', 'B.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANME', 'ANME-B.4.', 'OTHER FACADE PRODUCTS', 'B.4.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANME', 'ANME-C.1.', 'CONCRETE : WET CAST', 'C.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANME', 'ANME-C.2.', 'CONCRETE : FIBERS + EXTRUDED', 'C.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANME', 'ANME-C.3.', 'PLASTIC', 'C.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANME', 'ANME-C.4.', 'STEEL', 'C.4.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANME', 'ANME-D.1.', 'BALCONY INSULATION', 'D.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANME', 'ANME-D.2.', 'ACOUSTIC PANELS & FORMS', 'D.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANME', 'ANME-D.3.', 'ACOUSTIC COMPONENTS', 'D.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANME', 'ANME-E.1.', 'REBEND REINFORCEMENT', 'E.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANME', 'ANME-E.2.', 'REBAR COUPLERS + CONNECTORS', 'E.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANME', 'ANME-E.3.', 'INVISIBLE CONNECTION', 'E.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANME', 'ANME-E.4.', 'PUNCHING SHEAR', 'E.4.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANME', 'ANME-E.5.', 'STEEL REINFORCEMENT', 'E.5.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANME', 'ANME-E.6.', 'SYNTHETIC REINFORCEMENT', 'E.6.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANME', 'ANME-E.7.', 'SHEAR LOAD CONNECTOR', 'E.7.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANME', 'ANME-E.8.', 'COLUMN SHOE', 'E.8.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANME', 'ANME-E.9.', 'POST TENSION', 'E.9.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANME', 'ANME-F.1.', 'SINGLE-USE FORMWORK', 'F.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANME', 'ANME-F.2.', 'RE-USABLE FORMWORK', 'F.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANME', 'ANME-F.3.', 'TUBULAR COLUMNS', 'F.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANME', 'ANME-F.4.', 'MAGNETS', 'F.4.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANME', 'ANME-F.5.', 'OTHER FORMWORK ACC. (DYWIDAG; PLASTIC PROFILES)', 'F.5.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANME', 'ANME-G.1.', 'DILATATION JOINTS', 'G.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANME', 'ANME-G.2.', 'JOINT COVER & SEPARATION', 'G.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANME', 'ANME-H.1.', 'LOOPING DEVICES', 'H.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANME', 'ANME-H.2.', 'SPHERICAL HEAD ANCHCORS', 'H.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANME', 'ANME-H.3.', 'FLAT STEEL ANCHORS', 'H.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANME', 'ANME-H.4.', 'THREADED SYSTEMS', 'H.4.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANME', 'ANME-H.5.', 'CHAINS AND CABLES', 'H.5.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANME', 'ANME-H.6.', 'OTHER LIFTING SYSTEMS', 'H.6.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANME', 'ANME-I.1.', 'CAST IN CHANNELS', 'I.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANME', 'ANME-I.2.', 'ANCHORING ACCESSORIES', 'I.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANME', 'ANME-I.3.', 'BOLTS', 'I.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANME', 'ANME-I.4.', 'INSERTS', 'I.4.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANME', 'ANME-I.5.', 'CHEMICAL ANCHORING', 'I.5.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANME', 'ANME-I.6.', 'FRAMING', 'I.6.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANME', 'ANME-I.7.', 'OTHER FIXING', 'I.7.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANME', 'ANME-J.1.', 'BUILDING & CONSTRUCTION BEARINGS', 'J.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANME', 'ANME-J.2.', 'CIVIL ENGINEERING BEARINGS', 'J.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANME', 'ANME-K.1.', 'WATERSTOP + INJECTION SYSTEM', 'K.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANME', 'ANME-K.2.', 'STRIPS & PROFILES', 'K.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANME', 'ANME-K.3.', 'OTHERS', 'K.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANME', 'ANME-L.1.', 'MORTARS & PASTES', 'L.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANME', 'ANME-L.2.', 'DEMOULDING AGENTS', 'L.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANME', 'ANME-L.3.', 'ADMIXTURES & GROUTS', 'L.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANME', 'ANME-L.4.', 'OTHER CHEMICAL PRODUCTS', 'L.4.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANME', 'ANME-M.1.', 'SITE EQUIPMENT', 'M.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANME', 'ANME-N.1.', 'TENSION ROD SYSTEMS', 'N.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANME', 'ANME-N.2.', 'HEAVY LOAD SYSTEMS', 'N.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANME', 'ANME-N.3.', 'OTHERS', 'N.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANME', 'ANME-O.1.', 'CONSTRUCTION FOILS', 'O.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANME', 'ANME-O.2.', 'DRAINAGE FOILS', 'O.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANME', 'ANME-O.3.', 'VAPOUR BARRIER FOILS + OTHERS', 'O.3.', ' ')
 
 	-- Ancon Isedio UK
---out of sprint 32
-/*
+
 	insert [intm_axbi].[dim_ITEMTABLE]
 	select distinct
 	[DATAAREAID],
@@ -1689,78 +1675,76 @@ BEGIN
 	[ITEMNAME],
 	ISNULL([CRH PRODUCTGROUPID], ' '),
 	ISNULL('ANUK-' + [ITEMGROUPID], ' ')
-	from dbo.[ITEMTABLE_ISUK$_bulk]
+	from [base_tx_ca_0_hlp].[ITEMTABLE_ISUK]
 
 	update [intm_axbi].[dim_ITEMTABLE]
 	set PRODUCTGROUPID = 'A.4.'
 	where DATAAREAID = 'ISUK' and ITEMGROUPID = 'ANUK-HELI'  
 
 	-- Dummy article for the Budget
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISUK', 'ISUK-A.1.', 'BRICKWORK SUPPORT', 'A.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISUK', 'ISUK-A.2.', 'WALL TIES & FIXINGS', 'A.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISUK', 'ISUK-A.3.', 'MURFOR', 'A.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISUK', 'ISUK-A.4.', 'HELIFIX', 'A.4.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISUK', 'ISUK-B.1.', 'NATURAL STONE FIXING', 'B.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISUK', 'ISUK-B.2.', 'CONCRETE FACADE SYSTEMS', 'B.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISUK', 'ISUK-B.3.', 'CURTAIN WALL SYSTEM', 'B.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISUK', 'ISUK-B.4.', 'OTHER FACADE PRODUCTS', 'B.4.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISUK', 'ISUK-C.1.', 'CONCRETE : WET CAST', 'C.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISUK', 'ISUK-C.2.', 'CONCRETE : FIBERS + EXTRUDED', 'C.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISUK', 'ISUK-C.3.', 'PLASTIC', 'C.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISUK', 'ISUK-C.4.', 'STEEL', 'C.4.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISUK', 'ISUK-D.1.', 'BALCONY INSULATION', 'D.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISUK', 'ISUK-D.2.', 'ACOUSTIC PANELS & FORMS', 'D.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISUK', 'ISUK-D.3.', 'ACOUSTIC COMPONENTS', 'D.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISUK', 'ISUK-E.1.', 'REBEND REINFORCEMENT', 'E.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISUK', 'ISUK-E.2.', 'REBAR COUPLERS + CONNECTORS', 'E.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISUK', 'ISUK-E.3.', 'INVISIBLE CONNECTION', 'E.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISUK', 'ISUK-E.4.', 'PUNCHING SHEAR', 'E.4.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISUK', 'ISUK-E.5.', 'STEEL REINFORCEMENT', 'E.5.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISUK', 'ISUK-E.6.', 'SYNTHETIC REINFORCEMENT', 'E.6.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISUK', 'ISUK-E.7.', 'SHEAR LOAD CONNECTOR', 'E.7.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISUK', 'ISUK-E.8.', 'COLUMN SHOE', 'E.8.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISUK', 'ISUK-E.9.', 'POST TENSION', 'E.9.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISUK', 'ISUK-F.1.', 'SINGLE-USE FORMWORK', 'F.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISUK', 'ISUK-F.2.', 'RE-USABLE FORMWORK', 'F.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISUK', 'ISUK-F.3.', 'TUBULAR COLUMNS', 'F.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISUK', 'ISUK-F.4.', 'MAGNETS', 'F.4.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISUK', 'ISUK-F.5.', 'OTHER FORMWORK ACC. (DYWIDAG; PLASTIC PROFILES)', 'F.5.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISUK', 'ISUK-G.1.', 'DILATATION JOINTS', 'G.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISUK', 'ISUK-G.2.', 'JOINT COVER & SEPARATION', 'G.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISUK', 'ISUK-H.1.', 'LOOPING DEVICES', 'H.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISUK', 'ISUK-H.2.', 'SPHERICAL HEAD ANCHORS', 'H.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISUK', 'ISUK-H.3.', 'FLAT STEEL ANCHORS', 'H.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISUK', 'ISUK-H.4.', 'THREADED SYSTEMS', 'H.4.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISUK', 'ISUK-H.5.', 'CHAINS AND CABLES', 'H.5.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISUK', 'ISUK-H.6.', 'OTHER LIFTING SYSTEMS', 'H.6.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISUK', 'ISUK-I.1.', 'CAST IN CHANNELS', 'I.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISUK', 'ISUK-I.2.', 'ANCHORING ACCESSORIES', 'I.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISUK', 'ISUK-I.3.', 'BOLTS', 'I.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISUK', 'ISUK-I.4.', 'INSERTS', 'I.4.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISUK', 'ISUK-I.5.', 'CHEMICAL ANCHORING', 'I.5.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISUK', 'ISUK-I.6.', 'FRAMING', 'I.6.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISUK', 'ISUK-I.7.', 'OTHER FIXING', 'I.7.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISUK', 'ISUK-J.1.', 'BUILDING & CONSTRUCTION BEARINGS', 'J.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISUK', 'ISUK-J.2.', 'CIVIL ENGINEERING BEARINGS', 'J.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISUK', 'ISUK-K.1.', 'WATERSTOP + INJECTION SYSTEM', 'K.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISUK', 'ISUK-K.2.', 'STRIPS & PROFILES', 'K.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISUK', 'ISUK-K.3.', 'OTHERS', 'K.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISUK', 'ISUK-L.1.', 'MORTARS & PASTES', 'L.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISUK', 'ISUK-L.2.', 'DEMOULDING AGENTS', 'L.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISUK', 'ISUK-L.3.', 'ADMIXTURES & GROUTS', 'L.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISUK', 'ISUK-L.4.', 'OTHER CHEMICAL PRODUCTS', 'L.4.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISUK', 'ISUK-M.1.', 'SITE EQUIPMENT', 'M.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISUK', 'ISUK-N.1.', 'TENSION ROD SYSTEMS', 'N.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISUK', 'ISUK-N.2.', 'HEAVY LOAD SYSTEMS', 'N.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISUK', 'ISUK-N.3.', 'OTHERS', 'N.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISUK', 'ISUK-O.1.', 'CONSTRUCTION FOILS', 'O.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISUK', 'ISUK-O.2.', 'DRAINAGE FOILS', 'O.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISUK', 'ISUK-O.3.', 'VAPOUR BARRIER FOILS + OTHERS', 'O.3.', ' ')
-*/
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISUK', 'ISUK-A.1.', 'BRICKWORK SUPPORT', 'A.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISUK', 'ISUK-A.2.', 'WALL TIES & FIXINGS', 'A.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISUK', 'ISUK-A.3.', 'MURFOR', 'A.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISUK', 'ISUK-A.4.', 'HELIFIX', 'A.4.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISUK', 'ISUK-B.1.', 'NATURAL STONE FIXING', 'B.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISUK', 'ISUK-B.2.', 'CONCRETE FACADE SYSTEMS', 'B.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISUK', 'ISUK-B.3.', 'CURTAIN WALL SYSTEM', 'B.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISUK', 'ISUK-B.4.', 'OTHER FACADE PRODUCTS', 'B.4.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISUK', 'ISUK-C.1.', 'CONCRETE : WET CAST', 'C.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISUK', 'ISUK-C.2.', 'CONCRETE : FIBERS + EXTRUDED', 'C.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISUK', 'ISUK-C.3.', 'PLASTIC', 'C.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISUK', 'ISUK-C.4.', 'STEEL', 'C.4.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISUK', 'ISUK-D.1.', 'BALCONY INSULATION', 'D.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISUK', 'ISUK-D.2.', 'ACOUSTIC PANELS & FORMS', 'D.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISUK', 'ISUK-D.3.', 'ACOUSTIC COMPONENTS', 'D.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISUK', 'ISUK-E.1.', 'REBEND REINFORCEMENT', 'E.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISUK', 'ISUK-E.2.', 'REBAR COUPLERS + CONNECTORS', 'E.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISUK', 'ISUK-E.3.', 'INVISIBLE CONNECTION', 'E.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISUK', 'ISUK-E.4.', 'PUNCHING SHEAR', 'E.4.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISUK', 'ISUK-E.5.', 'STEEL REINFORCEMENT', 'E.5.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISUK', 'ISUK-E.6.', 'SYNTHETIC REINFORCEMENT', 'E.6.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISUK', 'ISUK-E.7.', 'SHEAR LOAD CONNECTOR', 'E.7.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISUK', 'ISUK-E.8.', 'COLUMN SHOE', 'E.8.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISUK', 'ISUK-E.9.', 'POST TENSION', 'E.9.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISUK', 'ISUK-F.1.', 'SINGLE-USE FORMWORK', 'F.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISUK', 'ISUK-F.2.', 'RE-USABLE FORMWORK', 'F.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISUK', 'ISUK-F.3.', 'TUBULAR COLUMNS', 'F.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISUK', 'ISUK-F.4.', 'MAGNETS', 'F.4.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISUK', 'ISUK-F.5.', 'OTHER FORMWORK ACC. (DYWIDAG; PLASTIC PROFILES)', 'F.5.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISUK', 'ISUK-G.1.', 'DILATATION JOINTS', 'G.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISUK', 'ISUK-G.2.', 'JOINT COVER & SEPARATION', 'G.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISUK', 'ISUK-H.1.', 'LOOPING DEVICES', 'H.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISUK', 'ISUK-H.2.', 'SPHERICAL HEAD ANCHORS', 'H.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISUK', 'ISUK-H.3.', 'FLAT STEEL ANCHORS', 'H.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISUK', 'ISUK-H.4.', 'THREADED SYSTEMS', 'H.4.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISUK', 'ISUK-H.5.', 'CHAINS AND CABLES', 'H.5.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISUK', 'ISUK-H.6.', 'OTHER LIFTING SYSTEMS', 'H.6.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISUK', 'ISUK-I.1.', 'CAST IN CHANNELS', 'I.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISUK', 'ISUK-I.2.', 'ANCHORING ACCESSORIES', 'I.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISUK', 'ISUK-I.3.', 'BOLTS', 'I.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISUK', 'ISUK-I.4.', 'INSERTS', 'I.4.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISUK', 'ISUK-I.5.', 'CHEMICAL ANCHORING', 'I.5.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISUK', 'ISUK-I.6.', 'FRAMING', 'I.6.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISUK', 'ISUK-I.7.', 'OTHER FIXING', 'I.7.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISUK', 'ISUK-J.1.', 'BUILDING & CONSTRUCTION BEARINGS', 'J.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISUK', 'ISUK-J.2.', 'CIVIL ENGINEERING BEARINGS', 'J.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISUK', 'ISUK-K.1.', 'WATERSTOP + INJECTION SYSTEM', 'K.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISUK', 'ISUK-K.2.', 'STRIPS & PROFILES', 'K.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISUK', 'ISUK-K.3.', 'OTHERS', 'K.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISUK', 'ISUK-L.1.', 'MORTARS & PASTES', 'L.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISUK', 'ISUK-L.2.', 'DEMOULDING AGENTS', 'L.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISUK', 'ISUK-L.3.', 'ADMIXTURES & GROUTS', 'L.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISUK', 'ISUK-L.4.', 'OTHER CHEMICAL PRODUCTS', 'L.4.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISUK', 'ISUK-M.1.', 'SITE EQUIPMENT', 'M.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISUK', 'ISUK-N.1.', 'TENSION ROD SYSTEMS', 'N.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISUK', 'ISUK-N.2.', 'HEAVY LOAD SYSTEMS', 'N.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISUK', 'ISUK-N.3.', 'OTHERS', 'N.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISUK', 'ISUK-O.1.', 'CONSTRUCTION FOILS', 'O.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISUK', 'ISUK-O.2.', 'DRAINAGE FOILS', 'O.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISUK', 'ISUK-O.3.', 'VAPOUR BARRIER FOILS + OTHERS', 'O.3.', ' ')
+
 
 	-- Halfen Moment Malaysia
---out of sprint 32
-/*
 	insert [intm_axbi].[dim_ITEMTABLE]
 	select distinct
 	'HMMY',
@@ -1768,73 +1752,71 @@ BEGIN
 	'HMMY-' + ISNULL([ITEMNAME], ' '),
 	ISNULL([PRODUCTGROUPID], ' '),
 	'HMMY-' + [ITEMGROUPID]
-	from dbo.[ITEMTABLE_HMMY$_bulk]
+	from [base_tx_ca_0_hlp].[ITEMTABLE_HMMY]
 
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMMY', 'HMMY-A.1.', 'BRICKWORK SUPPORT', 'A.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMMY', 'HMMY-A.2.', 'WALL TIES & FIXINGS', 'A.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMMY', 'HMMY-A.3.', 'MURFOR', 'A.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMMY', 'HMMY-A.4.', 'HELIFIX', 'A.4.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMMY', 'HMMY-B.1.', 'NATURAL STONE FIXING', 'B.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMMY', 'HMMY-B.2.', 'CONCRETE FACADE SYSTEMS', 'B.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMMY', 'HMMY-B.3.', 'CURTAIN WALL SYSTEM', 'B.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMMY', 'HMMY-B.4.', 'OTHER FACADE PRODUCTS', 'B.4.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMMY', 'HMMY-C.1.', 'CONCRETE : WET CAST', 'C.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMMY', 'HMMY-C.2.', 'CONCRETE : FIBERS + EXTRUDED', 'C.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMMY', 'HMMY-C.3.', 'PLASTIC', 'C.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMMY', 'HMMY-C.4.', 'STEEL', 'C.4.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMMY', 'HMMY-D.1.', 'BALCONY INSULATION', 'D.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMMY', 'HMMY-D.2.', 'ACOUSTIC PANELS & FORMS', 'D.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMMY', 'HMMY-D.3.', 'ACOUSTIC COMPONENTS', 'D.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMMY', 'HMMY-E.1.', 'REBEND REINFORCEMENT', 'E.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMMY', 'HMMY-E.2.', 'REBAR COUPLERS + CONNECTORS', 'E.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMMY', 'HMMY-E.3.', 'INVISIBLE CONNECTION', 'E.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMMY', 'HMMY-E.4.', 'PUNCHING SHEAR', 'E.4.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMMY', 'HMMY-E.5.', 'STEEL REINFORCEMENT', 'E.5.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMMY', 'HMMY-E.6.', 'SYNTHETIC REINFORCEMENT', 'E.6.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMMY', 'HMMY-E.7.', 'SHEAR LOAD CONNECTOR', 'E.7.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMMY', 'HMMY-E.8.', 'COLUMN SHOE', 'E.8.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMMY', 'HMMY-E.9.', 'POST TENSION', 'E.9.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMMY', 'HMMY-F.1.', 'SINGLE-USE FORMWORK', 'F.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMMY', 'HMMY-F.2.', 'RE-USABLE FORMWORK', 'F.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMMY', 'HMMY-F.3.', 'TUBULAR COLUMNS', 'F.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMMY', 'HMMY-F.4.', 'MAGNETS', 'F.4.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMMY', 'HMMY-F.5.', 'OTHER FORMWORK ACC. (DYWIDAG; PLASTIC PROFILES)', 'F.5.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMMY', 'HMMY-G.1.', 'DILATATION JOINTS', 'G.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMMY', 'HMMY-G.2.', 'JOINT COVER & SEPARATION', 'G.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMMY', 'HMMY-H.1.', 'LOOPING DEVICES', 'H.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMMY', 'HMMY-H.2.', 'SPHERICAL HEAD ANCHCORS', 'H.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMMY', 'HMMY-H.3.', 'FLAT STEEL ANCHORS', 'H.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMMY', 'HMMY-H.4.', 'THREADED SYSTEMS', 'H.4.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMMY', 'HMMY-H.5.', 'CHAINS AND CABLES', 'H.5.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMMY', 'HMMY-H.6.', 'OTHER LIFTING SYSTEMS', 'H.6.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMMY', 'HMMY-I.1.', 'CAST IN CHANNELS', 'I.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMMY', 'HMMY-I.2.', 'ANCHORING ACCESSORIES', 'I.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMMY', 'HMMY-I.3.', 'BOLTS', 'I.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMMY', 'HMMY-I.4.', 'INSERTS', 'I.4.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMMY', 'HMMY-I.5.', 'CHEMICAL ANCHORING', 'I.5.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMMY', 'HMMY-I.6.', 'FRAMING', 'I.6.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMMY', 'HMMY-I.7.', 'OTHER FIXING', 'I.7.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMMY', 'HMMY-J.1.', 'BUILDING & CONSTRUCTION BEARINGS', 'J.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMMY', 'HMMY-J.2.', 'CIVIL ENGINEERING BEARINGS', 'J.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMMY', 'HMMY-K.1.', 'WATERSTOP + INJECTION SYSTEM', 'K.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMMY', 'HMMY-K.2.', 'STRIPS & PROFILES', 'K.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMMY', 'HMMY-K.3.', 'OTHERS', 'K.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMMY', 'HMMY-L.1.', 'MORTARS & PASTES', 'L.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMMY', 'HMMY-L.2.', 'DEMOULDING AGENTS', 'L.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMMY', 'HMMY-L.3.', 'ADMIXTURES & GROUTS', 'L.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMMY', 'HMMY-L.4.', 'OTHER CHEMICAL PRODUCTS', 'L.4.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMMY', 'HMMY-M.1.', 'SITE EQUIPMENT', 'M.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMMY', 'HMMY-N.1.', 'TENSION ROD SYSTEMS', 'N.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMMY', 'HMMY-N.2.', 'HEAVY LOAD SYSTEMS', 'N.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMMY', 'HMMY-N.3.', 'OTHERS', 'N.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMMY', 'HMMY-O.1.', 'CONSTRUCTION FOILS', 'O.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMMY', 'HMMY-O.2.', 'DRAINAGE FOILS', 'O.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMMY', 'HMMY-O.3.', 'VAPOUR BARRIER FOILS + OTHERS', 'O.3.', ' ')
-*/
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMMY', 'HMMY-A.1.', 'BRICKWORK SUPPORT', 'A.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMMY', 'HMMY-A.2.', 'WALL TIES & FIXINGS', 'A.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMMY', 'HMMY-A.3.', 'MURFOR', 'A.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMMY', 'HMMY-A.4.', 'HELIFIX', 'A.4.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMMY', 'HMMY-B.1.', 'NATURAL STONE FIXING', 'B.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMMY', 'HMMY-B.2.', 'CONCRETE FACADE SYSTEMS', 'B.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMMY', 'HMMY-B.3.', 'CURTAIN WALL SYSTEM', 'B.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMMY', 'HMMY-B.4.', 'OTHER FACADE PRODUCTS', 'B.4.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMMY', 'HMMY-C.1.', 'CONCRETE : WET CAST', 'C.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMMY', 'HMMY-C.2.', 'CONCRETE : FIBERS + EXTRUDED', 'C.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMMY', 'HMMY-C.3.', 'PLASTIC', 'C.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMMY', 'HMMY-C.4.', 'STEEL', 'C.4.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMMY', 'HMMY-D.1.', 'BALCONY INSULATION', 'D.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMMY', 'HMMY-D.2.', 'ACOUSTIC PANELS & FORMS', 'D.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMMY', 'HMMY-D.3.', 'ACOUSTIC COMPONENTS', 'D.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMMY', 'HMMY-E.1.', 'REBEND REINFORCEMENT', 'E.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMMY', 'HMMY-E.2.', 'REBAR COUPLERS + CONNECTORS', 'E.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMMY', 'HMMY-E.3.', 'INVISIBLE CONNECTION', 'E.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMMY', 'HMMY-E.4.', 'PUNCHING SHEAR', 'E.4.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMMY', 'HMMY-E.5.', 'STEEL REINFORCEMENT', 'E.5.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMMY', 'HMMY-E.6.', 'SYNTHETIC REINFORCEMENT', 'E.6.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMMY', 'HMMY-E.7.', 'SHEAR LOAD CONNECTOR', 'E.7.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMMY', 'HMMY-E.8.', 'COLUMN SHOE', 'E.8.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMMY', 'HMMY-E.9.', 'POST TENSION', 'E.9.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMMY', 'HMMY-F.1.', 'SINGLE-USE FORMWORK', 'F.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMMY', 'HMMY-F.2.', 'RE-USABLE FORMWORK', 'F.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMMY', 'HMMY-F.3.', 'TUBULAR COLUMNS', 'F.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMMY', 'HMMY-F.4.', 'MAGNETS', 'F.4.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMMY', 'HMMY-F.5.', 'OTHER FORMWORK ACC. (DYWIDAG; PLASTIC PROFILES)', 'F.5.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMMY', 'HMMY-G.1.', 'DILATATION JOINTS', 'G.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMMY', 'HMMY-G.2.', 'JOINT COVER & SEPARATION', 'G.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMMY', 'HMMY-H.1.', 'LOOPING DEVICES', 'H.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMMY', 'HMMY-H.2.', 'SPHERICAL HEAD ANCHCORS', 'H.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMMY', 'HMMY-H.3.', 'FLAT STEEL ANCHORS', 'H.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMMY', 'HMMY-H.4.', 'THREADED SYSTEMS', 'H.4.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMMY', 'HMMY-H.5.', 'CHAINS AND CABLES', 'H.5.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMMY', 'HMMY-H.6.', 'OTHER LIFTING SYSTEMS', 'H.6.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMMY', 'HMMY-I.1.', 'CAST IN CHANNELS', 'I.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMMY', 'HMMY-I.2.', 'ANCHORING ACCESSORIES', 'I.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMMY', 'HMMY-I.3.', 'BOLTS', 'I.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMMY', 'HMMY-I.4.', 'INSERTS', 'I.4.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMMY', 'HMMY-I.5.', 'CHEMICAL ANCHORING', 'I.5.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMMY', 'HMMY-I.6.', 'FRAMING', 'I.6.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMMY', 'HMMY-I.7.', 'OTHER FIXING', 'I.7.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMMY', 'HMMY-J.1.', 'BUILDING & CONSTRUCTION BEARINGS', 'J.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMMY', 'HMMY-J.2.', 'CIVIL ENGINEERING BEARINGS', 'J.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMMY', 'HMMY-K.1.', 'WATERSTOP + INJECTION SYSTEM', 'K.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMMY', 'HMMY-K.2.', 'STRIPS & PROFILES', 'K.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMMY', 'HMMY-K.3.', 'OTHERS', 'K.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMMY', 'HMMY-L.1.', 'MORTARS & PASTES', 'L.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMMY', 'HMMY-L.2.', 'DEMOULDING AGENTS', 'L.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMMY', 'HMMY-L.3.', 'ADMIXTURES & GROUTS', 'L.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMMY', 'HMMY-L.4.', 'OTHER CHEMICAL PRODUCTS', 'L.4.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMMY', 'HMMY-M.1.', 'SITE EQUIPMENT', 'M.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMMY', 'HMMY-N.1.', 'TENSION ROD SYSTEMS', 'N.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMMY', 'HMMY-N.2.', 'HEAVY LOAD SYSTEMS', 'N.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMMY', 'HMMY-N.3.', 'OTHERS', 'N.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMMY', 'HMMY-O.1.', 'CONSTRUCTION FOILS', 'O.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMMY', 'HMMY-O.2.', 'DRAINAGE FOILS', 'O.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMMY', 'HMMY-O.3.', 'VAPOUR BARRIER FOILS + OTHERS', 'O.3.', ' ')
+
 
 	-- Halfen Moment Singapur
---out of sprint 32
-/*
 	insert [intm_axbi].[dim_ITEMTABLE]
 	select distinct
 	'HMSG',
@@ -1842,74 +1824,71 @@ BEGIN
 	'HMSG-' + ISNULL([ITEMNAME], ' '),
 	ISNULL([PRODUCTGROUPID], ' '),
 	'HMSG-' + [ITEMGROUPID]
-	from dbo.[ITEMTABLE_HMSG$_bulk]
+	from [base_tx_ca_0_hlp].[ITEMTABLE_HMSG]
 
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMSG', 'HMSG-A.1.', 'BRICKWORK SUPPORT', 'A.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMSG', 'HMSG-A.2.', 'WALL TIES & FIXINGS', 'A.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMSG', 'HMSG-A.3.', 'MURFOR', 'A.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMSG', 'HMSG-A.4.', 'HELIFIX', 'A.4.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMSG', 'HMSG-B.1.', 'NATURAL STONE FIXING', 'B.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMSG', 'HMSG-B.2.', 'CONCRETE FACADE SYSTEMS', 'B.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMSG', 'HMSG-B.3.', 'CURTAIN WALL SYSTEM', 'B.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMSG', 'HMSG-B.4.', 'OTHER FACADE PRODUCTS', 'B.4.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMSG', 'HMSG-C.1.', 'CONCRETE : WET CAST', 'C.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMSG', 'HMSG-C.2.', 'CONCRETE : FIBERS + EXTRUDED', 'C.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMSG', 'HMSG-C.3.', 'PLASTIC', 'C.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMSG', 'HMSG-C.4.', 'STEEL', 'C.4.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMSG', 'HMSG-D.1.', 'BALCONY INSULATION', 'D.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMSG', 'HMSG-D.2.', 'ACOUSTIC PANELS & FORMS', 'D.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMSG', 'HMSG-D.3.', 'ACOUSTIC COMPONENTS', 'D.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMSG', 'HMSG-E.1.', 'REBEND REINFORCEMENT', 'E.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMSG', 'HMSG-E.2.', 'REBAR COUPLERS + CONNECTORS', 'E.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMSG', 'HMSG-E.3.', 'INVISIBLE CONNECTION', 'E.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMSG', 'HMSG-E.4.', 'PUNCHING SHEAR', 'E.4.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMSG', 'HMSG-E.5.', 'STEEL REINFORCEMENT', 'E.5.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMSG', 'HMSG-E.6.', 'SYNTHETIC REINFORCEMENT', 'E.6.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMSG', 'HMSG-E.7.', 'SHEAR LOAD CONNECTOR', 'E.7.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMSG', 'HMSG-E.8.', 'COLUMN SHOE', 'E.8.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMSG', 'HMSG-E.9.', 'POST TENSION', 'E.9.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMSG', 'HMSG-F.1.', 'SINGLE-USE FORMWORK', 'F.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMSG', 'HMSG-F.2.', 'RE-USABLE FORMWORK', 'F.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMSG', 'HMSG-F.3.', 'TUBULAR COLUMNS', 'F.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMSG', 'HMSG-F.4.', 'MAGNETS', 'F.4.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMSG', 'HMSG-F.5.', 'OTHER FORMWORK ACC. (DYWIDAG; PLASTIC PROFILES)', 'F.5.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMSG', 'HMSG-G.1.', 'DILATATION JOINTS', 'G.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMSG', 'HMSG-G.2.', 'JOINT COVER & SEPARATION', 'G.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMSG', 'HMSG-H.1.', 'LOOPING DEVICES', 'H.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMSG', 'HMSG-H.2.', 'SPHERICAL HEAD ANCHCORS', 'H.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMSG', 'HMSG-H.3.', 'FLAT STEEL ANCHORS', 'H.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMSG', 'HMSG-H.4.', 'THREADED SYSTEMS', 'H.4.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMSG', 'HMSG-H.5.', 'CHAINS AND CABLES', 'H.5.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMSG', 'HMSG-H.6.', 'OTHER LIFTING SYSTEMS', 'H.6.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMSG', 'HMSG-I.1.', 'CAST IN CHANNELS', 'I.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMSG', 'HMSG-I.2.', 'ANCHORING ACCESSORIES', 'I.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMSG', 'HMSG-I.3.', 'BOLTS', 'I.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMSG', 'HMSG-I.4.', 'INSERTS', 'I.4.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMSG', 'HMSG-I.5.', 'CHEMICAL ANCHORING', 'I.5.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMSG', 'HMSG-I.6.', 'FRAMING', 'I.6.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMSG', 'HMSG-I.7.', 'OTHER FIXING', 'I.7.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMSG', 'HMSG-J.1.', 'BUILDING & CONSTRUCTION BEARINGS', 'J.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMSG', 'HMSG-J.2.', 'CIVIL ENGINEERING BEARINGS', 'J.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMSG', 'HMSG-K.1.', 'WATERSTOP + INJECTION SYSTEM', 'K.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMSG', 'HMSG-K.2.', 'STRIPS & PROFILES', 'K.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMSG', 'HMSG-K.3.', 'OTHERS', 'K.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMSG', 'HMSG-L.1.', 'MORTARS & PASTES', 'L.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMSG', 'HMSG-L.2.', 'DEMOULDING AGENTS', 'L.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMSG', 'HMSG-L.3.', 'ADMIXTURES & GROUTS', 'L.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMSG', 'HMSG-L.4.', 'OTHER CHEMICAL PRODUCTS', 'L.4.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMSG', 'HMSG-M.1.', 'SITE EQUIPMENT', 'M.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMSG', 'HMSG-N.1.', 'TENSION ROD SYSTEMS', 'N.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMSG', 'HMSG-N.2.', 'HEAVY LOAD SYSTEMS', 'N.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMSG', 'HMSG-N.3.', 'OTHERS', 'N.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMSG', 'HMSG-O.1.', 'CONSTRUCTION FOILS', 'O.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMSG', 'HMSG-O.2.', 'DRAINAGE FOILS', 'O.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMSG', 'HMSG-O.3.', 'VAPOUR BARRIER FOILS + OTHERS', 'O.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMSG', 'HMSG-103-09XX-XX0003', 'HMSG-103-09XX-XX0003', 'N.3.', ' ')
-*/
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMSG', 'HMSG-A.1.', 'BRICKWORK SUPPORT', 'A.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMSG', 'HMSG-A.2.', 'WALL TIES & FIXINGS', 'A.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMSG', 'HMSG-A.3.', 'MURFOR', 'A.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMSG', 'HMSG-A.4.', 'HELIFIX', 'A.4.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMSG', 'HMSG-B.1.', 'NATURAL STONE FIXING', 'B.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMSG', 'HMSG-B.2.', 'CONCRETE FACADE SYSTEMS', 'B.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMSG', 'HMSG-B.3.', 'CURTAIN WALL SYSTEM', 'B.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMSG', 'HMSG-B.4.', 'OTHER FACADE PRODUCTS', 'B.4.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMSG', 'HMSG-C.1.', 'CONCRETE : WET CAST', 'C.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMSG', 'HMSG-C.2.', 'CONCRETE : FIBERS + EXTRUDED', 'C.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMSG', 'HMSG-C.3.', 'PLASTIC', 'C.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMSG', 'HMSG-C.4.', 'STEEL', 'C.4.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMSG', 'HMSG-D.1.', 'BALCONY INSULATION', 'D.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMSG', 'HMSG-D.2.', 'ACOUSTIC PANELS & FORMS', 'D.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMSG', 'HMSG-D.3.', 'ACOUSTIC COMPONENTS', 'D.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMSG', 'HMSG-E.1.', 'REBEND REINFORCEMENT', 'E.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMSG', 'HMSG-E.2.', 'REBAR COUPLERS + CONNECTORS', 'E.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMSG', 'HMSG-E.3.', 'INVISIBLE CONNECTION', 'E.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMSG', 'HMSG-E.4.', 'PUNCHING SHEAR', 'E.4.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMSG', 'HMSG-E.5.', 'STEEL REINFORCEMENT', 'E.5.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMSG', 'HMSG-E.6.', 'SYNTHETIC REINFORCEMENT', 'E.6.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMSG', 'HMSG-E.7.', 'SHEAR LOAD CONNECTOR', 'E.7.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMSG', 'HMSG-E.8.', 'COLUMN SHOE', 'E.8.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMSG', 'HMSG-E.9.', 'POST TENSION', 'E.9.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMSG', 'HMSG-F.1.', 'SINGLE-USE FORMWORK', 'F.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMSG', 'HMSG-F.2.', 'RE-USABLE FORMWORK', 'F.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMSG', 'HMSG-F.3.', 'TUBULAR COLUMNS', 'F.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMSG', 'HMSG-F.4.', 'MAGNETS', 'F.4.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMSG', 'HMSG-F.5.', 'OTHER FORMWORK ACC. (DYWIDAG; PLASTIC PROFILES)', 'F.5.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMSG', 'HMSG-G.1.', 'DILATATION JOINTS', 'G.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMSG', 'HMSG-G.2.', 'JOINT COVER & SEPARATION', 'G.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMSG', 'HMSG-H.1.', 'LOOPING DEVICES', 'H.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMSG', 'HMSG-H.2.', 'SPHERICAL HEAD ANCHCORS', 'H.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMSG', 'HMSG-H.3.', 'FLAT STEEL ANCHORS', 'H.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMSG', 'HMSG-H.4.', 'THREADED SYSTEMS', 'H.4.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMSG', 'HMSG-H.5.', 'CHAINS AND CABLES', 'H.5.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMSG', 'HMSG-H.6.', 'OTHER LIFTING SYSTEMS', 'H.6.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMSG', 'HMSG-I.1.', 'CAST IN CHANNELS', 'I.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMSG', 'HMSG-I.2.', 'ANCHORING ACCESSORIES', 'I.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMSG', 'HMSG-I.3.', 'BOLTS', 'I.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMSG', 'HMSG-I.4.', 'INSERTS', 'I.4.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMSG', 'HMSG-I.5.', 'CHEMICAL ANCHORING', 'I.5.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMSG', 'HMSG-I.6.', 'FRAMING', 'I.6.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMSG', 'HMSG-I.7.', 'OTHER FIXING', 'I.7.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMSG', 'HMSG-J.1.', 'BUILDING & CONSTRUCTION BEARINGS', 'J.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMSG', 'HMSG-J.2.', 'CIVIL ENGINEERING BEARINGS', 'J.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMSG', 'HMSG-K.1.', 'WATERSTOP + INJECTION SYSTEM', 'K.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMSG', 'HMSG-K.2.', 'STRIPS & PROFILES', 'K.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMSG', 'HMSG-K.3.', 'OTHERS', 'K.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMSG', 'HMSG-L.1.', 'MORTARS & PASTES', 'L.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMSG', 'HMSG-L.2.', 'DEMOULDING AGENTS', 'L.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMSG', 'HMSG-L.3.', 'ADMIXTURES & GROUTS', 'L.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMSG', 'HMSG-L.4.', 'OTHER CHEMICAL PRODUCTS', 'L.4.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMSG', 'HMSG-M.1.', 'SITE EQUIPMENT', 'M.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMSG', 'HMSG-N.1.', 'TENSION ROD SYSTEMS', 'N.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMSG', 'HMSG-N.2.', 'HEAVY LOAD SYSTEMS', 'N.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMSG', 'HMSG-N.3.', 'OTHERS', 'N.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMSG', 'HMSG-O.1.', 'CONSTRUCTION FOILS', 'O.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMSG', 'HMSG-O.2.', 'DRAINAGE FOILS', 'O.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMSG', 'HMSG-O.3.', 'VAPOUR BARRIER FOILS + OTHERS', 'O.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMSG', 'HMSG-103-09XX-XX0003', 'HMSG-103-09XX-XX0003', 'N.3.', ' ')
 
 	-- Halfen Indien
---out of sprint 32
-/*
 	insert [intm_axbi].[dim_ITEMTABLE]
 	select distinct
 	'HMIN',
@@ -1917,78 +1896,75 @@ BEGIN
 	'HMIN-' + ISNULL([ITEMNAME], ' '),
 	ISNULL([CRHPRODUCTGROUPID], ' '),
 	' '
-	from dbo.[ITEMTABLE_HMIN$_bulk]
+	from [base_tx_ca_0_hlp].[ITEMTABLE_HMIN]
 
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMIN', 'HMIN-A.1.', 'BRICKWORK SUPPORT', 'A.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMIN', 'HMIN-A.2.', 'WALL TIES & FIXINGS', 'A.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMIN', 'HMIN-A.3.', 'MURFOR', 'A.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMIN', 'HMIN-A.4.', 'HELIFIX', 'A.4.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMIN', 'HMIN-B.1.', 'NATURAL STONE FIXING', 'B.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMIN', 'HMIN-B.2.', 'CONCRETE FACADE SYSTEMS', 'B.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMIN', 'HMIN-B.3.', 'CURTAIN WALL SYSTEM', 'B.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMIN', 'HMIN-B.4.', 'OTHER FACADE PRODUCTS', 'B.4.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMIN', 'HMIN-C.1.', 'CONCRETE : WET CAST', 'C.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMIN', 'HMIN-C.2.', 'CONCRETE : FIBERS + EXTRUDED', 'C.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMIN', 'HMIN-C.3.', 'PLASTIC', 'C.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMIN', 'HMIN-C.4.', 'STEEL', 'C.4.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMIN', 'HMIN-D.1.', 'BALCONY INSULATION', 'D.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMIN', 'HMIN-D.2.', 'ACOUSTIC PANELS & FORMS', 'D.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMIN', 'HMIN-D.3.', 'ACOUSTIC COMPONENTS', 'D.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMIN', 'HMIN-E.1.', 'REBEND REINFORCEMENT', 'E.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMIN', 'HMIN-E.2.', 'REBAR COUPLERS + CONNECTORS', 'E.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMIN', 'HMIN-E.3.', 'INVISIBLE CONNECTION', 'E.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMIN', 'HMIN-E.4.', 'PUNCHING SHEAR', 'E.4.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMIN', 'HMIN-E.5.', 'STEEL REINFORCEMENT', 'E.5.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMIN', 'HMIN-E.6.', 'SYNTHETIC REINFORCEMENT', 'E.6.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMIN', 'HMIN-E.7.', 'SHEAR LOAD CONNECTOR', 'E.7.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMIN', 'HMIN-E.8.', 'COLUMN SHOE', 'E.8.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMIN', 'HMIN-E.9.', 'POST TENSION', 'E.9.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMIN', 'HMIN-F.1.', 'SINGLE-USE FORMWORK', 'F.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMIN', 'HMIN-F.2.', 'RE-USABLE FORMWORK', 'F.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMIN', 'HMIN-F.3.', 'TUBULAR COLUMNS', 'F.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMIN', 'HMIN-F.4.', 'MAGNETS', 'F.4.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMIN', 'HMIN-F.5.', 'OTHER FORMWORK ACC. (DYWIDAG; PLASTIC PROFILES)', 'F.5.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMIN', 'HMIN-G.1.', 'DILATATION JOINTS', 'G.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMIN', 'HMIN-G.2.', 'JOINT COVER & SEPARATION', 'G.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMIN', 'HMIN-H.1.', 'LOOPING DEVICES', 'H.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMIN', 'HMIN-H.2.', 'SPHERICAL HEAD ANCHCORS', 'H.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMIN', 'HMIN-H.3.', 'FLAT STEEL ANCHORS', 'H.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMIN', 'HMIN-H.4.', 'THREADED SYSTEMS', 'H.4.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMIN', 'HMIN-H.5.', 'CHAINS AND CABLES', 'H.5.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMIN', 'HMIN-H.6.', 'OTHER LIFTING SYSTEMS', 'H.6.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMIN', 'HMIN-I.1.', 'CAST IN CHANNELS', 'I.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMIN', 'HMIN-I.2.', 'ANCHORING ACCESSORIES', 'I.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMIN', 'HMIN-I.3.', 'BOLTS', 'I.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMIN', 'HMIN-I.4.', 'INSERTS', 'I.4.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMIN', 'HMIN-I.5.', 'CHEMICAL ANCHORING', 'I.5.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMIN', 'HMIN-I.6.', 'FRAMING', 'I.6.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMIN', 'HMIN-I.7.', 'OTHER FIXING', 'I.7.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMIN', 'HMIN-J.1.', 'BUILDING & CONSTRUCTION BEARINGS', 'J.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMIN', 'HMIN-J.2.', 'CIVIL ENGINEERING BEARINGS', 'J.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMIN', 'HMIN-K.1.', 'WATERSTOP + INJECTION SYSTEM', 'K.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMIN', 'HMIN-K.2.', 'STRIPS & PROFILES', 'K.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMIN', 'HMIN-K.3.', 'OTHERS', 'K.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMIN', 'HMIN-L.1.', 'MORTARS & PASTES', 'L.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMIN', 'HMIN-L.2.', 'DEMOULDING AGENTS', 'L.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMIN', 'HMIN-L.3.', 'ADMIXTURES & GROUTS', 'L.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMIN', 'HMIN-L.4.', 'OTHER CHEMICAL PRODUCTS', 'L.4.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMIN', 'HMIN-M.1.', 'SITE EQUIPMENT', 'M.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMIN', 'HMIN-N.1.', 'TENSION ROD SYSTEMS', 'N.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMIN', 'HMIN-N.2.', 'HEAVY LOAD SYSTEMS', 'N.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMIN', 'HMIN-N.3.', 'OTHERS', 'N.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMIN', 'HMIN-O.1.', 'CONSTRUCTION FOILS', 'O.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMIN', 'HMIN-O.2.', 'DRAINAGE FOILS', 'O.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMIN', 'HMIN-O.3.', 'VAPOUR BARRIER FOILS + OTHERS', 'O.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMIN', 'HMIN-Moment Red Coupler 16mm-12mm', 'HMIN-Moment Reducer Coupler 16mm-12mm', 'E.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMIN', 'HMIN-Moment Red Coupler 20mm-12mm', 'HMIN-Moment Reducer Coupler 20mm-12mm', 'E.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMIN', 'HMIN-Moment Red Coupler 25mm-12mm', 'HMIN-Moment Reducer Coupler 25mm-12mm', 'E.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMIN', 'HMIN-Moment Red Coupler 32mm-12mm', 'HMIN-Moment Reducer Coupler 32mm-12mm', 'E.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMIN', 'HMIN-Moment Red Coupler 40mm-12mm', 'HMIN-Moment Reducer Coupler 40mm-12mm', 'E.2.', ' ')
-*/
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMIN', 'HMIN-A.1.', 'BRICKWORK SUPPORT', 'A.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMIN', 'HMIN-A.2.', 'WALL TIES & FIXINGS', 'A.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMIN', 'HMIN-A.3.', 'MURFOR', 'A.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMIN', 'HMIN-A.4.', 'HELIFIX', 'A.4.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMIN', 'HMIN-B.1.', 'NATURAL STONE FIXING', 'B.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMIN', 'HMIN-B.2.', 'CONCRETE FACADE SYSTEMS', 'B.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMIN', 'HMIN-B.3.', 'CURTAIN WALL SYSTEM', 'B.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMIN', 'HMIN-B.4.', 'OTHER FACADE PRODUCTS', 'B.4.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMIN', 'HMIN-C.1.', 'CONCRETE : WET CAST', 'C.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMIN', 'HMIN-C.2.', 'CONCRETE : FIBERS + EXTRUDED', 'C.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMIN', 'HMIN-C.3.', 'PLASTIC', 'C.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMIN', 'HMIN-C.4.', 'STEEL', 'C.4.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMIN', 'HMIN-D.1.', 'BALCONY INSULATION', 'D.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMIN', 'HMIN-D.2.', 'ACOUSTIC PANELS & FORMS', 'D.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMIN', 'HMIN-D.3.', 'ACOUSTIC COMPONENTS', 'D.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMIN', 'HMIN-E.1.', 'REBEND REINFORCEMENT', 'E.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMIN', 'HMIN-E.2.', 'REBAR COUPLERS + CONNECTORS', 'E.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMIN', 'HMIN-E.3.', 'INVISIBLE CONNECTION', 'E.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMIN', 'HMIN-E.4.', 'PUNCHING SHEAR', 'E.4.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMIN', 'HMIN-E.5.', 'STEEL REINFORCEMENT', 'E.5.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMIN', 'HMIN-E.6.', 'SYNTHETIC REINFORCEMENT', 'E.6.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMIN', 'HMIN-E.7.', 'SHEAR LOAD CONNECTOR', 'E.7.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMIN', 'HMIN-E.8.', 'COLUMN SHOE', 'E.8.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMIN', 'HMIN-E.9.', 'POST TENSION', 'E.9.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMIN', 'HMIN-F.1.', 'SINGLE-USE FORMWORK', 'F.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMIN', 'HMIN-F.2.', 'RE-USABLE FORMWORK', 'F.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMIN', 'HMIN-F.3.', 'TUBULAR COLUMNS', 'F.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMIN', 'HMIN-F.4.', 'MAGNETS', 'F.4.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMIN', 'HMIN-F.5.', 'OTHER FORMWORK ACC. (DYWIDAG; PLASTIC PROFILES)', 'F.5.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMIN', 'HMIN-G.1.', 'DILATATION JOINTS', 'G.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMIN', 'HMIN-G.2.', 'JOINT COVER & SEPARATION', 'G.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMIN', 'HMIN-H.1.', 'LOOPING DEVICES', 'H.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMIN', 'HMIN-H.2.', 'SPHERICAL HEAD ANCHCORS', 'H.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMIN', 'HMIN-H.3.', 'FLAT STEEL ANCHORS', 'H.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMIN', 'HMIN-H.4.', 'THREADED SYSTEMS', 'H.4.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMIN', 'HMIN-H.5.', 'CHAINS AND CABLES', 'H.5.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMIN', 'HMIN-H.6.', 'OTHER LIFTING SYSTEMS', 'H.6.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMIN', 'HMIN-I.1.', 'CAST IN CHANNELS', 'I.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMIN', 'HMIN-I.2.', 'ANCHORING ACCESSORIES', 'I.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMIN', 'HMIN-I.3.', 'BOLTS', 'I.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMIN', 'HMIN-I.4.', 'INSERTS', 'I.4.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMIN', 'HMIN-I.5.', 'CHEMICAL ANCHORING', 'I.5.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMIN', 'HMIN-I.6.', 'FRAMING', 'I.6.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMIN', 'HMIN-I.7.', 'OTHER FIXING', 'I.7.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMIN', 'HMIN-J.1.', 'BUILDING & CONSTRUCTION BEARINGS', 'J.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMIN', 'HMIN-J.2.', 'CIVIL ENGINEERING BEARINGS', 'J.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMIN', 'HMIN-K.1.', 'WATERSTOP + INJECTION SYSTEM', 'K.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMIN', 'HMIN-K.2.', 'STRIPS & PROFILES', 'K.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMIN', 'HMIN-K.3.', 'OTHERS', 'K.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMIN', 'HMIN-L.1.', 'MORTARS & PASTES', 'L.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMIN', 'HMIN-L.2.', 'DEMOULDING AGENTS', 'L.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMIN', 'HMIN-L.3.', 'ADMIXTURES & GROUTS', 'L.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMIN', 'HMIN-L.4.', 'OTHER CHEMICAL PRODUCTS', 'L.4.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMIN', 'HMIN-M.1.', 'SITE EQUIPMENT', 'M.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMIN', 'HMIN-N.1.', 'TENSION ROD SYSTEMS', 'N.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMIN', 'HMIN-N.2.', 'HEAVY LOAD SYSTEMS', 'N.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMIN', 'HMIN-N.3.', 'OTHERS', 'N.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMIN', 'HMIN-O.1.', 'CONSTRUCTION FOILS', 'O.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMIN', 'HMIN-O.2.', 'DRAINAGE FOILS', 'O.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMIN', 'HMIN-O.3.', 'VAPOUR BARRIER FOILS + OTHERS', 'O.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMIN', 'HMIN-Moment Red Coupler 16mm-12mm', 'HMIN-Moment Reducer Coupler 16mm-12mm', 'E.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMIN', 'HMIN-Moment Red Coupler 20mm-12mm', 'HMIN-Moment Reducer Coupler 20mm-12mm', 'E.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMIN', 'HMIN-Moment Red Coupler 25mm-12mm', 'HMIN-Moment Reducer Coupler 25mm-12mm', 'E.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMIN', 'HMIN-Moment Red Coupler 32mm-12mm', 'HMIN-Moment Reducer Coupler 32mm-12mm', 'E.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMIN', 'HMIN-Moment Red Coupler 40mm-12mm', 'HMIN-Moment Reducer Coupler 40mm-12mm', 'E.2.', ' ')
 
 	-- Halfen Philippinen
---out of sprint 32
-/*
 	insert [intm_axbi].[dim_ITEMTABLE]
 	select distinct
 	'HMPH',
@@ -1996,69 +1972,68 @@ BEGIN
 	'HMPH-' + ISNULL([ITEMNAME], ' '),
 	ISNULL([CRHPRODUCTGROUPID], ' '),
 	' '
-	from dbo.[ITEMTABLE_HMPH$_bulk]
+	from [base_tx_ca_0_hlp].[ITEMTABLE_HMPH]
 
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMPH', 'HMPH-A.1.', 'BRICKWORK SUPPORT', 'A.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMPH', 'HMPH-A.2.', 'WALL TIES & FIXINGS', 'A.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMPH', 'HMPH-A.3.', 'MURFOR', 'A.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMPH', 'HMPH-A.4.', 'HELIFIX', 'A.4.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMPH', 'HMPH-B.1.', 'NATURAL STONE FIXING', 'B.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMPH', 'HMPH-B.2.', 'CONCRETE FACADE SYSTEMS', 'B.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMPH', 'HMPH-B.3.', 'CURTAIN WALL SYSTEM', 'B.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMPH', 'HMPH-B.4.', 'OTHER FACADE PRODUCTS', 'B.4.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMPH', 'HMPH-C.1.', 'CONCRETE : WET CAST', 'C.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMPH', 'HMPH-C.2.', 'CONCRETE : FIBERS + EXTRUDED', 'C.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMPH', 'HMPH-C.3.', 'PLASTIC', 'C.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMPH', 'HMPH-C.4.', 'STEEL', 'C.4.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMPH', 'HMPH-D.1.', 'BALCONY INSULATION', 'D.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMPH', 'HMPH-D.2.', 'ACOUSTIC PANELS & FORMS', 'D.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMPH', 'HMPH-D.3.', 'ACOUSTIC COMPONENTS', 'D.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMPH', 'HMPH-E.1.', 'REBEND REINFORCEMENT', 'E.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMPH', 'HMPH-E.2.', 'REBAR COUPLERS + CONNECTORS', 'E.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMPH', 'HMPH-E.3.', 'INVISIBLE CONNECTION', 'E.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMPH', 'HMPH-E.4.', 'PUNCHING SHEAR', 'E.4.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMPH', 'HMPH-E.5.', 'STEEL REINFORCEMENT', 'E.5.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMPH', 'HMPH-E.6.', 'SYNTHETIC REINFORCEMENT', 'E.6.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMPH', 'HMPH-E.7.', 'SHEAR LOAD CONNECTOR', 'E.7.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMPH', 'HMPH-E.8.', 'COLUMN SHOE', 'E.8.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMPH', 'HMPH-E.9.', 'POST TENSION', 'E.9.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMPH', 'HMPH-F.1.', 'SINGLE-USE FORMWORK', 'F.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMPH', 'HMPH-F.2.', 'RE-USABLE FORMWORK', 'F.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMPH', 'HMPH-F.3.', 'TUBULAR COLUMNS', 'F.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMPH', 'HMPH-F.4.', 'MAGNETS', 'F.4.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMPH', 'HMPH-F.5.', 'OTHER FORMWORK ACC. (DYWIDAG; PLASTIC PROFILES)', 'F.5.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMPH', 'HMPH-G.1.', 'DILATATION JOINTS', 'G.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMPH', 'HMPH-G.2.', 'JOINT COVER & SEPARATION', 'G.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMPH', 'HMPH-H.1.', 'LOOPING DEVICES', 'H.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMPH', 'HMPH-H.2.', 'SPHERICAL HEAD ANCHCORS', 'H.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMPH', 'HMPH-H.3.', 'FLAT STEEL ANCHORS', 'H.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMPH', 'HMPH-H.4.', 'THREADED SYSTEMS', 'H.4.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMPH', 'HMPH-H.5.', 'CHAINS AND CABLES', 'H.5.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMPH', 'HMPH-H.6.', 'OTHER LIFTING SYSTEMS', 'H.6.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMPH', 'HMPH-I.1.', 'CAST IN CHANNELS', 'I.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMPH', 'HMPH-I.2.', 'ANCHORING ACCESSORIES', 'I.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMPH', 'HMPH-I.3.', 'BOLTS', 'I.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMPH', 'HMPH-I.4.', 'INSERTS', 'I.4.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMPH', 'HMPH-I.5.', 'CHEMICAL ANCHORING', 'I.5.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMPH', 'HMPH-I.6.', 'FRAMING', 'I.6.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMPH', 'HMPH-I.7.', 'OTHER FIXING', 'I.7.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMPH', 'HMPH-J.1.', 'BUILDING & CONSTRUCTION BEARINGS', 'J.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMPH', 'HMPH-J.2.', 'CIVIL ENGINEERING BEARINGS', 'J.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMPH', 'HMPH-K.1.', 'WATERSTOP + INJECTION SYSTEM', 'K.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMPH', 'HMPH-K.2.', 'STRIPS & PROFILES', 'K.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMPH', 'HMPH-K.3.', 'OTHERS', 'K.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMPH', 'HMPH-L.1.', 'MORTARS & PASTES', 'L.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMPH', 'HMPH-L.2.', 'DEMOULDING AGENTS', 'L.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMPH', 'HMPH-L.3.', 'ADMIXTURES & GROUTS', 'L.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMPH', 'HMPH-L.4.', 'OTHER CHEMICAL PRODUCTS', 'L.4.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMPH', 'HMPH-M.1.', 'SITE EQUIPMENT', 'M.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMPH', 'HMPH-N.1.', 'TENSION ROD SYSTEMS', 'N.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMPH', 'HMPH-N.2.', 'HEAVY LOAD SYSTEMS', 'N.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMPH', 'HMPH-N.3.', 'OTHERS', 'N.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMPH', 'HMPH-O.1.', 'CONSTRUCTION FOILS', 'O.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMPH', 'HMPH-O.2.', 'DRAINAGE FOILS', 'O.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('HMPH', 'HMPH-O.3.', 'VAPOUR BARRIER FOILS + OTHERS', 'O.3.', ' ')
-*/
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMPH', 'HMPH-A.1.', 'BRICKWORK SUPPORT', 'A.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMPH', 'HMPH-A.2.', 'WALL TIES & FIXINGS', 'A.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMPH', 'HMPH-A.3.', 'MURFOR', 'A.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMPH', 'HMPH-A.4.', 'HELIFIX', 'A.4.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMPH', 'HMPH-B.1.', 'NATURAL STONE FIXING', 'B.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMPH', 'HMPH-B.2.', 'CONCRETE FACADE SYSTEMS', 'B.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMPH', 'HMPH-B.3.', 'CURTAIN WALL SYSTEM', 'B.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMPH', 'HMPH-B.4.', 'OTHER FACADE PRODUCTS', 'B.4.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMPH', 'HMPH-C.1.', 'CONCRETE : WET CAST', 'C.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMPH', 'HMPH-C.2.', 'CONCRETE : FIBERS + EXTRUDED', 'C.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMPH', 'HMPH-C.3.', 'PLASTIC', 'C.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMPH', 'HMPH-C.4.', 'STEEL', 'C.4.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMPH', 'HMPH-D.1.', 'BALCONY INSULATION', 'D.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMPH', 'HMPH-D.2.', 'ACOUSTIC PANELS & FORMS', 'D.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMPH', 'HMPH-D.3.', 'ACOUSTIC COMPONENTS', 'D.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMPH', 'HMPH-E.1.', 'REBEND REINFORCEMENT', 'E.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMPH', 'HMPH-E.2.', 'REBAR COUPLERS + CONNECTORS', 'E.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMPH', 'HMPH-E.3.', 'INVISIBLE CONNECTION', 'E.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMPH', 'HMPH-E.4.', 'PUNCHING SHEAR', 'E.4.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMPH', 'HMPH-E.5.', 'STEEL REINFORCEMENT', 'E.5.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMPH', 'HMPH-E.6.', 'SYNTHETIC REINFORCEMENT', 'E.6.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMPH', 'HMPH-E.7.', 'SHEAR LOAD CONNECTOR', 'E.7.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMPH', 'HMPH-E.8.', 'COLUMN SHOE', 'E.8.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMPH', 'HMPH-E.9.', 'POST TENSION', 'E.9.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMPH', 'HMPH-F.1.', 'SINGLE-USE FORMWORK', 'F.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMPH', 'HMPH-F.2.', 'RE-USABLE FORMWORK', 'F.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMPH', 'HMPH-F.3.', 'TUBULAR COLUMNS', 'F.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMPH', 'HMPH-F.4.', 'MAGNETS', 'F.4.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMPH', 'HMPH-F.5.', 'OTHER FORMWORK ACC. (DYWIDAG; PLASTIC PROFILES)', 'F.5.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMPH', 'HMPH-G.1.', 'DILATATION JOINTS', 'G.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMPH', 'HMPH-G.2.', 'JOINT COVER & SEPARATION', 'G.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMPH', 'HMPH-H.1.', 'LOOPING DEVICES', 'H.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMPH', 'HMPH-H.2.', 'SPHERICAL HEAD ANCHCORS', 'H.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMPH', 'HMPH-H.3.', 'FLAT STEEL ANCHORS', 'H.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMPH', 'HMPH-H.4.', 'THREADED SYSTEMS', 'H.4.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMPH', 'HMPH-H.5.', 'CHAINS AND CABLES', 'H.5.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMPH', 'HMPH-H.6.', 'OTHER LIFTING SYSTEMS', 'H.6.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMPH', 'HMPH-I.1.', 'CAST IN CHANNELS', 'I.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMPH', 'HMPH-I.2.', 'ANCHORING ACCESSORIES', 'I.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMPH', 'HMPH-I.3.', 'BOLTS', 'I.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMPH', 'HMPH-I.4.', 'INSERTS', 'I.4.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMPH', 'HMPH-I.5.', 'CHEMICAL ANCHORING', 'I.5.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMPH', 'HMPH-I.6.', 'FRAMING', 'I.6.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMPH', 'HMPH-I.7.', 'OTHER FIXING', 'I.7.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMPH', 'HMPH-J.1.', 'BUILDING & CONSTRUCTION BEARINGS', 'J.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMPH', 'HMPH-J.2.', 'CIVIL ENGINEERING BEARINGS', 'J.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMPH', 'HMPH-K.1.', 'WATERSTOP + INJECTION SYSTEM', 'K.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMPH', 'HMPH-K.2.', 'STRIPS & PROFILES', 'K.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMPH', 'HMPH-K.3.', 'OTHERS', 'K.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMPH', 'HMPH-L.1.', 'MORTARS & PASTES', 'L.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMPH', 'HMPH-L.2.', 'DEMOULDING AGENTS', 'L.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMPH', 'HMPH-L.3.', 'ADMIXTURES & GROUTS', 'L.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMPH', 'HMPH-L.4.', 'OTHER CHEMICAL PRODUCTS', 'L.4.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMPH', 'HMPH-M.1.', 'SITE EQUIPMENT', 'M.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMPH', 'HMPH-N.1.', 'TENSION ROD SYSTEMS', 'N.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMPH', 'HMPH-N.2.', 'HEAVY LOAD SYSTEMS', 'N.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMPH', 'HMPH-N.3.', 'OTHERS', 'N.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMPH', 'HMPH-O.1.', 'CONSTRUCTION FOILS', 'O.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMPH', 'HMPH-O.2.', 'DRAINAGE FOILS', 'O.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMPH', 'HMPH-O.3.', 'VAPOUR BARRIER FOILS + OTHERS', 'O.3.', ' ')
 
 	-- Alle Artikel, die keinen CRH Productgroup Eintrag haben, auf N.3. setzen
 	update [intm_axbi].[dim_ITEMTABLE]
@@ -2072,8 +2047,6 @@ BEGIN
 	where PRODUCTGROUPID < 'A.1.' */
 
 	-- Isedio Australien
---out of sprint 32
-/*	
 	insert [intm_axbi].[dim_ITEMTABLE]
 	select distinct
 	[DATAAREAID],
@@ -2081,74 +2054,74 @@ BEGIN
 	'ISAU-' + [ITEMNAME],
 	ISNULL([CRH PRODUCTGROUPID], ' '),
 	ISNULL('ISAU-' + [STOCKGROUP], ' ')
-	from dbo.[ITEMTABLE_ISAU$_bulk]
+	from [base_tx_ca_0_hlp].[ITEMTABLE_ISAU]
 
 	-- Dummy article for the Budget
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISAU', 'ISAU-A.1.', 'BRICKWORK SUPPORT', 'A.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISAU', 'ISAU-A.2.', 'WALL TIES & FIXINGS', 'A.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISAU', 'ISAU-A.3.', 'MURFOR', 'A.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISAU', 'ISAU-A.4.', 'HELIFIX', 'A.4.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISAU', 'ISAU-B.1.', 'NATURAL STONE FIXING', 'B.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISAU', 'ISAU-B.2.', 'CONCRETE FACADE SYSTEMS', 'B.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISAU', 'ISAU-B.3.', 'CURTAIN WALL SYSTEM', 'B.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISAU', 'ISAU-B.4.', 'OTHER FACADE PRODUCTS', 'B.4.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISAU', 'ISAU-C.1.', 'CONCRETE : WET CAST', 'C.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISAU', 'ISAU-C.2.', 'CONCRETE : FIBERS + EXTRUDED', 'C.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISAU', 'ISAU-C.3.', 'PLASTIC', 'C.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISAU', 'ISAU-C.4.', 'STEEL', 'C.4.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISAU', 'ISAU-D.1.', 'BALCONY INSULATION', 'D.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISAU', 'ISAU-D.2.', 'ACOUSTIC PANELS & FORMS', 'D.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISAU', 'ISAU-D.3.', 'ACOUSTIC COMPONENTS', 'D.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISAU', 'ISAU-E.1.', 'REBEND REINFORCEMENT', 'E.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISAU', 'ISAU-E.2.', 'REBAR COUPLERS + CONNECTORS', 'E.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISAU', 'ISAU-E.3.', 'INVISIBLE CONNECTION', 'E.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISAU', 'ISAU-E.4.', 'PUNCHING SHEAR', 'E.4.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISAU', 'ISAU-E.5.', 'STEEL REINFORCEMENT', 'E.5.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISAU', 'ISAU-E.6.', 'SYNTHETIC REINFORCEMENT', 'E.6.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISAU', 'ISAU-E.7.', 'SHEAR LOAD CONNECTOR', 'E.7.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISAU', 'ISAU-E.8.', 'COLUMN SHOE', 'E.8.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISAU', 'ISAU-E.9.', 'POST TENSION', 'E.9.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISAU', 'ISAU-F.1.', 'SINGLE-USE FORMWORK', 'F.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISAU', 'ISAU-F.2.', 'RE-USABLE FORMWORK', 'F.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISAU', 'ISAU-F.3.', 'TUBULAR COLUMNS', 'F.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISAU', 'ISAU-F.4.', 'MAGNETS', 'F.4.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISAU', 'ISAU-F.5.', 'OTHER FORMWORK ACC. (DYWIDAG; PLASTIC PROFILES)', 'F.5.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISAU', 'ISAU-G.1.', 'DILATATION JOINTS', 'G.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISAU', 'ISAU-G.2.', 'JOINT COVER & SEPARATION', 'G.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISAU', 'ISAU-H.1.', 'LOOPING DEVICES', 'H.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISAU', 'ISAU-H.2.', 'SPHERICAL HEAD ANCHORS', 'H.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISAU', 'ISAU-H.3.', 'FLAT STEEL ANCHORS', 'H.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISAU', 'ISAU-H.4.', 'THREADED SYSTEMS', 'H.4.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISAU', 'ISAU-H.5.', 'CHAINS AND CABLES', 'H.5.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISAU', 'ISAU-H.6.', 'OTHER LIFTING SYSTEMS', 'H.6.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISAU', 'ISAU-I.1.', 'CAST IN CHANNELS', 'I.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISAU', 'ISAU-I.2.', 'ANCHORING ACCESSORIES', 'I.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISAU', 'ISAU-I.3.', 'BOLTS', 'I.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISAU', 'ISAU-I.4.', 'INSERTS', 'I.4.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISAU', 'ISAU-I.5.', 'CHEMICAL ANCHORING', 'I.5.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISAU', 'ISAU-I.6.', 'FRAMING', 'I.6.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISAU', 'ISAU-I.7.', 'OTHER FIXING', 'I.7.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISAU', 'ISAU-J.1.', 'BUILDING & CONSTRUCTION BEARINGS', 'J.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISAU', 'ISAU-J.2.', 'CIVIL ENGINEERING BEARINGS', 'J.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISAU', 'ISAU-K.1.', 'WATERSTOP + INJECTION SYSTEM', 'K.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISAU', 'ISAU-K.2.', 'STRIPS & PROFILES', 'K.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISAU', 'ISAU-K.3.', 'OTHERS', 'K.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISAU', 'ISAU-L.1.', 'MORTARS & PASTES', 'L.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISAU', 'ISAU-L.2.', 'DEMOULDING AGENTS', 'L.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISAU', 'ISAU-L.3.', 'ADMIXTURES & GROUTS', 'L.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISAU', 'ISAU-L.4.', 'OTHER CHEMICAL PRODUCTS', 'L.4.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISAU', 'ISAU-M.1.', 'SITE EQUIPMENT', 'M.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISAU', 'ISAU-N.1.', 'TENSION ROD SYSTEMS', 'N.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISAU', 'ISAU-N.2.', 'HEAVY LOAD SYSTEMS', 'N.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISAU', 'ISAU-N.3.', 'OTHERS', 'N.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISAU', 'ISAU-O.1.', 'CONSTRUCTION FOILS', 'O.1.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISAU', 'ISAU-O.2.', 'DRAINAGE FOILS', 'O.2.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISAU', 'ISAU-O.3.', 'VAPOUR BARRIER FOILS + OTHERS', 'O.3.', ' ')
-	insert into [intm_axbi].[dim_ITEMTABLE] VALUES('ISAU', 'ISAU-ARMOURFIXEND', 'ISAU-ARMOURFIXEND', 'G.1.', 'ISAU-2')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISAU', 'ISAU-A.1.', 'BRICKWORK SUPPORT', 'A.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISAU', 'ISAU-A.2.', 'WALL TIES & FIXINGS', 'A.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISAU', 'ISAU-A.3.', 'MURFOR', 'A.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISAU', 'ISAU-A.4.', 'HELIFIX', 'A.4.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISAU', 'ISAU-B.1.', 'NATURAL STONE FIXING', 'B.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISAU', 'ISAU-B.2.', 'CONCRETE FACADE SYSTEMS', 'B.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISAU', 'ISAU-B.3.', 'CURTAIN WALL SYSTEM', 'B.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISAU', 'ISAU-B.4.', 'OTHER FACADE PRODUCTS', 'B.4.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISAU', 'ISAU-C.1.', 'CONCRETE : WET CAST', 'C.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISAU', 'ISAU-C.2.', 'CONCRETE : FIBERS + EXTRUDED', 'C.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISAU', 'ISAU-C.3.', 'PLASTIC', 'C.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISAU', 'ISAU-C.4.', 'STEEL', 'C.4.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISAU', 'ISAU-D.1.', 'BALCONY INSULATION', 'D.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISAU', 'ISAU-D.2.', 'ACOUSTIC PANELS & FORMS', 'D.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISAU', 'ISAU-D.3.', 'ACOUSTIC COMPONENTS', 'D.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISAU', 'ISAU-E.1.', 'REBEND REINFORCEMENT', 'E.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISAU', 'ISAU-E.2.', 'REBAR COUPLERS + CONNECTORS', 'E.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISAU', 'ISAU-E.3.', 'INVISIBLE CONNECTION', 'E.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISAU', 'ISAU-E.4.', 'PUNCHING SHEAR', 'E.4.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISAU', 'ISAU-E.5.', 'STEEL REINFORCEMENT', 'E.5.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISAU', 'ISAU-E.6.', 'SYNTHETIC REINFORCEMENT', 'E.6.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISAU', 'ISAU-E.7.', 'SHEAR LOAD CONNECTOR', 'E.7.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISAU', 'ISAU-E.8.', 'COLUMN SHOE', 'E.8.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISAU', 'ISAU-E.9.', 'POST TENSION', 'E.9.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISAU', 'ISAU-F.1.', 'SINGLE-USE FORMWORK', 'F.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISAU', 'ISAU-F.2.', 'RE-USABLE FORMWORK', 'F.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISAU', 'ISAU-F.3.', 'TUBULAR COLUMNS', 'F.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISAU', 'ISAU-F.4.', 'MAGNETS', 'F.4.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISAU', 'ISAU-F.5.', 'OTHER FORMWORK ACC. (DYWIDAG; PLASTIC PROFILES)', 'F.5.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISAU', 'ISAU-G.1.', 'DILATATION JOINTS', 'G.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISAU', 'ISAU-G.2.', 'JOINT COVER & SEPARATION', 'G.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISAU', 'ISAU-H.1.', 'LOOPING DEVICES', 'H.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISAU', 'ISAU-H.2.', 'SPHERICAL HEAD ANCHORS', 'H.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISAU', 'ISAU-H.3.', 'FLAT STEEL ANCHORS', 'H.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISAU', 'ISAU-H.4.', 'THREADED SYSTEMS', 'H.4.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISAU', 'ISAU-H.5.', 'CHAINS AND CABLES', 'H.5.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISAU', 'ISAU-H.6.', 'OTHER LIFTING SYSTEMS', 'H.6.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISAU', 'ISAU-I.1.', 'CAST IN CHANNELS', 'I.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISAU', 'ISAU-I.2.', 'ANCHORING ACCESSORIES', 'I.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISAU', 'ISAU-I.3.', 'BOLTS', 'I.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISAU', 'ISAU-I.4.', 'INSERTS', 'I.4.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISAU', 'ISAU-I.5.', 'CHEMICAL ANCHORING', 'I.5.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISAU', 'ISAU-I.6.', 'FRAMING', 'I.6.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISAU', 'ISAU-I.7.', 'OTHER FIXING', 'I.7.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISAU', 'ISAU-J.1.', 'BUILDING & CONSTRUCTION BEARINGS', 'J.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISAU', 'ISAU-J.2.', 'CIVIL ENGINEERING BEARINGS', 'J.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISAU', 'ISAU-K.1.', 'WATERSTOP + INJECTION SYSTEM', 'K.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISAU', 'ISAU-K.2.', 'STRIPS & PROFILES', 'K.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISAU', 'ISAU-K.3.', 'OTHERS', 'K.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISAU', 'ISAU-L.1.', 'MORTARS & PASTES', 'L.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISAU', 'ISAU-L.2.', 'DEMOULDING AGENTS', 'L.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISAU', 'ISAU-L.3.', 'ADMIXTURES & GROUTS', 'L.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISAU', 'ISAU-L.4.', 'OTHER CHEMICAL PRODUCTS', 'L.4.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISAU', 'ISAU-M.1.', 'SITE EQUIPMENT', 'M.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISAU', 'ISAU-N.1.', 'TENSION ROD SYSTEMS', 'N.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISAU', 'ISAU-N.2.', 'HEAVY LOAD SYSTEMS', 'N.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISAU', 'ISAU-N.3.', 'OTHERS', 'N.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISAU', 'ISAU-O.1.', 'CONSTRUCTION FOILS', 'O.1.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISAU', 'ISAU-O.2.', 'DRAINAGE FOILS', 'O.2.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISAU', 'ISAU-O.3.', 'VAPOUR BARRIER FOILS + OTHERS', 'O.3.', ' ')
+	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISAU', 'ISAU-ARMOURFIXEND', 'ISAU-ARMOURFIXEND', 'G.1.', 'ISAU-2')
 
 	-- Alle Artikel, die keinen CRH Productgroup Eintrag haben, auf N.3. setzen
 	update [intm_axbi].[dim_ITEMTABLE]
 	set PRODUCTGROUPID = 'N.3.'
 	where DATAAREAID = 'ISAU' and PRODUCTGROUPID = ' ' 
-*/
+
 END
