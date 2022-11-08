@@ -1,6 +1,6 @@
-CREATE VIEW [dq].[vw_Product_1_29_all]  
-AS   
-  SELECT DISTINCT
+CREATE VIEW [dq].[vw_Product_1_35]
+AS
+SELECT DISTINCT
      P.[MANDT] 
     ,P.[Product] 
     ,P.[ProductExternalID] 
@@ -135,25 +135,27 @@ AS
     ,P.[ZZ1_CustomFieldRiskMit_PRD] 
     ,P.[ZZ1_CustomFieldHighRis_PRD] 
     ,P.[ZZ1_CustomFieldRiskRea_PRD] 
-    ,NAM.[MATNR] AS MaterialNumber
-    ,NAM.[WERKS] AS Plant
-    ,NAM.[NCOST] AS DoNotCost
-    ,PP.[MRPType]    
-    ,'1.29_ALL'  AS [RuleID]
+    ,NAM.[MATNR] AS [MaterialNumber]
+    ,NAM.[WERKS] AS [Plant]
+    ,NAM.[FXHOR] AS [PlanningTimeFence]
+    ,PP.[MRPType]
+    ,'1.35_ALL'  AS [RuleID]
     ,1 AS [Count]
 FROM   
     [base_s4h_cax].[I_Product] P  
 LEFT JOIN 
     [base_s4h_cax].[I_ProductPlant] PP 
     ON 
-      P.Product = PP.Product
+      P.[Product] = PP.[Product]
 LEFT JOIN 
     [base_s4h_cax].[NSDM_V_MARC] NAM
     ON 
-      PP.[Product] = NAM.[MATNR] COLLATE Latin1_General_100_BIN2
+        PP.[Product] = NAM.[MATNR] COLLATE Latin1_General_100_BIN2
       AND
-      PP.[Plant] = NAM.[WERKS] COLLATE Latin1_General_100_BIN2
+        PP.[Plant] = NAM.[WERKS] COLLATE Latin1_General_100_BIN2
 WHERE
-      P.[CrossPlantStatus] = '70'
+      NAM.[MINBE] = 0   
     AND
-      NAM.[NCOST] != 'X'
+      PP.[MRPType] = 'V1'
+    AND
+      NAM.[FXHOR] != '000'
