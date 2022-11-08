@@ -17,7 +17,7 @@ SELECT
 FROM   
     [base_s4h_cax].[I_Product]
 WHERE
-    [ProductType] = 'ZKMA'
+    [ProductType] IN ('ZKMA', 'ZKMB', 'ZKMC')
     AND
     [ItemCategoryGroup] != '0002'
 
@@ -168,9 +168,9 @@ SELECT
     ,[ZZ1_CustomFieldRiskMit_PRD] 
     ,[ZZ1_CustomFieldHighRis_PRD] 
     ,[ZZ1_CustomFieldRiskRea_PRD]
-    ,CONCAT('1.8_',[ProductType]) AS [RuleID]
+    ,CONCAT('1.8_', [ProductType]) AS [RuleID]
     ,1 AS [Count]
-FROM   
+FROM
     [base_s4h_cax].[I_Product] AS p
 INNER JOIN
     ErrorProducts AS errp

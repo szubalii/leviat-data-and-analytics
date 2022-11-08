@@ -147,11 +147,12 @@ LEFT JOIN
         pt.[Product] = p.[Product]
 WHERE
     p.[IsMarkedForDeletion] = 'X'
-    AND
-    p.[CrossPlantStatus] != '70'
-    AND
-    (
-        pt.ProductName NOT LIKE 'DEL%'
+    AND (
+        p.[CrossPlantStatus] != '70'
         OR
-        pt.ProductName NOT LIKE 'DUP%'
-    )    
+        (
+            pt.ProductName NOT LIKE 'DEL%'
+            OR
+            pt.ProductName NOT LIKE 'DUP%'
+        )
+    )
