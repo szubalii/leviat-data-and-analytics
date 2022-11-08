@@ -232,6 +232,10 @@ BEGIN
 	WHERE [DeliveryCountryID] = 'AUSTRALIA'
 
 	UPDATE [base_tx_ca_0_hlp].[CUSTINVOICETRANS_ISAU]
+	SET [DeliveryCountryID] = 'NZ'
+	WHERE [DeliveryCountryID] = 'New Zealand'
+
+	UPDATE [base_tx_ca_0_hlp].[CUSTINVOICETRANS_ISAU]
 	SET [Itemid] = 'ISAU-' + [Itemid]
 	where substring([Itemid], 1, 5) <> 'ISAU-'
 
@@ -322,9 +326,6 @@ BEGIN
 	where UPPER(c.DATAAREAID) = 'ISAU' and i.ITEMID is null	
 
 	-- other sales
-
-	DECLARE OtherSalesCursor CURSOR FAST_FORWARD FOR
-
 	select
         [Dataareaid],
 	    ISNULL([Salesid], ' ') AS [Salesid],
