@@ -152,7 +152,7 @@ WHERE
         OR
         (
             pt.ProductName NOT LIKE 'DEL%'
-            OR
+            AND
             pt.ProductName NOT LIKE 'DUP%'
         )
     )
