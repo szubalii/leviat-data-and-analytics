@@ -7,6 +7,7 @@ SELECT
     [sk_fact_PurchasingDocumentItem],
     [PurchaseOrder],
     [PurchaseOrderItem],
+    [PurchasingDocumentItemShortText],
     [QuantityInPurchaseOrderUnit],
     [PurchaseOrderQuantityUnit],
     [SupplierInvoiceItemAmount],

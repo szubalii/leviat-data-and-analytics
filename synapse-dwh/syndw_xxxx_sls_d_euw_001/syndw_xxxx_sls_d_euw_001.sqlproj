@@ -1041,6 +1041,8 @@
     <Build Include="edw\Views\vw_UserAddress.sql" />
     <Build Include="edw\Tables\dim_UserAddress.sql" />
     <Build Include="dm_sales\Views\vw_dim_UserAddress.sql" />
+	<Build Include="base_s4h_cax\Tables\I_PricingElement.sql" />
+	<Build Include="base_s4h_cax\Tables\P_ConditionTypeText.sql" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PostDeploy Include="Scripts\Post-Deploy\Script.PostDeployment.sql" />

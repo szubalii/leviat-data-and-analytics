@@ -13,6 +13,7 @@ CREATE TABLE [edw].[fact_PurchasingDocument]
     [SupplyingPlantID]                  nvarchar(4) collate Latin1_General_100_BIN2,
     [PurchasingProcessingStatusID]      nvarchar(2) collate Latin1_General_100_BIN2, 
     [PurchaseContract]                  nvarchar(10) collate Latin1_General_100_BIN2,
+    [PurchasingDocumentCondition]       nvarchar(10) collate Latin1_General_100_BIN2,
     [t_applicationId]                   VARCHAR(32),
     [t_extractionDtm]                   DATETIME,
     [t_jobId]                           VARCHAR(36),

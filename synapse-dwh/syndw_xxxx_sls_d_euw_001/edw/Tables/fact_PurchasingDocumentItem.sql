@@ -4,6 +4,7 @@ CREATE TABLE [edw].[fact_PurchasingDocumentItem]
     [PurchasingDocument]                        nvarchar(10) collate Latin1_General_100_BIN2 NOT NULL,
     [PurchasingDocumentItem]                    char(5) collate Latin1_General_100_BIN2      NOT NULL,
     [MaterialID]                                nvarchar(40) collate Latin1_General_100_BIN2,
+    [PurchasingDocumentItemText]                nvarchar(40) collate Latin1_General_100_BIN2,
     [DocumentCurrencyID]                        nchar(5) collate Latin1_General_100_BIN2,
 --edw.vw_Currency	Currency		X           PurchaseOrderCurrency		
     [PlantID]                                   nvarchar(4) collate Latin1_General_100_BIN2,
