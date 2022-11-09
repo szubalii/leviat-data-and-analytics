@@ -1,4 +1,4 @@
-﻿CREATE TABLE [base_tx_ca_0_hlp].[ITEMTABLE_HMMY](
+﻿CREATE TABLE [base_halfen_moment_my].[ITEMTABLE_HMMY](
 	[DATAAREAID]            [NVARCHAR](255)     NOT NULL,
 	[ITEMID]                [NVARCHAR](255)     NOT NULL,
 	[ITEMNAME]              [NVARCHAR](255)     NOT NULL,

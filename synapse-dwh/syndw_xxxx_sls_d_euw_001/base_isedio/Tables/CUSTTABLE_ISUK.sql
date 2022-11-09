@@ -1,4 +1,4 @@
-﻿CREATE TABLE [base_tx_ca_0_hlp].[CUSTTABLE_ISUK](
+﻿CREATE TABLE [base_isedio].[CUSTTABLE_ISUK](
 	[DATAAREAID]        [NVARCHAR](255)         NULL,
 	[CUSTOMERID]        [NVARCHAR](255)         NOT NULL,
 	[CUSTOMERNAME]      [NVARCHAR](255)         NULL,

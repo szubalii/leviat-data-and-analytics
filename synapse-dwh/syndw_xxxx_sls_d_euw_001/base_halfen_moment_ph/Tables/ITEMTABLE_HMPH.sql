@@ -1,5 +1,5 @@
 ﻿
-CREATE TABLE [base_tx_ca_0_hlp].[ITEMTABLE_HMPH](
+CREATE TABLE [base_halfen_moment_ph].[ITEMTABLE_HMPH](
 	[ITEMID]                [NVARCHAR](255)     NOT NULL,
 	[ITEMNAME]              [NVARCHAR](255)     NULL,
 	[CRHPRODUCTGROUPID]     [NVARCHAR](255)     NULL,

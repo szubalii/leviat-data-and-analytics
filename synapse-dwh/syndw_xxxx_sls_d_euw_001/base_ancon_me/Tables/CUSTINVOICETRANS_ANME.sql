@@ -1,4 +1,4 @@
-﻿CREATE TABLE [base_tx_ca_0_hlp].[CUSTINVOICETRANS_ANME](
+﻿CREATE TABLE [base_ancon_me].[CUSTINVOICETRANS_ANME](
 	[Accountingdate]        [DATETIME]              NULL,
 	[Invoiceid]             [NVARCHAR](20)          NOT NULL,
 	[Salesid]               [NVARCHAR](20)          NULL,

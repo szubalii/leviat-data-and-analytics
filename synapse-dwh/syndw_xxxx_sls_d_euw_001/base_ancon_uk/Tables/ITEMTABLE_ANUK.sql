@@ -1,4 +1,4 @@
-﻿CREATE TABLE [base_tx_ca_0_hlp].[ITEMTABLE_ANUK](
+﻿CREATE TABLE [base_ancon_uk].[ITEMTABLE_ANUK](
 	[DATAAREAID]            [NVARCHAR](255)     NULL,
 	[ITEMID]                [NVARCHAR](255)     NOT NULL,
 	[ITEMNAME]              [NVARCHAR](255)     NULL,

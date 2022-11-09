@@ -1,4 +1,4 @@
-﻿CREATE TABLE [base_tx_ca_0_hlp].[ITEMTABLE_ISAU](
+﻿CREATE TABLE [base_isedio_aus].[ITEMTABLE_ISAU](
 	[DATAAREAID]            [NVARCHAR](255)     NULL,
 	[ITEMID]                [NVARCHAR](255)     NOT NULL,
 	[ITEMNAME]              [NVARCHAR](255)     NULL,

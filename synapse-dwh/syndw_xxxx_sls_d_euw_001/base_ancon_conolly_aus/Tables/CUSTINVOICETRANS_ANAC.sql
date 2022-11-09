@@ -1,4 +1,4 @@
-CREATE TABLE [base_tx_ca_0_hlp].[CUSTINVOICETRANS_ANAC]
+CREATE TABLE [base_ancon_conolly_aus].[CUSTINVOICETRANS_ANAC]
 (
 	[DATAAREAID]            [NVARCHAR](8)           NULL,
 	[SALESID]               [NVARCHAR](20)          NULL,

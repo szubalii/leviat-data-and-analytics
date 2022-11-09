@@ -1,4 +1,4 @@
-﻿CREATE TABLE [base_tx_ca_0_hlp].[INVOICEDFREIGHT_ISUK](
+﻿CREATE TABLE [base_isedio].[INVOICEDFREIGHT_ISUK](
 	[Accountingdate]            [DATETIME]          NULL,
 	[InvoicedFreightLocal]      [DECIMAL](38, 12)   NULL,
 	[PackingSlipID]             [NVARCHAR](20)      NULL,

@@ -1,4 +1,4 @@
-﻿CREATE TABLE [base_tx_ca_0_hlp].[CUSTINVOICETRANS_ISAU](
+﻿CREATE TABLE [base_isedio_aus].[CUSTINVOICETRANS_ISAU](
 	[Dataareaid]            [NVARCHAR](8)           NULL,
 	[Salesid]               [NVARCHAR](20)          NULL,
 	[Invoiceid]             [NVARCHAR](20)          NOT NULL,

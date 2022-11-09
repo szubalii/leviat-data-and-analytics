@@ -1,4 +1,4 @@
-﻿CREATE TABLE [base_tx_ca_0_hlp].[CUSTTABLE_HMSG](
+﻿CREATE TABLE [base_halfen_moment_sg].[CUSTTABLE_HMSG](
 	[DATAAREAID]            [NVARCHAR](8)           NOT NULL,
 	[ACCOUNTNUM]            [NVARCHAR](100)         NOT NULL,
 	[NAME]                  [NVARCHAR](200)         NOT NULL,

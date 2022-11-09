@@ -1,4 +1,4 @@
-﻿CREATE TABLE [base_tx_ca_0_hlp].[CUSTINVOICETRANS_HMPH](
+﻿CREATE TABLE [base_halfen_moment_ph].[CUSTINVOICETRANS_HMPH](
 	[Dataareaid]            [NVARCHAR](8)           NULL,
 	[Accountingdate]        [DATETIME]              NULL,
 	[Invoiceid]             [NVARCHAR](20)          NULL,

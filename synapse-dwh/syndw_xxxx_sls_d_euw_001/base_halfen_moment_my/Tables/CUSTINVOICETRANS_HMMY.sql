@@ -1,4 +1,4 @@
-﻿CREATE TABLE [base_tx_ca_0_hlp].[CUSTINVOICETRANS_HMMY](
+﻿CREATE TABLE [base_halfen_moment_my].[CUSTINVOICETRANS_HMMY](
 	[DATAAREAID]            [NVARCHAR](8)           NOT NULL,
 	[SALESID]               [NVARCHAR](20)          NOT NULL,
 	[INVOICEID]             [NVARCHAR](20)          NOT NULL,

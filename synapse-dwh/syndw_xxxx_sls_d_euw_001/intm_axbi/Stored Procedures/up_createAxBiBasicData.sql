@@ -281,7 +281,7 @@ BEGIN
 	CUSTOMERPILLAR,
 	' ',
 	DIMENSION3_
-	from [base_tx_ca_0_hlp].[CUSTTABLE_ANUK]
+	from [base_ancon_uk].[CUSTTABLE_ANUK]
 
 	-- Ancon Australia CONNOLLY
 
@@ -295,10 +295,10 @@ BEGIN
 	CUSTOMERPILLAR,
 	' ',
 	' '
-	from [base_tx_ca_0_hlp].[CUSTTABLE_ANUK]
+	from [base_ancon_uk].[CUSTTABLE_ANUK]
 
 	delete from [intm_axbi].[dim_ITEMTABLE] where PRODUCTGROUPID = 'SCRAP'
-	delete from [base_tx_ca_0_hlp].[ITEMTABLE_ANUK] where [CRH PRODUCTGROUPID] = 'SCRAP'
+	delete from [base_ancon_uk].[ITEMTABLE_ANUK] where [CRH PRODUCTGROUPID] = 'SCRAP'
 
 	update [intm_axbi].[dim_CUSTTABLE]
 	set INOUT = 'I'
@@ -376,7 +376,7 @@ BEGIN
 	CUSTOMERPILLAR,
 	' ',
 	' '
-	from [base_tx_ca_0_hlp].[CUSTTABLE_ANME]
+	from [base_ancon_me].[CUSTTABLE_ANME]
 
 	-- Ancon Isedio UK
 	insert [intm_axbi].[dim_CUSTTABLE]
@@ -388,7 +388,7 @@ BEGIN
 	CUSTOMERPILLAR,
 	' ',
 	DIMENSION3_
-	from [base_tx_ca_0_hlp].[CUSTTABLE_ISUK]
+	from [base_isedio].[CUSTTABLE_ISUK]
 
 	update [intm_axbi].[dim_CUSTTABLE]
 	set INOUT = 'I'

@@ -188,6 +188,24 @@
     <Folder Include="base_tx_crh_2_dwh" />
     <Folder Include="base_tx_crh_2_dwh\Tables" />
     <Folder Include="intm_axbi\Functions" />
+    <Folder Include="base_ancon_conolly_aus" />
+    <Folder Include="base_ancon_conolly_aus\Tables" />
+    <Folder Include="base_ancon_me" />
+    <Folder Include="base_ancon_me\Tables" />
+    <Folder Include="base_ancon_uk" />
+    <Folder Include="base_ancon_uk\Tables" />
+    <Folder Include="base_halfen_moment_in" />
+    <Folder Include="base_halfen_moment_in\Tables" />
+    <Folder Include="base_halfen_moment_my" />
+    <Folder Include="base_halfen_moment_my\Tables" />
+    <Folder Include="base_halfen_moment_ph" />
+    <Folder Include="base_halfen_moment_ph\Tables" />
+    <Folder Include="base_halfen_moment_sg" />
+    <Folder Include="base_halfen_moment_sg\Tables" />
+    <Folder Include="base_isedio" />
+    <Folder Include="base_isedio\Tables" />
+    <Folder Include="base_isedio_aus" />
+    <Folder Include="base_isedio_aus\Tables" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <Build Include="Security\Database Scoped Credentials\dsc_MSI.sql" />
@@ -988,18 +1006,8 @@
     <Build Include="base_tx_crh_2_dwh\Tables\FACT_INVENTRANS_NOT_INVOICED.sql" />
     <Build Include="base_tx_crh_2_dwh\Tables\FACT_SALESLINE.sql" />
     <Build Include="Security\Schemas\base_tx_crh_2_dwh.sql" />
-    <Build Include="intm_axbi\Stored Procedures\up_ReadSales_ANAH.sql" />
-    <Build Include="intm_axbi\Stored Procedures\up_ReadSales_ANAU.sql" />
-    <Build Include="intm_axbi\Stored Procedures\up_ReadSales_ANDE.sql" />
-    <Build Include="intm_axbi\Stored Procedures\up_ReadSales_ANNZ.sql" />
-    <Build Include="intm_axbi\Stored Procedures\up_ReadSales_HALF.sql" />
-    <Build Include="intm_axbi\Stored Procedures\up_ReadSales_PLAKA_BE.sql" />
-    <Build Include="intm_axbi\Stored Procedures\up_ReadSales_PLAKA_FR.sql" />
     <Build Include="intm_axbi\Functions\uf_get_CashDiscPct.sql" />
-    <Build Include="intm_axbi\Stored Procedures\up_CUSTINVOICETRANS_Werte_nach_CRH_Kurs_umrechnen.sql" />
     <Build Include="base_tx_crh_1_stg\Tables\AX_CRH_A_dbo_CUSTTABLE.sql" />
-    <Build Include="intm_axbi\Stored Procedures\up_createAxBiBasicData.sql" />
-    <Build Include="intm_axbi\Stored Procedures\up_CollectSales_CA.sql" />
     <Build Include="dm_sales\Views\vw_dim_MaterialGroup.sql" />
     <Build Include="base_s4h_cax\Tables\I_ProductValuationCosting.sql" />
     <Build Include="base_s4h_cax\Tables\PurgAccAssignment.sql" />
@@ -1030,24 +1038,6 @@
     <Build Include="Security\Schemas\base_halfen_moment_sg.sql" />
     <Build Include="Security\Schemas\base_isedio.sql" />
     <Build Include="Security\Schemas\base_isedio_aus.sql" />
-    <Folder Include="base_ancon_conolly_aus" />
-    <Folder Include="base_ancon_conolly_aus\Tables" />
-    <Folder Include="base_ancon_me" />
-    <Folder Include="base_ancon_me\Tables" />
-    <Folder Include="base_ancon_uk" />
-    <Folder Include="base_ancon_uk\Tables" />
-    <Folder Include="base_halfen_moment_in" />
-    <Folder Include="base_halfen_moment_in\Tables" />
-    <Folder Include="base_halfen_moment_my" />
-    <Folder Include="base_halfen_moment_my\Tables" />
-    <Folder Include="base_halfen_moment_ph" />
-    <Folder Include="base_halfen_moment_ph\Tables" />
-    <Folder Include="base_halfen_moment_sg" />
-    <Folder Include="base_halfen_moment_sg\Tables" />
-    <Folder Include="base_isedio" />
-    <Folder Include="base_isedio\Tables" />
-    <Folder Include="base_isedio_aus" />
-    <Folder Include="base_isedio_aus\Tables" />
     <Build Include="base_isedio_aus\Tables\CUSTINVOICETRANS_ISAU.sql" />
     <Build Include="base_isedio_aus\Tables\CUSTTABLE_ISAU.sql" />
     <Build Include="base_isedio_aus\Tables\ITEMTABLE_ISAU.sql" />
@@ -1078,6 +1068,13 @@
     <Build Include="base_halfen_moment_in\Tables\CUSTINVOICETRANS_HMIN.sql" />
     <Build Include="base_halfen_moment_in\Tables\CUSTTABLE_HMIN.sql" />
     <Build Include="base_halfen_moment_in\Tables\ITEMTABLE_HMIN.sql" />
+    <Build Include="intm_axbi\Stored Procedures\up_ReadSales_ANAH.sql" />
+    <Build Include="intm_axbi\Stored Procedures\up_ReadSales_ANAU.sql" />
+    <Build Include="intm_axbi\Stored Procedures\up_ReadSales_ANDE.sql" />
+    <Build Include="intm_axbi\Stored Procedures\up_ReadSales_ANNZ.sql" />
+    <Build Include="intm_axbi\Stored Procedures\up_ReadSales_HALF.sql" />
+    <Build Include="intm_axbi\Stored Procedures\up_ReadSales_PLAKA_BE.sql" />
+    <Build Include="intm_axbi\Stored Procedures\up_ReadSales_PLAKA_FR.sql" />
     <Build Include="intm_axbi\Stored Procedures\up_ReadSales_ANUK_pkg.sql" />
     <Build Include="intm_axbi\Stored Procedures\up_ReadSales_ISUK_pkg.sql" />
     <Build Include="intm_axbi\Stored Procedures\up_ReadSales_ANAC_pkg.sql" />
@@ -1088,6 +1085,9 @@
     <Build Include="intm_axbi\Stored Procedures\up_ReadSales_HMPH_pkg.sql" />
     <Build Include="intm_axbi\Stored Procedures\up_ReadSales_HMSG_pkg.sql" />
     <Build Include="intm_axbi\Stored Procedures\up_ReadSales_ISAU_pkg.sql" />
+    <Build Include="intm_axbi\Stored Procedures\up_createAxBiBasicData.sql" />
+    <Build Include="intm_axbi\Stored Procedures\up_CollectSales_CA.sql" />
+    <Build Include="intm_axbi\Stored Procedures\up_CUSTINVOICETRANS_Werte_nach_CRH_Kurs_umrechnen.sql" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PostDeploy Include="Scripts\Post-Deploy\Script.PostDeployment.sql" />

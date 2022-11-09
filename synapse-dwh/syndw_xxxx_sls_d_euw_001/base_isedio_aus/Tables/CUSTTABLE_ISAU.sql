@@ -1,4 +1,4 @@
-﻿CREATE TABLE [base_tx_ca_0_hlp].[CUSTTABLE_ISAU](
+﻿CREATE TABLE [base_isedio_aus].[CUSTTABLE_ISAU](
 	[DATAAREAID]            [NVARCHAR](8)           NULL,
 	[ACCOUNTNUM]            [NVARCHAR](10)          NOT NULL,
 	[NAME]                  [NVARCHAR](255)         NULL,

@@ -1,4 +1,4 @@
-﻿CREATE TABLE [base_tx_ca_0_hlp].[ITEMTABLE_HMIN](
+﻿CREATE TABLE [base_halfen_moment_in].[ITEMTABLE_HMIN](
 	[ITEMNAME]              [NVARCHAR](255)     NULL,
 	[ITEMID]                [NVARCHAR](255)     NOT NULL,
 	[CRHPRODUCTGROUPID]     [NVARCHAR](255)     NULL,

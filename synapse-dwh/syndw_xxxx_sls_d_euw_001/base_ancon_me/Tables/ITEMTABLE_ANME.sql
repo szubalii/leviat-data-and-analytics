@@ -1,4 +1,4 @@
-﻿CREATE TABLE [base_tx_ca_0_hlp].[ITEMTABLE_ANME](
+﻿CREATE TABLE [base_ancon_me].[ITEMTABLE_ANME](
 	[ITEMNAME]              [NVARCHAR](255)     NULL,
 	[ITEMID]                [NVARCHAR](255)     NOT NULL,
 	[PREFERRED_SUPPLIER]    [NVARCHAR](255)     NULL,

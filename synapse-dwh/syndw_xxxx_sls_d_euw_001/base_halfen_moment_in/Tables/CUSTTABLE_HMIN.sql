@@ -1,4 +1,4 @@
-﻿CREATE TABLE [base_tx_ca_0_hlp].[CUSTTABLE_HMIN](
+﻿CREATE TABLE [base_halfen_moment_in].[CUSTTABLE_HMIN](
 	[CUSTOMERNAME]          [NVARCHAR](255)         NULL,
 	[CUSTOMERID]            [NVARCHAR](255)         NOT NULL,
 	[INOUT]                 [NVARCHAR](255)         NULL,
