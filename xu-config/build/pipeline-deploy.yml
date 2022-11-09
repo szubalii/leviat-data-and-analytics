@@ -18,8 +18,12 @@ parameters:
 variables:
 - name: env
   value: ${{ parameters.env }}
-- group: DnA_$(env)
-- group: KeyVault_$(env)
+- name: varGroup
+  value: "DnA_$(env)"
+- name: keyGroup
+  value: "KeyVault_$(env)"
+- group: "$(varGroup)"
+- group: "$(keyGroup)"
 
 jobs:
 - template: ../../build/jobs-pre-build.yml
