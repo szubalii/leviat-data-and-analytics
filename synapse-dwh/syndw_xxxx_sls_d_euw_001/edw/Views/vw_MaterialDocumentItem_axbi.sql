@@ -301,6 +301,7 @@ SELECT
     ,   INV.[MaterialID]
     ,   INV.[PlantID]
     ,   dmInvLocation.[INVENTLOCATIONID] AS [StorageLocationID]
+    ,   INV.[DATAAREAID]
     ,   INV.[SalesOrder]
     ,   INV.[SalesOrderItem]
     ,   INV.[GoodsMovementTypeID]
@@ -409,7 +410,7 @@ LEFT JOIN
 LEFT JOIN
     [edw].[ref_AXMigration] AXM
         ON
-        dmInvLocation.[INVENTLOCATIONID] = AXM.StorageLocationID
+        INV.[DATAAREAID] = AXM.[DATAAREAID]
 WHERE
     INV.[DocumentDate] < COALESCE (AXM.MigrationDate,'9999-12-31')
 )
@@ -420,6 +421,7 @@ SELECT  DISTINCT
     ,   INV_QTY.[MaterialID]
     ,   INV_QTY.[PlantID]
     ,   INV_QTY.[StorageLocationID]
+    ,   INV_QTY.[DATAAREAID]
     ,   INV_QTY.[SalesOrder]
     ,   INV_QTY.[SalesOrderItem]
     ,   INV_QTY.[GoodsMovementTypeID]

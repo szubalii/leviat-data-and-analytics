@@ -1,9 +1,9 @@
 CREATE TABLE [edw].[ref_AXMigration]
 (
-    [StorageLocationID]               nvarchar(10),
+    [DATAAREAID]               nvarchar(4),
     [MigrationDate]                   date,
     CONSTRAINT [PK_ref_AXMigration] PRIMARY KEY NONCLUSTERED (
-        [StorageLocationID]
+        [DATAAREAID]
     ) NOT ENFORCED
 )
-WITH ( DISTRIBUTION = HASH ([StorageLocationID]), CLUSTERED COLUMNSTORE INDEX )
+WITH ( DISTRIBUTION = HASH ([DATAAREAID]), CLUSTERED COLUMNSTORE INDEX )

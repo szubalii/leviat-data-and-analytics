@@ -7,6 +7,7 @@ SELECT
         viewMD.[MaterialID],
         viewMD.[PlantID],
         viewMD.[StorageLocationID],
+        viewMD.[DATAAREAID],
         viewMD.[InventorySpecialStockTypeID],
         viewMD.[InventoryStockTypeID],
         viewMD.[StockOwner],
@@ -28,6 +29,7 @@ SELECT
         viewMD.[MaterialID],
         viewMD.[PlantID],
         viewMD.[StorageLocationID],
+        viewMD.[DATAAREAID],
         viewMD.[InventorySpecialStockTypeID],
         viewMD.[InventoryStockTypeID],
         viewMD.[StockOwner],
@@ -48,6 +50,7 @@ SELECT
         max([MaterialID]) AS MaterialID,
         max([PlantID]) AS PlantID,
         max([StorageLocationID]) AS StorageLocationID,
+        max(DATAAREAID) AS DATAAREAID,
         max([InventorySpecialStockTypeID]) AS InventorySpecialStockTypeID,
         max([InventoryStockTypeID]) AS InventoryStockTypeID,
         max([StockOwner]) AS StockOwner,
@@ -71,6 +74,7 @@ SELECT
         HC.[MaterialID],
         HC.[PlantID],
         HC.[StorageLocationID],
+        HC.[DATAAREAID],
         HC.[InventorySpecialStockTypeID],
         HC.[InventoryStockTypeID],
         HC.[StockOwner],
@@ -95,6 +99,7 @@ SELECT
         CC.MaterialID,
         CC.PlantID,
         CC.StorageLocationID,
+        CC.DATAAREAID,
         CC.InventorySpecialStockTypeID,
         CC.InventoryStockTypeID,
         CC.StockOwner,
@@ -135,7 +140,7 @@ SELECT
             CPPUP.[CalendarMonth] = CC.[CalendarMonth] COLLATE DATABASE_DEFAULT
         LEFT JOIN [edw].[ref_AXMigration] AXM
         ON
-            CC.StorageLocationID = AXM.StorageLocationID
+            CC.DATAAREAID = AXM.DATAAREAID
 
 )   SELECT 
     [_hash],
@@ -145,6 +150,7 @@ SELECT
     [MaterialID],
     [PlantID],
     [StorageLocationID],
+    [DATAAREAID],
     [InventorySpecialStockTypeID],
     [InventoryStockTypeID],
     [StockOwner],
