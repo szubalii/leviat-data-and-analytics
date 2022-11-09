@@ -27,6 +27,7 @@ CREATE VIEW [dm_sales].[vw_dim_ProductValuationPUP]
        PV.[CurrencyID],
        PV.[StockPricePerUnit],
        PV.[StockPricePerUnit_EUR],
+       PV.[StockPricePerUnit_USD],
        PV.[isAddedMissingMonth]
     FROM [edw].[dim_ProductValuationPUP] AS PV
     LEFT JOIN
