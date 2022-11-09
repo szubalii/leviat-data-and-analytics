@@ -1,4 +1,4 @@
-# trigger:
+trigger: none
 #   branches:
 #     include: 
 #     # - deployment-pipeline
@@ -22,8 +22,8 @@ variables:
   value: "DnA_$(env)"
 - name: keyGroup
   value: "KeyVault_$(env)"
-- group: "$(varGroup)"
-- group: "$(keyGroup)"
+- group: $(varGroup)
+- group: $(keyGroup)
 
 jobs:
 - template: ../../build/jobs-pre-build.yml
