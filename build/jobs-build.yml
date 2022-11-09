@@ -29,6 +29,7 @@ parameters:
 jobs:
 # Build jobs
 - template: ./jobs-pre-build.yml
+- template: ./jobs-validate.yml
 - ${{ if eq(parameters.orchdb, true) }}: 
   - template: ../orchestration/build/jobs-build.yml
     parameters:

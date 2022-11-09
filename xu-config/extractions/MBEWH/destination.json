@@ -1,16 +1,12 @@
 {
     "nameGenerator": {
         "suffix": "",
-        "customName": "MBEWH",
-        "objectNamingMode": "Custom",
         "appendsTimestamp": true
     },
     "internalSettings": {
         "nameGenerator": {
             "suffix": "",
-            "customName": "MBEWH",
-            "objectNamingMode": "Custom",
-            "appendsTimestamp": true
+                    "appendsTimestamp": true
         },
         "sapDateConversion": {
             "enabled": true,

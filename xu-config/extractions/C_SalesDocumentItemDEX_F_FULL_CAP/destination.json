@@ -1,16 +1,12 @@
 {
     "nameGenerator": {
         "suffix": "",
-        "customName": "C_SalesDocumentItemDEX_F",
-        "objectNamingMode": "Custom",
         "appendsTimestamp": true
     },
     "internalSettings": {
         "nameGenerator": {
             "suffix": "",
-            "customName": "C_SalesDocumentItemDEX_F",
-            "objectNamingMode": "Custom",
-            "appendsTimestamp": true
+                    "appendsTimestamp": true
         },
         "sapDateConversion": {
             "enabled": true,

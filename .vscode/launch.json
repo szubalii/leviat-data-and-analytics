@@ -4,7 +4,7 @@
             "type": "pwa-node",
             "name": "Run Current File",
             "request": "launch",
-            "program": "${workspaceFolder}\\orchestration\\src\\libs\\validate-config.js"
+            "program": "${workspaceFolder}\\src\\libs\\validate-config.js"
         },
         {
             "type": "node-terminal",

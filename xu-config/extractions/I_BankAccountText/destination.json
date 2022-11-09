@@ -1,8 +1,6 @@
 {
     "nameGenerator": {
         "suffix": "",
-        "objectNamingMode": "Custom",
-        "customName": "I_BankAccountText",
         "appendsTimestamp": true
     },
     "internalSettings": {

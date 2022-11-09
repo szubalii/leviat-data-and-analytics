@@ -1,8 +1,6 @@
 {
 	"nameGenerator": {
 		"suffix": "",
-		"objectNamingMode": "Custom",
-		"customName": "NSDM_V_MAWEV",
 		"appendsTimestamp": true
 	},
 	"internalSettings": {
@@ -14,9 +12,7 @@
 		},     
 		"nameGenerator": {
             "suffix": "",
-            "customName": "NSDM_V_MAWEV",
-            "objectNamingMode": "Custom",
-            "appendsTimestamp": true
+                    "appendsTimestamp": true
         },
 		"columnNameKind": "Code"
 	},

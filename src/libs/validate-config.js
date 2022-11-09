@@ -1,6 +1,5 @@
 const globalEntityCfg = require('../../orchestration/src/config/global/entity.json');
 const fs = require('fs');
-const root = process.argv[2];
 
 var _ = require('lodash');
 
@@ -12,6 +11,8 @@ var _ = require('lodash');
 function main () {
     let exceptions = [];
     ['dev', 'qas', 'prod'].forEach(e => exceptions = exceptions.concat(validateEnvConfig(e)));
+
+    exceptions = exceptions.concat( checkCustomNameInExtractionDestination() );
 
     if (exceptions.length > 0) {
         throw 'Validation Error(s)';
@@ -57,7 +58,7 @@ function validateEnvConfig (env) {
 function checkS4HExtractionExists (baseS4HEntityArray) {
     const message = 'Checking if each S4H entity has a defined XU Extraction config';
     console.log(message);
-    const dir = root + '/xu-config/extractions';
+    const dir = __dirname + '/../../xu-config/extractions';
     const files = fs.readdirSync(dir);
     let missingExtractions = baseS4HEntityArray.filter(e => !files.includes(e.entity_name))
         .map(e => ({entity_id: e.entity_id, entity_name: e.entity_name}));
@@ -66,6 +67,45 @@ function checkS4HExtractionExists (baseS4HEntityArray) {
     // throw Exception
     if (missingExtractions.length > 0) {
         exceptions.push(new Exception('Missing S4H Extraction(s)', missingExtractions));
+    }
+
+    console.log(message + ': Complete');
+
+    return exceptions;
+}
+
+/**
+ * Checks if the customName property is used in the destination file of any extraction
+ * @returns array of exceptions 
+ */
+function checkCustomNameInExtractionDestination () {
+    const message = 'Checking if custom names are defined in the destinations of extractions';
+    console.log(message);
+    const dir = __dirname + '/../../xu-config/extractions';
+    const files = fs.readdirSync(dir);
+    const nameGenerator = 'nameGenerator';
+    const internalSettings = 'internalSettings';
+    const customName = 'customName';
+    let extractions = [];
+    let exceptions = [];
+    files.forEach( function (f) {
+        try {
+            // Check if destination file exists
+            let dest = require(dir + '/' + f + '/destination.json');
+
+            if ( (dest[nameGenerator]    && dest[nameGenerator][customName]) ||
+                (dest[internalSettings] && dest[internalSettings][customName]) ) {
+                extractions.push(f);
+            }
+        }
+        catch (e) {
+            console.warn('##[warning]The extraction ' + f + ' does not contain a destination file');
+        }
+    });
+
+    // throw Exception
+    if (extractions.length > 0) {
+        exceptions.push(new Exception('Custom file name used in destination.json for the following extractions. Remove the property "customName" from the destination.json file(s).', extractions));
     }
 
     console.log(message + ': Complete');
@@ -114,7 +154,7 @@ function checkNoDuplicateEntityId (entityCfg) {
 function checkTargetTableExists (entityCfg) {
     const message = 'Checking if each target table has a defined SQL Table DDL';
     console.log(message);
-    const dir = root + '/synapse-dwh/syndw_xxxx_sls_d_euw_001'
+    const dir = __dirname + '/../../synapse-dwh/syndw_xxxx_sls_d_euw_001'
     const schemas = Object.keys(entityCfg)
         .map(k => entityCfg[k].schema_name);
     let tables = {};

@@ -3839,7 +3839,7 @@
         "extraction_type": "Table",
         "update_mode": "Full",
         "base_table_name": "I_PricingElement",
-        "pk_field_names": "MANDT, SPRAS, KSCHL, KAPPL, KVEWE",
+        "pk_field_names": "MANDT, PRICINGDOCUMENT, PRICINGDOCUMENTITEM, PRICINGPROCEDURESTEP, PRICINGPROCEDURECOUNTER",
         "schedule_recurrence": "D"
       }
     ]
