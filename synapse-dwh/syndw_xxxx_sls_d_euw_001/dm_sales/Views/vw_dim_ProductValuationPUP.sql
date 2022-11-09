@@ -27,6 +27,7 @@ CREATE VIEW [dm_sales].[vw_dim_ProductValuationPUP]
        PV.[CurrencyID],
        PV.[StockPricePerUnit],
        PV.[StockPricePerUnit_EUR],
+       PV.[StockPricePerUnit_USD],
        PV.[isAddedMissingMonth]
     FROM [edw].[dim_ProductValuationPUP] AS PV
     LEFT JOIN
@@ -37,7 +38,3 @@ CREATE VIEW [dm_sales].[vw_dim_ProductValuationPUP]
         [edw].[dim_ValuationType] AS VT
             ON
             VT.[ValuationTypeID] = PV.[ValuationTypeID] 
-    LEFT JOIN 
-        [edw].[dim_SalesOrganization] AS SO      
-            ON
-            SO.[SalesOrganizationID] collate Latin1_General_100_BIN2 = PV.[ValuationAreaID]
