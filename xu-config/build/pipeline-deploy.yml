@@ -1,9 +1,9 @@
-trigger:
-  branches:
-    include: 
-    # - deployment-pipeline
-  paths:
-    include: 
+# trigger:
+#   branches:
+#     include: 
+#     # - deployment-pipeline
+#   paths:
+#     include: 
     # - xu-config/*
 
 parameters:
