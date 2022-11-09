@@ -1,0 +1,1 @@
+CREATE SCHEMA [base_isedio_aus]
