@@ -268,7 +268,7 @@ BEGIN
 
 	-- Ancon UK
 
-	update [base_tx_ca_0_hlp].[CUSTTABLE_ANUK]
+	update [base_ancon_uk].[CUSTTABLE_ANUK]
 	set DIMENSION3_ = ' '
 	where DATAAREAID = 'ANUK' and DIMENSION3_ is null 
 
