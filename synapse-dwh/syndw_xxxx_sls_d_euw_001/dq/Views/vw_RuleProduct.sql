@@ -170,6 +170,16 @@ FROM
 
 UNION ALL
 
+--1.26_ALL
+SELECT
+    [RuleID]
+    , [Product] 
+FROM
+    [dq].[vw_Product_1_26]
+    
+
+UNION ALL
+
 --1.34_ALL
 SELECT
     [RuleID]
