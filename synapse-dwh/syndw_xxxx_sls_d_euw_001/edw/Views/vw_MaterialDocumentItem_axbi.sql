@@ -408,7 +408,7 @@ LEFT JOIN
         AND
         QtyOICP.[TRANSTYPENAME] = INV.[GoodsMovementTypeName]
 LEFT JOIN
-    [edw].[ref_AXMigration] AXM
+    [map_AXBI].[ref_AXMigration] AXM
         ON
         INV.[DATAAREAID] = AXM.[DATAAREAID]
 WHERE

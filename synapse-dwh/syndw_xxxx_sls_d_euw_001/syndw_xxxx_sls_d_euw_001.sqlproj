@@ -613,7 +613,7 @@
     <Build Include="edw\Views\vw_BillingDocumentItem_s4h_fin.sql" />
     <Build Include="base_tx_ca_0_hlp\Tables\CUSTINVOICETRANS.sql" />
     <Build Include="edw\Tables\dim_SalesDocumentScheduleLine.sql" />
-    <Build Include="edw\Tables\ref_AXMigration.sql" />
+    <Build Include="map_AXBI\Tables\ref_AXMigration.sql" />
     <Build Include="edw\Views\vw_SalesDocumentScheduleLine.sql" />
     <Build Include="dm_sales\Views\vw_dim_SalesDocumentScheduleLine.sql" />
     <Build Include="edw\Views\vw_OutboundDeliveryItem_axbi.sql" />

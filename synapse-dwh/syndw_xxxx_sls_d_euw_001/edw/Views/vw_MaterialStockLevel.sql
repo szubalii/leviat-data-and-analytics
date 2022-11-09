@@ -138,7 +138,7 @@ SELECT
             CPPUP.[CalendarYear] = CC.[CalendarYear] COLLATE DATABASE_DEFAULT
             AND
             CPPUP.[CalendarMonth] = CC.[CalendarMonth] COLLATE DATABASE_DEFAULT
-        LEFT JOIN [edw].[ref_AXMigration] AXM
+        LEFT JOIN [map_AXBI].[ref_AXMigration] AXM
         ON
             CC.DATAAREAID = AXM.DATAAREAID
 
