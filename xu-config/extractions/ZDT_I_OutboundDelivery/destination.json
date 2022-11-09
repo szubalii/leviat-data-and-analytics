@@ -1,16 +1,12 @@
 {
     "nameGenerator": {
         "suffix": "",
-        "customName": "ZDT_I_OutboundDelivery",
-        "objectNamingMode": "Custom",
         "appendsTimestamp": true
     },
     "internalSettings": {
         "nameGenerator": {
             "suffix": "",
-            "customName": "ZDT_I_OutboundDelivery",
-            "objectNamingMode": "Custom",
-            "appendsTimestamp": true
+                    "appendsTimestamp": true
         },
         "sapDateConversion": {
             "enabled": true,

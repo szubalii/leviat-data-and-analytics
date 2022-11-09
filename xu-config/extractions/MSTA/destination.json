@@ -1,16 +1,12 @@
 {
     "nameGenerator": {
         "suffix": "",
-		"customName": "MSTA",
-        "objectNamingMode": "Custom",
-        "appendsTimestamp": true
+		"appendsTimestamp": true
     },
     "internalSettings": {
         "nameGenerator": {
             "suffix": "",
-			"customName": "MSTA",
-            "objectNamingMode": "Custom",					  			 
-            "appendsTimestamp": true
+			    "appendsTimestamp": true
         },
         "sapDateConversion": {
             "enabled": true,

@@ -1,8 +1,6 @@
 {
   "nameGenerator": {
     "suffix": "",
-    "objectNamingMode": "Custom",
-    "customName": "PurgAccAssignment",
     "appendsTimestamp": true
   },
   "internalSettings": {

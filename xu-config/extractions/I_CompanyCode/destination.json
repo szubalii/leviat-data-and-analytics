@@ -1,16 +1,12 @@
 {
     "nameGenerator": {
         "suffix": "",
-        "customName": "I_CompanyCode",
-        "objectNamingMode": "Custom",
         "appendsTimestamp": true
     },
     "internalSettings": {
         "nameGenerator": {
             "suffix": "",
-            "customName": "I_CompanyCode",
-            "objectNamingMode": "Custom",
-            "appendsTimestamp": true
+                    "appendsTimestamp": true
         },
         "sapDateConversion": {
             "enabled": true,
