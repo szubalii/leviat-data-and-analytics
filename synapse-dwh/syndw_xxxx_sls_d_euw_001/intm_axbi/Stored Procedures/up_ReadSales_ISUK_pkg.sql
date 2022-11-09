@@ -10,11 +10,11 @@ BEGIN
 
     -- Insert statements for procedure here
 
-	declare @lYear smallint = (select datepart(year,max(Accountingdate)) from [base_tx_ca_0_hlp].[CUSTINVOICETRANS_ISUK]),
-			@lMonth tinyint = (select datepart(month,max(Accountingdate)) from [base_tx_ca_0_hlp].[CUSTINVOICETRANS_ISUK]),
+	declare @lYear smallint = (select datepart(year,max(Accountingdate)) from [base_isedio].[CUSTINVOICETRANS_ISUK]),
+			@lMonth tinyint = (select datepart(month,max(Accountingdate)) from [base_isedio].[CUSTINVOICETRANS_ISUK]),
 
-			@lFrYear smallint = (select datepart(year,max(Accountingdate)) from [base_tx_ca_0_hlp].[INVOICEDFREIGHT_ISUK]),
-			@lFrMonth tinyint = (select datepart(month,max(Accountingdate)) from [base_tx_ca_0_hlp].[INVOICEDFREIGHT_ISUK])
+			@lFrYear smallint = (select datepart(year,max(Accountingdate)) from [base_isedio].[INVOICEDFREIGHT_ISUK]),
+			@lFrMonth tinyint = (select datepart(month,max(Accountingdate)) from [base_isedio].[INVOICEDFREIGHT_ISUK])
 
 	-- Voraussetzung für numerische Felder: Keine Tausender Punkt und Dezimaltrennzeichen ist der . und das Negativ Zeichen steht vor der Zahl.
 	-- Als Columnterminator dient das ; oder der Tabstopp
@@ -24,7 +24,7 @@ BEGIN
 
 	-- CUSTTABLE(truncate)
 	
-	update [base_tx_ca_0_hlp].[CUSTTABLE_ISUK]
+	update [base_isedio].[CUSTTABLE_ISUK]
 	set DIMENSION3_ = ' '
 	where upper(DATAAREAID) = 'ISUK' and DIMENSION3_ is null 
 
@@ -40,7 +40,7 @@ BEGIN
 	CUSTOMERPILLAR,
 	' ',
 	DIMENSION3_
-	from [base_tx_ca_0_hlp].[CUSTTABLE_ISUK]
+	from [base_isedio].[CUSTTABLE_ISUK]
 
     -- Alle Kunden als OUTSIDE kennzeichnen, die keinen Eintrag in der DATAAREA Tabelle haben.
 	update [intm_axbi].[dim_CUSTTABLE]
@@ -84,7 +84,7 @@ BEGIN
 	[ITEMNAME],
 	ISNULL([CRH PRODUCTGROUPID], ' '),
 	ISNULL('ISUK-' + [ITEMGROUPID], ' ')
-	from [base_tx_ca_0_hlp].[ITEMTABLE_ISUK]
+	from [base_isedio].[ITEMTABLE_ISUK]
 
 	update [intm_axbi].[dim_ITEMTABLE]
 	set PRODUCTGROUPID = 'A.4.'
@@ -159,20 +159,20 @@ BEGIN
 
 	-- INVOICED FREIGHT RECOVERY TABLE
 
-	delete from [base_tx_ca_0_hlp].[INVOICEDFREIGHT_ISUK] where DATEPART(year, Accountingdate) = @lFrYear and DATEPART(month, Accountingdate) = @lFrMonth 
+	delete from [base_isedio].[INVOICEDFREIGHT_ISUK] where DATEPART(year, Accountingdate) = @lFrYear and DATEPART(month, Accountingdate) = @lFrMonth 
 
 	-- CUSTINVOICETRANS
 
-	TRUNCATE TABLE [base_tx_ca_0_hlp].[CUSTINVOICETRANS_ISUK]
+	TRUNCATE TABLE [base_isedio].[CUSTINVOICETRANS_ISUK]
 
-	update [base_tx_ca_0_hlp].[CUSTINVOICETRANS_ISUK]
+	update [base_isedio].[CUSTINVOICETRANS_ISUK]
 	set ProductSalesEUR = a.ProductSalesLocal/c.CRHRATE,
 		OtherSalesEUR = a.OtherSalesLocal/c.CRHRATE,
 		AllowancesEUR = a.AllowancesLocal/c.CRHRATE,
 		Sales100EUR = a.Sales100Local/c.CRHRATE,
 		FreightEUR = a.FreightLocal/c.CRHRATE,
 		CostAmountEUR = a.CostAmountLocal/c.CRHRATE
-	from [base_tx_ca_0_hlp].[CUSTINVOICETRANS_ISUK] as a
+	from [base_isedio].[CUSTINVOICETRANS_ISUK] as a
 	inner join [base_tx_ca_0_hlp].[CRHCURRENCY] as c
 	on Datepart(YYYY, a.Accountingdate) = c.YEAR 
 	and	'GBP' = c.CURRENCY
@@ -225,7 +225,7 @@ BEGIN
 		   a.FreightEUR, 
 		   a.CostAmountLocal, 
 		   a.CostAmountEUR
-	 from [base_tx_ca_0_hlp].[CUSTINVOICETRANS_ISUK] as a
+	 from [base_isedio].[CUSTINVOICETRANS_ISUK] as a
 	      left outer join [intm_axbi].[dim_ITEMTABLE] as b
 		  on lower(a.Dataareaid) = lower(b.DATAAREAID) 
 		  and a.Itemid = b.ITEMNAME
@@ -254,7 +254,7 @@ BEGIN
 	i.InvoicedFreightLocal / c.CRHRATE InvoicedFreightEur,
 	i.PackingSlipID 
 	into #InvoicedFreightTable_ISUK
-	from [base_tx_ca_0_hlp].[INVOICEDFREIGHT_ISUK] i
+	from [base_isedio].[INVOICEDFREIGHT_ISUK] i
 	inner join [base_tx_ca_0_hlp].[CRHCURRENCY] c
 	on c.YEAR = Datepart(YYYY, i.Accountingdate) 
 	and upper(c.CURRENCY) = 'GBP'

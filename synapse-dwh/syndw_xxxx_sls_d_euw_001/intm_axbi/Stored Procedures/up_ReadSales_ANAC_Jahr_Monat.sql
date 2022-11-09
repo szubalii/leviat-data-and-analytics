@@ -49,7 +49,7 @@ BEGIN
 	CUSTOMERPILLAR,
 	' ',
 	' '
-	from [base_tx_ca_0_hlp].[CUSTTABLE_ANAC]
+	from [base_ancon_conolly_aus].[CUSTTABLE_ANAC]
 
 	-- Identification Leviat Inside Customers and set column INOUT = I for Inside Customer for the purpose to identify Leviat Inside Sales.
 	update [intm_axbi].[dim_CUSTTABLE]
@@ -113,7 +113,7 @@ BEGIN
 	ISNULL([ITEMNAME], ' '),
 	ISNULL([CRHPRODUCTGROUPID], ' '), -- CRH PRODUCTGROUP, the higher level is PRODUCTPILLAR
 	ISNULL('ANAC-' + Cast([STOCKGROUP] as nvarchar(2)), ' ') -- Ancon Connolly Autralia local article group
-	from [base_tx_ca_0_hlp].[ITEMTABLE_ANAC]
+	from [base_ancon_conolly_aus].[ITEMTABLE_ANAC]
 
 	-- Manual item inserts:
 
@@ -264,7 +264,7 @@ BEGIN
 	[FREIGHTEUR], -- internal freight EUR, no consider
 	[COSTAMOUNTLOCAL], -- costamountlocal, no consider
 	[COSTAMOUNTEUR] -- costamountEUR, no consider
-	from [base_tx_ca_0_hlp].[CUSTINVOICETRANS_ANAC]
+	from [base_ancon_conolly_aus].[CUSTINVOICETRANS_ANAC]
 	where
         UPPER(DATAAREAID) = 'ANAC'
         and
@@ -293,7 +293,7 @@ BEGIN
 	[OTHERSALESLOCAL],
 	[OTHERSALESEUR]
     into #OtherSalesTable
-	from [base_tx_ca_0_hlp].[CUSTINVOICETRANS_ANAC]
+	from [base_ancon_conolly_aus].[CUSTINVOICETRANS_ANAC]
 	where
         UPPER(DATAAREAID) = 'ANAC'
         and

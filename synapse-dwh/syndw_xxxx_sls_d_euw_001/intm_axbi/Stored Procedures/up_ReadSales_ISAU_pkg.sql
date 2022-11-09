@@ -40,8 +40,8 @@ BEGIN
 		--	@lFrYear smallint,
 		--	@lFrMonth tinyint
 
-     declare @P_Year smallint = (select datepart(year,max([Accountingdate])) from [base_tx_ca_0_hlp].[CUSTINVOICETRANS_ISAU]),
-	         @P_Month tinyint = (select datepart(month,max([Accountingdate])) from [base_tx_ca_0_hlp].[CUSTINVOICETRANS_ISAU]),
+     declare @P_Year smallint = (select datepart(year,max([Accountingdate])) from [base_isedio_aus].[CUSTINVOICETRANS_ISAU]),
+	         @P_Month tinyint = (select datepart(month,max([Accountingdate])) from [base_isedio_aus].[CUSTINVOICETRANS_ISAU]),
              @lRate numeric(15,6)
 
 
@@ -65,7 +65,7 @@ BEGIN
 	CUSTOMERPILLAR,
 	' ',
 	' '
-	from [base_tx_ca_0_hlp].[CUSTTABLE_ISAU]
+	from [base_isedio_aus].[CUSTTABLE_ISAU]
 
 	update [intm_axbi].[dim_CUSTTABLE]
 	set DIMENSION3_ = '2173U01',
@@ -130,7 +130,7 @@ BEGIN
 	'ISAU-' + [ITEMNAME],
 	ISNULL([CRH PRODUCTGROUPID], ' '),
 	ISNULL('ISAU-' + [STOCKGROUP], ' ')
-	from [base_tx_ca_0_hlp].[ITEMTABLE_ISAU]
+	from [base_isedio_aus].[ITEMTABLE_ISAU]
 
 	-- Dummy article for the Budget
 	insert into [intm_axbi].[dim_ITEMTABLE]([DATAAREAID],[ITEMID],[ITEMNAME],[PRODUCTGROUPID],[ITEMGROUPID]) VALUES('ISAU', 'ISAU-A.1.', 'BRICKWORK SUPPORT', 'A.1.', ' ')
@@ -206,7 +206,7 @@ BEGIN
     from [base_tx_ca_0_hlp].[CRHCURRENCY]
     where [YEAR] = @P_Year and [CURRENCY] = 'AUD'
 
-	delete from [base_tx_ca_0_hlp].[CUSTINVOICETRANS_ISAU]
+	delete from [base_isedio_aus].[CUSTINVOICETRANS_ISAU]
     where
         datepart(Year, [Accountingdate]) <> @P_Year
         or
@@ -214,28 +214,28 @@ BEGIN
         and
         datepart(Month, [Accountingdate]) <> @P_Month)
 
-	UPDATE [base_tx_ca_0_hlp].[CUSTINVOICETRANS_ISAU]
+	UPDATE [base_isedio_aus].[CUSTINVOICETRANS_ISAU]
 	set [ProductSalesEUR] = a.[ProductSalesLocal]/@lRate,
 	    [OtherSalesEUR]   = a.[OtherSalesLocal]/@lRate,
 	    [AllowancesEUR]   = a.[AllowancesLocal]/@lRate,
 	    [Sales100EUR]   = a.[Sales100Local]/@lRate,
 	    [FreightEUR]   = a.[FreightLocal]/@lRate,
 	    [CostAmountEUR]   = a.[CostAmountLocal]/@lRate
-	from [base_tx_ca_0_hlp].[CUSTINVOICETRANS_ISAU] as a
+	from [base_isedio_aus].[CUSTINVOICETRANS_ISAU] as a
     where
         datepart(Year, a.[Accountingdate]) = @P_Year
         and
         datepart(Month, a.[Accountingdate]) = @P_Month 
 
-	UPDATE [base_tx_ca_0_hlp].[CUSTINVOICETRANS_ISAU]
+	UPDATE [base_isedio_aus].[CUSTINVOICETRANS_ISAU]
 	SET [DeliveryCountryID] = 'AU'
 	WHERE [DeliveryCountryID] = 'AUSTRALIA'
 
-	UPDATE [base_tx_ca_0_hlp].[CUSTINVOICETRANS_ISAU]
+	UPDATE [base_isedio_aus].[CUSTINVOICETRANS_ISAU]
 	SET [DeliveryCountryID] = 'NZ'
 	WHERE [DeliveryCountryID] = 'New Zealand'
 
-	UPDATE [base_tx_ca_0_hlp].[CUSTINVOICETRANS_ISAU]
+	UPDATE [base_isedio_aus].[CUSTINVOICETRANS_ISAU]
 	SET [Itemid] = 'ISAU-' + [Itemid]
 	where substring([Itemid], 1, 5) <> 'ISAU-'
 
@@ -295,7 +295,7 @@ BEGIN
         a.[FreightEUR],
         a.[CostAmountLocal],
         a.[CostAmountEUR]
-	 from [base_tx_ca_0_hlp].[CUSTINVOICETRANS_ISAU] as a
+	 from [base_isedio_aus].[CUSTINVOICETRANS_ISAU] as a
      where
         a.[Itemid] <> 'ISAU-FREIGHT'
         and
@@ -339,7 +339,7 @@ BEGIN
 	    [OtherSalesLocal],
 	    [OtherSalesEUR]
     into #OtherSalesTable
-	from [base_tx_ca_0_hlp].[CUSTINVOICETRANS_ISAU]
+	from [base_isedio_aus].[CUSTINVOICETRANS_ISAU]
 	where
         [Itemid] = 'ISAU-FREIGHT'
         and

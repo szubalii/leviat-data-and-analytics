@@ -13,8 +13,8 @@ BEGIN
 
     -- Insert statements for procedure here
 
-     declare @P_Year smallint = (select datepart(year,max([Accountingdate])) from [base_tx_ca_0_hlp].[CUSTINVOICETRANS_HMIN]),
-	         @P_Month tinyint = (select datepart(month,max([Accountingdate])) from [base_tx_ca_0_hlp].[CUSTINVOICETRANS_HMIN])
+     declare @P_Year smallint = (select datepart(year,max([Accountingdate])) from [base_halfen_moment_in].[CUSTINVOICETRANS_HMIN]),
+	         @P_Month tinyint = (select datepart(month,max([Accountingdate])) from [base_halfen_moment_in].[CUSTINVOICETRANS_HMIN])
 
 
 	-- Voraussetzung für numerische Felder: Keine Tausender Punkt und Dezimaltrennzeichen ist der . und das Negativ Zeichen steht vor der Zahl.
@@ -41,7 +41,7 @@ BEGIN
 	CUSTOMERPILLAR,
 	' ',
 	' '
-	from [base_tx_ca_0_hlp].[CUSTTABLE_HMIN]
+	from [base_halfen_moment_in].[CUSTTABLE_HMIN]
 
 	-- Alle Leviat Kunden auf Inside setzen, außer Meadow Burke. 
 	update [intm_axbi].[dim_CUSTTABLE]
@@ -89,7 +89,7 @@ BEGIN
 	'HMIN-' + ISNULL([ITEMNAME], ' '),
 	ISNULL([CRHPRODUCTGROUPID], ' '),
 	' '
-	from [base_tx_ca_0_hlp].[ITEMTABLE_HMIN]
+	from [base_halfen_moment_in].[ITEMTABLE_HMIN]
 
 	-- Dummy article for the Budget
 	insert into [intm_axbi].[dim_ITEMTABLE]([DATAAREAID],[ITEMID],[ITEMNAME],[PRODUCTGROUPID],[ITEMGROUPID]) VALUES('HMIN', 'HMIN-A.1.', 'BRICKWORK SUPPORT', 'A.1.', ' ')
@@ -220,7 +220,7 @@ BEGIN
         a.[CostAmountLocal],
         a.[CostAmountLocal]/b.[CRHRATE]
 	from
-        [base_tx_ca_0_hlp].[CUSTINVOICETRANS_HMIN] as a
+        [base_halfen_moment_in].[CUSTINVOICETRANS_HMIN] as a
 	inner join
         [base_tx_ca_0_hlp].[CRHCURRENCY] as b
 	        on  b.[YEAR] = @P_Year

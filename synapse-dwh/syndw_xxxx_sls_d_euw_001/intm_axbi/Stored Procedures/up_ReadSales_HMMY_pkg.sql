@@ -7,8 +7,8 @@ BEGIN
 
     -- Insert statements for procedure here
 
-     declare @P_Year smallint = (select datepart(year,max([ACCOUNTINGDATE])) from [base_tx_ca_0_hlp].[CUSTINVOICETRANS_HMMY]),
-	         @P_Month tinyint = (select datepart(month,max([ACCOUNTINGDATE])) from [base_tx_ca_0_hlp].[CUSTINVOICETRANS_HMMY])
+     declare @P_Year smallint = (select datepart(year,max([ACCOUNTINGDATE])) from [base_halfen_moment_my].[CUSTINVOICETRANS_HMMY]),
+	         @P_Month tinyint = (select datepart(month,max([ACCOUNTINGDATE])) from [base_halfen_moment_my].[CUSTINVOICETRANS_HMMY])
 
 	-- Voraussetzung für numerische Felder: Keine Tausender Punkt und Dezimaltrennzeichen ist der . und das Negativ Zeichen steht vor der Zahl.
 	-- Als Columnterminator dient das ; oder der Tabstopp
@@ -16,9 +16,9 @@ BEGIN
 	-- Keine überflüssigen Spalten
 	-- Leereinträge geht, aber nicht mit dem Wert null auffüllen.
 
-	Delete from [base_tx_ca_0_hlp].[CUSTTABLE_HMMY] where ACCOUNTNUM is Null;
+	Delete from [base_halfen_moment_my].[CUSTTABLE_HMMY] where ACCOUNTNUM is Null;
 
-	update [base_tx_ca_0_hlp].[CUSTTABLE_HMMY]
+	update [base_halfen_moment_my].[CUSTTABLE_HMMY]
 	set DIMENSION3_ =
             case a.ACCOUNTNUM
 	            when 'C100223' then '5331U01'
@@ -27,9 +27,9 @@ BEGIN
 	            when 'C101150' then '2161U01'
 				else a.DIMENSION3_
 			End
-	from [base_tx_ca_0_hlp].[CUSTTABLE_HMMY] as a
+	from [base_halfen_moment_my].[CUSTTABLE_HMMY] as a
 
-	update [base_tx_ca_0_hlp].[CUSTTABLE_HMMY]
+	update [base_halfen_moment_my].[CUSTTABLE_HMMY]
 	set CUSTOMERPILLAR =
             case a.CUSTOMERPILLAR
 	            when 'Precasters' then 'PRECAST'
@@ -38,9 +38,9 @@ BEGIN
 	            when 'Contractors & Subcontractors' then 'OTHER'
 				else 'OTHER'
 			End
-	from [base_tx_ca_0_hlp].[CUSTTABLE_HMMY] as a
+	from [base_halfen_moment_my].[CUSTTABLE_HMMY] as a
 
-	update [base_tx_ca_0_hlp].[CUSTTABLE_HMMY]
+	update [base_halfen_moment_my].[CUSTTABLE_HMMY]
 	set INOUT = 'O',
 	    DIMENSION3_ = ' '
 	where UPPER(DATAAREAID) = 'HMMY' and ACCOUNTNUM in ('C101404', 'C101035', 'C100346')
@@ -65,7 +65,7 @@ BEGIN
 	CUSTOMERPILLAR,
 	' ',
 	DIMENSION3_
-	from [base_tx_ca_0_hlp].[CUSTTABLE_HMMY]
+	from [base_halfen_moment_my].[CUSTTABLE_HMMY]
 
 	-- Alle Leviat Kunden auf Inside setzen, außer Meadow Burke. 
 	update [intm_axbi].[dim_CUSTTABLE]

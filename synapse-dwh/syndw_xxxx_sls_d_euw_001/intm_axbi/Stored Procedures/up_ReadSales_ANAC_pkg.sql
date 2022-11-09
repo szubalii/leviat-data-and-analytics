@@ -12,8 +12,8 @@ BEGIN
 	SET NOCOUNT ON;
 
 	-- Import Customer Master Data
-    declare @lYear smallint = (select datepart(year,max([ACCOUNTINGDATE])) from [base_tx_ca_0_hlp].[CUSTINVOICETRANS_ANAC]),
-			@lMonth tinyint = (select datepart(month,max([ACCOUNTINGDATE])) from [base_tx_ca_0_hlp].[CUSTINVOICETRANS_ANAC]),
+    declare @lYear smallint = (select datepart(year,max([ACCOUNTINGDATE])) from [base_ancon_conolly_aus].[CUSTINVOICETRANS_ANAC]),
+			@lMonth tinyint = (select datepart(month,max([ACCOUNTINGDATE])) from [base_ancon_conolly_aus].[CUSTINVOICETRANS_ANAC]),
             @lRate numeric(15,6)
 
 	select @lRate = [CRHRATE] 

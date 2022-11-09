@@ -13,13 +13,13 @@ BEGIN
 
     -- Insert statements for procedure here
 
-     declare @P_Year smallint = (select datepart(year,max([Accountingdate])) from [base_tx_ca_0_hlp].[CUSTINVOICETRANS_HMPH]),
-	         @P_Month tinyint = (select datepart(month,max([Accountingdate])) from [base_tx_ca_0_hlp].[CUSTINVOICETRANS_HMPH])
+     declare @P_Year smallint = (select datepart(year,max([Accountingdate])) from [base_halfen_moment_ph].[CUSTINVOICETRANS_HMPH]),
+	         @P_Month tinyint = (select datepart(month,max([Accountingdate])) from [base_halfen_moment_ph].[CUSTINVOICETRANS_HMPH])
 
 	
-	Delete from [base_tx_ca_0_hlp].[CUSTTABLE_HMPH] where CUSTOMERID is Null;
+	Delete from [base_halfen_moment_ph].[CUSTTABLE_HMPH] where CUSTOMERID is Null;
 
-	update [base_tx_ca_0_hlp].[CUSTTABLE_HMPH]
+	update [base_halfen_moment_ph].[CUSTTABLE_HMPH]
 	set CLASSIFICATION_PH = ' '
 	where CLASSIFICATION_PH is Null; 
 
@@ -43,7 +43,7 @@ BEGIN
 	CUSTOMERPILLAR,
 	' ',
 	' '
-	from [base_tx_ca_0_hlp].[CUSTTABLE_HMPH]
+	from [base_halfen_moment_ph].[CUSTTABLE_HMPH]
 
 	-- Fehlenden Kunden eintragen
 	insert into [intm_axbi].[dim_CUSTTABLE]
@@ -91,7 +91,7 @@ BEGIN
 	set CUSTOMERPILLAR = 'OTHER'
 	where UPPER(DATAAREAID) = 'HMPH' and INOUT = 'I'
 
-	Delete from [base_tx_ca_0_hlp].[ITEMTABLE_HMPH]
+	Delete from [base_halfen_moment_ph].[ITEMTABLE_HMPH]
     where ITEMID is Null
 
 	-- Items Halfen Moment Philippinen
@@ -111,7 +111,7 @@ BEGIN
 	'HMPH-' + ISNULL([ITEMNAME], ' '),
 	ISNULL([CRHPRODUCTGROUPID], ' '),
 	' '
-	from [base_tx_ca_0_hlp].[ITEMTABLE_HMPH]
+	from [base_halfen_moment_ph].[ITEMTABLE_HMPH]
 
 	-- Dummy article for the Budget
 	insert into [intm_axbi].[dim_ITEMTABLE]([DATAAREAID],[ITEMID],[ITEMNAME],[PRODUCTGROUPID],[ITEMGROUPID]) VALUES('HMPH', 'HMPH-A.1.', 'BRICKWORK SUPPORT', 'A.1.', ' ')
@@ -180,7 +180,7 @@ BEGIN
 	set PRODUCTGROUPID = 'N.3.'
 	where UPPER(DATAAREAID) = 'HMPH' and PRODUCTGROUPID = ' ' 
 
-	delete [base_tx_ca_0_hlp].[CUSTINVOICETRANS_HMPH]
+	delete [base_halfen_moment_ph].[CUSTINVOICETRANS_HMPH]
     where
         DATEPART(yyyy, [Accountingdate]) = @P_Year
         and
@@ -243,7 +243,7 @@ BEGIN
         a.[CostAmountLocal],
         a.[CostAmountLocal]/b.[CRHRATE]
 	from
-        [base_tx_ca_0_hlp].[CUSTINVOICETRANS_HMPH] as a
+        [base_halfen_moment_ph].[CUSTINVOICETRANS_HMPH] as a
 	inner join
         [base_tx_ca_0_hlp].[CRHCURRENCY] as b
 	        on b.[YEAR]  = @P_Year

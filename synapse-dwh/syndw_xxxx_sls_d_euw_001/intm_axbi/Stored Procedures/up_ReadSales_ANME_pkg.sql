@@ -14,8 +14,8 @@ BEGIN
     -- Insert statements for procedure here
 
             
-     declare @P_Year smallint = (select datepart(year,max([Accountingdate])) from [base_tx_ca_0_hlp].[CUSTINVOICETRANS_ANME]),
-	         @P_Month tinyint = (select datepart(month,max([Accountingdate])) from [base_tx_ca_0_hlp].[CUSTINVOICETRANS_ANME])
+     declare @P_Year smallint = (select datepart(year,max([Accountingdate])) from [base_ancon_me].[CUSTINVOICETRANS_ANME]),
+	         @P_Month tinyint = (select datepart(month,max([Accountingdate])) from [base_ancon_me].[CUSTINVOICETRANS_ANME])
 
 	-- Custtable Ancon Middle East
 
@@ -37,7 +37,7 @@ BEGIN
 	[CUSTOMERPILLAR],
 	' ',
 	' '
-	from [base_tx_ca_0_hlp].[CUSTTABLE_ANME]
+	from [base_ancon_me].[CUSTTABLE_ANME]
 
 	-- Alle Leviat Kunden auf Inside setzen, außer Meadow Burke. 
 	update [intm_axbi].[dim_CUSTTABLE]
@@ -80,7 +80,7 @@ BEGIN
 	'ANME-' + ISNULL([ITEMNAME], ' '),
 	ISNULL([CRHPRODUCTGROUPID], ' '),
 	' '
-	from [base_tx_ca_0_hlp].[ITEMTABLE_ANME]
+	from [base_ancon_me].[ITEMTABLE_ANME]
 
 	-- Dummy article for the Budget
 	insert into [intm_axbi].[dim_ITEMTABLE]([DATAAREAID],[ITEMID],[ITEMNAME],[PRODUCTGROUPID],[ITEMGROUPID]) VALUES('ANME', 'ANME-A.1.', 'BRICKWORK SUPPORT', 'A.1.', ' ')
@@ -200,7 +200,7 @@ BEGIN
         a.[CostAmountLocal],
         a.[CostAmountLocal]/b.[CRHRATE]
 	from
-        [base_tx_ca_0_hlp].[CUSTINVOICETRANS_ANME] as a
+        [base_ancon_me].[CUSTINVOICETRANS_ANME] as a
 	inner join
         [base_tx_ca_0_hlp].[CRHCURRENCY] as b
 	        on

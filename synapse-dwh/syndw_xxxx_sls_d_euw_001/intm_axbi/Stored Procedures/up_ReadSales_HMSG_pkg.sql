@@ -13,21 +13,21 @@ BEGIN
 
     -- Insert statements for procedure here
 
-     declare @P_Year smallint = (select datepart(year,max([ACCOUNTINGDATE])) from [base_tx_ca_0_hlp].[CUSTINVOICETRANS_HMSG]),
-	         @P_Month tinyint = (select datepart(month,max([ACCOUNTINGDATE])) from [base_tx_ca_0_hlp].[CUSTINVOICETRANS_HMSG])
+     declare @P_Year smallint = (select datepart(year,max([ACCOUNTINGDATE])) from [base_halfen_moment_sg].[CUSTINVOICETRANS_HMSG]),
+	         @P_Month tinyint = (select datepart(month,max([ACCOUNTINGDATE])) from [base_halfen_moment_sg].[CUSTINVOICETRANS_HMSG])
 
 	-- CUSTTABLE
 
-	Delete from [base_tx_ca_0_hlp].[CUSTTABLE_HMSG] where ACCOUNTNUM is Null;
+	Delete from [base_halfen_moment_sg].[CUSTTABLE_HMSG] where ACCOUNTNUM is Null;
 
-	update [base_tx_ca_0_hlp].[CUSTTABLE_HMSG]
+	update [base_halfen_moment_sg].[CUSTTABLE_HMSG]
 	set CUSTOMERPILLAR = case a.CUSTOMERPILLAR
 	                        when 'Precasters' then 'PRECAST'
 	                        when 'Industrials' then 'INDUSTRIAL'
 	                        when 'Others' then 'OTHER'
 						    else 'OTHER'
 						 End
-	from [base_tx_ca_0_hlp].[CUSTTABLE_HMSG] as a
+	from [base_halfen_moment_sg].[CUSTTABLE_HMSG] as a
 
 	-- Custtable Halfen Moment Malaysia
 
@@ -49,7 +49,7 @@ BEGIN
 	CUSTOMERPILLAR,
 	' ',
 	DIMENSION3_
-	from [base_tx_ca_0_hlp].[CUSTTABLE_HMSG]
+	from [base_halfen_moment_sg].[CUSTTABLE_HMSG]
 
 	-- Alle Leviat Kunden auf Inside setzen, außer Meadow Burke. 
 	update [intm_axbi].[dim_CUSTTABLE]
@@ -75,7 +75,7 @@ BEGIN
 
 	-- ITEMTABLE
 
-	Delete from [base_tx_ca_0_hlp].[ITEMTABLE_HMSG] where ITEMID is Null
+	Delete from [base_halfen_moment_sg].[ITEMTABLE_HMSG] where ITEMID is Null
 
 /*	update [dbo].[ITEMTABLE_HMSG$_bulk]
 	set ITEMTABLE_HMSG$_bulk.PRODUCTGROUPID = a.PRODUCTGROUPID + '.'
@@ -98,7 +98,7 @@ BEGIN
 	'HMSG-' + ISNULL([ITEMNAME], ' '),
 	ISNULL([PRODUCTGROUPID], ' '),
 	'HMSG-' + [ITEMGROUPID]
-	from [base_tx_ca_0_hlp].[ITEMTABLE_HMSG]
+	from [base_halfen_moment_sg].[ITEMTABLE_HMSG]
 
 	-- Dummy article for the Budget
 	insert into [intm_axbi].[dim_ITEMTABLE]([DATAAREAID],[ITEMID],[ITEMNAME],[PRODUCTGROUPID],[ITEMGROUPID]) VALUES('HMSG', 'HMSG-A.1.', 'BRICKWORK SUPPORT', 'A.1.', ' ')
@@ -170,7 +170,7 @@ BEGIN
 
 	-- CUSTINVOICETRANS
 
-	delete [base_tx_ca_0_hlp].[CUSTINVOICETRANS_HMSG]
+	delete [base_halfen_moment_sg].[CUSTINVOICETRANS_HMSG]
     where
         DATEPART(yyyy, [ACCOUNTINGDATE]) = @P_Year
         and
@@ -233,7 +233,7 @@ BEGIN
         a.[COSTAMOUNTLOCAL],
         a.[COSTAMOUNTLOCAL]/b.[CRHRATE]
 	from
-        [base_tx_ca_0_hlp].[CUSTINVOICETRANS_HMSG] as a
+        [base_halfen_moment_sg].[CUSTINVOICETRANS_HMSG] as a
 	inner join
         [base_tx_ca_0_hlp].[CRHCURRENCY] as b
 	        on  b.[YEAR] = @P_Year

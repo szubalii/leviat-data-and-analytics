@@ -9,11 +9,11 @@ BEGIN
 
   -- Insert statements for procedure here
 
-	declare @lYear smallint = (select datepart(year,max(Accountingdate)) from [base_tx_ca_0_hlp].[CUSTINVOICETRANS_ANUK]),
-			@lMonth tinyint = (select datepart(month,max(Accountingdate)) from [base_tx_ca_0_hlp].[CUSTINVOICETRANS_ANUK]),
+	declare @lYear smallint = (select datepart(year,max(Accountingdate)) from [base_ancon_uk].[CUSTINVOICETRANS_ANUK]),
+			@lMonth tinyint = (select datepart(month,max(Accountingdate)) from [base_ancon_uk].[CUSTINVOICETRANS_ANUK]),
 
-			@lFrYear smallint = (select datepart(year,max(Accountingdate)) from [base_tx_ca_0_hlp].[INVOICEDFREIGHT_ANUK]),
-			@lFrMonth tinyint = (select datepart(month,max(Accountingdate)) from [base_tx_ca_0_hlp].[INVOICEDFREIGHT_ANUK])
+			@lFrYear smallint = (select datepart(year,max(Accountingdate)) from [base_ancon_uk].[INVOICEDFREIGHT_ANUK]),
+			@lFrMonth tinyint = (select datepart(month,max(Accountingdate)) from [base_ancon_uk].[INVOICEDFREIGHT_ANUK])
 
 
 	-- Voraussetzung für numerische Felder: Keine Tausender Punkt und Dezimaltrennzeichen ist der . und das Negativ Zeichen steht vor der Zahl.
@@ -23,9 +23,9 @@ BEGIN
 	-- Leereinträge geht, aber nicht mit dem Wert null auffüllen.
 
 	-- CUSTTABLE
-	--append [base_tx_ca_0_hlp].[CUSTTABLE_ANUK]
+	--append [base_ancon_uk].[CUSTTABLE_ANUK]
  
-	update [base_tx_ca_0_hlp].[CUSTTABLE_ANUK]
+	update [base_ancon_uk].[CUSTTABLE_ANUK]
 	set DIMENSION3_ = ' '
 	where upper(DATAAREAID) = 'ANUK' and DIMENSION3_ is null 
 
@@ -41,7 +41,7 @@ BEGIN
 	CUSTOMERPILLAR,
 	' ',
 	DIMENSION3_
-	from [base_tx_ca_0_hlp].[CUSTTABLE_ANUK]
+	from [base_ancon_uk].[CUSTTABLE_ANUK]
 
 
   -- Alle Kunden als OUTSIDE kennzeichnen, die keinen Eintrag in der DATAAREA Tabelle haben.
@@ -81,7 +81,7 @@ BEGIN
 	[ITEMNAME],
 	ISNULL([CRH PRODUCTGROUPID], ' '),
 	ISNULL('ANUK-' + [ITEMGROUPID], ' ')
-	from [base_tx_ca_0_hlp].[ITEMTABLE_ANUK]
+	from [base_ancon_uk].[ITEMTABLE_ANUK]
 
 	update [intm_axbi].[dim_ITEMTABLE]
 	set PRODUCTGROUPID = 'A.4.'
@@ -160,11 +160,11 @@ BEGIN
 	delete from [intm_axbi].[dim_ITEMGROUP] where upper(DATAAREAID) = 'ANUK'
 
 	insert [intm_axbi].[dim_ITEMGROUP] (DATAAREAID,ITEMGROUPID,ITEMGROUPNAME)
-	select 'ANUK', 'ANUK-' + ITEMGROUPID, 'ANUK-' + ITEMGROUPNAME from [base_tx_ca_0_hlp].[MAPPING_ITEMGROUP_ANUK]
+	select 'ANUK', 'ANUK-' + ITEMGROUPID, 'ANUK-' + ITEMGROUPNAME from [base_ancon_uk].[MAPPING_ITEMGROUP_ANUK]
 
 	-- INVOICED FREIGHT RECOVERY TABLE
 
-	delete from [base_tx_ca_0_hlp].[INVOICEDFREIGHT_ANUK] where DATEPART(year, Accountingdate) = @lFrYear and DATEPART(month, Accountingdate) = @lFrMonth 
+	delete from [base_ancon_uk].[INVOICEDFREIGHT_ANUK] where DATEPART(year, Accountingdate) = @lFrYear and DATEPART(month, Accountingdate) = @lFrMonth 
 
 	-- [intm_axbi].[fact_CUSTINVOICETRANS]
 
@@ -217,7 +217,7 @@ BEGIN
 	FreightEUR, 
 	CostAmountLocal, 
 	CostAmountEUR 
-	from [base_tx_ca_0_hlp].[CUSTINVOICETRANS_ANUK]
+	from [base_ancon_uk].[CUSTINVOICETRANS_ANUK]
 	where DATEPART(year, Accountingdate) = @lYear 
 	and DATEPART(month, Accountingdate) = @lMonth
 
@@ -248,7 +248,7 @@ BEGIN
 	InvoicedFreightLocal/c.CRHRATE InvoicedFreightEur, 
 	PackingSlipID
 	into #InvoicedFreightTable
-	from [base_tx_ca_0_hlp].[INVOICEDFREIGHT_ANUK] i
+	from [base_ancon_uk].[INVOICEDFREIGHT_ANUK] i
 	inner join [base_tx_ca_0_hlp].[CRHCURRENCY] c
 	on YEAR = Datepart(YYYY, i.Accountingdate) and c.CURRENCY = 'GBP'
 	where DATEPART(year, Accountingdate) = @lFrYear 
