@@ -1,12 +1,19 @@
 # Theobald Xtract Universal Deploy Job
-jobs:
-- job: XtractUniversalDeploy
 
+jobs:
+- deployment: XtractUniversalDeploy
+  dependsOn: XtractUniversalBuild
   pool:
     name: 'VM'
     demands:
     - node.js
     - VisualStudio
-
-  steps:
-  - template: ./steps-deploy.yml
+  variables:
+  - name: pathPrefix
+    value: $(Pipeline.Workspace)
+  environment: '$(env)'
+  strategy:
+    runOnce:
+      deploy:
+        steps:
+        - template: ./steps-deploy.yml
