@@ -12,5 +12,5 @@ steps:
   inputs:
     command: 'custom'
     workingDir: '$(Build.Repository.LocalPath)'
-    customCommand: 'run validate $(Build.Repository.LocalPath)'
+    customCommand: 'run validate
   displayName: 'Validate Orchestration Config'
