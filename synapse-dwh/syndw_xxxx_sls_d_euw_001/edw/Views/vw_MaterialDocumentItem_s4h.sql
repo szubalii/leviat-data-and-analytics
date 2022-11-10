@@ -132,6 +132,10 @@ SELECT
 , MDI.[QuantityInBaseUnit] * dimPVs.[StockPricePerUnit]                     AS QuantityInBaseUnitStandardValue
 , MDI.[QuantityInBaseUnit] * dimPVs.[StockPricePerUnit_EUR]                 AS QuantityInBaseUnitStandardValue_EUR
 , MDI.[QuantityInBaseUnit] * dimPVs.[StockPricePerUnit_USD]                 AS QuantityInBaseUnitStandardValue_USD
+, dimISST.[InventorySpecialStockTypeName]   COLLATE DATABASE_DEFAULT        AS InventorySpecialStockTypeName
+, dimIST.[InventoryStockTypeName]           COLLATE DATABASE_DEFAULT        AS InventoryStockTypeName
+, dimPVs.[PriceControlIndicatorID]          COLLATE DATABASE_DEFAULT        AS PriceControlIndicatorID
+, dimPVs.[PriceControlIndicator]            COLLATE DATABASE_DEFAULT        AS PriceControlIndicator
 FROM [base_s4h_cax].[I_MaterialDocumentItem] MDI
 LEFT JOIN [base_s4h_cax].[I_MaterialDocumentHeader] MDH
   ON 
@@ -180,4 +184,10 @@ LEFT JOIN
         [edw].[dim_GoodsMovementType] dimGMT
             ON 
                 dimGMT.GoodsMovementTypeID = MDI.[GoodsMovementType]
+LEFT JOIN
+        [edw].[dim_InventorySpecialStockType] dimISST
+            ON  dimISST.[InventorySpecialStockTypeID] = MDI.[InventorySpecialStockType]
+LEFT JOIN
+        [edw].[dim_InventoryStockType] dimIST
+            ON dimIST.[InventoryStockTypeID] = MDI.[InventoryStockType]  
 -- WHERE MDI.[MANDT] = 200 MPS 2021/11/01: commented out due to different client values between dev,qas, and prod

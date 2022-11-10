@@ -129,6 +129,16 @@ SELECT  CONVERT(NVARCHAR(32),
     ,   UV.[QuantityInBaseUnitStandardValue]
     ,   UV.[QuantityInBaseUnitStandardValue_EUR]
     ,   UV.[QuantityInBaseUnitStandardValue_USD]
+    ,   UV.[ConsumptionQtyOBDProInBaseUnit] * UV.[StockPricePerUnit]         AS ConsumptionQtyOBDProStandardValue
+    ,   UV.[ConsumptionQtyOBDProInBaseUnit] * UV.[StockPricePerUnit_EUR]     AS ConsumptionQtyOBDProStandardValue_EUR
+    ,   UV.[ConsumptionQtyOBDProInBaseUnit] * UV.[StockPricePerUnit_USD]     AS ConsumptionQtyOBDProStandardValue_USD
+    ,   UV.[ConsumptionQtySOInBaseUnit] * UV.[StockPricePerUnit]             AS ConsumptionQtySOStandardValue
+    ,   UV.[ConsumptionQtySOInBaseUnit] * UV.[StockPricePerUnit_EUR]         AS ConsumptionQtySOStandardValue_EUR
+    ,   UV.[ConsumptionQtySOInBaseUnit] * UV.[StockPricePerUnit_USD]         AS ConsumptionQtySOStandardValue_USD
+    ,   UV.[InventorySpecialStockTypeName]
+    ,   UV.[InventoryStockTypeName]
+    ,   UV.[PriceControlIndicatorID] 
+    ,   UV.[PriceControlIndicator]  
     FROM
 (
     SELECT S4H.[MaterialDocumentYear] 
@@ -244,6 +254,10 @@ SELECT  CONVERT(NVARCHAR(32),
         ,   S4H.[QuantityInBaseUnitStandardValue]
         ,   S4H.[QuantityInBaseUnitStandardValue_EUR]
         ,   S4H.[QuantityInBaseUnitStandardValue_USD]
+        ,   S4H.[InventorySpecialStockTypeName]
+        ,   S4H.[InventoryStockTypeName]
+        ,   S4H.[PriceControlIndicatorID] 
+        ,   S4H.[PriceControlIndicator]   
     FROM [edw].[vw_MaterialDocumentItem_s4h] S4H
 
         UNION ALL
@@ -361,6 +375,10 @@ SELECT  CONVERT(NVARCHAR(32),
         ,   null AS [QuantityInBaseUnitStandardValue]
         ,   null AS [QuantityInBaseUnitStandardValue_EUR]
         ,   null AS [QuantityInBaseUnitStandardValue_USD]
+        ,   null AS [InventorySpecialStockTypeName]
+        ,   null AS [InventoryStockTypeName]
+        ,   null AS [PriceControlIndicatorID] 
+        ,   null AS [PriceControlIndicator]   
     FROM [edw].[vw_MaterialDocumentItem_axbi] AXBI
 ) UV
 
