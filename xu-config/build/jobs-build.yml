@@ -17,7 +17,7 @@ jobs:
     - VisualStudio
 
   steps:
-  - template: ./steps-build.yml
+  # - template: ./steps-build.yml -- no build steps for xu-config
   # deploy only if required.
   - ${{ if eq(parameters.deploy, true) }}: 
     - template: ./steps-deploy.yml
