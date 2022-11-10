@@ -6,31 +6,34 @@ function updateExtractionDestinationFiles () {
     const extractionFolderNames = fs.readdirSync(dir);
     const genericDest = require('./generic-xu-extraction-destination.json');
 
-    extractionFolderNames.forEach( function (extractionFoldername) {
+    console.log('Extraction destination.json files will be written in: ' + dir);
+
+
+    extractionFolderNames.forEach( function (extractionFolderName) {
         try {
-            let filePath = dir + '/' + extractionFoldername + '/destination.json';
+            let filePath = dir + '/' + extractionFolderName + '/destination.json';
             let dest = require(filePath);
             let customNameObject = {
                 nameGenerator: {
-                    customName: extractionFoldername
+                    customName: extractionFolderName
                 },
                 internalSettings: {
                     nameGenerator: {
-                        customName: extractionFoldername
+                        customName: extractionFolderName
                     }
                 }
-                //folderPath: extractionFoldername + "\/#{ DateTime.Now.ToString(\"yyyy\/MM\/dd\") }#"
+                //folderPath: extractionFolderName + "\/#{ DateTime.Now.ToString(\"yyyy\/MM\/dd\") }#"
             };
                        
             dest = _.merge(dest, genericDest, customNameObject);
 
+            console.log('Write new destination.json file for: ' + extractionFolderName);
+
             fs.writeFileSync(filePath, dest);
         }
         catch (e) {
-
+            console.error('##[error] ' + e);
         }
-
-
     });
 }
 
