@@ -25,7 +25,7 @@ function pbiDatasetGenerateJSON (env) {
         });       
     });
 
-    return JSON.stringify(pbiDatasetArray, null, '\t');;
+    return JSON.stringify(pbiDatasetArray, null, '\t');
 }
 
 function pbiDatasetGenerateCSV (env) {

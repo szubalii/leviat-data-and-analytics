@@ -1,6 +1,15 @@
 const fs = require('fs');
 const _ = require('lodash');
 
+function getDestinationFile (filePath) {
+    try {
+        return require(filePath);
+    }
+    catch (e) {
+        console.warning('##[warning] destination.json file does not exist: ' + e);
+    }
+}
+
 function updateExtractionDestinationFiles () {
     const dir = __dirname + '/../extractions';
     const extractionFolderNames = fs.readdirSync(dir);
@@ -10,29 +19,26 @@ function updateExtractionDestinationFiles () {
 
 
     extractionFolderNames.forEach( function (extractionFolderName) {
-        try {
-            let filePath = dir + '/' + extractionFolderName + '/destination.json';
-            let dest = require(filePath);
-            let customNameObject = {
+
+        let filePath = dir + '/' + extractionFolderName + '/destination.json';
+        let dest = getDestinationFile(filePath);
+        let customNameObject = {
+            nameGenerator: {
+                customName: extractionFolderName
+            },
+            internalSettings: {
                 nameGenerator: {
                     customName: extractionFolderName
-                },
-                internalSettings: {
-                    nameGenerator: {
-                        customName: extractionFolderName
-                    }
                 }
-                //folderPath: extractionFolderName + "\/#{ DateTime.Now.ToString(\"yyyy\/MM\/dd\") }#"
-            };
-                       
+            }
+            //folderPath: extractionFolderName + "\/#{ DateTime.Now.ToString(\"yyyy\/MM\/dd\") }#"
+        };
+
+        if (dest) {
             dest = _.merge(dest, genericDest, customNameObject);
-
             console.log('Write new destination.json file for: ' + extractionFolderName);
-
-            fs.writeFileSync(filePath, dest);
-        }
-        catch (e) {
-            console.error('##[error] ' + e);
+    
+            fs.writeFileSync(filePath, JSON.stringify(dest, null, '\t'));
         }
     });
 }
