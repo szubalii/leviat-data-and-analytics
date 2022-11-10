@@ -1,3 +1,9 @@
 steps:
 
-
+# Update the XU Extraction Destination files
+- task: Npm@1
+  inputs:
+    command: 'custom'
+    workingDir: '$(Build.Repository.LocalPath)'
+    customCommand: 'run build-xu'
+  displayName: 'Update XU Extraction Destination Files'
