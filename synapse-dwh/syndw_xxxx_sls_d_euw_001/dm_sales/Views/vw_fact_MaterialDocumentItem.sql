@@ -91,8 +91,6 @@ SELECT  MDI.[MaterialDocumentYear]
     ,   MDI.[ManufacturingOrder] COLLATE DATABASE_DEFAULT        AS ManufacturingOrder
     ,   MDI.[ManufacturingOrderItem] COLLATE DATABASE_DEFAULT    AS ManufacturingOrderItem
     ,   MDI.[IsReversalMovementType]
-    ,   MDI.[t_applicationId]
-    ,   MDI.[t_extractionDtm]
     ,   MDI.[nk_dim_ProductValuationPUP]
     ,   MDI.[StockPricePerUnit]
     ,   MDI.[StockPricePerUnit_EUR]
@@ -125,6 +123,8 @@ SELECT  MDI.[MaterialDocumentYear]
     ,   MDI.[StandardPricePerUnit]    
     ,   MDI.[StandardPricePerUnit_EUR]
     ,   MDI.[StandardPricePerUnit_USD]
+    ,   MDI.[t_applicationId]
+    ,   MDI.[t_extractionDtm]
 FROM
     [edw].[fact_MaterialDocumentItem] MDI;
 

@@ -100,8 +100,6 @@ SELECT
 , MDI.[ManufacturingOrder] collate DATABASE_DEFAULT AS ManufacturingOrder
 , MDI.[ManufacturingOrderItem] collate DATABASE_DEFAULT AS ManufacturingOrderItem
 , MDI.[IsReversalMovementType] collate DATABASE_DEFAULT AS IsReversalMovementType
-, MDI.[t_applicationId] collate DATABASE_DEFAULT AS t_applicationId
-, MDI.[t_extractionDtm]
 , dimPVs.[nk_dim_ProductValuationPUP]   collate DATABASE_DEFAULT                                    AS [nk_dim_ProductValuationPUP]
 , dimPVs.[StockPricePerUnit]
 , dimPVs.[StockPricePerUnit_EUR]
@@ -136,6 +134,8 @@ SELECT
 , dimIST.[InventoryStockTypeName]           COLLATE DATABASE_DEFAULT        AS InventoryStockTypeName
 , dimPVs.[PriceControlIndicatorID]          COLLATE DATABASE_DEFAULT        AS PriceControlIndicatorID
 , dimPVs.[PriceControlIndicator]            COLLATE DATABASE_DEFAULT        AS PriceControlIndicator
+, MDI.[t_applicationId] collate DATABASE_DEFAULT AS t_applicationId
+, MDI.[t_extractionDtm]
 FROM [base_s4h_cax].[I_MaterialDocumentItem] MDI
 LEFT JOIN [base_s4h_cax].[I_MaterialDocumentHeader] MDH
   ON 
