@@ -32,6 +32,8 @@ steps:
     echo "var_env $(env)"
     echo "var_varGroup $(varGroup)"
     echo "var_keyGroup $(keyGroup)"
+    echo "var_varGroup ${{ variables.varGroup }}"
+    echo "var_keyGroup ${{ variables.keyGroup }}"
 
 
 # jobs:
