@@ -22,7 +22,8 @@ SELECT
         viewMD.[StockPricePerUnit_USD],
         DATEADD(day, -(DAY(viewMD.[HDR_PostingDate])-1),viewMD.[HDR_PostingDate]) AS HDR_PostingDate_FMD,
         viewMD.[InventoryValuationTypeID],
-        viewMD.t_applicationId AS SrcSystem
+        viewMD.t_applicationId AS SrcSystem,
+        viewMD.t_extractionDtm  AS ExtractionDate
     FROM [edw].[fact_MaterialDocumentItem] viewMD
     group by
         viewMD.[_hash],
@@ -43,7 +44,8 @@ SELECT
         viewMD.[StockPricePerUnit_USD],
         DATEADD(day, -(DAY(viewMD.[HDR_PostingDate])-1),viewMD.[HDR_PostingDate]),
         viewMD.[InventoryValuationTypeID],
-        viewMD.t_applicationId 
+        viewMD.t_applicationId,
+        viewMD.t_extractionDtm 
 ), Hash_Calc_Min AS(
     SELECT
         _hash,
@@ -61,6 +63,7 @@ SELECT
         max([PurchaseOrderTypeID]) AS PurchaseOrderTypeID,
         max([InventoryValuationTypeID]) AS InventoryValuationTypeID,
         max(SrcSystem) AS SrcSystem,
+        max(ExtractionDate) AS ExtractionDate,
         min([HDR_PostingDate_FMD]) AS minHDR_PostingDate       
     FROM Hash_Calc viewMD   
     GROUP BY _hash
@@ -85,7 +88,8 @@ SELECT
         HC.[PurchaseOrderTypeID],
         HC.[InventoryValuationTypeID],
         HC.[minHDR_PostingDate],
-        HC.[SrcSystem]
+        HC.[SrcSystem],
+        HC.[ExtractionDate]
     FROM Hash_Calc_Min HC
     CROSS JOIN [edw].[dim_Calendar] AS dimC
     WHERE dimC.[CalendarDate] BETWEEN minHDR_PostingDate AND GETDATE()
@@ -122,6 +126,7 @@ SELECT
         CC.PlantID,
         CC.StorageLocationID,
         CC.SrcSystem,
+        CC.ExtractionDate,
         CC.InventorySpecialStockTypeID,
         CC.InventoryStockTypeID,
         CC.StockOwner,
@@ -165,7 +170,6 @@ SELECT
     [MaterialID],
     [PlantID],
     [StorageLocationID],
-    [SrcSystem],
     [InventorySpecialStockTypeID],
     [InventoryStockTypeID],
     [StockOwner],
@@ -183,6 +187,8 @@ SELECT
     [PriceControlIndicatorID],
     [PriceControlIndicator],
     [nk_dim_ProductValuationPUP],
-    [sk_dim_ProductValuationPUP]  
+    [sk_dim_ProductValuationPUP],
+    [SrcSystem] AS t_applicationId,
+    [ExtractionDate] AS t_extractionDtm
 FROM 
     Calendar_TotalAmount

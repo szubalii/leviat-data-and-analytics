@@ -7,7 +7,6 @@ SELECT
     [MaterialID],
     [PlantID],
     [StorageLocationID],
-    [SrcSystem],
     [InventorySpecialStockTypeID],
     [InventoryStockTypeID],
     [StockOwner],
@@ -25,6 +24,8 @@ SELECT
     [PriceControlIndicatorID],
     [PriceControlIndicator],
     [nk_dim_ProductValuationPUP],
-    [sk_dim_ProductValuationPUP]  
+    [sk_dim_ProductValuationPUP],
+    [t_applicationId],
+  	[t_extractionDtm]   
 FROM 
     [edw].[fact_MaterialStockLevel]

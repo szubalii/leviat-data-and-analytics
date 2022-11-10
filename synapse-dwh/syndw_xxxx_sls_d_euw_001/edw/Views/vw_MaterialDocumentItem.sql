@@ -108,8 +108,6 @@ SELECT  CONVERT(NVARCHAR(32),
     ,   UV.[ManufacturingOrder] COLLATE DATABASE_DEFAULT        AS ManufacturingOrder
     ,   UV.[ManufacturingOrderItem] COLLATE DATABASE_DEFAULT    AS ManufacturingOrderItem
     ,   UV.[IsReversalMovementType]
-    ,   UV.[t_applicationId]
-    ,   UV.[t_extractionDtm]
     ,   UV.[nk_dim_ProductValuationPUP]
     ,   UV.[StockPricePerUnit]
     ,   UV.[StockPricePerUnit_EUR]
@@ -141,7 +139,9 @@ SELECT  CONVERT(NVARCHAR(32),
     ,   UV.[PriceControlIndicator]  
     ,   UV.[StandardPricePerUnit]
     ,   UV.[StandardPricePerUnit_EUR] 
-    ,   UV.[StandardPricePerUnit_USD] 
+    ,   UV.[StandardPricePerUnit_USD]
+    ,   UV.[t_applicationId]
+    ,   UV.[t_extractionDtm]
     FROM
 (
     SELECT S4H.[MaterialDocumentYear] 
