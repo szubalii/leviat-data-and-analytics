@@ -7,7 +7,7 @@ CREATE TABLE [base_ancon_conolly_aus].[CUSTINVOICETRANS_ANAC]
 	[ACCOUNTINGDATE]        [NVARCHAR](10)          NULL,
 	[CUSTOMERNO]            [INT]                   NULL,
 	[ITEMID]                [NVARCHAR](40)          NULL,
-	[DELIVERYCOUNTRYID]     [NVARCHAR](20)          NULL,
+	[DELIVERYCOUNTRYID]     [INT]                   NULL,
 	[QTY]                   [DECIMAL](38,12)        NULL,
 	[PRODUCTSALESLOCAL]     [DECIMAL](38,12)        NULL,
 	[PRODUCTSALESEUR]       [DECIMAL](38,12)        NULL,

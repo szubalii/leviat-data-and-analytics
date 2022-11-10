@@ -4,7 +4,7 @@
 	[Invoiceid]             [NVARCHAR](20)          NULL,
 	[Itemid]                [NVARCHAR](100)         NULL,
 	[Itemname]              [NVARCHAR](200)         NULL,
-	[Qty]                   [DECIMAL](38,12)        NULL,
+	[Qty]                   [INT]                   NULL,
 	[CustomerNo]            [NVARCHAR](100)         NULL,
 	[Customername]          [NVARCHAR](200)         NULL,
 	[DeliveryCountryID]     [NVARCHAR](3)           NULL,
