@@ -21,7 +21,8 @@ SELECT
         viewMD.[StockPricePerUnit_EUR],
         viewMD.[StockPricePerUnit_USD],
         DATEADD(day, -(DAY(viewMD.[HDR_PostingDate])-1),viewMD.[HDR_PostingDate]) AS HDR_PostingDate_FMD,
-        viewMD.[InventoryValuationTypeID]
+        viewMD.[InventoryValuationTypeID],
+        viewMD.t_applicationId AS SrcSystem
     FROM [edw].[fact_MaterialDocumentItem] viewMD
     group by
         viewMD.[_hash],
@@ -41,7 +42,8 @@ SELECT
         viewMD.[StockPricePerUnit_EUR],
         viewMD.[StockPricePerUnit_USD],
         DATEADD(day, -(DAY(viewMD.[HDR_PostingDate])-1),viewMD.[HDR_PostingDate]),
-        viewMD.[InventoryValuationTypeID] 
+        viewMD.[InventoryValuationTypeID],
+        viewMD.t_applicationId 
 ), Hash_Calc_Min AS(
     SELECT
         _hash,
@@ -58,6 +60,7 @@ SELECT
         max([MaterialBaseUnitID]) AS MaterialBaseUnitID,
         max([PurchaseOrderTypeID]) AS PurchaseOrderTypeID,
         max([InventoryValuationTypeID]) AS InventoryValuationTypeID,
+        max(SrcSystem) AS SrcSystem,
         min([HDR_PostingDate_FMD]) AS minHDR_PostingDate       
     FROM Hash_Calc viewMD   
     GROUP BY _hash
@@ -81,7 +84,8 @@ SELECT
         HC.[MaterialBaseUnitID],
         HC.[PurchaseOrderTypeID],
         HC.[InventoryValuationTypeID],
-        HC.[minHDR_PostingDate]
+        HC.[minHDR_PostingDate],
+        HC.[SrcSystem]
     FROM Hash_Calc_Min HC
     CROSS JOIN [edw].[dim_Calendar] AS dimC
     WHERE dimC.[CalendarDate] BETWEEN minHDR_PostingDate AND GETDATE()
@@ -117,6 +121,7 @@ SELECT
         CC.MaterialID,
         CC.PlantID,
         CC.StorageLocationID,
+        CC.SrcSystem,
         CC.InventorySpecialStockTypeID,
         CC.InventoryStockTypeID,
         CC.StockOwner,
@@ -160,6 +165,7 @@ SELECT
     [MaterialID],
     [PlantID],
     [StorageLocationID],
+    [SrcSystem],
     [InventorySpecialStockTypeID],
     [InventoryStockTypeID],
     [StockOwner],

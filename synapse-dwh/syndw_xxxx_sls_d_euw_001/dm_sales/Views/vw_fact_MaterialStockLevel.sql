@@ -7,6 +7,7 @@ SELECT
     [MaterialID],
     [PlantID],
     [StorageLocationID],
+    [SrcSystem],
     [InventorySpecialStockTypeID],
     [InventoryStockTypeID],
     [StockOwner],

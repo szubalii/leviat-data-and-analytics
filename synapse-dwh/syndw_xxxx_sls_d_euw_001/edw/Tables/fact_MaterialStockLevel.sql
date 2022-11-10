@@ -7,6 +7,7 @@ CREATE TABLE [edw].[fact_MaterialStockLevel]
 	[MaterialID]                    [nvarchar](40) NOT NULL,
 	[PlantID]                       [nvarchar](8),
 	[StorageLocationID]             [nvarchar](10),
+	[SrcSystem]						[nvarchar](32),
 	[InventorySpecialStockTypeID]   [nvarchar](1),
 	[InventoryStockTypeID]          [nvarchar](2),
 	[StockOwner]                    [nvarchar](10),
