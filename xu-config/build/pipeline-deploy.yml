@@ -22,14 +22,23 @@ variables:
   value: DnA_$(env)
 - name: keyGroup
   value: KeyVault_$(env)
-- group: ${{ variables.varGroup }}
-- group: ${{ variables.keyGroup }}
+# - group: ${{ variables.varGroup }}
+# - group: ${{ variables.keyGroup }}
 
-jobs:
-- template: ../../build/jobs-pre-build.yml
-- template: ./jobs-build.yml
-  parameters:
-    artifact: true
-- template: ./jobs-deploy.yml
+steps:
+- script: |
+    echo "par_env $(parameters.env)"
+    echo "par_env ${{parameters.env}}"
+    echo "var_env $(env)"
+    echo "var_varGroup $(varGroup)"
+    echo "var_keyGroup $(keyGroup)"
+
+
+# jobs:
+# - template: ../../build/jobs-pre-build.yml
+# - template: ./jobs-build.yml
+#   parameters:
+#     artifact: true
+# - template: ./jobs-deploy.yml
   # parameters:
   #   adfPathPrefix: $(System.ArtifactsDirectory)
