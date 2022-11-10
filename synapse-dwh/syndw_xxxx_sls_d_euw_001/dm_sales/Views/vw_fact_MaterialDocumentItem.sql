@@ -118,12 +118,13 @@ SELECT  MDI.[MaterialDocumentYear]
     ,   MDI.[ConsumptionQtySOStandardValue]
     ,   MDI.[ConsumptionQtySOStandardValue_EUR]
     ,   MDI.[ConsumptionQtySOStandardValue_USD]
-    ,   NULL AS [StandardPricePerUnit]
-    ,   NULL AS [StandardPricePerUnit_EUR]
     ,   MDI.[InventorySpecialStockTypeName]
     ,   MDI.[InventoryStockTypeName] 
     ,   MDI.[PriceControlIndicatorID]
     ,   MDI.[PriceControlIndicator]  
+    ,   MDI.[StandardPricePerUnit]    
+    ,   MDI.[StandardPricePerUnit_EUR]
+    ,   MDI.[StandardPricePerUnit_USD]
 FROM
     [edw].[fact_MaterialDocumentItem] MDI;
 

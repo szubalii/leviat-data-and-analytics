@@ -139,6 +139,9 @@ SELECT  CONVERT(NVARCHAR(32),
     ,   UV.[InventoryStockTypeName]
     ,   UV.[PriceControlIndicatorID] 
     ,   UV.[PriceControlIndicator]  
+    ,   UV.[StandardPricePerUnit]
+    ,   UV.[StandardPricePerUnit_EUR] 
+    ,   UV.[StandardPricePerUnit_USD] 
     FROM
 (
     SELECT S4H.[MaterialDocumentYear] 
@@ -258,6 +261,9 @@ SELECT  CONVERT(NVARCHAR(32),
         ,   S4H.[InventoryStockTypeName]
         ,   S4H.[PriceControlIndicatorID] 
         ,   S4H.[PriceControlIndicator]   
+        ,   null AS [StandardPricePerUnit]
+        ,   null AS [StandardPricePerUnit_EUR] 
+        ,   null AS [StandardPricePerUnit_USD] 
     FROM [edw].[vw_MaterialDocumentItem_s4h] S4H
 
         UNION ALL
@@ -378,7 +384,10 @@ SELECT  CONVERT(NVARCHAR(32),
         ,   null AS [InventorySpecialStockTypeName]
         ,   null AS [InventoryStockTypeName]
         ,   null AS [PriceControlIndicatorID] 
-        ,   null AS [PriceControlIndicator]   
+        ,   null AS [PriceControlIndicator]  
+        ,   AXBI.[StandardPricePerUnit]
+        ,   AXBI.[StandardPricePerUnit_EUR] 
+        ,   null AS [StandardPricePerUnit_USD] 
     FROM [edw].[vw_MaterialDocumentItem_axbi] AXBI
 ) UV
 
