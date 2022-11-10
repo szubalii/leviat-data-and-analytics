@@ -1081,10 +1081,6 @@
     <Build Include="intm_axbi\Stored Procedures\up_ReadSales_PLAKA_BE.sql" />
     <Build Include="intm_axbi\Stored Procedures\up_ReadSales_PLAKA_FR.sql" />
     <Build Include="dq\Views\vw_Product_1_35.sql" />
-    <Build Include="base_tx_ca_0_hlp\Tables\INVOICEDFREIGHT_ISUK.sql" />
-    <Build Include="base_tx_ca_0_hlp\Tables\CUSTTABLE_ISUK.sql" />
-    <Build Include="base_tx_ca_0_hlp\Tables\CUSTINVOICETRANS_ISUK.sql" />
-    <Build Include="base_tx_ca_0_hlp\Tables\ITEMTABLE_ISUK.sql" />
     <Build Include="intm_axbi\Stored Procedures\up_ReadSales_ANUK_pkg.sql" />
     <Build Include="intm_axbi\Stored Procedures\up_ReadSales_ISUK_pkg.sql" />
     <Build Include="intm_axbi\Stored Procedures\up_ReadSales_ANAC_pkg.sql" />
