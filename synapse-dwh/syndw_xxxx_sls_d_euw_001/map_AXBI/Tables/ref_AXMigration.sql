@@ -1,4 +1,4 @@
-CREATE TABLE [map_AXBI.[ref_AXMigration]
+CREATE TABLE [map_AXBI].[ref_AXMigration]
 (
     [DATAAREAID]               nvarchar(4),
     [MigrationDate]                   date,
