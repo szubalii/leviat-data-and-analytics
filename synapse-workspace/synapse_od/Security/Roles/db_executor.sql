@@ -1,0 +1,4 @@
+CREATE ROLE db_executor;
+GO;
+
+GRANT EXECUTE, SELECT, VIEW DEFINITION TO db_executor;

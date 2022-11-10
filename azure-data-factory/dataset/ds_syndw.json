@@ -3,7 +3,18 @@
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "ls_ws_xxxx_sls_x_euw_001__syndw_xxxx_sls_x_euw_001",
-			"type": "LinkedServiceReference"
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"sqlPool": {
+					"value": "@dataset().sqlPool",
+					"type": "Expression"
+				}
+			}
+		},
+		"parameters": {
+			"sqlPool": {
+				"type": "string"
+			}
 		},
 		"annotations": [],
 		"type": "AzureSqlDWTable",

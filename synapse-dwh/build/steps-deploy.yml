@@ -1,0 +1,32 @@
+steps:
+- task: AzurePowerShell@5
+  displayName: 'Resume Synapse'
+  inputs:
+    azureSubscription: 'arm-pipeline'
+    ScriptType: InlineScript
+    Inline: |
+     # You can write your azure powershell scripts inline here. 
+     # You can also pass predefined and custom variables to this script using arguments
+     
+     Resume-AzSynapseSqlPool -WorkspaceName "$(workspaceName)" -Name "$(synapseSqlPool)"
+    azurePowerShellVersion: LatestVersion
+    pwsh: true
+
+- task: AzureFileCopy@4
+  displayName: 'AzureBlob File Copy'
+  inputs:
+    SourcePath: '$(Build.Repository.LocalPath)/synapse-dwh/syndw_xxxx_sls_d_euw_001/Master Data/*'
+    azureSubscription: 'arm-pipeline'
+    Destination: AzureBlob
+    storage: '$(storageAccountName)'
+    ContainerName: 'flat-files'
+
+- task: SqlAzureDacpacDeployment@1
+  displayName: 'Azure SQL DacpacTask'
+  inputs:
+    azureSubscription: 'arm-pipeline'
+    AuthenticationType: servicePrincipal
+    ServerName: '$(workspaceName).sql.azuresynapse.net'
+    DatabaseName: '$(synapseSqlPool)'
+    DacpacFile: '$(Build.Repository.LocalPath)/synapse-dwh/syndw_xxxx_sls_d_euw_001/bin/Release/syndw_xxxx_sls_d_euw_001.dacpac'
+    AdditionalArguments: '/v:masterKeyPwd=$(ws-xxxx-sls-x-euw-001-masterKeyPwd) /v:storageAccount=$(storageAccountName)'

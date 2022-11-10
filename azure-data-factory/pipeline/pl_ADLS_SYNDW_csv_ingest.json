@@ -57,6 +57,10 @@
 							"field_delimiter": {
 								"value": "@pipeline().parameters.field_delimiter",
 								"type": "Expression"
+							},
+							"storageAccount": {
+								"value": "@pipeline().globalParameters.storageAccountName",
+								"type": "Expression"
 							}
 						}
 					}
@@ -72,6 +76,10 @@
 							},
 							"table": {
 								"value": "@pipeline().parameters.base_table_name",
+								"type": "Expression"
+							},
+							"sqlPool": {
+								"value": "@pipeline().globalParameters.synapseDatabaseName",
 								"type": "Expression"
 							}
 						}

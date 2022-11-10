@@ -1,0 +1,24 @@
+{
+	"name": "ds_sap_c4c",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_sap_c4c",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"path": {
+				"type": "string",
+				"defaultValue": "BusinessPartnerCollection"
+			}
+		},
+		"annotations": [],
+		"type": "SapCloudForCustomerResource",
+		"schema": [],
+		"typeProperties": {
+			"path": {
+				"value": "@dataset().path",
+				"type": "Expression"
+			}
+		}
+	}
+}

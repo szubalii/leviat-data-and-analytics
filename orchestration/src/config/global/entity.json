@@ -3805,6 +3805,42 @@
         "base_table_name": "NSDM_V_MAWEV",
         "pk_field_names": "MANDT,MATNR,WERKS,ALAND",
         "schedule_recurrence": "D"
+      },
+      {
+        "entity_id": 541,
+        "entity_name": "P_UserAddress",
+        "data_category": "NULL",
+        "client_field": "MANDT",
+        "tool_name": "Theobald",
+        "extraction_type": "Table",
+        "update_mode": "Full",
+        "base_table_name": "P_UserAddress",
+        "pk_field_names": "MANDT,BNAME",
+        "schedule_recurrence": "A"
+      },
+      {
+        "entity_id": 545,
+        "entity_name": "P_ConditionTypeText",
+        "data_category": "NULL",
+        "client_field": "MANDT",
+        "tool_name": "Theobald",
+        "extraction_type": "Table",
+        "update_mode": "Full",
+        "base_table_name": "P_ConditionTypeText",
+        "pk_field_names": "MANDT, SPRAS, KSCHL, KAPPL, KVEWE",
+        "schedule_recurrence": "D"
+      },
+      {
+        "entity_id": 546,
+        "entity_name": "I_PricingElement",
+        "data_category": "NULL",
+        "client_field": "MANDT",
+        "tool_name": "Theobald",
+        "extraction_type": "Table",
+        "update_mode": "Full",
+        "base_table_name": "I_PricingElement",
+        "pk_field_names": "MANDT, PRICINGDOCUMENT, PRICINGDOCUMENTITEM, PRICINGPROCEDURESTEP, PRICINGPROCEDURECOUNTER",
+        "schedule_recurrence": "D"
       }
     ]
   },
@@ -5326,31 +5362,31 @@
         "schedule_recurrence": "D"
       },
       {
-        "entity_id": 484,
-        "entity_name": "fact_MaterialDocumentItem_axbi",
+        "entity_id": 543,
+        "entity_name": "fact_MaterialDocumentItem",
         "sproc_name": "sp_materialize_view",
-        "source_view_name": "vw_MaterialDocumentItem_axbi",
-        "dest_table_name": "fact_MaterialDocumentItem_axbi",
+        "source_view_name": "vw_MaterialDocumentItem",
+        "dest_table_name": "fact_MaterialDocumentItem",
         "execution_order": 1,
         "schedule_recurrence": "D"
       },
       {
-        "entity_id": 529,
-        "entity_name": "fact_MaterialDocumentItem_temp",
+        "entity_id": 544,
+        "entity_name": "fact_MaterialStockLevel",
         "sproc_name": "sp_materialize_view",
-        "source_view_name": "vw_fact_MaterialDocumentItem_temp",
-        "dest_table_name": "fact_MaterialDocumentItem_temp",
-        "execution_order": 4,
+        "source_view_name": "vw_MaterialStockLevel",
+        "dest_table_name": "fact_MaterialStockLevel",
+        "execution_order": 2,
         "schedule_recurrence": "D"
       },
       {
-        "entity_id": 530,
-        "entity_name": "fact_MaterialStockLevel_temp",
+        "entity_id": 542,
+        "entity_name": "dim_UserAddress",
         "sproc_name": "sp_materialize_view",
-        "source_view_name": "vw_fact_MaterialStockLevel_temp",
-        "dest_table_name": "fact_MaterialStockLevel_temp",
-        "execution_order": 5,
-        "schedule_recurrence": "D"
+        "source_view_name": "vw_UserAddress",
+        "dest_table_name": "dim_UserAddress",
+        "execution_order": 0,
+        "schedule_recurrence": "A"
       }
     ]
   },

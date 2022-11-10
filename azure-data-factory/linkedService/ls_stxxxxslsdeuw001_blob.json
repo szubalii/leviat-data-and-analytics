@@ -1,6 +1,12 @@
 {
 	"name": "ls_stxxxxslsdeuw001_blob",
 	"properties": {
+		"parameters": {
+			"storageAccount": {
+				"type": "string",
+				"defaultValue": "stxxxxslsdeuw001"
+			}
+		},
 		"annotations": [],
 		"type": "AzureBlobStorage",
 		"typeProperties": {
@@ -10,7 +16,10 @@
 					"referenceName": "ls_kv_xxxx_sls_x_euw_001",
 					"type": "LinkedServiceReference"
 				},
-				"secretName": "BlobSASToken"
+				"secretName": {
+					"value": "@concat(\n    'BlobSASToken-',\n    linkedService().storageAccount\n)",
+					"type": "Expression"
+				}
 			}
 		}
 	}

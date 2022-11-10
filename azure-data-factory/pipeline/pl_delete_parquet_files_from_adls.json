@@ -26,7 +26,13 @@
 					},
 					"dataset": {
 						"referenceName": "ds_orch_db",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"sqlDb": {
+								"value": "@pipeline().globalParameters.sqlDb",
+								"type": "Expression"
+							}
+						}
 					},
 					"firstRowOnly": false
 				}
@@ -73,13 +79,23 @@
 										"directory": {
 											"value": "@join(\n    createArray(\n     item().adls_directory_path\n     ,pipeline().parameters.in_out\n     ,pipeline().parameters.date\n  ), '/'\n)",
 											"type": "Expression"
+										},
+										"storageAccount": {
+											"value": "@pipeline().globalParameters.storageAccountName",
+											"type": "Expression"
 										}
 									}
 								},
 								"logStorageSettings": {
 									"linkedServiceName": {
 										"referenceName": "stxxxxslsxeuw001",
-										"type": "LinkedServiceReference"
+										"type": "LinkedServiceReference",
+										"parameters": {
+											"storageAccount": {
+												"value": "@pipeline().globalParameters.storageAccountName",
+												"type": "Expression"
+											}
+										}
 									},
 									"path": "utilities/logging"
 								},

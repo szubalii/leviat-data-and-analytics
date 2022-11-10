@@ -14,6 +14,7 @@ SELECT
    PD.[SupplyingPlant]                    AS [SupplyingPlantID],
    PD.[PurchasingProcessingStatus]        AS [PurchasingProcessingStatusID],
    PD.[PurchaseContract],
+   PD.[PurchasingDocumentCondition],
    PD.[t_applicationId],
    PD.[t_extractionDtm]
 FROM 

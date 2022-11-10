@@ -1,0 +1,41 @@
+steps:
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: '$(Build.SourcesDirectory)\orchestration\sqldb-xxxx-orchdb-d-euw-001\bin\$(buildConfiguration)'
+    Contents: '*.dacpac'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+  displayName: 'Copy dacpac file'
+
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: '$(Build.SourcesDirectory)\orchestration'
+    Contents: '*publish.xml'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+  displayName: 'Copy publish config file'
+
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: '$(Build.SourcesDirectory)\orchestration\Master Data'
+    Contents: '**\*.csv'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)\Master Data'
+  displayName: 'Copy Master Data'
+
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: '$(Build.SourcesDirectory)\orchestration\src'
+    Contents: '**\*'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)\src'
+  displayName: 'Copy src folder'
+
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: '$(Build.SourcesDirectory)\orchestration'
+    Contents: 'package.json'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+  displayName: 'Copy npm package'
+
+- task: PublishPipelineArtifact@1
+  inputs:
+    targetPath: '$(Build.ArtifactStagingDirectory)'
+    artifact: 'OrchestrationDB'
+    publishLocation: 'pipeline'

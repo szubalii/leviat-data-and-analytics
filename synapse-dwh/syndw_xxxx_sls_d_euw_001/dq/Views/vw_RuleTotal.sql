@@ -422,11 +422,11 @@ INNER JOIN
 GROUP BY
     cnt.[RuleID],
     cnt.[RuleGroup],
-    cnt.[RecordTotals]    
+    cnt.[RecordTotals]
 
 UNION ALL
 
---1.29_ALL
+--1.26_ALL
 SELECT
     cnt.[RuleID],
     CASE
@@ -438,7 +438,7 @@ SELECT
 FROM
     CountRowsPerRuleID AS cnt
 INNER JOIN
-    [dq].[vw_Product_1_29_all] AS p
+    [dq].[vw_Product_1_26] AS p
     ON
         cnt.[RuleID] = p.[RuleID]
 GROUP BY
@@ -449,7 +449,7 @@ GROUP BY
 
 UNION ALL
 
---1.30_ALL
+--1.34_ALL
 SELECT
     cnt.[RuleID],
     CASE
@@ -461,7 +461,30 @@ SELECT
 FROM
     CountRowsPerRuleID AS cnt
 INNER JOIN
-    [dq].[vw_Product_1_30] AS p
+    [dq].[vw_Product_1_34] AS p
+    ON
+        cnt.[RuleID] = p.[RuleID]
+GROUP BY
+    cnt.[RuleID],
+    cnt.[RuleGroup],
+    cnt.[RecordTotals],
+    cnt.[AllRecordTotals]   
+
+UNION ALL
+
+--1.35_ALL
+SELECT
+    cnt.[RuleID],
+    CASE
+        WHEN cnt.[RuleGroup] LIKE '%ALL%'
+        THEN [AllRecordTotals]
+        ELSE cnt.[RecordTotals]
+    END AS [RecordTotals],
+    COUNT(p.Count) AS [ErrorTotals]
+FROM
+    CountRowsPerRuleID AS cnt
+INNER JOIN
+    [dq].[vw_Product_1_35] AS p
     ON
         cnt.[RuleID] = p.[RuleID]
 GROUP BY

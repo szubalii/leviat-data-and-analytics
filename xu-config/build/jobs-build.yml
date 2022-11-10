@@ -1,0 +1,26 @@
+# Theobald Xtraxt Universal Build Job
+parameters:
+- name: artifact
+  type: boolean
+  default: false
+- name: deploy
+  type: boolean
+  default: false
+
+jobs:
+- job: XtractUniversal
+  dependsOn: StartVM
+  pool:
+    name: 'VM'
+    demands:
+    - node.js
+    - VisualStudio
+
+  steps:
+  # - template: ./steps-build.yml -- no build steps for xu-config
+  # deploy only if required.
+  - ${{ if eq(parameters.deploy, true) }}: 
+    - template: ./steps-deploy.yml
+  # publish artifact only if required.
+  - ${{ if eq(parameters.artifact, true) }}: 
+    - template: ./steps-artifact.yml

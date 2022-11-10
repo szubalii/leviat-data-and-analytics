@@ -1,0 +1,298 @@
+# .NET Desktop
+# Build and run tests for .NET Desktop or Windows classic desktop solutions.
+# Add steps that publish symbols, save build artifacts, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/apps/windows/dot-net
+
+
+jobs:
+  # Set variables
+- job: PrintVariables
+  pool:
+    name: 'VM'
+    demands:
+    - node.js
+    - VisualStudio
+  steps:
+  - script: |
+      echo "user ${{variables.user}}"
+      echo "user $(user)"
+      echo "dataFactoryName ${{variables.dataFactoryName}}"
+      echo "dataFactoryName $(dataFactoryName)"
+      echo "dataFactoryName %DATAFACTORYNAME%"
+      echo "sqlDatabaseName ${{variables.sqlDatabaseName}}"
+      echo "sqlDatabaseName $(sqlDatabaseName)"
+      echo "synapseSqlPool ${{variables.synapseSqlPool}}"
+      echo "synapseSqlPool $(synapseSqlPool)"
+
+# Deploy jobs
+- template: ../orchestration/build/jobs-deploy.yml
+# - template: ../synapse-dwh/build/jobs-deploy.yml
+# - template: ../azure-data-factory/build/jobs-deploy.yml
+# - template: ../xu-config/build/jobs-deploy-test.yml
+
+#   steps:
+
+#   - task: Npm@1
+#     inputs:
+#       command: 'install'
+#       workingDir: '$(Build.Repository.LocalPath)/orchestration' #replace with the package.json folder
+#       verbose: true
+#     displayName: 'Install npm package'
+
+#   # Validate the Orchestration config
+#   - task: Npm@1
+#     inputs:
+#       command: 'custom'
+#       workingDir: '$(Build.Repository.LocalPath)/orchestration'
+#       customCommand: 'run validate $(Build.Repository.LocalPath)'
+#     displayName: 'Validate Orchestration Config'
+
+#   - task: NuGetToolInstaller@1
+
+#   - task: NuGetCommand@2
+#     inputs:
+#       restoreSolution: '$(orchDBSolution)'
+
+#   - task: VSBuild@1
+#     inputs:
+#       solution: '$(orchDBSolution)'
+#       platform: '$(buildPlatform)'
+#       configuration: '$(buildConfiguration)'
+
+#   # - task: VSTest@2
+#   #   inputs:
+#   #     platform: '$(buildPlatform)'
+#   #     configuration: '$(buildConfiguration)'
+
+#   - task: CopyFiles@2
+#     inputs:
+#       SourceFolder: '$(Build.SourcesDirectory)\orchestration\sqldb-xxxx-orchdb-d-euw-001\bin\Release'
+#       Contents: '*.dacpac'
+#       TargetFolder: '$(Build.ArtifactStagingDirectory)'
+#     displayName: 'Copy dacpac file'
+
+#   - task: CopyFiles@2
+#     inputs:
+#       SourceFolder: '$(Build.SourcesDirectory)\orchestration'
+#       Contents: '*publish.xml'
+#       TargetFolder: '$(Build.ArtifactStagingDirectory)'
+#     displayName: 'Copy publish config file'
+
+#   - task: CopyFiles@2
+#     inputs:
+#       SourceFolder: '$(Build.SourcesDirectory)\orchestration\Master Data'
+#       Contents: '**\*.csv'
+#       TargetFolder: '$(Build.ArtifactStagingDirectory)\Master Data'
+#     displayName: 'Copy Master Data'
+
+#   - task: CopyFiles@2
+#     inputs:
+#       SourceFolder: '$(Build.SourcesDirectory)\orchestration\src'
+#       Contents: '**\*'
+#       TargetFolder: '$(Build.ArtifactStagingDirectory)\src'
+#     displayName: 'Copy src folder'
+
+#   - task: CopyFiles@2
+#     inputs:
+#       SourceFolder: '$(Build.SourcesDirectory)\orchestration'
+#       Contents: 'package.json'
+#       TargetFolder: '$(Build.ArtifactStagingDirectory)'
+#     displayName: 'Copy npm package'
+
+#   - task: PublishPipelineArtifact@1
+#     inputs:
+#       targetPath: '$(Build.ArtifactStagingDirectory)'
+#       artifact: 'OrchestrationDB'
+#       publishLocation: 'pipeline'
+  
+  
+  
+  # Azure Data Factory Build & Deploy Job
+# - job: ADF
+#   dependsOn: 
+#   # - OrchDB
+#   - StartVM
+#   pool:
+#     name: 'VM'
+#     demands:
+#     - node.js
+#     - VisualStudio
+
+#   steps:
+  
+#     # Installs the npm packages saved in your package.json file in the build
+#   - task: Npm@1
+#     inputs:
+#       command: 'install'
+#       workingDir: '$(Build.Repository.LocalPath)/azure-data-factory' #replace with the package.json folder
+#       verbose: true
+#     displayName: 'Install npm package'
+
+#     # Validates all of the Data Factory resources in the repository. You'll get the same validation errors as when "Validate All" is selected.
+#     # Enter the appropriate subscription and name for the source factory.
+
+#   - task: Npm@1
+#     inputs:
+#       command: 'custom'
+#       workingDir: '$(Build.Repository.LocalPath)/azure-data-factory' #replace with the package.json folder
+#       customCommand: 'run build validate $(Build.Repository.LocalPath)/azure-data-factory /subscriptions/f199b488-7d9d-4992-aeda-c10a1e1c9b9e/resourceGroups/rg-xxxx-sls-d-euw-001/providers/Microsoft.DataFactory/factories/df-xxxx-sls-d-euw-001'
+#     displayName: 'Validate'
+
+#     # Validate and then generate the ARM template into the destination folder, which is the same as selecting "Publish" from the UX.
+#     # The ARM template generated isn't published to the live version of the factory. Deployment should be done by using a CI/CD pipeline. 
+
+#   - task: Npm@1
+#     inputs:
+#       command: 'custom'
+#       workingDir: '$(Build.Repository.LocalPath)/azure-data-factory' #replace with the package.json folder
+#       customCommand: 'run build export $(Build.Repository.LocalPath)/azure-data-factory /subscriptions/f199b488-7d9d-4992-aeda-c10a1e1c9b9e/resourceGroups/rg-xxxx-sls-d-euw-001/providers/Microsoft.DataFactory/factories/df-xxxx-sls-d-euw-001 "ArmTemplate"'
+#     displayName: 'Validate and Generate ARM template'
+
+#   - task: AzurePowerShell@5
+#     displayName: 'Stop Triggers'
+#     inputs:
+#       azureSubscription: 'arm-pipeline'
+#       ScriptPath: '$(Build.Repository.LocalPath)/azure-data-factory/ArmTemplate/PrePostDeploymentScript.ps1'
+#       ScriptArguments: '-armTemplate "$(Build.Repository.LocalPath)/azure-data-factory/ArmTemplate/ARMTemplateForFactory.json" -ResourceGroupName $(resourceGroupName) -DataFactoryName $(dataFactoryName) -predeployment $true -deleteDeployment $false'
+#       azurePowerShellVersion: LatestVersion
+#       pwsh: true
+
+#   - task: AzurePowerShell@5
+#     displayName: 'Azure PowerShell script: FilePath'
+#     inputs:
+#       azureSubscription: 'arm-pipeline'
+#       ScriptPath: '$(Build.Repository.LocalPath)/azure-data-factory/ArmTemplate/GlobalParametersUpdateScript.ps1'
+#       ScriptArguments: '-globalParametersFilePath $(Build.Repository.LocalPath)/azure-data-factory/GlobalParameters/dev_GlobalParameters.json -resourceGroupName $(resourceGroupName) -dataFactoryName $(dataFactoryName)'
+#       azurePowerShellVersion: LatestVersion
+#       pwsh: true
+    
+#   - task: AzureResourceManagerTemplateDeployment@3
+#     displayName: 'ARM Template deployment: Resource Group scope'
+#     inputs:
+#       azureResourceManagerConnection: 'arm-pipeline'
+#       subscriptionId: 'f199b488-7d9d-4992-aeda-c10a1e1c9b9e'
+#       resourceGroupName: '$(resourceGroupName)'
+#       location: 'West Europe'
+#       csmFile: '$(Build.Repository.LocalPath)/azure-data-factory/ArmTemplate/ARMTemplateForFactory.json'
+#       csmParametersFile: '$(Build.Repository.LocalPath)/azure-data-factory/ArmTemplate/ARMTemplateParametersForFactory.json'
+#       overrideParameters: '-ls_ws_xxxx_sls_x_euw_001_ondemand__synapse_od_connectionString "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=$(synapseServer)-ondemand.sql.azuresynapse.net;Initial Catalog=synapse_od" -ls_ws_xxxx_sls_x_euw_001_ondemand__master_connectionString "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=$(synapseServer)-ondemand.sql.azuresynapse.net;Initial Catalog=master" -ls_ws_xxxx_sls_x_euw_001__syndw_xxxx_sls_x_euw_001_connectionString "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=$(synapseServer);Initial Catalog=$(synapseDatabase)" -ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001_connectionString "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=$(sqlServer);Initial Catalog=$(sqlDatabase)" -ls_axbi_x_TimeXtender__master_connectionString "Integrated Security=False;Data Source=$(axbiServer);Initial Catalog=master;User ID=JustBI" -factoryName "$(dataFactoryName)" -ls_kv_xxxx_sls_x_euw_001_properties_typeProperties_baseUrl "https://$(keyVaultName).vault.azure.net/" -stxxxxslsxeuw001_properties_typeProperties_url "https://$(storageAccountName).dfs.core.windows.net/" -tr_AutoPauseSynDW_properties_pl_SYNDW_pause_parameters_SynapseServerName "$(synapseServer)" -tr_AutoPauseSynDW_properties_pl_SYNDW_pause_parameters_SynapseDatabaseName "$(synapseDatabase)" -tr_AutoPauseSynDW_properties_pl_SYNDW_pause_parameters_ResourceGroupName "$(resourceGroupName)" -tr_OrchDB_Update_properties_typeProperties_scope "/subscriptions/f199b488-7d9d-4992-aeda-c10a1e1c9b9e/resourceGroups/$(resourceGroupName)/providers/Microsoft.Storage/storageAccounts/$(storageAccountName)" -ir-WEXLEVAPP001_properties_typeProperties_linkedInfo_resourceId "$(SHIRResourceId)" -ls_c4c_my354744_properties_typeProperties_url "$(sapC4Curl)"'
+  
+#   - task: AzurePowerShell@5
+#     displayName: 'Start Triggers'
+#     inputs:
+#       azureSubscription: 'arm-pipeline'
+#       ScriptPath: '$(Build.Repository.LocalPath)/azure-data-factory/ArmTemplate/PrePostDeploymentScript.ps1'
+#       ScriptArguments: '-armTemplate "$(Build.Repository.LocalPath)/azure-data-factory/ArmTemplate/ARMTemplateForFactory.json" -ResourceGroupName $(resourceGroupName) -DataFactoryName $(dataFactoryName) -predeployment $false -deleteDeployment $true'
+#       azurePowerShellVersion: LatestVersion
+#       pwsh: true
+
+  # Azure Synapse Dedicated SQL Pool Build Job
+# - job: SynapseDWH
+#   dependsOn: 
+#   - OrchDB
+#   - StartVM
+#   pool:
+#     name: 'VM'
+#     demands:
+#     - node.js
+#     - VisualStudio
+#     - Python.Version
+
+#   variables:
+#     synapseDWHSolution: '**/synapse-dwh/*.sln'
+#     buildPlatform: 'Any CPU'
+#     buildConfiguration: 'Debug'
+
+#   steps:
+
+#     # Check for duplicates in Master Data csv-files
+#   - task: PythonScript@0
+#     inputs:
+#       scriptSource: 'filePath'
+#       scriptPath: './synapse-dwh/src/libs/check_duplicates.py'
+#     displayName: 'Check for duplicates in Master Data csv-files'
+      
+#   - task: NuGetToolInstaller@1
+
+#   - task: NuGetCommand@2
+#     inputs:
+#       restoreSolution: '$(synapseDWHSolution)'
+
+#     # Substitute the connection string for the Test Project 
+#     # so Azure DevOps can run the Test Cases
+#   - task: FileTransform@1
+#     displayName: 'Update Connection String for Test Project'
+#     inputs:
+#       folderPath: '$(System.DefaultWorkingDirectory)/synapse-dwh/Test/'
+#       fileType: 'xml'
+#       targetFiles: 'app.config'
+
+#     # Build the Test Project
+#   - task: VSBuild@1
+#     displayName: 'Build Test Project'
+#     inputs:
+#       solution: '**/synapse-dwh/**/*.csproj'
+#       platform: '$(buildPlatform)'
+#       configuration: '$(buildConfiguration)'
+
+#     # Build the SQL DB Project
+#   - task: VSBuild@1
+#     displayName: 'Build SQL DB Project'
+#     inputs:
+#       solution: '$(synapseDWHSolution)'
+#       platform: '$(buildPlatform)'
+#       configuration: '$(buildConfiguration)'
+#   #    msbuildArgs: '/v:SqlCmdVar__1=stxxxxslsdeuw001'
+
+
+
+#   #- task: VSTest@2
+#   #  inputs:
+#   #    platform: '$(buildPlatform)'
+#   #    configuration: '$(buildConfiguration)'
+
+#     # expose dacpac as build artifact
+#   - task: CopyFiles@2
+#     displayName: 'Copy SQL DB dacpac'
+#     inputs:
+#       SourceFolder: '$(Build.SourcesDirectory)\synapse-dwh\syndw_xxxx_sls_d_euw_001\bin\$(buildConfiguration)'
+#       Contents: '*.dacpac'
+#       TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
+#   - task: CopyFiles@2
+#     displayName: 'Copy Test Assemblies'
+#     inputs:
+#       SourceFolder: '$(Build.SourcesDirectory)\synapse-dwh\Test\bin\$(buildConfiguration)'
+#       Contents: '**'
+#       TargetFolder: '$(Build.ArtifactStagingDirectory)\Test'
+
+#     # expose publish config as build artifact
+#   - task: CopyFiles@2
+#     displayName: 'Copy publish config'
+#     inputs:
+#       SourceFolder: '$(Build.SourcesDirectory)\synapse-dwh\publish'
+#       Contents: '*.xml'
+#       TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
+#     # expose src folder as build artifact
+#   - task: CopyFiles@2
+#     displayName: 'Copy src folder'
+#     inputs:
+#       SourceFolder: '$(Build.SourcesDirectory)\synapse-dwh\src'
+#       Contents: '**\*'
+#       TargetFolder: '$(Build.ArtifactStagingDirectory)\src'
+
+#     # expose Master Data as build artifact
+#   - task: CopyFiles@2
+#     displayName: 'Copy Master Data files'
+#     inputs:
+#       SourceFolder: '$(Build.SourcesDirectory)\synapse-dwh\syndw_xxxx_sls_d_euw_001\Master Data'
+#       Contents: '**\*.csv'
+#       TargetFolder: '$(Build.ArtifactStagingDirectory)\Master Data'
+
+#     # publish artifacts
+#   - task: PublishPipelineArtifact@1
+#     inputs:
+#       targetPath: '$(Build.ArtifactStagingDirectory)'
+#       artifact: 'SynapseDWH'
+#       publishLocation: 'pipeline'

@@ -8,7 +8,11 @@ SELECT
   SIIPOR.[PurchaseOrder],
   SIIPOR.[PurchaseOrderItem],
   SIIPOR.[Plant],
-  SIIPOR.[SupplierInvoiceItemText],
+  CASE WHEN SuplrInvcDeliveryCostCndnType = ''
+    THEN factPDI.[PurchasingDocumentItemText]
+    ELSE COND.[ACMPRICINGCONDITIONTYPENAME]
+        END AS PurchasingDocumentItemShortText,
+  factPDI.[PurchasingDocumentItemText],
   SIIPOR.[PurchaseOrderItemMaterial],
   SIIPOR.[PurchaseOrderQuantityUnit],
   SIIPOR.[QuantityInPurchaseOrderUnit],
@@ -46,9 +50,33 @@ LEFT JOIN
     SIIPOR.[PurchaseOrder] = factPDI.[PurchasingDocument]
     AND
     SIIPOR.[PurchaseOrderItem] = factPDI.[PurchasingDocumentItem]
+  
 JOIN
   [edw].[fact_SupplierInvoice] fact_SpI
   ON
     fact_SpI.[SupplierInvoiceID] = SIIPOR.[SupplierInvoice]
     AND
     fact_SpI.[FiscalYear] = SIIPOR.[FiscalYear]
+
+
+ LEFT OUTER JOIN [edw].[fact_PurchasingDocument] factPD
+ ON
+    SIIPOR.PurchaseOrder = factPD.PurchasingDocument
+
+
+ LEFT OUTER JOIN [base_s4h_cax].[I_PricingElement] PRC 
+ ON
+    factPD.PurchasingDocumentCondition = PRC.PricingDocument
+    AND 
+    SIIPOR.PurchaseOrderItem = PRC.PricingDocumentItem
+    AND 
+    SIIPOR.SuplrInvcDeliveryCostCndnType = PRC.ConditionType
+
+
+ LEFT OUTER JOIN [base_s4h_cax].[P_ConditionTypeText] COND 
+ ON 
+    COND.KSCHL = SIIPOR.SuplrInvcDeliveryCostCndnType
+    AND 
+    COND.KAPPL = PRC.ConditionApplication
+    AND
+    COND.SPRAS = 'E'

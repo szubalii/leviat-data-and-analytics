@@ -33,7 +33,13 @@
 					},
 					"dataset": {
 						"referenceName": "ds_orch_db",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"sqlDb": {
+								"value": "@pipeline().globalParameters.sqlDb",
+								"type": "Expression"
+							}
+						}
 					},
 					"firstRowOnly": false
 				}
@@ -157,7 +163,13 @@
 				},
 				"linkedServiceName": {
 					"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
-					"type": "LinkedServiceReference"
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"sqlDb": {
+							"value": "@pipeline().globalParameters.sqlDb",
+							"type": "Expression"
+						}
+					}
 				}
 			},
 			{
@@ -212,7 +224,13 @@
 				},
 				"linkedServiceName": {
 					"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
-					"type": "LinkedServiceReference"
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"sqlDb": {
+							"value": "@pipeline().globalParameters.sqlDb",
+							"type": "Expression"
+						}
+					}
 				}
 			},
 			{
@@ -293,7 +311,13 @@
 				},
 				"linkedServiceName": {
 					"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
-					"type": "LinkedServiceReference"
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"sqlDb": {
+							"value": "@pipeline().globalParameters.sqlDb",
+							"type": "Expression"
+						}
+					}
 				}
 			},
 			{
@@ -350,7 +374,13 @@
 				},
 				"linkedServiceName": {
 					"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
-					"type": "LinkedServiceReference"
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"sqlDb": {
+							"value": "@pipeline().globalParameters.sqlDb",
+							"type": "Expression"
+						}
+					}
 				}
 			},
 			{
@@ -407,7 +437,13 @@
 				},
 				"linkedServiceName": {
 					"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
-					"type": "LinkedServiceReference"
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"sqlDb": {
+							"value": "@pipeline().globalParameters.sqlDb",
+							"type": "Expression"
+						}
+					}
 				}
 			},
 			{

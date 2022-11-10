@@ -1,8 +1,6 @@
 {
 	"nameGenerator": {
 		"suffix": "",
-		"objectNamingMode": "Custom",
-		"customName": "I_MfgOrderCategoryText",
 		"appendsTimestamp": true
 	},
 	"internalSettings": {

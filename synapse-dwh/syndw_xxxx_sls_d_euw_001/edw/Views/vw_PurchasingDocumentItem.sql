@@ -30,6 +30,7 @@ SELECT
     PDI.[PurchasingDocument],
     PDI.[PurchasingDocumentItem],
     PDI.[Material]                          AS [MaterialID],
+    PDI.[PurchasingDocumentItemText],
     PDI.[DocumentCurrency]                  AS [DocumentCurrencyID],
     PDI.[Plant]                             AS [PlantID],
     PDI.[CompanyCode]                       AS [CompanyCodeID],

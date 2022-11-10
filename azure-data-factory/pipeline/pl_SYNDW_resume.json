@@ -3,11 +3,11 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "act_until_IsSynapseOnline",
+				"name": "Until SQL Pool Is Online",
 				"type": "Until",
 				"dependsOn": [
 					{
-						"activity": "act_web_ResumeAzureSynapseAnalytics",
+						"activity": "Resume Synapse SQL Pool",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -21,20 +21,20 @@
 					},
 					"activities": [
 						{
-							"name": "act_Wait5Seconds",
+							"name": "Wait 10 seconds",
 							"type": "Wait",
 							"dependsOn": [],
 							"userProperties": [],
 							"typeProperties": {
-								"waitTimeInSeconds": 5
+								"waitTimeInSeconds": 10
 							}
 						},
 						{
-							"name": "act_web_CheckSynapseStatus",
+							"name": "Get SQL Pool Status",
 							"type": "WebActivity",
 							"dependsOn": [
 								{
-									"activity": "act_Wait5Seconds",
+									"activity": "Wait 10 seconds",
 									"dependencyConditions": [
 										"Succeeded"
 									]
@@ -50,7 +50,7 @@
 							"userProperties": [],
 							"typeProperties": {
 								"url": {
-									"value": "@concat(\n\t'https://management.azure.com/subscriptions/'\n\t,pipeline().parameters.SubscriptionId\n\t,'/resourceGroups/'\n\t,pipeline().parameters.ResourceGroupName\n\t,'/providers/Microsoft.Synapse/workspaces/'\n\t,pipeline().parameters.SynapseServerName\n\t,'/sqlPools/'\n\t,pipeline().parameters.SynapseDatabaseName\n\t,'?api-version=2021-03-01'\n)",
+									"value": "@concat(\n\t'https://management.azure.com/subscriptions/'\n\t,'f199b488-7d9d-4992-aeda-c10a1e1c9b9e'\n\t,'/resourceGroups/'\n\t,pipeline().globalParameters.resourceGroupName\n\t,'/providers/Microsoft.Synapse/workspaces/'\n\t,pipeline().globalParameters.synapseServerName\n\t,'/sqlPools/'\n\t,pipeline().globalParameters.synapseDatabaseName\n\t,'?api-version=2021-03-01'\n)",
 									"type": "Expression"
 								},
 								"method": "GET",
@@ -61,11 +61,11 @@
 							}
 						},
 						{
-							"name": "act_set_SynapseStatusVar",
+							"name": "Set status variable",
 							"type": "SetVariable",
 							"dependsOn": [
 								{
-									"activity": "act_web_CheckSynapseStatus",
+									"activity": "Get SQL Pool Status",
 									"dependencyConditions": [
 										"Succeeded"
 									]
@@ -75,7 +75,7 @@
 							"typeProperties": {
 								"variableName": "synapse_status",
 								"value": {
-									"value": "@activity('act_web_CheckSynapseStatus').output.properties.status",
+									"value": "@activity('Get SQL Pool Status').output.properties.status",
 									"type": "Expression"
 								}
 							}
@@ -85,7 +85,7 @@
 				}
 			},
 			{
-				"name": "act_web_ResumeAzureSynapseAnalytics",
+				"name": "Resume Synapse SQL Pool",
 				"description": "",
 				"type": "WebActivity",
 				"dependsOn": [],
@@ -104,7 +104,7 @@
 				],
 				"typeProperties": {
 					"url": {
-						"value": "@concat(\n\t'https://management.azure.com/subscriptions/'\n\t,pipeline().parameters.SubscriptionId\n\t,'/resourceGroups/'\n\t,pipeline().parameters.ResourceGroupName\n\t,'/providers/Microsoft.Synapse/workspaces/'\n\t,pipeline().parameters.SynapseServerName\n\t,'/sqlPools/'\n\t,pipeline().parameters.SynapseDatabaseName\n\t,'/Resume'\n\t,'?api-version=2021-03-01'\n)",
+						"value": "@concat(\n\t'https://management.azure.com/subscriptions/'\n\t,'f199b488-7d9d-4992-aeda-c10a1e1c9b9e'\n\t,'/resourceGroups/'\n\t,pipeline().globalParameters.resourceGroupName\n\t,'/providers/Microsoft.Synapse/workspaces/'\n\t,pipeline().globalParameters.synapseServerName\n\t,'/sqlPools/'\n\t,pipeline().globalParameters.synapseDatabaseName\n\t,'/Resume'\n\t,'?api-version=2021-03-01'\n)",
 						"type": "Expression"
 					},
 					"method": "POST",
@@ -119,24 +119,6 @@
 				}
 			}
 		],
-		"parameters": {
-			"SubscriptionId": {
-				"type": "string",
-				"defaultValue": "f199b488-7d9d-4992-aeda-c10a1e1c9b9e"
-			},
-			"ResourceGroupName": {
-				"type": "string",
-				"defaultValue": "rg-xxxx-sls-d-euw-001"
-			},
-			"SynapseServerName": {
-				"type": "string",
-				"defaultValue": "ws-xxxx-sls-d-euw-001"
-			},
-			"SynapseDatabaseName": {
-				"type": "string",
-				"defaultValue": "syndw_xxxx_sls_d_euw_001"
-			}
-		},
 		"variables": {
 			"synapse_status": {
 				"type": "String"

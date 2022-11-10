@@ -1,0 +1,16 @@
+# Orchestration Database Build & Deploy Job
+jobs:
+- job: OrchDBDeploy
+  # ${{ if eq(parameters.deploy, true) }}:
+  # - dependsOn: OrchDBBuild
+  # - condition: succeeded('OrchDBBuild')
+  # dependsOn: ${{if eq($(deployEnv),'personal'),OrchDBBuild,)}}
+  pool:
+    name: 'VM'
+    demands:
+    - node.js
+    - VisualStudio
+
+  steps:
+
+  - template: ./steps-deploy.yml

@@ -147,4 +147,4 @@ LEFT JOIN
 WHERE
         P.[ProductType] in ('ZROH', 'ZHAW')
     AND 
-        PPr.[PurchasingAcknProfile] != 'ZMT1'
+        PPr.[PurchasingAcknProfile] != 'Z1'

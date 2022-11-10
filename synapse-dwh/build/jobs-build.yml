@@ -1,0 +1,32 @@
+# Azure Synapse Dedicated SQL Pool Build Job
+parameters:
+- name: artifact
+  type: boolean
+  default: false
+- name: deploy
+  type: boolean
+  default: false
+
+jobs:
+- job: SynapseDWHBuild
+  dependsOn: StartVM
+  pool:
+    name: 'VM'
+    demands:
+    - node.js
+    - VisualStudio
+    - Python.Version
+
+  variables:
+    synapseDWHSolution: '**/synapse-dwh/*.sln'
+    buildPlatform: 'Any CPU'
+    buildConfiguration: 'Release'
+
+  steps:
+  - template: ./steps-build.yml
+  # deploy only if required.
+  - ${{ if eq(parameters.deploy, true) }}: 
+    - template: ./steps-deploy.yml
+  # publish artifact only if required.
+  - ${{ if eq(parameters.artifact, true) }}: 
+    - template: ./steps-artifact.yml

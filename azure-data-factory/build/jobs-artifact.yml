@@ -1,0 +1,13 @@
+# Azure Data Factory Artifact Job
+jobs:
+- job: ADFArtifact
+  dependsOn: ADFBuild
+  pool:
+    name: 'VM'
+    demands:
+    - node.js
+    - VisualStudio
+
+  steps:
+
+  - template: ./steps-artifact.yml

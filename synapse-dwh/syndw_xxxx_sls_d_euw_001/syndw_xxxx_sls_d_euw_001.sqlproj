@@ -21,13 +21,6 @@
     <IncludeCompositeObjects>True</IncludeCompositeObjects>
     <TargetDatabaseSet>True</TargetDatabaseSet>
     <DefaultCollation>SQL_Latin1_General_CP1_CS_AS</DefaultCollation>
-    <QueryStoreCaptureMode>None</QueryStoreCaptureMode>
-    <QueryStoreDesiredState>Off</QueryStoreDesiredState>
-    <QueryStoreFlushInterval>900</QueryStoreFlushInterval>
-    <QueryStoreStatsInterval>60</QueryStoreStatsInterval>
-    <QueryStoreMaxPlansPerQuery>0</QueryStoreMaxPlansPerQuery>
-    <QueryStoreStaleQueryThreshold>0</QueryStoreStaleQueryThreshold>
-    <QueryStoreMaxStorageSize>0</QueryStoreMaxStorageSize>
     <DbScopedConfigLegacyCardinalityEstimation>Off</DbScopedConfigLegacyCardinalityEstimation>
     <DbScopedConfigLegacyCardinalityEstimationSecondary>Off</DbScopedConfigLegacyCardinalityEstimationSecondary>
     <DbScopedConfigMaxDOP>0</DbScopedConfigMaxDOP>
@@ -96,6 +89,13 @@
     <DefineTrace>true</DefineTrace>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <QueryStoreCaptureMode>None</QueryStoreCaptureMode>
+    <QueryStoreDesiredState>Off</QueryStoreDesiredState>
+    <QueryStoreFlushInterval>0</QueryStoreFlushInterval>
+    <QueryStoreStatsInterval>0</QueryStoreStatsInterval>
+    <QueryStoreMaxPlansPerQuery>0</QueryStoreMaxPlansPerQuery>
+    <QueryStoreStaleQueryThreshold>0</QueryStoreStaleQueryThreshold>
+    <QueryStoreMaxStorageSize>0</QueryStoreMaxStorageSize>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DSP>Microsoft.Data.Tools.Schema.Sql.SqlAzureV12DatabaseSchemaProvider</DSP>
@@ -109,6 +109,13 @@
     <DefineTrace>true</DefineTrace>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <QueryStoreCaptureMode>Auto</QueryStoreCaptureMode>
+    <QueryStoreDesiredState>ReadWrite</QueryStoreDesiredState>
+    <QueryStoreFlushInterval>900</QueryStoreFlushInterval>
+    <QueryStoreStatsInterval>60</QueryStoreStatsInterval>
+    <QueryStoreMaxPlansPerQuery>200</QueryStoreMaxPlansPerQuery>
+    <QueryStoreStaleQueryThreshold>30</QueryStoreStaleQueryThreshold>
+    <QueryStoreMaxStorageSize>100</QueryStoreMaxStorageSize>
   </PropertyGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
@@ -926,10 +933,10 @@
     <Build Include="base_s4h_cax\Tables\I_SupplierInvoiceItemGLAcct.sql" />
     <Build Include="base_tx_halfen_2_dwh\Tables\FACT_PRODJOURNALPROD.sql" />
     <Build Include="base_tx_halfen_2_dwh\Tables\FACT_PURCHLINE.sql" />
-    <Build Include="edw\Tables\fact_MaterialDocumentItem_axbi.sql" />
     <Build Include="map_AXBI\Tables\InventSite.sql" />
     <Build Include="map_AXBI\Tables\StockUnit.sql" />
     <Build Include="edw\Views\vw_MaterialDocumentItem_axbi.sql" />
+    <Build Include="edw\Views\vw_MaterialDocumentItem_s4h.sql" />
     <Build Include="base_tx_halfen_2_dwh\Tables\DIM_VENDTABLE.sql" />
     <Build Include="base_dw_halfen_1_stg\Tables\AX_Halfen_dbo_COMPANYINFO.sql" />
     <Build Include="base_s4h_cax\Tables\I_PurgDocumentItemCategory.sql" />
@@ -1013,15 +1020,13 @@
     <Build Include="base_s4h_cax\Tables\PurgAccAssignment.sql" />
     <Build Include="base_s4h_cax\Tables\NSDM_V_MARC.sql" />
     <Build Include="base_s4h_cax\Tables\NSDM_V_MAWEV.sql" />
-    <Build Include="edw\Tables\fact_MaterialDocumentItem_temp.sql" />
-    <Build Include="edw\Views\vw_fact_MaterialDocumentItem_temp.sql" />
-    <Build Include="edw\Views\vw_fact_MaterialStockLevel_temp.sql" />
-    <Build Include="edw\Tables\fact_MaterialStockLevel_temp.sql" />
+    <Build Include="edw\Views\vw_MaterialStockLevel.sql" />
+    <Build Include="edw\Tables\fact_MaterialStockLevel.sql" />
     <Build Include="dm_sales\Views\vw_dim_SuppliersList.sql" />
     <Build Include="dm_sales\Views\vw_fact_SpendAnalysis.sql" />
     <Build Include="dq\Views\vw_Product_1_1.sql" />
     <Build Include="dq\Views\vw_Product_1_26.sql" />
-    <Build Include="dq\Views\vw_Product_1_29_all.sql" />
+    <Build Include="dq\Views\vw_Product_1_34.sql" />
     <Build Include="dq\Views\vw_Product_1_31.sql" />
     <Build Include="dq\Views\vw_Product_1_32.sql" />
     <Build Include="dq\Views\vw_Product_1_33.sql" />
@@ -1075,6 +1080,11 @@
     <Build Include="intm_axbi\Stored Procedures\up_ReadSales_HALF.sql" />
     <Build Include="intm_axbi\Stored Procedures\up_ReadSales_PLAKA_BE.sql" />
     <Build Include="intm_axbi\Stored Procedures\up_ReadSales_PLAKA_FR.sql" />
+    <Build Include="dq\Views\vw_Product_1_35.sql" />
+    <Build Include="base_tx_ca_0_hlp\Tables\INVOICEDFREIGHT_ISUK.sql" />
+    <Build Include="base_tx_ca_0_hlp\Tables\CUSTTABLE_ISUK.sql" />
+    <Build Include="base_tx_ca_0_hlp\Tables\CUSTINVOICETRANS_ISUK.sql" />
+    <Build Include="base_tx_ca_0_hlp\Tables\ITEMTABLE_ISUK.sql" />
     <Build Include="intm_axbi\Stored Procedures\up_ReadSales_ANUK_pkg.sql" />
     <Build Include="intm_axbi\Stored Procedures\up_ReadSales_ISUK_pkg.sql" />
     <Build Include="intm_axbi\Stored Procedures\up_ReadSales_ANAC_pkg.sql" />
@@ -1088,6 +1098,12 @@
     <Build Include="intm_axbi\Stored Procedures\up_createAxBiBasicData.sql" />
     <Build Include="intm_axbi\Stored Procedures\up_CollectSales_CA.sql" />
     <Build Include="intm_axbi\Stored Procedures\up_CUSTINVOICETRANS_Werte_nach_CRH_Kurs_umrechnen.sql" />
+    <Build Include="base_s4h_cax\Tables\P_UserAddress.sql" />
+    <Build Include="edw\Views\vw_UserAddress.sql" />
+    <Build Include="edw\Tables\dim_UserAddress.sql" />
+    <Build Include="dm_sales\Views\vw_dim_UserAddress.sql" />
+	<Build Include="base_s4h_cax\Tables\I_PricingElement.sql" />
+	<Build Include="base_s4h_cax\Tables\P_ConditionTypeText.sql" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PostDeploy Include="Scripts\Post-Deploy\Script.PostDeployment.sql" />

@@ -1,0 +1,14 @@
+{
+    "created": {
+        "machine": "[::ffff:84.82.142.194]:50969",
+        "timestamp": "20210702T034122.000Z"
+    },
+    "destination": "stxxxxslsdeuw001_s4h-cad-200",
+    "lastChange": {
+        "machine": "WEALEVAPP001",
+        "timestamp": "20221108T153111.742Z",
+        "user": "EMATCRHPP\\fbouw"
+    },
+    "source": "CRH_Leviat_S4HANA_CAD_200",
+    "type": "Table"
+}
