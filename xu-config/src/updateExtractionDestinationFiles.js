@@ -6,7 +6,7 @@ function getDestinationFile (filePath) {
         return require(filePath);
     }
     catch (e) {
-        console.warning('##[warning] destination.json file does not exist: ' + e);
+        console.log('##[warning] destination.json file does not exist: ' + e);
     }
 }
 
