@@ -21,7 +21,9 @@ SELECT
         viewMD.[StockPricePerUnit_EUR],
         viewMD.[StockPricePerUnit_USD],
         DATEADD(day, -(DAY(viewMD.[HDR_PostingDate])-1),viewMD.[HDR_PostingDate]) AS HDR_PostingDate_FMD,
-        viewMD.[InventoryValuationTypeID]
+        viewMD.[InventoryValuationTypeID],
+        viewMD.t_applicationId,
+        viewMD.t_extractionDtm
     FROM [edw].[fact_MaterialDocumentItem] viewMD
     group by
         viewMD.[_hash],
@@ -41,7 +43,9 @@ SELECT
         viewMD.[StockPricePerUnit_EUR],
         viewMD.[StockPricePerUnit_USD],
         DATEADD(day, -(DAY(viewMD.[HDR_PostingDate])-1),viewMD.[HDR_PostingDate]),
-        viewMD.[InventoryValuationTypeID] 
+        viewMD.[InventoryValuationTypeID],
+        viewMD.t_applicationId,
+        viewMD.t_extractionDtm 
 ), Hash_Calc_Min AS(
     SELECT
         _hash,
@@ -58,6 +62,8 @@ SELECT
         max([MaterialBaseUnitID]) AS MaterialBaseUnitID,
         max([PurchaseOrderTypeID]) AS PurchaseOrderTypeID,
         max([InventoryValuationTypeID]) AS InventoryValuationTypeID,
+        max(t_applicationId) AS t_applicationId,
+        max(t_extractionDtm) AS t_extractionDtm,
         min([HDR_PostingDate_FMD]) AS minHDR_PostingDate       
     FROM Hash_Calc viewMD   
     GROUP BY _hash
@@ -81,7 +87,9 @@ SELECT
         HC.[MaterialBaseUnitID],
         HC.[PurchaseOrderTypeID],
         HC.[InventoryValuationTypeID],
-        HC.[minHDR_PostingDate]
+        HC.[minHDR_PostingDate],
+        HC.[t_applicationId],
+        HC.[t_extractionDtm]
     FROM Hash_Calc_Min HC
     CROSS JOIN [edw].[dim_Calendar] AS dimC
     WHERE dimC.[CalendarDate] BETWEEN minHDR_PostingDate AND GETDATE()
@@ -135,7 +143,9 @@ SELECT
         CPPUP.[PriceControlIndicatorID],
         CPPUP.[PriceControlIndicator], 
         CPPUP.[sk_dim_ProductValuationPUP]    AS [sk_dim_ProductValuationPUP],
-        CPPUP.[nk_dim_ProductValuationPUP]    AS [nk_dim_ProductValuationPUP]
+        CPPUP.[nk_dim_ProductValuationPUP]    AS [nk_dim_ProductValuationPUP],
+        CC.t_applicationId,
+        CC.t_extractionDtm
         FROM Calendar_Calc CC
         LEFT JOIN Hash_Calc HC
             ON
@@ -177,6 +187,8 @@ SELECT
     [PriceControlIndicatorID],
     [PriceControlIndicator],
     [nk_dim_ProductValuationPUP],
-    [sk_dim_ProductValuationPUP]  
+    [sk_dim_ProductValuationPUP],
+    [t_applicationId],
+    [t_extractionDtm]
 FROM 
     Calendar_TotalAmount
