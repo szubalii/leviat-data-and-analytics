@@ -188,7 +188,7 @@ SELECT
     [PriceControlIndicator],
     [nk_dim_ProductValuationPUP],
     [sk_dim_ProductValuationPUP],
-    [t_applicationId,
-    t_extractionDtm
+    [t_applicationId],
+    [t_extractionDtm]
 FROM 
     Calendar_TotalAmount
