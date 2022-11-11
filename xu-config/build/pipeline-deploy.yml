@@ -1,10 +1,10 @@
-trigger: none
-#   branches:
-#     include: 
-#     # - deployment-pipeline
-#   paths:
-#     include: 
-    # - xu-config/*
+trigger: #none
+  branches:
+    include: 
+    - xu-deploy
+  paths:
+    include: 
+    - xu-config/*
 
 # parameters:
 # - name: env
