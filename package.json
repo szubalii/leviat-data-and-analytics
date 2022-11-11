@@ -1,7 +1,8 @@
 {
   "scripts":{
     "build":"node node_modules/@microsoft/azure-data-factory-utilities/lib/index",
-    "validate":"node ./src/libs/validate-config.js"
+    "validate":"node ./src/libs/validate-config.js",
+    "build-xu": "node ./xu-config/src/updateExtractionDestinationFiles.js"
   },
   "dependencies": {
     "@microsoft/azure-data-factory-utilities": "^0.1.6",
