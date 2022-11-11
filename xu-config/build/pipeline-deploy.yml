@@ -6,34 +6,58 @@ trigger: none
 #     include: 
     # - xu-config/*
 
-parameters:
-- name: env
-  type: string
-  default: DEV
-  values: 
-  - DEV
-  - QAS
-  - PROD
+# parameters:
+# - name: env
+#   type: string
+#   default: DEV
+#   values: 
+#   - DEV
+#   - QAS
+#   - PROD
 
-variables:
-- name: env
-  value: ${{ parameters.env }}
-- name: varGroup
-  value: DnA_$(env)
-- name: keyGroup
-  value: KeyVault_$(env)
+# variables:
+# - name: env
+#   value: ${{ parameters.env }}
+# - name: varGroup
+#   value: DnA_$(env)
+# - name: keyGroup
+#   value: KeyVault_$(env)
 # - group: ${{ variables.varGroup }}
 # - group: ${{ variables.keyGroup }}
 
-steps:
-- script: |
-    echo "par_env $(parameters.env)"
-    echo "par_env ${{parameters.env}}"
-    echo "var_env $(env)"
-    echo "var_varGroup $(varGroup)"
-    echo "var_keyGroup $(keyGroup)"
-    echo "var_varGroup ${{ variables.varGroup }}"
-    echo "var_keyGroup ${{ variables.keyGroup }}"
+stages:
+- stage: TEST
+  jobs:
+  - template: ./jobs-deploy.yml
+    parameters:
+      env: DEV
+      varGroup: DnA_DEV
+      keyVaultVarGroup: keyVault_DEV
+- stage: QAS
+  jobs: 
+  - template: ./jobs-deploy.yml
+    parameters:
+      env: QAS
+      varGroup: DnA_QAS
+      keyVaultVarGroup: keyVault_QAS
+- stage: PROD
+  jobs: 
+  - template: ./jobs-deploy.yml
+    parameters:
+      env: PROD
+      varGroup: DnA_PROD
+      keyVaultVarGroup: keyVault_PROD
+
+
+# steps:
+# - script: |
+#     echo "par_env $(parameters.env)"
+#     echo "par_env ${{parameters.env}}"
+#     echo "var_env $(env)"
+#     echo "var_varGroup $(varGroup)"
+#     echo "var_keyGroup $(keyGroup)"
+#     echo "var_varGroup ${{ variables.varGroup }}"
+#     echo "var_keyGroup ${{ variables.keyGroup }}"
 
 
 # jobs:
