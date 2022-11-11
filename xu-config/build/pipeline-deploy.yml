@@ -29,7 +29,7 @@ stages:
 - stage: BUILD
   jobs:
   - template: ../../build/jobs-pre-build.yml
-  - template: ./jobs-build
+  - template: ./jobs-build.yml
     parameters:
       artifact: true
 - stage: TEST
