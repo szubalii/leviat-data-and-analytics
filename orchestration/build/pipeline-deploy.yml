@@ -1,0 +1,78 @@
+trigger: #none
+  branches:
+    include: 
+    - xu-deploy
+  paths:
+    include: 
+    - orchestration/*
+
+# parameters:
+# - name: env
+#   type: string
+#   default: DEV
+#   values: 
+#   - DEV
+#   - QAS
+#   - PROD
+
+# variables:
+# - name: env
+#   value: ${{ parameters.env }}
+# - name: varGroup
+#   value: DnA_$(env)
+# - name: keyGroup
+#   value: KeyVault_$(env)
+# - group: ${{ variables.varGroup }}
+# - group: ${{ variables.keyGroup }}
+
+stages:
+- stage: BUILD
+  jobs:
+  - template: ../../build/jobs-pre-build.yml
+    parameters:
+      varGroup: DnA_DEV
+  - template: ./jobs-build.yml
+    parameters:
+      artifact: true
+- stage: TEST
+  jobs:
+  - template: ./jobs-deploy.yml
+    parameters:
+      env: TEST
+      varGroup: DnA_DEV
+      keyVaultVarGroup: keyVault_DEV
+- stage: QAS
+  jobs: 
+  - template: ./jobs-deploy.yml
+    parameters:
+      env: QAS
+      varGroup: DnA_QAS
+      keyVaultVarGroup: keyVault_QAS
+- stage: PROD
+  jobs: 
+  - template: ./jobs-deploy.yml
+    parameters:
+      env: PROD
+      varGroup: DnA_PROD
+      keyVaultVarGroup: keyVault_PROD
+
+
+# steps:
+# - script: |
+#     echo "par_env $(parameters.env)"
+#     echo "par_env ${{parameters.env}}"
+#     echo "var_env $(env)"
+#     echo "var_varGroup $(varGroup)"
+#     echo "var_keyGroup $(keyGroup)"
+#     echo "var_varGroup ${{ variables.varGroup }}"
+#     echo "var_keyGroup ${{ variables.keyGroup }}"
+
+
+# jobs:
+# - template: ../../build/jobs-pre-build.yml
+# - template: ./jobs-build.yml
+#   parameters:
+#     artifact: true
+# - template: ./jobs-deploy.yml
+  # parameters:
+  #   adfPathPrefix: $(System.ArtifactsDirectory)

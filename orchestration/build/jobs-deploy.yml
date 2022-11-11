@@ -1,6 +1,22 @@
 # Orchestration Database Build & Deploy Job
+parameters:
+- name: env
+  type: string
+  default: DEV
+- name: varGroup
+  type: string
+  default: DnA_DEV
+- name: keyVaultVarGroup
+  type: string
+  default: KeyVault_DEV
+
 jobs:
-- job: OrchDBDeploy
+- deployment: OrchDBDeploy
+  variables:
+  - name: pathPrefix
+    value: $(Pipeline.Workspace)
+  - group: ${{ parameters.varGroup }}
+  - group: ${{ parameters.keyVaultVarGroup }}
   # ${{ if eq(parameters.deploy, true) }}:
   # - dependsOn: OrchDBBuild
   # - condition: succeeded('OrchDBBuild')
@@ -10,7 +26,11 @@ jobs:
     demands:
     - node.js
     - VisualStudio
-
-  steps:
-
-  - template: ./steps-deploy.yml
+    - Agent.Name -equals $(VMName)
+  
+  environment: ${{ parameters.env }}
+  strategy:
+    runOnce:
+      deploy:
+        steps:
+        - template: ./steps-deploy.yml
