@@ -12,17 +12,19 @@ parameters:
 
 jobs:
 - deployment: XtractUniversalDeploy
-  dependsOn: XtractUniversalBuild
-  pool:
-    name: 'VM'
-    demands:
-    - node.js
-    - VisualStudio
+  # dependsOn: XtractUniversalBuild
   variables:
   - name: pathPrefix
     value: $(Pipeline.Workspace)
   - group: ${{ parameters.varGroup }}
   - group: ${{ parameters.keyVaultVarGroup }}
+  pool:
+    name: 'VM'
+    demands:
+    - node.js
+    - VisualStudio
+    - Agent.Name -equals $(VMName)
+  
   environment: ${{ parameters.env }}
   strategy:
     runOnce:
