@@ -5,7 +5,7 @@
 	[Linenum]               [SMALLINT]              NOT NULL,
 	[Itemname]              [NVARCHAR](200)         NULL,
 	[Itemid]                [NVARCHAR](40)          NULL,
-	[Qty]                   [INT]                   NULL,
+	[Qty]                   [DECIMAL](38, 12)       NULL,
 	[Customername]          [NVARCHAR](200)         NULL,
 	[CustomerNo]            [NVARCHAR](20)          NULL,
 	[DeliveryCountryID]     [NVARCHAR](3)           NULL,

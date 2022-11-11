@@ -4,7 +4,7 @@
 -- Description:	<Übernahme Umsatzdaten Halfen Moment Philippinen für TX Construction Accessories>
 -- =============================================
 --
-CREATE PROCEDURE [dbo].[up_ReadSales_HMPH_pkg] 
+CREATE PROCEDURE [intm_axbi].[up_ReadSales_HMPH_pkg] 
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
