@@ -29,6 +29,8 @@ stages:
 - stage: BUILD
   jobs:
   - template: ../../build/jobs-pre-build.yml
+    parameters:
+      varGroup: DnA_DEV
   - template: ./jobs-build.yml
     parameters:
       artifact: true
