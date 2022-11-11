@@ -1,0 +1,27 @@
+trigger:
+  branches:
+    include:
+    - dev_mpors
+    - dev_fbouw
+    - dev_tdorodnova
+    - dev_nkukhtenko
+    - dev_sleshchuk
+  paths:
+    include:
+    - xu-config/*
+
+variables:
+- group: DnA_DEV
+- group: KeyVault_DEV
+- name: storageAccountName
+  value: "st$(Build.SourceBranchName)deuw001"
+- name: xuPrefix
+  value: "$(Build.SourceBranchName)"
+- name: destination
+  value: "$(storageAccountName)_s4h-caa-200"
+
+jobs:
+# - template: ./jobs-pre-build.yml
+- template: ./jobs-build.yml
+  parameters:
+    deploy: true
