@@ -180,12 +180,6 @@ BEGIN
 	set PRODUCTGROUPID = 'N.3.'
 	where UPPER(DATAAREAID) = 'HMPH' and PRODUCTGROUPID = ' ' 
 
-	delete [base_halfen_moment_ph].[CUSTINVOICETRANS_HMPH]
-    where
-        DATEPART(yyyy, [Accountingdate]) = @P_Year
-        and
-        DATEPART(mm, [Accountingdate]) = @P_Month
-
 	delete from [intm_axbi].[fact_CUSTINVOICETRANS]
     where
         UPPER(DATAAREAID) = 'HMPH'
