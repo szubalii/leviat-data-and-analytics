@@ -7,13 +7,12 @@ parameters:
   - DnA_QAS
   - DnA_PROD
 
-variables:
-- group: ${{ parameters.varGroup }}
-
 jobs:
   # Start VM
 - job: StartVM
   pool: server
+  variables:
+  - group: ${{ parameters.varGroup }}
   steps:
   - task: InvokeRESTAPI@1
     inputs:
