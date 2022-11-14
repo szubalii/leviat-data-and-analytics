@@ -10,6 +10,9 @@ parameters:
 jobs:
 - job: XtractUniversalBuild
   dependsOn: StartVM
+  variables:
+  - name: pathPrefix
+    value: $(System.DefaultWorkingDirectory)/xu-config
   pool:
     name: 'VM'
     demands:
