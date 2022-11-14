@@ -27,6 +27,8 @@ trigger: #none
 
 stages:
 - template: ../../build/stages-deploy.yml
+  parameters:
+    path: ../synapse-dwh/build
 
 
 # steps:
