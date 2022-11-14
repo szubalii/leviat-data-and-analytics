@@ -1,7 +1,7 @@
 trigger: #none
   branches:
     include: 
-    - xu-deploy
+    - xu-deploy #TODO change to main
   paths:
     include: 
     - xu-config/*
@@ -26,35 +26,7 @@ trigger: #none
 # - group: ${{ variables.keyGroup }}
 
 stages:
-- stage: BUILD
-  jobs:
-  - template: ../../build/jobs-pre-build.yml
-    parameters:
-      varGroup: DnA_DEV
-  - template: ./jobs-build.yml
-    parameters:
-      artifact: true
-- stage: TEST
-  jobs:
-  - template: ./jobs-deploy.yml
-    parameters:
-      env: TEST
-      varGroup: DnA_DEV
-      keyVaultVarGroup: keyVault_DEV
-- stage: QAS
-  jobs: 
-  - template: ./jobs-deploy.yml
-    parameters:
-      env: QAS
-      varGroup: DnA_QAS
-      keyVaultVarGroup: keyVault_QAS
-- stage: PROD
-  jobs: 
-  - template: ./jobs-deploy.yml
-    parameters:
-      env: PROD
-      varGroup: DnA_PROD
-      keyVaultVarGroup: keyVault_PROD
+- template: ../../stages-deploy.yml
 
 
 # steps:
