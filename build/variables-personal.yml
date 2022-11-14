@@ -1,0 +1,17 @@
+variables:
+- group: DnA_DEV
+- group: KeyVault_DEV
+- name: user
+  value: ${{ replace(Build.SourceBranchName, 'dev', '') }}
+- name: dataFactoryName
+  value: "df-$(user)-d-euw-001"
+- name: sqlDatabaseName
+  value: "sqldb-$(user)-d-euw-001"
+- name: synapseSqlPool
+  value: "syndw_$(user)_d_euw_001"
+- name: storageAccountName
+  value: "st$(user)deuw001"
+- name: xuPrefix
+  value: "$(user)"
+- name: destination
+  value: "$(storageAccountName)_s4h-caa-200"

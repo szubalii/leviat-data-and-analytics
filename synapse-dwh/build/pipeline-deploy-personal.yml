@@ -8,7 +8,7 @@ trigger:
     - dev_sleshchuk
   paths:
     include:
-    - xu-config/*
+    - synapse-dwh/*
 
 variables:
 - template: ../../build/variables-personal.yml
