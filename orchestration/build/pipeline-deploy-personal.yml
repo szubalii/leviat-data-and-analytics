@@ -1,0 +1,20 @@
+trigger:
+  branches:
+    include:
+    - dev_mpors
+    - dev_fbouw
+    - dev_tdorodnova
+    - dev_nkukhtenko
+    - dev_sleshchuk
+  paths:
+    include:
+    - orchestration/*
+
+variables:
+- template: ../../build/variables-personal.yml
+
+jobs:
+# - template: ./jobs-pre-build.yml
+- template: ./jobs-build.yml
+  parameters:
+    deploy: true
