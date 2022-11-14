@@ -26,7 +26,7 @@ trigger: #none
 # - group: ${{ variables.keyGroup }}
 
 stages:
-- template: ../../stages-deploy.yml
+- template: ../../build/stages-deploy.yml
 
 
 # steps:
