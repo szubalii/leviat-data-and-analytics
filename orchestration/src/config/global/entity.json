@@ -4018,62 +4018,53 @@
         "entity_id": 532,
         "entity_name": "CUSTTABLE_ANUK$_bulk",
         "base_table_name": "CUSTTABLE_ANUK",
-        "pk_field_names": "CUSTOMERID",
-        "schedule_recurrence": "D"
+        "pk_field_names": "CUSTOMERID"
       },
       {
         "entity_id": 533,
         "entity_name": "CUSTTABLE_ISUK$_bulk",
         "base_table_name": "CUSTTABLE_ISUK",
-        "pk_field_names": "CUSTOMERID",
-        "schedule_recurrence": "D"
+        "pk_field_names": "CUSTOMERID"
       },
       {
         "entity_id": 534,
         "entity_name": "CUSTINVOICETRANS_ANUK$_bulk",
         "base_table_name": "CUSTINVOICETRANS_ANUK",
-        "pk_field_names": "INVOICEID,LINENUM",
-        "schedule_recurrence": "D"
+        "pk_field_names": "INVOICEID,LINENUM"
       },
       {
         "entity_id": 535,
         "entity_name": "CUSTINVOICETRANS_ISUK$_bulk",
         "base_table_name": "CUSTINVOICETRANS_ISUK",
-        "pk_field_names": "INVOICEID,LINENUM",
-        "schedule_recurrence": "D"
+        "pk_field_names": "INVOICEID,LINENUM"
       },
       {
         "entity_id": 536,
         "entity_name": "INVOICEDFREIGHT_ANUK$_bulk",
-        "base_table_name": "INVOICEDFREIGHT_ANUK",
-        "schedule_recurrence": "D"
+        "base_table_name": "INVOICEDFREIGHT_ANUK"
       },
       {
         "entity_id": 537,
         "entity_name": "INVOICEDFREIGHT_ISUK$_bulk",
-        "base_table_name": "INVOICEDFREIGHT_ISUK",
-        "schedule_recurrence": "D"
+        "base_table_name": "INVOICEDFREIGHT_ISUK"
       },
       {
         "entity_id": 538,
         "entity_name": "ITEMTABLE_ANUK$_bulk",
         "base_table_name": "ITEMTABLE_ANUK",
-        "pk_field_names": "ITEMID",
-        "schedule_recurrence": "D"
+        "pk_field_names": "ITEMID"
       },
       {
         "entity_id": 539,
         "entity_name": "ITEMTABLE_ISUK$_bulk",
         "base_table_name": "ITEMTABLE_ISUK",
-        "pk_field_names": "ITEMID",
-        "schedule_recurrence": "D"
+        "pk_field_names": "ITEMID"
       },
       {
         "entity_id": 540,
         "entity_name": "MAPPING_ITEMGROUP_ANUK$_bulk",
         "base_table_name": "MAPPING_ITEMGROUP_ANUK",
-        "pk_field_names": "ITEMGROUPID",
-        "schedule_recurrence": "D"
+        "pk_field_names": "ITEMGROUPID"
       }
     ]
   },
