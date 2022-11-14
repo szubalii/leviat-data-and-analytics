@@ -10,6 +10,12 @@ function getDestinationFile (filePath) {
     }
 }
 
+/**
+ * Update the Theobald Xtract Universal destination json files
+ * by adding the generic structure in generic-xu-extraction-destination.json
+ * and adding customName properties so the generated parquet files don't include 
+ * an environment prefix in the files name. 
+ */
 function updateExtractionDestinationFiles () {
     const dir = __dirname + '/../extractions';
     const extractionFolderNames = fs.readdirSync(dir);
