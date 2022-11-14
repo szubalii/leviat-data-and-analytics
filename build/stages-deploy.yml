@@ -23,21 +23,21 @@ stages:
       artifact: true
 - stage: TEST
   jobs:
-  - template: $(path)/jobs-deploy.yml
+  - template: ${{parameters.path}}/jobs-deploy.yml
     parameters:
       env: TEST
       varGroup: DnA_DEV
       keyVaultVarGroup: keyVault_DEV
 - stage: QAS
   jobs: 
-  - template: $(path)/jobs-deploy.yml
+  - template: ${{parameters.path}}/jobs-deploy.yml
     parameters:
       env: QAS
       varGroup: DnA_QAS
       keyVaultVarGroup: keyVault_QAS
 - stage: PROD
   jobs: 
-  - template: $(path)/jobs-deploy.yml
+  - template: ${{parameters.path}}/jobs-deploy.yml
     parameters:
       env: PROD
       varGroup: DnA_PROD
