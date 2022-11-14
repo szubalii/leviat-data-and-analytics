@@ -7,9 +7,9 @@ parameters:
 - name: path
   type: string
 
-variables:
-- name: path
-  value: ${{ parameters.path }}
+# variables:
+# - name: path
+#   value: ${{ parameters.path }}
 
 
 stages:
@@ -18,7 +18,7 @@ stages:
   - template: ./jobs-pre-build.yml
     parameters:
       varGroup: DnA_DEV
-  - template: $(path)/jobs-build.yml
+  - template: ${{parameters.path}}/jobs-build.yml
     parameters:
       artifact: true
 - stage: TEST
