@@ -1,3 +1,16 @@
 steps:
 
+- task: Npm@1
+  inputs:
+    command: 'install'
+    workingDir: '$(Build.Repository.LocalPath)' #replace with the package.json folder
+    verbose: true
+  displayName: 'Install npm package'
 
+# Update the XU Extraction Destination files
+- task: Npm@1
+  inputs:
+    command: 'custom'
+    workingDir: '$(Build.Repository.LocalPath)'
+    customCommand: 'run build-xu'
+  displayName: 'Update XU Extraction Destination Files'
