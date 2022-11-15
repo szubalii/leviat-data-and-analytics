@@ -32,4 +32,9 @@ SELECT
     , [ItemCategoryGroup]
 	, [CreatedByUser]
 FROM
-    [edw].[dim_Product]
+    [edw].[dim_Product] P
+
+LEFT JOIN 
+    [base_s4h_cax].[I_Productprocurement]   PPr 
+    ON
+        PPr.[Product] =  P.[ProductID] 
