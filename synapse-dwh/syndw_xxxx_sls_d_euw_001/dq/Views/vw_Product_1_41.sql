@@ -18,7 +18,8 @@ WITH CTE_NSDM_V_MAWEV AS (
         NVM.[VHART] != 'ZMT1'
 )
 SELECT
-    DISTINCT(P.[Product])
+    DISTINCT
+     P.[Product]
     ,P.[MANDT] 
     ,P.[ProductExternalID] 
     ,P.[ProductType] 
