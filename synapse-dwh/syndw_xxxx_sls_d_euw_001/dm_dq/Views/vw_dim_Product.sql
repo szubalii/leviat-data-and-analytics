@@ -4,7 +4,7 @@ SELECT
 	[sk_dim_Product]
 	, [ProductID]
 	, [ProductExternalID]
-	, [Product]
+	, P.[Product]
 	, [ProductID_Name]
 	, [CreationDate]
 	, [MaterialTypeID]
