@@ -22,6 +22,7 @@ SELECT  CONVERT(NVARCHAR(32),
     ,   UV.[MaterialID] COLLATE DATABASE_DEFAULT                AS MaterialID
     ,   UV.[PlantID] COLLATE DATABASE_DEFAULT                   AS PlantID
     ,   UV.[StorageLocationID] COLLATE DATABASE_DEFAULT         AS StorageLocationID
+    ,   UV.[axbi_DataAreaID]
     ,   UV.[StorageTypeID]
     ,   UV.[StorageBin] 
     ,   UV.[Batch] 
@@ -150,6 +151,7 @@ SELECT  CONVERT(NVARCHAR(32),
         ,   S4H.[MaterialID]
         ,   S4H.[PlantID]
         ,   S4H.[StorageLocationID]
+        ,   null AS axbi_DataAreaID
         ,   S4H.[StorageTypeID]
         ,   S4H.[StorageBin] 
         ,   S4H.[Batch] 
@@ -274,6 +276,7 @@ SELECT  CONVERT(NVARCHAR(32),
         ,   AXBI.[MaterialID]
         ,   AXBI.[PlantID]
         ,   AXBI.[StorageLocationID]
+        ,   AXBI.[axbi_DataAreaID]
         ,   null AS [StorageTypeID]
         ,   null AS [StorageBin] 
         ,   null AS [Batch] 

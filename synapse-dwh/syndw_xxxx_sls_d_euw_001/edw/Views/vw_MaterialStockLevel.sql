@@ -7,6 +7,7 @@ SELECT
         viewMD.[MaterialID],
         viewMD.[PlantID],
         viewMD.[StorageLocationID],
+        viewMD.[axbi_DataAreaID],
         viewMD.[InventorySpecialStockTypeID],
         viewMD.[InventoryStockTypeID],
         viewMD.[StockOwner],
@@ -30,6 +31,7 @@ SELECT
         viewMD.[MaterialID],
         viewMD.[PlantID],
         viewMD.[StorageLocationID],
+        viewMD.[axbi_DataAreaID],
         viewMD.[InventorySpecialStockTypeID],
         viewMD.[InventoryStockTypeID],
         viewMD.[StockOwner],
@@ -52,6 +54,7 @@ SELECT
         max([MaterialID]) AS MaterialID,
         max([PlantID]) AS PlantID,
         max([StorageLocationID]) AS StorageLocationID,
+        max(axbi_DataAreaID) AS axbi_DataAreaID,
         max([InventorySpecialStockTypeID]) AS InventorySpecialStockTypeID,
         max([InventoryStockTypeID]) AS InventoryStockTypeID,
         max([StockOwner]) AS StockOwner,
@@ -77,6 +80,7 @@ SELECT
         HC.[MaterialID],
         HC.[PlantID],
         HC.[StorageLocationID],
+        HC.[axbi_DataAreaID],
         HC.[InventorySpecialStockTypeID],
         HC.[InventoryStockTypeID],
         HC.[StockOwner],
@@ -94,28 +98,6 @@ SELECT
     CROSS JOIN [edw].[dim_Calendar] AS dimC
     WHERE dimC.[CalendarDate] BETWEEN minHDR_PostingDate AND GETDATE()
         AND dimC.CalendarDay = '01'
- /*   GROUP By _hash,
-        dimC.[CalendarYear],
-        dimC.[CalendarMonth],
-        dimC.[LastDayOfMonthDate],
-        HC.[MaterialID],
-        HC.[PlantID],
-        HC.[StorageLocationID],
-        HC.[InventorySpecialStockTypeID],
-        HC.[InventorySpecialStockTypeName],
-        HC.[InventoryStockTypeID],
-        HC.[InventoryStockTypeName],
-        HC.[StockOwner],
-        HC.[CostCenterID],
-        HC.[CompanyCodeID],
-        HC.[SalesDocumentTypeID],
-        HC.[SalesDocumentType],
-        HC.[SalesDocumentItemCategoryID],
-        HC.[SalesDocumentItemCategory],
-        HC.[MaterialBaseUnitID],
-        HC.[PurchaseOrderTypeID],
-        HC.[PurchaseOrderType],
-        HC.[InventoryValuationTypeID] */
 ), Calendar_TotalAmount AS (
     SELECT
         CC._hash,
@@ -125,6 +107,7 @@ SELECT
         CC.MaterialID,
         CC.PlantID,
         CC.StorageLocationID,
+        CC.axbi_DataAreaID,
         CC.InventorySpecialStockTypeID,
         CC.InventoryStockTypeID,
         CC.StockOwner,
@@ -135,8 +118,12 @@ SELECT
         CC.MaterialBaseUnitID,
         CC.PurchaseOrderTypeID,
         HC.MatlStkChangeQtyInBaseUnit,
-        SUM(ISNULL(HC.MatlStkChangeQtyInBaseUnit, 0))
-            OVER (PARTITION BY CC._hash ORDER BY CC.CalendarYear, CC.CalendarMonth) AS StockLevelQtyInBaseUnit,
+        CASE
+            WHEN CC.LastDayOfMonthDate > AXM.MigrationDate THEN 0
+            ELSE
+                SUM(ISNULL(HC.MatlStkChangeQtyInBaseUnit, 0))
+                OVER (PARTITION BY CC._hash ORDER BY CC.CalendarYear, CC.CalendarMonth)
+        END AS StockLevelQtyInBaseUnit,
         CPPUP.[StockPricePerUnit]             AS [StockPricePerUnit],
         CPPUP.[StockPricePerUnit_EUR]         AS [StockPricePerUnit_EUR],
         CPPUP.[StockPricePerUnit_USD]         AS [StockPricePerUnit_USD],
@@ -161,6 +148,9 @@ SELECT
             CPPUP.[CalendarYear] = CC.[CalendarYear] COLLATE DATABASE_DEFAULT
             AND
             CPPUP.[CalendarMonth] = CC.[CalendarMonth] COLLATE DATABASE_DEFAULT
+        LEFT JOIN [map_AXBI].[Migration] AXM
+        ON
+            CC.axbi_DataAreaID = AXM.DataAreaID
 
 )   SELECT 
     [_hash],
@@ -170,6 +160,7 @@ SELECT
     [MaterialID],
     [PlantID],
     [StorageLocationID],
+    [axbi_DataAreaID],
     [InventorySpecialStockTypeID],
     [InventoryStockTypeID],
     [StockOwner],

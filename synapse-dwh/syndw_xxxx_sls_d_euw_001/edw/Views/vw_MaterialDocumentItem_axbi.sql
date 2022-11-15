@@ -301,6 +301,7 @@ SELECT
     ,   INV.[MaterialID]
     ,   INV.[PlantID]
     ,   dmInvLocation.[INVENTLOCATIONID] AS [StorageLocationID]
+    ,   INV.[DATAAREAID]
     ,   INV.[SalesOrder]
     ,   INV.[SalesOrderItem]
     ,   INV.[GoodsMovementTypeID]
@@ -406,6 +407,12 @@ LEFT JOIN
         QtyOICP.[GoodsMovementTypeID] = INV.[GoodsMovementTypeID]
         AND
         QtyOICP.[TRANSTYPENAME] = INV.[GoodsMovementTypeName]
+LEFT JOIN                                                           -- Migration reference was joined to exclude unnecessary data from migrated systems
+    [map_AXBI].[Migration] AXM
+        ON
+        INV.[DATAAREAID] = AXM.[DataAreaID]
+WHERE
+    INV.[DocumentDate] < COALESCE (AXM.MigrationDate,'9999-12-31')
 )
 SELECT  DISTINCT
         INV_QTY.[MaterialDocumentYear]
@@ -414,6 +421,7 @@ SELECT  DISTINCT
     ,   INV_QTY.[MaterialID]
     ,   INV_QTY.[PlantID]
     ,   INV_QTY.[StorageLocationID]
+    ,   INV_QTY.[DATAAREAID] AS axbi_DataAreaID
     ,   INV_QTY.[SalesOrder]
     ,   INV_QTY.[SalesOrderItem]
     ,   INV_QTY.[GoodsMovementTypeID]
