@@ -21,14 +21,14 @@ BEGIN
     where [YEAR] = @lYear and [CURRENCY] = 'AUD'
 
 	-- Calculate the EUR values per CRH Rate 
-	UPDATE [base_tx_ca_0_hlp].[CUSTINVOICETRANS_ANAC]
+	UPDATE [base_ancon_conolly_aus].[CUSTINVOICETRANS_ANAC]
 	set [PRODUCTSALESEUR] = a.[PRODUCTSALESLOCAL]/@lRate, -- invoiced sales per article sales position
 	    [OTHERSALESEUR]   = a.[OTHERSALESLOCAL]/@lRate, -- article no FREIGHT and ADMIN 
 	    [ALLOWANCESEUR]   = a.[ALLOWANCESLOCAL]/@lRate, -- no existing invoiced allowances from Ancon Connolly Australia 
 	    [SALES100EUR]   = a.[SALES100LOCAL]/@lRate, -- Sales100 is recalculated in procedure "up_ReadSales_ANAC_Jahr_Monat" because the OTHERSALES of ADMIN and FREIGHT have not yet been distributed.
 	    [FREIGHTEUR]   = a.[FREIGHTLOCAL]/@lRate, -- internal freight, not invoiced freight. we don't consider at TOM dashboard.
 	    [COSTAMOUNTEUR]   = a.[COSTAMOUNTLOCAL]/@lRate -- Cost amount per sales position
-	from [base_tx_ca_0_hlp].[CUSTINVOICETRANS_ANAC] as a 
+	from [base_ancon_conolly_aus].[CUSTINVOICETRANS_ANAC] as a 
     where datepart(Year, a.ACCOUNTINGDATE) = @lYear 
 
 	-- Calculation of Ancon Connolly Sales Data per Month

@@ -3,7 +3,7 @@ CREATE TABLE [base_ancon_conolly_aus].[ITEMTABLE_ANAC](
 	[ITEMID]                [NVARCHAR](255)     NOT NULL,
 	[ITEMNAME]              [NVARCHAR](255)     NULL,
 	[CRHPRODUCTGROUPID]     [NVARCHAR](255)     NULL,
-	[STOCKGROUP]            [FLOAT]             NULL,
+	[STOCKGROUP]            [SMALLINT]          NULL,
 	[GROUPNAME]             [NVARCHAR](20)      NULL,
 	[t_applicationId]       [VARCHAR](32)       NULL,
     [t_jobId]               [VARCHAR](36)       NULL,

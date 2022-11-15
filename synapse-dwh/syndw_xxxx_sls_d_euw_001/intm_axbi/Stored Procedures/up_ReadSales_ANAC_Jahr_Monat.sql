@@ -31,7 +31,7 @@ BEGIN
 	and datepart(MM, ACCOUNTINGDATE) = @P_Month
 
     delete from [intm_axbi].[dim_CUSTTABLE] 
-    where upper(DATAAREAID) = 'ANAK'
+    where upper(DATAAREAID) = 'ANAC'
 
 	insert [intm_axbi].[dim_CUSTTABLE]
     ([DATAAREAID]
@@ -370,7 +370,6 @@ BEGIN
     --add step where lcounter=0
 	-- If no regular positions exist, then insert the ADMIN or FREIGHT Position but only as Other Sales.
 	insert into [intm_axbi].[fact_CUSTINVOICETRANS]
-    values
     (
             [DATAAREAID]
 	    ,   [SALESID]

@@ -1,6 +1,6 @@
 CREATE TABLE [base_ancon_conolly_aus].[CUSTTABLE_ANAC](
 	[DATAAREAID]            [NVARCHAR](255)         NULL,
-	[ACCOUNTNUM]            [FLOAT]                 NOT NULL,
+	[ACCOUNTNUM]            [INT]                   NOT NULL,
 	[NAME]                  [NVARCHAR](255)         NULL,
 	[INOUT]                 [NVARCHAR](1)           NULL,
 	[CUSTOMERPILLAR]        [NVARCHAR](20)          NULL,
