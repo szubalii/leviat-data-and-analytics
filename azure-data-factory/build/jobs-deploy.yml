@@ -11,7 +11,7 @@ parameters:
   default: KeyVault_DEV
 
 jobs:
-- job: ADFDeploy
+- deployment: ADFDeploy
   # dependsOn: ${{if(eq($(deployEnv),'personal'),ADFBuild,)}}
   variables:
   - name: pathPrefix
