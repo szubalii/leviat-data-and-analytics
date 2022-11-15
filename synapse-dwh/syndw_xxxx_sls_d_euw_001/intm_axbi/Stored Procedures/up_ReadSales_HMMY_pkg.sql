@@ -25,7 +25,7 @@ BEGIN
 	            when 'C100241' then '5302U01'
 	            when 'C100893' then '2160U01'
 	            when 'C101150' then '2161U01'
-				else a.DIMENSION3_
+				else ISNULL(a.DIMENSION3_,' ')
 			End
 	from [base_halfen_moment_my].[CUSTTABLE_HMMY] as a
 
@@ -89,7 +89,7 @@ BEGIN
 	set CUSTOMERPILLAR = 'OTHER'
 	where UPPER(DATAAREAID) = 'HMMY' and INOUT = 'I' 
 
-	Delete from [base_tx_ca_0_hlp].[ITEMTABLE_HMMY] where ITEMID is Null
+	Delete from [base_halfen_moment_my].[ITEMTABLE_HMMY] where ITEMID is Null
 
 	/*
 	update [dbo].[ITEMTABLE_HMMY$_bulk]
@@ -114,7 +114,7 @@ BEGIN
 	'HMMY-' + ISNULL([ITEMNAME], ' '),
 	ISNULL([PRODUCTGROUPID], ' '),
 	'HMMY-' + [ITEMGROUPID]
-	from [base_tx_ca_0_hlp].[ITEMTABLE_HMMY]
+	from [base_halfen_moment_my].[ITEMTABLE_HMMY]
 
 	-- Dummy article for the Budget
 	insert into [intm_axbi].[dim_ITEMTABLE]([DATAAREAID],[ITEMID],[ITEMNAME],[PRODUCTGROUPID],[ITEMGROUPID]) VALUES('HMMY', 'HMMY-A.1.', 'BRICKWORK SUPPORT', 'A.1.', ' ')
@@ -181,12 +181,9 @@ BEGIN
 	-- Alle Artikel, die keinen CRH Productgroup Eintrag haben, auf N.3. setzen
 	update [intm_axbi].[dim_ITEMTABLE]
 	set [PRODUCTGROUPID] = 'N.3.'
-	where UPPER(DATAAREAID) = 'HMMY' and PRODUCTGROUPID = ' ' 
+	where UPPER(DATAAREAID) = 'HMMY' and ISNULL(PRODUCTGROUPID,' ') = ' ' 
 
 	-- CUSTINVOICETRANS
-
-		delete [base_tx_ca_0_hlp].[CUSTINVOICETRANS_HMMY] 
-    where DATEPART(yyyy, ACCOUNTINGDATE) = @P_Year and DATEPART(mm, ACCOUNTINGDATE) = @P_Month
 
 	delete from [intm_axbi].[fact_CUSTINVOICETRANS]
     where
@@ -245,7 +242,7 @@ BEGIN
         a.[COSTAMOUNTLOCAL],
         a.[COSTAMOUNTLOCAL]/b.[CRHRATE]
 	from
-        [base_tx_ca_0_hlp].[CUSTINVOICETRANS_HMMY] as a
+        [base_halfen_moment_my].[CUSTINVOICETRANS_HMMY] as a
 	inner join
         [base_tx_ca_0_hlp].[CRHCURRENCY] as b
 	        on  b.[YEAR] = @P_Year
@@ -272,8 +269,7 @@ BEGIN
         Datepart(yyyy, ACCOUNTINGDATE) = @P_Year
         and
         Datepart(mm, ACCOUNTINGDATE) = @P_Month
-	group by DATAAREAID, INVOICEID 
-	order by DATAAREAID, INVOICEID 
+	group by DATAAREAID, INVOICEID
 
     -- Rechnungen mit Productsales und mit Othersales, Othersales auf die SalesPositionen verteilen und anschließend die Othersales Positionen löschen.
 
@@ -310,9 +306,9 @@ BEGIN
         and
         datepart(MM, t.ACCOUNTINGDATE) = @P_Month
         and
-        t.ProductSalesLocal = 0
+        t.[PRODUCTSALESLOCAL] = 0
         and
-        t.OtherSalesLocal <> 0
+        t.[OTHERSALESLOCAL] <> 0
         and
         o.[PRODUCTSALESLOCAL] <> 0
         and

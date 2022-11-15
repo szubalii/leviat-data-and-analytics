@@ -502,7 +502,7 @@ BEGIN
 	CUSTOMERPILLAR,
 	' ',
 	DIMENSION3_
-	from [intm_axbi].[dim_CUSTTABLE]_HMMY$_bulk
+	from [base_halfen_moment_my].[CUSTTABLE_HMMY]
 
 	-- Halfen Moment Singapur
 	
@@ -515,7 +515,7 @@ BEGIN
 	CUSTOMERPILLAR,
 	' ',
 	DIMENSION3_
-	from [intm_axbi].[dim_CUSTTABLE]_HMSG$_bulk
+	from [base_halfen_moment_sg].[CUSTTABLE_HMSG]
 
 	-- Halfen Moment Indien
 
@@ -528,7 +528,7 @@ BEGIN
 	CUSTOMERPILLAR,
 	' ',
 	' '
-	from [base_tx_ca_0_hlp].[CUSTTABLE_HMIN]
+	from [base_halfen_moment_in].[CUSTTABLE_HMIN]
 
 	update [intm_axbi].[dim_CUSTTABLE]
 	set DIMENSION3_ = case ACCOUNTNUM
@@ -549,7 +549,7 @@ BEGIN
 	CUSTOMERPILLAR,
 	' ',
 	' '
-	from [base_tx_ca_0_hlp].[CUSTTABLE_HMPH]
+	from [base_halfen_moment_ph].[CUSTTABLE_HMPH]
 
 	-- Fehlenden Kunden eintragen
 	insert into [intm_axbi].[dim_CUSTTABLE] VALUES('HMPH', 'HMPH-Freyfil Corporation- Limamburao', 'HMPH-Freyfil Corporation- Limamburao', 'O', 'OTHER', ' ', ' ')
@@ -571,7 +571,7 @@ BEGIN
 	CUSTOMERPILLAR,
 	' ',
 	' '
-	from [base_tx_ca_0_hlp].[CUSTTABLE_ISAU]
+	from [base_isedio_aus].[CUSTTABLE_ISAU]
 
 	update [intm_axbi].[dim_CUSTTABLE]
 	set DIMENSION3_ = '2173U01',
@@ -677,7 +677,7 @@ BEGIN
         distinct 'ANAC',
         'ANAC-' + CAST(STOCKGROUP as NVARCHAR(2)),
         'ANAC-' + GROUPNAME
-    from [base_tx_ca_0_hlp].[ITEMTABLE_ANAC]
+    from [base_ancon_conolly_aus].[ITEMTABLE_ANAC]
     group by 'ANAC-' + CAST(STOCKGROUP as NVARCHAR(2)), 'ANAC-' + GROUPNAME
 
 	delete [intm_axbi].[dim_ITEMGROUP] where UPPER(DATAAREAID) = 'ANAU'
@@ -698,7 +698,7 @@ BEGIN
         'ANUK',
         'ANUK-' + ITEMGROUPID,
         'ANUK-' + ITEMGROUPNAME
-        from [base_tx_ca_0_hlp].[MAPPING_ITEMGROUP_ANUK]
+        from [base_ancon_uk].[MAPPING_ITEMGROUP_ANUK]
 
 	delete [intm_axbi].[dim_ITEMGROUP] where DATAAREAID = 'ISUK'
 	insert [intm_axbi].[dim_ITEMGROUP]
@@ -706,7 +706,7 @@ BEGIN
         'ISUK',
         'ISUK-' + ITEMGROUPID,
         'ISUK-' + ITEMGROUPNAME
-    from [base_tx_ca_0_hlp].[MAPPING_ITEMGROUP_ANUK]
+    from [base_ancon_uk].[MAPPING_ITEMGROUP_ANUK]
 
 
 	-- itemgroup ISAU manuell hinzugefügt. Nicht löschen --
@@ -1428,7 +1428,7 @@ BEGIN
 	[ITEMNAME],
 	ISNULL([CRH PRODUCTGROUPID], ' '),
 	ISNULL('ANUK-' + [ITEMGROUPID], ' ')
-	from [base_tx_ca_0_hlp].[ITEMTABLE_ANUK]
+	from [base_ancon_uk].[ITEMTABLE_ANUK]
 
 	update [intm_axbi].[dim_ITEMTABLE]
 	set PRODUCTGROUPID = 'A.4.'
@@ -1517,7 +1517,7 @@ BEGIN
 	ISNULL([ITEMNAME], ' '),
 	ISNULL([CRHPRODUCTGROUPID], ' '),
 	ISNULL('ANAC-' + Cast([STOCKGROUP] as nvarchar(2)), ' ')
-	from [base_tx_ca_0_hlp].[ITEMTABLE_ANAC]
+	from [base_ancon_conolly_aus].[ITEMTABLE_ANAC]
 
 	-- Dummy article for the Budget
 	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANAC', 'ANAC-A.1.', 'BRICKWORK SUPPORT', 'A.1.', ' ')
@@ -1602,7 +1602,7 @@ BEGIN
 	'ANME-' + ISNULL([ITEMNAME], ' '),
 	ISNULL([CRHPRODUCTGROUPID], ' '),
 	' '
-	from [base_tx_ca_0_hlp].[ITEMTABLE_ANME]
+	from [base_ancon_me].[ITEMTABLE_ANME]
 
 	-- Dummy article for the Budget
 	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANME', 'ANME-A.1.', 'BRICKWORK SUPPORT', 'A.1.', ' ')
@@ -1675,7 +1675,7 @@ BEGIN
 	[ITEMNAME],
 	ISNULL([CRH PRODUCTGROUPID], ' '),
 	ISNULL('ANUK-' + [ITEMGROUPID], ' ')
-	from [base_tx_ca_0_hlp].[ITEMTABLE_ISUK]
+	from [base_isedio].[ITEMTABLE_ISUK]
 
 	update [intm_axbi].[dim_ITEMTABLE]
 	set PRODUCTGROUPID = 'A.4.'
@@ -1752,7 +1752,7 @@ BEGIN
 	'HMMY-' + ISNULL([ITEMNAME], ' '),
 	ISNULL([PRODUCTGROUPID], ' '),
 	'HMMY-' + [ITEMGROUPID]
-	from [base_tx_ca_0_hlp].[ITEMTABLE_HMMY]
+	from [base_halfen_moment_my].[ITEMTABLE_HMMY]
 
 	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMMY', 'HMMY-A.1.', 'BRICKWORK SUPPORT', 'A.1.', ' ')
 	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMMY', 'HMMY-A.2.', 'WALL TIES & FIXINGS', 'A.2.', ' ')
@@ -1824,7 +1824,7 @@ BEGIN
 	'HMSG-' + ISNULL([ITEMNAME], ' '),
 	ISNULL([PRODUCTGROUPID], ' '),
 	'HMSG-' + [ITEMGROUPID]
-	from [base_tx_ca_0_hlp].[ITEMTABLE_HMSG]
+	from [base_halfen_moment_sg].[ITEMTABLE_HMSG]
 
 	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMSG', 'HMSG-A.1.', 'BRICKWORK SUPPORT', 'A.1.', ' ')
 	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMSG', 'HMSG-A.2.', 'WALL TIES & FIXINGS', 'A.2.', ' ')
@@ -1896,7 +1896,7 @@ BEGIN
 	'HMIN-' + ISNULL([ITEMNAME], ' '),
 	ISNULL([CRHPRODUCTGROUPID], ' '),
 	' '
-	from [base_tx_ca_0_hlp].[ITEMTABLE_HMIN]
+	from [base_halfen_moment_in].[ITEMTABLE_HMIN]
 
 	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMIN', 'HMIN-A.1.', 'BRICKWORK SUPPORT', 'A.1.', ' ')
 	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMIN', 'HMIN-A.2.', 'WALL TIES & FIXINGS', 'A.2.', ' ')
@@ -1972,7 +1972,7 @@ BEGIN
 	'HMPH-' + ISNULL([ITEMNAME], ' '),
 	ISNULL([CRHPRODUCTGROUPID], ' '),
 	' '
-	from [base_tx_ca_0_hlp].[ITEMTABLE_HMPH]
+	from [base_halfen_moment_ph].[ITEMTABLE_HMPH]
 
 	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMPH', 'HMPH-A.1.', 'BRICKWORK SUPPORT', 'A.1.', ' ')
 	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMPH', 'HMPH-A.2.', 'WALL TIES & FIXINGS', 'A.2.', ' ')
@@ -2054,7 +2054,7 @@ BEGIN
 	'ISAU-' + [ITEMNAME],
 	ISNULL([CRH PRODUCTGROUPID], ' '),
 	ISNULL('ISAU-' + [STOCKGROUP], ' ')
-	from [base_tx_ca_0_hlp].[ITEMTABLE_ISAU]
+	from [base_isedio_aus].[ITEMTABLE_ISAU]
 
 	-- Dummy article for the Budget
 	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISAU', 'ISAU-A.1.', 'BRICKWORK SUPPORT', 'A.1.', ' ')
