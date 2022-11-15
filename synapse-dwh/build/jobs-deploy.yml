@@ -1,14 +1,32 @@
 # Azure Synapse Dedicated SQL Pool Deploy Job
-jobs:
-- job: SynapseDWHDeploy
+parameters:
+- name: env
+  type: string
+  default: DEV
+- name: varGroup
+  type: string
+  default: DnA_DEV
+- name: keyVaultVarGroup
+  type: string
+  default: KeyVault_DEV
 
-  # dependsOn: ${{if(eq($(deployEnv),'personal'),SynapseDWHBuild,)}}
+jobs:
+- deployment: SynapseDWHDeploy
+  variables:
+  - name: pathPrefix
+    value: $(Pipeline.Workspace)
+  - group: ${{ parameters.varGroup }}
+  - group: ${{ parameters.keyVaultVarGroup }}
   pool:
     name: 'VM'
     demands:
     - node.js
     - VisualStudio
     - Python.Version
-
-  steps:
-  - template: ./steps-deploy.yml
+    - Agent.Name -equals $(VMName)
+  environment: ${{ parameters.env }}
+  strategy:
+    runOnce:
+      deploy:
+        steps:
+        - template: ./steps-deploy.yml
