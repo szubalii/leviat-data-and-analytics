@@ -9,6 +9,7 @@ map_AXBI;BillingDocumentItem.csv;"|";map_AXBI;BillingDocumentItem
 map_AXBI;Brand.csv;",";map_AXBI;Brand
 map_AXBI;BusinessPartner.csv;"|";map_AXBI;BusinessPartner
 map_AXBI;Material.csv;"|";map_AXBI;Material
+map_AXBI;Migration.csv;"|";map_AXBI;Migration
 map_AXBI;SalesDocumentType.csv;"|";map_AXBI;SalesDocumentType
 map_AXBI;SalesOrganization.csv;",";map_AXBI;SalesOrganization
 map_AXBI;SDDocumentCategory.csv;"|";map_AXBI;SDDocumentCategory

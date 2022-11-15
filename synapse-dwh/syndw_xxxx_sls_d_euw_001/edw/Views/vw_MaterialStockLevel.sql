@@ -7,7 +7,7 @@ SELECT
         viewMD.[MaterialID],
         viewMD.[PlantID],
         viewMD.[StorageLocationID],
-        viewMD.[DATAAREAID],
+        viewMD.[axbi_DataAreaID],
         viewMD.[InventorySpecialStockTypeID],
         viewMD.[InventoryStockTypeID],
         viewMD.[StockOwner],
@@ -29,7 +29,7 @@ SELECT
         viewMD.[MaterialID],
         viewMD.[PlantID],
         viewMD.[StorageLocationID],
-        viewMD.[DATAAREAID],
+        viewMD.[axbi_DataAreaID],
         viewMD.[InventorySpecialStockTypeID],
         viewMD.[InventoryStockTypeID],
         viewMD.[StockOwner],
@@ -50,7 +50,7 @@ SELECT
         max([MaterialID]) AS MaterialID,
         max([PlantID]) AS PlantID,
         max([StorageLocationID]) AS StorageLocationID,
-        max(DATAAREAID) AS DATAAREAID,
+        max(axbi_DataAreaID) AS axbi_DataAreaID,
         max([InventorySpecialStockTypeID]) AS InventorySpecialStockTypeID,
         max([InventoryStockTypeID]) AS InventoryStockTypeID,
         max([StockOwner]) AS StockOwner,
@@ -74,7 +74,7 @@ SELECT
         HC.[MaterialID],
         HC.[PlantID],
         HC.[StorageLocationID],
-        HC.[DATAAREAID],
+        HC.[axbi_DataAreaID],
         HC.[InventorySpecialStockTypeID],
         HC.[InventoryStockTypeID],
         HC.[StockOwner],
@@ -99,7 +99,7 @@ SELECT
         CC.MaterialID,
         CC.PlantID,
         CC.StorageLocationID,
-        CC.DATAAREAID,
+        CC.axbi_DataAreaID,
         CC.InventorySpecialStockTypeID,
         CC.InventoryStockTypeID,
         CC.StockOwner,
@@ -138,9 +138,9 @@ SELECT
             CPPUP.[CalendarYear] = CC.[CalendarYear] COLLATE DATABASE_DEFAULT
             AND
             CPPUP.[CalendarMonth] = CC.[CalendarMonth] COLLATE DATABASE_DEFAULT
-        LEFT JOIN [map_AXBI].[ref_AXMigration] AXM
+        LEFT JOIN [map_AXBI].[Migration] AXM
         ON
-            CC.DATAAREAID = AXM.DATAAREAID
+            CC.axbi_DataAreaID = AXM.DataAreaID
 
 )   SELECT 
     [_hash],
@@ -150,7 +150,7 @@ SELECT
     [MaterialID],
     [PlantID],
     [StorageLocationID],
-    [DATAAREAID],
+    [axbi_DataAreaID],
     [InventorySpecialStockTypeID],
     [InventoryStockTypeID],
     [StockOwner],

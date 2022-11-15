@@ -7,7 +7,7 @@
     [MaterialID]                      nvarchar(40),
     [PlantID]                         nvarchar(8),
     [StorageLocationID]               nvarchar(10),
-    [DATAAREAID]                      nvarchar(4),
+    [axbi_DataAreaID]                 nvarchar(4),
     [StorageTypeID]                   nvarchar(3),
     [StorageBin]                      nvarchar(10),
     [Batch]                           nvarchar(10),
