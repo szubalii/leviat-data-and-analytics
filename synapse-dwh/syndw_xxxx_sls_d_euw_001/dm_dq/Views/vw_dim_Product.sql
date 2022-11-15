@@ -31,7 +31,7 @@ SELECT
     , P.[TransportationGroup]
     , P.[ItemCategoryGroup]
 	, P.[CreatedByUser]
-	, PPR.[PurchasingAcknProfile]
+	, PPr.[PurchasingAcknProfile]
 FROM
     [edw].[dim_Product] P
 
