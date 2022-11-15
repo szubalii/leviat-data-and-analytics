@@ -1,7 +1,7 @@
 ﻿CREATE VIEW [dm_dq].[vw_dim_MAWEV] AS 
 
 SELECT 
-	    [MATNR] AS MaterialNumber,
+        [MATNR] AS MaterialNumber,
         [WERKS] AS Plant,
         [ALAND] AS DepartureCountry,
         [VHART] AS PackagingMaterialType

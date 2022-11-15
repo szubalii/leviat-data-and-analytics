@@ -1,17 +1,17 @@
 CREATE VIEW [dm_dq].[vw_dim_ProductPlant] AS 
 
 SELECT 
-	 [Product]
-	,[CountryOfOrigin]
-	,[Plant]
-	,[SpecialProcurementType] 
-	,[ProcurementType]
-	,[Commodity]
-	,[IsMarkedForDeletion]
-    ,[MRPType]
-    ,NVM.[MINBE] as [Reorder Point]
-	,NVM.[NCOST] as [Do Not Cost Indicator]
-	,NVM.[FXHOR] as [Planning Time Fence]
+	 PP.[Product]
+	,PP.[CountryOfOrigin]
+	,PP.[Plant]
+	,PP.[SpecialProcurementType] 
+	,PP.[ProcurementType]
+	,PP.[Commodity]
+	,PP.[IsMarkedForDeletion]
+    ,PP.[MRPType]
+    ,NVM.[MINBE] as [ReorderPoint]
+	,NVM.[NCOST] as [DoNotCost]
+	,NVM.[FXHOR] as [PlanningTimeFence]
 
 FROM
 	[base_s4h_cax].[I_ProductPlant] PP
