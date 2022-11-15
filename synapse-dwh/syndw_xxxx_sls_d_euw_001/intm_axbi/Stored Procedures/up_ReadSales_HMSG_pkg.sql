@@ -48,7 +48,7 @@ BEGIN
 	INOUT,
 	CUSTOMERPILLAR,
 	' ',
-	DIMENSION3_
+	ISNULL(DIMENSION3_,' ')
 	from [base_halfen_moment_sg].[CUSTTABLE_HMSG]
 
 	-- Alle Leviat Kunden auf Inside setzen, außer Meadow Burke. 
@@ -170,12 +170,6 @@ BEGIN
 
 	-- CUSTINVOICETRANS
 
-	delete [base_halfen_moment_sg].[CUSTINVOICETRANS_HMSG]
-    where
-        DATEPART(yyyy, [ACCOUNTINGDATE]) = @P_Year
-        and
-        DATEPART(mm, [ACCOUNTINGDATE]) = @P_Month
-
 	delete from [intm_axbi].[fact_CUSTINVOICETRANS]
     where
         UPPER(DATAAREAID) = 'HMSG'
@@ -257,7 +251,6 @@ BEGIN
         and
         Datepart(mm, [ACCOUNTINGDATE]) = @P_Month
 	group by [DATAAREAID], [INVOICEID] 
-	order by [DATAAREAID], [INVOICEID] 
 
 	-- Rechnungen mit Productsales und mit Othersales, Othersales auf die SalesPositionen verteilen und anschließend die Othersales Positionen löschen.
 
@@ -275,7 +268,7 @@ BEGIN
         and
         datepart(MM, t.[ACCOUNTINGDATE]) = @P_Month
         and
-        t.productsaleslocal <> 0
+        t.[PRODUCTSALESLOCAL] <> 0
         and
         o.[PRODUCTSALESLOCAL] <> 0
         and
@@ -293,9 +286,9 @@ BEGIN
         and
         datepart(MM, t.ACCOUNTINGDATE) = @P_Month
         and
-        t.ProductSalesLocal = 0
+        t.[PRODUCTSALESLOCAL] = 0
         and
-        t.OtherSalesLocal <> 0
+        t.[OTHERSALESLOCAL] <> 0
         and
         o.[PRODUCTSALESLOCAL] <> 0
         and
