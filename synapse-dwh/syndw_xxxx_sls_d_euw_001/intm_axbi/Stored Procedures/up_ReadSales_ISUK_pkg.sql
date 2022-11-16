@@ -9,6 +9,22 @@ BEGIN
 	--SET NOCOUNT ON;
 
     -- Insert statements for procedure here
+    IF OBJECT_ID(N'tempdb..#InvoicedFreightTable_ISUK') IS NOT NULL
+    BEGIN
+        DROP TABLE #InvoicedFreightTable_ISUK
+    END 
+    IF OBJECT_ID(N'tempdb..#InvoicedFreightTable_ISUK_SB') IS NOT NULL
+    BEGIN
+        DROP TABLE #InvoicedFreightTable_ISUK_SB
+    END  
+    IF OBJECT_ID(N'tempdb..#InvoicedFreightTable_ISUK_cnt') IS NOT NULL
+    BEGIN
+        DROP TABLE #InvoicedFreightTable_ISUK_cnt
+    END  
+    IF OBJECT_ID(N'tempdb..##InvoicePosCounter') IS NOT NULL
+    BEGIN
+        DROP TABLE ##InvoicePosCounter
+    END  
 
 	declare @lYear smallint = (select datepart(year,max(Accountingdate)) from [base_isedio].[CUSTINVOICETRANS_ISUK]),
 			@lMonth tinyint = (select datepart(month,max(Accountingdate)) from [base_isedio].[CUSTINVOICETRANS_ISUK]),
@@ -159,11 +175,11 @@ BEGIN
 
 	-- INVOICED FREIGHT RECOVERY TABLE
 
-	delete from [base_isedio].[INVOICEDFREIGHT_ISUK] where DATEPART(year, Accountingdate) = @lFrYear and DATEPART(month, Accountingdate) = @lFrMonth 
+	-- delete from [base_isedio].[INVOICEDFREIGHT_ISUK] where DATEPART(year, Accountingdate) = @lFrYear and DATEPART(month, Accountingdate) = @lFrMonth 
 
 	-- CUSTINVOICETRANS
 
-	TRUNCATE TABLE [base_isedio].[CUSTINVOICETRANS_ISUK]
+	--TRUNCATE TABLE [base_isedio].[CUSTINVOICETRANS_ISUK]
 
 	update [base_isedio].[CUSTINVOICETRANS_ISUK]
 	set ProductSalesEUR = a.ProductSalesLocal/c.CRHRATE,
@@ -251,8 +267,8 @@ BEGIN
 	SELECT 
 	i.Accountingdate, 
 	i.InvoicedFreightLocal,
-	i.InvoicedFreightLocal / c.CRHRATE InvoicedFreightEur,
-	i.PackingSlipID 
+	i.InvoicedFreightLocal / c.CRHRATE AS InvoicedFreightEur,
+	i.PackingSlipID as [PACKINGSLIPID]
 	into #InvoicedFreightTable_ISUK
 	from [base_isedio].[INVOICEDFREIGHT_ISUK] i
 	inner join [base_tx_ca_0_hlp].[CRHCURRENCY] c
@@ -265,29 +281,32 @@ BEGIN
 	c.PACKINGSLIPID,
     ISNULL(sum(c.PRODUCTSALESLOCAL),0) SalesBalance,
     ISNULL(sum(c.PRODUCTSALESEUR),0) SalesBalanceEUR
+    --,count(*) as lcounter
 	into #InvoicedFreightTable_ISUK_SB 
     from [intm_axbi].[fact_CUSTINVOICETRANS] c
     inner join #InvoicedFreightTable_ISUK i
-    on c.PACKINGSLIPID = substring(i.PackingSlipID, 1, 6)
+    on c.PACKINGSLIPID = i.[PACKINGSLIPID]
     and upper(c.DATAAREAID) = 'ISUK' 
 	group by c.PACKINGSLIPID
-	
-	select PACKINGSLIPID, count(*) lcounter
+
+	select c.[PACKINGSLIPID], count(*) lcounter
 	into #InvoicedFreightTable_ISUK_cnt 
-	from [intm_axbi].[fact_CUSTINVOICETRANS]
-	where upper(DATAAREAID) = 'ISUK'
-	group by PACKINGSLIPID
+	from [intm_axbi].[fact_CUSTINVOICETRANS] c
+    inner join #InvoicedFreightTable_ISUK i
+    on c.PACKINGSLIPID = i.[PACKINGSLIPID]
+	where upper(c.DATAAREAID) = 'ISUK'
+	group by c.[PACKINGSLIPID]
 	
 	update [intm_axbi].[fact_CUSTINVOICETRANS]
 	set OTHERSALESLOCAL += i.InvoicedFreightLocal * t.PRODUCTSALESLOCAL/sb.SalesBalance,
 	    OTHERSALESEUR   += i.InvoicedFreightEur * t.PRODUCTSALESEUR/sb.SalesBalanceEUR
 	from [intm_axbi].[fact_CUSTINVOICETRANS] as t
 	inner join #InvoicedFreightTable_ISUK i
-	on t.PACKINGSLIPID=i.PackingSlipID
+	on t.PACKINGSLIPID=i.[PACKINGSLIPID]
 	inner join #InvoicedFreightTable_ISUK_SB sb
-	on t.PACKINGSLIPID = substring(i.PackingSlipID, 1, 6) 
+	on t.PACKINGSLIPID = sb.PACKINGSLIPID
 	where upper(t.DATAAREAID) = 'ISUK' 
-	and SalesBalance <> 0
+	and sb.SalesBalance <> 0
 	
 	
 	update [intm_axbi].[fact_CUSTINVOICETRANS]
@@ -295,13 +314,14 @@ BEGIN
 	    OTHERSALESEUR  += i.InvoicedFreightEur / cnt.lcounter
 	from [intm_axbi].[fact_CUSTINVOICETRANS] as t
 	inner join #InvoicedFreightTable_ISUK i
-	on t.PACKINGSLIPID=i.PackingSlipID
+	on t.PACKINGSLIPID=i.[PACKINGSLIPID]
 	inner join #InvoicedFreightTable_ISUK_SB sb
-	on t.PACKINGSLIPID = substring(i.PackingSlipID, 1, 6) 
+	on t.PACKINGSLIPID = i.[PACKINGSLIPID]
 	inner join #InvoicedFreightTable_ISUK_cnt cnt
-	on t.PACKINGSLIPID = cnt.PACKINGSLIPID
+	on t.PACKINGSLIPID = cnt.[PACKINGSLIPID]
 	where upper(t.DATAAREAID) = 'ISUK' 
 	and sb.SalesBalance = 0
+	and cnt.lcounter > 0
 	
 		
 	-- SALES100 aktualisieren
@@ -483,4 +503,5 @@ BEGIN
     drop table #InvoicedFreightTable_ISUK
     drop table #InvoicedFreightTable_ISUK_SB
     drop table #InvoicedFreightTable_ISUK_cnt
+    drop table ##InvoicePosCounter
 END

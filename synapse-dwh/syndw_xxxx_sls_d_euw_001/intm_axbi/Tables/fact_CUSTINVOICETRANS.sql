@@ -7,7 +7,7 @@ CREATE TABLE [intm_axbi].[fact_CUSTINVOICETRANS](
 	[ACCOUNTINGDATE] [datetime] NOT NULL,
 	[CUSTOMERNO] [nvarchar](100) NOT NULL,
 	[ITEMID] [nvarchar](100) NOT NULL,
-	[DELIVERYCOUNTRYID] [nvarchar](2) NOT NULL,
+	[DELIVERYCOUNTRYID] [nvarchar](20) NOT NULL,
 	[PACKINGSLIPID] [nvarchar](20) NOT NULL,
 	[QTY] [numeric](38, 12) NOT NULL,
 	[PRODUCTSALESLOCAL] [numeric](38, 12) NOT NULL,

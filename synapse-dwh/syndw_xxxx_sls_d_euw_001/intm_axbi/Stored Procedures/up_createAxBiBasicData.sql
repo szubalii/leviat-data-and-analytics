@@ -273,6 +273,13 @@ BEGIN
 	where DATAAREAID = 'ANUK' and DIMENSION3_ is null 
 
 	insert [intm_axbi].[dim_CUSTTABLE]
+	(DATAAREAID
+    ,ACCOUNTNUM
+    ,NAME
+    ,INOUT
+    ,CUSTOMERPILLAR
+    ,COMPANYCHAINID
+    ,DIMENSION3_)
 	select distinct
 	DATAAREAID,
 	'ANUK-' + CUSTOMERID,
@@ -287,6 +294,13 @@ BEGIN
 
 
 	insert [intm_axbi].[dim_CUSTTABLE]
+	(DATAAREAID
+    ,ACCOUNTNUM
+    ,NAME
+    ,INOUT
+    ,CUSTOMERPILLAR
+    ,COMPANYCHAINID
+    ,DIMENSION3_)
 	select distinct
 	DATAAREAID,
 	'ANAC-' + CAST([CUSTOMERID] as nvarchar),
@@ -368,6 +382,13 @@ BEGIN
 
 	-- Ancon Middle East
 	insert [intm_axbi].[dim_CUSTTABLE]
+	(DATAAREAID
+    ,ACCOUNTNUM
+    ,NAME
+    ,INOUT
+    ,CUSTOMERPILLAR
+    ,COMPANYCHAINID
+    ,DIMENSION3_)
 	select distinct
 	'ANME',
 	CUSTOMERID,
@@ -380,6 +401,13 @@ BEGIN
 
 	-- Ancon Isedio UK
 	insert [intm_axbi].[dim_CUSTTABLE]
+	(DATAAREAID
+    ,ACCOUNTNUM
+    ,NAME
+    ,INOUT
+    ,CUSTOMERPILLAR
+    ,COMPANYCHAINID
+    ,DIMENSION3_)
 	select distinct
 	DATAAREAID,
 	'ISUK-' + CUSTOMERID,
@@ -387,7 +415,7 @@ BEGIN
 	INOUT,
 	CUSTOMERPILLAR,
 	' ',
-	DIMENSION3_
+	ISNULL(DIMENSION3_,' ')
 	from [base_isedio].[CUSTTABLE_ISUK]
 
 	update [intm_axbi].[dim_CUSTTABLE]
@@ -494,6 +522,13 @@ BEGIN
 	-- Halfen Moment Malaysia
 	
 	insert [intm_axbi].[dim_CUSTTABLE]
+	(DATAAREAID
+    ,ACCOUNTNUM
+    ,NAME
+    ,INOUT
+    ,CUSTOMERPILLAR
+    ,COMPANYCHAINID
+    ,DIMENSION3_)
 	select distinct
 	'HMMY',
 	'HMMY-' + ACCOUNTNUM,
@@ -501,12 +536,19 @@ BEGIN
 	INOUT,
 	CUSTOMERPILLAR,
 	' ',
-	DIMENSION3_
+	ISNULL(DIMENSION3_,' ')
 	from [base_halfen_moment_my].[CUSTTABLE_HMMY]
 
 	-- Halfen Moment Singapur
 	
 	insert [intm_axbi].[dim_CUSTTABLE]
+	(DATAAREAID
+    ,ACCOUNTNUM
+    ,NAME
+    ,INOUT
+    ,CUSTOMERPILLAR
+    ,COMPANYCHAINID
+    ,DIMENSION3_)
 	select distinct
 	'HMSG',
 	'HMSG-' + ACCOUNTNUM,
@@ -514,12 +556,19 @@ BEGIN
 	INOUT,
 	CUSTOMERPILLAR,
 	' ',
-	DIMENSION3_
+	ISNULL(DIMENSION3_,' ')
 	from [base_halfen_moment_sg].[CUSTTABLE_HMSG]
 
 	-- Halfen Moment Indien
 
 	insert [intm_axbi].[dim_CUSTTABLE]
+	(DATAAREAID
+    ,ACCOUNTNUM
+    ,NAME
+    ,INOUT
+    ,CUSTOMERPILLAR
+    ,COMPANYCHAINID
+    ,DIMENSION3_)
 	select distinct
 	'HMIN',
 	CUSTOMERID,
@@ -541,6 +590,13 @@ BEGIN
 	-- Halfen Moment Philippinen
 
 	insert [intm_axbi].[dim_CUSTTABLE]
+	(DATAAREAID
+    ,ACCOUNTNUM
+    ,NAME
+    ,INOUT
+    ,CUSTOMERPILLAR
+    ,COMPANYCHAINID
+    ,DIMENSION3_)
 	select distinct
 	'HMPH',
 	CUSTOMERID,
@@ -552,7 +608,15 @@ BEGIN
 	from [base_halfen_moment_ph].[CUSTTABLE_HMPH]
 
 	-- Fehlenden Kunden eintragen
-	insert into [intm_axbi].[dim_CUSTTABLE] VALUES('HMPH', 'HMPH-Freyfil Corporation- Limamburao', 'HMPH-Freyfil Corporation- Limamburao', 'O', 'OTHER', ' ', ' ')
+	insert into [intm_axbi].[dim_CUSTTABLE]
+	(DATAAREAID
+    ,ACCOUNTNUM
+    ,NAME
+    ,INOUT
+    ,CUSTOMERPILLAR
+    ,COMPANYCHAINID
+    ,DIMENSION3_) 
+    VALUES('HMPH', 'HMPH-Freyfil Corporation- Limamburao', 'HMPH-Freyfil Corporation- Limamburao', 'O', 'OTHER', ' ', ' ')
 
     -- DIMENSION3_ versorgen
 	update [intm_axbi].[dim_CUSTTABLE]
@@ -563,6 +627,13 @@ BEGIN
 
 	
 	insert [intm_axbi].[dim_CUSTTABLE]
+	(DATAAREAID
+    ,ACCOUNTNUM
+    ,NAME
+    ,INOUT
+    ,CUSTOMERPILLAR
+    ,COMPANYCHAINID
+    ,DIMENSION3_)
 	select distinct
 	DATAAREAID,
 	'ISAU-' + ACCOUNTNUM,
@@ -672,7 +743,7 @@ BEGIN
 	select 'ANDE', 'ANDE-' + ITEMGROUPID, 'ANDE-' + ItemGroupName from [base_tx_crh_1_stg].[AX_CRH_A_dbo_INVENTTABLE] where LOWER(DATAAREAID) = 'ande' group by ITEMGROUPID, ItemGroupName
 
 	delete [intm_axbi].[dim_ITEMGROUP] where DATAAREAID = 'ANAC'
-	insert [intm_axbi].[dim_ITEMGROUP]
+	insert [intm_axbi].[dim_ITEMGROUP](DATAAREAID,ITEMGROUPID,ITEMGROUPNAME)
 	select 
         distinct 'ANAC',
         'ANAC-' + CAST(STOCKGROUP as NVARCHAR(2)),
@@ -693,7 +764,7 @@ BEGIN
 	select 'ANNZ', 'ANNZ-' + ITEMGROUPID, 'ANNZ-' + NAME from [base_ancon_australia_2_dwh].[DIM_ITEMGROUP] where LOWER(DATAAREAID) = 'vmd'
 
 	delete [intm_axbi].[dim_ITEMGROUP] where DATAAREAID = 'ANUK'
-	insert [intm_axbi].[dim_ITEMGROUP]
+	insert [intm_axbi].[dim_ITEMGROUP](DATAAREAID,ITEMGROUPID,ITEMGROUPNAME)
 	select
         'ANUK',
         'ANUK-' + ITEMGROUPID,
@@ -701,7 +772,7 @@ BEGIN
         from [base_ancon_uk].[MAPPING_ITEMGROUP_ANUK]
 
 	delete [intm_axbi].[dim_ITEMGROUP] where DATAAREAID = 'ISUK'
-	insert [intm_axbi].[dim_ITEMGROUP]
+	insert [intm_axbi].[dim_ITEMGROUP](DATAAREAID,ITEMGROUPID,ITEMGROUPNAME)
 	select
         'ISUK',
         'ISUK-' + ITEMGROUPID,
@@ -1422,6 +1493,11 @@ BEGIN
 		
 	-- Ancon UK
 	insert [intm_axbi].[dim_ITEMTABLE]
+	(DATAAREAID
+    ,ITEMID
+    ,ITEMNAME
+    ,PRODUCTGROUPID
+    ,ITEMGROUPID)
 	select distinct
 	[DATAAREAID],
 	'ANUK-' + [ITEMID],
@@ -1497,6 +1573,11 @@ BEGIN
 	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANUK', 'ANUK-O.3.', 'VAPOUR BARRIER FOILS + OTHERS', 'O.3.', ' ')
 
 	insert [intm_axbi].[dim_ITEMTABLE]
+	(DATAAREAID
+    ,ITEMID
+    ,ITEMNAME
+    ,PRODUCTGROUPID
+    ,ITEMGROUPID)
 	select distinct
 	c.DATAAREAID,
 	c.ITEMID,
@@ -1511,6 +1592,11 @@ BEGIN
 
 	-- Ancon Australia CONNOLLY
 	insert [intm_axbi].[dim_ITEMTABLE]
+	(DATAAREAID
+    ,ITEMID
+    ,ITEMNAME
+    ,PRODUCTGROUPID
+    ,ITEMGROUPID)
 	select distinct
 	[DATAAREAID],
 	'ANAC-' + [ITEMID],
@@ -1582,6 +1668,11 @@ BEGIN
 	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANAC', 'ANAC-O.3.', 'VAPOUR BARRIER FOILS + OTHERS', 'O.3.', ' ')
 
 	insert [intm_axbi].[dim_ITEMTABLE]
+	(DATAAREAID
+    ,ITEMID
+    ,ITEMNAME
+    ,PRODUCTGROUPID
+    ,ITEMGROUPID)
 	select distinct
 	c.DATAAREAID,
 	c.ITEMID,
@@ -1596,6 +1687,11 @@ BEGIN
 	
 	-- Ancon Middle East
 	insert [intm_axbi].[dim_ITEMTABLE]
+	(DATAAREAID
+    ,ITEMID
+    ,ITEMNAME
+    ,PRODUCTGROUPID
+    ,ITEMGROUPID)
 	select distinct
 	'ANME',
 	[ITEMID],
@@ -1669,6 +1765,11 @@ BEGIN
 	-- Ancon Isedio UK
 
 	insert [intm_axbi].[dim_ITEMTABLE]
+	(DATAAREAID
+    ,ITEMID
+    ,ITEMNAME
+    ,PRODUCTGROUPID
+    ,ITEMGROUPID)
 	select distinct
 	[DATAAREAID],
 	[ITEMID],
@@ -1746,6 +1847,11 @@ BEGIN
 
 	-- Halfen Moment Malaysia
 	insert [intm_axbi].[dim_ITEMTABLE]
+	(DATAAREAID
+    ,ITEMID
+    ,ITEMNAME
+    ,PRODUCTGROUPID
+    ,ITEMGROUPID)
 	select distinct
 	'HMMY',
 	'HMMY-' + [ITEMID],
@@ -1818,6 +1924,11 @@ BEGIN
 
 	-- Halfen Moment Singapur
 	insert [intm_axbi].[dim_ITEMTABLE]
+	(DATAAREAID
+    ,ITEMID
+    ,ITEMNAME
+    ,PRODUCTGROUPID
+    ,ITEMGROUPID)
 	select distinct
 	'HMSG',
 	'HMSG-' + [ITEMID],
@@ -1890,6 +2001,11 @@ BEGIN
 
 	-- Halfen Indien
 	insert [intm_axbi].[dim_ITEMTABLE]
+	(DATAAREAID
+    ,ITEMID
+    ,ITEMNAME
+    ,PRODUCTGROUPID
+    ,ITEMGROUPID)
 	select distinct
 	'HMIN',
 	[ITEMID],
@@ -1966,6 +2082,11 @@ BEGIN
 
 	-- Halfen Philippinen
 	insert [intm_axbi].[dim_ITEMTABLE]
+	(DATAAREAID
+    ,ITEMID
+    ,ITEMNAME
+    ,PRODUCTGROUPID
+    ,ITEMGROUPID)
 	select distinct
 	'HMPH',
 	[ITEMID],
@@ -2048,6 +2169,11 @@ BEGIN
 
 	-- Isedio Australien
 	insert [intm_axbi].[dim_ITEMTABLE]
+	(DATAAREAID
+    ,ITEMID
+    ,ITEMNAME
+    ,PRODUCTGROUPID
+    ,ITEMGROUPID)
 	select distinct
 	[DATAAREAID],
 	'ISAU-' + [ITEMID],

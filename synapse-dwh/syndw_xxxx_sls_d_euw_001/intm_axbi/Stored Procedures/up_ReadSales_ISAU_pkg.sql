@@ -329,7 +329,7 @@ BEGIN
 	select
         [Dataareaid],
 	    ISNULL([Salesid], ' ') AS [Salesid],
-	    cast([Invoiceid] as nvarchar(20)) AS [Invoiceid],
+	    cast([Invoiceid] as nvarchar(20)) AS [INVOICEID],
 	    [Linenum],
 	    [Accountingdate],
 	    'ISAU-' + [CustomerNo] AS [CustomerNo],
@@ -397,14 +397,14 @@ BEGIN
         and
         DATEPART(month, t.[ACCOUNTINGDATE]) = @P_Month
         and
-        t.itemid <> 'ISAU-FREIGHT'
+        t.[ITEMID] <> 'ISAU-FREIGHT'
         and
         sb.SalesBalanceMST<>0
 
 	-- Falls Positionen vorhanden, aber ohne Umsatz
 	update [intm_axbi].[fact_CUSTINVOICETRANS]
-	set OTHERSALESLOCAL += st.OTHERSALESLOCAL / cnt.lcounter,
-	    OTHERSALESEUR   += st.OTHERSALESEUR / cnt.lcounter
+	set OTHERSALESLOCAL += st.OtherSalesLocal / cnt.lcounter,
+	    OTHERSALESEUR   += st.OtherSalesEUR / cnt.lcounter
 	from
         [intm_axbi].[fact_CUSTINVOICETRANS] as t
     inner join
@@ -423,7 +423,7 @@ BEGIN
         and
         DATEPART(month, t.ACCOUNTINGDATE) = @P_Month
         and
-        t.itemid <> 'ISAU-FREIGHT'
+        t.[ITEMID] <> 'ISAU-FREIGHT'
 	    and
         sb.SalesBalanceMST=0
         and 
@@ -454,21 +454,21 @@ BEGIN
 	,[COSTAMOUNTLOCAL]
 	,[COSTAMOUNTEUR])
 	select
-	        [DATAAREAID]
-	    ,   [SALESID]
+	        [Dataareaid]
+	    ,   [Salesid]
 	    ,   st.[INVOICEID]
-	    ,   [LINENUM]
+	    ,   [Linenum]
 	    ,   ' '
-	    ,   [ACCOUNTINGDATE]
-	    ,   [CUSTOMERNO]
-	    ,   [ITEMID]
-	    ,   [DELIVERYCOUNTRYID]
-	    ,   [PackingslipID]
-	    ,   [QTY]
+	    ,   [Accountingdate]
+	    ,   [CustomerNo]
+	    ,   [Itemid]
+	    ,   [DeliveryCountryID]
+	    ,   ' '
+	    ,   [Qty]
 	    ,   0
 	    ,   0
-	    ,   st.OTHERSALESLOCAL
-	    ,   st.OTHERSALESEUR
+	    ,   st.OtherSalesLocal
+	    ,   st.OtherSalesEUR
 	    ,   0
 	    ,   0
 	    ,   0
@@ -486,7 +486,7 @@ BEGIN
         #OtherSalesTable_cnt cnt
 	        on st.[INVOICEID] = sb.[INVOICEID]
     WHERE 
-        upper(st.DATAAREAID) = 'ANAC'
+        upper(st.Dataareaid) = 'ANAC'
         and
         sb.SalesBalanceMST = 0
         and
