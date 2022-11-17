@@ -28,7 +28,7 @@ stages:
       env: dev_mpors
       varGroup: DnA_DEV
       keyVaultVarGroup: keyVault_DEV
-- ${{ if eq(Build.SourceBranchName, main) }}:
+- ${{ if eq($(Build.SourceBranchName), main) }}:
   - stage: QAS
     jobs: 
     - template: ${{parameters.path}}/jobs-deploy.yml
