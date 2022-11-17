@@ -18,27 +18,30 @@ stages:
   - template: ./jobs-pre-build.yml
     parameters:
       varGroup: DnA_DEV
-  - template: ${{parameters.path}}/jobs-build.yml
+  - template: ../${{parameters.path}}/build/jobs-build.yml
     parameters:
       artifact: true
 - stage: dev_mpors
   jobs:
-  - template: ${{parameters.path}}/jobs-deploy.yml
+  - template: ./jobs-deploy.yml
     parameters:
       env: dev_mpors
+      path: ${{ parameters.path }}
       varTemplate: ../../build/variables-personal.yml
 - ${{ if eq(variables['Build.SourceBranchName'], 'main') }}:
   - stage: QAS
     jobs: 
-    - template: ${{parameters.path}}/jobs-deploy.yml
+    - template: ./jobs-deploy.yml
       parameters:
         env: QAS
+        path: ${{ parameters.path }}
         varTemplate: ../../build/variables-qas.yml
   - stage: PROD
     jobs: 
-    - template: ${{parameters.path}}/jobs-deploy.yml
+    - template: ./jobs-deploy.yml
       parameters:
         env: PROD
+        path: ${{ parameters.path }}
         varTemplate: ../../build/variables-prod.yml
 
 #   steps:
