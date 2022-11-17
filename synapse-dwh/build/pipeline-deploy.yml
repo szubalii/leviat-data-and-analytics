@@ -1,7 +1,7 @@
 trigger: #none
   branches:
     include: 
-    - xu-deploy #TODO change to main
+    # - xu-deploy #TODO change to main
     - dev_mpors
   paths:
     include: 
