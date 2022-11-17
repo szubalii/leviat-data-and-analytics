@@ -1,0 +1,52 @@
+trigger: #none
+  branches:
+    include: 
+    - xu-deploy #TODO change to main
+  paths:
+    include: 
+    - azure-data-factory/*
+
+# parameters:
+# - name: env
+#   type: string
+#   default: DEV
+#   values: 
+#   - DEV
+#   - QAS
+#   - PROD
+
+# variables:
+# - name: env
+#   value: ${{ parameters.env }}
+# - name: varGroup
+#   value: DnA_$(env)
+# - name: keyGroup
+#   value: KeyVault_$(env)
+# - group: ${{ variables.varGroup }}
+# - group: ${{ variables.keyGroup }}
+
+stages:
+- template: ../../build/stages-deploy.yml
+  parameters:
+    path: ../azure-data-factory/build
+
+
+# steps:
+# - script: |
+#     echo "par_env $(parameters.env)"
+#     echo "par_env ${{parameters.env}}"
+#     echo "var_env $(env)"
+#     echo "var_varGroup $(varGroup)"
+#     echo "var_keyGroup $(keyGroup)"
+#     echo "var_varGroup ${{ variables.varGroup }}"
+#     echo "var_keyGroup ${{ variables.keyGroup }}"
+
+
+# jobs:
+# - template: ../../build/jobs-pre-build.yml
+# - template: ./jobs-build.yml
+#   parameters:
+#     artifact: true
+# - template: ./jobs-deploy.yml
+  # parameters:
+  #   adfPathPrefix: $(System.ArtifactsDirectory)

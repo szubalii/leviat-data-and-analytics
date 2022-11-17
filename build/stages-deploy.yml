@@ -3,11 +3,46 @@
 # Add steps that publish symbols, save build artifacts, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/apps/windows/dot-net
 
+parameters:
+- name: path
+  type: string
+
+# variables:
+# - name: path
+#   value: ${{ parameters.path }}
+
 
 stages:
-- stage: Deploy
+- stage: BUILD
   jobs:
-  - template: ./jobs-deploy.yml
+  - template: ./jobs-pre-build.yml
+    parameters:
+      varGroup: DnA_DEV
+  - template: ${{parameters.path}}/jobs-build.yml
+    parameters:
+      artifact: true
+- stage: dev_mpors
+  jobs:
+  - template: ${{parameters.path}}/jobs-deploy.yml
+    parameters:
+      env: dev_mpors
+      varGroup: DnA_DEV
+      keyVaultVarGroup: keyVault_DEV
+- ${{ if eq(Build.SourceBranchName, main) }}:
+  - stage: QAS
+    jobs: 
+    - template: ${{parameters.path}}/jobs-deploy.yml
+      parameters:
+        env: QAS
+        varGroup: DnA_QAS
+        keyVaultVarGroup: keyVault_QAS
+  - stage: PROD
+    jobs: 
+    - template: ${{parameters.path}}/jobs-deploy.yml
+      parameters:
+        env: PROD
+        varGroup: DnA_PROD
+        keyVaultVarGroup: keyVault_PROD
 
 #   steps:
 

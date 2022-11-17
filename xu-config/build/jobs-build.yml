@@ -8,8 +8,11 @@ parameters:
   default: false
 
 jobs:
-- job: XtractUniversal
+- job: XtractUniversalBuild
   dependsOn: StartVM
+  variables:
+  - name: pathPrefix
+    value: $(System.DefaultWorkingDirectory)/xu-config
   pool:
     name: 'VM'
     demands:
@@ -17,7 +20,7 @@ jobs:
     - VisualStudio
 
   steps:
-  # - template: ./steps-build.yml -- no build steps for xu-config
+  - template: ./steps-build.yml
   # deploy only if required.
   - ${{ if eq(parameters.deploy, true) }}: 
     - template: ./steps-deploy.yml

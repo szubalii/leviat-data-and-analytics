@@ -1,5 +1,7 @@
 trigger:
-- none
+  branches:
+    include:
+    - dev_mpors
 
 variables:
 - group: DnA_DEV
