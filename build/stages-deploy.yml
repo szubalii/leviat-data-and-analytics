@@ -21,27 +21,28 @@ stages:
   - template: ${{parameters.path}}/jobs-build.yml
     parameters:
       artifact: true
-- stage: TEST
+- stage: dev_mpors
   jobs:
   - template: ${{parameters.path}}/jobs-deploy.yml
     parameters:
-      env: TEST
+      env: dev_mpors
       varGroup: DnA_DEV
       keyVaultVarGroup: keyVault_DEV
-- stage: QAS
-  jobs: 
-  - template: ${{parameters.path}}/jobs-deploy.yml
-    parameters:
-      env: QAS
-      varGroup: DnA_QAS
-      keyVaultVarGroup: keyVault_QAS
-- stage: PROD
-  jobs: 
-  - template: ${{parameters.path}}/jobs-deploy.yml
-    parameters:
-      env: PROD
-      varGroup: DnA_PROD
-      keyVaultVarGroup: keyVault_PROD
+- ${{ if eq(Build.SourceBranchName, main) }}:
+  - stage: QAS
+    jobs: 
+    - template: ${{parameters.path}}/jobs-deploy.yml
+      parameters:
+        env: QAS
+        varGroup: DnA_QAS
+        keyVaultVarGroup: keyVault_QAS
+  - stage: PROD
+    jobs: 
+    - template: ${{parameters.path}}/jobs-deploy.yml
+      parameters:
+        env: PROD
+        varGroup: DnA_PROD
+        keyVaultVarGroup: keyVault_PROD
 
 #   steps:
 
