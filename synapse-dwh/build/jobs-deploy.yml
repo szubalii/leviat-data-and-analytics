@@ -17,6 +17,8 @@ jobs:
     value: $(Pipeline.Workspace)
   - group: ${{ parameters.varGroup }}
   - group: ${{ parameters.keyVaultVarGroup }}
+  - ${{ if ne(variables['Build.SourceBranchName'], 'main') }}: 
+    - template: ../../build/variables-personal.yml
   pool:
     name: 'VM'
     demands:
