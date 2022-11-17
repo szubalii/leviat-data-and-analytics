@@ -1,7 +1,7 @@
 variables:
 - template: ./variables-test.yml
 - name: user
-  value: ${{ replace(variables['Build.SourceBranchName'], 'dev', '') }}
+  value: ${{ replace(variables['Build.SourceBranchName'], 'dev_', '') }}
 - name: dataFactoryName
   value: "df-$(user)-d-euw-001"
 - name: sqlDatabaseName
