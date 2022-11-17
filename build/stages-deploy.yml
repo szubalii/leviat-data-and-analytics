@@ -6,6 +6,8 @@
 parameters:
 - name: path
   type: string
+- name: solution
+  type: string
 
 # variables:
 # - name: path
@@ -27,6 +29,7 @@ stages:
     parameters:
       env: dev_mpors
       path: ${{ parameters.path }}
+      solution: ${{ parameters.solution }}
       varTemplate: ./variables-personal.yml
 - ${{ if eq(variables['Build.SourceBranchName'], 'main') }}:
   - stage: QAS
@@ -35,6 +38,7 @@ stages:
       parameters:
         env: QAS
         path: ${{ parameters.path }}
+        solution: ${{ parameters.solution }}
         varTemplate: ./variables-qas.yml
   - stage: PROD
     jobs: 
@@ -42,6 +46,7 @@ stages:
       parameters:
         env: PROD
         path: ${{ parameters.path }}
+        solution: ${{ parameters.solution }}
         varTemplate: ./variables-prod.yml
 
 #   steps:

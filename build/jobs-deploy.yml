@@ -8,11 +8,13 @@ parameters:
   default: ./variables-test.yml
 - name: path
   type: string
+- name: solution
+  type: string
 
 
 
 jobs:
-- deployment: Deploy ${{parameters.path}}
+- deployment: Deploy_${{parameters.solution}}
   variables:
   - name: pathPrefix
     value: $(Pipeline.Workspace)

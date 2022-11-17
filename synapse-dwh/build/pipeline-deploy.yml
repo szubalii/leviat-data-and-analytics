@@ -30,6 +30,7 @@ stages:
 - template: ../../build/stages-deploy.yml
   parameters:
     path: synapse-dwh
+    solution: SynapseDWH
 
 
 # steps:
