@@ -204,6 +204,133 @@ BDIwithMatType AS (
             AND
             BDI.[OriginSDDocumentItem] = VC.[SalesDocumentItem]    
     WHERE BDI.[Material]<>'000000000070000019'
+),
+
+CTE_BDIPE_ZF20 AS (
+    SELECT 
+            BDIPE_ZF20.[BillingDocument]
+        ,   BDIPE_ZF20.[BillingDocumentItem]
+        ,   BDIPE_ZF20.[PricingProcedureCounter]
+        ,   BDIPE_ZF20.[PricingProcedureStep]
+        ,   BDIPE_ZF20.[ConditionAmount]
+    FROM
+        [base_s4h_cax].[I_BillingDocumentItemPrcgElmnt] BDIPE_ZF20  
+    WHERE 
+        BDIPE_ZF20.[ConditionType] = 'ZF20'
+        AND
+        BDIPE_ZF20.ConditionInactiveReason = ''
+),
+CTE_BDIPE AS(
+    SELECT
+        BDIPE.BillingDocument
+       ,    BDIPE.BillingDocumentItem
+       ,    sum(BDIPE.ConditionAmount) as ConditionAmountFreight
+    FROM 
+        [base_s4h_cax].[I_BillingDocumentItemPrcgElmnt] AS BDIPE
+    LEFT JOIN 
+        CTE_BDIPE_ZF20 AS BDIPE_ZF20
+            ON 
+                BDIPE.[BillingDocument] = BDIPE_ZF20.[BillingDocument]
+                AND
+                BDIPE.[BillingDocumentItem] = BDIPE_ZF20.[BillingDocumentItem]
+                AND
+                BDIPE.[PricingProcedureCounter] = BDIPE_ZF20.[PricingProcedureCounter]
+                AND
+                BDIPE.[PricingProcedureStep] = BDIPE_ZF20.[PricingProcedureStep]
+    WHERE 
+        BDIPE.ConditionInactiveReason = ''
+        AND
+        (
+            (BDIPE_ZF20.[BillingDocument] IS NOT NULL 
+            AND
+            BDIPE.[ConditionType] IN ('ZF60', 'ZF20', 'ZTMF', 'ZM40')
+            )
+            OR 
+            (
+            (BDIPE_ZF20.[BillingDocument] IS NULL OR BDIPE_ZF20.ConditionAmount=0) 
+            AND
+            BDIPE.[ConditionType] IN ('ZF60', 'ZTMF', 'ZF10', 'ZM40')
+            )
+        )
+    GROUP BY 
+        BDIPE.BillingDocument,
+        BDIPE.BillingDocumentItem
+)
+, BDItemZSERAndConditions AS (
+    SELECT 
+        BDIwithMatType.[BillingDocument]
+    ,   BDIwithMatType.[BillingDocumentItem]
+    ,   BDIwithMatType.CurrencyTypeID
+    ,   CASE
+            WHEN
+                mbdi.[FinNetAmountColumnName] = 'FinNetAmountFreight'
+            THEN NetAmount 
+        END AS NetAmountFreight
+    ,   CASE
+            WHEN
+                mbdi.[FinNetAmountColumnName] = 'FinNetAmountMinQty'
+            THEN NetAmount 
+        END AS NetAmountMinQty
+    ,   CASE
+            WHEN
+                mbdi.[FinNetAmountColumnName] = 'FinNetAmountEngServ'
+            THEN NetAmount 
+        END AS NetAmountEngServ
+    ,   CASE
+            WHEN
+                mbdi.[FinNetAmountColumnName] = 'FinNetAmountMisc'
+            THEN NetAmount 
+        END AS NetAmountMisc
+    ,   CASE
+            WHEN
+                [MaterialTypeID] = 'ZSER'
+                AND
+                mbdi.[ProductID] IS NULL
+            THEN NetAmount 
+        END AS NetAmountServOther
+    ,   CASE
+            WHEN
+                [MaterialTypeID] = 'ZVER'
+            THEN NetAmount 
+        END AS NetAmountVerp
+    ,   ISNULL(ConditionAmountVerp.ConditionAmount, 0) * BDIwithMatType.ExchangeRate AS ConditionAmountVerp
+    ,   ISNULL(ConditionAmountMinQty.ConditionAmount, 0) * BDIwithMatType.ExchangeRate AS ConditionAmountMinQty
+    ,   ISNULL(CTE_BDIPE.ConditionAmountFreight, 0) * BDIwithMatType.ExchangeRate AS ConditionAmountFreight
+    FROM 
+        BDIwithMatType
+    LEFT JOIN
+        [map_AXBI].[BillingDocumentItem] AS mbdi
+        ON
+            mbdi.[ProductID] = BDIwithMatType.[Material]
+
+    LEFT JOIN
+        [base_s4h_cax].[I_BillingDocumentItemPrcgElmnt] AS ConditionAmountVerp
+        ON
+            BDIwithMatType.[BillingDocument] = ConditionAmountVerp.[BillingDocument]
+            AND
+            BDIwithMatType.[BillingDocumentItem] = ConditionAmountVerp.[BillingDocumentItem]
+            AND
+            ConditionAmountVerp.ConditionInactiveReason = ''
+            AND
+            ConditionAmountVerp.[ConditionType] = 'ZF40'
+        
+    LEFT JOIN
+        [base_s4h_cax].[I_BillingDocumentItemPrcgElmnt] AS ConditionAmountMinQty
+        ON
+            BDIwithMatType.[BillingDocument] = ConditionAmountMinQty.[BillingDocument]
+            AND
+            BDIwithMatType.[BillingDocumentItem] = ConditionAmountMinQty.[BillingDocumentItem]
+            AND
+            ConditionAmountMinQty.ConditionInactiveReason = ''
+            AND
+            ConditionAmountMinQty.[ConditionType] = 'AMIZ'
+
+    LEFT JOIN
+        CTE_BDIPE
+        ON
+            BDIwithMatType.[BillingDocument] = CTE_BDIPE.[BillingDocument]
+            AND
+            BDIwithMatType.[BillingDocumentItem] = CTE_BDIPE.[BillingDocumentItem]
 )
 ,
 BDwithFreight AS (
@@ -341,56 +468,7 @@ BDwithFreight AS (
         BillingDocument
     ,   CurrencyTypeID
 ),
-CTE_BDIPE_ZF20 AS (
-    SELECT 
-            BDIPE_ZF20.[BillingDocument]
-        ,   BDIPE_ZF20.[BillingDocumentItem]
-        ,   BDIPE_ZF20.[PricingProcedureCounter]
-        ,   BDIPE_ZF20.[PricingProcedureStep]
-        ,   BDIPE_ZF20.[ConditionAmount]
-    FROM
-        [base_s4h_cax].[I_BillingDocumentItemPrcgElmnt] BDIPE_ZF20  
-    WHERE 
-        BDIPE_ZF20.[ConditionType] = 'ZF20'
-        AND
-        BDIPE_ZF20.ConditionInactiveReason = ''
-),
-CTE_BDIPE AS(
-    SELECT
-        BDIPE.BillingDocument
-       ,    BDIPE.BillingDocumentItem
-       ,    sum(BDIPE.ConditionAmount) as ConditionAmountFreight
-    FROM 
-        [base_s4h_cax].[I_BillingDocumentItemPrcgElmnt] AS BDIPE
-    LEFT JOIN 
-        CTE_BDIPE_ZF20 AS BDIPE_ZF20
-            ON 
-                BDIPE.[BillingDocument] = BDIPE_ZF20.[BillingDocument]
-                AND
-                BDIPE.[BillingDocumentItem] = BDIPE_ZF20.[BillingDocumentItem]
-                AND
-                BDIPE.[PricingProcedureCounter] = BDIPE_ZF20.[PricingProcedureCounter]
-                AND
-                BDIPE.[PricingProcedureStep] = BDIPE_ZF20.[PricingProcedureStep]
-    WHERE 
-        BDIPE.ConditionInactiveReason = ''
-        AND
-        (
-            (BDIPE_ZF20.[BillingDocument] IS NOT NULL 
-            AND
-            BDIPE.[ConditionType] IN ('ZF60', 'ZF20', 'ZTMF', 'ZM40')
-            )
-            OR 
-            (
-            (BDIPE_ZF20.[BillingDocument] IS NULL OR BDIPE_ZF20.ConditionAmount=0) 
-            AND
-            BDIPE.[ConditionType] IN ('ZF60', 'ZTMF', 'ZF10', 'ZM40')
-            )
-        )
-    GROUP BY 
-        BDIPE.BillingDocument,
-        BDIPE.BillingDocumentItem
-),
+
 BDwithConditionAmountFreight AS (
     SELECT 
             BDI.BillingDocument
@@ -980,7 +1058,7 @@ BDwithConditionAmountFreight AS (
 /*
     Generate additional records for documents that consist of [MaterialTypeID] = 'ZSER' or 'ZVER' only
 */
-    SELECT 
+    SELECT
         BDIwithMatType.[BillingDocument]
     ,   STUFF(BDIwithMatType.[BillingDocumentItem], 1, 1, 'Z') + '0' AS [BillingDocumentItem]
     ,   NULL AS [MaterialTypeID] --MPS 2021/11/04 MaterialTypeID is not used in output but required for UNION
@@ -1154,18 +1232,39 @@ BDwithConditionAmountFreight AS (
     ,   [BillToID]
     ,   [BillTo]
     ,   NULL AS [FinNetAmountRealProduct]
-    ,   ISNULL(BDwithFreight.NetAmountFreight,0) + ISNULL(BDwithConditionAmountFreight.[ConditionAmountFreight],0) AS [FinNetAmountFreight]
-    ,   NULL AS [FinNetAmountMinQty]
-    ,   ISNULL(BDwithEngServ.NetAmountEngServ,0) AS [FinNetAmountEngServ]
-    ,   ISNULL(BDwithMisc.NetAmountMisc,0) AS [FinNetAmountMisc]
---  ,   BDwithZVER.NetAmountZVER -- MPS 2021/11/04: removed as NetAmountZVER same as NetAmountVerp
-    ,   ISNULL(BDwithServOther.NetAmountServOther,0) AS [FinNetAmountServOther]
-    ,   CASE
-            WHEN
-                MaterialTypeID = 'ZVER'
-            THEN
-                NetAmount
-        END AS [FinNetAmountVerp]
+    ,   ISNULL(BDItemZSERAndConditions.NetAmountFreight - 
+                BDItemZSERAndConditions.ConditionAmountMinQty - 
+                BDItemZSERAndConditions.ConditionAmountVerp, 
+            BDItemZSERAndConditions.ConditionAmountFreight
+        ) AS [FinNetAmountFreight]
+    ,   ISNULL(BDItemZSERAndConditions.NetAmountMinQty - 
+                BDItemZSERAndConditions.ConditionAmountVerp - 
+                BDItemZSERAndConditions.ConditionAmountFreight, 
+            BDItemZSERAndConditions.ConditionAmountMinQty
+        ) AS [FinNetAmountMinQty]
+    ,   ISNULL(BDItemZSERAndConditions.NetAmountEngServ  - 
+                BDItemZSERAndConditions.ConditionAmountVerp - 
+                BDItemZSERAndConditions.ConditionAmountFreight - 
+                BDItemZSERAndConditions.ConditionAmountMinQty,
+            0
+        ) AS [FinNetAmountEngServ]
+    ,   ISNULL(BDItemZSERAndConditions.NetAmountMisc - 
+                BDItemZSERAndConditions.ConditionAmountVerp - 
+                BDItemZSERAndConditions.ConditionAmountFreight - 
+                BDItemZSERAndConditions.ConditionAmountMinQty, 
+            0
+        ) AS [FinNetAmountMisc]
+    ,   ISNULL(BDItemZSERAndConditions.NetAmountServOther - 
+                BDItemZSERAndConditions.ConditionAmountVerp - 
+                BDItemZSERAndConditions.ConditionAmountFreight - 
+                BDItemZSERAndConditions.ConditionAmountMinQty, 
+            0
+        ) AS [FinNetAmountServOther]
+    ,   ISNULL(BDItemZSERAndConditions.NetAmountVerp - 
+                BDItemZSERAndConditions.ConditionAmountFreight - 
+                BDItemZSERAndConditions.ConditionAmountMinQty, 
+            BDItemZSERAndConditions.ConditionAmountVerp
+        ) AS [FinNetAmountVerp]
     ,   [AccountingDate]
     ,   'ZZZDUMMY02' AS [MaterialCalculated]
     ,   [SoldToPartyCalculated]
@@ -1175,43 +1274,13 @@ BDwithConditionAmountFreight AS (
     FROM 
         BDIwithMatType
     LEFT JOIN
-        BDwithZSER
-        ON
-            BDIwithMatType.BillingDocument = BDwithZSER.BillingDocument
-            AND
-            BDIwithMatType.CurrencyTypeID = BDwithZSER.CurrencyTypeID
-    LEFT JOIN
-        BDwithFreight
-        ON
-            BDIwithMatType.BillingDocument = BDwithFreight.BillingDocument
-            AND
-            BDIwithMatType.CurrencyTypeID = BDwithFreight.CurrencyTypeID
-    LEFT JOIN
-        BDwithConditionAmountFreight
+        BDItemZSERAndConditions
         ON 
-            BDIwithMatType.BillingDocument = BDwithConditionAmountFreight.BillingDocument
+            BDIwithMatType.BillingDocument = BDItemZSERAndConditions.BillingDocument
             AND            
-            BDIwithMatType.BillingDocumentItem = BDwithConditionAmountFreight.BillingDocumentItem
+            BDIwithMatType.BillingDocumentItem = BDItemZSERAndConditions.BillingDocumentItem
             AND
-            BDIwithMatType.CurrencyTypeID = BDwithConditionAmountFreight.CurrencyTypeID
-    LEFT JOIN
-        BDwithEngServ
-        ON
-            BDIwithMatType.BillingDocument = BDwithEngServ.BillingDocument
-            AND
-            BDIwithMatType.CurrencyTypeID = BDwithEngServ.CurrencyTypeID
-    LEFT JOIN
-        BDwithServOther
-        ON
-            BDIwithMatType.BillingDocument = BDwithServOther.BillingDocument
-            AND
-            BDIwithMatType.CurrencyTypeID = BDwithServOther.CurrencyTypeID
-    LEFT JOIN
-        BDwithMisc
-        ON
-            BDIwithMatType.BillingDocument = BDwithMisc.BillingDocument
-            AND
-            BDIwithMatType.CurrencyTypeID = BDwithMisc.CurrencyTypeID
+            BDIwithMatType.CurrencyTypeID = BDItemZSERAndConditions.CurrencyTypeID
     WHERE 
         BDIwithMatType.[BillingDocument] NOT IN (
             SELECT
