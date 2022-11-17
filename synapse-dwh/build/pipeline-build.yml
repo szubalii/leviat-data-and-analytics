@@ -1,5 +1,17 @@
-trigger:
-- none
+trigger: none
+  # branches:
+  #   include:
+  #   - dev_mpors
+
+# resources:
+#   pipelines:
+#   - pipeline: validate
+#     source: Validate
+#     trigger:
+#       branches:
+#         include:
+#         - dev_mpors
+      
 
 variables:
 - group: DnA_DEV
