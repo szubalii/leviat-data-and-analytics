@@ -1,0 +1,3 @@
+variables:
+- group: DnA_DEV
+- group: KeyVault_DEV

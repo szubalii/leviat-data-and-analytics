@@ -26,23 +26,20 @@ stages:
   - template: ${{parameters.path}}/jobs-deploy.yml
     parameters:
       env: dev_mpors
-      varGroup: DnA_DEV
-      keyVaultVarGroup: keyVault_DEV
+      varTemplate: ./variables-personal.yml
 - ${{ if eq(variables['Build.SourceBranchName'], 'main') }}:
   - stage: QAS
     jobs: 
     - template: ${{parameters.path}}/jobs-deploy.yml
       parameters:
         env: QAS
-        varGroup: DnA_QAS
-        keyVaultVarGroup: keyVault_QAS
+        varTemplate: ./variables-qas.yml
   - stage: PROD
     jobs: 
     - template: ${{parameters.path}}/jobs-deploy.yml
       parameters:
         env: PROD
-        varGroup: DnA_PROD
-        keyVaultVarGroup: keyVault_PROD
+        varTemplate: ./variables-prod.yml
 
 #   steps:
 
