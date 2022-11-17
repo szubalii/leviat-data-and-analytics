@@ -6,10 +6,6 @@ parameters:
 - name: varTemplate
   type: string
   default: ./variables-test.yml
-- name: jobName
-  type: string
-  values:
-  -
 - name: path
   type: string
 
