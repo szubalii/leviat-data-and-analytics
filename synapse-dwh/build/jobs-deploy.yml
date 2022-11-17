@@ -2,21 +2,17 @@
 parameters:
 - name: env
   type: string
-  default: DEV
-- name: varGroup
+  default: TEST
+- name: varTemplate
   type: string
-  default: DnA_DEV
-- name: keyVaultVarGroup
-  type: string
-  default: KeyVault_DEV
+  default: ./variables-test.yml
 
 jobs:
 - deployment: SynapseDWHDeploy
   variables:
   - name: pathPrefix
     value: $(Pipeline.Workspace)
-  - group: ${{ parameters.varGroup }}
-  - group: ${{ parameters.keyVaultVarGroup }}
+  - template: ${{ parameters.varTemplate }}
   pool:
     name: 'VM'
     demands:

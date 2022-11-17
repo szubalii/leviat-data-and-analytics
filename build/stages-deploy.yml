@@ -6,6 +6,8 @@
 parameters:
 - name: path
   type: string
+- name: solution
+  type: string
 
 # variables:
 # - name: path
@@ -18,31 +20,34 @@ stages:
   - template: ./jobs-pre-build.yml
     parameters:
       varGroup: DnA_DEV
-  - template: ${{parameters.path}}/jobs-build.yml
+  - template: ../${{parameters.path}}/build/jobs-build.yml
     parameters:
       artifact: true
 - stage: dev_mpors
   jobs:
-  - template: ${{parameters.path}}/jobs-deploy.yml
+  - template: ./jobs-deploy.yml
     parameters:
       env: dev_mpors
-      varGroup: DnA_DEV
-      keyVaultVarGroup: keyVault_DEV
-- ${{ if eq($(Build.SourceBranchName), main) }}:
+      path: ${{ parameters.path }}
+      solution: ${{ parameters.solution }}
+      varTemplate: ./variables-personal.yml
+- ${{ if eq(variables['Build.SourceBranchName'], 'main') }}:
   - stage: QAS
     jobs: 
-    - template: ${{parameters.path}}/jobs-deploy.yml
+    - template: ./jobs-deploy.yml
       parameters:
         env: QAS
-        varGroup: DnA_QAS
-        keyVaultVarGroup: keyVault_QAS
+        path: ${{ parameters.path }}
+        solution: ${{ parameters.solution }}
+        varTemplate: ./variables-qas.yml
   - stage: PROD
     jobs: 
-    - template: ${{parameters.path}}/jobs-deploy.yml
+    - template: ./jobs-deploy.yml
       parameters:
         env: PROD
-        varGroup: DnA_PROD
-        keyVaultVarGroup: keyVault_PROD
+        path: ${{ parameters.path }}
+        solution: ${{ parameters.solution }}
+        varTemplate: ./variables-prod.yml
 
 #   steps:
 

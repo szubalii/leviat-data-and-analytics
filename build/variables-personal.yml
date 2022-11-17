@@ -1,8 +1,7 @@
 variables:
-- group: DnA_DEV
-- group: KeyVault_DEV
+- template: ./variables-test.yml
 - name: user
-  value: ${{ replace(Build.SourceBranchName, 'dev', '') }}
+  value: ${{ replace(variables['Build.SourceBranchName'], 'dev', '') }}
 - name: dataFactoryName
   value: "df-$(user)-d-euw-001"
 - name: sqlDatabaseName
