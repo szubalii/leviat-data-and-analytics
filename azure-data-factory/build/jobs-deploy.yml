@@ -1,33 +1,33 @@
-# Azure Data Factory Deploy Job
-parameters:
-- name: env
-  type: string
-  default: DEV
-- name: varGroup
-  type: string
-  default: DnA_DEV
-- name: keyVaultVarGroup
-  type: string
-  default: KeyVault_DEV
+# # Azure Data Factory Deploy Job
+# parameters:
+# - name: env
+#   type: string
+#   default: DEV
+# - name: varGroup
+#   type: string
+#   default: DnA_DEV
+# - name: keyVaultVarGroup
+#   type: string
+#   default: KeyVault_DEV
 
-jobs:
-- deployment: ADFDeploy
-  # dependsOn: ${{if(eq($(deployEnv),'personal'),ADFBuild,)}}
-  variables:
-  - name: pathPrefix
-    value: $(Pipeline.Workspace)
-  - group: ${{ parameters.varGroup }}
-  - group: ${{ parameters.keyVaultVarGroup }}
-  pool:
-    name: 'VM'
-    demands:
-    - node.js
-    - VisualStudio
-    - Agent.Name -equals $(VMName)
+# jobs:
+# - deployment: ADFDeploy
+#   # dependsOn: ${{if(eq($(deployEnv),'personal'),ADFBuild,)}}
+#   variables:
+#   - name: pathPrefix
+#     value: $(Pipeline.Workspace)
+#   - group: ${{ parameters.varGroup }}
+#   - group: ${{ parameters.keyVaultVarGroup }}
+#   pool:
+#     name: 'VM'
+#     demands:
+#     - node.js
+#     - VisualStudio
+#     - Agent.Name -equals $(VMName)
 
-  environment: ${{ parameters.env }}
-  strategy:
-    runOnce:
-      deploy:
-        steps:
-        - template: ./steps-deploy.yml
+#   environment: ${{ parameters.env }}
+#   strategy:
+#     runOnce:
+#       deploy:
+#         steps:
+#         - template: ./steps-deploy.yml

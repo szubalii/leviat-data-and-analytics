@@ -7,10 +7,10 @@ steps:
     artifact: 'ArmTemplates'
     publishLocation: 'pipeline'
 
-# Publish the global parameters to be used as a source for a release pipeline.
+# # Publish the global parameters to be used as a source for a release pipeline.
   
-- task: PublishPipelineArtifact@1
-  inputs:
-    targetPath: '$(Build.Repository.LocalPath)/azure-data-factory/GlobalParameters' #replace with the package.json folder
-    artifact: 'GlobalParameters'
-    publishLocation: 'pipeline'
+# - task: PublishPipelineArtifact@1
+#   inputs:
+#     targetPath: '$(Build.Repository.LocalPath)/azure-data-factory/GlobalParameters' #replace with the package.json folder
+#     artifact: 'GlobalParameters'
+#     publishLocation: 'pipeline'

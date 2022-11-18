@@ -4,7 +4,7 @@ steps:
 - task: FileTransform@1
   displayName: 'File Transform: Destination and Source in Extractions'
   inputs:
-    folderPath: '$(pathPrefix)/extractions'
+    folderPath: '$(Pipeline.Workspace)/extractions'
     fileType: json
     targetFiles: '**/general.json'
 
@@ -16,14 +16,14 @@ steps:
     targetType: 'inline'
     pwsh: true
     script: |
-      Get-ChildItem -Path '$(pathPrefix)\extractions' |
+      Get-ChildItem -Path '$(Pipeline.Workspace)\extractions' |
       Foreach-Object {Rename-Item -Path $_.FullName -NewName ("$(xuPrefix)_"+($_.Name))}
 
   # Copy Repo XU Config to VM XU Config
 - task: CopyFiles@2
   displayName: 'Copy Repo XU Config to VM XU Config'
   inputs:
-    SourceFolder: '$(pathPrefix)\extractions'
+    SourceFolder: '$(Pipeline.Workspace)\extractions'
     Contents: '**/*.json'
     TargetFolder: 'C:\Program Files\XtractUniversal\config\extractions'
     OverWrite: true

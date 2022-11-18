@@ -3,27 +3,27 @@
 # Add steps that publish symbols, save build artifacts, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/apps/windows/dot-net
 
-trigger:
-- none
+# trigger:
+# - none
 
-parameters:
-- name: artifact
-  type: boolean
-  default: false
+# parameters:
+# - name: artifact
+#   type: boolean
+#   default: false
 
-variables:
-- group: DnA_DEV
-- group: KeyVault_DEV
+# variables:
+# - group: DnA_DEV
+# - group: KeyVault_DEV
 
-jobs:
+# jobs:
 
-  # Start VM
-# - template: ./jobs-start-vm
+#   # Start VM
+# # - template: ./jobs-start-vm
 
-# Build jobs
-- template: ../orchestration/build/jobs-build.yml
-  parameters:
-    artifact: ${{ parameters.artifact }}
+# # Build jobs
+# - template: ../orchestration/build/jobs-build.yml
+#   parameters:
+#     artifact: ${{ parameters.artifact }}
 # - template: ../orchestration/build/jobs-artifact.yml
 # - template: ../synapse-dwh/build/jobs-build.yml
 # - template: ../synapse-dwh/build/jobs-artifact.yml

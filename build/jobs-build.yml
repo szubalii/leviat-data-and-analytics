@@ -3,53 +3,60 @@
 # Add steps that publish symbols, save build artifacts, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/apps/windows/dot-net
 parameters:
+- name: solution
+  type: string
+- name: folder
+  type: string
 - name: artifact
   type: boolean
   default: false
-- name: deploy
-  type: boolean
-  default: false
-- name: adf
-  displayName: Build & Deploy Azure Data Factory
-  type: boolean
-  default: true
-- name: orchdb
-  displayName: Build & Deploy Orchestration DB
-  type: boolean
-  default: true
-- name: syn
-  displayName: Build & Deploy Synapse DWH
-  type: boolean
-  default: true
-- name: xu
-  displayName: Build & Deploy Xtract Universal
-  type: boolean
-  default: true
+# - name: deploy
+#   type: boolean
+#   default: false
+
 
 jobs:
-# Build jobs
 - template: ./jobs-pre-build.yml
-- template: ./jobs-validate.yml
-- ${{ if eq(parameters.orchdb, true) }}: 
-  - template: ../orchestration/build/jobs-build.yml
-    parameters:
-      artifact: ${{ parameters.artifact }}
-      deploy: ${{ parameters.deploy }}
-- ${{ if eq(parameters.syn, true) }}: 
-  - template: ../synapse-dwh/build/jobs-build.yml
-    parameters:
-      artifact: ${{ parameters.artifact }}
-      deploy: ${{ parameters.deploy }}
-- ${{ if eq(parameters.adf, true) }}: 
-  - template: ../azure-data-factory/build/jobs-build.yml
-    parameters:
-      artifact: ${{ parameters.artifact }}
-      deploy: ${{ parameters.deploy }}
-- ${{ if eq(parameters.xu, true) }}: 
-  - template: ../xu-config/build/jobs-build.yml
-    parameters:
-      artifact: ${{ parameters.artifact }}
-      deploy: ${{ parameters.deploy }}
+- job: BUILD_${{ parameters.solution }}
+  dependsOn: StartVM
+  variables:
+  - template: ../../${{ parameters.folder }}/variables.yml
+  pool:
+    name: 'VM'
+    demands:
+    - node.js
+    - VisualStudio
+  steps:
+  - template: ../../${{ parameters.folder }}/steps-build.yml
+  # deploy only if required.
+  # - ${{ if eq(parameters.deploy, true) }}: 
+  #   - template: ../../${{ parameters.folder }}/steps-deploy.yml
+  # publish artifact only if required.
+  - ${{ if eq(parameters.artifact, true) }}: 
+    - template: ../../${{ parameters.folder }}/steps-artifact.yml
+# Build jobs
+# - template: ./jobs-pre-build.yml
+# - template: ./jobs-validate.yml
+# - ${{ if eq(parameters.orchdb, true) }}: 
+#   - template: ../orchestration/build/jobs-build.yml
+#     parameters:
+#       artifact: ${{ parameters.artifact }}
+#       deploy: ${{ parameters.deploy }}
+# - ${{ if eq(parameters.syn, true) }}: 
+#   - template: ../synapse-dwh/build/jobs-build.yml
+#     parameters:
+#       artifact: ${{ parameters.artifact }}
+#       deploy: ${{ parameters.deploy }}
+# - ${{ if eq(parameters.adf, true) }}: 
+#   - template: ../azure-data-factory/build/jobs-build.yml
+#     parameters:
+#       artifact: ${{ parameters.artifact }}
+#       deploy: ${{ parameters.deploy }}
+# - ${{ if eq(parameters.xu, true) }}: 
+#   - template: ../xu-config/build/jobs-build.yml
+#     parameters:
+#       artifact: ${{ parameters.artifact }}
+#       deploy: ${{ parameters.deploy }}
 # - template: ../xu-config/build/jobs-deploy-test.yml
 
 #   steps:

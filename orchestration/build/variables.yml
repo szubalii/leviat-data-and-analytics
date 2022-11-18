@@ -1,0 +1,4 @@
+variables:
+  orchDBSolution: '**/orchestration/*.sln'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'

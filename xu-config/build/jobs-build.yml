@@ -1,29 +1,36 @@
-# Theobald Xtraxt Universal Build Job
-parameters:
-- name: artifact
-  type: boolean
-  default: false
-- name: deploy
-  type: boolean
-  default: false
+# # Theobald Xtraxt Universal Build Job
+# parameters:
+# - name: artifact
+#   type: boolean
+#   default: false
+# # - name: deploy
+# #   type: boolean
+# #   default: false
 
-jobs:
-- job: XtractUniversalBuild
-  dependsOn: StartVM
-  variables:
-  - name: pathPrefix
-    value: $(System.DefaultWorkingDirectory)/xu-config
-  pool:
-    name: 'VM'
-    demands:
-    - node.js
-    - VisualStudio
+# jobs:
+# - template: ../../build/jobs-build.yml
+#   parameters:
+#   - solution: XtractUniversal
+#   - folder: xu-config
+#   - artifact: ${{ parameters.artifact }}
 
-  steps:
-  - template: ./steps-build.yml
-  # deploy only if required.
-  - ${{ if eq(parameters.deploy, true) }}: 
-    - template: ./steps-deploy.yml
-  # publish artifact only if required.
-  - ${{ if eq(parameters.artifact, true) }}: 
-    - template: ./steps-artifact.yml
+# # jobs:
+# # - job: XtractUniversalBuild
+# #   dependsOn: StartVM
+# #   variables:
+# #   - name: pathPrefix
+# #     value: $(System.DefaultWorkingDirectory)/xu-config
+# #   pool:
+# #     name: 'VM'
+# #     demands:
+# #     - node.js
+# #     - VisualStudio
+
+# #   steps:
+# #   - template: ./steps-build.yml
+# #   # deploy only if required.
+# #   - ${{ if eq(parameters.deploy, true) }}: 
+# #     - template: ./steps-deploy.yml
+# #   # publish artifact only if required.
+# #   - ${{ if eq(parameters.artifact, true) }}: 
+# #     - template: ./steps-artifact.yml
