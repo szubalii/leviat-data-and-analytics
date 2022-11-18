@@ -12,4 +12,7 @@ steps:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
-
+- script: |
+    cd $(System.DefaultWorkingDirectory)/orchestration
+    node -e require('./src/libs/generate-master-data').writeMasterDataCSV('$(environment)')
+  displayName: 'CMD: Write Environment Specific Master Data'
