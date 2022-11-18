@@ -1,7 +1,8 @@
 trigger:
-  branches:
-    include:
-    - dev_mpors
+  - none # Use PR trigger only
+  # branches:
+  #   include:
+  #   - dev_mpors
 
 variables:
 - group: DnA_DEV
