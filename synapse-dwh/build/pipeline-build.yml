@@ -14,4 +14,4 @@ extends:
   parameters:
     folder: synapse-dwh
     solution: SynapseDWH
-    variables: true
+    hasVariables: true

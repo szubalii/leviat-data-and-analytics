@@ -7,4 +7,4 @@ extends:
   parameters:
     folder: orchestration
     solution: Orchestration
-    variables: true
+    hasVariables: true
