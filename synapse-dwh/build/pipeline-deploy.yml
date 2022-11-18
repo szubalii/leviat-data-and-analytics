@@ -20,7 +20,7 @@ trigger: #none
 #   - PROD
 
 extends:
-- template: ../../build/stages-deploy.yml
+  template: ../../build/stages-deploy.yml
   parameters:
     folder: synapse-dwh
     solution: SynapseDWH
