@@ -20,20 +20,20 @@ jobs:
 - job: BUILD_${{ parameters.solution }}
   dependsOn: StartVM
   variables:
-  - template: ../../${{ parameters.folder }}/variables.yml
+  - template: ../${{ parameters.folder }}/build/variables.yml
   pool:
     name: 'VM'
     demands:
     - node.js
     - VisualStudio
   steps:
-  - template: ../../${{ parameters.folder }}/steps-build.yml
+  - template: ../${{ parameters.folder }}/build/steps-build.yml
   # deploy only if required.
   # - ${{ if eq(parameters.deploy, true) }}: 
-  #   - template: ../../${{ parameters.folder }}/steps-deploy.yml
+  #   - template: ../${{ parameters.folder }}/build/steps-deploy.yml
   # publish artifact only if required.
   - ${{ if eq(parameters.artifact, true) }}: 
-    - template: ../../${{ parameters.folder }}/steps-artifact.yml
+    - template: ../${{ parameters.folder }}/build/steps-artifact.yml
 # Build jobs
 # - template: ./jobs-pre-build.yml
 # - template: ./jobs-validate.yml

@@ -35,7 +35,7 @@ stages:
       solution: ${{ parameters.solution }}
       folder: ${{ parameters.folder }}
       artifact: ${{ parameters.deploy }}
-- ${{ eq(parameters.deploy, true) }}:
+- ${{ if eq(parameters.deploy, true) }}:
   - stage: DEPLOY_${{ upper(variables['Build.SourceBranchName']) }}
     jobs:
     - deployment: Deploy_${{parameters.solution}}
