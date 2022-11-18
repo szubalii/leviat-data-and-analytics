@@ -35,7 +35,7 @@ stages:
   - template: ../${{parameters.folder}}/build/jobs-build.yml
     parameters:
       artifact: true
-- stage: DEPLOY ${{ upper(variables['Build.SourceBranchName']) }}
+- stage: DEPLOY_${{ upper(variables['Build.SourceBranchName']) }}
   jobs:
   - deployment: Deploy_${{parameters.solution}}
     variables:
