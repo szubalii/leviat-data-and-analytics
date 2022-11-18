@@ -11,6 +11,9 @@ parameters:
 - name: deploy
   type: boolean
   default: false
+- name: hasVariables
+  type: boolean
+  default: false
 # - name: branch
 #   type: string
 
@@ -35,6 +38,7 @@ stages:
       solution: ${{ parameters.solution }}
       folder: ${{ parameters.folder }}
       artifact: ${{ parameters.deploy }}
+      hasVariables: ${{ parameters.hasVariables }}
 - ${{ if eq(parameters.deploy, true) }}:
   - stage: DEPLOY_${{ upper(variables['Build.SourceBranchName']) }}
     jobs:
