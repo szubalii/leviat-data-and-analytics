@@ -4,14 +4,26 @@
 # https://docs.microsoft.com/azure/devops/pipelines/apps/windows/dot-net
 
 parameters:
-- name: path
+- name: folder
   type: string
 - name: solution
   type: string
+# - name: branch
+#   type: string
 
 # variables:
 # - name: path
 #   value: ${{ parameters.path }}
+
+variables:
+- ${{ if eq(variables['Build.SourceBranchName'], 'main') }}
+  - template: ./variables-test.yml
+- ${{ if eq(variables['Build.SourceBranchName'], 'qas') }}
+  - template: ./variables-qas.yml
+- ${{ if eq(variables['Build.SourceBranchName'], 'prod') }}
+  - template: ./variables-prod.yml
+- ${{ if startsWith(variables['Build.SourceBranchName'], 'dev_') }}
+  - template: ./variables-personal.yml
 
 
 stages:
@@ -20,34 +32,29 @@ stages:
   - template: ./jobs-pre-build.yml
     parameters:
       varGroup: DnA_DEV
-  - template: ../${{parameters.path}}/build/jobs-build.yml
+  - template: ../${{parameters.folder}}/build/jobs-build.yml
     parameters:
       artifact: true
-- stage: dev_mpors
+- stage: DEPLOY ${{ upper(variables['Build.SourceBranchName']) }}
   jobs:
-  - template: ./jobs-deploy.yml
-    parameters:
-      env: dev_mpors
-      path: ${{ parameters.path }}
-      solution: ${{ parameters.solution }}
-      varTemplate: ./variables-personal.yml
-- ${{ if eq(variables['Build.SourceBranchName'], 'main') }}:
-  - stage: QAS
-    jobs: 
-    - template: ./jobs-deploy.yml
-      parameters:
-        env: QAS
-        path: ${{ parameters.path }}
-        solution: ${{ parameters.solution }}
-        varTemplate: ./variables-qas.yml
-  - stage: PROD
-    jobs: 
-    - template: ./jobs-deploy.yml
-      parameters:
-        env: PROD
-        path: ${{ parameters.path }}
-        solution: ${{ parameters.solution }}
-        varTemplate: ./variables-prod.yml
+  - deployment: Deploy_${{parameters.solution}}
+    variables:
+    - name: pathPrefix
+      value: $(Pipeline.Workspace)
+    # - template: ${{ parameters.varTemplate }}
+    pool:
+      name: 'VM'
+      demands:
+      - node.js
+      - VisualStudio
+      - Python.Version
+      - Agent.Name -equals $(VMName)
+    environment: ${{ upper(variables['Build.SourceBranchName']) }}
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - template: ../${{parameters.folder}}/build/steps-deploy.yml
 
 #   steps:
 
