@@ -10,7 +10,7 @@ parameters:
 - name: artifact
   type: boolean
   default: false
-- name: variables
+- name: hasVariables
   type: boolean
   default: false
 
@@ -20,7 +20,7 @@ jobs:
 - job: BUILD_${{ parameters.solution }}
   dependsOn: StartVM
   variables:
-  - ${{ if eq(parameters.variables, true) }}:
+  - ${{ if eq(parameters.hasVariables, true) }}:
     - template: ../${{ parameters.folder }}/build/variables.yml
   pool:
     name: 'VM'
