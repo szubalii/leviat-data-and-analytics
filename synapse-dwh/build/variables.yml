@@ -1,0 +1,4 @@
+variables:
+  synapseDWHSolution: '**/synapse-dwh/*.sln'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'

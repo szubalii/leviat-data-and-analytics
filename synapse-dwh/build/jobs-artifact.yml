@@ -1,16 +1,16 @@
-# Azure Synapse Dedicated SQL Pool Artifacts Job
-jobs:
-- job: SynapseDWHArtifacts
-  # dependsOn: SynapseDWHBuild
-  pool:
-    name: 'VM'
-    demands:
-    - node.js
-    - VisualStudio
-    - Python.Version
+# # Azure Synapse Dedicated SQL Pool Artifacts Job
+# jobs:
+# - job: SynapseDWHArtifacts
+#   # dependsOn: SynapseDWHBuild
+#   pool:
+#     name: 'VM'
+#     demands:
+#     - node.js
+#     - VisualStudio
+#     - Python.Version
 
-  variables:
-    buildConfiguration: 'Release'
+#   variables:
+#     buildConfiguration: 'Release'
 
-  steps:
-  - template: ./steps-artifact.yml
+#   steps:
+#   - template: ./steps-artifact.yml

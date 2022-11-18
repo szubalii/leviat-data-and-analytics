@@ -1,62 +1,23 @@
-trigger: #none
+trigger:
   branches:
     include: 
-    # - xu-deploy #TODO change to main
     - dev_mpors
-    - main
-    - qas
-    - prod
+    - dev_fbouw
+    - dev_nkukhtenko
+    - dev_sleshchuk
+    - dev_tdorodnova
+    # - main
+    # - qas
+    # - prod
   paths:
     include: 
     - synapse-dwh/*
 
-# parameters:
-# - name: env
-#   type: string
-#   default: DEV
-#   values: 
-#   - DEV
-#   - QAS
-#   - PROD
-
 extends:
-  template: ../../build/stages-deploy.yml
+  template: ../../build/stages-build-deploy.yml
   parameters:
     folder: synapse-dwh
     solution: SynapseDWH
+    deploy: true
     # branch: ${{ variables['Build.SourceBranchName'] }}
-
-
-# - name: env
-#   value: ${{ parameters.env }}
-# - name: varGroup
-#   value: DnA_$(env)
-# - name: keyGroup
-#   value: KeyVault_$(env)
-# - group: ${{ variables.varGroup }}
-# - group: ${{ variables.keyGroup }}
-
-# stages:
-
-
-
-
-# steps:
-# - script: |
-#     echo "par_env $(parameters.env)"
-#     echo "par_env ${{parameters.env}}"
-#     echo "var_env $(env)"
-#     echo "var_varGroup $(varGroup)"
-#     echo "var_keyGroup $(keyGroup)"
-#     echo "var_varGroup ${{ variables.varGroup }}"
-#     echo "var_keyGroup ${{ variables.keyGroup }}"
-
-
-# jobs:
-# - template: ../../build/jobs-pre-build.yml
-# - template: ./jobs-build.yml
-#   parameters:
-#     artifact: true
-# - template: ./jobs-deploy.yml
-  # parameters:
-  #   adfPathPrefix: $(System.ArtifactsDirectory)
+  

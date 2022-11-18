@@ -1,28 +1,28 @@
-# Azure Synapse Dedicated SQL Pool Deploy Job
-parameters:
-- name: env
-  type: string
-  default: TEST
-- name: varTemplate
-  type: string
-  default: ./variables-test.yml
+# # Azure Synapse Dedicated SQL Pool Deploy Job
+# parameters:
+# - name: env
+#   type: string
+#   default: TEST
+# - name: varTemplate
+#   type: string
+#   default: ./variables-test.yml
 
-jobs:
-- deployment: SynapseDWHDeploy
-  variables:
-  - name: pathPrefix
-    value: $(Pipeline.Workspace)
-  - template: ${{ parameters.varTemplate }}
-  pool:
-    name: 'VM'
-    demands:
-    - node.js
-    - VisualStudio
-    - Python.Version
-    - Agent.Name -equals $(VMName)
-  environment: ${{ parameters.env }}
-  strategy:
-    runOnce:
-      deploy:
-        steps:
-        - template: ./steps-deploy.yml
+# jobs:
+# - deployment: SynapseDWHDeploy
+#   variables:
+#   - name: pathPrefix
+#     value: $(Pipeline.Workspace)
+#   - template: ${{ parameters.varTemplate }}
+#   pool:
+#     name: 'VM'
+#     demands:
+#     - node.js
+#     - VisualStudio
+#     - Python.Version
+#     - Agent.Name -equals $(VMName)
+#   environment: ${{ parameters.env }}
+#   strategy:
+#     runOnce:
+#       deploy:
+#         steps:
+#         - template: ./steps-deploy.yml

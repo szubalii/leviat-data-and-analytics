@@ -1,16 +1,16 @@
-trigger:
-- none
+# trigger:
+# - none
 
-variables:
-- group: DnA_DEV
-- group: KeyVault_DEV
-# - name: sqlDatabaseName
-#   value: "sqldb-xxxx-sls-d-euw-001"
-# - name: synapseSqlPool
-#   value: "syndw_xxxx_sls_d_euw_001"
+# variables:
+# - group: DnA_DEV
+# - group: KeyVault_DEV
+# # - name: sqlDatabaseName
+# #   value: "sqldb-xxxx-sls-d-euw-001"
+# # - name: synapseSqlPool
+# #   value: "syndw_xxxx_sls_d_euw_001"
 
-jobs:
-- template: ./jobs-build.yml
+# jobs:
+# - template: ./jobs-build.yml
 # - template: ./jobs-pre-build.yml
 # # ADF: only validate
 # - template: ../azure-data-factory/build/jobs-build.yml

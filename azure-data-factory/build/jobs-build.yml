@@ -1,27 +1,34 @@
-# Azure Data Factory Build Job
-parameters:
-- name: artifact
-  type: boolean
-  default: false
-- name: deploy
-  type: boolean
-  default: false
+# # Azure Data Factory Build Job
+# parameters:
+# - name: artifact
+#   type: boolean
+#   default: false
+# # - name: deploy
+# #   type: boolean
+# #   default: false
 
-jobs:
-- job: ADFBuild
-  dependsOn: StartVM
-  pool:
-    name: 'VM'
-    demands:
-    - node.js
-    - VisualStudio
+# jobs:
+# - template: ../../build/jobs-build.yml
+#   parameters:
+#   - solution: ADF
+#   - folder: azure-data-factory
+#   - artifact: ${{ parameters.artifact }}
 
-  steps:
+# # jobs:
+# # - job: ADFBuild
+# #   dependsOn: StartVM
+# #   pool:
+# #     name: 'VM'
+# #     demands:
+# #     - node.js
+# #     - VisualStudio
 
-  - template: ./steps-build.yml
-  # deploy only if required.
-  - ${{ if eq(parameters.deploy, true) }}: 
-    - template: ./steps-deploy.yml
-  # publish artifact only if required.
-  - ${{ if eq(parameters.artifact, true) }}: 
-    - template: ./steps-artifact.yml
+# #   steps:
+
+# #   - template: ./steps-build.yml
+# #   # deploy only if required.
+# #   - ${{ if eq(parameters.deploy, true) }}: 
+# #     - template: ./steps-deploy.yml
+# #   # publish artifact only if required.
+# #   - ${{ if eq(parameters.artifact, true) }}: 
+# #     - template: ./steps-artifact.yml
