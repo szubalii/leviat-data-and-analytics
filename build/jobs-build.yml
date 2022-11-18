@@ -20,11 +20,11 @@ jobs:
 - job: BUILD_${{ parameters.solution }}
   dependsOn: StartVM
   variables: #TODO requires general fix for any solutions
-    orchDBSolution: '**/${{parameters.folder}}/*.sln'
+    solution: '**/${{parameters.folder}}/*.sln'
     buildPlatform: 'Any CPU'
     buildConfiguration: 'Release'
-  - ${{ if eq(parameters.hasVariables, true) }}:
-    - template: ../${{ parameters.folder }}/build/variables.yml
+  # - ${{ if eq(parameters.hasVariables, true) }}:
+  #   - template: ../${{ parameters.folder }}/build/variables.yml
   pool:
     name: 'VM'
     demands:
