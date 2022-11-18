@@ -41,6 +41,6 @@ steps:
   # publish artifacts
 - task: PublishPipelineArtifact@1
   inputs:
-    path: '$(Pipeline.Workspace)'
+    path: '$(Build.ArtifactStagingDirectory)'
     artifactName: 'SynapseDWH'
     artifactType: 'pipeline'
