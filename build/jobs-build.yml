@@ -10,9 +10,9 @@ parameters:
 - name: artifact
   type: boolean
   default: false
-# - name: deploy
-#   type: boolean
-#   default: false
+- name: variables
+  type: boolean
+  default: false
 
 
 jobs:
@@ -20,7 +20,8 @@ jobs:
 - job: BUILD_${{ parameters.solution }}
   dependsOn: StartVM
   variables:
-  - template: ../${{ parameters.folder }}/build/variables.yml
+  - ${{ if eq(parameters.variables, true) }}:
+    - template: ../${{ parameters.folder }}/build/variables.yml
   pool:
     name: 'VM'
     demands:
