@@ -16,13 +16,13 @@ parameters:
 #   value: ${{ parameters.path }}
 
 variables:
-- ${{ if eq(variables['Build.SourceBranchName'], 'main') }}
+- ${{ if eq(variables['Build.SourceBranchName'], 'main') }}:
   - template: ./variables-test.yml
-- ${{ if eq(variables['Build.SourceBranchName'], 'qas') }}
+- ${{ elseif eq(variables['Build.SourceBranchName'], 'qas') }}:
   - template: ./variables-qas.yml
-- ${{ if eq(variables['Build.SourceBranchName'], 'prod') }}
+- ${{ elseif eq(variables['Build.SourceBranchName'], 'prod') }}:
   - template: ./variables-prod.yml
-- ${{ if startsWith(variables['Build.SourceBranchName'], 'dev_') }}
+- ${{ elseif startsWith(variables['Build.SourceBranchName'], 'dev_') }}:
   - template: ./variables-personal.yml
 
 
