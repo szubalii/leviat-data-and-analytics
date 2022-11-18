@@ -3,9 +3,9 @@ steps:
 
 - task: PublishPipelineArtifact@1
   inputs:
-    targetPath: '$(Build.Repository.LocalPath)/azure-data-factory/ArmTemplate' #replace with the package.json folder
-    artifact: 'ArmTemplates'
-    publishLocation: 'pipeline'
+    path: '$(Pipeline.Workspace)'
+    artifactName: 'DataFactoryARMTemplate'
+    artifactType: 'pipeline'
 
 # # Publish the global parameters to be used as a source for a release pipeline.
   
