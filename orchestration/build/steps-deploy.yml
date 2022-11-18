@@ -1,8 +1,4 @@
 steps:
-- script: |
-    cd $(Pipeline.Workspace)/OrchestrationDB
-    node -e require('./src/libs/generate-master-data').writeMasterDataCSV('$(environment)')
-  displayName: 'CMD: Write Environment Specific Master Data'
   
 - task: AzureFileCopy@4
   displayName: 'AzureBlob File Copy Master Data Generic'
