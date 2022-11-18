@@ -11,7 +11,11 @@ BEGIN
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 
-    -- Insert statements for procedure here
+    -- Insert statements for procedure here    
+    IF OBJECT_ID(N'tempdb..#OtherSalesTable') IS NOT NULL
+    BEGIN
+        DROP TABLE #OtherSalesTable
+    END 
 
      declare @P_Year smallint = (select datepart(year,max([ACCOUNTINGDATE])) from [base_halfen_moment_sg].[CUSTINVOICETRANS_HMSG]),
 	         @P_Month tinyint = (select datepart(month,max([ACCOUNTINGDATE])) from [base_halfen_moment_sg].[CUSTINVOICETRANS_HMSG])
@@ -46,7 +50,7 @@ BEGIN
 	'HMSG-' + ACCOUNTNUM,
 	'HMSG-' + NAME,
 	INOUT,
-	CUSTOMERPILLAR,
+	ISNULL(CUSTOMERPILLAR,' '),
 	' ',
 	ISNULL(DIMENSION3_,' ')
 	from [base_halfen_moment_sg].[CUSTTABLE_HMSG]
@@ -66,7 +70,7 @@ BEGIN
     -- Alle CUSTOMERPILLAR auf OTHER setzen, die leer sind. Außer bei Halfen
 	update [intm_axbi].[dim_CUSTTABLE]
 	set CUSTOMERPILLAR = 'OTHER'
-	where  UPPER(DATAAREAID) = 'HMSG' and CUSTOMERPILLAR = ' ' 
+	where  UPPER(DATAAREAID) = 'HMSG' and ISNULL(CUSTOMERPILLAR,' ') = ' ' 
 
     -- Alle INSIDE customer column CUSTOMERPILLAR auf OTHER setzen
 	update [intm_axbi].[dim_CUSTTABLE]

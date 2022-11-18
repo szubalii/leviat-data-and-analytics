@@ -59,7 +59,7 @@ BEGIN
     -- Alle CUSTOMERPILLAR auf OTHER setzen, die leer sind. Außer bei Halfen
 	update [intm_axbi].[dim_CUSTTABLE]
 	set CUSTOMERPILLAR = 'OTHER'
-	where UPPER(DATAAREAID) = 'ANME' and CUSTOMERPILLAR = ' ' 
+	where UPPER(DATAAREAID) = 'ANME' and ISNULL(CUSTOMERPILLAR,' ') = ' ' 
 
     -- Alle INSIDE customer column CUSTOMERPILLAR auf OTHER setzen
 	update [intm_axbi].[dim_CUSTTABLE]
@@ -147,7 +147,7 @@ BEGIN
 	-- Alle Artikel, die keinen CRH Productgroup Eintrag haben, auf N.3. setzen
 	update [intm_axbi].[dim_ITEMTABLE]
 	set [PRODUCTGROUPID] = 'N.3.'
-	where UPPER(DATAAREAID) = 'ANME' and PRODUCTGROUPID = ' '
+	where UPPER(DATAAREAID) = 'ANME' and ISNULL(PRODUCTGROUPID,' ') = ' '
 
 	delete from [intm_axbi].[fact_CUSTINVOICETRANS]
     where UPPER(DATAAREAID) = 'ANME' and DATEPART(yyyy, [ACCOUNTINGDATE]) = @P_Year and DATEPART(mm, [ACCOUNTINGDATE]) =  @P_Month 

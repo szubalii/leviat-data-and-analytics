@@ -11,8 +11,19 @@ BEGIN
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 
-    -- Insert statements for procedure here
-
+    -- Insert statements for procedure here    
+    IF OBJECT_ID(N'tempdb..#OtherSalesTable') IS NOT NULL
+    BEGIN
+        DROP TABLE #OtherSalesTable
+    END 
+    IF OBJECT_ID(N'tempdb..#OtherSalesTable_SB') IS NOT NULL
+    BEGIN
+        DROP TABLE #OtherSalesTable_SB
+    END 
+    IF OBJECT_ID(N'tempdb..#OtherSalesTableTable_cnt') IS NOT NULL
+    BEGIN
+        DROP TABLE #OtherSalesTable_cnt
+    END 
 	--declare @sqlstmt nvarchar(4000),
 	--        @log nvarchar(200),
 	--		@lDataAreaID nvarchar(8),

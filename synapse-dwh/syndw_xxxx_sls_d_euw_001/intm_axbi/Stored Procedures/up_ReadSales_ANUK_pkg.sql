@@ -8,6 +8,22 @@ BEGIN
 	SET NOCOUNT ON;
 
   -- Insert statements for procedure here
+    IF OBJECT_ID(N'tempdb..#InvoicedFreightTable') IS NOT NULL
+    BEGIN
+        DROP TABLE #InvoicedFreightTable
+    END 
+    IF OBJECT_ID(N'tempdb..#InvoicedFreightTable_SB') IS NOT NULL
+    BEGIN
+        DROP TABLE #InvoicedFreightTable_SB
+    END  
+    -- IF OBJECT_ID(N'tempdb..#InvoicedFreightTable_cnt') IS NOT NULL
+    -- BEGIN
+    --     DROP TABLE #InvoicedFreightTable_cnt
+    -- END  
+    IF OBJECT_ID(N'tempdb..##InvoicePosCounter') IS NOT NULL
+    BEGIN
+        DROP TABLE ##InvoicePosCounter
+    END  
 
 	declare @lYear smallint = (select datepart(year,max(Accountingdate)) from [base_ancon_uk].[CUSTINVOICETRANS_ANUK]),
 			@lMonth tinyint = (select datepart(month,max(Accountingdate)) from [base_ancon_uk].[CUSTINVOICETRANS_ANUK]),
@@ -162,10 +178,6 @@ BEGIN
 	insert [intm_axbi].[dim_ITEMGROUP] (DATAAREAID,ITEMGROUPID,ITEMGROUPNAME)
 	select 'ANUK', 'ANUK-' + ITEMGROUPID, 'ANUK-' + ITEMGROUPNAME from [base_ancon_uk].[MAPPING_ITEMGROUP_ANUK]
 
-	-- INVOICED FREIGHT RECOVERY TABLE
-
-	delete from [base_ancon_uk].[INVOICEDFREIGHT_ANUK] where DATEPART(year, Accountingdate) = @lFrYear and DATEPART(month, Accountingdate) = @lFrMonth 
-
 	-- [intm_axbi].[fact_CUSTINVOICETRANS]
 
 	delete from [intm_axbi].[fact_CUSTINVOICETRANS] where upper(DATAAREAID) = 'ANUK' and DATEPART(year, ACCOUNTINGDATE) = @lYear and DATEPART(month, ACCOUNTINGDATE) = @lMonth 
@@ -257,19 +269,22 @@ BEGIN
     select 
 	c.PACKINGSLIPID,
     ISNULL(sum(c.PRODUCTSALESLOCAL),0) SalesBalance,
-    ISNULL(sum(c.PRODUCTSALESEUR),0) SalesBalanceEUR
+    ISNULL(sum(c.PRODUCTSALESEUR),0) SalesBalanceEUR,
+    count(*) lcounter
 	into #InvoicedFreightTable_SB
     from [intm_axbi].[fact_CUSTINVOICETRANS] c
     inner join #InvoicedFreightTable i
-    on c.PACKINGSLIPID = substring(i.PackingSlipID, 1, 6)
+    on c.PACKINGSLIPID = i.PackingSlipID
     and upper(c.DATAAREAID) = 'ANUK' 
 	group by c.PACKINGSLIPID
 	
-	select PACKINGSLIPID, count(*) lcounter
-	into #InvoicedFreightTable_cnt 
-	from [intm_axbi].[fact_CUSTINVOICETRANS]
-	where upper(DATAAREAID) = 'ANUK'
-	group by PACKINGSLIPID
+	-- select c.PACKINGSLIPID, count(*) lcounter
+	-- into #InvoicedFreightTable_cnt 
+	-- from [intm_axbi].[fact_CUSTINVOICETRANS] c
+    -- inner join #InvoicedFreightTable i
+    -- on c.PACKINGSLIPID = i.PackingSlipID
+	-- where upper(c.DATAAREAID) = 'ANUK'
+	-- group by c.PACKINGSLIPID
 	
 	update [intm_axbi].[fact_CUSTINVOICETRANS]
 	set [intm_axbi].[fact_CUSTINVOICETRANS].OTHERSALESLOCAL += i.InvoicedFreightLocal * t.PRODUCTSALESLOCAL/sb.SalesBalance,
@@ -278,23 +293,24 @@ BEGIN
 	inner join #InvoicedFreightTable i
 	on t.PACKINGSLIPID=i.PackingSlipID
 	inner join #InvoicedFreightTable_SB sb
-	on t.PACKINGSLIPID = substring(i.PackingSlipID, 1, 6) 
+	on t.PACKINGSLIPID = i.PackingSlipID 
 	where upper(t.DATAAREAID) = 'ANUK' 
 	and SalesBalance <> 0
 
 
 	update [intm_axbi].[fact_CUSTINVOICETRANS]
-	set [intm_axbi].[fact_CUSTINVOICETRANS].OTHERSALESLOCAL += i.InvoicedFreightLocal / cnt.lcounter,
-	  [intm_axbi].[fact_CUSTINVOICETRANS].OTHERSALESEUR  += i.InvoicedFreightEur / cnt.lcounter
+	set [intm_axbi].[fact_CUSTINVOICETRANS].OTHERSALESLOCAL += i.InvoicedFreightLocal / sb.lcounter,
+	  [intm_axbi].[fact_CUSTINVOICETRANS].OTHERSALESEUR  += i.InvoicedFreightEur / sb.lcounter
 	from [intm_axbi].[fact_CUSTINVOICETRANS] as t
 	inner join #InvoicedFreightTable i
 	on t.PACKINGSLIPID=i.PackingSlipID
 	inner join #InvoicedFreightTable_SB sb
-	on t.PACKINGSLIPID = substring(i.PackingSlipID, 1, 6) 
-	inner join #InvoicedFreightTable_cnt cnt
-	on t.PACKINGSLIPID = cnt.PACKINGSLIPID
+	on t.PACKINGSLIPID = i.PackingSlipID 
+	--inner join #InvoicedFreightTable_cnt cnt
+	--on t.PACKINGSLIPID = cnt.PACKINGSLIPID
 	where upper(t.DATAAREAID) = 'ANUK' 
 	and sb.SalesBalance = 0
+    and sb.lcounter>0
 
 	-- SALES100 aktualisieren
 	update [intm_axbi].[fact_CUSTINVOICETRANS]
@@ -474,6 +490,6 @@ BEGIN
 
     drop table #InvoicedFreightTable
     drop table #InvoicedFreightTable_SB
-    drop table #InvoicedFreightTable_cnt
-
+    --drop table #InvoicedFreightTable_cnt
+    drop table ##InvoicePosCounter
 END

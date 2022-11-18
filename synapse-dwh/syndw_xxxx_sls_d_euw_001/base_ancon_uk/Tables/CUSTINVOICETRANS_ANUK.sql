@@ -9,7 +9,7 @@
 	[ProductGroup]          [NVARCHAR](20)          NULL,
 	[DeliveryCountryID]     [NVARCHAR](3)           NULL,
 	[PackingSlipID]         [NVARCHAR](20)          NULL,
-	[Qty]                   [INT]                   NULL,
+	[Qty]                   [DECIMAL](38, 12)       NULL,
 	[ProductSalesLocal]     [DECIMAL](38, 12)       NULL,
 	[ProductSalesEUR]       [DECIMAL](38, 12)       NULL,
 	[OtherSalesLocal]       [DECIMAL](38, 12)       NULL,

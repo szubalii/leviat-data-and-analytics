@@ -6,10 +6,15 @@ BEGIN
 	SET NOCOUNT ON;
 
     -- Insert statements for procedure here
+    IF OBJECT_ID(N'tempdb..#OtherSalesTable') IS NOT NULL
+    BEGIN
+        DROP TABLE #OtherSalesTable
+    END 
 
-     declare @P_Year smallint = (select datepart(year,max([ACCOUNTINGDATE])) from [base_halfen_moment_my].[CUSTINVOICETRANS_HMMY]),
+    declare @P_Year smallint = (select datepart(year,max([ACCOUNTINGDATE])) from [base_halfen_moment_my].[CUSTINVOICETRANS_HMMY]),
 	         @P_Month tinyint = (select datepart(month,max([ACCOUNTINGDATE])) from [base_halfen_moment_my].[CUSTINVOICETRANS_HMMY])
-
+    
+    
 	-- Voraussetzung für numerische Felder: Keine Tausender Punkt und Dezimaltrennzeichen ist der . und das Negativ Zeichen steht vor der Zahl.
 	-- Als Columnterminator dient das ; oder der Tabstopp
 	-- Rowterminator ist \n
@@ -62,9 +67,9 @@ BEGIN
 	'HMMY-' + ACCOUNTNUM,
 	'HMMY-' + NAME,
 	INOUT,
-	CUSTOMERPILLAR,
+	ISNULL(CUSTOMERPILLAR,' '),
 	' ',
-	DIMENSION3_
+	ISNULL(DIMENSION3_,' ')
 	from [base_halfen_moment_my].[CUSTTABLE_HMMY]
 
 	-- Alle Leviat Kunden auf Inside setzen, außer Meadow Burke. 
@@ -82,7 +87,7 @@ BEGIN
     -- Alle CUSTOMERPILLAR auf OTHER setzen, die leer sind. Außer bei Halfen
 	update [intm_axbi].[dim_CUSTTABLE]
 	set CUSTOMERPILLAR = 'OTHER'
-	where UPPER(DATAAREAID) = 'HMMY' and CUSTOMERPILLAR = ' ' 
+	where UPPER(DATAAREAID) = 'HMMY' and ISNULL(CUSTOMERPILLAR,' ') = ' ' 
 
     -- Alle INSIDE customer column CUSTOMERPILLAR auf OTHER setzen
 	update [intm_axbi].[dim_CUSTTABLE]

@@ -21,7 +21,18 @@ BEGIN
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
     -- Insert statements for procedure here
-
+    IF OBJECT_ID(N'tempdb..#OtherSalesTable') IS NOT NULL
+    BEGIN
+        DROP TABLE #OtherSalesTable
+    END 
+    IF OBJECT_ID(N'tempdb..#OtherSalesTable_SB') IS NOT NULL
+    BEGIN
+        DROP TABLE #OtherSalesTable_SB
+    END 
+    IF OBJECT_ID(N'tempdb..#OtherSalesTableTable_cnt') IS NOT NULL
+    BEGIN
+        DROP TABLE #OtherSalesTable_cnt
+    END 
 	-- Customer Master Data ---------------------------------------------------------------------------------------------------------------------------
 
 	-- delete/insert Ancon Australia CONNOLLY customer master data from working table CUSTTABLE_ANAC$_bulk into TOM dashboard customer master CUSTTABLE
@@ -319,7 +330,7 @@ BEGIN
 	group by c.[INVOICEID]
 
     select [INVOICEID], count(*) lcounter
-	into #OtherSalesTableTable_cnt
+	into #OtherSalesTable_cnt
 	from [intm_axbi].[fact_CUSTINVOICETRANS]
 	where upper(DATAAREAID) = 'ANAC'
 	group by [INVOICEID]
@@ -356,7 +367,7 @@ BEGIN
         #OtherSalesTable_SB sb
 	        on t.[INVOICEID] = sb.[INVOICEID]
 	inner join
-        #OtherSalesTableTable_cnt cnt
+        #OtherSalesTable_cnt cnt
 	        on t.[INVOICEID] = sb.[INVOICEID]             
 	where 
         upper(t.DATAAREAID) = 'ANAC' 
@@ -425,7 +436,7 @@ BEGIN
         #OtherSalesTable_SB sb
 	        on st.[INVOICEID] = sb.[INVOICEID]
 	inner join
-        #OtherSalesTableTable_cnt cnt
+        #OtherSalesTable_cnt cnt
 	        on st.[INVOICEID] = sb.[INVOICEID]
     WHERE 
         upper(st.DATAAREAID) = 'ANAC'
@@ -458,6 +469,6 @@ BEGIN
     --drop temp tables
     drop table #OtherSalesTable
     drop table #OtherSalesTable_SB
-    drop table #OtherSalesTableTable_cnt
+    drop table #OtherSalesTable_cnt
 
 END
