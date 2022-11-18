@@ -3,6 +3,9 @@ trigger: #none
     include: 
     # - xu-deploy #TODO change to main
     - dev_mpors
+    - main
+    - qas
+    - prod
   paths:
     include: 
     - synapse-dwh/*
@@ -16,7 +19,14 @@ trigger: #none
 #   - QAS
 #   - PROD
 
-# variables:
+extends:
+- template: ../../build/stages-deploy.yml
+  parameters:
+    folder: synapse-dwh
+    solution: SynapseDWH
+    # branch: ${{ variables['Build.SourceBranchName'] }}
+
+
 # - name: env
 #   value: ${{ parameters.env }}
 # - name: varGroup
@@ -26,11 +36,9 @@ trigger: #none
 # - group: ${{ variables.varGroup }}
 # - group: ${{ variables.keyGroup }}
 
-stages:
-- template: ../../build/stages-deploy.yml
-  parameters:
-    path: synapse-dwh
-    solution: SynapseDWH
+# stages:
+
+
 
 
 # steps:
