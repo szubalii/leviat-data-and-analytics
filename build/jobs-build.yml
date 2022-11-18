@@ -19,7 +19,10 @@ jobs:
 - template: ./jobs-pre-build.yml
 - job: BUILD_${{ parameters.solution }}
   dependsOn: StartVM
-  variables:
+  variables: #TODO requires general fix for any solutions
+    orchDBSolution: '**/${{parameters.folder}}/*.sln'
+    buildPlatform: 'Any CPU'
+    buildConfiguration: 'Release'
   - ${{ if eq(parameters.hasVariables, true) }}:
     - template: ../${{ parameters.folder }}/build/variables.yml
   pool:
