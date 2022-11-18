@@ -1,5 +1,29 @@
 CREATE VIEW [edw].[vw_ACDOCA_SalesView]
 AS
+WITH ExchangeRate AS (
+    SELECT 
+        [SourceCurrency]
+        ,[TargetCurrency]
+        ,[ExchangeRateEffectiveDate]
+        , COALESCE(DATEADD(day, -1,LEAD([ExchangeRateEffectiveDate]) OVER (PARTITION BY [SourceCurrency],[TargetCurrency] ORDER BY [ExchangeRateEffectiveDate])),'9999-12-31') AS LastDay
+        ,[ExchangeRate]
+    FROM 
+        edw.dim_ExchangeRates
+    WHERE
+        [ExchangeRateType] = 'ZAXBIBUD'
+        and
+        [TargetCurrency] IN ('EUR','USD')
+UNION ALL
+    SELECT [SourceCurrency]
+        , [SourceCurrency]
+        , CAST('1900-01-01' AS date)
+        , CAST('9999-12-31' AS date)
+        , 1.0
+    FROM 
+        edw.dim_ExchangeRates
+    GROUP BY
+        [SourceCurrency]
+)
 SELECT 
     GLALIRD.[SourceLedger]                           AS [SourceLedgerID],
     GLALIRD.[CompanyCode]                            AS [CompanyCodeID],
@@ -49,7 +73,7 @@ SELECT
     GLALIRD.[TransactionCurrency],
     GLALIRD.[AmountInTransactionCurrency],
     GLALIRD.[CompanyCodeCurrency],
-    GLALIRD.[AmountInCompanyCodeCurrency],
+    GLALIRD.[AmountInCompanyCodeCurrency] * ExchangeRate.ExchangeRate AS [AmountInCompanyCodeCurrency],
     GLALIRD.[GlobalCurrency],
     GLALIRD.[AmountInGlobalCurrency],
     GLALIRD.[FreeDefinedCurrency1],
@@ -159,6 +183,11 @@ SELECT
         ELSE                                            'O'
     END                                             AS [InOutID],
     CSA.[CustomerGroup],
+    ExchangeRate.[TargetCurrency]                      AS [CurrencyID],
+    CASE
+        WHEN ExchangeRate.[SourceCurrency] = ExchangeRate.[TargetCurrency]
+            THEN '10'
+    END                                                 AS [CurrencyTypeID],
     GLALIRD.[t_applicationId],
     GLALIRD.[t_extractionDtm]
 FROM [base_s4h_cax].[I_GLAccountLineItemRawData] GLALIRD
@@ -174,6 +203,9 @@ LEFT JOIN [base_s4h_cax].[I_ProductSalesDelivery] PSD
 LEFT JOIN [base_s4h_cax].[I_CustomerSalesArea] CSA
     ON GLALIRD.[Customer] = CSA.[Customer]                          COLLATE DATABASE_DEFAULT
         AND GLALIRD.[SalesOrganization] = CSA.[SalesOrganization]   COLLATE DATABASE_DEFAULT
+LEFT JOIN ExchangeRate
+    ON GLALIRD.[CompanyCodeCurrency] = ExchangeRate.[SourceCurrency]
+        AND GLALIRD.[PostingDate] BETWEEN ExchangeRate.[ExchangeRateEffectiveDate] AND ExchangeRate.[LastDay]
 WHERE 
     --FSI.[ParentNode] = '000570'               -- works only with PROD
     FSI.[ParentNode] = '001005'                 -- for DEV
