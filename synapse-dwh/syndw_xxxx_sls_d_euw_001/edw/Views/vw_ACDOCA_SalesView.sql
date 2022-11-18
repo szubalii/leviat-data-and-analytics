@@ -7,6 +7,12 @@ WITH ExchangeRate AS (
         ,[ExchangeRateEffectiveDate]
         , COALESCE(DATEADD(day, -1,LEAD([ExchangeRateEffectiveDate]) OVER (PARTITION BY [SourceCurrency],[TargetCurrency] ORDER BY [ExchangeRateEffectiveDate])),'9999-12-31') AS LastDay
         ,[ExchangeRate]
+        , CASE
+            WHEN TargetCurrency = 'EUR'
+                THEN 30
+            WHEN TargetCurrency = 'USD'
+                THEN 40
+        END AS CurrencyTypeID
     FROM 
         edw.dim_ExchangeRates
     WHERE
@@ -19,10 +25,25 @@ UNION ALL
         , CAST('1900-01-01' AS date)
         , CAST('9999-12-31' AS date)
         , 1.0
+        , 10
     FROM 
         edw.dim_ExchangeRates
     GROUP BY
         [SourceCurrency]
+UNION ALL
+    SELECT 'USD'
+        , 'USD'
+        , CAST('1900-01-01' AS date)
+        , CAST('9999-12-31' AS date)
+        , 1.0
+        , 40
+UNION ALL
+    SELECT 'EUR'
+        , 'EUR'
+        , CAST('1900-01-01' AS date)
+        , CAST('9999-12-31' AS date)
+        , 1.0
+        , 30    
 )
 SELECT 
     GLALIRD.[SourceLedger]                           AS [SourceLedgerID],
@@ -111,10 +132,20 @@ SELECT
     GLALIRD.[DocumentItemText],
     GLALIRD.[SalesDocument]                          AS [SalesDocumentID],          
     GLALIRD.[SalesDocumentItem]                      AS [SalesDocumentItemID],
-    GLALIRD.[Product]                                AS [ProductID],
+    CASE
+        WHEN GLALIRD.[BillingDocumentType] = ''
+        AND COALESCE (GLALIRD.[Product], '') = ''
+            THEN '(MA)-'|| GLALIRD.[GLAccount]
+        ELSE GLALIRD.[Product]
+    END                                             AS [ProductID],
     GLALIRD.[Plant]                                  AS [PlantID],
     GLALIRD.[Supplier]                               AS [SupplierID],
-    GLALIRD.[Customer]                               AS [CustomerID],
+    CASE
+        WHEN GLALIRD.[BillingDocumentType] = ''
+        AND COALESCE (GLALIRD.[Customer], '') = ''
+            THEN '(MA)-'|| GLALIRD.[GLAccount]
+        ELSE GLALIRD.[Customer]
+    END                                             AS [CustomerID],
     GLALIRD.[ExchangeRateDate],                    
     GLALIRD.[FinancialAccountType]                   AS [FinancialAccountTypeID],
     GLALIRD.[SpecialGLCode]                          AS [SpecialGLCodeID],
@@ -162,7 +193,12 @@ SELECT
         ELSE GLALIRD.[SalesDistrict]
     END                                                 AS [SalesDistrictID],
     GLALIRD.[BillToParty]                            AS [BillToPartyID],
-    GLALIRD.[ShipToParty],
+    CASE
+        WHEN GLALIRD.[BillingDocumentType] = ''
+        AND COALESCE (GLALIRD.[ShipToParty], '') = ''
+            THEN '(MA)-'|| GLALIRD.[GLAccount]
+        ELSE GLALIRD.[ShipToParty]
+    END                                             AS [ShipToParty],
     CASE 
         WHEN GLALIRD.[BillingDocumentType] = '' THEN    1
         ELSE                                            0
@@ -182,12 +218,14 @@ SELECT
         WHEN LEFT(GLALIRD.[Customer],2) IN ('IC','IP')  THEN 'I'
         ELSE                                            'O'
     END                                             AS [InOutID],
-    CSA.[CustomerGroup],
-    ExchangeRate.[TargetCurrency]                      AS [CurrencyID],
     CASE
-        WHEN ExchangeRate.[SourceCurrency] = ExchangeRate.[TargetCurrency]
-            THEN '10'
-    END                                                 AS [CurrencyTypeID],
+        WHEN GLALIRD.[BillingDocumentType] = ''
+        AND COALESCE (CSA.[CustomerGroup], '') = ''
+            THEN 'Manual Adjustment'
+        ELSE CSA.[CustomerGroup]
+    END                                                 AS [CustomerGroup],
+    ExchangeRate.[TargetCurrency]                      AS [CurrencyID],
+    ExchangeRate.[CurrencyTypeID],
     GLALIRD.[t_applicationId],
     GLALIRD.[t_extractionDtm]
 FROM [base_s4h_cax].[I_GLAccountLineItemRawData] GLALIRD
