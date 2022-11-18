@@ -4,14 +4,14 @@ steps:
     displayName: 'Stop Triggers'
     inputs:
       azureSubscription: 'arm-pipeline'
-      ScriptPath: '$(Pipeline.Workspace)\ArmTemplates\PrePostDeploymentScript.ps1'
+      ScriptPath: '$(Pipeline.Workspace)\DataFactoryARMTemplate\PrePostDeploymentScript.ps1'
       ScriptArguments: '
-        -armTemplate "$(Pipeline.Workspace)\ArmTemplates\ARMTemplateForFactory.json"
+        -armTemplate "$(Pipeline.Workspace)\DataFactoryARMTemplate\ARMTemplateForFactory.json"
         -ResourceGroupName $(resourceGroupName)
         -DataFactoryName $(dataFactoryName)
         -predeployment $true
         -deleteDeployment $false
-        -ArmTemplateParameters "$(Pipeline.Workspace)\ArmTemplates\ARMTemplateParametersForFactory.json"
+        -ArmTemplateParameters "$(Pipeline.Workspace)\DataFactoryARMTemplate\ARMTemplateParametersForFactory.json"
         -ExplicitStopTriggerList "tr_AutoPauseSynDW", "tr_AutoDailyETL", "tr_OrchDB_Update"'
       azurePowerShellVersion: LatestVersion
       pwsh: true
@@ -25,7 +25,7 @@ steps:
   #   displayName: 'Azure PowerShell script: FilePath'
   #   inputs:
   #     azureSubscription: 'arm-pipeline'
-  #     ScriptPath: '$(Pipeline.Workspace)\ArmTemplates\GlobalParametersUpdateScript.ps1'
+  #     ScriptPath: '$(Pipeline.Workspace)\DataFactoryARMTemplate\GlobalParametersUpdateScript.ps1'
   #     ScriptArguments: '-globalParametersFilePath $(Pipeline.Workspace)\factory\$(dataFactoryName).json -resourceGroupName $(resourceGroupName) -dataFactoryName $(dataFactoryName)'
   #     azurePowerShellVersion: LatestVersion
   #     pwsh: true
@@ -37,8 +37,8 @@ steps:
       subscriptionId: 'f199b488-7d9d-4992-aeda-c10a1e1c9b9e'
       resourceGroupName: '$(resourceGroupName)'
       location: 'West Europe'
-      csmFile: '$(Pipeline.Workspace)\ArmTemplates\ARMTemplateForFactory.json'
-      csmParametersFile: '$(Pipeline.Workspace)\ArmTemplates\ARMTemplateParametersForFactory.json'
+      csmFile: '$(Pipeline.Workspace)\DataFactoryARMTemplate\ARMTemplateForFactory.json'
+      csmParametersFile: '$(Pipeline.Workspace)\DataFactoryARMTemplate\ARMTemplateParametersForFactory.json'
       overrideParameters: '
         -factoryName "$(dataFactoryName)"
         -ls_sap_c4c_properties_typeProperties_url "$(sapC4Curl)"
@@ -64,9 +64,9 @@ steps:
     displayName: 'Start Triggers'
     inputs:
       azureSubscription: 'arm-pipeline'
-      ScriptPath: '$(Pipeline.Workspace)\ArmTemplates\PrePostDeploymentScript.ps1'
+      ScriptPath: '$(Pipeline.Workspace)\DataFactoryARMTemplate\PrePostDeploymentScript.ps1'
       ScriptArguments: '
-        -armTemplate "$(Pipeline.Workspace)\ArmTemplates\ARMTemplateForFactory.json"
+        -armTemplate "$(Pipeline.Workspace)\DataFactoryARMTemplate\ARMTemplateForFactory.json"
         -ResourceGroupName $(resourceGroupName)
         -DataFactoryName $(dataFactoryName)
         -predeployment $false

@@ -7,6 +7,6 @@ steps:
 
 - task: PublishPipelineArtifact@1
   inputs:
-    targetPath: '$(Build.ArtifactStagingDirectory)'
-    artifact: 'XtractUniversal'
-    publishLocation: 'pipeline'
+    path: '$(Pipeline.Workspace)'
+    artifactName: 'XtractUniversal'
+    artifactType: 'pipeline'
