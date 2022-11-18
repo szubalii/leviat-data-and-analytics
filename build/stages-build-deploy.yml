@@ -9,7 +9,7 @@ parameters:
 - name: solution
   type: string
 - name: deploy
-  type: booleam
+  type: boolean
   default: false
 # - name: branch
 #   type: string
