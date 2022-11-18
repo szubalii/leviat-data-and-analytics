@@ -1,5 +1,11 @@
 steps:
   # Publish the build artifact to be used as a source for a release pipeline.
+- task: CopyFiles@2
+  displayName: 'Copy Master Data files'
+  inputs:
+    SourceFolder: '$(Build.Repository.LocalPath)/azure-data-factory/ArmTemplate'
+    Contents: '**\*'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
 - task: PublishPipelineArtifact@1
   inputs:
