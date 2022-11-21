@@ -20,7 +20,7 @@ steps:
       azcopy login --identity
 
       # directly copy to storage account using azcopy
-      azcopy copy '$(Pipeline.Workspace)\OrchestrationDB\Master Data\*' 'https://$(storageAccountName).dfs.core.windows.net/orch-db' --recursive
+      azcopy copy '$(Pipeline.Workspace)\OrchestrationDB\Master Data\*' 'https://$(storageAccountName).blob.core.windows.net/orch-db' --recursive
 
 - task: PowerShell@2
   displayName: Get SAS key for orch-db container
