@@ -31,7 +31,17 @@ steps:
       azcopy login --identity
 
       # directly copy to storage account using azcopy
-      azcopy copy '$(Pipeline.Workspace)\SynapseDWH\Master Data\*' 'https://$(storageAccountName).dfs.core.windows.net/flat-files' --recursive
+      # workaround to exclude ProductCalculated as fix (blob)
+      azcopy copy '$(Pipeline.Workspace)\SynapseDWH\Master Data\*' | 
+        'https://$(storageAccountName).blob.core.windows.net/flat-files' | 
+        --recursive |
+        --exclude-pattern=ProductCalculated.csv
+      
+      # workaround to include ProductCalculated as fix (dfs)
+      azcopy copy '$(Pipeline.Workspace)\SynapseDWH\Master Data\*' | 
+        'https://$(storageAccountName).dfs.core.windows.net/flat-files' | 
+        --recursive |
+        --include-pattern=ProductCalculated.csv
 
 - task: SqlAzureDacpacDeployment@1
   displayName: 'Azure SQL DacpacTask'
