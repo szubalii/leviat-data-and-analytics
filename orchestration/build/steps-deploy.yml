@@ -1,13 +1,26 @@
 steps:
   
-- task: AzureFileCopy@5
-  displayName: 'AzureBlob File Copy Master Data Generic'
+# - task: AzureFileCopy@4
+#   displayName: 'AzureBlob File Copy Master Data Generic'
+#   inputs:
+#     SourcePath: '$(Pipeline.Workspace)/OrchestrationDB/Master Data/*'
+#     azureSubscription: 'Leviat-we-sub-01 (f199b488-7d9d-4992-aeda-c10a1e1c9b9e)'
+#     Destination: AzureBlob
+#     storage: '$(storageAccountName)'
+#     ContainerName: 'orch-db'
+
+# Directly reference azcopy instead of AzureFileCopy@4 to resolve copy issues
+- task: PowerShell@2
+  displayName: 'Copy Master Data to AzureBlob'
   inputs:
-    SourcePath: '$(Pipeline.Workspace)/OrchestrationDB/Master Data/*'
-    azureSubscription: 'Leviat-we-sub-01 (f199b488-7d9d-4992-aeda-c10a1e1c9b9e)'
-    Destination: AzureBlob
-    storage: '$(storageAccountName)'
-    ContainerName: 'orch-db'
+    targetType: 'inline'
+    pwsh: true
+    script: |
+      # connect to Azure using VM
+      Connect-AzAccount -Identity
+
+      # directly copy to storage account using azcopy
+      azcopy copy '$(Pipeline.Workspace)\OrchestrationDB\Master Data\*' 'https://$(storageAccountName).dfs.core.windows.net/orch-db' --recursive
 
 - task: PowerShell@2
   displayName: Get SAS key for orch-db container
