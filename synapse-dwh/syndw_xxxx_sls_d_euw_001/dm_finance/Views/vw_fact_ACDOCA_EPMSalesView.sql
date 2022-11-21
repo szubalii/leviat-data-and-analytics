@@ -1,4 +1,4 @@
-CREATE VIEW [edw].[vw_ACDOCA_SalesView]
+CREATE VIEW [dm_finance].[vw_fact_ACDOCA_EPMSalesView]
 AS
 WITH AllRates AS (
     SELECT 
