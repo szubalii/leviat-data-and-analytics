@@ -37,13 +37,13 @@ UNION ALL
         , CAST('9999-12-31' AS date)
         , 1.0
         , 40
-UNION ALL
+/*UNION ALL
     SELECT 'EUR'
         , 'EUR'
         , CAST('1900-01-01' AS date)
         , CAST('9999-12-31' AS date)
         , 1.0
-        , 30    
+        , 30  */  
 )
 SELECT 
     GLALIRD.[SourceLedger]                           AS [SourceLedgerID],
@@ -135,7 +135,7 @@ SELECT
     CASE
         WHEN GLALIRD.[BillingDocumentType] = ''
         AND COALESCE (GLALIRD.[Product], '') = ''
-            THEN '(MA)-'|| GLALIRD.[GLAccount]
+            THEN CONCAT('(MA)-',GLALIRD.[GLAccount])
         ELSE GLALIRD.[Product]
     END                                             AS [ProductID],
     GLALIRD.[Plant]                                  AS [PlantID],
@@ -143,7 +143,7 @@ SELECT
     CASE
         WHEN GLALIRD.[BillingDocumentType] = ''
         AND COALESCE (GLALIRD.[Customer], '') = ''
-            THEN '(MA)-'|| GLALIRD.[GLAccount]
+            THEN CONCAT('(MA)-',GLALIRD.[GLAccount])
         ELSE GLALIRD.[Customer]
     END                                             AS [CustomerID],
     GLALIRD.[ExchangeRateDate],                    
@@ -196,7 +196,7 @@ SELECT
     CASE
         WHEN GLALIRD.[BillingDocumentType] = ''
         AND COALESCE (GLALIRD.[ShipToParty], '') = ''
-            THEN '(MA)-'|| GLALIRD.[GLAccount]
+            THEN CONCAT('(MA)-',GLALIRD.[GLAccount])
         ELSE GLALIRD.[ShipToParty]
     END                                             AS [ShipToParty],
     CASE 
