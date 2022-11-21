@@ -4515,15 +4515,6 @@
         "schedule_recurrence": "D"
       },
       {
-        "entity_id": 64,
-        "entity_name": "fact_MaterialDocumentItem",
-        "sproc_name": "sp_materialize_view",
-        "source_view_name": "vw_MaterialDocumentItem",
-        "dest_table_name": "fact_MaterialDocumentItem",
-        "execution_order": 1,
-        "schedule_recurrence": "D"
-      },
-      {
         "entity_id": 65,
         "entity_name": "dim_CustomerCalculated",
         "sproc_name": "sp_materialize_view",
