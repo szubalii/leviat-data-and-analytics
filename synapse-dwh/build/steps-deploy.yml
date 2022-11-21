@@ -12,7 +12,7 @@ steps:
     azurePowerShellVersion: LatestVersion
     pwsh: true
 
-- task: AzureFileCopy@4
+- task: AzureFileCopy@5
   displayName: 'AzureBlob File Copy'
   inputs:
     SourcePath: '$(Pipeline.Workspace)/SynapseDWH/Master Data/*'
