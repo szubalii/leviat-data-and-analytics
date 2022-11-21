@@ -1,6 +1,6 @@
 steps:
   
-- task: AzureFileCopy@4
+- task: AzureFileCopy@5
   displayName: 'AzureBlob File Copy Master Data Generic'
   inputs:
     SourcePath: '$(Pipeline.Workspace)/OrchestrationDB/Master Data/*'
