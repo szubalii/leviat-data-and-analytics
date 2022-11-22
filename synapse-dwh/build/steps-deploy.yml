@@ -21,7 +21,9 @@ steps:
 #     storage: '$(storageAccountName)'
 #     ContainerName: 'flat-files'
 # Directly reference azcopy instead of AzureFileCopy@4 to resolve copy issues
-# Workaround: copy some files in separate task to fix copy issues
+# Workaround: copy files in separate task to fix copy issues:
+#   409 Blob operation is not supported.. When Staging block.
+#   000 : source modified during transfer. When epilogueWithCleanupSendToRemote.
 - task: PowerShell@2
   displayName: 'Copy map_AXBI Master Data Pt1 to AzureBlob'
   inputs:
@@ -62,7 +64,6 @@ steps:
       azcopy login --identity
 
       # directly copy to storage account using azcopy
-      # workaround to exclude ProductCalculated as fix (blob)
       azcopy copy `
         '$(Pipeline.Workspace)\SynapseDWH\Master Data\USA\*' `
         'https://$(storageAccountName).blob.core.windows.net/flat-files'
@@ -77,7 +78,6 @@ steps:
       azcopy login --identity
 
       # directly copy to storage account using azcopy
-      # workaround to exclude ProductCalculated as fix (blob)
       azcopy copy `
         '$(Pipeline.Workspace)\SynapseDWH\Master Data\*' `
         'https://$(storageAccountName).blob.core.windows.net/flat-files' `
@@ -93,7 +93,6 @@ steps:
       azcopy login --identity
 
       # directly copy to storage account using azcopy
-      # workaround to exclude ProductCalculated as fix (blob)
       azcopy copy `
         '$(Pipeline.Workspace)\SynapseDWH\Master Data\*' `
         'https://$(storageAccountName).blob.core.windows.net/flat-files' `
@@ -125,10 +124,9 @@ steps:
       azcopy login --identity
 
       # directly copy to storage account using azcopy
-      # workaround to exclude ProductCalculated as fix (blob)
       azcopy copy `
         '$(Pipeline.Workspace)\SynapseDWH\Master Data\map_USA\*' `
-        'https://$(storageAccountName).blob.core.windows.net/flat-files'
+        'https://$(storageAccountName).dfs.core.windows.net/flat-files'
       
 - task: SqlAzureDacpacDeployment@1
   displayName: 'Azure SQL DacpacTask'
