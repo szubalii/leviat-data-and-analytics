@@ -20,7 +20,19 @@ steps:
       azcopy login --identity
 
       # directly copy to storage account using azcopy
-      azcopy copy '$(Pipeline.Workspace)\OrchestrationDB\Master Data\*' 'https://$(storageAccountName).blob.core.windows.net/orch-db' --recursive
+      azcopy copy '$(Pipeline.Workspace)\OrchestrationDB\Master Data\*' 'https://$(storageAccountName).blob.core.windows.net/orch-db' --recursive --exclude-pattern=entity.csv
+
+- task: PowerShell@2
+  displayName: 'Copy Master Data to AzureBlob'
+  inputs:
+    targetType: 'inline'
+    pwsh: true
+    script: |
+      # connect to Azure using VM
+      azcopy login --identity
+
+      # directly copy to storage account using azcopy
+      azcopy copy '$(Pipeline.Workspace)\OrchestrationDB\Master Data\*' 'https://$(storageAccountName).blob.core.windows.net/orch-db' --recursive --include-pattern=entity.csv
 
 - task: PowerShell@2
   displayName: Get SAS key for orch-db container

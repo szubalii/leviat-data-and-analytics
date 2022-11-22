@@ -53,8 +53,8 @@ stages:
         - VisualStudio
         - Python.Version
         - Agent.Name -equals $(VMName)
-      workspace:
-        clean: all
+      # workspace:
+      #   clean: all
       environment: ${{ upper(variables['Build.SourceBranchName']) }}
       strategy:
         runOnce:
