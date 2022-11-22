@@ -26,7 +26,7 @@ steps:
 #   000 : source modified during transfer. When epilogueWithCleanupSendToRemote.
 
 - task: PowerShell@2
-  displayName: 'Copy Master Data to AzureBlob'
+  displayName: 'Copy map_USA Master Data to AzureBlob'
   inputs:
     targetType: 'inline'
     pwsh: true
@@ -34,108 +34,99 @@ steps:
       # connect to Azure using VM
       azcopy login --identity
 
-      # get date time in ISO8601
-      $iso8601 = (Get-Date).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:00Z")
+      # directly copy to storage account using azcopy
+      azcopy copy `
+        '$(Pipeline.Workspace)\SynapseDWH\Master Data\map_USA\Customer.csv' `
+        'https://$(storageAccountName).dfs.core.windows.net/flat-files'
+
+- task: PowerShell@2
+  displayName: 'Copy map_AXBI Master Data Pt1 to AzureBlob'
+  inputs:
+    targetType: 'inline'
+    pwsh: true
+    script: |
+      # connect to Azure using VM
+      azcopy login --identity
 
       # directly copy to storage account using azcopy
-      # include include-after to make sure no copy issues with files that 
-      # might be modified after job starts
+      azcopy copy `
+        '$(Pipeline.Workspace)\SynapseDWH\Master Data\map_AXBI\*' `
+        'https://$(storageAccountName).blob.core.windows.net/flat-files' `
+        --exclude-path 'BusinessPartner.csv;Material.csv;BusinessPartnerFull.csv;AXProductSAPHierarchy.csv'
+
+- task: PowerShell@2
+  displayName: 'Copy map_AXBI Master Data Pt2 to AzureBlob'
+  inputs:
+    targetType: 'inline'
+    pwsh: true
+    script: |
+      # connect to Azure using VM
+      azcopy login --identity
+
+      # directly copy to storage account using azcopy
+      azcopy copy `
+        '$(Pipeline.Workspace)\SynapseDWH\Master Data\map_AXBI\*' `
+        'https://$(storageAccountName).blob.core.windows.net/flat-files' `
+        --include-path 'BusinessPartner.csv;Material.csv;BusinessPartnerFull.csv;AXProductSAPHierarchy.csv'
+
+- task: PowerShell@2
+  displayName: 'Copy USA Master Data to AzureBlob'
+  inputs:
+    targetType: 'inline'
+    pwsh: true
+    script: |
+      # connect to Azure using VM
+      azcopy login --identity
+
+      # directly copy to storage account using azcopy
+      azcopy copy `
+        '$(Pipeline.Workspace)\SynapseDWH\Master Data\USA\*' `
+        'https://$(storageAccountName).blob.core.windows.net/flat-files'
+
+- task: PowerShell@2
+  displayName: 'Copy Master Data Pt1 to AzureBlob'
+  inputs:
+    targetType: 'inline'
+    pwsh: true
+    script: |
+      # connect to Azure using VM
+      azcopy login --identity
+
+      # directly copy to storage account using azcopy
       azcopy copy `
         '$(Pipeline.Workspace)\SynapseDWH\Master Data\*' `
         'https://$(storageAccountName).blob.core.windows.net/flat-files' `
-        --include-after=$iso8601 `
-        --include-before=$iso8601 `
-        --recursive
+        --exclude-path 'ConfigurableProductCharacteristic.csv;ProductCalculated.csv;SalesDistrict.csv;CustomerCalculated.csv'
 
-# - task: PowerShell@2
-#   displayName: 'Copy map_AXBI Master Data Pt1 to AzureBlob'
-#   inputs:
-#     targetType: 'inline'
-#     pwsh: true
-#     script: |
-#       # connect to Azure using VM
-#       azcopy login --identity
+- task: PowerShell@2
+  displayName: 'Copy Master Data Pt2 to AzureBlob'
+  inputs:
+    targetType: 'inline'
+    pwsh: true
+    script: |
+      # connect to Azure using VM
+      azcopy login --identity
 
-#       # directly copy to storage account using azcopy
-#       azcopy copy `
-#         '$(Pipeline.Workspace)\SynapseDWH\Master Data\map_AXBI\*' `
-#         'https://$(storageAccountName).blob.core.windows.net/flat-files' `
-#         --exclude-path 'BusinessPartner.csv;Material.csv;BusinessPartnerFull.csv;AXProductSAPHierarchy.csv'
+      # directly copy to storage account using azcopy
+      azcopy copy `
+        '$(Pipeline.Workspace)\SynapseDWH\Master Data\*' `
+        'https://$(storageAccountName).blob.core.windows.net/flat-files' `
+        --include-path 'ConfigurableProductCharacteristic.csv;SalesDistrict.csv;CustomerCalculated.csv'
 
-# - task: PowerShell@2
-#   displayName: 'Copy map_AXBI Master Data Pt2 to AzureBlob'
-#   inputs:
-#     targetType: 'inline'
-#     pwsh: true
-#     script: |
-#       # connect to Azure using VM
-#       azcopy login --identity
+- task: PowerShell@2
+  displayName: 'Copy ProductCalculated.csv to AzureBlob'
+  inputs:
+    targetType: 'inline'
+    pwsh: true
+    script: |
+      # connect to Azure using VM
+      azcopy login --identity
 
-#       # directly copy to storage account using azcopy
-#       azcopy copy `
-#         '$(Pipeline.Workspace)\SynapseDWH\Master Data\map_AXBI\*' `
-#         'https://$(storageAccountName).blob.core.windows.net/flat-files' `
-#         --include-path 'BusinessPartner.csv;Material.csv;BusinessPartnerFull.csv;AXProductSAPHierarchy.csv'
-
-# - task: PowerShell@2
-#   displayName: 'Copy USA Master Data to AzureBlob'
-#   inputs:
-#     targetType: 'inline'
-#     pwsh: true
-#     script: |
-#       # connect to Azure using VM
-#       azcopy login --identity
-
-#       # directly copy to storage account using azcopy
-#       azcopy copy `
-#         '$(Pipeline.Workspace)\SynapseDWH\Master Data\USA\*' `
-#         'https://$(storageAccountName).blob.core.windows.net/flat-files'
-
-# - task: PowerShell@2
-#   displayName: 'Copy Master Data Pt1 to AzureBlob'
-#   inputs:
-#     targetType: 'inline'
-#     pwsh: true
-#     script: |
-#       # connect to Azure using VM
-#       azcopy login --identity
-
-#       # directly copy to storage account using azcopy
-#       azcopy copy `
-#         '$(Pipeline.Workspace)\SynapseDWH\Master Data\*' `
-#         'https://$(storageAccountName).blob.core.windows.net/flat-files' `
-#         --exclude-path 'ConfigurableProductCharacteristic.csv;ProductCalculated.csv;SalesDistrict.csv;CustomerCalculated.csv'
-
-# - task: PowerShell@2
-#   displayName: 'Copy Master Data Pt2 to AzureBlob'
-#   inputs:
-#     targetType: 'inline'
-#     pwsh: true
-#     script: |
-#       # connect to Azure using VM
-#       azcopy login --identity
-
-#       # directly copy to storage account using azcopy
-#       azcopy copy `
-#         '$(Pipeline.Workspace)\SynapseDWH\Master Data\*' `
-#         'https://$(storageAccountName).blob.core.windows.net/flat-files' `
-#         --include-path 'ConfigurableProductCharacteristic.csv;SalesDistrict.csv;CustomerCalculated.csv'
-
-# - task: PowerShell@2
-#   displayName: 'Copy ProductCalculated.csv to AzureBlob'
-#   inputs:
-#     targetType: 'inline'
-#     pwsh: true
-#     script: |
-#       # connect to Azure using VM
-#       azcopy login --identity
-
-#       # directly copy to storage account using azcopy
-#       # workaround to exclude ProductCalculated as fix (dfs)
-#       azcopy copy `
-#         '$(Pipeline.Workspace)\SynapseDWH\Master Data\*' `
-#         'https://$(storageAccountName).dfs.core.windows.net/flat-files' `
-#         --include-path 'ProductCalculated.csv'
+      # directly copy to storage account using azcopy
+      # workaround to exclude ProductCalculated as fix (dfs)
+      azcopy copy `
+        '$(Pipeline.Workspace)\SynapseDWH\Master Data\ProductCalculated.csv' `
+        'https://$(storageAccountName).dfs.core.windows.net/flat-files'
       
 - task: SqlAzureDacpacDeployment@1
   displayName: 'Azure SQL DacpacTask'
