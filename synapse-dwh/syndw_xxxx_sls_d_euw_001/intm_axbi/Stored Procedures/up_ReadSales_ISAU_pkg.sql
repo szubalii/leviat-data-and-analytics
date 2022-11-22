@@ -3,9 +3,7 @@
 -- Create date: <28.04.2020>
 -- Description:	<Übernahme Umsatzdaten Isedio AU für TX Construction Accessories>
 -- =============================================
---
-CREATE PROCEDURE [intm_axbi].[up_ReadSales_ISAU_pkg] 
-AS
+CREATE PROC [intm_axbi].[up_ReadSales_ISAU_pkg] AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
 	-- interfering with SELECT statements.
@@ -24,37 +22,10 @@ BEGIN
     BEGIN
         DROP TABLE #OtherSalesTable_cnt
     END 
-	--declare @sqlstmt nvarchar(4000),
-	--        @log nvarchar(200),
-	--		@lDataAreaID nvarchar(8),
-	--		@lOrigSalesID nvarchar(20),
-	--		@lInvoiceID nvarchar(20),
-	--		@lLineNum numeric(28,12),
-	--		@lDatefinancial datetime,
-	--		@lOrderAccount nvarchar(20),
-	--		@lItemID nvarchar(40),
-	--		@lDlvcountryregionid nvarchar(20),
-	--		@lInvoicedfreightMST decimal(38,12),
-	--		@lInvoicedfreightEUR decimal(38,12),
-	--		@lPackingslipid nvarchar(20),
-	--		@lQty numeric(28,12),
-	--		@lLineAmountMST numeric(28,12),
-	--		@lLineAmountEUR numeric(28,12),
-	--		@lSalesBalanceMST numeric(28,12),
-	--		@lSalesBalanceEUR numeric(28,12),
-	--		@lcurrencycode nvarchar(3),
-	--		@lcounter smallint,
-
-		--	@lYear smallint,
-		--	@lMonth tinyint,
-
-		--	@lFrYear smallint,
-		--	@lFrMonth tinyint
 
      declare @P_Year smallint = (select datepart(year,max([Accountingdate])) from [base_isedio_aus].[CUSTINVOICETRANS_ISAU]),
 	         @P_Month tinyint = (select datepart(month,max([Accountingdate])) from [base_isedio_aus].[CUSTINVOICETRANS_ISAU]),
              @lRate numeric(15,6)
-
 
 	-- CUSTTABLE
 
@@ -376,18 +347,20 @@ BEGIN
         DATEPART(month,c.[ACCOUNTINGDATE]) = @P_Month
 	group by c.[INVOICEID]
 
-    select [INVOICEID], count(*) lcounter
+    select c.[INVOICEID], count(*) lcounter
 	into #OtherSalesTable_cnt
-	from [intm_axbi].[fact_CUSTINVOICETRANS]
+	from [intm_axbi].[fact_CUSTINVOICETRANS] c
+        inner join #OtherSalesTable i
+            on c.[INVOICEID] = i.[INVOICEID]
 	where
-        upper(DATAAREAID) = 'ISAU'
+        upper(c.DATAAREAID) = 'ISAU'
         and
-        [ITEMID] <> 'ISAU-FREIGHT'
+        c.[ITEMID] <> 'ISAU-FREIGHT'
         AND
-        DATEPART(year,[ACCOUNTINGDATE]) = @P_Year
+        DATEPART(year,c.[ACCOUNTINGDATE]) = @P_Year
         and
-        DATEPART(month,[ACCOUNTINGDATE]) = @P_Month
-	group by [INVOICEID]
+        DATEPART(month,c.[ACCOUNTINGDATE]) = @P_Month
+	group by c.[INVOICEID]
 
 	-- Falls reguläre Postionen mit Umsatz vorhanden
 	update [intm_axbi].[fact_CUSTINVOICETRANS]

@@ -493,7 +493,7 @@ BEGIN
 	set INOUT = 'O',
 	    CUSTOMERPILLAR = 'OTHER',
 	    DIMENSION3_ = '5330U01'
-	where DATAAREAID = 'ISUK' and NAME like '%Halfen USA%' 
+	where DATAAREAID = 'ISUK' and UPPER(NAME) like '%HALFEN USA%' 
 
     -- Alle CUSTOMERPILLAR auf OTHER setzen, die leer sind. Außer bei Halfen
 	update [intm_axbi].[dim_CUSTTABLE]
@@ -515,7 +515,7 @@ BEGIN
 	set INOUT = 'O',
 	    CUSTOMERPILLAR = 'OTHER',
 	    DIMENSION3_ = '5330U01'
-	where DATAAREAID = 'ANUK' and NAME like '%Halfen USA%' 
+	where DATAAREAID = 'ANUK' and UPPER(NAME) like '%HALFEN USA%' 
 
 	--======================================================================
 
@@ -1508,7 +1508,7 @@ BEGIN
 
 	update [intm_axbi].[dim_ITEMTABLE]
 	set PRODUCTGROUPID = 'A.4.'
-	where DATAAREAID = 'ANUK' and ITEMGROUPID = 'ANUK-HELI'  
+	where DATAAREAID = 'ANUK' and UPPER(ITEMGROUPID) = 'ANUK-HELI'  
 
 	-- Dummy article for the Budget
 	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANUK', 'ANUK-A.1.', 'BRICKWORK SUPPORT', 'A.1.', ' ')
@@ -1780,7 +1780,7 @@ BEGIN
 
 	update [intm_axbi].[dim_ITEMTABLE]
 	set PRODUCTGROUPID = 'A.4.'
-	where DATAAREAID = 'ISUK' and ITEMGROUPID = 'ANUK-HELI'  
+	where DATAAREAID = 'ISUK' and UPPER(ITEMGROUPID) = 'ANUK-HELI'  
 
 	-- Dummy article for the Budget
 	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ISUK', 'ISUK-A.1.', 'BRICKWORK SUPPORT', 'A.1.', ' ')

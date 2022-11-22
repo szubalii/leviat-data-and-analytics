@@ -17,10 +17,10 @@ BEGIN
     BEGIN
         DROP TABLE #InvoicedFreightTable_ISUK_SB
     END  
-    IF OBJECT_ID(N'tempdb..#InvoicedFreightTable_ISUK_cnt') IS NOT NULL
-    BEGIN
-        DROP TABLE #InvoicedFreightTable_ISUK_cnt
-    END  
+    --IF OBJECT_ID(N'tempdb..#InvoicedFreightTable_ISUK_cnt') IS NOT NULL
+    --BEGIN
+    --    DROP TABLE #InvoicedFreightTable_ISUK_cnt
+    --END  
     IF OBJECT_ID(N'tempdb..##InvoicePosCounter') IS NOT NULL
     BEGIN
         DROP TABLE ##InvoicePosCounter
@@ -280,8 +280,8 @@ BEGIN
     select 
 	c.PACKINGSLIPID,
     ISNULL(sum(c.PRODUCTSALESLOCAL),0) SalesBalance,
-    ISNULL(sum(c.PRODUCTSALESEUR),0) SalesBalanceEUR
-    --,count(*) as lcounter
+    ISNULL(sum(c.PRODUCTSALESEUR),0) SalesBalanceEUR,
+    count(*) as lcounter
 	into #InvoicedFreightTable_ISUK_SB 
     from [intm_axbi].[fact_CUSTINVOICETRANS] c
     inner join #InvoicedFreightTable_ISUK i
@@ -289,13 +289,13 @@ BEGIN
     and upper(c.DATAAREAID) = 'ISUK' 
 	group by c.PACKINGSLIPID
 
-	select c.[PACKINGSLIPID], count(*) lcounter
-	into #InvoicedFreightTable_ISUK_cnt 
-	from [intm_axbi].[fact_CUSTINVOICETRANS] c
-    inner join #InvoicedFreightTable_ISUK i
-    on c.PACKINGSLIPID = i.[PACKINGSLIPID]
-	where upper(c.DATAAREAID) = 'ISUK'
-	group by c.[PACKINGSLIPID]
+	--select c.[PACKINGSLIPID], count(*) lcounter
+	--into #InvoicedFreightTable_ISUK_cnt 
+	--from [intm_axbi].[fact_CUSTINVOICETRANS] c
+ --   inner join #InvoicedFreightTable_ISUK i
+ --   on c.PACKINGSLIPID = i.[PACKINGSLIPID]
+	--where upper(c.DATAAREAID) = 'ISUK'
+	--group by c.[PACKINGSLIPID]
 	
 	update [intm_axbi].[fact_CUSTINVOICETRANS]
 	set OTHERSALESLOCAL += i.InvoicedFreightLocal * t.PRODUCTSALESLOCAL/sb.SalesBalance,
@@ -310,18 +310,18 @@ BEGIN
 	
 	
 	update [intm_axbi].[fact_CUSTINVOICETRANS]
-	set OTHERSALESLOCAL += i.InvoicedFreightLocal / cnt.lcounter,
-	    OTHERSALESEUR  += i.InvoicedFreightEur / cnt.lcounter
+	set OTHERSALESLOCAL += i.InvoicedFreightLocal / sb.lcounter,
+	    OTHERSALESEUR  += i.InvoicedFreightEur / sb.lcounter
 	from [intm_axbi].[fact_CUSTINVOICETRANS] as t
 	inner join #InvoicedFreightTable_ISUK i
 	on t.PACKINGSLIPID=i.[PACKINGSLIPID]
 	inner join #InvoicedFreightTable_ISUK_SB sb
-	on t.PACKINGSLIPID = i.[PACKINGSLIPID]
-	inner join #InvoicedFreightTable_ISUK_cnt cnt
-	on t.PACKINGSLIPID = cnt.[PACKINGSLIPID]
+	on t.PACKINGSLIPID = sb.[PACKINGSLIPID]
+	--inner join #InvoicedFreightTable_ISUK_cnt cnt
+	--on t.PACKINGSLIPID = cnt.[PACKINGSLIPID]
 	where upper(t.DATAAREAID) = 'ISUK' 
 	and sb.SalesBalance = 0
-	and cnt.lcounter > 0
+	and sb.lcounter > 0
 	
 		
 	-- SALES100 aktualisieren
@@ -337,31 +337,31 @@ BEGIN
 	select DATAAREAID, 
 	INVOICEID, 
 	COUNT(*) as SalesPosCounter, 
-	0 as InvoicePosCounter     ,
-	0 as productsaleslocal     ,
-	0 as productsalesEUR       ,
-	0 as othersaleslocal       ,
-	0 as othersalesEUR         ,
-	0 as allowanceslocal       ,
-	0 as allowancesEUR         ,
-	0 as sales100local         ,
-	0 as sales100EUR           ,
-	0 as freightlocal          ,
-	0 as freightEUR            ,
-	0 as costamountlocal       ,
-	0 as costamountEUR         ,
-	0 as productsaleslocal_new ,
-	0 as productsalesEUR_new   ,
-	0 as othersaleslocal_new   ,
-	0 as othersalesEUR_new     ,
-	0 as allowanceslocal_new   ,
-	0 as allowancesEUR_new     ,
-	0 as sales100local_new     ,
-	0 as sales100EUR_new       ,
-	0 as freightlocal_new      ,
-	0 as freightEUR_new        ,
-	0 as costamountlocal_new   ,
-	0 as costamountEUR_new     
+	CAST(0 as [DECIMAL](38, 12)) as InvoicePosCounter     ,
+	CAST(0 as [DECIMAL](38, 12)) as productsaleslocal     ,
+	CAST(0 as [DECIMAL](38, 12)) as productsalesEUR       ,
+	CAST(0 as [DECIMAL](38, 12)) as othersaleslocal       ,
+	CAST(0 as [DECIMAL](38, 12)) as othersalesEUR         ,
+	CAST(0 as [DECIMAL](38, 12)) as allowanceslocal       ,
+	CAST(0 as [DECIMAL](38, 12)) as allowancesEUR         ,
+	CAST(0 as [DECIMAL](38, 12)) as sales100local         ,
+	CAST(0 as [DECIMAL](38, 12)) as sales100EUR           ,
+	CAST(0 as [DECIMAL](38, 12)) as freightlocal          ,
+	CAST(0 as [DECIMAL](38, 12)) as freightEUR            ,
+	CAST(0 as [DECIMAL](38, 12)) as costamountlocal       ,
+	CAST(0 as [DECIMAL](38, 12)) as costamountEUR         ,
+	CAST(0 as [DECIMAL](38, 12)) as productsaleslocal_new ,
+	CAST(0 as [DECIMAL](38, 12)) as productsalesEUR_new   ,
+	CAST(0 as [DECIMAL](38, 12)) as othersaleslocal_new   ,
+	CAST(0 as [DECIMAL](38, 12)) as othersalesEUR_new     ,
+	CAST(0 as [DECIMAL](38, 12)) as allowanceslocal_new   ,
+	CAST(0 as [DECIMAL](38, 12)) as allowancesEUR_new     ,
+	CAST(0 as [DECIMAL](38, 12)) as sales100local_new     ,
+	CAST(0 as [DECIMAL](38, 12)) as sales100EUR_new       ,
+	CAST(0 as [DECIMAL](38, 12)) as freightlocal_new      ,
+	CAST(0 as [DECIMAL](38, 12)) as freightEUR_new        ,
+	CAST(0 as [DECIMAL](38, 12)) as costamountlocal_new   ,
+	CAST(0 as [DECIMAL](38, 12)) as costamountEUR_new     
 	into ##InvoicePosCounter 
 	from [intm_axbi].[fact_CUSTINVOICETRANS] 
 	where upper(DATAAREAID) = 'ISUK' 
@@ -502,6 +502,6 @@ BEGIN
 
     drop table #InvoicedFreightTable_ISUK
     drop table #InvoicedFreightTable_ISUK_SB
-    drop table #InvoicedFreightTable_ISUK_cnt
+    --drop table #InvoicedFreightTable_ISUK_cnt
     drop table ##InvoicePosCounter
 END
