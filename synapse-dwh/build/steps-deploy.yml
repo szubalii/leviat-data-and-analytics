@@ -35,7 +35,7 @@ steps:
       azcopy login --identity
 
       # get date time in ISO8601
-      $iso8601 = Get-Date -Format "yyyy-MM-ddTHH:mm:00Z"
+      $iso8601 = (Get-Date).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:00Z")
 
       # directly copy to storage account using azcopy
       # include include-after to make sure no copy issues with files that 
