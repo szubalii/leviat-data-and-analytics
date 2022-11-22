@@ -23,7 +23,7 @@ SELECT
   [IsCompletelyDelivered],
   [OrderQuantityUnit],
   [CostCenterID],
-  [GLAccount],
+  [GLAccountID],
   [GoodsReceiptQuantity],
   fact_PDI.[t_applicationId],
   fact_PDI.[t_extractionDtm]

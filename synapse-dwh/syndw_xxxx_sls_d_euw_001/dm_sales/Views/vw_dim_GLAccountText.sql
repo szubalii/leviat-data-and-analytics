@@ -1,8 +1,8 @@
 ﻿CREATE VIEW [dm_sales].[vw_dim_GLAccountText]
     AS SELECT
         ChartOfAccounts,
+        GLAccount as GLAccountID,
         GLAccount,
-        GLAccountName,
         GLAccountLongName,
         LastChangeDateTime,
         t_applicationId,
