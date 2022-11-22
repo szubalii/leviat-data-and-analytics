@@ -81,7 +81,7 @@ steps:
       azcopy copy `
         '$(Pipeline.Workspace)\SynapseDWH\Master Data\*' `
         'https://$(storageAccountName).blob.core.windows.net/flat-files' `
-        --exclude-path 'ConfigurableProductCharacteristic.csv;ProductCalculated.csv'
+        --exclude-path 'ConfigurableProductCharacteristic.csv;ProductCalculated.csv;SalesDistrict.csv;CustomerCalculated.csv'
 
 - task: PowerShell@2
   displayName: 'Copy Master Data Pt2 to AzureBlob'
@@ -97,7 +97,7 @@ steps:
       azcopy copy `
         '$(Pipeline.Workspace)\SynapseDWH\Master Data\*' `
         'https://$(storageAccountName).blob.core.windows.net/flat-files' `
-        --include-path 'ConfigurableProductCharacteristic.csv;ProductCalculated.csv'
+        --include-path 'ConfigurableProductCharacteristic.csv;ProductCalculated.csv;SalesDistrict.csv;CustomerCalculated.csv'
 
 - task: PowerShell@2
   displayName: 'Copy map_USA Master Data to AzureBlob'
