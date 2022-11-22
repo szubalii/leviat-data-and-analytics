@@ -24,7 +24,7 @@ CREATE TABLE [edw].[fact_PurchasingDocumentItem]
     [IsCompletelyDelivered]                     nvarchar(1) collate Latin1_General_100_BIN2,    
     [OrderQuantityUnit]                         nvarchar(3) collate Latin1_General_100_BIN2,
     [CostCenterID]                              nvarchar(10) collate Latin1_General_100_BIN2,
-    [GLAccount]                                 nvarchar(10) collate Latin1_General_100_BIN2,
+    [GLAccountID]                                 nvarchar(10) collate Latin1_General_100_BIN2,
     [GoodsReceiptQuantity]                      decimal(13, 3),
     [t_applicationId]                           VARCHAR(32),
     [t_extractionDtm]                           DATETIME,

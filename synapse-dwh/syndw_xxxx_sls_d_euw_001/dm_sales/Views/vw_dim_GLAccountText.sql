@@ -2,7 +2,7 @@
     AS SELECT
         ChartOfAccounts,
         GLAccount as GLAccountID,
-        GLAccount,
+        GLAccountName as GLAccount,
         GLAccountLongName,
         LastChangeDateTime,
         t_applicationId,
