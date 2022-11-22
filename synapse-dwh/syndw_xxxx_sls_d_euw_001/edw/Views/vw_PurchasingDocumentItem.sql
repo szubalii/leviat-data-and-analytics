@@ -49,7 +49,7 @@ SELECT
     PDI.[IsCompletelyDelivered],
     PDI.[OrderQuantityUnit],
     PAA.[KOSTL]                             AS [CostCenterID],
-    PAA.[SAKTO]                             AS [GLAccount],
+    PAA.[SAKTO]                             AS [GLAccountID],
     PDSLSum.[GoodsReceiptQuantity],
     PDI.[t_applicationId],
     PDI.[t_extractionDtm]

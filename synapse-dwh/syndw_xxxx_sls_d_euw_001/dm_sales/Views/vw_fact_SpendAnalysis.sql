@@ -77,7 +77,7 @@ SupplierPurchasingOrg AS
 		,	itm.[OrderQuantityUnit]
 		,	itm.[CostCenterID]
 		,	'#' AS [CostCenterName]
-		,	itm.[GLAccount]
+		,	itm.[GLAccountID]
 		,	'#' AS [GLAccountName]
 		,	itm.[GoodsReceiptQuantity]
 		--,	ISNULL(itm.[CostCenterID], '#') AS [CostCenterID__]
