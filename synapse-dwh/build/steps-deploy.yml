@@ -24,6 +24,25 @@ steps:
 # Workaround: copy files in separate task to fix copy issues:
 #   409 Blob operation is not supported.. When Staging block.
 #   000 : source modified during transfer. When epilogueWithCleanupSendToRemote.
+
+- task: PowerShell@2
+  displayName: 'Copy map_USA Master Data to AzureBlob'
+  inputs:
+    targetType: 'inline'
+    pwsh: true
+    script: |
+      # connect to Azure using VM
+      azcopy login --identity
+
+      # get date time in ISO8601
+      $iso8601 = Get-Date -Format "yyyy-MM-ddTHH:mm:00Z"
+
+      # directly copy to storage account using azcopy
+      azcopy copy `
+        '$(Pipeline.Workspace)\SynapseDWH\Master Data\map_USA\*' `
+        'https://$(storageAccountName).dfs.core.windows.net/flat-files' `
+        --include-after=$iso8601
+
 - task: PowerShell@2
   displayName: 'Copy map_AXBI Master Data Pt1 to AzureBlob'
   inputs:
@@ -113,20 +132,6 @@ steps:
         '$(Pipeline.Workspace)\SynapseDWH\Master Data\*' `
         'https://$(storageAccountName).dfs.core.windows.net/flat-files' `
         --include-path 'ProductCalculated.csv'
-
-- task: PowerShell@2
-  displayName: 'Copy map_USA Master Data to AzureBlob'
-  inputs:
-    targetType: 'inline'
-    pwsh: true
-    script: |
-      # connect to Azure using VM
-      azcopy login --identity
-
-      # directly copy to storage account using azcopy
-      azcopy copy `
-        '$(Pipeline.Workspace)\SynapseDWH\Master Data\map_USA\*' `
-        'https://$(storageAccountName).dfs.core.windows.net/flat-files'
       
 - task: SqlAzureDacpacDeployment@1
   displayName: 'Azure SQL DacpacTask'
