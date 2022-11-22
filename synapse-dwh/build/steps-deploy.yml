@@ -12,9 +12,6 @@ steps:
     azurePowerShellVersion: LatestVersion
     pwsh: true
 
-- download: current
-  artifact: SynapseDWH
-
 # - task: AzureFileCopy@5
 #   displayName: 'AzureBlob File Copy'
 #   inputs:
@@ -26,7 +23,7 @@ steps:
 # Directly reference azcopy instead of AzureFileCopy@4 to resolve copy issues
 # Workaround: copy some files in separate task to fix copy issues
 - task: PowerShell@2
-  displayName: 'Copy Master Data to AzureBlob'
+  displayName: 'Copy Master Data Pt1 to AzureBlob'
   inputs:
     targetType: 'inline'
     pwsh: true
@@ -43,15 +40,15 @@ steps:
         --exclude-path= `
           'ConfigurableProductCharacteristic.csv; `
           SalesDistrict.csv; `
-          CustomerCalculated.csv `
-          map_AXBI\BusinessPartner.csv `
-          map_AXBI\Material.csv `
-          map_AXBI\AXProductSAPHierarchy.csv `
-          map_AXBI\BusinessPartnerFull.csv `
+          CustomerCalculated.csv; `
+          map_AXBI\BusinessPartner.csv; `
+          map_AXBI\Material.csv; `
+          map_AXBI\AXProductSAPHierarchy.csv; `
+          map_AXBI\BusinessPartnerFull.csv; `
           map_USA\Customer.csv'
 
 - task: PowerShell@2
-  displayName: 'Copy Master Data to AzureBlob'
+  displayName: 'Copy Master Data Pt2 to AzureBlob'
   inputs:
     targetType: 'inline'
     pwsh: true
@@ -68,11 +65,11 @@ steps:
         --include-path= `
           'ConfigurableProductCharacteristic.csv; `
           SalesDistrict.csv; `
-          CustomerCalculated.csv `
-          map_AXBI\BusinessPartner.csv `
-          map_AXBI\Material.csv `
-          map_AXBI\AXProductSAPHierarchy.csv `
-          map_AXBI\BusinessPartnerFull.csv `
+          CustomerCalculated.csv; `
+          map_AXBI\BusinessPartner.csv; `
+          map_AXBI\Material.csv; `
+          map_AXBI\AXProductSAPHierarchy.csv; `
+          map_AXBI\BusinessPartnerFull.csv; `
           map_USA\Customer.csv'
       
 - task: SqlAzureDacpacDeployment@1
