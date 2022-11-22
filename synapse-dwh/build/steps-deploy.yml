@@ -12,6 +12,9 @@ steps:
     azurePowerShellVersion: LatestVersion
     pwsh: true
 
+- download: current
+  artifact: SynapseDWH
+
 # - task: AzureFileCopy@5
 #   displayName: 'AzureBlob File Copy'
 #   inputs:
@@ -21,6 +24,7 @@ steps:
 #     storage: '$(storageAccountName)'
 #     ContainerName: 'flat-files'
 # Directly reference azcopy instead of AzureFileCopy@4 to resolve copy issues
+# Workaround: copy some files in separate task to fix copy issues
 - task: PowerShell@2
   displayName: 'Copy Master Data to AzureBlob'
   inputs:
@@ -32,11 +36,45 @@ steps:
 
       # directly copy to storage account using azcopy
       # workaround to exclude ProductCalculated as fix (blob)
-      azcopy copy '$(Pipeline.Workspace)\SynapseDWH\Master Data\*' 'https://$(storageAccountName).blob.core.windows.net/flat-files' --recursive --exclude-pattern=ProductCalculated.csv
-      
-      # workaround to include ProductCalculated as fix (dfs)
-      azcopy copy '$(Pipeline.Workspace)\SynapseDWH\Master Data\*' 'https://$(storageAccountName).dfs.core.windows.net/flat-files' --recursive --include-pattern=ProductCalculated.csv
+      azcopy copy `
+        '$(Pipeline.Workspace)\SynapseDWH\Master Data\*' `
+        'https://$(storageAccountName).blob.core.windows.net/flat-files' `
+        --recursive `
+        --exclude-path `
+          'ConfigurableProductCharacteristic.csv; `
+          SalesDistrict.csv; `
+          CustomerCalculated.csv `
+          map_AXBI\BusinessPartner.csv `
+          map_AXBI\Material.csv `
+          map_AXBI\AXProductSAPHierarchy.csv `
+          map_AXBI\BusinessPartnerFull.csv `
+          map_USA\Customer.csv'
 
+- task: PowerShell@2
+  displayName: 'Copy Master Data to AzureBlob'
+  inputs:
+    targetType: 'inline'
+    pwsh: true
+    script: |
+      # connect to Azure using VM
+      azcopy login --identity
+
+      # directly copy to storage account using azcopy
+      # workaround to exclude ProductCalculated as fix (blob)
+      azcopy copy `
+        '$(Pipeline.Workspace)\SynapseDWH\Master Data\*' `
+        'https://$(storageAccountName).blob.core.windows.net/flat-files' `
+        --recursive `
+        --include-path `
+          'ConfigurableProductCharacteristic.csv; `
+          SalesDistrict.csv; `
+          CustomerCalculated.csv `
+          map_AXBI\BusinessPartner.csv `
+          map_AXBI\Material.csv `
+          map_AXBI\AXProductSAPHierarchy.csv `
+          map_AXBI\BusinessPartnerFull.csv `
+          map_USA\Customer.csv'
+      
 - task: SqlAzureDacpacDeployment@1
   displayName: 'Azure SQL DacpacTask'
   inputs:

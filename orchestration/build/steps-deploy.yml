@@ -9,9 +9,9 @@ steps:
 #     storage: '$(storageAccountName)'
 #     ContainerName: 'orch-db'
 
-# Directly reference azcopy instead of AzureFileCopy@4 to resolve copy issues
+# Workaround: copy entity.csv file in separate task to fix copy issues
 - task: PowerShell@2
-  displayName: 'Copy Master Data to AzureBlob'
+  displayName: 'Copy Master Data to AzureBlob (excl. entity.csv)'
   inputs:
     targetType: 'inline'
     pwsh: true
@@ -20,10 +20,14 @@ steps:
       azcopy login --identity
 
       # directly copy to storage account using azcopy
-      azcopy copy '$(Pipeline.Workspace)\OrchestrationDB\Master Data\*' 'https://$(storageAccountName).blob.core.windows.net/orch-db' --recursive --exclude-pattern=entity.csv
+      azcopy copy `
+        '$(Pipeline.Workspace)\OrchestrationDB\Master Data\*' `
+        'https://$(storageAccountName).blob.core.windows.net/orch-db' `
+        --recursive `
+        --exclude-path=entity.csv
 
 - task: PowerShell@2
-  displayName: 'Copy Master Data to AzureBlob'
+  displayName: 'Copy entity.csv to AzureBlob'
   inputs:
     targetType: 'inline'
     pwsh: true
@@ -32,7 +36,11 @@ steps:
       azcopy login --identity
 
       # directly copy to storage account using azcopy
-      azcopy copy '$(Pipeline.Workspace)\OrchestrationDB\Master Data\*' 'https://$(storageAccountName).blob.core.windows.net/orch-db' --recursive --include-pattern=entity.csv
+      azcopy copy `
+        '$(Pipeline.Workspace)\OrchestrationDB\Master Data\*' `
+        'https://$(storageAccountName).blob.core.windows.net/orch-db' `
+        --recursive `
+        --include-path=entity.csv
 
 - task: PowerShell@2
   displayName: Get SAS key for orch-db container
