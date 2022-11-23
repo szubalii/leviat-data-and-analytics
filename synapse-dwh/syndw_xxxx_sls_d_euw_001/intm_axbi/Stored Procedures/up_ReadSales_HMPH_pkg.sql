@@ -75,16 +75,16 @@ BEGIN
 	where
         UPPER(DATAAREAID) = 'HMPH'
         and
-        NAME like '%Leviat%'
+        UPPER([NAME]) like '%LEVIAT%'
         and
-        NAME not like '%Meadow Burke%'
+        UPPER([NAME]) not like '%MEADOW BURKE%'
         and
-        NAME not like '%MeadowBurke%'
+        UPPER([NAME]) not like '%MEADOWBURKE%'
 
     -- Alle CUSTOMERPILLAR auf OTHER setzen, die leer sind. Außer bei Halfen
 	update [intm_axbi].[dim_CUSTTABLE]
 	set CUSTOMERPILLAR = 'OTHER'
-	where UPPER(DATAAREAID) = 'HMPH' and CUSTOMERPILLAR = ' ' 
+	where UPPER(DATAAREAID) = 'HMPH' and ISNULL(CUSTOMERPILLAR,' ') = ' ' 
 
     -- Alle INSIDE customer column CUSTOMERPILLAR auf OTHER setzen
 	update [intm_axbi].[dim_CUSTTABLE]

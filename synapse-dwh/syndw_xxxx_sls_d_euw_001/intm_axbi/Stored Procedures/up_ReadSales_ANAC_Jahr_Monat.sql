@@ -88,18 +88,18 @@ BEGIN
 	where  
         upper([DATAAREAID]) = 'ANAC' 
         and
-        [NAME] like '%Leviat%'
+        UPPER([NAME]) like '%LEVIAT%'
         and
-        [NAME] not like '%Meadow Burke%'
+        UPPER([NAME]) not like '%MEADOW BURKE%'
         and
-        [NAME] not like '%MeadowBurke%'
+        UPPER([NAME]) not like '%MEADOWBURKE%'
 
 	-- Customer Master Data standard corrections:
 
     -- Alle CUSTOMERPILLAR auf OTHER setzen, die leer sind.
 	update [intm_axbi].[dim_CUSTTABLE]
 	set [CUSTOMERPILLAR] = 'Other'
-	where upper([DATAAREAID]) = 'ANAC' and [CUSTOMERPILLAR] = ' ' 
+	where upper([DATAAREAID]) = 'ANAC' and ISNULL([CUSTOMERPILLAR],' ') = ' ' 
 
     -- Alle INSIDE customer column CUSTOMERPILLAR auf OTHER setzen
 	update [intm_axbi].[dim_CUSTTABLE]

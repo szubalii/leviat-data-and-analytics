@@ -52,7 +52,7 @@ BEGIN
 	update [intm_axbi].[dim_CUSTTABLE]
 	set DIMENSION3_ = '2173U01',
 	    INOUT = 'I'
-	where UPPER(DATAAREAID) = 'ISAU' and [NAME] = 'Isedio Ltd' 
+	where UPPER(DATAAREAID) = 'ISAU' and UPPER([NAME]) = 'ISEDIO LTD' 
 
     -- Alle Kunden als OUTSIDE kennzeichnen, die keinen Eintrag in der DATAAREA Tabelle haben.
 	update [intm_axbi].[dim_CUSTTABLE]
@@ -67,7 +67,7 @@ BEGIN
 	set INOUT = 'O',
 	    CUSTOMERPILLAR = 'OTHER',
 	    DIMENSION3_ = '5330U01'
-	where UPPER(DATAAREAID) = 'ISAU' and [NAME] like '%Halfen USA%' 
+	where UPPER(DATAAREAID) = 'ISAU' and UPPER([NAME]) like '%HALFEN USA%' 
 
 	-- Alle Leviat Kunden auf Inside setzen, außer Meadow Burke. 
 	update [intm_axbi].[dim_CUSTTABLE]
@@ -75,16 +75,16 @@ BEGIN
 	where
         UPPER(DATAAREAID) = 'ISAU'
         and
-        [NAME] like '%Leviat%'
+        UPPER([NAME]) like '%LEVIAT%'
         and
-        [NAME] not like '%Meadow Burke%'
+        UPPER([NAME]) not like '%MEADOW BURKE%'
         and
-        [NAME] not like '%MeadowBurke%'
+        UPPER([NAME]) not like '%MEADOWBURKE%'
 
     -- Alle CUSTOMERPILLAR auf OTHER setzen, die leer sind. Außer bei Halfen
 	update [intm_axbi].[dim_CUSTTABLE]
 	set CUSTOMERPILLAR = 'OTHER'
-	where UPPER(DATAAREAID) = 'ISAU' and CUSTOMERPILLAR = ' ' 
+	where UPPER(DATAAREAID) = 'ISAU' and ISNULL(CUSTOMERPILLAR,' ') = ' ' 
 
     -- Alle INSIDE customer column CUSTOMERPILLAR auf OTHER setzen
 	update [intm_axbi].[dim_CUSTTABLE]

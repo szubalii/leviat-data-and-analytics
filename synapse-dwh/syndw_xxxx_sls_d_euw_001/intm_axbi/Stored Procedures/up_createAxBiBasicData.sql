@@ -498,7 +498,7 @@ BEGIN
     -- Alle CUSTOMERPILLAR auf OTHER setzen, die leer sind. Außer bei Halfen
 	update [intm_axbi].[dim_CUSTTABLE]
 	set CUSTOMERPILLAR = 'OTHER'
-	where  DATAAREAID = 'ISUK' and CUSTOMERPILLAR = ' ' 
+	where  DATAAREAID = 'ISUK' and ISNULL(CUSTOMERPILLAR, ' ') = ' ' 
 
     -- Alle INSIDE customer column CUSTOMERPILLAR auf OTHER setzen
 	update [intm_axbi].[dim_CUSTTABLE]
@@ -669,7 +669,7 @@ BEGIN
 	
 	update [intm_axbi].[dim_CUSTTABLE]
 	set CUSTOMERPILLAR = 'OTHER'
-	where  DATAAREAID = 'ISAU' and CUSTOMERPILLAR = ' ' 
+	where  DATAAREAID = 'ISAU' and ISNULL(CUSTOMERPILLAR, ' ') = ' ' 
 
     -- Alle INSIDE customer column CUSTOMERPILLAR auf OTHER setzen
 	update [intm_axbi].[dim_CUSTTABLE]
@@ -684,7 +684,12 @@ BEGIN
     -- Kunde Meadow Burke auf Inside setzen
 	update [intm_axbi].[dim_CUSTTABLE]
 	set INOUT = 'I'
-	where NAME like '%MeadowBurke%' or NAME like '%Meadow Burke%' or NAME like '%Halfen USA%' 
+	where
+        UPPER([NAME]) like '%MEADOWBURKE%'
+        or
+        UPPER([NAME]) like '%MEADOW BURKE%'
+        or
+        UPPER([NAME]) like '%HALFEN USA%'
 
     -- Kunde Scaldex auf Inside setzen
 	update [intm_axbi].[dim_CUSTTABLE]
@@ -695,12 +700,17 @@ BEGIN
     -- Alle CUSTOMERPILLAR auf OTHER setzen, die leer sind. Außer bei Halfen. Set all CUSTOMERPILLAR to OTHER that are empty. Except for Halfen
 	update [intm_axbi].[dim_CUSTTABLE]
 	set CUSTOMERPILLAR = 'OTHER'
-	where substring(UPPER(DATAAREAID), 1, 2) <> 'HA' and CUSTOMERPILLAR = ' ' 
+	where substring(UPPER(DATAAREAID), 1, 2) <> 'HA' and ISNULL(CUSTOMERPILLAR, ' ') = ' ' 
 
     -- Alle LEVIAT Kunden auf Inside setzen, außer Meadow Burke
 	update [intm_axbi].[dim_CUSTTABLE]
 	set INOUT = 'I'
-	where NAME like '%Leviat%' and NAME not like '%Meadow Burke%' and NAME not like '%MeadowBurke%'
+	where
+        UPPER([NAME]) like '%LEVIAT%'
+        and
+        UPPER([NAME]) not like '%MEADOW BURKE%'
+        and
+        UPPER([NAME]) not like '%MEADOWBURKE%'
 
     -- Alle INSIDE customer column CUSTOMERPILLAR auf OTHER setzen
 	update [intm_axbi].[dim_CUSTTABLE]
@@ -1775,7 +1785,11 @@ BEGIN
 	[ITEMID],
 	[ITEMNAME],
 	ISNULL([CRH PRODUCTGROUPID], ' '),
-	ISNULL('ANUK-' + [ITEMGROUPID], ' ')
+    CASE
+        WHEN ISNULL([ITEMGROUPID],' ')=' '
+        THEN ' '
+        ELSE 'ANUK-' + [ITEMGROUPID]
+    END
 	from [base_isedio].[ITEMTABLE_ISUK]
 
 	update [intm_axbi].[dim_ITEMTABLE]
@@ -2159,7 +2173,7 @@ BEGIN
 	-- Alle Artikel, die keinen CRH Productgroup Eintrag haben, auf N.3. setzen
 	update [intm_axbi].[dim_ITEMTABLE]
 	set PRODUCTGROUPID = 'N.3.'
-	where PRODUCTGROUPID = ' ' 
+	where ISNULL(PRODUCTGROUPID, ' ') = ' ' 
 
 --old logic commented by Erich
 	/* -- Alle ANUK Artikel, die keinen CRH Productgroup Eintrag haben, auf N.3. setzen
@@ -2179,7 +2193,11 @@ BEGIN
 	'ISAU-' + [ITEMID],
 	'ISAU-' + [ITEMNAME],
 	ISNULL([CRH PRODUCTGROUPID], ' '),
-	ISNULL('ISAU-' + [STOCKGROUP], ' ')
+    CASE
+        WHEN ISNULL([STOCKGROUP],' ')=' '
+        THEN ' '
+        ELSE 'ISAU-' + [STOCKGROUP]
+    END
 	from [base_isedio_aus].[ITEMTABLE_ISAU]
 
 	-- Dummy article for the Budget

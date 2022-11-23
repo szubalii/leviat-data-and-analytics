@@ -71,17 +71,24 @@ BEGIN
 	set INOUT = 'O',
 	    CUSTOMERPILLAR = 'OTHER',
 	    DIMENSION3_ = '5330U01'
-	where upper(DATAAREAID) = 'ISUK' and NAME like '%Halfen USA%' 
+	where upper(DATAAREAID) = 'ISUK' and UPPER([NAME]) like '%HALFEN USA%' 
 
 	-- Alle Leviat Kunden auf Inside setzen, außer Meadow Burke. 
 	update [intm_axbi].[dim_CUSTTABLE]
 	set INOUT = 'I'
-	where upper(DATAAREAID) = 'ISUK' and NAME like '%Leviat%' and NAME not like '%Meadow Burke%' and NAME not like '%MeadowBurke%'
+	where 
+        upper(DATAAREAID) = 'ISUK'
+        and
+        UPPER([NAME]) like '%LEVIAT%'
+        and
+        UPPER([NAME]) not like '%MEADOW BURKE%'
+        and
+        UPPER([NAME]) not like '%MEADOWBURKE%'
 
     -- Alle CUSTOMERPILLAR auf OTHER setzen, die leer sind. Außer bei Halfen
 	update [intm_axbi].[dim_CUSTTABLE]
 	set CUSTOMERPILLAR = 'OTHER'
-	where upper(DATAAREAID) = 'ISUK' and CUSTOMERPILLAR = ' ' 
+	where upper(DATAAREAID) = 'ISUK' and ISNULL(CUSTOMERPILLAR, ' ') = ' ' 
 
     -- Alle INSIDE customer column CUSTOMERPILLAR auf OTHER setzen
 	update [intm_axbi].[dim_CUSTTABLE]
@@ -99,12 +106,16 @@ BEGIN
 	[ITEMID],
 	[ITEMNAME],
 	ISNULL([CRH PRODUCTGROUPID], ' '),
-	ISNULL('ISUK-' + [ITEMGROUPID], ' ')
+    CASE
+        WHEN ISNULL([ITEMGROUPID],' ')=' '
+        THEN ' '
+        ELSE 'ISUK-' + [ITEMGROUPID]
+    END
 	from [base_isedio].[ITEMTABLE_ISUK]
 
 	update [intm_axbi].[dim_ITEMTABLE]
 	set PRODUCTGROUPID = 'A.4.'
-	where UPPER(DATAAREAID) = 'ISUK' and ITEMGROUPID = 'ANUK-HELI'  
+	where UPPER(DATAAREAID) = 'ISUK' and UPPER(ITEMGROUPID) = 'ANUK-HELI'  
 
 	-- Dummy article for the Budget
 	insert into [intm_axbi].[dim_ITEMTABLE] ([DATAAREAID],[ITEMID],[ITEMNAME],[PRODUCTGROUPID],[ITEMGROUPID]) VALUES('ISUK', 'ISUK-A.1.', 'BRICKWORK SUPPORT', 'A.1.', ' ')

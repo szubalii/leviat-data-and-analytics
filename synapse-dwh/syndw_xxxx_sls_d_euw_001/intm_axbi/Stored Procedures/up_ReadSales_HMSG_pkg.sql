@@ -61,11 +61,11 @@ BEGIN
 	where
         UPPER(DATAAREAID) = 'HMSG'
         and
-        [NAME] like '%Leviat%'
+        UPPER([NAME]) like '%LEVIAT%'
         and
-        [NAME] not like '%Meadow Burke%'
+        UPPER([NAME]) not like '%MEADOW BURKE%'
         and
-        [NAME] not like '%MeadowBurke%'
+        UPPER([NAME]) not like '%MEADOWBURKE%'
 
     -- Alle CUSTOMERPILLAR auf OTHER setzen, die leer sind. Außer bei Halfen
 	update [intm_axbi].[dim_CUSTTABLE]
