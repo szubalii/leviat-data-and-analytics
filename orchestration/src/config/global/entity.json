@@ -5430,6 +5430,7 @@
     "layer_id": 11,
     "schema_name": "base_ancon_me",
     "base_schema_name": "base_ancon_me",
+    "adls_container_name": "ancon-me",
     "entities": [
       {
         "entity_id": 551,
@@ -5458,6 +5459,7 @@
     "layer_id": 12,
     "schema_name": "base_ancon_conolly_aus",
     "base_schema_name": "base_ancon_conolly_aus",
+    "adls_container_name": "ancon-conolly-aus",
     "entities": [
       {
         "entity_id": 550,
@@ -5486,6 +5488,7 @@
     "layer_id": 13,
     "schema_name": "base_isedio_aus",
     "base_schema_name": "base_isedio_aus",
+    "adls_container_name": "isedio-aus",
     "entities": [
       {
         "entity_id": 549,
@@ -5514,6 +5517,7 @@
     "layer_id": 14,
     "schema_name": "base_halfen_moment_my",
     "base_schema_name": "base_halfen_moment_my",
+    "adls_container_name": "halfen-moment-my",
     "entities": [
       {
         "entity_id": 553,
@@ -5542,6 +5546,7 @@
     "layer_id": 15,
     "schema_name": "base_halfen_moment_sg",
     "base_schema_name": "base_halfen_moment_sg",
+    "adls_container_name": "halfen-moment-sg",
     "entities": [
       {
         "entity_id": 548,
@@ -5570,6 +5575,7 @@
     "layer_id": 16,
     "schema_name": "base_halfen_moment_in",
     "base_schema_name": "base_halfen_moment_in",
+    "adls_container_name": "halfen-moment-in",
     "entities": [
       {
         "entity_id": 552,
@@ -5597,6 +5603,7 @@
     "layer_id": 17,
     "schema_name": "base_halfen_moment_ph",
     "base_schema_name": "base_halfen_moment_ph",
+    "adls_container_name": "halfen-moment-ph",
     "entities": [
       {
         "entity_id": 547,
@@ -5624,6 +5631,7 @@
     "layer_id": 18,
     "schema_name": "base_ancon_uk",
     "base_schema_name": "base_ancon_uk",
+    "adls_container_name": "ancon-uk",
     "entities": [
       {
         "entity_id": 532,
@@ -5665,6 +5673,7 @@
     "layer_id": 19,
     "schema_name": "base_isedio",
     "base_schema_name": "base_isedio",
+    "adls_container_name": "isedio",
     "entities": [
       {
         "entity_id": 533,
