@@ -14,6 +14,10 @@ parameters:
 - name: hasVariables
   type: boolean
   default: false
+- name: testPlan
+  type: number
+  default: 397
+
 # - name: branch
 #   type: string
 
@@ -61,3 +65,47 @@ stages:
           deploy:
             steps:
             - template: ../${{parameters.folder}}/build/steps-deploy.yml
+  - stage: TEST_${{ upper(variables['Build.SourceBranchName']) }}
+    jobs:
+    - job: TEST_${{ parameters.solution }}
+      variables:
+      pool:
+        name: 'VM'
+        demands:
+        - node.js
+        - VisualStudio
+        - Agent.Name -equals $(VMName)
+      steps:
+      - task: PowerShell@2
+        displayName: '**Get Changed Files**'
+        inputs:
+          targetType: 'inline'
+          pwsh: true
+          script: |
+            $files = $(git diff-tree --no-commit-id --name-only -r $(Build.SourceVersion))
+            $AzureDevOpsPAT = $(ReadTestManagementPAT)
+            $AzureDevOpsAuthenicationHeader = @{Authorization = 'Basic ' + [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(":$($AzureDevOpsPAT)")) }
+            $uri = https://dev.azure.com/leviatazure/Leviat_Data_and_Analytics_DevOps/_apis/testplan/Plans/${{parameters.testPlan}}/suites?asTreeView=True&api-version=7.0
+
+            echo $files
+
+            Invoke-RestMethod -Uri $uri -Method get -Headers $AzureDevOpsAuthenicationHeader
+      - task: **WEB REQUEST**
+        displayName: '**Get Test Suites in Test Plan**'
+        inputs:
+          targetType: 'inline'
+          pwsh: true
+          script: |
+            GET https://dev.azure.com/{organization}/{project}/_apis/testplan/Plans/{planId}/suites?expand={expand}&continuationToken={continuationToken}&asTreeView={asTreeView}&api-version=7.0
+      - task: VSTest@2
+        displayName: 'Run Test Cases'
+        inputs:
+          testSelector: testPlan
+          testPlan: 397
+          testSuite: 
+          testConfiguration: 6
+          searchFolder: 
+          testFilterCriteria: 
+
+      # - template: ../${{ parameters.folder }}/build/steps-test.yml
+
