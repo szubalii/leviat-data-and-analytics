@@ -7,7 +7,7 @@
 	[CustomerNo]            [NVARCHAR](20)          NULL,
 	[Itemid]                [NVARCHAR](255)         NULL,
 	[DeliveryCountryID]     [NVARCHAR](20)          NULL,
-	[Qty]                   [INT]                   NULL,
+	[Qty]                   [DECIMAL](38, 12)       NULL,
 	[ProductSalesLocal]     [DECIMAL](38, 12)       NULL,
 	[ProductSalesEUR]       [DECIMAL](38, 12)       NULL,
 	[OtherSalesLocal]       [DECIMAL](38, 12)       NULL,
