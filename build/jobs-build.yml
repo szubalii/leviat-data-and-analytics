@@ -31,6 +31,15 @@ jobs:
     - node.js
     - VisualStudio
   steps:
+  - task: PowerShell@2
+    displayName: 'Test Changed Files'
+    inputs:
+      targetType: 'inline'
+      pwsh: true
+      script: |
+        $files = $(git diff-tree --no-commit-id --name-only -r $(Build.SourceVersion))
+
+        echo $files
   - template: ../${{ parameters.folder }}/build/steps-build.yml
   # deploy only if required.
   # - ${{ if eq(parameters.deploy, true) }}: 
