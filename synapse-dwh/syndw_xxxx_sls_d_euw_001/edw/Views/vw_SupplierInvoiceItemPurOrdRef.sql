@@ -68,7 +68,7 @@ JOIN
  ON
     factPD.PurchasingDocumentCondition = PRC.PricingDocument
     AND 
-    SIIPOR.PurchaseOrderItem = PRC.PricingDocumentItem
+    CONCAT('0',SIIPOR.PurchaseOrderItem) = PRC.PricingDocumentItem
     AND 
     SIIPOR.SuplrInvcDeliveryCostCndnType = PRC.ConditionType
 
