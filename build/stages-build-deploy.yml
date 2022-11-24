@@ -11,6 +11,9 @@ parameters:
 - name: deploy
   type: boolean
   default: false
+- name: test
+  type: boolean
+  default: false
 - name: hasVariables
   type: boolean
   default: false
@@ -90,6 +93,7 @@ stages:
           deploy:
             steps:
             - template: ../${{parameters.folder}}/build/steps-deploy.yml
+- ${{ if eq(parameters.test, true) }}:
   - stage: TEST_${{ upper(variables['Build.SourceBranchName']) }}
     jobs:
     - job: TEST_${{ parameters.solution }}

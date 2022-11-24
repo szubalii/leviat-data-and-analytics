@@ -15,3 +15,4 @@ extends:
     folder: synapse-dwh
     solution: SynapseDWH
     hasVariables: true
+    test: true
