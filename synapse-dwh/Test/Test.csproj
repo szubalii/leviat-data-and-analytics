@@ -77,6 +77,9 @@
     <Compile Include="edw_vw_BillingDocumentItem_s4h.cs">
       <SubType>Designer</SubType>
     </Compile>
+    <Compile Include="Generic.cs">
+      <SubType>Designer</SubType>
+    </Compile>
     <Compile Include="SqlDatabaseSetup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -90,8 +93,13 @@
       <DependentUpon>edw_vw_BillingDocumentItem_s4h.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Generic.resx">
+      <DependentUpon>Generic.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Generic\" />
+  </ItemGroup>
   <ItemGroup Condition="$(VisualStudioVersion) == '17.0'">
     <Reference Include="Microsoft.Data.Tools.Schema.Sql, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>$(SSDTPath)\Microsoft.Data.Tools.Schema.Sql.dll</HintPath>
