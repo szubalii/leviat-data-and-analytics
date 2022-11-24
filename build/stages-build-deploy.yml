@@ -54,6 +54,7 @@ stages:
 
           $AzureDevOpsPAT = "$(ReadTestManagementPAT)"
           $AzureDevOpsAuthenicationHeader = @{Authorization = 'Basic ' + [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(":$($AzureDevOpsPAT)")) }
+          $uri = "https://dev.azure.com/leviatazure/Leviat_Data_and_Analytics_DevOps/_apis/testplan/Plans/${{parameters.testPlan}}/suites?api-version=7.0"
               
           Invoke-RestMethod -Uri $uri -Method get -Headers $AzureDevOpsAuthenicationHeader
 - stage: BUILD
