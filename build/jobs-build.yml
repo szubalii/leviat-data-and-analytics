@@ -23,6 +23,7 @@ jobs:
     solution: '**/${{parameters.folder}}/*.sln'
     buildPlatform: 'Any CPU'
     buildConfiguration: 'Release'
+    connectionString: $(SynapseTesterConnectionString)
   # - ${{ if eq(parameters.hasVariables, true) }}:
   #   - template: ../${{ parameters.folder }}/build/variables.yml
   pool:
