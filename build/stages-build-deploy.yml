@@ -58,7 +58,7 @@ stages:
 
           
           # Write-Host "$(Build.SourceVersion)"
-          $(system.pullRequest.sourceCommitId)
+          Write-Host "$(system.pullRequest.sourceCommitId)"
           git diff-tree --no-commit-id --name-only -r $(system.pullRequest.sourceCommitId)
 
           $files = $(git diff-tree --no-commit-id --name-only -r $(system.pullRequest.sourceCommitId))
