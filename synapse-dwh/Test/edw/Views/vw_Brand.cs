@@ -10,10 +10,10 @@ using System.Text;
 namespace Test
 {
     [TestClass()]
-    public class Generic : SqlDatabaseTestClass
+    public class vw_Brand : SqlDatabaseTestClass
     {
 
-        public Generic()
+        public vw_Brand()
         {
             InitializeComponent();
         }
@@ -38,17 +38,11 @@ namespace Test
         private void InitializeComponent()
         {
             Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction checkPrimaryKeyViolation_TestAction;
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Generic));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(vw_Brand));
             Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.EmptyResultSetCondition emptyResultSetCondition1;
             this.checkPrimaryKeyViolationData = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestActions();
             checkPrimaryKeyViolation_TestAction = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction();
             emptyResultSetCondition1 = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.EmptyResultSetCondition();
-            // 
-            // checkPrimaryKeyViolationData
-            // 
-            this.checkPrimaryKeyViolationData.PosttestAction = null;
-            this.checkPrimaryKeyViolationData.PretestAction = null;
-            this.checkPrimaryKeyViolationData.TestAction = checkPrimaryKeyViolation_TestAction;
             // 
             // checkPrimaryKeyViolation_TestAction
             // 
@@ -60,6 +54,12 @@ namespace Test
             emptyResultSetCondition1.Enabled = true;
             emptyResultSetCondition1.Name = "emptyResultSetCondition1";
             emptyResultSetCondition1.ResultSet = 1;
+            // 
+            // checkPrimaryKeyViolationData
+            // 
+            this.checkPrimaryKeyViolationData.PosttestAction = null;
+            this.checkPrimaryKeyViolationData.PretestAction = null;
+            this.checkPrimaryKeyViolationData.TestAction = checkPrimaryKeyViolation_TestAction;
         }
 
         #endregion

@@ -119,20 +119,10 @@
   </resheader>
   <data name="checkPrimaryKeyViolation_TestAction.SqlScript" xml:space="preserve">
     <value>-- database unit test for edw.sp_load_fact_ACDOCA_active
-DECLARE
-	@schemaName AS VARCHAR (128),
-	@viewName AS VARCHAR(128),
-	@primaryKey AS VARCHAR(255);
-
-DECLARE
-	@sql AS VARCHAR(MAX) = 'N
-		SELECT ' + @primaryKey + '
-		FROM [' + @schemaName + '].[' + @viewName + ']
-		GROUP BY ' + @primaryKey + '
-		HAVING COUNT(' + @primaryKey + ') &gt; 0'; 
-
-
-EXEC sp_executesql @sql;
+SELECT BrandID
+FROM edw.vw_Brand
+GROUP BY BrandID
+HAVING COUNT(BrandID) &gt; 1; 
 </value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">

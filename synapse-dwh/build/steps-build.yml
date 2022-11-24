@@ -35,7 +35,7 @@ steps:
   inputs:
     testSelector: testPlan
     testPlan: 397
-    testSuite: 2647
+    testSuite: 2646
     testConfiguration: 6
     searchFolder: '$(System.DefaultWorkingDirectory)/synapse-dwh/Test/bin/$(buildConfiguration)'
 
