@@ -52,7 +52,7 @@ stages:
 
           Write-Host "$($files)"
 
-          $AzureDevOpsPAT = $(ReadTestManagementPAT)
+          $AzureDevOpsPAT = "$(ReadTestManagementPAT)"
           $AzureDevOpsAuthenicationHeader = @{Authorization = 'Basic ' + [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(":$($AzureDevOpsPAT)")) }
               
           Invoke-RestMethod -Uri $uri -Method get -Headers $AzureDevOpsAuthenicationHeader
