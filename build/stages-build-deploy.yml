@@ -61,7 +61,6 @@ stages:
   # - template: ./jobs-pre-build.yml
   #   parameters:
   #     varGroup: DnA_DEV
-  - template: ./jobs-test.yml
   - template: ./jobs-build.yml
     parameters:
       solution: ${{ parameters.solution }}
