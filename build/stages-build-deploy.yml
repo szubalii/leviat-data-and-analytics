@@ -52,7 +52,7 @@ stages:
         pwsh: true
         script: |
           $files = $(git diff-tree --no-commit-id --name-only -r $(Build.SourceVersion))
-
+          Write-Host "$(Build.SourceVersion)"
           Write-Host "$($files)"
 
           $AzureDevOpsPAT = "$(ReadTestManagementPAT)"
@@ -125,7 +125,7 @@ stages:
           testPlan: ${{parameters.testPlan}}
           testSuite: 2647
           testConfiguration: 6
-          searchFolder: '$(System.DefaultWorkingDirectory)/syndw_xxxx_sls_d_euw_001/Release/Test'
+          searchFolder: '$(System.DefaultWorkingDirectory)/synapse-dwh/Test'
           # testFilterCriteria: 
 
       # - template: ../${{ parameters.folder }}/build/steps-test.yml
