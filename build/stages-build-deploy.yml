@@ -85,24 +85,17 @@ stages:
             $files = $(git diff-tree --no-commit-id --name-only -r $(Build.SourceVersion))
             $AzureDevOpsPAT = $(ReadTestManagementPAT)
             $AzureDevOpsAuthenicationHeader = @{Authorization = 'Basic ' + [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(":$($AzureDevOpsPAT)")) }
-            $uri = https://dev.azure.com/leviatazure/Leviat_Data_and_Analytics_DevOps/_apis/testplan/Plans/${{parameters.testPlan}}/suites?asTreeView=True&api-version=7.0
+            $uri = https://dev.azure.com/leviatazure/Leviat_Data_and_Analytics_DevOps/_apis/testplan/Plans/${{parameters.testPlan}}/suites?api-version=7.0
 
             echo $files
 
             Invoke-RestMethod -Uri $uri -Method get -Headers $AzureDevOpsAuthenicationHeader
-      - task: **WEB REQUEST**
-        displayName: '**Get Test Suites in Test Plan**'
-        inputs:
-          targetType: 'inline'
-          pwsh: true
-          script: |
-            GET https://dev.azure.com/{organization}/{project}/_apis/testplan/Plans/{planId}/suites?expand={expand}&continuationToken={continuationToken}&asTreeView={asTreeView}&api-version=7.0
       - task: VSTest@2
         displayName: 'Run Test Cases'
         inputs:
           testSelector: testPlan
-          testPlan: 397
-          testSuite: 
+          testPlan: ${{parameters.testPlan}}
+          testSuite: 2647
           testConfiguration: 6
           searchFolder: 
           testFilterCriteria: 
