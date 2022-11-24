@@ -1,9 +1,11 @@
 -- drop function [dbo].[get_scheduled_entity_batch_activities]
-CREATE FUNCTION [dbo].[get_scheduled_entity_batch_activities](
+CREATE FUNCTION [dbo].[get_scheduled_entity_batch_activities_bak](
     @adhoc bit = 0,
     @date DATE,
-    @rerunSuccessfulFullEntities BIT = 0 -- In case a new run is required
+    @rerunSuccessfulFullEntities BIT = 0, -- In case a new run is required
     -- for full entities that have a successful run for the day already, set it to 1
+    @s4h_environment VARCHAR(16),
+    @s4h_client_id   BIGINT
 )
 RETURNS @scheduled_entity_batch_activities TABLE (
     entity_id BIGINT NOT NULL,
@@ -421,6 +423,19 @@ BEGIN
             dbo.layer_activity la
             ON 
                 la.layer_id = sde.layer_id
+        LEFT JOIN
+            dbo.batch b
+            ON
+                sde.entity_id = b.entity_id
+                AND
+                sde.file_name = b.file_name
+                AND
+                la.activity_id = b.activity_id
+        WHERE
+            sde.layer_id <> @LAYER_ID__S4H OR
+            -- Filter for S4H_environment and S4H_client_id
+            (COALESCE (b.s4h_environment,'') = COALESCE (@s4h_environment,b.s4h_environment,'')
+            AND COALESCE (b.s4h_client_id, -99) = COALESCE (@s4h_client_id, b.s4h_client_id, -99))
     )
     
     -- For delta entities: get all file names based on Extract activity where status is Successful or InProgress (S4H)
@@ -513,6 +528,11 @@ BEGIN
             dbo.batch_activity ba
             ON 
                 ba.activity_id = la.activity_id
+        WHERE
+            sefnsde.layer_id <> @LAYER_ID__S4H OR
+            -- Filter for S4H_environment and S4H_client_id
+            (COALESCE (b.s4h_environment,'') = COALESCE (@s4h_environment,b.s4h_environment,'')
+            AND COALESCE (b.s4h_client_id, -99) = COALESCE (@s4h_client_id, b.s4h_client_id, -99))
         GROUP BY
             sefnsde.entity_id,
             sefnsde.entity_name,
