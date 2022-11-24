@@ -28,7 +28,7 @@ variables:
   - template: ./variables-qas.yml
 - ${{ elseif eq(variables['Build.SourceBranchName'], 'prod') }}:
   - template: ./variables-prod.yml
-- ${{ elseif startsWith(variables['Build.SourceBranchName'], 'dev_') }}:
+- ${{ else startsWith(variables['Build.SourceBranchName'], 'dev_') }}:
   - template: ./variables-personal.yml
 
 stages:
