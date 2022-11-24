@@ -39,7 +39,7 @@ jobs:
       script: |
         $files = $(git diff-tree --no-commit-id --name-only -r $(Build.SourceVersion))
 
-        echo $files
+        Write-Host "$($files)"
   - template: ../${{ parameters.folder }}/build/steps-build.yml
   # deploy only if required.
   # - ${{ if eq(parameters.deploy, true) }}: 
