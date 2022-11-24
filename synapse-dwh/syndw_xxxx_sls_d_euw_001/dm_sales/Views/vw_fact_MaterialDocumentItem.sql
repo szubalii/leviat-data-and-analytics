@@ -116,6 +116,10 @@ SELECT  MDI.[MaterialDocumentYear]
     ,   MDI.[ConsumptionQtySOStandardValue]
     ,   MDI.[ConsumptionQtySOStandardValue_EUR]
     ,   MDI.[ConsumptionQtySOStandardValue_USD]
+    ,   CASE WHEN ISNULL(MDI.[PurchaseOrder],'') <>'' AND MDI.[PurchaseOrderTypeID] = 'STO' 
+            THEN  MDI.[MatlStkChangeQtyInBaseUnit]
+            ELSE NULL
+        END                                                                        AS [ConsumptionQtySTOInBaseUnit]
     ,   MDI.[InventorySpecialStockTypeName]
     ,   MDI.[InventoryStockTypeName] 
     ,   MDI.[PriceControlIndicatorID]
