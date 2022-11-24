@@ -93,39 +93,39 @@ stages:
           deploy:
             steps:
             - template: ../${{parameters.folder}}/build/steps-deploy.yml
-- ${{ if eq(parameters.test, true) }}:
-  - stage: TEST_${{ upper(variables['Build.SourceBranchName']) }}
-    jobs:
-    - job: TEST_${{ parameters.solution }}
-      pool:
-        name: 'VM'
-        demands:
-        - node.js
-        - VisualStudio
-        - Agent.Name -equals $(VMName)
-      steps:
-      # - task: PowerShell@2
-      #   displayName: '**Get Changed Files**'
-      #   inputs:
-      #     targetType: 'inline'
-      #     pwsh: true
-      #     script: |
-      #       $files = $(git diff-tree --no-commit-id --name-only -r $(Build.SourceVersion))
-      #       $AzureDevOpsPAT = $(ReadTestManagementPAT)
-      #       $AzureDevOpsAuthenicationHeader = @{Authorization = 'Basic ' + [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(":$($AzureDevOpsPAT)")) }
-      #       $uri = https://dev.azure.com/leviatazure/Leviat_Data_and_Analytics_DevOps/_apis/testplan/Plans/${{parameters.testPlan}}/suites?api-version=7.0
+# - ${{ if eq(parameters.test, true) }}:
+#   - stage: TEST_${{ upper(variables['Build.SourceBranchName']) }}
+#     jobs:
+#     - job: TEST_${{ parameters.solution }}
+#       pool:
+#         name: 'VM'
+#         demands:
+#         - node.js
+#         - VisualStudio
+#         - Agent.Name -equals $(VMName)
+#       steps:
+#       # - task: PowerShell@2
+#       #   displayName: '**Get Changed Files**'
+#       #   inputs:
+#       #     targetType: 'inline'
+#       #     pwsh: true
+#       #     script: |
+#       #       $files = $(git diff-tree --no-commit-id --name-only -r $(Build.SourceVersion))
+#       #       $AzureDevOpsPAT = $(ReadTestManagementPAT)
+#       #       $AzureDevOpsAuthenicationHeader = @{Authorization = 'Basic ' + [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(":$($AzureDevOpsPAT)")) }
+#       #       $uri = https://dev.azure.com/leviatazure/Leviat_Data_and_Analytics_DevOps/_apis/testplan/Plans/${{parameters.testPlan}}/suites?api-version=7.0
 
-      #       echo $files
+#       #       echo $files
 
-      #       Invoke-RestMethod -Uri $uri -Method get -Headers $AzureDevOpsAuthenicationHeader
-      - task: VSTest@2
-        displayName: 'Run Test Cases'
-        inputs:
-          testSelector: testPlan
-          testPlan: ${{parameters.testPlan}}
-          testSuite: 2647
-          testConfiguration: 6
-          searchFolder: '$(System.DefaultWorkingDirectory)/synapse-dwh/Test'
+#       #       Invoke-RestMethod -Uri $uri -Method get -Headers $AzureDevOpsAuthenicationHeader
+#       - task: VSTest@2
+#         displayName: 'Run Test Cases'
+#         inputs:
+#           testSelector: testPlan
+#           testPlan: ${{parameters.testPlan}}
+#           testSuite: 2647
+#           testConfiguration: 6
+#           searchFolder: '$(System.DefaultWorkingDirectory)/synapse-dwh/Test'
           # testFilterCriteria: 
 
       # - template: ../${{ parameters.folder }}/build/steps-test.yml

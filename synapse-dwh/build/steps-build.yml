@@ -29,6 +29,15 @@ steps:
     solution: '**/synapse-dwh/**/*.csproj'
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
+  
+- task: VSTest@2
+  displayName: 'Run Test Cases'
+  inputs:
+    testSelector: testPlan
+    testPlan: 397
+    testSuite: 2647
+    testConfiguration: 6
+    searchFolder: '$(System.DefaultWorkingDirectory)/synapse-dwh/Test/bin/$(buildConfiguration)'
 
   # Build the SQL DB Project
 - task: VSBuild@1
@@ -38,3 +47,4 @@ steps:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 #    msbuildArgs: '/v:SqlCmdVar__1=stxxxxslsdeuw001'
+
