@@ -32,11 +32,36 @@ variables:
   - template: ./variables-personal.yml
 
 stages:
+- stage: CHECK
+  jobs:
+  - job: CHECK
+    pool:
+    name: 'VM'
+    demands:
+    - node.js
+    - VisualStudio
+    - Agent.Name -equals $(VMName)
+    steps:
+    - task: PowerShell@2
+      displayName: 'Get Changed Files'
+      inputs:
+        targetType: 'inline'
+        pwsh: true
+        script: |
+          $files = $(git diff-tree --no-commit-id --name-only -r $(Build.SourceVersion))
+
+          Write-Host "$($files)"
+
+          $AzureDevOpsPAT = $(ReadTestManagementPAT)
+          $AzureDevOpsAuthenicationHeader = @{Authorization = 'Basic ' + [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(":$($AzureDevOpsPAT)")) }
+              
+          Invoke-RestMethod -Uri $uri -Method get -Headers $AzureDevOpsAuthenicationHeader
 - stage: BUILD
   jobs:
   # - template: ./jobs-pre-build.yml
   #   parameters:
   #     varGroup: DnA_DEV
+  - template: ./jobs-test.yml
   - template: ./jobs-build.yml
     parameters:
       solution: ${{ parameters.solution }}
@@ -76,20 +101,20 @@ stages:
         - VisualStudio
         - Agent.Name -equals $(VMName)
       steps:
-      - task: PowerShell@2
-        displayName: '**Get Changed Files**'
-        inputs:
-          targetType: 'inline'
-          pwsh: true
-          script: |
-            $files = $(git diff-tree --no-commit-id --name-only -r $(Build.SourceVersion))
-            $AzureDevOpsPAT = $(ReadTestManagementPAT)
-            $AzureDevOpsAuthenicationHeader = @{Authorization = 'Basic ' + [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(":$($AzureDevOpsPAT)")) }
-            $uri = https://dev.azure.com/leviatazure/Leviat_Data_and_Analytics_DevOps/_apis/testplan/Plans/${{parameters.testPlan}}/suites?api-version=7.0
+      # - task: PowerShell@2
+      #   displayName: '**Get Changed Files**'
+      #   inputs:
+      #     targetType: 'inline'
+      #     pwsh: true
+      #     script: |
+      #       $files = $(git diff-tree --no-commit-id --name-only -r $(Build.SourceVersion))
+      #       $AzureDevOpsPAT = $(ReadTestManagementPAT)
+      #       $AzureDevOpsAuthenicationHeader = @{Authorization = 'Basic ' + [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(":$($AzureDevOpsPAT)")) }
+      #       $uri = https://dev.azure.com/leviatazure/Leviat_Data_and_Analytics_DevOps/_apis/testplan/Plans/${{parameters.testPlan}}/suites?api-version=7.0
 
-            echo $files
+      #       echo $files
 
-            Invoke-RestMethod -Uri $uri -Method get -Headers $AzureDevOpsAuthenicationHeader
+      #       Invoke-RestMethod -Uri $uri -Method get -Headers $AzureDevOpsAuthenicationHeader
       - task: VSTest@2
         displayName: 'Run Test Cases'
         inputs:
@@ -97,8 +122,8 @@ stages:
           testPlan: ${{parameters.testPlan}}
           testSuite: 2647
           testConfiguration: 6
-          searchFolder: 
-          testFilterCriteria: 
+          searchFolder: '$(System.DefaultWorkingDirectory)/syndw_xxxx_sls_d_euw_001/Release/Test'
+          # testFilterCriteria: 
 
       # - template: ../${{ parameters.folder }}/build/steps-test.yml
 
