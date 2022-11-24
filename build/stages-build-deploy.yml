@@ -56,7 +56,7 @@ stages:
           $AzureDevOpsAuthenicationHeader = @{Authorization = 'Basic ' + [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(":$($AzureDevOpsPAT)")) }
           $uri = "https://dev.azure.com/leviatazure/Leviat_Data_and_Analytics_DevOps/_apis/testplan/Plans/${{parameters.testPlan}}/suites?api-version=7.0"
               
-          Invoke-RestMethod -Uri $uri -Method get -Headers $AzureDevOpsAuthenicationHeader
+          Invoke-RestMethod -Uri $uri -Method get -Headers $AzureDevOpsAuthenicationHeader | ConvertTo-Json
 - stage: BUILD
   jobs:
   # - template: ./jobs-pre-build.yml
