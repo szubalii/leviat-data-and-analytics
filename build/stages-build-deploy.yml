@@ -97,7 +97,6 @@ stages:
   - stage: TEST_${{ upper(variables['Build.SourceBranchName']) }}
     jobs:
     - job: TEST_${{ parameters.solution }}
-      variables:
       pool:
         name: 'VM'
         demands:
