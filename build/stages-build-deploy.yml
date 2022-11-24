@@ -36,11 +36,11 @@ stages:
   jobs:
   - job: CHECK
     pool:
-    name: 'VM'
-    demands:
-    - node.js
-    - VisualStudio
-    - Agent.Name -equals $(VMName)
+      name: 'VM'
+      demands:
+      - node.js
+      - VisualStudio
+      - Agent.Name -equals $(VMName)
     steps:
     - task: PowerShell@2
       displayName: 'Get Changed Files'
