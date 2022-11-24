@@ -51,8 +51,12 @@ stages:
         targetType: 'inline'
         pwsh: true
         script: |
-          $files = $(git diff-tree --no-commit-id --name-only -r $(Build.SourceVersion))
+          
           Write-Host "$(Build.SourceVersion)"
+          Write-Host "$(system.pullRequest.sourceCommitId)" 
+
+          $files = $(git diff-tree --no-commit-id --name-only -r $(system.pullRequest.sourceCommitId))
+
           Write-Host "$($files)"
 
           $AzureDevOpsPAT = "$(ReadTestManagementPAT)"
