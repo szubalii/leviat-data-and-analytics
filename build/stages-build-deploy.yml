@@ -45,6 +45,8 @@ stages:
       - VisualStudio
       - Agent.Name -equals $(VMName)
     steps:
+    - checkout: self
+      fetchDepth: 2
     - task: PowerShell@2
       displayName: 'Get Changed Files'
       inputs:
@@ -52,7 +54,7 @@ stages:
         pwsh: true
         script: |
 
-          git fetch origin
+          # git fetch origin
 
           
           # Write-Host "$(Build.SourceVersion)"
