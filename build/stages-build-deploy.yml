@@ -46,7 +46,7 @@ stages:
       - Agent.Name -equals $(VMName)
     steps:
     - checkout: self
-      fetchDepth: 2
+      fetchDepth: 0
     - task: PowerShell@2
       displayName: 'Get Changed Files'
       inputs:
