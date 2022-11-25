@@ -23,6 +23,9 @@ SELECT
         viewMD.[StockPricePerUnit_USD],
         DATEADD(day, -(DAY(viewMD.[HDR_PostingDate])-1),viewMD.[HDR_PostingDate]) AS HDR_PostingDate_FMD,
         viewMD.[InventoryValuationTypeID],
+        viewMD.[LatestPricePerPiece_Local],  
+        viewMD.[LatestPricePerPiece_EUR],    
+        viewMD.[LatestPricePerPiece_USD],   
         viewMD.t_applicationId,
         viewMD.t_extractionDtm
     FROM [edw].[fact_MaterialDocumentItem] viewMD
@@ -46,6 +49,9 @@ SELECT
         viewMD.[StockPricePerUnit_USD],
         DATEADD(day, -(DAY(viewMD.[HDR_PostingDate])-1),viewMD.[HDR_PostingDate]),
         viewMD.[InventoryValuationTypeID],
+        viewMD.[LatestPricePerPiece_Local],  
+        viewMD.[LatestPricePerPiece_EUR],    
+        viewMD.[LatestPricePerPiece_USD],   
         viewMD.t_applicationId,
         viewMD.t_extractionDtm 
 ), Hash_Calc_Min AS(
@@ -65,6 +71,9 @@ SELECT
         max([MaterialBaseUnitID]) AS MaterialBaseUnitID,
         max([PurchaseOrderTypeID]) AS PurchaseOrderTypeID,
         max([InventoryValuationTypeID]) AS InventoryValuationTypeID,
+        max(viewMD.[LatestPricePerPiece_Local]) AS LatestPricePerPiece_Local,  
+        max(viewMD.[LatestPricePerPiece_EUR]) AS LatestPricePerPiece_EUR,    
+        max(viewMD.[LatestPricePerPiece_USD]) AS LatestPricePerPiece_USD,   
         max(t_applicationId) AS t_applicationId,
         max(t_extractionDtm) AS t_extractionDtm,
         min([HDR_PostingDate_FMD]) AS minHDR_PostingDate       
@@ -92,6 +101,9 @@ SELECT
         HC.[PurchaseOrderTypeID],
         HC.[InventoryValuationTypeID],
         HC.[minHDR_PostingDate],
+        HC.[LatestPricePerPiece_Local], 
+        HC.[LatestPricePerPiece_EUR],   
+        HC.[LatestPricePerPiece_USD],   
         HC.[t_applicationId],
         HC.[t_extractionDtm]
     FROM Hash_Calc_Min HC
@@ -117,6 +129,9 @@ SELECT
         CC.SalesDocumentItemCategoryID,
         CC.MaterialBaseUnitID,
         CC.PurchaseOrderTypeID,
+        CC.[LatestPricePerPiece_Local], 
+        CC.[LatestPricePerPiece_EUR],   
+        CC.[LatestPricePerPiece_USD],   
         HC.MatlStkChangeQtyInBaseUnit,
         CASE
             WHEN CC.LastDayOfMonthDate > AXM.MigrationDate THEN 0
@@ -175,6 +190,15 @@ SELECT
     [StockLevelQtyInBaseUnit] * [StockPricePerUnit]     AS StockLevelStandardPPU,
     [StockLevelQtyInBaseUnit] * [StockPricePerUnit_EUR] AS StockLevelStandardPPU_EUR,
     [StockLevelQtyInBaseUnit] * [StockPricePerUnit_USD] AS StockLevelStandardPPU_USD,
+    [StockLevelQtyInBaseUnit] * [LatestPricePerPiece_Local]     AS StockLevelStandardLastPPU,
+    [StockLevelQtyInBaseUnit] * [LatestPricePerPiece_EUR] AS StockLevelStandardLastPPU_EUR,
+    [StockLevelQtyInBaseUnit] * [LatestPricePerPiece_USD] AS StockLevelStandardLastPPU_USD,
+    [StockPricePerUnit],    
+    [StockPricePerUnit_EUR],
+    [StockPricePerUnit_USD],
+    [LatestPricePerPiece_Local],
+    [LatestPricePerPiece_EUR],
+    [LatestPricePerPiece_USD],
     [PriceControlIndicatorID],
     [PriceControlIndicator],
     [nk_dim_ProductValuationPUP],
