@@ -265,12 +265,12 @@ BEGIN
 	[QTY], -- Invoiced Quantity
 	[PRODUCTSALESLOCAL], -- sales amount local of article sales position
 	[PRODUCTSALESEUR], -- sales amount EUR of article sales position
-	0, -- othersaleslocal
-	0, -- othersalesEUR
-	0, -- allowanceslocal
-	0, -- allowancesEUR
-	0, -- sales100local, calculate later
-	0, -- sales100EUR, calculate later
+	CAST(0 as [DECIMAL](38, 12)), -- othersaleslocal
+	CAST(0 as [DECIMAL](38, 12)), -- othersalesEUR
+	CAST(0 as [DECIMAL](38, 12)), -- allowanceslocal
+	CAST(0 as [DECIMAL](38, 12)), -- allowancesEUR
+	CAST(0 as [DECIMAL](38, 12)), -- sales100local, calculate later
+	CAST(0 as [DECIMAL](38, 12)), -- sales100EUR, calculate later
 	[FREIGHTLOCAL], -- internal freight local, no consider
 	[FREIGHTEUR], -- internal freight EUR, no consider
 	[COSTAMOUNTLOCAL], -- costamountlocal, no consider
@@ -418,18 +418,18 @@ BEGIN
 	    ,   [DELIVERYCOUNTRYID]
 	    ,   [PackingslipID]
 	    ,   [QTY]
-	    ,   0
-	    ,   0
+	    ,   CAST(0 as [DECIMAL](38, 12))
+	    ,   CAST(0 as [DECIMAL](38, 12))
 	    ,   st.OTHERSALESLOCAL
 	    ,   st.OTHERSALESEUR
-	    ,   0
-	    ,   0
-	    ,   0
-	    ,   0
-	    ,   0
-	    ,   0
-	    ,   0
-	    ,   0
+	    ,   CAST(0 as [DECIMAL](38, 12))
+	    ,   CAST(0 as [DECIMAL](38, 12))
+	    ,   CAST(0 as [DECIMAL](38, 12))
+	    ,   CAST(0 as [DECIMAL](38, 12))
+	    ,   CAST(0 as [DECIMAL](38, 12))
+	    ,   CAST(0 as [DECIMAL](38, 12))
+	    ,   CAST(0 as [DECIMAL](38, 12))
+	    ,   CAST(0 as [DECIMAL](38, 12))
     FROM
         #OtherSalesTable st
 	inner join

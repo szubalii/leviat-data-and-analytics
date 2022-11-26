@@ -84,6 +84,19 @@ BEGIN
         and
         UPPER([NAME]) not like '%MEADOWBURKE%'
 
+	
+	update [intm_axbi].[dim_CUSTTABLE]
+	set INOUT = 'I'
+	where
+        UPPER(DATAAREAID) = 'HMMY'
+        and
+        (UPPER([NAME]) like '%MEADOWBURKE%'
+        or
+        UPPER([NAME]) like '%MEADOW BURKE%'
+        or
+        UPPER([NAME]) like '%HALFEN USA%')
+
+
     -- Alle CUSTOMERPILLAR auf OTHER setzen, die leer sind. Außer bei Halfen
 	update [intm_axbi].[dim_CUSTTABLE]
 	set CUSTOMERPILLAR = 'OTHER'

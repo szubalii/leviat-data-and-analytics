@@ -5698,7 +5698,7 @@
       {
         "entity_id": 539,
         "entity_name": "ITEMTABLE_ISUK$_bulk",
-        "base_table_name": "ITEMTABLE_ISUK",
+        "base_table_name": "ITEMTABLE_ISUK_orig",
         "pk_field_names": "ITEMID",
         "schedule_recurrence": "D"
       }

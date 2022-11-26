@@ -30,8 +30,9 @@ BEGIN
 			@lMonth tinyint = (select datepart(month,max(Accountingdate)) from [base_isedio].[CUSTINVOICETRANS_ISUK]),
 
 			@lFrYear smallint = (select datepart(year,max(Accountingdate)) from [base_isedio].[INVOICEDFREIGHT_ISUK]),
-			@lFrMonth tinyint = (select datepart(month,max(Accountingdate)) from [base_isedio].[INVOICEDFREIGHT_ISUK])
-
+			@lFrMonth tinyint = (select datepart(month,max(Accountingdate)) from [base_isedio].[INVOICEDFREIGHT_ISUK]),
+            
+            @lSequence int
 	-- Voraussetzung für numerische Felder: Keine Tausender Punkt und Dezimaltrennzeichen ist der . und das Negativ Zeichen steht vor der Zahl.
 	-- Als Columnterminator dient das ; oder der Tabstopp
 	-- Rowterminator ist \n
@@ -57,6 +58,66 @@ BEGIN
 	' ',
 	DIMENSION3_
 	from [base_isedio].[CUSTTABLE_ISUK]
+
+    update [intm_axbi].[dim_CUSTTABLE]
+	set INOUT = 'I'
+	 where DATAAREAID = 'ISUK' and NAME like '%Isedio%'
+
+	update [intm_axbi].[dim_CUSTTABLE]
+	set INOUT = 'I'
+	 where DATAAREAID = 'ISUK' and NAME like '%Ancon%'
+
+	update [intm_axbi].[dim_CUSTTABLE]
+	set INOUT = 'I'
+	 where DATAAREAID = 'ISUK' and NAME like '%Plaka%'
+
+	update [intm_axbi].[dim_CUSTTABLE]
+	set INOUT = 'I'
+	 where DATAAREAID = 'ISUK' and NAME like '%Halfen%'
+
+	update [intm_axbi].[dim_CUSTTABLE]
+	set INOUT = 'I'
+	 where DATAAREAID = 'ISUK' and NAME like '%Aschwanden%'
+
+	update [intm_axbi].[dim_CUSTTABLE]
+	set INOUT = 'I'
+	 where DATAAREAID = 'ISUK' and NAME like '%Helifix (Australia)%'
+
+     	update [intm_axbi].[dim_CUSTTABLE]
+	set DIMENSION3_ =
+	    case u.NAME
+	        when 'ISEDIO AUSTRALIA PTY LTD' then '2174U01'
+	        when 'ANCON (MIDDLE EAST) FZE' then '2165U01'
+	        when 'Ancon (New Zealand) Ltd' then '2166U01'
+	        when 'ANCON (NEW ZEALAND) LTD' then '2166U01'
+	        when 'ANCON (SCHWEIZ) AG' then '2163U01'
+	        when 'ANCON BUILDING PRODUCTS (AUSTRALIA)' then '2161U01'	
+	        when 'Ancon Building Products Gesmbh' then '2162U01'
+	        when 'ANCON BUILDING PRODUCTS GesmbH.' then '2162U01'
+	        when 'Ancon GMBH' then '2164U01'
+	        when 'ANCON GMBH' then '2164U01'
+	        when 'F J ASCHWANDEN AG' then 'S071U01'
+	        when 'HALFEN AB' then '5308U01'
+	        when 'HALFEN AS' then '5325U01'
+	        when 'HALFEN B.V.' then '5314U01'
+	        when 'HALFEN GMBH' then '5300U01'
+	        when 'HALFEN IBERICA S.L' then 'S060U01'
+	        when 'HALFEN LIMITED' then '5310U01'
+	        when 'HALFEN S.R.L.' then '5315U01'
+	        when 'HALFEN SAS' then '5307U01'
+	        when 'HALFEN Sp. Z.o.o (euros)' then '5316U01'
+	        when 'HALFEN-MOMENT PTE LTD' then '5333U01'
+	        when 'HALFEN -MOMENT INC' then '5334U01'
+	        when 'HALFEN MOMENT SDN BHD' then '5331U01'
+	        when 'Helifix (Australia) Pty Ltd' then '2167U01'	
+	        when 'NV PLAKABETON S.A' then 'S038U01'
+	    else ' '
+	    end
+	from  [intm_axbi].[dim_CUSTTABLE] as u where DATAAREAID = 'ISUK'
+
+    update [intm_axbi].[dim_CUSTTABLE]
+	set DIMENSION3_ = ' '
+	where DATAAREAID = 'ISUK' and DIMENSION3_ = '999999'
 
     -- Alle Kunden als OUTSIDE kennzeichnen, die keinen Eintrag in der DATAAREA Tabelle haben.
 	update [intm_axbi].[dim_CUSTTABLE]
@@ -93,11 +154,45 @@ BEGIN
     -- Alle INSIDE customer column CUSTOMERPILLAR auf OTHER setzen
 	update [intm_axbi].[dim_CUSTTABLE]
 	set CUSTOMERPILLAR = 'OTHER'
-	where upper(DATAAREAID) = 'ISUK' and INOUT = 'I' 
+	where upper(DATAAREAID) = 'ISUK' and INOUT = 'I'
 
 	-- ITEMTABLE
+    -- istead of stored procedure up_upd_Itemtable_ISUK_pkg
+    SELECT 
+        @lSequence = max([SEQUENCE])
+    FROM
+        [base_isedio].[ITEMTABLE_ISUK]
+    WHERE
+        DATAAREAID = 'ISUK'
 
-	delete from [intm_axbi].[dim_ITEMTABLE] where UPPER(DATAAREAID) = 'ISUK'
+    INSERT INTO [base_isedio].ITEMTABLE_ISUK(
+        DATAAREAID,
+        [SEQUENCE],
+        ITEMID,
+        ITEMID_ORI,
+        ITEMNAME,
+        ITEMGROUPID,
+        [CRH PRODUCTGROUPID])
+	SELECT
+        DATAAREAID,
+        @lSequence+ROW_NUMBER() OVER(ORDER BY ITEMID),
+        'ISUK-'+CAST(@lSequence+ROW_NUMBER() OVER(ORDER BY ITEMID) as nvarchar(5)),
+        ITEMID,
+        ITEMNAME,
+        MMITCL,
+        PRODUCTGROUPID
+    FROM 
+        [base_isedio].[ITEMTABLE_ISUK_orig] AS ORIG 
+    WHERE
+        NOT EXISTS (
+            SELECT 1
+            FROM
+                [base_isedio].[ITEMTABLE_ISUK] AS ITEM
+            WHERE
+                ITEM.ITEMNAME = ORIG.ITEMNAME
+        )
+	
+    delete from [intm_axbi].[dim_ITEMTABLE] where UPPER(DATAAREAID) = 'ISUK'
 
 	insert [intm_axbi].[dim_ITEMTABLE]
 	([DATAAREAID],[ITEMID],[ITEMNAME],[PRODUCTGROUPID],[ITEMGROUPID])
@@ -109,7 +204,7 @@ BEGIN
     CASE
         WHEN ISNULL([ITEMGROUPID],' ')=' '
         THEN ' '
-        ELSE 'ISUK-' + [ITEMGROUPID]
+        ELSE 'ANUK-' + [ITEMGROUPID]
     END
 	from [base_isedio].[ITEMTABLE_ISUK]
 

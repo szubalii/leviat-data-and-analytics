@@ -72,7 +72,15 @@ BEGIN
 	update [intm_axbi].[dim_CUSTTABLE]
 	set INOUT = 'I'
 	where upper(DATAAREAID) = 'ANUK' and UPPER(NAME) like '%LEVIAT%' and UPPER(NAME) not like '%MEADOW BURKE%' and UPPER(NAME) not like '%MEADOWBURKE%'
-
+    
+    update [intm_axbi].[dim_CUSTTABLE]
+	set INOUT = 'I'
+	where
+        UPPER(DATAAREAID) = 'ANUK'
+        and
+        (UPPER([NAME]) like '%MEADOWBURKE%'
+        or
+        UPPER([NAME]) like '%MEADOW BURKE%')
 
   -- Alle CUSTOMERPILLAR auf OTHER setzen, die leer sind. Außer bei Halfen
 	update [intm_axbi].[dim_CUSTTABLE]
@@ -84,10 +92,18 @@ BEGIN
 	set CUSTOMERPILLAR = 'OTHER'
 	where upper(DATAAREAID) = 'ANUK' and INOUT = 'I' 
 
+    update [intm_axbi].[dim_CUSTTABLE]
+	set INOUT = 'O',
+	    CUSTOMERPILLAR = 'OTHER',
+	    DIMENSION3_ = '5330U01'
+	where DATAAREAID = 'ANUK' and UPPER(NAME) like '%HALFEN USA%'
+
 
 	-- ITEMTABLE
 
 	delete from [intm_axbi].[dim_ITEMTABLE] where upper(DATAAREAID) = 'ANUK'
+
+    delete from [base_ancon_uk].[ITEMTABLE_ANUK] where [CRH PRODUCTGROUPID] = 'SCRAP'
 
 	insert [intm_axbi].[dim_ITEMTABLE]
 	([DATAAREAID],[ITEMID],[ITEMNAME],[PRODUCTGROUPID],[ITEMGROUPID])
