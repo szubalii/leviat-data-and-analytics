@@ -75,13 +75,13 @@ stages:
               }
           }
 
-          Write-Host "$testCaseFilterHelp.Length"
+          Write-Host $testCaseFilterHelp.Length
           
           # Remove the last | character
           if ($testCaseFilterHelp.Length > 0) {
             $testCaseFilter = $testCaseFilterHelp.SubString(0, $testCaseFilterHelp.Length-1)
           } 
-          Write-Host "$($testCaseFilter)"
+          Write-Host $testCaseFilter
 
           Write-Host "##vso[task.setvariable variable=testCaseFilter;isOutput=true]FullyQualifiedName~vw_Brand"
           # TODO map variable to future stage
