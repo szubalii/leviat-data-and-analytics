@@ -1,5 +1,31 @@
 CREATE VIEW [edw].[vw_MaterialDocumentItem]
 	AS 
+WITH LastPPU AS (
+    SELECT 
+        ValuationTypeID
+    ,   ValuationAreaID
+    ,   ProductID
+    ,   FirstDayOfMonthDate
+    ,   StockPricePerUnit
+    ,   StockPricePerUnit_EUR
+    ,   StockPricePerUnit_USD 
+    FROM (
+        SELECT 
+            ValuationTypeID
+        ,   ValuationAreaID
+        ,   ProductID
+        ,   FirstDayOfMonthDate
+        ,   StockPricePerUnit
+        ,   StockPricePerUnit_EUR
+        ,   StockPricePerUnit_USD 
+        ,   row_number() OVER ( PARTITION BY ValuationTypeID,
+                                            ValuationAreaID,
+                                            ProductID 
+                                ORDER BY FirstDayOfMonthDate DESC
+            ) as rn
+        FROM  [edw].[dim_ProductValuationPUP]
+    ) a WHERE rn=1
+)
 SELECT  CONVERT(NVARCHAR(32),
             HashBytes('SHA2_256',
             isNull(CAST(UV.[MaterialID] COLLATE DATABASE_DEFAULT AS VARCHAR) , '')  +
@@ -141,6 +167,17 @@ SELECT  CONVERT(NVARCHAR(32),
     ,   UV.[StandardPricePerUnit]
     ,   UV.[StandardPricePerUnit_EUR] 
     ,   UV.[StandardPricePerUnit_USD]
+    ,   UV.[ConsumptionQtyOBDProInBaseUnit] + UV.[ConsumptionQtySOInBaseUnit] + UV.[ConsumptionQtyICPOInBaseUnit]     
+                                                                            AS ConsumptionQty
+    ,   LastPPU.[StockPricePerUnit]                                         AS LatestPricePerPiece_Local
+    ,   LastPPU.[StockPricePerUnit_EUR]                                     AS LatestPricePerPiece_EUR
+    ,   LastPPU.[StockPricePerUnit_USD]                                     AS LatestPricePerPiece_USD
+    ,   (UV.[ConsumptionQtyOBDProInBaseUnit] + UV.[ConsumptionQtySOInBaseUnit] + UV.[ConsumptionQtyICPOInBaseUnit] )
+        * LastPPU.[StockPricePerUnit]                                       AS ConsumptionValueByLatestPriceInBaseValue
+    ,   (UV.[ConsumptionQtyOBDProInBaseUnit] + UV.[ConsumptionQtySOInBaseUnit] + UV.[ConsumptionQtyICPOInBaseUnit] )
+        * LastPPU.[StockPricePerUnit_EUR]                                   AS ConsumptionValueByLatestPrice_EUR                                                                            
+    ,   (UV.[ConsumptionQtyOBDProInBaseUnit] + UV.[ConsumptionQtySOInBaseUnit] + UV.[ConsumptionQtyICPOInBaseUnit] )
+        * LastPPU.[StockPricePerUnit_USD]                                   AS ConsumptionValueByLatestPrice_USD 
     ,   UV.[t_applicationId]
     ,   UV.[t_extractionDtm]
     FROM
@@ -238,8 +275,6 @@ SELECT  CONVERT(NVARCHAR(32),
         ,   S4H.[ManufacturingOrder]
         ,   S4H.[ManufacturingOrderItem]
         ,   S4H.[IsReversalMovementType]
-        ,   S4H.[t_applicationId]
-        ,   S4H.[t_extractionDtm]
         ,   S4H.[nk_dim_ProductValuationPUP]
         ,   S4H.[StockPricePerUnit]
         ,   S4H.[StockPricePerUnit_EUR]
@@ -265,7 +300,9 @@ SELECT  CONVERT(NVARCHAR(32),
         ,   S4H.[PriceControlIndicator]   
         ,   null AS [StandardPricePerUnit]
         ,   null AS [StandardPricePerUnit_EUR] 
-        ,   null AS [StandardPricePerUnit_USD] 
+        ,   null AS [StandardPricePerUnit_USD]
+        ,   S4H.[t_applicationId]
+        ,   S4H.[t_extractionDtm]
     FROM [edw].[vw_MaterialDocumentItem_s4h] S4H
 
         UNION ALL
@@ -363,8 +400,6 @@ SELECT  CONVERT(NVARCHAR(32),
         ,   AXBI.[ManufacturingOrder]
         ,   AXBI.[ManufacturingOrderItem]
         ,   null AS [IsReversalMovementType]
-        ,   AXBI.[t_applicationId]
-        ,   AXBI.[t_extractionDtm]
         ,   null AS [nk_dim_ProductValuationPUP]
         ,   AXBI.[StandardPricePerUnit] AS [StockPricePerUnit]
         ,   AXBI.[StandardPricePerUnit_EUR] AS [StockPricePerUnit_EUR]
@@ -390,7 +425,16 @@ SELECT  CONVERT(NVARCHAR(32),
         ,   null AS [PriceControlIndicator]  
         ,   AXBI.[StandardPricePerUnit]
         ,   AXBI.[StandardPricePerUnit_EUR] 
-        ,   null AS [StandardPricePerUnit_USD] 
+        ,   null AS [StandardPricePerUnit_USD]
+        ,   AXBI.[t_applicationId]
+        ,   AXBI.[t_extractionDtm]
     FROM [edw].[vw_MaterialDocumentItem_axbi] AXBI
 ) UV
-
+LEFT JOIN 
+    LastPPU
+    ON  
+        UV.[InventoryValuationTypeID] =  LastPPU.[ValuationTypeID]      COLLATE DATABASE_DEFAULT
+    AND
+        UV.[PlantID] = LastPPU.[ValuationAreaID]                        COLLATE DATABASE_DEFAULT
+    AND
+        UV.[MaterialID] = LastPPU.[ProductID]                           COLLATE DATABASE_DEFAULT
