@@ -901,6 +901,11 @@
     <Build Include="edw\Views\vw_FinancialStatementHierarchy.sql" />
     <Build Include="dm_sales\Views\vw_dim_FinancialStatementHierarchy.sql" />
     <Build Include="dm_finance\Views\vw_fact_ACDOCA_SalesView.sql" />
+    <Build Include="dm_finance\Views\vw_fact_ACDOCA_EPMSalesView.sql" />
+    <Build Include="dm_finance\Views\vw_dim_Customer.sql" />
+    <Build Include="dm_finance\Views\vw_dim_Product.sql" />
+    <Build Include="dm_finance\Views\vw_dim_SalesDistrict.sql" />
+    <Build Include="dm_finance\Views\vw_dim_SalesOrganization.sql" />
     <Build Include="base_c4c\Tables\OpportunityCollection.sql" />
     <Build Include="Security\Schemas\base_c4c.sql" />
     <Build Include="dm_sales\Views\vw_dim_FinancialStatementItem.sql" />
