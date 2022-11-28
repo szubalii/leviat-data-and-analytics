@@ -5,3 +5,4 @@ CREATE VIEW [edw].[vw_Brand]
         ,   AMGT.t_applicationId
     FROM [base_s4h_cax].[I_AdditionalMaterialGroup1Text] AMGT
     WHERE AMGT.[Language] = 'E'
+    

@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="checkPrimaryKeyViolation_TestAction.SqlScript" xml:space="preserve">
-    <value>-- database unit test for edw.sp_load_fact_ACDOCA_active
+    <value>-- database unit test for edw.vw_Brand
 SELECT BrandID
 FROM edw.vw_Brand
 GROUP BY BrandID

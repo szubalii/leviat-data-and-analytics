@@ -46,32 +46,42 @@ stages:
       - Agent.Name -equals $(VMName)
     steps:
     - checkout: self
-      fetchDepth: 0
+      fetchDepth: 0 # disables shallow fetch and results in correct return of git diff-tree
     - task: PowerShell@2
       displayName: 'Get Changed Files'
       inputs:
         targetType: 'inline'
         pwsh: true
         script: |
-
-          # git fetch origin
-
-          
-          # Write-Host "$(Build.SourceVersion)"
-          Write-Host "$(system.pullRequest.sourceCommitId)"
           Write-Host "$(System.DefaultWorkingDirectory)"
-          git diff-tree --no-commit-id --name-only -r $(system.pullRequest.sourceCommitId)
+          # $files = $(git diff-tree --no-commit-id --name-only -r $(Build.SourceVersion))
+          # Write-Host "$($files)"
 
-          $files = $(git diff-tree --no-commit-id --name-only -r $(system.pullRequest.sourceCommitId))
-          git diff-tree --no-commit-id --name-only -r $(Build.SourceVersion)
+          # $testCaseFilter = ""
+          # ForEach ($file in $files) {
 
-          Write-Host "$($files)"
+          #   if 
 
-          $AzureDevOpsPAT = "$(ReadTestManagementPAT)"
-          $AzureDevOpsAuthenicationHeader = @{Authorization = 'Basic ' + [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(":$($AzureDevOpsPAT)")) }
-          $uri = "https://dev.azure.com/leviatazure/Leviat_Data_and_Analytics_DevOps/_apis/testplan/Plans/${{parameters.testPlan}}/suites?api-version=7.0"
+          #   $file = $file.Replace('/','.')
+          #   $testCaseFilter += "ClassName=$file|"
+
+          #   #TODO filter on list of files for only sql files
+          # }
+          # $testCaseFilter = $testCaseFilter.SubString(0, $testCaseFilter.Length-1)
+
+          # Write-Host "##vso[task.setvariable variable=testCaseFilter]$testCaseFilter"
+
+          # # $AzureDevOpsPAT = "$(ReadTestManagementPAT)"
+          # # $AzureDevOpsAuthenicationHeader = @{Authorization = 'Basic ' + [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(":$($AzureDevOpsPAT)")) }
+          # # $uri = "https://dev.azure.com/leviatazure/Leviat_Data_and_Analytics_DevOps/_apis/testplan/Plans/${{parameters.testPlan}}/suites?api-version=7.0"
               
-          Invoke-RestMethod -Uri $uri -Method get -Headers $AzureDevOpsAuthenicationHeader | ConvertTo-Json
+          # # Invoke-RestMethod -Uri $uri -Method get -Headers $AzureDevOpsAuthenicationHeader | ConvertTo-Json
+    - task: PowerShell@2
+      displayName: 'Get Changed Files'
+      inputs:
+        targetType: 'filePath'
+        filePath: '../src/libs/get-test-case-filter.ps1'
+        pwsh: True
 - stage: BUILD
   jobs:
   # - template: ./jobs-pre-build.yml

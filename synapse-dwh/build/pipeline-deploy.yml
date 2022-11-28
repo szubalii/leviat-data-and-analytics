@@ -13,6 +13,9 @@ trigger:
     include: 
     - synapse-dwh/*
 
+# variables:
+#   TIA.UserMapFile: $(System.DefaultWorkingDirectory)/synapse-dwh/test-impact-analysis.xml
+
 extends:
   template: ../../build/stages-build-deploy.yml
   parameters:

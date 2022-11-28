@@ -7,7 +7,7 @@ using System.Data;
 using System.Data.Common;
 using System.Text;
 
-namespace Test
+namespace Test.edw.Views
 {
     [TestClass()]
     public class vw_Brand : SqlDatabaseTestClass
@@ -80,7 +80,7 @@ namespace Test
         #endregion
 
         [TestMethod()]
-        public void checkPrimaryKeyViolation()
+        public void checkPrimaryKeyViolation(string schemaName, string viewName, string primarykeys)
         {
             SqlDatabaseTestActions testActions = this.checkPrimaryKeyViolationData;
             // Execute the pre-test script
@@ -102,6 +102,7 @@ namespace Test
                 SqlExecutionResult[] posttestResults = TestService.Execute(this.PrivilegedContext, this.PrivilegedContext, testActions.PosttestAction);
             }
         }
+
         private SqlDatabaseTestActions checkPrimaryKeyViolationData;
     }
 }

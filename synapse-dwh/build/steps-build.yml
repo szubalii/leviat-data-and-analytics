@@ -29,15 +29,27 @@ steps:
     solution: '**/synapse-dwh/**/*.csproj'
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
-  
+
+# Run tests from provided Test Plan and Suites
+# - task: VSTest@2
+#   displayName: 'Run Test Cases'
+#   inputs:
+#     testSelector: testPlan
+#     testPlan: 397
+#     testSuite: 2646
+#     testConfiguration: 6
+#     searchFolder: '$(System.DefaultWorkingDirectory)/synapse-dwh/Test/bin/$(buildConfiguration)'
+
+# Run test directly from assemblies and use Test Filter
 - task: VSTest@2
   displayName: 'Run Test Cases'
   inputs:
-    testSelector: testPlan
-    testPlan: 397
-    testSuite: 2646
-    testConfiguration: 6
+    testSelector: testAssemblies
     searchFolder: '$(System.DefaultWorkingDirectory)/synapse-dwh/Test/bin/$(buildConfiguration)'
+    testFiltercriteria: $testCaseFilter
+    # runOnlyImpactedTests: True
+
+
 
   # Build the SQL DB Project
 - task: VSBuild@1
