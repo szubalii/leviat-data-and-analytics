@@ -70,10 +70,12 @@ stages:
 
               if ($dirIndex -ne -1) {
                   $subFilePath = $filePathWithoutExt.SubString($dirIndex + $dir.Length)
-                  $className = $subFilePath.Replace('/','.')
-                  $testCaseFilter += "ClassName=Test$className|"
+                  $fqn = $subFilePath.Replace('/','.')
+                  $testCaseFilter += "FullyQualifiedName~$fqn|"
               }
           }
+
+          Write-Host "$($testCaseFilter.Length)"
           
           # Remove the last | character
           if ($testCaseFilter.Length > 0) {
@@ -81,7 +83,7 @@ stages:
           } 
           Write-Host "$($testCaseFilter)"
 
-          Write-Host "##vso[task.setvariable variable=testCaseFilter;isOutput=true]ClassName=Test.edw.Views.vw_Brand"
+          Write-Host "##vso[task.setvariable variable=testCaseFilter;isOutput=true]FullyQualifiedName~vw_Brand"
           # TODO map variable to future stage
           # https://learn.microsoft.com/en-us/azure/devops/pipelines/process/set-variables-scripts?view=azure-devops&tabs=powershell#set-an-output-variable-for-use-in-future-stages
           
@@ -99,8 +101,8 @@ stages:
     #     filePath: '$(System.DefaultWorkingDirectory)/src/libs/get-test-case-filter.ps1'
     #     pwsh: True
 - stage: BUILD
-  variables:
-    testCaseFilter: $[ dependencies.CHECK.outputs['CHECK.GetTestCaseFilter.testCaseFilter'] ]
+  # variables:
+  #   testCaseFilter: $[ dependencies.CHECK.outputs['CHECK.GetTestCaseFilter.testCaseFilter'] ]
   jobs:
   # - template: ./jobs-pre-build.yml
   #   parameters:
@@ -133,6 +135,41 @@ stages:
           deploy:
             steps:
             - template: ../${{parameters.folder}}/build/steps-deploy.yml
+- ${{ if eq(parameters.test, true) }}:
+  - stage: TEST_${{ upper(variables['Build.SourceBranchName']) }}
+    jobs:
+    - job: TEST
+      steps:
+
+      - checkout: self
+        fetchDepth: 0 # disables shallow fetch and results in correct return of git diff-tree
+      - task: PowerShell@2
+        displayName: 'Get Changed Files'
+        name: GetTestCaseFilter
+        inputs:
+          targetType: 'inline'
+          pwsh: true
+          script: |
+
+            Write-Host "##vso[task.setvariable variable=testCaseFilter;isOutput=true]FullyQualifiedName~edw.Views.vw_Brand"
+            # TODO map variable to future stage
+            # https://learn.microsoft.com/en-us/azure/devops/pipelines/process/set-variables-scripts?view=azure-devops&tabs=powershell#set-an-output-variable-for-use-in-future-stages
+            
+
+
+            # $AzureDevOpsPAT = "$(ReadTestManagementPAT)"
+            # $AzureDevOpsAuthenicationHeader = @{Authorization = 'Basic ' + [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(":$($AzureDevOpsPAT)")) }
+            # $uri = "https://dev.azure.com/leviatazure/Leviat_Data_and_Analytics_DevOps/_apis/testplan/Plans/${{parameters.testPlan}}/suites?api-version=7.0"
+                
+            # Invoke-RestMethod -Uri $uri -Method get -Headers $AzureDevOpsAuthenicationHeader | ConvertTo-Json
+      
+      # Run test directly from assemblies and use Test Filter
+      - task: VSTest@2
+        displayName: 'Run Test Cases'
+        inputs:
+          testSelector: testAssemblies
+          searchFolder: '$(System.DefaultWorkingDirectory)/synapse-dwh/Test/bin/Release'
+          testFiltercriteria: '$(GetTestCaseFilter.testCaseFilter)'
 # - ${{ if eq(parameters.test, true) }}:
 #   - stage: TEST_${{ upper(variables['Build.SourceBranchName']) }}
 #     jobs:

@@ -43,12 +43,12 @@ steps:
 # - script: echo $(testCaseFilter)
 
 # Run test directly from assemblies and use Test Filter
-- task: VSTest@2
-  displayName: 'Run Test Cases'
-  inputs:
-    testSelector: testAssemblies
-    searchFolder: '$(System.DefaultWorkingDirectory)/synapse-dwh/Test/bin/$(buildConfiguration)'
-    testFiltercriteria: 'FullyQualifiedName~vw_Brand|FullyQualifiedName~vw_Customer'
+# - task: VSTest@2
+#   displayName: 'Run Test Cases'
+#   inputs:
+#     testSelector: testAssemblies
+#     searchFolder: '$(System.DefaultWorkingDirectory)/synapse-dwh/Test/bin/$(buildConfiguration)'
+#     testFiltercriteria: 'FullyQualifiedName~vw_Brand|FullyQualifiedName~vw_Customer'
     # runOnlyImpactedTests: True
 
 
