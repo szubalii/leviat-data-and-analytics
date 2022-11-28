@@ -1,4 +1,5 @@
-CREATE VIEW [edw].[vw_Brand] AS
+CREATE VIEW [edw].[vw_Brand]
+AS
 SELECT
     AMGT.[AdditionalMaterialGroup1] AS [BrandID],
     AMGT.[AdditionalMaterialGroup1Name] AS [Brand],

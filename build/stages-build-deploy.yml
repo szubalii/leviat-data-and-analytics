@@ -78,7 +78,7 @@ stages:
           Write-Host $testCaseFilterHelp.Length
           
           # Remove the last | character
-          if ($testCaseFilterHelp.Length > 0) {
+          if ($testCaseFilterHelp.Length -gt 0) {
             $testCaseFilter = $testCaseFilterHelp.SubString(0, $testCaseFilterHelp.Length-1)
           } 
           Write-Host $testCaseFilter
@@ -136,7 +136,7 @@ stages:
             steps:
             - template: ../${{parameters.folder}}/build/steps-deploy.yml
 - ${{ if eq(parameters.test, true) }}:
-  - stage: TEST_${{ upper(variables['Build.SourceBranchName']) }}
+  - stage: TEST
     jobs:
     - job: TEST
       pool:
@@ -170,6 +170,10 @@ stages:
                 
             # Invoke-RestMethod -Uri $uri -Method get -Headers $AzureDevOpsAuthenicationHeader | ConvertTo-Json
       
+      - task: DownloadPipelineArtifact@2
+        inputs:
+          artifact: SynapseDWH
+
       # Run test directly from assemblies and use Test Filter
       - task: VSTest@2
         displayName: 'Run Test Cases'
