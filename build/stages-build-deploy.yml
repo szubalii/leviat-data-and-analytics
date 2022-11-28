@@ -75,7 +75,7 @@ stages:
               }
           }
 
-          Write-Host "$($testCaseFilter.Length)"
+          Write-Host "$testCaseFilter.Length"
           
           # Remove the last | character
           if ($testCaseFilter.Length > 0) {
@@ -139,6 +139,13 @@ stages:
   - stage: TEST_${{ upper(variables['Build.SourceBranchName']) }}
     jobs:
     - job: TEST
+      pool:
+        name: 'VM'
+        demands:
+        - node.js
+        - VisualStudio
+        - Python.Version
+        - Agent.Name -equals $(VMName)
       steps:
 
       - checkout: self
