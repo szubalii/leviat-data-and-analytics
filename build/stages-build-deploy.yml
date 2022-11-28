@@ -80,7 +80,7 @@ stages:
       displayName: 'Get Changed Files'
       inputs:
         targetType: 'filePath'
-        filePath: '../src/libs/get-test-case-filter.ps1'
+        filePath: '$(System.DefaultWorkingDirectory)/src/libs/get-test-case-filter.ps1'
         pwsh: True
 - stage: BUILD
   jobs:
