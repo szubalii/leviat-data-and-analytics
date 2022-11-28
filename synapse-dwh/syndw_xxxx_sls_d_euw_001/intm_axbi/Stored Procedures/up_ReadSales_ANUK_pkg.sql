@@ -112,11 +112,7 @@ BEGIN
 	'ANUK-' + [ITEMID],
 	[ITEMNAME],
 	ISNULL([CRH PRODUCTGROUPID], ' '),
-    CASE
-        WHEN ISNULL([ITEMGROUPID],' ')=' '
-        THEN ' '
-        ELSE 'ANUK-' + [ITEMGROUPID]
-    END
+    ISNULL('ANUK-' +[ITEMGROUPID],' ')
 	from [base_ancon_uk].[ITEMTABLE_ANUK]
 
 	update [intm_axbi].[dim_ITEMTABLE]

@@ -201,10 +201,11 @@ BEGIN
 	[ITEMID],
 	[ITEMNAME],
 	ISNULL([CRH PRODUCTGROUPID], ' '),
+    --ISNULL('ANUK-'+[ITEMGROUPID],' ')
     CASE
-        WHEN ISNULL([ITEMGROUPID],' ')=' '
+        WHEN ISNULL([ITEMGROUPID],'NULL')='NULL'
         THEN ' '
-        ELSE 'ANUK-' + [ITEMGROUPID]
+        ELSE 'ANUK-'+[ITEMGROUPID]
     END
 	from [base_isedio].[ITEMTABLE_ISUK]
 
