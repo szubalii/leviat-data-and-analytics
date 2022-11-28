@@ -1,6 +1,6 @@
 CREATE VIEW [edw].[vw_Brand] AS
 SELECT
-    AMGT.[AdditionalMaterialGroup1]     as [BrandID]
+    AMGT.[AdditionalMaterialGroup1]     AS [BrandID]
 ,   AMGT.[AdditionalMaterialGroup1Name] as [Brand]
 ,   AMGT.t_applicationId
 FROM

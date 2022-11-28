@@ -77,7 +77,7 @@ stages:
           
           # Remove the last | character
           if ($testCaseFilter.Length > 0) {
-            $testCaseFilter = $testCaseFilter.SubString(0, $testCaseFilter.Length-2)
+            $testCaseFilter = $testCaseFilter.SubString(0, $testCaseFilter.Length-1)
           } 
           Write-Host "$($testCaseFilter)"
 
@@ -99,6 +99,8 @@ stages:
     #     filePath: '$(System.DefaultWorkingDirectory)/src/libs/get-test-case-filter.ps1'
     #     pwsh: True
 - stage: BUILD
+  variables:
+    testCaseFilter: $[ dependencies.CHECK.outputs['CHECK.GetTestCaseFilter.testCaseFilter'] ]
   jobs:
   # - template: ./jobs-pre-build.yml
   #   parameters:
@@ -111,8 +113,6 @@ stages:
       hasVariables: ${{ parameters.hasVariables }}
 - ${{ if eq(parameters.deploy, true) }}:
   - stage: DEPLOY_${{ upper(variables['Build.SourceBranchName']) }}
-    variables:
-      testCaseFilter: $[ dependencies.CHECK.outputs['CHECK.GetTestCaseFilter.testCaseFilter'] ]
     jobs:
     - deployment: Deploy_${{parameters.solution}}
       # variables:
