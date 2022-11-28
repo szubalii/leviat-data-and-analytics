@@ -1046,7 +1046,6 @@
     <Build Include="base_isedio_aus\Tables\CUSTINVOICETRANS_ISAU.sql" />
     <Build Include="base_isedio_aus\Tables\CUSTTABLE_ISAU.sql" />
     <Build Include="base_isedio_aus\Tables\ITEMTABLE_ISAU.sql" />
-    <Build Include="base_isedio_aus\Tables\ITEMTABLE_ISAU_orig.sql" />
     <Build Include="base_halfen_moment_sg\Tables\CUSTINVOICETRANS_HMSG.sql" />
     <Build Include="base_halfen_moment_sg\Tables\CUSTTABLE_HMSG.sql" />
     <Build Include="base_halfen_moment_sg\Tables\ITEMTABLE_HMSG.sql" />
@@ -1065,6 +1064,7 @@
     <Build Include="base_isedio\Tables\CUSTTABLE_ISUK.sql" />
     <Build Include="base_isedio\Tables\CUSTINVOICETRANS_ISUK.sql" />
     <Build Include="base_isedio\Tables\ITEMTABLE_ISUK.sql" />
+      <Build Include="base_isedio\Tables\ITEMTABLE_ISUK_orig.sql" />
     <Build Include="base_ancon_conolly_aus\Tables\CUSTINVOICETRANS_ANAC.sql" />
     <Build Include="base_ancon_conolly_aus\Tables\CUSTTABLE_ANAC.sql" />
     <Build Include="base_ancon_conolly_aus\Tables\ITEMTABLE_ANAC.sql" />
