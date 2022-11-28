@@ -81,7 +81,7 @@ stages:
           } 
           Write-Host "$($testCaseFilter)"
 
-          Write-Host "##vso[task.setvariable variable=testCaseFilter;isOutput=true]$testCaseFilter"
+          Write-Host "##vso[task.setvariable variable=testCaseFilter;isOutput=true]ClassName=Test.edw.Views.vw_Brand"
           # TODO map variable to future stage
           # https://learn.microsoft.com/en-us/azure/devops/pipelines/process/set-variables-scripts?view=azure-devops&tabs=powershell#set-an-output-variable-for-use-in-future-stages
           
