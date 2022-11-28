@@ -1,5 +1,5 @@
 -- drop function [dbo].[get_scheduled_entity_batch_activities]
-CREATE FUNCTION [dbo].[get_scheduled_entity_batch_activities_bak](
+CREATE FUNCTION [dbo].[get_scheduled_entity_batch_activities](
     @adhoc bit = 0,
     @date DATE,
     @rerunSuccessfulFullEntities BIT = 0, -- In case a new run is required
@@ -423,19 +423,6 @@ BEGIN
             dbo.layer_activity la
             ON 
                 la.layer_id = sde.layer_id
-        LEFT JOIN
-            dbo.batch b
-            ON
-                sde.entity_id = b.entity_id
-                AND
-                sde.file_name = b.file_name
-                AND
-                la.activity_id = b.activity_id
-        WHERE
-            sde.layer_id <> @LAYER_ID__S4H OR
-            -- Filter for S4H_environment and S4H_client_id
-            (COALESCE (b.s4h_environment,'') = COALESCE (@s4h_environment,b.s4h_environment,'')
-            AND COALESCE (b.s4h_client_id, -99) = COALESCE (@s4h_client_id, b.s4h_client_id, -99))
     )
     
     -- For delta entities: get all file names based on Extract activity where status is Successful or InProgress (S4H)
@@ -472,6 +459,10 @@ BEGIN
                     b.status_id IN (@BATCH_EXECUTION_STATUS_ID__IN_PROGRESS, @BATCH_EXECUTION_STATUS_ID__SUCCESSFUL)
                     AND
                     e.layer_id = @LAYER_ID__S4H
+                    AND
+                    b.s4h_environment = @s4h_environment
+                    AND
+                    b.s4h_client_id = @s4h_client_id
                 )
                 OR ( -- For other base source entities, get only successful extracted file names
                     b.status_id = @BATCH_EXECUTION_STATUS_ID__SUCCESSFUL
@@ -528,11 +519,6 @@ BEGIN
             dbo.batch_activity ba
             ON 
                 ba.activity_id = la.activity_id
-        WHERE
-            sefnsde.layer_id <> @LAYER_ID__S4H OR
-            -- Filter for S4H_environment and S4H_client_id
-            (COALESCE (b.s4h_environment,'') = COALESCE (@s4h_environment,b.s4h_environment,'')
-            AND COALESCE (b.s4h_client_id, -99) = COALESCE (@s4h_client_id, b.s4h_client_id, -99))
         GROUP BY
             sefnsde.entity_id,
             sefnsde.entity_name,
