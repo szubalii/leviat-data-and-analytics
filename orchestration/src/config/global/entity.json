@@ -5651,6 +5651,7 @@
         "entity_id": 536,
         "entity_name": "INVOICEDFREIGHT_ANUK$_bulk",
         "base_table_name": "INVOICEDFREIGHT_ANUK",
+        "pk_field_names": "ACCOUNTINGDATE,PACKINGSLIPID",
         "schedule_recurrence": "D"
       },
       {
@@ -5693,6 +5694,7 @@
         "entity_id": 537,
         "entity_name": "INVOICEDFREIGHT_ISUK$_bulk",
         "base_table_name": "INVOICEDFREIGHT_ISUK",
+        "pk_field_names": "ACCOUNTINGDATE,PACKINGSLIPID",
         "schedule_recurrence": "D"
       },
       {
