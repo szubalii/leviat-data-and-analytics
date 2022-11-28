@@ -60,7 +60,7 @@ stages:
           Write-Host "Changed files using system.pullRequest.sourceCommitId: $($filePaths)"
           Write-Host "Changed files Build.SourceVersion: $($filePaths2)"
 
-          $testCaseFilter = ""
+          $testCaseFilterHelp = ""
           ForEach ($filePath in $filePaths) {
 
               $dir = "syndw_xxxx_sls_d_euw_001"
@@ -71,15 +71,15 @@ stages:
               if ($dirIndex -ne -1) {
                   $subFilePath = $filePathWithoutExt.SubString($dirIndex + $dir.Length)
                   $fqn = $subFilePath.Replace('/','.')
-                  $testCaseFilter += "FullyQualifiedName~$fqn|"
+                  $testCaseFilterHelp += "FullyQualifiedName~$fqn|"
               }
           }
 
-          Write-Host "$testCaseFilter.Length"
+          Write-Host "$testCaseFilterHelp.Length"
           
           # Remove the last | character
-          if ($testCaseFilter.Length > 0) {
-            $testCaseFilter = $testCaseFilter.SubString(0, $testCaseFilter.Length-1)
+          if ($testCaseFilterHelp.Length > 0) {
+            $testCaseFilter = $testCaseFilterHelp.SubString(0, $testCaseFilterHelp.Length-1)
           } 
           Write-Host "$($testCaseFilter)"
 
@@ -111,7 +111,7 @@ stages:
     parameters:
       solution: ${{ parameters.solution }}
       folder: ${{ parameters.folder }}
-      artifact: ${{ parameters.deploy }}
+      artifact: True
       hasVariables: ${{ parameters.hasVariables }}
 - ${{ if eq(parameters.deploy, true) }}:
   - stage: DEPLOY_${{ upper(variables['Build.SourceBranchName']) }}
@@ -175,7 +175,7 @@ stages:
         displayName: 'Run Test Cases'
         inputs:
           testSelector: testAssemblies
-          searchFolder: '$(System.DefaultWorkingDirectory)/synapse-dwh/Test/bin/Release'
+          searchFolder: '$(Pipeline.Workspace)/SynapseDWH/Test'
           testFiltercriteria: '$(GetTestCaseFilter.testCaseFilter)'
 # - ${{ if eq(parameters.test, true) }}:
 #   - stage: TEST_${{ upper(variables['Build.SourceBranchName']) }}
