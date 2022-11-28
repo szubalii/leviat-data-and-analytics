@@ -54,10 +54,10 @@ stages:
         pwsh: true
         script: |
           Write-Host "$(System.DefaultWorkingDirectory)"
-          $filePaths = $(git diff-tree --no-commit-id --name-only -r $(Build.SourceVersion))
-          $filePaths2 = $(git diff-tree --no-commit-id --name-only -r $(system.pullRequest.sourceCommitId))
-          Write-Host "Changed files: $($filePaths)"
-          Write-Host "Changed files 2: $($filePaths2)"
+          $filePaths = $(git diff-tree --no-commit-id --name-only -r $(system.pullRequest.sourceCommitId))
+          $filePaths2 = $(git diff-tree --no-commit-id --name-only -r $(Build.SourceVersion))
+          Write-Host "Changed files using system.pullRequest.sourceCommitId: $($filePaths)"
+          Write-Host "Changed files Build.SourceVersion: $($filePaths2)"
 
           $testCaseFilter = ""
           ForEach ($filePath in $filePaths) {
