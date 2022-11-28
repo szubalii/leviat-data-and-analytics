@@ -55,7 +55,7 @@ stages:
         script: |
           Write-Host "$(System.DefaultWorkingDirectory)"
           $filePaths = $(git diff-tree --no-commit-id --name-only -r $(Build.SourceVersion))
-          Write-Host "$($filePaths)"
+          Write-Host "Changed files: $($filePaths)"
 
           $testCaseFilter = ""
           ForEach ($filePath in $filePaths) {
@@ -73,7 +73,11 @@ stages:
 
           #TODO filter on list of files for only sql files
           }
-          $testCaseFilter = $testCaseFilter.SubString(0, $testCaseFilter.Length-1)
+          
+          # Remove the last | character
+          if ($testCaseFilter.Length > 0) {
+            $testCaseFilter = $testCaseFilter.SubString(0, $testCaseFilter.Length-1)
+          } 
           Write-Host "$($testCaseFilter)"
 
           Write-Host "##vso[task.setvariable variable=testCaseFilter]$testCaseFilter"
