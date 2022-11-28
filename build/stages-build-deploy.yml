@@ -49,6 +49,7 @@ stages:
       fetchDepth: 0 # disables shallow fetch and results in correct return of git diff-tree
     - task: PowerShell@2
       displayName: 'Get Changed Files'
+      name: GetTestCaseFilter
       inputs:
         targetType: 'inline'
         pwsh: true
@@ -70,19 +71,21 @@ stages:
               if ($dirIndex -ne -1) {
                   $subFilePath = $filePathWithoutExt.SubString($dirIndex + $dir.Length)
                   $className = $subFilePath.Replace('/','.')
-                  $testCaseFilter += "ClassName=Test.$className|"
+                  $testCaseFilter += "ClassName=Test$className|"
               }
-
-          #TODO filter on list of files for only sql files
           }
           
           # Remove the last | character
           if ($testCaseFilter.Length > 0) {
-            $testCaseFilter = $testCaseFilter.SubString(0, $testCaseFilter.Length-1)
+            $testCaseFilter = $testCaseFilter.SubString(0, $testCaseFilter.Length-2)
           } 
           Write-Host "$($testCaseFilter)"
 
-          Write-Host "##vso[task.setvariable variable=testCaseFilter]$testCaseFilter"
+          Write-Host "##vso[task.setvariable variable=testCaseFilter;isOutput=true]$testCaseFilter"
+          # TODO map variable to future stage
+          # https://learn.microsoft.com/en-us/azure/devops/pipelines/process/set-variables-scripts?view=azure-devops&tabs=powershell#set-an-output-variable-for-use-in-future-stages
+          
+
 
           # $AzureDevOpsPAT = "$(ReadTestManagementPAT)"
           # $AzureDevOpsAuthenicationHeader = @{Authorization = 'Basic ' + [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(":$($AzureDevOpsPAT)")) }
@@ -108,6 +111,8 @@ stages:
       hasVariables: ${{ parameters.hasVariables }}
 - ${{ if eq(parameters.deploy, true) }}:
   - stage: DEPLOY_${{ upper(variables['Build.SourceBranchName']) }}
+    variables:
+      testCaseFilter: $[ dependencies.CHECK.outputs['CHECK.GetTestCaseFilter.testCaseFilter'] ]
     jobs:
     - deployment: Deploy_${{parameters.solution}}
       # variables:
