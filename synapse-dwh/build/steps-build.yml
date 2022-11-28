@@ -48,7 +48,7 @@ steps:
   inputs:
     testSelector: testAssemblies
     searchFolder: '$(System.DefaultWorkingDirectory)/synapse-dwh/Test/bin/$(buildConfiguration)'
-    testFiltercriteria: 'ClassName=Test.edw.Views.vw_Brand'
+    testFiltercriteria: 'FullyQualifiedName~vw_Brand|FullyQualifiedName~vw_Customer'
     # runOnlyImpactedTests: True
 
 
