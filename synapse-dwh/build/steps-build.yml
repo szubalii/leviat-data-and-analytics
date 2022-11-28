@@ -40,13 +40,15 @@ steps:
 #     testConfiguration: 6
 #     searchFolder: '$(System.DefaultWorkingDirectory)/synapse-dwh/Test/bin/$(buildConfiguration)'
 
+# - script: echo $(testCaseFilter)
+
 # Run test directly from assemblies and use Test Filter
 - task: VSTest@2
   displayName: 'Run Test Cases'
   inputs:
     testSelector: testAssemblies
     searchFolder: '$(System.DefaultWorkingDirectory)/synapse-dwh/Test/bin/$(buildConfiguration)'
-    testFiltercriteria: $(testCaseFilter)
+    testFiltercriteria: 'ClassName=Test.edw.Views.vw_Brand'
     # runOnlyImpactedTests: True
 
 
