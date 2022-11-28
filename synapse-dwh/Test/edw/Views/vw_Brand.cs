@@ -80,7 +80,7 @@ namespace Test.edw.Views
         #endregion
 
         [TestMethod()]
-        public void checkPrimaryKeyViolation(string schemaName, string viewName, string primarykeys)
+        public void checkPrimaryKeyViolation()
         {
             SqlDatabaseTestActions testActions = this.checkPrimaryKeyViolationData;
             // Execute the pre-test script

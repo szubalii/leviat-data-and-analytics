@@ -46,7 +46,7 @@ steps:
   inputs:
     testSelector: testAssemblies
     searchFolder: '$(System.DefaultWorkingDirectory)/synapse-dwh/Test/bin/$(buildConfiguration)'
-    testFiltercriteria: $testCaseFilter
+    testFiltercriteria: $(testCaseFilter)
     # runOnlyImpactedTests: True
 
 
