@@ -8,3 +8,12 @@ layer_id,layer_nk,location_id,layer_description
 7,USA,6,Snowflake USA
 8,C4C,7,SAP C4C
 10,DQ,4,Data Quality
+11,ANME,3,Azure Data Lake Storage - ancon-me folder
+12,ANAC,3,Azure Data Lake Storage - ancon-conolly-aus folder
+13,ISAU,3,Azure Data Lake Storage - isedio-aus folder
+14,HMMY,3,Azure Data Lake Storage - halfen-moment-my folder
+15,HMSG,3,Azure Data Lake Storage - halfen-moment-sg folder
+16,HMIN,3,Azure Data Lake Storage - halfen-moment-in folder
+17,HMPH,3,Azure Data Lake Storage - halfen-moment-ph folder
+18,ANUK,3,Azure Data Lake Storage - ancon-uk folder
+19,ISUK,3,Azure Data Lake Storage - isedio folder
