@@ -24,6 +24,8 @@ parameters:
 # - name: branch
 #   type: string
 
+# TODO why use stages if one could just split via jobs?
+
 variables:
 - ${{ if eq(variables['Build.SourceBranchName'], 'main') }}:
   - template: ./variables-test.yml
@@ -158,7 +160,39 @@ stages:
           pwsh: true
           script: |
 
-            Write-Host "##vso[task.setvariable variable=testCaseFilter;isOutput=true]FullyQualifiedName~edw.Views.vw_Brand"
+            Write-Host "System.DefaultWorkingDirectory: $(System.DefaultWorkingDirectory)"
+            Write-Host "system.pullRequest.sourceCommitId: $(system.pullRequest.sourceCommitId)"
+            Write-Host "Build.SourceVersion: $(Build.SourceVersion)"
+            Write-Host "Build.SourceVersionMessage: $(Build.SourceVersionMessage)"
+            $filePaths = $(git diff-tree --no-commit-id --name-only -r $(system.pullRequest.sourceCommitId))
+            $filePaths2 = $(git diff-tree --no-commit-id --name-only -r $(Build.SourceVersion))
+            Write-Host "Changed files using system.pullRequest.sourceCommitId: $($filePaths)"
+            Write-Host "Changed files Build.SourceVersion: $($filePaths2)"
+
+            $testCaseFilterHelp = ""
+            ForEach ($filePath in $filePaths) {
+
+              $dir = "syndw_xxxx_sls_d_euw_001"
+              $dirIndex = $filePath.IndexOf($dir)
+
+              if ($dirIndex -ne -1) {
+                $fileTypeIndex = $filePath.IndexOf(".")
+                $filePathWithoutExt = $filePath.SubString(0, $fileTypeIndex)
+                $subFilePath = $filePathWithoutExt.SubString($dirIndex + $dir.Length)
+                $fqn = $subFilePath.Replace('/','.')
+                $testCaseFilterHelp += "FullyQualifiedName~$fqn|"
+              }
+            }
+            
+            # Remove the last '|' character
+            if ($testCaseFilterHelp.Length -gt 0) {
+              $testCaseFilter = $testCaseFilterHelp.SubString(0, $testCaseFilterHelp.Length-1)
+            } 
+            Write-Host "testCaseFilter: $testCaseFilter"
+
+            Write-Host "##vso[task.setvariable variable=testCaseFilter;isOutput=true]$testCaseFilter"
+
+            # Write-Host "##vso[task.setvariable variable=testCaseFilter;isOutput=true]FullyQualifiedName~edw.Views.vw_Brand"
             # TODO map variable to future stage
             # https://learn.microsoft.com/en-us/azure/devops/pipelines/process/set-variables-scripts?view=azure-devops&tabs=powershell#set-an-output-variable-for-use-in-future-stages
             
@@ -179,7 +213,7 @@ stages:
         displayName: 'Run Test Cases'
         inputs:
           testSelector: testAssemblies
-          searchFolder: '$(Pipeline.Workspace)/SynapseDWH/Test'
+          searchFolder: '$(Pipeline.Workspace)/Test'
           testFiltercriteria: '$(GetTestCaseFilter.testCaseFilter)'
 # - ${{ if eq(parameters.test, true) }}:
 #   - stage: TEST_${{ upper(variables['Build.SourceBranchName']) }}
