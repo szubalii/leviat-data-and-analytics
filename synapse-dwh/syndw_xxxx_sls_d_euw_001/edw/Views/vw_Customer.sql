@@ -1,7 +1,7 @@
 ﻿CREATE VIEW [edw].[vw_Customer] AS
 SELECT 
     [Customer] AS [CustomerID]
-    ,STUFF(Customer, 1, patindex('%[^0+]%', Customer) -1, '') as CustomerExternalID
+    ,STUFF(Customer, 1, PATINDEX('%[^0+]%', Customer) -1, '') as CustomerExternalID
     ,[CustomerName] AS [Customer]
     ,[Customer] + '_' + [CustomerName] as [CustomerID_Name]
     ,[CustomerFullName]

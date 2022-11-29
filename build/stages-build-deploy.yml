@@ -181,7 +181,7 @@ stages:
               if ($dirIndex -ne -1) {
                 $fileTypeIndex = $filePath.IndexOf(".")
                 $filePathWithoutExt = $filePath.SubString(0, $fileTypeIndex)
-                $subFilePath = $filePathWithoutExt.SubString($dirIndex + $dir.Length)
+                $subFilePath = $filePathWithoutExt.SubString($dirIndex + $dir.Length + 1)
                 $fqn = $subFilePath.Replace('/','.')
                 $testCaseFilterHelp += "FullyQualifiedName~$fqn|"
               }
