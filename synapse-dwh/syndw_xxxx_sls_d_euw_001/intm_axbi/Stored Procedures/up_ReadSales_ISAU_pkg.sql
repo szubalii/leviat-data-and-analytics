@@ -211,11 +211,11 @@ BEGIN
 
 	UPDATE [base_isedio_aus].[CUSTINVOICETRANS_ISAU]
 	SET [DeliveryCountryID] = 'AU'
-	WHERE [DeliveryCountryID] = 'AUSTRALIA'
+	WHERE UPPER([DeliveryCountryID]) = 'AUSTRALIA'
 
 	UPDATE [base_isedio_aus].[CUSTINVOICETRANS_ISAU]
 	SET [DeliveryCountryID] = 'NZ'
-	WHERE [DeliveryCountryID] = 'New Zealand'
+	WHERE UPPER([DeliveryCountryID]) = 'NEW ZEALAND'
 
 	UPDATE [base_isedio_aus].[CUSTINVOICETRANS_ISAU]
 	SET [Itemid] = 'ISAU-' + [Itemid]
@@ -470,7 +470,7 @@ BEGIN
         #OtherSalesTable_cnt cnt
 	        on st.[INVOICEID] = sb.[INVOICEID]
     WHERE 
-        upper(st.Dataareaid) = 'ANAC'
+        upper(st.Dataareaid) = 'ISAU'
         and
         sb.SalesBalanceMST = 0
         and
