@@ -37,65 +37,65 @@ variables:
   - template: ./variables-personal.yml
 
 stages:
-- stage: CHECK
-  jobs:
-  - job: CHECK
-    pool:
-      name: 'VM'
-      demands:
-      - node.js
-      - VisualStudio
-      - Agent.Name -equals $(VMName)
-    steps:
-    - checkout: self
-      fetchDepth: 0 # disables shallow fetch and results in correct return of git diff-tree
-    - task: PowerShell@2
-      displayName: 'Get Changed Files'
-      name: GetTestCaseFilter
-      inputs:
-        targetType: 'inline'
-        pwsh: true
-        script: |
-          Write-Host "$(System.DefaultWorkingDirectory)"
-          $filePaths = $(git diff-tree --no-commit-id --name-only -r $(system.pullRequest.sourceCommitId))
-          $filePaths2 = $(git diff-tree --no-commit-id --name-only -r $(Build.SourceVersion))
-          Write-Host "Changed files using system.pullRequest.sourceCommitId: $($filePaths)"
-          Write-Host "Changed files Build.SourceVersion: $($filePaths2)"
+# - stage: CHECK
+#   jobs:
+#   - job: CHECK
+#     pool:
+#       name: 'VM'
+#       demands:
+#       - node.js
+#       - VisualStudio
+#       - Agent.Name -equals $(VMName)
+#     steps:
+#     - checkout: self
+#       fetchDepth: 0 # disables shallow fetch and results in correct return of git diff-tree
+#     - task: PowerShell@2
+#       displayName: 'Get Changed Files'
+#       name: GetTestCaseFilter
+#       inputs:
+#         targetType: 'inline'
+#         pwsh: true
+#         script: |
+#           Write-Host "$(System.DefaultWorkingDirectory)"
+#           $filePaths = $(git diff-tree --no-commit-id --name-only -r $(system.pullRequest.sourceCommitId))
+#           $filePaths2 = $(git diff-tree --no-commit-id --name-only -r $(Build.SourceVersion))
+#           Write-Host "Changed files using system.pullRequest.sourceCommitId: $($filePaths)"
+#           Write-Host "Changed files Build.SourceVersion: $($filePaths2)"
 
-          $testCaseFilterHelp = ""
-          ForEach ($filePath in $filePaths) {
+#           $testCaseFilterHelp = ""
+#           ForEach ($filePath in $filePaths) {
 
-              $dir = "syndw_xxxx_sls_d_euw_001"
-              $dirIndex = $filePath.IndexOf($dir)
-              $fileTypeIndex = $filePath.IndexOf(".")
-              $filePathWithoutExt = $filePath.SubString(0, $fileTypeIndex)
+#               $dir = "syndw_xxxx_sls_d_euw_001"
+#               $dirIndex = $filePath.IndexOf($dir)
+#               $fileTypeIndex = $filePath.IndexOf(".")
+#               $filePathWithoutExt = $filePath.SubString(0, $fileTypeIndex)
 
-              if ($dirIndex -ne -1) {
-                  $subFilePath = $filePathWithoutExt.SubString($dirIndex + $dir.Length)
-                  $fqn = $subFilePath.Replace('/','.')
-                  $testCaseFilterHelp += "FullyQualifiedName~$fqn|"
-              }
-          }
+#               if ($dirIndex -ne -1) {
+#                   $subFilePath = $filePathWithoutExt.SubString($dirIndex + $dir.Length)
+#                   $fqn = $subFilePath.Replace('/','.')
+#                   $testCaseFilterHelp += "FullyQualifiedName~$fqn|"
+#               }
+#           }
 
-          Write-Host $testCaseFilterHelp.Length
+#           Write-Host $testCaseFilterHelp.Length
           
-          # Remove the last | character
-          if ($testCaseFilterHelp.Length -gt 0) {
-            $testCaseFilter = $testCaseFilterHelp.SubString(0, $testCaseFilterHelp.Length-1)
-          } 
-          Write-Host $testCaseFilter
+#           # Remove the last | character
+#           if ($testCaseFilterHelp.Length -gt 0) {
+#             $testCaseFilter = $testCaseFilterHelp.SubString(0, $testCaseFilterHelp.Length-1)
+#           } 
+#           Write-Host $testCaseFilter
 
-          Write-Host "##vso[task.setvariable variable=testCaseFilter;isOutput=true]FullyQualifiedName~vw_Brand"
-          # TODO map variable to future stage
-          # https://learn.microsoft.com/en-us/azure/devops/pipelines/process/set-variables-scripts?view=azure-devops&tabs=powershell#set-an-output-variable-for-use-in-future-stages
+#           Write-Host "##vso[task.setvariable variable=testCaseFilter;isOutput=true]FullyQualifiedName~vw_Brand"
+#           # TODO map variable to future stage
+#           # https://learn.microsoft.com/en-us/azure/devops/pipelines/process/set-variables-scripts?view=azure-devops&tabs=powershell#set-an-output-variable-for-use-in-future-stages
           
 
 
-          # $AzureDevOpsPAT = "$(ReadTestManagementPAT)"
-          # $AzureDevOpsAuthenicationHeader = @{Authorization = 'Basic ' + [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(":$($AzureDevOpsPAT)")) }
-          # $uri = "https://dev.azure.com/leviatazure/Leviat_Data_and_Analytics_DevOps/_apis/testplan/Plans/${{parameters.testPlan}}/suites?api-version=7.0"
+#           # $AzureDevOpsPAT = "$(ReadTestManagementPAT)"
+#           # $AzureDevOpsAuthenicationHeader = @{Authorization = 'Basic ' + [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(":$($AzureDevOpsPAT)")) }
+#           # $uri = "https://dev.azure.com/leviatazure/Leviat_Data_and_Analytics_DevOps/_apis/testplan/Plans/${{parameters.testPlan}}/suites?api-version=7.0"
               
-          # Invoke-RestMethod -Uri $uri -Method get -Headers $AzureDevOpsAuthenicationHeader | ConvertTo-Json
+#           # Invoke-RestMethod -Uri $uri -Method get -Headers $AzureDevOpsAuthenicationHeader | ConvertTo-Json
     # - task: PowerShell@2
     #   displayName: 'Get Changed Files'
     #   inputs:
@@ -103,8 +103,6 @@ stages:
     #     filePath: '$(System.DefaultWorkingDirectory)/src/libs/get-test-case-filter.ps1'
     #     pwsh: True
 - stage: BUILD
-  # variables:
-  #   testCaseFilter: $[ dependencies.CHECK.outputs['CHECK.GetTestCaseFilter.testCaseFilter'] ]
   jobs:
   # - template: ./jobs-pre-build.yml
   #   parameters:
@@ -152,6 +150,7 @@ stages:
 
       - checkout: self
         fetchDepth: 0 # disables shallow fetch and results in correct return of git diff-tree
+
       - task: PowerShell@2
         displayName: 'Get Changed Files'
         name: GetTestCaseFilter
@@ -160,6 +159,7 @@ stages:
           pwsh: true
           script: |
 
+            # Retrieve list of changed files
             Write-Host "System.DefaultWorkingDirectory: $(System.DefaultWorkingDirectory)"
             Write-Host "system.pullRequest.sourceCommitId: $(system.pullRequest.sourceCommitId)"
             Write-Host "Build.SourceVersion: $(Build.SourceVersion)"
@@ -169,6 +169,9 @@ stages:
             Write-Host "Changed files using system.pullRequest.sourceCommitId: $($filePaths)"
             Write-Host "Changed files Build.SourceVersion: $($filePaths2)"
 
+            # Execute those test cases only impacted by the changed files
+            # Generate the test case filter based on changed files
+            # https://github.com/microsoft/vstest-docs/blob/main/docs/filter.md
             $testCaseFilterHelp = ""
             ForEach ($filePath in $filePaths) {
 
@@ -184,19 +187,15 @@ stages:
               }
             }
             
-            # Remove the last '|' character
+            # Remove the last character ('|')
             if ($testCaseFilterHelp.Length -gt 0) {
               $testCaseFilter = $testCaseFilterHelp.SubString(0, $testCaseFilterHelp.Length-1)
             } 
             Write-Host "testCaseFilter: $testCaseFilter"
 
-            Write-Host "##vso[task.setvariable variable=testCaseFilter;isOutput=true]$testCaseFilter"
-
-            # Write-Host "##vso[task.setvariable variable=testCaseFilter;isOutput=true]FullyQualifiedName~edw.Views.vw_Brand"
-            # TODO map variable to future stage
+            # expose the test case filter variable value defined in this task
             # https://learn.microsoft.com/en-us/azure/devops/pipelines/process/set-variables-scripts?view=azure-devops&tabs=powershell#set-an-output-variable-for-use-in-future-stages
-            
-
+            Write-Host "##vso[task.setvariable variable=testCaseFilter;isOutput=true]$testCaseFilter"
 
             # $AzureDevOpsPAT = "$(ReadTestManagementPAT)"
             # $AzureDevOpsAuthenicationHeader = @{Authorization = 'Basic ' + [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(":$($AzureDevOpsPAT)")) }
