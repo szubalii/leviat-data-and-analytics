@@ -167,16 +167,23 @@ SELECT  CONVERT(NVARCHAR(32),
     ,   UV.[StandardPricePerUnit]
     ,   UV.[StandardPricePerUnit_EUR] 
     ,   UV.[StandardPricePerUnit_USD]
-    ,   UV.[ConsumptionQtyOBDProInBaseUnit] + UV.[ConsumptionQtySOInBaseUnit] + UV.[ConsumptionQtyICPOInBaseUnit]     
-                                                                            AS ConsumptionQty
+    ,   COALESCE(UV.[ConsumptionQtyOBDProInBaseUnit],0) 
+        + COALESCE(UV.[ConsumptionQtySOInBaseUnit],0) 
+        + COALESCE(UV.[ConsumptionQtyICPOInBaseUnit],0)                     AS ConsumptionQty
     ,   LastPPU.[StockPricePerUnit]                                         AS LatestPricePerPiece_Local
     ,   LastPPU.[StockPricePerUnit_EUR]                                     AS LatestPricePerPiece_EUR
     ,   LastPPU.[StockPricePerUnit_USD]                                     AS LatestPricePerPiece_USD
-    ,   (UV.[ConsumptionQtyOBDProInBaseUnit] + UV.[ConsumptionQtySOInBaseUnit] + UV.[ConsumptionQtyICPOInBaseUnit] )
+    ,   ( COALESCE(UV.[ConsumptionQtyOBDProInBaseUnit],0) 
+        + COALESCE(UV.[ConsumptionQtySOInBaseUnit],0) 
+        + COALESCE(UV.[ConsumptionQtyICPOInBaseUnit],0))
         * LastPPU.[StockPricePerUnit]                                       AS ConsumptionValueByLatestPriceInBaseValue
-    ,   (UV.[ConsumptionQtyOBDProInBaseUnit] + UV.[ConsumptionQtySOInBaseUnit] + UV.[ConsumptionQtyICPOInBaseUnit] )
+    ,   ( COALESCE(UV.[ConsumptionQtyOBDProInBaseUnit],0) 
+        + COALESCE(UV.[ConsumptionQtySOInBaseUnit],0) 
+        + COALESCE(UV.[ConsumptionQtyICPOInBaseUnit],0))
         * LastPPU.[StockPricePerUnit_EUR]                                   AS ConsumptionValueByLatestPrice_EUR                                                                            
-    ,   (UV.[ConsumptionQtyOBDProInBaseUnit] + UV.[ConsumptionQtySOInBaseUnit] + UV.[ConsumptionQtyICPOInBaseUnit] )
+    ,   ( COALESCE(UV.[ConsumptionQtyOBDProInBaseUnit],0) 
+        + COALESCE(UV.[ConsumptionQtySOInBaseUnit],0) 
+        + COALESCE(UV.[ConsumptionQtyICPOInBaseUnit],0))
         * LastPPU.[StockPricePerUnit_USD]                                   AS ConsumptionValueByLatestPrice_USD 
     ,   UV.[t_applicationId]
     ,   UV.[t_extractionDtm]
