@@ -14,9 +14,9 @@ parameters:
 - name: test
   type: boolean
   default: false
-# - name: hasVariables
-#   type: boolean
-#   default: false
+- name: hasVariables
+  type: boolean
+  default: false
 # - name: testPlan
 #   type: number
 #   default: 397
@@ -42,7 +42,7 @@ stages:
       solution: ${{ parameters.solution }}
       folder: ${{ parameters.folder }}
       # artifact: True
-      # hasVariables: ${{ parameters.hasVariables }}
+      hasVariables: ${{ parameters.hasVariables }}
 - ${{ if eq(parameters.deploy, true) }}:
   - stage: DEPLOY_${{ upper(variables['Build.SourceBranchName']) }}
     jobs:
