@@ -25,14 +25,16 @@ steps:
       # Generate the test case filter based on changed files
       # https://github.com/microsoft/vstest-docs/blob/main/docs/filter.md
       # https://learn.microsoft.com/en-us/dotnet/core/testing/selective-unit-tests?pivots=mstest
-      $testCaseFilterHelp = ""
+      # start with initial filter so in case of no files mapped to a test case,
+      # no actual test case is run
+      $testCaseFilterHelp = "FullyQualifiedName=dummy|" 
       $edwEntities = {}
       $baseEntities = {}
       $dir = "syndw_xxxx_sls_d_euw_001"
       $entities = (Get-Content './orchestration/src/config/global/entity.json' | Out-String | ConvertFrom-Json)
 
       ForEach ($filePath in $filePaths) {
-        
+
         $dirIndex = $filePath.IndexOf($dir)
         
         if ($dirIndex -ne -1) {
