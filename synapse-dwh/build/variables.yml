@@ -1,6 +1,6 @@
 variables:
 - name: solution
-  value: '**/${{ parameters.folder }}/*.sln'
+  value: '**/synapse-dwh/*.sln'
 - name: buildPlatform
   value: 'Any CPU'
 - name: buildConfiguration
