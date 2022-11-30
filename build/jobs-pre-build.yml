@@ -11,13 +11,13 @@ jobs:
       urlSuffix: '/subscriptions/f199b488-7d9d-4992-aeda-c10a1e1c9b9e/resourceGroups/$(VMResourceGroup)/providers/Microsoft.Compute/virtualMachines/$(VMName)/start?api-version=2022-03-01'
       waitForCompletion: 'false'
     displayName: 'Start VM'
-- task: PowerShell@2
-  displayName: 'Output Variable Values'
-  inputs:
-    targetType: 'inline'
-    pwsh: true
-    script: |
-        echo ${{ variables }}
-        echo ${{ variables['system.pullRequest.targetBranch'] }}
-        echo ${{ variables['Build.Reason'] }}
-        echo ${{ variables['Build.SourceBranchName'] }}
+  - task: PowerShell@2
+    displayName: 'Output Variable Values'
+    inputs:
+      targetType: 'inline'
+      pwsh: true
+      script: |
+          echo ${{ variables }}
+          echo ${{ variables['system.pullRequest.targetBranch'] }}
+          echo ${{ variables['Build.Reason'] }}
+          echo ${{ variables['Build.SourceBranchName'] }}
