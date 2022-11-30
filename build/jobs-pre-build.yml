@@ -17,7 +17,7 @@ jobs:
       targetType: 'inline'
       pwsh: true
       script: |
-          echo ${{ variables }}
-          echo ${{ variables['system.pullRequest.targetBranch'] }}
-          echo ${{ variables['Build.Reason'] }}
-          echo ${{ variables['Build.SourceBranchName'] }}
+        # echo ${{ variables }}
+        echo ${{ variables['system.pullRequest.targetBranch'] }}
+        echo ${{ variables['Build.Reason'] }}
+        echo ${{ variables['Build.SourceBranchName'] }}
