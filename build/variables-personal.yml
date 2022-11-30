@@ -4,7 +4,7 @@ variables:
   value: $(System.PullRequest.TargetBranch)
 - ${{ if eq(variables['Build.Reason'], 'PullRequest') }}:
   - name: user
-    value: ${{ replace(variables['targetBranch'], 'refs/heads/dev_', '') }}
+    value: $[ replace(variables['targetBranch'], 'refs/heads/dev_', '') ]
 - ${{ else }}:
   - name: user
     value: ${{ replace(variables['Build.SourceBranchName'], 'dev_', '') }}
