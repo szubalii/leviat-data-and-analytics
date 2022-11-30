@@ -6,8 +6,8 @@ trigger:
     - dev_tdorodnova
     - dev_nkukhtenko
     - dev_sleshchuk
-    # - main
-    # - qas
+    - main
+    - qas
     # - prod
   paths:
     include: 

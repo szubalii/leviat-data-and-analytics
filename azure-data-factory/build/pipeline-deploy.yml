@@ -6,8 +6,8 @@ trigger:
     - dev_nkukhtenko
     - dev_sleshchuk
     - dev_tdorodnova
-    # - main
-    # - qas
+    - main
+    - qas
     # - prod
   paths:
     include: 
@@ -19,5 +19,4 @@ extends:
     folder: azure-data-factory
     solution: ADF
     deploy: true
-    # branch: ${{ variables['Build.SourceBranchName'] }}
   
