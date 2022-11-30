@@ -3,7 +3,7 @@ SELECT
     [Customer] AS [CustomerID]
     ,STUFF(Customer, 1, PATINDEX('%[^0+]%', Customer) -1, '') as CustomerExternalID
     ,[CustomerName] AS [Customer]
-    ,[Customer] + '_' + [CustomerName] as [CustomerID_Name]
+    ,[Customer] + '_' + [CustomerName] AS [CustomerID_Name]
     ,[CustomerFullName]
     ,[CreatedByUser]
     ,[CreationDate]

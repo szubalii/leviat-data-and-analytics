@@ -7,13 +7,12 @@ parameters:
   type: string
 - name: folder
   type: string
-- name: artifact
-  type: boolean
-  default: false
-- name: hasVariables
-  type: boolean
-  default: false
-
+# - name: artifact
+#   type: boolean
+#   default: false
+# - name: hasVariables
+#   type: boolean
+#   default: false
 
 jobs:
 - template: ./jobs-pre-build.yml
@@ -31,7 +30,8 @@ jobs:
     demands:
     - node.js
     - VisualStudio
+    - Agent.Name -equals $(VMName)
   steps:     
   - template: ../${{ parameters.folder }}/build/steps-build.yml
-  - ${{ if eq(parameters.artifact, true) }}: 
-    - template: ../${{ parameters.folder }}/build/steps-artifact.yml
+  # - ${{ if eq(parameters.artifact, true) }}: 
+  - template: ../${{ parameters.folder }}/build/steps-artifact.yml
