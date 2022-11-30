@@ -1,18 +1,9 @@
 trigger: none # triggered by PR
 
-# resources:
-#   pipelines:
-#   - pipeline: validate
-#     source: Validate
-#     trigger:
-#       branches:
-#         include:
-#         - dev_mpors
-
 extends:
   template: ../../build/stages-build-deploy.yml
   parameters:
     folder: synapse-dwh
     solution: SynapseDWH
-    hasVariables: true
+    # hasVariables: true
     test: true
