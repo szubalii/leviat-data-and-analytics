@@ -1,7 +1,13 @@
 variables:
 - template: ./variables-test.yml
+- ${{ if eq(variables['Build.Reason'], 'PullRequest') }}:
+  - name: branchName
+    value: ${{ replace(variables['system.pullRequest.targetBranch'], 'refs/heads/', '') }}
+- ${{ else }}:
+  - name: branchName
+    value: ${{ variables['Build.SourceBranchName'] }}
 - name: user
-  value: ${{ replace(variables['Build.SourceBranchName'], 'dev_', '') }}
+  value: ${{ replace(variables['branchName'], 'dev_', '') }}
 - name: dataFactoryName
   value: "df-$(user)-d-euw-001"
 - name: sqlDatabaseName
