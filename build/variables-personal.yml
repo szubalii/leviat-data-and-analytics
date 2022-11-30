@@ -9,7 +9,7 @@ variables:
 - name: user
   value: ${{ replace(variables['branchName'], 'dev_', '') }}
 - name: dataFactoryName
-  value: "df-$(user)-d-euw-001"
+  value: df-${{ variables.user }}-d-euw-001
 - name: sqlDatabaseName
   value: "sqldb-$(user)-d-euw-001"
 - name: synapseSqlPool
