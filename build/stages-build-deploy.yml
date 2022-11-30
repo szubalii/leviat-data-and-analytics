@@ -51,12 +51,13 @@ stages:
       # - name: pathPrefix
       #   value: $(Pipeline.Workspace)
       pool:
-        name: 'VM'
-        demands:
-        - node.js
-        - VisualStudio
-        - Python.Version
-        - Agent.Name -equals $(VMName)
+      - template: ./pool.yml
+        # name: 'VM'
+        # demands:
+        # - node.js
+        # - VisualStudio
+        # - Python.Version
+        # - Agent.Name -equals $(VMName)
       # workspace:
       #   clean: all
       environment: ${{ upper(variables['Build.SourceBranchName']) }}
@@ -70,12 +71,13 @@ stages:
     jobs:
     - job: TEST_${{parameters.solution}}
       pool:
-        name: 'VM'
-        demands:
-        - node.js
-        - VisualStudio
-        - Python.Version
-        - Agent.Name -equals $(VMName)
+      - template: ./pool.yml
+        # name: 'VM'
+        # demands:
+        # - node.js
+        # - VisualStudio
+        # - Python.Version
+        # - Agent.Name -equals $(VMName)
       steps:
       - template: ../${{parameters.folder}}/build/steps-test.yml
 

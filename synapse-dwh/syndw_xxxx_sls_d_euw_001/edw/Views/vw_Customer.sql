@@ -70,7 +70,7 @@ FROM
     [base_s4h_cax].[I_Customer] customer
 LEFT JOIN
     [base_s4h_cax].[I_CustomerAccountGroupText] account_group_text
-    ON 
+    ON
         customer.[CustomerAccountGroup] = account_group_text.[CustomerAccountGroup]
         AND
         account_group_text.[Language] = 'E'
