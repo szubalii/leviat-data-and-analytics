@@ -140,14 +140,11 @@ FROM
 UNION ALL
 
 SELECT
-  d.[DummyID] COLLATE DATABASE_DEFAULT              AS [sk_dim_Product],
-  d.[DummyID] COLLATE DATABASE_DEFAULT              AS [ProductID],
-  d.[DummyID] COLLATE DATABASE_DEFAULT              AS [ProductExternalID],
-  gla.[GLAccountLongName]   AS [Product],
-  CONCAT(d.[DummyID]        COLLATE DATABASE_DEFAULT
-    ,'_'
-    ,gla.[GLAccountLongName]
-  )                         AS [ProductID_Name],
+  d.[DummyID]               AS [sk_dim_Product],
+  d.[DummyID]               AS [ProductID],
+  d.[DummyID]               AS [ProductExternalID],
+  d.[DummyName]             AS [Product],
+  d.[DummyIDName]           AS [ProductID_Name],
   NULL                      AS [CreationDate],
   NULL                      AS [MaterialTypeID],
   NULL                      AS [MaterialType],
@@ -162,15 +159,15 @@ SELECT
   NULL                      AS [ItemCategoryGroup],
   NULL                      AS [ProductHierarchy],
   'MA'                      AS [Product_L1_PillarID],
-  d.[DummyID] COLLATE DATABASE_DEFAULT              AS [Product_L2_GroupID],
-  d.[DummyID] COLLATE DATABASE_DEFAULT              AS [Product_L3_TypeID],
-  d.[DummyID] COLLATE DATABASE_DEFAULT              AS [Product_L4_FamilyID],
-  d.[DummyID] COLLATE DATABASE_DEFAULT              AS [Product_L5_SubFamilyID],
+  d.[DummyID]               AS [Product_L2_GroupID],
+  d.[DummyID]               AS [Product_L3_TypeID],
+  d.[DummyID]               AS [Product_L4_FamilyID],
+  d.[DummyID]               AS [Product_L5_SubFamilyID],
   'Manual Adjustment'       AS [Product_L1_Pillar],
-  gla.[GLAccountLongName]   AS [Product_L2_Group],    
-  gla.[GLAccountLongName]   AS [Product_L3_Type],     
-  gla.[GLAccountLongName]   AS [Product_L4_Family],   
-  gla.[GLAccountLongName]   AS [Product_L5_SubFamily],
+  d.[DummyName]             AS [Product_L2_Group],    
+  d.[DummyName]             AS [Product_L3_Type],     
+  d.[DummyName]             AS [Product_L4_Family],   
+  d.[DummyName]             AS [Product_L5_SubFamily],
   NULL                      AS [ProductCategory],
   NULL                      AS [Brand],
   NULL                      AS [IndustryStandardName],
@@ -208,5 +205,3 @@ SELECT
   NULL                      AS [t_applicationId],
   NULL                      AS [t_extractionDtm]
 FROM [edw].[vw_ACDOCA_DummyRecords] d
-LEFT JOIN [dm_sales].[vw_dim_GLAccountText] gla
-    ON d.GLAccountID = gla.GLAccount                COLLATE DATABASE_DEFAULT

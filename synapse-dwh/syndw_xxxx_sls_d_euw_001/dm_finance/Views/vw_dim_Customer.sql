@@ -33,11 +33,8 @@ UNION ALL
 
 SELECT
   'MA-Dummy'        AS [CustomerID]
-,d.[DummyID] COLLATE DATABASE_DEFAULT       AS [Customer]
-,CONCAT(d.[DummyID] COLLATE DATABASE_DEFAULT
-    ,'_'
-    ,gla.[GLAccountLongName]
-)                   AS [CustomerID_Name]
+,d.[DummyID]        AS [Customer]
+,d.[DummyIDName]    AS [CustomerID_Name]
 ,null               AS [CustomerAccountGroupID]
 ,null               AS [AccountGroup]
 ,null               AS [AuthorizationGroupID]
@@ -49,7 +46,7 @@ SELECT
 ,null               AS [IsOneTimeAccount]
 ,null               AS [CountryID]
 ,null               AS [Country]
-,gla.[GLAccountLongName]    AS CityName
+,d.[DummyName]      AS CityName
 ,null               AS [PostalCode]
 ,null               AS [StreetName]
 ,null               AS [RegionID]
@@ -63,5 +60,3 @@ SELECT
 ,null               AS [t_applicationId]
 ,null               AS[t_extractionDtm]
 FROM [edw].[vw_ACDOCA_DummyRecords] d
-LEFT JOIN [dm_sales].[vw_dim_GLAccountText] gla
-    ON d.GLAccountID = gla.GLAccount                COLLATE DATABASE_DEFAULT
