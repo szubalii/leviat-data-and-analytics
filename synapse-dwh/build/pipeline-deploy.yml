@@ -6,8 +6,8 @@ trigger:
     - dev_nkukhtenko
     - dev_sleshchuk
     - dev_tdorodnova
-    # - main
-    # - qas
+    - main
+    - qas
     # - prod
   paths:
     include: 
@@ -22,5 +22,5 @@ extends:
     folder: synapse-dwh
     solution: SynapseDWH
     deploy: true
-    # branch: ${{ variables['Build.SourceBranchName'] }}
+    test: true
   

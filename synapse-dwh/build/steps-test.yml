@@ -29,10 +29,11 @@ steps:
       $edwEntities = {}
       $baseEntities = {}
       $dir = "syndw_xxxx_sls_d_euw_001"
-      $dirIndex = $filePath.IndexOf($dir)
       $entities = (Get-Content './orchestration/src/config/global/entity.json' | Out-String | ConvertFrom-Json)
 
       ForEach ($filePath in $filePaths) {
+        
+        $dirIndex = $filePath.IndexOf($dir)
         
         if ($dirIndex -ne -1) {
 
