@@ -15,6 +15,10 @@ variables:
 - name: user
   # value: ${{ replace(variables['branchName'], 'dev_', '') }}
   value: $(targetBranch)
+- name: testRunTime
+  value: $[ replace(variables.user, 'dev_', '' ) ]
+- name: testCompileTime
+  value: ${{ replace(variables.user, 'dev_', '' ) }}
 - name: dataFactoryName
   value: df-$(user)-d-euw-001
 - name: sqlDatabaseName
