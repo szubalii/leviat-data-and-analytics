@@ -30,7 +30,8 @@ jobs:
   steps:
   
   - script: |
-      echo system.pullRequest.targetBranch: ${{ variables['System.PullRequest.TargetBranch'] }}
+      echo system.pullRequest.targetBranch: $(system.pullRequest.targetBranch)
+      echo TargetBranchName: ${{ replace($(system.pullRequest.targetBranch), 'refs/heads/', '') }}
       echo Build.Reason: ${{ variables['Build.Reason'] }}
       echo Build.SourceBranchName: ${{ variables['Build.SourceBranchName'] }}
 
