@@ -1,15 +1,17 @@
 variables:
 - template: ./variables-test.yml
+- name: targetBranch
+  value: $(System.PullRequest.TargetBranch)
 - ${{ if eq(variables['Build.Reason'], 'PullRequest') }}:
-  - name: branchName
-    value: ${{ replace(variables['system.pullRequest.targetBranch'], 'refs/heads/', '') }}
+  - name: user
+    value: ${{ replace(replace(variables['targetBranch'], 'refs/heads/', ''), 'dev_', '') }}
 - ${{ else }}:
-  - name: branchName
-    value: ${{ variables['Build.SourceBranchName'] }}
-- name: user
-  value: ${{ replace(variables['branchName'], 'dev_', '') }}
+  - name: user
+    value: ${{ replace(variables['Build.SourceBranchName'], 'dev_', '') }}
+# - name: user
+#   value: ${{ replace(variables['branchName'], 'dev_', '') }}
 - name: dataFactoryName
-  value: df-${{ variables.user }}-d-euw-001
+  value: df-$(user)-d-euw-001
 - name: sqlDatabaseName
   value: "sqldb-$(user)-d-euw-001"
 - name: synapseSqlPool
