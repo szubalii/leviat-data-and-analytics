@@ -31,7 +31,8 @@ jobs:
   
   - script: |
       echo system.pullRequest.targetBranch: $(system.pullRequest.targetBranch)
-      echo TargetBranchName: ${{ replace($(system.pullRequest.targetBranch), 'refs/heads/', '') }}
+      echo targetBranch: $(targetBranch)
+      echo user: $(user)
       echo Build.Reason: ${{ variables['Build.Reason'] }}
       echo Build.SourceBranchName: ${{ variables['Build.SourceBranchName'] }}
 
