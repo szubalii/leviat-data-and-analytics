@@ -1,15 +1,20 @@
+# Predefined system variable System.PullRequest.TargetBranch is not available in templates. 
+# https://learn.microsoft.com/en-us/azure/devops/pipelines/build/variables?view=azure-devops&tabs=yaml#system-variables-devops-services
+# Therefore, use the email variable: Build.RequestedForEmail (which is available in templates)
+
 variables:
 - template: ./variables-test.yml
 - name: targetBranch
-  value: 'refs/heads/dev_mpors' #$(System.PullRequest.TargetBranch)
-- ${{ if eq(variables['Build.Reason'], 'PullRequest') }}:
-  - name: user
-    value: $[ replace(variables['targetBranch'], 'refs/heads/dev_', '') ]
-- ${{ else }}:
-  - name: user
-    value: ${{ replace(variables['Build.SourceBranchName'], 'dev_', '') }}
-# - name: user
-#   value: ${{ replace(variables['branchName'], 'dev_', '') }}
+  value: $(System.PullRequest.TargetBranch)
+# - ${{ if eq(variables['Build.Reason'], 'PullRequest') }}:
+#   - name: user
+#     value: $[ replace(variables['Build.RequestedForEmail'], 'dev_', '') ]
+# - ${{ else }}:
+#   - name: user
+#     value: ${{ replace(variables['Build.SourceBranchName'], 'dev_', '') }}
+- name: user
+  # value: ${{ replace(variables['branchName'], 'dev_', '') }}
+  value: $(targetBranch)
 - name: dataFactoryName
   value: df-$(user)-d-euw-001
 - name: sqlDatabaseName
