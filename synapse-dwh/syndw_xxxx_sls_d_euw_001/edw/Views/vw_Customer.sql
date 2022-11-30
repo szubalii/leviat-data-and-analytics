@@ -1,5 +1,5 @@
 ﻿CREATE VIEW [edw].[vw_Customer] AS
-SELECT 
+SELECT
     [Customer] AS [CustomerID]
     ,STUFF(Customer, 1, PATINDEX('%[^0+]%', Customer) -1, '') AS CustomerExternalID
     ,[CustomerName] AS [Customer]

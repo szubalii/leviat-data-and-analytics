@@ -6,8 +6,8 @@ trigger:
     - dev_nkukhtenko
     - dev_sleshchuk
     - dev_tdorodnova
-    # - main
-    # - qas
+    - main
+    - qas
     # - prod
   paths:
     include: 
@@ -18,4 +18,5 @@ extends:
   parameters:
     folder: orchestration
     solution: Orchestration
+    hasVariables: true
     deploy: true

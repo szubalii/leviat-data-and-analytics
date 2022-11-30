@@ -21,6 +21,7 @@ extends:
   parameters:
     folder: synapse-dwh
     solution: SynapseDWH
+    hasVariables: true
     deploy: true
     test: true
   

@@ -18,16 +18,7 @@ jobs:
 - template: ./jobs-pre-build.yml
 - job: BUILD_${{ parameters.solution }}
   dependsOn: StartVM
-  variables: #TODO requires general fix for any solutions
-    # - name: solution
-    #   value: '**/${{parameters.folder}}/*.sln'
-    # - name: buildPlatform
-    #   value: 'Any CPU'
-    # - name: buildConfiguration
-    #   value: 'Release'
-    # - name: ConnectionString
-    #   value: $(SynapseTesterConnectionString)
-    # - template: ../
+  variables: 
   - ${{ if eq(parameters.hasVariables, true) }}:
     - template: ../${{ parameters.folder }}/build/variables.yml
   pool:
