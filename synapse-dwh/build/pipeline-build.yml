@@ -5,5 +5,5 @@ extends:
   parameters:
     folder: synapse-dwh
     solution: SynapseDWH
-    # hasVariables: true
+    hasVariables: true
     test: true

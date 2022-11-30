@@ -84,7 +84,7 @@ LEFT JOIN
         country_text.[Language] = 'E'
         -- AND
         -- country_text.[MANDT] = 200 MPS 2021/11/01: commented out due to different client values between dev,qas, and prod
-LEFT JOIN 
+LEFT JOIN
     [base_s4h_cax].[I_RegionText] region_text
     ON 
         customer.[Region] = region_text.[Region]

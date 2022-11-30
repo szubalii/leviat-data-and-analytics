@@ -10,25 +10,26 @@ parameters:
 # - name: artifact
 #   type: boolean
 #   default: false
-# - name: hasVariables
-#   type: boolean
-#   default: false
+- name: hasVariables
+  type: boolean
+  default: false
 
 jobs:
 - template: ./jobs-pre-build.yml
 - job: BUILD_${{ parameters.solution }}
   dependsOn: StartVM
   variables: #TODO requires general fix for any solutions
-    - name: solution
-      value: '**/${{parameters.folder}}/*.sln'
-    - name: buildPlatform
-      value: 'Any CPU'
-    - name: buildConfiguration
-      value: 'Release'
-    - name: ConnectionString
-      value: $(SynapseTesterConnectionString)
-  # - ${{ if eq(parameters.hasVariables, true) }}:
-  #   - template: ../${{ parameters.folder }}/build/variables.yml
+    # - name: solution
+    #   value: '**/${{parameters.folder}}/*.sln'
+    # - name: buildPlatform
+    #   value: 'Any CPU'
+    # - name: buildConfiguration
+    #   value: 'Release'
+    # - name: ConnectionString
+    #   value: $(SynapseTesterConnectionString)
+    # - template: ../
+  - ${{ if eq(parameters.hasVariables, true) }}:
+    - template: ../${{ parameters.folder }}/build/variables.yml
   pool:
     name: 'VM'
     demands:
