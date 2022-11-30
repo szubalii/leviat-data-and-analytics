@@ -255,5 +255,4 @@ LEFT JOIN ExchangeRate
     ON GLALIRD.[CompanyCodeCurrency] = ExchangeRate.[SourceCurrency]
         AND GLALIRD.[PostingDate] BETWEEN ExchangeRate.[ExchangeRateEffectiveDate] AND ExchangeRate.[LastDay]
 WHERE 
-    --FSI.[ParentNode] = '000570'               -- works only with PROD
-    FSI.[ParentNode] = '001005'                 -- for DEV
+    FSI.[ParentNode] = '$(EXQL_Sales_Node)'

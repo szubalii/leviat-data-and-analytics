@@ -42,5 +42,5 @@ SELECT
     ,   null        AS [RegionID]
     ,   'MA'        AS [RegionName]
     ,   null        AS [Access_Control_Unit]
-    ,   null
-    , null
+    ,   null        AS [t_applicationId]
+    ,   null        AS [t_extractionDtm]

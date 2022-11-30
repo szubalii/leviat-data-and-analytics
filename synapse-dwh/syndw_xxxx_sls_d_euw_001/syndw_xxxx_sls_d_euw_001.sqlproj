@@ -669,6 +669,7 @@
     <Build Include="edw\Views\vw_UnitOfMeasure.sql" />
     <Build Include="edw\Views\vw_Warehouse.sql" />
     <Build Include="edw\Views\vw_ACDOCA.sql" />
+    <Build Include="edw\Views\vw_ACDOCA_DummyRecords.sql" />
     <Build Include="edw\Views\vw_OutboundDeliveryItem.sql" />
     <Build Include="edw\Views\vw_OverallSDProcessStatus.sql" />
     <Build Include="edw\Views\vw_OverallTotalDeliveryStatus.sql" />

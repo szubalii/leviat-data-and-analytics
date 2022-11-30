@@ -1,16 +1,4 @@
 CREATE VIEW [dm_finance].[vw_dim_Customer] AS
-WITH DummyRecords AS (
-    SELECT CONCAT('(MA)-',[LowerBoundaryAccount])   AS DummyID
-        ,[LowerBoundaryAccount]                     AS GLAccountID
-    FROM edw.vw_FinancialStatementHierarchy
-    WHERE FinancialStatementItem IN (
-        SELECT FinancialStatementItem
-        FROM edw.vw_FinancialStatementItem
-        WHERE 
-            ParentNode = '001005'               -- for DEV
-            --ParentNode = '000570'             -- for PROD
-    )
-)
 SELECT
   [CustomerID]
 , [Customer]
@@ -74,6 +62,6 @@ SELECT
 ,null               AS [t_jobDtm]
 ,null               AS [t_applicationId]
 ,null               AS[t_extractionDtm]
-FROM DummyRecords d
+FROM [edw].[vw_ACDOCA_DummyRecords] d
 LEFT JOIN [dm_sales].[vw_dim_GLAccountText] gla
     ON d.GLAccountID = gla.GLAccount                COLLATE DATABASE_DEFAULT
