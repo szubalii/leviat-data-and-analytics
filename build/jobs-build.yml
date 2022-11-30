@@ -29,16 +29,11 @@ jobs:
     - Agent.Name -equals $(VMName)
   steps:
   
-  - task: PowerShell@2
-    displayName: 'Output Variable Values'
-    inputs:
-      targetType: 'inline'
-      pwsh: true
-      script: |
-        echo ${{ variables['system.pullRequest.targetBranch'] }}
-        echo ${{ variables['Build.Reason'] }}
-        echo ${{ variables['Build.SourceBranchName'] }}
-        
+  - script: |
+      echo "system.pullRequest.targetBranch: ${{ variables['system.pullRequest.targetBranch'] }}""
+      echo "Build.Reason: ${{ variables['Build.Reason'] }}"
+      echo "Build.SourceBranchName: ${{ variables['Build.SourceBranchName'] }}""
+
   - template: ../${{ parameters.folder }}/build/steps-build.yml
   # - ${{ if eq(parameters.artifact, true) }}: 
   - template: ../${{ parameters.folder }}/build/steps-artifact.yml
