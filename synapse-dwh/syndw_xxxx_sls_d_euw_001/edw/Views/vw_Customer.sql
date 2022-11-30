@@ -66,7 +66,7 @@ SELECT
     ,[IndustryType]
     ,customer.[t_applicationId]
     ,customer.[t_extractionDtm]
-FROM 
+FROM
     [base_s4h_cax].[I_Customer] customer
 LEFT JOIN
     [base_s4h_cax].[I_CustomerAccountGroupText] account_group_text

@@ -51,7 +51,7 @@ stages:
       # - name: pathPrefix
       #   value: $(Pipeline.Workspace)
       pool:
-      - template: ./pool.yml
+        template: ./pool.yml
         # name: 'VM'
         # demands:
         # - node.js
@@ -71,7 +71,7 @@ stages:
     jobs:
     - job: TEST_${{parameters.solution}}
       pool:
-      - template: ./pool.yml
+        template: ./pool.yml
         # name: 'VM'
         # demands:
         # - node.js
