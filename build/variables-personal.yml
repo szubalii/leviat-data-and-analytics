@@ -18,8 +18,8 @@ variables:
 - name: user
   # value: ${{ replace(variables['branchName'], 'dev_', '') }}
   value: ${{ parameters.user }}
-- name: testRunTime
-  value: $[ parameters.user ]
+# - name: testRunTime
+#   value: $[ parameters.user ]
 - name: testCompileTime
   value: ${{ parameters.user }}
 - name: dataFactoryName
