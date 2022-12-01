@@ -8,12 +8,28 @@ BEGIN
 	SET NOCOUNT ON;
 
   -- Insert statements for procedure here
+    IF OBJECT_ID(N'tempdb..#InvoicedFreightTable') IS NOT NULL
+    BEGIN
+        DROP TABLE #InvoicedFreightTable
+    END 
+    IF OBJECT_ID(N'tempdb..#InvoicedFreightTable_SB') IS NOT NULL
+    BEGIN
+        DROP TABLE #InvoicedFreightTable_SB
+    END  
+    -- IF OBJECT_ID(N'tempdb..#InvoicedFreightTable_cnt') IS NOT NULL
+    -- BEGIN
+    --     DROP TABLE #InvoicedFreightTable_cnt
+    -- END  
+    IF OBJECT_ID(N'tempdb..##InvoicePosCounter') IS NOT NULL
+    BEGIN
+        DROP TABLE ##InvoicePosCounter
+    END  
 
-	declare @lYear smallint = (select datepart(year,max(Accountingdate)) from [base_tx_ca_0_hlp].[CUSTINVOICETRANS_ANUK]),
-			@lMonth tinyint = (select datepart(month,max(Accountingdate)) from [base_tx_ca_0_hlp].[CUSTINVOICETRANS_ANUK]),
+	declare @lYear smallint = (select datepart(year,max(Accountingdate)) from [base_ancon_uk].[CUSTINVOICETRANS_ANUK]),
+			@lMonth tinyint = (select datepart(month,max(Accountingdate)) from [base_ancon_uk].[CUSTINVOICETRANS_ANUK]),
 
-			@lFrYear smallint = (select datepart(year,max(Accountingdate)) from [base_tx_ca_0_hlp].[INVOICEDFREIGHT_ANUK]),
-			@lFrMonth tinyint = (select datepart(month,max(Accountingdate)) from [base_tx_ca_0_hlp].[INVOICEDFREIGHT_ANUK])
+			@lFrYear smallint = (select datepart(year,max(Accountingdate)) from [base_ancon_uk].[INVOICEDFREIGHT_ANUK]),
+			@lFrMonth tinyint = (select datepart(month,max(Accountingdate)) from [base_ancon_uk].[INVOICEDFREIGHT_ANUK])
 
 
 	-- Voraussetzung für numerische Felder: Keine Tausender Punkt und Dezimaltrennzeichen ist der . und das Negativ Zeichen steht vor der Zahl.
@@ -23,9 +39,9 @@ BEGIN
 	-- Leereinträge geht, aber nicht mit dem Wert null auffüllen.
 
 	-- CUSTTABLE
-	--append [base_tx_ca_0_hlp].[CUSTTABLE_ANUK]
+	--append [base_ancon_uk].[CUSTTABLE_ANUK]
  
-	update [base_tx_ca_0_hlp].[CUSTTABLE_ANUK]
+	update [base_ancon_uk].[CUSTTABLE_ANUK]
 	set DIMENSION3_ = ' '
 	where upper(DATAAREAID) = 'ANUK' and DIMENSION3_ is null 
 
@@ -41,7 +57,7 @@ BEGIN
 	CUSTOMERPILLAR,
 	' ',
 	DIMENSION3_
-	from [base_tx_ca_0_hlp].[CUSTTABLE_ANUK]
+	from [base_ancon_uk].[CUSTTABLE_ANUK]
 
 
   -- Alle Kunden als OUTSIDE kennzeichnen, die keinen Eintrag in der DATAAREA Tabelle haben.
@@ -55,23 +71,39 @@ BEGIN
 	-- Alle Leviat Kunden auf Inside setzen, außer Meadow Burke. 
 	update [intm_axbi].[dim_CUSTTABLE]
 	set INOUT = 'I'
-	where upper(DATAAREAID) = 'ANUK' and NAME like '%Leviat%' and NAME not like '%Meadow Burke%' and NAME not like '%MeadowBurke%'
-
+	where upper(DATAAREAID) = 'ANUK' and UPPER(NAME) like '%LEVIAT%' and UPPER(NAME) not like '%MEADOW BURKE%' and UPPER(NAME) not like '%MEADOWBURKE%'
+    
+    update [intm_axbi].[dim_CUSTTABLE]
+	set INOUT = 'I'
+	where
+        UPPER(DATAAREAID) = 'ANUK'
+        and
+        (UPPER([NAME]) like '%MEADOWBURKE%'
+        or
+        UPPER([NAME]) like '%MEADOW BURKE%')
 
   -- Alle CUSTOMERPILLAR auf OTHER setzen, die leer sind. Außer bei Halfen
 	update [intm_axbi].[dim_CUSTTABLE]
 	set CUSTOMERPILLAR = 'OTHER'
-	where upper(DATAAREAID) = 'ANUK' and CUSTOMERPILLAR = ' ' 
+	where upper(DATAAREAID) = 'ANUK' and ISNULL(CUSTOMERPILLAR,' ') = ' ' 
 
   -- Alle INSIDE customer column CUSTOMERPILLAR auf OTHER setzen
 	update [intm_axbi].[dim_CUSTTABLE]
 	set CUSTOMERPILLAR = 'OTHER'
 	where upper(DATAAREAID) = 'ANUK' and INOUT = 'I' 
 
+    update [intm_axbi].[dim_CUSTTABLE]
+	set INOUT = 'O',
+	    CUSTOMERPILLAR = 'OTHER',
+	    DIMENSION3_ = '5330U01'
+	where DATAAREAID = 'ANUK' and UPPER(NAME) like '%HALFEN USA%'
+
 
 	-- ITEMTABLE
 
 	delete from [intm_axbi].[dim_ITEMTABLE] where upper(DATAAREAID) = 'ANUK'
+
+    delete from [base_ancon_uk].[ITEMTABLE_ANUK] where [CRH PRODUCTGROUPID] = 'SCRAP'
 
 	insert [intm_axbi].[dim_ITEMTABLE]
 	([DATAAREAID],[ITEMID],[ITEMNAME],[PRODUCTGROUPID],[ITEMGROUPID])
@@ -80,12 +112,12 @@ BEGIN
 	'ANUK-' + [ITEMID],
 	[ITEMNAME],
 	ISNULL([CRH PRODUCTGROUPID], ' '),
-	ISNULL('ANUK-' + [ITEMGROUPID], ' ')
-	from [base_tx_ca_0_hlp].[ITEMTABLE_ANUK]
+    ISNULL('ANUK-' +[ITEMGROUPID],' ')
+	from [base_ancon_uk].[ITEMTABLE_ANUK]
 
 	update [intm_axbi].[dim_ITEMTABLE]
 	set PRODUCTGROUPID = 'A.4.'
-	where upper(DATAAREAID) = 'ANUK' and ITEMGROUPID = 'ANUK-HELI' 
+	where upper(DATAAREAID) = 'ANUK' and UPPER(ITEMGROUPID) = 'ANUK-HELI' 
 
 	-- Dummy article for the Budget
 	insert into [intm_axbi].[dim_ITEMTABLE] ([DATAAREAID],[ITEMID],[ITEMNAME],[PRODUCTGROUPID],[ITEMGROUPID]) VALUES('ANUK', 'ANUK-A.1.', 'BRICKWORK SUPPORT', 'A.1.', ' ')
@@ -152,7 +184,7 @@ BEGIN
 	-- Alle Artikel, die keinen CRH Productgroup Eintrag haben, auf N.3. setzen
 	update [intm_axbi].[dim_ITEMTABLE]
 	set PRODUCTGROUPID = 'N.3.'
-	where upper(DATAAREAID) = 'ANUK' and PRODUCTGROUPID = ' ' 
+	where upper(DATAAREAID) = 'ANUK' and ISNULL(PRODUCTGROUPID,' ') = ' ' 
 
 
 	-- MAPPING ITEMGROUP / CRH PRODUCTGROUP
@@ -160,11 +192,7 @@ BEGIN
 	delete from [intm_axbi].[dim_ITEMGROUP] where upper(DATAAREAID) = 'ANUK'
 
 	insert [intm_axbi].[dim_ITEMGROUP] (DATAAREAID,ITEMGROUPID,ITEMGROUPNAME)
-	select 'ANUK', 'ANUK-' + ITEMGROUPID, 'ANUK-' + ITEMGROUPNAME from [base_tx_ca_0_hlp].[MAPPING_ITEMGROUP_ANUK]
-
-	-- INVOICED FREIGHT RECOVERY TABLE
-
-	-- delete from [base_tx_ca_0_hlp].[INVOICEDFREIGHT_ANUK] where DATEPART(year, Accountingdate) = @lFrYear and DATEPART(month, Accountingdate) = @lFrMonth 
+	select 'ANUK', 'ANUK-' + ITEMGROUPID, 'ANUK-' + ITEMGROUPNAME from [base_ancon_uk].[MAPPING_ITEMGROUP_ANUK]
 
 	-- [intm_axbi].[fact_CUSTINVOICETRANS]
 
@@ -217,7 +245,7 @@ BEGIN
 	FreightEUR, 
 	CostAmountLocal, 
 	CostAmountEUR 
-	from [base_tx_ca_0_hlp].[CUSTINVOICETRANS_ANUK]
+	from [base_ancon_uk].[CUSTINVOICETRANS_ANUK]
 	where DATEPART(year, Accountingdate) = @lYear 
 	and DATEPART(month, Accountingdate) = @lMonth
 
@@ -248,7 +276,7 @@ BEGIN
 	InvoicedFreightLocal/c.CRHRATE InvoicedFreightEur, 
 	PackingSlipID
 	into #InvoicedFreightTable
-	from [base_tx_ca_0_hlp].[INVOICEDFREIGHT_ANUK] i
+	from [base_ancon_uk].[INVOICEDFREIGHT_ANUK] i
 	inner join [base_tx_ca_0_hlp].[CRHCURRENCY] c
 	on YEAR = Datepart(YYYY, i.Accountingdate) and c.CURRENCY = 'GBP'
 	where DATEPART(year, Accountingdate) = @lFrYear 
@@ -257,44 +285,48 @@ BEGIN
     select 
 	c.PACKINGSLIPID,
     ISNULL(sum(c.PRODUCTSALESLOCAL),0) SalesBalance,
-    ISNULL(sum(c.PRODUCTSALESEUR),0) SalesBalanceEUR
+    ISNULL(sum(c.PRODUCTSALESEUR),0) SalesBalanceEUR,
+    count(*) lcounter
 	into #InvoicedFreightTable_SB
     from [intm_axbi].[fact_CUSTINVOICETRANS] c
     inner join #InvoicedFreightTable i
-    on c.PACKINGSLIPID = substring(i.PackingSlipID, 1, 6)
+    on c.PACKINGSLIPID = i.PackingSlipID
     and upper(c.DATAAREAID) = 'ANUK' 
 	group by c.PACKINGSLIPID
 	
-	select PACKINGSLIPID, count(*) lcounter
-	into #InvoicedFreightTable_cnt
-	from [intm_axbi].[fact_CUSTINVOICETRANS]
-	where upper(DATAAREAID) = 'ANUK'
-	group by PACKINGSLIPID
+	-- select c.PACKINGSLIPID, count(*) lcounter
+	-- into #InvoicedFreightTable_cnt 
+	-- from [intm_axbi].[fact_CUSTINVOICETRANS] c
+    -- inner join #InvoicedFreightTable i
+    -- on c.PACKINGSLIPID = i.PackingSlipID
+	-- where upper(c.DATAAREAID) = 'ANUK'
+	-- group by c.PACKINGSLIPID
 	
 	update [intm_axbi].[fact_CUSTINVOICETRANS]
-	set [intm_axbi].[fact_CUSTINVOICETRANS].OTHERSALESLOCAL += i.InvoicedFreightLocal * t.PRODUCTSALESLOCAL/sb.SalesBalance,
-	  [intm_axbi].[fact_CUSTINVOICETRANS].OTHERSALESEUR  += i.InvoicedFreightEur * t.PRODUCTSALESEUR/sb.SalesBalanceEUR
+	set OTHERSALESLOCAL += i.InvoicedFreightLocal * t.PRODUCTSALESLOCAL/sb.SalesBalance,
+	    OTHERSALESEUR  += i.InvoicedFreightEur * t.PRODUCTSALESEUR/sb.SalesBalanceEUR
 	from [intm_axbi].[fact_CUSTINVOICETRANS] as t
 	inner join #InvoicedFreightTable i
 	on t.PACKINGSLIPID=i.PackingSlipID
 	inner join #InvoicedFreightTable_SB sb
-	on t.PACKINGSLIPID = substring(i.PackingSlipID, 1, 6) 
+	on t.PACKINGSLIPID = sb.PACKINGSLIPID 
 	where upper(t.DATAAREAID) = 'ANUK' 
 	and SalesBalance <> 0
 
 
 	update [intm_axbi].[fact_CUSTINVOICETRANS]
-	set [intm_axbi].[fact_CUSTINVOICETRANS].OTHERSALESLOCAL += i.InvoicedFreightLocal / cnt.lcounter,
-	  [intm_axbi].[fact_CUSTINVOICETRANS].OTHERSALESEUR  += i.InvoicedFreightEur / cnt.lcounter
+	set [intm_axbi].[fact_CUSTINVOICETRANS].OTHERSALESLOCAL += i.InvoicedFreightLocal / sb.lcounter,
+	  [intm_axbi].[fact_CUSTINVOICETRANS].OTHERSALESEUR  += i.InvoicedFreightEur / sb.lcounter
 	from [intm_axbi].[fact_CUSTINVOICETRANS] as t
 	inner join #InvoicedFreightTable i
 	on t.PACKINGSLIPID=i.PackingSlipID
 	inner join #InvoicedFreightTable_SB sb
-	on t.PACKINGSLIPID = substring(i.PackingSlipID, 1, 6) 
-	inner join #InvoicedFreightTable_cnt cnt
-	on t.PACKINGSLIPID = cnt.PACKINGSLIPID
+	on t.PACKINGSLIPID = sb.PACKINGSLIPID 
+	--inner join #InvoicedFreightTable_cnt cnt
+	--on t.PACKINGSLIPID = cnt.PACKINGSLIPID
 	where upper(t.DATAAREAID) = 'ANUK' 
 	and sb.SalesBalance = 0
+    and sb.lcounter>0
 
 	-- SALES100 aktualisieren
 	update [intm_axbi].[fact_CUSTINVOICETRANS]
@@ -308,31 +340,31 @@ BEGIN
 	select DATAAREAID, 
 	INVOICEID, 
 	COUNT(*) as SalesPosCounter, 
-	0 as InvoicePosCounter     ,
-	0 as  productsaleslocal    ,
-	0 as  productsalesEUR      ,
-	0 as  othersaleslocal      ,
-	0 as  othersalesEUR        ,
-	0 as  allowanceslocal      ,
-	0 as  allowancesEUR        ,
-	0 as  sales100local        ,
-	0 as  sales100EUR          ,
-	0 as  freightlocal         ,
-	0 as  freightEUR           ,
-	0 as  costamountlocal      ,
-	0 as  costamountEUR        ,
-    0 as  productsaleslocal_new,
-    0 as  productsalesEUR_new  ,
-    0 as  othersaleslocal_new  ,
-    0 as  othersalesEUR_new    ,
-    0 as  allowanceslocal_new  ,
-    0 as  allowancesEUR_new    ,
-    0 as  sales100local_new    ,
-    0 as  sales100EUR_new      ,
-    0 as  freightlocal_new     ,
-    0 as  freightEUR_new       ,
-    0 as  costamountlocal_new  ,
-    0 as  costamountEUR_new
+	CAST(0 as [DECIMAL](38, 12)) as InvoicePosCounter     ,
+	CAST(0 as [DECIMAL](38, 12)) as  productsaleslocal    ,
+	CAST(0 as [DECIMAL](38, 12)) as  productsalesEUR      ,
+	CAST(0 as [DECIMAL](38, 12)) as  othersaleslocal      ,
+	CAST(0 as [DECIMAL](38, 12)) as  othersalesEUR        ,
+	CAST(0 as [DECIMAL](38, 12)) as  allowanceslocal      ,
+	CAST(0 as [DECIMAL](38, 12)) as  allowancesEUR        ,
+	CAST(0 as [DECIMAL](38, 12)) as  sales100local        ,
+	CAST(0 as [DECIMAL](38, 12)) as  sales100EUR          ,
+	CAST(0 as [DECIMAL](38, 12)) as  freightlocal         ,
+	CAST(0 as [DECIMAL](38, 12)) as  freightEUR           ,
+	CAST(0 as [DECIMAL](38, 12)) as  costamountlocal      ,
+	CAST(0 as [DECIMAL](38, 12)) as  costamountEUR        ,
+    CAST(0 as [DECIMAL](38, 12)) as  productsaleslocal_new,
+    CAST(0 as [DECIMAL](38, 12)) as  productsalesEUR_new  ,
+    CAST(0 as [DECIMAL](38, 12)) as  othersaleslocal_new  ,
+    CAST(0 as [DECIMAL](38, 12)) as  othersalesEUR_new    ,
+    CAST(0 as [DECIMAL](38, 12)) as  allowanceslocal_new  ,
+    CAST(0 as [DECIMAL](38, 12)) as  allowancesEUR_new    ,
+    CAST(0 as [DECIMAL](38, 12)) as  sales100local_new    ,
+    CAST(0 as [DECIMAL](38, 12)) as  sales100EUR_new      ,
+    CAST(0 as [DECIMAL](38, 12)) as  freightlocal_new     ,
+    CAST(0 as [DECIMAL](38, 12)) as  freightEUR_new       ,
+    CAST(0 as [DECIMAL](38, 12)) as  costamountlocal_new  ,
+    CAST(0 as [DECIMAL](38, 12)) as  costamountEUR_new
 	into ##InvoicePosCounter
 	from [intm_axbi].[fact_CUSTINVOICETRANS] 
 	where upper(DATAAREAID) = 'ANUK' 
@@ -472,4 +504,8 @@ BEGIN
 	set DELIVERYCOUNTRYID = 'GB'
 	where upper(DATAAREAID) = 'ANUK' and DELIVERYCOUNTRYID = ' '
 
-	END
+    drop table #InvoicedFreightTable
+    drop table #InvoicedFreightTable_SB
+    --drop table #InvoicedFreightTable_cnt
+    drop table ##InvoicePosCounter
+END

@@ -18,13 +18,10 @@ BEGIN
 	SET NOCOUNT ON;
 
     -- Insert statements for procedure here
-
---out of sprint 32
-/*
-	EXEC intm.up_ReadSales_ANUK_pkg
-	EXEC intm.up_ReadSales_ANAC_pkg
-	EXEC intm.up_ReadSales_ANME_pkg
-*/
+    --logic commented by Erich
+	/*EXEC intm_axbi.up_ReadSales_ANUK_pkg
+	EXEC intm_axbi.up_ReadSales_ANAC_pkg
+	EXEC intm_axbi.up_ReadSales_ANME_pkg*/
 
 	EXEC intm_axbi.up_createAxBiBasicData
 
@@ -33,21 +30,18 @@ BEGIN
 	EXEC intm_axbi.up_ReadSales_PLAKA_BE @P_Year, @P_Month, @P_DelNotInv
 	EXEC intm_axbi.up_ReadSales_PLAKA_FR @P_Year, @P_Month, @P_DelNotInv
 
-----out of sprint 32
-/*
-	EXEC intm_axbi.up_ReadSales_ANAT @P_Year, @P_Month
-	EXEC intm_axbi.up_ReadSales_ANCH @P_Year, @P_Month 
-*/
+    --logic commented by Erich
+	--EXEC intm_axbi.up_ReadSales_ANAT @P_Year, @P_Month
+	--EXEC intm_axbi.up_ReadSales_ANCH @P_Year, @P_Month 
+
 	EXEC intm_axbi.up_ReadSales_ANDE @P_Year, @P_Month 
 
 	EXEC intm_axbi.up_ReadSales_ANAU @P_Year, @P_Month
 	EXEC intm_axbi.up_ReadSales_ANAH @P_Year, @P_Month
 	EXEC intm_axbi.up_ReadSales_ANNZ @P_Year, @P_Month
 	
---out of sprint 32
-/*	
-    EXEC intm_axbi.up_ReadSales_ASCH @P_Year, @P_Month
-*/
+	--logic commented by Erich
+	/* EXEC dbo.up_ReadSales_ASCH @P_Year, @P_Month */
 
 --old logic commented by Erich
 	-- EXEC up_ReadSales_ANAC -- Hie muss ab Januar das Jahr und der Monat übergeben werden.

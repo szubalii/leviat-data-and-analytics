@@ -1,14 +1,12 @@
-﻿CREATE TABLE [base_tx_ca_0_hlp].[CUSTINVOICETRANS_ANUK](
+﻿CREATE TABLE [base_isedio_aus].[CUSTINVOICETRANS_ISAU](
 	[Dataareaid]            [NVARCHAR](8)           NULL,
 	[Salesid]               [NVARCHAR](20)          NULL,
 	[Invoiceid]             [NVARCHAR](20)          NOT NULL,
 	[Linenum]               [SMALLINT]              NOT NULL,
 	[Accountingdate]        [DATETIME]              NULL,
 	[CustomerNo]            [NVARCHAR](20)          NULL,
-	[Itemid]                [NVARCHAR](40)          NULL,
-	[ProductGroup]          [NVARCHAR](20)          NULL,
-	[DeliveryCountryID]     [NVARCHAR](3)           NULL,
-	[PackingSlipID]         [NVARCHAR](20)          NULL,
+	[Itemid]                [NVARCHAR](255)         NULL,
+	[DeliveryCountryID]     [NVARCHAR](20)          NULL,
 	[Qty]                   [DECIMAL](38, 12)       NULL,
 	[ProductSalesLocal]     [DECIMAL](38, 12)       NULL,
 	[ProductSalesEUR]       [DECIMAL](38, 12)       NULL,
@@ -28,7 +26,7 @@
     [t_jobBy]               [NVARCHAR](128)         NULL,
     [t_extractionDtm]       [DATETIME],
     [t_filePath]            [NVARCHAR](1024)        NULL,
-	CONSTRAINT [PK_CUSTINVOICETRANS_ANUK] PRIMARY KEY NONCLUSTERED (
+	CONSTRAINT [PK_CUSTINVOICETRANS_ISAU] PRIMARY KEY NONCLUSTERED (
         [Invoiceid],[Linenum]
-)  NOT ENFORCED
+    ) NOT ENFORCED
 ) WITH (HEAP, DISTRIBUTION = ROUND_ROBIN)
