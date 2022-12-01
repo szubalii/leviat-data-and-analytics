@@ -53,7 +53,8 @@ variables:
   - template: ./variables-personal.yml
     parameters:
       user: ${{ parameters.user }}
-- branchName: $[ replace(variables['System.PullRequest.TargetBranch'], 'refs/pull/', '') ]
+- name: branchName
+  value: $[ replace(variables['System.PullRequest.TargetBranch'], 'refs/pull/', '') ]
 
 stages:
 - stage: BUILD
