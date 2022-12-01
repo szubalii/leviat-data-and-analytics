@@ -31,13 +31,17 @@ jobs:
   
   - script: |
       echo system.pullRequest.targetBranch: $(system.pullRequest.targetBranch)
-      echo targetBranch: $(targetBranch)
       echo user: $(user)
-      echo testRunTime: $(testRunTime)
-      echo testCompileTime: $(testCompileTime)
       echo dataFactoryName: $(dataFactoryName)
+      echo sqlDatabaseName: $(sqlDatabaseName)
+      echo synapseSqlPool: $(synapseSqlPool)
+      echo storageAccountName: $(storageAccountName)
+      echo xuPrefix: $(xuPrefix)
+      echo branchName: $(branchName)
+      echo destination: $(destination)
       echo Build.Reason: ${{ variables['Build.Reason'] }}
       echo Build.SourceBranchName: ${{ variables['Build.SourceBranchName'] }}
+    displayName: Print Variables
 
   - template: ../${{ parameters.folder }}/build/steps-build.yml
   # - ${{ if eq(parameters.artifact, true) }}: 

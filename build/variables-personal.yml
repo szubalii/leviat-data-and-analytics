@@ -7,20 +7,7 @@ parameters:
 
 variables:
 - template: ./variables-test.yml
-# - name: targetBranch
-#   value: $(System.PullRequest.TargetBranch)
-# - ${{ if eq(variables['Build.Reason'], 'PullRequest') }}:
-#   - name: user
-#     value: $[ replace(variables['Build.RequestedForEmail'], 'dev_', '') ]
-# - ${{ else }}:
-#   - name: user
-#     value: ${{ replace(variables['Build.SourceBranchName'], 'dev_', '') }}
 - name: user
-  # value: ${{ replace(variables['branchName'], 'dev_', '') }}
-  value: ${{ parameters.user }}
-# - name: testRunTime
-#   value: $[ parameters.user ]
-- name: testCompileTime
   value: ${{ parameters.user }}
 - name: dataFactoryName
   value: df-$(user)-d-euw-001
