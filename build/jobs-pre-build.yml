@@ -1,18 +1,7 @@
-parameters:
-- name: varGroup
-  type: string
-  default: DnA_DEV
-  values:
-  - DnA_DEV
-  - DnA_QAS
-  - DnA_PROD
-
 jobs:
   # Start VM
 - job: StartVM
   pool: server
-  variables:
-  - group: ${{ parameters.varGroup }}
   steps:
   - task: InvokeRESTAPI@1
     inputs:

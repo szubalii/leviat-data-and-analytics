@@ -6,9 +6,9 @@ trigger:
     - dev_nkukhtenko
     - dev_sleshchuk
     - dev_tdorodnova
-    # - main
-    # - qas
-    # - prod
+    - main
+    - qas
+    # - prod #TODO uncomment
   paths:
     include: 
     - azure-data-factory/*
@@ -18,6 +18,4 @@ extends:
   parameters:
     folder: azure-data-factory
     solution: ADF
-    deploy: true
-    # branch: ${{ variables['Build.SourceBranchName'] }}
   

@@ -1,6 +1,4 @@
-trigger:
-- none
-
+trigger: none # triggered by PR
 
 extends:
   template: ../../build/stages-build-deploy.yml
@@ -8,3 +6,4 @@ extends:
     folder: orchestration
     solution: Orchestration
     hasVariables: true
+    end: qas

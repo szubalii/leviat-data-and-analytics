@@ -1,7 +1,9 @@
 variables:
-- name: synapseDWHSolution
+- name: solution
   value: '**/synapse-dwh/*.sln'
 - name: buildPlatform
   value: 'Any CPU'
 - name: buildConfiguration
   value: 'Release'
+- name: ConnectionString
+  value: $(SynapseTesterConnectionString)

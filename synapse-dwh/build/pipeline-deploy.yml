@@ -6,18 +6,21 @@ trigger:
     - dev_nkukhtenko
     - dev_sleshchuk
     - dev_tdorodnova
-    # - main
-    # - qas
-    # - prod
+    - main
+    - qas
+    # - prod #TODO uncomment
   paths:
     include: 
     - synapse-dwh/*
+
+# variables:
+#   TIA.UserMapFile: $(System.DefaultWorkingDirectory)/synapse-dwh/test-impact-analysis.xml
 
 extends:
   template: ../../build/stages-build-deploy.yml
   parameters:
     folder: synapse-dwh
     solution: SynapseDWH
-    deploy: true
-    # branch: ${{ variables['Build.SourceBranchName'] }}
+    hasVariables: true
+    test: true
   

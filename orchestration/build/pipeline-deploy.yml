@@ -6,9 +6,9 @@ trigger:
     - dev_nkukhtenko
     - dev_sleshchuk
     - dev_tdorodnova
-    # - main
-    # - qas
-    # - prod
+    - main
+    - qas
+    # - prod #TODO uncomment
   paths:
     include: 
     - orchestration/*
@@ -18,4 +18,4 @@ extends:
   parameters:
     folder: orchestration
     solution: Orchestration
-    deploy: true
+    hasVariables: true

@@ -1,5 +1,5 @@
 variables:
-- name: orchDBSolution
+- name: solution
   value: '**/orchestration/*.sln'
 - name: buildPlatform
   value: 'Any CPU'

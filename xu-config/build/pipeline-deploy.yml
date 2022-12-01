@@ -6,9 +6,9 @@ trigger:
     - dev_tdorodnova
     - dev_nkukhtenko
     - dev_sleshchuk
-    # - main
-    # - qas
-    # - prod
+    - main
+    - qas
+    # - prod #TODO uncomment
   paths:
     include: 
     - xu-config/*
@@ -18,4 +18,3 @@ extends:
   parameters:
     folder: xu-config
     solution: XtractUniversal
-    deploy: true
