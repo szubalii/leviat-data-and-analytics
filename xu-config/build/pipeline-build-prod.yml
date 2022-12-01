@@ -3,7 +3,6 @@ trigger: none # triggered by PR
 extends:
   template: ../../build/stages-build-deploy.yml
   parameters:
-    folder: synapse-dwh
-    solution: SynapseDWH
-    hasVariables: true
-    test: true #TODO remove
+    folder: xu-config
+    solution: XtractUniversal
+    env: prod

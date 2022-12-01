@@ -8,7 +8,7 @@ trigger:
     - dev_sleshchuk
     - main
     - qas
-    # - prod
+    # - prod #TODO uncomment
   paths:
     include: 
     - xu-config/*
@@ -18,4 +18,3 @@ extends:
   parameters:
     folder: xu-config
     solution: XtractUniversal
-    deploy: true

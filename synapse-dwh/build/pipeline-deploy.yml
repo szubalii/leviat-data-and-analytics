@@ -8,7 +8,7 @@ trigger:
     - dev_tdorodnova
     - main
     - qas
-    # - prod
+    # - prod #TODO uncomment
   paths:
     include: 
     - synapse-dwh/*
@@ -22,6 +22,5 @@ extends:
     folder: synapse-dwh
     solution: SynapseDWH
     hasVariables: true
-    deploy: true
     test: true
   

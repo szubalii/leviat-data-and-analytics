@@ -8,7 +8,7 @@ trigger:
     - dev_tdorodnova
     - main
     - qas
-    # - prod
+    # - prod #TODO uncomment
   paths:
     include: 
     - orchestration/*
@@ -19,4 +19,3 @@ extends:
     folder: orchestration
     solution: Orchestration
     hasVariables: true
-    deploy: true

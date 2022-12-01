@@ -3,5 +3,7 @@ trigger: none # triggered by PR
 extends:
   template: ../../build/stages-build-deploy.yml
   parameters:
-    folder: xu-config
-    solution: XtractUniversal
+    folder: orchestration
+    solution: Orchestration
+    hasVariables: true
+    end: qas
