@@ -11,6 +11,8 @@ variables:
 - group: KeyVault_DEV
 - name: branchName
   value: ${{ parameters.branchName }}
+- name: dataFactoryName
+  value: df-$(branchName)-d-euw-001
 - ${{ if startsWith(parameters.branchName, 'dev') }}:
   - group: DnA_DEV
   - group: KeyVault_DEV
