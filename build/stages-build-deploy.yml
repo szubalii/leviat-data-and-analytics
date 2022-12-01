@@ -27,7 +27,7 @@ parameters:
 
 variables:
 # In case of CI triggered pipelines (IndividualCI, triggered by git push),
-# use the system predefined variable Build.SourceBranchName to get the source branch name
+# use the system predefined variable Build.SourceBranchName to get the correct variable template
 - ${{ if eq(variables['Build.SourceBranchName'], 'main') }}:
   - template: ./variables-test.yml
 - ${{ elseif eq(variables['Build.SourceBranchName'], 'qas') }}:
