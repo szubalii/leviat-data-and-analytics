@@ -17,10 +17,10 @@ parameters:
 - name: hasVariables
   type: boolean
   default: false
-- name: env
-  type: string
-- name: user
-  type: string
+# - name: env
+#   type: string
+# - name: user
+#   type: string
 # - name: testPlan
 #   type: number
 #   default: 397
@@ -28,38 +28,43 @@ parameters:
 variables:
 # In case of CI triggered pipelines (IndividualCI, triggered by git push),
 # use the system predefined variable Build.SourceBranchName to get the source branch name
-- ${{ if eq(variables['Build.SourceBranchName'], 'main') }}:
-  - template: ./variables-test.yml
-- ${{ elseif eq(variables['Build.SourceBranchName'], 'qas') }}:
-  - template: ./variables-qas.yml
-- ${{ elseif eq(variables['Build.SourceBranchName'], 'prod') }}:
-  - template: ./variables-prod.yml
-- ${{ elseif startsWith(variables['Build.SourceBranchName'], 'dev_') }}:
-  - template: ./variables-personal.yml
-    parameters:
-      user: ${{ replace( variables['Build.SourceBranchName'], 'dev_', '') }}
+# - ${{ if eq(variables['Build.SourceBranchName'], 'main') }}:
+#   - template: ./variables-test.yml
+# - ${{ elseif eq(variables['Build.SourceBranchName'], 'qas') }}:
+#   - template: ./variables-qas.yml
+# - ${{ elseif eq(variables['Build.SourceBranchName'], 'prod') }}:
+#   - template: ./variables-prod.yml
+# - ${{ elseif startsWith(variables['Build.SourceBranchName'], 'dev_') }}:
+#   - template: ./variables-personal.yml
+#     parameters:
+#       user: ${{ replace( variables['Build.SourceBranchName'], 'dev_', '') }}
 
-# Required for PR triggered pipelines as predefined system variable Build.SourceBranchName
-# equals value: 'merge'. Also, the predefined system variable System.PullRequest.TargetBranch 
-# is not available in templates. So use separate build pipelines for each env and pass this as parameter value
-# https://learn.microsoft.com/en-us/azure/devops/pipelines/build/variables?view=azure-devops&tabs=yaml#system-variables-devops-services
-- ${{ elseif eq(parameters.env, 'test') }}:
-  - template: ./variables-test.yml
-- ${{ elseif eq(parameters.env, 'qas') }}:
-  - template: ./variables-qas.yml
-- ${{ elseif eq(parameters.env, 'prod') }}:
-  - template: ./variables-prod.yml
-- ${{ elseif eq(parameters.env, 'dev') }}:
-  - template: ./variables-personal.yml
+# # Required for PR triggered pipelines as predefined system variable Build.SourceBranchName
+# # equals value: 'merge'. Also, the predefined system variable System.PullRequest.TargetBranch 
+# # is not available in templates. So use separate build pipelines for each env and pass this as parameter value
+# # https://learn.microsoft.com/en-us/azure/devops/pipelines/build/variables?view=azure-devops&tabs=yaml#system-variables-devops-services
+# - ${{ elseif eq(parameters.env, 'test') }}:
+#   - template: ./variables-test.yml
+# - ${{ elseif eq(parameters.env, 'qas') }}:
+#   - template: ./variables-qas.yml
+# - ${{ elseif eq(parameters.env, 'prod') }}:
+#   - template: ./variables-prod.yml
+# - ${{ elseif eq(parameters.env, 'dev') }}:
+#   - template: ./variables-personal.yml
+#     parameters:
+#       user: ${{ parameters.user }}
+- ${{ if eq(variables['Build.Reason'], 'IndividualCI') }}:
+  - template: ./variables.yml
     parameters:
-      user: ${{ parameters.user }}
-- ${{ if eq(variables['Build.Reason'], 'PullRequest') }}:
+      branchName: ${{ variables['Build.SourceBranchName'] }} # dev_*, main, qas, prod
+      user: $[ replace(variables['Build.SourceBranchName'], 'dev_', '') ] # mpors, fbouw, ...
+- ${{ elseif eq(variables['Build.Reason'], 'PullRequest') }}:
   - template: ./variables.yml
     parameters:
       branchName: $[ replace(variables['System.PullRequest.TargetBranch'], 'refs/heads/', '') ] # dev_*, main, qas, prod
       user: $[ replace(variables['System.PullRequest.TargetBranch'], 'refs/heads/dev_', '') ] # mpors, fbouw, ...
-- name: branchName
-  value: $[ replace(variables['System.PullRequest.TargetBranch'], 'refs/heads/', '') ]
+# - name: branchName
+#   value: $[ replace(variables['System.PullRequest.TargetBranch'], 'refs/heads/', '') ]
 # - name: dataFactoryName
 #   value: df-$(branchName)-d-euw-001
 

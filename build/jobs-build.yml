@@ -37,7 +37,7 @@ jobs:
       echo synapseSqlPool: $(synapseSqlPool)
       echo storageAccountName: $(storageAccountName)
       echo xuPrefix: $(xuPrefix)
-      echo branchName: $(branchName)
+      # echo branchName: $(branchName)
       echo destination: $(destination)
       echo Build.Reason: ${{ variables['Build.Reason'] }}
       echo Build.SourceBranchName: ${{ variables['Build.SourceBranchName'] }}

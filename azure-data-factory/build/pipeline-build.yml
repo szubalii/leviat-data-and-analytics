@@ -5,4 +5,4 @@ extends:
   parameters:
     folder: azure-data-factory
     solution: ADF
-    env: test
+    # env: test
