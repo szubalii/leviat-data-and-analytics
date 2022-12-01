@@ -8,7 +8,7 @@ trigger:
     - dev_tdorodnova
     - main
     - qas
-    # - prod
+    # - prod #TODO uncomment
   paths:
     include: 
     - azure-data-factory/*
@@ -18,5 +18,4 @@ extends:
   parameters:
     folder: azure-data-factory
     solution: ADF
-    deploy: true
   

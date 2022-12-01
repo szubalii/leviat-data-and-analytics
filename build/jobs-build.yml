@@ -35,6 +35,7 @@ jobs:
       echo user: $(user)
       echo testRunTime: $(testRunTime)
       echo testCompileTime: $(testCompileTime)
+      echo dataFactoryName: $(dataFactoryName)
       echo Build.Reason: ${{ variables['Build.Reason'] }}
       echo Build.SourceBranchName: ${{ variables['Build.SourceBranchName'] }}
 

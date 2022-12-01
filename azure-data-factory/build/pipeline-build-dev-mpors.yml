@@ -5,3 +5,5 @@ extends:
   parameters:
     folder: azure-data-factory
     solution: ADF
+    env: dev
+    user: mpors
