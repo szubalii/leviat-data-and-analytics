@@ -65,10 +65,10 @@ variables:
       user: $[ replace(variables['System.PullRequest.TargetBranch'], 'refs/heads/dev_', '') ] # mpors, fbouw, ...
 - group: DnA_DEV
 - group: KeyVault_DEV
-- name: branchName
-  value: $[ replace(variables['System.PullRequest.TargetBranch'], 'refs/heads/', '') ]
-- name: dataFactoryName
-  value: df-$(branchName)-d-euw-001
+# - name: branchName
+#   value: $[ replace(variables['System.PullRequest.TargetBranch'], 'refs/heads/', '') ]
+# - name: dataFactoryName
+#   value: df-$(branchName)-d-euw-001
 
 
 stages:
