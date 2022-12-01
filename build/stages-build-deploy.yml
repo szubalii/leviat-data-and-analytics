@@ -28,68 +28,31 @@ parameters:
 variables:
 # In case of CI triggered pipelines (IndividualCI, triggered by git push),
 # use the system predefined variable Build.SourceBranchName to get the source branch name
-# - ${{ if eq(variables['Build.SourceBranchName'], 'main') }}:
-#   - template: ./variables-test.yml
-# - ${{ elseif eq(variables['Build.SourceBranchName'], 'qas') }}:
-#   - template: ./variables-qas.yml
-# - ${{ elseif eq(variables['Build.SourceBranchName'], 'prod') }}:
-#   - template: ./variables-prod.yml
-# - ${{ elseif startsWith(variables['Build.SourceBranchName'], 'dev_') }}:
-#   - template: ./variables-personal.yml
-#     parameters:
-#       user: ${{ replace( variables['Build.SourceBranchName'], 'dev_', '') }}
+- ${{ if eq(variables['Build.SourceBranchName'], 'main') }}:
+  - template: ./variables-test.yml
+- ${{ elseif eq(variables['Build.SourceBranchName'], 'qas') }}:
+  - template: ./variables-qas.yml
+- ${{ elseif eq(variables['Build.SourceBranchName'], 'prod') }}:
+  - template: ./variables-prod.yml
+- ${{ elseif startsWith(variables['Build.SourceBranchName'], 'dev_') }}:
+  - name: user
+    value: $[ replace( variables['Build.SourceBranchName'], 'dev_', '') ]
+  - template: ./variables-personal.yml
 
 # # Required for PR triggered pipelines as predefined system variable Build.SourceBranchName
 # # equals value: 'merge'. Also, the predefined system variable System.PullRequest.TargetBranch 
 # # is not available in templates. So use separate build pipelines for each env and pass this as parameter value
 # # https://learn.microsoft.com/en-us/azure/devops/pipelines/build/variables?view=azure-devops&tabs=yaml#system-variables-devops-services
-# - ${{ elseif eq(parameters.env, 'test') }}:
-#   - template: ./variables-test.yml
-# - ${{ elseif eq(parameters.env, 'qas') }}:
-#   - template: ./variables-qas.yml
-# - ${{ elseif eq(parameters.env, 'prod') }}:
-#   - template: ./variables-prod.yml
-# - ${{ elseif eq(parameters.env, 'dev') }}:
-#   - template: ./variables-personal.yml
-#     parameters:
-#       user: ${{ parameters.user }}
-- ${{ if eq(variables['Build.Reason'], 'IndividualCI') }}:
-  - name: branchName
-    value: $[ variables['Build.SourceBranchName'] ] # dev_*, main, qas, prod
-  - name: user
-    value: $[ replace(variables['Build.SourceBranchName'], 'dev_', '') ] # mpors, fbouw, ...
-  # - template: ./variables.yml
-- ${{ elseif eq(variables['Build.Reason'], 'PullRequest') }}:
-  - name: branchName
-    value: $[ replace(variables['System.PullRequest.TargetBranch'], 'refs/heads/', '') ]
+- ${{ elseif eq(parameters.env, 'test') }}:
+  - template: ./variables-test.yml
+- ${{ elseif eq(parameters.env, 'qas') }}:
+  - template: ./variables-qas.yml
+- ${{ elseif eq(parameters.env, 'prod') }}:
+  - template: ./variables-prod.yml
+- ${{ elseif eq(parameters.env, 'dev') }}:
   - name: user
     value: $[ replace(variables['System.PullRequest.TargetBranch'], 'refs/heads/dev_', '') ]
-- ${{ if startsWith(variables['branchName'], 'dev_') }}:
-  - group: DnA_DEV
-  - group: KeyVault_DEV
-  - name: dataFactoryName
-    value: df-$(user)-d-euw-001
-  - name: sqlDatabaseName
-    value: "sqldb-$(user)-d-euw-001"
-  - name: synapseSqlPool
-    value: "syndw_$(user)_d_euw_001"
-  - name: storageAccountName
-    value: "st$(user)deuw001"
-  - name: xuPrefix
-    value: "$(user)"
-  - name: destination
-    value: "$(storageAccountName)_s4h-caa-200"
-# - template: ./variables.yml
-# - group: DnA_DEV
-# - group: KeyVault_DEV
-# - name: branchName
-#   value: $[ replace(variables['System.PullRequest.TargetBranch'], 'refs/heads/', '') ]
-# - ${{ if startWith(variables['branchName'], 'dev_') }}:
-#   - name: user
-#     value: $[ replace(variables['System.PullRequest.TargetBranch'], 'refs/heads/dev_', '') ]
-#   - name: dataFactoryName
-#     value: df-$(user)-d-euw-001
-
+  - template: ./variables-personal.yml
 
 stages:
 - stage: BUILD
