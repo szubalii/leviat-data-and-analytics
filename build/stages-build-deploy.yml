@@ -53,10 +53,15 @@ variables:
   - template: ./variables-personal.yml
     parameters:
       user: ${{ parameters.user }}
+- ${{ if eq(variables['Build.Reason'], 'PullRequest') }}:
+  - template: ./variables.yml
+    parameters:
+      branchName: $[ replace(variables['System.PullRequest.TargetBranch'], 'refs/heads/', '') ] # dev_*, main, qas, prod
+      user: $[ replace(variables['System.PullRequest.TargetBranch'], 'refs/heads/dev_', '') ] # mpors, fbouw, ...
 - name: branchName
   value: $[ replace(variables['System.PullRequest.TargetBranch'], 'refs/heads/', '') ]
-- name: dataFactoryName
-  value: df-$(branchName)-d-euw-001
+# - name: dataFactoryName
+#   value: df-$(branchName)-d-euw-001
 
 stages:
 - stage: BUILD
