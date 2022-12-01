@@ -236,6 +236,7 @@ SELECT
     END                                                 AS [CustomerGroup],
     ExchangeRate.[TargetCurrency]                      AS [CurrencyID],
     ExchangeRate.[CurrencyTypeID],
+    CurrType.[CurrencyType],
     GLALIRD.[t_applicationId],
     GLALIRD.[t_extractionDtm]
 FROM [edw].[fact_ACDOCA] GLALIRD
@@ -254,5 +255,7 @@ LEFT JOIN [base_s4h_cax].[I_CustomerSalesArea] CSA
 LEFT JOIN ExchangeRate
     ON GLALIRD.[CompanyCodeCurrency] = ExchangeRate.[SourceCurrency]
         AND GLALIRD.[PostingDate] BETWEEN ExchangeRate.[ExchangeRateEffectiveDate] AND ExchangeRate.[LastDay]
+INNER JOIN [dm_sales].[vw_dim_CurrencyType]     CurrType
+    ON ExchangeRate.CurrencyTypeID = CurrType.CurrencyTypeID
 WHERE 
     FSI.[ParentNode] = '$(EXQL_Sales_Node)'
