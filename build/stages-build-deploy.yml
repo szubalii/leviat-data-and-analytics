@@ -17,8 +17,8 @@ parameters:
 - name: hasVariables
   type: boolean
   default: false
-# - name: env
-#   type: string
+- name: env
+  type: string
 # - name: user
 #   type: string
 # - name: testPlan
