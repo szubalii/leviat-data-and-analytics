@@ -55,6 +55,8 @@ variables:
       user: ${{ parameters.user }}
 - name: branchName
   value: $[ replace(variables['System.PullRequest.TargetBranch'], 'refs/heads/', '') ]
+- name: dataFactoryName
+  value: df-$(branchName)-d-euw-001
 
 stages:
 - stage: BUILD
