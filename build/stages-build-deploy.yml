@@ -54,21 +54,41 @@ variables:
 #     parameters:
 #       user: ${{ parameters.user }}
 - ${{ if eq(variables['Build.Reason'], 'IndividualCI') }}:
-  - template: ./variables.yml
-    parameters:
-      branchName: ${{ variables['Build.SourceBranchName'] }} # dev_*, main, qas, prod
-      user: $[ replace(variables['Build.SourceBranchName'], 'dev_', '') ] # mpors, fbouw, ...
+  - name: branchName
+    value: $[ variables['Build.SourceBranchName'] ] # dev_*, main, qas, prod
+  - name: user
+    value: $[ replace(variables['Build.SourceBranchName'], 'dev_', '') ] # mpors, fbouw, ...
+  # - template: ./variables.yml
 - ${{ elseif eq(variables['Build.Reason'], 'PullRequest') }}:
-  - template: ./variables.yml
-    parameters:
-      branchName: $[ replace(variables['System.PullRequest.TargetBranch'], 'refs/heads/', '') ] # dev_*, main, qas, prod
-      user: $[ replace(variables['System.PullRequest.TargetBranch'], 'refs/heads/dev_', '') ] # mpors, fbouw, ...
-- group: DnA_DEV
-- group: KeyVault_DEV
+  - name: branchName
+    value: $[ replace(variables['System.PullRequest.TargetBranch'], 'refs/heads/', '') ]
+  - name: user
+    value: $[ replace(variables['System.PullRequest.TargetBranch'], 'refs/heads/dev_', '') ]
+- ${{ if startsWith(variables['branchName'], 'dev_') }}:
+  - group: DnA_DEV
+  - group: KeyVault_DEV
+  - name: dataFactoryName
+    value: df-$(user)-d-euw-001
+  - name: sqlDatabaseName
+    value: "sqldb-$(user)-d-euw-001"
+  - name: synapseSqlPool
+    value: "syndw_$(user)_d_euw_001"
+  - name: storageAccountName
+    value: "st$(user)deuw001"
+  - name: xuPrefix
+    value: "$(user)"
+  - name: destination
+    value: "$(storageAccountName)_s4h-caa-200"
+# - template: ./variables.yml
+# - group: DnA_DEV
+# - group: KeyVault_DEV
 # - name: branchName
 #   value: $[ replace(variables['System.PullRequest.TargetBranch'], 'refs/heads/', '') ]
-# - name: dataFactoryName
-#   value: df-$(branchName)-d-euw-001
+# - ${{ if startWith(variables['branchName'], 'dev_') }}:
+#   - name: user
+#     value: $[ replace(variables['System.PullRequest.TargetBranch'], 'refs/heads/dev_', '') ]
+#   - name: dataFactoryName
+#     value: df-$(user)-d-euw-001
 
 
 stages:
