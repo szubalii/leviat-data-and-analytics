@@ -19,7 +19,7 @@ parameters:
   default: false
 - name: env
   type: string
-  default: null
+  default: ''
 # - name: user
 #   type: string
 # - name: testPlan
