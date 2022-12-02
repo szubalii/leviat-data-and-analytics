@@ -23,4 +23,5 @@ extends:
     solution: SynapseDWH
     hasVariables: true
     test: true
+    deploy: true
   

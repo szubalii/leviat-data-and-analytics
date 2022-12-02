@@ -19,3 +19,4 @@ extends:
     folder: orchestration
     solution: Orchestration
     hasVariables: true
+    deploy: true
