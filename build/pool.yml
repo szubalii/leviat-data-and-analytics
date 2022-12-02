@@ -1,6 +1,0 @@
-name: 'VM'
-demands:
-- node.js
-- VisualStudio
-- Python.Version
-- Agent.Name -equals $(VMName)
