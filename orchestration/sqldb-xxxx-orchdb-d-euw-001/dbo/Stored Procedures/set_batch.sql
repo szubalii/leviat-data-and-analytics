@@ -73,7 +73,7 @@ BEGIN
         @file_name,
         @size_bytes,
         @s4h_environment,
-        s4h_client_id
+        @s4h_client_id
     );
 END;
 GO
