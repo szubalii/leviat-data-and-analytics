@@ -68,7 +68,7 @@ SELECT
         THEN cnt.[AllRecordTotals]
         ELSE cnt.[RecordTotals]
     END AS [RecordTotals],
-    COUNT(p.Count) AS [ErrorTotals]
+    (SELECT COUNT(DISTINCT Product) FROM [dq].[vw_Product_1_6] ) AS [ErrorTotals]
 FROM
     CountRowsPerRuleID AS cnt
 INNER JOIN
