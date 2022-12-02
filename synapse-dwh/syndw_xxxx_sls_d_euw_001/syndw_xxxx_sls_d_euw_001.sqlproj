@@ -687,6 +687,8 @@
     <Build Include="edw\Views\vw_UnitOfMeasure.sql" />
     <Build Include="edw\Views\vw_Warehouse.sql" />
     <Build Include="edw\Views\vw_ACDOCA.sql" />
+    <Build Include="edw\Views\vw_ACDOCA_DummyRecords.sql" />
+    <Build Include="edw\Views\vw_GLAccountText.sql" />
     <Build Include="edw\Views\vw_OutboundDeliveryItem.sql" />
     <Build Include="edw\Views\vw_OverallSDProcessStatus.sql" />
     <Build Include="edw\Views\vw_OverallTotalDeliveryStatus.sql" />
@@ -919,6 +921,11 @@
     <Build Include="edw\Views\vw_FinancialStatementHierarchy.sql" />
     <Build Include="dm_sales\Views\vw_dim_FinancialStatementHierarchy.sql" />
     <Build Include="dm_finance\Views\vw_fact_ACDOCA_SalesView.sql" />
+    <Build Include="dm_finance\Views\vw_fact_ACDOCA_EPMSalesView.sql" />
+    <Build Include="dm_finance\Views\vw_dim_Customer.sql" />
+    <Build Include="dm_finance\Views\vw_dim_Product.sql" />
+    <Build Include="dm_finance\Views\vw_dim_SalesDistrict.sql" />
+    <Build Include="dm_finance\Views\vw_dim_SalesOrganization.sql" />
     <Build Include="base_c4c\Tables\OpportunityCollection.sql" />
     <Build Include="Security\Schemas\base_c4c.sql" />
     <Build Include="dm_sales\Views\vw_dim_FinancialStatementItem.sql" />
@@ -1114,6 +1121,11 @@
     <PackageReference Condition="'$(NetCoreBuild)' == 'true'" Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.0" PrivateAssets="All" />
   </ItemGroup>
   <ItemGroup>
+    <SqlCmdVariable Include="EXQL_Sales_Node">
+      <DefaultValue>
+      </DefaultValue>
+      <Value>$(SqlCmdVar__3)</Value>
+    </SqlCmdVariable>
     <SqlCmdVariable Include="masterKeyPwd">
       <DefaultValue>
       </DefaultValue>
