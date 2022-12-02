@@ -8,9 +8,9 @@ parameters:
   type: string
 - name: solution
   type: string
-# - name: deploy
-#   type: boolean
-#   default: false
+- name: deploy
+  type: boolean
+  default: false
 - name: test
   type: boolean
   default: false
@@ -55,6 +55,15 @@ variables:
     value: $[ replace(variables['System.PullRequest.TargetBranch'], 'refs/heads/dev_', '') ]
   - template: ./variables-personal.yml
 
+# store the latest source commit ID, used for running specific tests
+- ${{ if eq(variables['Build.Reason'], 'PullRequest') }}:
+  - name: commitId
+    value: $(System.PullRequest.SourceCommitId)
+- ${{ else }}:
+  - name: commitId
+    value: $(Build.SourceVersion)
+
+
 stages:
 - stage: BUILD
   jobs:
@@ -67,7 +76,7 @@ stages:
       folder: ${{ parameters.folder }}
       # artifact: True
       hasVariables: ${{ parameters.hasVariables }}
-- ${{ if eq(variables['Build.Reason'], 'InvidiualCI') }}:
+- ${{ if eq(parameters.deploy, true) }}:
   - stage: DEPLOY_${{ upper(variables['Build.SourceBranchName']) }}
     jobs:
     - deployment: Deploy_${{parameters.solution}}

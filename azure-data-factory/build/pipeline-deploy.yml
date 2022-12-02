@@ -18,4 +18,5 @@ extends:
   parameters:
     folder: azure-data-factory
     solution: ADF
+    deploy: true
   

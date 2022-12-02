@@ -18,3 +18,4 @@ extends:
   parameters:
     folder: xu-config
     solution: XtractUniversal
+    deploy: true
