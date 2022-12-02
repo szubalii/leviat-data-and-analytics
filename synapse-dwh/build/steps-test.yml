@@ -13,13 +13,13 @@ steps:
 
       # Retrieve list of changed files
       Write-Host "System.DefaultWorkingDirectory: $(System.DefaultWorkingDirectory)"
-      Write-Host "system.pullRequest.sourceCommitId: $(system.pullRequest.sourceCommitId)"
-      Write-Host "Build.SourceVersion: $(Build.SourceVersion)"
+      Write-Host "CommitID: $(commitId)"
+      # Write-Host "Build.SourceVersion: $(Build.SourceVersion)"
       Write-Host "Build.SourceVersionMessage: $(Build.SourceVersionMessage)"
-      $filePaths = $(git diff-tree --no-commit-id --name-only -r $(system.pullRequest.sourceCommitId))
-      $filePaths2 = $(git diff-tree --no-commit-id --name-only -r $(Build.SourceVersion))
-      Write-Host "Changed files using system.pullRequest.sourceCommitId: $($filePaths)"
-      Write-Host "Changed files Build.SourceVersion: $($filePaths2)"
+      $filePaths = $(git diff-tree --no-commit-id --name-only -r $(commitId))
+      # $filePaths2 = $(git diff-tree --no-commit-id --name-only -r $(Build.SourceVersion))
+      Write-Host "Changed files using commitId: $($filePaths)"
+      # Write-Host "Changed files Build.SourceVersion: $($filePaths2)"
 
       # Execute those test cases only impacted by the changed files
       # Generate the test case filter based on changed files

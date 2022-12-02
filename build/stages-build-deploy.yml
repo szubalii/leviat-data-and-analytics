@@ -55,6 +55,15 @@ variables:
     value: $[ replace(variables['System.PullRequest.TargetBranch'], 'refs/heads/dev_', '') ]
   - template: ./variables-personal.yml
 
+# store the latest source commit ID, used for running specific tests
+- ${{ if eq(variables['Build.Reason'], 'PullRequest') }}:
+  - name: commitId
+    value: $(System.PullRequest.SourceCommitId)
+- ${{ elseif eq(variables['Build.Reason'], 'IndividualCI') }}:
+  - name: commitId
+    value: $(Build.SourceVersion)
+
+
 stages:
 - stage: BUILD
   jobs:
