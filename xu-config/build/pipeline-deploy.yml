@@ -19,5 +19,3 @@ extends:
     folder: xu-config
     solution: XtractUniversal
     deploy: true
-    # cleanWorkspace: true # https://learn.microsoft.com/en-us/azure/devops/pipelines/process/phases?view=azure-devops&tabs=yaml#workspace
-    # somehow just clean the artifact
