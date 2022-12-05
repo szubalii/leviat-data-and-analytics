@@ -852,12 +852,6 @@
 			"dataset_guid": {
 				"type": "string"
 			},
-			"AAD_Token_Type": {
-				"type": "string"
-			},
-			"AAD_Access_Token": {
-				"type": "string"
-			},
 			"pbi_dataset_id": {
 				"type": "string"
 			},
