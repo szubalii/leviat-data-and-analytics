@@ -5323,8 +5323,7 @@
         "sproc_name": "sp_materialize_view",
         "source_view_name": "vw_ManufacturingOrder",
         "dest_table_name": "fact_ManufacturingOrder",
-        "execution_order": 5,
-        "schedule_recurrence": "D"
+        "execution_order": 5
       },
       {
         "entity_id": 500,
