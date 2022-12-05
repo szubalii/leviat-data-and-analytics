@@ -123,6 +123,7 @@ SELECT
        [DistributionChannel]                    AS [DistributionChannelID],
        GLAccountLineItemRawData.[SalesDistrict] AS [SalesDistrictID],
        [BillToParty]                            AS [BillToPartyID],
+       [ShipToParty]                            AS [ShipToPartyID],      
        GLAccountLineItemRawData.[t_applicationId],
        GLAccountLineItemRawData.[t_extractionDtm]
 FROM [base_s4h_cax].[I_GLAccountLineItemRawData] GLAccountLineItemRawData 

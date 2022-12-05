@@ -68,7 +68,8 @@ JOIN
  ON
     factPD.PurchasingDocumentCondition = PRC.PricingDocument
     AND 
-    SIIPOR.PurchaseOrderItem = PRC.PricingDocumentItem
+    --FB 01-12-22: Added leading 0 to accomodate structure difference between Purchase Order Item and Pricing Document Item.
+    CONCAT('0',SIIPOR.PurchaseOrderItem) = PRC.PricingDocumentItem 
     AND 
     SIIPOR.SuplrInvcDeliveryCostCndnType = PRC.ConditionType
 

@@ -29,4 +29,4 @@ steps:
     ServerName: '$(workspaceName).sql.azuresynapse.net'
     DatabaseName: '$(synapseSqlPool)'
     DacpacFile: '$(Build.Repository.LocalPath)/synapse-dwh/syndw_xxxx_sls_d_euw_001/bin/Release/syndw_xxxx_sls_d_euw_001.dacpac'
-    AdditionalArguments: '/v:masterKeyPwd=$(ws-xxxx-sls-x-euw-001-masterKeyPwd) /v:storageAccount=$(storageAccountName)'
+    AdditionalArguments: '/v:masterKeyPwd=$(ws-xxxx-sls-x-euw-001-masterKeyPwd) /v:storageAccount=$(storageAccountName) /v:EXQL_Sales_Node=$(EXQL_Sales_Node)'
