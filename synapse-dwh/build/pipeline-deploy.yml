@@ -8,7 +8,7 @@ trigger:
     - dev_tdorodnova
     - main
     - qas
-    # - prod #TODO uncomment
+    - prod
   paths:
     include: 
     - synapse-dwh/*
