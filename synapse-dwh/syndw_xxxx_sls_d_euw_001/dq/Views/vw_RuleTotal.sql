@@ -68,7 +68,7 @@ SELECT
         THEN cnt.[AllRecordTotals]
         ELSE cnt.[RecordTotals]
     END AS [RecordTotals],
-    (SELECT COUNT(DISTINCT Product) FROM [dq].[vw_Product_1_6] ) AS [ErrorTotals]
+    (SELECT COUNT(DISTINCT Product) FROM [dq].[vw_Product_1_6] ) AS [ErrorTotals] --FB 05.12.2022: Added DISTINCT Product Count to suit reporting requirements from R Hofste.
 FROM
     CountRowsPerRuleID AS cnt
 INNER JOIN
