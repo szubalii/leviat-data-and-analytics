@@ -1,12 +1,3 @@
-trigger:
-  - none # Use PR trigger only
-  # branches:
-  #   include:
-  #   - dev_mpors
-
-variables:
-- group: DnA_DEV
-
 jobs:
 - template: ./jobs-pre-build.yml
 # Validate
@@ -24,6 +15,7 @@ jobs:
       workingDir: '$(Build.Repository.LocalPath)' #replace with the package.json folder
       verbose: true
     displayName: 'Install npm package'
+    
   # Validate the Orchestration config
   - task: Npm@1
     inputs:
