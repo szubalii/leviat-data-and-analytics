@@ -100,17 +100,23 @@
 									"value": "@concat(\n    'https://api.powerbi.com/v1.0/myorg/groups/',\n    pipeline().parameters.workspace_guid,\n    '/datasets/',\n    pipeline().parameters.dataset_guid,\n    '/refreshes?$top=1'\n)",
 									"type": "Expression"
 								},
-								"connectVia": {
-									"referenceName": "ir-WEXLEVAPP001",
-									"type": "IntegrationRuntimeReference"
-								},
 								"method": "GET",
 								"headers": {
-									"Authorization": {
-										"value": "@concat(string(pipeline().parameters.AAD_Token_Type),' ',string(pipeline().parameters.AAD_Access_Token))",
-										"type": "Expression"
-									},
 									"Content-Type": "application/json"
+								},
+								"authentication": {
+									"type": "ServicePrincipal",
+									"userTenant": "c3ce31d5-61f3-4ee3-88c4-2f15f5bae9f5",
+									"username": "68e2602f-0a34-4b0b-9314-e0a9f7d018fc",
+									"resource": "https://analysis.windows.net/powerbi/api",
+									"password": {
+										"type": "AzureKeyVaultSecret",
+										"store": {
+											"referenceName": "ls_kv_xxxx_sls_x_euw_001",
+											"type": "LinkedServiceReference"
+										},
+										"secretName": "PowerBIClientSecret"
+									}
 								}
 							}
 						},
