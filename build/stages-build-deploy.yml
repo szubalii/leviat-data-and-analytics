@@ -27,10 +27,14 @@ parameters:
 #   default: 397
 
 variables:
+- name: deployEnv
+  value: ${{ upper(variables['Build.SourceBranchName']) }}
 # In case of CI triggered pipelines (IndividualCI, triggered by git push),
 # use the system predefined variable Build.SourceBranchName to get the correct variable template
 - ${{ if eq(variables['Build.SourceBranchName'], 'main') }}:
   - template: ./variables-test.yml
+  - name: deployEnv # override value to map main branch to TEST deployment environment
+    value: 'TEST'
 - ${{ elseif eq(variables['Build.SourceBranchName'], 'qas') }}:
   - template: ./variables-qas.yml
 - ${{ elseif eq(variables['Build.SourceBranchName'], 'prod') }}:
@@ -77,7 +81,7 @@ stages:
       # artifact: True
       hasVariables: ${{ parameters.hasVariables }}
 - ${{ if eq(parameters.deploy, true) }}:
-  - stage: DEPLOY_${{ upper(variables['environment']) }}
+  - stage: DEPLOY_${{ variables['deployEnv']) }}
     jobs:
     - deployment: Deploy_${{parameters.solution}}
       # variables:
@@ -92,7 +96,11 @@ stages:
         - Agent.Name -equals $(VMName)
       # workspace:
       #   clean: all
-      environment: ${{ upper(variables['environment']) }}
+      environment: ${{ variables['deployEnv']) }}
+      # DEV_MPORS
+      # TEST
+      # QAS
+      # PROD
       strategy:
         runOnce:
           deploy:
