@@ -1,9 +1,0 @@
-trigger:
-- none
-
-variables:
-- group: DnA_DEV
-
-jobs:
-- template: ./jobs-pre-build.yml
-- template: ./jobs-validate.yml

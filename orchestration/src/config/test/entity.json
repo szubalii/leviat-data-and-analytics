@@ -1,0 +1,34 @@
+{
+  "dw-halfen-0-hlp": {
+    "adls_container_name": "dw-halfen-0-hlp-uat",
+    "axbi_database_name": "DW_HALFEN_0_HLP_UAT"
+  },
+  "dw-halfen-2-dwh": {
+    "adls_container_name": "dw-halfen-2-dwh-uat",
+    "axbi_database_name": "DW_HALFEN_2_DWH_UAT"
+  },
+  "tx-ca-0-hlp": {
+    "adls_container_name": "tx-ca-0-hlp-uat",
+    "axbi_database_name": "TX_CA_0_HLP_UAT"
+  },
+  "tx-halfen-2-dwh": {
+    "adls_container_name": "tx-halfen-2-dwh-uat",
+    "axbi_database_name": "TX_HALFEN_2_DWH_UAT"
+  },
+  "dw_halfen_1_stg": {
+    "adls_container_name": "dw-halfen-1-stg-uat",
+    "axbi_database_name": "TX_HALFEN_1_STG_UAT"
+  },
+  "ancon_australia_2_dwh": {
+    "adls_container_name": "ancon-australia-2-dwh",
+    "axbi_database_name": "ANCON_AUSTRALIA_2_DWH_UAT"
+  },
+  "tx_crh_1_stg": {
+    "adls_container_name": "tx-crh-1-stg",
+    "axbi_database_name": "TX_CRH_1_STG_UAT"
+  },
+  "tx_crh_2_dwh": {
+    "adls_container_name": "tx-crh-2-dwh",
+    "axbi_database_name": "TX_CRH_2_DWH_UAT"
+  }
+}

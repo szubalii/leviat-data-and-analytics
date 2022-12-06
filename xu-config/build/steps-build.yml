@@ -8,6 +8,8 @@ steps:
   displayName: 'Install npm package'
 
 # Update the XU Extraction Destination files
+# TODO run this task after copying to artifact staging directory?
+  # TODO what about tasks from other solutions? Also in artifact staging directory?
 - task: Npm@1
   inputs:
     command: 'custom'

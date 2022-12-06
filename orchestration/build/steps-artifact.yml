@@ -36,6 +36,6 @@ steps:
 
 - task: PublishPipelineArtifact@1
   inputs:
-    targetPath: '$(Build.ArtifactStagingDirectory)'
-    artifact: 'OrchestrationDB'
-    publishLocation: 'pipeline'
+    path: '$(Build.ArtifactStagingDirectory)'
+    artifactName: 'OrchestrationDB'
+    artifactType: 'pipeline'
