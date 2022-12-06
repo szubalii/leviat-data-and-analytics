@@ -10,7 +10,7 @@ var _ = require('lodash');
  */
 function main () {
     let exceptions = [];
-    ['dev', 'qas', 'prod'].forEach(e => exceptions = exceptions.concat(validateEnvConfig(e)));
+    ['test', 'qas', 'prod'].forEach(e => exceptions = exceptions.concat(validateEnvConfig(e)));
 
     exceptions = exceptions.concat( checkCustomNameInExtractionDestination() );
 
@@ -28,7 +28,7 @@ function Exception (message, object) {
 
 /**
  * Executes each validation check and returns any validation errors.
- * @param {String} env dev, qas, or prod
+ * @param {String} env test, qas, or prod
  * @returns {Array}
  */
 function validateEnvConfig (env) {

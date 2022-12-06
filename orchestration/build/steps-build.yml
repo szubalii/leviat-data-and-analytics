@@ -4,15 +4,15 @@ steps:
 
 - task: NuGetCommand@2
   inputs:
-    restoreSolution: '$(orchDBSolution)'
+    restoreSolution: '$(solution)'
 
 - task: VSBuild@1
   inputs:
-    solution: '$(orchDBSolution)'
+    solution: '$(solution)'
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
 - script: |
-    cd $(Build.Repository.LocalPath)/orchestration
+    cd $(System.DefaultWorkingDirectory)/orchestration
     node -e require('./src/libs/generate-master-data').writeMasterDataCSV('$(environment)')
   displayName: 'CMD: Write Environment Specific Master Data'

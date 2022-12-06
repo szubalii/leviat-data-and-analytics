@@ -1,0 +1,114 @@
+# .NET Desktop
+# Build and run tests for .NET Desktop or Windows classic desktop solutions.
+# Add steps that publish symbols, save build artifacts, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/apps/windows/dot-net
+
+parameters:
+- name: folder
+  type: string
+- name: solution
+  type: string
+- name: deploy
+  type: boolean
+  default: false
+- name: test
+  type: boolean
+  default: false
+- name: hasVariables
+  type: boolean
+  default: false
+- name: env
+  type: string
+  default: ''
+# - name: user
+#   type: string
+# - name: testPlan
+#   type: number
+#   default: 397
+
+variables:
+# In case of CI triggered pipelines (IndividualCI, triggered by git push),
+# use the system predefined variable Build.SourceBranchName to get the correct variable template
+- ${{ if eq(variables['Build.SourceBranchName'], 'main') }}:
+  - template: ./variables-test.yml
+- ${{ elseif eq(variables['Build.SourceBranchName'], 'qas') }}:
+  - template: ./variables-qas.yml
+- ${{ elseif eq(variables['Build.SourceBranchName'], 'prod') }}:
+  - template: ./variables-prod.yml
+- ${{ elseif startsWith(variables['Build.SourceBranchName'], 'dev_') }}:
+  - name: user
+    value: $[ replace( variables['Build.SourceBranchName'], 'dev_', '') ]
+  - template: ./variables-personal.yml
+
+# # Required for PR triggered pipelines as predefined system variable Build.SourceBranchName
+# # equals value: 'merge'. Also, the predefined system variable System.PullRequest.TargetBranch 
+# # is not available in templates. So use separate build pipelines for each env and pass this as parameter value
+# # https://learn.microsoft.com/en-us/azure/devops/pipelines/build/variables?view=azure-devops&tabs=yaml#system-variables-devops-services
+- ${{ elseif eq(parameters.env, 'test') }}:
+  - template: ./variables-test.yml
+- ${{ elseif eq(parameters.env, 'qas') }}:
+  - template: ./variables-qas.yml
+- ${{ elseif eq(parameters.env, 'prod') }}:
+  - template: ./variables-prod.yml
+- ${{ elseif eq(parameters.env, 'dev') }}:
+  - name: user
+    value: $[ replace(variables['System.PullRequest.TargetBranch'], 'refs/heads/dev_', '') ]
+  - template: ./variables-personal.yml
+
+# store the latest source commit ID, used for running specific tests
+- ${{ if eq(variables['Build.Reason'], 'PullRequest') }}:
+  - name: commitId
+    value: $(System.PullRequest.SourceCommitId)
+- ${{ else }}:
+  - name: commitId
+    value: $(Build.SourceVersion)
+
+
+stages:
+- stage: BUILD
+  jobs:
+  # - template: ./jobs-pre-build.yml
+  #   parameters:
+  #     varGroup: DnA_DEV
+  - template: ./jobs-build.yml
+    parameters:
+      solution: ${{ parameters.solution }}
+      folder: ${{ parameters.folder }}
+      # artifact: True
+      hasVariables: ${{ parameters.hasVariables }}
+- ${{ if eq(parameters.deploy, true) }}:
+  - stage: DEPLOY_${{ upper(variables['Build.SourceBranchName']) }}
+    jobs:
+    - deployment: Deploy_${{parameters.solution}}
+      # variables:
+      # - name: pathPrefix
+      #   value: $(Pipeline.Workspace)
+      pool:
+        name: 'VM'
+        demands:
+        - node.js
+        - VisualStudio
+        - Python.Version
+        - Agent.Name -equals $(VMName)
+      # workspace:
+      #   clean: all
+      environment: ${{ upper(variables['Build.SourceBranchName']) }}
+      strategy:
+        runOnce:
+          deploy:
+            steps:
+            - template: ../${{parameters.folder}}/build/steps-deploy.yml
+- ${{ if eq(parameters.test, true) }}:
+  - stage: TEST
+    jobs:
+    - job: TEST_${{parameters.solution}}
+      pool:
+        name: 'VM'
+        demands:
+        - node.js
+        - VisualStudio
+        - Python.Version
+        - Agent.Name -equals $(VMName)
+      steps:
+      - template: ../${{parameters.folder}}/build/steps-test.yml
+
