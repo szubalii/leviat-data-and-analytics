@@ -2,7 +2,8 @@
 # https://learn.microsoft.com/en-us/azure/devops/pipelines/build/variables?view=azure-devops&tabs=yaml#system-variables-devops-services
 # Therefore, use the email variable: Build.RequestedForEmail (which is available in templates)
 variables:
-- template: ./variables-test.yml
+- group: DnA_DEV
+- group: KeyVault_DEV
 - name: dataFactoryName
   value: df-$(user)-d-euw-001
 - name: sqlDatabaseName
