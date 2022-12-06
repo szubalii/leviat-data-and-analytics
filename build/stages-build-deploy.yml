@@ -81,7 +81,7 @@ stages:
       # artifact: True
       hasVariables: ${{ parameters.hasVariables }}
 - ${{ if eq(parameters.deploy, true) }}:
-  - stage: DEPLOY_${{ variables['deployEnv']) }}
+  - stage: DEPLOY_${{ variables['deployEnv'] }}
     jobs:
     - deployment: Deploy_${{parameters.solution}}
       # variables:
@@ -96,7 +96,7 @@ stages:
         - Agent.Name -equals $(VMName)
       # workspace:
       #   clean: all
-      environment: ${{ variables['deployEnv']) }}
+      environment: ${{ variables['deployEnv'] }}
       # DEV_MPORS
       # TEST
       # QAS
