@@ -92,7 +92,7 @@ stages:
         - Agent.Name -equals $(VMName)
       # workspace:
       #   clean: all
-      environment: ${{ upper(variables['Build.SourceBranchName']) }}
+      environment: ${{ upper(variables['environment']) }}
       strategy:
         runOnce:
           deploy:
