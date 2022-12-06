@@ -1,0 +1,131 @@
+steps:
+
+- checkout: self
+  fetchDepth: 0 # disables shallow fetch and results in correct return of git diff-tree
+
+- task: PowerShell@2
+  displayName: 'Get Changed Files'
+  name: GetTestCaseFilter
+  inputs:
+    targetType: 'inline'
+    pwsh: true
+    script: |
+
+      # Retrieve list of changed files
+      Write-Host "System.DefaultWorkingDirectory: $(System.DefaultWorkingDirectory)"
+      Write-Host "CommitID: $(commitId)"
+      # Write-Host "Build.SourceVersion: $(Build.SourceVersion)"
+      Write-Host "Build.SourceVersionMessage: $(Build.SourceVersionMessage)"
+      $filePaths = $(git diff-tree --no-commit-id --name-only -r $(commitId))
+      # $filePaths2 = $(git diff-tree --no-commit-id --name-only -r $(Build.SourceVersion))
+      Write-Host "Changed files using commitId: $($filePaths)"
+      # Write-Host "Changed files Build.SourceVersion: $($filePaths2)"
+
+      # Execute those test cases only impacted by the changed files
+      # Generate the test case filter based on changed files
+      # https://github.com/microsoft/vstest-docs/blob/main/docs/filter.md
+      # https://learn.microsoft.com/en-us/dotnet/core/testing/selective-unit-tests?pivots=mstest
+      # start with initial filter so in case of no files mapped to a test case,
+      # no actual test case is run
+      $testCaseFilterHelp = "FullyQualifiedName=dummy|" 
+      $edwEntities = {}
+      $baseEntities = {}
+      $dir = "syndw_xxxx_sls_d_euw_001"
+      $entities = (Get-Content './orchestration/src/config/global/entity.json' | Out-String | ConvertFrom-Json)
+
+      ForEach ($filePath in $filePaths) {
+
+        $dirIndex = $filePath.IndexOf($dir)
+        
+        if ($dirIndex -ne -1) {
+
+          $fileTypeIndex = $filePath.IndexOf(".")
+          $filePathWithoutExt = $filePath.SubString(0, $fileTypeIndex)
+          $subFilePath = $filePathWithoutExt.SubString($dirIndex + $dir.Length + 1)
+
+          # Views
+          if ($filePath.IndexOf("Views") -ne -1) {
+            $fqn = $subFilePath.Replace('/','.')
+            $testCaseFilterHelp += "FullyQualifiedName~$fqn|"
+          }
+          # Tables
+          # else if ($filePath.IndexOf("Tables") -ne -1) {
+
+            # Base
+
+            # EDW
+
+
+          # }
+
+
+          
+
+          # Tables
+          # Invoke ADF pipeline
+        }
+      }
+      
+      # Remove the last character ('|')
+      if ($testCaseFilterHelp.Length -gt 0) {
+        $testCaseFilter = $testCaseFilterHelp.SubString(0, $testCaseFilterHelp.Length-1)
+      } 
+      Write-Host "testCaseFilter: $testCaseFilter"
+
+      # expose the test case filter variable value defined in this task
+      # https://learn.microsoft.com/en-us/azure/devops/pipelines/process/set-variables-scripts?view=azure-devops&tabs=powershell#set-an-output-variable-for-use-in-future-stages
+      Write-Host "##vso[task.setvariable variable=testCaseFilter;isOutput=true]$testCaseFilter"
+
+      # $AzureDevOpsPAT = "$(ReadTestManagementPAT)"
+      # $AzureDevOpsAuthenicationHeader = @{Authorization = 'Basic ' + [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(":$($AzureDevOpsPAT)")) }
+      # $uri = "https://dev.azure.com/leviatazure/Leviat_Data_and_Analytics_DevOps/_apis/testplan/Plans/${{parameters.testPlan}}/suites?api-version=7.0"
+          
+      # Invoke-RestMethod -Uri $uri -Method get -Headers $AzureDevOpsAuthenicationHeader | ConvertTo-Json
+
+- task: DownloadPipelineArtifact@2
+  inputs:
+    artifact: SynapseDWH
+
+# Run test directly from assemblies and use Test Filter
+- task: VSTest@2
+  displayName: 'Run Test Cases'
+  inputs:
+    testSelector: testAssemblies
+    searchFolder: '$(Pipeline.Workspace)/Test'
+    testFiltercriteria: '$(GetTestCaseFilter.testCaseFilter)'
+# - ${{ if eq(parameters.test, true) }}:
+#   - stage: TEST_${{ upper(variables['Build.SourceBranchName']) }}
+#     jobs:
+#     - job: TEST_${{ parameters.solution }}
+#       pool:
+#         name: 'VM'
+#         demands:
+#         - node.js
+#         - VisualStudio
+#         - Agent.Name -equals $(VMName)
+#       steps:
+#       # - task: PowerShell@2
+#       #   displayName: '**Get Changed Files**'
+#       #   inputs:
+#       #     targetType: 'inline'
+#       #     pwsh: true
+#       #     script: |
+#       #       $files = $(git diff-tree --no-commit-id --name-only -r $(Build.SourceVersion))
+#       #       $AzureDevOpsPAT = $(ReadTestManagementPAT)
+#       #       $AzureDevOpsAuthenicationHeader = @{Authorization = 'Basic ' + [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(":$($AzureDevOpsPAT)")) }
+#       #       $uri = https://dev.azure.com/leviatazure/Leviat_Data_and_Analytics_DevOps/_apis/testplan/Plans/${{parameters.testPlan}}/suites?api-version=7.0
+
+#       #       echo $files
+
+#       #       Invoke-RestMethod -Uri $uri -Method get -Headers $AzureDevOpsAuthenicationHeader
+#       - task: VSTest@2
+#         displayName: 'Run Test Cases'
+#         inputs:
+#           testSelector: testPlan
+#           testPlan: ${{parameters.testPlan}}
+#           testSuite: 2647
+#           testConfiguration: 6
+#           searchFolder: '$(System.DefaultWorkingDirectory)/synapse-dwh/Test'
+      # testFilterCriteria: 
+
+  # - template: ../${{ parameters.folder }}/build/steps-test.yml

@@ -1,0 +1,21 @@
+trigger:
+  branches:
+    include:
+    - dev_mpors
+    - dev_fbouw
+    - dev_tdorodnova
+    - dev_nkukhtenko
+    - dev_sleshchuk
+    - main
+    - qas
+    - prod
+  paths:
+    include: 
+    - xu-config/*
+
+extends:
+  template: ../../build/stages-build-deploy.yml
+  parameters:
+    folder: xu-config
+    solution: XtractUniversal
+    deploy: true

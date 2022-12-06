@@ -11,7 +11,7 @@ steps:
 
 - task: NuGetCommand@2
   inputs:
-    restoreSolution: '$(synapseDWHSolution)'
+    restoreSolution: '$(solution)'
 
   # Substitute the connection string for the Test Project 
   # so Azure DevOps can run the Test Cases
@@ -30,11 +30,35 @@ steps:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
+# Run tests from provided Test Plan and Suites
+# - task: VSTest@2
+#   displayName: 'Run Test Cases'
+#   inputs:
+#     testSelector: testPlan
+#     testPlan: 397
+#     testSuite: 2646
+#     testConfiguration: 6
+#     searchFolder: '$(System.DefaultWorkingDirectory)/synapse-dwh/Test/bin/$(buildConfiguration)'
+
+# - script: echo $(testCaseFilter)
+
+# Run test directly from assemblies and use Test Filter
+# - task: VSTest@2
+#   displayName: 'Run Test Cases'
+#   inputs:
+#     testSelector: testAssemblies
+#     searchFolder: '$(System.DefaultWorkingDirectory)/synapse-dwh/Test/bin/$(buildConfiguration)'
+#     testFiltercriteria: 'FullyQualifiedName~vw_Brand|FullyQualifiedName~vw_Customer'
+    # runOnlyImpactedTests: True
+
+
+
   # Build the SQL DB Project
 - task: VSBuild@1
   displayName: 'Build SQL DB Project'
   inputs:
-    solution: '$(synapseDWHSolution)'
+    solution: '$(solution)'
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 #    msbuildArgs: '/v:SqlCmdVar__1=stxxxxslsdeuw001'
+

@@ -1,0 +1,22 @@
+trigger:
+  branches:
+    include: 
+    - dev_mpors
+    - dev_fbouw
+    - dev_nkukhtenko
+    - dev_sleshchuk
+    - dev_tdorodnova
+    - main
+    - qas
+    - prod
+  paths:
+    include: 
+    - azure-data-factory/*
+
+extends:
+  template: ../../build/stages-build-deploy.yml
+  parameters:
+    folder: azure-data-factory
+    solution: ADF
+    deploy: true
+  

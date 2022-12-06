@@ -1,0 +1,17 @@
+# Predefined system variable System.PullRequest.TargetBranch is not available in templates. 
+# https://learn.microsoft.com/en-us/azure/devops/pipelines/build/variables?view=azure-devops&tabs=yaml#system-variables-devops-services
+# Therefore, use the email variable: Build.RequestedForEmail (which is available in templates)
+variables:
+- template: ./variables-test.yml
+- name: dataFactoryName
+  value: df-$(user)-d-euw-001
+- name: sqlDatabaseName
+  value: "sqldb-$(user)-d-euw-001"
+- name: synapseSqlPool
+  value: "syndw_$(user)_d_euw_001"
+- name: storageAccountName
+  value: "st$(user)deuw001"
+- name: xuPrefix
+  value: "$(user)"
+- name: destination
+  value: "$(storageAccountName)_s4h-caa-200"
