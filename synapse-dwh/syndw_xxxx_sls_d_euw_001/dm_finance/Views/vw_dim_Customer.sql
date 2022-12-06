@@ -32,7 +32,7 @@ FROM [edw].[dim_Customer]
 UNION ALL
 
 SELECT
-  'MA-Dummy'        AS [CustomerID]
+d.[DummyID]        AS [CustomerID]
 ,d.[DummyID]        AS [Customer]
 ,d.[DummyIDName]    AS [CustomerID_Name]
 ,null               AS [CustomerAccountGroupID]

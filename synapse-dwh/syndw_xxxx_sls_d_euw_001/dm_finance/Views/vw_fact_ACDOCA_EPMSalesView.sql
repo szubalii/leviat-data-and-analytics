@@ -186,7 +186,7 @@ SELECT
     GLALIRD.[ServiceDocumentItem],
     CASE
         WHEN GLALIRD.[BillingDocumentTypeID] = ''
-            THEN 'MA-Dummy'
+            THEN 'MA'
         ELSE GLALIRD.[BillingDocumentTypeID]
     END                                                 AS [BillingDocumentTypeID],
     CASE
@@ -234,6 +234,12 @@ SELECT
             THEN 'Manual Adjustment'
         ELSE CSA.[CustomerGroup]
     END                                                 AS [CustomerGroup],
+    CASE
+        WHEN GLALIRD.[BillingDocumentTypeID] = ''
+        AND COALESCE (dimBDT.[BillingDocumentType], '') = ''
+            THEN 'MA'
+        ELSE dimBDT.[BillingDocumentType]
+    END                                                AS [BillingDocumentType],
     ExchangeRate.[TargetCurrency]                      AS [CurrencyID],
     ExchangeRate.[CurrencyTypeID],
     CurrType.[CurrencyType],
