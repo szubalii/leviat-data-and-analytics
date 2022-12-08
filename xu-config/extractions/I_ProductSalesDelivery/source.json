@@ -1,6 +1,7 @@
 {
-    "functionName": "/SAPDS/RFC_READ_TABLE2",
+    "functionName": "Z_THEO_READ_TABLE",
     "runInBackgroundJob": false,
+    "backgroundJobTimeout": 180,
     "tables": 
     [
         {
@@ -11,23 +12,25 @@
             [
                 {
                     "name": "MANDT",
-                    "description": "Client (key field in client-specific tables)",
+                    "description": "Client",
                     "abapType": "CharacterString",
                     "length": 3,
                     "isPrimaryKey": true,
                     "isSelected": true,
                     "checkTable": "T000",
-                    "conversionExit": ""
+                    "conversionExit": "",
+                    "isClientField": false
                 },
                 {
                     "name": "PRODUCT",
-                    "description": "Material Number (C40 Field)",
+                    "description": "Material Number",
                     "abapType": "CharacterString",
                     "length": 40,
                     "isPrimaryKey": true,
                     "isSelected": true,
                     "checkTable": "MARA",
-                    "conversionExit": "MATN1"
+                    "conversionExit": "MATN1",
+                    "isClientField": false
                 },
                 {
                     "name": "PRODUCTSALESORG",
@@ -37,38 +40,42 @@
                     "isPrimaryKey": true,
                     "isSelected": true,
                     "checkTable": "TVKO",
-                    "conversionExit": ""
+                    "conversionExit": "",
+                    "isClientField": false
                 },
                 {
                     "name": "PRODUCTDISTRIBUTIONCHNL",
-                    "description": "Distribution channel",
+                    "description": "Distribution Channel",
                     "abapType": "CharacterString",
                     "length": 2,
                     "isPrimaryKey": true,
                     "isSelected": true,
                     "checkTable": "TVTW",
-                    "conversionExit": ""
+                    "conversionExit": "",
+                    "isClientField": false
                 },
                 {
                     "name": "MINIMUMORDERQUANTITY",
-                    "description": "Quantity field, length 13",
+                    "description": "Minimum order quantity in base unit of measure",
                     "abapType": "PackedNumber",
-                    "length": 17,
+                    "length": 13,
                     "decimalCount": 3,
                     "isSelected": true,
                     "formattedLength": 17,
                     "conversionExit": "",
                     "referenceTable": "MARA",
-                    "referenceField": "MEINS"
+                    "referenceField": "MEINS",
+                    "isClientField": false
                 },
                 {
                     "name": "SUPPLYINGPLANT",
-                    "description": "Plant",
+                    "description": "Delivering Plant (Own or External)",
                     "abapType": "CharacterString",
                     "length": 4,
                     "isSelected": true,
                     "checkTable": "TVKWZ",
-                    "conversionExit": ""
+                    "conversionExit": "",
+                    "isClientField": false
                 },
                 {
                     "name": "PRICESPECIFICATIONPRODUCTGROUP",
@@ -77,91 +84,101 @@
                     "length": 2,
                     "isSelected": true,
                     "checkTable": "T178",
-                    "conversionExit": ""
+                    "conversionExit": "",
+                    "isClientField": false
                 },
                 {
                     "name": "ACCOUNTDETNPRODUCTGROUP",
-                    "description": "Account assignment group for material",
+                    "description": "Account Assignment Group for Material",
                     "abapType": "CharacterString",
                     "length": 2,
                     "isSelected": true,
                     "checkTable": "TVKM",
-                    "conversionExit": ""
+                    "conversionExit": "",
+                    "isClientField": false
                 },
                 {
                     "name": "DELIVERYNOTEPROCMINDELIVQTY",
-                    "description": "Quantity field, length 13",
+                    "description": "Minimum Delivery Quantity in Delivery Note Processing",
                     "abapType": "PackedNumber",
-                    "length": 17,
+                    "length": 13,
                     "decimalCount": 3,
                     "isSelected": true,
                     "formattedLength": 17,
                     "conversionExit": "",
                     "referenceTable": "MARA",
-                    "referenceField": "MEINS"
+                    "referenceField": "MEINS",
+                    "isClientField": false
                 },
                 {
                     "name": "ITEMCATEGORYGROUP",
-                    "description": "Item category group",
+                    "description": "Item Category Group from Material Master",
                     "abapType": "CharacterString",
                     "length": 4,
                     "isSelected": true,
                     "checkTable": "TPTM",
-                    "conversionExit": ""
+                    "conversionExit": "",
+                    "isClientField": false
                 },
                 {
                     "name": "DELIVERYQUANTITYUNIT",
-                    "description": "Units of Measurement of Various Types",
+                    "description": "Unit of measure of delivery unit",
                     "abapType": "CharacterString",
                     "length": 3,
                     "isSelected": true,
                     "checkTable": "T006",
-                    "conversionExit": "CUNIT"
+                    "conversionExit": "CUNIT",
+                    "isClientField": false
                 },
                 {
                     "name": "DELIVERYQUANTITY",
-                    "description": "Quantity field, length 13",
+                    "description": "Delivery unit",
                     "abapType": "PackedNumber",
-                    "length": 17,
+                    "length": 13,
                     "decimalCount": 3,
                     "isSelected": true,
                     "formattedLength": 17,
                     "conversionExit": "",
                     "referenceTable": "MARA",
-                    "referenceField": "MEINS"
+                    "referenceField": "MEINS",
+                    "isClientField": false
                 },
                 {
                     "name": "PRODUCTSALESSTATUS",
-                    "description": "Material status from the SD view",
+                    "description": "Distribution-chain-specific material status",
                     "abapType": "CharacterString",
                     "length": 2,
                     "isSelected": true,
                     "checkTable": "TVMS",
-                    "conversionExit": ""
+                    "conversionExit": "",
+                    "isClientField": false
                 },
                 {
                     "name": "PRODUCTSALESSTATUSVALIDITYDATE",
-                    "description": "Date",
+                    "description": "Date from which distr.-chain-spec. material status is valid",
                     "abapType": "Date",
                     "isSelected": true,
-                    "conversionExit": ""
+                    "conversionExit": "",
+                    "isClientField": false
                 },
                 {
                     "name": "SALESMEASUREUNIT",
-                    "description": "Units of Measurement of Various Types",
+                    "description": "Sales unit",
                     "abapType": "CharacterString",
                     "length": 3,
                     "isSelected": true,
                     "checkTable": "T006",
-                    "conversionExit": "CUNIT"
+                    "conversionExit": "CUNIT",
+                    "isClientField": false
                 },
                 {
                     "name": "ISMARKEDFORDELETION",
-                    "description": "Yes/No field",
+                    "description": "Ind.: Flag material for deletion at distribution chain level",
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
-                    "conversionExit": ""
+                    "conversionExit": "",
+                    "isClientField": false
                 },
                 {
                     "name": "PRODUCTHIERARCHY",
@@ -170,64 +187,71 @@
                     "length": 18,
                     "isSelected": true,
                     "checkTable": "T179",
-                    "conversionExit": ""
+                    "conversionExit": "",
+                    "isClientField": false
                 },
                 {
                     "name": "FIRSTSALESSPECPRODUCTGROUP",
-                    "description": "Material Group 1",
+                    "description": "Brand",
                     "abapType": "CharacterString",
                     "length": 3,
                     "isSelected": true,
                     "checkTable": "TVM1",
-                    "conversionExit": ""
+                    "conversionExit": "",
+                    "isClientField": false
                 },
                 {
                     "name": "SECONDSALESSPECPRODUCTGROUP",
-                    "description": "Material Group 2",
+                    "description": "Alloy Surcharge",
                     "abapType": "CharacterString",
                     "length": 3,
                     "isSelected": true,
                     "checkTable": "TVM2",
-                    "conversionExit": ""
+                    "conversionExit": "",
+                    "isClientField": false
                 },
                 {
                     "name": "THIRDSALESSPECPRODUCTGROUP",
-                    "description": "Material Group 3",
+                    "description": "Material Discount Group",
                     "abapType": "CharacterString",
                     "length": 3,
                     "isSelected": true,
                     "checkTable": "TVM3",
-                    "conversionExit": ""
+                    "conversionExit": "",
+                    "isClientField": false
                 },
                 {
                     "name": "FOURTHSALESSPECPRODUCTGROUP",
-                    "description": "Material Group 4",
+                    "description": "Material Surcharge Group",
                     "abapType": "CharacterString",
                     "length": 3,
                     "isSelected": true,
                     "checkTable": "TVM4",
-                    "conversionExit": ""
+                    "conversionExit": "",
+                    "isClientField": false
                 },
                 {
                     "name": "FIFTHSALESSPECPRODUCTGROUP",
-                    "description": "Material Group 5",
+                    "description": "Material group 5",
                     "abapType": "CharacterString",
                     "length": 3,
                     "isSelected": true,
                     "checkTable": "TVM5",
-                    "conversionExit": ""
+                    "conversionExit": "",
+                    "isClientField": false
                 },
                 {
                     "name": "MINIMUMMAKETOORDERORDERQTY",
-                    "description": "Quantity field, length 13",
+                    "description": "Minimum make-to-order quantity",
                     "abapType": "PackedNumber",
-                    "length": 17,
+                    "length": 13,
                     "decimalCount": 3,
                     "isSelected": true,
                     "formattedLength": 17,
                     "conversionExit": "",
                     "referenceTable": "MARA",
-                    "referenceField": "MEINS"
+                    "referenceField": "MEINS",
+                    "isClientField": false
                 },
                 {
                     "name": "LOGISTICSSTATISTICSGROUP",
@@ -236,155 +260,174 @@
                     "length": 1,
                     "isSelected": true,
                     "checkTable": "TVSM",
-                    "conversionExit": ""
+                    "conversionExit": "",
+                    "isClientField": false
                 },
                 {
                     "name": "VOLUMEREBATEGROUP",
-                    "description": "Volume rebate groups in sales",
+                    "description": "Volume rebate group",
                     "abapType": "CharacterString",
                     "length": 2,
                     "isSelected": true,
                     "checkTable": "TVBO",
-                    "conversionExit": ""
+                    "conversionExit": "",
+                    "isClientField": false
                 },
                 {
                     "name": "PRODUCTCOMMISSIONGROUP",
-                    "description": "Commission group",
+                    "description": "Royalties",
                     "abapType": "CharacterString",
                     "length": 2,
                     "isSelected": true,
                     "checkTable": "TVPR",
-                    "conversionExit": ""
+                    "conversionExit": "",
+                    "isClientField": false
                 },
                 {
                     "name": "CASHDISCOUNTISDEDUCTIBLE",
-                    "description": "Yes/No field",
+                    "description": "Cash discount indicator",
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
-                    "conversionExit": ""
+                    "conversionExit": "",
+                    "isClientField": false
                 },
                 {
                     "name": "PRICINGREFERENCEPRODUCT",
-                    "description": "Material Number (C40 Field)",
+                    "description": "Pricing Reference Material",
                     "abapType": "CharacterString",
                     "length": 40,
                     "isSelected": true,
                     "checkTable": "MARA",
-                    "conversionExit": "MATN1"
+                    "conversionExit": "MATN1",
+                    "isClientField": false
                 },
                 {
                     "name": "ASSORTMENTGRADE",
-                    "description": "Range level IS-R",
+                    "description": "Assortment grade",
                     "abapType": "CharacterString",
                     "length": 2,
                     "isSelected": true,
                     "checkTable": "TWSS",
-                    "conversionExit": ""
+                    "conversionExit": "",
+                    "isClientField": false
                 },
                 {
                     "name": "STORELISTINGPROCEDURE",
-                    "description": "Listing procedure IS-R Assortments",
+                    "description": "Listing procedure for store or other assortment categories",
                     "abapType": "CharacterString",
                     "length": 2,
                     "isSelected": true,
                     "checkTable": "TWLV",
-                    "conversionExit": ""
+                    "conversionExit": "",
+                    "isClientField": false
                 },
                 {
                     "name": "DISTRCNTRLISTINGPROCEDURE",
-                    "description": "Listing procedure IS-R Assortments",
+                    "description": "Listing procedure for distr. center assortment categories",
                     "abapType": "CharacterString",
                     "length": 2,
                     "isSelected": true,
                     "checkTable": "TWLV",
-                    "conversionExit": ""
+                    "conversionExit": "",
+                    "isClientField": false
                 },
                 {
                     "name": "STORELISTINGSTARTDATE",
-                    "description": "Field of type DATS",
+                    "description": "Date from which listed in the store",
                     "abapType": "Date",
                     "isSelected": true,
-                    "conversionExit": ""
+                    "conversionExit": "",
+                    "isClientField": false
                 },
                 {
                     "name": "STORELISTINGENDDATE",
-                    "description": "Field of type DATS",
+                    "description": "Date to which listed in the store",
                     "abapType": "Date",
                     "isSelected": true,
-                    "conversionExit": ""
+                    "conversionExit": "",
+                    "isClientField": false
                 },
                 {
                     "name": "DISTRCNTRLISTINGSTARTDATE",
-                    "description": "Field of type DATS",
+                    "description": "Date from which listed in the distribution center",
                     "abapType": "Date",
                     "isSelected": true,
-                    "conversionExit": ""
+                    "conversionExit": "",
+                    "isClientField": false
                 },
                 {
                     "name": "DISTRCNTRLISTINGENDDATE",
-                    "description": "Field of type DATS",
+                    "description": "Date to which listed in the central warehouse/distr. center",
                     "abapType": "Date",
                     "isSelected": true,
-                    "conversionExit": ""
+                    "conversionExit": "",
+                    "isClientField": false
                 },
                 {
                     "name": "STORESALESTARTDATE",
-                    "description": "Field of type DATS",
+                    "description": "Date from which sold in the store",
                     "abapType": "Date",
                     "isSelected": true,
-                    "conversionExit": ""
+                    "conversionExit": "",
+                    "isClientField": false
                 },
                 {
                     "name": "STORESALEENDDATE",
-                    "description": "Field of type DATS",
+                    "description": "Date to which sold in the store",
                     "abapType": "Date",
                     "isSelected": true,
-                    "conversionExit": ""
+                    "conversionExit": "",
+                    "isClientField": false
                 },
                 {
                     "name": "DISTRCNTRSALESTARTDATE",
-                    "description": "Field of type DATS",
+                    "description": "Date from which sold in the distribution center",
                     "abapType": "Date",
                     "isSelected": true,
-                    "conversionExit": ""
+                    "conversionExit": "",
+                    "isClientField": false
                 },
                 {
                     "name": "DISTRCNTRSALEENDDATE",
-                    "description": "Field of type DATS",
+                    "description": "Date to which sold in the distribution center",
                     "abapType": "Date",
                     "isSelected": true,
-                    "conversionExit": ""
+                    "conversionExit": "",
+                    "isClientField": false
                 },
                 {
                     "name": "ROUNDINGPROFILE",
-                    "description": "Rounding profile",
+                    "description": "Rounding Profile",
                     "abapType": "CharacterString",
                     "length": 4,
                     "isSelected": true,
                     "checkTable": "RDPR",
-                    "conversionExit": ""
+                    "conversionExit": "",
+                    "isClientField": false
                 },
                 {
                     "name": "PRODUCTUNITGROUP",
-                    "description": "Unit of measure group",
+                    "description": "Unit of Measure Group",
                     "abapType": "CharacterString",
                     "length": 4,
                     "isSelected": true,
                     "checkTable": "TWMEG",
-                    "conversionExit": ""
+                    "conversionExit": "",
+                    "isClientField": false
                 },
                 {
                     "name": "MAXDELIVERYQTYSTOREORDER",
-                    "description": "Quantity field, length 13",
+                    "description": "Maximum delivery quantity in store order processing",
                     "abapType": "PackedNumber",
-                    "length": 17,
+                    "length": 13,
                     "decimalCount": 3,
                     "isSelected": true,
                     "formattedLength": 17,
                     "conversionExit": "",
                     "referenceTable": "MARA",
-                    "referenceField": "MEINS"
+                    "referenceField": "MEINS",
+                    "isClientField": false
                 },
                 {
                     "name": "PRICEFIXINGCATEGORY",
@@ -392,15 +435,17 @@
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
-                    "conversionExit": ""
+                    "conversionExit": "",
+                    "isClientField": false
                 },
                 {
                     "name": "VARIABLESALESUNITISNOTALLOWED",
-                    "description": "Yes/No field",
+                    "description": "Variable Sales Unit Not Allowed",
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
-                    "conversionExit": ""
+                    "conversionExit": "",
+                    "isClientField": false
                 },
                 {
                     "name": "COMPETITIONPRESSURECATEGORY",
@@ -408,170 +453,195 @@
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
-                    "conversionExit": ""
+                    "conversionExit": "",
+                    "isClientField": false
                 },
                 {
                     "name": "PRODUCTHASATTRIBUTEID01",
-                    "description": "ID for product attribute",
+                    "description": "VC Drawing",
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
-                    "conversionExit": ""
+                    "conversionExit": "",
+                    "isClientField": false
                 },
                 {
                     "name": "PRODUCTHASATTRIBUTEID02",
-                    "description": "ID for product attribute",
+                    "description": "Freight Exclusion",
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
-                    "conversionExit": ""
+                    "conversionExit": "",
+                    "isClientField": false
                 },
                 {
                     "name": "PRODUCTHASATTRIBUTEID03",
-                    "description": "ID for product attribute",
+                    "description": "ID for product attribute 3",
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
-                    "conversionExit": ""
+                    "conversionExit": "",
+                    "isClientField": false
                 },
                 {
                     "name": "PRODUCTHASATTRIBUTEID04",
-                    "description": "ID for product attribute",
+                    "description": "ID for product attribute 4",
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
-                    "conversionExit": ""
+                    "conversionExit": "",
+                    "isClientField": false
                 },
                 {
                     "name": "PRODUCTHASATTRIBUTEID05",
-                    "description": "ID for product attribute",
+                    "description": "ID for product attribute 5",
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
-                    "conversionExit": ""
+                    "conversionExit": "",
+                    "isClientField": false
                 },
                 {
                     "name": "PRODUCTHASATTRIBUTEID06",
-                    "description": "ID for product attribute",
+                    "description": "ID for product attribute 6",
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
-                    "conversionExit": ""
+                    "conversionExit": "",
+                    "isClientField": false
                 },
                 {
                     "name": "PRODUCTHASATTRIBUTEID07",
-                    "description": "ID for product attribute",
+                    "description": "ID for product attribute 7",
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
-                    "conversionExit": ""
+                    "conversionExit": "",
+                    "isClientField": false
                 },
                 {
                     "name": "PRODUCTHASATTRIBUTEID08",
-                    "description": "ID for product attribute",
+                    "description": "ID for product attribute 8",
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
-                    "conversionExit": ""
+                    "conversionExit": "",
+                    "isClientField": false
                 },
                 {
                     "name": "PRODUCTHASATTRIBUTEID09",
-                    "description": "ID for product attribute",
+                    "description": "ID for product attribute 9",
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
-                    "conversionExit": ""
+                    "conversionExit": "",
+                    "isClientField": false
                 },
                 {
                     "name": "PRODUCTHASATTRIBUTEID10",
-                    "description": "ID for product attribute",
+                    "description": "ID for product attribute 10",
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
-                    "conversionExit": ""
+                    "conversionExit": "",
+                    "isClientField": false
                 },
                 {
                     "name": "ISACTIVEENTITY",
-                    "description": "Boolean values TRUE (='X') and FALSE (= ' ')",
+                    "description": "Char Column",
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
-                    "conversionExit": ""
+                    "conversionExit": "",
+                    "isClientField": false
                 },
                 {
                     "name": "PRODEXTASSORTMENTPRIORITY",
-                    "description": "Range priority (compulsory/optional range)",
+                    "description": "External assortment priority",
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
                     "checkTable": "TWSP",
-                    "conversionExit": ""
+                    "conversionExit": "",
+                    "isClientField": false
                 },
                 {
                     "name": "SUBSCRPNCONTRDFLTDURATION",
-                    "description": "Contract Term",
+                    "description": "Default Contract Term",
                     "abapType": "NumericCharacterString",
                     "length": 3,
                     "isSelected": true,
-                    "conversionExit": ""
+                    "conversionExit": "",
+                    "isClientField": false
                 },
                 {
                     "name": "SUBSCRPNCONTRALTVDURATION1",
-                    "description": "Contract Term",
+                    "description": "Alternative Contract Term 1",
                     "abapType": "NumericCharacterString",
                     "length": 3,
                     "isSelected": true,
-                    "conversionExit": ""
+                    "conversionExit": "",
+                    "isClientField": false
                 },
                 {
                     "name": "SUBSCRPNCONTRALTVDURATION2",
-                    "description": "Contract Term",
+                    "description": "Alternative Contract Term 2",
                     "abapType": "NumericCharacterString",
                     "length": 3,
                     "isSelected": true,
-                    "conversionExit": ""
+                    "conversionExit": "",
+                    "isClientField": false
                 },
                 {
                     "name": "SUBSCRPNCONTRDURATIONUNIT",
-                    "description": "Unit for time period",
+                    "description": "Unit for Contract Term",
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
-                    "conversionExit": ""
+                    "conversionExit": "",
+                    "isClientField": false
                 },
                 {
                     "name": "SUBSCRPNCONTRDFLTEXTNDURN",
-                    "description": "Extension Period",
+                    "description": "Default Extension Period",
                     "abapType": "NumericCharacterString",
                     "length": 3,
                     "isSelected": true,
-                    "conversionExit": ""
+                    "conversionExit": "",
+                    "isClientField": false
                 },
                 {
                     "name": "SUBSCRPNCONTRALTVEXTNDURN1",
-                    "description": "Extension Period",
+                    "description": "Alternative Extension Period 1",
                     "abapType": "NumericCharacterString",
                     "length": 3,
                     "isSelected": true,
-                    "conversionExit": ""
+                    "conversionExit": "",
+                    "isClientField": false
                 },
                 {
                     "name": "SUBSCRPNCONTRALTVEXTNDURN2",
-                    "description": "Extension Period",
+                    "description": "Alternative Extension Period 2",
                     "abapType": "NumericCharacterString",
                     "length": 3,
                     "isSelected": true,
-                    "conversionExit": ""
+                    "conversionExit": "",
+                    "isClientField": false
                 },
                 {
                     "name": "SUBSCRPNCONTREXTNDURNUNIT",
-                    "description": "Unit for time period",
+                    "description": "Unit for Extension Period",
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
-                    "conversionExit": ""
+                    "conversionExit": "",
+                    "isClientField": false
                 }
             ]
         }
+    ],
+    "scalarRuntimeParameters": {
+    },
+    "whereSequence": [
     ]
 }
