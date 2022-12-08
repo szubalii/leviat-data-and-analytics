@@ -1,0 +1,5 @@
+variables:
+- group: DnA_DEV
+- group: KeyVault_DEV
+- name: environment
+  value: test

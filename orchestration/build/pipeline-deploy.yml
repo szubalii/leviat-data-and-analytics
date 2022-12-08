@@ -1,0 +1,22 @@
+trigger:
+  branches:
+    include: 
+    - dev_mpors
+    - dev_fbouw
+    - dev_nkukhtenko
+    - dev_sleshchuk
+    - dev_tdorodnova
+    - main
+    - qas
+    - prod
+  paths:
+    include: 
+    - orchestration/*
+
+extends:
+  template: ../../build/stages-build-deploy.yml
+  parameters:
+    folder: orchestration
+    solution: Orchestration
+    hasVariables: true
+    deploy: true

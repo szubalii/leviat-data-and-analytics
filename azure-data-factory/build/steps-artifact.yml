@@ -1,16 +1,22 @@
 steps:
   # Publish the build artifact to be used as a source for a release pipeline.
+- task: CopyFiles@2
+  displayName: 'Copy Master Data files'
+  inputs:
+    SourceFolder: '$(Build.Repository.LocalPath)/azure-data-factory/ArmTemplate'
+    Contents: '**\*'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
 - task: PublishPipelineArtifact@1
   inputs:
-    targetPath: '$(Build.Repository.LocalPath)/azure-data-factory/ArmTemplate' #replace with the package.json folder
-    artifact: 'ArmTemplates'
-    publishLocation: 'pipeline'
+    path: '$(Build.ArtifactStagingDirectory)'
+    artifactName: 'DataFactoryARMTemplate'
+    artifactType: 'pipeline'
 
-# Publish the global parameters to be used as a source for a release pipeline.
+# # Publish the global parameters to be used as a source for a release pipeline.
   
-- task: PublishPipelineArtifact@1
-  inputs:
-    targetPath: '$(Build.Repository.LocalPath)/azure-data-factory/GlobalParameters' #replace with the package.json folder
-    artifact: 'GlobalParameters'
-    publishLocation: 'pipeline'
+# - task: PublishPipelineArtifact@1
+#   inputs:
+#     targetPath: '$(Build.Repository.LocalPath)/azure-data-factory/GlobalParameters' #replace with the package.json folder
+#     artifact: 'GlobalParameters'
+#     publishLocation: 'pipeline'

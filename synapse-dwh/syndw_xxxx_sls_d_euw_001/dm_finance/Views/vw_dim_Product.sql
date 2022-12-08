@@ -147,7 +147,7 @@ SELECT
   d.[DummyIDName]           AS [ProductID_Name],
   NULL                      AS [CreationDate],
   NULL                      AS [MaterialTypeID],
-  NULL                      AS [MaterialType],
+  'MA'                      AS [MaterialType],
   NULL                      AS [IsMarkedForDeletion],
   NULL                      AS [CrossPlantStatus],
   NULL                      AS [GrossWeight],
