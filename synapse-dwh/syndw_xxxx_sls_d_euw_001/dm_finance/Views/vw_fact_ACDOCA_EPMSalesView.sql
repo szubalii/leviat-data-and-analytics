@@ -259,17 +259,18 @@ SELECT
     GLALIRD.[t_extractionDtm]
 FROM [edw].[fact_ACDOCA] GLALIRD
 INNER JOIN [edw].[dim_FinancialStatementHierarchy] FSH
-    ON GLALIRD.[GLAccountID] = FSH.LowerBoundaryAccount               COLLATE DATABASE_DEFAULT
+    ON GLALIRD.[GLAccountID] = FSH.LowerBoundaryAccount                     COLLATE DATABASE_DEFAULT
 INNER JOIN [edw].[dim_FinancialStatementItem]   FSI
-    ON FSH.[FinancialStatementItem] = FSI.[FinancialStatementItem]  COLLATE DATABASE_DEFAULT
+    ON FSH.[FinancialStatementItem] = FSI.[FinancialStatementItem]          COLLATE DATABASE_DEFAULT
 LEFT JOIN [edw].[dim_BillingDocumentType] dimBDT 
-    ON GLALIRD.BillingDocumentTypeID = dimBDT.[BillingDocumentTypeID] COLLATE DATABASE_DEFAULT
-LEFT JOIN [base_s4h_cax].[I_ProductSalesDelivery] PSD
-    ON GLALIRD.[ProductID] = PSD.[Product]                            COLLATE DATABASE_DEFAULT
-        AND GLALIRD.[SalesOrganizationID] = PSD.[ProductSalesOrg]     COLLATE DATABASE_DEFAULT
+    ON GLALIRD.BillingDocumentTypeID = dimBDT.[BillingDocumentTypeID]       COLLATE DATABASE_DEFAULT
+LEFT JOIN [edw].[dim_ProductSalesDelivery] PSD
+    ON GLALIRD.[ProductID] = PSD.[ProductID]                                COLLATE DATABASE_DEFAULT
+        AND GLALIRD.[SalesOrganizationID] = PSD.[SalesOrganizationID]       COLLATE DATABASE_DEFAULT
+        AND GLALIRD.[DistributionChannelID] = PSD.[DistributionChannelID]   COLLATE DATABASE_DEFAULT
 LEFT JOIN [base_s4h_cax].[I_CustomerSalesArea] CSA
-    ON GLALIRD.[CustomerID] = CSA.[Customer]                          COLLATE DATABASE_DEFAULT
-        AND GLALIRD.[SalesOrganizationID] = CSA.[SalesOrganization]   COLLATE DATABASE_DEFAULT
+    ON GLALIRD.[CustomerID] = CSA.[Customer]                                COLLATE DATABASE_DEFAULT
+        AND GLALIRD.[SalesOrganizationID] = CSA.[SalesOrganization]         COLLATE DATABASE_DEFAULT
 LEFT JOIN ExchangeRate
     ON GLALIRD.[CompanyCodeCurrency] = ExchangeRate.[SourceCurrency]
         AND GLALIRD.[PostingDate] BETWEEN ExchangeRate.[ExchangeRateEffectiveDate] AND ExchangeRate.[LastDay]
