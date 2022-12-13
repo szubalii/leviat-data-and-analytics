@@ -181,7 +181,6 @@
     GROUP BY
         product.[Product]
         , product.[ProductExternalID]
-        , prodhier.[ProductHierarchyNode]
         , pr_text.[ProductName]
         , product.[ProductType]
         , type_text.[MaterialTypeName]
