@@ -90,8 +90,8 @@ RuleID;DataArea;RuleClass;RuleGroup;RuleBusinessDescription;RuleTechnicalDefinit
 1.25_ZVER;Material;Consistency;ZVER;For Packaging materials the MRP Type is V1 if a reorder point is defined. If reorder point is 0 then the MRP Type is PD;If (MARA-MTART= ZVER) AND (MARC-MINBE ≠ 0) then (MARC-DISMM) = V1;MRP Type (MARC-DISMM);R
 1.31_ZHAW;Material;Conformity;ZHAW;ZHAW materials always have Procurement type F maintained. Only If the “special procurement key (MARC-SOBSL)” is used, than the procurement type should be E;If (MARA-MTART= ZHAW) then (MARC-BESKZ = F, unless (MARC-SOBSL) ≠ Null ;Procurement type (MARC-BESKZ);R
 1.31_ZVER;Material;Conformity;ZVER;Packaging materials always have Procurement type F maintained. Only If the “special procurement key (MARC-SOBSL)” is used, than the procurement key should be E;If (MARA-MTART= ZVER) then (MARC-BESKZ = F, unless (MARC-SOBSL) ≠ Null ;Procurement type (MARC-B;R
-1.32_ZROH;Material;Consistency;ZROH;Puchasing value key is Z1 for Raw materials;If (MARA-MTART= ZROH), then (MARC-EKWSL) = Z1;Purchasing Value Key (MARC-EKWSL);R
-1.32_ZHAW;Material;Consistency;ZHAW;Puchasing value key is Z1 for Trade goods;If (MARA-MTART= ZHAW), then (MARC-EKWSL) = Z1;Purchasing Value Key (MARC-EKWSL);R
+1.32_ZROH;Material;Consistency;ZROH;Puchasing value key is Z1 for Raw materials;If (MARA-MTART= ZROH), then (MARA-EKWSL) = Z1;Purchasing Value Key (MARA-EKWSL);R
+1.32_ZHAW;Material;Consistency;ZHAW;Puchasing value key is Z1 for Trade goods;If (MARA-MTART= ZHAW), then (MARA-EKWSL) = Z1;Purchasing Value Key (MARA-EKWSL);R
 1.33_ZROH;Material;Conformity;ZROH;Item Category Group is always NORM for ZROH materials;If (MARA-MTART= ZROH) then (MVKE-MTPOS = NORM;Item Category Group (MVKE-MTPOS);R
 1.34_ALL;Material;Consistency;ALL;If X-Plant material status is 70 (deactivated), Do Not Cost indicator should be set in all Plants;If (MARA-MSTAE= 70)  then  (MARC-NCOST) = X;Do Not Cost (MARC-NCOST);R
 1.35_ALL;Material;Consistency;ALL;Has an entry only when MRP Type is V1 and Planning time fence is maintained;MARC-MINBE has value when (MARC-DISMM = V1) AND (MARC-FXHOR) has not a value 000;Reorder Point (MARC-MINBE);R
