@@ -90,7 +90,11 @@ SELECT
     GLALIRD.[JrnlEntryItemObsoleteReasonID],
     GLALIRD.[GLAccountID],
     GLALIRD.[CostCenterID],
-    GLALIRD.[ProfitCenterID],
+    CASE
+        WHEN    GLALIRD.[ProfitCenterID]='DUMMY'
+            THEN    'MA'
+        ELSE    GLALIRD.[ProfitCenterID]
+    END AS                                             [ProfitCenterID],
     GLALIRD.[FunctionalAreaID],
     GLALIRD.[BusinessAreaID],          
     GLALIRD.[SegmentID],
@@ -222,6 +226,12 @@ SELECT
         AND COALESCE (PSD.FirstSalesSpecProductGroup, '') = ''
             THEN 'MA-Dummy'
         ELSE PSD.FirstSalesSpecProductGroup
+    END                                                 AS [BrandID],
+    CASE
+        WHEN GLALIRD.[BillingDocumentTypeID] = ''
+        AND COALESCE (PSD.FirstSalesSpecProductGroup, '') = ''
+            THEN 'MA'
+        ELSE DimBrand.Brand
     END                                                 AS [Brand],
     CASE 
         WHEN GLALIRD.[BillingDocumentTypeID] = '' THEN    'MA'
@@ -233,6 +243,12 @@ SELECT
         AND COALESCE (CSA.[CustomerGroup], '') = ''
             THEN 'Manual Adjustment'
         ELSE CSA.[CustomerGroup]
+    END                                                 AS [CustomerGroupID],
+    CASE
+        WHEN GLALIRD.[BillingDocumentTypeID] = ''
+        AND COALESCE (CSA.[CustomerGroup], '') = ''
+            THEN 'MA'
+        ELSE dimCGr.CustomerGroup
     END                                                 AS [CustomerGroup],
     CASE
         WHEN GLALIRD.[BillingDocumentTypeID] = ''
@@ -264,5 +280,9 @@ LEFT JOIN ExchangeRate
         AND GLALIRD.[PostingDate] BETWEEN ExchangeRate.[ExchangeRateEffectiveDate] AND ExchangeRate.[LastDay]
 INNER JOIN [dm_sales].[vw_dim_CurrencyType]     CurrType
     ON ExchangeRate.CurrencyTypeID = CurrType.CurrencyTypeID
+LEFT JOIN [edw].[dim_Brand] DimBrand
+    ON PSD.FirstSalesSpecProductGroup = DimBrand.[BrandID] 
+LEFT JOIN [edw].[dim_CustomerGroup] dimCGr
+    ON CSA.CustomerGroup = dimCGr.[CustomerGroupID]
 WHERE 
     FSI.[ParentNode] = '$(EXQL_Sales_Node)'
