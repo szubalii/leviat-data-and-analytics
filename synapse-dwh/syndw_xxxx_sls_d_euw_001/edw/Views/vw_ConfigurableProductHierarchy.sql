@@ -1,6 +1,6 @@
 ﻿CREATE VIEW [edw].[vw_ConfigurableProductHierarchy]
 	AS SELECT
-        CONCAT_WS('_',product.[Product],prodhier.[ProductHierarchyNode]) AS [sk_dim_ConfigurableProductHierarchy]
+        CONCAT_WS('_',product.[Product],vc.[CharValue]) AS [sk_dim_ConfigurableProductHierarchy]
         , product.[Product] AS [ProductID]
         , product.[ProductExternalID]
         , pr_text.[ProductName] AS [Product]
