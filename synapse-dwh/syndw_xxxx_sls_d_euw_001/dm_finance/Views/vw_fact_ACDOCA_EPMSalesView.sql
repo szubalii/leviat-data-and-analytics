@@ -90,7 +90,11 @@ SELECT
     GLALIRD.[JrnlEntryItemObsoleteReasonID],
     GLALIRD.[GLAccountID],
     GLALIRD.[CostCenterID],
-    GLALIRD.[ProfitCenterID],
+    CASE
+        WHEN    GLALIRD.[ProfitCenterID]='DUMMY'
+            THEN    'MA'
+        ELSE    GLALIRD.[ProfitCenterID]
+    END AS                                             [ProfitCenterID],
     GLALIRD.[FunctionalAreaID],
     GLALIRD.[BusinessAreaID],          
     GLALIRD.[SegmentID],
