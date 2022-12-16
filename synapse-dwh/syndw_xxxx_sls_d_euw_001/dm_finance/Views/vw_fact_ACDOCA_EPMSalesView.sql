@@ -149,6 +149,7 @@ SELECT
     GLALIRD.[SalesDocumentItemID],
     CASE
         WHEN GLALIRD.[BillingDocumentTypeID] = ''
+        AND GLALIRD.[AccountingDocumentTypeID] = 'SA'
         AND COALESCE (GLALIRD.[ProductID], '') = ''
             THEN CONCAT('(MA)-',GLALIRD.[GLAccountID])
         ELSE GLALIRD.[ProductID]
@@ -157,6 +158,7 @@ SELECT
     GLALIRD.[SupplierID],
     CASE
         WHEN GLALIRD.[BillingDocumentTypeID] = ''
+        AND GLALIRD.[AccountingDocumentTypeID] = 'SA'
         AND COALESCE (GLALIRD.[CustomerID], '') = ''
             THEN CONCAT('(MA)-',GLALIRD.[GLAccountID])
         ELSE GLALIRD.[CustomerID]
@@ -190,11 +192,13 @@ SELECT
     GLALIRD.[ServiceDocumentItem],
     CASE
         WHEN GLALIRD.[BillingDocumentTypeID] = ''
+        AND GLALIRD.[AccountingDocumentTypeID] = 'SA'
             THEN 'MA'
         ELSE GLALIRD.[BillingDocumentTypeID]
     END                                                 AS [BillingDocumentTypeID],
     CASE
         WHEN GLALIRD.[BillingDocumentTypeID] = ''
+        AND GLALIRD.[AccountingDocumentTypeID] = 'SA'
             AND COALESCE (GLALIRD.[SalesOrganizationID], '') = ''
             THEN 'MA-Dummy'
         ELSE GLALIRD.[SalesOrganizationID]
@@ -202,6 +206,7 @@ SELECT
     GLALIRD.[DistributionChannelID],
     CASE
         WHEN GLALIRD.[BillingDocumentTypeID] = ''
+        AND GLALIRD.[AccountingDocumentTypeID] = 'SA'
         AND COALESCE (GLALIRD.[SalesDistrictID], '') = ''
             THEN 'MA-Dummy'
         ELSE GLALIRD.[SalesDistrictID]
@@ -209,12 +214,15 @@ SELECT
     GLALIRD.[BillToPartyID],
     CASE
         WHEN GLALIRD.[BillingDocumentTypeID] = ''
+        AND GLALIRD.[AccountingDocumentTypeID] = 'SA'
         AND COALESCE (GLALIRD.[ShipToPartyID], '') = ''
             THEN CONCAT('(MA)-',GLALIRD.[GLAccountID])
         ELSE GLALIRD.[ShipToPartyID]
     END                                             AS [ShipToParty],
     CASE 
-        WHEN GLALIRD.[BillingDocumentTypeID] = '' THEN    1
+        WHEN GLALIRD.[BillingDocumentTypeID] = ''
+        AND GLALIRD.[AccountingDocumentTypeID] = 'SA'
+            THEN    1
         ELSE                                            0
     END                                             AS [ManualAdjustment],
     CASE
@@ -223,35 +231,42 @@ SELECT
     END                                             AS [TPAdjustment],
     CASE
         WHEN GLALIRD.[BillingDocumentTypeID] = ''
+        AND GLALIRD.[AccountingDocumentTypeID] = 'SA'
         AND COALESCE (PSD.FirstSalesSpecProductGroup, '') = ''
             THEN 'MA-Dummy'
         ELSE PSD.FirstSalesSpecProductGroup
     END                                                 AS [BrandID],
     CASE
         WHEN GLALIRD.[BillingDocumentTypeID] = ''
+        AND GLALIRD.[AccountingDocumentTypeID] = 'SA'
         AND COALESCE (PSD.FirstSalesSpecProductGroup, '') = ''
             THEN 'MA'
         ELSE DimBrand.Brand
     END                                                 AS [Brand],
     CASE 
-        WHEN GLALIRD.[BillingDocumentTypeID] = '' THEN    'MA'
+        WHEN GLALIRD.[BillingDocumentTypeID] = ''
+        AND GLALIRD.[AccountingDocumentTypeID] = 'SA'
+            THEN    'MA'
         WHEN LEFT(GLALIRD.[CustomerID],2) IN ('IC','IP')  THEN 'I'
         ELSE                                            'O'
     END                                             AS [InOutID],
     CASE
         WHEN GLALIRD.[BillingDocumentTypeID] = ''
+        AND GLALIRD.[AccountingDocumentTypeID] = 'SA'
         AND COALESCE (CSA.[CustomerGroup], '') = ''
             THEN 'Manual Adjustment'
         ELSE CSA.[CustomerGroup]
     END                                                 AS [CustomerGroupID],
     CASE
         WHEN GLALIRD.[BillingDocumentTypeID] = ''
+        AND GLALIRD.[AccountingDocumentTypeID] = 'SA'
         AND COALESCE (CSA.[CustomerGroup], '') = ''
             THEN 'MA'
         ELSE dimCGr.CustomerGroup
     END                                                 AS [CustomerGroup],
     CASE
         WHEN GLALIRD.[BillingDocumentTypeID] = ''
+        AND GLALIRD.[AccountingDocumentTypeID] = 'SA'
         AND COALESCE (dimBDT.[BillingDocumentType], '') = ''
             THEN 'MA'
         ELSE dimBDT.[BillingDocumentType]
