@@ -331,6 +331,20 @@
 						"target_layer": {
 							"value": "In",
 							"type": "String"
+						},
+						"s4h_environment": {
+							"value": {
+								"value": "@pipeline().parameters.s4h_system_id",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"s4h_client_id": {
+							"value": {
+								"value": "@pipeline().parameters.s4h_client_id",
+								"type": "Expression"
+							},
+							"type": "Int64"
 						}
 					}
 				},

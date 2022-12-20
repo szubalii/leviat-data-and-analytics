@@ -2,8 +2,10 @@
 CREATE FUNCTION [dbo].[get_scheduled_entity_batch_activities](
     @adhoc bit = 0,
     @date DATE,
-    @rerunSuccessfulFullEntities BIT = 0 -- In case a new run is required
+    @rerunSuccessfulFullEntities BIT = 0, -- In case a new run is required
     -- for full entities that have a successful run for the day already, set it to 1
+    @s4h_environment VARCHAR(16),
+    @s4h_client_id   BIGINT
 )
 RETURNS @scheduled_entity_batch_activities TABLE (
     entity_id BIGINT NOT NULL,
@@ -457,6 +459,10 @@ BEGIN
                     b.status_id IN (@BATCH_EXECUTION_STATUS_ID__IN_PROGRESS, @BATCH_EXECUTION_STATUS_ID__SUCCESSFUL)
                     AND
                     e.layer_id = @LAYER_ID__S4H
+                    AND
+                    b.s4h_environment = @s4h_environment
+                    AND
+                    b.s4h_client_id = @s4h_client_id
                 )
                 OR ( -- For other base source entities, get only successful extracted file names
                     b.status_id = @BATCH_EXECUTION_STATUS_ID__SUCCESSFUL
