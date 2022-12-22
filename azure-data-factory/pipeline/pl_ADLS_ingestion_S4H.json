@@ -363,7 +363,7 @@
 				"typeProperties": {
 					"variableName": "extraction_url",
 					"value": {
-						"value": "@concat(\n\tpipeline().globalParameters.XU_hostName\n\t,'/?name='\n\t,pipeline().globalParameters.environment\n\t,'_'\n\t,pipeline().parameters.extraction_name\n\t,join(variables('urlParams'), '&')\n)",
+						"value": "@concat(\n\tpipeline().globalParameters.XU_hostName\n\t,'/?'\n\t,join(variables('urlParams'), '&')\n)",
 						"type": "Expression"
 					}
 				}
@@ -415,7 +415,7 @@
 				"typeProperties": {
 					"variableName": "urlParams",
 					"value": {
-						"value": "@createArray(\n    variables('sourceUrlParam'),\n    variables('destinationUrlParam'),\n    'wait=false'\n)",
+						"value": "@createArray(\n    concat(\n        'name='\n        ,pipeline().globalParameters.environment\n        ,'_'\n        ,pipeline().parameters.extraction_name\n    ),\n    variables('sourceUrlParam'),\n    variables('destinationUrlParam'),\n    'wait=false'\n)",
 						"type": "Expression"
 					}
 				}
