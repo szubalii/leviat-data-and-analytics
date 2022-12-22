@@ -5,7 +5,14 @@
 			{
 				"name": "Run XU Extraction",
 				"type": "WebActivity",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "Set extraction url",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "7.00:00:00",
 					"retry": 0,
@@ -306,6 +313,112 @@
 					},
 					"errorCode": "500"
 				}
+			},
+			{
+				"name": "Add subscription suffix if ODP",
+				"type": "IfCondition",
+				"dependsOn": [
+					{
+						"activity": "Set url params",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@equals(\r\n    pipeline().parameters.extraction_type,\r\n    'ODP'\r\n)",
+						"type": "Expression"
+					},
+					"ifTrueActivities": [
+						{
+							"name": "Add Subscription Suffix Url Param",
+							"type": "AppendVariable",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "urlParams",
+								"value": {
+									"value": "@concat(\r\n    'subscriptionSuffix=',\r\n    pipeline().globalParameters.environment\r\n)",
+									"type": "Expression"
+								}
+							}
+						}
+					]
+				}
+			},
+			{
+				"name": "Set extraction url",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "Add subscription suffix if ODP",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "extraction_url",
+					"value": {
+						"value": "@concat(\n\tpipeline().globalParameters.XU_hostName\n\t,'/?name='\n\t,pipeline().globalParameters.environment\n\t,'_'\n\t,pipeline().parameters.extraction_name\n\t,join(variables('urlParams'), '&')\n)",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Set source url param",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "sourceUrlParam",
+					"value": {
+						"value": "@concat(\n    'source=CRH_Leviat_S4HANA_'\n    ,pipeline().parameters.s4h_system_id\n    ,'_'\n    ,string(pipeline().parameters.s4h_client_id)\n)",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Set destination url param",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "destinationUrlParam",
+					"value": {
+						"value": "@concat(\n    'destination='\n    ,pipeline().globalParameters.storageAccountName\n    ,'_s4h-'\n    ,pipeline().parameters.s4h_system_id\n    ,'-'\n    ,string(pipeline().parameters.s4h_client_id)\n)",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Set url params",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "Set source url param",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "Set destination url param",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "urlParams",
+					"value": {
+						"value": "@createArray(\n    variables('sourceUrlParam'),\n    variables('destinationUrlParam'),\n    'wait=false'\n)",
+						"type": "Expression"
+					}
+				}
 			}
 		],
 		"parameters": {
@@ -343,6 +456,9 @@
 			"s4h_client_id": {
 				"type": "int",
 				"defaultValue": 200
+			},
+			"extraction_type": {
+				"type": "string"
 			}
 		},
 		"variables": {
@@ -353,6 +469,18 @@
 				"type": "String"
 			},
 			"run_id": {
+				"type": "String"
+			},
+			"extraction_url": {
+				"type": "String"
+			},
+			"urlParams": {
+				"type": "Array"
+			},
+			"sourceUrlParam": {
+				"type": "String"
+			},
+			"destinationUrlParam": {
 				"type": "String"
 			}
 		},
