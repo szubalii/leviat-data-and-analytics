@@ -138,6 +138,10 @@
 											"s4h_client_id": {
 												"value": "@pipeline().parameters.s4h_client_id",
 												"type": "Expression"
+											},
+											"extraction_type": {
+												"value": "@pipeline().parameters.extraction_type",
+												"type": "Expression"
 											}
 										}
 									}
@@ -399,6 +403,9 @@
 			"s4h_client_id": {
 				"type": "int",
 				"defaultValue": 200
+			},
+			"extraction_type": {
+				"type": "string"
 			}
 		},
 		"folder": {
