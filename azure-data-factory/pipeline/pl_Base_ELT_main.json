@@ -25,7 +25,7 @@
 					"source": {
 						"type": "AzureSqlSource",
 						"sqlReaderQuery": {
-							"value": "SELECT * \nFROM [dbo].[get_scheduled_entity_batch_activities] (\n    @{pipeline().parameters.adhoc},\n    '@{pipeline().parameters.date}',\n    @{pipeline().parameters.rerun_successful_full_entities},\n    '@{pipeline().parameters.s4h_system_id}',\n    @{pipeline().parameters.s4h_client_id}\n)\nWHERE\n    @{pipeline().parameters.entity_filter}",
+							"value": "SELECT * \nFROM [dbo].[get_scheduled_entity_batch_activities] (\n    @{pipeline().parameters.adhoc},\n    '@{pipeline().parameters.date}',\n    @{pipeline().parameters.rerun_successful_full_entities}\n)\nWHERE\n    @{pipeline().parameters.entity_filter}",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
@@ -629,7 +629,7 @@
 					"source": {
 						"type": "AzureSqlSource",
 						"sqlReaderQuery": {
-							"value": "SELECT base_schema_name, base_table_name \nFROM dbo.get_scheduled_entities(\n    @{pipeline().parameters.adhoc},\n    '@{pipeline().parameters.date}'\n)\nWHERE\n    update_mode = 'Delta'\n    AND\n    layer_nk <> 'EDW'\n    AND\n    @{pipeline().parameters.entity_filter}\n\nUNION ALL\n\nSELECT source_schema_name, entity_name\nFROM\n(\n    SELECT e.source_schema_name, e.entity_name, e.entity_id\n    FROM (SELECT entity_id\n        , s4h_environment\n        , s4h_client_id\n        , row_number() OVER (PARTITION BY entity_id ORDER BY end_date_time DESC) AS rn\n        FROM dbo.batch\n        WHERE status_id = 2 ) b\n        INNER JOIN dbo.entity e ON e.entity_id = b.entity_id\n    WHERE b.rn=1 AND entity_name like '%_active'\n        AND (b.s4h_environment <> '@{pipeline().parameters.s4h_system_id}'\n            OR b.s4h_client_id <> @{pipeline().parameters.s4h_client_id}\n        )\n) t\nWHERE    \n    @{pipeline().parameters.entity_filter}\n",
+							"value": "SELECT base_schema_name, base_table_name \nFROM dbo.get_scheduled_entities(\n    @{pipeline().parameters.adhoc},\n    '@{pipeline().parameters.date}'\n)\nWHERE\n    update_mode = 'Delta'\n    AND\n    layer_nk <> 'EDW'\n    AND\n    @{pipeline().parameters.entity_filter}",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
