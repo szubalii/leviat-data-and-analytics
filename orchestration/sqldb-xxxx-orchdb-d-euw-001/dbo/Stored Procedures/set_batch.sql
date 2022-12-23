@@ -10,9 +10,7 @@ CREATE PROCEDURE [dbo].[set_batch]
     @file_name nvarchar(250) = NULL,
     @source_layer varchar(50),
     @target_layer varchar(50),
-    @size_bytes BIGINT = NULL,
-    @s4h_environment varchar(16) = NULL,
-    @s4h_client_id BIGINT = NULL
+    @size_bytes BIGINT = NULL
 AS
 BEGIN
 
@@ -55,9 +53,7 @@ BEGIN
         [file_path],
         [directory_path],
         [file_name],
-        [size_bytes],
-        [s4h_environment],
-        [s4h_client_id]
+        [size_bytes]
     )
     VALUES (
         @batch_id,
@@ -71,9 +67,7 @@ BEGIN
         @file_path,
         @directory_path,
         @file_name,
-        @size_bytes,
-        @s4h_environment,
-        @s4h_client_id
+        @size_bytes
     );
 END;
 GO
