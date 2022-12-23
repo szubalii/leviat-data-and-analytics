@@ -392,8 +392,8 @@ BEGIN
 	into #InvoicedFreightTable_ISUK_SB 
     from [intm_axbi].[fact_CUSTINVOICETRANS] c
     where upper(c.DATAAREAID) = 'ISUK'
-	AND DATEPART(year, Accountingdate) = @lFrYear 
-	AND DATEPART(month, Accountingdate) = @lFrMonth 
+	AND DATEPART(year, ACCOUNTINGDATE) = @lFrYear 
+	AND DATEPART(month, ACCOUNTINGDATE) = @lFrMonth 
 	group by c.PACKINGSLIPID;
 
 	--select c.[PACKINGSLIPID], count(*) lcounter
