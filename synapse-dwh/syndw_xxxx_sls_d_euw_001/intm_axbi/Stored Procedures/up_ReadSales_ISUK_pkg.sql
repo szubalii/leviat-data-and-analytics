@@ -392,8 +392,11 @@ BEGIN
 	into #InvoicedFreightTable_ISUK_SB 
     from [intm_axbi].[fact_CUSTINVOICETRANS] c
     where upper(c.DATAAREAID) = 'ISUK'
-	AND DATEPART(year, ACCOUNTINGDATE) = @lFrYear 
-	AND DATEPART(month, ACCOUNTINGDATE) = @lFrMonth 
+	AND EXISTS (
+		SELECT 1
+		FROM #InvoicedFreightTable_ISUK ift
+		WHERE ift.PACKINGSLIPID = c.PACKINGSLIPID
+	)
 	group by c.PACKINGSLIPID;
 
 	--select c.[PACKINGSLIPID], count(*) lcounter
@@ -408,8 +411,8 @@ BEGIN
 		SELECT SALESID
 			,INVOICEID
 			,LINENUM
-			,SUM(i.InvoicedFreightLocal * t.PRODUCTSALESLOCAL/sb.SalesBalance) as s_local
-	    	,SUM(i.InvoicedFreightEur * t.PRODUCTSALESEUR/sb.SalesBalanceEUR) as s_eur
+			,SUM(i.InvoicedFreightLocal * t.PRODUCTSALESLOCAL/sb.SalesBalance) as l_sum
+	    	,SUM(i.InvoicedFreightEur * t.PRODUCTSALESEUR/sb.SalesBalanceEUR) as e_sum
     	FROM [intm_axbi].[fact_CUSTINVOICETRANS] AS t
     	INNER JOIN #InvoicedFreightTable_ISUK i
     		ON t.PACKINGSLIPID=i.[PACKINGSLIPID]
@@ -420,8 +423,8 @@ BEGIN
     	GROUP BY SALESID,INVOICEID, LINENUM
 	)
 	UPDATE [intm_axbi].[fact_CUSTINVOICETRANS]
-	SET OTHERSALESLOCAL += s_local,
-	    OTHERSALESEUR   += s_eur
+	SET OTHERSALESLOCAL += PCC.l_sum,
+	    OTHERSALESEUR   += PCC.e_sum
 	FROM [intm_axbi].[fact_CUSTINVOICETRANS] as t
 	INNER JOIN PCC
 		ON t.SALESID=PCC.SALESID AND t.INVOICEID=PCC.INVOICEID AND t.LINENUM=PCC.LINENUM;
@@ -430,8 +433,8 @@ BEGIN
 		SELECT SALESID
 			,INVOICEID
 			,LINENUM
-			,SUM(i.InvoicedFreightLocal / sb.lcounter) AS l_cnt
-			,SUM(i.InvoicedFreightEur / sb.lcounter) AS e_cnt
+			,SUM(i.InvoicedFreightLocal / sb.lcounter) AS l_sum
+			,SUM(i.InvoicedFreightEur / sb.lcounter) AS e_sum
 		FROM [intm_axbi].[fact_CUSTINVOICETRANS] as t
 		INNER JOIN #InvoicedFreightTable_ISUK i
 			ON t.PACKINGSLIPID=i.[PACKINGSLIPID]
@@ -443,8 +446,8 @@ BEGIN
 		GROUP BY SALESID,INVOICEID, LINENUM
 	)
 	UPDATE [intm_axbi].[fact_CUSTINVOICETRANS]
-	set OTHERSALESLOCAL += PCC.l_cnt,
-	    OTHERSALESEUR  += PCC.e_cnt
+	set OTHERSALESLOCAL += PCC.l_sum,
+	    OTHERSALESEUR  += PCC.e_sum
 	FROM [intm_axbi].[fact_CUSTINVOICETRANS] as t
 	INNER JOIN PCC
 		ON t.SALESID=PCC.SALESID AND t.INVOICEID=PCC.INVOICEID AND t.LINENUM=PCC.LINENUM;
