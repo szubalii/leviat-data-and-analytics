@@ -1,5 +1,22 @@
 {
-    "Leviat_Data_Analytics_Sales": {
+  "Leviat_Data_Analytics Finance": {
+    "datasets": {
+        "EPM Sales View": {
+            "pbi_dataset_id": 23,
+            "schedule_recurrence": "D",
+            "entities": {
+                "edw": [
+                    "dim_Product",
+                    "dim_SalesOrganization",
+                    "dim_ProfitCenter",
+                    "dim_SalesDistrict",
+                    "fact_ACDOCA"
+                ]
+            }
+        }
+    }
+  },
+  "Leviat_Data_Analytics_Sales": {
       "datasets": {
         "Customer Card": {
           "pbi_dataset_id": 1,

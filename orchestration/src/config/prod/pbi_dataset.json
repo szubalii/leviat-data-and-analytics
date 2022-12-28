@@ -1,88 +1,96 @@
 {
-    "Leviat_Data_Analytics_Sales": {
-        "workspace_guid": "42ba5d7d-cee0-4837-ac07-9937e34c815b",
-      "datasets": {
-        "Customer Card": {
-          "dataset_guid": "34e7eecb-2c86-4e96-b4ab-42f3382071ca"
-        },
-        "Invoiced Products Master Data": {
-          "dataset_guid": "79d50e6d-89b2-4be3-9670-6ec99743ae88"
-        },
-        "Orderbook": {
-          "dataset_guid": "d697bc62-f25b-4b71-9f19-203211daa31c"
-        },
-        "Orderbook - Intake": {
-          "dataset_guid": "af094db9-4f11-4b60-b1b6-79e71bfca662"
-        },
-        "Orderbook - Open Orders": {
-          "dataset_guid": "6de5bbe9-ccf0-4b85-8471-0efb9687311a"
-        },
-        "Product Top Flop": {
-          "dataset_guid": "a2880655-7d9f-40c0-811e-ecc04213b1d6"
-        },
-        "PVM": {
-          "dataset_guid": "f1ca37c1-b7ce-4f7d-9c53-de09b07f14bc"
-        },
-        "Quotations": {
-          "dataset_guid": "2782db55-7533-4334-9328-9f23e52d7698"
-        },
-        "Sales View": {
-          "dataset_guid": "a5081fc1-9b68-4393-aede-d8f375156af1"
-        },
-        "Sales View Invoiced Cost Outliers": {
-          "dataset_guid": "45a5de05-f226-4a6a-8345-8c2a9f57df0f"
-        },
-        "Whale Curve": {
-          "dataset_guid": "7fd8fb91-dc45-474d-bf24-f71223716541"
-        },
-        "Project Card": {
-          "dataset_guid": "4bab9014-0e66-42a6-8405-9686d7f1e1d8"
-        },
-        "$$ SELF-SERVICE (Sales)": {
-          "dataset_guid": "7db9ed65-db3c-4175-bfd4-62864979334a"
-        }
+  "Leviat_Data_Analytics Finance": {
+    "workspace_guid": "d3b3b916-bdc0-43b5-800d-023fd2dfea97",
+    "datasets": {
+      "EPM Sales View": {
+        "dataset_guid": "d5002396-c885-4ff7-9c29-c6dfd223a480"
       }
-    },"Leviat_Data_Analytics_FinSales": {
-        "workspace_guid": "93d5be19-4398-4b03-be0f-d2d6c01e7a4c",
-        "datasets": {
-            "Fin View": {
-                "dataset_guid": "eb0fd327-dcab-4716-b8c6-62030375963c"
-            },
-            "Fin View Invoiced Cost Outliers": {
-                "dataset_guid": "0528c746-38c8-4aab-ad7c-c022ba2ba01d"
-            },
-            "Fin View (Legacy)": {
-                "dataset_guid": "8f4df736-52c9-4539-94bd-aa725142cb4a"
-            },
-            "Fin View (Legacy) - Budgeting": {
-                "dataset_guid": "9dc1adfb-8dc0-453c-bca4-6f0b482e878f"
-            }
-        }
-    },"Leviat_Data_Analytics_SCM": {
-        "workspace_guid": "8d440b01-7316-4e0d-a416-07a6247e31b0",
-        "datasets": {
-            "OTIF": {
-                "dataset_guid": "c8508ad9-50da-41c8-ac24-c83032834810"
-            },"Stock Usage": {
-                "dataset_guid": "15188896-8289-4517-96ab-49cf5b93ed7e"
-            },"Data Quality Checks": {
-                "dataset_guid": "b62f4e1a-3ed8-44d8-a743-b097345d2f05"
-            }
-        }
-    },"Leviat_Data_Analytics Performance Team Tools": {
-        "workspace_guid": "acd73a8e-c087-4568-bade-3c5856cdfbc8",
-        "datasets": {
-            "Price Floor": {
-                "dataset_guid": "1113f27b-7786-4708-8fd6-c12e7a6f6408"
-            }
-        }
-    },
-    "Leviat_Data_Analytics MDQ": {
-        "workspace_guid": "66ed8f0a-80d4-41d2-852d-3bdff14a0efa",
-        "datasets": {
-            "Master Data Quality Checks": {
-                "dataset_guid": "75fc2a75-7825-4d43-b13a-1aa3a4efb85a"
-            }
-        }
     }
+  },
+  "Leviat_Data_Analytics_Sales": {
+    "workspace_guid": "42ba5d7d-cee0-4837-ac07-9937e34c815b",
+    "datasets": {
+      "Customer Card": {
+        "dataset_guid": "34e7eecb-2c86-4e96-b4ab-42f3382071ca"
+      },
+      "Invoiced Products Master Data": {
+        "dataset_guid": "79d50e6d-89b2-4be3-9670-6ec99743ae88"
+      },
+      "Orderbook": {
+        "dataset_guid": "d697bc62-f25b-4b71-9f19-203211daa31c"
+      },
+      "Orderbook - Intake": {
+        "dataset_guid": "af094db9-4f11-4b60-b1b6-79e71bfca662"
+      },
+      "Orderbook - Open Orders": {
+        "dataset_guid": "6de5bbe9-ccf0-4b85-8471-0efb9687311a"
+      },
+      "Product Top Flop": {
+        "dataset_guid": "a2880655-7d9f-40c0-811e-ecc04213b1d6"
+      },
+      "PVM": {
+        "dataset_guid": "f1ca37c1-b7ce-4f7d-9c53-de09b07f14bc"
+      },
+      "Quotations": {
+        "dataset_guid": "2782db55-7533-4334-9328-9f23e52d7698"
+      },
+      "Sales View": {
+        "dataset_guid": "a5081fc1-9b68-4393-aede-d8f375156af1"
+      },
+      "Sales View Invoiced Cost Outliers": {
+        "dataset_guid": "45a5de05-f226-4a6a-8345-8c2a9f57df0f"
+      },
+      "Whale Curve": {
+        "dataset_guid": "7fd8fb91-dc45-474d-bf24-f71223716541"
+      },
+      "Project Card": {
+        "dataset_guid": "4bab9014-0e66-42a6-8405-9686d7f1e1d8"
+      },
+      "$$ SELF-SERVICE (Sales)": {
+        "dataset_guid": "7db9ed65-db3c-4175-bfd4-62864979334a"
+      }
+    }
+  },"Leviat_Data_Analytics_FinSales": {
+      "workspace_guid": "93d5be19-4398-4b03-be0f-d2d6c01e7a4c",
+      "datasets": {
+          "Fin View": {
+              "dataset_guid": "eb0fd327-dcab-4716-b8c6-62030375963c"
+          },
+          "Fin View Invoiced Cost Outliers": {
+              "dataset_guid": "0528c746-38c8-4aab-ad7c-c022ba2ba01d"
+          },
+          "Fin View (Legacy)": {
+              "dataset_guid": "8f4df736-52c9-4539-94bd-aa725142cb4a"
+          },
+          "Fin View (Legacy) - Budgeting": {
+              "dataset_guid": "9dc1adfb-8dc0-453c-bca4-6f0b482e878f"
+          }
+      }
+  },"Leviat_Data_Analytics_SCM": {
+      "workspace_guid": "8d440b01-7316-4e0d-a416-07a6247e31b0",
+      "datasets": {
+          "OTIF": {
+              "dataset_guid": "c8508ad9-50da-41c8-ac24-c83032834810"
+          },"Stock Usage": {
+              "dataset_guid": "15188896-8289-4517-96ab-49cf5b93ed7e"
+          },"Data Quality Checks": {
+              "dataset_guid": "b62f4e1a-3ed8-44d8-a743-b097345d2f05"
+          }
+      }
+  },"Leviat_Data_Analytics Performance Team Tools": {
+      "workspace_guid": "acd73a8e-c087-4568-bade-3c5856cdfbc8",
+      "datasets": {
+          "Price Floor": {
+              "dataset_guid": "1113f27b-7786-4708-8fd6-c12e7a6f6408"
+          }
+      }
+  },
+  "Leviat_Data_Analytics MDQ": {
+      "workspace_guid": "66ed8f0a-80d4-41d2-852d-3bdff14a0efa",
+      "datasets": {
+          "Master Data Quality Checks": {
+              "dataset_guid": "75fc2a75-7825-4d43-b13a-1aa3a4efb85a"
+          }
+      }
+  }
 }
