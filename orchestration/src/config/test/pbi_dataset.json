@@ -1,33 +1,47 @@
 {
     "Leviat_Data_Analytics_Sales": {
         "workspace_guid": "a1b14593-4764-4da6-939a-7167c28339e1",
-        "datasets": {
-            "Customer Card": {
-                "dataset_guid": "fd6e0448-435d-44ac-9291-e2bd870f9963"
-            },"Invoiced Products Master Data": {
-                "dataset_guid": "f62df8b8-787b-4895-be52-5f1cb267c232"
-            },"Orderbook": {
-                "dataset_guid": "f5ea11ff-5c6a-4c49-9bda-dc29cbc7733e"
-            },"Orderbook - Intake": {
-                "dataset_guid": "b36f010e-8dd7-419d-be4c-ddef911f1a42"
-            },"Orderbook - Open Orders": {
-                "dataset_guid": "fd17a94f-53ae-4770-a60a-de5c910201d1"
-            },"Product Top Flop": {
-                "dataset_guid": "de7265f5-645c-4e89-b3a6-7c937c7946fe"
-            },"PVM": {
-                "dataset_guid": "4871fc07-48c6-4ba9-b2d6-19869488f207"
-            },"Quotations": {
-                "dataset_guid": "ba723504-29ce-4f52-bda6-aee54d891537"
-            },"Sales View": {
-                "dataset_guid": "43f00a84-a251-4099-81c5-af9ed3c0c2ee"
-            },"Sales View Invoiced Cost Outliers": {
-                "dataset_guid": "57b4b830-18f5-468f-8449-da8e14ce7b72"
-            },"Whale Curve": {
-                "dataset_guid": "3e6d8d25-f883-4f03-b5fd-607c2f0278a6"
-            },"Project Card": {
-                "dataset_guid": "12ba65f2-be7a-4079-8b62-4b46a5d95aaa"
-            }
+      "datasets": {
+        "Customer Card": {
+          "dataset_guid": "fd6e0448-435d-44ac-9291-e2bd870f9963"
+        },
+        "Invoiced Products Master Data": {
+          "dataset_guid": "f62df8b8-787b-4895-be52-5f1cb267c232"
+        },
+        "Orderbook": {
+          "dataset_guid": "f5ea11ff-5c6a-4c49-9bda-dc29cbc7733e"
+        },
+        "Orderbook - Intake": {
+          "dataset_guid": "b36f010e-8dd7-419d-be4c-ddef911f1a42"
+        },
+        "Orderbook - Open Orders": {
+          "dataset_guid": "fd17a94f-53ae-4770-a60a-de5c910201d1"
+        },
+        "Product Top Flop": {
+          "dataset_guid": "de7265f5-645c-4e89-b3a6-7c937c7946fe"
+        },
+        "PVM": {
+          "dataset_guid": "4871fc07-48c6-4ba9-b2d6-19869488f207"
+        },
+        "Quotations": {
+          "dataset_guid": "ba723504-29ce-4f52-bda6-aee54d891537"
+        },
+        "Sales View": {
+          "dataset_guid": "43f00a84-a251-4099-81c5-af9ed3c0c2ee"
+        },
+        "Sales View Invoiced Cost Outliers": {
+          "dataset_guid": "57b4b830-18f5-468f-8449-da8e14ce7b72"
+        },
+        "Whale Curve": {
+          "dataset_guid": "3e6d8d25-f883-4f03-b5fd-607c2f0278a6"
+        },
+        "Project Card": {
+          "dataset_guid": "12ba65f2-be7a-4079-8b62-4b46a5d95aaa"
+        },
+        "$$ SELF-SERVICE (Sales)": {
+          "dataset_guid": "508a2692-6f54-4d2b-81d0-069550494261"
         }
+      }
     },
     "Leviat_Data_Analytics_FinSales": {
         "workspace_guid": "c58e1f50-2a64-426a-a098-d163f004c5cb",
