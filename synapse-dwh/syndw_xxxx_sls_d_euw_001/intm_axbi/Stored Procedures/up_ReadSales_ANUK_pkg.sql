@@ -224,12 +224,12 @@ BEGIN
        ,COSTAMOUNTEUR)
 	select 
 	Dataareaid, 
-	Salesid, 
+	right(CONCAT('0000000000',Salesid),10), 
 	CAST(Invoiceid AS NVARCHAR(20)), 
 	Linenum, ' ', 
 	Accountingdate, 
 	'ANUK-' + CustomerNo, 
-	'ANUK-' + Itemid, 
+	'ANUK-' + REPLACE(Itemid,'"',''), 
 	DeliveryCountryID, 
 	PackingSlipID, 
 	Qty, 
@@ -289,10 +289,13 @@ BEGIN
     count(*) lcounter
 	into #InvoicedFreightTable_SB
     from [intm_axbi].[fact_CUSTINVOICETRANS] c
-    inner join #InvoicedFreightTable i
-    on c.PACKINGSLIPID = i.PackingSlipID
-    and upper(c.DATAAREAID) = 'ANUK' 
-	group by c.PACKINGSLIPID
+    WHERE upper(c.DATAAREAID) = 'ANUK' 
+	AND EXISTS (
+		SELECT 1
+		FROM #InvoicedFreightTable ift
+		WHERE ift.PackingSlipID = c.PACKINGSLIPID
+	)
+	group by c.PACKINGSLIPID;
 	
 	-- select c.PACKINGSLIPID, count(*) lcounter
 	-- into #InvoicedFreightTable_cnt 
@@ -302,31 +305,50 @@ BEGIN
 	-- where upper(c.DATAAREAID) = 'ANUK'
 	-- group by c.PACKINGSLIPID
 	
-	update [intm_axbi].[fact_CUSTINVOICETRANS]
-	set OTHERSALESLOCAL += i.InvoicedFreightLocal * t.PRODUCTSALESLOCAL/sb.SalesBalance,
-	    OTHERSALESEUR  += i.InvoicedFreightEur * t.PRODUCTSALESEUR/sb.SalesBalanceEUR
-	from [intm_axbi].[fact_CUSTINVOICETRANS] as t
-	inner join #InvoicedFreightTable i
-	on t.PACKINGSLIPID=i.PackingSlipID
-	inner join #InvoicedFreightTable_SB sb
-	on t.PACKINGSLIPID = sb.PACKINGSLIPID 
-	where upper(t.DATAAREAID) = 'ANUK' 
-	and SalesBalance <> 0
-
-
-	update [intm_axbi].[fact_CUSTINVOICETRANS]
-	set [intm_axbi].[fact_CUSTINVOICETRANS].OTHERSALESLOCAL += i.InvoicedFreightLocal / sb.lcounter,
-	  [intm_axbi].[fact_CUSTINVOICETRANS].OTHERSALESEUR  += i.InvoicedFreightEur / sb.lcounter
-	from [intm_axbi].[fact_CUSTINVOICETRANS] as t
-	inner join #InvoicedFreightTable i
-	on t.PACKINGSLIPID=i.PackingSlipID
-	inner join #InvoicedFreightTable_SB sb
-	on t.PACKINGSLIPID = sb.PACKINGSLIPID 
-	--inner join #InvoicedFreightTable_cnt cnt
-	--on t.PACKINGSLIPID = cnt.PACKINGSLIPID
-	where upper(t.DATAAREAID) = 'ANUK' 
-	and sb.SalesBalance = 0
-    and sb.lcounter>0
+	WITH PCC AS (
+		SELECT SALESID
+			,INVOICEID
+			,LINENUM
+			,SUM(i.InvoicedFreightLocal * t.PRODUCTSALESLOCAL/sb.SalesBalance) as l_sum
+	    	,SUM(i.InvoicedFreightEur * t.PRODUCTSALESEUR/sb.SalesBalanceEUR) as e_sum
+    	FROM [intm_axbi].[fact_CUSTINVOICETRANS] AS t
+    	INNER JOIN #InvoicedFreightTable i
+    		ON t.PACKINGSLIPID=i.[PackingSlipID]
+    	INNER JOIN #InvoicedFreightTable_SB sb
+    		ON t.PACKINGSLIPID = sb.PACKINGSLIPID
+    	WHERE upper(t.DATAAREAID) = 'ANUK' 
+    		AND sb.SalesBalance <> 0
+    	GROUP BY SALESID,INVOICEID, LINENUM
+	)
+	UPDATE [intm_axbi].[fact_CUSTINVOICETRANS]
+	SET OTHERSALESLOCAL += PCC.l_sum,
+	    OTHERSALESEUR   += PCC.e_sum
+	FROM [intm_axbi].[fact_CUSTINVOICETRANS] as t
+	INNER JOIN PCC
+		ON t.SALESID=PCC.SALESID AND t.INVOICEID=PCC.INVOICEID AND t.LINENUM=PCC.LINENUM;
+	
+	WITH PCC AS (
+		SELECT SALESID
+			,INVOICEID
+			,LINENUM
+			,SUM(i.InvoicedFreightLocal / sb.lcounter) AS l_sum
+			,SUM(i.InvoicedFreightEur / sb.lcounter) AS e_sum
+		FROM [intm_axbi].[fact_CUSTINVOICETRANS] as t
+		INNER JOIN #InvoicedFreightTable i
+			ON t.PACKINGSLIPID=i.[PackingSlipID]
+		INNER JOIN #InvoicedFreightTable_SB sb
+		ON t.PACKINGSLIPID = sb.[PACKINGSLIPID]
+		WHERE upper(t.DATAAREAID) = 'ANUK' 
+			AND sb.SalesBalance = 0
+			AND sb.lcounter > 0
+		GROUP BY SALESID,INVOICEID, LINENUM
+	)
+	UPDATE [intm_axbi].[fact_CUSTINVOICETRANS]
+	set OTHERSALESLOCAL += PCC.l_sum,
+	    OTHERSALESEUR  += PCC.e_sum
+	FROM [intm_axbi].[fact_CUSTINVOICETRANS] as t
+	INNER JOIN PCC
+		ON t.SALESID=PCC.SALESID AND t.INVOICEID=PCC.INVOICEID AND t.LINENUM=PCC.LINENUM;
 
 	-- SALES100 aktualisieren
 	update [intm_axbi].[fact_CUSTINVOICETRANS]
