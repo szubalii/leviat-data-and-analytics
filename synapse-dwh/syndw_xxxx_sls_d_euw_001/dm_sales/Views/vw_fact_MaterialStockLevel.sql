@@ -18,6 +18,7 @@ SELECT
     [PurchaseOrderTypeID],
     [MatlStkChangeQtyInBaseUnit],
     [StockLevelQtyInBaseUnit],
+    [Prev12MConsumptionQty],
     [StockLevelStandardPPU],
     [StockLevelStandardPPU_EUR],
     [StockLevelStandardPPU_USD],
