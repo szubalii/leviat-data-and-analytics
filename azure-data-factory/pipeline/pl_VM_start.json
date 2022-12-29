@@ -16,7 +16,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"expression": {
-						"value": "@not(equals(\n    variables('vm_status'),\n    'VM running'\n))",
+						"value": "@equals(\n    variables('vm_status'),\n    'VM running'\n)",
 						"type": "Expression"
 					},
 					"activities": [
