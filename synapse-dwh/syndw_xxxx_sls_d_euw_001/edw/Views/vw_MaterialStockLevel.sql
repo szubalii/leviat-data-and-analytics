@@ -159,7 +159,7 @@ SELECT
                 )
                 +                                   -- get consumption from current date -1 YEAR +1 DAY to the end of preceding 12 month
                 ISNULL((
-                SELECT SUM(HC.ConsumptionQty)
+                SELECT SUM(mdi.ConsumptionQty)
                 FROM [edw].[fact_MaterialDocumentItem] mdi
                 WHERE mdi._hash = CC._hash
                     AND mdi.[HDR_PostingDate] BETWEEN
