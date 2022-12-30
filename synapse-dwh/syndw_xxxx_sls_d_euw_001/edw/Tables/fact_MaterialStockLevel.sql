@@ -19,6 +19,7 @@ CREATE TABLE [edw].[fact_MaterialStockLevel]
     [PurchaseOrderTypeID]                       [nvarchar](4),
     [MatlStkChangeQtyInBaseUnit]                [decimal](38, 14),
     [StockLevelQtyInBaseUnit]                   [decimal](38, 14),
+    [Prev12MConsumptionQty]                     [decimal](38, 14),
     [StockLevelStandardPPU]                     [decimal](38, 6),
     [StockLevelStandardPPU_EUR]                 [decimal](38, 6),
     [StockLevelStandardPPU_USD]                 [decimal](38, 6),

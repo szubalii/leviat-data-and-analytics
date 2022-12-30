@@ -25,7 +25,8 @@ SELECT
         viewMD.[InventoryValuationTypeID],
         viewMD.[LatestPricePerPiece_Local],  
         viewMD.[LatestPricePerPiece_EUR],    
-        viewMD.[LatestPricePerPiece_USD],   
+        viewMD.[LatestPricePerPiece_USD],  
+        SUM(viewMD.ConsumptionQty) AS ConsumptionQty, 
         viewMD.t_applicationId,
         viewMD.t_extractionDtm
     FROM [edw].[fact_MaterialDocumentItem] viewMD
@@ -139,6 +140,34 @@ SELECT
                 SUM(ISNULL(HC.MatlStkChangeQtyInBaseUnit, 0))
                 OVER (PARTITION BY CC._hash ORDER BY CC.CalendarYear, CC.CalendarMonth)
         END AS StockLevelQtyInBaseUnit,
+        CASE
+            WHEN CC.LastDayOfMonthDate > AXM.MigrationDate THEN 0
+            WHEN GetDate() > CC.LastDayOfMonthDate  THEN                -- 
+                SUM(ISNULL(HC.ConsumptionQty,0))
+                OVER (
+                    PARTITION BY CC._hash
+                    ORDER BY CC.CalendarYear, CC.CalendarMonth
+                    ROWS BETWEEN 11 PRECEDING
+                        AND CURRENT ROW
+                )
+            ELSE SUM(ISNULL(HC.ConsumptionQty,0))
+                OVER (                              -- get consumption from the beginning of preceding 11 month
+                    PARTITION BY CC._hash
+                    ORDER BY CC.CalendarYear, CC.CalendarMonth
+                    ROWS BETWEEN 11 PRECEDING
+                        AND CURRENT ROW
+                )
+                +                                   -- get consumption from current date -1 YEAR +1 DAY to the end of preceding 12 month
+                ISNULL((
+                SELECT SUM(HC.ConsumptionQty)
+                FROM [edw].[fact_MaterialDocumentItem] mdi
+                WHERE mdi._hash = CC._hash
+                    AND mdi.[HDR_PostingDate] BETWEEN
+                        DATEADD(DAY,1,DATEADD(YEAR,-1,CONVERT(DATE, GETDATE())))
+                        AND
+                        DATEADD(YEAR,-1,CC.LastDayOfMonthDate)
+            ),0)
+        END AS Prev12MConsumptionQty,
         CPPUP.[StockPricePerUnit]             AS [StockPricePerUnit],
         CPPUP.[StockPricePerUnit_EUR]         AS [StockPricePerUnit_EUR],
         CPPUP.[StockPricePerUnit_USD]         AS [StockPricePerUnit_USD],
@@ -187,6 +216,7 @@ SELECT
     [PurchaseOrderTypeID],
     [MatlStkChangeQtyInBaseUnit],
     [StockLevelQtyInBaseUnit],
+    [Prev12MConsumptionQty],
     [StockLevelQtyInBaseUnit] * [StockPricePerUnit]     AS StockLevelStandardPPU,
     [StockLevelQtyInBaseUnit] * [StockPricePerUnit_EUR] AS StockLevelStandardPPU_EUR,
     [StockLevelQtyInBaseUnit] * [StockPricePerUnit_USD] AS StockLevelStandardPPU_USD,
