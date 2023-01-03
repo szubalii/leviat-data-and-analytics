@@ -92,12 +92,12 @@ BEGIN
 	set CUSTOMERPILLAR = 'OTHER'
 	where upper(DATAAREAID) = 'ANUK' and INOUT = 'I' 
 
-    update [intm_axbi].[dim_CUSTTABLE]
+  /*  update [intm_axbi].[dim_CUSTTABLE]
 	set INOUT = 'O',
 	    CUSTOMERPILLAR = 'OTHER',
 	    DIMENSION3_ = '5330U01'
 	where DATAAREAID = 'ANUK' and UPPER(NAME) like '%HALFEN USA%'
-
+*/
 
 	-- ITEMTABLE
 
@@ -228,8 +228,8 @@ BEGIN
 	CAST(Invoiceid AS NVARCHAR(20)), 
 	Linenum, ' ', 
 	Accountingdate, 
-	'ANUK-' + CustomerNo, 
-	'ANUK-' + REPLACE(Itemid,'"',''), 
+	'ANUK-' + CustomerNo,
+	'ANUK-' + Itemid, 
 	DeliveryCountryID, 
 	PackingSlipID, 
 	Qty, 
