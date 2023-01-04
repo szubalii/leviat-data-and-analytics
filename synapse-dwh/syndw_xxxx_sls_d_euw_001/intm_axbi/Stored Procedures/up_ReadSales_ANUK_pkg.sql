@@ -40,6 +40,30 @@ BEGIN
 
 	-- CUSTTABLE
 	--append [base_ancon_uk].[CUSTTABLE_ANUK]
+	INSERT INTO [base_ancon_uk].[CUSTTABLE_ANUK](
+        [DATAAREAID],      
+		[CUSTOMERID],      
+		[CUSTOMERNAME],    
+		[INOUT],           
+		[CUSTOMERPILLAR],  
+		[DIMENSION3_]     
+	SELECT
+        [DATAAREAID],      
+		[CUSTOMERID],      
+		[CUSTOMERNAME],    
+		[INOUT],           
+		[CUSTOMERPILLAR],  
+		[DIMENSION3_]     
+    FROM 
+        [base_ancon_uk].[CUSTTABLE_ANUK_orig] AS ORIG 
+    WHERE
+        NOT EXISTS (
+            SELECT 1
+            FROM
+                [base_ancon_uk].[CUSTTABLE_ANUK] AS ITEM
+            WHERE
+                ITEM.[CUSTOMERID] = ORIG.[CUSTOMERID]
+        )
  
 	update [base_ancon_uk].[CUSTTABLE_ANUK]
 	set DIMENSION3_ = ' '
