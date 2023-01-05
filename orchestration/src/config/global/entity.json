@@ -5625,7 +5625,7 @@
       {
         "entity_id": 532,
         "entity_name": "CUSTTABLE_ANUK$_bulk",
-        "base_table_name": "CUSTTABLE_ANUK",
+        "base_table_name": "CUSTTABLE_ANUK_orig",
         "pk_field_names": "CUSTOMERID",
         "schedule_recurrence": "D"
       },
