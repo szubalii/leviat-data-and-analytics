@@ -1066,6 +1066,7 @@
     <Build Include="base_halfen_moment_my\Tables\CUSTINVOICETRANS_HMMY.sql" />
     <Build Include="base_ancon_uk\Tables\CUSTINVOICETRANS_ANUK.sql" />
     <Build Include="base_ancon_uk\Tables\CUSTTABLE_ANUK.sql" />
+    <Build Include="base_ancon_uk\Tables\CUSTTABLE_ANUK_orig.sql" />
     <Build Include="base_ancon_uk\Tables\INVOICEDFREIGHT_ANUK.sql" />
     <Build Include="base_ancon_uk\Tables\ITEMTABLE_ANUK.sql" />
     <Build Include="base_ancon_uk\Tables\MAPPING_ITEMGROUP_ANUK.sql" />
