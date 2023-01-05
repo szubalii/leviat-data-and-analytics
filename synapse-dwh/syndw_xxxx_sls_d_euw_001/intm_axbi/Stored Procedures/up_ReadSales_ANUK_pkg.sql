@@ -46,14 +46,26 @@ BEGIN
 		[CUSTOMERNAME],    
 		[INOUT],           
 		[CUSTOMERPILLAR],  
-		[DIMENSION3_]     
+		[DIMENSION3_],
+		[t_applicationId], 
+		[t_jobId],         
+		[t_jobDtm],        
+		[t_jobBy],         
+		[t_extractionDtm], 
+		[t_filePath]           
 	SELECT
         [DATAAREAID],      
 		[CUSTOMERID],      
 		[CUSTOMERNAME],    
 		[INOUT],           
 		[CUSTOMERPILLAR],  
-		[DIMENSION3_]     
+		[DIMENSION3_], 
+		[t_applicationId], 
+		[t_jobId],         
+		[t_jobDtm],        
+		[t_jobBy],         
+		[t_extractionDtm], 
+		[t_filePath]       
     FROM 
         [base_ancon_uk].[CUSTTABLE_ANUK_orig] AS ORIG 
     WHERE
