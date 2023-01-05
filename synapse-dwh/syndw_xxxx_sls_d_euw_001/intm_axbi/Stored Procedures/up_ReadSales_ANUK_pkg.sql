@@ -52,7 +52,8 @@ BEGIN
 		[t_jobDtm],        
 		[t_jobBy],         
 		[t_extractionDtm], 
-		[t_filePath]           
+		[t_filePath]
+	)      
 	SELECT
         [DATAAREAID],      
 		[CUSTOMERID],      
