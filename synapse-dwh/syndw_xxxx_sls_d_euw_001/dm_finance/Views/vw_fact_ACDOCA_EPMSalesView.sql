@@ -299,3 +299,4 @@ LEFT JOIN [edw].[dim_Brand] DimBrand
     ON PSD.FirstSalesSpecProductGroup = DimBrand.[BrandID] 
 LEFT JOIN [edw].[dim_CustomerGroup] dimCGr
     ON CSA.CustomerGroup = dimCGr.[CustomerGroupID]
+WHERE ZED.CONTIGENCY5 != ''
