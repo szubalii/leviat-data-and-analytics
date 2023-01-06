@@ -57,7 +57,8 @@ BEGIN
 	'ANAC-' + CAST(ACCOUNTNUM as nvarchar), -- To identify the Leviat's company customer 
 	[NAME],
 	INOUT,
-	CUSTOMERPILLAR,
+	CASE WHEN CUSTOMERPILLAR='Other' THEN 'OTHER'
+		ELSE CUSTOMERPILLAR END,
 	' ',
 	' '
 	from [base_ancon_conolly_aus].[CUSTTABLE_ANAC]
@@ -98,12 +99,12 @@ BEGIN
 
     -- Alle CUSTOMERPILLAR auf OTHER setzen, die leer sind.
 	update [intm_axbi].[dim_CUSTTABLE]
-	set [CUSTOMERPILLAR] = 'Other'
+	set [CUSTOMERPILLAR] = 'OTHER'
 	where upper([DATAAREAID]) = 'ANAC' and ISNULL([CUSTOMERPILLAR],' ') = ' ' 
 
     -- Alle INSIDE customer column CUSTOMERPILLAR auf OTHER setzen
 	update [intm_axbi].[dim_CUSTTABLE]
-	set [CUSTOMERPILLAR] = 'Other'
+	set [CUSTOMERPILLAR] = 'OTHER'
 	where upper([DATAAREAID]) = 'ANAC' and [INOUT] = 'I' 
 
 	-- Item Master Data ---------------------------------------------------------------------------------------------------------------------------
@@ -283,7 +284,8 @@ BEGIN
         and
         Datepart(MM, [ACCOUNTINGDATE]) = @P_Month
         and
-        [ITEMID] not in ('ADMIN', 'FREIGHT') 
+        [ITEMID] not in ('ADMIN', 'FREIGHT');
+
 
 	-- Read sales positions with item number ADMIN and FREIGHT from working table CUSTINVOICETRANS_ANAC$_bulk into the SQL cursor 
 	select 'ANAC' AS [DATAAREAID],
@@ -340,20 +342,20 @@ BEGIN
 	
 	-- If regular positions with existing sales amount, distribute the lineamount of ADMIN or FREIGHT according to sales share.
 	WITH PCC AS (
-		SELECT SALESID
-			,INVOICEID
-			,LINENUM
-			,SUM(i.InvoicedFreightLocal * t.PRODUCTSALESLOCAL/sb.SalesBalance) as l_sum
-	    	,SUM(i.InvoicedFreightEur * t.PRODUCTSALESEUR/sb.SalesBalanceEUR) as e_sum
+		SELECT t.SALESID
+			,t.INVOICEID
+			,t.LINENUM
+			,SUM(i.OTHERSALESLOCAL * t.PRODUCTSALESLOCAL/sb.SalesBalanceMST) as l_sum
+	    	,SUM(i.OTHERSALESEUR * t.PRODUCTSALESEUR/sb.SalesBalanceEUR) as e_sum
     	FROM [intm_axbi].[fact_CUSTINVOICETRANS] AS t
     	INNER JOIN #OtherSalesTable i
     		ON t.[INVOICEID]=i.[INVOICEID]
     	INNER JOIN #OtherSalesTable_SB sb
     		ON t.[INVOICEID] = sb.[INVOICEID]
     	WHERE upper(t.DATAAREAID) = 'ANAC' 
-    		AND sb.SalesBalance <> 0
+    		AND sb.SalesBalanceMST <> 0
 			AND t.[ITEMID] not in ('ANAC-ADMIN', 'ANAC-FREIGHT')
-    	GROUP BY SALESID,INVOICEID, LINENUM
+    	GROUP BY t.SALESID,t.INVOICEID, t.LINENUM
 	)
 	UPDATE [intm_axbi].[fact_CUSTINVOICETRANS]
 	SET OTHERSALESLOCAL += PCC.l_sum,
@@ -361,6 +363,7 @@ BEGIN
 	FROM [intm_axbi].[fact_CUSTINVOICETRANS] as t
 	INNER JOIN PCC
 		ON t.SALESID=PCC.SALESID AND t.INVOICEID=PCC.INVOICEID AND t.LINENUM=PCC.LINENUM;
+
 
 /*	update [intm_axbi].[fact_CUSTINVOICETRANS]
 	set OTHERSALESLOCAL += st.OTHERSALESLOCAL * t.PRODUCTSALESLOCAL/sb.SalesBalanceMST,
@@ -382,23 +385,23 @@ BEGIN
 
 	-- If regular positions but without existing sales amount, distribute the lineamount of ADMIN or FREIGHT according to the number of positions.
 	WITH PCC AS (
-		SELECT SALESID
-			,INVOICEID
-			,LINENUM
-			,SUM(i.InvoicedFreightLocal / sb.lcounter) AS l_sum
-			,SUM(i.InvoicedFreightEur / sb.lcounter) AS e_sum
+		SELECT t.SALESID
+			,t.INVOICEID
+			,t.LINENUM
+			,SUM(i.OTHERSALESLOCAL / cnt.lcounter) AS l_sum
+			,SUM(i.OTHERSALESEUR / cnt.lcounter) AS e_sum
 		FROM [intm_axbi].[fact_CUSTINVOICETRANS] as t
 		INNER JOIN #OtherSalesTable i
-			ON t.PACKINGSLIPID=i.[PACKINGSLIPID]
+			ON t.INVOICEID=i.[INVOICEID]
 		INNER JOIN #OtherSalesTable_SB sb
-			ON t.PACKINGSLIPID = sb.[PACKINGSLIPID]
+			ON t.INVOICEID = sb.[INVOICEID]
 		INNER JOIN	#OtherSalesTable_cnt cnt
 	        ON t.[INVOICEID] = sb.[INVOICEID]   
 		WHERE upper(t.DATAAREAID) = 'ANAC' 
-			AND sb.SalesBalance = 0
-			AND sb.lcounter <> 0
+			AND sb.SalesBalanceMST = 0
+			AND cnt.lcounter <> 0
 			AND t.[ITEMID] NOT IN ('ANAC-ADMIN', 'ANAC-FREIGHT')
-		GROUP BY SALESID,INVOICEID, LINENUM
+		GROUP BY t.SALESID,t.INVOICEID, t.LINENUM
 	)
 	UPDATE [intm_axbi].[fact_CUSTINVOICETRANS]
 	set OTHERSALESLOCAL += PCC.l_sum,
@@ -406,6 +409,7 @@ BEGIN
 	FROM [intm_axbi].[fact_CUSTINVOICETRANS] as t
 	INNER JOIN PCC
 		ON t.SALESID=PCC.SALESID AND t.INVOICEID=PCC.INVOICEID AND t.LINENUM=PCC.LINENUM;
+
 
 /*	update [intm_axbi].[fact_CUSTINVOICETRANS] 
 	set OTHERSALESLOCAL += st.OTHERSALESLOCAL / cnt.lcounter,
@@ -484,18 +488,18 @@ BEGIN
 	    ,   CAST(0 as [DECIMAL](38, 12))
     FROM
         #OtherSalesTable st
-	inner join
+	LEFT JOIN
         #OtherSalesTable_SB sb
 	        on st.[INVOICEID] = sb.[INVOICEID]
-	inner join
+	LEFT JOIN
         #OtherSalesTable_cnt cnt
 	        on st.[INVOICEID] = sb.[INVOICEID]
     WHERE 
         upper(st.DATAAREAID) = 'ANAC'
         and
-        sb.SalesBalanceMST = 0
+        COALESCE(sb.SalesBalanceMST,0) = 0
         and
-        cnt.lcounter=0
+        COALESCE(cnt.lcounter,0)=0
 
 	-- Recalculate SALES100 local and CRH EUR
 	update [intm_axbi].[fact_CUSTINVOICETRANS]
