@@ -1,8 +1,2 @@
 {
-    "columns": 
-    [
-        "IPRITEM~MANDT",
-        "IPRITEM~PURCHASEREQUISITION",
-        "IPRITEM~PURCHASEREQUISITIONITEM"
-    ]
 }

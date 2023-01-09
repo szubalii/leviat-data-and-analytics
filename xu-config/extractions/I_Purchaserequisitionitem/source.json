@@ -6,7 +6,7 @@
     [
         {
             "name": "IPRITEM",
-            "description": "Generated Table for View I_Purchaserequisitionitem: Purchase Requisition Item",
+            "description": "Generated Table for View",
             "isView": true,
             "fields": 
             [
@@ -18,8 +18,7 @@
                     "isPrimaryKey": true,
                     "isSelected": true,
                     "checkTable": "T000",
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "PURCHASEREQUISITION",
@@ -28,8 +27,7 @@
                     "length": 10,
                     "isPrimaryKey": true,
                     "isSelected": true,
-                    "conversionExit": "ALPHA",
-                    "isClientField": false
+                    "conversionExit": "ALPHA"
                 },
                 {
                     "name": "PURCHASEREQUISITIONITEM",
@@ -38,8 +36,7 @@
                     "length": 5,
                     "isPrimaryKey": true,
                     "isSelected": true,
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "PURCHASINGDOCUMENT",
@@ -48,8 +45,7 @@
                     "length": 10,
                     "isSelected": true,
                     "checkTable": "EKKO",
-                    "conversionExit": "ALPHA",
-                    "isClientField": false
+                    "conversionExit": "ALPHA"
                 },
                 {
                     "name": "PURCHASINGDOCUMENTITEM",
@@ -58,8 +54,7 @@
                     "length": 5,
                     "isSelected": true,
                     "checkTable": "EKPO",
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "PURREQNRELEASESTATUS",
@@ -67,8 +62,7 @@
                     "abapType": "CharacterString",
                     "length": 2,
                     "isSelected": true,
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "PURCHASEREQUISITIONTYPE",
@@ -77,8 +71,7 @@
                     "length": 4,
                     "isSelected": true,
                     "checkTable": "T161",
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "PURCHASINGDOCUMENTSUBTYPE",
@@ -86,8 +79,7 @@
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "PURCHASINGDOCUMENTITEMCATEGORY",
@@ -96,8 +88,7 @@
                     "length": 1,
                     "isSelected": true,
                     "checkTable": "T163",
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "PURCHASEREQUISITIONITEMTEXT",
@@ -105,8 +96,7 @@
                     "abapType": "CharacterString",
                     "length": 40,
                     "isSelected": true,
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "ACCOUNTASSIGNMENTCATEGORY",
@@ -115,8 +105,7 @@
                     "length": 1,
                     "isSelected": true,
                     "checkTable": "T163K",
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "MATERIAL",
@@ -125,8 +114,7 @@
                     "length": 40,
                     "isSelected": true,
                     "checkTable": "MARA",
-                    "conversionExit": "MATN1",
-                    "isClientField": false
+                    "conversionExit": "MATN1"
                 },
                 {
                     "name": "MANUFACTURERMATERIAL",
@@ -135,8 +123,7 @@
                     "length": 40,
                     "isSelected": true,
                     "checkTable": "MARA",
-                    "conversionExit": "MATN1",
-                    "isClientField": false
+                    "conversionExit": "MATN1"
                 },
                 {
                     "name": "MATERIALGROUP",
@@ -145,8 +132,7 @@
                     "length": 9,
                     "isSelected": true,
                     "checkTable": "T023",
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "PURCHASINGDOCUMENTCATEGORY",
@@ -154,8 +140,7 @@
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "REQUESTEDQUANTITY",
@@ -167,8 +152,7 @@
                     "formattedLength": 17,
                     "conversionExit": "",
                     "referenceTable": "IPRITEM",
-                    "referenceField": "BASEUNIT",
-                    "isClientField": false
+                    "referenceField": "BASEUNIT"
                 },
                 {
                     "name": "BASEUNIT",
@@ -177,8 +161,7 @@
                     "length": 3,
                     "isSelected": true,
                     "checkTable": "T006",
-                    "conversionExit": "CUNIT",
-                    "isClientField": false
+                    "conversionExit": "CUNIT"
                 },
                 {
                     "name": "PURREQNITEMCURRENCY",
@@ -187,8 +170,7 @@
                     "length": 5,
                     "isSelected": true,
                     "checkTable": "TCURC",
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "PURCHASEREQUISITIONPRICE",
@@ -201,8 +183,7 @@
                     "conversionExit": "",
                     "referenceTable": "IPRITEM",
                     "referenceField": "PURREQNITEMCURRENCY",
-                    "isCurrency": true,
-                    "isClientField": false
+                    "isCurrency": true
                 },
                 {
                     "name": "PURREQNPRICEQUANTITY",
@@ -211,8 +192,7 @@
                     "length": 5,
                     "isSelected": true,
                     "formattedLength": 6,
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "MATERIALGOODSRECEIPTDURATION",
@@ -221,8 +201,7 @@
                     "length": 3,
                     "isSelected": true,
                     "formattedLength": 3,
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "RELEASECODE",
@@ -231,16 +210,14 @@
                     "length": 1,
                     "isSelected": true,
                     "checkTable": "T161S",
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "PURCHASEREQUISITIONRELEASEDATE",
                     "description": "Purchase Requisition Release Date",
                     "abapType": "Date",
                     "isSelected": true,
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "PURCHASINGORGANIZATION",
@@ -249,8 +226,7 @@
                     "length": 4,
                     "isSelected": true,
                     "checkTable": "T024E",
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "PURCHASINGGROUP",
@@ -259,8 +235,7 @@
                     "length": 3,
                     "isSelected": true,
                     "checkTable": "T024",
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "PLANT",
@@ -269,8 +244,7 @@
                     "length": 4,
                     "isSelected": true,
                     "checkTable": "T001W",
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "SOURCEOFSUPPLYISASSIGNED",
@@ -278,8 +252,7 @@
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "SUPPLYINGPLANT",
@@ -287,8 +260,7 @@
                     "abapType": "CharacterString",
                     "length": 4,
                     "isSelected": true,
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "ORDEREDQUANTITY",
@@ -300,32 +272,28 @@
                     "formattedLength": 17,
                     "conversionExit": "",
                     "referenceTable": "IPRITEM",
-                    "referenceField": "BASEUNIT",
-                    "isClientField": false
+                    "referenceField": "BASEUNIT"
                 },
                 {
                     "name": "DELIVERYDATE",
                     "description": "Item delivery date",
                     "abapType": "Date",
                     "isSelected": true,
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "CREATIONDATE",
                     "description": "Requisition (request) date",
                     "abapType": "Date",
                     "isSelected": true,
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "LASTCHANGEDDATE",
                     "description": "Date of Last Change",
                     "abapType": "Date",
                     "isSelected": true,
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "PROCESSINGSTATUS",
@@ -333,8 +301,7 @@
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "PURCHASINGINFORECORD",
@@ -343,8 +310,7 @@
                     "length": 10,
                     "isSelected": true,
                     "checkTable": "EINA",
-                    "conversionExit": "ALPHA",
-                    "isClientField": false
+                    "conversionExit": "ALPHA"
                 },
                 {
                     "name": "SUPPLIER",
@@ -353,8 +319,7 @@
                     "length": 10,
                     "isSelected": true,
                     "checkTable": "LFA1",
-                    "conversionExit": "ALPHA",
-                    "isClientField": false
+                    "conversionExit": "ALPHA"
                 },
                 {
                     "name": "ISDELETED",
@@ -362,8 +327,7 @@
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "FIXEDSUPPLIER",
@@ -372,8 +336,7 @@
                     "length": 10,
                     "isSelected": true,
                     "checkTable": "LFA1",
-                    "conversionExit": "ALPHA",
-                    "isClientField": false
+                    "conversionExit": "ALPHA"
                 },
                 {
                     "name": "REQUISITIONERNAME",
@@ -381,8 +344,7 @@
                     "abapType": "CharacterString",
                     "length": 12,
                     "isSelected": true,
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "CREATEDBYUSER",
@@ -390,16 +352,14 @@
                     "abapType": "CharacterString",
                     "length": 12,
                     "isSelected": true,
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "PURREQCREATIONDATE",
                     "description": "Requisition (request) date",
                     "abapType": "Date",
                     "isSelected": true,
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "DELIVERYADDRESSID",
@@ -407,8 +367,7 @@
                     "abapType": "CharacterString",
                     "length": 10,
                     "isSelected": true,
-                    "conversionExit": "ALPHA",
-                    "isClientField": false
+                    "conversionExit": "ALPHA"
                 },
                 {
                     "name": "MANUALDELIVERYADDRESSID",
@@ -417,8 +376,7 @@
                     "length": 10,
                     "isSelected": true,
                     "checkTable": "ADRC",
-                    "conversionExit": "ALPHA",
-                    "isClientField": false
+                    "conversionExit": "ALPHA"
                 },
                 {
                     "name": "MATERIALPLANNEDDELIVERYDURN",
@@ -427,8 +385,7 @@
                     "length": 3,
                     "isSelected": true,
                     "formattedLength": 3,
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "DELIVDATECATEGORY",
@@ -437,8 +394,7 @@
                     "length": 1,
                     "isSelected": true,
                     "checkTable": "TPRG",
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "MULTIPLEACCTASSGMTDISTRIBUTION",
@@ -446,8 +402,7 @@
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "PARTIALINVOICEDISTRIBUTION",
@@ -455,8 +410,7 @@
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "STORAGELOCATION",
@@ -465,8 +419,7 @@
                     "length": 4,
                     "isSelected": true,
                     "checkTable": "T001L",
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "PURREQNSSPREQUESTOR",
@@ -474,8 +427,7 @@
                     "abapType": "CharacterString",
                     "length": 60,
                     "isSelected": true,
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "PURREQNSSPAUTHOR",
@@ -483,8 +435,7 @@
                     "abapType": "CharacterString",
                     "length": 12,
                     "isSelected": true,
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "PURCHASECONTRACT",
@@ -493,8 +444,7 @@
                     "length": 10,
                     "isSelected": true,
                     "checkTable": "EKKO",
-                    "conversionExit": "ALPHA",
-                    "isClientField": false
+                    "conversionExit": "ALPHA"
                 },
                 {
                     "name": "PURREQNSOURCEOFSUPPLYTYPE",
@@ -502,8 +452,7 @@
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "PURCHASECONTRACTITEM",
@@ -512,8 +461,7 @@
                     "length": 5,
                     "isSelected": true,
                     "checkTable": "EKPO",
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "CONSUMPTIONPOSTING",
@@ -521,8 +469,7 @@
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "PURREQNORIGIN",
@@ -530,8 +477,7 @@
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "PURREQNSSPCATALOG",
@@ -539,8 +485,7 @@
                     "abapType": "CharacterString",
                     "length": 20,
                     "isSelected": true,
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "PURREQNSSPCATALOGITEM",
@@ -548,8 +493,7 @@
                     "abapType": "CharacterString",
                     "length": 40,
                     "isSelected": true,
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "PURREQNSSPCROSSCATALOGITEM",
@@ -557,8 +501,7 @@
                     "abapType": "FourByteInteger",
                     "isSelected": true,
                     "formattedLength": 11,
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "ISPURREQNBLOCKED",
@@ -566,8 +509,7 @@
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "ITEMDELIVERYADDRESSID",
@@ -576,8 +518,7 @@
                     "length": 10,
                     "isSelected": true,
                     "checkTable": "ADRC",
-                    "conversionExit": "ALPHA",
-                    "isClientField": false
+                    "conversionExit": "ALPHA"
                 },
                 {
                     "name": "LANGUAGE",
@@ -587,8 +528,7 @@
                     "isSelected": true,
                     "formattedLength": 2,
                     "checkTable": "T002",
-                    "conversionExit": "ISOLA",
-                    "isClientField": false
+                    "conversionExit": "ISOLA"
                 },
                 {
                     "name": "ISCLOSED",
@@ -596,8 +536,7 @@
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "RESERVATION",
@@ -605,8 +544,7 @@
                     "abapType": "NumericCharacterString",
                     "length": 10,
                     "isSelected": true,
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "RELEASEISNOTCOMPLETED",
@@ -614,8 +552,7 @@
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "SERVICEPERFORMER",
@@ -623,8 +560,7 @@
                     "abapType": "CharacterString",
                     "length": 10,
                     "isSelected": true,
-                    "conversionExit": "ALPHA",
-                    "isClientField": false
+                    "conversionExit": "ALPHA"
                 },
                 {
                     "name": "PRODUCTTYPE",
@@ -632,8 +568,7 @@
                     "abapType": "CharacterString",
                     "length": 2,
                     "isSelected": true,
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "PURCHASEREQUISITIONSTATUS",
@@ -641,8 +576,7 @@
                     "abapType": "CharacterString",
                     "length": 8,
                     "isSelected": true,
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "RELEASESTRATEGY",
@@ -650,24 +584,21 @@
                     "abapType": "CharacterString",
                     "length": 2,
                     "isSelected": true,
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "PERFORMANCEPERIODSTARTDATE",
                     "description": "Start Date for Period of Performance",
                     "abapType": "Date",
                     "isSelected": true,
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "PERFORMANCEPERIODENDDATE",
                     "description": "End Date for Period of Performance",
                     "abapType": "Date",
                     "isSelected": true,
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "COMPANYCODE",
@@ -676,8 +607,7 @@
                     "length": 4,
                     "isSelected": true,
                     "checkTable": "T001K",
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "VALUATIONAREA",
@@ -686,8 +616,7 @@
                     "length": 4,
                     "isSelected": true,
                     "checkTable": "T001K",
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "SUPPLIERMATERIALNUMBER",
@@ -695,8 +624,7 @@
                     "abapType": "CharacterString",
                     "length": 35,
                     "isSelected": true,
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "BATCH",
@@ -704,8 +632,7 @@
                     "abapType": "CharacterString",
                     "length": 10,
                     "isSelected": true,
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "MATERIALREVISIONLEVEL",
@@ -713,18 +640,16 @@
                     "abapType": "CharacterString",
                     "length": 2,
                     "isSelected": true,
-                    "conversionExit": "NUMCV",
-                    "isClientField": false
+                    "conversionExit": "NUMCV"
                 },
                 {
                     "name": "MINREMAININGSHELFLIFE",
                     "description": "Minimum Remaining Shelf Life",
                     "abapType": "PackedNumber",
-                    "length": 4,
+                    "length": 5,
                     "isSelected": true,
                     "formattedLength": 5,
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "ITEMNETAMOUNT",
@@ -737,8 +662,7 @@
                     "conversionExit": "",
                     "referenceTable": "IPRITEM",
                     "referenceField": "PURREQNITEMCURRENCY",
-                    "isCurrency": true,
-                    "isClientField": false
+                    "isCurrency": true
                 },
                 {
                     "name": "GOODSRECEIPTISEXPECTED",
@@ -746,8 +670,7 @@
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "INVOICEISEXPECTED",
@@ -755,8 +678,7 @@
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "GOODSRECEIPTISNONVALUATED",
@@ -764,8 +686,7 @@
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "REQUIREMENTTRACKING",
@@ -773,8 +694,7 @@
                     "abapType": "CharacterString",
                     "length": 10,
                     "isSelected": true,
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "MRPCONTROLLER",
@@ -783,8 +703,7 @@
                     "length": 3,
                     "isSelected": true,
                     "checkTable": "T024D",
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "PURCHASEREQUISITIONISFIXED",
@@ -792,8 +711,7 @@
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "ADDRESSID",
@@ -802,16 +720,17 @@
                     "length": 10,
                     "isSelected": true,
                     "checkTable": "ADRC",
-                    "conversionExit": "ALPHA",
-                    "isClientField": false
+                    "conversionExit": "ALPHA"
                 },
                 {
                     "name": "LASTCHANGEDATETIME",
                     "description": "UTC Time Stamp in Long Form (YYYYMMDDhhmmssmmmuuun)",
-                    "abapType": "DecimalTimeStampTicks",
+                    "abapType": "PackedNumber",
+                    "length": 21,
+                    "decimalCount": 7,
                     "isSelected": true,
-                    "conversionExit": "",
-                    "isClientField": false
+                    "formattedLength": 27,
+                    "conversionExit": ""
                 },
                 {
                     "name": "ISPURREQNCMPLT",
@@ -819,8 +738,7 @@
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "PURREQNCMPLTNSCAT",
@@ -828,8 +746,7 @@
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "EXTMATERIALFORPURG",
@@ -837,8 +754,7 @@
                     "abapType": "CharacterString",
                     "length": 40,
                     "isSelected": true,
-                    "conversionExit": "MATN1",
-                    "isClientField": false
+                    "conversionExit": "MATN1"
                 },
                 {
                     "name": "EXTFIXEDSUPPLIERFORPURG",
@@ -846,8 +762,7 @@
                     "abapType": "CharacterString",
                     "length": 10,
                     "isSelected": true,
-                    "conversionExit": "ALPHA",
-                    "isClientField": false
+                    "conversionExit": "ALPHA"
                 },
                 {
                     "name": "EXTDESIREDSUPPLIERFORPURG",
@@ -855,8 +770,7 @@
                     "abapType": "CharacterString",
                     "length": 10,
                     "isSelected": true,
-                    "conversionExit": "ALPHA",
-                    "isClientField": false
+                    "conversionExit": "ALPHA"
                 },
                 {
                     "name": "EXTCONTRACTFORPURG",
@@ -864,8 +778,7 @@
                     "abapType": "CharacterString",
                     "length": 10,
                     "isSelected": true,
-                    "conversionExit": "ALPHA",
-                    "isClientField": false
+                    "conversionExit": "ALPHA"
                 },
                 {
                     "name": "EXTCONTRACTITEMFORPURG",
@@ -873,8 +786,7 @@
                     "abapType": "NumericCharacterString",
                     "length": 5,
                     "isSelected": true,
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "EXTINFORECORDFORPURG",
@@ -882,8 +794,7 @@
                     "abapType": "CharacterString",
                     "length": 10,
                     "isSelected": true,
-                    "conversionExit": "ALPHA",
-                    "isClientField": false
+                    "conversionExit": "ALPHA"
                 },
                 {
                     "name": "EXTPLANTFORPURG",
@@ -891,8 +802,7 @@
                     "abapType": "CharacterString",
                     "length": 4,
                     "isSelected": true,
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "EXTCOMPANYCODEFORPURG",
@@ -900,8 +810,7 @@
                     "abapType": "CharacterString",
                     "length": 4,
                     "isSelected": true,
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "EXTPURGORGFORPURG",
@@ -909,8 +818,7 @@
                     "abapType": "CharacterString",
                     "length": 4,
                     "isSelected": true,
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "EXTSOURCESYSTEM",
@@ -918,8 +826,7 @@
                     "abapType": "CharacterString",
                     "length": 60,
                     "isSelected": true,
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "PROCUREMENTHUBSOURCESYSTEM",
@@ -927,8 +834,7 @@
                     "abapType": "CharacterString",
                     "length": 10,
                     "isSelected": true,
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "ISPURREQNOVRLREL",
@@ -936,8 +842,7 @@
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "RELEASEGROUP",
@@ -946,8 +851,7 @@
                     "length": 2,
                     "isSelected": true,
                     "checkTable": "T16FG",
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "MRPAREA",
@@ -955,8 +859,7 @@
                     "abapType": "CharacterString",
                     "length": 10,
                     "isSelected": true,
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "EXPECTEDOVERALLLIMITAMOUNT",
@@ -969,8 +872,7 @@
                     "conversionExit": "",
                     "referenceTable": "IPRITEM",
                     "referenceField": "PURREQNITEMCURRENCY",
-                    "isCurrency": true,
-                    "isClientField": false
+                    "isCurrency": true
                 },
                 {
                     "name": "OVERALLLIMITAMOUNT",
@@ -983,8 +885,7 @@
                     "conversionExit": "",
                     "referenceTable": "IPRITEM",
                     "referenceField": "PURREQNITEMCURRENCY",
-                    "isCurrency": true,
-                    "isClientField": false
+                    "isCurrency": true
                 },
                 {
                     "name": "ISENDOFPURPOSEBLOCKED",
@@ -992,8 +893,7 @@
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "PURCHASEREQNITEMUNIQUEID",
@@ -1001,8 +901,7 @@
                     "abapType": "CharacterString",
                     "length": 15,
                     "isSelected": true,
-                    "conversionExit": "ALPHA",
-                    "isClientField": false
+                    "conversionExit": "ALPHA"
                 },
                 {
                     "name": "SUBCONTRACTOR",
@@ -1011,8 +910,7 @@
                     "length": 10,
                     "isSelected": true,
                     "checkTable": "LFA1",
-                    "conversionExit": "ALPHA",
-                    "isClientField": false
+                    "conversionExit": "ALPHA"
                 },
                 {
                     "name": "PURCHASEORDERPRICETYPE",
@@ -1020,8 +918,7 @@
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "ISONBEHALFCART",
@@ -1029,8 +926,7 @@
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "EXTPURCHASEREQUISITIONTYPE",
@@ -1038,8 +934,7 @@
                     "abapType": "CharacterString",
                     "length": 4,
                     "isSelected": true,
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "PURREQNISCREATEDINEXPERTMODE",
@@ -1047,8 +942,7 @@
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "MATERIALSHORTAGEQUANTITY",
@@ -1060,8 +954,7 @@
                     "formattedLength": 17,
                     "conversionExit": "",
                     "referenceTable": "IPRITEM",
-                    "referenceField": "BASEUNIT",
-                    "isClientField": false
+                    "referenceField": "BASEUNIT"
                 },
                 {
                     "name": "PROCURINGPLANT",
@@ -1070,16 +963,14 @@
                     "length": 4,
                     "isSelected": true,
                     "checkTable": "T001W",
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "PURCHASEORDERDATE",
                     "description": "Purchase Order Date",
                     "abapType": "Date",
                     "isSelected": true,
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "EXTERNALPROCUREMENTPROFILE",
@@ -1087,8 +978,7 @@
                     "abapType": "CharacterString",
                     "length": 2,
                     "isSelected": true,
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "PURREQNREQUESTOR",
@@ -1096,8 +986,7 @@
                     "abapType": "CharacterString",
                     "length": 60,
                     "isSelected": true,
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "EXTERNALAPPROVALSTATUS",
@@ -1105,8 +994,7 @@
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "COMMITMENTITEM",
@@ -1115,8 +1003,7 @@
                     "length": 14,
                     "isSelected": true,
                     "formattedLength": 24,
-                    "conversionExit": "FMCIS",
-                    "isClientField": false
+                    "conversionExit": "FMCIS"
                 },
                 {
                     "name": "FUNDSCENTER",
@@ -1124,8 +1011,7 @@
                     "abapType": "CharacterString",
                     "length": 16,
                     "isSelected": true,
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "FUND",
@@ -1133,8 +1019,7 @@
                     "abapType": "CharacterString",
                     "length": 10,
                     "isSelected": true,
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "GRANTID",
@@ -1142,8 +1027,7 @@
                     "abapType": "CharacterString",
                     "length": 20,
                     "isSelected": true,
-                    "conversionExit": "ALPHA",
-                    "isClientField": false
+                    "conversionExit": "ALPHA"
                 },
                 {
                     "name": "FUNCTIONALAREA",
@@ -1151,8 +1035,7 @@
                     "abapType": "CharacterString",
                     "length": 16,
                     "isSelected": true,
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "EARMARKEDFUNDSDOCUMENT",
@@ -1160,8 +1043,7 @@
                     "abapType": "CharacterString",
                     "length": 10,
                     "isSelected": true,
-                    "conversionExit": "ALPHA",
-                    "isClientField": false
+                    "conversionExit": "ALPHA"
                 },
                 {
                     "name": "EARMARKEDFUNDSDOCUMENTITEM",
@@ -1169,8 +1051,7 @@
                     "abapType": "NumericCharacterString",
                     "length": 3,
                     "isSelected": true,
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "BUDGETPERIOD",
@@ -1178,8 +1059,7 @@
                     "abapType": "CharacterString",
                     "length": 10,
                     "isSelected": true,
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "MATERIALORDERUNIT",
@@ -1188,8 +1068,7 @@
                     "length": 3,
                     "isSelected": true,
                     "checkTable": "T006",
-                    "conversionExit": "CUNIT",
-                    "isClientField": false
+                    "conversionExit": "CUNIT"
                 },
                 {
                     "name": "COSTCENTER",
@@ -1197,8 +1076,7 @@
                     "abapType": "CharacterString",
                     "length": 10,
                     "isSelected": true,
-                    "conversionExit": "ALPHA",
-                    "isClientField": false
+                    "conversionExit": "ALPHA"
                 },
                 {
                     "name": "GLACCOUNT",
@@ -1206,8 +1084,7 @@
                     "abapType": "CharacterString",
                     "length": 10,
                     "isSelected": true,
-                    "conversionExit": "ALPHA",
-                    "isClientField": false
+                    "conversionExit": "ALPHA"
                 },
                 {
                     "name": "PURREQNEXTERNALREFERENCE",
@@ -1215,8 +1092,7 @@
                     "abapType": "CharacterString",
                     "length": 35,
                     "isSelected": true,
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "PURREQNITEMEXTERNALREFERENCE",
@@ -1224,8 +1100,7 @@
                     "abapType": "CharacterString",
                     "length": 10,
                     "isSelected": true,
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "PURREQNEXTERNALSYSTEMID",
@@ -1233,8 +1108,7 @@
                     "abapType": "CharacterString",
                     "length": 60,
                     "isSelected": true,
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "PURREQNEXTERNALSYSTEMTYPE",
@@ -1242,8 +1116,7 @@
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "PURREQNTYPEEXTERNALREFERENCE",
@@ -1251,8 +1124,7 @@
                     "abapType": "CharacterString",
                     "length": 4,
                     "isSelected": true,
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "PURREQNPROCESSINGTYPE",
@@ -1260,8 +1132,7 @@
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "PURREQNPROCESSINGDATETIME",
@@ -1269,8 +1140,7 @@
                     "abapType": "CharacterString",
                     "length": 14,
                     "isSelected": true,
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "PROCMTHUBBACKENDBUSSYST",
@@ -1278,8 +1148,7 @@
                     "abapType": "CharacterString",
                     "length": 60,
                     "isSelected": true,
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "PROCMTHUBPURREQNITMISCHANGED",
@@ -1287,8 +1156,7 @@
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "INVENTORYSPECIALSTOCKTYPE",
@@ -1297,8 +1165,7 @@
                     "length": 1,
                     "isSelected": true,
                     "checkTable": "T148",
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "SSPAUTHOREXTERNALBPIDNNUMBER",
@@ -1306,8 +1173,7 @@
                     "abapType": "CharacterString",
                     "length": 60,
                     "isSelected": true,
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "SSPREQRUSERID",
@@ -1315,8 +1181,7 @@
                     "abapType": "CharacterString",
                     "length": 12,
                     "isSelected": true,
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "PURREQNISVALDINCNTRLREQNPROCG",
@@ -1324,8 +1189,7 @@
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "STOCKSEGMENT",
@@ -1333,8 +1197,7 @@
                     "abapType": "CharacterString",
                     "length": 40,
                     "isSelected": true,
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "REQUIREMENTSEGMENT",
@@ -1342,14 +1205,9 @@
                     "abapType": "CharacterString",
                     "length": 40,
                     "isSelected": true,
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 }
             ]
         }
-    ],
-    "scalarRuntimeParameters": {
-    },
-    "whereSequence": [
     ]
 }

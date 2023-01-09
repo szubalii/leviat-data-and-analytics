@@ -1,13 +1,14 @@
 {
     "created": {
-        "machine": "[::ffff:84.82.142.194]:50969",
-        "timestamp": "20210702T034122.000Z"
+        "machine": "WEALEVAPP001",
+        "timestamp": "20230109T125136.912Z",
+        "user": "EMATCRHPP\\fbouw"
     },
-    "destination": "CSV_Local",
     "lastChange": {
-        "machine": "EPNLRIKW0021",
-        "timestamp": "20230109T123020.080Z"
+        "machine": "WEALEVAPP001",
+        "timestamp": "20230109T125207.701Z",
+        "user": "EMATCRHPP\\fbouw"
     },
-    "source": "CAA",
+    "source": "CRH_Leviat_S4HANA_CAA",
     "type": "Table"
 }
