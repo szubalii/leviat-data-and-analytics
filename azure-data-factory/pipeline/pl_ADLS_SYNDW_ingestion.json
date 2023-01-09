@@ -114,7 +114,10 @@
 					"storedProcedureName": "[utilities].[sp_update_t_values]",
 					"storedProcedureParameters": {
 						"application_id": {
-							"value": null,
+							"value": {
+								"value": "@pipeline().parameters.adls_container_name",
+								"type": "Expression"
+							},
 							"type": "String"
 						},
 						"extraction_dtm_string": {
@@ -160,7 +163,24 @@
 							"type": "String"
 						},
 						"file_path": {
-							"value": null,
+							"value": {
+								"value": "@join(createArray(\n    pipeline().parameters.adls_container_name\n    ,pipeline().parameters.directory_path\n    ,pipeline().parameters.file_name)\n    ,'/'\n)",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"s4h_client_id": {
+							"value": {
+								"value": "@pipeline().parameters.s4h_client_id",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"s4h_client_field": {
+							"value": {
+								"value": "@pipeline().parameters.s4h_client_field",
+								"type": "Expression"
+							},
 							"type": "String"
 						}
 					}
@@ -894,6 +914,12 @@
 				"type": "string"
 			},
 			"update_mode": {
+				"type": "string"
+			},
+			"s4h_client_id": {
+				"type": "string"
+			},
+			"s4h_client_field": {
 				"type": "string"
 			}
 		},
