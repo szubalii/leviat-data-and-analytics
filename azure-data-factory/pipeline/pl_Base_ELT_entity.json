@@ -251,6 +251,14 @@
 									"update_mode": {
 										"value": "@pipeline().parameters.update_mode",
 										"type": "Expression"
+									},
+									"s4h_client_id": {
+										"value": "@pipeline().parameters.s4h_client_id",
+										"type": "Expression"
+									},
+									"s4h_client_field": {
+										"value": "@pipeline().parameters.client_field",
+										"type": "Expression"
 									}
 								}
 							}
