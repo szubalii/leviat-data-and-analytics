@@ -3,11 +3,12 @@
         "machine": "[::ffff:84.82.142.194]:50969",
         "timestamp": "20210702T034122.000Z"
     },
-    "destination": "CSV_Local",
+    "destination": "stfbouwdeuw001_s4h-caa-200",
     "lastChange": {
-        "machine": "EPNLRIKW0021",
-        "timestamp": "20230109T123034.478Z"
+        "machine": "WEALEVAPP001",
+        "timestamp": "20230109T133009.511Z",
+        "user": "EMATCRHPP\\fbouw"
     },
-    "source": "CAA",
+    "source": "CRH_Leviat_S4HANA_CAA_200",
     "type": "Table"
 }
