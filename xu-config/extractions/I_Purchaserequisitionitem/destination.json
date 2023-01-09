@@ -1,19 +1,17 @@
 {
-	"nameGenerator": {
-		"suffix": "",
-		"appendsTimestamp": true
-	},
-	"internalSettings": {
-		"sapDateConversion": {
-			"enabled": true,
-			"replacementForInvalidDate": null,
-			"replacementForZeroDate": "0001-01-01",
-			"replacementForYear9999": "9999-12-31"
-		},
-		"columnNameKind": "Code"
-	},
-	"blobType": "BlockBlob",
-	"columnNameKind": "Code",
-	"folderPath": "UNSPECIFIED/I_Purchaserequisitionitem/Theobald/Table/Full/In/#{ DateTime.Now.ToString(\"yyyy/MM/dd\") }#",
-	"maxBlobSize": 0
+    "nameGenerator": {
+        "appendsTimestamp": true
+    },
+    "existingFileAction": "Replace",
+    "csvSettings": {
+        "sapDateConversion": {
+            "enabled": true,
+            "replacementForInvalidDate": null,
+            "replacementForZeroDate": "1970-01-01",
+            "replacementForYear9999": "2099-12-31"
+        },
+        "columnNameKind": "Code"
+    },
+    "columnNameKind": "Code",
+    "maxFileSize": 0
 }

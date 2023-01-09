@@ -1,13 +1,13 @@
 {
-	"created": {
-		"machine": "[::ffff:84.82.142.194]:50969",
-		"timestamp": "20210702T034122.000Z"
-	},
-	"destination": "stxxxxslsaeuw001_s4h-CAA-200",
-	"lastChange": {
-		"machine": "[::ffff:84.82.142.194]:50969",
-		"timestamp": "20210702T034122.000Z"
-	},
-	"source": "CRH_Leviat_S4HANA_CAA_200",
-	"type": "Table"
+    "created": {
+        "machine": "[::ffff:84.82.142.194]:50969",
+        "timestamp": "20210702T034122.000Z"
+    },
+    "destination": "CSV_Local",
+    "lastChange": {
+        "machine": "EPNLRIKW0021",
+        "timestamp": "20230109T123020.080Z"
+    },
+    "source": "CAA",
+    "type": "Table"
 }

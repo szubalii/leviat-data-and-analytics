@@ -1,21 +1,25 @@
 {
     "functionName": "Z_THEO_READ_TABLE",
     "runInBackgroundJob": false,
-    "tables": [
+    "backgroundJobTimeout": 180,
+    "tables": 
+    [
         {
             "name": "IPURREQN",
             "description": "Generated Table for View I_Purchaserequisition: Purchase Requisition Header",
             "isView": true,
-            "fields": [
+            "fields": 
+            [
                 {
                     "name": "MANDT",
-                    "description": "Client (key field in client-specific tables)",
+                    "description": "Client",
                     "abapType": "CharacterString",
                     "length": 3,
                     "isPrimaryKey": true,
                     "isSelected": true,
                     "checkTable": "T000",
-                    "conversionExit": ""
+                    "conversionExit": "",
+                    "isClientField": false
                 },
                 {
                     "name": "PURCHASEREQUISITION",
@@ -24,90 +28,103 @@
                     "length": 10,
                     "isPrimaryKey": true,
                     "isSelected": true,
-                    "conversionExit": "ALPHA"
+                    "conversionExit": "ALPHA",
+                    "isClientField": false
                 },
                 {
                     "name": "PURREQNSSPREQUESTOR",
-                    "description": "PURREQNSSPREQUESTOR",
+                    "description": "Requestor",
                     "abapType": "CharacterString",
                     "length": 60,
                     "isPrimaryKey": true,
                     "isSelected": true,
-                    "conversionExit": ""
+                    "conversionExit": "",
+                    "isClientField": false
                 },
                 {
                     "name": "PURREQNSSPAUTHOR",
-                    "description": "User Name",
+                    "description": "Author of Requisition",
                     "abapType": "CharacterString",
                     "length": 12,
                     "isPrimaryKey": true,
                     "isSelected": true,
-                    "conversionExit": ""
+                    "conversionExit": "",
+                    "isClientField": false
                 },
                 {
                     "name": "PURREQNORIGIN",
-                    "description": "Creation indicator in purchasing document",
+                    "description": "Creation indicator (purchase requisition/schedule lines)",
                     "abapType": "CharacterString",
                     "length": 1,
                     "isPrimaryKey": true,
                     "isSelected": true,
-                    "conversionExit": ""
+                    "conversionExit": "",
+                    "isClientField": false
                 },
                 {
                     "name": "PURCHASEREQUISITIONTYPE",
-                    "description": "Type of purchasing document",
+                    "description": "Purchase Requisition Document Type",
                     "abapType": "CharacterString",
                     "length": 4,
                     "isPrimaryKey": true,
                     "isSelected": true,
-                    "conversionExit": ""
+                    "conversionExit": "",
+                    "isClientField": false
                 },
                 {
                     "name": "PURREQNISCREATEDINEXPERTMODE",
-                    "description": "Boolean switch (X = true, - = false, space = unknown)",
+                    "description": "PR Created in Expert Mode",
                     "abapType": "CharacterString",
                     "length": 1,
                     "isPrimaryKey": true,
                     "isSelected": true,
-                    "conversionExit": ""
+                    "conversionExit": "",
+                    "isClientField": false
                 },
                 {
                     "name": "ISONBEHALFCART",
-                    "description": "Yes / No Field",
+                    "description": "Shop on behalf indicator",
                     "abapType": "CharacterString",
                     "length": 1,
                     "isPrimaryKey": true,
                     "isSelected": true,
-                    "conversionExit": ""
+                    "conversionExit": "",
+                    "isClientField": false
                 },
                 {
                     "name": "PURREQNREQUESTOR",
-                    "description": "PURREQNREQUESTOR",
+                    "description": "Requestor",
                     "abapType": "CharacterString",
                     "length": 60,
                     "isPrimaryKey": true,
                     "isSelected": true,
-                    "conversionExit": ""
+                    "conversionExit": "",
+                    "isClientField": false
                 },
                 {
                     "name": "LASTCHANGEDATETIME",
-                    "description": "LASTCHANGEDATETIME",
                     "abapType": "PackedNumber",
-                    "length": 17,
+                    "length": 21,
                     "decimalCount": 7,
                     "isPrimaryKey": true,
                     "isSelected": true,
-                    "conversionExit": ""
+                    "formattedLength": 26,
+                    "conversionExit": "",
+                    "isClientField": false
                 },
                 {
                     "name": "CREATIONDATE",
-                    "description": "CREATIONDATE",
                     "abapType": "Date",
                     "isPrimaryKey": true,
                     "isSelected": true,
-                    "conversionExit": ""
+                    "conversionExit": "",
+                    "isClientField": false
                 }
             ]
         }
+    ],
+    "scalarRuntimeParameters": {
+    },
+    "whereSequence": [
     ]
 }
