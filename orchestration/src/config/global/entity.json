@@ -3851,7 +3851,7 @@
         "extraction_type": "Table",
         "update_mode": "Full",
         "base_table_name": "I_Purchaserequisition",
-        "pk_field_names": "MANDT, PurchaseRequisition",
+        "pk_field_names": "MANDT, PURCHASEREQUISITION",
         "schedule_recurrence": "D"
       },
       {
@@ -3863,7 +3863,7 @@
         "extraction_type": "Table",
         "update_mode": "Full",
         "base_table_name": "I_Purchaserequisitionitem",
-        "pk_field_names": "MANDT, PurchaseRequisition, PurchaseRequisitionItem",
+        "pk_field_names": "MANDT, PURCHASEREQUISITION, PURCHASEREQUISITIONITEM",
         "schedule_recurrence": "D"
       }
     ]
