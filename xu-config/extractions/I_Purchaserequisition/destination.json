@@ -1,0 +1,19 @@
+{
+	"nameGenerator": {
+		"suffix": "",
+		"appendsTimestamp": true
+	},
+	"internalSettings": {
+		"sapDateConversion": {
+			"enabled": true,
+			"replacementForInvalidDate": null,
+			"replacementForZeroDate": "0001-01-01",
+			"replacementForYear9999": "9999-12-31"
+		},
+		"columnNameKind": "Code"
+	},
+	"blobType": "BlockBlob",
+	"columnNameKind": "Code",
+	"folderPath": "UNSPECIFIED/I_Purchaserequisition/Theobald/Table/Full/In/#{ DateTime.Now.ToString(\"yyyy/MM/dd\") }#",
+	"maxBlobSize": 0
+}

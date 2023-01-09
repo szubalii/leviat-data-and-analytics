@@ -1,0 +1,113 @@
+{
+    "functionName": "Z_THEO_READ_TABLE",
+    "runInBackgroundJob": false,
+    "tables": [
+        {
+            "name": "IPURREQN",
+            "description": "Generated Table for View I_Purchaserequisition: Purchase Requisition Header",
+            "isView": true,
+            "fields": [
+                {
+                    "name": "MANDT",
+                    "description": "Client (key field in client-specific tables)",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "T000",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PURCHASEREQUISITION",
+                    "description": "Purchase requisition number",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "PURREQNSSPREQUESTOR",
+                    "description": "PURREQNSSPREQUESTOR",
+                    "abapType": "CharacterString",
+                    "length": 60,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PURREQNSSPAUTHOR",
+                    "description": "User Name",
+                    "abapType": "CharacterString",
+                    "length": 12,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PURREQNORIGIN",
+                    "description": "Creation indicator in purchasing document",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PURCHASEREQUISITIONTYPE",
+                    "description": "Type of purchasing document",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PURREQNISCREATEDINEXPERTMODE",
+                    "description": "Boolean switch (X = true, - = false, space = unknown)",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ISONBEHALFCART",
+                    "description": "Yes / No Field",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PURREQNREQUESTOR",
+                    "description": "PURREQNREQUESTOR",
+                    "abapType": "CharacterString",
+                    "length": 60,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "LASTCHANGEDATETIME",
+                    "description": "LASTCHANGEDATETIME",
+                    "abapType": "PackedNumber",
+                    "length": 17,
+                    "decimalCount": 7,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CREATIONDATE",
+                    "description": "CREATIONDATE",
+                    "abapType": "Date",
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": ""
+                }
+            ]
+        }
+    ]
+}
