@@ -181,18 +181,6 @@
 						"status": {
 							"value": "Succeeded",
 							"type": "String"
-						},
-						"file_name": {
-							"value": {
-								"value": "@pipeline().parameters.file_name",
-								"type": "Expression"
-							}
-						},
-						"directory_path": {
-							"value": {
-								"value": "@pipeline().parameters.adls_directory_path",
-								"type": "Expression"
-							}
 						}
 					}
 				},
@@ -360,12 +348,6 @@
 				"type": "string"
 			},
 			"run_id": {
-				"type": "string"
-			},
-			"file_name": {
-				"type": "string"
-			},
-			"adls_directory_path": {
 				"type": "string"
 			}
 		},
