@@ -1,8 +1,6 @@
 {
     "nameGenerator": {
         "suffix": "",
-        "customName": "I_Purchaserequisitionitem",
-        "objectNamingMode": "Custom",
         "appendsTimestamp": true
     },
     "internalSettings": {
