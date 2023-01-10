@@ -38,16 +38,17 @@
 						},
 						"allowCopyCommand": true,
 						"copyCommandSettings": {
-							"defaultValues": [
-								{
-									"columnName": "MANDT",
-									"defaultValue": "200"
-								}
-							]
+							"defaultValues": {
+								"value": "@createArray(\n    json(\n        concat('{\n            \"name\":\"t_applicationId\",\n            \"value\":\"',pipeline().parameters.adls_container_name,'\"\n        }')\n    )\n)",
+								"type": "Expression"
+							}
 						},
 						"disableMetricsCollection": false
 					},
-					"enableStaging": false
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator"
+					}
 				},
 				"inputs": [
 					{
@@ -84,10 +85,6 @@
 							},
 							"table": {
 								"value": "@pipeline().parameters.base_table_name",
-								"type": "Expression"
-							},
-							"sqlPool": {
-								"value": "@pipeline().globalParameters.synapseDatabaseName",
 								"type": "Expression"
 							}
 						}
