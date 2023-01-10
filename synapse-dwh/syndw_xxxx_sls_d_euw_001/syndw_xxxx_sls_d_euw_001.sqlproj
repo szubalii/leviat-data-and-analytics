@@ -1114,7 +1114,6 @@
     <Build Include="dm_dq\Views\vw_dim_MAWEV.sql" />
     <Build Include="dm_dq\Views\vw_dim_ProductValuationCosting.sql" />
 	<Build Include="dm_sales\Views\vw_dim_GLAccountText.sql" />
-	<Build Include="base_s4h_cax\Tables\I_Purchaserequisition.sql" />
 	<Build Include="base_s4h_cax\Tables\I_Purchaserequisitionitem.sql" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">

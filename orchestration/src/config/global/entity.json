@@ -3844,18 +3844,6 @@
       },
       {
         "entity_id": 568,
-        "entity_name": "I_Purchaserequisition",
-        "data_category": "DIMENSION",
-        "client_field": "MANDT",
-        "tool_name": "Theobald",
-        "extraction_type": "Table",
-        "update_mode": "Full",
-        "base_table_name": "I_Purchaserequisition",
-        "pk_field_names": "MANDT, PURCHASEREQUISITION",
-        "schedule_recurrence": "D"
-      },
-      {
-        "entity_id": 569,
         "entity_name": "I_Purchaserequisitionitem",
         "data_category": "DIMENSION",
         "client_field": "MANDT",
