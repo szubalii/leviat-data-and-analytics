@@ -6408,7 +6408,6 @@ GLACCOUNT;FUNCTIONALAREA;TRANSACTIONTYPE;TRADINGPARTNER;CONTIGENCY1;CONTIGENCY2;
 41600104;DT999;;;;;;;Sales;IS419900;Other sales;DT999;;;;S_MA;U;;IS;;;
 41600104;;;;;;;;Sales;IS419900;Other sales;DT999;;;;S_MA;U;;IS;;;
 15112112;;;AE35;;;;;;BSD121200;Trade debtors intercompany;;;;2165U01;S_MA;U;;BS_IC;;;
-15112112;;;AT35;;;;;;BSD121200;Trade debtors intercompany;;;;2162U01;S_MA;U;;BS_IC;;;
 15112112;;;NZ35;;;;;;BSD121200;Trade debtors intercompany;;;;2166U01;S_MA;U;;BS_IC;;;
 15112112;;;AU35;;;;;;BSD121200;Trade debtors intercompany;;;;2161U01;S_MA;U;;BS_IC;;;
 15112112;;;DE35;;;;;;BSD121200;Trade debtors intercompany;;;;5300U01;S_MA;U;;BS_IC;;;
