@@ -33,8 +33,8 @@
 						"copyCommandSettings": {
 							"defaultValues": [
 								{
-									"columnName": "",
-									"defaultValue": ""
+									"columnName": "t_applicationId",
+									"defaultValue": "test"
 								}
 							]
 						},
