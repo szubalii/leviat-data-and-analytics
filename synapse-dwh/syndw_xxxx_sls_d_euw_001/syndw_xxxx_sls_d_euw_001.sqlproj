@@ -828,6 +828,7 @@
     <Build Include="edw\Views\vw_DeliveryDocument.sql" />
     <Build Include="base_ff\Tables\ConfigurableProductCharacteristic.sql" />
     <Build Include="dm_sales\Views\vw_fact_MaterialStockLevel.sql" />
+    <Build Include="dm_sales\Views\vw_fact_MaterialStockLevel_filtered.sql" />
     <Build Include="edw\Tables\fact_ProductHierarchyVariantConfigCharacteristic_active.sql" />
     <Build Include="edw\Views\vw_ProductHierarchyVariantConfigCharacteristic_delta.sql" />
     <Build Include="base_ff\Tables\ConfigurableProduct.sql" />
