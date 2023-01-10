@@ -114,12 +114,17 @@ SELECT
         WHEN 'COGS'
         THEN -1 * GLALIRD.[AmountInCompanyCodeCurrency] * ExchangeRate.ExchangeRate
         ELSE null
-    END AS [COGSalesAmount],
+    END AS [COGS],
+    CASE 
+        WHEN ZED.CONTIGENCY5 = 'COGS' AND GLALIRD.[BillingDocumentTypeID] <> ''
+        THEN -1 * GLALIRD.[AmountInCompanyCodeCurrency] * ExchangeRate.ExchangeRate
+        ELSE null
+    END AS [COGSatStandardCost],
     CASE ZED.CONTIGENCY5
         WHEN 'Other CoS'
         THEN -1 * GLALIRD.[AmountInCompanyCodeCurrency] * ExchangeRate.ExchangeRate
         ELSE null
-    END AS [OtherSalesAmount],
+    END AS [OtherCoS],
    -- GLALIRD.[GlobalCurrency],
     GLALIRD.[AmountInGlobalCurrency],
     GLALIRD.[FreeDefinedCurrency1],
