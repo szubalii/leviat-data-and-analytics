@@ -1,0 +1,118 @@
+{
+	"name": "pipeline1",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy Parquet to Synapse Base",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "ParquetSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						}
+					},
+					"sink": {
+						"type": "SqlDWSink",
+						"preCopyScript": {
+							"value": "IF EXISTS (\n    SELECT * \n    FROM dbo.sysobjects \n    WHERE ID = OBJECT_ID(N'@{concat(pipeline().parameters.base_schema_name, '.', pipeline().parameters.base_table_name)}')\n) AND '@{pipeline().parameters.update_mode}' <> 'Delta'\nTRUNCATE TABLE @{concat(pipeline().parameters.base_schema_name, '.', pipeline().parameters.base_table_name)}",
+							"type": "Expression"
+						},
+						"allowCopyCommand": true,
+						"copyCommandSettings": {
+							"defaultValues": [
+								{
+									"columnName": "",
+									"defaultValue": ""
+								}
+							]
+						},
+						"disableMetricsCollection": false
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "ds_adls_parquet_file",
+						"type": "DatasetReference",
+						"parameters": {
+							"container": {
+								"value": "@pipeline().parameters.adls_container_name",
+								"type": "Expression"
+							},
+							"directory": {
+								"value": "@pipeline().parameters.directory_path",
+								"type": "Expression"
+							},
+							"file": {
+								"value": "@pipeline().parameters.file_name",
+								"type": "Expression"
+							},
+							"storageAccount": {
+								"value": "@pipeline().globalParameters.storageAccountName",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ds_syndw_table",
+						"type": "DatasetReference",
+						"parameters": {
+							"schema": {
+								"value": "@pipeline().parameters.base_schema_name",
+								"type": "Expression"
+							},
+							"table": {
+								"value": "@pipeline().parameters.base_table_name",
+								"type": "Expression"
+							}
+						}
+					}
+				]
+			}
+		],
+		"parameters": {
+			"adls_container_name": {
+				"type": "string",
+				"defaultValue": "leviat-db-us"
+			},
+			"directory_path": {
+				"type": "string",
+				"defaultValue": "COMPANIES/In/2023/01/09"
+			},
+			"file_name": {
+				"type": "string",
+				"defaultValue": "COMPANIES_2023_01_09_09_33_34_082.parquet"
+			},
+			"base_schema_name": {
+				"type": "string",
+				"defaultValue": "base_us_leviat_db"
+			},
+			"base_table_name": {
+				"type": "string",
+				"defaultValue": "COMPANIES"
+			},
+			"update_mode": {
+				"type": "string",
+				"defaultValue": "Full"
+			}
+		},
+		"folder": {
+			"name": "00 ELT/04 Synapse Ingestion"
+		},
+		"annotations": []
+	}
+}

@@ -6,7 +6,7 @@
 			"type": "LinkedServiceReference",
 			"parameters": {
 				"sqlPool": {
-					"value": "@dataset().sqlPool",
+					"value": "syndw_mpors_d_euw_001",
 					"type": "Expression"
 				}
 			}
@@ -16,9 +16,6 @@
 				"type": "string"
 			},
 			"table": {
-				"type": "string"
-			},
-			"sqlPool": {
 				"type": "string"
 			}
 		},
