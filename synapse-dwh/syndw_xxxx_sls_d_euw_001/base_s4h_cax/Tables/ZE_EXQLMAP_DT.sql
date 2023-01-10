@@ -9,7 +9,7 @@ CREATE TABLE [base_s4h_cax].[ZE_EXQLMAP_DT](
     ,[CONTIGENCY4]          VARCHAR(64)
     ,[CONTIGENCY5]          VARCHAR(64)
     ,[REKNR]                VARCHAR(64)
-    ,[REKOMS]               VARCHAR(64)
+    ,[REKOMS]               VARCHAR(256)
     ,[DI1NR]                VARCHAR(64)
     ,[DI2NR]                VARCHAR(64)
     ,[REFNR]                VARCHAR(64)
