@@ -23,8 +23,6 @@ CREATE TABLE [base_s4h_cax].[ZE_EXQLMAP_DT](
     ,[t_jobDtm]              DATETIME       NULL
     ,[t_jobBy]               NVARCHAR(128)  NULL
     ,[t_filePath]            NVARCHAR(1024) NULL
-    , CONSTRAINT [PK_ZE_EXQLMAP_DT] PRIMARY KEY NONCLUSTERED (
-    [GLACCOUNT],[FUNCTIONALAREA]
   ) NOT ENFORCED
 )
 WITH (

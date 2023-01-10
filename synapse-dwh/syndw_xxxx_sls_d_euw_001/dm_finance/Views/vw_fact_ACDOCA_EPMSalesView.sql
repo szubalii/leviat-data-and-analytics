@@ -274,7 +274,7 @@ SELECT
     GLALIRD.[t_applicationId],
     GLALIRD.[t_extractionDtm]
 FROM [edw].[fact_ACDOCA] GLALIRD
-INNER JOIN [base_s4h_cax].[ZE_EXQLMAP_DT] ZED
+INNER JOIN [edw].[vw_ZE_EXQLMAP_DT] ZED
     ON GLALIRD.[GLAccountID] = ZED.[GLACCOUNT]
         AND GLALIRD.[FunctionalAreaID] = ZED.[FUNCTIONALAREA]
 /*INNER JOIN [edw].[dim_FinancialStatementHierarchy] FSH
@@ -299,4 +299,3 @@ LEFT JOIN [edw].[dim_Brand] DimBrand
     ON PSD.FirstSalesSpecProductGroup = DimBrand.[BrandID] 
 LEFT JOIN [edw].[dim_CustomerGroup] dimCGr
     ON CSA.CustomerGroup = dimCGr.[CustomerGroupID]
-WHERE ZED.CONTIGENCY5 != ''
