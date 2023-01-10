@@ -23,7 +23,6 @@ CREATE TABLE [base_s4h_cax].[ZE_EXQLMAP_DT](
     ,[t_jobDtm]              DATETIME       NULL
     ,[t_jobBy]               NVARCHAR(128)  NULL
     ,[t_filePath]            NVARCHAR(1024) NULL
-  )
 )
 WITH (
   HEAP
