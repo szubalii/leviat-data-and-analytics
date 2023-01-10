@@ -32,8 +32,8 @@ FROM [edw].[dim_Customer]
 UNION ALL
 
 SELECT
-d.[DummyID]        AS [CustomerID]
-,d.[DummyID]        AS [Customer]
+d.[DummyID]         AS [CustomerID]
+,d.[DummyName]      AS [Customer]
 ,d.[DummyIDName]    AS [CustomerID_Name]
 ,null               AS [CustomerAccountGroupID]
 ,null               AS [AccountGroup]
@@ -45,7 +45,7 @@ d.[DummyID]        AS [CustomerID]
 ,null               AS [OrderIsBlockedForCustomer]
 ,null               AS [IsOneTimeAccount]
 ,null               AS [CountryID]
-,null               AS [Country]
+,'Manual Adjustment'    AS [Country]
 ,d.[DummyName]      AS CityName
 ,null               AS [PostalCode]
 ,null               AS [StreetName]
