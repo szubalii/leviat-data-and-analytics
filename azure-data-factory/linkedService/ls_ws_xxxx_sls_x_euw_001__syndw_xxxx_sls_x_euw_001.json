@@ -1,12 +1,6 @@
 {
 	"name": "ls_ws_xxxx_sls_x_euw_001__syndw_xxxx_sls_x_euw_001",
 	"properties": {
-		"parameters": {
-			"sqlPool": {
-				"type": "string",
-				"defaultValue": "syndw_xxxx_sls_d_euw_001"
-			}
-		},
 		"annotations": [],
 		"type": "AzureSqlDW",
 		"typeProperties": {
