@@ -2469,15 +2469,15 @@ GLACCOUNT;FUNCTIONALAREA;TRANSACTIONTYPE;TRADINGPARTNER;CONTIGENCY1;CONTIGENCY2;
 52800567;;;;;;;;COGS;IS518000;Inventory movements finished goods (non standard costing);DT999;;;;S_MA;U;;IS
 52800568;;;;;;;;COGS;IS518000;Inventory movements finished goods (non standard costing);DT999;;;;S_MA;U;;IS
 52800569;;;;;;;;COGS;IS518000;Inventory movements finished goods (non standard costing);DT999;;;;S_MA;U;;IS
-52800561;DT102;;;;;;;COGS;IS518000;Inventory movements finished goods (non standard costing);DT999;;;;S_MA;U;;IS;DT102;52800561DT102;IS518000DT
-52800562;DT102;;;;;;;COGS;IS518000;Inventory movements finished goods (non standard costing);DT999;;;;S_MA;U;;IS;DT102;52800562DT102;IS518000DT
-52800563;DT102;;;;;;;COGS;IS518000;Inventory movements finished goods (non standard costing);DT999;;;;S_MA;U;;IS;DT102;52800563DT102;IS518000DT
-52800564;DT102;;;;;;;COGS;IS518000;Inventory movements finished goods (non standard costing);DT999;;;;S_MA;U;;IS;DT102;52800564DT102;IS518000DT
-52800565;DT102;;;;;;;COGS;IS518000;Inventory movements finished goods (non standard costing);DT999;;;;S_MA;U;;IS;DT102;52800565DT102;IS518000DT
-52800566;DT102;;;;;;;COGS;IS518000;Inventory movements finished goods (non standard costing);DT999;;;;S_MA;U;;IS;DT102;52800566DT102;IS518000DT
-52800567;DT102;;;;;;;COGS;IS518000;Inventory movements finished goods (non standard costing);DT999;;;;S_MA;U;;IS;DT102;52800567DT102;IS518000DT
-52800568;DT102;;;;;;;COGS;IS518000;Inventory movements finished goods (non standard costing);DT999;;;;S_MA;U;;IS;DT102;52800568DT102;IS518000DT
-52800569;DT102;;;;;;;COGS;IS518000;Inventory movements finished goods (non standard costing);DT999;;;;S_MA;U;;IS;DT102;52800569DT102;IS518000DT
+52800561;DT102;;;;;;;COGS;IS518000;Inventory movements finished goods (non standard costing);DT999;;;;S_MA;U;;IS
+52800562;DT102;;;;;;;COGS;IS518000;Inventory movements finished goods (non standard costing);DT999;;;;S_MA;U;;IS
+52800563;DT102;;;;;;;COGS;IS518000;Inventory movements finished goods (non standard costing);DT999;;;;S_MA;U;;IS
+52800564;DT102;;;;;;;COGS;IS518000;Inventory movements finished goods (non standard costing);DT999;;;;S_MA;U;;IS
+52800565;DT102;;;;;;;COGS;IS518000;Inventory movements finished goods (non standard costing);DT999;;;;S_MA;U;;IS
+52800566;DT102;;;;;;;COGS;IS518000;Inventory movements finished goods (non standard costing);DT999;;;;S_MA;U;;IS
+52800567;DT102;;;;;;;COGS;IS518000;Inventory movements finished goods (non standard costing);DT999;;;;S_MA;U;;IS
+52800568;DT102;;;;;;;COGS;IS518000;Inventory movements finished goods (non standard costing);DT999;;;;S_MA;U;;IS
+52800569;DT102;;;;;;;COGS;IS518000;Inventory movements finished goods (non standard costing);DT999;;;;S_MA;U;;IS
 52800570;DT102;;;;;;;Other CoS;IS683000;Revaluation inventories;FA1100;;;;S_MA;U;;IS
 52800571;DT999;;;;;;;COGS;IS518000;Inventory movements finished goods (non standard costing);DT999;;;;S_MA;U;;IS
 52800572;DT999;;;;;;;COGS;IS518000;Inventory movements finished goods (non standard costing);DT999;;;;S_MA;U;;IS
@@ -2519,7 +2519,7 @@ GLACCOUNT;FUNCTIONALAREA;TRANSACTIONTYPE;TRADINGPARTNER;CONTIGENCY1;CONTIGENCY2;
 52800594;;;;;;;;COGS;IS518000;Inventory movements finished goods (non standard costing);DT999;;;;S_MA;U;;IS
 52800595;DT999;;;;;;;COGS;IS518000;Inventory movements finished goods (non standard costing);DT999;;;;S_MA;U;;IS
 52800595;;;;;;;;COGS;IS518000;Inventory movements finished goods (non standard costing);DT999;;;;S_MA;U;;IS
-52800595;DT102;;;;;;;COGS;IS518000;Inventory movements finished goods (non standard costing);DT999;;;;S_MA;U;;IS;DT102;52800595DT102;IS518000DT
+52800595;DT102;;;;;;;COGS;IS518000;Inventory movements finished goods (non standard costing);DT999;;;;S_MA;U;;IS
 52800596;DT999;;;;;;;COGS;IS518000;Inventory movements finished goods (non standard costing);DT999;;;;S_MA;U;;IS
 52800596;;;;;;;;COGS;IS518000;Inventory movements finished goods (non standard costing);DT999;;;;S_MA;U;;IS
 52800597;DT999;;;;;;;COGS;IS518000;Inventory movements finished goods (non standard costing);DT999;;;;S_MA;U;;IS
