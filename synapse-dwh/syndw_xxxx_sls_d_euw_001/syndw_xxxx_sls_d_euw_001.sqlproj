@@ -235,6 +235,7 @@
     <Build Include="base_s4h_cax\Stored Procedures\sp_load_Z_C_VariantConfig.sql" />
     <Build Include="edw\Stored Procedures\sp_load_fact_ProductHierarchyVariantConfigCharacteristic_active.sql" />
     <Build Include="utilities\Stored Procedures\sp_ingest_master_data.sql" />
+    <Build Include="utilities\Functions\Scalar-valued Functions\svf_getDateFromFileName.sql" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="base_tx_ca_0_hlp\Tables\CRHCURRENCY.sql" />
@@ -1074,7 +1075,7 @@
     <Build Include="base_isedio\Tables\CUSTTABLE_ISUK.sql" />
     <Build Include="base_isedio\Tables\CUSTINVOICETRANS_ISUK.sql" />
     <Build Include="base_isedio\Tables\ITEMTABLE_ISUK.sql" />
-      <Build Include="base_isedio\Tables\ITEMTABLE_ISUK_orig.sql" />
+    <Build Include="base_isedio\Tables\ITEMTABLE_ISUK_orig.sql" />
     <Build Include="base_ancon_conolly_aus\Tables\CUSTINVOICETRANS_ANAC.sql" />
     <Build Include="base_ancon_conolly_aus\Tables\CUSTTABLE_ANAC.sql" />
     <Build Include="base_ancon_conolly_aus\Tables\ITEMTABLE_ANAC.sql" />
@@ -1113,7 +1114,7 @@
     <Build Include="base_s4h_cax\Tables\P_ConditionTypeText.sql" />
     <Build Include="dm_dq\Views\vw_dim_MAWEV.sql" />
     <Build Include="dm_dq\Views\vw_dim_ProductValuationCosting.sql" />
-	<Build Include="dm_sales\Views\vw_dim_GLAccountText.sql" />
+    <Build Include="dm_sales\Views\vw_dim_GLAccountText.sql" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PostDeploy Include="Scripts\Post-Deploy\Script.PostDeployment.sql" />
