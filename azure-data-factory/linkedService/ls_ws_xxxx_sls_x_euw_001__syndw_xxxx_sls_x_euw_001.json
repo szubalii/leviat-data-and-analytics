@@ -1,16 +1,10 @@
 {
 	"name": "ls_ws_xxxx_sls_x_euw_001__syndw_xxxx_sls_x_euw_001",
 	"properties": {
-		"parameters": {
-			"sqlPool": {
-				"type": "string",
-				"defaultValue": "syndw_xxxx_sls_d_euw_001"
-			}
-		},
 		"annotations": [],
 		"type": "AzureSqlDW",
 		"typeProperties": {
-			"connectionString": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=ws-xxxx-sls-d-euw-001.sql.azuresynapse.net;Initial Catalog=@{linkedService().sqlPool}"
+			"connectionString": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=ws-xxxx-sls-d-euw-001.sql.azuresynapse.net;Initial Catalog=syndw_mpors_d_euw_001"
 		}
 	},
 	"type": "Microsoft.DataFactory/factories/linkedservices"
