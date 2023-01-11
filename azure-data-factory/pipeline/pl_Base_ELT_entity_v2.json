@@ -213,7 +213,7 @@
 							"userProperties": [],
 							"typeProperties": {
 								"pipeline": {
-									"referenceName": "pl_ADLS_SYNDW_ingestion",
+									"referenceName": "pl_ADLS_SYNDW_ingestion_v2",
 									"type": "PipelineReference"
 								},
 								"waitOnCompletion": true,
@@ -258,6 +258,10 @@
 									},
 									"s4h_client_field": {
 										"value": "@pipeline().parameters.client_field",
+										"type": "Expression"
+									},
+									"extraction_type": {
+										"value": "@pipeline().parameters.extraction_type",
 										"type": "Expression"
 									}
 								}
