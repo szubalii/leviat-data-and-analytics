@@ -1,0 +1,922 @@
+{
+	"name": "pl_Base_ELT_entity_v2",
+	"properties": {
+		"activities": [
+			{
+				"name": "If Test for Duplicates",
+				"type": "IfCondition",
+				"dependsOn": [
+					{
+						"activity": "If Store Extraction Logs",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@contains(\n    pipeline().parameters.required_activities,\n    'TestDuplicates'\n)",
+						"type": "Expression"
+					},
+					"ifTrueActivities": [
+						{
+							"name": "Test for Duplicates",
+							"type": "ExecutePipeline",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"pipeline": {
+									"referenceName": "pl_ADLS_In_duplicatesTest",
+									"type": "PipelineReference"
+								},
+								"waitOnCompletion": true,
+								"parameters": {
+									"primary_key_columns": {
+										"value": "@pipeline().parameters.pk_field_names",
+										"type": "Expression"
+									},
+									"entity_id": {
+										"value": "@pipeline().parameters.entity_id",
+										"type": "Expression"
+									},
+									"adls_directory_path": {
+										"value": "@pipeline().parameters.adls_directory_path_In",
+										"type": "Expression"
+									},
+									"run_id": {
+										"value": "@pipeline().parameters.run_id",
+										"type": "Expression"
+									},
+									"source_layer": "In",
+									"adls_container_name": {
+										"value": "@variables('adlsContainerName')",
+										"type": "Expression"
+									},
+									"file_name": {
+										"value": "@variables('adlsFileName')",
+										"type": "Expression"
+									}
+								}
+							}
+						}
+					]
+				}
+			},
+			{
+				"name": "If Extract Required",
+				"type": "IfCondition",
+				"dependsOn": [
+					{
+						"activity": "If FileName Param Empty",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "Set ADLS Container Name",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@contains(\n    pipeline().parameters.required_activities,\n    'Extract'\n)",
+						"type": "Expression"
+					},
+					"ifFalseActivities": [
+						{
+							"name": "Set Extract Batch ID from Param",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "batch_id_Extract",
+								"value": {
+									"value": "@pipeline().parameters.skipped_activities.Extract.batch_id",
+									"type": "Expression"
+								}
+							}
+						}
+					],
+					"ifTrueActivities": [
+						{
+							"name": "Execute Entity ADLS Ingestion",
+							"type": "ExecutePipeline",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"pipeline": {
+									"referenceName": "pl_ADLS_ingestion",
+									"type": "PipelineReference"
+								},
+								"waitOnCompletion": true,
+								"parameters": {
+									"entity_name": {
+										"value": "@pipeline().parameters.entity_name",
+										"type": "Expression"
+									},
+									"entity_id": {
+										"value": "@pipeline().parameters.entity_id",
+										"type": "Expression"
+									},
+									"date": {
+										"value": "@pipeline().parameters.date",
+										"type": "Expression"
+									},
+									"run_id": {
+										"value": "@pipeline().parameters.run_id",
+										"type": "Expression"
+									},
+									"layer_nk": {
+										"value": "@pipeline().parameters.layer_nk",
+										"type": "Expression"
+									},
+									"source_database_name": {
+										"value": "@pipeline().parameters.source_database_name",
+										"type": "Expression"
+									},
+									"source_schema_name": {
+										"value": "@pipeline().parameters.source_schema_name",
+										"type": "Expression"
+									},
+									"source_table_name": {
+										"value": "@pipeline().parameters.source_table_name",
+										"type": "Expression"
+									},
+									"source_date_field_name": {
+										"value": "@pipeline().parameters.source_date_field_name",
+										"type": "Expression"
+									},
+									"adls_container_name": {
+										"value": "@variables('adlsContainerName')",
+										"type": "Expression"
+									},
+									"adls_directory_path_In": {
+										"value": "@pipeline().parameters.adls_directory_path_In",
+										"type": "Expression"
+									},
+									"adls_file_name": {
+										"value": "@variables('adlsFileName')",
+										"type": "Expression"
+									},
+									"required_activities": {
+										"value": "@pipeline().parameters.required_activities",
+										"type": "Expression"
+									},
+									"skipped_activities": {
+										"value": "@pipeline().parameters.skipped_activities",
+										"type": "Expression"
+									},
+									"batch_id": {
+										"value": "@variables('batch_id_Extract')",
+										"type": "Expression"
+									},
+									"s4h_system_id": {
+										"value": "@pipeline().parameters.s4h_system_id",
+										"type": "Expression"
+									},
+									"s4h_client_id": {
+										"value": "@pipeline().parameters.s4h_client_id",
+										"type": "Expression"
+									}
+								}
+							}
+						}
+					]
+				}
+			},
+			{
+				"name": "If Synapse Ingestion Required",
+				"type": "IfCondition",
+				"dependsOn": [
+					{
+						"activity": "If Test for Duplicates",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@contains(\n    pipeline().parameters.required_activities,\n    'Load2Base'\n)",
+						"type": "Expression"
+					},
+					"ifTrueActivities": [
+						{
+							"name": "Ingest Parquet into Synapse Base",
+							"type": "ExecutePipeline",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"pipeline": {
+									"referenceName": "pl_ADLS_SYNDW_ingestion",
+									"type": "PipelineReference"
+								},
+								"waitOnCompletion": true,
+								"parameters": {
+									"base_schema_name": {
+										"value": "@pipeline().parameters.base_schema_name",
+										"type": "Expression"
+									},
+									"base_table_name": {
+										"value": "@pipeline().parameters.base_table_name",
+										"type": "Expression"
+									},
+									"entity_id": {
+										"value": "@pipeline().parameters.entity_id",
+										"type": "Expression"
+									},
+									"directory_path": {
+										"value": "@pipeline().parameters.adls_directory_path_In",
+										"type": "Expression"
+									},
+									"run_id": {
+										"value": "@pipeline().parameters.run_id",
+										"type": "Expression"
+									},
+									"source_layer": "In",
+									"file_name": {
+										"value": "@variables('adlsFileName')",
+										"type": "Expression"
+									},
+									"adls_container_name": {
+										"value": "@variables('adlsContainerName')",
+										"type": "Expression"
+									},
+									"target_layer": "Base",
+									"update_mode": {
+										"value": "@pipeline().parameters.update_mode",
+										"type": "Expression"
+									},
+									"s4h_client_id": {
+										"value": "@pipeline().parameters.s4h_client_id",
+										"type": "Expression"
+									},
+									"s4h_client_field": {
+										"value": "@pipeline().parameters.client_field",
+										"type": "Expression"
+									}
+								}
+							}
+						}
+					]
+				}
+			},
+			{
+				"name": "If FileName Param Empty",
+				"description": "When the file_name parameter is empty, a new extraction will be executed. \nFor AXBI and Snowflake a new ADLS File name is generated in ADF. For S4H, the file name is generated by Theobald.\nWhen the file_name parameter is not empty, the required activities for an existing batch is executed.",
+				"type": "IfCondition",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@empty(pipeline().parameters.file_name)",
+						"type": "Expression"
+					},
+					"ifFalseActivities": [
+						{
+							"name": "Set ADLS FileName from Param",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "adlsFileName",
+								"value": {
+									"value": "@pipeline().parameters.file_name",
+									"type": "Expression"
+								}
+							}
+						}
+					],
+					"ifTrueActivities": [
+						{
+							"name": "Set Generated ADLS File Name",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "adlsFileName",
+								"value": {
+									"value": "@concat(\n    pipeline().parameters.base_table_name\n    ,'_'\n    ,formatDateTime(utcNow(),'yyyy_MM_dd_HH_mm_ss_fff')\n    ,'.parquet'\n)",
+									"type": "Expression"
+								}
+							}
+						}
+					]
+				}
+			},
+			{
+				"name": "If Get Extraction Status",
+				"type": "IfCondition",
+				"dependsOn": [
+					{
+						"activity": "Retrieve File Name if S4H Extraction",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@contains(\n    pipeline().parameters.required_activities,\n    'CheckXUExtractionStatus'\n)",
+						"type": "Expression"
+					},
+					"ifTrueActivities": [
+						{
+							"name": "Execute Get Extraction Status",
+							"type": "ExecutePipeline",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"pipeline": {
+									"referenceName": "pl_GetXUExtractionStatus",
+									"type": "PipelineReference"
+								},
+								"waitOnCompletion": true,
+								"parameters": {
+									"extraction_name": {
+										"value": "@pipeline().parameters.entity_name",
+										"type": "Expression"
+									},
+									"date": {
+										"value": "@pipeline().parameters.date",
+										"type": "Expression"
+									},
+									"run_id": {
+										"value": "@pipeline().parameters.run_id",
+										"type": "Expression"
+									},
+									"entity_id": {
+										"value": "@pipeline().parameters.entity_id",
+										"type": "Expression"
+									},
+									"extraction_timestamp": {
+										"value": "@variables('extraction_Timestamp')",
+										"type": "Expression"
+									},
+									"batch_id_CheckXUExtractionStatus": {
+										"value": "@guid()",
+										"type": "Expression"
+									},
+									"batch_id_Extract": {
+										"value": "@variables('batch_id_Extract')",
+										"type": "Expression"
+									},
+									"adls_directory_path": {
+										"value": "@pipeline().parameters.adls_directory_path_In",
+										"type": "Expression"
+									},
+									"adls_file_name": {
+										"value": "@variables('adlsFileName')",
+										"type": "Expression"
+									},
+									"s4h_system_id": {
+										"value": "@pipeline().parameters.s4h_system_id",
+										"type": "Expression"
+									},
+									"s4h_client_id": {
+										"value": "@pipeline().parameters.s4h_client_id",
+										"type": "Expression"
+									}
+								}
+							}
+						}
+					]
+				}
+			},
+			{
+				"name": "If Store Extraction Logs",
+				"type": "IfCondition",
+				"dependsOn": [
+					{
+						"activity": "If Get Extraction Status",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@contains(\n    pipeline().parameters.required_activities,\n    'StoreXUExtractionLog'\n)",
+						"type": "Expression"
+					},
+					"ifTrueActivities": [
+						{
+							"name": "Execute Pipeline Store XU Extraction Logs 2",
+							"type": "ExecutePipeline",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"pipeline": {
+									"referenceName": "pl_StoreXUExtractionLogs",
+									"type": "PipelineReference"
+								},
+								"waitOnCompletion": true,
+								"parameters": {
+									"entity_name": {
+										"value": "@pipeline().parameters.entity_name",
+										"type": "Expression"
+									},
+									"entity_id": {
+										"value": "@pipeline().parameters.entity_id",
+										"type": "Expression"
+									},
+									"run_id": {
+										"value": "@pipeline().parameters.run_id",
+										"type": "Expression"
+									},
+									"adls_directory_path_In": {
+										"value": "@pipeline().parameters.adls_directory_path_In",
+										"type": "Expression"
+									},
+									"adls_file_name": {
+										"value": "@variables('adlsFileName')",
+										"type": "Expression"
+									},
+									"batch_id_StoreXUExtractionLog": {
+										"value": "@variables('batch_id_StoreXUExtractionLog')",
+										"type": "Expression"
+									},
+									"date": {
+										"value": "@pipeline().parameters.date",
+										"type": "Expression"
+									},
+									"extraction_timestamp": {
+										"value": "@variables('extraction_Timestamp')",
+										"type": "Expression"
+									},
+									"s4h_system_id": {
+										"value": "@pipeline().parameters.s4h_system_id",
+										"type": "Expression"
+									},
+									"s4h_client_id": {
+										"value": "@pipeline().parameters.s4h_client_id",
+										"type": "Expression"
+									}
+								}
+							}
+						}
+					]
+				}
+			},
+			{
+				"name": "Retrieve File Name if S4H Extraction",
+				"description": "In case S4H Extraction is executed, retrieve the XU extraction timestamp, for completing status and storing of log activities",
+				"type": "IfCondition",
+				"dependsOn": [
+					{
+						"activity": "If Extract Required",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "If S4H Extract Not Required",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@and(\n    equals(pipeline().parameters.layer_nk, 'S4H'),\n    contains(\n        pipeline().parameters.required_activities,\n        'Extract'\n    )\n)",
+						"type": "Expression"
+					},
+					"ifTrueActivities": [
+						{
+							"name": "Set XU Extraction Timestamp",
+							"type": "SetVariable",
+							"dependsOn": [
+								{
+									"activity": "Set Output",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "extraction_Timestamp",
+								"value": {
+									"value": "@json(variables('extraction_Output')).timestamp",
+									"type": "Expression"
+								}
+							}
+						},
+						{
+							"name": "Reset ADLS File Name",
+							"type": "SetVariable",
+							"dependsOn": [
+								{
+									"activity": "Lookup ADLS File Name And Output",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "adlsFileName",
+								"value": {
+									"value": "@activity('Lookup ADLS File Name And Output').output.firstRow.file_name",
+									"type": "Expression"
+								}
+							}
+						},
+						{
+							"name": "Lookup ADLS File Name And Output",
+							"description": "For S4H entities we need to retrieve adls file name from logging.",
+							"type": "Lookup",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "AzureSqlSource",
+									"sqlReaderQuery": {
+										"value": "SELECT file_name, output\nFROM [dbo].[batch]\nWHERE batch_id = '@{variables('batch_id_Extract')}'",
+										"type": "Expression"
+									},
+									"queryTimeout": "02:00:00",
+									"partitionOption": "None"
+								},
+								"dataset": {
+									"referenceName": "ds_orch_db",
+									"type": "DatasetReference",
+									"parameters": {
+										"sqlDb": {
+											"value": "@pipeline().globalParameters.sqlDb",
+											"type": "Expression"
+										}
+									}
+								}
+							}
+						},
+						{
+							"name": "Set Output",
+							"type": "SetVariable",
+							"dependsOn": [
+								{
+									"activity": "Lookup ADLS File Name And Output",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "extraction_Output",
+								"value": {
+									"value": "@activity('Lookup ADLS File Name And Output').output.firstRow.output",
+									"type": "Expression"
+								}
+							}
+						}
+					]
+				}
+			},
+			{
+				"name": "If S4H Extract Not Required",
+				"description": "In case of S4H Extraction already done, get the S4H Extraction Timestamp from the 'skipped' parameter",
+				"type": "IfCondition",
+				"dependsOn": [
+					{
+						"activity": "If FileName Param Empty",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "Set ADLS Container Name",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@and(\n    equals(pipeline().parameters.layer_nk, 'S4H'),\n    contains(\n        pipeline().parameters.skipped_activities,\n        'Extract'\n    )\n)",
+						"type": "Expression"
+					},
+					"ifTrueActivities": [
+						{
+							"name": "Set S4H Extraction Timestamp",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "extraction_Timestamp",
+								"value": {
+									"value": "@pipeline().parameters.skipped_activities.Extract.output.timestamp",
+									"type": "Expression"
+								}
+							}
+						}
+					]
+				}
+			},
+			{
+				"name": "If Store Extraction Logs 2",
+				"description": "Retrieve the extraction logs in case the extraction failed.",
+				"type": "IfCondition",
+				"dependsOn": [
+					{
+						"activity": "If Get Extraction Status",
+						"dependencyConditions": [
+							"Failed"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@contains(\n    pipeline().parameters.required_activities,\n    'StoreXUExtractionLog'\n)",
+						"type": "Expression"
+					},
+					"ifTrueActivities": [
+						{
+							"name": "Execute Pipeline Store XU Extraction Logs",
+							"type": "ExecutePipeline",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"pipeline": {
+									"referenceName": "pl_StoreXUExtractionLogs",
+									"type": "PipelineReference"
+								},
+								"waitOnCompletion": true,
+								"parameters": {
+									"entity_name": {
+										"value": "@pipeline().parameters.entity_name",
+										"type": "Expression"
+									},
+									"entity_id": {
+										"value": "@pipeline().parameters.entity_id",
+										"type": "Expression"
+									},
+									"run_id": {
+										"value": "@pipeline().parameters.run_id",
+										"type": "Expression"
+									},
+									"adls_directory_path_In": {
+										"value": "@pipeline().parameters.adls_directory_path_In",
+										"type": "Expression"
+									},
+									"adls_file_name": {
+										"value": "@variables('adlsFileName')",
+										"type": "Expression"
+									},
+									"batch_id_StoreXUExtractionLog": {
+										"value": "@variables('batch_id_StoreXUExtractionLog')",
+										"type": "Expression"
+									},
+									"date": {
+										"value": "@pipeline().parameters.date",
+										"type": "Expression"
+									},
+									"extraction_timestamp": {
+										"value": "@variables('extraction_Timestamp')",
+										"type": "Expression"
+									},
+									"s4h_system_id": {
+										"value": "@pipeline().parameters.s4h_system_id",
+										"type": "Expression"
+									},
+									"s4h_client_id": {
+										"value": "@pipeline().parameters.s4h_client_id",
+										"type": "Expression"
+									}
+								}
+							}
+						}
+					]
+				}
+			},
+			{
+				"name": "Failed XU Extraction",
+				"type": "Fail",
+				"dependsOn": [
+					{
+						"activity": "If Store Extraction Logs 2",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"message": {
+						"value": "@concat(\n    'Extraction FinishedWithErrors:',\n    pipeline().parameters.entity_name\n)",
+						"type": "Expression"
+					},
+					"errorCode": "500"
+				}
+			},
+			{
+				"name": "Set ADLS Container Name",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "adlsContainerName",
+					"value": {
+						"value": "@if(\n    equals(\n        pipeline().parameters.layer_nk,\n        'S4H'\n    ),\n    concat(\n        pipeline().parameters.adls_container_name,\n        '-',\n        toLower(pipeline().parameters.s4h_system_id),\n        '-',\n        string(pipeline().parameters.s4h_client_id)\n    ),\n    pipeline().parameters.adls_container_name\n)",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "If  Update Mode Delta",
+				"type": "IfCondition",
+				"dependsOn": [
+					{
+						"activity": "If Synapse Ingestion Required",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@contains(pipeline().parameters.required_activities, 'ProcessBase')",
+						"type": "Expression"
+					},
+					"ifTrueActivities": [
+						{
+							"name": "Process Synapse Base Procedure",
+							"type": "ExecutePipeline",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"pipeline": {
+									"referenceName": "pl_SYNDW_Base_process",
+									"type": "PipelineReference"
+								},
+								"waitOnCompletion": true,
+								"parameters": {
+									"base_schema_name": {
+										"value": "@pipeline().parameters.base_schema_name",
+										"type": "Expression"
+									},
+									"base_table_name": {
+										"value": "@pipeline().parameters.base_table_name",
+										"type": "Expression"
+									},
+									"base_sproc_name": {
+										"value": "@pipeline().parameters.base_sproc_name",
+										"type": "Expression"
+									},
+									"entity_id": {
+										"value": "@pipeline().parameters.entity_id",
+										"type": "Expression"
+									},
+									"run_id": {
+										"value": "@pipeline().parameters.run_id",
+										"type": "Expression"
+									}
+								}
+							}
+						}
+					]
+				}
+			}
+		],
+		"parameters": {
+			"entity_name": {
+				"type": "string",
+				"defaultValue": "I_CostCenter_F"
+			},
+			"entity_id": {
+				"type": "string",
+				"defaultValue": "1"
+			},
+			"date": {
+				"type": "string",
+				"defaultValue": "2022/04/21"
+			},
+			"run_id": {
+				"type": "string",
+				"defaultValue": "a1fe4011-b0aa-4e82-814e-5521537c78db"
+			},
+			"layer_nk": {
+				"type": "string",
+				"defaultValue": "S4H"
+			},
+			"client_field": {
+				"type": "string",
+				"defaultValue": "MANDT"
+			},
+			"extraction_type": {
+				"type": "string",
+				"defaultValue": "ODP"
+			},
+			"pk_field_names": {
+				"type": "string",
+				"defaultValue": "CONTROLLINGAREA, COSTCENTER, VALIDITYENDDATE"
+			},
+			"source_database_name": {
+				"type": "string"
+			},
+			"source_schema_name": {
+				"type": "string"
+			},
+			"source_table_name": {
+				"type": "string",
+				"defaultValue": "I_CostCenter"
+			},
+			"source_date_field_name": {
+				"type": "string"
+			},
+			"adls_container_name": {
+				"type": "string",
+				"defaultValue": "s4h-cad"
+			},
+			"adls_directory_path_In": {
+				"type": "string",
+				"defaultValue": "DIMENSION/I_CostCenter_F/Theobald/ODP/Full/In/2022/04/21"
+			},
+			"adls_directory_path_Out": {
+				"type": "string",
+				"defaultValue": "DIMENSION/I_CostCenter_F/Theobald/ODP/Full/Out/2022/04/21"
+			},
+			"base_schema_name": {
+				"type": "string",
+				"defaultValue": "base_s4h_cax"
+			},
+			"base_sproc_name": {
+				"type": "string"
+			},
+			"base_table_name": {
+				"type": "string",
+				"defaultValue": "I_CostCenter"
+			},
+			"required_activities": {
+				"type": "array",
+				"defaultValue": [
+					"ExtractFromSourceAndLoadInADLS",
+					"RunXUExtraction",
+					"CheckXUExtractionStatus",
+					"StoreXUExtractionLogs"
+				]
+			},
+			"skipped_activities": {
+				"type": "object"
+			},
+			"file_name": {
+				"type": "string"
+			},
+			"update_mode": {
+				"type": "string"
+			},
+			"s4h_system_id": {
+				"type": "string",
+				"defaultValue": "CAA"
+			},
+			"s4h_client_id": {
+				"type": "int",
+				"defaultValue": 200
+			}
+		},
+		"variables": {
+			"adlsFileName": {
+				"type": "String"
+			},
+			"batch_id_Extract": {
+				"type": "String",
+				"defaultValue": "@guid()"
+			},
+			"extraction_Output": {
+				"type": "String"
+			},
+			"extraction_Timestamp": {
+				"type": "String"
+			},
+			"batch_id_StoreXUExtractionLog": {
+				"type": "String",
+				"defaultValue": "@guid()"
+			},
+			"adlsContainerName": {
+				"type": "String"
+			}
+		},
+		"folder": {
+			"name": "00 ELT"
+		},
+		"annotations": []
+	}
+}
