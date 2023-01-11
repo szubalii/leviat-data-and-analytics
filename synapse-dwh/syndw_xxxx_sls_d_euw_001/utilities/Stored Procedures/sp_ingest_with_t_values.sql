@@ -9,7 +9,9 @@
     @job_dtm            CHAR (23),
     @job_by         NVARCHAR(128),
     @update_mode     VARCHAR  (5),
-    @extraction_type VARCHAR  (5)
+    @extraction_type VARCHAR  (5),
+    @client_field    VARCHAR  (5),
+    @client_id       VARCHAR  (5)
 AS
 BEGIN
 
@@ -24,7 +26,16 @@ BEGIN
         @job_dtm            CHAR (23) = FORMAT(GETUTCDATE(), 'yyyy-MM-dd HH:mm:ss.fff'),
         @job_by         NVARCHAR(100) = 'df-mpors-d-euw-001',
         @update_mode     VARCHAR  (5) = 'Full',
-        @extraction_type VARCHAR  (5) = 'ODP';
+        @extraction_type VARCHAR  (5) = 'ODP',
+        @client_field    VARCHAR  (5) = 'MANDT',
+        @client_id       VARCHAR  (5) = '200';
+
+    SELECT 't_applicationId' AS t_field_name
+        UNION ALL SELECT 't_jobId'
+        UNION ALL SELECT 't_jobDtm'
+        UNION ALL SELECT 't_jobBy'
+        UNION ALL SELECT 't_filePath'
+        UNION ALL SELECT 't_extractionDtm'
 
     DECLARE
         -- Get the date from the file name and convert it to a string
@@ -47,7 +58,7 @@ BEGIN
         SELECT
             CONCAT(
                 STRING_AGG(
-                    CONCAT('[', c.name, '] ', c.column_id)
+                    CONCAT('[', c.name, '] ')
                     , ', '
                 )  WITHIN GROUP ( ORDER BY c.column_id ASC )
                 , ', t_applicationId DEFAULT ''' + @application_id + ''',
@@ -122,7 +133,7 @@ truncate table [base_s4h_cax].[I_Country]
 
 COPY INTO [base_s4h_cax].[I_Country] (
     
-    [COUNTRY] 2,
+    [COUNTRY],
     [CountryThreeLetterISOCode],
     [CountryThreeDigitISOCode],
     [CountryCurrency],
