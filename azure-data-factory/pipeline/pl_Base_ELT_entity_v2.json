@@ -109,7 +109,7 @@
 							"userProperties": [],
 							"typeProperties": {
 								"pipeline": {
-									"referenceName": "pl_ADLS_ingestion",
+									"referenceName": "pl_ADLS_ingestion_v2",
 									"type": "PipelineReference"
 								},
 								"waitOnCompletion": true,
