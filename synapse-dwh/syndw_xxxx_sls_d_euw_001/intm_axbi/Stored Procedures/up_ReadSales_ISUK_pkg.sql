@@ -101,6 +101,7 @@ BEGIN
 	        when 'HALFEN AS' then '5325U01'
 	        when 'HALFEN B.V.' then '5314U01'
 	        when 'HALFEN GMBH' then '5300U01'
+			when 'Halfen GmbH'  then '5300U01'
 	        when 'HALFEN IBERICA S.L' then 'S060U01'
 	        when 'HALFEN LIMITED' then '5310U01'
 	        when 'HALFEN S.R.L.' then '5315U01'
