@@ -46,7 +46,7 @@ d.[DummyID]         AS [CustomerID]
 ,null               AS [IsOneTimeAccount]
 ,null               AS [CountryID]
 ,'Manual Adjustment'    AS [Country]
-,d.[DummyName]      AS [CityName]
+,d.[DummyName]      AS CityName
 ,null               AS [PostalCode]
 ,null               AS [StreetName]
 ,null               AS [RegionID]
