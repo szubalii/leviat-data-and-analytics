@@ -463,53 +463,70 @@
 					"referenceName": "ls_ws_xxxx_sls_x_euw_001__syndw_xxxx_sls_x_euw_001",
 					"type": "LinkedServiceReference",
 					"parameters": {
-						"sqlPool": "syndw_xxxx_sls_d_euw_001"
+						"sqlPool": {
+							"value": "@pipeline().globalParameters.synapseDatabaseName",
+							"type": "Expression"
+						}
 					}
 				}
 			}
 		],
 		"parameters": {
 			"base_schema_name": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "base_s4h_cax"
 			},
 			"base_table_name": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "I_Country"
 			},
 			"entity_id": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "100"
 			},
 			"directory_path": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "DIMENSION/I_Country/Theobald/ODP/Full/In/2023/01/09"
 			},
 			"run_id": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "8d594c2d-a905-421c-9731-7d9a58c2349c"
 			},
 			"source_layer": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "In"
 			},
 			"file_name": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "I_Country_2023_01_09_13_12_04_741.parquet"
 			},
 			"adls_container_name": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "s4h-caa-200"
 			},
 			"target_layer": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "Base"
 			},
 			"update_mode": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "Full"
 			},
 			"s4h_client_id": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "200"
 			},
 			"s4h_client_field": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "MANDT"
 			},
 			"application_id": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "s4h-caa-200"
 			},
 			"extraction_type": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "ODP"
 			}
 		},
 		"variables": {
