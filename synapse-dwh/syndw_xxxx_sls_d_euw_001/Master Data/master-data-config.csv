@@ -24,5 +24,5 @@ USA;SubPCAT_Pillar.csv;",";base_ff_USA;SubPCAT_Pillar
 ;SalesDistrict.csv;",";base_ff;SalesDistrict
 ;MDQRule.csv;";";dq;dim_Rule
 map_AXBI;InventSite.csv;",";map_AXBI;InventSite
-;ZE_EXQLMAP_DT.csv;";";base_s4h_cax;ZE_EXQLMAP_DT
 map_AXBI;StockUnit.csv;",";map_AXBI;StockUnit
+;ZE_EXQLMAP_DT.csv;";";base_s4h_cax;ZE_EXQLMAP_DT
