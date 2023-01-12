@@ -266,6 +266,10 @@
 										"value": "@pipeline().parameters.client_field",
 										"type": "Expression"
 									},
+									"application_id": {
+										"value": "@variables('application_id')",
+										"type": "Expression"
+									},
 									"extraction_type": {
 										"value": "@pipeline().parameters.extraction_type",
 										"type": "Expression"
