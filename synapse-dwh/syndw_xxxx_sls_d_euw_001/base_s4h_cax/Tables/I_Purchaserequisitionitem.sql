@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [base_s4h_cax].[I_Purchaserequisitionitem]
 -- Purchase Requisition Item
 (
-  [MANDT] nchar(3) NOT NULL
+  [MANDT] NCHAR(3) NOT NULL
 , [PurchaseRequisition] nvarchar(10) NOT NULL
 , [PurchaseRequisitionItem] char(5) NOT NULL
 , [PurchasingDocument] nvarchar(10)
