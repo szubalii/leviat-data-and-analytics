@@ -100,7 +100,7 @@ BEGIN
     -- Alle CUSTOMERPILLAR auf OTHER setzen, die leer sind.
 	update [intm_axbi].[dim_CUSTTABLE]
 	set [CUSTOMERPILLAR] = 'OTHER'
-	where upper([DATAAREAID]) = 'ANAC' and ISNULL([CUSTOMERPILLAR],' ') = ' ' 
+	where upper([DATAAREAID]) = 'ANAC' and ISNULL([CUSTOMERPILLAR],' ') = ' ';
 
     -- Alle INSIDE customer column CUSTOMERPILLAR auf OTHER setzen
 	update [intm_axbi].[dim_CUSTTABLE]
