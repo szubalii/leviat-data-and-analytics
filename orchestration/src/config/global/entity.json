@@ -3374,7 +3374,7 @@
         "update_mode": "Full",
         "base_table_name": "C_MngProdnOrderMfgOrder",
         "pk_field_names": "MANDT, MANUFACTURINGORDER",
-        "schedule_recurrence": "A"
+        "schedule_recurrence": "D"
       },
       {
         "entity_id": 451,
@@ -3840,6 +3840,18 @@
         "update_mode": "Full",
         "base_table_name": "I_PricingElement",
         "pk_field_names": "MANDT, PRICINGDOCUMENT, PRICINGDOCUMENTITEM, PRICINGPROCEDURESTEP, PRICINGPROCEDURECOUNTER",
+        "schedule_recurrence": "D"
+      },
+      {
+        "entity_id": 568,
+        "entity_name": "I_Purchaserequisitionitem",
+        "data_category": "DIMENSION",
+        "client_field": "MANDT",
+        "tool_name": "Theobald",
+        "extraction_type": "Table",
+        "update_mode": "Full",
+        "base_table_name": "I_Purchaserequisitionitem",
+        "pk_field_names": "MANDT, PURCHASEREQUISITION, PURCHASEREQUISITIONITEM",
         "schedule_recurrence": "D"
       }
     ]
@@ -5348,8 +5360,7 @@
         "entity_name": "fact_ACDOCA_active",
         "sproc_name": "sp_load_fact_ACDOCA_active",
         "update_mode": "Delta",
-        "execution_order": 3,
-        "schedule_recurrence": "D"
+        "execution_order": 3
       },
       {
         "entity_id": 543,
