@@ -36,12 +36,11 @@
 							"value": "IF EXISTS (\n    SELECT * \n    FROM dbo.sysobjects \n    WHERE ID = OBJECT_ID(N'@{concat(pipeline().parameters.base_schema_name, '.', pipeline().parameters.base_table_name)}')\n) AND '@{pipeline().parameters.update_mode}' <> 'Delta'\nTRUNCATE TABLE @{concat(pipeline().parameters.base_schema_name, '.', pipeline().parameters.base_table_name)}",
 							"type": "Expression"
 						},
-						"allowCopyCommand": true,
-						"copyCommandSettings": {
-							"defaultValues": {
-								"value": "@createArray(\n    json(\n        concat('{\n            \"name\":\"t_applicationId\",\n            \"value\":\"',pipeline().parameters.adls_container_name,'\"\n        }')\n    )\n)",
-								"type": "Expression"
-							}
+						"allowPolyBase": true,
+						"polyBaseSettings": {
+							"rejectValue": 0,
+							"rejectType": "value",
+							"useTypeDefault": true
 						},
 						"disableMetricsCollection": false
 					},
@@ -115,10 +114,7 @@
 					"storedProcedureName": "[utilities].[sp_update_t_values]",
 					"storedProcedureParameters": {
 						"application_id": {
-							"value": {
-								"value": "@pipeline().parameters.adls_container_name",
-								"type": "Expression"
-							},
+							"value": null,
 							"type": "String"
 						},
 						"extraction_dtm_string": {
@@ -164,17 +160,20 @@
 							"type": "String"
 						},
 						"file_path": {
-							"value": {
-								"value": "@join(createArray(\n    pipeline().parameters.adls_container_name\n    ,pipeline().parameters.directory_path\n    ,pipeline().parameters.file_name)\n    ,'/'\n)",
-								"type": "Expression"
-							},
+							"value": null,
 							"type": "String"
 						}
 					}
 				},
 				"linkedServiceName": {
 					"referenceName": "ls_ws_xxxx_sls_x_euw_001__syndw_xxxx_sls_x_euw_001",
-					"type": "LinkedServiceReference"
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"sqlPool": {
+							"value": "@pipeline().globalParameters.synapseDatabaseName",
+							"type": "Expression"
+						}
+					}
 				}
 			},
 			{
@@ -895,12 +894,6 @@
 				"type": "string"
 			},
 			"update_mode": {
-				"type": "string"
-			},
-			"s4h_client_id": {
-				"type": "string"
-			},
-			"s4h_client_field": {
 				"type": "string"
 			}
 		},

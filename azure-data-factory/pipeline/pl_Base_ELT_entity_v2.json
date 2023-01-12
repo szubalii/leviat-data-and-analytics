@@ -78,6 +78,12 @@
 						"dependencyConditions": [
 							"Succeeded"
 						]
+					},
+					{
+						"activity": "If not AXBI",
+						"dependencyConditions": [
+							"Succeeded"
+						]
 					}
 				],
 				"userProperties": [],
@@ -608,6 +614,12 @@
 						"dependencyConditions": [
 							"Succeeded"
 						]
+					},
+					{
+						"activity": "If not AXBI",
+						"dependencyConditions": [
+							"Succeeded"
+						]
 					}
 				],
 				"userProperties": [],
@@ -798,6 +810,49 @@
 						}
 					]
 				}
+			},
+			{
+				"name": "If not AXBI",
+				"type": "IfCondition",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@not(equals(\r\n    pipeline().parameters.layer_nk,\r\n    'AXBI'\r\n))",
+						"type": "Expression"
+					},
+					"ifFalseActivities": [
+						{
+							"name": "Set application_id for AXBI",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "application_id",
+								"value": {
+									"value": "@pipeline().parameters.source_database_name",
+									"type": "Expression"
+								}
+							}
+						}
+					],
+					"ifTrueActivities": [
+						{
+							"name": "Set application_id",
+							"description": "For all but AXBI, the applicaton_id value is the same as the container name",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "application_id",
+								"value": {
+									"value": "@pipeline().parameters.adls_container_name",
+									"type": "Expression"
+								}
+							}
+						}
+					]
+				}
 			}
 		],
 		"parameters": {
@@ -915,6 +970,9 @@
 				"defaultValue": "@guid()"
 			},
 			"adlsContainerName": {
+				"type": "String"
+			},
+			"application_id": {
 				"type": "String"
 			}
 		},
