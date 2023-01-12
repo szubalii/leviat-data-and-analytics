@@ -7,13 +7,7 @@
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "Run COPY SP",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					},
-					{
-						"activity": "Get Size",
+						"activity": "Update statistics",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -526,24 +520,218 @@
 						"enablePartitionDiscovery": false
 					}
 				}
+			},
+			{
+				"name": "Update statistics",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Get Size",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "Run COPY SP",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pl_SYNDW_updateTableStats",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"schema": {
+							"value": "@pipeline().parameters.base_schema_name",
+							"type": "Expression"
+						},
+						"table": {
+							"value": "@pipeline().parameters.base_table_name",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "Log Exception - Statistics",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "Update statistics",
+						"dependencyConditions": [
+							"Failed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[log_exception]",
+					"storedProcedureParameters": {
+						"batch_id": {
+							"value": {
+								"value": "@variables('batch_id')",
+								"type": "Expression"
+							},
+							"type": "Guid"
+						},
+						"category": {
+							"value": "InternalError",
+							"type": "String"
+						},
+						"entity_id": {
+							"value": {
+								"value": "@pipeline().parameters.entity_id",
+								"type": "Expression"
+							},
+							"type": "Int64"
+						},
+						"error_msg": {
+							"value": {
+								"value": "@activity('Update statistics').Error.Message",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"run_id": {
+							"value": {
+								"value": "@pipeline().parameters.run_id",
+								"type": "Expression"
+							},
+							"type": "Guid"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"sqlDb": {
+							"value": "@pipeline().globalParameters.sqlDb",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "Update Batch Status Failed - Statistics",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "Log Exception - Statistics",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[update_batch_status]",
+					"storedProcedureParameters": {
+						"batch_id": {
+							"value": {
+								"value": "@variables('batch_id')",
+								"type": "Expression"
+							},
+							"type": "Guid"
+						},
+						"end_date_time": {
+							"value": {
+								"value": "@formatDateTime(utcnow(), 'yyyy-MM-dd HH:mm:ss')",
+								"type": "Expression"
+							},
+							"type": "DateTime"
+						},
+						"entity_id": {
+							"value": {
+								"value": "@pipeline().parameters.entity_id",
+								"type": "Expression"
+							},
+							"type": "Int64"
+						},
+						"run_id": {
+							"value": {
+								"value": "@pipeline().parameters.run_id",
+								"type": "Expression"
+							},
+							"type": "Guid"
+						},
+						"status": {
+							"value": "Failed",
+							"type": "String"
+						},
+						"size_bytes": {
+							"value": null,
+							"type": "Int64"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"sqlDb": {
+							"value": "@pipeline().globalParameters.sqlDb",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "Fail Statistics",
+				"type": "Fail",
+				"dependsOn": [
+					{
+						"activity": "Update Batch Status Failed - Statistics",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"message": {
+						"value": "@concat(\n    'Failed to udpate statistics: ',\n    activity('Update statistics').Error.Message\n)",
+						"type": "Expression"
+					},
+					"errorCode": "500"
+				}
 			}
 		],
 		"parameters": {
 			"base_schema_name": {
 				"type": "string",
-				"defaultValue": "base_s4h_cax"
+				"defaultValue": "base_c4c"
 			},
 			"base_table_name": {
 				"type": "string",
-				"defaultValue": "I_Country"
+				"defaultValue": "OpportunityCollection"
 			},
 			"entity_id": {
 				"type": "string",
-				"defaultValue": "100"
+				"defaultValue": "464"
 			},
 			"directory_path": {
 				"type": "string",
-				"defaultValue": "DIMENSION/I_Country/Theobald/ODP/Full/In/2023/01/09"
+				"defaultValue": "OpportunityCollection/In/2023/01/11"
 			},
 			"run_id": {
 				"type": "string",
@@ -555,11 +743,11 @@
 			},
 			"file_name": {
 				"type": "string",
-				"defaultValue": "I_Country_2023_01_09_13_12_04_741.parquet"
+				"defaultValue": "OpportunityCollection_2023_01_11_13_15_34_082.parquet"
 			},
 			"adls_container_name": {
 				"type": "string",
-				"defaultValue": "s4h-caa-200"
+				"defaultValue": "c4c"
 			},
 			"target_layer": {
 				"type": "string",
@@ -574,16 +762,14 @@
 				"defaultValue": "200"
 			},
 			"s4h_client_field": {
-				"type": "string",
-				"defaultValue": "MANDT"
+				"type": "string"
 			},
 			"application_id": {
 				"type": "string",
-				"defaultValue": "s4h-caa-200"
+				"defaultValue": "c4c"
 			},
 			"extraction_type": {
-				"type": "string",
-				"defaultValue": "ODP"
+				"type": "string"
 			}
 		},
 		"variables": {
