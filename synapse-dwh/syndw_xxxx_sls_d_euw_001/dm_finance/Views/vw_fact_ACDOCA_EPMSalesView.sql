@@ -132,7 +132,7 @@ SELECT
         THEN 'COGSStd'
         ELSE ZED.CONTIGENCY5
     END AS [AmountCategory],
-    -1 * GLALIRD.[AmountInCompanyCodeCurrency] * ExchangeRate.ExchangeRate AS [Amount]
+    -1 * GLALIRD.[AmountInCompanyCodeCurrency] * ExchangeRate.ExchangeRate AS [Amount],
    -- GLALIRD.[GlobalCurrency],
     GLALIRD.[AmountInGlobalCurrency],
     GLALIRD.[FreeDefinedCurrency1],
