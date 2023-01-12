@@ -17,7 +17,7 @@ steps:
 #   inputs:
 #     SourcePath: '$(Pipeline.Workspace)/SynapseDWH/Master Data/*'
 #     azureSubscription: 'arm-pipeline'
-#     Destination: AzureBlob 
+#     Destination: AzureBlob
 #     storage: '$(storageAccountName)'
 #     ContainerName: 'flat-files'
 # Directly reference azcopy instead of AzureFileCopy@4 to resolve copy issues

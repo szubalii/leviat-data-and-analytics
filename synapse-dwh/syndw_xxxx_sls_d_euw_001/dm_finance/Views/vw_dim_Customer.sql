@@ -30,7 +30,7 @@ SELECT
 FROM [edw].[dim_Customer]
 
 UNION ALL
- 
+
 SELECT
 d.[DummyID]         AS [CustomerID]
 ,d.[DummyName]      AS [Customer]
