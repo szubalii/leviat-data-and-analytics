@@ -54,7 +54,7 @@
 						},
 						"size_bytes": {
 							"value": {
-								"value": "@activity('Copy Parquet to Synapse Base').output.dataWritten",
+								"value": "@activity('Run COPY SP').output.dataWritten",
 								"type": "Expression"
 							},
 							"type": "Int64"
@@ -132,7 +132,7 @@
 						},
 						"error_msg": {
 							"value": {
-								"value": "@activity('Copy Parquet to Synapse Base').Error.Message",
+								"value": "@activity('Run COPY SP').Error.Message",
 								"type": "Expression"
 							},
 							"type": "String"
@@ -338,7 +338,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"message": {
-						"value": "@concat(\n    'Failed to ingest into Synapse Base: ',\n    activity('Copy Parquet to Synapse Base').Error.Message\n)",
+						"value": "@concat(\n    'Failed to ingest into Synapse Base: ',\n    activity('Run COPY SP').Error.Message\n)",
 						"type": "Expression"
 					},
 					"errorCode": "500"
