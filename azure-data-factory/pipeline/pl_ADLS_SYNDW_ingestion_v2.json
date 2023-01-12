@@ -423,7 +423,10 @@
 							"type": "String"
 						},
 						"job_dtm": {
-							"value": "",
+							"value": {
+								"value": "@formatDateTime(pipeline().TriggerTime, 'yyyy-MM-dd HH:mm:ss')",
+								"type": "Expression"
+							},
 							"type": "String"
 						},
 						"job_id": {
