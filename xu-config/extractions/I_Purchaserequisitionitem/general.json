@@ -1,0 +1,15 @@
+{
+    "created": {
+        "machine": "WEALEVAPP001",
+        "timestamp": "20230109T125136.912Z",
+        "user": "EMATCRHPP\\fbouw"
+    },
+    "destination": "stfbouwdeuw001_s4h-caa-200",
+    "lastChange": {
+        "machine": "WEALEVAPP001",
+        "timestamp": "20230109T132953.059Z",
+        "user": "EMATCRHPP\\fbouw"
+    },
+    "source": "CRH_Leviat_S4HANA_CAA_200",
+    "type": "Table"
+}

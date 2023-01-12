@@ -3841,6 +3841,18 @@
         "base_table_name": "I_PricingElement",
         "pk_field_names": "MANDT, PRICINGDOCUMENT, PRICINGDOCUMENTITEM, PRICINGPROCEDURESTEP, PRICINGPROCEDURECOUNTER",
         "schedule_recurrence": "D"
+      },
+      {
+        "entity_id": 568,
+        "entity_name": "I_Purchaserequisitionitem",
+        "data_category": "DIMENSION",
+        "client_field": "MANDT",
+        "tool_name": "Theobald",
+        "extraction_type": "Table",
+        "update_mode": "Full",
+        "base_table_name": "I_Purchaserequisitionitem",
+        "pk_field_names": "MANDT, PURCHASEREQUISITION, PURCHASEREQUISITIONITEM",
+        "schedule_recurrence": "D"
       }
     ]
   },
