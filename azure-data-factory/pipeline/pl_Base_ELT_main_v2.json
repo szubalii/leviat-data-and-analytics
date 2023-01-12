@@ -1,5 +1,5 @@
 {
-	"name": "pl_Base_ELT_main",
+	"name": "pl_Base_ELT_main_v2",
 	"properties": {
 		"activities": [
 			{
@@ -351,7 +351,7 @@
 							"userProperties": [],
 							"typeProperties": {
 								"pipeline": {
-									"referenceName": "pl_Base_ELT_entity",
+									"referenceName": "pl_Base_ELT_entity_v2",
 									"type": "PipelineReference"
 								},
 								"waitOnCompletion": true,

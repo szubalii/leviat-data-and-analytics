@@ -65,7 +65,1492 @@
 							"type": "ParquetWriteSettings"
 						}
 					},
-					"enableStaging": false
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "ObjectID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ObjectID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ProcessingTypeCode",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ProcessingTypeCode",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ProcessingTypeCodeText",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ProcessingTypeCodeText",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ExternalID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ExternalID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "UUID",
+									"type": "Guid"
+								},
+								"sink": {
+									"name": "UUID",
+									"type": "Guid"
+								}
+							},
+							{
+								"source": {
+									"name": "ProspectPartyID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ProspectPartyID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Name",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Name",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PrimaryContactPartyID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PrimaryContactPartyID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PriorityCode",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PriorityCode",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PriorityCodeText",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PriorityCodeText",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "OriginTypeCode",
+									"type": "String"
+								},
+								"sink": {
+									"name": "OriginTypeCode",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "OriginTypeCodeText",
+									"type": "String"
+								},
+								"sink": {
+									"name": "OriginTypeCodeText",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "LifeCycleStatusCode",
+									"type": "String"
+								},
+								"sink": {
+									"name": "LifeCycleStatusCode",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "LifeCycleStatusCodeText",
+									"type": "String"
+								},
+								"sink": {
+									"name": "LifeCycleStatusCodeText",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ExternalUserStatusCode",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ExternalUserStatusCode",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ExternalUserStatusCodeText",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ExternalUserStatusCodeText",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ResultReasonCode",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ResultReasonCode",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ResultReasonCodeText",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ResultReasonCodeText",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SalesCycleCode",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SalesCycleCode",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SalesCycleCodeText",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SalesCycleCodeText",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SalesCyclePhaseCode",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SalesCyclePhaseCode",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SalesCyclePhaseCodeText",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SalesCyclePhaseCodeText",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ProcessStatusValidSinceDate",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "ProcessStatusValidSinceDate",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "SalesCyclePhaseStartDate",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "SalesCyclePhaseStartDate",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "ProbabilityPercent",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "ProbabilityPercent",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "HeaderRevenueSchedule",
+									"type": "Boolean"
+								},
+								"sink": {
+									"name": "HeaderRevenueSchedule",
+									"type": "Boolean"
+								}
+							},
+							{
+								"source": {
+									"name": "SalesRevenueForecastRelevanceIndicator",
+									"type": "Boolean"
+								},
+								"sink": {
+									"name": "SalesRevenueForecastRelevanceIndicator",
+									"type": "Boolean"
+								}
+							},
+							{
+								"source": {
+									"name": "ExpectedRevenueAmount",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "ExpectedRevenueAmount",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "ExpectedRevenueAmountCurrencyCode",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ExpectedRevenueAmountCurrencyCode",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ExpectedRevenueAmountCurrencyCodeText",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ExpectedRevenueAmountCurrencyCodeText",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "TotalExpectedNetAmount",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "TotalExpectedNetAmount",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "TotalExpectedNetAmountAmountCurrencyCode",
+									"type": "String"
+								},
+								"sink": {
+									"name": "TotalExpectedNetAmountAmountCurrencyCode",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "TotalExpectedNetAmountAmountCurrencyCodeText",
+									"type": "String"
+								},
+								"sink": {
+									"name": "TotalExpectedNetAmountAmountCurrencyCodeText",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "WeightedExpectedNetAmount",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "WeightedExpectedNetAmount",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "WeightedExpectedNetAmountCurrencyCode",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WeightedExpectedNetAmountCurrencyCode",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "WeightedExpectedNetAmountCurrencyCodeText",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WeightedExpectedNetAmountCurrencyCodeText",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ExpectedProcessingStartDate",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "ExpectedProcessingStartDate",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "ExpectedProcessingEndDate",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "ExpectedProcessingEndDate",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "ExpectedRevenueStartDate",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "ExpectedRevenueStartDate",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "ExpectedRevenueEndDate",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "ExpectedRevenueEndDate",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "SalesForecastCategoryCode",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SalesForecastCategoryCode",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SalesForecastCategoryCodeText",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SalesForecastCategoryCodeText",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "GroupCode",
+									"type": "String"
+								},
+								"sink": {
+									"name": "GroupCode",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "GroupCodeText",
+									"type": "String"
+								},
+								"sink": {
+									"name": "GroupCodeText",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SalesUnitPartyID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SalesUnitPartyID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SalesOrganisationID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SalesOrganisationID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "DistributionChannelCode",
+									"type": "String"
+								},
+								"sink": {
+									"name": "DistributionChannelCode",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "DistributionChannelCodeText",
+									"type": "String"
+								},
+								"sink": {
+									"name": "DistributionChannelCodeText",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "DivisionCode",
+									"type": "String"
+								},
+								"sink": {
+									"name": "DivisionCode",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "DivisionCodeText",
+									"type": "String"
+								},
+								"sink": {
+									"name": "DivisionCodeText",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SalesOfficeID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SalesOfficeID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SalesGroupID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SalesGroupID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SalesTerritoryID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SalesTerritoryID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MainEmployeeResponsiblePartyID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "MainEmployeeResponsiblePartyID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "EndBuyerPartyID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "EndBuyerPartyID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ProductRecepientPartyID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ProductRecepientPartyID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ApproverPartyID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ApproverPartyID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PayerPartyID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PayerPartyID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "BillToPartyID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BillToPartyID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SellerPartyID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SellerPartyID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PhaseProgressEvaluationStatusCode",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PhaseProgressEvaluationStatusCode",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PhaseProgressEvaluationStatusCodeText",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PhaseProgressEvaluationStatusCodeText",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ProspectBudgetAmount",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "ProspectBudgetAmount",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "ProspectBudgetAmountCurrencyCode",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ProspectBudgetAmountCurrencyCode",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ProspectBudgetAmountCurrencyCodeText",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ProspectBudgetAmountCurrencyCodeText",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Score",
+									"type": "Int32"
+								},
+								"sink": {
+									"name": "Score",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"name": "MainEmployeeResponsiblePartyName",
+									"type": "String"
+								},
+								"sink": {
+									"name": "MainEmployeeResponsiblePartyName",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SalesUnityPartyName",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SalesUnityPartyName",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "BillToPartyName",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BillToPartyName",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ProductRecipientPartyName",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ProductRecipientPartyName",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SellerPartyName",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SellerPartyName",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PayerPartyName",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PayerPartyName",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "EndBuyerPartyName",
+									"type": "String"
+								},
+								"sink": {
+									"name": "EndBuyerPartyName",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PrimaryContactPartyName",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PrimaryContactPartyName",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ProspectPartyName",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ProspectPartyName",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ApproverPartyName",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ApproverPartyName",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SalesOrganisationName",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SalesOrganisationName",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SalesOfficeName",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SalesOfficeName",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SalesGroupName",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SalesGroupName",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SalesTerritoryName",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SalesTerritoryName",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ConsistencyStatusCode",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ConsistencyStatusCode",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ConsistencyStatusCodeText",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ConsistencyStatusCodeText",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ApprovalStatusCode",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ApprovalStatusCode",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ApprovalStatusCodeText",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ApprovalStatusCodeText",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CreationDate",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "CreationDate",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "LastChangeDate",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "LastChangeDate",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "CreationDateTime",
+									"type": "DateTimeOffset"
+								},
+								"sink": {
+									"name": "CreationDateTime",
+									"type": "DateTimeOffset"
+								}
+							},
+							{
+								"source": {
+									"name": "LastChangeDateTime",
+									"type": "DateTimeOffset"
+								},
+								"sink": {
+									"name": "LastChangeDateTime",
+									"type": "DateTimeOffset"
+								}
+							},
+							{
+								"source": {
+									"name": "CreatedBy",
+									"type": "String"
+								},
+								"sink": {
+									"name": "CreatedBy",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "LastChangedBy",
+									"type": "String"
+								},
+								"sink": {
+									"name": "LastChangedBy",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CreatedByUUID",
+									"type": "Guid"
+								},
+								"sink": {
+									"name": "CreatedByUUID",
+									"type": "Guid"
+								}
+							},
+							{
+								"source": {
+									"name": "LastChangedByUUID",
+									"type": "Guid"
+								},
+								"sink": {
+									"name": "LastChangedByUUID",
+									"type": "Guid"
+								}
+							},
+							{
+								"source": {
+									"name": "EntityLastChangedOn",
+									"type": "DateTimeOffset"
+								},
+								"sink": {
+									"name": "EntityLastChangedOn",
+									"type": "DateTimeOffset"
+								}
+							},
+							{
+								"source": {
+									"name": "ETag",
+									"type": "DateTimeOffset"
+								},
+								"sink": {
+									"name": "ETag",
+									"type": "DateTimeOffset"
+								}
+							},
+							{
+								"source": {
+									"name": "BestConnectedColleague",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BestConnectedColleague",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "DealScore",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "DealScore",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "DealScoreReason",
+									"type": "String"
+								},
+								"sink": {
+									"name": "DealScoreReason",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "FirstEmailReceivedOn",
+									"type": "DateTimeOffset"
+								},
+								"sink": {
+									"name": "FirstEmailReceivedOn",
+									"type": "DateTimeOffset"
+								}
+							},
+							{
+								"source": {
+									"name": "FirstEmailSentOn",
+									"type": "DateTimeOffset"
+								},
+								"sink": {
+									"name": "FirstEmailSentOn",
+									"type": "DateTimeOffset"
+								}
+							},
+							{
+								"source": {
+									"name": "LastDataHugSyncDateTime",
+									"type": "DateTimeOffset"
+								},
+								"sink": {
+									"name": "LastDataHugSyncDateTime",
+									"type": "DateTimeOffset"
+								}
+							},
+							{
+								"source": {
+									"name": "LastEmailReceivedFrom",
+									"type": "String"
+								},
+								"sink": {
+									"name": "LastEmailReceivedFrom",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "LastEmailReceivedOn",
+									"type": "DateTimeOffset"
+								},
+								"sink": {
+									"name": "LastEmailReceivedOn",
+									"type": "DateTimeOffset"
+								}
+							},
+							{
+								"source": {
+									"name": "LastEmailSentBy",
+									"type": "String"
+								},
+								"sink": {
+									"name": "LastEmailSentBy",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "LastEmailSentOn",
+									"type": "DateTimeOffset"
+								},
+								"sink": {
+									"name": "LastEmailSentOn",
+									"type": "DateTimeOffset"
+								}
+							},
+							{
+								"source": {
+									"name": "LastMeetingOn",
+									"type": "DateTimeOffset"
+								},
+								"sink": {
+									"name": "LastMeetingOn",
+									"type": "DateTimeOffset"
+								}
+							},
+							{
+								"source": {
+									"name": "NextMeetingOn",
+									"type": "DateTimeOffset"
+								},
+								"sink": {
+									"name": "NextMeetingOn",
+									"type": "DateTimeOffset"
+								}
+							},
+							{
+								"source": {
+									"name": "NumberOfColleagues",
+									"type": "Int32"
+								},
+								"sink": {
+									"name": "NumberOfColleagues",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"name": "NumberOfMeetings",
+									"type": "Int32"
+								},
+								"sink": {
+									"name": "NumberOfMeetings",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"name": "NumberOfOtherPeopleAtCompany",
+									"type": "Int32"
+								},
+								"sink": {
+									"name": "NumberOfOtherPeopleAtCompany",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"name": "NumberOfReceivedEmails",
+									"type": "Int32"
+								},
+								"sink": {
+									"name": "NumberOfReceivedEmails",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"name": "NumberOfSentEmails",
+									"type": "Int32"
+								},
+								"sink": {
+									"name": "NumberOfSentEmails",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"name": "AutoCreateContacts",
+									"type": "Boolean"
+								},
+								"sink": {
+									"name": "AutoCreateContacts",
+									"type": "Boolean"
+								}
+							},
+							{
+								"source": {
+									"name": "HugRank",
+									"type": "Int32"
+								},
+								"sink": {
+									"name": "HugRank",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"name": "ExternalProbabilityPercent",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "ExternalProbabilityPercent",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "Zclassification_KUT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Zclassification_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Zclassification_KUTText",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Zclassification_KUTText",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Zexpectedorderdate_KUT",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "Zexpectedorderdate_KUT",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "Zframe_KUT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Zframe_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Zframe_KUTText",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Zframe_KUTText",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Zinterproject_KUT",
+									"type": "Boolean"
+								},
+								"sink": {
+									"name": "Zinterproject_KUT",
+									"type": "Boolean"
+								}
+							},
+							{
+								"source": {
+									"name": "ZlegacyIDopp_KUT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ZlegacyIDopp_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Zleviatspecified_KUT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Zleviatspecified_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Zoppclosedate_KUT",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "Zoppclosedate_KUT",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "Zoppstartdate_KUT",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "Zoppstartdate_KUT",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "Zopptype_KUT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Zopptype_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Zopptype_KUTText",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Zopptype_KUTText",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Zparentopportunity_KUT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Zparentopportunity_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Zproductpillar_KUT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Zproductpillar_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ZprojectID_KUT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ZprojectID_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Zprojectcountry_KUT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Zprojectcountry_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Zprojectcountry_KUTText",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Zprojectcountry_KUTText",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Zprojectdescription_KUT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Zprojectdescription_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Zprojectpostalcode_KUT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Zprojectpostalcode_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Zprojectstreet_KUT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Zprojectstreet_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Zprojecttype1_KUT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Zprojecttype1_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Zprojecttype1_KUTText",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Zprojecttype1_KUTText",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Zprojecttype2_KUT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Zprojecttype2_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Zprojecttype2_KUTText",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Zprojecttype2_KUTText",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Zprojetcity_KUT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Zprojetcity_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Zsubmissiondate_KUT",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "Zsubmissiondate_KUT",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "Zuserquoterequestor_KUT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Zuserquoterequestor_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "zbim_KUT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "zbim_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "zbim_KUTText",
+									"type": "String"
+								},
+								"sink": {
+									"name": "zbim_KUTText",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "t_jobId",
+									"type": "String"
+								},
+								"sink": {
+									"name": "t_jobId",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "t_jobBy",
+									"type": "String"
+								},
+								"sink": {
+									"name": "t_jobBy",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "t_applicationId",
+									"type": "String"
+								},
+								"sink": {
+									"name": "t_applicationId",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "t_filePath",
+									"type": "String"
+								},
+								"sink": {
+									"name": "t_filePath",
+									"type": "String"
+								}
+							}
+						]
+					}
 				},
 				"inputs": [
 					{
