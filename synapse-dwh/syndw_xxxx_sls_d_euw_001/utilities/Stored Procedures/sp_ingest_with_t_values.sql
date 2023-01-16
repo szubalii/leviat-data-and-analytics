@@ -24,16 +24,16 @@ BEGIN
 
     -- DECLARE
     --     @container_name NVARCHAR(100) = 's4h-caa-200',
-    --     @directory_path NVARCHAR(100) = 'DIMENSION/I_Country/Theobald/ODP/Full/In/2023/01/09',--'NULL/T149T/Theobald/Table/Full/In/2023/01/09',
-    --     @file_name      NVARCHAR(100) = 'I_Country_2023_01_09_13_12_04_741.parquet',--'T149T_2023_01_09_09_37_56_050.parquet',
+    --     @directory_path NVARCHAR(100) = 'NULL/T149T/Theobald/Table/Full/In/2023/01/09',
+    --     @file_name      NVARCHAR(100) = 'T149T_2023_01_09_09_37_56_050.parquet',
     --     @schema_name    NVARCHAR(100) = 'base_s4h_cax',
-    --     @table_name     NVARCHAR(100) = 'I_Country',--'T149T',
+    --     @table_name     NVARCHAR(100) = 'T149T',
     --     @application_id NVARCHAR(100) = 's4h-caa-200',
     --     @job_id         NVARCHAR(100) = 'ad74e8e7-2f8b-4485-8a09-4b674afdfb54',
     --     @job_dtm            CHAR (23) = FORMAT(GETUTCDATE(), 'yyyy-MM-dd HH:mm:ss.fff'),
     --     @job_by         NVARCHAR(100) = 'df-mpors-d-euw-001',
     --     @update_mode     VARCHAR  (5) = 'Full',
-    --     @extraction_type VARCHAR  (5) = 'ODP',
+    --     @extraction_type VARCHAR  (5) = 'Table',
     --     @client_field    VARCHAR  (5) = 'MANDT',
     --     @client_id       VARCHAR  (5) = '200';
 
@@ -52,39 +52,24 @@ BEGIN
         @columnList VARCHAR(MAX),
         @script NVARCHAR(MAX);
 
-    IF OBJECT_ID('tempdb..#t_field_values', 'U') IS NOT NULL
-        DROP TABLE [tempdb].[#t_field_values]
-    
-    -- Store the technical system field with their values in a temp table
-    CREATE TABLE #t_field_values
-    WITH (DISTRIBUTION = ROUND_ROBIN)
-    AS 
-        SELECT 't_applicationId' AS t_field_name, 1 AS id, @application_id AS default_value
-        UNION ALL SELECT 't_jobId', 2, @job_id
-        UNION ALL SELECT 't_jobDtm', 3, @job_dtm
-        UNION ALL SELECT 't_jobBy', 4, @job_by
-        UNION ALL SELECT 't_filePath', 5, @file_path
-        UNION ALL SELECT 't_extractionDtm', 6, @extraction_dtm_char
-    
+    -- Construct the technical field mapping with default values
+    DECLARE @tFieldList VARCHAR(MAX) = N'
+        t_applicationId DEFAULT ''' + @application_id + ''',
+        t_jobId DEFAULT ''' + @job_id + ''',
+        t_jobDtm DEFAULT ''' + @job_dtm + ''',
+        t_jobBy DEFAULT ''' + @job_by + ''',
+        t_filePath DEFAULT ''' + @file_path + ''',
+        t_extractionDtm DEFAULT ''' + @extraction_dtm_char + ''''
+
     -- also store MANDT with its value in case of S4H extraction of type ODP
     IF @extraction_type = 'ODP'
-        INSERT INTO #t_field_values
-        VALUES (@client_field, 0, @client_id)
-
-    -- SELECT * FROM #t_field_values;
-
-    -- Construct the technical field mapping with default values
-    DECLARE @tFieldList VARCHAR(MAX) = (
-        SELECT
-            STRING_AGG(
-                CONCAT(t_field_name,  ' DEFAULT ''', default_value, ''''),
-                ', '
-            ) WITHIN GROUP ( ORDER BY id)
-        FROM
-            #t_field_values
-    )
-
-    -- select @tFieldList
+        SET @tFieldList = CONCAT(
+            @client_field,
+            ' DEFAULT ''',
+            @client_id,
+            ''', ', 
+            @tFieldList
+        );    
 
     -- Retrieve the list of columns based on the table to ingest data to
     -- Also add the technical fields with correct default values
@@ -95,7 +80,7 @@ BEGIN
                     CONCAT('[', c.name, ']')
                     , ', '
                 )  WITHIN GROUP ( ORDER BY c.column_id ASC ),
-                ', ', 
+                ', ',
                 @tFieldList
             ) AS ColumnList
         FROM
@@ -114,27 +99,23 @@ BEGIN
             t.name = @table_name
             AND
             c.name NOT IN (
-                SELECT t_field_name FROM #t_field_values
+                't_applicationId',
+                't_jobId',
+                't_jobDtm',
+                't_jobBy',
+                't_filePath',
+                't_extractionDtm',
+                @client_field --TODO test
             )
-    );
+    );       
 
-    -- Create the COPY INTO script
-    -- TODO ingest into temp table, then rename both tables
+    -- Truncate in case of full load
+    IF OBJECT_ID(CONCAT('[', @schema_name, '].[', @table_name, ']'), 'U') IS NOT NULL AND @update_mode <> 'Delta'
+        EXEC (N'TRUNCATE TABLE [' + @schema_name + '].[' + @table_name + ']');
+
     -- TODO update storageaccount
+    -- Create the COPY INTO script
     SET @script = N'
-        -- IF OBJECT_ID([' + @schema_name + '].[' + @table_name + '_tmp]) IS NOT NULL
-        --     DROP TABLE [' + @schema_name + '].[' + @table_name + '_tmp];
-
-        -- CREATE TABLE [' + @schema_name + '].[' + @table_name + '_tmp]
-        -- WITH
-        -- (
-        --     DISTRIBUTION = ROUND_ROBIN
-        -- )
-        -- AS SELECT * FROM [' + @schema_name + '].[' + @table_name + '] WHERE 1=0;
-
-        IF OBJECT_ID(''[' + @schema_name + '].[' + @table_name + ']'') IS NOT NULL AND ''' + @update_mode + ''' <> ''Delta''
-            TRUNCATE TABLE [' + @schema_name + '].[' + @table_name + '];
-
         COPY INTO [' + @schema_name + '].[' + @table_name + '] (' + @columnList + ')
         FROM ''https://stmporsdeuw001.dfs.core.windows.net:443/' + @file_path + '''
         WITH (
@@ -147,41 +128,8 @@ BEGIN
             LABEL=''Ingest [' + @schema_name + '].[' + @table_name + ']; ADF RunId: ' + @job_id + '''
         )
     ';
-
-    select @script;
-    
+    -- select @script;
     EXEC sp_executesql @script;
-
-    -- Creates and executes the following SQL script:
-    --     IF OBJECT_ID('[base_s4h_cax].[I_Country]') IS NOT NULL AND 'Full' <> 'Delta'
-    --     TRUNCATE TABLE [base_s4h_cax].[I_Country];
-        
-    -- COPY INTO [base_s4h_cax].[I_Country] (
-    --     [COUNTRY],
-    --     [CountryThreeLetterISOCode],
-    --     [CountryThreeDigitISOCode],
-    --     [CountryCurrency],
-    --     [IndexBasedCurrency],
-    --     [HardCurrency],
-    --     [TaxCalculationProcedure],
-    --     [CountryAlternativeCode],
-    --     MANDT DEFAULT '200',
-    --     t_applicationId DEFAULT 's4h-caa-200',
-    --     t_jobId DEFAULT 'ad74e8e7-2f8b-4485-8a09-4b674afdfb54',
-    --     t_jobDtm DEFAULT '2023-01-11 11:08:27.753',
-    --     t_jobBy DEFAULT 'df-mpors-d-euw-001',
-    --     t_filePath DEFAULT 's4h-caa-200/DIMENSION/I_Country/Theobald/ODP/Full/In/2023/01/09/I_Country_2023_01_09_13_12_04_741.parquet',
-    --     t_extractionDtm DEFAULT '2023-01-09 13:12:04.740')
-    -- FROM 'https://stmporsdeuw001.dfs.core.windows.net:443/s4h-caa-200/DIMENSION/I_Country/Theobald/ODP/Full/In/2023/01/09/I_Country_2023_01_09_13_12_04_741.parquet'
-    -- WITH (
-    --     IDENTITY_INSERT='OFF',
-    --     CREDENTIAL=(IDENTITY='Managed Identity'),
-    --     FILE_TYPE='PARQUET',
-    --     COMPRESSION='Snappy'
-    -- )
-    -- OPTION (
-    --     LABEL='Ingest [base_s4h_cax].[I_Country]; ADF RunId: ad74e8e7-2f8b-4485-8a09-4b674afdfb54'
-    -- )
 
 END
 
