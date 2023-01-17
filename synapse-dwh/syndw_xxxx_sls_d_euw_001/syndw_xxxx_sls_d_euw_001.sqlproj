@@ -165,6 +165,7 @@
     <Folder Include="utilities\Stored Procedures" />
     <Folder Include="utilities\Functions" />
     <Folder Include="utilities\Functions\Scalar-valued Functions" />
+    <Folder Include="utilities\Tables" />
     <Folder Include="base_us_leviat_db" />
     <Folder Include="base_us_leviat_db\Tables" />
     <Folder Include="map_USA" />
@@ -1115,6 +1116,7 @@
     <Build Include="dm_dq\Views\vw_dim_ProductValuationCosting.sql" />
     <Build Include="dm_sales\Views\vw_dim_GLAccountText.sql" />
     <Build Include="utilities\Functions\Scalar-valued Functions\svf_getDateFromFileName.sql" />
+    <Build Include="utilities\Tables\t_field_values.sql" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PostDeploy Include="Scripts\Post-Deploy\Script.PostDeployment.sql" />
