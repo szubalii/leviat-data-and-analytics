@@ -74,12 +74,6 @@
 						]
 					},
 					{
-						"activity": "Set ADLS Container Name",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					},
-					{
 						"activity": "If not AXBI",
 						"dependencyConditions": [
 							"Succeeded"
@@ -614,12 +608,6 @@
 						]
 					},
 					{
-						"activity": "Set ADLS Container Name",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					},
-					{
 						"activity": "If not AXBI",
 						"dependencyConditions": [
 							"Succeeded"
@@ -818,7 +806,14 @@
 			{
 				"name": "If not AXBI",
 				"type": "IfCondition",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "Set ADLS Container Name",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"userProperties": [],
 				"typeProperties": {
 					"expression": {
@@ -850,7 +845,7 @@
 							"typeProperties": {
 								"variableName": "application_id",
 								"value": {
-									"value": "@pipeline().parameters.adls_container_name",
+									"value": "@variables('adlsContainerName')",
 									"type": "Expression"
 								}
 							}
