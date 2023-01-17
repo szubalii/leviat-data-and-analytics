@@ -22,6 +22,7 @@ CREATE PROC [utilities].[sp_ingest_with_t_values]
 AS
 BEGIN
 
+    -- Test for T149T
     -- DECLARE
     --     @container_name NVARCHAR(100) = 's4h-caa-200',
     --     @directory_path NVARCHAR(100) = 'NULL/T149T/Theobald/Table/Full/In/2023/01/09',
@@ -34,6 +35,22 @@ BEGIN
     --     @job_by         NVARCHAR(100) = 'df-mpors-d-euw-001',
     --     @update_mode     VARCHAR  (5) = 'Full',
     --     @extraction_type VARCHAR  (5) = 'Table',
+    --     @client_field    VARCHAR  (5) = 'MANDT',
+    --     @client_id       VARCHAR  (5) = '200';
+
+    -- Test for I_Country
+    -- DECLARE
+    --     @container_name NVARCHAR(100) = 's4h-caa-200',
+    --     @directory_path NVARCHAR(100) = 'DIMENSION/I_Country/Theobald/ODP/Full/In/2023/01/09',
+    --     @file_name      NVARCHAR(100) = 'I_Country_2023_01_09_13_12_04_741.parquet',
+    --     @schema_name    NVARCHAR(100) = 'base_s4h_cax',
+    --     @table_name     NVARCHAR(100) = 'I_Country',
+    --     @application_id NVARCHAR(100) = 's4h-caa-200',
+    --     @job_id         NVARCHAR(100) = 'ad74e8e7-2f8b-4485-8a09-4b674afdfb54',
+    --     @job_dtm            CHAR (23) = FORMAT(GETUTCDATE(), 'yyyy-MM-dd HH:mm:ss.fff'),
+    --     @job_by         NVARCHAR(100) = 'df-mpors-d-euw-001',
+    --     @update_mode     VARCHAR  (5) = 'Full',
+    --     @extraction_type VARCHAR  (5) = 'ODP',
     --     @client_field    VARCHAR  (5) = 'MANDT',
     --     @client_id       VARCHAR  (5) = '200';
 
@@ -50,68 +67,78 @@ BEGIN
             @file_name
         ),
         @columnList VARCHAR(MAX),
-        @script NVARCHAR(MAX);
+        @script NVARCHAR(MAX),
+        @schema_id INT = (SELECT schema_id FROM sys.schemas WHERE [name] = @schema_name);
+    
+    -- Get the schema id and table id based on the names
+    DECLARE @table_id INT = (SELECT object_id FROM sys.tables WHERE [name] = @table_name AND schema_id = @schema_id);
 
-    -- Construct the technical field mapping with default values
-    DECLARE @tFieldList VARCHAR(MAX) = N'
-        t_applicationId DEFAULT ''' + @application_id + ''',
-        t_jobId DEFAULT ''' + @job_id + ''',
-        t_jobDtm DEFAULT ''' + @job_dtm + ''',
-        t_jobBy DEFAULT ''' + @job_by + ''',
-        t_filePath DEFAULT ''' + @file_path + ''',
-        t_extractionDtm DEFAULT ''' + @extraction_dtm_char + ''''
+    -- Delete the default values for the system fields from the helper table
+    DELETE FROM utilities.t_field_values
+    WHERE [table_id] = @table_id;
+        
+    -- Insert the new default values for the system fields in the helper table
+    INSERT INTO utilities.t_field_values
+    SELECT *
+    FROM (
+        SELECT
+            @table_id AS [table_id]
+    ) a
+    CROSS JOIN (
+                  SELECT 't_applicationId' AS default_field, 1 AS [index], @application_id      AS default_value
+        UNION ALL SELECT 't_jobId'         AS default_field, 2 AS [index], @job_id              AS default_value
+        UNION ALL SELECT 't_jobDtm'        AS default_field, 3 AS [index], @job_dtm             AS default_value
+        UNION ALL SELECT 't_jobBy'         AS default_field, 4 AS [index], @job_by              AS default_value
+        UNION ALL SELECT 't_filePath'      AS default_field, 5 AS [index], @file_path           AS default_value
+        UNION ALL SELECT 't_extractionDtm' AS default_field, 6 AS [index], @extraction_dtm_char AS default_value
+    ) b
 
-    -- also store MANDT with its value in case of S4H extraction of type ODP
+    -- In case of SAP S4HANA ODP extraction, no MANDT field value exists in the parquet file, so this needs to be
+    -- manually added during ingestion in Synapse. Add this default value to the helper table.
     IF @extraction_type = 'ODP'
-        SET @tFieldList = CONCAT(
+        INSERT INTO utilities.t_field_values
+        VALUES (
+            @table_id,
             @client_field,
-            ' DEFAULT ''',
-            @client_id,
-            ''', ', 
-            @tFieldList
-        );    
+            0,
+            @client_id
+        )
 
-    -- Retrieve the list of columns based on the table to ingest data to
+    -- Retrieve the list of columns based on the provided table to ingest data to
     -- Also add the technical fields with correct default values
+    -- Create an aggregated string of field mappings used in the COPY INTO script.
+    -- Add the default values for the technical system fields. 
     SET @columnList = (
         SELECT
-            CONCAT(
-                STRING_AGG(
-                    CONCAT('[', c.name, ']')
-                    , ', '
-                )  WITHIN GROUP ( ORDER BY c.column_id ASC ),
-                ', ',
-                @tFieldList
-            ) AS ColumnList
+            STRING_AGG(
+                CASE
+                    WHEN f.default_value IS NULL THEN CONCAT('[', c.name, ']')
+                    ELSE CONCAT('[', c.name, '] DEFAULT ''', f.default_value, '''')
+                END
+                , ', '
+            -- Make sure to order the fields correctly: list all standard fields first, 
+            -- and only then list the fields that have added a DEFAULT value. 
+            )  WITHIN GROUP ( ORDER BY f.[index] ASC, c.column_id ASC )
+            AS ColumnList
         FROM
             sys.columns AS c
         LEFT JOIN
-            sys.tables AS t
+            utilities.t_field_values AS f
             ON
-                t.object_id = c.object_id
-        LEFT JOIN
-            sys.schemas AS s
-            ON
-                s.schema_id = t.schema_id
+                f.[table_id] = @table_id
+                AND
+                f.[default_field] = c.name
         WHERE
-            s.name = @schema_name
-            AND
-            t.name = @table_name
-            AND
-            c.name NOT IN (
-                't_applicationId',
-                't_jobId',
-                't_jobDtm',
-                't_jobBy',
-                't_filePath',
-                't_extractionDtm',
-                @client_field --TODO test
-            )
-    );       
+            c.object_id = @table_id
+    );
 
     -- Truncate in case of full load
-    IF OBJECT_ID(CONCAT('[', @schema_name, '].[', @table_name, ']'), 'U') IS NOT NULL AND @update_mode <> 'Delta'
+    IF OBJECT_ID(CONCAT('[', @schema_name, '].[', @table_name, ']'), 'U') IS NOT NULL
+       AND
+       COALESCE(@update_mode, 'Full') <> 'Delta'
+    BEGIN
         EXEC (N'TRUNCATE TABLE [' + @schema_name + '].[' + @table_name + ']');
+    END
 
     -- TODO update storageaccount
     -- Create the COPY INTO script
