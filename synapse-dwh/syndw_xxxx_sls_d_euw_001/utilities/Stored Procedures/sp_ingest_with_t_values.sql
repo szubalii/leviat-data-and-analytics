@@ -111,11 +111,12 @@ BEGIN
     SET @columnList = (
         SELECT
             STRING_AGG(
-                CASE
-                    WHEN f.default_value IS NULL THEN CONCAT('[', c.name, ']')
-                    ELSE CONCAT('[', c.name, '] DEFAULT ''', f.default_value, '''')
-                END
-                , ', '
+                CONVERT(NVARCHAR(MAX),
+                    CASE
+                        WHEN f.default_value IS NULL THEN CONCAT('[', c.name, ']')
+                        ELSE CONCAT('[', c.name, '] DEFAULT ''', f.default_value, '''')
+                    END
+                ), ', '
             -- Make sure to order the fields correctly: list all standard fields first, 
             -- and only then list the fields that have added a DEFAULT value. 
             )  WITHIN GROUP ( ORDER BY f.[index] ASC, c.column_id ASC )
