@@ -36,11 +36,14 @@
 							"value": "IF EXISTS (\n    SELECT * \n    FROM dbo.sysobjects \n    WHERE ID = OBJECT_ID(N'@{concat(pipeline().parameters.base_schema_name, '.', pipeline().parameters.base_table_name)}')\n) AND '@{pipeline().parameters.update_mode}' <> 'Delta'\nTRUNCATE TABLE @{concat(pipeline().parameters.base_schema_name, '.', pipeline().parameters.base_table_name)}",
 							"type": "Expression"
 						},
-						"allowPolyBase": true,
-						"polyBaseSettings": {
-							"rejectValue": 0,
-							"rejectType": "value",
-							"useTypeDefault": true
+						"allowCopyCommand": true,
+						"copyCommandSettings": {
+							"defaultValues": [
+								{
+									"columnName": "",
+									"defaultValue": ""
+								}
+							]
 						},
 						"disableMetricsCollection": false
 					},
