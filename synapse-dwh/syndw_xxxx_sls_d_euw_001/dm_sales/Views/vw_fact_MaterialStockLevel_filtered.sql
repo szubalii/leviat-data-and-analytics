@@ -39,4 +39,7 @@ SELECT
   	[t_extractionDtm]   
 FROM 
     [edw].[fact_MaterialStockLevel]
-WHERE [MatlStkChangeQtyInBaseUnit] IS NOT NULL
+WHERE
+    COALESCE([MatlStkChangeQtyInBaseUnit],0) <> 0
+    AND
+    COALESCE([StockLevelQtyInBaseUnit],0) <> 0
