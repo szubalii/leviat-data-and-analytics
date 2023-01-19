@@ -101,6 +101,7 @@ BEGIN
 	        when 'HALFEN AS' then '5325U01'
 	        when 'HALFEN B.V.' then '5314U01'
 	        when 'HALFEN GMBH' then '5300U01'
+			when 'Halfen GmbH'  then '5300U01'
 	        when 'HALFEN IBERICA S.L' then 'S060U01'
 	        when 'HALFEN LIMITED' then '5310U01'
 	        when 'HALFEN S.R.L.' then '5315U01'
@@ -391,10 +392,13 @@ BEGIN
     count(*) as lcounter
 	into #InvoicedFreightTable_ISUK_SB 
     from [intm_axbi].[fact_CUSTINVOICETRANS] c
-    inner join #InvoicedFreightTable_ISUK i
-    on c.PACKINGSLIPID = i.[PACKINGSLIPID]
-    and upper(c.DATAAREAID) = 'ISUK' 
-	group by c.PACKINGSLIPID
+    where upper(c.DATAAREAID) = 'ISUK'
+	AND EXISTS (
+		SELECT 1
+		FROM #InvoicedFreightTable_ISUK ift
+		WHERE ift.PACKINGSLIPID = c.PACKINGSLIPID
+	)
+	group by c.PACKINGSLIPID;
 
 	--select c.[PACKINGSLIPID], count(*) lcounter
 	--into #InvoicedFreightTable_ISUK_cnt 
@@ -404,31 +408,50 @@ BEGIN
 	--where upper(c.DATAAREAID) = 'ISUK'
 	--group by c.[PACKINGSLIPID]
 	
-	update [intm_axbi].[fact_CUSTINVOICETRANS]
-	set OTHERSALESLOCAL += i.InvoicedFreightLocal * t.PRODUCTSALESLOCAL/sb.SalesBalance,
-	    OTHERSALESEUR   += i.InvoicedFreightEur * t.PRODUCTSALESEUR/sb.SalesBalanceEUR
-	from [intm_axbi].[fact_CUSTINVOICETRANS] as t
-	inner join #InvoicedFreightTable_ISUK i
-	on t.PACKINGSLIPID=i.[PACKINGSLIPID]
-	inner join #InvoicedFreightTable_ISUK_SB sb
-	on t.PACKINGSLIPID = sb.PACKINGSLIPID
-	where upper(t.DATAAREAID) = 'ISUK' 
-	and sb.SalesBalance <> 0
+	WITH PCC AS (
+		SELECT SALESID
+			,INVOICEID
+			,LINENUM
+			,SUM(i.InvoicedFreightLocal * t.PRODUCTSALESLOCAL/sb.SalesBalance) as l_sum
+	    	,SUM(i.InvoicedFreightEur * t.PRODUCTSALESEUR/sb.SalesBalanceEUR) as e_sum
+    	FROM [intm_axbi].[fact_CUSTINVOICETRANS] AS t
+    	INNER JOIN #InvoicedFreightTable_ISUK i
+    		ON t.PACKINGSLIPID=i.[PACKINGSLIPID]
+    	INNER JOIN #InvoicedFreightTable_ISUK_SB sb
+    		ON t.PACKINGSLIPID = sb.PACKINGSLIPID
+    	WHERE upper(t.DATAAREAID) = 'ISUK' 
+    		AND sb.SalesBalance <> 0
+    	GROUP BY SALESID,INVOICEID, LINENUM
+	)
+	UPDATE [intm_axbi].[fact_CUSTINVOICETRANS]
+	SET OTHERSALESLOCAL += PCC.l_sum,
+	    OTHERSALESEUR   += PCC.e_sum
+	FROM [intm_axbi].[fact_CUSTINVOICETRANS] as t
+	INNER JOIN PCC
+		ON t.SALESID=PCC.SALESID AND t.INVOICEID=PCC.INVOICEID AND t.LINENUM=PCC.LINENUM;
 	
-	
-	update [intm_axbi].[fact_CUSTINVOICETRANS]
-	set OTHERSALESLOCAL += i.InvoicedFreightLocal / sb.lcounter,
-	    OTHERSALESEUR  += i.InvoicedFreightEur / sb.lcounter
-	from [intm_axbi].[fact_CUSTINVOICETRANS] as t
-	inner join #InvoicedFreightTable_ISUK i
-	on t.PACKINGSLIPID=i.[PACKINGSLIPID]
-	inner join #InvoicedFreightTable_ISUK_SB sb
-	on t.PACKINGSLIPID = sb.[PACKINGSLIPID]
-	--inner join #InvoicedFreightTable_ISUK_cnt cnt
-	--on t.PACKINGSLIPID = cnt.[PACKINGSLIPID]
-	where upper(t.DATAAREAID) = 'ISUK' 
-	and sb.SalesBalance = 0
-	and sb.lcounter > 0
+	WITH PCC AS (
+		SELECT SALESID
+			,INVOICEID
+			,LINENUM
+			,SUM(i.InvoicedFreightLocal / sb.lcounter) AS l_sum
+			,SUM(i.InvoicedFreightEur / sb.lcounter) AS e_sum
+		FROM [intm_axbi].[fact_CUSTINVOICETRANS] as t
+		INNER JOIN #InvoicedFreightTable_ISUK i
+			ON t.PACKINGSLIPID=i.[PACKINGSLIPID]
+		INNER JOIN #InvoicedFreightTable_ISUK_SB sb
+		ON t.PACKINGSLIPID = sb.[PACKINGSLIPID]
+		WHERE upper(t.DATAAREAID) = 'ISUK' 
+			AND sb.SalesBalance = 0
+			AND sb.lcounter > 0
+		GROUP BY SALESID,INVOICEID, LINENUM
+	)
+	UPDATE [intm_axbi].[fact_CUSTINVOICETRANS]
+	set OTHERSALESLOCAL += PCC.l_sum,
+	    OTHERSALESEUR  += PCC.e_sum
+	FROM [intm_axbi].[fact_CUSTINVOICETRANS] as t
+	INNER JOIN PCC
+		ON t.SALESID=PCC.SALESID AND t.INVOICEID=PCC.INVOICEID AND t.LINENUM=PCC.LINENUM;
 	
 		
 	-- SALES100 aktualisieren

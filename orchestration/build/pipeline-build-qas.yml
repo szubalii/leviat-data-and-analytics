@@ -6,4 +6,4 @@ extends:
     folder: orchestration
     solution: Orchestration
     hasVariables: true
-    end: qas
+    env: qas

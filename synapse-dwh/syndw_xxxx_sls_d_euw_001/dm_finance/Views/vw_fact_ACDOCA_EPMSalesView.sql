@@ -105,7 +105,34 @@ SELECT
    -- GLALIRD.[TransactionCurrency],
    -- GLALIRD.[AmountInTransactionCurrency],
    -- GLALIRD.[CompanyCodeCurrency],
-    -1 * GLALIRD.[AmountInCompanyCodeCurrency] * ExchangeRate.ExchangeRate AS [SalesAmount],
+    CASE ZED.CONTIGENCY5
+        WHEN 'Sales'
+        THEN -1 * GLALIRD.[AmountInCompanyCodeCurrency] * ExchangeRate.ExchangeRate
+        ELSE null
+    END AS [SalesAmount],
+    CASE ZED.CONTIGENCY5
+        WHEN 'COGS'
+        THEN -1 * GLALIRD.[AmountInCompanyCodeCurrency] * ExchangeRate.ExchangeRate
+        ELSE null
+    END AS [COGSActCostAmount],
+    CASE 
+        WHEN ZED.CONTIGENCY5 = 'COGS' AND GLALIRD.[BillingDocumentTypeID] <> ''
+        THEN -1 * GLALIRD.[AmountInCompanyCodeCurrency] * ExchangeRate.ExchangeRate
+        ELSE null
+    END AS [COGSStdCostAmount],
+    CASE ZED.CONTIGENCY5
+        WHEN 'Other CoS'
+        THEN -1 * GLALIRD.[AmountInCompanyCodeCurrency] * ExchangeRate.ExchangeRate
+        ELSE null
+    END AS [OtherCoSAmount],
+    CASE
+        WHEN ZED.CONTIGENCY5 = 'COGS' AND GLALIRD.[BillingDocumentTypeID] = '' 
+        THEN 'COGSAct'
+        WHEN ZED.CONTIGENCY5 = 'COGS' AND GLALIRD.[BillingDocumentTypeID] <> '' 
+        THEN 'COGSStd'
+        ELSE ZED.CONTIGENCY5
+    END AS [AmountCategory],
+    -1 * GLALIRD.[AmountInCompanyCodeCurrency] * ExchangeRate.ExchangeRate AS [Amount],
    -- GLALIRD.[GlobalCurrency],
     GLALIRD.[AmountInGlobalCurrency],
     GLALIRD.[FreeDefinedCurrency1],
@@ -186,7 +213,7 @@ SELECT
     GLALIRD.[ServiceDocumentItem],
     CASE
         WHEN GLALIRD.[BillingDocumentTypeID] = ''
-            THEN 'MA-Dummy'
+            THEN 'MA'
         ELSE GLALIRD.[BillingDocumentTypeID]
     END                                                 AS [BillingDocumentTypeID],
     CASE
@@ -210,7 +237,8 @@ SELECT
         ELSE GLALIRD.[ShipToPartyID]
     END                                             AS [ShipToParty],
     CASE 
-        WHEN GLALIRD.[BillingDocumentTypeID] = '' THEN    1
+        WHEN GLALIRD.[BillingDocumentTypeID] = ''
+            THEN    1
         ELSE                                            0
     END                                             AS [ManualAdjustment],
     CASE
@@ -222,40 +250,65 @@ SELECT
         AND COALESCE (PSD.FirstSalesSpecProductGroup, '') = ''
             THEN 'MA-Dummy'
         ELSE PSD.FirstSalesSpecProductGroup
+    END                                                 AS [BrandID],
+    CASE
+        WHEN GLALIRD.[BillingDocumentTypeID] = ''
+        AND COALESCE (PSD.FirstSalesSpecProductGroup, '') = ''
+            THEN 'MA'
+        ELSE DimBrand.Brand
     END                                                 AS [Brand],
     CASE 
-        WHEN GLALIRD.[BillingDocumentTypeID] = '' THEN    'MA'
+        WHEN GLALIRD.[BillingDocumentTypeID] = ''
+            THEN    'MA'
         WHEN LEFT(GLALIRD.[CustomerID],2) IN ('IC','IP')  THEN 'I'
         ELSE                                            'O'
     END                                             AS [InOutID],
     CASE
         WHEN GLALIRD.[BillingDocumentTypeID] = ''
         AND COALESCE (CSA.[CustomerGroup], '') = ''
-            THEN 'Manual Adjustment'
+            THEN 'MA'
         ELSE CSA.[CustomerGroup]
+    END                                                 AS [CustomerGroupID],
+    CASE
+        WHEN GLALIRD.[BillingDocumentTypeID] = ''
+        AND COALESCE (CSA.[CustomerGroup], '') = ''
+            THEN 'Manual Adjustment'
+        ELSE dimCGr.CustomerGroup
     END                                                 AS [CustomerGroup],
+    CASE
+        WHEN GLALIRD.[BillingDocumentTypeID] = ''
+        AND COALESCE (dimBDT.[BillingDocumentType], '') = ''
+            THEN 'MA'
+        ELSE dimBDT.[BillingDocumentType]
+    END                                                AS [BillingDocumentType],
     ExchangeRate.[TargetCurrency]                      AS [CurrencyID],
     ExchangeRate.[CurrencyTypeID],
     CurrType.[CurrencyType],
     GLALIRD.[t_applicationId],
     GLALIRD.[t_extractionDtm]
 FROM [edw].[fact_ACDOCA] GLALIRD
-INNER JOIN [edw].[dim_FinancialStatementHierarchy] FSH
-    ON GLALIRD.[GLAccountID] = FSH.LowerBoundaryAccount               COLLATE DATABASE_DEFAULT
+INNER JOIN [edw].[vw_ZE_EXQLMAP_DT] ZED
+    ON GLALIRD.[GLAccountID] = ZED.[GLACCOUNT]
+        AND GLALIRD.[FunctionalAreaID] = ZED.[FUNCTIONALAREA]
+/*INNER JOIN [edw].[dim_FinancialStatementHierarchy] FSH
+    ON GLALIRD.[GLAccountID] = FSH.LowerBoundaryAccount                     COLLATE DATABASE_DEFAULT
 INNER JOIN [edw].[dim_FinancialStatementItem]   FSI
-    ON FSH.[FinancialStatementItem] = FSI.[FinancialStatementItem]  COLLATE DATABASE_DEFAULT
+    ON FSH.[FinancialStatementItem] = FSI.[FinancialStatementItem]          COLLATE DATABASE_DEFAULT*/
 LEFT JOIN [edw].[dim_BillingDocumentType] dimBDT 
-    ON GLALIRD.BillingDocumentTypeID = dimBDT.[BillingDocumentTypeID] COLLATE DATABASE_DEFAULT
-LEFT JOIN [base_s4h_cax].[I_ProductSalesDelivery] PSD
-    ON GLALIRD.[ProductID] = PSD.[Product]                            COLLATE DATABASE_DEFAULT
-        AND GLALIRD.[SalesOrganizationID] = PSD.[ProductSalesOrg]     COLLATE DATABASE_DEFAULT
+    ON GLALIRD.BillingDocumentTypeID = dimBDT.[BillingDocumentTypeID]       COLLATE DATABASE_DEFAULT
+LEFT JOIN [edw].[dim_ProductSalesDelivery] PSD
+    ON GLALIRD.[ProductID] = PSD.[ProductID]                                COLLATE DATABASE_DEFAULT
+        AND GLALIRD.[SalesOrganizationID] = PSD.[SalesOrganizationID]       COLLATE DATABASE_DEFAULT
+        AND GLALIRD.[DistributionChannelID] = PSD.[DistributionChannelID]   COLLATE DATABASE_DEFAULT
 LEFT JOIN [base_s4h_cax].[I_CustomerSalesArea] CSA
-    ON GLALIRD.[CustomerID] = CSA.[Customer]                          COLLATE DATABASE_DEFAULT
-        AND GLALIRD.[SalesOrganizationID] = CSA.[SalesOrganization]   COLLATE DATABASE_DEFAULT
+    ON GLALIRD.[CustomerID] = CSA.[Customer]                                COLLATE DATABASE_DEFAULT
+        AND GLALIRD.[SalesOrganizationID] = CSA.[SalesOrganization]         COLLATE DATABASE_DEFAULT
 LEFT JOIN ExchangeRate
     ON GLALIRD.[CompanyCodeCurrency] = ExchangeRate.[SourceCurrency]
         AND GLALIRD.[PostingDate] BETWEEN ExchangeRate.[ExchangeRateEffectiveDate] AND ExchangeRate.[LastDay]
 INNER JOIN [dm_sales].[vw_dim_CurrencyType]     CurrType
     ON ExchangeRate.CurrencyTypeID = CurrType.CurrencyTypeID
-WHERE 
-    FSI.[ParentNode] = '$(EXQL_Sales_Node)'
+LEFT JOIN [edw].[dim_Brand] DimBrand
+    ON PSD.FirstSalesSpecProductGroup = DimBrand.[BrandID] 
+LEFT JOIN [edw].[dim_CustomerGroup] dimCGr
+    ON CSA.CustomerGroup = dimCGr.[CustomerGroupID]

@@ -1,4 +1,4 @@
-create VIEW [dm_sales].[vw_fact_MaterialStockLevel]
+create VIEW [dm_sales].[vw_fact_MaterialStockLevel_filtered]
 AS
 SELECT
     [ReportingYear],
@@ -39,3 +39,7 @@ SELECT
   	[t_extractionDtm]   
 FROM 
     [edw].[fact_MaterialStockLevel]
+WHERE
+    COALESCE([MatlStkChangeQtyInBaseUnit],0) <> 0
+    AND
+    COALESCE([StockLevelQtyInBaseUnit],0) <> 0
