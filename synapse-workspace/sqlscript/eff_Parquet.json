@@ -1,8 +1,8 @@
 {
-	"name": "SQL script 1",
+	"name": "eff_Parquet",
 	"properties": {
 		"content": {
-			"query": "CREATE EXTERNAL FILE FORMAT [ParquetFF] WITH (\n    FORMAT_TYPE = PARQUET,\n    DATA_COMPRESSION = 'org.apache.hadoop.io.compress.SnappyCodec'\n);\n\n\n\n\n",
+			"query": "CREATE EXTERNAL FILE FORMAT [eff_Parquet] WITH (\n    FORMAT_TYPE = PARQUET,\n    DATA_COMPRESSION = 'org.apache.hadoop.io.compress.SnappyCodec'\n);\n\n\n\n\n",
 			"metadata": {
 				"language": "sql"
 			},
