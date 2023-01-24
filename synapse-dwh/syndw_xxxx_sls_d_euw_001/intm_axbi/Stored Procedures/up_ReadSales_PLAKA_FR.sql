@@ -755,8 +755,8 @@ BEGIN
 	ISNULL(t.DLVCOUNTRYREGIONID,' ') as DELIVERYCOUNTRYID,
 	ISNULL(i.PACKINGSLIPID,' ') as PACKINGSLIPID,
 	t.QTY as QTY,
-	t.LINEAMOUNTMST LINEAMOUNTMST_OS,
-	count(t.INVOICEID) over (partition by t.INVOICEID) cnt_inv
+	t.LINEAMOUNTMST LINEAMOUNTMST_OS--,
+	--count(t.INVOICEID) over (partition by t.INVOICEID) cnt_inv
 	into #inventtrans_PLFR_OS
 	from [base_tx_crh_2_dwh].[FACT_CUSTINVOICETRANS] as t
 	inner join [base_tx_crh_2_dwh].[DIM_CUSTINVOICEJOUR] as j
@@ -778,7 +778,8 @@ BEGIN
 	--salesbalance calculation
 	select 
 	t.INVOICEID,
-	ISNULL(sum(t.PRODUCTSALESLOCAL),0) salesbalance
+	ISNULL(sum(t.PRODUCTSALESLOCAL),0) salesbalance,
+    count (*) lcounter
 	into #inventtrans_PLFR_SB
 	from [intm_axbi].[fact_CUSTINVOICETRANS] as t
 	inner join [intm_axbi].[dim_ITEMTABLE] as g
@@ -788,32 +789,32 @@ BEGIN
 	--on t.INVOICEID COLLATE DATABASE_DEFAULT= os.INVOICEID COLLATE DATABASE_DEFAULT
 	where upper(t.DATAAREAID) = 'PLFR' 
 	and g.ITEMGROUPID <> 'PLFR-EL'
-    and EXISTS (
-			SELECT 1
-			FROM #inventtrans_PLFR_OS os
-			WHERE t.INVOICEID COLLATE DATABASE_DEFAULT= os.INVOICEID COLLATE DATABASE_DEFAULT
-		)
-	group by t.INVOICEID
+  --  and EXISTS (
+		--	SELECT 1
+		--	FROM #inventtrans_PLFR_OS os
+		--	WHERE t.INVOICEID COLLATE DATABASE_DEFAULT= os.INVOICEID COLLATE DATABASE_DEFAULT
+		--)
+	group by t.INVOICEID;
 
 
 --lineamountmst sum calculation
-	select INVOICEID,
-	sum(LINEAMOUNTMST_OS) lineamountmst_os_sum
-	into #inventtrans_PLFR_LA
-	from #inventtrans_PLFR_OS
-	group by INVOICEID
+	--select INVOICEID,
+	--sum(LINEAMOUNTMST_OS) lineamountmst_os_sum
+	--into #inventtrans_PLFR_LA
+	--from #inventtrans_PLFR_OS
+	--group by INVOICEID
 	
 --lcounter calculation	
-	select INVOICEID, 
-	count (*) lcounter
-    into #inventtrans_PLFR_cnt
-    from [intm_axbi].[fact_CUSTINVOICETRANS] as t
-	inner join [intm_axbi].[dim_ITEMTABLE] as g
-	on lower(t.DATAAREAID) = lower(g.DATAAREAID) and
-	t.ITEMID = g.ITEMID
-    where upper(t.DATAAREAID) = 'PLFR' 
-	and g.ITEMGROUPID <> 'PLFR-EL'
-	group by t.INVOICEID;
+	--select INVOICEID, 
+	--count (*) lcounter
+ --   into #inventtrans_PLFR_cnt
+ --   from [intm_axbi].[fact_CUSTINVOICETRANS] as t
+	--inner join [intm_axbi].[dim_ITEMTABLE] as g
+	--on lower(t.DATAAREAID) = lower(g.DATAAREAID) and
+	--t.ITEMID = g.ITEMID
+ --   where upper(t.DATAAREAID) = 'PLFR' 
+	--and g.ITEMGROUPID <> 'PLFR-EL'
+	--group by t.INVOICEID;
 	
 	--update #1
 /*update [intm_axbi].[fact_CUSTINVOICETRANS]
@@ -839,8 +840,8 @@ WITH PCC AS (
 		SELECT t.SALESID
 			,t.INVOICEID
 			,t.LINENUM
-			,SUM((la.lineamountmst_os_sum * t.PRODUCTSALESLOCAL/ sb.salesbalance) * os.cnt_inv) as l_sum
-	    	,SUM((la.lineamountmst_os_sum * t.PRODUCTSALESEUR/sb.salesbalance)* os.cnt_inv) as e_sum
+			,SUM((os.LINEAMOUNTMST_OS * t.PRODUCTSALESLOCAL/ sb.salesbalance) /* * os.cnt_inv*/) as l_sum
+	    	,SUM((os.LINEAMOUNTMST_OS * t.PRODUCTSALESEUR/sb.salesbalance)/* * os.cnt_inv */) as e_sum
     	FROM [intm_axbi].[fact_CUSTINVOICETRANS] AS t
         inner join [intm_axbi].[dim_ITEMTABLE] as g
         on lower(t.DATAAREAID) = lower(g.DATAAREAID) and
@@ -849,8 +850,8 @@ WITH PCC AS (
         on t.INVOICEID  COLLATE DATABASE_DEFAULT= os.INVOICEID  COLLATE DATABASE_DEFAULT
         inner join #inventtrans_PLFR_SB sb
         on t.INVOICEID COLLATE DATABASE_DEFAULT=sb.INVOICEID COLLATE DATABASE_DEFAULT
-        inner join #inventtrans_PLFR_LA la
-        on t.INVOICEID COLLATE DATABASE_DEFAULT=la.INVOICEID COLLATE DATABASE_DEFAULT
+        --inner join #inventtrans_PLFR_LA la
+        --on t.INVOICEID COLLATE DATABASE_DEFAULT=la.INVOICEID COLLATE DATABASE_DEFAULT
         where upper(t.DATAAREAID) = 'PLFR' 
         and datepart(YYYY, t.ACCOUNTINGDATE) = @P_Year 
         and datepart(MM, t.ACCOUNTINGDATE) = @P_Month
@@ -891,18 +892,20 @@ WITH PCC AS (
 		SELECT t.SALESID
 			,t.INVOICEID
 			,t.LINENUM
-			,SUM(la.lineamountmst_os_sum / cnt.lcounter) as l_sum
-	    	,SUM(la.lineamountmst_os_sum / cnt.lcounter) as e_sum
+			,SUM(os.LINEAMOUNTMST_OS / sb.lcounter) as l_sum
+	    	,SUM(os.LINEAMOUNTMST_OS / sb.lcounter) as e_sum
     	FROM [intm_axbi].[fact_CUSTINVOICETRANS] AS t
         inner join [intm_axbi].[dim_ITEMTABLE] as g
         on lower(t.DATAAREAID) = lower(g.DATAAREAID) and
-        t.ITEMID = g.ITEMID  
+        t.ITEMID = g.ITEMID
+        inner join #inventtrans_PLFR_OS os
+        on t.INVOICEID  COLLATE DATABASE_DEFAULT= os.INVOICEID  COLLATE DATABASE_DEFAULT
         inner join #inventtrans_PLFR_SB sb
         on t.INVOICEID COLLATE DATABASE_DEFAULT=sb.INVOICEID COLLATE DATABASE_DEFAULT
-        inner join #inventtrans_PLFR_LA la
-        on t.INVOICEID COLLATE DATABASE_DEFAULT=la.INVOICEID COLLATE DATABASE_DEFAULT
-        inner join #inventtrans_PLFR_cnt cnt
-        on t.INVOICEID COLLATE DATABASE_DEFAULT=cnt.INVOICEID COLLATE DATABASE_DEFAULT
+        --inner join #inventtrans_PLFR_LA la
+        --on t.INVOICEID COLLATE DATABASE_DEFAULT=la.INVOICEID COLLATE DATABASE_DEFAULT
+        --inner join #inventtrans_PLFR_cnt cnt
+        --on t.INVOICEID COLLATE DATABASE_DEFAULT=cnt.INVOICEID COLLATE DATABASE_DEFAULT
         where upper(t.DATAAREAID) = 'PLFR' 
         and datepart(YYYY, t.ACCOUNTINGDATE) = @P_Year 
         and datepart(MM, t.ACCOUNTINGDATE) = @P_Month 
@@ -995,11 +998,11 @@ drop table #inventtrans_PLFR_dup
 drop table #inventtrans_PLFR
 drop table #inventtrans_PLFR_OS
 drop table #inventtrans_PLFR_SB
-drop table #inventtrans_PLFR_LA
+--drop table #inventtrans_PLFR_LA
 IF OBJECT_ID(N'tempdb..#cust_delivered_not_invoiced_PLFR') IS NOT NULL
 BEGIN
 DROP TABLE #cust_delivered_not_invoiced_PLFR
 END
-drop table #inventtrans_PLFR_cnt
+--drop table #inventtrans_PLFR_cnt
 
 END
