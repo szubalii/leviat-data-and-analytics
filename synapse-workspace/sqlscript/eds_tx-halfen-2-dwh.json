@@ -1,0 +1,17 @@
+{
+	"name": "eds_tx-halfen-2-dwh",
+	"properties": {
+		"content": {
+			"query": "CREATE EXTERNAL DATA SOURCE [eds_tx-halfen-2-dwh] WITH (\n    LOCATION = 'https://stxxxxslsdeuw001.dfs.core.windows.net/tx-halfen-2-dwh-uat',\n    CREDENTIAL= dsc_MSI\n);\n",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "sqlserverless",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
