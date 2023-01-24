@@ -1,0 +1,17 @@
+{
+	"name": "eds_FACT_SALESLINE",
+	"properties": {
+		"content": {
+			"query": "CREATE EXTERNAL TABLE [dbo].[eds_FACT_SALESLINE] WITH (\n        LOCATION = 'FACT_SALESLINE/Archive',\n        DATA_SOURCE = [eds_tx-halfen-2-dwh],\n        FILE_FORMAT = [eff_Parquet]\n) AS\nSELECT\n    *\nFROM\n    OPENROWSET(\n        BULK './FACT_SALESLINE/In/2023/01/05/FACT_SALESLINE_2023_01_05_04_18_41_243.parquet',\n        FORMAT = 'PARQUET'\n    ) AS [result]\nWHERE DATAAREAID NOT IN (5307, 5309, 5310, 5325)",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "sqlserverless",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
