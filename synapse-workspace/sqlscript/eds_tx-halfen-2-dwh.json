@@ -1,6 +1,9 @@
 {
 	"name": "eds_tx-halfen-2-dwh",
 	"properties": {
+		"folder": {
+			"name": "External resources/External data sources"
+		},
 		"content": {
 			"query": "CREATE EXTERNAL DATA SOURCE [eds_tx-halfen-2-dwh] WITH (\n    LOCATION = 'https://stxxxxslsdeuw001.dfs.core.windows.net/tx-halfen-2-dwh-uat',\n    CREDENTIAL= dsc_MSI\n);\n",
 			"metadata": {
