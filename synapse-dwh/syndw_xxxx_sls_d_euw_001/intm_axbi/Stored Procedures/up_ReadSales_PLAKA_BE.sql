@@ -30,10 +30,10 @@ BEGIN
 	t.ORIGSALESID as ORIGSALESID, 
 	t.INVENTTRANSID as INVENTTRANSID, 
 	t.LINENUM as LINENUM, 
-	i.DATEFINANCIAL as DATEFINANCIAL, 
-	i.PACKINGSLIPID as PACKINGSLIPID, 
+	max(i.DATEFINANCIAL) as DATEFINANCIAL, 
+	max(i.PACKINGSLIPID) as PACKINGSLIPID, 
 	sum(i.CostAmount) as COSTAMOUNT 
-	into #inventtrans_PLBE_dup
+	into #inventtrans_PLBE
 	from [base_tx_crh_2_dwh].[FACT_CUSTINVOICETRANS] as t
 	inner join [base_tx_crh_2_dwh].[DIM_CUSTINVOICEJOUR] as j
 	on lower(t.DATAAREAID) = lower(j.DATAAREAID) and
@@ -43,11 +43,11 @@ BEGIN
 	   t.INVOICEID = i.INVOICEID and
 	   t.INVENTTRANSID = i.INVENTTRANSID
 	where lower(t.DATAAREAID) = 'plb' and Datepart(yyyy, i.DATEFINANCIAL) = @P_Year and Datepart(mm, i.DATEFINANCIAL) = @P_Month
-	group by t.DATAAREAID, t.INVOICEID, t.ORIGSALESID, t.INVENTTRANSID, t.LINENUM, i.DATEFINANCIAL, i.PACKINGSLIPID; 
+	group by t.DATAAREAID, t.INVOICEID, t.ORIGSALESID, t.INVENTTRANSID, t.LINENUM; 
 
 	-- Doppelte Sätze löschen. Geht leider ein Datefinancial und eine PackingslipID verloren, dafür werden die Zahlen richtig.
 	-- Obwohl wir haben in COMMON TABLE EXPRESSION table löschen, werden die doppelten Sätze in der temporären Tabelle #inventtrans_PLBE gelöscht.
-	SELECT 
+	/*SELECT 
     DATAAREAID, 
 	INVOICEID, 
 	ORIGSALESID, 
@@ -72,7 +72,7 @@ BEGIN
 			ORDER BY DATAAREAID, INVOICEID, ORIGSALESID, INVENTTRANSID, LINENUM ) RowNumber
 	from #inventtrans_PLBE_dup
 	) d
-	where d.RowNumber=1
+	where d.RowNumber=1*/
 	
 
 	--insert main sales
@@ -114,12 +114,12 @@ BEGIN
 	t.QTY,
 	t.LINEAMOUNTMST,
 	t.LINEAMOUNTMST,
-	0,
-	0,
-	0,
-	0,
-	0, -- Sales 100 für PLAKA BE später addieren
-	0,
+	CAST(0 as [DECIMAL](38, 12)),
+	CAST(0 as [DECIMAL](38, 12)),
+	CAST(0 as [DECIMAL](38, 12)),
+	CAST(0 as [DECIMAL](38, 12)),
+	CAST(0 as [DECIMAL](38, 12)), -- Sales 100 für PLAKA BE später addieren
+	CAST(0 as [DECIMAL](38, 12)),
 	t.LINEAMOUNTMST * 0.034 * (-1), -- Interne Fracht 3,4 %
 	t.LINEAMOUNTMST * 0.034 * (-1),
 	i.COSTAMOUNT,
@@ -217,12 +217,12 @@ BEGIN
 	QTY,
 	PRODUCTSALESLOCAL,
 	PRODUCTSALESLOCAL,
-	0,
-	0,
-	0,
-	0,
-	0, -- Sales 100 für PLAKA BE später addieren
-	0,
+	CAST(0 as [DECIMAL](38, 12)),
+	CAST(0 as [DECIMAL](38, 12)),
+	CAST(0 as [DECIMAL](38, 12)),
+	CAST(0 as [DECIMAL](38, 12)),
+	CAST(0 as [DECIMAL](38, 12)), -- Sales 100 für PLAKA BE später addieren
+	CAST(0 as [DECIMAL](38, 12)),
 	PRODUCTSALESLOCAL * 0.034 * (-1), -- Interne Fracht 3,4 %
 	PRODUCTSALESLOCAL * 0.034 * (-1),
 	COSTAMOUNT * (-1),
@@ -268,16 +268,16 @@ BEGIN
 	ISNULL(t.DLVCOUNTRYREGIONID,' '),
 	ISNULL(i.PACKINGSLIPID,' '),
 	t.QTY,
-	0,
-	0,
+	CAST(0 as [DECIMAL](38, 12)),
+	CAST(0 as [DECIMAL](38, 12)),
 	t.LINEAMOUNTMST,
 	t.LINEAMOUNTMST,
-	0,
-	0,
-	0, -- Sales 100 für PLAKA BE später addieren
-	0,
-	0,
-	0,
+	CAST(0 as [DECIMAL](38, 12)),
+	CAST(0 as [DECIMAL](38, 12)),
+	CAST(0 as [DECIMAL](38, 12)), -- Sales 100 für PLAKA BE später addieren
+	CAST(0 as [DECIMAL](38, 12)),
+	CAST(0 as [DECIMAL](38, 12)),
+	CAST(0 as [DECIMAL](38, 12)),
 	i.COSTAMOUNT,
 	i.COSTAMOUNT
 	from [base_tx_crh_2_dwh].[FACT_CUSTINVOICETRANS] as t
@@ -589,18 +589,18 @@ insert [intm_axbi].[fact_CUSTINVOICETRANS]
 	DELIVERYCOUNTRYID,
 	PACKINGSLIPID,
 	QTY,
-	0,
-	0,
+	CAST(0 as [DECIMAL](38, 12)),
+	CAST(0 as [DECIMAL](38, 12)),
 	LINEAMOUNTMST_OS,
 	LINEAMOUNTMST_OS,
-	0,
-	0,
-	0,
-	0,
-	0,
-	0,
-	0,
-	0
+	CAST(0 as [DECIMAL](38, 12)),
+	CAST(0 as [DECIMAL](38, 12)),
+	CAST(0 as [DECIMAL](38, 12)),
+	CAST(0 as [DECIMAL](38, 12)),
+	CAST(0 as [DECIMAL](38, 12)),
+	CAST(0 as [DECIMAL](38, 12)),
+	CAST(0 as [DECIMAL](38, 12)),
+	CAST(0 as [DECIMAL](38, 12))
 	from #inventtrans_PLBE_OS
 	where INVOICEID COLLATE DATABASE_DEFAULT not in 
 	(select t.INVOICEID from [intm_axbi].[fact_CUSTINVOICETRANS] as t
@@ -794,7 +794,7 @@ insert [intm_axbi].[fact_CUSTINVOICETRANS]
 	and c.COMPANYCHAINID = 'PLAKA FRANCE'
 
 --drop temp tables
-drop table #inventtrans_PLBE_dup
+--drop table #inventtrans_PLBE_dup
 drop table #inventtrans_PLBE
 drop table #inventtrans_PLBE_OS
 drop table #inventtrans_PLBE_SB
