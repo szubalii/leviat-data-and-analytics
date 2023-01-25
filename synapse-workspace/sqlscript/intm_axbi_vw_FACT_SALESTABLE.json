@@ -1,8 +1,8 @@
 {
-	"name": "intm_axbi_FACT_SALESTABLE",
+	"name": "intm_axbi_vw_FACT_SALESTABLE",
 	"properties": {
 		"content": {
-			"query": "SELECT * INTO intm_axbi.FACT_SALESTABLE\nFROM [base_tx_halfen_2_dwh].[FACT_SALESTABLE]\nUNION\nSELECT * FROM  [base_tx_halfen_2_dwh].[FACT_SALESTABLE_Archive]",
+			"query": "CREATE VIEW intm_axbi.vw_FACT_SALESTABLE AS\nSELECT * FROM [base_tx_halfen_2_dwh].[FACT_SALESTABLE]\nUNION \nSELECT * FROM  [base_tx_halfen_2_dwh].[FACT_SALESTABLE_Archive]",
 			"metadata": {
 				"language": "sql"
 			},
