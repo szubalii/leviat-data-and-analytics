@@ -126,9 +126,9 @@ SELECT
         ELSE null
     END AS [OtherCoSAmount],
     CASE
-        WHEN ZED.CONTIGENCY5 = 'COGS' AND GLALIRD.[AccountingDocumentTypeID] = 'ML' 
+        WHEN ZED.CONTIGENCY5 = 'COGS'
         THEN 'COGSAct'
-        WHEN ZED.CONTIGENCY5 = 'COGS' AND GLALIRD.[AccountingDocumentTypeID] <> 'ML' 
+        WHEN ZED.CONTIGENCY5 = 'COGS' AND GLALIRD.[AccountingDocumentTypeID] <> 'ML'    --it's unreachable code at the moment, reserved for future needs
         THEN 'COGSStd'
         ELSE ZED.CONTIGENCY5
     END AS [AmountCategory],
