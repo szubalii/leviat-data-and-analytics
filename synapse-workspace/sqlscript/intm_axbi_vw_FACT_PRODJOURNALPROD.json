@@ -1,0 +1,17 @@
+{
+	"name": "intm_axbi_vw_FACT_PRODJOURNALPROD",
+	"properties": {
+		"content": {
+			"query": "CREATE VIEW intm_axbi.vw_FACT_PRODJOURNALPROD AS\nSELECT * FROM [base_tx_halfen_2_dwh].[FACT_PRODJOURNALPROD]\nUNION\nSELECT * FROM [base_tx_halfen_2_dwh].[FACT_PRODJOURNALPROD_Archive]",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "sqlserverless",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
