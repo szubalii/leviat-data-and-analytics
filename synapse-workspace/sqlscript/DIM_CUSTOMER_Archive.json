@@ -1,0 +1,17 @@
+{
+	"name": "DIM_CUSTOMER_Archive",
+	"properties": {
+		"content": {
+			"query": "CREATE TABLE [base_dw_halfen_2_dwh].[DIM_CUSTOMER_Archive](\n    [DW_Id] BIGINT NOT NULL\n,   [Company] NVARCHAR(8) NULL\n,   [Customerno] NVARCHAR(40) NULL\n,   [Customername] NVARCHAR(280) NULL\n,   [Customeraddress] NVARCHAR(500) NULL\n,   [Customerstreet] NVARCHAR(500) NULL\n,   [Customercity] NVARCHAR(280) NULL\n,   [Customerzipcode] NVARCHAR(20) NULL\n,   [Customercountry] NVARCHAR(20) NULL\n,   [Customernoold] NVARCHAR(40) NULL\n,   [Customerlineofbusiness] NVARCHAR(10) NULL\n,   [Customerno_name] NVARCHAR(500) NULL\n,   [Customercurrency] NVARCHAR(3) NULL\n,   [Customersalesgroup] NVARCHAR(10) NULL\n,   [Customersalesdistrictid] NVARCHAR(20) NULL\n,   [Customersales_district_group] NVARCHAR(20) NULL\n,   [Customermaindistrict] VARCHAR(20) NULL\n,   [Customercompanychainid] NVARCHAR(20) NULL\n,   [Customerhalbonuscustomergroup] NVARCHAR(10) NULL\n,   [Customerconcern] VARCHAR(20) NULL\n,   [Customercustgroup] NVARCHAR(10) NULL\n,   [CustomerCustgroup_desc] VARCHAR(50) NULL\n,   [Customerdimension] NVARCHAR(10) NULL\n,   [Customerdimension2] NVARCHAR(10) NULL\n,   [Customerdimension3] NVARCHAR(10) NULL\n,   [Customerdimension4] NVARCHAR(10) NULL\n,   [Customerdimension5] NVARCHAR(10) NULL\n,   [Customerdimension6] NVARCHAR(10) NULL\n,   [DW_Id_concern] BIGINT NULL\n,   [DW_Id_country_region] BIGINT NULL\n,   [DW_Id_line_of_business] BIGINT NULL\n,   [Countryname] NVARCHAR(60) NULL\n,   [Countrycountry_name] VARCHAR(500) NULL\n,   [Lineofbusinessdescription] NVARCHAR(60) NULL\n,   [Lineofbusinesslineofbusiness_description] VARCHAR(500) NULL\n,   [Concerndescription] NVARCHAR(280) NULL\n,   [Concernconcern_name] VARCHAR(500) NULL\n,   [DW_Id_Distribution_Company] BIGINT NULL\n,   [DW_Id_CustSupp] BIGINT NULL\n,   [CustSupp_Description] NVARCHAR(60) NULL\n,   [DW_Id_CostCenter] BIGINT NULL\n,   [CostCenter_Description] NVARCHAR(60) NULL\n,   [Customercostcentercostcenterdescription] NVARCHAR(200) NULL\n,   [CustomerPillar] NVARCHAR(10) NULL\n,   [DW_Batch] BIGINT NULL\n,   [DW_SourceCode] VARCHAR(15) NOT NULL\n,   [DW_TimeStamp] [datetime] NOT NULL\n,   [t_applicationId] VARCHAR    (32)  NULL\n,   [t_jobId]         VARCHAR    (36)  NULL\n,   [t_jobDtm]        DATETIME\n,   [t_jobBy]         NVARCHAR  (128)  NULL\n,   [t_extractionDtm] DATETIME\n,   [t_filePath]      NVARCHAR (1024)  NULL\n,   CONSTRAINT [PK_DIM_CUSTOMER_Archive] PRIMARY KEY NONCLUSTERED ([DW_Id] ASC) NOT ENFORCED\n)\nWITH\n(\n\tDISTRIBUTION = HASH ([Customerno]),\n\tCLUSTERED COLUMNSTORE INDEX\n);",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "sqlserverless",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
