@@ -1,0 +1,17 @@
+{
+	"name": "DDL_FACT_INVENTSUM_Archive",
+	"properties": {
+		"content": {
+			"query": "CREATE TABLE [base_tx_halfen_2_dwh].[FACT_INVENTSUM_Archive]\n(\n\t[DW_Id]              \t\t\t BIGINT NOT NULL,\n\t[DATAAREAID]\t\t \t\t\t NVARCHAR(4) NULL,\n\t[ITEMID]\t\t\t \t\t\t NVARCHAR(20) NULL,\n\t[INVENTDIMID]        \t\t\t NVARCHAR(20) NULL,\n\t[POSTEDQTY]          \t\t\t DECIMAL(38, 12) NULL,\n\t[POSTEDVALUE]        \t\t\t DECIMAL(38, 12) NULL,\n\t[PHYSICALINVENT]     \t\t\t DECIMAL(38, 12) NULL,\n\t[RECEIVED]           \t\t\t DECIMAL(38, 12) NULL,\n\t[DEDUCTED]\t\t\t \t\t\t DECIMAL(38, 12) NULL,\n\t[AVAILPHYSICAL]\t\t \t\t\t DECIMAL(38, 12) NULL,\n\t[Physical_Invent_Calculated]\t DECIMAL(38, 12) NULL,\n\t[REGISTERED]         \t\t\t DECIMAL(38, 12) NULL,\n\t[PICKED]             \t\t\t DECIMAL(38, 12) NULL,\n\t[EndOfLastMonth]     \t\t\t DATETIME NULL,\n\t[YearOfEndLastMonth] \t\t\t NVARCHAR(4) NULL,\n\t[CRH_EUR_Rate]       \t\t\t REAL NULL,\n\t[AX_EUR_Rate]        \t\t\t DECIMAL(38, 12) NULL,\n\t[COSTAMOUNT]         \t\t\t REAL NULL,\n\t[COSTAMOUNT_AX_EUR]  \t\t\t REAL NULL,\n\t[COSTAMOUNT_CRH_EUR] \t\t\t REAL NULL,\n\t[INVENTSITEID]       \t\t\t NVARCHAR(10) NULL,\n\t[INVENTLOCATIONID]   \t\t\t NVARCHAR(10) NULL,\n\t[INVENTCONFIG]       \t\t\t NVARCHAR(24) NULL,\n\t[ReqItemTable_DW_Id] \t\t\t BIGINT NULL,\n\t[InventConfig_DW_Id] \t\t\t BIGINT NULL,\n\t[DW_Id_Itemid]       \t\t\t BIGINT NULL,\n\t[DW_Batch]           \t\t\t BIGINT NULL,\n\t[DW_SourceCode]      \t\t\t VARCHAR(15) NOT NULL,\n\t[DW_TimeStamp]       \t\t\t DATETIME NOT NULL,\n    [t_applicationId]    \t\t\t VARCHAR    (32)  NULL,\n    [t_jobId]            \t\t\t VARCHAR    (36)  NULL,\n    [t_jobDtm]           \t\t\t DATETIME,\n    [t_jobBy]            \t\t\t NVARCHAR  (128)  NULL,\n    [t_extractionDtm]    \t\t\t DATETIME,\n    [t_filePath]         \t\t\t NVARCHAR (1024)  NULL,\n    CONSTRAINT [PK_FACT_INVENTSUM_Archive] PRIMARY KEY NONCLUSTERED (\n        [DW_Id] ASC\n    ) NOT ENFORCED\n)\nWITH\n(\n\tDISTRIBUTION = HASH ([INVENTDIMID]),\n\tCLUSTERED COLUMNSTORE INDEX\n);\n",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "sqlserverless",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
