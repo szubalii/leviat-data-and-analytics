@@ -116,7 +116,7 @@ SELECT
         ELSE null
     END AS [COGSActCostAmount],
     CASE 
-        WHEN ZED.CONTIGENCY5 = 'COGS' AND GLALIRD.[BillingDocumentTypeID] <> ''
+        WHEN ZED.CONTIGENCY5 = 'COGS' AND GLALIRD.[AccountingDocumentTypeID] <> 'ML'
         THEN -1 * GLALIRD.[AmountInCompanyCodeCurrency] * ExchangeRate.ExchangeRate
         ELSE null
     END AS [COGSStdCostAmount],
@@ -126,9 +126,9 @@ SELECT
         ELSE null
     END AS [OtherCoSAmount],
     CASE
-        WHEN ZED.CONTIGENCY5 = 'COGS' AND GLALIRD.[BillingDocumentTypeID] = '' 
+        WHEN ZED.CONTIGENCY5 = 'COGS' AND GLALIRD.[AccountingDocumentTypeID] = 'ML' 
         THEN 'COGSAct'
-        WHEN ZED.CONTIGENCY5 = 'COGS' AND GLALIRD.[BillingDocumentTypeID] <> '' 
+        WHEN ZED.CONTIGENCY5 = 'COGS' AND GLALIRD.[AccountingDocumentTypeID] <> 'ML' 
         THEN 'COGSStd'
         ELSE ZED.CONTIGENCY5
     END AS [AmountCategory],
