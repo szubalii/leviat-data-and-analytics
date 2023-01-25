@@ -1,0 +1,17 @@
+{
+	"name": "intm_axbi_vw_FACT_HGDAWA",
+	"properties": {
+		"content": {
+			"query": "CREATE VIEW intm_axbi.vw_FACT_HGDAWA AS\nSELECT * FROM [base_dw_halfen_2_dwh].[FACT_HGDAWA]\nUNION\nSELECT * FROM [base_dw_halfen_2_dwh].[FACT_HGDAWA_Archive]",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "syndw_xxxx_sls_d_euw_001",
+				"poolName": "syndw_xxxx_sls_d_euw_001"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
