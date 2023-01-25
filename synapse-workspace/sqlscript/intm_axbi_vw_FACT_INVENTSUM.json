@@ -1,0 +1,17 @@
+{
+	"name": "intm_axbi_vw_FACT_INVENTSUM",
+	"properties": {
+		"content": {
+			"query": "CREATE VIEW intm_axbi.vw_FACT_INVENTSUM AS\nSELECT * FROM [base_tx_halfen_2_dwh].[FACT_INVENTSUM]\nUNION\nSELECT * FROM [base_tx_halfen_2_dwh].[FACT_INVENTSUM_Archive]",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "sqlserverless",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
