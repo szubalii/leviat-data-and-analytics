@@ -1,0 +1,17 @@
+{
+	"name": "intm_axbi_vw_DIM_CUSTOMER",
+	"properties": {
+		"content": {
+			"query": "CREATE VIEW intm_axbi.vw_DIM_CUSTOMER AS\nSELECT * FROM [base_dw_halfen_2_dwh].[DIM_CUSTOMER]\nUNION\nSELECT * FROM [base_dw_halfen_2_dwh].[DIM_CUSTOMER_Archive]",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "sqlserverless",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
