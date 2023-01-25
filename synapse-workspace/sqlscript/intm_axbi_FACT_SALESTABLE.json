@@ -1,0 +1,17 @@
+{
+	"name": "intm_axbi_FACT_SALESTABLE",
+	"properties": {
+		"content": {
+			"query": "SELECT * INTO intm_axbi.FACT_SALESTABLE\nFROM [base_tx_halfen_2_dwh].[FACT_SALESTABLE]\nUNION\nSELECT * FROM  [base_tx_halfen_2_dwh].[FACT_SALESTABLE_Archive]",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "sqlserverless",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
