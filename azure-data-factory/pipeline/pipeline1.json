@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Update EDW Table Statistics",
+				"name": "up_CollectSales_CA",
 				"type": "ExecutePipeline",
 				"dependsOn": [],
 				"userProperties": [],
