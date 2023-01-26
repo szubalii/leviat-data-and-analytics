@@ -1,9 +1,9 @@
 {
-	"name": "pipeline1",
+	"name": "pl_SYNDW_INTM_process",
 	"properties": {
 		"activities": [
 			{
-				"name": "up_CollectSales_CA",
+				"name": "Process Synapse Intm",
 				"type": "ExecutePipeline",
 				"dependsOn": [],
 				"userProperties": [],
@@ -17,7 +17,7 @@
 			}
 		],
 		"folder": {
-			"name": "00 ELT/05 Synapse Transformation/04 Intm_axbi"
+			"name": "00 ELT/05 Synapse Transformation/04 INTM"
 		},
 		"annotations": []
 	}
