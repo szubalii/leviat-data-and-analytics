@@ -19,11 +19,11 @@
 					"storedProcedureParameters": {
 						"P_Year": {
 							"value": "",
-							"type": "Int16"
+							"type": "String"
 						},
 						"P_Month": {
 							"value": "",
-							"type": "Int16"
+							"type": "String"
 						},
 						"P_DelNotInv": {
 							"value": "",
