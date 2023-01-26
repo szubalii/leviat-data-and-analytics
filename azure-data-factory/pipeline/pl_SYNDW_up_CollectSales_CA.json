@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Exec sproc to update stats",
+				"name": "Exec sproc to collect sales",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [],
 				"policy": {
@@ -15,20 +15,18 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"storedProcedureName": "[utilities].[sp_update_statistics]",
+					"storedProcedureName": "[intm_axbi].[up_CollectSales_CA] ",
 					"storedProcedureParameters": {
-						"schema": {
-							"value": {
-								"value": "@pipeline().parameters.schema",
-								"type": "Expression"
-							},
-							"type": "String"
+						"@P_Year": {
+							"value": "",
+							"type": "Int16"
 						},
-						"table": {
-							"value": {
-								"value": "@pipeline().parameters.table",
-								"type": "Expression"
-							},
+						"@P_Month": {
+							"value": "",
+							"type": "Int16"
+						},
+						"@P_DelNotInv": {
+							"value": "",
 							"type": "String"
 						}
 					}
