@@ -16,6 +16,20 @@
 				}
 			}
 		],
+		"parameters": {
+			"P_Year": {
+				"type": "string",
+				"defaultValue": "2019"
+			},
+			"P_Month": {
+				"type": "string",
+				"defaultValue": "01"
+			},
+			"P_DelNotInv": {
+				"type": "string",
+				"defaultValue": "N"
+			}
+		},
 		"folder": {
 			"name": "00 ELT/05 Synapse Transformation/04 INTM"
 		},
