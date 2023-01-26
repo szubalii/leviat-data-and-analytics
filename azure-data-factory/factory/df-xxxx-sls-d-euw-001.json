@@ -41,6 +41,10 @@
 			"s4hSystemId": {
 				"type": "string",
 				"value": "CAA"
+			},
+			"s4hClientId": {
+				"type": "string",
+				"value": "200"
 			}
 		}
 	},
