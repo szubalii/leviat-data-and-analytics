@@ -90,7 +90,7 @@ SELECT
     ,   FINV.[t_applicationId]
     ,   FINV.[t_extractionDtm]
 FROM
-    [base_tx_halfen_2_dwh].[FACT_INVENTTRANS] FINV
+    intm_axbi.vw_FACT_INVENTTRANS FINV
 LEFT JOIN
     [edw].[dim_SAPItemNumberBasicMappingTable] SINMT 
     ON
@@ -104,7 +104,7 @@ LEFT JOIN
     ON
         dmINV.[INVENTDIMID] = FINV.[INVENTDIMID]
 LEFT JOIN
-    [base_tx_halfen_2_dwh].[FACT_SALESLINE] SL
+    intm_axbi.vw_FACT_SALESLINE SL
     ON
         FINV.[INVENTTRANSID] = SL.[INVENTTRANSID]
 LEFT JOIN
@@ -122,11 +122,11 @@ LEFT JOIN
     ON
         FINV.[DATAAREAID] = AX_Cmpny.[DATAAREAID]
 LEFT JOIN
-    [base_tx_halfen_2_dwh].[FACT_PURCHLINE] FPURL
+    intm_axbi.vw_FACT_PURCHLINE FPURL
     ON
         FINV.[INVENTTRANSID] = FPURL.[INVENTTRANSID]
 LEFT JOIN
-    [base_tx_halfen_2_dwh].[FACT_PRODJOURNALPROD] FPJRNL
+    intm_axbi.vw_FACT_PRODJOURNALPROD FPJRNL
     ON
         FINV.[INVENTTRANSID] = FPJRNL.[INVENTTRANSID]
         AND
@@ -208,7 +208,7 @@ SELECT
 FROM
     INVTRANS INVT
 LEFT JOIN
-    [base_tx_halfen_2_dwh].[FACT_PURCHLINE] FP
+    intm_axbi.vw_FACT_PURCHLINE FP
         ON
         INVT.[INVENTTRANSID] = FP.[INVENTTRANSID]
 LEFT JOIN 

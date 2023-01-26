@@ -34,7 +34,7 @@ SalesDocumentItem_Filtered_Out_Organization AS
     ,   FSL_DOC.[SALESID]
     ,   FSL_DOC.[ITEMID]
     ,   CT.[INOUT]                                                       AS [InOutID]     
-    FROM [base_tx_halfen_2_dwh].[FACT_SALESLINE] FSL_DOC
+    FROM intm_axbi.vw_FACT_SALESLINE FSL_DOC
     LEFT JOIN
         [map_AXBI].[SalesOrganization] AS SO
         ON
@@ -260,7 +260,7 @@ SalesDocumentItem_axbi_mapping AS (
             se.source_SalesPersonID = SDIOrg.[SalesTaker]
 
     LEFT JOIN 
-        [base_tx_halfen_2_dwh].[FACT_SALESTABLE] fst
+        intm_axbi.vw_FACT_SALESTABLE fst
         ON
             SDIOrg.[SALESID] = fst.[SALESID]
 
@@ -315,7 +315,7 @@ SalesDocumentItem_axbi_mapping AS (
             -- AND 
             -- ibp.[MANDT] = 200 MPS 2021/11/01: commented out due to different client values between dev,qas, and prod
     LEFT JOIN 
-        [base_dw_halfen_2_dwh].DIM_CUSTOMER DIM_CUST
+        intm_axbi.vw_DIM_CUSTOMER DIM_CUST
         ON 
             DIM_CUST.[Customerno] = SDIOrg.[CUSTACCOUNT]
             AND
