@@ -17,15 +17,15 @@
 				"typeProperties": {
 					"storedProcedureName": "[intm_axbi].[up_CollectSales_CA] ",
 					"storedProcedureParameters": {
-						"@P_Year": {
+						"P_Year": {
 							"value": "",
 							"type": "Int16"
 						},
-						"@P_Month": {
+						"P_Month": {
 							"value": "",
 							"type": "Int16"
 						},
-						"@P_DelNotInv": {
+						"P_DelNotInv": {
 							"value": "",
 							"type": "String"
 						}
@@ -44,10 +44,13 @@
 			}
 		],
 		"parameters": {
-			"schema": {
-				"type": "string"
+			"P_Year": {
+				"type": "int"
 			},
-			"table": {
+			"P_Month": {
+				"type": "int"
+			},
+			"P_DelNotInv": {
 				"type": "string"
 			}
 		},
