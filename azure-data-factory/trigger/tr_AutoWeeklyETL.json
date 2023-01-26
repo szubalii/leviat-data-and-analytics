@@ -1,13 +1,12 @@
 {
-	"name": "tr_AutoDailyETL",
+	"name": "tr_AutoWeeklyETL",
 	"properties": {
-		"description": "Start daily data load and PBI dataset refresh",
 		"annotations": [],
 		"runtimeState": "Started",
 		"pipelines": [
 			{
 				"pipelineReference": {
-					"referenceName": "pl_main_daily_automatic",
+					"referenceName": "pl_main_automatic_qas",
 					"type": "PipelineReference"
 				}
 			}
@@ -17,7 +16,7 @@
 			"recurrence": {
 				"frequency": "Week",
 				"interval": 1,
-				"startTime": "2021-12-29T06:00:00Z",
+				"startTime": "2023-01-26T16:22:00Z",
 				"timeZone": "UTC",
 				"schedule": {
 					"minutes": [
@@ -27,11 +26,7 @@
 						21
 					],
 					"weekDays": [
-						"Monday",
-						"Tuesday",
-						"Wednesday",
-						"Thursday",
-						"Friday"
+						"Thursday"
 					]
 				}
 			}

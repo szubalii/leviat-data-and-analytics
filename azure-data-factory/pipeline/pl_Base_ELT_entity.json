@@ -814,7 +814,7 @@
 				"typeProperties": {
 					"variableName": "adlsContainerName",
 					"value": {
-						"value": "@if(\n    equals(\n        pipeline().parameters.layer_nk,\n        'S4H'\n    ),\n    concat(\n        pipeline().parameters.adls_container_name,\n        '-',\n        toLower(pipeline().parameters.s4h_system_id),\n        '-',\n        string(pipeline().parameters.s4h_client_id)\n    ),\n    pipeline().parameters.adls_container_name\n)",
+						"value": "@if(\n    equals(\n        pipeline().parameters.layer_nk,\n        'S4H'\n    ),\n    concat(\n        pipeline().parameters.adls_container_name,\n        '-',\n        toLower(pipeline().globalParameters.s4hSystemId),\n        '-',\n        string(pipeline().globalParameters.s4hClientId)\n    ),\n    pipeline().parameters.adls_container_name\n)",
 						"type": "Expression"
 					}
 				}
