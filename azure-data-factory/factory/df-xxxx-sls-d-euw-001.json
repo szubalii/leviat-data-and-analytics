@@ -37,6 +37,10 @@
 			"sqlDb": {
 				"type": "string",
 				"value": "sqldb-xxxx-sls-d-euw-001"
+			},
+			"s4hSystemId": {
+				"type": "string",
+				"value": "CAA"
 			}
 		}
 	},
