@@ -15,7 +15,7 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"storedProcedureName": "[intm_axbi].[up_CollectSales_CA] ",
+					"storedProcedureName": "intm_axbi.up_CollectSales_CA",
 					"storedProcedureParameters": {
 						"P_Year": {
 							"value": "",
