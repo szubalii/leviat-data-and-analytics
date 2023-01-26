@@ -1,0 +1,178 @@
+{
+	"name": "pl_child_daily_etl_process_copy1",
+	"properties": {
+		"description": "Starts or Stops Azure VM",
+		"activities": [
+			{
+				"name": "Process Synapse EDW",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Process ADLS and Synapse Ingestion",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pl_SYNDW_EDW_process_main",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"adhoc": {
+							"value": "@pipeline().parameters.adhoc",
+							"type": "Expression"
+						},
+						"parent_run_id": {
+							"value": "@pipeline().RunId",
+							"type": "Expression"
+						},
+						"date": {
+							"value": "@pipeline().parameters.date",
+							"type": "Expression"
+						},
+						"entity_filter": {
+							"value": "@pipeline().parameters.entity_filter",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "Resume Synapse DWH",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pl_SYNDW_checkStatus",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "Process ADLS and Synapse Ingestion",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Resume Synapse DWH",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pl_Base_ELT_main",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"adhoc": {
+							"value": "@pipeline().parameters.adhoc",
+							"type": "Expression"
+						},
+						"entity_filter": {
+							"value": "@pipeline().parameters.entity_filter",
+							"type": "Expression"
+						},
+						"parent_run_id": {
+							"value": "@pipeline().RunId",
+							"type": "Expression"
+						},
+						"date": {
+							"value": "@pipeline().parameters.date",
+							"type": "Expression"
+						},
+						"rerun_successful_full_entities": {
+							"value": "@pipeline().parameters.rerun_successful_full_entities",
+							"type": "Expression"
+						},
+						"s4h_system_id": {
+							"value": "@pipeline().parameters.s4h_system_id",
+							"type": "Expression"
+						},
+						"s4h_client_id": {
+							"value": "@pipeline().parameters.s4h_client_id",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "Deallocate VM if PROD",
+				"type": "IfCondition",
+				"dependsOn": [
+					{
+						"activity": "Process ADLS and Synapse Ingestion",
+						"dependencyConditions": [
+							"Succeeded",
+							"Failed"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@if(\n    equals(\n        pipeline().globalParameters.environment,\n        'prod'\n    ),\n    true,\n    false\n)",
+						"type": "Expression"
+					},
+					"ifTrueActivities": [
+						{
+							"name": "pl_VM_deallocate",
+							"type": "ExecutePipeline",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"pipeline": {
+									"referenceName": "pl_VM_deallocate",
+									"type": "PipelineReference"
+								},
+								"waitOnCompletion": true
+							}
+						}
+					]
+				}
+			}
+		],
+		"parameters": {
+			"adhoc": {
+				"type": "int",
+				"defaultValue": 0
+			},
+			"date": {
+				"type": "string",
+				"defaultValue": "2022/04/13"
+			},
+			"rerun_successful_full_entities": {
+				"type": "int",
+				"defaultValue": 0
+			},
+			"s4h_system_id": {
+				"type": "string",
+				"defaultValue": "CAA"
+			},
+			"s4h_client_id": {
+				"type": "int",
+				"defaultValue": 200
+			},
+			"entity_filter": {
+				"type": "string",
+				"defaultValue": "'a' = 'a'"
+			}
+		},
+		"folder": {
+			"name": "10 Manage"
+		},
+		"annotations": [
+			"Synapse Analytics"
+		],
+		"lastPublishTime": "2021-10-25T15:25:03Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}
