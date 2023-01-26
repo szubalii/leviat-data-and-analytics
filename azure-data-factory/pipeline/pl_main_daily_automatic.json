@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "act_if_environment_prod",
+				"name": "If environment is prod",
 				"type": "IfCondition",
 				"dependsOn": [],
 				"userProperties": [],
@@ -57,21 +57,7 @@
 									"referenceName": "pl_SYNDW_resume",
 									"type": "PipelineReference"
 								},
-								"waitOnCompletion": true,
-								"parameters": {
-									"ResourceGroupName": {
-										"value": "@pipeline().globalParameters.resourceGroupName",
-										"type": "Expression"
-									},
-									"SynapseServerName": {
-										"value": "@pipeline().globalParameters.synapseServerName",
-										"type": "Expression"
-									},
-									"SynapseDatabaseName": {
-										"value": "@pipeline().globalParameters.synapseDatabaseName",
-										"type": "Expression"
-									}
-								}
+								"waitOnCompletion": true
 							}
 						},
 						{
