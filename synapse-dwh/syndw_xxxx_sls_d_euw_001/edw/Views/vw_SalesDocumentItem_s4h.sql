@@ -22,6 +22,66 @@ FROM base_s4h_cax.I_SalesDocumentScheduleLine AS SL
 GROUP BY SL.SalesDocument, SL.SalesDocumentItem
 ),
 
+statuses AS (
+     SELECT 'Closed'     AS Status
+     ,   0               AS OrderType
+     ,   'C'             AS DeliveryStatus
+     ,   'F'             AS InvoiceStatus
+     UNION ALL SELECT 'Delivered not Invoiced',   0,        'C',       'N'
+     UNION ALL SELECT 'Delivered not Invoiced',   0,        'C',       'P'
+     UNION ALL SELECT 'ZZ_To_Be_Investigated',    0,        'A',       'F'
+     UNION ALL SELECT 'Open',                     0,        'A',       'N'
+     UNION ALL SELECT 'ZZ_To_Be_Investigated',    0,        'A',       'P'
+     UNION ALL SELECT 'ZZ_To_Be_Investigated',    0,        'B',       'F'
+     UNION ALL SELECT 'Delivered not Invoiced',   0,        'B',       'N'
+     UNION ALL SELECT 'Open',                     0,        'B',       'P'
+     UNION ALL SELECT 'Closed',                   1,        'C',       'F'
+     UNION ALL SELECT 'Delivered not Invoiced',   1,        'C',       'N'
+     UNION ALL SELECT 'Delivered not Invoiced',   1,        'C',       'P'
+     UNION ALL SELECT 'ZZ_To_Be_Investigated',    1,        'A',       'F'
+     UNION ALL SELECT 'Open',                     1,        'A',       'N'
+     UNION ALL SELECT 'ZZ_To_Be_Investigated',    1,        'A',       'P'
+     UNION ALL SELECT 'ZZ_To_Be_Investigated',    1,        'B',       'F'
+     UNION ALL SELECT 'Delivered not Invoiced',   1,        'B',       'N'
+     UNION ALL SELECT 'Open',                     1,        'B',       'P'
+     UNION ALL SELECT 'Closed',                   2,        null,      'F'
+     UNION ALL SELECT 'Open',                     2,        null,      'N'
+     UNION ALL SELECT 'Open',                     2,        null,      'P'
+),
+outboundDeliveries AS (
+     SELECT SUM(ActualDeliveredQtyInBaseUnit)          AS ActualDeliveredQuantityInBaseUnit
+          ,[ReferenceSDDocument]
+          ,[ReferenceSDDocumentItem]
+     FROM [edw].[fact_OutboundDeliveryItem]
+     GROUP BY [ReferenceSDDocument]
+               ,[ReferenceSDDocumentItem]
+),
+documentItems AS (
+    SELECT AVG(BillingQuantityInBaseUnit) AS BillingQuantityInBaseUnit
+        ,[ReferenceSDDocument]
+        ,[ReferenceSDDocumentItem]
+    FROM (
+        SELECT SUM(BillingQuantityInBaseUnit)             AS BillingQuantityInBaseUnit
+            ,[ReferenceSDDocument]
+            ,[ReferenceSDDocumentItem]
+            ,[CurrencyTypeID]
+        FROM [edw].[fact_BillingDocumentItem]
+        WHERE CancelledInvoiceEffect = 'N'
+            AND NetAmount IS NOT NULL
+        GROUP BY [ReferenceSDDocument], [ReferenceSDDocumentItem], [CurrencyTypeID]
+    ) a
+    GROUP BY [ReferenceSDDocument], [ReferenceSDDocumentItem]
+),
+salesDocumentScheduleLine AS (
+     SELECT MAX(ScheduleLineCategory)                  AS ScheduleLineCategory
+          ,[SalesDocumentID]
+          ,[SalesDocumentItem]
+     FROM [edw].[dim_SalesDocumentScheduleLine]
+     GROUP BY 
+          [SalesDocumentID]
+          ,[SalesDocumentItem]
+),
+
 C_SalesDocumentItemDEXBase as (
     SELECT
          -- doc.[TS_SEQUENCE_NUMBER]
@@ -201,6 +261,19 @@ C_SalesDocumentItemDEXBase as (
                else 'O'
            end                                  as [InOutID]
          , ORDAM.OpenDeliveryNetAmount
+         , CASE
+            WHEN SDSL.ScheduleLineCategory = 'ZS'
+                THEN 'Drop Shipment'
+            WHEN doc.ShippingCondition = 70      -- all related ShippingCondition is 70
+                THEN 'Collection'
+            WHEN doc.ShippingCondition <> 70      -- all related ShippingCondition isn't 70
+                THEN 'Delivery'
+            ELSE      'Unknown'
+        END                                               AS [OrderType]
+        , ios_status.Status                               AS [ItemOrderStatus]
+        , os_status.Status                                AS [OrderStatus]
+        , OD.[ActualDeliveredQuantityInBaseUnit]
+        , DI.[BillingQuantityInBaseUnit]
          , doc.[t_applicationId]
          , doc.[t_jobId]
          , doc.[t_jobDtm]
@@ -272,6 +345,67 @@ C_SalesDocumentItemDEXBase as (
             ORDAM.SalesDocument = doc.SalesDocument 
             AND 
             ORDAM.SalesDocumentItem = doc.SalesDocumentItem
+
+    LEFT JOIN outboundDeliveries OD
+            ON doc.[SalesDocument] = OD.[ReferenceSDDocument]
+                    AND doc.[SalesDocumentItem] = OD.[ReferenceSDDocumentItem]
+
+    LEFT JOIN documentItems DI
+            ON doc.[SalesDocument] = DI.[ReferenceSDDocument]
+                    AND doc.[SalesDocumentItem] = DI.[ReferenceSDDocumentItem]
+
+    LEFT JOIN salesDocumentScheduleLine SDSL
+            ON doc.[SalesDocument] = SDSL.[SalesDocumentID]
+                    AND doc.[SalesDocumentItem] = SDSL.[SalesDocumentItem]
+                         
+    LEFT JOIN statuses  ios_status
+            ON 
+                CASE
+                    WHEN SDSL.ScheduleLineCategory = 'ZS'
+                        THEN 2
+                    WHEN doc.ShippingCondition = 70
+                        THEN 1
+                    WHEN doc.ShippingCondition <> 70
+                        THEN 0
+                END = ios_status.OrderType
+            AND doc.[ItemDeliveryIncompletionStatus] = COALESCE (ios_status.DeliveryStatus, doc.[ItemDeliveryIncompletionStatus])
+            AND CASE 
+                    WHEN doc.[ItemDeliveryIncompletionStatus] = 'C'
+                        AND OD.ActualDeliveredQuantityInBaseUnit = DI.BillingQuantityInBaseUnit
+                        THEN 'F'
+                    WHEN doc.[ItemDeliveryIncompletionStatus] <> 'C'
+                        AND DI.BillingQuantityInBaseUnit <> 0
+                        THEN 'P'
+                    WHEN doc.[ItemDeliveryIncompletionStatus] <> 'C'
+                        AND COALESCE(DI.BillingQuantityInBaseUnit,0) = 0 
+                        THEN 'N'
+                END = ios_status.InvoiceStatus
+            AND doc.[SDDocumentCategory] <> 'B'
+            AND doc.[SDDocumentRejectionStatus] <> 'C'
+    LEFT JOIN statuses  os_status
+            ON 
+                    CASE
+                        WHEN SDSL.ScheduleLineCategory = 'ZS'
+                            THEN 2
+                        WHEN doc.ShippingCondition = 70
+                            THEN 1
+                        WHEN doc.ShippingCondition <> 70
+                            THEN 0
+                    END = os_status.OrderType
+            AND doc.[OverallTotalDeliveryStatus] = COALESCE (os_status.DeliveryStatus, doc.[OverallTotalDeliveryStatus])
+            AND CASE 
+                        WHEN doc.[OverallTotalDeliveryStatus] = 'C'
+                            AND OD.ActualDeliveredQuantityInBaseUnit = DI.BillingQuantityInBaseUnit
+                            THEN 'F'
+                        WHEN doc.[OverallTotalDeliveryStatus] <> 'C'
+                            AND DI.BillingQuantityInBaseUnit <> 0
+                            THEN 'P'
+                        WHEN doc.[OverallTotalDeliveryStatus] <> 'C'
+                            AND COALESCE(DI.BillingQuantityInBaseUnit,0) = 0 
+                            THEN 'N'
+                    END = os_status.InvoiceStatus
+            AND doc.[SDDocumentCategory] <> 'B'
+            AND doc.[SDDocumentRejectionStatus] <> 'C'
 ),
 
 
@@ -482,6 +616,11 @@ SalesDocument_30 AS (
       ,[CorrespncExternalReference] 
       ,[InOutID]
       ,CONVERT(decimal(19,6), [OpenDeliveryNetAmount] * ExchangeRateEuro.[ExchangeRate]) as [OpenDeliveryNetAmount]
+      ,[OrderType]
+      ,[ItemOrderStatus]
+      ,[OrderStatus]
+      ,[ActualDeliveredQuantityInBaseUnit]
+      ,[BillingQuantityInBaseUnit]
       ,SDI.[t_applicationId]
       ,SDI.[t_jobId]
       ,SDI.[t_jobDtm]
@@ -710,6 +849,11 @@ SELECT
       ,[CorrespncExternalReference] 
       ,[InOutID]
       ,OpenDeliveryNetAmount
+      ,[OrderType]
+      ,[ItemOrderStatus]
+      ,[OrderStatus]
+      ,[ActualDeliveredQuantityInBaseUnit]
+      ,[BillingQuantityInBaseUnit]
       ,SDI.[t_applicationId]
       ,SDI.[t_jobId]
       ,SDI.[t_jobDtm]
@@ -891,6 +1035,11 @@ SELECT
       ,[CorrespncExternalReference] 
       ,[InOutID]
       ,CONVERT(decimal(19,6), CASE WHEN ER.[ExchangeRate] IS NOT NULL THEN [OpenDeliveryNetAmount] * ER.[ExchangeRate] ELSE [OpenDeliveryNetAmount] END) as [OpenDeliveryNetAmount]
+      ,[OrderType]
+      ,[ItemOrderStatus]
+      ,[OrderStatus]
+      ,[ActualDeliveredQuantityInBaseUnit]
+      ,[BillingQuantityInBaseUnit]
       ,SDI.[t_applicationId]
       ,SDI.[t_jobId]
       ,SDI.[t_jobDtm]
@@ -1095,6 +1244,11 @@ SELECT
       ,[CorrespncExternalReference] 
       ,[InOutID]
       ,OpenDeliveryNetAmount
+      ,[OrderType]
+      ,[ItemOrderStatus]
+      ,[OrderStatus]
+      ,[ActualDeliveredQuantityInBaseUnit]
+      ,[BillingQuantityInBaseUnit]
       ,SD_30.[t_applicationId]
       ,SD_30.[t_jobId]
       ,SD_30.[t_jobDtm]
@@ -1276,6 +1430,11 @@ SELECT
       ,[CorrespncExternalReference] 
       ,[InOutID]
       ,CONVERT(decimal(19,6), [OpenDeliveryNetAmount] * (1/ExchangeRateUSD.[ExchangeRate])) as [OpenDeliveryNetAmount]
+      ,[OrderType]
+      ,[ItemOrderStatus]
+      ,[OrderStatus]
+      ,[ActualDeliveredQuantityInBaseUnit]
+      ,[BillingQuantityInBaseUnit]
       ,SD_30.[t_applicationId]
       ,SD_30.[t_jobId]
       ,SD_30.[t_jobDtm]

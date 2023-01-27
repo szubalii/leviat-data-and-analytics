@@ -1,63 +1,6 @@
 ﻿CREATE VIEW [dm_sales].[vw_fact_SalesOrderItem] 
 AS
 
-WITH statuses AS (
-     SELECT 'Closed'     AS Status
-     ,   0               AS OrderType
-     ,   'C'             AS DeliveryStatus
-     ,   'F'             AS InvoiceStatus
-     UNION ALL SELECT 'Delivered not Invoiced',   0,        'C',       'N'
-     UNION ALL SELECT 'Delivered not Invoiced',   0,        'C',       'P'
-     UNION ALL SELECT 'ZZ_To_Be_Investigated',    0,        'A',       'F'
-     UNION ALL SELECT 'Open',                     0,        'A',       'N'
-     UNION ALL SELECT 'ZZ_To_Be_Investigated',    0,        'A',       'P'
-     UNION ALL SELECT 'ZZ_To_Be_Investigated',    0,        'B',       'F'
-     UNION ALL SELECT 'Delivered not Invoiced',   0,        'B',       'N'
-     UNION ALL SELECT 'Open',                     0,        'B',       'P'
-     UNION ALL SELECT 'Closed',                   1,        'C',       'F'
-     UNION ALL SELECT 'Delivered not Invoiced',   1,        'C',       'N'
-     UNION ALL SELECT 'Delivered not Invoiced',   1,        'C',       'P'
-     UNION ALL SELECT 'ZZ_To_Be_Investigated',    1,        'A',       'F'
-     UNION ALL SELECT 'Open',                     1,        'A',       'N'
-     UNION ALL SELECT 'ZZ_To_Be_Investigated',    1,        'A',       'P'
-     UNION ALL SELECT 'ZZ_To_Be_Investigated',    1,        'B',       'F'
-     UNION ALL SELECT 'Delivered not Invoiced',   1,        'B',       'N'
-     UNION ALL SELECT 'Open',                     1,        'B',       'P'
-     UNION ALL SELECT 'Closed',                   2,        null,      'F'
-     UNION ALL SELECT 'Open',                     2,        null,      'N'
-     UNION ALL SELECT 'Open',                     2,        null,      'P'
-),
-outboundDeliveries AS (
-     SELECT SUM(ActualDeliveredQtyInBaseUnit)          AS ActualDeliveredQuantityInBaseUnit
-          ,[ReferenceSDDocument]
-          ,[ReferenceSDDocumentItem]
-     FROM [edw].[fact_OutboundDeliveryItem]
-     GROUP BY [ReferenceSDDocument]
-               ,[ReferenceSDDocumentItem]
-),
-documentItems AS (
-     SELECT SUM(BillingQuantityInBaseUnit)             AS BillingQuantityInBaseUnit
-          ,[ReferenceSDDocument]
-          ,[ReferenceSDDocumentItem]
-          ,[CurrencyTypeID]
-         /* , AVG (
-               CASE ShippingCondition 
-                    WHEN 70 THEN 1
-                    ELSE 0
-               END
-          )                                            AS ShippingCondition*/
-     FROM [edw].[fact_BillingDocumentItem]
-     GROUP BY [ReferenceSDDocument], [ReferenceSDDocumentItem], [CurrencyTypeID]
-),
-salesDocumentScheduleLine AS (
-     SELECT MAX(ScheduleLineCategory)                  AS ScheduleLineCategory
-          ,[SalesDocumentID]
-          ,[SalesDocumentItem]
-     FROM [edw].[dim_SalesDocumentScheduleLine]
-     GROUP BY 
-          [SalesDocumentID]
-          ,[SalesDocumentItem]
-)
 select doc.[SalesDocument]                       as [SalesOrderID]
      , doc.[SalesDocumentItem]                   as [SalesOrderItemID]
      , doc.[CurrencyTypeID]
@@ -173,19 +116,9 @@ select doc.[SalesDocument]                       as [SalesOrderID]
      , doc.[Subtotal5Amount]
      , doc.[Subtotal6Amount]
      , doc.[InOutID]
-     , CASE
-          WHEN SDSL.ScheduleLineCategory = 'ZS'
-               THEN 'Drop Shipment'
-          WHEN doc.ShippingConditionID = 70      -- all related ShippingCondition is 70
-               THEN 'Collection'
-          WHEN doc.ShippingConditionID <> 70      -- all related ShippingCondition isn't 70
-               THEN 'Delivery'
-          ELSE      'Unknown'
-     END                                               AS [OrderType]
-     , ios_status.Status                               AS [ItemOrderStatus]
-     , os_status.Status                                AS [OrderStatus]
-     , OD.[ActualDeliveredQuantityInBaseUnit]
-     , DI.[BillingQuantityInBaseUnit]
+     , doc.[OrderType]
+     , doc.[ItemOrderStatus]
+     , doc.[OrderStatus]
      , doc.[t_applicationId]
      , doc.[t_extractionDtm]
 from [edw].[fact_SalesDocumentItem] doc
@@ -266,116 +199,5 @@ from [edw].[fact_SalesDocumentItem] doc
          left join [edw].[dim_OverallTotalDeliveryStatus] dimOTDS
                    on dimOTDS.[OverallTotalDeliveryStatusID] = doc.[OverallTotalDeliveryStatusID]
 
-          LEFT JOIN outboundDeliveries OD
-                    ON doc.[SalesDocument] = OD.[ReferenceSDDocument]
-                         AND doc.[SalesDocumentItem] = OD.[ReferenceSDDocumentItem]
-
-          LEFT JOIN documentItems DI
-                    ON doc.[SalesDocument] = DI.[ReferenceSDDocument]
-                         AND doc.[SalesDocumentItem] = DI.[ReferenceSDDocumentItem]
-                         AND doc.[CurrencyTypeID] = DI.[CurrencyTypeID]
-
-          LEFT JOIN salesDocumentScheduleLine SDSL
-                    ON doc.[SalesDocument] = SDSL.[SalesDocumentID]
-                         AND doc.[SalesDocumentItem] = SDSL.[SalesDocumentItem]
-                         
-          LEFT JOIN statuses  ios_status
-                   /* ON CASE 
-                         WHEN SDSL.ScheduleLineCategory = 'ZS'
-                              AND dimIDIS.[ItemDeliveryIncompletionStatus] = 'Complete'
-                              AND OD.ActualDeliveredQuantityInBaseUnit = DI.BillingQuantityInBaseUnit
-                              THEN ios_status.OrderType = 'Drop Shipment' AND ios_status.InvoiceStatus = 'F'
-                         WHEN SDSL.ScheduleLineCategory = 'ZS'
-                              AND dimIDIS.[ItemDeliveryIncompletionStatus] = 'Incomplete'
-                              AND DI.BillingQuantityInBaseUnit <> 0
-                              THEN ios_status.OrderType = 'Drop Shipment' AND ios_status.InvoiceStatus = 'P'
-                         WHEN SDSL.ScheduleLineCategory = 'ZS'
-                              AND dimIDIS.[ItemDeliveryIncompletionStatus] = 'Incomplete'
-                              AND DI.BillingQuantityInBaseUnit = 0 
-                              THEN ios_status.OrderType = 'Drop Shipment' AND ios_status.InvoiceStatus = 'N'
-                         ELSE doc.ShippingCondition = ios_status.OrderType
-                              AND dimIDIS.[ItemDeliveryIncompletionStatusID] = ios_status.DeliveryStatus
-                              AND CASE 
-                                   WHEN dimIDIS.[ItemDeliveryIncompletionStatus] = 'Complete'
-                                        AND OD.ActualDeliveredQuantityInBaseUnit = DI.BillingQuantityInBaseUnit
-                                        THEN 'F'
-                                   WHEN dimIDIS.[ItemDeliveryIncompletionStatus] = 'Incomplete'
-                                        AND DI.BillingQuantityInBaseUnit <> 0
-                                        THEN 'P'
-                                   WHEN dimIDIS.[ItemDeliveryIncompletionStatus] = 'Incomplete'
-                                        AND DI.BillingQuantityInBaseUnit = 0 
-                                        THEN 'N'
-                                   END = ios.status.InvoiceStatus
-                         END*/
-                         ON 
-                              CASE
-                                   WHEN SDSL.ScheduleLineCategory = 'ZS'
-                                        THEN 2
-                                   WHEN doc.ShippingConditionID = 70
-                                        THEN 1
-                                   WHEN doc.ShippingConditionID <> 70
-                                        THEN 0
-                              END = ios_status.OrderType
-                         AND dimIDIS.[ItemDeliveryIncompletionStatusID] = COALESCE (ios_status.DeliveryStatus, dimIDIS.[ItemDeliveryIncompletionStatusID])
-                         AND CASE 
-                                   WHEN dimIDIS.[ItemDeliveryIncompletionStatus] = 'Complete'
-                                        AND OD.ActualDeliveredQuantityInBaseUnit = DI.BillingQuantityInBaseUnit
-                                        THEN 'F'
-                                   WHEN dimIDIS.[ItemDeliveryIncompletionStatus] = 'Incomplete'
-                                        AND DI.BillingQuantityInBaseUnit <> 0
-                                        THEN 'P'
-                                   WHEN dimIDIS.[ItemDeliveryIncompletionStatus] = 'Incomplete'
-                                        AND COALESCE(DI.BillingQuantityInBaseUnit,0) = 0 
-                                        THEN 'N'
-                              END = ios_status.InvoiceStatus
-          LEFT JOIN statuses  os_status
-                    /*ON CASE 
-                         WHEN SDSL.ScheduleLineCategory = 'ZS'
-                              AND dimOTDS.[OverallTotalDeliveryStatus] = 'Complete'
-                              AND OD.ActualDeliveredQuantityInBaseUnit = DI.BillingQuantityInBaseUnit
-                              THEN os_status.OrderType = 'Drop Shipment' AND os_status.InvoiceStatus = 'F'
-                         WHEN SDSL.ScheduleLineCategory = 'ZS'
-                              AND dimOTDS.[OverallTotalDeliveryStatus] <> 'Complete'
-                              AND DI.BillingQuantityInBaseUnit <> 0
-                              THEN os_status.OrderType = 'Drop Shipment' AND os_status.InvoiceStatus = 'P'
-                         WHEN SDSL.ScheduleLineCategory = 'ZS'
-                              AND dimOTDS.[OverallTotalDeliveryStatus] <> 'Complete'
-                              AND DI.BillingQuantityInBaseUnit = 0 
-                              THEN os_status.OrderType = 'Drop Shipment' AND os_status.InvoiceStatus = 'N'
-                         ELSE doc.ShippingCondition = os_status.OrderType
-                              AND dimOTDS.[OverallTotalDeliveryStatusID] = os_status.DeliveryStatus
-                              AND CASE 
-                                   WHEN dimIDIS.[ItemDeliveryIncompletionStatus] = 'Complete'
-                                        AND OD.ActualDeliveredQuantityInBaseUnit = DI.BillingQuantityInBaseUnit
-                                        THEN 'F'
-                                   WHEN dimIDIS.[ItemDeliveryIncompletionStatus] = 'Incomplete'
-                                        AND DI.BillingQuantityInBaseUnit <> 0
-                                        THEN 'P'
-                                   WHEN dimIDIS.[ItemDeliveryIncompletionStatus] = 'Incomplete'
-                                        AND DI.BillingQuantityInBaseUnit = 0 
-                                        THEN 'N'
-                                   END = ios.status.InvoiceStatus
-                         END*/
-                    ON 
-                         CASE
-                              WHEN SDSL.ScheduleLineCategory = 'ZS'
-                                   THEN 2
-                              WHEN doc.ShippingConditionID = 70
-                                   THEN 1
-                              WHEN doc.ShippingConditionID <> 70
-                                   THEN 0
-                         END = os_status.OrderType
-                    AND dimOTDS.[OverallTotalDeliveryStatusID] = COALESCE (os_status.DeliveryStatus, dimOTDS.[OverallTotalDeliveryStatusID])
-                    AND CASE 
-                              WHEN dimIDIS.[ItemDeliveryIncompletionStatus] = 'Complete'
-                                   AND OD.ActualDeliveredQuantityInBaseUnit = DI.BillingQuantityInBaseUnit
-                                   THEN 'F'
-                              WHEN dimIDIS.[ItemDeliveryIncompletionStatus] = 'Incomplete'
-                                   AND DI.BillingQuantityInBaseUnit <> 0
-                                   THEN 'P'
-                              WHEN dimIDIS.[ItemDeliveryIncompletionStatus] = 'Incomplete'
-                                   AND COALESCE(DI.BillingQuantityInBaseUnit,0) = 0 
-                                   THEN 'N'
-                         END = os_status.InvoiceStatus
 where doc.[SDDocumentCategoryID] <> 'B'
      AND dimSDDRjS.[SDDocumentRejectionStatus] <> 'Fully Rejected'
