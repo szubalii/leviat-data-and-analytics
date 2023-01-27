@@ -18,15 +18,24 @@
 					"storedProcedureName": "intm_axbi.up_CollectSales_CA",
 					"storedProcedureParameters": {
 						"P_Year": {
-							"value": "",
-							"type": "String"
+							"value": {
+								"value": "@pipeline().parameters.P_Year",
+								"type": "Expression"
+							},
+							"type": "Int16"
 						},
 						"P_Month": {
-							"value": "",
-							"type": "String"
+							"value": {
+								"value": "@pipeline().parameters.P_Month",
+								"type": "Expression"
+							},
+							"type": "Int16"
 						},
 						"P_DelNotInv": {
-							"value": "",
+							"value": {
+								"value": "@pipeline().parameters.P_DelNotInv",
+								"type": "Expression"
+							},
 							"type": "String"
 						}
 					}
