@@ -22,14 +22,14 @@
 								"value": "@pipeline().parameters.P_Year",
 								"type": "Expression"
 							},
-							"type": "Int16"
+							"type": "Decimal"
 						},
 						"P_Month": {
 							"value": {
 								"value": "@pipeline().parameters.P_Month",
 								"type": "Expression"
 							},
-							"type": "Int16"
+							"type": "Decimal"
 						},
 						"P_DelNotInv": {
 							"value": {
