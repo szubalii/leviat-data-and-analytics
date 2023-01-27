@@ -18,12 +18,12 @@
 		],
 		"parameters": {
 			"P_Year": {
-				"type": "string",
-				"defaultValue": "2019"
+				"type": "int",
+				"defaultValue": 2019
 			},
 			"P_Month": {
-				"type": "string",
-				"defaultValue": "01"
+				"type": "int",
+				"defaultValue": 1
 			},
 			"P_DelNotInv": {
 				"type": "string",
