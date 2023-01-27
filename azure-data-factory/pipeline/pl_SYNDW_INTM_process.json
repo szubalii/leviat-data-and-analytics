@@ -23,7 +23,7 @@
 			},
 			"P_Month": {
 				"type": "string",
-				"defaultValue": "1"
+				"defaultValue": "01"
 			},
 			"P_DelNotInv": {
 				"type": "string",
