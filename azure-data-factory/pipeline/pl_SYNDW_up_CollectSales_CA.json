@@ -54,16 +54,13 @@
 		],
 		"parameters": {
 			"P_Year": {
-				"type": "int",
-				"defaultValue": 2019
+				"type": "int"
 			},
 			"P_Month": {
-				"type": "int",
-				"defaultValue": 1
+				"type": "int"
 			},
 			"P_DelNotInv": {
-				"type": "string",
-				"defaultValue": "N"
+				"type": "string"
 			}
 		},
 		"folder": {
