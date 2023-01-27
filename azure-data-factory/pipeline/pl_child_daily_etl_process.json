@@ -8,7 +8,7 @@
 				"type": "ExecutePipeline",
 				"dependsOn": [
 					{
-						"activity": "Process ADLS and Synapse Ingestion",
+						"activity": "Process Synapse Intm",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -137,6 +137,26 @@
 							}
 						}
 					]
+				}
+			},
+			{
+				"name": "Process Synapse Intm",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Process ADLS and Synapse Ingestion",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pl_SYNDW_up_CollectSales_CA",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
 				}
 			}
 		],
