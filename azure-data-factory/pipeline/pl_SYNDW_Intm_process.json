@@ -1,9 +1,11 @@
 {
-	"name": "pl_SYNDW_up_CollectSales_CA",
+	"name": "pl_SYNDW_Intm_process",
 	"properties": {
+		"description": "Exec sproc to collect sales",
 		"activities": [
 			{
-				"name": "Exec sproc to collect sales",
+				"name": "Process Intm",
+				"description": "",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [],
 				"policy": {
@@ -54,16 +56,13 @@
 		],
 		"parameters": {
 			"P_Year": {
-				"type": "int",
-				"defaultValue": 2019
+				"type": "int"
 			},
 			"P_Month": {
-				"type": "int",
-				"defaultValue": 1
+				"type": "int"
 			},
 			"P_DelNotInv": {
-				"type": "string",
-				"defaultValue": "N"
+				"type": "string"
 			}
 		},
 		"folder": {
