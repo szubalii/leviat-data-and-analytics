@@ -167,7 +167,7 @@
 			},
 			"date": {
 				"type": "string",
-				"defaultValue": "2022/01/27"
+				"defaultValue": "2023/01/30"
 			},
 			"rerun_successful_full_entities": {
 				"type": "int",
@@ -179,11 +179,11 @@
 			},
 			"s4h_client_id": {
 				"type": "int",
-				"defaultValue": 100
+				"defaultValue": 200
 			},
 			"entity_filter": {
 				"type": "string",
-				"defaultValue": "entity_id = 516"
+				"defaultValue": "'a' = 'a'"
 			}
 		},
 		"folder": {
