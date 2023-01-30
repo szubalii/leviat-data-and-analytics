@@ -21,21 +21,21 @@
 					"storedProcedureParameters": {
 						"P_Year": {
 							"value": {
-								"value": "@formatDateTime(utcnow(), 'yyyy')",
+								"value": "@int(formatDateTime(utcnow(), 'yyyy'))",
 								"type": "Expression"
 							},
 							"type": "Decimal"
 						},
 						"P_Month": {
 							"value": {
-								"value": "@formatDateTime(utcnow(),'MM')",
+								"value": "@int(formatDateTime(utcnow(), 'MM'))",
 								"type": "Expression"
 							},
 							"type": "Decimal"
 						},
 						"P_DelNotInv": {
 							"value": {
-								"value": "if(equals(01,int(formatDateTime(utcNow(),'dd')),'N','Y')\n\n",
+								"value": "@if (equals(1,int(formatDateTime(utcNow(),'dd'))), 'N', 'Y')\n",
 								"type": "Expression"
 							},
 							"type": "String"
