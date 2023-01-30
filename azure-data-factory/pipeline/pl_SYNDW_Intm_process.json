@@ -21,21 +21,21 @@
 					"storedProcedureParameters": {
 						"P_Year": {
 							"value": {
-								"value": "@pipeline().parameters.P_Year",
+								"value": "@formatDateTime(utcnow(), 'yyyy')",
 								"type": "Expression"
 							},
 							"type": "Decimal"
 						},
 						"P_Month": {
 							"value": {
-								"value": "@pipeline().parameters.P_Month",
+								"value": "@formatDateTime(utcnow(),'MM')",
 								"type": "Expression"
 							},
 							"type": "Decimal"
 						},
 						"P_DelNotInv": {
 							"value": {
-								"value": "@pipeline().parameters.P_DelNotInv",
+								"value": "if(equals(01,int(formatDateTime(utcNow(),'dd')),'N','Y')\n\n",
 								"type": "Expression"
 							},
 							"type": "String"
