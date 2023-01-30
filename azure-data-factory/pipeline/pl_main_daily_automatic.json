@@ -147,6 +147,17 @@
 				}
 			}
 		],
+		"parameters": {
+			"P_Year": {
+				"type": "int"
+			},
+			"P_Month": {
+				"type": "int"
+			},
+			"P_DelNotInv": {
+				"type": "string"
+			}
+		},
 		"folder": {
 			"name": "10 Manage"
 		},

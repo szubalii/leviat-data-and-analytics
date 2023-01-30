@@ -1,0 +1,38 @@
+{
+	"name": "pl_SYNDW_INTM_process",
+	"properties": {
+		"activities": [
+			{
+				"name": "Process Synapse Intm",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pl_SYNDW_up_CollectSales_CA",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			}
+		],
+		"parameters": {
+			"P_Year": {
+				"type": "int",
+				"defaultValue": 2019
+			},
+			"P_Month": {
+				"type": "int",
+				"defaultValue": 1
+			},
+			"P_DelNotInv": {
+				"type": "string",
+				"defaultValue": "N"
+			}
+		},
+		"folder": {
+			"name": "00 ELT/05 Synapse Transformation/04 INTM"
+		},
+		"annotations": []
+	}
+}

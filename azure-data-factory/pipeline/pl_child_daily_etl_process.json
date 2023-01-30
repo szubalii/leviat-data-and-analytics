@@ -8,7 +8,7 @@
 				"type": "ExecutePipeline",
 				"dependsOn": [
 					{
-						"activity": "Process ADLS and Synapse Ingestion",
+						"activity": "Process Synapse Intm",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -138,6 +138,26 @@
 						}
 					]
 				}
+			},
+			{
+				"name": "Process Synapse Intm",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Process ADLS and Synapse Ingestion",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pl_SYNDW_up_CollectSales_CA",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
 			}
 		],
 		"parameters": {
@@ -147,7 +167,7 @@
 			},
 			"date": {
 				"type": "string",
-				"defaultValue": "2022/04/13"
+				"defaultValue": "2022/01/27"
 			},
 			"rerun_successful_full_entities": {
 				"type": "int",
@@ -159,11 +179,11 @@
 			},
 			"s4h_client_id": {
 				"type": "int",
-				"defaultValue": 200
+				"defaultValue": 100
 			},
 			"entity_filter": {
 				"type": "string",
-				"defaultValue": "'a' = 'a'"
+				"defaultValue": "entity_id = 516"
 			}
 		},
 		"folder": {

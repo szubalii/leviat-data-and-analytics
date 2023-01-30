@@ -1,0 +1,74 @@
+{
+	"name": "pl_SYNDW_up_CollectSales_CA",
+	"properties": {
+		"activities": [
+			{
+				"name": "Exec sproc to collect sales",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "intm_axbi.up_CollectSales_CA",
+					"storedProcedureParameters": {
+						"P_Year": {
+							"value": {
+								"value": "@pipeline().parameters.P_Year",
+								"type": "Expression"
+							},
+							"type": "Decimal"
+						},
+						"P_Month": {
+							"value": {
+								"value": "@pipeline().parameters.P_Month",
+								"type": "Expression"
+							},
+							"type": "Decimal"
+						},
+						"P_DelNotInv": {
+							"value": {
+								"value": "@pipeline().parameters.P_DelNotInv",
+								"type": "Expression"
+							},
+							"type": "String"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_ws_xxxx_sls_x_euw_001__syndw_xxxx_sls_x_euw_001",
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"sqlPool": {
+							"value": "@pipeline().globalParameters.synapseDatabaseName",
+							"type": "Expression"
+						}
+					}
+				}
+			}
+		],
+		"parameters": {
+			"P_Year": {
+				"type": "int",
+				"defaultValue": 2019
+			},
+			"P_Month": {
+				"type": "int",
+				"defaultValue": 1
+			},
+			"P_DelNotInv": {
+				"type": "string",
+				"defaultValue": "N"
+			}
+		},
+		"folder": {
+			"name": "00 ELT/05 Synapse Transformation/04 INTM"
+		},
+		"annotations": []
+	}
+}
