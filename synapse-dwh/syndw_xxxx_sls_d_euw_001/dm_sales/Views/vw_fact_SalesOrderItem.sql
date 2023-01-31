@@ -1,6 +1,13 @@
 ﻿CREATE VIEW [dm_sales].[vw_fact_SalesOrderItem] 
 AS
 
+WITH
+SalesOffice AS (
+     SELECT MAX(SalesOfficeID)     AS [SalesOfficeID]
+          ,ReferenceSDDocument
+     FROM [edw].[fact_BillingDocumentItem]
+     GROUP BY ReferenceSDDocument
+)
 select doc.[SalesDocument]                       as [SalesOrderID]
      , doc.[SalesDocumentItem]                   as [SalesOrderItemID]
      , doc.[CurrencyTypeID]
@@ -119,6 +126,8 @@ select doc.[SalesDocument]                       as [SalesOrderID]
      , doc.[OrderType]
      , doc.[ItemOrderStatus]
      , doc.[OrderStatus]
+     , SO.[SalesOfficeID]
+     , dimSO.[SalesOffice]
      , doc.[t_applicationId]
      , doc.[t_extractionDtm]
 from [edw].[fact_SalesDocumentItem] doc
@@ -198,6 +207,12 @@ from [edw].[fact_SalesDocumentItem] doc
 
          left join [edw].[dim_OverallTotalDeliveryStatus] dimOTDS
                    on dimOTDS.[OverallTotalDeliveryStatusID] = doc.[OverallTotalDeliveryStatusID]
+          
+          LEFT JOIN SalesOffice SO
+                    ON doc.[SalesDocument] = SO.[ReferenceSDDocument]
+
+          LEFT JOIN [edw].[dim_SalesOffice] dimSO
+                    ON SO.[SalesOfficeID] = dimSO.[SalesOfficeID]
 
 where doc.[SDDocumentCategoryID] <> 'B'
      AND dimSDDRjS.[SDDocumentRejectionStatus] <> 'Fully Rejected'
