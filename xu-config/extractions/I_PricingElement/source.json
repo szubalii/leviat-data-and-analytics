@@ -1,6 +1,6 @@
 {
     "functionName": "Z_THEO_READ_TABLE",
-    "whereClause": "ConditionType IN ('FRB1', 'ZFR1', 'FRC1', 'ZFH1', 'FRA1', 'ZOA1', 'ZCC1', 'ZOC1')",
+    "whereClause": "ConditionType IN ( SELECT SuplrInvcDeliveryCostCndnType FROM ISIITMPURORDREF )",
     "runInBackgroundJob": false,
     "backgroundJobTimeout": 180,
     "tables": 
