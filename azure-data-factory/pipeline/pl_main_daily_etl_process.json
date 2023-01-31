@@ -37,6 +37,18 @@
 						"entity_filter": {
 							"value": "@pipeline().parameters.entity_filter",
 							"type": "Expression"
+						},
+						"P_Year": {
+							"value": "@pipeline().parameters.P_Year",
+							"type": "Expression"
+						},
+						"P_Month": {
+							"value": "@pipeline().parameters.P_Month",
+							"type": "Expression"
+						},
+						"P_DelNotInv": {
+							"value": "@pipeline().parameters.P_DelNotInv",
+							"type": "Expression"
 						}
 					}
 				}
