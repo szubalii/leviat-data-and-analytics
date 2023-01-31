@@ -294,6 +294,18 @@
 			"entity_filter": {
 				"type": "string",
 				"defaultValue": "'a' = 'a'"
+			},
+			"P_Year": {
+				"type": "int",
+				"defaultValue": 2019
+			},
+			"P_Month": {
+				"type": "int",
+				"defaultValue": 1
+			},
+			"P_DelNotInv": {
+				"type": "string",
+				"defaultValue": "N"
 			}
 		},
 		"folder": {
