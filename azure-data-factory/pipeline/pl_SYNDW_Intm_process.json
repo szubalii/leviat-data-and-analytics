@@ -28,14 +28,14 @@
 						},
 						"P_Month": {
 							"value": {
-								"value": "@int(formatDateTime(utcnow(), 'MM'))",
+								"value": "@pipeline().parameters.P_Month",
 								"type": "Expression"
 							},
 							"type": "Decimal"
 						},
 						"P_DelNotInv": {
 							"value": {
-								"value": "@if (equals(1,int(formatDateTime(utcNow(),'dd'))), 'N', 'Y')\n",
+								"value": "@pipeline().parameters.P_DelNotInv",
 								"type": "Expression"
 							},
 							"type": "String"
