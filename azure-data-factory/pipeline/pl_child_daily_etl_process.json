@@ -156,21 +156,7 @@
 						"referenceName": "pl_SYNDW_Intm_process",
 						"type": "PipelineReference"
 					},
-					"waitOnCompletion": true,
-					"parameters": {
-						"P_Year": {
-							"value": "@pipeline().parameters.P_Year",
-							"type": "Expression"
-						},
-						"P_Month": {
-							"value": "@pipeline().parameters.P_Month",
-							"type": "Expression"
-						},
-						"P_DelNotInv": {
-							"value": "@pipeline().parameters.P_DelNotInv",
-							"type": "Expression"
-						}
-					}
+					"waitOnCompletion": true
 				}
 			}
 		],
