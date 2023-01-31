@@ -21,7 +21,7 @@
 					"storedProcedureParameters": {
 						"P_Year": {
 							"value": {
-								"value": "@int(formatDateTime(utcnow(), 'yyyy'))",
+								"value": "@pipeline().parameters.P_Year",
 								"type": "Expression"
 							},
 							"type": "Decimal"
