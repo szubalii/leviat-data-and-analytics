@@ -65,6 +65,12 @@
 		"variables": {
 			"P_Year": {
 				"type": "String"
+			},
+			"P_Month": {
+				"type": "String"
+			},
+			"P_DelNotInv": {
+				"type": "String"
 			}
 		},
 		"folder": {
