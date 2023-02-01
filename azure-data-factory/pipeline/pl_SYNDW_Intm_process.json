@@ -4,26 +4,6 @@
 		"description": "Exec sproc to collect sales",
 		"activities": [
 			{
-				"name": "Set P_Year ",
-				"type": "SetVariable",
-				"dependsOn": [
-					{
-						"activity": "Lookup Parameters",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"userProperties": [],
-				"typeProperties": {
-					"variableName": "P_Year",
-					"value": {
-						"value": "@activity('Lookup Parameters').output.firstRow",
-						"type": "Expression"
-					}
-				}
-			},
-			{
 				"name": "Lookup Parameters",
 				"type": "Lookup",
 				"dependsOn": [],
@@ -59,6 +39,83 @@
 						}
 					},
 					"firstRowOnly": true
+				}
+			},
+			{
+				"name": "Set P_Month",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "Lookup Parameters",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "P_Month",
+					"value": {
+						"value": "@activity('Lookup Parameters').output.firstRow.P_Month",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Process Intm",
+				"description": "",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "Set P_Month",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "intm_axbi.up_CollectSales_CA",
+					"storedProcedureParameters": {
+						"P_Year": {
+							"value": {
+								"value": "@variables('P_Year')",
+								"type": "Expression"
+							},
+							"type": "Decimal"
+						},
+						"P_Month": {
+							"value": {
+								"value": "@variables('P_Month')",
+								"type": "Expression"
+							},
+							"type": "Decimal"
+						},
+						"P_DelNotInv": {
+							"value": {
+								"value": "@variables('P_DelNotInv')",
+								"type": "Expression"
+							},
+							"type": "String"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_ws_xxxx_sls_x_euw_001__syndw_xxxx_sls_x_euw_001",
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"sqlPool": {
+							"value": "@pipeline().globalParameters.synapseDatabaseName",
+							"type": "Expression"
+						}
+					}
 				}
 			}
 		],
