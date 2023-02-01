@@ -4,59 +4,22 @@
 		"description": "Exec sproc to collect sales",
 		"activities": [
 			{
-				"name": "Process Intm",
-				"description": "",
-				"type": "SqlServerStoredProcedure",
+				"name": "Set P_Year ",
+				"type": "SetVariable",
 				"dependsOn": [
 					{
-						"activity": "Set P_Year ",
+						"activity": "Lookup Parameters",
 						"dependencyConditions": [
 							"Succeeded"
 						]
 					}
 				],
-				"policy": {
-					"timeout": "7.00:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
 				"userProperties": [],
 				"typeProperties": {
-					"storedProcedureName": "intm_axbi.up_CollectSales_CA",
-					"storedProcedureParameters": {
-						"P_Year": {
-							"value": {
-								"value": "@pipeline().parameters.P_Year",
-								"type": "Expression"
-							},
-							"type": "Decimal"
-						},
-						"P_Month": {
-							"value": {
-								"value": "@pipeline().parameters.P_Month",
-								"type": "Expression"
-							},
-							"type": "Decimal"
-						},
-						"P_DelNotInv": {
-							"value": {
-								"value": "@pipeline().parameters.P_DelNotInv",
-								"type": "Expression"
-							},
-							"type": "String"
-						}
-					}
-				},
-				"linkedServiceName": {
-					"referenceName": "ls_ws_xxxx_sls_x_euw_001__syndw_xxxx_sls_x_euw_001",
-					"type": "LinkedServiceReference",
-					"parameters": {
-						"sqlPool": {
-							"value": "@pipeline().globalParameters.synapseDatabaseName",
-							"type": "Expression"
-						}
+					"variableName": "P_Year",
+					"value": {
+						"value": "@activity('Lookup Parameters').output.firstRow",
+						"type": "Expression"
 					}
 				}
 			},
@@ -97,39 +60,8 @@
 					},
 					"firstRowOnly": true
 				}
-			},
-			{
-				"name": "Set P_Year ",
-				"type": "SetVariable",
-				"dependsOn": [
-					{
-						"activity": "Lookup Parameters",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"userProperties": [],
-				"typeProperties": {
-					"variableName": "P_Year",
-					"value": {
-						"value": "@activity('Lookup Parameters').output.firstRow.P_Year",
-						"type": "Expression"
-					}
-				}
 			}
 		],
-		"parameters": {
-			"P_Year": {
-				"type": "int"
-			},
-			"P_Month": {
-				"type": "int"
-			},
-			"P_DelNotInv": {
-				"type": "string"
-			}
-		},
 		"variables": {
 			"P_Year": {
 				"type": "String"
