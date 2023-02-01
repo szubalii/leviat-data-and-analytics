@@ -67,7 +67,19 @@
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
+						"activity": "Set P_Year",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
 						"activity": "Set P_Month",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "Set P_DelNotInv",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -115,6 +127,46 @@
 							"value": "@pipeline().globalParameters.synapseDatabaseName",
 							"type": "Expression"
 						}
+					}
+				}
+			},
+			{
+				"name": "Set P_Year",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "Lookup Parameters",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "P_Year",
+					"value": {
+						"value": "@activity('Lookup Parameters').output.firstRow.P_Year",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Set P_DelNotInv",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "Lookup Parameters",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "P_DelNotInv",
+					"value": {
+						"value": "@activity('Lookup Parameters').output.firstRow.P_DelNotInv",
+						"type": "Expression"
 					}
 				}
 			}
