@@ -7,7 +7,26 @@
 				"name": "Process Intm",
 				"description": "",
 				"type": "SqlServerStoredProcedure",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "Set P_Year ",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "Set P_Month",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "Set P_DelNotInv ",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "7.00:00:00",
 					"retry": 0,
@@ -52,6 +71,104 @@
 						}
 					}
 				}
+			},
+			{
+				"name": "Lookup Parameters",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"dataset": {
+						"referenceName": "ds_adls_csv",
+						"type": "DatasetReference",
+						"parameters": {
+							"container": "utilities",
+							"directory": "parameters",
+							"file_name": "parameters.csv",
+							"field_delimiter": ";",
+							"storageAccount": "stsleshchukdeuw001"
+						}
+					},
+					"firstRowOnly": true
+				}
+			},
+			{
+				"name": "Set P_Year ",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "Lookup Parameters",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "P_Year",
+					"value": {
+						"value": "@activity('Lookup Parameters').output.firstRow.P_Year",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Set P_Month",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "Lookup Parameters",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "P_Month",
+					"value": {
+						"value": "@activity('Lookup Parameters').output.firstRow.P_Month",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Set P_DelNotInv ",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "Lookup Parameters",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "P_DelNotInv",
+					"value": {
+						"value": "@activity('Lookup Parameters').output.firstRow.P_DelNotInv",
+						"type": "Expression"
+					}
+				}
 			}
 		],
 		"parameters": {
@@ -63,6 +180,20 @@
 			},
 			"P_DelNotInv": {
 				"type": "string"
+			}
+		},
+		"variables": {
+			"P_Year": {
+				"type": "String"
+			},
+			"P_Month": {
+				"type": "String"
+			},
+			"jkj": {
+				"type": "String"
+			},
+			"P_DelNotInv": {
+				"type": "String"
 			}
 		},
 		"folder": {
