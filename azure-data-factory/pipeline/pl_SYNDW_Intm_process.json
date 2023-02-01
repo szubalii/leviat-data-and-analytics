@@ -35,7 +35,10 @@
 							"directory": "parameters",
 							"file_name": "parameters.csv",
 							"field_delimiter": ";",
-							"storageAccount": "stsleshchukdeuw001"
+							"storageAccount": {
+								"value": "@pipeline().globalParameters.storageAccountName",
+								"type": "Expression"
+							}
 						}
 					},
 					"firstRowOnly": true
