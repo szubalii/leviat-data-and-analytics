@@ -13,18 +13,6 @@
 						"dependencyConditions": [
 							"Succeeded"
 						]
-					},
-					{
-						"activity": "Set P_Month",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					},
-					{
-						"activity": "Set P_DelNotInv ",
-						"dependencyConditions": [
-							"Succeeded"
-						]
 					}
 				],
 				"policy": {
@@ -126,46 +114,6 @@
 					"variableName": "P_Year",
 					"value": {
 						"value": "@activity('Lookup Parameters').output.firstRow.P_Year",
-						"type": "Expression"
-					}
-				}
-			},
-			{
-				"name": "Set P_Month",
-				"type": "SetVariable",
-				"dependsOn": [
-					{
-						"activity": "Lookup Parameters",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"userProperties": [],
-				"typeProperties": {
-					"variableName": "P_Month",
-					"value": {
-						"value": "@activity('Lookup Parameters').output.firstRow.P_Month",
-						"type": "Expression"
-					}
-				}
-			},
-			{
-				"name": "Set P_DelNotInv ",
-				"type": "SetVariable",
-				"dependsOn": [
-					{
-						"activity": "Lookup Parameters",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"userProperties": [],
-				"typeProperties": {
-					"variableName": "P_DelNotInv",
-					"value": {
-						"value": "@activity('Lookup Parameters').output.firstRow.P_DelNotInv",
 						"type": "Expression"
 					}
 				}
