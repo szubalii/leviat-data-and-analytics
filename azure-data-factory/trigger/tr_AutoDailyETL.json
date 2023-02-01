@@ -9,11 +9,6 @@
 				"pipelineReference": {
 					"referenceName": "pl_main_daily_automatic",
 					"type": "PipelineReference"
-				},
-				"parameters": {
-					"P_Year": 2023,
-					"P_Month": 1,
-					"P_DelNotInv": "N"
 				}
 			}
 		],
