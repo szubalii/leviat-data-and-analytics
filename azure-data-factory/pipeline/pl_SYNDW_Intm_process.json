@@ -72,14 +72,14 @@
 								"value": "@activity('Lookup Parameters').output.firstRow.P_Year",
 								"type": "Expression"
 							},
-							"type": "Decimal"
+							"type": "Int16"
 						},
 						"P_Month": {
 							"value": {
 								"value": "@activity('Lookup Parameters').output.firstRow.P_Month",
 								"type": "Expression"
 							},
-							"type": "Decimal"
+							"type": "Int16"
 						},
 						"P_DelNotInv": {
 							"value": {
