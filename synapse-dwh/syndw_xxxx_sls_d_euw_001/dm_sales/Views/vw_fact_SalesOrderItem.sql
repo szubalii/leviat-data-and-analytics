@@ -215,4 +215,4 @@ from [edw].[fact_SalesDocumentItem] doc
                     ON SO.[SalesOfficeID] = dimSO.[SalesOfficeID]
 
 where doc.[SDDocumentCategoryID] <> 'B'
-     AND dimSDDRjS.[SDDocumentRejectionStatus] <> 'Fully Rejected'
+--     AND dimSDDRjS.[SDDocumentRejectionStatus] <> 'Fully Rejected'
