@@ -33,7 +33,7 @@
 						"parameters": {
 							"container": "utilities",
 							"directory": "parameters",
-							"file_name": "parameters.csv",
+							"file_name": "AX_MEC_Parameters.csv",
 							"field_delimiter": ";",
 							"storageAccount": {
 								"value": "@pipeline().globalParameters.storageAccountName",
