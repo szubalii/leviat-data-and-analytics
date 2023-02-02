@@ -1,6 +1,6 @@
 source_DataAreaID,source_UDFSystem,source_UDFOpCo,source_UDFCountryCode,source_UDFLegacyID,target_CompanyCodeID,target_CompanyCodeName,target_SalesOrganizationID,target_SalesOrganizationName,CountryID,CountryName,RegionID,RegionName,Access_Control_Unit,IsMigrated
-5300,AXH,HALFEN,DE,G,DE35,,DE01,Leviat Germany,DE,Germany,EURCI,Operations,DEOPS,Y
-5302,AXH,HALFEN,DE,I,DE35,,5302,Leviat International,EX,International,EURCI,Europe Central,DEINT,N
+5300,AXH,HALFEN,DE,G,DE35,,DE01,Leviat Germany,DE,Germany,EURCI,Europe Central,DE,Y
+5302,AXH,HALFEN,DE,I,DE35,,5302,Leviat International,EX,International,EURCI,Europe Central,DE,Y
 5303,AXH,HALFEN,DE,H,DE35,,DE01,Leviat Germany,DE,Germany,EURCI,Europe Central,DE,Y
 5307,AXH,HALFEN,FR,T,TBD,,5307,Halfen France SU,FR,France,EURSN,Europe South & Nordics,FR,N
 5308,AXH,HALFEN,SE,P,SE35,,SE01,Leviat Sweden,SE,Sweden,EURSN,Europe South & Nordics,SE,Y
@@ -13,7 +13,7 @@ source_DataAreaID,source_UDFSystem,source_UDFOpCo,source_UDFCountryCode,source_U
 5316,AXH,HALFEN,PL,N,PL35,,PL01,Leviat Poland,PL,Poland,EURCI,Europe Central,PL,Y
 5317,AXH,HALFEN,CZ,F,CZ35,,CZ01,Leviat Czech,CZ,Czech Republic,EURCI,Europe Central,CZ,Y
 5320,AXH,HALFEN,ES,J,ES35,,ES01,Leviat Spain,ES,Spain,EURSN,Europe South & Nordics,ES,Y
-5321,AXH,HALFEN,PL,O,PL35,,PL01,Leviat Poland,PL,Poland,EURCI,Operations,PLOPS,Y
+5321,AXH,HALFEN,PL,O,PL35,,PL01,Leviat Poland,PL,Poland,EURCI,Europe Central,PL,Y
 5325,AXH,HALFEN,NO,M,NO35,,5325,Leviat Norway,NO,Norway,EURSN,Europe South & Nordics,NO,N
 5327,AXH,HALFEN,CN,Q,CN35,,CN01,Leviat China,CN,China,EURWA,Europe West & APAC,CN,Y
 ANAC,MYOB-EXO,ANCON,AU,TBD,TBD,,ANAC,Ancon Australia Conolly,AU,Australia,EURWA,Europe West & APAC,AU,N
