@@ -72,7 +72,11 @@ documentItems AS (
     SELECT MAX(BillingQuantityInBaseUnit) AS BillingQuantityInBaseUnit      -- we don't have FIRST aggregate function
         ,[ReferenceSDDocument]                                              -- so I use it to get one value from the 
         ,[ReferenceSDDocumentItem]                                          -- set of the same values
-    FROM [edw].[fact_BillingDocumentItem]
+    FROM [edw].[fact_BillingDocumentItem] BDI
+    INNER JOIN [edw].[dim_BillingDocumentType] BDT
+        ON BDI.BillingDocumentTypeID = BDT.BillingDocumentTypeID
+    WHERE UPPER(BDT.BillingDocumentType) NOT LIKE '%PROFORMA%'
+        AND UPPER(BDT.BillingDocumentType) NOT LIKE '%PRO FORMA%'
     GROUP BY [ReferenceSDDocument], [ReferenceSDDocumentItem]
 ),
 documentItemsOverall AS (
