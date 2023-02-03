@@ -4358,7 +4358,7 @@
         "entity_id": 50,
         "entity_name": "fact_SalesDocumentItem",
         "sproc_name": "sp_load_fact_SalesDocumentItem",
-        "execution_order": 3,
+        "execution_order": 5,
         "schedule_recurrence": "D"
       },
       {
