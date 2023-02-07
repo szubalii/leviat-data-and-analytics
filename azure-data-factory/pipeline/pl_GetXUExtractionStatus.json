@@ -541,7 +541,7 @@
 							"userProperties": [],
 							"typeProperties": {
 								"url": {
-									"value": "@concat(\n\tpipeline().globalParameters.XU_hostName\n\t,'/status/?name='\n\t,pipeline().globalParameters.environment\n\t,'_'\n\t,pipeline().parameters.extraction_name\n\t,'&source='\n\t,'CRH_Leviat_S4HANA_'\n\t,pipeline().parameters.s4h_system_id\n\t,'_'\n\t,string(pipeline().parameters.s4h_client_id)\n\t,'&destination='\n\t,pipeline().globalParameters.storageAccountName\n\t,'_s4h-'\n\t,pipeline().parameters.s4h_system_id\n\t,'-'\n\t,string(pipeline().parameters.s4h_client_id)\n\t,'&timestamp='\n\t,variables('extraction_timestamp')\n)",
+									"value": "@concat(\n\tpipeline().globalParameters.XU_hostName\n\t,'/status/?name='\n\t,pipeline().globalParameters.environment\n\t,'_'\n\t,pipeline().parameters.extraction_name\n\t,'&source='\n\t,'CRH_Leviat_S4HANA_'\n\t,pipeline().globalParameters.s4hSystemId\n\t,'_'\n\t,string(pipeline().globalParameters.s4hClientId)\n\t,'&destination='\n\t,pipeline().globalParameters.storageAccountName\n\t,'_s4h-'\n\t,pipeline().globalParameters.s4hSystemId\n\t,'-'\n\t,string(pipeline().globalParameters.s4hClientId)\n\t,'&timestamp='\n\t,variables('extraction_timestamp')\n)",
 									"type": "Expression"
 								},
 								"connectVia": {
