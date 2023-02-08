@@ -1126,6 +1126,8 @@
     <Build Include="base_tx_halfen_2_dwh\Tables\FACT_SALESLINE_Archive.sql" />
     <Build Include="base_tx_halfen_2_dwh\Tables\FACT_SALESTABLE_Archive.sql" />
     <Build Include="base_dw_halfen_2_dwh\Tables\DIM_CUSTOMER_Archive.sql" />
+    <Build Include="base_dw_halfen_2_dwh\Tables\FACT_HGDAWA_Archive.sql" />
+    <Build Include="base_dw_halfen_0_hlp\Tables\HGDAWA_Archive.sql" />
     <Build Include="intm_axbi\Views\vw_DIM_CUSTOMER.sql" />
     <Build Include="intm_axbi\Views\vw_FACT_INVENTSUM.sql" />
     <Build Include="intm_axbi\Views\vw_FACT_INVENTTRANS.sql" />
