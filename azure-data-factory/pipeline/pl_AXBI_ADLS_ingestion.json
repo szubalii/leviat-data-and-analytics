@@ -643,6 +643,13 @@
 			},
 			"batch_id": {
 				"type": "string"
+			},
+			"date_field_name": {
+				"type": "string"
+			},
+			"load_from": {
+				"type": "string",
+				"defaultValue": "2022/10/01"
 			}
 		},
 		"folder": {
