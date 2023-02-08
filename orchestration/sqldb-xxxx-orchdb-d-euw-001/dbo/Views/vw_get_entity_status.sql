@@ -24,7 +24,7 @@ SELECT
 			,-1 * DATEPART(DAY, GETDATE()) + 1
 			,DATEADD(
 				MONTH
-				, -1 * end.[reload_period]
+				, -1 * ent.[reload_period]
 				, GETDATE()
 			)
 		)

@@ -3905,7 +3905,10 @@
         "entity_id": 523,
         "entity_name": "HGDAWA",
         "base_table_name": "HGDAWA",
-        "schedule_recurrence": "D"
+        "schedule_recurrence": "D",
+        "update_mode": "Span",
+        "axbi_date_field_name": "DAORDT",
+        "reload_period": 4
       },
       {
         "entity_id": 524,

@@ -114,7 +114,7 @@ BEGIN
             ON
                 la.layer_id = e.layer_id
         WHERE
-            e.update_mode = 'Full' OR e.update_mode IS NULL
+            e.update_mode = 'Full' OR e.update_mode IS NULL OR e.update_mode = 'Span'
     )
     -- getting latest timestamp/file name for where activity = Extract and status IN Succeeded, InProgress , e.g.
     -- in case where logged batch activities for the same day are missing but earlier on the same day subsequent 
@@ -443,7 +443,6 @@ BEGIN
             e.axbi_schema_name,
             e.base_table_name,
             e.axbi_date_field_name,
-            e.load_from,
             e.adls_container_name,
             dir.base_dir_path + '/In/' + FORMAT(b.start_date_time, 'yyyy/MM/dd', 'en-US') AS adls_directory_path_In,
             dir.base_dir_path + '/Out/' + FORMAT(b.start_date_time, 'yyyy/MM/dd', 'en-US') AS adls_directory_path_Out,
@@ -492,7 +491,6 @@ BEGIN
             sefnsde.axbi_schema_name,
             sefnsde.base_table_name,
             sefnsde.axbi_date_field_name,
-            sefnsde.load_from,
             sefnsde.adls_container_name,
             sefnsde.adls_directory_path_In,
             sefnsde.adls_directory_path_Out,
@@ -533,7 +531,6 @@ BEGIN
             sefnsde.axbi_schema_name,
             sefnsde.base_table_name,
             sefnsde.axbi_date_field_name,
-            sefnsde.load_from,
             sefnsde.adls_container_name,
             sefnsde.adls_directory_path_In,
             sefnsde.adls_directory_path_Out,
@@ -588,7 +585,6 @@ BEGIN
             sedfnba.axbi_schema_name,
             sedfnba.base_table_name,
             sedfnba.axbi_date_field_name,
-            sedfnba.load_from,
             sedfnba.adls_container_name,
             sedfnba.adls_directory_path_In,
             sedfnba.adls_directory_path_Out,
@@ -615,7 +611,6 @@ BEGIN
             ldfnba.axbi_schema_name,
             ldfnba.base_table_name,
             ldfnba.axbi_date_field_name,
-            ldfnba.load_from,
             ldfnba.adls_container_name,
             ldfnba.adls_directory_path_In,
             ldfnba.adls_directory_path_Out,
@@ -1015,7 +1010,7 @@ BEGIN
             axbi_schema_name,
             base_table_name,
             axbi_date_field_name,
-            load_from
+            load_from,
             adls_container_name,
             base_schema_name,
             base_sproc_name,
