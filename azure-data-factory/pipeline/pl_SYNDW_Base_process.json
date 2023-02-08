@@ -35,8 +35,11 @@
 							},
 							"type": "Int64"
 						},
-						"file_path": {
-							"value": null,
+						"file_name": {
+							"value": {
+								"value": "@pipeline().parameters.file_name",
+								"type": "Expression"
+							},
 							"type": "String"
 						},
 						"run_id": {
@@ -74,6 +77,12 @@
 								"type": "Expression"
 							},
 							"type": "Datetime"
+						},
+						"directory_path": {
+							"value": {
+								"value": "@pipeline().parameters.directory_path",
+								"type": "Expression"
+							}
 						}
 					}
 				},
@@ -348,6 +357,12 @@
 				"type": "string"
 			},
 			"run_id": {
+				"type": "string"
+			},
+			"directory_path": {
+				"type": "string"
+			},
+			"file_name": {
 				"type": "string"
 			}
 		},
