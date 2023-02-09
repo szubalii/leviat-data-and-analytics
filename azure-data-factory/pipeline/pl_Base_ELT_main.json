@@ -443,14 +443,6 @@
 									"update_mode": {
 										"value": "@item().update_mode",
 										"type": "Expression"
-									},
-									"s4h_system_id": {
-										"value": "@pipeline().parameters.s4h_system_id",
-										"type": "Expression"
-									},
-									"s4h_client_id": {
-										"value": "@pipeline().parameters.s4h_client_id",
-										"type": "Expression"
 									}
 								}
 							}
