@@ -261,10 +261,6 @@
 									"application_id": {
 										"value": "@pipeline().parameters.source_database_name",
 										"type": "Expression"
-									},
-									"s4h_client_id": {
-										"value": "@pipeline().parameters.s4h_client_id",
-										"type": "Expression"
 									}
 								}
 							}
