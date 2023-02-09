@@ -153,14 +153,6 @@
 				"type": "int",
 				"defaultValue": 0
 			},
-			"s4h_system_id": {
-				"type": "string",
-				"defaultValue": "CAA"
-			},
-			"s4h_client_id": {
-				"type": "int",
-				"defaultValue": 200
-			},
 			"entity_filter": {
 				"type": "string",
 				"defaultValue": "'a' = 'a'"

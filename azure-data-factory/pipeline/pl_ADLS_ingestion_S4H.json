@@ -449,14 +449,6 @@
 			"adls_file_name": {
 				"type": "string"
 			},
-			"s4h_system_id": {
-				"type": "string",
-				"defaultValue": "CAA"
-			},
-			"s4h_client_id": {
-				"type": "int",
-				"defaultValue": 200
-			},
 			"extraction_type": {
 				"type": "string"
 			}
