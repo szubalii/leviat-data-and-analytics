@@ -190,7 +190,7 @@
 							"typeProperties": {
 								"variableName": "adls_container_name",
 								"value": {
-									"value": "@if(\n    equals(\n        item().layer_id,\n        6\n    ),\n    concat(\n        item().adls_container_name,\n        '-',\n        toLower(pipeline().parameters.s4h_system_id),\n        '-',\n        string(pipeline().parameters.s4h_client_id)\n    ),\n    item().adls_container_name\n)",
+									"value": "@if(\n    equals(\n        item().layer_id,\n        6\n    ),\n    concat(\n        item().adls_container_name,\n        '-',\n        toLower(pipeline().globalParameters.s4hSystemId),\n        '-',\n        string(pipeline().globalParameters.s4hClientId)\n    ),\n    item().adls_container_name\n)",
 									"type": "Expression"
 								}
 							}
@@ -533,14 +533,6 @@
 			"entity_filter": {
 				"type": "string",
 				"defaultValue": "'a' = 'a'"
-			},
-			"s4h_system_id": {
-				"type": "string",
-				"defaultValue": "CAD"
-			},
-			"s4h_client_id": {
-				"type": "string",
-				"defaultValue": "200"
 			}
 		},
 		"variables": {

@@ -8,7 +8,7 @@
     "supportsFull": true,
     "supportsDelta": true,
     "mode": "Delta",
-    "transferDataOnDeltaInit": false,
+    "transferDataOnDeltaInit": true,
     "columns": 
     [
         {

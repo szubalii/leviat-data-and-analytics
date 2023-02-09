@@ -174,12 +174,8 @@
 										"value": "@variables('batch_id_Extract')",
 										"type": "Expression"
 									},
-									"s4h_system_id": {
-										"value": "@pipeline().parameters.s4h_system_id",
-										"type": "Expression"
-									},
-									"s4h_client_id": {
-										"value": "@pipeline().parameters.s4h_client_id",
+									"extraction_type": {
+										"value": "@pipeline().parameters.extraction_type",
 										"type": "Expression"
 									}
 								}
@@ -264,10 +260,6 @@
 									},
 									"application_id": {
 										"value": "@pipeline().parameters.source_database_name",
-										"type": "Expression"
-									},
-									"s4h_client_id": {
-										"value": "@pipeline().parameters.s4h_client_id",
 										"type": "Expression"
 									}
 								}
@@ -454,14 +446,6 @@
 									"adls_file_name": {
 										"value": "@variables('adlsFileName')",
 										"type": "Expression"
-									},
-									"s4h_system_id": {
-										"value": "@pipeline().parameters.s4h_system_id",
-										"type": "Expression"
-									},
-									"s4h_client_id": {
-										"value": "@pipeline().parameters.s4h_client_id",
-										"type": "Expression"
 									}
 								}
 							}
@@ -529,14 +513,6 @@
 									},
 									"extraction_timestamp": {
 										"value": "@variables('extraction_Timestamp')",
-										"type": "Expression"
-									},
-									"s4h_system_id": {
-										"value": "@pipeline().parameters.s4h_system_id",
-										"type": "Expression"
-									},
-									"s4h_client_id": {
-										"value": "@pipeline().parameters.s4h_client_id",
 										"type": "Expression"
 									}
 								}
@@ -771,14 +747,6 @@
 									"extraction_timestamp": {
 										"value": "@variables('extraction_Timestamp')",
 										"type": "Expression"
-									},
-									"s4h_system_id": {
-										"value": "@pipeline().parameters.s4h_system_id",
-										"type": "Expression"
-									},
-									"s4h_client_id": {
-										"value": "@pipeline().parameters.s4h_client_id",
-										"type": "Expression"
 									}
 								}
 							}
@@ -962,14 +930,6 @@
 			},
 			"update_mode": {
 				"type": "string"
-			},
-			"s4h_system_id": {
-				"type": "string",
-				"defaultValue": "CAA"
-			},
-			"s4h_client_id": {
-				"type": "int",
-				"defaultValue": 200
 			}
 		},
 		"variables": {
