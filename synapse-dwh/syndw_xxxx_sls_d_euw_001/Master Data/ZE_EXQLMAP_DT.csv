@@ -2025,12 +2025,6 @@ GLACCOUNT;FUNCTIONALAREA;TRANSACTIONTYPE;TRADINGPARTNER;CONTIGENCY1;CONTIGENCY2;
 50702101,DT131,,,,,,,,IS711200,Social security own personnel,DT131,,,,S_MA,U,,IS
 50702101,DT132,,,,,,,,IS711200,Social security own personnel,DT132,,,,S_MA,U,,IS
 50702101,DT141,,,,,,,,IS711200,Social security own personnel,DT141,,,,S_MA,U,,IS
-50702101,DT142,,,,,,,,IS711200,Social security own personnel,DT142,,,,S_MA,U,,IS
-50702101,DT151,,,,,,,,IS711200,Social security own personnel,DT151,,,,S_MA,U,,IS
-50702101,DT152,,,,,,,,IS711200,Social security own personnel,DT152,,,,S_MA,U,,IS
-50702101,DT161,,,,,,,,IS711200,Social security own personnel,DT161,,,,S_MA,U,,IS
-50702101,DT171,,,,,,,,IS711200,Social security own personnel,DT171,,,,S_MA,U,,IS
-50702101,DT181,,,,,,,,IS711200,Social security own personnel,DT181,,,,S_MA,U,,IS
 50703100,DT101,,,,,,,Other CoS,IS671800,Other employee costs - production management / support and inbound logistics,FA1200,,,,S_MA,U,,IS
 50703100,DT102,,,,,,,Other CoS,IS611800,Other employee costs - production variable,FA1100,,,,S_MA,U,,IS
 50703100,DT121,,,,,,,Other CoS,IS671800,Other employee costs - production management / support and inbound logistics,FA1300,,,,S_MA,U,,IS
@@ -5648,16 +5642,12 @@ GLACCOUNT;FUNCTIONALAREA;TRANSACTIONTYPE;TRADINGPARTNER;CONTIGENCY1;CONTIGENCY2;
 31141115,,,,,,,,,BS211290,Other reserves,,,,,S_MA,U,,BS
 49000199,DT999,,,,,,,Sales,IS415000,Own production sales ,DT999,,,,S_MA,U,,IS
 49000199,,,,,,,,Sales,IS415000,Own production sales ,DT999,,,,S_MA,U,,IS
-50702101,DT101,,,,,,,Other CoS,IS671200,Social security own personnel - production management / support and inbound logistics,FA1200,,,,S_MA,U,,IS
-50702101,DT102,,,,,,,Other CoS,IS611200,Social security own personnel - production variable,FA1100,,,,S_MA,U,,IS
-50702101,DT121,,,,,,,Other CoS,IS671200,Social security own personnel - production management / support and inbound logistics,FA1300,,,,S_MA,U,,IS
-50702101,DT131,,,,,,,,IS711200,Social security own personnel,DT131,,,,S_MA,U,,IS
-50702101,DT132,,,,,,,,IS711200,Social security own personnel,DT132,,,,S_MA,U,,IS
-50702101,DT141,,,,,,,,IS711200,Social security own personnel,DT141,,,,S_MA,U,,IS
 50702101,DT142,,,,,,,,IS711200,Social security own personnel,DT142,,,,S_MA,U,,IS
 50702101,DT151,,,,,,,,IS711200,Social security own personnel,DT151,,,,S_MA,U,,IS
 50702101,DT152,,,,,,,,IS711200,Social security own personnel,DT152,,,,S_MA,U,,IS
 50702101,DT161,,,,,,,,IS711200,Social security own personnel,DT161,,,,S_MA,U,,IS
+50702101,DT171,,,,,,,,IS711200,Social security own personnel,DT171,,,,S_MA,U,,IS
+50702101,DT181,,,,,,,,IS711200,Social security own personnel,DT181,,,,S_MA,U,,IS
 50702101,DT191,,,,,,,,IS711200,Social security own personnel,DT191,,,,S_MA,U,,IS
 50702101,DT201,,,,,,,,IS711200,Social security own personnel,DT201,,,,S_MA,U,,IS
 50702101,DT213,,,,,,,,IS711200,Social security own personnel,DT213,,,,S_MA,U,,IS
