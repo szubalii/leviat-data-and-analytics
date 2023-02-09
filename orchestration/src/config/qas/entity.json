@@ -24,11 +24,11 @@
     "axbi_database_name": "ANCON_AUSTRALIA_2_DWH_PROD"
   },
   "tx_crh_1_stg": {
-    "adls_container_name": "tx-crh-1-stg",
+    "adls_container_name": "tx-crh-1-stg-prod",
     "axbi_database_name": "TX_CRH_1_STG_PROD"
   },
   "tx_crh_2_dwh": {
-    "adls_container_name": "tx-crh-2-dwh",
+    "adls_container_name": "tx-crh-2-dwh-prod",
     "axbi_database_name": "TX_CRH_2_DWH_PROD"
   }
 }
