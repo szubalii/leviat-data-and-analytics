@@ -41,9 +41,7 @@
 									"date": {
 										"value": "@formatDateTime(pipeline().TriggerTime, 'yyyy/MM/dd')",
 										"type": "Expression"
-									},
-									"s4h_system_id": "CAP",
-									"s4h_client_id": 100
+									}
 								}
 							}
 						},
