@@ -389,7 +389,7 @@
 				"typeProperties": {
 					"variableName": "destinationUrlParam",
 					"value": {
-						"value": "@concat(\n    'destination='\n    ,pipeline().globalParameters.storageAccountName\n    ,'_s4h-'\n    ,pipeline().parameters.s4h_system_id\n    ,'-'\n    ,string(pipeline().parameters.s4h_client_id)\n)",
+						"value": "@concat(\n    'destination='\n    ,pipeline().globalParameters.storageAccountName\n    ,'_s4h-'\n    ,pipeline().globalParameters.s4hSystemId\n    ,'-'\n    ,string(pipeline().globalParameters.s4hClientId)\n)",
 						"type": "Expression"
 					}
 				}
