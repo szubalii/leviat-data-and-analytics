@@ -1,7 +1,3 @@
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
 CREATE TABLE [base_dw_halfen_2_dwh].[FACT_HGDAWA_Archive]
 (
 	[DW_Id] [bigint] NOT NULL,

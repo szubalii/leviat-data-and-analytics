@@ -1,7 +1,3 @@
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
 CREATE TABLE [base_dw_halfen_0_hlp].[HGDAWA_Archive]
 (
 	[DACONO] [char](8) NOT NULL,
