@@ -376,7 +376,7 @@
 				"typeProperties": {
 					"variableName": "sourceUrlParam",
 					"value": {
-						"value": "@concat(\n    'source=CRH_Leviat_S4HANA_'\n    ,pipeline().parameters.s4h_system_id\n    ,'_'\n    ,string(pipeline().parameters.s4h_client_id)\n)",
+						"value": "@concat(\n    'source=CRH_Leviat_S4HANA_'\n    ,pipeline().globalParameters.s4hSystemId\n    ,'_'\n    ,string(pipeline().globalParameters.s4hClientId)\n)",
 						"type": "Expression"
 					}
 				}
