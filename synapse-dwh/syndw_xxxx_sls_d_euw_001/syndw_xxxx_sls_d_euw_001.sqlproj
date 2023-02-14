@@ -591,6 +591,9 @@
     <Build Include="edw\Views\vw_BillingDocumentItem_axbi.sql" />
     <Build Include="dm_sales\Views\vw_fact_SalesOrderItem.sql" />
     <Build Include="dm_sales\Views\vw_fact_SalesOrderItem_filtered.sql" />
+    <Build Include="dm_sales\Views\vw_fact_SalesOrderItem_BDI.sql" />
+    <Build Include="dm_sales\Views\vw_fact_SalesOrderItem_ODI.sql" />
+    <Build Include="dm_sales\Views\vw_fact_SalesOrderItem_narrow.sql" />
     <Build Include="dm_sales\Views\vw_fact_SalesQuotationItem.sql" />
     <Build Include="base_s4h_cax\Tables\I_TotalSDDocReferenceStatusT.sql" />
     <Build Include="base_s4h_cax\Tables\I_OverallSDDocumentRjcnStatusT.sql" />
@@ -624,6 +627,7 @@
     <Build Include="base_s4h_cax\Tables\C_BillingDocumentItemBasicDEX_active.sql" />
     <Build Include="base_s4h_cax\Views\vw_C_BillingDocumentItemBasicDEX.sql" />
     <Build Include="edw\Views\vw_OutboundDeliveryItem_s4h.sql" />
+    <Build Include="edw\Views\vw_OutboundDeliveryItem_for_SalesDocumentItem.sql" />
     <Build Include="edw\Tables\fact_OutboundDeliveryItem.sql" />
     <Build Include="edw\Tables\dim_Supplier.sql" />
     <Build Include="edw\Tables\dim_Warehouse.sql" />
@@ -637,6 +641,7 @@
     <Build Include="edw\Views\vw_DeliveryDocumentType.sql" />
     <Build Include="edw\Views\vw_SDProcessStatus.sql" />
     <Build Include="edw\Views\vw_BillingDocumentItem_s4h_fin.sql" />
+    <Build Include="edw\Views\vw_BillingDocumentItem_for_SalesDocumentItem.sql" />
     <Build Include="base_tx_ca_0_hlp\Tables\CUSTINVOICETRANS.sql" />
     <Build Include="edw\Tables\dim_SalesDocumentScheduleLine.sql" />
     <Build Include="map_AXBI\Tables\Migration.sql" />
