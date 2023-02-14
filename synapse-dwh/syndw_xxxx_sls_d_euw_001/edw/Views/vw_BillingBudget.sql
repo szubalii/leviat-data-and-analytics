@@ -42,7 +42,7 @@ WITH BillingBudgetBase_axbi AS (
     ,   docBud.[Inside_Outside]                 AS [InOutID]
     ,   docBud.[t_applicationId]                AS [t_applicationId]
     ,   docBud.[t_extractionDtm]                AS [t_extractionDtm]
-    FROM [base_dw_halfen_2_dwh].[FACT_HGPLUM] docBud
+    FROM intm_axbi.vw_FACT_HGPLUM docBud
     LEFT JOIN
        [map_AXBI].[SalesOrganization] AS SO
        ON
