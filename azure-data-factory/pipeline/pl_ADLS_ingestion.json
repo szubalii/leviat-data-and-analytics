@@ -75,7 +75,6 @@
 												"value": "@pipeline().parameters.batch_id",
 												"type": "Expression"
 											},
-											"date_field_name": "@pipeline().parameters.date_field_name",
 											"load_from": "@pipeline().parameters.load_from"
 										}
 									}
@@ -401,9 +400,6 @@
 			"s4h_client_id": {
 				"type": "int",
 				"defaultValue": 200
-			},
-			"date_field_name": {
-				"type": "string"
 			},
 			"load_from": {
 				"type": "string",

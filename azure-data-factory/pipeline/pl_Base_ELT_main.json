@@ -452,7 +452,6 @@
 										"value": "@pipeline().parameters.s4h_client_id",
 										"type": "Expression"
 									},
-									"date_field_name": "@item.axbi_date_field_name",
 									"load_from": "@item.load_from"
 								}
 							}
