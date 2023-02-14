@@ -1,0 +1,17 @@
+{
+	"name": "ext_FACT_HGPLUM",
+	"properties": {
+		"content": {
+			"query": "CREATE EXTERNAL TABLE [dbo].[ext_FACT_HGPLUM] WITH (\n        LOCATION = 'FACT_HGPLUM/Archive',\n        DATA_SOURCE = [eds_dw-halfen-2-dwh],\n        FILE_FORMAT = [eff_Csv]  \n) AS\nSELECT\n     *\nFROM\n    OPENROWSET(\n        BULK 'https://stxxxxslspeuw001.dfs.core.windows.net/dw-halfen-2-dwh-prod/FACT_HGPLUM/FACT_HGPLUM.csv',\n        FORMAT = 'CSV', parser_version = '2.0',\n        FIELDTERMINATOR =',',\n        HEADER_ROW = TRUE\n    ) \n\n",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "sqlserverless",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
