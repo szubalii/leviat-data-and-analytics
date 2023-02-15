@@ -452,7 +452,7 @@
 										"value": "@pipeline().parameters.s4h_client_id",
 										"type": "Expression"
 									},
-									"load_from": "@item.load_from"
+									"load_from": "@item().load_from"
 								}
 							}
 						},
