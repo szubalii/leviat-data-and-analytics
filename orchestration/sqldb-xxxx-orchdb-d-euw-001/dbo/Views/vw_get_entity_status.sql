@@ -18,8 +18,9 @@ SELECT
 	,ent.[axbi_database_name]
 	,ent.[axbi_schema_name]
 	,ent.[axbi_date_field_name]
-	,CAST(
-		DATEADD(
+	,CONVERT(
+		VARCHAR
+		,DATEADD(
 			DAY
 			,-1 * DATEPART(DAY, GETDATE()) + 1
 			,DATEADD(
@@ -28,7 +29,7 @@ SELECT
 				, GETDATE()
 			)
 		)
-		AS DATE
+		,111
 	)								AS [load_from]
 	,ent.[sproc_schema_name]
 	,ent.[sproc_name]
