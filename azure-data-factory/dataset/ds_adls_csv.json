@@ -51,6 +51,7 @@
 				"value": "@dataset().field_delimiter",
 				"type": "Expression"
 			},
+			"rowDelimiter": "\r",
 			"escapeChar": "\"",
 			"firstRowAsHeader": true,
 			"quoteChar": "\""
