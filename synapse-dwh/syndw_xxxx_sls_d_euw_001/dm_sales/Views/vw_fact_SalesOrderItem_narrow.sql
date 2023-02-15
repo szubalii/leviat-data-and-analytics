@@ -24,7 +24,6 @@ SELECT
     ,SOI.[ItemDeliveryStatus]    
     ,SOI.[OverallDeliveryStatus]
     ,SOI.[ShippingConditionID]
-    ,SOI.[ScheduleLineCategory]
     ,BDI.[BillingDocument]                      
     ,BDI.[BillingDocumentItem]                  
     ,BDI.[CurrencyTypeID]      
@@ -75,6 +74,17 @@ SELECT
     ,ODI.[ReferenceSDDocument]      AS [OutboundDeliveryReferenceDocument]
     ,ODI.[ReferenceSDDocumentItem]  AS [OutboundDeliveryReferenceDocumentItem]
     ,ODI.[ReferenceSDDocumentCategoryID]    AS [OutboundDeliveryReferenceDocumentCategoryID]
+    ,SDSL.[ScheduleLine]
+    ,SDSL.[ScheduleLineCategory]
+    ,SDSL.[OrderQuantityUnit]
+    ,SDSL.[IsRequestedDelivSchedLine]
+    ,SDSL.[ScheduleLineOrderQuantity]
+    ,SDSL.[CorrectedQtyInOrderQtyUnit]
+    ,SDSL.[IsConfirmedDelivSchedLine]
+    ,SDSL.[ConfirmedDeliveryDate]
+    ,SDSL.[ScheduleLineConfirmationStatus]
+    ,SDSL.[DeliveredQtyInOrderQtyUnit]
+    ,SDSL.[DeliveredQuantityInBaseUnit]
 FROM [dm_sales].[vw_fact_SalesOrderItem] SOI
 LEFT JOIN [edw].[vw_BillingDocumentItem_for_SalesDocumentItem] BDI
     ON SOI.SalesOrderID = BDI.SalesDocumentID
@@ -83,4 +93,7 @@ LEFT JOIN [edw].[vw_BillingDocumentItem_for_SalesDocumentItem] BDI
 LEFT JOIN [edw].[vw_OutboundDeliveryItem_for_SalesDocumentItem] ODI
     ON SOI.SalesOrderID = ODI.ReferenceSDDocument
     AND SOI.SalesOrderItemID = ODI.ReferenceSDDocumentItem
-WHERE [SDDocumentRejectionStatus] <> 'Fully Rejected'
+LEFT JOIN [edw].[dim_SalesDocumentScheduleLine] SDSL
+    ON SOI.SalesOrderID = SDSL.SalesDocumentID
+    AND SOI.SalesOrderItemID = SDSL.SalesDocumentItem
+WHERE SOI.[SDDocumentRejectionStatus] <> 'Fully Rejected'

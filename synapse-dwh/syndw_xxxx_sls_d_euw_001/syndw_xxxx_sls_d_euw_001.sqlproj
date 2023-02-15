@@ -591,8 +591,6 @@
     <Build Include="edw\Views\vw_BillingDocumentItem_axbi.sql" />
     <Build Include="dm_sales\Views\vw_fact_SalesOrderItem.sql" />
     <Build Include="dm_sales\Views\vw_fact_SalesOrderItem_filtered.sql" />
-    <Build Include="dm_sales\Views\vw_fact_SalesOrderItem_BDI.sql" />
-    <Build Include="dm_sales\Views\vw_fact_SalesOrderItem_ODI.sql" />
     <Build Include="dm_sales\Views\vw_fact_SalesOrderItem_narrow.sql" />
     <Build Include="dm_sales\Views\vw_fact_SalesQuotationItem.sql" />
     <Build Include="base_s4h_cax\Tables\I_TotalSDDocReferenceStatusT.sql" />
