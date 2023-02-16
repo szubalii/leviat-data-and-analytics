@@ -1,0 +1,4 @@
+CREATE VIEW intm_axbi.vw_DIM_INVENTLOCATION AS
+SELECT * FROM [base_tx_halfen_2_dwh].[DIM_INVENTLOCATION]
+UNION
+SELECT * FROM [base_tx_halfen_2_dwh].[DIM_INVENTLOCATION_Archive]

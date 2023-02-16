@@ -1132,6 +1132,7 @@
     <Build Include="base_dw_halfen_2_dwh\Tables\FACT_HGPLUM_Archive.sql" />
     <Build Include="base_tx_halfen_2_dwh\Tables\FACT_CUSTPACKINGSLIPJOUR_Archive.sql" />
     <Build Include="base_tx_halfen_2_dwh\Tables\DIM_VENDTABLE_Archive.sql" />
+    <Build Include="base_tx_halfen_2_dwh\Tables\DIM_INVENTLOCATION_Archive.sql" />
     <Build Include="intm_axbi\Views\vw_DIM_CUSTOMER.sql" />
     <Build Include="intm_axbi\Views\vw_FACT_INVENTSUM.sql" />
     <Build Include="intm_axbi\Views\vw_FACT_INVENTTRANS.sql" />
@@ -1143,6 +1144,7 @@
     <Build Include="intm_axbi\Views\vw_FACT_HGPLUM.sql" />
     <Build Include="intm_axbi\Views\vw_FACT_CUSTPACKINGSLIPJOUR.sql" />
     <Build Include="intm_axbi\Views\vw_DIM_VENDTABLE.sql" />
+    <Build Include="intm_axbi\Views\vw_DIM_INVENTLOCATION.sql" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PostDeploy Include="Scripts\Post-Deploy\Script.PostDeployment.sql" />
