@@ -3,125 +3,11 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Get TenantId from AKV",
-				"type": "WebActivity",
-				"dependsOn": [
-					{
-						"activity": "Set Pipeline Log",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"policy": {
-					"timeout": "7.00:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": true,
-					"secureInput": true
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"url": {
-						"value": "@concat(\n   pipeline().globalParameters.keyVaultUrl,\n   'secrets/',\n   variables('SecretName_TenantId'),\n   '/?api-version=7.0'\n)",
-						"type": "Expression"
-					},
-					"method": "GET",
-					"body": {
-						"simple": "body"
-					},
-					"authentication": {
-						"type": "MSI",
-						"resource": "https://vault.azure.net"
-					}
-				}
-			},
-			{
-				"name": "Get ClientId from AKV",
-				"type": "WebActivity",
-				"dependsOn": [
-					{
-						"activity": "Set Pipeline Log",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"policy": {
-					"timeout": "7.00:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": true,
-					"secureInput": true
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"url": {
-						"value": "@concat(\n    pipeline().globalParameters.keyVaultUrl,\n    'secrets/',\n    variables('SecretName_SPClientId'),\n    '/?api-version=7.0'\n)",
-						"type": "Expression"
-					},
-					"method": "GET",
-					"body": {
-						"simple": "body"
-					},
-					"authentication": {
-						"type": "MSI",
-						"resource": "https://vault.azure.net"
-					}
-				}
-			},
-			{
-				"name": "Get Secret from AKV",
-				"type": "WebActivity",
-				"dependsOn": [
-					{
-						"activity": "Set Pipeline Log",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"policy": {
-					"timeout": "7.00:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": true,
-					"secureInput": true
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"url": {
-						"value": "@concat(\n   pipeline().globalParameters.keyVaultUrl\n,   'secrets/'\n,   variables('SecretName_SPSecret')\n,   '/?api-version=7.0')",
-						"type": "Expression"
-					},
-					"method": "GET",
-					"body": {
-						"simple": "body"
-					},
-					"authentication": {
-						"type": "MSI",
-						"resource": "https://vault.azure.net"
-					}
-				}
-			},
-			{
 				"name": "Retrieve PBI Dataset GUIDs",
 				"type": "Lookup",
 				"dependsOn": [
 					{
-						"activity": "Get TenantId from AKV",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					},
-					{
-						"activity": "Get ClientId from AKV",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					},
-					{
-						"activity": "Get Secret from AKV",
+						"activity": "Set Pipeline Log",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -163,7 +49,7 @@
 				"type": "ForEach",
 				"dependsOn": [
 					{
-						"activity": "Start VM",
+						"activity": "Retrieve PBI Dataset GUIDs",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -181,14 +67,7 @@
 						{
 							"name": "Refresh PBI Dataset",
 							"type": "ExecutePipeline",
-							"dependsOn": [
-								{
-									"activity": "Get AAD Token",
-									"dependencyConditions": [
-										"Succeeded"
-									]
-								}
-							],
+							"dependsOn": [],
 							"userProperties": [],
 							"typeProperties": {
 								"pipeline": {
@@ -205,14 +84,6 @@
 										"value": "@item().dataset_guid",
 										"type": "Expression"
 									},
-									"AAD_Token_Type": {
-										"value": "@activity('Get AAD Token').output.token_type",
-										"type": "Expression"
-									},
-									"AAD_Access_Token": {
-										"value": "@activity('Get AAD Token').output.access_token",
-										"type": "Expression"
-									},
 									"pbi_dataset_id": {
 										"value": "@item().pbi_dataset_id",
 										"type": "Expression"
@@ -223,86 +94,6 @@
 									}
 								}
 							}
-						},
-						{
-							"name": "Get AAD Token",
-							"type": "WebActivity",
-							"dependsOn": [],
-							"policy": {
-								"timeout": "7.00:00:00",
-								"retry": 0,
-								"retryIntervalInSeconds": 30,
-								"secureOutput": true,
-								"secureInput": true
-							},
-							"userProperties": [],
-							"typeProperties": {
-								"url": {
-									"value": "@concat(\n    'https://login.microsoftonline.com/',\n    activity('Get TenantId from AKV').output.value,'/oauth2/token'\n)",
-									"type": "Expression"
-								},
-								"method": "POST",
-								"headers": {
-									"Content-Type": "application/x-www-form-urlencoded"
-								},
-								"body": {
-									"value": "@concat(\n    'grant_type=client_credentials&resource=https://analysis.windows.net/powerbi/api&client_id=',\n    activity('Get ClientId from AKV').output.value,'&client_secret=',\n    encodeUriComponent(activity('Get Secret from AKV').output.value)\n)",
-									"type": "Expression"
-								}
-							}
-						},
-						{
-							"name": "Log Eception AAD Token",
-							"type": "SqlServerStoredProcedure",
-							"dependsOn": [
-								{
-									"activity": "Get AAD Token",
-									"dependencyConditions": [
-										"Failed"
-									]
-								}
-							],
-							"policy": {
-								"timeout": "7.00:00:00",
-								"retry": 0,
-								"retryIntervalInSeconds": 30,
-								"secureOutput": false,
-								"secureInput": false
-							},
-							"userProperties": [],
-							"typeProperties": {
-								"storedProcedureName": "[dbo].[log_exception]",
-								"storedProcedureParameters": {
-									"category": {
-										"value": "GetAADTokenFailed",
-										"type": "String"
-									},
-									"error_msg": {
-										"value": {
-											"value": "@activity('Get AAD Token').Error.Message",
-											"type": "Expression"
-										},
-										"type": "String"
-									},
-									"run_id": {
-										"value": {
-											"value": "@pipeline().RunId",
-											"type": "Expression"
-										},
-										"type": "Guid"
-									}
-								}
-							},
-							"linkedServiceName": {
-					"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
-					"type": "LinkedServiceReference",
-					"parameters": {
-						"sqlDb": {
-							"value": "@pipeline().globalParameters.sqlDb",
-							"type": "Expression"
-						}
-					}
-				}
 						}
 					]
 				}
@@ -642,185 +433,6 @@
 							"type": "Expression"
 						}
 					}
-				}
-			},
-			{
-				"name": "Log Exception Secret",
-				"type": "SqlServerStoredProcedure",
-				"dependsOn": [
-					{
-						"activity": "Get Secret from AKV",
-						"dependencyConditions": [
-							"Failed"
-						]
-					}
-				],
-				"policy": {
-					"timeout": "7.00:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"storedProcedureName": "[dbo].[log_exception]",
-					"storedProcedureParameters": {
-						"category": {
-							"value": "GetSecretFromAKVFailed",
-							"type": "String"
-						},
-						"error_msg": {
-							"value": {
-								"value": "@activity('Get Secret from AKV').Error.Message",
-								"type": "Expression"
-							},
-							"type": "String"
-						},
-						"run_id": {
-							"value": {
-								"value": "@pipeline().RunId",
-								"type": "Expression"
-							},
-							"type": "Guid"
-						}
-					}
-				},
-				"linkedServiceName": {
-					"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
-					"type": "LinkedServiceReference",
-					"parameters": {
-						"sqlDb": {
-							"value": "@pipeline().globalParameters.sqlDb",
-							"type": "Expression"
-						}
-					}
-				}
-			},
-			{
-				"name": "Log Exception ClientId",
-				"type": "SqlServerStoredProcedure",
-				"dependsOn": [
-					{
-						"activity": "Get ClientId from AKV",
-						"dependencyConditions": [
-							"Failed"
-						]
-					}
-				],
-				"policy": {
-					"timeout": "7.00:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"storedProcedureName": "[dbo].[log_exception]",
-					"storedProcedureParameters": {
-						"category": {
-							"value": "GetSecretFromAKVFailed",
-							"type": "String"
-						},
-						"error_msg": {
-							"value": {
-								"value": "@activity('Get ClientId from AKV').Error.Message",
-								"type": "Expression"
-							},
-							"type": "String"
-						},
-						"run_id": {
-							"value": {
-								"value": "@pipeline().RunId",
-								"type": "Expression"
-							},
-							"type": "Guid"
-						}
-					}
-				},
-				"linkedServiceName": {
-					"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
-					"type": "LinkedServiceReference",
-					"parameters": {
-						"sqlDb": {
-							"value": "@pipeline().globalParameters.sqlDb",
-							"type": "Expression"
-						}
-					}
-				}
-			},
-			{
-				"name": "Log Exception TenantId",
-				"type": "SqlServerStoredProcedure",
-				"dependsOn": [
-					{
-						"activity": "Get TenantId from AKV",
-						"dependencyConditions": [
-							"Failed"
-						]
-					}
-				],
-				"policy": {
-					"timeout": "7.00:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"storedProcedureName": "[dbo].[log_exception]",
-					"storedProcedureParameters": {
-						"category": {
-							"value": "GetSecretFromAKVFailed",
-							"type": "String"
-						},
-						"error_msg": {
-							"value": {
-								"value": "@activity('Get TenantId from AKV').Error.Message",
-								"type": "Expression"
-							},
-							"type": "String"
-						},
-						"run_id": {
-							"value": {
-								"value": "@pipeline().RunId",
-								"type": "Expression"
-							},
-							"type": "Guid"
-						}
-					}
-				},
-				"linkedServiceName": {
-					"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
-					"type": "LinkedServiceReference",
-					"parameters": {
-						"sqlDb": {
-							"value": "@pipeline().globalParameters.sqlDb",
-							"type": "Expression"
-						}
-					}
-				}
-			},
-			{
-				"name": "Start VM",
-				"type": "ExecutePipeline",
-				"dependsOn": [
-					{
-						"activity": "Retrieve PBI Dataset GUIDs",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"userProperties": [],
-				"typeProperties": {
-					"pipeline": {
-						"referenceName": "pl_VM_start",
-						"type": "PipelineReference"
-					},
-					"waitOnCompletion": true
 				}
 			},
 			{

@@ -143,6 +143,8 @@
     [SDoc_ControllingObject]         nvarchar(22) collate Latin1_General_100_BIN2,
     [SDItem_ControllingObject]       nvarchar(22) collate Latin1_General_100_BIN2,
     [CorrespncExternalReference]     varchar(12),
+    [ItemDeliveryStatus]             nvarchar(1),
+    [OverallDeliveryStatus]          nvarchar(1),
     [t_applicationId]                VARCHAR(32),
     [t_jobId]                        VARCHAR(36),
     [t_jobDtm]                       DATETIME,

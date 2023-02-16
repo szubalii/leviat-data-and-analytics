@@ -3076,7 +3076,7 @@
         "update_mode": "Full",
         "base_table_name": "I_DeliveryDocument",
         "pk_field_names": "DELIVERYDOCUMENT",
-        "schedule_recurrence": "A"
+        "schedule_recurrence": "D"
       },
       {
         "entity_id": 320,
@@ -3374,7 +3374,7 @@
         "update_mode": "Full",
         "base_table_name": "C_MngProdnOrderMfgOrder",
         "pk_field_names": "MANDT, MANUFACTURINGORDER",
-        "schedule_recurrence": "A"
+        "schedule_recurrence": "D"
       },
       {
         "entity_id": 451,
@@ -3493,7 +3493,7 @@
         "update_mode": "Full",
         "base_table_name": "I_GLAccountLineItemRawData",
         "pk_field_names": "SOURCELEDGER, COMPANYCODE, FISCALYEAR, ACCOUNTINGDOCUMENT, LEDGERGLLINEITEM",
-        "schedule_recurrence": "A"
+        "schedule_recurrence": "D"
       },
       {
         "entity_id": 461,
@@ -3841,6 +3841,18 @@
         "base_table_name": "I_PricingElement",
         "pk_field_names": "MANDT, PRICINGDOCUMENT, PRICINGDOCUMENTITEM, PRICINGPROCEDURESTEP, PRICINGPROCEDURECOUNTER",
         "schedule_recurrence": "D"
+      },
+      {
+        "entity_id": 568,
+        "entity_name": "I_Purchaserequisitionitem",
+        "data_category": "DIMENSION",
+        "client_field": "MANDT",
+        "tool_name": "Theobald",
+        "extraction_type": "Table",
+        "update_mode": "Full",
+        "base_table_name": "I_Purchaserequisitionitem",
+        "pk_field_names": "MANDT, PURCHASEREQUISITION, PURCHASEREQUISITIONITEM",
+        "schedule_recurrence": "D"
       }
     ]
   },
@@ -4108,14 +4120,14 @@
         "entity_name": "DIM_CUSTTABLE",
         "base_table_name": "DIM_CUSTTABLE",
         "pk_field_names": "DW_Id",
-        "schedule_recurrence": "A"
+        "schedule_recurrence": "D"
       },
       {
         "entity_id": 515,
         "entity_name": "DIM_INVENTTABLE",
         "base_table_name": "DIM_INVENTTABLE",
         "pk_field_names": "DW_Id",
-        "schedule_recurrence": "A"
+        "schedule_recurrence": "D"
       },
       {
         "entity_id": 516,
@@ -4346,7 +4358,7 @@
         "entity_id": 50,
         "entity_name": "fact_SalesDocumentItem",
         "sproc_name": "sp_load_fact_SalesDocumentItem",
-        "execution_order": 3,
+        "execution_order": 5,
         "schedule_recurrence": "D"
       },
       {
@@ -5323,8 +5335,7 @@
         "sproc_name": "sp_materialize_view",
         "source_view_name": "vw_ManufacturingOrder",
         "dest_table_name": "fact_ManufacturingOrder",
-        "execution_order": 5,
-        "schedule_recurrence": "D"
+        "execution_order": 5
       },
       {
         "entity_id": 500,
@@ -5349,8 +5360,7 @@
         "entity_name": "fact_ACDOCA_active",
         "sproc_name": "sp_load_fact_ACDOCA_active",
         "update_mode": "Delta",
-        "execution_order": 3,
-        "schedule_recurrence": "D"
+        "execution_order": 3
       },
       {
         "entity_id": 543,
@@ -5627,7 +5637,7 @@
       {
         "entity_id": 532,
         "entity_name": "CUSTTABLE_ANUK$_bulk",
-        "base_table_name": "CUSTTABLE_ANUK",
+        "base_table_name": "CUSTTABLE_ANUK_orig",
         "pk_field_names": "CUSTOMERID",
         "schedule_recurrence": "D"
       },

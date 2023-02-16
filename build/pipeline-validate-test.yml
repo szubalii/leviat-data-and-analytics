@@ -1,0 +1,7 @@
+trigger: none # Use PR trigger only
+
+variables:
+- template: ./variables-test.yml
+
+jobs:
+- template: ./jobs-validate.yml

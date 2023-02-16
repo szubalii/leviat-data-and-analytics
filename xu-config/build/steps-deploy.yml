@@ -1,29 +1,10 @@
 steps:
 
-  # Update the source and destinations in the extractions
-- task: FileTransform@1
-  displayName: 'File Transform: Destination and Source in Extractions'
-  inputs:
-    folderPath: '$(System.DefaultWorkingDirectory)/xu-config/extractions'
-    fileType: json
-    targetFiles: '**/general.json'
-
-  # Update the extraction names by renaming the folders to include the environment prefix
-# - script: for /d %D in ("$(System.DefaultWorkingDirectory)\xu-config\extractions\*") do ren "%D" "$(environment)_%~nxD"
-- task: PowerShell@2
-  displayName: Add prefix to extractions
-  inputs:
-    targetType: 'inline'
-    pwsh: true
-    script: |
-      Get-ChildItem -Path '$(System.DefaultWorkingDirectory)\xu-config\extractions' |
-      Foreach-Object {Rename-Item -Path $_.FullName -NewName ("$(xuPrefix)_"+($_.Name))}
-
   # Copy Repo XU Config to VM XU Config
 - task: CopyFiles@2
   displayName: 'Copy Repo XU Config to VM XU Config'
   inputs:
-    SourceFolder: '$(System.DefaultWorkingDirectory)\xu-config\extractions'
-    Contents: '**/*.json'
+    SourceFolder: '$(Pipeline.Workspace)/XtractUniversal\extractions'
+    Contents: '$(xuPrefix)*/**/*.json' # copy only those extractions required for deployment
     TargetFolder: 'C:\Program Files\XtractUniversal\config\extractions'
     OverWrite: true

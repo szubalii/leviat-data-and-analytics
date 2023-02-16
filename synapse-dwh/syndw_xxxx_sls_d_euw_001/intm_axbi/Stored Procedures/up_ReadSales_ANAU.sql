@@ -19,6 +19,26 @@ BEGIN
     -- Insert statements for procedure here
 
 	--  Ancon Australia 
+    IF OBJECT_ID(N'tempdb..#inventtrans_ANAU') IS NOT NULL
+    BEGIN
+        DROP TABLE #inventtrans_ANAU
+    END
+    IF OBJECT_ID(N'tempdb..#inventtrans_ANAU_OS') IS NOT NULL
+    BEGIN
+        DROP TABLE #inventtrans_ANAU_OS
+    END
+    IF OBJECT_ID(N'tempdb..#inventtrans_ANAU_SB') IS NOT NULL
+    BEGIN
+        DROP TABLE #inventtrans_ANAU_SB
+    END
+    IF OBJECT_ID(N'tempdb..#inventtrans_ANAU_LA') IS NOT NULL
+    BEGIN
+        DROP TABLE #inventtrans_ANAU_LA
+    END
+    IF OBJECT_ID(N'tempdb..#inventtrans_ANAU_cnt') IS NOT NULL
+    BEGIN
+        DROP TABLE #inventtrans_ANAU_cnt
+    END
 
 	delete from [intm_axbi].[fact_CUSTINVOICETRANS] where DATAAREAID = 'ANAU' and datepart(YYYY, ACCOUNTINGDATE) = @P_Year and datepart(MM, ACCOUNTINGDATE) = @P_Month
 
@@ -28,11 +48,11 @@ BEGIN
 	t.SALESID as SALESID, 
 	t.INVENTTRANSID as INVENTTRANSID, 
 	t.LINENUM as LINENUM, 
-	i.DATEFINANCIAL as DATEFINANCIAL, 
-	i.PACKINGSLIPID as PACKINGSLIPID, 
+	MAX(i.DATEFINANCIAL) as DATEFINANCIAL, 
+	MAX(i.PACKINGSLIPID) as PACKINGSLIPID, 
 	sum(i.COSTAMOUNTPOSTED) as COSTAMOUNTPOSTED,  
 	sum(i.COSTAMOUNTADJUSTMENT) as COSTAMOUNTADJUSTMENT 
-	into #inventtrans_ANAU_dup
+	into #inventtrans_ANAU
 	from [base_ancon_australia_2_dwh].[FACT_CUSTINVOICETRANS] as t
 	inner join [base_ancon_australia_2_dwh].[FACT_CUSTINVOICEJOUR] as j
 	on lower(t.DATAAREAID) = lower(j.DATAAREAID) and
@@ -42,12 +62,12 @@ BEGIN
 	   t.INVOICEID = i.INVOICEID and
 	   t.INVENTTRANSID = i.INVENTTRANSID
 	where lower(t.DATAAREAID) = 'anau' and Datepart(yyyy, i.DATEFINANCIAL) = @P_Year and Datepart(mm, i.DATEFINANCIAL) = @P_Month and i.DATEFINANCIAL < convert(date, getdate())
-	group by t.DATAAREAID, t.INVOICEID, t.SALESID, t.INVENTTRANSID, t.LINENUM, i.DATEFINANCIAL, i.PACKINGSLIPID; 
+	group by t.DATAAREAID, t.INVOICEID, t.SALESID, t.INVENTTRANSID, t.LINENUM; 
 
 	-- Doppelte Sätze löschen. Geht leider ein DATEFINANCIAL und eine PACKINGSLIPID verloren, dafür werden die Zahlen richtig.
 	-- Obwohl wir in der COMMON TABLE EXPRESSION table löschen, werden die doppelten Sätze in der temporären Tabelle #inventtrans_ANAH gelöscht.
 	
-		SELECT 
+	/*	SELECT 
 	DATAAREAID, 
 	INVOICEID, 
 	SALESID, 
@@ -74,7 +94,7 @@ BEGIN
 			ORDER BY DATAAREAID, INVOICEID, SALESID, INVENTTRANSID, LINENUM ) RowNumber
 	from #inventtrans_ANAU_dup
 	) d
-	where d.RowNumber=1
+	where d.RowNumber=1 */
 	
 
 	--insert main sales
@@ -321,7 +341,7 @@ insert [intm_axbi].[fact_CUSTINVOICETRANS]
 	where upper(DATAAREAID) = 'ANAU' and DELIVERYCOUNTRYID = ' ' and Datepart(yyyy, ACCOUNTINGDATE) = @P_Year and Datepart(mm, ACCOUNTINGDATE) = @P_Month
 
 --drop temp tables
-drop table #inventtrans_ANAU_dup
+--drop table #inventtrans_ANAU_dup
 drop table #inventtrans_ANAU
 drop table #inventtrans_ANAU_OS
 drop table #inventtrans_ANAU_SB

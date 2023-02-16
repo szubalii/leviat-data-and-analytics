@@ -1,0 +1,1213 @@
+{
+    "functionName": "Z_THEO_READ_TABLE",
+    "runInBackgroundJob": false,
+    "backgroundJobTimeout": 180,
+    "tables": 
+    [
+        {
+            "name": "IPRITEM",
+            "description": "Generated Table for View",
+            "isView": true,
+            "fields": 
+            [
+                {
+                    "name": "MANDT",
+                    "description": "Client",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "T000",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PURCHASEREQUISITION",
+                    "description": "Purchase Requisition Number",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "PURCHASEREQUISITIONITEM",
+                    "description": "Item number of purchase requisition",
+                    "abapType": "NumericCharacterString",
+                    "length": 5,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PURCHASINGDOCUMENT",
+                    "description": "Purchase order number",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "checkTable": "EKKO",
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "PURCHASINGDOCUMENTITEM",
+                    "description": "Purchase order item number",
+                    "abapType": "NumericCharacterString",
+                    "length": 5,
+                    "isSelected": true,
+                    "checkTable": "EKPO",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PURREQNRELEASESTATUS",
+                    "description": "Requisition Processing State",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PURCHASEREQUISITIONTYPE",
+                    "description": "Purchase Requisition Document Type",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "T161",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PURCHASINGDOCUMENTSUBTYPE",
+                    "description": "Control indicator for purchasing document type",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PURCHASINGDOCUMENTITEMCATEGORY",
+                    "description": "Item category in purchasing document",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "checkTable": "T163",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PURCHASEREQUISITIONITEMTEXT",
+                    "description": "Short Text",
+                    "abapType": "CharacterString",
+                    "length": 40,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ACCOUNTASSIGNMENTCATEGORY",
+                    "description": "Account Assignment Category",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "checkTable": "T163K",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MATERIAL",
+                    "description": "Material Number",
+                    "abapType": "CharacterString",
+                    "length": 40,
+                    "isSelected": true,
+                    "checkTable": "MARA",
+                    "conversionExit": "MATN1"
+                },
+                {
+                    "name": "MANUFACTURERMATERIAL",
+                    "description": "Material number corresponding to manufacturer part number",
+                    "abapType": "CharacterString",
+                    "length": 40,
+                    "isSelected": true,
+                    "checkTable": "MARA",
+                    "conversionExit": "MATN1"
+                },
+                {
+                    "name": "MATERIALGROUP",
+                    "description": "Material Group",
+                    "abapType": "CharacterString",
+                    "length": 9,
+                    "isSelected": true,
+                    "checkTable": "T023",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PURCHASINGDOCUMENTCATEGORY",
+                    "description": "Purchasing Document Category",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "REQUESTEDQUANTITY",
+                    "description": "Purchase requisition quantity",
+                    "abapType": "PackedNumber",
+                    "length": 13,
+                    "decimalCount": 3,
+                    "isSelected": true,
+                    "formattedLength": 17,
+                    "conversionExit": "",
+                    "referenceTable": "IPRITEM",
+                    "referenceField": "BASEUNIT"
+                },
+                {
+                    "name": "BASEUNIT",
+                    "description": "Purchase requisition unit of measure",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "checkTable": "T006",
+                    "conversionExit": "CUNIT"
+                },
+                {
+                    "name": "PURREQNITEMCURRENCY",
+                    "description": "Currency Key",
+                    "abapType": "CharacterString",
+                    "length": 5,
+                    "isSelected": true,
+                    "checkTable": "TCURC",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PURCHASEREQUISITIONPRICE",
+                    "description": "Price in Purchase Requisition",
+                    "abapType": "PackedNumber",
+                    "length": 11,
+                    "decimalCount": 2,
+                    "isSelected": true,
+                    "formattedLength": 14,
+                    "conversionExit": "",
+                    "referenceTable": "IPRITEM",
+                    "referenceField": "PURREQNITEMCURRENCY",
+                    "isCurrency": true
+                },
+                {
+                    "name": "PURREQNPRICEQUANTITY",
+                    "description": "Price unit",
+                    "abapType": "PackedNumber",
+                    "length": 5,
+                    "isSelected": true,
+                    "formattedLength": 6,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MATERIALGOODSRECEIPTDURATION",
+                    "description": "Goods receipt processing time in days",
+                    "abapType": "PackedNumber",
+                    "length": 3,
+                    "isSelected": true,
+                    "formattedLength": 3,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "RELEASECODE",
+                    "description": "Release Indicator",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "checkTable": "T161S",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PURCHASEREQUISITIONRELEASEDATE",
+                    "description": "Purchase Requisition Release Date",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PURCHASINGORGANIZATION",
+                    "description": "Purchasing organization",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "T024E",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PURCHASINGGROUP",
+                    "description": "Purchasing Group",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "checkTable": "T024",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PLANT",
+                    "description": "Plant",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "T001W",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SOURCEOFSUPPLYISASSIGNED",
+                    "description": "Assigned Source of Supply",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SUPPLYINGPLANT",
+                    "description": "Supplying (issuing) plant in case of stock transport order",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ORDEREDQUANTITY",
+                    "description": "Quantity ordered against this purchase requisition",
+                    "abapType": "PackedNumber",
+                    "length": 13,
+                    "decimalCount": 3,
+                    "isSelected": true,
+                    "formattedLength": 17,
+                    "conversionExit": "",
+                    "referenceTable": "IPRITEM",
+                    "referenceField": "BASEUNIT"
+                },
+                {
+                    "name": "DELIVERYDATE",
+                    "description": "Item delivery date",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CREATIONDATE",
+                    "description": "Requisition (request) date",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "LASTCHANGEDDATE",
+                    "description": "Date of Last Change",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PROCESSINGSTATUS",
+                    "description": "Processing status of purchase requisition",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PURCHASINGINFORECORD",
+                    "description": "Number of purchasing info record",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "checkTable": "EINA",
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "SUPPLIER",
+                    "description": "Desired Vendor",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "checkTable": "LFA1",
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "ISDELETED",
+                    "description": "Deletion indicator in purchasing document",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "FIXEDSUPPLIER",
+                    "description": "Fixed vendor",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "checkTable": "LFA1",
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "REQUISITIONERNAME",
+                    "description": "Name of requisitioner/requester",
+                    "abapType": "CharacterString",
+                    "length": 12,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CREATEDBYUSER",
+                    "description": "Name of Person who Created the Object",
+                    "abapType": "CharacterString",
+                    "length": 12,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PURREQCREATIONDATE",
+                    "description": "Requisition (request) date",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "DELIVERYADDRESSID",
+                    "description": "Char Column",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "MANUALDELIVERYADDRESSID",
+                    "description": "Manual address number in purchasing document item",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "checkTable": "ADRC",
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "MATERIALPLANNEDDELIVERYDURN",
+                    "description": "Planned Delivery Time in Days",
+                    "abapType": "PackedNumber",
+                    "length": 3,
+                    "isSelected": true,
+                    "formattedLength": 3,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "DELIVDATECATEGORY",
+                    "description": "Category of delivery date",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "checkTable": "TPRG",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MULTIPLEACCTASSGMTDISTRIBUTION",
+                    "description": "Distribution Indicator for Multiple Account Assignment",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PARTIALINVOICEDISTRIBUTION",
+                    "description": "Partial invoice indicator",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "STORAGELOCATION",
+                    "description": "Storage location",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "T001L",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PURREQNSSPREQUESTOR",
+                    "description": "Requestor",
+                    "abapType": "CharacterString",
+                    "length": 60,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PURREQNSSPAUTHOR",
+                    "description": "Author of Requisition",
+                    "abapType": "CharacterString",
+                    "length": 12,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PURCHASECONTRACT",
+                    "description": "Number of principal purchase agreement",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "checkTable": "EKKO",
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "PURREQNSOURCEOFSUPPLYTYPE",
+                    "description": "Purchasing Document Category",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PURCHASECONTRACTITEM",
+                    "description": "Item number of principal purchase agreement",
+                    "abapType": "NumericCharacterString",
+                    "length": 5,
+                    "isSelected": true,
+                    "checkTable": "EKPO",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CONSUMPTIONPOSTING",
+                    "description": "Consumption posting",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PURREQNORIGIN",
+                    "description": "Creation indicator (purchase requisition/schedule lines)",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PURREQNSSPCATALOG",
+                    "description": "Technical Key of a Web Service (for Example - a Catalog)",
+                    "abapType": "CharacterString",
+                    "length": 20,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PURREQNSSPCATALOGITEM",
+                    "description": "Catalog Item Id",
+                    "abapType": "CharacterString",
+                    "length": 40,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PURREQNSSPCROSSCATALOGITEM",
+                    "description": "Catalog Item Key",
+                    "abapType": "FourByteInteger",
+                    "isSelected": true,
+                    "formattedLength": 11,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ISPURREQNBLOCKED",
+                    "description": "Purchase Requisition Blocked",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ITEMDELIVERYADDRESSID",
+                    "description": "Number of delivery address",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "checkTable": "ADRC",
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "LANGUAGE",
+                    "description": "Language Key",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "formattedLength": 2,
+                    "checkTable": "T002",
+                    "conversionExit": "ISOLA"
+                },
+                {
+                    "name": "ISCLOSED",
+                    "description": "Purchase requisition closed",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "RESERVATION",
+                    "description": "Number of reservation/dependent requirements",
+                    "abapType": "NumericCharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "RELEASEISNOTCOMPLETED",
+                    "description": "Release Not Yet Completely Effected",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SERVICEPERFORMER",
+                    "description": "Service Performer",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "PRODUCTTYPE",
+                    "description": "Product Type Group",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PURCHASEREQUISITIONSTATUS",
+                    "description": "Release State",
+                    "abapType": "CharacterString",
+                    "length": 8,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "RELEASESTRATEGY",
+                    "description": "Release strategy in the purchase requisition",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PERFORMANCEPERIODSTARTDATE",
+                    "description": "Start Date for Period of Performance",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PERFORMANCEPERIODENDDATE",
+                    "description": "End Date for Period of Performance",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "COMPANYCODE",
+                    "description": "Valuation area",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "T001K",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "VALUATIONAREA",
+                    "description": "Valuation area",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "T001K",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SUPPLIERMATERIALNUMBER",
+                    "description": "Material Number Used by Supplier",
+                    "abapType": "CharacterString",
+                    "length": 35,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "BATCH",
+                    "description": "Batch Number",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MATERIALREVISIONLEVEL",
+                    "description": "Revision level",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "conversionExit": "NUMCV"
+                },
+                {
+                    "name": "MINREMAININGSHELFLIFE",
+                    "description": "Minimum Remaining Shelf Life",
+                    "abapType": "PackedNumber",
+                    "length": 5,
+                    "isSelected": true,
+                    "formattedLength": 5,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ITEMNETAMOUNT",
+                    "description": "Total value at time of release",
+                    "abapType": "PackedNumber",
+                    "length": 15,
+                    "decimalCount": 2,
+                    "isSelected": true,
+                    "formattedLength": 20,
+                    "conversionExit": "",
+                    "referenceTable": "IPRITEM",
+                    "referenceField": "PURREQNITEMCURRENCY",
+                    "isCurrency": true
+                },
+                {
+                    "name": "GOODSRECEIPTISEXPECTED",
+                    "description": "Goods Receipt Indicator",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "INVOICEISEXPECTED",
+                    "description": "Invoice receipt indicator",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "GOODSRECEIPTISNONVALUATED",
+                    "description": "Goods Receipt, Non-Valuated",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "REQUIREMENTTRACKING",
+                    "description": "Requirement Tracking Number",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MRPCONTROLLER",
+                    "description": "MRP Controller",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "checkTable": "T024D",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PURCHASEREQUISITIONISFIXED",
+                    "description": "Purchase requisition is fixed",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ADDRESSID",
+                    "description": "Manual address number in purchasing document item",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "checkTable": "ADRC",
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "LASTCHANGEDATETIME",
+                    "description": "UTC Time Stamp in Long Form (YYYYMMDDhhmmssmmmuuun)",
+                    "abapType": "PackedNumber",
+                    "length": 21,
+                    "decimalCount": 7,
+                    "isSelected": true,
+                    "formattedLength": 27,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ISPURREQNCMPLT",
+                    "description": "Purchase Requisition not yet Complete",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PURREQNCMPLTNSCAT",
+                    "description": "Category of Incompleteness",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "EXTMATERIALFORPURG",
+                    "description": "Material of External System",
+                    "abapType": "CharacterString",
+                    "length": 40,
+                    "isSelected": true,
+                    "conversionExit": "MATN1"
+                },
+                {
+                    "name": "EXTFIXEDSUPPLIERFORPURG",
+                    "description": "Fixed Supplier of External System",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "EXTDESIREDSUPPLIERFORPURG",
+                    "description": "Desired Supplier of External System",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "EXTCONTRACTFORPURG",
+                    "description": "Contract of External System",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "EXTCONTRACTITEMFORPURG",
+                    "description": "Contract Item of External System",
+                    "abapType": "NumericCharacterString",
+                    "length": 5,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "EXTINFORECORDFORPURG",
+                    "description": "Info Record of External System",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "EXTPLANTFORPURG",
+                    "description": "Plant of External System",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "EXTCOMPANYCODEFORPURG",
+                    "description": "Company Code of External System",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "EXTPURGORGFORPURG",
+                    "description": "Purchasing Organization",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "EXTSOURCESYSTEM",
+                    "description": "Communication System ID",
+                    "abapType": "CharacterString",
+                    "length": 60,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PROCUREMENTHUBSOURCESYSTEM",
+                    "description": "Connected System ID",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ISPURREQNOVRLREL",
+                    "description": "Overall release of purchase requisitions",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "RELEASEGROUP",
+                    "description": "Release group",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "checkTable": "T16FG",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MRPAREA",
+                    "description": "MRP Area",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "EXPECTEDOVERALLLIMITAMOUNT",
+                    "description": "Expected Value of Overall Limit",
+                    "abapType": "PackedNumber",
+                    "length": 13,
+                    "decimalCount": 2,
+                    "isSelected": true,
+                    "formattedLength": 16,
+                    "conversionExit": "",
+                    "referenceTable": "IPRITEM",
+                    "referenceField": "PURREQNITEMCURRENCY",
+                    "isCurrency": true
+                },
+                {
+                    "name": "OVERALLLIMITAMOUNT",
+                    "description": "Overall Limit",
+                    "abapType": "PackedNumber",
+                    "length": 13,
+                    "decimalCount": 2,
+                    "isSelected": true,
+                    "formattedLength": 16,
+                    "conversionExit": "",
+                    "referenceTable": "IPRITEM",
+                    "referenceField": "PURREQNITEMCURRENCY",
+                    "isCurrency": true
+                },
+                {
+                    "name": "ISENDOFPURPOSEBLOCKED",
+                    "description": "Business Purpose Completed",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PURCHASEREQNITEMUNIQUEID",
+                    "description": "Key to identify purchase requisition item",
+                    "abapType": "CharacterString",
+                    "length": 15,
+                    "isSelected": true,
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "SUBCONTRACTOR",
+                    "description": "Supplier to be Supplied/Who is to Receive Delivery",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "checkTable": "LFA1",
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "PURCHASEORDERPRICETYPE",
+                    "description": "Use Requisition Price in Purchase Order",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ISONBEHALFCART",
+                    "description": "Shop on behalf indicator",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "EXTPURCHASEREQUISITIONTYPE",
+                    "description": "PR Document Type of Connected System",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PURREQNISCREATEDINEXPERTMODE",
+                    "description": "PR Created in Expert Mode",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MATERIALSHORTAGEQUANTITY",
+                    "description": "Shortage (stock undercoverage) quantity",
+                    "abapType": "PackedNumber",
+                    "length": 13,
+                    "decimalCount": 3,
+                    "isSelected": true,
+                    "formattedLength": 17,
+                    "conversionExit": "",
+                    "referenceTable": "IPRITEM",
+                    "referenceField": "BASEUNIT"
+                },
+                {
+                    "name": "PROCURINGPLANT",
+                    "description": "Procuring Plant",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "T001W",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PURCHASEORDERDATE",
+                    "description": "Purchase Order Date",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "EXTERNALPROCUREMENTPROFILE",
+                    "description": "External Procurement Profile",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PURREQNREQUESTOR",
+                    "description": "Requestor",
+                    "abapType": "CharacterString",
+                    "length": 60,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "EXTERNALAPPROVALSTATUS",
+                    "description": "External Processing Status",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "COMMITMENTITEM",
+                    "description": "Commitment Item",
+                    "abapType": "CharacterString",
+                    "length": 14,
+                    "isSelected": true,
+                    "formattedLength": 24,
+                    "conversionExit": "FMCIS"
+                },
+                {
+                    "name": "FUNDSCENTER",
+                    "description": "Funds Center",
+                    "abapType": "CharacterString",
+                    "length": 16,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "FUND",
+                    "description": "Fund",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "GRANTID",
+                    "description": "Grant",
+                    "abapType": "CharacterString",
+                    "length": 20,
+                    "isSelected": true,
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "FUNCTIONALAREA",
+                    "description": "Functional Area",
+                    "abapType": "CharacterString",
+                    "length": 16,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "EARMARKEDFUNDSDOCUMENT",
+                    "description": "Document Number for Earmarked Funds",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "EARMARKEDFUNDSDOCUMENTITEM",
+                    "description": "Earmarked Funds: Document Item",
+                    "abapType": "NumericCharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "BUDGETPERIOD",
+                    "description": "Budget Period",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MATERIALORDERUNIT",
+                    "description": "Purchase Order Unit of Measure",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "checkTable": "T006",
+                    "conversionExit": "CUNIT"
+                },
+                {
+                    "name": "COSTCENTER",
+                    "description": "Cost Center",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "GLACCOUNT",
+                    "description": "G/L Account Number",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "PURREQNEXTERNALREFERENCE",
+                    "description": "Document Number of External Document",
+                    "abapType": "CharacterString",
+                    "length": 35,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PURREQNITEMEXTERNALREFERENCE",
+                    "description": "Item Number of External Document",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PURREQNEXTERNALSYSTEMID",
+                    "description": "External System ID",
+                    "abapType": "CharacterString",
+                    "length": 60,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PURREQNEXTERNALSYSTEMTYPE",
+                    "description": "Type of External System",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PURREQNTYPEEXTERNALREFERENCE",
+                    "description": "External Document Type",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PURREQNPROCESSINGTYPE",
+                    "description": "Processing State",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PURREQNPROCESSINGDATETIME",
+                    "description": "Timestamp",
+                    "abapType": "CharacterString",
+                    "length": 14,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PROCMTHUBBACKENDBUSSYST",
+                    "description": "Connected System",
+                    "abapType": "CharacterString",
+                    "length": 60,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PROCMTHUBPURREQNITMISCHANGED",
+                    "description": "Change Indicator for PR in Central Procurement",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "INVENTORYSPECIALSTOCKTYPE",
+                    "description": "Special Stock Indicator",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "checkTable": "T148",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SSPAUTHOREXTERNALBPIDNNUMBER",
+                    "description": "BP ID of Author",
+                    "abapType": "CharacterString",
+                    "length": 60,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SSPREQRUSERID",
+                    "description": "Requestor User ID",
+                    "abapType": "CharacterString",
+                    "length": 12,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PURREQNISVALDINCNTRLREQNPROCG",
+                    "description": "Is PR relevant for Central PR Processing",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "STOCKSEGMENT",
+                    "description": "Stock Segment",
+                    "abapType": "CharacterString",
+                    "length": 40,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "REQUIREMENTSEGMENT",
+                    "description": "Requirement Segment",
+                    "abapType": "CharacterString",
+                    "length": 40,
+                    "isSelected": true,
+                    "conversionExit": ""
+                }
+            ]
+        }
+    ]
+}

@@ -590,6 +590,8 @@
     <Build Include="edw\Views\vw_BillingDocumentItem_s4h.sql" />
     <Build Include="edw\Views\vw_BillingDocumentItem_axbi.sql" />
     <Build Include="dm_sales\Views\vw_fact_SalesOrderItem.sql" />
+    <Build Include="dm_sales\Views\vw_fact_SalesOrderItem_filtered.sql" />
+    <Build Include="dm_sales\Views\vw_fact_SalesOrderItem_narrow.sql" />
     <Build Include="dm_sales\Views\vw_fact_SalesQuotationItem.sql" />
     <Build Include="base_s4h_cax\Tables\I_TotalSDDocReferenceStatusT.sql" />
     <Build Include="base_s4h_cax\Tables\I_OverallSDDocumentRjcnStatusT.sql" />
@@ -623,6 +625,7 @@
     <Build Include="base_s4h_cax\Tables\C_BillingDocumentItemBasicDEX_active.sql" />
     <Build Include="base_s4h_cax\Views\vw_C_BillingDocumentItemBasicDEX.sql" />
     <Build Include="edw\Views\vw_OutboundDeliveryItem_s4h.sql" />
+    <Build Include="edw\Views\vw_OutboundDeliveryItem_for_SalesDocumentItem.sql" />
     <Build Include="edw\Tables\fact_OutboundDeliveryItem.sql" />
     <Build Include="edw\Tables\dim_Supplier.sql" />
     <Build Include="edw\Tables\dim_Warehouse.sql" />
@@ -636,6 +639,7 @@
     <Build Include="edw\Views\vw_DeliveryDocumentType.sql" />
     <Build Include="edw\Views\vw_SDProcessStatus.sql" />
     <Build Include="edw\Views\vw_BillingDocumentItem_s4h_fin.sql" />
+    <Build Include="edw\Views\vw_BillingDocumentItem_for_SalesDocumentItem.sql" />
     <Build Include="base_tx_ca_0_hlp\Tables\CUSTINVOICETRANS.sql" />
     <Build Include="edw\Tables\dim_SalesDocumentScheduleLine.sql" />
     <Build Include="map_AXBI\Tables\Migration.sql" />
@@ -828,6 +832,7 @@
     <Build Include="edw\Views\vw_DeliveryDocument.sql" />
     <Build Include="base_ff\Tables\ConfigurableProductCharacteristic.sql" />
     <Build Include="dm_sales\Views\vw_fact_MaterialStockLevel.sql" />
+    <Build Include="dm_sales\Views\vw_fact_MaterialStockLevel_filtered.sql" />
     <Build Include="edw\Tables\fact_ProductHierarchyVariantConfigCharacteristic_active.sql" />
     <Build Include="edw\Views\vw_ProductHierarchyVariantConfigCharacteristic_delta.sql" />
     <Build Include="base_ff\Tables\ConfigurableProduct.sql" />
@@ -926,6 +931,7 @@
     <Build Include="dm_finance\Views\vw_dim_Product.sql" />
     <Build Include="dm_finance\Views\vw_dim_SalesDistrict.sql" />
     <Build Include="dm_finance\Views\vw_dim_SalesOrganization.sql" />
+    <Build Include="dm_finance\Views\vw_dim_ProfitCenter.sql" />
     <Build Include="base_c4c\Tables\OpportunityCollection.sql" />
     <Build Include="Security\Schemas\base_c4c.sql" />
     <Build Include="dm_sales\Views\vw_dim_FinancialStatementItem.sql" />
@@ -1065,6 +1071,7 @@
     <Build Include="base_halfen_moment_my\Tables\CUSTINVOICETRANS_HMMY.sql" />
     <Build Include="base_ancon_uk\Tables\CUSTINVOICETRANS_ANUK.sql" />
     <Build Include="base_ancon_uk\Tables\CUSTTABLE_ANUK.sql" />
+    <Build Include="base_ancon_uk\Tables\CUSTTABLE_ANUK_orig.sql" />
     <Build Include="base_ancon_uk\Tables\INVOICEDFREIGHT_ANUK.sql" />
     <Build Include="base_ancon_uk\Tables\ITEMTABLE_ANUK.sql" />
     <Build Include="base_ancon_uk\Tables\MAPPING_ITEMGROUP_ANUK.sql" />
@@ -1104,7 +1111,9 @@
     <Build Include="intm_axbi\Stored Procedures\up_CollectSales_CA.sql" />
     <Build Include="intm_axbi\Stored Procedures\up_CUSTINVOICETRANS_Werte_nach_CRH_Kurs_umrechnen.sql" />
     <Build Include="base_s4h_cax\Tables\P_UserAddress.sql" />
+    <Build Include="base_s4h_cax\Tables\ZE_EXQLMAP_DT.sql" />
     <Build Include="edw\Views\vw_UserAddress.sql" />
+    <Build Include="edw\Views\vw_ZE_EXQLMAP_DT.sql" />
     <Build Include="edw\Tables\dim_UserAddress.sql" />
     <Build Include="dm_sales\Views\vw_dim_UserAddress.sql" />
     <Build Include="base_s4h_cax\Tables\I_PricingElement.sql" />
@@ -1112,6 +1121,7 @@
     <Build Include="dm_dq\Views\vw_dim_MAWEV.sql" />
     <Build Include="dm_dq\Views\vw_dim_ProductValuationCosting.sql" />
 	<Build Include="dm_sales\Views\vw_dim_GLAccountText.sql" />
+	<Build Include="base_s4h_cax\Tables\I_Purchaserequisitionitem.sql" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PostDeploy Include="Scripts\Post-Deploy\Script.PostDeployment.sql" />
