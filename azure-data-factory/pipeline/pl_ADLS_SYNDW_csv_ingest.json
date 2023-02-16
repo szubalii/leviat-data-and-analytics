@@ -90,14 +90,15 @@
 		"parameters": {
 			"container": {
 				"type": "string",
-				"defaultValue": "flat-files"
+				"defaultValue": "tx-halfen-2-dwh-uat"
 			},
 			"directory": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "DIM_VENDTABLE/Archive/"
 			},
 			"file_name": {
 				"type": "string",
-				"defaultValue": "dim_ValueType.csv"
+				"defaultValue": "*"
 			},
 			"field_delimiter": {
 				"type": "string",
@@ -105,11 +106,11 @@
 			},
 			"base_schema_name": {
 				"type": "string",
-				"defaultValue": "base_ff"
+				"defaultValue": "base_tx_halfen_2_dwh"
 			},
 			"base_table_name": {
 				"type": "string",
-				"defaultValue": "ValueType"
+				"defaultValue": "DIM_VENDTABLE_Archive"
 			}
 		},
 		"folder": {
