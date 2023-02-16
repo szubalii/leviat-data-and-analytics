@@ -1149,7 +1149,7 @@
     <Build Include="intm_axbi\Views\vw_DIM_INVENTLOCATION.sql" />
     <Build Include="intm_axbi\Views\vw_FACT_CUSTPACKINGSLIPTRANS.sql" />
     <Build Include="intm_axbi\Views\vw_DIM_INVENTTABLE.sql" />
-    <Build Include="intm_axbi\Views\DIM_ARTICLE_Archive.sql" />
+    <Build Include="intm_axbi\Views\vw_DIM_ARTICLE.sql" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PostDeploy Include="Scripts\Post-Deploy\Script.PostDeployment.sql" />
