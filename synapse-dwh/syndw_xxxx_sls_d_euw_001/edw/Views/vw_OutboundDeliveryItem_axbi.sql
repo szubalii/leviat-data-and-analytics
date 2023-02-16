@@ -72,7 +72,7 @@ SELECT
     FCust.[t_applicationId],
     FCust.[t_extractionDtm]
 FROM 
-    [base_tx_halfen_2_dwh].[FACT_CUSTPACKINGSLIPTRANS] FCust
+    vw_FACT_CUSTPACKINGSLIPTRANS FCust
     LEFT JOIN
         [map_AXBI].[SalesOrganization] AS SO
         ON

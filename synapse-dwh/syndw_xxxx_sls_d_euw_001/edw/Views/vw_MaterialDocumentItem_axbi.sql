@@ -112,7 +112,7 @@ LEFT JOIN
     ON
         dmATRNS.[ENUMVALUE] = FINV.[TRANSTYPE]
 LEFT JOIN
-    [base_tx_halfen_2_dwh].[DIM_INVENTTABLE] dmINVTBL
+    intm_axbi.vw_DIM_INVENTTABLE dmINVTBL
     ON
         FINV.[ITEMID] = dmINVTBL.[ITEMID]
         AND 
@@ -212,7 +212,7 @@ LEFT JOIN
         ON
         INVT.[INVENTTRANSID] = FP.[INVENTTRANSID]
 LEFT JOIN 
-    [base_tx_halfen_2_dwh].[DIM_VENDTABLE] dmVend
+    intm_axbi.vw_DIM_VENDTABLE dmVend
         ON
         FP.[VENDACCOUNT] = CAST(dmVend.[ACCOUNTNUM] AS NVARCHAR(20))
         AND
@@ -350,7 +350,7 @@ LEFT JOIN
     ON 
         INV.[SalesDocumentItemCategoryID] = vwSDDC.SDDocumentCategoryID
 LEFT JOIN
-    [base_tx_halfen_2_dwh].[DIM_INVENTLOCATION] dmInvLocation
+    intm_axbi.vw_DIM_INVENTLOCATION dmInvLocation
         ON
         dmInvLocation.[INVENTLOCATIONID] = INV.[INVENTLOCATIONID]
 LEFT JOIN
