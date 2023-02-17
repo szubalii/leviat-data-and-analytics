@@ -50,47 +50,60 @@
         "dataset_guid": "7db9ed65-db3c-4175-bfd4-62864979334a"
       }
     }
-  },"Leviat_Data_Analytics_FinSales": {
-      "workspace_guid": "93d5be19-4398-4b03-be0f-d2d6c01e7a4c",
-      "datasets": {
-          "Fin View": {
-              "dataset_guid": "eb0fd327-dcab-4716-b8c6-62030375963c"
-          },
-          "Fin View Invoiced Cost Outliers": {
-              "dataset_guid": "0528c746-38c8-4aab-ad7c-c022ba2ba01d"
-          },
-          "Fin View (Legacy)": {
-              "dataset_guid": "8f4df736-52c9-4539-94bd-aa725142cb4a"
-          },
-          "Fin View (Legacy) - Budgeting": {
-              "dataset_guid": "9dc1adfb-8dc0-453c-bca4-6f0b482e878f"
-          }
+  },
+  "Leviat_Data_Analytics_FinSales": {
+    "workspace_guid": "93d5be19-4398-4b03-be0f-d2d6c01e7a4c",
+    "datasets": {
+      "Fin View": {
+        "dataset_guid": "eb0fd327-dcab-4716-b8c6-62030375963c"
+      },
+      "Fin View Invoiced Cost Outliers": {
+        "dataset_guid": "0528c746-38c8-4aab-ad7c-c022ba2ba01d"
+      },
+      "Fin View (Legacy)": {
+        "dataset_guid": "8f4df736-52c9-4539-94bd-aa725142cb4a"
+      },
+      "Fin View (Legacy) - Budgeting": {
+        "dataset_guid": "9dc1adfb-8dc0-453c-bca4-6f0b482e878f"
       }
-  },"Leviat_Data_Analytics_SCM": {
-      "workspace_guid": "8d440b01-7316-4e0d-a416-07a6247e31b0",
-      "datasets": {
-          "OTIF": {
-              "dataset_guid": "c8508ad9-50da-41c8-ac24-c83032834810"
-          },"Stock Usage": {
-              "dataset_guid": "15188896-8289-4517-96ab-49cf5b93ed7e"
-          },"Data Quality Checks": {
-              "dataset_guid": "b62f4e1a-3ed8-44d8-a743-b097345d2f05"
-          }
+    }
+  },
+  "Leviat_Data_Analytics_SCM": {
+    "workspace_guid": "8d440b01-7316-4e0d-a416-07a6247e31b0",
+    "datasets": {
+      "OTIF": {
+        "dataset_guid": "c8508ad9-50da-41c8-ac24-c83032834810"
+      },
+      "Stock Usage": {
+        "dataset_guid": "15188896-8289-4517-96ab-49cf5b93ed7e"
+      },
+      "Data Quality Checks": {
+        "dataset_guid": "b62f4e1a-3ed8-44d8-a743-b097345d2f05"
       }
-  },"Leviat_Data_Analytics Performance Team Tools": {
-      "workspace_guid": "acd73a8e-c087-4568-bade-3c5856cdfbc8",
-      "datasets": {
-          "Price Floor": {
-              "dataset_guid": "1113f27b-7786-4708-8fd6-c12e7a6f6408"
-          }
+    }
+  },
+  "Leviat_Data_Analytics Performance Team Tools": {
+    "workspace_guid": "acd73a8e-c087-4568-bade-3c5856cdfbc8",
+    "datasets": {
+      "Price Floor": {
+        "dataset_guid": "1113f27b-7786-4708-8fd6-c12e7a6f6408"
       }
+    }
   },
   "Leviat_Data_Analytics MDQ": {
-      "workspace_guid": "66ed8f0a-80d4-41d2-852d-3bdff14a0efa",
-      "datasets": {
-          "Master Data Quality Checks": {
-              "dataset_guid": "75fc2a75-7825-4d43-b13a-1aa3a4efb85a"
-          }
+    "workspace_guid": "66ed8f0a-80d4-41d2-852d-3bdff14a0efa",
+    "datasets": {
+      "Master Data Quality Checks": {
+        "dataset_guid": "75fc2a75-7825-4d43-b13a-1aa3a4efb85a"
       }
+    }
+  },
+  "Leviat_Data_Analytics Procurement": {
+    "workspace_guid": "d8681041-5d40-48e5-a1bb-2e9c60bd59e4",
+    "datasets": {
+      "Spend Report Mapped v3": {
+        "dataset_guid": "127a714a-45ef-4a92-8cd0-2bf33c0fb316"
+      }
+    }
   }
 }
