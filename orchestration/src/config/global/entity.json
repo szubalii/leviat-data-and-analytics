@@ -3908,7 +3908,7 @@
         "schedule_recurrence": "D",
         "update_mode": "Span",
         "axbi_date_field_name": "DAORDT",
-        "reload_period": 4
+        "reload_period": 2
       },
       {
         "entity_id": 524,
