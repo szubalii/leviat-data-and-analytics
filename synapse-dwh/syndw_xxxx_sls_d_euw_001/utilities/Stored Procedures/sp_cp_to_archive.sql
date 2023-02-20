@@ -1,11 +1,21 @@
-CREATE PROCEDURE [utilities].[sp_cp_to_archive]
+CREATE PROC [utilities].[sp_cp_to_archive]
     @schema_src      VARCHAR  (100)   
 ,   @schema_dst      VARCHAR  (100)   
 ,   @table_src       VARCHAR  (100)
 ,   @table_dst       VARCHAR  (100)
 ,   @date_field_name VARCHAR  (100)
 ,   @reload_period   INT
+,   @_load_from      VARCHAR(100)
 AS
+/*      Procedure for pumping of data from Span loaded table to archive table
+    @schema_src     -   schema of source table
+    @schema_dst     -   schema of destination table
+    @table_src      -   name of source table
+    @table_dst      -   name of destination table
+    @date_field_name -  name of data field in tables
+    @reload_period  -   reload (reload_period)-th month before current
+    @_load_from     -   load 1 month starting from that date, leave it blank if you want to use @reload_period
+*/
 BEGIN
 
     DECLARE @load_from  date
@@ -13,15 +23,18 @@ BEGIN
     DECLARE @delete_script NVARCHAR(MAX)
     DECLARE @insert_script NVARCHAR(MAX)
     
-    SET  @load_from = DATEADD(
-        DAY
-        ,-1 * DATEPART(DAY, GETDATE()) + 1
-        ,DATEADD(
-            MONTH
-            , -1 * @reload_period
-            , GETDATE()
+    IF (COALESCE(@_load_from,'') = '')
+        SET  @load_from = DATEADD(
+            DAY
+            ,-1 * DATEPART(DAY, GETDATE()) + 1
+            ,DATEADD(
+                MONTH
+                , -1 * @reload_period
+                , GETDATE()
+            )
         )
-    )
+    ELSE
+        SET @load_from = CAST( @_load_from AS DATE)
     
     SET @load_to = DATEADD(
         MONTH
