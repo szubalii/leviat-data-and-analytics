@@ -323,7 +323,7 @@
   "Leviat_Data_Analytics Procurement": {
     "datasets": {
       "Master Data Quality Checks": {
-        "pbi_dataset_id": 17,
+        "pbi_dataset_id": 24,
         "schedule_recurrence": "D",
         "entities": {
           "edw": [
