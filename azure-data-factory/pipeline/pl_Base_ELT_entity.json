@@ -182,7 +182,10 @@
 										"value": "@pipeline().parameters.s4h_client_id",
 										"type": "Expression"
 									},
-									"load_from": "@pipeline().parameters.load_from"
+									"load_from": {
+										"value": "@pipeline().parameters.load_from",
+										"type": "Expression"
+									}
 								}
 							}
 						}
@@ -868,6 +871,14 @@
 									},
 									"run_id": {
 										"value": "@pipeline().parameters.run_id",
+										"type": "Expression"
+									},
+									"source_date_field_name": {
+										"value": "@pipeline().parameters.source_date_field_name",
+										"type": "Expression"
+									},
+									"load_from": {
+										"value": "@pipeline().parameters.load_from",
 										"type": "Expression"
 									}
 								}

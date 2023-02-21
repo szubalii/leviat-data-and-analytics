@@ -89,47 +89,11 @@
 				}
 			},
 			{
-				"name": "Process Base",
-				"type": "SqlServerStoredProcedure",
-				"dependsOn": [
-					{
-						"activity": "Set Batch ProcessBase",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"policy": {
-					"timeout": "7.00:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"storedProcedureName": {
-						"value": "@{pipeline().parameters.base_schema_name}.@{pipeline().parameters.base_sproc_name}",
-						"type": "Expression"
-					}
-				},
-				"linkedServiceName": {
-					"referenceName": "ls_ws_xxxx_sls_x_euw_001__syndw_xxxx_sls_x_euw_001",
-					"type": "LinkedServiceReference",
-					"parameters": {
-						"sqlPool": {
-							"value": "@pipeline().globalParameters.synapseDatabaseName",
-							"type": "Expression"
-						}
-					}
-				}
-			},
-			{
 				"name": "Update Batch Status Succeeded",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "Process Base",
+						"activity": "If Generic Procedure",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -271,7 +235,7 @@
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "Process Base",
+						"activity": "If Generic Procedure",
 						"dependencyConditions": [
 							"Failed"
 						]
@@ -332,6 +296,119 @@
 						}
 					}
 				}
+			},
+			{
+				"name": "If Generic Procedure",
+				"type": "IfCondition",
+				"dependsOn": [
+					{
+						"activity": "Set Batch ProcessBase",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@contains(pipeline().parameters.base_sproc_name, 'sp_load2archive')",
+						"type": "Expression"
+					},
+					"ifFalseActivities": [
+						{
+							"name": "Process Base",
+							"type": "SqlServerStoredProcedure",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"storedProcedureName": "@{pipeline().parameters.base_schema_name}.@{pipeline().parameters.base_sproc_name}"
+							},
+							"linkedServiceName": {
+								"referenceName": "ls_ws_xxxx_sls_x_euw_001__syndw_xxxx_sls_x_euw_001",
+								"type": "LinkedServiceReference",
+								"parameters": {
+									"sqlPool": "@pipeline().globalParameters.synapseDatabaseName"
+								}
+							}
+						}
+					],
+					"ifTrueActivities": [
+						{
+							"name": "Generic Process Base",
+							"type": "SqlServerStoredProcedure",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"storedProcedureName": "utilities.@{pipeline().parameters.base_sproc_name}",
+								"storedProcedureParameters": {
+									"base_schema_name": {
+										"value": {
+											"value": "@pipeline().parameters.base_schema_name",
+											"type": "Expression"
+										},
+										"type": "String"
+									},
+									"base_table_name": {
+										"value": {
+											"value": "@pipeline().parameters.base_table_name",
+											"type": "Expression"
+										},
+										"type": "String"
+									},
+									"entity_id": {
+										"value": {
+											"value": "@pipeline().parameters.entity_id",
+											"type": "Expression"
+										},
+										"type": "String"
+									},
+									"run_id": {
+										"value": {
+											"value": "@pipeline().parameters.run_id",
+											"type": "Expression"
+										},
+										"type": "String"
+									},
+									"load_from": {
+										"value": {
+											"value": "@pipeline().parameters.load_from",
+											"type": "Expression"
+										},
+										"type": "String"
+									},
+									"source_field_name": {
+										"value": {
+											"value": "@pipeline().parameters.source_date_field_name",
+											"type": "Expression"
+										},
+										"type": "String"
+									}
+								}
+							},
+							"linkedServiceName": {
+								"referenceName": "ls_ws_xxxx_sls_x_euw_001__syndw_xxxx_sls_x_euw_001",
+								"type": "LinkedServiceReference",
+								"parameters": {
+									"sqlPool": "@pipeline().globalParameters.synapseDatabaseName"
+								}
+							}
+						}
+					]
+				}
 			}
 		],
 		"parameters": {
@@ -348,6 +425,12 @@
 				"type": "string"
 			},
 			"run_id": {
+				"type": "string"
+			},
+			"source_date_field_name": {
+				"type": "string"
+			},
+			"load_from": {
 				"type": "string"
 			}
 		},
