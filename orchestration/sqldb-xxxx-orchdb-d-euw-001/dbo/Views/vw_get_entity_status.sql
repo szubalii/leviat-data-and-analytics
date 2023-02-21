@@ -18,6 +18,19 @@ SELECT
 	,ent.[axbi_database_name]
 	,ent.[axbi_schema_name]
 	,ent.[axbi_date_field_name]
+	,CONVERT(
+		VARCHAR
+		,DATEADD(
+			DAY
+			,-1 * DATEPART(DAY, GETDATE()) + 1
+			,DATEADD(
+				MONTH
+				, -1 * ent.[reload_period]
+				, GETDATE()
+			)
+		)
+		,111
+	)								AS [load_from]
 	,ent.[sproc_schema_name]
 	,ent.[sproc_name]
 	,ent.[source_schema_name]
