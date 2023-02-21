@@ -322,7 +322,7 @@
   },
   "Leviat_Data_Analytics Procurement": {
     "datasets": {
-      "Master Data Quality Checks": {
+      "Spend Report Mapped v3": {
         "pbi_dataset_id": 24,
         "schedule_recurrence": "D",
         "entities": {
