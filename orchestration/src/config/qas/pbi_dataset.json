@@ -1,4 +1,12 @@
 {
+  "Leviat_Data_Analytics Finance": {
+    "workspace_guid": "2f36c863-b7a5-4692-8f32-c61fa0cac41e",
+    "datasets": {
+      "EPM Sales View": {
+        "dataset_guid": "92402ae1-d4a1-4476-b893-6f70eaea9dfa"
+      }
+    }
+  },
   "Leviat_Data_Analytics_Sales": {
     "workspace_guid": "4a9fc391-9b5a-41ff-844e-6299c32bc537",
     "datasets": {
