@@ -27,7 +27,7 @@ SELECT
     ent.[entity_name],
     baseDirPath.[layer_nk],
     ent.[adls_container_name],
-    baseDirPath.baseDirPath + '/In/' + FORMAT(@date, 'yyyy/MM/dd', 'en-US') AS adls_directory_path_In,
+    baseDirPath.baseDirPath + '/In/' + FORMAT(@date, 'yyyy/MM/dd', 'en-US') AS adls_ditory_path_In,
     baseDirPath.baseDirPath + '/Out/' + FORMAT(@date, 'yyyy/MM/dd', 'en-US') AS adls_directory_path_Out,
     ent.[data_category],
     ent.[client_field],
@@ -47,7 +47,11 @@ SELECT
     ent.[dest_schema_name],
     ent.[dest_table_name],
     ent.[execution_order],
-    ent.[pk_field_names]
+    ent.[pk_field_names],
+    ent.[schedule_recurrence],
+    ent.[schedule_start_date],
+    ent.[schedule_day],
+    ent.[reload_period_in_months]
 FROM
     [dbo].[entity] ent
 LEFT JOIN
