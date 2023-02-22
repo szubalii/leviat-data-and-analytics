@@ -26,7 +26,7 @@
 	[schedule_recurrence]		VARCHAR(5),
     [schedule_start_date]		DATETIME,
     [schedule_day]              INT,
-    [reload_period]             INT,
+    [reload_period_in_months]   INT,
 
     PRIMARY KEY CLUSTERED ([entity_id] ASC),
     CONSTRAINT [FK_entity_layer] FOREIGN KEY ([layer_id]) REFERENCES [dbo].[layer] ([layer_id])
