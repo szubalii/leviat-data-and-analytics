@@ -27,7 +27,7 @@ SELECT
     ent.[entity_name],
     baseDirPath.[layer_nk],
     ent.[adls_container_name],
-    baseDirPath.baseDirPath + '/In/' + FORMAT(@date, 'yyyy/MM/dd', 'en-US') AS adls_ditory_path_In,
+    baseDirPath.baseDirPath + '/In/' + FORMAT(@date, 'yyyy/MM/dd', 'en-US') AS adls_directory_path_In,
     baseDirPath.baseDirPath + '/Out/' + FORMAT(@date, 'yyyy/MM/dd', 'en-US') AS adls_directory_path_Out,
     ent.[data_category],
     ent.[client_field],
