@@ -383,9 +383,9 @@
 										},
 										"type": "String"
 									},
-									"load_from": {
+									"refresh_from_date": {
 										"value": {
-											"value": "@pipeline().parameters.load_from",
+											"value": "@pipeline().parameters.refresh_from_date",
 											"type": "Expression"
 										},
 										"type": "String"
@@ -430,7 +430,7 @@
 			"source_date_field_name": {
 				"type": "string"
 			},
-			"load_from": {
+			"refresh_from_date": {
 				"type": "string"
 			}
 		},

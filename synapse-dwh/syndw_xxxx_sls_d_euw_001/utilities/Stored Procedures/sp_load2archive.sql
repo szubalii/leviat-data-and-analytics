@@ -3,7 +3,7 @@ CREATE PROC [utilities].[sp_load2archive]
 ,   @base_table_name        VARCHAR  (100)   
 ,   @entity_id              VARCHAR  (100)
 ,   @run_id                 VARCHAR  (100)
-,   @load_from              VARCHAR  (100)
+,   @refresh_from_date      VARCHAR  (100)
 ,   @source_field_name      VARCHAR  (100)
 AS
 BEGIN
@@ -26,6 +26,6 @@ BEGIN
             , @table_dst
             , @source_field_name
             , ''
-            , @load_from
+            , @refresh_from_date
     END
 END

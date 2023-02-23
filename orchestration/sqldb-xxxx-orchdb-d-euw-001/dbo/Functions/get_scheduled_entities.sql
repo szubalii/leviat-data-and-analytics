@@ -23,7 +23,7 @@ RETURNS @schedule_entities_table TABLE
     ,[axbi_database_name]       VARCHAR(128)
     ,[axbi_schema_name]         VARCHAR(128)
     ,[axbi_date_field_name]     VARCHAR(128)
-    ,[load_from]                VARCHAR(128)
+    ,[refresh_from_date]        DATE
     ,[sproc_schema_name]        VARCHAR(128)
     ,[sproc_name]               VARCHAR(128)
     ,[source_schema_name]       VARCHAR(128)
@@ -90,7 +90,7 @@ BEGIN
         ,ent.[axbi_database_name]
         ,ent.[axbi_schema_name]
         ,ent.[axbi_date_field_name]
-        ,ent.[load_from]
+        ,ent.[refresh_from_date]
         ,ent.[sproc_schema_name]
         ,ent.[sproc_name]
         ,ent.[source_schema_name]
