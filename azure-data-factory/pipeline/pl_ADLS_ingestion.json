@@ -75,7 +75,10 @@
 												"value": "@pipeline().parameters.batch_id",
 												"type": "Expression"
 											},
-											"load_from": "@pipeline().parameters.load_from"
+											"refresh_from_date": {
+												"value": "@pipeline().parameters.refresh_from_date",
+												"type": "Expression"
+											}
 										}
 									}
 								}
@@ -401,7 +404,7 @@
 				"type": "int",
 				"defaultValue": 200
 			},
-			"load_from": {
+			"refresh_from_date": {
 				"type": "string",
 				"defaultValue": "2022/10/01"
 			}
