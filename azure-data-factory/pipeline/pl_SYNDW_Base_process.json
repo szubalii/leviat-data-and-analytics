@@ -388,7 +388,7 @@
 											"value": "@pipeline().parameters.refresh_from_date",
 											"type": "Expression"
 										},
-										"type": "String"
+										"type": "Datetime"
 									},
 									"source_field_name": {
 										"value": {
