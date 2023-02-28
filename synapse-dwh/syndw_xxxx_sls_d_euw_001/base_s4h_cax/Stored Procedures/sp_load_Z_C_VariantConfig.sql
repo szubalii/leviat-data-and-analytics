@@ -124,7 +124,7 @@ BEGIN
             SELECT 
                 [SalesDocument]
                 ,[SalesDocumentItem]
-                ,[CharacteristicName
+                ,[CharacteristicName]
                 ,[CharValue]
             FROM 
                 [base_s4h_cax].[Z_C_VariantConfig_active] tgt2
