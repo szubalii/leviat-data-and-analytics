@@ -311,7 +311,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"expression": {
-						"value": "@contains(pipeline().parameters.base_sproc_name, 'sp_load2archive')",
+						"value": "@equals(pipeline().parameters.base_sproc_name, 'sp_load_to_archive')",
 						"type": "Expression"
 					},
 					"ifFalseActivities": [
@@ -328,7 +328,10 @@
 							},
 							"userProperties": [],
 							"typeProperties": {
-								"storedProcedureName": "@{pipeline().parameters.base_schema_name}.@{pipeline().parameters.base_sproc_name}"
+								"storedProcedureName": {
+									"value": "@{pipeline().parameters.base_schema_name}.@{pipeline().parameters.base_sproc_name}",
+									"type": "Expression"
+								}
 							},
 							"linkedServiceName": {
 								"referenceName": "ls_ws_xxxx_sls_x_euw_001__syndw_xxxx_sls_x_euw_001",
@@ -353,7 +356,10 @@
 							},
 							"userProperties": [],
 							"typeProperties": {
-								"storedProcedureName": "utilities.@{pipeline().parameters.base_sproc_name}",
+								"storedProcedureName": {
+									"value": "utilities.@{pipeline().parameters.base_sproc_name}",
+									"type": "Expression"
+								},
 								"storedProcedureParameters": {
 									"base_schema_name": {
 										"value": {
