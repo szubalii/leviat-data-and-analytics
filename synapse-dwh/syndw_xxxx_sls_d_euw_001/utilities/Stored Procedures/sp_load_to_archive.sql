@@ -1,8 +1,8 @@
 CREATE PROC [utilities].[sp_load_to_archive]
     @base_schema_name       VARCHAR  (100)   
 ,   @base_table_name        VARCHAR  (100)   
-,   @entity_id              VARCHAR  (100)
-,   @run_id                 VARCHAR  (100)
+,   @entity_id              BIGINT
+,   @run_id                 UNIQUEIDENTIFIER
 ,   @refresh_from_date      DATE
 ,   @source_field_name      VARCHAR  (100)
 AS
@@ -20,7 +20,7 @@ BEGIN
             @day_of_week = 2 --Monday
         )
     BEGIN
-        EXECUTE utilities.sp_cp_to_archive @base_schema_name
+        EXECUTE utilities.sp_copy_to_archive @base_schema_name
             , @base_schema_name
             , @base_table_name
             , @table_dst

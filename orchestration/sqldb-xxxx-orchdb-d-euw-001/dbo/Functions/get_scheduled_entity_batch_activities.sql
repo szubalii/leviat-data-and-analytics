@@ -114,7 +114,7 @@ BEGIN
             ON
                 la.layer_id = e.layer_id
         WHERE
-            e.update_mode = 'Full' OR e.update_mode IS NULL OR e.update_mode = 'Span'
+            e.update_mode = 'Full' OR e.update_mode IS NULL OR e.update_mode = 'Range'
     )
     -- getting latest timestamp/file name for where activity = Extract and status IN Succeeded, InProgress , e.g.
     -- in case where logged batch activities for the same day are missing but earlier on the same day subsequent 
