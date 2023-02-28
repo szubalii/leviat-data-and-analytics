@@ -1,0 +1,17 @@
+{
+	"name": "ext_DIM_ARTICLE",
+	"properties": {
+		"content": {
+			"query": "CREATE EXTERNAL TABLE [dbo].[DIM_ARTICLE] WITH (\n        LOCATION = 'DIM_ARTICLE/Archive',\n       DATA_SOURCE = [eds_dw-halfen-2-dwh],\n        FILE_FORMAT = [eff_Parquet]  \n) AS\nSELECT\n    *\nFROM\n    OPENROWSET(\n        BULK './DIM_ARTICLE/In/2023/01/04/DIM_ARTICLE_2023_01_04_05_05_32_447.parquet',\n        FORMAT = 'PARQUET'\n    ) AS [result]",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "sqlserverless",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
