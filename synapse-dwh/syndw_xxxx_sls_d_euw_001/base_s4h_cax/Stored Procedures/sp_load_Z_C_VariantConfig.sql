@@ -10,10 +10,8 @@ BEGIN
         , [base_s4h_cax].[Z_C_VariantConfig_active].[Configuration] = src.[Configuration]
         , [base_s4h_cax].[Z_C_VariantConfig_active].[Instance] = src.[Instance]
         , [base_s4h_cax].[Z_C_VariantConfig_active].[LastChangeDate] = src.[LastChangeDate]
-        , [base_s4h_cax].[Z_C_VariantConfig_active].[CharacteristicName] = src.[CharacteristicName]
         , [base_s4h_cax].[Z_C_VariantConfig_active].[CharacteristicDescription] = src.[CharacteristicDescription]
         , [base_s4h_cax].[Z_C_VariantConfig_active].[DecimalValueFrom] = src.[DecimalValueFrom]
-        , [base_s4h_cax].[Z_C_VariantConfig_active].[CharValue] = src.[CharValue]
         , [base_s4h_cax].[Z_C_VariantConfig_active].[CharValueDescription] = src.[CharValueDescription]
 
         , [base_s4h_cax].[Z_C_VariantConfig_active].[t_applicationId] = src.[t_applicationId]
