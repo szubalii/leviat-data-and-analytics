@@ -8,10 +8,10 @@
 ,[Configuration]               NVARCHAR(18)
 ,[Instance]                    NVARCHAR(22)
 ,[LastChangeDate]              DATETIME2
-,[CharacteristicName]          NVARCHAR(30)
+,[CharacteristicName]          NVARCHAR(30) NOT NULL
 ,[CharacteristicDescription]   NVARCHAR(30)
 ,[DecimalValueFrom]            DECIMAL (31, 14)
-,[CharValue]                   NVARCHAR(70)
+,[CharValue]                   NVARCHAR(70) NOT NULL
 ,[CharValueDescription]        NVARCHAR(70)
 ,[t_applicationId]             VARCHAR(32)
 ,[t_jobId]                     VARCHAR(36)
@@ -19,7 +19,9 @@
 ,[t_lastActionCd]              VARCHAR(1)
 ,[t_jobBy]                     NVARCHAR(128)
 ,[t_extractionDtm]             DATETIME
-,CONSTRAINT [PK_fact_ProductHierarchyVariantConfigCharacteristic_active] PRIMARY KEY NONCLUSTERED ([SalesDocument],[SalesDocumentItem], [CharacteristicName], [CharValue]) NOT ENFORCED
+,CONSTRAINT [PK_fact_ProductHierarchyVariantConfigCharacteristic_active] PRIMARY KEY NONCLUSTERED (
+[SalesDocument],[SalesDocumentItem], [CharacteristicName], [CharValue]
+) NOT ENFORCED
 )
 WITH
     (DISTRIBUTION = REPLICATE, HEAP )
