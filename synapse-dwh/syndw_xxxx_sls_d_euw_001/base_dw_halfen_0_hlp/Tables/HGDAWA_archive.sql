@@ -1,4 +1,4 @@
-CREATE TABLE [base_dw_halfen_0_hlp].[HGDAWA_archive](
+CREATE TABLE [base_dw_halfen_0_hlp].[HGDAWA_Archive](
 	[DACONO] [char](8) NOT NULL,
 	[DADICO] [char](8) NOT NULL,
 	[DAAREA] [char](3) NOT NULL,

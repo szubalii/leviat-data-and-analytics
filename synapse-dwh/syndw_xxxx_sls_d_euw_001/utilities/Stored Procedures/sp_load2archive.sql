@@ -7,7 +7,7 @@ CREATE PROC [utilities].[sp_load2archive]
 ,   @source_field_name      VARCHAR  (100)
 AS
 BEGIN
-    DECLARE @table_dst VARCHAR(100) = CONCAT (@base_table_name, '_archive')
+    DECLARE @table_dst VARCHAR(100) = CONCAT (@base_table_name, '_Archive')
     DECLARE @day_of_month INT = DAY(GETDATE())
     DECLARE @day_of_week INT = DATEPART(dw, GETDATE());
     IF 
