@@ -21,7 +21,7 @@
 , [t_extractionDtm]             DATETIME
 , [t_filePath]                  NVARCHAR (1024) NOT NULL
 , CONSTRAINT [PK_Z_C_VariantConfig_delta] PRIMARY KEY NONCLUSTERED (
-    [TS_SEQUENCE_NUMBER],[SalesDocument],[SalesDocumentItem],[t_filePath]
+    [TS_SEQUENCE_NUMBER],[SalesDocument],[SalesDocumentItem],[CharacteristicName], [CharValue] 
   ) NOT ENFORCED
 )
 WITH (

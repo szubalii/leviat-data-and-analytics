@@ -19,7 +19,7 @@
 ,[t_lastActionCd]              VARCHAR(1)
 ,[t_jobBy]                     NVARCHAR(128)
 ,[t_extractionDtm]             DATETIME
-,CONSTRAINT [PK_fact_ProductHierarchyVariantConfigCharacteristic_active] PRIMARY KEY NONCLUSTERED ([SalesDocument],[SalesDocumentItem]) NOT ENFORCED
+,CONSTRAINT [PK_fact_ProductHierarchyVariantConfigCharacteristic_active] PRIMARY KEY NONCLUSTERED ([SalesDocument],[SalesDocumentItem], [CharacteristicName], [CharValue]) NOT ENFORCED
 )
 WITH
     (DISTRIBUTION = REPLICATE, HEAP )

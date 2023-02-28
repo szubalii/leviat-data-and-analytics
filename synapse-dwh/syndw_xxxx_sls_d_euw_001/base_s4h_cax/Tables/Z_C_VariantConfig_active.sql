@@ -21,7 +21,7 @@
 , [t_lastActionDtm]             DATETIME
 , [t_filePath]                  NVARCHAR(1024)
 , CONSTRAINT [PK_Z_C_VariantConfig_active] PRIMARY KEY NONCLUSTERED (
-    [SalesDocument],[SalesDocumentItem]
+    [SalesDocument],[SalesDocumentItem], [CharacteristicName], [CharValue] 
   ) NOT ENFORCED
 )
 WITH (

@@ -11,6 +11,25 @@ WITH Product AS (
         ,[MaterialTypeID]
 )
 ,
+
+VC AS(
+SELECT 
+  SalesDocument
+, SalesDocumentItem
+, CONCAT_WS('_',VC.[ProductID],VC.[CharValue]) AS [ProductSurrogateKey]
+
+FROM [base_s4h_cax].[Z_C_VariantConfig_active] VC
+
+    LEFT OUTER JOIN
+        [base_ff].[ConfigurableProductCharacteristic] AS MCPC
+        ON
+            VC.[CharacteristicName] = MCPC.[CharacteristicName]
+    WHERE
+        MCPC.[CharacteristicCategory] = 'ProductHierarchy'
+
+GROUP BY SalesDocument, SalesDocumentItem, CONCAT_WS('_',VC.[ProductID],VC.[CharValue])
+),
+
 BDIwithMatType AS (
     SELECT 
         BDI.[BillingDocument]
@@ -198,7 +217,7 @@ BDIwithMatType AS (
         ON
             BDI.[Material] = Product.[ProductID]
     LEFT JOIN
-        [edw].[fact_ProductHierarchyVariantConfigCharacteristic_active] AS VC
+        VC
         ON
             BDI.[OriginSDDocument] = VC.[SalesDocument]
             AND
