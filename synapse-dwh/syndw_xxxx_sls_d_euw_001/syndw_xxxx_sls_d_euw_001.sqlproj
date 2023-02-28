@@ -1000,7 +1000,7 @@
     <Build Include="utilities\Stored Procedures\sp_process_axbi_delta_update.sql" />
     <Build Include="utilities\Stored Procedures\sp_process_axbi_delta_delete.sql" />
     <Build Include="utilities\Stored Procedures\sp_process_axbi_delta.sql" />
-    <Build Include="utilities\Stored Procedures\sp_load2archive.sql" />
+    <Build Include="utilities\Stored Procedures\sp_load_to_archive.sql" />
     <Build Include="utilities\Stored Procedures\sp_cp_to_archive.sql" />
     <Build Include="intm_axbi\Tables\dim_ITEMTABLE.sql" />
     <Build Include="Security\Schemas\intm_axbi.sql" />
