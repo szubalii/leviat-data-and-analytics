@@ -9,10 +9,10 @@
 , [Configuration]               NVARCHAR(18)
 , [Instance]                    NVARCHAR(22)
 , [LastChangeDate]              DATETIME2
-, [CharacteristicName]          NVARCHAR(30)
+, [CharacteristicName]          NVARCHAR(30) NOT NULL
 , [CharacteristicDescription]   NVARCHAR(30)
 , [DecimalValueFrom]            DECIMAL(31, 14)
-, [CharValue]                   NVARCHAR(70)
+, [CharValue]                   NVARCHAR(70) NOT NULL
 , [CharValueDescription]        NVARCHAR(70)
 , [t_applicationId]             VARCHAR (32)
 , [t_jobId]                     VARCHAR (36)
@@ -21,7 +21,7 @@
 , [t_extractionDtm]             DATETIME
 , [t_filePath]                  NVARCHAR (1024) NOT NULL
 , CONSTRAINT [PK_Z_C_VariantConfig_delta] PRIMARY KEY NONCLUSTERED (
-    [TS_SEQUENCE_NUMBER],[SalesDocument],[SalesDocumentItem],[t_filePath]
+    [TS_SEQUENCE_NUMBER],[SalesDocument],[SalesDocumentItem],[CharacteristicName], [CharValue] 
   ) NOT ENFORCED
 )
 WITH (
