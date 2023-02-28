@@ -1,4 +1,4 @@
-CREATE PROC [utilities].[sp_cp_to_archive]
+CREATE PROC [utilities].[sp_copy_to_archive]
     @schema_src      VARCHAR  (100)   
 ,   @schema_dst      VARCHAR  (100)   
 ,   @table_src       VARCHAR  (100)
