@@ -1,4 +1,4 @@
-CREATE PROC [utilities].[sp_load2archive]
+CREATE PROC [utilities].[sp_load_to_archive]
     @base_schema_name       VARCHAR  (100)   
 ,   @base_table_name        VARCHAR  (100)   
 ,   @entity_id              VARCHAR  (100)
