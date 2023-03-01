@@ -8,7 +8,10 @@ CREATE PROCEDURE [intm_axbi].[up_ReadSales_ANDE]
 	-- Add the parameters for the stored procedure here
 (
 	@P_Year smallint,
-	@P_Month tinyint
+	@P_Month tinyint,
+	@t_jobId varchar(36),
+	@t_jobDtm datetime, 
+	@t_jobBy nvarchar(128) 
 )
 AS
 BEGIN
@@ -100,7 +103,12 @@ insert [intm_axbi].[fact_CUSTINVOICETRANS]
     ,FREIGHTLOCAL
     ,FREIGHTEUR
     ,COSTAMOUNTLOCAL
-    ,COSTAMOUNTEUR)
+    ,COSTAMOUNTEUR
+	,t_applicationId
+	,t_jobId
+	,t_jobDtm
+	,t_jobBy
+	,t_extractionDtm)
 	select
     'ANDE' as DATAAREAID,
 	t.ORIGSALESID as SALESID,
@@ -124,7 +132,12 @@ insert [intm_axbi].[fact_CUSTINVOICETRANS]
 	t.LINEAMOUNTMST * 0.034 * (-1) as FREIGHTLOCAL, -- Interne Fracht 3,4 %
 	t.LINEAMOUNTMST * 0.034 * (-1) as FREIGHTEUR,
 	i.costamount as COSTAMOUNTLOCAL,
-	i.costamount as COSTAMOUNTEUR
+	i.costamount as COSTAMOUNTEUR,
+	t.t_applicationId as t_applicationId,
+	t_jobId = @t_jobId,
+	t_jobDtm = @t_jobDtm,
+	t_jobBy = @t_jobBy,
+	t.t_extractionDtm as t_extractionDtm
 	from [base_tx_crh_2_dwh].[FACT_CUSTINVOICETRANS] as t
 	inner join [base_tx_crh_2_dwh].[DIM_CUSTTABLE] as u
 	on LOWER(t.DATAAREAID) = LOWER(u.DATAAREAID) and
@@ -155,7 +168,12 @@ select
 	ISNULL(i.packingslipid,' ') as PACKINGSLIPID,
 	t.QTY as QTY,
 	t.LINEAMOUNTMST as LINEAMOUNTMST_os,
-	count(t.INVOICEID) over (partition by t.INVOICEID) cnt_inv
+	count(t.INVOICEID) over (partition by t.INVOICEID) cnt_inv,
+	t.t_applicationId as t_applicationId,
+	t_jobId = @t_jobId,
+	t_jobDtm = @t_jobDtm,
+	t_jobBy = @t_jobBy,
+	t.t_extractionDtm as t_extractionDtm
 	into #inventtrans_ANDE_OS
 	from [base_tx_crh_2_dwh].[FACT_CUSTINVOICETRANS] as t
 	inner join [base_tx_crh_2_dwh].[DIM_CUSTINVOICEJOUR] as j
@@ -251,7 +269,12 @@ insert [intm_axbi].[fact_CUSTINVOICETRANS]
    ,FREIGHTLOCAL
    ,FREIGHTEUR
    ,COSTAMOUNTLOCAL
-   ,COSTAMOUNTEUR)
+   ,COSTAMOUNTEUR
+   ,t_applicationId
+   ,t_jobId 
+   ,t_jobDtm 
+   ,t_jobBy
+   ,t_extractionDtm)
 	select
 	DATAAREAID,
 	SALESID,
@@ -275,7 +298,12 @@ insert [intm_axbi].[fact_CUSTINVOICETRANS]
 	0,
 	0,
 	0,
-	0
+	0,
+	t_applicationId,
+    t_jobId,
+    t_jobDtm,
+    t_jobBy,
+    t_extractionDtm 
 	from #inventtrans_ANDE_OS
 	where INVOICEID COLLATE DATABASE_DEFAULT not in (select INVOICEID from [intm_axbi].[fact_CUSTINVOICETRANS]
 	where upper(DATAAREAID) = 'ANDE'  and ITEMID not in ('ANDE-DIENST', 'ANDE-FRACHT', 'ANDE-MINDERMENGE', 'ANDE-POSZU'))
