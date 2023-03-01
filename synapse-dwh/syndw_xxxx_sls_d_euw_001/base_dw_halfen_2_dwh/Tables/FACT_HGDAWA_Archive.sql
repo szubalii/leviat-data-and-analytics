@@ -223,16 +223,11 @@ CREATE TABLE [base_dw_halfen_2_dwh].[FACT_HGDAWA_Archive]
 	[t_jobDtm] [datetime] NULL,
 	[t_jobBy] [nvarchar](128) NULL,
 	[t_extractionDtm] [datetime] NULL,
-	[t_filePath] [nvarchar](1024) NULL
+	[t_filePath] [nvarchar](1024) NULL,
+    CONSTRAINT [PK_FACT_HGDAWA_Archive] PRIMARY KEY NONCLUSTERED ([DW_Id]) NOT ENFORCED
 )
 WITH
 (
-	DISTRIBUTION = HASH ( [Customerno] ),
+	DISTRIBUTION = HASH ([Customerno]),
 	CLUSTERED COLUMNSTORE INDEX
-)
-GO
-ALTER TABLE [base_dw_halfen_2_dwh].[FACT_HGDAWA_Archive] ADD  CONSTRAINT [PK_FACT_HGDAWA_Archive] PRIMARY KEY NONCLUSTERED 
-(
-	[DW_Id] ASC
-) NOT ENFORCED 
-GO
+);
