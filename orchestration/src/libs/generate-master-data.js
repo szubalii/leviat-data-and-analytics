@@ -131,7 +131,8 @@ function entityGenerateCSV (env) {
         "pk_field_names",
         "schedule_recurrence",
         "schedule_start_date",
-        "schedule_day"
+        "schedule_day",
+        "reload_period_in_months"
     ];
     let entityArray = [entityHeader];
     let csvContent = "";

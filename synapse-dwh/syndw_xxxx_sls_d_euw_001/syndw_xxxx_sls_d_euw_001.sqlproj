@@ -1000,6 +1000,8 @@
     <Build Include="utilities\Stored Procedures\sp_process_axbi_delta_update.sql" />
     <Build Include="utilities\Stored Procedures\sp_process_axbi_delta_delete.sql" />
     <Build Include="utilities\Stored Procedures\sp_process_axbi_delta.sql" />
+    <Build Include="utilities\Stored Procedures\sp_load_to_archive.sql" />
+    <Build Include="utilities\Stored Procedures\sp_copy_to_archive.sql" />
     <Build Include="intm_axbi\Tables\dim_ITEMTABLE.sql" />
     <Build Include="Security\Schemas\intm_axbi.sql" />
     <Build Include="Security\Schemas\base_ancon_australia_2_dwh.sql" />
@@ -1011,6 +1013,7 @@
     <Build Include="base_ancon_australia_2_dwh\Tables\FACT_INVENTTRANS.sql" />
     <Build Include="base_dw_halfen_0_hlp\Tables\CALENDAR.sql" />
     <Build Include="base_dw_halfen_0_hlp\Tables\HGDAWA.sql" />
+    <Build Include="base_dw_halfen_0_hlp\Tables\HGDAWA_Archive.sql" />
     <Build Include="base_dw_halfen_0_hlp\Tables\PRODUCTLINE.sql" />
     <Build Include="base_dw_halfen_2_dwh\Tables\DIM_ARTICLE.sql" />
     <Build Include="intm_axbi\Tables\fact_CUSTINVOICETRANS.sql" />

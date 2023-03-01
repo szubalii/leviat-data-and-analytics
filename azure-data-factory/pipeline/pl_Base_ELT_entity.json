@@ -177,6 +177,10 @@
 									"extraction_type": {
 										"value": "@pipeline().parameters.extraction_type",
 										"type": "Expression"
+									},
+									"refresh_from_date": {
+										"value": "@pipeline().parameters.refresh_from_date",
+										"type": "Expression"
 									}
 								}
 							}
@@ -844,6 +848,14 @@
 									"directory_path": {
 										"value": "@pipeline().parameters.adls_directory_path_Out",
 										"type": "Expression"
+									},
+									"source_date_field_name": {
+										"value": "@pipeline().parameters.source_date_field_name",
+										"type": "Expression"
+									},
+									"refresh_from_date": {
+										"value": "@pipeline().parameters.refresh_from_date",
+										"type": "Expression"
 									}
 								}
 							}
@@ -938,6 +950,10 @@
 			},
 			"update_mode": {
 				"type": "string"
+			},
+			"refresh_from_date": {
+				"type": "string",
+				"defaultValue": "2022/10/01"
 			}
 		},
 		"variables": {
