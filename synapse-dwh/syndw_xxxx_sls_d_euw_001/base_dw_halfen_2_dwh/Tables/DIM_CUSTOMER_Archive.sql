@@ -56,6 +56,6 @@ CREATE TABLE [base_dw_halfen_2_dwh].[DIM_CUSTOMER_Archive](
 )
 WITH
 (
-	DISTRIBUTION = HASH ([Customerno]),
-	CLUSTERED COLUMNSTORE INDEX
+	HEAP,  
+    DISTRIBUTION = REPLICATE 
 );
