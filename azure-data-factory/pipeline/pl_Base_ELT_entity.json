@@ -788,7 +788,7 @@
 				}
 			},
 			{
-				"name": "If  Update Mode Delta",
+				"name": "If Base Processing Required",
 				"type": "IfCondition",
 				"dependsOn": [
 					{
@@ -801,12 +801,12 @@
 				"userProperties": [],
 				"typeProperties": {
 					"expression": {
-						"value": "@contains(pipeline().parameters.required_activities, 'ProcessBase')",
+						"value": "@contains(\n    pipeline().parameters.required_activities,\n    'ProcessBase'\n)",
 						"type": "Expression"
 					},
 					"ifTrueActivities": [
 						{
-							"name": "Process Synapse Base Procedure",
+							"name": "Process Synapse Base",
 							"type": "ExecutePipeline",
 							"dependsOn": [],
 							"userProperties": [],
@@ -835,6 +835,14 @@
 									},
 									"run_id": {
 										"value": "@pipeline().parameters.run_id",
+										"type": "Expression"
+									},
+									"file_name": {
+										"value": "@variables('adlsFileName')",
+										"type": "Expression"
+									},
+									"directory_path": {
+										"value": "@pipeline().parameters.adls_directory_path_Out",
 										"type": "Expression"
 									}
 								}

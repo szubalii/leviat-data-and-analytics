@@ -1120,9 +1120,12 @@
     <Build Include="base_s4h_cax\Tables\P_ConditionTypeText.sql" />
     <Build Include="dm_dq\Views\vw_dim_MAWEV.sql" />
     <Build Include="dm_dq\Views\vw_dim_ProductValuationCosting.sql" />
-	<Build Include="dm_sales\Views\vw_dim_GLAccountText.sql" />
-	<Build Include="base_s4h_cax\Tables\I_Purchaserequisitionitem.sql" />
-	<Build Include="base_s4h_cax\Views\vw_Z_C_VariantConfig_delta.sql" />
+    <Build Include="dm_sales\Views\vw_dim_GLAccountText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_Purchaserequisitionitem.sql" />
+    <Build Include="base_s4h_cax\Views\vw_Z_C_VariantConfig_delta.sql" />
+    <Build Include="base_s4h_cax\Views\vw_C_BillingDocumentItemBasicDEX_delta.sql" />
+    <Build Include="base_s4h_cax\Views\vw_I_GLAccountLineItemRawData_delta.sql" />
+    <Build Include="base_s4h_cax\Views\vw_C_SalesDocumentItemDEX_delta.sql" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PostDeploy Include="Scripts\Post-Deploy\Script.PostDeployment.sql" />
