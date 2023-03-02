@@ -9,7 +9,6 @@
 -- Create date: <22.08.2019>
 -- Description:	<Aufbau Artikel- und Kundenstamm für TX Construction Accessories>
 -- =============================================
---
 CREATE PROCEDURE [intm_axbi].[up_createAxBiBasicData] 
 	-- Add the parameters for the stored procedure here
 (
@@ -17,7 +16,6 @@ CREATE PROCEDURE [intm_axbi].[up_createAxBiBasicData]
 	@t_jobDtm datetime, 
 	@t_jobBy nvarchar(128) 
 )
-AS
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
@@ -39,7 +37,7 @@ BEGIN
     ,INOUT
     ,CUSTOMERPILLAR
     ,COMPANYCHAINID
-    ,DIMENSION3_,
+    ,DIMENSION3_
 	,t_applicationId
 	,t_jobId
 	,t_jobDtm
@@ -2105,7 +2103,7 @@ BEGIN
     ,ITEMID
     ,ITEMNAME
     ,PRODUCTGROUPID
-    ,ITEMGROUPID,
+    ,ITEMGROUPID
 	,t_applicationId
 	,t_jobId
 	,t_jobDtm
@@ -2193,7 +2191,7 @@ BEGIN
     ,ITEMID
     ,ITEMNAME
     ,PRODUCTGROUPID
-    ,ITEMGROUPID,
+    ,ITEMGROUPID
 	,t_applicationId
 	,t_jobId
 	,t_jobDtm
@@ -2376,7 +2374,7 @@ BEGIN
     ,ITEMID
     ,ITEMNAME
     ,PRODUCTGROUPID
-    ,ITEMGROUPID,
+    ,ITEMGROUPID
 	,t_applicationId
 	,t_jobId
 	,t_jobDtm
