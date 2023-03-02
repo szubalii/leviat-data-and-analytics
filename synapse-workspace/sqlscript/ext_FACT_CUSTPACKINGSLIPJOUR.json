@@ -1,6 +1,9 @@
 {
 	"name": "ext_FACT_CUSTPACKINGSLIPJOUR",
 	"properties": {
+		"folder": {
+			"name": "dbo/External Tables"
+		},
 		"content": {
 			"query": "CREATE EXTERNAL TABLE [dbo].[ext_FACT_CUSTPACKINGSLIPJOUR] WITH (\n        LOCATION = 'FACT_CUSTPACKINGSLIPJOUR/Archive',\n        DATA_SOURCE = [eds_tx-halfen-2-dwh],\n        FILE_FORMAT = [eff_Csv]  \n) AS\nSELECT\n     *\nFROM\n    OPENROWSET(\n        BULK './FACT_CUSTPACKINGSLIPJOUR/FACT_CUSTPACKINGSLIPJOUR.csv',\n        FORMAT = 'CSV', PARSER_VERSION = '2.0',\n        FIELDTERMINATOR =';',\n        ROWTERMINATOR = '\\r',\n        HEADER_ROW = TRUE\n    ) \n    WITH (\n        [DW_Id] bigint,\n        [DATAAREAID] VARCHAR (4) COLLATE Latin1_General_100_BIN2_UTF8,\n        [PACKINGSLIPID] VARCHAR (20) COLLATE Latin1_General_100_BIN2_UTF8,\n        [DLVCOUNTRYREGIONID] VARCHAR (10) COLLATE Latin1_General_100_BIN2_UTF8,\n        [DELIVERYDATE] DATETIME2,\n        [DLVMODE] VARCHAR (10) COLLATE Latin1_General_100_BIN2_UTF8,\n        [SALESID] VARCHAR (20) COLLATE Latin1_General_100_BIN2_UTF8,\n        [HALINVENTSITEID] VARCHAR (10) COLLATE Latin1_General_100_BIN2_UTF8,\n        [INVENTLOCATIONID] VARCHAR (10) COLLATE Latin1_General_100_BIN2_UTF8,\n        [DateKey_DeliveryDate] BIGINT,\n        [CountryRegion_DW_Id] BIGINT,\n        [ORDERACCOUNT] VARCHAR (20) COLLATE Latin1_General_100_BIN2_UTF8,\n        [DW_Batch] BIGINT,\n        [DW_SourceCode] VARCHAR (15) COLLATE Latin1_General_100_BIN2_UTF8,\n        [DW_TimeStamp] DATETIME2\n    ) AS [result]\n\n\n   \n",
 			"metadata": {

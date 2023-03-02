@@ -1,6 +1,9 @@
 {
 	"name": "ext_HGDAWA",
 	"properties": {
+		"folder": {
+			"name": "dbo/External Tables"
+		},
 		"content": {
 			"query": "CREATE EXTERNAL TABLE [dbo].[ext_HGDAWA] WITH (\n        LOCATION = 'HGDAWA/Archive',\n        DATA_SOURCE = [eds_dw-halfen-0-hlp],\n        FILE_FORMAT = [eff_Parquet]\n) AS\nSELECT\n    *\nFROM\n    OPENROWSET(\n        BULK './HGDAWA/In/2023/02/07/HGDAWA_2023_02_07_01_15_18_060.parquet',\n        FORMAT = 'PARQUET'\n    ) AS [result]",
 			"metadata": {

@@ -1,6 +1,9 @@
 {
 	"name": "ext_DIM_CUSTOMER",
 	"properties": {
+		"folder": {
+			"name": "dbo/External Tables"
+		},
 		"content": {
 			"query": "CREATE EXTERNAL TABLE [dbo].[ext_DIM_CUSTOMER] WITH (\n        LOCATION = 'DIM_CUSTOMER/Archive',\n        DATA_SOURCE = [eds_dw-halfen-2-dwh],\n        FILE_FORMAT = [eff_Parquet]\n) AS\nSELECT\n    *\nFROM\n    OPENROWSET(\n        BULK './DIM_CUSTOMER/In/2023/01/13/DIM_CUSTOMER_2023_01_13_04_32_29_567.parquet',\n        FORMAT = 'PARQUET'\n    ) AS [result]\nWHERE Company NOT IN ('5307', '5309', '5310', '5325')",
 			"metadata": {
