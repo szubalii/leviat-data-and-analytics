@@ -17,7 +17,7 @@ RETURNS @scheduled_entity_batch_activities TABLE (
     axbi_schema_name VARCHAR(128),
     base_table_name VARCHAR(128),
     axbi_date_field_name VARCHAR(128),
-    refresh_from_date DATE,
+    refresh_from_date VARCHAR(16),
     adls_container_name VARCHAR(63),
     adls_directory_path_In NVARCHAR(255),
     adls_directory_path_Out NVARCHAR(255),
@@ -1060,7 +1060,11 @@ BEGIN
         axbi_schema_name,
         base_table_name,
         axbi_date_field_name,
-        refresh_from_date,
+        CONVERT(
+            VARCHAR
+            ,refresh_from_date
+            ,111
+        ) AS refresh_from_date,
         adls_container_name,
         adls_directory_path_In,
         adls_directory_path_Out,
