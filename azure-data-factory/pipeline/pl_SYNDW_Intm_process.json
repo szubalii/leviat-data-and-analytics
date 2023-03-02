@@ -87,6 +87,108 @@
 								"type": "Expression"
 							},
 							"type": "String"
+						},
+						"t_jobId": {
+							"value": {
+								"value": "@pipeline().RunId",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"t_jobDtm": {
+							"value": {
+								"value": "@formatDateTime(pipeline().TriggerTime, 'yyyy-MM-dd HH:mm:ss')",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"t_jobBy": {
+							"value": {
+								"value": "@pipeline().DataFactory",
+								"type": "Expression"
+							},
+							"type": "String"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_ws_xxxx_sls_x_euw_001__syndw_xxxx_sls_x_euw_001",
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"sqlPool": {
+							"value": "@pipeline().globalParameters.synapseDatabaseName",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "Update tech fields",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "Process Intm",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[utilities].[sp_update_t_values]",
+					"storedProcedureParameters": {
+						"application_id": {
+							"value": null,
+							"type": "String"
+						},
+						"extraction_dtm_string": {
+							"value": {
+								"value": "@substring(\n    pipeline().parameters.file_name\n,   sub(\n        length(pipeline().parameters.file_name)\n    ,   31\n    )\n,   23\n)",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"job_dtm": {
+							"value": {
+								"value": "@formatDateTime(pipeline().TriggerTime, 'yyyy-MM-dd HH:mm:ss')",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"job_id": {
+							"value": {
+								"value": "@pipeline().RunId",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"schema": {
+							"value": {
+								"value": "@pipeline().parameters.base_schema_name",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"table": {
+							"value": {
+								"value": "@pipeline().parameters.base_table_name",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"job_by": {
+							"value": {
+								"value": "@pipeline().DataFactory",
+								"type": "Expression"
+							},
+							"type": "String"
 						}
 					}
 				},
