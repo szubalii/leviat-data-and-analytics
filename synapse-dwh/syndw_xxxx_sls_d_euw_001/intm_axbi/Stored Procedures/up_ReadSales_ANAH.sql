@@ -8,7 +8,10 @@ CREATE PROCEDURE [intm_axbi].[up_ReadSales_ANAH]
 	-- Add the parameters for the stored procedure here
 (
 	@P_Year smallint,
-	@P_Month tinyint
+	@P_Month tinyint,
+	@t_jobId varchar(36),
+	@t_jobDtm datetime, 
+	@t_jobBy nvarchar(128) 
 )
 AS
 BEGIN
@@ -122,7 +125,12 @@ BEGIN
    ,FREIGHTLOCAL
    ,FREIGHTEUR
    ,COSTAMOUNTLOCAL
-   ,COSTAMOUNTEUR)
+   ,COSTAMOUNTEUR
+   ,t_applicationId
+   ,t_jobId
+   ,t_jobDtm
+   ,t_jobBy
+   ,t_extractionDtm)
 	select
 	'ANAH',
 	t.ORIGSALESID,
@@ -146,7 +154,12 @@ BEGIN
 	t.LINEAMOUNTMST * 0.036 * (-1), -- Interne Fracht 3,6 %
 	t.LINEAMOUNTMST * 0.036 * (-1) / c.CRHRATE,
 	i.COSTAMOUNTPOSTED + i.COSTAMOUNTADJUSTMENT,
-	(i.COSTAMOUNTPOSTED + i.COSTAMOUNTADJUSTMENT) / c.CRHRATE
+	(i.COSTAMOUNTPOSTED + i.COSTAMOUNTADJUSTMENT) / c.CRHRATE,
+	t.t_applicationId as t_applicationId,
+	t_jobId = @t_jobId,
+	t_jobDtm = @t_jobDtm,
+	t_jobBy = @t_jobBy,
+	t.t_extractionDtm as t_extractionDtm
 	from [base_ancon_australia_2_dwh].[FACT_CUSTINVOICETRANS] as t
 	inner join [base_ancon_australia_2_dwh].[FACT_CUSTINVOICEJOUR] as j
 	on lower(t.DATAAREAID) = lower(j.DATAAREAID) and
@@ -178,8 +191,13 @@ SELECT
 	ISNULL(i.PACKINGSLIPID,' ') as PACKINGSLIPID,
 	t.QTY as QTY,
 	t.LINEAMOUNTMST lineamountmst_os,
-	t.LINEAMOUNTMST / c.CRHRATE lineamounteur_os
+	t.LINEAMOUNTMST / c.CRHRATE lineamounteur_os,
 	--,count(t.INVOICEID) over (partition by t.INVOICEID) cnt_inv
+	t.t_applicationId as t_applicationId,
+	t_jobId = @t_jobId,
+	t_jobDtm = @t_jobDtm,
+	t_jobBy = @t_jobBy,
+	t.t_extractionDtm as t_extractionDtm
 	into #inventtrans_ANAH_OS
 	from [base_ancon_australia_2_dwh].[FACT_CUSTINVOICETRANS] as t
 	inner join [base_ancon_australia_2_dwh].[FACT_CUSTINVOICEJOUR] as j
@@ -335,7 +353,12 @@ insert [intm_axbi].[fact_CUSTINVOICETRANS]
    ,FREIGHTLOCAL
    ,FREIGHTEUR
    ,COSTAMOUNTLOCAL
-   ,COSTAMOUNTEUR)
+   ,COSTAMOUNTEUR
+   ,t_applicationId
+   ,t_jobId 
+   ,t_jobDtm 
+   ,t_jobBy
+   ,t_extractionDtm)
 	select
 	DATAAREAID,
 	SALESID,
@@ -359,7 +382,12 @@ insert [intm_axbi].[fact_CUSTINVOICETRANS]
 	CAST(0 as [DECIMAL](38, 12)),
 	CAST(0 as [DECIMAL](38, 12)),
 	CAST(0 as [DECIMAL](38, 12)),
-	CAST(0 as [DECIMAL](38, 12))
+	CAST(0 as [DECIMAL](38, 12)),
+	t_applicationId,
+    t_jobId,
+    t_jobDtm,
+    t_jobBy,
+    t_extractionDtm
 	from #inventtrans_ANAH_OS
 	where INVOICEID COLLATE DATABASE_DEFAULT not in (select INVOICEID from [intm_axbi].[fact_CUSTINVOICETRANS] where upper(DATAAREAID) = 'ANAH' and ITEMID not in ('ANAH-FRA', 'ANAH-MISC', 'ANAH-RESTOCK'))
 

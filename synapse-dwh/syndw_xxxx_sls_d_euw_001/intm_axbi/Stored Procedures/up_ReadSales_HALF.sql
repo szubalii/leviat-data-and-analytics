@@ -8,7 +8,10 @@ CREATE PROCEDURE [intm_axbi].[up_ReadSales_HALF]
 	-- Add the parameters for the stored procedure here
 (
 	@P_Year smallint,
-	@P_Month tinyint
+	@P_Month tinyint,
+	@t_jobId varchar(36),
+	@t_jobDtm datetime, 
+	@t_jobBy nvarchar(128) 
 
 )
 AS
@@ -46,7 +49,12 @@ BEGIN
     ,FREIGHTLOCAL
     ,FREIGHTEUR
     ,COSTAMOUNTLOCAL
-    ,COSTAMOUNTEUR)
+    ,COSTAMOUNTEUR
+	,t_applicationId
+	,t_jobId
+	,t_jobDtm
+	,t_jobBy
+	,t_extractionDtm)
 	select case DACONO
 	       when '5300' then 'HADP'
 		   when '5302' then 'HAIN' 
@@ -88,6 +96,8 @@ BEGIN
 		   when '5327' then 'HACN-' + DACUNO 
 		   when '5330' then 'HAUS-' + DACUNO
 		   else DACONO end,
-	'HALF-' + DAITNO, substring(DADRID, 1, 2), ISNULL(DADLIX, ' '), ISNULL(DAIVQT,0), DASAAM, DASAAC, DAOSAL, DAOSAC, DAALOL, DAALOC, DA100L, DA100C, DAVSCL + isnull(DAVE10,0), DAVSCC + isnull(DCVE10,0), DAHCOS, DAHCOC from [base_dw_halfen_0_hlp].[HGDAWA] where DACONO <> '5330' and DAJAHR = @P_Year and DAMONA = @P_Month -- Ohne Halfen USA 5330
+	'HALF-' + DAITNO, substring(DADRID, 1, 2), ISNULL(DADLIX, ' '), ISNULL(DAIVQT,0), DASAAM, DASAAC, DAOSAL, DAOSAC, DAALOL, DAALOC, DA100L, DA100C, DAVSCL + isnull(DAVE10,0), DAVSCC + isnull(DCVE10,0), DAHCOS, DAHCOC 
+	from [base_dw_halfen_0_hlp].[HGDAWA] 
+	where DACONO <> '5330' and DAJAHR = @P_Year and DAMONA = @P_Month -- Ohne Halfen USA 5330
 
 END

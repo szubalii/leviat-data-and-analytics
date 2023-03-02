@@ -8,7 +8,10 @@ CREATE PROCEDURE [intm_axbi].[up_ReadSales_ANAU]
 	-- Add the parameters for the stored procedure here
 (
 	@P_Year smallint,
-	@P_Month tinyint
+	@P_Month tinyint,
+	@t_jobId varchar(36),
+	@t_jobDtm datetime, 
+	@t_jobBy nvarchar(128)
 )
 AS
 BEGIN
@@ -51,7 +54,7 @@ BEGIN
 	MAX(i.DATEFINANCIAL) as DATEFINANCIAL, 
 	MAX(i.PACKINGSLIPID) as PACKINGSLIPID, 
 	sum(i.COSTAMOUNTPOSTED) as COSTAMOUNTPOSTED,  
-	sum(i.COSTAMOUNTADJUSTMENT) as COSTAMOUNTADJUSTMENT 
+	sum(i.COSTAMOUNTADJUSTMENT) as COSTAMOUNTADJUSTMENT
 	into #inventtrans_ANAU
 	from [base_ancon_australia_2_dwh].[FACT_CUSTINVOICETRANS] as t
 	inner join [base_ancon_australia_2_dwh].[FACT_CUSTINVOICEJOUR] as j
@@ -121,7 +124,12 @@ BEGIN
     ,FREIGHTLOCAL
     ,FREIGHTEUR
     ,COSTAMOUNTLOCAL
-    ,COSTAMOUNTEUR)
+    ,COSTAMOUNTEUR
+	,t_applicationId
+	,t_jobId
+	,t_jobDtm
+	,t_jobBy
+	,t_extractionDtm)
 	select
 	'ANAU',
 	t.ORIGSALESID,
@@ -145,7 +153,12 @@ BEGIN
 	t.LINEAMOUNTMST * 0.036 * (-1), -- Interne Fracht 3,6 %
 	t.LINEAMOUNTMST / c.CRHRATE * 0.036 * (-1),
 	i.COSTAMOUNTPOSTED + i.COSTAMOUNTADJUSTMENT,
-	(i.COSTAMOUNTPOSTED + i.COSTAMOUNTADJUSTMENT) / c.CRHRATE
+	(i.COSTAMOUNTPOSTED + i.COSTAMOUNTADJUSTMENT) / c.CRHRATE,
+	t.t_applicationId as t_applicationId,
+	t_jobId = @t_jobId,
+	t_jobDtm = @t_jobDtm,
+	t_jobBy = @t_jobBy,
+	t.t_extractionDtm as t_extractionDtm
 	from [base_ancon_australia_2_dwh].[FACT_CUSTINVOICETRANS] as t
 	inner join [base_ancon_australia_2_dwh].[FACT_CUSTINVOICEJOUR] as j
 	on lower(t.DATAAREAID) = lower(j.DATAAREAID) and
@@ -190,7 +203,12 @@ BEGIN
 	t.QTY,
 	t.LINEAMOUNTMST lineamountmst_os,
 	t.LINEAMOUNTMST / c.CRHRATE lineamounteur_os,
-	count(t.INVOICEID) over (partition by t.INVOICEID) cnt_inv
+	count(t.INVOICEID) over (partition by t.INVOICEID) cnt_inv,
+	t.t_applicationId as t_applicationId,
+	t_jobId = @t_jobId,
+	t_jobDtm = @t_jobDtm,
+	t_jobBy = @t_jobBy,
+	t.t_extractionDtm as t_extractionDtm
 	into #inventtrans_ANAU_OS
 	from [base_ancon_australia_2_dwh].[FACT_CUSTINVOICETRANS] as t
 	inner join [base_ancon_australia_2_dwh].[FACT_CUSTINVOICEJOUR] as j
@@ -295,7 +313,12 @@ insert [intm_axbi].[fact_CUSTINVOICETRANS]
    ,FREIGHTLOCAL
    ,FREIGHTEUR
    ,COSTAMOUNTLOCAL
-   ,COSTAMOUNTEUR)
+   ,COSTAMOUNTEUR
+   ,t_applicationId
+   ,t_jobId 
+   ,t_jobDtm 
+   ,t_jobBy
+   ,t_extractionDtm)
 	select
 	DATAAREAID,
 	ORIGSALESID,
@@ -319,7 +342,12 @@ insert [intm_axbi].[fact_CUSTINVOICETRANS]
 	0,
 	0,
 	0,
-	0
+	0,
+	t_applicationId,
+    t_jobId,
+    t_jobDtm,
+    t_jobBy,
+    t_extractionDtm 
 	from #inventtrans_ANAU_OS
 	where INVOICEID COLLATE DATABASE_DEFAULT not in (select INVOICEID from [intm_axbi].[fact_CUSTINVOICETRANS]
 	where upper(DATAAREAID) = 'ANAU'
