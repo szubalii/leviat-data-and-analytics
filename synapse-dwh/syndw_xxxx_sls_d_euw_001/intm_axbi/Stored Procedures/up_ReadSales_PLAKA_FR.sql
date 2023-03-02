@@ -161,9 +161,9 @@ BEGIN
 	i.CostAmount,
 	i.CostAmount,
 	t.t_applicationId as t_applicationId,
-	t_jobId = @t_jobId,
-	t_jobDtm = @t_jobDtm,
-	t_jobBy = @t_jobBy,
+	@t_jobId as t_jobId,
+	@t_jobDtm as t_jobDtm,
+	@t_jobBy as t_jobBy,
 	t.t_extractionDtm as t_extractionDtm
 	from [base_tx_crh_2_dwh].[FACT_CUSTINVOICETRANS] as t
 	inner join [base_tx_crh_2_dwh].[DIM_CUSTINVOICEJOUR] as j
@@ -203,9 +203,9 @@ BEGIN
 	sum(i.ValueCalc) as PRODUCTSALESLOCAL, 
 	sum(i.CostAmount) as CostAmount,
 	i.t_applicationId as t_applicationId,
-	t_jobId = @t_jobId,
-	t_jobDtm = @t_jobDtm,
-	t_jobBy = @t_jobBy,
+	@t_jobId as t_jobId,
+	@t_jobDtm as t_jobDtm,
+	@t_jobBy as t_jobBy,
 	i.t_extractionDtm as t_extractionDtm
 	into #cust_delivered_not_invoiced_PLFR
 	from [base_tx_crh_2_dwh].[FACT_INVENTRANS_NOT_INVOICED] as i
@@ -359,9 +359,9 @@ BEGIN
 	i.CostAmount,
 	i.CostAmount,
 	t.t_applicationId as t_applicationId,
-	t_jobId = @t_jobId,
-	t_jobDtm = @t_jobDtm,
-	t_jobBy = @t_jobBy,
+	@t_jobId as t_jobId,
+	@t_jobDtm as t_jobDtm,
+	@t_jobBy as t_jobBy,
 	t.t_extractionDtm as t_extractionDtm
 	from [base_tx_crh_2_dwh].[FACT_CUSTINVOICETRANS] as t
 	inner join [base_tx_crh_2_dwh].[DIM_CUSTINVOICEJOUR] as j
@@ -796,9 +796,9 @@ BEGIN
 	t.LINEAMOUNTMST LINEAMOUNTMST_OS,--,
 	--count(t.INVOICEID) over (partition by t.INVOICEID) cnt_inv
 	t.t_applicationId as t_applicationId,
-	t_jobId = @t_jobId,
-	t_jobDtm = @t_jobDtm,
-	t_jobBy = @t_jobBy,
+	@t_jobId as t_jobId,
+	@t_jobDtm as t_jobDtm,
+	@t_jobBy as t_jobBy,
 	t.t_extractionDtm as t_extractionDtm
 	into #inventtrans_PLFR_OS
 	from [base_tx_crh_2_dwh].[FACT_CUSTINVOICETRANS] as t

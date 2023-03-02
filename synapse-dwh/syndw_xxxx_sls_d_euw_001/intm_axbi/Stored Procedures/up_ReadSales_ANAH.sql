@@ -156,9 +156,9 @@ BEGIN
 	i.COSTAMOUNTPOSTED + i.COSTAMOUNTADJUSTMENT,
 	(i.COSTAMOUNTPOSTED + i.COSTAMOUNTADJUSTMENT) / c.CRHRATE,
 	t.t_applicationId as t_applicationId,
-	t_jobId = @t_jobId,
-	t_jobDtm = @t_jobDtm,
-	t_jobBy = @t_jobBy,
+	@t_jobId as t_jobId,
+	@t_jobDtm as t_jobDtm,
+	@t_jobBy as t_jobBy,
 	t.t_extractionDtm as t_extractionDtm
 	from [base_ancon_australia_2_dwh].[FACT_CUSTINVOICETRANS] as t
 	inner join [base_ancon_australia_2_dwh].[FACT_CUSTINVOICEJOUR] as j
@@ -194,9 +194,9 @@ SELECT
 	t.LINEAMOUNTMST / c.CRHRATE lineamounteur_os,
 	--,count(t.INVOICEID) over (partition by t.INVOICEID) cnt_inv
 	t.t_applicationId as t_applicationId,
-	t_jobId = @t_jobId,
-	t_jobDtm = @t_jobDtm,
-	t_jobBy = @t_jobBy,
+	@t_jobId as t_jobId,
+	@t_jobDtm as t_jobDtm,
+	@t_jobBy as t_jobBy,
 	t.t_extractionDtm as t_extractionDtm
 	into #inventtrans_ANAH_OS
 	from [base_ancon_australia_2_dwh].[FACT_CUSTINVOICETRANS] as t

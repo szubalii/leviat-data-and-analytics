@@ -28,20 +28,20 @@ BEGIN
 
 	EXEC intm_axbi.up_createAxBiBasicData
 
-	EXEC intm_axbi.up_ReadSales_HALF @P_Year, @P_Month
+	EXEC intm_axbi.up_ReadSales_HALF @P_Year, @P_Month, @t_jobId, @t_jobDtm, @t_jobBy
 
-	EXEC intm_axbi.up_ReadSales_PLAKA_BE @P_Year, @P_Month, @P_DelNotInv
-	EXEC intm_axbi.up_ReadSales_PLAKA_FR @P_Year, @P_Month, @P_DelNotInv
+	EXEC intm_axbi.up_ReadSales_PLAKA_BE @P_Year, @P_Month, @P_DelNotInv, @t_jobId, @t_jobDtm, @t_jobBy
+	EXEC intm_axbi.up_ReadSales_PLAKA_FR @P_Year, @P_Month, @P_DelNotInv, @t_jobId, @t_jobDtm, @t_jobBy
 
     --logic commented by Erich
 	--EXEC intm_axbi.up_ReadSales_ANAT @P_Year, @P_Month
 	--EXEC intm_axbi.up_ReadSales_ANCH @P_Year, @P_Month 
 
-	EXEC intm_axbi.up_ReadSales_ANDE @P_Year, @P_Month 
+	EXEC intm_axbi.up_ReadSales_ANDE @P_Year, @P_Month, @t_jobId, @t_jobDtm, @t_jobBy
 
-	EXEC intm_axbi.up_ReadSales_ANAU @P_Year, @P_Month
-	EXEC intm_axbi.up_ReadSales_ANAH @P_Year, @P_Month
-	EXEC intm_axbi.up_ReadSales_ANNZ @P_Year, @P_Month
+	EXEC intm_axbi.up_ReadSales_ANAU @P_Year, @P_Month, @t_jobId, @t_jobDtm, @t_jobBy
+	EXEC intm_axbi.up_ReadSales_ANAH @P_Year, @P_Month, @t_jobId, @t_jobDtm, @t_jobBy
+	EXEC intm_axbi.up_ReadSales_ANNZ @P_Year, @P_Month, @t_jobId, @t_jobDtm, @t_jobBy
 	
 	--logic commented by Erich
 	/* EXEC dbo.up_ReadSales_ASCH @P_Year, @P_Month */
