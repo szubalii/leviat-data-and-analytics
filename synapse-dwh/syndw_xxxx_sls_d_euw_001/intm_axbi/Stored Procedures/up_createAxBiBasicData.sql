@@ -12,6 +12,12 @@
 --
 CREATE PROCEDURE [intm_axbi].[up_createAxBiBasicData] 
 	-- Add the parameters for the stored procedure here
+(
+	@t_jobId varchar(36),
+	@t_jobDtm datetime, 
+	@t_jobBy nvarchar(128) 
+)
+AS
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
@@ -33,7 +39,12 @@ BEGIN
     ,INOUT
     ,CUSTOMERPILLAR
     ,COMPANYCHAINID
-    ,DIMENSION3_)
+    ,DIMENSION3_,
+	,t_applicationId
+	,t_jobId
+	,t_jobDtm
+	,t_jobBy
+	,t_extractionDtm)
 	select distinct
 	case DATAAREAID
 	when '5300' then 'HADP'
@@ -115,7 +126,12 @@ BEGIN
 	end,
 	STATISTICSGROUP,
 	ISNULL(COMPANYCHAINID, ' '),
-	ISNULL(DIMENSION3_, ' ')
+	ISNULL(DIMENSION3_, ' '),
+	t_applicationId,
+	@t_jobId as t_jobId,
+	@t_jobDtm as t_jobDtm,
+	@t_jobBy as t_jobBy,
+	t_extractionDtm
 	from [base_dw_halfen_0_hlp].[CUSTOMER] where DATAAREAID in ('5300', '5302', '5303', '5307', '5308', '5309', '5310', '5311', '5313', '5314', '5315', '5316', '5317', '5320', '5321', '5325', '5327') -- ohne Halfen USA 5330
 
 	-- Ancon AT, CH, DE Aschwanden CH Plaka BE, FR
@@ -127,7 +143,12 @@ BEGIN
     ,INOUT
     ,CUSTOMERPILLAR
     ,COMPANYCHAINID
-    ,DIMENSION3_)
+    ,DIMENSION3_
+	,t_applicationId
+	,t_jobId
+	,t_jobDtm
+	,t_jobBy
+	,t_extractionDtm)
 	select distinct
 	case LOWER(DATAAREAID)
 	when 'anat' then 'ANAT'
@@ -174,7 +195,12 @@ BEGIN
 	ISNULL(DIMENSION5_, ' ')
 	else
 	ISNULL(DIMENSION3_, ' ')
-	end
+	end,
+	t_applicationId,
+	@t_jobId as t_jobId,
+	@t_jobDtm as t_jobDtm,
+	@t_jobBy as t_jobBy,
+	t_extractionDtm
 	from [base_tx_crh_1_stg].[AX_CRH_A_dbo_CUSTTABLE] where LOWER(DATAAREAID) in ('anat', 'anch', 'ande', 'ass', 'plb', 'plf')
 
 --old logic commented by Erich
@@ -225,7 +251,12 @@ BEGIN
     ,INOUT
     ,CUSTOMERPILLAR
     ,COMPANYCHAINID
-    ,DIMENSION3_)
+    ,DIMENSION3_
+	,t_applicationId
+	,t_jobId
+	,t_jobDtm
+	,t_jobBy
+	,t_extractionDtm)
 	select distinct
 	case LOWER(DATAAREAID)
 	when 'anau' then 'ANAU'
@@ -243,7 +274,12 @@ BEGIN
 	when 'UNIC' then 'PRECAST'
 	else 'OTHER' end,
 	' ',
-	ISNULL(DIMENSION3_, ' ')
+	ISNULL(DIMENSION3_, ' '),
+    t_applicationId,
+	@t_jobId as t_jobId,
+	@t_jobDtm as t_jobDtm,
+	@t_jobBy as t_jobBy,
+	t_extractionDtm
 	from [base_ancon_australia_2_dwh].[DIM_CUSTTABLE] where LOWER(DATAAREAID) in ('anau', 'hlau', 'hlnz')
 
 	update [intm_axbi].[dim_CUSTTABLE]
@@ -279,7 +315,12 @@ BEGIN
     ,INOUT
     ,CUSTOMERPILLAR
     ,COMPANYCHAINID
-    ,DIMENSION3_)
+    ,DIMENSION3_
+	,t_applicationId
+	,t_jobId
+	,t_jobDtm
+	,t_jobBy
+	,t_extractionDtm)
 	select distinct
 	DATAAREAID,
 	'ANUK-' + CUSTOMERID,
@@ -287,7 +328,12 @@ BEGIN
 	INOUT,
 	CUSTOMERPILLAR,
 	' ',
-	DIMENSION3_
+	DIMENSION3_,
+	t_applicationId,
+	@t_jobId as t_jobId,
+	@t_jobDtm as t_jobDtm,
+	@t_jobBy as t_jobBy,
+	t_extractionDtm
 	from [base_ancon_uk].[CUSTTABLE_ANUK]
 
 	-- Ancon Australia CONNOLLY
@@ -388,7 +434,12 @@ BEGIN
     ,INOUT
     ,CUSTOMERPILLAR
     ,COMPANYCHAINID
-    ,DIMENSION3_)
+    ,DIMENSION3_
+	,t_applicationId
+	,t_jobId
+	,t_jobDtm
+	,t_jobBy
+	,t_extractionDtm)
 	select distinct
 	'ANME',
 	CUSTOMERID,
@@ -396,7 +447,12 @@ BEGIN
 	INOUT,
 	CUSTOMERPILLAR,
 	' ',
-	' '
+	' ',
+	t_applicationId,
+	@t_jobId as t_jobId,
+	@t_jobDtm as t_jobDtm,
+	@t_jobBy as t_jobBy,
+	t_extractionDtm
 	from [base_ancon_me].[CUSTTABLE_ANME]
 
 	-- Ancon Isedio UK
@@ -407,7 +463,12 @@ BEGIN
     ,INOUT
     ,CUSTOMERPILLAR
     ,COMPANYCHAINID
-    ,DIMENSION3_)
+    ,DIMENSION3_
+	,t_applicationId
+	,t_jobId
+	,t_jobDtm
+	,t_jobBy
+	,t_extractionDtm)
 	select distinct
 	DATAAREAID,
 	'ISUK-' + CUSTOMERID,
@@ -415,7 +476,12 @@ BEGIN
 	INOUT,
 	CUSTOMERPILLAR,
 	' ',
-	ISNULL(DIMENSION3_,' ')
+	ISNULL(DIMENSION3_,' '),
+	t_applicationId,
+	@t_jobId as t_jobId,
+	@t_jobDtm as t_jobDtm,
+	@t_jobBy as t_jobBy,
+	t_extractionDtm
 	from [base_isedio].[CUSTTABLE_ISUK]
 
 	update [intm_axbi].[dim_CUSTTABLE]
@@ -529,7 +595,12 @@ BEGIN
     ,INOUT
     ,CUSTOMERPILLAR
     ,COMPANYCHAINID
-    ,DIMENSION3_)
+    ,DIMENSION3_
+	,t_applicationId
+	,t_jobId
+	,t_jobDtm
+	,t_jobBy
+	,t_extractionDtm)
 	select distinct
 	'HMMY',
 	'HMMY-' + ACCOUNTNUM,
@@ -537,7 +608,12 @@ BEGIN
 	INOUT,
 	CUSTOMERPILLAR,
 	' ',
-	ISNULL(DIMENSION3_,' ')
+	ISNULL(DIMENSION3_,' '),
+	t_applicationId,
+	@t_jobId as t_jobId,
+	@t_jobDtm as t_jobDtm,
+	@t_jobBy as t_jobBy,
+	t_extractionDtm
 	from [base_halfen_moment_my].[CUSTTABLE_HMMY]
 
 	-- Halfen Moment Singapur
@@ -549,7 +625,12 @@ BEGIN
     ,INOUT
     ,CUSTOMERPILLAR
     ,COMPANYCHAINID
-    ,DIMENSION3_)
+    ,DIMENSION3_
+	,t_applicationId
+	,t_jobId
+	,t_jobDtm
+	,t_jobBy
+	,t_extractionDtm)
 	select distinct
 	'HMSG',
 	'HMSG-' + ACCOUNTNUM,
@@ -557,7 +638,12 @@ BEGIN
 	INOUT,
 	CUSTOMERPILLAR,
 	' ',
-	ISNULL(DIMENSION3_,' ')
+	ISNULL(DIMENSION3_,' '),
+	t_applicationId,
+	@t_jobId as t_jobId,
+	@t_jobDtm as t_jobDtm,
+	@t_jobBy as t_jobBy,
+	t_extractionDtm
 	from [base_halfen_moment_sg].[CUSTTABLE_HMSG]
 
 	-- Halfen Moment Indien
@@ -569,7 +655,12 @@ BEGIN
     ,INOUT
     ,CUSTOMERPILLAR
     ,COMPANYCHAINID
-    ,DIMENSION3_)
+    ,DIMENSION3_
+	,t_applicationId
+	,t_jobId
+	,t_jobDtm
+	,t_jobBy
+	,t_extractionDtm)
 	select distinct
 	'HMIN',
 	CUSTOMERID,
@@ -577,7 +668,12 @@ BEGIN
 	INOUT,
 	CUSTOMERPILLAR,
 	' ',
-	' '
+	' ',
+	t_applicationId,
+	@t_jobId as t_jobId,
+	@t_jobDtm as t_jobDtm,
+	@t_jobBy as t_jobBy,
+	t_extractionDtm
 	from [base_halfen_moment_in].[CUSTTABLE_HMIN]
 
 	update [intm_axbi].[dim_CUSTTABLE]
@@ -597,7 +693,12 @@ BEGIN
     ,INOUT
     ,CUSTOMERPILLAR
     ,COMPANYCHAINID
-    ,DIMENSION3_)
+    ,DIMENSION3_
+	,t_applicationId
+	,t_jobId
+	,t_jobDtm
+	,t_jobBy
+	,t_extractionDtm)
 	select distinct
 	'HMPH',
 	CUSTOMERID,
@@ -605,7 +706,12 @@ BEGIN
 	INOUT,
 	CUSTOMERPILLAR,
 	' ',
-	' '
+	' ',
+	t_applicationId,
+	@t_jobId as t_jobId,
+	@t_jobDtm as t_jobDtm,
+	@t_jobBy as t_jobBy,
+	t_extractionDtm
 	from [base_halfen_moment_ph].[CUSTTABLE_HMPH]
 
 	-- Fehlenden Kunden eintragen
@@ -634,7 +740,12 @@ BEGIN
     ,INOUT
     ,CUSTOMERPILLAR
     ,COMPANYCHAINID
-    ,DIMENSION3_)
+    ,DIMENSION3_
+	,t_applicationId
+	,t_jobId
+	,t_jobDtm
+	,t_jobBy
+	,t_extractionDtm)
 	select distinct
 	DATAAREAID,
 	'ISAU-' + ACCOUNTNUM,
@@ -642,7 +753,12 @@ BEGIN
 	INOUT,
 	CUSTOMERPILLAR,
 	' ',
-	' '
+	' ',
+	t_applicationId,
+	@t_jobId as t_jobId,
+	@t_jobDtm as t_jobDtm,
+	@t_jobBy as t_jobBy,
+	t_extractionDtm
 	from [base_isedio_aus].[CUSTTABLE_ISAU]
 
 	update [intm_axbi].[dim_CUSTTABLE]
@@ -722,72 +838,281 @@ BEGIN
 
 	-- Halfen
 	delete [intm_axbi].[dim_ITEMGROUP] where UPPER(DATAAREAID) = 'HALF'
-	insert [intm_axbi].[dim_ITEMGROUP] (DATAAREAID,ITEMGROUPID,ITEMGROUPNAME)
-	select 'HALF', 'HALF-' + PRODUCTLINEID, 'HALF-' + PRODUCTLINEDESC from [base_dw_halfen_0_hlp].[PRODUCTLINE]
+	insert [intm_axbi].[dim_ITEMGROUP]
+	 (DATAAREAID
+	 ,ITEMGROUPID
+	 ,ITEMGROUPNAME
+	 ,t_applicationId
+	 ,t_jobId
+	 ,t_jobDtm
+	 ,t_jobBy
+	 ,t_extractionDtm)
+	select 
+	'HALF', 
+	'HALF-' + PRODUCTLINEID, 
+	'HALF-' + PRODUCTLINEDESC,
+	 t_applicationId,
+	 @t_jobId as t_jobId,
+	 @t_jobDtm as t_jobDtm,
+	 @t_jobBy as t_jobBy,
+	 t_extractionDtm 
+	from [base_dw_halfen_0_hlp].[PRODUCTLINE]
 
 	-- Plaka BE
 	delete [intm_axbi].[dim_ITEMGROUP] where UPPER(DATAAREAID) = 'PLBE'
-	insert [intm_axbi].[dim_ITEMGROUP] (DATAAREAID,ITEMGROUPID,ITEMGROUPNAME)
-	select 'PLBE', 'PLBE-' + ITEMGROUP4, 'PLBE-' + DESCRIPTION from [base_tx_crh_2_dwh].[DIM_ADUASCHWITEMGROUP4] where LOWER(DATAAREAID) = 'plb' and DESCRIPTION <> ' ' and DESCRIPTION is not null group by DATAAREAID, ITEMGROUP4, DESCRIPTION
+	insert [intm_axbi].[dim_ITEMGROUP] 
+	 (DATAAREAID
+	 ,ITEMGROUPID
+	 ,ITEMGROUPNAME
+	 ,t_applicationId
+	 ,t_jobId
+	 ,t_jobDtm
+	 ,t_jobBy
+	 ,t_extractionDtm)
+	select 
+	'PLBE', 
+	'PLBE-' + ITEMGROUP4, 
+	'PLBE-' + DESCRIPTION,
+	 t_applicationId,
+	 @t_jobId as t_jobId,
+	 @t_jobDtm as t_jobDtm,
+	 @t_jobBy as t_jobBy,
+	 t_extractionDtm 
+	 from [base_tx_crh_2_dwh].[DIM_ADUASCHWITEMGROUP4] where LOWER(DATAAREAID) = 'plb' and DESCRIPTION <> ' ' and DESCRIPTION is not null group by DATAAREAID, ITEMGROUP4, DESCRIPTION
 
 	-- Plaka FR
 	delete [intm_axbi].[dim_ITEMGROUP] where UPPER(DATAAREAID) = 'PLFR'
-	insert [intm_axbi].[dim_ITEMGROUP] (DATAAREAID,ITEMGROUPID,ITEMGROUPNAME)
-	select 'PLFR', 'PLFR-' + ITEMGROUP4, 'PLFR-' + DESCRIPTION from [base_tx_crh_2_dwh].[DIM_ADUASCHWITEMGROUP4] where LOWER(DATAAREAID) = 'plf' and DESCRIPTION <> ' ' and DESCRIPTION is not null group by DATAAREAID, ITEMGROUP4, DESCRIPTION
+	insert [intm_axbi].[dim_ITEMGROUP] 
+	(DATAAREAID
+	 ,ITEMGROUPID
+	 ,ITEMGROUPNAME
+	 ,t_applicationId
+	 ,t_jobId
+	 ,t_jobDtm
+	 ,t_jobBy
+	 ,t_extractionDtm)
+	select 
+	'PLFR', 
+	'PLFR-' + ITEMGROUP4, 
+	'PLFR-' + DESCRIPTION,
+	 t_applicationId,
+	 @t_jobId as t_jobId,
+	 @t_jobDtm as t_jobDtm,
+	 @t_jobBy as t_jobBy,
+	 t_extractionDtm 
+	from [base_tx_crh_2_dwh].[DIM_ADUASCHWITEMGROUP4] where LOWER(DATAAREAID) = 'plf' and DESCRIPTION <> ' ' and DESCRIPTION is not null group by DATAAREAID, ITEMGROUP4, DESCRIPTION
 
 	-- Aschwanden
 	delete [intm_axbi].[dim_ITEMGROUP] where UPPER(DATAAREAID) = 'ASCH'
-	insert [intm_axbi].[dim_ITEMGROUP] (DATAAREAID,ITEMGROUPID,ITEMGROUPNAME)
-	select 'ASCH', 'ASCH-' + ITEMGROUP4, 'ASCH-' + DESCRIPTION from [base_tx_crh_2_dwh].[DIM_ADUASCHWITEMGROUP4] where LOWER(DATAAREAID) = 'ass' and DESCRIPTION <> ' ' and DESCRIPTION is not null group by DATAAREAID, ITEMGROUP4, DESCRIPTION
+	insert [intm_axbi].[dim_ITEMGROUP] 
+	(DATAAREAID
+	 ,ITEMGROUPID
+	 ,ITEMGROUPNAME
+	 ,t_applicationId
+	 ,t_jobId
+	 ,t_jobDtm
+	 ,t_jobBy
+	 ,t_extractionDtm)
+	select 
+	'ASCH', 
+	'ASCH-' + ITEMGROUP4, 
+	'ASCH-' + DESCRIPTION,
+	 t_applicationId,
+	 @t_jobId as t_jobId,
+	 @t_jobDtm as t_jobDtm,
+	 @t_jobBy as t_jobBy,
+	 t_extractionDtm 
+	from [base_tx_crh_2_dwh].[DIM_ADUASCHWITEMGROUP4] where LOWER(DATAAREAID) = 'ass' and DESCRIPTION <> ' ' and DESCRIPTION is not null group by DATAAREAID, ITEMGROUP4, DESCRIPTION
 
 	-- Ancon D-A-CH
 	delete [intm_axbi].[dim_ITEMGROUP] where UPPER(DATAAREAID) = 'ANAT'
-	insert [intm_axbi].[dim_ITEMGROUP] (DATAAREAID,ITEMGROUPID,ITEMGROUPNAME)
-	select 'ANAT', 'ANAT-' + ITEMGROUPID, 'ANAT-' + ItemGroupName from [base_tx_crh_1_stg].[AX_CRH_A_dbo_INVENTTABLE] where LOWER(DATAAREAID) = 'anat' group by ITEMGROUPID, ItemGroupName
+	insert [intm_axbi].[dim_ITEMGROUP] 
+    (DATAAREAID
+	 ,ITEMGROUPID
+	 ,ITEMGROUPNAME
+	 ,t_applicationId
+	 ,t_jobId
+	 ,t_jobDtm
+	 ,t_jobBy
+	 ,t_extractionDtm)
+	select 
+	'ANAT', 
+	'ANAT-' + ITEMGROUPID, 
+	'ANAT-' + ItemGroupName,
+	 t_applicationId,
+	 @t_jobId as t_jobId,
+	 @t_jobDtm as t_jobDtm,
+	 @t_jobBy as t_jobBy,
+	 t_extractionDtm 
+	from [base_tx_crh_1_stg].[AX_CRH_A_dbo_INVENTTABLE] where LOWER(DATAAREAID) = 'anat' group by ITEMGROUPID, ItemGroupName
 
 	delete [intm_axbi].[dim_ITEMGROUP] where UPPER(DATAAREAID) = 'ANCH'
-	insert [intm_axbi].[dim_ITEMGROUP] (DATAAREAID,ITEMGROUPID,ITEMGROUPNAME)
-	select 'ANCH', 'ANCH-' + ITEMGROUPID, 'ANCH-' + ItemGroupName from [base_tx_crh_1_stg].[AX_CRH_A_dbo_INVENTTABLE] where LOWER(DATAAREAID) = 'anch' group by ITEMGROUPID, ItemGroupName
+	insert [intm_axbi].[dim_ITEMGROUP] 
+	(DATAAREAID
+	 ,ITEMGROUPID
+	 ,ITEMGROUPNAME
+	 ,t_applicationId
+	 ,t_jobId
+	 ,t_jobDtm
+	 ,t_jobBy
+	 ,t_extractionDtm)
+	select 
+	'ANCH', 
+	'ANCH-' + ITEMGROUPID, 
+	'ANCH-' + ItemGroupName,
+	 t_applicationId,
+	 @t_jobId as t_jobId,
+	 @t_jobDtm as t_jobDtm,
+	 @t_jobBy as t_jobBy,
+	 t_extractionDtm 
+	from [base_tx_crh_1_stg].[AX_CRH_A_dbo_INVENTTABLE] where LOWER(DATAAREAID) = 'anch' group by ITEMGROUPID, ItemGroupName
 
 	delete [intm_axbi].[dim_ITEMGROUP] where UPPER(DATAAREAID) = 'ANDE'
-	insert [intm_axbi].[dim_ITEMGROUP] (DATAAREAID,ITEMGROUPID,ITEMGROUPNAME)
-	select 'ANDE', 'ANDE-' + ITEMGROUPID, 'ANDE-' + ItemGroupName from [base_tx_crh_1_stg].[AX_CRH_A_dbo_INVENTTABLE] where LOWER(DATAAREAID) = 'ande' group by ITEMGROUPID, ItemGroupName
+	insert [intm_axbi].[dim_ITEMGROUP]
+	(DATAAREAID
+	 ,ITEMGROUPID
+	 ,ITEMGROUPNAME
+	 ,t_applicationId
+	 ,t_jobId
+	 ,t_jobDtm
+	 ,t_jobBy
+	 ,t_extractionDtm)
+	select 
+	'ANDE', 
+	'ANDE-' + ITEMGROUPID, 
+	'ANDE-' + ItemGroupName,
+	 t_applicationId,
+	 @t_jobId as t_jobId,
+	 @t_jobDtm as t_jobDtm,
+	 @t_jobBy as t_jobBy,
+	 t_extractionDtm 
+	from [base_tx_crh_1_stg].[AX_CRH_A_dbo_INVENTTABLE] where LOWER(DATAAREAID) = 'ande' group by ITEMGROUPID, ItemGroupName
 
 	delete [intm_axbi].[dim_ITEMGROUP] where DATAAREAID = 'ANAC'
-	insert [intm_axbi].[dim_ITEMGROUP](DATAAREAID,ITEMGROUPID,ITEMGROUPNAME)
+	insert [intm_axbi].[dim_ITEMGROUP]
+	(DATAAREAID
+	 ,ITEMGROUPID
+	 ,ITEMGROUPNAME
+	 ,t_applicationId
+	 ,t_jobId
+	 ,t_jobDtm
+	 ,t_jobBy
+	 ,t_extractionDtm)
 	select 
         distinct 'ANAC',
         'ANAC-' + CAST(STOCKGROUP as NVARCHAR(2)),
-        'ANAC-' + GROUPNAME
+        'ANAC-' + GROUPNAME,
+		t_applicationId,
+	 	@t_jobId as t_jobId,
+	 	@t_jobDtm as t_jobDtm,
+	 	@t_jobBy as t_jobBy,
+	 	t_extractionDtm 
     from [base_ancon_conolly_aus].[ITEMTABLE_ANAC]
     group by 'ANAC-' + CAST(STOCKGROUP as NVARCHAR(2)), 'ANAC-' + GROUPNAME
 
 	delete [intm_axbi].[dim_ITEMGROUP] where UPPER(DATAAREAID) = 'ANAU'
-	insert [intm_axbi].[dim_ITEMGROUP] (DATAAREAID,ITEMGROUPID,ITEMGROUPNAME)
-	select 'ANAU', 'ANAU-' + ITEMGROUPID, 'ANAU-' + NAME from [base_ancon_australia_2_dwh].[DIM_ITEMGROUP] where LOWER(DATAAREAID) = 'vmd'
+	insert [intm_axbi].[dim_ITEMGROUP] 
+	(DATAAREAID
+	 ,ITEMGROUPID
+	 ,ITEMGROUPNAME
+	 ,t_applicationId
+	 ,t_jobId
+	 ,t_jobDtm
+	 ,t_jobBy
+	 ,t_extractionDtm)
+	select 
+	'ANAU', 
+	'ANAU-' + ITEMGROUPID, 
+	'ANAU-' + NAME,
+	t_applicationId,
+	@t_jobId as t_jobId,
+	@t_jobDtm as t_jobDtm,
+	@t_jobBy as t_jobBy,
+	t_extractionDtm  
+	from [base_ancon_australia_2_dwh].[DIM_ITEMGROUP] where LOWER(DATAAREAID) = 'vmd'
 
 	delete [intm_axbi].[dim_ITEMGROUP] where UPPER(DATAAREAID) = 'ANAH'
-	insert [intm_axbi].[dim_ITEMGROUP] (DATAAREAID,ITEMGROUPID,ITEMGROUPNAME)
-	select 'ANAH', 'ANAH-' + ITEMGROUPID, 'ANAH-' + NAME from [base_ancon_australia_2_dwh].[DIM_ITEMGROUP] where LOWER(DATAAREAID) = 'vmd'
+	insert [intm_axbi].[dim_ITEMGROUP] 
+	(DATAAREAID
+	 ,ITEMGROUPID
+	 ,ITEMGROUPNAME
+	 ,t_applicationId
+	 ,t_jobId
+	 ,t_jobDtm
+	 ,t_jobBy
+	 ,t_extractionDtm)
+	select 
+	'ANAH', 
+	'ANAH-' + ITEMGROUPID, 
+	'ANAH-' + NAME,
+	t_applicationId,
+	@t_jobId as t_jobId,
+	@t_jobDtm as t_jobDtm,
+	@t_jobBy as t_jobBy,
+	t_extractionDtm  
+	from [base_ancon_australia_2_dwh].[DIM_ITEMGROUP] where LOWER(DATAAREAID) = 'vmd'
 
 	delete [intm_axbi].[dim_ITEMGROUP] where UPPER(DATAAREAID) = 'ANNZ'
-	insert [intm_axbi].[dim_ITEMGROUP] (DATAAREAID,ITEMGROUPID,ITEMGROUPNAME)
-	select 'ANNZ', 'ANNZ-' + ITEMGROUPID, 'ANNZ-' + NAME from [base_ancon_australia_2_dwh].[DIM_ITEMGROUP] where LOWER(DATAAREAID) = 'vmd'
+	insert [intm_axbi].[dim_ITEMGROUP] 
+	(DATAAREAID
+	 ,ITEMGROUPID
+	 ,ITEMGROUPNAME
+	 ,t_applicationId
+	 ,t_jobId
+	 ,t_jobDtm
+	 ,t_jobBy
+	 ,t_extractionDtm)
+	select 
+	'ANNZ', 
+	'ANNZ-' + ITEMGROUPID, 
+	'ANNZ-' + NAME,
+	t_applicationId,
+	@t_jobId as t_jobId,
+	@t_jobDtm as t_jobDtm,
+	@t_jobBy as t_jobBy,
+	t_extractionDtm   
+	from [base_ancon_australia_2_dwh].[DIM_ITEMGROUP] where LOWER(DATAAREAID) = 'vmd'
 
 	delete [intm_axbi].[dim_ITEMGROUP] where DATAAREAID = 'ANUK'
-	insert [intm_axbi].[dim_ITEMGROUP](DATAAREAID,ITEMGROUPID,ITEMGROUPNAME)
+	insert [intm_axbi].[dim_ITEMGROUP]
+	(DATAAREAID
+	 ,ITEMGROUPID
+	 ,ITEMGROUPNAME
+	 ,t_applicationId
+	 ,t_jobId
+	 ,t_jobDtm
+	 ,t_jobBy
+	 ,t_extractionDtm)
 	select
         'ANUK',
         'ANUK-' + ITEMGROUPID,
-        'ANUK-' + ITEMGROUPNAME
+        'ANUK-' + ITEMGROUPNAME,
+		t_applicationId,
+		@t_jobId as t_jobId,
+		@t_jobDtm as t_jobDtm,
+		@t_jobBy as t_jobBy,
+		t_extractionDtm  
         from [base_ancon_uk].[MAPPING_ITEMGROUP_ANUK]
 
 	delete [intm_axbi].[dim_ITEMGROUP] where DATAAREAID = 'ISUK'
-	insert [intm_axbi].[dim_ITEMGROUP](DATAAREAID,ITEMGROUPID,ITEMGROUPNAME)
+	insert [intm_axbi].[dim_ITEMGROUP]
+	(DATAAREAID
+	 ,ITEMGROUPID
+	 ,ITEMGROUPNAME
+	 ,t_applicationId
+	 ,t_jobId
+	 ,t_jobDtm
+	 ,t_jobBy
+	 ,t_extractionDtm)
 	select
         'ISUK',
         'ISUK-' + ITEMGROUPID,
-        'ISUK-' + ITEMGROUPNAME
+        'ISUK-' + ITEMGROUPNAME,
+		 t_applicationId,
+		 @t_jobId as t_jobId,
+		 @t_jobDtm as t_jobDtm,
+		 @t_jobBy as t_jobBy,
+		 t_extractionDtm  
     from [base_ancon_uk].[MAPPING_ITEMGROUP_ANUK]
 
 
@@ -804,13 +1129,23 @@ BEGIN
     ,ITEMID
     ,ITEMNAME
     ,PRODUCTGROUPID
-    ,ITEMGROUPID)
+    ,ITEMGROUPID
+	,t_applicationId
+	,t_jobId
+	,t_jobDtm
+	,t_jobBy
+	,t_extractionDtm)
 	select distinct
 	'HALF',
 	'HALF-' + [Itemno],
 	[Itemdescription],
 	case when [CRHProductgroupid] is null then ' ' else [CRHProductgroupid] end,
-	'HALF-' + [Productline]
+	'HALF-' + [Productline],
+	t_applicationId,
+	@t_jobId as t_jobId,
+	@t_jobDtm as t_jobDtm,
+	@t_jobBy as t_jobBy,
+	t_extractionDtm
 	from [base_dw_halfen_2_dwh].[DIM_ARTICLE]
 	where [Itemno] <> ' ' -- ohne Dummy Artikel blank 
 
@@ -879,7 +1214,16 @@ BEGIN
 	-- Ancon AT, CH, DE Aschwanden CH Plaka BE, FR
 
 	insert [intm_axbi].[dim_ITEMTABLE]
-	(DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID)
+	(DATAAREAID
+	,ITEMID
+	,ITEMNAME
+	,PRODUCTGROUPID
+	,ITEMGROUPID
+	,t_applicationId
+	,t_jobId
+	,t_jobDtm
+	,t_jobBy
+	,t_extractionDtm)
 	select distinct
 	case LOWER([DATAAREAID])
 	     when  'anat' then 'ANAT'
@@ -906,7 +1250,12 @@ BEGIN
 		 when 'ass'  then 'ASCH-'  + [ADUASCHWITEMGROUP4]
 		 when 'plb'  then 'PLBE-'  + [ADUASCHWITEMGROUP4]
 		 when 'plf'  then 'PLFR-'  + [ADUASCHWITEMGROUP4]
-	end
+	end,
+	t_applicationId,
+	@t_jobId as t_jobId,
+	@t_jobDtm as t_jobDtm,
+	@t_jobBy as t_jobBy,
+	t_extractionDtm
 	from [base_tx_crh_2_dwh].[DIM_INVENTTABLE] where LOWER(DATAAREAID) in ('anat', 'anch', 'ande', 'ass', 'plb', 'plf')
 
 	-- Dummy article for the Budget
@@ -1292,7 +1641,16 @@ BEGIN
 	-- Ancon AU, NZ, Helifix
 
 	insert [intm_axbi].[dim_ITEMTABLE]
-	(DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID)
+	(DATAAREAID
+	,ITEMID
+	,ITEMNAME
+	,PRODUCTGROUPID
+	,ITEMGROUPID
+	,t_applicationId
+	,t_jobId
+	,t_jobDtm
+	,t_jobBy
+	,t_extractionDtm)
 	select distinct
 	case LOWER([DATAAREAID])
 	     when 'anau' then 'ANAU'
@@ -1310,7 +1668,12 @@ BEGIN
 	     when 'anau' then 'ANAU-' + ISNULL([ITEMGROUPID], ' ')
 	     when 'hlau' then 'ANAH-' + ISNULL([ITEMGROUPID], ' ')
 		 when 'hlnz' then 'ANNZ-' + ISNULL([ITEMGROUPID], ' ')
-	end
+	end,
+	t_applicationId,
+	@t_jobId as t_jobId,
+	@t_jobDtm as t_jobDtm,
+	@t_jobBy as t_jobBy,
+	t_extractionDtm
 	from [base_ancon_australia_2_dwh].[DIM_INVENTTABLE] where LOWER(DATAAREAID) in ('anau', 'hlau', 'hlnz')
 
 	-- Dummy article for the Budget
@@ -1508,13 +1871,23 @@ BEGIN
     ,ITEMID
     ,ITEMNAME
     ,PRODUCTGROUPID
-    ,ITEMGROUPID)
+    ,ITEMGROUPID
+	,t_applicationId
+	,t_jobId
+	,t_jobDtm
+	,t_jobBy
+	,t_extractionDtm)
 	select distinct
 	[DATAAREAID],
 	'ANUK-' + [ITEMID],
 	[ITEMNAME],
 	ISNULL([CRH PRODUCTGROUPID], ' '),
-	ISNULL('ANUK-' + [ITEMGROUPID], ' ')
+	ISNULL('ANUK-' + [ITEMGROUPID], ' '),
+	t_applicationId,
+	@t_jobId as t_jobId,
+	@t_jobDtm as t_jobDtm,
+	@t_jobBy as t_jobBy,
+	t_extractionDtm
 	from [base_ancon_uk].[ITEMTABLE_ANUK]
 
 	update [intm_axbi].[dim_ITEMTABLE]
@@ -1588,13 +1961,23 @@ BEGIN
     ,ITEMID
     ,ITEMNAME
     ,PRODUCTGROUPID
-    ,ITEMGROUPID)
+    ,ITEMGROUPID
+	,t_applicationId
+	,t_jobId
+	,t_jobDtm
+	,t_jobBy
+	,t_extractionDtm)
 	select distinct
 	c.DATAAREAID,
 	c.ITEMID,
 	'Missing Article in Itemtable',
 	'N.3.',
-	'ANUK-OTH'
+	'ANUK-OTH',
+	c.t_applicationId,
+	@t_jobId as t_jobId,
+	@t_jobDtm as t_jobDtm,
+	@t_jobBy as t_jobBy,
+	c.t_extractionDtm
 	from [intm_axbi].[fact_CUSTINVOICETRANS] as c
 	left outer join [intm_axbi].[dim_ITEMTABLE] as i
 	on c.DATAAREAID = i.DATAAREAID and
@@ -1607,13 +1990,23 @@ BEGIN
     ,ITEMID
     ,ITEMNAME
     ,PRODUCTGROUPID
-    ,ITEMGROUPID)
+    ,ITEMGROUPID
+	,t_applicationId
+	,t_jobId
+	,t_jobDtm
+	,t_jobBy
+	,t_extractionDtm)
 	select distinct
 	[DATAAREAID],
 	'ANAC-' + [ITEMID],
 	ISNULL([ITEMNAME], ' '),
 	ISNULL([CRHPRODUCTGROUPID], ' '),
-	ISNULL('ANAC-' + Cast([STOCKGROUP] as nvarchar(2)), ' ')
+	ISNULL('ANAC-' + Cast([STOCKGROUP] as nvarchar(2)), ' '),
+	t_applicationId,
+	@t_jobId as t_jobId,
+	@t_jobDtm as t_jobDtm,
+	@t_jobBy as t_jobBy,
+	t_extractionDtm
 	from [base_ancon_conolly_aus].[ITEMTABLE_ANAC]
 
 	-- Dummy article for the Budget
@@ -1683,13 +2076,23 @@ BEGIN
     ,ITEMID
     ,ITEMNAME
     ,PRODUCTGROUPID
-    ,ITEMGROUPID)
+    ,ITEMGROUPID
+	,t_applicationId
+	,t_jobId
+	,t_jobDtm
+	,t_jobBy
+	,t_extractionDtm)
 	select distinct
 	c.DATAAREAID,
 	c.ITEMID,
 	'Missing Article in Itemtable',
 	'N.3.',
-	'ANAC-0'
+	'ANAC-0',
+	c.t_applicationId,
+	@t_jobId as t_jobId,
+	@t_jobDtm as t_jobDtm,
+	@t_jobBy as t_jobBy,
+	c.t_extractionDtm
 	from [intm_axbi].[fact_CUSTINVOICETRANS] as c
 	left outer join [intm_axbi].[dim_ITEMTABLE] as i
 	on c.DATAAREAID = i.DATAAREAID and
@@ -1702,13 +2105,23 @@ BEGIN
     ,ITEMID
     ,ITEMNAME
     ,PRODUCTGROUPID
-    ,ITEMGROUPID)
+    ,ITEMGROUPID,
+	,t_applicationId
+	,t_jobId
+	,t_jobDtm
+	,t_jobBy
+	,t_extractionDtm)
 	select distinct
 	'ANME',
 	[ITEMID],
 	'ANME-' + ISNULL([ITEMNAME], ' '),
 	ISNULL([CRHPRODUCTGROUPID], ' '),
-	' '
+	' ',
+	t_applicationId,
+	@t_jobId as t_jobId,
+	@t_jobDtm as t_jobDtm,
+	@t_jobBy as t_jobBy,
+	t_extractionDtm
 	from [base_ancon_me].[ITEMTABLE_ANME]
 
 	-- Dummy article for the Budget
@@ -1780,7 +2193,12 @@ BEGIN
     ,ITEMID
     ,ITEMNAME
     ,PRODUCTGROUPID
-    ,ITEMGROUPID)
+    ,ITEMGROUPID,
+	,t_applicationId
+	,t_jobId
+	,t_jobDtm
+	,t_jobBy
+	,t_extractionDtm)
 	select distinct
 	[DATAAREAID],
 	[ITEMID],
@@ -1790,7 +2208,12 @@ BEGIN
         WHEN ISNULL([ITEMGROUPID],' ')=' '
         THEN ' '
         ELSE 'ANUK-' + [ITEMGROUPID]
-    END
+    END,
+	t_applicationId,
+	@t_jobId as t_jobId,
+	@t_jobDtm as t_jobDtm,
+	@t_jobBy as t_jobBy,
+	t_extractionDtm
 	from [base_isedio].[ITEMTABLE_ISUK]
 
 	update [intm_axbi].[dim_ITEMTABLE]
@@ -1866,13 +2289,23 @@ BEGIN
     ,ITEMID
     ,ITEMNAME
     ,PRODUCTGROUPID
-    ,ITEMGROUPID)
+    ,ITEMGROUPID
+	,t_applicationId
+	,t_jobId
+	,t_jobDtm
+	,t_jobBy
+	,t_extractionDtm)
 	select distinct
 	'HMMY',
 	'HMMY-' + [ITEMID],
 	'HMMY-' + ISNULL([ITEMNAME], ' '),
 	ISNULL([PRODUCTGROUPID], ' '),
-	'HMMY-' + [ITEMGROUPID]
+	'HMMY-' + [ITEMGROUPID],
+	t_applicationId,
+	@t_jobId as t_jobId,
+	@t_jobDtm as t_jobDtm,
+	@t_jobBy as t_jobBy,
+	t_extractionDtm
 	from [base_halfen_moment_my].[ITEMTABLE_HMMY]
 
 	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMMY', 'HMMY-A.1.', 'BRICKWORK SUPPORT', 'A.1.', ' ')
@@ -1943,13 +2376,23 @@ BEGIN
     ,ITEMID
     ,ITEMNAME
     ,PRODUCTGROUPID
-    ,ITEMGROUPID)
+    ,ITEMGROUPID,
+	,t_applicationId
+	,t_jobId
+	,t_jobDtm
+	,t_jobBy
+	,t_extractionDtm)
 	select distinct
 	'HMSG',
 	'HMSG-' + [ITEMID],
 	'HMSG-' + ISNULL([ITEMNAME], ' '),
 	ISNULL([PRODUCTGROUPID], ' '),
-	'HMSG-' + [ITEMGROUPID]
+	'HMSG-' + [ITEMGROUPID],
+	t_applicationId,
+	@t_jobId as t_jobId,
+	@t_jobDtm as t_jobDtm,
+	@t_jobBy as t_jobBy,
+	t_extractionDtm
 	from [base_halfen_moment_sg].[ITEMTABLE_HMSG]
 
 	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMSG', 'HMSG-A.1.', 'BRICKWORK SUPPORT', 'A.1.', ' ')
@@ -2020,13 +2463,23 @@ BEGIN
     ,ITEMID
     ,ITEMNAME
     ,PRODUCTGROUPID
-    ,ITEMGROUPID)
+    ,ITEMGROUPID
+	,t_applicationId
+	,t_jobId
+	,t_jobDtm
+	,t_jobBy
+	,t_extractionDtm)
 	select distinct
 	'HMIN',
 	[ITEMID],
 	'HMIN-' + ISNULL([ITEMNAME], ' '),
 	ISNULL([CRHPRODUCTGROUPID], ' '),
-	' '
+	' ',
+	t_applicationId,
+	@t_jobId as t_jobId,
+	@t_jobDtm as t_jobDtm,
+	@t_jobBy as t_jobBy,
+	t_extractionDtm
 	from [base_halfen_moment_in].[ITEMTABLE_HMIN]
 
 	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMIN', 'HMIN-A.1.', 'BRICKWORK SUPPORT', 'A.1.', ' ')
@@ -2101,13 +2554,23 @@ BEGIN
     ,ITEMID
     ,ITEMNAME
     ,PRODUCTGROUPID
-    ,ITEMGROUPID)
+    ,ITEMGROUPID
+	,t_applicationId
+	,t_jobId
+	,t_jobDtm
+	,t_jobBy
+	,t_extractionDtm)
 	select distinct
 	'HMPH',
 	[ITEMID],
 	'HMPH-' + ISNULL([ITEMNAME], ' '),
 	ISNULL([CRHPRODUCTGROUPID], ' '),
-	' '
+	' ',
+	t_applicationId,
+	@t_jobId as t_jobId,
+	@t_jobDtm as t_jobDtm,
+	@t_jobBy as t_jobBy,
+	t_extractionDtm
 	from [base_halfen_moment_ph].[ITEMTABLE_HMPH]
 
 	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('HMPH', 'HMPH-A.1.', 'BRICKWORK SUPPORT', 'A.1.', ' ')
@@ -2188,7 +2651,12 @@ BEGIN
     ,ITEMID
     ,ITEMNAME
     ,PRODUCTGROUPID
-    ,ITEMGROUPID)
+    ,ITEMGROUPID
+	,t_applicationId
+	,t_jobId
+	,t_jobDtm
+	,t_jobBy
+	,t_extractionDtm)
 	select distinct
 	[DATAAREAID],
 	'ISAU-' + [ITEMID],
@@ -2198,7 +2666,12 @@ BEGIN
         WHEN ISNULL([STOCKGROUP],' ')=' '
         THEN ' '
         ELSE 'ISAU-' + [STOCKGROUP]
-    END
+    END,
+	t_applicationId,
+	@t_jobId as t_jobId,
+	@t_jobDtm as t_jobDtm,
+	@t_jobBy as t_jobBy,
+	t_extractionDtm
 	from [base_isedio_aus].[ITEMTABLE_ISAU]
 
 	-- Dummy article for the Budget

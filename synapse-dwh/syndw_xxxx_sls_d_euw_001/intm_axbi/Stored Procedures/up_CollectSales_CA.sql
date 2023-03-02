@@ -26,7 +26,7 @@ BEGIN
 	EXEC intm_axbi.up_ReadSales_ANAC_pkg
 	EXEC intm_axbi.up_ReadSales_ANME_pkg*/
 
-	EXEC intm_axbi.up_createAxBiBasicData
+	EXEC intm_axbi.up_createAxBiBasicData @t_jobId, @t_jobDtm, @t_jobBy
 
 	EXEC intm_axbi.up_ReadSales_HALF @P_Year, @P_Month, @t_jobId, @t_jobDtm, @t_jobBy
 
