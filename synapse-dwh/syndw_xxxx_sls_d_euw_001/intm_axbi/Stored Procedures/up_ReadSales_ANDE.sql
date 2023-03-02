@@ -134,9 +134,9 @@ insert [intm_axbi].[fact_CUSTINVOICETRANS]
 	i.costamount as COSTAMOUNTLOCAL,
 	i.costamount as COSTAMOUNTEUR,
 	t.t_applicationId as t_applicationId,
-	t_jobId = @t_jobId,
-	t_jobDtm = @t_jobDtm,
-	t_jobBy = @t_jobBy,
+	@t_jobId,
+	@t_jobDtm,
+	@t_jobBy,
 	t.t_extractionDtm as t_extractionDtm
 	from [base_tx_crh_2_dwh].[FACT_CUSTINVOICETRANS] as t
 	inner join [base_tx_crh_2_dwh].[DIM_CUSTTABLE] as u
@@ -170,9 +170,9 @@ select
 	t.LINEAMOUNTMST as LINEAMOUNTMST_os,
 	count(t.INVOICEID) over (partition by t.INVOICEID) cnt_inv,
 	t.t_applicationId as t_applicationId,
-	t_jobId = @t_jobId,
-	t_jobDtm = @t_jobDtm,
-	t_jobBy = @t_jobBy,
+	@t_jobId,
+	@t_jobDtm,
+	@t_jobBy,
 	t.t_extractionDtm as t_extractionDtm
 	into #inventtrans_ANDE_OS
 	from [base_tx_crh_2_dwh].[FACT_CUSTINVOICETRANS] as t
