@@ -96,7 +96,12 @@ BEGIN
 		   when '5327' then 'HACN-' + DACUNO 
 		   when '5330' then 'HAUS-' + DACUNO
 		   else DACONO end,
-	'HALF-' + DAITNO, substring(DADRID, 1, 2), ISNULL(DADLIX, ' '), ISNULL(DAIVQT,0), DASAAM, DASAAC, DAOSAL, DAOSAC, DAALOL, DAALOC, DA100L, DA100C, DAVSCL + isnull(DAVE10,0), DAVSCC + isnull(DCVE10,0), DAHCOS, DAHCOC 
+	'HALF-' + DAITNO, substring(DADRID, 1, 2), ISNULL(DADLIX, ' '), ISNULL(DAIVQT,0), DASAAM, DASAAC, DAOSAL, DAOSAC, DAALOL, DAALOC, DA100L, DA100C, DAVSCL + isnull(DAVE10,0), DAVSCC + isnull(DCVE10,0), DAHCOS, DAHCOC,
+	t_applicationId,
+	t_jobId = @t_jobId,
+	t_jobDtm = @t_jobDtm,
+	t_jobBy = @t_jobBy,
+	t_extractionDtm
 	from [base_dw_halfen_0_hlp].[HGDAWA] 
 	where DACONO <> '5330' and DAJAHR = @P_Year and DAMONA = @P_Month -- Ohne Halfen USA 5330
 
