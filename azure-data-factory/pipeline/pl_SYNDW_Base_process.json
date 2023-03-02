@@ -337,7 +337,10 @@
 								"referenceName": "ls_ws_xxxx_sls_x_euw_001__syndw_xxxx_sls_x_euw_001",
 								"type": "LinkedServiceReference",
 								"parameters": {
-									"sqlPool": "@pipeline().globalParameters.synapseDatabaseName"
+									"sqlPool": {
+										"value": "@pipeline().globalParameters.synapseDatabaseName",
+										"type": "Expression"
+									}
 								}
 							}
 						}
@@ -409,7 +412,10 @@
 								"referenceName": "ls_ws_xxxx_sls_x_euw_001__syndw_xxxx_sls_x_euw_001",
 								"type": "LinkedServiceReference",
 								"parameters": {
-									"sqlPool": "@pipeline().globalParameters.synapseDatabaseName"
+									"sqlPool": {
+										"value": "@pipeline().globalParameters.synapseDatabaseName",
+										"type": "Expression"
+									}
 								}
 							}
 						}

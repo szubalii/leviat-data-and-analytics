@@ -453,7 +453,7 @@
 										"type": "Expression"
 									},
 									"refresh_from_date": {
-										"value": "@formatDateTime(item().refresh_from_date,'yyyy/MM/dd')",
+										"value": "@item().refresh_from_date",
 										"type": "Expression"
 									}
 								}
