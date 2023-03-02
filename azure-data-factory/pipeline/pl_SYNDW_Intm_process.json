@@ -189,10 +189,6 @@
 								"type": "Expression"
 							},
 							"type": "String"
-						},
-						"file_path": {
-							"value": null,
-							"type": "String"
 						}
 					}
 				},
