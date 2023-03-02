@@ -8,7 +8,7 @@ CREATE PROCEDURE [intm_axbi].[up_ReadSales_PLAKA_BE]
 (
 @P_Year [smallint],
 @P_Month [tinyint],
-@P_DelNotInv [nvarchar](1) 
+@P_DelNotInv [nvarchar](1),
 @t_jobId varchar(36),
 @t_jobDtm datetime, 
 @t_jobBy nvarchar(128) )
