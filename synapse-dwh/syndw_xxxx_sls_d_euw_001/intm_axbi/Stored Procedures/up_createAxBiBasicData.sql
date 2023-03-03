@@ -1277,8 +1277,8 @@ BEGIN
 	from [base_tx_crh_2_dwh].[DIM_INVENTTABLE] where LOWER(DATAAREAID) in ('anat', 'anch', 'ande', 'ass', 'plb', 'plf')
 
 	-- Dummy article for the Budget
-    DECLARE @t_applicationId_Halfen varchar(50) 
-	SET @t_applicationId = 'DW_HALFEN_0_HLP'
+    DECLARE @t_applicationId_CRH varchar(50) 
+	SET @t_applicationId_CRH = 'TX_CRH_2_DWH'
 
 	insert into [intm_axbi].[dim_ITEMTABLE] (DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID,t_applicationId,t_jobId,t_jobDtm,t_jobBy, t_extractionDtm) VALUES('PLBE', 'PLBE-E.4.', 'PUNCHING SHEAR', 'E.4.', ' ','TX_CRH_2_DWH_PROD',@t_jobId,@t_jobDtm,@t_jobBy,NULL)
 	insert into [intm_axbi].[dim_ITEMTABLE] (DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID,t_applicationId,t_jobId,t_jobDtm,t_jobBy, t_extractionDtm) VALUES('PLBE', 'PLBE-A.1.', 'BRICKWORK SUPPORT', 'A.1.', ' ','TX_CRH_2_DWH_PROD',@t_jobId,@t_jobDtm,@t_jobBy,NULL)
@@ -1699,6 +1699,9 @@ BEGIN
 	from [base_ancon_australia_2_dwh].[DIM_INVENTTABLE] where LOWER(DATAAREAID) in ('anau', 'hlau', 'hlnz')
 
 	-- Dummy article for the Budget
+	DECLARE @t_applicationId_ANCON_AUSTRALIA varchar(50) 
+	SET @t_applicationId_ANCON_AUSTRALIA = 'ANCON_AUSTRALIA_2_DWH_PROD'
+
 	insert into [intm_axbi].[dim_ITEMTABLE] (DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANAU', 'ANAU-A.1.', 'BRICKWORK SUPPORT', 'A.1.', ' ','ANCON_AUSTRALIA_2_DWH_PROD',@t_jobId,@t_jobDtm,@t_jobBy,NULL)
 	insert into [intm_axbi].[dim_ITEMTABLE] (DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANAU', 'ANAU-A.2.', 'WALL TIES & FIXINGS', 'A.2.', ' ','ANCON_AUSTRALIA_2_DWH_PROD',@t_jobId,@t_jobDtm,@t_jobBy,NULL)
 	insert into [intm_axbi].[dim_ITEMTABLE] (DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID) VALUES('ANAU', 'ANAU-A.3.', 'MURFOR', 'A.3.', ' ','ANCON_AUSTRALIA_2_DWH_PROD',@t_jobId,@t_jobDtm,@t_jobBy,NULL)
@@ -1917,6 +1920,9 @@ BEGIN
 	where DATAAREAID = 'ANUK' and UPPER(ITEMGROUPID) = 'ANUK-HELI'  
 
 	-- Dummy article for the Budget
+	DECLARE @t_applicationId_ANUK varchar(10) 
+	SET @t_applicationId_ANUK = 'ancon-uk'
+
 	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID,t_applicationId,t_jobId,t_jobDtm,t_jobBy, t_extractionDtm) VALUES('ANUK', 'ANUK-A.1.', 'BRICKWORK SUPPORT', 'A.1.', ' ','ancon-uk',@t_jobId,@t_jobDtm,@t_jobBy,NULL)
 	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID,t_applicationId,t_jobId,t_jobDtm,t_jobBy, t_extractionDtm) VALUES('ANUK', 'ANUK-A.2.', 'WALL TIES & FIXINGS', 'A.2.', ' ','ancon-uk',@t_jobId,@t_jobDtm,@t_jobBy,NULL)
 	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID,t_applicationId,t_jobId,t_jobDtm,t_jobBy, t_extractionDtm) VALUES('ANUK', 'ANUK-A.3.', 'MURFOR', 'A.3.', ' ','ancon-uk',@t_jobId,@t_jobDtm,@t_jobBy,NULL)
@@ -2032,6 +2038,9 @@ BEGIN
 	from [base_ancon_conolly_aus].[ITEMTABLE_ANAC]
 
 	-- Dummy article for the Budget
+	DECLARE @t_applicationId_ANAC varchar(20) 
+	SET @t_applicationId_ANAC = 'ancon-conolly-aus'
+
 	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID,t_applicationId,t_jobId,t_jobDtm,t_jobBy, t_extractionDtm) VALUES('ANAC', 'ANAC-A.1.', 'BRICKWORK SUPPORT', 'A.1.', ' ','ancon-conolly-aus',@t_jobId,@t_jobDtm,@t_jobBy,NULL)
 	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID,t_applicationId,t_jobId,t_jobDtm,t_jobBy, t_extractionDtm) VALUES('ANAC', 'ANAC-A.2.', 'WALL TIES & FIXINGS', 'A.2.', ' ','ancon-conolly-aus',@t_jobId,@t_jobDtm,@t_jobBy,NULL)
 	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID,t_applicationId,t_jobId,t_jobDtm,t_jobBy, t_extractionDtm) VALUES('ANAC', 'ANAC-A.3.', 'MURFOR', 'A.3.', ' ','ancon-conolly-aus',@t_jobId,@t_jobDtm,@t_jobBy,NULL)
@@ -2147,6 +2156,9 @@ BEGIN
 	from [base_ancon_me].[ITEMTABLE_ANME]
 
 	-- Dummy article for the Budget
+	DECLARE @t_applicationId_ANME varchar(10) 
+	SET @t_applicationId_ANME = 'ancon-me'
+
 	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID,t_applicationId,t_jobId,t_jobDtm,t_jobBy, t_extractionDtm) VALUES('ANME', 'ANME-A.1.', 'BRICKWORK SUPPORT', 'A.1.', ' ','ancon-me',@t_jobId,@t_jobDtm,@t_jobBy,NULL)
 	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID,t_applicationId,t_jobId,t_jobDtm,t_jobBy, t_extractionDtm) VALUES('ANME', 'ANME-A.2.', 'WALL TIES & FIXINGS', 'A.2.', ' ','ancon-me',@t_jobId,@t_jobDtm,@t_jobBy,NULL)
 	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID,t_applicationId,t_jobId,t_jobDtm,t_jobBy, t_extractionDtm) VALUES('ANME', 'ANME-A.3.', 'MURFOR', 'A.3.', ' ','ancon-me',@t_jobId,@t_jobDtm,@t_jobBy,NULL)
@@ -2243,6 +2255,9 @@ BEGIN
 	where DATAAREAID = 'ISUK' and UPPER(ITEMGROUPID) = 'ANUK-HELI'  
 
 	-- Dummy article for the Budget
+	DECLARE @t_applicationId_ISUK varchar(10) 
+	SET @t_applicationId_ISUK = 'isedio'
+
 	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID,t_applicationId,t_jobId,t_jobDtm,t_jobBy, t_extractionDtm) VALUES('ISUK', 'ISUK-A.1.', 'BRICKWORK SUPPORT', 'A.1.', ' ','isedio',@t_jobId,@t_jobDtm,@t_jobBy,NULL)
 	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID,t_applicationId,t_jobId,t_jobDtm,t_jobBy, t_extractionDtm) VALUES('ISUK', 'ISUK-A.2.', 'WALL TIES & FIXINGS', 'A.2.', ' ','isedio',@t_jobId,@t_jobDtm,@t_jobBy,NULL)
 	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID,t_applicationId,t_jobId,t_jobDtm,t_jobBy, t_extractionDtm) VALUES('ISUK', 'ISUK-A.3.', 'MURFOR', 'A.3.', ' ','isedio',@t_jobId,@t_jobDtm,@t_jobBy,NULL)
@@ -2329,6 +2344,9 @@ BEGIN
 	@t_jobBy as t_jobBy,
 	REPLACE(reverse(SUBSTRING(reverse(t_filePath),5,10)),'_','-') as t_extractionDtm
 	from [base_halfen_moment_my].[ITEMTABLE_HMMY]
+
+	DECLARE @t_applicationId_HMMY varchar(10) 
+	SET @t_applicationId_HMMY = 'halfen-moment-my'
 
 	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID,t_applicationId,t_jobId,t_jobDtm,t_jobBy, t_extractionDtm) VALUES('HMMY', 'HMMY-A.1.', 'BRICKWORK SUPPORT', 'A.1.', ' ','halfen-moment-my',@t_jobId,@t_jobDtm,@t_jobBy,NULL)
 	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID,t_applicationId,t_jobId,t_jobDtm,t_jobBy, t_extractionDtm) VALUES('HMMY', 'HMMY-A.2.', 'WALL TIES & FIXINGS', 'A.2.', ' ','halfen-moment-my',@t_jobId,@t_jobDtm,@t_jobBy,NULL)
@@ -2417,6 +2435,9 @@ BEGIN
 	REPLACE(reverse(SUBSTRING(reverse(t_filePath),5,10)),'_','-') as t_extractionDtm
 	from [base_halfen_moment_sg].[ITEMTABLE_HMSG]
 
+	DECLARE @t_applicationId_HMSG varchar(10) 
+	SET @t_applicationId_HMSG = 'halfen-moment-sg'
+
 	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID,t_applicationId,t_jobId,t_jobDtm,t_jobBy, t_extractionDtm) VALUES('HMSG', 'HMSG-A.1.', 'BRICKWORK SUPPORT', 'A.1.', ' ','halfen-moment-sg',@t_jobId,@t_jobDtm,@t_jobBy,NULL)
 	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID,t_applicationId,t_jobId,t_jobDtm,t_jobBy, t_extractionDtm) VALUES('HMSG', 'HMSG-A.2.', 'WALL TIES & FIXINGS', 'A.2.', ' ','halfen-moment-sg',@t_jobId,@t_jobDtm,@t_jobBy,NULL)
 	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID,t_applicationId,t_jobId,t_jobDtm,t_jobBy, t_extractionDtm) VALUES('HMSG', 'HMSG-A.3.', 'MURFOR', 'A.3.', ' ','halfen-moment-sg',@t_jobId,@t_jobDtm,@t_jobBy,NULL)
@@ -2503,6 +2524,9 @@ BEGIN
 	@t_jobBy as t_jobBy,
 	REPLACE(reverse(SUBSTRING(reverse(t_filePath),5,10)),'_','-') as t_extractionDtm
 	from [base_halfen_moment_in].[ITEMTABLE_HMIN]
+
+	DECLARE @t_applicationId_HMIN varchar(20) 
+	SET @t_applicationId_HMIN = 'halfen-moment-in'
 
 	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID,t_applicationId,t_jobId,t_jobDtm,t_jobBy, t_extractionDtm) VALUES('HMIN', 'HMIN-A.1.', 'BRICKWORK SUPPORT', 'A.1.', ' ','halfen-moment-in',@t_jobId,@t_jobDtm,@t_jobBy,NULL)
 	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID,t_applicationId,t_jobId,t_jobDtm,t_jobBy, t_extractionDtm) VALUES('HMIN', 'HMIN-A.2.', 'WALL TIES & FIXINGS', 'A.2.', ' ','halfen-moment-in',@t_jobId,@t_jobDtm,@t_jobBy,NULL)
@@ -2595,6 +2619,7 @@ BEGIN
 	REPLACE(reverse(SUBSTRING(reverse(t_filePath),5,10)),'_','-') as t_extractionDtm
 	from [base_halfen_moment_ph].[ITEMTABLE_HMPH]
 
+	
 	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID,t_applicationId,t_jobId,t_jobDtm,t_jobBy, t_extractionDtm) VALUES('HMPH', 'HMPH-A.1.', 'BRICKWORK SUPPORT', 'A.1.', ' ','halfen-moment-ph',@t_jobId,@t_jobDtm,@t_jobBy,NULL)
 	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID,t_applicationId,t_jobId,t_jobDtm,t_jobBy, t_extractionDtm) VALUES('HMPH', 'HMPH-A.2.', 'WALL TIES & FIXINGS', 'A.2.', ' ','halfen-moment-ph',@t_jobId,@t_jobDtm,@t_jobBy,NULL)
 	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID,t_applicationId,t_jobId,t_jobDtm,t_jobBy, t_extractionDtm) VALUES('HMPH', 'HMPH-A.3.', 'MURFOR', 'A.3.', ' ','halfen-moment-ph',@t_jobId,@t_jobDtm,@t_jobBy,NULL)
@@ -2697,6 +2722,9 @@ BEGIN
 	from [base_isedio_aus].[ITEMTABLE_ISAU]
 
 	-- Dummy article for the Budget
+	DECLARE @t_applicationId_ISAU varchar(20) 
+	SET @t_applicationId_ISAU = 'isedio-aus'
+
 	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID,t_applicationId,t_jobId,t_jobDtm,t_jobBy, t_extractionDtm) VALUES('ISAU', 'ISAU-A.1.', 'BRICKWORK SUPPORT', 'A.1.', ' ','isedio-aus',@t_jobId,@t_jobDtm,@t_jobBy,NULL)
 	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID,t_applicationId,t_jobId,t_jobDtm,t_jobBy, t_extractionDtm) VALUES('ISAU', 'ISAU-A.2.', 'WALL TIES & FIXINGS', 'A.2.', ' ','isedio-aus',@t_jobId,@t_jobDtm,@t_jobBy,NULL)
 	insert into [intm_axbi].[dim_ITEMTABLE](DATAAREAID,ITEMID,ITEMNAME,PRODUCTGROUPID,ITEMGROUPID,t_applicationId,t_jobId,t_jobDtm,t_jobBy, t_extractionDtm) VALUES('ISAU', 'ISAU-A.3.', 'MURFOR', 'A.3.', ' ','isedio-aus',@t_jobId,@t_jobDtm,@t_jobBy,NULL)
