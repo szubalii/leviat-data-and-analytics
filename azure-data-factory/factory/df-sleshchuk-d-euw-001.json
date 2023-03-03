@@ -50,11 +50,7 @@
 				"type": "string",
 				"value": "UAT"
 			}
-			,
-			"axbiDataBaseEnvSuffix": {
-				"type": "string",
-				"value": "UAT"
-			}
+			
 		}
 	},
 	"location": "westeurope"
