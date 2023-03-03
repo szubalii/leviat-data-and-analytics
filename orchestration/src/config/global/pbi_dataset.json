@@ -1,320 +1,349 @@
 {
   "Leviat_Data_Analytics Finance": {
     "datasets": {
-        "EPM Sales View": {
-            "pbi_dataset_id": 23,
-            "schedule_recurrence": "D",
-            "entities": {
-                "edw": [
-                    "dim_Product",
-                    "dim_SalesOrganization",
-                    "dim_ProfitCenter",
-                    "dim_SalesDistrict",
-                    "fact_ACDOCA"
-                ]
-            }
+      "EPM Sales View": {
+        "pbi_dataset_id": 23,
+        "schedule_recurrence": "D",
+        "entities": {
+          "edw": [
+            "dim_Product",
+            "dim_SalesOrganization",
+            "dim_ProfitCenter",
+            "dim_SalesDistrict",
+            "fact_ACDOCA"
+          ]
         }
+      }
     }
   },
   "Leviat_Data_Analytics_Sales": {
-      "datasets": {
-        "Customer Card": {
-          "pbi_dataset_id": 1,
-          "schedule_recurrence": "D",
-          "entities": {
-            "edw": [
-              "fact_BillingDocumentItem",
-              "dim_Customer",
-              "dim_Product",
-              "dim_SalesOrganization",
-              "fact_SalesDocumentItem"
-            ]
-          }
-        },
-        "Invoiced Products Master Data": {
-          "pbi_dataset_id": 2,
-          "schedule_recurrence": "D",
-          "entities": {
-            "edw": [
-              "fact_BillingDocumentItem",
-              "dim_Product"
-            ]
-          }
-        },
-        "Orderbook": {
-          "pbi_dataset_id": 3,
-          "entities": {
-            "edw": [
-              "dim_Customer",
-              "dim_Product",
-              "dim_SalesOrganization",
-              "fact_SalesDocumentItem"
-            ]
-          }
+    "datasets": {
+      "Customer Card": {
+        "pbi_dataset_id": 1,
+        "schedule_recurrence": "D",
+        "entities": {
+          "edw": [
+            "fact_BillingDocumentItem",
+            "dim_Customer",
+            "dim_Product",
+            "dim_SalesOrganization",
+            "fact_SalesDocumentItem"
+          ]
+        }
+      },
+      "Invoiced Products Master Data": {
+        "pbi_dataset_id": 2,
+        "schedule_recurrence": "D",
+        "entities": {
+          "edw": [
+            "fact_BillingDocumentItem",
+            "dim_Product"
+          ]
+        }
+      },
+      "Orderbook": {
+        "pbi_dataset_id": 3,
+        "entities": {
+          "edw": [
+            "dim_Customer",
+            "dim_Product",
+            "dim_SalesOrganization",
+            "fact_SalesDocumentItem"
+          ]
+        }
 
-        },
-        "Orderbook - Intake": {
-          "pbi_dataset_id": 17,
-          "schedule_recurrence": "D",
-          "entities": {
-            "edw": [
-              "dim_CompanyCode",
-              "dim_Customer",
-              "dim_Product",
-              "dim_ProfitCenter",
-              "dim_SalesOrganization",
-              "fact_SalesDocumentItem"
-            ]
-          }
+      },
+      "Orderbook - Intake": {
+        "pbi_dataset_id": 17,
+        "schedule_recurrence": "D",
+        "entities": {
+          "edw": [
+            "dim_CompanyCode",
+            "dim_Customer",
+            "dim_Product",
+            "dim_ProfitCenter",
+            "dim_SalesOrganization",
+            "fact_SalesDocumentItem"
+          ]
+        }
 
-        },
-        "Orderbook - Open Orders": {
-          "pbi_dataset_id": 18,
-          "schedule_recurrence": "D",
-          "entities": {
-            "edw": [
-              "dim_CompanyCode",
-              "dim_Customer",
-              "dim_Product",
-              "dim_ProfitCenter",
-              "dim_SalesOrganization",
-              "fact_SalesDocumentItem"
-            ]
-          }
+      },
+      "Orderbook - Open Orders": {
+        "pbi_dataset_id": 18,
+        "schedule_recurrence": "D",
+        "entities": {
+          "edw": [
+            "dim_CompanyCode",
+            "dim_Customer",
+            "dim_Product",
+            "dim_ProfitCenter",
+            "dim_SalesOrganization",
+            "fact_SalesDocumentItem"
+          ]
+        }
 
-        },
-        "Product Top Flop": {
-          "pbi_dataset_id": 4,
-          "schedule_recurrence": "D",
-          "entities": {
-            "edw": [
-              "fact_BillingDocumentItem",
-              "dim_Customer",
-              "dim_Product",
-              "dim_SalesOrganization"
-            ]
-          }
-        },
-        "PVM": {
-          "pbi_dataset_id": 5,
-          "schedule_recurrence": "D",
-          "entities": {
-            "edw": [
-              "fact_BillingDocumentItem",
-              "dim_Customer",
-              "dim_Product",
-              "dim_SalesOrganization"
-            ]
-          }
-        },
-        "Quotations": {
-          "pbi_dataset_id": 6,
-          "schedule_recurrence": "D",
-          "entities": {
-            "edw": [
-              "dim_Customer",
-              "dim_Product",
-              "dim_SalesOrganization",
-              "fact_SalesDocumentItem"
-            ]
-          }
-        },
-        "Sales View": {
-          "pbi_dataset_id": 7,
-          "schedule_recurrence": "D",
-          "entities": {
-            "edw": [
-              "fact_BillingDocumentItem",
-              "dim_Customer",
-              "dim_Product",
-              "dim_SalesOrganization"
-            ]
-          }
-        },
-        "Sales View Invoiced Cost Outliers": {
-          "pbi_dataset_id": 19,
-          "schedule_recurrence": "D",
-          "entities": {
-            "edw": [
-              "fact_BillingDocumentItem",
-              "dim_CompanyCode",
-              "dim_CostCenter",
-              "dim_Customer",
-              "dim_Product",
-              "dim_ProfitCenter",
-              "dim_SalesOrganization"
-            ]
-          }
-        },
-        "Whale Curve": {
-          "pbi_dataset_id": 8,
-          "schedule_recurrence": "W",
-          "schedule_day": 2,
-          "entities": {
-            "edw": [
-              "fact_BillingDocumentItem",
-              "dim_Customer",
-              "dim_Product",
-              "dim_SalesOrganization"
-            ]
-          }
-        },
-        "Project Card": {
-          "pbi_dataset_id": 13,
-          "schedule_recurrence": "D",
-          "entities": {
-            "edw": [
-              "fact_BillingDocumentItem",
-              "dim_Customer",
-              "dim_Product",
-              "dim_SalesOrganization",
-              "fact_SalesDocumentItem"
-            ]
-          }
-        },
-        "$$ SELF-SERVICE (Sales)": {
-          "pbi_dataset_id": 22,
-          "schedule_recurrence": "D",
-          "entities": {
-            "edw": [
-              "dim_Product",
-              "dim_ProfitCenter",
-              "dim_Customer",
-              "fact_BillingDocumentItem",
-              "dim_SalesOrganization",
-              "fact_SalesDocumentItem",
-              "dim_CurrencyType"
-            ]
-          }
+      },
+      "Product Top Flop": {
+        "pbi_dataset_id": 4,
+        "schedule_recurrence": "D",
+        "entities": {
+          "edw": [
+            "fact_BillingDocumentItem",
+            "dim_Customer",
+            "dim_Product",
+            "dim_SalesOrganization"
+          ]
+        }
+      },
+      "PVM": {
+        "pbi_dataset_id": 5,
+        "schedule_recurrence": "D",
+        "entities": {
+          "edw": [
+            "fact_BillingDocumentItem",
+            "dim_Customer",
+            "dim_Product",
+            "dim_SalesOrganization"
+          ]
+        }
+      },
+      "Quotations": {
+        "pbi_dataset_id": 6,
+        "schedule_recurrence": "D",
+        "entities": {
+          "edw": [
+            "dim_Customer",
+            "dim_Product",
+            "dim_SalesOrganization",
+            "fact_SalesDocumentItem"
+          ]
+        }
+      },
+      "Sales View": {
+        "pbi_dataset_id": 7,
+        "schedule_recurrence": "D",
+        "entities": {
+          "edw": [
+            "fact_BillingDocumentItem",
+            "dim_Customer",
+            "dim_Product",
+            "dim_SalesOrganization"
+          ]
+        }
+      },
+      "Sales View Invoiced Cost Outliers": {
+        "pbi_dataset_id": 19,
+        "schedule_recurrence": "D",
+        "entities": {
+          "edw": [
+            "fact_BillingDocumentItem",
+            "dim_CompanyCode",
+            "dim_CostCenter",
+            "dim_Customer",
+            "dim_Product",
+            "dim_ProfitCenter",
+            "dim_SalesOrganization"
+          ]
+        }
+      },
+      "Whale Curve": {
+        "pbi_dataset_id": 8,
+        "schedule_recurrence": "W",
+        "schedule_day": 2,
+        "entities": {
+          "edw": [
+            "fact_BillingDocumentItem",
+            "dim_Customer",
+            "dim_Product",
+            "dim_SalesOrganization"
+          ]
+        }
+      },
+      "Project Card": {
+        "pbi_dataset_id": 13,
+        "schedule_recurrence": "D",
+        "entities": {
+          "edw": [
+            "fact_BillingDocumentItem",
+            "dim_Customer",
+            "dim_Product",
+            "dim_SalesOrganization",
+            "fact_SalesDocumentItem"
+          ]
+        }
+      },
+      "$$ SELF-SERVICE (Sales)": {
+        "pbi_dataset_id": 22,
+        "schedule_recurrence": "D",
+        "entities": {
+          "edw": [
+            "dim_Product",
+            "dim_ProfitCenter",
+            "dim_Customer",
+            "fact_BillingDocumentItem",
+            "dim_SalesOrganization",
+            "fact_SalesDocumentItem",
+            "dim_CurrencyType"
+          ]
         }
       }
-    },
-    "Leviat_Data_Analytics_FinSales": {
-        "datasets": {
-            "Fin View": {
-                "pbi_dataset_id": 9,
-                "entities": {
-                    "edw": [
-                        "fact_BillingDocumentItem",
-                        "dim_Customer",
-                        "dim_Product",
-                        "dim_SalesOrganization"
-                    ]
-                }
-            },
-            "Fin View Invoiced Cost Outliers": {
-                "pbi_dataset_id": 21,
-                "entities": {
-                    "edw": [
-                        "fact_BillingDocumentItem",
-                        "dim_Customer",
-                        "dim_Product",
-                        "dim_SalesOrganization"
-                    ]
-                }
-            },
-            "Fin View (Legacy)": {
-                "pbi_dataset_id": 10,
-                "entities": {
-                    "edw": [
-                        "dim_SalesOrganization",
-                        "fact_BillingDocumentItem",
-                        "fact_BillingDocumentItem_US",
-                        "fact_BillingBudget",
-                        "dim_CustomerCalculated",
-                        "dim_ProductCalculated",
-                        "dim_CustomerCalculated_US",
-                        "dim_ProductCalculated_US"
-                    ]
-                }
-            },"Fin View (Legacy) - Budgeting": {
-                "pbi_dataset_id": 20,
-                "entities": {
-                    "edw": [
-                        "dim_CompanyCode",
-                        "dim_CostCenter",
-                        "dim_ProductCalculated",
-                        "dim_ProfitCenter",
-                        "dim_CustomerCalculated",
-                        "fact_BillingDocumentItem",
-                        "fact_BillingDocumentItem_US",
-                        "fact_BillingBudget",
-                        "dim_SalesOrganization",
-                        "dim_CustomerCalculated_US",
-                        "dim_ProductCalculated_US"
-                    ]
-                }
-            }
-        }
-    },
-    "Leviat_Data_Analytics_SCM": {
-        "datasets": {
-            "OTIF": {
-                "pbi_dataset_id": 11,
-                "schedule_recurrence": "D",
-                "entities":{
-                    "edw": [
-                        "fact_OutboundDeliveryItem",
-                        "fact_SalesDocumentItem",
-                        "dim_Customer",
-                        "dim_Product"
-                    ]
-                }
-            },"Stock Usage": {
-                "pbi_dataset_id": 12,
-                "schedule_recurrence": "D",
-                "entities":{
-                    "edw": [
-                        "dim_Customer",
-                        "dim_Product",
-                        "fact_MaterialDocumentItem"
-                    ]
-                }
-            },"Data Quality Checks": {
-                "pbi_dataset_id": 14,
-                "schedule_recurrence": "D",
-                "entities":{
-                    "edw": [
-                        "fact_OutboundDeliveryItem",
-                        "fact_SalesDocumentItem",
-                        "dim_Customer",
-                        "dim_Product",
-                        "dim_DataQualityCode"
-                    ]
-                }
-            }
-        }
-    },
-    "Leviat_Data_Analytics Performance Team Tools": {
-        "datasets": {
-            "Price Floor": {
-                "pbi_dataset_id": 15,
-                "schedule_recurrence": "W",
-                "schedule_day": 2,
-                "entities": {
-                    "edw": [
-                        "fact_BillingDocumentItem",
-                        "dim_Customer",
-                        "dim_Product",
-                        "dim_SalesOrganization"
-                    ]
-                }
-            }
-        }
-    },
-    "Leviat_Data_Analytics MDQ": {
-        "datasets": {
-            "Master Data Quality Checks": {
-                "pbi_dataset_id": 16,
-                "schedule_recurrence": "D",
-                "entities": {
-                    "dq": [
-                        "dim_RuleProduct",
-                        "fact_ProductTotal",
-                        "fact_RuleTotal"
-                    ]
-                }
-            }
-        }
     }
+  },
+  "Leviat_Data_Analytics_FinSales": {
+    "datasets": {
+      "Fin View": {
+        "pbi_dataset_id": 9,
+        "entities": {
+          "edw": [
+            "fact_BillingDocumentItem",
+            "dim_Customer",
+            "dim_Product",
+            "dim_SalesOrganization"
+          ]
+        }
+      },
+      "Fin View Invoiced Cost Outliers": {
+        "pbi_dataset_id": 21,
+        "entities": {
+          "edw": [
+            "fact_BillingDocumentItem",
+            "dim_Customer",
+            "dim_Product",
+            "dim_SalesOrganization"
+          ]
+        }
+      },
+      "Fin View (Legacy)": {
+        "pbi_dataset_id": 10,
+        "entities": {
+          "edw": [
+            "dim_SalesOrganization",
+            "fact_BillingDocumentItem",
+            "fact_BillingDocumentItem_US",
+            "fact_BillingBudget",
+            "dim_CustomerCalculated",
+            "dim_ProductCalculated",
+            "dim_CustomerCalculated_US",
+            "dim_ProductCalculated_US"
+          ]
+        }
+      },
+      "Fin View (Legacy) - Budgeting": {
+        "pbi_dataset_id": 20,
+        "entities": {
+          "edw": [
+            "dim_CompanyCode",
+            "dim_CostCenter",
+            "dim_ProductCalculated",
+            "dim_ProfitCenter",
+            "dim_CustomerCalculated",
+            "fact_BillingDocumentItem",
+            "fact_BillingDocumentItem_US",
+            "fact_BillingBudget",
+            "dim_SalesOrganization",
+            "dim_CustomerCalculated_US",
+            "dim_ProductCalculated_US"
+          ]
+        }
+      }
+    }
+  },
+  "Leviat_Data_Analytics_SCM": {
+    "datasets": {
+      "OTIF": {
+        "pbi_dataset_id": 11,
+        "schedule_recurrence": "D",
+        "entities": {
+          "edw": [
+            "fact_OutboundDeliveryItem",
+            "fact_SalesDocumentItem",
+            "dim_Customer",
+            "dim_Product"
+          ]
+        }
+      },
+      "Stock Usage": {
+        "pbi_dataset_id": 12,
+        "schedule_recurrence": "D",
+        "entities": {
+          "edw": [
+            "dim_Customer",
+            "dim_Product",
+            "fact_MaterialDocumentItem"
+          ]
+        }
+      },
+      "Data Quality Checks": {
+        "pbi_dataset_id": 14,
+        "schedule_recurrence": "D",
+        "entities": {
+          "edw": [
+            "fact_OutboundDeliveryItem",
+            "fact_SalesDocumentItem",
+            "dim_Customer",
+            "dim_Product",
+            "dim_DataQualityCode"
+          ]
+        }
+      }
+    }
+  },
+  "Leviat_Data_Analytics Performance Team Tools": {
+    "datasets": {
+      "Price Floor": {
+        "pbi_dataset_id": 15,
+        "schedule_recurrence": "W",
+        "schedule_day": 2,
+        "entities": {
+          "edw": [
+            "fact_BillingDocumentItem",
+            "dim_Customer",
+            "dim_Product",
+            "dim_SalesOrganization"
+          ]
+        }
+      }
+    }
+  },
+  "Leviat_Data_Analytics MDQ": {
+    "datasets": {
+      "Master Data Quality Checks": {
+        "pbi_dataset_id": 16,
+        "schedule_recurrence": "D",
+        "entities": {
+          "dq": [
+            "dim_RuleProduct",
+            "fact_ProductTotal",
+            "fact_RuleTotal"
+          ]
+        }
+      }
+    }
+  },
+  "Leviat_Data_Analytics Procurement": {
+    "datasets": {
+      "Spend Report Mapped v3": {
+        "pbi_dataset_id": 24,
+        "schedule_recurrence": "D",
+        "entities": {
+          "edw": [
+            "dim_CompanyCode",
+            "dim_CostCenter",
+            "dim_Currency",
+            "dim_MaterialGroup",
+            "dim_Product",
+            "dim_Supplier",
+            "dim_SupplierPurchasingOrg",
+            "dim_UnitOfMeasure",
+            "dim_UserAddress",
+            "dim_PurchasingDocumentType",
+            "fact_PurchasingDocument",
+            "fact_PurchasingDocumentItem",
+            "fact_SupplierInvoice",
+            "fact_SupplierInvoiceItemPurOrdRef"
+          ]
+        }
+      }
+    }
+  }
 }

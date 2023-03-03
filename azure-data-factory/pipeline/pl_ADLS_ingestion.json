@@ -74,6 +74,10 @@
 											"batch_id": {
 												"value": "@pipeline().parameters.batch_id",
 												"type": "Expression"
+											},
+											"refresh_from_date": {
+												"value": "@pipeline().parameters.refresh_from_date",
+												"type": "Expression"
 											}
 										}
 									}
@@ -131,12 +135,8 @@
 												"value": "@pipeline().parameters.adls_file_name",
 												"type": "Expression"
 											},
-											"s4h_system_id": {
-												"value": "@pipeline().parameters.s4h_system_id",
-												"type": "Expression"
-											},
-											"s4h_client_id": {
-												"value": "@pipeline().parameters.s4h_client_id",
+											"extraction_type": {
+												"value": "@pipeline().parameters.extraction_type",
 												"type": "Expression"
 											}
 										}
@@ -392,13 +392,12 @@
 			"batch_id": {
 				"type": "string"
 			},
-			"s4h_system_id": {
-				"type": "string",
-				"defaultValue": "CAA"
+			"extraction_type": {
+				"type": "string"
 			},
-			"s4h_client_id": {
-				"type": "int",
-				"defaultValue": 200
+			"refresh_from_date": {
+				"type": "string",
+				"defaultValue": "2022/10/01"
 			}
 		},
 		"folder": {

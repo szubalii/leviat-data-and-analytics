@@ -19,6 +19,26 @@ BEGIN
     -- Insert statements for procedure here
 
 	--  Ancon Australia 
+    IF OBJECT_ID(N'tempdb..#inventtrans_ANAU') IS NOT NULL
+    BEGIN
+        DROP TABLE #inventtrans_ANAU
+    END
+    IF OBJECT_ID(N'tempdb..#inventtrans_ANAU_OS') IS NOT NULL
+    BEGIN
+        DROP TABLE #inventtrans_ANAU_OS
+    END
+    IF OBJECT_ID(N'tempdb..#inventtrans_ANAU_SB') IS NOT NULL
+    BEGIN
+        DROP TABLE #inventtrans_ANAU_SB
+    END
+    IF OBJECT_ID(N'tempdb..#inventtrans_ANAU_LA') IS NOT NULL
+    BEGIN
+        DROP TABLE #inventtrans_ANAU_LA
+    END
+    IF OBJECT_ID(N'tempdb..#inventtrans_ANAU_cnt') IS NOT NULL
+    BEGIN
+        DROP TABLE #inventtrans_ANAU_cnt
+    END
 
 	delete from [intm_axbi].[fact_CUSTINVOICETRANS] where DATAAREAID = 'ANAU' and datepart(YYYY, ACCOUNTINGDATE) = @P_Year and datepart(MM, ACCOUNTINGDATE) = @P_Month
 

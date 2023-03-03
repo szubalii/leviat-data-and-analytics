@@ -23,8 +23,8 @@ WITH original AS (
          , doc.[BillingDocumentDate]
          , doc.[BillingDocumentIsTemporary]
          --, doc.[Division]
-         --, dimSO.[SalesOfficeID]
-         --, dimSO.[SalesOffice]
+         , dimSO.[SalesOfficeID]
+         , dimSO.[SalesOffice]
          , dimSOrg.[SalesOrganizationID]
          , dimSOrg.[SalesOrganization]
          , dimDCh.[DistributionChannelID]
@@ -183,8 +183,8 @@ WITH original AS (
                        on dimSSDDC.[SDDocumentCategoryID] = doc.[SalesSDDocumentCategoryID]
              left join [edw].[dim_SDDocumentReason] dimSDR
                        on dimSDR.[SDDocumentReasonID] = doc.[SDDocumentReasonID] --8
-             --left join [edw].[dim_SalesOffice] dimSO
-                       --on dimSO.[SalesOfficeID] = doc.[SalesOfficeID]
+             left join [edw].[dim_SalesOffice] dimSO
+                       on dimSO.[SalesOfficeID] = doc.[SalesOfficeID]
              left join [edw].[dim_SalesOrganization] dimSOrg 
                        on dimSOrg.[SalesOrganizationID] = doc.[SalesOrganizationID]
              left join [edw].[dim_DistributionChannel] dimDCh
@@ -236,8 +236,8 @@ SELECT [BillingDocument]
       ,[BillingDocumentDate]
       ,[BillingDocumentIsTemporary]
       --,[Division]
-      --,[SalesOfficeID]
-      --,[SalesOffice]
+      ,[SalesOfficeID]
+      ,[SalesOffice]
       ,[SalesOrganizationID]
       ,[SalesOrganization]
       ,[DistributionChannelID]

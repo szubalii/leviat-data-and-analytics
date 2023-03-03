@@ -1,4 +1,5 @@
-﻿CREATE VIEW [dm_sales].[vw_fact_SalesOrderItem] AS
+﻿CREATE VIEW [dm_sales].[vw_fact_SalesOrderItem] 
+AS
 
 select doc.[SalesDocument]                       as [SalesOrderID]
      , doc.[SalesDocumentItem]                   as [SalesOrderItemID]
@@ -114,7 +115,20 @@ select doc.[SalesDocument]                       as [SalesOrderID]
      , doc.[Subtotal4Amount]
      , doc.[Subtotal5Amount]
      , doc.[Subtotal6Amount]
-     , doc.[InOutID] 
+     , doc.[InOutID]
+     , doc.[OrderType]
+     , doc.[ItemOrderStatus]
+     , doc.[OrderStatus]
+     , doc.[ActualDeliveredQuantityInBaseUnit]
+     , doc.[BillingQuantityInBaseUnit]
+     , doc.[ActualDeliveredQuantityIBUOverall]
+     , doc.[BillingQuantityIBUOverall]
+     , doc.[ItemDeliveryStatus]    
+     , doc.[OverallDeliveryStatus] 
+     , doc.[ScheduleLineCategory]
+     , doc.[SalesOfficeID]
+     , dimSO.[SalesOffice]
+     , doc.[ShippingConditionID]
      , doc.[t_applicationId]
      , doc.[t_extractionDtm]
 from [edw].[fact_SalesDocumentItem] doc
@@ -194,4 +208,9 @@ from [edw].[fact_SalesDocumentItem] doc
 
          left join [edw].[dim_OverallTotalDeliveryStatus] dimOTDS
                    on dimOTDS.[OverallTotalDeliveryStatusID] = doc.[OverallTotalDeliveryStatusID]
+
+          LEFT JOIN [edw].[dim_SalesOffice] dimSO
+                    ON doc.[SalesOfficeID] = dimSO.[SalesOfficeID]
+
 where doc.[SDDocumentCategoryID] <> 'B'
+--     AND dimSDDRjS.[SDDocumentRejectionStatus] <> 'Fully Rejected'

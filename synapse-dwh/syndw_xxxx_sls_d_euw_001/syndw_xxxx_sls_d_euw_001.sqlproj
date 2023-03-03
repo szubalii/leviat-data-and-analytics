@@ -590,6 +590,8 @@
     <Build Include="edw\Views\vw_BillingDocumentItem_s4h.sql" />
     <Build Include="edw\Views\vw_BillingDocumentItem_axbi.sql" />
     <Build Include="dm_sales\Views\vw_fact_SalesOrderItem.sql" />
+    <Build Include="dm_sales\Views\vw_fact_SalesOrderItem_filtered.sql" />
+    <Build Include="dm_sales\Views\vw_fact_SalesOrderItem_narrow.sql" />
     <Build Include="dm_sales\Views\vw_fact_SalesQuotationItem.sql" />
     <Build Include="base_s4h_cax\Tables\I_TotalSDDocReferenceStatusT.sql" />
     <Build Include="base_s4h_cax\Tables\I_OverallSDDocumentRjcnStatusT.sql" />
@@ -623,6 +625,7 @@
     <Build Include="base_s4h_cax\Tables\C_BillingDocumentItemBasicDEX_active.sql" />
     <Build Include="base_s4h_cax\Views\vw_C_BillingDocumentItemBasicDEX.sql" />
     <Build Include="edw\Views\vw_OutboundDeliveryItem_s4h.sql" />
+    <Build Include="edw\Views\vw_OutboundDeliveryItem_for_SalesDocumentItem.sql" />
     <Build Include="edw\Tables\fact_OutboundDeliveryItem.sql" />
     <Build Include="edw\Tables\dim_Supplier.sql" />
     <Build Include="edw\Tables\dim_Warehouse.sql" />
@@ -636,6 +639,7 @@
     <Build Include="edw\Views\vw_DeliveryDocumentType.sql" />
     <Build Include="edw\Views\vw_SDProcessStatus.sql" />
     <Build Include="edw\Views\vw_BillingDocumentItem_s4h_fin.sql" />
+    <Build Include="edw\Views\vw_BillingDocumentItem_for_SalesDocumentItem.sql" />
     <Build Include="base_tx_ca_0_hlp\Tables\CUSTINVOICETRANS.sql" />
     <Build Include="edw\Tables\dim_SalesDocumentScheduleLine.sql" />
     <Build Include="map_AXBI\Tables\Migration.sql" />
@@ -996,6 +1000,8 @@
     <Build Include="utilities\Stored Procedures\sp_process_axbi_delta_update.sql" />
     <Build Include="utilities\Stored Procedures\sp_process_axbi_delta_delete.sql" />
     <Build Include="utilities\Stored Procedures\sp_process_axbi_delta.sql" />
+    <Build Include="utilities\Stored Procedures\sp_load_to_archive.sql" />
+    <Build Include="utilities\Stored Procedures\sp_copy_to_archive.sql" />
     <Build Include="intm_axbi\Tables\dim_ITEMTABLE.sql" />
     <Build Include="Security\Schemas\intm_axbi.sql" />
     <Build Include="Security\Schemas\base_ancon_australia_2_dwh.sql" />
@@ -1007,6 +1013,7 @@
     <Build Include="base_ancon_australia_2_dwh\Tables\FACT_INVENTTRANS.sql" />
     <Build Include="base_dw_halfen_0_hlp\Tables\CALENDAR.sql" />
     <Build Include="base_dw_halfen_0_hlp\Tables\HGDAWA.sql" />
+    <Build Include="base_dw_halfen_0_hlp\Tables\HGDAWA_Archive.sql" />
     <Build Include="base_dw_halfen_0_hlp\Tables\PRODUCTLINE.sql" />
     <Build Include="base_dw_halfen_2_dwh\Tables\DIM_ARTICLE.sql" />
     <Build Include="intm_axbi\Tables\fact_CUSTINVOICETRANS.sql" />
@@ -1116,8 +1123,12 @@
     <Build Include="base_s4h_cax\Tables\P_ConditionTypeText.sql" />
     <Build Include="dm_dq\Views\vw_dim_MAWEV.sql" />
     <Build Include="dm_dq\Views\vw_dim_ProductValuationCosting.sql" />
-	<Build Include="dm_sales\Views\vw_dim_GLAccountText.sql" />
-	<Build Include="base_s4h_cax\Tables\I_Purchaserequisitionitem.sql" />
+    <Build Include="dm_sales\Views\vw_dim_GLAccountText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_Purchaserequisitionitem.sql" />
+    <Build Include="base_s4h_cax\Views\vw_Z_C_VariantConfig_delta.sql" />
+    <Build Include="base_s4h_cax\Views\vw_C_BillingDocumentItemBasicDEX_delta.sql" />
+    <Build Include="base_s4h_cax\Views\vw_I_GLAccountLineItemRawData_delta.sql" />
+    <Build Include="base_s4h_cax\Views\vw_C_SalesDocumentItemDEX_delta.sql" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PostDeploy Include="Scripts\Post-Deploy\Script.PostDeployment.sql" />
