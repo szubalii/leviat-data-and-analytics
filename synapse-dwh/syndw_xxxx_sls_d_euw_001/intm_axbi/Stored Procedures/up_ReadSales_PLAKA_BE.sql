@@ -11,7 +11,9 @@ CREATE PROCEDURE [intm_axbi].[up_ReadSales_PLAKA_BE]
 @P_DelNotInv [nvarchar](1),
 @t_jobId varchar(36),
 @t_jobDtm datetime, 
-@t_jobBy nvarchar(128) )
+@t_jobBy nvarchar(128),
+@axbiDataBaseEnvSuffix nvarchar(3)
+ )
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from

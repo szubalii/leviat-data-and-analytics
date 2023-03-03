@@ -11,7 +11,8 @@ CREATE PROCEDURE [intm_axbi].[up_ReadSales_ANNZ]
 	@P_Month tinyint,
 	@t_jobId varchar(36),
 	@t_jobDtm datetime, 
-	@t_jobBy nvarchar(128) 
+	@t_jobBy nvarchar(128),
+	@axbiDataBaseEnvSuffix nvarchar(3) 
 )
 AS
 BEGIN
