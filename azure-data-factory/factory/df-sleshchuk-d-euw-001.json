@@ -46,6 +46,11 @@
 				"type": "string",
 				"value": "200"
 			}
+			,
+			"axbiDataBaseEnvSuffix": {
+				"type": "string",
+				"value": "UAT"
+			}
 		}
 	},
 	"location": "westeurope"
