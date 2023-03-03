@@ -195,7 +195,7 @@
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "Set ADLS File Name",
+						"activity": "If File is splitted",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -287,9 +287,9 @@
 				],
 				"userProperties": [],
 				"typeProperties": {
-					"variableName": "adlsFileName",
+					"variableName": "adlsFileNameBase",
 					"value": {
-						"value": "@concat(\n    pipeline().parameters.extraction_name,\n    '_',\n    replace(replace(replace(variables('extraction_timestamp'),'-','_'),':','_'),'.','_'),\n    '.parquet'\n)",
+						"value": "@concat(\n    pipeline().parameters.extraction_name,\n    '_',\n    replace(replace(replace(variables('extraction_timestamp'),'-','_'),':','_'),'.','_')\n)",
 						"type": "Expression"
 					}
 				}
@@ -419,6 +419,40 @@
 						"type": "Expression"
 					}
 				}
+			},
+			{
+				"name": "If File is splitted",
+				"type": "IfCondition",
+				"dependsOn": [
+					{
+						"activity": "Set ADLS File Name",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@pipeline().parameters.file_split",
+						"type": "Expression"
+					},
+					"ifTrueActivities": [
+						{
+							"name": "Set variable1",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "adlsFileNameBase",
+								"value": {
+									"value": "@concat(\r\n    variables('adlsFileNameBase'),\r\n    '.parquet'\r\n)",
+									"type": "Expression"
+								}
+							}
+						}
+					]
+				}
 			}
 		],
 		"parameters": {
@@ -451,13 +485,17 @@
 			},
 			"extraction_type": {
 				"type": "string"
+			},
+			"file_split": {
+				"type": "bool",
+				"defaultValue": false
 			}
 		},
 		"variables": {
 			"extraction_timestamp": {
 				"type": "String"
 			},
-			"adlsFileName": {
+			"adlsFileNameBase": {
 				"type": "String"
 			},
 			"run_id": {
@@ -473,6 +511,9 @@
 				"type": "String"
 			},
 			"destinationUrlParam": {
+				"type": "String"
+			},
+			"adlsFileName": {
 				"type": "String"
 			}
 		},
