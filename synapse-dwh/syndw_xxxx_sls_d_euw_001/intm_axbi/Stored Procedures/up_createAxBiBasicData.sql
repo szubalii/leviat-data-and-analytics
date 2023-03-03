@@ -345,7 +345,12 @@ BEGIN
     ,INOUT
     ,CUSTOMERPILLAR
     ,COMPANYCHAINID
-    ,DIMENSION3_)
+    ,DIMENSION3_
+	,t_applicationId
+	,t_jobId
+	,t_jobDtm
+	,t_jobBy
+	,t_extractionDtm)
 	select distinct
 	DATAAREAID,
 	'ANAC-' + CAST([CUSTOMERID] as nvarchar),
