@@ -40,7 +40,7 @@ BEGIN
 
 	--EXEC intm_axbi.up_ReadSales_ANDE @P_Year, @P_Month, @t_jobId, @t_jobDtm, @t_jobBy, @axbiDataBaseEnvSuffix
 
-	--EXEC intm_axbi.up_ReadSales_ANAU @P_Year, @P_Month, @t_jobId, @t_jobDtm, @t_jobBy, @axbiDataBaseEnvSuffix
+	EXEC intm_axbi.up_ReadSales_ANAU @P_Year, @P_Month, @t_jobId, @t_jobDtm, @t_jobBy, @axbiDataBaseEnvSuffix
 	EXEC intm_axbi.up_ReadSales_ANAH @P_Year, @P_Month, @t_jobId, @t_jobDtm, @t_jobBy, @axbiDataBaseEnvSuffix
 	EXEC intm_axbi.up_ReadSales_ANNZ @P_Year, @P_Month, @t_jobId, @t_jobDtm, @t_jobBy, @axbiDataBaseEnvSuffix
 	
