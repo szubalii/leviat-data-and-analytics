@@ -896,7 +896,7 @@ BEGIN
 	 @t_jobDtm as t_jobDtm,
 	 @t_jobBy as t_jobBy,
 	 t_extractionDtm 
-	 from [base_tx_crh_2_dwh].[DIM_ADUASCHWITEMGROUP4] where LOWER(DATAAREAID) = 'plb' and DESCRIPTION <> ' ' and DESCRIPTION is not null group by DATAAREAID, ITEMGROUP4, DESCRIPTION
+	 from [base_tx_crh_2_dwh].[DIM_ADUASCHWITEMGROUP4] where LOWER(DATAAREAID) = 'plb' and DESCRIPTION <> ' ' and DESCRIPTION is not null group by DATAAREAID, ITEMGROUP4, DESCRIPTION, t_applicationId,t_extractionDtm
 
 	-- Plaka FR
 	delete [intm_axbi].[dim_ITEMGROUP] where UPPER(DATAAREAID) = 'PLFR'
@@ -918,7 +918,7 @@ BEGIN
 	 @t_jobDtm as t_jobDtm,
 	 @t_jobBy as t_jobBy,
 	 t_extractionDtm 
-	from [base_tx_crh_2_dwh].[DIM_ADUASCHWITEMGROUP4] where LOWER(DATAAREAID) = 'plf' and DESCRIPTION <> ' ' and DESCRIPTION is not null group by DATAAREAID, ITEMGROUP4, DESCRIPTION
+	from [base_tx_crh_2_dwh].[DIM_ADUASCHWITEMGROUP4] where LOWER(DATAAREAID) = 'plf' and DESCRIPTION <> ' ' and DESCRIPTION is not null group by DATAAREAID, ITEMGROUP4, DESCRIPTION, t_applicationId,t_extractionDtm
 
 	-- Aschwanden
 	/*delete [intm_axbi].[dim_ITEMGROUP] where UPPER(DATAAREAID) = 'ASCH'
