@@ -108,6 +108,13 @@
 								"type": "Expression"
 							},
 							"type": "String"
+						},
+						"axbiDataBaseEnvSuffix": {
+							"value": {
+								"value": "@pipeline().globalParameters.axbiDataBaseEnvSuffix",
+								"type": "Expression"
+							},
+							"type": "String"
 						}
 					}
 				},
