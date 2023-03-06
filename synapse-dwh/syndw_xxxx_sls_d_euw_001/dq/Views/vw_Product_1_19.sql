@@ -140,8 +140,8 @@ SELECT
 FROM   
     [base_s4h_cax].[I_Product]
 WHERE
-    [IndustrySector] != 'A'
+    ([IndustrySector] != 'A'
     OR
-    ISNULL([IndustrySector], '') = ''
+    ISNULL([IndustrySector], '') = '')
     AND
     IsMarkedForDeletion <> 'X'
