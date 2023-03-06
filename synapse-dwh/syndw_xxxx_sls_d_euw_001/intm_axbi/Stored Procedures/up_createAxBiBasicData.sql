@@ -131,7 +131,7 @@ BEGIN
 	@t_jobDtm as t_jobDtm,
 	@t_jobBy as t_jobBy,
 	t_extractionDtm
-	from [base_dw_halfen_0_hlp].[CUSTOMER] where DATAAREAID in ('5307', '5309', '5310', '5325', '5327','5330' ) -- ohne Halfen USA 5330
+	from [base_dw_halfen_0_hlp].[CUSTOMER] where DATAAREAID in ('5307', '5309', '5310', '5325','5330' ) -- ohne Halfen USA 5330
 
 	-- Ancon AT, CH, DE Aschwanden CH Plaka BE, FR
 
