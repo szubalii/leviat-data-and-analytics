@@ -175,6 +175,8 @@
         ON
             vc.[CharacteristicName] = mcpc.[CharacteristicName]
     WHERE
+        product.[ProductIsConfigurable] = 'X'
+        AND
         mcpc.[CharacteristicCategory] = 'ProductHierarchy'
     GROUP BY
         product.[Product]
