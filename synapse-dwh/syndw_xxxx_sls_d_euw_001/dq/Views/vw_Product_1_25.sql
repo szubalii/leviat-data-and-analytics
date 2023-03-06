@@ -161,3 +161,5 @@ WHERE
       NVM.[MINBE] != 0
     AND
       PP.[MRPType] != 'V1' 
+    AND
+    P.IsMarkedForDeletion <> 'X'
