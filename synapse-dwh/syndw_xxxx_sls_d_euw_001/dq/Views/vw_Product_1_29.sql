@@ -156,5 +156,6 @@ SELECT P.[MANDT]
 		ON 
 			P.Product = Products.Product
 
+    WHERE P.IsMarkedForDeletion <> 'X'
 
 

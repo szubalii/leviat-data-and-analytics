@@ -143,3 +143,5 @@ WHERE
     [IndustrySector] != 'A'
     OR
     ISNULL([IndustrySector], '') = ''
+    AND
+    IsMarkedForDeletion <> 'X'

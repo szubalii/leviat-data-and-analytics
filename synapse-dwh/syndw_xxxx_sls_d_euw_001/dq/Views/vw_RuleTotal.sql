@@ -85,23 +85,6 @@ UNION ALL
 
 SELECT
     cnt.[RuleID],
-    cnt.[RecordTotals],
-    COUNT(p.Count) AS [ErrorTotals]
-FROM
-    CountRowsPerRuleID AS cnt
-INNER JOIN
-    [dq].[vw_Product_1_8] AS p
-    ON
-        cnt.[RuleID] = p.[RuleID]
-GROUP BY
-    cnt.[RuleID],
-    cnt.[RuleGroup],
-    cnt.[RecordTotals]
-
-UNION ALL
-
-SELECT
-    cnt.[RuleID],
     CASE
         WHEN cnt.[RuleGroup] LIKE '%ALL%'
         THEN [AllRecordTotals]

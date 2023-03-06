@@ -164,3 +164,5 @@ INNER JOIN
         main.[ProductType] = Rule_1_17.[ProductType]
 WHERE
     Rule_1_17.[IsError] = 1
+    AND
+    IsMarkedForDeletion <> 'X'

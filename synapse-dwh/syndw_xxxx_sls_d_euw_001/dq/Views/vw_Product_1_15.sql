@@ -16,6 +16,8 @@ WHERE
     pp.[ProcurementType] IN ('F','X')
     AND
     msta.[STATM] = 'E'
+    AND
+    pp.IsMarkedForDeletion <> 'X'
 )
 ,
 ProductOtherStatus AS (
@@ -33,6 +35,8 @@ INNER JOIN
         pp.[Plant] = msta.[WERKS]
 WHERE   
     pp.[ProcurementType] IN ('F','X')
+    AND
+    pp.IsMarkedForDeletion <> 'X'
 )
 ,
 ErrorProducts AS (

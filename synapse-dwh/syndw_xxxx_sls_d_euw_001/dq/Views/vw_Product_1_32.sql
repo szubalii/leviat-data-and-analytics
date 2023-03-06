@@ -148,3 +148,5 @@ WHERE
         P.[ProductType] in ('ZROH', 'ZHAW')
     AND 
         PPr.[PurchasingAcknProfile] != 'Z1'
+    AND
+    IsMarkedForDeletion <> 'X'
