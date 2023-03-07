@@ -15,7 +15,7 @@ CREATE PROCEDURE [intm_axbi].[up_createAxBiBasicData]
 	@t_jobId varchar(36),
 	@t_jobDtm datetime, 
 	@t_jobBy nvarchar(128),
-	@axbiDataBaseEnvSuffix nvarchar(3) 
+	@axbiDataBaseEnvSuffix nvarchar(4) 
 )
 AS
 BEGIN
@@ -131,7 +131,7 @@ BEGIN
 	@t_jobDtm as t_jobDtm,
 	@t_jobBy as t_jobBy,
 	t_extractionDtm
-	from [base_dw_halfen_0_hlp].[CUSTOMER] where DATAAREAID in ('5307', '5309', '5310', '5325','5330' ) -- ohne Halfen USA 5330
+	from [base_dw_halfen_0_hlp].[CUSTOMER] where DATAAREAID in ('5307', '5309', '5310', '5325' ) -- ohne Halfen USA 5330
 
 	-- Ancon AT, CH, DE Aschwanden CH Plaka BE, FR
 
@@ -189,12 +189,7 @@ BEGIN
  end,
 	--ISNULL(COMPANYCHAINID, ' '), ausgesternt wegen STATITICSGROUP nicht in DIM_CUSTABLE
 	ISNULL([Chaintouse], ' '),
-	case LOWER(DATAAREAID)
-	when 'ass' then
-	ISNULL(DIMENSION5_, ' ')
-	else
-	ISNULL(DIMENSION3_, ' ')
-	end,
+	ISNULL(DIMENSION3_, ' '),
 	t_applicationId,
 	@t_jobId as t_jobId,
 	@t_jobDtm as t_jobDtm,
