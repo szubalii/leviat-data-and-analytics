@@ -9,7 +9,10 @@ CREATE PROCEDURE [intm_axbi].[up_ReadSales_PLAKA_FR]
 (
 	@P_Year smallint,
 	@P_Month tinyint,
-	@P_DelNotInv nvarchar(1)
+	@P_DelNotInv nvarchar(1),
+	@t_jobId varchar(36),
+	@t_jobDtm datetime, 
+	@t_jobBy nvarchar(128)
 )
 AS
 BEGIN
@@ -105,7 +108,12 @@ BEGIN
     ,FREIGHTLOCAL
     ,FREIGHTEUR
     ,COSTAMOUNTLOCAL
-    ,COSTAMOUNTEUR)
+    ,COSTAMOUNTEUR
+	,t_applicationId
+	,t_jobId
+	,t_jobDtm
+	,t_jobBy
+	,t_extractionDtm)
 	select
 	'PLFR',
 	t.ORIGSALESID,
@@ -151,7 +159,12 @@ BEGIN
 	ISNULL(t.LINEAMOUNTMST * 0.068,0) * (-1)
 	end,
 	i.CostAmount,
-	i.CostAmount
+	i.CostAmount,
+	t.t_applicationId as t_applicationId,
+	@t_jobId as t_jobId,
+	@t_jobDtm as t_jobDtm,
+	@t_jobBy as t_jobBy,
+	t.t_extractionDtm as t_extractionDtm
 	from [base_tx_crh_2_dwh].[FACT_CUSTINVOICETRANS] as t
 	inner join [base_tx_crh_2_dwh].[DIM_CUSTINVOICEJOUR] as j
 	on lower(t.DATAAREAID) = lower(j.DATAAREAID) and
@@ -188,7 +201,12 @@ BEGIN
 	i.Dimension as DIMENSION,
 	sum(i.QTY) * (-1) as QTY, 
 	sum(i.ValueCalc) as PRODUCTSALESLOCAL, 
-	sum(i.CostAmount) as CostAmount 
+	sum(i.CostAmount) as CostAmount,
+	i.t_applicationId as t_applicationId,
+	@t_jobId as t_jobId,
+	@t_jobDtm as t_jobDtm,
+	@t_jobBy as t_jobBy,
+	i.t_extractionDtm as t_extractionDtm
 	into #cust_delivered_not_invoiced_PLFR
 	from [base_tx_crh_2_dwh].[FACT_INVENTRANS_NOT_INVOICED] as i
 	inner join [base_tx_crh_2_dwh].[FACT_SALESLINE] as a
@@ -224,7 +242,12 @@ BEGIN
     ,FREIGHTLOCAL
     ,FREIGHTEUR
     ,COSTAMOUNTLOCAL
-    ,COSTAMOUNTEUR)
+    ,COSTAMOUNTEUR
+	,t_applicationId
+    ,t_jobId 
+    ,t_jobDtm 
+    ,t_jobBy
+    ,t_extractionDtm)
 	select
 	'PLFR',
 	SALESID,
@@ -271,7 +294,12 @@ BEGIN
 	ISNULL(PRODUCTSALESLOCAL * 0.068,0) * (-1)
 	end,
 	CostAmount * (-1),
-	CostAmount * (-1)
+	CostAmount * (-1),
+	t_applicationId,
+    t_jobId,
+    t_jobDtm,
+    t_jobBy,
+    t_extractionDtm 
 	from #cust_delivered_not_invoiced_PLFR
 	End
 
@@ -300,7 +328,12 @@ BEGIN
         ,FREIGHTLOCAL
         ,FREIGHTEUR
         ,COSTAMOUNTLOCAL
-        ,COSTAMOUNTEUR)
+        ,COSTAMOUNTEUR
+		,t_applicationId
+	    ,t_jobId
+		,t_jobDtm
+		,t_jobBy
+		,t_extractionDtm)
 	select
 	'PLFR',
 	t.ORIGSALESID,
@@ -324,7 +357,12 @@ BEGIN
 	CAST(0 as [DECIMAL](38, 12)),
 	CAST(0 as [DECIMAL](38, 12)),
 	i.CostAmount,
-	i.CostAmount
+	i.CostAmount,
+	t.t_applicationId as t_applicationId,
+	@t_jobId as t_jobId,
+	@t_jobDtm as t_jobDtm,
+	@t_jobBy as t_jobBy,
+	t.t_extractionDtm as t_extractionDtm
 	from [base_tx_crh_2_dwh].[FACT_CUSTINVOICETRANS] as t
 	inner join [base_tx_crh_2_dwh].[DIM_CUSTINVOICEJOUR] as j
 	on lower(t.DATAAREAID) = lower(j.DATAAREAID) and
@@ -755,8 +793,13 @@ BEGIN
 	ISNULL(t.DLVCOUNTRYREGIONID,' ') as DELIVERYCOUNTRYID,
 	ISNULL(i.PACKINGSLIPID,' ') as PACKINGSLIPID,
 	t.QTY as QTY,
-	t.LINEAMOUNTMST LINEAMOUNTMST_OS--,
+	t.LINEAMOUNTMST LINEAMOUNTMST_OS,--,
 	--count(t.INVOICEID) over (partition by t.INVOICEID) cnt_inv
+	t.t_applicationId as t_applicationId,
+	@t_jobId as t_jobId,
+	@t_jobDtm as t_jobDtm,
+	@t_jobBy as t_jobBy,
+	t.t_extractionDtm as t_extractionDtm
 	into #inventtrans_PLFR_OS
 	from [base_tx_crh_2_dwh].[FACT_CUSTINVOICETRANS] as t
 	inner join [base_tx_crh_2_dwh].[DIM_CUSTINVOICEJOUR] as j
@@ -946,7 +989,12 @@ insert [intm_axbi].[fact_CUSTINVOICETRANS]
    ,FREIGHTLOCAL
    ,FREIGHTEUR
    ,COSTAMOUNTLOCAL
-   ,COSTAMOUNTEUR)
+   ,COSTAMOUNTEUR
+   ,t_applicationId
+   ,t_jobId 
+   ,t_jobDtm 
+   ,t_jobBy
+   ,t_extractionDtm)
 	select
 	DATAAREAID,
 	SALESID,
@@ -970,7 +1018,12 @@ insert [intm_axbi].[fact_CUSTINVOICETRANS]
 	CAST(0 as [DECIMAL](38, 12)),
 	CAST(0 as [DECIMAL](38, 12)),
 	CAST(0 as [DECIMAL](38, 12)),
-	CAST(0 as [DECIMAL](38, 12))
+	CAST(0 as [DECIMAL](38, 12)),
+	t_applicationId,
+    t_jobId,
+    t_jobDtm,
+    t_jobBy,
+    t_extractionDtm 
 	from #inventtrans_PLFR_OS
 	where INVOICEID COLLATE DATABASE_DEFAULT not in 
 	(select t.INVOICEID from [intm_axbi].[fact_CUSTINVOICETRANS] as t

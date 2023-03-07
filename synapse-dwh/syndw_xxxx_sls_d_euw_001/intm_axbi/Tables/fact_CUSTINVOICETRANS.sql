@@ -26,8 +26,7 @@ CREATE TABLE [intm_axbi].[fact_CUSTINVOICETRANS](
     [t_jobId]         VARCHAR    (36)  NULL,
     [t_jobDtm]        DATETIME,
     [t_jobBy]         NVARCHAR  (128)  NULL,
-    [t_extractionDtm] DATETIME,
-    [t_filePath]      NVARCHAR (1024)  NULL
+    [t_extractionDtm] DATETIME NULL
     CONSTRAINT [PK_fact_CUSTINVOICETRANS] PRIMARY KEY NONCLUSTERED ([DATAAREAID],[INVOICEID],[LINENUM]) NOT ENFORCED
 )
 WITH (
