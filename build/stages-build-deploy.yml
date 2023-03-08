@@ -28,14 +28,12 @@ parameters:
 
 variables:
 
-# whenever a build pipeline is manually triggered is running builds, do this on VM QAS
-# TODO test is these values are overriden when env = prod
+# Set these default values in case of manually triggered pipelines
+# These values will be overriden for production environment
 - name: VMName
   value: WEALEVAPP001
 - name: VMResourceGroup
   value: rg-xxxx-sls-a-euw-001
-
-- template: ./variables-testing.yml
 
 - name: deployEnv
   value: ${{ upper(variables['Build.SourceBranchName']) }}
