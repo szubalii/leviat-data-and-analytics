@@ -1,0 +1,15 @@
+steps:
+  # ***
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: '$(Build.SourcesDirectory)\synapse-workspace'
+    Contents: '**\*'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+  displayName: 'Copy folder'
+
+  # publish artifacts
+- task: PublishPipelineArtifact@1
+  inputs:
+    path: '$(Build.ArtifactStagingDirectory)'
+    artifactName: 'SynapseWorkspace'
+    artifactType: 'pipeline'
