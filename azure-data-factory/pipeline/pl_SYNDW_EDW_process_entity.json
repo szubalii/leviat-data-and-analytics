@@ -80,6 +80,10 @@
 									"sqlPool": {
 										"value": "@pipeline().globalParameters.synapseDatabaseName",
 										"type": "Expression"
+									},
+									"synapseServer": {
+										"value": "@pipeline().globalParameters.synapseServerName",
+										"type": "Expression"
 									}
 								}
 							}
@@ -171,15 +175,15 @@
 								}
 							},
 							"linkedServiceName": {
-					"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
-					"type": "LinkedServiceReference",
-					"parameters": {
-						"sqlDb": {
-							"value": "@pipeline().globalParameters.sqlDb",
-							"type": "Expression"
-						}
-					}
-				}
+								"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
+								"type": "LinkedServiceReference",
+								"parameters": {
+									"sqlDb": {
+										"value": "@pipeline().globalParameters.sqlDb",
+										"type": "Expression"
+									}
+								}
+							}
 						},
 						{
 							"name": "CustomSPFailure",
@@ -283,6 +287,10 @@
 									"sqlPool": {
 										"value": "@pipeline().globalParameters.synapseDatabaseName",
 										"type": "Expression"
+									},
+									"synapseServer": {
+										"value": "@pipeline().globalParameters.synapseServerName",
+										"type": "Expression"
 									}
 								}
 							}
@@ -347,15 +355,15 @@
 								}
 							},
 							"linkedServiceName": {
-					"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
-					"type": "LinkedServiceReference",
-					"parameters": {
-						"sqlDb": {
-							"value": "@pipeline().globalParameters.sqlDb",
-							"type": "Expression"
-						}
-					}
-				}
+								"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
+								"type": "LinkedServiceReference",
+								"parameters": {
+									"sqlDb": {
+										"value": "@pipeline().globalParameters.sqlDb",
+										"type": "Expression"
+									}
+								}
+							}
 						},
 						{
 							"name": "GenericSPFailure",
