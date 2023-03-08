@@ -1,0 +1,17 @@
+{
+	"name": "SQL script 1",
+	"properties": {
+		"content": {
+			"query": "CREATE EXTERNAL DATA SOURCE [eds_dw-halfen-0-hlp] WITH\n(\n\tLOCATION = '$(containerURL)', --'https://$(storageAccount).dfs.core.windows.net/dw-halfen-0-hlp'\n\tCREDENTIAL= dsc_MSI\n);",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "sqlserverless",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
