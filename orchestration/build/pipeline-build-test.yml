@@ -6,4 +6,3 @@ extends:
     folder: orchestration
     solution: Orchestration
     hasVariables: true
-    env: test
