@@ -29,6 +29,7 @@ parameters:
 variables:
 
 # whenever a build pipeline is manually triggered is running builds, do this on VM QAS
+# TODO test is these values are overriden when env = prod
 - name: VMName
   value: WEALEVAPP001
 - name: VMResourceGroup
