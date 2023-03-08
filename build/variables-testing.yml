@@ -1,5 +1,0 @@
-variables:
-- name: VMName
-  value: WEPLEVAPP001
-- name: VMResourceGroup
-  value: rg-xxxx-sls-p-euw-001
