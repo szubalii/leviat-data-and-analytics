@@ -28,6 +28,23 @@ jobs:
     - VisualStudio
     - Agent.Name -equals $(VMName)
   steps:
+
+  - script: |
+      echo system.pullRequest.targetBranch: $(system.pullRequest.targetBranch)
+      echo user: $(user)
+      echo dataFactoryName: $(dataFactoryName)
+      echo sqlDatabaseName: $(sqlDatabaseName)
+      echo synapseSqlPool: $(synapseSqlPool)
+      echo storageAccountName: $(storageAccountName)
+      echo xuPrefix: $(xuPrefix)
+      echo branchName: $(branchName)
+      echo destination: $(destination)
+      echo Build.Reason: ${{ variables['Build.Reason'] }}
+      echo Build.SourceBranchName: ${{ variables['Build.SourceBranchName'] }}
+      echo VMName: ${{ variables['VMName'] }}
+      echo VMResourceGroup: ${{ variables['VMResourceGroup'] }}
+    displayName: Print Variables
+
   - template: ../${{ parameters.folder }}/build/steps-build.yml
   # - ${{ if eq(parameters.artifact, true) }}: 
   - template: ../${{ parameters.folder }}/build/steps-artifact.yml
