@@ -1,6 +1,11 @@
 trigger:
   branches:
     include: 
+    - dev_mpors
+    - dev_fbouw
+    - dev_nkukhtenko
+    - dev_sleshchuk
+    - dev_tdorodnova
     - dev/*
     - main
     - qas

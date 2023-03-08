@@ -3,7 +3,6 @@ jobs:
 - job: StartVM
   pool: server
   steps:
-  
   - task: InvokeRESTAPI@1
     inputs:
       connectionType: 'connectedServiceNameARM'

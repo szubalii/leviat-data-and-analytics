@@ -17,9 +17,9 @@ parameters:
 - name: hasVariables
   type: boolean
   default: false
-# - name: env
-#   type: string
-#   default: ''
+- name: env
+  type: string
+  default: ''
 # - name: user
 #   type: string
 # - name: testPlan
@@ -30,10 +30,10 @@ variables:
 
 # Set these default values in case of manually triggered pipelines
 # These values will be overriden for production environment
-- name: VMName
-  value: WEALEVAPP001
-- name: VMResourceGroup
-  value: rg-xxxx-sls-a-euw-001
+# - name: VMName
+#   value: WEALEVAPP001
+# - name: VMResourceGroup
+#   value: rg-xxxx-sls-a-euw-001
 
 - name: deployEnv
   value: ${{ upper(variables['Build.SourceBranchName']) }}
@@ -56,16 +56,16 @@ variables:
 # # equals value: 'merge'. Also, the predefined system variable System.PullRequest.TargetBranch 
 # # is not available in templates. So use separate build pipelines for each env and pass this as parameter value
 # # https://learn.microsoft.com/en-us/azure/devops/pipelines/build/variables?view=azure-devops&tabs=yaml#system-variables-devops-services
-# - ${{ elseif eq(parameters.env, 'test') }}:
-#   - template: ./variables-test.yml
-# - ${{ elseif eq(parameters.env, 'qas') }}:
-#   - template: ./variables-qas.yml
-# - ${{ elseif eq(parameters.env, 'prod') }}:
-#   - template: ./variables-prod.yml
-# - ${{ elseif eq(parameters.env, 'dev') }}:
-#   - name: user
-#     value: $[ replace(variables['System.PullRequest.TargetBranch'], 'refs/heads/dev_', '') ]
-#   - template: ./variables-personal.yml
+- ${{ elseif eq(parameters.env, 'test') }}:
+  - template: ./variables-test.yml
+- ${{ elseif eq(parameters.env, 'qas') }}:
+  - template: ./variables-qas.yml
+- ${{ elseif eq(parameters.env, 'prod') }}:
+  - template: ./variables-prod.yml
+- ${{ elseif eq(parameters.env, 'dev') }}:
+  - name: user
+    value: $[ replace(variables['System.PullRequest.TargetBranch'], 'refs/heads/dev_', '') ]
+  - template: ./variables-personal.yml
 
 # store the latest source commit ID, used for running specific tests
 - ${{ if eq(variables['Build.Reason'], 'PullRequest') }}:
@@ -74,6 +74,7 @@ variables:
 - ${{ else }}:
   - name: commitId
     value: $(Build.SourceVersion)
+
 
 stages:
 - stage: BUILD

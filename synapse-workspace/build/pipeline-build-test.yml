@@ -3,7 +3,6 @@ trigger: none # triggered by PR
 extends:
   template: ../../build/stages-build-deploy.yml
   parameters:
-    folder: orchestration
-    solution: Orchestration
-    hasVariables: true
+    folder: synapse-workspace
+    solution: SynapseServerless
     env: test
