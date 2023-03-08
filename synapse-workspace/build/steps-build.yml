@@ -11,6 +11,6 @@ steps:
     DeleteArtifactsNotInTemplate: false
     DeployManagedPrivateEndpoints: false
     FailOnMissingOverrides: false
-    Environment: 'dev'
+    Environment: 'prod'
     npmpackage: 'ppe'
 
