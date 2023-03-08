@@ -61,6 +61,11 @@ variables:
 
 # store the latest source commit ID, used for running specific tests
 - ${{ if eq(variables['Build.Reason'], 'PullRequest') }}:
+  # whenever a pull request is running builds, do this on VM QAS
+  - name: VMName
+    value: WEALEVAPP001
+  - name: VMResourceGroup
+    value: rg-xxxx-sls-a-euw-001
   - name: commitId
     value: $(System.PullRequest.SourceCommitId)
 - ${{ else }}:
