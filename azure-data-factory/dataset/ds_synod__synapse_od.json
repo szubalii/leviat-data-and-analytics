@@ -3,7 +3,18 @@
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "ls_ws_xxxx_sls_x_euw_001_ondemand__synapse_od",
-			"type": "LinkedServiceReference"
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"synapseServer": {
+					"value": "@dataset().synapseServer",
+					"type": "Expression"
+				}
+			}
+		},
+		"parameters": {
+			"synapseServer": {
+				"type": "string"
+			}
 		},
 		"annotations": [],
 		"type": "AzureSqlDWTable",
