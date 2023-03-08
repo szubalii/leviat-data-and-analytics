@@ -1,0 +1,20 @@
+{
+	"name": "ext_FACT_SALESTABLE",
+	"properties": {
+		"folder": {
+			"name": "dbo/External Tables"
+		},
+		"content": {
+			"query": "CREATE EXTERNAL TABLE [dbo].[FACT_SALESTABLE] WITH (\n        LOCATION = 'FACT_SALESTABLE/Archive',\n       DATA_SOURCE = [eds_tx-halfen-2-dwh],\n        FILE_FORMAT = [eff_Parquet]  \n) AS\nSELECT\n    *\nFROM\n    OPENROWSET(\n        BULK './FACT_SALESTABLE/In/2023/01/05/FACT_SALESTABLE_2023_01_05_04_26_56_757.parquet',\n        FORMAT = 'PARQUET'\n    ) AS [result]\n    WHERE DATAAREAID NOT IN (5307, 5309, 5310, 5325)",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "sqlserverless",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

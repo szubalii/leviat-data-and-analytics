@@ -187,6 +187,7 @@
     <Folder Include="base_dw_halfen_2_dwh\Stored Procedures\" />
     <Folder Include="intm_axbi" />
     <Folder Include="intm_axbi\Tables" />
+    <Folder Include="intm_axbi\Views" />
     <Folder Include="intm_axbi\Stored Procedures" />
     <Folder Include="base_ancon_australia_2_dwh" />
     <Folder Include="base_ancon_australia_2_dwh\Tables" />
@@ -1128,6 +1129,34 @@
     <Build Include="base_s4h_cax\Views\vw_C_BillingDocumentItemBasicDEX_delta.sql" />
     <Build Include="base_s4h_cax\Views\vw_I_GLAccountLineItemRawData_delta.sql" />
     <Build Include="base_s4h_cax\Views\vw_C_SalesDocumentItemDEX_delta.sql" />
+    <Build Include="base_tx_halfen_2_dwh\Tables\FACT_INVENTSUM_Archive.sql" />
+    <Build Include="base_tx_halfen_2_dwh\Tables\FACT_INVENTTRANS_Archive.sql" />
+    <Build Include="base_tx_halfen_2_dwh\Tables\FACT_PURCHLINE_Archive.sql" />
+    <Build Include="base_tx_halfen_2_dwh\Tables\FACT_PRODJOURNALPROD_Archive.sql" />
+    <Build Include="base_tx_halfen_2_dwh\Tables\FACT_SALESLINE_Archive.sql" />
+    <Build Include="base_tx_halfen_2_dwh\Tables\FACT_SALESTABLE_Archive.sql" />
+    <Build Include="base_dw_halfen_2_dwh\Tables\DIM_CUSTOMER_Archive.sql" />
+    <Build Include="base_dw_halfen_2_dwh\Tables\FACT_HGDAWA_Archive.sql" />
+    <Build Include="base_dw_halfen_2_dwh\Tables\FACT_HGPLUM_Archive.sql" />
+    <Build Include="base_tx_halfen_2_dwh\Tables\FACT_CUSTPACKINGSLIPJOUR_Archive.sql" />
+    <Build Include="base_tx_halfen_2_dwh\Tables\DIM_VENDTABLE_Archive.sql" />
+    <Build Include="base_tx_halfen_2_dwh\Tables\DIM_INVENTLOCATION_Archive.sql" />
+    <Build Include="base_tx_halfen_2_dwh\Tables\FACT_CUSTPACKINGSLIPTRANS_Archive.sql" />
+    <Build Include="base_tx_halfen_2_dwh\Tables\DIM_INVENTTABLE_Archive.sql" />
+    <Build Include="intm_axbi\Views\vw_DIM_CUSTOMER.sql" />
+    <Build Include="intm_axbi\Views\vw_FACT_INVENTSUM.sql" />
+    <Build Include="intm_axbi\Views\vw_FACT_INVENTTRANS.sql" />
+    <Build Include="intm_axbi\Views\vw_FACT_PRODJOURNALPROD.sql" />
+    <Build Include="intm_axbi\Views\vw_FACT_PURCHLINE.sql" />
+    <Build Include="intm_axbi\Views\vw_FACT_SALESLINE.sql" />
+    <Build Include="intm_axbi\Views\vw_FACT_SALESTABLE.sql" />
+    <Build Include="intm_axbi\Views\vw_FACT_HGDAWA.sql" />
+    <Build Include="intm_axbi\Views\vw_FACT_HGPLUM.sql" />
+    <Build Include="intm_axbi\Views\vw_FACT_CUSTPACKINGSLIPJOUR.sql" />
+    <Build Include="intm_axbi\Views\vw_DIM_VENDTABLE.sql" />
+    <Build Include="intm_axbi\Views\vw_DIM_INVENTLOCATION.sql" />
+    <Build Include="intm_axbi\Views\vw_FACT_CUSTPACKINGSLIPTRANS.sql" />
+    <Build Include="intm_axbi\Views\vw_DIM_INVENTTABLE.sql" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PostDeploy Include="Scripts\Post-Deploy\Script.PostDeployment.sql" />
