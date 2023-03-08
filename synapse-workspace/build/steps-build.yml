@@ -1,6 +1,6 @@
 steps:
 
-  # Validate the Synapse Workspace
+  # Validate & Build the Synapse Workspace
 - task: Synapse workspace deployment@2
   inputs:
     operation: 'validate'
