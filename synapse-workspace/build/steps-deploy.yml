@@ -7,8 +7,8 @@ steps:
     operation: 'validateDeploy'
     ArtifactsFolder: 'synapse-workspace'
     azureSubscription: 'arm-pipeline'
-    ResourceGroupName: 'rg-xxxx-sls-d-euw-001'
-    TargetWorkspaceName: 'ws-xxxx-sls-d-euw-001'
+    ResourceGroupName: '$(resourceGroupName)'
+    TargetWorkspaceName: '$(workspaceName)'
     DeleteArtifactsNotInTemplate: false
     DeployManagedPrivateEndpoints: false
     FailOnMissingOverrides: false

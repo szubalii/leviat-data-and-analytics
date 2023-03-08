@@ -21,5 +21,6 @@ extends:
   parameters:
     folder: synapse-workspace
     solution: SynapseServerless
+    hasVariables: true
     deploy: true
   
