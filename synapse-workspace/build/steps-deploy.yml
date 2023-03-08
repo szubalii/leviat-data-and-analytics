@@ -1,0 +1,16 @@
+steps:
+
+      
+  # Validate and Deploy the Synapse Workspace
+- task: Synapse workspace deployment@2
+  inputs:
+    operation: 'validateDeploy'
+    ArtifactsFolder: 'synapse-workspace'
+    azureSubscription: 'arm-pipeline'
+    ResourceGroupName: 'rg-xxxx-sls-d-euw-001'
+    TargetWorkspaceName: 'ws-xxxx-sls-d-euw-001'
+    DeleteArtifactsNotInTemplate: false
+    DeployManagedPrivateEndpoints: false
+    FailOnMissingOverrides: false
+    Environment: 'prod'
+    npmpackage: 'ppe'
