@@ -16,3 +16,5 @@ variables:
   value: "$(user)"
 - name: destination
   value: "$(storageAccountName)_s4h-caa-200"
+- name: workspaceName
+  value: "ws-$(user)-d-euw-001"

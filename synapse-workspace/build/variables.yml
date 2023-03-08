@@ -1,3 +1,0 @@
-variables:
-- name: workspaceName
-  value: "ws-$(user)-d-euw-001"

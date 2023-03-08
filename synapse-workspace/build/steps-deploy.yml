@@ -8,7 +8,7 @@ steps:
     ArtifactsFolder: 'synapse-workspace'
     azureSubscription: 'arm-pipeline'
     ResourceGroupName: '$(resourceGroupName)'
-    TargetWorkspaceName: 'ws-$(user)-d-euw-001'
+    TargetWorkspaceName: '$(workspaceName)'
     DeleteArtifactsNotInTemplate: false
     DeployManagedPrivateEndpoints: false
     FailOnMissingOverrides: false
