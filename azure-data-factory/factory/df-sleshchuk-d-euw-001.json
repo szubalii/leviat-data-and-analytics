@@ -20,7 +20,7 @@
 			},
 			"synapseServerName": {
 				"type": "string",
-				"value": "ws-xxxx-sls-d-euw-001"
+				"value": "ws-sleshchuk-d-euw-001"
 			},
 			"synapseDatabaseName": {
 				"type": "string",
