@@ -41,8 +41,8 @@ jobs:
       echo destination: $(destination)
       echo Build.Reason: ${{ variables['Build.Reason'] }}
       echo Build.SourceBranchName: ${{ variables['Build.SourceBranchName'] }}
-      echo VMName: ${{ variables['VMName'] }}
-      echo VMResourceGroup: ${{ variables['VMResourceGroup'] }}
+      echo VMName: $(VMName)
+      echo VMResourceGroup: $(VMResourceGroup)
     displayName: Print Variables
 
   - template: ../${{ parameters.folder }}/build/steps-build.yml
