@@ -14,5 +14,5 @@ steps:
 
 - script: |
     cd $(System.DefaultWorkingDirectory)/orchestration
-    node -e require('./src/libs/generate-master-data').writeMasterDataCSV('$(environment)')
+    node -e require('./src/libs/generate-master-data').writeMasterDataCSV()
   displayName: 'CMD: Write Environment Specific Master Data'
