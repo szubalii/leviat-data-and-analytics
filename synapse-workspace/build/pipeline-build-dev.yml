@@ -5,5 +5,5 @@ extends:
   parameters:
     folder: synapse-workspace
     solution: SynapseServerless
-    hasVariables: false
+    hasVariables: true
     env: dev
