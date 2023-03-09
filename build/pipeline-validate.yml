@@ -1,0 +1,11 @@
+trigger: none # Use PR trigger only
+
+variables:
+# TODO test is these values are overriden when env = prod
+- name: VMName
+  value: WEALEVAPP001
+- name: VMResourceGroup
+  value: rg-xxxx-sls-a-euw-001
+
+jobs:
+- template: ./jobs-validate.yml

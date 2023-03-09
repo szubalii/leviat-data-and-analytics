@@ -28,7 +28,7 @@ jobs:
     - VisualStudio
     - Agent.Name -equals $(VMName)
   steps:
-  
+
   - script: |
       echo system.pullRequest.targetBranch: $(system.pullRequest.targetBranch)
       echo user: $(user)

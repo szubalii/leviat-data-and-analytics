@@ -33,7 +33,13 @@
 					},
 					"dataset": {
 						"referenceName": "ds_synod__synapse_od",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"synapseServer": {
+								"value": "@pipeline().globalParameters.synapseServerName",
+								"type": "Expression"
+							}
+						}
 					}
 				}
 			},
