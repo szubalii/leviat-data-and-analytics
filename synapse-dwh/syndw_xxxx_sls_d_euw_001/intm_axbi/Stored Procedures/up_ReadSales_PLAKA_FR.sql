@@ -217,7 +217,7 @@ BEGIN
 	and Datepart(yyyy, i.DATEPHYSICAL) = @P_Year 
 	and Datepart(mm, i.DATEPHYSICAL) = @P_Month 
 	and i.ValueCalc is not null 
-	group by i.DATAAREAID, a.SALESID, i.INVENTTRANSID, i.DATEPHYSICAL, i.INVOICEACCOUNT, i.ITEMID, a.DELIVERYCOUNTRYREGIONID, i.PACKINGSLIPID, i.Dimension
+	group by i.DATAAREAID, a.SALESID, i.INVENTTRANSID, i.DATEPHYSICAL, i.INVOICEACCOUNT, i.ITEMID, a.DELIVERYCOUNTRYREGIONID, i.PACKINGSLIPID, i.Dimension, i.t_applicationId, i.t_extractionDtm
 
 	insert [intm_axbi].[fact_CUSTINVOICETRANS]
 	(DATAAREAID
