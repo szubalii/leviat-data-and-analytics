@@ -1025,7 +1025,7 @@ BEGIN
 	 	@t_jobBy as t_jobBy,
 	 	REPLACE(reverse(SUBSTRING(reverse(t_filePath),5,10)),'_','-') as t_extractionDtm
     from [base_ancon_conolly_aus].[ITEMTABLE_ANAC]
-    group by 'ANAC-' + CAST(STOCKGROUP as NVARCHAR(2)), 'ANAC-' + GROUPNAME, t_applicationId,t_extractionDtm, t_filePath
+    group by 'ANAC-' + CAST(STOCKGROUP as NVARCHAR(2)), 'ANAC-' + GROUPNAME, t_applicationId, t_filePath
 
 	delete [intm_axbi].[dim_ITEMGROUP] where UPPER(DATAAREAID) = 'ANAU'
 	insert [intm_axbi].[dim_ITEMGROUP] 
