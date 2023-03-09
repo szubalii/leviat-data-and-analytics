@@ -21,7 +21,7 @@ steps:
 
       # directly copy to storage account using azcopy
       azcopy copy `
-        '$(Pipeline.Workspace)\OrchestrationDB\Master Data\$(env)\*' `
+        '$(Pipeline.Workspace)\OrchestrationDB\Master Data\$(environment)\*' `
         'https://$(storageAccountName).blob.core.windows.net/orch-db' `
         --recursive `
         --exclude-path=entity.csv
@@ -37,7 +37,7 @@ steps:
 
       # directly copy to storage account using azcopy
       azcopy copy `
-        '$(Pipeline.Workspace)\OrchestrationDB\Master Data\$(env)\*' `
+        '$(Pipeline.Workspace)\OrchestrationDB\Master Data\$(environment)\*' `
         'https://$(storageAccountName).blob.core.windows.net/orch-db' `
         --recursive `
         --include-path=entity.csv
