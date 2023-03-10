@@ -1,5 +1,5 @@
 GLACCOUNT;FUNCTIONALAREA;TRANSACTIONTYPE;TRADINGPARTNER;CONTIGENCY1;CONTIGENCY2;CONTIGENCY3;CONTIGENCY4;CONTIGENCY5;REKNR;REKOMS;DI1NR;DI2NR;REFNR;ORGNR_COR;TRANR;CATNR;JNLOMS;XLSBLD
-11111100;;;;;;;;;BS011000D;Tangible fixed assets Owned;;;;;S_MA;U; ;BS
+11111100;;;;;;;;;BS011000D;Tangible fixed assets Owned;;;;;S_MA;U;;BS
 11111101;;;;;;;;;BS011000D;Tangible fixed assets Owned;;;;;S_MA;U;;BS
 11111102;;;;;;;;;BS011000D;Tangible fixed assets Owned;;;;;S_MA;U;;BS
 11111103;;;;;;;;;BS011000D;Tangible fixed assets Owned;;;;;S_MA;U;;BS
@@ -1362,7 +1362,7 @@ GLACCOUNT;FUNCTIONALAREA;TRANSACTIONTYPE;TRADINGPARTNER;CONTIGENCY1;CONTIGENCY2;
 50107100;DT241;;;;;;;Opex;IS711100;Wages and salaries own personnel;DT241;;;;S_MA;U;;IS
 50107100;DT251;;;;;;;Opex;IS711100;Wages and salaries own personnel;DT251;;;;S_MA;U;;IS
 50107100;DT271;;;;;;;Opex;IS711100;Wages and salaries own personnel;DT271;;;;S_MA;U;;IS
-50107101;DT102;;;;;;;Other CoS;IS611900;Intercompany charged employment costs - production variable;FA1100;;;;S_MA;U;;IS
+50107101;DT102;;;;;;Gross Margin;Other CoS;IS611900;Intercompany charged employment costs - production variable;FA1100;;;;S_MA;U;;IS
 50107101;DT101;;;;;;;Other CoS;IS671900;Intercompany charged employment costs - production management / support and inbound logistics;FA1200;;;;S_MA;U;;IS
 50107101;DT121;;;;;;;Other CoS;IS671900;Intercompany charged employment costs - production management / support and inbound logistics;FA1300;;;;S_MA;U;;IS
 50107101;DT131;;;;;;;Opex;IS711900;Intercompany charged employment costs;DT131;;;;S_MA;U;;IS
