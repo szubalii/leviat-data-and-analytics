@@ -195,7 +195,7 @@
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "Set Full ADLS File Name",
+						"activity": "Set ADLS File Name",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -275,7 +275,7 @@
 				}
 			},
 			{
-				"name": "Set Base ADLS File Name",
+				"name": "Set ADLS File Name",
 				"type": "SetVariable",
 				"dependsOn": [
 					{
@@ -287,9 +287,9 @@
 				],
 				"userProperties": [],
 				"typeProperties": {
-					"variableName": "adlsFileNameBase",
+					"variableName": "adlsFileName",
 					"value": {
-						"value": "@concat(\n    pipeline().parameters.extraction_name,\n    '_',\n    replace(replace(replace(variables('extraction_timestamp'),'-','_'),':','_'),'.','_')\n)",
+						"value": "@concat(\n    pipeline().parameters.extraction_name,\n    '_',\n    replace(replace(replace(variables('extraction_timestamp'),'-','_'),':','_'),'.','_'),\n    '*.parquet'\n)",
 						"type": "Expression"
 					}
 				}
@@ -419,69 +419,6 @@
 						"type": "Expression"
 					}
 				}
-			},
-			{
-				"name": "If File is splitted",
-				"type": "IfCondition",
-				"dependsOn": [
-					{
-						"activity": "Set Base ADLS File Name",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"userProperties": [],
-				"typeProperties": {
-					"expression": {
-						"value": "@pipeline().parameters.file_split",
-						"type": "Expression"
-					},
-					"ifFalseActivities": [
-						{
-							"name": "Set ADLS File Name Suffix 2",
-							"type": "SetVariable",
-							"dependsOn": [],
-							"userProperties": [],
-							"typeProperties": {
-								"variableName": "adlsFileNameSuffix",
-								"value": ".parquet"
-							}
-						}
-					],
-					"ifTrueActivities": [
-						{
-							"name": "Set ADLS File Name Suffix",
-							"type": "SetVariable",
-							"dependsOn": [],
-							"userProperties": [],
-							"typeProperties": {
-								"variableName": "adlsFileNameSuffix",
-								"value": "*.parquet"
-							}
-						}
-					]
-				}
-			},
-			{
-				"name": "Set Full ADLS File Name",
-				"type": "SetVariable",
-				"dependsOn": [
-					{
-						"activity": "If File is splitted",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"userProperties": [],
-				"typeProperties": {
-					"variableName": "adlsFileName",
-					"value": {
-						"value": "@concat(\n    variables('adlsFileNameBase'),\n    variables('adlsFileNameSuffix')\n)",
-						"type": "Expression"
-					}
-				}
 			}
 		],
 		"parameters": {
@@ -524,9 +461,6 @@
 			"extraction_timestamp": {
 				"type": "String"
 			},
-			"adlsFileNameBase": {
-				"type": "String"
-			},
 			"run_id": {
 				"type": "String"
 			},
@@ -543,9 +477,6 @@
 				"type": "String"
 			},
 			"adlsFileName": {
-				"type": "String"
-			},
-			"adlsFileNameSuffix": {
 				"type": "String"
 			}
 		},
