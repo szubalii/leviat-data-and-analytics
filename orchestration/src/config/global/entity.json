@@ -860,6 +860,18 @@
         "schedule_recurrence": "A"
       },
       {
+        "entity_id": 500,
+        "entity_name": "I_SalesOrderItemPricingElement_split",
+        "data_category": "NULL",
+        "client_field": "MANDT",
+        "tool_name": "Theobald",
+        "extraction_type": "Table",
+        "update_mode": "Full",
+        "base_table_name": "I_SalesOrderItemPricingElement_split",
+        "pk_field_names": "SALESORDER, SALESORDERITEM, PRICINGPROCEDURESTEP, PRICINGPROCEDURECOUNTER",
+        "schedule_recurrence": "A"
+      },
+      {
         "entity_id": 134,
         "entity_name": "I_SalesOrderPricingElement",
         "data_category": "NULL",
