@@ -451,10 +451,6 @@
 			},
 			"extraction_type": {
 				"type": "string"
-			},
-			"file_split": {
-				"type": "bool",
-				"defaultValue": false
 			}
 		},
 		"variables": {
