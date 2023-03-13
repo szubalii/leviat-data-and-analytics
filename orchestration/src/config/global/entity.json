@@ -860,7 +860,7 @@
         "schedule_recurrence": "A"
       },
       {
-        "entity_id": 500,
+        "entity_id": 900,
         "entity_name": "I_SalesOrderItemPricingElement_split",
         "data_category": "NULL",
         "client_field": "MANDT",
