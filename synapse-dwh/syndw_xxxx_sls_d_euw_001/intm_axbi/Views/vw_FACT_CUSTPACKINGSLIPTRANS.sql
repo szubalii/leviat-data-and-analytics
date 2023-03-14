@@ -119,7 +119,7 @@ from
     SELECT * FROM [base_tx_halfen_2_dwh].[FACT_CUSTPACKINGSLIPTRANS]
     UNION ALL
     SELECT * FROM [base_tx_halfen_2_dwh].[FACT_CUSTPACKINGSLIPTRANS_Archive]
-    ) views
-) a
+    ) t
+) q
 where rn=1
  ;

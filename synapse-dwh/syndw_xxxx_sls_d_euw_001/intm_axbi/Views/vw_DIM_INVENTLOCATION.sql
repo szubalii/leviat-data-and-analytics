@@ -33,7 +33,7 @@ from
     SELECT * FROM [base_tx_halfen_2_dwh].[DIM_INVENTLOCATION]
     UNION ALL
     SELECT * FROM [base_tx_halfen_2_dwh].[DIM_INVENTLOCATION_Archive]
-    ) views
-) a
+    ) t
+) q
 where rn=1
  ;
