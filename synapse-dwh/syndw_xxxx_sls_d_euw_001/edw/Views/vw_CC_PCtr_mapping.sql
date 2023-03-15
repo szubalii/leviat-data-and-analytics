@@ -1,5 +1,5 @@
 
-CREATE VIEW edw.vw_CC_PCtr_mapping AS
+CREATE VIEW edw.vw_dim_CC_PCtr AS
     SELECT
     CompanyCodeID,
     ProfitCenterID,
