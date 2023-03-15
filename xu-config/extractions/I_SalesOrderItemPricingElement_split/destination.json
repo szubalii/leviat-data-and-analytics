@@ -1,17 +1,9 @@
 {
     "nameGenerator": {
         "suffix": "",
-        "customName": "I_SalesOrderItemPricingElement_split",
-        "objectNamingMode": "Custom",
         "appendsTimestamp": true
     },
     "internalSettings": {
-        "nameGenerator": {
-            "suffix": "",
-            "customName": "I_SalesOrderItemPricingElement_split",
-            "objectNamingMode": "Custom",
-            "appendsTimestamp": true
-        },
         "sapDateConversion": {
             "enabled": true,
             "replacementForInvalidDate": null,
