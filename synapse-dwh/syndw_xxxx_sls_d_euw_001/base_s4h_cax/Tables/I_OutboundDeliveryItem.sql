@@ -71,11 +71,11 @@ CREATE TABLE [base_s4h_cax].[I_OutboundDeliveryItem](
 , [WarehouseStagingArea] nvarchar(10)
 , [WarehouseStockCategory] nvarchar(1)
 , [StockType] nvarchar(1)
+, [IsNotGoodsMovementsRelevant] nvarchar(1)
 , [GLAccount] nvarchar(10)
 , [GoodsMovementReasonCode] char(4) collate Latin1_General_100_BIN2
 , [SubsequentMovementType] nvarchar(3)
 , [IsCompletelyDelivered] nvarchar(1)
-, [IsNotGoodsMovementsRelevant] nvarchar(1)
 , [PickingControl] nvarchar(1)
 , [LoadingGroup] nvarchar(4)
 , [GoodsMovementType] nvarchar(3)
@@ -86,6 +86,7 @@ CREATE TABLE [base_s4h_cax].[I_OutboundDeliveryItem](
 , [ProofOfDeliveryRelevanceCode] nvarchar(1)
 , [ItemIsBillingRelevant] nvarchar(1)
 , [ItemBillingBlockReason] nvarchar(2)
+, [IntercompanyBillingStatus] nvarchar(1)
 , [BusinessArea] nvarchar(4)
 , [ControllingArea] nvarchar(4)
 , [ProfitabilitySegment] char(10) collate Latin1_General_100_BIN2
@@ -120,10 +121,6 @@ CREATE TABLE [base_s4h_cax].[I_OutboundDeliveryItem](
 , [ItemGdsMvtIncompletionSts] nvarchar(1)
 , [ItemPackingIncompletionStatus] nvarchar(1)
 , [ItemBillingIncompletionStatus] nvarchar(1)
-, [IntercompanyBillingStatus] nvarchar(1)
-, [ChmlCmplncStatus] nvarchar(1)
-, [DangerousGoodsStatus] nvarchar(1)
-, [SafetyDataSheetStatus] nvarchar(1)
 , [RequirementSegment] nvarchar(40)
 , [StockSegment] nvarchar(40)
 , [ProductSeasonYear] nvarchar(4)
@@ -159,6 +156,9 @@ CREATE TABLE [base_s4h_cax].[I_OutboundDeliveryItem](
 , [FunctionalArea] nvarchar(16)
 , [Reservation] char(10) collate Latin1_General_100_BIN2
 , [ReservationItem] char(4) collate Latin1_General_100_BIN2
+, [ChmlCmplncStatus] nvarchar(1)
+, [DangerousGoodsStatus] nvarchar(1)
+, [SafetyDataSheetStatus] nvarchar(1)
 , [t_applicationId]       VARCHAR (32)
 , [t_jobId]               VARCHAR (36)
 , [t_jobDtm]              DATETIME

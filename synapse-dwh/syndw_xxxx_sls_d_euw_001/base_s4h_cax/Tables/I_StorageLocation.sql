@@ -3,10 +3,10 @@ CREATE TABLE [base_s4h_cax].[I_StorageLocation](
 , [Plant] nvarchar(4) NOT NULL
 , [StorageLocation] nvarchar(4) NOT NULL
 , [StorageLocationName] nvarchar(16)
-, [SalesOrganization] nvarchar(4)
-, [DistributionChannel] nvarchar(2)
 , [Division] nvarchar(2)
 , [IsStorLocAuthznCheckActive] nvarchar(1)
+, [SalesOrganization] nvarchar(4)
+, [DistributionChannel] nvarchar(2)
 , [t_applicationId]       VARCHAR (32)
 , [t_jobId]               VARCHAR (36)
 , [t_jobDtm]              DATETIME

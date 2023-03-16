@@ -4,59 +4,59 @@ CREATE TABLE [base_s4h_cax].[I_SalesDocumentScheduleLine](
 , [SalesDocumentItem] char(6) collate Latin1_General_100_BIN2 NOT NULL
 , [ScheduleLine] char(4) collate Latin1_General_100_BIN2 NOT NULL
 , [ScheduleLineCategory] nvarchar(2)
-, [OrderQuantityUnit] nvarchar(3) collate Latin1_General_100_BIN2
-, [OrderToBaseQuantityDnmntr] decimal(5)
-, [OrderToBaseQuantityNmrtr] decimal(5)
-, [BaseUnit] nvarchar(3) collate Latin1_General_100_BIN2
+, [ItemIsDeliveryRelevant] nvarchar(1)
 , [DeliveryDate] date
-, [DelivDateCategory] nvarchar(1)
-, [IsRequestedDelivSchedLine] nvarchar(1)
-, [RequestedDeliveryDate] date
-, [RequestedDeliveryTime] time(0)
 , [ScheduleLineOrderQuantity] decimal(13,3)
-, [CorrectedQtyInOrderQtyUnit] decimal(13,3)
-, [IsConfirmedDelivSchedLine] nvarchar(1)
-, [ConfirmedDeliveryDate] date
-, [ConfirmedDeliveryTime] time(0)
 , [ConfdOrderQtyByMatlAvailCheck] decimal(13,3)
-, [ConfdSchedLineReqdDelivDate] date
-, [ProductAvailabilityDate] date
-, [ProductAvailabilityTime] time(0)
+, [OrderQuantityUnit] nvarchar(3) collate Latin1_General_100_BIN2
+, [BaseUnit] nvarchar(3) collate Latin1_General_100_BIN2
 , [ProductAvailCheckRqmtDate] date
 , [ProdAvailabilityCheckRqmtType] nvarchar(2)
 , [ProdAvailyCheckPlanningType] nvarchar(1)
-, [ScheduleLineConfirmationStatus] nvarchar(1)
-, [RequirementsClass] nvarchar(3)
-, [PlannedOrder] nvarchar(10)
-, [OrderID] nvarchar(12)
-, [SchedulingAgreementReleaseType] nvarchar(1)
-, [ScheduleLineByForecastDelivery] char(10) collate Latin1_General_100_BIN2
-, [OrderSchedulingGroup] char(4) collate Latin1_General_100_BIN2
 , [PurchaseRequisition] nvarchar(10)
-, [PurchaseRequisitionItem] char(5) collate Latin1_General_100_BIN2
 , [PurchasingOrderType] nvarchar(4)
 , [PurchasingDocumentCategory] nvarchar(1)
-, [DeliveryCreationDate] date
+, [ScheduleLineConfirmationStatus] nvarchar(1)
+, [DelivDateCategory] nvarchar(1)
 , [TransportationPlanningDate] date
-, [TransportationPlanningTime] time(0)
-, [GoodsIssueDate] date
+, [ProductAvailabilityDate] date
 , [LoadingDate] date
-, [GoodsIssueTime] time(0)
-, [LoadingTime] time(0)
-, [ItemIsDeliveryRelevant] nvarchar(1)
+, [GoodsIssueDate] date
+, [CorrectedQtyInOrderQtyUnit] decimal(13,3)
 , [DelivBlockReasonForSchedLine] nvarchar(2)
-, [OpenReqdDelivQtyInOrdQtyUnit] decimal(13,3)
-, [OpenReqdDelivQtyInBaseUnit] decimal(13,3)
-, [OpenConfdDelivQtyInOrdQtyUnit] decimal(13,3)
-, [OpenConfdDelivQtyInBaseUnit] decimal(13,3)
-, [DeliveredQtyInOrderQtyUnit] decimal(13,3)
+, [SchedulingAgreementReleaseType] nvarchar(1)
+, [ScheduleLineByForecastDelivery] char(10) collate Latin1_General_100_BIN2
+, [OrderToBaseQuantityNmrtr] decimal(5)
+, [OrderToBaseQuantityDnmntr] decimal(5)
+, [GoodsMovementType] nvarchar(3)
+, [PurchaseRequisitionItem] char(5) collate Latin1_General_100_BIN2
+, [OrderID] nvarchar(12)
+, [PlannedOrder] nvarchar(10)
+, [ProductAvailabilityTime] time(0)
+, [TransportationPlanningTime] time(0)
+, [LoadingTime] time(0)
+, [GoodsIssueTime] time(0)
+, [RouteSchedule] nvarchar(10)
 , [DeliveredQuantityInBaseUnit] decimal(13,3)
+, [DeliveredQtyInOrderQtyUnit] decimal(13,3)
+, [OpenConfdDelivQtyInBaseUnit] decimal(13,3)
+, [OpenConfdDelivQtyInOrdQtyUnit] decimal(13,3)
+, [OpenReqdDelivQtyInBaseUnit] decimal(13,3)
+, [OpenReqdDelivQtyInOrdQtyUnit] decimal(13,3)
+, [DeliveryCreationDate] date
+, [ConfdSchedLineReqdDelivDate] date
+, [RequirementsClass] nvarchar(3)
+, [TransactionCurrency] char(5) collate Latin1_General_100_BIN2
+, [OpenDeliveryNetAmount] decimal(15,2)
 , [RequestedRqmtQtyInBaseUnit] decimal(15,3)
 , [ConfirmedRqmtQtyInBaseUnit] decimal(15,3)
-, [GoodsMovementType] nvarchar(3)
-, [RouteSchedule] nvarchar(10)
-, [OpenDeliveryNetAmount] decimal(15,2)
-, [TransactionCurrency] char(5) collate Latin1_General_100_BIN2
+, [OrderSchedulingGroup] char(4) collate Latin1_General_100_BIN2
+, [IsRequestedDelivSchedLine] nvarchar(1)
+, [IsConfirmedDelivSchedLine] nvarchar(1)
+, [RequestedDeliveryDate] date
+, [ConfirmedDeliveryDate] date
+, [RequestedDeliveryTime] time(0)
+, [ConfirmedDeliveryTime] time(0)
 , [t_applicationId]       VARCHAR (32)
 , [t_jobId]               VARCHAR (36)
 , [t_jobDtm]              DATETIME

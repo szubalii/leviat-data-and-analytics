@@ -9,9 +9,9 @@ CREATE TABLE [base_s4h_cax].[I_Plant](
 , [DefaultPurchasingOrganization] nvarchar(4)
 , [SalesOrganization] nvarchar(4)
 , [AddressID] nvarchar(10)
-, [PlantCategory] nvarchar(1)
 , [DistributionChannel] nvarchar(2)
 , [Division] nvarchar(2)
+, [PlantCategory] nvarchar(1)
 , [t_applicationId]       VARCHAR (32)
 , [t_jobId]               VARCHAR (36)
 , [t_jobDtm]              DATETIME

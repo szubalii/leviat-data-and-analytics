@@ -7,7 +7,7 @@ AS
     ,P.[ProductType] 
     ,P.[CreationDate] 
     ,P.[CreationTime]
-    ,P.[CreationDateTime]
+    ,NULL AS [CreationDateTime]
     ,P.[CreatedByUser]
     ,P.[LastChangeDate] 
     ,P.[LastChangedByUser]
@@ -95,7 +95,7 @@ AS
     ,P.[ChangeNumber]
     ,P.[MaterialRevisionLevel] 
     ,P.[IsActiveEntity] 
-    ,P.[LastChangeDateTime] 
+    ,NULL AS [LastChangeDateTime] 
     ,P.[LastChangeTime] 
     ,P.[DangerousGoodsIndProfile] 
     ,P.[ProductUUID]
@@ -132,9 +132,9 @@ AS
     ,P.[SalesProduct] 
     ,P.[DfsAmmunitionGroupCode] 
     ,P.[DfsRICIdentifier]
-    ,P.[ZZ1_CustomFieldRiskMit_PRD] 
-    ,P.[ZZ1_CustomFieldHighRis_PRD] 
-    ,P.[ZZ1_CustomFieldRiskRea_PRD] 
+    ,NULL AS [ZZ1_CustomFieldRiskMit_PRD] 
+    ,NULL AS [ZZ1_CustomFieldHighRis_PRD] 
+    ,NULL AS [ZZ1_CustomFieldRiskRea_PRD] 
     ,NAM.[MATNR] AS MaterialNumber
     ,NAM.[WERKS] AS Plant
     ,NAM.[NCOST] AS DoNotCost

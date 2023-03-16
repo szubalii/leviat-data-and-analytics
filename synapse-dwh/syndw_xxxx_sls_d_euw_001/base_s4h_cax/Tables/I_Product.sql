@@ -5,7 +5,7 @@ CREATE TABLE [base_s4h_cax].[I_Product](
 , [ProductType] nvarchar(4)
 , [CreationDate] date
 , [CreationTime] time(0)
-, [CreationDateTime] decimal(21,7)
+--, [CreationDateTime] decimal(21,7)
 , [CreatedByUser] nvarchar(12)
 , [LastChangeDate] date
 , [LastChangedByUser] nvarchar(12)
@@ -93,7 +93,7 @@ CREATE TABLE [base_s4h_cax].[I_Product](
 , [ChangeNumber] nvarchar(12)
 , [MaterialRevisionLevel] nvarchar(2)
 , [IsActiveEntity] nvarchar(1)
-, [LastChangeDateTime] decimal(21,7)
+--, [LastChangeDateTime] decimal(21,7)
 , [LastChangeTime] time(0)
 , [DangerousGoodsIndProfile] nvarchar(3)
 , [ProductUUID] binary(16)
@@ -130,9 +130,9 @@ CREATE TABLE [base_s4h_cax].[I_Product](
 , [SalesProduct] nvarchar(40)
 , [DfsAmmunitionGroupCode] nvarchar(8)
 , [DfsRICIdentifier] bigint
-, [ZZ1_CustomFieldRiskMit_PRD] nvarchar(80)
-, [ZZ1_CustomFieldHighRis_PRD] nvarchar(1)
-, [ZZ1_CustomFieldRiskRea_PRD] nvarchar(80)
+--, [ZZ1_CustomFieldRiskMit_PRD] nvarchar(80)
+--, [ZZ1_CustomFieldHighRis_PRD] nvarchar(1)
+--, [ZZ1_CustomFieldRiskRea_PRD] nvarchar(80)
 , [t_applicationId]       VARCHAR (32)
 , [t_jobId]               VARCHAR (36)
 , [t_jobDtm]              DATETIME
