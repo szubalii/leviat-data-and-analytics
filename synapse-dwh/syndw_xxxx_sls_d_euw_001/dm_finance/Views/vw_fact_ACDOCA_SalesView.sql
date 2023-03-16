@@ -84,6 +84,7 @@ AS
     [DistributionChannelID],
     [SalesDistrictID],
     sDT.[SalesDistrictName],
+    acdoca.SalesOfficeID,
     acdoca.[t_applicationId],
     acdoca.[t_extractionDtm]
 FROM 

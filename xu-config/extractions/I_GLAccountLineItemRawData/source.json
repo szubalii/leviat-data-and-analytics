@@ -2812,6 +2812,15 @@
             "isSelected": true,
             "selectionPermission": "All",
             "outputLength": 1
+        },
+        {
+            "name": "KMVKBUPA",
+            "description": "Sales office",
+            "abapType": "CharacterString",
+            "length": 4,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 4
         }
     ],
     "parameterSet": {

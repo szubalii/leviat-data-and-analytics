@@ -123,6 +123,7 @@
     [SalesDistrictID]                  nvarchar(12),
     [BillToPartyID]                    nvarchar(20),
     [ShipToPartyID]                    nvarchar(20),
+    [SalesOfficeID]                    nvarchar(4),
     [t_applicationId]                  VARCHAR(32),
     [t_extractionDtm]                  DATETIME,
     [t_jobId]                          VARCHAR(36),
