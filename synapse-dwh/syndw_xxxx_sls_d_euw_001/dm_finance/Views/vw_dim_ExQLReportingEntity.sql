@@ -10,4 +10,4 @@ CREATE VIEW dm_finance.vw_dim_ExQLReportingEntity AS
     t_jobDtm,
     t_jobBy,
     t_filePath
-FROM base_ff.CC_PCtr_mapping;
+FROM base_ff.ExQLReportingEntity;

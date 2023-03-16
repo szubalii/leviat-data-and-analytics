@@ -10,4 +10,4 @@ CREATE TABLE base_ff.ExQLReportingEntity (
 	[t_filePath] [nvarchar](1024) NULL
 
 )
-WITH (HEAP, DISTRIBUTION = ROUND_ROBIN);
+WITH (HEAP, DISTRIBUTION = REPLICATE);
