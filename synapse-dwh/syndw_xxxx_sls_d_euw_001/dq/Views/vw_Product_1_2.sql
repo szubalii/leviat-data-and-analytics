@@ -147,3 +147,5 @@ WHERE
         OR
         [GrossWeight] > [NetWeight]*1.2
     )
+    AND
+    IsMarkedForDeletion <> 'X'

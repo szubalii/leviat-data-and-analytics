@@ -25,14 +25,6 @@ UNION ALL
 
 SELECT
     [RuleID]
-    , [Product]  
-FROM
-    [dq].[vw_Product_1_8]
-
-UNION ALL
-
-SELECT
-    [RuleID]
     , [Product]    
 FROM
     [dq].[vw_Product_1_14]

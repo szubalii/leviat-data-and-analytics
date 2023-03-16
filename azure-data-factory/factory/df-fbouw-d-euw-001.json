@@ -20,7 +20,7 @@
 			},
 			"synapseServerName": {
 				"type": "string",
-				"value": "ws-xxxx-sls-d-euw-001"
+				"value": "ws-fbouw-d-euw-001"
 			},
 			"synapseDatabaseName": {
 				"type": "string",
@@ -45,6 +45,10 @@
 			"s4hClientId": {
 				"type": "string",
 				"value": "200"
+			},
+			"axbiDataBaseEnvSuffix": {
+				"type": "string",
+				"value": "UAT"
 			}
 		}
 	},

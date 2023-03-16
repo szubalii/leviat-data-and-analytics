@@ -150,5 +150,6 @@ WHERE
     (
         PSD.[CashDiscountIsDeductible] != 'X'
     )
-
+    AND
+    P.IsMarkedForDeletion <> 'X'
 	

@@ -164,3 +164,5 @@ JOIN
         CNVM.[MaterialNumber] COLLATE Latin1_General_100_BIN2 = P.[Product]
 WHERE
     P.[ProductType] ='ZVER'
+    AND
+    IsMarkedForDeletion <> 'X'

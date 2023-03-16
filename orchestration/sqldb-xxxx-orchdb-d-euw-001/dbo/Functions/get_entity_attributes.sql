@@ -47,7 +47,11 @@ SELECT
     ent.[dest_schema_name],
     ent.[dest_table_name],
     ent.[execution_order],
-    ent.[pk_field_names]
+    ent.[pk_field_names],
+    ent.[schedule_recurrence],
+    ent.[schedule_start_date],
+    ent.[schedule_day],
+    ent.[reload_period_in_months]
 FROM
     [dbo].[entity] ent
 LEFT JOIN

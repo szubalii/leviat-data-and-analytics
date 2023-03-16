@@ -6,6 +6,7 @@ trigger:
     - dev_nkukhtenko
     - dev_sleshchuk
     - dev_tdorodnova
+    - dev/*
     - main
     - qas
     - prod

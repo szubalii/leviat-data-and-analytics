@@ -1,0 +1,20 @@
+{
+	"name": "ext_FACT_CUSTPACKINGSLIPTRANS",
+	"properties": {
+		"folder": {
+			"name": "dbo/External Tables"
+		},
+		"content": {
+			"query": "CREATE EXTERNAL TABLE [dbo].[ext_FACT_CUSTPACKINGSLIPTRANS] WITH (\n        LOCATION = 'FACT_CUSTPACKINGSLIPTRANS/Archive',\n        DATA_SOURCE = [eds_tx-halfen-2-dwh],\n        FILE_FORMAT = [eff_Parquet]  \n) AS\nSELECT\n    *\nFROM\n    OPENROWSET(\n        BULK './FACT_CUSTPACKINGSLIPTRANS/FACT_CUSTPACKINGSLIPTRANS.csv',\n        DATA_SOURCE = 'eds_tx-halfen-2-dwh',\n        FORMAT = 'CSV', PARSER_VERSION = '2.0',\n        FIELDTERMINATOR =';',\n        ROWTERMINATOR = '\\r',\n        HEADER_ROW = TRUE\n    ) \n    WITH (\n        [DW_Id] bigint,\n\t    [DATAAREAID] VARCHAR (4) COLLATE Latin1_General_100_BIN2_UTF8,\n\t    [ORIGSALESID] VARCHAR (20) COLLATE Latin1_General_100_BIN2_UTF8,\n\t    [PACKINGSLIPID] VARCHAR (20) COLLATE Latin1_General_100_BIN2_UTF8,\n\t    [DLVCOUNTRYREGIONID] VARCHAR (10) COLLATE Latin1_General_100_BIN2_UTF8,\n\t    [DELIVERYDATE] DATETIME2 ,\n\t    [DeliveryDate_RunningDayNumber] bigint ,\n\t    [HPLDLVMODEID] VARCHAR (10) COLLATE Latin1_General_100_BIN2_UTF8,\n\t    [INVENTTRANSID] VARCHAR (24) COLLATE Latin1_General_100_BIN2_UTF8,\n\t    [ITEMID] VARCHAR (20) COLLATE Latin1_General_100_BIN2_UTF8,\n\t    [INVENTDIMID] VARCHAR (20) COLLATE Latin1_General_100_BIN2_UTF8,\n\t    [ORDERACCOUNT] VARCHAR (20) COLLATE Latin1_General_100_BIN2_UTF8,\n\t    [SalesTaker] VARCHAR (20) COLLATE Latin1_General_100_BIN2_UTF8,\n\t    [DLVTerm] VARCHAR (10) COLLATE Latin1_General_100_BIN2_UTF8,\n\t    [Payment] VARCHAR (10) COLLATE Latin1_General_100_BIN2_UTF8,\n\t    [DIMENSION] VARCHAR (10) COLLATE Latin1_General_100_BIN2_UTF8,\n\t    [HPLCOSTPRICE] DECIMAL(38, 12),\n\t    [QTY] decimal(38,12) ,\n\t    [AMOUNTCUR_CZ] decimal(38,12) ,\n\t    [CURRENCYCODE_CZ] VARCHAR (3) COLLATE Latin1_General_100_BIN2_UTF8,\n\t    [ShippingSiteRequested_RunningDayNumber] BIGINT,\n        [SHIPPINGDATECONFIRMED_tf] DATETIME2,\n        [ShippingDateConfirmed_tf_RunningDayNumber] BIGINT,\n        [RECID] bigint,\n        [INVENTSITEID] VARCHAR (10) COLLATE Latin1_General_100_BIN2_UTF8,\n        [INVENTLOCATIONID] VARCHAR (10) COLLATE Latin1_General_100_BIN2_UTF8,\n        [DeliveryDateDiff] DECIMAL(38, 0),\n        [Reliability01] bigint,\n        [DeliveryDateDiff2] DECIMAL(38, 0),\n        [Reliability201] bigint ,\n        [CategoryId] bigint ,\n        [ExtendedCategoryId] bigint ,\n        [bomlines] bigint ,\n        [SalesLine_Dw_Id] BIGINT,\n        [CountryRegion_DW_Id] bigint ,\n        [DateKey_DeliveryDate] bigint ,\n        [CustPackingslipJour_DW_Id] bigint ,\n        [ReqItemTable_DW_Id] BIGINT,\n        [SameDeliveryDate_SalesLine] BIGINT,\n        [Reliability_Stock_Items] BIGINT,\n        [HLFSEGMENTID] VARCHAR (4) COLLATE Latin1_General_100_BIN2_UTF8,\n        [Segment_DW_Id] BIGINT,\n        [SALESGROUP] VARCHAR (10) COLLATE Latin1_General_100_BIN2_UTF8,\n        [SalesPerson_DW_Id] BIGINT,\n        [DW_Id_Itemid] bigint ,\n        [DW_Batch] bigint ,\n        [DW_SourceCode] VARCHAR (15) COLLATE Latin1_General_100_BIN2_UTF8,\n        [DW_TimeStamp] DATETIME2\n    ) AS [result]\n\n",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "synapse_od",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

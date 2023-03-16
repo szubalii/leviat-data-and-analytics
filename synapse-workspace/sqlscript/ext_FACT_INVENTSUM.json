@@ -1,0 +1,20 @@
+{
+	"name": "ext_FACT_INVENTSUM",
+	"properties": {
+		"folder": {
+			"name": "dbo/External Tables"
+		},
+		"content": {
+			"query": "CREATE EXTERNAL TABLE [dbo].[ext_FACT_INVENTSUM] WITH (\n        LOCATION = 'FACT_INVENTSUM/Archive',\n        DATA_SOURCE = [eds_tx-halfen-2-dwh],\n        FILE_FORMAT = [eff_Parquet]\n) AS\nSELECT\n    *\nFROM\n    OPENROWSET(\n        BULK './FACT_INVENTSUM/In/2023/01/05/FACT_INVENTSUM_2023_01_05_05_01_32_204.parquet',\n        DATA_SOURCE = 'eds_tx-halfen-2-dwh',\n        FORMAT = 'PARQUET'\n    ) AS [result]\nWHERE DATAAREAID NOT IN ('5307', '5309', '5310', '5325')\n",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "synapse_od",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

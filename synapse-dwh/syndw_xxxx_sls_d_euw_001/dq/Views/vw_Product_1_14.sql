@@ -160,3 +160,5 @@ WHERE
     STATM = 'V'
     AND
     ISNULL(psd.[AccountDetnProductGroup], '') = ''
+    AND
+    psd.IsMarkedForDeletion <> 'X'
