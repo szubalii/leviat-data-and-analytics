@@ -4,8 +4,8 @@ CREATE TABLE [base_s4h_cax].[NSDM_V_MARC]
   [MANDT] nchar(3) collate Latin1_General_100_BIN2 NOT NULL
 , [MATNR] nvarchar(40) collate Latin1_General_100_BIN2 NOT NULL
 , [WERKS] nvarchar(4) collate Latin1_General_100_BIN2 NOT NULL
-, [FXHOR] char(3) collate Latin1_General_100_BIN2
 , [MINBE] decimal(13,3)
+, [FXHOR] char(3) collate Latin1_General_100_BIN2
 , [NCOST] nvarchar(1) collate Latin1_General_100_BIN2
 -- , [pstat] nvarchar(15) collate Latin1_General_100_BIN2
 -- , [lvorm] nvarchar(1) collate Latin1_General_100_BIN2
