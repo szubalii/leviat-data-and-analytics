@@ -1,4 +1,4 @@
-CREATE TABLE base_ff.CC_PCtr_mapping (
+CREATE TABLE base_ff.ExQLReportingEntity (
 
 	[CompanyCodeID]     NVARCHAR(5) NULL,
 	[ProfitCenterID]    NVARCHAR(10) NULL,

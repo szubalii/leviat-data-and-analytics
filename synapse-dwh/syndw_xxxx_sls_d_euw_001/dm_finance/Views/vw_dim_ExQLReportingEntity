@@ -1,5 +1,5 @@
 
-CREATE VIEW edw.vw_dim_CC_PCtr AS
+CREATE VIEW dm_finance.vw_dim_ExQLReportingEntity AS
     SELECT
     CompanyCodeID,
     ProfitCenterID,
