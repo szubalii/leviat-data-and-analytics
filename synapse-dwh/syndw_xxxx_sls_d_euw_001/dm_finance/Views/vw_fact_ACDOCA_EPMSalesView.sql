@@ -59,6 +59,7 @@ UNION ALL
 SELECT 
     GLALIRD.[SourceLedgerID],
     GLALIRD.[CompanyCodeID],
+    GLALIRD.[CompanyCodeID] + GLALIRD.[ProfitCenterID] as [SKReportingEntityKey],
     GLALIRD.[FiscalYear],
     GLALIRD.[AccountingDocument],
     GLALIRD.[LedgerGLLineItem],
