@@ -62,7 +62,7 @@ CREATE TABLE [base_s4h_cax].[I_PurgDocScheduleLineEnhanced]
     [POScheduleLineTotalExpectedQty] decimal(13, 3),
     [POPrevSchdLnTotalExpectedQty]   decimal(13, 3),
     [TimeVarianceInDays]             int,
-    [TimeVarianceInPct]              decimal(5, 2),
+    [TimeVarianceInPct]              decimal(13, 2),
     [TimeVarianceInPctByDelivDate]   decimal(15, 3),
     [TimeVarianceScore]              decimal(3),
     [TimeVarianceScoreByDelivDate]   decimal(3),
