@@ -13,16 +13,13 @@
 		},
 		"parameters": {
 			"schema": {
-				"type": "string",
-				"defaultValue": "base_s4h_cax"
+				"type": "string"
 			},
 			"table": {
-				"type": "string",
-				"defaultValue": "I_GLAccountLineItemRawData_delta"
+				"type": "string"
 			},
 			"sqlPool": {
-				"type": "string",
-				"defaultValue": "syndw_mpors_d_euw_001"
+				"type": "string"
 			}
 		},
 		"annotations": [],
