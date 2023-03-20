@@ -219,9 +219,9 @@ BDIwithMatType AS (
     LEFT JOIN
         VC
         ON
-            BDI.[OriginSDDocument] = VC.[SalesDocument]
+            BDI.[SalesDocumentID] = VC.[SalesDocument]
             AND
-            BDI.[OriginSDDocumentItem] = VC.[SalesDocumentItem]    
+            BDI.[SalesDocumentItemID] = VC.[SalesDocumentItem]    
     WHERE BDI.[Material]<>'000000000070000019'
 ),
 

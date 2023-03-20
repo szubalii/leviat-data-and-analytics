@@ -1,0 +1,8 @@
+trigger: none # triggered by PR
+
+extends:
+  template: ../../build/stages-build-deploy.yml
+  parameters:
+    folder: synapse-workspace
+    solution: SynapseServerless
+    env: qas

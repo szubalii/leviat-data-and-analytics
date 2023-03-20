@@ -6,6 +6,5 @@ CREATE TABLE [intm_axbi].[dim_ITEMGROUP](
     [t_jobId]         VARCHAR    (36)  NULL,
     [t_jobDtm]        DATETIME,
     [t_jobBy]         NVARCHAR  (128)  NULL,
-    [t_extractionDtm] DATETIME,
-    [t_filePath]      NVARCHAR (1024)  NULL
+    [t_extractionDtm] DATETIME NULL
 ) WITH (HEAP, DISTRIBUTION = REPLICATE);

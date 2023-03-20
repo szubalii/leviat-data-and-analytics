@@ -8,6 +8,10 @@
 				"sqlPool": {
 					"value": "@dataset().sqlPool",
 					"type": "Expression"
+				},
+				"synapseServer": {
+					"value": "@dataset().synapseServer",
+					"type": "Expression"
 				}
 			}
 		},
@@ -19,6 +23,9 @@
 				"type": "string"
 			},
 			"sqlPool": {
+				"type": "string"
+			},
+			"synapseServer": {
 				"type": "string"
 			}
 		},

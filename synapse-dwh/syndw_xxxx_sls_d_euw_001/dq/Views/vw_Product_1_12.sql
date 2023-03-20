@@ -150,5 +150,7 @@ WHERE
     (
        ISNULL(PP.[Commodity], '') = ''
     )
+    AND
+    P.IsMarkedForDeletion <> 'X'
 
 	

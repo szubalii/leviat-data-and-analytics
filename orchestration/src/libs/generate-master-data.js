@@ -161,29 +161,31 @@ function entityGenerateCSV (env) {
 
 function writePBIDatasetCSV (env) {
     fs.writeFileSync(
-        './Master Data/pbi_dataset.csv', 
+        './Master Data/' + env + '/pbi_dataset.csv', 
         pbiDatasetGenerateCSV(env)
     );
 }
 
 function writePBIDatasetEntityCSV (env) {
     fs.writeFileSync(
-        './Master Data/pbi_dataset_entity.csv', 
+        './Master Data/' + env + '/pbi_dataset_entity.csv', 
         pbiDatasetEntityGenerateCSV(env)
     );
 }
 
 function writeEntityCSV (env) {
     fs.writeFileSync(
-        './Master Data/entity.csv', 
+        './Master Data/' + env + '/entity.csv', 
         entityGenerateCSV(env)
     );
 }
 
 module.exports = {
-    writeMasterDataCSV: function (env) {
-        writePBIDatasetCSV(env);
-        writePBIDatasetEntityCSV(env);
-        writeEntityCSV(env);
+    writeMasterDataCSV: function () {
+        ['dev', 'test', 'qas', 'prod'].forEach(function(env){
+            writePBIDatasetCSV(env);
+            writePBIDatasetEntityCSV(env);
+            writeEntityCSV(env);
+        });
     }
 };

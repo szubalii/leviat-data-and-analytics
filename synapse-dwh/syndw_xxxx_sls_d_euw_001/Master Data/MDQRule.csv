@@ -32,9 +32,9 @@ RuleID;DataArea;RuleClass;RuleGroup;RuleBusinessDescription;RuleTechnicalDefinit
 1.94_;Material;;;Default Standard Price field to 1 in case of Manufacturing and Mixing sites. Whatever is copied will be replaced by 1 and new creates will default to 1 ;IF (MARA-MTART)=FERT, then (MBEW-STPRS)=1 for all Manufacturing and Mixing sites. [Applicable only for 'Create' Scenarios including Copy with Reference];Standard Price (MBEW-STPRS);
 1.99_ZHAW;Material;Conformity;ZHAW;ZHAW materials always have Procurement type F maintained. Only If the 'special procurement key (MARC-SOBSL)' is used, then the procurement key should be 'E' ;;Procurement type (MARC-BESKZ);
 1.99_VERP;Material;;VERP;VERP materials always have Procurement type F maintained. Only If the 'special procurement key (MARC-SOBSL)' is used, then the procurement key should be 'E' ;;Procurement type (MARC-BESKZ);
-1.8_ZROH;Material;Conformity;ZROH;General Item Category Group is always NORM for ZROH materials;If (MARA-MTART= ZROH) then (MARA-MTPOS = NORM;General Item Category Group (MARA-MTPOS);R
-1.8_ZKMA;Material;Conformity;ZKMA;General Item Category Group is always 0002 for Configurable  materials;If (MARA-MTART= ZKMA) then (MARA-MTPOS = 0002);General Item Category Group (MARA-MTPOS);R
-1.8_ZSER;Material;Conformity;ZSER;General Item Category Group is always LEIS for ZSER materials;If (MARA-MTART= ZSER) then (MARA-MTPOS) = LEIS;General Item Category Group (MARA-MTPOS);R
+1.8_ZROH;Material;Conformity;ZROH;General Item Category Group is always NORM for ZROH materials;If (MARA-MTART= ZROH) then (MARA-MTPOS = NORM;General Item Category Group (MARA-MTPOS);
+1.8_ZKMA;Material;Conformity;ZKMA;General Item Category Group is always 0002 for Configurable  materials;If (MARA-MTART= ZKMA) then (MARA-MTPOS = 0002);General Item Category Group (MARA-MTPOS);
+1.8_ZSER;Material;Conformity;ZSER;General Item Category Group is always LEIS for ZSER materials;If (MARA-MTART= ZSER) then (MARA-MTPOS) = LEIS;General Item Category Group (MARA-MTPOS);
 1.30_ZHAW;Material;Conformity;ZHAW;Material Account Assignment Group is always 01 for ZHAW materials;If (MARA-MTART= ZHAW) then MVKE-KTGRM = 01);Material Account Assignment Group (MVKE-KTGRM);R
 1.113_ZROH;Material;Completeness;ZROH;Material-related origin is always checked in Production Plants for ZROH materials;;Material-related origin  (MBEW-HKMAT);
 1.113_ZHAL;Material;Completeness;ZHAL;Material-related origin is always checked in Production Plants for ZHAL materials;;Material-related origin  (MBEW-HKMAT);

@@ -59,6 +59,7 @@ UNION ALL
 SELECT 
     GLALIRD.[SourceLedgerID],
     GLALIRD.[CompanyCodeID],
+    GLALIRD.[CompanyCodeID] + GLALIRD.[ProfitCenterID] as [SKReportingEntityKey],
     GLALIRD.[FiscalYear],
     GLALIRD.[AccountingDocument],
     GLALIRD.[LedgerGLLineItem],
@@ -125,6 +126,16 @@ SELECT
         THEN -1 * GLALIRD.[AmountInCompanyCodeCurrency] * ExchangeRate.ExchangeRate
         ELSE null
     END AS [OtherCoSAmount],
+    CASE ZED.CONTIGENCY5
+        WHEN 'Opex'
+        THEN -1 * GLALIRD.[AmountInCompanyCodeCurrency] * ExchangeRate.ExchangeRate
+        ELSE null
+    END AS [OpexAmount],
+    CASE ZED.CONTIGENCY4
+        WHEN 'Gross Margin'
+        THEN -1 * GLALIRD.[AmountInCompanyCodeCurrency] * ExchangeRate.ExchangeRate
+        ELSE null
+    END AS [GrossMarginAmount],
     CASE
         WHEN ZED.CONTIGENCY5 = 'COGS'
         THEN 'COGSAct'
@@ -242,7 +253,8 @@ SELECT
         ELSE                                            0
     END                                             AS [ManualAdjustment],
     CASE
-        WHEN GLALIRD.[GLAccountID] = '0049000109' THEN    1
+        WHEN GLALIRD.[GLAccountID]
+            IN ('0049000109', '0049000150', '0052300310', '0052300350', '0052900635') THEN 1
         ELSE                                            0
     END                                             AS [TPAdjustment],
     CASE
@@ -284,6 +296,7 @@ SELECT
     ExchangeRate.[TargetCurrency]                      AS [CurrencyID],
     ExchangeRate.[CurrencyTypeID],
     CurrType.[CurrencyType],
+    GLALIRD.[SalesOfficeID],
     GLALIRD.[t_applicationId],
     GLALIRD.[t_extractionDtm]
 FROM [edw].[fact_ACDOCA] GLALIRD
