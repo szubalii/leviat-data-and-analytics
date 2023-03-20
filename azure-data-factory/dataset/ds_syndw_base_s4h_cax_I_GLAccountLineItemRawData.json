@@ -2,8 +2,11 @@
 	"name": "ds_syndw_base_s4h_cax_I_GLAccountLineItemRawData",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "AzureSynapseAnalytics1",
-			"type": "LinkedServiceReference"
+			"referenceName": "ls_ws_xxxx_sls_x_euw_001__syndw_xxxx_sls_x_euw_001",
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"sqlPool": "syndw_xxxx_sls_d_euw_001"
+			}
 		},
 		"annotations": [],
 		"type": "AzureSqlDWTable",
