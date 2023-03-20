@@ -1,0 +1,1311 @@
+{
+	"name": "Parquet1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "stxxxxslsxeuw001",
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"storageAccount": "stmporseuw001"
+			}
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "I_GLAccountLineItemRawData_2023_01_17_15_16_07_079.parquet",
+				"folderPath": "CUBE/I_GLAccountLineItemRawData/Theobald/ODP/Delta/In/2023/01/17",
+				"fileSystem": "s4h-caa-200"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": [
+			{
+				"name": "TS_SEQUENCE_NUMBER",
+				"type": "INT_32"
+			},
+			{
+				"name": "ODQ_CHANGEMODE",
+				"type": "UTF8"
+			},
+			{
+				"name": "ODQ_ENTITYCNTR",
+				"type": "DECIMAL",
+				"precision": 19,
+				"scale": 0
+			},
+			{
+				"name": "SOURCELEDGER",
+				"type": "UTF8"
+			},
+			{
+				"name": "COMPANYCODE",
+				"type": "UTF8"
+			},
+			{
+				"name": "FISCALYEAR",
+				"type": "UTF8"
+			},
+			{
+				"name": "ACCOUNTINGDOCUMENT",
+				"type": "UTF8"
+			},
+			{
+				"name": "LEDGERGLLINEITEM",
+				"type": "UTF8"
+			},
+			{
+				"name": "LEDGERFISCALYEAR",
+				"type": "UTF8"
+			},
+			{
+				"name": "GLRECORDTYPE",
+				"type": "UTF8"
+			},
+			{
+				"name": "CHARTOFACCOUNTS",
+				"type": "UTF8"
+			},
+			{
+				"name": "CONTROLLINGAREA",
+				"type": "UTF8"
+			},
+			{
+				"name": "FINANCIALTRANSACTIONTYPE",
+				"type": "UTF8"
+			},
+			{
+				"name": "BUSINESSTRANSACTIONTYPE",
+				"type": "UTF8"
+			},
+			{
+				"name": "CONTROLLINGBUSTRANSACTYPE",
+				"type": "UTF8"
+			},
+			{
+				"name": "REFERENCEDOCUMENTTYPE",
+				"type": "UTF8"
+			},
+			{
+				"name": "LOGICALSYSTEM",
+				"type": "UTF8"
+			},
+			{
+				"name": "REFERENCEDOCUMENTCONTEXT",
+				"type": "UTF8"
+			},
+			{
+				"name": "REFERENCEDOCUMENT",
+				"type": "UTF8"
+			},
+			{
+				"name": "REFERENCEDOCUMENTITEM",
+				"type": "UTF8"
+			},
+			{
+				"name": "REFERENCEDOCUMENTITEMGROUP",
+				"type": "UTF8"
+			},
+			{
+				"name": "ISREVERSAL",
+				"type": "UTF8"
+			},
+			{
+				"name": "ISREVERSED",
+				"type": "UTF8"
+			},
+			{
+				"name": "REVERSALREFERENCEDOCUMENTCNTXT",
+				"type": "UTF8"
+			},
+			{
+				"name": "REVERSALREFERENCEDOCUMENT",
+				"type": "UTF8"
+			},
+			{
+				"name": "ISSETTLEMENT",
+				"type": "UTF8"
+			},
+			{
+				"name": "ISSETTLED",
+				"type": "UTF8"
+			},
+			{
+				"name": "PREDECESSORREFERENCEDOCTYPE",
+				"type": "UTF8"
+			},
+			{
+				"name": "PREDECESSORREFERENCEDOCCNTXT",
+				"type": "UTF8"
+			},
+			{
+				"name": "PREDECESSORREFERENCEDOCUMENT",
+				"type": "UTF8"
+			},
+			{
+				"name": "PREDECESSORREFERENCEDOCITEM",
+				"type": "UTF8"
+			},
+			{
+				"name": "SOURCEREFERENCEDOCUMENTTYPE",
+				"type": "UTF8"
+			},
+			{
+				"name": "SOURCELOGICALSYSTEM",
+				"type": "UTF8"
+			},
+			{
+				"name": "SOURCEREFERENCEDOCUMENTCNTXT",
+				"type": "UTF8"
+			},
+			{
+				"name": "SOURCEREFERENCEDOCUMENT",
+				"type": "UTF8"
+			},
+			{
+				"name": "SOURCEREFERENCEDOCUMENTITEM",
+				"type": "UTF8"
+			},
+			{
+				"name": "SOURCEREFERENCEDOCSUBITEM",
+				"type": "UTF8"
+			},
+			{
+				"name": "ISCOMMITMENT",
+				"type": "UTF8"
+			},
+			{
+				"name": "JRNLENTRYITEMOBSOLETEREASON",
+				"type": "UTF8"
+			},
+			{
+				"name": "GLACCOUNT",
+				"type": "UTF8"
+			},
+			{
+				"name": "COSTCENTER",
+				"type": "UTF8"
+			},
+			{
+				"name": "PROFITCENTER",
+				"type": "UTF8"
+			},
+			{
+				"name": "FUNCTIONALAREA",
+				"type": "UTF8"
+			},
+			{
+				"name": "BUSINESSAREA",
+				"type": "UTF8"
+			},
+			{
+				"name": "SEGMENT",
+				"type": "UTF8"
+			},
+			{
+				"name": "PARTNERCOSTCENTER",
+				"type": "UTF8"
+			},
+			{
+				"name": "PARTNERPROFITCENTER",
+				"type": "UTF8"
+			},
+			{
+				"name": "PARTNERFUNCTIONALAREA",
+				"type": "UTF8"
+			},
+			{
+				"name": "PARTNERBUSINESSAREA",
+				"type": "UTF8"
+			},
+			{
+				"name": "PARTNERCOMPANY",
+				"type": "UTF8"
+			},
+			{
+				"name": "PARTNERSEGMENT",
+				"type": "UTF8"
+			},
+			{
+				"name": "BALANCETRANSACTIONCURRENCY",
+				"type": "UTF8"
+			},
+			{
+				"name": "AMOUNTINBALANCETRANSACCRCY",
+				"type": "DECIMAL",
+				"precision": 17,
+				"scale": 2
+			},
+			{
+				"name": "TRANSACTIONCURRENCY",
+				"type": "UTF8"
+			},
+			{
+				"name": "AMOUNTINTRANSACTIONCURRENCY",
+				"type": "DECIMAL",
+				"precision": 17,
+				"scale": 2
+			},
+			{
+				"name": "COMPANYCODECURRENCY",
+				"type": "UTF8"
+			},
+			{
+				"name": "AMOUNTINCOMPANYCODECURRENCY",
+				"type": "DECIMAL",
+				"precision": 17,
+				"scale": 2
+			},
+			{
+				"name": "GLOBALCURRENCY",
+				"type": "UTF8"
+			},
+			{
+				"name": "AMOUNTINGLOBALCURRENCY",
+				"type": "DECIMAL",
+				"precision": 17,
+				"scale": 2
+			},
+			{
+				"name": "FREEDEFINEDCURRENCY1",
+				"type": "UTF8"
+			},
+			{
+				"name": "AMOUNTINFREEDEFINEDCURRENCY1",
+				"type": "DECIMAL",
+				"precision": 17,
+				"scale": 2
+			},
+			{
+				"name": "FREEDEFINEDCURRENCY2",
+				"type": "UTF8"
+			},
+			{
+				"name": "AMOUNTINFREEDEFINEDCURRENCY2",
+				"type": "DECIMAL",
+				"precision": 17,
+				"scale": 2
+			},
+			{
+				"name": "FREEDEFINEDCURRENCY3",
+				"type": "UTF8"
+			},
+			{
+				"name": "AMOUNTINFREEDEFINEDCURRENCY3",
+				"type": "DECIMAL",
+				"precision": 17,
+				"scale": 2
+			},
+			{
+				"name": "FREEDEFINEDCURRENCY4",
+				"type": "UTF8"
+			},
+			{
+				"name": "AMOUNTINFREEDEFINEDCURRENCY4",
+				"type": "DECIMAL",
+				"precision": 17,
+				"scale": 2
+			},
+			{
+				"name": "FREEDEFINEDCURRENCY5",
+				"type": "UTF8"
+			},
+			{
+				"name": "AMOUNTINFREEDEFINEDCURRENCY5",
+				"type": "DECIMAL",
+				"precision": 17,
+				"scale": 2
+			},
+			{
+				"name": "FREEDEFINEDCURRENCY6",
+				"type": "UTF8"
+			},
+			{
+				"name": "AMOUNTINFREEDEFINEDCURRENCY6",
+				"type": "DECIMAL",
+				"precision": 17,
+				"scale": 2
+			},
+			{
+				"name": "FREEDEFINEDCURRENCY7",
+				"type": "UTF8"
+			},
+			{
+				"name": "AMOUNTINFREEDEFINEDCURRENCY7",
+				"type": "DECIMAL",
+				"precision": 17,
+				"scale": 2
+			},
+			{
+				"name": "FREEDEFINEDCURRENCY8",
+				"type": "UTF8"
+			},
+			{
+				"name": "AMOUNTINFREEDEFINEDCURRENCY8",
+				"type": "DECIMAL",
+				"precision": 17,
+				"scale": 2
+			},
+			{
+				"name": "FIXEDAMOUNTINGLOBALCRCY",
+				"type": "DECIMAL",
+				"precision": 17,
+				"scale": 2
+			},
+			{
+				"name": "GRPVALNFIXEDAMTINGLOBCRCY",
+				"type": "DECIMAL",
+				"precision": 17,
+				"scale": 2
+			},
+			{
+				"name": "PRFTCTRVALNFXDAMTINGLOBCRCY",
+				"type": "DECIMAL",
+				"precision": 17,
+				"scale": 2
+			},
+			{
+				"name": "TOTALPRICEVARCINGLOBALCRCY",
+				"type": "DECIMAL",
+				"precision": 17,
+				"scale": 2
+			},
+			{
+				"name": "GRPVALNTOTPRCVARCINGLOBCRCY",
+				"type": "DECIMAL",
+				"precision": 17,
+				"scale": 2
+			},
+			{
+				"name": "PRFTCTRVALNTOTPRCVARCINGLBCRCY",
+				"type": "DECIMAL",
+				"precision": 17,
+				"scale": 2
+			},
+			{
+				"name": "FIXEDPRICEVARCINGLOBALCRCY",
+				"type": "DECIMAL",
+				"precision": 17,
+				"scale": 2
+			},
+			{
+				"name": "GRPVALNFIXEDPRCVARCINGLOBCRCY",
+				"type": "DECIMAL",
+				"precision": 17,
+				"scale": 2
+			},
+			{
+				"name": "PRFTCTRVALNFXDPRCVARCINGLBCRCY",
+				"type": "DECIMAL",
+				"precision": 17,
+				"scale": 2
+			},
+			{
+				"name": "CONTROLLINGOBJECTCURRENCY",
+				"type": "UTF8"
+			},
+			{
+				"name": "AMOUNTINOBJECTCURRENCY",
+				"type": "DECIMAL",
+				"precision": 17,
+				"scale": 2
+			},
+			{
+				"name": "BASEUNIT",
+				"type": "UTF8"
+			},
+			{
+				"name": "QUANTITY",
+				"type": "DECIMAL",
+				"precision": 17,
+				"scale": 3
+			},
+			{
+				"name": "FIXEDQUANTITY",
+				"type": "DECIMAL",
+				"precision": 17,
+				"scale": 3
+			},
+			{
+				"name": "COSTSOURCEUNIT",
+				"type": "UTF8"
+			},
+			{
+				"name": "VALUATIONQUANTITY",
+				"type": "DECIMAL",
+				"precision": 17,
+				"scale": 3
+			},
+			{
+				"name": "VALUATIONFIXEDQUANTITY",
+				"type": "DECIMAL",
+				"precision": 17,
+				"scale": 3
+			},
+			{
+				"name": "ADDITIONALQUANTITY1UNIT",
+				"type": "UTF8"
+			},
+			{
+				"name": "ADDITIONALQUANTITY1",
+				"type": "DECIMAL",
+				"precision": 17,
+				"scale": 3
+			},
+			{
+				"name": "ADDITIONALQUANTITY2UNIT",
+				"type": "UTF8"
+			},
+			{
+				"name": "ADDITIONALQUANTITY2",
+				"type": "DECIMAL",
+				"precision": 17,
+				"scale": 3
+			},
+			{
+				"name": "ADDITIONALQUANTITY3UNIT",
+				"type": "UTF8"
+			},
+			{
+				"name": "ADDITIONALQUANTITY3",
+				"type": "DECIMAL",
+				"precision": 17,
+				"scale": 3
+			},
+			{
+				"name": "DEBITCREDITCODE",
+				"type": "UTF8"
+			},
+			{
+				"name": "FISCALPERIOD",
+				"type": "UTF8"
+			},
+			{
+				"name": "FISCALYEARVARIANT",
+				"type": "UTF8"
+			},
+			{
+				"name": "FISCALYEARPERIOD",
+				"type": "UTF8"
+			},
+			{
+				"name": "POSTINGDATE",
+				"type": "DATE"
+			},
+			{
+				"name": "DOCUMENTDATE",
+				"type": "DATE"
+			},
+			{
+				"name": "ACCOUNTINGDOCUMENTTYPE",
+				"type": "UTF8"
+			},
+			{
+				"name": "ACCOUNTINGDOCUMENTITEM",
+				"type": "UTF8"
+			},
+			{
+				"name": "ASSIGNMENTREFERENCE",
+				"type": "UTF8"
+			},
+			{
+				"name": "ACCOUNTINGDOCUMENTCATEGORY",
+				"type": "UTF8"
+			},
+			{
+				"name": "POSTINGKEY",
+				"type": "UTF8"
+			},
+			{
+				"name": "TRANSACTIONTYPEDETERMINATION",
+				"type": "UTF8"
+			},
+			{
+				"name": "SUBLEDGERACCTLINEITEMTYPE",
+				"type": "UTF8"
+			},
+			{
+				"name": "ACCOUNTINGDOCCREATEDBYUSER",
+				"type": "UTF8"
+			},
+			{
+				"name": "LASTCHANGEDATETIME",
+				"type": "DECIMAL",
+				"precision": 15,
+				"scale": 0
+			},
+			{
+				"name": "CREATIONDATETIME",
+				"type": "DECIMAL",
+				"precision": 15,
+				"scale": 0
+			},
+			{
+				"name": "CREATIONDATE",
+				"type": "DATE"
+			},
+			{
+				"name": "ELIMINATIONPROFITCENTER",
+				"type": "UTF8"
+			},
+			{
+				"name": "ORIGINOBJECTTYPE",
+				"type": "UTF8"
+			},
+			{
+				"name": "GLACCOUNTTYPE",
+				"type": "UTF8"
+			},
+			{
+				"name": "ALTERNATIVEGLACCOUNT",
+				"type": "UTF8"
+			},
+			{
+				"name": "COUNTRYCHARTOFACCOUNTS",
+				"type": "UTF8"
+			},
+			{
+				"name": "INVOICEREFERENCE",
+				"type": "UTF8"
+			},
+			{
+				"name": "INVOICEREFERENCEFISCALYEAR",
+				"type": "UTF8"
+			},
+			{
+				"name": "FOLLOWONDOCUMENTTYPE",
+				"type": "UTF8"
+			},
+			{
+				"name": "INVOICEITEMREFERENCE",
+				"type": "UTF8"
+			},
+			{
+				"name": "REFERENCEPURCHASEORDERCATEGORY",
+				"type": "UTF8"
+			},
+			{
+				"name": "PURCHASINGDOCUMENT",
+				"type": "UTF8"
+			},
+			{
+				"name": "PURCHASINGDOCUMENTITEM",
+				"type": "UTF8"
+			},
+			{
+				"name": "ACCOUNTASSIGNMENTNUMBER",
+				"type": "UTF8"
+			},
+			{
+				"name": "DOCUMENTITEMTEXT",
+				"type": "UTF8"
+			},
+			{
+				"name": "SALESDOCUMENT",
+				"type": "UTF8"
+			},
+			{
+				"name": "SALESDOCUMENTITEM",
+				"type": "UTF8"
+			},
+			{
+				"name": "PRODUCT",
+				"type": "UTF8"
+			},
+			{
+				"name": "PLANT",
+				"type": "UTF8"
+			},
+			{
+				"name": "SUPPLIER",
+				"type": "UTF8"
+			},
+			{
+				"name": "CUSTOMER",
+				"type": "UTF8"
+			},
+			{
+				"name": "SERVICESRENDEREDDATE",
+				"type": "DATE"
+			},
+			{
+				"name": "CONDITIONCONTRACT",
+				"type": "UTF8"
+			},
+			{
+				"name": "EXCHANGERATEDATE",
+				"type": "DATE"
+			},
+			{
+				"name": "FINANCIALACCOUNTTYPE",
+				"type": "UTF8"
+			},
+			{
+				"name": "SPECIALGLCODE",
+				"type": "UTF8"
+			},
+			{
+				"name": "TAXCODE",
+				"type": "UTF8"
+			},
+			{
+				"name": "HOUSEBANK",
+				"type": "UTF8"
+			},
+			{
+				"name": "HOUSEBANKACCOUNT",
+				"type": "UTF8"
+			},
+			{
+				"name": "ISOPENITEMMANAGED",
+				"type": "UTF8"
+			},
+			{
+				"name": "CLEARINGDATE",
+				"type": "DATE"
+			},
+			{
+				"name": "CLEARINGACCOUNTINGDOCUMENT",
+				"type": "UTF8"
+			},
+			{
+				"name": "CLEARINGDOCFISCALYEAR",
+				"type": "UTF8"
+			},
+			{
+				"name": "ASSETDEPRECIATIONAREA",
+				"type": "UTF8"
+			},
+			{
+				"name": "MASTERFIXEDASSET",
+				"type": "UTF8"
+			},
+			{
+				"name": "FIXEDASSET",
+				"type": "UTF8"
+			},
+			{
+				"name": "ASSETVALUEDATE",
+				"type": "DATE"
+			},
+			{
+				"name": "ASSETTRANSACTIONTYPE",
+				"type": "UTF8"
+			},
+			{
+				"name": "ASSETACCTTRANSCLASSFCTN",
+				"type": "UTF8"
+			},
+			{
+				"name": "DEPRECIATIONFISCALPERIOD",
+				"type": "UTF8"
+			},
+			{
+				"name": "GROUPMASTERFIXEDASSET",
+				"type": "UTF8"
+			},
+			{
+				"name": "GROUPFIXEDASSET",
+				"type": "UTF8"
+			},
+			{
+				"name": "ASSETCLASS",
+				"type": "UTF8"
+			},
+			{
+				"name": "COSTESTIMATE",
+				"type": "UTF8"
+			},
+			{
+				"name": "INVENTORYSPECIALSTOCKVALNTYPE",
+				"type": "UTF8"
+			},
+			{
+				"name": "INVENTORYSPECIALSTOCKTYPE",
+				"type": "UTF8"
+			},
+			{
+				"name": "INVENTORYSPCLSTKSALESDOCUMENT",
+				"type": "UTF8"
+			},
+			{
+				"name": "INVENTORYSPCLSTKSALESDOCITM",
+				"type": "UTF8"
+			},
+			{
+				"name": "INVTRYSPCLSTOCKWBSELMNTINTID",
+				"type": "UTF8"
+			},
+			{
+				"name": "INVENTORYSPCLSTOCKWBSELEMENT",
+				"type": "UTF8"
+			},
+			{
+				"name": "INVENTORYSPECIALSTOCKSUPPLIER",
+				"type": "UTF8"
+			},
+			{
+				"name": "INVENTORYVALUATIONTYPE",
+				"type": "UTF8"
+			},
+			{
+				"name": "VALUATIONAREA",
+				"type": "UTF8"
+			},
+			{
+				"name": "SENDERCOMPANYCODE",
+				"type": "UTF8"
+			},
+			{
+				"name": "SENDERGLACCOUNT",
+				"type": "UTF8"
+			},
+			{
+				"name": "SENDERACCOUNTASSIGNMENT",
+				"type": "UTF8"
+			},
+			{
+				"name": "SENDERACCOUNTASSIGNMENTTYPE",
+				"type": "UTF8"
+			},
+			{
+				"name": "CONTROLLINGOBJECT",
+				"type": "UTF8"
+			},
+			{
+				"name": "COSTORIGINGROUP",
+				"type": "UTF8"
+			},
+			{
+				"name": "ORIGINSENDEROBJECT",
+				"type": "UTF8"
+			},
+			{
+				"name": "CONTROLLINGDEBITCREDITCODE",
+				"type": "UTF8"
+			},
+			{
+				"name": "CONTROLLINGOBJECTDEBITTYPE",
+				"type": "UTF8"
+			},
+			{
+				"name": "QUANTITYISINCOMPLETE",
+				"type": "UTF8"
+			},
+			{
+				"name": "OFFSETTINGACCOUNT",
+				"type": "UTF8"
+			},
+			{
+				"name": "OFFSETTINGACCOUNTTYPE",
+				"type": "UTF8"
+			},
+			{
+				"name": "OFFSETTINGCHARTOFACCOUNTS",
+				"type": "UTF8"
+			},
+			{
+				"name": "LINEITEMISCOMPLETED",
+				"type": "UTF8"
+			},
+			{
+				"name": "PERSONNELNUMBER",
+				"type": "UTF8"
+			},
+			{
+				"name": "CONTROLLINGOBJECTCLASS",
+				"type": "UTF8"
+			},
+			{
+				"name": "PARTNERCOMPANYCODE",
+				"type": "UTF8"
+			},
+			{
+				"name": "PARTNERCONTROLLINGOBJECTCLASS",
+				"type": "UTF8"
+			},
+			{
+				"name": "ORIGINCOSTCENTER",
+				"type": "UTF8"
+			},
+			{
+				"name": "ORIGINPROFITCENTER",
+				"type": "UTF8"
+			},
+			{
+				"name": "ORIGINCOSTCTRACTIVITYTYPE",
+				"type": "UTF8"
+			},
+			{
+				"name": "ACCOUNTASSIGNMENT",
+				"type": "UTF8"
+			},
+			{
+				"name": "ACCOUNTASSIGNMENTTYPE",
+				"type": "UTF8"
+			},
+			{
+				"name": "COSTCTRACTIVITYTYPE",
+				"type": "UTF8"
+			},
+			{
+				"name": "ORDERID",
+				"type": "UTF8"
+			},
+			{
+				"name": "ORDERCATEGORY",
+				"type": "UTF8"
+			},
+			{
+				"name": "WBSELEMENTINTERNALID",
+				"type": "UTF8"
+			},
+			{
+				"name": "WBSELEMENT",
+				"type": "UTF8"
+			},
+			{
+				"name": "PARTNERWBSELEMENTINTERNALID",
+				"type": "UTF8"
+			},
+			{
+				"name": "PARTNERWBSELEMENT",
+				"type": "UTF8"
+			},
+			{
+				"name": "PROJECTINTERNALID",
+				"type": "UTF8"
+			},
+			{
+				"name": "PROJECT",
+				"type": "UTF8"
+			},
+			{
+				"name": "PARTNERPROJECTINTERNALID",
+				"type": "UTF8"
+			},
+			{
+				"name": "PARTNERPROJECT",
+				"type": "UTF8"
+			},
+			{
+				"name": "OPERATINGCONCERN",
+				"type": "UTF8"
+			},
+			{
+				"name": "PROJECTNETWORK",
+				"type": "UTF8"
+			},
+			{
+				"name": "RELATEDNETWORKACTIVITY",
+				"type": "UTF8"
+			},
+			{
+				"name": "BUSINESSPROCESS",
+				"type": "UTF8"
+			},
+			{
+				"name": "COSTOBJECT",
+				"type": "UTF8"
+			},
+			{
+				"name": "BILLABLECONTROL",
+				"type": "UTF8"
+			},
+			{
+				"name": "COSTANALYSISRESOURCE",
+				"type": "UTF8"
+			},
+			{
+				"name": "CUSTOMERSERVICENOTIFICATION",
+				"type": "UTF8"
+			},
+			{
+				"name": "SERVICEDOCUMENTTYPE",
+				"type": "UTF8"
+			},
+			{
+				"name": "SERVICEDOCUMENT",
+				"type": "UTF8"
+			},
+			{
+				"name": "SERVICEDOCUMENTITEM",
+				"type": "UTF8"
+			},
+			{
+				"name": "PARTNERSERVICEDOCUMENTTYPE",
+				"type": "UTF8"
+			},
+			{
+				"name": "PARTNERSERVICEDOCUMENT",
+				"type": "UTF8"
+			},
+			{
+				"name": "PARTNERSERVICEDOCUMENTITEM",
+				"type": "UTF8"
+			},
+			{
+				"name": "SERVICECONTRACTTYPE",
+				"type": "UTF8"
+			},
+			{
+				"name": "SERVICECONTRACT",
+				"type": "UTF8"
+			},
+			{
+				"name": "SERVICECONTRACTITEM",
+				"type": "UTF8"
+			},
+			{
+				"name": "TIMESHEETOVERTIMECATEGORY",
+				"type": "UTF8"
+			},
+			{
+				"name": "PARTNERACCOUNTASSIGNMENT",
+				"type": "UTF8"
+			},
+			{
+				"name": "PARTNERACCOUNTASSIGNMENTTYPE",
+				"type": "UTF8"
+			},
+			{
+				"name": "WORKPACKAGE",
+				"type": "UTF8"
+			},
+			{
+				"name": "WORKITEM",
+				"type": "UTF8"
+			},
+			{
+				"name": "PARTNERCOSTCTRACTIVITYTYPE",
+				"type": "UTF8"
+			},
+			{
+				"name": "PARTNERORDER",
+				"type": "UTF8"
+			},
+			{
+				"name": "PARTNERORDERCATEGORY",
+				"type": "UTF8"
+			},
+			{
+				"name": "PARTNERSALESDOCUMENT",
+				"type": "UTF8"
+			},
+			{
+				"name": "PARTNERSALESDOCUMENTITEM",
+				"type": "UTF8"
+			},
+			{
+				"name": "PARTNERPROJECTNETWORK",
+				"type": "UTF8"
+			},
+			{
+				"name": "PARTNERPROJECTNETWORKACTIVITY",
+				"type": "UTF8"
+			},
+			{
+				"name": "PARTNERBUSINESSPROCESS",
+				"type": "UTF8"
+			},
+			{
+				"name": "PARTNERCOSTOBJECT",
+				"type": "UTF8"
+			},
+			{
+				"name": "BILLINGDOCUMENTTYPE",
+				"type": "UTF8"
+			},
+			{
+				"name": "SALESORGANIZATION",
+				"type": "UTF8"
+			},
+			{
+				"name": "DISTRIBUTIONCHANNEL",
+				"type": "UTF8"
+			},
+			{
+				"name": "ORGANIZATIONDIVISION",
+				"type": "UTF8"
+			},
+			{
+				"name": "SOLDPRODUCT",
+				"type": "UTF8"
+			},
+			{
+				"name": "SOLDPRODUCTGROUP",
+				"type": "UTF8"
+			},
+			{
+				"name": "CUSTOMERGROUP",
+				"type": "UTF8"
+			},
+			{
+				"name": "CUSTOMERSUPPLIERCOUNTRY",
+				"type": "UTF8"
+			},
+			{
+				"name": "CUSTOMERSUPPLIERINDUSTRY",
+				"type": "UTF8"
+			},
+			{
+				"name": "SALESDISTRICT",
+				"type": "UTF8"
+			},
+			{
+				"name": "BILLTOPARTY",
+				"type": "UTF8"
+			},
+			{
+				"name": "SHIPTOPARTY",
+				"type": "UTF8"
+			},
+			{
+				"name": "CUSTOMERSUPPLIERCORPORATEGROUP",
+				"type": "UTF8"
+			},
+			{
+				"name": "CASHLEDGERCOMPANYCODE",
+				"type": "UTF8"
+			},
+			{
+				"name": "CASHLEDGERACCOUNT",
+				"type": "UTF8"
+			},
+			{
+				"name": "FINANCIALMANAGEMENTAREA",
+				"type": "UTF8"
+			},
+			{
+				"name": "FUNDSCENTER",
+				"type": "UTF8"
+			},
+			{
+				"name": "FUNDEDPROGRAM",
+				"type": "UTF8"
+			},
+			{
+				"name": "FUND",
+				"type": "UTF8"
+			},
+			{
+				"name": "GRANTID",
+				"type": "UTF8"
+			},
+			{
+				"name": "BUDGETPERIOD",
+				"type": "UTF8"
+			},
+			{
+				"name": "PARTNERFUND",
+				"type": "UTF8"
+			},
+			{
+				"name": "PARTNERGRANT",
+				"type": "UTF8"
+			},
+			{
+				"name": "PARTNERBUDGETPERIOD",
+				"type": "UTF8"
+			},
+			{
+				"name": "PUBSECBUDGETACCOUNT",
+				"type": "UTF8"
+			},
+			{
+				"name": "PUBSECBUDGETACCOUNTCOCODE",
+				"type": "UTF8"
+			},
+			{
+				"name": "PUBSECBUDGETCNSMPNDATE",
+				"type": "DATE"
+			},
+			{
+				"name": "PUBSECBUDGETCNSMPNFSCLPERIOD",
+				"type": "UTF8"
+			},
+			{
+				"name": "PUBSECBUDGETCNSMPNFSCLYEAR",
+				"type": "UTF8"
+			},
+			{
+				"name": "PUBSECBUDGETISRELEVANT",
+				"type": "UTF8"
+			},
+			{
+				"name": "PUBSECBUDGETCNSMPNTYPE",
+				"type": "UTF8"
+			},
+			{
+				"name": "PUBSECBUDGETCNSMPNAMTTYPE",
+				"type": "UTF8"
+			},
+			{
+				"name": "JOINTVENTURE",
+				"type": "UTF8"
+			},
+			{
+				"name": "JOINTVENTUREEQUITYGROUP",
+				"type": "UTF8"
+			},
+			{
+				"name": "JOINTVENTURECOSTRECOVERYCODE",
+				"type": "UTF8"
+			},
+			{
+				"name": "JOINTVENTUREPARTNER",
+				"type": "UTF8"
+			},
+			{
+				"name": "JOINTVENTUREBILLINGTYPE",
+				"type": "UTF8"
+			},
+			{
+				"name": "JOINTVENTUREEQUITYTYPE",
+				"type": "UTF8"
+			},
+			{
+				"name": "JOINTVENTUREPRODUCTIONDATE",
+				"type": "DATE"
+			},
+			{
+				"name": "JOINTVENTUREBILLINGDATE",
+				"type": "DATE"
+			},
+			{
+				"name": "JOINTVENTUREOPERATIONALDATE",
+				"type": "DATE"
+			},
+			{
+				"name": "CUTBACKRUN",
+				"type": "DECIMAL",
+				"precision": 17,
+				"scale": 7
+			},
+			{
+				"name": "JOINTVENTUREACCOUNTINGACTIVITY",
+				"type": "UTF8"
+			},
+			{
+				"name": "PARTNERVENTURE",
+				"type": "UTF8"
+			},
+			{
+				"name": "PARTNEREQUITYGROUP",
+				"type": "UTF8"
+			},
+			{
+				"name": "SENDERCOSTRECOVERYCODE",
+				"type": "UTF8"
+			},
+			{
+				"name": "CUTBACKACCOUNT",
+				"type": "UTF8"
+			},
+			{
+				"name": "CUTBACKCOSTOBJECT",
+				"type": "UTF8"
+			},
+			{
+				"name": "SETTLEMENTREFERENCEDATE",
+				"type": "DATE"
+			},
+			{
+				"name": "ACCRUALOBJECTTYPE",
+				"type": "UTF8"
+			},
+			{
+				"name": "ACCRUALOBJECT",
+				"type": "UTF8"
+			},
+			{
+				"name": "ACCRUALSUBOBJECT",
+				"type": "UTF8"
+			},
+			{
+				"name": "ACCRUALITEMTYPE",
+				"type": "UTF8"
+			},
+			{
+				"name": "ACCRUALVALUEDATE",
+				"type": "DATE"
+			},
+			{
+				"name": "FINANCIALVALUATIONOBJECTTYPE",
+				"type": "UTF8"
+			},
+			{
+				"name": "FINANCIALVALUATIONOBJECT",
+				"type": "UTF8"
+			},
+			{
+				"name": "FINANCIALVALUATIONSUBOBJECT",
+				"type": "UTF8"
+			},
+			{
+				"name": "NETDUEDATE",
+				"type": "DATE"
+			},
+			{
+				"name": "CREDITRISKCLASS",
+				"type": "UTF8"
+			},
+			{
+				"name": "WORKCENTERINTERNALID",
+				"type": "UTF8"
+			},
+			{
+				"name": "ORDEROPERATION",
+				"type": "UTF8"
+			},
+			{
+				"name": "ORDERITEM",
+				"type": "UTF8"
+			},
+			{
+				"name": "ORDERSUBOPERATION",
+				"type": "UTF8"
+			},
+			{
+				"name": "EQUIPMENT",
+				"type": "UTF8"
+			},
+			{
+				"name": "FUNCTIONALLOCATION",
+				"type": "UTF8"
+			},
+			{
+				"name": "ASSEMBLY",
+				"type": "UTF8"
+			},
+			{
+				"name": "MAINTENANCEACTIVITYTYPE",
+				"type": "UTF8"
+			},
+			{
+				"name": "MAINTENANCEORDERPLANNINGCODE",
+				"type": "UTF8"
+			},
+			{
+				"name": "MAINTPRIORITYTYPE",
+				"type": "UTF8"
+			},
+			{
+				"name": "MAINTPRIORITY",
+				"type": "UTF8"
+			},
+			{
+				"name": "SUPERIORORDER",
+				"type": "UTF8"
+			},
+			{
+				"name": "PRODUCTGROUP",
+				"type": "UTF8"
+			},
+			{
+				"name": "MAINTENANCEORDERISPLANNED",
+				"type": "UTF8"
+			}
+		]
+	}
+}
