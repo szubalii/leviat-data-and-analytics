@@ -48,6 +48,13 @@
             "isPrimaryKey": true,
             "isSelected": true,
             "selectionPermission": "All",
+            "selections": 
+            [
+                {
+                    "value": "2022",
+                    "option": "LessOrEqual"
+                }
+            ],
             "outputLength": 4
         },
         {
