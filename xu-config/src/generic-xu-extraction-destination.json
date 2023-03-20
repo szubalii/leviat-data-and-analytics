@@ -20,6 +20,5 @@
         "columnNameKind": "Code"
     },
     "blobType": "BlockBlob",
-    "columnNameKind": "Code",
-    "maxBlobSize": 0
+    "columnNameKind": "Code"
 }
