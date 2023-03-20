@@ -189,95 +189,11 @@
 				}
 			},
 			{
-				"name": "If Processing Source File Required",
-				"type": "IfCondition",
-				"dependsOn": [
-					{
-						"activity": "If Test for Duplicates",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"userProperties": [],
-				"typeProperties": {
-					"expression": {
-						"value": "@contains(\n    pipeline().parameters.required_activities,\n    'ProcessADLS'\n)",
-						"type": "Expression"
-					},
-					"ifTrueActivities": [
-						{
-							"name": "Process Source File",
-							"type": "ExecutePipeline",
-							"dependsOn": [],
-							"userProperties": [],
-							"typeProperties": {
-								"pipeline": {
-									"referenceName": "pl_ADLS_process",
-									"type": "PipelineReference"
-								},
-								"waitOnCompletion": true,
-								"parameters": {
-									"entity_name": {
-										"value": "@pipeline().parameters.entity_name",
-										"type": "Expression"
-									},
-									"entity_id": {
-										"value": "@pipeline().parameters.entity_id",
-										"type": "Expression"
-									},
-									"date": {
-										"value": "@pipeline().parameters.date",
-										"type": "Expression"
-									},
-									"run_id": {
-										"value": "@pipeline().parameters.run_id",
-										"type": "Expression"
-									},
-									"client_field": {
-										"value": "@pipeline().parameters.client_field",
-										"type": "Expression"
-									},
-									"extraction_type": {
-										"value": "@pipeline().parameters.extraction_type",
-										"type": "Expression"
-									},
-									"adls_container_name": {
-										"value": "@variables('adlsContainerName')",
-										"type": "Expression"
-									},
-									"adls_directory_path_In": {
-										"value": "@pipeline().parameters.adls_directory_path_In",
-										"type": "Expression"
-									},
-									"adls_directory_path_Out": {
-										"value": "@pipeline().parameters.adls_directory_path_Out",
-										"type": "Expression"
-									},
-									"adls_file_name": {
-										"value": "@variables('adlsFileName')",
-										"type": "Expression"
-									},
-									"layer_nk": {
-										"value": "@pipeline().parameters.layer_nk",
-										"type": "Expression"
-									},
-									"application_id": {
-										"value": "@pipeline().parameters.source_database_name",
-										"type": "Expression"
-									}
-								}
-							}
-						}
-					]
-				}
-			},
-			{
 				"name": "If Synapse Ingestion Required",
 				"type": "IfCondition",
 				"dependsOn": [
 					{
-						"activity": "If Processing Source File Required",
+						"activity": "If Test for Duplicates",
 						"dependencyConditions": [
 							"Succeeded"
 						]
