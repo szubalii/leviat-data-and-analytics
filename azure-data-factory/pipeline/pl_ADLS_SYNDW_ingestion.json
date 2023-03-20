@@ -923,6 +923,10 @@
 										"sqlPool": {
 											"value": "@pipeline().globalParameters.synapseDatabaseName",
 											"type": "Expression"
+										},
+										"synapseServer": {
+											"value": "@pipeline().globalParameters.synapseServerName",
+											"type": "Expression"
 										}
 									}
 								}
@@ -975,6 +979,10 @@
 					"parameters": {
 						"sqlPool": {
 							"value": "@pipeline().globalParameters.synapseDatabaseName",
+							"type": "Expression"
+						},
+						"synapseServer": {
+							"value": "@pipeline().globalParameters.synapseServerName",
 							"type": "Expression"
 						}
 					}
