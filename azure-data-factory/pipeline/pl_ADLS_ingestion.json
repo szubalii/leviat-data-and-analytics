@@ -383,12 +383,6 @@
 			"adls_file_name": {
 				"type": "string"
 			},
-			"required_activities": {
-				"type": "array"
-			},
-			"skipped_activities": {
-				"type": "object"
-			},
 			"batch_id": {
 				"type": "string"
 			},
