@@ -641,6 +641,12 @@
 						"dependencyConditions": [
 							"Succeeded"
 						]
+					},
+					{
+						"activity": "If Date Param Not Empty",
+						"dependencyConditions": [
+							"Succeeded"
+						]
 					}
 				],
 				"userProperties": [],
@@ -675,6 +681,33 @@
 						"resource": "https://management.core.windows.net/"
 					}
 				}
+			},
+			{
+				"name": "If Date Param Not Empty",
+				"type": "IfCondition",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@not(empty(pipeline().parameters.date))",
+						"type": "Expression"
+					},
+					"ifTrueActivities": [
+						{
+							"name": "Set Date Variable",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "date",
+								"value": {
+									"value": "@pipeline().parameters.date",
+									"type": "Expression"
+								}
+							}
+						}
+					]
+				}
 			}
 		],
 		"parameters": {
@@ -690,8 +723,7 @@
 				"type": "string"
 			},
 			"date": {
-				"type": "string",
-				"defaultValue": "2022/08/12"
+				"type": "string"
 			},
 			"rerun_successful_full_entities": {
 				"type": "int",
@@ -701,6 +733,10 @@
 		"variables": {
 			"parameters": {
 				"type": "String"
+			},
+			"date": {
+				"type": "String",
+				"defaultValue": "@formatDateTime(utcNow(), 'yyyy/MM/dd')"
 			}
 		},
 		"folder": {
