@@ -49,7 +49,7 @@ CREATE TABLE [base_s4h_cax].[I_SalesOrderItemPricingElement_split](
 , [t_extractionDtm]		  DATETIME
 , [t_filePath]            NVARCHAR (1024)
 , CONSTRAINT [PK_I_SalesOrderItemPricingElement_split] PRIMARY KEY NONCLUSTERED (
-    [MANDT], [SalesOrder], [SalesOrderItem], [PricingProcedureStep], [PricingProcedureCounter]
+    [MANDT], [SALESORDER], [SALESORDERITEM], [PRICINGPROCEDURESTEP], [PRICINGPROCEDURECOUNTER]
   ) NOT ENFORCED
 )
 WITH (
