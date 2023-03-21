@@ -35,6 +35,18 @@
 						"dependencyConditions": [
 							"Succeeded"
 						]
+					},
+					{
+						"activity": "Append jobDtm",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "Append extractionDtm",
+						"dependencyConditions": [
+							"Succeeded"
+						]
 					}
 				],
 				"userProperties": [],
@@ -171,6 +183,32 @@
 					"variableName": "additionalColumns",
 					"value": {
 						"value": "@json(\n    concat(\n        '{\"name\":\"t_jobBy\",\"value\":\"',\n        pipeline().DataFactory,\n        '\"}'\n    )\n)",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Append jobDtm",
+				"type": "AppendVariable",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "additionalColumns",
+					"value": {
+						"value": "@json(\n    '{\"name\":\"t_jobDtm\"}'\n)",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Append extractionDtm",
+				"type": "AppendVariable",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "additionalColumns",
+					"value": {
+						"value": "@json(\n    '{\"name\":\"t_extractionDtm\"}'\n)",
 						"type": "Expression"
 					}
 				}
