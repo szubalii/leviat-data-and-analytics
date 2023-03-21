@@ -1,0 +1,94 @@
+{
+	"name": "ds_xu_extraction_destination",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "stxxxxslsxeuw001",
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"storageAccount": {
+					"value": "@dataset().storageAccount",
+					"type": "Expression"
+				}
+			}
+		},
+		"parameters": {
+			"storageAccount": {
+				"type": "string",
+				"defaultValue": "stmporsdeuw001"
+			},
+			"extractionName": {
+				"type": "string",
+				"defaultValue": "I_SalesOrderItemPricingElement_split"
+			}
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "destination.json",
+				"folderPath": {
+					"value": "@concat(\n    'extractions/',\n    dataset().extractionName\n)",
+					"type": "Expression"
+				},
+				"fileSystem": "xu-configuration"
+			}
+		},
+		"schema": {
+			"type": "object",
+			"properties": {
+				"nameGenerator": {
+					"type": "object",
+					"properties": {
+						"suffix": {
+							"type": "string"
+						},
+						"appendsTimestamp": {
+							"type": "boolean"
+						}
+					}
+				},
+				"internalSettings": {
+					"type": "object",
+					"properties": {
+						"sapDateConversion": {
+							"type": "object",
+							"properties": {
+								"enabled": {
+									"type": "boolean"
+								},
+								"replacementForInvalidDate": {
+									"type": "null"
+								},
+								"replacementForZeroDate": {
+									"type": "string"
+								},
+								"replacementForYear9999": {
+									"type": "string"
+								}
+							}
+						},
+						"existingFileAction": {
+							"type": "string"
+						},
+						"columnNameKind": {
+							"type": "string"
+						}
+					}
+				},
+				"blobType": {
+					"type": "string"
+				},
+				"columnNameKind": {
+					"type": "string"
+				},
+				"folderPath": {
+					"type": "string"
+				},
+				"maxBlobSize": {
+					"type": "integer"
+				}
+			}
+		}
+	}
+}
