@@ -19,6 +19,6 @@
     },
     "blobType": "BlockBlob",
     "columnNameKind": "Code",
-    "folderPath": "CUBE/I_GLAccountLineItemRawData_F/Theobald/ODP/Full/In/#{ DateTime.Now.ToString(\"yyyy/MM/dd\") }#",
+    "folderPath": "CUBE/I_GLAccountLineItemRawData_F_202305/Theobald/ODP/Full/In/#{ DateTime.Now.ToString(\"yyyy/MM/dd\") }#",
     "maxBlobSize": 0
 }
