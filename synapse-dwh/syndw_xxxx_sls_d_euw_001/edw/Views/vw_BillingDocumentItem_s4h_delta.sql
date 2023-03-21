@@ -327,6 +327,8 @@ WITH BillingDocumentItemBase as (
             then 'I'
             else 'O'
           end as InOutID
+        , PA.EBELN as ICSalesDocumentID 
+        , PA.EBELP as ICSalesDocumentItemID
         , doc.[t_applicationId]
         , doc.[t_extractionDtm]
         , doc.[t_lastActionBy]
@@ -360,6 +362,9 @@ WITH BillingDocumentItemBase as (
             on SDID.[SalesDocument] = doc.[SalesDocument] and
                     SDID.[SalesDocumentItem] = doc.[SalesDocumentItem] 
                     -- and SDID.[MANDT] = 200 MPS 2021/11/01: commented out due to different client values between dev,qas, and prod
+        left join [base_s4h_cax].[PurgAccAssignment] PA
+            ON doc.SalesDocument = PA.EBELN COLLATE Latin1_General_100_BIN2
+                AND left(doc.SalesDocumentItem,5) = PA.EBELP
         -- move to DM            
         --left join [base_s4h_cax].[I_SalesDocumentTypeText] SDTT
         --    on SDTT.[SalesDocumentType] = SDID.[SalesDocumentType] and SDTT.[Language] = 'E' 
@@ -544,6 +549,8 @@ WITH BillingDocumentItemBase as (
         , BDI_Base.[MaterialCalculated]
         , BDI_Base.[SoldToPartyCalculated]
         , BDI_Base.[InOutID]
+        , BDI_Base.[ICSalesDocumentID]
+        , BDI_Base.[ICSalesDocumentItemID]
         , BDI_Base.[t_applicationId]
         , BDI_Base.[t_extractionDtm]
         , BDI_Base.[t_lastActionBy]
@@ -710,7 +717,7 @@ WITH BillingDocumentItemBase as (
             ,   [PayerParty]
             ,   [CompanyCode]
             ,   [FiscalYear]
-            ,   [FiscalPeriod]
+            ,   [FiscalPeriod].
             ,   [CustomerAccountAssignmentGroupID]
             ,   [BusinessArea]
             ,   [ProfitCenter]
@@ -779,6 +786,8 @@ WITH BillingDocumentItemBase as (
             ,   [MaterialCalculated]
             ,   [SoldToPartyCalculated]
             ,   [InOutID]
+            ,   BDI.[ICSalesDocumentID]
+            ,   BDI.[ICSalesDocumentItemID]
             ,   BDI.[t_applicationId]
             ,   BDI.[t_extractionDtm]
             ,   BDI.[t_lastActionBy]
@@ -1002,6 +1011,8 @@ SELECT [BillingDocument]
       ,[MaterialCalculated]
       ,[SoldToPartyCalculated]
       ,[InOutID]
+      ,BDI.[ICSalesDocumentID]
+      ,BDI.[ICSalesDocumentItemID]
       ,BDI.[t_applicationId]
       ,BDI.[t_extractionDtm]
       ,BDI.[t_lastActionBy]
@@ -1234,6 +1245,8 @@ SELECT
     ,[MaterialCalculated]
     ,[SoldToPartyCalculated]
     ,[InOutID]
+    ,BDI.[ICSalesDocumentID]
+    ,BDI.[ICSalesDocumentItemID]
     ,BDI.[t_applicationId]
     ,BDI.[t_extractionDtm]
     ,BDI.[t_lastActionBy]
@@ -1431,6 +1444,8 @@ SELECT
     ,[MaterialCalculated]
     ,[SoldToPartyCalculated]
     ,[InOutID]
+    ,[ICSalesDocumentID]
+    ,[ICSalesDocumentItemID]
     ,BD_30.[t_applicationId]
     ,BD_30.[t_extractionDtm]
     ,BD_30.[t_lastActionBy]
@@ -1621,6 +1636,8 @@ SELECT
     ,[MaterialCalculated]
     ,[SoldToPartyCalculated]
     ,[InOutID]
+    ,[ICSalesDocumentID]
+    ,[ICSalesDocumentItemID]
     ,BDI_30.[t_applicationId]
     ,BDI_30.[t_extractionDtm]
     ,BDI_30.[t_lastActionBy]
