@@ -310,7 +310,7 @@ CREATE TABLE [base_s4h_cax].[I_GLAccountLineItemRawData_202301](
     [t_jobBy]                        NVARCHAR(128),
     [t_extractionDtm]                DATETIME,
     [t_filePath]                     NVARCHAR(1024),
-     CONSTRAINT [PK_I_GLAccountLineItemRawData] PRIMARY KEY NONCLUSTERED (
+     CONSTRAINT [PK_I_GLAccountLineItemRawData_202301] PRIMARY KEY NONCLUSTERED (
     [MANDT], [SourceLedger], [CompanyCode], [FiscalYear], [AccountingDocument], [LedgerGLLineItem]
   ) NOT ENFORCED
 )
