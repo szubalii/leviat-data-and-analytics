@@ -119,16 +119,8 @@
 												"value": "@pipeline().parameters.adls_directory_path_In",
 												"type": "Expression"
 											},
-											"required_activities": {
-												"value": "@pipeline().parameters.required_activities",
-												"type": "Expression"
-											},
 											"batch_id": {
 												"value": "@pipeline().parameters.batch_id",
-												"type": "Expression"
-											},
-											"skipped_activities": {
-												"value": "@pipeline().parameters.skipped_activities",
 												"type": "Expression"
 											},
 											"adls_file_name": {
@@ -382,12 +374,6 @@
 			},
 			"adls_file_name": {
 				"type": "string"
-			},
-			"required_activities": {
-				"type": "array"
-			},
-			"skipped_activities": {
-				"type": "object"
 			},
 			"batch_id": {
 				"type": "string"

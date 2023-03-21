@@ -162,14 +162,6 @@
 										"value": "@variables('adlsFileName')",
 										"type": "Expression"
 									},
-									"required_activities": {
-										"value": "@pipeline().parameters.required_activities",
-										"type": "Expression"
-									},
-									"skipped_activities": {
-										"value": "@pipeline().parameters.skipped_activities",
-										"type": "Expression"
-									},
 									"batch_id": {
 										"value": "@variables('batch_id_Extract')",
 										"type": "Expression"
@@ -867,19 +859,19 @@
 		"parameters": {
 			"entity_name": {
 				"type": "string",
-				"defaultValue": "I_CostCenter_F"
+				"defaultValue": "I_SalesOrderItemPricingElement_split"
 			},
 			"entity_id": {
 				"type": "string",
-				"defaultValue": "1"
+				"defaultValue": "900"
 			},
 			"date": {
 				"type": "string",
-				"defaultValue": "2022/04/21"
+				"defaultValue": "2023/03/21"
 			},
 			"run_id": {
 				"type": "string",
-				"defaultValue": "a1fe4011-b0aa-4e82-814e-5521537c78db"
+				"defaultValue": "2811baf8-9617-4e2b-849d-f74c2cfdf9f9"
 			},
 			"layer_nk": {
 				"type": "string",
@@ -891,11 +883,10 @@
 			},
 			"extraction_type": {
 				"type": "string",
-				"defaultValue": "ODP"
+				"defaultValue": "Table"
 			},
 			"pk_field_names": {
-				"type": "string",
-				"defaultValue": "CONTROLLINGAREA, COSTCENTER, VALIDITYENDDATE"
+				"type": "string"
 			},
 			"source_database_name": {
 				"type": "string"
@@ -904,23 +895,22 @@
 				"type": "string"
 			},
 			"source_table_name": {
-				"type": "string",
-				"defaultValue": "I_CostCenter"
+				"type": "string"
 			},
 			"source_date_field_name": {
 				"type": "string"
 			},
 			"adls_container_name": {
 				"type": "string",
-				"defaultValue": "s4h-cad"
+				"defaultValue": "s4h-caa-200"
 			},
 			"adls_directory_path_In": {
 				"type": "string",
-				"defaultValue": "DIMENSION/I_CostCenter_F/Theobald/ODP/Full/In/2022/04/21"
+				"defaultValue": "NULL/I_SalesOrderItemPricingElement_split/Theobald/Table/Full/In/2023/03/21"
 			},
 			"adls_directory_path_Out": {
 				"type": "string",
-				"defaultValue": "DIMENSION/I_CostCenter_F/Theobald/ODP/Full/Out/2022/04/21"
+				"defaultValue": "NULL/I_SalesOrderItemPricingElement_split/Theobald/Table/Full/Out/2023/03/21"
 			},
 			"base_schema_name": {
 				"type": "string",
@@ -931,7 +921,7 @@
 			},
 			"base_table_name": {
 				"type": "string",
-				"defaultValue": "I_CostCenter"
+				"defaultValue": "I_SalesOrderItemPricingElement_split"
 			},
 			"required_activities": {
 				"type": "array",
@@ -949,7 +939,8 @@
 				"type": "string"
 			},
 			"update_mode": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "Full"
 			},
 			"refresh_from_date": {
 				"type": "string",
