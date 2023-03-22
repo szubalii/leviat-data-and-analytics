@@ -267,6 +267,10 @@
 									"extraction_type": {
 										"value": "@pipeline().parameters.extraction_type",
 										"type": "Expression"
+									},
+									"extraction_timestamp_string": {
+										"value": "@variables('extractionTimestampString')",
+										"type": "Expression"
 									}
 								}
 							}
@@ -322,7 +326,7 @@
 				"type": "IfCondition",
 				"dependsOn": [
 					{
-						"activity": "Retrieve File Name if S4H Extraction",
+						"activity": "Set Vars if Required S4H Extraction",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -364,7 +368,7 @@
 										"type": "Expression"
 									},
 									"extraction_timestamp": {
-										"value": "@variables('extraction_Timestamp')",
+										"value": "@variables('XUExtractionTimestamp')",
 										"type": "Expression"
 									},
 									"batch_id_CheckXUExtractionStatus": {
@@ -381,14 +385,6 @@
 									},
 									"adls_file_name": {
 										"value": "@variables('adlsFileName')",
-										"type": "Expression"
-									},
-									"s4h_system_id": {
-										"value": "@pipeline().parameters.s4h_system_id",
-										"type": "Expression"
-									},
-									"s4h_client_id": {
-										"value": "@pipeline().parameters.s4h_client_id",
 										"type": "Expression"
 									}
 								}
@@ -456,15 +452,7 @@
 										"type": "Expression"
 									},
 									"extraction_timestamp": {
-										"value": "@variables('extraction_Timestamp')",
-										"type": "Expression"
-									},
-									"s4h_system_id": {
-										"value": "@pipeline().parameters.s4h_system_id",
-										"type": "Expression"
-									},
-									"s4h_client_id": {
-										"value": "@pipeline().parameters.s4h_client_id",
+										"value": "@variables('XUExtractionTimestamp')",
 										"type": "Expression"
 									}
 								}
@@ -474,7 +462,7 @@
 				}
 			},
 			{
-				"name": "Retrieve File Name if S4H Extraction",
+				"name": "Set Vars if Required S4H Extraction",
 				"description": "In case S4H Extraction is executed, retrieve the XU extraction timestamp, for completing status and storing of log activities",
 				"type": "IfCondition",
 				"dependsOn": [
@@ -499,7 +487,7 @@
 					},
 					"ifTrueActivities": [
 						{
-							"name": "Set XU Extraction Timestamp",
+							"name": "Set XU Extraction Timestamp 2",
 							"type": "SetVariable",
 							"dependsOn": [
 								{
@@ -511,7 +499,7 @@
 							],
 							"userProperties": [],
 							"typeProperties": {
-								"variableName": "extraction_Timestamp",
+								"variableName": "XUExtractionTimestamp",
 								"value": {
 									"value": "@json(variables('extraction_Output')).timestamp",
 									"type": "Expression"
@@ -592,6 +580,27 @@
 									"type": "Expression"
 								}
 							}
+						},
+						{
+							"name": "Set Extraction Timestamp String",
+							"description": "Get the correct format extraction timestamp from the XU extraction timestamp",
+							"type": "SetVariable",
+							"dependsOn": [
+								{
+									"activity": "Set XU Extraction Timestamp 2",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "extractionTimestampString",
+								"value": {
+									"value": "@concat(\n    substring(variables('XUExtractionTimestamp'), 0, 10),\n    ' ',\n    substring(variables('XUExtractionTimestamp'), 11, 12)\n)",
+									"type": "Expression"
+								}
+							}
 						}
 					]
 				}
@@ -622,14 +631,35 @@
 					},
 					"ifTrueActivities": [
 						{
-							"name": "Set S4H Extraction Timestamp",
+							"name": "Set XU Extraction Timestamp",
 							"type": "SetVariable",
 							"dependsOn": [],
 							"userProperties": [],
 							"typeProperties": {
-								"variableName": "extraction_Timestamp",
+								"variableName": "XUExtractionTimestamp",
 								"value": {
 									"value": "@pipeline().parameters.skipped_activities.Extract.output.timestamp",
+									"type": "Expression"
+								}
+							}
+						},
+						{
+							"name": "Set Extraction Timestamp String_copy1",
+							"description": "Get the correct format extraction timestamp from the XU extraction timestamp",
+							"type": "SetVariable",
+							"dependsOn": [
+								{
+									"activity": "Set XU Extraction Timestamp",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "extractionTimestampString",
+								"value": {
+									"value": "@concat(\n    substring(variables('XUExtractionTimestamp'), 0, 10),\n    ' ',\n    substring(variables('XUExtractionTimestamp'), 11, 12)\n)",
 									"type": "Expression"
 								}
 							}
@@ -697,15 +727,7 @@
 										"type": "Expression"
 									},
 									"extraction_timestamp": {
-										"value": "@variables('extraction_Timestamp')",
-										"type": "Expression"
-									},
-									"s4h_system_id": {
-										"value": "@pipeline().parameters.s4h_system_id",
-										"type": "Expression"
-									},
-									"s4h_client_id": {
-										"value": "@pipeline().parameters.s4h_client_id",
+										"value": "@variables('XUExtractionTimestamp')",
 										"type": "Expression"
 									}
 								}
@@ -961,7 +983,7 @@
 			"extraction_Output": {
 				"type": "String"
 			},
-			"extraction_Timestamp": {
+			"extractionTimestampString": {
 				"type": "String"
 			},
 			"batch_id_StoreXUExtractionLog": {
@@ -972,6 +994,9 @@
 				"type": "String"
 			},
 			"application_id": {
+				"type": "String"
+			},
+			"XUExtractionTimestamp": {
 				"type": "String"
 			}
 		},
