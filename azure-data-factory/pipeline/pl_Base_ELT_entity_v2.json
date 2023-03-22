@@ -267,6 +267,10 @@
 									"extraction_type": {
 										"value": "@pipeline().parameters.extraction_type",
 										"type": "Expression"
+									},
+									"extraction_timestamp_string": {
+										"value": "@variables('extractionTimestampString')",
+										"type": "Expression"
 									}
 								}
 							}
