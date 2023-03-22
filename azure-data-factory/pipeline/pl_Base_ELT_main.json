@@ -680,18 +680,18 @@
 		"parameters": {
 			"adhoc": {
 				"type": "int",
-				"defaultValue": 0
+				"defaultValue": 1
 			},
 			"entity_filter": {
 				"type": "string",
-				"defaultValue": "'a' = 'a'"
+				"defaultValue": "entity_id IN (900, 133)"
 			},
 			"parent_run_id": {
 				"type": "string"
 			},
 			"date": {
 				"type": "string",
-				"defaultValue": "2022/08/12"
+				"defaultValue": "2023/03/21"
 			},
 			"rerun_successful_full_entities": {
 				"type": "int",
