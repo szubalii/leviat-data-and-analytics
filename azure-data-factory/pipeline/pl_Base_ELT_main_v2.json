@@ -795,7 +795,7 @@
 			},
 			"entity_filter": {
 				"type": "string",
-				"defaultValue": "entity_id IN (900, 133)"
+				"defaultValue": "entity_id IN (85)"
 			},
 			"parent_run_id": {
 				"type": "string"
