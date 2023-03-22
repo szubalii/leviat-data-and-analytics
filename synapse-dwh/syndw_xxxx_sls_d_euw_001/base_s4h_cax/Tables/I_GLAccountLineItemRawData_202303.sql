@@ -303,7 +303,7 @@ CREATE TABLE [base_s4h_cax].[I_GLAccountLineItemRawData_202303](
     [SuperiorOrder]                  nvarchar(12),
     [ProductGroup]                   nvarchar(9),
     [MaintenanceOrderIsPlanned]      nvarchar(1),
-    [KMVKBUPA]                       nvarchar(3),
+    [KMVKBUPA]                       nvarchar(4),
     [t_applicationId]                VARCHAR(32),
     [t_jobId]                        VARCHAR(36),
     [t_jobDtm]                       DATETIME,
