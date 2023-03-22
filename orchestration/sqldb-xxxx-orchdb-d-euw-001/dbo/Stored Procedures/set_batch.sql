@@ -10,7 +10,8 @@ CREATE PROCEDURE [dbo].[set_batch]
     @file_name nvarchar(250) = NULL,
     @source_layer varchar(50),
     @target_layer varchar(50),
-    @size_bytes BIGINT = NULL
+    @size_bytes BIGINT = NULL,
+	@output NVARCHAR(MAX) = NULL
 AS
 BEGIN
 
@@ -53,7 +54,8 @@ BEGIN
         [file_path],
         [directory_path],
         [file_name],
-        [size_bytes]
+        [size_bytes],
+        [output]
     )
     VALUES (
         @batch_id,
@@ -67,7 +69,8 @@ BEGIN
         @file_path,
         @directory_path,
         @file_name,
-        @size_bytes
+        @size_bytes,
+        @output
     );
 END;
 GO
