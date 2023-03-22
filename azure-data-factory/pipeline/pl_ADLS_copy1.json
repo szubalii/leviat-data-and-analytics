@@ -39,8 +39,7 @@
 					"sink": {
 						"type": "ParquetSink",
 						"storeSettings": {
-							"type": "AzureBlobFSWriteSettings",
-							"copyBehavior": "MergeFiles"
+							"type": "AzureBlobFSWriteSettings"
 						},
 						"formatSettings": {
 							"type": "ParquetWriteSettings"
@@ -85,10 +84,7 @@
 								"value": "@pipeline().parameters.target_adls_directory_path",
 								"type": "Expression"
 							},
-							"file": {
-								"value": "@pipeline().parameters.file_name",
-								"type": "Expression"
-							},
+							"file": "*",
 							"storageAccount": {
 								"value": "@pipeline().globalParameters.storageAccountName",
 								"type": "Expression"
@@ -333,11 +329,11 @@
 		"parameters": {
 			"source_adls_directory_path": {
 				"type": "string",
-				"defaultValue": "NULL/I_SalesOrderItemPricingElement_split/Theobald/Table/Full/In/2023/03/13/"
+				"defaultValue": "NULL/I_SalesOrderItemPricingElement_split/Theobald/Table/Full/In/2023/03/21"
 			},
 			"file_name": {
 				"type": "string",
-				"defaultValue": "I_SalesOrderItemPricingElement_split_2023_03_13_12_31_33_136_*.parquet"
+				"defaultValue": "I_SalesOrderItemPricingElement_split_2023_03_21_09_05_41_524*.parquet"
 			},
 			"entity_id": {
 				"type": "string",
@@ -353,7 +349,7 @@
 			},
 			"target_adls_directory_path": {
 				"type": "string",
-				"defaultValue": "NULL/I_SalesOrderItemPricingElement_split/Theobald/Table/Full/Out/2023/03/13/"
+				"defaultValue": "NULL/I_SalesOrderItemPricingElement_split/Theobald/Table/Full/Out/2023/03/21"
 			},
 			"additional_columns": {
 				"type": "string"
