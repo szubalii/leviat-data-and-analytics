@@ -267,10 +267,6 @@
 									"extraction_type": {
 										"value": "@pipeline().parameters.extraction_type",
 										"type": "Expression"
-									},
-									"extraction_timestamp_string": {
-										"value": "@variables('extractionTimestampString')",
-										"type": "Expression"
 									}
 								}
 							}
@@ -368,7 +364,7 @@
 										"type": "Expression"
 									},
 									"extraction_timestamp": {
-										"value": "@variables('extractionTimestampString')",
+										"value": "@variables('extraction_Timestamp')",
 										"type": "Expression"
 									},
 									"batch_id_CheckXUExtractionStatus": {
@@ -452,7 +448,7 @@
 										"type": "Expression"
 									},
 									"extraction_timestamp": {
-										"value": "@variables('extractionTimestampString')",
+										"value": "@variables('extraction_Timestamp')",
 										"type": "Expression"
 									},
 									"s4h_system_id": {
@@ -507,7 +503,7 @@
 							],
 							"userProperties": [],
 							"typeProperties": {
-								"variableName": "extractionTimestampString",
+								"variableName": "extraction_Timestamp",
 								"value": {
 									"value": "@json(variables('extraction_Output')).timestamp",
 									"type": "Expression"
@@ -623,7 +619,7 @@
 							"dependsOn": [],
 							"userProperties": [],
 							"typeProperties": {
-								"variableName": "extractionTimestampString",
+								"variableName": "extraction_Timestamp",
 								"value": {
 									"value": "@pipeline().parameters.skipped_activities.Extract.output.timestamp",
 									"type": "Expression"
@@ -693,7 +689,7 @@
 										"type": "Expression"
 									},
 									"extraction_timestamp": {
-										"value": "@variables('extractionTimestampString')",
+										"value": "@variables('extraction_Timestamp')",
 										"type": "Expression"
 									},
 									"s4h_system_id": {
@@ -957,7 +953,7 @@
 			"extraction_Output": {
 				"type": "String"
 			},
-			"extractionTimestampString": {
+			"extraction_Timestamp": {
 				"type": "String"
 			},
 			"batch_id_StoreXUExtractionLog": {
