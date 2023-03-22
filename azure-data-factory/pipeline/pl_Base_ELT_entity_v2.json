@@ -99,13 +99,34 @@
 									"type": "Expression"
 								}
 							}
+						},
+						{
+							"name": "Set Extraction Timestamp String_copy1",
+							"description": "Get the correct format extraction timestamp from the XU extraction timestamp",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "extractionTimestampString",
+								"value": {
+									"value": "@pipeline().parameters.skipped_activities.Extract.output.extraction_timestamp",
+									"type": "Expression"
+								}
+							}
 						}
 					],
 					"ifTrueActivities": [
 						{
 							"name": "Execute Entity ADLS Ingestion",
 							"type": "ExecutePipeline",
-							"dependsOn": [],
+							"dependsOn": [
+								{
+									"activity": "Set Extraction Timestamp String",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
 							"userProperties": [],
 							"typeProperties": {
 								"pipeline": {
@@ -181,7 +202,24 @@
 									"s4h_client_id": {
 										"value": "@pipeline().parameters.s4h_client_id",
 										"type": "Expression"
+									},
+									"extraction_timestamp": {
+										"value": "@variables('extractionTimestampString')",
+										"type": "Expression"
 									}
+								}
+							}
+						},
+						{
+							"name": "Set Extraction Timestamp String",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "extractionTimestampString",
+								"value": {
+									"value": "@formatDateTime(\n    variables('extractionTimestamp'),\n    'yyyy-MM-dd HH:mm:ss.fff'\n)",
+									"type": "Expression"
 								}
 							}
 						}
@@ -313,7 +351,7 @@
 							"typeProperties": {
 								"variableName": "adlsFileName",
 								"value": {
-									"value": "@concat(\n    pipeline().parameters.base_table_name\n    ,'_'\n    ,formatDateTime(utcNow(),'yyyy_MM_dd_HH_mm_ss_fff')\n    ,'.parquet'\n)",
+									"value": "@concat(\n    pipeline().parameters.base_table_name\n    ,'_'\n    ,formatDateTime(\n        variables('extractionTimestamp'),\n        'yyyy_MM_dd_HH_mm_ss_fff'\n    )\n    ,'.parquet'\n)",
 									"type": "Expression"
 								}
 							}
@@ -327,6 +365,12 @@
 				"dependsOn": [
 					{
 						"activity": "Set Vars if Required S4H Extraction",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "Set XU Extraction Timestamp if S4H Extract Not Required",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -471,12 +515,6 @@
 						"dependencyConditions": [
 							"Succeeded"
 						]
-					},
-					{
-						"activity": "If S4H Extract Not Required",
-						"dependencyConditions": [
-							"Succeeded"
-						]
 					}
 				],
 				"userProperties": [],
@@ -582,74 +620,12 @@
 							}
 						},
 						{
-							"name": "Set Extraction Timestamp String",
+							"name": "Reset Extraction Timestamp String",
 							"description": "Get the correct format extraction timestamp from the XU extraction timestamp",
 							"type": "SetVariable",
 							"dependsOn": [
 								{
 									"activity": "Set XU Extraction Timestamp 2",
-									"dependencyConditions": [
-										"Succeeded"
-									]
-								}
-							],
-							"userProperties": [],
-							"typeProperties": {
-								"variableName": "extractionTimestampString",
-								"value": {
-									"value": "@concat(\n    substring(variables('XUExtractionTimestamp'), 0, 10),\n    ' ',\n    substring(variables('XUExtractionTimestamp'), 11, 12)\n)",
-									"type": "Expression"
-								}
-							}
-						}
-					]
-				}
-			},
-			{
-				"name": "If S4H Extract Not Required",
-				"description": "In case of S4H Extraction already done, get the S4H Extraction Timestamp from the 'skipped' parameter",
-				"type": "IfCondition",
-				"dependsOn": [
-					{
-						"activity": "If FileName Param Empty",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					},
-					{
-						"activity": "If not AXBI",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"userProperties": [],
-				"typeProperties": {
-					"expression": {
-						"value": "@and(\n    equals(pipeline().parameters.layer_nk, 'S4H'),\n    contains(\n        pipeline().parameters.skipped_activities,\n        'Extract'\n    )\n)",
-						"type": "Expression"
-					},
-					"ifTrueActivities": [
-						{
-							"name": "Set XU Extraction Timestamp",
-							"type": "SetVariable",
-							"dependsOn": [],
-							"userProperties": [],
-							"typeProperties": {
-								"variableName": "XUExtractionTimestamp",
-								"value": {
-									"value": "@pipeline().parameters.skipped_activities.Extract.output.timestamp",
-									"type": "Expression"
-								}
-							}
-						},
-						{
-							"name": "Set Extraction Timestamp String_copy1",
-							"description": "Get the correct format extraction timestamp from the XU extraction timestamp",
-							"type": "SetVariable",
-							"dependsOn": [
-								{
-									"activity": "Set XU Extraction Timestamp",
 									"dependencyConditions": [
 										"Succeeded"
 									]
@@ -874,6 +850,40 @@
 						}
 					]
 				}
+			},
+			{
+				"name": "Set XU Extraction Timestamp if S4H Extract Not Required",
+				"type": "IfCondition",
+				"dependsOn": [
+					{
+						"activity": "If Extract Required",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@and(\n    equals(pipeline().parameters.layer_nk, 'S4H'),\n    contains(\n        pipeline().parameters.skipped_activities,\n        'Extract'\n    )\n)",
+						"type": "Expression"
+					},
+					"ifTrueActivities": [
+						{
+							"name": "Set XU Extraction Timestamp",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "XUExtractionTimestamp",
+								"value": {
+									"value": "@pipeline().parameters.skipped_activities.Extract.output.timestamp",
+									"type": "Expression"
+								}
+							}
+						}
+					]
+				}
 			}
 		],
 		"parameters": {
@@ -998,6 +1008,10 @@
 			},
 			"XUExtractionTimestamp": {
 				"type": "String"
+			},
+			"extractionTimestamp": {
+				"type": "String",
+				"defaultValue": "@utcNow()"
 			}
 		},
 		"folder": {
