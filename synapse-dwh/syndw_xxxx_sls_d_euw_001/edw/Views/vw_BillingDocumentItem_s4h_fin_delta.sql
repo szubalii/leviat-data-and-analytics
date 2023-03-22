@@ -209,7 +209,7 @@ BDIwithMatType AS (
         ON VC.SalesDocument =
             CASE
                WHEN BDI.SalesSDDocumentCategoryID='V'
-                   THEN  BDI.ICSalesDocumentID COLLATE Latin1_General_100_BIN2
+                   THEN  BDI.ICSalesDocumentID           COLLATE DATABASE_DEFAULT
                ELSE BDI.SalesDocumentID
                END 
         and VC.SalesDocumentItem =

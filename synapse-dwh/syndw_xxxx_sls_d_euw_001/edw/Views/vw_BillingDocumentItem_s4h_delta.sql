@@ -363,7 +363,7 @@ WITH BillingDocumentItemBase as (
                     SDID.[SalesDocumentItem] = doc.[SalesDocumentItem] 
                     -- and SDID.[MANDT] = 200 MPS 2021/11/01: commented out due to different client values between dev,qas, and prod
         left join [base_s4h_cax].[PurgAccAssignment] PA
-            ON doc.SalesDocument = PA.EBELN COLLATE Latin1_General_100_BIN2
+            ON doc.SalesDocument = PA.EBELN                   COLLATE DATABASE_DEFAULT
                 AND left(doc.SalesDocumentItem,5) = PA.EBELP
         -- move to DM            
         --left join [base_s4h_cax].[I_SalesDocumentTypeText] SDTT

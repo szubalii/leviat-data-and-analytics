@@ -369,7 +369,7 @@ WITH BillingDocumentItemBase as (
          left join [edw].[dim_Brand] DimBrand
                on DimBrand.[BrandID] = doc.[AdditionalMaterialGroup1]
          left join [base_s4h_cax].[PurgAccAssignment] PA
-            ON doc.SalesDocument = PA.EBELN COLLATE Latin1_General_100_BIN2
+            ON doc.SalesDocument = PA.EBELN                   COLLATE DATABASE_DEFAULT
                 AND left(doc.SalesDocumentItem,5) = PA.EBELP 
     ),
     BillingDocumentItemBase_Margin as (
