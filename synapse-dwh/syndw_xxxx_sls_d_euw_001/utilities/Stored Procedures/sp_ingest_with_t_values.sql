@@ -6,19 +6,20 @@
 -- from ADF. 
 
 CREATE PROC [utilities].[sp_ingest_with_t_values]
-    @container_name NVARCHAR (63),
-    @directory_path NVARCHAR(128),
-    @file_name      NVARCHAR(128),
-    @schema_name    NVARCHAR(128),
-    @table_name     NVARCHAR(128),
-    @application_id  VARCHAR (32),
-    @job_id          VARCHAR (36),
-    @job_dtm            CHAR (23),
-    @job_by         NVARCHAR(128),
-    @update_mode     VARCHAR  (5),
-    @extraction_type VARCHAR  (5),
-    @client_field    VARCHAR(127),
-    @client_id          CHAR  (3)
+    @container_name         NVARCHAR  (63),
+    @directory_path         NVARCHAR (128),
+    @file_name              NVARCHAR (128),
+    @schema_name            NVARCHAR (128),
+    @table_name             NVARCHAR (128),
+    @application_id          VARCHAR  (32),
+    @job_id                  VARCHAR  (36),
+    @job_dtm                    CHAR  (23),
+    @job_by                 NVARCHAR (128),
+    @update_mode             VARCHAR   (5),
+    @extraction_type         VARCHAR   (5),
+    @extraction_timestamp       CHAR  (23),
+    @client_field            VARCHAR (127),
+    @client_id                  CHAR   (3)
 AS
 BEGIN
 
@@ -56,10 +57,10 @@ BEGIN
 
     DECLARE
         -- Get the date from the file name and convert it to a string
-        @extraction_dtm_char VARCHAR(23) = CONVERT(
-            VARCHAR,
-            [utilities].[svf_getDateFromFileName](@file_name),
-            21),
+        -- @extraction_dtm_char VARCHAR(23) = CONVERT(
+        --     VARCHAR,
+        --     [utilities].[svf_getDateFromFileName](@file_name),
+        --     21),
         -- generate the complete file path based on container, directory, and file name
         @file_path VARCHAR(1024) = CONCAT_WS('/',
             @container_name,
@@ -85,12 +86,12 @@ BEGIN
             @table_id AS [table_id]
     ) a
     CROSS JOIN (
-                  SELECT 't_applicationId' AS default_field, 1 AS [index], @application_id      AS default_value
-        UNION ALL SELECT 't_jobId'         AS default_field, 2 AS [index], @job_id              AS default_value
-        UNION ALL SELECT 't_jobDtm'        AS default_field, 3 AS [index], @job_dtm             AS default_value
-        UNION ALL SELECT 't_jobBy'         AS default_field, 4 AS [index], @job_by              AS default_value
-        UNION ALL SELECT 't_filePath'      AS default_field, 5 AS [index], @file_path           AS default_value
-        UNION ALL SELECT 't_extractionDtm' AS default_field, 6 AS [index], @extraction_dtm_char AS default_value
+                  SELECT 't_applicationId' AS default_field, 1 AS [index], @application_id       AS default_value
+        UNION ALL SELECT 't_jobId'         AS default_field, 2 AS [index], @job_id               AS default_value
+        UNION ALL SELECT 't_jobDtm'        AS default_field, 3 AS [index], @job_dtm              AS default_value
+        UNION ALL SELECT 't_jobBy'         AS default_field, 4 AS [index], @job_by               AS default_value
+        UNION ALL SELECT 't_filePath'      AS default_field, 5 AS [index], @file_path            AS default_value
+        UNION ALL SELECT 't_extractionDtm' AS default_field, 6 AS [index], @extraction_timestamp AS default_value
     ) b
 
     -- In case of SAP S4HANA ODP extraction, no MANDT field value exists in the parquet file, so this needs to be
