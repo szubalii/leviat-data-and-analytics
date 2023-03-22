@@ -717,7 +717,7 @@ WITH BillingDocumentItemBase as (
             ,   [PayerParty]
             ,   [CompanyCode]
             ,   [FiscalYear]
-            ,   [FiscalPeriod].
+            ,   [FiscalPeriod]
             ,   [CustomerAccountAssignmentGroupID]
             ,   [BusinessArea]
             ,   [ProfitCenter]

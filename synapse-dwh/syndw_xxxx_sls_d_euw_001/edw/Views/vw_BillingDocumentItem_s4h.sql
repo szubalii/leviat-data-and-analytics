@@ -1235,7 +1235,7 @@ SELECT
     ,[AccountingDate]
     ,[MaterialCalculated]
     ,[SoldToPartyCalculated]
-    ,[InOutID]y
+    ,[InOutID]
     ,BDI.[ICSalesDocumentID]
     ,BDI.[ICSalesDocumentItemID]
     ,BDI.[t_applicationId]
