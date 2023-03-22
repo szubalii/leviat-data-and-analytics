@@ -147,3 +147,5 @@ WHERE
         P.[ProductType] in ('ZROH')
     AND 
         PSD.[ItemCategoryGroup] != 'NORM'
+    AND
+    P.IsMarkedForDeletion <> 'X'

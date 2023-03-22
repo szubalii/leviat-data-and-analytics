@@ -1,0 +1,153 @@
+{
+	"name": "pl_SYNDW_Intm_process",
+	"properties": {
+		"description": "Exec sproc to collect sales",
+		"activities": [
+			{
+				"name": "Lookup Parameters",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"dataset": {
+						"referenceName": "ds_adls_csv",
+						"type": "DatasetReference",
+						"parameters": {
+							"container": "utilities",
+							"directory": "parameters",
+							"file_name": "AX_MEC_Parameters.csv",
+							"field_delimiter": ";",
+							"storageAccount": {
+								"value": "@pipeline().globalParameters.storageAccountName",
+								"type": "Expression"
+							}
+						}
+					},
+					"firstRowOnly": true
+				}
+			},
+			{
+				"name": "Process Intm",
+				"description": "",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "Lookup Parameters",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "intm_axbi.up_CollectSales_CA",
+					"storedProcedureParameters": {
+						"P_Year": {
+							"value": {
+								"value": "@activity('Lookup Parameters').output.firstRow.P_Year",
+								"type": "Expression"
+							},
+							"type": "Int16"
+						},
+						"P_Month": {
+							"value": {
+								"value": "@activity('Lookup Parameters').output.firstRow.P_Month",
+								"type": "Expression"
+							},
+							"type": "Int16"
+						},
+						"P_DelNotInv": {
+							"value": {
+								"value": "@activity('Lookup Parameters').output.firstRow.P_DelNotInv",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"t_jobId": {
+							"value": {
+								"value": "@pipeline().RunId",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"t_jobDtm": {
+							"value": {
+								"value": "@formatDateTime(pipeline().TriggerTime, 'yyyy-MM-dd HH:mm:ss')",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"t_jobBy": {
+							"value": {
+								"value": "@pipeline().DataFactory",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"axbiDataBaseEnvSuffix": {
+							"value": {
+								"value": "@pipeline().globalParameters.axbiDataBaseEnvSuffix",
+								"type": "Expression"
+							},
+							"type": "String"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_ws_xxxx_sls_x_euw_001__syndw_xxxx_sls_x_euw_001",
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"sqlPool": {
+							"value": "@pipeline().globalParameters.synapseDatabaseName",
+							"type": "Expression"
+						},
+						"synapseServer": {
+							"value": "@pipeline().globalParameters.synapseServerName",
+							"type": "Expression"
+						}
+					}
+				}
+			}
+		],
+		"variables": {
+			"P_Year": {
+				"type": "String"
+			},
+			"P_Month": {
+				"type": "String"
+			},
+			"P_DelNotInv": {
+				"type": "String"
+			}
+		},
+		"folder": {
+			"name": "00 ELT/05 Synapse Transformation/04 INTM"
+		},
+		"annotations": []
+	}
+}

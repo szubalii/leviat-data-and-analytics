@@ -245,13 +245,13 @@ BillingDocumentItemBase_axbi AS (
     ,   FH.[t_applicationId]                                                AS [t_applicationId]
     ,   FH.[t_extractionDtm]                                                AS [t_extractionDtm]
     FROM    
-        base_dw_halfen_2_dwh.FACT_HGDAWA FH
+        intm_axbi.vw_FACT_HGDAWA FH
     LEFT JOIN 
         [base_tx_ca_0_hlp].[DATAAREA] DA
         ON
             DA.[DATAAREAID] = FH.[Company]
     LEFT JOIN
-        [base_dw_halfen_2_dwh].[DIM_CUSTOMER] DIM_CUST
+        intm_axbi.vw_DIM_CUSTOMER DIM_CUST
         ON
             DIM_CUST.[Customerno] = FH.[Customerno]
             AND

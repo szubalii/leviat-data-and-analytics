@@ -182,5 +182,7 @@ INNER JOIN
 	ON 
 		P.Product = Products.Product
 
+WHERE IsMarkedForDeletion <> 'X'
+
 
 

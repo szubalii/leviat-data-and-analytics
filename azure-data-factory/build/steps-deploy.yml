@@ -58,7 +58,10 @@ steps:
         -default_properties_synapseDatabaseName_value "$(synapseSqlPool)"
         -default_properties_keyVaultUrl_value "https://$(keyVaultName).vault.azure.net/"
         -default_properties_environment_value "$(xuPrefix)"
-        -default_properties_sqlDb_value "$(sqlDatabaseName)"'
+        -default_properties_sqlDb_value "$(sqlDatabaseName)"
+        -default_properties_s4hSystemId_value "$(S4HSystemId)"
+        -default_properties_s4hClientId_value "$(S4HClientId)"
+        -default_properties_axbiDataBaseEnvSuffix_value "$(axbiDataBaseEnvSuffix)"'
   
   - task: AzurePowerShell@5
     displayName: 'Start Triggers'

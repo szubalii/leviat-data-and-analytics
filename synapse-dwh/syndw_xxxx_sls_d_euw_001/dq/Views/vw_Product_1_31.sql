@@ -152,3 +152,5 @@ WHERE
         PP.[ProcurementType] != 'F'
     AND 
         ISNULL(PP.[SpecialProcurementType], '') = '' 
+    AND
+    P.IsMarkedForDeletion <> 'X'

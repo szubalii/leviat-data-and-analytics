@@ -1,11 +1,17 @@
 {
 	"name": "ls_ws_xxxx_sls_x_euw_001_ondemand__synapse_od",
-	"type": "Microsoft.DataFactory/factories/linkedservices",
 	"properties": {
+		"parameters": {
+			"synapseServer": {
+				"type": "string",
+				"defaultValue": "ws-xxxx-sls-d-euw-001"
+			}
+		},
 		"annotations": [],
 		"type": "AzureSqlDW",
 		"typeProperties": {
-			"connectionString": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=ws-xxxx-sls-d-euw-001-ondemand.sql.azuresynapse.net;Initial Catalog=synapse_od"
+			"connectionString": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=\"@{concat(\n    linkedService().synapseServer,\n    '-ondemand.sql.azuresynapse.net'\n)}\";Initial Catalog=synapse_od"
 		}
-	}
+	},
+	"type": "Microsoft.DataFactory/factories/linkedservices"
 }

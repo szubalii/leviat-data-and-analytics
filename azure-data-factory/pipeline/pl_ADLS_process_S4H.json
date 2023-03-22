@@ -7,25 +7,7 @@
 				"type": "ExecutePipeline",
 				"dependsOn": [
 					{
-						"activity": "Append t_applicationId",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					},
-					{
 						"activity": "If Client Field Required",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					},
-					{
-						"activity": "Append t_jobId",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					},
-					{
-						"activity": "Append jobBy",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -125,6 +107,12 @@
 						"dependencyConditions": [
 							"Succeeded"
 						]
+					},
+					{
+						"activity": "Append extractionDtm",
+						"dependencyConditions": [
+							"Succeeded"
+						]
 					}
 				],
 				"userProperties": [],
@@ -152,7 +140,14 @@
 			{
 				"name": "Append t_jobId",
 				"type": "AppendVariable",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "Append t_applicationId",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"userProperties": [],
 				"typeProperties": {
 					"variableName": "additionalColumns",
@@ -165,12 +160,59 @@
 			{
 				"name": "Append jobBy",
 				"type": "AppendVariable",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "Append jobDtm",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"userProperties": [],
 				"typeProperties": {
 					"variableName": "additionalColumns",
 					"value": {
 						"value": "@json(\n    concat(\n        '{\"name\":\"t_jobBy\",\"value\":\"',\n        pipeline().DataFactory,\n        '\"}'\n    )\n)",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Append jobDtm",
+				"type": "AppendVariable",
+				"dependsOn": [
+					{
+						"activity": "Append t_jobId",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "additionalColumns",
+					"value": {
+						"value": "@json(\n    concat(\n        '{\"name\":\"t_jobDtm\",\"value\":\"',\n        formatDateTime(\n            pipeline().TriggerTime, 'yyyy-MM-dd HH:mm:ss'\n        ),\n        '\"}'\n    )\n)",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Append extractionDtm",
+				"type": "AppendVariable",
+				"dependsOn": [
+					{
+						"activity": "Append jobBy",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "additionalColumns",
+					"value": {
+						"value": "@json(\n    concat(\n        '{\"name\":\"t_extractionDtm\",\"value\":\"',\n        '1900-01-01',\n        '\"}'\n    )\n)",
 						"type": "Expression"
 					}
 				}

@@ -148,3 +148,5 @@ WHERE
       P.[CrossPlantStatus] = '70'
     AND
       PP.[MRPType] != 'ND'
+    AND
+    P.IsMarkedForDeletion <> 'X'

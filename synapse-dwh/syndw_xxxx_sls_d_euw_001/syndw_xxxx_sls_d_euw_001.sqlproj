@@ -188,6 +188,7 @@
     <Folder Include="base_dw_halfen_2_dwh\Stored Procedures\" />
     <Folder Include="intm_axbi" />
     <Folder Include="intm_axbi\Tables" />
+    <Folder Include="intm_axbi\Views" />
     <Folder Include="intm_axbi\Stored Procedures" />
     <Folder Include="base_ancon_australia_2_dwh" />
     <Folder Include="base_ancon_australia_2_dwh\Tables" />
@@ -541,6 +542,7 @@
     <Build Include="base_s4h_cax\Tables\I_ScheduleLineCategoryText.sql" />
     <Build Include="base_s4h_cax\Tables\I_ScheduleLineConfStatusText.sql" />
     <Build Include="base_s4h_cax\Tables\I_SalesOrderItemPricingElement.sql" />
+    <Build Include="base_s4h_cax\Tables\I_SalesOrderItemPricingElement_split.sql" />
     <Build Include="base_s4h_cax\Tables\I_SalesOrderPricingElement.sql" />
     <Build Include="base_s4h_cax\Tables\I_SemTagGLAccount.sql" />
     <Build Include="base_s4h_cax\Tables\I_SupplierIndustryText.sql" />
@@ -591,6 +593,8 @@
     <Build Include="edw\Views\vw_BillingDocumentItem_s4h.sql" />
     <Build Include="edw\Views\vw_BillingDocumentItem_axbi.sql" />
     <Build Include="dm_sales\Views\vw_fact_SalesOrderItem.sql" />
+    <Build Include="dm_sales\Views\vw_fact_SalesOrderItem_filtered.sql" />
+    <Build Include="dm_sales\Views\vw_fact_SalesOrderItem_narrow.sql" />
     <Build Include="dm_sales\Views\vw_fact_SalesQuotationItem.sql" />
     <Build Include="base_s4h_cax\Tables\I_TotalSDDocReferenceStatusT.sql" />
     <Build Include="base_s4h_cax\Tables\I_OverallSDDocumentRjcnStatusT.sql" />
@@ -624,6 +628,7 @@
     <Build Include="base_s4h_cax\Tables\C_BillingDocumentItemBasicDEX_active.sql" />
     <Build Include="base_s4h_cax\Views\vw_C_BillingDocumentItemBasicDEX.sql" />
     <Build Include="edw\Views\vw_OutboundDeliveryItem_s4h.sql" />
+    <Build Include="edw\Views\vw_OutboundDeliveryItem_for_SalesDocumentItem.sql" />
     <Build Include="edw\Tables\fact_OutboundDeliveryItem.sql" />
     <Build Include="edw\Tables\dim_Supplier.sql" />
     <Build Include="edw\Tables\dim_Warehouse.sql" />
@@ -637,6 +642,7 @@
     <Build Include="edw\Views\vw_DeliveryDocumentType.sql" />
     <Build Include="edw\Views\vw_SDProcessStatus.sql" />
     <Build Include="edw\Views\vw_BillingDocumentItem_s4h_fin.sql" />
+    <Build Include="edw\Views\vw_BillingDocumentItem_for_SalesDocumentItem.sql" />
     <Build Include="base_tx_ca_0_hlp\Tables\CUSTINVOICETRANS.sql" />
     <Build Include="edw\Tables\dim_SalesDocumentScheduleLine.sql" />
     <Build Include="map_AXBI\Tables\Migration.sql" />
@@ -829,6 +835,7 @@
     <Build Include="edw\Views\vw_DeliveryDocument.sql" />
     <Build Include="base_ff\Tables\ConfigurableProductCharacteristic.sql" />
     <Build Include="dm_sales\Views\vw_fact_MaterialStockLevel.sql" />
+    <Build Include="dm_sales\Views\vw_fact_MaterialStockLevel_filtered.sql" />
     <Build Include="edw\Tables\fact_ProductHierarchyVariantConfigCharacteristic_active.sql" />
     <Build Include="edw\Views\vw_ProductHierarchyVariantConfigCharacteristic_delta.sql" />
     <Build Include="base_ff\Tables\ConfigurableProduct.sql" />
@@ -872,7 +879,6 @@
     <Build Include="dq\Views\vw_Product_1_20.sql" />
     <Build Include="dq\Views\vw_Product_1_18.sql" />
     <Build Include="dq\Views\vw_Product_1_16.sql" />
-    <Build Include="dq\Views\vw_Product_1_8.sql" />
     <Build Include="dm_dq\Views\vw_fact_RuleTotal.sql" />
     <Build Include="dm_dq\Views\vw_dim_Rule.sql" />
     <Build Include="base_s4h_cax\Tables\I_Purreqvaluationarea.sql" />
@@ -996,6 +1002,8 @@
     <Build Include="utilities\Stored Procedures\sp_process_axbi_delta_update.sql" />
     <Build Include="utilities\Stored Procedures\sp_process_axbi_delta_delete.sql" />
     <Build Include="utilities\Stored Procedures\sp_process_axbi_delta.sql" />
+    <Build Include="utilities\Stored Procedures\sp_load_to_archive.sql" />
+    <Build Include="utilities\Stored Procedures\sp_copy_to_archive.sql" />
     <Build Include="intm_axbi\Tables\dim_ITEMTABLE.sql" />
     <Build Include="Security\Schemas\intm_axbi.sql" />
     <Build Include="Security\Schemas\base_ancon_australia_2_dwh.sql" />
@@ -1007,6 +1015,7 @@
     <Build Include="base_ancon_australia_2_dwh\Tables\FACT_INVENTTRANS.sql" />
     <Build Include="base_dw_halfen_0_hlp\Tables\CALENDAR.sql" />
     <Build Include="base_dw_halfen_0_hlp\Tables\HGDAWA.sql" />
+    <Build Include="base_dw_halfen_0_hlp\Tables\HGDAWA_Archive.sql" />
     <Build Include="base_dw_halfen_0_hlp\Tables\PRODUCTLINE.sql" />
     <Build Include="base_dw_halfen_2_dwh\Tables\DIM_ARTICLE.sql" />
     <Build Include="intm_axbi\Tables\fact_CUSTINVOICETRANS.sql" />
@@ -1107,7 +1116,9 @@
     <Build Include="intm_axbi\Stored Procedures\up_CollectSales_CA.sql" />
     <Build Include="intm_axbi\Stored Procedures\up_CUSTINVOICETRANS_Werte_nach_CRH_Kurs_umrechnen.sql" />
     <Build Include="base_s4h_cax\Tables\P_UserAddress.sql" />
+    <Build Include="base_s4h_cax\Tables\ZE_EXQLMAP_DT.sql" />
     <Build Include="edw\Views\vw_UserAddress.sql" />
+    <Build Include="edw\Views\vw_ZE_EXQLMAP_DT.sql" />
     <Build Include="edw\Tables\dim_UserAddress.sql" />
     <Build Include="dm_sales\Views\vw_dim_UserAddress.sql" />
     <Build Include="base_s4h_cax\Tables\I_PricingElement.sql" />
@@ -1117,6 +1128,41 @@
     <Build Include="dm_sales\Views\vw_dim_GLAccountText.sql" />
     <Build Include="utilities\Functions\Scalar-valued Functions\svf_getDateFromFileName.sql" />
     <Build Include="utilities\Tables\t_field_values.sql" />
+    <Build Include="base_s4h_cax\Tables\I_Purchaserequisitionitem.sql" />
+    <Build Include="base_s4h_cax\Views\vw_Z_C_VariantConfig_delta.sql" />
+    <Build Include="base_s4h_cax\Views\vw_C_BillingDocumentItemBasicDEX_delta.sql" />
+    <Build Include="base_s4h_cax\Views\vw_I_GLAccountLineItemRawData_delta.sql" />
+    <Build Include="base_s4h_cax\Views\vw_C_SalesDocumentItemDEX_delta.sql" />
+    <Build Include="base_tx_halfen_2_dwh\Tables\FACT_INVENTSUM_Archive.sql" />
+    <Build Include="base_tx_halfen_2_dwh\Tables\FACT_INVENTTRANS_Archive.sql" />
+    <Build Include="base_tx_halfen_2_dwh\Tables\FACT_PURCHLINE_Archive.sql" />
+    <Build Include="base_tx_halfen_2_dwh\Tables\FACT_PRODJOURNALPROD_Archive.sql" />
+    <Build Include="base_tx_halfen_2_dwh\Tables\FACT_SALESLINE_Archive.sql" />
+    <Build Include="base_tx_halfen_2_dwh\Tables\FACT_SALESTABLE_Archive.sql" />
+    <Build Include="base_dw_halfen_2_dwh\Tables\DIM_CUSTOMER_Archive.sql" />
+    <Build Include="base_dw_halfen_2_dwh\Tables\FACT_HGDAWA_Archive.sql" />
+    <Build Include="base_dw_halfen_2_dwh\Tables\FACT_HGPLUM_Archive.sql" />
+    <Build Include="base_tx_halfen_2_dwh\Tables\FACT_CUSTPACKINGSLIPJOUR_Archive.sql" />
+    <Build Include="base_tx_halfen_2_dwh\Tables\DIM_VENDTABLE_Archive.sql" />
+    <Build Include="base_tx_halfen_2_dwh\Tables\DIM_INVENTLOCATION_Archive.sql" />
+    <Build Include="base_tx_halfen_2_dwh\Tables\FACT_CUSTPACKINGSLIPTRANS_Archive.sql" />
+    <Build Include="base_tx_halfen_2_dwh\Tables\DIM_INVENTTABLE_Archive.sql" />
+    <Build Include="intm_axbi\Views\vw_DIM_CUSTOMER.sql" />
+    <Build Include="intm_axbi\Views\vw_FACT_INVENTSUM.sql" />
+    <Build Include="intm_axbi\Views\vw_FACT_INVENTTRANS.sql" />
+    <Build Include="intm_axbi\Views\vw_FACT_PRODJOURNALPROD.sql" />
+    <Build Include="intm_axbi\Views\vw_FACT_PURCHLINE.sql" />
+    <Build Include="intm_axbi\Views\vw_FACT_SALESLINE.sql" />
+    <Build Include="intm_axbi\Views\vw_FACT_SALESTABLE.sql" />
+    <Build Include="intm_axbi\Views\vw_FACT_HGDAWA.sql" />
+    <Build Include="intm_axbi\Views\vw_FACT_HGPLUM.sql" />
+    <Build Include="intm_axbi\Views\vw_FACT_CUSTPACKINGSLIPJOUR.sql" />
+    <Build Include="intm_axbi\Views\vw_DIM_VENDTABLE.sql" />
+    <Build Include="intm_axbi\Views\vw_DIM_INVENTLOCATION.sql" />
+    <Build Include="intm_axbi\Views\vw_FACT_CUSTPACKINGSLIPTRANS.sql" />
+    <Build Include="intm_axbi\Views\vw_DIM_INVENTTABLE.sql" />
+    <Build Include="base_ff\Tables\ExQLReportingEntity.sql" />
+    <Build Include="dm_finance\Views\vw_dim_ExQLReportingEntity.sql" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PostDeploy Include="Scripts\Post-Deploy\Script.PostDeployment.sql" />

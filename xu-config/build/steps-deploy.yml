@@ -8,3 +8,18 @@ steps:
     Contents: '$(xuPrefix)*/**/*.json' # copy only those extractions required for deployment
     TargetFolder: 'C:\Program Files\XtractUniversal\config\extractions'
     OverWrite: true
+
+  # Copy Repo XU Config to ADLS
+- task: PowerShell@2
+  displayName: 'Copy XU Config to ADLS'
+  inputs:
+    targetType: 'inline'
+    pwsh: true
+    script: |
+      # connect to Azure using VM
+      azcopy login --identity
+
+      # directly copy to storage account using azcopy
+      azcopy copy `
+        '$(Pipeline.Workspace)\XtractUniversal\extractions `
+        'https://$(storageAccountName).dfs.core.windows.net/xu-configuration/extractions'

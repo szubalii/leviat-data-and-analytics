@@ -1,4 +1,4 @@
-CREATE TABLE [base_s4h_cax].[I_Purchaserequisitionitem]
+﻿CREATE TABLE [base_s4h_cax].[I_Purchaserequisitionitem]
 -- Purchase Requisition Item
 (
   [MANDT] NCHAR(3) NOT NULL
@@ -18,7 +18,6 @@ CREATE TABLE [base_s4h_cax].[I_Purchaserequisitionitem]
 , [PurchasingDocumentCategory] nvarchar(1)
 , [RequestedQuantity] decimal(13,3)
 , [BaseUnit] nvarchar(3)
-, [PurReqnItemCurrency] nchar(5)
 , [PurchaseRequisitionPrice] decimal(11,2)
 , [PurReqnPriceQuantity] decimal(5)
 , [MaterialGoodsReceiptDuration] decimal(3)
@@ -43,6 +42,7 @@ CREATE TABLE [base_s4h_cax].[I_Purchaserequisitionitem]
 , [PurReqCreationDate] date
 , [DeliveryAddressID] nvarchar(10)
 , [ManualDeliveryAddressID] nvarchar(10)
+, [PurReqnItemCurrency] nchar(5)
 , [MaterialPlannedDeliveryDurn] decimal(3)
 , [DelivDateCategory] nvarchar(1)
 , [MultipleAcctAssgmtDistribution] nvarchar(1)

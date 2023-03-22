@@ -148,6 +148,8 @@ WHERE
     P.[ProductType] = 'ZHAW'
     AND
     PSD.[AccountDetnProductGroup] != '01'
+    AND
+    P.IsMarkedForDeletion <> 'X'
     
 
 	

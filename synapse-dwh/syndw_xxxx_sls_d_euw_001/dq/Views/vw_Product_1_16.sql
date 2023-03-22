@@ -147,3 +147,5 @@ WHERE
         OR
         ISNULL([TransportationGroup], '') = ''
     )
+    AND
+    IsMarkedForDeletion <> 'X'

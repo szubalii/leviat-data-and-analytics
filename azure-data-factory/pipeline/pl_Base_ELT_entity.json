@@ -162,24 +162,16 @@
 										"value": "@variables('adlsFileName')",
 										"type": "Expression"
 									},
-									"required_activities": {
-										"value": "@pipeline().parameters.required_activities",
-										"type": "Expression"
-									},
-									"skipped_activities": {
-										"value": "@pipeline().parameters.skipped_activities",
-										"type": "Expression"
-									},
 									"batch_id": {
 										"value": "@variables('batch_id_Extract')",
 										"type": "Expression"
 									},
-									"s4h_system_id": {
-										"value": "@pipeline().parameters.s4h_system_id",
+									"extraction_type": {
+										"value": "@pipeline().parameters.extraction_type",
 										"type": "Expression"
 									},
-									"s4h_client_id": {
-										"value": "@pipeline().parameters.s4h_client_id",
+									"refresh_from_date": {
+										"value": "@pipeline().parameters.refresh_from_date",
 										"type": "Expression"
 									}
 								}
@@ -264,10 +256,6 @@
 									},
 									"application_id": {
 										"value": "@pipeline().parameters.source_database_name",
-										"type": "Expression"
-									},
-									"s4h_client_id": {
-										"value": "@pipeline().parameters.s4h_client_id",
 										"type": "Expression"
 									}
 								}
@@ -454,14 +442,6 @@
 									"adls_file_name": {
 										"value": "@variables('adlsFileName')",
 										"type": "Expression"
-									},
-									"s4h_system_id": {
-										"value": "@pipeline().parameters.s4h_system_id",
-										"type": "Expression"
-									},
-									"s4h_client_id": {
-										"value": "@pipeline().parameters.s4h_client_id",
-										"type": "Expression"
 									}
 								}
 							}
@@ -529,14 +509,6 @@
 									},
 									"extraction_timestamp": {
 										"value": "@variables('extraction_Timestamp')",
-										"type": "Expression"
-									},
-									"s4h_system_id": {
-										"value": "@pipeline().parameters.s4h_system_id",
-										"type": "Expression"
-									},
-									"s4h_client_id": {
-										"value": "@pipeline().parameters.s4h_client_id",
 										"type": "Expression"
 									}
 								}
@@ -771,14 +743,6 @@
 									"extraction_timestamp": {
 										"value": "@variables('extraction_Timestamp')",
 										"type": "Expression"
-									},
-									"s4h_system_id": {
-										"value": "@pipeline().parameters.s4h_system_id",
-										"type": "Expression"
-									},
-									"s4h_client_id": {
-										"value": "@pipeline().parameters.s4h_client_id",
-										"type": "Expression"
 									}
 								}
 							}
@@ -814,13 +778,13 @@
 				"typeProperties": {
 					"variableName": "adlsContainerName",
 					"value": {
-						"value": "@if(\n    equals(\n        pipeline().parameters.layer_nk,\n        'S4H'\n    ),\n    concat(\n        pipeline().parameters.adls_container_name,\n        '-',\n        toLower(pipeline().parameters.s4h_system_id),\n        '-',\n        string(pipeline().parameters.s4h_client_id)\n    ),\n    pipeline().parameters.adls_container_name\n)",
+						"value": "@if(\n    equals(\n        pipeline().parameters.layer_nk,\n        'S4H'\n    ),\n    concat(\n        pipeline().parameters.adls_container_name,\n        '-',\n        toLower(pipeline().globalParameters.s4hSystemId),\n        '-',\n        string(pipeline().globalParameters.s4hClientId)\n    ),\n    pipeline().parameters.adls_container_name\n)",
 						"type": "Expression"
 					}
 				}
 			},
 			{
-				"name": "If  Update Mode Delta",
+				"name": "If Base Processing Required",
 				"type": "IfCondition",
 				"dependsOn": [
 					{
@@ -833,12 +797,12 @@
 				"userProperties": [],
 				"typeProperties": {
 					"expression": {
-						"value": "@contains(pipeline().parameters.required_activities, 'ProcessBase')",
+						"value": "@contains(\n    pipeline().parameters.required_activities,\n    'ProcessBase'\n)",
 						"type": "Expression"
 					},
 					"ifTrueActivities": [
 						{
-							"name": "Process Synapse Base Procedure",
+							"name": "Process Synapse Base",
 							"type": "ExecutePipeline",
 							"dependsOn": [],
 							"userProperties": [],
@@ -868,6 +832,22 @@
 									"run_id": {
 										"value": "@pipeline().parameters.run_id",
 										"type": "Expression"
+									},
+									"file_name": {
+										"value": "@variables('adlsFileName')",
+										"type": "Expression"
+									},
+									"directory_path": {
+										"value": "@pipeline().parameters.adls_directory_path_Out",
+										"type": "Expression"
+									},
+									"source_date_field_name": {
+										"value": "@pipeline().parameters.source_date_field_name",
+										"type": "Expression"
+									},
+									"refresh_from_date": {
+										"value": "@pipeline().parameters.refresh_from_date",
+										"type": "Expression"
 									}
 								}
 							}
@@ -879,19 +859,19 @@
 		"parameters": {
 			"entity_name": {
 				"type": "string",
-				"defaultValue": "I_CostCenter_F"
+				"defaultValue": "I_SalesOrderItemPricingElement_split"
 			},
 			"entity_id": {
 				"type": "string",
-				"defaultValue": "1"
+				"defaultValue": "900"
 			},
 			"date": {
 				"type": "string",
-				"defaultValue": "2022/04/21"
+				"defaultValue": "2023/03/21"
 			},
 			"run_id": {
 				"type": "string",
-				"defaultValue": "a1fe4011-b0aa-4e82-814e-5521537c78db"
+				"defaultValue": "2811baf8-9617-4e2b-849d-f74c2cfdf9f9"
 			},
 			"layer_nk": {
 				"type": "string",
@@ -903,11 +883,10 @@
 			},
 			"extraction_type": {
 				"type": "string",
-				"defaultValue": "ODP"
+				"defaultValue": "Table"
 			},
 			"pk_field_names": {
-				"type": "string",
-				"defaultValue": "CONTROLLINGAREA, COSTCENTER, VALIDITYENDDATE"
+				"type": "string"
 			},
 			"source_database_name": {
 				"type": "string"
@@ -916,23 +895,22 @@
 				"type": "string"
 			},
 			"source_table_name": {
-				"type": "string",
-				"defaultValue": "I_CostCenter"
+				"type": "string"
 			},
 			"source_date_field_name": {
 				"type": "string"
 			},
 			"adls_container_name": {
 				"type": "string",
-				"defaultValue": "s4h-cad"
+				"defaultValue": "s4h-caa-200"
 			},
 			"adls_directory_path_In": {
 				"type": "string",
-				"defaultValue": "DIMENSION/I_CostCenter_F/Theobald/ODP/Full/In/2022/04/21"
+				"defaultValue": "NULL/I_SalesOrderItemPricingElement_split/Theobald/Table/Full/In/2023/03/21"
 			},
 			"adls_directory_path_Out": {
 				"type": "string",
-				"defaultValue": "DIMENSION/I_CostCenter_F/Theobald/ODP/Full/Out/2022/04/21"
+				"defaultValue": "NULL/I_SalesOrderItemPricingElement_split/Theobald/Table/Full/Out/2023/03/21"
 			},
 			"base_schema_name": {
 				"type": "string",
@@ -943,7 +921,7 @@
 			},
 			"base_table_name": {
 				"type": "string",
-				"defaultValue": "I_CostCenter"
+				"defaultValue": "I_SalesOrderItemPricingElement_split"
 			},
 			"required_activities": {
 				"type": "array",
@@ -961,15 +939,12 @@
 				"type": "string"
 			},
 			"update_mode": {
-				"type": "string"
-			},
-			"s4h_system_id": {
 				"type": "string",
-				"defaultValue": "CAA"
+				"defaultValue": "Full"
 			},
-			"s4h_client_id": {
-				"type": "int",
-				"defaultValue": 200
+			"refresh_from_date": {
+				"type": "string",
+				"defaultValue": "2022/10/01"
 			}
 		},
 		"variables": {

@@ -157,3 +157,5 @@ WHERE
       P.[CrossPlantStatus] = '70'
     AND
       NAM.[NCOST] != 'X'
+    AND
+    P.IsMarkedForDeletion <> 'X'

@@ -154,3 +154,5 @@ WHERE
        OR 
        PP.[CountryOfOrigin]!= LEFT(PP.[Plant],2)
     )
+    AND
+    P.IsMarkedForDeletion <> 'X'

@@ -1295,6 +1295,24 @@
             "outputLength": 12
         },
         {
+            "name": "ITEMDELIVERYSTATUS",
+            "description": "Delivery Status (Item)",
+            "abapType": "CharacterString",
+            "length": 1,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 1
+        },
+        {
+            "name": "OVERALLDELIVERYSTATUS",
+            "description": "Delivery Status (All Items)",
+            "abapType": "CharacterString",
+            "length": 1,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 1
+        },
+        {
             "name": "ODQ_CHANGEMODE",
             "description": "Change Mode for a Data Record in the Delta",
             "abapType": "CharacterString",
@@ -1311,6 +1329,6 @@
             "outputLength": 20
         }
     ],
-    "parameters": {
+    "parameterSet": {
     }
 }

@@ -154,6 +154,7 @@ SELECT P.[MANDT]
         FROM Products PRD 
         WHERE PRD.Product=P.Product
 		)
-
+    AND
+    P.IsMarkedForDeletion <> 'X'
 
 			

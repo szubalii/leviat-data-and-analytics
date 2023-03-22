@@ -860,6 +860,18 @@
         "schedule_recurrence": "A"
       },
       {
+        "entity_id": 900,
+        "entity_name": "I_SalesOrderItemPricingElement_split",
+        "data_category": "NULL",
+        "client_field": "MANDT",
+        "tool_name": "Theobald",
+        "extraction_type": "Table",
+        "update_mode": "Full",
+        "base_table_name": "I_SalesOrderItemPricingElement_split",
+        "pk_field_names": "SALESORDER, SALESORDERITEM, PRICINGPROCEDURESTEP, PRICINGPROCEDURECOUNTER",
+        "schedule_recurrence": "A"
+      },
+      {
         "entity_id": 134,
         "entity_name": "I_SalesOrderPricingElement",
         "data_category": "NULL",
@@ -3076,7 +3088,7 @@
         "update_mode": "Full",
         "base_table_name": "I_DeliveryDocument",
         "pk_field_names": "DELIVERYDOCUMENT",
-        "schedule_recurrence": "A"
+        "schedule_recurrence": "D"
       },
       {
         "entity_id": 320,
@@ -3493,7 +3505,7 @@
         "update_mode": "Full",
         "base_table_name": "I_GLAccountLineItemRawData",
         "pk_field_names": "SOURCELEDGER, COMPANYCODE, FISCALYEAR, ACCOUNTINGDOCUMENT, LEDGERGLLINEITEM",
-        "schedule_recurrence": "A"
+        "schedule_recurrence": "D"
       },
       {
         "entity_id": 461,
@@ -3841,6 +3853,18 @@
         "base_table_name": "I_PricingElement",
         "pk_field_names": "MANDT, PRICINGDOCUMENT, PRICINGDOCUMENTITEM, PRICINGPROCEDURESTEP, PRICINGPROCEDURECOUNTER",
         "schedule_recurrence": "D"
+      },
+      {
+        "entity_id": 568,
+        "entity_name": "I_Purchaserequisitionitem",
+        "data_category": "DIMENSION",
+        "client_field": "MANDT",
+        "tool_name": "Theobald",
+        "extraction_type": "Table",
+        "update_mode": "Full",
+        "base_table_name": "I_Purchaserequisitionitem",
+        "pk_field_names": "MANDT, PURCHASEREQUISITION, PURCHASEREQUISITIONITEM",
+        "schedule_recurrence": "D"
       }
     ]
   },
@@ -3893,7 +3917,11 @@
         "entity_id": 523,
         "entity_name": "HGDAWA",
         "base_table_name": "HGDAWA",
-        "schedule_recurrence": "D"
+        "schedule_recurrence": "D",
+        "update_mode": "Range",
+        "axbi_date_field_name": "DAORDT",
+        "base_sproc_name": "sp_load_to_archive",
+        "reload_period_in_months": 2
       },
       {
         "entity_id": 524,
@@ -4108,14 +4136,14 @@
         "entity_name": "DIM_CUSTTABLE",
         "base_table_name": "DIM_CUSTTABLE",
         "pk_field_names": "DW_Id",
-        "schedule_recurrence": "A"
+        "schedule_recurrence": "D"
       },
       {
         "entity_id": 515,
         "entity_name": "DIM_INVENTTABLE",
         "base_table_name": "DIM_INVENTTABLE",
         "pk_field_names": "DW_Id",
-        "schedule_recurrence": "A"
+        "schedule_recurrence": "D"
       },
       {
         "entity_id": 516,
@@ -4346,7 +4374,7 @@
         "entity_id": 50,
         "entity_name": "fact_SalesDocumentItem",
         "sproc_name": "sp_load_fact_SalesDocumentItem",
-        "execution_order": 3,
+        "execution_order": 5,
         "schedule_recurrence": "D"
       },
       {

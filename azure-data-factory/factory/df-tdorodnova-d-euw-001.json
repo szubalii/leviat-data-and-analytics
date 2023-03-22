@@ -20,7 +20,7 @@
 			},
 			"synapseServerName": {
 				"type": "string",
-				"value": "ws-xxxx-sls-d-euw-001"
+				"value": "ws-tdorodnova-d-euw-001"
 			},
 			"synapseDatabaseName": {
 				"type": "string",
@@ -37,6 +37,18 @@
 			"sqlDb": {
 				"type": "string",
 				"value": "sqldb-tdorodnova-d-euw-001"
+			},
+			"s4hSystemId": {
+				"type": "string",
+				"value": "CAA"
+			},
+			"s4hClientId": {
+				"type": "string",
+				"value": "200"
+			},
+			"axbiDataBaseEnvSuffix": {
+				"type": "string",
+				"value": "UAT"
 			}
 		}
 	},

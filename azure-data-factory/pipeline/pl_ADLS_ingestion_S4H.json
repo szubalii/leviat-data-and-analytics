@@ -5,7 +5,14 @@
 			{
 				"name": "Run XU Extraction",
 				"type": "WebActivity",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "Set extraction url",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "7.00:00:00",
 					"retry": 0,
@@ -16,7 +23,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"url": {
-						"value": "@concat(\n\tpipeline().globalParameters.XU_hostName\n\t,'/?name='\n\t,pipeline().globalParameters.environment\n\t,'_'\n\t,pipeline().parameters.extraction_name\n\t,'&source='\n\t,'CRH_Leviat_S4HANA_'\n\t,pipeline().parameters.s4h_system_id\n\t,'_'\n\t,string(pipeline().parameters.s4h_client_id)\n\t,'&destination='\n\t,pipeline().globalParameters.storageAccountName\n\t,'_s4h-'\n\t,pipeline().parameters.s4h_system_id\n\t,'-'\n\t,string(pipeline().parameters.s4h_client_id)\n\t,'&wait=false'\n)",
+						"value": "@variables('extraction_url')",
 						"type": "Expression"
 					},
 					"connectVia": {
@@ -52,6 +59,12 @@
 				"dependsOn": [
 					{
 						"activity": "Run XU Extraction",
+						"dependencyConditions": [
+							"Failed"
+						]
+					},
+					{
+						"activity": "Lookup Extraction Destination",
 						"dependencyConditions": [
 							"Failed"
 						]
@@ -101,7 +114,8 @@
 							"value": {
 								"value": "@pipeline().parameters.batch_id",
 								"type": "Expression"
-							}
+							},
+							"type": "Guid"
 						}
 					}
 				},
@@ -276,13 +290,19 @@
 						"dependencyConditions": [
 							"Succeeded"
 						]
+					},
+					{
+						"activity": "If maxBlobSize gt 0",
+						"dependencyConditions": [
+							"Succeeded"
+						]
 					}
 				],
 				"userProperties": [],
 				"typeProperties": {
 					"variableName": "adlsFileName",
 					"value": {
-						"value": "@concat(\n    pipeline().parameters.extraction_name,\n    '_',\n    replace(replace(replace(variables('extraction_timestamp'),'-','_'),':','_'),'.','_'),\n    '.parquet'\n)",
+						"value": "@concat(\n    pipeline().parameters.extraction_name,\n    '_',\n    replace(replace(replace(variables('extraction_timestamp'),'-','_'),':','_'),'.','_'),\n    variables('adlsFileNameSuffix')\n)",
 						"type": "Expression"
 					}
 				}
@@ -306,54 +326,246 @@
 					},
 					"errorCode": "500"
 				}
+			},
+			{
+				"name": "Add subscription suffix if ODP",
+				"type": "IfCondition",
+				"dependsOn": [
+					{
+						"activity": "Set url params",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@equals(\r\n    pipeline().parameters.extraction_type,\r\n    'ODP'\r\n)",
+						"type": "Expression"
+					},
+					"ifTrueActivities": [
+						{
+							"name": "Add Subscription Suffix Url Param",
+							"type": "AppendVariable",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "urlParams",
+								"value": {
+									"value": "@concat(\r\n    'subscriptionSuffix=',\r\n    pipeline().globalParameters.environment\r\n)",
+									"type": "Expression"
+								}
+							}
+						}
+					]
+				}
+			},
+			{
+				"name": "Set extraction url",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "Add subscription suffix if ODP",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "extraction_url",
+					"value": {
+						"value": "@concat(\n\tpipeline().globalParameters.XU_hostName\n\t,'/?'\n\t,join(variables('urlParams'), '&')\n)",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Set source url param",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "sourceUrlParam",
+					"value": {
+						"value": "@concat(\n    'source=CRH_Leviat_S4HANA_'\n    ,pipeline().globalParameters.s4hSystemId\n    ,'_'\n    ,string(pipeline().globalParameters.s4hClientId)\n)",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Set destination url param",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "destinationUrlParam",
+					"value": {
+						"value": "@concat(\n    'destination='\n    ,pipeline().globalParameters.storageAccountName\n    ,'_s4h-'\n    ,pipeline().globalParameters.s4hSystemId\n    ,'-'\n    ,string(pipeline().globalParameters.s4hClientId)\n)",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Set url params",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "Set source url param",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "Set destination url param",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "urlParams",
+					"value": {
+						"value": "@createArray(\n    concat(\n        'name='\n        ,pipeline().globalParameters.environment\n        ,'_'\n        ,pipeline().parameters.extraction_name\n    ),\n    variables('sourceUrlParam'),\n    variables('destinationUrlParam'),\n    'wait=false'\n)",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "If maxBlobSize gt 0",
+				"type": "IfCondition",
+				"dependsOn": [
+					{
+						"activity": "Lookup Extraction Destination",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@greater(\r\n    activity('Lookup Extraction Destination').output.firstRow.maxBlobSize\r\n    , 0\r\n)",
+						"type": "Expression"
+					},
+					"ifTrueActivities": [
+						{
+							"name": "Set adlsFileNameSuffix Wildcard",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "adlsFileNameSuffix",
+								"value": "*.parquet"
+							}
+						}
+					]
+				}
+			},
+			{
+				"name": "Lookup Extraction Destination",
+				"type": "Lookup",
+				"dependsOn": [
+					{
+						"activity": "Set extraction url",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "JsonSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "JsonReadSettings"
+						}
+					},
+					"dataset": {
+						"referenceName": "ds_xu_extraction_destination",
+						"type": "DatasetReference",
+						"parameters": {
+							"storageAccount": {
+								"value": "@pipeline().globalParameters.storageAccountName",
+								"type": "Expression"
+							},
+							"extractionName": {
+								"value": "@pipeline().parameters.extraction_name",
+								"type": "Expression"
+							}
+						}
+					}
+				}
 			}
 		],
 		"parameters": {
 			"extraction_name": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "I_SalesOrderItemPricingElement_split"
 			},
 			"date": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "2023/03/21"
 			},
 			"run_id": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "2811baf8-9617-4e2b-849d-f74c2cfdf9f9"
 			},
 			"entity_id": {
-				"type": "int"
+				"type": "int",
+				"defaultValue": 900
 			},
 			"adls_directory_path": {
-				"type": "string"
-			},
-			"required_activities": {
-				"type": "array"
+				"type": "string",
+				"defaultValue": "NULL/I_SalesOrderItemPricingElement_split/Theobald/Table/Full/In/2023/03/21"
 			},
 			"batch_id": {
 				"type": "string"
 			},
-			"skipped_activities": {
-				"type": "object"
-			},
-			"adls_file_name": {
-				"type": "string"
-			},
-			"s4h_system_id": {
+			"extraction_type": {
 				"type": "string",
-				"defaultValue": "CAA"
-			},
-			"s4h_client_id": {
-				"type": "int",
-				"defaultValue": 200
+				"defaultValue": "Table"
 			}
 		},
 		"variables": {
 			"extraction_timestamp": {
 				"type": "String"
 			},
+			"run_id": {
+				"type": "String"
+			},
+			"extraction_url": {
+				"type": "String"
+			},
+			"urlParams": {
+				"type": "Array"
+			},
+			"sourceUrlParam": {
+				"type": "String"
+			},
+			"destinationUrlParam": {
+				"type": "String"
+			},
 			"adlsFileName": {
 				"type": "String"
 			},
-			"run_id": {
-				"type": "String"
+			"adlsFileNameSuffix": {
+				"type": "String",
+				"defaultValue": ".parquet"
 			}
 		},
 		"folder": {

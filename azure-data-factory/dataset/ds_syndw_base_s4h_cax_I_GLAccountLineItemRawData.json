@@ -1,0 +1,1345 @@
+{
+	"name": "ds_syndw_base_s4h_cax_I_GLAccountLineItemRawData",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_ws_xxxx_sls_x_euw_001__syndw_xxxx_sls_x_euw_001",
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"sqlPool": "syndw_xxxx_sls_d_euw_001"
+			}
+		},
+		"annotations": [],
+		"type": "AzureSqlDWTable",
+		"schema": [
+			{
+				"name": "TS_SEQUENCE_NUMBER",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "ODQ_CHANGEMODE",
+				"type": "char"
+			},
+			{
+				"name": "ODQ_ENTITYCNTR",
+				"type": "decimal",
+				"precision": 19,
+				"scale": 0
+			},
+			{
+				"name": "MANDT",
+				"type": "char"
+			},
+			{
+				"name": "SourceLedger",
+				"type": "nvarchar"
+			},
+			{
+				"name": "CompanyCode",
+				"type": "nvarchar"
+			},
+			{
+				"name": "FiscalYear",
+				"type": "char"
+			},
+			{
+				"name": "AccountingDocument",
+				"type": "nvarchar"
+			},
+			{
+				"name": "LedgerGLLineItem",
+				"type": "nvarchar"
+			},
+			{
+				"name": "LedgerFiscalYear",
+				"type": "char"
+			},
+			{
+				"name": "GLRecordType",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ChartOfAccounts",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ControllingArea",
+				"type": "nvarchar"
+			},
+			{
+				"name": "FinancialTransactionType",
+				"type": "nvarchar"
+			},
+			{
+				"name": "BusinessTransactionType",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ControllingBusTransacType",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ReferenceDocumentType",
+				"type": "nvarchar"
+			},
+			{
+				"name": "LogicalSystem",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ReferenceDocumentContext",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ReferenceDocument",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ReferenceDocumentItem",
+				"type": "char"
+			},
+			{
+				"name": "ReferenceDocumentItemGroup",
+				"type": "char"
+			},
+			{
+				"name": "IsReversal",
+				"type": "nvarchar"
+			},
+			{
+				"name": "IsReversed",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ReversalReferenceDocumentCntxt",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ReversalReferenceDocument",
+				"type": "nvarchar"
+			},
+			{
+				"name": "IsSettlement",
+				"type": "nvarchar"
+			},
+			{
+				"name": "IsSettled",
+				"type": "nvarchar"
+			},
+			{
+				"name": "PredecessorReferenceDocType",
+				"type": "nvarchar"
+			},
+			{
+				"name": "PredecessorReferenceDocCntxt",
+				"type": "nvarchar"
+			},
+			{
+				"name": "PredecessorReferenceDocument",
+				"type": "nvarchar"
+			},
+			{
+				"name": "PredecessorReferenceDocItem",
+				"type": "char"
+			},
+			{
+				"name": "SourceReferenceDocumentType",
+				"type": "nvarchar"
+			},
+			{
+				"name": "SourceLogicalSystem",
+				"type": "nvarchar"
+			},
+			{
+				"name": "SourceReferenceDocumentCntxt",
+				"type": "nvarchar"
+			},
+			{
+				"name": "SourceReferenceDocument",
+				"type": "nvarchar"
+			},
+			{
+				"name": "SourceReferenceDocumentItem",
+				"type": "char"
+			},
+			{
+				"name": "SourceReferenceDocSubitem",
+				"type": "char"
+			},
+			{
+				"name": "IsCommitment",
+				"type": "nvarchar"
+			},
+			{
+				"name": "JrnlEntryItemObsoleteReason",
+				"type": "nvarchar"
+			},
+			{
+				"name": "GLAccount",
+				"type": "nvarchar"
+			},
+			{
+				"name": "CostCenter",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ProfitCenter",
+				"type": "nvarchar"
+			},
+			{
+				"name": "FunctionalArea",
+				"type": "nvarchar"
+			},
+			{
+				"name": "BusinessArea",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Segment",
+				"type": "nvarchar"
+			},
+			{
+				"name": "PartnerCostCenter",
+				"type": "nvarchar"
+			},
+			{
+				"name": "PartnerProfitCenter",
+				"type": "nvarchar"
+			},
+			{
+				"name": "PartnerFunctionalArea",
+				"type": "nvarchar"
+			},
+			{
+				"name": "PartnerBusinessArea",
+				"type": "nvarchar"
+			},
+			{
+				"name": "PartnerCompany",
+				"type": "nvarchar"
+			},
+			{
+				"name": "PartnerSegment",
+				"type": "nvarchar"
+			},
+			{
+				"name": "BalanceTransactionCurrency",
+				"type": "char"
+			},
+			{
+				"name": "AmountInBalanceTransacCrcy",
+				"type": "decimal",
+				"precision": 23,
+				"scale": 2
+			},
+			{
+				"name": "TransactionCurrency",
+				"type": "char"
+			},
+			{
+				"name": "AmountInTransactionCurrency",
+				"type": "decimal",
+				"precision": 23,
+				"scale": 2
+			},
+			{
+				"name": "CompanyCodeCurrency",
+				"type": "char"
+			},
+			{
+				"name": "AmountInCompanyCodeCurrency",
+				"type": "decimal",
+				"precision": 23,
+				"scale": 2
+			},
+			{
+				"name": "GlobalCurrency",
+				"type": "char"
+			},
+			{
+				"name": "AmountInGlobalCurrency",
+				"type": "decimal",
+				"precision": 23,
+				"scale": 2
+			},
+			{
+				"name": "FreeDefinedCurrency1",
+				"type": "char"
+			},
+			{
+				"name": "AmountInFreeDefinedCurrency1",
+				"type": "decimal",
+				"precision": 23,
+				"scale": 2
+			},
+			{
+				"name": "FreeDefinedCurrency2",
+				"type": "char"
+			},
+			{
+				"name": "AmountInFreeDefinedCurrency2",
+				"type": "decimal",
+				"precision": 23,
+				"scale": 2
+			},
+			{
+				"name": "FreeDefinedCurrency3",
+				"type": "char"
+			},
+			{
+				"name": "AmountInFreeDefinedCurrency3",
+				"type": "decimal",
+				"precision": 23,
+				"scale": 2
+			},
+			{
+				"name": "FreeDefinedCurrency4",
+				"type": "char"
+			},
+			{
+				"name": "AmountInFreeDefinedCurrency4",
+				"type": "decimal",
+				"precision": 23,
+				"scale": 2
+			},
+			{
+				"name": "FreeDefinedCurrency5",
+				"type": "char"
+			},
+			{
+				"name": "AmountInFreeDefinedCurrency5",
+				"type": "decimal",
+				"precision": 23,
+				"scale": 2
+			},
+			{
+				"name": "FreeDefinedCurrency6",
+				"type": "char"
+			},
+			{
+				"name": "AmountInFreeDefinedCurrency6",
+				"type": "decimal",
+				"precision": 23,
+				"scale": 2
+			},
+			{
+				"name": "FreeDefinedCurrency7",
+				"type": "char"
+			},
+			{
+				"name": "AmountInFreeDefinedCurrency7",
+				"type": "decimal",
+				"precision": 23,
+				"scale": 2
+			},
+			{
+				"name": "FreeDefinedCurrency8",
+				"type": "char"
+			},
+			{
+				"name": "AmountInFreeDefinedCurrency8",
+				"type": "decimal",
+				"precision": 23,
+				"scale": 2
+			},
+			{
+				"name": "FixedAmountInGlobalCrcy",
+				"type": "decimal",
+				"precision": 23,
+				"scale": 2
+			},
+			{
+				"name": "GrpValnFixedAmtInGlobCrcy",
+				"type": "decimal",
+				"precision": 23,
+				"scale": 2
+			},
+			{
+				"name": "PrftCtrValnFxdAmtInGlobCrcy",
+				"type": "decimal",
+				"precision": 23,
+				"scale": 2
+			},
+			{
+				"name": "FixedAmountInCoCoDeCrcy",
+				"type": "decimal",
+				"precision": 23,
+				"scale": 2
+			},
+			{
+				"name": "TotalPriceVarcInGlobalCrcy",
+				"type": "decimal",
+				"precision": 23,
+				"scale": 2
+			},
+			{
+				"name": "GrpValnTotPrcVarcInGlobCrcy",
+				"type": "decimal",
+				"precision": 23,
+				"scale": 2
+			},
+			{
+				"name": "PrftCtrValnTotPrcVarcInGlbCrcy",
+				"type": "decimal",
+				"precision": 23,
+				"scale": 2
+			},
+			{
+				"name": "FixedPriceVarcInGlobalCrcy",
+				"type": "decimal",
+				"precision": 23,
+				"scale": 2
+			},
+			{
+				"name": "GrpValnFixedPrcVarcInGlobCrcy",
+				"type": "decimal",
+				"precision": 23,
+				"scale": 2
+			},
+			{
+				"name": "PrftCtrValnFxdPrcVarcInGlbCrcy",
+				"type": "decimal",
+				"precision": 23,
+				"scale": 2
+			},
+			{
+				"name": "ControllingObjectCurrency",
+				"type": "char"
+			},
+			{
+				"name": "AmountInObjectCurrency",
+				"type": "decimal",
+				"precision": 23,
+				"scale": 2
+			},
+			{
+				"name": "BaseUnit",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Quantity",
+				"type": "decimal",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "FixedQuantity",
+				"type": "decimal",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "CostSourceUnit",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ValuationQuantity",
+				"type": "decimal",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "ValuationFixedQuantity",
+				"type": "decimal",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "AdditionalQuantity1Unit",
+				"type": "nvarchar"
+			},
+			{
+				"name": "AdditionalQuantity1",
+				"type": "decimal",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "AdditionalQuantity2Unit",
+				"type": "nvarchar"
+			},
+			{
+				"name": "AdditionalQuantity2",
+				"type": "decimal",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "AdditionalQuantity3Unit",
+				"type": "nvarchar"
+			},
+			{
+				"name": "AdditionalQuantity3",
+				"type": "decimal",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "DebitCreditCode",
+				"type": "nvarchar"
+			},
+			{
+				"name": "FiscalPeriod",
+				"type": "char"
+			},
+			{
+				"name": "FiscalYearVariant",
+				"type": "nvarchar"
+			},
+			{
+				"name": "FiscalYearPeriod",
+				"type": "char"
+			},
+			{
+				"name": "PostingDate",
+				"type": "date"
+			},
+			{
+				"name": "DocumentDate",
+				"type": "date"
+			},
+			{
+				"name": "AccountingDocumentType",
+				"type": "nvarchar"
+			},
+			{
+				"name": "AccountingDocumentItem",
+				"type": "char"
+			},
+			{
+				"name": "AssignmentReference",
+				"type": "nvarchar"
+			},
+			{
+				"name": "AccountingDocumentCategory",
+				"type": "nvarchar"
+			},
+			{
+				"name": "PostingKey",
+				"type": "nvarchar"
+			},
+			{
+				"name": "TransactionTypeDetermination",
+				"type": "nvarchar"
+			},
+			{
+				"name": "SubLedgerAcctLineItemType",
+				"type": "char"
+			},
+			{
+				"name": "AccountingDocCreatedByUser",
+				"type": "nvarchar"
+			},
+			{
+				"name": "LastChangeDateTime",
+				"type": "decimal",
+				"precision": 15,
+				"scale": 0
+			},
+			{
+				"name": "CreationDateTime",
+				"type": "decimal",
+				"precision": 15,
+				"scale": 0
+			},
+			{
+				"name": "CreationDate",
+				"type": "date"
+			},
+			{
+				"name": "EliminationProfitCenter",
+				"type": "nvarchar"
+			},
+			{
+				"name": "OriginObjectType",
+				"type": "char"
+			},
+			{
+				"name": "GLAccountType",
+				"type": "nvarchar"
+			},
+			{
+				"name": "AlternativeGLAccount",
+				"type": "nvarchar"
+			},
+			{
+				"name": "CountryChartOfAccounts",
+				"type": "nvarchar"
+			},
+			{
+				"name": "InvoiceReference",
+				"type": "nvarchar"
+			},
+			{
+				"name": "InvoiceReferenceFiscalYear",
+				"type": "char"
+			},
+			{
+				"name": "FollowOnDocumentType",
+				"type": "nvarchar"
+			},
+			{
+				"name": "InvoiceItemReference",
+				"type": "char"
+			},
+			{
+				"name": "ReferencePurchaseOrderCategory",
+				"type": "char"
+			},
+			{
+				"name": "PurchasingDocument",
+				"type": "nvarchar"
+			},
+			{
+				"name": "PurchasingDocumentItem",
+				"type": "char"
+			},
+			{
+				"name": "AccountAssignmentNumber",
+				"type": "char"
+			},
+			{
+				"name": "DocumentItemText",
+				"type": "nvarchar"
+			},
+			{
+				"name": "SalesDocument",
+				"type": "nvarchar"
+			},
+			{
+				"name": "SalesDocumentItem",
+				"type": "char"
+			},
+			{
+				"name": "Product",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Plant",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Supplier",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Customer",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ServicesRenderedDate",
+				"type": "date"
+			},
+			{
+				"name": "ConditionContract",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ExchangeRateDate",
+				"type": "date"
+			},
+			{
+				"name": "FinancialAccountType",
+				"type": "nvarchar"
+			},
+			{
+				"name": "SpecialGLCode",
+				"type": "nvarchar"
+			},
+			{
+				"name": "TaxCode",
+				"type": "nvarchar"
+			},
+			{
+				"name": "HouseBank",
+				"type": "nvarchar"
+			},
+			{
+				"name": "HouseBankAccount",
+				"type": "nvarchar"
+			},
+			{
+				"name": "IsOpenItemManaged",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ClearingDate",
+				"type": "date"
+			},
+			{
+				"name": "ClearingAccountingDocument",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ClearingDocFiscalYear",
+				"type": "char"
+			},
+			{
+				"name": "AssetDepreciationArea",
+				"type": "char"
+			},
+			{
+				"name": "MasterFixedAsset",
+				"type": "nvarchar"
+			},
+			{
+				"name": "FixedAsset",
+				"type": "nvarchar"
+			},
+			{
+				"name": "AssetValueDate",
+				"type": "date"
+			},
+			{
+				"name": "AssetTransactionType",
+				"type": "nvarchar"
+			},
+			{
+				"name": "AssetAcctTransClassfctn",
+				"type": "nvarchar"
+			},
+			{
+				"name": "DepreciationFiscalPeriod",
+				"type": "char"
+			},
+			{
+				"name": "GroupMasterFixedAsset",
+				"type": "nvarchar"
+			},
+			{
+				"name": "GroupFixedAsset",
+				"type": "nvarchar"
+			},
+			{
+				"name": "AssetClass",
+				"type": "nvarchar"
+			},
+			{
+				"name": "CostEstimate",
+				"type": "char"
+			},
+			{
+				"name": "InventorySpecialStockValnType",
+				"type": "nvarchar"
+			},
+			{
+				"name": "InventorySpecialStockType",
+				"type": "nvarchar"
+			},
+			{
+				"name": "InventorySpclStkSalesDocument",
+				"type": "nvarchar"
+			},
+			{
+				"name": "InventorySpclStkSalesDocItm",
+				"type": "char"
+			},
+			{
+				"name": "InvtrySpclStockWBSElmntIntID",
+				"type": "char"
+			},
+			{
+				"name": "InventorySpclStockWBSElement",
+				"type": "nvarchar"
+			},
+			{
+				"name": "InventorySpecialStockSupplier",
+				"type": "nvarchar"
+			},
+			{
+				"name": "InventoryValuationType",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ValuationArea",
+				"type": "nvarchar"
+			},
+			{
+				"name": "SenderCompanyCode",
+				"type": "nvarchar"
+			},
+			{
+				"name": "SenderGLAccount",
+				"type": "nvarchar"
+			},
+			{
+				"name": "SenderAccountAssignment",
+				"type": "nvarchar"
+			},
+			{
+				"name": "SenderAccountAssignmentType",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ControllingObject",
+				"type": "nvarchar"
+			},
+			{
+				"name": "CostOriginGroup",
+				"type": "nvarchar"
+			},
+			{
+				"name": "OriginSenderObject",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ControllingDebitCreditCode",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ControllingObjectDebitType",
+				"type": "char"
+			},
+			{
+				"name": "QuantityIsIncomplete",
+				"type": "char"
+			},
+			{
+				"name": "OffsettingAccount",
+				"type": "nvarchar"
+			},
+			{
+				"name": "OffsettingAccountType",
+				"type": "nvarchar"
+			},
+			{
+				"name": "OffsettingChartOfAccounts",
+				"type": "nvarchar"
+			},
+			{
+				"name": "LineItemIsCompleted",
+				"type": "nvarchar"
+			},
+			{
+				"name": "PersonnelNumber",
+				"type": "char"
+			},
+			{
+				"name": "ControllingObjectClass",
+				"type": "nvarchar"
+			},
+			{
+				"name": "PartnerCompanyCode",
+				"type": "nvarchar"
+			},
+			{
+				"name": "PartnerControllingObjectClass",
+				"type": "nvarchar"
+			},
+			{
+				"name": "OriginCostCenter",
+				"type": "nvarchar"
+			},
+			{
+				"name": "OriginProfitCenter",
+				"type": "nvarchar"
+			},
+			{
+				"name": "OriginCostCtrActivityType",
+				"type": "nvarchar"
+			},
+			{
+				"name": "AccountAssignment",
+				"type": "nvarchar"
+			},
+			{
+				"name": "AccountAssignmentType",
+				"type": "nvarchar"
+			},
+			{
+				"name": "CostCtrActivityType",
+				"type": "nvarchar"
+			},
+			{
+				"name": "OrderID",
+				"type": "nvarchar"
+			},
+			{
+				"name": "OrderCategory",
+				"type": "char"
+			},
+			{
+				"name": "WBSElementInternalID",
+				"type": "char"
+			},
+			{
+				"name": "WBSElement",
+				"type": "nvarchar"
+			},
+			{
+				"name": "PartnerWBSElementInternalID",
+				"type": "char"
+			},
+			{
+				"name": "PartnerWBSElement",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ProjectInternalID",
+				"type": "char"
+			},
+			{
+				"name": "Project",
+				"type": "nvarchar"
+			},
+			{
+				"name": "PartnerProjectInternalID",
+				"type": "char"
+			},
+			{
+				"name": "PartnerProject",
+				"type": "nvarchar"
+			},
+			{
+				"name": "OperatingConcern",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ProjectNetwork",
+				"type": "nvarchar"
+			},
+			{
+				"name": "RelatedNetworkActivity",
+				"type": "nvarchar"
+			},
+			{
+				"name": "BusinessProcess",
+				"type": "nvarchar"
+			},
+			{
+				"name": "CostObject",
+				"type": "nvarchar"
+			},
+			{
+				"name": "BillableControl",
+				"type": "nvarchar"
+			},
+			{
+				"name": "CostAnalysisResource",
+				"type": "nvarchar"
+			},
+			{
+				"name": "CustomerServiceNotification",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ServiceDocumentType",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ServiceDocument",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ServiceDocumentItem",
+				"type": "char"
+			},
+			{
+				"name": "PartnerServiceDocumentType",
+				"type": "nvarchar"
+			},
+			{
+				"name": "PartnerServiceDocument",
+				"type": "nvarchar"
+			},
+			{
+				"name": "PartnerServiceDocumentItem",
+				"type": "char"
+			},
+			{
+				"name": "ServiceContractType",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ServiceContract",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ServiceContractItem",
+				"type": "char"
+			},
+			{
+				"name": "TimeSheetOvertimeCategory",
+				"type": "nvarchar"
+			},
+			{
+				"name": "PartnerAccountAssignment",
+				"type": "nvarchar"
+			},
+			{
+				"name": "PartnerAccountAssignmentType",
+				"type": "nvarchar"
+			},
+			{
+				"name": "WorkPackage",
+				"type": "nvarchar"
+			},
+			{
+				"name": "WorkItem",
+				"type": "nvarchar"
+			},
+			{
+				"name": "PartnerCostCtrActivityType",
+				"type": "nvarchar"
+			},
+			{
+				"name": "PartnerOrder",
+				"type": "nvarchar"
+			},
+			{
+				"name": "PartnerOrderCategory",
+				"type": "char"
+			},
+			{
+				"name": "PartnerSalesDocument",
+				"type": "nvarchar"
+			},
+			{
+				"name": "PartnerSalesDocumentItem",
+				"type": "char"
+			},
+			{
+				"name": "PartnerProjectNetwork",
+				"type": "nvarchar"
+			},
+			{
+				"name": "PartnerProjectNetworkActivity",
+				"type": "nvarchar"
+			},
+			{
+				"name": "PartnerBusinessProcess",
+				"type": "nvarchar"
+			},
+			{
+				"name": "PartnerCostObject",
+				"type": "nvarchar"
+			},
+			{
+				"name": "BillingDocumentType",
+				"type": "nvarchar"
+			},
+			{
+				"name": "SalesOrganization",
+				"type": "nvarchar"
+			},
+			{
+				"name": "DistributionChannel",
+				"type": "nvarchar"
+			},
+			{
+				"name": "OrganizationDivision",
+				"type": "nvarchar"
+			},
+			{
+				"name": "SoldProduct",
+				"type": "nvarchar"
+			},
+			{
+				"name": "SoldProductGroup",
+				"type": "nvarchar"
+			},
+			{
+				"name": "CustomerGroup",
+				"type": "nvarchar"
+			},
+			{
+				"name": "CustomerSupplierCountry",
+				"type": "nvarchar"
+			},
+			{
+				"name": "CustomerSupplierIndustry",
+				"type": "nvarchar"
+			},
+			{
+				"name": "SalesDistrict",
+				"type": "nvarchar"
+			},
+			{
+				"name": "BillToParty",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ShipToParty",
+				"type": "nvarchar"
+			},
+			{
+				"name": "CustomerSupplierCorporateGroup",
+				"type": "nvarchar"
+			},
+			{
+				"name": "CashLedgerCompanyCode",
+				"type": "nvarchar"
+			},
+			{
+				"name": "CashLedgerAccount",
+				"type": "nvarchar"
+			},
+			{
+				"name": "FinancialManagementArea",
+				"type": "nvarchar"
+			},
+			{
+				"name": "FundsCenter",
+				"type": "nvarchar"
+			},
+			{
+				"name": "FundedProgram",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Fund",
+				"type": "nvarchar"
+			},
+			{
+				"name": "GrantID",
+				"type": "nvarchar"
+			},
+			{
+				"name": "BudgetPeriod",
+				"type": "nvarchar"
+			},
+			{
+				"name": "PartnerFund",
+				"type": "nvarchar"
+			},
+			{
+				"name": "PartnerGrant",
+				"type": "nvarchar"
+			},
+			{
+				"name": "PartnerBudgetPeriod",
+				"type": "nvarchar"
+			},
+			{
+				"name": "PubSecBudgetAccount",
+				"type": "nvarchar"
+			},
+			{
+				"name": "PubSecBudgetAccountCoCode",
+				"type": "nvarchar"
+			},
+			{
+				"name": "PubSecBudgetCnsmpnDate",
+				"type": "date"
+			},
+			{
+				"name": "PubSecBudgetCnsmpnFsclPeriod",
+				"type": "char"
+			},
+			{
+				"name": "PubSecBudgetCnsmpnFsclYear",
+				"type": "char"
+			},
+			{
+				"name": "PubSecBudgetIsRelevant",
+				"type": "nvarchar"
+			},
+			{
+				"name": "PubSecBudgetCnsmpnType",
+				"type": "nvarchar"
+			},
+			{
+				"name": "PubSecBudgetCnsmpnAmtType",
+				"type": "nvarchar"
+			},
+			{
+				"name": "JointVenture",
+				"type": "nvarchar"
+			},
+			{
+				"name": "JointVentureEquityGroup",
+				"type": "nvarchar"
+			},
+			{
+				"name": "JointVentureCostRecoveryCode",
+				"type": "nvarchar"
+			},
+			{
+				"name": "JointVenturePartner",
+				"type": "nvarchar"
+			},
+			{
+				"name": "JointVentureBillingType",
+				"type": "nvarchar"
+			},
+			{
+				"name": "JointVentureEquityType",
+				"type": "nvarchar"
+			},
+			{
+				"name": "JointVentureProductionDate",
+				"type": "date"
+			},
+			{
+				"name": "JointVentureBillingDate",
+				"type": "date"
+			},
+			{
+				"name": "JointVentureOperationalDate",
+				"type": "date"
+			},
+			{
+				"name": "CutbackRun",
+				"type": "decimal",
+				"precision": 21,
+				"scale": 7
+			},
+			{
+				"name": "JointVentureAccountingActivity",
+				"type": "nvarchar"
+			},
+			{
+				"name": "PartnerVenture",
+				"type": "nvarchar"
+			},
+			{
+				"name": "PartnerEquityGroup",
+				"type": "nvarchar"
+			},
+			{
+				"name": "SenderCostRecoveryCode",
+				"type": "nvarchar"
+			},
+			{
+				"name": "CutbackAccount",
+				"type": "nvarchar"
+			},
+			{
+				"name": "CutbackCostObject",
+				"type": "nvarchar"
+			},
+			{
+				"name": "SettlementReferenceDate",
+				"type": "date"
+			},
+			{
+				"name": "AccrualObjectType",
+				"type": "nvarchar"
+			},
+			{
+				"name": "AccrualObject",
+				"type": "nvarchar"
+			},
+			{
+				"name": "AccrualSubobject",
+				"type": "nvarchar"
+			},
+			{
+				"name": "AccrualItemType",
+				"type": "nvarchar"
+			},
+			{
+				"name": "AccrualValueDate",
+				"type": "date"
+			},
+			{
+				"name": "FinancialValuationObjectType",
+				"type": "nvarchar"
+			},
+			{
+				"name": "FinancialValuationObject",
+				"type": "nvarchar"
+			},
+			{
+				"name": "FinancialValuationSubobject",
+				"type": "nvarchar"
+			},
+			{
+				"name": "NetDueDate",
+				"type": "date"
+			},
+			{
+				"name": "CreditRiskClass",
+				"type": "nvarchar"
+			},
+			{
+				"name": "WorkCenterInternalID",
+				"type": "char"
+			},
+			{
+				"name": "OrderOperation",
+				"type": "nvarchar"
+			},
+			{
+				"name": "OrderItem",
+				"type": "char"
+			},
+			{
+				"name": "OrderSuboperation",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Equipment",
+				"type": "nvarchar"
+			},
+			{
+				"name": "FunctionalLocation",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Assembly",
+				"type": "nvarchar"
+			},
+			{
+				"name": "MaintenanceActivityType",
+				"type": "nvarchar"
+			},
+			{
+				"name": "MaintenanceOrderPlanningCode",
+				"type": "nvarchar"
+			},
+			{
+				"name": "MaintPriorityType",
+				"type": "nvarchar"
+			},
+			{
+				"name": "MaintPriority",
+				"type": "nvarchar"
+			},
+			{
+				"name": "SuperiorOrder",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ProductGroup",
+				"type": "nvarchar"
+			},
+			{
+				"name": "MaintenanceOrderIsPlanned",
+				"type": "nvarchar"
+			},
+			{
+				"name": "t_applicationId",
+				"type": "varchar"
+			},
+			{
+				"name": "t_jobId",
+				"type": "varchar"
+			},
+			{
+				"name": "t_jobDtm",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "t_jobBy",
+				"type": "nvarchar"
+			},
+			{
+				"name": "t_extractionDtm",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "t_filePath",
+				"type": "nvarchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "base_s4h_cax",
+			"table": "I_GLAccountLineItemRawData_delta"
+		}
+	}
+}

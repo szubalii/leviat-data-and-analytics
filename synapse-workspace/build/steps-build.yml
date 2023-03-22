@@ -1,0 +1,16 @@
+steps:
+
+  # Validate & Build the Synapse Workspace
+- task: Synapse workspace deployment@2
+  inputs:
+    operation: 'validate'
+    ArtifactsFolder: 'synapse-workspace'
+    # azureSubscription: 'Leviat-we-sub-01 (f199b488-7d9d-4992-aeda-c10a1e1c9b9e)'
+    # ResourceGroupName: 'rg-xxxx-sls-d-euw-001'
+    TargetWorkspaceName: '$(workspaceName)'
+    # DeleteArtifactsNotInTemplate: false
+    # DeployManagedPrivateEndpoints: false
+    # FailOnMissingOverrides: false
+    # Environment: 'prod'
+    # npmpackage: 'ppe'
+

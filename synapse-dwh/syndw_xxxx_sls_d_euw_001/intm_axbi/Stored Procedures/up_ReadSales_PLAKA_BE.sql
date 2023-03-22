@@ -8,7 +8,11 @@ CREATE PROCEDURE [intm_axbi].[up_ReadSales_PLAKA_BE]
 (
 @P_Year [smallint],
 @P_Month [tinyint],
-@P_DelNotInv [nvarchar](1) )
+@P_DelNotInv [nvarchar](1),
+@t_jobId varchar(36),
+@t_jobDtm datetime, 
+@t_jobBy nvarchar(128)
+ )
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
@@ -30,10 +34,10 @@ BEGIN
 	t.ORIGSALESID as ORIGSALESID, 
 	t.INVENTTRANSID as INVENTTRANSID, 
 	t.LINENUM as LINENUM, 
-	i.DATEFINANCIAL as DATEFINANCIAL, 
-	i.PACKINGSLIPID as PACKINGSLIPID, 
+	max(i.DATEFINANCIAL) as DATEFINANCIAL, 
+	max(i.PACKINGSLIPID) as PACKINGSLIPID, 
 	sum(i.CostAmount) as COSTAMOUNT 
-	into #inventtrans_PLBE_dup
+	into #inventtrans_PLBE
 	from [base_tx_crh_2_dwh].[FACT_CUSTINVOICETRANS] as t
 	inner join [base_tx_crh_2_dwh].[DIM_CUSTINVOICEJOUR] as j
 	on lower(t.DATAAREAID) = lower(j.DATAAREAID) and
@@ -43,11 +47,11 @@ BEGIN
 	   t.INVOICEID = i.INVOICEID and
 	   t.INVENTTRANSID = i.INVENTTRANSID
 	where lower(t.DATAAREAID) = 'plb' and Datepart(yyyy, i.DATEFINANCIAL) = @P_Year and Datepart(mm, i.DATEFINANCIAL) = @P_Month
-	group by t.DATAAREAID, t.INVOICEID, t.ORIGSALESID, t.INVENTTRANSID, t.LINENUM, i.DATEFINANCIAL, i.PACKINGSLIPID; 
+	group by t.DATAAREAID, t.INVOICEID, t.ORIGSALESID, t.INVENTTRANSID, t.LINENUM; 
 
 	-- Doppelte Sätze löschen. Geht leider ein Datefinancial und eine PackingslipID verloren, dafür werden die Zahlen richtig.
 	-- Obwohl wir haben in COMMON TABLE EXPRESSION table löschen, werden die doppelten Sätze in der temporären Tabelle #inventtrans_PLBE gelöscht.
-	SELECT 
+	/*SELECT 
     DATAAREAID, 
 	INVOICEID, 
 	ORIGSALESID, 
@@ -72,7 +76,7 @@ BEGIN
 			ORDER BY DATAAREAID, INVOICEID, ORIGSALESID, INVENTTRANSID, LINENUM ) RowNumber
 	from #inventtrans_PLBE_dup
 	) d
-	where d.RowNumber=1
+	where d.RowNumber=1*/
 	
 
 	--insert main sales
@@ -99,7 +103,12 @@ BEGIN
     ,FREIGHTLOCAL
     ,FREIGHTEUR
     ,COSTAMOUNTLOCAL
-    ,COSTAMOUNTEUR)
+    ,COSTAMOUNTEUR
+	,t_applicationId
+	,t_jobId
+	,t_jobDtm
+	,t_jobBy
+	,t_extractionDtm)
 	select
 	'PLBE',
 	t.ORIGSALESID,
@@ -114,16 +123,21 @@ BEGIN
 	t.QTY,
 	t.LINEAMOUNTMST,
 	t.LINEAMOUNTMST,
-	0,
-	0,
-	0,
-	0,
-	0, -- Sales 100 für PLAKA BE später addieren
-	0,
+	CAST(0 as [DECIMAL](38, 12)),
+	CAST(0 as [DECIMAL](38, 12)),
+	CAST(0 as [DECIMAL](38, 12)),
+	CAST(0 as [DECIMAL](38, 12)),
+	CAST(0 as [DECIMAL](38, 12)), -- Sales 100 für PLAKA BE später addieren
+	CAST(0 as [DECIMAL](38, 12)),
 	t.LINEAMOUNTMST * 0.034 * (-1), -- Interne Fracht 3,4 %
 	t.LINEAMOUNTMST * 0.034 * (-1),
 	i.COSTAMOUNT,
-	i.COSTAMOUNT
+	i.COSTAMOUNT,
+	t.t_applicationId as t_applicationId,
+	@t_jobId as t_jobId,
+	@t_jobDtm as t_jobDtm,
+	@t_jobBy as t_jobBy,
+	t.t_extractionDtm as t_extractionDtm
 	from [base_tx_crh_2_dwh].[FACT_CUSTINVOICETRANS] as t
 	inner join [base_tx_crh_2_dwh].[DIM_CUSTINVOICEJOUR] as j
 	on lower(t.DATAAREAID) = lower(j.DATAAREAID) and
@@ -162,7 +176,12 @@ BEGIN
 	i.PACKINGSLIPID as PACKINGSLIPID,
 	sum(i.QTY) * (-1) as QTY, 
 	sum(i.ValueCalc) as PRODUCTSALESLOCAL, 
-	sum(i.CostAmount) as COSTAMOUNT 
+	sum(i.CostAmount) as COSTAMOUNT,
+	i.t_applicationId as t_applicationId,
+	@t_jobId as t_jobId,
+	@t_jobDtm as t_jobDtm,
+	@t_jobBy as t_jobBy,
+	i.t_extractionDtm as t_extractionDtm
 	into #cust_delivered_not_invoiced_PLBE
 	from [base_tx_crh_2_dwh].[FACT_INVENTRANS_NOT_INVOICED] as i
 	inner join [base_tx_crh_2_dwh].[FACT_SALESLINE] as a
@@ -173,7 +192,7 @@ BEGIN
 	and Datepart(yyyy, i.DATEPHYSICAL) = @P_Year
 	and Datepart(mm, i.DATEPHYSICAL) = @P_Month
 	and i.ValueCalc is not null 
-	group by i.DATAAREAID, a.SALESID, i.INVENTTRANSID, i.DATEPHYSICAL, i.INVOICEACCOUNT, i.ITEMID, a.DELIVERYCOUNTRYREGIONID, i.PACKINGSLIPID
+	group by i.DATAAREAID, a.SALESID, i.INVENTTRANSID, i.DATEPHYSICAL, i.INVOICEACCOUNT, i.ITEMID, a.DELIVERYCOUNTRYREGIONID, i.PACKINGSLIPID, i.t_applicationId, i.t_extractionDtm 
 
 	insert [intm_axbi].[fact_CUSTINVOICETRANS]
 	(DATAAREAID
@@ -198,7 +217,12 @@ BEGIN
     ,FREIGHTLOCAL
     ,FREIGHTEUR
     ,COSTAMOUNTLOCAL
-    ,COSTAMOUNTEUR)
+    ,COSTAMOUNTEUR
+	,t_applicationId
+    ,t_jobId 
+    ,t_jobDtm 
+    ,t_jobBy
+    ,t_extractionDtm)
 	select
 	'PLBE',
 	SALESID,
@@ -217,16 +241,21 @@ BEGIN
 	QTY,
 	PRODUCTSALESLOCAL,
 	PRODUCTSALESLOCAL,
-	0,
-	0,
-	0,
-	0,
-	0, -- Sales 100 für PLAKA BE später addieren
-	0,
+	CAST(0 as [DECIMAL](38, 12)),
+	CAST(0 as [DECIMAL](38, 12)),
+	CAST(0 as [DECIMAL](38, 12)),
+	CAST(0 as [DECIMAL](38, 12)),
+	CAST(0 as [DECIMAL](38, 12)), -- Sales 100 für PLAKA BE später addieren
+	CAST(0 as [DECIMAL](38, 12)),
 	PRODUCTSALESLOCAL * 0.034 * (-1), -- Interne Fracht 3,4 %
 	PRODUCTSALESLOCAL * 0.034 * (-1),
 	COSTAMOUNT * (-1),
-	COSTAMOUNT * (-1)
+	COSTAMOUNT * (-1),
+	t_applicationId,
+    t_jobId,
+    t_jobDtm,
+    t_jobBy,
+    t_extractionDtm 
 	from #cust_delivered_not_invoiced_PLBE
 	End
 
@@ -255,7 +284,12 @@ BEGIN
     ,FREIGHTLOCAL
     ,FREIGHTEUR
     ,COSTAMOUNTLOCAL
-    ,COSTAMOUNTEUR)
+    ,COSTAMOUNTEUR
+	,t_applicationId
+	,t_jobId
+	,t_jobDtm
+	,t_jobBy
+	,t_extractionDtm)
 	select
 	'PLBE',
 	t.ORIGSALESID,
@@ -268,18 +302,23 @@ BEGIN
 	ISNULL(t.DLVCOUNTRYREGIONID,' '),
 	ISNULL(i.PACKINGSLIPID,' '),
 	t.QTY,
-	0,
-	0,
+	CAST(0 as [DECIMAL](38, 12)),
+	CAST(0 as [DECIMAL](38, 12)),
 	t.LINEAMOUNTMST,
 	t.LINEAMOUNTMST,
-	0,
-	0,
-	0, -- Sales 100 für PLAKA BE später addieren
-	0,
-	0,
-	0,
+	CAST(0 as [DECIMAL](38, 12)),
+	CAST(0 as [DECIMAL](38, 12)),
+	CAST(0 as [DECIMAL](38, 12)), -- Sales 100 für PLAKA BE später addieren
+	CAST(0 as [DECIMAL](38, 12)),
+	CAST(0 as [DECIMAL](38, 12)),
+	CAST(0 as [DECIMAL](38, 12)),
 	i.COSTAMOUNT,
-	i.COSTAMOUNT
+	i.COSTAMOUNT,
+	t.t_applicationId as t_applicationId,
+	@t_jobId as t_jobId,
+	@t_jobDtm as t_jobDtm,
+	@t_jobBy as t_jobBy,
+	t.t_extractionDtm as t_extractionDtm
 	from [base_tx_crh_2_dwh].[FACT_CUSTINVOICETRANS] as t
 	inner join [base_tx_crh_2_dwh].[DIM_CUSTINVOICEJOUR] as j
 	on lower(t.DATAAREAID) = lower(j.DATAAREAID) and
@@ -456,7 +495,12 @@ BEGIN
 	ISNULL(i.PACKINGSLIPID,' ') as PACKINGSLIPID,
 	t.QTY,
 	t.LINEAMOUNTMST LINEAMOUNTMST_OS,
-	count(t.INVOICEID) over (partition by t.INVOICEID) cnt_inv
+	count(t.INVOICEID) over (partition by t.INVOICEID) cnt_inv,
+	t.t_applicationId as t_applicationId,
+	@t_jobId as t_jobId,
+	@t_jobDtm as t_jobDtm,
+	@t_jobBy as t_jobBy,
+	t.t_extractionDtm as t_extractionDtm
 	into #inventtrans_PLBE_OS
 	from [base_tx_crh_2_dwh].[FACT_CUSTINVOICETRANS] as t
 	inner join [base_tx_crh_2_dwh].[DIM_CUSTINVOICEJOUR] as j
@@ -576,7 +620,12 @@ insert [intm_axbi].[fact_CUSTINVOICETRANS]
    ,FREIGHTLOCAL
    ,FREIGHTEUR
    ,COSTAMOUNTLOCAL
-   ,COSTAMOUNTEUR)
+   ,COSTAMOUNTEUR
+   ,t_applicationId
+   ,t_jobId 
+   ,t_jobDtm 
+   ,t_jobBy
+   ,t_extractionDtm)
 	select
 	DATAAREAID,
 	SALESID,
@@ -589,18 +638,23 @@ insert [intm_axbi].[fact_CUSTINVOICETRANS]
 	DELIVERYCOUNTRYID,
 	PACKINGSLIPID,
 	QTY,
-	0,
-	0,
+	CAST(0 as [DECIMAL](38, 12)),
+	CAST(0 as [DECIMAL](38, 12)),
 	LINEAMOUNTMST_OS,
 	LINEAMOUNTMST_OS,
-	0,
-	0,
-	0,
-	0,
-	0,
-	0,
-	0,
-	0
+	CAST(0 as [DECIMAL](38, 12)),
+	CAST(0 as [DECIMAL](38, 12)),
+	CAST(0 as [DECIMAL](38, 12)),
+	CAST(0 as [DECIMAL](38, 12)),
+	CAST(0 as [DECIMAL](38, 12)),
+	CAST(0 as [DECIMAL](38, 12)),
+	CAST(0 as [DECIMAL](38, 12)),
+	CAST(0 as [DECIMAL](38, 12)),
+	t_applicationId,
+    t_jobId,
+    t_jobDtm,
+    t_jobBy,
+    t_extractionDtm 
 	from #inventtrans_PLBE_OS
 	where INVOICEID COLLATE DATABASE_DEFAULT not in 
 	(select t.INVOICEID from [intm_axbi].[fact_CUSTINVOICETRANS] as t
@@ -794,7 +848,7 @@ insert [intm_axbi].[fact_CUSTINVOICETRANS]
 	and c.COMPANYCHAINID = 'PLAKA FRANCE'
 
 --drop temp tables
-drop table #inventtrans_PLBE_dup
+--drop table #inventtrans_PLBE_dup
 drop table #inventtrans_PLBE
 drop table #inventtrans_PLBE_OS
 drop table #inventtrans_PLBE_SB
