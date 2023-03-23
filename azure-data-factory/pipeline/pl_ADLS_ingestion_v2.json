@@ -115,28 +115,12 @@
 												"value": "@pipeline().parameters.adls_directory_path_In",
 												"type": "Expression"
 											},
-											"required_activities": {
-												"value": "@pipeline().parameters.required_activities",
-												"type": "Expression"
-											},
 											"batch_id": {
 												"value": "@pipeline().parameters.batch_id",
 												"type": "Expression"
 											},
-											"skipped_activities": {
-												"value": "@pipeline().parameters.skipped_activities",
-												"type": "Expression"
-											},
-											"adls_file_name": {
-												"value": "@pipeline().parameters.adls_file_name",
-												"type": "Expression"
-											},
-											"s4h_system_id": {
-												"value": "@pipeline().parameters.s4h_system_id",
-												"type": "Expression"
-											},
-											"s4h_client_id": {
-												"value": "@pipeline().parameters.s4h_client_id",
+											"extraction_type": {
+												"value": "@pipeline().parameters.extraction_type",
 												"type": "Expression"
 											}
 										}
@@ -390,24 +374,16 @@
 			"adls_file_name": {
 				"type": "string"
 			},
-			"required_activities": {
-				"type": "array"
-			},
-			"skipped_activities": {
-				"type": "object"
-			},
 			"batch_id": {
 				"type": "string"
 			},
-			"s4h_system_id": {
-				"type": "string",
-				"defaultValue": "CAA"
-			},
-			"s4h_client_id": {
-				"type": "int",
-				"defaultValue": 200
-			},
 			"extraction_timestamp": {
+				"type": "string"
+			},
+			"extraction_type": {
+				"type": "string"
+			},
+			"refresh_from_date": {
 				"type": "string"
 			}
 		},
