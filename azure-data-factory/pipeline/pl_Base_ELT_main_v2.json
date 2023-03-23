@@ -700,7 +700,17 @@
 							},
 							"linkedServiceName": {
 								"referenceName": "ls_ws_xxxx_sls_x_euw_001__syndw_xxxx_sls_x_euw_001",
-								"type": "LinkedServiceReference"
+								"type": "LinkedServiceReference",
+								"parameters": {
+									"sqlPool": {
+										"value": "@pipeline().globalParameters.synapseDatabaseName",
+										"type": "Expression"
+									},
+									"synapseServer": {
+										"value": "@pipeline().globalParameters.synapseServerName",
+										"type": "Expression"
+									}
+								}
 							}
 						}
 					]
@@ -795,14 +805,14 @@
 			},
 			"entity_filter": {
 				"type": "string",
-				"defaultValue": "entity_id IN (85)"
+				"defaultValue": "entity_id IN (4)"
 			},
 			"parent_run_id": {
 				"type": "string"
 			},
 			"date": {
 				"type": "string",
-				"defaultValue": "2023/03/22"
+				"defaultValue": "2023/03/23"
 			},
 			"rerun_successful_full_entities": {
 				"type": "int",
