@@ -237,7 +237,7 @@ SELECT
        [AccountAssignmentNumber],
        [DocumentItemText],
        GLAccountLineItemRawData.[SalesDocument],                                 
-       GLAccountLineItemRawData.[SalesDocumentItem] 
+       GLAccountLineItemRawData.[SalesDocumentItem],
        [Product],
        [Plant],
        [Supplier],
