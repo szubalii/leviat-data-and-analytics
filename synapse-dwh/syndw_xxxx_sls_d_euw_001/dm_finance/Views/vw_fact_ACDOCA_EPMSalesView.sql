@@ -60,6 +60,7 @@ SELECT
     GLALIRD.[SourceLedgerID],
     GLALIRD.[CompanyCodeID],
     GLALIRD.[CompanyCodeID] + GLALIRD.[ProfitCenterID] as [SKReportingEntityKey],
+    GLALIRD.[ProductSurrogateKey]
     GLALIRD.[FiscalYear],
     GLALIRD.[AccountingDocument],
     GLALIRD.[LedgerGLLineItem],

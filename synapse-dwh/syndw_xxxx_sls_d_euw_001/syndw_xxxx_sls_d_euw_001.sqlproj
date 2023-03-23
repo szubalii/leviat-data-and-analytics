@@ -1165,6 +1165,7 @@
     <Build Include="intm_axbi\Views\vw_DIM_INVENTTABLE.sql" />
     <Build Include="base_ff\Tables\ExQLReportingEntity.sql" />
     <Build Include="dm_finance\Views\vw_dim_ExQLReportingEntity.sql" />
+    <Build Include="edw\Tables\dim_PurgAccAssignment.sql" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PostDeploy Include="Scripts\Post-Deploy\Script.PostDeployment.sql" />
