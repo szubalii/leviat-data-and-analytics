@@ -183,28 +183,20 @@
 										"value": "@variables('adlsFileName')",
 										"type": "Expression"
 									},
-									"required_activities": {
-										"value": "@pipeline().parameters.required_activities",
-										"type": "Expression"
-									},
-									"skipped_activities": {
-										"value": "@pipeline().parameters.skipped_activities",
-										"type": "Expression"
-									},
 									"batch_id": {
 										"value": "@variables('batch_id_Extract')",
 										"type": "Expression"
 									},
-									"s4h_system_id": {
-										"value": "@pipeline().parameters.s4h_system_id",
-										"type": "Expression"
-									},
-									"s4h_client_id": {
-										"value": "@pipeline().parameters.s4h_client_id",
-										"type": "Expression"
-									},
 									"extraction_timestamp": {
 										"value": "@variables('extractionTimestampString')",
+										"type": "Expression"
+									},
+									"extraction_type": {
+										"value": "@pipeline().parameters.extraction_type",
+										"type": "Expression"
+									},
+									"refresh_from_date": {
+										"value": "@pipeline().parameters.refresh_from_date",
 										"type": "Expression"
 									}
 								}
@@ -290,14 +282,6 @@
 										"value": "@pipeline().parameters.update_mode",
 										"type": "Expression"
 									},
-									"s4h_client_id": {
-										"value": "@pipeline().parameters.s4h_client_id",
-										"type": "Expression"
-									},
-									"s4h_client_field": {
-										"value": "@pipeline().parameters.client_field",
-										"type": "Expression"
-									},
 									"application_id": {
 										"value": "@variables('application_id')",
 										"type": "Expression"
@@ -308,6 +292,10 @@
 									},
 									"extraction_timestamp_string": {
 										"value": "@variables('extractionTimestampString')",
+										"type": "Expression"
+									},
+									"s4h_client_field": {
+										"value": "@pipeline().parameters.client_field",
 										"type": "Expression"
 									}
 								}
@@ -740,7 +728,7 @@
 				"typeProperties": {
 					"variableName": "adlsContainerName",
 					"value": {
-						"value": "@if(\n    equals(\n        pipeline().parameters.layer_nk,\n        'S4H'\n    ),\n    concat(\n        pipeline().parameters.adls_container_name,\n        '-',\n        toLower(pipeline().parameters.s4h_system_id),\n        '-',\n        string(pipeline().parameters.s4h_client_id)\n    ),\n    pipeline().parameters.adls_container_name\n)",
+						"value": "@if(\n    equals(\n        pipeline().parameters.layer_nk,\n        'S4H'\n    ),\n    concat(\n        pipeline().parameters.adls_container_name,\n        '-',\n        toLower(pipeline().globalParameters.s4hSystemId),\n        '-',\n        string(pipeline().globalParameters.s4hClientId)\n    ),\n    pipeline().parameters.adls_container_name\n)",
 						"type": "Expression"
 					}
 				}
@@ -793,6 +781,22 @@
 									},
 									"run_id": {
 										"value": "@pipeline().parameters.run_id",
+										"type": "Expression"
+									},
+									"directory_path": {
+										"value": "@pipeline().parameters.adls_directory_path_In",
+										"type": "Expression"
+									},
+									"file_name": {
+										"value": "@pipeline().parameters.file_name",
+										"type": "Expression"
+									},
+									"source_date_field_name": {
+										"value": "@pipeline().parameters.source_date_field_name",
+										"type": "Expression"
+									},
+									"refresh_from_date": {
+										"value": "@pipeline().parameters.refresh_from_date",
 										"type": "Expression"
 									}
 								}
@@ -973,13 +977,8 @@
 			"update_mode": {
 				"type": "string"
 			},
-			"s4h_system_id": {
-				"type": "string",
-				"defaultValue": "CAA"
-			},
-			"s4h_client_id": {
-				"type": "int",
-				"defaultValue": 200
+			"refresh_from_date": {
+				"type": "string"
 			}
 		},
 		"variables": {

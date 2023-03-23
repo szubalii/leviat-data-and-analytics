@@ -379,7 +379,7 @@
 						},
 						"client_id": {
 							"value": {
-								"value": "@pipeline().parameters.s4h_client_id",
+								"value": "@pipeline().globalParameters.s4hClientId",
 								"type": "Expression"
 							},
 							"type": "String"
@@ -708,13 +708,6 @@
 				"type": "string",
 				"defaultValue": "Full"
 			},
-			"s4h_client_id": {
-				"type": "string",
-				"defaultValue": "200"
-			},
-			"s4h_client_field": {
-				"type": "string"
-			},
 			"application_id": {
 				"type": "string",
 				"defaultValue": "c4c"
@@ -723,6 +716,9 @@
 				"type": "string"
 			},
 			"extraction_timestamp_string": {
+				"type": "string"
+			},
+			"s4h_client_field": {
 				"type": "string"
 			}
 		},
