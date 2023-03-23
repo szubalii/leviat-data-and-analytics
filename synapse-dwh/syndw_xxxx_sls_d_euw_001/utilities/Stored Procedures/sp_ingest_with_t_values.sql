@@ -146,7 +146,7 @@ BEGIN
     -- Create the COPY INTO script
     SET @script = N'
         COPY INTO [' + @schema_name + '].[' + @table_name + '] (' + @columnList + ')
-        FROM ''https://stmporsdeuw001.dfs.core.windows.net:443/' + @file_path + '''
+        FROM ''https://$(storageAccount).dfs.core.windows.net:443/' + @file_path + '''
         WITH (
             IDENTITY_INSERT=''OFF'',
             CREDENTIAL=(IDENTITY=''Managed Identity''),
