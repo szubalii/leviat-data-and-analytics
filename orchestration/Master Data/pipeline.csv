@@ -20,3 +20,4 @@ pipeline_id,pipeline_name_nk,pipeline_description,parent_pipeline_id,pipeline_or
 20,pl_ADLS_In_dataValidation_main,Pipeline checks for duplicates in parquet files for sources: S4H,,
 21,pl_Base_ELT_main,Main pipeline for ELTL,,
 22,pl_SYNDW_DQ_process_main,Main pipeline for DQ,,
+23,pl_Base_ELT_main_v2,,
