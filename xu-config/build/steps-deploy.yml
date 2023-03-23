@@ -1,5 +1,13 @@
 steps:
 
+# Update the source and destinations in the extractions
+- task: FileTransform@1
+  displayName: 'File Transform: Destination and Source in Extractions'
+  inputs:
+    folderPath: '$(Pipeline.Workspace)\XtractUniversal\extractions'
+    fileType: json
+    targetFiles: '**/general.json'
+
   # Copy Repo XU Config Extractions to ADLS
   # This is used by ADF to know which extraction is configured to use file splitting
 - task: PowerShell@2
@@ -28,13 +36,7 @@ steps:
       Get-ChildItem -Path '$(Pipeline.Workspace)\XtractUniversal\extractions' |
       Foreach-Object {Rename-Item -Path $_.FullName -NewName ("$(xuPrefix)_"+($_.Name))}
 
-# Update the source and destinations in the extractions
-- task: FileTransform@1
-  displayName: 'File Transform: Destination and Source in Extractions'
-  inputs:
-    folderPath: '$(Pipeline.Workspace)\XtractUniversal\extractions'
-    fileType: json
-    targetFiles: '**/general.json'
+
 
   # Copy Repo XU Config to VM XU Config
 - task: CopyFiles@2
