@@ -21,5 +21,5 @@ steps:
 
       # directly copy to storage account using azcopy
       azcopy copy `
-        '$(Pipeline.Workspace)\XtractUniversal\extractions' `
+        '$(Pipeline.Workspace)\XtractUniversal\extractions\*' `
         'https://$(storageAccountName).dfs.core.windows.net/xu-configuration/extractions'
