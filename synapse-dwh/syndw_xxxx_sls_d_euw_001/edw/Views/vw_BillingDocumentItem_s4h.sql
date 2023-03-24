@@ -326,6 +326,8 @@ WITH BillingDocumentItemBase as (
             then 'I'
             else 'O'
           end as InOutID
+        , PA.EBELN as ICSalesDocumentID 
+        , PA.EBELP as ICSalesDocumentItemID
         , doc.[t_applicationId]
         , doc.[t_extractionDtm]
         --, @t_jobId                                        AS t_jobId
@@ -366,6 +368,9 @@ WITH BillingDocumentItemBase as (
        -- where doc.[t_lastActionCd] in ('I', 'U')
          left join [edw].[dim_Brand] DimBrand
                on DimBrand.[BrandID] = doc.[AdditionalMaterialGroup1]
+         left join [base_s4h_cax].[PurgAccAssignment] PA
+            ON doc.SalesDocument = PA.EBELN COLLATE Latin1_General_100_BIN2
+                AND left(doc.SalesDocumentItem,5) = PA.EBELP 
     ),
     BillingDocumentItemBase_Margin as (
         SELECT
@@ -539,6 +544,8 @@ WITH BillingDocumentItemBase as (
             , BDI_Base.[MaterialCalculated]
             , BDI_Base.[SoldToPartyCalculated]
             , BDI_Base.[InOutID]
+            , BDI_Base.[ICSalesDocumentID]
+            , BDI_Base.[ICSalesDocumentItemID]
             , BDI_Base.[t_applicationId]
             , BDI_Base.[t_extractionDtm]
         FROM
@@ -772,6 +779,8 @@ WITH BillingDocumentItemBase as (
             ,   [MaterialCalculated]
             ,   [SoldToPartyCalculated]
             ,   [InOutID]
+            ,   BDI.[ICSalesDocumentID]
+            ,   BDI.[ICSalesDocumentItemID]
             ,   BDI.[t_applicationId]
             ,   BDI.[t_extractionDtm]
         FROM 
@@ -992,6 +1001,8 @@ SELECT
       ,[MaterialCalculated]
       ,[SoldToPartyCalculated]
       ,[InOutID]
+      ,BDI.[ICSalesDocumentID]
+      ,BDI.[ICSalesDocumentItemID]
       ,BDI.[t_applicationId]
       ,BDI.[t_extractionDtm]
       --,BDI.[t_jobId]
@@ -1224,7 +1235,9 @@ SELECT
     ,[AccountingDate]
     ,[MaterialCalculated]
     ,[SoldToPartyCalculated]
-    ,[InOutID]
+    ,[InOutID]y
+    ,BDI.[ICSalesDocumentID]
+    ,BDI.[ICSalesDocumentItemID]
     ,BDI.[t_applicationId]
     ,BDI.[t_extractionDtm]
     --,BDI.[t_jobId]
@@ -1423,6 +1436,8 @@ SELECT
     ,[MaterialCalculated]
     ,[SoldToPartyCalculated]
     ,[InOutID]
+    ,BD_30.[ICSalesDocumentID]
+    ,BD_30.[ICSalesDocumentItemID]
     ,BD_30.[t_applicationId]
     ,BD_30.[t_extractionDtm]
     --,bdi_er_date.[t_jobId]
@@ -1614,6 +1629,8 @@ SELECT
     ,[MaterialCalculated]
     ,[SoldToPartyCalculated]
     ,[InOutID]
+    ,BDI.[ICSalesDocumentID]
+    ,BDI.[ICSalesDocumentIt]
     ,BDI.[t_applicationId]
     ,BDI.[t_extractionDtm]
 FROM 
