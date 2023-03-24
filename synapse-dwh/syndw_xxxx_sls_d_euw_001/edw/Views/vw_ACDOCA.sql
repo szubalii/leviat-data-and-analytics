@@ -1,9 +1,11 @@
 ﻿CREATE VIEW [edw].[vw_ACDOCA]
 AS
+WITH GLAccountLineItemRawData
+AS
+(
 SELECT 
        [SourceLedger]                           AS [SourceLedgerID],
        [CompanyCode]                            AS [CompanyCodeID],
-       COALESCE(VC.[ProductSurrogateKey],GLAccountLineItemRawData.[Product]) AS [ProductSurrogateKey],
        [FiscalYear],
        [AccountingDocument],
        [LedgerGLLineItem],
@@ -86,8 +88,8 @@ SELECT
        [PurchasingDocumentItem],
        [AccountAssignmentNumber],
        [DocumentItemText],
-       GLAccountLineItemRawData.[SalesDocument]                          AS [SalesDocumentID],          
-       GLAccountLineItemRawData.[SalesDocumentItem]                      AS [SalesDocumentItemID],
+       [SalesDocument]                          AS [SalesDocumentID],          
+       [SalesDocumentItem]                      AS [SalesDocumentItemID],
        [Product]                                AS [ProductID],
        [Plant]                                  AS [PlantID],
        [Supplier]                               AS [SupplierID],
@@ -126,34 +128,14 @@ SELECT
        [BillToParty]                            AS [BillToPartyID],
        [ShipToParty]                            AS [ShipToPartyID], 
        [KMVKBUPA]                               AS [SalesOfficeID],
-       PA.VBELN as ICSalesDocumentID,
-       PA.VBELP as ICSalesDocumentItemID,
        GLAccountLineItemRawData.[t_applicationId],
        GLAccountLineItemRawData.[t_extractionDtm]
 --FROM [base_s4h_cax].[I_GLAccountLineItemRawData] GLAccountLineItemRawData 
 FROM [base_s4h_cax].[I_GLAccountLineItemRawData_upto2022] GLAccountLineItemRawData 
-LEFT JOIN  [edw].[dim_PurgAccAssignment] PA
-    ON [PurchasingDocument] = PA.EBELN                              COLLATE DATABASE_DEFAULT
-        AND [PurchasingDocumentItem] = PA.EBELP 
-LEFT JOIN [edw].[fact_ProductHierarchyVariantConfigCharacteristic_active] as VC
-    ON VC.SalesDocument =
-            CASE
-               WHEN [ReferenceDocumentType]= 'VBRK' and  GLAccountLineItemRawData.SalesDocument =''
-                   THEN  PA.VBELN                  COLLATE DATABASE_DEFAULT
-                   ELSE GLAccountLineItemRawData.SalesDocument 
-               END 
-        and VC.SalesDocumentItem =
-            CASE
-               WHEN [ReferenceDocumentType]= 'VBRK' and  GLAccountLineItemRawData.SalesDocument =''
-                   THEN  PA.VBELP                  COLLATE DATABASE_DEFAULT
-               ELSE GLAccountLineItemRawData.SalesDocumentItem 
-               END 
-
        UNION ALL
 SELECT 
        [SourceLedger],
        [CompanyCode],
-       COALESCE(VC.[ProductSurrogateKey],GLAccountLineItemRawData.[Product]) AS [ProductSurrogateKey],
        [FiscalYear],
        [AccountingDocument],
        [LedgerGLLineItem],
@@ -236,8 +218,8 @@ SELECT
        [PurchasingDocumentItem],
        [AccountAssignmentNumber],
        [DocumentItemText],
-       GLAccountLineItemRawData.[SalesDocument],                                 
-       GLAccountLineItemRawData.[SalesDocumentItem],
+       [SalesDocument],
+       [SalesDocumentItem],
        [Product],
        [Plant],
        [Supplier],
@@ -276,32 +258,13 @@ SELECT
        [BillToParty],
        [ShipToParty],
        [KMVKBUPA],
-       PA.VBELN as ICSalesDocumentID,
-       PA.VBELP as ICSalesDocumentItemID,
        GLAccountLineItemRawData.[t_applicationId],
        GLAccountLineItemRawData.[t_extractionDtm]
-FROM [base_s4h_cax].[I_GLAccountLineItemRawData_202301] GLAccountLineItemRawData
-LEFT JOIN  [edw].[dim_PurgAccAssignment] PA
-    ON [PurchasingDocument] = PA.EBELN                              COLLATE DATABASE_DEFAULT
-        AND [PurchasingDocumentItem] = PA.EBELP 
-LEFT JOIN [edw].[fact_ProductHierarchyVariantConfigCharacteristic_active] as VC
-    ON VC.SalesDocument =
-            CASE
-               WHEN [ReferenceDocumentType]= 'VBRK' and  GLAccountLineItemRawData.SalesDocument =''
-                   THEN  PA.VBELN                  COLLATE DATABASE_DEFAULT
-                   ELSE GLAccountLineItemRawData.SalesDocument 
-               END 
-        and VC.SalesDocumentItem =
-            CASE
-               WHEN [ReferenceDocumentType]= 'VBRK' and  GLAccountLineItemRawData.SalesDocument =''
-                   THEN  PA.VBELP                  COLLATE DATABASE_DEFAULT
-               ELSE GLAccountLineItemRawData.SalesDocumentItem 
-               END 
+FROM [base_s4h_cax].[I_GLAccountLineItemRawData_202301] GLAccountLineItemRawData 
        UNION ALL
 SELECT 
        [SourceLedger],
        [CompanyCode],
-       COALESCE(VC.[ProductSurrogateKey],GLAccountLineItemRawData.[Product]) AS [ProductSurrogateKey],
        [FiscalYear],
        [AccountingDocument],
        [LedgerGLLineItem],
@@ -384,8 +347,8 @@ SELECT
        [PurchasingDocumentItem],
        [AccountAssignmentNumber],
        [DocumentItemText],
-       GLAccountLineItemRawData.[SalesDocument],                                 
-       GLAccountLineItemRawData.[SalesDocumentItem],
+       [SalesDocument],
+       [SalesDocumentItem],
        [Product],
        [Plant],
        [Supplier],
@@ -424,32 +387,13 @@ SELECT
        [BillToParty],
        [ShipToParty],
        [KMVKBUPA],
-       PA.VBELN as ICSalesDocumentID,
-       PA.VBELP as ICSalesDocumentItemID,
        GLAccountLineItemRawData.[t_applicationId],
        GLAccountLineItemRawData.[t_extractionDtm]
-FROM [base_s4h_cax].[I_GLAccountLineItemRawData_202302] GLAccountLineItemRawData
-LEFT JOIN  [edw].[dim_PurgAccAssignment] PA
-    ON [PurchasingDocument] = PA.EBELN                              COLLATE DATABASE_DEFAULT
-        AND [PurchasingDocumentItem] = PA.EBELP 
-LEFT JOIN [edw].[fact_ProductHierarchyVariantConfigCharacteristic_active] as VC
-    ON VC.SalesDocument =
-            CASE
-               WHEN [ReferenceDocumentType]= 'VBRK' and  GLAccountLineItemRawData.SalesDocument =''
-                   THEN  PA.VBELN                  COLLATE DATABASE_DEFAULT
-                   ELSE GLAccountLineItemRawData.SalesDocument 
-               END 
-        and VC.SalesDocumentItem =
-            CASE
-               WHEN [ReferenceDocumentType]= 'VBRK' and  GLAccountLineItemRawData.SalesDocument =''
-                   THEN  PA.VBELP                  COLLATE DATABASE_DEFAULT
-               ELSE GLAccountLineItemRawData.SalesDocumentItem 
-               END 
+FROM [base_s4h_cax].[I_GLAccountLineItemRawData_202302] GLAccountLineItemRawData 
        UNION ALL
 SELECT 
        [SourceLedger],
        [CompanyCode],
-       COALESCE(VC.[ProductSurrogateKey],GLAccountLineItemRawData.[Product]) AS [ProductSurrogateKey],
        [FiscalYear],
        [AccountingDocument],
        [LedgerGLLineItem],
@@ -532,8 +476,8 @@ SELECT
        [PurchasingDocumentItem],
        [AccountAssignmentNumber],
        [DocumentItemText],
-       GLAccountLineItemRawData.[SalesDocument],                              
-       GLAccountLineItemRawData.[SalesDocumentItem],
+       [SalesDocument],
+       [SalesDocumentItem],
        [Product],
        [Plant],
        [Supplier],
@@ -572,32 +516,13 @@ SELECT
        [BillToParty],
        [ShipToParty],
        [KMVKBUPA],
-       PA.VBELN as ICSalesDocumentID,
-       PA.VBELP as ICSalesDocumentItemID,
        GLAccountLineItemRawData.[t_applicationId],
        GLAccountLineItemRawData.[t_extractionDtm]
-FROM [base_s4h_cax].[I_GLAccountLineItemRawData_202303] GLAccountLineItemRawData
-LEFT JOIN  [edw].[dim_PurgAccAssignment] PA
-    ON [PurchasingDocument] = PA.EBELN                              COLLATE DATABASE_DEFAULT
-        AND [PurchasingDocumentItem] = PA.EBELP 
-LEFT JOIN [edw].[fact_ProductHierarchyVariantConfigCharacteristic_active] as VC
-    ON VC.SalesDocument =
-            CASE
-               WHEN [ReferenceDocumentType]= 'VBRK' and  GLAccountLineItemRawData.SalesDocument =''
-                   THEN  PA.VBELN                  COLLATE DATABASE_DEFAULT
-                   ELSE GLAccountLineItemRawData.SalesDocument 
-               END 
-        and VC.SalesDocumentItem =
-            CASE
-               WHEN [ReferenceDocumentType]= 'VBRK' and  GLAccountLineItemRawData.SalesDocument =''
-                   THEN  PA.VBELP                  COLLATE DATABASE_DEFAULT
-               ELSE GLAccountLineItemRawData.SalesDocumentItem 
-               END 
+FROM [base_s4h_cax].[I_GLAccountLineItemRawData_202303] GLAccountLineItemRawData 
        UNION ALL
 SELECT 
        [SourceLedger],
        [CompanyCode],
-       COALESCE(VC.[ProductSurrogateKey],GLAccountLineItemRawData.[Product]) AS [ProductSurrogateKey],
        [FiscalYear],
        [AccountingDocument],
        [LedgerGLLineItem],
@@ -680,8 +605,8 @@ SELECT
        [PurchasingDocumentItem],
        [AccountAssignmentNumber],
        [DocumentItemText],
-       GLAccountLineItemRawData.[SalesDocument],                                 
-       GLAccountLineItemRawData.[SalesDocumentItem], 
+       [SalesDocument],
+       [SalesDocumentItem],
        [Product],
        [Plant],
        [Supplier],
@@ -720,32 +645,13 @@ SELECT
        [BillToParty],
        [ShipToParty],
        [KMVKBUPA],
-       PA.VBELN as ICSalesDocumentID,
-       PA.VBELP as ICSalesDocumentItemID,
        GLAccountLineItemRawData.[t_applicationId],
        GLAccountLineItemRawData.[t_extractionDtm]
-FROM [base_s4h_cax].[I_GLAccountLineItemRawData_202304] GLAccountLineItemRawData
-LEFT JOIN  [edw].[dim_PurgAccAssignment] PA
-    ON [PurchasingDocument] = PA.EBELN                              COLLATE DATABASE_DEFAULT
-        AND [PurchasingDocumentItem] = PA.EBELP 
-LEFT JOIN [edw].[fact_ProductHierarchyVariantConfigCharacteristic_active] as VC
-    ON VC.SalesDocument =
-            CASE
-               WHEN [ReferenceDocumentType]= 'VBRK' and  GLAccountLineItemRawData.SalesDocument =''
-                   THEN  PA.VBELN                  COLLATE DATABASE_DEFAULT
-                   ELSE GLAccountLineItemRawData.SalesDocument 
-               END 
-        and VC.SalesDocumentItem =
-            CASE
-               WHEN [ReferenceDocumentType]= 'VBRK' and  GLAccountLineItemRawData.SalesDocument =''
-                   THEN  PA.VBELP                  COLLATE DATABASE_DEFAULT
-               ELSE GLAccountLineItemRawData.SalesDocumentItem 
-               END 
+FROM [base_s4h_cax].[I_GLAccountLineItemRawData_202304] GLAccountLineItemRawData 
        UNION ALL
 SELECT 
        [SourceLedger],
        [CompanyCode],
-       COALESCE(VC.[ProductSurrogateKey],GLAccountLineItemRawData.[Product]) AS [ProductSurrogateKey],
        [FiscalYear],
        [AccountingDocument],
        [LedgerGLLineItem],
@@ -828,8 +734,8 @@ SELECT
        [PurchasingDocumentItem],
        [AccountAssignmentNumber],
        [DocumentItemText],
-       GLAccountLineItemRawData.[SalesDocument],        
-       GLAccountLineItemRawData.[SalesDocumentItem],
+       [SalesDocument],
+       [SalesDocumentItem],
        [Product],
        [Plant],
        [Supplier],
@@ -868,26 +774,157 @@ SELECT
        [BillToParty],
        [ShipToParty],
        [KMVKBUPA],
-       PA.VBELN as ICSalesDocumentID,
-       PA.VBELP as ICSalesDocumentItemID,
        GLAccountLineItemRawData.[t_applicationId],
        GLAccountLineItemRawData.[t_extractionDtm]
 FROM [base_s4h_cax].[I_GLAccountLineItemRawData_202305] GLAccountLineItemRawData 
+)
+SELECT 
+       [SourceLedgerID],
+       [CompanyCodeID],
+       COALESCE(VC.[ProductSurrogateKey],GLAccountLineItemRawData.[ProductID]) AS [ProductSurrogateKey],
+       [FiscalYear],
+       [AccountingDocument],
+       [LedgerGLLineItem],
+       [LedgerFiscalYear],
+       [GLRecordTypeID],
+       [ChartOfAccountsID],
+       [ControllingAreaID],
+       [FinancialTransactionTypeID],
+       [BusinessTransactionTypeID],
+       [ControllingBusTransacTypeID],
+       [ReferenceDocumentTypeID],
+       [ReferenceDocumentContextID],
+       [ReferenceDocument],
+       [ReferenceDocumentItem],
+       [ReferenceDocumentItemGroupID],
+       [IsReversal],
+       [IsReversed],
+       [PredecessorReferenceDocTypeID],
+       [ReversalReferenceDocumentCntxtID],
+       [ReversalReferenceDocument],
+       [IsSettlement],
+       [IsSettled],
+       [PredecessorReferenceDocument],
+       [PredecessorReferenceDocItem],
+       [SourceReferenceDocumentTypeID],
+       [SourceReferenceDocument],
+       [SourceReferenceDocumentItem],
+       [IsCommitment],
+       [JrnlEntryItemObsoleteReasonID],
+       [GLAccountID],
+       [CostCenterID],
+       [ProfitCenterID],
+       [FunctionalAreaID],
+       [BusinessAreaID],          
+       [SegmentID],
+       [PartnerCostCenterID],
+       [PartnerProfitCenterID],
+       [PartnerFunctionalAreaID],
+       [PartnerBusinessAreaID],
+       [PartnerCompanyID],
+       [PartnerSegmentID],
+       [BalanceTransactionCurrency],
+       [AmountInBalanceTransacCrcy],
+       [TransactionCurrency],
+       [AmountInTransactionCurrency],
+       [CompanyCodeCurrency],
+       [AmountInCompanyCodeCurrency],
+       [GlobalCurrency],
+       [AmountInGlobalCurrency],
+       [FreeDefinedCurrency1],
+       [AmountInFreeDefinedCurrency1],
+       [FreeDefinedCurrency2],
+       [AmountInFreeDefinedCurrency2],
+       [BaseUnit],
+       [Quantity],
+       [DebitCreditID], 
+       [FiscalPeriod], 
+       [FiscalYearVariant],
+       [FiscalYearPeriod],
+       [PostingDate],
+       [DocumentDate],
+       [AccountingDocumentTypeID],
+       [AccountingDocumentItem],
+       [AssignmentReference],
+       [AccountingDocumentCategoryID],
+       [PostingKeyID],
+       [TransactionTypeDeterminationID],
+       [SubLedgerAcctLineItemTypeID],
+       [AccountingDocCreatedByUserID],
+       [LastChangeDateTime],
+       [CreationDateTime],
+       [CreationDate],
+       [OriginObjectTypeID],
+       [GLAccountTypeID],
+       [InvoiceReference],
+       [InvoiceReferenceFiscalYear],
+       [InvoiceItemReference],
+       [ReferencePurchaseOrderCategoryID],
+       [PurchasingDocument],
+       [PurchasingDocumentItem],
+       [AccountAssignmentNumber],
+       [DocumentItemText],
+       [SalesDocumentID],          
+       [SalesDocumentItemID],
+       GLAccountLineItemRawData.[ProductID],
+       [PlantID],
+       [SupplierID],
+       [CustomerID],
+       [ExchangeRateDate],                    
+       [FinancialAccountTypeID],
+       [SpecialGLCodeID],
+       [TaxCodeID],
+       [ClearingDate],
+       [ClearingAccountingDocument],
+       [ClearingDocFiscalYear],
+       [LineItemIsCompleted],
+       [PersonnelNumber],
+       [PartnerCompanyCodeID],
+       [OriginProfitCenterID],
+       [OriginCostCenterID],
+       [AccountAssignmentID],
+       [AccountAssignmentTypeID],
+       [CostCtrActivityTypeID],
+       [OrderID],
+       [OrderCategoryID],
+       [WBSElementID],
+       [ProjectInternalID],
+       [ProjectID],
+       [OperatingConcernID],
+       [BusinessProcessID],
+       [CostObjectID],
+       [BillableControlID],
+       [ServiceDocumentTypeID],
+       [ServiceDocument],
+       [ServiceDocumentItem],
+       [BillingDocumentTypeID],
+       [SalesOrganizationID],
+       [DistributionChannelID],
+       [SalesDistrictID],
+       [BillToPartyID],
+       [ShipToPartyID], 
+       [SalesOfficeID],
+       PA.VBELN as ICSalesDocumentID,
+       PA.VBELP as ICSalesDocumentItemID,
+       GLAccountLineItemRawData.[t_applicationId],
+       GLAccountLineItemRawData.[t_extractionDtm]
+FROM GLAccountLineItemRawData
 LEFT JOIN  [edw].[dim_PurgAccAssignment] PA
     ON [PurchasingDocument] = PA.EBELN                              COLLATE DATABASE_DEFAULT
         AND [PurchasingDocumentItem] = PA.EBELP 
 LEFT JOIN [edw].[fact_ProductHierarchyVariantConfigCharacteristic_active] as VC
     ON VC.SalesDocument =
             CASE
-               WHEN [ReferenceDocumentType]= 'VBRK' and  GLAccountLineItemRawData.SalesDocument =''
+               WHEN [ReferenceDocumentTypeID]= 'VBRK' and  GLAccountLineItemRawData.SalesDocumentID =''
                    THEN  PA.VBELN                  COLLATE DATABASE_DEFAULT
-                   ELSE GLAccountLineItemRawData.SalesDocument 
+                   ELSE GLAccountLineItemRawData.SalesDocumentID 
                END 
         and VC.SalesDocumentItem =
             CASE
-               WHEN [ReferenceDocumentType]= 'VBRK' and  GLAccountLineItemRawData.SalesDocument =''
+               WHEN [ReferenceDocumentTypeID]= 'VBRK' and  GLAccountLineItemRawData.SalesDocumentID =''
                    THEN  PA.VBELP                  COLLATE DATABASE_DEFAULT
-               ELSE GLAccountLineItemRawData.SalesDocumentItem 
+               ELSE GLAccountLineItemRawData.SalesDocumentItemID 
                END 
 -- WHERE
 --     GLAccountLineItemRawData.MANDT = 200 MPS 2021/11/01: commented out due to different client values between dev,qas, and prod
+
