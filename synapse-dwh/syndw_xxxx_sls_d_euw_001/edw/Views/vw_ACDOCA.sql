@@ -1,5 +1,8 @@
 ﻿CREATE VIEW [edw].[vw_ACDOCA]
 AS
+WITH GLAccountLineItemRawData
+AS
+(
 SELECT 
        [SourceLedger]                           AS [SourceLedgerID],
        [CompanyCode]                            AS [CompanyCodeID],
@@ -774,5 +777,154 @@ SELECT
        GLAccountLineItemRawData.[t_applicationId],
        GLAccountLineItemRawData.[t_extractionDtm]
 FROM [base_s4h_cax].[I_GLAccountLineItemRawData_202305] GLAccountLineItemRawData 
+)
+SELECT 
+       [SourceLedgerID],
+       [CompanyCodeID],
+       COALESCE(VC.[ProductSurrogateKey],GLAccountLineItemRawData.[ProductID]) AS [ProductSurrogateKey],
+       [FiscalYear],
+       [AccountingDocument],
+       [LedgerGLLineItem],
+       [LedgerFiscalYear],
+       [GLRecordTypeID],
+       [ChartOfAccountsID],
+       [ControllingAreaID],
+       [FinancialTransactionTypeID],
+       [BusinessTransactionTypeID],
+       [ControllingBusTransacTypeID],
+       [ReferenceDocumentTypeID],
+       [ReferenceDocumentContextID],
+       [ReferenceDocument],
+       [ReferenceDocumentItem],
+       [ReferenceDocumentItemGroupID],
+       [IsReversal],
+       [IsReversed],
+       [PredecessorReferenceDocTypeID],
+       [ReversalReferenceDocumentCntxtID],
+       [ReversalReferenceDocument],
+       [IsSettlement],
+       [IsSettled],
+       [PredecessorReferenceDocument],
+       [PredecessorReferenceDocItem],
+       [SourceReferenceDocumentTypeID],
+       [SourceReferenceDocument],
+       [SourceReferenceDocumentItem],
+       [IsCommitment],
+       [JrnlEntryItemObsoleteReasonID],
+       GLAccountLineItemRawData.[GLAccountID],
+       GLAccountLineItemRawData.[CostCenterID],
+       [ProfitCenterID],
+       [FunctionalAreaID],
+       [BusinessAreaID],          
+       [SegmentID],
+       [PartnerCostCenterID],
+       [PartnerProfitCenterID],
+       [PartnerFunctionalAreaID],
+       [PartnerBusinessAreaID],
+       [PartnerCompanyID],
+       [PartnerSegmentID],
+       [BalanceTransactionCurrency],
+       [AmountInBalanceTransacCrcy],
+       [TransactionCurrency],
+       [AmountInTransactionCurrency],
+       [CompanyCodeCurrency],
+       [AmountInCompanyCodeCurrency],
+       [GlobalCurrency],
+       [AmountInGlobalCurrency],
+       [FreeDefinedCurrency1],
+       [AmountInFreeDefinedCurrency1],
+       [FreeDefinedCurrency2],
+       [AmountInFreeDefinedCurrency2],
+       [BaseUnit],
+       [Quantity],
+       [DebitCreditID], 
+       [FiscalPeriod], 
+       [FiscalYearVariant],
+       [FiscalYearPeriod],
+       [PostingDate],
+       [DocumentDate],
+       [AccountingDocumentTypeID],
+       [AccountingDocumentItem],
+       [AssignmentReference],
+       [AccountingDocumentCategoryID],
+       [PostingKeyID],
+       [TransactionTypeDeterminationID],
+       [SubLedgerAcctLineItemTypeID],
+       [AccountingDocCreatedByUserID],
+       [LastChangeDateTime],
+       [CreationDateTime],
+       [CreationDate],
+       [OriginObjectTypeID],
+       [GLAccountTypeID],
+       [InvoiceReference],
+       [InvoiceReferenceFiscalYear],
+       [InvoiceItemReference],
+       [ReferencePurchaseOrderCategoryID],
+       [PurchasingDocument],
+       [PurchasingDocumentItem],
+       [AccountAssignmentNumber],
+       [DocumentItemText],
+       [SalesDocumentID],          
+       [SalesDocumentItemID],
+       GLAccountLineItemRawData.[ProductID],
+       [PlantID],
+       [SupplierID],
+       [CustomerID],
+       [ExchangeRateDate],                    
+       [FinancialAccountTypeID],
+       [SpecialGLCodeID],
+       [TaxCodeID],
+       [ClearingDate],
+       [ClearingAccountingDocument],
+       [ClearingDocFiscalYear],
+       [LineItemIsCompleted],
+       [PersonnelNumber],
+       [PartnerCompanyCodeID],
+       [OriginProfitCenterID],
+       [OriginCostCenterID],
+       [AccountAssignmentID],
+       [AccountAssignmentTypeID],
+       [CostCtrActivityTypeID],
+       [OrderID],
+       [OrderCategoryID],
+       [WBSElementID],
+       [ProjectInternalID],
+       [ProjectID],
+       [OperatingConcernID],
+       [BusinessProcessID],
+       [CostObjectID],
+       [BillableControlID],
+       [ServiceDocumentTypeID],
+       [ServiceDocument],
+       [ServiceDocumentItem],
+       [BillingDocumentTypeID],
+       [SalesOrganizationID],
+       [DistributionChannelID],
+       [SalesDistrictID],
+       [BillToPartyID],
+       [ShipToPartyID], 
+       [SalesOfficeID],
+       PA.ICSalesDocumentID,
+       PA.ICSalesDocumentItemID,
+       GLAccountLineItemRawData.[t_applicationId],
+       GLAccountLineItemRawData.[t_extractionDtm]
+FROM GLAccountLineItemRawData
+LEFT JOIN  [edw].[dim_PurgAccAssignment] PA
+    ON [PurchasingDocument] = PA.PurchaseOrder                              COLLATE DATABASE_DEFAULT
+        AND [PurchasingDocumentItem] = PA.PurchaseOrderItem 
+LEFT JOIN [edw].[fact_ProductHierarchyVariantConfigCharacteristic_active] as VC
+    ON VC.SalesDocument =
+            CASE
+               WHEN [ReferenceDocumentTypeID]= 'VBRK' and  GLAccountLineItemRawData.SalesDocumentID =''
+                   THEN  PA.ICSalesDocumentID                  COLLATE DATABASE_DEFAULT
+                   ELSE GLAccountLineItemRawData.SalesDocumentID 
+               END 
+        and VC.SalesDocumentItem =
+            CASE
+               WHEN [ReferenceDocumentTypeID]= 'VBRK' and  GLAccountLineItemRawData.SalesDocumentID =''
+                   THEN  PA.ICSalesDocumentItemID                  COLLATE DATABASE_DEFAULT
+               ELSE GLAccountLineItemRawData.SalesDocumentItemID 
+               END 
 -- WHERE
 --     GLAccountLineItemRawData.MANDT = 200 MPS 2021/11/01: commented out due to different client values between dev,qas, and prod
+
