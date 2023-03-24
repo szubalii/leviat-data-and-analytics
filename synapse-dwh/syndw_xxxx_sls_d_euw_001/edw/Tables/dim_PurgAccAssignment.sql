@@ -15,8 +15,8 @@ CREATE TABLE [edw].[dim_PurgAccAssignment](
     ,   [t_extractionDtm]       DATETIME
     ,   CONSTRAINT [PK_PurgAccAssignment] PRIMARY KEY NONCLUSTERED(
             [MANDT],
-            [EBELN],
-            [EBELP],
+            [PurchaseOrder],
+            [PurchaseOrderItem],
             [ZEKKN]
         )NOT ENFORCED 
 )
