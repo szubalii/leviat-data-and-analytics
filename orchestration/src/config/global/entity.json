@@ -4564,7 +4564,7 @@
         "schedule_recurrence": "D"
       },
       {
-        "entity_id": 67,
+        "entity_id": 68,
         "entity_name": "dim_PurgAccAssignment",
         "sproc_name": "sp_materialize_view",
         "source_view_name": "vw_PurgAccAssignment",
