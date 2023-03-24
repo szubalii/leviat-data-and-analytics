@@ -5,6 +5,7 @@
     [FiscalYear]                       char(4) collate Latin1_General_100_BIN2  NOT NULL,
     [AccountingDocument]               nvarchar(20)  NOT NULL,
     [LedgerGLLineItem]                 nvarchar(12)  NOT NULL,
+    [ProductSurrogateKey]              nvarchar(20),
     [LedgerFiscalYear]                 char(4) collate Latin1_General_100_BIN2,
     [GLRecordTypeID]                   nvarchar(2),
     [ChartOfAccountsID]                nvarchar(8),

@@ -60,7 +60,7 @@ SELECT
     GLALIRD.[SourceLedgerID],
     GLALIRD.[CompanyCodeID],
     GLALIRD.[CompanyCodeID] + GLALIRD.[ProfitCenterID] as [SKReportingEntityKey],
-    ACDOCA.[ProductSurrogateKey],
+    GLALIRD.[ProductSurrogateKey],
     GLALIRD.[FiscalYear],
     GLALIRD.[AccountingDocument],
     GLALIRD.[LedgerGLLineItem],
@@ -326,7 +326,3 @@ LEFT JOIN [edw].[dim_Brand] DimBrand
     ON PSD.FirstSalesSpecProductGroup = DimBrand.[BrandID] 
 LEFT JOIN [edw].[dim_CustomerGroup] dimCGr
     ON CSA.CustomerGroup = dimCGr.[CustomerGroupID]
-LEFT JOIN [edw].[vw_ACDOCA] ACDOCA
-    ON GLALIRD.SourceLedgerID= ACDOCA.SourceLedgerID
-    AND GLALIRD.CompanyCodeID= ACDOCA.CompanyCodeID
-    AND GLALIRD.AccountingDocument= ACDOCA.AccountingDocument
