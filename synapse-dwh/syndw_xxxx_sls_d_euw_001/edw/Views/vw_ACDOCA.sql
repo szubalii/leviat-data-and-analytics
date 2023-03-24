@@ -424,6 +424,8 @@ SELECT
        [BillToParty],
        [ShipToParty],
        [KMVKBUPA],
+       PA.VBELN as ICSalesDocumentID,
+       PA.VBELP as ICSalesDocumentItemID,
        GLAccountLineItemRawData.[t_applicationId],
        GLAccountLineItemRawData.[t_extractionDtm]
 FROM [base_s4h_cax].[I_GLAccountLineItemRawData_202302] GLAccountLineItemRawData
@@ -718,6 +720,8 @@ SELECT
        [BillToParty],
        [ShipToParty],
        [KMVKBUPA],
+       PA.VBELN as ICSalesDocumentID,
+       PA.VBELP as ICSalesDocumentItemID,
        GLAccountLineItemRawData.[t_applicationId],
        GLAccountLineItemRawData.[t_extractionDtm]
 FROM [base_s4h_cax].[I_GLAccountLineItemRawData_202304] GLAccountLineItemRawData
