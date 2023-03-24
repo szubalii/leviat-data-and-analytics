@@ -368,7 +368,7 @@ WITH BillingDocumentItemBase as (
        -- where doc.[t_lastActionCd] in ('I', 'U')
          left join [edw].[dim_Brand] DimBrand
                on DimBrand.[BrandID] = doc.[AdditionalMaterialGroup1]
-         left join [base_s4h_cax].[PurgAccAssignment] PA
+         left join [edw].[dim_PurgAccAssignment] PA
             ON doc.SalesDocument = PA.EBELN                   COLLATE DATABASE_DEFAULT
                 AND left(doc.SalesDocumentItem,5) = PA.EBELP 
     ),
