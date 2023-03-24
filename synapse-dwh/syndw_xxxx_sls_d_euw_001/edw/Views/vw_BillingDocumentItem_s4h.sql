@@ -1630,7 +1630,7 @@ SELECT
     ,[SoldToPartyCalculated]
     ,[InOutID]
     ,BDI.[ICSalesDocumentID]
-    ,BDI.[ICSalesDocumentIt]
+    ,BDI.[ICSalesDocumentItem]
     ,BDI.[t_applicationId]
     ,BDI.[t_extractionDtm]
 FROM 
