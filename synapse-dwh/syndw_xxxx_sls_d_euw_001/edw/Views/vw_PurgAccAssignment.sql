@@ -4,9 +4,9 @@ SELECT
        [MANDT]
       ,[EBELN] as PurchaseOrder
       ,[EBELP] as PurchaseOrderItem
-      ,[ZEKKN]
-      ,[SAKTO]
-      ,[KOSTL]
+      ,[ZEKKN] as SequentialNumberOfAccountAssignment
+      ,[SAKTO] as GLAccountID
+      ,[KOSTL] as CostCenterID
       ,[VBELN] as ICSalesDocumentID
       ,[VBELP] as ICSalesDocumentItemID
       ,[t_applicationId]
