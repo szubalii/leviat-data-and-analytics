@@ -4567,7 +4567,7 @@
         "entity_id": 67,
         "entity_name": "dim_PurgAccAssignment",
         "sproc_name": "sp_materialize_view",
-        "source_view_name": "edw.vw_PurgAccAssignment",
+        "source_view_name": "vw_PurgAccAssignment",
         "dest_table_name": "dim_PurgAccAssignment",
         "execution_order": 2,
         "schedule_recurrence": "D"
