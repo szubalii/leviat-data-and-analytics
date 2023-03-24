@@ -327,8 +327,8 @@ WITH BillingDocumentItemBase as (
             then 'I'
             else 'O'
           end as InOutID
-        , PA.EBELN as ICSalesDocumentID 
-        , PA.EBELP as ICSalesDocumentItemID
+        , PA.VBELN as ICSalesDocumentID 
+        , PA.VBELP as ICSalesDocumentItemID
         , doc.[t_applicationId]
         , doc.[t_extractionDtm]
         , doc.[t_lastActionBy]
