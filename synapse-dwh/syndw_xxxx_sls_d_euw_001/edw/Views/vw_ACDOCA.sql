@@ -904,25 +904,25 @@ SELECT
        [BillToPartyID],
        [ShipToPartyID], 
        [SalesOfficeID],
-       PA.VBELN as ICSalesDocumentID,
-       PA.VBELP as ICSalesDocumentItemID,
+       PA.ICSalesDocumentID,
+       PA.ICSalesDocumentItemID,
        GLAccountLineItemRawData.[t_applicationId],
        GLAccountLineItemRawData.[t_extractionDtm]
 FROM GLAccountLineItemRawData
 LEFT JOIN  [edw].[dim_PurgAccAssignment] PA
-    ON [PurchasingDocument] = PA.EBELN                              COLLATE DATABASE_DEFAULT
-        AND [PurchasingDocumentItem] = PA.EBELP 
+    ON [PurchasingDocument] = PA.PurchaseOrder                              COLLATE DATABASE_DEFAULT
+        AND [PurchasingDocumentItem] = PA.PurchaseOrderItem 
 LEFT JOIN [edw].[fact_ProductHierarchyVariantConfigCharacteristic_active] as VC
     ON VC.SalesDocument =
             CASE
                WHEN [ReferenceDocumentTypeID]= 'VBRK' and  GLAccountLineItemRawData.SalesDocumentID =''
-                   THEN  PA.VBELN                  COLLATE DATABASE_DEFAULT
+                   THEN  PA.ICSalesDocumentID                  COLLATE DATABASE_DEFAULT
                    ELSE GLAccountLineItemRawData.SalesDocumentID 
                END 
         and VC.SalesDocumentItem =
             CASE
                WHEN [ReferenceDocumentTypeID]= 'VBRK' and  GLAccountLineItemRawData.SalesDocumentID =''
-                   THEN  PA.VBELP                  COLLATE DATABASE_DEFAULT
+                   THEN  PA.ICSalesDocumentItemID                  COLLATE DATABASE_DEFAULT
                ELSE GLAccountLineItemRawData.SalesDocumentItemID 
                END 
 -- WHERE

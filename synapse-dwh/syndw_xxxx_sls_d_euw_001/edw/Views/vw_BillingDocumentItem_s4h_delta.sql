@@ -327,8 +327,8 @@ WITH BillingDocumentItemBase as (
             then 'I'
             else 'O'
           end as InOutID
-        , PA.VBELN as ICSalesDocumentID 
-        , PA.VBELP as ICSalesDocumentItemID
+        , PA.ICSalesDocumentID 
+        , PA.ICSalesDocumentItemID
         , doc.[t_applicationId]
         , doc.[t_extractionDtm]
         , doc.[t_lastActionBy]
@@ -363,8 +363,8 @@ WITH BillingDocumentItemBase as (
                     SDID.[SalesDocumentItem] = doc.[SalesDocumentItem] 
                     -- and SDID.[MANDT] = 200 MPS 2021/11/01: commented out due to different client values between dev,qas, and prod
         left join [edw].[dim_PurgAccAssignment] PA
-            ON doc.SalesDocument = PA.EBELN                   COLLATE DATABASE_DEFAULT
-                AND left(doc.SalesDocumentItem,5) = PA.EBELP
+            ON doc.SalesDocument = PA.PurchaseOrder                   COLLATE DATABASE_DEFAULT
+                AND left(doc.SalesDocumentItem,5) = PA.PurchaseOrderItem
         -- move to DM            
         --left join [base_s4h_cax].[I_SalesDocumentTypeText] SDTT
         --    on SDTT.[SalesDocumentType] = SDID.[SalesDocumentType] and SDTT.[Language] = 'E' 

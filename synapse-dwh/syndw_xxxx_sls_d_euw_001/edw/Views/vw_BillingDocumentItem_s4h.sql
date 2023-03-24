@@ -326,8 +326,8 @@ WITH BillingDocumentItemBase as (
             then 'I'
             else 'O'
           end as InOutID
-        , PA.VBELN as ICSalesDocumentID 
-        , PA.VBELP as ICSalesDocumentItemID
+        , PA.ICSalesDocumentID 
+        , PA.ICSalesDocumentItemID
         , doc.[t_applicationId]
         , doc.[t_extractionDtm]
         --, @t_jobId                                        AS t_jobId
@@ -369,8 +369,8 @@ WITH BillingDocumentItemBase as (
          left join [edw].[dim_Brand] DimBrand
                on DimBrand.[BrandID] = doc.[AdditionalMaterialGroup1]
          left join [edw].[dim_PurgAccAssignment] PA
-            ON doc.SalesDocument = PA.EBELN                   COLLATE DATABASE_DEFAULT
-                AND left(doc.SalesDocumentItem,5) = PA.EBELP 
+            ON doc.SalesDocument = PA.PurchaseOrder                   COLLATE DATABASE_DEFAULT
+                AND left(doc.SalesDocumentItem,5) = PA.PurchaseOrderItem 
     ),
     BillingDocumentItemBase_Margin as (
         SELECT
