@@ -32,7 +32,6 @@ ITEMTABLE_without_quotes AS (
     ,   IT.[t_jobDtm]
     ,   IT.[t_jobBy]
     ,   IT.[t_extractionDtm]
-    ,   IT.[t_filePath]
     FROM    
         [intm_axbi].[dim_ITEMTABLE] IT
 )
@@ -206,7 +205,7 @@ ITEMTABLE_without_quotes AS (
     ,   ITQ.[t_jobDtm]
     ,   ITQ.[t_jobBy]
     ,   ITQ.[t_extractionDtm]
-    ,   ITQ.[t_filePath]
+    ,   null as [t_filePath]
     ,   'ITEMTABLE' AS [t_source]
     FROM 
         ITEMTABLE_without_quotes ITQ

@@ -126,7 +126,7 @@ BillingDocumentItemBase_axbi AS (
         ON
             DA.[DATAAREAID2] = CITQ.DATAAREAID
     LEFT JOIN 
-        [intm_axbi].[fact_CUSTINVOICETRANS] CT
+         [intm_axbi].[dim_CUSTTABLE]  CT
         ON
             CT.[ACCOUNTNUM] = CITQ.[CUSTOMERNO]
             AND

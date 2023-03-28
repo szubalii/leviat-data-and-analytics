@@ -125,7 +125,7 @@ MigratedSAPCustomerBasicMapping AS (
     ,   C.[t_jobDtm]
     ,   C.[t_jobBy]
     ,   C.[t_extractionDtm]
-    ,   C.[t_filePath]
+    ,   null as [t_filePath]
     FROM
          [intm_axbi].[dim_CUSTTABLE]  C
     WHERE
