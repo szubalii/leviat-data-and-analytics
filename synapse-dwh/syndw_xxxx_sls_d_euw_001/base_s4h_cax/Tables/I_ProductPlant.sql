@@ -55,10 +55,10 @@ CREATE TABLE [base_s4h_cax].[I_ProductPlant](
 , [DistrCntrDistributionProfile] nvarchar(3)
 , [ProductCFOPCategory] nvarchar(2)
 , [ConsumptionTaxCtrlCode] nvarchar(16)
-, [FiscalYearCurrentPeriod] char(4) collate Latin1_General_100_BIN2
 , [FiscalMonthCurrentPeriod] char(2) collate Latin1_General_100_BIN2
-, [OriginalBatchReferenceMaterial] nvarchar(40)
+, [FiscalYearCurrentPeriod] char(4) collate Latin1_General_100_BIN2
 , [OriglBatchManagementIsRequired] nvarchar(1)
+, [OriginalBatchReferenceMaterial] nvarchar(40)
 , [GoodsReceiptBlockedStockQty] decimal(13,3)
 , [HasConsignmentCtrl] nvarchar(1)
 , [ConsignmentControl] nvarchar(1)
