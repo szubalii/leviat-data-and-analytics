@@ -34,7 +34,7 @@ ITEMTABLE_without_quotes AS (
     ,   IT.[t_extractionDtm]
     ,   IT.[t_filePath]
     FROM    
-        [base_tx_ca_0_hlp].[ITEMTABLE] IT
+        [intm_axbi].[dim_ITEMTABLE] IT
 )
 ,CALCULATED AS (
     SELECT 
