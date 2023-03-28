@@ -53,7 +53,7 @@ variables:
   - template: ./variables-personal.yml
 - ${{ elseif contains(variables['Build.SourceBranch'], '/dev/') }}:
   - name: user
-    value: variables['Build.SourceBranchName']
+    value: $[ variables['Build.SourceBranchName'] ]
   - template: ./variables-personal.yml
   - name: deployEnv # override value to map main branch to DEV deployment environment
     value: ${{ format('DEV_{0}', upper(variables['Build.SourceBranchName'])) }}
