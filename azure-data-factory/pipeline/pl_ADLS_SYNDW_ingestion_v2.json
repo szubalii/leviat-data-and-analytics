@@ -346,7 +346,7 @@
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "Set Batch Load2Base",
+						"activity": "Get Parquet Structure",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -457,6 +457,13 @@
 						"extraction_timestamp": {
 							"value": {
 								"value": "@pipeline().parameters.extraction_timestamp_string",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"file_structure": {
+							"value": {
+								"value": "@string(activity('Get Parquet Structure').output.structure)",
 								"type": "Expression"
 							},
 							"type": "String"
@@ -665,24 +672,75 @@
 					},
 					"errorCode": "500"
 				}
+			},
+			{
+				"name": "Get Parquet Structure",
+				"type": "GetMetadata",
+				"dependsOn": [
+					{
+						"activity": "Set Batch Load2Base",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataset": {
+						"referenceName": "ds_adls_parquet_file",
+						"type": "DatasetReference",
+						"parameters": {
+							"container": {
+								"value": "@pipeline().parameters.adls_container_name",
+								"type": "Expression"
+							},
+							"directory": {
+								"value": "@pipeline().parameters.directory_path",
+								"type": "Expression"
+							},
+							"file": {
+								"value": "@pipeline().parameters.file_name",
+								"type": "Expression"
+							},
+							"storageAccount": {
+								"value": "@pipeline().globalParameters.storageAccountName",
+								"type": "Expression"
+							}
+						}
+					},
+					"fieldList": [
+						"structure"
+					],
+					"storeSettings": {
+						"type": "AzureBlobFSReadSettings",
+						"enablePartitionDiscovery": false
+					}
+				}
 			}
 		],
 		"parameters": {
 			"base_schema_name": {
 				"type": "string",
-				"defaultValue": "base_c4c"
+				"defaultValue": "base_s4h_cax"
 			},
 			"base_table_name": {
 				"type": "string",
-				"defaultValue": "OpportunityCollection"
+				"defaultValue": "I_ProductPlant"
 			},
 			"entity_id": {
 				"type": "string",
-				"defaultValue": "464"
+				"defaultValue": "129"
 			},
 			"directory_path": {
 				"type": "string",
-				"defaultValue": "OpportunityCollection/In/2023/01/11"
+				"defaultValue": "NULL/I_ProductPlant/Theobald/Table/Full/In/2023/01/17"
 			},
 			"run_id": {
 				"type": "string",
@@ -694,11 +752,11 @@
 			},
 			"file_name": {
 				"type": "string",
-				"defaultValue": "OpportunityCollection_2023_01_11_13_15_34_082.parquet"
+				"defaultValue": "I_ProductPlant_2023_01_17_15_40_29_087.parquet"
 			},
 			"adls_container_name": {
 				"type": "string",
-				"defaultValue": "c4c"
+				"defaultValue": "s4h-caa-200"
 			},
 			"target_layer": {
 				"type": "string",
@@ -710,16 +768,19 @@
 			},
 			"application_id": {
 				"type": "string",
-				"defaultValue": "c4c"
+				"defaultValue": "s4h-caa-200"
 			},
 			"extraction_type": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "Table"
 			},
 			"extraction_timestamp_string": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "2023-01-17 15:40:29.087"
 			},
 			"s4h_client_field": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "MANDT"
 			}
 		},
 		"variables": {
