@@ -1,6 +1,6 @@
 ﻿-- This procedure handles ingestion of parquet files from ADLS into the staging (base) layer in Synapse.
 -- As Azure Data Factory doesn't allow to generate the correct COPY INTO SQL query for adding DEFAULT values
--- for technical system field values (t_*), this procedure has been created to handle that. 
+-- for technical system field values (t_*), this procedure has been created to handle that.
 
 -- This also means that no separate stored procedure needs to be executed to update the technical field values
 -- from ADF. 
@@ -9,6 +9,7 @@ CREATE PROC [utilities].[sp_ingest_with_t_values]
     @container_name         NVARCHAR  (63),
     @directory_path         NVARCHAR (128),
     @file_name              NVARCHAR (128),
+    @file_structure         NVARCHAR (MAX),
     @schema_name            NVARCHAR (128),
     @table_name             NVARCHAR (128),
     @application_id          VARCHAR  (32),
@@ -55,6 +56,292 @@ BEGIN
     --     @client_field    VARCHAR  (5) = 'MANDT',
     --     @client_id       VARCHAR  (5) = '200';
 
+    -- DECLARE 
+    --   @schema_name NVARCHAR(100) = 'base_s4h_cax',
+    --   @table_name NVARCHAR(100) = 'I_ProductPlant',
+    --   @directory_path NVARCHAR(100) = 'NULL/I_ProductPlant/Theobald/Table/Full/In/2023/01/17',
+    --   @file_name NVARCHAR(100) = 'I_ProductPlant_2023_01_17_15_40_29_087.parquet',
+    --   @file_structure NVARCHAR(MAX) = '[
+    --     {
+    --         "name": "MANDT",
+    --         "type": "String"
+    --     },
+    --     {
+    --         "name": "PRODUCT",
+    --         "type": "String"
+    --     },
+    --     {
+    --         "name": "PLANT",
+    --         "type": "String"
+    --     },
+    --     {
+    --         "name": "MAINTENANCESTATUSNAME",
+    --         "type": "String"
+    --     },
+    --     {
+    --         "name": "ISMARKEDFORDELETION",
+    --         "type": "String"
+    --     },
+    --     {
+    --         "name": "ISINTERNALBATCHMANAGED",
+    --         "type": "String"
+    --     },
+    --     {
+    --         "name": "PROFILECODE",
+    --         "type": "String"
+    --     },
+    --     {
+    --         "name": "PROFILEVALIDITYSTARTDATE",
+    --         "type": "DateTime"
+    --     },
+    --     {
+    --         "name": "ABCINDICATOR",
+    --         "type": "String"
+    --     },
+    --     {
+    --         "name": "PRODUCTISCRITICALPRT",
+    --         "type": "String"
+    --     },
+    --     {
+    --         "name": "PURCHASINGGROUP",
+    --         "type": "String"
+    --     },
+    --     {
+    --         "name": "GOODSISSUEUNIT",
+    --         "type": "String"
+    --     },
+    --     {
+    --         "name": "MRPTYPE",
+    --         "type": "String"
+    --     },
+    --     {
+    --         "name": "MRPRESPONSIBLE",
+    --         "type": "String"
+    --     },
+    --     {
+    --         "name": "PLANNEDDELIVERYDURATIONINDAYS",
+    --         "type": "Decimal"
+    --     },
+    --     {
+    --         "name": "GOODSRECEIPTDURATION",
+    --         "type": "Decimal"
+    --     },
+    --     {
+    --         "name": "PERIODTYPE",
+    --         "type": "String"
+    --     },
+    --     {
+    --         "name": "PROCUREMENTTYPE",
+    --         "type": "String"
+    --     },
+    --     {
+    --         "name": "SPECIALPROCUREMENTTYPE",
+    --         "type": "String"
+    --     },
+    --     {
+    --         "name": "SAFETYSTOCKQUANTITY",
+    --         "type": "Decimal"
+    --     },
+    --     {
+    --         "name": "MINIMUMLOTSIZEQUANTITY",
+    --         "type": "Decimal"
+    --     },
+    --     {
+    --         "name": "MAXIMUMLOTSIZEQUANTITY",
+    --         "type": "Decimal"
+    --     },
+    --     {
+    --         "name": "FIXEDLOTSIZEQUANTITY",
+    --         "type": "Decimal"
+    --     },
+    --     {
+    --         "name": "PRODUCTIONSUPERVISOR",
+    --         "type": "String"
+    --     },
+    --     {
+    --         "name": "OVERDELIVTOLERANCELIMIT",
+    --         "type": "Decimal"
+    --     },
+    --     {
+    --         "name": "UNDERDELIVTOLERANCELIMIT",
+    --         "type": "Decimal"
+    --     },
+    --     {
+    --         "name": "HASPOSTTOINSPECTIONSTOCK",
+    --         "type": "String"
+    --     },
+    --     {
+    --         "name": "STOCKINTRANSFERQUANTITY",
+    --         "type": "Decimal"
+    --     },
+    --     {
+    --         "name": "ISBATCHMANAGEMENTREQUIRED",
+    --         "type": "String"
+    --     },
+    --     {
+    --         "name": "AVAILABILITYCHECKTYPE",
+    --         "type": "String"
+    --     },
+    --     {
+    --         "name": "FISCALYEARVARIANT",
+    --         "type": "String"
+    --     },
+    --     {
+    --         "name": "SOURCEOFSUPPLYCATEGORY",
+    --         "type": "String"
+    --     },
+    --     {
+    --         "name": "COMMODITY",
+    --         "type": "String"
+    --     },
+    --     {
+    --         "name": "COUNTRYOFORIGIN",
+    --         "type": "String"
+    --     },
+    --     {
+    --         "name": "REGIONOFORIGIN",
+    --         "type": "String"
+    --     },
+    --     {
+    --         "name": "PROFITCENTER",
+    --         "type": "String"
+    --     },
+    --     {
+    --         "name": "STOCKINTRANSITQUANTITY",
+    --         "type": "Decimal"
+    --     },
+    --     {
+    --         "name": "PRODUCTIONINVTRYMANAGEDLOC",
+    --         "type": "String"
+    --     },
+    --     {
+    --         "name": "SERIALNUMBERPROFILE",
+    --         "type": "String"
+    --     },
+    --     {
+    --         "name": "PRODUCTCONFIGURATION",
+    --         "type": "String"
+    --     },
+    --     {
+    --         "name": "PRODUCTISCONFIGURABLE",
+    --         "type": "String"
+    --     },
+    --     {
+    --         "name": "CONFIGURABLEPRODUCT",
+    --         "type": "String"
+    --     },
+    --     {
+    --         "name": "ISNEGATIVESTOCKALLOWED",
+    --         "type": "String"
+    --     },
+    --     {
+    --         "name": "CONSUMPTIONREFERENCEPRODUCT",
+    --         "type": "String"
+    --     },
+    --     {
+    --         "name": "CONSUMPTIONREFERENCEPLANT",
+    --         "type": "String"
+    --     },
+    --     {
+    --         "name": "CONSUMPTIONREFUSAGEENDDATE",
+    --         "type": "DateTime"
+    --     },
+    --     {
+    --         "name": "CONSUMPTIONQTYMULTIPLIER",
+    --         "type": "Decimal"
+    --     },
+    --     {
+    --         "name": "ISCOPRODUCT",
+    --         "type": "String"
+    --     },
+    --     {
+    --         "name": "STOCKDETERMINATIONGROUP",
+    --         "type": "String"
+    --     },
+    --     {
+    --         "name": "PRODUCTIONSCHEDULINGPROFILE",
+    --         "type": "String"
+    --     },
+    --     {
+    --         "name": "PRODUCTUNITGROUP",
+    --         "type": "String"
+    --     },
+    --     {
+    --         "name": "MATERIALFREIGHTGROUP",
+    --         "type": "String"
+    --     },
+    --     {
+    --         "name": "PRODUCTLOGISTICSHANDLINGGROUP",
+    --         "type": "String"
+    --     },
+    --     {
+    --         "name": "DISTRCNTRDISTRIBUTIONPROFILE",
+    --         "type": "String"
+    --     },
+    --     {
+    --         "name": "PRODUCTCFOPCATEGORY",
+    --         "type": "String"
+    --     },
+    --     {
+    --         "name": "CONSUMPTIONTAXCTRLCODE",
+    --         "type": "String"
+    --     },
+    --     {
+    --         "name": "FISCALMONTHCURRENTPERIOD",
+    --         "type": "String"
+    --     },
+    --     {
+    --         "name": "FISCALYEARCURRENTPERIOD",
+    --         "type": "String"
+    --     },
+    --     {
+    --         "name": "ORIGLBATCHMANAGEMENTISREQUIRED",
+    --         "type": "String"
+    --     },
+    --     {
+    --         "name": "ORIGINALBATCHREFERENCEMATERIAL",
+    --         "type": "String"
+    --     },
+    --     {
+    --         "name": "GOODSRECEIPTBLOCKEDSTOCKQTY",
+    --         "type": "Decimal"
+    --     },
+    --     {
+    --         "name": "HASCONSIGNMENTCTRL",
+    --         "type": "String"
+    --     },
+    --     {
+    --         "name": "CONSIGNMENTCONTROL",
+    --         "type": "String"
+    --     },
+    --     {
+    --         "name": "GOODISSUEPROCESSINGDAYS",
+    --         "type": "Decimal"
+    --     },
+    --     {
+    --         "name": "ISPURGACROSSPURGGROUP",
+    --         "type": "String"
+    --     },
+    --     {
+    --         "name": "PRODUCTISEXCISETAXRELEVANT",
+    --         "type": "String"
+    --     },
+    --     {
+    --         "name": "ISACTIVEENTITY",
+    --         "type": "String"
+    --     }
+    --   ]',
+    --   @container_name NVARCHAR(100) = 's4h-caa-200',
+    --   @application_id NVARCHAR(100) = 's4h-caa-200',
+    --   @extraction_timestamp CHAR(23) = '2023-01-17 13:12:04.741',
+    --   @job_id         NVARCHAR(100) = 'ad74e8e7-2f8b-4485-8a09-4b674afdfb54',
+    --   @job_dtm            CHAR (23) = FORMAT(GETUTCDATE(), 'yyyy-MM-dd HH:mm:ss.fff'),
+    --   @job_by         NVARCHAR(100) = 'df-mpors-d-euw-001',
+    --   @update_mode     VARCHAR  (5) = NULL,
+    --   @extraction_type VARCHAR  (5) = NULL,
+    --   @client_field    VARCHAR  (5) = NULL,
+    --   @client_id       VARCHAR  (5) = NULL;
+
     DECLARE
         -- Get the date from the file name and convert it to a string
         -- @extraction_dtm_char VARCHAR(23) = CONVERT(
@@ -79,6 +366,8 @@ BEGIN
     WHERE [table_id] = @table_id;
         
     -- Insert the new default values for the system fields in the helper table
+    -- TODO what if concurrent delta parquet files are being ingested to the same table via ADF?
+    -- TODO will that not overwrite the technical field values in [utilities].[t_field_values]?
     INSERT INTO utilities.t_field_values
     SELECT *
     FROM (
@@ -114,22 +403,31 @@ BEGIN
             STRING_AGG(
                 CONVERT(NVARCHAR(MAX),
                     CASE
-                        WHEN f.default_value IS NULL THEN CONCAT('[', c.name, ']')
-                        ELSE CONCAT('[', c.name, '] DEFAULT ''', f.default_value, '''')
+                        WHEN t.default_value IS NULL THEN CONCAT('[', c.name, '] ', f.column_id)
+                        ELSE CONCAT('[', c.name, '] DEFAULT ''', t.default_value, '''')
                     END
                 ), ', '
             -- Make sure to order the fields correctly: list all standard fields first, 
             -- and only then list the fields that have added a DEFAULT value. 
-            )  WITHIN GROUP ( ORDER BY f.[index] ASC, c.column_id ASC )
+            )  WITHIN GROUP ( ORDER BY t.[index] ASC, c.column_id ASC )
             AS ColumnList
         FROM
             sys.columns AS c
+        LEFT JOIN (
+            SELECT
+                [key]+1 AS [column_id], -- array index starts at 0, so add 1
+                JSON_VALUE(value, '$.name') AS [name] -- get the column name from parquet
+            FROM
+                OPENJSON(@file_structure)-- parse the file structure
+        ) AS f
+            -- use case INsensitivity between parquet and table field mapping
+            ON UPPER (c.name) = UPPER(f.name)
         LEFT JOIN
-            utilities.t_field_values AS f
+            utilities.t_field_values AS t
             ON
-                f.[table_id] = @table_id
+                t.[table_id] = @table_id
                 AND
-                f.[default_field] = c.name
+                t.[default_field] = c.name
         WHERE
             c.object_id = @table_id
     );
@@ -142,7 +440,6 @@ BEGIN
         EXEC (N'TRUNCATE TABLE [' + @schema_name + '].[' + @table_name + ']');
     END
 
-    -- TODO update storageaccount
     -- Create the COPY INTO script
     SET @script = N'
         COPY INTO [' + @schema_name + '].[' + @table_name + '] (' + @columnList + ')
