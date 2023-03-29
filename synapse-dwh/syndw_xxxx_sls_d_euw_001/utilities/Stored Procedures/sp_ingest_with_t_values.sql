@@ -385,7 +385,7 @@ BEGIN
 
     -- In case of SAP S4HANA ODP extraction, no MANDT field value exists in the parquet file, so this needs to be
     -- manually added during ingestion in Synapse. Add this default value to the helper table.
-    IF @extraction_type = 'ODP'
+    IF @extraction_type = 'ODP' AND @client_field IS NOT NULL
         INSERT INTO utilities.t_field_values
         VALUES (
             @table_id,
@@ -409,7 +409,7 @@ BEGIN
                 ), ', '
             -- Make sure to order the fields correctly: list all standard fields first, 
             -- and only then list the fields that have added a DEFAULT value. 
-            )  WITHIN GROUP ( ORDER BY t.[index] ASC, c.column_id ASC )
+            )  WITHIN GROUP ( ORDER BY t.[index] ASC, f.column_id ASC )
             AS ColumnList
         FROM
             sys.columns AS c
