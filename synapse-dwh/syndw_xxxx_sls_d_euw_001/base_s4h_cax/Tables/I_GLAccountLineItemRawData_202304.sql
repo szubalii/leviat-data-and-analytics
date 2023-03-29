@@ -1,4 +1,4 @@
-CREATE TABLE [base_s4h_cax].[I_GLAccountLineItemRawData](
+CREATE TABLE [base_s4h_cax].[I_GLAccountLineItemRawData_202304](
     [MANDT]                          char(3) collate Latin1_General_100_BIN2 NOT NULL,
     [SourceLedger]                   nvarchar(2)                             NOT NULL,
     [CompanyCode]                    nvarchar(4)                             NOT NULL,
@@ -310,7 +310,7 @@ CREATE TABLE [base_s4h_cax].[I_GLAccountLineItemRawData](
     [t_jobBy]                        NVARCHAR(128),
     [t_extractionDtm]                DATETIME,
     [t_filePath]                     NVARCHAR(1024),
-     CONSTRAINT [PK_I_GLAccountLineItemRawData] PRIMARY KEY NONCLUSTERED (
+     CONSTRAINT [PK_I_GLAccountLineItemRawData_202304] PRIMARY KEY NONCLUSTERED (
     [MANDT], [SourceLedger], [CompanyCode], [FiscalYear], [AccountingDocument], [LedgerGLLineItem]
   ) NOT ENFORCED
 )

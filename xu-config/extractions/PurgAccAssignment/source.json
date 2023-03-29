@@ -135,6 +135,7 @@
                     "description": "Sales and distribution document number",
                     "abapType": "CharacterString",
                     "length": 10,
+                    "isSelected": true,
                     "conversionExit": "ALPHA"
                 },
                 {
@@ -142,6 +143,7 @@
                     "description": "Item number of the SD document",
                     "abapType": "NumericCharacterString",
                     "length": 6,
+                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {

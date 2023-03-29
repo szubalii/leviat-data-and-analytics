@@ -340,6 +340,12 @@
     <Build Include="base_s4h_cax\Tables\I_GLAccountTypeText.sql" />
     <Build Include="base_s4h_cax\Tables\I_GLRecordTypeText.sql" />
     <Build Include="base_s4h_cax\Tables\I_GLAccountLineItemRawData.sql" />
+    <Build Include="base_s4h_cax\Tables\I_GLAccountLineItemRawData_202301.sql" />
+    <Build Include="base_s4h_cax\Tables\I_GLAccountLineItemRawData_202302.sql" />
+    <Build Include="base_s4h_cax\Tables\I_GLAccountLineItemRawData_202303.sql" />
+    <Build Include="base_s4h_cax\Tables\I_GLAccountLineItemRawData_202304.sql" />
+    <Build Include="base_s4h_cax\Tables\I_GLAccountLineItemRawData_202305.sql" />
+    <Build Include="base_s4h_cax\Tables\I_GLAccountLineItemRawData_upto2022.sql" />
     <Build Include="base_s4h_cax\Tables\I_GLAccountLineItemRawData_delta.sql" />
     <Build Include="base_s4h_cax\Tables\I_GLAccountLineItemRawData_active.sql" />
     <Build Include="base_s4h_cax\Views\vw_I_GLAccountLineItemRawData.sql" />
@@ -1159,6 +1165,8 @@
     <Build Include="intm_axbi\Views\vw_DIM_INVENTTABLE.sql" />
     <Build Include="base_ff\Tables\ExQLReportingEntity.sql" />
     <Build Include="dm_finance\Views\vw_dim_ExQLReportingEntity.sql" />
+    <Build Include="edw\Tables\dim_PurgAccAssignment.sql" />
+    <Build Include="edw\Views\vw_PurgAccAssignment.sql" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PostDeploy Include="Scripts\Post-Deploy\Script.PostDeployment.sql" />
