@@ -1,0 +1,400 @@
+{
+	"name": "pl_Base_ELT_delta_entity",
+	"properties": {
+		"activities": [
+			{
+				"name": "Get Delta Entity FileName Batch Activities",
+				"description": "First ",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderQuery": {
+							"value": "SELECT *\nFROM [dbo].[get_scheduled_entity_batch_activities] (\n    @{pipeline().parameters.adhoc},\n    '@{pipeline().parameters.date}',\n    @{pipeline().parameters.rerun_successful_full_entities}\n)\nWHERE\n    @{pipeline().parameters.entity_filter}\n    AND\n    entity_id = @{pipeline().parameters.entity_id}",
+							"type": "Expression"
+						},
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "ds_orch_db",
+						"type": "DatasetReference",
+						"parameters": {
+							"sqlDb": {
+								"value": "@pipeline().globalParameters.sqlDb",
+								"type": "Expression"
+							}
+						}
+					},
+					"firstRowOnly": false
+				}
+			},
+			{
+				"name": "Process Each Delta Entity File Name",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "Get Delta Entity FileName Batch Activities",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('Get Delta Entity FileName Batch Activities').output.value",
+						"type": "Expression"
+					},
+					"isSequential": false,
+					"batchCount": 10,
+					"activities": [
+						{
+							"name": "Execute ELT",
+							"type": "ExecutePipeline",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"pipeline": {
+									"referenceName": "pl_Base_ELT_entity_v2",
+									"type": "PipelineReference"
+								},
+								"waitOnCompletion": true,
+								"parameters": {
+									"entity_name": {
+										"value": "@item().entity_name",
+										"type": "Expression"
+									},
+									"entity_id": {
+										"value": "@item().entity_id",
+										"type": "Expression"
+									},
+									"date": {
+										"value": "@pipeline().parameters.date",
+										"type": "Expression"
+									},
+									"run_id": {
+										"value": "@pipeline().RunId",
+										"type": "Expression"
+									},
+									"layer_nk": {
+										"value": "@item().layer_nk",
+										"type": "Expression"
+									},
+									"client_field": {
+										"value": "@item().client_field",
+										"type": "Expression"
+									},
+									"extraction_type": {
+										"value": "@item().extraction_type",
+										"type": "Expression"
+									},
+									"pk_field_names": {
+										"value": "@item().pk_field_names",
+										"type": "Expression"
+									},
+									"source_database_name": {
+										"value": "@item().axbi_database_name",
+										"type": "Expression"
+									},
+									"source_schema_name": {
+										"value": "@item().axbi_schema_name",
+										"type": "Expression"
+									},
+									"source_table_name": {
+										"value": "@item().base_table_name",
+										"type": "Expression"
+									},
+									"source_date_field_name": {
+										"value": "@item().axbi_date_field_name",
+										"type": "Expression"
+									},
+									"adls_container_name": {
+										"value": "@item().adls_container_name",
+										"type": "Expression"
+									},
+									"adls_directory_path_In": {
+										"value": "@item().adls_directory_path_In",
+										"type": "Expression"
+									},
+									"adls_directory_path_Out": {
+										"value": "@item().adls_directory_path_Out",
+										"type": "Expression"
+									},
+									"base_schema_name": {
+										"value": "@item().base_schema_name",
+										"type": "Expression"
+									},
+									"base_sproc_name": {
+										"value": "@item().base_sproc_name",
+										"type": "Expression"
+									},
+									"base_table_name": {
+										"value": "@item().base_table_name",
+										"type": "Expression"
+									},
+									"required_activities": {
+										"value": "@if(\n    empty(item().required_activities),\n    json('[]'),\n    json(item().required_activities)\n)",
+										"type": "Expression"
+									},
+									"skipped_activities": {
+										"value": "@if(\n    empty(item().skipped_activities),\n    null,\n    json(item().skipped_activities)\n)",
+										"type": "Expression"
+									},
+									"file_name": {
+										"value": "@item().file_name",
+										"type": "Expression"
+									},
+									"update_mode": {
+										"value": "@item().update_mode",
+										"type": "Expression"
+									},
+									"refresh_from_date": {
+										"value": "@item().refresh_from_date",
+										"type": "Expression"
+									}
+								}
+							}
+						},
+						{
+							"name": "Log Exception ELT",
+							"type": "SqlServerStoredProcedure",
+							"dependsOn": [
+								{
+									"activity": "Execute ELT",
+									"dependencyConditions": [
+										"Failed"
+									]
+								},
+								{
+									"activity": "Append Condition ProcessBase",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"storedProcedureName": "[dbo].[log_exception]",
+								"storedProcedureParameters": {
+									"batch_id": {
+										"value": null,
+										"type": "Guid"
+									},
+									"category": {
+										"value": "InternalError",
+										"type": "String"
+									},
+									"entity_id": {
+										"value": {
+											"value": "@item().entity_id",
+											"type": "Expression"
+										},
+										"type": "Int64"
+									},
+									"error_msg": {
+										"value": {
+											"value": "@activity('Execute ELT').Error.Message",
+											"type": "Expression"
+										},
+										"type": "String"
+									},
+									"run_id": {
+										"value": {
+											"value": "@pipeline().RunId",
+											"type": "Expression"
+										},
+										"type": "Guid"
+									}
+								}
+							},
+							"linkedServiceName": {
+								"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
+								"type": "LinkedServiceReference",
+								"parameters": {
+									"sqlDb": {
+										"value": "@pipeline().globalParameters.sqlDb",
+										"type": "Expression"
+									}
+								}
+							}
+						},
+						{
+							"name": "Fail Entity Pipeline",
+							"type": "Fail",
+							"dependsOn": [
+								{
+									"activity": "Log Exception ELT",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"userProperties": [],
+							"typeProperties": {
+								"message": {
+									"value": "Pipeline 'Execute ELT' failed for entity @{item().entity_name}",
+									"type": "Expression"
+								},
+								"errorCode": "500"
+							}
+						},
+						{
+							"name": "Append Condition ProcessBase",
+							"type": "AppendVariable",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "requiresSynapseIngestion",
+								"value": {
+									"value": "@contains(\n    item().required_activities,\n    'ProcessBase'\n)",
+									"type": "Expression"
+								}
+							}
+						}
+					]
+				}
+			},
+			{
+				"name": "If Required to Process Base",
+				"description": "Process base in case one if the delta files required Synapse Base Ingestion",
+				"type": "IfCondition",
+				"dependsOn": [
+					{
+						"activity": "Process Each Delta Entity File Name",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@contains(\n    variables('requiresSynapseIngestion'),\n    'true'\n)",
+						"type": "Expression"
+					},
+					"ifTrueActivities": [
+						{
+							"name": "Process Synapse Base Procedure",
+							"type": "ExecutePipeline",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"pipeline": {
+									"referenceName": "pl_SYNDW_Base_process",
+									"type": "PipelineReference"
+								},
+								"waitOnCompletion": true,
+								"parameters": {
+									"base_schema_name": {
+										"value": "@pipeline().parameters.base_schema_name",
+										"type": "Expression"
+									},
+									"base_table_name": {
+										"value": "@pipeline().parameters.base_table_name",
+										"type": "Expression"
+									},
+									"base_sproc_name": {
+										"value": "@pipeline().parameters.base_sproc_name",
+										"type": "Expression"
+									},
+									"entity_id": {
+										"value": "@pipeline().parameters.entity_id",
+										"type": "Expression"
+									},
+									"run_id": {
+										"value": "@pipeline().parameters.parent_run_id",
+										"type": "Expression"
+									},
+									"directory_path": {
+										"value": "@pipeline().parameters.adls_directory_path_In",
+										"type": "Expression"
+									},
+									"file_name": {
+										"value": "@pipeline().parameters.file_name",
+										"type": "Expression"
+									},
+									"source_date_field_name": {
+										"value": "@pipeline().parameters.source_date_field_name",
+										"type": "Expression"
+									},
+									"refresh_from_date": {
+										"value": "@pipeline().parameters.refresh_from_date",
+										"type": "Expression"
+									}
+								}
+							}
+						}
+					]
+				}
+			}
+		],
+		"parameters": {
+			"adhoc": {
+				"type": "int",
+				"defaultValue": 1
+			},
+			"entity_filter": {
+				"type": "string",
+				"defaultValue": "entity_id IN (420) and file_name is not null"
+			},
+			"parent_run_id": {
+				"type": "string"
+			},
+			"date": {
+				"type": "string",
+				"defaultValue": "2023/03/30"
+			},
+			"rerun_successful_full_entities": {
+				"type": "int",
+				"defaultValue": 0
+			},
+			"entity_id": {
+				"type": "string"
+			},
+			"base_schema_name": {
+				"type": "string"
+			},
+			"base_table_name": {
+				"type": "string"
+			},
+			"base_sproc_name": {
+				"type": "string"
+			},
+			"source_date_field_name": {
+				"type": "string"
+			},
+			"refresh_from_date": {
+				"type": "string"
+			}
+		},
+		"variables": {
+			"delta_entities": {
+				"type": "Array"
+			},
+			"requiresSynapseIngestion": {
+				"type": "Array"
+			}
+		},
+		"folder": {
+			"name": "00 ELT"
+		},
+		"annotations": []
+	}
+}
