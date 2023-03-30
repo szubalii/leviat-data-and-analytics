@@ -44,7 +44,7 @@ SalesDocumentItem_Filtered_Out_Organization AS
         ON
            FSL_DOC.[DATAAREAID] = DA.[DATAAREAID]
     LEFT JOIN
-        [base_tx_ca_0_hlp].[CUSTTABLE] CT
+         [intm_axbi].[dim_CUSTTABLE]  CT
         ON
             CT.ACCOUNTNUM = DA.[DATAAREAID2] + '-' + FSL_DOC.CUSTACCOUNT
     WHERE

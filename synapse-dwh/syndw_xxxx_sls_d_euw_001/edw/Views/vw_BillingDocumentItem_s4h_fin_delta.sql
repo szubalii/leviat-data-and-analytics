@@ -190,6 +190,8 @@ BDIwithMatType AS (
     ,   BDI.[MaterialCalculated]
     ,   BDI.[SoldToPartyCalculated]
     ,   BDI.[InOutID]
+    ,   BDI.[ICSalesDocumentID]
+    ,   BDI.[ICSalesDocumentItemID]
     ,   BDI.[t_applicationId]
     ,   BDI.[t_extractionDtm]
     ,   BDI.[t_lastActionBy]
@@ -204,10 +206,18 @@ BDIwithMatType AS (
             BDI.[Material] = Product.[ProductID]
     LEFT JOIN
         [edw].[fact_ProductHierarchyVariantConfigCharacteristic_active] AS VC
-        ON
-            BDI.[SalesDocumentID] = VC.[SalesDocument]
-            AND
-            BDI.[SalesDocumentItemID] = VC.[SalesDocumentItem]    
+        ON VC.SalesDocument =
+            CASE
+               WHEN BDI.SalesSDDocumentCategoryID='V'
+                   THEN  BDI.ICSalesDocumentID           COLLATE DATABASE_DEFAULT
+               ELSE BDI.SalesDocumentID
+               END 
+        and VC.SalesDocumentItem =
+            CASE
+               WHEN BDI.SalesSDDocumentCategoryID='V'
+                   THEN  BDI.ICSalesDocumentItemID 
+               ELSE BDI.SalesDocumentItemID 
+               END    
     WHERE BDI.[Material]<>'000000000070000019'
 ),
 

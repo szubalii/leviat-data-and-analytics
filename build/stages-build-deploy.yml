@@ -51,12 +51,12 @@ variables:
   - name: user
     value: $[ replace( variables['Build.SourceBranchName'], 'dev_', '') ]
   - template: ./variables-personal.yml
-- ${{ elseif startsWith(variables['Build.SourceBranchName'], 'dev/') }}:
+- ${{ elseif contains(variables['Build.SourceBranch'], '/dev/') }}:
   - name: user
-    value: $[ replace( variables['Build.SourceBranchName'], 'dev/', '') ]
+    value: $[ variables['Build.SourceBranchName'] ]
   - template: ./variables-personal.yml
   - name: deployEnv # override value to map main branch to DEV deployment environment
-    value: 'DEV_$(user)'
+    value: ${{ format('DEV_{0}', upper(variables['Build.SourceBranchName'])) }}
 
 # # Required for PR triggered pipelines as predefined system variable Build.SourceBranchName
 # # equals value: 'merge'. Also, the predefined system variable System.PullRequest.TargetBranch 

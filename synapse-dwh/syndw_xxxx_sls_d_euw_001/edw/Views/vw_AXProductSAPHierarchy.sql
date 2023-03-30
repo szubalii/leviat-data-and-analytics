@@ -96,7 +96,7 @@ from
             AND
             SINMT.[SAPProductID] IS NOT NULL
     LEFT JOIN 
-        [base_tx_ca_0_hlp].[ITEMTABLE] AS ITEM 
+        [intm_axbi].[dim_ITEMTABLE] AS ITEM 
         ON 
             AXPSHProdSub.[ProductID] = ITEM.[ITEMID]
 WHERE 
