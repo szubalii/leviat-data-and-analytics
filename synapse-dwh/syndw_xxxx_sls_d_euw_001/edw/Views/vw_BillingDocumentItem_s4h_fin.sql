@@ -12,22 +12,13 @@ WITH Product AS (
 )
 ,
 
-VC AS(
-SELECT 
-  SalesDocument
-, SalesDocumentItem
-, CONCAT_WS('_',VC.[ProductID],VC.[CharValue]) AS [ProductSurrogateKey]
-
-FROM [base_s4h_cax].[Z_C_VariantConfig_active] VC
-
-    LEFT OUTER JOIN
-        [base_ff].[ConfigurableProductCharacteristic] AS MCPC
-        ON
-            VC.[CharacteristicName] = MCPC.[CharacteristicName]
-    WHERE
-        MCPC.[CharacteristicCategory] = 'ProductHierarchy'
-
-GROUP BY SalesDocument, SalesDocumentItem, CONCAT_WS('_',VC.[ProductID],VC.[CharValue])
+VC AS (
+    SELECT
+        SalesDocument
+        , SalesDocumentItem
+        , ProductSurrogateKey
+FROM
+    [edw].[vw_ProductHierarchyVariantConfigCharacteristicKey]
 ),
 
 BDIwithMatType AS (

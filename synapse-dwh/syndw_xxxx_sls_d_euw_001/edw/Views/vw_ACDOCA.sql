@@ -1,9 +1,21 @@
 ﻿CREATE VIEW [edw].[vw_ACDOCA]
 AS
-WITH GLAccountLineItemRawData
-AS
-(
-SELECT 
+WITH PA AS (
+  SELECT
+    PurchaseOrder,
+    PurchaseOrderItem,
+    ICSalesDocumentID,
+    ICSalesDocumentItemID
+  FROM
+    [edw].[dim_PurgAccAssignment]
+  GROUP BY
+    PurchaseOrder,
+    PurchaseOrderItem,
+    ICSalesDocumentID,
+    ICSalesDocumentItemID
+)
+, GLAccountLineItemRawData AS (
+    SELECT
        [SourceLedger]                           AS [SourceLedgerID],
        [CompanyCode]                            AS [CompanyCodeID],
        [FiscalYear],
@@ -909,22 +921,24 @@ SELECT
        GLAccountLineItemRawData.[t_applicationId],
        GLAccountLineItemRawData.[t_extractionDtm]
 FROM GLAccountLineItemRawData
-LEFT JOIN  [edw].[dim_PurgAccAssignment] PA
-    ON [PurchasingDocument] = PA.PurchaseOrder                              COLLATE DATABASE_DEFAULT
-        AND [PurchasingDocumentItem] = PA.PurchaseOrderItem 
-LEFT JOIN [edw].[fact_ProductHierarchyVariantConfigCharacteristic_active] as VC
-    ON VC.SalesDocument =
-            CASE
-               WHEN [ReferenceDocumentTypeID]= 'VBRK' and  GLAccountLineItemRawData.SalesDocumentID =''
-                   THEN  PA.ICSalesDocumentID                  COLLATE DATABASE_DEFAULT
-                   ELSE GLAccountLineItemRawData.SalesDocumentID 
-               END 
-        and VC.SalesDocumentItem =
-            CASE
-               WHEN [ReferenceDocumentTypeID]= 'VBRK' and  GLAccountLineItemRawData.SalesDocumentID =''
-                   THEN  PA.ICSalesDocumentItemID                  COLLATE DATABASE_DEFAULT
-               ELSE GLAccountLineItemRawData.SalesDocumentItemID 
-               END 
+LEFT JOIN PA
+    ON
+        PA.PurchaseOrder COLLATE DATABASE_DEFAULT = [PurchasingDocument]
+    AND
+        PA.PurchaseOrderItem = [PurchasingDocumentItem]
+LEFT JOIN [edw].[vw_ProductHierarchyVariantConfigCharacteristicKey] AS VC
+    ON
+        VC.SalesDocument = CASE
+            WHEN [ReferenceDocumentTypeID] = 'VBRK' AND GLAccountLineItemRawData.SalesDocumentID = ''
+            THEN PA.ICSalesDocumentID COLLATE DATABASE_DEFAULT
+            ELSE GLAccountLineItemRawData.SalesDocumentID
+        END
+    AND
+        VC.SalesDocumentItem = CASE
+            WHEN [ReferenceDocumentTypeID] = 'VBRK' AND GLAccountLineItemRawData.SalesDocumentID = ''
+            THEN PA.ICSalesDocumentItemID COLLATE DATABASE_DEFAULT
+            ELSE GLAccountLineItemRawData.SalesDocumentItemID
+        END 
 -- WHERE
 --     GLAccountLineItemRawData.MANDT = 200 MPS 2021/11/01: commented out due to different client values between dev,qas, and prod
 

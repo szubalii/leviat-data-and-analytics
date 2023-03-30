@@ -1167,6 +1167,7 @@
     <Build Include="dm_finance\Views\vw_dim_ExQLReportingEntity.sql" />
     <Build Include="edw\Tables\dim_PurgAccAssignment.sql" />
     <Build Include="edw\Views\vw_PurgAccAssignment.sql" />
+    <Build Include="edw\Views\vw_ProductHierarchyVariantConfigCharacteristicKey.sql" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PostDeploy Include="Scripts\Post-Deploy\Script.PostDeployment.sql" />
