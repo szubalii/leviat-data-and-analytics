@@ -329,16 +329,16 @@
 										"value": "@pipeline().parameters.parent_run_id",
 										"type": "Expression"
 									},
-									"directory_path": {
-										"value": "@pipeline().parameters.adls_directory_path_In",
-										"type": "Expression"
-									},
 									"source_date_field_name": {
 										"value": "@pipeline().parameters.source_date_field_name",
 										"type": "Expression"
 									},
 									"refresh_from_date": {
 										"value": "@pipeline().parameters.refresh_from_date",
+										"type": "Expression"
+									},
+									"deltaEntityFileNameBatchActivities": {
+										"value": "@variables('deltaEntityFileNameBatchActivities')",
 										"type": "Expression"
 									}
 								}
