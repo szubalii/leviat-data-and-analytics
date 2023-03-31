@@ -459,7 +459,7 @@
 			"directory_path": {
 				"type": "string"
 			},
-			"file_name": {
+			"file_names": {
 				"type": "string"
 			},
 			"source_date_field_name": {

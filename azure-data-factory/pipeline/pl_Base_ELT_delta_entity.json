@@ -174,12 +174,6 @@
 									"dependencyConditions": [
 										"Failed"
 									]
-								},
-								{
-									"activity": "Append Condition ProcessBase",
-									"dependencyConditions": [
-										"Succeeded"
-									]
 								}
 							],
 							"policy": {
@@ -267,13 +261,26 @@
 									"type": "Expression"
 								}
 							}
+						},
+						{
+							"name": "Append File Name",
+							"type": "AppendVariable",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "fileNames",
+								"value": {
+									"value": "@item().file_name",
+									"type": "Expression"
+								}
+							}
 						}
 					]
 				}
 			},
 			{
 				"name": "If Required to Process Base",
-				"description": "Process base in case one if the delta files required Synapse Base Ingestion",
+				"description": "Process base in case one of the delta files required Synapse Base Ingestion or one of the delta files was not processed in base.",
 				"type": "IfCondition",
 				"dependsOn": [
 					{
@@ -324,10 +331,6 @@
 									},
 									"directory_path": {
 										"value": "@pipeline().parameters.adls_directory_path_In",
-										"type": "Expression"
-									},
-									"file_name": {
-										"value": "@pipeline().parameters.file_name",
 										"type": "Expression"
 									},
 									"source_date_field_name": {
@@ -389,6 +392,9 @@
 				"type": "Array"
 			},
 			"requiresSynapseIngestion": {
+				"type": "Array"
+			},
+			"fileNames": {
 				"type": "Array"
 			}
 		},
