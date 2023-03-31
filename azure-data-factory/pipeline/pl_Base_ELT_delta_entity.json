@@ -261,19 +261,6 @@
 									"type": "Expression"
 								}
 							}
-						},
-						{
-							"name": "Append File Name",
-							"type": "AppendVariable",
-							"dependsOn": [],
-							"userProperties": [],
-							"typeProperties": {
-								"variableName": "fileNames",
-								"value": {
-									"value": "@item().file_name",
-									"type": "Expression"
-								}
-							}
 						}
 					]
 				}
