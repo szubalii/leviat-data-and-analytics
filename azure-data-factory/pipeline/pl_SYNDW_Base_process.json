@@ -456,16 +456,13 @@
 			"run_id": {
 				"type": "string"
 			},
-			"directory_path": {
-				"type": "string"
-			},
-			"file_names": {
-				"type": "string"
-			},
 			"source_date_field_name": {
 				"type": "string"
 			},
 			"refresh_from_date": {
+				"type": "string"
+			},
+			"deltaEntityFileNameBatchActivities": {
 				"type": "string"
 			}
 		},
