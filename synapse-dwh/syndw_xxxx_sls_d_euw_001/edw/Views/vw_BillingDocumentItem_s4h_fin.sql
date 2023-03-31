@@ -12,15 +12,6 @@ WITH Product AS (
 )
 ,
 
-VC AS (
-    SELECT
-        SalesDocument
-        , SalesDocumentItem
-        , ProductSurrogateKey
-FROM
-    [edw].[vw_ProductHierarchyVariantConfigCharacteristicKey]
-),
-
 BDIwithMatType AS (
     SELECT 
         BDI.[BillingDocument]
@@ -210,7 +201,7 @@ BDIwithMatType AS (
         ON
             BDI.[Material] = Product.[ProductID]
     LEFT JOIN
-        VC
+        [edw].[vw_ProductHierarchyVariantConfigCharacteristic_delta] AS VC
            ON VC.SalesDocument =
             CASE
                WHEN BDI.SalesSDDocumentCategoryID='V'
