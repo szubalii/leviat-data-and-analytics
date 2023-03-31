@@ -43,7 +43,7 @@
 				"type": "ForEach",
 				"dependsOn": [
 					{
-						"activity": "Get Delta Entity FileName Batch Activities",
+						"activity": "Set deltaEntityFileNameBatchActivities",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -52,7 +52,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@activity('Get Delta Entity FileName Batch Activities').output.value",
+						"value": "@variables('deltaEntityFileNameBatchActivities')",
 						"type": "Expression"
 					},
 					"isSequential": false,
@@ -346,6 +346,26 @@
 						}
 					]
 				}
+			},
+			{
+				"name": "Set deltaEntityFileNameBatchActivities",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "Get Delta Entity FileName Batch Activities",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "deltaEntityFileNameBatchActivities",
+					"value": {
+						"value": "@activity('Get Delta Entity FileName Batch Activities').output.value",
+						"type": "Expression"
+					}
+				}
 			}
 		],
 		"parameters": {
@@ -396,6 +416,9 @@
 			},
 			"fileNames": {
 				"type": "Array"
+			},
+			"deltaEntityFileNameBatchActivities": {
+				"type": "String"
 			}
 		},
 		"folder": {
