@@ -3,101 +3,6 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Set Batch ProcessBase",
-				"type": "SqlServerStoredProcedure",
-				"dependsOn": [],
-				"policy": {
-					"timeout": "7.00:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"storedProcedureName": "[dbo].[set_batch]",
-					"storedProcedureParameters": {
-						"activity": {
-							"value": "ProcessBase",
-							"type": "String"
-						},
-						"batch_id": {
-							"value": {
-								"value": "@variables('batch_id')",
-								"type": "Expression"
-							},
-							"type": "Guid"
-						},
-						"entity_id": {
-							"value": {
-								"value": "@pipeline().parameters.entity_id",
-								"type": "Expression"
-							},
-							"type": "Int64"
-						},
-						"file_name": {
-							"value": {
-								"value": "@pipeline().parameters.file_name",
-								"type": "Expression"
-							},
-							"type": "String"
-						},
-						"run_id": {
-							"value": {
-								"value": "@pipeline().parameters.run_id",
-								"type": "Expression"
-							},
-							"type": "Guid"
-						},
-						"size_bytes": {
-							"value": null,
-							"type": "Int64"
-						},
-						"source_layer": {
-							"value": {
-								"value": "Base",
-								"type": "Expression"
-							},
-							"type": "String"
-						},
-						"status": {
-							"value": "InProgress",
-							"type": "String"
-						},
-						"target_layer": {
-							"value": {
-								"value": "Base",
-								"type": "Expression"
-							},
-							"type": "String"
-						},
-						"start_date_time": {
-							"value": {
-								"value": "@formatDateTime(utcnow(), 'yyyy-MM-dd HH:mm:ss')",
-								"type": "Expression"
-							},
-							"type": "Datetime"
-						},
-						"directory_path": {
-							"value": {
-								"value": "@pipeline().parameters.directory_path",
-								"type": "Expression"
-							}
-						}
-					}
-				},
-				"linkedServiceName": {
-					"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
-					"type": "LinkedServiceReference",
-					"parameters": {
-						"sqlDb": {
-							"value": "@pipeline().globalParameters.sqlDb",
-							"type": "Expression"
-						}
-					}
-				}
-			},
-			{
 				"name": "Update Batch Status Succeeded",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
@@ -311,7 +216,7 @@
 				"type": "IfCondition",
 				"dependsOn": [
 					{
-						"activity": "Set Batch ProcessBase",
+						"activity": "ForEach1",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -443,7 +348,110 @@
 				"name": "ForEach1",
 				"type": "ForEach",
 				"dependsOn": [],
-				"userProperties": []
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@pipeline().parameters.deltaEntityFileNameBatchActivities",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "Set Batch ProcessBase",
+							"type": "SqlServerStoredProcedure",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"storedProcedureName": "[dbo].[set_batch]",
+								"storedProcedureParameters": {
+									"activity": {
+										"value": "ProcessBase",
+										"type": "String"
+									},
+									"batch_id": {
+										"value": {
+											"value": "@variables('batch_id')",
+											"type": "Expression"
+										},
+										"type": "Guid"
+									},
+									"entity_id": {
+										"value": {
+											"value": "@pipeline().parameters.entity_id",
+											"type": "Expression"
+										},
+										"type": "Int64"
+									},
+									"file_name": {
+										"value": {
+											"value": "@pipeline().parameters.file_name",
+											"type": "Expression"
+										},
+										"type": "String"
+									},
+									"run_id": {
+										"value": {
+											"value": "@pipeline().parameters.run_id",
+											"type": "Expression"
+										},
+										"type": "Guid"
+									},
+									"size_bytes": {
+										"value": null,
+										"type": "Int64"
+									},
+									"source_layer": {
+										"value": {
+											"value": "Base",
+											"type": "Expression"
+										},
+										"type": "String"
+									},
+									"status": {
+										"value": "InProgress",
+										"type": "String"
+									},
+									"target_layer": {
+										"value": {
+											"value": "Base",
+											"type": "Expression"
+										},
+										"type": "String"
+									},
+									"start_date_time": {
+										"value": {
+											"value": "@formatDateTime(utcnow(), 'yyyy-MM-dd HH:mm:ss')",
+											"type": "Expression"
+										},
+										"type": "Datetime"
+									},
+									"directory_path": {
+										"value": {
+											"value": "@pipeline().parameters.directory_path",
+											"type": "Expression"
+										}
+									}
+								}
+							},
+							"linkedServiceName": {
+								"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
+								"type": "LinkedServiceReference",
+								"parameters": {
+									"sqlDb": {
+										"value": "@pipeline().globalParameters.sqlDb",
+										"type": "Expression"
+									}
+								}
+							}
+						}
+					]
+				}
 			}
 		],
 		"parameters": {
@@ -469,7 +477,7 @@
 				"type": "string"
 			},
 			"deltaEntityFileNameBatchActivities": {
-				"type": "string"
+				"type": "array"
 			}
 		},
 		"variables": {

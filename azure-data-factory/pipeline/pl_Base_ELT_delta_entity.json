@@ -369,7 +369,7 @@
 			},
 			"date": {
 				"type": "string",
-				"defaultValue": "2023/03/31"
+				"defaultValue": "2023/03/30"
 			},
 			"rerun_successful_full_entities": {
 				"type": "int",
@@ -405,11 +405,8 @@
 			"requiresSynapseIngestion": {
 				"type": "Array"
 			},
-			"fileNames": {
-				"type": "Array"
-			},
 			"deltaEntityFileNameBatchActivities": {
-				"type": "String"
+				"type": "Array"
 			}
 		},
 		"folder": {
