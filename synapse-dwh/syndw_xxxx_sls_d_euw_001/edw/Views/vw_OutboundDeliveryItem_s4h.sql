@@ -551,10 +551,13 @@ OutboundDeliveryItem_s4h AS (
         ,DimActualRoute.[DurInDays] AS [ActualDeliveryRouteDurationInDays]
         ,DimProposedRoute.[DurInDays] AS [ProposedDeliveryRouteDurationInDays]
         ,CASE
-            WHEN LEFT(OD.[SoldToParty], 2) = 'IC'
-            THEN 'I'
-            ELSE 'O'
-        END AS [InOutID]
+            WHEN DimCust.CustomerID like 'IP%'          then 'IC_Lev'
+            WHEN DimCust.CustomerID like 'IC__35%'      then 'IC_Lev'
+            WHEN DimCust.CustomerID like 'IC__[^35]%'   then 'IC_CRH'
+            WHEN DimCust.CustomerID not like 'IP%' 
+            and  DimCust.CustomerID not like 'IC%'      then 'OC'
+            ELSE DimCust.CustomerID
+          END as InOutID
         ,CASE
             WHEN
                 SDI.[SDI_CreationDate] IS NULL
@@ -757,6 +760,8 @@ OutboundDeliveryItem_s4h AS (
         [base_s4h_cax].[I_Supplier] AS SPL
 	    ON
 		    SDDCP.[Supplier] = SPL.[Supplier]
+    LEFT JOIN [edw].[dim_Customer] DimCust
+            ON OD.SoldToParty = DimCust.CustomerID
 )
 ,
 OutboundDeliveryItem_s4h_calculated AS (
