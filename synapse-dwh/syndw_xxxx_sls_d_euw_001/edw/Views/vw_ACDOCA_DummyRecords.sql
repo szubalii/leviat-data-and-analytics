@@ -1,15 +1,14 @@
-CREATE VIEW [edw].[vw_ACDOCA_DummyRecords] AS
+CREATE VIEW [edw].[vw_ACDOCA_DummyRecords_new] 
+AS
 SELECT 
-    distinct CONCAT('(MA)-',igla.[GLAccount]) AS DummyID
-    ,gla.[GLAccountLongName]                  AS DummyName
+    distinct CONCAT('(MA)-',[GLAccountID])     AS DummyID
+    ,[GLAccountLongName]                       AS DummyName
     ,CONCAT('(MA)-'
-            ,igla.[GLAccount]
-            ,gla.[GLAccountLongName]
-    )                COLLATE DATABASE_DEFAULT AS DummyIDName
-FROM [base_s4h_cax].[I_GLAccount]    igla
-LEFT JOIN [edw].[vw_GLAccountText]   gla
-    ON igla.GLAccount = gla.GLAccountID            COLLATE DATABASE_DEFAULT
-WHERE igla.ChartOfAccounts = 'SCOA'
+            ,[GLAccountID]
+            ,'_'
+            ,[GLAccountLongName]
+    )             COLLATE DATABASE_DEFAULT     AS DummyIDName
+FROM edw.vw_GLAccountText
 
 
 
