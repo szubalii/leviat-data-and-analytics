@@ -25,6 +25,7 @@ SELECT
 , null as TradingPartner
 , [BusinessType]
 , [IndustryType]
+, [InOutID]
 , [t_jobDtm]
 , [t_applicationId]
 , [t_extractionDtm]
