@@ -1,7 +1,6 @@
 CREATE VIEW [dm_sales].[vw_fact_BillingDocItem_FinView]
     AS
-
-SELECT 
+ SELECT 
     docBilling.[BillingDocument]
 ,   docBilling.[BillingDocumentItem]
 ,   docBilling.[CurrencyType]
@@ -19,6 +18,7 @@ SELECT
 ,   docBilling.[SDDocumentCategoryID]
 ,   docBilling.[SDDocumentCategory]
 ,   docBilling.[BillingDocumentDate]
+,   docBilling.[SalesOfficeID]
 ,   docBilling.[SalesOrganizationID]
 ,   docBilling.[SalesOrganization]
 ,   docBilling.[DistributionChannelID]
@@ -43,6 +43,7 @@ SELECT
 ,   docBilling.[FiscalYear]
 ,   docBilling.[FiscalPeriod]
 ,   docBilling.[ProfitCenter]
+,   docBilling.[OrderID]
 --,   docBilling.[OriginSDDocument]
 --,   docBilling.[OriginSDDocumentItem]
 ,   docBilling.[ExchangeRateTypeID]
@@ -110,7 +111,7 @@ FROM
     [dm_sales].[vw_fact_BillingDocumentItem]  AS docBilling
 CROSS JOIN
     [edw].[dim_ValueType] VT
-WHERE VT.ValueTypeID= '10'
+WHERE VT.ValueTypeID= '10' 
 UNION ALL
 SELECT
     docBillingUS.[BillingDocument]
@@ -130,6 +131,7 @@ SELECT
 ,   dimSDDC.[SDDocumentCategoryID] 
 ,   dimSDDC.[SDDocumentCategory]
 ,   docBillingUS.[BillingDocumentDate]
+,   NULL AS [SalesOfficeID]
 ,   docBillingUS.[SalesOrganizationID]
 ,   dimSOrg.SalesOrganization AS [SalesOrganization]
 ,   NULL AS [DistributionChannelID]
@@ -154,6 +156,7 @@ SELECT
 ,   NULL AS [FiscalYear]
 ,   NULL AS [FiscalPeriod]
 ,   NULL AS [ProfitCenter]
+,   NULL AS [OrderID]
 --,   docBilling.[OriginSDDocument]
 --,   docBilling.[OriginSDDocumentItem]
 ,   NULL AS [ExchangeRateTypeID]
@@ -257,6 +260,7 @@ SELECT
 ,   NULL AS [SDDocumentCategoryID]
 ,   NULL AS [SDDocumentCategory]
 ,   docBillingBudget.[AccountingDate] AS [BillingDocumentDate]
+,   NULL AS [SalesOfficeID]
 ,   docBillingBudget.[SalesOrganizationID]
 ,   dimSOrg.[SalesOrganization] AS [SalesOrganization]
 ,   NULL AS [DistributionChannelID]
@@ -281,6 +285,7 @@ SELECT
 ,   NULL AS [FiscalYear]
 ,   NULL AS [FiscalPeriod]
 ,   NULL AS [ProfitCenter]
+,   NULL AS [OrderID]
 --,   NULL AS [OriginSDDocument]
 --,   NULL AS [OriginSDDocumentItem]
 ,   NULL AS ExchangeRateTypeID
@@ -377,6 +382,7 @@ SELECT
 ,   NULL AS [SDDocumentCategoryID]
 ,   NULL AS [SDDocumentCategory]
 ,   docBillingBudget_US.[BillingDocumentDate]
+,   NULL AS [SalesOfficeID]
 ,   docBillingBudget_US.[SalesOrganizationID]
 ,   docBillingBudget_US.[SalesOrgname] AS [SalesOrganization]
 ,   NULL AS [DistributionChannelID]
@@ -401,6 +407,7 @@ SELECT
 ,   NULL AS [FiscalYear]
 ,   NULL AS [FiscalPeriod]
 ,   NULL AS [ProfitCenter]
+,   NULL AS [OrderID]
 --,   NULL AS [OriginSDDocument]
 --,   NULL AS [OriginSDDocumentItem]
 ,   NULL AS ExchangeRateTypeID

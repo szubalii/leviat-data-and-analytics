@@ -72,7 +72,7 @@ MigratedSAPCustomerBasicMapping AS (
             ON
                 MSCBMT.[SAPCustomeraccount] = IC.[CustomerExternalID]
         LEFT JOIN
-            [base_tx_ca_0_hlp].[CUSTTABLE] CT
+             [intm_axbi].[dim_CUSTTABLE]  CT
             ON
                 CT.[ACCOUNTNUM]=MSCBMT.[AXCustomerCalculated]
         WHERE
@@ -125,9 +125,9 @@ MigratedSAPCustomerBasicMapping AS (
     ,   C.[t_jobDtm]
     ,   C.[t_jobBy]
     ,   C.[t_extractionDtm]
-    ,   C.[t_filePath]
+    ,   null as [t_filePath]
     FROM
-        [base_tx_ca_0_hlp].[CUSTTABLE] C
+         [intm_axbi].[dim_CUSTTABLE]  C
     WHERE
         C.[ACCOUNTNUM] NOT IN(
         SELECT
