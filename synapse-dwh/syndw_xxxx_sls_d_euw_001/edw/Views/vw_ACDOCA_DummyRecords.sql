@@ -1,4 +1,4 @@
-CREATE VIEW [edw].[vw_ACDOCA_DummyRecords_new] 
+CREATE VIEW [edw].[vw_ACDOCA_DummyRecords] 
 AS
 SELECT 
     distinct CONCAT('(MA)-',[GLAccountID])     AS DummyID
