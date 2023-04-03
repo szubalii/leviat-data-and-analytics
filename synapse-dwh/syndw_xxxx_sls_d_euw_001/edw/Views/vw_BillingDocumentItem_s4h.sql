@@ -370,7 +370,7 @@ WITH BillingDocumentItemBase as (
                on DimBrand.[BrandID] = doc.[AdditionalMaterialGroup1]
          left join [edw].[dim_PurgAccAssignment] PA
             ON doc.SalesDocument = PA.PurchaseOrder                   COLLATE DATABASE_DEFAULT
-                AND left(doc.SalesDocumentItem,5) = PA.PurchaseOrderItem 
+                AND right(doc.SalesDocumentItem,5) = PA.PurchaseOrderItem 
     ),
     BillingDocumentItemBase_Margin as (
         SELECT
