@@ -33,7 +33,11 @@ SalesDocumentItem_Filtered_Out_Organization AS
     ,   FSL_DOC.[SalesTaker]
     ,   FSL_DOC.[SALESID]
     ,   FSL_DOC.[ITEMID]
-    ,   CT.[INOUT]                                                       AS [InOutID]     
+    ,   case 
+            when CT.[INOUT] = 'I' then 'IC_Lev'
+            when CT.[INOUT] = 'O' then 'OC' 
+            else CT.[INOUT]
+        end                                                              AS [InOutID]               
     FROM intm_axbi.vw_FACT_SALESLINE FSL_DOC
     LEFT JOIN
         [map_AXBI].[SalesOrganization] AS SO
