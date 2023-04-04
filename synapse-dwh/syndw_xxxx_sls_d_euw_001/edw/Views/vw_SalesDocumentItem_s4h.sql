@@ -271,9 +271,12 @@ C_SalesDocumentItemDEXBase as (
          , doc.[SDItem_ControllingObject]       as [SDItem_ControllingObjectID]
          , doc.[CorrespncExternalReference]     as [CorrespncExternalReference] 
          , case
-               when left(doc.[SoldToParty], 2) = 'IC' or left(doc.[SoldToParty], 2) = 'IP'
-                   then 'I'
-               else 'O'
+                when DimCust.CustomerID like 'IP%'             then 'IC_Lev'
+                when DimCust.CustomerID like 'IC__35%'         then 'IC_Lev'
+                when DimCust.CustomerID like 'IC__[^3][^5]%'   then 'IC_CRH'
+                when DimCust.CustomerID not like 'IP%' 
+                and  DimCust.CustomerID not like 'IC%'         then 'OC'
+                else DimCust.CustomerID
            end                                  as [InOutID]
          , ORDAM.OpenDeliveryNetAmount
          , CASE
@@ -429,6 +432,9 @@ C_SalesDocumentItemDEXBase as (
                     END = os_status.InvoiceStatus
             AND doc.[SDDocumentCategory] <> 'B'
             AND doc.[SDDocumentRejectionStatus] <> 'C'
+
+    LEFT JOIN  [edw].[dim_Customer] DimCust
+            ON doc.SoldToParty = DimCust.CustomerID  
 ),
 
 

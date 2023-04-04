@@ -553,7 +553,7 @@ OutboundDeliveryItem_s4h AS (
         ,CASE
             WHEN DimCust.CustomerID like 'IP%'          then 'IC_Lev'
             WHEN DimCust.CustomerID like 'IC__35%'      then 'IC_Lev'
-            WHEN DimCust.CustomerID like 'IC__[^35]%'   then 'IC_CRH'
+            when DimCust.CustomerID like 'IC__[^3][^5]%'   then 'IC_CRH'
             WHEN DimCust.CustomerID not like 'IP%' 
             and  DimCust.CustomerID not like 'IC%'      then 'OC'
             ELSE DimCust.CustomerID
