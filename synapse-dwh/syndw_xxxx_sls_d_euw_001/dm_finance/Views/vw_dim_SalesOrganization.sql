@@ -14,21 +14,7 @@ SELECT
     ,   [t_extractionDtm]                
 FROM [edw].[dim_SalesOrganization]
 
-UNION ALL
-    
-SELECT 
-        [SalesOrganizationID]  
-    ,   [SalesOrganization]       
-    ,   [SalesOrganizationCurrency] 
-    ,   [CompanyCode]
-    ,   [CountryID]
-    ,   [CountryName]
-    ,   [RegionID]
-    ,   [RegionName]
-    ,   [Access_Control_Unit]
-    ,   [t_applicationId]
-    ,   [t_extractionDtm]                
-FROM [edw].[dim_SalesOrganization_US]
+WHERE [t_applicationId] LIKE 's4h%'
 
 UNION ALL
 
