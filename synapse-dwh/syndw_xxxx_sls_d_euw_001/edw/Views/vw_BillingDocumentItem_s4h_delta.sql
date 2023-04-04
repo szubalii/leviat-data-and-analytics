@@ -364,7 +364,7 @@ WITH BillingDocumentItemBase as (
                     -- and SDID.[MANDT] = 200 MPS 2021/11/01: commented out due to different client values between dev,qas, and prod
         left join [edw].[dim_PurgAccAssignment] PA
             ON doc.SalesDocument = PA.PurchaseOrder                   COLLATE DATABASE_DEFAULT
-                AND left(doc.SalesDocumentItem,5) = PA.PurchaseOrderItem
+                AND right(doc.SalesDocumentItem,5) = PA.PurchaseOrderItem
         -- move to DM            
         --left join [base_s4h_cax].[I_SalesDocumentTypeText] SDTT
         --    on SDTT.[SalesDocumentType] = SDID.[SalesDocumentType] and SDTT.[Language] = 'E' 
