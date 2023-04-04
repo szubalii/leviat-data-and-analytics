@@ -85,6 +85,7 @@ SELECT
     ,SDSL.[ScheduleLineConfirmationStatus]
     ,SDSL.[DeliveredQtyInOrderQtyUnit]
     ,SDSL.[DeliveredQuantityInBaseUnit]
+    ,SDSL.[ConfdOrderQtyByMatlAvailCheck]
 FROM [dm_sales].[vw_fact_SalesOrderItem] SOI
 LEFT JOIN [edw].[vw_BillingDocumentItem_for_SalesDocumentItem] BDI
     ON SOI.SalesOrderID = BDI.SalesDocumentID
