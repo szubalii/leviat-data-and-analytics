@@ -96,6 +96,14 @@
                     "conversionExit": ""
                 },
                 {
+                    "name": "FULLNAME",
+                    "description": "Full Name",
+                    "abapType": "CharacterString",
+                    "length": 80,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
                     "name": "DISTRICT",
                     "description": "District",
                     "abapType": "CharacterString",
