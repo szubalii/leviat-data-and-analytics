@@ -5468,6 +5468,15 @@
         "dest_table_name": "dim_UserAddress",
         "execution_order": 0,
         "schedule_recurrence": "A"
+      },
+      {
+        "entity_id": 576,
+        "entity_name": "dim_VariantConfigurator",
+        "sproc_name": "sp_materialize_view",
+        "source_view_name": "vw_VariantConfigurator",
+        "dest_table_name": "dim_VariantConfigurator",
+        "execution_order": 0,
+        "schedule_recurrence": "D"
       }
     ]
   },

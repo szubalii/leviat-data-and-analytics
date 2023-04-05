@@ -12,7 +12,7 @@ SELECT
       WHEN CharValue IS NOT NULL AND CharValueDescription IS NULL THEN CharValue
       WHEN CharValue = CharValueDescription THEN CharValue
       ELSE NULL
-    END AS CharacteristicDescription
+    END AS CharacteristicDescription,
+    [t_applicationId]
 FROM
     [base_s4h_cax].[Z_C_VariantConfig_active]
-
