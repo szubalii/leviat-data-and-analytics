@@ -104,7 +104,3 @@ IN (
     ,[HIT_STUFFE]
     )
 ) AS PVC
-ORDER BY 
-    PVC.[SalesDocument],
-    PVC.[SalesDocumentItem],
-    PVC.[ProductID]
