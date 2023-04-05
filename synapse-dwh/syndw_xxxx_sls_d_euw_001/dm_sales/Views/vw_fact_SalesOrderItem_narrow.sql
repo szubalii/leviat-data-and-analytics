@@ -24,6 +24,7 @@ SELECT
     ,SOI.[ItemDeliveryStatus]    
     ,SOI.[OverallDeliveryStatus]
     ,SOI.[ShippingConditionID]
+    ,SOI.[NetAmount] as SOI_NetAmount
     ,BDI.[BillingDocument]                      
     ,BDI.[BillingDocumentItem]                  
     ,BDI.[CurrencyTypeID]      
