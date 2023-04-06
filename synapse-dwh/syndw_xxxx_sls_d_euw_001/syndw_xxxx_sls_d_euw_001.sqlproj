@@ -1165,6 +1165,9 @@
     <Build Include="edw\Tables\dim_PurgAccAssignment.sql" />
     <Build Include="edw\Views\vw_PurgAccAssignment.sql" />
     <Build Include="dm_sales\Views\vw_dim_SalesOffice.sql" />
+    <Build Include="dm_sales\Views\vw_dim_VariantConfigurator.sql" />
+    <Build Include="edw\Tables\dim_VariantConfigurator.sql" />
+    <Build Include="edw\Views\vw_VariantConfigurator.sql" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PostDeploy Include="Scripts\Post-Deploy\Script.PostDeployment.sql" />
