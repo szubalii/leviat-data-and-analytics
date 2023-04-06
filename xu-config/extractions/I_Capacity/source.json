@@ -10,6 +10,16 @@
     "transferDataOnDeltaInit": true,
     "columns": [
         {
+            "name": "MANDT",
+            "description": "Client (key field in client-specific tables)",
+            "abapType": "CharacterString",
+            "length": 3,
+            "isPrimaryKey": true,
+            "isSelected": true,
+            "checkTable": "T000",
+            "conversionExit": ""
+        },
+        {
             "name": "CAPACITYINTERNALID",
             "description": "Capacity ID",
             "abapType": "NumericCharacterString",
