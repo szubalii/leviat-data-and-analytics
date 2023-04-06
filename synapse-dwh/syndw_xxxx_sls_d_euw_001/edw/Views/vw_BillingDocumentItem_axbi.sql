@@ -114,11 +114,7 @@ BillingDocumentItemBase_axbi AS (
     ,   DA.[GROUP]                                                  AS [axbi_DataAreaGroup]
     ,   CITQ.[ITEMID]                                               AS [axbi_MaterialID]
     ,   CITQ.[CUSTOMERNO]                                           AS [axbi_CustomerID]
-    ,   case 
-            when CT.[INOUT] = 'I' then 'IC_Lev'
-            when CT.[INOUT] = 'O' then 'OC' 
-            else CT.[INOUT]
-        end                                                         AS [InOutID]
+    ,   edw.svf_getInOutID_axbi (INOUT)                             AS [InOutID]
     ,   CITQ.[ITEMID]                                               AS [axbi_ItemNoCalc]
     ,   DA.DATAAREAID2                                              AS [axbi_DataAreaID2]
     ,   CITQ.[t_applicationId]                                      AS [t_applicationId]

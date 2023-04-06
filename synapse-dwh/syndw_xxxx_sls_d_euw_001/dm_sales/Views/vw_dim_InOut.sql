@@ -1,4 +1,4 @@
-CREATE VIEW [edw].[vw_InOut]
+CREATE VIEW [dm_sales].[vw_dim_InOut]
 	AS 
 SELECT 
     [InOutID],

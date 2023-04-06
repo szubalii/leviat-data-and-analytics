@@ -550,14 +550,7 @@ OutboundDeliveryItem_s4h AS (
         ,DimProposedRoute.[TRAZTD] AS [ProposedDeliveryRouteDurationInHrs]
         ,DimActualRoute.[DurInDays] AS [ActualDeliveryRouteDurationInDays]
         ,DimProposedRoute.[DurInDays] AS [ProposedDeliveryRouteDurationInDays]
-        ,CASE
-            WHEN DimCust.CustomerID like 'IP%'          then 'IC_Lev'
-            WHEN DimCust.CustomerID like 'IC__35%'      then 'IC_Lev'
-            when DimCust.CustomerID like 'IC__[^3][^5]%'   then 'IC_CRH'
-            WHEN DimCust.CustomerID not like 'IP%' 
-            and  DimCust.CustomerID not like 'IC%'      then 'OC'
-            ELSE DimCust.CustomerID
-          END as InOutID
+        ,edw.svf_getInOutID_s4h (CustomerID) as InOutID
         ,CASE
             WHEN
                 SDI.[SDI_CreationDate] IS NULL

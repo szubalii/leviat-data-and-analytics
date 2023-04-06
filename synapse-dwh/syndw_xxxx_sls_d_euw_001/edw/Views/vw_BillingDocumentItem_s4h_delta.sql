@@ -322,14 +322,7 @@ WITH BillingDocumentItemBase as (
         , doc.[BillingDocumentDate]                     as [AccountingDate]
         , doc.[Material] as MaterialCalculated
         , doc.[SoldToParty] as SoldToPartyCalculated
-        , case
-            when DimCust.CustomerID like 'IP%'             then 'IC_Lev'
-            when DimCust.CustomerID like 'IC__35%'         then 'IC_Lev'
-            when DimCust.CustomerID like 'IC__[^3][^5]%'   then 'IC_CRH'
-            when DimCust.CustomerID not like 'IP%' 
-            and  DimCust.CustomerID not like 'IC%'      then 'OC'
-            else DimCust.CustomerID
-          end as InOutID
+        , edw.svf_getInOutID_s4h (CustomerID) as InOutID
         , PA.ICSalesDocumentID 
         , PA.ICSalesDocumentItemID
         , doc.[t_applicationId]

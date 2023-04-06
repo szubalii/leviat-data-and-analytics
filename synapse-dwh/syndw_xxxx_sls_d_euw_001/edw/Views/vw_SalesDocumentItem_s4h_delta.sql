@@ -195,14 +195,7 @@ C_SalesDocumentItemDEXBase as (
     , doc.[SDoc_ControllingObject]        as [SDoc_ControllingObjectID]
     , doc.[SDItem_ControllingObject]      as [SDItem_ControllingObjectID]
     , doc.[CorrespncExternalReference]    as [CorrespncExternalReference] 
-    , case
-                when DimCust.CustomerID like 'IP%'             then 'IC_Lev'
-                when DimCust.CustomerID like 'IC__35%'         then 'IC_Lev'
-                when DimCust.CustomerID like 'IC__[^3][^5]%'   then 'IC_CRH'
-                when DimCust.CustomerID not like 'IP%' 
-                and  DimCust.CustomerID not like 'IC%'         then 'OC'
-                else DimCust.CustomerID
-           end                                  as [InOutID]
+    , edw.svf_getInOutID_s4h (CustomerID) as [InOutID]
     , ORDAM.OpenDeliveryNetAmount
     ,doc.[t_applicationId]
     ,doc.[t_extractionDtm]
