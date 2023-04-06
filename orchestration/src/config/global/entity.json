@@ -3972,7 +3972,8 @@
         "entity_id": 523,
         "entity_name": "HGDAWA",
         "base_table_name": "HGDAWA",
-        "schedule_recurrence": "D"
+        "schedule_recurrence": "D",
+        "axbi_date_field_name": "DAACDT"
       },
       {
         "entity_id": 524,

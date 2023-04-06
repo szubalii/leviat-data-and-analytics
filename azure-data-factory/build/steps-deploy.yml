@@ -61,7 +61,8 @@ steps:
         -default_properties_sqlDb_value "$(sqlDatabaseName)"
         -default_properties_s4hSystemId_value "$(S4HSystemId)"
         -default_properties_s4hClientId_value "$(S4HClientId)"
-        -default_properties_axbiDataBaseEnvSuffix_value "$(axbiDataBaseEnvSuffix)"'
+        -default_properties_axbiDataBaseEnvSuffix_value "$(axbiDataBaseEnvSuffix)"
+        -default_properties_axbiMinExtractionDate_value "$(axbiMinExtractionDate)"'
   
   - task: AzurePowerShell@5
     displayName: 'Start Triggers'
