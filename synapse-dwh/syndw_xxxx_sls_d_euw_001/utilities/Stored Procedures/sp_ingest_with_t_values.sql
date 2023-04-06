@@ -404,13 +404,12 @@ BEGIN
                 CONVERT(NVARCHAR(MAX),
                     CASE
                         WHEN f.column_id IS NOT NULL THEN CONCAT('[', c.name, '] ', f.column_id)
-                        WHEN t.default_value IS NULL THEN CONCAT('[', c.name, '] DEFAULT NULL')
                         ELSE CONCAT('[', c.name, '] DEFAULT ''', t.default_value, '''')
                     END
                 ), ', '
             -- Make sure to order the fields correctly: list all standard fields first, 
             -- and only then list the fields that have added a DEFAULT value. 
-            )  WITHIN GROUP ( ORDER BY COALESCE(f.column_id,1000000) ASC, t.[index] ASC )
+            )  WITHIN GROUP ( ORDER BY t.[index] ASC, f.column_id ASC )
             AS ColumnList
         FROM
             sys.columns AS c
@@ -431,6 +430,11 @@ BEGIN
                 t.[default_field] = c.name
         WHERE
             c.object_id = @table_id
+            AND (
+                f.column_id IS NOT NULL
+                OR
+                t.default_value IS NOT NULL
+            )
     );
 
     -- Truncate in case of full load
