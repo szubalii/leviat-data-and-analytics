@@ -321,11 +321,7 @@ WITH BillingDocumentItemBase as (
         , doc.[BillingDocumentDate]                     as [AccountingDate]
         , doc.[Material] as MaterialCalculated
         , doc.[SoldToParty] as SoldToPartyCalculated
-        , case
-            when left(doc.[SoldToParty], 2) = 'IC' or left(doc.[SoldToParty], 2) = 'IP'
-            then 'I'
-            else 'O'
-          end as InOutID
+        , edw.svf_getInOutID_s4h (CustomerID) as InOutID
         , PA.ICSalesDocumentID 
         , PA.ICSalesDocumentItemID
         , doc.[t_applicationId]
@@ -371,6 +367,8 @@ WITH BillingDocumentItemBase as (
          left join [edw].[dim_PurgAccAssignment] PA
             ON doc.SalesDocument = PA.PurchaseOrder                   COLLATE DATABASE_DEFAULT
                 AND right(doc.SalesDocumentItem,5) = PA.PurchaseOrderItem 
+        left join [edw].[dim_Customer] DimCust
+            ON doc.SoldToParty = DimCust.CustomerID  
     ),
     BillingDocumentItemBase_Margin as (
         SELECT

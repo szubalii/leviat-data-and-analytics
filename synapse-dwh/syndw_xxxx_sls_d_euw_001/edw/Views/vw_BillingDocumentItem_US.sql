@@ -72,11 +72,10 @@ WITH EuroBudgetExchangeRate AS (
     ,   CS.[CostCenter] AS [axbi_CostCenter]
     ,   MAPCUST.[Region] AS [SalesDistrictID]
     ,   MAPCUST.[CustomerPillar] AS [CustomerGroupID]
-    ,   CASE WHEN MAPCUST.[InsideOutside] IS NOT NULL
-        THEN
-            MAPCUST.[InsideOutside]
-        ELSE
-            'O'
+    ,   CASE 
+            WHEN MAPCUST.[InsideOutside] = 'I' then 'IC_Lev'
+            WHEN MAPCUST.[InsideOutside] = 'O' then 'OC'
+            ELSE MAPCUST.[InsideOutside]
         END AS [InOutID]
     ,   CS.[t_applicationId]                          
     ,   CS.[t_extractionDtm]
