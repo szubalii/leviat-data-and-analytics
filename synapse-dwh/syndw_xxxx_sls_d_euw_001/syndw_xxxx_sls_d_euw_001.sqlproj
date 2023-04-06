@@ -152,6 +152,7 @@
     <Folder Include="edw" />
     <Folder Include="edw\Tables" />
     <Folder Include="edw\Stored Procedures" />
+    <Folder Include="edw\Functions\Scalar-valued Functions" />
     <Folder Include="dm_sales" />
     <Folder Include="dm_sales\Views" />
     <Folder Include="dm_finance" />
@@ -1171,6 +1172,8 @@
     <Build Include="dm_sales\Views\vw_dim_DistributionChannel.sql" />
     <Build Include="base_ff\Tables\InOut.sql" />
     <Build Include="dm_sales\Views\vw_dim_InOut.sql" />
+    <Build Include="edw\Functions\Scalar-valued Functions\svf_getInOutID_axbi.sql" />
+    <Build Include="edw\Functions\Scalar-valued Functions\svf_getInOutID_s4h.sql" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PostDeploy Include="Scripts\Post-Deploy\Script.PostDeployment.sql" />
