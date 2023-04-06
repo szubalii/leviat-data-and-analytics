@@ -25,14 +25,7 @@ SELECT
 , null as TradingPartner
 , [BusinessType]
 , [IndustryType]
-, case
-            when CustomerID like 'IP%'             then 'IC_Lev'
-            when CustomerID like 'IC__35%'         then 'IC_Lev'
-            when CustomerID like 'IC__[^3][^5]%'   then 'IC_CRH'
-            when CustomerID not like 'IP%' 
-            and  CustomerID not like 'IC%'         then 'OC'
-            else CustomerID
-  end as InOutID
+, edw.svf_getInOutID_s4h (CustomerID)  as InOutID
 , [t_jobDtm]
 , [t_applicationId]
 , [t_extractionDtm]
