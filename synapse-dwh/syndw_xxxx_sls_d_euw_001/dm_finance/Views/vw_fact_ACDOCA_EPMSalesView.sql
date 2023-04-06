@@ -60,7 +60,11 @@ SELECT
     GLALIRD.[SourceLedgerID],
     GLALIRD.[CompanyCodeID],
     GLALIRD.[CompanyCodeID] + GLALIRD.[ProfitCenterID] as [SKReportingEntityKey],
-    GLALIRD.[ProductSurrogateKey],
+    CASE
+        WHEN COALESCE (GLALIRD.[ProductSurrogateKey], '') = ''
+        THEN CONCAT('(MA)-',GLALIRD.[GLAccountID])
+        ELSE GLALIRD.[ProductSurrogateKey]
+    END                                             AS [ProductSurrogateKey],
     GLALIRD.[FiscalYear],
     GLALIRD.[AccountingDocument],
     GLALIRD.[LedgerGLLineItem],
