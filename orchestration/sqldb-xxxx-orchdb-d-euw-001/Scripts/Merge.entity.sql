@@ -77,8 +77,6 @@ WHEN MATCHED AND (
     ISNULL(src.schedule_start_date, 0) <> ISNULL(tgt.schedule_start_date, 0)
     OR
     ISNULL(src.schedule_day, 0) <> ISNULL(tgt.schedule_day, 0)
-    OR
-    ISNULL(src.reload_period_in_months, 0) <> ISNULL(tgt.reload_period_in_months, 0)
 ) THEN
     UPDATE SET 
         entity_name		        = src.entity_name		
@@ -105,8 +103,7 @@ WHEN MATCHED AND (
     ,   pk_field_names               = src.pk_field_names
     ,   schedule_recurrence     = src.schedule_recurrence
     ,   schedule_start_date     = src.schedule_start_date
-    ,   schedule_day            = src.schedule_day   
-    ,   reload_period_in_months = src.reload_period_in_months  
+    ,   schedule_day            = src.schedule_day     
 WHEN NOT MATCHED BY TARGET THEN
     INSERT (
         entity_id
@@ -135,7 +132,6 @@ WHEN NOT MATCHED BY TARGET THEN
     ,   schedule_recurrence
     ,   schedule_start_date
     ,   schedule_day
-    ,   reload_period_in_months
     )
     VALUES (
         src.entity_id
@@ -164,7 +160,6 @@ WHEN NOT MATCHED BY TARGET THEN
     ,   src.schedule_recurrence
     ,   src.schedule_start_date
     ,   src.schedule_day
-    ,   src.reload_period_in_months
     )
 WHEN NOT MATCHED BY SOURCE THEN
     DELETE 
@@ -195,7 +190,6 @@ OUTPUT
 ,   Deleted.schedule_recurrence
 ,   Deleted.schedule_start_date
 ,   Deleted.schedule_day
-,   Deleted.reload_period_in_months
 ,   $action
 ,   Inserted.entity_id
 ,   Inserted.entity_name
@@ -223,7 +217,6 @@ OUTPUT
 ,   Inserted.schedule_recurrence
 ,   Inserted.schedule_start_date
 ,   Inserted.schedule_day
-,   Inserted.reload_period_in_months
 ,   GETUTCDATE() INTO [log].entity;
 
 -- drop temp tables

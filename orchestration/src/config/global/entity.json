@@ -3972,11 +3972,7 @@
         "entity_id": 523,
         "entity_name": "HGDAWA",
         "base_table_name": "HGDAWA",
-        "schedule_recurrence": "D",
-        "update_mode": "Range",
-        "axbi_date_field_name": "DAORDT",
-        "base_sproc_name": "sp_load_to_archive",
-        "reload_period_in_months": 2
+        "schedule_recurrence": "D"
       },
       {
         "entity_id": 524,
