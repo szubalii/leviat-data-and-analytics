@@ -883,7 +883,7 @@
 										"type": "Expression"
 									},
 									"parent_run_id": {
-										"value": "@pipeline().parameters.parent_run_id",
+										"value": "@pipeline().RunId",
 										"type": "Expression"
 									},
 									"date": {
