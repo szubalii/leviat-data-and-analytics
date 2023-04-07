@@ -109,7 +109,7 @@
 							"typeProperties": {
 								"variableName": "extractionTimestampString",
 								"value": {
-									"value": "@pipeline().parameters.skipped_activities.Extract.output.extraction_timestamp",
+									"value": "@pipeline().parameters.skipped_activities.Extract.output.timestamp",
 									"type": "Expression"
 								}
 							}
