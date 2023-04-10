@@ -857,8 +857,15 @@ BillingDocumentItemBase_axbi_mapped AS (
 */
 
 SELECT 
-        [BillingDocument]
+    CONCAT_WS(
+        '¦'
+    ,   [BillingDocument] collate SQL_Latin1_General_CP1_CS_AS
+    ,   [BillingDocumentItem] collate SQL_Latin1_General_CP1_CS_AS
+    ,   CT.[CurrencyTypeID]
+        ) AS [nk_fact_BillingDocumentItem]
+    ,   [BillingDocument]
     ,   [BillingDocumentItem]
+    ,   [nk_fact_BillingDocumentItem]
     ,   [ReturnItemProcessingType]
     ,   CT.[CurrencyTypeID]                      as [CurrencyTypeID]
     ,   CT.[CurrencyType]                        as [CurrencyType]
@@ -925,7 +932,13 @@ UNION ALL
 */
 
 SELECT 
-        [BillingDocument]
+        CONCAT_WS(
+        '¦'
+    ,   [BillingDocument] collate SQL_Latin1_General_CP1_CS_AS
+    ,   [BillingDocumentItem] collate SQL_Latin1_General_CP1_CS_AS
+    ,   CT.[CurrencyTypeID]
+        ) AS [nk_fact_BillingDocumentItem]
+    ,   [BillingDocument]
     ,   [BillingDocumentItem]
     ,   [ReturnItemProcessingType]
     ,   CT.[CurrencyTypeID]                      AS [CurrencyTypeID]
@@ -989,7 +1002,13 @@ WHERE
 UNION ALL
 
 SELECT 
-        ExchangeRateUSD.[BillingDocument]
+        CONCAT_WS(
+        '¦'
+    ,   ExchangeRateUSD.[BillingDocument] collate SQL_Latin1_General_CP1_CS_AS
+    ,   ExchangeRateUSD.[BillingDocumentItem] collate SQL_Latin1_General_CP1_CS_AS
+    ,   CT.[CurrencyTypeID]
+        ) AS [nk_fact_BillingDocumentItem]
+    ,   ExchangeRateUSD.[BillingDocument]
     ,   ExchangeRateUSD.[BillingDocumentItem]
     ,   [ReturnItemProcessingType]
     ,   CT.[CurrencyTypeID]                      AS [CurrencyTypeID]

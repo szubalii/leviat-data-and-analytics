@@ -1175,6 +1175,12 @@
     <Build Include="dm_sales\Views\vw_dim_InOut.sql" />
     <Build Include="edw\Functions\Scalar-valued Functions\svf_getInOutID_axbi.sql" />
     <Build Include="edw\Functions\Scalar-valued Functions\svf_getInOutID_s4h.sql" />
+    <Build Include="edw\Views\vw_SalesOrderItemPricingElement.sql" />
+    <Build Include="base_s4h_cax\Tables\I_SalesOrderItemPricingElement.sql" />
+    <Build Include="dm_sales\Views\vw_dim_SalesOrderItemPricingElement.sql" />
+    <Build Include="edw\Views\vw_SalesQuotationPrcgElmnt.sql" />
+    <Build Include="dm_sales\Views\vw_dim_QuotationDocumentItemPrcgElmnt.sql" />
+    <Build Include="dm_sales\Views\vw_dim_BillingDocumentItemPrcgElmnt.sql" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PostDeploy Include="Scripts\Post-Deploy\Script.PostDeployment.sql" />

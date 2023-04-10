@@ -14,7 +14,8 @@ WITH Product AS (
 
 BDIwithMatType AS (
     SELECT 
-        BDI.[BillingDocument]
+        BDI.[nk_fact_BillingDocumentItem]
+    ,   BDI.[BillingDocument]
     ,   BDI.[BillingDocumentItem]
     ,   Product.[MaterialTypeID]
     ,   BDI.[CurrencyTypeID]
@@ -557,6 +558,7 @@ BDwithConditionAmountFreight AS (
 
      */
     SELECT 
+        BDIwithMatType.[nk_fact_BillingDocumentItem]
         BDIwithMatType.[BillingDocument]
     ,   BDIwithMatType.[BillingDocumentItem]
     ,   BDIwithMatType.[MaterialTypeID]
@@ -825,6 +827,7 @@ BDwithConditionAmountFreight AS (
 )
 ,BDIFinancials AS (
     SELECT 
+        [nk_fact_BillingDocumentItem]
         [BillingDocument]
     ,   [BillingDocumentItem]
     ,   [MaterialTypeID]
@@ -1070,6 +1073,7 @@ BDwithConditionAmountFreight AS (
     Generate additional records for documents that consist of [MaterialTypeID] = 'ZSER' or 'ZVER' only
 */
     SELECT
+        BDIwithMatType.[nk_fact_BillingDocumentItem]
         BDIwithMatType.[BillingDocument]
     ,   STUFF(BDIwithMatType.[BillingDocumentItem], 1, 1, 'Z') + '0' AS [BillingDocumentItem]
     ,   NULL AS [MaterialTypeID] --MPS 2021/11/04 MaterialTypeID is not used in output but required for UNION
@@ -1354,6 +1358,7 @@ BDwithConditionAmountFreight AS (
 )
 ,BDIFinancialsZZZDUMMYAllKPI AS (
 SELECT
+    [nk_fact_BillingDocumentItem]
     [BillingDocument]
 ,   [BillingDocumentItem]
 ,   [CurrencyTypeID]
@@ -1593,6 +1598,7 @@ FROM (
 )
 ,BDIFinancialsZZZDUMMYAllKPIWithoutS1 AS(
 SELECT
+    [nk_fact_BillingDocumentItem]
     [BillingDocument]
 ,   [BillingDocumentItem]
 ,   [CurrencyTypeID]
@@ -1793,6 +1799,7 @@ SELECT * FROM BDIFinancialsZZZDUMMYAllKPIWithoutS1
 UNION ALL
 
 SELECT
+    BDI_CancellDocs.[nk_fact_BillingDocumentItem]
     BDI_CancellDocs.[BillingDocument]
 ,   BDI_CancellDocs.[BillingDocumentItem]
 ,   BDI_CancellDocs.[CurrencyTypeID]
