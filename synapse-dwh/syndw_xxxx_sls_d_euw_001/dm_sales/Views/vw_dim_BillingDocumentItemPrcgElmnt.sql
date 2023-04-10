@@ -3,7 +3,7 @@ AS
 SELECT
           [BillingDocument]
          ,[BillingDocumentItem]
-         ,CONCAT([BillingDocument] COLLATE Latin1_General_100_BIN2,[BillingDocumentItem] COLLATE Latin1_General_100_BIN2, [CurrencyTypeID])   as sk_BillingDocumentItem  
+         ,[sk_BillingDocumentItem]  
          ,[ConditionType]
          ,[ConditionBaseValue]
          ,[ConditionRateValue]
