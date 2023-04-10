@@ -66,15 +66,20 @@
     Local Company Code currency data from S4H
 */
 	SELECT
-		 [BillingDocument]
-		,[BillingDocumentItem]
-		,CONCAT_WS('¦', [BillingDocument] COLLATE SQL_Latin1_General_CP1_CS_AS,[BillingDocumentItem] COLLATE SQL_Latin1_General_CP1_CS_AS,'10') as sk_BillingDocumentItem
+		 IBDIPE.[BillingDocument]
+		,IBDIPE.[BillingDocumentItem]
+		,CONCAT_WS(
+            '¦', 
+            IBDIPE.[BillingDocument] COLLATE SQL_Latin1_General_CP1_CS_AS,
+            IBDIPE.[BillingDocumentItem] COLLATE SQL_Latin1_General_CP1_CS_AS,
+            '10') 
+              as sk_BillingDocumentItem
 		,CR.[CurrencyTypeID]
 		,CR.[CurrencyType]
-		, SDI.[CurrencyID]
+		,BDI.[CurrencyID]
 		, (CASE
-					 WHEN SDI.[ExchangeRate] IS NOT NULL
-					 THEN SDI.[ExchangeRate]
+					 WHEN BDI.[ExchangeRate] IS NOT NULL
+					 THEN BDI.[ExchangeRate]
 					 ELSE 1
 			END) 
 					 as [ExchangeRate]
@@ -83,10 +88,11 @@
 		,[ConditionApplication]
 		,[ConditionType]
 		,[PricingDateTime]
+        ,[ConditionCalculationType]
 		, CONVERT(decimal(19,6), 
 			CASE 
-			 		WHEN SDI.[ExchangeRate] IS NOT NULL 
-					THEN [ConditionBaseValue] * SDI.[ExchangeRate] 
+			 		WHEN BDI.[ExchangeRate] IS NOT NULL 
+					THEN [ConditionBaseValue] * BDI.[ExchangeRate] 
 					ELSE [ConditionBaseValue] 
 			END) 
 					as [ConditionBaseValue]
@@ -108,8 +114,8 @@
 		,[CndnRoundingOffDiffAmount] 
 		, CONVERT(decimal(19,6), 
 			CASE 
-					WHEN SDI.[ExchangeRate] IS NOT NULL 
-					THEN [ConditionAmount] * SDI.[ExchangeRate] 
+					WHEN BDI.[ExchangeRate] IS NOT NULL 
+					THEN [ConditionAmount] * BDI.[ExchangeRate] 
 					ELSE [ConditionAmount] 
 			END) 
 					as [ConditionAmount]
@@ -134,7 +140,7 @@
 		    [base_s4h_cax].[I_BillingDocumentItemPrcgElmnt] IBDIPE
 		LEFT JOIN
 		   [edw].[fact_BillingDocumentItem] BDI
-		        on CONCAT_WS('¦', [BillingDocument] COLLATE SQL_Latin1_General_CP1_CS_AS,[BillingDocumentItem] COLLATE SQL_Latin1_General_CP1_CS_AS,'10') = BDI.[nk_fact_BillingDocumentItem] 
+		        on CONCAT_WS('¦', IBDIPE.[BillingDocument] COLLATE SQL_Latin1_General_CP1_CS_AS,IBDIPE.[BillingDocumentItem] COLLATE SQL_Latin1_General_CP1_CS_AS,'10') = BDI.[nk_fact_BillingDocumentItem] 
 		CROSS JOIN 
 		    [edw].[dim_CurrencyType] CR
 		WHERE 
