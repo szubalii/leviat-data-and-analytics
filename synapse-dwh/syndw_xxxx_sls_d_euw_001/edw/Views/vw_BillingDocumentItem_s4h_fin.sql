@@ -559,7 +559,7 @@ BDwithConditionAmountFreight AS (
      */
     SELECT 
         BDIwithMatType.[nk_fact_BillingDocumentItem]
-        BDIwithMatType.[BillingDocument]
+    ,   BDIwithMatType.[BillingDocument]
     ,   BDIwithMatType.[BillingDocumentItem]
     ,   BDIwithMatType.[MaterialTypeID]
     ,   BDIwithMatType.[CurrencyTypeID]
@@ -1074,7 +1074,7 @@ BDwithConditionAmountFreight AS (
 */
     SELECT
         BDIwithMatType.[nk_fact_BillingDocumentItem]
-        BDIwithMatType.[BillingDocument]
+    ,   BDIwithMatType.[BillingDocument]
     ,   STUFF(BDIwithMatType.[BillingDocumentItem], 1, 1, 'Z') + '0' AS [BillingDocumentItem]
     ,   NULL AS [MaterialTypeID] --MPS 2021/11/04 MaterialTypeID is not used in output but required for UNION
     ,   BDIwithMatType.[CurrencyTypeID]
@@ -1800,7 +1800,7 @@ UNION ALL
 
 SELECT
     BDI_CancellDocs.[nk_fact_BillingDocumentItem]
-    BDI_CancellDocs.[BillingDocument]
+,   BDI_CancellDocs.[BillingDocument]
 ,   BDI_CancellDocs.[BillingDocumentItem]
 ,   BDI_CancellDocs.[CurrencyTypeID]
 ,   BDI_CancellDocs.[CurrencyType]
