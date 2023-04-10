@@ -1,8 +1,10 @@
-CREATE VIEW [edw].[vw_SalesQuotationPrcgElmnt]
+/*CREATE VIEW [edw].[vw_SalesQuotationPrcgElmnt]
 As
+*/
 /*
     Transaction currency data from S4H
 */
+/*
 SELECT
     [SalesQuotation] 
   , [PricingProcedureStep] 
@@ -48,3 +50,4 @@ SELECT
   , [t_applicationId] 
   , [t_jobDtm]
 FROM [base_s4h_cax].[I_SalesQuotationPrcgElmnt]
+*/
