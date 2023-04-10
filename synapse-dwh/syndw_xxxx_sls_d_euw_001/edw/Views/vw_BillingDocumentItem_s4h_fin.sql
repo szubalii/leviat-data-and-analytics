@@ -828,7 +828,7 @@ BDwithConditionAmountFreight AS (
 ,BDIFinancials AS (
     SELECT 
         [nk_fact_BillingDocumentItem]
-        [BillingDocument]
+    ,   [BillingDocument]
     ,   [BillingDocumentItem]
     ,   [MaterialTypeID]
     ,   [CurrencyTypeID]
@@ -1313,6 +1313,9 @@ BDwithConditionAmountFreight AS (
     SELECT *
     FROM BDIZZZDUMMY
 )
+
+
+
 ,BDIFinancialsZZZDUMMYAndOtherSales AS (
     /*
      calculate the FinNetAmountOtherSales
@@ -1359,7 +1362,7 @@ BDwithConditionAmountFreight AS (
 ,BDIFinancialsZZZDUMMYAllKPI AS (
 SELECT
     [nk_fact_BillingDocumentItem]
-    [BillingDocument]
+,   [BillingDocument]
 ,   [BillingDocumentItem]
 ,   [CurrencyTypeID]
 ,   [CurrencyType]
@@ -1596,10 +1599,13 @@ FROM (
     ) subQ_FinReserveCashDiscount
 ) subQ_FinNetAmountAllowances
 )
+
+
+
 ,BDIFinancialsZZZDUMMYAllKPIWithoutS1 AS(
 SELECT
     [nk_fact_BillingDocumentItem]
-    [BillingDocument]
+,   [BillingDocument]
 ,   [BillingDocumentItem]
 ,   [CurrencyTypeID]
 ,   [CurrencyType]
@@ -1793,6 +1799,8 @@ FROM
     BDIFinancialsZZZDUMMYAllKPI
 WHERE
     BillingDocumentTypeID <> 'S1')
+
+
 
 SELECT * FROM BDIFinancialsZZZDUMMYAllKPIWithoutS1
 
