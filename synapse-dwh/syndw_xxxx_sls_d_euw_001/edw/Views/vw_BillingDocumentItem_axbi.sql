@@ -865,7 +865,6 @@ SELECT
         ) AS [nk_fact_BillingDocumentItem]
     ,   [BillingDocument]
     ,   [BillingDocumentItem]
-    ,   [nk_fact_BillingDocumentItem]
     ,   [ReturnItemProcessingType]
     ,   CT.[CurrencyTypeID]                      as [CurrencyTypeID]
     ,   CT.[CurrencyType]                        as [CurrencyType]
