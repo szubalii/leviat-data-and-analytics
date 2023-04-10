@@ -1,17 +1,16 @@
 CREATE VIEW [dm_sales].[vw_dim_QuotationDocumentItemPrcgElmnt]
 AS
 SELECT
-          [MANDT]
-         ,[QuoteDocument]
-         ,[QuoteDocumentItem]
-         ,sk_QuoteDocumentItem
-         ,[ConditionType]
+          --[QuoteDocument]
+         --,[QuoteDocumentItem]
+         --,sk_QuoteDocumentItem
+          [ConditionType]
          ,[ConditionBaseValue]
          ,[ConditionRateValue]
          ,[ConditionAmount]
-         ,[CurrencyTypeID]
-         ,[CurrencyType]
-         ,[CurrencyID]
+        -- ,[CurrencyTypeID]
+        -- ,[CurrencyType]
+        -- ,[CurrencyID]
 FROM
    [edw].[vw_SalesQuotationPrcgElmnt]
 WHERE ([ConditionInactiveReason] is null or [ConditionInactiveReason]='') AND
