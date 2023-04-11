@@ -1002,7 +1002,7 @@
 			},
 			"extractionTimestamp": {
 				"type": "String",
-				"defaultValue": "@utcNow()"
+				"defaultValue": "@utcNow('yyyy-MM-dd HH:mm:ss.fff')"
 			}
 		},
 		"folder": {
