@@ -5486,6 +5486,15 @@
         "dest_table_name": "dim_VariantConfigurator",
         "execution_order": 0,
         "schedule_recurrence": "D"
+      },
+      {
+        "entity_id": 577,
+        "entity_name": "dim_SalesQuotationItemPrcgElmnt",
+        "sproc_name": "sp_materialize_view",
+        "source_view_name": "vw_SalesQuotationItemPrcgElmnt",
+        "dest_table_name": "dim_SalesQuotationItemPrcgElmnt",
+        "execution_order": 0,
+        "schedule_recurrence": "A"
       }
     ]
   },
