@@ -37,7 +37,7 @@ SELECT
   , [WithholdingTaxCode] 
   , [CndnRoundingOffDiffAmount] 
   , [ConditionAmount] 
-  , [TransactionCurrency] 
+  , [TransactionCurrency] as TransactionCurrencyID
   , [ConditionControl] 
   , [ConditionInactiveReason] 
   , [ConditionClass] 
@@ -116,7 +116,7 @@ SELECT
 			ELSE [ConditionAmount] 
 	  END) 
 			as [ConditionAmount] 
-  , [TransactionCurrency] 
+  , [TransactionCurrency] as TransactionCurrencyID
   , [ConditionControl] 
   , [ConditionInactiveReason] 
   , [ConditionClass] 
