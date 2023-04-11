@@ -809,7 +809,7 @@
 							"typeProperties": {
 								"variableName": "XUExtractionTimestamp",
 								"value": {
-									"value": "@pipeline().parameters.skipped_activities.Extract.output.timestamp",
+									"value": "@replace(\n    pipeline().parameters.skipped_activities.Extract.output.timestamp\n    ,'_'\n    ,' '\n)",
 									"type": "Expression"
 								}
 							}
