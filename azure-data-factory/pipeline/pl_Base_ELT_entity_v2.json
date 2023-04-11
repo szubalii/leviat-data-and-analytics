@@ -101,7 +101,7 @@
 							}
 						},
 						{
-							"name": "Set Extraction Timestamp String From XU",
+							"name": "XU Set Extraction Timestamp String",
 							"description": "Get the correct format extraction timestamp from the XU extraction timestamp",
 							"type": "SetVariable",
 							"dependsOn": [],
