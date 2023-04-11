@@ -3924,8 +3924,8 @@
       {
         "entity_id": 569,
         "entity_name": "I_SalesQuotationItemPrcgElmnt",
-        "data_category": "DIMENSION",
-        "client_field": "NULL",
+        "data_category": "NULL",
+        "client_field": "MANDT",
         "tool_name": "Theobald",
         "extraction_type": "Table",
         "update_mode": "Full",
