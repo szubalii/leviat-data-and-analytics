@@ -1182,6 +1182,7 @@
     <Build Include="dm_sales\Views\vw_dim_SalesQuotationItemPrcgElmnt.sql" />
     <Build Include="dm_sales\Views\vw_dim_BillingDocumentItemPrcgElmnt.sql" />
     <Build Include="edw\Tables\dim_SalesQuotationItemPrcgElmnt.sql" />
+    <Build Include="edw\Tables\dim_SalesOrderItemPricingElement.sql" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PostDeploy Include="Scripts\Post-Deploy\Script.PostDeployment.sql" />

@@ -5495,6 +5495,15 @@
         "dest_table_name": "dim_SalesQuotationItemPrcgElmnt",
         "execution_order": 0,
         "schedule_recurrence": "A"
+      },
+      {
+        "entity_id": 578,
+        "entity_name": "dim_SalesOrderItemPricingElement",
+        "sproc_name": "sp_materialize_view",
+        "source_view_name": "vw_SalesOrderItemPricingElement",
+        "dest_table_name": "dim_SalesOrderItemPricingElement",
+        "execution_order": 0,
+        "schedule_recurrence": "A"
       }
     ]
   },

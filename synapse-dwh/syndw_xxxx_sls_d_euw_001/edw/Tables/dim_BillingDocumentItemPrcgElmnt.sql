@@ -3,6 +3,7 @@
 -- 1:1 as base layer table
   [BillingDocument] nvarchar(20) NOT NULL
 , [BillingDocumentItem] char(6) collate Latin1_General_100_BIN2 NOT NULL
+, [sk_BillingDocumentItem] NVARCHAR(20) NOT NULL 
 , [PricingProcedureStep] char(3) collate Latin1_General_100_BIN2 NOT NULL
 , [PricingProcedureCounter] char(3) collate Latin1_General_100_BIN2 NOT NULL
 , [ConditionApplication] nvarchar(4)
@@ -27,7 +28,11 @@
 , [WithholdingTaxCode] nvarchar(4)
 , [CndnRoundingOffDiffAmount] decimal(5,2)
 , [ConditionAmount] decimal(15,2)
-, [TransactionCurrency] char(5) collate Latin1_General_100_BIN2
+, [ExchangeRate] DECIMAL(15,6) 
+, [TransactionCurrencyID] char(5) collate Latin1_General_100_BIN2
+, [CurrencyTypeID] CHAR(2)
+, [CurrencyType] NVARCHAR(20) 
+, [CurrencyID] CHAR(5)  
 , [ConditionControl] nvarchar(2)
 , [ConditionInactiveReason] nvarchar(2)
 , [ConditionClass] nvarchar(2)
