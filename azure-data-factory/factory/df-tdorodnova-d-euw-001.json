@@ -44,7 +44,7 @@
 			},
 			"s4hClientId": {
 				"type": "string",
-				"value": "200"
+				"value": "100"
 			},
 			"axbiDataBaseEnvSuffix": {
 				"type": "string",
