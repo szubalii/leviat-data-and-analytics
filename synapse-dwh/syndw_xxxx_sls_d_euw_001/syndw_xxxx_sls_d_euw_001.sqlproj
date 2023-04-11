@@ -1179,7 +1179,7 @@
     <Build Include="base_s4h_cax\Tables\I_SalesQuotationItemPrcgElmnt.sql" />
     <Build Include="dm_sales\Views\vw_dim_SalesOrderItemPricingElement.sql" />
     <Build Include="edw\Views\vw_SalesQuotationItemPrcgElmnt.sql" />
-    <Build Include="dm_sales\Views\vw_dim_SalesQuotationDocumentItemPrcgElmnt.sql" />
+    <Build Include="dm_sales\Views\vw_dim_SalesQuotationItemPrcgElmnt.sql" />
     <Build Include="dm_sales\Views\vw_dim_BillingDocumentItemPrcgElmnt.sql" />
     <Build Include="edw\Tables\dim_SalesQuotationItemPrcgElmnt.sql" />
   </ItemGroup>

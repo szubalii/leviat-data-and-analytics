@@ -13,12 +13,11 @@ CREATE TABLE [edw].[dim_SalesQuotationItemPrcgElmnt]
   , [CurrencyType] NVARCHAR(20) 
   , [CurrencyID] CHAR(5)  
   , [ConditionInactiveReason] NVARCHAR(1)
-  , [t_applicationId] VARCHAR (32)  
-  , [t_jobId] VARCHAR (36)  
-  , [t_jobDtm] DATETIME  
-  , [t_jobBy] VARCHAR (128)  
-  , [t_extractionDtm] DATETIME 
-  , [t_filePath] NVARCHAR (1024)  
+  , [t_applicationId]       VARCHAR (32)
+  , [t_jobId]               VARCHAR (36)
+  , [t_jobDtm]              DATETIME
+  , [t_lastActionCd]        VARCHAR(1)
+  , [t_jobBy]               NVARCHAR(128)  
     CONSTRAINT [PK_dim_SalesQuotationItemPrcgElmnt] PRIMARY KEY NONCLUSTERED ([sk_SalesQuotationItem]) NOT ENFORCED
 )
 WITH
