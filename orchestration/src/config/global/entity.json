@@ -3923,14 +3923,14 @@
       },
       {
         "entity_id": 569,
-        "entity_name": "I_SalesQuotationPrcgElmnt",
+        "entity_name": "I_SalesQuotationItemPrcgElmnt",
         "data_category": "DIMENSION",
-        "client_field": "MANDT",
+        "client_field": "NULL",
         "tool_name": "Theobald",
         "extraction_type": "Table",
         "update_mode": "Full",
-        "base_table_name": "I_SalesQuotationPrcgElmnt",
-        "pk_field_names": "MANDT, SalesQuotation, PricingProcedureStep, PricingProcedureCounter",
+        "base_table_name": "I_SalesQuotationItemPrcgElmnt",
+        "pk_field_names": "MANDT, SalesQuotation, SalesQuotationItem, PricingProcedureStep,PricingProcedureCounter",
         "schedule_recurrence": "A"
       }
     ]

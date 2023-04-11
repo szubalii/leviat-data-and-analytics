@@ -1,7 +1,8 @@
-CREATE TABLE [base_s4h_cax].[I_SalesQuotationPrcgElmnt] (
+CREATE TABLE [base_s4h_cax].[I_SalesQuotationItemPrcgElmnt] (
     
     [MANDT] CHAR(3) NOT NULL  -- Client
   , [SalesQuotation] NVARCHAR(10) NOT NULL  -- Sales Quotation
+  , [SalesQuotationItem] CHAR(6) NOT NULL  -- Sales Quotation Item
   , [PricingProcedureStep] CHAR(3) NOT NULL  -- Step Number
   , [PricingProcedureCounter] CHAR(3) NOT NULL  -- Condition Counter
   , [ConditionApplication] NVARCHAR(2)  -- Application
@@ -48,10 +49,11 @@ CREATE TABLE [base_s4h_cax].[I_SalesQuotationPrcgElmnt] (
   , [t_jobBy] VARCHAR (128)  -- Job executed by
   , [t_extractionDtm] DATETIME  -- Extraction Date Time
   , [t_filePath] NVARCHAR (1024)  -- Filepath
-  , CONSTRAINT [PK_I_SalesQuotationPrcgElmnt] PRIMARY KEY NONCLUSTERED(
+  , CONSTRAINT [PK_I_SalesQuotationItemPrcgElmnt] PRIMARY KEY NONCLUSTERED(
       
       [MANDT]
     , [SalesQuotation]
+    , [SalesQuotationItem]
     , [PricingProcedureStep]
     , [PricingProcedureCounter]
   ) NOT ENFORCED

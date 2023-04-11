@@ -3,8 +3,8 @@
 	"runInBackGroundJob": false,
 	"tables": [
 		{
-			"name": "ISDSLSQTNPREL",
-			"description": "Generated Table for View ISDSLSQTNPREL",
+			"name": "ISDSLSQTNITMPREL",
+			"description": "Generated Table for View ISDSLSQTNITMPREL",
 			"isView": true,
 			"fields": [
 				{
@@ -31,6 +31,18 @@
 					"selectionPermission": "All",
 					"checkTable": "SALESQUOTATION",
 					"ConversionExit": "ALPHA"
+				},
+				{
+					"name": "SALESQUOTATIONITEM",
+					"description": "Sales Quotation Item",
+					"abapType": "NumericCharacterString",
+					"length": 6,
+					"isSelected": true,
+					"outputLength": 6,
+					"isPrimaryKey": true,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "SALESQUOTATIONITEM"
 				},
 				{
 					"name": "PRICINGPROCEDURESTEP",

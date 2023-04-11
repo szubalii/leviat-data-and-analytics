@@ -15,6 +15,6 @@
 	"compress": true,
 	"blobType": "BlockBlob",
 	"columnNameKind": "Code",
-	"folderPath": "DIMENSION/I_SalesQuotationPrcgElmnt/Theobald/Table/Full/In/#{ DateTime.Now.ToString(\"yyyy\/MM\/dd\") }#",
+	"folderPath": "NULL\/I_SalesQuotationItemPrcgElmnt\/Theobald\/Table\/Full\/In\/#{ DateTime.Now.ToString(\"yyyy\/MM\/dd\") }#",
 	"maxBlobSize": 0
 }
