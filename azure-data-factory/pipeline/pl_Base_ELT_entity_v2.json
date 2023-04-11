@@ -210,7 +210,7 @@
 							"typeProperties": {
 								"variableName": "extractionTimestampString",
 								"value": {
-									"value": "@formatDateTime(\n    variables('extractionTimestamp'),\n    'yyyy-MM-dd HH:mm:ss.fff'\n    )",
+									"value": "@variables('extractionTimestamp')",
 									"type": "Expression"
 								}
 							}
