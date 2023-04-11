@@ -101,7 +101,7 @@
 							}
 						},
 						{
-							"name": "Set Extraction Timestamp String_copy1",
+							"name": "Set Extraction Timestamp String From XU",
 							"description": "Get the correct format extraction timestamp from the XU extraction timestamp",
 							"type": "SetVariable",
 							"dependsOn": [],
@@ -109,7 +109,7 @@
 							"typeProperties": {
 								"variableName": "extractionTimestampString",
 								"value": {
-									"value": "@pipeline().parameters.skipped_activities.Extract.output.timestamp",
+									"value": "@replace(\n    pipeline().parameters.skipped_activities.Extract.output.timestamp\n    ,'_'\n    ,' '\n)",
 									"type": "Expression"
 								}
 							}
@@ -1002,7 +1002,7 @@
 			},
 			"extractionTimestamp": {
 				"type": "String",
-				"defaultValue": "@utcNow('yyyy-MM-dd HH:mm:ss.fff')"
+				"defaultValue": "@utcNow()"
 			}
 		},
 		"folder": {
