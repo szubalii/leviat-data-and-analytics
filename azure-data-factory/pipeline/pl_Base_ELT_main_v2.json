@@ -540,6 +540,74 @@
 								},
 								"errorCode": "500"
 							}
+						},
+						{
+							"name": "If Base Processing Required",
+							"type": "IfCondition",
+							"dependsOn": [
+								{
+									"activity": "Execute Full ELT",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"userProperties": [],
+							"typeProperties": {
+								"expression": {
+									"value": "@contains(\n    if(\n    empty(item().required_activities),\n    json('[]'),\n    json(item().required_activities)\n),\n    'ProcessBase'\n)",
+									"type": "Expression"
+								},
+								"ifTrueActivities": [
+									{
+										"name": "Process Synapse Base",
+										"type": "ExecutePipeline",
+										"dependsOn": [],
+										"userProperties": [],
+										"typeProperties": {
+											"pipeline": {
+												"referenceName": "pl_SYNDW_Base_process",
+												"type": "PipelineReference"
+											},
+											"waitOnCompletion": true,
+											"parameters": {
+												"base_schema_name": {
+													"value": "@item().base_schema_name",
+													"type": "Expression"
+												},
+												"base_table_name": {
+													"value": "@item().base_table_name",
+													"type": "Expression"
+												},
+												"base_sproc_name": {
+													"value": "@item().base_sproc_name",
+													"type": "Expression"
+												},
+												"entity_id": {
+													"value": "@item().entity_id",
+													"type": "Expression"
+												},
+												"run_id": {
+													"value": "@pipeline().RunId",
+													"type": "Expression"
+												},
+												"source_date_field_name": {
+													"value": "@item().source_date_field_name",
+													"type": "Expression"
+												},
+												"refresh_from_date": {
+													"value": "@item().refresh_from_date",
+													"type": "Expression"
+												},
+												"deltaEntityFileNameBatchActivities": {
+													"value": "@array(item().file_name)",
+													"type": "Expression"
+												}
+											}
+										}
+									}
+								]
+							}
 						}
 					]
 				}
