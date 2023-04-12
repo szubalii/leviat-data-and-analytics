@@ -20,7 +20,8 @@ CREATE PROC [utilities].[sp_ingest_with_t_values]
     @extraction_type         VARCHAR   (5),
     @extraction_timestamp       CHAR  (23),
     @client_field            VARCHAR (127),
-    @client_id                  CHAR   (3)
+    @client_id                  CHAR   (3),
+    @storage_account          VARCHAR (127)
 AS
 BEGIN
 
@@ -448,7 +449,7 @@ BEGIN
     -- Create the COPY INTO script
     SET @script = N'
         COPY INTO [' + @schema_name + '].[' + @table_name + '] (' + @columnList + ')
-        FROM ''https://$(storageAccount).dfs.core.windows.net:443/' + @file_path + '''
+        FROM ''https://' + @storage_account + '.dfs.core.windows.net:443/' + @file_path + '''
         WITH (
             IDENTITY_INSERT=''OFF'',
             CREDENTIAL=(IDENTITY=''Managed Identity''),
@@ -461,6 +462,7 @@ BEGIN
     ';
     -- select @script;
     EXEC sp_executesql @script;
+    
 
 END
 
