@@ -572,19 +572,19 @@
 											"waitOnCompletion": true,
 											"parameters": {
 												"base_schema_name": {
-													"value": "@item.base_schema_name",
+													"value": "@item().base_schema_name",
 													"type": "Expression"
 												},
 												"base_table_name": {
-													"value": "@item.base_table_name",
+													"value": "@item().base_table_name",
 													"type": "Expression"
 												},
 												"base_sproc_name": {
-													"value": "@item.base_sproc_name",
+													"value": "@item().base_sproc_name",
 													"type": "Expression"
 												},
 												"entity_id": {
-													"value": "@item.entity_id",
+													"value": "@item().entity_id",
 													"type": "Expression"
 												},
 												"run_id": {
@@ -592,15 +592,15 @@
 													"type": "Expression"
 												},
 												"source_date_field_name": {
-													"value": "@item.source_date_field_name",
+													"value": "@item().source_date_field_name",
 													"type": "Expression"
 												},
 												"refresh_from_date": {
-													"value": "@item.refresh_from_date",
+													"value": "@item().refresh_from_date",
 													"type": "Expression"
 												},
 												"deltaEntityFileNameBatchActivities": {
-													"value": "@item.file_name",
+													"value": "@item().file_name",
 													"type": "Expression"
 												}
 											}
