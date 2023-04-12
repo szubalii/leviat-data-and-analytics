@@ -600,7 +600,7 @@
 													"type": "Expression"
 												},
 												"deltaEntityFileNameBatchActivities": {
-													"value": "@item().file_name",
+													"value": "@array(item().file_name)",
 													"type": "Expression"
 												}
 											}
