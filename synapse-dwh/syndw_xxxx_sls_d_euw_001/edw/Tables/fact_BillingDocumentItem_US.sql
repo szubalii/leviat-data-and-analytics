@@ -39,7 +39,7 @@
     ,[AccountingDate]                           DATETIME                                             NULL
     ,[MaterialCalculated]                       NVARCHAR(80)                                         NULL
     ,[SoldToPartyCalculated]                    NVARCHAR(100)                                        NULL
-    ,[InOutID]                                  CHAR(1) collate Latin1_General_100_BIN2              NULL
+    ,[InOutID]                                  NVARCHAR(6) collate Latin1_General_100_BIN2          NULL
     ,[axbi_MaterialID]                          NVARCHAR (100)                                       NULL
     ,[axbi_CustomerID]                          NVARCHAR (100)                                       NULL
     ,[axbi_SalesTypeID]                         CHAR(10)                                             NULL

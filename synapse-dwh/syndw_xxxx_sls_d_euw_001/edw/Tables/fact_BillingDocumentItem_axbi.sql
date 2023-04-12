@@ -190,7 +190,7 @@ CREATE TABLE [edw].[fact_BillingDocumentItem_axbi]
     [axbi_CustomerID]                       NVARCHAR (100)                               NULL,
     [MaterialCalculated]                    NVARCHAR (100)                               NULL,
     [SoldToPartyCalculated]                 NVARCHAR(100)                                NULL,
-    [InOutID]                               CHAR(1) collate Latin1_General_100_BIN2      NULL,
+    [InOutID]                               NVARCHAR(6) collate Latin1_General_100_BIN2  NULL,
     [axbi_ItemNoCalc]                       NVARCHAR(108)                                NULL,
     [t_applicationId]                       VARCHAR(32),
     [t_extractionDtm]                       DATETIME,
