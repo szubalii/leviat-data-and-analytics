@@ -10,7 +10,6 @@ CREATE TABLE [edw].[dim_ZE_EXQLMAP_DT](
     ,[t_lastActionCd]            VARCHAR(1)
     ,[t_jobBy]                   NVARCHAR(128)
     ,[t_extractionDtm]           DATETIME
-)
     CONSTRAINT [PK_dim_ZE_EXQLMAP_DT] PRIMARY KEY NONCLUSTERED ([sk_ExQLmap]) NOT ENFORCED
 )
     WITH

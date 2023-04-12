@@ -65,6 +65,7 @@ SELECT
         THEN CONCAT('(MA)-',GLALIRD.[GLAccountID])
         ELSE GLALIRD.[ProductSurrogateKey]
     END                                             AS [ProductSurrogateKey],
+    GLALIRD.[GLAccountID]+GLALIRD.[FunctionalAreaID] AS [sk_ExQLmap],
     GLALIRD.[FiscalYear],
     GLALIRD.[AccountingDocument],
     GLALIRD.[LedgerGLLineItem],
@@ -189,7 +190,7 @@ SELECT
     CASE
         WHEN GLALIRD.[BillingDocumentTypeID] = ''
         AND COALESCE (GLALIRD.[ProductID], '') = ''
-            THEN CONCAT('(MA)-',GLALIRD.[GLAccountID])
+            THEN GLALIRD.[GLAccountID]
         ELSE GLALIRD.[ProductID]
     END                                             AS [ProductID],
     GLALIRD.[PlantID],
@@ -197,7 +198,7 @@ SELECT
     CASE
         WHEN GLALIRD.[BillingDocumentTypeID] = ''
         AND COALESCE (GLALIRD.[CustomerID], '') = ''
-            THEN CONCAT('(MA)-',GLALIRD.[GLAccountID])
+            THEN GLALIRD.[GLAccountID]
         ELSE GLALIRD.[CustomerID]
     END                                             AS [CustomerID],
     GLALIRD.[ExchangeRateDate],                    
