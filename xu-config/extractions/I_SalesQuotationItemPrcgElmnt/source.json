@@ -88,6 +88,81 @@
 					"outputLength": 4,
 					"isDeltaColumn": true,
 					"selectionPermission": "All",
+					"selections": 
+					[
+						{
+							"value": "ZNET"
+						},
+						{
+							"value": "REA1"
+						},
+						{
+							"value": "ZNRV"
+						},
+						{
+							"value": "VPRS"
+						},
+						{
+							"value": "EK02"
+						},
+						{
+							"value": "ZC10"
+						},
+						{
+							"value": "ZCF1"
+						},
+						{
+							"value": "FRA1"
+						},
+						{
+							"value": "ZCC1"
+						},
+						{
+							"value": "ZOA1"
+						},
+						{
+							"value": "ZM10"
+						},
+						{
+							"value": "ZG60"
+						},
+						{
+							"value": "ZG10"
+						},
+						{
+							"value": "ZG40"
+						},
+						{
+							"value": "ZG31"
+						},
+						{
+							"value": "ZM60"
+						},
+						{
+							"value": "ZM61"
+						},
+						{
+							"value": "ZM62"
+						},
+						{
+							"value": "ZM63"
+						},
+						{
+							"value": "ZM64"
+						},
+						{
+							"value": "ZM65"
+						},
+						{
+							"value": "ZM66"
+						},
+						{
+							"value": "ZM50"
+						},
+						{
+							"value": "ZM55"
+						}
+					],
 					"checkTable": "CONDITIONTYPE"
 				},
 				{
