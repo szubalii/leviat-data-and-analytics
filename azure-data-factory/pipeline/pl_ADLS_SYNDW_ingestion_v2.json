@@ -467,13 +467,6 @@
 								"type": "Expression"
 							},
 							"type": "String"
-						},
-						"storage_account": {
-							"value": {
-								"value": "@pipeline().globalParameters.storageAccountName",
-								"type": "Expression"
-							},
-							"type": "String"
 						}
 					}
 				},
