@@ -1,0 +1,116 @@
+{
+	"functionName": "Z_THEO_READ_TABLE",
+	"runInBackGroundJob": false,
+	"tables": [
+		{
+			"name": "IPPMRPCONTROLLER",
+			"description": "Generated Table for View IPPMRPCONTROLLER",
+			"isView": true,
+			"fields": [
+				{
+					"name": "MANDT",
+					"description": "Client",
+					"abapType": "CharacterString",
+					"length": 3,
+					"isSelected": true,
+					"outputLength": 3,
+					"isPrimaryKey": true,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "T000"
+				},
+				{
+					"name": "PLANT",
+					"description": "Plant",
+					"abapType": "CharacterString",
+					"length": 4,
+					"isSelected": true,
+					"outputLength": 4,
+					"isPrimaryKey": true,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "PLANT"
+				},
+				{
+					"name": "MRPCONTROLLER",
+					"description": "MRP Controller",
+					"abapType": "CharacterString",
+					"length": 3,
+					"isSelected": true,
+					"outputLength": 3,
+					"isPrimaryKey": true,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "MRPCONTROLLER"
+				},
+				{
+					"name": "MRPCONTROLLERNAME",
+					"description": "MRP Controller Name",
+					"abapType": "CharacterString",
+					"length": 18,
+					"isSelected": true,
+					"outputLength": 18,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "MRPCONTROLLERNAME"
+				},
+				{
+					"name": "MRPCONTROLLERPHONENUMBER",
+					"description": "MRP Controller's Phone Number",
+					"abapType": "CharacterString",
+					"length": 12,
+					"isSelected": true,
+					"outputLength": 12,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "MRPCONTROLLERPHONENUMBER"
+				},
+				{
+					"name": "PURCHASINGGROUP",
+					"description": "Purchasing Group",
+					"abapType": "CharacterString",
+					"length": 3,
+					"isSelected": true,
+					"outputLength": 3,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "PURCHASINGGROUP"
+				},
+				{
+					"name": "BUSINESSAREA",
+					"description": "Business Area",
+					"abapType": "CharacterString",
+					"length": 4,
+					"isSelected": true,
+					"outputLength": 4,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "BUSINESSAREA"
+				},
+				{
+					"name": "PROFITCENTER",
+					"description": "Profit Center",
+					"abapType": "CharacterString",
+					"length": 10,
+					"isSelected": true,
+					"outputLength": 10,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "PROFITCENTER",
+					"ConversionExit": "ALPHA"
+				},
+				{
+					"name": "USERID",
+					"description": "Object ID for recipient",
+					"abapType": "CharacterString",
+					"length": 70,
+					"isSelected": true,
+					"outputLength": 70,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "USERID"
+				}
+			]
+		}
+	]
+}

@@ -215,6 +215,7 @@
     <Folder Include="base_isedio\Tables" />
     <Folder Include="base_isedio_aus" />
     <Folder Include="base_isedio_aus\Tables" />
+    <Folder Include="edw\Functions\" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <Build Include="Security\Database Scoped Credentials\dsc_MSI.sql" />
@@ -1086,7 +1087,7 @@
     <Build Include="base_isedio\Tables\CUSTTABLE_ISUK.sql" />
     <Build Include="base_isedio\Tables\CUSTINVOICETRANS_ISUK.sql" />
     <Build Include="base_isedio\Tables\ITEMTABLE_ISUK.sql" />
-      <Build Include="base_isedio\Tables\ITEMTABLE_ISUK_orig.sql" />
+    <Build Include="base_isedio\Tables\ITEMTABLE_ISUK_orig.sql" />
     <Build Include="base_ancon_conolly_aus\Tables\CUSTINVOICETRANS_ANAC.sql" />
     <Build Include="base_ancon_conolly_aus\Tables\CUSTTABLE_ANAC.sql" />
     <Build Include="base_ancon_conolly_aus\Tables\ITEMTABLE_ANAC.sql" />
@@ -1175,6 +1176,7 @@
     <Build Include="dm_sales\Views\vw_dim_InOut.sql" />
     <Build Include="edw\Functions\Scalar-valued Functions\svf_getInOutID_axbi.sql" />
     <Build Include="edw\Functions\Scalar-valued Functions\svf_getInOutID_s4h.sql" />
+    <Build Include="base_s4h_cax\Tables\I_MRPController.sql" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PostDeploy Include="Scripts\Post-Deploy\Script.PostDeployment.sql" />
