@@ -6,7 +6,7 @@
 	SELECT 
 		 [BillingDocument]
 		,[BillingDocumentItem]
-		,CONCAT_WS('¦', [BillingDocument] COLLATE SQL_Latin1_General_CP1_CS_AS,[BillingDocumentItem] COLLATE SQL_Latin1_General_CP1_CS_AS,'00') as sk_BillingDocumentItem
+		,edw.svf_getNaturalKey (BillingDocument,BillingDocumentItem,CR.CurrencyTypeID) as sk_BillingDocumentItem
 		,CR.[CurrencyTypeID]
 		,CR.[CurrencyType]
 		,[TransactionCurrency] as [CurrencyID]
@@ -68,12 +68,7 @@
 	SELECT
 		 IBDIPE.[BillingDocument]
 		,IBDIPE.[BillingDocumentItem]
-		,CONCAT_WS(
-            '¦', 
-            IBDIPE.[BillingDocument] COLLATE SQL_Latin1_General_CP1_CS_AS,
-            IBDIPE.[BillingDocumentItem] COLLATE SQL_Latin1_General_CP1_CS_AS,
-            '10') 
-              as sk_BillingDocumentItem
+		,edw.svf_getNaturalKey (IBDIPE.BillingDocument,IBDIPE.BillingDocumentItem,CR.CurrencyTypeID) as sk_BillingDocumentItem
 		,CR.[CurrencyTypeID]
 		,CR.[CurrencyType]
 		,BDI.[CurrencyID]
@@ -140,7 +135,7 @@
 		    [base_s4h_cax].[I_BillingDocumentItemPrcgElmnt] IBDIPE
 		LEFT JOIN
 		   [edw].[fact_BillingDocumentItem] BDI
-		        on CONCAT_WS('¦', IBDIPE.[BillingDocument] COLLATE SQL_Latin1_General_CP1_CS_AS,IBDIPE.[BillingDocumentItem] COLLATE SQL_Latin1_General_CP1_CS_AS,'10') = BDI.[nk_fact_BillingDocumentItem] 
+		        on edw.svf_getNaturalKey ( IBDIPE.BillingDocument,IBDIPE.BillingDocumentItem,10) = BDI.[nk_fact_BillingDocumentItem] 
 		CROSS JOIN 
 		    [edw].[dim_CurrencyType] CR
 		WHERE 

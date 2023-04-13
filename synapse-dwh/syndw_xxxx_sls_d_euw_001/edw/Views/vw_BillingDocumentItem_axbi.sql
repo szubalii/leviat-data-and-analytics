@@ -857,12 +857,7 @@ BillingDocumentItemBase_axbi_mapped AS (
 */
 
 SELECT 
-    CONCAT_WS(
-        '¦'
-    ,   [BillingDocument] collate SQL_Latin1_General_CP1_CS_AS
-    ,   [BillingDocumentItem] collate SQL_Latin1_General_CP1_CS_AS
-    ,   CT.[CurrencyTypeID]
-        ) AS [nk_fact_BillingDocumentItem]
+        edw.svf_getNaturalKey (BillingDocument,BillingDocumentItem,CT.CurrencyTypeID) as [nk_fact_BillingDocumentItem]
     ,   [BillingDocument]
     ,   [BillingDocumentItem]
     ,   [ReturnItemProcessingType]
@@ -931,12 +926,7 @@ UNION ALL
 */
 
 SELECT 
-        CONCAT_WS(
-        '¦'
-    ,   [BillingDocument] collate SQL_Latin1_General_CP1_CS_AS
-    ,   [BillingDocumentItem] collate SQL_Latin1_General_CP1_CS_AS
-    ,   CT.[CurrencyTypeID]
-        ) AS [nk_fact_BillingDocumentItem]
+        edw.svf_getNaturalKey (BillingDocument,BillingDocumentItem,CT.CurrencyTypeID) AS [nk_fact_BillingDocumentItem]
     ,   [BillingDocument]
     ,   [BillingDocumentItem]
     ,   [ReturnItemProcessingType]
@@ -1001,12 +991,7 @@ WHERE
 UNION ALL
 
 SELECT 
-        CONCAT_WS(
-        '¦'
-    ,   ExchangeRateUSD.[BillingDocument] collate SQL_Latin1_General_CP1_CS_AS
-    ,   ExchangeRateUSD.[BillingDocumentItem] collate SQL_Latin1_General_CP1_CS_AS
-    ,   CT.[CurrencyTypeID]
-        ) AS [nk_fact_BillingDocumentItem]
+        edw.svf_getNaturalKey (ExchangeRateUSD.BillingDocument,ExchangeRateUSD.BillingDocumentItem,CT.CurrencyTypeID) AS [nk_fact_BillingDocumentItem]
     ,   ExchangeRateUSD.[BillingDocument]
     ,   ExchangeRateUSD.[BillingDocumentItem]
     ,   [ReturnItemProcessingType]

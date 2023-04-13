@@ -8,7 +8,7 @@ As
 SELECT
     [SalesQuotation] 
   , [SalesQuotationItem] 
-  , CONCAT_WS('¦', [SalesQuotation] COLLATE SQL_Latin1_General_CP1_CS_AS,[SalesQuotationItem] COLLATE SQL_Latin1_General_CP1_CS_AS,'00') as sk_SalesQuotationItem
+  , edw.svf_getNaturalKey (SalesQuotation,SalesQuotationItem,CR.CurrencyTypeID)  as sk_SalesQuotationItem
   , CR.[CurrencyTypeID]
   , CR.[CurrencyType]
   , [TransactionCurrency] COLLATE Latin1_General_100_BIN2 as [CurrencyID]
@@ -70,7 +70,7 @@ UNION ALL
 SELECT
     [SalesQuotation] 
   , [SalesQuotationItem] 
-  , CONCAT_WS('¦', [SalesQuotation] COLLATE SQL_Latin1_General_CP1_CS_AS,[SalesQuotationItem] COLLATE SQL_Latin1_General_CP1_CS_AS,'10') as sk_SalesQuotationItem
+  , edw.svf_getNaturalKey (SalesQuotation,SalesQuotationItem,CR.CurrencyTypeID) as sk_SalesQuotationItem
   , CR.[CurrencyTypeID]
   , CR.[CurrencyType]
   , SDI.[CurrencyID] COLLATE Latin1_General_100_BIN2 as CurrencyID
@@ -138,7 +138,7 @@ FROM
     [base_s4h_cax].[I_SalesQuotationItemPrcgElmnt] ISQIPE
 LEFT JOIN
    [edw].[fact_SalesDocumentItem] SDI
-        on CONCAT_WS('¦', [SalesQuotation] COLLATE SQL_Latin1_General_CP1_CS_AS,[SalesQuotationItem] COLLATE SQL_Latin1_General_CP1_CS_AS,'10') = SDI.[nk_fact_SalesDocumentItem] 
+        on edw.svf_getNaturalKey (SalesQuotation,SalesQuotationItem,'10') = SDI.[nk_fact_SalesDocumentItem] 
 CROSS JOIN 
     [edw].[dim_CurrencyType] CR
 WHERE 

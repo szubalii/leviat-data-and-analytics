@@ -6,7 +6,7 @@ As
 SELECT 
   [SalesOrder] 
 , [SalesOrderItem]
-, CONCAT_WS('¦', [SalesOrder] COLLATE SQL_Latin1_General_CP1_CS_AS,[SalesOrderItem] COLLATE SQL_Latin1_General_CP1_CS_AS,'00') as sk_SalesOrderItem
+, edw.svf_getNaturalKey (SalesOrder,SalesOrderItem,CR.CurrencyTypeID) as sk_SalesOrderItem
 , CR.[CurrencyTypeID]
 , CR.[CurrencyType]
 , [TransactionCurrency] COLLATE Latin1_General_100_BIN2 as [CurrencyID]
@@ -68,7 +68,7 @@ UNION ALL
 SELECT
   [SalesOrder] 
 , [SalesOrderItem]
-, CONCAT_WS('¦', [SalesOrder] collate SQL_Latin1_General_CP1_CS_AS, [SalesOrderItem] collate SQL_Latin1_General_CP1_CS_AS,'10') as sk_SalesOrderItem
+, edw.svf_getNaturalKey (SalesOrder,SalesOrderItem,CR.CurrencyTypeID) as sk_SalesOrderItem
 , CR.[CurrencyTypeID]
 , CR.[CurrencyType]
 , SDI.[CurrencyID] COLLATE Latin1_General_100_BIN2 as CurrencyID
@@ -136,7 +136,7 @@ FROM
     [base_s4h_cax].[I_SalesOrderItemPricingElement] ISOIPE
 LEFT JOIN
    [edw].[fact_SalesDocumentItem] SDI
-        on CONCAT_WS('¦', [SalesOrder] collate SQL_Latin1_General_CP1_CS_AS, [SalesOrderItem] collate SQL_Latin1_General_CP1_CS_AS,'10') = SDI.[nk_fact_SalesDocumentItem] 
+        on edw.svf_getNaturalKey (SalesOrder,SalesOrderItem,'10') = SDI.[nk_fact_SalesDocumentItem] 
 CROSS JOIN 
     [edw].[dim_CurrencyType] CR
 WHERE 

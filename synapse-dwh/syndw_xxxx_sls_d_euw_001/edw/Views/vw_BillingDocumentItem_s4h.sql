@@ -827,7 +827,7 @@ WITH BillingDocumentItemBase as (
 SELECT
        [BillingDocument]
       ,[BillingDocumentItem]
-      ,CONCAT_WS('¦', [BillingDocument] collate SQL_Latin1_General_CP1_CS_AS, [BillingDocumentItem] collate SQL_Latin1_General_CP1_CS_AS, CR.[CurrencyTypeID]) as [nk_fact_BillingDocumentItem]
+      ,edw.svf_getNaturalKey (BillingDocument,BillingDocumentItem,CR.CurrencyTypeID) as [nk_fact_BillingDocumentItem]
       ,CR.[CurrencyTypeID]
       ,CR.[CurrencyType]
       ,[TransactionCurrencyID] as [CurrencyID]
@@ -1024,7 +1024,7 @@ UNION ALL
 SELECT 
      [BillingDocument]
     ,[BillingDocumentItem]
-    ,CONCAT_WS('¦', [BillingDocument] collate SQL_Latin1_General_CP1_CS_AS, [BillingDocumentItem] collate SQL_Latin1_General_CP1_CS_AS, CR.[CurrencyTypeID]) as [nk_fact_BillingDocumentItem]
+    ,edw.svf_getNaturalKey (BillingDocument,BillingDocumentItem,CR.CurrencyTypeID) as [nk_fact_BillingDocumentItem]
     ,CR.[CurrencyTypeID]
     ,CR.[CurrencyType]
     ,[CurrencyID]
@@ -1264,7 +1264,7 @@ UNION ALL
 SELECT 
      [BillingDocument]
     ,[BillingDocumentItem]
-    ,CONCAT_WS('¦', [BillingDocument] collate SQL_Latin1_General_CP1_CS_AS, [BillingDocumentItem] collate SQL_Latin1_General_CP1_CS_AS, CR.[CurrencyTypeID]) as [nk_fact_BillingDocumentItem]
+    ,edw.svf_getNaturalKey (BillingDocument,BillingDocumentItem,CR.CurrencyTypeID) as [nk_fact_BillingDocumentItem]
     ,CR.[CurrencyTypeID]
     ,CR.[CurrencyType]
     ,[CurrencyID]
@@ -1459,7 +1459,7 @@ SELECT
      
      ExchangeRateUSD.[BillingDocument]
     ,ExchangeRateUSD.[BillingDocumentItem]
-    ,CONCAT_WS('¦', ExchangeRateUSD.[BillingDocument] collate SQL_Latin1_General_CP1_CS_AS, ExchangeRateUSD.[BillingDocumentItem] collate SQL_Latin1_General_CP1_CS_AS, CR.[CurrencyTypeID]) as [nk_fact_BillingDocumentItem]
+    ,edw.svf_getNaturalKey (ExchangeRateUSD.BillingDocument,ExchangeRateUSD.BillingDocumentItem,CR.CurrencyTypeID) as [nk_fact_BillingDocumentItem]
     ,CR.[CurrencyTypeID]
     ,CR.[CurrencyType]
     ,'USD' AS [CurrencyID]
