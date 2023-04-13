@@ -7,6 +7,7 @@ CREATE TABLE [base_s4h_cax].[NSDM_V_MARC]
 , [FXHOR] char(3) collate Latin1_General_100_BIN2
 , [MINBE] decimal(13,3)
 , [NCOST] nvarchar(1) collate Latin1_General_100_BIN2
+, [BSTRF] decimal(13,3)
 -- , [pstat] nvarchar(15) collate Latin1_General_100_BIN2
 -- , [lvorm] nvarchar(1) collate Latin1_General_100_BIN2
 -- , [bwtty] nvarchar(1) collate Latin1_General_100_BIN2
@@ -33,7 +34,6 @@ CREATE TABLE [base_s4h_cax].[NSDM_V_MARC]
 -- , [bstmi] decimal(13,3)
 -- , [bstma] decimal(13,3)
 -- , [bstfe] decimal(13,3)
--- , [bstrf] decimal(13,3)
 -- , [mabst] decimal(13,3)
 -- , [losfx] decimal(11,2)
 -- , [sbdkz] nvarchar(1) collate Latin1_General_100_BIN2
