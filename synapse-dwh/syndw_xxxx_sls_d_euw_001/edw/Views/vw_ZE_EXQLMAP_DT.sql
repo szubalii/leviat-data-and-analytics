@@ -13,8 +13,7 @@ SELECT
 FROM [base_s4h_cax].[ZE_EXQLMAP_DT]
 WHERE [CONTIGENCY5] <> ''
     AND XLSBLD = 'IS'
-GROUP BY GLAccount
-    ,FunctionalArea
-    ,sk_ExQLmap
-    ,ExQLNode
-    ,ExQLAccount
+GROUP BY GLACCOUNT
+    ,FUNCTIONALAREA
+    ,REKNR
+    ,REKOMS
