@@ -62,7 +62,7 @@ SELECT
     GLALIRD.[CompanyCodeID] + GLALIRD.[ProfitCenterID] as [SKReportingEntityKey],
     CASE
         WHEN COALESCE (GLALIRD.[ProductSurrogateKey], '') = ''
-        THEN GLALIRD.[GLAccountID]
+        THEN CONCAT('(MA)-',GLALIRD.[GLAccountID])
         ELSE GLALIRD.[ProductSurrogateKey]
     END                                             AS [ProductSurrogateKey],
     GLALIRD.[GLAccountID]+GLALIRD.[FunctionalAreaID] AS [sk_ExQLmap],
@@ -190,7 +190,7 @@ SELECT
     CASE
         WHEN GLALIRD.[BillingDocumentTypeID] = ''
         AND COALESCE (GLALIRD.[ProductID], '') = ''
-            THEN GLALIRD.[GLAccountID]
+            THEN CONCAT('(MA)-',GLALIRD.[GLAccountID])
         ELSE GLALIRD.[ProductID]
     END                                             AS [ProductID],
     GLALIRD.[PlantID],
@@ -198,7 +198,7 @@ SELECT
     CASE
         WHEN GLALIRD.[BillingDocumentTypeID] = ''
         AND COALESCE (GLALIRD.[CustomerID], '') = ''
-            THEN GLALIRD.[GLAccountID]
+            THEN CONCAT('(MA)-',GLALIRD.[GLAccountID])
         ELSE GLALIRD.[CustomerID]
     END                                             AS [CustomerID],
     GLALIRD.[ExchangeRateDate],                    
@@ -250,7 +250,7 @@ SELECT
     CASE
         WHEN GLALIRD.[BillingDocumentTypeID] = ''
         AND COALESCE (GLALIRD.[ShipToPartyID], '') = ''
-            THEN GLALIRD.[GLAccountID]
+            THEN CONCAT('(MA)-',GLALIRD.[GLAccountID])
         ELSE GLALIRD.[ShipToPartyID]
     END                                             AS [ShipToParty],
     CASE 
