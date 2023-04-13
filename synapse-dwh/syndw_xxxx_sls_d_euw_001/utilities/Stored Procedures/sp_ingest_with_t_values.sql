@@ -20,8 +20,7 @@ CREATE PROC [utilities].[sp_ingest_with_t_values]
     @extraction_type         VARCHAR   (5),
     @extraction_timestamp       CHAR  (23),
     @client_field            VARCHAR (127),
-    @client_id                  CHAR   (3),
-    @storage_account          VARCHAR (127)
+    @client_id                  CHAR   (3)
 AS
 BEGIN
 
@@ -364,7 +363,8 @@ BEGIN
 
     -- Delete the default values for the system fields from the helper table
     DELETE FROM utilities.t_field_values
-    WHERE [table_id] = @table_id;
+    WHERE [table_id] = @table_id
+        AND [file_name] = @file_name;
         
     -- Insert the new default values for the system fields in the helper table
     -- TODO what if concurrent delta parquet files are being ingested to the same table via ADF?
@@ -373,7 +373,8 @@ BEGIN
     SELECT *
     FROM (
         SELECT
-            @table_id AS [table_id]
+            @table_id   AS [table_id],
+            @file_name  AS [file_name]
     ) a
     CROSS JOIN (
                   SELECT 't_applicationId' AS default_field, 1 AS [index], @application_id       AS default_value
@@ -390,6 +391,7 @@ BEGIN
         INSERT INTO utilities.t_field_values
         VALUES (
             @table_id,
+            @file_name,
             @client_field,
             0,
             @client_id
@@ -428,6 +430,8 @@ BEGIN
             ON
                 t.[table_id] = @table_id
                 AND
+                t.[file_name] = @file_name
+                AND
                 t.[default_field] = c.name
         WHERE
             c.object_id = @table_id
@@ -449,7 +453,7 @@ BEGIN
     -- Create the COPY INTO script
     SET @script = N'
         COPY INTO [' + @schema_name + '].[' + @table_name + '] (' + @columnList + ')
-        FROM ''https://' + @storage_account + '.dfs.core.windows.net:443/' + @file_path + '''
+        FROM ''https://$(storageAccount).dfs.core.windows.net:443/' + @file_path + '''
         WITH (
             IDENTITY_INSERT=''OFF'',
             CREDENTIAL=(IDENTITY=''Managed Identity''),
