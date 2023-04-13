@@ -211,7 +211,7 @@
 									},
 									"run_id": {
 										"value": {
-											"value": "@pipeline().RunId",
+											"value": "@pipeline().parameters.parent_run_id",
 											"type": "Expression"
 										},
 										"type": "Guid"
