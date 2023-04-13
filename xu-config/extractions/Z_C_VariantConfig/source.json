@@ -48,80 +48,79 @@
             "length": 40,
             "isSelected": true,
             "selectionPermission": "All",
-            "selections": 
-            [
-                {
-                    "value": "6100000001"
-                },
-                {
-                    "value": "6100000035"
-                },
-                {
-                    "value": "6100000036"
-                },
-                {
-                    "value": "6100000037"
-                },
-                {
-                    "value": "6100000038"
-                },
-                {
-                    "value": "6100000048"
-                },
-                {
-                    "value": "6100000049"
-                },
-                {
-                    "value": "6100000055"
-                },
-                {
-                    "value": "6100000056"
-                },
-                {
-                    "value": "6100000068"
-                },
-                {
-                    "value": "6100000069"
-                },
-                {
-                    "value": "6100000071"
-                },
-                {
-                    "value": "6100000091"
-                },
-                {
-                    "value": "6100000092"
-                },
-                {
-                    "value": "6100000093"
-                },
-                {
-                    "value": "6100000094"
-                },
-                {
-                    "value": "6100000122"
-                },
-                {
-                    "value": "6100000136"
-                },
-                {
-                    "value": "6100000137"
-                },
-                {
-                    "value": "6100000138"
-                }
-            ],
             "outputLength": 40
         },
-        {
-            "name": "PRODUCTEXTERNALID",
-            "description": "External Representation of Material Number",
-            "abapType": "CharacterString",
-            "length": 40,
-            "isSelected": true,
-            "selectionPermission": "All",
-            "outputLength": 40
-        },
+      {
+        "name": "PRODUCTEXTERNALID",
+        "description": "External Representation of Material Number",
+        "abapType": "CharacterString",
+        "length": 40,
+        "isSelected": true,
+        "selectionPermission": "All",
+        "selections": [
+          {
+            "value": "6100000001"
+          },
+          {
+            "value": "6100000035"
+          },
+          {
+            "value": "6100000036"
+          },
+          {
+            "value": "6100000037"
+          },
+          {
+            "value": "6100000038"
+          },
+          {
+            "value": "6100000048"
+          },
+          {
+            "value": "6100000049"
+          },
+          {
+            "value": "6100000055"
+          },
+          {
+            "value": "6100000056"
+          },
+          {
+            "value": "6100000068"
+          },
+          {
+            "value": "6100000069"
+          },
+          {
+            "value": "6100000071"
+          },
+          {
+            "value": "6100000091"
+          },
+          {
+            "value": "6100000092"
+          },
+          {
+            "value": "6100000093"
+          },
+          {
+            "value": "6100000094"
+          },
+          {
+            "value": "6100000122"
+          },
+          {
+            "value": "6100000136"
+          },
+          {
+            "value": "6100000137"
+          },
+          {
+            "value": "6100000138"
+          }
+        ],
+        "outputLength": 40
+      },
         {
             "name": "CONFIGURATION",
             "description": "Configuration",
