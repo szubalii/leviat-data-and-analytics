@@ -25,6 +25,7 @@ SELECT
 , null as TradingPartner
 , [BusinessType]
 , [IndustryType]
+, edw.svf_getInOutID_s4h (CustomerID)  as InOutID
 , [t_jobDtm]
 , [t_applicationId]
 , [t_extractionDtm]

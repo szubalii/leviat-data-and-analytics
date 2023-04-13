@@ -195,11 +195,7 @@ C_SalesDocumentItemDEXBase as (
     , doc.[SDoc_ControllingObject]        as [SDoc_ControllingObjectID]
     , doc.[SDItem_ControllingObject]      as [SDItem_ControllingObjectID]
     , doc.[CorrespncExternalReference]    as [CorrespncExternalReference] 
-    , case
-          when left(doc.[SoldToParty], 2) = 'IC' or left(doc.[SoldToParty], 2) = 'IP'
-          then 'I'
-          else 'O'
-      end                                  as [InOutID]
+    , edw.svf_getInOutID_s4h (CustomerID) as [InOutID]
     , ORDAM.OpenDeliveryNetAmount
     ,doc.[t_applicationId]
     ,doc.[t_extractionDtm]
@@ -263,6 +259,9 @@ C_SalesDocumentItemDEXBase as (
             ORDAM.SalesDocument = doc.SalesDocument 
             AND 
             ORDAM.SalesDocumentItem = doc.SalesDocumentItem
+            
+    LEFT JOIN  [edw].[dim_Customer] DimCust
+            ON doc.SoldToParty = DimCust.CustomerID  
     WHERE 
     -- casting the left and right sides of equality to the same data type DATE
         CAST(doc.[t_lastActionDtm] as DATE) >  -- the view displays new data that is not yet in the fact table

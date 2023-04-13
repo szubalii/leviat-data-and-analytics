@@ -49,6 +49,10 @@
 			"axbiDataBaseEnvSuffix": {
 				"type": "string",
 				"value": "UAT"
+			},
+			"axbiMinExtractionDate": {
+				"type": "string",
+				"value": "2021-01-01"
 			}
 		}
 	},

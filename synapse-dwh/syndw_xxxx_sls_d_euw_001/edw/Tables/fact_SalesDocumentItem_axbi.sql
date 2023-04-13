@@ -160,7 +160,7 @@ CREATE TABLE [edw].[fact_SalesDocumentItem_axbi]
     [SDoc_ControllingObjectID]         NVARCHAR(22) collate Latin1_General_100_BIN2,
     [SDItem_ControllingObjectID]       NVARCHAR(22) collate Latin1_General_100_BIN2,
     [CorrespncExternalReference]       VARCHAR(12),
-    [InOutID]                          CHAR(1) collate Latin1_General_100_BIN2      NULL,
+    [InOutID]                          NVARCHAR(6) collate Latin1_General_100_BIN2  NULL,
     [OpenDeliveryNetAmount]            DECIMAL(15,2),
     [t_applicationId]                  VARCHAR(32),
     [t_extractionDtm]                  DATETIME,

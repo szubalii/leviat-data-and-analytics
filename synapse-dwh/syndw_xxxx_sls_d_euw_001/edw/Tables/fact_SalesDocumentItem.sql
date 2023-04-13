@@ -161,7 +161,7 @@
     [LocalParentCalculated]            NVARCHAR(160)                                NULL,
     [SDoc_ControllingObjectID]         NVARCHAR(22) collate Latin1_General_100_BIN2,
     [SDItem_ControllingObjectID]       NVARCHAR(22) collate Latin1_General_100_BIN2,
-    [InOutID]                          CHAR(1) collate Latin1_General_100_BIN2      NULL,  
+    [InOutID]                          NVARCHAR (6) collate Latin1_General_100_BIN2 NULL,  
     [CorrespncExternalReference]       VARCHAR(12),
     [OpenDeliveryNetAmount]            DECIMAL(15,2),
     [OrderType]                        VARCHAR(32),

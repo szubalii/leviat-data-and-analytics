@@ -550,11 +550,7 @@ OutboundDeliveryItem_s4h AS (
         ,DimProposedRoute.[TRAZTD] AS [ProposedDeliveryRouteDurationInHrs]
         ,DimActualRoute.[DurInDays] AS [ActualDeliveryRouteDurationInDays]
         ,DimProposedRoute.[DurInDays] AS [ProposedDeliveryRouteDurationInDays]
-        ,CASE
-            WHEN LEFT(OD.[SoldToParty], 2) = 'IC'
-            THEN 'I'
-            ELSE 'O'
-        END AS [InOutID]
+        ,edw.svf_getInOutID_s4h (CustomerID) as InOutID
         ,CASE
             WHEN
                 SDI.[SDI_CreationDate] IS NULL
@@ -757,6 +753,8 @@ OutboundDeliveryItem_s4h AS (
         [base_s4h_cax].[I_Supplier] AS SPL
 	    ON
 		    SDDCP.[Supplier] = SPL.[Supplier]
+    LEFT JOIN [edw].[dim_Customer] DimCust
+            ON OD.SoldToParty = DimCust.CustomerID
 )
 ,
 OutboundDeliveryItem_s4h_calculated AS (

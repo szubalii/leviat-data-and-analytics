@@ -99,6 +99,7 @@ stages:
   - stage: DEPLOY_${{ variables['deployEnv'] }}
     jobs:
     - deployment: Deploy_${{parameters.solution}}
+      timeoutInMinutes: 120
       # variables:
       # - name: pathPrefix
       #   value: $(Pipeline.Workspace)

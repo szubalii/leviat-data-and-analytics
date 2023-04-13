@@ -25,7 +25,6 @@ CREATE TABLE [log].entity (
 ,   [Existing_schedule_recurrence]		VARCHAR(5)
 ,   [Existing_schedule_start_date]		DATETIME
 ,   [Existing_schedule_day]             INT
-,   [Existing_reload_period_in_months]  INT
 ,   ActionTaken nvarchar(10)
 ,   [New_entity_id]					BIGINT
 ,   [New_entity_name]				VARCHAR(112)
@@ -53,6 +52,5 @@ CREATE TABLE [log].entity (
 ,   [New_schedule_recurrence]		VARCHAR(5)
 ,   [New_schedule_start_date]		DATETIME
 ,   [New_schedule_day]              INT
-,   [New_reload_period_in_months]   INT
 ,   t_jobDtm                        DATETIME
 ); 
