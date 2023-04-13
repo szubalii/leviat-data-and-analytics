@@ -3920,6 +3920,18 @@
         "base_table_name": "I_Purchaserequisitionitem",
         "pk_field_names": "MANDT, PURCHASEREQUISITION, PURCHASEREQUISITIONITEM",
         "schedule_recurrence": "D"
+      },
+      {
+        "entity_id": 576,
+        "entity_name": "I_MRPController",
+        "data_category": "DIMENSION",
+        "client_field": "MANDT",
+        "tool_name": "Theobald",
+        "extraction_type": "Table",
+        "update_mode": "Full",
+        "base_table_name": "I_MRPController",
+        "pk_field_names": "MANDT, Plant, MRPController",
+        "schedule_recurrence": "D"
       }
     ]
   },
@@ -5472,6 +5484,15 @@
         "sproc_name": "sp_materialize_view",
         "source_view_name": "vw_VariantConfigurator",
         "dest_table_name": "dim_VariantConfigurator",
+        "execution_order": 0,
+        "schedule_recurrence": "D"
+      },
+      {
+        "entity_id": 577,
+        "entity_name": "dim_ProductPlant",
+        "sproc_name": "sp_materialize_view",
+        "source_view_name": "vw_ProductPlant",
+        "dest_table_name": "dim_ProductPlant",
         "execution_order": 0,
         "schedule_recurrence": "D"
       }

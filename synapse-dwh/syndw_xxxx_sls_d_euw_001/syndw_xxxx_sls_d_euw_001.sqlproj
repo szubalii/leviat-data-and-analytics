@@ -1177,6 +1177,8 @@
     <Build Include="edw\Functions\Scalar-valued Functions\svf_getInOutID_axbi.sql" />
     <Build Include="edw\Functions\Scalar-valued Functions\svf_getInOutID_s4h.sql" />
     <Build Include="base_s4h_cax\Tables\I_MRPController.sql" />
+    <Build Include="edw\Views\vw_ProductPlant.sql" />
+    <Build Include="edw\Tables\dim_ProductPlant.sql" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PostDeploy Include="Scripts\Post-Deploy\Script.PostDeployment.sql" />
