@@ -4614,7 +4614,7 @@
         "sproc_name": "sp_materialize_view",
         "source_view_name": "vw_BillingDocumentItemPrcgElmnt",
         "dest_table_name": "dim_BillingDocumentItemPrcgElmnt",
-        "execution_order": 0,
+        "execution_order": 4,
         "schedule_recurrence": "A"
       },
       {
@@ -5493,7 +5493,7 @@
         "sproc_name": "sp_materialize_view",
         "source_view_name": "vw_SalesQuotationItemPrcgElmnt",
         "dest_table_name": "dim_SalesQuotationItemPrcgElmnt",
-        "execution_order": 0,
+        "execution_order": 6,
         "schedule_recurrence": "A"
       },
       {
@@ -5502,7 +5502,7 @@
         "sproc_name": "sp_materialize_view",
         "source_view_name": "vw_SalesOrderItemPricingElement",
         "dest_table_name": "dim_SalesOrderItemPricingElement",
-        "execution_order": 0,
+        "execution_order": 6,
         "schedule_recurrence": "A"
       }
     ]
