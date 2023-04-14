@@ -1,0 +1,115 @@
+{
+	"functionName": "Z_THEO_READ_TABLE",
+	"runInBackGroundJob": false,
+	"tables": [
+		{
+			"name": "IORDER",
+			"description": "Generated Table for View IORDER",
+			"isView": true,
+			"fields": [
+				{
+					"name": "MANDT",
+					"description": "Client",
+					"abapType": "CharacterString",
+					"length": 3,
+					"isSelected": true,
+					"outputLength": 3,
+					"isPrimaryKey": true,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "T000"
+				},
+				{
+					"name": "ORDERID",
+					"description": "Order Number",
+					"abapType": "CharacterString",
+					"length": 12,
+					"isSelected": true,
+					"outputLength": 12,
+					"isPrimaryKey": true,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "ORDERID",
+					"ConversionExit": "ALPHA"
+				},
+				{
+					"name": "ORDERCATEGORY",
+					"description": "Order Category",
+					"abapType": "NumericCharacterString",
+					"length": 2,
+					"isSelected": true,
+					"outputLength": 2,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "ORDERCATEGORY"
+				},
+				{
+					"name": "ORDERTYPE",
+					"description": "Order Type",
+					"abapType": "CharacterString",
+					"length": 4,
+					"isSelected": true,
+					"outputLength": 4,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "ORDERTYPE"
+				},
+				{
+					"name": "ORDERINTERNALID",
+					"description": "Order Internal ID",
+					"abapType": "NumericCharacterString",
+					"length": 10,
+					"isSelected": true,
+					"outputLength": 10,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "ORDERINTERNALID"
+				},
+				{
+					"name": "ORDERDESCRIPTION",
+					"description": "Order Description",
+					"abapType": "CharacterString",
+					"length": 40,
+					"isSelected": true,
+					"outputLength": 40,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "ORDERDESCRIPTION"
+				},
+				{
+					"name": "PLANT",
+					"description": "Plant",
+					"abapType": "CharacterString",
+					"length": 4,
+					"isSelected": true,
+					"outputLength": 4,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "PLANT"
+				},
+				{
+					"name": "MRPCONTROLLER",
+					"description": "MRP Controller",
+					"abapType": "CharacterString",
+					"length": 3,
+					"isSelected": true,
+					"outputLength": 3,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "MRPCONTROLLER"
+				},
+				{
+					"name": "CONTROLLINGAREA",
+					"description": "Controlling Area",
+					"abapType": "CharacterString",
+					"length": 4,
+					"isSelected": true,
+					"outputLength": 4,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "CONTROLLINGAREA"
+				}
+			]
+		}
+	]
+}
