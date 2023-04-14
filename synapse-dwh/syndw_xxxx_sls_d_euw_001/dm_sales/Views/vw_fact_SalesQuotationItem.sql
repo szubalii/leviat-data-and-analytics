@@ -121,6 +121,8 @@ select doc.[SalesDocument]           as [QuotationID]
      , ord.[SO_CostAmount]
      , ord.[SO_Margin]
      , doc.[CorrespncExternalReference] 
+     , doc.SalesOfficeID
+     , dimSO.SalesOffice
      , doc.[t_applicationId]
      , doc.[t_extractionDtm]
 from [edw].[fact_SalesDocumentItem] doc
@@ -209,5 +211,8 @@ from [edw].[fact_SalesDocumentItem] doc
 
          left join [edw].[dim_OverallTotalDeliveryStatus] dimOTDS
                    on dimOTDS.[OverallTotalDeliveryStatusID] = doc.[OverallTotalDeliveryStatusID]
+
+         left join [edw].[dim_SalesOffice] dimSO
+                    ON doc.[SalesOfficeID] = dimSO.[SalesOfficeID]
 
 where doc.[SDDocumentCategoryID] = 'B'
