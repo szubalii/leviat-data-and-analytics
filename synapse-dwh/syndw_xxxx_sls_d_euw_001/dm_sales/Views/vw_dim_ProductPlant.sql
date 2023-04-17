@@ -80,6 +80,6 @@ LEFT JOIN
 LEFT JOIN
     [base_s4h_cax].[NSDM_V_MARC] NSDM
     ON 
-        PP.[Product] = NSDM.[MATNR]
+        PP.[Product] = NSDM.[MATNR] COLLATE SQL_Latin1_General_CP1_CS_AS
         AND
-        PP.[Plant] = NSDM.[WERKS]
+        PP.[Plant] = NSDM.[WERKS] COLLATE SQL_Latin1_General_CP1_CS_AS
