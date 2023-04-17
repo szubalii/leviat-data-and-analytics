@@ -15,7 +15,8 @@ SELECT
 ,   [LastChangeDate]
 ,   [LastChangedByUser]
 ,   [IsMarkedForDeletion]
-,   [CrossPlantStatus]
+,   product.[CrossPlantStatus] AS [CrossPlantStatusID]
+,   MS.[CrossPlantStatus]
 ,   [CrossPlantStatusValidityDate]
 ,   [ProductOldID]
 ,   [GrossWeight]
@@ -26,7 +27,8 @@ SELECT
 ,   [CompetitorID]
 ,   [ProductGroup]
 ,   [BaseUnit]
-,   [ItemCategoryGroup]
+,   product.[ItemCategoryGroup] AS [ItemCategoryGroupID]
+,   ItemCategoryGroup.[ItemCategoryGroupName]
 ,   [NetWeight]
 ,   COALESCE(config_prodhier.[ProductHierarchyNode],prodhier.[ProductHierarchyNode]) AS [ProductHierarchy]
 ,   COALESCE(config_prodhier.[Product_L1_PillarID],prodhier.[Product_L1_PillarID]) AS [Product_L1_PillarID]
@@ -180,6 +182,17 @@ LEFT JOIN
     [edw].[dim_ProductHierarchy] config_prodhier
     ON
         config_pr.[ProductHierarchyNode] = config_prodhier.[ProductHierarchyNode]
+LEFT JOIN [edw].[dim_MaterialStatus] MS
+    ON
+        product.[CrossPlantStatus] = MS.[MMSTA]
+        AND
+        MS.[SPRAS] = 'E'
+LEFT JOIN
+    [base_s4h_cax].[I_ItemCategoryGroupText] ItemCategoryGroup
+    ON
+        product.[ItemCategoryGroup] = ItemCategoryGroup.[ItemCategoryGroup]
+        AND
+        ItemCategoryGroup.[Language] = 'E'
 --    WHERE product.MANDT = 200 
 --    AND pr_text.MANDT = 200 
 --    AND type_text.MANDT = 200 MPS 2021/11/01: commented out due to different client values between dev,qas, and prod
@@ -200,7 +213,8 @@ SELECT
 ,   [LastChangeDate]
 ,   [LastChangedByUser]
 ,   [IsMarkedForDeletion]
-,   [CrossPlantStatus]
+,   ProductHierarchy.[CrossPlantStatus] AS [CrossPlantStatusID]
+,   MS.[CrossPlantStatus]
 ,   [CrossPlantStatusValidityDate]
 ,   [ProductOldID]
 ,   [GrossWeight]
@@ -211,7 +225,8 @@ SELECT
 ,   [CompetitorID]
 ,   [ProductGroup]
 ,   [BaseUnit]
-,   [ItemCategoryGroup]
+,   ProductHierarchy.[ItemCategoryGroup] AS [ItemCategoryGroupID]
+,   ItemCategoryGroup.[ItemCategoryGroupName]
 ,   [NetWeight]
 ,   [ProductHierarchy]
 ,   [Product_L1_PillarID]   
@@ -333,10 +348,21 @@ SELECT
 ,   [ZZ1_CustomFieldRiskMit_PRD]
 ,   [ZZ1_CustomFieldHighRis_PRD]
 ,   [ZZ1_CustomFieldRiskRea_PRD]
-,   [t_applicationId]
-,   [t_extractionDtm]
+,   ProductHierarchy.[t_applicationId]
+,   ProductHierarchy.[t_extractionDtm]
 FROM 
-    [edw].[dim_ConfigurableProductHierarchy]
+    [edw].[dim_ConfigurableProductHierarchy] ProductHierarchy
+LEFT JOIN [edw].[dim_MaterialStatus] MS
+    ON
+        ProductHierarchy.[CrossPlantStatus] = MS.[MMSTA]
+        AND
+        MS.[SPRAS] = 'E'
+LEFT JOIN
+    [base_s4h_cax].[I_ItemCategoryGroupText] ItemCategoryGroup
+    ON
+        ProductHierarchy.[ItemCategoryGroup] = ItemCategoryGroup.[ItemCategoryGroup]
+        AND
+        ItemCategoryGroup.[Language] = 'E'
 
 UNION ALL
 
@@ -355,6 +381,7 @@ SELECT
 ,   NULL    AS [LastChangeDate]
 ,   NULL    AS [LastChangedByUser]
 ,   NULL    AS [IsMarkedForDeletion]
+,   NULL    AS [CrossPlantStatusID]
 ,   NULL    AS [CrossPlantStatus]
 ,   NULL    AS [CrossPlantStatusValidityDate]
 ,   NULL    AS [ProductOldID]
@@ -366,7 +393,8 @@ SELECT
 ,   NULL    AS [CompetitorID]
 ,   NULL    AS [ProductGroup]
 ,   NULL    AS [BaseUnit]
-,   NULL    AS [ItemCategoryGroup]
+,   NULL    AS [ItemCategoryGroupID]
+,   NULL    AS [ItemCategoryGroupName]
 ,   NULL    AS [NetWeight]
 ,   NULL    AS [ProductHierarchy]
 ,   'O'     AS [Product_L1_PillarID]
@@ -526,6 +554,7 @@ SELECT
 ,   NULL    AS [LastChangeDate]
 ,   NULL    AS [LastChangedByUser]
 ,   NULL    AS [IsMarkedForDeletion]
+,   NULL    AS [CrossPlantStatusID]
 ,   NULL    AS [CrossPlantStatus]
 ,   NULL    AS [CrossPlantStatusValidityDate]
 ,   NULL    AS [ProductOldID]
@@ -537,7 +566,8 @@ SELECT
 ,   NULL    AS [CompetitorID]
 ,   NULL    AS [ProductGroup]
 ,   NULL    AS [BaseUnit]
-,   NULL    AS [ItemCategoryGroup]
+,   NULL    AS [ItemCategoryGroupID]
+,   NULL    AS [ItemCategoryGroupName]
 ,   NULL    AS [NetWeight]
 ,   NULL    AS [ProductHierarchy]
 ,   'O'     AS [Product_L1_PillarID]

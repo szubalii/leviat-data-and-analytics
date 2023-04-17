@@ -9,6 +9,7 @@ SELECT
 	, P.[CreationDate]
 	, P.[MaterialTypeID]
 	, P.[MaterialType]
+	, P.[CrossPlantStatusID]
 	, P.[CrossPlantStatus]
 	, P.[ProductGroup]
 	, P.[ProductHierarchy]
@@ -29,7 +30,8 @@ SELECT
     , P.[WeightUnit]
     , P.[Division]
     , P.[TransportationGroup]
-    , P.[ItemCategoryGroup]
+    , P.[ItemCategoryGroupID]
+    , P.[ItemCategoryGroupName]
 	, P.[CreatedByUser]
 	, PPr.[PurchasingAcknProfile]
 FROM
