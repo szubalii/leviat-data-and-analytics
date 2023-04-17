@@ -1181,6 +1181,9 @@
     <Build Include="edw\Tables\dim_ProductPlant.sql" />
     <Build Include="dm_sales\Views\vw_dim_ProductPlant.sql" />
     <Build Include="base_s4h_cax\Tables\T141T.sql" />
+    <Build Include="base_s4h_cax\Tables\T141.sql" />
+    <Build Include="edw\Tables\dim_MaterialStatus.sql" />
+    <Build Include="edw\Views\vw_MaterialStatus.sql" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PostDeploy Include="Scripts\Post-Deploy\Script.PostDeployment.sql" />
