@@ -414,7 +414,7 @@
 										"type": "Guid"
 									},
 									"size_bytes": {
-										"value": "",
+										"value": null,
 										"type": "Int64"
 									},
 									"status": {
@@ -500,7 +500,7 @@
 										"type": "Guid"
 									},
 									"size_bytes": {
-										"value": "",
+										"value": null,
 										"type": "Int64"
 									},
 									"status": {
