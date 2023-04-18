@@ -1,4 +1,4 @@
-CREATE TABLE [edw].[dim_SalesOrderItemPricingElement] 
+CREATE TABLE [edw].[fact_SalesOrderItemPricingElement] 
 (
     [SalesOrder] NVARCHAR(10) NOT NULL  
   , [SalesOrderItem] CHAR(6) NOT NULL  
@@ -18,7 +18,7 @@ CREATE TABLE [edw].[dim_SalesOrderItemPricingElement]
   , [t_jobDtm]              DATETIME
   , [t_lastActionCd]        VARCHAR(1)
   , [t_jobBy]               NVARCHAR(128)  
-    CONSTRAINT [PK_dim_SalesOrderItemPricingElement] PRIMARY KEY NONCLUSTERED ([sk_SalesOrderItem]) NOT ENFORCED
+    CONSTRAINT [PK_fact_SalesOrderItemPricingElement] PRIMARY KEY NONCLUSTERED ([sk_SalesOrderItem]) NOT ENFORCED
 )
 WITH
 (

@@ -4610,10 +4610,10 @@
       },
       {
         "entity_id": 324,
-        "entity_name": "dim_BillingDocumentItemPrcgElmnt",
+        "entity_name": "fact_BillingDocumentItemPrcgElmnt",
         "sproc_name": "sp_materialize_view",
         "source_view_name": "vw_BillingDocumentItemPrcgElmnt",
-        "dest_table_name": "dim_BillingDocumentItemPrcgElmnt",
+        "dest_table_name": "fact_BillingDocumentItemPrcgElmnt",
         "execution_order": 4,
         "schedule_recurrence": "A"
       },
@@ -5489,19 +5489,19 @@
       },
       {
         "entity_id": 577,
-        "entity_name": "dim_SalesQuotationItemPrcgElmnt",
+        "entity_name": "fact_SalesQuotationItemPrcgElmnt",
         "sproc_name": "sp_materialize_view",
         "source_view_name": "vw_SalesQuotationItemPrcgElmnt",
-        "dest_table_name": "dim_SalesQuotationItemPrcgElmnt",
+        "dest_table_name": "fact_SalesQuotationItemPrcgElmnt",
         "execution_order": 6,
         "schedule_recurrence": "A"
       },
       {
         "entity_id": 578,
-        "entity_name": "dim_SalesOrderItemPricingElement",
+        "entity_name": "fact_SalesOrderItemPricingElement",
         "sproc_name": "sp_materialize_view",
         "source_view_name": "vw_SalesOrderItemPricingElement",
-        "dest_table_name": "dim_SalesOrderItemPricingElement",
+        "dest_table_name": "fact_SalesOrderItemPricingElement",
         "execution_order": 6,
         "schedule_recurrence": "A"
       }

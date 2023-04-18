@@ -332,7 +332,7 @@
     <Build Include="base_s4h_cax\Tables\I_OverallBillingStatusText.sql" />
     <Build Include="edw\Tables\dim_CustomerReturnDeliveryItem.sql" />
     <Build Include="edw\Tables\dim_OutboundDeliveryItem.sql" />
-    <Build Include="edw\Tables\dim_BillingDocumentItemPrcgElmnt.sql" />
+    <Build Include="edw\Tables\fact_BillingDocumentItemPrcgElmnt.sql" />
     <Build Include="base_s4h_cax\Tables\I_FinancialInstrTransTypeText.sql" />
     <Build Include="base_s4h_cax\Tables\I_BusTransactionTypeText.sql" />
     <Build Include="base_s4h_cax\Tables\I_ReferenceDocumentTypeText.sql" />
@@ -1177,12 +1177,12 @@
     <Build Include="edw\Functions\Scalar-valued Functions\svf_getInOutID_s4h.sql" />
     <Build Include="edw\Views\vw_SalesOrderItemPricingElement.sql" />
     <Build Include="base_s4h_cax\Tables\I_SalesQuotationItemPrcgElmnt.sql" />
-    <Build Include="dm_sales\Views\vw_dim_SalesOrderItemPricingElement.sql" />
+    <Build Include="dm_sales\Views\vw_fact_SalesOrderItemPricingElement.sql" />
     <Build Include="edw\Views\vw_SalesQuotationItemPrcgElmnt.sql" />
-    <Build Include="dm_sales\Views\vw_dim_SalesQuotationItemPrcgElmnt.sql" />
-    <Build Include="dm_sales\Views\vw_dim_BillingDocumentItemPrcgElmnt.sql" />
-    <Build Include="edw\Tables\dim_SalesQuotationItemPrcgElmnt.sql" />
-    <Build Include="edw\Tables\dim_SalesOrderItemPricingElement.sql" />
+    <Build Include="dm_sales\Views\vw_fact_SalesQuotationItemPrcgElmnt.sql" />
+    <Build Include="dm_sales\Views\vw_fact_BillingDocumentItemPrcgElmnt.sql" />
+    <Build Include="edw\Tables\fact_SalesQuotationItemPrcgElmnt.sql" />
+    <Build Include="edw\Tables\fact_SalesOrderItemPricingElement.sql" />
     <Build Include="edw\Functions\Scalar-valued Functions\svf_getNaturalKey.sql" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">

@@ -1,4 +1,4 @@
-CREATE VIEW [dm_sales].[vw_dim_SalesOrderItemPricingElement]
+CREATE VIEW [dm_sales].[vw_fact_SalesOrderItemPricingElement]
 AS
 SELECT
           [SalesOrder]
@@ -12,5 +12,5 @@ SELECT
          ,[CurrencyType]
          ,[CurrencyID]
 FROM
-  [edw].[dim_SalesOrderItemPricingElement]
+  [edw].[fact_SalesOrderItemPricingElement]
 WHERE ([ConditionInactiveReason] is null or [ConditionInactiveReason]='')

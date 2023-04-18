@@ -1,4 +1,4 @@
-CREATE VIEW [dm_sales].[vw_dim_BillingDocumentItemPrcgElmnt]
+CREATE VIEW [dm_sales].[vw_fact_BillingDocumentItemPrcgElmnt]
 AS
 SELECT
           [BillingDocument]
@@ -12,5 +12,5 @@ SELECT
          ,[CurrencyType]
          ,[CurrencyID]
 FROM
-  [edw].[dim_BillingDocumentItemPrcgElmnt] 
+  [edw].[fact_BillingDocumentItemPrcgElmnt] 
 WHERE ([ConditionInactiveReason] is null or [ConditionInactiveReason]='')

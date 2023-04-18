@@ -1,4 +1,4 @@
-﻿CREATE TABLE [edw].[dim_BillingDocumentItemPrcgElmnt] (
+﻿CREATE TABLE [edw].[fact_BillingDocumentItemPrcgElmnt] (
 -- Billing Document Item Pricing Element 
 -- 1:1 as base layer table
   [BillingDocument] nvarchar(20) NOT NULL
@@ -53,7 +53,7 @@
 , [t_jobDtm]              DATETIME
 , [t_lastActionCd]        VARCHAR(1)
 , [t_jobBy]               NVARCHAR(128)
-    CONSTRAINT [PK_dim_BillingDocumentItemPrcgElmnt] PRIMARY KEY NONCLUSTERED ([BillingDocument],[BillingDocumentItem],[PricingProcedureStep],[PricingProcedureCounter]) NOT ENFORCED
+    CONSTRAINT [PK_fact_BillingDocumentItemPrcgElmnt] PRIMARY KEY NONCLUSTERED ([BillingDocument],[BillingDocumentItem],[PricingProcedureStep],[PricingProcedureCounter]) NOT ENFORCED
 )
 WITH
 (

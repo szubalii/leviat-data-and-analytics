@@ -1,4 +1,4 @@
-CREATE VIEW [dm_sales].[vw_dim_SalesQuotationItemPrcgElmnt]
+CREATE VIEW [dm_sales].[vw_fact_SalesQuotationItemPrcgElmnt]
 AS
 SELECT
           [SalesQuotation]
@@ -12,5 +12,5 @@ SELECT
          ,[CurrencyType]
          ,[CurrencyID]
 FROM
-   [edw].[dim_SalesQuotationItemPrcgElmnt] 
+   [edw].[fact_SalesQuotationItemPrcgElmnt] 
 WHERE ([ConditionInactiveReason] is null or [ConditionInactiveReason]='')

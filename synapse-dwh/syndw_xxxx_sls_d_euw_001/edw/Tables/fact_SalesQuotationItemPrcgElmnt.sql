@@ -1,4 +1,4 @@
-CREATE TABLE [edw].[dim_SalesQuotationItemPrcgElmnt] 
+CREATE TABLE [edw].[fact_SalesQuotationItemPrcgElmnt] 
 (
     [SalesQuotation] NVARCHAR(10) NOT NULL  
   , [SalesQuotationItem] CHAR(6) NOT NULL  
@@ -18,7 +18,7 @@ CREATE TABLE [edw].[dim_SalesQuotationItemPrcgElmnt]
   , [t_jobDtm]              DATETIME
   , [t_lastActionCd]        VARCHAR(1)
   , [t_jobBy]               NVARCHAR(128)  
-    CONSTRAINT [PK_dim_SalesQuotationItemPrcgElmnt] PRIMARY KEY NONCLUSTERED ([sk_SalesQuotationItem]) NOT ENFORCED
+    CONSTRAINT [PK_fact_SalesQuotationItemPrcgElmnt] PRIMARY KEY NONCLUSTERED ([sk_SalesQuotationItem]) NOT ENFORCED
 )
 WITH
 (
