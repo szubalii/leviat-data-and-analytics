@@ -3922,7 +3922,7 @@
         "schedule_recurrence": "D"
       },
       {
-        "entity_id": 577,
+        "entity_id": 582,
         "entity_name": "I_Order",
         "data_category": "DIMENSION",
         "client_field": "MANDT",
@@ -3934,7 +3934,7 @@
         "schedule_recurrence": "D"
       },
       {
-        "entity_id": 578,
+        "entity_id": 583,
         "entity_name": "I_OrderItem",
         "data_category": "DIMENSION",
         "client_field": "MANDT",
