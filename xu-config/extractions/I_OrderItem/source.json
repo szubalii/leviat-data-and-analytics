@@ -307,7 +307,7 @@
 					"abapType": "OneByteInteger",
 					"length": 10,
 					"isSelected": true,
-					"outputLength": 11,
+					"outputLength": 10,
 					"isDeltaColumn": true,
 					"selectionPermission": "All",
 					"checkTable": "NUMBEROFSERIALNUMBERS"
