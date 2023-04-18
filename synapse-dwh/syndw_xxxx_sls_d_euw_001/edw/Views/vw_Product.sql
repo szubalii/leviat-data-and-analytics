@@ -836,7 +836,7 @@ SELECT
 ,   CTE_Product.[t_extractionDtm]
 FROM
     CTE_Product
-LEFT JOIN [edw].[dim_MaterialStatus] MS
+LEFT JOIN [edw].[vw_MaterialStatus] MS
     ON
         CTE_Product.[CrossPlantStatus] = MS.[MaterialStatusID]
         AND

@@ -5519,15 +5519,6 @@
         "dest_table_name": "dim_ProductPlant",
         "execution_order": 0,
         "schedule_recurrence": "D"
-      },
-      {
-        "entity_id": 581,
-        "entity_name": "dim_MaterialStatus",
-        "sproc_name": "sp_materialize_view",
-        "source_view_name": "vw_MaterialStatus",
-        "dest_table_name": "dim_MaterialStatus",
-        "execution_order": 0,
-        "schedule_recurrence": "D"
       }
     ]
   },
