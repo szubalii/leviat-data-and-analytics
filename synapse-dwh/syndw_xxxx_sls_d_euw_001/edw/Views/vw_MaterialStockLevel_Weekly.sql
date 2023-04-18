@@ -22,9 +22,21 @@ WITH
 -- 1. Aggregate stock change on weekly level
 WeeklyMatlStkChangeQtyInBaseUnit AS (
   SELECT
-    _hash
-    , YearWeek
-    , SUM(MatlStkChangeQtyInBaseUnit) AS WeeklyMatlStkChangeQtyInBaseUnit
+      MDI.[_hash]
+    , MDI.[MaterialID]
+    , MDI.[PlantID]
+    , MDI.[StorageLocationID]
+    , MDI.[InventorySpecialStockTypeID]
+    , MDI.[InventoryStockTypeID]
+    , MDI.[StockOwner]
+    , MDI.[CostCenterID]
+    , MDI.[CompanyCodeID]
+    , MDI.[SalesDocumentTypeID]
+    , MDI.[SalesDocumentItemCategoryID]
+    , MDI.[MaterialBaseUnitID]
+    , MDI.[PurchaseOrderTypeID]
+    , cal.[YearWeek]
+    , SUM(MDI.MatlStkChangeQtyInBaseUnit) AS MatlStkChangeQtyInBaseUnit
   FROM
     [edw].[fact_MaterialDocumentItem] AS MDI
   LEFT JOIN
@@ -33,8 +45,20 @@ WeeklyMatlStkChangeQtyInBaseUnit AS (
   -- WHERE
   --   _hash = @hash
   GROUP BY
-    _hash
-    , YearWeek
+      MDI.[_hash]
+    , MDI.[MaterialID]
+    , MDI.[PlantID]
+    , MDI.[StorageLocationID]
+    , MDI.[InventorySpecialStockTypeID]
+    , MDI.[InventoryStockTypeID]
+    , MDI.[StockOwner]
+    , MDI.[CostCenterID]
+    , MDI.[CompanyCodeID]
+    , MDI.[SalesDocumentTypeID]
+    , MDI.[SalesDocumentItemCategoryID]
+    , MDI.[MaterialBaseUnitID]
+    , MDI.[PurchaseOrderTypeID]
+    , cal.[YearWeek]
   -- ORDER BY
   --   YearWeek
 )
@@ -45,7 +69,7 @@ WeeklyMatlStkChangeQtyInBaseUnit AS (
     _hash,
     MIN(HDR_PostingDate) AS FirstPostingDate
   FROM
-    [edw].[fact_MaterialDocumentItem] AS MDI
+    [edw].[fact_MaterialDocumentItem]
   -- WHERE
   --   _hash = @hash
   GROUP BY _hash
@@ -54,8 +78,8 @@ WeeklyMatlStkChangeQtyInBaseUnit AS (
 -- 3. Get the YearWeek of the first posting date
 , FirstYearWeek AS (
   SELECT
-    _hash,
-    YearWeek AS FirstYearWeek
+    FirstPostingDate._hash,
+    cal.[YearWeek] AS FirstYearWeek
   FROM
     FirstPostingDate
   LEFT JOIN
@@ -75,8 +99,8 @@ WeeklyMatlStkChangeQtyInBaseUnit AS (
 
 , MissingYearWeeks AS (
   SELECT
-    _hash,
-    YearWeek
+    FirstYearWeek._hash,
+    YearWeeks.YearWeek
   FROM
     FirstYearWeek
   CROSS JOIN
@@ -93,9 +117,21 @@ WeeklyMatlStkChangeQtyInBaseUnit AS (
 -- 5. Get the stock changes for the missing weeks
 , StockChanges AS (
   SELECT
-    Weeks._hash,
-    Weeks.YearWeek,
-    WeeklyMatlStkChangeQtyInBaseUnit
+      Weeks.[_hash]
+    , Weekly.[MaterialID]
+    , Weekly.[PlantID]
+    , Weekly.[StorageLocationID]
+    , Weekly.[InventorySpecialStockTypeID]
+    , Weekly.[InventoryStockTypeID]
+    , Weekly.[StockOwner]
+    , Weekly.[CostCenterID]
+    , Weekly.[CompanyCodeID]
+    , Weekly.[SalesDocumentTypeID]
+    , Weekly.[SalesDocumentItemCategoryID]
+    , Weekly.[MaterialBaseUnitID]
+    , Weekly.[PurchaseOrderTypeID]
+    , Weeks.[YearWeek]
+    , Weekly.[MatlStkChangeQtyInBaseUnit]
   FROM
     MissingYearWeeks AS Weeks
   LEFT JOIN
@@ -110,10 +146,22 @@ WeeklyMatlStkChangeQtyInBaseUnit AS (
 
 -- 6. Calculate the stock levels for each combo of yearWeek and hash
 SELECT
-  _hash,
-  YearWeek,
-  WeeklyMatlStkChangeQtyInBaseUnit,
-  SUM(WeeklyMatlStkChangeQtyInBaseUnit) OVER (
+    [_hash]
+  , [MaterialID]
+  , [PlantID]
+  , [StorageLocationID]
+  , [InventorySpecialStockTypeID]
+  , [InventoryStockTypeID]
+  , [StockOwner]
+  , [CostCenterID]
+  , [CompanyCodeID]
+  , [SalesDocumentTypeID]
+  , [SalesDocumentItemCategoryID]
+  , [MaterialBaseUnitID]
+  , [PurchaseOrderTypeID]
+  , [YearWeek]
+  , [MatlStkChangeQtyInBaseUnit]
+  , SUM(MatlStkChangeQtyInBaseUnit) OVER (
     PARTITION BY _hash 
     ORDER BY YearWeek
   ) AS StockLevelQtyInBaseUnit

@@ -1,0 +1,18 @@
+CREATE VIEW [dm_scm].[vw_fact_MaterialStockLevel_Weekly]
+AS SELECT
+    [MaterialID]
+  , [PlantID]
+  , [StorageLocationID]
+  , [InventorySpecialStockTypeID]
+  , [InventoryStockTypeID]
+  , [StockOwner]
+  , [CostCenterID]
+  , [CompanyCodeID]
+  , [SalesDocumentTypeID]
+  , [SalesDocumentItemCategoryID]
+  , [MaterialBaseUnitID]
+  , [PurchaseOrderTypeID]
+  , [YearWeek]
+  , [StockLevelQtyInBaseUnit]
+FROM
+  [edw].[vw_MaterialStockLevel_Weekly]
