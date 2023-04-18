@@ -280,7 +280,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"expression": {
-						"value": "@contains(\n    variables('requiresSynapseIngestion'),\n    'true'\n)",
+						"value": "@contains(\n    variables('requiresSynapseIngestion'),\n    true\n)",
 						"type": "Expression"
 					},
 					"ifTrueActivities": [
