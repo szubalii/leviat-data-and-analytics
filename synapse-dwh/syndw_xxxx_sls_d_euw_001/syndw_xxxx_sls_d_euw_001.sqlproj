@@ -215,6 +215,7 @@
     <Folder Include="base_isedio\Tables" />
     <Folder Include="base_isedio_aus" />
     <Folder Include="base_isedio_aus\Tables" />
+    <Folder Include="edw\Functions\" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <Build Include="Security\Database Scoped Credentials\dsc_MSI.sql" />
