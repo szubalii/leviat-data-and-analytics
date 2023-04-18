@@ -1,5 +1,5 @@
 {
-	"functionName": "Z_THEO_READ_TABLE",
+	"functionName": "\/SAPDS\/RFC_READ_TABLE2",
 	"runInBackGroundJob": false,
 	"tables": [
 		{
@@ -307,7 +307,7 @@
 					"abapType": "OneByteInteger",
 					"length": 10,
 					"isSelected": true,
-					"outputLength": 10,
+					"outputLength": 11,
 					"isDeltaColumn": true,
 					"selectionPermission": "All",
 					"checkTable": "NUMBEROFSERIALNUMBERS"
