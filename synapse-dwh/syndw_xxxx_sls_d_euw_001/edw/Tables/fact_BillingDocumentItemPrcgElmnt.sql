@@ -3,7 +3,7 @@
 -- 1:1 as base layer table
   [BillingDocument] nvarchar(20) NOT NULL
 , [BillingDocumentItem] char(6) collate Latin1_General_100_BIN2 NOT NULL
-, [sk_BillingDocumentItem] NVARCHAR(20) NOT NULL 
+, [nk_BillingDocumentItem] NVARCHAR(20) NOT NULL 
 , [PricingProcedureStep] char(3) collate Latin1_General_100_BIN2 NOT NULL
 , [PricingProcedureCounter] char(3) collate Latin1_General_100_BIN2 NOT NULL
 , [ConditionApplication] nvarchar(4)
@@ -57,7 +57,6 @@
 )
 WITH
 (
-    DISTRIBUTION = REPLICATE,
-    HEAP
+    DISTRIBUTION = HASH (nk_BillingDocumentItem), CLUSTERED COLUMNSTORE INDEX
 )
 GO

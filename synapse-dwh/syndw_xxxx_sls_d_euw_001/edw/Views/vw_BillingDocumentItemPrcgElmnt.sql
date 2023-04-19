@@ -6,7 +6,7 @@
 	SELECT 
 		 [BillingDocument]
 		,[BillingDocumentItem]
-		,edw.svf_getNaturalKey (BillingDocument,BillingDocumentItem,CR.CurrencyTypeID) as sk_BillingDocumentItem
+		,edw.svf_getNaturalKey (BillingDocument,BillingDocumentItem,CR.CurrencyTypeID) as nk_BillingDocumentItem
 		,CR.[CurrencyTypeID]
 		,CR.[CurrencyType]
 		,[TransactionCurrency] as [CurrencyID]
@@ -68,7 +68,7 @@
 	SELECT
 		 IBDIPE.[BillingDocument]
 		,IBDIPE.[BillingDocumentItem]
-		,edw.svf_getNaturalKey (IBDIPE.BillingDocument,IBDIPE.BillingDocumentItem,CR.CurrencyTypeID) as sk_BillingDocumentItem
+		,edw.svf_getNaturalKey (IBDIPE.BillingDocument,IBDIPE.BillingDocumentItem,CR.CurrencyTypeID) as nk_BillingDocumentItem
 		,CR.[CurrencyTypeID]
 		,CR.[CurrencyType]
 		,BDI.[CurrencyID]

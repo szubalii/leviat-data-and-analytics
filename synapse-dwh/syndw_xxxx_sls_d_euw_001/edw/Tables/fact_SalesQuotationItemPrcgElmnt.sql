@@ -2,7 +2,7 @@ CREATE TABLE [edw].[fact_SalesQuotationItemPrcgElmnt]
 (
     [SalesQuotation] NVARCHAR(10) NOT NULL  
   , [SalesQuotationItem] CHAR(6) NOT NULL  
-  , [sk_SalesQuotationItem] NVARCHAR(20) NOT NULL 
+  , [nk_SalesQuotationItem] NVARCHAR(20) NOT NULL 
   , [ConditionType] NVARCHAR(4) 
   , [ConditionBaseValue] DECIMAL(24,9)  
   , [ConditionRateValue] DECIMAL(24,9)  
@@ -18,11 +18,10 @@ CREATE TABLE [edw].[fact_SalesQuotationItemPrcgElmnt]
   , [t_jobDtm]              DATETIME
   , [t_lastActionCd]        VARCHAR(1)
   , [t_jobBy]               NVARCHAR(128)  
-    CONSTRAINT [PK_fact_SalesQuotationItemPrcgElmnt] PRIMARY KEY NONCLUSTERED ([sk_SalesQuotationItem]) NOT ENFORCED
+    CONSTRAINT [PK_fact_SalesQuotationItemPrcgElmnt] PRIMARY KEY NONCLUSTERED ([SalesQuotation], [SalesQuotationItem]) NOT ENFORCED
 )
 WITH
 (
-    DISTRIBUTION = REPLICATE,
-    HEAP
+    DISTRIBUTION = HASH (nk_SalesQuotationItem), CLUSTERED COLUMNSTORE INDEX
 )
 GO

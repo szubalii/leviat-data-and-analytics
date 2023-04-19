@@ -3,7 +3,7 @@ AS
 SELECT
           [BillingDocument]
          ,[BillingDocumentItem]
-         ,[sk_BillingDocumentItem]  
+         ,[nk_BillingDocumentItem]  
          ,[ConditionType]
          ,[ConditionBaseValue]
          ,[ConditionRateValue]

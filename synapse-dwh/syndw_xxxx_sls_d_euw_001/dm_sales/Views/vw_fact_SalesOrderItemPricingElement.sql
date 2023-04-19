@@ -3,7 +3,7 @@ AS
 SELECT
           [SalesOrder]
          ,[SalesOrderItem]
-         ,[sk_SalesOrderItem]
+         ,[nk_SalesOrderItem]
          ,[ConditionType]
          ,[ConditionBaseValue]
          ,[ConditionRateValue]

@@ -8,7 +8,7 @@ As
 SELECT
     [SalesQuotation] 
   , [SalesQuotationItem] 
-  , edw.svf_getNaturalKey (SalesQuotation,SalesQuotationItem,CR.CurrencyTypeID)  as sk_SalesQuotationItem
+  , edw.svf_getNaturalKey (SalesQuotation,SalesQuotationItem,CR.CurrencyTypeID)  as nk_SalesQuotationItem
   , CR.[CurrencyTypeID]
   , CR.[CurrencyType]
   , [TransactionCurrency] COLLATE Latin1_General_100_BIN2 as [CurrencyID]
@@ -70,7 +70,7 @@ UNION ALL
 SELECT
     [SalesQuotation] 
   , [SalesQuotationItem] 
-  , edw.svf_getNaturalKey (SalesQuotation,SalesQuotationItem,CR.CurrencyTypeID) as sk_SalesQuotationItem
+  , edw.svf_getNaturalKey (SalesQuotation,SalesQuotationItem,CR.CurrencyTypeID) as nk_SalesQuotationItem
   , CR.[CurrencyTypeID]
   , CR.[CurrencyType]
   , SDI.[CurrencyID] COLLATE Latin1_General_100_BIN2 as CurrencyID

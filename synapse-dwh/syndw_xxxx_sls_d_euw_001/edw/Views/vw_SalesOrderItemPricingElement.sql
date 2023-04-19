@@ -6,7 +6,7 @@ As
 SELECT 
   [SalesOrder] 
 , [SalesOrderItem]
-, edw.svf_getNaturalKey (SalesOrder,SalesOrderItem,CR.CurrencyTypeID) as sk_SalesOrderItem
+, edw.svf_getNaturalKey (SalesOrder,SalesOrderItem,CR.CurrencyTypeID) as nk_SalesOrderItem
 , CR.[CurrencyTypeID]
 , CR.[CurrencyType]
 , [TransactionCurrency] COLLATE Latin1_General_100_BIN2 as [CurrencyID]
@@ -68,7 +68,7 @@ UNION ALL
 SELECT
   [SalesOrder] 
 , [SalesOrderItem]
-, edw.svf_getNaturalKey (SalesOrder,SalesOrderItem,CR.CurrencyTypeID) as sk_SalesOrderItem
+, edw.svf_getNaturalKey (SalesOrder,SalesOrderItem,CR.CurrencyTypeID) as nk_SalesOrderItem
 , CR.[CurrencyTypeID]
 , CR.[CurrencyType]
 , SDI.[CurrencyID] COLLATE Latin1_General_100_BIN2 as CurrencyID
