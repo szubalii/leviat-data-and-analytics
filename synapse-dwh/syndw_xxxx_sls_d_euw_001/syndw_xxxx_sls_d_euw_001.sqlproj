@@ -1184,7 +1184,6 @@
     <Build Include="edw\Tables\fact_SalesQuotationItemPrcgElmnt.sql" />
     <Build Include="edw\Tables\fact_SalesOrderItemPricingElement.sql" />
     <Build Include="edw\Functions\Scalar-valued Functions\svf_getNaturalKey.sql" />
-    <Build Include="edw\Stored Procedures\sp_load_fact_BillingDocumentItemPrcgElmnt.sql" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PostDeploy Include="Scripts\Post-Deploy\Script.PostDeployment.sql" />
