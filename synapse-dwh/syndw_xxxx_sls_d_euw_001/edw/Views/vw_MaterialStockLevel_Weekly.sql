@@ -42,7 +42,8 @@ WeeklyMatlStkChangeQtyInBaseUnit AS (
   LEFT JOIN
     [edw].[dim_Calendar] AS cal
     ON cal.CalendarDate = MDI.HDR_PostingDate
-  -- WHERE
+  WHERE
+    MDI.t_applicationId LIKE '%s4h%' -- TODO filter on S4H only now
   --   _hash = @hash
   GROUP BY
       MDI.[_hash]
