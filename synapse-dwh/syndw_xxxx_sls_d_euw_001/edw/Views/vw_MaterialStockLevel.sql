@@ -21,7 +21,7 @@ SELECT
         viewMD.[StockPricePerUnit],
         viewMD.[StockPricePerUnit_EUR],
         viewMD.[StockPricePerUnit_USD],
-        DATEADD(day, -(DAY(viewMD.[HDR_PostingDate])-1),viewMD.[HDR_PostingDate]) AS HDR_PostingDate_FMD,
+        DATEADD(day, -(DAY(viewMD.[HDR_PostingDate])-1),viewMD.[HDR_PostingDate]) AS HDR_PostingDate_FMD, -- Get first day of the month
         viewMD.[InventoryValuationTypeID],
         viewMD.[LatestPricePerPiece_Local],  
         viewMD.[LatestPricePerPiece_EUR],    
