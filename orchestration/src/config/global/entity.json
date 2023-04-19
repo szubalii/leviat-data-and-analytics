@@ -5497,7 +5497,7 @@
         "schedule_recurrence": "A"
       },
       {
-        "entity_id": 584,
+        "entity_id": 585,
         "entity_name": "fact_SalesOrderItemPricingElement",
         "sproc_name": "sp_materialize_view",
         "source_view_name": "vw_SalesOrderItemPricingElement",
