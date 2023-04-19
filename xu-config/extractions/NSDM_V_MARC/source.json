@@ -261,6 +261,7 @@
                     "description": "Rounding value for purchase order quantity",
                     "abapType": "PackedNumber",
                     "length": 13,
+                    "isSelected": true,
                     "decimalCount": 3,
                     "formattedLength": 17,
                     "conversionExit": "",

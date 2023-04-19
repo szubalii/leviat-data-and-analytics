@@ -35,7 +35,8 @@ SELECT
     [PriceControlIndicator],
     [nk_dim_ProductValuationPUP],
     [sk_dim_ProductValuationPUP],
+    [CurrencyID],
     [t_applicationId],
-  	[t_extractionDtm]   
+  	[t_extractionDtm]
 FROM 
     [edw].[fact_MaterialStockLevel]
