@@ -212,6 +212,7 @@
 						"value": "@pipeline().parameters.deltaEntityFileNameBatchActivities",
 						"type": "Expression"
 					},
+					"isSequential": true,
 					"activities": [
 						{
 							"name": "Set Batch ProcessBase",
