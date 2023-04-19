@@ -19,11 +19,15 @@ steps:
       # connect to Azure using VM
       azcopy login --identity
 
-      # directly copy to storage account using azcopy
+      # directly copy to storage account using azcopy only the csv-files directly under Master Data folder
       azcopy copy `
         '$(Pipeline.Workspace)\OrchestrationDB\Master Data\*' `
         'https://$(storageAccountName).blob.core.windows.net/orch-db' `
-        --recursive `
+      
+      # directly copy to storage account using azcopy only the environment specific csv-files 
+      azcopy copy `
+        '$(Pipeline.Workspace)\OrchestrationDB\Master Data\$(environment)\*' `
+        'https://$(storageAccountName).blob.core.windows.net/orch-db' `
         --exclude-path=entity.csv
 
 - task: PowerShell@2
@@ -37,9 +41,8 @@ steps:
 
       # directly copy to storage account using azcopy
       azcopy copy `
-        '$(Pipeline.Workspace)\OrchestrationDB\Master Data\*' `
+        '$(Pipeline.Workspace)\OrchestrationDB\Master Data\$(environment)\*' `
         'https://$(storageAccountName).blob.core.windows.net/orch-db' `
-        --recursive `
         --include-path=entity.csv
 
 - task: PowerShell@2

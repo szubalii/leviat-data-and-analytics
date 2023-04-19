@@ -17,7 +17,6 @@ RETURNS @scheduled_entity_batch_activities TABLE (
     axbi_schema_name VARCHAR(128),
     base_table_name VARCHAR(128),
     axbi_date_field_name VARCHAR(128),
-    refresh_from_date VARCHAR(16),
     adls_container_name VARCHAR(63),
     adls_directory_path_In NVARCHAR(255),
     adls_directory_path_Out NVARCHAR(255),
@@ -72,7 +71,6 @@ BEGIN
             e.axbi_schema_name,
             e.base_table_name,
             e.axbi_date_field_name,
-            e.refresh_from_date,
             e.adls_container_name,
             e.adls_directory_path_In,
             e.adls_directory_path_Out,
@@ -99,7 +97,6 @@ BEGIN
             e.axbi_schema_name,
             e.base_table_name,
             e.axbi_date_field_name,
-            e.refresh_from_date,
             e.adls_container_name,
             e.adls_directory_path_In,
             e.adls_directory_path_Out,
@@ -114,7 +111,7 @@ BEGIN
             ON
                 la.layer_id = e.layer_id
         WHERE
-            e.update_mode = 'Full' OR e.update_mode IS NULL OR e.update_mode = 'Range'
+            e.update_mode = 'Full' OR e.update_mode IS NULL
     )
     -- getting latest timestamp/file name for where activity = Extract and status IN Succeeded, InProgress , e.g.
     -- in case where logged batch activities for the same day are missing but earlier on the same day subsequent 
@@ -168,7 +165,6 @@ BEGIN
             e.axbi_schema_name,
             e.base_table_name,
             e.axbi_date_field_name,
-            e.refresh_from_date,
             e.adls_container_name,
             e.adls_directory_path_In,
             e.adls_directory_path_Out,
@@ -310,7 +306,6 @@ BEGIN
             sfeba.axbi_schema_name,
             sfeba.base_table_name,
             sfeba.axbi_date_field_name,
-            sfeba.refresh_from_date,
             sfeba.adls_container_name,
             sfeba.adls_directory_path_In,
             sfeba.adls_directory_path_Out,
@@ -779,7 +774,6 @@ BEGIN
             axbi_schema_name,
             base_table_name,
             axbi_date_field_name,
-            refresh_from_date,
             adls_container_name,
             adls_directory_path_In,
             adls_directory_path_Out,
@@ -810,7 +804,6 @@ BEGIN
             axbi_schema_name,
             base_table_name,
             axbi_date_field_name,
-            null,
             adls_container_name,
             adls_directory_path_In,
             adls_directory_path_Out,
@@ -841,7 +834,6 @@ BEGIN
             sepba.axbi_schema_name,
             sepba.base_table_name,
             sepba.axbi_date_field_name,
-            sepba.refresh_from_date,
             sepba.adls_container_name,
             sepba.adls_directory_path_In,
             sepba.adls_directory_path_Out,
@@ -910,7 +902,6 @@ BEGIN
             axbi_schema_name,
             base_table_name,
             axbi_date_field_name,
-            refresh_from_date,
             adls_container_name,
             adls_directory_path_In,
             adls_directory_path_Out,
@@ -962,7 +953,6 @@ BEGIN
             axbi_schema_name,
             base_table_name,
             axbi_date_field_name,
-            refresh_from_date,
             adls_container_name,
             adls_directory_path_In,
             adls_directory_path_Out,
@@ -988,7 +978,6 @@ BEGIN
             axbi_schema_name,
             base_table_name,
             axbi_date_field_name,
-            refresh_from_date,
             adls_container_name,
             MIN(adls_directory_path_In) AS adls_directory_path_In,
             MIN(adls_directory_path_Out) AS adls_directory_path_Out,
@@ -1010,7 +999,6 @@ BEGIN
             axbi_schema_name,
             base_table_name,
             axbi_date_field_name,
-            refresh_from_date,
             adls_container_name,
             base_schema_name,
             base_sproc_name,
@@ -1032,7 +1020,6 @@ BEGIN
             axbi_schema_name,
             base_table_name,
             axbi_date_field_name,
-            refresh_from_date,
             adls_container_name,
             adls_directory_path_In,
             adls_directory_path_Out,
@@ -1060,11 +1047,6 @@ BEGIN
         axbi_schema_name,
         base_table_name,
         axbi_date_field_name,
-        CONVERT(
-            VARCHAR
-            ,refresh_from_date
-            ,111
-        ) AS refresh_from_date,
         adls_container_name,
         adls_directory_path_In,
         adls_directory_path_Out,

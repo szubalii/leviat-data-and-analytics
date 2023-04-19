@@ -82,6 +82,7 @@ CREATE VIEW [dm_finance].[vw_fact_ACDOCA_SalesView_active]
     [DistributionChannelID],
     [SalesDistrictID],
     sDT.[SalesDistrictName],
+    acdoca.SalesOfficeID,
     acdoca.[t_applicationId],
     acdoca.[t_extractionDtm],
     acdoca.[t_lastActionCd]

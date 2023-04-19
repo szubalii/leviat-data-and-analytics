@@ -59,6 +59,12 @@ UNION ALL
 SELECT 
     GLALIRD.[SourceLedgerID],
     GLALIRD.[CompanyCodeID],
+    GLALIRD.[CompanyCodeID] + GLALIRD.[ProfitCenterID] as [SKReportingEntityKey],
+    CASE
+        WHEN COALESCE (GLALIRD.[ProductSurrogateKey], '') = ''
+        THEN CONCAT('(MA)-',GLALIRD.[GLAccountID])
+        ELSE GLALIRD.[ProductSurrogateKey]
+    END                                             AS [ProductSurrogateKey],
     GLALIRD.[FiscalYear],
     GLALIRD.[AccountingDocument],
     GLALIRD.[LedgerGLLineItem],
@@ -295,6 +301,7 @@ SELECT
     ExchangeRate.[TargetCurrency]                      AS [CurrencyID],
     ExchangeRate.[CurrencyTypeID],
     CurrType.[CurrencyType],
+    GLALIRD.[SalesOfficeID],
     GLALIRD.[t_applicationId],
     GLALIRD.[t_extractionDtm]
 FROM [edw].[fact_ACDOCA] GLALIRD

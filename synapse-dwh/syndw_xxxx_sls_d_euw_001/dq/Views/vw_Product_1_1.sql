@@ -146,4 +146,6 @@ JOIN
     ON 
       P.Product = PVC.Product COLLATE Latin1_General_100_BIN2      
 WHERE 
-    PVC.[IsMaterialRelatedOrigin] != 'X'          
+    PVC.[IsMaterialRelatedOrigin] != 'X'  
+    AND
+    P.IsMarkedForDeletion <> 'X'

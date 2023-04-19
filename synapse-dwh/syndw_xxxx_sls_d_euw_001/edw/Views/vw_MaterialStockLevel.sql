@@ -175,6 +175,7 @@ SELECT
         CPPUP.[PriceControlIndicator], 
         CPPUP.[sk_dim_ProductValuationPUP]    AS [sk_dim_ProductValuationPUP],
         CPPUP.[nk_dim_ProductValuationPUP]    AS [nk_dim_ProductValuationPUP],
+        CPPUP.[CurrencyID],
         CC.t_applicationId,
         CC.t_extractionDtm
         FROM Calendar_Calc CC
@@ -233,6 +234,7 @@ SELECT
     [PriceControlIndicator],
     [nk_dim_ProductValuationPUP],
     [sk_dim_ProductValuationPUP],
+    [CurrencyID],
     [t_applicationId],
     [t_extractionDtm]
 FROM 

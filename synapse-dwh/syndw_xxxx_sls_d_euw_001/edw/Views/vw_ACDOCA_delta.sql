@@ -123,6 +123,7 @@ SELECT
        [DistributionChannel]                    AS [DistributionChannelID],
        [SalesDistrict]                          AS [SalesDistrictID],
        [BillToParty]                            AS [BillToPartyID],
+       [KMVKBUPA]                               AS [SalesOfficeID],
        [t_applicationId],
        [t_extractionDtm],
        [t_lastActionBy],

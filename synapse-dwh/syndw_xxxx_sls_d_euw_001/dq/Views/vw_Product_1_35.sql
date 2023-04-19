@@ -159,3 +159,5 @@ WHERE
       PP.[MRPType] = 'V1'
     AND
       NAM.[FXHOR] != '000'
+    AND
+    P.IsMarkedForDeletion <> 'X'

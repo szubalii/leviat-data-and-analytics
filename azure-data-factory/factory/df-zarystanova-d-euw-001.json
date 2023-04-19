@@ -1,0 +1,60 @@
+{
+	"name": "df-zarystanova-d-euw-001",
+	"properties": {
+		"globalParameters": {
+			"XU_hostName": {
+				"type": "string",
+				"value": "http://10.109.68.4:8065"
+			},
+			"storageAccountName": {
+				"type": "string",
+				"value": "stzarystanovadeuw001"
+			},
+			"resourceGroupName": {
+				"type": "string",
+				"value": "rg-xxxx-sls-d-euw-001"
+			},
+			"virtualMachineName": {
+				"type": "string",
+				"value": "WEDLEVAPP001"
+			},
+			"synapseServerName": {
+				"type": "string",
+				"value": "ws-zarystanova-d-euw-001"
+			},
+			"synapseDatabaseName": {
+				"type": "string",
+				"value": "syndw_zarystanova_d_euw_001"
+			},
+			"keyVaultUrl": {
+				"type": "string",
+				"value": "https://kv-xxxx-sls-d-euw-001.vault.azure.net/"
+			},
+			"environment": {
+				"type": "string",
+				"value": "zarystanova"
+			},
+			"sqlDb": {
+				"type": "string",
+				"value": "sqldb-zarystanova-d-euw-001"
+			},
+			"s4hSystemId": {
+				"type": "string",
+				"value": "CAA"
+			},
+			"s4hClientId": {
+				"type": "string",
+				"value": "200"
+			},
+			"axbiDataBaseEnvSuffix": {
+				"type": "string",
+				"value": "UAT"
+			},
+			"axbiMinExtractionDate": {
+				"type": "string",
+				"value": "2021-01-01"
+			}
+		}
+	},
+	"location": "westeurope"
+}

@@ -28,7 +28,7 @@ jobs:
     - VisualStudio
     - Agent.Name -equals $(VMName)
   steps:
-  
+
   - script: |
       echo system.pullRequest.targetBranch: $(system.pullRequest.targetBranch)
       echo user: $(user)
@@ -41,6 +41,7 @@ jobs:
       echo destination: $(destination)
       echo Build.Reason: ${{ variables['Build.Reason'] }}
       echo Build.SourceBranchName: ${{ variables['Build.SourceBranchName'] }}
+      echo deployEnv: $(deployEnv)
     displayName: Print Variables
 
   - template: ../${{ parameters.folder }}/build/steps-build.yml

@@ -5,12 +5,16 @@
 			"sqlPool": {
 				"type": "string",
 				"defaultValue": "syndw_xxxx_sls_d_euw_001"
+			},
+			"synapseServer": {
+				"type": "string",
+				"defaultValue": "ws-xxxx-sls-d-euw-001"
 			}
 		},
 		"annotations": [],
 		"type": "AzureSqlDW",
 		"typeProperties": {
-			"connectionString": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=ws-xxxx-sls-d-euw-001.sql.azuresynapse.net;Initial Catalog=@{linkedService().sqlPool}"
+			"connectionString": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=\"@{concat(\n    linkedService().synapseServer,\n    '.sql.azuresynapse.net'\n)}\";Initial Catalog=@{linkedService().sqlPool}"
 		}
 	},
 	"type": "Microsoft.DataFactory/factories/linkedservices"

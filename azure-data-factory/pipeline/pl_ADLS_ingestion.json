@@ -74,10 +74,6 @@
 											"batch_id": {
 												"value": "@pipeline().parameters.batch_id",
 												"type": "Expression"
-											},
-											"refresh_from_date": {
-												"value": "@pipeline().parameters.refresh_from_date",
-												"type": "Expression"
 											}
 										}
 									}
@@ -394,10 +390,6 @@
 			},
 			"extraction_type": {
 				"type": "string"
-			},
-			"refresh_from_date": {
-				"type": "string",
-				"defaultValue": "2022/10/01"
 			}
 		},
 		"folder": {

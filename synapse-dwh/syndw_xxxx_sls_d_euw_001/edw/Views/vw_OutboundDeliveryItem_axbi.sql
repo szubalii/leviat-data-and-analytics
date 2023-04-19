@@ -72,7 +72,7 @@ SELECT
     FCust.[t_applicationId],
     FCust.[t_extractionDtm]
 FROM 
-    [base_tx_halfen_2_dwh].[FACT_CUSTPACKINGSLIPTRANS] FCust
+    intm_axbi.vw_FACT_CUSTPACKINGSLIPTRANS  FCust
     LEFT JOIN
         [map_AXBI].[SalesOrganization] AS SO
         ON
@@ -94,7 +94,7 @@ FROM
         ON
             DimCust.[CustomerExternalID] = SCMT.[SAPCustomeraccount]
 
-    LEFT JOIN [base_tx_halfen_2_dwh].[FACT_SALESLINE] FSL
+    LEFT JOIN intm_axbi.vw_FACT_SALESLINE FSL
         ON 
             FSL.[INVENTTRANSID] = FCust.[INVENTTRANSID]  
             AND 

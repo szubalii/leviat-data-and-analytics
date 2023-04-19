@@ -44,7 +44,7 @@ CustInvoiceTrans_without_quotes AS(
     ,   CIT.[t_applicationId]
     ,   CIT.[t_extractionDtm]
     FROM    
-        [base_tx_ca_0_hlp].[CUSTINVOICETRANS] CIT
+        [intm_axbi].[fact_CUSTINVOICETRANS] CIT
 ),
 BillingDocumentItemBase_axbi AS (
     SELECT 
@@ -114,7 +114,7 @@ BillingDocumentItemBase_axbi AS (
     ,   DA.[GROUP]                                                  AS [axbi_DataAreaGroup]
     ,   CITQ.[ITEMID]                                               AS [axbi_MaterialID]
     ,   CITQ.[CUSTOMERNO]                                           AS [axbi_CustomerID]
-    ,   CT.[INOUT]                                                  AS [InOutID]
+    ,   edw.svf_getInOutID_axbi (INOUT)                             AS [InOutID]
     ,   CITQ.[ITEMID]                                               AS [axbi_ItemNoCalc]
     ,   DA.DATAAREAID2                                              AS [axbi_DataAreaID2]
     ,   CITQ.[t_applicationId]                                      AS [t_applicationId]
@@ -126,7 +126,7 @@ BillingDocumentItemBase_axbi AS (
         ON
             DA.[DATAAREAID2] = CITQ.DATAAREAID
     LEFT JOIN 
-        [base_tx_ca_0_hlp].[CUSTTABLE] CT
+         [intm_axbi].[dim_CUSTTABLE]  CT
         ON
             CT.[ACCOUNTNUM] = CITQ.[CUSTOMERNO]
             AND
@@ -239,19 +239,19 @@ BillingDocumentItemBase_axbi AS (
     ,   DA.[GROUP]                                                          AS [axbi_DataAreaGroup]
     ,   'HALF-' + FH.[Itemno]                                               AS [axbi_MaterialID]
     ,   DA.DATAAREAID2 + '-' + FH.[Customerno]                              AS [axbi_CustomerID]
-    ,   CT.[INOUT]                                                          AS [InOutID]
+    ,   edw.svf_getInOutID_axbi (INOUT)                                     AS [InOutID]
     ,   'HALF-' + FH.[Itemno]                                               AS [axbi_ItemNoCalc]
     ,   DA.DATAAREAID2                                                      AS [axbi_DataAreaID2] 
     ,   FH.[t_applicationId]                                                AS [t_applicationId]
     ,   FH.[t_extractionDtm]                                                AS [t_extractionDtm]
     FROM    
-        base_dw_halfen_2_dwh.FACT_HGDAWA FH
+        intm_axbi.vw_FACT_HGDAWA FH
     LEFT JOIN 
         [base_tx_ca_0_hlp].[DATAAREA] DA
         ON
             DA.[DATAAREAID] = FH.[Company]
     LEFT JOIN
-        [base_dw_halfen_2_dwh].[DIM_CUSTOMER] DIM_CUST
+        intm_axbi.vw_DIM_CUSTOMER DIM_CUST
         ON
             DIM_CUST.[Customerno] = FH.[Customerno]
             AND
@@ -267,7 +267,7 @@ BillingDocumentItemBase_axbi AS (
             AND
             SINMT.SAPProductID IS NOT NULL
     LEFT JOIN
-        [base_tx_ca_0_hlp].[CUSTTABLE] CT
+         [intm_axbi].[dim_CUSTTABLE] CT
         ON
             CT.[ACCOUNTNUM] = DA.[DATAAREAID2] + '-' + FH.[Customerno]
 ),
@@ -650,7 +650,7 @@ BillingDocumentItemBase_axbi_mapped AS (
                     DIM_CUST_S4H.[CustomerID] = SubQ.[SoldToParty]
 
         LEFT JOIN
-            [base_tx_ca_0_hlp].[CUSTTABLE] CustTb
+             [intm_axbi].[dim_CUSTTABLE]  CustTb
             ON
                 CustTb.[DATAAREAID] = SubQ.[axbi_DataAreaID2]
                 AND

@@ -34,7 +34,11 @@ BEGIN
             ON (
                 tBD.[SalesDocument] = vwBD.[SalesDocument]
                 AND
-                tBD.[SalesDocumentItem] = vwBD.[SalesDocumentItem])
+                tBD.[SalesDocumentItem] = vwBD.[SalesDocumentItem]
+                AND
+                tBD.[CharacteristicName] = vwBD.[CharacteristicName]
+                AND
+                tBD.[CharValue] = vwBD.[CharValue])
 
         INSERT [edw].[fact_ProductHierarchyVariantConfigCharacteristic_active] (
               [SalesDocument]
@@ -81,7 +85,11 @@ BEGIN
                 WHERE           
                     [SalesDocument] = vwBD.[SalesDocument]
                 AND
-                    [SalesDocumentItem] = vwBD.[SalesDocumentItem]);
+                    [SalesDocumentItem] = vwBD.[SalesDocumentItem]
+                AND
+                    [CharacteristicName] = vwBD.[CharacteristicName]
+                AND
+                    [CharValue] = vwBD.[CharValue]);
     END TRY
     BEGIN CATCH
         SET @errmessage = 'Internal error in ' + ERROR_PROCEDURE() + '. ' +  ERROR_MESSAGE();

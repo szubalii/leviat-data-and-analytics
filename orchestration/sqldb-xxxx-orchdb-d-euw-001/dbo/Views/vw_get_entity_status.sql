@@ -18,15 +18,6 @@ SELECT
 	,ent.[axbi_database_name]
 	,ent.[axbi_schema_name]
 	,ent.[axbi_date_field_name]
-	,DATEADD(											-- that logic calculates the first day of Nth previous month
-  		MONTH											--			using GETDATE() and reload_period_in_months
-		,-1 * ent.[reload_period_in_months]				-- get N months before the first day
-		,DATEFROMPARTS(									-- get the first day of the current month
-			YEAR(GETDATE())
-			,MONTH(GETDATE())
-			,1
-		)
-	) 								AS [refresh_from_date]
 	,ent.[sproc_schema_name]
 	,ent.[sproc_name]
 	,ent.[source_schema_name]

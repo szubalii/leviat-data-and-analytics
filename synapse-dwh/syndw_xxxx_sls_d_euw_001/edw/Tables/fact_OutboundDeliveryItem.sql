@@ -213,7 +213,7 @@
       ,[ProposedDeliveryRouteDurationInHrs] decimal(11)
       ,[ActualDeliveryRouteDurationInDays] decimal(11)
       ,[ProposedDeliveryRouteDurationInDays] decimal(11)
-      ,[InOutID] char(1) collate Latin1_General_100_BIN2
+      ,[InOutID] NVARCHAR (6) collate Latin1_General_100_BIN2
       ,[SDICreationDateIsODICreationDateFlag] char(1) collate Latin1_General_100_BIN2
       ,[IF_Total_Group] nvarchar (17)
       ,[IF_Group] nvarchar (17)

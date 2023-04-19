@@ -121,6 +121,7 @@ select doc.[SalesDocument]           as [QuotationID]
      , ord.[SO_CostAmount]
      , ord.[SO_Margin]
      , doc.[CorrespncExternalReference] 
+     , doc.SalesOfficeID
      , doc.[t_applicationId]
      , doc.[t_extractionDtm]
 from [edw].[fact_SalesDocumentItem] doc

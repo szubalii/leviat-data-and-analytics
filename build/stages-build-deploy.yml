@@ -27,6 +27,14 @@ parameters:
 #   default: 397
 
 variables:
+
+# Set these default values in case of manually triggered pipelines
+# These values will be overriden for production environment
+# - name: VMName
+#   value: WEALEVAPP001
+# - name: VMResourceGroup
+#   value: rg-xxxx-sls-a-euw-001
+
 - name: deployEnv
   value: ${{ upper(variables['Build.SourceBranchName']) }}
 # In case of CI triggered pipelines (IndividualCI, triggered by git push),
@@ -43,6 +51,12 @@ variables:
   - name: user
     value: $[ replace( variables['Build.SourceBranchName'], 'dev_', '') ]
   - template: ./variables-personal.yml
+- ${{ elseif contains(variables['Build.SourceBranch'], '/dev/') }}:
+  - name: user
+    value: $[ variables['Build.SourceBranchName'] ]
+  - template: ./variables-personal.yml
+  - name: deployEnv # override value to map main branch to DEV deployment environment
+    value: ${{ format('DEV_{0}', upper(variables['Build.SourceBranchName'])) }}
 
 # # Required for PR triggered pipelines as predefined system variable Build.SourceBranchName
 # # equals value: 'merge'. Also, the predefined system variable System.PullRequest.TargetBranch 
@@ -56,7 +70,8 @@ variables:
   - template: ./variables-prod.yml
 - ${{ elseif eq(parameters.env, 'dev') }}:
   - name: user
-    value: $[ replace(variables['System.PullRequest.TargetBranch'], 'refs/heads/dev_', '') ]
+    # replace both the '_' and '/' from the branch name for dev-branches
+    value: $[ replace(replace(replace(variables['System.PullRequest.TargetBranch'], 'refs/heads/dev', ''), '_', ''), '/', '') ]
   - template: ./variables-personal.yml
 
 # store the latest source commit ID, used for running specific tests
@@ -84,6 +99,7 @@ stages:
   - stage: DEPLOY_${{ variables['deployEnv'] }}
     jobs:
     - deployment: Deploy_${{parameters.solution}}
+      timeoutInMinutes: 120
       # variables:
       # - name: pathPrefix
       #   value: $(Pipeline.Workspace)

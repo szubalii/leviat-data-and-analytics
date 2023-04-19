@@ -1,0 +1,20 @@
+{
+	"name": "eff_Parquet",
+	"properties": {
+		"folder": {
+			"name": "External resources/External file formats"
+		},
+		"content": {
+			"query": "CREATE EXTERNAL FILE FORMAT [eff_Parquet] WITH (\n    FORMAT_TYPE = PARQUET,\n    DATA_COMPRESSION = 'org.apache.hadoop.io.compress.SnappyCodec'\n);",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "synapse_od",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

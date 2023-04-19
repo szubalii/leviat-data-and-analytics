@@ -36,7 +36,7 @@ WITH BudgetBase_axbi as (
     ,   NULL                                                                                                                           AS [axbi_CustomerID] -- no update yet
     ,   docBud.[ITEMID]                                                                                                                AS [MaterialCalculated] -- ?????
     ,   'ZZZDUMMY_BUD_AXBI'                                                                                                            AS [SoldToPartyCalculated]
-    ,   docBud.[INOUT]                                                                                                                 AS [InOutID]
+    ,   edw.svf_getInOutID_axbi (INOUT)                                                                                                AS [InOutID]
     ,   docBud.[t_applicationId]                                                                                                       AS [t_applicationId]
     ,   docBud.[t_extractionDtm]                                                                                                       AS [t_extractionDtm]
     from [base_tx_ca_0_hlp].[BUDGET] docBud

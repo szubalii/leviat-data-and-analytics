@@ -183,3 +183,5 @@ INNER JOIN
 		pt.Product=p.Product 
 WHERE
 	p.[ProductType] IN ('ZERS','ZFER','ZROH')
+    AND
+    IsMarkedForDeletion <> 'X'

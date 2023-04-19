@@ -152,6 +152,7 @@
     <Folder Include="edw" />
     <Folder Include="edw\Tables" />
     <Folder Include="edw\Stored Procedures" />
+    <Folder Include="edw\Functions\Scalar-valued Functions" />
     <Folder Include="dm_sales" />
     <Folder Include="dm_sales\Views" />
     <Folder Include="dm_finance" />
@@ -187,6 +188,7 @@
     <Folder Include="base_dw_halfen_2_dwh\Stored Procedures\" />
     <Folder Include="intm_axbi" />
     <Folder Include="intm_axbi\Tables" />
+    <Folder Include="intm_axbi\Views" />
     <Folder Include="intm_axbi\Stored Procedures" />
     <Folder Include="base_ancon_australia_2_dwh" />
     <Folder Include="base_ancon_australia_2_dwh\Tables" />
@@ -213,6 +215,7 @@
     <Folder Include="base_isedio\Tables" />
     <Folder Include="base_isedio_aus" />
     <Folder Include="base_isedio_aus\Tables" />
+    <Folder Include="edw\Functions\" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <Build Include="Security\Database Scoped Credentials\dsc_MSI.sql" />
@@ -339,6 +342,12 @@
     <Build Include="base_s4h_cax\Tables\I_GLAccountTypeText.sql" />
     <Build Include="base_s4h_cax\Tables\I_GLRecordTypeText.sql" />
     <Build Include="base_s4h_cax\Tables\I_GLAccountLineItemRawData.sql" />
+    <Build Include="base_s4h_cax\Tables\I_GLAccountLineItemRawData_202301.sql" />
+    <Build Include="base_s4h_cax\Tables\I_GLAccountLineItemRawData_202302.sql" />
+    <Build Include="base_s4h_cax\Tables\I_GLAccountLineItemRawData_202303.sql" />
+    <Build Include="base_s4h_cax\Tables\I_GLAccountLineItemRawData_202304.sql" />
+    <Build Include="base_s4h_cax\Tables\I_GLAccountLineItemRawData_202305.sql" />
+    <Build Include="base_s4h_cax\Tables\I_GLAccountLineItemRawData_upto2022.sql" />
     <Build Include="base_s4h_cax\Tables\I_GLAccountLineItemRawData_delta.sql" />
     <Build Include="base_s4h_cax\Tables\I_GLAccountLineItemRawData_active.sql" />
     <Build Include="base_s4h_cax\Views\vw_I_GLAccountLineItemRawData.sql" />
@@ -876,7 +885,6 @@
     <Build Include="dq\Views\vw_Product_1_20.sql" />
     <Build Include="dq\Views\vw_Product_1_18.sql" />
     <Build Include="dq\Views\vw_Product_1_16.sql" />
-    <Build Include="dq\Views\vw_Product_1_8.sql" />
     <Build Include="dm_dq\Views\vw_fact_RuleTotal.sql" />
     <Build Include="dm_dq\Views\vw_dim_Rule.sql" />
     <Build Include="base_s4h_cax\Tables\I_Purreqvaluationarea.sql" />
@@ -1000,8 +1008,6 @@
     <Build Include="utilities\Stored Procedures\sp_process_axbi_delta_update.sql" />
     <Build Include="utilities\Stored Procedures\sp_process_axbi_delta_delete.sql" />
     <Build Include="utilities\Stored Procedures\sp_process_axbi_delta.sql" />
-    <Build Include="utilities\Stored Procedures\sp_load_to_archive.sql" />
-    <Build Include="utilities\Stored Procedures\sp_copy_to_archive.sql" />
     <Build Include="intm_axbi\Tables\dim_ITEMTABLE.sql" />
     <Build Include="Security\Schemas\intm_axbi.sql" />
     <Build Include="Security\Schemas\base_ancon_australia_2_dwh.sql" />
@@ -1013,7 +1019,6 @@
     <Build Include="base_ancon_australia_2_dwh\Tables\FACT_INVENTTRANS.sql" />
     <Build Include="base_dw_halfen_0_hlp\Tables\CALENDAR.sql" />
     <Build Include="base_dw_halfen_0_hlp\Tables\HGDAWA.sql" />
-    <Build Include="base_dw_halfen_0_hlp\Tables\HGDAWA_Archive.sql" />
     <Build Include="base_dw_halfen_0_hlp\Tables\PRODUCTLINE.sql" />
     <Build Include="base_dw_halfen_2_dwh\Tables\DIM_ARTICLE.sql" />
     <Build Include="intm_axbi\Tables\fact_CUSTINVOICETRANS.sql" />
@@ -1082,7 +1087,7 @@
     <Build Include="base_isedio\Tables\CUSTTABLE_ISUK.sql" />
     <Build Include="base_isedio\Tables\CUSTINVOICETRANS_ISUK.sql" />
     <Build Include="base_isedio\Tables\ITEMTABLE_ISUK.sql" />
-      <Build Include="base_isedio\Tables\ITEMTABLE_ISUK_orig.sql" />
+    <Build Include="base_isedio\Tables\ITEMTABLE_ISUK_orig.sql" />
     <Build Include="base_ancon_conolly_aus\Tables\CUSTINVOICETRANS_ANAC.sql" />
     <Build Include="base_ancon_conolly_aus\Tables\CUSTTABLE_ANAC.sql" />
     <Build Include="base_ancon_conolly_aus\Tables\ITEMTABLE_ANAC.sql" />
@@ -1129,6 +1134,55 @@
     <Build Include="base_s4h_cax\Views\vw_C_BillingDocumentItemBasicDEX_delta.sql" />
     <Build Include="base_s4h_cax\Views\vw_I_GLAccountLineItemRawData_delta.sql" />
     <Build Include="base_s4h_cax\Views\vw_C_SalesDocumentItemDEX_delta.sql" />
+    <Build Include="base_tx_halfen_2_dwh\Tables\FACT_INVENTSUM_Archive.sql" />
+    <Build Include="base_tx_halfen_2_dwh\Tables\FACT_INVENTTRANS_Archive.sql" />
+    <Build Include="base_tx_halfen_2_dwh\Tables\FACT_PURCHLINE_Archive.sql" />
+    <Build Include="base_tx_halfen_2_dwh\Tables\FACT_PRODJOURNALPROD_Archive.sql" />
+    <Build Include="base_tx_halfen_2_dwh\Tables\FACT_SALESLINE_Archive.sql" />
+    <Build Include="base_tx_halfen_2_dwh\Tables\FACT_SALESTABLE_Archive.sql" />
+    <Build Include="base_dw_halfen_2_dwh\Tables\DIM_CUSTOMER_Archive.sql" />
+    <Build Include="base_dw_halfen_2_dwh\Tables\FACT_HGDAWA_Archive.sql" />
+    <Build Include="base_dw_halfen_2_dwh\Tables\FACT_HGPLUM_Archive.sql" />
+    <Build Include="base_tx_halfen_2_dwh\Tables\FACT_CUSTPACKINGSLIPJOUR_Archive.sql" />
+    <Build Include="base_tx_halfen_2_dwh\Tables\DIM_VENDTABLE_Archive.sql" />
+    <Build Include="base_tx_halfen_2_dwh\Tables\DIM_INVENTLOCATION_Archive.sql" />
+    <Build Include="base_tx_halfen_2_dwh\Tables\FACT_CUSTPACKINGSLIPTRANS_Archive.sql" />
+    <Build Include="base_tx_halfen_2_dwh\Tables\DIM_INVENTTABLE_Archive.sql" />
+    <Build Include="intm_axbi\Views\vw_DIM_CUSTOMER.sql" />
+    <Build Include="intm_axbi\Views\vw_FACT_INVENTSUM.sql" />
+    <Build Include="intm_axbi\Views\vw_FACT_INVENTTRANS.sql" />
+    <Build Include="intm_axbi\Views\vw_FACT_PRODJOURNALPROD.sql" />
+    <Build Include="intm_axbi\Views\vw_FACT_PURCHLINE.sql" />
+    <Build Include="intm_axbi\Views\vw_FACT_SALESLINE.sql" />
+    <Build Include="intm_axbi\Views\vw_FACT_SALESTABLE.sql" />
+    <Build Include="intm_axbi\Views\vw_FACT_HGDAWA.sql" />
+    <Build Include="intm_axbi\Views\vw_FACT_HGPLUM.sql" />
+    <Build Include="intm_axbi\Views\vw_FACT_CUSTPACKINGSLIPJOUR.sql" />
+    <Build Include="intm_axbi\Views\vw_DIM_VENDTABLE.sql" />
+    <Build Include="intm_axbi\Views\vw_DIM_INVENTLOCATION.sql" />
+    <Build Include="intm_axbi\Views\vw_FACT_CUSTPACKINGSLIPTRANS.sql" />
+    <Build Include="intm_axbi\Views\vw_DIM_INVENTTABLE.sql" />
+    <Build Include="base_ff\Tables\ExQLReportingEntity.sql" />
+    <Build Include="dm_finance\Views\vw_dim_ExQLReportingEntity.sql" />
+    <Build Include="edw\Tables\dim_PurgAccAssignment.sql" />
+    <Build Include="edw\Views\vw_PurgAccAssignment.sql" />
+    <Build Include="dm_sales\Views\vw_dim_SalesOffice.sql" />
+    <Build Include="dm_sales\Views\vw_dim_VariantConfigurator.sql" />
+    <Build Include="edw\Tables\dim_VariantConfigurator.sql" />
+    <Build Include="edw\Views\vw_VariantConfigurator.sql" />
+    <Build Include="dm_sales\Views\vw_dim_CustomerGroup.sql" />
+    <Build Include="dm_sales\Views\vw_dim_DistributionChannel.sql" />
+    <Build Include="base_ff\Tables\InOut.sql" />
+    <Build Include="dm_sales\Views\vw_dim_InOut.sql" />
+    <Build Include="edw\Functions\Scalar-valued Functions\svf_getInOutID_axbi.sql" />
+    <Build Include="edw\Functions\Scalar-valued Functions\svf_getInOutID_s4h.sql" />
+    <Build Include="base_s4h_cax\Tables\I_MRPController.sql" />
+    <Build Include="edw\Views\vw_ProductPlant.sql" />
+    <Build Include="edw\Tables\dim_ProductPlant.sql" />
+    <Build Include="dm_sales\Views\vw_dim_ProductPlant.sql" />
+    <Build Include="base_s4h_cax\Tables\T141T.sql" />
+    <Build Include="base_s4h_cax\Tables\T141.sql" />
+    <Build Include="edw\Views\vw_MaterialStatus.sql" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PostDeploy Include="Scripts\Post-Deploy\Script.PostDeployment.sql" />
