@@ -65,7 +65,7 @@ SELECT
         THEN CONCAT('(MA)-',GLALIRD.[GLAccountID])
         ELSE GLALIRD.[ProductSurrogateKey]
     END                                             AS [ProductSurrogateKey],
-    GLALIRD.[GLAccountID]+GLALIRD.[FunctionalAreaID] AS [sk_ExQLmap],
+    GLALIRD.[GLAccountID]+GLALIRD.[FunctionalAreaID] AS [nk_ExQLmap],
     GLALIRD.[FiscalYear],
     GLALIRD.[AccountingDocument],
     GLALIRD.[LedgerGLLineItem],
