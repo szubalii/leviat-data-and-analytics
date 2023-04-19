@@ -5,7 +5,7 @@ SELECT
     ,COALESCE(FUNCTIONALAREA,'')                AS FunctionalArea   --Data in [base_s4h_cax].[ZE_EXQLMAP_DT] is 
 --currently ingested from csv-file using COPY INTO in which empty strings are converted to NULL values by default.
 -- [edw].[fact_ACDOCA] is extracted using Theobald that doesn't generate NULL values in parquet files for empty strings.
-    ,RIGHT(CONCAT('0000000000',GLACCOUNT),10) + COALESCE(FUNCTIONALAREA,'')  AS [sk_ExQLmap]
+    ,RIGHT(CONCAT('0000000000',GLACCOUNT),10) + COALESCE(FUNCTIONALAREA,'')  AS [nk_ExQLmap]
     ,[REKNR] AS ExQLNode
     ,[REKOMS] AS ExQLAccount
     ,MAX(CONTIGENCY4) AS CONTIGENCY4 
