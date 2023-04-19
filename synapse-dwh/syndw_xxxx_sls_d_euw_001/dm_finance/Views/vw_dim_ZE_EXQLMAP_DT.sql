@@ -1,7 +1,7 @@
 CREATE VIEW dm_finance.vw_dim_ZE_EXQLMAP_DT AS
     SELECT
     nk_ExQLmap,
-    GLAccount,
+    GLAccountID,
     FunctionalArea,
     ExQLNode,
     ExQLAccount,
