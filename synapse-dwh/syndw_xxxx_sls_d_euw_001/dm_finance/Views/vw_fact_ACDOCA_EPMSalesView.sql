@@ -307,7 +307,7 @@ SELECT
     GLALIRD.[t_extractionDtm]
 FROM [edw].[fact_ACDOCA] GLALIRD
 INNER JOIN [edw].[dim_ZE_EXQLMAP_DT] ZED
-    ON GLALIRD.[GLAccountID] = ZED.[GLAccount]
+    ON GLALIRD.[GLAccountID] = ZED.[GLAccountID]
         AND GLALIRD.[FunctionalAreaID] = ZED.[FunctionalArea]
 /*INNER JOIN [edw].[dim_FinancialStatementHierarchy] FSH
     ON GLALIRD.[GLAccountID] = FSH.LowerBoundaryAccount                     COLLATE DATABASE_DEFAULT
