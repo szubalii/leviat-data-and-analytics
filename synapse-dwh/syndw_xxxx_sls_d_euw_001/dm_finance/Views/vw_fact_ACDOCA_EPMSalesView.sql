@@ -306,7 +306,7 @@ SELECT
     GLALIRD.[t_applicationId],
     GLALIRD.[t_extractionDtm]
 FROM [edw].[fact_ACDOCA] GLALIRD
-INNER JOIN [edw].[vw_ZE_EXQLMAP_DT] ZED
+INNER JOIN [edw].[dim_ZE_EXQLMAP_DT] ZED
     ON GLALIRD.[GLAccountID] = ZED.[GLAccount]
         AND GLALIRD.[FunctionalAreaID] = ZED.[FunctionalArea]
 /*INNER JOIN [edw].[dim_FinancialStatementHierarchy] FSH
