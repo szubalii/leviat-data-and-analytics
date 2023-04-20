@@ -5543,6 +5543,15 @@
         "dest_table_name": "dim_ProductPlant",
         "execution_order": 0,
         "schedule_recurrence": "D"
+      },
+      {
+        "entity_id": 584,
+        "entity_name": "dim_ZE_EXQLMAP_DT",
+        "sproc_name": "sp_materialize_view",
+        "source_view_name": "vw_ZE_EXQLMAP_DT",
+        "dest_table_name": "dim_ZE_EXQLMAP_DT",
+        "execution_order": 0,
+        "schedule_recurrence": "D"
       }
     ]
   },

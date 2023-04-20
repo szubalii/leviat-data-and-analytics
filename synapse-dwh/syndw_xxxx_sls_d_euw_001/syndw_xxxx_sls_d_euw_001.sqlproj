@@ -1185,6 +1185,8 @@
     <Build Include="edw\Views\vw_MaterialStatus.sql" />
     <Build Include="base_s4h_cax\Tables\I_Order.sql" />
     <Build Include="base_s4h_cax\Tables\I_OrderItem.sql" />
+    <Build Include="edw\Tables\dim_ZE_EXQLMAP_DT.sql" />
+    <Build Include="dm_finance\Views\vw_dim_ZE_EXQLMAP_DT.sql" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PostDeploy Include="Scripts\Post-Deploy\Script.PostDeployment.sql" />
