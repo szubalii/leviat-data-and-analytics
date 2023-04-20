@@ -7,8 +7,8 @@ CREATE TABLE [edw].[fact_SalesQuotationItemPrcgElmnt]
   , [CurrencyType] NVARCHAR(20) NOT NULL
   , [CurrencyID] CHAR(5) 
   , [ExchangeRate] DECIMAL(15,6) 
-  , [PricingProcedureStep] CHAR(3)
-  , [PricingProcedureCounter] CHAR(3)
+  , [PricingProcedureStep] CHAR(3) NOT NULL
+  , [PricingProcedureCounter] CHAR(3) NOT NULL
   , [ConditionApplication] NVARCHAR(2)
   , [ConditionType] NVARCHAR(4) 
   , [PricingDateTime] NVARCHAR(14) 
@@ -52,7 +52,7 @@ CREATE TABLE [edw].[fact_SalesQuotationItemPrcgElmnt]
   , [t_jobDtm]              DATETIME
   , [t_lastActionCd]        VARCHAR(1)
   , [t_jobBy]               NVARCHAR(128)  
-    CONSTRAINT [PK_fact_SalesQuotationItemPrcgElmnt] PRIMARY KEY NONCLUSTERED ([SalesQuotation], [SalesQuotationItem], [CurrencyTypeID]) NOT ENFORCED
+    CONSTRAINT [PK_fact_SalesQuotationItemPrcgElmnt] PRIMARY KEY NONCLUSTERED ([SalesQuotation], [SalesQuotationItem],[PricingProcedureStep],[PricingProcedureCounter], [CurrencyTypeID]) NOT ENFORCED
 )
 WITH
 (

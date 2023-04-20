@@ -53,7 +53,7 @@
 , [t_jobDtm]              DATETIME
 , [t_lastActionCd]        VARCHAR(1)
 , [t_jobBy]               NVARCHAR(128)
-    CONSTRAINT [PK_fact_BillingDocumentItemPrcgElmnt] PRIMARY KEY NONCLUSTERED ([BillingDocument],[BillingDocumentItem],[CurrencyTypeID]) NOT ENFORCED
+    CONSTRAINT [PK_fact_BillingDocumentItemPrcgElmnt] PRIMARY KEY NONCLUSTERED ([BillingDocument],[BillingDocumentItem],[PricingProcedureStep],[PricingProcedureCounter],[CurrencyTypeID]) NOT ENFORCED
 )
 WITH
 (
