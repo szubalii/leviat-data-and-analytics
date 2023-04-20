@@ -542,7 +542,6 @@
     <Build Include="base_s4h_cax\Tables\I_ScheduleLineCategoryText.sql" />
     <Build Include="base_s4h_cax\Tables\I_ScheduleLineConfStatusText.sql" />
     <Build Include="base_s4h_cax\Tables\I_SalesOrderItemPricingElement.sql" />
-    <Build Include="base_s4h_cax\Tables\I_SalesOrderItemPricingElement_split.sql" />
     <Build Include="base_s4h_cax\Tables\I_SalesOrderPricingElement.sql" />
     <Build Include="base_s4h_cax\Tables\I_SemTagGLAccount.sql" />
     <Build Include="base_s4h_cax\Tables\I_SupplierIndustryText.sql" />

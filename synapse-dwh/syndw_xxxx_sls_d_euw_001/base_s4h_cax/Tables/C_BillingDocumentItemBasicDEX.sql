@@ -149,9 +149,9 @@ CREATE TABLE [base_s4h_cax].[C_BillingDocumentItemBasicDEX]
     [t_jobDtm]                       DATETIME,
     [t_jobBy]                        VARCHAR(128),
     [t_extractionDtm]                DATETIME,
- --   [t_lastActionBy]                 VARCHAR(128),
- --   [t_lastActionCd]                 CHAR(1),
- --   [t_lastActionDtm]                DATETIME,
+    [t_lastActionBy]                 VARCHAR(128),
+    [t_lastActionCd]                 CHAR(1),
+    [t_lastActionDtm]                DATETIME,
     [t_filePath]                     NVARCHAR(1024),
     CONSTRAINT [PK_C_BillingDocumentItemBasicDEX] PRIMARY KEY NONCLUSTERED (
         [MANDT], [BillingDocument],

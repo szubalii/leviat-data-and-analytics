@@ -1,10 +1,10 @@
 ﻿CREATE TABLE [base_s4h_cax].[I_OutboundDelivery] (
-  [MANDT] char(3) NOT NULL
+  [MANDT] char(3) collate Latin1_General_100_BIN2 NOT NULL
 , [OutboundDelivery] nvarchar(10) NOT NULL
 , [DeliveryDocumentType] nvarchar(4)
 , [CreatedByUser] nvarchar(12)
 , [CreationDate] date
-, [CreationTime] time
+, [CreationTime] time(0)
 , [LastChangedByUser] nvarchar(12)
 , [LastChangeDate] date
 , [ShippingPoint] nvarchar(4)
@@ -12,7 +12,7 @@
 , [SalesOffice] nvarchar(4)
 , [CompleteDeliveryIsDefined] nvarchar(1)
 , [OrderCombinationIsAllowed] nvarchar(1)
-, [DeliveryPriority] char(2)
+, [DeliveryPriority] char(2) collate Latin1_General_100_BIN2
 , [DeliveryBlockReason] nvarchar(2)
 , [Supplier] nvarchar(10)
 , [DeliveryDocumentBySupplier] nvarchar(35)
@@ -23,33 +23,33 @@
 , [OrderID] nvarchar(12)
 , [HeaderGrossWeight] decimal(15,3)
 , [HeaderNetWeight] decimal(15,3)
-, [HeaderWeightUnit] nvarchar(3)
+, [HeaderWeightUnit] nvarchar(3) collate Latin1_General_100_BIN2
 , [HeaderVolume] decimal(15,3)
-, [HeaderVolumeUnit] nvarchar(3)
+, [HeaderVolumeUnit] nvarchar(3) collate Latin1_General_100_BIN2
 , [DocumentDate] date
 , [PickingDate] date
-, [PickingTime] time
-, [TotalNumberOfPackage] char(5)
+, [PickingTime] time(0)
+, [TotalNumberOfPackage] char(5) collate Latin1_General_100_BIN2
 , [LoadingPoint] nvarchar(2)
 , [LoadingDate] date
-, [LoadingTime] time
+, [LoadingTime] time(0)
 , [BillOfLading] nvarchar(35)
 , [HandlingUnitInStock] nvarchar(1)
 , [ShipToParty] nvarchar(10)
 , [ShippingType] nvarchar(2)
 , [DeliveryDate] date
-, [DeliveryTime] time
+, [DeliveryTime] time(0)
 , [ShippingCondition] nvarchar(2)
 , [ShipmentBlockReason] nvarchar(2)
 , [TransportationPlanningDate] date
-, [TransportationPlanningTime] time
+, [TransportationPlanningTime] time(0)
 , [ProposedDeliveryRoute] nvarchar(6)
 , [ActualDeliveryRoute] nvarchar(6)
 , [RouteSchedule] nvarchar(10)
 , [PlannedGoodsIssueDate] date
-, [GoodsIssueTime] time
+, [GoodsIssueTime] time(0)
 , [ActualGoodsMovementDate] date
-, [ActualGoodsMovementTime] time
+, [ActualGoodsMovementTime] time(0)
 , [IncotermsClassification] nvarchar(3)
 , [IncotermsTransferLocation] nvarchar(28)
 , [ExternalTransportSystem] nvarchar(5)
@@ -58,14 +58,14 @@
 , [MeansOfTransportType] nvarchar(4)
 , [UnloadingPointName] nvarchar(25)
 , [ProofOfDeliveryDate] date
-, [ConfirmationTime] time
+, [ConfirmationTime] time(0)
 , [FactoryCalendarByCustomer] nvarchar(2)
 , [BillingDocumentDate] date
 , [HeaderBillingBlockReason] nvarchar(2)
 , [SoldToParty] nvarchar(10)
 , [CustomerGroup] nvarchar(2)
 , [SalesDistrict] nvarchar(6)
-, [TransactionCurrency] char(5)
+, [TransactionCurrency] char(5) collate Latin1_General_100_BIN2
 , [OverallIntcoBillingStatus] nvarchar(1)
 , [OverallSDProcessStatus] nvarchar(1)
 , [TotalBlockStatus] nvarchar(1)
@@ -95,6 +95,9 @@
 , [PaytAuthsnCreditCheckSts] nvarchar(1)
 , [CentralCreditCheckStatus] nvarchar(1)
 , [ExprtInsurCreditCheckStatus] nvarchar(1)
+, [OverallChmlCmplncStatus] nvarchar(1)
+, [OverallDangerousGoodsStatus] nvarchar(1)
+, [OverallSafetyDataSheetStatus] nvarchar(1)
 , [ShippingGroupNumber] nvarchar(10)
 , [PricingDocument] nvarchar(10)
 , [SalesOrgForIntcoBilling] nvarchar(4)
@@ -107,9 +110,6 @@
 , [TotalNetAmount] decimal(15,2)
 , [ReferenceDocumentNumber] nvarchar(25)
 , [DeletionIndicator] nvarchar(1)
-, [OverallChmlCmplncStatus] nvarchar(1)
-, [OverallDangerousGoodsStatus] nvarchar(1)
-, [OverallSafetyDataSheetStatus] nvarchar(1)
 , [t_applicationId]       VARCHAR (32)
 , [t_jobId]               VARCHAR (36)
 , [t_jobDtm]              DATETIME
