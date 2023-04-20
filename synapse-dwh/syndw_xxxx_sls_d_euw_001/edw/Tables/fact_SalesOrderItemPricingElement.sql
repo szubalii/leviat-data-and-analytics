@@ -22,6 +22,6 @@ CREATE TABLE [edw].[fact_SalesOrderItemPricingElement]
 )
 WITH
 (
-    DISTRIBUTION = HASH (nk_SalesOrderItem), CLUSTERED COLUMNSTORE INDEX
+    DISTRIBUTION = HASH (SalesOrder), CLUSTERED COLUMNSTORE INDEX
 )
 GO

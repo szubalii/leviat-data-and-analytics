@@ -72,12 +72,7 @@
 		,CR.[CurrencyTypeID]
 		,CR.[CurrencyType]
 		,BDI.[CurrencyID]
-		, (CASE
-					 WHEN BDI.[ExchangeRate] IS NOT NULL
-					 THEN BDI.[ExchangeRate]
-					 ELSE 1
-			END) 
-					 as [ExchangeRate]
+		,COALESCE(BDI.[ExchangeRate], 1) AS [ExchangeRate]
 		,[PricingProcedureStep]
 		,[PricingProcedureCounter]
 		,[ConditionApplication]

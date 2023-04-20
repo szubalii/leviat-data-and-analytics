@@ -74,12 +74,7 @@ SELECT
   , CR.[CurrencyTypeID]
   , CR.[CurrencyType]
   , SDI.[CurrencyID] COLLATE Latin1_General_100_BIN2 as CurrencyID
-  , (CASE
-			 WHEN SDI.[ExchangeRate] IS NOT NULL
-			 THEN SDI.[ExchangeRate]
-			 ELSE 1
-	  END) 
-			 as [ExchangeRate]
+  , COALESCE(SDI.[ExchangeRate], 1) AS [ExchangeRate]
   , [PricingProcedureStep] 
   , [PricingProcedureCounter] 
   , [ConditionApplication] 

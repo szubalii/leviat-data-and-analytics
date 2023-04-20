@@ -3930,7 +3930,7 @@
         "extraction_type": "Table",
         "update_mode": "Full",
         "base_table_name": "I_SalesQuotationItemPrcgElmnt",
-        "pk_field_names": "MANDT, SalesQuotation, SalesQuotationItem, PricingProcedureStep,PricingProcedureCounter",
+        "pk_field_names": "MANDT, SALESQUOTATION, SALESQUOTATIONITEM, PRICINGPROCEDURESTEP, PRICINGPROCEDURECOUNTER",
         "schedule_recurrence": "A"
       }
     ]
