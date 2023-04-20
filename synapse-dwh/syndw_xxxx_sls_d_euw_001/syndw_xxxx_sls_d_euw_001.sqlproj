@@ -1183,6 +1183,8 @@
     <Build Include="base_s4h_cax\Tables\T141T.sql" />
     <Build Include="base_s4h_cax\Tables\T141.sql" />
     <Build Include="edw\Views\vw_MaterialStatus.sql" />
+    <Build Include="base_s4h_cax\Tables\I_Order.sql" />
+    <Build Include="base_s4h_cax\Tables\I_OrderItem.sql" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PostDeploy Include="Scripts\Post-Deploy\Script.PostDeployment.sql" />

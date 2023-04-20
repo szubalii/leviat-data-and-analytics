@@ -1,0 +1,647 @@
+{
+    "functionName": "Z_THEO_READ_TABLE",
+    "runInBackgroundJob": false,
+    "backgroundJobTimeout": 180,
+    "tables": 
+    [
+        {
+            "name": "IORDERITEM",
+            "description": "Generated Table for View",
+            "isView": true,
+            "fields": 
+            [
+                {
+                    "name": "MANDT",
+                    "description": "Client",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "T000",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ORDERID",
+                    "description": "Order Number",
+                    "abapType": "CharacterString",
+                    "length": 12,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "AUFK",
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "ORDERITEM",
+                    "description": "Order item number",
+                    "abapType": "NumericCharacterString",
+                    "length": 4,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ORDERCATEGORY",
+                    "description": "Order category",
+                    "abapType": "NumericCharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ORDERTYPE",
+                    "description": "Order Type",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "T003O",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ISMARKEDFORDELETION",
+                    "description": "Deletion Flag",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ORDERISRELEASED",
+                    "description": "Char Column",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ORDERITEMISNOTRELEVANTFORMRP",
+                    "description": "Indicator: Order Item is not Relevant for MRP",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MATERIAL",
+                    "description": "Material Number for Order",
+                    "abapType": "CharacterString",
+                    "length": 40,
+                    "isSelected": true,
+                    "checkTable": "MARA",
+                    "conversionExit": "MATN1"
+                },
+                {
+                    "name": "PRODUCTIONPLANT",
+                    "description": "Plant",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "T001W",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MRPPLANT",
+                    "description": "Planning Plant for an Order",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "T001W",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRODUCTIONVERSION",
+                    "description": "Production Version",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MRPAREA",
+                    "description": "MRP Area",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SALESORDER",
+                    "description": "Sales Order",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "checkTable": "VBAK",
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "SALESORDERITEM",
+                    "description": "Sales Order Item",
+                    "abapType": "NumericCharacterString",
+                    "length": 6,
+                    "isSelected": true,
+                    "checkTable": "VBAP",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "WBSELEMENTINTERNALID",
+                    "description": "Work breakdown structure element (WBS element)",
+                    "abapType": "NumericCharacterString",
+                    "length": 8,
+                    "isSelected": true,
+                    "formattedLength": 24,
+                    "checkTable": "PRPS",
+                    "conversionExit": "ABPSP"
+                },
+                {
+                    "name": "QUOTAARRANGEMENT",
+                    "description": "Number of quota arrangement",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "QUOTAARRANGEMENTITEM",
+                    "description": "Quota arrangement item",
+                    "abapType": "NumericCharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SETTLEMENTRESERVATION",
+                    "description": "Settlement reservation number",
+                    "abapType": "NumericCharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SETTLEMENTRESERVATIONITEM",
+                    "description": "Item number of the settlement reservation",
+                    "abapType": "NumericCharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "COPRODUCTRESERVATION",
+                    "description": "Number of reservation/dependent requirements",
+                    "abapType": "NumericCharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "COPRODUCTRESERVATIONITEM",
+                    "description": "Item Number of Reservation / Dependent Requirements",
+                    "abapType": "NumericCharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MATERIALPROCUREMENTCATEGORY",
+                    "description": "Procurement Type",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MATERIALPROCUREMENTTYPE",
+                    "description": "Special procurement type",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "BOMEXPLOSIONDATEID",
+                    "description": "BOM explosion number",
+                    "abapType": "CharacterString",
+                    "length": 8,
+                    "isSelected": true,
+                    "checkTable": "SNUM",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SERIALNUMBERASSGMTPROFILE",
+                    "description": "Serial Number Profile",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "T377P",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "NUMBEROFSERIALNUMBERS",
+                    "description": "Number of serial numbers",
+                    "abapType": "FourByteInteger",
+                    "isSelected": true,
+                    "formattedLength": 11,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MFGORDERITEMREPLNMTELMNTTYPE",
+                    "description": "Kanban Indicator",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRODUCTCONFIGURATION",
+                    "description": "Configuration (internal object number)",
+                    "abapType": "NumericCharacterString",
+                    "length": 18,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "OBJECTINTERNALID",
+                    "description": "Object number",
+                    "abapType": "CharacterString",
+                    "length": 22,
+                    "isSelected": true,
+                    "checkTable": "ONR00",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "QUANTITYDISTRIBUTIONKEY",
+                    "description": "MRP Distribution Key",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "T437V",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "EFFECTIVITYPARAMETERVARIANT",
+                    "description": "Parameter Variant/Standard Variant",
+                    "abapType": "CharacterString",
+                    "length": 12,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "GOODSRECEIPTISEXPECTED",
+                    "description": "Goods Receipt Indicator",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "GOODSRECEIPTISNONVALUATED",
+                    "description": "Goods Receipt, Non-Valuated",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MATERIALGOODSRECEIPTDURATION",
+                    "description": "Goods Receipt Processing Duration in Days",
+                    "abapType": "PackedNumber",
+                    "length": 3,
+                    "isSelected": true,
+                    "formattedLength": 3,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "UNDERDELIVTOLRTDLMTRATIOINPCT",
+                    "description": "Underdelivery Tolerance",
+                    "abapType": "PackedNumber",
+                    "length": 3,
+                    "decimalCount": 1,
+                    "isSelected": true,
+                    "formattedLength": 4,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "OVERDELIVTOLRTDLMTRATIOINPCT",
+                    "description": "Overdelivery Tolerance",
+                    "abapType": "PackedNumber",
+                    "length": 3,
+                    "decimalCount": 1,
+                    "isSelected": true,
+                    "formattedLength": 4,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "UNLIMITEDOVERDELIVERYISALLOWED",
+                    "description": "Indicator: Unlimited Overdelivery Allowed",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ISCOMPLETELYDELIVERED",
+                    "description": "\"Delivery Completed\" Indicator",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "STORAGELOCATION",
+                    "description": "Storage location",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "T001L",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "BATCH",
+                    "description": "Batch Number",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "checkTable": "MCHA",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "INVENTORYVALUATIONTYPE",
+                    "description": "Valuation Type",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "checkTable": "T149D",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "INVENTORYVALUATIONCATEGORY",
+                    "description": "Valuation Category",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "checkTable": "T149C",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "INVENTORYUSABILITYCODE",
+                    "description": "Stock Type",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "INVENTORYSPECIALSTOCKTYPE",
+                    "description": "Special Stock Indicator",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "checkTable": "T148",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "INVENTORYSPECIALSTOCKVALNTYPE",
+                    "description": "Valuation of Special Stock",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "GOODSRECIPIENTNAME",
+                    "description": "Goods recipient",
+                    "abapType": "CharacterString",
+                    "length": 12,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "UNLOADINGPOINTNAME",
+                    "description": "Unloading Point",
+                    "abapType": "CharacterString",
+                    "length": 25,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "STOCKSEGMENT",
+                    "description": "Stock Segment",
+                    "abapType": "CharacterString",
+                    "length": 40,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PLANNEDENDDATE",
+                    "description": "Basic finish date",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SCHEDULEDBASICENDDATE",
+                    "description": "Scheduled finish",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PLANNEDDELIVERYDATE",
+                    "description": "Delivery Date From Planned Order",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ACTUALDELIVERYDATE",
+                    "description": "Actual Delivery/Finish Date",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "TOTALCOMMITMENTDATE",
+                    "description": "Total Commitment Date",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PLANNEDORDER",
+                    "description": "Planned Order",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "PLNDORDERPLANNEDSTARTDATE",
+                    "description": "Planned Order Planned Start Date",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PLANNEDORDEROPENINGDATE",
+                    "description": "Opening Date of the Planned Order",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "BASEUNIT",
+                    "description": "Base Unit of Measure",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "checkTable": "T006",
+                    "conversionExit": "CUNIT"
+                },
+                {
+                    "name": "ORDERPLANNEDTOTALQTY",
+                    "description": "Planned Total Order Quantity",
+                    "abapType": "PackedNumber",
+                    "length": 13,
+                    "decimalCount": 3,
+                    "isSelected": true,
+                    "formattedLength": 17,
+                    "conversionExit": "",
+                    "referenceTable": "IORDERITEM",
+                    "referenceField": "BASEUNIT"
+                },
+                {
+                    "name": "ORDERPLANNEDSCRAPQTY",
+                    "description": "Planned Scrap Quantity",
+                    "abapType": "PackedNumber",
+                    "length": 13,
+                    "decimalCount": 3,
+                    "isSelected": true,
+                    "formattedLength": 17,
+                    "conversionExit": "",
+                    "referenceTable": "IORDERITEM",
+                    "referenceField": "BASEUNIT"
+                },
+                {
+                    "name": "MATERIALQTYTOBASEQTYNMRTR",
+                    "description": "Numerator for Conversion to Base Units of Measure",
+                    "abapType": "PackedNumber",
+                    "length": 5,
+                    "isSelected": true,
+                    "formattedLength": 6,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MATERIALQTYTOBASEQTYDNMNTR",
+                    "description": "Denominator for conversion to base units of measure",
+                    "abapType": "PackedNumber",
+                    "length": 5,
+                    "isSelected": true,
+                    "formattedLength": 6,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRODUCTIONUNIT",
+                    "description": "Unit of measure for in-house production",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "checkTable": "T006",
+                    "conversionExit": "CUNIT"
+                },
+                {
+                    "name": "ITEMQUANTITY",
+                    "description": "Order Item Planned Total Quantity",
+                    "abapType": "PackedNumber",
+                    "length": 13,
+                    "decimalCount": 3,
+                    "isSelected": true,
+                    "formattedLength": 17,
+                    "conversionExit": "",
+                    "referenceTable": "IORDERITEM",
+                    "referenceField": "PRODUCTIONUNIT"
+                },
+                {
+                    "name": "MFGORDERITEMPLANNEDSCRAPQTY",
+                    "description": "Order Item Planned Scrap Quantity",
+                    "abapType": "PackedNumber",
+                    "length": 13,
+                    "decimalCount": 3,
+                    "isSelected": true,
+                    "formattedLength": 17,
+                    "conversionExit": "",
+                    "referenceTable": "IORDERITEM",
+                    "referenceField": "PRODUCTIONUNIT"
+                },
+                {
+                    "name": "MFGORDERITEMGOODSRECEIPTQTY",
+                    "description": "Quantity of Goods Received for the Order Item",
+                    "abapType": "PackedNumber",
+                    "length": 13,
+                    "decimalCount": 3,
+                    "isSelected": true,
+                    "formattedLength": 17,
+                    "conversionExit": "",
+                    "referenceTable": "IORDERITEM",
+                    "referenceField": "PRODUCTIONUNIT"
+                },
+                {
+                    "name": "MFGORDERITEMACTUALDEVIATIONQTY",
+                    "description": "Expected Surplus/Deficit For Goods Receipt",
+                    "abapType": "PackedNumber",
+                    "length": 13,
+                    "decimalCount": 3,
+                    "isSelected": true,
+                    "formattedLength": 18,
+                    "conversionExit": "",
+                    "referenceTable": "IORDERITEM",
+                    "referenceField": "PRODUCTIONUNIT"
+                },
+                {
+                    "name": "MFGORDERITEMOPENYIELDQTY",
+                    "description": "Quantity Column",
+                    "abapType": "PackedNumber",
+                    "length": 17,
+                    "decimalCount": 3,
+                    "isSelected": true,
+                    "formattedLength": 21,
+                    "conversionExit": "",
+                    "referenceTable": "IORDERITEM",
+                    "referenceField": "PRODUCTIONUNIT"
+                },
+                {
+                    "name": "BUSINESSAREA",
+                    "description": "Business Area",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "TGSB",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "COSTESTIMATE",
+                    "description": "Cost Estimate Number for Cost Est. w/o Qty Structure",
+                    "abapType": "NumericCharacterString",
+                    "length": 12,
+                    "isSelected": true,
+                    "checkTable": "CKHS",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ACCOUNTASSIGNMENTCATEGORY",
+                    "description": "Account Assignment Category",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "checkTable": "T163K",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CONSUMPTIONPOSTING",
+                    "description": "Consumption posting",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": ""
+                }
+            ]
+        }
+    ]
+}
