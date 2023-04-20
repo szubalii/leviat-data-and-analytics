@@ -71,8 +71,8 @@ WeeklyMatlStkChangeQtyInBaseUnit AS (
     MIN(HDR_PostingDate) AS FirstPostingDate
   FROM
     [edw].[fact_MaterialDocumentItem]
-  -- WHERE
-  --   _hash = @hash
+  WHERE
+    MDI.t_applicationId LIKE '%s4h%' -- TODO filter on S4H only now
   GROUP BY _hash
 )
 
