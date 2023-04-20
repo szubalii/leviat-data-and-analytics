@@ -2,7 +2,7 @@ CREATE VIEW [edw].[vw_ZE_EXQLMAP_DT]
 AS
 SELECT 
     RIGHT(CONCAT('0000000000',GLACCOUNT),10)    AS GLAccountID
-    ,COALESCE(FUNCTIONALAREA,'')                AS FunctionalArea   --Data in [base_s4h_cax].[ZE_EXQLMAP_DT] is 
+    ,COALESCE(FUNCTIONALAREA,'')                AS FunctionalAreaID   --Data in [base_s4h_cax].[ZE_EXQLMAP_DT] is 
 --currently ingested from csv-file using COPY INTO in which empty strings are converted to NULL values by default.
 -- [edw].[fact_ACDOCA] is extracted using Theobald that doesn't generate NULL values in parquet files for empty strings.
     ,RIGHT(CONCAT('0000000000',GLACCOUNT),10) + COALESCE(FUNCTIONALAREA,'')  AS [nk_ExQLmap]

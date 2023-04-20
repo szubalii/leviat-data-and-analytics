@@ -1,7 +1,7 @@
 CREATE TABLE [edw].[dim_ZE_EXQLMAP_DT](
      [nk_ExQLmap]                VARCHAR(76) NOT NULL
     ,[GLAccountID]               VARCHAR(12) NOT NULL
-    ,[FunctionalArea]            VARCHAR(64)
+    ,[FunctionalAreaID]          VARCHAR(64)
     ,[ExQLNode]                  VARCHAR(64)
     ,[ExQLAccount]               VARCHAR(256)
     ,[CONTIGENCY4]               VARCHAR(64)
