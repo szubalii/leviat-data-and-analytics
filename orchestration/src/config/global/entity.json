@@ -3931,7 +3931,7 @@
         "update_mode": "Full",
         "base_table_name": "I_MRPController",
         "pk_field_names": "MANDT, PLANT, MRPCONTROLLER",
-        "schedule_recurrence": "D"
+        "schedule_recurrence": "A"
       },
       {
         "entity_id": 579,
