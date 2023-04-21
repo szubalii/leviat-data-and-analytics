@@ -14,3 +14,14 @@ SELECT
 FROM
   [edw].[fact_BillingDocumentItemPrcgElmnt] 
 WHERE ([ConditionInactiveReason] is null or [ConditionInactiveReason]='')
+GROUP BY
+          [BillingDocument]
+         ,[BillingDocumentItem]
+         ,[nk_BillingDocumentItem]  
+         ,[ConditionType]
+         ,[ConditionBaseValue]
+         ,[ConditionRateValue]
+         ,[ConditionAmount]
+         ,[CurrencyTypeID]
+         ,[CurrencyType]
+         ,[CurrencyID]

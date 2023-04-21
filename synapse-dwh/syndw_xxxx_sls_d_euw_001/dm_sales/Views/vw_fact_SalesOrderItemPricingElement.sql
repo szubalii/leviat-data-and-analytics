@@ -14,3 +14,14 @@ SELECT
 FROM
   [edw].[fact_SalesOrderItemPricingElement]
 WHERE ([ConditionInactiveReason] is null or [ConditionInactiveReason]='')
+GROUP BY 
+          [SalesOrder]
+         ,[SalesOrderItem]
+         ,[nk_SalesOrderItem]
+         ,[ConditionType]
+         ,[ConditionBaseValue]
+         ,[ConditionRateValue]
+         ,[ConditionAmount]
+         ,[CurrencyTypeID]
+         ,[CurrencyType]
+         ,[CurrencyID]

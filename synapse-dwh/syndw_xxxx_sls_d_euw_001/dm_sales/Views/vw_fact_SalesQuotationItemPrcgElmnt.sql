@@ -14,3 +14,13 @@ SELECT
 FROM
    [edw].[fact_SalesQuotationItemPrcgElmnt] 
 WHERE ([ConditionInactiveReason] is null or [ConditionInactiveReason]='')
+GROUP BY  [SalesQuotation]
+         ,[SalesQuotationItem]
+         ,nk_SalesQuotationItem
+         ,[ConditionType]
+         ,[ConditionBaseValue]
+         ,[ConditionRateValue]
+         ,[ConditionAmount]
+         ,[CurrencyTypeID]
+         ,[CurrencyType]
+         ,[CurrencyID]
