@@ -5,9 +5,9 @@ SELECT
          ,[BillingDocumentItem]
          ,[nk_BillingDocumentItem]  
          ,[ConditionType]
-         ,[ConditionBaseValue]
-         ,[ConditionRateValue]
-         ,[ConditionAmount]
+         ,sum([ConditionBaseValue]) as ConditionBaseValue
+         ,sum([ConditionRateValue]) as ConditionRateValue
+         ,sum([ConditionAmount]) as ConditionAmount
          ,[CurrencyTypeID]
          ,[CurrencyType]
          ,[CurrencyID]
@@ -19,9 +19,6 @@ GROUP BY
          ,[BillingDocumentItem]
          ,[nk_BillingDocumentItem]  
          ,[ConditionType]
-         ,[ConditionBaseValue]
-         ,[ConditionRateValue]
-         ,[ConditionAmount]
          ,[CurrencyTypeID]
          ,[CurrencyType]
          ,[CurrencyID]

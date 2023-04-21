@@ -5,9 +5,9 @@ SELECT
          ,[SalesOrderItem]
          ,[nk_SalesOrderItem]
          ,[ConditionType]
-         ,[ConditionBaseValue]
-         ,[ConditionRateValue]
-         ,[ConditionAmount]
+         ,sum([ConditionBaseValue]) as ConditionBaseValue
+         ,sum([ConditionRateValue]) as ConditionRateValue
+         ,sum([ConditionAmount]) as ConditionAmount
          ,[CurrencyTypeID]
          ,[CurrencyType]
          ,[CurrencyID]
@@ -19,9 +19,6 @@ GROUP BY
          ,[SalesOrderItem]
          ,[nk_SalesOrderItem]
          ,[ConditionType]
-         ,[ConditionBaseValue]
-         ,[ConditionRateValue]
-         ,[ConditionAmount]
          ,[CurrencyTypeID]
          ,[CurrencyType]
          ,[CurrencyID]
