@@ -13,20 +13,17 @@
 		},
 		"parameters": {
 			"container": {
-				"type": "string",
-				"defaultValue": "s4h-caa-200"
+				"type": "string"
 			},
 			"directory": {
-				"type": "string",
-				"defaultValue": "NULL/I_SalesOrderItemPricingElement_split/Theobald/Table/Full/In/2023/03/13"
+				"type": "string"
 			},
 			"file": {
-				"type": "string",
-				"defaultValue": "*"
+				"type": "string"
 			},
 			"storageAccount": {
 				"type": "string",
-				"defaultValue": "stmporsdeuw001"
+				"defaultValue": "stxxxxslsdeuw001"
 			}
 		},
 		"annotations": [],

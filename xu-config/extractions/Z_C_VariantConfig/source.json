@@ -92,15 +92,6 @@
             "length": 30,
             "isSelected": true,
             "selectionPermission": "All",
-            "selections": 
-            [
-                {
-                    "value": "ZCH_SO_ITEM_PROD_HIERARCHY"
-                },
-                {
-                    "value": "ZCH_SO_ITEM_PROD_HIERARCHY1"
-                }
-            ],
             "outputLength": 30
         },
         {

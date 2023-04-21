@@ -367,8 +367,6 @@ BEGIN
         AND [file_name] = @file_name;
         
     -- Insert the new default values for the system fields in the helper table
-    -- TODO what if concurrent delta parquet files are being ingested to the same table via ADF?
-    -- TODO will that not overwrite the technical field values in [utilities].[t_field_values]?
     INSERT INTO utilities.t_field_values
     SELECT *
     FROM (
