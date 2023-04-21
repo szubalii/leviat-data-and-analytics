@@ -1167,8 +1167,8 @@
     <Build Include="dm_finance\Views\vw_dim_ExQLReportingEntity.sql" />
     <Build Include="edw\Tables\dim_PurgAccAssignment.sql" />
     <Build Include="edw\Views\vw_PurgAccAssignment.sql" />
-    <Build Include="dm_sales\Views\vw_dim_VariantConfigurator.sql" />
-    <Build Include="edw\Tables\dim_VariantConfigurator.sql" />
+    <Build Include="dm_sales\Views\vw_fact_VariantConfigurator.sql" />
+    <Build Include="edw\Tables\fact_VariantConfigurator.sql" />
     <Build Include="edw\Views\vw_VariantConfigurator.sql" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">

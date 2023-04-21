@@ -6,6 +6,7 @@ SELECT
     SalesDocumentItem,
     ProductID,
     ProductExternalID,
+    --CharacteristicName without prefix 'ZCH_'
     RIGHT(CharacteristicName,LEN(CharacteristicName)-4) AS CharacteristicName,
     CASE
       WHEN CharValue<>CharValueDescription THEN CONCAT(CharValue,'_',CharValueDescription)

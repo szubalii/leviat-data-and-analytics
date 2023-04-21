@@ -1,4 +1,4 @@
-﻿CREATE VIEW [dm_sales].[vw_dim_VariantConfigurator]
+﻿CREATE VIEW [dm_sales].[vw_fact_VariantConfigurator]
 AS
 SELECT 
      [SalesDocument]
@@ -47,4 +47,4 @@ SELECT
     ,[HIT_STUFFE]
     ,[t_applicationId]
 FROM
-    [edw].[dim_VariantConfigurator]
+    [edw].[fact_VariantConfigurator]

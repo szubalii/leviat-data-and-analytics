@@ -1,4 +1,4 @@
-﻿CREATE TABLE [edw].[dim_VariantConfigurator]
+﻿CREATE TABLE [edw].[fact_VariantConfigurator]
 (
     [SalesDocument]                 NVARCHAR(20) NOT NULL,
     [SalesDocumentItem]             NVARCHAR(24) collate Latin1_General_100_BIN2 NOT NULL,
@@ -50,12 +50,9 @@
     [t_jobDtm]                      DATETIME,
     [t_lastActionCd]                varchar(1),
     [t_jobBy]                       VARCHAR(128),
-    CONSTRAINT [PK_dim_VariantConfigurator] PRIMARY KEY NONCLUSTERED
+    CONSTRAINT [PK_fact_VariantConfigurator] PRIMARY KEY NONCLUSTERED
         ([SalesDocument],
          [SalesDocumentItem])
-        NOT ENFORCED
-)
-    WITH
-        (
-        DISTRIBUTION = REPLICATE, HEAP )
+        NOT ENFORCED)
+WITH ( DISTRIBUTION = HASH ([SalesDocument]), CLUSTERED COLUMNSTORE INDEX );
 GO
