@@ -1,0 +1,27 @@
+{
+	"name": "ls_sftp_pdw",
+	"properties": {
+		"description": "Leviat Procurement Data Warehouse SFTP Server for Spend Upload.",
+		"annotations": [],
+		"type": "Sftp",
+		"typeProperties": {
+			"host": "10.106.0.134",
+			"port": 22,
+			"skipHostKeyValidation": true,
+			"authenticationType": "Basic",
+			"userName": "Leviat",
+			"password": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "ls_kv_xxxx_sls_x_euw_001",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "Procurement-SFTP-Password"
+			}
+		},
+		"connectVia": {
+			"referenceName": "ir-WEXLEVAPP001",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}
