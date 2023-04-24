@@ -1,8 +1,9 @@
-﻿CREATE TABLE [edw].[dim_BillingDocumentItemPrcgElmnt] (
+﻿CREATE TABLE [edw].[fact_BillingDocumentItemPrcgElmnt] (
 -- Billing Document Item Pricing Element 
 -- 1:1 as base layer table
   [BillingDocument] nvarchar(20) NOT NULL
 , [BillingDocumentItem] char(6) collate Latin1_General_100_BIN2 NOT NULL
+, [nk_BillingDocumentItem] NVARCHAR(20) NOT NULL 
 , [PricingProcedureStep] char(3) collate Latin1_General_100_BIN2 NOT NULL
 , [PricingProcedureCounter] char(3) collate Latin1_General_100_BIN2 NOT NULL
 , [ConditionApplication] nvarchar(4)
@@ -27,7 +28,11 @@
 , [WithholdingTaxCode] nvarchar(4)
 , [CndnRoundingOffDiffAmount] decimal(5,2)
 , [ConditionAmount] decimal(15,2)
-, [TransactionCurrency] char(5) collate Latin1_General_100_BIN2
+, [ExchangeRate] DECIMAL(15,6) 
+, [TransactionCurrencyID] char(5) collate Latin1_General_100_BIN2
+, [CurrencyTypeID] CHAR(2)
+, [CurrencyType] NVARCHAR(20) 
+, [CurrencyID] CHAR(5)  
 , [ConditionControl] nvarchar(2)
 , [ConditionInactiveReason] nvarchar(2)
 , [ConditionClass] nvarchar(2)
@@ -48,11 +53,10 @@
 , [t_jobDtm]              DATETIME
 , [t_lastActionCd]        VARCHAR(1)
 , [t_jobBy]               NVARCHAR(128)
-    CONSTRAINT [PK_dim_BillingDocumentItemPrcgElmnt] PRIMARY KEY NONCLUSTERED ([BillingDocument],[BillingDocumentItem],[PricingProcedureStep],[PricingProcedureCounter]) NOT ENFORCED
+    CONSTRAINT [PK_fact_BillingDocumentItemPrcgElmnt] PRIMARY KEY NONCLUSTERED ([BillingDocument],[BillingDocumentItem],[PricingProcedureStep],[PricingProcedureCounter],[CurrencyTypeID]) NOT ENFORCED
 )
 WITH
 (
-    DISTRIBUTION = REPLICATE,
-    HEAP
+    DISTRIBUTION = HASH (BillingDocument), CLUSTERED COLUMNSTORE INDEX
 )
 GO

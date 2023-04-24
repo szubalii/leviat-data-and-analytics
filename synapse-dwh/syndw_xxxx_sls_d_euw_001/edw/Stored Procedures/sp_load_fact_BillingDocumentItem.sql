@@ -31,7 +31,8 @@ BEGIN
             end;
 
         INSERT INTO [edw].[fact_BillingDocumentItem_tmp](
-            [BillingDocument]
+            [nk_fact_BillingDocumentItem]
+        ,   [BillingDocument]
         ,   [BillingDocumentItem]
         ,   [CurrencyTypeID]
         ,   [CurrencyType]
@@ -228,7 +229,8 @@ BEGIN
         ,   [t_jobBy]
         )
         SELECT
-            [BillingDocument]
+            [nk_fact_BillingDocumentItem]
+        ,   [BillingDocument]
         ,   [BillingDocumentItem]
         ,   [CurrencyTypeID]
         ,   [CurrencyType]
@@ -435,7 +437,8 @@ BEGIN
             end;
 
         INSERT INTO [edw].[fact_BillingDocumentItem_tmp](
-            [BillingDocument]
+            [nk_fact_BillingDocumentItem]
+        ,   [BillingDocument]
         ,   [BillingDocumentItem]
         ,   [CurrencyTypeID]
         ,   [CurrencyType]
@@ -637,7 +640,8 @@ BEGIN
         ,   [t_jobBy]
         )
         SELECT
-            [BillingDocument]
+            [nk_fact_BillingDocumentItem]
+        ,   [BillingDocument]
         ,   [BillingDocumentItem]
         ,   [CurrencyTypeID]
         ,   [CurrencyType]

@@ -1,0 +1,568 @@
+{
+	"functionName": "Z_THEO_READ_TABLE",
+	"runInBackGroundJob": false,
+	"tables": [
+		{
+			"name": "ISDSLSQTNITMPREL",
+			"description": "Generated Table for View ISDSLSQTNITMPREL",
+			"isView": true,
+			"fields": [
+				{
+					"name": "MANDT",
+					"description": "Client",
+					"abapType": "CharacterString",
+					"length": 3,
+					"isSelected": true,
+					"outputLength": 3,
+					"isPrimaryKey": true,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "T000"
+				},
+				{
+					"name": "SALESQUOTATION",
+					"description": "Sales Quotation",
+					"abapType": "CharacterString",
+					"length": 10,
+					"isSelected": true,
+					"outputLength": 10,
+					"isPrimaryKey": true,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "SALESQUOTATION",
+					"ConversionExit": "ALPHA"
+				},
+				{
+					"name": "SALESQUOTATIONITEM",
+					"description": "Sales Quotation Item",
+					"abapType": "NumericCharacterString",
+					"length": 6,
+					"isSelected": true,
+					"outputLength": 6,
+					"isPrimaryKey": true,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "SALESQUOTATIONITEM"
+				},
+				{
+					"name": "PRICINGPROCEDURESTEP",
+					"description": "Step Number",
+					"abapType": "NumericCharacterString",
+					"length": 3,
+					"isSelected": true,
+					"outputLength": 3,
+					"isPrimaryKey": true,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "PRICINGPROCEDURESTEP"
+				},
+				{
+					"name": "PRICINGPROCEDURECOUNTER",
+					"description": "Condition Counter",
+					"abapType": "NumericCharacterString",
+					"length": 3,
+					"isSelected": true,
+					"outputLength": 3,
+					"isPrimaryKey": true,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "PRICINGPROCEDURECOUNTER"
+				},
+				{
+					"name": "CONDITIONAPPLICATION",
+					"description": "Application",
+					"abapType": "CharacterString",
+					"length": 2,
+					"isSelected": true,
+					"outputLength": 2,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "CONDITIONAPPLICATION"
+				},
+				{
+					"name": "CONDITIONTYPE",
+					"description": "Condition type",
+					"abapType": "CharacterString",
+					"length": 4,
+					"isSelected": true,
+					"outputLength": 4,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"selections": 
+					[
+						{
+							"value": "ZNET"
+						},
+						{
+							"value": "REA1"
+						},
+						{
+							"value": "ZNRV"
+						},
+						{
+							"value": "VPRS"
+						},
+						{
+							"value": "EK02"
+						},
+						{
+							"value": "ZC10"
+						},
+						{
+							"value": "ZCF1"
+						},
+						{
+							"value": "FRA1"
+						},
+						{
+							"value": "ZCC1"
+						},
+						{
+							"value": "ZOA1"
+						},
+						{
+							"value": "ZM10"
+						},
+						{
+							"value": "ZG60"
+						},
+						{
+							"value": "ZG10"
+						},
+						{
+							"value": "ZG40"
+						},
+						{
+							"value": "ZG31"
+						},
+						{
+							"value": "ZM60"
+						},
+						{
+							"value": "ZM61"
+						},
+						{
+							"value": "ZM62"
+						},
+						{
+							"value": "ZM63"
+						},
+						{
+							"value": "ZM64"
+						},
+						{
+							"value": "ZM65"
+						},
+						{
+							"value": "ZM66"
+						},
+						{
+							"value": "ZM50"
+						},
+						{
+							"value": "ZM55"
+						}
+					],
+					"checkTable": "CONDITIONTYPE"
+				},
+				{
+					"name": "PRICINGDATETIME",
+					"description": "Timestamp for Pricing",
+					"abapType": "CharacterString",
+					"length": 14,
+					"isSelected": true,
+					"outputLength": 14,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "PRICINGDATETIME"
+				},
+				{
+					"name": "CONDITIONCALCULATIONTYPE",
+					"description": "Calculation Type for Condition",
+					"abapType": "CharacterString",
+					"length": 3,
+					"isSelected": true,
+					"outputLength": 3,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "CONDITIONCALCULATIONTYPE"
+				},
+				{
+					"name": "CONDITIONBASEVALUE",
+					"description": "Condition Basis Value",
+					"abapType": "PackedNumber",
+					"length": 24,
+					"isSelected": true,
+					"outputLength": 30,
+					"decimalCount": 9,
+					"isDeltaColumn": true,
+					"checkTable": "CONDITIONBASEVALUE"
+				},
+				{
+					"name": "CONDITIONRATEVALUE",
+					"description": "Rate (Amount or Percentage)",
+					"abapType": "PackedNumber",
+					"length": 24,
+					"isSelected": true,
+					"outputLength": 30,
+					"decimalCount": 9,
+					"isDeltaColumn": true,
+					"checkTable": "CONDITIONRATEVALUE"
+				},
+				{
+					"name": "CONDITIONCURRENCY",
+					"description": "Currency Key",
+					"abapType": "CharacterString",
+					"length": 5,
+					"isSelected": true,
+					"outputLength": 5,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "CONDITIONCURRENCY"
+				},
+				{
+					"name": "CONDITIONQUANTITY",
+					"description": "Condition Pricing Unit",
+					"abapType": "PackedNumber",
+					"length": 5,
+					"isSelected": true,
+					"outputLength": 5,
+					"decimalCount": 0,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "CONDITIONQUANTITY"
+				},
+				{
+					"name": "CONDITIONQUANTITYUNIT",
+					"description": "Condition Unit in the Document",
+					"abapType": "CharacterString",
+					"length": 3,
+					"isSelected": true,
+					"outputLength": 3,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "CONDITIONQUANTITYUNIT",
+					"ConversionExit": "CUNIT"
+				},
+				{
+					"name": "CONDITIONCATEGORY",
+					"description": "Condition Category (Examples: Tax, Freight, Price, Cost)",
+					"abapType": "CharacterString",
+					"length": 1,
+					"isSelected": true,
+					"outputLength": 1,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "CONDITIONCATEGORY"
+				},
+				{
+					"name": "CONDITIONISFORSTATISTICS",
+					"description": "Condition is used for statistics",
+					"abapType": "CharacterString",
+					"length": 1,
+					"isSelected": true,
+					"outputLength": 1,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "CONDITIONISFORSTATISTICS"
+				},
+				{
+					"name": "PRICINGSCALETYPE",
+					"description": "Scale Type",
+					"abapType": "CharacterString",
+					"length": 1,
+					"isSelected": true,
+					"outputLength": 1,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "PRICINGSCALETYPE"
+				},
+				{
+					"name": "ISRELEVANTFORACCRUAL",
+					"description": "Condition is Relevant for Accrual  (e.g. Freight)",
+					"abapType": "CharacterString",
+					"length": 1,
+					"isSelected": true,
+					"outputLength": 1,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "ISRELEVANTFORACCRUAL"
+				},
+				{
+					"name": "CNDNISRELEVANTFORINVOICELIST",
+					"description": "Condition for Invoice List",
+					"abapType": "CharacterString",
+					"length": 1,
+					"isSelected": true,
+					"outputLength": 1,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "CNDNISRELEVANTFORINVOICELIST"
+				},
+				{
+					"name": "CONDITIONORIGIN",
+					"description": "Origin of the Condition",
+					"abapType": "CharacterString",
+					"length": 1,
+					"isSelected": true,
+					"outputLength": 1,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "CONDITIONORIGIN"
+				},
+				{
+					"name": "ISGROUPCONDITION",
+					"description": "Group Condition",
+					"abapType": "CharacterString",
+					"length": 1,
+					"isSelected": true,
+					"outputLength": 1,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "ISGROUPCONDITION"
+				},
+				{
+					"name": "CONDITIONRECORD",
+					"description": "Number of the Condition Record",
+					"abapType": "CharacterString",
+					"length": 10,
+					"isSelected": true,
+					"outputLength": 10,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "CONDITIONRECORD"
+				},
+				{
+					"name": "CONDITIONSEQUENTIALNUMBER",
+					"description": "Sequential Number of the Condition",
+					"abapType": "NumericCharacterString",
+					"length": 3,
+					"isSelected": true,
+					"outputLength": 3,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "CONDITIONSEQUENTIALNUMBER"
+				},
+				{
+					"name": "TAXCODE",
+					"description": "Tax on sales/purchases code",
+					"abapType": "CharacterString",
+					"length": 2,
+					"isSelected": true,
+					"outputLength": 2,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "TAXCODE"
+				},
+				{
+					"name": "WITHHOLDINGTAXCODE",
+					"description": "Withholding Tax Code",
+					"abapType": "CharacterString",
+					"length": 2,
+					"isSelected": true,
+					"outputLength": 2,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "WITHHOLDINGTAXCODE"
+				},
+				{
+					"name": "CNDNROUNDINGOFFDIFFAMOUNT",
+					"description": "Rounding-Off Difference of the Condition",
+					"abapType": "PackedNumber",
+					"length": 5,
+					"isSelected": true,
+					"outputLength": 7,
+					"decimalCount": 2,
+					"isDeltaColumn": true,
+					"checkTable": "CNDNROUNDINGOFFDIFFAMOUNT"
+				},
+				{
+					"name": "CONDITIONAMOUNT",
+					"description": "Condition Value",
+					"abapType": "PackedNumber",
+					"length": 15,
+					"isSelected": true,
+					"outputLength": 21,
+					"decimalCount": 2,
+					"isDeltaColumn": true,
+					"checkTable": "CONDITIONAMOUNT"
+				},
+				{
+					"name": "TRANSACTIONCURRENCY",
+					"description": "SD document currency",
+					"abapType": "CharacterString",
+					"length": 5,
+					"isSelected": true,
+					"outputLength": 5,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "TRANSACTIONCURRENCY"
+				},
+				{
+					"name": "CONDITIONCONTROL",
+					"description": "Condition Control",
+					"abapType": "CharacterString",
+					"length": 1,
+					"isSelected": true,
+					"outputLength": 1,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "CONDITIONCONTROL"
+				},
+				{
+					"name": "CONDITIONINACTIVEREASON",
+					"description": "Condition is Inactive",
+					"abapType": "CharacterString",
+					"length": 1,
+					"isSelected": true,
+					"outputLength": 1,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "CONDITIONINACTIVEREASON"
+				},
+				{
+					"name": "CONDITIONCLASS",
+					"description": "Condition Class",
+					"abapType": "CharacterString",
+					"length": 1,
+					"isSelected": true,
+					"outputLength": 1,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "CONDITIONCLASS"
+				},
+				{
+					"name": "PRCGPROCEDURECOUNTERFORHEADER",
+					"description": "Condition Counter (Header)",
+					"abapType": "NumericCharacterString",
+					"length": 3,
+					"isSelected": true,
+					"outputLength": 3,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "PRCGPROCEDURECOUNTERFORHEADER"
+				},
+				{
+					"name": "FACTORFORCONDITIONBASISVALUE",
+					"description": "Factor for Condition Base Value",
+					"abapType": "FloatingPoint",
+					"length": 16,
+					"isSelected": true,
+					"outputLength": 22,
+					"isDeltaColumn": true,
+					"checkTable": "FACTORFORCONDITIONBASISVALUE"
+				},
+				{
+					"name": "STRUCTURECONDITION",
+					"description": "Structure Condition",
+					"abapType": "CharacterString",
+					"length": 1,
+					"isSelected": true,
+					"outputLength": 1,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "STRUCTURECONDITION"
+				},
+				{
+					"name": "PERIODFACTORFORCNDNBASISVALUE",
+					"description": "Factor for Condition Basis (Period)",
+					"abapType": "FloatingPoint",
+					"length": 16,
+					"isSelected": true,
+					"outputLength": 22,
+					"isDeltaColumn": true,
+					"checkTable": "PERIODFACTORFORCNDNBASISVALUE"
+				},
+				{
+					"name": "PRICINGSCALEBASIS",
+					"description": "Scale Basis Indicator",
+					"abapType": "CharacterString",
+					"length": 3,
+					"isSelected": true,
+					"outputLength": 3,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "PRICINGSCALEBASIS"
+				},
+				{
+					"name": "CONDITIONSCALEBASISVALUE",
+					"description": "Scale Basis Value",
+					"abapType": "PackedNumber",
+					"length": 24,
+					"isSelected": true,
+					"outputLength": 30,
+					"decimalCount": 9,
+					"isDeltaColumn": true,
+					"checkTable": "CONDITIONSCALEBASISVALUE"
+				},
+				{
+					"name": "CONDITIONSCALEBASISUNIT",
+					"description": "Condition Scale Unit of Measure",
+					"abapType": "CharacterString",
+					"length": 3,
+					"isSelected": true,
+					"outputLength": 3,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "CONDITIONSCALEBASISUNIT",
+					"ConversionExit": "CUNIT"
+				},
+				{
+					"name": "CONDITIONSCALEBASISCURRENCY",
+					"description": "Scale Currency",
+					"abapType": "CharacterString",
+					"length": 5,
+					"isSelected": true,
+					"outputLength": 5,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "CONDITIONSCALEBASISCURRENCY"
+				},
+				{
+					"name": "CNDNISRELEVANTFORINTCOBILLING",
+					"description": "Condition for Intercompany Billing",
+					"abapType": "CharacterString",
+					"length": 1,
+					"isSelected": true,
+					"outputLength": 1,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "CNDNISRELEVANTFORINTCOBILLING"
+				},
+				{
+					"name": "CONDITIONISMANUALLYCHANGED",
+					"description": "Condition Changed Manually",
+					"abapType": "CharacterString",
+					"length": 1,
+					"isSelected": true,
+					"outputLength": 1,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "CONDITIONISMANUALLYCHANGED"
+				},
+				{
+					"name": "CONDITIONISFORCONFIGURATION",
+					"description": "Condition Used for Variant Configuration",
+					"abapType": "CharacterString",
+					"length": 1,
+					"isSelected": true,
+					"outputLength": 1,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "CONDITIONISFORCONFIGURATION"
+				},
+				{
+					"name": "VARIANTCONDITION",
+					"description": "Variant Condition",
+					"abapType": "CharacterString",
+					"length": 26,
+					"isSelected": true,
+					"outputLength": 26,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "VARIANTCONDITION"
+				}
+			]
+		}
+	]
+}
