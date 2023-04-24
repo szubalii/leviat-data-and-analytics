@@ -1204,11 +1204,11 @@
 		"parameters": {
 			"adhoc": {
 				"type": "int",
-				"defaultValue": 1
+				"defaultValue": 0
 			},
 			"entity_filter": {
 				"type": "string",
-				"defaultValue": "entity_id IN (420) and file_name is not null"
+				"defaultValue": "'a' = 'a'"
 			},
 			"parent_run_id": {
 				"type": "string"
