@@ -72,7 +72,7 @@ WeeklyMatlStkChangeQtyInBaseUnit AS (
   FROM
     [edw].[fact_MaterialDocumentItem]
   WHERE
-    MDI.t_applicationId LIKE '%s4h%' -- TODO filter on S4H only now
+    t_applicationId LIKE '%s4h%' -- TODO filter on S4H only now
   GROUP BY _hash
 )
 
