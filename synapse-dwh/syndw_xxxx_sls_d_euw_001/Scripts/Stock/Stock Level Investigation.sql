@@ -4,8 +4,11 @@ where MaterialID = 'HALF-0754.060-00006'
 and PlantID = '5300A' and StorageLocationID = '5300AA'
 order by ReportingYear, ReportingMonth
 
---  6.647.975 on QAS on 2023-04-27
+--  6.647.975 on QAS on 2023-04-17
 select count(*) from [edw].[fact_MaterialStockLevel]
+
+--  1.387.842 on QAS on 2023-04-20
+select count(*) from [dm_scm].[vw_fact_MaterialStockLevel_Weekly]
 
 select top 100 *
 from [edw].[fact_MaterialDocumentItem]
@@ -17,7 +20,9 @@ and PlantID = '5300A' and StorageLocationID = '5300AA'
 --    301.841 on MPS on 2023-04-17
 select count(*) from [edw].[fact_MaterialDocumentItem]
 
+-- 28.175.025 on QAS on 2023-04-17
 --         82 on MPS on 2023-04-17
+--  1.453.350 on QAS on 2023-04-24
 select count(*) from [edw].[vw_MaterialStockLevel_Weekly]
 select * from [edw].[vw_MaterialStockLevel_Weekly]
 
