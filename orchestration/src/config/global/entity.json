@@ -3966,7 +3966,7 @@
         "extraction_type": "Table",
         "update_mode": "Full",
         "base_table_name": "I_Order",
-        "pk_field_names": "MANDT, OrderID",
+        "pk_field_names": "MANDT, ORDERID",
         "schedule_recurrence": "D"
       },
       {
@@ -3978,7 +3978,7 @@
         "extraction_type": "Table",
         "update_mode": "Full",
         "base_table_name": "I_OrderItem",
-        "pk_field_names": "MANDT, OrderID, OrderItem",
+        "pk_field_names": "MANDT, ORDERID, ORDERITEM",
         "schedule_recurrence": "D"
       },
       {
