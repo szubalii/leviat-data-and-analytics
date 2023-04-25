@@ -166,6 +166,7 @@
     <Folder Include="utilities\Stored Procedures" />
     <Folder Include="utilities\Functions" />
     <Folder Include="utilities\Functions\Scalar-valued Functions" />
+    <Folder Include="utilities\Tables" />
     <Folder Include="base_us_leviat_db" />
     <Folder Include="base_us_leviat_db\Tables" />
     <Folder Include="map_USA" />
@@ -333,7 +334,7 @@
     <Build Include="base_s4h_cax\Tables\I_OverallBillingStatusText.sql" />
     <Build Include="edw\Tables\dim_CustomerReturnDeliveryItem.sql" />
     <Build Include="edw\Tables\dim_OutboundDeliveryItem.sql" />
-    <Build Include="edw\Tables\dim_BillingDocumentItemPrcgElmnt.sql" />
+    <Build Include="edw\Tables\fact_BillingDocumentItemPrcgElmnt.sql" />
     <Build Include="base_s4h_cax\Tables\I_FinancialInstrTransTypeText.sql" />
     <Build Include="base_s4h_cax\Tables\I_BusTransactionTypeText.sql" />
     <Build Include="base_s4h_cax\Tables\I_ReferenceDocumentTypeText.sql" />
@@ -1129,6 +1130,7 @@
     <Build Include="dm_dq\Views\vw_dim_MAWEV.sql" />
     <Build Include="dm_dq\Views\vw_dim_ProductValuationCosting.sql" />
     <Build Include="dm_sales\Views\vw_dim_GLAccountText.sql" />
+    <Build Include="utilities\Tables\t_field_values.sql" />
     <Build Include="base_s4h_cax\Tables\I_Purchaserequisitionitem.sql" />
     <Build Include="base_s4h_cax\Views\vw_Z_C_VariantConfig_delta.sql" />
     <Build Include="base_s4h_cax\Views\vw_C_BillingDocumentItemBasicDEX_delta.sql" />
@@ -1183,6 +1185,19 @@
     <Build Include="base_s4h_cax\Tables\T141T.sql" />
     <Build Include="base_s4h_cax\Tables\T141.sql" />
     <Build Include="edw\Views\vw_MaterialStatus.sql" />
+    <Build Include="base_s4h_cax\Tables\I_Order.sql" />
+    <Build Include="base_s4h_cax\Tables\I_OrderItem.sql" />
+    <Build Include="edw\Tables\dim_ZE_EXQLMAP_DT.sql" />
+    <Build Include="dm_finance\Views\vw_dim_ZE_EXQLMAP_DT.sql" />
+    <Build Include="edw\Views\vw_SalesOrderItemPricingElement.sql" />
+    <Build Include="base_s4h_cax\Tables\I_SalesQuotationItemPrcgElmnt.sql" />
+    <Build Include="dm_sales\Views\vw_fact_SalesOrderItemPricingElement.sql" />
+    <Build Include="edw\Views\vw_SalesQuotationItemPrcgElmnt.sql" />
+    <Build Include="dm_sales\Views\vw_fact_SalesQuotationItemPrcgElmnt.sql" />
+    <Build Include="dm_sales\Views\vw_fact_BillingDocumentItemPrcgElmnt.sql" />
+    <Build Include="edw\Tables\fact_SalesQuotationItemPrcgElmnt.sql" />
+    <Build Include="edw\Tables\fact_SalesOrderItemPricingElement.sql" />
+    <Build Include="edw\Functions\Scalar-valued Functions\svf_getNaturalKey.sql" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PostDeploy Include="Scripts\Post-Deploy\Script.PostDeployment.sql" />

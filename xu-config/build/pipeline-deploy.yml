@@ -20,3 +20,4 @@ extends:
     folder: xu-config
     solution: XtractUniversal
     deploy: true
+    clean: all # TODO or should this be done before BUILD job?

@@ -1,0 +1,625 @@
+{
+	"name": "pl_AXBI_ADLS_ingestion_v2",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy AXBI to ADLS",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "Get Query Without ColumnName Spaces",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 10,
+					"retryIntervalInSeconds": 60,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"sqlReaderQuery": {
+							"value": "@activity('Get Query Without ColumnName Spaces').output.firstRow.Query",
+							"type": "Expression"
+						},
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "ParquetSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "ParquetWriteSettings"
+						}
+					},
+					"enableStaging": true,
+					"stagingSettings": {
+						"linkedServiceName": {
+							"referenceName": "stxxxxslsxeuw001",
+							"type": "LinkedServiceReference",
+							"parameters": {
+								"storageAccount": {
+									"value": "@pipeline().globalParameters.storageAccountName",
+									"type": "Expression"
+								}
+							}
+						},
+						"path": "utilities/staging"
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "ds_ls_axbi_x_TimeXtender__master",
+						"type": "DatasetReference",
+						"parameters": {
+							"database": {
+								"value": "@pipeline().parameters.axbi_database_name",
+								"type": "Expression"
+							},
+							"schema": {
+								"value": "@pipeline().parameters.axbi_schema_name",
+								"type": "Expression"
+							},
+							"table": {
+								"value": "@pipeline().parameters.axbi_table_name",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ds_adls_parquet_file",
+						"type": "DatasetReference",
+						"parameters": {
+							"container": {
+								"value": "@pipeline().parameters.adls_container_name",
+								"type": "Expression"
+							},
+							"directory": {
+								"value": "@pipeline().parameters.adls_directory_path",
+								"type": "Expression"
+							},
+							"file": {
+								"value": "@pipeline().parameters.file_name",
+								"type": "Expression"
+							},
+							"storageAccount": {
+								"value": "@pipeline().globalParameters.storageAccountName",
+								"type": "Expression"
+							}
+						}
+					}
+				]
+			},
+			{
+				"name": "Get Query Without ColumnName Spaces",
+				"type": "Lookup",
+				"dependsOn": [
+					{
+						"activity": "Update Batch File Name",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"sqlReaderQuery": {
+							"value": "DECLARE @s VARCHAR(max)\nDECLARE @w VARCHAR(max)\nDECLARE @tablename VARCHAR(500) = '@{pipeline().parameters.axbi_table_name}'\nDECLARE @schemaname VARCHAR(500) = '@{pipeline().parameters.axbi_schema_name}'\nDECLARE @databasename VARCHAR(500) = '@{pipeline().parameters.axbi_database_name}'\nDECLARE @axbi_date_field_name VARCHAR(500) = '@{pipeline().parameters.axbi_date_field_name}'\n\nSELECT @s = ISNULL(@s + ', ','') + '[' + c.name + ']' + ' as [' + replace(c.name,' ','') + '] '\nFROM @{pipeline().parameters.axbi_database_name}.sys.all_columns c \nJOIN @{pipeline().parameters.axbi_database_name}.sys.tables t\nON c.object_id = t.object_id\nWHERE t.name =  @tablename\n\nSELECT @w = CASE \n    WHEN @axbi_date_field_name != '' AND @axbi_date_field_name IS NOT NULL\n    THEN ' WHERE ['+@axbi_date_field_name+'] >= ''2019-01-01'''\n    ELSE ''\nEND\n\nSELECT 'SELECT '+@s+' FROM ['+@databasename+'].['+@schemaname+'].['+@tablename+']'+@w AS Query",
+							"type": "Expression"
+						},
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "ds_ls_axbi_x_TimeXtender__master",
+						"type": "DatasetReference",
+						"parameters": {
+							"database": {
+								"value": "@pipeline().parameters.axbi_database_name",
+								"type": "Expression"
+							},
+							"schema": {
+								"value": "@pipeline().parameters.axbi_schema_name",
+								"type": "Expression"
+							},
+							"table": {
+								"value": "@pipeline().parameters.axbi_table_name",
+								"type": "Expression"
+							}
+						}
+					},
+					"firstRowOnly": true
+				}
+			},
+			{
+				"name": "Update Batch File Name",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[update_batch_status]",
+					"storedProcedureParameters": {
+						"batch_id": {
+							"value": {
+								"value": "@pipeline().parameters.batch_id",
+								"type": "Expression"
+							},
+							"type": "Guid"
+						},
+						"file_name": {
+							"value": {
+								"value": "@pipeline().parameters.file_name",
+								"type": "Expression"
+							},
+							"type": "String"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"sqlDb": {
+							"value": "@pipeline().globalParameters.sqlDb",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "Update Batch Succeeded",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "Copy AXBI to ADLS",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[update_batch_status]",
+					"storedProcedureParameters": {
+						"batch_id": {
+							"value": {
+								"value": "@pipeline().parameters.batch_id",
+								"type": "Expression"
+							},
+							"type": "Guid"
+						},
+						"end_date_time": {
+							"value": {
+								"value": "@formatDateTime(utcnow(), 'yyyy-MM-dd HH:mm:ss')",
+								"type": "Expression"
+							},
+							"type": "DateTime"
+						},
+						"entity_id": {
+							"value": {
+								"value": "@pipeline().parameters.entity_id",
+								"type": "Expression"
+							},
+							"type": "Int64"
+						},
+						"run_id": {
+							"value": {
+								"value": "@pipeline().parameters.run_id",
+								"type": "Expression"
+							},
+							"type": "Guid"
+						},
+						"size_bytes": {
+							"value": {
+								"value": "@activity('Copy AXBI to ADLS').output.dataWritten",
+								"type": "Expression"
+							},
+							"type": "Int64"
+						},
+						"status": {
+							"value": "Succeeded",
+							"type": "String"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"sqlDb": {
+							"value": "@pipeline().globalParameters.sqlDb",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "Update Batch Failed - Copy",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "Log Exception - Copy",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[update_batch_status]",
+					"storedProcedureParameters": {
+						"batch_id": {
+							"value": {
+								"value": "@pipeline().parameters.batch_id",
+								"type": "Expression"
+							},
+							"type": "Guid"
+						},
+						"end_date_time": {
+							"value": {
+								"value": "@formatDateTime(utcnow(), 'yyyy-MM-dd HH:mm:ss')",
+								"type": "Expression"
+							},
+							"type": "DateTime"
+						},
+						"entity_id": {
+							"value": {
+								"value": "@pipeline().parameters.entity_id",
+								"type": "Expression"
+							},
+							"type": "Int64"
+						},
+						"run_id": {
+							"value": {
+								"value": "@pipeline().parameters.run_id",
+								"type": "Expression"
+							},
+							"type": "Guid"
+						},
+						"status": {
+							"value": "Failed",
+							"type": "String"
+						},
+						"size_bytes": {
+							"value": null,
+							"type": "Int64"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"sqlDb": {
+							"value": "@pipeline().globalParameters.sqlDb",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "Log Exception - Get Query",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "Get Query Without ColumnName Spaces",
+						"dependencyConditions": [
+							"Failed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[log_exception]",
+					"storedProcedureParameters": {
+						"batch_id": {
+							"value": {
+								"value": "@pipeline().parameters.batch_id",
+								"type": "Expression"
+							},
+							"type": "Guid"
+						},
+						"category": {
+							"value": "InternalError",
+							"type": "String"
+						},
+						"entity_id": {
+							"value": {
+								"value": "@pipeline().parameters.entity_id",
+								"type": "Expression"
+							},
+							"type": "Int64"
+						},
+						"error_msg": {
+							"value": {
+								"value": "@activity('Get Query Without ColumnName Spaces').Error.Message",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"run_id": {
+							"value": {
+								"value": "@pipeline().parameters.run_id",
+								"type": "Expression"
+							},
+							"type": "Guid"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"sqlDb": {
+							"value": "@pipeline().globalParameters.sqlDb",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "Update Batch Failed - Get Query",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "Log Exception - Get Query",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[update_batch_status]",
+					"storedProcedureParameters": {
+						"batch_id": {
+							"value": {
+								"value": "@pipeline().parameters.batch_id",
+								"type": "Expression"
+							},
+							"type": "Guid"
+						},
+						"end_date_time": {
+							"value": {
+								"value": "@formatDateTime(utcnow(), 'yyyy-MM-dd HH:mm:ss')",
+								"type": "Expression"
+							},
+							"type": "DateTime"
+						},
+						"entity_id": {
+							"value": {
+								"value": "@pipeline().parameters.entity_id",
+								"type": "Expression"
+							},
+							"type": "Int64"
+						},
+						"run_id": {
+							"value": {
+								"value": "@pipeline().parameters.run_id",
+								"type": "Expression"
+							},
+							"type": "Guid"
+						},
+						"status": {
+							"value": "Failed",
+							"type": "String"
+						},
+						"size_bytes": {
+							"value": null,
+							"type": "Int64"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"sqlDb": {
+							"value": "@pipeline().globalParameters.sqlDb",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "Log Exception - Copy",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "Copy AXBI to ADLS",
+						"dependencyConditions": [
+							"Failed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[log_exception]",
+					"storedProcedureParameters": {
+						"batch_id": {
+							"value": {
+								"value": "@pipeline().parameters.batch_id",
+								"type": "Expression"
+							},
+							"type": "Guid"
+						},
+						"category": {
+							"value": "InternalError",
+							"type": "String"
+						},
+						"entity_id": {
+							"value": {
+								"value": "@pipeline().parameters.entity_id",
+								"type": "Expression"
+							},
+							"type": "Int64"
+						},
+						"error_msg": {
+							"value": {
+								"value": "@activity('Copy AXBI to ADLS').Error.Message",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"run_id": {
+							"value": {
+								"value": "@pipeline().parameters.run_id",
+								"type": "Expression"
+							},
+							"type": "Guid"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"sqlDb": {
+							"value": "@pipeline().globalParameters.sqlDb",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "Fail Getting Query Without ColumnName Spaces",
+				"type": "Fail",
+				"dependsOn": [
+					{
+						"activity": "Update Batch Failed - Get Query",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"message": {
+						"value": "@concat(\n    'Failed getting query without ColumnName Spaces',\n    activity('Get Query Without ColumnName Spaces').Error.Message\n)",
+						"type": "Expression"
+					},
+					"errorCode": "500"
+				}
+			},
+			{
+				"name": "Fail Copy",
+				"type": "Fail",
+				"dependsOn": [
+					{
+						"activity": "Update Batch Failed - Copy",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"message": {
+						"value": "@concat(\n    'Failed to copy AXBI data',\n    activity('Copy AXBI to ADLS').Error.Message\n)",
+						"type": "Expression"
+					},
+					"errorCode": "500"
+				}
+			}
+		],
+		"parameters": {
+			"axbi_database_name": {
+				"type": "string"
+			},
+			"axbi_schema_name": {
+				"type": "string"
+			},
+			"axbi_table_name": {
+				"type": "string"
+			},
+			"axbi_date_field_name": {
+				"type": "string"
+			},
+			"adls_container_name": {
+				"type": "string"
+			},
+			"adls_directory_path": {
+				"type": "string"
+			},
+			"file_name": {
+				"type": "string"
+			},
+			"run_id": {
+				"type": "string"
+			},
+			"entity_id": {
+				"type": "string"
+			},
+			"batch_id": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "00 ELT/01 ADLS Ingestion/AXBI"
+		},
+		"annotations": [],
+		"lastPublishTime": "2021-10-25T15:25:00Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

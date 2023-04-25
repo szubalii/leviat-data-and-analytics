@@ -3930,8 +3930,8 @@
         "extraction_type": "Table",
         "update_mode": "Full",
         "base_table_name": "I_MRPController",
-        "pk_field_names": "MANDT, Plant, MRPController",
-        "schedule_recurrence": "D"
+        "pk_field_names": "MANDT, PLANT, MRPCONTROLLER",
+        "schedule_recurrence": "A"
       },
       {
         "entity_id": 579,
@@ -3955,6 +3955,42 @@
         "update_mode": "Full",
         "base_table_name": "T141",
         "pk_field_names": "MANDT, MMSTA",
+        "schedule_recurrence": "A"
+      },
+      {
+        "entity_id": 582,
+        "entity_name": "I_Order",
+        "data_category": "DIMENSION",
+        "client_field": "MANDT",
+        "tool_name": "Theobald",
+        "extraction_type": "Table",
+        "update_mode": "Full",
+        "base_table_name": "I_Order",
+        "pk_field_names": "MANDT, OrderID",
+        "schedule_recurrence": "D"
+      },
+      {
+        "entity_id": 583,
+        "entity_name": "I_OrderItem",
+        "data_category": "DIMENSION",
+        "client_field": "MANDT",
+        "tool_name": "Theobald",
+        "extraction_type": "Table",
+        "update_mode": "Full",
+        "base_table_name": "I_OrderItem",
+        "pk_field_names": "MANDT, OrderID, OrderItem",
+        "schedule_recurrence": "D"
+      },
+      {
+        "entity_id": 569,
+        "entity_name": "I_SalesQuotationItemPrcgElmnt",
+        "data_category": "NULL",
+        "client_field": "MANDT",
+        "tool_name": "Theobald",
+        "extraction_type": "Table",
+        "update_mode": "Full",
+        "base_table_name": "I_SalesQuotationItemPrcgElmnt",
+        "pk_field_names": "MANDT, SALESQUOTATION, SALESQUOTATIONITEM, PRICINGPROCEDURESTEP, PRICINGPROCEDURECOUNTER",
         "schedule_recurrence": "A"
       }
     ]
@@ -4634,11 +4670,11 @@
       },
       {
         "entity_id": 324,
-        "entity_name": "dim_BillingDocumentItemPrcgElmnt",
+        "entity_name": "fact_BillingDocumentItemPrcgElmnt",
         "sproc_name": "sp_materialize_view",
         "source_view_name": "vw_BillingDocumentItemPrcgElmnt",
-        "dest_table_name": "dim_BillingDocumentItemPrcgElmnt",
-        "execution_order": 0,
+        "dest_table_name": "fact_BillingDocumentItemPrcgElmnt",
+        "execution_order": 4,
         "schedule_recurrence": "A"
       },
       {
@@ -5519,6 +5555,33 @@
         "dest_table_name": "dim_ProductPlant",
         "execution_order": 0,
         "schedule_recurrence": "D"
+      },
+      {
+        "entity_id": 584,
+        "entity_name": "dim_ZE_EXQLMAP_DT",
+        "sproc_name": "sp_materialize_view",
+        "source_view_name": "vw_ZE_EXQLMAP_DT",
+        "dest_table_name": "dim_ZE_EXQLMAP_DT",
+        "execution_order": 0,
+        "schedule_recurrence": "D"
+      },
+      {
+        "entity_id": 581,
+        "entity_name": "fact_SalesQuotationItemPrcgElmnt",
+        "sproc_name": "sp_materialize_view",
+        "source_view_name": "vw_SalesQuotationItemPrcgElmnt",
+        "dest_table_name": "fact_SalesQuotationItemPrcgElmnt",
+        "execution_order": 6,
+        "schedule_recurrence": "A"
+      },
+      {
+        "entity_id": 585,
+        "entity_name": "fact_SalesOrderItemPricingElement",
+        "sproc_name": "sp_materialize_view",
+        "source_view_name": "vw_SalesOrderItemPricingElement",
+        "dest_table_name": "fact_SalesOrderItemPricingElement",
+        "execution_order": 6,
+        "schedule_recurrence": "A"
       }
     ]
   },

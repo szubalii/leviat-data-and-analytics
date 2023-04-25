@@ -1,5 +1,6 @@
 CREATE TABLE [edw].[fact_BillingDocumentItem]
 (
+    [nk_fact_BillingDocumentItem]           NVARCHAR(51)                                 NOT NULL,
     [BillingDocument]                       NVARCHAR(40)                                 NOT NULL,
     [BillingDocumentItem]                   CHAR(7) collate Latin1_General_100_BIN2      NOT NULL,
     [CurrencyTypeID]                        CHAR(2)                                      NOT NULL,

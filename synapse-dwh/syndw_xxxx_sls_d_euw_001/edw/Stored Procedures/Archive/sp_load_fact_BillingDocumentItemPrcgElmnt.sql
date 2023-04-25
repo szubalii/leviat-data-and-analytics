@@ -1,4 +1,4 @@
-﻿CREATE PROC [edw].[sp_load_dim_BillingDocumentItemPrcgElmnt] 
+﻿CREATE PROC [edw].[sp_load_fact_BillingDocumentItemPrcgElmnt] 
 	@t_jobId [varchar](36),
 	@t_jobDtm [datetime],
 	@t_lastActionCd [varchar](1),
@@ -6,9 +6,9 @@
 AS
 BEGIN
 
-    IF OBJECT_ID('syndw_xxxx_sls_d_euw_001.edw.dim_BillingDocumentItemPrcgElmnt', 'U') IS NOT NULL TRUNCATE TABLE [edw].[dim_BillingDocumentItemPrcgElmnt]
+    IF OBJECT_ID('syndw_xxxx_sls_d_euw_001.edw.fact_BillingDocumentItemPrcgElmnt', 'U') IS NOT NULL TRUNCATE TABLE [edw].[fact_BillingDocumentItemPrcgElmnt]
 
-    INSERT INTO [edw].[dim_BillingDocumentItemPrcgElmnt](
+    INSERT INTO [edw].[fact_BillingDocumentItemPrcgElmnt](
 		[BillingDocument]
 		,[BillingDocumentItem]
 		,[PricingProcedureStep]

@@ -20,6 +20,9 @@ parameters:
 - name: env
   type: string
   default: ''
+- name: clean
+  type: string
+  default: outputs
 # - name: user
 #   type: string
 # - name: testPlan
@@ -113,6 +116,8 @@ stages:
       # workspace:
       #   clean: all
       environment: ${{ variables['deployEnv'] }}
+      workspace:
+        clean: ${{ parameters.clean }}
       # DEV_MPORS
       # TEST
       # QAS

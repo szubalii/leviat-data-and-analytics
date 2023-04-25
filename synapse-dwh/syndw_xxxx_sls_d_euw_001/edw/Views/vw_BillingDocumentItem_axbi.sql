@@ -857,7 +857,8 @@ BillingDocumentItemBase_axbi_mapped AS (
 */
 
 SELECT 
-        [BillingDocument]
+        edw.svf_getNaturalKey (BillingDocument,BillingDocumentItem,CT.CurrencyTypeID) as [nk_fact_BillingDocumentItem]
+    ,   [BillingDocument]
     ,   [BillingDocumentItem]
     ,   [ReturnItemProcessingType]
     ,   CT.[CurrencyTypeID]                      as [CurrencyTypeID]
@@ -925,7 +926,8 @@ UNION ALL
 */
 
 SELECT 
-        [BillingDocument]
+        edw.svf_getNaturalKey (BillingDocument,BillingDocumentItem,CT.CurrencyTypeID) AS [nk_fact_BillingDocumentItem]
+    ,   [BillingDocument]
     ,   [BillingDocumentItem]
     ,   [ReturnItemProcessingType]
     ,   CT.[CurrencyTypeID]                      AS [CurrencyTypeID]
@@ -989,7 +991,8 @@ WHERE
 UNION ALL
 
 SELECT 
-        ExchangeRateUSD.[BillingDocument]
+        edw.svf_getNaturalKey (ExchangeRateUSD.BillingDocument,ExchangeRateUSD.BillingDocumentItem,CT.CurrencyTypeID) AS [nk_fact_BillingDocumentItem]
+    ,   ExchangeRateUSD.[BillingDocument]
     ,   ExchangeRateUSD.[BillingDocumentItem]
     ,   [ReturnItemProcessingType]
     ,   CT.[CurrencyTypeID]                      AS [CurrencyTypeID]

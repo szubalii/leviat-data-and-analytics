@@ -4,7 +4,9 @@ CREATE PROCEDURE [utilities].[sp_truncate_table]
 AS
 BEGIN
   DECLARE @truncate_script NVARCHAR(4000) = N'
-    TRUNCATE TABLE [' + @schema_name + '].[' + @table_name + ']';
+
+    IF OBJECT_ID(''[' + @schema_name + '].[' + @table_name + ']'') IS NOT NULL
+      TRUNCATE TABLE [' + @schema_name + '].[' + @table_name + ']';
 
   EXEC sp_executesql @truncate_script;
 END;

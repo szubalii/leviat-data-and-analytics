@@ -827,6 +827,7 @@ WITH BillingDocumentItemBase as (
 SELECT
        [BillingDocument]
       ,[BillingDocumentItem]
+      ,edw.svf_getNaturalKey (BillingDocument,BillingDocumentItem,CR.CurrencyTypeID) as [nk_fact_BillingDocumentItem]
       ,CR.[CurrencyTypeID]
       ,CR.[CurrencyType]
       ,[TransactionCurrencyID] as [CurrencyID]
@@ -1023,6 +1024,7 @@ UNION ALL
 SELECT 
      [BillingDocument]
     ,[BillingDocumentItem]
+    ,edw.svf_getNaturalKey (BillingDocument,BillingDocumentItem,CR.CurrencyTypeID) as [nk_fact_BillingDocumentItem]
     ,CR.[CurrencyTypeID]
     ,CR.[CurrencyType]
     ,[CurrencyID]
@@ -1262,6 +1264,7 @@ UNION ALL
 SELECT 
      [BillingDocument]
     ,[BillingDocumentItem]
+    ,edw.svf_getNaturalKey (BillingDocument,BillingDocumentItem,CR.CurrencyTypeID) as [nk_fact_BillingDocumentItem]
     ,CR.[CurrencyTypeID]
     ,CR.[CurrencyType]
     ,[CurrencyID]
@@ -1453,8 +1456,10 @@ UNION ALL
 
 
 SELECT 
+     
      ExchangeRateUSD.[BillingDocument]
     ,ExchangeRateUSD.[BillingDocumentItem]
+    ,edw.svf_getNaturalKey (ExchangeRateUSD.BillingDocument,ExchangeRateUSD.BillingDocumentItem,CR.CurrencyTypeID) as [nk_fact_BillingDocumentItem]
     ,CR.[CurrencyTypeID]
     ,CR.[CurrencyType]
     ,'USD' AS [CurrencyID]
