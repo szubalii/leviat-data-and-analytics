@@ -45,6 +45,7 @@ SELECT
     ,[HDBZ_DIAM]
     ,[HDBZ_HEIGHT]
     ,[HIT_STUFFE]
+    ,[MAT_DESCRIPTION_S]
     ,[t_applicationId]
 FROM
     [edw].[fact_VariantConfigurator]

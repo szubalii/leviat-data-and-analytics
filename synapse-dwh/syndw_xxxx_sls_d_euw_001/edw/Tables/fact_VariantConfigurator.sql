@@ -44,6 +44,7 @@
     [HDBZ_DIAM]                     NVARCHAR(30),
     [HDBZ_HEIGHT]                   NVARCHAR(30),
     [HIT_STUFFE]                    NVARCHAR(30),
+    [MAT_DESCRIPTION_S]             NVARCHAR(30),
     [t_applicationId]               VARCHAR(32),
     [t_extractionDtm]               DATETIME,
     [t_jobId]                       VARCHAR(36),

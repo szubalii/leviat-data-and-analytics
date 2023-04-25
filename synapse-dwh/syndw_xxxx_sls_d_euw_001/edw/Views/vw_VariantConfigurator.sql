@@ -14,7 +14,7 @@ SELECT
       WHEN CharValue IS NOT NULL AND CharValueDescription IS NULL THEN CharValue
       WHEN CharValue = CharValueDescription THEN CharValue
       ELSE NULL
-    END AS CharacteristicDescription,
+    END AS CharValueDescription,
     [t_applicationId]
 FROM
     [base_s4h_cax].[Z_C_VariantConfig_active]
@@ -64,6 +64,7 @@ SELECT
     ,[HDBZ_DIAM]
     ,[HDBZ_HEIGHT]
     ,[HIT_STUFFE]
+    ,[MAT_DESCRIPTION_S]
     ,[t_applicationId]
 FROM
     (SELECT
@@ -72,13 +73,13 @@ FROM
         ,[ProductID]
         ,[ProductExternalID]
         ,[CharacteristicName]
-        ,[CharacteristicDescription] 
+        ,[CharValueDescription]
         ,[t_applicationId]
     FROM
         VC) VC2
 PIVOT
 (
-MAX([CharacteristicDescription])
+MAX([CharValueDescription])
 FOR [CharacteristicName] 
 IN (
      [SO_ITEM_PROD_HIERARCHY] 
@@ -121,5 +122,6 @@ IN (
     ,[HDBZ_DIAM]
     ,[HDBZ_HEIGHT]
     ,[HIT_STUFFE]
+    ,[MAT_DESCRIPTION_S]
     )
 ) AS PVC
