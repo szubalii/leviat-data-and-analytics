@@ -28,3 +28,4 @@ map_AXBI;StockUnit.csv;",";map_AXBI;StockUnit
 ;ZE_EXQLMAP_DT.csv;";";base_s4h_cax;ZE_EXQLMAP_DT
 ;ExQLReportingEntity.csv;";";base_ff;ExQLReportingEntity
 ;InOut.csv;";";base_ff;InOut
+;OrderStatus.csv;";";base_ff;OrderStatus

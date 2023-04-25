@@ -211,4 +211,3 @@ WHERE UPPER(BDT.BillingDocumentType) NOT LIKE '%PROFORMA%'
         )
     ) NOT LIKE '%DUMMY%'
     AND BDI.CancelledInvoiceEffect = 'N'
-    AND BDI.CostAmount <> 0
