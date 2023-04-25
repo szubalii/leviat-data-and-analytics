@@ -1,5 +1,5 @@
 {
-	"name": "pl_ADLS_ingestion",
+	"name": "pl_ADLS_ingestion_v2",
 	"properties": {
 		"activities": [
 			{
@@ -30,7 +30,7 @@
 									"userProperties": [],
 									"typeProperties": {
 										"pipeline": {
-											"referenceName": "pl_AXBI_ADLS_ingestion",
+											"referenceName": "pl_AXBI_ADLS_ingestion_v2",
 											"type": "PipelineReference"
 										},
 										"waitOnCompletion": true,
@@ -119,10 +119,6 @@
 												"value": "@pipeline().parameters.batch_id",
 												"type": "Expression"
 											},
-											"adls_file_name": {
-												"value": "@pipeline().parameters.adls_file_name",
-												"type": "Expression"
-											},
 											"extraction_type": {
 												"value": "@pipeline().parameters.extraction_type",
 												"type": "Expression"
@@ -202,7 +198,7 @@
 									"userProperties": [],
 									"typeProperties": {
 										"pipeline": {
-											"referenceName": "pl_C4C_ADLS_ingestion",
+											"referenceName": "pl_C4C_ADLS_ingestion_v2",
 											"type": "PipelineReference"
 										},
 										"waitOnCompletion": true,
@@ -319,6 +315,13 @@
 						"target_layer": {
 							"value": "In",
 							"type": "String"
+						},
+						"output": {
+							"value": {
+								"value": "@concat(\n    '{\"extraction_timestamp\":\"',\n    pipeline().parameters.extraction_timestamp,\n    '\"}'\n)",
+								"type": "Expression"
+							},
+							"type": "String"
 						}
 					}
 				},
@@ -374,7 +377,13 @@
 			"batch_id": {
 				"type": "string"
 			},
+			"extraction_timestamp": {
+				"type": "string"
+			},
 			"extraction_type": {
+				"type": "string"
+			},
+			"refresh_from_date": {
 				"type": "string"
 			}
 		},

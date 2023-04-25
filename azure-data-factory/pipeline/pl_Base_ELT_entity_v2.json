@@ -1,5 +1,5 @@
 {
-	"name": "pl_Base_ELT_entity",
+	"name": "pl_Base_ELT_entity_v2",
 	"properties": {
 		"activities": [
 			{
@@ -74,7 +74,7 @@
 						]
 					},
 					{
-						"activity": "Set ADLS Container Name",
+						"activity": "If not AXBI",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -99,17 +99,38 @@
 									"type": "Expression"
 								}
 							}
+						},
+						{
+							"name": "XU Set Extraction Timestamp String",
+							"description": "Get the correct format extraction timestamp from the XU extraction timestamp",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "extractionTimestampString",
+								"value": {
+									"value": "@pipeline().parameters.skipped_activities.Extract.output.extraction_timestamp",
+									"type": "Expression"
+								}
+							}
 						}
 					],
 					"ifTrueActivities": [
 						{
 							"name": "Execute Entity ADLS Ingestion",
 							"type": "ExecutePipeline",
-							"dependsOn": [],
+							"dependsOn": [
+								{
+									"activity": "Set Extraction Timestamp String",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
 							"userProperties": [],
 							"typeProperties": {
 								"pipeline": {
-									"referenceName": "pl_ADLS_ingestion",
+									"referenceName": "pl_ADLS_ingestion_v2",
 									"type": "PipelineReference"
 								},
 								"waitOnCompletion": true,
@@ -166,94 +187,31 @@
 										"value": "@variables('batch_id_Extract')",
 										"type": "Expression"
 									},
+									"extraction_timestamp": {
+										"value": "@variables('extractionTimestampString')",
+										"type": "Expression"
+									},
 									"extraction_type": {
 										"value": "@pipeline().parameters.extraction_type",
+										"type": "Expression"
+									},
+									"refresh_from_date": {
+										"value": "@pipeline().parameters.refresh_from_date",
 										"type": "Expression"
 									}
 								}
 							}
-						}
-					]
-				}
-			},
-			{
-				"name": "If Processing Source File Required",
-				"type": "IfCondition",
-				"dependsOn": [
-					{
-						"activity": "If Test for Duplicates",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"userProperties": [],
-				"typeProperties": {
-					"expression": {
-						"value": "@contains(\n    pipeline().parameters.required_activities,\n    'ProcessADLS'\n)",
-						"type": "Expression"
-					},
-					"ifTrueActivities": [
+						},
 						{
-							"name": "Process Source File",
-							"type": "ExecutePipeline",
+							"name": "Set Extraction Timestamp String",
+							"type": "SetVariable",
 							"dependsOn": [],
 							"userProperties": [],
 							"typeProperties": {
-								"pipeline": {
-									"referenceName": "pl_ADLS_process",
-									"type": "PipelineReference"
-								},
-								"waitOnCompletion": true,
-								"parameters": {
-									"entity_name": {
-										"value": "@pipeline().parameters.entity_name",
-										"type": "Expression"
-									},
-									"entity_id": {
-										"value": "@pipeline().parameters.entity_id",
-										"type": "Expression"
-									},
-									"date": {
-										"value": "@pipeline().parameters.date",
-										"type": "Expression"
-									},
-									"run_id": {
-										"value": "@pipeline().parameters.run_id",
-										"type": "Expression"
-									},
-									"client_field": {
-										"value": "@pipeline().parameters.client_field",
-										"type": "Expression"
-									},
-									"extraction_type": {
-										"value": "@pipeline().parameters.extraction_type",
-										"type": "Expression"
-									},
-									"adls_container_name": {
-										"value": "@variables('adlsContainerName')",
-										"type": "Expression"
-									},
-									"adls_directory_path_In": {
-										"value": "@pipeline().parameters.adls_directory_path_In",
-										"type": "Expression"
-									},
-									"adls_directory_path_Out": {
-										"value": "@pipeline().parameters.adls_directory_path_Out",
-										"type": "Expression"
-									},
-									"adls_file_name": {
-										"value": "@variables('adlsFileName')",
-										"type": "Expression"
-									},
-									"layer_nk": {
-										"value": "@pipeline().parameters.layer_nk",
-										"type": "Expression"
-									},
-									"application_id": {
-										"value": "@pipeline().parameters.source_database_name",
-										"type": "Expression"
-									}
+								"variableName": "extractionTimestampString",
+								"value": {
+									"value": "@variables('extractionTimestamp')",
+									"type": "Expression"
 								}
 							}
 						}
@@ -265,7 +223,7 @@
 				"type": "IfCondition",
 				"dependsOn": [
 					{
-						"activity": "If Processing Source File Required",
+						"activity": "If Test for Duplicates",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -285,7 +243,7 @@
 							"userProperties": [],
 							"typeProperties": {
 								"pipeline": {
-									"referenceName": "pl_ADLS_SYNDW_ingestion",
+									"referenceName": "pl_ADLS_SYNDW_ingestion_v2",
 									"type": "PipelineReference"
 								},
 								"waitOnCompletion": true,
@@ -303,14 +261,14 @@
 										"type": "Expression"
 									},
 									"directory_path": {
-										"value": "@pipeline().parameters.adls_directory_path_Out",
+										"value": "@pipeline().parameters.adls_directory_path_In",
 										"type": "Expression"
 									},
 									"run_id": {
 										"value": "@pipeline().parameters.run_id",
 										"type": "Expression"
 									},
-									"source_layer": "Out",
+									"source_layer": "In",
 									"file_name": {
 										"value": "@variables('adlsFileName')",
 										"type": "Expression"
@@ -322,6 +280,22 @@
 									"target_layer": "Base",
 									"update_mode": {
 										"value": "@pipeline().parameters.update_mode",
+										"type": "Expression"
+									},
+									"application_id": {
+										"value": "@variables('application_id')",
+										"type": "Expression"
+									},
+									"extraction_type": {
+										"value": "@pipeline().parameters.extraction_type",
+										"type": "Expression"
+									},
+									"extraction_timestamp_string": {
+										"value": "@variables('extractionTimestampString')",
+										"type": "Expression"
+									},
+									"s4h_client_field": {
+										"value": "@pipeline().parameters.client_field",
 										"type": "Expression"
 									}
 								}
@@ -365,7 +339,7 @@
 							"typeProperties": {
 								"variableName": "adlsFileName",
 								"value": {
-									"value": "@concat(\n    pipeline().parameters.base_table_name\n    ,'_'\n    ,formatDateTime(utcNow(),'yyyy_MM_dd_HH_mm_ss_fff')\n    ,'.parquet'\n)",
+									"value": "@concat(\n    pipeline().parameters.base_table_name\n    ,'_'\n    ,formatDateTime(\n        variables('extractionTimestamp'),\n        'yyyy_MM_dd_HH_mm_ss_fff'\n    )\n    ,'.parquet'\n)",
 									"type": "Expression"
 								}
 							}
@@ -378,7 +352,13 @@
 				"type": "IfCondition",
 				"dependsOn": [
 					{
-						"activity": "Retrieve File Name if S4H Extraction",
+						"activity": "Set Vars if Required S4H Extraction",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "Set XU Extraction Timestamp if S4H Extract Not Required",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -420,7 +400,7 @@
 										"type": "Expression"
 									},
 									"extraction_timestamp": {
-										"value": "@variables('extraction_Timestamp')",
+										"value": "@variables('XUExtractionTimestamp')",
 										"type": "Expression"
 									},
 									"batch_id_CheckXUExtractionStatus": {
@@ -504,7 +484,7 @@
 										"type": "Expression"
 									},
 									"extraction_timestamp": {
-										"value": "@variables('extraction_Timestamp')",
+										"value": "@variables('XUExtractionTimestamp')",
 										"type": "Expression"
 									}
 								}
@@ -514,18 +494,12 @@
 				}
 			},
 			{
-				"name": "Retrieve File Name if S4H Extraction",
+				"name": "Set Vars if Required S4H Extraction",
 				"description": "In case S4H Extraction is executed, retrieve the XU extraction timestamp, for completing status and storing of log activities",
 				"type": "IfCondition",
 				"dependsOn": [
 					{
 						"activity": "If Extract Required",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					},
-					{
-						"activity": "If S4H Extract Not Required",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -539,7 +513,7 @@
 					},
 					"ifTrueActivities": [
 						{
-							"name": "Set XU Extraction Timestamp",
+							"name": "Set XU Extraction Timestamp 2",
 							"type": "SetVariable",
 							"dependsOn": [
 								{
@@ -551,7 +525,7 @@
 							],
 							"userProperties": [],
 							"typeProperties": {
-								"variableName": "extraction_Timestamp",
+								"variableName": "XUExtractionTimestamp",
 								"value": {
 									"value": "@json(variables('extraction_Output')).timestamp",
 									"type": "Expression"
@@ -632,44 +606,24 @@
 									"type": "Expression"
 								}
 							}
-						}
-					]
-				}
-			},
-			{
-				"name": "If S4H Extract Not Required",
-				"description": "In case of S4H Extraction already done, get the S4H Extraction Timestamp from the 'skipped' parameter",
-				"type": "IfCondition",
-				"dependsOn": [
-					{
-						"activity": "If FileName Param Empty",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					},
-					{
-						"activity": "Set ADLS Container Name",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"userProperties": [],
-				"typeProperties": {
-					"expression": {
-						"value": "@and(\n    equals(pipeline().parameters.layer_nk, 'S4H'),\n    contains(\n        pipeline().parameters.skipped_activities,\n        'Extract'\n    )\n)",
-						"type": "Expression"
-					},
-					"ifTrueActivities": [
+						},
 						{
-							"name": "Set S4H Extraction Timestamp",
+							"name": "Reset Extraction Timestamp String",
+							"description": "Get the correct format extraction timestamp from the XU extraction timestamp",
 							"type": "SetVariable",
-							"dependsOn": [],
+							"dependsOn": [
+								{
+									"activity": "Set XU Extraction Timestamp 2",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
 							"userProperties": [],
 							"typeProperties": {
-								"variableName": "extraction_Timestamp",
+								"variableName": "extractionTimestampString",
 								"value": {
-									"value": "@pipeline().parameters.skipped_activities.Extract.output.timestamp",
+									"value": "@json(variables('extraction_Output')).extraction_timestamp",
 									"type": "Expression"
 								}
 							}
@@ -737,7 +691,7 @@
 										"type": "Expression"
 									},
 									"extraction_timestamp": {
-										"value": "@variables('extraction_Timestamp')",
+										"value": "@variables('XUExtractionTimestamp')",
 										"type": "Expression"
 									}
 								}
@@ -780,11 +734,11 @@
 				}
 			},
 			{
-				"name": "If Base Processing Required",
+				"name": "If not AXBI",
 				"type": "IfCondition",
 				"dependsOn": [
 					{
-						"activity": "If Synapse Ingestion Required",
+						"activity": "Set ADLS Container Name",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -793,50 +747,70 @@
 				"userProperties": [],
 				"typeProperties": {
 					"expression": {
-						"value": "@contains(\n    pipeline().parameters.required_activities,\n    'ProcessBase'\n)",
+						"value": "@not(equals(\r\n    pipeline().parameters.layer_nk,\r\n    'AXBI'\r\n))",
+						"type": "Expression"
+					},
+					"ifFalseActivities": [
+						{
+							"name": "Set application_id for AXBI",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "application_id",
+								"value": {
+									"value": "@pipeline().parameters.source_database_name",
+									"type": "Expression"
+								}
+							}
+						}
+					],
+					"ifTrueActivities": [
+						{
+							"name": "Set application_id",
+							"description": "For all but AXBI, the applicaton_id value is the same as the container name",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "application_id",
+								"value": {
+									"value": "@variables('adlsContainerName')",
+									"type": "Expression"
+								}
+							}
+						}
+					]
+				}
+			},
+			{
+				"name": "Set XU Extraction Timestamp if S4H Extract Not Required",
+				"type": "IfCondition",
+				"dependsOn": [
+					{
+						"activity": "If Extract Required",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@and(\n    equals(pipeline().parameters.layer_nk, 'S4H'),\n    contains(\n        pipeline().parameters.skipped_activities,\n        'Extract'\n    )\n)",
 						"type": "Expression"
 					},
 					"ifTrueActivities": [
 						{
-							"name": "Process Synapse Base",
-							"type": "ExecutePipeline",
+							"name": "Set XU Extraction Timestamp",
+							"type": "SetVariable",
 							"dependsOn": [],
 							"userProperties": [],
 							"typeProperties": {
-								"pipeline": {
-									"referenceName": "pl_SYNDW_Base_process",
-									"type": "PipelineReference"
-								},
-								"waitOnCompletion": true,
-								"parameters": {
-									"base_schema_name": {
-										"value": "@pipeline().parameters.base_schema_name",
-										"type": "Expression"
-									},
-									"base_table_name": {
-										"value": "@pipeline().parameters.base_table_name",
-										"type": "Expression"
-									},
-									"base_sproc_name": {
-										"value": "@pipeline().parameters.base_sproc_name",
-										"type": "Expression"
-									},
-									"entity_id": {
-										"value": "@pipeline().parameters.entity_id",
-										"type": "Expression"
-									},
-									"run_id": {
-										"value": "@pipeline().parameters.run_id",
-										"type": "Expression"
-									},
-									"file_name": {
-										"value": "@variables('adlsFileName')",
-										"type": "Expression"
-									},
-									"directory_path": {
-										"value": "@pipeline().parameters.adls_directory_path_Out",
-										"type": "Expression"
-									}
+								"variableName": "XUExtractionTimestamp",
+								"value": {
+									"value": "@pipeline().parameters.skipped_activities.Extract.output.timestamp\n",
+									"type": "Expression"
 								}
 							}
 						}
@@ -847,19 +821,19 @@
 		"parameters": {
 			"entity_name": {
 				"type": "string",
-				"defaultValue": "I_SalesOrderItemPricingElement_split"
+				"defaultValue": "I_CostCenter_F"
 			},
 			"entity_id": {
 				"type": "string",
-				"defaultValue": "900"
+				"defaultValue": "1"
 			},
 			"date": {
 				"type": "string",
-				"defaultValue": "2023/03/21"
+				"defaultValue": "2022/04/21"
 			},
 			"run_id": {
 				"type": "string",
-				"defaultValue": "2811baf8-9617-4e2b-849d-f74c2cfdf9f9"
+				"defaultValue": "a1fe4011-b0aa-4e82-814e-5521537c78db"
 			},
 			"layer_nk": {
 				"type": "string",
@@ -871,10 +845,11 @@
 			},
 			"extraction_type": {
 				"type": "string",
-				"defaultValue": "Table"
+				"defaultValue": "ODP"
 			},
 			"pk_field_names": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "CONTROLLINGAREA, COSTCENTER, VALIDITYENDDATE"
 			},
 			"source_database_name": {
 				"type": "string"
@@ -883,22 +858,23 @@
 				"type": "string"
 			},
 			"source_table_name": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "I_CostCenter"
 			},
 			"source_date_field_name": {
 				"type": "string"
 			},
 			"adls_container_name": {
 				"type": "string",
-				"defaultValue": "s4h-caa-200"
+				"defaultValue": "s4h-cad"
 			},
 			"adls_directory_path_In": {
 				"type": "string",
-				"defaultValue": "NULL/I_SalesOrderItemPricingElement_split/Theobald/Table/Full/In/2023/03/21"
+				"defaultValue": "DIMENSION/I_CostCenter_F/Theobald/ODP/Full/In/2022/04/21"
 			},
 			"adls_directory_path_Out": {
 				"type": "string",
-				"defaultValue": "NULL/I_SalesOrderItemPricingElement_split/Theobald/Table/Full/Out/2023/03/21"
+				"defaultValue": "DIMENSION/I_CostCenter_F/Theobald/ODP/Full/Out/2022/04/21"
 			},
 			"base_schema_name": {
 				"type": "string",
@@ -909,7 +885,7 @@
 			},
 			"base_table_name": {
 				"type": "string",
-				"defaultValue": "I_SalesOrderItemPricingElement_split"
+				"defaultValue": "I_CostCenter"
 			},
 			"required_activities": {
 				"type": "array",
@@ -927,8 +903,10 @@
 				"type": "string"
 			},
 			"update_mode": {
-				"type": "string",
-				"defaultValue": "Full"
+				"type": "string"
+			},
+			"refresh_from_date": {
+				"type": "string"
 			}
 		},
 		"variables": {
@@ -942,7 +920,7 @@
 			"extraction_Output": {
 				"type": "String"
 			},
-			"extraction_Timestamp": {
+			"extractionTimestampString": {
 				"type": "String"
 			},
 			"batch_id_StoreXUExtractionLog": {
@@ -951,6 +929,16 @@
 			},
 			"adlsContainerName": {
 				"type": "String"
+			},
+			"application_id": {
+				"type": "String"
+			},
+			"XUExtractionTimestamp": {
+				"type": "String"
+			},
+			"extractionTimestamp": {
+				"type": "String",
+				"defaultValue": "@utcNow()"
 			}
 		},
 		"folder": {

@@ -1,9 +1,9 @@
 {
-	"name": "pl_Base_ELT_main",
+	"name": "pl_Base_ELT_main_v2",
 	"properties": {
 		"activities": [
 			{
-				"name": "Get Scheduled Entity Batch Activities",
+				"name": "Get Full Entity Batch Activities",
 				"type": "Lookup",
 				"dependsOn": [
 					{
@@ -25,7 +25,7 @@
 					"source": {
 						"type": "AzureSqlSource",
 						"sqlReaderQuery": {
-							"value": "SELECT * \nFROM [dbo].[get_scheduled_entity_batch_activities] (\n    @{pipeline().parameters.adhoc},\n    '@{pipeline().parameters.date}',\n    @{pipeline().parameters.rerun_successful_full_entities}\n)\nWHERE\n    @{pipeline().parameters.entity_filter}",
+							"value": "SELECT * \nFROM [dbo].[get_scheduled_entity_batch_activities] (\n    @{pipeline().parameters.adhoc},\n    '@{pipeline().parameters.date}',\n    @{pipeline().parameters.rerun_successful_full_entities}\n)\nWHERE\n    @{pipeline().parameters.entity_filter}\n    AND\n    (update_mode = 'Full' OR update_mode IS NULL)",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
@@ -136,7 +136,13 @@
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "Process Each Entity",
+						"activity": "Process Each Full Entity",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "Process Each Delta Entity",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -199,7 +205,7 @@
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "Get Scheduled Entity Batch Activities",
+						"activity": "Get Full Entity Batch Activities",
 						"dependencyConditions": [
 							"Failed"
 						]
@@ -230,7 +236,7 @@
 						},
 						"error_msg": {
 							"value": {
-								"value": "@activity('Get Scheduled Entity Batch Activities').Error.Message",
+								"value": "@activity('Get Full Entity Batch Activities').Error.Message",
 								"type": "Expression"
 							},
 							"type": "String"
@@ -260,7 +266,13 @@
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "Process Each Entity",
+						"activity": "Process Each Full Entity",
+						"dependencyConditions": [
+							"Failed"
+						]
+					},
+					{
+						"activity": "Process Each Delta Entity",
 						"dependencyConditions": [
 							"Failed"
 						]
@@ -319,11 +331,11 @@
 				}
 			},
 			{
-				"name": "Process Each Entity",
+				"name": "Process Each Full Entity",
 				"type": "ForEach",
 				"dependsOn": [
 					{
-						"activity": "Get Scheduled Entity Batch Activities",
+						"activity": "Get Full Entity Batch Activities",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -332,20 +344,20 @@
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@activity('Get Scheduled Entity Batch Activities').output.value",
+						"value": "@activity('Get Full Entity Batch Activities').output.value",
 						"type": "Expression"
 					},
 					"isSequential": false,
 					"batchCount": 10,
 					"activities": [
 						{
-							"name": "Execute ELT",
+							"name": "Execute Full ELT",
 							"type": "ExecutePipeline",
 							"dependsOn": [],
 							"userProperties": [],
 							"typeProperties": {
 								"pipeline": {
-									"referenceName": "pl_Base_ELT_entity",
+									"referenceName": "pl_Base_ELT_entity_v2",
 									"type": "PipelineReference"
 								},
 								"waitOnCompletion": true,
@@ -437,6 +449,10 @@
 									"update_mode": {
 										"value": "@item().update_mode",
 										"type": "Expression"
+									},
+									"refresh_from_date": {
+										"value": "@item().refresh_from_date",
+										"type": "Expression"
 									}
 								}
 							}
@@ -446,7 +462,7 @@
 							"type": "SqlServerStoredProcedure",
 							"dependsOn": [
 								{
-									"activity": "Execute ELT",
+									"activity": "Execute Full ELT",
 									"dependencyConditions": [
 										"Failed"
 									]
@@ -480,7 +496,7 @@
 									},
 									"error_msg": {
 										"value": {
-											"value": "@activity('Execute ELT').Error.Message",
+											"value": "@activity('Execute Full ELT').Error.Message",
 											"type": "Expression"
 										},
 										"type": "String"
@@ -523,6 +539,74 @@
 									"type": "Expression"
 								},
 								"errorCode": "500"
+							}
+						},
+						{
+							"name": "If Base Processing Required",
+							"type": "IfCondition",
+							"dependsOn": [
+								{
+									"activity": "Execute Full ELT",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"userProperties": [],
+							"typeProperties": {
+								"expression": {
+									"value": "@contains(\n    if(\n    empty(item().required_activities),\n    json('[]'),\n    json(item().required_activities)\n),\n    'ProcessBase'\n)",
+									"type": "Expression"
+								},
+								"ifTrueActivities": [
+									{
+										"name": "Process Synapse Base",
+										"type": "ExecutePipeline",
+										"dependsOn": [],
+										"userProperties": [],
+										"typeProperties": {
+											"pipeline": {
+												"referenceName": "pl_SYNDW_Base_process",
+												"type": "PipelineReference"
+											},
+											"waitOnCompletion": true,
+											"parameters": {
+												"base_schema_name": {
+													"value": "@item().base_schema_name",
+													"type": "Expression"
+												},
+												"base_table_name": {
+													"value": "@item().base_table_name",
+													"type": "Expression"
+												},
+												"base_sproc_name": {
+													"value": "@item().base_sproc_name",
+													"type": "Expression"
+												},
+												"entity_id": {
+													"value": "@item().entity_id",
+													"type": "Expression"
+												},
+												"run_id": {
+													"value": "@pipeline().RunId",
+													"type": "Expression"
+												},
+												"source_date_field_name": {
+													"value": "@item().source_date_field_name",
+													"type": "Expression"
+												},
+												"refresh_from_date": {
+													"value": "@item().refresh_from_date",
+													"type": "Expression"
+												},
+												"deltaEntityFileNameBatchActivities": {
+													"value": "@array(item().file_name)",
+													"type": "Expression"
+												}
+											}
+										}
+									}
+								]
 							}
 						}
 					]
@@ -592,6 +676,117 @@
 				}
 			},
 			{
+				"name": "Get List of Delta Tables",
+				"description": "Truncate delta tables at the beginning of the run. \nFull tables are only truncated when data is actually loaded from parquet to Synapse Base. As multiple parquet files can be loaded to the same table, one cannot truncate before each load for delta tables. ",
+				"type": "Lookup",
+				"dependsOn": [
+					{
+						"activity": "Get Delta Entity Batch Activities",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderQuery": {
+							"value": "SELECT base_schema_name, base_table_name \nFROM dbo.get_scheduled_entities(\n    @{pipeline().parameters.adhoc},\n    '@{pipeline().parameters.date}'\n)\nWHERE\n    update_mode = 'Delta'\n    AND\n    layer_nk <> 'EDW'\n    AND\n    @{pipeline().parameters.entity_filter}",
+							"type": "Expression"
+						},
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "ds_orch_db",
+						"type": "DatasetReference",
+						"parameters": {
+							"sqlDb": {
+								"value": "@pipeline().globalParameters.sqlDb",
+								"type": "Expression"
+							}
+						}
+					},
+					"firstRowOnly": false
+				}
+			},
+			{
+				"name": "Truncate Each Delta Table",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "Get List of Delta Tables",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('Get List of Delta Tables').output.value",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "Truncate Delta Table",
+							"description": "Truncate delta tables at the beginning of the run. \nFull tables are only truncated when data is actually loaded from parquet to Synapse Base. As multiple parquet files can be loaded to the same table, one cannot truncate before each load for delta tables. ",
+							"type": "SqlServerStoredProcedure",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"storedProcedureName": "[utilities].[sp_truncate_table]",
+								"storedProcedureParameters": {
+									"schema_name": {
+										"value": {
+											"value": "@item().base_schema_name",
+											"type": "Expression"
+										},
+										"type": "String"
+									},
+									"table_name": {
+										"value": {
+											"value": "@item().base_table_name",
+											"type": "Expression"
+										},
+										"type": "String"
+									}
+								}
+							},
+							"linkedServiceName": {
+								"referenceName": "ls_ws_xxxx_sls_x_euw_001__syndw_xxxx_sls_x_euw_001",
+								"type": "LinkedServiceReference",
+								"parameters": {
+									"sqlPool": {
+										"value": "@pipeline().globalParameters.synapseDatabaseName",
+										"type": "Expression"
+									},
+									"synapseServer": {
+										"value": "@pipeline().globalParameters.synapseServerName",
+										"type": "Expression"
+									}
+								}
+							}
+						}
+					]
+				}
+			},
+			{
 				"name": "Fail Getting Batch Activities",
 				"type": "Fail",
 				"dependsOn": [
@@ -605,7 +800,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"message": {
-						"value": "@concat(\n    'Getting scheduled batch activities failed: ',\n    activity('Get Scheduled Entity Batch Activities').Error.Message\n)",
+						"value": "@concat(\n    'Getting full batch activities failed: ',\n    activity('Get Full Entity Batch Activities').Error.Message\n)",
 						"type": "Expression"
 					},
 					"errorCode": "500"
@@ -671,6 +866,339 @@
 						"resource": "https://management.core.windows.net/"
 					}
 				}
+			},
+			{
+				"name": "Get Delta Entity Batch Activities",
+				"type": "Lookup",
+				"dependsOn": [
+					{
+						"activity": "Start Pipeline Log",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderQuery": {
+							"value": "SELECT\n    entity_id,\n    entity_name,\n    base_schema_name,\n    base_table_name,\n    base_sproc_name,\n    axbi_date_field_name,\n    refresh_from_date\nFROM [dbo].[get_scheduled_entity_batch_activities] (\n    @{pipeline().parameters.adhoc},\n    '@{pipeline().parameters.date}',\n    @{pipeline().parameters.rerun_successful_full_entities}\n)\nWHERE\n    @{pipeline().parameters.entity_filter}\n    AND\n    update_mode = 'Delta'\nGROUP BY\n    entity_id,\n    entity_name,\n    base_schema_name,\n    base_table_name,\n    base_sproc_name,\n    axbi_date_field_name,\n    refresh_from_date",
+							"type": "Expression"
+						},
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "ds_orch_db",
+						"type": "DatasetReference",
+						"parameters": {
+							"sqlDb": {
+								"value": "@pipeline().globalParameters.sqlDb",
+								"type": "Expression"
+							}
+						}
+					},
+					"firstRowOnly": false
+				}
+			},
+			{
+				"name": "Process Each Delta Entity",
+				"description": "First loop for each Delta entity, then for each delta entity, loop over each delta file. After ingestion of each entity specific into Synapse Base, process the *_delta table.",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "Truncate Each Delta Table",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('Get Delta Entity Batch Activities').output.value",
+						"type": "Expression"
+					},
+					"isSequential": false,
+					"batchCount": 10,
+					"activities": [
+						{
+							"name": "Execute Delta ELT",
+							"type": "ExecutePipeline",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"pipeline": {
+									"referenceName": "pl_Base_ELT_delta_entity",
+									"type": "PipelineReference"
+								},
+								"waitOnCompletion": true,
+								"parameters": {
+									"adhoc": {
+										"value": "@pipeline().parameters.adhoc",
+										"type": "Expression"
+									},
+									"entity_filter": {
+										"value": "@pipeline().parameters.entity_filter",
+										"type": "Expression"
+									},
+									"parent_run_id": {
+										"value": "@pipeline().RunId",
+										"type": "Expression"
+									},
+									"date": {
+										"value": "@pipeline().parameters.date",
+										"type": "Expression"
+									},
+									"rerun_successful_full_entities": {
+										"value": "@pipeline().parameters.rerun_successful_full_entities",
+										"type": "Expression"
+									},
+									"entity_id": {
+										"value": "@item().entity_id",
+										"type": "Expression"
+									}
+								}
+							}
+						},
+						{
+							"name": "Log Exception ELT_copy1",
+							"type": "SqlServerStoredProcedure",
+							"dependsOn": [
+								{
+									"activity": "Execute Delta ELT",
+									"dependencyConditions": [
+										"Failed"
+									]
+								}
+							],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"storedProcedureName": "[dbo].[log_exception]",
+								"storedProcedureParameters": {
+									"batch_id": {
+										"value": null,
+										"type": "Guid"
+									},
+									"category": {
+										"value": "InternalError",
+										"type": "String"
+									},
+									"entity_id": {
+										"value": {
+											"value": "@item().entity_id",
+											"type": "Expression"
+										},
+										"type": "Int64"
+									},
+									"error_msg": {
+										"value": {
+											"value": "@activity('Execute Delta ELT').Error.Message",
+											"type": "Expression"
+										},
+										"type": "String"
+									},
+									"run_id": {
+										"value": {
+											"value": "@pipeline().RunId",
+											"type": "Expression"
+										},
+										"type": "Guid"
+									}
+								}
+							},
+							"linkedServiceName": {
+								"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
+								"type": "LinkedServiceReference",
+								"parameters": {
+									"sqlDb": {
+										"value": "@pipeline().globalParameters.sqlDb",
+										"type": "Expression"
+									}
+								}
+							}
+						},
+						{
+							"name": "Fail Entity Pipeline_copy1",
+							"type": "Fail",
+							"dependsOn": [
+								{
+									"activity": "Log Exception ELT_copy1",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"userProperties": [],
+							"typeProperties": {
+								"message": {
+									"value": "Pipeline 'Execute ELT' failed for entity @{item().entity_name}",
+									"type": "Expression"
+								},
+								"errorCode": "500"
+							}
+						}
+					]
+				}
+			},
+			{
+				"name": "Log Exception Get Entity Batch Activities_copy1",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "Get Delta Entity Batch Activities",
+						"dependencyConditions": [
+							"Failed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[log_exception]",
+					"storedProcedureParameters": {
+						"batch_id": {
+							"value": null,
+							"type": "Guid"
+						},
+						"category": {
+							"value": "InternalError",
+							"type": "String"
+						},
+						"entity_id": {
+							"value": null,
+							"type": "Int64"
+						},
+						"error_msg": {
+							"value": {
+								"value": "@activity('Get Delta Entity Batch Activities').Error.Message",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"run_id": {
+							"value": {
+								"value": "@pipeline().RunId",
+								"type": "Expression"
+							},
+							"type": "Guid"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"sqlDb": {
+							"value": "@pipeline().globalParameters.sqlDb",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "Log Pipeline Failure_copy1",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "Log Exception Get Entity Batch Activities_copy1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[change_status_pipeline_log]",
+					"storedProcedureParameters": {
+						"end_date_time": {
+							"value": {
+								"value": "@formatDateTime(utcnow(), 'yyyy-MM-dd HH:mm:ss')",
+								"type": "Expression"
+							},
+							"type": "DateTime"
+						},
+						"message": {
+							"value": {
+								"value": "Execution Failed",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"run_id": {
+							"value": {
+								"value": "@pipeline().RunId",
+								"type": "Expression"
+							},
+							"type": "Guid"
+						},
+						"status": {
+							"value": {
+								"value": "Failed",
+								"type": "Expression"
+							},
+							"type": "String"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"sqlDb": {
+							"value": "@pipeline().globalParameters.sqlDb",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "Fail Getting Batch Activities_copy1",
+				"type": "Fail",
+				"dependsOn": [
+					{
+						"activity": "Log Pipeline Failure_copy1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"message": {
+						"value": "@concat(\n    'Getting delta batch activities failed: ',\n    activity('Get Delta Entity Batch Activities').Error.Message\n)",
+						"type": "Expression"
+					},
+					"errorCode": "500"
+				}
 			}
 		],
 		"parameters": {
@@ -687,7 +1215,7 @@
 			},
 			"date": {
 				"type": "string",
-				"defaultValue": "2023/03/21"
+				"defaultValue": "2023/03/30"
 			},
 			"rerun_successful_full_entities": {
 				"type": "int",
@@ -697,6 +1225,9 @@
 		"variables": {
 			"parameters": {
 				"type": "String"
+			},
+			"delta_entities": {
+				"type": "Array"
 			}
 		},
 		"folder": {

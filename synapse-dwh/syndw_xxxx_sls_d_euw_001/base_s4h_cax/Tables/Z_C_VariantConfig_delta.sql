@@ -8,7 +8,7 @@
 , [ProductExternalID]           NVARCHAR(40)
 , [Configuration]               NVARCHAR(18)
 , [Instance]                    NVARCHAR(22)
-, [LastChangeDate]              DATETIME2
+, [LastChangeDate]              DATE
 , [CharacteristicName]          NVARCHAR(30) NOT NULL
 , [CharacteristicDescription]   NVARCHAR(30)
 , [DecimalValueFrom]            DECIMAL(31, 14)

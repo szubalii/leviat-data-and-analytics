@@ -1,20 +1,13 @@
 {
-	"name": "pl_ADLS_copy",
+	"name": "pl_C4C_ADLS_ingestion_v2",
 	"properties": {
 		"activities": [
 			{
-				"name": "Copy from ADLS In to Out",
-				"description": "",
+				"name": "Copy C4C to ADLS",
 				"type": "Copy",
 				"dependsOn": [
 					{
-						"activity": "Create Batch Log",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					},
-					{
-						"activity": "If Additional Columns Param Empty",
+						"activity": "Update Batch File Name",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -30,24 +23,8 @@
 				"userProperties": [],
 				"typeProperties": {
 					"source": {
-						"type": "ParquetSource",
-						"additionalColumns": {
-							"type": "Expression",
-							"value": "@json(variables('additional_columns'))"
-						},
-						"storeSettings": {
-							"type": "AzureBlobFSReadSettings",
-							"recursive": true,
-							"wildcardFolderPath": {
-								"value": "@pipeline().parameters.source_adls_directory_path",
-								"type": "Expression"
-							},
-							"wildcardFileName": {
-								"value": "@pipeline().parameters.file_name",
-								"type": "Expression"
-							},
-							"enablePartitionDiscovery": false
-						}
+						"type": "SapCloudForCustomerSource",
+						"httpRequestTimeout": "00:05:00"
 					},
 					"sink": {
 						"type": "ParquetSink",
@@ -62,23 +39,11 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "ds_adls_parquet_file",
+						"referenceName": "ds_sap_c4c",
 						"type": "DatasetReference",
 						"parameters": {
-							"container": {
-								"value": "@pipeline().parameters.adls_container_name",
-								"type": "Expression"
-							},
-							"directory": {
-								"value": "@pipeline().parameters.source_adls_directory_path",
-								"type": "Expression"
-							},
-							"file": {
-								"value": "@pipeline().parameters.file_name",
-								"type": "Expression"
-							},
-							"storageAccount": {
-								"value": "@pipeline().globalParameters.storageAccountName",
+							"path": {
+								"value": "@pipeline().parameters.entity_name",
 								"type": "Expression"
 							}
 						}
@@ -94,7 +59,7 @@
 								"type": "Expression"
 							},
 							"directory": {
-								"value": "@pipeline().parameters.target_adls_directory_path",
+								"value": "@concat(\n    pipeline().parameters.entity_name,\n    '/In/',\n    formatDateTime(utcNow(),'yyyy/MM/dd')\n)",
 								"type": "Expression"
 							},
 							"file": {
@@ -110,11 +75,53 @@
 				]
 			},
 			{
-				"name": "Update Batch Status Successful",
+				"name": "Update Batch File Name",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[update_batch_status]",
+					"storedProcedureParameters": {
+						"batch_id": {
+							"value": {
+								"value": "@pipeline().parameters.batch_id",
+								"type": "Expression"
+							},
+							"type": "Guid"
+						},
+						"file_name": {
+							"value": {
+								"value": "@pipeline().parameters.file_name",
+								"type": "Expression"
+							},
+							"type": "String"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"sqlDb": {
+							"value": "@pipeline().globalParameters.sqlDb",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "Update Batch Succeeded",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "Copy from ADLS In to Out",
+						"activity": "Copy C4C to ADLS",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -133,7 +140,7 @@
 					"storedProcedureParameters": {
 						"batch_id": {
 							"value": {
-								"value": "@variables('batch_id')",
+								"value": "@pipeline().parameters.batch_id",
 								"type": "Expression"
 							},
 							"type": "Guid"
@@ -161,7 +168,7 @@
 						},
 						"size_bytes": {
 							"value": {
-								"value": "@activity('Copy from ADLS In to Out').output.dataWritten",
+								"value": "@activity('Copy C4C to ADLS').output.dataWritten",
 								"type": "Expression"
 							},
 							"type": "Int64"
@@ -184,7 +191,7 @@
 				}
 			},
 			{
-				"name": "Update Batch Status Failed",
+				"name": "Update Batch Failed",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
@@ -207,7 +214,7 @@
 					"storedProcedureParameters": {
 						"batch_id": {
 							"value": {
-								"value": "@variables('batch_id')",
+								"value": "@pipeline().parameters.batch_id",
 								"type": "Expression"
 							},
 							"type": "Guid"
@@ -259,7 +266,7 @@
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "Copy from ADLS In to Out",
+						"activity": "Copy C4C to ADLS",
 						"dependencyConditions": [
 							"Failed"
 						]
@@ -278,7 +285,7 @@
 					"storedProcedureParameters": {
 						"batch_id": {
 							"value": {
-								"value": "@variables('batch_id')",
+								"value": "@pipeline().parameters.batch_id",
 								"type": "Expression"
 							},
 							"type": "Guid"
@@ -296,7 +303,7 @@
 						},
 						"error_msg": {
 							"value": {
-								"value": "@activity('Copy from ADLS In to Out').Error.Message",
+								"value": "@activity('Copy C4C to ADLS').Error.Message",
 								"type": "Expression"
 							},
 							"type": "String"
@@ -322,142 +329,11 @@
 				}
 			},
 			{
-				"name": "Create Batch Log",
-				"type": "SqlServerStoredProcedure",
-				"dependsOn": [],
-				"policy": {
-					"timeout": "7.00:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"storedProcedureName": "[dbo].[set_batch]",
-					"storedProcedureParameters": {
-						"activity": {
-							"value": "ProcessADLS",
-							"type": "String"
-						},
-						"batch_id": {
-							"value": {
-								"value": "@variables('batch_id')",
-								"type": "Expression"
-							},
-							"type": "Guid"
-						},
-						"entity_id": {
-							"value": {
-								"value": "@pipeline().parameters.entity_id",
-								"type": "Expression"
-							},
-							"type": "Int64"
-						},
-						"run_id": {
-							"value": {
-								"value": "@pipeline().parameters.run_id",
-								"type": "Expression"
-							},
-							"type": "Guid"
-						},
-						"size_bytes": {
-							"value": null,
-							"type": "Int64"
-						},
-						"source_layer": {
-							"value": "In",
-							"type": "String"
-						},
-						"status": {
-							"value": "InProgress",
-							"type": "String"
-						},
-						"target_layer": {
-							"value": "Out",
-							"type": "String"
-						},
-						"start_date_time": {
-							"value": {
-								"value": "@formatDateTime(utcnow(), 'yyyy-MM-dd HH:mm:ss')",
-								"type": "Expression"
-							}
-						},
-						"directory_path": {
-							"value": {
-								"value": "@pipeline().parameters.target_adls_directory_path",
-								"type": "Expression"
-							},
-							"type": "String"
-						},
-						"file_name": {
-							"value": {
-								"value": "@pipeline().parameters.file_name",
-								"type": "Expression"
-							},
-							"type": "String"
-						}
-					}
-				},
-				"linkedServiceName": {
-					"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
-					"type": "LinkedServiceReference",
-					"parameters": {
-						"sqlDb": {
-							"value": "@pipeline().globalParameters.sqlDb",
-							"type": "Expression"
-						}
-					}
-				}
-			},
-			{
-				"name": "If Additional Columns Param Empty",
-				"type": "IfCondition",
-				"dependsOn": [],
-				"userProperties": [],
-				"typeProperties": {
-					"expression": {
-						"value": "@empty(pipeline().parameters.additional_columns)",
-						"type": "Expression"
-					},
-					"ifFalseActivities": [
-						{
-							"name": "Set Additional Columns from Param",
-							"type": "SetVariable",
-							"dependsOn": [],
-							"userProperties": [],
-							"typeProperties": {
-								"variableName": "additional_columns",
-								"value": {
-									"value": "@pipeline().parameters.additional_columns",
-									"type": "Expression"
-								}
-							}
-						}
-					],
-					"ifTrueActivities": [
-						{
-							"name": "Set Additional Columns",
-							"type": "SetVariable",
-							"dependsOn": [],
-							"userProperties": [],
-							"typeProperties": {
-								"variableName": "additional_columns",
-								"value": {
-									"value": "@string('[]')",
-									"type": "Expression"
-								}
-							}
-						}
-					]
-				}
-			},
-			{
-				"name": "Fail Copy",
+				"name": "Fail",
 				"type": "Fail",
 				"dependsOn": [
 					{
-						"activity": "Update Batch Status Failed",
+						"activity": "Update Batch Failed",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -466,7 +342,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"message": {
-						"value": "@concat(\n    'Failed to copy ADLS In to ADLS Out: ',\n    activity('Copy from ADLS In to Out').Error.Message\n)",
+						"value": "@concat(\n    'Failed to copy C4C data',\n    activity('Copy C4C to ADLS').Error.Message\n)",
 						"type": "Expression"
 					},
 					"errorCode": "500"
@@ -474,48 +350,31 @@
 			}
 		],
 		"parameters": {
-			"source_adls_directory_path": {
-				"type": "string",
-				"defaultValue": "CUSTINVOICETRANS/In/2022/05/24"
-			},
-			"file_name": {
-				"type": "string",
-				"defaultValue": "CUSTINVOICETRANS_2022_05_24_14_29_29_479.parquet"
-			},
 			"entity_id": {
 				"type": "string",
-				"defaultValue": "16"
+				"defaultValue": "454"
 			},
-			"run_id": {
+			"entity_name": {
 				"type": "string",
-				"defaultValue": "2286ccd5-7c50-4e4f-8dd4-d2b2264feb0f"
+				"defaultValue": "OpportunityCollection"
+			},
+			"batch_id": {
+				"type": "string"
+			},
+			"file_name": {
+				"type": "string"
 			},
 			"adls_container_name": {
 				"type": "string",
-				"defaultValue": "tx-ca-0-hlp-uat"
+				"defaultValue": "c4c"
 			},
-			"target_adls_directory_path": {
-				"type": "string",
-				"defaultValue": "CUSTINVOICETRANS/Out/2022/05/24"
-			},
-			"additional_columns": {
+			"run_id": {
 				"type": "string"
 			}
 		},
-		"variables": {
-			"batch_id": {
-				"type": "String",
-				"defaultValue": "@guid()"
-			},
-			"additional_columns": {
-				"type": "String"
-			}
-		},
 		"folder": {
-			"name": "00 ELT/03 ADLS Transformation"
+			"name": "00 ELT/01 ADLS Ingestion/C4C"
 		},
-		"annotations": [],
-		"lastPublishTime": "2021-10-25T15:25:00Z"
-	},
-	"type": "Microsoft.DataFactory/factories/pipelines"
+		"annotations": []
+	}
 }

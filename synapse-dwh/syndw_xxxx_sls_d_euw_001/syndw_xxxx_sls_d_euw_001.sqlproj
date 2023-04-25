@@ -166,6 +166,7 @@
     <Folder Include="utilities\Stored Procedures" />
     <Folder Include="utilities\Functions" />
     <Folder Include="utilities\Functions\Scalar-valued Functions" />
+    <Folder Include="utilities\Tables" />
     <Folder Include="base_us_leviat_db" />
     <Folder Include="base_us_leviat_db\Tables" />
     <Folder Include="map_USA" />
@@ -1129,6 +1130,7 @@
     <Build Include="dm_dq\Views\vw_dim_MAWEV.sql" />
     <Build Include="dm_dq\Views\vw_dim_ProductValuationCosting.sql" />
     <Build Include="dm_sales\Views\vw_dim_GLAccountText.sql" />
+    <Build Include="utilities\Tables\t_field_values.sql" />
     <Build Include="base_s4h_cax\Tables\I_Purchaserequisitionitem.sql" />
     <Build Include="base_s4h_cax\Views\vw_Z_C_VariantConfig_delta.sql" />
     <Build Include="base_s4h_cax\Views\vw_C_BillingDocumentItemBasicDEX_delta.sql" />

@@ -46,7 +46,7 @@
 				],
 				"userProperties": [],
 				"typeProperties": {
-					"variableName": "extraction_timestamp",
+					"variableName": "XUExtractionTimestamp",
 					"value": {
 						"value": "@activity('Run XU Extraction').output.response",
 						"type": "Expression"
@@ -59,6 +59,12 @@
 				"dependsOn": [
 					{
 						"activity": "Run XU Extraction",
+						"dependencyConditions": [
+							"Failed"
+						]
+					},
+					{
+						"activity": "Lookup Extraction Destination",
 						"dependencyConditions": [
 							"Failed"
 						]
@@ -108,7 +114,8 @@
 							"value": {
 								"value": "@pipeline().parameters.batch_id",
 								"type": "Expression"
-							}
+							},
+							"type": "Guid"
 						}
 					}
 				},
@@ -253,7 +260,7 @@
 						},
 						"output": {
 							"value": {
-								"value": "@concat(\n    '{\"timestamp\":\"',\n    variables('extraction_timestamp'),\n    '\"}'\n)",
+								"value": "@concat(\n    '{\"timestamp\":\"',\n    variables('XUExtractionTimestamp'),\n    '\",\"extraction_timestamp\":\"',\n    concat(\n        substring(variables('XUExtractionTimestamp'), 0, 10),\n        ' ',\n        substring(variables('XUExtractionTimestamp'), 11, 12)\n    ),\n    '\"}'\n)",
 								"type": "Expression"
 							},
 							"type": "String"
@@ -283,13 +290,19 @@
 						"dependencyConditions": [
 							"Succeeded"
 						]
+					},
+					{
+						"activity": "If maxBlobSize gt 0",
+						"dependencyConditions": [
+							"Succeeded"
+						]
 					}
 				],
 				"userProperties": [],
 				"typeProperties": {
 					"variableName": "adlsFileName",
 					"value": {
-						"value": "@concat(\n    pipeline().parameters.extraction_name,\n    '_',\n    replace(replace(replace(variables('extraction_timestamp'),'-','_'),':','_'),'.','_'),\n    '.parquet'\n)",
+						"value": "@concat(\n    pipeline().parameters.extraction_name,\n    '_',\n    replace(replace(replace(variables('XUExtractionTimestamp'),'-','_'),':','_'),'.','_'),\n    variables('adlsFileNameSuffix')\n)",
 						"type": "Expression"
 					}
 				}
@@ -419,45 +432,117 @@
 						"type": "Expression"
 					}
 				}
+			},
+			{
+				"name": "If maxBlobSize gt 0",
+				"type": "IfCondition",
+				"dependsOn": [
+					{
+						"activity": "Lookup Extraction Destination",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@greater(\r\n    activity('Lookup Extraction Destination').output.firstRow.maxBlobSize\r\n    , 0\r\n)",
+						"type": "Expression"
+					},
+					"ifTrueActivities": [
+						{
+							"name": "Set adlsFileNameSuffix Wildcard",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "adlsFileNameSuffix",
+								"value": "*.parquet"
+							}
+						}
+					]
+				}
+			},
+			{
+				"name": "Lookup Extraction Destination",
+				"type": "Lookup",
+				"dependsOn": [
+					{
+						"activity": "Set extraction url",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "JsonSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "JsonReadSettings"
+						}
+					},
+					"dataset": {
+						"referenceName": "ds_xu_extraction_destination",
+						"type": "DatasetReference",
+						"parameters": {
+							"storageAccount": {
+								"value": "@pipeline().globalParameters.storageAccountName",
+								"type": "Expression"
+							},
+							"extractionName": {
+								"value": "@pipeline().parameters.extraction_name",
+								"type": "Expression"
+							}
+						}
+					}
+				}
 			}
 		],
 		"parameters": {
 			"extraction_name": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "I_SalesOrderItemPricingElement_split"
 			},
 			"date": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "2023/03/21"
 			},
 			"run_id": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "2811baf8-9617-4e2b-849d-f74c2cfdf9f9"
 			},
 			"entity_id": {
-				"type": "int"
+				"type": "int",
+				"defaultValue": 900
 			},
 			"adls_directory_path": {
-				"type": "string"
-			},
-			"required_activities": {
-				"type": "array"
+				"type": "string",
+				"defaultValue": "NULL/I_SalesOrderItemPricingElement_split/Theobald/Table/Full/In/2023/03/21"
 			},
 			"batch_id": {
 				"type": "string"
 			},
-			"skipped_activities": {
-				"type": "object"
-			},
-			"adls_file_name": {
-				"type": "string"
-			},
 			"extraction_type": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "Table"
 			}
 		},
 		"variables": {
-			"extraction_timestamp": {
-				"type": "String"
-			},
-			"adlsFileName": {
+			"XUExtractionTimestamp": {
 				"type": "String"
 			},
 			"run_id": {
@@ -474,6 +559,13 @@
 			},
 			"destinationUrlParam": {
 				"type": "String"
+			},
+			"adlsFileName": {
+				"type": "String"
+			},
+			"adlsFileNameSuffix": {
+				"type": "String",
+				"defaultValue": ".parquet"
 			}
 		},
 		"folder": {

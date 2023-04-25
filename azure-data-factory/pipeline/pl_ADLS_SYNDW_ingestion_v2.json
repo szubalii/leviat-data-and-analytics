@@ -1,197 +1,7 @@
 {
-	"name": "pl_ADLS_SYNDW_ingestion",
+	"name": "pl_ADLS_SYNDW_ingestion_v2",
 	"properties": {
 		"activities": [
-			{
-				"name": "Copy Parquet to Synapse Base",
-				"type": "Copy",
-				"dependsOn": [
-					{
-						"activity": "Set Batch Load2Base",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"policy": {
-					"timeout": "7.00:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"source": {
-						"type": "ParquetSource",
-						"storeSettings": {
-							"type": "AzureBlobFSReadSettings",
-							"recursive": true,
-							"wildcardFolderPath": {
-								"value": "@pipeline().parameters.directory_path",
-								"type": "Expression"
-							},
-							"wildcardFileName": {
-								"value": "@pipeline().parameters.file_name",
-								"type": "Expression"
-							},
-							"enablePartitionDiscovery": false
-						}
-					},
-					"sink": {
-						"type": "SqlDWSink",
-						"preCopyScript": {
-							"value": "IF EXISTS (\n    SELECT * \n    FROM dbo.sysobjects \n    WHERE ID = OBJECT_ID(N'@{concat(pipeline().parameters.base_schema_name, '.', pipeline().parameters.base_table_name)}')\n)\nTRUNCATE TABLE @{concat(pipeline().parameters.base_schema_name, '.', pipeline().parameters.base_table_name)}",
-							"type": "Expression"
-						},
-						"allowPolyBase": true,
-						"polyBaseSettings": {
-							"rejectValue": 0,
-							"rejectType": "value",
-							"useTypeDefault": true
-						},
-						"disableMetricsCollection": false
-					},
-					"enableStaging": false
-				},
-				"inputs": [
-					{
-						"referenceName": "ds_adls_parquet_file",
-						"type": "DatasetReference",
-						"parameters": {
-							"container": {
-								"value": "@pipeline().parameters.adls_container_name",
-								"type": "Expression"
-							},
-							"directory": {
-								"value": "@pipeline().parameters.directory_path",
-								"type": "Expression"
-							},
-							"file": {
-								"value": "@pipeline().parameters.file_name",
-								"type": "Expression"
-							},
-							"storageAccount": {
-								"value": "@pipeline().globalParameters.storageAccountName",
-								"type": "Expression"
-							}
-						}
-					}
-				],
-				"outputs": [
-					{
-						"referenceName": "ds_syndw_table",
-						"type": "DatasetReference",
-						"parameters": {
-							"schema": {
-								"value": "@pipeline().parameters.base_schema_name",
-								"type": "Expression"
-							},
-							"table": {
-								"value": "@pipeline().parameters.base_table_name",
-								"type": "Expression"
-							},
-							"sqlPool": {
-								"value": "@pipeline().globalParameters.synapseDatabaseName",
-								"type": "Expression"
-							},
-							"synapseServer": {
-								"value": "@pipeline().globalParameters.synapseServerName",
-								"type": "Expression"
-							}
-						}
-					}
-				]
-			},
-			{
-				"name": "Update tech fields",
-				"type": "SqlServerStoredProcedure",
-				"dependsOn": [
-					{
-						"activity": "Copy Parquet to Synapse Base",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"policy": {
-					"timeout": "7.00:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"storedProcedureName": "[utilities].[sp_update_t_values]",
-					"storedProcedureParameters": {
-						"application_id": {
-							"value": null,
-							"type": "String"
-						},
-						"extraction_dtm_string": {
-							"value": {
-								"value": "@substring(\n    pipeline().parameters.file_name\n,   sub(\n        length(pipeline().parameters.file_name)\n    ,   31\n    )\n,   23\n)",
-								"type": "Expression"
-							},
-							"type": "String"
-						},
-						"job_dtm": {
-							"value": {
-								"value": "@formatDateTime(pipeline().TriggerTime, 'yyyy-MM-dd HH:mm:ss')",
-								"type": "Expression"
-							},
-							"type": "String"
-						},
-						"job_id": {
-							"value": {
-								"value": "@pipeline().RunId",
-								"type": "Expression"
-							},
-							"type": "String"
-						},
-						"schema": {
-							"value": {
-								"value": "@pipeline().parameters.base_schema_name",
-								"type": "Expression"
-							},
-							"type": "String"
-						},
-						"table": {
-							"value": {
-								"value": "@pipeline().parameters.base_table_name",
-								"type": "Expression"
-							},
-							"type": "String"
-						},
-						"job_by": {
-							"value": {
-								"value": "@pipeline().DataFactory",
-								"type": "Expression"
-							},
-							"type": "String"
-						},
-						"file_path": {
-							"value": null,
-							"type": "String"
-						}
-					}
-				},
-				"linkedServiceName": {
-					"referenceName": "ls_ws_xxxx_sls_x_euw_001__syndw_xxxx_sls_x_euw_001",
-					"type": "LinkedServiceReference",
-					"parameters": {
-						"sqlPool": {
-							"value": "@pipeline().globalParameters.synapseDatabaseName",
-							"type": "Expression"
-						},
-						"synapseServer": {
-							"value": "@pipeline().globalParameters.synapseServerName",
-							"type": "Expression"
-						}
-					}
-				}
-			},
 			{
 				"name": "Update Batch Status Succeeded",
 				"type": "SqlServerStoredProcedure",
@@ -243,10 +53,7 @@
 							"type": "Guid"
 						},
 						"size_bytes": {
-							"value": {
-								"value": "@activity('Copy Parquet to Synapse Base').output.dataWritten",
-								"type": "Expression"
-							},
+							"value": null,
 							"type": "Int64"
 						},
 						"status": {
@@ -285,7 +92,7 @@
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "Copy Parquet to Synapse Base",
+						"activity": "Run COPY SP",
 						"dependencyConditions": [
 							"Failed"
 						]
@@ -322,7 +129,7 @@
 						},
 						"error_msg": {
 							"value": {
-								"value": "@activity('Copy Parquet to Synapse Base').Error.Message",
+								"value": "@activity('Run COPY SP').Error.Message",
 								"type": "Expression"
 							},
 							"type": "String"
@@ -353,312 +160,6 @@
 				"dependsOn": [
 					{
 						"activity": "Log Exception - Copy",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"policy": {
-					"timeout": "7.00:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"storedProcedureName": "[dbo].[update_batch_status]",
-					"storedProcedureParameters": {
-						"batch_id": {
-							"value": {
-								"value": "@variables('batch_id')",
-								"type": "Expression"
-							},
-							"type": "Guid"
-						},
-						"end_date_time": {
-							"value": {
-								"value": "@formatDateTime(utcnow(), 'yyyy-MM-dd HH:mm:ss')",
-								"type": "Expression"
-							},
-							"type": "DateTime"
-						},
-						"entity_id": {
-							"value": {
-								"value": "@pipeline().parameters.entity_id",
-								"type": "Expression"
-							},
-							"type": "Int64"
-						},
-						"run_id": {
-							"value": {
-								"value": "@pipeline().parameters.run_id",
-								"type": "Expression"
-							},
-							"type": "Guid"
-						},
-						"status": {
-							"value": "Failed",
-							"type": "String"
-						},
-						"size_bytes": {
-							"value": null,
-							"type": "Int64"
-						}
-					}
-				},
-				"linkedServiceName": {
-					"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
-					"type": "LinkedServiceReference",
-					"parameters": {
-						"sqlDb": {
-							"value": "@pipeline().globalParameters.sqlDb",
-							"type": "Expression"
-						}
-					}
-				}
-			},
-			{
-				"name": "Log Exception - Tech Fields",
-				"type": "SqlServerStoredProcedure",
-				"dependsOn": [
-					{
-						"activity": "Update tech fields",
-						"dependencyConditions": [
-							"Failed"
-						]
-					}
-				],
-				"policy": {
-					"timeout": "7.00:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"storedProcedureName": "[dbo].[log_exception]",
-					"storedProcedureParameters": {
-						"batch_id": {
-							"value": {
-								"value": "@variables('batch_id')",
-								"type": "Expression"
-							},
-							"type": "Guid"
-						},
-						"category": {
-							"value": "InternalError",
-							"type": "String"
-						},
-						"entity_id": {
-							"value": {
-								"value": "@pipeline().parameters.entity_id",
-								"type": "Expression"
-							},
-							"type": "Int64"
-						},
-						"error_msg": {
-							"value": {
-								"value": "@activity('Update tech fields').Error.Message",
-								"type": "Expression"
-							},
-							"type": "String"
-						},
-						"run_id": {
-							"value": {
-								"value": "@pipeline().parameters.run_id",
-								"type": "Expression"
-							},
-							"type": "Guid"
-						}
-					}
-				},
-				"linkedServiceName": {
-					"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
-					"type": "LinkedServiceReference",
-					"parameters": {
-						"sqlDb": {
-							"value": "@pipeline().globalParameters.sqlDb",
-							"type": "Expression"
-						}
-					}
-				}
-			},
-			{
-				"name": "Update Batch Status Failed - Tech Fields",
-				"type": "SqlServerStoredProcedure",
-				"dependsOn": [
-					{
-						"activity": "Log Exception - Tech Fields",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"policy": {
-					"timeout": "7.00:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"storedProcedureName": "[dbo].[update_batch_status]",
-					"storedProcedureParameters": {
-						"batch_id": {
-							"value": {
-								"value": "@variables('batch_id')",
-								"type": "Expression"
-							},
-							"type": "Guid"
-						},
-						"end_date_time": {
-							"value": {
-								"value": "@formatDateTime(utcnow(), 'yyyy-MM-dd HH:mm:ss')",
-								"type": "Expression"
-							},
-							"type": "DateTime"
-						},
-						"entity_id": {
-							"value": {
-								"value": "@pipeline().parameters.entity_id",
-								"type": "Expression"
-							},
-							"type": "Int64"
-						},
-						"run_id": {
-							"value": {
-								"value": "@pipeline().parameters.run_id",
-								"type": "Expression"
-							},
-							"type": "Guid"
-						},
-						"status": {
-							"value": "Failed",
-							"type": "String"
-						},
-						"size_bytes": {
-							"value": null,
-							"type": "Int64"
-						}
-					}
-				},
-				"linkedServiceName": {
-					"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
-					"type": "LinkedServiceReference",
-					"parameters": {
-						"sqlDb": {
-							"value": "@pipeline().globalParameters.sqlDb",
-							"type": "Expression"
-						}
-					}
-				}
-			},
-			{
-				"name": "Update statistics",
-				"type": "ExecutePipeline",
-				"dependsOn": [
-					{
-						"activity": "Update tech fields",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"userProperties": [],
-				"typeProperties": {
-					"pipeline": {
-						"referenceName": "pl_SYNDW_updateTableStats",
-						"type": "PipelineReference"
-					},
-					"waitOnCompletion": true,
-					"parameters": {
-						"schema": {
-							"value": "@pipeline().parameters.base_schema_name",
-							"type": "Expression"
-						},
-						"table": {
-							"value": "@pipeline().parameters.base_table_name",
-							"type": "Expression"
-						}
-					}
-				}
-			},
-			{
-				"name": "Log Exception - Statistics",
-				"type": "SqlServerStoredProcedure",
-				"dependsOn": [
-					{
-						"activity": "Update statistics",
-						"dependencyConditions": [
-							"Failed"
-						]
-					}
-				],
-				"policy": {
-					"timeout": "7.00:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"storedProcedureName": "[dbo].[log_exception]",
-					"storedProcedureParameters": {
-						"batch_id": {
-							"value": {
-								"value": "@variables('batch_id')",
-								"type": "Expression"
-							},
-							"type": "Guid"
-						},
-						"category": {
-							"value": "InternalError",
-							"type": "String"
-						},
-						"entity_id": {
-							"value": {
-								"value": "@pipeline().parameters.entity_id",
-								"type": "Expression"
-							},
-							"type": "Int64"
-						},
-						"error_msg": {
-							"value": {
-								"value": "@activity('Update statistics').Error.Message",
-								"type": "Expression"
-							},
-							"type": "String"
-						},
-						"run_id": {
-							"value": {
-								"value": "@pipeline().parameters.run_id",
-								"type": "Expression"
-							},
-							"type": "Guid"
-						}
-					}
-				},
-				"linkedServiceName": {
-					"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
-					"type": "LinkedServiceReference",
-					"parameters": {
-						"sqlDb": {
-							"value": "@pipeline().globalParameters.sqlDb",
-							"type": "Expression"
-						}
-					}
-				}
-			},
-			{
-				"name": "Update Batch Status Failed - Statistics",
-				"type": "SqlServerStoredProcedure",
-				"dependsOn": [
-					{
-						"activity": "Log Exception - Statistics",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -834,18 +335,162 @@
 				"userProperties": [],
 				"typeProperties": {
 					"message": {
-						"value": "@concat(\n    'Failed to ingest into Synapse Base: ',\n    activity('Copy Parquet to Synapse Base').Error.Message\n)",
+						"value": "@concat(\n    'Failed to ingest into Synapse Base: ',\n    activity('Run COPY SP').Error.Message\n)",
 						"type": "Expression"
 					},
 					"errorCode": "500"
 				}
 			},
 			{
-				"name": "Fail Tech Fields",
-				"type": "Fail",
+				"name": "Run COPY SP",
+				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "Update Batch Status Failed - Tech Fields",
+						"activity": "Get Parquet Structure",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[utilities].[sp_ingest_with_t_values]",
+					"storedProcedureParameters": {
+						"application_id": {
+							"value": {
+								"value": "@pipeline().parameters.application_id",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"client_field": {
+							"value": {
+								"value": "@pipeline().parameters.s4h_client_field",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"client_id": {
+							"value": {
+								"value": "@pipeline().globalParameters.s4hClientId",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"container_name": {
+							"value": {
+								"value": "@pipeline().parameters.adls_container_name",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"directory_path": {
+							"value": {
+								"value": "@pipeline().parameters.directory_path",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"extraction_type": {
+							"value": {
+								"value": "@pipeline().parameters.extraction_type",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"file_name": {
+							"value": {
+								"value": "@pipeline().parameters.file_name",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"job_by": {
+							"value": {
+								"value": "@pipeline().DataFactory",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"job_dtm": {
+							"value": {
+								"value": "@formatDateTime(pipeline().TriggerTime, 'yyyy-MM-dd HH:mm:ss')",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"job_id": {
+							"value": {
+								"value": "@pipeline().RunId",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"schema_name": {
+							"value": {
+								"value": "@pipeline().parameters.base_schema_name",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"table_name": {
+							"value": {
+								"value": "@pipeline().parameters.base_table_name",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"update_mode": {
+							"value": {
+								"value": "@pipeline().parameters.update_mode",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"extraction_timestamp": {
+							"value": {
+								"value": "@pipeline().parameters.extraction_timestamp_string",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"file_structure": {
+							"value": {
+								"value": "@string(activity('Get Parquet Structure').output.structure)",
+								"type": "Expression"
+							},
+							"type": "String"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_ws_xxxx_sls_x_euw_001__syndw_xxxx_sls_x_euw_001",
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"sqlPool": {
+							"value": "@pipeline().globalParameters.synapseDatabaseName",
+							"type": "Expression"
+						},
+						"synapseServer": {
+							"value": "@pipeline().globalParameters.synapseServerName",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "Update statistics",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Run COPY SP",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -853,11 +498,159 @@
 				],
 				"userProperties": [],
 				"typeProperties": {
-					"message": {
-						"value": "@concat(\n    'Failed to update Technical Field values: ',\n    activity('Update tech fields').Error.Message\n)",
-						"type": "Expression"
+					"pipeline": {
+						"referenceName": "pl_SYNDW_updateTableStats",
+						"type": "PipelineReference"
 					},
-					"errorCode": "500"
+					"waitOnCompletion": true,
+					"parameters": {
+						"schema": {
+							"value": "@pipeline().parameters.base_schema_name",
+							"type": "Expression"
+						},
+						"table": {
+							"value": "@pipeline().parameters.base_table_name",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "Log Exception - Statistics",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "Update statistics",
+						"dependencyConditions": [
+							"Failed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[log_exception]",
+					"storedProcedureParameters": {
+						"batch_id": {
+							"value": {
+								"value": "@variables('batch_id')",
+								"type": "Expression"
+							},
+							"type": "Guid"
+						},
+						"category": {
+							"value": "InternalError",
+							"type": "String"
+						},
+						"entity_id": {
+							"value": {
+								"value": "@pipeline().parameters.entity_id",
+								"type": "Expression"
+							},
+							"type": "Int64"
+						},
+						"error_msg": {
+							"value": {
+								"value": "@activity('Update statistics').Error.Message",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"run_id": {
+							"value": {
+								"value": "@pipeline().parameters.run_id",
+								"type": "Expression"
+							},
+							"type": "Guid"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"sqlDb": {
+							"value": "@pipeline().globalParameters.sqlDb",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "Update Batch Status Failed - Statistics",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "Log Exception - Statistics",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[update_batch_status]",
+					"storedProcedureParameters": {
+						"batch_id": {
+							"value": {
+								"value": "@variables('batch_id')",
+								"type": "Expression"
+							},
+							"type": "Guid"
+						},
+						"end_date_time": {
+							"value": {
+								"value": "@formatDateTime(utcnow(), 'yyyy-MM-dd HH:mm:ss')",
+								"type": "Expression"
+							},
+							"type": "DateTime"
+						},
+						"entity_id": {
+							"value": {
+								"value": "@pipeline().parameters.entity_id",
+								"type": "Expression"
+							},
+							"type": "Int64"
+						},
+						"run_id": {
+							"value": {
+								"value": "@pipeline().parameters.run_id",
+								"type": "Expression"
+							},
+							"type": "Guid"
+						},
+						"status": {
+							"value": "Failed",
+							"type": "String"
+						},
+						"size_bytes": {
+							"value": null,
+							"type": "Int64"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"sqlDb": {
+							"value": "@pipeline().globalParameters.sqlDb",
+							"type": "Expression"
+						}
+					}
 				}
 			},
 			{
@@ -879,37 +672,114 @@
 					},
 					"errorCode": "500"
 				}
+			},
+			{
+				"name": "Get Parquet Structure",
+				"type": "GetMetadata",
+				"dependsOn": [
+					{
+						"activity": "Set Batch Load2Base",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataset": {
+						"referenceName": "ds_adls_parquet_file",
+						"type": "DatasetReference",
+						"parameters": {
+							"container": {
+								"value": "@pipeline().parameters.adls_container_name",
+								"type": "Expression"
+							},
+							"directory": {
+								"value": "@pipeline().parameters.directory_path",
+								"type": "Expression"
+							},
+							"file": {
+								"value": "@replace(\n    pipeline().parameters.file_name\n    ,'*'\n    ,'_part001'\n)",
+								"type": "Expression"
+							},
+							"storageAccount": {
+								"value": "@pipeline().globalParameters.storageAccountName",
+								"type": "Expression"
+							}
+						}
+					},
+					"fieldList": [
+						"structure"
+					],
+					"storeSettings": {
+						"type": "AzureBlobFSReadSettings",
+						"recursive": true,
+						"enablePartitionDiscovery": false
+					}
+				}
 			}
 		],
 		"parameters": {
 			"base_schema_name": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "base_s4h_cax"
 			},
 			"base_table_name": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "Z_C_VariantConfig"
 			},
 			"entity_id": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "420"
 			},
 			"directory_path": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "FACT/Z_C_VariantConfig/Theobald/ODP/Delta/In/2023/03/29"
 			},
 			"run_id": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "e16bbd2a-0006-4e4e-bc09-d213f266eb86"
 			},
 			"source_layer": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "In"
 			},
 			"file_name": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "Z_C_VariantConfig_2023_03_29_13_57_06_906.parquet"
 			},
 			"adls_container_name": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "s4h-cap-100"
 			},
 			"target_layer": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "Base"
 			},
 			"update_mode": {
+				"type": "string",
+				"defaultValue": "Delta"
+			},
+			"application_id": {
+				"type": "string",
+				"defaultValue": "s4h-cap-100"
+			},
+			"extraction_type": {
+				"type": "string",
+				"defaultValue": "ODP"
+			},
+			"extraction_timestamp_string": {
+				"type": "string",
+				"defaultValue": "2023-03-29 13:57:06.906"
+			},
+			"s4h_client_field": {
 				"type": "string"
 			}
 		},
