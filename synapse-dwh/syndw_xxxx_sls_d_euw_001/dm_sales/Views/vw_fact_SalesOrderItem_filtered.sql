@@ -1,6 +1,6 @@
 ﻿CREATE VIEW [dm_sales].[vw_fact_SalesOrderItem_filtered] 
 AS
-SELECT [SalesOrderID]--
+SELECT [SalesOrderID]
     ,[SalesOrderItemID]
     ,[CurrencyTypeID]
     ,[CurrencyType]
