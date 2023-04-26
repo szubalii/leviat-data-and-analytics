@@ -194,10 +194,6 @@
 									"extraction_type": {
 										"value": "@pipeline().parameters.extraction_type",
 										"type": "Expression"
-									},
-									"refresh_from_date": {
-										"value": "@pipeline().parameters.refresh_from_date",
-										"type": "Expression"
 									}
 								}
 							}
@@ -903,9 +899,6 @@
 				"type": "string"
 			},
 			"update_mode": {
-				"type": "string"
-			},
-			"refresh_from_date": {
 				"type": "string"
 			}
 		},

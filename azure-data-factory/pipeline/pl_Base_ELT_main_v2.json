@@ -449,10 +449,6 @@
 									"update_mode": {
 										"value": "@item().update_mode",
 										"type": "Expression"
-									},
-									"refresh_from_date": {
-										"value": "@item().refresh_from_date",
-										"type": "Expression"
 									}
 								}
 							}
@@ -593,10 +589,6 @@
 												},
 												"source_date_field_name": {
 													"value": "@item().source_date_field_name",
-													"type": "Expression"
-												},
-												"refresh_from_date": {
-													"value": "@item().refresh_from_date",
 													"type": "Expression"
 												},
 												"deltaEntityFileNameBatchActivities": {
