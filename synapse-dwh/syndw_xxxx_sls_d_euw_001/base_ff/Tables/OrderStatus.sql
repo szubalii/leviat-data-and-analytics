@@ -11,4 +11,4 @@ CREATE TABLE base_ff.OrderStatus (
 	[t_filePath] [nvarchar](1024) NULL
 
 )
-WITH (HEAP, DISTRIBUTION = REPLICA
+WITH (HEAP, DISTRIBUTION = REPLICA)
