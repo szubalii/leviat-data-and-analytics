@@ -1,23 +1,41 @@
 ﻿CREATE VIEW [edw].[vw_VariantConfigurator]
 AS
-WITH VC AS(
-SELECT 
-    SalesDocument,
-    SalesDocumentItem,
-    ProductID,
-    ProductExternalID,
+WITH ZCV_active AS (SELECT 
+    [SalesDocument],
+    [SalesDocumentItem],
+    [ProductID],
+    [ProductExternalID],
     --CharacteristicName without prefix 'ZCH_'
-    RIGHT(CharacteristicName,LEN(CharacteristicName)-4) AS CharacteristicName,
+    RIGHT([CharacteristicName],LEN([CharacteristicName])-4) AS [CharacteristicName],
     CASE
-      WHEN CharValue<>CharValueDescription THEN CONCAT(CharValue,'_',CharValueDescription)
-      WHEN CharValue IS NULL AND CharValueDescription IS NOT NULL THEN CharValueDescription
-      WHEN CharValue IS NOT NULL AND CharValueDescription IS NULL THEN CharValue
-      WHEN CharValue = CharValueDescription THEN CharValue
+      WHEN [CharValue]<>[CharValueDescription] THEN CONCAT([CharValue],'_',[CharValueDescription])
+      WHEN [CharValue] IS NULL AND [CharValueDescription] IS NOT NULL THEN [CharValueDescription]
+      WHEN [CharValue] IS NOT NULL AND [CharValueDescription] IS NULL THEN [CharValue]
+      WHEN [CharValue] = CharValueDescription THEN [CharValue]
       ELSE NULL
-    END AS CharValueDescription,
+    END AS [CharValueDescription],
     [t_applicationId]
 FROM
-    [base_s4h_cax].[Z_C_VariantConfig_active]
+    [base_s4h_cax].[Z_C_VariantConfig_active])
+,VC AS
+(
+SELECT 
+    [SalesDocument] collate SQL_Latin1_General_CP1_CS_AS AS SalesDocument,
+    [SalesDocumentItem] collate SQL_Latin1_General_CP1_CS_AS AS SalesDocumentItem,
+    [ProductID],
+    [ProductExternalID],   
+    [CharacteristicName],
+    STRING_AGG([CharValueDescription],' ') AS [CharValueDescription], 
+    [t_applicationId]
+FROM
+    ZCV_active
+GROUP BY
+    [SalesDocument] collate SQL_Latin1_General_CP1_CS_AS,
+    [SalesDocumentItem] collate SQL_Latin1_General_CP1_CS_AS,
+    [ProductID],
+    [ProductExternalID],
+    [CharacteristicName], 
+    [t_applicationId] 
 )
 SELECT 
      [SalesDocument]
