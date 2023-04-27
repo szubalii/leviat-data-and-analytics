@@ -9,10 +9,7 @@ WITH ZCV_active AS (SELECT
     RIGHT([CharacteristicName],LEN([CharacteristicName])-4) AS [CharacteristicName],
     CASE
       WHEN [CharValue]<>[CharValueDescription] THEN CONCAT([CharValue],'_',[CharValueDescription])
-      WHEN [CharValue] IS NULL AND [CharValueDescription] IS NOT NULL THEN [CharValueDescription]
-      WHEN [CharValue] IS NOT NULL AND [CharValueDescription] IS NULL THEN [CharValue]
-      WHEN [CharValue] = CharValueDescription THEN [CharValue]
-      ELSE NULL
+      ELSE COALESCE([CharValue],[CharValueDescription])
     END AS [CharValueDescription],
     [t_applicationId]
 FROM
