@@ -1,4 +1,4 @@
-alter VIEW [dm_sales].[vw_fact_SalesOrderItem_narrow]
+CREATE VIEW [dm_sales].[vw_fact_SalesOrderItem_narrow]
 AS
 SELECT
      SOI.[SalesOrderID]
