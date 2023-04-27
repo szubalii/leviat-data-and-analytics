@@ -1,4 +1,4 @@
-﻿CREATE VIEW [dm_sales].[vw_dim_VariantConfigurator]
+﻿CREATE VIEW [dm_sales].[vw_fact_VariantConfigurator]
 AS
 SELECT 
      [SalesDocument]
@@ -45,6 +45,7 @@ SELECT
     ,[HDBZ_DIAM]
     ,[HDBZ_HEIGHT]
     ,[HIT_STUFFE]
+    ,[MAT_DESCRIPTION_S]
     ,[t_applicationId]
 FROM
-    [edw].[dim_VariantConfigurator]
+    [edw].[fact_VariantConfigurator]
