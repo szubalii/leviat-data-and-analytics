@@ -1,17 +1,16 @@
 CREATE FUNCTION [edw].[svf_getOrderStatus](
     @BillingDocumentItem CHAR(7),
-    @Status_Open NVARCHAR(17),
-    @Status_Closed NVARCHAR(17),
+    @SalesDocumentTypeID NVARCHAR(4),
     @ItemOrderStatus NVARCHAR(32)
 )
-RETURNS NVARCHAR(17)
+RETURNS NVARCHAR(32)
 AS
 BEGIN
-DECLARE @Status NVARCHAR(17)
+DECLARE @Status NVARCHAR(32)
     SET @Status =
            case 
-               when @BillingDocumentItem is not null then @Status_Closed 
-               when @BillingDocumentItem is null then @Status_Open 
+               when @BillingDocumentItem is not null  and @SalesDocumentTypeID in ('ZDI','ZCR','ZDR','ZRK','ZCR2','ZCI') then 'Closed_Adjustment' 
+               when @BillingDocumentItem is null and @SalesDocumentTypeID in ('ZDI','ZCR','ZDR','ZRK','ZCR2','ZCI') then 'Open_Adjustment' 
                else @ItemOrderStatus 
             end 
             

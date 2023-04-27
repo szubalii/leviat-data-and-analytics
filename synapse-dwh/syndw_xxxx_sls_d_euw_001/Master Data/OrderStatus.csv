@@ -1,7 +1,0 @@
-SalesDocumentTypeID;SalesDocumentType;Status_Open;Status_Closed
-ZDI;I/C Debit Memo Reque;Open_Adjustment;Closed_Adjustment
-ZCR;Credit Memo Request;Open_Adjustment;Closed_Adjustment
-ZDR;Debit Memo Request;Open_Adjustment;Closed_Adjustment
-ZRK;Invoice Correct. Req;Open_Adjustment;Closed_Adjustment
-ZCR2;ARM/Credit Memo Req.;Open_Adjustment;Closed_Adjustment
-ZCI;I/C Credit Memo Req;Open_Adjustment;Closed_Adjustment
