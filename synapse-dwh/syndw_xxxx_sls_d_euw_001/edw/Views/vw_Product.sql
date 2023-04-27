@@ -709,7 +709,7 @@ SELECT
 ,   [CompetitorID]
 ,   [ProductGroup]
 ,   [BaseUnit]
-,   CTE_Product.[ItemCategoryGroup] AS [ItemCategoryGroupID]
+,   CTE_Product.[ItemCategoryGroup] AS [ItemCategoryGroup]
 ,   ItemCategoryGroup.[ItemCategoryGroupName]
 ,   [NetWeight]
 ,   [ProductHierarchy]

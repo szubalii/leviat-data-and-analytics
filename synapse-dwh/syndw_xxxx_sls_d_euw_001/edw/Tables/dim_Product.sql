@@ -28,7 +28,7 @@
     [ProductGroup]                   nvarchar(9),
     [MaterialGroup]                  nvarchar(18),
     [BaseUnit]                       nvarchar(6) collate Latin1_General_100_BIN2,
-    [ItemCategoryGroupID]            nvarchar(8),
+    [ItemCategoryGroup]              nvarchar(8),
     [ItemCategoryGroupName]          nvarchar(20),
     [NetWeight]                      decimal(13, 3),
     [ProductHierarchy]               nvarchar(36),

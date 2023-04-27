@@ -30,7 +30,7 @@ SELECT
     , P.[WeightUnit]
     , P.[Division]
     , P.[TransportationGroup]
-    , P.[ItemCategoryGroupID]
+    , P.[ItemCategoryGroup]
     , P.[ItemCategoryGroupName]
 	, P.[CreatedByUser]
 	, PPr.[PurchasingAcknProfile]
