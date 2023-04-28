@@ -16,6 +16,9 @@ FROM
     [base_s4h_cax].[Z_C_VariantConfig_active])
 ,VC AS
 (
+--The reason for using STRING_AGG is some Sales Order Items have multiple values in the CharValueDescription
+--at least for CharatericticName "ZCH_MAT_DESCRIPTION_S" .
+--For these cases, we concate the values using a space in between, and save the value as CharValueDescription.
 SELECT 
     [SalesDocument] collate SQL_Latin1_General_CP1_CS_AS AS SalesDocument,
     [SalesDocumentItem] collate SQL_Latin1_General_CP1_CS_AS AS SalesDocumentItem,
