@@ -3,7 +3,7 @@ AS
 SELECT
      SOI.[SalesOrderID]
     ,SOI.[SalesOrderItemID]
-    ,SOI.[SalesOrderCreationDate]
+    ,SOI.[CreationDate]
     ,SOI.[BillingDocumentDate]
     ,SOI.[CurrencyType]
     ,SOI.[SalesDocumentType]
