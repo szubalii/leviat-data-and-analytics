@@ -18,7 +18,7 @@ SELECT
   [CompetitorID],
   [ProductGroup] AS [MaterialGroup], -- So all PBI datasets keep working
   [BaseUnit],
-  [ItemCategoryGroupID],
+  [ItemCategoryGroup],
   [ItemCategoryGroupName],
   [ProductHierarchy],
   [Product_L1_PillarID],
@@ -90,7 +90,7 @@ SELECT
   NULL AS [CompetitorID],
   NULL AS [MaterialGroup],
   NULL AS [BaseUnit],
-  NULL AS [ItemCategoryGroupID],
+  NULL AS [ItemCategoryGroup],
   NULL AS [ItemCategoryGroupName],
   [ProductHierarchy],
   [Product_L1_PillarID],
