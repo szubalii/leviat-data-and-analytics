@@ -8,11 +8,14 @@ AS
 BEGIN
 DECLARE @Status NVARCHAR(32)
     SET @Status =
-           case 
-               when @BillingDocumentItem is not null  and @SalesDocumentTypeID in ('ZDI','ZCR','ZDR','ZRK','ZCR2','ZCI') then 'Closed_Adjustment' 
-               when @BillingDocumentItem is null and @SalesDocumentTypeID in ('ZDI','ZCR','ZDR','ZRK','ZCR2','ZCI') then 'Open_Adjustment' 
-               else @ItemOrderStatus 
-            end 
+  CASE 
+    WHEN @SalesDocumentTypeID IN ('ZDI','ZCR','ZDR','ZRK','ZCR2','ZCI') THEN
+      CASE
+        WHEN @BillingDocumentItem IS NOT NULL THEN 'Closed_Adjustment'
+        WHEN @BillingDocumentItem IS NULL THEN 'Open_Adjustment'
+      END
+    ELSE @ItemOrderStatus
+  END
             
     RETURN @Status
 END;
