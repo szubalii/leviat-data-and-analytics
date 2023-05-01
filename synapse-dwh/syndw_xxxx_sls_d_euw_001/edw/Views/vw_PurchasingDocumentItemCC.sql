@@ -28,7 +28,7 @@ SELECT
     PDI.[GoodsReceiptQuantity],
     PD.[CreationDate],
     CCR.[TargetCurrency],
-    CurrencyType.[CurrencyType]
+    CurrencyType.[CurrencyType],
     PDI.[t_applicationId],
     PDI.[t_extractionDtm]
 FROM
