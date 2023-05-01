@@ -28,3 +28,5 @@ map_AXBI;StockUnit.csv;",";map_AXBI;StockUnit
 ;ZE_EXQLMAP_DT.csv;";";base_s4h_cax;ZE_EXQLMAP_DT
 ;ExQLReportingEntity.csv;";";base_ff;ExQLReportingEntity
 ;InOut.csv;";";base_ff;InOut
+map_General;Classification.csv;";";map_General;Classification
+map_General;EClassCodes.csv;";";map_General;EClassCodes
