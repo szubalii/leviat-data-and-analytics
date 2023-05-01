@@ -68,7 +68,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"pipeline": {
-						"referenceName": "pl_Base_ELT_main",
+						"referenceName": "pl_Base_ELT_main_v2",
 						"type": "PipelineReference"
 					},
 					"waitOnCompletion": true,
