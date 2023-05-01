@@ -12,7 +12,7 @@ SELECT
     PDI.[PurchaseContract],
     PDI.[PurchaseContractItem],
     PDI.[NetAmount],
-    PDI.[NetAmount] * CCR.[ExchangeRate]    AS [NetAmountTargetCurrency]
+    PDI.[NetAmount] * CCR.[ExchangeRate]    AS [NetAmountTargetCurrency],
     PDI.[PurchaseOrderQuantity],
     PDI.[StorageLocationID],
     PDI.[OrderPriceUnit],
