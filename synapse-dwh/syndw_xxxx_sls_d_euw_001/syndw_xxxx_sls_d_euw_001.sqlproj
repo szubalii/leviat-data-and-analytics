@@ -159,6 +159,8 @@
     <Folder Include="dm_finance\Views" />
     <Folder Include="map_AXBI" />
     <Folder Include="map_AXBI\Tables" />
+    <Folder Include="map_General" />
+    <Folder Include="map_\Tables" />
     <Folder Include="edw\Views" />
     <Folder Include="base_ff" />
     <Folder Include="base_ff\Tables" />
@@ -959,6 +961,8 @@
     <Build Include="base_tx_halfen_2_dwh\Tables\FACT_PURCHLINE.sql" />
     <Build Include="map_AXBI\Tables\InventSite.sql" />
     <Build Include="map_AXBI\Tables\StockUnit.sql" />
+    <Build Include="map_General\Tables\Classification.sql" />
+    <Build Include="map_General\Tables\EClassCodes.sql" />
     <Build Include="edw\Views\vw_MaterialDocumentItem_axbi.sql" />
     <Build Include="edw\Views\vw_MaterialDocumentItem_s4h.sql" />
     <Build Include="base_tx_halfen_2_dwh\Tables\DIM_VENDTABLE.sql" />
