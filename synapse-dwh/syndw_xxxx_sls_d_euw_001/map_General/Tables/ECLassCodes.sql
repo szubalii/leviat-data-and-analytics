@@ -4,7 +4,7 @@ CREATE TABLE [map_General].[EClassCodes]
     [EClassCode]                NVARCHAR(8)    NOT NULL,
     [EClassCategory]            NVARCHAR(64),
     [EClassCategoryDescription] NVARCHAR(128),
-    ,CONSTRAINT [PK_map_EClassCodes] PRIMARY KEY NONCLUSTERED ([MaterialGroupID]) NOT ENFORCED
+    CONSTRAINT [PK_map_EClassCodes] PRIMARY KEY NONCLUSTERED ([MaterialGroupID]) NOT ENFORCED
 )
 WITH
 (
