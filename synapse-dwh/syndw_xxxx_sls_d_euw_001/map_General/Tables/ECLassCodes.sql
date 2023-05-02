@@ -14,6 +14,6 @@ CREATE TABLE [map_General].[EClassCodes]
 WITH
 (
     DISTRIBUTION = REPLICATE,
-    HEAP
+    HEAP 
 )
 GO

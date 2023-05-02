@@ -12,6 +12,6 @@ CREATE TABLE [map_General].[Classification]
 WITH
 (
     DISTRIBUTION = REPLICATE,
-    HEAP
+    HEAP 
 )
 GO
