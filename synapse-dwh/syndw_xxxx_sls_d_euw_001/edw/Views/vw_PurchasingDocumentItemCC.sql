@@ -28,7 +28,7 @@ SELECT
     PDI.[GoodsReceiptQuantity],
     PD.[CreationDate],
     CCR.[TargetCurrency],
-    CurrencyType.[CurrencyType],
+    CurrType.[CurrencyType],
     PDI.[t_applicationId],
     PDI.[t_extractionDtm]
 FROM
@@ -42,4 +42,4 @@ INNER JOIN
             AND PD.CreationDate BETWEEN CCR.ExchangeRateEffectiveDate AND CCR.LastDay
 INNER JOIN
     [dm_sales].[vw_dim_CurrencyType]     CurrType
-        ON CCR.CurrencyTypeID = CurrencyType.CurrencyTypeID
+        ON CCR.CurrencyTypeID = CurrType.CurrencyTypeID
