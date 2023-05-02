@@ -13,7 +13,7 @@ SELECT
     ,[SalesDocumentItemCategoryID]
     ,[SalesDocumentItemCategory]
     ,[IsReturnsItemID]
-    ,[CreationDate]
+    ,[SalesOrderCreationDate] AS CreationDate
     ,[CreationTime]
     ,[LastChangeDate]
     ,[SalesOrganizationID]   
@@ -115,8 +115,8 @@ SELECT
     ,[OrderStatus]
     ,[SalesOfficeID]
     ,[SalesOffice]
-    ,[CostAmount]
+    ,[SOI_CostAmount] AS CostAmount
     ,[ExpectedDeliveryDate]
     ,[t_applicationId]
     ,[t_extractionDtm]
-FROM [dm_sales].[vw_SalesOrderItem_combined]
+FROM [dm_sales].[vw_fact_SalesOrderItem_combined]

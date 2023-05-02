@@ -1,10 +1,10 @@
-CREATE VIEW [dm_sales].[vw_SalesOrderItem_combined]
+CREATE VIEW [dm_sales].[vw_fact_SalesOrderItem_combined]
 AS
 SELECT
      SOI.[SalesOrderID]
     ,SOI.[SalesOrderItemID]
     ,SOI.[CreationDate]             AS [SalesOrderCreationDate]
-    ,SOI.[CreationTime]             AS [SalesOrderCreationTime]
+    ,SOI.[CreationTime]
     ,SOI.[BillingDocumentDate]
     ,SOI.[CurrencyType]
     ,SOI.[SalesDocumentType]
@@ -27,8 +27,8 @@ SELECT
     ,SOI.[ShippingConditionID]
     ,SOI.[NetAmount] as SOI_NetAmount
     ,SOI.[CostAmount] as SOI_CostAmount
-    ,SOI.DistributionChannelID     AS [SalesOrderDistributionChannelID]
-    ,SOI.DistributionChannel
+    ,SOI.[DistributionChannelID]
+    ,SOI.[DistributionChannel]
     ,SOI.[SalesDocumentTypeID]
     ,SOI.[SalesDocumentItemCategoryID]
     ,SOI.[SalesDocumentItemCategory]
@@ -36,6 +36,7 @@ SELECT
     ,SOI.[LastChangeDate]
     ,SOI.[MaterialSubstitutionReasonID]
     ,SOI.[MaterialGroupID]
+    ,SOI.[OriginallyRequestedMaterialID]
     ,SOI.[BrandID]
     ,SOI.[Brand]
     ,SOI.[SoldToPartyID]
@@ -65,7 +66,7 @@ SELECT
     ,SOI.[ReferenceSDDocumentItemSurrogateKey]
     ,SOI.[ReferenceSDDocumentID]
     ,SOI.[ReferenceSDDocumentItemID]
-    ,SOI.[ReferenceSDDocumentCategoryID]  AS [SalesOrderReferenceDocumentCategoryID]
+    ,SOI.[ReferenceSDDocumentCategoryID]
     ,SOI.[ReferenceSDDocumentCategory]
     ,SOI.[OriginSDDocumentID]
     ,SOI.[OriginSDDocumentItemID]
@@ -124,7 +125,8 @@ SELECT
     ,BDI.[CurrencyTypeID]      
     ,BDI.[BillingDocumentTypeID]                
     ,BDI.[BillingDocumentCategoryID]            
-    ,BDI.[SDDocumentCategoryID]                 
+    ,BDI.[SDDocumentCategoryID]
+    ,BDI.[SDDocumentCategory]  AS  [BillingDocumentSDDocumentCategory]             
     ,BDI.[CreationDate]             AS [BillingDocumentCreationDate]                    
     ,BDI.[CreationTime]             AS [BillingDocumentCreationTime]                                           
     ,BDI.[BillingDocumentIsTemporary]           
@@ -154,21 +156,6 @@ SELECT
     ,BDI.[BillingDocumentType]    
     ,BDI.[SDDocumentCategory]     
     ,BDI.[BillingDocumentCategory]
-    ,ODI.[OutboundDelivery]
-    ,ODI.[OutboundDeliveryItem]
-    ,ODI.[DeliveryDocumentItemCategoryID]
-    ,ODI.[SalesDocumentItemTypeID]
-    ,ODI.[CreatedByUserID]
-    ,ODI.[CreationDate]             AS [OutboundDeliveryCreationDate]
-    ,ODI.[CreationTime]             AS [OutboundDeliveryCreationTime]
-    ,ODI.[DistributionChannelID]    AS [OutboundDeliveryDistributionChannelID]
-    ,ODI.[ProductID]
-    ,ODI.[OriginallyRequestedMaterialID]
-    ,ODI.[ProductGroupID]
-    ,ODI.[ActualDeliveredQtyInBaseUnit]
-    ,ODI.[ReferenceSDDocument]      AS [OutboundDeliveryReferenceDocument]
-    ,ODI.[ReferenceSDDocumentItem]  AS [OutboundDeliveryReferenceDocumentItem]
-    ,ODI.[ReferenceSDDocumentCategoryID]    AS [OutboundDeliveryReferenceDocumentCategoryID]
     ,SDSL.[ScheduleLine]
     ,SDSL.[ScheduleLineCategory]
     ,SDSL.[OrderQuantityUnit]
@@ -193,9 +180,6 @@ LEFT JOIN [edw].[vw_BillingDocumentItem_for_SalesDocumentItem] BDI
     ON SOI.SalesOrderID = BDI.SalesDocumentID
     AND SOI.SalesOrderItemID = BDI.SalesDocumentItemID
     AND SOI.CurrencyTypeID = BDI.CurrencyTypeID
-LEFT JOIN [edw].[vw_OutboundDeliveryItem_for_SalesDocumentItem] ODI
-    ON SOI.SalesOrderID = ODI.ReferenceSDDocument
-    AND SOI.SalesOrderItemID = ODI.ReferenceSDDocumentItem
 LEFT JOIN [edw].[dim_SalesDocumentScheduleLine] SDSL
     ON SOI.SalesOrderID = SDSL.SalesDocumentID
     AND SOI.SalesOrderItemID = SDSL.SalesDocumentItem
