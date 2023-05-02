@@ -3,7 +3,7 @@ AS
 SELECT
      SOI.[SalesOrderID]
     ,SOI.[SalesOrderItemID]
-    ,SOI.[CreationDate]    AS [SalesOrderCreationDate]
+    ,SOI.[SalesOrderCreationDate]
     ,SOI.[BillingDocumentDate]
     ,SOI.[CurrencyType]
     ,SOI.[SalesDocumentType]
@@ -24,7 +24,7 @@ SELECT
     ,SOI.[ItemDeliveryStatus]    
     ,SOI.[OverallDeliveryStatus]
     ,SOI.[ShippingConditionID]
-    ,SOI.[NetAmount] as SOI_NetAmount
+    ,SOI.[SOI_NetAmount]
     ,SOI.[BillingDocument]                      
     ,SOI.[BillingDocumentItem]                  
     ,SOI.[BillingDocumentCurrencyTypeID]      
@@ -65,16 +65,16 @@ SELECT
     ,ODI.[DeliveryDocumentItemCategoryID]
     ,ODI.[SalesDocumentItemTypeID]
     ,ODI.[CreatedByUserID]
-    ,ODI.[CreationDate]             AS [OutboundDeliveryCreationDate]
-    ,ODI.[CreationTime]             AS [OutboundDeliveryCreationTime]
+    ,ODI.[OutboundDeliveryCreationDate]
+    ,ODI.[OutboundDeliveryCreationTime]
     ,ODI.[DistributionChannelID]
     ,ODI.[ProductID]
     ,ODI.[OriginallyRequestedMaterialID]
     ,ODI.[ProductGroupID]
     ,ODI.[ActualDeliveredQtyInBaseUnit]
-    ,ODI.[ReferenceSDDocument]      AS [OutboundDeliveryReferenceDocument]
-    ,ODI.[ReferenceSDDocumentItem]  AS [OutboundDeliveryReferenceDocumentItem]
-    ,ODI.[ReferenceSDDocumentCategoryID]    AS [OutboundDeliveryReferenceDocumentCategoryID]
+    ,ODI.[OutboundDeliveryReferenceDocument]
+    ,ODI.[OutboundDeliveryReferenceDocumentItem]
+    ,ODI.[OutboundDeliveryReferenceDocumentCategoryID]
     ,SOI.[ScheduleLine]
     ,SOI.[dimSDSLScheduleLineCategory]
     ,SOI.[dimSDSLOrderQuantityUnit]
@@ -88,7 +88,7 @@ SELECT
     ,SOI.[DeliveredQuantityInBaseUnit]
     ,SOI.[ConfdOrderQtyByMatlAvailCheck]
     ,SOI.[ExpectedDeliveryDate]
-FROM [edw].[vw_SalesOrderItem_combined] SOI
+FROM [dm_sales].[vw_SalesOrderItem_combined] SOI
 LEFT JOIN [edw].[vw_OutboundDeliveryItem_for_SalesDocumentItem] ODI
     ON SOI.SalesOrderID = ODI.ReferenceSDDocument
     AND SOI.SalesOrderItemID = ODI.ReferenceSDDocumentItem

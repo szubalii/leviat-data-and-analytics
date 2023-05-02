@@ -119,4 +119,4 @@ SELECT
     ,[ExpectedDeliveryDate]
     ,[t_applicationId]
     ,[t_extractionDtm]
-FROM [edw].[vw_SalesOrderItem_combined]
+FROM [dm_sales].[vw_SalesOrderItem_combined]
