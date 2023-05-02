@@ -578,6 +578,7 @@
     <Build Include="base_s4h_cax\Tables\I_ExchangeRateType.sql" />
     <Build Include="edw\Tables\dim_MaterialGroup.sql" />
     <Build Include="Security\Schemas\map_AXBI.sql" />
+    <Build Include="Security\Schemas\map_General.sql" />
     <Build Include="map_AXBI\Tables\SalesOrganization.sql" />
     <Build Include="map_AXBI\Tables\SDDocumentCategory.sql" />
     <Build Include="map_AXBI\Tables\SalesDocumentType.sql" />
