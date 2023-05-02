@@ -277,9 +277,8 @@ SELECT
     END                                                 AS [Brand],
     CASE 
         WHEN GLALIRD.[BillingDocumentTypeID] = ''
-            THEN    'MA'
-        WHEN LEFT(GLALIRD.[CustomerID],2) IN ('IC','IP')  THEN 'I'
-        ELSE                                            'O'
+            THEN 'MA'
+        ELSE  edw.svf_getInOutID_s4h (GLALIRD.CustomerID)
     END                                             AS [InOutID],
     CASE
         WHEN GLALIRD.[BillingDocumentTypeID] = ''
