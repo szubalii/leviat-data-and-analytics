@@ -160,7 +160,7 @@
     <Folder Include="map_AXBI" />
     <Folder Include="map_AXBI\Tables" />
     <Folder Include="map_General" />
-    <Folder Include="map_\Tables" />
+    <Folder Include="map_General\Tables" />
     <Folder Include="edw\Views" />
     <Folder Include="base_ff" />
     <Folder Include="base_ff\Tables" />
