@@ -44,10 +44,10 @@ steps:
           $subFilePath = $filePathWithoutExt.SubString($dirIndex + $dir.Length + 1)
 
           # Views
-          if ($filePath.IndexOf("Views") -ne -1) {
+          # if ($filePath.IndexOf("Views") -ne -1) {
             $fqn = $subFilePath.Replace('/','.')
             $testCaseFilterHelp += "FullyQualifiedName~$fqn|"
-          }
+          # }
           # Tables
           # else if ($filePath.IndexOf("Tables") -ne -1) {
 
