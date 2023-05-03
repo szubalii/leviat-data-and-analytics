@@ -13,7 +13,7 @@ SELECT
     ,[SalesDocumentItemCategoryID]
     ,[SalesDocumentItemCategory]
     ,[IsReturnsItemID]
-    ,[SalesOrderCreationDate] AS CreationDate
+    ,[CreationDate]
     ,[CreationTime]
     ,[LastChangeDate]
     ,[SalesOrganizationID]   
