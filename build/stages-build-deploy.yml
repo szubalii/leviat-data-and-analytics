@@ -112,7 +112,7 @@ stages:
         - node.js
         - VisualStudio
         - Python.Version
-        - Computer.Name -equals $(VMName)
+        - Agent.ComputerName -equals $(VMName)
       # workspace:
       #   clean: all
       environment: ${{ variables['deployEnv'] }}
@@ -137,7 +137,7 @@ stages:
         - node.js
         - VisualStudio
         - Python.Version
-        - Computer.Name -equals $(VMName)
+        - Agent.ComputerName -equals $(VMName)
       steps:
       - template: ../${{parameters.folder}}/build/steps-test.yml
 

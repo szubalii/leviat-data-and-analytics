@@ -8,7 +8,7 @@ jobs:
     demands:
     - node.js
     - VisualStudio
-    - Computer.Name -equals $(VMName)
+    - Agent.ComputerName -equals $(VMName)
   steps:
   - task: Npm@1
     inputs:
