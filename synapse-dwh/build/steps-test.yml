@@ -102,7 +102,7 @@ steps:
 #         demands:
 #         - node.js
 #         - VisualStudio
-#         - Agent.Name -equals $(VMName)
+#         - Agent.ComputerName -equals $(VMName)
 #       steps:
 #       # - task: PowerShell@2
 #       #   displayName: '**Get Changed Files**'
