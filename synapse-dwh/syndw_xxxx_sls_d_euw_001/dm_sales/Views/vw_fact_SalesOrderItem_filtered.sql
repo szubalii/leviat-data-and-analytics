@@ -46,7 +46,7 @@ SELECT
     ,[SalesDocumentRjcnReason]
     ,[PricingDate]
     ,[ExchangeRateDate]
-    ,[NetAmount]
+    ,[SOI_NetAmount] AS NetAmount
     ,[TransactionCurrencyID]
     ,[RequestedDeliveryDate]
     ,[PlantID]
