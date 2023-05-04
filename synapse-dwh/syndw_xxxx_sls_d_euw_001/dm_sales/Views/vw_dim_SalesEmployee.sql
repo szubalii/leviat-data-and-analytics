@@ -1,8 +1,7 @@
 CREATE VIEW [dm_sales].[vw_dim_SalesEmployee]
 AS 
 SELECT
-          [SDDocument]
-        , [PartnerFunction]
+          [PartnerFunction]
         , [PartnerFunctionName]
         , [AddressID]
         , [Customer]
@@ -13,14 +12,11 @@ SELECT
         , [PostalCode]
         , [EmailAddress]
         , [PhoneNumber]
-        , [MobilePhoneNumber]
-        , [t_applicationId]
-        , [t_extractionDtm]
-    FROM [base_s4h_cax].[C_BillingDocumentPartnerFs]
+        , [MobilePhoneNumber] 
+    FROM [edw].[dim_BillingDocumentPartnerFs]
     WHERE PartnerFunction = 'VE'
     GROUP BY
-          [SDDocument]
-        , [PartnerFunction]
+          [PartnerFunction]
         , [PartnerFunctionName]
         , [AddressID]
         , [Customer]
@@ -32,5 +28,3 @@ SELECT
         , [EmailAddress]
         , [PhoneNumber]
         , [MobilePhoneNumber]
-        , [t_applicationId]
-        , [t_extractionDtm]
