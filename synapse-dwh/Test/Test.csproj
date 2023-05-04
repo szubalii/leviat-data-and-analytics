@@ -80,9 +80,12 @@
     <Compile Include="edw\Views\vw_Brand.cs">
       <SubType>Designer</SubType>
     </Compile>
-	  <Compile Include="edw\Views\vw_Customer.cs">
-		  <SubType>Designer</SubType>
-	  </Compile>
+    <Compile Include="edw\Views\vw_Customer.cs">
+      <SubType>Designer</SubType>
+    </Compile>
+    <Compile Include="edw\Functions\ScalarValued\svf_getInvertAmount.cs">
+      <SubType>Designer</SubType>
+    </Compile>
     <Compile Include="SqlDatabaseSetup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -99,9 +102,12 @@
     <EmbeddedResource Include="edw\Views\vw_Brand.resx">
       <DependentUpon>vw_Brand.cs</DependentUpon>
     </EmbeddedResource>
-	  <EmbeddedResource Include="edw\Views\vw_Customer.resx">
-		  <DependentUpon>vw_Customer.cs</DependentUpon>
-	  </EmbeddedResource>
+    <EmbeddedResource Include="edw\Views\vw_Customer.resx">
+      <DependentUpon>vw_Customer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="edw\Functions\ScalarValued\svf_getInvertAmount.resx">
+      <DependentUpon>svf_getInvertAmount.cs</DependentUpon>
+	</EmbeddedResource>
   </ItemGroup>
   <ItemGroup />
   <ItemGroup Condition="$(VisualStudioVersion) == '17.0'">
