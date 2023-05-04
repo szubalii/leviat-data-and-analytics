@@ -576,7 +576,7 @@
     <Build Include="edw\Tables\dim_PriceListType.sql" />
     <Build Include="edw\Tables\dim_StorageLocation.sql" />
     <Build Include="base_s4h_cax\Tables\I_ExchangeRateType.sql" />
-    <Build Include="base_s4h_cax\Views\vw_Pfcg_Role_To_User.sql" />
+    <Build Include="base_s4h_cax\Tables\Pfcg_Role_To_User.sql" />
     <Build Include="dm_procurement\Views\vw_Pfcg_Role_To_User.sql" />
     <Build Include="dm_procurement\Views\vw_dim_ProductPlant.sql" />
     <Build Include="edw\Tables\dim_MaterialGroup.sql" />
