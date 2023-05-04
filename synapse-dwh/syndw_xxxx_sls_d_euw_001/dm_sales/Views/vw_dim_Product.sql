@@ -64,17 +64,11 @@ SELECT
   P.[ZZ1_CustomFieldHighRis_PRD],
   P.[ZZ1_CustomFieldRiskRea_PRD],
   P.[CreatedByUser],
-  PT.[MaterialGroupName],
-  PT.[MaterialGroupText],
   P.[t_jobDtm],
   P.[t_applicationId],
   P.[t_extractionDtm]
 FROM
   [edw].[dim_Product] P
-LEFT OUTER JOIN 
-  [base_s4h_cax].[I_ProductGroupText] PT
-    ON P.[ProductGroup] = PT.[MaterialGroup]
-      AND PT.Language = 'E'
 
 UNION ALL
 
@@ -142,8 +136,6 @@ SELECT
   NULL AS [ZZ1_CustomFieldHighRis_PRD],
   NULL AS [ZZ1_CustomFieldRiskRea_PRD],
   NULL AS [CreatedByUser],
-  NULL AS [MaterialGroupName],
-  NULL AS [MaterialGroupText],
   [t_jobDtm],
   [t_applicationId],
   [t_extractionDtm]

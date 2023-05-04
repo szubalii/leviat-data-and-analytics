@@ -829,6 +829,12 @@ SELECT
 ,   [SalesProduct]
 ,   [DfsAmmunitionGroupCode]
 ,   [DfsRICIdentifier]
+,   PT.[MaterialGroupName]
+,   PT.[MaterialGroupText]
+,   ECC.[EClassCode]               
+,   ECC.[EClassCategory]           
+,   ECC.[EClassCategoryDescription]
+,   C.[Classification]
 ,   [ZZ1_CustomFieldRiskMit_PRD]
 ,   [ZZ1_CustomFieldHighRis_PRD]
 ,   [ZZ1_CustomFieldRiskRea_PRD]
@@ -847,3 +853,16 @@ LEFT JOIN
         CTE_Product.[ItemCategoryGroup] = ItemCategoryGroup.[ItemCategoryGroup]
         AND
         ItemCategoryGroup.[Language] = 'E'
+LEFT JOIN 
+    base_s4h_cax.I_ProductGroupText PT
+    ON
+        CTE_Product.ProductGroup = PT.MaterialGroup
+        AND PT.Language = 'E'
+LEFT JOIN
+    map_General.EClassCodes ECC
+    ON
+        CTE_Product.ProductGroup = ECC.MaterialGroupID
+LEFT JOIN
+    map_General.Classification C
+    ON
+        PT.MaterialGroupName = C.MaterialGroupName
