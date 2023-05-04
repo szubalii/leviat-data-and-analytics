@@ -3996,7 +3996,7 @@
       {
         "entity_id": 586,
         "entity_name": "Pfcg_Role_To_User",
-        "data_category": "DIMENSION",
+        "data_category": "NULL",
         "client_field": "MANDT",
         "tool_name": "Theobald",
         "extraction_type": "Table",
