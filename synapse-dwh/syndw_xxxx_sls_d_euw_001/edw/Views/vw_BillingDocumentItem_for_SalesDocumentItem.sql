@@ -205,7 +205,7 @@ INNER JOIN
   [edw].[dim_BillingDocumentType] BDT
   ON
     BDI.BillingDocumentTypeID = BDT.BillingDocumentTypeID
-LFFT OUTER JOIN
+LEFT OUTER JOIN
   [edw].[dim_SDDocumentCategory] SDDC
   ON
     SDDC.SDDocumentCategoryID = BDI.SDDocumentCategoryID
