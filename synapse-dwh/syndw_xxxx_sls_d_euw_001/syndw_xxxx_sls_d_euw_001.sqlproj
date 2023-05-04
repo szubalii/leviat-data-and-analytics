@@ -576,7 +576,8 @@
     <Build Include="edw\Tables\dim_PriceListType.sql" />
     <Build Include="edw\Tables\dim_StorageLocation.sql" />
     <Build Include="base_s4h_cax\Tables\I_ExchangeRateType.sql" />
-    <Build Include="base_s4h_cax\Tables\Pfcg_Role_To_User.sql" />
+    <Build Include="base_s4h_cax\Views\vw_Pfcg_Role_To_User.sql" />
+    <Build Include="dm_procurement\Views\Pfcg_Role_To_User.sql" />
     <Build Include="edw\Tables\dim_MaterialGroup.sql" />
     <Build Include="Security\Schemas\map_AXBI.sql" />
     <Build Include="Security\Schemas\map_General.sql" />
@@ -588,6 +589,7 @@
     <Build Include="base_tx_halfen_2_dwh\Tables\FACT_CUSTPACKINGSLIPTRANS.sql" />
     <Build Include="edw\Views\vw_SalesDocumentItem_axbi.sql" />
     <Build Include="edw\Views\vw_SalesDocumentItem_s4h.sql" />
+    <Build Include="edw\Views\vw_Pfcg_Role_To_User.sql" />
     <Build Include="edw\Tables\dim_BillingBlockStatus.sql" />
     <Build Include="edw\Tables\dim_DeliveryBlockStatus.sql" />
     <Build Include="edw\Tables\dim_ItemBillingIncompletionStatus.sql" />
@@ -600,6 +602,7 @@
     <Build Include="edw\Tables\dim_SalesDocumentRjcnReason.sql" />
     <Build Include="edw\Tables\fact_SalesDocumentItem.sql" />
     <Build Include="Security\Schemas\base_ff.sql" />
+    <Build Include="Security\Schemas\dm_procurement.sql" />
     <Build Include="base_ff\Tables\CurrencyType.sql" />
     <Build Include="edw\Views\vw_CurrencyType.sql" />
     <Build Include="edw\Views\vw_BillingDocumentItem_s4h.sql" />
