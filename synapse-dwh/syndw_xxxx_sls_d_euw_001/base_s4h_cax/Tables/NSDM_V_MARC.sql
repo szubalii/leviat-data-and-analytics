@@ -22,7 +22,7 @@ CREATE TABLE [base_s4h_cax].[NSDM_V_MARC]
 -- , [dismm] nvarchar(2) collate Latin1_General_100_BIN2
 -- , [dispo] nvarchar(3) collate Latin1_General_100_BIN2
 -- , [kzdie] nvarchar(1) collate Latin1_General_100_BIN2
--- , [plifz] decimal(3)
+ , [PLIFZ] decimal(3)
 -- , [webaz] decimal(3)
 -- , [perkz] nvarchar(1) collate Latin1_General_100_BIN2
 -- , [ausss] decimal(5,2)
