@@ -435,7 +435,6 @@ C_SalesDocumentItemDEXBase as (
 
     LEFT JOIN  [edw].[dim_Customer] DimCust
             ON doc.SoldToParty = DimCust.CustomerID  
-    
 ),
 
 
