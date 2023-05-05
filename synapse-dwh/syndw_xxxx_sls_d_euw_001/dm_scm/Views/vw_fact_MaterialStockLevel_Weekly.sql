@@ -14,5 +14,8 @@ AS SELECT
   , [PurchaseOrderTypeID]
   , [YearWeek]
   , [StockLevelQtyInBaseUnit]
+  , [StockLevelStandardPPU]
+  , [StockLevelStandardPPU_EUR]
+  , [StockLevelStandardPPU_USD]
 FROM
   [edw].[vw_MaterialStockLevel_Weekly]
