@@ -167,14 +167,14 @@ C_SalesDocumentItemDEXBase as (
          , doc.[ExchangeRateDate]
          , doc.[PriceDetnExchangeRate]
          , doc.[StatisticalValueControl]        as [StatisticalValueControlID]
-         , doc.[NetAmount]
+         , edw.[svf_getInvertAmount] (doc.SalesDocumentType, doc.NetAmount) as NetAmount
          , doc.[TransactionCurrency]            as [TransactionCurrencyID]
          , doc.[SalesOrganizationCurrency]      as [SalesOrganizationCurrencyID]
          , doc.[NetPriceAmount]
          , doc.[NetPriceQuantity]
          , doc.[NetPriceQuantityUnit]           as [NetPriceQuantityUnitID]
          , doc.[TaxAmount]
-         , doc.[CostAmount]
+         , edw.[svf_getInvertAmount] (doc.SalesDocumentType, doc.CostAmount) as CostAmount
          , doc.[NetAmount] - doc.[CostAmount]   as [Margin]
          , doc.[Subtotal1Amount]
          , doc.[Subtotal2Amount]
