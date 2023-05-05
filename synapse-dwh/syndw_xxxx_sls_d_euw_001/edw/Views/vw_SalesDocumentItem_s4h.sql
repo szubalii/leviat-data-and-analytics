@@ -290,7 +290,7 @@ C_SalesDocumentItemDEXBase as (
         , doc.[ItemDeliveryStatus]    
         , doc.[OverallDeliveryStatus] 
         , SDSL.[ScheduleLineCategory]
-        , ZP.[FullName] AS SalesAgent
+        , ZA.[FullName] AS SalesAgent
          , doc.[t_applicationId]
          , doc.[t_jobId]
          , doc.[t_jobDtm]
@@ -342,6 +342,12 @@ C_SalesDocumentItemDEXBase as (
             AG.[PartnerFunction] = 'AG'
             --  and AG.[MANDT] = 200 MPS 2021/11/01: commented out due to different client values between dev,qas, and prod
     -- WHERE doc.[MANDT] = 200 MPS 2021/11/01: commented out due to different client values between dev,qas, and prod
+     LEFT JOIN 
+        [edw].[dim_BillingDocumentPartnerFs] ZA
+        ON 
+            ZA.[SDDocument] = doc.[SalesDocument]
+            AND 
+            ZA.[PartnerFunction] = 'ZA' 
     LEFT JOIN
         [edw].[vw_Brand] DimBrand
         ON
@@ -430,9 +436,6 @@ C_SalesDocumentItemDEXBase as (
     LEFT JOIN  [edw].[dim_Customer] DimCust
             ON doc.SoldToParty = DimCust.CustomerID  
     
-    LEFT JOIN [edw].[dim_BillingDocumentPartnerFs] ZP
-            ON ZP.[SDDocument] = doc.[SalesDocument]
-            AND ZP.[PartnerFunction] = 'ZA' 
 ),
 
 
