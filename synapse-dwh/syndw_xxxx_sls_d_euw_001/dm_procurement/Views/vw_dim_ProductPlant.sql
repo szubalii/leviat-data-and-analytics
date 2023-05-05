@@ -74,4 +74,4 @@ FROM
     [edw].[vw_ProductPlant] PP
 LEFT JOIN
     [base_s4h_cax].[NSDM_V_MARC] NVM
-    ON PP.Plant = NVM.WERKS
+    ON PP.Plant = NVM.WERKS COLLATE DATABASE_DEFAULT
