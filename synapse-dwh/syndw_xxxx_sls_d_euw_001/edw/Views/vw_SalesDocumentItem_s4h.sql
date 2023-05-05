@@ -167,14 +167,14 @@ C_SalesDocumentItemDEXBase as (
          , doc.[ExchangeRateDate]
          , doc.[PriceDetnExchangeRate]
          , doc.[StatisticalValueControl]        as [StatisticalValueControlID]
-         , edw.[svf_getInvertAmount] (doc.SalesDocumentType, doc.NetAmount) as NetAmount
+         , doc.[NetAmount]
          , doc.[TransactionCurrency]            as [TransactionCurrencyID]
          , doc.[SalesOrganizationCurrency]      as [SalesOrganizationCurrencyID]
          , doc.[NetPriceAmount]
          , doc.[NetPriceQuantity]
          , doc.[NetPriceQuantityUnit]           as [NetPriceQuantityUnitID]
          , doc.[TaxAmount]
-         , edw.[svf_getInvertAmount] (doc.SalesDocumentType, doc.CostAmount) as CostAmount
+         , doc.[CostAmount]
          , doc.[NetAmount] - doc.[CostAmount]   as [Margin]
          , doc.[Subtotal1Amount]
          , doc.[Subtotal2Amount]
@@ -290,6 +290,7 @@ C_SalesDocumentItemDEXBase as (
         , doc.[ItemDeliveryStatus]    
         , doc.[OverallDeliveryStatus] 
         , SDSL.[ScheduleLineCategory]
+        , ZP.[FullName] AS SalesAgent
          , doc.[t_applicationId]
          , doc.[t_jobId]
          , doc.[t_jobDtm]
@@ -428,6 +429,10 @@ C_SalesDocumentItemDEXBase as (
 
     LEFT JOIN  [edw].[dim_Customer] DimCust
             ON doc.SoldToParty = DimCust.CustomerID  
+    
+    LEFT JOIN [edw].[dim_BillingDocumentPartnerFs] ZP
+            ON ZP.[SDDocument] = doc.[SalesDocument]
+            AND ZP.[PartnerFunction] = 'ZA' 
 ),
 
 
@@ -648,6 +653,7 @@ SalesDocument_30 AS (
       ,[ItemDeliveryStatus]    
       ,[OverallDeliveryStatus] 
       ,[ScheduleLineCategory]
+      ,SDI.[SalesAgent]
       ,SDI.[t_applicationId]
       ,SDI.[t_jobId]
       ,SDI.[t_jobDtm]
@@ -886,6 +892,7 @@ SELECT
       ,[ItemDeliveryStatus]    
       ,[OverallDeliveryStatus]
       ,[ScheduleLineCategory] 
+      ,[SalesAgent]
       ,SDI.[t_applicationId]
       ,SDI.[t_jobId]
       ,SDI.[t_jobDtm]
@@ -1077,6 +1084,7 @@ SELECT
       ,[ItemDeliveryStatus]    
       ,[OverallDeliveryStatus]
       ,[ScheduleLineCategory] 
+      ,[SalesAgent]
       ,SDI.[t_applicationId]
       ,SDI.[t_jobId]
       ,SDI.[t_jobDtm]
@@ -1291,6 +1299,7 @@ SELECT
       ,[ItemDeliveryStatus]    
       ,[OverallDeliveryStatus] 
       ,[ScheduleLineCategory]
+      ,[SalesAgent]
       ,SD_30.[t_applicationId]
       ,SD_30.[t_jobId]
       ,SD_30.[t_jobDtm]
@@ -1481,7 +1490,8 @@ SELECT
       ,[BillingQuantityIBUOverall]
       ,[ItemDeliveryStatus]    
       ,[OverallDeliveryStatus]
-      ,[ScheduleLineCategory] 
+      ,[ScheduleLineCategory]
+      ,[SalesAgent] 
       ,SD_30.[t_applicationId]
       ,SD_30.[t_jobId]
       ,SD_30.[t_jobDtm]

@@ -130,6 +130,7 @@ select doc.[SalesDocument]                       as [SalesOrderID]
      , dimSO.[SalesOffice]
      , doc.[CostAmount] 
      , doc.[ShippingConditionID]
+     , doc.[SalesAgent]
      , doc.[t_applicationId]
      , doc.[t_extractionDtm]
 from [edw].[fact_SalesDocumentItem] doc

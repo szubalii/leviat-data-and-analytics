@@ -174,6 +174,7 @@
     [ItemDeliveryStatus]                VARCHAR(1),
     [OverallDeliveryStatus]             VARCHAR(1),
     [ScheduleLineCategory]              VARCHAR(2),
+    [SalesAgent]                       NVARCHAR(80),
     [t_applicationId]                  VARCHAR(32),
     [t_extractionDtm]                  DATETIME,
     [t_jobId]                          VARCHAR(36),

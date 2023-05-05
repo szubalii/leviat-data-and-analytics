@@ -204,6 +204,7 @@ BEGIN
         ,   [ItemDeliveryStatus]    
         ,   [OverallDeliveryStatus] 
         ,   [ScheduleLineCategory]
+        ,   [SalesAgent]
         ,   [t_applicationId]
         ,   [t_extractionDtm]
         ,   [t_jobId]
@@ -385,6 +386,7 @@ BEGIN
         ,   [ItemDeliveryStatus]    
         ,   [OverallDeliveryStatus] 
         ,   [ScheduleLineCategory]
+        ,   [SalesAgent]
         ,   [t_applicationId]
         ,   [t_extractionDtm]
         ,   @t_jobId AS t_jobId
