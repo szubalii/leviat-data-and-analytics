@@ -1,15 +1,11 @@
 {
     "nameGenerator": {
         "suffix": "",
-        "customName": "OPT_VIM_1HEAD",
-        "objectNamingMode": "Custom",
         "appendsTimestamp": true
     },
     "internalSettings": {
         "nameGenerator": {
             "suffix": "",
-            "customName": "OPT_VIM_1HEAD",
-            "objectNamingMode": "Custom",
             "appendsTimestamp": true
         },
         "sapDateConversion": {
