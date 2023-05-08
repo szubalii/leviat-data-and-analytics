@@ -107,7 +107,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="edw\Functions\ScalarValued\svf_getInvertAmount.resx">
       <DependentUpon>svf_getInvertAmount.cs</DependentUpon>
-	</EmbeddedResource>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />
   <ItemGroup Condition="$(VisualStudioVersion) == '17.0'">
