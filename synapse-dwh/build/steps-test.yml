@@ -27,7 +27,7 @@ steps:
       # https://learn.microsoft.com/en-us/dotnet/core/testing/selective-unit-tests?pivots=mstest
       # start with initial filter so in case of no files mapped to a test case,
       # no actual test case is run
-      $testCaseFilterHelp = "FullyQualifiedName=dummy|" 
+      $testCaseFilterHelp = "(FullyQualifiedName=dummy)|" 
       $edwEntities = {}
       $baseEntities = {}
       $dir = "syndw_xxxx_sls_d_euw_001"
@@ -46,7 +46,7 @@ steps:
           # Views
           # if ($filePath.IndexOf("Views") -ne -1) {
             $fqn = $subFilePath.Replace('/','.')
-            $testCaseFilterHelp += "FullyQualifiedName~$fqn|"
+            $testCaseFilterHelp += "(FullyQualifiedName~$fqn)|"
           # }
           # Tables
           # else if ($filePath.IndexOf("Tables") -ne -1) {
@@ -66,7 +66,7 @@ steps:
         }
       }
       
-      # Remove the last character ('|')
+      # Remove the last separator character '|'
       if ($testCaseFilterHelp.Length -gt 0) {
         $testCaseFilter = $testCaseFilterHelp.SubString(0, $testCaseFilterHelp.Length-1)
       } 
