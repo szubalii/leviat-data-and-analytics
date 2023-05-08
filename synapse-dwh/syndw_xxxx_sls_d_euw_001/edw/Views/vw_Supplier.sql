@@ -67,6 +67,13 @@
       ,[TradingPartner]
       ,[TaxInvoiceRepresentativeName]
       ,[IndustryType]
+      , CASE WHEN (
+        SELECT COUNT(*)
+        FROM [base_s4h_cax].[I_SupplierPurchasingOrg] Org
+        WHERE Supplier.Supplier = Org.Supplier
+        ) > 1
+        THEN 'Global'
+        ELSE 'Local' END                      AS [Global_Local]
       ,Supplier.[t_applicationId]
       ,Supplier.[t_extractionDtm]
     FROM 
