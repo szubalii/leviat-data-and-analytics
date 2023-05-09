@@ -125,6 +125,7 @@
     [BillToPartyID]                    nvarchar(20),
     [ShipToPartyID]                    nvarchar(20),
     [SalesOfficeID]                    nvarchar(4),
+    [SoldProduct]                      nvarchar(40),
     [t_applicationId]                  VARCHAR(32),
     [t_extractionDtm]                  DATETIME,
     [t_jobId]                          VARCHAR(36),

@@ -140,6 +140,7 @@ WITH PA AS (
        [BillToParty]                            AS [BillToPartyID],
        [ShipToParty]                            AS [ShipToPartyID], 
        [KMVKBUPA]                               AS [SalesOfficeID],
+       [SoldProduct],
        GLAccountLineItemRawData.[t_applicationId],
        GLAccountLineItemRawData.[t_extractionDtm]
 --FROM [base_s4h_cax].[I_GLAccountLineItemRawData] GLAccountLineItemRawData 
@@ -270,6 +271,7 @@ SELECT
        [BillToParty],
        [ShipToParty],
        [KMVKBUPA],
+       [SoldProduct],
        GLAccountLineItemRawData.[t_applicationId],
        GLAccountLineItemRawData.[t_extractionDtm]
 FROM [base_s4h_cax].[I_GLAccountLineItemRawData_202301] GLAccountLineItemRawData 
@@ -399,6 +401,7 @@ SELECT
        [BillToParty],
        [ShipToParty],
        [KMVKBUPA],
+       [SoldProduct],
        GLAccountLineItemRawData.[t_applicationId],
        GLAccountLineItemRawData.[t_extractionDtm]
 FROM [base_s4h_cax].[I_GLAccountLineItemRawData_202302] GLAccountLineItemRawData 
@@ -528,6 +531,7 @@ SELECT
        [BillToParty],
        [ShipToParty],
        [KMVKBUPA],
+       [SoldProduct],
        GLAccountLineItemRawData.[t_applicationId],
        GLAccountLineItemRawData.[t_extractionDtm]
 FROM [base_s4h_cax].[I_GLAccountLineItemRawData_202303] GLAccountLineItemRawData 
@@ -657,6 +661,7 @@ SELECT
        [BillToParty],
        [ShipToParty],
        [KMVKBUPA],
+       [SoldProduct],
        GLAccountLineItemRawData.[t_applicationId],
        GLAccountLineItemRawData.[t_extractionDtm]
 FROM [base_s4h_cax].[I_GLAccountLineItemRawData_202304] GLAccountLineItemRawData 
@@ -786,6 +791,7 @@ SELECT
        [BillToParty],
        [ShipToParty],
        [KMVKBUPA],
+       [SoldProduct],
        GLAccountLineItemRawData.[t_applicationId],
        GLAccountLineItemRawData.[t_extractionDtm]
 FROM [base_s4h_cax].[I_GLAccountLineItemRawData_202305] GLAccountLineItemRawData 
@@ -793,7 +799,7 @@ FROM [base_s4h_cax].[I_GLAccountLineItemRawData_202305] GLAccountLineItemRawData
 SELECT 
        [SourceLedgerID],
        [CompanyCodeID],
-       COALESCE(VC.[ProductSurrogateKey],GLAccountLineItemRawData.[ProductID]) AS [ProductSurrogateKey],
+       edw.svf_getProductSurrogateKey(VC.[ProductSurrogateKey],GLAccountLineItemRawData.[ProductID],SoldProduct) AS [ProductSurrogateKey],
        [FiscalYear],
        [AccountingDocument],
        [LedgerGLLineItem],
@@ -918,6 +924,7 @@ SELECT
        [SalesOfficeID],
        PA.ICSalesDocumentID,
        PA.ICSalesDocumentItemID,
+       [SoldProduct],
        GLAccountLineItemRawData.[t_applicationId],
        GLAccountLineItemRawData.[t_extractionDtm]
 FROM GLAccountLineItemRawData
