@@ -7,7 +7,7 @@ AS
 BEGIN
 DECLARE @InvertAmount DECIMAL(15, 2) =
   case
-    when @SalesDocumentType = 'ZCR'
+    when @SalesDocumentType in ('ZCR','ZCR2','ZCI')
     then @Amount *(-1)
     else @Amount
   end;
