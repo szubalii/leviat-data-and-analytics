@@ -101,6 +101,7 @@ SELECT
     ,SOI.[PricingIncompletionStatus]
     ,SOI.[ItemDeliveryIncompletionStatusID]
     ,SOI.[ItemDeliveryIncompletionStatus]
+    ,SOI.[SalesAgent]
     ,SOI.[ExternalSalesAgentID]
     ,SOI.[ExternalSalesAgent]
     ,SOI.[ProjectID]
@@ -172,7 +173,6 @@ SELECT
         THEN SDSL.ConfirmedDeliveryDate
         ELSE SOI.RequestedDeliveryDate
      END  as ExpectedDeliveryDate
-    ,SOI.[SalesAgent]
     ,SOI.[t_applicationId]
     ,SOI.[t_extractionDtm]
 FROM [dm_sales].[vw_fact_SalesOrderItem] SOI
