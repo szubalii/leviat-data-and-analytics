@@ -92,6 +92,7 @@ SELECT
     ,[PricingIncompletionStatus]
     ,[ItemDeliveryIncompletionStatusID]
     ,[ItemDeliveryIncompletionStatus]
+    ,[SalesAgent]
     ,[ExternalSalesAgentID]
     ,[ExternalSalesAgent]
     ,[ProjectID]
@@ -117,7 +118,6 @@ SELECT
     ,[SalesOffice]
     ,[SOI_CostAmount] AS CostAmount
     ,[ExpectedDeliveryDate]
-    ,[SalesAgent]
     ,[t_applicationId]
     ,[t_extractionDtm]
 FROM [dm_sales].[vw_fact_SalesOrderItem_combined]

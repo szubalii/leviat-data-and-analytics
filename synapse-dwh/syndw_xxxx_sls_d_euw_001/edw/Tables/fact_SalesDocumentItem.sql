@@ -145,6 +145,8 @@
     [ItemBillingIncompletionStatusID]  nvarchar(1),
     [PricingIncompletionStatusID]      nvarchar(1),
     [ItemDeliveryIncompletionStatusID] nvarchar(1),
+    [SalesAgentID]                     NVARCHAR(20)                                 NULL,
+    [SalesAgent]                       NVARCHAR(160)                                NULL,
     [ExternalSalesAgentID]             NVARCHAR(20)                                 NULL,
     [ExternalSalesAgent]               NVARCHAR(160)                                NULL,
     [GlobalParentID]                   NVARCHAR(20)                                 NULL,
