@@ -182,7 +182,8 @@
 				"type": "string"
 			},
 			"isSuccessful": {
-				"type": "bool"
+				"type": "bool",
+				"defaultValue": true
 			},
 			"parent_run_id": {
 				"type": "string"
