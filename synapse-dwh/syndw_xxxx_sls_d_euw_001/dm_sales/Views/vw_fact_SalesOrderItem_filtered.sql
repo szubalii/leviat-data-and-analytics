@@ -92,6 +92,7 @@ SELECT
     ,[PricingIncompletionStatus]
     ,[ItemDeliveryIncompletionStatusID]
     ,[ItemDeliveryIncompletionStatus]
+    ,[SalesAgent]
     ,[ExternalSalesAgentID]
     ,[ExternalSalesAgent]
     ,[ProjectID]

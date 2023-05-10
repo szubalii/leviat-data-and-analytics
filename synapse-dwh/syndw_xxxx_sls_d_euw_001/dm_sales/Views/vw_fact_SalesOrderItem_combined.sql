@@ -101,6 +101,7 @@ SELECT
     ,SOI.[PricingIncompletionStatus]
     ,SOI.[ItemDeliveryIncompletionStatusID]
     ,SOI.[ItemDeliveryIncompletionStatus]
+    ,SOI.[SalesAgent]
     ,SOI.[ExternalSalesAgentID]
     ,SOI.[ExternalSalesAgent]
     ,SOI.[ProjectID]
