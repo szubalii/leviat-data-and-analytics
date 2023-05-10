@@ -60,7 +60,7 @@
 							"value": "@activity('Process ETL').output.pipelineName",
 							"type": "Expression"
 						},
-						"status": "failed",
+						"isSuccessful": false,
 						"parent_run_id": {
 							"value": "@activity('Process ETL').output.pipelineRunId",
 							"type": "Expression"
@@ -95,7 +95,7 @@
 							"value": "@activity('Process ETL').output.pipelineName",
 							"type": "Expression"
 						},
-						"status": "succeeded",
+						"isSuccessful": true,
 						"parent_run_id": {
 							"value": "@activity('Process ETL').output.pipelineRunId",
 							"type": "Expression"
