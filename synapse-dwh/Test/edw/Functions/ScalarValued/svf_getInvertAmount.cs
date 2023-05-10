@@ -52,12 +52,6 @@ namespace Test.edw.Functions.ScalarValued
             checkGetInvertAmount_TestAction.Conditions.Add(checksumCondition2);
             resources.ApplyResources(checkGetInvertAmount_TestAction, "checkGetInvertAmount_TestAction");
             // 
-            // checkGetInvertAmountData
-            // 
-            this.checkGetInvertAmountData.PosttestAction = null;
-            this.checkGetInvertAmountData.PretestAction = null;
-            this.checkGetInvertAmountData.TestAction = checkGetInvertAmount_TestAction;
-            // 
             // checksumCondition1
             // 
             checksumCondition1.Checksum = "446625033";
@@ -69,6 +63,12 @@ namespace Test.edw.Functions.ScalarValued
             checksumCondition2.Checksum = "-873310206";
             checksumCondition2.Enabled = true;
             checksumCondition2.Name = "checksumCondition2";
+            // 
+            // checkGetInvertAmountData
+            // 
+            this.checkGetInvertAmountData.PosttestAction = null;
+            this.checkGetInvertAmountData.PretestAction = null;
+            this.checkGetInvertAmountData.TestAction = checkGetInvertAmount_TestAction;
         }
 
         #endregion
