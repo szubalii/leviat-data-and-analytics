@@ -27,16 +27,20 @@ LEFT JOIN
 WHERE
     [DataArea] = 'Material'
 )
+
 SELECT
     cnt.[RuleID],
     cnt.[RecordTotals],
     COUNT(p.Count) AS [ErrorTotals]
 FROM
     CountRowsPerRuleID AS cnt
-INNER JOIN
+LEFT OUTER JOIN
     [dq].[vw_Product_1_2] AS p
     ON
         cnt.[RuleID] = p.[RuleID]
+
+WHERE cnt.RuleID IN ('1.2_ZFER', '1.2_ZHAW')
+
 GROUP BY
     cnt.[RuleID],
     cnt.[RuleGroup],
@@ -50,10 +54,13 @@ SELECT
     COUNT(p.Count) AS [ErrorTotals]
 FROM
     CountRowsPerRuleID AS cnt
-INNER JOIN
+LEFT OUTER JOIN
     [dq].[vw_Product_1_3] AS p
     ON
         cnt.[RuleID] = p.[RuleID]
+
+WHERE cnt.RuleID IN ('1.3_ZERS', '1.3_ZFER', '1.3_ZROH')
+
 GROUP BY
     cnt.[RuleID],
     cnt.[RuleGroup],
@@ -71,10 +78,13 @@ SELECT
     (SELECT COUNT(DISTINCT Product) FROM [dq].[vw_Product_1_6] ) AS [ErrorTotals] --FB 05.12.2022: Added DISTINCT Product Count to suit reporting requirements from R Hofste.
 FROM
     CountRowsPerRuleID AS cnt
-INNER JOIN
+LEFT OUTER JOIN
     [dq].[vw_Product_1_6] AS p
     ON
         cnt.[RuleID] = p.[RuleID]
+
+WHERE cnt.RuleID IN ('1.6_ALL')
+
 GROUP BY
     cnt.[RuleID],
     cnt.[RuleGroup],
@@ -93,10 +103,13 @@ SELECT
     COUNT(p.Count) AS [ErrorTotals]
 FROM
     CountRowsPerRuleID AS cnt
-INNER JOIN
+LEFT OUTER JOIN
     [dq].[vw_Product_1_14] AS p
     ON
         cnt.[RuleID] = p.[RuleID]
+
+WHERE cnt.RuleID IN ('1.14_ALL')
+
 GROUP BY
     cnt.[RuleID],
     cnt.[RuleGroup],
@@ -115,10 +128,13 @@ SELECT
     COUNT(p.Count) AS [ErrorTotals]
 FROM
     CountRowsPerRuleID AS cnt
-INNER JOIN
+LEFT OUTER JOIN
     [dq].[vw_Product_1_15] AS p
     ON
         cnt.[RuleID] = p.[RuleID]
+
+WHERE cnt.RuleID IN ('1.15_ALL')
+
 GROUP BY
     cnt.[RuleID],
     cnt.[RuleGroup],
@@ -133,10 +149,13 @@ SELECT
     COUNT(p.Count) AS [ErrorTotals]
 FROM
     CountRowsPerRuleID AS cnt
-INNER JOIN
+LEFT OUTER JOIN
     [dq].[vw_Product_1_16] AS p
     ON
         cnt.[RuleID] = p.[RuleID]
+
+WHERE cnt.RuleID IN ('1.16_ZFER', '1.16_ZHAL', '1.16_ZHAW', '1.16_ZROH', '1.16_ZVER')
+
 GROUP BY
     cnt.[RuleID],
     cnt.[RuleGroup],
@@ -150,10 +169,13 @@ SELECT
     COUNT(p.Count) AS [ErrorTotals]
 FROM
     CountRowsPerRuleID AS cnt
-INNER JOIN
+LEFT OUTER JOIN
     [dq].[vw_Product_1_17] AS p
     ON
         cnt.[RuleID] = p.[RuleID]
+
+WHERE cnt.RuleID IN ('1.17_ZHAW', '1.17_ZVER')
+
 GROUP BY
     cnt.[RuleID],
     cnt.[RuleGroup],
@@ -171,10 +193,13 @@ SELECT
     COUNT(p.Count) AS [ErrorTotals]
 FROM
     CountRowsPerRuleID AS cnt
-INNER JOIN
+LEFT OUTER JOIN
     [dq].[vw_Product_1_18] AS p
     ON
         cnt.[RuleID] = p.[RuleID]
+
+WHERE cnt.RuleID IN ('1.18_ALL')
+
 GROUP BY
     cnt.[RuleID],
     cnt.[RuleGroup],
@@ -193,10 +218,13 @@ SELECT
     COUNT(p.Count) AS [ErrorTotals]
 FROM
     CountRowsPerRuleID AS cnt
-INNER JOIN
+LEFT OUTER JOIN
     [dq].[vw_Product_1_19] AS p
     ON
         cnt.[RuleID] = p.[RuleID]
+
+WHERE cnt.RuleID IN ('1.19_ALL')
+
 GROUP BY
     cnt.[RuleID],
     cnt.[RuleGroup],
@@ -211,10 +239,13 @@ SELECT
     COUNT(p.Count) AS [ErrorTotals]
 FROM
     CountRowsPerRuleID AS cnt
-INNER JOIN
+LEFT OUTER JOIN
     [dq].[vw_Product_1_20] AS p
     ON
         cnt.[RuleID] = p.[RuleID]
+
+WHERE cnt.RuleID IN ('1.20_ZFER')
+
 GROUP BY
     cnt.[RuleID],
     cnt.[RuleGroup],
@@ -228,10 +259,13 @@ SELECT
     COUNT(p.Count) AS [ErrorTotals]
 FROM
     CountRowsPerRuleID AS cnt
-INNER JOIN
+LEFT OUTER JOIN
     [dq].[vw_Product_1_7] AS p
     ON
         cnt.[RuleID] = p.[RuleID]
+
+WHERE cnt.RuleID IN ('1.7_ZFER', '1.7_ZHAW', '1.7_ZVER')
+
 GROUP BY
     cnt.[RuleID],
     cnt.[RuleGroup],
@@ -245,10 +279,13 @@ SELECT
     COUNT(p.Count) AS [ErrorTotals]
 FROM
     CountRowsPerRuleID AS cnt
-INNER JOIN
+LEFT OUTER JOIN
     [dq].[vw_Product_1_12] AS p
     ON
         cnt.[RuleID] = p.[RuleID]
+
+WHERE cnt.RuleID IN ('1.12_ZFER', '1.12_ZHAW')
+
 GROUP BY
     cnt.[RuleID],
     cnt.[RuleGroup],
@@ -262,10 +299,13 @@ SELECT
     COUNT(p.Count) AS [ErrorTotals]
 FROM
     CountRowsPerRuleID AS cnt
-INNER JOIN
+LEFT OUTER JOIN
     [dq].[vw_Product_1_23] AS p
     ON
         cnt.[RuleID] = p.[RuleID]
+
+WHERE cnt.RuleID IN ('1.23_ZHAW')
+
 GROUP BY
     cnt.[RuleID],
     cnt.[RuleGroup],
@@ -279,10 +319,13 @@ SELECT
     COUNT(p.Count) AS [ErrorTotals]
 FROM
     CountRowsPerRuleID AS cnt
-INNER JOIN
+LEFT OUTER JOIN
     [dq].[vw_Product_1_30] AS p
     ON
         cnt.[RuleID] = p.[RuleID]
+
+WHERE cnt.RuleID IN ('1.30_ZFER', '1.30_ZHAW')
+
 GROUP BY
     cnt.[RuleID],
     cnt.[RuleGroup],
@@ -300,10 +343,13 @@ SELECT
     COUNT(p.Count) AS [ErrorTotals]
 FROM
     CountRowsPerRuleID AS cnt
-INNER JOIN
+LEFT OUTER JOIN
     [dq].[vw_Product_1_13] AS p
     ON
         cnt.[RuleID] = p.[RuleID]
+
+WHERE cnt.RuleID IN ('1.13_ALL')
+
 GROUP BY
     cnt.[RuleID],
     cnt.[RuleGroup],
@@ -322,10 +368,13 @@ SELECT
     COUNT(p.Count) AS [ErrorTotals]
 FROM
     CountRowsPerRuleID AS cnt
-INNER JOIN
+LEFT OUTER JOIN
     [dq].[vw_Product_1_11] AS p
     ON
         cnt.[RuleID] = p.[RuleID]
+
+WHERE cnt.RuleID IN ('1.11_ALL')
+
 GROUP BY
     cnt.[RuleID],
     cnt.[RuleGroup],
@@ -340,10 +389,13 @@ SELECT
     COUNT(p.Count) AS [ErrorTotals]
 FROM
     CountRowsPerRuleID AS cnt
-INNER JOIN
+LEFT OUTER JOIN
     [dq].[vw_Product_1_29] AS p
     ON
         cnt.[RuleID] = p.[RuleID]
+
+WHERE cnt.RuleID IN ('1.29_ZHAW')
+
 GROUP BY
     cnt.[RuleID],
     cnt.[RuleGroup],
@@ -357,10 +409,13 @@ SELECT
     COUNT(p.Count) AS [ErrorTotals]
 FROM
     CountRowsPerRuleID AS cnt
-INNER JOIN
+LEFT OUTER JOIN
     [dq].[vw_Product_1_22] AS p
     ON
         cnt.[RuleID] = p.[RuleID]
+
+WHERE cnt.RuleID IN ('1.22_ZHAW')
+
 GROUP BY
     cnt.[RuleID],
     cnt.[RuleGroup],
@@ -379,10 +434,13 @@ SELECT
     COUNT(p.Count) AS [ErrorTotals]
 FROM
     CountRowsPerRuleID AS cnt
-INNER JOIN
+LEFT OUTER JOIN
     [dq].[vw_Product_1_1] AS p
     ON
         cnt.[RuleID] = p.[RuleID]
+
+WHERE cnt.RuleID IN ('1.1_ALL')
+
 GROUP BY
     cnt.[RuleID],
     cnt.[RuleGroup],
@@ -398,10 +456,13 @@ SELECT
     COUNT(p.Count) AS [ErrorTotals]
 FROM
     CountRowsPerRuleID AS cnt
-INNER JOIN
+LEFT OUTER JOIN
     [dq].[vw_Product_1_25] AS p
     ON
         cnt.[RuleID] = p.[RuleID]
+
+WHERE cnt.RuleID IN ('1.25_ZVER')
+
 GROUP BY
     cnt.[RuleID],
     cnt.[RuleGroup],
@@ -420,10 +481,13 @@ SELECT
     COUNT(p.Count) AS [ErrorTotals]
 FROM
     CountRowsPerRuleID AS cnt
-INNER JOIN
+LEFT OUTER JOIN
     [dq].[vw_Product_1_26] AS p
     ON
         cnt.[RuleID] = p.[RuleID]
+
+WHERE cnt.RuleID IN ('1.26_ALL')
+
 GROUP BY
     cnt.[RuleID],
     cnt.[RuleGroup],
@@ -443,10 +507,13 @@ SELECT
     COUNT(p.Count) AS [ErrorTotals]
 FROM
     CountRowsPerRuleID AS cnt
-INNER JOIN
+LEFT OUTER JOIN
     [dq].[vw_Product_1_34] AS p
     ON
         cnt.[RuleID] = p.[RuleID]
+
+WHERE cnt.RuleID IN ('1.34_ALL')
+
 GROUP BY
     cnt.[RuleID],
     cnt.[RuleGroup],
@@ -466,10 +533,13 @@ SELECT
     COUNT(p.Count) AS [ErrorTotals]
 FROM
     CountRowsPerRuleID AS cnt
-INNER JOIN
+LEFT OUTER JOIN
     [dq].[vw_Product_1_35] AS p
     ON
         cnt.[RuleID] = p.[RuleID]
+
+WHERE cnt.RuleID IN ('1.35_ALL')
+
 GROUP BY
     cnt.[RuleID],
     cnt.[RuleGroup],
@@ -485,10 +555,13 @@ SELECT
     COUNT(p.Count) AS [ErrorTotals]
 FROM
     CountRowsPerRuleID AS cnt
-INNER JOIN
+LEFT OUTER JOIN
     [dq].[vw_Product_1_31] AS p
     ON
         cnt.[RuleID] = p.[RuleID]
+
+WHERE cnt.RuleID IN ('1.31_ZHAW', '1.31_ZVER')
+
 GROUP BY
     cnt.[RuleID],
     cnt.[RuleGroup],
@@ -503,10 +576,13 @@ SELECT
     COUNT(p.Count) AS [ErrorTotals]
 FROM
     CountRowsPerRuleID AS cnt
-INNER JOIN
+LEFT OUTER JOIN
     [dq].[vw_Product_1_32] AS p
     ON
         cnt.[RuleID] = p.[RuleID]
+
+WHERE cnt.RuleID IN ('1.32_ZHAW', '1.32_ZROH')
+
 GROUP BY
     cnt.[RuleID],
     cnt.[RuleGroup],
@@ -521,10 +597,13 @@ SELECT
     COUNT(p.Count) AS [ErrorTotals]
 FROM
     CountRowsPerRuleID AS cnt
-INNER JOIN
+LEFT OUTER JOIN
     [dq].[vw_Product_1_33] AS p
     ON
         cnt.[RuleID] = p.[RuleID]
+
+WHERE cnt.RuleID IN ('1.33_ZROH')
+
 GROUP BY
     cnt.[RuleID],
     cnt.[RuleGroup],
@@ -539,10 +618,13 @@ SELECT
     COUNT(p.Count) AS [ErrorTotals]
 FROM
     CountRowsPerRuleID AS cnt
-INNER JOIN
+LEFT OUTER JOIN
     [dq].[vw_Product_1_41] AS p
     ON
         cnt.[RuleID] = p.[RuleID]
+
+WHERE cnt.RuleID IN ('1.41_ZVER')
+
 GROUP BY
     cnt.[RuleID],
     cnt.[RuleGroup],
