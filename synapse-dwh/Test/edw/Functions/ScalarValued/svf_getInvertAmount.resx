@@ -117,10 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="checksumCondition1.Configuration" xml:space="preserve">
+  <metadata name="checksumConditionZCR.Configuration" xml:space="preserve">
     <value>Press to configure</value>
   </metadata>
-  <metadata name="checksumCondition2.Configuration" xml:space="preserve">
+  <metadata name="checksumConditionZCRMinus.Configuration" xml:space="preserve">
+    <value>Press to configure</value>
+  </metadata>
+  <metadata name="checksumConditionZCR2.Configuration" xml:space="preserve">
+    <value>Press to configure</value>
+  </metadata>
+  <metadata name="checksumConditionZCI.Configuration" xml:space="preserve">
+    <value>Press to configure</value>
+  </metadata>
+  <metadata name="checksumConditionOther.Configuration" xml:space="preserve">
     <value>Press to configure</value>
   </metadata>
   <data name="checkGetInvertAmount_TestAction.SqlScript" xml:space="preserve">

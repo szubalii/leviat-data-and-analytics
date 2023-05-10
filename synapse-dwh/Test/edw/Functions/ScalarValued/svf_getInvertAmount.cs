@@ -39,18 +39,39 @@ namespace Test.edw.Functions.ScalarValued
         {
             Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction checkGetInvertAmount_TestAction;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(svf_getInvertAmount));
-            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ChecksumCondition checksumCondition1;
-            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ChecksumCondition checksumCondition2;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ChecksumCondition checksumConditionZCR;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ChecksumCondition checksumConditionZCRMinus;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ChecksumCondition checksumConditionZCR2;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ChecksumCondition checksumConditionZCI;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ChecksumCondition checksumConditionOther;
             this.checkGetInvertAmountData = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestActions();
             checkGetInvertAmount_TestAction = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction();
-            checksumCondition1 = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ChecksumCondition();
-            checksumCondition2 = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ChecksumCondition();
+            checksumConditionZCR = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ChecksumCondition();
+            checksumConditionZCRMinus = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ChecksumCondition();
+            checksumConditionZCR2 = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ChecksumCondition();
+            checksumConditionZCI = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ChecksumCondition();
+            checksumConditionOther = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ChecksumCondition();
             // 
             // checkGetInvertAmount_TestAction
             // 
-            checkGetInvertAmount_TestAction.Conditions.Add(checksumCondition1);
-            checkGetInvertAmount_TestAction.Conditions.Add(checksumCondition2);
+            checkGetInvertAmount_TestAction.Conditions.Add(checksumConditionZCR);
+            checkGetInvertAmount_TestAction.Conditions.Add(checksumConditionZCRMinus);
+            checkGetInvertAmount_TestAction.Conditions.Add(checksumConditionZCR2);
+            checkGetInvertAmount_TestAction.Conditions.Add(checksumConditionZCI);
+            checkGetInvertAmount_TestAction.Conditions.Add(checksumConditionOther);
             resources.ApplyResources(checkGetInvertAmount_TestAction, "checkGetInvertAmount_TestAction");
+            // 
+            // checksumConditionZCR
+            // 
+            checksumConditionZCR.Checksum = "446625033";
+            checksumConditionZCR.Enabled = true;
+            checksumConditionZCR.Name = "checksumConditionZCR";
+            // 
+            // checksumConditionZCRMinus
+            // 
+            checksumConditionZCRMinus.Checksum = "-873310206";
+            checksumConditionZCRMinus.Enabled = true;
+            checksumConditionZCRMinus.Name = "checksumConditionZCRMinus";
             // 
             // checkGetInvertAmountData
             // 
@@ -58,17 +79,23 @@ namespace Test.edw.Functions.ScalarValued
             this.checkGetInvertAmountData.PretestAction = null;
             this.checkGetInvertAmountData.TestAction = checkGetInvertAmount_TestAction;
             // 
-            // checksumCondition1
+            // checksumConditionZCR2
             // 
-            checksumCondition1.Checksum = "446625033";
-            checksumCondition1.Enabled = true;
-            checksumCondition1.Name = "checksumCondition1";
+            checksumConditionZCR2.Checksum = "446625033";
+            checksumConditionZCR2.Enabled = true;
+            checksumConditionZCR2.Name = "checksumConditionZCR2";
             // 
-            // checksumCondition2
+            // checksumConditionZCI
             // 
-            checksumCondition2.Checksum = "-873310206";
-            checksumCondition2.Enabled = true;
-            checksumCondition2.Name = "checksumCondition2";
+            checksumConditionZCI.Checksum = "446625033";
+            checksumConditionZCI.Enabled = true;
+            checksumConditionZCI.Name = "checksumConditionZCI";
+            // 
+            // checksumConditionOther
+            // 
+            checksumConditionOther.Checksum = "-873310206";
+            checksumConditionOther.Enabled = true;
+            checksumConditionOther.Name = "checksumConditionOther";
         }
 
         #endregion
