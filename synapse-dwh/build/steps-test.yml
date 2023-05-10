@@ -37,7 +37,7 @@ steps:
 
         $dirIndex = $filePath.IndexOf($dir)
         
-        if ($dirIndex -ne -1) {
+        # if ($dirIndex -ne -1) {
 
           $fileTypeIndex = $filePath.IndexOf(".")
           $filePathWithoutExt = $filePath.SubString(0, $fileTypeIndex)
@@ -63,7 +63,7 @@ steps:
 
           # Tables
           # Invoke ADF pipeline
-        }
+        # }
       }
       
       # Remove the last separator character '|'
