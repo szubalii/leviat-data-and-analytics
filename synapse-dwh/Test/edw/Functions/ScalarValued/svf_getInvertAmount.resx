@@ -117,25 +117,40 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="checksumConditionZCR.Configuration" xml:space="preserve">
-    <value>Press to configure</value>
-  </metadata>
-  <metadata name="checksumConditionZCRMinus.Configuration" xml:space="preserve">
-    <value>Press to configure</value>
-  </metadata>
-  <metadata name="checksumConditionZCR2.Configuration" xml:space="preserve">
-    <value>Press to configure</value>
-  </metadata>
-  <metadata name="checksumConditionZCI.Configuration" xml:space="preserve">
-    <value>Press to configure</value>
-  </metadata>
-  <metadata name="checksumConditionOther.Configuration" xml:space="preserve">
-    <value>Press to configure</value>
-  </metadata>
-  <data name="checkGetInvertAmount_TestAction.SqlScript" xml:space="preserve">
+  <data name="GetInvertAmount_ZCR_TestAction.SqlScript" xml:space="preserve">
     <value>-- database unit test for [svf_getInvertAmount]
-SELECT [edw].[svf_getInvertAmount]('ZCR', 10);
-</value>
+SELECT * FROM (
+	SELECT [edw].[svf_getInvertAmount]('ZCR', 10) AS Amount
+) a
+WHERE Amount &lt;&gt; -10;</value>
+  </data>
+  <data name="GetInvertAmount_ZCR2_TestAction.SqlScript" xml:space="preserve">
+    <value>-- database unit test for [svf_getInvertAmount]
+SELECT * FROM (
+	SELECT [edw].[svf_getInvertAmount]('ZCR2', 10) AS Amount
+) a
+WHERE Amount &lt;&gt; -10;</value>
+  </data>
+  <data name="GetInvertAmount_ZCI_TestAction.SqlScript" xml:space="preserve">
+    <value>-- database unit test for [svf_getInvertAmount]
+SELECT * FROM (
+	SELECT [edw].[svf_getInvertAmount]('ZCI', 10) AS Amount
+) a
+WHERE Amount &lt;&gt; -10;</value>
+  </data>
+  <data name="GetInvertAmount_ZCR_Minus_TestAction.SqlScript" xml:space="preserve">
+    <value>-- database unit test for [svf_getInvertAmount]
+SELECT * FROM (
+	SELECT [edw].[svf_getInvertAmount]('ZCR', -10) AS Amount
+) a
+WHERE Amount &lt;&gt; 10;</value>
+  </data>
+  <data name="GetInvertAmount_Other_TestAction.SqlScript" xml:space="preserve">
+    <value>-- database unit test for [svf_getInvertAmount]
+SELECT * FROM (
+	SELECT [edw].[svf_getInvertAmount]('Test', 10) AS Amount
+) a
+WHERE Amount &lt;&gt; 10;</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
