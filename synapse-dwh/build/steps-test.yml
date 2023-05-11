@@ -31,22 +31,29 @@ steps:
       $testCaseFilterHelp = "(FullyQualifiedName=dummy)|" 
       $edwEntities = {}
       $baseEntities = {}
-      $dir = "syndw_xxxx_sls_d_euw_001"
+      $dir = ${{ parameters.folder }}
       $entities = (Get-Content './orchestration/src/config/global/entity.json' | Out-String | ConvertFrom-Json)
 
       ForEach ($filePath in $filePaths) {
 
+        # synapse-dwh/Test/edw/Functions/ScalarValued/svf_getInvertAmount.cs
+
         $dirIndex = $filePath.IndexOf($dir)
         
-        # if ($dirIndex -ne -1) {
+        if ($dirIndex -ne -1) {
 
           $fileTypeIndex = $filePath.IndexOf(".")
           $filePathWithoutExt = $filePath.SubString(0, $fileTypeIndex)
+          # synapse-dwh/Test/edw/Functions/ScalarValued/svf_getInvertAmount
+
           $subFilePath = $filePathWithoutExt.SubString($dirIndex + $dir.Length + 1)
+          # Test/edw/Functions/ScalarValued/svf_getInvertAmount
 
           # Views
           # if ($filePath.IndexOf("Views") -ne -1) {
             $fqn = $subFilePath.Replace('/','.')
+            # Test.edw.Functions.ScalarValued.svf_getInvertAmount
+
             $testCaseFilterHelp += "(FullyQualifiedName~$fqn)|"
           # }
           # Tables
@@ -57,7 +64,7 @@ steps:
             # EDW
 
 
-          # }
+        }
 
 
           
