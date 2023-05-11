@@ -1,4 +1,4 @@
-CREATE VIEW [edw].[vw_Pfcg_Role_To_User]
+CREATE VIEW [edw].[vw_PfcgRoleToUser]
 AS
 SELECT
     [MANDT]

@@ -580,7 +580,7 @@
     <Build Include="base_s4h_cax\Tables\Opt_Vim_1Head.sql" />
     <Build Include="edw\Views\vw_OptVim1Head.sql" />
     <Build Include="dm_procurement\Views\vw_OptVim1Head.sql" />
-    <Build Include="dm_procurement\Views\vw_Pfcg_Role_To_User.sql" />
+    <Build Include="dm_procurement\Views\vw_PfcgRoleToUser.sql" />
     <Build Include="dm_procurement\Views\vw_dim_ProductPlant.sql" />
     <Build Include="dm_procurement\Views\vw_fact_PurchasingDocumentItemCC.sql" />
     <Build Include="edw\Tables\dim_MaterialGroup.sql" />
@@ -594,7 +594,7 @@
     <Build Include="base_tx_halfen_2_dwh\Tables\FACT_CUSTPACKINGSLIPTRANS.sql" />
     <Build Include="edw\Views\vw_SalesDocumentItem_axbi.sql" />
     <Build Include="edw\Views\vw_SalesDocumentItem_s4h.sql" />
-    <Build Include="edw\Views\vw_Pfcg_Role_To_User.sql" />
+    <Build Include="edw\Views\vw_PfcgRoleToUser.sql" />
     <Build Include="edw\Tables\dim_BillingBlockStatus.sql" />
     <Build Include="edw\Tables\dim_DeliveryBlockStatus.sql" />
     <Build Include="edw\Tables\dim_ItemBillingIncompletionStatus.sql" />

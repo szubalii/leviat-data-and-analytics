@@ -1,4 +1,4 @@
-CREATE VIEW [dm_procurement].[vw_Pfcg_Role_To_User]
+CREATE VIEW [dm_procurement].[vw_PfcgRoleToUser]
 AS
 SELECT
     [MANDT]
