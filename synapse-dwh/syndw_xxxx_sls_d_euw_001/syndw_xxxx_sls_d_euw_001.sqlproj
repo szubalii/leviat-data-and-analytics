@@ -1201,6 +1201,8 @@
     <Build Include="edw\Functions\ScalarValued\svf_getInvertAmount.sql" />
     <Build Include="edw\Functions\ScalarValued\svf_getOrderStatus.sql" />
     <Build Include="dm_sales\Views\vw_fact_SalesOrderItem_combined.sql" />
+    <Build Include="dm_sales\Views\vw_dim_SalesEmployee.sql" />
+    <Build Include="edw\Views\vw_dim_SalesEmployee.sql" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PostDeploy Include="Scripts\Post-Deploy\Script.PostDeployment.sql" />

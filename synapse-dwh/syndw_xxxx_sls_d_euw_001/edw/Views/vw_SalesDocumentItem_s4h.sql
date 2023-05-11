@@ -251,8 +251,8 @@ C_SalesDocumentItemDEXBase as (
          , C1.[FullName]                        as [LocalParent]
          , ZP.[Customer]                        as [ProjectID]
          , ZP.[FullName]                        as [Project]
-         , VE.[Personnel]                       as [SalesEmployeeID]
-         , VE.[FullName]                        as [SalesEmployee]
+         , dim_SalesEmployee.[Personnel]        as [SalesEmployeeID]
+         , dim_SalesEmployee.[FullName]         as [SalesEmployee]
          , case
                when D1.[Customer] is not null then D1.[Customer]
                else AG.[Customer]
@@ -329,11 +329,9 @@ C_SalesDocumentItemDEXBase as (
             ZP.[PartnerFunction] = 'ZP'
             --  and ZP.[MANDT] = 200 MPS 2021/11/01: commented out due to different client values between dev,qas, and prod
     LEFT JOIN
-        [edw].[dim_BillingDocumentPartnerFs] VE
+        [edw].[vw_dim_SalesEmployee] dim_SalesEmployee
         ON
-            VE.[SDDocument] = doc.[SalesDocument]
-            AND
-            VE.[PartnerFunction] = 'VE'
+            dim_SalesEmployee.[SDDocument] = doc.[SalesDocument]
             --  and VE.[MANDT] = 200 MPS 2021/11/01: commented out due to different client values between dev,qas, and prod
     LEFT JOIN
         [edw].[dim_BillingDocumentPartnerFs] AG
