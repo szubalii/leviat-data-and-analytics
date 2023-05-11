@@ -88,6 +88,7 @@ SELECT
     ,SOI.[DeliveredQuantityInBaseUnit]
     ,SOI.[ConfdOrderQtyByMatlAvailCheck]
     ,SOI.[ExpectedDeliveryDate]
+    ,SOI.[SalesAgentID]
     ,SOI.[SalesAgent]
 FROM [dm_sales].[vw_fact_SalesOrderItem_combined] SOI
 LEFT JOIN [edw].[vw_OutboundDeliveryItem_for_SalesDocumentItem] ODI
