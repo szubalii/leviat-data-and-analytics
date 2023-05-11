@@ -16,17 +16,3 @@ SELECT
         , [MobilePhoneNumber] 
 FROM [edw].[dim_BillingDocumentPartnerFs]
 WHERE PartnerFunction = 'VE'
-GROUP BY
-          [SDDocument]
-        , [PartnerFunction]
-        , [PartnerFunctionName]
-        , [AddressID]
-        , [Customer]
-        , [Personnel]
-        , [FullName]
-        , [CityName]
-        , [StreetName]
-        , [PostalCode]
-        , [EmailAddress]
-        , [PhoneNumber]
-        , [MobilePhoneNumber]
