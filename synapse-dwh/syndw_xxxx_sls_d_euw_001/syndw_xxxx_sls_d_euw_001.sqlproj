@@ -582,6 +582,7 @@
     <Build Include="dm_procurement\Views\vw_OptVim1Head.sql" />
     <Build Include="dm_procurement\Views\vw_Pfcg_Role_To_User.sql" />
     <Build Include="dm_procurement\Views\vw_dim_ProductPlant.sql" />
+    <Build Include="dm_procurement\Views\vw_fact_PurchasingDocumentItemCC.sql" />
     <Build Include="edw\Tables\dim_MaterialGroup.sql" />
     <Build Include="Security\Schemas\map_AXBI.sql" />
     <Build Include="Security\Schemas\map_General.sql" />
