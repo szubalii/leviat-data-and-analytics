@@ -31,7 +31,7 @@ steps:
       $testCaseFilterHelp = "(FullyQualifiedName=dummy)|" 
       $edwEntities = {}
       $baseEntities = {}
-      $dir = ${{ parameters.folder }}
+      $dir = 'synapse-dwh' #${{ parameters.folder }}
       $entities = (Get-Content './orchestration/src/config/global/entity.json' | Out-String | ConvertFrom-Json)
 
       ForEach ($filePath in $filePaths) {
