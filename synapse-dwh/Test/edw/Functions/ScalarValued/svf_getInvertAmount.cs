@@ -37,65 +37,117 @@ namespace Test.edw.Functions.ScalarValued
         /// </summary>
         private void InitializeComponent()
         {
-            Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction checkGetInvertAmount_TestAction;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction GetInvertAmount_ZCR_TestAction;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(svf_getInvertAmount));
-            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ChecksumCondition checksumConditionZCR;
-            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ChecksumCondition checksumConditionZCRMinus;
-            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ChecksumCondition checksumConditionZCR2;
-            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ChecksumCondition checksumConditionZCI;
-            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ChecksumCondition checksumConditionOther;
-            this.checkGetInvertAmountData = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestActions();
-            checkGetInvertAmount_TestAction = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction();
-            checksumConditionZCR = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ChecksumCondition();
-            checksumConditionZCRMinus = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ChecksumCondition();
-            checksumConditionZCR2 = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ChecksumCondition();
-            checksumConditionZCI = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ChecksumCondition();
-            checksumConditionOther = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ChecksumCondition();
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction GetInvertAmount_ZCR2_TestAction;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction GetInvertAmount_ZCI_TestAction;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction GetInvertAmount_ZCR_Minus_TestAction;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction GetInvertAmount_Other_TestAction;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.EmptyResultSetCondition emptyResultSetCondition1;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.EmptyResultSetCondition emptyResultSetCondition2;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.EmptyResultSetCondition emptyResultSetCondition3;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.EmptyResultSetCondition emptyResultSetCondition4;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.EmptyResultSetCondition emptyResultSetCondition5;
+            this.GetInvertAmount_ZCRData = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestActions();
+            this.GetInvertAmount_ZCR2Data = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestActions();
+            this.GetInvertAmount_ZCIData = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestActions();
+            this.GetInvertAmount_ZCR_MinusData = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestActions();
+            this.GetInvertAmount_OtherData = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestActions();
+            GetInvertAmount_ZCR_TestAction = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction();
+            GetInvertAmount_ZCR2_TestAction = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction();
+            GetInvertAmount_ZCI_TestAction = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction();
+            GetInvertAmount_ZCR_Minus_TestAction = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction();
+            GetInvertAmount_Other_TestAction = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction();
+            emptyResultSetCondition1 = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.EmptyResultSetCondition();
+            emptyResultSetCondition2 = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.EmptyResultSetCondition();
+            emptyResultSetCondition3 = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.EmptyResultSetCondition();
+            emptyResultSetCondition4 = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.EmptyResultSetCondition();
+            emptyResultSetCondition5 = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.EmptyResultSetCondition();
             // 
-            // checkGetInvertAmount_TestAction
+            // GetInvertAmount_ZCR_TestAction
             // 
-            checkGetInvertAmount_TestAction.Conditions.Add(checksumConditionZCR);
-            checkGetInvertAmount_TestAction.Conditions.Add(checksumConditionZCRMinus);
-            checkGetInvertAmount_TestAction.Conditions.Add(checksumConditionZCR2);
-            checkGetInvertAmount_TestAction.Conditions.Add(checksumConditionZCI);
-            checkGetInvertAmount_TestAction.Conditions.Add(checksumConditionOther);
-            resources.ApplyResources(checkGetInvertAmount_TestAction, "checkGetInvertAmount_TestAction");
+            GetInvertAmount_ZCR_TestAction.Conditions.Add(emptyResultSetCondition1);
+            resources.ApplyResources(GetInvertAmount_ZCR_TestAction, "GetInvertAmount_ZCR_TestAction");
             // 
-            // checksumConditionZCR
+            // GetInvertAmount_ZCRData
             // 
-            checksumConditionZCR.Checksum = "446625033";
-            checksumConditionZCR.Enabled = true;
-            checksumConditionZCR.Name = "checksumConditionZCR";
+            this.GetInvertAmount_ZCRData.PosttestAction = null;
+            this.GetInvertAmount_ZCRData.PretestAction = null;
+            this.GetInvertAmount_ZCRData.TestAction = GetInvertAmount_ZCR_TestAction;
             // 
-            // checksumConditionZCRMinus
+            // GetInvertAmount_ZCR2Data
             // 
-            checksumConditionZCRMinus.Checksum = "-873310206";
-            checksumConditionZCRMinus.Enabled = true;
-            checksumConditionZCRMinus.Name = "checksumConditionZCRMinus";
+            this.GetInvertAmount_ZCR2Data.PosttestAction = null;
+            this.GetInvertAmount_ZCR2Data.PretestAction = null;
+            this.GetInvertAmount_ZCR2Data.TestAction = GetInvertAmount_ZCR2_TestAction;
             // 
-            // checkGetInvertAmountData
+            // GetInvertAmount_ZCR2_TestAction
             // 
-            this.checkGetInvertAmountData.PosttestAction = null;
-            this.checkGetInvertAmountData.PretestAction = null;
-            this.checkGetInvertAmountData.TestAction = checkGetInvertAmount_TestAction;
+            GetInvertAmount_ZCR2_TestAction.Conditions.Add(emptyResultSetCondition3);
+            resources.ApplyResources(GetInvertAmount_ZCR2_TestAction, "GetInvertAmount_ZCR2_TestAction");
             // 
-            // checksumConditionZCR2
+            // GetInvertAmount_ZCIData
             // 
-            checksumConditionZCR2.Checksum = "446625033";
-            checksumConditionZCR2.Enabled = true;
-            checksumConditionZCR2.Name = "checksumConditionZCR2";
+            this.GetInvertAmount_ZCIData.PosttestAction = null;
+            this.GetInvertAmount_ZCIData.PretestAction = null;
+            this.GetInvertAmount_ZCIData.TestAction = GetInvertAmount_ZCI_TestAction;
             // 
-            // checksumConditionZCI
+            // GetInvertAmount_ZCI_TestAction
             // 
-            checksumConditionZCI.Checksum = "446625033";
-            checksumConditionZCI.Enabled = true;
-            checksumConditionZCI.Name = "checksumConditionZCI";
+            GetInvertAmount_ZCI_TestAction.Conditions.Add(emptyResultSetCondition2);
+            resources.ApplyResources(GetInvertAmount_ZCI_TestAction, "GetInvertAmount_ZCI_TestAction");
             // 
-            // checksumConditionOther
+            // GetInvertAmount_ZCR_MinusData
             // 
-            checksumConditionOther.Checksum = "-873310206";
-            checksumConditionOther.Enabled = true;
-            checksumConditionOther.Name = "checksumConditionOther";
+            this.GetInvertAmount_ZCR_MinusData.PosttestAction = null;
+            this.GetInvertAmount_ZCR_MinusData.PretestAction = null;
+            this.GetInvertAmount_ZCR_MinusData.TestAction = GetInvertAmount_ZCR_Minus_TestAction;
+            // 
+            // GetInvertAmount_ZCR_Minus_TestAction
+            // 
+            GetInvertAmount_ZCR_Minus_TestAction.Conditions.Add(emptyResultSetCondition5);
+            resources.ApplyResources(GetInvertAmount_ZCR_Minus_TestAction, "GetInvertAmount_ZCR_Minus_TestAction");
+            // 
+            // GetInvertAmount_OtherData
+            // 
+            this.GetInvertAmount_OtherData.PosttestAction = null;
+            this.GetInvertAmount_OtherData.PretestAction = null;
+            this.GetInvertAmount_OtherData.TestAction = GetInvertAmount_Other_TestAction;
+            // 
+            // GetInvertAmount_Other_TestAction
+            // 
+            GetInvertAmount_Other_TestAction.Conditions.Add(emptyResultSetCondition4);
+            resources.ApplyResources(GetInvertAmount_Other_TestAction, "GetInvertAmount_Other_TestAction");
+            // 
+            // emptyResultSetCondition1
+            // 
+            emptyResultSetCondition1.Enabled = true;
+            emptyResultSetCondition1.Name = "emptyResultSetCondition1";
+            emptyResultSetCondition1.ResultSet = 1;
+            // 
+            // emptyResultSetCondition2
+            // 
+            emptyResultSetCondition2.Enabled = true;
+            emptyResultSetCondition2.Name = "emptyResultSetCondition2";
+            emptyResultSetCondition2.ResultSet = 1;
+            // 
+            // emptyResultSetCondition3
+            // 
+            emptyResultSetCondition3.Enabled = true;
+            emptyResultSetCondition3.Name = "emptyResultSetCondition3";
+            emptyResultSetCondition3.ResultSet = 1;
+            // 
+            // emptyResultSetCondition4
+            // 
+            emptyResultSetCondition4.Enabled = true;
+            emptyResultSetCondition4.Name = "emptyResultSetCondition4";
+            emptyResultSetCondition4.ResultSet = 1;
+            // 
+            // emptyResultSetCondition5
+            // 
+            emptyResultSetCondition5.Enabled = true;
+            emptyResultSetCondition5.Name = "emptyResultSetCondition5";
+            emptyResultSetCondition5.ResultSet = 1;
         }
 
         #endregion
@@ -116,9 +168,101 @@ namespace Test.edw.Functions.ScalarValued
         #endregion
 
         [TestMethod()]
-        public void checkGetInvertAmount()
+        public void GetInvertAmount_ZCR()
         {
-            SqlDatabaseTestActions testActions = this.checkGetInvertAmountData;
+            SqlDatabaseTestActions testActions = this.GetInvertAmount_ZCRData;
+            // Execute the pre-test script
+            // 
+            System.Diagnostics.Trace.WriteLineIf((testActions.PretestAction != null), "Executing pre-test script...");
+            SqlExecutionResult[] pretestResults = TestService.Execute(this.PrivilegedContext, this.PrivilegedContext, testActions.PretestAction);
+            try
+            {
+                // Execute the test script
+                // 
+                System.Diagnostics.Trace.WriteLineIf((testActions.TestAction != null), "Executing test script...");
+                SqlExecutionResult[] testResults = TestService.Execute(this.ExecutionContext, this.PrivilegedContext, testActions.TestAction);
+            }
+            finally
+            {
+                // Execute the post-test script
+                // 
+                System.Diagnostics.Trace.WriteLineIf((testActions.PosttestAction != null), "Executing post-test script...");
+                SqlExecutionResult[] posttestResults = TestService.Execute(this.PrivilegedContext, this.PrivilegedContext, testActions.PosttestAction);
+            }
+        }
+        [TestMethod()]
+        public void GetInvertAmount_ZCR2()
+        {
+            SqlDatabaseTestActions testActions = this.GetInvertAmount_ZCR2Data;
+            // Execute the pre-test script
+            // 
+            System.Diagnostics.Trace.WriteLineIf((testActions.PretestAction != null), "Executing pre-test script...");
+            SqlExecutionResult[] pretestResults = TestService.Execute(this.PrivilegedContext, this.PrivilegedContext, testActions.PretestAction);
+            try
+            {
+                // Execute the test script
+                // 
+                System.Diagnostics.Trace.WriteLineIf((testActions.TestAction != null), "Executing test script...");
+                SqlExecutionResult[] testResults = TestService.Execute(this.ExecutionContext, this.PrivilegedContext, testActions.TestAction);
+            }
+            finally
+            {
+                // Execute the post-test script
+                // 
+                System.Diagnostics.Trace.WriteLineIf((testActions.PosttestAction != null), "Executing post-test script...");
+                SqlExecutionResult[] posttestResults = TestService.Execute(this.PrivilegedContext, this.PrivilegedContext, testActions.PosttestAction);
+            }
+        }
+        [TestMethod()]
+        public void GetInvertAmount_ZCI()
+        {
+            SqlDatabaseTestActions testActions = this.GetInvertAmount_ZCIData;
+            // Execute the pre-test script
+            // 
+            System.Diagnostics.Trace.WriteLineIf((testActions.PretestAction != null), "Executing pre-test script...");
+            SqlExecutionResult[] pretestResults = TestService.Execute(this.PrivilegedContext, this.PrivilegedContext, testActions.PretestAction);
+            try
+            {
+                // Execute the test script
+                // 
+                System.Diagnostics.Trace.WriteLineIf((testActions.TestAction != null), "Executing test script...");
+                SqlExecutionResult[] testResults = TestService.Execute(this.ExecutionContext, this.PrivilegedContext, testActions.TestAction);
+            }
+            finally
+            {
+                // Execute the post-test script
+                // 
+                System.Diagnostics.Trace.WriteLineIf((testActions.PosttestAction != null), "Executing post-test script...");
+                SqlExecutionResult[] posttestResults = TestService.Execute(this.PrivilegedContext, this.PrivilegedContext, testActions.PosttestAction);
+            }
+        }
+        [TestMethod()]
+        public void GetInvertAmount_ZCR_Minus()
+        {
+            SqlDatabaseTestActions testActions = this.GetInvertAmount_ZCR_MinusData;
+            // Execute the pre-test script
+            // 
+            System.Diagnostics.Trace.WriteLineIf((testActions.PretestAction != null), "Executing pre-test script...");
+            SqlExecutionResult[] pretestResults = TestService.Execute(this.PrivilegedContext, this.PrivilegedContext, testActions.PretestAction);
+            try
+            {
+                // Execute the test script
+                // 
+                System.Diagnostics.Trace.WriteLineIf((testActions.TestAction != null), "Executing test script...");
+                SqlExecutionResult[] testResults = TestService.Execute(this.ExecutionContext, this.PrivilegedContext, testActions.TestAction);
+            }
+            finally
+            {
+                // Execute the post-test script
+                // 
+                System.Diagnostics.Trace.WriteLineIf((testActions.PosttestAction != null), "Executing post-test script...");
+                SqlExecutionResult[] posttestResults = TestService.Execute(this.PrivilegedContext, this.PrivilegedContext, testActions.PosttestAction);
+            }
+        }
+        [TestMethod()]
+        public void GetInvertAmount_Other()
+        {
+            SqlDatabaseTestActions testActions = this.GetInvertAmount_OtherData;
             // Execute the pre-test script
             // 
             System.Diagnostics.Trace.WriteLineIf((testActions.PretestAction != null), "Executing pre-test script...");
@@ -139,6 +283,14 @@ namespace Test.edw.Functions.ScalarValued
             }
         }
 
-        private SqlDatabaseTestActions checkGetInvertAmountData;
+
+
+
+
+        private SqlDatabaseTestActions GetInvertAmount_ZCRData;
+        private SqlDatabaseTestActions GetInvertAmount_ZCR2Data;
+        private SqlDatabaseTestActions GetInvertAmount_ZCIData;
+        private SqlDatabaseTestActions GetInvertAmount_ZCR_MinusData;
+        private SqlDatabaseTestActions GetInvertAmount_OtherData;
     }
 }
