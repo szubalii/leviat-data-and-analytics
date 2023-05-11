@@ -1,7 +1,7 @@
 steps:
 
-- checkout: self
-  fetchDepth: 0 # disables shallow fetch and results in correct return of git diff-tree
+# - checkout: self
+#   fetchDepth: 0 # disables shallow fetch and results in correct return of git diff-tree
 
 - task: PowerShell@2
   displayName: 'Get Changed Files'
@@ -37,7 +37,7 @@ steps:
 
         $dirIndex = $filePath.IndexOf($dir)
         
-        if ($dirIndex -ne -1) {
+        # if ($dirIndex -ne -1) {
 
           $fileTypeIndex = $filePath.IndexOf(".")
           $filePathWithoutExt = $filePath.SubString(0, $fileTypeIndex)
@@ -63,7 +63,7 @@ steps:
 
           # Tables
           # Invoke ADF pipeline
-        }
+        # }
       }
       
       # Remove the last separator character '|'
