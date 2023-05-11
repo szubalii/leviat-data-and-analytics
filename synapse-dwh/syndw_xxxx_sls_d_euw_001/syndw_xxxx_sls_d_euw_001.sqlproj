@@ -157,6 +157,8 @@
     <Folder Include="dm_sales\Views" />
     <Folder Include="dm_finance" />
     <Folder Include="dm_finance\Views" />
+    <Folder Include="dm_scm" />
+    <Folder Include="dm_scm\Views" />
     <Folder Include="map_AXBI" />
     <Folder Include="map_AXBI\Tables" />
     <Folder Include="edw\Views" />
@@ -359,6 +361,7 @@
     <Build Include="edw\Stored Procedures\sp_load_fact_ACDOCA_active.sql" />
     <Build Include="Security\Schemas\dm_sales.sql" />
     <Build Include="Security\Schemas\dm_finance.sql" />
+    <Build Include="Security\Schemas\dm_scm.sql" />
     <Build Include="dm_sales\Views\vw_dim_Customer.sql" />
     <Build Include="dm_sales\Views\vw_fact_BillingDocumentItem.sql" />
     <Build Include="dm_sales\Views\vw_dim_Product.sql" />
@@ -1203,6 +1206,8 @@
     <Build Include="dm_sales\Views\vw_fact_SalesOrderItem_combined.sql" />
     <Build Include="dm_sales\Views\vw_dim_SalesEmployee.sql" />
     <Build Include="edw\Views\vw_dim_SalesEmployee.sql" />
+    <Build Include="edw\Views\vw_MaterialStockLevel_Weekly.sql" />
+    <Build Include="dm_scm\Views\vw_fact_MaterialStockLevel_Weekly.sql" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PostDeploy Include="Scripts\Post-Deploy\Script.PostDeployment.sql" />
