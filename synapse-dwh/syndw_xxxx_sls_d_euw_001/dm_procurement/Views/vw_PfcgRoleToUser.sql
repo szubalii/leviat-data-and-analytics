@@ -13,4 +13,4 @@ SELECT
   , [t_extractionDtm] 
   , [t_filePath]
 FROM
-    [edw].[vw_Pfcg_Role_To_User]
+    [edw].[vw_PfcgRoleToUser]
