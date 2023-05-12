@@ -239,7 +239,7 @@ BillingDocumentItemBase_axbi AS (
     ,   DA.[GROUP]                                                          AS [axbi_DataAreaGroup]
     ,   'HALF-' + FH.[Itemno]                                               AS [axbi_MaterialID]
     ,   DA.DATAAREAID2 + '-' + FH.[Customerno]                              AS [axbi_CustomerID]
-    ,   edw.svf_getInOutID_axbi (INOUT)                                     AS [InOutID]
+    ,   edw.svf_getInOutID_axbi (Inside_Outside)                            AS [InOutID]
     ,   'HALF-' + FH.[Itemno]                                               AS [axbi_ItemNoCalc]
     ,   DA.DATAAREAID2                                                      AS [axbi_DataAreaID2] 
     ,   FH.[t_applicationId]                                                AS [t_applicationId]
