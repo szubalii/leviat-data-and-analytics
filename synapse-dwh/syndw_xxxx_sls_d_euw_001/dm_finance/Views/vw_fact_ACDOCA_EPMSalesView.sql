@@ -302,6 +302,7 @@ SELECT
     ExchangeRate.[CurrencyTypeID],
     CurrType.[CurrencyType],
     GLALIRD.[SalesOfficeID],
+    GLALIRD.[SoldProduct],
     GLALIRD.[t_applicationId],
     GLALIRD.[t_extractionDtm]
 FROM [edw].[fact_ACDOCA] GLALIRD
