@@ -137,7 +137,7 @@
 				"type": "ExecutePipeline",
 				"dependsOn": [
 					{
-						"activity": "Send Process ETL Success Mail",
+						"activity": "Send BASE Process ETL Success Mail",
 						"dependencyConditions": [
 							"Skipped",
 							"Succeeded"
@@ -154,7 +154,7 @@
 				}
 			},
 			{
-				"name": "Send Process ETL Success Mail",
+				"name": "Send BASE Process ETL Success Mail",
 				"type": "ExecutePipeline",
 				"dependsOn": [
 					{
@@ -189,7 +189,7 @@
 				}
 			},
 			{
-				"name": "Send Process ETL Failure Mail",
+				"name": "Send BASE Process ETL Failure Mail",
 				"type": "ExecutePipeline",
 				"dependsOn": [
 					{
@@ -221,6 +221,97 @@
 							"type": "Expression"
 						}
 					}
+				}
+			},
+			{
+				"name": "Send EDW Process ETL Success Mail",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Process Synapse EDW",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pl_etl_status_email_sending",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"PipelineRunId": {
+							"value": "@activity('Process ADLS and Synapse Ingestion').output.pipelineRunId",
+							"type": "Expression"
+						},
+						"PipelineName": {
+							"value": "@activity('Process ADLS and Synapse Ingestion').output.pipelineName",
+							"type": "Expression"
+						},
+						"isSuccessful": true,
+						"parent_run_id": {
+							"value": "@pipeline().RunId",
+							"type": "Expression"
+						},
+						"email_subject": "Leviat: DnA Synapse EDW ETL Status"
+					}
+				}
+			},
+			{
+				"name": "Send EDW Process ETL Failure Mail",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Process Synapse EDW",
+						"dependencyConditions": [
+							"Failed"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pl_etl_status_email_sending",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"PipelineRunId": {
+							"value": "@activity('Process ADLS and Synapse Ingestion').output.pipelineRunId",
+							"type": "Expression"
+						},
+						"PipelineName": {
+							"value": "@activity('Process ADLS and Synapse Ingestion').output.pipelineName",
+							"type": "Expression"
+						},
+						"isSuccessful": false,
+						"parent_run_id": {
+							"value": "@pipeline().RunId",
+							"type": "Expression"
+						},
+						"email_subject": "Leviat: DnA Synapse EDW ETL Status"
+					}
+				}
+			},
+			{
+				"name": "DummyUponSkip",
+				"description": "Continue ",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "Send EDW Process ETL Success Mail",
+						"dependencyConditions": [
+							"Succeeded",
+							"Skipped"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "status",
+					"value": ""
 				}
 			}
 		],
