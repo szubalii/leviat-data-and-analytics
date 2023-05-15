@@ -255,7 +255,7 @@
 							"value": "@pipeline().RunId",
 							"type": "Expression"
 						},
-						"email_subject": "Leviat: DnA Synapse EDW ETL Status"
+						"layer": "EDW"
 					}
 				}
 			},
@@ -291,7 +291,7 @@
 							"value": "@pipeline().RunId",
 							"type": "Expression"
 						},
-						"email_subject": "Leviat: DnA Synapse EDW ETL Status"
+						"layer": "EDW"
 					}
 				}
 			},
