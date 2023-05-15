@@ -52,8 +52,7 @@ SELECT
     PAA.[SAKTO]                             AS [GLAccountID],
     PDSLSum.[GoodsReceiptQuantity],
     PDI.[PurchaseRequisition],     
-    PDI.[PurchaseRequisitionItem], 
-    PDI.[PurchasingOrganization],
+    PDI.[PurchaseRequisitionItem],
     PDI.[IsReturnsItem],
     PDI.[t_applicationId],
     PDI.[t_extractionDtm]

@@ -35,8 +35,7 @@ SELECT
         WHEN PRI.[PurchaseRequisitionType] = 'ZCAT'
             THEN 'X'
         ELSE NULL
-    END                                 [IsMercateo], 
-    PDI.[PurchasingOrganization],
+    END                                 [IsMercateo],
     PDI.[IsReturnsItem],
     PDI.[t_applicationId],
     PDI.[t_extractionDtm]
