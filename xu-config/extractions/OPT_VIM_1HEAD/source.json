@@ -15,8 +15,8 @@
                     "description": "Client",
                     "abapType": "CharacterString",
                     "length": 3,
-                    "isPrimaryKey": true,
                     "isSelected": true,
+                    "isPrimaryKey": true,
                     "conversionExit": ""
                 },
                 {
@@ -24,8 +24,8 @@
                     "description": "Document Ledger Number",
                     "abapType": "NumericCharacterString",
                     "length": 12,
-                    "isPrimaryKey": true,
                     "isSelected": true,
+                    "isPrimaryKey": true,
                     "indexed": "Ascending",
                     "conversionExit": ""
                 },
@@ -34,7 +34,6 @@
                     "description": "Document Type",
                     "abapType": "CharacterString",
                     "length": 10,
-                    "isSelected": true,
                     "checkTable": "/OPT/VIM_T100",
                     "indexed": "Ascending",
                     "conversionExit": ""
@@ -44,7 +43,6 @@
                     "description": "Content Repository Identification",
                     "abapType": "CharacterString",
                     "length": 2,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -52,7 +50,6 @@
                     "description": "SAP ArchiveLink: Document ID",
                     "abapType": "CharacterString",
                     "length": 40,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -60,7 +57,6 @@
                     "description": "Archive Document Type",
                     "abapType": "CharacterString",
                     "length": 10,
-                    "isSelected": true,
                     "checkTable": "TOADV",
                     "indexed": "Ascending",
                     "conversionExit": ""
@@ -70,21 +66,18 @@
                     "description": "IDoc number",
                     "abapType": "NumericCharacterString",
                     "length": 16,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
                     "name": "ARCHIVE_DATE",
                     "description": "Document Archive Date",
                     "abapType": "Date",
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
                     "name": "ARCHIVE_TIME",
                     "description": "Document Archive Time",
                     "abapType": "Time",
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -92,7 +85,6 @@
                     "description": "Document Archive User",
                     "abapType": "CharacterString",
                     "length": 12,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -106,7 +98,6 @@
                     "name": "INDEX_TIME",
                     "description": "Document Create Time",
                     "abapType": "Time",
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -114,21 +105,18 @@
                     "description": "User Responsible for Document Creation",
                     "abapType": "CharacterString",
                     "length": 12,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
                     "name": "CHANGE_DATE",
                     "description": "Document Change Date",
                     "abapType": "Date",
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
                     "name": "CHANGE_TIME",
                     "description": "Document Change Time",
                     "abapType": "Time",
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -136,7 +124,6 @@
                     "description": "Document Data Change User",
                     "abapType": "CharacterString",
                     "length": 12,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -144,7 +131,6 @@
                     "description": "Object Type",
                     "abapType": "CharacterString",
                     "length": 10,
-                    "isSelected": true,
                     "indexed": "Ascending",
                     "conversionExit": ""
                 },
@@ -153,7 +139,6 @@
                     "description": "Object key",
                     "abapType": "CharacterString",
                     "length": 70,
-                    "isSelected": true,
                     "indexed": "Ascending",
                     "conversionExit": ""
                 },
@@ -162,7 +147,6 @@
                     "description": "Document Status",
                     "abapType": "CharacterString",
                     "length": 2,
-                    "isSelected": true,
                     "checkTable": "/OPT/VIM_T101",
                     "indexed": "Ascending",
                     "conversionExit": ""
@@ -172,7 +156,6 @@
                     "description": "To Actor",
                     "abapType": "CharacterString",
                     "length": 15,
-                    "isSelected": true,
                     "checkTable": "/PTGWFI/W_ROLET",
                     "conversionExit": ""
                 },
@@ -181,7 +164,6 @@
                     "description": "Process Type",
                     "abapType": "NumericCharacterString",
                     "length": 3,
-                    "isSelected": true,
                     "checkTable": "/OPT/VIM_T800",
                     "conversionExit": ""
                 },
@@ -190,7 +172,6 @@
                     "description": "Rescan Reason Code",
                     "abapType": "CharacterString",
                     "length": 2,
-                    "isSelected": true,
                     "checkTable": "/OPT/VIM_T116",
                     "conversionExit": ""
                 },
@@ -199,7 +180,6 @@
                     "description": "Document Obsolete Reason Code",
                     "abapType": "CharacterString",
                     "length": 2,
-                    "isSelected": true,
                     "checkTable": "/OPT/VIM_T117",
                     "conversionExit": ""
                 },
@@ -208,7 +188,6 @@
                     "description": "Scan Location for Archiving",
                     "abapType": "CharacterString",
                     "length": 25,
-                    "isSelected": true,
                     "checkTable": "/OPT/VIM_T121",
                     "conversionExit": ""
                 },
@@ -217,7 +196,6 @@
                     "description": "Document Priority",
                     "abapType": "CharacterString",
                     "length": 1,
-                    "isSelected": true,
                     "checkTable": "/OPT/VIM_T122",
                     "conversionExit": ""
                 },
@@ -226,7 +204,6 @@
                     "description": "Not First Pass",
                     "abapType": "CharacterString",
                     "length": 1,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -234,7 +211,6 @@
                     "description": "Check Rules to Determine Process Types Pending",
                     "abapType": "CharacterString",
                     "length": 1,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -242,7 +218,6 @@
                     "description": "Duplicate Check Run Pending",
                     "abapType": "CharacterString",
                     "length": 1,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -250,7 +225,6 @@
                     "description": "Duplicate Check Run Pending",
                     "abapType": "CharacterString",
                     "length": 1,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -258,7 +232,6 @@
                     "description": "Duplicate Check Run Pending",
                     "abapType": "CharacterString",
                     "length": 1,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -266,7 +239,6 @@
                     "description": "OpenText: System ID",
                     "abapType": "CharacterString",
                     "length": 10,
-                    "isSelected": true,
                     "conversionExit": "ALPHA"
                 },
                 {
@@ -274,7 +246,6 @@
                     "description": "Company Code",
                     "abapType": "CharacterString",
                     "length": 4,
-                    "isSelected": true,
                     "indexed": "Ascending",
                     "conversionExit": ""
                 },
@@ -292,7 +263,6 @@
                     "description": "Fiscal Year",
                     "abapType": "NumericCharacterString",
                     "length": 4,
-                    "isSelected": true,
                     "indexed": "Ascending",
                     "conversionExit": "GJAHR"
                 },
@@ -301,7 +271,6 @@
                     "description": "Document type",
                     "abapType": "CharacterString",
                     "length": 2,
-                    "isSelected": true,
                     "checkTable": "T003",
                     "conversionExit": ""
                 },
@@ -309,14 +278,12 @@
                     "name": "BLDAT",
                     "description": "Document Date in Document",
                     "abapType": "Date",
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
                     "name": "BUDAT",
                     "description": "Posting Date in the Document",
                     "abapType": "Date",
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -324,7 +291,6 @@
                     "description": "Reference Document Number",
                     "abapType": "CharacterString",
                     "length": 16,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -333,7 +299,6 @@
                     "abapType": "PackedNumber",
                     "length": 13,
                     "decimalCount": 2,
-                    "isSelected": true,
                     "formattedLength": 16,
                     "indexed": "Ascending",
                     "conversionExit": "",
@@ -346,7 +311,6 @@
                     "description": "Currency Key",
                     "abapType": "CharacterString",
                     "length": 5,
-                    "isSelected": true,
                     "checkTable": "TCURC",
                     "conversionExit": ""
                 },
@@ -355,7 +319,6 @@
                     "description": "Account Number of Vendor or Creditor",
                     "abapType": "CharacterString",
                     "length": 10,
-                    "isSelected": true,
                     "indexed": "Ascending",
                     "conversionExit": "ALPHA"
                 },
@@ -364,7 +327,6 @@
                     "description": "Name 1",
                     "abapType": "CharacterString",
                     "length": 35,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -372,7 +334,6 @@
                     "description": "Name 2",
                     "abapType": "CharacterString",
                     "length": 35,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -388,7 +349,6 @@
                     "description": "Recipient Name",
                     "abapType": "CharacterString",
                     "length": 35,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -396,7 +356,6 @@
                     "description": "Long Invoice Referance Number",
                     "abapType": "CharacterString",
                     "length": 60,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -404,7 +363,6 @@
                     "description": "Open Text User Mapping Object ID",
                     "abapType": "CharacterString",
                     "length": 35,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -412,7 +370,6 @@
                     "description": "E-Mail Address",
                     "abapType": "CharacterString",
                     "length": 80,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -420,7 +377,6 @@
                     "description": "Windows Id",
                     "abapType": "CharacterString",
                     "length": 30,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -428,7 +384,6 @@
                     "description": "Windows Domain",
                     "abapType": "CharacterString",
                     "length": 63,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -436,7 +391,6 @@
                     "description": "Skip Approval Stack",
                     "abapType": "CharacterString",
                     "length": 1,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -444,7 +398,6 @@
                     "description": "Payment Block Key",
                     "abapType": "CharacterString",
                     "length": 1,
-                    "isSelected": true,
                     "checkTable": "T008",
                     "conversionExit": ""
                 },
@@ -453,7 +406,6 @@
                     "description": "Activate PAS for whole process flow",
                     "abapType": "CharacterString",
                     "length": 1,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -461,7 +413,6 @@
                     "description": "Cost handling alternative",
                     "abapType": "CharacterString",
                     "length": 2,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -469,7 +420,6 @@
                     "description": "Distribution Type for Unplanned Costs",
                     "abapType": "CharacterString",
                     "length": 1,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -477,7 +427,6 @@
                     "description": "Add. Cost Easymatch Flag",
                     "abapType": "CharacterString",
                     "length": 1,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -485,21 +434,18 @@
                     "description": "Document Creation (Autopost)",
                     "abapType": "CharacterString",
                     "length": 1,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
                     "name": "SCAN_DATE",
                     "description": "System Date",
                     "abapType": "Date",
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
                     "name": "SCAN_TIME",
                     "description": "System Time",
                     "abapType": "Time",
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -507,7 +453,6 @@
                     "description": "Scan Location",
                     "abapType": "CharacterString",
                     "length": 25,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -515,7 +460,6 @@
                     "description": "Batch Number",
                     "abapType": "CharacterString",
                     "length": 40,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -523,7 +467,6 @@
                     "description": "Credit Memo Indicator",
                     "abapType": "CharacterString",
                     "length": 1,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -531,7 +474,6 @@
                     "description": "List field: transaction/event",
                     "abapType": "CharacterString",
                     "length": 1,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -539,7 +481,6 @@
                     "description": "Classifier for VIM document types",
                     "abapType": "CharacterString",
                     "length": 2,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -547,7 +488,6 @@
                     "description": "Plant",
                     "abapType": "CharacterString",
                     "length": 4,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -556,7 +496,6 @@
                     "abapType": "PackedNumber",
                     "length": 23,
                     "decimalCount": 2,
-                    "isSelected": true,
                     "formattedLength": 30,
                     "conversionExit": "AU132",
                     "referenceTable": "/OPT/VIM_1RHEAD",
@@ -569,7 +508,6 @@
                     "abapType": "PackedNumber",
                     "length": 13,
                     "decimalCount": 2,
-                    "isSelected": true,
                     "formattedLength": 16,
                     "conversionExit": "",
                     "referenceTable": "/OPT/VIM_1RHEAD",
@@ -581,7 +519,6 @@
                     "description": "Street",
                     "abapType": "CharacterString",
                     "length": 60,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -589,7 +526,6 @@
                     "description": "House Number",
                     "abapType": "CharacterString",
                     "length": 10,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -597,7 +533,6 @@
                     "description": "City postal code",
                     "abapType": "CharacterString",
                     "length": 10,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -605,7 +540,6 @@
                     "description": "Country Key",
                     "abapType": "CharacterString",
                     "length": 3,
-                    "isSelected": true,
                     "checkTable": "T005",
                     "conversionExit": ""
                 },
@@ -614,7 +548,6 @@
                     "description": "City",
                     "abapType": "CharacterString",
                     "length": 40,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -622,7 +555,6 @@
                     "description": "Region (State, Province, County)",
                     "abapType": "CharacterString",
                     "length": 3,
-                    "isSelected": true,
                     "checkTable": "T005S",
                     "conversionExit": ""
                 },
@@ -631,7 +563,6 @@
                     "description": "PO Box",
                     "abapType": "CharacterString",
                     "length": 10,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -639,7 +570,6 @@
                     "description": "P.O. Box Postal Code",
                     "abapType": "CharacterString",
                     "length": 10,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -647,7 +577,6 @@
                     "description": "Street",
                     "abapType": "CharacterString",
                     "length": 60,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -655,7 +584,6 @@
                     "description": "House Number",
                     "abapType": "CharacterString",
                     "length": 10,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -663,7 +591,6 @@
                     "description": "City postal code",
                     "abapType": "CharacterString",
                     "length": 10,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -671,7 +598,6 @@
                     "description": "Country Key",
                     "abapType": "CharacterString",
                     "length": 3,
-                    "isSelected": true,
                     "checkTable": "T005",
                     "conversionExit": ""
                 },
@@ -680,7 +606,6 @@
                     "description": "City",
                     "abapType": "CharacterString",
                     "length": 40,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -688,7 +613,6 @@
                     "description": "Region (State, Province, County)",
                     "abapType": "CharacterString",
                     "length": 3,
-                    "isSelected": true,
                     "checkTable": "T005S",
                     "conversionExit": ""
                 },
@@ -697,7 +621,6 @@
                     "description": "PO Box",
                     "abapType": "CharacterString",
                     "length": 10,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -705,7 +628,6 @@
                     "description": "Document Header Text",
                     "abapType": "CharacterString",
                     "length": 25,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -713,7 +635,6 @@
                     "description": "Item Text",
                     "abapType": "CharacterString",
                     "length": 50,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -721,7 +642,6 @@
                     "description": "Document Priority",
                     "abapType": "CharacterString",
                     "length": 1,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -730,7 +650,6 @@
                     "abapType": "PackedNumber",
                     "length": 13,
                     "decimalCount": 2,
-                    "isSelected": true,
                     "formattedLength": 16,
                     "conversionExit": "",
                     "referenceTable": "/OPT/VIM_1RHEAD",
@@ -743,7 +662,6 @@
                     "abapType": "PackedNumber",
                     "length": 13,
                     "decimalCount": 2,
-                    "isSelected": true,
                     "formattedLength": 16,
                     "indexed": "Ascending",
                     "conversionExit": "",
@@ -757,7 +675,6 @@
                     "abapType": "PackedNumber",
                     "length": 13,
                     "decimalCount": 2,
-                    "isSelected": true,
                     "formattedLength": 16,
                     "conversionExit": "",
                     "referenceTable": "/OPT/VIM_1RHEAD",
@@ -770,7 +687,6 @@
                     "abapType": "PackedNumber",
                     "length": 13,
                     "decimalCount": 2,
-                    "isSelected": true,
                     "formattedLength": 16,
                     "conversionExit": "",
                     "referenceTable": "/OPT/VIM_1RHEAD",
@@ -783,7 +699,6 @@
                     "abapType": "PackedNumber",
                     "length": 13,
                     "decimalCount": 2,
-                    "isSelected": true,
                     "formattedLength": 18,
                     "conversionExit": "",
                     "referenceTable": "/OPT/VIM_1RHEAD",
@@ -796,7 +711,6 @@
                     "abapType": "PackedNumber",
                     "length": 13,
                     "decimalCount": 2,
-                    "isSelected": true,
                     "formattedLength": 18,
                     "conversionExit": "",
                     "referenceTable": "/OPT/VIM_1RHEAD",
@@ -809,7 +723,6 @@
                     "abapType": "PackedNumber",
                     "length": 13,
                     "decimalCount": 2,
-                    "isSelected": true,
                     "formattedLength": 16,
                     "conversionExit": "",
                     "referenceTable": "/OPT/VIM_1RHEAD",
@@ -822,7 +735,6 @@
                     "abapType": "PackedNumber",
                     "length": 13,
                     "decimalCount": 2,
-                    "isSelected": true,
                     "formattedLength": 16,
                     "conversionExit": "",
                     "referenceTable": "/OPT/VIM_1RHEAD",
@@ -835,7 +747,6 @@
                     "abapType": "PackedNumber",
                     "length": 13,
                     "decimalCount": 2,
-                    "isSelected": true,
                     "formattedLength": 16,
                     "conversionExit": "",
                     "referenceTable": "/OPT/VIM_1RHEAD",
@@ -847,7 +758,6 @@
                     "description": "Invoice Approval Expense Type",
                     "abapType": "CharacterString",
                     "length": 2,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -855,7 +765,6 @@
                     "description": "Character Field Length = 10",
                     "abapType": "CharacterString",
                     "length": 10,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -863,7 +772,6 @@
                     "description": "Character Field Length = 10",
                     "abapType": "CharacterString",
                     "length": 10,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -871,7 +779,6 @@
                     "description": "Char 20",
                     "abapType": "CharacterString",
                     "length": 20,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -879,7 +786,6 @@
                     "description": "Char 20",
                     "abapType": "CharacterString",
                     "length": 20,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -887,7 +793,6 @@
                     "description": "Tax Code",
                     "abapType": "CharacterString",
                     "length": 2,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -895,7 +800,6 @@
                     "description": "Calculate Tax Automatically",
                     "abapType": "CharacterString",
                     "length": 1,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -903,14 +807,12 @@
                     "description": "Withholding Tax Code",
                     "abapType": "CharacterString",
                     "length": 2,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
                     "name": "SUPPLY_DATE",
                     "description": "Date of Supply",
                     "abapType": "Date",
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -918,7 +820,6 @@
                     "description": "VAT Registration Number",
                     "abapType": "CharacterString",
                     "length": 20,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -926,7 +827,6 @@
                     "description": "Tax number at responsible tax office",
                     "abapType": "CharacterString",
                     "length": 18,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -934,7 +834,6 @@
                     "description": "VAT Registration Number",
                     "abapType": "CharacterString",
                     "length": 20,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -942,7 +841,6 @@
                     "description": "Fiscal Representative VAT Number",
                     "abapType": "CharacterString",
                     "length": 18,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -950,7 +848,6 @@
                     "description": "Terms of payment key",
                     "abapType": "CharacterString",
                     "length": 4,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -958,7 +855,6 @@
                     "description": "Payment Terms text",
                     "abapType": "CharacterString",
                     "length": 40,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -966,7 +862,6 @@
                     "description": "POR subscriber number",
                     "abapType": "CharacterString",
                     "length": 90,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -974,14 +869,12 @@
                     "description": "Reference document number",
                     "abapType": "CharacterString",
                     "length": 16,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
                     "name": "CM_REF_DAT",
                     "description": "Credit Memo Ref Date",
                     "abapType": "Date",
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -990,7 +883,6 @@
                     "abapType": "PackedNumber",
                     "length": 13,
                     "decimalCount": 3,
-                    "isSelected": true,
                     "formattedLength": 15,
                     "conversionExit": ""
                 },
@@ -999,7 +891,6 @@
                     "description": "Siret Number",
                     "abapType": "CharacterString",
                     "length": 14,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -1007,7 +898,6 @@
                     "description": "Zero Tax Rate",
                     "abapType": "CharacterString",
                     "length": 10,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -1015,7 +905,6 @@
                     "description": "SAP ArchiveLink: Document ID",
                     "abapType": "CharacterString",
                     "length": 40,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -1023,7 +912,6 @@
                     "description": "Flag: Training/Learning required",
                     "abapType": "CharacterString",
                     "length": 1,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -1031,7 +919,6 @@
                     "description": "Flag: Feedback Learning",
                     "abapType": "CharacterString",
                     "length": 1,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -1039,7 +926,6 @@
                     "description": "Channel ID",
                     "abapType": "CharacterString",
                     "length": 10,
-                    "isSelected": true,
                     "indexed": "Ascending",
                     "conversionExit": ""
                 },
@@ -1048,7 +934,6 @@
                     "description": "Character Field Length 1",
                     "abapType": "CharacterString",
                     "length": 1,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -1056,7 +941,6 @@
                     "description": "Text Field of Length 60",
                     "abapType": "CharacterString",
                     "length": 60,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -1064,7 +948,6 @@
                     "description": "Text (10 Characters)",
                     "abapType": "CharacterString",
                     "length": 10,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -1072,7 +955,6 @@
                     "description": "Character Field Length 1",
                     "abapType": "CharacterString",
                     "length": 1,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -1080,7 +962,6 @@
                     "description": "Text (10 Characters)",
                     "abapType": "CharacterString",
                     "length": 10,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -1088,7 +969,6 @@
                     "description": "Text (20 Characters)",
                     "abapType": "CharacterString",
                     "length": 20,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -1096,7 +976,6 @@
                     "description": "Text (20 Characters)",
                     "abapType": "CharacterString",
                     "length": 20,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -1104,7 +983,6 @@
                     "description": "Payment Method",
                     "abapType": "CharacterString",
                     "length": 1,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -1112,7 +990,6 @@
                     "description": "Name of Payment Method in Language of the Country",
                     "abapType": "CharacterString",
                     "length": 30,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -1120,7 +997,6 @@
                     "description": "Payment Reference",
                     "abapType": "CharacterString",
                     "length": 30,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -1128,7 +1004,6 @@
                     "description": "Invoice category",
                     "abapType": "CharacterString",
                     "length": 2,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -1136,7 +1011,6 @@
                     "description": "Tax Exempt Text",
                     "abapType": "CharacterString",
                     "length": 50,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -1144,7 +1018,6 @@
                     "description": "Import Special Text",
                     "abapType": "CharacterString",
                     "length": 50,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -1152,7 +1025,6 @@
                     "description": "Triangulation Text",
                     "abapType": "CharacterString",
                     "length": 50,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -1160,7 +1032,6 @@
                     "description": "Organization Number",
                     "abapType": "CharacterString",
                     "length": 20,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -1169,7 +1040,6 @@
                     "abapType": "PackedNumber",
                     "length": 11,
                     "decimalCount": 2,
-                    "isSelected": true,
                     "formattedLength": 14,
                     "conversionExit": "",
                     "referenceTable": "/OPT/VIM_1RHEAD",
@@ -1182,7 +1052,6 @@
                     "abapType": "PackedNumber",
                     "length": 13,
                     "decimalCount": 3,
-                    "isSelected": true,
                     "formattedLength": 15,
                     "conversionExit": ""
                 },
@@ -1192,7 +1061,6 @@
                     "abapType": "PackedNumber",
                     "length": 13,
                     "decimalCount": 3,
-                    "isSelected": true,
                     "formattedLength": 15,
                     "conversionExit": ""
                 },
@@ -1202,7 +1070,6 @@
                     "abapType": "PackedNumber",
                     "length": 13,
                     "decimalCount": 3,
-                    "isSelected": true,
                     "formattedLength": 15,
                     "conversionExit": ""
                 },
@@ -1212,7 +1079,6 @@
                     "abapType": "PackedNumber",
                     "length": 13,
                     "decimalCount": 3,
-                    "isSelected": true,
                     "formattedLength": 15,
                     "conversionExit": ""
                 },
@@ -1222,7 +1088,6 @@
                     "abapType": "PackedNumber",
                     "length": 13,
                     "decimalCount": 2,
-                    "isSelected": true,
                     "formattedLength": 16,
                     "conversionExit": "",
                     "referenceTable": "/OPT/VIM_1RHEAD",
@@ -1235,7 +1100,6 @@
                     "abapType": "PackedNumber",
                     "length": 13,
                     "decimalCount": 2,
-                    "isSelected": true,
                     "formattedLength": 16,
                     "conversionExit": "",
                     "referenceTable": "/OPT/VIM_1RHEAD",
@@ -1248,7 +1112,6 @@
                     "abapType": "PackedNumber",
                     "length": 13,
                     "decimalCount": 2,
-                    "isSelected": true,
                     "formattedLength": 16,
                     "conversionExit": "",
                     "referenceTable": "/OPT/VIM_1RHEAD",
@@ -1261,7 +1124,6 @@
                     "abapType": "PackedNumber",
                     "length": 13,
                     "decimalCount": 2,
-                    "isSelected": true,
                     "formattedLength": 16,
                     "conversionExit": "",
                     "referenceTable": "/OPT/VIM_1RHEAD",
@@ -1273,7 +1135,6 @@
                     "description": "State Central Bank Indicator",
                     "abapType": "CharacterString",
                     "length": 3,
-                    "isSelected": true,
                     "checkTable": "T015L",
                     "conversionExit": ""
                 },
@@ -1282,7 +1143,6 @@
                     "description": "Tax Invoice",
                     "abapType": "CharacterString",
                     "length": 1,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -1290,7 +1150,6 @@
                     "description": "Date to be used as Posting Date while creating the SAP Doc",
                     "abapType": "CharacterString",
                     "length": 1,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -1298,7 +1157,6 @@
                     "description": "Baseline Date Determination Method",
                     "abapType": "CharacterString",
                     "length": 1,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -1306,7 +1164,6 @@
                     "description": "Nota Fiscal Type",
                     "abapType": "CharacterString",
                     "length": 2,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -1314,7 +1171,6 @@
                     "description": "Business Place",
                     "abapType": "CharacterString",
                     "length": 4,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -1322,7 +1178,6 @@
                     "description": "Tax Laws - Brazil",
                     "abapType": "CharacterString",
                     "length": 20,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -1330,7 +1185,6 @@
                     "description": "Supplying Country",
                     "abapType": "CharacterString",
                     "length": 3,
-                    "isSelected": true,
                     "checkTable": "T005",
                     "conversionExit": ""
                 },
@@ -1339,7 +1193,6 @@
                     "description": "Partner bank type",
                     "abapType": "CharacterString",
                     "length": 4,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -1347,7 +1200,6 @@
                     "description": "IBAN (International Bank Account Number)",
                     "abapType": "CharacterString",
                     "length": 34,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -1355,7 +1207,6 @@
                     "description": "Bank number",
                     "abapType": "CharacterString",
                     "length": 15,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -1363,7 +1214,6 @@
                     "description": "Name of bank",
                     "abapType": "CharacterString",
                     "length": 60,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -1371,7 +1221,6 @@
                     "description": "Bank account number",
                     "abapType": "CharacterString",
                     "length": 18,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -1379,7 +1228,6 @@
                     "description": "Reference specifications for bank details",
                     "abapType": "CharacterString",
                     "length": 20,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -1387,7 +1235,6 @@
                     "description": "Bank country key",
                     "abapType": "CharacterString",
                     "length": 3,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -1395,7 +1242,6 @@
                     "description": "Bank Control Key",
                     "abapType": "CharacterString",
                     "length": 2,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -1403,7 +1249,6 @@
                     "description": "Business Area",
                     "abapType": "CharacterString",
                     "length": 4,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -1411,7 +1256,6 @@
                     "description": "X: Restart",
                     "abapType": "CharacterString",
                     "length": 1,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -1419,7 +1263,6 @@
                     "description": "Country Key",
                     "abapType": "CharacterString",
                     "length": 3,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -1427,14 +1270,12 @@
                     "description": "Bar code",
                     "abapType": "CharacterString",
                     "length": 64,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
                     "name": "ZFBDT",
                     "description": "Baseline Date for Due Date Calculation",
                     "abapType": "Date",
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -1442,7 +1283,6 @@
                     "description": "Cash discount days 1",
                     "abapType": "PackedNumber",
                     "length": 3,
-                    "isSelected": true,
                     "formattedLength": 3,
                     "conversionExit": ""
                 },
@@ -1452,7 +1292,6 @@
                     "abapType": "PackedNumber",
                     "length": 5,
                     "decimalCount": 3,
-                    "isSelected": true,
                     "formattedLength": 6,
                     "conversionExit": ""
                 },
@@ -1461,7 +1300,6 @@
                     "description": "Cash discount days 2",
                     "abapType": "PackedNumber",
                     "length": 3,
-                    "isSelected": true,
                     "formattedLength": 3,
                     "conversionExit": ""
                 },
@@ -1471,7 +1309,6 @@
                     "abapType": "PackedNumber",
                     "length": 5,
                     "decimalCount": 3,
-                    "isSelected": true,
                     "formattedLength": 6,
                     "conversionExit": ""
                 },
@@ -1480,7 +1317,6 @@
                     "description": "Net Payment Terms Period",
                     "abapType": "PackedNumber",
                     "length": 3,
-                    "isSelected": true,
                     "formattedLength": 3,
                     "conversionExit": ""
                 },
@@ -1489,7 +1325,6 @@
                     "description": "SWIFT/BIC for International Payments",
                     "abapType": "CharacterString",
                     "length": 11,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -1497,7 +1332,6 @@
                     "description": "Short key for a house bank",
                     "abapType": "CharacterString",
                     "length": 5,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -1505,7 +1339,6 @@
                     "description": "ID for account details",
                     "abapType": "CharacterString",
                     "length": 5,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -1513,7 +1346,6 @@
                     "description": "Assignment number",
                     "abapType": "CharacterString",
                     "length": 18,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -1521,7 +1353,6 @@
                     "description": "Instruction key for data medium exchange",
                     "abapType": "CharacterString",
                     "length": 2,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -1529,7 +1360,6 @@
                     "description": "Report key for data medium exchange",
                     "abapType": "CharacterString",
                     "length": 1,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -1537,7 +1367,6 @@
                     "description": "Tax type",
                     "abapType": "CharacterString",
                     "length": 2,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -1545,7 +1374,6 @@
                     "description": "Tax Number Type",
                     "abapType": "CharacterString",
                     "length": 2,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -1553,7 +1381,6 @@
                     "description": "Natural Person",
                     "abapType": "CharacterString",
                     "length": 1,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -1561,7 +1388,6 @@
                     "description": "Liable for VAT",
                     "abapType": "CharacterString",
                     "length": 1,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -1569,7 +1395,6 @@
                     "description": "Indicator: Business Partner Subject to Equalization Tax?",
                     "abapType": "CharacterString",
                     "length": 1,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -1577,7 +1402,6 @@
                     "description": "Vendor Permitted as Payee",
                     "abapType": "CharacterString",
                     "length": 10,
-                    "isSelected": true,
                     "conversionExit": "ALPHA"
                 },
                 {
@@ -1585,7 +1409,6 @@
                     "description": "Withholding Tax Processing Type",
                     "abapType": "CharacterString",
                     "length": 1,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -1593,28 +1416,24 @@
                     "description": "Flag indicating data enrichment",
                     "abapType": "CharacterString",
                     "length": 1,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
                     "name": "DUE_DATE",
                     "description": "Due Date",
                     "abapType": "Date",
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
                     "name": "DUE_DATE1",
                     "description": "Due Date for Cash Discount 1",
                     "abapType": "Date",
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
                     "name": "DUE_DATE2",
                     "description": "Due Date for Cash Discount 2",
                     "abapType": "Date",
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -1622,7 +1441,6 @@
                     "description": "Section Code",
                     "abapType": "CharacterString",
                     "length": 4,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -1630,7 +1448,6 @@
                     "description": "Vendor Group",
                     "abapType": "CharacterString",
                     "length": 10,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -1638,7 +1455,6 @@
                     "description": "Branch Code - Thailand",
                     "abapType": "CharacterString",
                     "length": 5,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -1646,7 +1462,6 @@
                     "description": "ISR/QR Reference Number",
                     "abapType": "CharacterString",
                     "length": 27,
-                    "isSelected": true,
                     "conversionExit": "ALPHA"
                 },
                 {
@@ -1654,7 +1469,6 @@
                     "description": "QR code reference type",
                     "abapType": "CharacterString",
                     "length": 4,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -1662,7 +1476,6 @@
                     "description": "VAT Invoice Identifier",
                     "abapType": "CharacterString",
                     "length": 10,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -1670,7 +1483,6 @@
                     "description": "Secret Code",
                     "abapType": "CharacterString",
                     "length": 27,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -1678,7 +1490,6 @@
                     "description": "Secret Code",
                     "abapType": "CharacterString",
                     "length": 27,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -1686,7 +1497,6 @@
                     "description": "Secret Code",
                     "abapType": "CharacterString",
                     "length": 27,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -1694,7 +1504,6 @@
                     "description": "Secret Code",
                     "abapType": "CharacterString",
                     "length": 27,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -1702,7 +1511,6 @@
                     "description": "Invoice Code",
                     "abapType": "CharacterString",
                     "length": 12,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -1710,7 +1518,6 @@
                     "description": "Validation Code",
                     "abapType": "CharacterString",
                     "length": 30,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -1718,7 +1525,6 @@
                     "description": "Not a Hand Written Invoice",
                     "abapType": "CharacterString",
                     "length": 1,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -1726,7 +1532,6 @@
                     "description": "AFTCS Validation Indicator",
                     "abapType": "CharacterString",
                     "length": 1,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -1734,7 +1539,6 @@
                     "description": "User id that set the AFTCS Validation Indicator",
                     "abapType": "CharacterString",
                     "length": 12,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -1742,7 +1546,6 @@
                     "description": "AFTCS Validation TimeStamp",
                     "abapType": "PackedNumber",
                     "length": 15,
-                    "isSelected": true,
                     "formattedLength": 19,
                     "conversionExit": ""
                 },
@@ -1751,7 +1554,6 @@
                     "description": "Tax Description",
                     "abapType": "CharacterString",
                     "length": 1,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -1759,7 +1561,6 @@
                     "description": "Permanent Account Number",
                     "abapType": "CharacterString",
                     "length": 40,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -1767,7 +1568,6 @@
                     "description": "STC Number",
                     "abapType": "CharacterString",
                     "length": 30,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -1775,7 +1575,6 @@
                     "description": "TIN/TOT Number",
                     "abapType": "CharacterString",
                     "length": 11,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -1783,7 +1582,6 @@
                     "description": "LST Number",
                     "abapType": "CharacterString",
                     "length": 40,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -1791,7 +1589,6 @@
                     "description": "CST Number",
                     "abapType": "CharacterString",
                     "length": 40,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -1799,7 +1596,6 @@
                     "description": "ECC Number",
                     "abapType": "CharacterString",
                     "length": 40,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -1808,7 +1604,6 @@
                     "abapType": "PackedNumber",
                     "length": 13,
                     "decimalCount": 2,
-                    "isSelected": true,
                     "formattedLength": 16,
                     "conversionExit": "",
                     "referenceTable": "/OPT/VIM_1RHEAD",
@@ -1821,7 +1616,6 @@
                     "abapType": "PackedNumber",
                     "length": 13,
                     "decimalCount": 2,
-                    "isSelected": true,
                     "formattedLength": 16,
                     "conversionExit": "",
                     "referenceTable": "/OPT/VIM_1RHEAD",
@@ -1834,7 +1628,6 @@
                     "abapType": "PackedNumber",
                     "length": 13,
                     "decimalCount": 2,
-                    "isSelected": true,
                     "formattedLength": 16,
                     "conversionExit": "",
                     "referenceTable": "/OPT/VIM_1RHEAD",
@@ -1846,7 +1639,6 @@
                     "description": "Model of Nota Fiscal",
                     "abapType": "NumericCharacterString",
                     "length": 2,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -1854,7 +1646,6 @@
                     "description": "Series",
                     "abapType": "CharacterString",
                     "length": 3,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -1862,7 +1653,6 @@
                     "description": "Nota Fiscal Number",
                     "abapType": "NumericCharacterString",
                     "length": 6,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -1870,7 +1660,6 @@
                     "description": "CNPJ Number",
                     "abapType": "NumericCharacterString",
                     "length": 14,
-                    "isSelected": true,
                     "formattedLength": 18,
                     "conversionExit": "CGCBR"
                 },
@@ -1880,7 +1669,6 @@
                     "abapType": "PackedNumber",
                     "length": 5,
                     "decimalCount": 2,
-                    "isSelected": true,
                     "formattedLength": 5,
                     "conversionExit": ""
                 },
@@ -1889,7 +1677,6 @@
                     "description": "NF-e: Protocol Number",
                     "abapType": "CharacterString",
                     "length": 15,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -1897,7 +1684,6 @@
                     "description": "NF-e: Random Number",
                     "abapType": "CharacterString",
                     "length": 9,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -1905,7 +1691,6 @@
                     "description": "NF-e: 44-Digit Access Key",
                     "abapType": "CharacterString",
                     "length": 44,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -1913,7 +1698,6 @@
                     "description": "Nine-Digit NF-e Number",
                     "abapType": "CharacterString",
                     "length": 9,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -1921,7 +1705,6 @@
                     "description": "Check Digit for NF-e Access Key",
                     "abapType": "CharacterString",
                     "length": 1,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -1929,7 +1712,6 @@
                     "description": "Payment flag",
                     "abapType": "CharacterString",
                     "length": 1,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -1938,7 +1720,6 @@
                     "abapType": "PackedNumber",
                     "length": 15,
                     "decimalCount": 2,
-                    "isSelected": true,
                     "formattedLength": 21,
                     "conversionExit": "",
                     "referenceTable": "/OPT/VIM_1RHEAD",
@@ -1950,28 +1731,24 @@
                     "description": "Nine-Digit NF-e Number",
                     "abapType": "CharacterString",
                     "length": 9,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
                     "name": "ACTION_DATE",
                     "description": "NF-e Processing Timestamp - Date",
                     "abapType": "Date",
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
                     "name": "ACTION_TIME",
                     "description": "NF-e Processing Timestamp - Time",
                     "abapType": "Time",
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
                     "name": "DOCDAT",
                     "description": "Document date",
                     "abapType": "Date",
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -1979,7 +1756,6 @@
                     "description": "Partner ID (Customer, Vendor, Business Place)",
                     "abapType": "CharacterString",
                     "length": 10,
-                    "isSelected": true,
                     "conversionExit": "ALPHA"
                 },
                 {
@@ -1987,7 +1763,6 @@
                     "description": "CNPJ Number",
                     "abapType": "NumericCharacterString",
                     "length": 14,
-                    "isSelected": true,
                     "formattedLength": 18,
                     "conversionExit": "CGCBR"
                 },
@@ -1996,7 +1771,6 @@
                     "description": "Checkbox",
                     "abapType": "CharacterString",
                     "length": 1,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -2004,7 +1778,6 @@
                     "description": "Checkbox",
                     "abapType": "CharacterString",
                     "length": 1,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -2012,7 +1785,6 @@
                     "description": "FLAG_SIG_VALID(Checkbox)",
                     "abapType": "CharacterString",
                     "length": 1,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -2020,14 +1792,12 @@
                     "description": "Invoice Number of original invoice",
                     "abapType": "CharacterString",
                     "length": 16,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
                     "name": "ORG_DATE",
                     "description": "Date of original invoice",
                     "abapType": "Date",
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -2035,14 +1805,12 @@
                     "description": "Revision number of invoice",
                     "abapType": "CharacterString",
                     "length": 16,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
                     "name": "REV_DATE",
                     "description": "Date of revision invoice",
                     "abapType": "Date",
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -2050,14 +1818,12 @@
                     "description": "Revision number of corrective invoice",
                     "abapType": "CharacterString",
                     "length": 16,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
                     "name": "REV_DATE_COR",
                     "description": "Revision date of corrective invoice",
                     "abapType": "Date",
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -2065,7 +1831,6 @@
                     "description": "Purchasing Document Category",
                     "abapType": "CharacterString",
                     "length": 1,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -2073,7 +1838,6 @@
                     "description": "Purchasing Document Number",
                     "abapType": "CharacterString",
                     "length": 10,
-                    "isSelected": true,
                     "conversionExit": "ALPHA"
                 },
                 {
@@ -2081,7 +1845,6 @@
                     "description": "Contract Type",
                     "abapType": "CharacterString",
                     "length": 4,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -2089,7 +1852,6 @@
                     "description": "Contract Number",
                     "abapType": "CharacterString",
                     "length": 13,
-                    "isSelected": true,
                     "conversionExit": "ALPHA"
                 },
                 {
@@ -2097,7 +1859,6 @@
                     "description": "Contract name",
                     "abapType": "CharacterString",
                     "length": 80,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -2105,7 +1866,6 @@
                     "description": "Number of old contract",
                     "abapType": "CharacterString",
                     "length": 20,
-                    "isSelected": true,
                     "conversionExit": "ALPHA"
                 },
                 {
@@ -2113,7 +1873,6 @@
                     "description": "Manual Contract Check Results",
                     "abapType": "CharacterString",
                     "length": 1,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -2121,7 +1880,6 @@
                     "description": "Agreement Number",
                     "abapType": "CharacterString",
                     "length": 10,
-                    "isSelected": true,
                     "conversionExit": "ALPHA"
                 },
                 {
@@ -2129,7 +1887,6 @@
                     "description": "Reporting Country for Delivery of Goods Within the EU",
                     "abapType": "CharacterString",
                     "length": 3,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -2137,7 +1894,6 @@
                     "description": "Route ID",
                     "abapType": "CharacterString",
                     "length": 46,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -2145,7 +1901,6 @@
                     "description": "Route ID1",
                     "abapType": "CharacterString",
                     "length": 16,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -2153,21 +1908,18 @@
                     "description": "Route ID2",
                     "abapType": "CharacterString",
                     "length": 16,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
                     "name": "RETRY_NO1",
                     "description": "Extraction Retry",
                     "abapType": "FourByteInteger",
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
                     "name": "RETRY_NO2",
                     "description": "Validation Retry",
                     "abapType": "FourByteInteger",
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -2175,7 +1927,6 @@
                     "description": "Duplicate Check Run Pending",
                     "abapType": "CharacterString",
                     "length": 1,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -2183,7 +1934,6 @@
                     "description": "Number of retries for external workflow",
                     "abapType": "NumericCharacterString",
                     "length": 4,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -2191,7 +1941,6 @@
                     "description": "Original Archive Document Type",
                     "abapType": "CharacterString",
                     "length": 10,
-                    "isSelected": true,
                     "indexed": "Ascending",
                     "conversionExit": ""
                 },
@@ -2200,7 +1949,6 @@
                     "description": "UTC Time Stamp in Short Form (YYYYMMDDhhmmss)",
                     "abapType": "PackedNumber",
                     "length": 15,
-                    "isSelected": true,
                     "formattedLength": 19,
                     "conversionExit": ""
                 },
@@ -2209,7 +1957,6 @@
                     "description": "Content Repository Identification",
                     "abapType": "CharacterString",
                     "length": 2,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -2217,7 +1964,6 @@
                     "description": "General Flag",
                     "abapType": "CharacterString",
                     "length": 1,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -2225,7 +1971,6 @@
                     "description": "Registration Number for incoming document handler",
                     "abapType": "NumericCharacterString",
                     "length": 12,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -2233,7 +1978,6 @@
                     "description": "Object Type",
                     "abapType": "CharacterString",
                     "length": 2,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -2241,7 +1985,6 @@
                     "description": "Agent ID in Organizational Management",
                     "abapType": "CharacterString",
                     "length": 12,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -2249,14 +1992,12 @@
                     "description": "Return to Vendor - reasons",
                     "abapType": "CharacterString",
                     "length": 2,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
                     "name": "VATDATE",
                     "description": "VAT Date",
                     "abapType": "Date",
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -2264,7 +2005,6 @@
                     "description": "Tax code for delivery costs",
                     "abapType": "CharacterString",
                     "length": 2,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -2272,7 +2012,6 @@
                     "description": "Jurisdiction code for delivery costs",
                     "abapType": "CharacterString",
                     "length": 15,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -2280,7 +2019,6 @@
                     "description": "Document No. of the Invoice to Which the Transaction Belongs",
                     "abapType": "CharacterString",
                     "length": 10,
-                    "isSelected": true,
                     "conversionExit": "ALPHA"
                 },
                 {
@@ -2288,7 +2026,6 @@
                     "description": "Fiscal Year of the Relevant Invoice (for Credit Memo)",
                     "abapType": "NumericCharacterString",
                     "length": 4,
-                    "isSelected": true,
                     "conversionExit": "GJAHR"
                 },
                 {
@@ -2296,7 +2033,6 @@
                     "description": "Line Item in the Relevant Invoice",
                     "abapType": "NumericCharacterString",
                     "length": 3,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -2304,7 +2040,6 @@
                     "description": "Withholding tax check",
                     "abapType": "CharacterString",
                     "length": 1,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -2313,7 +2048,6 @@
                     "abapType": "PackedNumber",
                     "length": 9,
                     "decimalCount": 5,
-                    "isSelected": true,
                     "formattedLength": 12,
                     "conversionExit": "EXCRT"
                 },
@@ -2322,7 +2056,6 @@
                     "description": "Ignore Invoicing Party (IP)",
                     "abapType": "CharacterString",
                     "length": 1,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -2331,7 +2064,6 @@
                     "abapType": "PackedNumber",
                     "length": 9,
                     "decimalCount": 5,
-                    "isSelected": true,
                     "formattedLength": 12,
                     "conversionExit": "EXCRT"
                 },
@@ -2340,7 +2072,6 @@
                     "description": "Reporting Country for Delivery of Goods Within the EU",
                     "abapType": "CharacterString",
                     "length": 3,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -2348,7 +2079,6 @@
                     "description": "GST Partner",
                     "abapType": "CharacterString",
                     "length": 10,
-                    "isSelected": true,
                     "conversionExit": "ALPHA"
                 },
                 {
@@ -2356,7 +2086,6 @@
                     "description": "Place of Supply",
                     "abapType": "CharacterString",
                     "length": 3,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -2364,7 +2093,6 @@
                     "description": "GST Registration Number",
                     "abapType": "CharacterString",
                     "length": 18,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -2372,7 +2100,6 @@
                     "description": "Receiving Entity GST Registration Number",
                     "abapType": "CharacterString",
                     "length": 18,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -2380,7 +2107,6 @@
                     "description": "Signature Validation Status",
                     "abapType": "NumericCharacterString",
                     "length": 2,
-                    "isSelected": true,
                     "conversionExit": ""
                 }
             ]

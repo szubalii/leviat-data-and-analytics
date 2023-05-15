@@ -51,6 +51,10 @@ SELECT
     PAA.[KOSTL]                             AS [CostCenterID],
     PAA.[SAKTO]                             AS [GLAccountID],
     PDSLSum.[GoodsReceiptQuantity],
+    PDI.[PurchaseRequisition],     
+    PDI.[PurchaseRequisitionItem], 
+    PDI.[PurchasingOrganization],
+    PDI.[IsReturnsItem],
     PDI.[t_applicationId],
     PDI.[t_extractionDtm]
 FROM

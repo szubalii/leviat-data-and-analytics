@@ -29,6 +29,15 @@ SELECT
     PD.[CreationDate],
     CCR.[TargetCurrency],
     CurrType.[CurrencyType],
+    PDI.[PurchaseRequisition],     
+    PDI.[PurchaseRequisitionItem],
+    CASE
+        WHEN PRI.[PurchaseRequisitionType] = 'ZCAT'
+            THEN 'X'
+        ELSE NULL
+    END                                 [IsMercateo], 
+    PDI.[PurchasingOrganization],
+    PDI.[IsReturnsItem],
     PDI.[t_applicationId],
     PDI.[t_extractionDtm]
 FROM
@@ -43,3 +52,7 @@ INNER JOIN
 INNER JOIN
     [dm_sales].[vw_dim_CurrencyType]     CurrType
         ON CCR.CurrencyTypeID = CurrType.CurrencyTypeID
+LEFT JOIN
+    [base_s4h_cax].[I_Purchaserequisitionitem]  PRI
+        ON PDI.PurchaseRequisition = PRI.PurchaseRequisition
+            AND PDI.PurchaseRequisitionItem = PRI.PurchaseRequisitonItem
