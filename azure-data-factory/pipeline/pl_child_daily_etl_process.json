@@ -310,8 +310,8 @@
 				],
 				"userProperties": [],
 				"typeProperties": {
-					"variableName": "status",
-					"value": ""
+					"variableName": "dummy",
+					"value": "dummy"
 				}
 			}
 		],
@@ -335,6 +335,9 @@
 		},
 		"variables": {
 			"status": {
+				"type": "String"
+			},
+			"dummy": {
 				"type": "String"
 			}
 		},
