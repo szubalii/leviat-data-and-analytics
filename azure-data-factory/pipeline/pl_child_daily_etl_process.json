@@ -243,11 +243,11 @@
 					"waitOnCompletion": true,
 					"parameters": {
 						"PipelineRunId": {
-							"value": "@activity('Process ADLS and Synapse Ingestion').output.pipelineRunId",
+							"value": "@activity('Process Synapse EDW').output.pipelineRunId",
 							"type": "Expression"
 						},
 						"PipelineName": {
-							"value": "@activity('Process ADLS and Synapse Ingestion').output.pipelineName",
+							"value": "@activity('Process Synapse EDW').output.pipelineName",
 							"type": "Expression"
 						},
 						"isSuccessful": true,
@@ -279,11 +279,11 @@
 					"waitOnCompletion": true,
 					"parameters": {
 						"PipelineRunId": {
-							"value": "@activity('Process ADLS and Synapse Ingestion').output.pipelineRunId",
+							"value": "@activity('Process Synapse EDW').output.pipelineRunId",
 							"type": "Expression"
 						},
 						"PipelineName": {
-							"value": "@activity('Process ADLS and Synapse Ingestion').output.pipelineName",
+							"value": "@activity('Process Synapse EDW').output.pipelineName",
 							"type": "Expression"
 						},
 						"isSuccessful": false,
