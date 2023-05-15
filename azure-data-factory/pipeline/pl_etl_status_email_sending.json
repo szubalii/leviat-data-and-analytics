@@ -129,7 +129,7 @@
 					"url": "https://prod-59.westeurope.logic.azure.com:443/workflows/f2ad36b624fd43bd85a5543f194ccd26/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=WD2chZlXpiB7w0Z4ogJFxYXPt4VuxVib-g2ZlscCc0A",
 					"method": "POST",
 					"body": {
-						"value": "{\n\t\"Subject\": \"CRH: ETL Status\",\n\t\"Title\": \"@{variables('emailTitle')}\",\n\t\"Message\": \"@{variables('emailMessage')}\",\n\t\"Color\": \"@{variables('color')}\",\n\t\"DataFactoryName\": \"@{pipeline().DataFactory}\",\n\t\"PipelineName\": \"@{pipeline().parameters.PipelineName}\",\n\t\"PipelineRunId\": \"@{pipeline().parameters.PipelineRunId}\",\n\t\"UTCTime\": \"@{formatDateTime(utcNow(), 'yyyy-MM-dd HH:mm:ss')}\"\n}",
+						"value": "{\n\t\"Subject\": \"@{pipeline().parameters.email_subject}\",\n\t\"Title\": \"@{variables('emailTitle')}\",\n\t\"Message\": \"@{variables('emailMessage')}\",\n\t\"Color\": \"@{variables('color')}\",\n\t\"DataFactoryName\": \"@{pipeline().DataFactory}\",\n\t\"PipelineName\": \"@{pipeline().parameters.PipelineName}\",\n\t\"PipelineRunId\": \"@{pipeline().parameters.PipelineRunId}\",\n\t\"UTCTime\": \"@{formatDateTime(utcNow(), 'yyyy-MM-dd HH:mm:ss')}\"\n}",
 						"type": "Expression"
 					}
 				}
@@ -148,6 +148,10 @@
 			},
 			"parent_run_id": {
 				"type": "string"
+			},
+			"email_subject": {
+				"type": "string",
+				"defaultValue": "Leviat: DnA Synapse BASE ETL Status"
 			}
 		},
 		"variables": {
