@@ -266,10 +266,7 @@ BillingDocumentItemBase_axbi AS (
             SINMT.[Migrate] IN ('Y', 'D')
             AND
             SINMT.SAPProductID IS NOT NULL
-    LEFT JOIN
-         [intm_axbi].[dim_CUSTTABLE] CT
-        ON
-            CT.[ACCOUNTNUM] = DA.[DATAAREAID2] + '-' + FH.[Customerno]
+    
 ),
 BillingDocumentItemBase_axbi_mapped AS (
     SELECT
