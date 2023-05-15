@@ -53,5 +53,5 @@ INNER JOIN
         ON CCR.CurrencyTypeID = CurrType.CurrencyTypeID
 LEFT JOIN
     [base_s4h_cax].[I_Purchaserequisitionitem]  PRI
-        ON PDI.PurchaseRequisition = PRI.PurchaseRequisition
-            AND PDI.PurchaseRequisitionItem = PRI.PurchaseRequisitonItem
+        ON PDI.PurchaseRequisition = PRI.PurchaseRequisition                COLLATE DATABASE_DEFAULT
+            AND PDI.PurchaseRequisitionItem = PRI.PurchaseRequisitionItem    COLLATE DATABASE_DEFAULT
