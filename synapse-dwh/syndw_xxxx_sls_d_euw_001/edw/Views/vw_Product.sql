@@ -859,10 +859,10 @@ LEFT JOIN
         CTE_Product.ProductGroup = PT.MaterialGroup
         AND PT.Language = 'E'
 LEFT JOIN
-    map_General.EClassCodes ECC
+    base_ff.EClassCodes ECC
     ON
         CTE_Product.ProductGroup = ECC.MaterialGroupID
 LEFT JOIN
-    map_General.Classification C
+    base_ff.MaterialGroupClassification C
     ON
         PT.MaterialGroupName = C.MaterialGroupName

@@ -113,35 +113,6 @@ steps:
         'https://$(storageAccountName).blob.core.windows.net/flat-files' `
         --include-path 'ConfigurableProductCharacteristic.csv;SalesDistrict.csv;CustomerCalculated.csv;ZE_EXQLMAP_DT.csv'
 
-- task: PowerShell@2
-  displayName: 'Copy map_General Master Data Pt1 to AzureBlob'
-  inputs:
-    targetType: 'inline'
-    pwsh: true
-    script: |
-      # connect to Azure using VM
-      azcopy login --identity
-
-      # directly copy to storage account using azcopy
-      azcopy copy `
-        '$(Pipeline.Workspace)\SynapseDWH\Master Data\map_General\*' `
-        'https://$(storageAccountName).blob.core.windows.net/flat-files/map_General' `
-        --exclude-path 'Classification.csv;EClassCodes.csv'
-
-- task: PowerShell@2
-  displayName: 'Copy map_General Master Data Pt2 to AzureBlob'
-  inputs:
-    targetType: 'inline'
-    pwsh: true
-    script: |
-      # connect to Azure using VM
-      azcopy login --identity
-
-      # directly copy to storage account using azcopy
-      azcopy copy `
-        '$(Pipeline.Workspace)\SynapseDWH\Master Data\map_General\*' `
-        'https://$(storageAccountName).blob.core.windows.net/flat-files/map_General' `
-        --include-path 'Classification.csv;EClassCodes.csv'
 
 - task: PowerShell@2
   displayName: 'Copy ProductCalculated.csv to AzureBlob'

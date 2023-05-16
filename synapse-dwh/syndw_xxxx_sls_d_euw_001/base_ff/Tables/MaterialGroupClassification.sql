@@ -1,4 +1,4 @@
-CREATE TABLE [map_General].[Classification]
+CREATE TABLE [base_ff].[MaterialGroupClassification]
 ( 
     [MaterialGroupName] NVARCHAR (64)   NOT NULL
     ,[Classification]    NVARCHAR(8)     NOT NULL
@@ -7,7 +7,7 @@ CREATE TABLE [map_General].[Classification]
     ,[t_jobDtm]                 DATETIME        NULL
     ,[t_jobBy]                  NVARCHAR  (128) NULL
     ,[t_filePath]               NVARCHAR (1024) NULL
-    ,CONSTRAINT [PK_map_Classification] PRIMARY KEY NONCLUSTERED ([MaterialGroupName]) NOT ENFORCED
+    ,CONSTRAINT [PK_map_MaterialGroupClassification] PRIMARY KEY NONCLUSTERED ([MaterialGroupName]) NOT ENFORCED
 )
 WITH
 (

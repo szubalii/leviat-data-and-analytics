@@ -1,4 +1,4 @@
-CREATE TABLE [map_General].[EClassCodes]
+CREATE TABLE [base_ff].[EClassCodes]
 ( 
     [MaterialGroupID]           NVARCHAR (16)  NOT NULL
     ,[EClassCode]                NVARCHAR(8)    NOT NULL
