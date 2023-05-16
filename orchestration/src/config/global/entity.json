@@ -3992,6 +3992,30 @@
         "base_table_name": "I_SalesQuotationItemPrcgElmnt",
         "pk_field_names": "MANDT, SALESQUOTATION, SALESQUOTATIONITEM, PRICINGPROCEDURESTEP, PRICINGPROCEDURECOUNTER",
         "schedule_recurrence": "A"
+      },
+      {
+        "entity_id": 586,
+        "entity_name": "Pfcg_Role_To_User",
+        "data_category": "NULL",
+        "client_field": "MANDT",
+        "tool_name": "Theobald",
+        "extraction_type": "Table",
+        "update_mode": "Full",
+        "base_table_name": "Pfcg_Role_To_User",
+        "pk_field_names": "MANDT, USER_NAME, ROLE_NAME, VALID_FROM, VALID_TO",
+        "schedule_recurrence": "D"
+      },
+      {
+        "entity_id": 587,
+        "entity_name": "OPT_VIM_1HEAD",
+        "data_category": "NULL",
+        "client_field": "MANDT",
+        "tool_name": "Theobald",
+        "extraction_type": "Table",
+        "update_mode": "Full",
+        "base_table_name": "Opt_Vim_1Head",
+        "schedule_recurrence": "D",
+        "pk_field_names": "MANDT, DOCID"
       }
     ]
   },
