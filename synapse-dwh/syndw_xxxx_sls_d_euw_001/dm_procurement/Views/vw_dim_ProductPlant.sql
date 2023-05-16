@@ -9,8 +9,6 @@ SELECT
     ,   PP.[MinimumLotSizeQuantity]
     ,   PP.[MaximumLotSizeQuantity]
     ,   NVM.[PLIFZ] AS [PlannedDeliveryTime]
-    ,   PP.[t_applicationId]
-    ,   PP.[t_extractionDtm]
 FROM
     [edw].[dim_ProductPlant] PP
 LEFT JOIN
