@@ -1,8 +1,7 @@
-CREATE VIEW [dm_procurement].[vw_OptVim1Head]
+CREATE VIEW [dm_procurement].[vw_dim_OptVim1Head]
 AS
 SELECT
-    MANDT                	            
-    ,DocumentLedgerID
+    DocumentLedgerID
     ,DocumentType
     ,CreationDate
     ,AccountingDocumentID

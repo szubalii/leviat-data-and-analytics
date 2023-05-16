@@ -7,7 +7,7 @@ CREATE TABLE [base_ff].[MaterialGroupClassification]
     ,[t_jobDtm]                 DATETIME        NULL
     ,[t_jobBy]                  NVARCHAR  (128) NULL
     ,[t_filePath]               NVARCHAR (1024) NULL
-    ,CONSTRAINT [PK_map_MaterialGroupClassification] PRIMARY KEY NONCLUSTERED ([MaterialGroupName]) NOT ENFORCED
+    ,CONSTRAINT [PK_MaterialGroupClassification] PRIMARY KEY NONCLUSTERED ([MaterialGroupName]) NOT ENFORCED
 )
 WITH
 (

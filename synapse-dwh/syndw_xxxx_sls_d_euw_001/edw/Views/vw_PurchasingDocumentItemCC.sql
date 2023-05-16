@@ -49,9 +49,10 @@ INNER JOIN
         ON PDI.DocumentCurrencyID = CCR.SourceCurrency
             AND PD.CreationDate BETWEEN CCR.ExchangeRateEffectiveDate AND CCR.LastDay
 INNER JOIN
-    [dm_sales].[vw_dim_CurrencyType]     CurrType
+    [edw].[dim_CurrencyType]    CurrType
         ON CCR.CurrencyTypeID = CurrType.CurrencyTypeID
 LEFT JOIN
     [base_s4h_cax].[I_Purchaserequisitionitem]  PRI
         ON PDI.PurchaseRequisition = PRI.PurchaseRequisition                COLLATE DATABASE_DEFAULT
             AND PDI.PurchaseRequisitionItem = PRI.PurchaseRequisitionItem    COLLATE DATABASE_DEFAULT
+WHERE CurrType.[CurrencyTypeID] <> '00'

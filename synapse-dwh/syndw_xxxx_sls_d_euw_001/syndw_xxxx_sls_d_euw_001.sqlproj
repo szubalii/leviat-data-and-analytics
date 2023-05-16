@@ -577,10 +577,10 @@
     <Build Include="base_s4h_cax\Tables\Pfcg_Role_To_User.sql" />
     <Build Include="base_s4h_cax\Tables\Opt_Vim_1Head.sql" />
     <Build Include="edw\Views\vw_OptVim1Head.sql" />
-    <Build Include="dm_procurement\Views\vw_OptVim1Head.sql" />
-    <Build Include="dm_procurement\Views\vw_PfcgRoleToUser.sql" />
+    <Build Include="dm_procurement\Views\vw_dim_OptVim1Head.sql" />
+    <Build Include="dm_procurement\Views\vw_dim_PfcgRoleToUser.sql" />
     <Build Include="dm_procurement\Views\vw_dim_ProductPlant.sql" />
-    <Build Include="dm_procurement\Views\vw_fact_PurchasingDocumentItemCC.sql" />
+    <Build Include="dm_procurement\Views\vw_fact_PurchasingDocumentItem.sql" />
     <Build Include="edw\Tables\dim_MaterialGroup.sql" />
     <Build Include="Security\Schemas\map_AXBI.sql" />
     <Build Include="map_AXBI\Tables\SalesOrganization.sql" />

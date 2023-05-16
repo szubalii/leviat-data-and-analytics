@@ -1,4 +1,4 @@
-CREATE VIEW [dm_procurement].[vw_fact_PurchasingDocumentItemCC]
+CREATE VIEW [dm_procurement].[vw_fact_PurchasingDocumentItem]
 AS
 SELECT
     PDI.[PurchasingDocument],

@@ -9,7 +9,7 @@ CREATE TABLE [base_ff].[EClassCodes]
     ,[t_jobDtm]                 DATETIME        NULL
     ,[t_jobBy]                  NVARCHAR  (128) NULL
     ,[t_filePath]               NVARCHAR (1024) NULL
-    ,CONSTRAINT [PK_map_EClassCodes] PRIMARY KEY NONCLUSTERED ([MaterialGroupID]) NOT ENFORCED
+    ,CONSTRAINT [PK_EClassCodes] PRIMARY KEY NONCLUSTERED ([MaterialGroupID]) NOT ENFORCED
 )
 WITH
 (
