@@ -113,7 +113,6 @@ steps:
         'https://$(storageAccountName).blob.core.windows.net/flat-files' `
         --include-path 'ConfigurableProductCharacteristic.csv;SalesDistrict.csv;CustomerCalculated.csv;ZE_EXQLMAP_DT.csv'
 
-
 - task: PowerShell@2
   displayName: 'Copy ProductCalculated.csv to AzureBlob'
   inputs:
