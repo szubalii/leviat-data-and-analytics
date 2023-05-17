@@ -167,14 +167,14 @@ C_SalesDocumentItemDEXBase as (
          , doc.[ExchangeRateDate]
          , doc.[PriceDetnExchangeRate]
          , doc.[StatisticalValueControl]        as [StatisticalValueControlID]
-         , doc.[NetAmount]
+         , edw.[svf_getInvertAmount] (doc.SalesDocumentType, doc.NetAmount) as NetAmount
          , doc.[TransactionCurrency]            as [TransactionCurrencyID]
          , doc.[SalesOrganizationCurrency]      as [SalesOrganizationCurrencyID]
          , doc.[NetPriceAmount]
          , doc.[NetPriceQuantity]
          , doc.[NetPriceQuantityUnit]           as [NetPriceQuantityUnitID]
          , doc.[TaxAmount]
-         , doc.[CostAmount]
+         , edw.[svf_getInvertAmount] (doc.SalesDocumentType, doc.CostAmount) as CostAmount
          , doc.[NetAmount] - doc.[CostAmount]   as [Margin]
          , doc.[Subtotal1Amount]
          , doc.[Subtotal2Amount]
@@ -241,6 +241,8 @@ C_SalesDocumentItemDEXBase as (
          , doc.[ItemBillingIncompletionStatus]  as [ItemBillingIncompletionStatusID]
          , doc.[PricingIncompletionStatus]      as [PricingIncompletionStatusID]
          , doc.[ItemDeliveryIncompletionStatus] as [ItemDeliveryIncompletionStatusID]
+         , ZA.[Customer]                        as SalesAgentID
+         , ZA.[FullName]                        as SalesAgent
          , ZB.[Customer]                        as [ExternalSalesAgentID]
          , ZB.[FullName]                        as [ExternalSalesAgent]
          , D1.[Customer]                        as [GlobalParentID]
@@ -249,8 +251,8 @@ C_SalesDocumentItemDEXBase as (
          , C1.[FullName]                        as [LocalParent]
          , ZP.[Customer]                        as [ProjectID]
          , ZP.[FullName]                        as [Project]
-         , VE.[Personnel]                       as [SalesEmployeeID]
-         , VE.[FullName]                        as [SalesEmployee]
+         , dim_SalesEmployee.[Personnel]        as [SalesEmployeeID]
+         , dim_SalesEmployee.[FullName]         as [SalesEmployee]
          , case
                when D1.[Customer] is not null then D1.[Customer]
                else AG.[Customer]
@@ -327,11 +329,9 @@ C_SalesDocumentItemDEXBase as (
             ZP.[PartnerFunction] = 'ZP'
             --  and ZP.[MANDT] = 200 MPS 2021/11/01: commented out due to different client values between dev,qas, and prod
     LEFT JOIN
-        [edw].[dim_BillingDocumentPartnerFs] VE
+        [edw].[vw_dim_SalesEmployee] dim_SalesEmployee
         ON
-            VE.[SDDocument] = doc.[SalesDocument]
-            AND
-            VE.[PartnerFunction] = 'VE'
+            dim_SalesEmployee.[SDDocument] = doc.[SalesDocument]
             --  and VE.[MANDT] = 200 MPS 2021/11/01: commented out due to different client values between dev,qas, and prod
     LEFT JOIN
         [edw].[dim_BillingDocumentPartnerFs] AG
@@ -341,6 +341,12 @@ C_SalesDocumentItemDEXBase as (
             AG.[PartnerFunction] = 'AG'
             --  and AG.[MANDT] = 200 MPS 2021/11/01: commented out due to different client values between dev,qas, and prod
     -- WHERE doc.[MANDT] = 200 MPS 2021/11/01: commented out due to different client values between dev,qas, and prod
+     LEFT JOIN 
+        [edw].[dim_BillingDocumentPartnerFs] ZA
+        ON 
+            ZA.[SDDocument] = doc.[SalesDocument]
+            AND 
+            ZA.[PartnerFunction] = 'ZA' 
     LEFT JOIN
         [edw].[vw_Brand] DimBrand
         ON
@@ -619,6 +625,8 @@ SalesDocument_30 AS (
       ,[ItemBillingIncompletionStatusID]
       ,[PricingIncompletionStatusID]
       ,[ItemDeliveryIncompletionStatusID]
+      ,SDI.[SalesAgentID]
+      ,SDI.[SalesAgent]
       ,[ExternalSalesAgentID]
       ,[ExternalSalesAgent]
       ,[GlobalParentID]
@@ -857,6 +865,8 @@ SELECT
       ,[ItemBillingIncompletionStatusID]
       ,[PricingIncompletionStatusID]
       ,[ItemDeliveryIncompletionStatusID]
+      ,[SalesAgentID]
+      ,[SalesAgent]
       ,SDI.[ExternalSalesAgentID]
       ,[ExternalSalesAgent]
       ,[GlobalParentID]
@@ -1048,6 +1058,8 @@ SELECT
       ,[ItemBillingIncompletionStatusID]
       ,[PricingIncompletionStatusID]
       ,[ItemDeliveryIncompletionStatusID]
+      ,[SalesAgentID]
+      ,[SalesAgent]
       ,[ExternalSalesAgentID]
       ,[ExternalSalesAgent]
       ,[GlobalParentID]
@@ -1262,6 +1274,8 @@ SELECT
       ,[ItemBillingIncompletionStatusID]
       ,[PricingIncompletionStatusID]
       ,[ItemDeliveryIncompletionStatusID]
+      ,[SalesAgentID]
+      ,[SalesAgent]
       ,[ExternalSalesAgentID]
       ,[ExternalSalesAgent]
       ,[GlobalParentID]
@@ -1453,6 +1467,8 @@ SELECT
       ,[ItemBillingIncompletionStatusID]
       ,[PricingIncompletionStatusID]
       ,[ItemDeliveryIncompletionStatusID]
+      ,[SalesAgentID]
+      ,[SalesAgent]
       ,[ExternalSalesAgentID]
       ,[ExternalSalesAgent]
       ,[GlobalParentID]
@@ -1481,7 +1497,7 @@ SELECT
       ,[BillingQuantityIBUOverall]
       ,[ItemDeliveryStatus]    
       ,[OverallDeliveryStatus]
-      ,[ScheduleLineCategory] 
+      ,[ScheduleLineCategory]
       ,SD_30.[t_applicationId]
       ,SD_30.[t_jobId]
       ,SD_30.[t_jobDtm]

@@ -291,8 +291,8 @@ WITH BillingDocumentItemBase as (
         , ZB.FullName                                     as ExternalSalesAgent
         , ZP.Customer                                     as ProjectID
         , ZP.FullName                                     as Project
-        , VE.Personnel                                    as SalesEmployeeID
-        , VE.FullName                                     as SalesEmployee
+        , dim_SalesEmployee.Personnel                     as SalesEmployeeID
+        , dim_SalesEmployee.FullName                      as SalesEmployee
         , D1.[Customer]                                   as GlobalParentID
         , D1.[FullName]                                   as GlobalParent
         , case
@@ -338,8 +338,8 @@ WITH BillingDocumentItemBase as (
         left join [edw].[dim_BillingDocumentPartnerFs] ZP
             on ZP.SDDocument = doc.[BillingDocument] and ZP.[PartnerFunction] = 'ZP'
             -- and ZP.[MANDT] = 200 MPS 2021/11/01: commented out due to different client values between dev,qas, and prod
-        left join [edw].[dim_BillingDocumentPartnerFs] VE
-            on VE.SDDocument = doc.[BillingDocument] and VE.[PartnerFunction] = 'VE'
+        left join [edw].[vw_dim_SalesEmployee] dim_SalesEmployee
+            on dim_SalesEmployee.SDDocument = doc.[BillingDocument]
             -- and VE.[MANDT] = 200 MPS 2021/11/01: commented out due to different client values between dev,qas, and prod
         left join [edw].[dim_BillingDocumentPartnerFs] D1
             on D1.SDDocument = doc.[BillingDocument] and D1.[PartnerFunction] = '1D'

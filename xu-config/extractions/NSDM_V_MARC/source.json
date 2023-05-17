@@ -151,6 +151,7 @@
                     "abapType": "PackedNumber",
                     "length": 3,
                     "formattedLength": 3,
+                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {

@@ -1,0 +1,18 @@
+MaterialGroupName;Classification
+Bldg comp & mfg mats;Direct
+Packaging;Indirect
+Chemicals;Direct
+Maint & prod ser;Indirect
+IT & telecom;Indirect
+Facilities mgmt&est;Indirect
+General services;Indirect
+***DO NOT USE***;N/A
+ ;N/A
+Production equipment;Indirect
+Tax adm & empl benf;Indirect
+Raw materials;Direct
+Material Group 01;Direct
+Energy;Indirect
+Logistics;Indirect
+Mobile equipment;Indirect
+Material Group 02;Direct

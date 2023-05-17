@@ -382,9 +382,6 @@
 			},
 			"extraction_type": {
 				"type": "string"
-			},
-			"refresh_from_date": {
-				"type": "string"
 			}
 		},
 		"folder": {

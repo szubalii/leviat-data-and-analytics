@@ -42,7 +42,7 @@ RuleID;DataArea;RuleClass;RuleGroup;RuleBusinessDescription;RuleTechnicalDefinit
 1.114_All;Material;;All;Material Price Determination is always 3 for FERT, HAWA, HALB, ROH, HIBE, VERP materials in Production Plants (ML active);;Material Price Determination (MBEW-MLAST);
 1.115_All;Material;;All;Material Price Determination is always 2 for all material types except FERT, HAWA, HALB, ROH, HIBE, VERP materials in Production Plants (ML active);;Material Price Determination (MBEW-MLAST);
 1.116_All;Material;;All;Material Price Determination is always blank for all materials in non-production sites (ML not active);;Material Price Determination (MBEW-MLAST);
-1.13_ALL;Material;Consistency;ALL;Material should have an assignment to at least 1 Plant and/or Sales Org;Sales Org / Plant assignment;;R
+1.13_ALL;Material;Consistency;ALL;Material should have an assignment to at least 1 Plant and/or Sales Org;Sales Org / Plant assignment;Sales Org / Plant assignment;R
 1.118_ZHAW;Material;;ZHAW;If Procurement type is F then MRP group need to be filled;;;
 1.119_ALL;Material;;ALL;All materials on NON production sites should have Price Control V ;;Price Control (VPRSV);
 1.125_ALL;Material;;ALL;Material Is always Costed with Quantity Structure in Production Plants;;Costing with Quantity structure (MBEW_EKALR);

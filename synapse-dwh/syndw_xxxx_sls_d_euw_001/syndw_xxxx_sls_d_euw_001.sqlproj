@@ -152,11 +152,13 @@
     <Folder Include="edw" />
     <Folder Include="edw\Tables" />
     <Folder Include="edw\Stored Procedures" />
-    <Folder Include="edw\Functions\Scalar-valued Functions" />
+    <Folder Include="edw\Functions\ScalarValued" />
     <Folder Include="dm_sales" />
     <Folder Include="dm_sales\Views" />
     <Folder Include="dm_finance" />
     <Folder Include="dm_finance\Views" />
+    <Folder Include="dm_scm" />
+    <Folder Include="dm_scm\Views" />
     <Folder Include="map_AXBI" />
     <Folder Include="map_AXBI\Tables" />
     <Folder Include="edw\Views" />
@@ -355,10 +357,12 @@
     <Build Include="base_s4h_cax\Stored Procedures\sp_load_I_GLAccountLineItemRawData.sql" />
     <Build Include="edw\Tables\fact_ACDOCA.sql" />
     <Build Include="edw\Views\vw_ACDOCA_delta.sql" />
+    <Build Include="edw\Views\vw_CurrencyConversionRate.sql" />
     <Build Include="edw\Tables\fact_ACDOCA_active.sql" />
     <Build Include="edw\Stored Procedures\sp_load_fact_ACDOCA_active.sql" />
     <Build Include="Security\Schemas\dm_sales.sql" />
     <Build Include="Security\Schemas\dm_finance.sql" />
+    <Build Include="Security\Schemas\dm_scm.sql" />
     <Build Include="dm_sales\Views\vw_dim_Customer.sql" />
     <Build Include="dm_sales\Views\vw_fact_BillingDocumentItem.sql" />
     <Build Include="dm_sales\Views\vw_dim_Product.sql" />
@@ -573,6 +577,13 @@
     <Build Include="edw\Tables\dim_PriceListType.sql" />
     <Build Include="edw\Tables\dim_StorageLocation.sql" />
     <Build Include="base_s4h_cax\Tables\I_ExchangeRateType.sql" />
+    <Build Include="base_s4h_cax\Tables\Pfcg_Role_To_User.sql" />
+    <Build Include="base_s4h_cax\Tables\Opt_Vim_1Head.sql" />
+    <Build Include="edw\Views\vw_OptVim1Head.sql" />
+    <Build Include="dm_procurement\Views\vw_dim_OptVim1Head.sql" />
+    <Build Include="dm_procurement\Views\vw_dim_PfcgRoleToUser.sql" />
+    <Build Include="dm_procurement\Views\vw_dim_ProductPlant.sql" />
+    <Build Include="dm_procurement\Views\vw_fact_PurchasingDocumentItem.sql" />
     <Build Include="edw\Tables\dim_MaterialGroup.sql" />
     <Build Include="Security\Schemas\map_AXBI.sql" />
     <Build Include="map_AXBI\Tables\SalesOrganization.sql" />
@@ -583,6 +594,7 @@
     <Build Include="base_tx_halfen_2_dwh\Tables\FACT_CUSTPACKINGSLIPTRANS.sql" />
     <Build Include="edw\Views\vw_SalesDocumentItem_axbi.sql" />
     <Build Include="edw\Views\vw_SalesDocumentItem_s4h.sql" />
+    <Build Include="edw\Views\vw_PfcgRoleToUser.sql" />
     <Build Include="edw\Tables\dim_BillingBlockStatus.sql" />
     <Build Include="edw\Tables\dim_DeliveryBlockStatus.sql" />
     <Build Include="edw\Tables\dim_ItemBillingIncompletionStatus.sql" />
@@ -595,6 +607,7 @@
     <Build Include="edw\Tables\dim_SalesDocumentRjcnReason.sql" />
     <Build Include="edw\Tables\fact_SalesDocumentItem.sql" />
     <Build Include="Security\Schemas\base_ff.sql" />
+    <Build Include="Security\Schemas\dm_procurement.sql" />
     <Build Include="base_ff\Tables\CurrencyType.sql" />
     <Build Include="edw\Views\vw_CurrencyType.sql" />
     <Build Include="edw\Views\vw_BillingDocumentItem_s4h.sql" />
@@ -958,6 +971,8 @@
     <Build Include="base_tx_halfen_2_dwh\Tables\FACT_PURCHLINE.sql" />
     <Build Include="map_AXBI\Tables\InventSite.sql" />
     <Build Include="map_AXBI\Tables\StockUnit.sql" />
+    <Build Include="base_ff\Tables\MaterialGroupClassification.sql" />
+    <Build Include="base_ff\Tables\EClassCodes.sql" />
     <Build Include="edw\Views\vw_MaterialDocumentItem_axbi.sql" />
     <Build Include="edw\Views\vw_MaterialDocumentItem_s4h.sql" />
     <Build Include="base_tx_halfen_2_dwh\Tables\DIM_VENDTABLE.sql" />
@@ -967,6 +982,7 @@
     <Build Include="base_s4h_cax\Tables\I_PurgDocumentItemCategoryText.sql" />
     <Build Include="base_s4h_cax\Tables\I_SupplierBankDetails.sql" />
     <Build Include="edw\Views\vw_PurchasingDocumentItem.sql" />
+    <Build Include="edw\Views\vw_PurchasingDocumentItemCC.sql" />
     <Build Include="edw\Tables\fact_PurchasingDocumentItem.sql" />
     <Build Include="edw\Views\vw_SupplierInvoice.sql" />
     <Build Include="edw\Tables\fact_SupplierInvoice.sql" />
@@ -1169,15 +1185,15 @@
     <Build Include="edw\Tables\dim_PurgAccAssignment.sql" />
     <Build Include="edw\Views\vw_PurgAccAssignment.sql" />
     <Build Include="dm_sales\Views\vw_dim_SalesOffice.sql" />
-    <Build Include="dm_sales\Views\vw_dim_VariantConfigurator.sql" />
-    <Build Include="edw\Tables\dim_VariantConfigurator.sql" />
+    <Build Include="dm_sales\Views\vw_fact_VariantConfigurator.sql" />
+    <Build Include="edw\Tables\fact_VariantConfigurator.sql" />
     <Build Include="edw\Views\vw_VariantConfigurator.sql" />
     <Build Include="dm_sales\Views\vw_dim_CustomerGroup.sql" />
     <Build Include="dm_sales\Views\vw_dim_DistributionChannel.sql" />
     <Build Include="base_ff\Tables\InOut.sql" />
     <Build Include="dm_sales\Views\vw_dim_InOut.sql" />
-    <Build Include="edw\Functions\Scalar-valued Functions\svf_getInOutID_axbi.sql" />
-    <Build Include="edw\Functions\Scalar-valued Functions\svf_getInOutID_s4h.sql" />
+    <Build Include="edw\Functions\ScalarValued\svf_getInOutID_axbi.sql" />
+    <Build Include="edw\Functions\ScalarValued\svf_getInOutID_s4h.sql" />
     <Build Include="base_s4h_cax\Tables\I_MRPController.sql" />
     <Build Include="edw\Views\vw_ProductPlant.sql" />
     <Build Include="edw\Tables\dim_ProductPlant.sql" />
@@ -1197,7 +1213,15 @@
     <Build Include="dm_sales\Views\vw_fact_BillingDocumentItemPrcgElmnt.sql" />
     <Build Include="edw\Tables\fact_SalesQuotationItemPrcgElmnt.sql" />
     <Build Include="edw\Tables\fact_SalesOrderItemPricingElement.sql" />
-    <Build Include="edw\Functions\Scalar-valued Functions\svf_getNaturalKey.sql" />
+    <Build Include="edw\Functions\ScalarValued\svf_getNaturalKey.sql" />
+    <Build Include="edw\Functions\ScalarValued\svf_getInvertAmount.sql" />
+    <Build Include="edw\Functions\ScalarValued\svf_getOrderStatus.sql" />
+    <Build Include="dm_sales\Views\vw_fact_SalesOrderItem_combined.sql" />
+    <Build Include="dm_sales\Views\vw_dim_SalesEmployee.sql" />
+    <Build Include="edw\Views\vw_dim_SalesEmployee.sql" />
+    <Build Include="edw\Views\vw_MaterialStockLevel_Weekly.sql" />
+    <Build Include="dm_scm\Views\vw_fact_MaterialStockLevel_Weekly.sql" />
+     <Build Include="edw\Functions\ScalarValued\svf_getProductSurrogateKey.sql" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PostDeploy Include="Scripts\Post-Deploy\Script.PostDeployment.sql" />

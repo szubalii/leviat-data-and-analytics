@@ -1,0 +1,73 @@
+{
+	"functionName": "Z_THEO_READ_TABLE",
+	"runInBackGroundJob": false,
+	"tables": [
+		{
+			"name": "PFCGROLE2USER_V",
+			"description": "Generated Table for View PFCGROLE2USER_V",
+			"isView": true,
+			"fields": [
+				{
+					"name": "MANDT",
+					"description": "Client",
+					"abapType": "CharacterString",
+					"length": 3,
+					"isSelected": true,
+					"outputLength": 3,
+					"isPrimaryKey": true,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "T000"
+				},
+				{
+					"name": "USER_NAME",
+					"description": "User Name in User Master Record",
+					"abapType": "CharacterString",
+					"length": 12,
+					"isSelected": true,
+					"outputLength": 12,
+					"isPrimaryKey": true,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "USER_NAME"
+				},
+				{
+					"name": "ROLE_NAME",
+					"description": "Role Name",
+					"abapType": "CharacterString",
+					"length": 30,
+					"isSelected": true,
+					"outputLength": 30,
+					"isPrimaryKey": true,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "ROLE_NAME"
+				},
+				{
+					"name": "VALID_FROM",
+					"description": "Date of validity",
+					"abapType": "Date",
+					"length": 8,
+					"isSelected": true,
+					"outputLength": 10,
+					"isPrimaryKey": true,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "VALID_FROM"
+				},
+				{
+					"name": "VALID_TO",
+					"description": "Date of validity",
+					"abapType": "Date",
+					"length": 8,
+					"isSelected": true,
+					"outputLength": 10,
+					"isPrimaryKey": true,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "VALID_TO"
+				}
+			]
+		}
+	]
+}

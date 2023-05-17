@@ -66,6 +66,7 @@
   [TradingPartner]                 nvarchar(6),
   [TaxInvoiceRepresentativeName]   nvarchar(10),
   [IndustryType]                   nvarchar(30),
+  [Global_Local]                   varchar(16),
   [t_applicationId]                VARCHAR(32),
   [t_extractionDtm]                DATETIME NULL,
   [t_jobId]                        VARCHAR(36),
