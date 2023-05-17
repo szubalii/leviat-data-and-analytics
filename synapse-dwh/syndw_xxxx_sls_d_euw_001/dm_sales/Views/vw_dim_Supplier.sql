@@ -13,7 +13,7 @@ SELECT
     [PostalCode],
     [StreetName],
     [DeletionIndicator],
-    [SupplierCorporateGroup]
+    [SupplierCorporateGroup],
     [t_applicationId],
     [t_extractionDtm]    
 FROM [edw].[dim_Supplier]
