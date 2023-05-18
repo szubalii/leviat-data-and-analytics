@@ -557,66 +557,13 @@ WITH BillingDocumentItemBase as (
         , BDI_Base.[t_filePath]
     from BillingDocumentItemBase BDI_Base
     ),
-    EuroBudgetExchangeRate as (
-        select 
-            SourceCurrency
-            ,ExchangeRateEffectiveDate
-            ,ExchangeRate
-        from 
-            edw.dim_ExchangeRates
-        where
-            ExchangeRateType = 'ZAXBIBUD'
-            and
-            TargetCurrency = 'EUR'
-    ),
-    EuroBudgetExchangeRateUSD as (
-       select
-            TargetCurrency
-           ,ExchangeRateEffectiveDate
-           ,ExchangeRate
-       from
-           edw.dim_ExchangeRates
-       where
-           ExchangeRateType = 'ZAXBIBUD'
-           AND
-           SourceCurrency = 'USD'),
-    ExchangeRateEuro as (
-        SELECT
-                [BillingDocument]
-            ,   [BillingDocumentItem]
-            ,   EuroBudgetExchangeRate.[ExchangeRate] AS [ExchangeRate]
-        FROM (
-            SELECT
-                    [BillingDocument]
-                ,   [BillingDocumentItem]
-                ,   [TransactionCurrencyID]
-                ,   MAX([ExchangeRateEffectiveDate]) as [ExchangeRateEffectiveDate]
-            FROM 
-                BillingDocumentItemBase BDI
-            LEFT JOIN 
-                EuroBudgetExchangeRate
-                ON 
-                    BDI.[TransactionCurrencyID] = EuroBudgetExchangeRate.SourceCurrency
-            WHERE 
-                [ExchangeRateEffectiveDate] <= [BillingDocumentDate]
-            GROUP BY
-                    [BillingDocument]
-                ,   [BillingDocumentItem]
-                ,   [TransactionCurrencyID] 
-        ) bdi_er_date_eur
-        LEFT JOIN 
-            EuroBudgetExchangeRate
-            ON
-                bdi_er_date_eur.[TransactionCurrencyID] = EuroBudgetExchangeRate.[SourceCurrency]
-                AND
-                bdi_er_date_eur.[ExchangeRateEffectiveDate] = EuroBudgetExchangeRate.[ExchangeRateEffectiveDate]
-        ),
+
     BillingDocument_30 AS(
         SELECT 
-                ExchangeRateEuro.[BillingDocument]
-            ,   ExchangeRateEuro.[BillingDocumentItem]
+                [BillingDocument]
+            ,   [BillingDocumentItem]
             ,   'EUR' AS [CurrencyID]
-            ,   ExchangeRateEuro.[ExchangeRate] AS [ExchangeRate]
+            ,   ExchangeRate.[ExchangeRate] AS [ExchangeRate]
             ,   [SalesDocumentItemCategoryID]
             ,   [SalesDocumentItemTypeID]
             ,   [ReturnItemProcessingType]
@@ -687,25 +634,25 @@ WITH BillingDocumentItemBase as (
             ,   [CustomerTaxClassification8]
             ,   [CustomerTaxClassification9]
             ,   [SDPricingProcedure]
-            ,   CONVERT(decimal(19,6), [NetAmount] * ExchangeRateEuro.[ExchangeRate]) as [NetAmount]
+            ,   CONVERT(decimal(19,6), ([NetAmount] * AccountingExchangeRate) * ExchangeRate.[ExchangeRate]) as [NetAmount]
             ,   [TransactionCurrencyID]
-            ,   CONVERT(decimal(19,6), [GrossAmount] * ExchangeRateEuro.[ExchangeRate]) as [GrossAmount]
+            ,   CONVERT(decimal(19,6), ([GrossAmount] * AccountingExchangeRate) * ExchangeRate.[ExchangeRate]) as [GrossAmount]
             ,   [PricingDate]
             ,   [PriceDetnExchangeRate]
             ,   [PricingScaleQuantityInBaseUnit]
-            ,   CONVERT(decimal(19,6), [TaxAmount] * ExchangeRateEuro.[ExchangeRate]) as [TaxAmount]
-            ,   CONVERT(decimal(19,6), [CostAmount] * ExchangeRateEuro.[ExchangeRate]) as [CostAmount]
-            ,   CONVERT(decimal(19,6), [Subtotal1Amount] * ExchangeRateEuro.[ExchangeRate]) as [Subtotal1Amount]
-            ,   CONVERT(decimal(19,6), [Subtotal2Amount] * ExchangeRateEuro.[ExchangeRate]) as [Subtotal2Amount]
-            ,   CONVERT(decimal(19,6), [Subtotal3Amount] * ExchangeRateEuro.[ExchangeRate]) as [Subtotal3Amount]
-            ,   CONVERT(decimal(19,6), [Subtotal4Amount] * ExchangeRateEuro.[ExchangeRate]) as [Subtotal4Amount]
-            ,   CONVERT(decimal(19,6), [Subtotal5Amount] * ExchangeRateEuro.[ExchangeRate]) as [Subtotal5Amount]
-            ,   CONVERT(decimal(19,6), [Subtotal6Amount] * ExchangeRateEuro.[ExchangeRate]) as [Subtotal6Amount]
+            ,   CONVERT(decimal(19,6), ([TaxAmount] * AccountingExchangeRate) * ExchangeRate.[ExchangeRate]) as [TaxAmount]
+            ,   CONVERT(decimal(19,6), ([CostAmount] * AccountingExchangeRate) * ExchangeRate.[ExchangeRate]) as [CostAmount]
+            ,   CONVERT(decimal(19,6), ([Subtotal1Amount] * AccountingExchangeRate) * ExchangeRate.[ExchangeRate]) as [Subtotal1Amount]
+            ,   CONVERT(decimal(19,6), ([Subtotal2Amount] * AccountingExchangeRate) * ExchangeRate.[ExchangeRate]) as [Subtotal2Amount]
+            ,   CONVERT(decimal(19,6), ([Subtotal3Amount] * AccountingExchangeRate) * ExchangeRate.[ExchangeRate]) as [Subtotal3Amount]
+            ,   CONVERT(decimal(19,6), ([Subtotal4Amount] * AccountingExchangeRate) * ExchangeRate.[ExchangeRate]) as [Subtotal4Amount]
+            ,   CONVERT(decimal(19,6), ([Subtotal5Amount] * AccountingExchangeRate) * ExchangeRate.[ExchangeRate]) as [Subtotal5Amount]
+            ,   CONVERT(decimal(19,6), ([Subtotal6Amount] * AccountingExchangeRate) * ExchangeRate.[ExchangeRate]) as [Subtotal6Amount]
             ,   [StatisticalValueControl]
             ,   [StatisticsExchangeRate]
             ,   [StatisticsCurrency]
             ,   [SalesOrganizationCurrency]
-            ,   CONVERT(decimal(19,6), [EligibleAmountForCashDiscount] * ExchangeRateEuro.[ExchangeRate]) as [EligibleAmountForCashDiscount]
+            ,   CONVERT(decimal(19,6), ([EligibleAmountForCashDiscount] * AccountingExchangeRate) * ExchangeRate.[ExchangeRate]) as [EligibleAmountForCashDiscount]
             ,   [ContractAccount]
             ,   [CustomerPaymentTerms]
             ,   [PaymentMethod]
@@ -747,7 +694,7 @@ WITH BillingDocumentItemBase as (
             ,   [AdditionalCustomerGroup5]
             ,   [SDDocumentReasonID]
             ,   [ItemIsRelevantForCredit]
-            ,   CONVERT(decimal(19,6), [CreditRelatedPrice] * ExchangeRateEuro.[ExchangeRate]) as [CreditRelatedPrice]
+            ,   CONVERT(decimal(19,6), ([CreditRelatedPrice] * AccountingExchangeRate) * ExchangeRate.[ExchangeRate]) as [CreditRelatedPrice]
             ,   [SalesDistrictID]
             ,   [CustomerGroupID]
             ,   [SoldToParty]
@@ -762,7 +709,7 @@ WITH BillingDocumentItemBase as (
             ,   [IncotermsLocation2]
             ,   [ShippingCondition]
             ,   [QuantitySold]
-            ,   CONVERT(decimal(19,6), [GrossMargin] * ExchangeRateEuro.[ExchangeRate]) as [GrossMargin]
+            ,   CONVERT(decimal(19,6), ([GrossMargin] * AccountingExchangeRate) * ExchangeRate.[ExchangeRate]) as [GrossMargin]
             ,   [ExternalSalesAgentID]
             ,   [ExternalSalesAgent]
             ,   [ProjectID]
@@ -792,46 +739,201 @@ WITH BillingDocumentItemBase as (
             ,   BDI.[t_lastActionCd]
             ,   BDI.[t_lastActionDtm]
             ,   BDI.[t_filePath]   
-        FROM 
-            ExchangeRateEuro
-        LEFT JOIN
-            BillingDocumentItemBase_Margin BDI
-            ON
-                BDI.BillingDocument = ExchangeRateEuro.BillingDocument
-                AND
-                BDI.BillingDocumentItem = ExchangeRateEuro.BillingDocumentItem
+        FROM  BillingDocumentItemBase_Margin BDI
+        LEFT JOIN [edw].[vw_CurrencyConversionRate] ExchangeRate
+           ON BDI.[CurrencyID] = ExchangeRate.[SourceCurrency]
+           AND BDI.[BillingDocumentDate] BETWEEN ExchangeRate.[ExchangeRateEffectiveDate] AND ExchangeRate.[LastDay]   
+        WHERE ExchangeRate.CurrencyTypeID ='30'
     ),
-    ExchangeRateUSD as (
-        SELECT
+
+     BillingDocument_40 AS(
+        SELECT 
                 [BillingDocument]
             ,   [BillingDocumentItem]
-            ,   EuroBudgetExchangeRateUSD.[ExchangeRate] AS [ExchangeRate]
-        FROM (
-            SELECT 
-                    [BillingDocument]
-                ,   [BillingDocumentItem]
-                ,   [CurrencyID]
-                ,   MAX([ExchangeRateEffectiveDate]) as [ExchangeRateEffectiveDate]
-            FROM 
-                BillingDocument_30 BDI_30
-            LEFT JOIN 
-                EuroBudgetExchangeRateUSD
-                ON 
-                    BDI_30.CurrencyID = EuroBudgetExchangeRateUSD.TargetCurrency
-            WHERE 
-                [ExchangeRateEffectiveDate] <= [BillingDocumentDate]
-            GROUP BY
-                    [BillingDocument]
-                ,   [BillingDocumentItem]
-                ,   [CurrencyID]
-        ) bdi_er_date_usd            
-        LEFT JOIN 
-            EuroBudgetExchangeRateUSD
-            ON
-                bdi_er_date_usd.[CurrencyID] = EuroBudgetExchangeRateUSD.[TargetCurrency]
-                AND
-                bdi_er_date_usd.[ExchangeRateEffectiveDate] = EuroBudgetExchangeRateUSD.[ExchangeRateEffectiveDate]
-         )
+            ,   'USD' AS [CurrencyID]
+            ,   ExchangeRate.[ExchangeRate] AS [ExchangeRate]
+            ,   [SalesDocumentItemCategoryID]
+            ,   [SalesDocumentItemTypeID]
+            ,   [ReturnItemProcessingType]
+            ,   [BillingDocumentTypeID]
+            ,   [BillingDocumentCategoryID]
+            ,   [SDDocumentCategoryID]
+            ,   [CreationDate]
+            ,   [CreationTime]
+            ,   [LastChangeDate]
+            ,   [BillingDocumentDate]
+            ,   [BillingDocumentIsTemporary]
+            ,   [OrganizationDivision]
+            ,   [Division]
+            ,   [SalesOfficeID]
+            ,   [SalesOrganizationID]
+            ,   [DistributionChannelID]
+            ,   [Material]
+            ,   [OriginallyRequestedMaterial]
+            ,   [InternationalArticleNumber]
+            ,   [PricingReferenceMaterial]
+            ,   [LengthInMPer1]
+            ,   [LengthInM]
+            ,   [Batch]
+            ,   [MaterialGroupID]
+            ,   [BrandID]
+            ,   [AdditionalMaterialGroup2]
+            ,   [AdditionalMaterialGroup3]
+            ,   [AdditionalMaterialGroup4]
+            ,   [AdditionalMaterialGroup5]
+            ,   [MaterialCommissionGroup]
+            ,   [PlantID]
+            ,   [StorageLocationID]
+            ,   [BillingDocumentIsCancelled]
+            ,   [CancelledBillingDocument]
+            ,   [CancelledInvoiceEffect]
+            ,   [BillingDocumentItemText]
+            ,   [ServicesRenderedDate]
+            ,   [BillingQuantity]
+            ,   [BillingQuantityUnitID]
+            ,   [BillingQuantityInBaseUnit]
+            ,   [BaseUnit]
+            ,   [MRPRequiredQuantityInBaseUnit]
+            ,   [BillingToBaseQuantityDnmntr]
+            ,   [BillingToBaseQuantityNmrtr]
+            ,   [ItemGrossWeight]
+            ,   [ItemNetWeight]
+            ,   [ItemWeightUnit]
+            ,   [ItemVolume]
+            ,   [ItemVolumeUnit]
+            ,   [BillToPartyCountry]
+            ,   [BillToPartyRegion]
+            ,   [BillingPlanRule]
+            ,   [BillingPlan]
+            ,   [BillingPlanItem]
+            ,   [CustomerPriceGroupID]
+            ,   [PriceListTypeID]
+            ,   [TaxDepartureCountry]
+            ,   [VATRegistration]
+            ,   [VATRegistrationCountry]
+            ,   [VATRegistrationOrigin]
+            ,   [CustomerTaxClassification1]
+            ,   [CustomerTaxClassification2]
+            ,   [CustomerTaxClassification3]
+            ,   [CustomerTaxClassification4]
+            ,   [CustomerTaxClassification5]
+            ,   [CustomerTaxClassification6]
+            ,   [CustomerTaxClassification7]
+            ,   [CustomerTaxClassification8]
+            ,   [CustomerTaxClassification9]
+            ,   [SDPricingProcedure]
+            ,   CONVERT(decimal(19,6), ([NetAmount] * AccountingExchangeRate) * ExchangeRate.[ExchangeRate]) as [NetAmount]
+            ,   [TransactionCurrencyID]
+            ,   CONVERT(decimal(19,6), ([GrossAmount] * AccountingExchangeRate) * ExchangeRate.[ExchangeRate]) as [GrossAmount]
+            ,   [PricingDate]
+            ,   [PriceDetnExchangeRate]
+            ,   [PricingScaleQuantityInBaseUnit]
+            ,   CONVERT(decimal(19,6), ([TaxAmount] * AccountingExchangeRate) * ExchangeRate.[ExchangeRate]) as [TaxAmount]
+            ,   CONVERT(decimal(19,6), ([CostAmount] * AccountingExchangeRate) * ExchangeRate.[ExchangeRate]) as [CostAmount]
+            ,   CONVERT(decimal(19,6), ([Subtotal1Amount] * AccountingExchangeRate) * ExchangeRate.[ExchangeRate]) as [Subtotal1Amount]
+            ,   CONVERT(decimal(19,6), ([Subtotal2Amount] * AccountingExchangeRate) * ExchangeRate.[ExchangeRate]) as [Subtotal2Amount]
+            ,   CONVERT(decimal(19,6), ([Subtotal3Amount] * AccountingExchangeRate) * ExchangeRate.[ExchangeRate]) as [Subtotal3Amount]
+            ,   CONVERT(decimal(19,6), ([Subtotal4Amount] * AccountingExchangeRate) * ExchangeRate.[ExchangeRate]) as [Subtotal4Amount]
+            ,   CONVERT(decimal(19,6), ([Subtotal5Amount] * AccountingExchangeRate) * ExchangeRate.[ExchangeRate]) as [Subtotal5Amount]
+            ,   CONVERT(decimal(19,6), ([Subtotal6Amount] * AccountingExchangeRate) * ExchangeRate.[ExchangeRate]) as [Subtotal6Amount]
+            ,   [StatisticalValueControl]
+            ,   [StatisticsExchangeRate]
+            ,   [StatisticsCurrency]
+            ,   [SalesOrganizationCurrency]
+            ,   CONVERT(decimal(19,6), ([EligibleAmountForCashDiscount] * AccountingExchangeRate) * ExchangeRate.[ExchangeRate]) as [EligibleAmountForCashDiscount]
+            ,   [ContractAccount]
+            ,   [CustomerPaymentTerms]
+            ,   [PaymentMethod]
+            ,   [PaymentReference]
+            ,   [FixedValueDate]
+            ,   [AdditionalValueDays]
+            ,   [PayerParty]
+            ,   [CompanyCode]
+            ,   [FiscalYear]
+            ,   [FiscalPeriod]
+            ,   [CustomerAccountAssignmentGroupID]
+            ,   [BusinessArea]
+            ,   [ProfitCenter]
+            ,   [OrderID]
+            ,   [ControllingArea]
+            ,   [ProfitabilitySegment]
+            ,   [CostCenter]
+            ,   [OriginSDDocument]
+            ,   [OriginSDDocumentItem]
+            ,   [PriceDetnExchangeRateDate]
+            ,   [ExchangeRateTypeID]
+            ,   [FiscalYearVariant]
+            ,   [CurrencyID] AS [CompanyCodeCurrencyID]
+            ,   [AccountingExchangeRate]
+            ,   [AccountingExchangeRateIsSet]
+            ,   [ReferenceSDDocument]
+            ,   [ReferenceSDDocumentItem]
+            ,   [ReferenceSDDocumentCategoryID]
+            ,   [SalesDocumentID]
+            ,   [SalesDocumentItemID]
+            ,   [SalesSDDocumentCategoryID]
+            ,   [HigherLevelItem]
+            ,   [BillingDocumentItemInPartSgmt]
+            ,   [SalesGroup]
+            ,   [AdditionalCustomerGroup1]
+            ,   [AdditionalCustomerGroup2]
+            ,   [AdditionalCustomerGroup3]
+            ,   [AdditionalCustomerGroup4]
+            ,   [AdditionalCustomerGroup5]
+            ,   [SDDocumentReasonID]
+            ,   [ItemIsRelevantForCredit]
+            ,   CONVERT(decimal(19,6), ([CreditRelatedPrice] * AccountingExchangeRate) * ExchangeRate.[ExchangeRate]) as [CreditRelatedPrice]
+            ,   [SalesDistrictID]
+            ,   [CustomerGroupID]
+            ,   [SoldToParty]
+            ,   [CountryID]
+            ,   [ShipToParty]
+            ,   [BillToParty]
+            ,   [ShippingPoint]
+            ,   [IncotermsVersion]
+            ,   [IncotermsClassification]
+            ,   [IncotermsTransferLocation]
+            ,   [IncotermsLocation1]
+            ,   [IncotermsLocation2]
+            ,   [ShippingCondition]
+            ,   [QuantitySold]
+            ,   CONVERT(decimal(19,6), ([GrossMargin] * AccountingExchangeRate) * ExchangeRate.[ExchangeRate]) as [GrossMargin]
+            ,   [ExternalSalesAgentID]
+            ,   [ExternalSalesAgent]
+            ,   [ProjectID]
+            ,   [Project]
+            ,   [SalesEmployeeID]
+            ,   [SalesEmployee]
+            ,   [GlobalParentID]
+            ,   [GlobalParent]
+            ,   [GlobalParentCalculatedID]
+            ,   [GlobalParentCalculated]
+            ,   [LocalParentID]
+            ,   [LocalParent]
+            ,   [LocalParentCalculatedID]
+            ,   [LocalParentCalculated]
+            ,   [SalesOrderTypeID]
+            ,   [BillToID]
+            ,   [BillTo]
+            ,   [AccountingDate]
+            ,   [MaterialCalculated]
+            ,   [SoldToPartyCalculated]
+            ,   [InOutID]
+            ,   BDI.[ICSalesDocumentID]
+            ,   BDI.[ICSalesDocumentItemID]
+            ,   BDI.[t_applicationId]
+            ,   BDI.[t_extractionDtm]
+            ,   BDI.[t_lastActionBy]
+            ,   BDI.[t_lastActionCd]
+            ,   BDI.[t_lastActionDtm]
+            ,   BDI.[t_filePath]   
+        FROM  BillingDocumentItemBase_Margin BDI
+        LEFT JOIN [edw].[vw_CurrencyConversionRate] ExchangeRate
+           ON BDI.[CurrencyID] = ExchangeRate.[SourceCurrency]
+           AND BDI.[BillingDocumentDate] BETWEEN ExchangeRate.[ExchangeRateEffectiveDate] AND ExchangeRate.[LastDay]   
+        WHERE ExchangeRate.CurrencyTypeID ='40'
+     )
+   
 /*
     Transaction currency data from S4H
 */
@@ -1461,12 +1563,12 @@ UNION ALL
 
 
 SELECT 
-     ExchangeRateUSD.[BillingDocument]
-    ,ExchangeRateUSD.[BillingDocumentItem]
+     [BillingDocument]
+    ,[BillingDocumentItem]
     ,CR.[CurrencyTypeID]
     ,CR.[CurrencyType]
     ,'USD' AS [CurrencyID]
-    ,1/ExchangeRateUSD.[ExchangeRate] AS [ExchangeRate]
+    ,[ExchangeRate]
     ,[SalesDocumentItemCategoryID]
     ,[SalesDocumentItemTypeID]
     ,[ReturnItemProcessingType]
@@ -1537,25 +1639,25 @@ SELECT
     ,[CustomerTaxClassification8]
     ,[CustomerTaxClassification9]
     ,[SDPricingProcedure]
-    ,CONVERT(decimal(19,6), [NetAmount] * (1/ExchangeRateUSD.[ExchangeRate])) as [NetAmount]
+    ,[NetAmount]
     ,[TransactionCurrencyID]
-    ,CONVERT(decimal(19,6), [GrossAmount] * (1/ExchangeRateUSD.[ExchangeRate])) as [GrossAmount]
+    ,[GrossAmount]
     ,[PricingDate]
     ,[PriceDetnExchangeRate]
     ,[PricingScaleQuantityInBaseUnit]
-    ,CONVERT(decimal(19,6), [TaxAmount] * (1/ExchangeRateUSD.[ExchangeRate])) as [TaxAmount]
-    ,CONVERT(decimal(19,6), [CostAmount] * (1/ExchangeRateUSD.[ExchangeRate])) as [CostAmount]
-    ,CONVERT(decimal(19,6), [Subtotal1Amount] * (1/ExchangeRateUSD.[ExchangeRate])) as [Subtotal1Amount]
-    ,CONVERT(decimal(19,6), [Subtotal2Amount] * (1/ExchangeRateUSD.[ExchangeRate])) as [Subtotal2Amount]
-    ,CONVERT(decimal(19,6), [Subtotal3Amount] * (1/ExchangeRateUSD.[ExchangeRate])) as [Subtotal3Amount]
-    ,CONVERT(decimal(19,6), [Subtotal4Amount] * (1/ExchangeRateUSD.[ExchangeRate])) as [Subtotal4Amount]
-    ,CONVERT(decimal(19,6), [Subtotal5Amount] * (1/ExchangeRateUSD.[ExchangeRate])) as [Subtotal5Amount]
-    ,CONVERT(decimal(19,6), [Subtotal6Amount] * (1/ExchangeRateUSD.[ExchangeRate])) as [Subtotal6Amount]
+    ,[TaxAmount]
+    ,[CostAmount]
+    ,[Subtotal1Amount]
+    ,[Subtotal2Amount]
+    ,[Subtotal3Amount]
+    ,[Subtotal4Amount]
+    ,[Subtotal5Amount]
+    ,[Subtotal6Amount]
     ,[StatisticalValueControl]
     ,[StatisticsExchangeRate]
     ,[StatisticsCurrency]
     ,[SalesOrganizationCurrency]
-    ,CONVERT(decimal(19,6), [EligibleAmountForCashDiscount] * (1/ExchangeRateUSD.[ExchangeRate])) as [EligibleAmountForCashDiscount]
+    ,[EligibleAmountForCashDiscount]
     ,[ContractAccount]
     ,[CustomerPaymentTerms]
     ,[PaymentMethod]
@@ -1597,7 +1699,7 @@ SELECT
     ,[AdditionalCustomerGroup5]
     ,[SDDocumentReasonID]
     ,[ItemIsRelevantForCredit]
-    ,CONVERT(decimal(19,6), [CreditRelatedPrice] * (1/ExchangeRateUSD.[ExchangeRate])) as [CreditRelatedPrice]
+    ,[CreditRelatedPrice]
     ,[SalesDistrictID]
     ,[CustomerGroupID]
     ,[SoldToParty]
@@ -1612,7 +1714,7 @@ SELECT
     ,[IncotermsLocation2]
     ,[ShippingCondition]
     ,[QuantitySold]
-    ,CONVERT(decimal(19,6), [GrossMargin] * (1/ExchangeRateUSD.[ExchangeRate])) as [GrossMargin]
+    ,[GrossMargin]
     ,[ExternalSalesAgentID]
     ,[ExternalSalesAgent]
     ,[ProjectID]
@@ -1636,20 +1738,14 @@ SELECT
     ,[InOutID]
     ,[ICSalesDocumentID]
     ,[ICSalesDocumentItemID]
-    ,BDI_30.[t_applicationId]
-    ,BDI_30.[t_extractionDtm]
-    ,BDI_30.[t_lastActionBy]
-    ,BDI_30.[t_lastActionCd]
-    ,BDI_30.[t_lastActionDtm]
-    ,BDI_30.[t_filePath]   
+    ,BD_40.[t_applicationId]
+    ,BD_40.[t_extractionDtm]
+    ,BD_40.[t_lastActionBy]
+    ,BD_40.[t_lastActionCd]
+    ,BD_40.[t_lastActionDtm]
+    ,BD_40.[t_filePath]   
 FROM 
-    ExchangeRateUSD
-LEFT JOIN
-    BillingDocument_30 BDI_30
-    ON
-        BDI_30.BillingDocument = ExchangeRateUSD.BillingDocument
-        AND
-        BDI_30.BillingDocumentItem = ExchangeRateUSD.BillingDocumentItem
+    BillingDocument_40 BD_40
 CROSS JOIN 
     [edw].[dim_CurrencyType] CR
 WHERE 
