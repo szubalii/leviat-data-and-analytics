@@ -1132,6 +1132,8 @@ GLACCOUNT;FUNCTIONALAREA;TRANSACTIONTYPE;TRADINGPARTNER;CONTIGENCY1;CONTIGENCY2;
 49000137;;;;;;;Gross Margin;Sales;IS421900;Other sales and payment discounts - off-invoice - customers;DT999;;;;S_MA;U;;IS
 49000150;;;;;;;Gross Margin;Sales;IS419900;Other sales;DT999;;;;S_MA;U;;IS
 49000200;;;;;;;Gross Margin;Sales;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
+49000299;;;;;;;Gross Margin;Sales;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
+49000299;DT999;;;;;;Gross Margin;Sales;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
 49000300;;;;;;;Gross Margin;Sales;IS421000;Sales bonus payable and volume rebates - customers;DT999;;;;S_MA;U;;IS
 49000301;;;;;;;Gross Margin;Sales;IS421000;Sales bonus payable and volume rebates - customers;DT999;;;;S_MA;U;;IS
 49000302;;;;;;;Gross Margin;Sales;IS421000;Sales bonus payable and volume rebates - customers;DT999;;;;S_MA;U;;IS
@@ -2405,46 +2407,46 @@ GLACCOUNT;FUNCTIONALAREA;TRANSACTIONTYPE;TRADINGPARTNER;CONTIGENCY1;CONTIGENCY2;
 50707316;DT241;;;;;;;Opex;IS711800;Other employee costs;DT241;;;;S_MA;U;;IS
 50707316;DT251;;;;;;;Opex;IS711800;Other employee costs;DT251;;;;S_MA;U;;IS
 50707316;DT271;;;;;;;Opex;IS711800;Other employee costs;DT271;;;;S_MA;U;;IS
-50707350;DT102;;;;;Other employee costs - variable;Gross Margin;Other CoS;IS611800;Other employee costs - production variable;FA1100;;;;S_MA;U;;IS
-50707350;DT101;;;;;;;Other CoS;IS671800;Other employee costs - production management / support and inbound logistics;FA1200;;;;S_MA;U;;IS
-50707350;DT121;;;;;;;Other CoS;IS671800;Other employee costs - production management / support and inbound logistics;FA1300;;;;S_MA;U;;IS
-50707350;DT131;;;;;;;Opex;IS711800;Other employee costs;DT131;;;;S_MA;U;;IS
-50707350;DT132;;;;;Other employee costs - variable;Gross Margin;Opex;IS711800;Other employee costs;DT132;;;;S_MA;U;;IS
-50707350;DT141;;;;;;;Opex;IS711800;Other employee costs;DT141;;;;S_MA;U;;IS
-50707350;DT142;;;;;Other employee costs - variable;Gross Margin;Opex;IS711800;Other employee costs;DT142;;;;S_MA;U;;IS
-50707350;DT151;;;;;;;Opex;IS711800;Other employee costs;DT151;;;;S_MA;U;;IS
-50707350;DT152;;;;;Other employee costs - variable;Gross Margin;Opex;IS711800;Other employee costs;DT152;;;;S_MA;U;;IS
-50707350;DT161;;;;;;;Opex;IS711800;Other employee costs;DT161;;;;S_MA;U;;IS
-50707350;DT171;;;;;;;Opex;IS711800;Other employee costs;DT171;;;;S_MA;U;;IS
-50707350;DT181;;;;;;;Opex;IS711800;Other employee costs;DT181;;;;S_MA;U;;IS
-50707350;DT191;;;;;;;Opex;IS711800;Other employee costs;DT191;;;;S_MA;U;;IS
-50707350;DT201;;;;;;;Opex;IS711800;Other employee costs;DT201;;;;S_MA;U;;IS
-50707350;DT213;;;;;;;Opex;IS711800;Other employee costs;DT213;;;;S_MA;U;;IS
-50707350;DT222;;;;;;;Opex;IS711800;Other employee costs;DT222;;;;S_MA;U;;IS
-50707350;DT231;;;;;;;Opex;IS711800;Other employee costs;DT231;;;;S_MA;U;;IS
-50707350;DT241;;;;;;;Opex;IS711800;Other employee costs;DT241;;;;S_MA;U;;IS
-50707350;DT251;;;;;;;Opex;IS711800;Other employee costs;DT251;;;;S_MA;U;;IS
-50707350;DT271;;;;;;;Opex;IS711800;Other employee costs;DT271;;;;S_MA;U;;IS
-50707360;DT102;;;;;Other employee costs - variable;Gross Margin;Other CoS;IS611800;Other employee costs - production variable;FA1100;;;;S_MA;U;;IS
-50707360;DT101;;;;;;;Other CoS;IS671800;Other employee costs - production management / support and inbound logistics;FA1200;;;;S_MA;U;;IS
-50707360;DT121;;;;;;;Other CoS;IS671800;Other employee costs - production management / support and inbound logistics;FA1300;;;;S_MA;U;;IS
-50707360;DT131;;;;;;;Opex;IS711800;Other employee costs;DT131;;;;S_MA;U;;IS
-50707360;DT132;;;;;Other employee costs - variable;Gross Margin;Opex;IS711800;Other employee costs;DT132;;;;S_MA;U;;IS
-50707360;DT141;;;;;;;Opex;IS711800;Other employee costs;DT141;;;;S_MA;U;;IS
-50707360;DT142;;;;;Other employee costs - variable;Gross Margin;Opex;IS711800;Other employee costs;DT142;;;;S_MA;U;;IS
-50707360;DT151;;;;;;;Opex;IS711800;Other employee costs;DT151;;;;S_MA;U;;IS
-50707360;DT152;;;;;Other employee costs - variable;Gross Margin;Opex;IS711800;Other employee costs;DT152;;;;S_MA;U;;IS
-50707360;DT161;;;;;;;Opex;IS711800;Other employee costs;DT161;;;;S_MA;U;;IS
-50707360;DT171;;;;;;;Opex;IS711800;Other employee costs;DT171;;;;S_MA;U;;IS
-50707360;DT181;;;;;;;Opex;IS711800;Other employee costs;DT181;;;;S_MA;U;;IS
-50707360;DT191;;;;;;;Opex;IS711800;Other employee costs;DT191;;;;S_MA;U;;IS
-50707360;DT201;;;;;;;Opex;IS711800;Other employee costs;DT201;;;;S_MA;U;;IS
-50707360;DT213;;;;;;;Opex;IS711800;Other employee costs;DT213;;;;S_MA;U;;IS
-50707360;DT222;;;;;;;Opex;IS711800;Other employee costs;DT222;;;;S_MA;U;;IS
-50707360;DT231;;;;;;;Opex;IS711800;Other employee costs;DT231;;;;S_MA;U;;IS
-50707360;DT241;;;;;;;Opex;IS711800;Other employee costs;DT241;;;;S_MA;U;;IS
-50707360;DT251;;;;;;;Opex;IS711800;Other employee costs;DT251;;;;S_MA;U;;IS
-50707360;DT271;;;;;;;Opex;IS711800;Other employee costs;DT271;;;;S_MA;U;;IS
+50707350;DT102;;;;;Rent and lease costs variable - variable;Gross Margin;Other CoS;IS646500;Rent and operational lease costs of company cars - production  / inbound logistics fixed;FA1100;;;;S_MA;U;;IS
+50707350;DT101;;;;;;;Other CoS;IS646500;Rent and operational lease costs of company cars - production  / inbound logistics fixed;FA1200;;;;S_MA;U;;IS
+50707350;DT121;;;;;;;Other CoS;IS646500;Rent and operational lease costs of company cars - production  / inbound logistics fixed;FA1300;;;;S_MA;U;;IS
+50707350;DT131;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT131;;;;S_MA;U;;IS
+50707350;DT132;;;;;Rent and lease costs variable - variable;Gross Margin;Opex;IS711650;Rent and operational lease costs of company cars;DT132;;;;S_MA;U;;IS
+50707350;DT141;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT141;;;;S_MA;U;;IS
+50707350;DT142;;;;;Rent and lease costs variable - variable;Gross Margin;Opex;IS711650;Rent and operational lease costs of company cars;DT142;;;;S_MA;U;;IS
+50707350;DT151;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT151;;;;S_MA;U;;IS
+50707350;DT152;;;;;Rent and lease costs variable - variable;Gross Margin;Opex;IS711650;Rent and operational lease costs of company cars;DT152;;;;S_MA;U;;IS
+50707350;DT161;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT161;;;;S_MA;U;;IS
+50707350;DT171;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT171;;;;S_MA;U;;IS
+50707350;DT181;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT181;;;;S_MA;U;;IS
+50707350;DT191;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT191;;;;S_MA;U;;IS
+50707350;DT201;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT201;;;;S_MA;U;;IS
+50707350;DT213;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT213;;;;S_MA;U;;IS
+50707350;DT222;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT222;;;;S_MA;U;;IS
+50707350;DT231;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT231;;;;S_MA;U;;IS
+50707350;DT241;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT241;;;;S_MA;U;;IS
+50707350;DT251;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT251;;;;S_MA;U;;IS
+50707350;DT271;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT271;;;;S_MA;U;;IS
+50707360;DT102;;;;;Rent and lease costs variable - variable;Gross Margin;Other CoS;IS646500;Rent and operational lease costs of company cars - production  / inbound logistics fixed;FA1100;;;;S_MA;U;;IS
+50707360;DT101;;;;;;;Other CoS;IS646500;Rent and operational lease costs of company cars - production  / inbound logistics fixed;FA1200;;;;S_MA;U;;IS
+50707360;DT121;;;;;;;Other CoS;IS646500;Rent and operational lease costs of company cars - production  / inbound logistics fixed;FA1300;;;;S_MA;U;;IS
+50707360;DT131;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT131;;;;S_MA;U;;IS
+50707360;DT132;;;;;Rent and lease costs variable - variable;Gross Margin;Opex;IS711650;Rent and operational lease costs of company cars;DT132;;;;S_MA;U;;IS
+50707360;DT141;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT141;;;;S_MA;U;;IS
+50707360;DT142;;;;;Rent and lease costs variable - variable;Gross Margin;Opex;IS711650;Rent and operational lease costs of company cars;DT142;;;;S_MA;U;;IS
+50707360;DT151;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT151;;;;S_MA;U;;IS
+50707360;DT152;;;;;Rent and lease costs variable - variable;Gross Margin;Opex;IS711650;Rent and operational lease costs of company cars;DT152;;;;S_MA;U;;IS
+50707360;DT161;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT161;;;;S_MA;U;;IS
+50707360;DT171;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT171;;;;S_MA;U;;IS
+50707360;DT181;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT181;;;;S_MA;U;;IS
+50707360;DT191;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT191;;;;S_MA;U;;IS
+50707360;DT201;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT201;;;;S_MA;U;;IS
+50707360;DT213;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT213;;;;S_MA;U;;IS
+50707360;DT222;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT222;;;;S_MA;U;;IS
+50707360;DT231;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT231;;;;S_MA;U;;IS
+50707360;DT241;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT241;;;;S_MA;U;;IS
+50707360;DT251;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT251;;;;S_MA;U;;IS
+50707360;DT271;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT271;;;;S_MA;U;;IS
 51000100;DT102;;;;;Energy;Gross Margin;Other CoS;IS527120;Electricity;FA1100;;;;S_MA;U;;IS
 51000300;DT102;;;;;Energy;Gross Margin;Other CoS;IS527900;Other energy and utilities for production;FA1100;;;;S_MA;U;;IS
 51000300;DT131;;;;;;;Opex;IS801300;Energy and ultilities;DT131;;;;S_MA;U;;IS
@@ -2530,6 +2532,8 @@ GLACCOUNT;FUNCTIONALAREA;TRANSACTIONTYPE;TRADINGPARTNER;CONTIGENCY1;CONTIGENCY2;
 52300199;DT999;;;;;Cost of goods for resale;Gross Margin;COGS;IS511000;Cost of goods sold trade sales;DT999;;;;S_MA;U;;IS
 52129800;;;;;;Other (costs) / income - variable (detail);Gross Margin;COGS;IS512000;Cost of goods sold own production sales (standard costing);DT999;;;;S_MA;U;;IS
 52129800;DT999;;;;;Other (costs) / income - variable (detail);Gross Margin;COGS;IS512000;Cost of goods sold own production sales (standard costing);DT999;;;;S_MA;U;;IS
+52129899;;;;;;Other (costs) / income - variable (detail);Gross Margin;COGS;IS512000;Cost of goods sold own production sales (standard costing);DT999;;;;S_MA;U;;IS
+52129899;DT999;;;;;Other (costs) / income - variable (detail);Gross Margin;COGS;IS512000;Cost of goods sold own production sales (standard costing);DT999;;;;S_MA;U;;IS
 52129900;;;;;;Other (costs) / income - variable (detail);Gross Margin;COGS;IS512000;Cost of goods sold own production sales (standard costing);DT999;;;;S_MA;U;;IS
 52129900;DT999;;;;;Other (costs) / income - variable (detail);Gross Margin;COGS;IS512000;Cost of goods sold own production sales (standard costing);DT999;;;;S_MA;U;;IS
 52300200;;;;;;Purchase bonusses;Gross Margin;COGS;IS519100;Purchase bonus receivable and volume rebates - suppliers current year;DT999;;;;S_MA;U;;IS
@@ -2843,8 +2847,8 @@ GLACCOUNT;FUNCTIONALAREA;TRANSACTIONTYPE;TRADINGPARTNER;CONTIGENCY1;CONTIGENCY2;
 52900607;DT999;;;;;Other (costs) / income - variable (detail);Gross Margin;COGS;IS512000;Cost of goods sold own production sales (standard costing);DT999;;;;S_MA;U;;IS
 52900611;;;;;;Other (costs) / income - variable (detail);Gross Margin;COGS;IS512000;Cost of goods sold own production sales (standard costing);DT999;;;;S_MA;U;;IS
 52900611;DT999;;;;;Other (costs) / income - variable (detail);Gross Margin;COGS;IS512000;Cost of goods sold own production sales (standard costing);DT999;;;;S_MA;U;;IS
-52900612;;;;;;Other (costs) / income - variable (detail);Gross Margin;COGS;IS512000;Cost of goods sold own production sales (standard costing);DT999;;;;S_MA;U;;IS
-52900612;DT999;;;;;Other (costs) / income - variable (detail);Gross Margin;COGS;IS512000;Cost of goods sold own production sales (standard costing);DT999;;;;S_MA;U;;IS
+52900612;;;;;;Other (costs) / income - variable (detail);Gross Margin;Other CoS;IS694000D;Absorbed production costs;FA1100;;;;S_MA;U;;IS
+52900612;DT999;;;;;Other (costs) / income - variable (detail);Gross Margin;Other CoS;IS694000D;Absorbed production costs;FA1100;;;;S_MA;U;;IS
 52900630;;;;;;Other (costs) / income - variable (detail);Gross Margin;COGS;IS512000;Cost of goods sold own production sales (standard costing);DT999;;;;S_MA;U;;IS
 52900631;;;;;;Other (costs) / income - variable (detail);Gross Margin;COGS;IS512000;Cost of goods sold own production sales (standard costing);DT999;;;;S_MA;U;;IS
 52900632;;;;;;Other (costs) / income - variable (detail);Gross Margin;COGS;IS512000;Cost of goods sold own production sales (standard costing);DT999;;;;S_MA;U;;IS
@@ -5397,126 +5401,126 @@ GLACCOUNT;FUNCTIONALAREA;TRANSACTIONTYPE;TRADINGPARTNER;CONTIGENCY1;CONTIGENCY2;
 50707330;DT241;;;;;;;Opex;IS711610;Compensation and refunds related to salaries received from third parties;DT241;;;;S_MA;U;;IS
 50707330;DT251;;;;;;;Opex;IS711610;Compensation and refunds related to salaries received from third parties;DT251;;;;S_MA;U;;IS
 50707330;DT271;;;;;;;Opex;IS711610;Compensation and refunds related to salaries received from third parties;DT271;;;;S_MA;U;;IS
-50707351;DT102;;;;;Rent and lease costs variable - variable;Gross Margin;Other CoS;IS646500;Rent and operational lease costs of company cars - production  / inbound logistics fixed;FA1100;;;;S_MA;U;;IS
-50707351;DT101;;;;;;;Other CoS;IS646500;Rent and operational lease costs of company cars - production  / inbound logistics fixed;FA1200;;;;S_MA;U;;IS
-50707351;DT121;;;;;;;Other CoS;IS646500;Rent and operational lease costs of company cars - production  / inbound logistics fixed;FA1300;;;;S_MA;U;;IS
-50707351;DT131;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT131;;;;S_MA;U;;IS
-50707351;DT132;;;;;Other employee costs - variable;Gross Margin;Opex;IS711650;Rent and operational lease costs of company cars;DT132;;;;S_MA;U;;IS
-50707351;DT141;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT141;;;;S_MA;U;;IS
-50707351;DT142;;;;;Other employee costs - variable;Gross Margin;Opex;IS711650;Rent and operational lease costs of company cars;DT142;;;;S_MA;U;;IS
-50707351;DT151;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT151;;;;S_MA;U;;IS
-50707351;DT152;;;;;Other employee costs - variable;Gross Margin;Opex;IS711650;Rent and operational lease costs of company cars;DT152;;;;S_MA;U;;IS
-50707351;DT161;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT161;;;;S_MA;U;;IS
-50707351;DT171;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT171;;;;S_MA;U;;IS
-50707351;DT181;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT181;;;;S_MA;U;;IS
-50707351;DT191;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT191;;;;S_MA;U;;IS
-50707351;DT201;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT201;;;;S_MA;U;;IS
-50707351;DT213;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT213;;;;S_MA;U;;IS
-50707351;DT222;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT222;;;;S_MA;U;;IS
-50707351;DT231;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT231;;;;S_MA;U;;IS
-50707351;DT241;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT241;;;;S_MA;U;;IS
-50707351;DT251;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT251;;;;S_MA;U;;IS
-50707351;DT271;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT271;;;;S_MA;U;;IS
-50707352;DT102;;;;;Rent and lease costs variable - variable;Gross Margin;Other CoS;IS646500;Rent and operational lease costs of company cars - production  / inbound logistics fixed;FA1100;;;;S_MA;U;;IS
-50707352;DT101;;;;;;;Other CoS;IS646500;Rent and operational lease costs of company cars - production  / inbound logistics fixed;FA1200;;;;S_MA;U;;IS
-50707352;DT121;;;;;;;Other CoS;IS646500;Rent and operational lease costs of company cars - production  / inbound logistics fixed;FA1300;;;;S_MA;U;;IS
-50707352;DT131;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT131;;;;S_MA;U;;IS
-50707352;DT132;;;;;Other employee costs - variable;Gross Margin;Opex;IS711650;Rent and operational lease costs of company cars;DT132;;;;S_MA;U;;IS
-50707352;DT141;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT141;;;;S_MA;U;;IS
-50707352;DT142;;;;;Other employee costs - variable;Gross Margin;Opex;IS711650;Rent and operational lease costs of company cars;DT142;;;;S_MA;U;;IS
-50707352;DT151;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT151;;;;S_MA;U;;IS
-50707352;DT152;;;;;Other employee costs - variable;Gross Margin;Opex;IS711650;Rent and operational lease costs of company cars;DT152;;;;S_MA;U;;IS
-50707352;DT161;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT161;;;;S_MA;U;;IS
-50707352;DT171;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT171;;;;S_MA;U;;IS
-50707352;DT181;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT181;;;;S_MA;U;;IS
-50707352;DT191;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT191;;;;S_MA;U;;IS
-50707352;DT201;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT201;;;;S_MA;U;;IS
-50707352;DT213;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT213;;;;S_MA;U;;IS
-50707352;DT222;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT222;;;;S_MA;U;;IS
-50707352;DT231;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT231;;;;S_MA;U;;IS
-50707352;DT241;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT241;;;;S_MA;U;;IS
-50707352;DT251;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT251;;;;S_MA;U;;IS
-50707352;DT271;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT271;;;;S_MA;U;;IS
-50707353;DT102;;;;;Rent and lease costs variable - variable;Gross Margin;Other CoS;IS646500;Rent and operational lease costs of company cars - production  / inbound logistics fixed;FA1100;;;;S_MA;U;;IS
-50707353;DT101;;;;;;;Other CoS;IS646500;Rent and operational lease costs of company cars - production  / inbound logistics fixed;FA1200;;;;S_MA;U;;IS
-50707353;DT121;;;;;;;Other CoS;IS646500;Rent and operational lease costs of company cars - production  / inbound logistics fixed;FA1300;;;;S_MA;U;;IS
-50707353;DT131;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT131;;;;S_MA;U;;IS
-50707353;DT132;;;;;Other employee costs - variable;Gross Margin;Opex;IS711650;Rent and operational lease costs of company cars;DT132;;;;S_MA;U;;IS
-50707353;DT141;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT141;;;;S_MA;U;;IS
-50707353;DT142;;;;;Other employee costs - variable;Gross Margin;Opex;IS711650;Rent and operational lease costs of company cars;DT142;;;;S_MA;U;;IS
-50707353;DT151;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT151;;;;S_MA;U;;IS
-50707353;DT152;;;;;Other employee costs - variable;Gross Margin;Opex;IS711650;Rent and operational lease costs of company cars;DT152;;;;S_MA;U;;IS
-50707353;DT161;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT161;;;;S_MA;U;;IS
-50707353;DT171;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT171;;;;S_MA;U;;IS
-50707353;DT181;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT181;;;;S_MA;U;;IS
-50707353;DT191;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT191;;;;S_MA;U;;IS
-50707353;DT201;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT201;;;;S_MA;U;;IS
-50707353;DT213;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT213;;;;S_MA;U;;IS
-50707353;DT222;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT222;;;;S_MA;U;;IS
-50707353;DT231;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT231;;;;S_MA;U;;IS
-50707353;DT241;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT241;;;;S_MA;U;;IS
-50707353;DT251;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT251;;;;S_MA;U;;IS
-50707353;DT271;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT271;;;;S_MA;U;;IS
-50707354;DT102;;;;;Rent and lease costs variable - variable;Gross Margin;Other CoS;IS646500;Rent and operational lease costs of company cars - production  / inbound logistics fixed;FA1100;;;;S_MA;U;;IS
-50707354;DT101;;;;;;;Other CoS;IS646500;Rent and operational lease costs of company cars - production  / inbound logistics fixed;FA1200;;;;S_MA;U;;IS
-50707354;DT121;;;;;;;Other CoS;IS646500;Rent and operational lease costs of company cars - production  / inbound logistics fixed;FA1300;;;;S_MA;U;;IS
-50707354;DT131;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT131;;;;S_MA;U;;IS
-50707354;DT132;;;;;Other employee costs - variable;Gross Margin;Opex;IS711650;Rent and operational lease costs of company cars;DT132;;;;S_MA;U;;IS
-50707354;DT141;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT141;;;;S_MA;U;;IS
-50707354;DT142;;;;;Other employee costs - variable;Gross Margin;Opex;IS711650;Rent and operational lease costs of company cars;DT142;;;;S_MA;U;;IS
-50707354;DT151;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT151;;;;S_MA;U;;IS
-50707354;DT152;;;;;Other employee costs - variable;Gross Margin;Opex;IS711650;Rent and operational lease costs of company cars;DT152;;;;S_MA;U;;IS
-50707354;DT161;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT161;;;;S_MA;U;;IS
-50707354;DT171;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT171;;;;S_MA;U;;IS
-50707354;DT181;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT181;;;;S_MA;U;;IS
-50707354;DT191;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT191;;;;S_MA;U;;IS
-50707354;DT201;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT201;;;;S_MA;U;;IS
-50707354;DT213;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT213;;;;S_MA;U;;IS
-50707354;DT222;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT222;;;;S_MA;U;;IS
-50707354;DT231;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT231;;;;S_MA;U;;IS
-50707354;DT241;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT241;;;;S_MA;U;;IS
-50707354;DT251;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT251;;;;S_MA;U;;IS
-50707354;DT271;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT271;;;;S_MA;U;;IS
-50707355;DT102;;;;;Rent and lease costs variable - variable;Gross Margin;Other CoS;IS646500;Rent and operational lease costs of company cars - production  / inbound logistics fixed;FA1100;;;;S_MA;U;;IS
-50707355;DT101;;;;;;;Other CoS;IS646500;Rent and operational lease costs of company cars - production  / inbound logistics fixed;FA1200;;;;S_MA;U;;IS
-50707355;DT121;;;;;;;Other CoS;IS646500;Rent and operational lease costs of company cars - production  / inbound logistics fixed;FA1300;;;;S_MA;U;;IS
-50707355;DT131;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT131;;;;S_MA;U;;IS
-50707355;DT132;;;;;Other employee costs - variable;Gross Margin;Opex;IS711650;Rent and operational lease costs of company cars;DT132;;;;S_MA;U;;IS
-50707355;DT141;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT141;;;;S_MA;U;;IS
-50707355;DT142;;;;;Other employee costs - variable;Gross Margin;Opex;IS711650;Rent and operational lease costs of company cars;DT142;;;;S_MA;U;;IS
-50707355;DT151;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT151;;;;S_MA;U;;IS
-50707355;DT152;;;;;Other employee costs - variable;Gross Margin;Opex;IS711650;Rent and operational lease costs of company cars;DT152;;;;S_MA;U;;IS
-50707355;DT161;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT161;;;;S_MA;U;;IS
-50707355;DT171;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT171;;;;S_MA;U;;IS
-50707355;DT181;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT181;;;;S_MA;U;;IS
-50707355;DT191;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT191;;;;S_MA;U;;IS
-50707355;DT201;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT201;;;;S_MA;U;;IS
-50707355;DT213;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT213;;;;S_MA;U;;IS
-50707355;DT222;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT222;;;;S_MA;U;;IS
-50707355;DT231;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT231;;;;S_MA;U;;IS
-50707355;DT241;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT241;;;;S_MA;U;;IS
-50707355;DT251;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT251;;;;S_MA;U;;IS
-50707355;DT271;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT271;;;;S_MA;U;;IS
-50707356;DT102;;;;;Rent and lease costs variable - variable;Gross Margin;Other CoS;IS646500;Rent and operational lease costs of company cars - production  / inbound logistics fixed;FA1100;;;;S_MA;U;;IS
-50707356;DT101;;;;;;;Other CoS;IS646500;Rent and operational lease costs of company cars - production  / inbound logistics fixed;FA1200;;;;S_MA;U;;IS
-50707356;DT121;;;;;;;Other CoS;IS646500;Rent and operational lease costs of company cars - production  / inbound logistics fixed;FA1300;;;;S_MA;U;;IS
-50707356;DT131;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT131;;;;S_MA;U;;IS
-50707356;DT132;;;;;Other employee costs - variable;Gross Margin;Opex;IS711650;Rent and operational lease costs of company cars;DT132;;;;S_MA;U;;IS
-50707356;DT141;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT141;;;;S_MA;U;;IS
-50707356;DT142;;;;;Other employee costs - variable;Gross Margin;Opex;IS711650;Rent and operational lease costs of company cars;DT142;;;;S_MA;U;;IS
-50707356;DT151;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT151;;;;S_MA;U;;IS
-50707356;DT152;;;;;Other employee costs - variable;Gross Margin;Opex;IS711650;Rent and operational lease costs of company cars;DT152;;;;S_MA;U;;IS
-50707356;DT161;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT161;;;;S_MA;U;;IS
-50707356;DT171;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT171;;;;S_MA;U;;IS
-50707356;DT181;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT181;;;;S_MA;U;;IS
-50707356;DT191;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT191;;;;S_MA;U;;IS
-50707356;DT201;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT201;;;;S_MA;U;;IS
-50707356;DT213;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT213;;;;S_MA;U;;IS
-50707356;DT222;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT222;;;;S_MA;U;;IS
-50707356;DT231;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT231;;;;S_MA;U;;IS
-50707356;DT241;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT241;;;;S_MA;U;;IS
-50707356;DT251;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT251;;;;S_MA;U;;IS
-50707356;DT271;;;;;;;Opex;IS711650;Rent and operational lease costs of company cars;DT271;;;;S_MA;U;;IS
+50707351;DT102;;;;;;;Other CoS;IS651000;Other fixed production costs;FA1200;;;;S_MA;U;;IS
+50707351;DT101;;;;;;;Other CoS;IS651000;Other fixed production costs;FA1200;;;;S_MA;U;;IS
+50707351;DT121;;;;;;;Other CoS;IS651000;Other fixed production costs;FA1200;;;;S_MA;U;;IS
+50707351;DT131;;;;;;;Opex;IS711800;Other employee costs;DT131;;;;S_MA;U;;IS
+50707351;DT132;;;;;Other employee costs - variable;Gross Margin;Opex;IS711800;Other employee costs;DT132;;;;S_MA;U;;IS
+50707351;DT141;;;;;;;Opex;IS711800;Other employee costs;DT141;;;;S_MA;U;;IS
+50707351;DT142;;;;;Other employee costs - variable;Gross Margin;Opex;IS711800;Other employee costs;DT142;;;;S_MA;U;;IS
+50707351;DT151;;;;;;;Opex;IS711800;Other employee costs;DT151;;;;S_MA;U;;IS
+50707351;DT152;;;;;Other employee costs - variable;Gross Margin;Opex;IS711800;Other employee costs;DT152;;;;S_MA;U;;IS
+50707351;DT161;;;;;;;Opex;IS711800;Other employee costs;DT161;;;;S_MA;U;;IS
+50707351;DT171;;;;;;;Opex;IS711800;Other employee costs;DT171;;;;S_MA;U;;IS
+50707351;DT181;;;;;;;Opex;IS711800;Other employee costs;DT181;;;;S_MA;U;;IS
+50707351;DT191;;;;;;;Opex;IS711800;Other employee costs;DT191;;;;S_MA;U;;IS
+50707351;DT201;;;;;;;Opex;IS711800;Other employee costs;DT201;;;;S_MA;U;;IS
+50707351;DT213;;;;;;;Opex;IS711800;Other employee costs;DT213;;;;S_MA;U;;IS
+50707351;DT222;;;;;;;Opex;IS711800;Other employee costs;DT222;;;;S_MA;U;;IS
+50707351;DT231;;;;;;;Opex;IS711800;Other employee costs;DT231;;;;S_MA;U;;IS
+50707351;DT241;;;;;;;Opex;IS711800;Other employee costs;DT241;;;;S_MA;U;;IS
+50707351;DT251;;;;;;;Opex;IS711800;Other employee costs;DT251;;;;S_MA;U;;IS
+50707351;DT271;;;;;;;Opex;IS711800;Other employee costs;DT271;;;;S_MA;U;;IS
+50707352;DT102;;;;;;;Other CoS;IS651000;Other fixed production costs;FA1200;;;;S_MA;U;;IS
+50707352;DT101;;;;;;;Other CoS;IS651000;Other fixed production costs;FA1200;;;;S_MA;U;;IS
+50707352;DT121;;;;;;;Other CoS;IS651000;Other fixed production costs;FA1200;;;;S_MA;U;;IS
+50707352;DT131;;;;;;;Opex;IS711800;Other employee costs;DT131;;;;S_MA;U;;IS
+50707352;DT132;;;;;Other employee costs - variable;Gross Margin;Opex;IS711800;Other employee costs;DT132;;;;S_MA;U;;IS
+50707352;DT141;;;;;;;Opex;IS711800;Other employee costs;DT141;;;;S_MA;U;;IS
+50707352;DT142;;;;;Other employee costs - variable;Gross Margin;Opex;IS711800;Other employee costs;DT142;;;;S_MA;U;;IS
+50707352;DT151;;;;;;;Opex;IS711800;Other employee costs;DT151;;;;S_MA;U;;IS
+50707352;DT152;;;;;Other employee costs - variable;Gross Margin;Opex;IS711800;Other employee costs;DT152;;;;S_MA;U;;IS
+50707352;DT161;;;;;;;Opex;IS711800;Other employee costs;DT161;;;;S_MA;U;;IS
+50707352;DT171;;;;;;;Opex;IS711800;Other employee costs;DT171;;;;S_MA;U;;IS
+50707352;DT181;;;;;;;Opex;IS711800;Other employee costs;DT181;;;;S_MA;U;;IS
+50707352;DT191;;;;;;;Opex;IS711800;Other employee costs;DT191;;;;S_MA;U;;IS
+50707352;DT201;;;;;;;Opex;IS711800;Other employee costs;DT201;;;;S_MA;U;;IS
+50707352;DT213;;;;;;;Opex;IS711800;Other employee costs;DT213;;;;S_MA;U;;IS
+50707352;DT222;;;;;;;Opex;IS711800;Other employee costs;DT222;;;;S_MA;U;;IS
+50707352;DT231;;;;;;;Opex;IS711800;Other employee costs;DT231;;;;S_MA;U;;IS
+50707352;DT241;;;;;;;Opex;IS711800;Other employee costs;DT241;;;;S_MA;U;;IS
+50707352;DT251;;;;;;;Opex;IS711800;Other employee costs;DT251;;;;S_MA;U;;IS
+50707352;DT271;;;;;;;Opex;IS711800;Other employee costs;DT271;;;;S_MA;U;;IS
+50707353;DT102;;;;;;;Other CoS;IS651000;Other fixed production costs;FA1200;;;;S_MA;U;;IS
+50707353;DT101;;;;;;;Other CoS;IS651000;Other fixed production costs;FA1200;;;;S_MA;U;;IS
+50707353;DT121;;;;;;;Other CoS;IS651000;Other fixed production costs;FA1200;;;;S_MA;U;;IS
+50707353;DT131;;;;;;;Opex;IS711800;Other employee costs;DT131;;;;S_MA;U;;IS
+50707353;DT132;;;;;Other employee costs - variable;Gross Margin;Opex;IS711800;Other employee costs;DT132;;;;S_MA;U;;IS
+50707353;DT141;;;;;;;Opex;IS711800;Other employee costs;DT141;;;;S_MA;U;;IS
+50707353;DT142;;;;;Other employee costs - variable;Gross Margin;Opex;IS711800;Other employee costs;DT142;;;;S_MA;U;;IS
+50707353;DT151;;;;;;;Opex;IS711800;Other employee costs;DT151;;;;S_MA;U;;IS
+50707353;DT152;;;;;Other employee costs - variable;Gross Margin;Opex;IS711800;Other employee costs;DT152;;;;S_MA;U;;IS
+50707353;DT161;;;;;;;Opex;IS711800;Other employee costs;DT161;;;;S_MA;U;;IS
+50707353;DT171;;;;;;;Opex;IS711800;Other employee costs;DT171;;;;S_MA;U;;IS
+50707353;DT181;;;;;;;Opex;IS711800;Other employee costs;DT181;;;;S_MA;U;;IS
+50707353;DT191;;;;;;;Opex;IS711800;Other employee costs;DT191;;;;S_MA;U;;IS
+50707353;DT201;;;;;;;Opex;IS711800;Other employee costs;DT201;;;;S_MA;U;;IS
+50707353;DT213;;;;;;;Opex;IS711800;Other employee costs;DT213;;;;S_MA;U;;IS
+50707353;DT222;;;;;;;Opex;IS711800;Other employee costs;DT222;;;;S_MA;U;;IS
+50707353;DT231;;;;;;;Opex;IS711800;Other employee costs;DT231;;;;S_MA;U;;IS
+50707353;DT241;;;;;;;Opex;IS711800;Other employee costs;DT241;;;;S_MA;U;;IS
+50707353;DT251;;;;;;;Opex;IS711800;Other employee costs;DT251;;;;S_MA;U;;IS
+50707353;DT271;;;;;;;Opex;IS711800;Other employee costs;DT271;;;;S_MA;U;;IS
+50707354;DT102;;;;;;;Other CoS;IS651000;Other fixed production costs;FA1200;;;;S_MA;U;;IS
+50707354;DT101;;;;;;;Other CoS;IS651000;Other fixed production costs;FA1200;;;;S_MA;U;;IS
+50707354;DT121;;;;;;;Other CoS;IS651000;Other fixed production costs;FA1200;;;;S_MA;U;;IS
+50707354;DT131;;;;;;;Opex;IS711800;Other employee costs;DT131;;;;S_MA;U;;IS
+50707354;DT132;;;;;Other employee costs - variable;Gross Margin;Opex;IS711800;Other employee costs;DT132;;;;S_MA;U;;IS
+50707354;DT141;;;;;;;Opex;IS711800;Other employee costs;DT141;;;;S_MA;U;;IS
+50707354;DT142;;;;;Other employee costs - variable;Gross Margin;Opex;IS711800;Other employee costs;DT142;;;;S_MA;U;;IS
+50707354;DT151;;;;;;;Opex;IS711800;Other employee costs;DT151;;;;S_MA;U;;IS
+50707354;DT152;;;;;Other employee costs - variable;Gross Margin;Opex;IS711800;Other employee costs;DT152;;;;S_MA;U;;IS
+50707354;DT161;;;;;;;Opex;IS711800;Other employee costs;DT161;;;;S_MA;U;;IS
+50707354;DT171;;;;;;;Opex;IS711800;Other employee costs;DT171;;;;S_MA;U;;IS
+50707354;DT181;;;;;;;Opex;IS711800;Other employee costs;DT181;;;;S_MA;U;;IS
+50707354;DT191;;;;;;;Opex;IS711800;Other employee costs;DT191;;;;S_MA;U;;IS
+50707354;DT201;;;;;;;Opex;IS711800;Other employee costs;DT201;;;;S_MA;U;;IS
+50707354;DT213;;;;;;;Opex;IS711800;Other employee costs;DT213;;;;S_MA;U;;IS
+50707354;DT222;;;;;;;Opex;IS711800;Other employee costs;DT222;;;;S_MA;U;;IS
+50707354;DT231;;;;;;;Opex;IS711800;Other employee costs;DT231;;;;S_MA;U;;IS
+50707354;DT241;;;;;;;Opex;IS711800;Other employee costs;DT241;;;;S_MA;U;;IS
+50707354;DT251;;;;;;;Opex;IS711800;Other employee costs;DT251;;;;S_MA;U;;IS
+50707354;DT271;;;;;;;Opex;IS711800;Other employee costs;DT271;;;;S_MA;U;;IS
+50707355;DT102;;;;;;;Other CoS;IS651000;Other fixed production costs;FA1200;;;;S_MA;U;;IS
+50707355;DT101;;;;;;;Other CoS;IS651000;Other fixed production costs;FA1200;;;;S_MA;U;;IS
+50707355;DT121;;;;;;;Other CoS;IS651000;Other fixed production costs;FA1200;;;;S_MA;U;;IS
+50707355;DT131;;;;;;;Opex;IS711800;Other employee costs;DT131;;;;S_MA;U;;IS
+50707355;DT132;;;;;Other employee costs - variable;Gross Margin;Opex;IS711800;Other employee costs;DT132;;;;S_MA;U;;IS
+50707355;DT141;;;;;;;Opex;IS711800;Other employee costs;DT141;;;;S_MA;U;;IS
+50707355;DT142;;;;;Other employee costs - variable;Gross Margin;Opex;IS711800;Other employee costs;DT142;;;;S_MA;U;;IS
+50707355;DT151;;;;;;;Opex;IS711800;Other employee costs;DT151;;;;S_MA;U;;IS
+50707355;DT152;;;;;Other employee costs - variable;Gross Margin;Opex;IS711800;Other employee costs;DT152;;;;S_MA;U;;IS
+50707355;DT161;;;;;;;Opex;IS711800;Other employee costs;DT161;;;;S_MA;U;;IS
+50707355;DT171;;;;;;;Opex;IS711800;Other employee costs;DT171;;;;S_MA;U;;IS
+50707355;DT181;;;;;;;Opex;IS711800;Other employee costs;DT181;;;;S_MA;U;;IS
+50707355;DT191;;;;;;;Opex;IS711800;Other employee costs;DT191;;;;S_MA;U;;IS
+50707355;DT201;;;;;;;Opex;IS711800;Other employee costs;DT201;;;;S_MA;U;;IS
+50707355;DT213;;;;;;;Opex;IS711800;Other employee costs;DT213;;;;S_MA;U;;IS
+50707355;DT222;;;;;;;Opex;IS711800;Other employee costs;DT222;;;;S_MA;U;;IS
+50707355;DT231;;;;;;;Opex;IS711800;Other employee costs;DT231;;;;S_MA;U;;IS
+50707355;DT241;;;;;;;Opex;IS711800;Other employee costs;DT241;;;;S_MA;U;;IS
+50707355;DT251;;;;;;;Opex;IS711800;Other employee costs;DT251;;;;S_MA;U;;IS
+50707355;DT271;;;;;;;Opex;IS711800;Other employee costs;DT271;;;;S_MA;U;;IS
+50707356;DT102;;;;;;;Other CoS;IS651000;Other fixed production costs;FA1200;;;;S_MA;U;;IS
+50707356;DT101;;;;;;;Other CoS;IS651000;Other fixed production costs;FA1200;;;;S_MA;U;;IS
+50707356;DT121;;;;;;;Other CoS;IS651000;Other fixed production costs;FA1200;;;;S_MA;U;;IS
+50707356;DT131;;;;;;;Opex;IS711800;Other employee costs;DT131;;;;S_MA;U;;IS
+50707356;DT132;;;;;Other employee costs - variable;Gross Margin;Opex;IS711800;Other employee costs;DT132;;;;S_MA;U;;IS
+50707356;DT141;;;;;;;Opex;IS711800;Other employee costs;DT141;;;;S_MA;U;;IS
+50707356;DT142;;;;;Other employee costs - variable;Gross Margin;Opex;IS711800;Other employee costs;DT142;;;;S_MA;U;;IS
+50707356;DT151;;;;;;;Opex;IS711800;Other employee costs;DT151;;;;S_MA;U;;IS
+50707356;DT152;;;;;Other employee costs - variable;Gross Margin;Opex;IS711800;Other employee costs;DT152;;;;S_MA;U;;IS
+50707356;DT161;;;;;;;Opex;IS711800;Other employee costs;DT161;;;;S_MA;U;;IS
+50707356;DT171;;;;;;;Opex;IS711800;Other employee costs;DT171;;;;S_MA;U;;IS
+50707356;DT181;;;;;;;Opex;IS711800;Other employee costs;DT181;;;;S_MA;U;;IS
+50707356;DT191;;;;;;;Opex;IS711800;Other employee costs;DT191;;;;S_MA;U;;IS
+50707356;DT201;;;;;;;Opex;IS711800;Other employee costs;DT201;;;;S_MA;U;;IS
+50707356;DT213;;;;;;;Opex;IS711800;Other employee costs;DT213;;;;S_MA;U;;IS
+50707356;DT222;;;;;;;Opex;IS711800;Other employee costs;DT222;;;;S_MA;U;;IS
+50707356;DT231;;;;;;;Opex;IS711800;Other employee costs;DT231;;;;S_MA;U;;IS
+50707356;DT241;;;;;;;Opex;IS711800;Other employee costs;DT241;;;;S_MA;U;;IS
+50707356;DT251;;;;;;;Opex;IS711800;Other employee costs;DT251;;;;S_MA;U;;IS
+50707356;DT271;;;;;;;Opex;IS711800;Other employee costs;DT271;;;;S_MA;U;;IS
 52113201;DT102;;;;;Raw material;Gross Margin;Other CoS;IS521140;Steel;FA1100;;;;S_MA;U;;IS
 52113202;DT102;;;;;Raw material;Gross Margin;Other CoS;IS521140;Steel;FA1100;;;;S_MA;U;;IS
 52113203;DT102;;;;;Raw material;Gross Margin;Other CoS;IS521140;Steel;FA1100;;;;S_MA;U;;IS
