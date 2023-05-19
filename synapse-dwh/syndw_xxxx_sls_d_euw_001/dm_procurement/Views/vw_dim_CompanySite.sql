@@ -1,6 +1,5 @@
 CREATE VIEW [dm_procurement].[vw_dim_CompanySite]
 AS
-
 SELECT
     [PurchasingOrganization]        AS SiteId
     ,[PurchasingOrganizationName]   AS SiteName

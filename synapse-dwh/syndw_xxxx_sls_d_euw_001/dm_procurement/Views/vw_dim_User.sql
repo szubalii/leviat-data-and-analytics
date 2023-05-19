@@ -1,7 +1,7 @@
 CREATE VIEW [dm_procurement].[vw_dim_User]
 AS
 SELECT
-    UserId
+    UserID      AS UserId
     ,UserName
-    ''  AS SupervisorId
-FROM [edw].[dimUserAddress]
+    ,''         AS SupervisorId
+FROM [edw].[dim_UserAddress]

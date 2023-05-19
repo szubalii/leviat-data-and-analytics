@@ -3,10 +3,10 @@ AS
 SELECT
     PurchaseOrder                       AS POId
     ,''                                 AS ExtraPOKey
-    ,PurchaseOrderItem                   AS POLineNumber
+    ,PurchaseOrderItem                  AS POLineNumber
     ,''                                 AS ExtraPOLineKey
     ,''                                 AS SplitAccountingNumber
-    ,PDI.PurchasingDocumentOrderDate    AS OrderedDate
+    ,PD.PurchasingDocumentOrderDate     AS OrderedDate
     ,PDI.PurchaseOrderQuantity          AS Quantity
     ,PDI.NetAmount                      AS Amount
     ,PDI.DocumentCurrencyID             AS AmountCurrency
@@ -16,14 +16,14 @@ SELECT
                                         AS PartNumber
     ,''                                 AS PartRevisionNumber
     ,PDI.OrderQuantityUnit              AS UnitOfMeasure
-    ,CAST(CAST(PDI.SupplierID AS INT) AS VARCHAR)
+    ,CAST(CAST(PD.SupplierID AS INT) AS VARCHAR)
                                         AS SupplierId
     ,''                                 AS SupplierLocationId
-    ,PDI.UserName                       AS RequesterId
+    ,PD.CreatedByUser                   AS RequesterId
     ,CAST(CAST(PDI.GLAccountID AS INT) AS VARCHAR)
                                         AS AccountId
     ,''                                 AS AccountCompanyCode
-    ,PDI.PurchasingOrganizationID       AS CompanySiteId
+    ,PD.PurchasingOrganizationID       AS CompanySiteId
     ,PDI.CostCenterID                   AS CostCenterId
     ,PDI.CompanyCodeID                  AS CostCenterCompanyCode
     ,PDI.PurchaseContract               AS ContractId
@@ -65,5 +65,7 @@ SELECT
     ,''                                 AS lexString9  
     ,''                                 AS lexString10 
 FROM [edw].[fact_PurchasingDocumentItem]  PDI 
+JOIN [edw].[fact_PurchasingDocument]                            PD
+    ON PDI.PurchasingDocument = PD.PurchasingDocument
 LEFT JOIN [edw].[fact_SupplierInvoiceItemPurOrdRef] SIIPOR
     ON PDI.sk_fact_PurchasingDocumentItem = SIIPOR.sk_fact_PurchasingDocumentItem

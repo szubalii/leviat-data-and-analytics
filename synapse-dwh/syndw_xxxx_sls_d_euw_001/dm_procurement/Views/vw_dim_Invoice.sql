@@ -1,9 +1,9 @@
 CREATE VIEW [dm_procurement].[vw_dim_Invoice]
 AS
 SELECT
-    ,SIIPORT.SupplierInvoice            AS InvoiceId
+    SIIPOR.SupplierInvoice              AS InvoiceId
     ,''                                 AS ExtraInvoiceKey
-    ,SIIPORT.SupplierInvoiceItem        AS InvoiceLineNumber
+    ,SIIPOR.SupplierInvoiceItem         AS InvoiceLineNumber
     ,''                                 AS ExtraInvoiceLineKey
     ,''                                 AS SplitAccountingNumber
     ,Invoice.PostingDate                AS AccountingDate
@@ -12,18 +12,18 @@ SELECT
     ,Invoice.DocumentCurrencyID         AS AmountCurrency
     ,SIIPOR.PurchasingDocumentItemShortText AS Description
     ,PDI.MaterialGroupID                AS CommodityId
-    ,CAST(CAST(PDI.MaterialID) AS INT) AS VARCHAR)
+    ,CAST(CAST(PDI.MaterialID AS INT) AS VARCHAR)
                                         AS PartNumber
     ,''                                 AS PartRevisionNumber
     ,PDI.OrderPriceUnit                 AS UnitOfMeasure
-    ,CAST(CAST(PDI.SupplierID) AS INT) AS VARCHAR)
+    ,CAST(CAST(PD.SupplierID AS INT) AS VARCHAR)
                                         AS SupplierId
     ,''                                 AS SupplierLocationId
     ,PD.CreatedByUser                   AS RequesterId
-    ,CAST(CAST(PDI.GLAccountID) AS INT) AS VARCHAR)
+    ,CAST(CAST(PDI.GLAccountID AS INT) AS VARCHAR)
                                         AS AccountId
     ,''                                 AS AccountCompanyCode
-    ,PDI.PurchasingOrganizationID       AS CompanySiteId
+    ,PD.PurchasingOrganizationID        AS CompanySiteId
     ,PDI.CostCenterID                   AS CostCenterId
     ,PDI.CompanyCodeID                  AS CostCenterCompanyCode
     ,PDI.PurchaseContract               AS ContractId
