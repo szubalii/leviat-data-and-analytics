@@ -8,7 +8,8 @@ WITH ZCV_active AS (SELECT
     --CharacteristicName without prefix 'ZCH_'
     RIGHT([CharacteristicName],LEN([CharacteristicName])-4) AS [CharacteristicName],
     CASE
-      WHEN [CharValue]<>[CharValueDescription] THEN CONCAT([CharValue],'_',[CharValueDescription])
+      WHEN [DecimalValueFrom]<>0 THEN CAST([DecimalValueFrom] AS varchar)
+      WHEN [DecimalValueFrom]=0 AND [CharValue]<>[CharValueDescription] THEN CONCAT([CharValue],'_',[CharValueDescription])
       ELSE COALESCE([CharValue],[CharValueDescription])
     END AS [CharValueDescription],
     [t_applicationId]
