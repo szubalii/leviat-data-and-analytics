@@ -225,6 +225,7 @@ WITH original AS (
 
 SELECT [BillingDocument]
       ,[BillingDocumentItem]
+      ,[nk_fact_BillingDocumentItem]
       ,[CurrencyType]
       ,[CurrencyID]
       ,[Currency]
