@@ -33,7 +33,7 @@ SELECT
     ,''                                 AS ExtraPOLineKey
     ,Invoice.CreationDate               AS InvoiceDate
     ,''                                 AS PaidDate
-    ,SIIPOR.InvoiceNumber
+    ,SIIPOR.SupplierInvoice             AS InvoiceNumber
     ,''                                 AS APPaymentTerms
     ,''                                 AS LineType
     ,''                                 AS FlexFieldId1
