@@ -1,7 +1,8 @@
 CREATE VIEW [dm_procurement].[vw_dim_Supplier]
 AS
 SELECT
-    CAST(CAST(SupplierID AS INT) AS VARCHAR)    AS SupplierID               --trim leading zeros
+    REPLACE(LTRIM(REPLACE(SupplierID,'0',' ')),' ','0')   
+                                                AS SupplierID               --trim leading zeros
     ,NULL                                       AS SupplierLocationId
     ,SupplierID                                 AS SupplierName
     ,StreetName                                 AS StreetAddress
@@ -56,4 +57,5 @@ SELECT
     ,''                                         AS FlexField1
     ,''                                         AS FlexField2
     ,''                                         AS FlexField3
+    ,Global_Local
 FROM [edw].[dim_Supplier]
