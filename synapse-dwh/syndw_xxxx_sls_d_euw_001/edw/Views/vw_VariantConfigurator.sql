@@ -20,17 +20,17 @@ FROM
 --The reason for using STRING_AGG is some Sales Order Items have multiple values in the CharValueDescription
 --at least for CharatericticName "ZCH_MAT_DESCRIPTION_S" .
 --For these cases, we concate the values using a space in between, and save the value as CharValueDescription.
-SELECT DISTINCT
+SELECT
     [SalesDocument] collate SQL_Latin1_General_CP1_CS_AS AS SalesDocument,
     [SalesDocumentItem] collate SQL_Latin1_General_CP1_CS_AS AS SalesDocumentItem,
     [ProductID],
-    [ProductExternalID],   
+    [ProductExternalID],
     [CharacteristicName],
     STRING_AGG([CharValueDescription],' ') AS [CharValueDescription], 
     [t_applicationId]
 FROM
     ZCV_active
-where CharacteristicName='MAT_DESCRIPTION_S'
+WHERE [CharacteristicName]='MAT_DESCRIPTION_S'
 GROUP BY
     [SalesDocument] collate SQL_Latin1_General_CP1_CS_AS,
     [SalesDocumentItem] collate SQL_Latin1_General_CP1_CS_AS,
@@ -49,7 +49,7 @@ SELECT
     [t_applicationId]
 FROM
     ZCV_active
-where CharacteristicName<>'MAT_DESCRIPTION_S'
+WHERE [CharacteristicName]<>'MAT_DESCRIPTION_S'
 )
 SELECT 
      [SalesDocument]
