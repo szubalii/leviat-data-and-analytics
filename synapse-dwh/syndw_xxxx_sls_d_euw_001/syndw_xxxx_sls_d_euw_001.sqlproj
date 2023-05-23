@@ -616,6 +616,7 @@
     <Build Include="dm_sales\Views\vw_fact_SalesOrderItem_filtered.sql" />
     <Build Include="dm_sales\Views\vw_fact_SalesOrderItem_narrow.sql" />
     <Build Include="dm_sales\Views\vw_fact_SalesQuotationItem.sql" />
+    <Build Include="dm_sales\Views\vw_dim_ScheduleLineStatus.sql" />
     <Build Include="base_s4h_cax\Tables\I_TotalSDDocReferenceStatusT.sql" />
     <Build Include="base_s4h_cax\Tables\I_OverallSDDocumentRjcnStatusT.sql" />
     <Build Include="base_s4h_cax\Tables\I_SDDocumentRejectionStatusT.sql" />
