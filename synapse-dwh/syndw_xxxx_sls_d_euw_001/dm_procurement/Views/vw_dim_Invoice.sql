@@ -12,15 +12,15 @@ SELECT
     ,Invoice.DocumentCurrencyID         AS AmountCurrency
     ,SIIPOR.PurchasingDocumentItemShortText AS Description
     ,PDI.MaterialGroupID                AS CommodityId
-    ,CAST(CAST(PDI.MaterialID AS INT) AS VARCHAR)
+    ,REPLACE(LTRIM(REPLACE(PDI.MaterialID,'0',' ')),' ','0')
                                         AS PartNumber
     ,''                                 AS PartRevisionNumber
     ,PDI.OrderPriceUnit                 AS UnitOfMeasure
-    ,CAST(CAST(PD.SupplierID AS INT) AS VARCHAR)
+    ,REPLACE(LTRIM(REPLACE(PD.SupplierID,'0',' ')),' ','0')
                                         AS SupplierId
     ,''                                 AS SupplierLocationId
     ,PD.CreatedByUser                   AS RequesterId
-    ,CAST(CAST(PDI.GLAccountID AS INT) AS VARCHAR)
+    ,REPLACE(LTRIM(REPLACE(PDI.GLAccountID,'0',' ')),' ','0')
                                         AS AccountId
     ,''                                 AS AccountCompanyCode
     ,PD.PurchasingOrganizationID        AS CompanySiteId
