@@ -350,6 +350,10 @@
     <Build Include="base_s4h_cax\Tables\I_GLAccountLineItemRawData_202303.sql" />
     <Build Include="base_s4h_cax\Tables\I_GLAccountLineItemRawData_202304.sql" />
     <Build Include="base_s4h_cax\Tables\I_GLAccountLineItemRawData_202305.sql" />
+    <Build Include="base_s4h_cax\Tables\I_GLAccountLineItemRawData_202306.sql" />
+    <Build Include="base_s4h_cax\Tables\I_GLAccountLineItemRawData_202307.sql" />
+    <Build Include="base_s4h_cax\Tables\I_GLAccountLineItemRawData_202308.sql" />
+    <Build Include="base_s4h_cax\Tables\I_GLAccountLineItemRawData_202309.sql" />
     <Build Include="base_s4h_cax\Tables\I_GLAccountLineItemRawData_upto2022.sql" />
     <Build Include="base_s4h_cax\Tables\I_GLAccountLineItemRawData_delta.sql" />
     <Build Include="base_s4h_cax\Tables\I_GLAccountLineItemRawData_active.sql" />
