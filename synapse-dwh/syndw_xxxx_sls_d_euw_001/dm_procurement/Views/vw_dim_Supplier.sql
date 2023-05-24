@@ -57,5 +57,4 @@ SELECT
     ,''                                         AS FlexField1
     ,''                                         AS FlexField2
     ,''                                         AS FlexField3
-    ,Global_Local
 FROM [edw].[dim_Supplier]

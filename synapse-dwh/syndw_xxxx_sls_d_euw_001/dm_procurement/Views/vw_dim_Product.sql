@@ -4,11 +4,7 @@ WITH dm_sales_product AS
 (
     SELECT
         P.[ProductExternalID],
-        P.[Product],
-        P.[EClassCode],                 
-        P.[EClassCategory],             
-        P.[EClassCategoryDescription],  
-        P.[Classification]             
+        P.[Product]          
     FROM
         [edw].[dim_Product] P
 
@@ -16,11 +12,7 @@ UNION ALL
 
     SELECT
         [ProductExternalID],
-        [Product],
-        NULL,
-        NULL,
-        NULL,
-        NULL
+        [Product]
     FROM
         [edw].[dim_AXProductSAPHierarchy]
 )
@@ -47,8 +39,4 @@ SELECT
     ,''                             AS ForecastUsage1
     ,''                             AS ForecastUsage2
     ,''                             AS ForecastUsage3
-    ,[EClassCode]                 
-    ,[EClassCategory]             
-    ,[EClassCategoryDescription]
-    ,[Classification] 
 FROM dm_sales_product
