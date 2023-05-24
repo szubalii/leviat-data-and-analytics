@@ -8,8 +8,8 @@ WITH ZCV_active AS (SELECT
     --CharacteristicName without prefix 'ZCH_'
     RIGHT([CharacteristicName],LEN([CharacteristicName])-4) AS [CharacteristicName],
     CASE
-      WHEN [DecimalValueFrom]<>0 THEN CAST([DecimalValueFrom] AS varchar)
-      WHEN [DecimalValueFrom]=0 AND [CharValue]<>[CharValueDescription] THEN CONCAT([CharValue],'_',[CharValueDescription])
+      WHEN [DecimalValueFrom]<> 0 OR ([DecimalValueFrom]=0 AND [CharValue]='' AND ISNULL([CharValueDescription],'') = '') THEN CAST([DecimalValueFrom] AS NVARCHAR)
+      WHEN [DecimalValueFrom]=0 AND [CharValue]<>[CharValueDescription] AND ISNULL([CharValueDescription],'') <> '' THEN CONCAT([CharValue],'_',[CharValueDescription])
       ELSE COALESCE([CharValue],[CharValueDescription])
     END AS [CharValueDescription],
     [t_applicationId]
@@ -20,16 +20,17 @@ FROM
 --The reason for using STRING_AGG is some Sales Order Items have multiple values in the CharValueDescription
 --at least for CharatericticName "ZCH_MAT_DESCRIPTION_S" .
 --For these cases, we concate the values using a space in between, and save the value as CharValueDescription.
-SELECT 
+SELECT
     [SalesDocument] collate SQL_Latin1_General_CP1_CS_AS AS SalesDocument,
     [SalesDocumentItem] collate SQL_Latin1_General_CP1_CS_AS AS SalesDocumentItem,
     [ProductID],
-    [ProductExternalID],   
+    [ProductExternalID],
     [CharacteristicName],
     STRING_AGG([CharValueDescription],' ') AS [CharValueDescription], 
     [t_applicationId]
 FROM
     ZCV_active
+WHERE [CharacteristicName]='MAT_DESCRIPTION_S'
 GROUP BY
     [SalesDocument] collate SQL_Latin1_General_CP1_CS_AS,
     [SalesDocumentItem] collate SQL_Latin1_General_CP1_CS_AS,
@@ -37,6 +38,18 @@ GROUP BY
     [ProductExternalID],
     [CharacteristicName], 
     [t_applicationId] 
+UNION ALL
+SELECT 
+    [SalesDocument] collate SQL_Latin1_General_CP1_CS_AS AS SalesDocument,
+    [SalesDocumentItem] collate SQL_Latin1_General_CP1_CS_AS AS SalesDocumentItem,
+    [ProductID],
+    [ProductExternalID],   
+    [CharacteristicName],
+    [CharValueDescription], 
+    [t_applicationId]
+FROM
+    ZCV_active
+WHERE [CharacteristicName]<>'MAT_DESCRIPTION_S'
 )
 SELECT 
      [SalesDocument]
