@@ -31,7 +31,7 @@ WITH DeliveryItem AS (
                     ,SDSL.[SalesDocumentItem]
                 ORDER BY SDSL.[ConfirmedDeliveryDate]
                     ,SDSL.[ScheduleLine]
-            )                                           AS RunningSumDelivered
+            )                                           AS SDSLOrderQtyRunningSum
     FROM [edw].[dim_SalesDocumentScheduleLine]         SDSL
     LEFT JOIN DeliveryItem
         ON SDSL.[SalesDocumentID] = DeliveryItem.[ReferenceSDDocument]
@@ -39,23 +39,22 @@ WITH DeliveryItem AS (
 )
 , SDI AS (
     SELECT
-        SDI.[SalesDocument]
-        ,SDI.[SalesDocumentItem]
-        ,SDI.CurrencyID
-        ,SDI.[CostAmount]                       AS LocalCostAmount
-        ,SDI.[CostAmount]*rate_eur.ExchangeRate AS EURCostAmount
-        ,SDI.[CostAmount]*rate_usd.ExchangeRate AS USDCostAmount
-    FROM [edw].[fact_SalesDocumentItem] SDI
-    JOIN [edw].[vw_CurrencyConversionRate] rate_eur
-        ON SDI.CurrencyID = rate_eur.SourceCurrency COLLATE DATABASE_DEFAULT
-        AND SDI.CreationDate BETWEEN rate_eur.ExchangeRateEffectiveDate and rate_eur.LastDay
-        AND rate_eur.TargetCurrency = 'EUR'
-        AND rate_eur.CurrencyTypeID=30
-    JOIN [edw].[vw_CurrencyConversionRate] rate_usd
-        ON SDI.CurrencyID = rate_usd.SourceCurrency COLLATE DATABASE_DEFAULT
-        AND SDI.CreationDate BETWEEN rate_usd.ExchangeRateEffectiveDate and rate_usd.LastDay
-        AND rate_usd.TargetCurrency = 'USD'
-    WHERE SDI.CurrencyTypeID='00'
+        SDILocal.[SalesDocument]
+        ,SDILocal.[SalesDocumentItem]
+        ,SDILocal.CurrencyID
+        ,SDILocal.[NetAmount]                       AS LocalNetAmount
+        ,SDIEUR.[NetAmount]                         AS EURNetAmount
+        ,SDIUSD.[NetAmount]                         AS USDNetAmount
+    FROM [edw].[fact_SalesDocumentItem] SDILocal
+    JOIN [edw].[fact_SalesDocumentItem] SDIEUR
+        ON SDILocal.SalesDocument = SDIEUR.SalesDocument
+        AND SDILocal.SalesDocumentItem = SDIEUR.SalesDocumentItem
+        AND SDIEUR.CurrencyTypeID = '30'
+    JOIN [edw].[fact_SalesDocumentItem] SDIUSD
+        ON SDILocal.SalesDocument = SDIUSD.SalesDocument
+        AND SDILocal.SalesDocumentItem = SDIUSD.SalesDocumentItem
+        AND SDIUSD.CurrencyTypeID = '40'
+    WHERE SDILocal.CurrencyTypeID='10'
 )
 SELECT
     SDSL.[SalesDocumentID]     
@@ -66,17 +65,17 @@ SELECT
     ,SDSL.[ConfirmedQty]
     ,SDSL.[TotalOrderQty]
     ,SDSL.[TotalDelivered]
-    ,SDSL.[RunningSumDelivered]
+    ,SDSL.[SDSLOrderQtyRunningSum]
     ,CASE
-        WHEN SDSL.RunningSumDelivered <= SDSL.TotalDelivered
+        WHEN SDSL.SDSLOrderQtyRunningSum <= SDSL.TotalDelivered
         THEN 'Closed'
         ELSE 'Open'
     END                             AS SchLineStatus
-    ,SDSL.[ConfirmedQty] / SDSL.[TotalOrderQty] * SDI.[LocalCostAmount]
+    ,SDSL.[ConfirmedQty] / SDSL.[TotalOrderQty] * SDI.[LocalNetAmount]
                                     AS ValueConfirmedQuantityLocal
-    ,SDSL.[ConfirmedQty] / SDSL.[TotalOrderQty] * SDI.[EURCostAmount]
+    ,SDSL.[ConfirmedQty] / SDSL.[TotalOrderQty] * SDI.[EURNetAmount]
                                     AS ValueConfirmedQuantityEUR
-    ,SDSL.[ConfirmedQty] / SDSL.[TotalOrderQty] * SDI.[USDCostAmount]
+    ,SDSL.[ConfirmedQty] / SDSL.[TotalOrderQty] * SDI.[USDNetAmount]
                                     AS ValueConfirmedQuantityUSD   
     ,SDI.CurrencyID
 FROM SDSL
