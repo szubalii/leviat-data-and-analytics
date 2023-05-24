@@ -1,6 +1,6 @@
 ﻿CREATE VIEW [edw].[vw_BillingDocumentItemPrcgElmnt]
 	AS
-WITH IBDIPE_Local AS
+WITH IBDIPE AS
 (
    SELECT
 		 IBDIPE.[BillingDocument]
@@ -8,6 +8,8 @@ WITH IBDIPE_Local AS
 		,BDI.[CurrencyID]
 		,BDI.[BillingDocumentDate]
 		,COALESCE(BDI.[ExchangeRate], 1) AS [ExchangeRate]
+		,rate_eur.ExchangeRate as EURExchangeRate
+        ,rate_usd.ExchangeRate as USDExchangeRate
 		,[PricingProcedureStep]
 		,[PricingProcedureCounter]
 		,[ConditionApplication]
@@ -54,118 +56,16 @@ WITH IBDIPE_Local AS
 	LEFT JOIN
 		   [edw].[fact_BillingDocumentItem] BDI
 		   ON edw.svf_getNaturalKey ( IBDIPE.BillingDocument,IBDIPE.BillingDocumentItem,10) = BDI.[nk_fact_BillingDocumentItem] 
-),
-
-IBDIPE_30 AS
-(
-   SELECT 
-		 [BillingDocument]
-		,[BillingDocumentItem]
-		,'EUR' AS [CurrencyID]
-		,[BillingDocumentDate]
-	    ,ExchangeRate.[ExchangeRate] AS [ExchangeRate]
-		,[PricingProcedureStep]
-		,[PricingProcedureCounter]
-		,[ConditionApplication]
-		,[ConditionType]
-		,[PricingDateTime]
-		,[ConditionCalculationType]
-		,[ConditionBaseValue]*ExchangeRate.[ExchangeRate] AS ConditionBaseValue
-		,[ConditionRateValue]
-		,[ConditionCurrency]
-		,[ConditionQuantity]
-		,[ConditionQuantityUnit]
-		,[ConditionCategory]
-		,[ConditionIsForStatistics]
-		,[PricingScaleType]
-		,[IsRelevantForAccrual]
-		,[CndnIsRelevantForInvoiceList]
-		,[ConditionOrigin]
-		,[IsGroupCondition]
-		,[ConditionRecord]
-		,[ConditionSequentialNumber]
-		,[TaxCode]
-		,[WithholdingTaxCode]
-		,[CndnRoundingOffDiffAmount]
-		,[ConditionAmount] * ExchangeRate.[ExchangeRate] as ConditionAmount
-		,[TransactionCurrencyID]
-		,[ConditionControl]
-		,[ConditionInactiveReason]
-		,[ConditionClass]
-		,[PrcgProcedureCounterForHeader]
-		,[FactorForConditionBasisValue]
-		,[StructureCondition]
-		,[PeriodFactorForCndnBasisValue]
-		,[PricingScaleBasis]
-		,[ConditionScaleBasisValue]
-		,[ConditionScaleBasisUnit]
-		,[ConditionScaleBasisCurrency]
-		,[CndnIsRelevantForIntcoBilling]
-		,[ConditionIsManuallyChanged]
-		,[ConditionIsForConfiguration]
-		,[VariantCondition]
-		,IBDIPE.[t_applicationId]
-    FROM  IBDIPE_Local AS IBDIPE
-    LEFT JOIN [edw].[vw_CurrencyConversionRate] ExchangeRate
-        ON IBDIPE.[CurrencyID] = ExchangeRate.[SourceCurrency]
-        AND IBDIPE.[BillingDocumentDate] BETWEEN ExchangeRate.[ExchangeRateEffectiveDate] AND ExchangeRate.[LastDay]   
-    WHERE ExchangeRate.CurrencyTypeID ='30'
-),
-
-IBDIPE_40 AS
-(
-   SELECT 
-		 [BillingDocument]
-		,[BillingDocumentItem]
-		,'USD' AS [CurrencyID]
-		,[BillingDocumentDate]
-	    ,ExchangeRate.[ExchangeRate] AS [ExchangeRate]
-		,[PricingProcedureStep]
-		,[PricingProcedureCounter]
-		,[ConditionApplication]
-		,[ConditionType]
-		,[PricingDateTime]
-		,[ConditionCalculationType]
-		,[ConditionBaseValue]*ExchangeRate.[ExchangeRate] AS ConditionBaseValue
-		,[ConditionRateValue]
-		,[ConditionCurrency]
-		,[ConditionQuantity]
-		,[ConditionQuantityUnit]
-		,[ConditionCategory]
-		,[ConditionIsForStatistics]
-		,[PricingScaleType]
-		,[IsRelevantForAccrual]
-		,[CndnIsRelevantForInvoiceList]
-		,[ConditionOrigin]
-		,[IsGroupCondition]
-		,[ConditionRecord]
-		,[ConditionSequentialNumber]
-		,[TaxCode]
-		,[WithholdingTaxCode]
-		,[CndnRoundingOffDiffAmount]
-		,[ConditionAmount] * ExchangeRate.[ExchangeRate] as ConditionAmount
-		,[TransactionCurrencyID]
-		,[ConditionControl]
-		,[ConditionInactiveReason]
-		,[ConditionClass]
-		,[PrcgProcedureCounterForHeader]
-		,[FactorForConditionBasisValue]
-		,[StructureCondition]
-		,[PeriodFactorForCndnBasisValue]
-		,[PricingScaleBasis]
-		,[ConditionScaleBasisValue]
-		,[ConditionScaleBasisUnit]
-		,[ConditionScaleBasisCurrency]
-		,[CndnIsRelevantForIntcoBilling]
-		,[ConditionIsManuallyChanged]
-		,[ConditionIsForConfiguration]
-		,[VariantCondition]
-		,IBDIPE.[t_applicationId]
-    FROM  IBDIPE_Local AS IBDIPE
-    LEFT JOIN [edw].[vw_CurrencyConversionRate] ExchangeRate
-        ON IBDIPE.[CurrencyID] = ExchangeRate.[SourceCurrency]
-        AND IBDIPE.[BillingDocumentDate] BETWEEN ExchangeRate.[ExchangeRateEffectiveDate] AND ExchangeRate.[LastDay]   
-    WHERE ExchangeRate.CurrencyTypeID ='40'
+	JOIN [edw].[vw_CurrencyConversionRate] rate_eur
+        ON BDI.CurrencyID = rate_eur.SourceCurrency COLLATE DATABASE_DEFAULT
+        AND BDI.BillingDocumentDate BETWEEN rate_eur.ExchangeRateEffectiveDate and rate_eur.LastDay
+        AND rate_eur.TargetCurrency = 'EUR'
+        AND rate_eur.CurrencyTypeID=30
+    JOIN [edw].[vw_CurrencyConversionRate] rate_usd
+        ON BDI.CurrencyID = rate_usd.SourceCurrency COLLATE DATABASE_DEFAULT
+        AND BDI.BillingDocumentDate BETWEEN rate_usd.ExchangeRateEffectiveDate and rate_usd.LastDay
+        AND rate_usd.TargetCurrency = 'USD'
+        AND rate_usd.CurrencyTypeID=40
 )
 
 /*
@@ -283,7 +183,7 @@ IBDIPE_40 AS
 		,[VariantCondition]
 		,IBDIPE.[t_applicationId]  
 		FROM 
-		    IBDIPE_Local as IBDIPE
+		    IBDIPE
 		CROSS JOIN 
 		    [edw].[dim_CurrencyType] CR
 		WHERE 
@@ -301,14 +201,14 @@ IBDIPE_40 AS
 		,CR.[CurrencyTypeID]
 		,CR.[CurrencyType]
 		,'EUR' AS [CurrencyID]
-	    ,[ExchangeRate]
+	    ,[EURExchangeRate] as ExchangeRate
 		,[PricingProcedureStep]
 		,[PricingProcedureCounter]
 		,[ConditionApplication]
 		,[ConditionType]
 		,[PricingDateTime]
 		,[ConditionCalculationType]
-		,[ConditionBaseValue]
+		,[ConditionBaseValue]*EURExchangeRate as ConditionBaseValue
 		,[ConditionRateValue]
 		,[ConditionCurrency]
 		,[ConditionQuantity]
@@ -325,7 +225,7 @@ IBDIPE_40 AS
 		,[TaxCode]
 		,[WithholdingTaxCode]
 		,[CndnRoundingOffDiffAmount]
-		,[ConditionAmount]
+		,[ConditionAmount]*EURExchangeRate as ConditionAmount
 		,[TransactionCurrencyID]
 		,[ConditionControl]
 		,[ConditionInactiveReason]
@@ -342,8 +242,8 @@ IBDIPE_40 AS
 		,[ConditionIsManuallyChanged]
 		,[ConditionIsForConfiguration]
 		,[VariantCondition]
-		,IBDIPE_30.[t_applicationId]
-    FROM  IBDIPE_30
+		,IBDIPE.[t_applicationId]
+    FROM  IBDIPE
     CROSS JOIN 
 		    [edw].[dim_CurrencyType] CR
 		WHERE 
@@ -360,14 +260,14 @@ UNION ALL
 		,CR.[CurrencyTypeID]
 		,CR.[CurrencyType]
 		,'USD' AS [CurrencyID]
-	    ,[ExchangeRate]
+	    ,[USDExchangeRate] as ExchangeRate
 		,[PricingProcedureStep]
 		,[PricingProcedureCounter]
 		,[ConditionApplication]
 		,[ConditionType]
 		,[PricingDateTime]
 		,[ConditionCalculationType]
-		,[ConditionBaseValue]
+		,[ConditionBaseValue]*USDExchangeRate as ConditionBaseValue
 		,[ConditionRateValue]
 		,[ConditionCurrency]
 		,[ConditionQuantity]
@@ -384,7 +284,7 @@ UNION ALL
 		,[TaxCode]
 		,[WithholdingTaxCode]
 		,[CndnRoundingOffDiffAmount]
-		,[ConditionAmount]
+		,[ConditionAmount]*USDExchangeRate as ConditionAmount
 		,[TransactionCurrencyID]
 		,[ConditionControl]
 		,[ConditionInactiveReason]
@@ -401,8 +301,8 @@ UNION ALL
 		,[ConditionIsManuallyChanged]
 		,[ConditionIsForConfiguration]
 		,[VariantCondition]
-		,IBDIPE_40.[t_applicationId]
-    FROM  IBDIPE_40
+		,IBDIPE.[t_applicationId]
+    FROM  IBDIPE
     CROSS JOIN 
 		    [edw].[dim_CurrencyType] CR
 		WHERE 
