@@ -22,7 +22,7 @@ WITH DeliveryItem AS (
             OVER (
                 PARTITION BY SDSL.[SalesDocumentID]     
                     ,SDSL.[SalesDocumentItem]
-            )                                           AS TotalOrderQty
+            )                                           AS TotalOrderQty    --switched to SDI.OrderQuantity
         ,COALESCE(DeliveryItem.[ActualDeliveredQtyInBaseUnit], 0)
                                                         AS TotalDelivered
         ,SUM(SDSL.[ScheduleLineOrderQuantity])
@@ -42,6 +42,10 @@ WITH DeliveryItem AS (
         SDILocal.[SalesDocument]
         ,SDILocal.[SalesDocumentItem]
         ,SDILocal.CurrencyID
+        ,SDILocal.OrderQuantity
+        ,SDILocal.[OrderType]
+        ,SDILocal.[ItemOrderStatus]
+        ,SDILocal.[OrderStatus]
         ,SDILocal.[NetAmount]                       AS LocalNetAmount
         ,SDIEUR.[NetAmount]                         AS EURNetAmount
         ,SDIUSD.[NetAmount]                         AS USDNetAmount
@@ -63,7 +67,7 @@ SELECT
     ,SDSL.[RequestedDeliveryDate]
     ,SDSL.[ConfirmedDeliveryDate]
     ,SDSL.[ConfirmedQty]
-    ,SDSL.[TotalOrderQty]
+    ,SDI.[OrderQuantity]            AS [TotalOrderQty]
     ,SDSL.[TotalDelivered]
     ,SDSL.[SDSLOrderQtyRunningSum]
     ,CASE
@@ -71,6 +75,9 @@ SELECT
         THEN 'Closed'
         ELSE 'Open'
     END                             AS SchLineStatus
+    ,SDI.[OrderType]
+    ,SDI.[ItemOrderStatus]
+    ,SDI.[OrderStatus]
     ,SDSL.[ConfirmedQty] / SDSL.[TotalOrderQty] * SDI.[LocalNetAmount]
                                     AS ValueConfirmedQuantityLocal
     ,SDSL.[ConfirmedQty] / SDSL.[TotalOrderQty] * SDI.[EURNetAmount]
