@@ -14,13 +14,7 @@ WITH IBDIPE_Local AS
 		,[ConditionType]
 		,[PricingDateTime]
         ,[ConditionCalculationType]
-		, CONVERT(decimal(19,6), 
-			CASE 
-			 		WHEN BDI.[ExchangeRate] IS NOT NULL 
-					THEN [ConditionBaseValue] * BDI.[ExchangeRate] 
-					ELSE [ConditionBaseValue] 
-			END) 
-					as [ConditionBaseValue]
+		, CONVERT(decimal(19,6),[ConditionBaseValue] * COALESCE(BDI.[ExchangeRate] ,1)) as [ConditionBaseValue]
 		,[ConditionRateValue]
 		,[ConditionCurrency]
 		,[ConditionQuantity]
@@ -37,13 +31,7 @@ WITH IBDIPE_Local AS
 		,[TaxCode]
 		,[WithholdingTaxCode]
 		,[CndnRoundingOffDiffAmount] 
-		, CONVERT(decimal(19,6), 
-			CASE 
-					WHEN BDI.[ExchangeRate] IS NOT NULL 
-					THEN [ConditionAmount] * BDI.[ExchangeRate] 
-					ELSE [ConditionAmount] 
-			END) 
-					as [ConditionAmount]
+		, CONVERT(decimal(19,6),[ConditionAmount] * COALESCE(BDI.[ExchangeRate] ,1)) as [ConditionAmount]
 		,[TransactionCurrency] as [TransactionCurrencyID]
 		,[ConditionControl]
 		,[ConditionInactiveReason]
