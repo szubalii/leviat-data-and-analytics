@@ -3571,7 +3571,7 @@
         "update_mode": "Full",
         "base_table_name": "I_GLAccountLineItemRawData_202307",
         "pk_field_names": "SOURCELEDGER, COMPANYCODE, FISCALYEAR, ACCOUNTINGDOCUMENT, LEDGERGLLINEITEM",
-        "schedule_recurrence": "A"
+        "schedule_recurrence": "D"
       },{
         "entity_id": 590,
         "entity_name": "I_GLAccountLineItemRawData_F_202308",
@@ -3582,7 +3582,7 @@
         "update_mode": "Full",
         "base_table_name": "I_GLAccountLineItemRawData_202308",
         "pk_field_names": "SOURCELEDGER, COMPANYCODE, FISCALYEAR, ACCOUNTINGDOCUMENT, LEDGERGLLINEITEM",
-        "schedule_recurrence": "A"
+        "schedule_recurrence": "D"
       },{
         "entity_id": 591,
         "entity_name": "I_GLAccountLineItemRawData_F_202309",
@@ -3593,7 +3593,7 @@
         "update_mode": "Full",
         "base_table_name": "I_GLAccountLineItemRawData_202309",
         "pk_field_names": "SOURCELEDGER, COMPANYCODE, FISCALYEAR, ACCOUNTINGDOCUMENT, LEDGERGLLINEITEM",
-        "schedule_recurrence": "A"
+        "schedule_recurrence": "D"
       },{
         "entity_id": 575,
         "entity_name": "I_GLAccountLineItemRawData_F_upto2022",
