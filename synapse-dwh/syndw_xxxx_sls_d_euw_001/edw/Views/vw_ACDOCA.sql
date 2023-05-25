@@ -1351,7 +1351,7 @@ SELECT
        [JrnlEntryItemObsoleteReasonID],
        GLAccountLineItemRawData.[GLAccountID],
        GLAccountLineItemRawData.[CostCenterID],
-       [ProfitCenterID],
+       GLAccountLineItemRawData.[ProfitCenterID],
        [FunctionalAreaID],
        [BusinessAreaID],          
        [SegmentID],
@@ -1445,6 +1445,7 @@ SELECT
        PA.ICSalesDocumentID,
        PA.ICSalesDocumentItemID,
        [SoldProduct],
+       ProfitCenterTypeID,
        GLAccountLineItemRawData.[t_applicationId],
        GLAccountLineItemRawData.[t_extractionDtm]
 FROM GLAccountLineItemRawData
@@ -1466,6 +1467,8 @@ LEFT JOIN [edw].[vw_ProductHierarchyVariantConfigCharacteristic_delta] AS VC
             THEN PA.ICSalesDocumentItemID COLLATE DATABASE_DEFAULT
             ELSE GLAccountLineItemRawData.SalesDocumentItemID
         END 
+LEFT JOIN edw.dim_ProfitCenter PC
+    ON GLAccountLineItemRawData.ProfitCenterID=PC.ProfitCenterID
 -- WHERE
 --     GLAccountLineItemRawData.MANDT = 200 MPS 2021/11/01: commented out due to different client values between dev,qas, and prod
 

@@ -247,6 +247,12 @@ SELECT
     CurrType.[CurrencyType],
     GLALIRD.[SalesOfficeID],
     GLALIRD.[SoldProduct],
+    CASE 
+         WHEN GLALIRD.ProfitCenterTypeID = '2'  and GLALIRD.CustomerID like '005%' then 'External'
+         WHEN GLALIRD.ProfitCenterTypeID = '3'  and GLALIRD.CustomerID like '005%' then 'Intracompany'  
+         WHEN GLALIRD.ProfitCenterTypeID in ('2', '3')  and GLALIRD.CustomerID like 'I%' then 'Intercompany'
+         ELSE ''
+    END AS CustomerCategory,
     GLALIRD.[t_applicationId],
     GLALIRD.[t_extractionDtm]
 FROM [edw].[fact_ACDOCA] GLALIRD
