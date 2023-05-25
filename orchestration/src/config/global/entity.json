@@ -715,7 +715,8 @@
         "update_mode": "Full",
         "base_table_name": "I_CustomerSalesArea",
         "pk_field_names": "CUSTOMER, SALESORGANIZATION, DISTRIBUTIONCHANNEL, DIVISION",
-        "schedule_recurrence": "A"
+        "schedule_recurrence": "W",
+        "schedule_day": 1
       },
       {
         "entity_id": 122,
