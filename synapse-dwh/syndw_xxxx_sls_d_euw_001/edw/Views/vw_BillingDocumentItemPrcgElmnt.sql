@@ -28,7 +28,7 @@ UNION ALL
 		,CR.CurrencyTypeID
 		,CurrType.[CurrencyType]
 		,case when CR.CurrencyTypeID = '00' then TransactionCurrency else CR.TargetCurrency end  as CurrencyID
-		,case when CR.CurrencyTypeID = '10' then COALESCE(BDI.ExchangeRate, 1) else COALESCE(CR.[ExchangeRate], 1) end as ExchangeRate
+		,case when CR.CurrencyTypeID = '10' then COALESCE(BDI.ExchangeRate, 1) else CR.[ExchangeRate] end as ExchangeRate
 		,[PricingProcedureStep]
 		,[PricingProcedureCounter]
 		,[ConditionApplication]
@@ -38,7 +38,7 @@ UNION ALL
 		,CONVERT(decimal(19,6),
                            case when CR.CurrencyTypeID = '00' then ConditionBaseValue
                                 when CR.CurrencyTypeID = '10' then [ConditionBaseValue] * COALESCE(BDI.[ExchangeRate] ,1)
-                               else [ConditionBaseValue] * COALESCE(BDI.[ExchangeRate] ,1)*COALESCE(CR.[ExchangeRate], 1)
+                               else [ConditionBaseValue] * COALESCE(BDI.[ExchangeRate] ,1)*CR.[ExchangeRate]
                             end ) as ConditionBaseValue
 		,[ConditionRateValue]
 		,[ConditionCurrency]
@@ -59,7 +59,7 @@ UNION ALL
 		,CONVERT(decimal(19,6),
                           case when CR.CurrencyTypeID = '00' then ConditionAmount
                                when CR.CurrencyTypeID = '10' then [ConditionAmount] * COALESCE(BDI.[ExchangeRate] ,1)
-                               else [ConditionAmount] * COALESCE(BDI.[ExchangeRate] ,1)*COALESCE(CR.[ExchangeRate], 1)
+                               else [ConditionAmount] * COALESCE(BDI.[ExchangeRate] ,1)*CR.[ExchangeRate]
                            end ) as ConditionAmount
 		,[TransactionCurrency] as [TransactionCurrencyID]
 		,[ConditionControl]
