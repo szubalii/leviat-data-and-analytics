@@ -1,141 +1,89 @@
 ﻿CREATE VIEW [edw].[vw_BillingDocumentItemPrcgElmnt]
 	AS
-/*
-    Transaction currency data from S4H
-*/
+WITH CurrencyRate AS(
+     SELECT 
+     [SourceCurrency]
+    ,[TargetCurrency]
+    ,[ExchangeRateEffectiveDate]
+    ,[LastDay]
+    ,[ExchangeRate]
+    ,CONVERT (nvarchar(2),CurrencyTypeID) as CurrencyTypeID
+    FROM [edw].[vw_CurrencyConversionRate]
+UNION ALL
+    SELECT 
+     [SourceCurrency]
+    ,[TargetCurrency]
+    ,[ExchangeRateEffectiveDate]
+    ,[LastDay]
+    ,[ExchangeRate]
+    ,'00' as CurrencyTypeID
+    FROM  [edw].[vw_CurrencyConversionRate] 
+    WHERE CurrencyTypeID= '10'
+    )
+
 	SELECT 
-		 [BillingDocument]
-		,[BillingDocumentItem]
-		,edw.svf_getNaturalKey (BillingDocument,BillingDocumentItem,CR.CurrencyTypeID) as nk_BillingDocumentItem
-		,CR.[CurrencyTypeID]
-		,CR.[CurrencyType]
-		,[TransactionCurrency] as [CurrencyID]
-		,1.0 as [ExchangeRate]
-		,[PricingProcedureStep]
-		,[PricingProcedureCounter]
-		,[ConditionApplication]
-		,[ConditionType]
-		,[PricingDateTime]
-		,[ConditionCalculationType]
-		,[ConditionBaseValue]
-		,[ConditionRateValue]
-		,[ConditionCurrency]
-		,[ConditionQuantity]
-		,[ConditionQuantityUnit]
-		,[ConditionCategory]
-		,[ConditionIsForStatistics]
-		,[PricingScaleType]
-		,[IsRelevantForAccrual]
-		,[CndnIsRelevantForInvoiceList]
-		,[ConditionOrigin]
-		,[IsGroupCondition]
-		,[ConditionRecord]
-		,[ConditionSequentialNumber]
-		,[TaxCode]
-		,[WithholdingTaxCode]
-		,[CndnRoundingOffDiffAmount]
-		,[ConditionAmount]
-		,[TransactionCurrency] as [TransactionCurrencyID]
-		,[ConditionControl]
-		,[ConditionInactiveReason]
-		,[ConditionClass]
-		,[PrcgProcedureCounterForHeader]
-		,[FactorForConditionBasisValue]
-		,[StructureCondition]
-		,[PeriodFactorForCndnBasisValue]
-		,[PricingScaleBasis]
-		,[ConditionScaleBasisValue]
-		,[ConditionScaleBasisUnit]
-		,[ConditionScaleBasisCurrency]
-		,[CndnIsRelevantForIntcoBilling]
-		,[ConditionIsManuallyChanged]
-		,[ConditionIsForConfiguration]
-		,[VariantCondition]
-		,IBDIPE.[t_applicationId]
-    FROM 
-        [base_s4h_cax].[I_BillingDocumentItemPrcgElmnt] IBDIPE
-		-- WHERE [MANDT] = 200 MPS 2021/11/01: commented out due to different client values between dev,qas, and prod
-	CROSS JOIN 
-    [edw].[dim_CurrencyType] CR
-    WHERE 
-    CR.[CurrencyTypeID] = '00'
-
-	UNION ALL
-
-/*
-    Local Company Code currency data from S4H
-*/
-	SELECT
 		 IBDIPE.[BillingDocument]
 		,IBDIPE.[BillingDocumentItem]
 		,edw.svf_getNaturalKey (IBDIPE.BillingDocument,IBDIPE.BillingDocumentItem,CR.CurrencyTypeID) as nk_BillingDocumentItem
-		,CR.[CurrencyTypeID]
-		,CR.[CurrencyType]
-		,BDI.[CurrencyID]
-		,COALESCE(BDI.[ExchangeRate], 1) AS [ExchangeRate]
-		,[PricingProcedureStep]
-		,[PricingProcedureCounter]
-		,[ConditionApplication]
-		,[ConditionType]
-		,[PricingDateTime]
-        ,[ConditionCalculationType]
-		, CONVERT(decimal(19,6), 
-			CASE 
-			 		WHEN BDI.[ExchangeRate] IS NOT NULL 
-					THEN [ConditionBaseValue] * BDI.[ExchangeRate] 
-					ELSE [ConditionBaseValue] 
-			END) 
-					as [ConditionBaseValue]
-		,[ConditionRateValue]
-		,[ConditionCurrency]
-		,[ConditionQuantity]
-		,[ConditionQuantityUnit]
-		,[ConditionCategory]
-		,[ConditionIsForStatistics]
-		,[PricingScaleType]
-		,[IsRelevantForAccrual]
-		,[CndnIsRelevantForInvoiceList]
-		,[ConditionOrigin]
-		,[IsGroupCondition]
-		,[ConditionRecord]
-		,[ConditionSequentialNumber]
-		,[TaxCode]
-		,[WithholdingTaxCode]
-		,[CndnRoundingOffDiffAmount] 
-		, CONVERT(decimal(19,6), 
-			CASE 
-					WHEN BDI.[ExchangeRate] IS NOT NULL 
-					THEN [ConditionAmount] * BDI.[ExchangeRate] 
-					ELSE [ConditionAmount] 
-			END) 
-					as [ConditionAmount]
-		,[TransactionCurrency] as [TransactionCurrencyID]
-		,[ConditionControl]
-		,[ConditionInactiveReason]
-		,[ConditionClass]
-		,[PrcgProcedureCounterForHeader]
-		,[FactorForConditionBasisValue]
-		,[StructureCondition]
-		,[PeriodFactorForCndnBasisValue]
-		,[PricingScaleBasis]
-		,[ConditionScaleBasisValue]
-		,[ConditionScaleBasisUnit]
-		,[ConditionScaleBasisCurrency]
-		,[CndnIsRelevantForIntcoBilling]
-		,[ConditionIsManuallyChanged]
-		,[ConditionIsForConfiguration]
-		,[VariantCondition]
-		,IBDIPE.[t_applicationId]  
-		FROM 
-		    [base_s4h_cax].[I_BillingDocumentItemPrcgElmnt] IBDIPE
-		LEFT JOIN
-		   [edw].[fact_BillingDocumentItem] BDI
-		        on edw.svf_getNaturalKey ( IBDIPE.BillingDocument,IBDIPE.BillingDocumentItem,10) = BDI.[nk_fact_BillingDocumentItem] 
-		CROSS JOIN 
-		    [edw].[dim_CurrencyType] CR
-		WHERE 
-		    CR.[CurrencyTypeID] = '10'
-
-
-
-
+		,CR.CurrencyTypeID
+		,CurrType.[CurrencyType]
+		,case when CR.CurrencyTypeID = '00' then IBDIPE.TransactionCurrency else CR.TargetCurrency end  as CurrencyID
+		,case when CR.CurrencyTypeID = '10' then COALESCE(BDI.ExchangeRate, 1) else CR.[ExchangeRate] end as ExchangeRate
+		,IBDIPE.[PricingProcedureStep]
+		,IBDIPE.[PricingProcedureCounter]
+		,IBDIPE.[ConditionApplication]
+		,IBDIPE.[ConditionType]
+		,IBDIPE.[PricingDateTime]
+		,IBDIPE.[ConditionCalculationType]
+		,CONVERT(decimal(19,6),
+                           case when CR.CurrencyTypeID = '00' then ConditionBaseValue
+                                when CR.CurrencyTypeID = '10' then [ConditionBaseValue] * COALESCE(BDI.[ExchangeRate] ,1)
+                               else [ConditionBaseValue] * COALESCE(BDI.[ExchangeRate] ,1)*CR.[ExchangeRate]
+                            end ) as ConditionBaseValue
+		,IBDIPE.[ConditionRateValue]
+		,IBDIPE.[ConditionCurrency]
+		,IBDIPE.[ConditionQuantity]
+		,IBDIPE.[ConditionQuantityUnit]
+		,IBDIPE.[ConditionCategory]
+		,IBDIPE.[ConditionIsForStatistics]
+		,IBDIPE.[PricingScaleType]
+		,IBDIPE.[IsRelevantForAccrual]
+		,IBDIPE.[CndnIsRelevantForInvoiceList]
+		,IBDIPE.[ConditionOrigin]
+		,IBDIPE.[IsGroupCondition]
+		,IBDIPE.[ConditionRecord]
+		,IBDIPE.[ConditionSequentialNumber]
+		,IBDIPE.[TaxCode]
+		,IBDIPE.[WithholdingTaxCode]
+		,IBDIPE.[CndnRoundingOffDiffAmount]
+		,CONVERT(decimal(19,6),
+                          case when CR.CurrencyTypeID = '00' then ConditionAmount
+                               when CR.CurrencyTypeID = '10' then [ConditionAmount] * COALESCE(BDI.[ExchangeRate] ,1)
+                               else [ConditionAmount] * COALESCE(BDI.[ExchangeRate] ,1)*CR.[ExchangeRate]
+                           end ) as ConditionAmount
+		,IBDIPE.[TransactionCurrency] as [TransactionCurrencyID]
+		,IBDIPE.[ConditionControl]
+		,IBDIPE.[ConditionInactiveReason]
+		,IBDIPE.[ConditionClass]
+		,IBDIPE.[PrcgProcedureCounterForHeader]
+		,IBDIPE.[FactorForConditionBasisValue]
+		,IBDIPE.[StructureCondition]
+		,IBDIPE.[PeriodFactorForCndnBasisValue]
+		,IBDIPE.[PricingScaleBasis]
+		,IBDIPE.[ConditionScaleBasisValue]
+		,IBDIPE.[ConditionScaleBasisUnit]
+		,IBDIPE.[ConditionScaleBasisCurrency]
+		,IBDIPE.[CndnIsRelevantForIntcoBilling]
+		,IBDIPE.[ConditionIsManuallyChanged]
+		,IBDIPE.[ConditionIsForConfiguration]
+		,IBDIPE.[VariantCondition]
+		,IBDIPE.[t_applicationId]
+   	FROM 
+		 [base_s4h_cax].[I_BillingDocumentItemPrcgElmnt] IBDIPE
+	LEFT JOIN  [edw].[fact_BillingDocumentItem] BDI
+           ON edw.svf_getNaturalKey (IBDIPE.BillingDocument,IBDIPE.BillingDocumentItem,10) = BDI.[nk_fact_BillingDocumentItem] 
+	INNER JOIN CurrencyRate CR
+           ON BDI.CurrencyID = CR.SourceCurrency COLLATE DATABASE_DEFAULT
+           AND BDI.BillingDocumentDate BETWEEN CR.ExchangeRateEffectiveDate and CR.LastDay
+    INNER JOIN [edw].[dim_CurrencyType] CurrType
+        ON CR.CurrencyTypeID = CurrType.CurrencyTypeID

@@ -14,6 +14,7 @@ SELECT
 FROM
   [edw].[fact_BillingDocumentItemPrcgElmnt] 
 WHERE ([ConditionInactiveReason] is null or [ConditionInactiveReason]='')
+       and  [CurrencyTypeID] in ('00' ,'10')
 GROUP BY
           [BillingDocument]
          ,[BillingDocumentItem]

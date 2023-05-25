@@ -3,6 +3,7 @@
 WITH original AS (
     SELECT doc.[BillingDocument]
          , doc.[BillingDocumentItem]
+         , doc.nk_fact_BillingDocumentItem
          , doc.[CurrencyType]
          , dimCr.[CurrencyID]
          , dimCr.[Currency]
@@ -162,6 +163,9 @@ WITH original AS (
          , doc.[InOutID]
          , doc.CustomerGroupID
          , doc.[axbi_ItemNoCalc]
+         , case when BDPE.[ConditionType] = 'ZNET' then BDPE.[ConditionAmount] else NULL end as ZNET_NetValue
+         , case when BDPE.[ConditionType] = 'REA1' then BDPE.[ConditionAmount] else NULL end as REA1_RebateAccrual
+         , case when BDPE.[ConditionType] = 'ZNRV' then BDPE.[ConditionAmount] else NULL end as ZNRV_NetRevenue
          , doc.[t_applicationId]
          , doc.[t_extractionDtm]
     FROM [edw].[fact_BillingDocumentItem] doc
@@ -211,12 +215,17 @@ WITH original AS (
                        on dimC.[CountryID] = doc.[CountryID]
              left join [edw].[dim_SalesDocumentType] dimSDT
                        on dimSDT.[SalesDocumentTypeID] = doc.[SalesOrderTypeID]
+             left join [edw].[fact_BillingDocumentItemPrcgElmnt] BDPE
+                       on  doc.BillingDocument = BDPE.BillingDocument
+                       and doc.BillingDocumentItem = BDPE.BillingDocumentItem
+                       and doc.CurrencyTypeID = BDPE.CurrencyTypeID 
 
             WHERE doc.[CurrencyTypeID] <> '00' -- Transaction Currency
 )
 
 SELECT [BillingDocument]
       ,[BillingDocumentItem]
+      ,[nk_fact_BillingDocumentItem]
       ,[CurrencyType]
       ,[CurrencyID]
       ,[Currency]
@@ -379,6 +388,9 @@ SELECT [BillingDocument]
       ,[SoldToPartyCalculated]
       ,[InOutID]
       ,[axbi_ItemNoCalc]
+      ,ZNET_NetValue
+      ,REA1_RebateAccrual
+      ,ZNRV_NetRevenue
       ,[t_applicationId]
       ,[t_extractionDtm]
   FROM original
