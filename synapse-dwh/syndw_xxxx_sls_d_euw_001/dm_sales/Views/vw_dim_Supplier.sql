@@ -14,6 +14,7 @@ SELECT
     [StreetName],
     [DeletionIndicator],
     [SupplierCorporateGroup],
+    [Global_Local],
     [t_applicationId],
     [t_extractionDtm]    
 FROM [edw].[dim_Supplier]
