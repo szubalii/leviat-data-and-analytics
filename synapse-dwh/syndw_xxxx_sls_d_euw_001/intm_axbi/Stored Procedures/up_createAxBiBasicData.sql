@@ -348,8 +348,8 @@ BEGIN
 	,t_extractionDtm)
 	select distinct
 	DATAAREAID,
-	'ANAC-' + CAST([CUSTOMERID] as nvarchar),
-	[CUSTOMERNAME],
+	'ANAC-' + CAST([ACCOUNTNUM] as nvarchar),
+	[NAME],
 	INOUT,
 	CUSTOMERPILLAR,
 	' ',
@@ -359,7 +359,7 @@ BEGIN
 	@t_jobDtm as t_jobDtm,
 	@t_jobBy as t_jobBy,
 	REPLACE(reverse(SUBSTRING(reverse(t_filePath),5,10)),'_','-') as t_extractionDtm
-	from [base_ancon_uk].[CUSTTABLE_ANUK]
+	from [base_ancon_conolly_aus].[CUSTTABLE_ANAC]
 
 	delete from [intm_axbi].[dim_ITEMTABLE] where PRODUCTGROUPID = 'SCRAP'
 	delete from [base_ancon_uk].[ITEMTABLE_ANUK] where [CRH PRODUCTGROUPID] = 'SCRAP'
