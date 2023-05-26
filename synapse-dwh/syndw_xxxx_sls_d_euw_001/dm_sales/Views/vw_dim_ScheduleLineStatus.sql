@@ -1,5 +1,3 @@
-CREATE VIEW [dm_sales].[vw_dim_ScheduleLineStatus]
-AS
 WITH DeliveryItem AS (
     SELECT
         SUM([ActualDeliveredQtyInBaseUnit])     AS [ActualDeliveredQtyInBaseUnit]
@@ -17,15 +15,15 @@ WITH DeliveryItem AS (
         ,SDSL.[ScheduleLine]
         ,SDSL.[RequestedDeliveryDate]
         ,SDSL.[ConfirmedDeliveryDate]
-        ,SDSL.[ScheduleLineOrderQuantity]               AS ConfirmedQty
-        ,SUM(SDSL.[ScheduleLineOrderQuantity])
+        ,SDSL.[DeliveredQuantityInBaseUnit]             AS ConfirmedQty
+        ,SUM(SDSL.[DeliveredQuantityInBaseUnit])
             OVER (
                 PARTITION BY SDSL.[SalesDocumentID]     
                     ,SDSL.[SalesDocumentItem]
             )                                           AS TotalOrderQty    --switched to SDI.OrderQuantity
         ,COALESCE(DeliveryItem.[ActualDeliveredQtyInBaseUnit], 0)
                                                         AS TotalDelivered
-        ,SUM(SDSL.[ScheduleLineOrderQuantity])
+        ,SUM(SDSL.[DeliveredQuantityInBaseUnit])
             OVER (
                 PARTITION BY SDSL.[SalesDocumentID]     
                     ,SDSL.[SalesDocumentItem]
@@ -41,8 +39,9 @@ WITH DeliveryItem AS (
     SELECT
         SDILocal.[SalesDocument]
         ,SDILocal.[SalesDocumentItem]
-        ,SDILocal.CurrencyID
-        ,SDILocal.OrderQuantity
+        ,SDILocal.[CurrencyID]
+        ,SDILocal.[OrderQuantity] / SDILocal.[OrderToBaseQuantityDnmntr]
+                                                    AS OrderQntyIBU
         ,SDILocal.[OrderType]
         ,SDILocal.[ItemOrderStatus]
         ,SDILocal.[OrderStatus]
@@ -67,7 +66,7 @@ SELECT
     ,SDSL.[RequestedDeliveryDate]
     ,SDSL.[ConfirmedDeliveryDate]
     ,SDSL.[ConfirmedQty]
-    ,SDI.[OrderQuantity]            AS [TotalOrderQty]
+    ,SDI.[OrderQntyIBU]             AS [TotalOrderQty]
     ,SDSL.[TotalDelivered]
     ,SDSL.[SDSLOrderQtyRunningSum]
     ,CASE
