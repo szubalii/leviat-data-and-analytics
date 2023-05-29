@@ -108,7 +108,10 @@ LEFT OUTER JOIN
     ON
         cnt.[RuleID] = p.[RuleID]
 
-WHERE cnt.RuleID IN ('1.14_ALL')
+WHERE
+    cnt.RuleID IN ('1.14_ALL')
+    AND
+    p.ProductType <> 'ZTXT'
 
 GROUP BY
     cnt.[RuleID],
