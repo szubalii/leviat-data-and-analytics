@@ -110,8 +110,6 @@ LEFT OUTER JOIN
 
 WHERE
     cnt.RuleID IN ('1.14_ALL')
-    AND
-    p.ProductType <> 'ZTXT'
 
 GROUP BY
     cnt.[RuleID],
