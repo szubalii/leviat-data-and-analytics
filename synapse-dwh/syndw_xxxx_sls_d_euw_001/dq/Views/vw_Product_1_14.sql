@@ -162,3 +162,5 @@ WHERE
     ISNULL(psd.[AccountDetnProductGroup], '') = ''
     AND
     psd.IsMarkedForDeletion <> 'X'
+    AND
+    p.ProductType <> 'ZTXT'

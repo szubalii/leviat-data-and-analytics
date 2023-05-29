@@ -108,7 +108,8 @@ LEFT OUTER JOIN
     ON
         cnt.[RuleID] = p.[RuleID]
 
-WHERE cnt.RuleID IN ('1.14_ALL')
+WHERE
+    cnt.RuleID IN ('1.14_ALL')
 
 GROUP BY
     cnt.[RuleID],

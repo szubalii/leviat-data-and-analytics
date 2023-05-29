@@ -149,3 +149,5 @@ WHERE
     PVC.[IsMaterialRelatedOrigin] != 'X'  
     AND
     P.IsMarkedForDeletion <> 'X'
+    AND
+    P.ProductType <> 'ZNLA'
