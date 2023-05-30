@@ -1,0 +1,273 @@
+{
+	"functionName": "Z_THEO_READ_TABLE",
+	"runInBackGroundJob": false,
+	"tables": [
+		{
+			"name": "IBUPABANK",
+			"description": "Generated Table for View IBUPABANK",
+			"isView": true,
+			"fields": [
+				{
+					"name": "MANDT",
+					"description": "Client",
+					"abapType": "CharacterString",
+					"length": 3,
+					"isSelected": true,
+					"outputLength": 3,
+					"isPrimaryKey": true,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "T000"
+				},
+				{
+					"name": "BUSINESSPARTNER",
+					"description": "Business Partner Number",
+					"abapType": "CharacterString",
+					"length": 10,
+					"isSelected": true,
+					"outputLength": 10,
+					"isPrimaryKey": true,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "BUSINESSPARTNER",
+					"ConversionExit": "ALPHA"
+				},
+				{
+					"name": "BANKIDENTIFICATION",
+					"description": "Bank details ID",
+					"abapType": "CharacterString",
+					"length": 4,
+					"isSelected": true,
+					"outputLength": 4,
+					"isPrimaryKey": true,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "BANKIDENTIFICATION"
+				},
+				{
+					"name": "BANKCOUNTRYKEY",
+					"description": "Bank Country Key",
+					"abapType": "CharacterString",
+					"length": 3,
+					"isSelected": true,
+					"outputLength": 3,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "BANKCOUNTRYKEY"
+				},
+				{
+					"name": "BANKNAME",
+					"description": "Name of bank",
+					"abapType": "CharacterString",
+					"length": 60,
+					"isSelected": true,
+					"outputLength": 60,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "BANKNAME"
+				},
+				{
+					"name": "BANKNUMBER",
+					"description": "Bank Key",
+					"abapType": "CharacterString",
+					"length": 15,
+					"isSelected": true,
+					"outputLength": 15,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "BANKNUMBER"
+				},
+				{
+					"name": "SWIFTCODE",
+					"description": "SWIFT/BIC for International Payments",
+					"abapType": "CharacterString",
+					"length": 11,
+					"isSelected": true,
+					"outputLength": 11,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "SWIFTCODE"
+				},
+				{
+					"name": "BANKCONTROLKEY",
+					"description": "Bank Control Key",
+					"abapType": "CharacterString",
+					"length": 2,
+					"isSelected": true,
+					"outputLength": 2,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "BANKCONTROLKEY"
+				},
+				{
+					"name": "BANKACCOUNTHOLDERNAME",
+					"description": "Account Holder Name",
+					"abapType": "CharacterString",
+					"length": 60,
+					"isSelected": true,
+					"outputLength": 60,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "BANKACCOUNTHOLDERNAME"
+				},
+				{
+					"name": "BANKACCOUNTNAME",
+					"description": "Name of Bank Account",
+					"abapType": "CharacterString",
+					"length": 40,
+					"isSelected": true,
+					"outputLength": 40,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "BANKACCOUNTNAME"
+				},
+				{
+					"name": "VALIDITYSTARTDATE",
+					"description": "Validity Start of Business Partner Bank Details",
+					"abapType": "PackedNumber",
+					"length": 15,
+					"isSelected": true,
+					"outputLength": 19,
+					"decimalCount": 0,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "VALIDITYSTARTDATE"
+				},
+				{
+					"name": "VALIDITYENDDATE",
+					"description": "Validity End of Business Partner Bank Details",
+					"abapType": "PackedNumber",
+					"length": 15,
+					"isSelected": true,
+					"outputLength": 19,
+					"decimalCount": 0,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "VALIDITYENDDATE"
+				},
+				{
+					"name": "IBAN",
+					"description": "IBAN (International Bank Account Number)",
+					"abapType": "CharacterString",
+					"length": 34,
+					"isSelected": true,
+					"outputLength": 34,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "IBAN"
+				},
+				{
+					"name": "IBANVALIDITYSTARTDATE",
+					"description": "Validity start of IBAN",
+					"abapType": "Date",
+					"length": 8,
+					"isSelected": true,
+					"outputLength": 10,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "IBANVALIDITYSTARTDATE"
+				},
+				{
+					"name": "BANKACCOUNT",
+					"description": "Bank Account Number",
+					"abapType": "CharacterString",
+					"length": 18,
+					"isSelected": true,
+					"outputLength": 18,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "BANKACCOUNT"
+				},
+				{
+					"name": "BANKACCOUNTREFERENCETEXT",
+					"description": "Reference Details for Bank Details",
+					"abapType": "CharacterString",
+					"length": 20,
+					"isSelected": true,
+					"outputLength": 20,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "BANKACCOUNTREFERENCETEXT"
+				},
+				{
+					"name": "COLLECTIONAUTHIND",
+					"description": "Indicator: Collection Authorization",
+					"abapType": "CharacterString",
+					"length": 1,
+					"isSelected": true,
+					"outputLength": 1,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "COLLECTIONAUTHIND"
+				},
+				{
+					"name": "BUSINESSPARTNEREXTERNALBANKID",
+					"description": "Bank details ID in external system",
+					"abapType": "CharacterString",
+					"length": 20,
+					"isSelected": true,
+					"outputLength": 20,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "BUSINESSPARTNEREXTERNALBANKID"
+				},
+				{
+					"name": "BPBANKDETAILSCHANGEDATE",
+					"description": "Date of Change to Bank Details (BP)",
+					"abapType": "PackedNumber",
+					"length": 15,
+					"isSelected": true,
+					"outputLength": 19,
+					"decimalCount": 0,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "BPBANKDETAILSCHANGEDATE"
+				},
+				{
+					"name": "BPBANKDETAILSCHANGETARGETID",
+					"description": "ID of Target Details for Change of Bank Details (BP)",
+					"abapType": "CharacterString",
+					"length": 4,
+					"isSelected": true,
+					"outputLength": 4,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "BPBANKDETAILSCHANGETARGETID"
+				},
+				{
+					"name": "BPBANKISPROTECTED",
+					"description": "BP: Sensitivity Indicator",
+					"abapType": "CharacterString",
+					"length": 1,
+					"isSelected": true,
+					"outputLength": 1,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "BPBANKISPROTECTED"
+				},
+				{
+					"name": "CITYNAME",
+					"description": "City",
+					"abapType": "CharacterString",
+					"length": 35,
+					"isSelected": true,
+					"outputLength": 35,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "CITYNAME"
+				},
+				{
+					"name": "AUTHORIZATIONGROUP",
+					"description": "Authorization Group",
+					"abapType": "CharacterString",
+					"length": 4,
+					"isSelected": true,
+					"outputLength": 4,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "AUTHORIZATIONGROUP"
+				}
+			]
+		}
+	]
+}
