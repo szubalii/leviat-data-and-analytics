@@ -4061,6 +4061,54 @@
         "base_table_name": "Opt_Vim_1Head",
         "schedule_recurrence": "D",
         "pk_field_names": "MANDT, DOCID"
+      },
+      {
+        "entity_id": 592,
+        "entity_name": "I_BusinessPartnerBank",
+        "data_category": "NULL",
+        "client_field": "MANDT",
+        "tool_name": "Theobald",
+        "extraction_type": "Table",
+        "update_mode": "Full",
+        "base_table_name": "I_BusinessPartnerBank",
+        "schedule_recurrence": "D",
+        "pk_field_names": "MANDT, BUSINESSPARTNER, BANKIDENTIFICATION"
+      },
+      {
+        "entity_id": 593,
+        "entity_name": "I_Businesspartnertaxnumber",
+        "data_category": "NULL",
+        "client_field": "MANDT",
+        "tool_name": "Theobald",
+        "extraction_type": "Table",
+        "update_mode": "Full",
+        "base_table_name": "I_Businesspartnertaxnumber",
+        "schedule_recurrence": "D",
+        "pk_field_names": "MANDT, BUSINESSPARTNER, BPTAXTYPE"
+      },
+      {
+        "entity_id": 594,
+        "entity_name": "I_CustSalesPartnerFunc",
+        "data_category": "NULL",
+        "client_field": "MANDT",
+        "tool_name": "Theobald",
+        "extraction_type": "Table",
+        "update_mode": "Full",
+        "base_table_name": "I_CustSalesPartnerFunc",
+        "schedule_recurrence": "D",
+        "pk_field_names": "MANDT, CUSTOMER, SALESORGANIZATION, DISTRIBITIONCHANNEL, DIVISION, PARTNERCOUNTER, PARTNERFUNCTION"
+      },
+      {
+        "entity_id": 595,
+        "entity_name": "P_OrganizationAddress",
+        "data_category": "NULL",
+        "client_field": "MANDT",
+        "tool_name": "Theobald",
+        "extraction_type": "Table",
+        "update_mode": "Full",
+        "base_table_name": "P_OrganizationAddress",
+        "schedule_recurrence": "D",
+        "pk_field_names": "MANDT"
       }
     ]
   },
