@@ -4096,7 +4096,7 @@
         "update_mode": "Full",
         "base_table_name": "I_CustSalesPartnerFunc",
         "schedule_recurrence": "D",
-        "pk_field_names": "MANDT, CUSTOMER, SALESORGANIZATION, DISTRIBITIONCHANNEL, DIVISION, PARTNERCOUNTER, PARTNERFUNCTION"
+        "pk_field_names": "MANDT, CUSTOMER, SALESORGANIZATION, DISTRIBUTIONCHANNEL, DIVISION, PARTNERCOUNTER, PARTNERFUNCTION"
       },
       {
         "entity_id": 595,
