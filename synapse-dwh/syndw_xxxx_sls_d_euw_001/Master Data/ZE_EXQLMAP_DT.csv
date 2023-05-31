@@ -1076,9 +1076,7 @@ GLACCOUNT;FUNCTIONALAREA;TRANSACTIONTYPE;TRADINGPARTNER;CONTIGENCY1;CONTIGENCY2;
 35500100;;;;;;;;;BS337100;Intercompany current interest;;;;;S_MA;U;;BS
 35500101;;;;;;;;;BS337100;Intercompany current interest;;;;;S_MA;U;;BS
 35600100;;;;;;;;;BS337500;Intercompany current administration fees;;;;;S_MA;U;;BS
-35700100;;;;;;;;;BS335200;;;;;;S_MA;U;;BS
 35800100;;;;;;;;;BS337300;Intercompany current for intercompany recharges in PBIT;;;;;S_MA;U;;BS
-31190100;;;;;;;;;BS211910;;;;;;S_MA;U;;BS
 41100100;;;;;;Gross sales;Gross Margin;Sales;IS411000;Trade sales;DT999;;;;S_MA;U;;IS
 41100101;;;;;;Gross sales;Gross Margin;Sales;IS411000;Trade sales;DT999;;;;S_MA;U;;IS
 41100102;;;;;;Gross sales;Gross Margin;Sales;IS411000;Trade sales;DT999;;;;S_MA;U;;IS
@@ -1115,53 +1113,53 @@ GLACCOUNT;FUNCTIONALAREA;TRANSACTIONTYPE;TRADINGPARTNER;CONTIGENCY1;CONTIGENCY2;
 41800106;;;;;;Bonusses and discounts;Gross Margin;Sales;IS421000;Sales bonus payable and volume rebates - customers;DT999;;;;S_MA;U;;IS
 41800107;;;;;;Bonusses and discounts;Gross Margin;Sales;IS421000;Sales bonus payable and volume rebates - customers;DT999;;;;S_MA;U;;IS
 49000101;;;;;;;Gross Margin;Sales;IS411000;Trade sales;DT999;;;;S_MA;U;;IS
-49000102;;;;;;Gross sales;Gross Margin;Sales;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
-49000103;;;;;;Gross sales;Gross Margin;Sales;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
-49000104;;;;;;Gross sales;Gross Margin;Sales;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
-49000105;;;;;;Gross sales;Gross Margin;Sales;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
-49000106;;;;;;Gross sales;Gross Margin;Sales;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
-49000107;;;;;;Gross sales;Gross Margin;Sales;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
-49000108;;;;;;Gross sales;Gross Margin;Sales;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
-49000109;;;;;;Gross sales;Gross Margin;Sales;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
+49000102;;;;;;;Gross Margin;Sales;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
+49000103;;;;;;;Gross Margin;Sales;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
+49000104;;;;;;;Gross Margin;Sales;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
+49000105;;;;;;;Gross Margin;Sales;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
+49000106;;;;;;;Gross Margin;Sales;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
+49000107;;;;;;;Gross Margin;Sales;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
+49000108;;;;;;;Gross Margin;Sales;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
+49000109;;;;;;;Gross Margin;Sales;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
 49000111;;;;;;;Gross Margin;Sales;IS411000;Trade sales;DT999;;;;S_MA;U;;IS
-49000112;;;;;;Gross sales;Gross Margin;Sales;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
-49000116;;;;;;Gross sales;Gross Margin;Sales;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
-49000117;;;;;;Gross sales;Gross Margin;Sales;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
+49000112;;;;;;;Gross Margin;Sales;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
+49000116;;;;;;;Gross Margin;Sales;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
+49000117;;;;;;;Gross Margin;Sales;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
 49000121;;;;;;;Gross Margin;Sales;IS411000;Trade sales;DT999;;;;S_MA;U;;IS
-49000126;;;;;;;Gross Margin;Sales;IS415000;Trade sales;DT999;;;;S_MA;U;;IS
-49000127;;;;;;Gross sales;Gross Margin;Sales;IS415000;Trade sales;DT999;;;;S_MA;U;;IS
+49000126;;;;;;;Gross Margin;Sales;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
+49000127;;;;;;;Gross Margin;Sales;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
 49000131;;;;;;;Gross Margin;Sales;IS411000;Trade sales;DT999;;;;S_MA;U;;IS
-49000136;;;;;;;Gross Margin;Sales;IS415000;Trade sales;DT999;;;;S_MA;U;;IS
-49000137;;;;;;Gross sales;Gross Margin;Sales;IS415000;Trade sales;DT999;;;;S_MA;U;;IS
-49000150;;;;;;;Gross Margin;Sales;IS415000;Trade sales;DT999;;;;S_MA;U;;IS
-49000200;;;;;;Gross sales;Gross Margin;Sales;IS415000;Trade sales;DT999;;;;S_MA;U;;IS
-49000299;;;;;;Gross sales;Gross Margin;Sales;IS415000;Trade sales;DT999;;;;S_MA;U;;IS
-49000299;DT999;;;;;Gross sales;Gross Margin;Sales;IS415000;Trade sales;DT999;;;;S_MA;U;;IS
-49000300;;;;;;;Gross Margin;Sales;IS421000;Trade sales;DT999;;;;S_MA;U;;IS
-49000301;;;;;;;Gross Margin;Sales;IS421000;Trade sales;DT999;;;;S_MA;U;;IS
-49000302;;;;;;;Gross Margin;Sales;IS421000;Trade sales;DT999;;;;S_MA;U;;IS
-49000305;;;;;;;Gross Margin;Sales;IS421000;Trade sales;DT999;;;;S_MA;U;;IS
-49000306;;;;;;;Gross Margin;Sales;IS421900;Trade sales;DT999;;;;S_MA;U;;IS
+49000136;;;;;;;Gross Margin;Sales;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
+49000137;;;;;;;Gross Margin;Sales;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
+49000150;;;;;;;Gross Margin;Sales;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
+49000200;;;;;;;Gross Margin;Sales;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
+49000299;;;;;;;Gross Margin;Sales;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
+49000299;DT999;;;;;;Gross Margin;Sales;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
+49000300;;;;;;;Gross Margin;Sales;IS421000;Sales bonus payable and volume rebates - customers;DT999;;;;S_MA;U;;IS
+49000301;;;;;;;Gross Margin;Sales;IS421000;Sales bonus payable and volume rebates - customers;DT999;;;;S_MA;U;;IS
+49000302;;;;;;;Gross Margin;Sales;IS421000;Sales bonus payable and volume rebates - customers;DT999;;;;S_MA;U;;IS
+49000305;;;;;;;Gross Margin;Sales;IS421000;Sales bonus payable and volume rebates - customers;DT999;;;;S_MA;U;;IS
+49000306;;;;;;;Gross Margin;Sales;IS421900;Other sales and payment discounts - off-invoice - customers;DT999;;;;S_MA;U;;IS
 49000311;;;;;;;Gross Margin;Sales;IS411000;Trade sales;DT999;;;;S_MA;U;;IS
-49000316;;;;;;;Gross Margin;Sales;IS415000;Trade sales;DT999;;;;S_MA;U;;IS
-49000317;;;;;;;Gross Margin;Sales;IS415000;Trade sales;DT999;;;;S_MA;U;;IS
+49000316;;;;;;;Gross Margin;Sales;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
+49000317;;;;;;;Gross Margin;Sales;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
 49000321;;;;;;;Gross Margin;Sales;IS411000;Trade sales;DT999;;;;S_MA;U;;IS
-49000326;;;;;;;Gross Margin;Sales;IS415000;;DT999;;;;S_MA;U;;IS
+49000326;;;;;;;Gross Margin;Sales;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
 49000327;;;;;;;Gross Margin;Sales;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
-49000330;;;;;;Gross sales;Gross Margin;Sales;IS417200;Transport sales;DT999;;;;S_MA;U;;IS
-49000331;;;;;;Gross sales;Gross Margin;Sales;IS419900;Other sales;DT999;;;;S_MA;U;;IS
-49000332;;;;;;Gross sales;Gross Margin;Sales;IS419900;Other sales;DT999;;;;S_MA;U;;IS
-49000333;;;;;;Gross sales;Gross Margin;Sales;IS419900;Other sales;DT999;;;;S_MA;U;;IS
-49000334;;;;;;Gross sales;Gross Margin;Sales;IS417100;Services sales;DT999;;;;S_MA;U;;IS
-49000335;;;;;;Gross sales;Gross Margin;Sales;IS417200;Transport sales;DT999;;;;S_MA;U;;IS
-49000336;;;;;;Gross sales;Gross Margin;Sales;IS417100;Services sales;DT999;;;;S_MA;U;;IS
-49000330;DT999;;;;;Gross sales;Gross Margin;Sales;IS417200;Transport sales;DT999;;;;S_MA;U;;IS
-49000331;DT999;;;;;Gross sales;Gross Margin;Sales;IS419900;Other sales;DT999;;;;S_MA;U;;IS
-49000332;DT999;;;;;Gross sales;Gross Margin;Sales;IS419900;Other sales;DT999;;;;S_MA;U;;IS
-49000333;DT999;;;;;Gross sales;Gross Margin;Sales;IS419900;Other sales;DT999;;;;S_MA;U;;IS
-49000334;DT999;;;;;Gross sales;Gross Margin;Sales;IS417100;Services sales;DT999;;;;S_MA;U;;IS
-49000335;DT999;;;;;Gross sales;Gross Margin;Sales;IS417200;Transport sales;DT999;;;;S_MA;U;;IS
-49000336;DT999;;;;;Gross sales;Gross Margin;Sales;IS417100;Services sales;DT999;;;;S_MA;U;;IS
+49000330;;;;;;;Gross Margin;Sales;IS417200;Transport sales;DT999;;;;S_MA;U;;IS
+49000331;;;;;;;Gross Margin;Sales;IS419900;Other sales;DT999;;;;S_MA;U;;IS
+49000332;;;;;;;Gross Margin;Sales;IS419900;Other sales;DT999;;;;S_MA;U;;IS
+49000333;;;;;;;Gross Margin;Sales;IS419900;Other sales;DT999;;;;S_MA;U;;IS
+49000334;;;;;;;Gross Margin;Sales;IS417100;Services sales;DT999;;;;S_MA;U;;IS
+49000335;;;;;;;Gross Margin;Sales;IS417200;Transport sales;DT999;;;;S_MA;U;;IS
+49000336;;;;;;;Gross Margin;Sales;IS417100;Services sales;DT999;;;;S_MA;U;;IS
+49000330;DT999;;;;;;Gross Margin;Sales;IS417200;Transport sales;DT999;;;;S_MA;U;;IS
+49000331;DT999;;;;;;Gross Margin;Sales;IS419900;Other sales;DT999;;;;S_MA;U;;IS
+49000332;DT999;;;;;;Gross Margin;Sales;IS419900;Other sales;DT999;;;;S_MA;U;;IS
+49000333;DT999;;;;;;Gross Margin;Sales;IS419900;Other sales;DT999;;;;S_MA;U;;IS
+49000334;DT999;;;;;;Gross Margin;Sales;IS417100;Services sales;DT999;;;;S_MA;U;;IS
+49000335;DT999;;;;;;Gross Margin;Sales;IS417200;Transport sales;DT999;;;;S_MA;U;;IS
+49000336;DT999;;;;;;Gross Margin;Sales;IS417100;Services sales;DT999;;;;S_MA;U;;IS
 50101100;DT102;;;;;Wages & salaries - variable;Gross Margin;Other CoS;IS611100;Wages and salaries own personnel - production variable;FA1100;;;;S_MA;U;;IS
 50101100;DT101;;;;;;;Other CoS;IS671100;Wages and salaries own personnel - production management / support and inbound logistics;FA1200;;;;S_MA;U;;IS
 50101100;DT121;;;;;;;Other CoS;IS671100;Wages and salaries own personnel - production management / support and inbound logistics;FA1300;;;;S_MA;U;;IS
@@ -5745,38 +5743,38 @@ GLACCOUNT;FUNCTIONALAREA;TRANSACTIONTYPE;TRADINGPARTNER;CONTIGENCY1;CONTIGENCY2;
 41800106;DT999;;;;;Bonusses and discounts;Gross Margin;Sales;IS421000;Sales bonus payable and volume rebates - customers;DT999;;;;S_MA;U;;IS
 41800107;DT999;;;;;Bonusses and discounts;Gross Margin;Sales;IS421000;Sales bonus payable and volume rebates - customers;DT999;;;;S_MA;U;;IS
 49000101;DT999;;;;;;Gross Margin;Sales;IS411000;Trade sales;DT999;;;;S_MA;U;;IS
-49000102;DT999;;;;;Gross sales;Gross Margin;Sales;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
+49000102;DT999;;;;;;Gross Margin;Sales;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
 49000103;DT999;;;;;;Gross Margin;Sales;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
 49000104;DT999;;;;;;Gross Margin;Sales;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
-49000105;DT999;;;;;Gross sales;Gross Margin;Sales;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
-49000106;DT999;;;;;Gross sales;Gross Margin;Sales;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
+49000105;DT999;;;;;;Gross Margin;Sales;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
+49000106;DT999;;;;;;Gross Margin;Sales;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
 49000107;DT999;;;;;;Gross Margin;Sales;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
 49000108;DT999;;;;;;Gross Margin;Sales;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
 49000109;DT999;;;;;;Gross Margin;Sales;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
 49000111;DT999;;;;;;Gross Margin;Sales;IS411000;Trade sales;DT999;;;;S_MA;U;;IS
-49000112;DT999;;;;;Gross sales;Gross Margin;Sales;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
-49000116;DT999;;;;;Gross sales;Gross Margin;Sales;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
-49000117;DT999;;;;;Gross sales;Gross Margin;Sales;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
+49000112;DT999;;;;;;Gross Margin;Sales;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
+49000116;DT999;;;;;;Gross Margin;Sales;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
+49000117;DT999;;;;;;Gross Margin;Sales;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
 49000121;DT999;;;;;;Gross Margin;Sales;IS411000;Trade sales;DT999;;;;S_MA;U;;IS
-49000126;DT999;;;;;;Gross Margin;Sales;IS415000;Trade sales;DT999;;;;S_MA;U;;IS
-49000127;DT999;;;;;Gross sales;Gross Margin;Sales;IS415000;Trade sales;DT999;;;;S_MA;U;;IS
+49000126;DT999;;;;;;Gross Margin;Sales;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
+49000127;DT999;;;;;;Gross Margin;Sales;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
 49000131;DT999;;;;;;Gross Margin;Sales;IS411000;Trade sales;DT999;;;;S_MA;U;;IS
-49000136;DT999;;;;;;Gross Margin;Sales;IS415000;Trade sales;DT999;;;;S_MA;U;;IS
-49000137;DT999;;;;;Gross sales;Gross Margin;Sales;IS415000;Trade sales;DT999;;;;S_MA;U;;IS
-49000150;DT999;;;;;;Gross Margin;Sales;IS415000;Trade sales;DT999;;;;S_MA;U;;IS
-49000199;;;;;;Gross sales;Gross Margin;Sales;IS415000;Trade sales;DT999;;;;S_MA;U;;IS
-49000199;DT999;;;;;Gross sales;Gross Margin;Sales;IS415000;Trade sales;DT999;;;;S_MA;U;;IS
-49000200;DT999;;;;;Gross sales;Gross Margin;Sales;IS415000;Trade sales;DT999;;;;S_MA;U;;IS
-49000300;DT999;;;;;;Gross Margin;Sales;IS421000;Trade sales;DT999;;;;S_MA;U;;IS
-49000301;DT999;;;;;;Gross Margin;Sales;IS421000;Trade sales;DT999;;;;S_MA;U;;IS
-49000302;DT999;;;;;;Gross Margin;Sales;IS421000;Trade sales;DT999;;;;S_MA;U;;IS
-49000305;DT999;;;;;;Gross Margin;Sales;IS421000;Trade sales;DT999;;;;S_MA;U;;IS
-49000306;DT999;;;;;;Gross Margin;Sales;IS421900;Trade sales;DT999;;;;S_MA;U;;IS
+49000136;DT999;;;;;;Gross Margin;Sales;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
+49000137;DT999;;;;;;Gross Margin;Sales;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
+49000150;DT999;;;;;;Gross Margin;Sales;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
+49000199;;;;;;;Gross Margin;Sales;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
+49000199;DT999;;;;;;Gross Margin;Sales;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
+49000200;DT999;;;;;;Gross Margin;Sales;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
+49000300;DT999;;;;;;Gross Margin;Sales;IS421000;Sales bonus payable and volume rebates - customers;DT999;;;;S_MA;U;;IS
+49000301;DT999;;;;;;Gross Margin;Sales;IS421000;Sales bonus payable and volume rebates - customers;DT999;;;;S_MA;U;;IS
+49000302;DT999;;;;;;Gross Margin;Sales;IS421000;Sales bonus payable and volume rebates - customers;DT999;;;;S_MA;U;;IS
+49000305;DT999;;;;;;Gross Margin;Sales;IS421000;Sales bonus payable and volume rebates - customers;DT999;;;;S_MA;U;;IS
+49000306;DT999;;;;;;Gross Margin;Sales;IS421900;Other sales and payment discounts - off-invoice - customers;DT999;;;;S_MA;U;;IS
 49000311;DT999;;;;;;Gross Margin;Sales;IS411000;Trade sales;DT999;;;;S_MA;U;;IS
-49000316;DT999;;;;;;Gross Margin;Sales;IS415000;Trade sales;DT999;;;;S_MA;U;;IS
-49000317;DT999;;;;;;Gross Margin;Sales;IS415000;Trade sales;DT999;;;;S_MA;U;;IS
+49000316;DT999;;;;;;Gross Margin;Sales;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
+49000317;DT999;;;;;;Gross Margin;Sales;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
 49000321;DT999;;;;;;Gross Margin;Sales;IS411000;Trade sales;DT999;;;;S_MA;U;;IS
-49000326;DT999;;;;;;Gross Margin;Sales;IS415000;;DT999;;;;S_MA;U;;IS
+49000326;DT999;;;;;;Gross Margin;Sales;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
 49000327;DT999;;;;;;Gross Margin;Sales;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
 41100105;DT999;;;;;Gross sales;Gross Margin;Sales;IS411000;Trade sales;DT999;;;;S_MA;U;;IS
-41600102;DT999;;;;;Gross sales;Gross Margin;Sales;IS419900;Other sales;DT999;;;;S_MA;U;;IS
+41600102;DT999;;;;;Gross sales;Gross Margin;Sales;IS419900;Other sales;DT999;;;;S_MA;U;;IS;
