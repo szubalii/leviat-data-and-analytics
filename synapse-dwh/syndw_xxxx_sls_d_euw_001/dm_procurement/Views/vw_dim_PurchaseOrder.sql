@@ -11,7 +11,7 @@ SELECT
     ,PDI.NetAmount                      AS Amount
     ,PDI.DocumentCurrencyID             AS AmountCurrency
     ,''                                 AS Description
-    ,PDI.MaterialGroupID                AS CommodityId
+    ,PROD.EClassCode                    AS CommodityId
     ,REPLACE(LTRIM(REPLACE(PDI.MaterialID,'0',' ')),' ','0')                    
                                         AS PartNumber
     ,''                                 AS PartRevisionNumber
@@ -69,3 +69,5 @@ JOIN [edw].[fact_PurchasingDocument]                            PD
     ON PDI.PurchasingDocument = PD.PurchasingDocument
 LEFT JOIN [edw].[fact_SupplierInvoiceItemPurOrdRef] SIIPOR
     ON PDI.sk_fact_PurchasingDocumentItem = SIIPOR.sk_fact_PurchasingDocumentItem
+LEFT OUTER JOIN edw.dim_Product PROD 
+    ON PDI.MaterialID COLLATE SQL_Latin1_General_CP1_CS_AS = PROD.sk_dim_Product
