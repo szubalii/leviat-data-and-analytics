@@ -1,6 +1,34 @@
 ﻿CREATE VIEW [dm_sales].[vw_fact_BillingDocumentItem] AS
 
-WITH original AS (
+WITH BillDocPrcgElmnt AS (
+    select BillingDocument,
+           BillingDocumentItem,
+           CurrencyTypeID,
+           ConditionType,
+           ConditionAmount
+         , case when [ConditionType] = 'ZNET' then [ConditionAmount] else 0 end as ZNET_NetValue
+         , case when [ConditionType] = 'REA1' then [ConditionAmount] else 0 end as REA1_RebateAccrual
+         , case when [ConditionType] = 'ZNRV' then [ConditionAmount] else 0 end as ZNRV_NetRevenue
+    from [edw].[fact_BillingDocumentItemPrcgElmnt]
+)
+
+,BillDocPrcgElmnt_max_value AS (
+select 
+    BillingDocument,
+    BillingDocumentItem,
+    CurrencyTypeID,
+    max(ZNET_NetValue) as ZNET_NetValue,
+    max(REA1_RebateAccrual) as REA1_RebateAccrual,
+    max(ZNRV_NetRevenue) as ZNRV_NetRevenue
+    from BillDocPrcgElmnt
+    group by 
+        BillingDocument,
+        BillingDocumentItem,
+        CurrencyTypeID
+        
+),
+
+ original AS (
     SELECT doc.[BillingDocument]
          , doc.[BillingDocumentItem]
          , doc.nk_fact_BillingDocumentItem
@@ -163,9 +191,9 @@ WITH original AS (
          , doc.[InOutID]
          , doc.CustomerGroupID
          , doc.[axbi_ItemNoCalc]
-         , case when BDPE.[ConditionType] = 'ZNET' then BDPE.[ConditionAmount] else NULL end as ZNET_NetValue
-         , case when BDPE.[ConditionType] = 'REA1' then BDPE.[ConditionAmount] else NULL end as REA1_RebateAccrual
-         , case when BDPE.[ConditionType] = 'ZNRV' then BDPE.[ConditionAmount] else NULL end as ZNRV_NetRevenue
+         , ZNET_NetValue
+         , REA1_RebateAccrual
+         , ZNRV_NetRevenue
          , doc.[t_applicationId]
          , doc.[t_extractionDtm]
     FROM [edw].[fact_BillingDocumentItem] doc
@@ -215,7 +243,7 @@ WITH original AS (
                        on dimC.[CountryID] = doc.[CountryID]
              left join [edw].[dim_SalesDocumentType] dimSDT
                        on dimSDT.[SalesDocumentTypeID] = doc.[SalesOrderTypeID]
-             left join [edw].[fact_BillingDocumentItemPrcgElmnt] BDPE
+             inner join BillDocPrcgElmnt_max_value BDPE
                        on  doc.BillingDocument = BDPE.BillingDocument
                        and doc.BillingDocumentItem = BDPE.BillingDocumentItem
                        and doc.CurrencyTypeID = BDPE.CurrencyTypeID 

@@ -3,6 +3,7 @@ AS
 SELECT   
      [SalesOrderID]
     ,[SalesOrderItemID]
+    ,[nk_fact_SalesDocumentItem]
     ,[CurrencyTypeID]
     ,[CurrencyType]
     ,[CurrencyID]
