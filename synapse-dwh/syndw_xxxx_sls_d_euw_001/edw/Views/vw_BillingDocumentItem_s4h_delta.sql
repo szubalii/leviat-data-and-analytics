@@ -742,7 +742,8 @@ WITH BillingDocumentItemBase as (
         FROM  BillingDocumentItemBase_Margin BDI
         LEFT JOIN [edw].[vw_CurrencyConversionRate] ExchangeRate
            ON BDI.[CurrencyID] = ExchangeRate.[SourceCurrency]
-           AND BDI.[BillingDocumentDate] BETWEEN ExchangeRate.[ExchangeRateEffectiveDate] AND ExchangeRate.[LastDay]   
+           AND BDI.[t_extractionDtm] BETWEEN ExchangeRate.[ExchangeRateEffectiveDate] AND ExchangeRate.[LastDay]   
+         --AND BDI.[BillingDocumentDate] BETWEEN ExchangeRate.[ExchangeRateEffectiveDate] AND ExchangeRate.[LastDay]   
         WHERE ExchangeRate.CurrencyTypeID ='30'
     ),
 
@@ -930,7 +931,8 @@ WITH BillingDocumentItemBase as (
         FROM  BillingDocumentItemBase_Margin BDI
         LEFT JOIN [edw].[vw_CurrencyConversionRate] ExchangeRate
            ON BDI.[CurrencyID] = ExchangeRate.[SourceCurrency]
-           AND BDI.[BillingDocumentDate] BETWEEN ExchangeRate.[ExchangeRateEffectiveDate] AND ExchangeRate.[LastDay]   
+           AND BDI.[t_extractionDtm] BETWEEN ExchangeRate.[ExchangeRateEffectiveDate] AND ExchangeRate.[LastDay] 
+        -- AND BDI.[BillingDocumentDate] BETWEEN ExchangeRate.[ExchangeRateEffectiveDate] AND ExchangeRate.[LastDay]   
         WHERE ExchangeRate.CurrencyTypeID ='40'
      )
    

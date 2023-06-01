@@ -280,7 +280,7 @@ EuroBudgetExchangeRate as (
     from
         edw.dim_ExchangeRates
     where
-        ExchangeRateType = 'ZAXBIBUD'
+        ExchangeRateType = 'P'
         and
         TargetCurrency = 'EUR'
 ),
@@ -302,7 +302,8 @@ ExchangeRateEuro AS (
             ON 
                 SDI.[TransactionCurrencyID] = EuroBudgetExchangeRate.SourceCurrency
         WHERE 
-            [ExchangeRateEffectiveDate] <= [CreationDate]
+              [ExchangeRateEffectiveDate] <= SDI.[t_extractionDtm]
+            --[ExchangeRateEffectiveDate] <= [CreationDate]
         GROUP BY
                 [SalesDocument]
             ,   [SalesDocumentItem]
@@ -499,7 +500,7 @@ EuroBudgetExchangeRateUSD as (
     from
         edw.dim_ExchangeRates
     where
-        ExchangeRateType = 'ZAXBIBUD'
+        ExchangeRateType = 'P'
         and
         SourceCurrency = 'USD'
 ),
@@ -521,7 +522,8 @@ ExchangeRateUSD as (
             ON 
                 SD_30.CurrencyID = EuroBudgetExchangeRateUSD.TargetCurrency
         WHERE 
-            [ExchangeRateEffectiveDate] <= [CreationDate]
+             [ExchangeRateEffectiveDate] <= SDI.[t_extractionDtm]
+          -- [ExchangeRateEffectiveDate] <= [CreationDate]
         GROUP BY
                 [SalesDocument]
             ,   [SalesDocumentItem]
