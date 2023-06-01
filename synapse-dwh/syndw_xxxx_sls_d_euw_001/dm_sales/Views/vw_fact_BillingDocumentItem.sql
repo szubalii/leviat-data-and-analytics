@@ -191,9 +191,9 @@ select
          , doc.[InOutID]
          , doc.CustomerGroupID
          , doc.[axbi_ItemNoCalc]
-         , ZNET_NetValue
-         , REA1_RebateAccrual
-         , ZNRV_NetRevenue
+         , case when ZNET_NetValue is null then 0 else ZNET_NetValue end  as ZNET_NetValue
+         , case when REA1_RebateAccrual is null then 0 else REA1_RebateAccrual end  as REA1_RebateAccrual
+         , case when ZNRV_NetRevenue is null then 0 else ZNRV_NetRevenue end  as ZNRV_NetRevenueeas
          , doc.[t_applicationId]
          , doc.[t_extractionDtm]
     FROM [edw].[fact_BillingDocumentItem] doc
