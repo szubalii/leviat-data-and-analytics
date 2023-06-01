@@ -1,3 +1,5 @@
+CREATE VIEW [dm_sales].[vw_dim_ScheduleLineStatus]
+AS
 WITH DeliveryItem AS 
 ( 
 	SELECT 
@@ -42,7 +44,8 @@ WITH DeliveryItem AS
 					,SDSL.[SalesDocumentItem] 
 				ORDER BY 
 					SDSL.[ConfirmedDeliveryDate],
-					SDSL.[ScheduleLine] ) AS SDSLOrderQtyRunningSum
+					SDSL.[ScheduleLine] ) AS SDSLOrderQtyRunningSum,
+        SDSL.ScheduleLineCategory
 	FROM [edw].[dim_SalesDocumentScheduleLine] SDSL 
 	LEFT JOIN DeliveryItem 
         ON SDSL.[SalesDocumentID] = DeliveryItem.[ReferenceSDDocument] 
@@ -88,7 +91,8 @@ WITH DeliveryItem AS
     ) a
     GROUP BY [ReferenceSDDocument], [ReferenceSDDocumentItem]
 )
-	SELECT 
+, pre_report AS (
+SELECT 
         SDSL.[SalesDocumentID],
         SDI.[SalesDocumentTypeID],
         SDI.[SDDocumentRejectionStatusID],
@@ -111,6 +115,10 @@ WITH DeliveryItem AS
         SDSL.[ConfirmedQty] / SDSL.[TotalOrderQty] * SDI.[USDNetAmount]
                                                 AS ValueConfirmedQuantityUSD,
         SDI.CurrencyID,
+        documentItems.[BillingQuantityInBaseUnit],
+        SDI.ShippingConditionID,
+        SDSL.ScheduleLineCategory,
+        SDI.[LocalNetAmount],
         CASE
             WHEN SDSL.[TotalDelivered] < SDSL.[SDSLOrderQtyRunningSum] - SDSL.[ConfirmedQty]
                 THEN 'A'
@@ -144,7 +152,23 @@ WITH DeliveryItem AS
             WHEN SDI.ShippingConditionID <> 70
                 THEN 0
             ELSE      10
-        END                                     AS OrderTypeForJoin
+        END                                     AS OrderTypeForJoin,
+        CASE
+            WHEN SDSL.[TotalDelivered] < SDSL.[SDSLOrderQtyRunningSum] - SDSL.[ConfirmedQty]
+                THEN SDSL.[ConfirmedQty] * SDI.[LocalNetAmount]
+            WHEN SDSL.[TotalDelivered] < SDSL.[SDSLOrderQtyRunningSum]
+                THEN (SDSL.[SDSLOrderQtyRunningSum] - SDSL.[TotalDelivered]) * SDI.[LocalNetAmount]
+            WHEN SDSL.[TotalDelivered] >= SDSL.[SDSLOrderQtyRunningSum]
+                THEN 0
+        END                                     AS OpenDeliveryValue,
+        CASE
+            WHEN SDSL.[TotalDelivered] < SDSL.[SDSLOrderQtyRunningSum] - SDSL.[ConfirmedQty]
+                THEN 0
+            WHEN SDSL.[TotalDelivered] < SDSL.[SDSLOrderQtyRunningSum]
+                THEN (SDSL.[TotalDelivered] - SDSL.[SDSLOrderQtyRunningSum] + SDSL.[ConfirmedQty]) * SDI.[LocalNetAmount]
+            WHEN SDSL.[TotalDelivered] >= SDSL.[SDSLOrderQtyRunningSum]
+                THEN SDSL.[ConfirmedQty] * SDI.[LocalNetAmount]
+        END                                     AS ClosedDeliveryValue
 	FROM SDSL 
     LEFT JOIN SDI 
         ON SDSL.[SalesDocumentID] = SDI.[SalesDocument] 
@@ -152,3 +176,37 @@ WITH DeliveryItem AS
     LEFT JOIN documentItems
         ON SDSL.[SalesDocumentID] = documentItems.[SalesDocument] 
         AND SDSL.[SalesDocumentItem] = documentItems.[SalesDocumentItem]
+)
+SELECT  pre_report.[SalesDocumentID],
+        pre_report.[SalesDocumentTypeID],
+        pre_report.[SDDocumentRejectionStatusID],
+        pre_report.[CreationDate],
+        pre_report.[SalesDocumentItem],
+        pre_report.[ScheduleLine],
+        pre_report.[RequestedDeliveryDate],
+        pre_report.[ConfirmedDeliveryDate],
+        pre_report.[ConfirmedQty],
+        pre_report.[TotalOrderQty],
+        pre_report.[TotalDelivered],
+        pre_report.[SDSLOrderQtyRunningSum],
+        pre_report.[OrderType],
+        pre_report.[ItemOrderStatus],
+        pre_report.[OrderStatus],
+        pre_report.[ValueConfirmedQuantityLocal],
+        pre_report.[ValueConfirmedQuantityEUR],
+        pre_report.[ValueConfirmedQuantityUSD],
+        pre_report.[CurrencyID],
+        pre_report.[BillingQuantityInBaseUnit],
+        pre_report.[ShippingConditionID],
+        pre_report.[ScheduleLineCategory],
+        pre_report.[LocalNetAmount],
+        pre_report.[DeliveryStatus],
+        pre_report.[InvoicedStatus],
+        pre_report.[OrderType],
+        pre_report.[OpenDeliveryValue],
+        pre_report.[ClosedDeliveryValue],
+FROM pre_report
+LEFT JOIN [edw].[vw_SalesDocumentStatuses] statuses
+    ON  pre_report.OrderTypeForJoin = statuses.OrderType
+        AND pre_report.[DeliveryStatus] = COALESCE (statuses.DeliveryStatus, pre_report.[DeliveryStatus])
+        AND pre_report.[InvoicedStatus]= statuses.InvoiceStatus
