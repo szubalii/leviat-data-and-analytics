@@ -10,7 +10,7 @@ WITH AllRates AS (
     FROM 
         edw.dim_ExchangeRates
     WHERE
-        [ExchangeRateType] = 'ZAXBIBUD'
+        [ExchangeRateType] = 'P'
         and
         [TargetCurrency] = 'EUR')
 
