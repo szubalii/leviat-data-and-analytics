@@ -65,7 +65,8 @@ WITH DeliveryItem AS
         SDILocal.[OrderStatus],
         SDILocal.[NetAmount] AS LocalNetAmount,
         SDIEUR.[NetAmount] AS EURNetAmount,
-        SDIUSD.[NetAmount] AS USDNetAmount 
+        SDIUSD.[NetAmount] AS USDNetAmount,
+        SDILocal.ShippingConditionID
 	FROM [edw].[fact_SalesDocumentItem] SDILocal 
 	JOIN [edw].[fact_SalesDocumentItem] SDIEUR 
         ON SDILocal.SalesDocument = SDIEUR.SalesDocument 
@@ -92,7 +93,7 @@ WITH DeliveryItem AS
     GROUP BY [ReferenceSDDocument], [ReferenceSDDocumentItem]
 )
 , pre_report AS (
-    SELECT 
+SELECT 
         SDSL.[SalesDocumentID],
         SDI.[SalesDocumentTypeID],
         SDI.[SDDocumentRejectionStatusID],
@@ -175,8 +176,8 @@ WITH DeliveryItem AS
         ON SDSL.[SalesDocumentID] = SDI.[SalesDocument] 
         AND SDSL.[SalesDocumentItem] = SDI.[SalesDocumentItem]
     LEFT JOIN documentItems
-        ON SDSL.[SalesDocumentID] = documentItems.[SalesDocument] 
-        AND SDSL.[SalesDocumentItem] = documentItems.[SalesDocumentItem]
+        ON SDSL.[SalesDocumentID] = documentItems.[ReferenceSDDocument] 
+        AND SDSL.[SalesDocumentItem] = documentItems.[ReferenceSDDocumentItem]
 )
 SELECT  pre_report.[SalesDocumentID],
         pre_report.[SalesDocumentTypeID],
