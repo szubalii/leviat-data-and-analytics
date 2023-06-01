@@ -6,9 +6,9 @@ WITH BillDocPrcgElmnt AS (
            CurrencyTypeID,
            ConditionType,
            ConditionAmount
-         , case when [ConditionType] = 'ZNET' then [ConditionAmount] else 0 end as ZNET_NetValue
-         , case when [ConditionType] = 'REA1' then [ConditionAmount] else 0 end as REA1_RebateAccrual
-         , case when [ConditionType] = 'ZNRV' then [ConditionAmount] else 0 end as ZNRV_NetRevenue
+         , case when [ConditionType] = 'ZNET' then [ConditionAmount] else NULL end as ZNET_NetValue
+         , case when [ConditionType] = 'REA1' then [ConditionAmount] else NULL end as REA1_RebateAccrual
+         , case when [ConditionType] = 'ZNRV' then [ConditionAmount] else NULL end as ZNRV_NetRevenue
     from [edw].[fact_BillingDocumentItemPrcgElmnt]
 )
 
