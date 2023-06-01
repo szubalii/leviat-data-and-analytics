@@ -105,7 +105,7 @@ WITH DeliveryItem AS
         SDI.[OrderQuantity]                     AS [TotalOrderQty],
         SDSL.[TotalDelivered],
         SDSL.[SDSLOrderQtyRunningSum],
-        SDI.[OrderType],
+        SDI.[OrderType]                         AS [SalesDocumentOrderType],
         SDI.[ItemOrderStatus],
         SDI.[OrderStatus],
         SDSL.[ConfirmedQty] / SDSL.[TotalOrderQty] * SDI.[LocalNetAmount]
@@ -189,7 +189,7 @@ SELECT  pre_report.[SalesDocumentID],
         pre_report.[TotalOrderQty],
         pre_report.[TotalDelivered],
         pre_report.[SDSLOrderQtyRunningSum],
-        pre_report.[OrderType],
+        pre_report.[SalesDocumentOrderType],
         pre_report.[ItemOrderStatus],
         pre_report.[OrderStatus],
         pre_report.[ValueConfirmedQuantityLocal],
@@ -205,6 +205,7 @@ SELECT  pre_report.[SalesDocumentID],
         pre_report.[OrderType],
         pre_report.[OpenDeliveryValue],
         pre_report.[ClosedDeliveryValue],
+        statuses.[Status]
 FROM pre_report
 LEFT JOIN [edw].[vw_SalesDocumentStatuses] statuses
     ON  pre_report.OrderTypeForJoin = statuses.OrderType
