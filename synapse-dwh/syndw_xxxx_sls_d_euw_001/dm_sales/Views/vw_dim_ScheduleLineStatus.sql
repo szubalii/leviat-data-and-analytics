@@ -92,7 +92,7 @@ WITH DeliveryItem AS
     GROUP BY [ReferenceSDDocument], [ReferenceSDDocumentItem]
 )
 , pre_report AS (
-SELECT 
+    SELECT 
         SDSL.[SalesDocumentID],
         SDI.[SalesDocumentTypeID],
         SDI.[SDDocumentRejectionStatusID],
