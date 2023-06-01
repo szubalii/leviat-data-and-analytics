@@ -129,6 +129,7 @@ WITH DeliveryItem AS
         END                                     AS DeliveryStatus,
         CASE
             WHEN documentItems.[BillingQuantityInBaseUnit] < SDSL.[SDSLOrderQtyRunningSum] - SDSL.[ConfirmedQty]
+                OR documentItems.[BillingQuantityInBaseUnit] IS NULL
                 THEN 'N'
             WHEN documentItems.[BillingQuantityInBaseUnit] < SDSL.[SDSLOrderQtyRunningSum]
                 THEN 'P'
