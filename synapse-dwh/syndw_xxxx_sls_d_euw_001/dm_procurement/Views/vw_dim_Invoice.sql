@@ -11,7 +11,7 @@ SELECT
     ,SIIPOR.SupplierInvoiceItemAmount   AS Amount
     ,Invoice.DocumentCurrencyID         AS AmountCurrency
     ,SIIPOR.PurchasingDocumentItemShortText AS Description
-    ,PROD.EClassCode                    AS CommodityId
+    ,PROD.EClassCode                    AS ERPCommodityId
     ,REPLACE(LTRIM(REPLACE(PDI.MaterialID,'0',' ')),' ','0')
                                         AS PartNumber
     ,''                                 AS PartRevisionNumber

@@ -4,6 +4,7 @@ SELECT
     [SupplierID],
     [Supplier],
     [SupplierAccountGroupID],
+    [CreationDate],
     [AccountGroup], 
     [CreatedByUser],
     [PostingIsBlocked],
