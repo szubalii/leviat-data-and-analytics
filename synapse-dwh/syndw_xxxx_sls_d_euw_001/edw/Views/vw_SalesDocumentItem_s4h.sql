@@ -469,7 +469,7 @@ ExchangeRateEuro AS (
             ON 
                 SDI.[TransactionCurrencyID] = EuroBudgetExchangeRate.SourceCurrency
         WHERE 
-            [ExchangeRateEffectiveDate] <= SDI.[t_extractionDtm]
+            [ExchangeRateEffectiveDate] <= [t_extractionDtm]
          -- [ExchangeRateEffectiveDate] <= [CreationDate]
         GROUP BY
                 [SalesDocument]
@@ -702,7 +702,7 @@ ExchangeRateUSD as (
             ON 
                 SD_30.CurrencyID = EuroBudgetExchangeRateUSD.TargetCurrency
         WHERE 
-            [ExchangeRateEffectiveDate] <= SDI.[t_extractionDtm]
+            [ExchangeRateEffectiveDate] <= [t_extractionDtm]
          -- [ExchangeRateEffectiveDate] <= [CreationDate]
         GROUP BY
                 [SalesDocument]
