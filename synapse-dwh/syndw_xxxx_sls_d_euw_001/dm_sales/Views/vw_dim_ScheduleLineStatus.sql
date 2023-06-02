@@ -66,7 +66,9 @@ WITH DeliveryItem AS
         SDILocal.[NetAmount] AS LocalNetAmount,
         SDIEUR.[NetAmount] AS EURNetAmount,
         SDIUSD.[NetAmount] AS USDNetAmount,
-        SDILocal.ShippingConditionID
+        SDILocal.[ShippingConditionID],
+        SDILocal.[NetAmount]/SDILocal.[OrderQuantity]   AS PricePerUnit,
+        SDIEUR.[NetAmount]/SDIEUR.[OrderQuantity] AS PricePerUnitEUR
 	FROM [edw].[fact_SalesDocumentItem] SDILocal 
 	JOIN [edw].[fact_SalesDocumentItem] SDIEUR 
         ON SDILocal.SalesDocument = SDIEUR.SalesDocument 
@@ -78,16 +80,21 @@ WITH DeliveryItem AS
 	        AND SDILocal.SalesDocumentItem = SDIUSD.SalesDocumentItem 
             AND SDIUSD.CurrencyTypeID = '40' 
     WHERE SDILocal.CurrencyTypeID='10'
+        AND SDILocal.[OrderQuantity] <> 0
+        AND SDIEUR.[OrderQuantity] <> 0
 )
 ,documentItems AS (
     SELECT MAX(BillingQuantityInBaseUnit)           AS [BillingQuantityInBaseUnit] 
+        , MAX(BillingQuantity)                      AS [BillingQuantity] 
         , ReferenceSDDocument
         , ReferenceSDDocumentItem
     FROM (
-        SELECT SUM(BillingQuantityInBaseUnit) AS [BillingQuantityInBaseUnit] 
+        SELECT SUM(BillingQuantityInBaseUnit)   AS [BillingQuantityInBaseUnit] 
+            ,SUM(BillingQuantity)               AS [BillingQuantity] 
             ,[SalesDocumentID]                  AS [ReferenceSDDocument]          
             ,[SalesDocumentItemID]              AS [ReferenceSDDocumentItem]      
         FROM [edw].[vw_BillingDocumentItem_for_SalesDocumentItem]
+        WHERE SDDocumentCategoryID not in ('5','6')
         GROUP BY [SalesDocumentID], [SalesDocumentItemID], [CurrencyID], [CurrencyTypeID]
     ) a
     GROUP BY [ReferenceSDDocument], [ReferenceSDDocumentItem]
@@ -116,12 +123,13 @@ SELECT
         SDSL.[ConfirmedQty] / SDSL.[TotalOrderQty] * SDI.[USDNetAmount]
                                                 AS ValueConfirmedQuantityUSD,
         SDI.CurrencyID,
-        documentItems.[BillingQuantityInBaseUnit],
+        documentItems.[BillingQuantity],
         SDI.ShippingConditionID,
         SDSL.ScheduleLineCategory,
         SDI.[LocalNetAmount],
+        SDI.[EURNetAmount],
         CASE
-            WHEN SDSL.[TotalDelivered] < SDSL.[SDSLOrderQtyRunningSum] - SDSL.[ConfirmedQty]
+            WHEN SDSL.[TotalDelivered] <= SDSL.[SDSLOrderQtyRunningSum] - SDSL.[ConfirmedQty]
                 THEN 'A'
             WHEN SDSL.[TotalDelivered] < SDSL.[SDSLOrderQtyRunningSum]
                 THEN 'B'
@@ -129,12 +137,11 @@ SELECT
                 THEN 'C'
         END                                     AS DeliveryStatus,
         CASE
-            WHEN documentItems.[BillingQuantityInBaseUnit] < SDSL.[SDSLOrderQtyRunningSum] - SDSL.[ConfirmedQty]
-                OR documentItems.[BillingQuantityInBaseUnit] IS NULL
+            WHEN COALESCE(documentItems.[BillingQuantity],0) <= SDSL.[SDSLOrderQtyRunningSum] - SDSL.[ConfirmedQty]
                 THEN 'N'
-            WHEN documentItems.[BillingQuantityInBaseUnit] < SDSL.[SDSLOrderQtyRunningSum]
+            WHEN documentItems.[BillingQuantity] < SDSL.[SDSLOrderQtyRunningSum]
                 THEN 'P'
-            WHEN documentItems.[BillingQuantityInBaseUnit] >= SDSL.[SDSLOrderQtyRunningSum]
+            WHEN documentItems.[BillingQuantity] >= SDSL.[SDSLOrderQtyRunningSum]
                 THEN 'F'
         END                                     AS InvoicedStatus,
         CASE
@@ -157,9 +164,9 @@ SELECT
         END                                     AS OrderTypeForJoin,
         CASE
             WHEN SDSL.[TotalDelivered] < SDSL.[SDSLOrderQtyRunningSum] - SDSL.[ConfirmedQty]
-                THEN SDSL.[ConfirmedQty] * SDI.[LocalNetAmount]
+                THEN SDSL.[ConfirmedQty] * SDI.[PricePerUnit]
             WHEN SDSL.[TotalDelivered] < SDSL.[SDSLOrderQtyRunningSum]
-                THEN (SDSL.[SDSLOrderQtyRunningSum] - SDSL.[TotalDelivered]) * SDI.[LocalNetAmount]
+                THEN (SDSL.[SDSLOrderQtyRunningSum] - SDSL.[TotalDelivered]) * SDI.[PricePerUnit]
             WHEN SDSL.[TotalDelivered] >= SDSL.[SDSLOrderQtyRunningSum]
                 THEN 0
         END                                     AS OpenDeliveryValue,
@@ -167,10 +174,64 @@ SELECT
             WHEN SDSL.[TotalDelivered] < SDSL.[SDSLOrderQtyRunningSum] - SDSL.[ConfirmedQty]
                 THEN 0
             WHEN SDSL.[TotalDelivered] < SDSL.[SDSLOrderQtyRunningSum]
-                THEN (SDSL.[TotalDelivered] - SDSL.[SDSLOrderQtyRunningSum] + SDSL.[ConfirmedQty]) * SDI.[LocalNetAmount]
+                THEN (SDSL.[TotalDelivered] - SDSL.[SDSLOrderQtyRunningSum] + SDSL.[ConfirmedQty]) * SDI.[PricePerUnit]
             WHEN SDSL.[TotalDelivered] >= SDSL.[SDSLOrderQtyRunningSum]
-                THEN SDSL.[ConfirmedQty] * SDI.[LocalNetAmount]
-        END                                     AS ClosedDeliveryValue
+                THEN SDSL.[ConfirmedQty] * SDI.[PricePerUnit]
+        END                                     AS ClosedDeliveryValue,
+        CASE
+            WHEN SDSL.[TotalDelivered] < SDSL.[SDSLOrderQtyRunningSum] - SDSL.[ConfirmedQty]
+                THEN SDSL.[ConfirmedQty] * SDI.[PricePerUnitEUR]
+            WHEN SDSL.[TotalDelivered] < SDSL.[SDSLOrderQtyRunningSum]
+                THEN (SDSL.[SDSLOrderQtyRunningSum] - SDSL.[TotalDelivered]) * SDI.[PricePerUnitEUR]
+            WHEN SDSL.[TotalDelivered] >= SDSL.[SDSLOrderQtyRunningSum]
+                THEN 0
+        END                                     AS OpenDeliveryValueEUR,
+        CASE
+            WHEN SDSL.[TotalDelivered] < SDSL.[SDSLOrderQtyRunningSum] - SDSL.[ConfirmedQty]
+                THEN 0
+            WHEN SDSL.[TotalDelivered] < SDSL.[SDSLOrderQtyRunningSum]
+                THEN (SDSL.[TotalDelivered] - SDSL.[SDSLOrderQtyRunningSum] + SDSL.[ConfirmedQty]) * SDI.[PricePerUnitEUR]
+            WHEN SDSL.[TotalDelivered] >= SDSL.[SDSLOrderQtyRunningSum]
+                THEN SDSL.[ConfirmedQty] * SDI.[PricePerUnitEUR]
+        END                                     AS ClosedDeliveryValueEUR,
+        CASE
+            WHEN documentItems.[BillingQuantity] < SDSL.[SDSLOrderQtyRunningSum] - SDSL.[ConfirmedQty]
+                OR documentItems.[BillingQuantity] IS NULL
+                THEN SDSL.[ConfirmedQty] * SDI.[PricePerUnit]
+            WHEN documentItems.[BillingQuantity] < SDSL.[SDSLOrderQtyRunningSum]
+                THEN (SDSL.[SDSLOrderQtyRunningSum] - documentItems.[BillingQuantity]) * SDI.[PricePerUnit]
+            WHEN documentItems.[BillingQuantity] >= SDSL.[SDSLOrderQtyRunningSum]
+                THEN 0
+        END                                     AS OpenInvoicedValue,
+        CASE
+            WHEN documentItems.[BillingQuantity] < SDSL.[SDSLOrderQtyRunningSum] - SDSL.[ConfirmedQty]
+                OR documentItems.[BillingQuantity] IS NULL
+                THEN 0
+            WHEN documentItems.[BillingQuantity] < SDSL.[SDSLOrderQtyRunningSum]
+                THEN (documentItems.[BillingQuantity] - SDSL.[SDSLOrderQtyRunningSum] + SDSL.[ConfirmedQty]) * SDI.[PricePerUnit]
+            WHEN documentItems.[BillingQuantity] >= SDSL.[SDSLOrderQtyRunningSum]
+                THEN SDSL.[ConfirmedQty] * SDI.[PricePerUnit]
+        END                                     AS ClosedInvoicedValue,
+        CASE
+            WHEN documentItems.[BillingQuantity] < SDSL.[SDSLOrderQtyRunningSum] - SDSL.[ConfirmedQty]
+                OR documentItems.[BillingQuantity] IS NULL
+                THEN SDSL.[ConfirmedQty] * SDI.[PricePerUnitEUR]
+            WHEN documentItems.[BillingQuantity] < SDSL.[SDSLOrderQtyRunningSum]
+                THEN (SDSL.[SDSLOrderQtyRunningSum] - documentItems.[BillingQuantity]) * SDI.[PricePerUnitEUR]
+            WHEN documentItems.[BillingQuantity] >= SDSL.[SDSLOrderQtyRunningSum]
+                THEN 0
+        END                                     AS OpenInvoicedValueEUR,
+        CASE
+            WHEN documentItems.[BillingQuantity] < SDSL.[SDSLOrderQtyRunningSum] - SDSL.[ConfirmedQty]
+                OR documentItems.[BillingQuantity] IS NULL
+                THEN 0
+            WHEN documentItems.[BillingQuantity] < SDSL.[SDSLOrderQtyRunningSum]
+                THEN (documentItems.[BillingQuantity] - SDSL.[SDSLOrderQtyRunningSum] + SDSL.[ConfirmedQty]) * SDI.[PricePerUnitEUR]
+            WHEN documentItems.[BillingQuantity] >= SDSL.[SDSLOrderQtyRunningSum]
+                THEN SDSL.[ConfirmedQty] * SDI.[PricePerUnitEUR]
+        END                                     AS ClosedInvoicedValueEUR,
+        SDI.[PricePerUnit],
+        SDI.[PricePerUnitEUR]
 	FROM SDSL 
     LEFT JOIN SDI 
         ON SDSL.[SalesDocumentID] = SDI.[SalesDocument] 
@@ -179,35 +240,49 @@ SELECT
         ON SDSL.[SalesDocumentID] = documentItems.[ReferenceSDDocument] 
         AND SDSL.[SalesDocumentItem] = documentItems.[ReferenceSDDocumentItem]
 )
-SELECT  pre_report.[SalesDocumentID],
+SELECT  SELECT 
         pre_report.[SalesDocumentTypeID],
-        pre_report.[SDDocumentRejectionStatusID],
-        pre_report.[CreationDate],
+        pre_report.[SDDocumentRejectionStatusID], 
+        pre_report.[SalesDocumentID],      
         pre_report.[SalesDocumentItem],
         pre_report.[ScheduleLine],
+        pre_report.[SalesDocumentOrderType],
+        pre_report.[OrderStatus],
+        pre_report.[ItemOrderStatus],
+        pre_report.[OrderType],
+        pre_report.[DeliveryStatus]         AS [SLDeliveryStatus],
+        pre_report.[InvoicedStatus]         AS [SLInvoicedStatus],
+        statuses.[Status]                   AS [SLStatus],
+        pre_report.[CreationDate],
         pre_report.[RequestedDeliveryDate],
         pre_report.[ConfirmedDeliveryDate],
         pre_report.[ConfirmedQty],
         pre_report.[TotalOrderQty],
         pre_report.[TotalDelivered],
         pre_report.[SDSLOrderQtyRunningSum],
-        pre_report.[SalesDocumentOrderType],
-        pre_report.[ItemOrderStatus],
-        pre_report.[OrderStatus],
         pre_report.[ValueConfirmedQuantityLocal],
         pre_report.[ValueConfirmedQuantityEUR],
         pre_report.[ValueConfirmedQuantityUSD],
         pre_report.[CurrencyID],
-        pre_report.[BillingQuantityInBaseUnit],
+        pre_report.[BillingQuantity],
         pre_report.[ShippingConditionID],
         pre_report.[ScheduleLineCategory],
         pre_report.[LocalNetAmount],
-        pre_report.[DeliveryStatus],
-        pre_report.[InvoicedStatus],
-        pre_report.[OrderType],
         pre_report.[OpenDeliveryValue],
         pre_report.[ClosedDeliveryValue],
-        statuses.[Status]
+        pre_report.[OpenInvoicedValue],
+        pre_report.[ClosedInvoicedValue],
+        pre_report.[OpenDeliveryValueEUR],
+        pre_report.[ClosedDeliveryValueEUR],
+        pre_report.[OpenInvoicedValueEUR],
+        pre_report.[ClosedInvoicedValueEUR],
+        pre_report.[PricePerUnit],
+        pre_report.[PricePerUnitEUR],
+        CASE
+            WHEN pre_report.[SalesDocumentTypeID] LIKE 'ZOR'
+                THEN '1'
+            ELSE '0'
+        END                                 AS InScope
 FROM pre_report
 LEFT JOIN [edw].[vw_SalesDocumentStatuses] statuses
     ON  pre_report.OrderTypeForJoin = statuses.OrderType
