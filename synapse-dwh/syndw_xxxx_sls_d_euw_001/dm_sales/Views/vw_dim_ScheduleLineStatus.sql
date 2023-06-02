@@ -240,7 +240,7 @@ SELECT
         ON SDSL.[SalesDocumentID] = documentItems.[ReferenceSDDocument] 
         AND SDSL.[SalesDocumentItem] = documentItems.[ReferenceSDDocumentItem]
 )
-SELECT  SELECT 
+SELECT
         pre_report.[SalesDocumentTypeID],
         pre_report.[SDDocumentRejectionStatusID], 
         pre_report.[SalesDocumentID],      
