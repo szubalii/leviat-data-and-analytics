@@ -327,7 +327,7 @@ BEGIN
 	@t_jobId as t_jobId,
 	@t_jobDtm as t_jobDtm,
 	@t_jobBy as t_jobBy,
-	REPLACE(reverse(SUBSTRING(reverse(t_filePath),5,10)),'_','-') as t_extractionDtm
+	TRY_CAST(REPLACE(REVERSE(SUBSTRING(REVERSE(t_filePath),5,10)),'_','-') AS DATETIME) AS t_extractionDtm
 	from [base_ancon_uk].[CUSTTABLE_ANUK]
 
 	-- Ancon Australia CONNOLLY
@@ -358,7 +358,7 @@ BEGIN
 	@t_jobId as t_jobId,
 	@t_jobDtm as t_jobDtm,
 	@t_jobBy as t_jobBy,
-	REPLACE(reverse(SUBSTRING(reverse(t_filePath),5,10)),'_','-') as t_extractionDtm
+	TRY_CAST(REPLACE(REVERSE(SUBSTRING(REVERSE(t_filePath),5,10)),'_','-') AS DATETIME) AS t_extractionDtm
 	from [base_ancon_conolly_aus].[CUSTTABLE_ANAC]
 
 	delete from [intm_axbi].[dim_ITEMTABLE] where PRODUCTGROUPID = 'SCRAP'
@@ -456,7 +456,7 @@ BEGIN
 	@t_jobId as t_jobId,
 	@t_jobDtm as t_jobDtm,
 	@t_jobBy as t_jobBy,
-	REPLACE(reverse(SUBSTRING(reverse(t_filePath),5,10)),'_','-') as t_extractionDtm
+	TRY_CAST(REPLACE(REVERSE(SUBSTRING(REVERSE(t_filePath),5,10)),'_','-') AS DATETIME) AS t_extractionDtm
 	from [base_ancon_me].[CUSTTABLE_ANME]
 
 	-- Ancon Isedio UK
@@ -485,7 +485,7 @@ BEGIN
 	@t_jobId as t_jobId,
 	@t_jobDtm as t_jobDtm,
 	@t_jobBy as t_jobBy,
-	REPLACE(reverse(SUBSTRING(reverse(t_filePath),5,10)),'_','-') as t_extractionDtm
+	TRY_CAST(REPLACE(REVERSE(SUBSTRING(REVERSE(t_filePath),5,10)),'_','-') AS DATETIME) AS t_extractionDtm
 	from [base_isedio].[CUSTTABLE_ISUK]
 
 	update [intm_axbi].[dim_CUSTTABLE]
@@ -617,7 +617,7 @@ BEGIN
 	@t_jobId as t_jobId,
 	@t_jobDtm as t_jobDtm,
 	@t_jobBy as t_jobBy,
-	REPLACE(reverse(SUBSTRING(reverse(t_filePath),5,10)),'_','-') as t_extractionDtm
+	TRY_CAST(REPLACE(REVERSE(SUBSTRING(REVERSE(t_filePath),5,10)),'_','-') AS DATETIME) AS t_extractionDtm
 	from [base_halfen_moment_my].[CUSTTABLE_HMMY]
 
 	-- Halfen Moment Singapur
@@ -647,7 +647,7 @@ BEGIN
 	@t_jobId as t_jobId,
 	@t_jobDtm as t_jobDtm,
 	@t_jobBy as t_jobBy,
-	REPLACE(reverse(SUBSTRING(reverse(t_filePath),5,10)),'_','-') as t_extractionDtm
+	TRY_CAST(REPLACE(REVERSE(SUBSTRING(REVERSE(t_filePath),5,10)),'_','-') AS DATETIME) AS t_extractionDtm
 	from [base_halfen_moment_sg].[CUSTTABLE_HMSG]
 
 	-- Halfen Moment Indien
@@ -677,7 +677,7 @@ BEGIN
 	@t_jobId as t_jobId,
 	@t_jobDtm as t_jobDtm,
 	@t_jobBy as t_jobBy,
-	REPLACE(reverse(SUBSTRING(reverse(t_filePath),5,10)),'_','-') as t_extractionDtm
+	TRY_CAST(REPLACE(REVERSE(SUBSTRING(REVERSE(t_filePath),5,10)),'_','-') AS DATETIME) AS t_extractionDtm
 	from [base_halfen_moment_in].[CUSTTABLE_HMIN]
 
 	update [intm_axbi].[dim_CUSTTABLE]
@@ -715,7 +715,7 @@ BEGIN
 	@t_jobId as t_jobId,
 	@t_jobDtm as t_jobDtm,
 	@t_jobBy as t_jobBy,
-	REPLACE(reverse(SUBSTRING(reverse(t_filePath),5,10)),'_','-') as t_extractionDtm
+	TRY_CAST(REPLACE(REVERSE(SUBSTRING(REVERSE(t_filePath),5,10)),'_','-') AS DATETIME) AS t_extractionDtm
 	from [base_halfen_moment_ph].[CUSTTABLE_HMPH]
 
 	-- Fehlenden Kunden eintragen
@@ -771,7 +771,7 @@ BEGIN
 	@t_jobId as t_jobId,
 	@t_jobDtm as t_jobDtm,
 	@t_jobBy as t_jobBy,
-	REPLACE(reverse(SUBSTRING(reverse(t_filePath),5,10)),'_','-') as t_extractionDtm
+	TRY_CAST(REPLACE(REVERSE(SUBSTRING(REVERSE(t_filePath),5,10)),'_','-') AS DATETIME) AS t_extractionDtm
 	from [base_isedio_aus].[CUSTTABLE_ISAU]
 
 	update [intm_axbi].[dim_CUSTTABLE]
@@ -1023,7 +1023,7 @@ BEGIN
 	 	@t_jobId as t_jobId,
 	 	@t_jobDtm as t_jobDtm,
 	 	@t_jobBy as t_jobBy,
-	 	REPLACE(reverse(SUBSTRING(reverse(t_filePath),5,10)),'_','-') as t_extractionDtm
+	    TRY_CAST(REPLACE(REVERSE(SUBSTRING(REVERSE(t_filePath),5,10)),'_','-') AS DATETIME) AS t_extractionDtm
     from [base_ancon_conolly_aus].[ITEMTABLE_ANAC]
     group by 'ANAC-' + CAST(STOCKGROUP as NVARCHAR(2)), 'ANAC-' + GROUPNAME, t_applicationId, t_filePath
 
@@ -1107,8 +1107,8 @@ BEGIN
 		t_applicationId,
 		@t_jobId as t_jobId,
 		@t_jobDtm as t_jobDtm,
-		@t_jobBy as t_jobBy,
-		REPLACE(reverse(SUBSTRING(reverse(t_filePath),5,10)),'_','-') as t_extractionDtm  
+		@t_jobBy as t_jobBy,		
+	    TRY_CAST(REPLACE(REVERSE(SUBSTRING(REVERSE(t_filePath),5,10)),'_','-') AS DATETIME) AS t_extractionDtm
         from [base_ancon_uk].[MAPPING_ITEMGROUP_ANUK]
 
 	delete [intm_axbi].[dim_ITEMGROUP] where DATAAREAID = 'ISUK'
@@ -1128,8 +1128,8 @@ BEGIN
 		 t_applicationId,
 		 @t_jobId as t_jobId,
 		 @t_jobDtm as t_jobDtm,
-		 @t_jobBy as t_jobBy,
-		 REPLACE(reverse(SUBSTRING(reverse(t_filePath),5,10)),'_','-') as t_extractionDtm  
+		 @t_jobBy as t_jobBy,		 
+	     TRY_CAST(REPLACE(REVERSE(SUBSTRING(REVERSE(t_filePath),5,10)),'_','-') AS DATETIME) AS t_extractionDtm
     from [base_ancon_uk].[MAPPING_ITEMGROUP_ANUK]
 
 
@@ -1917,7 +1917,7 @@ BEGIN
 	@t_jobId as t_jobId,
 	@t_jobDtm as t_jobDtm,
 	@t_jobBy as t_jobBy,
-	REPLACE(reverse(SUBSTRING(reverse(t_filePath),5,10)),'_','-') as t_extractionDtm
+	TRY_CAST(REPLACE(REVERSE(SUBSTRING(REVERSE(t_filePath),5,10)),'_','-') AS DATETIME) AS t_extractionDtm
 	from [base_ancon_uk].[ITEMTABLE_ANUK]
 
 	update [intm_axbi].[dim_ITEMTABLE]
@@ -2039,7 +2039,7 @@ BEGIN
 	@t_jobId as t_jobId,
 	@t_jobDtm as t_jobDtm,
 	@t_jobBy as t_jobBy,
-	REPLACE(reverse(SUBSTRING(reverse(t_filePath),5,10)),'_','-') as t_extractionDtm
+	TRY_CAST(REPLACE(REVERSE(SUBSTRING(REVERSE(t_filePath),5,10)),'_','-') AS DATETIME) AS t_extractionDtm
 	from [base_ancon_conolly_aus].[ITEMTABLE_ANAC]
 
 	-- Dummy article for the Budget
@@ -2157,7 +2157,7 @@ BEGIN
 	@t_jobId as t_jobId,
 	@t_jobDtm as t_jobDtm,
 	@t_jobBy as t_jobBy,
-	REPLACE(reverse(SUBSTRING(reverse(t_filePath),5,10)),'_','-') as t_extractionDtm
+	TRY_CAST(REPLACE(REVERSE(SUBSTRING(REVERSE(t_filePath),5,10)),'_','-') AS DATETIME) AS t_extractionDtm
 	from [base_ancon_me].[ITEMTABLE_ANME]
 
 	-- Dummy article for the Budget
@@ -2252,7 +2252,7 @@ BEGIN
 	@t_jobId as t_jobId,
 	@t_jobDtm as t_jobDtm,
 	@t_jobBy as t_jobBy,
-	REPLACE(reverse(SUBSTRING(reverse(t_filePath),5,10)),'_','-') as t_extractionDtm
+	TRY_CAST(REPLACE(REVERSE(SUBSTRING(REVERSE(t_filePath),5,10)),'_','-') AS DATETIME) AS t_extractionDtm
 	from [base_isedio].[ITEMTABLE_ISUK]
 
 	update [intm_axbi].[dim_ITEMTABLE]
@@ -2347,7 +2347,7 @@ BEGIN
 	@t_jobId as t_jobId,
 	@t_jobDtm as t_jobDtm,
 	@t_jobBy as t_jobBy,
-	REPLACE(reverse(SUBSTRING(reverse(t_filePath),5,10)),'_','-') as t_extractionDtm
+	TRY_CAST(REPLACE(REVERSE(SUBSTRING(REVERSE(t_filePath),5,10)),'_','-') AS DATETIME) AS t_extractionDtm
 	from [base_halfen_moment_my].[ITEMTABLE_HMMY]
 
 	DECLARE @t_applicationId_HMMY varchar(20) 
@@ -2437,7 +2437,7 @@ BEGIN
 	@t_jobId as t_jobId,
 	@t_jobDtm as t_jobDtm,
 	@t_jobBy as t_jobBy,
-	REPLACE(reverse(SUBSTRING(reverse(t_filePath),5,10)),'_','-') as t_extractionDtm
+	TRY_CAST(REPLACE(REVERSE(SUBSTRING(REVERSE(t_filePath),5,10)),'_','-') AS DATETIME) AS t_extractionDtm
 	from [base_halfen_moment_sg].[ITEMTABLE_HMSG]
 
 	DECLARE @t_applicationId_HMSG varchar(20) 
@@ -2527,7 +2527,7 @@ BEGIN
 	@t_jobId as t_jobId,
 	@t_jobDtm as t_jobDtm,
 	@t_jobBy as t_jobBy,
-	REPLACE(reverse(SUBSTRING(reverse(t_filePath),5,10)),'_','-') as t_extractionDtm
+	TRY_CAST(REPLACE(REVERSE(SUBSTRING(REVERSE(t_filePath),5,10)),'_','-') AS DATETIME) AS t_extractionDtm
 	from [base_halfen_moment_in].[ITEMTABLE_HMIN]
 
 	DECLARE @t_applicationId_HMIN varchar(20) 
@@ -2621,7 +2621,7 @@ BEGIN
 	@t_jobId as t_jobId,
 	@t_jobDtm as t_jobDtm,
 	@t_jobBy as t_jobBy,
-	REPLACE(reverse(SUBSTRING(reverse(t_filePath),5,10)),'_','-') as t_extractionDtm
+	TRY_CAST(REPLACE(REVERSE(SUBSTRING(REVERSE(t_filePath),5,10)),'_','-') AS DATETIME) AS t_extractionDtm
 	from [base_halfen_moment_ph].[ITEMTABLE_HMPH]
 
 	
@@ -2723,7 +2723,7 @@ BEGIN
 	@t_jobId as t_jobId,
 	@t_jobDtm as t_jobDtm,
 	@t_jobBy as t_jobBy,
-	REPLACE(reverse(SUBSTRING(reverse(t_filePath),5,10)),'_','-') as t_extractionDtm
+	TRY_CAST(REPLACE(REVERSE(SUBSTRING(REVERSE(t_filePath),5,10)),'_','-') AS DATETIME) AS t_extractionDtm
 	from [base_isedio_aus].[ITEMTABLE_ISAU]
 
 	-- Dummy article for the Budget
