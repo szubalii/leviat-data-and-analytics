@@ -93,7 +93,7 @@
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "If real entity",
+						"activity": "If NOT real entity",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -269,7 +269,7 @@
 							"value": "sp_materialize_view",
 							"activities": [
 								{
-									"name": "Materialize Generic View_copy1",
+									"name": "Materialize Generic View_sp_mv",
 									"type": "SqlServerStoredProcedure",
 									"dependsOn": [],
 									"policy": {
@@ -357,11 +357,11 @@
 									}
 								},
 								{
-									"name": "Log Exception for Generic Materialized EDW Table_copy1",
+									"name": "Log Exception for Generic Materialized EDW Table_sp_mv",
 									"type": "SqlServerStoredProcedure",
 									"dependsOn": [
 										{
-											"activity": "Materialize Generic View_copy1",
+											"activity": "Materialize Generic View_sp_mv",
 											"dependencyConditions": [
 												"Failed"
 											]
@@ -427,11 +427,11 @@
 									}
 								},
 								{
-									"name": "GenericSPFailure_copy1",
+									"name": "GenericSPFailure_sp_mv",
 									"type": "Fail",
 									"dependsOn": [
 										{
-											"activity": "Log Exception for Generic Materialized EDW Table_copy1",
+											"activity": "Log Exception for Generic Materialized EDW Table_sp_mv",
 											"dependencyConditions": [
 												"Succeeded"
 											]
@@ -452,7 +452,7 @@
 							"value": "sp_dq_materialize_view",
 							"activities": [
 								{
-									"name": "Materialize Generic View_copy2",
+									"name": "Materialize Generic View_sp_dq_mv",
 									"type": "SqlServerStoredProcedure",
 									"dependsOn": [],
 									"policy": {
@@ -540,11 +540,11 @@
 									}
 								},
 								{
-									"name": "Log Exception for Generic Materialized EDW Table_copy2",
+									"name": "Log Exception for Generic Materialized EDW Table_spdqmv",
 									"type": "SqlServerStoredProcedure",
 									"dependsOn": [
 										{
-											"activity": "Materialize Generic View_copy2",
+											"activity": "Materialize Generic View_sp_dq_mv",
 											"dependencyConditions": [
 												"Failed"
 											]
@@ -610,11 +610,11 @@
 									}
 								},
 								{
-									"name": "GenericSPFailure_copy2",
+									"name": "GenericSPFailure_sp_dq_mv",
 									"type": "Fail",
 									"dependsOn": [
 										{
-											"activity": "Log Exception for Generic Materialized EDW Table_copy2",
+											"activity": "Log Exception for Generic Materialized EDW Table_spdqmv",
 											"dependencyConditions": [
 												"Succeeded"
 											]
@@ -635,7 +635,7 @@
 							"value": "unload_to_SFTP",
 							"activities": [
 								{
-									"name": "Materialize Generic View_copy3",
+									"name": "Materialize Generic View_usftp",
 									"type": "SqlServerStoredProcedure",
 									"dependsOn": [],
 									"policy": {
@@ -723,11 +723,11 @@
 									}
 								},
 								{
-									"name": "Log Exception for Generic Materialized EDW Table_copy3",
+									"name": "Log Exception for Generic Materialized EDW Table_usftp",
 									"type": "SqlServerStoredProcedure",
 									"dependsOn": [
 										{
-											"activity": "Materialize Generic View_copy3",
+											"activity": "Materialize Generic View_usftp",
 											"dependencyConditions": [
 												"Failed"
 											]
@@ -793,11 +793,11 @@
 									}
 								},
 								{
-									"name": "GenericSPFailure_copy3",
+									"name": "GenericSPFailure_usftp",
 									"type": "Fail",
 									"dependsOn": [
 										{
-											"activity": "Log Exception for Generic Materialized EDW Table_copy3",
+											"activity": "Log Exception for Generic Materialized EDW Table_usftp",
 											"dependencyConditions": [
 												"Succeeded"
 											]
@@ -817,11 +817,11 @@
 					],
 					"defaultActivities": [
 						{
-							"name": "Materialize Custom View_copy1",
+							"name": "Materialize Custom View_default",
 							"type": "SqlServerStoredProcedure",
 							"dependsOn": [
 								{
-									"activity": "Set Exception Category_copy1",
+									"activity": "Set Exception Category_default",
 									"dependencyConditions": [
 										"Succeeded"
 									]
@@ -884,7 +884,7 @@
 							}
 						},
 						{
-							"name": "Set Activity_copy1",
+							"name": "Set Activity_default",
 							"type": "SetVariable",
 							"dependsOn": [],
 							"userProperties": [],
@@ -894,11 +894,11 @@
 							}
 						},
 						{
-							"name": "Set Exception Category_copy1",
+							"name": "Set Exception Category_default",
 							"type": "SetVariable",
 							"dependsOn": [
 								{
-									"activity": "Set Activity_copy1",
+									"activity": "Set Activity_default",
 									"dependencyConditions": [
 										"Succeeded"
 									]
@@ -911,11 +911,11 @@
 							}
 						},
 						{
-							"name": "Log Exception for Custom Materialized EDW Table_copy1",
+							"name": "Log Exception for Custom Materialized EDW Table_default",
 							"type": "SqlServerStoredProcedure",
 							"dependsOn": [
 								{
-									"activity": "Materialize Custom View_copy1",
+									"activity": "Materialize Custom View_default",
 									"dependencyConditions": [
 										"Failed"
 									]
@@ -981,11 +981,11 @@
 							}
 						},
 						{
-							"name": "CustomSPFailure_copy1",
+							"name": "CustomSPFailure_default",
 							"type": "Fail",
 							"dependsOn": [
 								{
-									"activity": "Log Exception for Custom Materialized EDW Table_copy1",
+									"activity": "Log Exception for Custom Materialized EDW Table_default",
 									"dependencyConditions": [
 										"Succeeded"
 									]
@@ -1004,7 +1004,7 @@
 				}
 			},
 			{
-				"name": "If real entity",
+				"name": "If NOT real entity",
 				"type": "IfCondition",
 				"dependsOn": [
 					{
@@ -1022,7 +1022,7 @@
 					},
 					"ifFalseActivities": [
 						{
-							"name": "Update EDW Table Statistics_copy1",
+							"name": "Update EDW Table Statistics",
 							"type": "ExecutePipeline",
 							"dependsOn": [],
 							"userProperties": [],
@@ -1045,11 +1045,11 @@
 							}
 						},
 						{
-							"name": "Set Status Failed - Statistics_copy1",
+							"name": "Set Status Failed - Statistics",
 							"type": "SqlServerStoredProcedure",
 							"dependsOn": [
 								{
-									"activity": "Log Exception - Statistics_copy1",
+									"activity": "Log Exception - Statistics",
 									"dependencyConditions": [
 										"Succeeded"
 									]
@@ -1116,11 +1116,11 @@
 							}
 						},
 						{
-							"name": "Log Exception - Statistics_copy1",
+							"name": "Log Exception - Statistics",
 							"type": "SqlServerStoredProcedure",
 							"dependsOn": [
 								{
-									"activity": "Update EDW Table Statistics_copy1",
+									"activity": "Update EDW Table Statistics",
 									"dependencyConditions": [
 										"Failed"
 									]
@@ -1183,11 +1183,11 @@
 							}
 						},
 						{
-							"name": "Fail Update EDW Table Statistics_copy1",
+							"name": "Fail Update EDW Table Statistics",
 							"type": "Fail",
 							"dependsOn": [
 								{
-									"activity": "Set Status Failed - Statistics_copy1",
+									"activity": "Set Status Failed - Statistics",
 									"dependencyConditions": [
 										"Succeeded"
 									]
