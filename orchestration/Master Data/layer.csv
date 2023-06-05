@@ -17,3 +17,4 @@ layer_id,layer_nk,location_id,layer_description
 17,HMPH,3,Azure Data Lake Storage - halfen-moment-ph folder
 18,ANUK,3,Azure Data Lake Storage - ancon-uk folder
 19,ISUK,3,Azure Data Lake Storage - isedio folder
+20,SFTP,8,SFTP server
