@@ -50,7 +50,7 @@ WITH ProductValuation AS (
     FROM
         edw.dim_ExchangeRates
     WHERE
-        ExchangeRateType = 'ZAXBIBUD'
+        ExchangeRateType = 'P'
         AND
         TargetCurrency = 'EUR'
 ), ProductValuationEuroExchangeRate AS (
@@ -75,7 +75,8 @@ WITH ProductValuation AS (
             ON 
                 PV.[CurrencyID] = EuroBudgetExchangeRate.SourceCurrency
         WHERE 
-            [ExchangeRateEffectiveDate] <= CAST(GETDATE() as DATE)
+            --[ExchangeRateEffectiveDate] <= CAST(GETDATE() as DATE)
+              [ExchangeRateEffectiveDate] <= PV.[t_extractionDtm]
         GROUP BY
                 PV.[ProductID]
             ,   PV.[ValuationAreaID]

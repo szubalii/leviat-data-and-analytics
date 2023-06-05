@@ -77,7 +77,7 @@ EuroBudgetExchangeRate AS (
     FROM
         edw.dim_ExchangeRates
     WHERE
-        ExchangeRateType = 'ZAXBIBUD'
+        ExchangeRateType = 'P'
         AND
         TargetCurrency = 'EUR'
 ), 
@@ -90,7 +90,7 @@ USDBudgetExchangeRate as (
        from
            edw.dim_ExchangeRates
        where
-           ExchangeRateType = 'ZAXBIBUD'
+           ExchangeRateType = 'P'
            AND
            SourceCurrency = 'USD'
 ),
@@ -128,9 +128,14 @@ ProductValuationExchangeRate AS (
             ON 
                 USDBudgetExchangeRate.TargetCurrency = 'EUR'
         WHERE 
+                EuroBudgetExchangeRate.[ExchangeRateEffectiveDate] <=  PV.[t_extractionDtm]
+                AND 
+                USDBudgetExchangeRate.[ExchangeRateEffectiveDate] <= PV.[t_extractionDtm]
+                /*
                 EuroBudgetExchangeRate.[ExchangeRateEffectiveDate] <=  PV.[FiscalStartYearPeriodDate]
                 AND 
                 USDBudgetExchangeRate.[ExchangeRateEffectiveDate] <= PV.[FiscalStartYearPeriodDate]
+                */
         GROUP BY
                 PV.[ProductID]
             ,   PV.[ValuationAreaID]
