@@ -353,7 +353,7 @@ C_SalesDocumentItemDEXBase as (
     LEFT JOIN outboundDeliveriesOverall ODO
             ON doc.[SalesDocument] = ODO.[ReferenceSDDocument]
                       
-    LEFT JOIN [edw].[vw_SalesDocumentStatuses]  ios_status
+    LEFT JOIN [base_ff].[SalesDocumentStatuses]  ios_status
             ON 
                 CASE
                     WHEN SDSL.ScheduleLineCategory = 'ZS'
@@ -376,7 +376,7 @@ C_SalesDocumentItemDEXBase as (
                 END = ios_status.InvoiceStatus
             AND doc.[SDDocumentCategory] <> 'B'
             AND doc.[SDDocumentRejectionStatus] <> 'C'
-    LEFT JOIN [edw].[vw_SalesDocumentStatuses]  os_status
+    LEFT JOIN [base_ff].[SalesDocumentStatuses]  os_status
             ON 
                     CASE
                         WHEN SDSL.ScheduleLineCategory = 'ZS'

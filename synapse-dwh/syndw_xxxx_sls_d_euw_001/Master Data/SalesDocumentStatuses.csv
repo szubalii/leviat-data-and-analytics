@@ -1,0 +1,28 @@
+Status;OrderType;DeliveryStatus;InvoiceStatus;OrderTypeText
+Closed;0;C;F;Delivery
+DeliverednotInvoiced;0;C;N;Delivery
+DeliverednotInvoiced;0;C;P;Delivery
+ZZ_To_Be_Investigated;0;A;F;Delivery
+Open;0;A;N;Delivery
+ZZ_To_Be_Investigated;0;A;P;Delivery
+ZZ_To_Be_Investigated;0;B;F;Delivery
+DeliverednotInvoiced;0;B;N;Delivery
+Open;0;B;P;Delivery
+Closed;1;C;F';Collection
+DeliverednotInvoiced;1;C;N;Collection
+DeliverednotInvoiced;1;C;P;Collection
+ZZ_To_Be_Investigated;1;A;F;Collection
+Open;1;A;N;Collection
+ZZ_To_Be_Investigated;1;A;P;Collection
+ZZ_To_Be_Investigated;1;B;F;Collection
+DeliverednotInvoiced;1;B;N;Collection
+Open;1;B;P;Collection
+Closed;2;null;F;Drop Shipment
+Open;2;null;N;Drop Shipment
+Open;2;null;P;Drop Shipment
+Closed;0;;F;Delivery
+Open;0;;N;Delivery
+Open;0;;P;Delivery
+Closed;1;;F;Collection
+Open;1;;N;Collection
+Open;1;;P;Collection

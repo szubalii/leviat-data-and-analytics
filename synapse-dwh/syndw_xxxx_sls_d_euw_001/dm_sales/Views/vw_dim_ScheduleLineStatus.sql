@@ -1,4 +1,4 @@
-CREATE VIEW [dm_sales].[vw_dim_ScheduleLineStatus]
+CREATE VIEW [dm_sales].[vw_fact_ScheduleLineStatus]
 AS
 WITH DeliveryItem AS 
 ( 
@@ -144,24 +144,7 @@ SELECT
             WHEN documentItems.[BillingQuantity] >= SDSL.[SDSLOrderQtyRunningSum]
                 THEN 'F'
         END                                     AS InvoicedStatus,
-        CASE
-            WHEN SDSL.ScheduleLineCategory = 'ZS'
-                THEN 'Drop Shipment'
-            WHEN SDI.ShippingConditionID = 70
-                THEN 'Collection'
-            WHEN SDI.ShippingConditionID <> 70
-                THEN 'Delivery'
-            ELSE      'Unknown'
-        END                                     AS OrderType,
-        CASE
-            WHEN SDSL.ScheduleLineCategory = 'ZS'
-                THEN 2
-            WHEN SDI.ShippingConditionID = 70
-                THEN 1
-            WHEN SDI.ShippingConditionID <> 70
-                THEN 0
-            ELSE      10
-        END                                     AS OrderTypeForJoin,
+        SDI.OrderType,
         CASE
             WHEN SDSL.[TotalDelivered] < SDSL.[SDSLOrderQtyRunningSum] - SDSL.[ConfirmedQty]
                 THEN SDSL.[ConfirmedQty] * SDI.[PricePerUnit]
@@ -284,7 +267,7 @@ SELECT
             ELSE '0'
         END                                 AS InScope
 FROM pre_report
-LEFT JOIN [edw].[vw_SalesDocumentStatuses] statuses
-    ON  pre_report.OrderTypeForJoin = statuses.OrderType
+LEFT JOIN [base_ff].[SalesDocumentStatuses] statuses
+    ON  pre_report.OrderType = statuses.OrderTypeText
         AND pre_report.[DeliveryStatus] = COALESCE (statuses.DeliveryStatus, pre_report.[DeliveryStatus])
         AND pre_report.[InvoicedStatus]= statuses.InvoiceStatus
