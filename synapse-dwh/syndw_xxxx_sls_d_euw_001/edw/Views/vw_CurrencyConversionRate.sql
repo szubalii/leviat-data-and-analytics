@@ -12,7 +12,15 @@ WITH AllRates AS (
     WHERE
         [ExchangeRateType] = 'P'
         and
-        [TargetCurrency] = 'EUR')
+        [TargetCurrency] = 'EUR'
+                            UNION ALL
+    SELECT                              -- we don't have EUR2EUR rates for P type
+        'EUR'
+        ,'EUR'
+        ,'1900-01-01'
+        , '9999-12-31'
+        , 1.0
+)
 
 SELECT 
     [SourceCurrency]
@@ -57,5 +65,5 @@ SELECT other_currency.SourceCurrency
 FROM AllRates other_currency
 INNER JOIN AllRates rate2usd
     ON rate2usd.ExchangeRateEffectiveDate BETWEEN other_currency.ExchangeRateEffectiveDate AND other_currency.LastDay
-    AND rate2usd.LastDay <= other_currency.LastDay
+    OR other_currency.ExchangeRateEffectiveDate BETWEEN rate2usd.ExchangeRateEffectiveDate AND rate2usd.LastDay
 WHERE rate2usd.SourceCurrency = 'USD'
