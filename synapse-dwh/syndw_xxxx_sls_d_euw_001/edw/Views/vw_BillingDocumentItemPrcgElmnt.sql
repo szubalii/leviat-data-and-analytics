@@ -82,7 +82,7 @@ UNION ALL
    	FROM 
 		 [base_s4h_cax].[I_BillingDocumentItemPrcgElmnt] IBDIPE
 	LEFT JOIN  [edw].[fact_BillingDocumentItem] BDI
-           ON edw.svf_getNaturalKey (IBDIPE.BillingDocument,IBDIPE.BillingDocumentItem,10) = BDI.[nk_fact_BillingDocumentItem] 
+           ON IBDIPE.BillingDocument = BDI.BillingDocument and IBDIPE.BillingDocumentItem = BDI.BillingDocumentItem and BDI.CurrencyTypeID = '10'
 	INNER JOIN CurrencyRate CR
            ON BDI.CurrencyID = CR.SourceCurrency COLLATE DATABASE_DEFAULT
            AND BDI.[t_extractionDtm] BETWEEN CR.ExchangeRateEffectiveDate and CR.LastDay
