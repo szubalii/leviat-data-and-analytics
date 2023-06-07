@@ -748,6 +748,7 @@
     <Build Include="base_tx_ca_0_hlp\Tables\ITEMTABLE.sql" />
     <Build Include="base_tx_ca_0_hlp\Tables\PRODUCTGROUP.sql" />
     <Build Include="base_ff\Tables\ProductCalculated.sql" />
+    <Build Include="base_ff\Tables\SalesDocumentStatuses.sql" />
     <Build Include="edw\Tables\dim_ProductCalculated.sql" />
     <Build Include="dm_sales\Views\vw_dim_ProductCalculated.sql" />
     <Build Include="edw\Tables\dim_CustomerCalculated.sql" />
