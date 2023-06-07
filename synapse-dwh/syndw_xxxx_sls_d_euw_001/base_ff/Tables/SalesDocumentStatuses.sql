@@ -8,9 +8,8 @@
     [t_applicationId]            VARCHAR(32),
     [t_jobId]                    VARCHAR(36),
     [t_jobDtm]                   DATETIME,
-    [t_jobBy]                    NVARCHAR(128) ,
-    [t_filePath]                 NVARCHAR(1024),
-    CONSTRAINT [PK_SalesDocumentStatuses] PRIMARY KEY NONCLUSTERED ([Status], [OrderType], [DeliveryStatus],[InvoiceStatus]) NOT ENFORCED,
+    [t_jobBy]                    NVARCHAR(128),
+    [t_filePath]                 NVARCHAR(1024)
 )
 WITH (
     DISTRIBUTION = REPLICATE,
