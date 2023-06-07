@@ -5,8 +5,8 @@ SELECT
     ,sl.[Plant]
     ,CONVERT(NVARCHAR(32),
             HashBytes('SHA2_256',
-            isNull(CAST([StorageLocationID] COLLATE DATABASE_DEFAULT AS VARCHAR) , '') +
-			isNull(CAST([Plant] COLLATE DATABASE_DEFAULT AS VARCHAR) , '') 
+                  isNull(CAST([StorageLocationID] COLLATE DATABASE_DEFAULT AS VARCHAR) , '') +
+			      isNull(CAST([Plant] COLLATE DATABASE_DEFAULT AS VARCHAR) , '') 
             )
         , 2)                            AS StoragePlantID
     ,sl.[SalesOrganization]             AS [SalesOrganizationID]

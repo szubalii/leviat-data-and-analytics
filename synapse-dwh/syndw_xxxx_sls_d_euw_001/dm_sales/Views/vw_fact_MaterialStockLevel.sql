@@ -9,8 +9,8 @@ SELECT
     [StorageLocationID],
     CONVERT(NVARCHAR(32),
             HashBytes('SHA2_256',
-            isNull(CAST([StorageLocationID] COLLATE DATABASE_DEFAULT AS VARCHAR) , '') +
-			      isNull(CAST([PlantID] COLLATE DATABASE_DEFAULT AS VARCHAR) , '') 
+                  isNull(CAST([StorageLocationID] COLLATE DATABASE_DEFAULT AS VARCHAR) , '') +
+			            isNull(CAST([PlantID] COLLATE DATABASE_DEFAULT AS VARCHAR) , '') 
             )
         , 2)  as StoragePlantID,
     [InventorySpecialStockTypeID],
