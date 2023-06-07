@@ -8,7 +8,7 @@ ZZ_To_Be_Investigated;0;A;P;Delivery
 ZZ_To_Be_Investigated;0;B;F;Delivery
 DeliverednotInvoiced;0;B;N;Delivery
 Open;0;B;P;Delivery
-Closed;1;C;F';Collection
+Closed;1;C;F;Collection
 DeliverednotInvoiced;1;C;N;Collection
 DeliverednotInvoiced;1;C;P;Collection
 ZZ_To_Be_Investigated;1;A;F;Collection
