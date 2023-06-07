@@ -17,9 +17,9 @@ ZZ_To_Be_Investigated;1;A;P;Collection
 ZZ_To_Be_Investigated;1;B;F;Collection
 DeliverednotInvoiced;1;B;N;Collection
 Open;1;B;P;Collection
-Closed;2;null;F;Drop Shipment
-Open;2;null;N;Drop Shipment
-Open;2;null;P;Drop Shipment
+Closed;2;;F;Drop Shipment
+Open;2;;N;Drop Shipment
+Open;2;;P;Drop Shipment
 Closed;0;;F;Delivery
 Open;0;;N;Delivery
 Open;0;;P;Delivery
