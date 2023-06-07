@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [base_ff].[SalesDocumentStatuses]
 (
-    [Status]                NVARCHAR(16)  NOT NULL,
+    [Status]                VARCHAR(32)  NOT NULL,
     [OrderType]             INT  NOT NULL,
     [DeliveryStatus]        NVARCHAR(1),
     [InvoiceStatus]         NVARCHAR(1),
