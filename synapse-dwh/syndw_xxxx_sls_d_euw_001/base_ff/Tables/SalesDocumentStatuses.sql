@@ -1,4 +1,4 @@
-﻿CREATE TABLE [base_ff].[vw_SalesDocumentStatuses]
+﻿CREATE TABLE [base_ff].[SalesDocumentStatuses]
 (
     [Status]                NVARCHAR(16)  NOT NULL,
     [OrderType]             INT  NOT NULL,
