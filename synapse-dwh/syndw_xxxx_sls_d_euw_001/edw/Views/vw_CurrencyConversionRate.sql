@@ -1,11 +1,38 @@
 CREATE VIEW [edw].[vw_CurrencyConversionRate]
 AS
-WITH AllRates AS (
+WITH MinDates AS (                                          -- get minimum date of rate for each currency
     SELECT 
+        [SourceCurrency]
+        ,MIN([ExchangeRateEffectiveDate]) AS MinDate
+    FROM 
+        edw.dim_ExchangeRates
+    WHERE
+        [ExchangeRateType] = 'P'
+        and
+        [TargetCurrency] = 'EUR'
+    GROUP BY [SourceCurrency]
+)
+, OldRates AS (                                             -- leave only earlier rates using old source
+    SELECT 
+        ER.[SourceCurrency]
+        ,[TargetCurrency]
+        ,[ExchangeRateEffectiveDate]
+        ,[ExchangeRate]
+    FROM 
+        edw.dim_ExchangeRates ER
+    JOIN MinDates
+        ON ER.SourceCurrency = MinDates.SourceCurrency
+            AND ER.ExchangeRateEffectiveDate < MinDates.MinDate
+    WHERE
+        [ExchangeRateType] = 'ZAXBIBUD'
+        and
+        [TargetCurrency] = 'EUR'
+)
+, CombinedRates AS (                                        -- get all new rates and earlier rates from the old source
+    SELECT
         [SourceCurrency]
         ,[TargetCurrency]
         ,[ExchangeRateEffectiveDate]
-        , COALESCE(DATEADD(day, -1,LEAD([ExchangeRateEffectiveDate]) OVER (PARTITION BY [SourceCurrency],[TargetCurrency] ORDER BY [ExchangeRateEffectiveDate])),'9999-12-31') AS LastDay
         ,[ExchangeRate]
     FROM 
         edw.dim_ExchangeRates
@@ -13,6 +40,24 @@ WITH AllRates AS (
         [ExchangeRateType] = 'P'
         and
         [TargetCurrency] = 'EUR'
+                                UNION ALL
+    SELECT
+        [SourceCurrency]
+        ,[TargetCurrency]
+        ,[ExchangeRateEffectiveDate]
+        ,[ExchangeRate]
+    FROM 
+        OldRates
+)
+, AllRates AS (
+    SELECT 
+        [SourceCurrency]
+        ,[TargetCurrency]
+        ,[ExchangeRateEffectiveDate]
+        , COALESCE(DATEADD(day, -1,LEAD([ExchangeRateEffectiveDate]) OVER (PARTITION BY [SourceCurrency],[TargetCurrency] ORDER BY [ExchangeRateEffectiveDate])),'9999-12-31') AS LastDay
+        ,[ExchangeRate]
+    FROM 
+        CombinedRates
                             UNION ALL
     SELECT                              -- we don't have EUR2EUR rates for P type
         'EUR'
