@@ -20,9 +20,9 @@ Open;1;B;P;Collection
 Closed;2;;F;Drop Shipment
 Open;2;;N;Drop Shipment
 Open;2;;P;Drop Shipment
-Closed;0;;F;Delivery
-Open;0;;N;Delivery
-Open;0;;P;Delivery
-Closed;1;;F;Collection
-Open;1;;N;Collection
-Open;1;;P;Collection
+Closed;0;"";F;Delivery
+Open;0;"";N;Delivery
+Open;0;"";P;Delivery
+Closed;1;"";F;Collection
+Open;1;"";N;Collection
+Open;1;"";P;Collection
