@@ -746,7 +746,7 @@ BillingDocumentItemBase_axbi_mapped AS (
     FROM 
         edw.dim_ExchangeRates
     WHERE 
-        ExchangeRateType = 'ZAXBIBUD'
+        ExchangeRateType = 'P'
         AND
         TargetCurrency = 'EUR'
 )
@@ -758,7 +758,7 @@ BillingDocumentItemBase_axbi_mapped AS (
     from
         edw.dim_ExchangeRates
     where
-        ExchangeRateType = 'ZAXBIBUD'
+        ExchangeRateType = 'P'
         AND
         SourceCurrency = 'USD')
 , BDIAXBI_DUMMY_30 AS(
@@ -836,7 +836,7 @@ BillingDocumentItemBase_axbi_mapped AS (
             ON
                 axbi_dummy_40.[CurrencyID] = EuroBudgetExchangeRateUSD.TargetCurrency
         WHERE
-            [ExchangeRateEffectiveDate] <= [BillingDocumentDate]
+            [ExchangeRateEffectiveDate] <= CAST(GETDATE() as DATE) --[BillingDocumentDate]
         GROUP BY
                 [BillingDocument]
             ,   [BillingDocumentItem]

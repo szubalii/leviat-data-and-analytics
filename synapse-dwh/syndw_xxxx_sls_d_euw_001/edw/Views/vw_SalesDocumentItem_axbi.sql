@@ -385,7 +385,7 @@ EuroBudgetExchangeRateUSD as (
     from
         edw.dim_ExchangeRates
     where
-        ExchangeRateType = 'ZAXBIBUD'
+        ExchangeRateType = 'P'
         and
         SourceCurrency = 'USD'
 ),
@@ -408,7 +408,7 @@ ExchangeRateUSD as (
             ON 
                 EuroBudgetExchangeRateUSD.TargetCurrency = 'EUR'
         WHERE 
-            [ExchangeRateEffectiveDate] <= [CreationDate]
+            [ExchangeRateEffectiveDate] <= CAST(GETDATE() as DATE)  --[CreationDate]
         GROUP BY
                 [SalesDocument]
             ,   [SalesDocumentItem]
