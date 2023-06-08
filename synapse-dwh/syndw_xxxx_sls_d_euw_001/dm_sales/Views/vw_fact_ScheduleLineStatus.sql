@@ -198,6 +198,6 @@ SELECT
         END                                 AS InScope
 FROM pre_report
 LEFT JOIN [base_ff].[SalesDocumentStatuses] statuses
-    ON  pre_report.OrderType = statuses.OrderTypeText
+    ON  pre_report.SalesDocumentOrderType = statuses.OrderTypeText
         AND pre_report.[DeliveryStatus] = COALESCE (statuses.DeliveryStatus, pre_report.[DeliveryStatus])
         AND pre_report.[InvoicedStatus]= statuses.InvoiceStatus
