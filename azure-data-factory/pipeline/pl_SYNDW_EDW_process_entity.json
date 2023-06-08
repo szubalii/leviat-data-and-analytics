@@ -749,7 +749,7 @@
 												"type": "Expression"
 											},
 											"file_name": {
-												"value": "@pipeline().parameters.dest_table_name",
+												"value": "@concat(pipeline().parameters.source_view_name\r\n,'.csv')",
 												"type": "Expression"
 											}
 										}
