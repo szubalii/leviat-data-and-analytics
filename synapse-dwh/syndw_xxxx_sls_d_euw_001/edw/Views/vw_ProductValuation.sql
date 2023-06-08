@@ -75,8 +75,7 @@ WITH ProductValuation AS (
             ON 
                 PV.[CurrencyID] = EuroBudgetExchangeRate.SourceCurrency
         WHERE 
-            --[ExchangeRateEffectiveDate] <= CAST(GETDATE() as DATE)
-              [ExchangeRateEffectiveDate] <= PV.[t_extractionDtm]
+              [ExchangeRateEffectiveDate] <= CAST(GETDATE() as DATE)
         GROUP BY
                 PV.[ProductID]
             ,   PV.[ValuationAreaID]

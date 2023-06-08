@@ -128,9 +128,9 @@ ProductValuationExchangeRate AS (
             ON 
                 USDBudgetExchangeRate.TargetCurrency = 'EUR'
         WHERE 
-                EuroBudgetExchangeRate.[ExchangeRateEffectiveDate] <=  PV.[t_extractionDtm]
+                EuroBudgetExchangeRate.[ExchangeRateEffectiveDate] <= CAST(GETDATE() as DATE)
                 AND 
-                USDBudgetExchangeRate.[ExchangeRateEffectiveDate] <= PV.[t_extractionDtm]
+                USDBudgetExchangeRate.[ExchangeRateEffectiveDate] <= CAST(GETDATE() as DATE)
                 /*
                 EuroBudgetExchangeRate.[ExchangeRateEffectiveDate] <=  PV.[FiscalStartYearPeriodDate]
                 AND 
