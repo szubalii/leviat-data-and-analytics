@@ -1241,6 +1241,19 @@
     <Build Include="base_s4h_cax\Tables\I_Businesspartnertaxnumber.sql" />
     <Build Include="base_s4h_cax\Tables\I_CustSalesPartnerFunc.sql" />
     <Build Include="base_s4h_cax\Tables\P_OrganizationAddress.sql" />
+    <Build Include="dq\Views\vw_BP_2_0_1.sql" />
+    <Build Include="dq\Views\vw_BP_2_0_2.sql" />
+    <Build Include="dq\Views\vw_BP_2_0_6.sql" />
+    <Build Include="dq\Views\vw_BP_2_0_10.sql" />
+    <Build Include="dq\Views\vw_BP_2_0_11.sql" />
+    <Build Include="dq\Views\vw_BP_2_1_2.sql" />
+    <Build Include="dq\Views\vw_BP_2_1_3_Intercompany.sql" />
+    <Build Include="dq\Views\vw_BP_2_1_4.sql" />
+    <Build Include="dq\Views\vw_BP_2_1_6.sql" />
+    <Build Include="dq\Views\vw_BP_2_1_7.sql" />
+    <Build Include="dq\Views\vw_BP_2_2_4.sql" />
+    <Build Include="dq\Views\vw_BP_2_2_5.sql" />
+    <Build Include="dq\Views\vw_BP_2_2_7.sql" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PostDeploy Include="Scripts\Post-Deploy\Script.PostDeployment.sql" />
