@@ -680,10 +680,42 @@ SELECT
 ,   NULL    AS [ZZ1_CustomFieldRiskRea_PRD]
 ,   'synapse-dwh'AS [t_applicationId]
 ,   NULL    AS [t_extractionDtm]
+),
+
+EClassMapping AS (
+SELECT 
+    sk_dim_Product
+,   ProductGroup
+,   CASE 
+        WHEN (ISNUMERIC(LEFT(CTE_Product.ProductGroup,2)) = 1 AND LEFT(CTE_Product.ProductGroup,2) NOT IN ('01', '02'))
+            THEN LEFT(CTE_Product.ProductGroup,8)
+        ELSE ECC.EClassCode
+        END AS EClassCode
+,   CASE
+        WHEN (ISNUMERIC(LEFT(CTE_Product.ProductGroup,2)) = 1 AND LEFT(CTE_Product.ProductGroup,2) NOT IN ('01', '02'))
+            THEN MAX(ECC2.EClassCategory)
+        ELSE ECC.EClassCategory
+        END AS EClassCategory
+,   CASE 
+        WHEN (ISNUMERIC(LEFT(CTE_Product.ProductGroup,2)) = 1 AND LEFT(CTE_Product.ProductGroup,2) NOT IN ('01', '02'))
+            THEN MAX(ECC2.EClassCategoryDescription)
+        ELSE ECC.EClassCategoryDescription
+        END AS EClassCategoryDescription 
+
+FROM CTE_Product
+
+    LEFT OUTER JOIN base_ff.EClassCodes ECC 
+    ON CTE_Product.ProductGroup = ECC.MaterialGroupID
+
+    LEFT OUTER JOIN base_ff.EClassCodes ECC2
+    ON LEFT(CTE_Product.ProductGroup,8) = ECC2.EClassCode
+
+GROUP BY sk_dim_Product, ProductGroup, ECC.EClassCode, ECC.EClassCategory, ECC.EClassCategoryDescription
 )
+
 SELECT
     
-    [sk_dim_Product]
+    CTE_Product.[sk_dim_Product]
 ,   [ProductID]
 ,   [ProductExternalID]
 ,   [Product]
@@ -707,7 +739,7 @@ SELECT
 ,   [WeightUnit]
 ,   [CountryOfOrigin]
 ,   [CompetitorID]
-,   [ProductGroup]
+,   CTE_Product.[ProductGroup]
 ,   [BaseUnit]
 ,   CTE_Product.[ItemCategoryGroup] AS [ItemCategoryGroup]
 ,   ItemCategoryGroup.[ItemCategoryGroupName]
@@ -831,9 +863,9 @@ SELECT
 ,   [DfsRICIdentifier]
 ,   PT.[MaterialGroupName]
 ,   PT.[MaterialGroupText]
-,   ECC.[EClassCode]               
-,   ECC.[EClassCategory]           
-,   ECC.[EClassCategoryDescription]
+,   ECM.[EClassCode]               
+,   ECM.[EClassCategory]           
+,   ECM.[EClassCategoryDescription]
 ,   C.[Classification]
 ,   [ZZ1_CustomFieldRiskMit_PRD]
 ,   [ZZ1_CustomFieldHighRis_PRD]
@@ -859,9 +891,9 @@ LEFT JOIN
         CTE_Product.ProductGroup = PT.MaterialGroup
         AND PT.Language = 'E'
 LEFT JOIN
-    base_ff.EClassCodes ECC
+    EClassMapping ECM
     ON
-        CTE_Product.ProductGroup = ECC.MaterialGroupID
+    CTE_Product.sk_dim_Product = ECM.sk_dim_Product
 LEFT JOIN
     base_ff.MaterialGroupClassification C
     ON

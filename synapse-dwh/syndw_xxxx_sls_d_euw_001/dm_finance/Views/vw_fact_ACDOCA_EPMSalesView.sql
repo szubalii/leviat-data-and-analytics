@@ -247,6 +247,12 @@ SELECT
     CurrType.[CurrencyType],
     GLALIRD.[SalesOfficeID],
     GLALIRD.[SoldProduct],
+    CASE 
+         WHEN GLALIRD.ProfitCenterTypeID = '2'  and GLALIRD.CustomerID like '005%' then 'External'
+         WHEN GLALIRD.ProfitCenterTypeID = '3'  and GLALIRD.CustomerID like '005%' then 'Intracompany'  
+         WHEN GLALIRD.ProfitCenterTypeID in ('2', '3')  and GLALIRD.CustomerID like 'I%' then 'Intercompany'
+         ELSE ''
+    END AS CustomerCategory,
     GLALIRD.[t_applicationId],
     GLALIRD.[t_extractionDtm]
 FROM [edw].[fact_ACDOCA] GLALIRD
@@ -267,8 +273,8 @@ LEFT JOIN [base_s4h_cax].[I_CustomerSalesArea] CSA
     ON GLALIRD.[CustomerID] = CSA.[Customer]                                COLLATE DATABASE_DEFAULT
         AND GLALIRD.[SalesOrganizationID] = CSA.[SalesOrganization]         COLLATE DATABASE_DEFAULT
 LEFT JOIN [edw].[vw_CurrencyConversionRate] ExchangeRate
-    ON GLALIRD.[CompanyCodeCurrency] = ExchangeRate.[SourceCurrency]
-        AND GLALIRD.[PostingDate] BETWEEN ExchangeRate.[ExchangeRateEffectiveDate] AND ExchangeRate.[LastDay]
+    ON GLALIRD.[CompanyCodeCurrency] = ExchangeRate.[SourceCurrency] 
+        AND GLALIRD.[t_extractionDtm] BETWEEN ExchangeRate.[ExchangeRateEffectiveDate] AND ExchangeRate.[LastDay] -- was GLALIRD.[PostingDate]
 INNER JOIN [dm_sales].[vw_dim_CurrencyType]     CurrType
     ON ExchangeRate.CurrencyTypeID = CurrType.CurrencyTypeID
 LEFT JOIN [edw].[dim_Brand] DimBrand

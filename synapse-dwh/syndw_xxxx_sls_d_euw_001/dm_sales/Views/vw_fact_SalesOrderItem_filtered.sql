@@ -3,6 +3,7 @@ AS
 SELECT   
      [SalesOrderID]
     ,[SalesOrderItemID]
+    ,[nk_fact_SalesDocumentItem]
     ,[CurrencyTypeID]
     ,[CurrencyType]
     ,[CurrencyID]
@@ -46,7 +47,7 @@ SELECT
     ,[SalesDocumentRjcnReason]
     ,[PricingDate]
     ,[ExchangeRateDate]
-    ,[SOI_NetAmount] AS NetAmount
+    ,[NetAmount]
     ,[TransactionCurrencyID]
     ,[RequestedDeliveryDate]
     ,[PlantID]
@@ -117,8 +118,9 @@ SELECT
     ,[OrderStatus]
     ,[SalesOfficeID]
     ,[SalesOffice]
-    ,[SOI_CostAmount] AS CostAmount
-    ,[ExpectedDeliveryDate]
+    ,[CostAmount]
+    ,NULL as [ExpectedDeliveryDate]
     ,[t_applicationId]
     ,[t_extractionDtm]
-FROM [dm_sales].[vw_fact_SalesOrderItem_combined]
+FROM [dm_sales].[vw_fact_SalesOrderItem]
+WHERE [SDDocumentRejectionStatus] <> 'Fully Rejected'

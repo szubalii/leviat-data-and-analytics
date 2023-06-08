@@ -1,8 +1,37 @@
 ﻿CREATE VIEW [dm_sales].[vw_fact_BillingDocumentItem] AS
 
-WITH original AS (
+WITH BillDocPrcgElmnt AS (
+    select BillingDocument,
+           BillingDocumentItem,
+           CurrencyTypeID,
+           ConditionType,
+           ConditionAmount
+         , case when [ConditionType] = 'ZNET' then [ConditionAmount] else NULL end as ZNET_NetValue
+         , case when [ConditionType] = 'REA1' then [ConditionAmount] else NULL end as REA1_RebateAccrual
+         , case when [ConditionType] = 'ZNRV' then [ConditionAmount] else NULL end as ZNRV_NetRevenue
+    from [edw].[fact_BillingDocumentItemPrcgElmnt]
+)
+
+,BillDocPrcgElmnt_max_value AS (
+select 
+    BillingDocument,
+    BillingDocumentItem,
+    CurrencyTypeID,
+    max(ZNET_NetValue) as ZNET_NetValue,
+    max(REA1_RebateAccrual) as REA1_RebateAccrual,
+    max(ZNRV_NetRevenue) as ZNRV_NetRevenue
+    from BillDocPrcgElmnt
+    group by 
+        BillingDocument,
+        BillingDocumentItem,
+        CurrencyTypeID
+        
+),
+
+ original AS (
     SELECT doc.[BillingDocument]
          , doc.[BillingDocumentItem]
+         , doc.nk_fact_BillingDocumentItem
          , doc.[CurrencyType]
          , dimCr.[CurrencyID]
          , dimCr.[Currency]
@@ -162,6 +191,9 @@ WITH original AS (
          , doc.[InOutID]
          , doc.CustomerGroupID
          , doc.[axbi_ItemNoCalc]
+         , case when ZNET_NetValue is null then 0 else ZNET_NetValue end  as ZNET_NetValue
+         , case when REA1_RebateAccrual is null then 0 else REA1_RebateAccrual end  as REA1_RebateAccrual
+         , case when ZNRV_NetRevenue is null then 0 else ZNRV_NetRevenue end  as ZNRV_NetRevenue
          , doc.[t_applicationId]
          , doc.[t_extractionDtm]
     FROM [edw].[fact_BillingDocumentItem] doc
@@ -211,12 +243,17 @@ WITH original AS (
                        on dimC.[CountryID] = doc.[CountryID]
              left join [edw].[dim_SalesDocumentType] dimSDT
                        on dimSDT.[SalesDocumentTypeID] = doc.[SalesOrderTypeID]
+             inner join BillDocPrcgElmnt_max_value BDPE
+                       on  doc.BillingDocument = BDPE.BillingDocument
+                       and doc.BillingDocumentItem = BDPE.BillingDocumentItem
+                       and doc.CurrencyTypeID = BDPE.CurrencyTypeID 
 
             WHERE doc.[CurrencyTypeID] <> '00' -- Transaction Currency
 )
 
 SELECT [BillingDocument]
       ,[BillingDocumentItem]
+      ,[nk_fact_BillingDocumentItem]
       ,[CurrencyType]
       ,[CurrencyID]
       ,[Currency]
@@ -379,6 +416,9 @@ SELECT [BillingDocument]
       ,[SoldToPartyCalculated]
       ,[InOutID]
       ,[axbi_ItemNoCalc]
+      ,ZNET_NetValue
+      ,REA1_RebateAccrual
+      ,ZNRV_NetRevenue
       ,[t_applicationId]
       ,[t_extractionDtm]
   FROM original

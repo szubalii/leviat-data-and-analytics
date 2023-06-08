@@ -846,3 +846,6 @@ MaterialGroupID;EClassCode;EClassCategory;EClassCategoryDescription
 1A;22000000;Bldg comp & mfg mats;Building components & manufacturing materials (L1)
 01;22000000;Bldg comp & mfg mats;Building components & manufacturing materials (L1)
 02;22000000;Bldg comp & mfg mats;Building components & manufacturing materials (L1)
+1EDCA;25151701;General services;Corporate fleet (L2)
+1EDBC;25151701;General services;Corporate fleet (L2)
+1EDCC;25151701;General services;Corporate fleet (L2)

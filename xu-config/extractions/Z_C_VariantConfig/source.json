@@ -7,6 +7,7 @@
     "context": "ABAP_CDS",
     "supportsFull": true,
     "supportsDelta": true,
+    "autoSync": true,
     "mode": "Delta",
     "transferDataOnDeltaInit": true,
     "columns": 
