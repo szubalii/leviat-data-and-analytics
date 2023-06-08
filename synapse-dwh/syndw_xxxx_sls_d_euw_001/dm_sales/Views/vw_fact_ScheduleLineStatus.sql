@@ -50,38 +50,6 @@ WITH DeliveryItem AS
 	LEFT JOIN DeliveryItem 
         ON SDSL.[SalesDocumentID] = DeliveryItem.[ReferenceSDDocument] 
 	        AND SDSL.[SalesDocumentItem] = DeliveryItem.[ReferenceSDDocumentItem]
-)	
-,SDI AS ( 
-	SELECT 
-        SDILocal.[SalesDocument],
-        SDILocal.[SDDocumentRejectionStatusID],
-        SDILocal.[SalesDocumentItem],
-        SDILocal.[SalesDocumentTypeID],
-        SDILocal.CreationDate,
-        SDILocal.CurrencyID,
-        SDILocal.OrderQuantity,
-        SDILocal.[OrderType],
-        SDILocal.[ItemOrderStatus],
-        SDILocal.[OrderStatus],
-        SDILocal.[NetAmount] AS LocalNetAmount,
-        SDIEUR.[NetAmount] AS EURNetAmount,
-        SDIUSD.[NetAmount] AS USDNetAmount,
-        SDILocal.[ShippingConditionID],
-        SDILocal.[NetAmount]/SDILocal.[OrderQuantity]   AS PricePerUnit,
-        SDIEUR.[NetAmount]/SDIEUR.[OrderQuantity] AS PricePerUnitEUR
-	FROM [edw].[fact_SalesDocumentItem] SDILocal 
-	JOIN [edw].[fact_SalesDocumentItem] SDIEUR 
-        ON SDILocal.SalesDocument = SDIEUR.SalesDocument 
-	        AND SDILocal.SalesDocumentItem = SDIEUR.SalesDocumentItem 
-            AND SDIEUR.CurrencyTypeID = '30' 
-	 
-	JOIN [edw].[fact_SalesDocumentItem] SDIUSD 
-        ON SDILocal.SalesDocument = SDIUSD.SalesDocument
-	        AND SDILocal.SalesDocumentItem = SDIUSD.SalesDocumentItem 
-            AND SDIUSD.CurrencyTypeID = '40' 
-    WHERE SDILocal.CurrencyTypeID='10'
-        AND SDILocal.[OrderQuantity] <> 0
-        AND SDIEUR.[OrderQuantity] <> 0
 )
 ,documentItems AS (
     SELECT MAX(BillingQuantityInBaseUnit)           AS [BillingQuantityInBaseUnit] 
@@ -145,7 +113,6 @@ SELECT
             WHEN documentItems.[BillingQuantity] >= SDSL.[SDSLOrderQtyRunningSum]
                 THEN 'F'
         END                                     AS InvoicedStatus,
-        SDI.OrderType,
         CASE
             WHEN SDSL.[TotalDelivered] < SDSL.[SDSLOrderQtyRunningSum] - SDSL.[ConfirmedQty]
                 THEN SDSL.[ConfirmedQty] * SDI.[NetAmount] / SDI.[OrderQuantity]
@@ -203,7 +170,6 @@ SELECT
         pre_report.[SalesDocumentOrderType],
         pre_report.[OrderStatus],
         pre_report.[ItemOrderStatus],
-        pre_report.[OrderType],
         pre_report.[DeliveryStatus]         AS [SLDeliveryStatus],
         pre_report.[InvoicedStatus]         AS [SLInvoicedStatus],
         statuses.[Status]                   AS [SLStatus],
