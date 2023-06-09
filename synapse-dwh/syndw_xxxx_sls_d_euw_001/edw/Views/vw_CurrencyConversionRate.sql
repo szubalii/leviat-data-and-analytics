@@ -62,8 +62,8 @@ WITH MinDates AS (                                          -- get minimum date 
     SELECT                              -- we don't have EUR2EUR rates for P type
         'EUR'
         ,'EUR'
-        ,'1900-01-01'
-        , '9999-12-31'
+        , CAST('1900-01-01' AS date)
+        , CAST('9999-12-31' AS date)
         , 1.0
 )
 
@@ -112,3 +112,13 @@ INNER JOIN AllRates rate2usd
     ON rate2usd.ExchangeRateEffectiveDate BETWEEN other_currency.ExchangeRateEffectiveDate AND other_currency.LastDay
     OR other_currency.ExchangeRateEffectiveDate BETWEEN rate2usd.ExchangeRateEffectiveDate AND rate2usd.LastDay
 WHERE rate2usd.SourceCurrency = 'USD'
+    AND other_currency.SourceCurrency <> 'USD'
+
+        UNION ALL
+
+SELECT 'USD'
+    , 'USD'
+    , CAST('1900-01-01' AS date)
+    , CAST('9999-12-31' AS date)
+    , 1.0
+    , 40
