@@ -96,7 +96,7 @@
 , [ExtPlantForPurg] nvarchar(4)
 , [ExtCompanyCodeForPurg] nvarchar(4)
 , [ExtPurgOrgForPurg] nvarchar(4)
-, [ExtSourceSystem] nvarchar(60)
+, [ExtSourceSystem] nvarchar(10)
 , [ProcurementHubSourceSystem] nvarchar(10)
 , [IsPurReqnOvrlRel] nvarchar(1)
 , [ReleaseGroup] nvarchar(2)
