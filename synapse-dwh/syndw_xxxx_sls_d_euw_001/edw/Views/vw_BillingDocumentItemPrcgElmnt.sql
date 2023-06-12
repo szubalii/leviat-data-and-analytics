@@ -85,7 +85,7 @@ UNION ALL
            ON IBDIPE.BillingDocument = BDI.BillingDocument and IBDIPE.BillingDocumentItem = BDI.BillingDocumentItem and BDI.CurrencyTypeID = '10'
 	INNER JOIN CurrencyRate CR
            ON BDI.CurrencyID = CR.SourceCurrency COLLATE DATABASE_DEFAULT
-           AND BDI.[t_extractionDtm] BETWEEN CR.ExchangeRateEffectiveDate and CR.LastDay
+           AND CAST(GETDATE() as DATE) BETWEEN CR.ExchangeRateEffectiveDate and CR.LastDay
          --AND BDI.BillingDocumentDate BETWEEN CR.ExchangeRateEffectiveDate and CR.LastDay
     INNER JOIN [edw].[dim_CurrencyType] CurrType
         ON CR.CurrencyTypeID = CurrType.CurrencyTypeID

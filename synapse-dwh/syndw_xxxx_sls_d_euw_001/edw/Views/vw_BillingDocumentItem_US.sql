@@ -8,7 +8,7 @@ WITH EuroBudgetExchangeRate AS (
     FROM 
         edw.dim_ExchangeRates
     WHERE 
-        ExchangeRateType = 'ZAXBIBUD'
+        ExchangeRateType = 'P'
         AND
         TargetCurrency = 'EUR'
 )
@@ -239,7 +239,7 @@ LEFT JOIN
     EuroBudgetExchangeRate
         ON EuroBudgetExchangeRate.SourceCurrency = 'USD'
 WHERE
-           EuroBudgetExchangeRate.ExchangeRateEffectiveDate <= BDI_Base.[BillingDocumentDate]
+           EuroBudgetExchangeRate.ExchangeRateEffectiveDate <= CAST(GETDATE() as DATE)  --BDI_Base.[BillingDocumentDate]
 GROUP BY
         BDI_Base.[BillingDocument]                          
     ,   BDI_Base.[BillingDocumentItem]      

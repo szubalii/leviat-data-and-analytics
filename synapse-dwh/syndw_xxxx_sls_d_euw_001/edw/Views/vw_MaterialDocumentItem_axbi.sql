@@ -258,7 +258,7 @@ EuroExchangeRate AS (
     FROM 
         edw.dim_ExchangeRates
     WHERE
-        [ExchangeRateType] = 'ZAXBIBUD'
+        [ExchangeRateType] = 'P'
         and
         [TargetCurrency] = 'EUR'
 ),
@@ -280,7 +280,7 @@ ExchangeRateEuro as (
             ON 
                 INV.[CompanyCodeCurrency] COLLATE DATABASE_DEFAULT = EuroExchangeRate.SourceCurrency
         WHERE 
-            [ExchangeRateEffectiveDate] <= [DocumentDate]
+            [ExchangeRateEffectiveDate] <= CAST(GETDATE() as DATE) --[DocumentDate]
         GROUP BY
                 [MaterialDocument]
             ,   [MaterialDocumentItem]

@@ -274,7 +274,7 @@ LEFT JOIN [base_s4h_cax].[I_CustomerSalesArea] CSA
         AND GLALIRD.[SalesOrganizationID] = CSA.[SalesOrganization]         COLLATE DATABASE_DEFAULT
 LEFT JOIN [edw].[vw_CurrencyConversionRate] ExchangeRate
     ON GLALIRD.[CompanyCodeCurrency] = ExchangeRate.[SourceCurrency] 
-        AND GLALIRD.[t_extractionDtm] BETWEEN ExchangeRate.[ExchangeRateEffectiveDate] AND ExchangeRate.[LastDay] -- was GLALIRD.[PostingDate]
+        AND CAST(GETDATE() as DATE) BETWEEN ExchangeRate.[ExchangeRateEffectiveDate] AND ExchangeRate.[LastDay] -- GLALIRD.[PostingDate]
 INNER JOIN [dm_sales].[vw_dim_CurrencyType]     CurrType
     ON ExchangeRate.CurrencyTypeID = CurrType.CurrencyTypeID
 LEFT JOIN [edw].[dim_Brand] DimBrand

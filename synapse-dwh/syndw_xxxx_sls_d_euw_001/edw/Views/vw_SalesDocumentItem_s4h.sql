@@ -21,39 +21,6 @@ FROM base_s4h_cax.I_SalesDocumentScheduleLine AS SL
 
 GROUP BY SL.SalesDocument, SL.SalesDocumentItem
 ),
-
-statuses AS (
-     SELECT 'Closed'     AS Status
-     ,   0               AS OrderType
-     ,   'C'             AS DeliveryStatus
-     ,   'F'             AS InvoiceStatus
-     UNION ALL SELECT 'Delivered not Invoiced',   0,        'C',       'N'
-     UNION ALL SELECT 'Delivered not Invoiced',   0,        'C',       'P'
-     UNION ALL SELECT 'ZZ_To_Be_Investigated',    0,        'A',       'F'
-     UNION ALL SELECT 'Open',                     0,        'A',       'N'
-     UNION ALL SELECT 'ZZ_To_Be_Investigated',    0,        'A',       'P'
-     UNION ALL SELECT 'ZZ_To_Be_Investigated',    0,        'B',       'F'
-     UNION ALL SELECT 'Delivered not Invoiced',   0,        'B',       'N'
-     UNION ALL SELECT 'Open',                     0,        'B',       'P'
-     UNION ALL SELECT 'Closed',                   1,        'C',       'F'
-     UNION ALL SELECT 'Delivered not Invoiced',   1,        'C',       'N'
-     UNION ALL SELECT 'Delivered not Invoiced',   1,        'C',       'P'
-     UNION ALL SELECT 'ZZ_To_Be_Investigated',    1,        'A',       'F'
-     UNION ALL SELECT 'Open',                     1,        'A',       'N'
-     UNION ALL SELECT 'ZZ_To_Be_Investigated',    1,        'A',       'P'
-     UNION ALL SELECT 'ZZ_To_Be_Investigated',    1,        'B',       'F'
-     UNION ALL SELECT 'Delivered not Invoiced',   1,        'B',       'N'
-     UNION ALL SELECT 'Open',                     1,        'B',       'P'
-     UNION ALL SELECT 'Closed',                   2,        null,      'F'
-     UNION ALL SELECT 'Open',                     2,        null,      'N'
-     UNION ALL SELECT 'Open',                     2,        null,      'P'
-     UNION ALL SELECT 'Closed',                   0,        '',        'F'
-     UNION ALL SELECT 'Open',                     0,        '',        'N'
-     UNION ALL SELECT 'Open',                     0,        '',        'P'
-     UNION ALL SELECT 'Closed',                   1,        '',        'F'
-     UNION ALL SELECT 'Open',                     1,        '',        'N'
-     UNION ALL SELECT 'Open',                     1,        '',        'P'
-),
 outboundDeliveries AS (
      SELECT SUM(ActualDeliveredQtyInBaseUnit)          AS ActualDeliveredQuantityInBaseUnit
           ,[ReferenceSDDocument]
@@ -386,7 +353,7 @@ C_SalesDocumentItemDEXBase as (
     LEFT JOIN outboundDeliveriesOverall ODO
             ON doc.[SalesDocument] = ODO.[ReferenceSDDocument]
                       
-    LEFT JOIN statuses  ios_status
+    LEFT JOIN [base_ff].[SalesDocumentStatuses]  ios_status
             ON 
                 CASE
                     WHEN SDSL.ScheduleLineCategory = 'ZS'
@@ -409,7 +376,7 @@ C_SalesDocumentItemDEXBase as (
                 END = ios_status.InvoiceStatus
             AND doc.[SDDocumentCategory] <> 'B'
             AND doc.[SDDocumentRejectionStatus] <> 'C'
-    LEFT JOIN statuses  os_status
+    LEFT JOIN [base_ff].[SalesDocumentStatuses]  os_status
             ON 
                     CASE
                         WHEN SDSL.ScheduleLineCategory = 'ZS'
@@ -469,7 +436,7 @@ ExchangeRateEuro AS (
             ON 
                 SDI.[TransactionCurrencyID] = EuroBudgetExchangeRate.SourceCurrency
         WHERE 
-            [ExchangeRateEffectiveDate] <= [t_extractionDtm]
+            [ExchangeRateEffectiveDate] <= CAST(GETDATE() as DATE) 
          -- [ExchangeRateEffectiveDate] <= [CreationDate]
         GROUP BY
                 [SalesDocument]
@@ -702,7 +669,7 @@ ExchangeRateUSD as (
             ON 
                 SD_30.CurrencyID = EuroBudgetExchangeRateUSD.TargetCurrency
         WHERE 
-            [ExchangeRateEffectiveDate] <= [t_extractionDtm]
+            [ExchangeRateEffectiveDate] <= CAST(GETDATE() as DATE)
          -- [ExchangeRateEffectiveDate] <= [CreationDate]
         GROUP BY
                 [SalesDocument]
