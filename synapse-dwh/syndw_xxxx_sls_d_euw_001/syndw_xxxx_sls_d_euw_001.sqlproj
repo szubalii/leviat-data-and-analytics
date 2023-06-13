@@ -1234,7 +1234,7 @@
     <Build Include="edw\Functions\ScalarValued\svf_getOrderStatus.sql" />
     <Build Include="dm_sales\Views\vw_fact_SalesOrderItem_combined.sql" />
     <Build Include="dm_sales\Views\vw_dim_SalesEmployee.sql" />
-    <Build Include="edw\Views\vw_SalesEmployee.sql" />
+    <Build Include="edw\Views\vw_dim_SalesEmployee.sql" />
     <Build Include="edw\Views\vw_MaterialStockLevel_Weekly.sql" />
     <Build Include="dm_scm\Views\vw_fact_MaterialStockLevel_Weekly.sql" />
      <Build Include="edw\Functions\ScalarValued\svf_getProductSurrogateKey.sql" />

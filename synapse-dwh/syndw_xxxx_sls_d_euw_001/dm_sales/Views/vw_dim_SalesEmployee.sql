@@ -3,7 +3,7 @@ AS
 SELECT
       Employee,
       FullName
-FROM  [edw].[vw_SalesEmployee]
+FROM  [base_s4h_cax].[I_Employee]
 
 
 
