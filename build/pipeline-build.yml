@@ -1,13 +1,5 @@
 trigger: none
 
-parameters:
-- name: env
-  type: string
-  default: ''
-- name: clean
-  type: string
-  default: outputs
-
 variables:
 
 # Set these default values in case of manually triggered pipelines
@@ -44,17 +36,7 @@ variables:
 # # equals value: 'merge'. Also, the predefined system variable System.PullRequest.TargetBranch 
 # # is not available in templates. So use separate build pipelines for each env and pass this as parameter value
 # # https://learn.microsoft.com/en-us/azure/devops/pipelines/build/variables?view=azure-devops&tabs=yaml#system-variables-devops-services
-- ${{ elseif eq(parameters.env, 'test') }}:
-  - template: ./variables-test.yml
-- ${{ elseif eq(parameters.env, 'qas') }}:
-  - template: ./variables-qas.yml
-- ${{ elseif eq(parameters.env, 'prod') }}:
-  - template: ./variables-prod.yml
-- ${{ elseif eq(parameters.env, 'dev') }}:
-  - name: user
-    # replace both the '_' and '/' from the branch name for dev-branches
-    value: $[ replace(replace(replace(variables['System.PullRequest.TargetBranch'], 'refs/heads/dev', ''), '_', ''), '/', '') ]
-  - template: ./variables-personal.yml
+
 
 # store the latest source commit ID, used for running specific tests
 - ${{ if eq(variables['Build.Reason'], 'PullRequest') }}:
