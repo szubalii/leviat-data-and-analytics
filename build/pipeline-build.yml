@@ -31,6 +31,10 @@ variables:
   - template: ./variables-personal.yml
   - name: deployEnv # override value to map main branch to DEV deployment environment
     value: ${{ format('DEV_{0}', upper(variables['Build.SourceBranchName'])) }}
+- ${{ elseif contains(variables['Build.SourceBranch'], '/feature/') }}:
+  - name: user
+    value: ${{ split(variables['Build.SourceBranchName'], '/')[1] }}
+  - template: ./variables-personal.yml
 
 # # Required for PR triggered pipelines as predefined system variable Build.SourceBranchName
 # # equals value: 'merge'. Also, the predefined system variable System.PullRequest.TargetBranch 
@@ -50,7 +54,31 @@ variables:
 stages:
 - stage: INIT
   jobs:
+  - job: VARIABLES
+    pool:
+      name: 'VM'
+      demands:
+      - node.js
+      - VisualStudio
+      - Agent.ComputerName -equals $(VMName)
+    steps:
+    - script: |
+        echo system.pullRequest.targetBranch: $(system.pullRequest.targetBranch)
+        echo user: $(user)
+        echo dataFactoryName: $(dataFactoryName)
+        echo sqlDatabaseName: $(sqlDatabaseName)
+        echo synapseSqlPool: $(synapseSqlPool)
+        echo storageAccountName: $(storageAccountName)
+        echo xuPrefix: $(xuPrefix)
+        echo branchName: $(branchName)
+        echo destination: $(destination)
+        echo Build.Reason: ${{ variables['Build.Reason'] }}
+        echo Build.SourceBranchName: ${{ variables['Build.SourceBranchName'] }}
+        echo deployEnv: $(deployEnv)
+      displayName: Print Variables
+    
   - template: ./jobs-pre-build.yml
+    dependsOn: VARIABLES
 - stage: BUILD
   jobs:
   - job: BUILD_SynapseDWH
