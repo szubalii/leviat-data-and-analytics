@@ -1,7 +1,7 @@
 ﻿CREATE VIEW [dq].[vw_BP_2_1_2]
   AS  
 
-SELECT DISTINCT
+SELECT
         C.[Customer]
     ,   C.[CustomerName]
     ,   C.[CustomerFullName]
@@ -63,10 +63,9 @@ SELECT DISTINCT
     ,   1 AS [Count]
 FROM   
     [base_s4h_cax].[I_Customer] C
-
+JOIN
+   [base_s4h_cax].[I_CustomerCompany] CC
+   ON
+   C.[Customer] = CC.[Customer] 
 WHERE
     C.[CustomerAccountGroup] = 'Y002'
-    AND
-    C.[Customer] IN 
-    ( SELECT [Customer] FROM [base_s4h_cax].[I_CustomerCompany]
-    )

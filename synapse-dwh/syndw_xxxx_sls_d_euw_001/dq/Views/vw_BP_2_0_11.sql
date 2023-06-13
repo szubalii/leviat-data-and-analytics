@@ -1,7 +1,7 @@
 ﻿CREATE VIEW [dq].[vw_BP_2_0_11]
   AS  
 
-SELECT DISTINCT
+SELECT
         C.[Customer]
     ,   C.[CustomerName]
     ,   C.[CustomerFullName]
@@ -66,8 +66,8 @@ FROM
 LEFT JOIN 
     [base_s4h_cax].[I_Address] A
     ON 
-        C.[Customer] = CC.[Customer]
+        C.[AddressID] = A.[AddressID]
 WHERE 
-    C.Country = 'BR'
+    C.[Country] = 'BR'
     AND
     (A.[District] IS NULL OR A.[District] = '')

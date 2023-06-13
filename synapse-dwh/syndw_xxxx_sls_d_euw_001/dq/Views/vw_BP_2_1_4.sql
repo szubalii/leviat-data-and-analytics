@@ -1,7 +1,7 @@
 ﻿CREATE VIEW [dq].[vw_BP_2_1_4]
   AS  
 
-SELECT DISTINCT
+SELECT
         C.[Customer]
     ,   C.[CustomerName]
     ,   C.[CustomerFullName]
@@ -68,11 +68,11 @@ LEFT JOIN
     ON 
         C.[Customer] = CC.[Customer]
 WHERE
-    CC.[DeletionIndicator]<>'' OR CC.[DeletionIndicator] IS NOT NULL
+    CC.[DeletionIndicator]<>'' AND CC.[DeletionIndicator] IS NOT NULL
 
-UNION ALL
+UNION
 
-SELECT DISTINCT
+SELECT
         C.[Customer]
     ,   C.[CustomerName]
     ,   C.[CustomerFullName]
@@ -139,6 +139,6 @@ LEFT JOIN
     ON 
         C.[Customer] = CSA.[Customer]
 WHERE 
-    (CSA.[DeletionIndicator]<>'' OR CSA.[DeletionIndicator] IS NOT NULL)
+    (CSA.[DeletionIndicator]<>'' AND CSA.[DeletionIndicator] IS NOT NULL)
     AND
-    C.[DeletionIndicator] = '' OR C.[DeletionIndicator] IS NULL
+    (C.[DeletionIndicator] = '' OR C.[DeletionIndicator] IS NULL)

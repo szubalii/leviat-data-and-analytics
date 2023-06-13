@@ -72,12 +72,9 @@ SELECT DISTINCT
     ,   1 AS [Count]
 FROM
     [base_s4h_cax].[I_Supplier] S
-LEFT JOIN
+JOIN
     [base_s4h_cax].[I_SupplierCompany] SC
     ON
         S.[Supplier] = SC.[Supplier]
 WHERE
     LEFT(S.[Supplier], 2) = 'IP' AND S.[SupplierAccountGroup] = 'Z099'
-    AND
-    S.[Supplier] IN
-    (SELECT [Supplier] FROM [base_s4h_cax].[I_SupplierCompany])

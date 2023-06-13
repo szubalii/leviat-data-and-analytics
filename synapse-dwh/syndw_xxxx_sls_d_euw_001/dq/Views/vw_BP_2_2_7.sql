@@ -1,7 +1,7 @@
 ﻿CREATE VIEW [dq].[vw_BP_2_2_7]
   AS
 
-SELECT DISTINCT
+SELECT
         SC.[Supplier]                       
     ,   SC.[CompanyCode]                    
     ,   SC.[AuthorizationGroup]             

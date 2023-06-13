@@ -73,7 +73,7 @@ FROM
 LEFT JOIN
     [base_s4h_cax].[I_Customer] C
     ON
-        BP.[BusinessPartner] = C.[Customer]
+        BP.[BusinessPartner] COLLATE SQL_Latin1_General_CP1_CS_AS = C.[Customer]
 LEFT JOIN
     [base_s4h_cax].[I_Address] A
     ON
@@ -81,4 +81,4 @@ LEFT JOIN
 WHERE
     BP.[BusinessPartnerGrouping] IN ('Z001', 'Z002')
     AND
-    BP.[SearchTerm1] <> LEFT( BP.[OrganizationBPName1], 5) + '_' + LEFT(A.[CityName], 5)
+    BP.[SearchTerm1] COLLATE SQL_Latin1_General_CP1_CS_AS<> CONCAT(LEFT( BP.[OrganizationBPName1] COLLATE SQL_Latin1_General_CP1_CS_AS, 5),'_',LEFT(A.[CityName], 5))

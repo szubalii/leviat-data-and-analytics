@@ -1,7 +1,7 @@
 ﻿CREATE VIEW [dq].[vw_BP_2_2_5]
   AS
 
-SELECT DISTINCT
+SELECT
         S.[Supplier]
     ,   S.[SupplierAccountGroup]
     ,   S.[SupplierName]
@@ -77,11 +77,11 @@ LEFT JOIN
     ON
         S.[Supplier] = SC.[Supplier]
 WHERE
-    SC.[DeletionIndicator]<>'' OR SC.[DeletionIndicator] IS NOT NULL
+    SC.[DeletionIndicator]<>'' AND SC.[DeletionIndicator] IS NOT NULL
 
-UNION ALL
+UNION
 
-SELECT DISTINCT
+SELECT
         S.[Supplier]
     ,   S.[SupplierAccountGroup]
     ,   S.[SupplierName]
@@ -157,7 +157,7 @@ LEFT JOIN
     ON
         S.[Supplier] = SPO.[Supplier]
 WHERE
-    (SPO.[DeletionIndicator] <> '' OR SPO.[DeletionIndicator] IS NOT NULL)
+    (SPO.[DeletionIndicator] <> '' AND SPO.[DeletionIndicator] IS NOT NULL)
     AND
     (S.[DeletionIndicator] = '' OR S.[DeletionIndicator] IS NULL)
 

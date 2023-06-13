@@ -1,7 +1,7 @@
 ﻿CREATE VIEW [dq].[vw_BP_2_1_7]
   AS  
 
-SELECT DISTINCT
+SELECT
         C.[Customer]
     ,   C.[CustomerName]
     ,   C.[CustomerFullName]

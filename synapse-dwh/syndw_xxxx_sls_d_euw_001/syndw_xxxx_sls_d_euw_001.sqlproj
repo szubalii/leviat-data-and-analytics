@@ -1247,7 +1247,6 @@
     <Build Include="dq\Views\vw_BP_2_0_10.sql" />
     <Build Include="dq\Views\vw_BP_2_0_11.sql" />
     <Build Include="dq\Views\vw_BP_2_1_2.sql" />
-    <Build Include="dq\Views\vw_BP_2_1_3_Intercompany.sql" />
     <Build Include="dq\Views\vw_BP_2_1_4.sql" />
     <Build Include="dq\Views\vw_BP_2_1_6.sql" />
     <Build Include="dq\Views\vw_BP_2_1_7.sql" />

@@ -71,7 +71,7 @@ SELECT
 FROM
     [base_s4h_cax].[I_BusinessPartner] BP
 WHERE
-    (BP.[IsMarkedForArchiving] IS NOT NULL OR  BP.[IsMarkedForArchiving]<>'')
+    (BP.[IsMarkedForArchiving] IS NOT NULL AND BP.[IsMarkedForArchiving]<>'')
     AND
     (BP.[SearchTerm1] NOT LIKE '%DELETED%'
     AND
