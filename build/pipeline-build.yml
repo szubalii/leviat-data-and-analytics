@@ -1,0 +1,100 @@
+trigger: none
+
+
+variables:
+
+# Set these default values in case of manually triggered pipelines
+# These values will be overriden for production environment
+# - name: VMName
+#   value: WEALEVAPP001
+# - name: VMResourceGroup
+#   value: rg-xxxx-sls-a-euw-001
+
+- name: deployEnv
+  value: ${{ upper(variables['Build.SourceBranchName']) }}
+# In case of CI triggered pipelines (IndividualCI, triggered by git push),
+# use the system predefined variable Build.SourceBranchName to get the correct variable template
+- ${{ if eq(variables['Build.SourceBranchName'], 'main') }}:
+  - template: ./variables-test.yml
+  - name: deployEnv # override value to map main branch to TEST deployment environment
+    value: 'TEST'
+- ${{ elseif eq(variables['Build.SourceBranchName'], 'qas') }}:
+  - template: ./variables-qas.yml
+- ${{ elseif eq(variables['Build.SourceBranchName'], 'prod') }}:
+  - template: ./variables-prod.yml
+- ${{ elseif startsWith(variables['Build.SourceBranchName'], 'dev_') }}:
+  - name: user
+    value: $[ replace( variables['Build.SourceBranchName'], 'dev_', '') ]
+  - template: ./variables-personal.yml
+- ${{ elseif contains(variables['Build.SourceBranch'], '/dev/') }}:
+  - name: user
+    value: $[ variables['Build.SourceBranchName'] ]
+  - template: ./variables-personal.yml
+  - name: deployEnv # override value to map main branch to DEV deployment environment
+    value: ${{ format('DEV_{0}', upper(variables['Build.SourceBranchName'])) }}
+
+# # Required for PR triggered pipelines as predefined system variable Build.SourceBranchName
+# # equals value: 'merge'. Also, the predefined system variable System.PullRequest.TargetBranch 
+# # is not available in templates. So use separate build pipelines for each env and pass this as parameter value
+# # https://learn.microsoft.com/en-us/azure/devops/pipelines/build/variables?view=azure-devops&tabs=yaml#system-variables-devops-services
+- ${{ elseif eq(parameters.env, 'test') }}:
+  - template: ./variables-test.yml
+- ${{ elseif eq(parameters.env, 'qas') }}:
+  - template: ./variables-qas.yml
+- ${{ elseif eq(parameters.env, 'prod') }}:
+  - template: ./variables-prod.yml
+- ${{ elseif eq(parameters.env, 'dev') }}:
+  - name: user
+    # replace both the '_' and '/' from the branch name for dev-branches
+    value: $[ replace(replace(replace(variables['System.PullRequest.TargetBranch'], 'refs/heads/dev', ''), '_', ''), '/', '') ]
+  - template: ./variables-personal.yml
+
+# store the latest source commit ID, used for running specific tests
+- ${{ if eq(variables['Build.Reason'], 'PullRequest') }}:
+  - name: commitId
+    value: $(System.PullRequest.SourceCommitId)
+- ${{ else }}:
+  - name: commitId
+    value: $(Build.SourceVersion)
+
+
+stages:
+- stage: BUILD
+  jobs:
+  # - template: ./jobs-pre-build.yml
+  #   parameters:
+  #     varGroup: DnA_DEV
+  - template: ./jobs-build.yml
+    parameters:
+      solution: SynapseDWH
+      folder: synapse-dwh
+      # artifact: True
+      hasVariables: true
+  
+  - template: ./jobs-build.yml
+    parameters:
+      solution: ADF
+      folder: azure-data-factory
+      # artifact: True
+      hasVariables: false
+  
+  - template: ./jobs-build.yml
+    parameters:
+      solution: Orchestration
+      folder: orchestration
+      # artifact: True
+      hasVariables: false
+  
+  - template: ./jobs-build.yml
+    parameters:
+      solution: XtractUniversal
+      folder: xu-config
+      # artifact: True
+      hasVariables: false
+  
+  - template: ./jobs-build.yml
+    parameters:
+      solution: SynapseServerless
+      folder: synapse-workspace
+      # artifact: True
+      hasVariables: false
