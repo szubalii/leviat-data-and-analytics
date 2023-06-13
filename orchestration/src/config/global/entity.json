@@ -3255,7 +3255,17 @@
         "update_mode": "Delta",
         "base_table_name": "Z_C_VariantConfig_delta",
         "base_sproc_name": "sp_load_Z_C_VariantConfig",
-        "pk_field_names": "TS_SEQUENCE_NUMBER, SALESDOCUMENT, SALESDOCUMENTITEM",
+        "pk_field_names": "TS_SEQUENCE_NUMBER, SALESDOCUMENT, SALESDOCUMENTITEM"
+      },
+      {
+        "entity_id": 592,
+        "entity_name": "Z_C_VariantConfig_F",
+        "data_category": "FACT",
+        "tool_name": "Theobald",
+        "extraction_type": "ODP",
+        "update_mode": "Full",
+        "base_table_name": "Z_C_VariantConfig_F",
+        "pk_field_names": "SALESDOCUMENT, SALESDOCUMENTITEM",
         "schedule_recurrence": "D"
       },
       {

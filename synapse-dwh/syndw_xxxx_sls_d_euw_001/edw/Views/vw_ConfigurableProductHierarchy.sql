@@ -149,7 +149,7 @@
         , product.[ZZ1_CustomFieldRiskRea_PRD]
         , vc.[t_applicationId]
     FROM
-        [base_s4h_cax].[Z_C_VariantConfig_active] AS vc
+        [base_s4h_cax].[Z_C_VariantConfig_F] AS vc
     LEFT JOIN    
         [base_s4h_cax].[I_Product] AS product
         ON
