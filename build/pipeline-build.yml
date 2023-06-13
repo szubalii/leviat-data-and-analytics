@@ -52,9 +52,9 @@ variables:
 
 
 stages:
-- stage: INIT
+- stage: VARIABLES
   jobs:
-  - job: VARIABLES
+  - job: Vars
     pool:
       name: 'VM'
       demands:
@@ -76,9 +76,9 @@ stages:
         echo Build.SourceBranchName: ${{ variables['Build.SourceBranchName'] }}
         echo deployEnv: $(deployEnv)
       displayName: Print Variables
-    
+- stage: INIT
+  jobs:
   - template: ./jobs-pre-build.yml
-    dependsOn: VARIABLES
 - stage: BUILD
   jobs:
   - job: BUILD_SynapseDWH
