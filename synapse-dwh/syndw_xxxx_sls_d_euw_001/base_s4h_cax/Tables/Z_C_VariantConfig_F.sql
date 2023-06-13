@@ -17,7 +17,7 @@ CREATE TABLE [base_s4h_cax].[Z_C_VariantConfig_F](
 , [t_jobBy]                     VARCHAR(128)
 , [t_extractionDtm]             DATETIME
 , [t_filePath]                  NVARCHAR(1024)
-, CONSTRAINT [PK_Z_C_VariantConfig_active] PRIMARY KEY NONCLUSTERED (
+, CONSTRAINT [PK_Z_C_VariantConfig_F] PRIMARY KEY NONCLUSTERED (
     [SalesDocument],[SalesDocumentItem], [CharacteristicName], [CharValue] 
   ) NOT ENFORCED
 )
