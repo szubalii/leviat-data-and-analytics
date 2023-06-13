@@ -1,5 +1,11 @@
 trigger: none
 
+
+parameters:
+- name: runDeployment
+  type: boolean
+  default: false
+
 variables:
 
 # Set these default values in case of manually triggered pipelines
@@ -35,6 +41,8 @@ variables:
   - name: user
     value: ${{ split(variables['Build.SourceBranch'], '/')[3] }} #refs/heads/feature/mpors/...
   - template: ./variables-personal.yml
+  - name: deployEnv # override value to map main branch to DEV deployment environment
+    value: ${{ format('DEV_{0}', upper(split(variables['Build.SourceBranch'], '/')[3])) }}
 
 # # Required for PR triggered pipelines as predefined system variable Build.SourceBranchName
 # # equals value: 'merge'. Also, the predefined system variable System.PullRequest.TargetBranch 
@@ -76,9 +84,9 @@ stages:
         echo Build.SourceBranchName: ${{ variables['Build.SourceBranchName'] }}
         echo deployEnv: $(deployEnv)
       displayName: Print Variables
-- stage: INIT
+- stage: VALIDATE
   jobs:
-  - template: ./jobs-pre-build.yml
+  - template: ./jobs-validate.yml
 - stage: BUILD
   jobs:
   - job: BUILD_SynapseDWH
@@ -138,3 +146,38 @@ stages:
     steps:
     - template: ../synapse-workspace/build/steps-build.yml
     - template: ../synapse-workspace/build/steps-artifact.yml
+
+
+- ${{ if eq(parameters.runDeployment, true) }}:
+  - stage: DEPLOY
+    jobs:
+    - deployment: Deploy
+      timeoutInMinutes: 120
+      # variables:
+      # - name: pathPrefix
+      #   value: $(Pipeline.Workspace)
+      pool:
+        name: 'VM'
+        demands:
+        - node.js
+        - VisualStudio
+        - Python.Version
+        - Agent.ComputerName -equals $(VMName)
+      # workspace:
+      #   clean: all
+      environment: ${{ variables['deployEnv'] }}
+      workspace:
+        clean: ${{ parameters.clean }}
+      # DEV_MPORS
+      # TEST
+      # QAS
+      # PROD
+      strategy:
+        runOnce:
+          deploy:
+            steps:
+            - template: ../azure-data-factory/build/steps-deploy.yml
+            - template: ../orchestration/build/steps-deploy.yml
+            - template: ../synapse-dwh/build/steps-deploy.yml
+            - template: ../synapse-workspace/build/steps-deploy.yml
+            - template: ../xu-config/build/steps-deploy.yml
