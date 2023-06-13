@@ -66,42 +66,65 @@ variables:
 
 
 stages:
+- stage: INIT
+  jobs:
+  - template: ./jobs-pre-build.yml
 - stage: BUILD
   jobs:
-  # - template: ./jobs-pre-build.yml
-  #   parameters:
-  #     varGroup: DnA_DEV
-  - template: ./jobs-build.yml
-    parameters:
-      solution: SynapseDWH
-      folder: synapse-dwh
-      # artifact: True
-      hasVariables: true
+  - job: BUILD_SynapseDWH
+    variables: 
+    - template: ../synapse-dwh/build/variables.yml
+    pool:
+      name: 'VM'
+      demands:
+      - node.js
+      - VisualStudio
+      - Agent.ComputerName -equals $(VMName)
+    steps:
+    - template: ../synapse-dwh/build/steps-build.yml
+    - template: ../synapse-dwh/build/steps-artifact.yml
+
   
-  - template: ./jobs-build.yml
-    parameters:
-      solution: ADF
-      folder: azure-data-factory
-      # artifact: True
-      hasVariables: false
+  - job: BUILD_ADF
+    pool:
+      name: 'VM'
+      demands:
+      - node.js
+      - VisualStudio
+      - Agent.ComputerName -equals $(VMName)
+    steps:
+    - template: ../azure-data-factory/build/steps-build.yml
+    - template: ../azure-data-factory/build/steps-artifact.yml
+
+  - job: BUILD_Orchestration
+    pool:
+      name: 'VM'
+      demands:
+      - node.js
+      - VisualStudio
+      - Agent.ComputerName -equals $(VMName)
+    steps:
+    - template: ../orchestration/build/steps-build.yml
+    - template: ../orchestration/build/steps-artifact.yml
   
-  - template: ./jobs-build.yml
-    parameters:
-      solution: Orchestration
-      folder: orchestration
-      # artifact: True
-      hasVariables: false
+  - job: BUILD_XtractUniversal
+    pool:
+      name: 'VM'
+      demands:
+      - node.js
+      - VisualStudio
+      - Agent.ComputerName -equals $(VMName)
+    steps:
+    - template: ../xu-config/build/steps-build.yml
+    - template: ../xu-config/build/steps-artifact.yml
   
-  - template: ./jobs-build.yml
-    parameters:
-      solution: XtractUniversal
-      folder: xu-config
-      # artifact: True
-      hasVariables: false
-  
-  - template: ./jobs-build.yml
-    parameters:
-      solution: SynapseServerless
-      folder: synapse-workspace
-      # artifact: True
-      hasVariables: false
+  - job: BUILD_SynapseServerless
+    pool:
+      name: 'VM'
+      demands:
+      - node.js
+      - VisualStudio
+      - Agent.ComputerName -equals $(VMName)
+    steps:
+    - template: ../synapse-workspace/build/steps-build.yml
+    - template: ../synapse-workspace/build/steps-artifact.yml
