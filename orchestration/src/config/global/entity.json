@@ -4108,7 +4108,7 @@
         "update_mode": "Full",
         "base_table_name": "P_OrganizationAddress",
         "schedule_recurrence": "D",
-        "pk_field_names": "MANDT"
+        "pk_field_names": "CLIENT, ADDRNUMBER, DATE_FROM, NATION"
       }
     ]
   },

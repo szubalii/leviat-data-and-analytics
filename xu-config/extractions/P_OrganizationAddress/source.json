@@ -1,6 +1,7 @@
 {
-  "functionName": "\/SAPDS\/RFC_READ_TABLE2",
-  "runInBackGroundJob": false,
+  "functionName": "Z_THEO_READ_TABLE",
+  "runInBackgroundJob": false,
+  "backgroundJobTimeout": 180,
   "tables": [
     {
       "name": "PORGADDR",
@@ -8,61 +9,51 @@
       "isView": true,
       "fields": [
         {
-          "name": "MANDT",
+          "name": "CLIENT",
           "description": "Client",
           "abapType": "CharacterString",
           "length": 3,
-          "isSelected": true,
-          "outputLength": 3,
           "isPrimaryKey": true,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "T000"
+          "isSelected": true,
+          "checkTable": "T000",
+          "conversionExit": ""
         },
         {
           "name": "ADDRNUMBER",
           "description": "Address Number",
           "abapType": "CharacterString",
           "length": 10,
+          "isPrimaryKey": true,
           "isSelected": true,
-          "outputLength": 10,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
           "checkTable": "ADDRNUMBER",
-          "ConversionExit": "ALPHA"
+          "conversionExit": "ALPHA"
         },
         {
           "name": "DATE_FROM",
           "description": "Valid-from date - in current Release only 00010101 possible",
           "abapType": "Date",
-          "length": 8,
+          "isPrimaryKey": true,
           "isSelected": true,
-          "outputLength": 10,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "DATE_FROM"
+          "checkTable": "DATE_FROM",
+          "conversionExit": ""
         },
         {
           "name": "NATION",
           "description": "Version ID for International Addresses",
           "abapType": "CharacterString",
           "length": 1,
+          "isPrimaryKey": true,
           "isSelected": true,
-          "outputLength": 1,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "NATION"
+          "checkTable": "NATION",
+          "conversionExit": ""
         },
         {
           "name": "DATE_TO",
           "description": "Valid-to date in current Release only 99991231 possible",
           "abapType": "Date",
-          "length": 8,
           "isSelected": true,
-          "outputLength": 10,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "DATE_TO"
+          "checkTable": "DATE_TO",
+          "conversionExit": ""
         },
         {
           "name": "TITLE",
@@ -70,10 +61,8 @@
           "abapType": "CharacterString",
           "length": 4,
           "isSelected": true,
-          "outputLength": 4,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "TITLE"
+          "checkTable": "TITLE",
+          "conversionExit": ""
         },
         {
           "name": "NAME1",
@@ -81,10 +70,8 @@
           "abapType": "CharacterString",
           "length": 40,
           "isSelected": true,
-          "outputLength": 40,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "NAME1"
+          "checkTable": "NAME1",
+          "conversionExit": ""
         },
         {
           "name": "NAME2",
@@ -92,10 +79,8 @@
           "abapType": "CharacterString",
           "length": 40,
           "isSelected": true,
-          "outputLength": 40,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "NAME2"
+          "checkTable": "NAME2",
+          "conversionExit": ""
         },
         {
           "name": "NAME3",
@@ -103,10 +88,8 @@
           "abapType": "CharacterString",
           "length": 40,
           "isSelected": true,
-          "outputLength": 40,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "NAME3"
+          "checkTable": "NAME3",
+          "conversionExit": ""
         },
         {
           "name": "NAME4",
@@ -114,10 +97,8 @@
           "abapType": "CharacterString",
           "length": 40,
           "isSelected": true,
-          "outputLength": 40,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "NAME4"
+          "checkTable": "NAME4",
+          "conversionExit": ""
         },
         {
           "name": "NAME_TEXT",
@@ -125,10 +106,8 @@
           "abapType": "CharacterString",
           "length": 50,
           "isSelected": true,
-          "outputLength": 50,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "NAME_TEXT"
+          "checkTable": "NAME_TEXT",
+          "conversionExit": ""
         },
         {
           "name": "NAME_CO",
@@ -136,10 +115,8 @@
           "abapType": "CharacterString",
           "length": 40,
           "isSelected": true,
-          "outputLength": 40,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "NAME_CO"
+          "checkTable": "NAME_CO",
+          "conversionExit": ""
         },
         {
           "name": "CITY1",
@@ -147,10 +124,8 @@
           "abapType": "CharacterString",
           "length": 40,
           "isSelected": true,
-          "outputLength": 40,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "CITY1"
+          "checkTable": "CITY1",
+          "conversionExit": ""
         },
         {
           "name": "CITY2",
@@ -158,10 +133,8 @@
           "abapType": "CharacterString",
           "length": 40,
           "isSelected": true,
-          "outputLength": 40,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "CITY2"
+          "checkTable": "CITY2",
+          "conversionExit": ""
         },
         {
           "name": "CITY_CODE",
@@ -169,11 +142,8 @@
           "abapType": "CharacterString",
           "length": 12,
           "isSelected": true,
-          "outputLength": 12,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
           "checkTable": "CITY_CODE",
-          "ConversionExit": "ALPHA"
+          "conversionExit": "ALPHA"
         },
         {
           "name": "CITYP_CODE",
@@ -181,11 +151,8 @@
           "abapType": "CharacterString",
           "length": 8,
           "isSelected": true,
-          "outputLength": 8,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
           "checkTable": "CITYP_CODE",
-          "ConversionExit": "ALPHA"
+          "conversionExit": "ALPHA"
         },
         {
           "name": "HOME_CITY",
@@ -193,10 +160,8 @@
           "abapType": "CharacterString",
           "length": 40,
           "isSelected": true,
-          "outputLength": 40,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "HOME_CITY"
+          "checkTable": "HOME_CITY",
+          "conversionExit": ""
         },
         {
           "name": "CITYH_CODE",
@@ -204,11 +169,8 @@
           "abapType": "CharacterString",
           "length": 12,
           "isSelected": true,
-          "outputLength": 12,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
           "checkTable": "CITYH_CODE",
-          "ConversionExit": "ALPHA"
+          "conversionExit": "ALPHA"
         },
         {
           "name": "CHCKSTATUS",
@@ -216,10 +178,8 @@
           "abapType": "CharacterString",
           "length": 1,
           "isSelected": true,
-          "outputLength": 1,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "CHCKSTATUS"
+          "checkTable": "CHCKSTATUS",
+          "conversionExit": ""
         },
         {
           "name": "REGIOGROUP",
@@ -227,10 +187,8 @@
           "abapType": "CharacterString",
           "length": 8,
           "isSelected": true,
-          "outputLength": 8,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "REGIOGROUP"
+          "checkTable": "REGIOGROUP",
+          "conversionExit": ""
         },
         {
           "name": "POST_CODE1",
@@ -238,10 +196,8 @@
           "abapType": "CharacterString",
           "length": 10,
           "isSelected": true,
-          "outputLength": 10,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "POST_CODE1"
+          "checkTable": "POST_CODE1",
+          "conversionExit": ""
         },
         {
           "name": "POST_CODE2",
@@ -249,10 +205,8 @@
           "abapType": "CharacterString",
           "length": 10,
           "isSelected": true,
-          "outputLength": 10,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "POST_CODE2"
+          "checkTable": "POST_CODE2",
+          "conversionExit": ""
         },
         {
           "name": "POST_CODE3",
@@ -260,10 +214,8 @@
           "abapType": "CharacterString",
           "length": 10,
           "isSelected": true,
-          "outputLength": 10,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "POST_CODE3"
+          "checkTable": "POST_CODE3",
+          "conversionExit": ""
         },
         {
           "name": "PCODE1_EXT",
@@ -271,10 +223,8 @@
           "abapType": "CharacterString",
           "length": 10,
           "isSelected": true,
-          "outputLength": 10,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "PCODE1_EXT"
+          "checkTable": "PCODE1_EXT",
+          "conversionExit": ""
         },
         {
           "name": "PCODE2_EXT",
@@ -282,10 +232,8 @@
           "abapType": "CharacterString",
           "length": 10,
           "isSelected": true,
-          "outputLength": 10,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "PCODE2_EXT"
+          "checkTable": "PCODE2_EXT",
+          "conversionExit": ""
         },
         {
           "name": "PCODE3_EXT",
@@ -293,10 +241,8 @@
           "abapType": "CharacterString",
           "length": 10,
           "isSelected": true,
-          "outputLength": 10,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "PCODE3_EXT"
+          "checkTable": "PCODE3_EXT",
+          "conversionExit": ""
         },
         {
           "name": "PO_BOX",
@@ -304,10 +250,8 @@
           "abapType": "CharacterString",
           "length": 10,
           "isSelected": true,
-          "outputLength": 10,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "PO_BOX"
+          "checkTable": "PO_BOX",
+          "conversionExit": ""
         },
         {
           "name": "DONT_USE_P",
@@ -315,10 +259,8 @@
           "abapType": "CharacterString",
           "length": 4,
           "isSelected": true,
-          "outputLength": 4,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "DONT_USE_P"
+          "checkTable": "DONT_USE_P",
+          "conversionExit": ""
         },
         {
           "name": "PO_BOX_NUM",
@@ -326,10 +268,8 @@
           "abapType": "CharacterString",
           "length": 1,
           "isSelected": true,
-          "outputLength": 1,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "PO_BOX_NUM"
+          "checkTable": "PO_BOX_NUM",
+          "conversionExit": ""
         },
         {
           "name": "PO_BOX_LOC",
@@ -337,10 +277,8 @@
           "abapType": "CharacterString",
           "length": 40,
           "isSelected": true,
-          "outputLength": 40,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "PO_BOX_LOC"
+          "checkTable": "PO_BOX_LOC",
+          "conversionExit": ""
         },
         {
           "name": "CITY_CODE2",
@@ -348,11 +286,8 @@
           "abapType": "CharacterString",
           "length": 12,
           "isSelected": true,
-          "outputLength": 12,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
           "checkTable": "CITY_CODE2",
-          "ConversionExit": "ALPHA"
+          "conversionExit": "ALPHA"
         },
         {
           "name": "PO_BOX_REG",
@@ -360,10 +295,8 @@
           "abapType": "CharacterString",
           "length": 3,
           "isSelected": true,
-          "outputLength": 3,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "PO_BOX_REG"
+          "checkTable": "PO_BOX_REG",
+          "conversionExit": ""
         },
         {
           "name": "PO_BOX_CTY",
@@ -371,10 +304,8 @@
           "abapType": "CharacterString",
           "length": 3,
           "isSelected": true,
-          "outputLength": 3,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "PO_BOX_CTY"
+          "checkTable": "PO_BOX_CTY",
+          "conversionExit": ""
         },
         {
           "name": "POSTALAREA",
@@ -382,10 +313,8 @@
           "abapType": "CharacterString",
           "length": 15,
           "isSelected": true,
-          "outputLength": 15,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "POSTALAREA"
+          "checkTable": "POSTALAREA",
+          "conversionExit": ""
         },
         {
           "name": "TRANSPZONE",
@@ -393,10 +322,8 @@
           "abapType": "CharacterString",
           "length": 10,
           "isSelected": true,
-          "outputLength": 10,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "TRANSPZONE"
+          "checkTable": "TRANSPZONE",
+          "conversionExit": ""
         },
         {
           "name": "STREET",
@@ -404,10 +331,8 @@
           "abapType": "CharacterString",
           "length": 60,
           "isSelected": true,
-          "outputLength": 60,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "STREET"
+          "checkTable": "STREET",
+          "conversionExit": ""
         },
         {
           "name": "DONT_USE_S",
@@ -415,10 +340,8 @@
           "abapType": "CharacterString",
           "length": 4,
           "isSelected": true,
-          "outputLength": 4,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "DONT_USE_S"
+          "checkTable": "DONT_USE_S",
+          "conversionExit": ""
         },
         {
           "name": "STREETCODE",
@@ -426,11 +349,8 @@
           "abapType": "CharacterString",
           "length": 12,
           "isSelected": true,
-          "outputLength": 12,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
           "checkTable": "STREETCODE",
-          "ConversionExit": "ALPHA"
+          "conversionExit": "ALPHA"
         },
         {
           "name": "STREETABBR",
@@ -438,10 +358,8 @@
           "abapType": "CharacterString",
           "length": 2,
           "isSelected": true,
-          "outputLength": 2,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "STREETABBR"
+          "checkTable": "STREETABBR",
+          "conversionExit": ""
         },
         {
           "name": "HOUSE_NUM1",
@@ -449,10 +367,8 @@
           "abapType": "CharacterString",
           "length": 10,
           "isSelected": true,
-          "outputLength": 10,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "HOUSE_NUM1"
+          "checkTable": "HOUSE_NUM1",
+          "conversionExit": ""
         },
         {
           "name": "HOUSE_NUM2",
@@ -460,10 +376,8 @@
           "abapType": "CharacterString",
           "length": 10,
           "isSelected": true,
-          "outputLength": 10,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "HOUSE_NUM2"
+          "checkTable": "HOUSE_NUM2",
+          "conversionExit": ""
         },
         {
           "name": "HOUSE_NUM3",
@@ -471,10 +385,8 @@
           "abapType": "CharacterString",
           "length": 10,
           "isSelected": true,
-          "outputLength": 10,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "HOUSE_NUM3"
+          "checkTable": "HOUSE_NUM3",
+          "conversionExit": ""
         },
         {
           "name": "STR_SUPPL1",
@@ -482,10 +394,8 @@
           "abapType": "CharacterString",
           "length": 40,
           "isSelected": true,
-          "outputLength": 40,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "STR_SUPPL1"
+          "checkTable": "STR_SUPPL1",
+          "conversionExit": ""
         },
         {
           "name": "STR_SUPPL2",
@@ -493,10 +403,8 @@
           "abapType": "CharacterString",
           "length": 40,
           "isSelected": true,
-          "outputLength": 40,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "STR_SUPPL2"
+          "checkTable": "STR_SUPPL2",
+          "conversionExit": ""
         },
         {
           "name": "STR_SUPPL3",
@@ -504,10 +412,8 @@
           "abapType": "CharacterString",
           "length": 40,
           "isSelected": true,
-          "outputLength": 40,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "STR_SUPPL3"
+          "checkTable": "STR_SUPPL3",
+          "conversionExit": ""
         },
         {
           "name": "LOCATION",
@@ -515,10 +421,8 @@
           "abapType": "CharacterString",
           "length": 40,
           "isSelected": true,
-          "outputLength": 40,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "LOCATION"
+          "checkTable": "LOCATION",
+          "conversionExit": ""
         },
         {
           "name": "BUILDING",
@@ -526,10 +430,8 @@
           "abapType": "CharacterString",
           "length": 20,
           "isSelected": true,
-          "outputLength": 20,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "BUILDING"
+          "checkTable": "BUILDING",
+          "conversionExit": ""
         },
         {
           "name": "FLOOR",
@@ -537,10 +439,8 @@
           "abapType": "CharacterString",
           "length": 10,
           "isSelected": true,
-          "outputLength": 10,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "FLOOR"
+          "checkTable": "FLOOR",
+          "conversionExit": ""
         },
         {
           "name": "ROOMNUMBER",
@@ -548,10 +448,8 @@
           "abapType": "CharacterString",
           "length": 10,
           "isSelected": true,
-          "outputLength": 10,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "ROOMNUMBER"
+          "checkTable": "ROOMNUMBER",
+          "conversionExit": ""
         },
         {
           "name": "COUNTRY",
@@ -559,10 +457,8 @@
           "abapType": "CharacterString",
           "length": 3,
           "isSelected": true,
-          "outputLength": 3,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "COUNTRY"
+          "checkTable": "COUNTRY",
+          "conversionExit": ""
         },
         {
           "name": "LANGU",
@@ -570,11 +466,9 @@
           "abapType": "CharacterString",
           "length": 1,
           "isSelected": true,
-          "outputLength": 2,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
+          "formattedLength": 2,
           "checkTable": "LANGU",
-          "ConversionExit": "ISOLA"
+          "conversionExit": "ISOLA"
         },
         {
           "name": "REGION",
@@ -582,10 +476,8 @@
           "abapType": "CharacterString",
           "length": 3,
           "isSelected": true,
-          "outputLength": 3,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "REGION"
+          "checkTable": "REGION",
+          "conversionExit": ""
         },
         {
           "name": "ADDR_GROUP",
@@ -593,10 +485,8 @@
           "abapType": "CharacterString",
           "length": 4,
           "isSelected": true,
-          "outputLength": 4,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "ADDR_GROUP"
+          "checkTable": "ADDR_GROUP",
+          "conversionExit": ""
         },
         {
           "name": "FLAGGROUPS",
@@ -604,10 +494,8 @@
           "abapType": "CharacterString",
           "length": 1,
           "isSelected": true,
-          "outputLength": 1,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "FLAGGROUPS"
+          "checkTable": "FLAGGROUPS",
+          "conversionExit": ""
         },
         {
           "name": "PERS_ADDR",
@@ -615,10 +503,8 @@
           "abapType": "CharacterString",
           "length": 1,
           "isSelected": true,
-          "outputLength": 1,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "PERS_ADDR"
+          "checkTable": "PERS_ADDR",
+          "conversionExit": ""
         },
         {
           "name": "SORT1",
@@ -626,10 +512,8 @@
           "abapType": "CharacterString",
           "length": 20,
           "isSelected": true,
-          "outputLength": 20,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "SORT1"
+          "checkTable": "SORT1",
+          "conversionExit": ""
         },
         {
           "name": "SORT2",
@@ -637,10 +521,8 @@
           "abapType": "CharacterString",
           "length": 20,
           "isSelected": true,
-          "outputLength": 20,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "SORT2"
+          "checkTable": "SORT2",
+          "conversionExit": ""
         },
         {
           "name": "SORT_PHN",
@@ -648,10 +530,8 @@
           "abapType": "CharacterString",
           "length": 20,
           "isSelected": true,
-          "outputLength": 20,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "SORT_PHN"
+          "checkTable": "SORT_PHN",
+          "conversionExit": ""
         },
         {
           "name": "DEFLT_COMM",
@@ -659,10 +539,8 @@
           "abapType": "CharacterString",
           "length": 3,
           "isSelected": true,
-          "outputLength": 3,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "DEFLT_COMM"
+          "checkTable": "DEFLT_COMM",
+          "conversionExit": ""
         },
         {
           "name": "TEL_NUMBER",
@@ -670,10 +548,8 @@
           "abapType": "CharacterString",
           "length": 30,
           "isSelected": true,
-          "outputLength": 30,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "TEL_NUMBER"
+          "checkTable": "TEL_NUMBER",
+          "conversionExit": ""
         },
         {
           "name": "TEL_EXTENS",
@@ -681,10 +557,8 @@
           "abapType": "CharacterString",
           "length": 10,
           "isSelected": true,
-          "outputLength": 10,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "TEL_EXTENS"
+          "checkTable": "TEL_EXTENS",
+          "conversionExit": ""
         },
         {
           "name": "FAX_NUMBER",
@@ -692,10 +566,8 @@
           "abapType": "CharacterString",
           "length": 30,
           "isSelected": true,
-          "outputLength": 30,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "FAX_NUMBER"
+          "checkTable": "FAX_NUMBER",
+          "conversionExit": ""
         },
         {
           "name": "FAX_EXTENS",
@@ -703,10 +575,8 @@
           "abapType": "CharacterString",
           "length": 10,
           "isSelected": true,
-          "outputLength": 10,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "FAX_EXTENS"
+          "checkTable": "FAX_EXTENS",
+          "conversionExit": ""
         },
         {
           "name": "FLAGCOMM2",
@@ -714,10 +584,8 @@
           "abapType": "CharacterString",
           "length": 1,
           "isSelected": true,
-          "outputLength": 1,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "FLAGCOMM2"
+          "checkTable": "FLAGCOMM2",
+          "conversionExit": ""
         },
         {
           "name": "FLAGCOMM3",
@@ -725,10 +593,8 @@
           "abapType": "CharacterString",
           "length": 1,
           "isSelected": true,
-          "outputLength": 1,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "FLAGCOMM3"
+          "checkTable": "FLAGCOMM3",
+          "conversionExit": ""
         },
         {
           "name": "FLAGCOMM4",
@@ -736,10 +602,8 @@
           "abapType": "CharacterString",
           "length": 1,
           "isSelected": true,
-          "outputLength": 1,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "FLAGCOMM4"
+          "checkTable": "FLAGCOMM4",
+          "conversionExit": ""
         },
         {
           "name": "FLAGCOMM5",
@@ -747,10 +611,8 @@
           "abapType": "CharacterString",
           "length": 1,
           "isSelected": true,
-          "outputLength": 1,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "FLAGCOMM5"
+          "checkTable": "FLAGCOMM5",
+          "conversionExit": ""
         },
         {
           "name": "FLAGCOMM6",
@@ -758,10 +620,8 @@
           "abapType": "CharacterString",
           "length": 1,
           "isSelected": true,
-          "outputLength": 1,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "FLAGCOMM6"
+          "checkTable": "FLAGCOMM6",
+          "conversionExit": ""
         },
         {
           "name": "FLAGCOMM7",
@@ -769,10 +629,8 @@
           "abapType": "CharacterString",
           "length": 1,
           "isSelected": true,
-          "outputLength": 1,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "FLAGCOMM7"
+          "checkTable": "FLAGCOMM7",
+          "conversionExit": ""
         },
         {
           "name": "FLAGCOMM8",
@@ -780,10 +638,8 @@
           "abapType": "CharacterString",
           "length": 1,
           "isSelected": true,
-          "outputLength": 1,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "FLAGCOMM8"
+          "checkTable": "FLAGCOMM8",
+          "conversionExit": ""
         },
         {
           "name": "FLAGCOMM9",
@@ -791,10 +647,8 @@
           "abapType": "CharacterString",
           "length": 1,
           "isSelected": true,
-          "outputLength": 1,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "FLAGCOMM9"
+          "checkTable": "FLAGCOMM9",
+          "conversionExit": ""
         },
         {
           "name": "FLAGCOMM10",
@@ -802,10 +656,8 @@
           "abapType": "CharacterString",
           "length": 1,
           "isSelected": true,
-          "outputLength": 1,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "FLAGCOMM10"
+          "checkTable": "FLAGCOMM10",
+          "conversionExit": ""
         },
         {
           "name": "FLAGCOMM11",
@@ -813,10 +665,8 @@
           "abapType": "CharacterString",
           "length": 1,
           "isSelected": true,
-          "outputLength": 1,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "FLAGCOMM11"
+          "checkTable": "FLAGCOMM11",
+          "conversionExit": ""
         },
         {
           "name": "FLAGCOMM12",
@@ -824,10 +674,8 @@
           "abapType": "CharacterString",
           "length": 1,
           "isSelected": true,
-          "outputLength": 1,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "FLAGCOMM12"
+          "checkTable": "FLAGCOMM12",
+          "conversionExit": ""
         },
         {
           "name": "FLAGCOMM13",
@@ -835,10 +683,8 @@
           "abapType": "CharacterString",
           "length": 1,
           "isSelected": true,
-          "outputLength": 1,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "FLAGCOMM13"
+          "checkTable": "FLAGCOMM13",
+          "conversionExit": ""
         },
         {
           "name": "ADDRORIGIN",
@@ -846,10 +692,8 @@
           "abapType": "CharacterString",
           "length": 4,
           "isSelected": true,
-          "outputLength": 4,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "ADDRORIGIN"
+          "checkTable": "ADDRORIGIN",
+          "conversionExit": ""
         },
         {
           "name": "MC_NAME1",
@@ -857,10 +701,8 @@
           "abapType": "CharacterString",
           "length": 25,
           "isSelected": true,
-          "outputLength": 25,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "MC_NAME1"
+          "checkTable": "MC_NAME1",
+          "conversionExit": ""
         },
         {
           "name": "MC_CITY1",
@@ -868,10 +710,8 @@
           "abapType": "CharacterString",
           "length": 25,
           "isSelected": true,
-          "outputLength": 25,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "MC_CITY1"
+          "checkTable": "MC_CITY1",
+          "conversionExit": ""
         },
         {
           "name": "MC_STREET",
@@ -879,10 +719,8 @@
           "abapType": "CharacterString",
           "length": 25,
           "isSelected": true,
-          "outputLength": 25,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "MC_STREET"
+          "checkTable": "MC_STREET",
+          "conversionExit": ""
         },
         {
           "name": "EXTENSION1",
@@ -890,10 +728,8 @@
           "abapType": "CharacterString",
           "length": 40,
           "isSelected": true,
-          "outputLength": 40,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "EXTENSION1"
+          "checkTable": "EXTENSION1",
+          "conversionExit": ""
         },
         {
           "name": "EXTENSION2",
@@ -901,10 +737,8 @@
           "abapType": "CharacterString",
           "length": 40,
           "isSelected": true,
-          "outputLength": 40,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "EXTENSION2"
+          "checkTable": "EXTENSION2",
+          "conversionExit": ""
         },
         {
           "name": "TIME_ZONE",
@@ -912,10 +746,8 @@
           "abapType": "CharacterString",
           "length": 6,
           "isSelected": true,
-          "outputLength": 6,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "TIME_ZONE"
+          "checkTable": "TIME_ZONE",
+          "conversionExit": ""
         },
         {
           "name": "TAXJURCODE",
@@ -923,10 +755,8 @@
           "abapType": "CharacterString",
           "length": 15,
           "isSelected": true,
-          "outputLength": 15,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "TAXJURCODE"
+          "checkTable": "TAXJURCODE",
+          "conversionExit": ""
         },
         {
           "name": "ADDRESS_ID",
@@ -934,11 +764,8 @@
           "abapType": "CharacterString",
           "length": 10,
           "isSelected": true,
-          "outputLength": 10,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
           "checkTable": "ADDRESS_ID",
-          "ConversionExit": "ALPHA"
+          "conversionExit": "ALPHA"
         },
         {
           "name": "LANGU_CREA",
@@ -946,22 +773,18 @@
           "abapType": "CharacterString",
           "length": 1,
           "isSelected": true,
-          "outputLength": 2,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
+          "formattedLength": 2,
           "checkTable": "LANGU_CREA",
-          "ConversionExit": "ISOLA"
+          "conversionExit": "ISOLA"
         },
         {
           "name": "ADRC_UUID",
           "description": "UUID Used in the Address",
-          "abapType": "OneByteInteger",
+          "abapType": "ByteSequence",
           "length": 16,
           "isSelected": true,
-          "outputLength": 32,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "ADRC_UUID"
+          "checkTable": "ADRC_UUID",
+          "conversionExit": ""
         },
         {
           "name": "UUID_BELATED",
@@ -969,10 +792,8 @@
           "abapType": "CharacterString",
           "length": 1,
           "isSelected": true,
-          "outputLength": 1,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "UUID_BELATED"
+          "checkTable": "UUID_BELATED",
+          "conversionExit": ""
         },
         {
           "name": "ID_CATEGORY",
@@ -980,10 +801,8 @@
           "abapType": "CharacterString",
           "length": 1,
           "isSelected": true,
-          "outputLength": 1,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "ID_CATEGORY"
+          "checkTable": "ID_CATEGORY",
+          "conversionExit": ""
         },
         {
           "name": "ADRC_ERR_STATUS",
@@ -991,10 +810,8 @@
           "abapType": "CharacterString",
           "length": 1,
           "isSelected": true,
-          "outputLength": 1,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "ADRC_ERR_STATUS"
+          "checkTable": "ADRC_ERR_STATUS",
+          "conversionExit": ""
         },
         {
           "name": "PO_BOX_LOBBY",
@@ -1002,10 +819,8 @@
           "abapType": "CharacterString",
           "length": 40,
           "isSelected": true,
-          "outputLength": 40,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "PO_BOX_LOBBY"
+          "checkTable": "PO_BOX_LOBBY",
+          "conversionExit": ""
         },
         {
           "name": "DELI_SERV_TYPE",
@@ -1013,10 +828,8 @@
           "abapType": "CharacterString",
           "length": 4,
           "isSelected": true,
-          "outputLength": 4,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "DELI_SERV_TYPE"
+          "checkTable": "DELI_SERV_TYPE",
+          "conversionExit": ""
         },
         {
           "name": "DELI_SERV_NUMBER",
@@ -1024,10 +837,8 @@
           "abapType": "CharacterString",
           "length": 10,
           "isSelected": true,
-          "outputLength": 10,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "DELI_SERV_NUMBER"
+          "checkTable": "DELI_SERV_NUMBER",
+          "conversionExit": ""
         },
         {
           "name": "COUNTY_CODE",
@@ -1035,11 +846,8 @@
           "abapType": "CharacterString",
           "length": 8,
           "isSelected": true,
-          "outputLength": 8,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
           "checkTable": "COUNTY_CODE",
-          "ConversionExit": "ALPHA"
+          "conversionExit": "ALPHA"
         },
         {
           "name": "COUNTY",
@@ -1047,10 +855,8 @@
           "abapType": "CharacterString",
           "length": 40,
           "isSelected": true,
-          "outputLength": 40,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "COUNTY"
+          "checkTable": "COUNTY",
+          "conversionExit": ""
         },
         {
           "name": "TOWNSHIP_CODE",
@@ -1058,11 +864,8 @@
           "abapType": "CharacterString",
           "length": 8,
           "isSelected": true,
-          "outputLength": 8,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
           "checkTable": "TOWNSHIP_CODE",
-          "ConversionExit": "ALPHA"
+          "conversionExit": "ALPHA"
         },
         {
           "name": "TOWNSHIP",
@@ -1070,10 +873,8 @@
           "abapType": "CharacterString",
           "length": 40,
           "isSelected": true,
-          "outputLength": 40,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "TOWNSHIP"
+          "checkTable": "TOWNSHIP",
+          "conversionExit": ""
         },
         {
           "name": "MC_COUNTY",
@@ -1081,10 +882,8 @@
           "abapType": "CharacterString",
           "length": 25,
           "isSelected": true,
-          "outputLength": 25,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "MC_COUNTY"
+          "checkTable": "MC_COUNTY",
+          "conversionExit": ""
         },
         {
           "name": "MC_TOWNSHIP",
@@ -1092,10 +891,8 @@
           "abapType": "CharacterString",
           "length": 25,
           "isSelected": true,
-          "outputLength": 25,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "MC_TOWNSHIP"
+          "checkTable": "MC_TOWNSHIP",
+          "conversionExit": ""
         },
         {
           "name": "XPCPT",
@@ -1103,21 +900,16 @@
           "abapType": "CharacterString",
           "length": 1,
           "isSelected": true,
-          "outputLength": 1,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "XPCPT"
+          "checkTable": "XPCPT",
+          "conversionExit": ""
         },
         {
           "name": "_DATAAGING",
           "description": "Data Filter Value for Data Aging",
           "abapType": "Date",
-          "length": 8,
           "isSelected": true,
-          "outputLength": 10,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "_DATAAGING"
+          "checkTable": "_DATAAGING",
+          "conversionExit": ""
         },
         {
           "name": "DUNS",
@@ -1125,10 +917,8 @@
           "abapType": "CharacterString",
           "length": 9,
           "isSelected": true,
-          "outputLength": 9,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "DUNS"
+          "checkTable": "DUNS",
+          "conversionExit": ""
         },
         {
           "name": "DUNSP4",
@@ -1136,21 +926,16 @@
           "abapType": "CharacterString",
           "length": 4,
           "isSelected": true,
-          "outputLength": 4,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "DUNSP4"
+          "checkTable": "DUNSP4",
+          "conversionExit": ""
         },
         {
           "name": "ORGANIZATIONNAME",
-          "description": "",
           "abapType": "CharacterString",
           "length": 163,
           "isSelected": true,
-          "outputLength": 163,
-          "isDeltaColumn": true,
-          "selectionPermission": "All",
-          "checkTable": "ORGANIZATIONNAME"
+          "checkTable": "ORGANIZATIONNAME",
+          "conversionExit": ""
         }
       ]
     }
