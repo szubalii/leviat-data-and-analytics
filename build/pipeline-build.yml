@@ -8,6 +8,10 @@ parameters:
 - name: clean
   type: string
   default: outputs
+  values:
+  - outputs
+  - resources
+  - all
 
 variables:
 
