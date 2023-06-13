@@ -5,6 +5,9 @@ parameters:
 - name: runDeployment
   type: boolean
   default: false
+- name: clean
+  type: string
+  default: outputs
 
 variables:
 
