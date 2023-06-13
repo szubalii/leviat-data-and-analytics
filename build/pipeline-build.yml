@@ -15,6 +15,17 @@ parameters:
 
 variables:
 
+- name: synDWHSolution
+  value: '**/synapse-dwh/*.sln'
+- name: orchDBSolution
+  value: '**/orchestration/*.sln'
+- name: buildPlatform
+  value: 'Any CPU'
+- name: buildConfiguration
+  value: 'Release'
+- name: ConnectionString
+  value: $(SynapseTesterConnectionString)
+
 # Set these default values in case of manually triggered pipelines
 # These values will be overriden for production environment
 # - name: VMName
@@ -97,8 +108,6 @@ stages:
 - stage: BUILD
   jobs:
   - job: BUILD_SynapseDWH
-    variables: 
-    - template: ../synapse-dwh/build/variables.yml
     pool:
       name: 'VM'
       demands:
