@@ -33,7 +33,7 @@ variables:
     value: ${{ format('DEV_{0}', upper(variables['Build.SourceBranchName'])) }}
 - ${{ elseif contains(variables['Build.SourceBranch'], '/feature/') }}:
   - name: user
-    value: ${{ split(variables['Build.SourceBranch'], '/')[3] }}
+    value: ${{ split(variables['Build.SourceBranch'], '/')[3] }} #refs/heads/feature/mpors/...
   - template: ./variables-personal.yml
 
 # # Required for PR triggered pipelines as predefined system variable Build.SourceBranchName
