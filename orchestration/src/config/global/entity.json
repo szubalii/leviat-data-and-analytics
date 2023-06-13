@@ -4061,6 +4061,18 @@
         "base_table_name": "Opt_Vim_1Head",
         "schedule_recurrence": "D",
         "pk_field_names": "MANDT, DOCID"
+      },
+      {
+        "entity_id": 592,
+        "entity_name": "I_Employee",
+        "data_category": "NULL",
+        "client_field": "MANDT",
+        "tool_name": "Theobald",
+        "extraction_type": "Table",
+        "update_mode": "Full",
+        "base_table_name": "I_Employee",
+        "schedule_recurrence": "D",
+        "pk_field_names": "MANDT, PERSONNELNUMBER"
       }
     ]
   },
