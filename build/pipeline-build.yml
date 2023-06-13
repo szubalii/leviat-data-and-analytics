@@ -1,5 +1,12 @@
 trigger: none
 
+parameters:
+- name: env
+  type: string
+  default: ''
+- name: clean
+  type: string
+  default: outputs
 
 variables:
 
