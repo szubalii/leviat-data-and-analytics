@@ -5,7 +5,7 @@ CREATE TABLE [base_s4h_cax].[Z_C_VariantConfig_F](
 , [ProductExternalID]           NVARCHAR(40)
 , [Configuration]               NVARCHAR(18)
 , [Instance]                    NVARCHAR(22)
-, [LastChangeDate]              DATETIME2
+, [LastChangeDate]              DATE
 , [CharacteristicName]          NVARCHAR(30) NOT NULL
 , [CharacteristicDescription]   NVARCHAR(30)
 , [DecimalValueFrom]            DECIMAL (31, 14)
@@ -15,8 +15,8 @@ CREATE TABLE [base_s4h_cax].[Z_C_VariantConfig_F](
 , [t_jobId]                     VARCHAR(36)
 , [t_jobDtm]                    DATETIME
 , [t_jobBy]                     VARCHAR(128)
-, [t_extractionDtm]             DATETIME
 , [t_filePath]                  NVARCHAR(1024)
+, [t_extractionDtm]             DATETIME
 , CONSTRAINT [PK_Z_C_VariantConfig_F] PRIMARY KEY NONCLUSTERED (
     [SalesDocument],[SalesDocumentItem], [CharacteristicName], [CharValue] 
   ) NOT ENFORCED
