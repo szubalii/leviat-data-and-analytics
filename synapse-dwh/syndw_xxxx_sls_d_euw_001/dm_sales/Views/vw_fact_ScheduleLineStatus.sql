@@ -71,7 +71,9 @@ WITH DeliveryItem AS
 SELECT 
         CONCAT(
             SDSL.[SalesDocumentID]              COLLATE DATABASE_DEFAULT
+            ,'¦'
             ,SDSL.[SalesDocumentItem]           COLLATE DATABASE_DEFAULT
+            ,'¦'
             ,SDI.[CurrencyTypeID]               COLLATE DATABASE_DEFAULT
         )                                       AS nk_fact_SalesDocumentItem,
         SDSL.[SalesDocumentID],
