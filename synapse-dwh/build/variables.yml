@@ -1,5 +1,5 @@
 variables:
-- name: synDWHSolution
+- name: solution
   value: '**/synapse-dwh/*.sln'
 - name: buildPlatform
   value: 'Any CPU'
