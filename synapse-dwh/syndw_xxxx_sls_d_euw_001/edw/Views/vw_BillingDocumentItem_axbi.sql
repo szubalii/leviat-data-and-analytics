@@ -1,6 +1,9 @@
 ﻿CREATE VIEW [edw].[vw_BillingDocumentItem_axbi]
 AS
 WITH
+CurrentDay AS (
+    SELECT CAST(GETDATE() as DATE) AS Today
+),
 CustInvoiceTrans_without_quotes AS(
     SELECT
         CASE
@@ -757,10 +760,13 @@ BillingDocumentItemBase_axbi_mapped AS (
         ,ExchangeRate
     from
         edw.dim_ExchangeRates
+    CROSS JOIN CurrentDay
     where
         ExchangeRateType = 'P'
         AND
-        SourceCurrency = 'USD')
+        SourceCurrency = 'USD'
+        AND
+        ExchangeRateEffectiveDate <= Today)
 , BDIAXBI_DUMMY_30 AS(
     SELECT 
             [BillingDocument]
@@ -835,8 +841,6 @@ BillingDocumentItemBase_axbi_mapped AS (
             EuroBudgetExchangeRateUSD
             ON
                 axbi_dummy_40.[CurrencyID] = EuroBudgetExchangeRateUSD.TargetCurrency
-        WHERE
-            [ExchangeRateEffectiveDate] <= CAST(GETDATE() as DATE) --[BillingDocumentDate]
         GROUP BY
                 [BillingDocument]
             ,   [BillingDocumentItem]
