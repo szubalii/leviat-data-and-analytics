@@ -2,210 +2,219 @@
   "name": "IFIEXCHRATE$P",
   "description": "Exchange Rate",
   "guid": "d6a260da-ddcd-458b-8b5f-b6d321369cca",
+  "hierarchy": "",
   "semantics": "MasterDataOrAttributes",
   "context": "ABAP_CDS",
   "supportsFull": true,
   "supportsDelta": false,
   "mode": "Full",
   "transferDataOnDeltaInit": true,
-  "columns": [
-    {
-      "name": "EXCHANGERATETYPE",
-      "description": "Exchange Rate Type",
-      "abapType": "CharacterString",
-      "length": 4,
-      "isPrimaryKey": true,
-      "isSelected": true,
-      "selectionPermission": "All",
-      "outputLength": 4
-    },
-    {
-      "name": "SOURCECURRENCY",
-      "description": "Currency Key",
-      "abapType": "CharacterString",
-      "length": 5,
-      "isPrimaryKey": true,
-      "isSelected": true,
-      "selectionPermission": "All",
-      "outputLength": 5
-    },
-    {
-      "name": "TARGETCURRENCY",
-      "description": "Currency Key",
-      "abapType": "CharacterString",
-      "length": 5,
-      "isPrimaryKey": true,
-      "isSelected": true,
-      "selectionPermission": "All",
-      "outputLength": 5
-    },
-    {
-      "name": "EXCHANGERATEEFFECTIVEDATE",
-      "description": "ExchangeRateEffectiveDate",
-      "abapType": "Date",
-      "isPrimaryKey": true,
-      "isSelected": true,
-      "selectionPermission": "All",
-      "outputLength": 8
-    },
-    {
-      "name": "EXCHANGERATE",
-      "description": "Exchange Rate",
-      "abapType": "PackedNumber",
-      "length": 17,
-      "decimalCount": 5,
-      "isSelected": true,
-      "outputLength": 19
-    },
-    {
-      "name": "NUMBEROFSOURCECURRENCYUNITS",
-      "description": "Decimal number - length 9",
-      "abapType": "PackedNumber",
-      "length": 9,
-      "isSelected": true,
-      "selectionPermission": "All",
-      "outputLength": 11
-    },
-    {
-      "name": "NUMBEROFTARGETCURRENCYUNITS",
-      "description": "Decimal number - length 9",
-      "abapType": "PackedNumber",
-      "length": 9,
-      "isSelected": true,
-      "selectionPermission": "All",
-      "outputLength": 11
-    },
-    {
-      "name": "ALTERNATIVEEXCHANGERATETYPE",
-      "description": "Exchange Rate Type",
-      "abapType": "CharacterString",
-      "length": 4,
-      "isSelected": true,
-      "selectionPermission": "All",
-      "outputLength": 4
-    },
-    {
-      "name": "ALTVEXCHANGERATETYPEVALDTYDATE",
-      "description": "Field of type DATS",
-      "abapType": "Date",
-      "isSelected": true,
-      "selectionPermission": "All",
-      "outputLength": 8
-    },
-    {
-      "name": "INVERTEDEXCHANGERATEISALLOWED",
-      "description": "Yes\/No field",
-      "abapType": "CharacterString",
-      "length": 1,
-      "isSelected": true,
-      "selectionPermission": "All",
-      "outputLength": 1
-    },
-    {
-      "name": "REFERENCECURRENCY",
-      "description": "Currency Key",
-      "abapType": "CharacterString",
-      "length": 5,
-      "isSelected": true,
-      "selectionPermission": "All",
-      "outputLength": 5
-    },
-    {
-      "name": "BUYINGRATEAVGEXCHANGERATETYPE",
-      "description": "Exchange Rate Type",
-      "abapType": "CharacterString",
-      "length": 4,
-      "isSelected": true,
-      "selectionPermission": "All",
-      "outputLength": 4
-    },
-    {
-      "name": "SELLINGRATEAVGEXCHANGERATETYPE",
-      "description": "Exchange Rate Type",
-      "abapType": "CharacterString",
-      "length": 4,
-      "isSelected": true,
-      "selectionPermission": "All",
-      "outputLength": 4
-    },
-    {
-      "name": "FIXEDEXCHANGERATEISUSED",
-      "description": "Yes\/No field",
-      "abapType": "CharacterString",
-      "length": 1,
-      "isSelected": true,
-      "selectionPermission": "All",
-      "outputLength": 1
-    },
-    {
-      "name": "SPECIALCONVERSIONISUSED",
-      "description": "Yes\/No field",
-      "abapType": "CharacterString",
-      "length": 1,
-      "isSelected": true,
-      "selectionPermission": "All",
-      "outputLength": 1
-    },
-    {
-      "name": "SOURCECURRENCYDECIMALS",
-      "description": "Number of decimal places for a currency",
-      "abapType": "OneByteInteger",
-      "isSelected": true,
-      "selectionPermission": "All",
-      "outputLength": 3
-    },
-    {
-      "name": "TARGETCURRENCYDECIMALS",
-      "description": "Number of decimal places for a currency",
-      "abapType": "OneByteInteger",
-      "isSelected": true,
-      "selectionPermission": "All",
-      "outputLength": 3
-    },
-    {
-      "name": "EXCHRATEISINDIRECTQUOTATION",
-      "description": "New Input Values ('X', '.', or SPACE)",
-      "abapType": "CharacterString",
-      "length": 1,
-      "isSelected": true,
-      "selectionPermission": "All",
-      "outputLength": 1
-    },
-    {
-      "name": "ABSOLUTEEXCHANGERATE",
-      "description": "Exchange Rate",
-      "abapType": "PackedNumber",
-      "length": 17,
-      "decimalCount": 5,
-      "isSelected": true,
-      "outputLength": 19
-    },
-    {
-      "name": "EFFECTIVEEXCHANGERATE",
-      "description": "EffectiveExchangeRate",
-      "abapType": "PackedNumber",
-      "length": 17,
-      "decimalCount": 5,
-      "isSelected": true,
-      "outputLength": 19
-    },
-    {
-      "name": "DIRECTQUOTEDEFFECTIVEEXCHRATE",
-      "description": "Exchange Rate",
-      "abapType": "PackedNumber",
-      "length": 17,
-      "decimalCount": 5,
-      "isSelected": true,
-      "outputLength": 19
-    },
-    {
-      "name": "INDIRECTQUOTEDEFFCTVEXCHRATE",
-      "description": "Exchange Rate",
-      "abapType": "PackedNumber",
-      "length": 17,
-      "decimalCount": 5,
-      "isSelected": true,
-      "outputLength": 19
-    }
-  ]
+  "columns": 
+  [
+      {
+          "name": "EXCHANGERATETYPE",
+          "description": "Exchange Rate Type",
+          "abapType": "CharacterString",
+          "length": 4,
+          "isPrimaryKey": true,
+          "isSelected": true,
+          "selectionPermission": "All",
+          "outputLength": 4
+      },
+      {
+          "name": "SOURCECURRENCY",
+          "description": "From currency",
+          "abapType": "CharacterString",
+          "length": 5,
+          "isPrimaryKey": true,
+          "isSelected": true,
+          "selectionPermission": "All",
+          "outputLength": 5
+      },
+      {
+          "name": "TARGETCURRENCY",
+          "description": "To-currency",
+          "abapType": "CharacterString",
+          "length": 5,
+          "isPrimaryKey": true,
+          "isSelected": true,
+          "selectionPermission": "All",
+          "outputLength": 5
+      },
+      {
+          "name": "EXCHANGERATEEFFECTIVEDATE",
+          "description": "EXCHANGERATEEFFECTIVEDATE",
+          "abapType": "Date",
+          "isPrimaryKey": true,
+          "isSelected": true,
+          "selectionPermission": "All",
+          "outputLength": 8
+      },
+      {
+          "name": "EXCHANGERATE",
+          "description": "Exchange Rate",
+          "abapType": "PackedNumber",
+          "length": 17,
+          "decimalCount": 5,
+          "isSelected": true,
+          "selectionPermission": "Equals, Between",
+          "outputLength": 19
+      },
+      {
+          "name": "NUMBEROFSOURCECURRENCYUNITS",
+          "description": "Ratio for the \"from\" currency units",
+          "abapType": "PackedNumber",
+          "length": 9,
+          "isSelected": true,
+          "selectionPermission": "All",
+          "outputLength": 10
+      },
+      {
+          "name": "NUMBEROFTARGETCURRENCYUNITS",
+          "description": "Ratio for the \"to\" currency units",
+          "abapType": "PackedNumber",
+          "length": 9,
+          "isSelected": true,
+          "selectionPermission": "All",
+          "outputLength": 10
+      },
+      {
+          "name": "ALTERNATIVEEXCHANGERATETYPE",
+          "description": "Alternative Exchange Rate Type",
+          "abapType": "CharacterString",
+          "length": 4,
+          "isSelected": true,
+          "selectionPermission": "All",
+          "outputLength": 4
+      },
+      {
+          "name": "ALTVEXCHANGERATETYPEVALDTYDATE",
+          "description": "Date from which the alternative exchange rate type is valid",
+          "abapType": "Date",
+          "isSelected": true,
+          "selectionPermission": "All",
+          "outputLength": 8
+      },
+      {
+          "name": "INVERTEDEXCHANGERATEISALLOWED",
+          "description": "Indicator: Calculation allowed with inverted exchange rate ?",
+          "abapType": "CharacterString",
+          "length": 1,
+          "isSelected": true,
+          "selectionPermission": "All",
+          "outputLength": 1
+      },
+      {
+          "name": "REFERENCECURRENCY",
+          "description": "Reference currency for currency translation",
+          "abapType": "CharacterString",
+          "length": 5,
+          "isSelected": true,
+          "selectionPermission": "All",
+          "outputLength": 5
+      },
+      {
+          "name": "BUYINGRATEAVGEXCHANGERATETYPE",
+          "description": "Exch. rate type of av. rate used to determine buying rate",
+          "abapType": "CharacterString",
+          "length": 4,
+          "isSelected": true,
+          "selectionPermission": "All",
+          "outputLength": 4
+      },
+      {
+          "name": "SELLINGRATEAVGEXCHANGERATETYPE",
+          "description": "Exch.rate type of av. rate used to determine selling rate",
+          "abapType": "CharacterString",
+          "length": 4,
+          "isSelected": true,
+          "selectionPermission": "All",
+          "outputLength": 4
+      },
+      {
+          "name": "FIXEDEXCHANGERATEISUSED",
+          "description": "Indicator: Exchange rate type uses fixed exchange rates",
+          "abapType": "CharacterString",
+          "length": 1,
+          "isSelected": true,
+          "selectionPermission": "All",
+          "outputLength": 1
+      },
+      {
+          "name": "SPECIALCONVERSIONISUSED",
+          "description": "Indicator: Exchange rate type uses special translation model",
+          "abapType": "CharacterString",
+          "length": 1,
+          "isSelected": true,
+          "selectionPermission": "All",
+          "outputLength": 1
+      },
+      {
+          "name": "SOURCECURRENCYDECIMALS",
+          "description": "Number of decimal places",
+          "abapType": "OneByteInteger",
+          "isSelected": true,
+          "selectionPermission": "All",
+          "outputLength": 3
+      },
+      {
+          "name": "TARGETCURRENCYDECIMALS",
+          "description": "Number of decimal places",
+          "abapType": "OneByteInteger",
+          "isSelected": true,
+          "selectionPermission": "All",
+          "outputLength": 3
+      },
+      {
+          "name": "EXCHRATEISINDIRECTQUOTATION",
+          "description": "Exchange Rate Is Indirect Quotation",
+          "abapType": "CharacterString",
+          "length": 1,
+          "isSelected": true,
+          "selectionPermission": "All",
+          "outputLength": 1
+      },
+      {
+          "name": "ABSOLUTEEXCHANGERATE",
+          "description": "Absolute Exchange Rate",
+          "abapType": "PackedNumber",
+          "length": 17,
+          "decimalCount": 5,
+          "isSelected": true,
+          "selectionPermission": "Equals, Between",
+          "outputLength": 19
+      },
+      {
+          "name": "EFFECTIVEEXCHANGERATE",
+          "description": "Effective Exchange Rate",
+          "abapType": "PackedNumber",
+          "length": 17,
+          "decimalCount": 5,
+          "isSelected": true,
+          "selectionPermission": "Equals, Between",
+          "outputLength": 19
+      },
+      {
+          "name": "DIRECTQUOTEDEFFECTIVEEXCHRATE",
+          "description": "Direct Quoted Effective Exchange Rate",
+          "abapType": "PackedNumber",
+          "length": 17,
+          "decimalCount": 5,
+          "isSelected": true,
+          "selectionPermission": "Equals, Between",
+          "outputLength": 19
+      },
+      {
+          "name": "INDIRECTQUOTEDEFFCTVEXCHRATE",
+          "description": "Indirect Quoted Effective Exchange Rate",
+          "abapType": "PackedNumber",
+          "length": 17,
+          "decimalCount": 5,
+          "isSelected": true,
+          "selectionPermission": "Equals, Between",
+          "outputLength": 19
+      }
+  ],
+  "parameterSet": {
+  }
 }
