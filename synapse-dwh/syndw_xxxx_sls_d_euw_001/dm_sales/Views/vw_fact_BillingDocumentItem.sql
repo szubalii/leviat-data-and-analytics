@@ -191,9 +191,9 @@ select
          , doc.[InOutID]
          , doc.CustomerGroupID
          , doc.[axbi_ItemNoCalc]
-         , case when ZNET_NetValue is null then 0 else ZNET_NetValue end  as ZNET_NetValue
-         , case when REA1_RebateAccrual is null then 0 else REA1_RebateAccrual end  as REA1_RebateAccrual
-         , case when ZNRV_NetRevenue is null then 0 else ZNRV_NetRevenue end  as ZNRV_NetRevenue
+         , COALESCE(BDPE.ZNET_NetValue, 0) AS ZNET_NetValue
+         , COALESCE(BDPE.REA1_RebateAccrual, 0) AS REA1_RebateAccrual
+         , COALESCE(BDPE.ZNRV_NetRevenue, 0) AS ZNRV_NetRevenue
          , doc.[t_applicationId]
          , doc.[t_extractionDtm]
     FROM [edw].[fact_BillingDocumentItem] doc
@@ -243,10 +243,10 @@ select
                        on dimC.[CountryID] = doc.[CountryID]
              left join [edw].[dim_SalesDocumentType] dimSDT
                        on dimSDT.[SalesDocumentTypeID] = doc.[SalesOrderTypeID]
-             inner join BillDocPrcgElmnt_max_value BDPE
-                       on  doc.BillingDocument = BDPE.BillingDocument
+             left join BillDocPrcgElmnt_max_value BDPE
+                       on doc.BillingDocument = BDPE.BillingDocument
                        and doc.BillingDocumentItem = BDPE.BillingDocumentItem
-                       and doc.CurrencyTypeID = BDPE.CurrencyTypeID 
+                       and doc.CurrencyTypeID = BDPE.CurrencyTypeID
 
             WHERE doc.[CurrencyTypeID] <> '00' -- Transaction Currency
 )
