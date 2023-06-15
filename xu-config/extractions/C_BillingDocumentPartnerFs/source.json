@@ -49,10 +49,10 @@
                 },
                 {
                     "name": "ADDRESSID",
-                    "description": "Address",
+                    "description": "Address Number",
                     "abapType": "CharacterString",
                     "length": 10,
-                    "isSelected": true,
+                    "isSelected": false,
                     "conversionExit": "ALPHA"
                 },
                 {
@@ -74,7 +74,6 @@
                 },
                 {
                     "name": "FULLNAME",
-                    "description": "Full Name",
                     "abapType": "CharacterString",
                     "length": 80,
                     "isSelected": true,
@@ -85,7 +84,7 @@
                     "description": "City",
                     "abapType": "CharacterString",
                     "length": 40,
-                    "isSelected": true,
+                    "isSelected": false,
                     "conversionExit": ""
                 },
                 {
@@ -93,7 +92,7 @@
                     "description": "Street",
                     "abapType": "CharacterString",
                     "length": 60,
-                    "isSelected": true,
+                    "isSelected": false,
                     "conversionExit": ""
                 },
                 {
@@ -101,7 +100,7 @@
                     "description": "City postal code",
                     "abapType": "CharacterString",
                     "length": 10,
-                    "isSelected": true,
+                    "isSelected": false,
                     "conversionExit": ""
                 },
                 {
@@ -109,15 +108,21 @@
                     "description": "E-Mail Address",
                     "abapType": "CharacterString",
                     "length": 241,
-                    "isSelected": true,
+                    "isSelected": false,
                     "conversionExit": "SXIDN"
                 },
                 {
-                    "name": "PHONENUMBER",
-                    "description": "Telephone no.: dialling code+number",
+                    "name": "INTERNATIONALPHONENUMBER",
+                    "description": "Char Column",
                     "abapType": "CharacterString",
                     "length": 30,
-                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "INTERNATIONALMOBILEPHONENUMBER",
+                    "description": "Complete Number: Dialing Code+Number+Extension",
+                    "abapType": "CharacterString",
+                    "length": 30,
                     "conversionExit": ""
                 },
                 {
@@ -125,7 +130,7 @@
                     "description": "Telephone no.: dialling code+number",
                     "abapType": "CharacterString",
                     "length": 30,
-                    "isSelected": true,
+                    "isSelected": false,
                     "conversionExit": ""
                 }
             ]
