@@ -275,12 +275,13 @@ ExchangeRateEuro as (
             ,   MAX([ExchangeRateEffectiveDate]) as [ExchangeRateEffectiveDate]
         FROM 
             INVTRANS INV
+        CROSS JOIN [edw].[fact_CurrentDate]
         LEFT JOIN 
             EuroExchangeRate
             ON 
                 INV.[CompanyCodeCurrency] COLLATE DATABASE_DEFAULT = EuroExchangeRate.SourceCurrency
         WHERE 
-            [ExchangeRateEffectiveDate] <= CAST(GETDATE() as DATE) --[DocumentDate]
+            [ExchangeRateEffectiveDate] <= today --[DocumentDate]
         GROUP BY
                 [MaterialDocument]
             ,   [MaterialDocumentItem]

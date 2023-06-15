@@ -235,11 +235,12 @@ FROM
     ,   BDI_Base.[t_extractionDtm]
     ,   MAX(EuroBudgetExchangeRate.ExchangeRateEffectiveDate) AS [ExchangeRateEffectiveDate]
 FROM BillingDocumentItemBase BDI_Base
+CROSS JOIN [edw].[fact_CurrentDate]
 LEFT JOIN 
     EuroBudgetExchangeRate
         ON EuroBudgetExchangeRate.SourceCurrency = 'USD'
 WHERE
-           EuroBudgetExchangeRate.ExchangeRateEffectiveDate <= CAST(GETDATE() as DATE)  --BDI_Base.[BillingDocumentDate]
+           EuroBudgetExchangeRate.ExchangeRateEffectiveDate <= today --BDI_Base.[BillingDocumentDate]
 GROUP BY
         BDI_Base.[BillingDocument]                          
     ,   BDI_Base.[BillingDocumentItem]      

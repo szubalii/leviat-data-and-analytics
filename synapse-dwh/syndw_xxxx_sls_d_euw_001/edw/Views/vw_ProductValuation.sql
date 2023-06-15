@@ -70,12 +70,13 @@ WITH ProductValuation AS (
             ,   MAX([ExchangeRateEffectiveDate]) AS [ExchangeRateEffectiveDate]
         FROM 
             ProductValuation AS PV
+        CROSS JOIN [edw].[fact_CurrentDate]
         LEFT JOIN 
             EuroBudgetExchangeRate
             ON 
                 PV.[CurrencyID] = EuroBudgetExchangeRate.SourceCurrency
         WHERE 
-              [ExchangeRateEffectiveDate] <= CAST(GETDATE() as DATE)
+              [ExchangeRateEffectiveDate] <= today
         GROUP BY
                 PV.[ProductID]
             ,   PV.[ValuationAreaID]

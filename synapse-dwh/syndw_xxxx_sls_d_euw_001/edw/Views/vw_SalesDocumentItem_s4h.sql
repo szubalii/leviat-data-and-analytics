@@ -431,12 +431,13 @@ ExchangeRateEuro AS (
             ,   MAX([ExchangeRateEffectiveDate]) as [ExchangeRateEffectiveDate]
         FROM             
             C_SalesDocumentItemDEXBase SDI 
+        CROSS JOIN [edw].[fact_CurrentDate]
         LEFT JOIN 
             EuroBudgetExchangeRate
             ON 
                 SDI.[TransactionCurrencyID] = EuroBudgetExchangeRate.SourceCurrency
         WHERE 
-            [ExchangeRateEffectiveDate] <= CAST(GETDATE() as DATE) 
+            [ExchangeRateEffectiveDate] <= today
          -- [ExchangeRateEffectiveDate] <= [CreationDate]
         GROUP BY
                 [SalesDocument]
@@ -664,12 +665,13 @@ ExchangeRateUSD as (
             ,   MAX([ExchangeRateEffectiveDate]) as [ExchangeRateEffectiveDate]
         FROM             
             SalesDocument_30 SD_30
+        CROSS JOIN [edw].[fact_CurrentDate]
         LEFT JOIN 
             EuroBudgetExchangeRateUSD
             ON 
                 SD_30.CurrencyID = EuroBudgetExchangeRateUSD.TargetCurrency
         WHERE 
-            [ExchangeRateEffectiveDate] <= CAST(GETDATE() as DATE)
+            [ExchangeRateEffectiveDate] <= today
          -- [ExchangeRateEffectiveDate] <= [CreationDate]
         GROUP BY
                 [SalesDocument]

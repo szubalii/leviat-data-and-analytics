@@ -41,13 +41,14 @@ SELECT
     PDI.[t_extractionDtm]
 FROM
     [edw].[vw_PurchasingDocumentItem]   AS PDI
+CROSS JOIN [edw].[fact_CurrentDate]
 INNER JOIN
     [edw].[vw_PurchasingDocument]       AS PD
         ON PDI.PurchasingDocument = PD.PurchasingDocument
 INNER JOIN
     [edw].[vw_CurrencyConversionRate]   AS CCR
         ON PDI.DocumentCurrencyID = CCR.SourceCurrency
-            AND CAST(GETDATE() as DATE) BETWEEN CCR.ExchangeRateEffectiveDate AND CCR.LastDay
+            AND today BETWEEN CCR.ExchangeRateEffectiveDate AND CCR.LastDay
           --AND PD.CreationDate BETWEEN CCR.ExchangeRateEffectiveDate AND CCR.LastDay
 INNER JOIN
     [edw].[dim_CurrencyType]    CurrType

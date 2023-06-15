@@ -81,11 +81,12 @@ UNION ALL
 		,IBDIPE.[t_extractionDtm]
    	FROM 
 		 [base_s4h_cax].[I_BillingDocumentItemPrcgElmnt] IBDIPE
+	CROSS JOIN [edw].[fact_CurrentDate]
 	LEFT JOIN  [edw].[fact_BillingDocumentItem] BDI
            ON IBDIPE.BillingDocument = BDI.BillingDocument and IBDIPE.BillingDocumentItem = BDI.BillingDocumentItem and BDI.CurrencyTypeID = '10'
 	INNER JOIN CurrencyRate CR
            ON BDI.CurrencyID = CR.SourceCurrency COLLATE DATABASE_DEFAULT
-           AND CAST(GETDATE() as DATE) BETWEEN CR.ExchangeRateEffectiveDate and CR.LastDay
+           AND today BETWEEN CR.ExchangeRateEffectiveDate and CR.LastDay
          --AND BDI.BillingDocumentDate BETWEEN CR.ExchangeRateEffectiveDate and CR.LastDay
     INNER JOIN [edw].[dim_CurrencyType] CurrType
         ON CR.CurrencyTypeID = CurrType.CurrencyTypeID
