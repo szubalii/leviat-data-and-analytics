@@ -5651,6 +5651,15 @@
         "dest_table_name": "fact_SalesOrderItemPricingElement",
         "execution_order": 6,
         "schedule_recurrence": "A"
+      },
+      {
+        "entity_id": 592,
+        "entity_name": "fact_CurrentDate",
+        "sproc_name": "sp_materialize_view",
+        "source_view_name": "vw_CurrentDate",
+        "dest_table_name": "fact_CurrentDate",
+        "execution_order": 0,
+        "schedule_recurrence": "D"
       }
     ]
   },
