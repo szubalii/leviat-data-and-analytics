@@ -11,7 +11,7 @@ steps:
 
 - task: NuGetCommand@2
   inputs:
-    restoreSolution: '$(synDWHSolution)'
+    restoreSolution: '$(solution)'
 
   # Substitute the connection string for the Test Project 
   # so Azure DevOps can run the Test Cases
@@ -57,7 +57,7 @@ steps:
 - task: VSBuild@1
   displayName: 'Build SQL DB Project'
   inputs:
-    solution: '$(synDWHSolution)'
+    solution: '$(solution)'
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 #    msbuildArgs: '/v:SqlCmdVar__1=stxxxxslsdeuw001'
