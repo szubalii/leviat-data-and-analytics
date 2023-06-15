@@ -1,15 +1,18 @@
 {
-    "functionName": "\/SAPDS\/RFC_READ_TABLE2",
+    "functionName": "Z_THEO_READ_TABLE",
     "runInBackgroundJob": false,
-    "tables": [
+    "backgroundJobTimeout": 180,
+    "tables": 
+    [
         {
             "name": "IMFGORDERWSTTS",
             "description": "Generated Table for View I_MfgOrderWithStatus: Manufacturing Order Header with Status",
             "isView": true,
-            "fields": [
+            "fields": 
+            [
                 {
                     "name": "MANDT",
-                    "description": "Client (key field in client-specific tables)",
+                    "description": "Client",
                     "abapType": "CharacterString",
                     "length": 3,
                     "isPrimaryKey": true,
@@ -19,7 +22,7 @@
                 },
                 {
                     "name": "MANUFACTURINGORDER",
-                    "description": "Order number",
+                    "description": "Manufacturing Order ID",
                     "abapType": "CharacterString",
                     "length": 12,
                     "isPrimaryKey": true,
@@ -28,7 +31,7 @@
                 },
                 {
                     "name": "MANUFACTURINGORDERCATEGORY",
-                    "description": "Order category",
+                    "description": "Order Category",
                     "abapType": "NumericCharacterString",
                     "length": 2,
                     "isSelected": true,
@@ -45,7 +48,7 @@
                 },
                 {
                     "name": "MANUFACTURINGORDERTEXT",
-                    "description": "Text (40 characters)",
+                    "description": "Manufacturing Order Text",
                     "abapType": "CharacterString",
                     "length": 40,
                     "isSelected": true,
@@ -53,7 +56,7 @@
                 },
                 {
                     "name": "MANUFACTURINGORDERHASLONGTEXT",
-                    "description": "Yes\/No field",
+                    "description": "Long Text Exists",
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
@@ -61,23 +64,16 @@
                 },
                 {
                     "name": "LONGTEXTLANGUAGECODE",
-                    "description": "Language Key",
+                    "description": "Long Text Language",
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
+                    "formattedLength": 2,
                     "conversionExit": "ISOLA"
                 },
                 {
                     "name": "MANUFACTURINGORDERIMPORTANCE",
-                    "description": "One-Character Field Without Check",
-                    "abapType": "CharacterString",
-                    "length": 1,
-                    "isSelected": true,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "MFGORDERISTOBEDELETED",
-                    "description": "Yes\/No field",
+                    "description": "Order Importance Code",
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
@@ -85,7 +81,7 @@
                 },
                 {
                     "name": "MFGORDERHASMULTIPLEITEMS",
-                    "description": "Selection field",
+                    "description": "Order Has Multiple Items",
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
@@ -93,15 +89,36 @@
                 },
                 {
                     "name": "MFGORDERISPARTOFCOLLVORDER",
-                    "description": "Selection field",
+                    "description": "Order is Part of Collective Order",
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
                     "conversionExit": ""
                 },
                 {
+                    "name": "MFGORDERHIERARCHYLEVEL",
+                    "description": "Level (in multi-level BOM explosions)",
+                    "abapType": "PackedNumber",
+                    "length": 3,
+                    "formattedLength": 2,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRODNPROCGISFLEXIBLE",
+                    "description": "Flexible Processing",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ORDERISEVENTBASEDPOSTING",
+                    "description": "Event-Based Posting",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
                     "name": "ORDERISCREATED",
-                    "description": "ORDERISCREATED",
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
@@ -109,7 +126,6 @@
                 },
                 {
                     "name": "ORDERISRELEASED",
-                    "description": "ORDERISRELEASED",
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
@@ -117,15 +133,19 @@
                 },
                 {
                     "name": "ORDERISPRINTED",
-                    "description": "ORDERISPRINTED",
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
                     "conversionExit": ""
                 },
                 {
+                    "name": "ORDERISPARTIALLYPRINTED",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
                     "name": "ORDERISCONFIRMED",
-                    "description": "ORDERISCONFIRMED",
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
@@ -133,7 +153,6 @@
                 },
                 {
                     "name": "ORDERISPARTIALLYCONFIRMED",
-                    "description": "ORDERISPARTIALLYCONFIRMED",
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
@@ -141,7 +160,6 @@
                 },
                 {
                     "name": "ORDERISDELIVERED",
-                    "description": "ORDERISDELIVERED",
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
@@ -149,7 +167,6 @@
                 },
                 {
                     "name": "ORDERISDELETED",
-                    "description": "ORDERISDELETED",
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
@@ -157,7 +174,6 @@
                 },
                 {
                     "name": "ORDERISPRECOSTED",
-                    "description": "ORDERISPRECOSTED",
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
@@ -165,7 +181,6 @@
                 },
                 {
                     "name": "SETTLEMENTRULEISCREATED",
-                    "description": "SETTLEMENTRULEISCREATED",
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
@@ -173,7 +188,6 @@
                 },
                 {
                     "name": "ORDERISPARTIALLYRELEASED",
-                    "description": "ORDERISPARTIALLYRELEASED",
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
@@ -181,7 +195,6 @@
                 },
                 {
                     "name": "ORDERISLOCKED",
-                    "description": "ORDERISLOCKED",
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
@@ -189,7 +202,6 @@
                 },
                 {
                     "name": "ORDERISTECHNICALLYCOMPLETED",
-                    "description": "ORDERISTECHNICALLYCOMPLETED",
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
@@ -197,7 +209,6 @@
                 },
                 {
                     "name": "ORDERISCLOSED",
-                    "description": "ORDERISCLOSED",
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
@@ -205,7 +216,6 @@
                 },
                 {
                     "name": "ORDERISPARTIALLYDELIVERED",
-                    "description": "ORDERISPARTIALLYDELIVERED",
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
@@ -213,7 +223,6 @@
                 },
                 {
                     "name": "ORDERISMARKEDFORDELETION",
-                    "description": "ORDERISMARKEDFORDELETION",
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
@@ -221,7 +230,6 @@
                 },
                 {
                     "name": "SETTLEMENTRULEISCRTEDMANUALLY",
-                    "description": "SETTLEMENTRULEISCRTEDMANUALLY",
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
@@ -229,7 +237,6 @@
                 },
                 {
                     "name": "ORDERISSCHEDULED",
-                    "description": "ORDERISSCHEDULED",
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
@@ -237,7 +244,6 @@
                 },
                 {
                     "name": "ORDERHASGENERATEDOPERATIONS",
-                    "description": "ORDERHASGENERATEDOPERATIONS",
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
@@ -245,7 +251,6 @@
                 },
                 {
                     "name": "ORDERISTOBEHANDLEDINBATCHES",
-                    "description": "ORDERISTOBEHANDLEDINBATCHES",
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
@@ -253,7 +258,6 @@
                 },
                 {
                     "name": "MATERIALAVAILYISNOTCHECKED",
-                    "description": "MATERIALAVAILYISNOTCHECKED",
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
@@ -261,29 +265,26 @@
                 },
                 {
                     "name": "ORDERISSHOPFLOORORDER",
-                    "description": "ORDERISSHOPFLOORORDER",
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
                     "conversionExit": ""
                 },
                 {
-                    "name": "MFGORDERCREATIONDATE",
-                    "description": "Date",
+                    "name": "CREATIONDATE",
+                    "description": "Order Creation Date",
                     "abapType": "Date",
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
-                    "name": "MFGORDERCREATIONTIME",
-                    "description": "Time",
+                    "name": "CREATIONTIME",
+                    "description": "Order Creation Time",
                     "abapType": "Time",
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
                     "name": "CREATEDBYUSER",
-                    "description": "User name",
+                    "description": "Entered By",
                     "abapType": "CharacterString",
                     "length": 12,
                     "isSelected": true,
@@ -291,21 +292,21 @@
                 },
                 {
                     "name": "LASTCHANGEDATE",
-                    "description": "Date",
+                    "description": "Change Date for Order Master",
                     "abapType": "Date",
                     "isSelected": true,
                     "conversionExit": ""
                 },
                 {
                     "name": "LASTCHANGETIME",
-                    "description": "Time",
+                    "description": "Changed At",
                     "abapType": "Time",
                     "isSelected": true,
                     "conversionExit": ""
                 },
                 {
                     "name": "LASTCHANGEDBYUSER",
-                    "description": "User name",
+                    "description": "Last Changed By",
                     "abapType": "CharacterString",
                     "length": 12,
                     "isSelected": true,
@@ -313,7 +314,7 @@
                 },
                 {
                     "name": "MATERIAL",
-                    "description": "Material Number (C40 Field)",
+                    "description": "Material Number for Order",
                     "abapType": "CharacterString",
                     "length": 40,
                     "isSelected": true,
@@ -321,8 +322,16 @@
                     "conversionExit": "MATN1"
                 },
                 {
+                    "name": "PRODUCT",
+                    "description": "Product Number",
+                    "abapType": "CharacterString",
+                    "length": 40,
+                    "checkTable": "MARA",
+                    "conversionExit": "MATN1"
+                },
+                {
                     "name": "STORAGELOCATION",
-                    "description": "Storage location",
+                    "description": "Storage Location",
                     "abapType": "CharacterString",
                     "length": 4,
                     "isSelected": true,
@@ -331,7 +340,7 @@
                 },
                 {
                     "name": "BATCH",
-                    "description": "Batch number",
+                    "description": "Batch Number",
                     "abapType": "CharacterString",
                     "length": 10,
                     "isSelected": true,
@@ -339,7 +348,7 @@
                 },
                 {
                     "name": "GOODSRECIPIENTNAME",
-                    "description": "Goods recipient",
+                    "description": "Goods Recipient",
                     "abapType": "CharacterString",
                     "length": 12,
                     "isSelected": true,
@@ -347,7 +356,7 @@
                 },
                 {
                     "name": "UNLOADINGPOINTNAME",
-                    "description": "25-character text length",
+                    "description": "Unloading Point",
                     "abapType": "CharacterString",
                     "length": 25,
                     "isSelected": true,
@@ -355,7 +364,7 @@
                 },
                 {
                     "name": "INVENTORYUSABILITYCODE",
-                    "description": "Stock type",
+                    "description": "Inventory Usability Code",
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
@@ -363,7 +372,7 @@
                 },
                 {
                     "name": "MATERIALGOODSRECEIPTDURATION",
-                    "description": "Decimal field, length 3",
+                    "description": "Goods Receipt Processing Duration in Days",
                     "abapType": "PackedNumber",
                     "length": 3,
                     "isSelected": true,
@@ -372,7 +381,7 @@
                 },
                 {
                     "name": "QUANTITYDISTRIBUTIONKEY",
-                    "description": "Quantity distribution key",
+                    "description": "MRP Distribution Key",
                     "abapType": "CharacterString",
                     "length": 4,
                     "isSelected": true,
@@ -380,23 +389,22 @@
                 },
                 {
                     "name": "STOCKSEGMENT",
-                    "description": "Stock-\/ Requirement-Segmentation",
+                    "description": "Stock Segment",
                     "abapType": "CharacterString",
                     "length": 40,
                     "isSelected": true,
                     "conversionExit": ""
                 },
                 {
-                    "name": "ORDERINTERNALBILLOFOPERATIONS",
-                    "description": "Routing number for operations",
+                    "name": "MFGORDERINTERNALID",
+                    "description": "Order Internal ID",
                     "abapType": "NumericCharacterString",
                     "length": 10,
-                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
                     "name": "SUPERIORORDER",
-                    "description": "Order number",
+                    "description": "Number of Superior Order",
                     "abapType": "CharacterString",
                     "length": 12,
                     "isSelected": true,
@@ -404,7 +412,7 @@
                 },
                 {
                     "name": "REFERENCEORDER",
-                    "description": "Order number",
+                    "description": "Reference Order Number",
                     "abapType": "CharacterString",
                     "length": 12,
                     "isSelected": true,
@@ -413,7 +421,7 @@
                 },
                 {
                     "name": "LEADINGORDER",
-                    "description": "Order number",
+                    "description": "Leading Order in Current Processing",
                     "abapType": "CharacterString",
                     "length": 12,
                     "isSelected": true,
@@ -422,7 +430,7 @@
                 },
                 {
                     "name": "CURRENCY",
-                    "description": "Currency Key",
+                    "description": "Order Currency",
                     "abapType": "CharacterString",
                     "length": 5,
                     "isSelected": true,
@@ -431,7 +439,7 @@
                 },
                 {
                     "name": "PRODUCTIONPLANT",
-                    "description": "Plant",
+                    "description": "Production Plant",
                     "abapType": "CharacterString",
                     "length": 4,
                     "isSelected": true,
@@ -439,17 +447,16 @@
                     "conversionExit": ""
                 },
                 {
-                    "name": "MRPPLANT",
-                    "description": "Plant",
+                    "name": "PLANNINGPLANT",
+                    "description": "Planning Plant for an Order",
                     "abapType": "CharacterString",
                     "length": 4,
-                    "isSelected": true,
                     "checkTable": "T001W",
                     "conversionExit": ""
                 },
                 {
                     "name": "MRPAREA",
-                    "description": "MRP area",
+                    "description": "MRP Area",
                     "abapType": "CharacterString",
                     "length": 10,
                     "isSelected": true,
@@ -457,7 +464,7 @@
                 },
                 {
                     "name": "MRPCONTROLLER",
-                    "description": "MRP controller",
+                    "description": "MRP Controller",
                     "abapType": "CharacterString",
                     "length": 3,
                     "isSelected": true,
@@ -475,7 +482,7 @@
                 },
                 {
                     "name": "RESPONSIBLEPLANNERGROUP",
-                    "description": "Responsible group\/department",
+                    "description": "Responsible Planner Group or Department",
                     "abapType": "CharacterString",
                     "length": 3,
                     "isSelected": true,
@@ -484,7 +491,7 @@
                 },
                 {
                     "name": "PRODUCTIONSCHEDULINGPROFILE",
-                    "description": "Profile for production scheduler",
+                    "description": "Production Scheduling Profile",
                     "abapType": "CharacterString",
                     "length": 6,
                     "isSelected": true,
@@ -493,7 +500,7 @@
                 },
                 {
                     "name": "PRODUCTIONVERSION",
-                    "description": "Version identification",
+                    "description": "Production Version",
                     "abapType": "CharacterString",
                     "length": 4,
                     "isSelected": true,
@@ -501,7 +508,7 @@
                 },
                 {
                     "name": "PLANNEDORDER",
-                    "description": "Planned order number",
+                    "description": "Planned Order",
                     "abapType": "CharacterString",
                     "length": 10,
                     "isSelected": true,
@@ -509,7 +516,7 @@
                 },
                 {
                     "name": "SALESORDER",
-                    "description": "Sales and distribution document number",
+                    "description": "Sales Order",
                     "abapType": "CharacterString",
                     "length": 10,
                     "isSelected": true,
@@ -518,7 +525,7 @@
                 },
                 {
                     "name": "SALESORDERITEM",
-                    "description": "Item number of the SD document",
+                    "description": "Sales Order Item",
                     "abapType": "NumericCharacterString",
                     "length": 6,
                     "isSelected": true,
@@ -527,24 +534,39 @@
                 },
                 {
                     "name": "WBSELEMENTINTERNALID",
-                    "description": "WBS element number (internal counter as DB key)",
+                    "description": "Work Breakdown Structure Element Internal ID",
                     "abapType": "NumericCharacterString",
                     "length": 8,
                     "isSelected": true,
+                    "formattedLength": 24,
                     "checkTable": "PRPS",
                     "conversionExit": "ABPSP"
                 },
                 {
+                    "name": "WBSELEMENTINTERNALID_2",
+                    "description": "WBS Element",
+                    "abapType": "NumericCharacterString",
+                    "length": 8,
+                    "conversionExit": ""
+                },
+                {
                     "name": "RESERVATION",
-                    "description": "Reservation\/dependent requirements number",
+                    "description": "Number of reservation/dependent requirements",
                     "abapType": "NumericCharacterString",
                     "length": 10,
                     "isSelected": true,
                     "conversionExit": ""
                 },
                 {
+                    "name": "SETTLEMENTRESERVATION",
+                    "description": "Settlement Reservation",
+                    "abapType": "NumericCharacterString",
+                    "length": 10,
+                    "conversionExit": ""
+                },
+                {
                     "name": "MFGORDERCONFIRMATION",
-                    "description": "Number for creating completion confirmation",
+                    "description": "Completion confirmation number for the operation",
                     "abapType": "NumericCharacterString",
                     "length": 10,
                     "isSelected": true,
@@ -552,7 +574,7 @@
                 },
                 {
                     "name": "NUMBEROFMFGORDERCONFIRMATIONS",
-                    "description": "Numerator",
+                    "description": "Number Of Confirmations",
                     "abapType": "NumericCharacterString",
                     "length": 8,
                     "isSelected": true,
@@ -560,7 +582,7 @@
                 },
                 {
                     "name": "CAPACITYREQUIREMENT",
-                    "description": "ID of the capacity requirements record",
+                    "description": "ID of the Capacity Requirements Record",
                     "abapType": "NumericCharacterString",
                     "length": 12,
                     "isSelected": true,
@@ -576,16 +598,30 @@
                 },
                 {
                     "name": "CHANGENUMBER",
-                    "description": "Change number",
+                    "description": "Change Number",
                     "abapType": "CharacterString",
                     "length": 12,
                     "isSelected": true,
                     "checkTable": "AENR",
-                    "conversionExit": "AENNR"
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "MATERIALREVISIONLEVEL",
+                    "description": "Revision Level",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "conversionExit": "NUMCV"
+                },
+                {
+                    "name": "MATERIALREVISIONLEVEL_2",
+                    "description": "Revision Level",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "conversionExit": ""
                 },
                 {
                     "name": "BASICSCHEDULINGTYPE",
-                    "description": "Scheduling type",
+                    "description": "Basic Scheduling Type",
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
@@ -594,15 +630,23 @@
                 },
                 {
                     "name": "FORECASTSCHEDULINGTYPE",
-                    "description": "Scheduling type",
+                    "description": "Forecast Scheduling Type",
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
                     "conversionExit": ""
                 },
                 {
+                    "name": "OBJECTINTERNALID",
+                    "description": "Object Internal ID",
+                    "abapType": "CharacterString",
+                    "length": 22,
+                    "checkTable": "ONR00",
+                    "conversionExit": ""
+                },
+                {
                     "name": "MANUFACTURINGOBJECT",
-                    "description": "Object number",
+                    "description": "Object Internal ID",
                     "abapType": "CharacterString",
                     "length": 22,
                     "isSelected": true,
@@ -611,7 +655,7 @@
                 },
                 {
                     "name": "PRODUCTCONFIGURATION",
-                    "description": "Internal object number",
+                    "description": "Product Configuration",
                     "abapType": "NumericCharacterString",
                     "length": 18,
                     "isSelected": true,
@@ -619,7 +663,7 @@
                 },
                 {
                     "name": "EFFECTIVITYPARAMETERVARIANT",
-                    "description": "Effectivity object",
+                    "description": "Parameter Variant/Standard Variant",
                     "abapType": "CharacterString",
                     "length": 12,
                     "isSelected": true,
@@ -627,7 +671,7 @@
                 },
                 {
                     "name": "CONDITIONAPPLICATION",
-                    "description": "Condition application",
+                    "description": "Application",
                     "abapType": "CharacterString",
                     "length": 2,
                     "isSelected": true,
@@ -636,7 +680,7 @@
                 },
                 {
                     "name": "CAPACITYACTIVEVERSION",
-                    "description": "Available capacity version",
+                    "description": "Version of Available Capacity",
                     "abapType": "NumericCharacterString",
                     "length": 2,
                     "isSelected": true,
@@ -644,7 +688,7 @@
                 },
                 {
                     "name": "CAPACITYRQMTHASNOTTOBECREATED",
-                    "description": "Yes\/No field",
+                    "description": "Indicator: Do not Create Capacity Requirements",
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
@@ -652,15 +696,22 @@
                 },
                 {
                     "name": "ORDERSEQUENCENUMBER",
-                    "description": "Sequence number for sequencing",
+                    "description": "Sequence Number Order",
                     "abapType": "NumericCharacterString",
                     "length": 14,
                     "isSelected": true,
                     "conversionExit": ""
                 },
                 {
+                    "name": "MFGORDERSPLITSTATUS",
+                    "description": "Status of an Order in a Split Hierarchy",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
                     "name": "BILLOFOPERATIONSMATERIAL",
-                    "description": "Material Number (C40 Field)",
+                    "description": "Bill of Operations Material",
                     "abapType": "CharacterString",
                     "length": 40,
                     "isSelected": true,
@@ -669,7 +720,7 @@
                 },
                 {
                     "name": "BILLOFOPERATIONSTYPE",
-                    "description": "Task list type",
+                    "description": "Bill of Operations Type",
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
@@ -677,15 +728,22 @@
                 },
                 {
                     "name": "BILLOFOPERATIONS",
-                    "description": "Number of the task list",
+                    "description": "Bill of Operations ID",
                     "abapType": "CharacterString",
                     "length": 8,
                     "isSelected": true,
                     "conversionExit": "ALPHA"
                 },
                 {
+                    "name": "BILLOFOPERATIONSGROUP",
+                    "description": "Bill of Operations Group",
+                    "abapType": "CharacterString",
+                    "length": 8,
+                    "conversionExit": "ALPHA"
+                },
+                {
                     "name": "BILLOFOPERATIONSVARIANT",
-                    "description": "Alternative",
+                    "description": "Bill of Operations Variant",
                     "abapType": "CharacterString",
                     "length": 2,
                     "isSelected": true,
@@ -693,15 +751,23 @@
                 },
                 {
                     "name": "BOOINTERNALVERSIONCOUNTER",
-                    "description": "Numerator",
+                    "description": "Internal counter",
                     "abapType": "NumericCharacterString",
                     "length": 8,
                     "isSelected": true,
                     "conversionExit": ""
                 },
                 {
+                    "name": "BILLOFOPERATIONSAPPLICATION",
+                    "description": "Bill of Operations Application",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "checkTable": "TCA09",
+                    "conversionExit": ""
+                },
+                {
                     "name": "BILLOFOPERATIONSUSAGE",
-                    "description": "Usage of the task list",
+                    "description": "Bill of Operations Usage",
                     "abapType": "CharacterString",
                     "length": 3,
                     "isSelected": true,
@@ -710,7 +776,7 @@
                 },
                 {
                     "name": "BILLOFOPERATIONSVERSION",
-                    "description": "Task List Version",
+                    "description": "Routing Version",
                     "abapType": "CharacterString",
                     "length": 4,
                     "isSelected": true,
@@ -718,21 +784,21 @@
                 },
                 {
                     "name": "BOOEXPLOSIONDATE",
-                    "description": "Date",
+                    "description": "Date for Routing Explosion",
                     "abapType": "Date",
                     "isSelected": true,
                     "conversionExit": ""
                 },
                 {
                     "name": "BOOVALIDITYSTARTDATE",
-                    "description": "Date",
+                    "description": "Valid-From Date",
                     "abapType": "Date",
                     "isSelected": true,
                     "conversionExit": ""
                 },
                 {
                     "name": "BILLOFMATERIALCATEGORY",
-                    "description": "BOM category",
+                    "description": "Bill of Material Category Code",
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
@@ -740,15 +806,22 @@
                 },
                 {
                     "name": "BILLOFMATERIAL",
-                    "description": "BOM number",
+                    "description": "Bill of Material",
                     "abapType": "CharacterString",
                     "length": 8,
                     "isSelected": true,
                     "conversionExit": "NUMCV"
                 },
                 {
+                    "name": "BILLOFMATERIALINTERNALID",
+                    "description": "Bill Of Material",
+                    "abapType": "CharacterString",
+                    "length": 8,
+                    "conversionExit": "ALPHA"
+                },
+                {
                     "name": "BILLOFMATERIALVARIANT",
-                    "description": "Alternative",
+                    "description": "Alternative BOM",
                     "abapType": "CharacterString",
                     "length": 2,
                     "isSelected": true,
@@ -756,7 +829,7 @@
                 },
                 {
                     "name": "BILLOFMATERIALVARIANTUSAGE",
-                    "description": "BOM usage",
+                    "description": "BOM Usage",
                     "abapType": "CharacterString",
                     "length": 1,
                     "isSelected": true,
@@ -773,21 +846,21 @@
                 },
                 {
                     "name": "BOMEXPLOSIONDATE",
-                    "description": "Date",
+                    "description": "Date of BOM Explosion/Routing Transfer",
                     "abapType": "Date",
                     "isSelected": true,
                     "conversionExit": ""
                 },
                 {
                     "name": "BOMVALIDITYSTARTDATE",
-                    "description": "Date",
+                    "description": "Valid-From Date",
                     "abapType": "Date",
                     "isSelected": true,
                     "conversionExit": ""
                 },
                 {
                     "name": "BUSINESSAREA",
-                    "description": "Business area",
+                    "description": "Business Area",
                     "abapType": "CharacterString",
                     "length": 4,
                     "isSelected": true,
@@ -796,7 +869,7 @@
                 },
                 {
                     "name": "COMPANYCODE",
-                    "description": "Company code",
+                    "description": "Company Code",
                     "abapType": "CharacterString",
                     "length": 4,
                     "isSelected": true,
@@ -805,7 +878,7 @@
                 },
                 {
                     "name": "CONTROLLINGAREA",
-                    "description": "Controlling area",
+                    "description": "Controlling Area",
                     "abapType": "CharacterString",
                     "length": 4,
                     "isSelected": true,
@@ -814,7 +887,7 @@
                 },
                 {
                     "name": "PROFITCENTER",
-                    "description": "Profit center",
+                    "description": "Profit Center",
                     "abapType": "CharacterString",
                     "length": 10,
                     "isSelected": true,
@@ -823,7 +896,7 @@
                 },
                 {
                     "name": "COSTCENTER",
-                    "description": "Cost center",
+                    "description": "Cost Center for Basic Settlement",
                     "abapType": "CharacterString",
                     "length": 10,
                     "isSelected": true,
@@ -832,7 +905,7 @@
                 },
                 {
                     "name": "RESPONSIBLECOSTCENTER",
-                    "description": "Cost center",
+                    "description": "Responsible Cost Center",
                     "abapType": "CharacterString",
                     "length": 10,
                     "isSelected": true,
@@ -841,7 +914,7 @@
                 },
                 {
                     "name": "COSTELEMENT",
-                    "description": "Cost element",
+                    "description": "Settlement Cost Element",
                     "abapType": "CharacterString",
                     "length": 10,
                     "isSelected": true,
@@ -858,7 +931,7 @@
                 },
                 {
                     "name": "GLACCOUNT",
-                    "description": "G\/L account number",
+                    "description": "G/L Account for Basic Settlement",
                     "abapType": "CharacterString",
                     "length": 10,
                     "isSelected": true,
@@ -867,7 +940,7 @@
                 },
                 {
                     "name": "PRODUCTCOSTCOLLECTOR",
-                    "description": "Order number",
+                    "description": "Cost Collector for Production Process",
                     "abapType": "CharacterString",
                     "length": 12,
                     "isSelected": true,
@@ -875,7 +948,7 @@
                 },
                 {
                     "name": "ACTUALCOSTSCOSTINGVARIANT",
-                    "description": "Costing Variant",
+                    "description": "Costing Variant For Actual Costs",
                     "abapType": "CharacterString",
                     "length": 4,
                     "isSelected": true,
@@ -883,7 +956,7 @@
                 },
                 {
                     "name": "PLANNEDCOSTSCOSTINGVARIANT",
-                    "description": "Costing Variant",
+                    "description": "Costing Variant for Planned Costs",
                     "abapType": "CharacterString",
                     "length": 4,
                     "isSelected": true,
@@ -891,7 +964,7 @@
                 },
                 {
                     "name": "CONTROLLINGOBJECTCLASS",
-                    "description": "Object class",
+                    "description": "Controlling Object Class",
                     "abapType": "CharacterString",
                     "length": 2,
                     "isSelected": true,
@@ -899,7 +972,7 @@
                 },
                 {
                     "name": "FUNCTIONALAREA",
-                    "description": "Functional area",
+                    "description": "Functional Area",
                     "abapType": "CharacterString",
                     "length": 16,
                     "isSelected": true,
@@ -908,126 +981,138 @@
                 },
                 {
                     "name": "MFGORDERPLANNEDSTARTDATE",
-                    "description": "Date",
+                    "description": "Manufacturing Order Planned Start Date",
                     "abapType": "Date",
                     "isSelected": true,
                     "conversionExit": ""
                 },
                 {
                     "name": "MFGORDERPLANNEDSTARTTIME",
-                    "description": "Time",
+                    "description": "Manufacturing Order Planned Start Time",
                     "abapType": "Time",
                     "isSelected": true,
                     "conversionExit": ""
                 },
                 {
                     "name": "MFGORDERPLANNEDENDDATE",
-                    "description": "Date",
+                    "description": "Manufacturing Order Planned End Date",
                     "abapType": "Date",
                     "isSelected": true,
                     "conversionExit": ""
                 },
                 {
                     "name": "MFGORDERPLANNEDENDTIME",
-                    "description": "Time",
+                    "description": "Manufacturing Order Planned End Time",
                     "abapType": "Time",
                     "isSelected": true,
                     "conversionExit": ""
                 },
                 {
                     "name": "MFGORDERPLANNEDRELEASEDATE",
-                    "description": "Date",
+                    "description": "Manufacturing Order Planned Release Date",
                     "abapType": "Date",
                     "isSelected": true,
                     "conversionExit": ""
                 },
                 {
                     "name": "MFGORDERSCHEDULEDSTARTDATE",
-                    "description": "Date",
+                    "description": "Manufacturing Order Scheduled Start Date",
                     "abapType": "Date",
                     "isSelected": true,
                     "conversionExit": ""
                 },
                 {
                     "name": "MFGORDERSCHEDULEDSTARTTIME",
-                    "description": "Time",
+                    "description": "Manufacturing Order Scheduled Start Time",
                     "abapType": "Time",
                     "isSelected": true,
                     "conversionExit": ""
                 },
                 {
                     "name": "MFGORDERSCHEDULEDENDDATE",
-                    "description": "Date",
+                    "description": "Manufacturing Order Scheduled End Date",
                     "abapType": "Date",
                     "isSelected": true,
                     "conversionExit": ""
                 },
                 {
                     "name": "MFGORDERSCHEDULEDENDTIME",
-                    "description": "Time",
+                    "description": "Manufacturing Order Scheduled End Time",
                     "abapType": "Time",
                     "isSelected": true,
                     "conversionExit": ""
                 },
                 {
                     "name": "MFGORDERSCHEDULEDRELEASEDATE",
-                    "description": "Date",
+                    "description": "Manufacturing Order Scheduled Release Date",
                     "abapType": "Date",
                     "isSelected": true,
                     "conversionExit": ""
                 },
                 {
                     "name": "MFGORDERACTUALSTARTDATE",
-                    "description": "Date",
+                    "description": "Manufacturing Order Actual Start Date",
                     "abapType": "Date",
                     "isSelected": true,
                     "conversionExit": ""
                 },
                 {
                     "name": "MFGORDERACTUALSTARTTIME",
-                    "description": "Time",
+                    "description": "Manufacturing Order Actual Start Time",
                     "abapType": "Time",
                     "isSelected": true,
                     "conversionExit": ""
                 },
                 {
                     "name": "MFGORDERACTUALENDDATE",
-                    "description": "Date",
+                    "description": "Manufacturing Order Actual End Date",
                     "abapType": "Date",
                     "isSelected": true,
                     "conversionExit": ""
                 },
                 {
                     "name": "MFGORDERACTUALRELEASEDATE",
-                    "description": "Date",
+                    "description": "Manufacturing Order Actual Release Date",
                     "abapType": "Date",
                     "isSelected": true,
                     "conversionExit": ""
                 },
                 {
                     "name": "MFGORDERCONFIRMEDENDDATE",
-                    "description": "Date",
+                    "description": "Manufacturing Order Confirmed End Date",
                     "abapType": "Date",
                     "isSelected": true,
                     "conversionExit": ""
                 },
                 {
                     "name": "MFGORDERCONFIRMEDENDTIME",
-                    "description": "Time",
+                    "description": "Manufacturing Order Confirmed End Time",
                     "abapType": "Time",
                     "isSelected": true,
                     "conversionExit": ""
                 },
                 {
                     "name": "MFGORDERTOTALCOMMITMENTDATE",
-                    "description": "Date",
+                    "description": "Total Commitment Date",
                     "abapType": "Date",
                     "isSelected": true,
                     "conversionExit": ""
                 },
                 {
+                    "name": "MFGORDERACTUALCOMPLETIONDATE",
+                    "description": "Technical Completion Date",
+                    "abapType": "Date",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MFGORDERITEMACTUALDELIVERYDATE",
+                    "description": "Actual Delivery/Finish Date",
+                    "abapType": "Date",
+                    "conversionExit": ""
+                },
+                {
                     "name": "PRODUCTIONUNIT",
-                    "description": "Units of Measurement of Various Types",
+                    "description": "Production Unit of Measure",
                     "abapType": "CharacterString",
                     "length": 3,
                     "isSelected": true,
@@ -1036,9 +1121,9 @@
                 },
                 {
                     "name": "MFGORDERPLANNEDTOTALQTY",
-                    "description": "Quantity field, length 13",
+                    "description": "Manufacturing Order Planned Total Quantity",
                     "abapType": "PackedNumber",
-                    "length": 17,
+                    "length": 13,
                     "decimalCount": 3,
                     "isSelected": true,
                     "formattedLength": 17,
@@ -1048,9 +1133,9 @@
                 },
                 {
                     "name": "MFGORDERPLANNEDSCRAPQTY",
-                    "description": "Quantity field, length 13",
+                    "description": "Manufacturing Order Planned Scrap Quantity",
                     "abapType": "PackedNumber",
-                    "length": 17,
+                    "length": 13,
                     "decimalCount": 3,
                     "isSelected": true,
                     "formattedLength": 17,
@@ -1060,9 +1145,9 @@
                 },
                 {
                     "name": "MFGORDERCONFIRMEDYIELDQTY",
-                    "description": "Quantity field, length 13",
+                    "description": "Confirmed Yield Quantity From Order Confirmation",
                     "abapType": "PackedNumber",
-                    "length": 17,
+                    "length": 13,
                     "decimalCount": 3,
                     "isSelected": true,
                     "formattedLength": 17,
@@ -1072,9 +1157,9 @@
                 },
                 {
                     "name": "MFGORDERCONFIRMEDSCRAPQTY",
-                    "description": "Quantity field, length 13",
+                    "description": "Confirmed Scrap Quantity From Order Confirmation",
                     "abapType": "PackedNumber",
-                    "length": 17,
+                    "length": 13,
                     "decimalCount": 3,
                     "isSelected": true,
                     "formattedLength": 17,
@@ -1084,9 +1169,9 @@
                 },
                 {
                     "name": "MFGORDERCONFIRMEDREWORKQTY",
-                    "description": "Quantity field, length 13, with +\/- sign",
+                    "description": "Total Confirmed Rework Quantity",
                     "abapType": "PackedNumber",
-                    "length": 17,
+                    "length": 13,
                     "decimalCount": 3,
                     "isSelected": true,
                     "formattedLength": 18,
@@ -1096,9 +1181,9 @@
                 },
                 {
                     "name": "EXPECTEDDEVIATIONQUANTITY",
-                    "description": "Quantity field, length 13, with +\/- sign",
+                    "description": "Expected Yield Deviation",
                     "abapType": "PackedNumber",
-                    "length": 17,
+                    "length": 13,
                     "decimalCount": 3,
                     "isSelected": true,
                     "formattedLength": 18,
@@ -1108,15 +1193,23 @@
                 },
                 {
                     "name": "ACTUALDELIVEREDQUANTITY",
-                    "description": "Quantity field, length 13",
+                    "description": "Quantity of Goods Received for the Order Item",
                     "abapType": "PackedNumber",
-                    "length": 17,
+                    "length": 13,
                     "decimalCount": 3,
                     "isSelected": true,
                     "formattedLength": 17,
                     "conversionExit": "",
                     "referenceTable": "IMFGORDERWSTTS",
                     "referenceField": "PRODUCTIONUNIT"
+                },
+                {
+                    "name": "MASTERPRODUCTIONORDER",
+                    "description": "Master Production Order Number",
+                    "abapType": "CharacterString",
+                    "length": 12,
+                    "checkTable": "FSH_MPROD",
+                    "conversionExit": "ALPHA"
                 }
             ]
         }
