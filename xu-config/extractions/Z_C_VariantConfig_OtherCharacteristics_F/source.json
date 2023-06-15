@@ -1,0 +1,308 @@
+{
+    "name": "ZVRNTCNFG$F",
+    "description": "Custom Extraction for Variant Configurator",
+    "guid": "af4fc459-f6ba-4741-b772-ccedff310373",
+    "hierarchy": "",
+    "semantics": "TransactionalDataOrFacts",
+    "context": "ABAP_CDS",
+    "supportsFull": true,
+    "supportsDelta": true,
+    "autoSync": true,
+    "mode": "Full",
+    "columns": 
+    [
+        {
+            "name": "SALESDOCUMENT",
+            "description": "Sales Document",
+            "abapType": "CharacterString",
+            "length": 10,
+            "isPrimaryKey": true,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 10
+        },
+        {
+            "name": "SALESDOCUMENTITEM",
+            "description": "Sales Document Item",
+            "abapType": "NumericCharacterString",
+            "length": 6,
+            "isPrimaryKey": true,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 6
+        },
+        {
+            "name": "PRODUCTID",
+            "description": "Material Number",
+            "abapType": "CharacterString",
+            "length": 40,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 40
+        },
+        {
+            "name": "PRODUCTEXTERNALID",
+            "description": "External Representation of Material Number",
+            "abapType": "CharacterString",
+            "length": 40,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "selections": [
+              {
+                "value": "6100000001"
+              },
+              {
+                "value": "6100000035"
+              },
+              {
+                "value": "6100000036"
+              },
+              {
+                "value": "6100000037"
+              },
+              {
+                "value": "6100000038"
+              },
+              {
+                "value": "6100000048"
+              },
+              {
+                "value": "6100000049"
+              },
+              {
+                "value": "6100000055"
+              },
+              {
+                "value": "6100000056"
+              },
+              {
+                "value": "6100000068"
+              },
+              {
+                "value": "6100000069"
+              },
+              {
+                "value": "6100000071"
+              },
+              {
+                "value": "6100000091"
+              },
+              {
+                "value": "6100000092"
+              },
+              {
+                "value": "6100000093"
+              },
+              {
+                "value": "6100000094"
+              },
+              {
+                "value": "6100000122"
+              },
+              {
+                "value": "6100000136"
+              },
+              {
+                "value": "6100000137"
+              },
+              {
+                "value": "6100000138"
+              }
+          ],
+          "outputLength": 40
+        },
+        {
+            "name": "CONFIGURATION",
+            "description": "Configuration",
+            "abapType": "NumericCharacterString",
+            "length": 18,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 18
+        },
+        {
+            "name": "INSTANCE",
+            "description": "IB: Unique record number",
+            "abapType": "CharacterString",
+            "length": 22,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 22
+        },
+        {
+            "name": "LASTCHANGEDATE",
+            "description": "Field of type DATS",
+            "abapType": "Date",
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 8
+        },
+        {
+            "name": "CHARACTERISTICNAME",
+            "description": "Characteristic Name",
+            "abapType": "CharacterString",
+            "length": 30,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "selections": [
+              {
+                "value": "ZCH_HM_LENGTH"
+              },
+              {
+                "value": "ZCH_HM_MATERIAL"
+              },
+              {
+                "value": "ZCH_HM_PROFILE"
+              },
+              {
+                "value": "ZCH_HTA_ANCHOR"
+              },
+              {
+                "value": "ZCH_HTA_FILLER"
+              },
+              {
+                "value": "ZCH_HTA_LENGTH"
+              },
+              {
+                "value": "ZCH_HTA_MATERIAL"
+              },
+              {
+                "value": "ZCH_HTA_PROFILE"
+              },
+              {
+                "value": "ZCH_HZA_ANCHOR"
+              },
+              {
+                "value": "ZCH_HZA_PROFILE"
+              },
+              {
+                "value": "ZCH_HZA_PS_ANCHOR"
+              },
+              {
+                "value": "ZCH_HZA_PS_MATERIAL"
+              },
+              {
+                "value": "ZCH_HZA_PS_PROFILE"
+              },
+              {
+                "value": "ZCH_HDB_DIAM"
+              },
+              {
+                "value": "ZCH_HDB_HEIGHT"
+              },
+              {
+                "value": "ZCH_HDB_LENGTH"
+              },
+              {
+                "value": "ZCH_HDB_STUD_TYPE"
+              },
+              {
+                "value": "ZCH_HDB_STUDQTY"
+              },
+              {
+                "value": "ZCH_HDB_TYPE"
+              },
+              {
+                "value": "ZCH_HIT_CON_COV"
+              },
+              {
+                "value": "ZCH_HIT_CSB_QTY"
+              },
+              {
+                "value": "ZCH_HIT_HEIGHT"
+              },
+              {
+                "value": "ZCH_HIT_MVX_ES"
+              },
+              {
+                "value": "ZCH_HIT_TB_QTY"
+              },
+              {
+                "value": "ZCH_HIT_TYPE"
+              },
+              {
+                "value": "ZCH_HIT_WIDTH"
+              },
+              {
+                "value": "ZCH_HDBZ_STUD_DIAM"
+              },
+              {
+                "value": "ZCH_HDBZ_STUD_LENGTH"
+              },
+              {
+                "value": "ZCH_HIT_QS_DIAM"
+              },
+              {
+                "value": "ZCH_HIT_QS_QTY"
+              },
+              {
+                "value": "ZCH_HIT_QS_TYPE"
+              },
+              {
+                "value": "ZCH_HIT_VARRIANT"
+              },
+              {
+                "value": "ZCH_HBS05_BAR_DESIGN"
+              },
+              {
+                "value": "ZCH_HDBZ_CC_BOTTOM"
+              },
+              {
+                "value": "ZCH_HDBZ_CC_TOP"
+              },
+              {
+                "value": "ZCH_HDBZ_DIAM"
+              },
+              {
+                "value": "ZCH_HDBZ_HEIGHT"
+              },
+              {
+                "value": "ZCH_HIT_STUFFE"
+              },
+              {
+                "value": "ZCH_MAT_DESCRIPTION_S"
+              }
+          ],
+            "outputLength": 30
+        },
+        {
+            "name": "CHARACTERISTICDESCRIPTION",
+            "description": "Characteristic description",
+            "abapType": "CharacterString",
+            "length": 30,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 30
+        },
+        {
+            "name": "DECIMALVALUEFROM",
+            "description": "Lower Boundary for Numeric Field",
+            "abapType": "PackedNumber",
+            "length": 31,
+            "decimalCount": 14,
+            "isSelected": true,
+            "outputLength": 33
+        },
+        {
+            "name": "CHARVALUE",
+            "description": "Characteristic Value",
+            "abapType": "CharacterString",
+            "length": 70,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 70
+        },
+        {
+            "name": "CHARVALUEDESCRIPTION",
+            "description": "Characteristic value description",
+            "abapType": "CharacterString",
+            "length": 70,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 70
+        }
+    ],
+    "packageSize": 35000000,
+    "parameters": {
+    }
+}

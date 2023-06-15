@@ -14,7 +14,7 @@ WITH ZCV_active AS (SELECT
     END AS [CharValueDescription],
     [t_applicationId]
 FROM
-    [base_s4h_cax].[Z_C_VariantConfig_active])
+    [base_s4h_cax].[Z_C_VariantConfig_OtherCharacteristics_F])
 ,VC AS
 (
 --The reason for using STRING_AGG is some Sales Order Items have multiple values in the CharValueDescription
