@@ -3259,12 +3259,23 @@
       },
       {
         "entity_id": 592,
-        "entity_name": "Z_C_VariantConfig_F",
+        "entity_name": "Z_C_VariantConfig_ProductHierarchy_F",
         "data_category": "FACT",
         "tool_name": "Theobald",
         "extraction_type": "ODP",
         "update_mode": "Full",
-        "base_table_name": "Z_C_VariantConfig_F",
+        "base_table_name": "Z_C_VariantConfig_ProductHierarchy_F",
+        "pk_field_names": "SALESDOCUMENT, SALESDOCUMENTITEM, CHARACTERISTICNAME, CHARVALUE",
+        "schedule_recurrence": "D"
+      },
+      {
+        "entity_id": 593,
+        "entity_name": "Z_C_VariantConfig_OtherCharacteristics_F",
+        "data_category": "FACT",
+        "tool_name": "Theobald",
+        "extraction_type": "ODP",
+        "update_mode": "Full",
+        "base_table_name": "Z_C_VariantConfig_OtherCharacteristics_F",
         "pk_field_names": "SALESDOCUMENT, SALESDOCUMENTITEM, CHARACTERISTICNAME, CHARVALUE",
         "schedule_recurrence": "D"
       },

@@ -1,4 +1,4 @@
-CREATE TABLE [base_s4h_cax].[Z_C_VariantConfig_F](
+CREATE TABLE [base_s4h_cax].[Z_C_VariantConfig_OtherCharacteristics_F](
   [SalesDocument]               NVARCHAR(20) NOT NULL
 , [SalesDocumentItem]           NVARCHAR(24) collate Latin1_General_100_BIN2 NOT NULL
 , [ProductID]                   NVARCHAR(40)
@@ -17,7 +17,7 @@ CREATE TABLE [base_s4h_cax].[Z_C_VariantConfig_F](
 , [t_jobBy]                     VARCHAR(128)
 , [t_filePath]                  NVARCHAR(1024)
 , [t_extractionDtm]             DATETIME
-, CONSTRAINT [PK_Z_C_VariantConfig_F] PRIMARY KEY NONCLUSTERED (
+, CONSTRAINT [PK_Z_C_VariantConfig_OtherCharacteristics_F] PRIMARY KEY NONCLUSTERED (
     [SalesDocument],[SalesDocumentItem], [CharacteristicName], [CharValue] 
   ) NOT ENFORCED
 )

@@ -11,7 +11,7 @@ WITH CN AS (
           VC.[SalesDocument]
         , VC.[SalesDocumentItem]
         , MIN(VC.[CharacteristicName]) AS [CharacteristicName] -- take ZCH_SO_ITEM_PROD_HIERARCHY
-    FROM [base_s4h_cax].[Z_C_VariantConfig_F] VC
+    FROM [base_s4h_cax].[Z_C_VariantConfig_ProductHierarchy_F] VC
     LEFT JOIN
         [base_ff].[ConfigurableProductCharacteristic] AS mcpc
         ON
@@ -41,7 +41,7 @@ SELECT
     , VC.[t_extractionDtm]
 FROM CN
 LEFT JOIN
-    [base_s4h_cax].[Z_C_VariantConfig_F] VC
+    [base_s4h_cax].[Z_C_VariantConfig_ProductHierarchy_F] VC
     ON
         VC.[SalesDocument] = CN.[SalesDocument]
         AND

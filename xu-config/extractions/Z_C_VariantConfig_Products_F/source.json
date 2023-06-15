@@ -146,12 +146,6 @@
             "selectionPermission": "All",
             "selections": [
               {
-                "value": "ZCH_SO_ITEM_PROD_HIERARCHY"
-              },
-              {
-                "value": "ZCH_SO_ITEM_PROD_HIERARCHY1"
-              },
-              {
                 "value": "ZCH_HM_LENGTH"
               },
               {
