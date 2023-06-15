@@ -19,6 +19,6 @@
     },
     "blobType": "BlockBlob",
     "columnNameKind": "Code",
-    "folderPath": "FACT/Z_C_VariantConfig_F/Theobald/ODP/Full/In/#{ DateTime.Now.ToString(\"yyyy/MM/dd\") }#",
+    "folderPath": "FACT/Z_C_VariantConfig_ProductHierarchy_F/Theobald/ODP/Full/In/#{ DateTime.Now.ToString(\"yyyy/MM/dd\") }#",
     "maxBlobSize": 0
 }
