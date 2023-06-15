@@ -1639,10 +1639,11 @@
         "data_category": "TEXT",
         "client_field": "MANDT",
         "tool_name": "Theobald",
-        "extraction_type": "ODP",
-        "update_mode": "Delta",
+        "extraction_type": "Table",
+        "update_mode": "Full",
         "base_table_name": "I_GLAccountText",
-        "pk_field_names": "TS_SEQUENCE_NUMBER, CHARTOFACCOUNTS, GLACCOUNT, LANGUAGE"
+        "pk_field_names": "CHARTOFACCOUNTS, GLACCOUNT, LANGUAGE",
+        "schedule_recurrence": "A"
       },
       {
         "entity_id": 200,
@@ -3664,8 +3665,7 @@
         "extraction_type": "ODP",
         "update_mode": "Full",
         "base_table_name": "I_GLAccountText",
-        "pk_field_names": "CHARTOFACCOUNTS, GLACCOUNT, LANGUAGE",
-        "schedule_recurrence": "A"
+        "pk_field_names": "CHARTOFACCOUNTS, GLACCOUNT, LANGUAGE"
       },
       {
         "entity_id": 469,
