@@ -5,6 +5,21 @@ parameters:
 - name: runDeployment
   type: boolean
   default: false
+- name: synapse-dwh
+  type: boolean
+  default: true
+- name: azure-data-factory
+  type: boolean
+  default: true
+- name: orchestration
+  type: boolean
+  default: true
+- name: xu-config
+  type: boolean
+  default: true
+- name: synapse-workspace
+  type: boolean
+  default: true
 - name: clean
   type: string
   default: outputs
@@ -99,6 +114,7 @@ stages:
         echo branchName: $(branchName)
         echo destination: $(destination)
         echo Build.Reason: ${{ variables['Build.Reason'] }}
+        echo Build.SourceBranch: ${{ variables['Build.SourceBranch'] }}
         echo Build.SourceBranchName: ${{ variables['Build.SourceBranchName'] }}
         echo deployEnv: $(deployEnv)
       displayName: Print Variables
@@ -107,25 +123,33 @@ stages:
   - template: ./jobs-validate.yml
 - stage: BUILD
   jobs:
-  - template: ./jobs-build-solution.yml
-    parameters:
-      folder: synapse-dwh
+  - ${{ if(parameters.synapse-dwh) }}:
+    - template: ./jobs-build-solution.yml
+      parameters:
+        folder: synapse-dwh
   
-  - template: ./jobs-build-solution.yml
-    parameters:
-      folder: azure-data-factory
+  - ${{ if(parameters.azure-data-factory) }}:
+    - template: ./jobs-build-solution.yml
+      parameters:
+        folder: azure-data-factory
   
-  - template: ./jobs-build-solution.yml
-    parameters:
-      folder: orchestration
   
-  - template: ./jobs-build-solution.yml
-    parameters:
-      folder: xu-config
+  - ${{ if(parameters.orchestration) }}:
+    - template: ./jobs-build-solution.yml
+      parameters:
+        folder: orchestration
   
-  - template: ./jobs-build-solution.yml
-    parameters:
-      folder: synapse-workspace
+  
+  - ${{ if(parameters.xu-config) }}:
+    - template: ./jobs-build-solution.yml
+      parameters:
+        folder: xu-config
+  
+  
+  - ${{ if(parameters.synapse-workspace) }}:
+    - template: ./jobs-build-solution.yml
+      parameters:
+        folder: synapse-workspace
   
   # - job: BUILD_SynapseDWH
   #   pool:
@@ -212,8 +236,19 @@ stages:
         runOnce:
           deploy:
             steps:
-            - template: ../azure-data-factory/build/steps-deploy.yml
-            - template: ../orchestration/build/steps-deploy.yml
-            - template: ../synapse-dwh/build/steps-deploy.yml
-            - template: ../synapse-workspace/build/steps-deploy.yml
-            - template: ../xu-config/build/steps-deploy.yml
+
+            - ${{ if(parameters.azure-data-factory) }}:
+              - template: ../azure-data-factory/build/steps-deploy.yml
+
+            - ${{ if(parameters.orchestration) }}:
+              - template: ../orchestration/build/steps-deploy.yml
+
+            - ${{ if(parameters.synapse-dwh) }}:
+              - template: ../synapse-dwh/build/steps-deploy.yml
+
+            - ${{ if(parameters.synapse-workspace) }}:
+              - template: ../synapse-workspace/build/steps-deploy.yml
+
+            - ${{ if(parameters.xu-config) }}:
+              - template: ../xu-config/build/steps-deploy.yml
+
