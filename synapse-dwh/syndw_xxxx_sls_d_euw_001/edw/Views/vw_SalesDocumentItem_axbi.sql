@@ -34,7 +34,7 @@ SalesDocumentItem_Filtered_Out_Organization AS
     ,   FSL_DOC.[SALESID]
     ,   FSL_DOC.[ITEMID]
     ,   edw.svf_getInOutID_axbi (INOUT)                                  AS [InOutID]  
-    ,   SO.SalesOfficeID             
+    ,   SOff.SalesOfficeID             
     FROM intm_axbi.vw_FACT_SALESLINE FSL_DOC
     LEFT JOIN
         [map_AXBI].[SalesOrganization] AS SO
@@ -48,8 +48,8 @@ SalesDocumentItem_Filtered_Out_Organization AS
          [intm_axbi].[dim_CUSTTABLE]  CT
         ON
             CT.ACCOUNTNUM = DA.[DATAAREAID2] + '-' + FSL_DOC.CUSTACCOUNT
-    LEFT JOIN [map_AXBI].[SalesOffice] SO
-        ON FSL_DOC.[DATAAREAID] = SO.[DataAreaID]
+    LEFT JOIN [map_AXBI].[SalesOffice] SOff
+        ON FSL_DOC.[DATAAREAID] = SOff.[DataAreaID]
            
     WHERE
         (
