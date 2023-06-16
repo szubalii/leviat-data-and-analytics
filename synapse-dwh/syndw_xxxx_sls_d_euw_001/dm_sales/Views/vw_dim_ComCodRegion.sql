@@ -6,6 +6,7 @@ WITH Regions AS (
         RegionName,
         CountryID
     FROM [edw].[dim_SalesOrganization]
+    WHERE RegionName <> 'Operations'
     GROUP BY
         RegionID,    
         RegionName,
@@ -18,8 +19,8 @@ SELECT
     CC.Country          AS CountryID,
     Ctr.Country         AS Country
 FROM [edw].[dim_CompanyCode] CC
-LEFT JOIN [edw].[dim_Country] Ctr
+JOIN [edw].[dim_Country] Ctr
     ON CC.Country = Ctr.CountryID
-LEFT JOIN Regions SO
+JOIN Regions SO
     ON CC.Country = SO.CountryID
 WHERE CC.t_applicationId LIKE 's4h%'
