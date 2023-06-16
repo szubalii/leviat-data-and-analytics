@@ -15,6 +15,6 @@
 	"compress": true,
 	"blobType": "BlockBlob",
 	"columnNameKind": "Code",
-	"folderPath": "DIMENSION\/I_Employee\/Theobald\/Table\/Full\/In\/#{ DateTime.Now.ToString(\"yyyy\/MM\/dd\") }#",
+	"folderPath": "DIMENSION\/I_PersonWorkAgreement_1\/Theobald\/Table\/Full\/In\/#{ DateTime.Now.ToString(\"yyyy\/MM\/dd\") }#",
 	"maxBlobSize": 0
 }
