@@ -341,7 +341,7 @@ BillingDocumentItemBase_axbi_mapped AS (
             THEN 
                 SO.target_SalesOrganizationID 
             ELSE
-                [DataAreaID]
+                SubQ.[DataAreaID]
         END AS [SalesOrganizationID]
     ,   SubQ.[DistributionChannelID]
     ,   CASE
@@ -473,7 +473,7 @@ BillingDocumentItemBase_axbi_mapped AS (
     ,   SubQ.[InOutID]
     ,   SubQ.[axbi_ItemNoCalc]
     ,   SubQ.[axbi_DataAreaID2]
-    ,   SalesOfficeID
+    ,   SOff.SalesOfficeID
     ,   SubQ.[t_applicationId]
     ,   SubQ.[t_extractionDtm]
 
@@ -575,8 +575,8 @@ BillingDocumentItemBase_axbi_mapped AS (
         ON
         mapBrand.[source_DataAreaID]= SubQ.[axbi_DataAreaID]
 
-    LEFT JOIN [map_AXBI].[SalesOffice] SO
-        ON SubQ.[DataAreaID] = SO.[DataAreaID]
+    LEFT JOIN [map_AXBI].[SalesOffice] SOff
+        ON SubQ.[DataAreaID] = SOff.[DataAreaID]
 
 ), BillingDocumentItemBase_axbi_mapped_calc as (
     SELECT
@@ -645,7 +645,7 @@ BillingDocumentItemBase_axbi_mapped AS (
     ,   SubQ.[Brand]
     ,   SubQ.[InOutID]
     ,   SubQ.[axbi_ItemNoCalc]
-    ,   SubQ.[SalesOffice]
+    ,   SubQ.[SalesOfficeID]
     ,   SubQ.[t_applicationId]
     ,   SubQ.[t_extractionDtm]
     FROM
@@ -729,7 +729,7 @@ BillingDocumentItemBase_axbi_mapped AS (
     ,   NULL AS [Brand]
     ,   [InOutID]
     ,   [axbi_ItemNoCalc]
-    ,   [SalesOffice]
+    ,   [SalesOfficeID]
     ,   [t_applicationId]
     ,   [t_extractionDtm]
     FROM
@@ -826,7 +826,7 @@ BillingDocumentItemBase_axbi_mapped AS (
         ,   [Brand]
         ,   [InOutID]
         ,   [axbi_ItemNoCalc]
-        ,   [SalesOffice]
+        ,   [SalesOfficeID]
         ,   BDIAXBI_DUMMY.[t_applicationId]
         ,   BDIAXBI_DUMMY.[t_extractionDtm]
     FROM 
@@ -919,7 +919,7 @@ SELECT
     ,   [Brand]
     ,   [InOutID]
     ,   [axbi_ItemNoCalc]
-    ,   [SalesOffice]
+    ,   [SalesOfficeID]
     ,   BDIAXBI_DUMMY.[t_applicationId]
     ,   BDIAXBI_DUMMY.[t_extractionDtm]
 FROM 
@@ -989,7 +989,7 @@ SELECT
     ,   [Brand]
     ,   [InOutID]
     ,   [axbi_ItemNoCalc]
-    ,   [SalesOffice]
+    ,   [SalesOfficeID]
     ,   BDIAXBI_DUMMY_30.[t_applicationId]
     ,   BDIAXBI_DUMMY_30.[t_extractionDtm]
 FROM 
@@ -1055,7 +1055,7 @@ SELECT
     ,   [Brand]
     ,   [InOutID]
     ,   [axbi_ItemNoCalc]
-    ,   [SalesOffice]
+    ,   [SalesOfficeID]
     ,   BDIAXBI_DUMMY_30.[t_applicationId]
     ,   BDIAXBI_DUMMY_30.[t_extractionDtm]
 FROM 
