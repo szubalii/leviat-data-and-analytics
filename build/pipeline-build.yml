@@ -45,22 +45,22 @@ variables:
   - template: ./variables-qas.yml
 - ${{ elseif eq(variables['Build.SourceBranchName'], 'prod') }}:
   - template: ./variables-prod.yml
-- ${{ elseif startsWith(variables['Build.SourceBranchName'], 'dev_') }}:
-  - name: user
-    value: $[ replace( variables['Build.SourceBranchName'], 'dev_', '') ]
-  - template: ./variables-personal.yml
-- ${{ elseif contains(variables['Build.SourceBranch'], '/dev/') }}:
-  - name: user
-    value: $[ variables['Build.SourceBranchName'] ]
-  - template: ./variables-personal.yml
-  - name: deployEnv # override value to map main branch to DEV deployment environment
-    value: ${{ format('DEV_{0}', upper(variables['Build.SourceBranchName'])) }}
+# - ${{ elseif startsWith(variables['Build.SourceBranchName'], 'dev_') }}:
+#   - name: user
+#     value: $[ replace( variables['Build.SourceBranchName'], 'dev_', '') ]
+#   - template: ./variables-personal.yml
+# - ${{ elseif contains(variables['Build.SourceBranch'], '/dev/') }}:
+#   - name: user
+#     value: $[ variables['Build.SourceBranchName'] ]
+#   - template: ./variables-personal.yml
+#   - name: deployEnv # override value to map main branch to DEV deployment environment
+#     value: ${{ format('DEV_{0}', upper(variables['Build.SourceBranchName'])) }}
 - ${{ elseif contains(variables['Build.SourceBranch'], '/feature/') }}:
   - name: user
     value: ${{ split(variables['Build.SourceBranch'], '/')[3] }} #refs/heads/feature/mpors/...
   - template: ./variables-personal.yml
   - name: deployEnv # override value to map main branch to DEV deployment environment
-    value: ${{ format('DEV_{0}', upper(split(variables['Build.SourceBranch'], '/')[3])) }}
+    value: ${{ format('DEV_{0}', upper(variables.user)) }}
 
 # # Required for PR triggered pipelines as predefined system variable Build.SourceBranchName
 # # equals value: 'merge'. Also, the predefined system variable System.PullRequest.TargetBranch 
