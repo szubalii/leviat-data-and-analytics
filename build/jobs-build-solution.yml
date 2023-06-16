@@ -3,7 +3,7 @@ parameters:
   type: string
 
 jobs:
-- job: BUILD_${{ upper(parameters.folder) }}
+- job: BUILD_${{ upper(replace(parameters.folder, '-', '_')) }}
   pool:
     name: 'VM'
     demands:
