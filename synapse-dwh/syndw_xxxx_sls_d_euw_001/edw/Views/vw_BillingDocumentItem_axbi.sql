@@ -912,10 +912,9 @@ SELECT
     ,   BDIAXBI_DUMMY.[t_extractionDtm]
 FROM 
     BDIAXBI_DUMMY
-CROSS JOIN
+JOIN
     [edw].[dim_CurrencyType] CT
-WHERE
-    CT.[CurrencyTypeID] = '10'
+        ON CT.[CurrencyTypeID] = '10'
 
 UNION ALL
 
@@ -981,10 +980,9 @@ SELECT
     ,   BDIAXBI_DUMMY_30.[t_extractionDtm]
 FROM 
     BDIAXBI_DUMMY_30
-CROSS JOIN
+JOIN
     [edw].[dim_CurrencyType] CT
-WHERE
-    CT.[CurrencyTypeID] = '30'
+        ON CT.[CurrencyTypeID] = '30'
 
 UNION ALL
 
@@ -1052,7 +1050,6 @@ LEFT JOIN
         BDIAXBI_DUMMY_30.BillingDocument=ExchangeRateUSD.BillingDocument 
         AND     
         BDIAXBI_DUMMY_30.BillingDocumentItem=ExchangeRateUSD.BillingDocumentItem  
-CROSS JOIN
+JOIN
     [edw].[dim_CurrencyType] CT
-WHERE
-    CT.[CurrencyTypeID] = '40'
+        ON CT.[CurrencyTypeID] = '40'

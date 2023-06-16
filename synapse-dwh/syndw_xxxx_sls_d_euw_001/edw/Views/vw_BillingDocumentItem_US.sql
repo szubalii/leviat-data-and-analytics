@@ -140,10 +140,9 @@ SELECT
     ,   BDI_Base.[t_applicationId]                          
     ,   BDI_Base.[t_extractionDtm]
 FROM BillingDocumentItemBase BDI_Base
-CROSS JOIN
+JOIN
     [edw].[dim_CurrencyType] CT
-WHERE
-    CT.[CurrencyTypeID] = '10'
+    ON CT.[CurrencyTypeID] = '10'
 
 UNION ALL
 
@@ -288,10 +287,9 @@ LEFT JOIN
         EuroBudgetExchangeRate.[SourceCurrency] = 'USD'
         AND
         BDI_ExchangeRate_Date.[ExchangeRateEffectiveDate] = EuroBudgetExchangeRate.[ExchangeRateEffectiveDate]
-CROSS JOIN
+JOIN
     [edw].[dim_CurrencyType] CT
-WHERE
-    CT.[CurrencyTypeID] = '30'
+    ON CT.[CurrencyTypeID] = '30'
 
 UNION ALL
 
@@ -340,7 +338,6 @@ SELECT
     ,   BDI_Base.[t_applicationId]                          
     ,   BDI_Base.[t_extractionDtm]
 FROM BillingDocumentItemBase BDI_Base
-CROSS JOIN
+JOIN
     [edw].[dim_CurrencyType] CT
-WHERE
-    CT.[CurrencyTypeID] = '40'
+    ON CT.[CurrencyTypeID] = '40'

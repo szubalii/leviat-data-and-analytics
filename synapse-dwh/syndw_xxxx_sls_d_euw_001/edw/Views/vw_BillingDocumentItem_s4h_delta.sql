@@ -1125,10 +1125,9 @@ SELECT [BillingDocument]
       ,BDI.[t_filePath]   
 FROM 
     BillingDocumentItemBase_Margin BDI
-CROSS JOIN 
+JOIN 
     [edw].[dim_CurrencyType] CR
-WHERE 
-    CR.[CurrencyTypeID] = '00'
+    ON CR.[CurrencyTypeID] = '00'
 
 UNION ALL
 
@@ -1359,10 +1358,9 @@ SELECT
     ,BDI.[t_filePath]  
 FROM 
     BillingDocumentItemBase_Margin BDI
-CROSS JOIN 
+JOIN 
     [edw].[dim_CurrencyType] CR
-WHERE 
-    CR.[CurrencyTypeID] = '10'
+        ON CR.[CurrencyTypeID] = '10'
 
 UNION ALL
 
@@ -1558,10 +1556,9 @@ SELECT
     ,BD_30.[t_filePath]   
 FROM 
     BillingDocument_30 BD_30
-CROSS JOIN 
+JOIN 
     [edw].[dim_CurrencyType] CR
-WHERE 
-    CR.[CurrencyTypeID] = '30'
+        ON CR.[CurrencyTypeID] = '30'
 
 UNION ALL
 
@@ -1750,7 +1747,6 @@ SELECT
     ,BD_40.[t_filePath]   
 FROM 
     BillingDocument_40 BD_40
-CROSS JOIN 
+JOIN 
     [edw].[dim_CurrencyType] CR
-WHERE 
-    CR.[CurrencyTypeID] = '40'
+    ON CR.[CurrencyTypeID] = '40'
