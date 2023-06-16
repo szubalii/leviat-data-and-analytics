@@ -1,0 +1,14 @@
+parameters:
+- name: folder
+
+jobs:
+- job: BUILD_${{ upper(parameters.folder) }}
+    pool:
+      name: 'VM'
+      demands:
+      - node.js
+      - VisualStudio
+      - Agent.ComputerName -equals $(VMName)
+    steps:
+    - template: ../${{ parameters.folder }}/build/steps-build.yml
+    - template: ../${{ parameters.folder }}/build/steps-artifact.yml

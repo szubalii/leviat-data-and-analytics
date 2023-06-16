@@ -55,7 +55,7 @@ variables:
 #   - template: ./variables-personal.yml
 #   - name: deployEnv # override value to map main branch to DEV deployment environment
 #     value: ${{ format('DEV_{0}', upper(variables['Build.SourceBranchName'])) }}
-- ${{ elseif contains(variables['Build.SourceBranch'], '/feature/') }}:
+- ${{ elseif or(contains(variables['Build.SourceBranch'], '/feature/'), contains(variables['Build.SourceBranch'], '/users/')) }}:
   - name: user
     value: ${{ split(variables['Build.SourceBranch'], '/')[3] }} #refs/heads/feature/mpors/...
   - template: ./variables-personal.yml
@@ -107,61 +107,81 @@ stages:
   - template: ./jobs-validate.yml
 - stage: BUILD
   jobs:
-  - job: BUILD_SynapseDWH
-    pool:
-      name: 'VM'
-      demands:
-      - node.js
-      - VisualStudio
-      - Agent.ComputerName -equals $(VMName)
-    steps:
-    - template: ../synapse-dwh/build/steps-build.yml
-    - template: ../synapse-dwh/build/steps-artifact.yml
+  - template: ./jobs-build-solution.yml
+    parameters:
+      folder: synapse-dwh
+  
+  - template: ./jobs-build-solution.yml
+    parameters:
+      folder: azure-data-factory
+  
+  - template: ./jobs-build-solution.yml
+    parameters:
+      folder: orchestration
+  
+  - template: ./jobs-build-solution.yml
+    parameters:
+      folder: xu-config
+  
+  - template: ./jobs-build-solution.yml
+    parameters:
+      folder: synapse-workspace
+  
+  # - job: BUILD_SynapseDWH
+  #   pool:
+  #     name: 'VM'
+  #     demands:
+  #     - node.js
+  #     - VisualStudio
+  #     - Agent.ComputerName -equals $(VMName)
+  #   steps:
+  #   - template: ../synapse-dwh/build/steps-build.yml
+  #   - template: ../synapse-dwh/build/steps-artifact.yml
 
   
-  - job: BUILD_ADF
-    pool:
-      name: 'VM'
-      demands:
-      - node.js
-      - VisualStudio
-      - Agent.ComputerName -equals $(VMName)
-    steps:
-    - template: ../azure-data-factory/build/steps-build.yml
-    - template: ../azure-data-factory/build/steps-artifact.yml
+  # - job: BUILD_ADF
+  #   pool:
+  #     name: 'VM'
+  #     demands:
+  #     - node.js
+  #     - VisualStudio
+  #     - Agent.ComputerName -equals $(VMName)
+  #   steps:
+  #   - template: ../azure-data-factory/build/steps-build.yml
+  #   - template: ../azure-data-factory/build/steps-artifact.yml
 
-  - job: BUILD_Orchestration
-    pool:
-      name: 'VM'
-      demands:
-      - node.js
-      - VisualStudio
-      - Agent.ComputerName -equals $(VMName)
-    steps:
-    - template: ../orchestration/build/steps-build.yml
-    - template: ../orchestration/build/steps-artifact.yml
+  # - job: BUILD_Orchestration
+  #   pool:
+  #     name: 'VM'
+  #     demands:
+  #     - node.js
+  #     - VisualStudio
+  #     - Agent.ComputerName -equals $(VMName)
+  #   steps:
+  #   - template: ../orchestration/build/steps-build.yml
+  #   - template: ../orchestration/build/steps-artifact.yml
   
-  - job: BUILD_XtractUniversal
-    pool:
-      name: 'VM'
-      demands:
-      - node.js
-      - VisualStudio
-      - Agent.ComputerName -equals $(VMName)
-    steps:
-    - template: ../xu-config/build/steps-build.yml
-    - template: ../xu-config/build/steps-artifact.yml
+  # - job: BUILD_XtractUniversal
+  #   pool:
+  #     name: 'VM'
+  #     demands:
+  #     - node.js
+  #     - VisualStudio
+  #     - Agent.ComputerName -equals $(VMName)
+  #   steps:
+  #   - template: ../xu-config/build/steps-build.yml
+  #   - template: ../xu-config/build/steps-artifact.yml
   
-  - job: BUILD_SynapseServerless
-    pool:
-      name: 'VM'
-      demands:
-      - node.js
-      - VisualStudio
-      - Agent.ComputerName -equals $(VMName)
-    steps:
-    - template: ../synapse-workspace/build/steps-build.yml
-    - template: ../synapse-workspace/build/steps-artifact.yml
+  # - job: BUILD_SynapseServerless
+  #   pool:
+  #     name: 'VM'
+  #     demands:
+  #     - node.js
+  #     - VisualStudio
+  #     - Agent.ComputerName -equals $(VMName)
+  #   steps:
+  #   - template: ../synapse-workspace/build/steps-build.yml
+  #   - template: ../synapse-workspace/build/steps-artifact.yml
 
 
 - ${{ if eq(parameters.runDeployment, true) }}:
