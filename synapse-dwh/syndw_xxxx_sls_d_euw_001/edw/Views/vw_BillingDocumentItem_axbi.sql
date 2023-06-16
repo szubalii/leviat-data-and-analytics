@@ -473,6 +473,7 @@ BillingDocumentItemBase_axbi_mapped AS (
     ,   SubQ.[InOutID]
     ,   SubQ.[axbi_ItemNoCalc]
     ,   SubQ.[axbi_DataAreaID2]
+    ,   SalesOfficeID
     ,   SubQ.[t_applicationId]
     ,   SubQ.[t_extractionDtm]
 
@@ -573,6 +574,10 @@ BillingDocumentItemBase_axbi_mapped AS (
         [map_AXBI].[Brand] mapBrand
         ON
         mapBrand.[source_DataAreaID]= SubQ.[axbi_DataAreaID]
+
+    LEFT JOIN [map_AXBI].[SalesOffice] SO
+        ON SubQ.[DataAreaID] = SO.[DataAreaID]
+
 ), BillingDocumentItemBase_axbi_mapped_calc as (
     SELECT
         CONCAT(TRIM(SubQ.[SalesOrganizationID]),'_',TRIM(SubQ.[BillingDocument]) COLLATE SQL_Latin1_General_CP1_CS_AS) AS [BillingDocument]
@@ -640,6 +645,7 @@ BillingDocumentItemBase_axbi_mapped AS (
     ,   SubQ.[Brand]
     ,   SubQ.[InOutID]
     ,   SubQ.[axbi_ItemNoCalc]
+    ,   SubQ.[SalesOffice]
     ,   SubQ.[t_applicationId]
     ,   SubQ.[t_extractionDtm]
     FROM
@@ -723,6 +729,7 @@ BillingDocumentItemBase_axbi_mapped AS (
     ,   NULL AS [Brand]
     ,   [InOutID]
     ,   [axbi_ItemNoCalc]
+    ,   [SalesOffice]
     ,   [t_applicationId]
     ,   [t_extractionDtm]
     FROM
@@ -819,6 +826,7 @@ BillingDocumentItemBase_axbi_mapped AS (
         ,   [Brand]
         ,   [InOutID]
         ,   [axbi_ItemNoCalc]
+        ,   [SalesOffice]
         ,   BDIAXBI_DUMMY.[t_applicationId]
         ,   BDIAXBI_DUMMY.[t_extractionDtm]
     FROM 
@@ -911,6 +919,7 @@ SELECT
     ,   [Brand]
     ,   [InOutID]
     ,   [axbi_ItemNoCalc]
+    ,   [SalesOffice]
     ,   BDIAXBI_DUMMY.[t_applicationId]
     ,   BDIAXBI_DUMMY.[t_extractionDtm]
 FROM 
@@ -980,6 +989,7 @@ SELECT
     ,   [Brand]
     ,   [InOutID]
     ,   [axbi_ItemNoCalc]
+    ,   [SalesOffice]
     ,   BDIAXBI_DUMMY_30.[t_applicationId]
     ,   BDIAXBI_DUMMY_30.[t_extractionDtm]
 FROM 
@@ -1045,6 +1055,7 @@ SELECT
     ,   [Brand]
     ,   [InOutID]
     ,   [axbi_ItemNoCalc]
+    ,   [SalesOffice]
     ,   BDIAXBI_DUMMY_30.[t_applicationId]
     ,   BDIAXBI_DUMMY_30.[t_extractionDtm]
 FROM 

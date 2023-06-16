@@ -21,7 +21,7 @@ WITH s4h_axbi_join AS(
         ,   NULL                      AS [BillingDocumentIsTemporary]
         ,   NULL                      AS [OrganizationDivision]
         ,   NULL                      AS [Division]
-        ,   NULL                      AS [SalesOfficeID]
+        ,   [SalesOfficeID]
         ,   [SalesOrganizationID]
         ,   [DistributionChannelID]
         ,   [Material]

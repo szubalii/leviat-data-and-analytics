@@ -16,4 +16,4 @@ UNION ALL
      ,    [SalesOffice]
      ,    [t_applicationId]
      FROM
-          [edw].[dim_SalesOffice_axbi]
+          [base_ff].[SalesOffice_axbi]

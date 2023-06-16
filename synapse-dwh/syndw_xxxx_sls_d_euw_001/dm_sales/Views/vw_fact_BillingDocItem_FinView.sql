@@ -260,7 +260,7 @@ SELECT
 ,   NULL AS [SDDocumentCategoryID]
 ,   NULL AS [SDDocumentCategory]
 ,   docBillingBudget.[AccountingDate] AS [BillingDocumentDate]
-,   NULL AS [SalesOfficeID]
+,   SO.[SalesOfficeID]
 ,   docBillingBudget.[SalesOrganizationID]
 ,   dimSOrg.[SalesOrganization] AS [SalesOrganization]
 ,   NULL AS [DistributionChannelID]
@@ -359,6 +359,10 @@ left join
     [edw].[dim_SalesOrganization] dimSOrg
     on
         dimSOrg.[SalesOrganizationID] = docBillingBudget.[SalesOrganizationID]
+LEFT JOIN 
+    [map_AXBI].[SalesOffice] SO
+    ON 
+        docBillingBudget.[axbi_DataAreaID]= SO.[DataAreaID]
 CROSS JOIN
     [edw].[dim_ValueType] VT
 WHERE VT.ValueTypeID= '20'

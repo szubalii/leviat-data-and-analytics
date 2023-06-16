@@ -33,7 +33,8 @@ SalesDocumentItem_Filtered_Out_Organization AS
     ,   FSL_DOC.[SalesTaker]
     ,   FSL_DOC.[SALESID]
     ,   FSL_DOC.[ITEMID]
-    ,   edw.svf_getInOutID_axbi (INOUT)                                  AS [InOutID]               
+    ,   edw.svf_getInOutID_axbi (INOUT)                                  AS [InOutID]  
+    ,   SO.SalesOfficeID             
     FROM intm_axbi.vw_FACT_SALESLINE FSL_DOC
     LEFT JOIN
         [map_AXBI].[SalesOrganization] AS SO
@@ -47,6 +48,9 @@ SalesDocumentItem_Filtered_Out_Organization AS
          [intm_axbi].[dim_CUSTTABLE]  CT
         ON
             CT.ACCOUNTNUM = DA.[DATAAREAID2] + '-' + FSL_DOC.CUSTACCOUNT
+    LEFT JOIN [map_AXBI].[SalesOffice] SO
+        ON FSL_DOC.[DATAAREAID] = SO.[DataAreaID]
+           
     WHERE
         (
             (
@@ -203,6 +207,7 @@ SalesDocumentItem_axbi_mapping AS (
     ,   SDIOrg.[CURRENCYCODE]
     ,   SDIOrg.[InOutID]
     ,   SD.[SalesDistrictID]                                             AS [SalesDistrictID]
+    ,   SDIOrg.SalesOfficeID
     ,   SDIOrg.[t_applicationId]
     ,   SDIOrg.[t_extractionDtm]
     FROM SalesDocumentItem_Filtered_Out_Organization SDIOrg
@@ -368,6 +373,7 @@ subCalculationMargin AS (
     ,   SDIaxbi.[SalesOrganizationID]
     ,   SDIaxbi.[InOutID]
     ,   SDIaxbi.[SalesDistrictID]
+    ,   SDIaxbi.[SalesOfficeID]
     ,   SDIaxbi.[t_applicationId]
     ,   SDIaxbi.[t_extractionDtm]
     FROM    
@@ -462,6 +468,7 @@ SELECT
 ,   SDIaxbi.[SalesOrganizationID]
 ,   SDIaxbi.[InOutID]
 ,   SDIaxbi.[SalesDistrictID]
+,   SDIaxbi.[SalesOfficeID]
 ,   SDIaxbi.[t_applicationId]
 ,   SDIaxbi.[t_extractionDtm]
 FROM 
@@ -512,6 +519,7 @@ SELECT
 ,   SDIaxbi.[SalesOrganizationID]
 ,   SDIaxbi.[InOutID]
 ,   SDIaxbi.[SalesDistrictID]
+,   SDIaxbi.[SalesOfficeID]
 ,   SDIaxbi.[t_applicationId]
 ,   SDIaxbi.[t_extractionDtm]
 FROM
@@ -583,6 +591,7 @@ SELECT
 ,   SDIaxbi.[SalesOrganizationID]
 ,   SDIaxbi.[InOutID]
 ,   SDIaxbi.[SalesDistrictID]
+,   SDIaxbi.[SalesOfficeID]
 ,   SDIaxbi.[t_applicationId]
 ,   SDIaxbi.[t_extractionDtm]
 FROM 

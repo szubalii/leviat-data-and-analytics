@@ -32,3 +32,4 @@ map_AXBI;StockUnit.csv;",";map_AXBI;StockUnit
 ;EClassCodes.csv;";";base_ff;EClassCodes
 ;SalesDocumentStatuses.csv;";";base_ff;SalesDocumentStatuses
 map_AXBI;SalesOffice.csv;";";map_AXBI;SalesOffice
+;SalesOffice_axbi.csv;";";base_ff;SalesOffice_axbi
