@@ -4063,7 +4063,7 @@
         "pk_field_names": "MANDT, DOCID"
       },
       {
-        "entity_id": 592,
+        "entity_id": 594,
         "entity_name": "I_PersonWorkAgreement_1",
         "data_category": "NULL",
         "client_field": "MANDT",
