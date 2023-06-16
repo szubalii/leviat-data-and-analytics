@@ -1,5 +1,6 @@
 parameters:
 - name: folder
+  type: string
 
 jobs:
 - job: BUILD_${{ upper(parameters.folder) }}
