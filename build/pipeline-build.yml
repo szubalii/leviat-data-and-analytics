@@ -123,30 +123,30 @@ stages:
   - template: ./jobs-validate.yml
 - stage: BUILD
   jobs:
-  - ${{ if(parameters.synapse_dwh) }}:
+  - ${{ if parameters.synapse_dwh }}:
     - template: ./jobs-build-solution.yml
       parameters:
         folder: synapse-dwh
   
-  - ${{ if(parameters.azure_data_factory) }}:
+  - ${{ if parameters.azure_data_factory }}:
     - template: ./jobs-build-solution.yml
       parameters:
         folder: azure-data-factory
   
   
-  - ${{ if(parameters.orchestration) }}:
+  - ${{ if parameters.orchestration }}:
     - template: ./jobs-build-solution.yml
       parameters:
         folder: orchestration
   
   
-  - ${{ if(parameters.xu_config) }}:
+  - ${{ if parameters.xu_config }}:
     - template: ./jobs-build-solution.yml
       parameters:
         folder: xu-config
   
   
-  - ${{ if(parameters.synapse_workspace) }}:
+  - ${{ if parameters.synapse_workspace }}:
     - template: ./jobs-build-solution.yml
       parameters:
         folder: synapse-workspace
@@ -237,18 +237,18 @@ stages:
           deploy:
             steps:
 
-            - ${{ if(parameters.azure_data_factory) }}:
+            - ${{ if parameters.azure_data_factory }}:
               - template: ../azure-data-factory/build/steps-deploy.yml
 
-            - ${{ if(parameters.orchestration) }}:
+            - ${{ if parameters.orchestration }}:
               - template: ../orchestration/build/steps-deploy.yml
 
-            - ${{ if(parameters.synapse_dwh) }}:
+            - ${{ if parameters.synapse_dwh }}:
               - template: ../synapse-dwh/build/steps-deploy.yml
 
-            - ${{ if(parameters.synapse_workspace) }}:
+            - ${{ if parameters.synapse_workspace }}:
               - template: ../synapse-workspace/build/steps-deploy.yml
 
-            - ${{ if(parameters.xu_config) }}:
+            - ${{ if parameters.xu_config }}:
               - template: ../xu-config/build/steps-deploy.yml
 
