@@ -5653,7 +5653,7 @@
         "schedule_recurrence": "A"
       },
       {
-        "entity_id": 592,
+        "entity_id": 595,
         "entity_name": "fact_CurrentDate",
         "sproc_name": "sp_materialize_view",
         "source_view_name": "vw_CurrentDate",
