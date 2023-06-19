@@ -745,6 +745,7 @@ SELECT
       , [SoldToPartyCalculated]
       , [InOutID]
       , [axbi_ItemNoCalc]
+      , [SalesOfficeID]
       , [t_applicationId]
       , [t_extractionDtm]
       , [t_lastActionCd]   
