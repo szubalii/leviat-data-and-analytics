@@ -11,7 +11,7 @@ SELECT
     ,Amount
     ,AmountCurrency
     ,Description
-    ,CommodityId            
+    ,CommodityId
     ,PartNumber
     ,PartRevisionNumber
     ,UnitOfMeasure
@@ -20,7 +20,7 @@ SELECT
     ,RequesterId
     ,AccountId
     ,AccountCompanyCode
-    ,ompanySiteId
+    ,CompanySiteId
     ,CostCenterId
     ,CostCenterCompanyCode
     ,ContractId
