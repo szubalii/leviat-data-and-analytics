@@ -5980,7 +5980,7 @@
         "entity_id": 594,
         "entity_name": "vw_dim_Invoice",
         "sproc_name": "unload_to_sftp",
-        "source_view_name": "vw_dim_Invoice",
+        "source_view_name": "vw_dim_Invoice_LastMonth",
         "execution_order": 2,
         "schedule_recurrence": "M"
       },
@@ -5988,7 +5988,7 @@
         "entity_id": 595,
         "entity_name": "vw_dim_PurchaseOrder",
         "sproc_name": "unload_to_sftp",
-        "source_view_name": "vw_dim_PurchaseOrder",
+        "source_view_name": "vw_dim_PurchaseOrder_LastMonth",
         "execution_order": 2,
         "schedule_recurrence": "M"
       },
