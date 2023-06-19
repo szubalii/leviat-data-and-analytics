@@ -714,7 +714,16 @@ FROM CTE_Product
     LEFT OUTER JOIN base_ff.EClassCodes ECC2
     ON LEFT(CTE_Product.ProductGroup,8) = ECC2.EClassCode
 
-GROUP BY sk_dim_Product, ProductGroup, ECC.EClassCode, ECC.EClassCategory, ECC.EClassCategoryDescription
+GROUP BY 
+    sk_dim_Product, 
+    ProductGroup, 
+    ECC.EClassCode, 
+    ECC.EClassCategory,
+    ECC.EClassCategoryDescription, 
+    [Category_L1],
+    [Category_L2],
+    [Category_L3],
+    [Category_L4]
 )
 
 SELECT
