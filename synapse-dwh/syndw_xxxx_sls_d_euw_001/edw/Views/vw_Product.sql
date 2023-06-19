@@ -701,6 +701,10 @@ SELECT
             THEN MAX(ECC2.EClassCategoryDescription)
         ELSE ECC.EClassCategoryDescription
         END AS EClassCategoryDescription 
+,   [Category_L1]
+,   [Category_L2]
+,   [Category_L3]
+,   [Category_L4]
 
 FROM CTE_Product
 
@@ -866,6 +870,10 @@ SELECT
 ,   ECM.[EClassCode]               
 ,   ECM.[EClassCategory]           
 ,   ECM.[EClassCategoryDescription]
+,   ECM.[Category_L1]
+,   ECM.[Category_L2]
+,   ECM.[Category_L3]
+,   ECM.[Category_L4]
 ,   C.[Classification]
 ,   [ZZ1_CustomFieldRiskMit_PRD]
 ,   [ZZ1_CustomFieldHighRis_PRD]
