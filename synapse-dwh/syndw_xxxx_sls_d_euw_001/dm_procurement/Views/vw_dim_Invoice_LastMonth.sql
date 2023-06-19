@@ -11,7 +11,7 @@ SELECT
     ,Amount
     ,AmountCurrency
     ,Description
-    ,CommodityId
+    ,ERPCommodityId
     ,PartNumber
     ,PartRevisionNumber
     ,UnitOfMeasure
