@@ -1,4 +1,5 @@
 CREATE VIEW [dm_procurement].[vw_dim_PurchaseOrder_LastMonth]
+AS
 SELECT
     POId
     ,ExtraPOKey
