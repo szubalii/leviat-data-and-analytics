@@ -43,5 +43,3 @@ JOIN
     [base_s4h_cax].[I_BusinessPartnerBank] BPB
     ON  
         [BankInfo] = CONCAT(BPB.[BANKCOUNTRYKEY],'|',BPB.[BANKNUMBER],'|',BPB.[BankAccount])
-ORDER BY 
-    BPB.[BANKCOUNTRYKEY],BPB.[BANKNUMBER],BPB.[BankAccount]

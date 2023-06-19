@@ -67,5 +67,3 @@ JOIN
     [base_s4h_cax].[I_CustomerSalesArea] CSA
     ON
         CustSalesArea.[Customer] = CSA.[Customer]
-ORDER BY
-    CSA.[Customer], CSA.[PaymentTerms]

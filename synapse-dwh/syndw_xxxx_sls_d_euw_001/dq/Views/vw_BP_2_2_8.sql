@@ -45,5 +45,3 @@ JOIN
     [base_s4h_cax].[I_SupplierPurchasingOrg] SPO
     ON
         SupOrg.[Supplier] = SPO.[Supplier]
-ORDER BY
-    SPO.[Supplier], SPO.[PaymentTerms]

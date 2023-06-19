@@ -70,5 +70,3 @@ JOIN
     [base_s4h_cax].[I_Address] A
     ON
         PhoneNumber.[PhoneNumber] = A.[PhoneNumber]
-ORDER BY
-    A.[PhoneNumber]

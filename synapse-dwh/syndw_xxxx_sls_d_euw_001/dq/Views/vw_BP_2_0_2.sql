@@ -84,5 +84,3 @@ JOIN
     [base_s4h_cax].[I_BusinessPartner] BP 
     ON
         OrganizationBPName.[OrganizationBPName1] = BP.[OrganizationBPName1]
-ORDER BY
-    BP.[OrganizationBPName1]

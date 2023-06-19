@@ -67,5 +67,3 @@ JOIN
     [base_s4h_cax].[I_CustomerCompany] CC
     ON
         CustCompany.[Customer] = CC.[Customer]
-ORDER BY
-    CC.[Customer], CC.[PaymentTerms]

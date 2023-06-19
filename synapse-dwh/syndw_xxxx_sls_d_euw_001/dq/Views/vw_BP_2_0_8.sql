@@ -25,5 +25,3 @@ JOIN
     [base_s4h_cax].[I_Businesspartnertaxnumber] BPTN
     ON
         TaxNumber.[TaxNumber] = CONCAT(BPTN.[BPTAXTYPE],'|',BPTN.[BPTAXNUMBER])
-ORDER BY
-    BPTN.[BPTAXTYPE],BPTN.[BPTAXNUMBER]
