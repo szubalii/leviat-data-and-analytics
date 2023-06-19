@@ -1,4 +1,4 @@
-﻿CREATE VIEW [dq].[vw_BP_2_2_7]
+﻿CREATE VIEW [dq].[vw_BP_2_2_1_Intercompany]
   AS
 
 SELECT
@@ -43,13 +43,9 @@ SELECT
     ,   SC.[IsToBeCheckedForDuplicates]     
     ,   SC.[PersonnelNumber]                
     ,   SC.[PreviousAccountNumber]
-    ,   '2.2.7' AS [RuleID]
+    ,   '2.2.1_Intercompany' AS [RuleID]
     ,   1 AS [Count]
 FROM
     [base_s4h_cax].[I_SupplierCompany] SC
-LEFT JOIN
-    [base_s4h_cax].[I_SupplierPurchasingOrg] SPO
-    ON
-        SC.[Supplier] = SPO.[Supplier]
 WHERE
-    SC.[PaymentTerms] <> SPO.[PaymentTerms]
+    LEFT(SC.[PaymentTerms],1)<>'L'

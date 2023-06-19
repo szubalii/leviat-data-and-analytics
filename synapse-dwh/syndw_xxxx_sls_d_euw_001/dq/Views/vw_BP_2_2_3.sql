@@ -1,7 +1,7 @@
-﻿CREATE VIEW [dq].[vw_BP_2_2_4]
+﻿CREATE VIEW [dq].[vw_BP_2_2_3]
   AS
 
-SELECT DISTINCT
+SELECT
         S.[Supplier]
     ,   S.[SupplierAccountGroup]
     ,   S.[SupplierName]
@@ -68,15 +68,17 @@ SELECT DISTINCT
     ,   S.[TaxInvoiceRepresentativeName]
     ,   S.[IndustryType]
     ,   S.[IN_GSTSupplierClassification]
-    ,   '2.2.4' AS [RuleID]
+    ,   '2.2.3' AS [RuleID]
     ,   1 AS [Count]
 FROM
     [base_s4h_cax].[I_Supplier] S
 LEFT JOIN
-    [base_s4h_cax].[I_SupplierCompany] SC
+    [base_s4h_cax].[I_SupplierPurchasingOrg] SPO
     ON
-        S.[Supplier] = SC.[Supplier]
+        S.[Supplier] = SPO.[Supplier]
 WHERE
-    LEFT(S.[Supplier], 2) = 'IP' AND S.[SupplierAccountGroup] = 'Z099'
+    S.[SupplierAccountGroup] NOT IN ( 'Z008', 'Z099')
     AND
-    SC.[Supplier] IS NULL
+    SPO.[CalculationSchemaGroupCode] <> 'TP'
+    AND
+    (SPO.[PurchasingOrganization] <> '' AND SPO.[PurchasingOrganization] IS NOT NULL)

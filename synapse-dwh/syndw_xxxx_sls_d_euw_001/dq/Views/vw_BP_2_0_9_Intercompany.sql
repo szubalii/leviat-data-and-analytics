@@ -1,4 +1,4 @@
-﻿CREATE VIEW [dq].[vw_BP_2_2_4]
+CREATE VIEW [dq].[vw_BP_2_0_9_Intercompany]
   AS
 
 SELECT DISTINCT
@@ -68,7 +68,7 @@ SELECT DISTINCT
     ,   S.[TaxInvoiceRepresentativeName]
     ,   S.[IndustryType]
     ,   S.[IN_GSTSupplierClassification]
-    ,   '2.2.4' AS [RuleID]
+    ,   '2.0.9_Intercompany' AS [RuleID]
     ,   1 AS [Count]
 FROM
     [base_s4h_cax].[I_Supplier] S
@@ -77,6 +77,11 @@ LEFT JOIN
     ON
         S.[Supplier] = SC.[Supplier]
 WHERE
-    LEFT(S.[Supplier], 2) = 'IP' AND S.[SupplierAccountGroup] = 'Z099'
+    (SC.[PaymentMethodsList] <> '' AND SC.[PaymentMethodsList] IS NOT NULL)
     AND
-    SC.[Supplier] IS NULL
+    S.[Supplier] NOT IN
+    (SELECT
+        [BUSINESSPARTNER]  COLLATE SQL_Latin1_General_CP1_CS_AS
+     FROM
+        [base_s4h_cax].[I_BusinessPartnerBank]
+    )

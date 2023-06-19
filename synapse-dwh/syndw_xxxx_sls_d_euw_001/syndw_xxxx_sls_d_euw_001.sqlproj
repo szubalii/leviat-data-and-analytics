@@ -1243,16 +1243,29 @@
     <Build Include="base_s4h_cax\Tables\P_OrganizationAddress.sql" />
     <Build Include="dq\Views\vw_BP_2_0_1.sql" />
     <Build Include="dq\Views\vw_BP_2_0_2.sql" />
+    <Build Include="dq\Views\vw_BP_2_0_4.sql" />
+    <Build Include="dq\Views\vw_BP_2_0_5.sql" />
     <Build Include="dq\Views\vw_BP_2_0_6.sql" />
+    <Build Include="dq\Views\vw_BP_2_0_8.sql" />
+    <Build Include="dq\Views\vw_BP_2_0_9_Intercompany.sql" />
+    <Build Include="dq\Views\vw_BP_2_0_9_ThirdParty.sql" />
     <Build Include="dq\Views\vw_BP_2_0_10.sql" />
     <Build Include="dq\Views\vw_BP_2_0_11.sql" />
     <Build Include="dq\Views\vw_BP_2_1_2.sql" />
     <Build Include="dq\Views\vw_BP_2_1_4.sql" />
     <Build Include="dq\Views\vw_BP_2_1_6.sql" />
     <Build Include="dq\Views\vw_BP_2_1_7.sql" />
+    <Build Include="dq\Views\vw_BP_2_1_8.sql" />
+    <Build Include="dq\Views\vw_BP_2_1_9.sql" />
+    <Build Include="dq\Views\vw_BP_2_1_10.sql" />
+    <Build Include="dq\Views\vw_BP_2_2_1_Intercompany.sql" />
+    <Build Include="dq\Views\vw_BP_2_2_1_ThirdParty.sql" />/>
+    <Build Include="dq\Views\vw_BP_2_2_2.sql" />
+    <Build Include="dq\Views\vw_BP_2_2_3.sql" />
     <Build Include="dq\Views\vw_BP_2_2_4.sql" />
     <Build Include="dq\Views\vw_BP_2_2_5.sql" />
     <Build Include="dq\Views\vw_BP_2_2_7.sql" />
+    <Build Include="dq\Views\vw_BP_2_2_8.sql" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PostDeploy Include="Scripts\Post-Deploy\Script.PostDeployment.sql" />
