@@ -133,82 +133,23 @@ stages:
       parameters:
         folder: azure-data-factory
   
-  
   - ${{ if parameters.orchestration }}:
     - template: ./jobs-build-solution.yml
       parameters:
         folder: orchestration
-  
   
   - ${{ if parameters.xu_config }}:
     - template: ./jobs-build-solution.yml
       parameters:
         folder: xu-config
   
-  
   - ${{ if parameters.synapse_workspace }}:
     - template: ./jobs-build-solution.yml
       parameters:
         folder: synapse-workspace
-  
-  # - job: BUILD_SynapseDWH
-  #   pool:
-  #     name: 'VM'
-  #     demands:
-  #     - node.js
-  #     - VisualStudio
-  #     - Agent.ComputerName -equals $(VMName)
-  #   steps:
-  #   - template: ../synapse-dwh/build/steps-build.yml
-  #   - template: ../synapse-dwh/build/steps-artifact.yml
-
-  
-  # - job: BUILD_ADF
-  #   pool:
-  #     name: 'VM'
-  #     demands:
-  #     - node.js
-  #     - VisualStudio
-  #     - Agent.ComputerName -equals $(VMName)
-  #   steps:
-  #   - template: ../azure-data-factory/build/steps-build.yml
-  #   - template: ../azure-data-factory/build/steps-artifact.yml
-
-  # - job: BUILD_Orchestration
-  #   pool:
-  #     name: 'VM'
-  #     demands:
-  #     - node.js
-  #     - VisualStudio
-  #     - Agent.ComputerName -equals $(VMName)
-  #   steps:
-  #   - template: ../orchestration/build/steps-build.yml
-  #   - template: ../orchestration/build/steps-artifact.yml
-  
-  # - job: BUILD_XtractUniversal
-  #   pool:
-  #     name: 'VM'
-  #     demands:
-  #     - node.js
-  #     - VisualStudio
-  #     - Agent.ComputerName -equals $(VMName)
-  #   steps:
-  #   - template: ../xu-config/build/steps-build.yml
-  #   - template: ../xu-config/build/steps-artifact.yml
-  
-  # - job: BUILD_SynapseServerless
-  #   pool:
-  #     name: 'VM'
-  #     demands:
-  #     - node.js
-  #     - VisualStudio
-  #     - Agent.ComputerName -equals $(VMName)
-  #   steps:
-  #   - template: ../synapse-workspace/build/steps-build.yml
-  #   - template: ../synapse-workspace/build/steps-artifact.yml
 
 
-- ${{ if eq(parameters.runDeployment, true) }}:
+- ${{ if parameters.runDeployment }}:
   - stage: DEPLOY
     jobs:
     - deployment: Deploy
