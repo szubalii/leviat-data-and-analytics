@@ -526,6 +526,7 @@ original AS (
          , doc.[SoldToPartyCalculated]
          , doc.[InOutID]
          , doc.[axbi_ItemNoCalc]
+         , doc.[SalesOfficeID]
          , doc.[t_applicationId]
          , doc.[t_extractionDtm]
          , doc.[t_lastActionCd]          
