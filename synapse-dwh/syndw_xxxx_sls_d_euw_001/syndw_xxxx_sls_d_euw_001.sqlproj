@@ -1259,7 +1259,7 @@
     <Build Include="dq\Views\vw_BP_2_1_9.sql" />
     <Build Include="dq\Views\vw_BP_2_1_10.sql" />
     <Build Include="dq\Views\vw_BP_2_2_1_Intercompany.sql" />
-    <Build Include="dq\Views\vw_BP_2_2_1_ThirdParty.sql" />/>
+    <Build Include="dq\Views\vw_BP_2_2_1_ThirdParty.sql" />
     <Build Include="dq\Views\vw_BP_2_2_2.sql" />
     <Build Include="dq\Views\vw_BP_2_2_3.sql" />
     <Build Include="dq\Views\vw_BP_2_2_4.sql" />
