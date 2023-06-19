@@ -1,0 +1,1 @@
+It's a dummy sql script to pass check in validate-config.js
