@@ -116,7 +116,7 @@
 , [ExternalProcurementProfile] nvarchar(2)
 , [PurReqnRequestor] nvarchar(60)
 , [ExternalApprovalStatus] nvarchar(1)
-, [CommitmentItem] nvarchar(14)
+--, [CommitmentItem] nvarchar(14)
 , [FundsCenter] nvarchar(16)
 , [Fund] nvarchar(10)
 , [GrantID] nvarchar(20)

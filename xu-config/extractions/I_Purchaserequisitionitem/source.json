@@ -997,15 +997,6 @@
                     "conversionExit": ""
                 },
                 {
-                    "name": "COMMITMENTITEM",
-                    "description": "Commitment Item",
-                    "abapType": "CharacterString",
-                    "length": 14,
-                    "isSelected": true,
-                    "formattedLength": 24,
-                    "conversionExit": "FMCIS"
-                },
-                {
                     "name": "FUNDSCENTER",
                     "description": "Funds Center",
                     "abapType": "CharacterString",
