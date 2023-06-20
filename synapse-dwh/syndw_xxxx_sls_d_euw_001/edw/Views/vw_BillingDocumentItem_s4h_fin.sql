@@ -202,7 +202,7 @@ BDIwithMatType AS (
         ON
             BDI.[Material] = Product.[ProductID]
     LEFT JOIN
-        [edw].[vw_ProductHierarchyVariantConfigCharacteristic_delta] AS VC
+        [edw].[vw_ProductHierarchyVariantConfigCharacteristic] AS VC
            ON VC.SalesDocument =
             CASE
                WHEN BDI.SalesSDDocumentCategoryID='V'

@@ -5499,8 +5499,7 @@
         "entity_name": "fact_ProductHierarchyVariantConfigCharacteristic_active",
         "sproc_name": "sp_load_fact_ProductHierarchyVariantConfigCharacteristic_active",
         "update_mode": "Delta",
-        "execution_order": 0,
-        "schedule_recurrence": "D"
+        "execution_order": 0
       },
       {
         "entity_id": 429,
