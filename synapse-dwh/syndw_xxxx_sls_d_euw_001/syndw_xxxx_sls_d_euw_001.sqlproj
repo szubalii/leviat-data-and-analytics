@@ -1241,6 +1241,7 @@
     <Build Include="dm_sales\Views\vw_fact_ProductSalesDelivery.sql" />
     <Build Include="base_s4h_cax\Tables\Z_C_VariantConfig_ProductHierarchy_F.sql" />
     <Build Include="base_s4h_cax\Tables\Z_C_VariantConfig_OtherCharacteristics_F.sql" />
+     <Build Include="base_s4h_cax\Tables\I_PersonWorkAgreement_1.sql" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PostDeploy Include="Scripts\Post-Deploy\Script.PostDeployment.sql" />

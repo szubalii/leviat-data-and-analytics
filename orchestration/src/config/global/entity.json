@@ -4082,6 +4082,18 @@
         "base_table_name": "Opt_Vim_1Head",
         "schedule_recurrence": "D",
         "pk_field_names": "MANDT, DOCID"
+      },
+      {
+        "entity_id": 594,
+        "entity_name": "I_PersonWorkAgreement_1",
+        "data_category": "DIMENSION",
+        "client_field": "MANDT",
+        "tool_name": "Theobald",
+        "extraction_type": "Table",
+        "update_mode": "Full",
+        "base_table_name": "I_PersonWorkAgreement_1",
+        "schedule_recurrence": "D",
+        "pk_field_names": "MANDT, PERSONWORKAGREEMENT"
       }
     ]
   },
