@@ -1,4 +1,5 @@
-﻿WITH CTE_Product AS(
+﻿CREATE VIEW [edw].[vw_Product] AS 
+WITH CTE_Product AS(
 SELECT
     product.[Product] AS [sk_dim_Product]
 ,   product.[Product] AS [ProductID]
