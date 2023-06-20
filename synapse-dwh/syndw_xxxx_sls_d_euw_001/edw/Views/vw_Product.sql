@@ -1,6 +1,4 @@
-﻿CREATE VIEW [edw].[vw_Product]
-AS
-WITH CTE_Product AS(
+﻿WITH CTE_Product AS(
 SELECT
     product.[Product] AS [sk_dim_Product]
 ,   product.[Product] AS [ProductID]
@@ -680,27 +678,15 @@ SELECT
 ,   NULL    AS [ZZ1_CustomFieldRiskRea_PRD]
 ,   'synapse-dwh'AS [t_applicationId]
 ,   NULL    AS [t_extractionDtm]
-),
+)
 
-EClassMapping AS (
+, EClassMapping AS (
 SELECT 
     sk_dim_Product
 ,   ProductGroup
-,   CASE 
-        WHEN (ISNUMERIC(LEFT(CTE_Product.ProductGroup,2)) = 1 AND LEFT(CTE_Product.ProductGroup,2) NOT IN ('01', '02'))
-            THEN LEFT(CTE_Product.ProductGroup,8)
-        ELSE ECC.EClassCode
-        END AS EClassCode
-,   CASE
-        WHEN (ISNUMERIC(LEFT(CTE_Product.ProductGroup,2)) = 1 AND LEFT(CTE_Product.ProductGroup,2) NOT IN ('01', '02'))
-            THEN MAX(ECC2.EClassCategory)
-        ELSE ECC.EClassCategory
-        END AS EClassCategory
-,   CASE 
-        WHEN (ISNUMERIC(LEFT(CTE_Product.ProductGroup,2)) = 1 AND LEFT(CTE_Product.ProductGroup,2) NOT IN ('01', '02'))
-            THEN MAX(ECC2.EClassCategoryDescription)
-        ELSE ECC.EClassCategoryDescription
-        END AS EClassCategoryDescription 
+,   ECC.EClassCode
+  , ECC.EClassCategory
+  , ECC.EClassCategoryDescription
 ,   ECC.[Category_L1]
 ,   ECC.[Category_L2]
 ,   ECC.[Category_L3]
@@ -708,14 +694,10 @@ SELECT
 
 FROM CTE_Product
 
-    --FBOUW, 20/06/23: CRH uses a 5 layer hierarchy, Leviat a 4 layer hierarchy. The ProductGroup can have a suffix CHAR 
-    --to identify the 5th layer of the Leviat Hierarchy. If this is the case, need a seperate join on the first 8 CHAR's to 
-    --the EClassCode to identify the correct EClassCode and Hierarchy.
+    --FBOUW, 20/06/23: We changed the EClassCode File to have both EClassCodes and MaterialGroupID's in the MaterialGroupID.
+    --We can join on the first 8 chars, as Leviat sometimes suffixes to suit a 5 layer hierarchy.
     LEFT OUTER JOIN base_ff.EClassCodes ECC 
-    ON CTE_Product.ProductGroup = ECC.MaterialGroupID
-
-    LEFT OUTER JOIN base_ff.EClassCodes ECC2
-    ON LEFT(CTE_Product.ProductGroup,8) = ECC2.EClassCode
+    ON LEFT(CTE_Product.ProductGroup, 8) = ECC.MaterialGroupID
 
 GROUP BY 
     sk_dim_Product, 
