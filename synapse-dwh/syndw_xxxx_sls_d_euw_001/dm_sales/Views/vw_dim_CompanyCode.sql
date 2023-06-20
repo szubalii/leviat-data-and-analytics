@@ -16,13 +16,13 @@ SELECT
 , CC.[CompanyCode]
 , CC.[CityName]
 , CC.[Country]
+, Ctr.[Country]         AS CountryName
 , CC.[Currency]
 , CC.[ChartOfAccounts]
 , CC.[Company]
 , CC.[CashDiscountBaseAmtIsNetAmt]
 , SO.[RegionID]         AS RegionID
 , SO.[RegionName]       AS Region
-, Ctr.[Country]         AS CtrCountry
 , CC.[t_jobDtm]
 FROM [edw].[dim_CompanyCode]    CC
 LEFT JOIN [edw].[dim_Country]   Ctr
