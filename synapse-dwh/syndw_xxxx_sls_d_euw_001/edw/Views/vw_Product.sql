@@ -701,13 +701,16 @@ SELECT
             THEN MAX(ECC2.EClassCategoryDescription)
         ELSE ECC.EClassCategoryDescription
         END AS EClassCategoryDescription 
-,   [Category_L1]
-,   [Category_L2]
-,   [Category_L3]
-,   [Category_L4]
+,   ECC.[Category_L1]
+,   ECC.[Category_L2]
+,   ECC.[Category_L3]
+,   ECC.[Category_L4]
 
 FROM CTE_Product
 
+    --FBOUW, 20/06/23: CRH uses a 5 layer hierarchy, Leviat a 4 layer hierarchy. The ProductGroup can have a suffix CHAR 
+    --to identify the 5th layer of the Leviat Hierarchy. If this is the case, need a seperate join on the first 8 CHAR's to 
+    --the EClassCode to identify the correct EClassCode and Hierarchy.
     LEFT OUTER JOIN base_ff.EClassCodes ECC 
     ON CTE_Product.ProductGroup = ECC.MaterialGroupID
 
@@ -720,11 +723,12 @@ GROUP BY
     ECC.EClassCode, 
     ECC.EClassCategory,
     ECC.EClassCategoryDescription, 
-    [Category_L1],
-    [Category_L2],
-    [Category_L3],
-    [Category_L4]
+    ECC.[Category_L1],
+    ECC.[Category_L2],
+    ECC.[Category_L3],
+    ECC.[Category_L4]
 )
+
 
 SELECT
     
