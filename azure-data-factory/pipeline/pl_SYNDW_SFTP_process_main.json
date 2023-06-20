@@ -69,6 +69,10 @@
 							"dependsOn": [],
 							"userProperties": [],
 							"typeProperties": {
+								"pipeline": {
+									"referenceName": "pl_SYNDW_SFTP_process_entity",
+									"type": "PipelineReference"
+								},
 								"waitOnCompletion": true,
 								"parameters": {
 									"sproc_schema_name": {
@@ -101,6 +105,10 @@
 									},
 									"run_id": {
 										"value": "@pipeline().RunId",
+										"type": "Expression"
+									},
+									"entity_name": {
+										"value": "@item().entity_name",
 										"type": "Expression"
 									},
 									"source_layer": "DM",
