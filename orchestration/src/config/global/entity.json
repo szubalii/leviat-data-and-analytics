@@ -3657,17 +3657,6 @@
         "schedule_recurrence": "D"
       },
       {
-        "entity_id": 468,
-        "entity_name": "I_GLAccountText_F",
-        "data_category": "TEXT",
-        "client_field": "MANDT",
-        "tool_name": "Theobald",
-        "extraction_type": "ODP",
-        "update_mode": "Full",
-        "base_table_name": "I_GLAccountText",
-        "pk_field_names": "CHARTOFACCOUNTS, GLACCOUNT, LANGUAGE"
-      },
-      {
         "entity_id": 469,
         "entity_name": "I_PurchasingDocumentItem",
         "data_category": "NULL",
