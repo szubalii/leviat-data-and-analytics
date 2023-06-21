@@ -146,20 +146,8 @@
     [IsChemicalComplianceRelevant]   nvarchar(2),
     [LogisticalProductCategory]      nvarchar(2),
     [SalesProduct]                   nvarchar(80),
-    [ProdCharc1InternalNumber]       char(10) collate Latin1_General_100_BIN2,
-    [ProdCharc2InternalNumber]       char(10) collate Latin1_General_100_BIN2,
-    [ProdCharc3InternalNumber]       char(10) collate Latin1_General_100_BIN2,
-    [ProductCharacteristic1]         nvarchar(36),
-    [ProductCharacteristic2]         nvarchar(36),
-    [ProductCharacteristic3]         nvarchar(36),
     [DfsAmmunitionGroupCode]         nvarchar(16),
     [DfsRICIdentifier]               bigint,
-    [DfsProductSensitivity]          nvarchar(8),
-    [DfsManufacturerPartLongNumber]  nvarchar(120),
-    [DfsMatlConditionMgmt]           nvarchar(2),
-    [DfsReturnDelivery]              nvarchar(2),
-    [DfsLogisticsLevel]              nvarchar(2),
-    [DfsNationalItemIdnNumber]       nvarchar(18),
     [MaterialGroupName]              nvarchar(20),
     [MaterialGroupText]              nvarchar(60),
     [EClassCode]                     NVARCHAR(8),
@@ -184,4 +172,3 @@
     WITH
         (
         DISTRIBUTION = REPLICATE, HEAP )
-GO
