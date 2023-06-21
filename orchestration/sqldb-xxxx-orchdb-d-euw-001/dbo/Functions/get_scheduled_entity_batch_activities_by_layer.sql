@@ -2,6 +2,7 @@
 CREATE FUNCTION [dbo].[get_scheduled_entity_batch_activities_by_layer](
     @adhoc bit = 0,
     @date DATE,
+    @rerunSuccessfulFullEntities BIT = 0 ,
     @layer_nk VARCHAR(50) = 'EDW'
 )
 RETURNS TABLE AS RETURN
@@ -92,6 +93,8 @@ RETURNS TABLE AS RETURN
                 lb.activity_id = ba.activity_id
         WHERE
             e.layer_nk = @layer_nk
+            AND
+            @rerunSuccessfulFullEntities != 1
             -- AND (
             --     e.update_mode = 'Full' OR e.update_mode IS NULL
             -- )
