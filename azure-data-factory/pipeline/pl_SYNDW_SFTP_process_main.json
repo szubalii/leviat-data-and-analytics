@@ -1,0 +1,573 @@
+{
+	"name": "pl_SYNDW_SFTP_process_main",
+	"properties": {
+		"activities": [
+			{
+				"name": "Get Synapse SFTP entities",
+				"type": "Lookup",
+				"dependsOn": [
+					{
+						"activity": "Log Pipeline",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 10,
+					"retryIntervalInSeconds": 60,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderQuery": {
+							"value": "SELECT *\n    FROM [dbo].[get_scheduled_entity_batch_activities_by_layer] (\n    @{pipeline().parameters.adhoc},\n    '@{pipeline().parameters.date}',\n    'SFTP'\n) \n    @{pipeline().parameters.entity_filter}",
+							"type": "Expression"
+						},
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "ds_orch_db",
+						"type": "DatasetReference",
+						"parameters": {
+							"sqlDb": {
+								"value": "@pipeline().globalParameters.sqlDb",
+								"type": "Expression"
+							}
+						}
+					},
+					"firstRowOnly": false
+				}
+			},
+			{
+				"name": "ForEach Entity",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "Get Synapse SFTP entities",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('Get Synapse SFTP Entities').output.value",
+						"type": "Expression"
+					},
+					"isSequential": true,
+					"activities": [
+						{
+							"name": "Process SFTP entity",
+							"type": "ExecutePipeline",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"pipeline": {
+									"referenceName": "pl_SYNDW_SFTP_process_entity",
+									"type": "PipelineReference"
+								},
+								"waitOnCompletion": true,
+								"parameters": {
+									"sproc_schema_name": {
+										"value": "@item().sproc_schema_name",
+										"type": "Expression"
+									},
+									"sproc_name": {
+										"value": "@item().sproc_name",
+										"type": "Expression"
+									},
+									"source_schema_name": {
+										"value": "@item().source_schema_name",
+										"type": "Expression"
+									},
+									"source_view_name": {
+										"value": "@item().source_view_name",
+										"type": "Expression"
+									},
+									"dest_schema_name": {
+										"value": "@item().dest_schema_name",
+										"type": "Expression"
+									},
+									"dest_table_name": {
+										"value": "@item().dest_table_name",
+										"type": "Expression"
+									},
+									"entity_id": {
+										"value": "@item().entity_id",
+										"type": "Expression"
+									},
+									"run_id": {
+										"value": "@pipeline().RunId",
+										"type": "Expression"
+									},
+									"entity_name": {
+										"value": "@item().entity_name",
+										"type": "Expression"
+									},
+									"source_layer": "DM",
+									"target_layer": "SFTP"
+								}
+							}
+						}
+					]
+				}
+			},
+			{
+				"name": "Log Pipeline",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "Stringify Parameters",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[set_pipeline_log]",
+					"storedProcedureParameters": {
+						"message": {
+							"value": {
+								"value": "@{pipeline().TriggerType} execution triggered at @{pipeline().TriggerTime}",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"pipeline_name": {
+							"value": {
+								"value": "@pipeline().Pipeline",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"run_id": {
+							"value": {
+								"value": "@pipeline().RunId",
+								"type": "Expression"
+							},
+							"type": "Guid"
+						},
+						"start_date_time": {
+							"value": {
+								"value": "@formatDateTime(utcnow(), 'yyyy-MM-dd HH:mm:ss')",
+								"type": "Expression"
+							},
+							"type": "DateTime"
+						},
+						"status": {
+							"value": "InProgress",
+							"type": "String"
+						},
+						"user_name": {
+							"value": {
+								"value": "@pipeline().GroupId",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"parent_run_id": {
+							"value": {
+								"value": "@pipeline().parameters.parent_run_id",
+								"type": "Expression"
+							}
+						},
+						"parameters": {
+							"value": {
+								"value": "@variables('parameters')",
+								"type": "Expression"
+							},
+							"type": "String"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"sqlDb": {
+							"value": "@pipeline().globalParameters.sqlDb",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "Set Status Succeeded",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "ForEach Entity",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[change_status_pipeline_log]",
+					"storedProcedureParameters": {
+						"end_date_time": {
+							"value": {
+								"value": "@formatDateTime(utcnow(), 'yyyy-MM-dd HH:mm:ss')",
+								"type": "Expression"
+							},
+							"type": "DateTime"
+						},
+						"message": {
+							"value": {
+								"value": "Finished successfully",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"run_id": {
+							"value": {
+								"value": "@pipeline().RunId",
+								"type": "Expression"
+							},
+							"type": "Guid"
+						},
+						"status": {
+							"value": {
+								"value": "Succeeded",
+								"type": "Expression"
+							},
+							"type": "String"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"sqlDb": {
+							"value": "@pipeline().globalParameters.sqlDb",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "Set Status Failed - ForEach",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "ForEach Entity",
+						"dependencyConditions": [
+							"Failed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[change_status_pipeline_log]",
+					"storedProcedureParameters": {
+						"end_date_time": {
+							"value": {
+								"value": "@formatDateTime(utcnow(), 'yyyy-MM-dd HH:mm:ss')",
+								"type": "Expression"
+							},
+							"type": "DateTime"
+						},
+						"message": {
+							"value": {
+								"value": "Execution Failed",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"run_id": {
+							"value": {
+								"value": "@pipeline().RunId",
+								"type": "Expression"
+							},
+							"type": "Guid"
+						},
+						"status": {
+							"value": {
+								"value": "Failed",
+								"type": "Expression"
+							},
+							"type": "String"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"sqlDb": {
+							"value": "@pipeline().globalParameters.sqlDb",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "Log Exception - Get Entities",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "Get Synapse SFTP entities",
+						"dependencyConditions": [
+							"Failed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[log_exception]",
+					"storedProcedureParameters": {
+						"batch_id": {
+							"value": null,
+							"type": "Guid"
+						},
+						"category": {
+							"value": "InternalError",
+							"type": "String"
+						},
+						"entity_id": {
+							"value": null,
+							"type": "Int64"
+						},
+						"error_msg": {
+							"value": {
+								"value": "@activity('Get Synapse SFTP entities').Error.Message",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"run_id": {
+							"value": {
+								"value": "@pipeline().RunId",
+								"type": "Expression"
+							},
+							"type": "Guid"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"sqlDb": {
+							"value": "@pipeline().globalParameters.sqlDb",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "Set Status Failed - Get Entitites",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "Log Exception - Get Entities",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[change_status_pipeline_log]",
+					"storedProcedureParameters": {
+						"end_date_time": {
+							"value": {
+								"value": "@formatDateTime(utcnow(), 'yyyy-MM-dd HH:mm:ss')",
+								"type": "Expression"
+							},
+							"type": "DateTime"
+						},
+						"message": {
+							"value": {
+								"value": "Execution Failed",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"run_id": {
+							"value": {
+								"value": "@pipeline().RunId",
+								"type": "Expression"
+							},
+							"type": "Guid"
+						},
+						"status": {
+							"value": {
+								"value": "Failed",
+								"type": "Expression"
+							},
+							"type": "String"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"sqlDb": {
+							"value": "@pipeline().globalParameters.sqlDb",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "Fail Getting Entities",
+				"type": "Fail",
+				"dependsOn": [
+					{
+						"activity": "Set Status Failed - Get Entitites",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"message": {
+						"value": "@concat(\n    'Failed to get SFTP entities: ',\n    activity('Get Synapse SFTP Entities').Error.Message\n)",
+						"type": "Expression"
+					},
+					"errorCode": "500"
+				}
+			},
+			{
+				"name": "Fail SFTP entity",
+				"type": "Fail",
+				"dependsOn": [
+					{
+						"activity": "Set Status Failed - ForEach",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"message": {
+						"value": "@concat(\n    'Failed to process SFTP entity',\n    activity('Process SFTP entity').Error.Message\n)",
+						"type": "Expression"
+					},
+					"errorCode": "500"
+				}
+			},
+			{
+				"name": "Stringify Parameters",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "Get Parameters for Run",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "parameters",
+					"value": {
+						"value": "@string(activity('Get Parameters for Run').output.parameters)",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Get Parameters for Run",
+				"type": "WebActivity",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"url": {
+						"value": "@concat(\n    'https://management.azure.com/subscriptions/',\n    'f199b488-7d9d-4992-aeda-c10a1e1c9b9e',\n    '/resourceGroups/',\n    pipeline().globalParameters.resourceGroupName,\n    '/providers/Microsoft.DataFactory/factories/',\n    pipeline().DataFactory,\n    if(equals(pipeline().TriggerName, 'Sandbox'), '/sandboxpipelineruns/', '/pipelineruns/'),\n    pipeline().RunId,\n    if(equals(pipeline().TriggerName, 'Sandbox'), '?api-version=2017-09-01-preview', '?api-version=2018-06-01')\n)",
+						"type": "Expression"
+					},
+					"method": "GET",
+					"authentication": {
+						"type": "MSI",
+						"resource": "https://management.core.windows.net/"
+					}
+				}
+			}
+		],
+		"parameters": {
+			"adhoc": {
+				"type": "int",
+				"defaultValue": 0
+			},
+			"parent_run_id": {
+				"type": "string"
+			},
+			"date": {
+				"type": "string",
+				"defaultValue": "2022/05/02"
+			},
+			"entity_filter": {
+				"type": "string",
+				"defaultValue": "'a' = 'a'"
+			}
+		},
+		"variables": {
+			"parameters": {
+				"type": "String"
+			}
+		},
+		"folder": {
+			"name": "00 ELT/05 Synapse Transformation/05 SFTP"
+		},
+		"annotations": [],
+		"lastPublishTime": "2021-10-25T15:25:01Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

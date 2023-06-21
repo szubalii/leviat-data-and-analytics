@@ -1,5 +1,5 @@
 {
-	"name": "pl_report_unload",
+	"name": "pl_SFTP_report_unload",
 	"properties": {
 		"activities": [
 			{
@@ -116,7 +116,7 @@
 			}
 		},
 		"folder": {
-			"name": "00 ELT/07 Unload to SFTP"
+			"name": "00 ELT/05 Synapse Transformation/05 SFTP"
 		},
 		"annotations": []
 	}
