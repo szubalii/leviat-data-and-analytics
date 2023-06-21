@@ -21,7 +21,7 @@ jobs:
   - script: |
       echo deployEnv: $(deployEnv)
       echo envIndex: $(envIndex)
-- deployment: DEPLOY_${{ upper(replace(parameters.folder, '-', '_')) }}
+- deployment: Deploy_${{replace(parameters.folder, '-', '_')}}
   timeoutInMinutes: 120
   pool:
     name: 'VM'
