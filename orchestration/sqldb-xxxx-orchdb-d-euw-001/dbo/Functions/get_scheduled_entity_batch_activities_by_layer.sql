@@ -93,8 +93,6 @@ RETURNS TABLE AS RETURN
                 lb.activity_id = ba.activity_id
         WHERE
             e.layer_nk = @layer_nk
-            AND
-            @rerunSuccessfulFullEntities != 1
             -- AND (
             --     e.update_mode = 'Full' OR e.update_mode IS NULL
             -- )
@@ -114,7 +112,7 @@ RETURNS TABLE AS RETURN
             concat(
                 '[',
                 CASE
-                    WHEN isRequired = 1
+                    WHEN isRequired = 1 OR @rerunSuccessfulFullEntities = 1
                     THEN concat(
                         '"',
                         string_agg(activity_nk, '","') WITHIN group (ORDER BY activity_order asc),
@@ -126,7 +124,7 @@ RETURNS TABLE AS RETURN
             concat(
                 '{',
                 CASE
-                    WHEN isRequired = 0
+                    WHEN isRequired = 0 AND @rerunSuccessfulFullEntities != 1
                     THEN string_agg(
                         concat(
                             '"',
