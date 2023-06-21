@@ -175,23 +175,19 @@ stages:
       - template: ./jobs-deploy-solution.yml
         parameters:
           folder: xu-config
-          clean: $(clean)
     - ${{ if variables.buildAndDeploy_synapse_dwh }}:
       - template: ./jobs-deploy-solution.yml
         parameters:
           folder: synapse-dwh
           test: true
-          clean: $(clean)
     - ${{ if variables.buildAndDeploy_orchestration }}:
       - template: ./jobs-deploy-solution.yml
         parameters:
           folder: orchestration
-          clean: $(clean)
     - ${{ if variables.buildAndDeploy_synapse_workspace }}:
       - template: ./jobs-deploy-solution.yml
         parameters:
           folder: synapse-workspace
-          clean: $(clean)
 
   - stage: DEPLOY_2
     jobs:
@@ -200,4 +196,3 @@ stages:
       - template: ./jobs-deploy-solution.yml
         parameters:
           folder: azure-data-factory
-          clean: $(clean)
