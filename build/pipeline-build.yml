@@ -1,6 +1,5 @@
 trigger: none
 
-
 parameters:
 - name: runDeployment
   type: boolean
@@ -29,6 +28,20 @@ parameters:
   - all
 
 variables:
+
+- name: buildAndDeploy_synapse_dwh
+  value: ${{ parameters.synapse_dwh }}
+- name: buildAndDeploy_azure_data_factory
+  value: ${{ parameters.azure_data_factory }}
+- name: buildAndDeploy_orchestration
+  value: ${{ parameters.orchestration }}
+- name: buildAndDeploy_xu_config
+  value: ${{ parameters.xu_config }}
+- name: buildAndDeploy_synapse_workspace
+  value: ${{ parameters.synapse_workspace }}
+- name: clean
+  value: ${{ parameters.clean }}
+
 
 - name: synDWHSolution
   value: '**/synapse-dwh/*.sln'
@@ -117,79 +130,74 @@ stages:
         echo Build.SourceBranch: ${{ variables['Build.SourceBranch'] }}
         echo Build.SourceBranchName: ${{ variables['Build.SourceBranchName'] }}
         echo deployEnv: $(deployEnv)
+        echo buildAndDeploy_synapse_dwh : $(buildAndDeploy_synapse_dwh)
+        echo buildAndDeploy_azure_data_factory : $(buildAndDeploy_azure_data_factory)
+        echo buildAndDeploy_orchestration : $(buildAndDeploy_orchestration)
+        echo buildAndDeploy_xu_config : $(buildAndDeploy_xu_config)
+        echo buildAndDeploy_synapse_workspace : $(buildAndDeploy_synapse_workspace)
       displayName: Print Variables
 - stage: VALIDATE
   jobs:
   - template: ./jobs-validate.yml
 - stage: BUILD
   jobs:
-  - ${{ if parameters.synapse_dwh }}:
+  - ${{ if variables.buildAndDeploy_synapse_dwh }}:
     - template: ./jobs-build-solution.yml
       parameters:
         folder: synapse-dwh
   
-  - ${{ if parameters.azure_data_factory }}:
+  - ${{ if variables.buildAndDeploy_azure_data_factory }}:
     - template: ./jobs-build-solution.yml
       parameters:
         folder: azure-data-factory
   
-  - ${{ if parameters.orchestration }}:
+  - ${{ if variables.buildAndDeploy_orchestration }}:
     - template: ./jobs-build-solution.yml
       parameters:
         folder: orchestration
   
-  - ${{ if parameters.xu_config }}:
+  - ${{ if variables.buildAndDeploy_xu_config }}:
     - template: ./jobs-build-solution.yml
       parameters:
         folder: xu-config
   
-  - ${{ if parameters.synapse_workspace }}:
+  - ${{ if variables.buildAndDeploy_synapse_workspace }}:
     - template: ./jobs-build-solution.yml
       parameters:
         folder: synapse-workspace
 
 
-- ${{ if parameters.runDeployment }}:
-  - stage: DEPLOY
+- ${{ if variables.runDeployment }}:
+  - stage: DEPLOY_1
+    jobs:    
+    
+    - ${{ if variables.buildAndDeploy_xu_config }}:
+      - template: ./jobs-deploy-solution.yml
+        parameters:
+          folder: xu-config
+          clean: $(clean)
+    - ${{ if variables.buildAndDeploy_synapse_dwh }}:
+      - template: ./jobs-deploy-solution.yml
+        parameters:
+          folder: synapse-dwh
+          test: true
+          clean: $(clean)
+    - ${{ if variables.buildAndDeploy_orchestration }}:
+      - template: ./jobs-deploy-solution.yml
+        parameters:
+          folder: orchestration
+          clean: $(clean)
+    - ${{ if variables.buildAndDeploy_synapse_workspace }}:
+      - template: ./jobs-deploy-solution.yml
+        parameters:
+          folder: synapse-workspace
+          clean: $(clean)
+
+  - stage: DEPLOY_2
     jobs:
-    - deployment: Deploy
-      timeoutInMinutes: 120
-      # variables:
-      # - name: pathPrefix
-      #   value: $(Pipeline.Workspace)
-      pool:
-        name: 'VM'
-        demands:
-        - node.js
-        - VisualStudio
-        - Python.Version
-        - Agent.ComputerName -equals $(VMName)
-      # workspace:
-      #   clean: all
-      environment: ${{ variables['deployEnv'] }}
-      workspace:
-        clean: ${{ parameters.clean }}
-      # DEV_MPORS
-      # TEST
-      # QAS
-      # PROD
-      strategy:
-        runOnce:
-          deploy:
-            steps:
-
-            - ${{ if parameters.azure_data_factory }}:
-              - template: ../azure-data-factory/build/steps-deploy.yml
-
-            - ${{ if parameters.orchestration }}:
-              - template: ../orchestration/build/steps-deploy.yml
-
-            - ${{ if parameters.synapse_dwh }}:
-              - template: ../synapse-dwh/build/steps-deploy.yml
-
-            - ${{ if parameters.synapse_workspace }}:
-              - template: ../synapse-workspace/build/steps-deploy.yml
-
-            - ${{ if parameters.xu_config }}:
-              - template: ../xu-config/build/steps-deploy.yml
-
+    
+    - ${{ if variables.buildAndDeploy_azure_data_factory }}:
+      - template: ./jobs-deploy-solution.yml
+        parameters:
+          folder: azure-data-factory
+          clean: $(clean)
