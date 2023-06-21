@@ -7,7 +7,7 @@ parameters:
 
 variables:
 - name: deployEnvSolution
-  value: upper(replace(parameters.folder, '-', '_'))
+  value: $(envIndex)_$(deployEnv)_${{ upper(replace(parameters.folder, '-', '_')) }}
 
 jobs:
 - deployment: DEPLOY_${{ variables.deployEnvSolution }}
@@ -19,7 +19,7 @@ jobs:
     - VisualStudio
     - Python.Version
     - Agent.ComputerName -equals $(VMName)
-  environment: ${{ variables.deployEnvSolution }}
+  environment: $(deployEnvSolution)
   workspace:
     clean: $(clean)
   strategy:

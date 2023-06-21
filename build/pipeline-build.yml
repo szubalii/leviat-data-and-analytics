@@ -167,7 +167,7 @@ stages:
         folder: synapse-workspace
 
 
-- ${{ if variables.runDeployment }}:
+- ${{ if parameters.runDeployment }}:
   - stage: DEPLOY_1
     jobs:    
     
