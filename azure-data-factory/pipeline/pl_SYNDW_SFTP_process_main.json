@@ -111,7 +111,7 @@
 										"value": "@item().entity_name",
 										"type": "Expression"
 									},
-									"source_layer": "DM",
+									"source_layer": "EDW",
 									"target_layer": "SFTP"
 								}
 							}
