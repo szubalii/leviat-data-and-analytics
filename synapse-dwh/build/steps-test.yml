@@ -52,7 +52,7 @@ steps:
           # if actual database artifact is changed, remove the database folder 
           # from its path so that its corresponding test case will run
           $synDbIndex = $subFilePath.IndexOf($synDbFolder)
-          if (synDbIndex -ne -1) {
+          if ($synDbIndex -ne -1) {
             $subFilePath = $subFilePath.SubString($synDbIndex + $synDbFolder.Length + 1)
           }          
 
