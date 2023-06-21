@@ -741,7 +741,6 @@ SELECT
 ,   [CountryOfOrigin]
 ,   [CompetitorID]
 ,   CTE_Product.[ProductGroup]
-,   NULL as [MaterialGroup]
 ,   [BaseUnit]
 ,   CTE_Product.[ItemCategoryGroup] AS [ItemCategoryGroup]
 ,   ItemCategoryGroup.[ItemCategoryGroupName]
@@ -877,10 +876,6 @@ SELECT
 ,   [ZZ1_CustomFieldHighRis_PRD]
 ,   [ZZ1_CustomFieldRiskRea_PRD]
 ,   CTE_Product.[t_applicationId]
-,   NULL as [t_jobId]                        
-,   NULL as [t_jobDtm]                      
-,   NULL as [t_lastActionCd]              
-,   NULL as [t_jobBy] 
 ,   CTE_Product.[t_extractionDtm]
 FROM
     CTE_Product
