@@ -48,7 +48,7 @@ WITH DeliveryItem AS
         SDSL.ScheduleLineCategory,
         CASE
             WHEN 
-                COUNT()
+                COUNT(*)
                     OVER (
                         PARTITION BY 
                             SDSL.[SalesDocumentID],
