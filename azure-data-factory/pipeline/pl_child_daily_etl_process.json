@@ -38,6 +38,10 @@
 						"entity_filter": {
 							"value": "@pipeline().parameters.entity_filter",
 							"type": "Expression"
+						},
+						"rerun_successful_full_entities": {
+							"value": "@pipeline().parameters.rerun_successful_full_entities",
+							"type": "Expression"
 						}
 					}
 				}
@@ -308,6 +312,12 @@
 						]
 					}
 				],
+				"policy": {
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
 				"userProperties": [],
 				"typeProperties": {
 					"variableName": "dummy",

@@ -25,7 +25,7 @@
 					"source": {
 						"type": "AzureSqlSource",
 						"sqlReaderQuery": {
-							"value": "SELECT DISTINCT [execution_order] AS [ExecOrder] \nFROM [dbo].[get_scheduled_entity_batch_activities_by_layer] (\n    @{pipeline().parameters.adhoc},\n    '@{pipeline().parameters.date}',\n    'EDW'\n)\nWHERE\n@{pipeline().parameters.entity_filter}\nORDER BY [execution_order]",
+							"value": "SELECT DISTINCT [execution_order] AS [ExecOrder] \nFROM [dbo].[get_scheduled_entity_batch_activities_by_layer] (\n    @{pipeline().parameters.adhoc},\n    '@{pipeline().parameters.date}',\n    @{pipeline().parameters.rerun_successful_full_entities},\n    'EDW'\n)\nWHERE\n@{pipeline().parameters.entity_filter}\nORDER BY [execution_order]",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
@@ -489,6 +489,12 @@
 						]
 					}
 				],
+				"policy": {
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
 				"userProperties": [],
 				"typeProperties": {
 					"variableName": "parameters",
@@ -538,6 +544,10 @@
 			"entity_filter": {
 				"type": "string",
 				"defaultValue": "'a' = 'a'"
+			},
+			"rerun_successful_full_entities": {
+				"type": "int",
+				"defaultValue": 0
 			}
 		},
 		"variables": {
