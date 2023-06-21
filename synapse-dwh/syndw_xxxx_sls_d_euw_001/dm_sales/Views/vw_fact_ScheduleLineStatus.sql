@@ -92,7 +92,7 @@ SELECT
         SDSL.[SalesDocumentID],
         SDI.[SalesDocumentTypeID],
         SDI.[SDDocumentRejectionStatusID],
-        SDSL.[UnconfirmedDelivery]
+        SDSL.[UnconfirmedDelivery],
         SDI.[CreationDate],
         SDI.[CurrencyTypeID],
         SDSL.[SalesDocumentItem],
@@ -181,7 +181,7 @@ SELECT
         pre_report.[SDDocumentRejectionStatusID], 
         pre_report.[SalesDocumentID],      
         pre_report.[SalesDocumentItem],
-        pre_report.[UnconfirmedDelivery]
+        pre_report.[UnconfirmedDelivery],
         pre_report.[CurrencyTypeID],
         pre_report.[ScheduleLine],
         pre_report.[SalesDocumentOrderType],
