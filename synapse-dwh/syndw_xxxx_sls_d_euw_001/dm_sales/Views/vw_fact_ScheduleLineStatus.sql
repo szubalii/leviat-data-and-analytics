@@ -45,7 +45,20 @@ WITH DeliveryItem AS
 				ORDER BY 
 					SDSL.[ConfirmedDeliveryDate],
 					SDSL.[ScheduleLine] ) AS SDSLOrderQtyRunningSum,
-        SDSL.ScheduleLineCategory
+        SDSL.ScheduleLineCategory,
+        CASE
+            WHEN 
+                COUNT(*)
+                    OVER (
+                        PARTITION BY 
+                            SDSL.[SalesDocumentID],
+                            SDSL.[SalesDocumentItem] 
+                    )
+                = 1
+                AND SDSL.ConfirmedDeliveryDate = '0001-01-01'
+            THEN 'X'
+            ELSE ''
+        END                                         AS IsUnconfirmedDelivery
 	FROM [edw].[dim_SalesDocumentScheduleLine] SDSL 
 	LEFT JOIN DeliveryItem 
         ON SDSL.[SalesDocumentID] = DeliveryItem.[ReferenceSDDocument] 
@@ -79,6 +92,7 @@ SELECT
         SDSL.[SalesDocumentID],
         SDI.[SalesDocumentTypeID],
         SDI.[SDDocumentRejectionStatusID],
+        SDSL.[IsUnconfirmedDelivery],
         SDI.[CreationDate],
         SDI.[CurrencyTypeID],
         SDSL.[SalesDocumentItem],
@@ -167,6 +181,7 @@ SELECT
         pre_report.[SDDocumentRejectionStatusID], 
         pre_report.[SalesDocumentID],      
         pre_report.[SalesDocumentItem],
+        pre_report.[IsUnconfirmedDelivery],
         pre_report.[CurrencyTypeID],
         pre_report.[ScheduleLine],
         pre_report.[SalesDocumentOrderType],
