@@ -172,3 +172,4 @@
     WITH
         (
         DISTRIBUTION = REPLICATE, HEAP )
+GO
