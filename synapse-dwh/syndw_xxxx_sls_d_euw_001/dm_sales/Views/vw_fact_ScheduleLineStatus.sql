@@ -58,7 +58,7 @@ WITH DeliveryItem AS
                 AND SDSL.ConfirmedDeliveryDate = '0001-01-01'
             THEN 'X'
             ELSE ''
-        END                                         AS UnconfirmedDelivery
+        END                                         AS IsUnconfirmedDelivery
 	FROM [edw].[dim_SalesDocumentScheduleLine] SDSL 
 	LEFT JOIN DeliveryItem 
         ON SDSL.[SalesDocumentID] = DeliveryItem.[ReferenceSDDocument] 
@@ -92,7 +92,7 @@ SELECT
         SDSL.[SalesDocumentID],
         SDI.[SalesDocumentTypeID],
         SDI.[SDDocumentRejectionStatusID],
-        SDSL.[UnconfirmedDelivery],
+        SDSL.[IsUnconfirmedDelivery],
         SDI.[CreationDate],
         SDI.[CurrencyTypeID],
         SDSL.[SalesDocumentItem],
@@ -181,7 +181,7 @@ SELECT
         pre_report.[SDDocumentRejectionStatusID], 
         pre_report.[SalesDocumentID],      
         pre_report.[SalesDocumentItem],
-        pre_report.[UnconfirmedDelivery],
+        pre_report.[IsUnconfirmedDelivery],
         pre_report.[CurrencyTypeID],
         pre_report.[ScheduleLine],
         pre_report.[SalesDocumentOrderType],
