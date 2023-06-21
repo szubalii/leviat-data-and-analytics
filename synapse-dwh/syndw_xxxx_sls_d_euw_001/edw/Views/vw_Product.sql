@@ -1,5 +1,5 @@
-﻿CREATE VIEW [edw].[vw_Product]
-AS
+﻿CREATE VIEW [edw].[vw_Product] 
+AS 
 WITH CTE_Product AS(
 SELECT
     product.[Product] AS [sk_dim_Product]
@@ -680,38 +680,39 @@ SELECT
 ,   NULL    AS [ZZ1_CustomFieldRiskRea_PRD]
 ,   'synapse-dwh'AS [t_applicationId]
 ,   NULL    AS [t_extractionDtm]
-),
+)
 
-EClassMapping AS (
+, EClassMapping AS (
 SELECT 
     sk_dim_Product
 ,   ProductGroup
-,   CASE 
-        WHEN (ISNUMERIC(LEFT(CTE_Product.ProductGroup,2)) = 1 AND LEFT(CTE_Product.ProductGroup,2) NOT IN ('01', '02'))
-            THEN LEFT(CTE_Product.ProductGroup,8)
-        ELSE ECC.EClassCode
-        END AS EClassCode
-,   CASE
-        WHEN (ISNUMERIC(LEFT(CTE_Product.ProductGroup,2)) = 1 AND LEFT(CTE_Product.ProductGroup,2) NOT IN ('01', '02'))
-            THEN MAX(ECC2.EClassCategory)
-        ELSE ECC.EClassCategory
-        END AS EClassCategory
-,   CASE 
-        WHEN (ISNUMERIC(LEFT(CTE_Product.ProductGroup,2)) = 1 AND LEFT(CTE_Product.ProductGroup,2) NOT IN ('01', '02'))
-            THEN MAX(ECC2.EClassCategoryDescription)
-        ELSE ECC.EClassCategoryDescription
-        END AS EClassCategoryDescription 
+,   ECC.EClassCode
+  , ECC.EClassCategory
+  , ECC.EClassCategoryDescription
+,   ECC.[Category_L1]
+,   ECC.[Category_L2]
+,   ECC.[Category_L3]
+,   ECC.[Category_L4]
 
 FROM CTE_Product
 
+    --FBOUW, 20/06/23: We changed the EClassCode File to have both EClassCodes and MaterialGroupID's in the MaterialGroupID.
+    --We can join on the first 8 chars, as Leviat sometimes suffixes to suit a 5 layer hierarchy.
     LEFT OUTER JOIN base_ff.EClassCodes ECC 
-    ON CTE_Product.ProductGroup = ECC.MaterialGroupID
+    ON LEFT(CTE_Product.ProductGroup, 8) = ECC.MaterialGroupID
 
-    LEFT OUTER JOIN base_ff.EClassCodes ECC2
-    ON LEFT(CTE_Product.ProductGroup,8) = ECC2.EClassCode
-
-GROUP BY sk_dim_Product, ProductGroup, ECC.EClassCode, ECC.EClassCategory, ECC.EClassCategoryDescription
+GROUP BY 
+    sk_dim_Product, 
+    ProductGroup, 
+    ECC.EClassCode, 
+    ECC.EClassCategory,
+    ECC.EClassCategoryDescription, 
+    ECC.[Category_L1],
+    ECC.[Category_L2],
+    ECC.[Category_L3],
+    ECC.[Category_L4]
 )
+
 
 SELECT
     
@@ -866,6 +867,10 @@ SELECT
 ,   ECM.[EClassCode]               
 ,   ECM.[EClassCategory]           
 ,   ECM.[EClassCategoryDescription]
+,   ECM.[Category_L1]
+,   ECM.[Category_L2]
+,   ECM.[Category_L3]
+,   ECM.[Category_L4]
 ,   C.[Classification]
 ,   [ZZ1_CustomFieldRiskMit_PRD]
 ,   [ZZ1_CustomFieldHighRis_PRD]
