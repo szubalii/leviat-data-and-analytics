@@ -27,4 +27,6 @@ jobs:
       deploy:
         steps:
         - template: ../${{ parameters.folder }}/build/steps-deploy.yml
-        - template: ../${{ parameters.folder }}/build/steps-test.yml
+
+        - ${{ if parameters.test }}:
+          - template: ../${{ parameters.folder }}/build/steps-test.yml
