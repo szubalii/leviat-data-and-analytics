@@ -10,6 +10,17 @@ parameters:
 #   value: $(envIndex)_$(deployEnv)_${{ upper(replace(parameters.folder, '-', '_')) }}
 
 jobs:
+- job: Vars
+  pool:
+    name: 'VM'
+    demands:
+    - node.js
+    - VisualStudio
+    - Agent.ComputerName -equals $(VMName)
+  steps:
+  - script: |
+      echo deployEnv: $(deployEnv)
+      echo envIndex: $(envIndex)
 - deployment: DEPLOY_${{ variables['envIndex'] }}_${{ variables['deployEnv'] }}_${{ upper(replace(parameters.folder, '-', '_')) }}
   timeoutInMinutes: 120
   pool:
