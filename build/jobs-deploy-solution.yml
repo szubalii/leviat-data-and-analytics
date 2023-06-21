@@ -5,12 +5,12 @@ parameters:
   type: boolean
   default: false
 
-variables:
-- name: deployEnvSolution
-  value: $(envIndex)_$(deployEnv)_${{ upper(replace(parameters.folder, '-', '_')) }}
+# variables:
+# - name: deployEnvSolution
+#   value: $(envIndex)_$(deployEnv)_${{ upper(replace(parameters.folder, '-', '_')) }}
 
 jobs:
-- deployment: DEPLOY_${{ variables.deployEnvSolution }}
+- deployment: DEPLOY_$(envIndex)_$(deployEnv)_${{ upper(replace(parameters.folder, '-', '_')) }}
   timeoutInMinutes: 120
   pool:
     name: 'VM'
@@ -19,7 +19,7 @@ jobs:
     - VisualStudio
     - Python.Version
     - Agent.ComputerName -equals $(VMName)
-  environment: $(deployEnvSolution)
+  environment: $(envIndex)_$(deployEnv)_${{ upper(replace(parameters.folder, '-', '_')) }}
   workspace:
     clean: $(clean)
   strategy:
