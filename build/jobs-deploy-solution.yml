@@ -22,7 +22,7 @@ jobs:
     - VisualStudio
     - Python.Version
     - Agent.ComputerName -equals $(VMName)
-  environment: $[ format('{0}_{1}', $(deployEnvPrefix), upper(replace(parameters.folder, '-', '_'))) ]
+  environment: ${{ $(deployEnvPrefix) }}
   workspace:
     clean: $(clean)
   strategy:
