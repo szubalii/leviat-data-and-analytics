@@ -10,6 +10,6 @@ parameters:
 jobs:
 - template: ./jobs-deploy-solution.yml
   parameters:
-    folder: parameters.folder
+    folder: ${{ parameters.folder }}
     deployEnvironment: ${{ format('{0}_{1}', parameters.deployEnvPrefix, upper(replace(parameters.folder, '-', '_'))) }}
-    test: parameters.test
+    test: ${{ parameters.test }}
