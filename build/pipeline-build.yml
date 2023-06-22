@@ -91,7 +91,7 @@ variables:
     value: ${{ format('{0}_DEV_{1}', variables.environmentIndex, variables.user) }}
 - ${{ else }}:
   - name: deployEnv
-    value: ${{ format('{0}_{1}', variables.environmentIndex, variables.environment }}
+    value: ${{ format('{0}_{1}', variables.environmentIndex, variables.environment) }}
 
 - name: deployEnvPrefix
   value: $(environmentIndex)_${{ upper(variables.deployEnv) }}
