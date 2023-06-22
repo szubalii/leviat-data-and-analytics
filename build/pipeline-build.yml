@@ -157,11 +157,11 @@ stages:
   - template: ./jobs-build-solution.yml
     parameters:
       solutions:
-        synapse-dwh: parameters.synapse-dwh
-        azure_data_factory: parameters.azure_data_factory
-        orchestration: parameters.orchestration
-        xu_config: parameters.xu_config
-        synapse_workspace: parameters.synapse_workspace
+        synapse-dwh: ${{ parameters.synapse-dwh }}
+        azure_data_factory: ${{ parameters.azure_data_factory }}
+        orchestration: ${{ parameters.orchestration }}
+        xu_config: ${{ parameters.xu_config }}
+        synapse_workspace: ${{ parameters.synapse_workspace }}
 
   # - ${{ if variables.buildAndDeploy_synapse_dwh }}:
 
