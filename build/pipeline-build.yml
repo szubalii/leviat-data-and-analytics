@@ -61,6 +61,11 @@ variables:
 # - name: VMResourceGroup
 #   value: rg-xxxx-sls-a-euw-001
 
+# variable 'deployEnvPrefix' needs to be defined without 
+# reference to variables in template as templates variables
+# cannot be used as source for name of environment and deployment
+# in deployment job
+
 # In case of CI triggered pipelines (IndividualCI, triggered by git push),
 # use the system predefined variable Build.SourceBranchName to get the correct variable template
 - ${{ if eq(variables['Build.SourceBranchName'], 'main') }}:
@@ -96,19 +101,6 @@ variables:
 # - ${{ else }}:
 #   - name: deployEnv
 #     value: ${{ format('{0}_{1}', variables.environmentIndex, variables.environment) }}
-
-# - name: deployEnvPrefix
-#   value: $(environmentIndex)_${{ upper(variables.deployEnv) }}
-# - name: deployEnvPrefix2
-#   value: ${{ format('{0}_{1}', variables.environmentIndex, upper(variables.deployEnv)) }}
-# - name: deployEnvPrefix1
-#   value: $(environmentIndex)_$(deployEnv)
-# - name: deployEnvPrefix3
-#   value: $(environmentIndex)_$(environment)
-# - name: deployEnvPrefix4
-#   value: ${{ format('{0}', variables.environmentIndex) }}
-# - name: deployEnvPrefix5
-#   value: ${{ variables.environmentIndex }}
 
 # # Required for PR triggered pipelines as predefined system variable Build.SourceBranchName
 # # equals value: 'merge'. Also, the predefined system variable System.PullRequest.TargetBranch 
@@ -195,23 +187,19 @@ stages:
       - template: ./jobs-deploy-solution.yml
         parameters:
           folder: xu-config
-          deployEnvPrefix: ${{ variables.deployEnvPrefix }}
     - ${{ if variables.buildAndDeploy_synapse_dwh }}:
       - template: ./jobs-deploy-solution.yml
         parameters:
           folder: synapse-dwh
-          deployEnvPrefix: ${{ variables.deployEnvPrefix }}
           test: true
     - ${{ if variables.buildAndDeploy_orchestration }}:
       - template: ./jobs-deploy-solution.yml
         parameters:
           folder: orchestration
-          deployEnvPrefix: ${{ variables.deployEnvPrefix }}
     - ${{ if variables.buildAndDeploy_synapse_workspace }}:
       - template: ./jobs-deploy-solution.yml
         parameters:
           folder: synapse-workspace
-          deployEnvPrefix: ${{ variables.deployEnvPrefix }}
 
   - stage: DEPLOY_2
     jobs:
@@ -220,4 +208,3 @@ stages:
       - template: ./jobs-deploy-solution.yml
         parameters:
           folder: azure-data-factory
-          deployEnvPrefix: ${{ variables.deployEnvPrefix }}
