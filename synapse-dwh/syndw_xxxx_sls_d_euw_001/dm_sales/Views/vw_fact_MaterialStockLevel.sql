@@ -1,18 +1,13 @@
 create VIEW [dm_sales].[vw_fact_MaterialStockLevel]
 AS
 SELECT
+    [nk_StoragePlantID],
     [ReportingYear],
     [ReportingMonth],
     [ReportingDate],
     [MaterialID],
     [PlantID],
     [StorageLocationID],
-    CONVERT(NVARCHAR(32),
-            HashBytes('SHA2_256',
-                  isNull(CAST([StorageLocationID] COLLATE DATABASE_DEFAULT AS VARCHAR) , '') +
-			            isNull(CAST([PlantID] COLLATE DATABASE_DEFAULT AS VARCHAR) , '') 
-            )
-        , 2)  as StoragePlantID,
     [InventorySpecialStockTypeID],
     [InventoryStockTypeID],
     [StockOwner],

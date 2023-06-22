@@ -42,6 +42,7 @@ SELECT  CONVERT(NVARCHAR(32),
             isNull(CAST(UV.[PurchaseOrderTypeID] COLLATE DATABASE_DEFAULT AS VARCHAR) , '')
             )
         , 2)  _hash
+    ,   UV.[nk_StoragePlantID]
     ,   UV.[MaterialDocumentYear] 
     ,   UV.[MaterialDocument] COLLATE DATABASE_DEFAULT          AS MaterialDocument
     ,   UV.[MaterialDocumentItem]
@@ -189,7 +190,9 @@ SELECT  CONVERT(NVARCHAR(32),
     ,   UV.[t_extractionDtm]
     FROM
 (
-    SELECT S4H.[MaterialDocumentYear] 
+    SELECT  
+            edw.svf_get2PartNaturalKey (S4H.StorageLocationID,S4H.PlantID) AS [nk_StoragePlantID]
+        ,   S4H.[MaterialDocumentYear] 
         ,   S4H.[MaterialDocument]
         ,   S4H.[MaterialDocumentItem]
         ,   S4H.[MaterialID]
@@ -314,7 +317,9 @@ SELECT  CONVERT(NVARCHAR(32),
 
         UNION ALL
 
-    SELECT  AXBI.[MaterialDocumentYear]                         
+    SELECT  
+            edw.svf_get2PartNaturalKey (AXBI.StorageLocationID,AXBI.PlantID) AS [nk_StoragePlantID]
+        ,   AXBI.[MaterialDocumentYear]                         
         ,   AXBI.[MaterialDocument]
         ,   AXBI.[MaterialDocumentItem]
         ,   AXBI.[MaterialID]
