@@ -93,12 +93,12 @@ variables:
   - name: deployEnv
     value: ${{ variables.environment }}
 
-- name: deployEnvPrefix
+- name: deployEnvPrefix2
   value: ${{ format('{0}_{1}', variables.environmentIndex, upper(variables.deployEnv)) }}
 - name: deployEnvPrefix1
   value: $(environmentIndex)_$(deployEnv)
-- name: deployEnvPrefix2
-  value: $(environmentIndex)_${{ variables.deployEnv }}
+- name: deployEnvPrefix
+  value: $(environmentIndex)_${{ upper(variables.deployEnv) }}
 - name: deployEnvPrefix3
   value: $(environmentIndex)_$(environment)
 - name: deployEnvPrefix4

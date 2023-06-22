@@ -22,6 +22,7 @@ jobs:
   steps:
   - script: |
       echo deployEnv: $(deployEnv)
+      echo deployEnvPrefix: $(deployEnvPrefix)
       echo envIndex: $(envIndex)
 - deployment: ${{ format('DEPLOY_{0}_{1}', parameters.deployEnvPrefix, upper(replace(parameters.folder, '-', '_'))) }}
   timeoutInMinutes: 120
