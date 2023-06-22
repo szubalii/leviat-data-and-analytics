@@ -4,6 +4,14 @@ parameters:
 - name: runDeployment
   type: boolean
   default: false
+- name: solutions
+  type: object
+  default:
+  - synapse_dwh
+  - azure_data_factory
+  - orchestration
+  - xu_config
+  - synapse_workspace
 - name: synapse_dwh
   type: boolean
   default: true
@@ -102,6 +110,7 @@ variables:
 #   - name: deployEnv
 #     value: ${{ format('{0}_{1}', variables.environmentIndex, variables.environment) }}
 
+
 # # Required for PR triggered pipelines as predefined system variable Build.SourceBranchName
 # # equals value: 'merge'. Also, the predefined system variable System.PullRequest.TargetBranch 
 # # is not available in templates. So use separate build pipelines for each env and pass this as parameter value
@@ -187,19 +196,23 @@ stages:
       - template: ./jobs-deploy-solution.yml
         parameters:
           folder: xu-config
+          deployEnvPrefix: ${{ variables.deployEnvPrefix }}
     - ${{ if variables.buildAndDeploy_synapse_dwh }}:
       - template: ./jobs-deploy-solution.yml
         parameters:
           folder: synapse-dwh
+          deployEnvPrefix: ${{ variables.deployEnvPrefix }}
           test: true
     - ${{ if variables.buildAndDeploy_orchestration }}:
       - template: ./jobs-deploy-solution.yml
         parameters:
           folder: orchestration
+          deployEnvPrefix: ${{ variables.deployEnvPrefix }}
     - ${{ if variables.buildAndDeploy_synapse_workspace }}:
       - template: ./jobs-deploy-solution.yml
         parameters:
           folder: synapse-workspace
+          deployEnvPrefix: ${{ variables.deployEnvPrefix }}
 
   - stage: DEPLOY_2
     jobs:
@@ -208,3 +221,4 @@ stages:
       - template: ./jobs-deploy-solution.yml
         parameters:
           folder: azure-data-factory
+          deployEnvPrefix: ${{ variables.deployEnvPrefix }}
