@@ -544,7 +544,7 @@
 			},
 			"date": {
 				"type": "string",
-				"defaultValue": "2023/06/0120"
+				"defaultValue": "2023/06/22"
 			},
 			"entity_filter": {
 				"type": "string",
