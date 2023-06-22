@@ -158,7 +158,7 @@ stages:
     parameters:
       solutions:
       - name: 'synapse-dwh'
-        build: ${{ parameters.synapse-dwh }}
+        build: ${{ parameters.synapse_dwh }}
       - name: 'azure_data_factory'
         build: ${{ parameters.azure_data_factory }}
       - name: 'orchestration'
