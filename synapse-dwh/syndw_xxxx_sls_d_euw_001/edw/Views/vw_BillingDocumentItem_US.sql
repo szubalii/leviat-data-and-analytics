@@ -239,7 +239,7 @@ FROM BillingDocumentItemBase BDI_Base
 LEFT JOIN 
     EuroBudgetExchangeRate
         ON EuroBudgetExchangeRate.SourceCurrency = 'USD'
-WHERE
+--WHERE
             --BDI_Base.[BillingDocumentDate]
 GROUP BY
         BDI_Base.[BillingDocument]                          
