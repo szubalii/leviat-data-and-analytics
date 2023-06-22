@@ -13,7 +13,7 @@ parameters:
 
 jobs:
 - deployment: ${{ upper(replace(parameters.folder, '-', '_')) }}
-  displayName: $[ format('DEPLOY_{0}_{1}', variables.deployEnvPrefix, upper(replace(parameters.folder, '-', '_'))) ]
+  displayName: $[ format('DEPLOY_{0}_{1}', $(deployEnvPrefix), upper(replace(parameters.folder, '-', '_'))) ]
   timeoutInMinutes: 120
   pool:
     name: 'VM'
@@ -22,7 +22,7 @@ jobs:
     - VisualStudio
     - Python.Version
     - Agent.ComputerName -equals $(VMName)
-  environment: $[ format('{0}_{1}', variables.deployEnvPrefix, upper(replace(parameters.folder, '-', '_'))) ]
+  environment: $[ format('{0}_{1}', $(deployEnvPrefix), upper(replace(parameters.folder, '-', '_'))) ]
   workspace:
     clean: $(clean)
   strategy:
