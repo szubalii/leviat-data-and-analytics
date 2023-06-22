@@ -4,13 +4,13 @@ parameters:
   default:
   - name: 'synapse-dwh'
     build: true # ${{ parameters.synapse-dwh }}
-  - name: 'azure_data_factory'
+  - name: 'azure-data-factory'
     build: true # ${{ parameters.azure_data_factory }}
   - name: 'orchestration'
     build: true # ${{ parameters.orchestration }}
-  - name: 'xu_config'
+  - name: 'xu-config'
     build: true # ${{ parameters.xu_config }}
-  - name: 'synapse_workspace'
+  - name: 'synapse-workspace'
     build: true # ${{ parameters.synapse_workspace }}
 
 jobs:

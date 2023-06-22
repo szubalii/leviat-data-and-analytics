@@ -159,13 +159,13 @@ stages:
       solutions:
       - name: 'synapse-dwh'
         build: ${{ parameters.synapse_dwh }}
-      - name: 'azure_data_factory'
+      - name: 'azure-data-factory'
         build: ${{ parameters.azure_data_factory }}
       - name: 'orchestration'
         build: ${{ parameters.orchestration }}
-      - name: 'xu_config'
+      - name: 'xu-config'
         build: ${{ parameters.xu_config }}
-      - name: 'synapse_workspace'
+      - name: 'synapse-workspace'
         build: ${{ parameters.synapse_workspace }}
 
   # - ${{ if variables.buildAndDeploy_synapse_dwh }}:
