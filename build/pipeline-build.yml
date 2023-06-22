@@ -95,6 +95,12 @@ variables:
 
 - name: deployEnvPrefix
   value: ${{ format('{0}_{1}', variables.environmentIndex, upper(variables.deployEnv)) }}
+- name: deployEnvPrefix1
+  value: $(environmentIndex)_$(deployEnv)
+- name: deployEnvPrefix2
+  value: $(environmentIndex)_${{ variables.deployEnv }}
+- name: deployEnvPrefix3
+  value: $(environmentIndex)_$(environment)
 
 # # Required for PR triggered pipelines as predefined system variable Build.SourceBranchName
 # # equals value: 'merge'. Also, the predefined system variable System.PullRequest.TargetBranch 
@@ -136,6 +142,9 @@ stages:
         echo Build.SourceBranch: ${{ variables['Build.SourceBranch'] }}
         echo Build.SourceBranchName: ${{ variables['Build.SourceBranchName'] }}
         echo deployEnvPrefix: ${{ variables.deployEnvPrefix }}
+        echo deployEnvPrefix1: ${{ variables.deployEnvPrefix1 }}
+        echo deployEnvPrefix2: ${{ variables.deployEnvPrefix2 }}
+        echo deployEnvPrefix3: ${{ variables.deployEnvPrefix3 }}
         echo buildAndDeploy_synapse_dwh : $(buildAndDeploy_synapse_dwh)
         echo buildAndDeploy_azure_data_factory : $(buildAndDeploy_azure_data_factory)
         echo buildAndDeploy_orchestration : $(buildAndDeploy_orchestration)
