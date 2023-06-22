@@ -135,7 +135,7 @@ stages:
         echo Build.Reason: ${{ variables['Build.Reason'] }}
         echo Build.SourceBranch: ${{ variables['Build.SourceBranch'] }}
         echo Build.SourceBranchName: ${{ variables['Build.SourceBranchName'] }}
-        echo deployEnvPrefix: $(deployEnvPrefix)
+        echo deployEnvPrefix: ${{ variables.deployEnvPrefix }}
         echo buildAndDeploy_synapse_dwh : $(buildAndDeploy_synapse_dwh)
         echo buildAndDeploy_azure_data_factory : $(buildAndDeploy_azure_data_factory)
         echo buildAndDeploy_orchestration : $(buildAndDeploy_orchestration)
@@ -181,23 +181,23 @@ stages:
       - template: ./jobs-deploy-solution.yml
         parameters:
           folder: xu-config
-          deployEnvPrefix: $(deployEnvPrefix)
+          deployEnvPrefix: ${{ variables.deployEnvPrefix }}
     - ${{ if variables.buildAndDeploy_synapse_dwh }}:
       - template: ./jobs-deploy-solution.yml
         parameters:
           folder: synapse-dwh
-          deployEnvPrefix: $(deployEnvPrefix)
+          deployEnvPrefix: ${{ variables.deployEnvPrefix }}
           test: true
     - ${{ if variables.buildAndDeploy_orchestration }}:
       - template: ./jobs-deploy-solution.yml
         parameters:
           folder: orchestration
-          deployEnvPrefix: $(deployEnvPrefix)
+          deployEnvPrefix: ${{ variables.deployEnvPrefix }}
     - ${{ if variables.buildAndDeploy_synapse_workspace }}:
       - template: ./jobs-deploy-solution.yml
         parameters:
           folder: synapse-workspace
-          deployEnvPrefix: $(deployEnvPrefix)
+          deployEnvPrefix: ${{ variables.deployEnvPrefix }}
 
   - stage: DEPLOY_2
     jobs:
@@ -206,4 +206,4 @@ stages:
       - template: ./jobs-deploy-solution.yml
         parameters:
           folder: azure-data-factory
-          deployEnvPrefix: $(deployEnvPrefix)
+          deployEnvPrefix: ${{ variables.deployEnvPrefix }}
