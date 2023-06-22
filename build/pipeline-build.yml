@@ -61,14 +61,12 @@ variables:
 # - name: VMResourceGroup
 #   value: rg-xxxx-sls-a-euw-001
 
-- name: deployEnv
-  value: ${{ upper(variables['Build.SourceBranchName']) }}
 # In case of CI triggered pipelines (IndividualCI, triggered by git push),
 # use the system predefined variable Build.SourceBranchName to get the correct variable template
 - ${{ if eq(variables['Build.SourceBranchName'], 'main') }}:
   - template: ./variables-test.yml
-  - name: deployEnv # override value to map main branch to TEST deployment environment
-    value: 'TEST'
+  # - name: deployEnv # override value to map main branch to TEST deployment environment
+  #   value: 'TEST'
 - ${{ elseif eq(variables['Build.SourceBranchName'], 'qas') }}:
   - template: ./variables-qas.yml
 - ${{ elseif eq(variables['Build.SourceBranchName'], 'prod') }}:
@@ -83,12 +81,20 @@ variables:
 #   - template: ./variables-personal.yml
 #   - name: deployEnv # override value to map main branch to DEV deployment environment
 #     value: ${{ format('DEV_{0}', upper(variables['Build.SourceBranchName'])) }}
-- ${{ elseif or(contains(variables['Build.SourceBranch'], '/feature/'), contains(variables['Build.SourceBranch'], '/users/')) }}:
+
+
+- ${{ if or(contains(variables['Build.SourceBranch'], '/feature/'), contains(variables['Build.SourceBranch'], '/users/')) }}:
   - name: user
     value: ${{ split(variables['Build.SourceBranch'], '/')[3] }} #refs/heads/feature/mpors/...
   - template: ./variables-personal.yml
   - name: deployEnv # override value to map main branch to DEV deployment environment
-    value: ${{ format('DEV_{0}', upper(variables.user)) }}
+    value: ${{ format('DEV_{0}', variables.user) }}
+- ${{ else }}:
+  - name: deployEnv
+    value: $( environment )
+
+- name: deployEnvPrefix
+    value: $(environmentIndex)_${{ upper(variables.deployEnv) }}
 
 # # Required for PR triggered pipelines as predefined system variable Build.SourceBranchName
 # # equals value: 'merge'. Also, the predefined system variable System.PullRequest.TargetBranch 
@@ -129,7 +135,7 @@ stages:
         echo Build.Reason: ${{ variables['Build.Reason'] }}
         echo Build.SourceBranch: ${{ variables['Build.SourceBranch'] }}
         echo Build.SourceBranchName: ${{ variables['Build.SourceBranchName'] }}
-        echo deployEnv: $(deployEnv)
+        echo deployEnvPrefix: $(deployEnvPrefix)
         echo buildAndDeploy_synapse_dwh : $(buildAndDeploy_synapse_dwh)
         echo buildAndDeploy_azure_data_factory : $(buildAndDeploy_azure_data_factory)
         echo buildAndDeploy_orchestration : $(buildAndDeploy_orchestration)
@@ -175,19 +181,23 @@ stages:
       - template: ./jobs-deploy-solution.yml
         parameters:
           folder: xu-config
+          deployEnvPrefix: $(deployEnvPrefix)
     - ${{ if variables.buildAndDeploy_synapse_dwh }}:
       - template: ./jobs-deploy-solution.yml
         parameters:
           folder: synapse-dwh
+          deployEnvPrefix: $(deployEnvPrefix)
           test: true
     - ${{ if variables.buildAndDeploy_orchestration }}:
       - template: ./jobs-deploy-solution.yml
         parameters:
           folder: orchestration
+          deployEnvPrefix: $(deployEnvPrefix)
     - ${{ if variables.buildAndDeploy_synapse_workspace }}:
       - template: ./jobs-deploy-solution.yml
         parameters:
           folder: synapse-workspace
+          deployEnvPrefix: $(deployEnvPrefix)
 
   - stage: DEPLOY_2
     jobs:
@@ -196,3 +206,4 @@ stages:
       - template: ./jobs-deploy-solution.yml
         parameters:
           folder: azure-data-factory
+          deployEnvPrefix: $(deployEnvPrefix)

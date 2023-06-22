@@ -1,6 +1,6 @@
 variables:
-- group: DnA_TEST
 - group: DnA_DEV
+- group: DnA_TEST
 - group: KeyVault_DEV
 # - name: environment
 #   value: test

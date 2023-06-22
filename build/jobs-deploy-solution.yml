@@ -1,6 +1,8 @@
 parameters:
 - name: folder
   type: string
+- name: deployEnvPrefix
+  type: string
 - name: test
   type: boolean
   default: false
@@ -21,7 +23,7 @@ jobs:
   - script: |
       echo deployEnv: $(deployEnv)
       echo envIndex: $(envIndex)
-- deployment: Deploy_${{replace(parameters.folder, '-', '_')}}
+- deployment: DEPLOY_${{ parameters.deployEnvPrefix }}_${{ replace(parameters.folder, '-', '_') }}
   timeoutInMinutes: 120
   pool:
     name: 'VM'
@@ -30,7 +32,7 @@ jobs:
     - VisualStudio
     - Python.Version
     - Agent.ComputerName -equals $(VMName)
-  environment: ${{ variables['deployEnv'] }}
+  environment: ${{ parameters.deployEnvPrefix }}_${{ replace(parameters.folder, '-', '_') }}
   workspace:
     clean: $(clean)
   strategy:
