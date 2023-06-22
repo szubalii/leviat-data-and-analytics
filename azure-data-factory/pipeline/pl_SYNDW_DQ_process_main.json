@@ -145,7 +145,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@activity('Get Synapse DQ Entities').output.value",
+						"value": "@activity('Get Synapse DQ Execution Order').output.value",
 						"type": "Expression"
 					},
 					"isSequential": false,
@@ -229,7 +229,7 @@
 						},
 						"error_msg": {
 							"value": {
-								"value": "@activity('Get Synapse DQ Entities').Error.Message",
+								"value": "@activity('Get Synapse DQ Execution Order').Error.Message",
 								"type": "Expression"
 							},
 							"type": "String"
@@ -457,7 +457,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"message": {
-						"value": "@concat(\n    'Failed to get Synapse DQ Entities: ',\n    activity('Get Synapse DQ Entities').Error.Message\n)",
+						"value": "@concat(\n    'Failed to get Synapse DQ Execution Order ',\n    activity('Get Synapse DQ Execution Order').Error.Message\n)",
 						"type": "Expression"
 					},
 					"errorCode": "500"
