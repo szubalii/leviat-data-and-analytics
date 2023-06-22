@@ -12,7 +12,7 @@ parameters:
 #   value: $(envIndex)_$(deployEnv)_${{ upper(replace(parameters.folder, '-', '_')) }}
 
 jobs:
-- deployment: ${{ format('DEPLOY_{0}', $(deployEnvironment)) }}
+- deployment: ${{ format('DEPLOY_{0}', parameters.deployEnvironment) }}
   timeoutInMinutes: 120
   pool:
     name: 'VM'
