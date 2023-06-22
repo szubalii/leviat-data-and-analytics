@@ -149,13 +149,7 @@ stages:
         echo Build.Reason: ${{ variables['Build.Reason'] }}
         echo Build.SourceBranch: ${{ variables['Build.SourceBranch'] }}
         echo Build.SourceBranchName: ${{ variables['Build.SourceBranchName'] }}
-        # echo deployEnv: ${{ variables.deployEnv }}
         echo deployEnvPrefix: ${{ variables.deployEnvPrefix }}
-        # echo deployEnvPrefix1: ${{ variables.deployEnvPrefix1 }}
-        # echo deployEnvPrefix2: ${{ variables.deployEnvPrefix2 }}
-        # echo deployEnvPrefix3: ${{ variables.deployEnvPrefix3 }}
-        # echo deployEnvPrefix4: ${{ variables.deployEnvPrefix4 }}
-        # echo deployEnvPrefix5: ${{ variables.deployEnvPrefix5 }}
         echo buildAndDeploy_synapse_dwh : $(buildAndDeploy_synapse_dwh)
         echo buildAndDeploy_azure_data_factory : $(buildAndDeploy_azure_data_factory)
         echo buildAndDeploy_orchestration : $(buildAndDeploy_orchestration)
