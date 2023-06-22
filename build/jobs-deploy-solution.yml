@@ -23,7 +23,7 @@ jobs:
   - script: |
       echo deployEnv: $(deployEnv)
       echo envIndex: $(envIndex)
-- deployment: ${{ 'DEPLOY_{0}_{1}', parameters.deployEnvPrefix, upper(replace(parameters.folder, '-', '_')) }}
+- deployment: ${{ format('DEPLOY_{0}_{1}', parameters.deployEnvPrefix, upper(replace(parameters.folder, '-', '_'))) }}
   timeoutInMinutes: 120
   pool:
     name: 'VM'
@@ -32,7 +32,7 @@ jobs:
     - VisualStudio
     - Python.Version
     - Agent.ComputerName -equals $(VMName)
-  environment: ${{ '{0}_{1}', parameters.deployEnvPrefix, upper(replace(parameters.folder, '-', '_')) }}
+  environment: ${{ format('{0}_{1}', parameters.deployEnvPrefix, upper(replace(parameters.folder, '-', '_'))) }}
   workspace:
     clean: $(clean)
   strategy:

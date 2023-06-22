@@ -94,7 +94,7 @@ variables:
     value: ${{ variables.environment }}
 
 - name: deployEnvPrefix
-  value: ${{ format('{0}_{1}', variables.environmentIndex, upper(variables.deployEnv) }}
+  value: ${{ format('{0}_{1}', variables.environmentIndex, upper(variables.deployEnv)) }}
 
 # # Required for PR triggered pipelines as predefined system variable Build.SourceBranchName
 # # equals value: 'merge'. Also, the predefined system variable System.PullRequest.TargetBranch 
