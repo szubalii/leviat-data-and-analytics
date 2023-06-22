@@ -1,398 +1,311 @@
 ﻿CREATE VIEW [edw].[vw_BillingDocumentItem_s4h]
 AS
-WITH CCR AS (
-    SELECT
-        SourceCurrency,
-        TargetCurrency,
-        ExchangeRate,
-        '00'                AS CurrencyTypeID
-    FROM [edw].[vw_CurrencyConversionRate]
-    WHERE CurrencyTypeID = '10'
+WITH 
+BillingDocumentItemBase AS (
+  SELECT 
+    doc.[BillingDocument]                           AS [BillingDocument]
+  , doc.[BillingDocumentItem]
+  , doc.[SalesDocumentItemCategory]                 AS [SalesDocumentItemCategoryID]
+  , doc.[SalesDocumentItemType]                     AS [SalesDocumentItemTypeID]
+  , doc.[ReturnItemProcessingType]
+  , doc.[BillingDocumentType]                       AS [BillingDocumentTypeID]
+  , doc.[BillingDocumentCategory]                   AS [BillingDocumentCategoryID]
+  , doc.[SDDocumentCategory]                        AS [SDDocumentCategoryID]
+  , doc.[CreationDate]
+  , doc.[CreationTime]
+  , doc.[LastChangeDate]
+  , doc.[BillingDocumentDate]
+  , doc.[BillingDocumentIsTemporary]
+  , doc.[OrganizationDivision]
+  , doc.[Division]
+  , doc.[SalesOffice]                               AS [SalesOfficeID]
+  , doc.[SalesOrganization]                         AS [SalesOrganizationID]
+  , doc.[DistributionChannel]                       AS [DistributionChannelID]
+  , doc.[Material]
+  , doc.[OriginallyRequestedMaterial]
+  , doc.[InternationalArticleNumber]
+  , doc.[PricingReferenceMaterial]
+  , NULL AS [LengthInMPer1]
+  , NULL AS [LengthInM]
+  , doc.[Batch]
+  , doc.[MaterialGroup]                             AS [MaterialGroupID]
+  , DimBrand.[BrandID]                              AS [BrandID]
+  , DimBrand.[Brand]                                AS [Brand]
+  , doc.[AdditionalMaterialGroup2]
+  , doc.[AdditionalMaterialGroup3]
+  , doc.[AdditionalMaterialGroup4]
+  , doc.[AdditionalMaterialGroup5]
+  , doc.[MaterialCommissionGroup]
+  , doc.[Plant]                                     AS [PlantID]
+  , doc.[StorageLocation]                           AS [StorageLocationID]
+  , doc.[BillingDocumentIsCancelled]
+  , doc.[CancelledBillingDocument]
+  , CASE
+        WHEN
+            doc.[BillingDocumentIsCancelled] = 'X' 
+            OR
+            doc.[CancelledBillingDocument]<>''
+        THEN 'Y'
+        ELSE 'N' 
+    END AS [CancelledInvoiceEffect]
+  , doc.[BillingDocumentItemText]
+  , doc.[ServicesRenderedDate]
+  , doc.[BillingQuantity]
+  , doc.[BillingQuantityUnit]                       AS [BillingQuantityUnitID]
+  , doc.[BillingQuantityInBaseUnit]
+  , doc.[BaseUnit]
+  , doc.[MRPRequiredQuantityInBaseUnit]
+  , doc.[BillingToBaseQuantityDnmntr]
+  , doc.[BillingToBaseQuantityNmrtr]
+  , doc.[ItemGrossWeight]
+  , doc.[ItemNetWeight]
+  , doc.[ItemWeightUnit]
+  , doc.[ItemVolume]
+  , doc.[ItemVolumeUnit]
+  , doc.[BillToPartyCountry]
+  , doc.[BillToPartyRegion]
+  , doc.[BillingPlanRule]
+  , doc.[BillingPlan]
+  , doc.[BillingPlanItem]
+  , doc.[CustomerPriceGroup]                        AS [CustomerPriceGroupID]
+  , doc.[PriceListType]                             AS [PriceListTypeID]
+  , doc.[TaxDepartureCountry]
+  , doc.[VATRegistration]
+  , doc.[VATRegistrationCountry]
+  , doc.[VATRegistrationOrigin]
+  , doc.[CustomerTaxClassification1]
+  , doc.[CustomerTaxClassification2]
+  , doc.[CustomerTaxClassification3]
+  , doc.[CustomerTaxClassification4]
+  , doc.[CustomerTaxClassification5]
+  , doc.[CustomerTaxClassification6]
+  , doc.[CustomerTaxClassification7]
+  , doc.[CustomerTaxClassification8]
+  , doc.[CustomerTaxClassification9]
+  , doc.[SDPricingProcedure]
+  , edw.svf_getInvertAmountForReturns(
+      doc.[ReturnItemProcessingType],
+      doc.[BillingDocumentType],
+      doc.[SalesDocumentItemCategory],
+      doc.[NetAmount]
+  ) AS [NetAmount]
+  , doc.[TransactionCurrency]                       AS [TransactionCurrencyID]
+  , edw.svf_getInvertAmountForReturns(
+      doc.[ReturnItemProcessingType],
+      doc.[BillingDocumentType],
+      doc.[SalesDocumentItemCategory],
+      doc.[GrossAmount]
+  ) AS [GrossAmount]
+  , doc.[PricingDate]
+  , doc.[PriceDetnExchangeRate]
+  , doc.[PricingScaleQuantityInBaseUnit]
+  , edw.svf_getInvertAmountForReturns(
+      doc.[ReturnItemProcessingType],
+      doc.[BillingDocumentType],
+      doc.[SalesDocumentItemCategory],
+      doc.[TaxAmount]
+  ) AS [TaxAmount]
+  , edw.svf_getInvertAmountForReturns(
+      doc.[ReturnItemProcessingType],
+      doc.[BillingDocumentType],
+      doc.[SalesDocumentItemCategory],
+      doc.[CostAmount]
+  ) AS [CostAmount]
+  , edw.svf_getInvertAmountForReturns(
+      doc.[ReturnItemProcessingType],
+      doc.[BillingDocumentType],
+      doc.[SalesDocumentItemCategory],
+      doc.[Subtotal1Amount]
+  ) AS [Subtotal1Amount]
+  , edw.svf_getInvertAmountForReturns(
+      doc.[ReturnItemProcessingType],
+      doc.[BillingDocumentType],
+      doc.[SalesDocumentItemCategory],
+      doc.[Subtotal2Amount]
+  ) AS [Subtotal2Amount]
+  , edw.svf_getInvertAmountForReturns(
+      doc.[ReturnItemProcessingType],
+      doc.[BillingDocumentType],
+      doc.[SalesDocumentItemCategory],
+      doc.[Subtotal3Amount]
+  ) AS [Subtotal3Amount]
+  , edw.svf_getInvertAmountForReturns(
+      doc.[ReturnItemProcessingType],
+      doc.[BillingDocumentType],
+      doc.[SalesDocumentItemCategory],
+      doc.[Subtotal4Amount]
+  ) AS [Subtotal4Amount]
+  , edw.svf_getInvertAmountForReturns(
+      doc.[ReturnItemProcessingType],
+      doc.[BillingDocumentType],
+      doc.[SalesDocumentItemCategory],
+      doc.[Subtotal5Amount]
+  ) AS [Subtotal5Amount]
+  , edw.svf_getInvertAmountForReturns(
+      doc.[ReturnItemProcessingType],
+      doc.[BillingDocumentType],
+      doc.[SalesDocumentItemCategory],
+      doc.[Subtotal6Amount]
+  ) AS [Subtotal6Amount]
+  , doc.[StatisticalValueControl]
+  , doc.[StatisticsExchangeRate]
+  , doc.[StatisticsCurrency]
+  , doc.[SalesOrganizationCurrency]
+  , edw.svf_getInvertAmountForReturns(
+      doc.[ReturnItemProcessingType],
+      doc.[BillingDocumentType],
+      doc.[SalesDocumentItemCategory],
+      doc.[EligibleAmountForCashDiscount]
+  ) AS [EligibleAmountForCashDiscount]
+  , doc.[ContractAccount]
+  , doc.[CustomerPaymentTerms]
+  , doc.[PaymentMethod]
+  , doc.[PaymentReference]
+  , doc.[FixedValueDate]
+  , doc.[AdditionalValueDays]
+  , doc.[PayerParty]
+  , doc.[CompanyCode]
+  , doc.[FiscalYear]
+  , doc.[FiscalPeriod]
+  , doc.[CustomerAccountAssignmentGroup]            AS [CustomerAccountAssignmentGroupID]
+  , doc.[BusinessArea]
+  , doc.[ProfitCenter]
+  , doc.[OrderID]
+  , doc.[ControllingArea]
+  , doc.[ProfitabilitySegment]
+  , doc.[CostCenter]
+  , doc.[OriginSDDocument]
+  , doc.[OriginSDDocumentItem]
+  , doc.[PriceDetnExchangeRateDate]
+  , doc.[ExchangeRateType]                          AS [ExchangeRateTypeID]
+  , doc.[FiscalYearVariant]
+  , doc.[Currency]                                  AS [CurrencyID]
+  , doc.[AccountingExchangeRate]
+  , doc.[AccountingExchangeRateIsSet]
+  , doc.[ReferenceSDDocument]
+  , doc.[ReferenceSDDocumentItem]
+  , doc.[ReferenceSDDocumentCategory]               AS [ReferenceSDDocumentCategoryID]
+  , doc.[SalesDocument]                             AS [SalesDocumentID]
+  , doc.[SalesDocumentItem]                         AS [SalesDocumentItemID]
+  , doc.[SalesSDDocumentCategory]                   AS [SalesSDDocumentCategoryID]
+  , doc.[HigherLevelItem]
+  , doc.[BillingDocumentItemInPartSgmt]
+  , doc.[SalesGroup]
+  , doc.[AdditionalCustomerGroup1]
+  , doc.[AdditionalCustomerGroup2]
+  , doc.[AdditionalCustomerGroup3]
+  , doc.[AdditionalCustomerGroup4]
+  , doc.[AdditionalCustomerGroup5]
+  , doc.[SDDocumentReason]                          AS [SDDocumentReasonID]
+  , doc.[ItemIsRelevantForCredit]
+  , doc.[CreditRelatedPrice]
+  , doc.[SalesDistrict]                             AS [SalesDistrictID]
+  , doc.[CustomerGroup]                             AS [CustomerGroupID]
+  , doc.[SoldToParty]
+  , doc.[Country]                                   AS [CountryID]
+  , doc.[ShipToParty]
+  , doc.[BillToParty]
+  , doc.[ShippingPoint]
+  , doc.[IncotermsVersion]
+  , doc.[IncotermsClassification]
+  , doc.[IncotermsTransferLocation]
+  , doc.[IncotermsLocation1]
+  , doc.[IncotermsLocation2]
+  , doc.[ShippingCondition]
+  , edw.svf_getInvertAmountForReturns(
+      doc.[ReturnItemProcessingType],
+      doc.[BillingDocumentType],
+      doc.[SalesDocumentItemCategory],
+      doc.[BillingQuantity]
+  ) AS [QuantitySold]
+  , edw.svf_getInvertAmountForReturns(
+      doc.[ReturnItemProcessingType],
+      doc.[BillingDocumentType],
+      doc.[SalesDocumentItemCategory],
+      doc.[NetAmount] - doc.[CostAmount]
+  ) AS [GrossMargin]
+  , ZB.Customer                                     AS ExternalSalesAgentID
+  , ZB.FullName                                     AS ExternalSalesAgent
+  , ZP.Customer                                     AS ProjectID
+  , ZP.FullName                                     AS Project
+  , dim_SalesEmployee.Personnel                     AS SalesEmployeeID
+  , dim_SalesEmployee.FullName                      AS SalesEmployee
+  , D1.[Customer]                                   AS GlobalParentID
+  , D1.[FullName]                                   AS GlobalParent
+  , case
+      when D1.[Customer] is not Null then D1.[Customer]
+      else AG.[Customer] end                      AS GlobalParentCalculatedID
+  , case
+      when D1.[Customer] is not Null then D1.[FullName]
+      else AG.[FullName] end                      AS GlobalParentCalculated
+  , C1.[Customer]                                   AS LocalParentID
+  , C1.[FullName]                                   AS LocalParent
+  , case
+      when C1.[Customer] is not Null then C1.[Customer]
+      else AG.[Customer] end                      AS LocalParentCalculatedID
+  , case
+      when C1.[Customer] is not Null then C1.[FullName]
+      else AG.[FullName] end                      AS LocalParentCalculated
 
-        UNION ALL
+  , SDTT.SalesDocumentType                          AS SalesOrderTypeID
+  , case
+      when doc.[BillToParty] is not Null then doc.[BillToParty]
+      else doc.[SoldToParty] end                  AS BillToID
 
-    SELECT
-        SourceCurrency,
-        TargetCurrency,
-        ExchangeRate,
-        CurrencyTypeID
-    FROM [edw].[vw_CurrencyConversionRate]  rates
-    CROSS JOIN [edw].[fact_CurrentDate]
-    WHERE today BETWEEN rates.ExchangeRateEffectiveDate AND rates.LastDay
-),
-BillingDocumentItemBase as (
-    select 
-          doc.[BillingDocument]                           as [BillingDocument]
-        , doc.[BillingDocumentItem]
-        , doc.[SalesDocumentItemCategory]                 as [SalesDocumentItemCategoryID]
-        , doc.[SalesDocumentItemType]                     as [SalesDocumentItemTypeID]
-        , doc.[ReturnItemProcessingType]
-        , doc.[BillingDocumentType]                       as [BillingDocumentTypeID]
-        , doc.[BillingDocumentCategory]                   as [BillingDocumentCategoryID]
-        , doc.[SDDocumentCategory]                        as [SDDocumentCategoryID]
-        , doc.[CreationDate]
-        , doc.[CreationTime]
-        , doc.[LastChangeDate]
-        , doc.[BillingDocumentDate]
-        , doc.[BillingDocumentIsTemporary]
-        , doc.[OrganizationDivision]
-        , doc.[Division]
-        , doc.[SalesOffice]                               as [SalesOfficeID]
-        , doc.[SalesOrganization]                         as [SalesOrganizationID]
-        , doc.[DistributionChannel]                       as [DistributionChannelID]
-        , doc.[Material]
-        , doc.[OriginallyRequestedMaterial]
-        , doc.[InternationalArticleNumber]
-        , doc.[PricingReferenceMaterial]
-        , NULL as [LengthInMPer1]
-        , NULL as [LengthInM]
-        , doc.[Batch]
-        , doc.[MaterialGroup]                             as [MaterialGroupID]
-        , DimBrand.[BrandID]                              as [BrandID]
-        , DimBrand.[Brand]                                as [Brand]
-        , doc.[AdditionalMaterialGroup2]
-        , doc.[AdditionalMaterialGroup3]
-        , doc.[AdditionalMaterialGroup4]
-        , doc.[AdditionalMaterialGroup5]
-        , doc.[MaterialCommissionGroup]
-        , doc.[Plant]                                     as [PlantID]
-        , doc.[StorageLocation]                           as [StorageLocationID]
-        , doc.[BillingDocumentIsCancelled]
-        , doc.[CancelledBillingDocument]
-        , CASE
-              WHEN
-                  doc.[BillingDocumentIsCancelled] = 'X' 
-                  OR
-                  doc.[CancelledBillingDocument]<>''
-              THEN 'Y'
-              ELSE 'N' 
-          END AS [CancelledInvoiceEffect]
-        , doc.[BillingDocumentItemText]
-        , doc.[ServicesRenderedDate]
-        , doc.[BillingQuantity]
-        , doc.[BillingQuantityUnit]                       as [BillingQuantityUnitID]
-        , doc.[BillingQuantityInBaseUnit]
-        , doc.[BaseUnit]
-        , doc.[MRPRequiredQuantityInBaseUnit]
-        , doc.[BillingToBaseQuantityDnmntr]
-        , doc.[BillingToBaseQuantityNmrtr]
-        , doc.[ItemGrossWeight]
-        , doc.[ItemNetWeight]
-        , doc.[ItemWeightUnit]
-        , doc.[ItemVolume]
-        , doc.[ItemVolumeUnit]
-        , doc.[BillToPartyCountry]
-        , doc.[BillToPartyRegion]
-        , doc.[BillingPlanRule]
-        , doc.[BillingPlan]
-        , doc.[BillingPlanItem]
-        , doc.[CustomerPriceGroup]                        as [CustomerPriceGroupID]
-        , doc.[PriceListType]                             as [PriceListTypeID]
-        , doc.[TaxDepartureCountry]
-        , doc.[VATRegistration]
-        , doc.[VATRegistrationCountry]
-        , doc.[VATRegistrationOrigin]
-        , doc.[CustomerTaxClassification1]
-        , doc.[CustomerTaxClassification2]
-        , doc.[CustomerTaxClassification3]
-        , doc.[CustomerTaxClassification4]
-        , doc.[CustomerTaxClassification5]
-        , doc.[CustomerTaxClassification6]
-        , doc.[CustomerTaxClassification7]
-        , doc.[CustomerTaxClassification8]
-        , doc.[CustomerTaxClassification9]
-        , doc.[SDPricingProcedure]
-        , CASE
-              WHEN 
-                  doc.[ReturnItemProcessingType] = 'X'
-                  OR                
-                  (doc.[BillingDocumentType] = 'ZG2'
-                  AND
-                  doc.[SalesDocumentItemCategory] = 'ZL2N')
-              THEN doc.[NetAmount] * (-1) 
-              ELSE 
-                  doc.[NetAmount]
-         END AS [NetAmount]
-        , doc.[TransactionCurrency]                       AS [TransactionCurrencyID]
-        , CASE
-              WHEN 
-                  doc.[ReturnItemProcessingType] = 'X'
-                  OR                
-                  (doc.[BillingDocumentType] = 'ZG2'
-                  AND
-                  doc.[SalesDocumentItemCategory] = 'ZL2N')
-              THEN doc.[GrossAmount] * (-1) 
-              ELSE 
-                  doc.[GrossAmount]
-          END AS [GrossAmount]
-        , doc.[PricingDate]
-        , doc.[PriceDetnExchangeRate]
-        , doc.[PricingScaleQuantityInBaseUnit]
-        , CASE
-              WHEN 
-                  doc.[ReturnItemProcessingType] = 'X'
-                  OR                
-                  (doc.[BillingDocumentType] = 'ZG2'
-                  AND
-                  doc.[SalesDocumentItemCategory] = 'ZL2N')
-              THEN doc.[TaxAmount]  
-              ELSE  
-                  doc.[TaxAmount] * (-1)
-          END AS [TaxAmount] 
-        , CASE 
-              WHEN 
-                  doc.[ReturnItemProcessingType] = 'X'
-                  OR                
-                  (doc.[BillingDocumentType] = 'ZG2'
-                  AND
-                  doc.[SalesDocumentItemCategory] = 'ZL2N')
-              THEN doc.[CostAmount]  
-              ELSE 
-                  doc.[CostAmount] * (-1)
-          END AS [CostAmount]
-        , CASE             
-              WHEN 
-                  doc.[ReturnItemProcessingType] = 'X'
-                  OR                
-                  (doc.[BillingDocumentType] = 'ZG2'
-                  AND
-                  doc.[SalesDocumentItemCategory] = 'ZL2N')
-              THEN doc.[Subtotal1Amount] * (-1) 
-              ELSE 
-                  doc.[Subtotal1Amount]
-          END AS [Subtotal1Amount] 
-        , CASE 
-            WHEN 
-                doc.[ReturnItemProcessingType] = 'X'
-                OR                
-                (doc.[BillingDocumentType] = 'ZG2'
-                AND
-                doc.[SalesDocumentItemCategory] = 'ZL2N')
-            THEN doc.[Subtotal2Amount] * (-1) 
-            ELSE 
-                doc.[Subtotal2Amount]
-          END AS [Subtotal2Amount] 
-        , CASE 
-              WHEN 
-                  doc.[ReturnItemProcessingType] = 'X'
-                  OR                
-                  (doc.[BillingDocumentType] = 'ZG2'
-                  AND
-                  doc.[SalesDocumentItemCategory] = 'ZL2N')
-              THEN doc.[Subtotal3Amount] * (-1) 
-              ELSE 
-                  doc.[Subtotal3Amount]
-          END AS [Subtotal3Amount] 
-        , CASE 
-              WHEN 
-                  doc.[ReturnItemProcessingType] = 'X'
-                  OR                
-                  (doc.[BillingDocumentType] = 'ZG2'
-                  AND
-                  doc.[SalesDocumentItemCategory] = 'ZL2N')
-              THEN doc.[Subtotal4Amount] * (-1) 
-              ELSE 
-                  doc.[Subtotal4Amount]
-          END AS [Subtotal4Amount] 
-        , CASE 
-              WHEN 
-                  doc.[ReturnItemProcessingType] = 'X'
-                  OR                
-                  (doc.[BillingDocumentType] = 'ZG2'
-                  AND
-                  doc.[SalesDocumentItemCategory] = 'ZL2N')
-              THEN doc.[Subtotal5Amount] * (-1) 
-              ELSE 
-                  doc.[Subtotal5Amount]
-          END AS [Subtotal5Amount] 
-        , CASE 
-              WHEN 
-                  doc.[ReturnItemProcessingType] = 'X'
-                  OR                
-                  (doc.[BillingDocumentType] = 'ZG2'
-                  AND
-                  doc.[SalesDocumentItemCategory] = 'ZL2N')
-              THEN doc.[Subtotal6Amount] * (-1) 
-              ELSE 
-                  doc.[Subtotal6Amount]
-          END AS [Subtotal6Amount]
-        , doc.[StatisticalValueControl]
-        , doc.[StatisticsExchangeRate]
-        , doc.[StatisticsCurrency]
-        , doc.[SalesOrganizationCurrency]
-        , CASE
-              WHEN 
-                  doc.[ReturnItemProcessingType] = 'X'
-                  OR                
-                  (doc.[BillingDocumentType] = 'ZG2'
-                  AND
-                  doc.[SalesDocumentItemCategory] = 'ZL2N')
-              THEN doc.[EligibleAmountForCashDiscount] * (-1) 
-              ELSE 
-                  doc.[EligibleAmountForCashDiscount]
-          END AS [EligibleAmountForCashDiscount]
-        , doc.[ContractAccount]
-        , doc.[CustomerPaymentTerms]
-        , doc.[PaymentMethod]
-        , doc.[PaymentReference]
-        , doc.[FixedValueDate]
-        , doc.[AdditionalValueDays]
-        , doc.[PayerParty]
-        , doc.[CompanyCode]
-        , doc.[FiscalYear]
-        , doc.[FiscalPeriod]
-        , doc.[CustomerAccountAssignmentGroup]            as [CustomerAccountAssignmentGroupID]
-        , doc.[BusinessArea]
-        , doc.[ProfitCenter]
-        , doc.[OrderID]
-        , doc.[ControllingArea]
-        , doc.[ProfitabilitySegment]
-        , doc.[CostCenter]
-        , doc.[OriginSDDocument]
-        , doc.[OriginSDDocumentItem]
-        , doc.[PriceDetnExchangeRateDate]
-        , doc.[ExchangeRateType]                          as [ExchangeRateTypeID]
-        , doc.[FiscalYearVariant]
-        , doc.[Currency]                                  as [CurrencyID]
-        , CASE 
-            WHEN doc.[AccountingExchangeRate]<0
-                THEN 1/doc.[AccountingExchangeRate]
-            ELSE doc.[AccountingExchangeRate]
-        END                                               AS [AccountingExchangeRate]
-        , doc.[AccountingExchangeRateIsSet]
-        , doc.[ReferenceSDDocument]
-        , doc.[ReferenceSDDocumentItem]
-        , doc.[ReferenceSDDocumentCategory]               as [ReferenceSDDocumentCategoryID]
-        , doc.[SalesDocument]                             as [SalesDocumentID]
-        , doc.[SalesDocumentItem]                         as [SalesDocumentItemID]
-        , doc.[SalesSDDocumentCategory]                   as [SalesSDDocumentCategoryID]
-        , doc.[HigherLevelItem]
-        , doc.[BillingDocumentItemInPartSgmt]
-        , doc.[SalesGroup]
-        , doc.[AdditionalCustomerGroup1]
-        , doc.[AdditionalCustomerGroup2]
-        , doc.[AdditionalCustomerGroup3]
-        , doc.[AdditionalCustomerGroup4]
-        , doc.[AdditionalCustomerGroup5]
-        , doc.[SDDocumentReason]                          as [SDDocumentReasonID]
-        , doc.[ItemIsRelevantForCredit]
-        , doc.[CreditRelatedPrice]
-        , doc.[SalesDistrict]                             as [SalesDistrictID]
-        , doc.[CustomerGroup]                             as [CustomerGroupID]
-        , doc.[SoldToParty]
-        , doc.[Country]                                   as [CountryID]
-        , doc.[ShipToParty]
-        , doc.[BillToParty]
-        , doc.[ShippingPoint]
-        , doc.[IncotermsVersion]
-        , doc.[IncotermsClassification]
-        , doc.[IncotermsTransferLocation]
-        , doc.[IncotermsLocation1]
-        , doc.[IncotermsLocation2]
-        , doc.[ShippingCondition]
-        , CASE
-              WHEN 
-                  doc.[ReturnItemProcessingType] = 'X'
-                  OR                
-                  (doc.[BillingDocumentType] = 'ZG2'
-                  AND
-                  doc.[SalesDocumentItemCategory] = 'ZL2N')
-              THEN [BillingQuantity] * (-1)
-              ELSE
-                  [BillingQuantity]
-          END AS QuantitySold 
-        , CASE 
-              WHEN 
-                  doc.[ReturnItemProcessingType] = 'X'
-                  OR                
-                  (doc.[BillingDocumentType] = 'ZG2'
-                  AND
-                  doc.[SalesDocumentItemCategory] = 'ZL2N')
-              THEN (doc.[NetAmount] - doc.[CostAmount]) * (-1) 
-              ELSE doc.[NetAmount] - doc.[CostAmount]
-          END AS GrossMargin
-        , ZB.Customer                                     as ExternalSalesAgentID
-        , ZB.FullName                                     as ExternalSalesAgent
-        , ZP.Customer                                     as ProjectID
-        , ZP.FullName                                     as Project
-        , dim_SalesEmployee.Personnel                     as SalesEmployeeID
-        , dim_SalesEmployee.FullName                      as SalesEmployee
-        , D1.[Customer]                                   as GlobalParentID
-        , D1.[FullName]                                   as GlobalParent
-        , case
-            when D1.[Customer] is not Null then D1.[Customer]
-            else AG.[Customer] end                      as GlobalParentCalculatedID
-        , case
-            when D1.[Customer] is not Null then D1.[FullName]
-            else AG.[FullName] end                      as GlobalParentCalculated
-        , C1.[Customer]                                   as LocalParentID
-        , C1.[FullName]                                   as LocalParent
-        , case
-            when C1.[Customer] is not Null then C1.[Customer]
-            else AG.[Customer] end                      as LocalParentCalculatedID
-        , case
-            when C1.[Customer] is not Null then C1.[FullName]
-            else AG.[FullName] end                      as LocalParentCalculated
+  , case
+      when doc.[BillToParty] is not Null then RE.[FullName]
+      else AG.[FullName] end                      AS BillTo
+  , doc.[BillingDocumentDate]                     AS [AccountingDate]
+  , doc.[Material] AS MaterialCalculated
+  , doc.[SoldToParty] AS SoldToPartyCalculated
+  , edw.svf_getInOutID_s4h (CustomerID) AS InOutID
+  , PA.ICSalesDocumentID 
+  , PA.ICSalesDocumentItemID
+  , doc.[t_applicationId]
+  , doc.[t_extractionDtm]
+  --, @t_jobId                                        AS t_jobId
+  --, @t_jobDtm                                       AS t_jobDtm
+  --, @t_lastActionCd                                 AS t_lastActionCd
+  --, @t_jobBy                                        AS t_jobBy
 
-        , SDTT.SalesDocumentType                          as SalesOrderTypeID
-        , case
-            when doc.[BillToParty] is not Null then doc.[BillToParty]
-            else doc.[SoldToParty] end                  as BillToID
-
-        , case
-            when doc.[BillToParty] is not Null then RE.[FullName]
-            else AG.[FullName] end                      as BillTo
-        , doc.[BillingDocumentDate]                     as [AccountingDate]
-        , doc.[Material] as MaterialCalculated
-        , doc.[SoldToParty] as SoldToPartyCalculated
-        , edw.svf_getInOutID_s4h (CustomerID) as InOutID
-        , PA.ICSalesDocumentID 
-        , PA.ICSalesDocumentItemID
-        , doc.[t_applicationId]
-        , doc.[t_extractionDtm]
-        --, @t_jobId                                        AS t_jobId
-        --, @t_jobDtm                                       AS t_jobDtm
-        --, @t_lastActionCd                                 AS t_lastActionCd
-        --, @t_jobBy                                        AS t_jobBy
-
-    from [base_s4h_cax].[C_BillingDocumentItemBasicDEX] doc
-        left join [edw].[dim_BillingDocumentPartnerFs] ZB
-            on ZB.SDDocument = doc.[BillingDocument] and ZB.[PartnerFunction] = 'ZB' 
-            -- and ZB.[MANDT] = 200 MPS 2021/11/01: commented out due to different client values between dev,qas, and prod
-        left join [edw].[dim_BillingDocumentPartnerFs] ZP
-            on ZP.SDDocument = doc.[BillingDocument] and ZP.[PartnerFunction] = 'ZP'
-            -- and ZP.[MANDT] = 200 MPS 2021/11/01: commented out due to different client values between dev,qas, and prod
-        left join [edw].[vw_dim_SalesEmployee] dim_SalesEmployee
-            on dim_SalesEmployee.SDDocument = doc.[BillingDocument]
-            -- and VE.[MANDT] = 200 MPS 2021/11/01: commented out due to different client values between dev,qas, and prod
-        left join [edw].[dim_BillingDocumentPartnerFs] D1
-            on D1.SDDocument = doc.[BillingDocument] and D1.[PartnerFunction] = '1D'
-            -- and D1.[MANDT] = 200 MPS 2021/11/01: commented out due to different client values between dev,qas, and prod
-        left join [edw].[dim_BillingDocumentPartnerFs] C1
-            on C1.SDDocument = doc.[BillingDocument] and C1.[PartnerFunction] = '1C'
-            -- and C1.[MANDT] = 200 MPS 2021/11/01: commented out due to different client values between dev,qas, and prod
-        left join [edw].[dim_BillingDocumentPartnerFs] AG
-            on AG.SDDocument = doc.[BillingDocument] and AG.[PartnerFunction] = 'AG'
-            -- and AG.[MANDT] = 200 MPS 2021/11/01: commented out due to different client values between dev,qas, and prod
-        left join [edw].[dim_BillingDocumentPartnerFs] RE
-            on RE.SDDocument = doc.[BillingDocument] and RE.[PartnerFunction] = 'RE'
-            -- and RE.[MANDT] = 200 MPS 2021/11/01: commented out due to different client values between dev,qas, and prod
-        left join [base_s4h_cax].[C_SalesDocumentItemDEX] SDID
-            on SDID.[SalesDocument] = doc.[SalesDocument] and
-                    SDID.[SalesDocumentItem] = doc.[SalesDocumentItem] 
-                    -- and SDID.[MANDT] = 200 MPS 2021/11/01: commented out due to different client values between dev,qas, and prod
-        left join [base_s4h_cax].[I_SalesDocumentTypeText] SDTT
-            on SDTT.[SalesDocumentType] = SDID.[SalesDocumentType] and SDTT.[Language] = 'E' 
-            -- and SDTT.[MANDT] = 200 MPS 2021/11/01: commented out due to different client values between dev,qas, and prod
-       -- supporting full load
-       -- where doc.[t_lastActionCd] in ('I', 'U')
-         left join [edw].[dim_Brand] DimBrand
-               on DimBrand.[BrandID] = doc.[AdditionalMaterialGroup1]
-         left join [edw].[dim_PurgAccAssignment] PA
-            ON doc.SalesDocument = PA.PurchaseOrder                   COLLATE DATABASE_DEFAULT
-                AND right(doc.SalesDocumentItem,5) = PA.PurchaseOrderItem 
-        left join [edw].[dim_Customer] DimCust
-            ON doc.SoldToParty = DimCust.CustomerID  
+from [base_s4h_cax].[C_BillingDocumentItemBasicDEX] doc
+  left join [edw].[dim_BillingDocumentPartnerFs] ZB
+      on ZB.SDDocument = doc.[BillingDocument] and ZB.[PartnerFunction] = 'ZB' 
+      -- and ZB.[MANDT] = 200 MPS 2021/11/01: commented out due to different client values between dev,qas, and prod
+  left join [edw].[dim_BillingDocumentPartnerFs] ZP
+      on ZP.SDDocument = doc.[BillingDocument] and ZP.[PartnerFunction] = 'ZP'
+      -- and ZP.[MANDT] = 200 MPS 2021/11/01: commented out due to different client values between dev,qas, and prod
+  left join [edw].[vw_dim_SalesEmployee] dim_SalesEmployee
+      on dim_SalesEmployee.SDDocument = doc.[BillingDocument]
+      -- and VE.[MANDT] = 200 MPS 2021/11/01: commented out due to different client values between dev,qas, and prod
+  left join [edw].[dim_BillingDocumentPartnerFs] D1
+      on D1.SDDocument = doc.[BillingDocument] and D1.[PartnerFunction] = '1D'
+      -- and D1.[MANDT] = 200 MPS 2021/11/01: commented out due to different client values between dev,qas, and prod
+  left join [edw].[dim_BillingDocumentPartnerFs] C1
+      on C1.SDDocument = doc.[BillingDocument] and C1.[PartnerFunction] = '1C'
+      -- and C1.[MANDT] = 200 MPS 2021/11/01: commented out due to different client values between dev,qas, and prod
+  left join [edw].[dim_BillingDocumentPartnerFs] AG
+      on AG.SDDocument = doc.[BillingDocument] and AG.[PartnerFunction] = 'AG'
+      -- and AG.[MANDT] = 200 MPS 2021/11/01: commented out due to different client values between dev,qas, and prod
+  left join [edw].[dim_BillingDocumentPartnerFs] RE
+      on RE.SDDocument = doc.[BillingDocument] and RE.[PartnerFunction] = 'RE'
+      -- and RE.[MANDT] = 200 MPS 2021/11/01: commented out due to different client values between dev,qas, and prod
+  left join [base_s4h_cax].[C_SalesDocumentItemDEX] SDID
+      on SDID.[SalesDocument] = doc.[SalesDocument] and
+              SDID.[SalesDocumentItem] = doc.[SalesDocumentItem] 
+              -- and SDID.[MANDT] = 200 MPS 2021/11/01: commented out due to different client values between dev,qas, and prod
+  left join [base_s4h_cax].[I_SalesDocumentTypeText] SDTT
+      on SDTT.[SalesDocumentType] = SDID.[SalesDocumentType] and SDTT.[Language] = 'E' 
+      -- and SDTT.[MANDT] = 200 MPS 2021/11/01: commented out due to different client values between dev,qas, and prod
+  -- supporting full load
+  -- where doc.[t_lastActionCd] in ('I', 'U')
+  left join [edw].[dim_Brand] DimBrand
+        on DimBrand.[BrandID] = doc.[AdditionalMaterialGroup1]
+  left join [edw].[dim_PurgAccAssignment] PA
+    ON doc.SalesDocument = PA.PurchaseOrder                   COLLATE DATABASE_DEFAULT
+        AND right(doc.SalesDocumentItem,5) = PA.PurchaseOrderItem 
+  left join [edw].[dim_Customer] DimCust
+      ON doc.SoldToParty = DimCust.CustomerID  
     )
 
 SELECT
@@ -560,7 +473,7 @@ SELECT
       ,[PriceDetnExchangeRateDate]
       ,[ExchangeRateTypeID]
       ,[FiscalYearVariant]
-      ,[CurrencyID] as [CompanyCodeCurrencyID]
+      ,[CurrencyID] AS [CompanyCodeCurrencyID]
       ,[AccountingExchangeRate]
       ,[AccountingExchangeRateIsSet]
       ,[ReferenceSDDocument]
@@ -634,7 +547,7 @@ SELECT
       --,BDI.[t_jobBy]
 FROM 
     BillingDocumentItemBase BDI
-LEFT JOIN CCR
+LEFT JOIN [edw].[vw_CurrencyConversionRate] CCR
     ON BDI.CurrencyID = CCR.SourceCurrency
 LEFT JOIN 
     [edw].[dim_CurrencyType] CR

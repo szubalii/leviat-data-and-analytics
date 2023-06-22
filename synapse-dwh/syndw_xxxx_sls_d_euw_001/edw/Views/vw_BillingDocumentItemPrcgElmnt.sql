@@ -1,26 +1,5 @@
 ﻿CREATE VIEW [edw].[vw_BillingDocumentItemPrcgElmnt]
 	AS
-WITH CurrencyRate AS(
-     SELECT 
-     [SourceCurrency]
-    ,[TargetCurrency]
-    ,[ExchangeRateEffectiveDate]
-    ,[LastDay]
-    ,[ExchangeRate]
-    ,CONVERT (nvarchar(2),CurrencyTypeID) as CurrencyTypeID
-    FROM [edw].[vw_CurrencyConversionRate]
-UNION ALL
-    SELECT 
-     [SourceCurrency]
-    ,[TargetCurrency]
-    ,[ExchangeRateEffectiveDate]
-    ,[LastDay]
-    ,[ExchangeRate]
-    ,'00' as CurrencyTypeID
-    FROM  [edw].[vw_CurrencyConversionRate] 
-    WHERE CurrencyTypeID= '10'
-    )
-
 	SELECT 
 		 IBDIPE.[BillingDocument]
 		,IBDIPE.[BillingDocumentItem]
@@ -84,9 +63,7 @@ UNION ALL
 	CROSS JOIN [edw].[fact_CurrentDate]
 	LEFT JOIN  [edw].[fact_BillingDocumentItem] BDI
            ON IBDIPE.BillingDocument = BDI.BillingDocument and IBDIPE.BillingDocumentItem = BDI.BillingDocumentItem and BDI.CurrencyTypeID = '10'
-	INNER JOIN CurrencyRate CR
+	INNER JOIN [edw].[vw_CurrencyConversionRate] CR
            ON BDI.CurrencyID = CR.SourceCurrency COLLATE DATABASE_DEFAULT
-           AND today BETWEEN CR.ExchangeRateEffectiveDate and CR.LastDay
-         --AND BDI.BillingDocumentDate BETWEEN CR.ExchangeRateEffectiveDate and CR.LastDay
     INNER JOIN [edw].[dim_CurrencyType] CurrType
         ON CR.CurrencyTypeID = CurrType.CurrencyTypeID

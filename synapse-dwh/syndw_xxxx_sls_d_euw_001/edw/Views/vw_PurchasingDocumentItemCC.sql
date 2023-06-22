@@ -48,8 +48,6 @@ INNER JOIN
 INNER JOIN
     [edw].[vw_CurrencyConversionRate]   AS CCR
         ON PDI.DocumentCurrencyID = CCR.SourceCurrency
-            AND today BETWEEN CCR.ExchangeRateEffectiveDate AND CCR.LastDay
-          --AND PD.CreationDate BETWEEN CCR.ExchangeRateEffectiveDate AND CCR.LastDay
 INNER JOIN
     [edw].[dim_CurrencyType]    CurrType
         ON CCR.CurrencyTypeID = CurrType.CurrencyTypeID

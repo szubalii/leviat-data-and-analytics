@@ -740,10 +740,8 @@ WITH BillingDocumentItemBase as (
             ,   BDI.[t_lastActionDtm]
             ,   BDI.[t_filePath]   
         FROM  BillingDocumentItemBase_Margin BDI
-        CROSS JOIN [edw].[fact_CurrentDate]
         LEFT JOIN [edw].[vw_CurrencyConversionRate] ExchangeRate
            ON BDI.[CurrencyID] = ExchangeRate.[SourceCurrency]
-           AND today BETWEEN ExchangeRate.[ExchangeRateEffectiveDate] AND ExchangeRate.[LastDay]   
          --AND BDI.[BillingDocumentDate] BETWEEN ExchangeRate.[ExchangeRateEffectiveDate] AND ExchangeRate.[LastDay]   
         WHERE ExchangeRate.CurrencyTypeID ='30'
     ),
@@ -930,10 +928,8 @@ WITH BillingDocumentItemBase as (
             ,   BDI.[t_lastActionDtm]
             ,   BDI.[t_filePath]   
         FROM  BillingDocumentItemBase_Margin BDI
-        CROSS JOIN [edw].[fact_CurrentDate]
         LEFT JOIN [edw].[vw_CurrencyConversionRate] ExchangeRate
            ON BDI.[CurrencyID] = ExchangeRate.[SourceCurrency]
-           AND today BETWEEN ExchangeRate.[ExchangeRateEffectiveDate] AND ExchangeRate.[LastDay] 
         -- AND BDI.[BillingDocumentDate] BETWEEN ExchangeRate.[ExchangeRateEffectiveDate] AND ExchangeRate.[LastDay]   
         WHERE ExchangeRate.CurrencyTypeID ='40'
      )
