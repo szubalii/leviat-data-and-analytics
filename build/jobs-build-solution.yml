@@ -1,15 +1,17 @@
 parameters:
-- name: folder
-  type: string
+- name: solutions
+  type: object
 
 jobs:
-- job: BUILD_${{ upper(replace(parameters.folder, '-', '_')) }}
-  pool:
-    name: 'VM'
-    demands:
-    - node.js
-    - VisualStudio
-    - Agent.ComputerName -equals $(VMName)
-  steps:
-  - template: ../${{ parameters.folder }}/build/steps-build.yml
-  - template: ../${{ parameters.folder }}/build/steps-artifact.yml
+- ${{ each solution in parameters.solutions }}:
+  - ${{ if parameters.solutions[solution] }}:
+    - job: BUILD_${{ upper(replace(folder, '-', '_')) }}
+      pool:
+        name: 'VM'
+        demands:
+        - node.js
+        - VisualStudio
+        - Agent.ComputerName -equals $(VMName)
+      steps:
+      - template: ../${{ folder }}/build/steps-build.yml
+      - template: ../${{ folder }}/build/steps-artifact.yml

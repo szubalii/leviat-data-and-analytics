@@ -4,15 +4,6 @@ parameters:
 - name: runDeployment
   type: boolean
   default: false
-- name: solutions
-  type: object
-  default:
-    solutions:
-    - synapse_dwh
-    - azure_data_factory
-    - orchestration
-    - xu_config
-    - synapse_workspace
 - name: synapse_dwh
   type: boolean
   default: true
@@ -163,30 +154,41 @@ stages:
   - template: ./jobs-validate.yml
 - stage: BUILD
   jobs:
-  - ${{ if variables.buildAndDeploy_synapse_dwh }}:
-    - template: ./jobs-build-solution.yml
-      parameters:
-        folder: synapse-dwh
+  - template: ./jobs-build-solution.yml
+    parameters:
+      solutions:
+        synapse-dwh: parameters.synapse-dwh
+        azure_data_factory: parameters.azure_data_factory
+        orchestration: parameters.orchestration
+        xu_config: parameters.xu_config
+        synapse_workspace: parameters.synapse_workspace
+
+  # - ${{ if variables.buildAndDeploy_synapse_dwh }}:
+
+  # - ${{ if variables.buildAndDeploy_synapse_dwh }}:
+  #   - template: ./jobs-build-solution.yml
+  #     parameters:
+  #       folder: synapse-dwh
   
-  - ${{ if variables.buildAndDeploy_azure_data_factory }}:
-    - template: ./jobs-build-solution.yml
-      parameters:
-        folder: azure-data-factory
+  # - ${{ if variables.buildAndDeploy_azure_data_factory }}:
+  #   - template: ./jobs-build-solution.yml
+  #     parameters:
+  #       folder: azure-data-factory
   
-  - ${{ if variables.buildAndDeploy_orchestration }}:
-    - template: ./jobs-build-solution.yml
-      parameters:
-        folder: orchestration
+  # - ${{ if variables.buildAndDeploy_orchestration }}:
+  #   - template: ./jobs-build-solution.yml
+  #     parameters:
+  #       folder: orchestration
   
-  - ${{ if variables.buildAndDeploy_xu_config }}:
-    - template: ./jobs-build-solution.yml
-      parameters:
-        folder: xu-config
+  # - ${{ if variables.buildAndDeploy_xu_config }}:
+  #   - template: ./jobs-build-solution.yml
+  #     parameters:
+  #       folder: xu-config
   
-  - ${{ if variables.buildAndDeploy_synapse_workspace }}:
-    - template: ./jobs-build-solution.yml
-      parameters:
-        folder: synapse-workspace
+  # - ${{ if variables.buildAndDeploy_synapse_workspace }}:
+  #   - template: ./jobs-build-solution.yml
+  #     parameters:
+  #       folder: synapse-workspace
 
 
 - ${{ if parameters.runDeployment }}:
@@ -194,23 +196,23 @@ stages:
     jobs:    
     
     - ${{ if variables.buildAndDeploy_xu_config }}:
-      - template: ./jobs-deploy-solution.yml
+      - template: ./jobs-deploy-solution-helper.yml
         parameters:
           folder: xu-config
           deployEnvPrefix: ${{ variables.deployEnvPrefix }}
     - ${{ if variables.buildAndDeploy_synapse_dwh }}:
-      - template: ./jobs-deploy-solution.yml
+      - template: ./jobs-deploy-solution-helper.yml
         parameters:
           folder: synapse-dwh
           deployEnvPrefix: ${{ variables.deployEnvPrefix }}
           test: true
     - ${{ if variables.buildAndDeploy_orchestration }}:
-      - template: ./jobs-deploy-solution.yml
+      - template: ./jobs-deploy-solution-helper.yml
         parameters:
           folder: orchestration
           deployEnvPrefix: ${{ variables.deployEnvPrefix }}
     - ${{ if variables.buildAndDeploy_synapse_workspace }}:
-      - template: ./jobs-deploy-solution.yml
+      - template: ./jobs-deploy-solution-helper.yml
         parameters:
           folder: synapse-workspace
           deployEnvPrefix: ${{ variables.deployEnvPrefix }}
@@ -219,7 +221,7 @@ stages:
     jobs:
     
     - ${{ if variables.buildAndDeploy_azure_data_factory }}:
-      - template: ./jobs-deploy-solution.yml
+      - template: ./jobs-deploy-solution-helper.yml
         parameters:
           folder: azure-data-factory
           deployEnvPrefix: ${{ variables.deployEnvPrefix }}
