@@ -22,7 +22,7 @@ jobs:
     - VisualStudio
     - Python.Version
     - Agent.ComputerName -equals $(VMName)
-  environment: ${{ variables[deployEnvPrefix] }}
+  environment: ${{ variables.deployEnvPrefix }}
   workspace:
     clean: $(clean)
   strategy:
