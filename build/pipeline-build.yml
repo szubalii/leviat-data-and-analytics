@@ -7,11 +7,12 @@ parameters:
 - name: solutions
   type: object
   default:
-  - synapse_dwh
-  - azure_data_factory
-  - orchestration
-  - xu_config
-  - synapse_workspace
+    solutions:
+    - synapse_dwh
+    - azure_data_factory
+    - orchestration
+    - xu_config
+    - synapse_workspace
 - name: synapse_dwh
   type: boolean
   default: true
