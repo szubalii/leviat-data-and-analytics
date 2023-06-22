@@ -1,8 +1,8 @@
 parameters:
 - name: folder
   type: string
-- name: deployEnvPrefix
-  type: string
+# - name: deployEnvPrefix
+#   type: string
 - name: test
   type: boolean
   default: false
