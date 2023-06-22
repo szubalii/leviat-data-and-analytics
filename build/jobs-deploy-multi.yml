@@ -18,5 +18,5 @@ jobs:
   - ${{ if solution.deploy }}:
     - template: ./jobs-deploy-solution-helper.yml
       parameters:
-        folder: solution.name
+        folder: ${{ solution.name }}
         deployEnvPrefix: ${{ parameters.deployEnvPrefix }}

@@ -179,7 +179,6 @@ stages:
 - ${{ if parameters.runDeployment }}:
   - stage: DEPLOY_1
     jobs:
-    
     - template: ./jobs-deploy-multi.yml
       parameters:
         solutions:
