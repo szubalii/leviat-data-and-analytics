@@ -1,0 +1,304 @@
+{
+	"name": "pl_SYNDW_DQ_process_batch",
+	"properties": {
+		"activities": [
+			{
+				"name": "Get DQ Entities",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderQuery": {
+							"value": "SELECT *\nFROM [dbo].[get_scheduled_entity_batch_activities_by_layer] (\n    @{pipeline().parameters.adhoc},\n    '@{pipeline().parameters.date}',\n    @{pipeline().parameters.rerun_successful_full_entities},\n    'DQ'\n) \nWHERE \n    [execution_order] = @{pipeline().parameters.OrderNumber}\n    AND\n    @{pipeline().parameters.entity_filter}",
+							"type": "Expression"
+						},
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "ds_orch_db",
+						"type": "DatasetReference",
+						"parameters": {
+							"sqlDb": {
+								"value": "@pipeline().globalParameters.sqlDb",
+								"type": "Expression"
+							}
+						}
+					},
+					"firstRowOnly": false
+				}
+			},
+			{
+				"name": "ForEach Entity",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "Get DQ Entities",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('Get DQ Entities').output.value",
+						"type": "Expression"
+					},
+					"isSequential": false,
+					"batchCount": 10,
+					"activities": [
+						{
+							"name": "If Required to Process EDW",
+							"type": "IfCondition",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"expression": {
+									"value": "@contains(\n    item().required_activities,\n    'ProcessDQ'\n)",
+									"type": "Expression"
+								},
+								"ifTrueActivities": [
+									{
+										"name": "Process DQ Entity",
+										"type": "ExecutePipeline",
+										"dependsOn": [],
+										"userProperties": [],
+										"typeProperties": {
+											"pipeline": {
+												"referenceName": "pl_SYNDW_DQ_process_entity",
+												"type": "PipelineReference"
+											},
+											"waitOnCompletion": true,
+											"parameters": {
+												"sproc_schema_name": {
+													"value": "@item().sproc_schema_name",
+													"type": "Expression"
+												},
+												"sproc_name": {
+													"value": "@item().sproc_name",
+													"type": "Expression"
+												},
+												"source_schema_name": {
+													"value": "@item().source_schema_name",
+													"type": "Expression"
+												},
+												"source_view_name": {
+													"value": "@item().source_view_name",
+													"type": "Expression"
+												},
+												"dest_schema_name": {
+													"value": "@item().dest_schema_name",
+													"type": "Expression"
+												},
+												"dest_table_name": {
+													"value": "@item().dest_table_name",
+													"type": "Expression"
+												},
+												"entity_id": {
+													"value": "@item().entity_id",
+													"type": "Expression"
+												},
+												"run_id": {
+													"value": "@pipeline().parameters.run_id",
+													"type": "Expression"
+												},
+												"entity_name": {
+													"value": "@item().entity_name",
+													"type": "Expression"
+												},
+												"source_layer": "Base",
+												"target_layer": "DQ"
+											}
+										}
+									}
+								]
+							}
+						}
+					]
+				}
+			},
+			{
+				"name": "Log Exception",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "Get DQ Entities",
+						"dependencyConditions": [
+							"Failed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[log_exception]",
+					"storedProcedureParameters": {
+						"batch_id": {
+							"value": null,
+							"type": "Guid"
+						},
+						"category": {
+							"value": "InternalError",
+							"type": "String"
+						},
+						"entity_id": {
+							"value": null,
+							"type": "Int64"
+						},
+						"error_msg": {
+							"value": {
+								"value": "@activity('Get DQ Entities').Error.Message",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"run_id": {
+							"value": {
+								"value": "@pipeline().parameters.run_id",
+								"type": "Expression"
+							},
+							"type": "Guid"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"sqlDb": {
+							"value": "@pipeline().globalParameters.sqlDb",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "Set Status Failed",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "Log Exception",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[change_status_pipeline_log]",
+					"storedProcedureParameters": {
+						"end_date_time": {
+							"value": {
+								"value": "@formatDateTime(utcnow(), 'yyyy-MM-dd HH:mm:ss')",
+								"type": "Expression"
+							},
+							"type": "DateTime"
+						},
+						"message": {
+							"value": {
+								"value": "Execution Failed",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"run_id": {
+							"value": {
+								"value": "@pipeline().parameters.run_id",
+								"type": "Expression"
+							},
+							"type": "Guid"
+						},
+						"status": {
+							"value": {
+								"value": "Failed",
+								"type": "Expression"
+							},
+							"type": "String"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"sqlDb": {
+							"value": "@pipeline().globalParameters.sqlDb",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "Fail Getting DQ Entities",
+				"type": "Fail",
+				"dependsOn": [
+					{
+						"activity": "Set Status Failed",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"message": {
+						"value": "@concat(\n    'Failed to get DQ entities: ',\n    activity('Get DQ Entities').Error.Message\n)",
+						"type": "Expression"
+					},
+					"errorCode": "500"
+				}
+			}
+		],
+		"parameters": {
+			"OrderNumber": {
+				"type": "string"
+			},
+			"adhoc": {
+				"type": "int"
+			},
+			"run_id": {
+				"type": "string"
+			},
+			"date": {
+				"type": "string"
+			},
+			"entity_filter": {
+				"type": "string",
+				"defaultValue": "'a' = 'a'"
+			},
+			"rerun_successful_full_entities": {
+				"type": "int",
+				"defaultValue": 0
+			}
+		},
+		"folder": {
+			"name": "00 ELT/05 Synapse Transformation/03 DQ"
+		},
+		"annotations": [],
+		"lastPublishTime": "2021-10-25T15:25:00Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

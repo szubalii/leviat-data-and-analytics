@@ -90,7 +90,7 @@
 				}
 			},
 			{
-				"name": "Get Synapse DQ Entities",
+				"name": "Get Synapse DQ Execution Order",
 				"type": "Lookup",
 				"dependsOn": [
 					{
@@ -112,7 +112,7 @@
 					"source": {
 						"type": "AzureSqlSource",
 						"sqlReaderQuery": {
-							"value": "SELECT *\n    FROM [dbo].[get_scheduled_entity_batch_activities_by_layer] (\n    @{pipeline().parameters.adhoc},\n    '@{pipeline().parameters.date}',\n    @{pipeline().parameters.rerun_successful_full_entities},\n    'DQ'\n) \n    @{pipeline().parameters.entity_filter}",
+							"value": "SELECT DISTINCT [execution_order] AS [ExecOrder]\n    FROM [dbo].[get_scheduled_entity_batch_activities_by_layer] (\n    @{pipeline().parameters.adhoc},\n    '@{pipeline().parameters.date}',\n    @{pipeline().parameters.rerun_successful_full_entities},\n    'DQ'\n) \nWHERE\n    @{pipeline().parameters.entity_filter}\nORDER BY [execution_order]",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
@@ -136,7 +136,7 @@
 				"type": "ForEach",
 				"dependsOn": [
 					{
-						"activity": "Get Synapse DQ Entities",
+						"activity": "Get Synapse DQ Execution Order",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -158,49 +158,35 @@
 							"userProperties": [],
 							"typeProperties": {
 								"pipeline": {
-									"referenceName": "pl_SYNDW_DQ_process_entity",
+									"referenceName": "pl_SYNDW_DQ_process_batch",
 									"type": "PipelineReference"
 								},
 								"waitOnCompletion": true,
 								"parameters": {
-									"sproc_schema_name": {
-										"value": "@item().sproc_schema_name",
+									"OrderNumber": {
+										"value": "@item().ExecOrder",
 										"type": "Expression"
 									},
-									"sproc_name": {
-										"value": "@item().sproc_name",
-										"type": "Expression"
-									},
-									"source_schema_name": {
-										"value": "@item().source_schema_name",
-										"type": "Expression"
-									},
-									"source_view_name": {
-										"value": "@item().source_view_name",
-										"type": "Expression"
-									},
-									"dest_schema_name": {
-										"value": "@item().dest_schema_name",
-										"type": "Expression"
-									},
-									"dest_table_name": {
-										"value": "@item().dest_table_name",
-										"type": "Expression"
-									},
-									"entity_id": {
-										"value": "@item().entity_id",
+									"adhoc": {
+										"value": "@pipeline().parameters.adhoc",
 										"type": "Expression"
 									},
 									"run_id": {
 										"value": "@pipeline().RunId",
 										"type": "Expression"
 									},
-									"entity_name": {
-										"value": "@item().entity_name",
+									"date": {
+										"value": "@pipeline().parameters.date",
 										"type": "Expression"
 									},
-									"source_layer": "Base",
-									"target_layer": "DQ"
+									"entity_filter": {
+										"value": "@pipeline().parameters.entity_filter",
+										"type": "Expression"
+									},
+									"rerun_successful_full_entities": {
+										"value": "@pipeline().parameters.rerun_successful_full_entities",
+										"type": "Expression"
+									}
 								}
 							}
 						}
@@ -212,7 +198,7 @@
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "Get Synapse DQ Entities",
+						"activity": "Get Synapse DQ Execution Order",
 						"dependencyConditions": [
 							"Failed"
 						]
@@ -554,15 +540,15 @@
 			},
 			"adhoc": {
 				"type": "int",
-				"defaultValue": 1
+				"defaultValue": 0
 			},
 			"date": {
 				"type": "string",
-				"defaultValue": "2022/08/01"
+				"defaultValue": "2023/06/0120"
 			},
 			"entity_filter": {
 				"type": "string",
-				"defaultValue": "-- WHERE entity_id = 437"
+				"defaultValue": "'a' = 'a'"
 			},
 			"rerun_successful_full_entities": {
 				"type": "int",
