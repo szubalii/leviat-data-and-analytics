@@ -88,17 +88,17 @@ variables:
     value: ${{ split(variables['Build.SourceBranch'], '/')[3] }} #refs/heads/feature/mpors/...
   - template: ./variables-personal.yml
   - name: deployEnv # override value to map main branch to DEV deployment environment
-    value: ${{ format('DEV_{0}', variables.user) }}
+    value: ${{ format('{0}_DEV_{1}', variables.environmentIndex, variables.user) }}
 - ${{ else }}:
   - name: deployEnv
-    value: ${{ variables.environment }}
+    value: ${{ format('{0}_{1}', variables.environmentIndex, variables.environment }}
 
+- name: deployEnvPrefix
+  value: $(environmentIndex)_${{ upper(variables.deployEnv) }}
 - name: deployEnvPrefix2
   value: ${{ format('{0}_{1}', variables.environmentIndex, upper(variables.deployEnv)) }}
 - name: deployEnvPrefix1
   value: $(environmentIndex)_$(deployEnv)
-- name: deployEnvPrefix
-  value: $(environmentIndex)_${{ upper(variables.deployEnv) }}
 - name: deployEnvPrefix3
   value: $(environmentIndex)_$(environment)
 - name: deployEnvPrefix4
@@ -145,6 +145,7 @@ stages:
         echo Build.Reason: ${{ variables['Build.Reason'] }}
         echo Build.SourceBranch: ${{ variables['Build.SourceBranch'] }}
         echo Build.SourceBranchName: ${{ variables['Build.SourceBranchName'] }}
+        echo deployEnv: ${{ variables.deployEnv }}
         echo deployEnvPrefix: ${{ variables.deployEnvPrefix }}
         echo deployEnvPrefix1: ${{ variables.deployEnvPrefix1 }}
         echo deployEnvPrefix2: ${{ variables.deployEnvPrefix2 }}
