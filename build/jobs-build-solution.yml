@@ -1,11 +1,22 @@
 parameters:
 - name: solutions
   type: object
+  default:
+  - name: synapse-dwh
+    build: true # ${{ parameters.synapse-dwh }}
+  - name: azure_data_factory
+    build: true # ${{ parameters.azure_data_factory }}
+  - name: orchestration
+    build: true # ${{ parameters.orchestration }}
+  - name: xu_config
+    build: true # ${{ parameters.xu_config }}
+  - name: synapse_workspace
+    build: true # ${{ parameters.synapse_workspace }}
 
 jobs:
 - ${{ each solution in parameters.solutions }}:
-  - ${{ if parameters.solutions[solution] }}:
-    - job: BUILD_${{ upper(replace(folder, '-', '_')) }}
+  - ${{ if solution.build }}:
+    - job: BUILD_${{ upper(replace(solution.name, '-', '_')) }}
       pool:
         name: 'VM'
         demands:
@@ -13,5 +24,5 @@ jobs:
         - VisualStudio
         - Agent.ComputerName -equals $(VMName)
       steps:
-      - template: ../${{ folder }}/build/steps-build.yml
-      - template: ../${{ folder }}/build/steps-artifact.yml
+      - template: ../${{ solution.name }}/build/steps-build.yml
+      - template: ../${{ solution.name }}/build/steps-artifact.yml
