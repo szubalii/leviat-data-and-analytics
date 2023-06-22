@@ -60,7 +60,6 @@
 		,IBDIPE.[t_extractionDtm]
    	FROM 
 		 [base_s4h_cax].[I_BillingDocumentItemPrcgElmnt] IBDIPE
-	CROSS JOIN [edw].[fact_CurrentDate]
 	LEFT JOIN  [edw].[fact_BillingDocumentItem] BDI
            ON IBDIPE.BillingDocument = BDI.BillingDocument and IBDIPE.BillingDocumentItem = BDI.BillingDocumentItem and BDI.CurrencyTypeID = '10'
 	INNER JOIN [edw].[vw_CurrencyConversionRate] CR

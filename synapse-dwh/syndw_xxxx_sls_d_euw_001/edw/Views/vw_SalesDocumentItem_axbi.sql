@@ -403,13 +403,12 @@ ExchangeRateUSD as (
             ,   MAX([ExchangeRateEffectiveDate]) as [ExchangeRateEffectiveDate]
         FROM             
             subCalculationMargin SCM
-        CROSS JOIN [edw].[fact_CurrentDate]
         LEFT JOIN 
             EuroBudgetExchangeRateUSD
             ON 
                 EuroBudgetExchangeRateUSD.TargetCurrency = 'EUR'
         WHERE 
-            [ExchangeRateEffectiveDate] <= today  --[CreationDate]
+            [ExchangeRateEffectiveDate] <= GETDATE()  --[CreationDate]
         GROUP BY
                 [SalesDocument]
             ,   [SalesDocumentItem]

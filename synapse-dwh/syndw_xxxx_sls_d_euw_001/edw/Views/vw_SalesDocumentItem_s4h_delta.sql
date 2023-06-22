@@ -503,6 +503,8 @@ EuroBudgetExchangeRateUSD as (
         ExchangeRateType = 'P'
         and
         SourceCurrency = 'USD'
+        and
+        [ExchangeRateEffectiveDate] <= GETDATE()
 ),
 ExchangeRateUSD as (
     SELECT
@@ -517,13 +519,11 @@ ExchangeRateUSD as (
             ,   MAX([ExchangeRateEffectiveDate]) as [ExchangeRateEffectiveDate]
         FROM             
             SalesDocument_30 SD_30
-        CROSS JOIN [edw].[fact_CurrentDate]
         LEFT JOIN 
             EuroBudgetExchangeRateUSD
             ON 
                 SD_30.CurrencyID = EuroBudgetExchangeRateUSD.TargetCurrency
-        WHERE 
-             [ExchangeRateEffectiveDate] <= today
+        --WHERE 
           -- [ExchangeRateEffectiveDate] <= [CreationDate]
         GROUP BY
                 [SalesDocument]

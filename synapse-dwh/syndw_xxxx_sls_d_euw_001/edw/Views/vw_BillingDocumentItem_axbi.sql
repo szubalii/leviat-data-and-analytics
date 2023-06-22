@@ -757,13 +757,12 @@ BillingDocumentItemBase_axbi_mapped AS (
         ,ExchangeRate
     from
         edw.dim_ExchangeRates
-    CROSS JOIN [edw].[fact_CurrentDate]
     where
         ExchangeRateType = 'P'
         AND
         SourceCurrency = 'USD'
         AND
-        ExchangeRateEffectiveDate <= today)
+        ExchangeRateEffectiveDate <= GETDATE())
 , BDIAXBI_DUMMY_30 AS(
     SELECT 
             [BillingDocument]

@@ -11,6 +11,8 @@ WITH EuroBudgetExchangeRate AS (
         ExchangeRateType = 'P'
         AND
         TargetCurrency = 'EUR'
+        AND
+        ExchangeRateEffectiveDate <= GETDATE()
 )
 ,BillingDocumentItemBase AS
 (SELECT
@@ -234,12 +236,11 @@ FROM
     ,   BDI_Base.[t_extractionDtm]
     ,   MAX(EuroBudgetExchangeRate.ExchangeRateEffectiveDate) AS [ExchangeRateEffectiveDate]
 FROM BillingDocumentItemBase BDI_Base
-CROSS JOIN [edw].[fact_CurrentDate]
 LEFT JOIN 
     EuroBudgetExchangeRate
         ON EuroBudgetExchangeRate.SourceCurrency = 'USD'
 WHERE
-           EuroBudgetExchangeRate.ExchangeRateEffectiveDate <= today --BDI_Base.[BillingDocumentDate]
+            --BDI_Base.[BillingDocumentDate]
 GROUP BY
         BDI_Base.[BillingDocument]                          
     ,   BDI_Base.[BillingDocumentItem]      

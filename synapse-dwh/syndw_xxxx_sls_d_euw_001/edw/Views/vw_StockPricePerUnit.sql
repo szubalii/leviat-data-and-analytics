@@ -80,6 +80,8 @@ EuroBudgetExchangeRate AS (
         ExchangeRateType = 'P'
         AND
         TargetCurrency = 'EUR'
+        AND
+        [ExchangeRateEffectiveDate] < GETDATE()
 ), 
 
 USDBudgetExchangeRate as (
@@ -93,6 +95,8 @@ USDBudgetExchangeRate as (
            ExchangeRateType = 'P'
            AND
            SourceCurrency = 'USD'
+           AND
+           [ExchangeRateEffectiveDate] < GETDATE()
 ),
 
 
@@ -119,7 +123,6 @@ ProductValuationExchangeRate AS (
             ,   MAX(USDBudgetExchangeRate.[ExchangeRateEffectiveDate]) AS [ExchangeRateEffectiveDate_USD]
         FROM 
             ProductValuationPUP AS PV
-        CROSS JOIN [edw].[fact_CurrentDate]
         LEFT JOIN 
             EuroBudgetExchangeRate
             ON 
@@ -128,10 +131,7 @@ ProductValuationExchangeRate AS (
             USDBudgetExchangeRate
             ON 
                 USDBudgetExchangeRate.TargetCurrency = 'EUR'
-        WHERE 
-                EuroBudgetExchangeRate.[ExchangeRateEffectiveDate] <= today
-                AND 
-                USDBudgetExchangeRate.[ExchangeRateEffectiveDate] <= today
+        --WHERE 
                 /*
                 EuroBudgetExchangeRate.[ExchangeRateEffectiveDate] <=  PV.[FiscalStartYearPeriodDate]
                 AND 

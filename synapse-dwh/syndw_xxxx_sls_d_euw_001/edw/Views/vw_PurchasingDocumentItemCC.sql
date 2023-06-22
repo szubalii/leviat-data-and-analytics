@@ -41,7 +41,6 @@ SELECT
     PDI.[t_extractionDtm]
 FROM
     [edw].[vw_PurchasingDocumentItem]   AS PDI
-CROSS JOIN [edw].[fact_CurrentDate]
 INNER JOIN
     [edw].[vw_PurchasingDocument]       AS PD
         ON PDI.PurchasingDocument = PD.PurchasingDocument
