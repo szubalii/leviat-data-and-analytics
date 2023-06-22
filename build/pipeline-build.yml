@@ -2,24 +2,31 @@ trigger: none
 
 parameters:
 - name: runDeployment
+  displayName: Run Deployments
   type: boolean
   default: false
 - name: synapse_dwh
+  displayName: Synapse DWH
   type: boolean
   default: true
 - name: azure_data_factory
+  displayName: Azure Data Factory
   type: boolean
   default: true
 - name: orchestration
+  displayName: Orchestration DB
   type: boolean
   default: true
 - name: xu_config
+  displayName: Xtract Universal
   type: boolean
   default: true
 - name: synapse_workspace
+  displayName: Synapse Workspace
   type: boolean
   default: true
 - name: clean
+  displayName: Clean Workspace
   type: string
   default: outputs
   values:
@@ -158,69 +165,55 @@ stages:
     parameters:
       solutions:
       - name: 'synapse-dwh'
-        build: ${{ parameters.synapse_dwh }}
+        build: $(buildAndDeploy_synapse_dwh)
       - name: 'azure-data-factory'
-        build: ${{ parameters.azure_data_factory }}
+        build: $(buildAndDeploy_azure_data_factory)
       - name: 'orchestration'
-        build: ${{ parameters.orchestration }}
+        build: $(buildAndDeploy_orchestration)
       - name: 'xu-config'
-        build: ${{ parameters.xu_config }}
+        build: $(buildAndDeploy_xu_config)
       - name: 'synapse-workspace'
-        build: ${{ parameters.synapse_workspace }}
-
-  # - ${{ if variables.buildAndDeploy_synapse_dwh }}:
-
-  # - ${{ if variables.buildAndDeploy_synapse_dwh }}:
-  #   - template: ./jobs-build-solution.yml
-  #     parameters:
-  #       folder: synapse-dwh
-  
-  # - ${{ if variables.buildAndDeploy_azure_data_factory }}:
-  #   - template: ./jobs-build-solution.yml
-  #     parameters:
-  #       folder: azure-data-factory
-  
-  # - ${{ if variables.buildAndDeploy_orchestration }}:
-  #   - template: ./jobs-build-solution.yml
-  #     parameters:
-  #       folder: orchestration
-  
-  # - ${{ if variables.buildAndDeploy_xu_config }}:
-  #   - template: ./jobs-build-solution.yml
-  #     parameters:
-  #       folder: xu-config
-  
-  # - ${{ if variables.buildAndDeploy_synapse_workspace }}:
-  #   - template: ./jobs-build-solution.yml
-  #     parameters:
-  #       folder: synapse-workspace
+        build: $(buildAndDeploy_synapse_workspace)
 
 
 - ${{ if parameters.runDeployment }}:
   - stage: DEPLOY_1
-    jobs:    
+    jobs:
     
-    - ${{ if variables.buildAndDeploy_xu_config }}:
-      - template: ./jobs-deploy-solution-helper.yml
-        parameters:
-          folder: xu-config
-          deployEnvPrefix: ${{ variables.deployEnvPrefix }}
-    - ${{ if variables.buildAndDeploy_synapse_dwh }}:
-      - template: ./jobs-deploy-solution-helper.yml
-        parameters:
-          folder: synapse-dwh
-          deployEnvPrefix: ${{ variables.deployEnvPrefix }}
-          test: true
-    - ${{ if variables.buildAndDeploy_orchestration }}:
-      - template: ./jobs-deploy-solution-helper.yml
-        parameters:
-          folder: orchestration
-          deployEnvPrefix: ${{ variables.deployEnvPrefix }}
-    - ${{ if variables.buildAndDeploy_synapse_workspace }}:
-      - template: ./jobs-deploy-solution-helper.yml
-        parameters:
-          folder: synapse-workspace
-          deployEnvPrefix: ${{ variables.deployEnvPrefix }}
+    - template: ./jobs-deploy-multi.yml
+      parameters:
+        solutions:
+        - name: 'synapse-dwh'
+          deploy: $(buildAndDeploy_synapse_dwh)
+        - name: 'orchestration'
+          deploy: $(buildAndDeploy_orchestration)
+        - name: 'xu-config'
+          deploy: $(buildAndDeploy_xu_config)
+        - name: 'synapse-workspace'
+          deploy: $(buildAndDeploy_synapse_workspace)
+        deployEnvPrefix: ${{ variables.deployEnvPrefix }}
+    
+    # - ${{ if variables.buildAndDeploy_xu_config }}:
+    #   - template: ./jobs-deploy-solution-helper.yml
+    #     parameters:
+    #       folder: xu-config
+    #       deployEnvPrefix: ${{ variables.deployEnvPrefix }}
+    # - ${{ if variables.buildAndDeploy_synapse_dwh }}:
+    #   - template: ./jobs-deploy-solution-helper.yml
+    #     parameters:
+    #       folder: synapse-dwh
+    #       deployEnvPrefix: ${{ variables.deployEnvPrefix }}
+    #       test: true
+    # - ${{ if variables.buildAndDeploy_orchestration }}:
+    #   - template: ./jobs-deploy-solution-helper.yml
+    #     parameters:
+    #       folder: orchestration
+    #       deployEnvPrefix: ${{ variables.deployEnvPrefix }}
+    # - ${{ if variables.buildAndDeploy_synapse_workspace }}:
+    #   - template: ./jobs-deploy-solution-helper.yml
+    #     parameters:
+    #       folder: synapse-workspace
+    #       deployEnvPrefix: ${{ variables.deployEnvPrefix }}
 
   - stage: DEPLOY_2
     jobs:

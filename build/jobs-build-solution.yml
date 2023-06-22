@@ -3,15 +3,15 @@ parameters:
   type: object
   default:
   - name: 'synapse-dwh'
-    build: true # ${{ parameters.synapse-dwh }}
+    build: true
   - name: 'azure-data-factory'
-    build: true # ${{ parameters.azure_data_factory }}
+    build: true
   - name: 'orchestration'
-    build: true # ${{ parameters.orchestration }}
+    build: true
   - name: 'xu-config'
-    build: true # ${{ parameters.xu_config }}
+    build: true
   - name: 'synapse-workspace'
-    build: true # ${{ parameters.synapse_workspace }}
+    build: true
 
 jobs:
 - ${{ each solution in parameters.solutions }}:
