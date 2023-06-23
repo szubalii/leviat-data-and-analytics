@@ -14,16 +14,6 @@ parameters:
     build: true
 
 jobs:
-- job: Vars
-  pool:
-    name: 'VM'
-    demands:
-    - node.js
-    - VisualStudio
-    - Agent.ComputerName -equals $(VMName)
-  steps:
-  - script: |
-      echo parameters.solutions: ${{ convertToJson(parameters.solutions) }}
 - ${{ each solution in parameters.solutions }}:
   - ${{ if solution.build }}:
     - job: BUILD_${{ upper(replace(solution.name, '-', '_')) }}
@@ -34,5 +24,7 @@ jobs:
         - VisualStudio
         - Agent.ComputerName -equals $(VMName)
       steps:
+      - script : |
+          echo ${{ solution.name }}: $ {{ solution.build }}
       - template: ../${{ solution.name }}/build/steps-build.yml
       - template: ../${{ solution.name }}/build/steps-artifact.yml
