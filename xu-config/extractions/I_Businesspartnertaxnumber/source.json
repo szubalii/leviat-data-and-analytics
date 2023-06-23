@@ -1,0 +1,83 @@
+{
+	"functionName": "Z_THEO_READ_TABLE",
+	"runInBackGroundJob": false,
+	"tables": [
+		{
+			"name": "IBUPATAXNUMBER",
+			"description": "Generated Table for View IBUPATAXNUMBER",
+			"isView": true,
+			"fields": [
+				{
+					"name": "MANDT",
+					"description": "Client",
+					"abapType": "CharacterString",
+					"length": 3,
+					"isSelected": true,
+					"outputLength": 3,
+					"isPrimaryKey": true,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "T000"
+				},
+				{
+					"name": "BUSINESSPARTNER",
+					"description": "Business Partner Number",
+					"abapType": "CharacterString",
+					"length": 10,
+					"isSelected": true,
+					"outputLength": 10,
+					"isPrimaryKey": true,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "BUSINESSPARTNER",
+					"ConversionExit": "ALPHA"
+				},
+				{
+					"name": "BPTAXTYPE",
+					"description": "Tax Number Category",
+					"abapType": "CharacterString",
+					"length": 4,
+					"isSelected": true,
+					"outputLength": 4,
+					"isPrimaryKey": true,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "BPTAXTYPE"
+				},
+				{
+					"name": "BPTAXNUMBER",
+					"description": "Business Partner Tax Number",
+					"abapType": "CharacterString",
+					"length": 20,
+					"isSelected": true,
+					"outputLength": 20,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "BPTAXNUMBER"
+				},
+				{
+					"name": "BPTAXLONGNUMBER",
+					"description": "Business Partner Tax Number",
+					"abapType": "CharacterString",
+					"length": 60,
+					"isSelected": true,
+					"outputLength": 60,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "BPTAXLONGNUMBER"
+				},
+				{
+					"name": "AUTHORIZATIONGROUP",
+					"description": "Authorization Group",
+					"abapType": "CharacterString",
+					"length": 4,
+					"isSelected": true,
+					"outputLength": 4,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "AUTHORIZATIONGROUP"
+				}
+			]
+		}
+	]
+}

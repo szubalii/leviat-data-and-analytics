@@ -1,0 +1,167 @@
+{
+	"functionName": "Z_THEO_READ_TABLE",
+	"runInBackGroundJob": false,
+	"tables": [
+		{
+			"name": "ICUSTPARTNERFUNC",
+			"description": "Generated Table for View ICUSTPARTNERFUNC",
+			"isView": true,
+			"fields": [
+				{
+					"name": "MANDT",
+					"description": "Client",
+					"abapType": "CharacterString",
+					"length": 3,
+					"isSelected": true,
+					"outputLength": 3,
+					"isPrimaryKey": true,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "T000"
+				},
+				{
+					"name": "CUSTOMER",
+					"description": "Customer Number",
+					"abapType": "CharacterString",
+					"length": 10,
+					"isSelected": true,
+					"outputLength": 10,
+					"isPrimaryKey": true,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "CUSTOMER",
+					"ConversionExit": "ALPHA"
+				},
+				{
+					"name": "SALESORGANIZATION",
+					"description": "Sales Organization",
+					"abapType": "CharacterString",
+					"length": 4,
+					"isSelected": true,
+					"outputLength": 4,
+					"isPrimaryKey": true,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "SALESORGANIZATION"
+				},
+				{
+					"name": "DISTRIBUTIONCHANNEL",
+					"description": "Distribution Channel",
+					"abapType": "CharacterString",
+					"length": 2,
+					"isSelected": true,
+					"outputLength": 2,
+					"isPrimaryKey": true,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "DISTRIBUTIONCHANNEL"
+				},
+				{
+					"name": "DIVISION",
+					"description": "Division",
+					"abapType": "CharacterString",
+					"length": 2,
+					"isSelected": true,
+					"outputLength": 2,
+					"isPrimaryKey": true,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "DIVISION"
+				},
+				{
+					"name": "PARTNERCOUNTER",
+					"description": "Partner counter",
+					"abapType": "NumericCharacterString",
+					"length": 3,
+					"isSelected": true,
+					"outputLength": 3,
+					"isPrimaryKey": true,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "PARTNERCOUNTER"
+				},
+				{
+					"name": "PARTNERFUNCTION",
+					"description": "Partner Function",
+					"abapType": "CharacterString",
+					"length": 2,
+					"isSelected": true,
+					"outputLength": 2,
+					"isPrimaryKey": true,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "PARTNERFUNCTION",
+					"ConversionExit": "PARVW"
+				},
+				{
+					"name": "BPCUSTOMERNUMBER",
+					"description": "Customer number of business partner",
+					"abapType": "CharacterString",
+					"length": 10,
+					"isSelected": true,
+					"outputLength": 10,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "BPCUSTOMERNUMBER",
+					"ConversionExit": "ALPHA"
+				},
+				{
+					"name": "CUSTOMERPARTNERDESCRIPTION",
+					"description": "Customer description of partner (plant, storage location)",
+					"abapType": "CharacterString",
+					"length": 30,
+					"isSelected": true,
+					"outputLength": 30,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "CUSTOMERPARTNERDESCRIPTION"
+				},
+				{
+					"name": "DEFAULTPARTNER",
+					"description": "Default Partner",
+					"abapType": "CharacterString",
+					"length": 1,
+					"isSelected": true,
+					"outputLength": 1,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "DEFAULTPARTNER"
+				},
+				{
+					"name": "SUPPLIER",
+					"description": "Account Number of Vendor or Creditor",
+					"abapType": "CharacterString",
+					"length": 10,
+					"isSelected": true,
+					"outputLength": 10,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "SUPPLIER",
+					"ConversionExit": "ALPHA"
+				},
+				{
+					"name": "PERSONNELNUMBER",
+					"description": "Personnel Number",
+					"abapType": "NumericCharacterString",
+					"length": 8,
+					"isSelected": true,
+					"outputLength": 8,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "PERSONNELNUMBER"
+				},
+				{
+					"name": "CONTACTPERSON",
+					"description": "Number of contact person",
+					"abapType": "NumericCharacterString",
+					"length": 10,
+					"isSelected": true,
+					"outputLength": 10,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "CONTACTPERSON"
+				}
+			]
+		}
+	]
+}
