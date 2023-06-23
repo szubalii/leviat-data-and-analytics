@@ -3,19 +3,21 @@ parameters:
   type: object
   default:
   - name: 'synapse-dwh'
-    build: true
+    build: True
   - name: 'azure-data-factory'
-    build: true
+    build: True
   - name: 'orchestration'
-    build: true
+    build: True
   - name: 'xu-config'
-    build: true
+    build: True
   - name: 'synapse-workspace'
-    build: true
+    build: True
 
 jobs:
 - ${{ each solution in parameters.solutions }}:
-  - ${{ if solution.build }}:
+  # Format ${{ if solution.build }} doesn't work, False is still truthy,
+  # so use format ${{ if eq(solution.build, True) }}
+  - ${{ if eq(solution.build, True) }}:
     - job: BUILD_${{ upper(replace(solution.name, '-', '_')) }}
       pool:
         name: 'VM'
