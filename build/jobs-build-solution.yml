@@ -25,6 +25,6 @@ jobs:
         - Agent.ComputerName -equals $(VMName)
       steps:
       - script : |
-          echo ${{ solution.name }}: $ {{ solution.build }}
+          echo ${{ solution.name }}: ${{ solution.build }}
       - template: ../${{ solution.name }}/build/steps-build.yml
       - template: ../${{ solution.name }}/build/steps-artifact.yml

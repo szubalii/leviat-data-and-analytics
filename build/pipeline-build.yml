@@ -150,11 +150,11 @@ stages:
         echo Build.SourceBranch: ${{ variables['Build.SourceBranch'] }}
         echo Build.SourceBranchName: ${{ variables['Build.SourceBranchName'] }}
         echo deployEnvPrefix: ${{ variables.deployEnvPrefix }}
-        echo buildAndDeploy_synapse_dwh : $(buildAndDeploy_synapse_dwh)
-        echo buildAndDeploy_azure_data_factory : $(buildAndDeploy_azure_data_factory)
-        echo buildAndDeploy_orchestration : $(buildAndDeploy_orchestration)
-        echo buildAndDeploy_xu_config : $(buildAndDeploy_xu_config)
-        echo buildAndDeploy_synapse_workspace : $(buildAndDeploy_synapse_workspace)
+        echo parameters.synapse_dwh: ${{ parameters.synapse_dwh }}
+        echo parameters.azure_data_factory: ${{ parameters.azure_data_factory }}
+        echo parameters.orchestration: ${{ parameters.orchestration }}
+        echo parameters.xu_config: ${{ parameters.xu_config }}
+        echo parameters.synapse_workspace: ${{ parameters.synapse_workspace }}
       displayName: Print Variables
 - stage: VALIDATE
   jobs:
