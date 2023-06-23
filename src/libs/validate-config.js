@@ -163,8 +163,23 @@ function checkTargetTableExists (entityCfg) {
     let exceptions = [];
 
     schemas.forEach(function(s) {
-        let tableDir = dir + '/' + s + '/Tables';
-        tables[s] = fs.readdirSync(tableDir).map(f => f.substring(0, f.length-4));
+        // Check if provided schema exists in database project
+        try {
+            let schemaDir = dir + '/' + s;
+            fs.readdirSync(schemaDir)
+        }
+        catch(e) {
+            missingSchemas.push(s);
+        }
+
+        // store the tables referenced for each schema
+        try {
+            let tableDir = schemaDir + '/Tables';
+            tables[s] = fs.readdirSync(tableDir).map(f => f.substring(0, f.length-4));
+        } 
+        catch(e) {
+        // Tables directory doesn't exist, which doesn't necessarily mean a problem
+        }
     });
 
     // loop over the entity config to check if for each entity
@@ -173,20 +188,14 @@ function checkTargetTableExists (entityCfg) {
         let source = entityCfg[k];
         let schema = source.schema_name;
 
-        if (tables[schema] === undefined) {
-            missingSchemas.push(schema);
-        } 
-        else {
+        let propName = (schema === 'edw') ? 'dest_table_name' : 'base_table_name';
 
-            let propName = (schema === 'edw') ? 'dest_table_name' : 'base_table_name';
-
-            source.entities.forEach(function(e){
-                let table_name = e[propName];
-                if (table_name && !tables[schema].includes(table_name)) {
-                    missingTargetTables.push(schema + '.' + table_name);
-                }
-            });
-        }
+        source.entities.forEach(function(e){
+            let table_name = e[propName];
+            if (table_name && tables[schema] && !tables[schema].includes(table_name)) {
+                missingTargetTables.push(schema + '.' + table_name);
+            }
+        });
     });
 
     if (missingSchemas.length > 0) {
