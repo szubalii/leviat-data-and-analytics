@@ -4,11 +4,11 @@ steps:
 
 - task: NuGetCommand@2
   inputs:
-    restoreSolution: '$(solution)'
+    restoreSolution: '$(orchDBSolution)'
 
 - task: VSBuild@1
   inputs:
-    solution: '$(solution)'
+    solution: '$(orchDBSolution)'
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 

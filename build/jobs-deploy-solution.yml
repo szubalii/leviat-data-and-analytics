@@ -1,0 +1,34 @@
+parameters:
+- name: folder
+  type: string
+- name: deployEnvironment
+  type: string
+- name: test
+  type: boolean
+  default: false
+
+# variables:
+# - name: deployEnvSolution
+#   value: $(envIndex)_$(deployEnv)_${{ upper(replace(parameters.folder, '-', '_')) }}
+
+jobs:
+- deployment: ${{ format('DEPLOY_{0}', parameters.deployEnvironment) }}
+  timeoutInMinutes: 120
+  pool:
+    name: 'VM'
+    demands:
+    - node.js
+    - VisualStudio
+    - Python.Version
+    - Agent.ComputerName -equals $(VMName)
+  environment: ${{ parameters.deployEnvironment }}
+  workspace:
+    clean: $(clean)
+  strategy:
+    runOnce:
+      deploy:
+        steps:
+        - template: ../${{ parameters.folder }}/build/steps-deploy.yml
+
+        - ${{ if parameters.test }}:
+          - template: ../${{ parameters.folder }}/build/steps-test.yml

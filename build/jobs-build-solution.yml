@@ -1,0 +1,32 @@
+parameters:
+- name: solutions
+  type: object
+  default:
+  - name: 'synapse-dwh'
+    build: True
+  - name: 'azure-data-factory'
+    build: True
+  - name: 'orchestration'
+    build: True
+  - name: 'xu-config'
+    build: True
+  - name: 'synapse-workspace'
+    build: True
+
+jobs:
+- ${{ each solution in parameters.solutions }}:
+  # Format ${{ if solution.build }} doesn't work, False is still truthy,
+  # so use format ${{ if eq(solution.build, True) }}
+  - ${{ if eq(solution.build, True) }}:
+    - job: BUILD_${{ upper(replace(solution.name, '-', '_')) }}
+      pool:
+        name: 'VM'
+        demands:
+        - node.js
+        - VisualStudio
+        - Agent.ComputerName -equals $(VMName)
+      steps:
+      - script : |
+          echo ${{ solution.name }}: ${{ solution.build }}
+      - template: ../${{ solution.name }}/build/steps-build.yml
+      - template: ../${{ solution.name }}/build/steps-artifact.yml
