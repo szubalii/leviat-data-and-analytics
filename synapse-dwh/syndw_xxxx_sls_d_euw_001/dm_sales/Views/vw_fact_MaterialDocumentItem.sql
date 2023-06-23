@@ -1,12 +1,12 @@
 ﻿CREATE VIEW [dm_sales].[vw_fact_MaterialDocumentItem] AS
 SELECT  
-        MDI.[nk_StoragePlantID] 
-    ,   MDI.[MaterialDocumentYear] 
+        MDI.[MaterialDocumentYear] 
     ,   MDI.[MaterialDocument] COLLATE DATABASE_DEFAULT          AS MaterialDocument
     ,   MDI.[MaterialDocumentItem]
     ,   MDI.[MaterialID] COLLATE DATABASE_DEFAULT                AS MaterialID
     ,   MDI.[PlantID] COLLATE DATABASE_DEFAULT                   AS PlantID
     ,   MDI.[StorageLocationID] COLLATE DATABASE_DEFAULT         AS StorageLocationID
+    ,   MDI.[nk_StoragePlantID] 
     ,   MDI.[StorageTypeID]
     ,   MDI.[StorageBin] 
     ,   MDI.[Batch] 

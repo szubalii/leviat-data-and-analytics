@@ -1,13 +1,13 @@
 create VIEW [dm_sales].[vw_fact_MaterialStockLevel]
 AS
 SELECT
-    [nk_StoragePlantID],
     [ReportingYear],
     [ReportingMonth],
     [ReportingDate],
     [MaterialID],
     [PlantID],
     [StorageLocationID],
+    [nk_StoragePlantID],
     [InventorySpecialStockTypeID],
     [InventoryStockTypeID],
     [StockOwner],
