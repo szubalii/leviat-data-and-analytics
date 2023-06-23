@@ -62,8 +62,15 @@ SELECT
     ,FlexString9
     ,FlexString10
 FROM [dm_procurement].[vw_dim_PurchaseOrder]
-WHERE OrderedDate >= datefromparts(
-                            year(DATEADD(month,-1,getdate()))
-                            ,month(DATEADD(month,-1,getdate()))
-                            ,1
+WHERE OrderedDate >= CONVERT(
+                        date
+                        , DATEADD(
+                            month
+                            , DATEDIFF(
+                                month
+                                , 0
+                                , GETDATE()
+                            ) - 1
+                            , 0
                         )
+                    )
