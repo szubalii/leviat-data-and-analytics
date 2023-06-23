@@ -1,6 +1,7 @@
 ﻿CREATE VIEW [edw].[vw_StorageLocation]
 AS SELECT 
-     [StorageLocation] AS [StorageLocationID]
+     edw.svf_get2PartNaturalKey (StorageLocation,Plant)  AS [nk_StoragePlantID]
+,    [StorageLocation] AS [StorageLocationID]
 ,    [StorageLocationName] AS [StorageLocation]
 ,    [Plant]
 ,    [SalesOrganization]

@@ -1,6 +1,7 @@
 CREATE TABLE [edw].[fact_MaterialStockLevel]
 (
-    [_hash]                                     NVARCHAR(32) NOT NULL,    
+    [_hash]                                     NVARCHAR(32) NOT NULL,  
+    [nk_StoragePlantID]                         NVARCHAR(41) NOT NULL,  
     [ReportingYear]                             [char](4) NOT NULL,
     [ReportingMonth]                            [nvarchar](12) NOT NULL,
     [ReportingDate]                             [date] NOT NULL,

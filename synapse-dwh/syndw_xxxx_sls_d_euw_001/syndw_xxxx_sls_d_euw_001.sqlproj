@@ -1243,6 +1243,7 @@
     <Build Include="base_s4h_cax\Tables\Z_C_VariantConfig_OtherCharacteristics_F.sql" />
     <Build Include="base_s4h_cax\Tables\I_PersonWorkAgreement_1.sql" />
     <Build Include="map_AXBI\Tables\SalesOffice.sql" /> 
+    <Build Include="edw\Functions\ScalarValued\svf_get2PartNaturalKey.sql" />   
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PostDeploy Include="Scripts\Post-Deploy\Script.PostDeployment.sql" />

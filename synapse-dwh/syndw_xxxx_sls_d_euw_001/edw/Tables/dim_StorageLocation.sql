@@ -1,5 +1,6 @@
 CREATE TABLE [edw].[dim_StorageLocation]
 (
+    [nk_StoragePlantID]          NVARCHAR(41)   NOT NULL,
     [StorageLocationID]          NVARCHAR(4)    NOT NULL,
     [StorageLocation]            NVARCHAR(40)   NULL,
     [Plant]                      NVARCHAR(4)    NOT NULL,
