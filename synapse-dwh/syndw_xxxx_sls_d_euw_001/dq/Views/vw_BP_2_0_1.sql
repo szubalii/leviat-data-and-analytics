@@ -2,39 +2,42 @@
   AS
 
 WITH BankAccountData AS(
-SELECT  
-        CONCAT(BPB.[BANKCOUNTRYKEY],'|',BPB.[BANKNUMBER],'|',BPB.[BankAccount]) AS [BankInfo]
+SELECT
+        BPB.[BANKCOUNTRYKEY]
+    ,   BPB.[BANKNUMBER]
+    ,   BPB.[BankAccount]
     ,   COUNT(*) AS [COUNT]
 FROM
     [base_s4h_cax].[I_BusinessPartnerBank] BPB
-GROUP BY
-    
-    CONCAT(BPB.[BANKCOUNTRYKEY],'|',BPB.[BANKNUMBER],'|',BPB.[BankAccount])
+GROUP BY    
+        BPB.[BANKCOUNTRYKEY]
+    ,   BPB.[BANKNUMBER]
+    ,   BPB.[BankAccount]
 HAVING
     COUNT(*)>1)
 SELECT
-        [BUSINESSPARTNER]
-    ,   [BANKIDENTIFICATION]
-    ,   [BANKCOUNTRYKEY]
-    ,   [BANKNAME]
-    ,   [BANKNUMBER]
-    ,   [SWIFTCode]
-    ,   [BankControlKey]
-    ,   [BankAccountHolderName]
-    ,   [BankAccountName]
-    ,   [ValidityStartDate]
-    ,   [ValidityEndDate]
-    ,   [IBAN]
-    ,   [IBANValidityStartDate]
-    ,   [BankAccount]
-    ,   [BankAccountReferenceText]
-    ,   [CollectionAuthInd]
-    ,   [BusinessPartnerExternalBankID]
-    ,   [BPBankDetailsChangeDate]
-    ,   [BPBankDetailsChangeTargetID]
-    ,   [BPBankIsProtected]
-    ,   [CityName]
-    ,   [AuthorizationGroup]
+        BPB.[BUSINESSPARTNER]
+    ,   BPB.[BANKIDENTIFICATION]
+    ,   BPB.[BANKCOUNTRYKEY]
+    ,   BPB.[BANKNAME]
+    ,   BPB.[BANKNUMBER]
+    ,   BPB.[SWIFTCode]
+    ,   BPB.[BankControlKey]
+    ,   BPB.[BankAccountHolderName]
+    ,   BPB.[BankAccountName]
+    ,   BPB.[ValidityStartDate]
+    ,   BPB.[ValidityEndDate]
+    ,   BPB.[IBAN]
+    ,   BPB.[IBANValidityStartDate]
+    ,   BPB.[BankAccount]
+    ,   BPB.[BankAccountReferenceText]
+    ,   BPB.[CollectionAuthInd]
+    ,   BPB.[BusinessPartnerExternalBankID]
+    ,   BPB.[BPBankDetailsChangeDate]
+    ,   BPB.[BPBankDetailsChangeTargetID]
+    ,   BPB.[BPBankIsProtected]
+    ,   BPB.[CityName]
+    ,   BPB.[AuthorizationGroup]
     ,   '2.0.1' AS [RuleID]
     ,   1 AS [Count]
 FROM
@@ -42,4 +45,8 @@ FROM
 JOIN
     [base_s4h_cax].[I_BusinessPartnerBank] BPB
     ON  
-        [BankInfo] = CONCAT(BPB.[BANKCOUNTRYKEY],'|',BPB.[BANKNUMBER],'|',BPB.[BankAccount])
+        BankAccountData.[BANKCOUNTRYKEY] = BPB.[BANKCOUNTRYKEY]
+        AND
+        BankAccountData.[BANKNUMBER] = BPB.[BANKNUMBER]
+        AND
+        BankAccountData.[BankAccount] = BPB.[BankAccount]

@@ -81,6 +81,7 @@ LEFT JOIN
 WHERE
     BP.[BusinessPartnerGrouping] IN ('Z001', 'Z002')
     AND
-    BP.[SearchTerm1] COLLATE SQL_Latin1_General_CP1_CS_AS <> CONCAT_WS('_',
-                                                                       TRIM(LEFT( BP.[OrganizationBPName1] COLLATE SQL_Latin1_General_CP1_CS_AS, 5)),
-                                                                       TRIM(LEFT(A.[CityName], 5)))
+    BP.[SearchTerm1] COLLATE SQL_Latin1_General_CP1_CS_AS <> CONCAT_WS(
+        '_',
+        TRIM(LEFT( BP.[OrganizationBPName1] COLLATE SQL_Latin1_General_CP1_CS_AS, 5)),
+        TRIM(LEFT(A.[CityName], 5)))

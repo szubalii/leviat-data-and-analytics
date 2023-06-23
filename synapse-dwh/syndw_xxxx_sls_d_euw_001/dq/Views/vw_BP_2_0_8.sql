@@ -3,20 +3,22 @@
 
 WITH TaxNumber AS(
 SELECT
-        CONCAT(BPTN.[BPTAXTYPE],'|',BPTN.[BPTAXNUMBER]) AS [TaxNumber]
+        BPTN.[BPTAXTYPE]
+    ,   BPTN.[BPTAXNUMBER]
     ,   COUNT(*) AS [COUNT]
 FROM
     [base_s4h_cax].[I_Businesspartnertaxnumber] BPTN
 GROUP BY
-    CONCAT(BPTN.[BPTAXTYPE],'|',BPTN.[BPTAXNUMBER])
+        BPTN.[BPTAXTYPE]
+    ,   BPTN.[BPTAXNUMBER]
 HAVING
     COUNT(*)>1)
 SELECT    
-      [BUSINESSPARTNER]
-    , [BPTAXTYPE]
-    , [BPTAXNUMBER]
-    , [BPTAXLONGNUMBER]
-    , [AUTHORIZATIONGROUP]
+      BPTN.[BUSINESSPARTNER]
+    , BPTN.[BPTAXTYPE]
+    , BPTN.[BPTAXNUMBER]
+    , BPTN.[BPTAXLONGNUMBER]
+    , BPTN.[AUTHORIZATIONGROUP]
     ,   '2.0.8' AS [RuleID]
     ,   1 AS [Count]
 FROM
@@ -24,4 +26,6 @@ FROM
 JOIN
     [base_s4h_cax].[I_Businesspartnertaxnumber] BPTN
     ON
-        TaxNumber.[TaxNumber] = CONCAT(BPTN.[BPTAXTYPE],'|',BPTN.[BPTAXNUMBER])
+        TaxNumber.[BPTAXTYPE] = BPTN.[BPTAXTYPE]
+        AND
+        TaxNumber.[BPTAXNUMBER] = BPTN.[BPTAXNUMBER]
