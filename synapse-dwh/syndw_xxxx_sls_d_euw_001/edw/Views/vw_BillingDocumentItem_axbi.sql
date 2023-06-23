@@ -749,6 +749,11 @@ BillingDocumentItemBase_axbi_mapped AS (
         ExchangeRateType = 'P'
         AND
         TargetCurrency = 'EUR'
+            UNION ALL
+    SELECT
+        'EUR'
+        ,'1900-01-01'
+        ,1.0
 )
 ,EuroBudgetExchangeRateUSD as (
     select

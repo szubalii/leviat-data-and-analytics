@@ -13,6 +13,11 @@ WITH EuroBudgetExchangeRate AS (
         TargetCurrency = 'EUR'
         AND
         ExchangeRateEffectiveDate <= GETDATE()
+            UNION ALL
+    SELECT
+        'EUR'
+        ,'1900-01-01'
+        ,1.0
 )
 ,BillingDocumentItemBase AS
 (SELECT

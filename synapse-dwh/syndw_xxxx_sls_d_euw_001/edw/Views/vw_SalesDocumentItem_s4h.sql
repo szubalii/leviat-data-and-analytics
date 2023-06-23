@@ -419,6 +419,11 @@ EuroBudgetExchangeRate as (
         TargetCurrency = 'EUR'
         and
         [ExchangeRateEffectiveDate] <= GETDATE()
+            UNION ALL
+    SELECT                  -- EUR2EUR rate
+        'EUR'
+        ,'1900-01-01'
+        ,1.0
 ),
 ExchangeRateEuro AS (
     SELECT
