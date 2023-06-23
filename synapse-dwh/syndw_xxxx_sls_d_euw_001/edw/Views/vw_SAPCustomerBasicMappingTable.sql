@@ -9,7 +9,8 @@ SELECT
 ,   SCBMT.[t_applicationId]  
 ,   SCBMT.[t_extractionDtm]
 FROM
-    [base_dw_halfen_0_hlp].[SAPCustomerBasicMappingTable] SCBMT
+    [map_AXBI].[SAPCustomerBasicMappingTable]
+  --[base_dw_halfen_0_hlp].[SAPCustomerBasicMappingTable] SCBMT
 JOIN
     [base_tx_ca_0_hlp].[DATAAREA] DA
     ON
