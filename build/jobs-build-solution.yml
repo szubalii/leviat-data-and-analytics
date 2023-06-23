@@ -14,6 +14,16 @@ parameters:
     build: true
 
 jobs:
+- job: Vars
+    pool:
+      name: 'VM'
+      demands:
+      - node.js
+      - VisualStudio
+      - Agent.ComputerName -equals $(VMName)
+    steps:
+    - script: |
+        echo parameters.solutions: ${{ parameters.solutions }}
 - ${{ each solution in parameters.solutions }}:
   - ${{ if solution.build }}:
     - job: BUILD_${{ upper(replace(solution.name, '-', '_')) }}

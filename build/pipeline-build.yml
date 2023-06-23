@@ -36,16 +36,16 @@ parameters:
 
 variables:
 
-# - name: buildAndDeploy_synapse_dwh
-#   value: ${{ parameters.synapse_dwh }}
-# - name: buildAndDeploy_azure_data_factory
-#   value: ${{ parameters.azure_data_factory }}
-# - name: buildAndDeploy_orchestration
-#   value: ${{ parameters.orchestration }}
-# - name: buildAndDeploy_xu_config
-#   value: ${{ parameters.xu_config }}
-# - name: buildAndDeploy_synapse_workspace
-#   value: ${{ parameters.synapse_workspace }}
+- name: buildAndDeploy_synapse_dwh
+  value: ${{ parameters.synapse_dwh }}
+- name: buildAndDeploy_azure_data_factory
+  value: ${{ parameters.azure_data_factory }}
+- name: buildAndDeploy_orchestration
+  value: ${{ parameters.orchestration }}
+- name: buildAndDeploy_xu_config
+  value: ${{ parameters.xu_config }}
+- name: buildAndDeploy_synapse_workspace
+  value: ${{ parameters.synapse_workspace }}
 - name: clean
   value: ${{ parameters.clean }}
 
@@ -150,11 +150,11 @@ stages:
         echo Build.SourceBranch: ${{ variables['Build.SourceBranch'] }}
         echo Build.SourceBranchName: ${{ variables['Build.SourceBranchName'] }}
         echo deployEnvPrefix: ${{ variables.deployEnvPrefix }}
-        # echo buildAndDeploy_synapse_dwh : (buildAndDeploy_synapse_dwh)
-        # echo buildAndDeploy_azure_data_factory : (buildAndDeploy_azure_data_factory)
-        # echo buildAndDeploy_orchestration : (buildAndDeploy_orchestration)
-        # echo buildAndDeploy_xu_config : (buildAndDeploy_xu_config)
-        # echo buildAndDeploy_synapse_workspace : (buildAndDeploy_synapse_workspace)
+        echo buildAndDeploy_synapse_dwh : $(buildAndDeploy_synapse_dwh)
+        echo buildAndDeploy_azure_data_factory : $(buildAndDeploy_azure_data_factory)
+        echo buildAndDeploy_orchestration : $(buildAndDeploy_orchestration)
+        echo buildAndDeploy_xu_config : $(buildAndDeploy_xu_config)
+        echo buildAndDeploy_synapse_workspace : $(buildAndDeploy_synapse_workspace)
       displayName: Print Variables
 - stage: VALIDATE
   jobs:
