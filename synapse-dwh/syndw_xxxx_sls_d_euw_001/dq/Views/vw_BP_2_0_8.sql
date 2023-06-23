@@ -5,7 +5,6 @@ WITH TaxNumber AS(
 SELECT
         BPTN.[BPTAXTYPE]
     ,   BPTN.[BPTAXNUMBER]
-    ,   COUNT(*) AS [COUNT]
 FROM
     [base_s4h_cax].[I_Businesspartnertaxnumber] BPTN
 GROUP BY

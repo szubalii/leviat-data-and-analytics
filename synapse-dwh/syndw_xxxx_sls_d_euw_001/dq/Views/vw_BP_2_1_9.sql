@@ -4,7 +4,6 @@
 WITH CustSalesArea AS(
 SELECT
         CSA.[Customer]
-    ,   COUNT(DISTINCT [PaymentTerms]) AS [COUNT]
 FROM
     [base_s4h_cax].[I_CustomerSalesArea] CSA
 GROUP BY

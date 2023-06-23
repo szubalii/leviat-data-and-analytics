@@ -4,7 +4,6 @@
 WITH SupOrg AS(
 SELECT
         SPO.[Supplier]
-    ,   COUNT(DISTINCT PaymentTerms) AS [COUNT]
 FROM
     [base_s4h_cax].[I_SupplierPurchasingOrg] SPO
 GROUP BY

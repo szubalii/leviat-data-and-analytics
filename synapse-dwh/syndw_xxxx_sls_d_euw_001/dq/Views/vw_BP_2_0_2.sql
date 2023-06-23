@@ -4,7 +4,6 @@
 WITH OrganizationBPName AS(
 SELECT  
         BP.[OrganizationBPName1]
-    ,   COUNT([OrganizationBPName1]) AS [Count]
 FROM
     [base_s4h_cax].[I_BusinessPartner] BP
 GROUP BY    

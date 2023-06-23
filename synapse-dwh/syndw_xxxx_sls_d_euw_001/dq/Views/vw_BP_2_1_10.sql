@@ -4,7 +4,6 @@
 WITH CustCompany AS(
 SELECT
         CC.[Customer]
-    ,   COUNT(DISTINCT CC.[PaymentTerms]) AS [COUNT]
 FROM
     [base_s4h_cax].[I_CustomerCompany] CC
 LEFT JOIN

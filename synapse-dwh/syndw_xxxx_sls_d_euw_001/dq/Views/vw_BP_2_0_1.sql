@@ -6,7 +6,6 @@ SELECT
         BPB.[BANKCOUNTRYKEY]
     ,   BPB.[BANKNUMBER]
     ,   BPB.[BankAccount]
-    ,   COUNT(*) AS [COUNT]
 FROM
     [base_s4h_cax].[I_BusinessPartnerBank] BPB
 GROUP BY    

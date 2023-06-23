@@ -4,7 +4,6 @@
 WITH PhoneNumber AS(
 SELECT
         A.[PhoneNumber]
-    ,   COUNT(*) AS [COUNT]
 FROM
     [base_s4h_cax].[I_Address] A
 GROUP BY
