@@ -3,19 +3,19 @@ parameters:
   type: object
   default:
   - name: 'synapse-dwh'
-    deploy: true
+    deploy: True
   - name: 'orchestration'
-    deploy: true
+    deploy: True
   - name: 'xu-config'
-    deploy: true
+    deploy: True
   - name: 'synapse-workspace'
-    deploy: true
+    deploy: True
 - name: deployEnvPrefix
   type: string
 
 jobs:
 - ${{ each solution in parameters.solutions }}:
-  - ${{ if solution.deploy }}:
+  - ${{ if eq(solution.deploy, True) }}:
     - template: ./jobs-deploy-solution-helper.yml
       parameters:
         folder: ${{ solution.name }}
