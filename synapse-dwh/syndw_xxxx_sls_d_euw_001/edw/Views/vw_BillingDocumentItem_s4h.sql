@@ -25,8 +25,8 @@ BillingDocumentItemBase AS (
   , doc.[OriginallyRequestedMaterial]
   , doc.[InternationalArticleNumber]
   , doc.[PricingReferenceMaterial]
-  , NULL AS [LengthInMPer1]
-  , NULL AS [LengthInM]
+  , NULL                                            AS [LengthInMPer1]
+  , NULL                                            AS [LengthInM]
   , doc.[Batch]
   , doc.[MaterialGroup]                             AS [MaterialGroupID]
   , DimBrand.[BrandID]                              AS [BrandID]
@@ -47,14 +47,29 @@ BillingDocumentItemBase AS (
             doc.[CancelledBillingDocument]<>''
         THEN 'Y'
         ELSE 'N' 
-    END AS [CancelledInvoiceEffect]
+    END                                             AS [CancelledInvoiceEffect]
   , doc.[BillingDocumentItemText]
   , doc.[ServicesRenderedDate]
-  , doc.[BillingQuantity]
+  , edw.svf_getInvertAmountForReturns(
+      doc.[ReturnItemProcessingType],
+      doc.[BillingDocumentType],
+      doc.[SalesDocumentItemCategory],
+      doc.[BillingQuantity]
+  )                                                 AS [BillingQuantity]
   , doc.[BillingQuantityUnit]                       AS [BillingQuantityUnitID]
-  , doc.[BillingQuantityInBaseUnit]
+  , edw.svf_getInvertAmountForReturns(
+      doc.[ReturnItemProcessingType],
+      doc.[BillingDocumentType],
+      doc.[SalesDocumentItemCategory],
+      doc.[BillingQuantityInBaseUnit]
+  )                                                 AS [BillingQuantityInBaseUnit]  
   , doc.[BaseUnit]
-  , doc.[MRPRequiredQuantityInBaseUnit]
+  , edw.svf_getInvertAmountForReturns(
+      doc.[ReturnItemProcessingType],
+      doc.[BillingDocumentType],
+      doc.[SalesDocumentItemCategory],
+      doc.[MRPRequiredQuantityInBaseUnit]
+  )                                                 AS [MRPRequiredQuantityInBaseUnit]
   , doc.[BillingToBaseQuantityDnmntr]
   , doc.[BillingToBaseQuantityNmrtr]
   , doc.[ItemGrossWeight]
@@ -88,65 +103,70 @@ BillingDocumentItemBase AS (
       doc.[BillingDocumentType],
       doc.[SalesDocumentItemCategory],
       doc.[NetAmount]
-  ) AS [NetAmount]
+  )                                                 AS [NetAmount]
   , doc.[TransactionCurrency]                       AS [TransactionCurrencyID]
   , edw.svf_getInvertAmountForReturns(
       doc.[ReturnItemProcessingType],
       doc.[BillingDocumentType],
       doc.[SalesDocumentItemCategory],
       doc.[GrossAmount]
-  ) AS [GrossAmount]
+  )                                                 AS [GrossAmount]
   , doc.[PricingDate]
   , doc.[PriceDetnExchangeRate]
-  , doc.[PricingScaleQuantityInBaseUnit]
+  , edw.svf_getInvertAmountForReturns(
+      doc.[ReturnItemProcessingType],
+      doc.[BillingDocumentType],
+      doc.[SalesDocumentItemCategory],
+      doc.[PricingScaleQuantityInBaseUnit]
+  )                                                 AS [PricingScaleQuantityInBaseUnit]
   , edw.svf_getInvertAmountForReturns(
       doc.[ReturnItemProcessingType],
       doc.[BillingDocumentType],
       doc.[SalesDocumentItemCategory],
       doc.[TaxAmount]
-  ) AS [TaxAmount]
+  )                                                 AS [TaxAmount]
   , edw.svf_getInvertAmountForReturns(
       doc.[ReturnItemProcessingType],
       doc.[BillingDocumentType],
       doc.[SalesDocumentItemCategory],
       doc.[CostAmount]
-  ) AS [CostAmount]
+  )                                                 AS [CostAmount]
   , edw.svf_getInvertAmountForReturns(
       doc.[ReturnItemProcessingType],
       doc.[BillingDocumentType],
       doc.[SalesDocumentItemCategory],
       doc.[Subtotal1Amount]
-  ) AS [Subtotal1Amount]
+  )                                                 AS [Subtotal1Amount]
   , edw.svf_getInvertAmountForReturns(
       doc.[ReturnItemProcessingType],
       doc.[BillingDocumentType],
       doc.[SalesDocumentItemCategory],
       doc.[Subtotal2Amount]
-  ) AS [Subtotal2Amount]
+  )                                                 AS [Subtotal2Amount]
   , edw.svf_getInvertAmountForReturns(
       doc.[ReturnItemProcessingType],
       doc.[BillingDocumentType],
       doc.[SalesDocumentItemCategory],
       doc.[Subtotal3Amount]
-  ) AS [Subtotal3Amount]
+  )                                                 AS [Subtotal3Amount]
   , edw.svf_getInvertAmountForReturns(
       doc.[ReturnItemProcessingType],
       doc.[BillingDocumentType],
       doc.[SalesDocumentItemCategory],
       doc.[Subtotal4Amount]
-  ) AS [Subtotal4Amount]
+  )                                                 AS [Subtotal4Amount]
   , edw.svf_getInvertAmountForReturns(
       doc.[ReturnItemProcessingType],
       doc.[BillingDocumentType],
       doc.[SalesDocumentItemCategory],
       doc.[Subtotal5Amount]
-  ) AS [Subtotal5Amount]
+  )                                                 AS [Subtotal5Amount]
   , edw.svf_getInvertAmountForReturns(
       doc.[ReturnItemProcessingType],
       doc.[BillingDocumentType],
       doc.[SalesDocumentItemCategory],
       doc.[Subtotal6Amount]
-  ) AS [Subtotal6Amount]
+  )                                                 AS [Subtotal6Amount]
   , doc.[StatisticalValueControl]
   , doc.[StatisticsExchangeRate]
   , doc.[StatisticsCurrency]
@@ -156,7 +176,7 @@ BillingDocumentItemBase AS (
       doc.[BillingDocumentType],
       doc.[SalesDocumentItemCategory],
       doc.[EligibleAmountForCashDiscount]
-  ) AS [EligibleAmountForCashDiscount]
+  )                                                 AS [EligibleAmountForCashDiscount]
   , doc.[ContractAccount]
   , doc.[CustomerPaymentTerms]
   , doc.[PaymentMethod]
@@ -217,13 +237,13 @@ BillingDocumentItemBase AS (
       doc.[BillingDocumentType],
       doc.[SalesDocumentItemCategory],
       doc.[BillingQuantity]
-  ) AS [QuantitySold]
+  )                                                 AS [QuantitySold]
   , edw.svf_getInvertAmountForReturns(
       doc.[ReturnItemProcessingType],
       doc.[BillingDocumentType],
       doc.[SalesDocumentItemCategory],
       doc.[NetAmount] - doc.[CostAmount]
-  ) AS [GrossMargin]
+  )                                                 AS [GrossMargin]
   , ZB.Customer                                     AS ExternalSalesAgentID
   , ZB.FullName                                     AS ExternalSalesAgent
   , ZP.Customer                                     AS ProjectID
@@ -234,31 +254,31 @@ BillingDocumentItemBase AS (
   , D1.[FullName]                                   AS GlobalParent
   , case
       when D1.[Customer] is not Null then D1.[Customer]
-      else AG.[Customer] end                      AS GlobalParentCalculatedID
+      else AG.[Customer] end                        AS GlobalParentCalculatedID
   , case
       when D1.[Customer] is not Null then D1.[FullName]
-      else AG.[FullName] end                      AS GlobalParentCalculated
+      else AG.[FullName] end                        AS GlobalParentCalculated
   , C1.[Customer]                                   AS LocalParentID
   , C1.[FullName]                                   AS LocalParent
   , case
       when C1.[Customer] is not Null then C1.[Customer]
-      else AG.[Customer] end                      AS LocalParentCalculatedID
+      else AG.[Customer] end                        AS LocalParentCalculatedID
   , case
       when C1.[Customer] is not Null then C1.[FullName]
-      else AG.[FullName] end                      AS LocalParentCalculated
+      else AG.[FullName] end                        AS LocalParentCalculated
 
   , SDTT.SalesDocumentType                          AS SalesOrderTypeID
   , case
       when doc.[BillToParty] is not Null then doc.[BillToParty]
-      else doc.[SoldToParty] end                  AS BillToID
+      else doc.[SoldToParty] end                    AS BillToID
 
   , case
       when doc.[BillToParty] is not Null then RE.[FullName]
-      else AG.[FullName] end                      AS BillTo
-  , doc.[BillingDocumentDate]                     AS [AccountingDate]
-  , doc.[Material] AS MaterialCalculated
-  , doc.[SoldToParty] AS SoldToPartyCalculated
-  , edw.svf_getInOutID_s4h (CustomerID) AS InOutID
+      else AG.[FullName] end                        AS BillTo
+  , doc.[BillingDocumentDate]                       AS [AccountingDate]
+  , doc.[Material]                                  AS MaterialCalculated
+  , doc.[SoldToParty]                               AS SoldToPartyCalculated
+  , edw.svf_getInOutID_s4h (CustomerID)             AS InOutID
   , PA.ICSalesDocumentID 
   , PA.ICSalesDocumentItemID
   , doc.[t_applicationId]
