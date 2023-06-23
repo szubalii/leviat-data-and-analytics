@@ -7,7 +7,7 @@
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "SFTP unload report",
+						"activity": "Copy to SFTP",
 						"dependencyConditions": [
 							"Failed"
 						]
@@ -47,7 +47,7 @@
 						},
 						"error_msg": {
 							"value": {
-								"value": "@activity('SFTP unload report').Error",
+								"value": "@activity('Copy to SFTP').Error",
 								"type": "Expression"
 							},
 							"type": "String"
@@ -183,7 +183,7 @@
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "SFTP unload report",
+						"activity": "Copy to SFTP",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -250,8 +250,8 @@
 				}
 			},
 			{
-				"name": "SFTP unload report",
-				"type": "ExecutePipeline",
+				"name": "Copy to SFTP",
+				"type": "Copy",
 				"dependsOn": [
 					{
 						"activity": "Set Batch",
@@ -260,32 +260,83 @@
 						]
 					}
 				],
+				"policy": {
+					"timeout": "4:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
 				"userProperties": [],
 				"typeProperties": {
-					"pipeline": {
-						"referenceName": "pl_SFTP_report_unload",
-						"type": "PipelineReference"
+					"source": {
+						"type": "SqlDWSource",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
 					},
-					"waitOnCompletion": true,
-					"parameters": {
-						"schema_name": {
-							"value": "@pipeline().parameters.source_schema_name",
-							"type": "Expression"
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "SftpWriteSettings",
+							"operationTimeout": "01:00:00",
+							"useTempFileRename": true
 						},
-						"table_name": {
-							"value": "@pipeline().parameters.source_view_name",
-							"type": "Expression"
-						},
-						"directory_name": {
-							"value": "@pipeline().parameters.dest_schema_name",
-							"type": "Expression"
-						},
-						"file_name": {
-							"value": "@CONCAT(\n    pipeline().parameters.source_view_name\n    ,'.csv'\n)",
-							"type": "Expression"
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
 						}
 					}
-				}
+				},
+				"inputs": [
+					{
+						"referenceName": "ds_syndw_table",
+						"type": "DatasetReference",
+						"parameters": {
+							"schema": {
+								"value": "@pipeline().parameters.source_schema_name",
+								"type": "Expression"
+							},
+							"table": {
+								"value": "@pipeline().parameters.source_view_name",
+								"type": "Expression"
+							},
+							"sqlPool": {
+								"value": "@pipeline().globalParameters.synapseDatabaseName",
+								"type": "Expression"
+							},
+							"synapseServer": {
+								"value": "@pipeline().globalParameters.synapseServerName",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ds_sftp_pdw_csv",
+						"type": "DatasetReference",
+						"parameters": {
+							"directory_name": {
+								"value": "@pipeline().parameters.dest_schema_name",
+								"type": "Expression"
+							},
+							"file_name": {
+								"value": "@CONCAT(\r\n    pipeline().parameters.source_view_name\r\n    , '.csv'\r\n)",
+								"type": "Expression"
+							}
+						}
+					}
+				]
 			}
 		],
 		"parameters": {
