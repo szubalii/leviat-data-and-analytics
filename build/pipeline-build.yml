@@ -215,10 +215,10 @@ stages:
     #       folder: synapse-workspace
     #       deployEnvPrefix: ${{ variables.deployEnvPrefix }}
 
-  - stage: DEPLOY_2
-    jobs:
-    
-    - ${{ if parameters.azure_data_factory }}:
+  
+  - ${{ if parameters.azure_data_factory }}:
+    - stage: DEPLOY_2
+      jobs:
       - template: ./jobs-deploy-solution-helper.yml
         parameters:
           folder: azure-data-factory

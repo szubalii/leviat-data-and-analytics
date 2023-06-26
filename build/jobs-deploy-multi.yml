@@ -20,9 +20,13 @@ parameters:
 
 jobs:
 - ${{ each solution in parameters.solutions }}:
+  # solution.deploy is not an actual boolean (part of parameter.solutions object)
+  # so include additional check if equal to True (string)
   - ${{ if eq(solution.deploy, True) }}:
     - template: ./jobs-deploy-solution-helper.yml
       parameters:
         folder: ${{ solution.name }}
         deployEnvPrefix: ${{ parameters.deployEnvPrefix }}
+        # solution.test is not an actual boolean (part of parameter.solutions object)
+        # so include additional check if equal to True (string)
         test: ${{ eq(solution.test, True) }}
