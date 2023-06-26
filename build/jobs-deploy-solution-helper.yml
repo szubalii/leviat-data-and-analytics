@@ -5,7 +5,7 @@ parameters:
   type: string
 - name: test
   type: boolean
-  default: false
+  default: False
 
 jobs:
 - template: ./jobs-deploy-solution.yml

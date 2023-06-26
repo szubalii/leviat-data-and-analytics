@@ -4,14 +4,19 @@ parameters:
   default:
   - name: 'synapse-dwh'
     deploy: True
+    test: True
   - name: 'orchestration'
     deploy: True
+    test: False
   - name: 'xu-config'
     deploy: True
+    test: False
   - name: 'synapse-workspace'
     deploy: True
+    test: False
 - name: deployEnvPrefix
   type: string
+
 
 jobs:
 - ${{ each solution in parameters.solutions }}:
@@ -20,3 +25,4 @@ jobs:
       parameters:
         folder: ${{ solution.name }}
         deployEnvPrefix: ${{ parameters.deployEnvPrefix }}
+        test: ${{ solution.test }}
