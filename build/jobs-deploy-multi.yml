@@ -25,4 +25,4 @@ jobs:
       parameters:
         folder: ${{ solution.name }}
         deployEnvPrefix: ${{ parameters.deployEnvPrefix }}
-        test: ${{ solution.test }}
+        test: ${{ if eq(solution.test, True) }}
