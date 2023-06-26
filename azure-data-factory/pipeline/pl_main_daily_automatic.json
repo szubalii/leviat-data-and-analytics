@@ -41,6 +41,10 @@
 									"date": {
 										"value": "@formatDateTime(pipeline().TriggerTime, 'yyyy/MM/dd')",
 										"type": "Expression"
+									},
+									"pbi_entity_filter": {
+										"value": "WHERE dataset_name != 'Master Data Quality Checks'",
+										"type": "Expression"
 									}
 								}
 							}

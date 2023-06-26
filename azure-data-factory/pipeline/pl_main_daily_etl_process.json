@@ -56,7 +56,10 @@
 							"value": "@pipeline().parameters.adhoc",
 							"type": "Expression"
 						},
-						"pbi_entity_filter": "WHERE dataset_name != 'Master Data Quality Checks'"
+						"pbi_entity_filter": {
+							"value": "@pipeline().parameters.pbi_entity_filter",
+							"type": "Expression"
+						}
 					}
 				}
 			},
@@ -213,6 +216,10 @@
 				"defaultValue": 0
 			},
 			"entity_filter": {
+				"type": "string",
+				"defaultValue": "'a' = 'a'"
+			},
+			"pbi_entity_filter": {
 				"type": "string",
 				"defaultValue": "'a' = 'a'"
 			}
