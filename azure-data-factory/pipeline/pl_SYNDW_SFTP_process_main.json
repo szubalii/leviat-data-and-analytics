@@ -25,7 +25,7 @@
 					"source": {
 						"type": "AzureSqlSource",
 						"sqlReaderQuery": {
-							"value": "SELECT *\n    FROM [dbo].[get_scheduled_entity_batch_activities_by_layer] (\n    @{pipeline().parameters.adhoc},\n    '@{pipeline().parameters.date}',\n    @{pipeline().parameters.rerun_successful_full_entities}\n    'SFTP'\n) \nWHERE   @{pipeline().parameters.entity_filter}",
+							"value": "SELECT *\n    FROM [dbo].[get_scheduled_entity_batch_activities_by_layer] (\n    @{pipeline().parameters.adhoc},\n    '@{pipeline().parameters.date}',\n    @{pipeline().parameters.rerun_successful_full_entities},\n    'SFTP'\n) \nWHERE   @{pipeline().parameters.entity_filter}",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
