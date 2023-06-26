@@ -5,7 +5,7 @@ parameters:
   type: string
 - name: test
   type: boolean
-  default: false
+  default: False
 
 # variables:
 # - name: deployEnvSolution
@@ -23,12 +23,14 @@ jobs:
     - Agent.ComputerName -equals $(VMName)
   environment: ${{ parameters.deployEnvironment }}
   workspace:
-    clean: $(clean)
+  # set clean to all when deploying xu-config
+    ${{ if eq(parameters.folder, 'xu-config') }}: 
+      clean: all
   strategy:
     runOnce:
       deploy:
         steps:
         - template: ../${{ parameters.folder }}/build/steps-deploy.yml
-
-        - ${{ if parameters.test }}:
+        
+        - ${{ if eq(parameters.test, True) }}:
           - template: ../${{ parameters.folder }}/build/steps-test.yml

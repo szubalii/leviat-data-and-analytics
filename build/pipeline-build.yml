@@ -4,27 +4,27 @@ parameters:
 - name: runDeployment
   displayName: Run Deployments
   type: boolean
-  default: false
+  default: False
 - name: synapse_dwh
   displayName: Synapse DWH
   type: boolean
-  default: true
+  default: True
 - name: azure_data_factory
   displayName: Azure Data Factory
   type: boolean
-  default: true
+  default: True
 - name: orchestration
   displayName: Orchestration DB
   type: boolean
-  default: true
+  default: True
 - name: xu_config
   displayName: Xtract Universal
   type: boolean
-  default: true
+  default: True
 - name: synapse_workspace
   displayName: Synapse Workspace
   type: boolean
-  default: true
+  default: True
 - name: clean
   displayName: Clean Workspace
   type: string
@@ -184,6 +184,7 @@ stages:
         solutions:
         - name: 'synapse-dwh'
           deploy: ${{ parameters.synapse_dwh }}
+          test: True
         - name: 'orchestration'
           deploy: ${{ parameters.orchestration }}
         - name: 'xu-config'
@@ -214,10 +215,10 @@ stages:
     #       folder: synapse-workspace
     #       deployEnvPrefix: ${{ variables.deployEnvPrefix }}
 
-  - stage: DEPLOY_2
-    jobs:
-    
-    - ${{ if parameters.azure_data_factory }}:
+  
+  - ${{ if parameters.azure_data_factory }}:
+    - stage: DEPLOY_2
+      jobs:
       - template: ./jobs-deploy-solution-helper.yml
         parameters:
           folder: azure-data-factory
