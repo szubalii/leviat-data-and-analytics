@@ -576,7 +576,7 @@ BillingDocumentItemBase_axbi_mapped AS (
         mapBrand.[source_DataAreaID]= SubQ.[axbi_DataAreaID]
 
     LEFT JOIN [map_AXBI].[SalesOffice] SOff
-        ON SubQ.[DataAreaID] = SOff.[DataAreaID]
+        ON SubQ.[axbi_DataAreaID]  = SOff.[DataAreaID]
 
 ), BillingDocumentItemBase_axbi_mapped_calc as (
     SELECT
