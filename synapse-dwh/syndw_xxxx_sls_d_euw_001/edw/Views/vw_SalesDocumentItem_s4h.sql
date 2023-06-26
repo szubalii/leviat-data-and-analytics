@@ -323,7 +323,7 @@ C_SalesDocumentItemDEXBase as (
         ON
             doc.[Material] = Product.[ProductID]
     LEFT JOIN
-        [edw].[fact_ProductHierarchyVariantConfigCharacteristic_active] AS VC
+        [edw].[vw_ProductHierarchyVariantConfigCharacteristic] AS VC
         ON
             doc.[SalesDocument] = VC.[SalesDocument]
             AND

@@ -74,6 +74,9 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+	<Compile Include="edw\Views\vw_SalesDocumentItem_s4h.cs">
+		<SubType>Designer</SubType>
+	</Compile>
     <Compile Include="edw_vw_BillingDocumentItem_s4h.cs">
       <SubType>Designer</SubType>
     </Compile>
@@ -95,6 +98,9 @@
     <None Include="Data\FACT_HGDAWA_2022_01_31_09_35_46_452.csv" />
   </ItemGroup>
   <ItemGroup>
+	<EmbeddedResource Include="edw\Views\vw_SalesDocumentItem_s4h.resx">
+		<DependentUpon>vw_SalesDocumentItem_s4h.cs</DependentUpon>
+	</EmbeddedResource>
     <EmbeddedResource Include="edw_vw_BillingDocumentItem_s4h.resx">
       <DependentUpon>edw_vw_BillingDocumentItem_s4h.cs</DependentUpon>
       <SubType>Designer</SubType>
