@@ -1234,6 +1234,7 @@
     <Build Include="edw\Tables\fact_SalesOrderItemPricingElement.sql" />
     <Build Include="edw\Functions\ScalarValued\svf_getNaturalKey.sql" />
     <Build Include="edw\Functions\ScalarValued\svf_getInvertAmount.sql" />
+    <Build Include="edw\Functions\ScalarValued\svf_getInvertAmountForReturns.sql" />
     <Build Include="edw\Functions\ScalarValued\svf_getOrderStatus.sql" />
     <Build Include="dm_sales\Views\vw_fact_SalesOrderItem_combined.sql" />
     <Build Include="dm_sales\Views\vw_dim_SalesEmployee.sql" />

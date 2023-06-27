@@ -503,6 +503,8 @@ EuroBudgetExchangeRateUSD as (
         ExchangeRateType = 'P'
         and
         SourceCurrency = 'USD'
+        and
+        [ExchangeRateEffectiveDate] <= GETDATE()
 ),
 ExchangeRateUSD as (
     SELECT
@@ -521,8 +523,7 @@ ExchangeRateUSD as (
             EuroBudgetExchangeRateUSD
             ON 
                 SD_30.CurrencyID = EuroBudgetExchangeRateUSD.TargetCurrency
-        WHERE 
-             [ExchangeRateEffectiveDate] <= CAST(GETDATE() as DATE)
+        --WHERE 
           -- [ExchangeRateEffectiveDate] <= [CreationDate]
         GROUP BY
                 [SalesDocument]

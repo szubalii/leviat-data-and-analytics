@@ -414,7 +414,7 @@ ExchangeRateUSD as (
             ON 
                 EuroBudgetExchangeRateUSD.TargetCurrency = 'EUR'
         WHERE 
-            [ExchangeRateEffectiveDate] <= CAST(GETDATE() as DATE)  --[CreationDate]
+            [ExchangeRateEffectiveDate] <= GETDATE()  --[CreationDate]
         GROUP BY
                 [SalesDocument]
             ,   [SalesDocumentItem]

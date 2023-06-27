@@ -1,9 +1,6 @@
 ﻿CREATE VIEW [edw].[vw_BillingDocumentItem_axbi]
 AS
 WITH
-CurrentDay AS (
-    SELECT CAST(GETDATE() as DATE) AS Today
-),
 CustInvoiceTrans_without_quotes AS(
     SELECT
         CASE
@@ -759,6 +756,11 @@ BillingDocumentItemBase_axbi_mapped AS (
         ExchangeRateType = 'P'
         AND
         TargetCurrency = 'EUR'
+            UNION ALL
+    SELECT
+        'EUR'
+        ,'1900-01-01'
+        ,1.0
 )
 ,EuroBudgetExchangeRateUSD as (
     select
@@ -767,13 +769,12 @@ BillingDocumentItemBase_axbi_mapped AS (
         ,ExchangeRate
     from
         edw.dim_ExchangeRates
-    CROSS JOIN CurrentDay
     where
         ExchangeRateType = 'P'
         AND
         SourceCurrency = 'USD'
         AND
-        ExchangeRateEffectiveDate <= Today)
+        ExchangeRateEffectiveDate <= GETDATE())
 , BDIAXBI_DUMMY_30 AS(
     SELECT 
             [BillingDocument]
@@ -924,10 +925,9 @@ SELECT
     ,   BDIAXBI_DUMMY.[t_extractionDtm]
 FROM 
     BDIAXBI_DUMMY
-CROSS JOIN
+JOIN
     [edw].[dim_CurrencyType] CT
-WHERE
-    CT.[CurrencyTypeID] = '10'
+        ON CT.[CurrencyTypeID] = '10'
 
 UNION ALL
 
@@ -994,10 +994,9 @@ SELECT
     ,   BDIAXBI_DUMMY_30.[t_extractionDtm]
 FROM 
     BDIAXBI_DUMMY_30
-CROSS JOIN
+JOIN
     [edw].[dim_CurrencyType] CT
-WHERE
-    CT.[CurrencyTypeID] = '30'
+        ON CT.[CurrencyTypeID] = '30'
 
 UNION ALL
 
@@ -1066,7 +1065,6 @@ LEFT JOIN
         BDIAXBI_DUMMY_30.BillingDocument=ExchangeRateUSD.BillingDocument 
         AND     
         BDIAXBI_DUMMY_30.BillingDocumentItem=ExchangeRateUSD.BillingDocumentItem  
-CROSS JOIN
+JOIN
     [edw].[dim_CurrencyType] CT
-WHERE
-    CT.[CurrencyTypeID] = '40'
+        ON CT.[CurrencyTypeID] = '40'
