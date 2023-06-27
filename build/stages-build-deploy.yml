@@ -30,6 +30,8 @@ parameters:
 #   default: 397
 
 variables:
+- name: ConnectionString
+  value: $(SynapseTesterConnectionString)
 
 # Set these default values in case of manually triggered pipelines
 # These values will be overriden for production environment
