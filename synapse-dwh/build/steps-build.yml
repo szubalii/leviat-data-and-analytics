@@ -13,15 +13,6 @@ steps:
   inputs:
     restoreSolution: '$(synDWHSolution)'
 
-  # Substitute the connection string for the Test Project 
-  # so Azure DevOps can run the Test Cases
-- task: FileTransform@1
-  displayName: 'Update Connection String for Test Project'
-  inputs:
-    folderPath: '$(System.DefaultWorkingDirectory)/synapse-dwh/Test/'
-    fileType: 'xml'
-    targetFiles: 'app.config'
-
   # Build the Test Project
 - task: VSBuild@1
   displayName: 'Build Test Project'

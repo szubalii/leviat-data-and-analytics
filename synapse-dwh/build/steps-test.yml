@@ -103,6 +103,16 @@ steps:
   inputs:
     artifact: SynapseDWH
 
+
+# Substitute the connection string for the Test Project 
+# so Azure DevOps can run the Test Cases
+- task: FileTransform@1
+  displayName: 'Update Connection String for Test Project'
+  inputs:
+    folderPath: '$(Pipeline.Workspace)/Test/'
+    fileType: 'xml'
+    targetFiles: 'Test.dll.config'
+
 # Run test directly from assemblies and use Test Filter
 - task: VSTest@2
   displayName: 'Run Test Cases'
