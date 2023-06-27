@@ -1850,4 +1850,5 @@ LEFT JOIN
         BDI_AllKPI.Material = BDI_CancellDocs.Material
         AND
         BDI_AllKPI.BillingDocumentTypeID <> 'S1'
-    
+        AND
+        BDI_CancellDocs.BillingDocumentTypeID = 'S1'
