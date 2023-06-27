@@ -1,1 +1,82 @@
-{"name":"IFIGLACCOUNTT$T","description":"General Ledger Account Text","guid":"00008258-24ba-4303-82f1-7c6ea78dcb0b","semantics":"Texts","context":"ABAP_CDS","supportsFull":true,"supportsDelta":true,"mode":"Delta","transferDataOnDeltaInit":true,"columns":[{"name":"TS_SEQUENCE_NUMBER","description":"[GENERATED] Sequence number of row in current extraction","abapType":"FourByteInteger","isPrimaryKey":true,"isSelected":true,"isDeltaColumn":true,"generated":true,"outputLength":0},{"name":"ODQ_CHANGEMODE","description":"Change Mode for a Data Record in the Delta","abapType":"CharacterString","length":1,"isSelected":true,"isDeltaColumn":true,"outputLength":1},{"name":"ODQ_ENTITYCNTR","description":"Number of Data Units (Data Records for Example)","abapType":"PackedNumber","length":19,"isSelected":true,"isDeltaColumn":true,"outputLength":20},{"name":"CHARTOFACCOUNTS","description":"Chart of accounts number","abapType":"CharacterString","length":4,"isPrimaryKey":true,"isSelected":true,"selectionPermission":"All","outputLength":4},{"name":"GLACCOUNT","description":"G\/L account number","abapType":"CharacterString","length":10,"isPrimaryKey":true,"isSelected":true,"selectionPermission":"All","outputLength":10},{"name":"LANGUAGE","description":"Language Key","abapType":"CharacterString","length":1,"isPrimaryKey":true,"isSelected":true,"selectionPermission":"All","outputLength":2},{"name":"GLACCOUNTNAME","description":"Text (20 characters)","abapType":"CharacterString","length":20,"isSelected":true,"selectionPermission":"All","outputLength":20},{"name":"GLACCOUNTLONGNAME","description":"Text (50 characters)","abapType":"CharacterString","length":50,"isSelected":true,"selectionPermission":"All","outputLength":50},{"name":"LASTCHANGEDATETIME","description":"UTC Time Stamp in Short Form (YYYYMMDDhhmmss)","abapType":"PackedNumber","length":15,"isSelected":true,"selectionPermission":"All","outputLength":19}]}
+{
+    "functionName": "Z_THEO_READ_TABLE",
+    "whereClause": "LANGUAGE = 'E'",
+    "runInBackgroundJob": false,
+    "backgroundJobTimeout": 180,
+    "tables": 
+    [
+        {
+            "name": "IFIGLACCOUNTT",
+            "description": "Generated Table for View",
+            "isView": true,
+            "fields": 
+            [
+                {
+                    "name": "MANDT",
+                    "description": "Client",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "T000",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CHARTOFACCOUNTS",
+                    "description": "Chart of Accounts",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "T004",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "GLACCOUNT",
+                    "description": "G/L Account Number",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "LANGUAGE",
+                    "description": "Language Key",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "formattedLength": 2,
+                    "checkTable": "T002",
+                    "conversionExit": "ISOLA"
+                },
+                {
+                    "name": "GLACCOUNTNAME",
+                    "description": "G/L account short text",
+                    "abapType": "CharacterString",
+                    "length": 20,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "GLACCOUNTLONGNAME",
+                    "description": "G/L Account Long Text",
+                    "abapType": "CharacterString",
+                    "length": 50,
+                    "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "LASTCHANGEDATETIME",
+                    "description": "UTC Time Stamp in Short Form (YYYYMMDDhhmmss)",
+                    "abapType": "PackedNumber",
+                    "length": 15,
+                    "isSelected": true,
+                    "formattedLength": 19,
+                    "conversionExit": ""
+                }
+            ]
+        }
+    ]
+}

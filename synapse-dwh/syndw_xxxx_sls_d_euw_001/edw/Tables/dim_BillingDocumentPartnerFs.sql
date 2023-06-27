@@ -3,16 +3,9 @@
 [SDDocument]            NVARCHAR(10) NOT NULL
 ,[PartnerFunction]      NVARCHAR(2)  NOT NULL
 ,[PartnerFunctionName]  NVARCHAR(20)
-,[AddressID]            NVARCHAR(10)
 ,[Customer]             NVARCHAR(10)
 ,[Personnel]            CHAR(8) collate Latin1_General_100_BIN2
 ,[FullName]             NVARCHAR(80)
-,[CityName]             NVARCHAR(40)
-,[StreetName]           NVARCHAR(60)
-,[PostalCode]           NVARCHAR(10)
-,[EmailAddress]         NVARCHAR(241)
-,[PhoneNumber]          NVARCHAR(30)
-,[MobilePhoneNumber]    NVARCHAR(30)
 ,[t_applicationId]      VARCHAR (32)
 ,[t_extractionDtm]      DATETIME
 ,[t_jobId]              VARCHAR(36)

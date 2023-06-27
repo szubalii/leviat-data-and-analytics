@@ -1639,10 +1639,11 @@
         "data_category": "TEXT",
         "client_field": "MANDT",
         "tool_name": "Theobald",
-        "extraction_type": "ODP",
-        "update_mode": "Delta",
+        "extraction_type": "Table",
+        "update_mode": "Full",
         "base_table_name": "I_GLAccountText",
-        "pk_field_names": "TS_SEQUENCE_NUMBER, CHARTOFACCOUNTS, GLACCOUNT, LANGUAGE"
+        "pk_field_names": "CHARTOFACCOUNTS, GLACCOUNT, LANGUAGE",
+        "schedule_recurrence": "A"
       },
       {
         "entity_id": 200,
@@ -3675,18 +3676,6 @@
         "base_table_name": "I_SupplierPurchasingOrg",
         "pk_field_names": "MANDT, SUPPLIER, PURCHASINGORGANIZATION",
         "schedule_recurrence": "D"
-      },
-      {
-        "entity_id": 468,
-        "entity_name": "I_GLAccountText_F",
-        "data_category": "TEXT",
-        "client_field": "MANDT",
-        "tool_name": "Theobald",
-        "extraction_type": "ODP",
-        "update_mode": "Full",
-        "base_table_name": "I_GLAccountText",
-        "pk_field_names": "CHARTOFACCOUNTS, GLACCOUNT, LANGUAGE",
-        "schedule_recurrence": "A"
       },
       {
         "entity_id": 469,

@@ -52,7 +52,7 @@ CREATE TABLE [base_s4h_cax].[I_PurgDocScheduleLineEnhanced]
     [PurchasingDocumentIsAged]       nvarchar(1) collate Latin1_General_100_BIN2,
     [OrderQuantity]                  decimal(13, 3),
     [PurchaseOrderQuantityUnit]      nvarchar(3) collate Latin1_General_100_BIN2,
-    [ProductType]                    nvarchar(4) collate Latin1_General_100_BIN2,
+    [ProductTypeCode]                nvarchar(4) collate Latin1_General_100_BIN2,
     [ReleaseIsNotCompleted]          nvarchar(1) collate Latin1_General_100_BIN2,
     [IsReturnsItem]                  nvarchar(1) collate Latin1_General_100_BIN2,
     [PurgDocSchdLnHasNextDelivery]   nvarchar(1) collate Latin1_General_100_BIN2,

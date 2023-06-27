@@ -824,7 +824,7 @@
                     "name": "EXTSOURCESYSTEM",
                     "description": "Communication System ID",
                     "abapType": "CharacterString",
-                    "length": 60,
+                    "length": 10,
                     "isSelected": true,
                     "conversionExit": ""
                 },
@@ -995,15 +995,6 @@
                     "length": 1,
                     "isSelected": true,
                     "conversionExit": ""
-                },
-                {
-                    "name": "COMMITMENTITEM",
-                    "description": "Commitment Item",
-                    "abapType": "CharacterString",
-                    "length": 14,
-                    "isSelected": true,
-                    "formattedLength": 24,
-                    "conversionExit": "FMCIS"
                 },
                 {
                     "name": "FUNDSCENTER",
