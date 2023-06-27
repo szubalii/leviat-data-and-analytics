@@ -5,7 +5,16 @@
 		"runtimeState": "Started",
 		"type": "TumblingWindowTrigger",
 		"typeProperties": {
-			"frequency": "Hour",
+			"frequency": {
+				"hours": [
+					12
+				],
+				"weekDays": [
+					"monday",
+					"wednesday",
+					"friday"
+				]
+			},
 			"interval": 12,
 			"startTime": "2023-06-28T11:00:00Z",
 			"delay": "00:00:00",
