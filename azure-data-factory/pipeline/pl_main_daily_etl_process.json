@@ -221,7 +221,7 @@
 			},
 			"pbi_entity_filter": {
 				"type": "string",
-				"defaultValue": "'a' = 'a'"
+				"defaultValue": "where 'a' = 'a'"
 			}
 		},
 		"folder": {
