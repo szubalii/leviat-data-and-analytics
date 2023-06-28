@@ -345,37 +345,5 @@
         }
       }
     }
-  },
-  "Leviat_Data_Analytics UNICA Statistics": {
-    "datasets": {
-      "Order Backlog": {
-        "pbi_dataset_id": 25,
-        "schedule_recurrence": "D",
-        "entities": {
-          "base_s4h_cax": [
-            "C_SalesDocumentItemDEX",
-            "I_SalesDocumentScheduleLine",
-            "I_SalesOrganizationText",
-            "I_Plant",
-            "I_SalesDocumentItemCategoryT",
-            "I_Customer",
-            "I_OutboundDeliveryItem",
-            "I_OutboundDelivery",
-            "I_SDDocumentCategoryText",
-            "I_OverallGoodsMovementStatusT",
-            "I_CountryText"
-          ],
-          "edw": [
-            "dim_SDDocumentRejectionStatus",
-            "dim_SalesDocumentRjcnReason",
-            "dim_Calendar",
-            "dim_Product",
-            "dim_AXProductSAPHierarchy",
-            "dim_SalesOrganization",
-            "dim_SalesOrganization_US"
-          ]
-        }
-      }
-    }
   }
 }

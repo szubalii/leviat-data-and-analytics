@@ -105,13 +105,5 @@
         "dataset_guid": "3404de42-742e-45aa-a98a-fa55127d94f6"
       }
     }
-  },
-  "Leviat_Data_Analytics_UNICA_Statistics": {
-    "workspace_guid": "87baae3d-052b-49f8-9a98-8ee06f7b61da",
-    "datasets": {
-      "Order Backlog": {
-        "dataset_guid": "0b3f4566-7b6b-42c5-8227-328afc3b0d86"
-      }
-    }
   }
 }
