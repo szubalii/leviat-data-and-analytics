@@ -11,7 +11,7 @@
 				},
 				"parameters": {
 					"entity_filter": "entity_id in (18,21,22,23,29)",
-					"pbi_entity_filter": "WHERE dataset_name = 'Order Backlog'"
+					"pbi_entity_filter": "'a' <> 'a'"
 				}
 			}
 		],
