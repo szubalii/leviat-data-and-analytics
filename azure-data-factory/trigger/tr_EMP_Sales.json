@@ -2,12 +2,12 @@
 	"name": "tr_EMP_Sales",
 	"properties": {
 		"annotations": [],
-		"runtimeState": "Stopped",
+		"runtimeState": "Started",
 		"pipelines": [],
 		"type": "ScheduleTrigger",
 		"typeProperties": {
 			"recurrence": {
-				"frequency": "Week",
+				"frequency": "Month",
 				"interval": 1,
 				"startTime": "2023-06-28T11:00:00Z",
 				"timeZone": "UTC",
@@ -15,12 +15,14 @@
 					"hours": [
 						12
 					],
-					"weekDays": [
-						"Monday",
-						"Tuesday",
-						"Wednesday",
-						"Thursday",
-						"Friday"
+					"monthDays": [
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7
 					]
 				}
 			}
