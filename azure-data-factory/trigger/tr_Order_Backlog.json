@@ -1,9 +1,8 @@
 {
-	"name": "tr_AutoDailyETL",
+	"name": "tr_Order_Backlog",
 	"properties": {
-		"description": "Start daily data load and PBI dataset refresh",
 		"annotations": [],
-		"runtimeState": "Started",
+		"runtimeState": "Stopped",
 		"pipelines": [
 			{
 				"pipelineReference": {
@@ -11,8 +10,8 @@
 					"type": "PipelineReference"
 				},
 				"parameters": {
-					"entity_filter": "'a' = 'a'",
-					"pbi_entity_filter": "WHERE dataset_name != 'Master Data Quality Checks'"
+					"entity_filter": "entity_id in (18,21,22,23,29)",
+					"pbi_entity_filter": "WHERE dataset_name = 'Order Backlog'"
 				}
 			}
 		],
@@ -21,14 +20,11 @@
 			"recurrence": {
 				"frequency": "Week",
 				"interval": 1,
-				"startTime": "2021-12-29T06:00:00Z",
+				"startTime": "2023-06-28T11:00:00Z",
 				"timeZone": "UTC",
 				"schedule": {
-					"minutes": [
-						1
-					],
 					"hours": [
-						0
+						11
 					],
 					"weekDays": [
 						"Monday",
