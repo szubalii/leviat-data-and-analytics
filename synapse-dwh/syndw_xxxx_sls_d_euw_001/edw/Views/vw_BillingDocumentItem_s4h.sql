@@ -336,7 +336,7 @@ SELECT
       ,CR.[CurrencyTypeID]
       ,CR.[CurrencyType]
       ,CASE
-            WHEN CCR.CurrencyTypeID IN ('00','10')
+            WHEN CCR.CurrencyTypeID = '00'
                 THEN [TransactionCurrencyID]
             ELSE CCR.[TargetCurrency]
        END                                  AS [CurrencyID]
