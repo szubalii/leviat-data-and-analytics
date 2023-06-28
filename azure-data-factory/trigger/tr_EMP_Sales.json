@@ -3,7 +3,18 @@
 	"properties": {
 		"annotations": [],
 		"runtimeState": "Started",
-		"pipelines": [],
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "pl_main_daily_automatic",
+					"type": "PipelineReference"
+				},
+				"parameters": {
+					"entity_filter": "entity_id in\n(--base\n24,27,275,26,592,21,35,36,37,38,67,48,584,132,38,185,526,28,83,588,589,590,591,\n--edw\n54,49,62,61,584,353,370,55,421,68,56)\n",
+					"pbi_entity_filter": "WHERE dataset_name = 'EPM Sales View'"
+				}
+			}
+		],
 		"type": "ScheduleTrigger",
 		"typeProperties": {
 			"recurrence": {
