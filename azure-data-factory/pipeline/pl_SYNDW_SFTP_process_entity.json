@@ -331,7 +331,7 @@
 								"type": "Expression"
 							},
 							"file_name": {
-								"value": "@CONCAT(\r\n    pipeline().parameters.source_view_name\r\n    , '.csv'\r\n)",
+								"value": "@CONCAT(\n    pipeline().parameters.entity_name\n    , '.csv'\n)",
 								"type": "Expression"
 							}
 						}
