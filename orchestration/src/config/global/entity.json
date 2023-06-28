@@ -6047,70 +6047,70 @@
     "entities": [
       {
         "entity_id": 599,
-        "entity_name": "vw_dim_Invoice",
+        "entity_name": "Invoice3",
         "source_view_name": "vw_dim_Invoice_LastMonth",
         "execution_order": 2,
         "schedule_recurrence": "M"
       },
       {
         "entity_id": 600,
-        "entity_name": "vw_dim_PurchaseOrder",
+        "entity_name": "PO3",
         "source_view_name": "vw_dim_PurchaseOrder_LastMonth",
         "execution_order": 2,
         "schedule_recurrence": "M"
       },
       {
         "entity_id": 601,
-        "entity_name": "vw_dim_Contract",
+        "entity_name": "Contract",
         "source_view_name": "vw_dim_Contract",
         "execution_order": 1,
         "schedule_recurrence": "M"
       },
       {
         "entity_id": 602,
-        "entity_name": "vw_dim_CostCenter",
+        "entity_name": "CostCenter",
         "source_view_name": "vw_dim_CostCenter",
         "execution_order": 1,
         "schedule_recurrence": "M"
       },
       {
         "entity_id": 603,
-        "entity_name": "vw_dim_User",
+        "entity_name": "User",
         "source_view_name": "vw_dim_User",
         "execution_order": 1,
         "schedule_recurrence": "M"
       },
       {
         "entity_id": 604,
-        "entity_name": "vw_dim_Account",
+        "entity_name": "Account",
         "source_view_name": "vw_dim_Account",
         "execution_order": 1,
         "schedule_recurrence": "M"
       },
       {
         "entity_id": 605,
-        "entity_name": "vw_dim_EClassCodes",
+        "entity_name": "ERPCommodity",
         "source_view_name": "vw_dim_EClassCodes",
         "execution_order": 0,
         "schedule_recurrence": "M"
       },
       {
         "entity_id": 606,
-        "entity_name": "vw_dim_Product",
+        "entity_name": "Product",
         "source_view_name": "vw_dim_Product",
         "execution_order": 2,
         "schedule_recurrence": "M"
       },
       {
         "entity_id": 607,
-        "entity_name": "vw_dim_Supplier",
+        "entity_name": "Supplier",
         "source_view_name": "vw_dim_Supplier",
         "execution_order": 1,
         "schedule_recurrence": "M"
       },
       {
         "entity_id": 608,
-        "entity_name": "vw_dim_CompanySite",
+        "entity_name": "CompanySite",
         "source_view_name": "vw_dim_CompanySite",
         "execution_order": 0,
         "schedule_recurrence": "M"
