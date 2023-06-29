@@ -6108,20 +6108,13 @@
       },
       {
         "entity_id": 606,
-        "entity_name": "Product",
-        "source_view_name": "vw_dim_Product",
-        "execution_order": 2,
-        "schedule_recurrence": "M"
-      },
-      {
-        "entity_id": 607,
         "entity_name": "Supplier",
         "source_view_name": "vw_dim_Supplier",
         "execution_order": 1,
         "schedule_recurrence": "M"
       },
       {
-        "entity_id": 608,
+        "entity_id": 607,
         "entity_name": "CompanySite",
         "source_view_name": "vw_dim_CompanySite",
         "execution_order": 0,
