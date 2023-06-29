@@ -4124,7 +4124,7 @@
         "entity_id": 595,
         "entity_name": "P_OrganizationAddress",
         "data_category": "NULL",
-        "client_field": "MANDT",
+        "client_field": "CLIENT",
         "tool_name": "Theobald",
         "extraction_type": "Table",
         "update_mode": "Full",
