@@ -2,12 +2,12 @@ CREATE FUNCTION [edw].[svf_getInvertAmountForReturns](
   @ReturnItemProcessingType NVARCHAR(1),
   @BillingDocumentType NVARCHAR(4),
   @SalesDocumentItemCategory NVARCHAR(4),
-  @Amount DECIMAL(15, 2)
+  @Amount DECIMAL(15, 3)
 )
-RETURNS DECIMAL(15, 2)
+RETURNS DECIMAL(15, 3)
 AS
 BEGIN
-DECLARE @InvertAmount DECIMAL(15, 2) =
+DECLARE @InvertAmount DECIMAL(15, 3) =
   CASE
     WHEN
       @ReturnItemProcessingType = 'X'

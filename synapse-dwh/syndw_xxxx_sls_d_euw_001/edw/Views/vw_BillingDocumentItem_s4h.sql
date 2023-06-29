@@ -335,8 +335,16 @@ SELECT
                                             AS [nk_fact_BillingDocumentItem]
       ,CR.[CurrencyTypeID]
       ,CR.[CurrencyType]
-      ,CCR.[TargetCurrency]                 AS [CurrencyID]
-      ,CCR.[ExchangeRate]
+      ,CASE
+            WHEN CCR.CurrencyTypeID = '00'
+                THEN [TransactionCurrencyID]
+            ELSE CCR.[TargetCurrency]
+       END                                  AS [CurrencyID]
+      ,CASE 
+            WHEN CCR.CurrencyTypeID = '10'
+                THEN [AccountingExchangeRate]
+            ELSE CCR.[ExchangeRate]
+        END                                 AS [ExchangeRate]
       ,[SalesDocumentItemCategoryID]
       ,[SalesDocumentItemTypeID]
       ,[ReturnItemProcessingType]
