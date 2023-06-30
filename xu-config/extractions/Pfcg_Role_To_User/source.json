@@ -1,73 +1,188 @@
 {
-	"functionName": "Z_THEO_READ_TABLE",
-	"runInBackGroundJob": false,
-	"tables": [
-		{
-			"name": "PFCGROLE2USER_V",
-			"description": "Generated Table for View PFCGROLE2USER_V",
-			"isView": true,
-			"fields": [
-				{
-					"name": "MANDT",
-					"description": "Client",
-					"abapType": "CharacterString",
-					"length": 3,
-					"isSelected": true,
-					"outputLength": 3,
-					"isPrimaryKey": true,
-					"isDeltaColumn": true,
-					"selectionPermission": "All",
-					"checkTable": "T000"
-				},
-				{
-					"name": "USER_NAME",
-					"description": "User Name in User Master Record",
-					"abapType": "CharacterString",
-					"length": 12,
-					"isSelected": true,
-					"outputLength": 12,
-					"isPrimaryKey": true,
-					"isDeltaColumn": true,
-					"selectionPermission": "All",
-					"checkTable": "USER_NAME"
-				},
-				{
-					"name": "ROLE_NAME",
-					"description": "Role Name",
-					"abapType": "CharacterString",
-					"length": 30,
-					"isSelected": true,
-					"outputLength": 30,
-					"isPrimaryKey": true,
-					"isDeltaColumn": true,
-					"selectionPermission": "All",
-					"checkTable": "ROLE_NAME"
-				},
-				{
-					"name": "VALID_FROM",
-					"description": "Date of validity",
-					"abapType": "Date",
-					"length": 8,
-					"isSelected": true,
-					"outputLength": 10,
-					"isPrimaryKey": true,
-					"isDeltaColumn": true,
-					"selectionPermission": "All",
-					"checkTable": "VALID_FROM"
-				},
-				{
-					"name": "VALID_TO",
-					"description": "Date of validity",
-					"abapType": "Date",
-					"length": 8,
-					"isSelected": true,
-					"outputLength": 10,
-					"isPrimaryKey": true,
-					"isDeltaColumn": true,
-					"selectionPermission": "All",
-					"checkTable": "VALID_TO"
-				}
-			]
-		}
-	]
+    "functionName": "Z_THEO_READ_TABLE",
+    "runInBackgroundJob": false,
+    "backgroundJobTimeout": 180,
+    "tables": 
+    [
+        {
+            "name": "PFCGROLE2USER_V",
+            "description": "Generated Table for View PFCGROLE2USER_V",
+            "isView": true,
+            "fields": 
+            [
+                {
+                    "name": "MANDT",
+                    "description": "Client ID",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "T000",
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "USER_NAME",
+                    "description": "User Name in User Master Record",
+                    "abapType": "CharacterString",
+                    "length": 12,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "USER_NAME",
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "ROLE_NAME",
+                    "description": "Role Name",
+                    "abapType": "CharacterString",
+                    "length": 30,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "ROLE_NAME",
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "VALID_FROM",
+                    "description": "Date of validity",
+                    "abapType": "Date",
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "VALID_FROM",
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "VALID_TO",
+                    "description": "Date of validity",
+                    "abapType": "Date",
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "VALID_TO",
+                    "conversionExit": "",
+                    "isClientField": false
+                }
+            ]
+        }
+    ],
+    "scalarRuntimeParameters": {
+    },
+    "whereSequence": [
+        [
+            "ColumnName",
+            "PFCGROLE2USER_V~ROLE_NAME"
+        ],
+        [
+            "Operator",
+            "ContainsPattern"
+        ],
+        [
+            "Literal",
+            "String",
+            "FR:CAD-P2P-%%%%-PURCHASER"
+        ],
+        [
+            "BoolOperator",
+            "Or"
+        ],
+        [
+            "ColumnName",
+            "PFCGROLE2USER_V~ROLE_NAME"
+        ],
+        [
+            "Operator",
+            "ContainsPattern"
+        ],
+        [
+            "Literal",
+            "String",
+            "FR:CAD-P2P-%%%%-MGR-PROCUREMNT"
+        ],
+        [
+            "BoolOperator",
+            "Or"
+        ],
+        [
+            "ColumnName",
+            "PFCGROLE2USER_V~ROLE_NAME"
+        ],
+        [
+            "Operator",
+            "ContainsPattern"
+        ],
+        [
+            "Literal",
+            "String",
+            "FR:CAD-P2P-%%%%-STRATEGIC-BUY"
+        ],
+        [
+            "BoolOperator",
+            "Or"
+        ],
+        [
+            "ColumnName",
+            "PFCGROLE2USER_V~ROLE_NAME"
+        ],
+        [
+            "Operator",
+            "ContainsPattern"
+        ],
+        [
+            "Literal",
+            "String",
+            "FR:CAD-P2P-%%%%-MGR-PROCUREMNT"
+        ],
+        [
+            "BoolOperator",
+            "Or"
+        ],
+        [
+            "ColumnName",
+            "PFCGROLE2USER_V~ROLE_NAME"
+        ],
+        [
+            "Operator",
+            "ContainsPattern"
+        ],
+        [
+            "Literal",
+            "String",
+            "FR:CAD-P2P-%%%%-MATPLAN"
+        ],
+        [
+            "BoolOperator",
+            "Or"
+        ],
+        [
+            "ColumnName",
+            "PFCGROLE2USER_V~ROLE_NAME"
+        ],
+        [
+            "Operator",
+            "ContainsPattern"
+        ],
+        [
+            "Literal",
+            "String",
+            "FR:CAD-P2P-%%%%-BUS-PROC-SPLST"
+        ],
+        [
+            "BoolOperator",
+            "Or"
+        ],
+        [
+            "ColumnName",
+            "PFCGROLE2USER_V~ROLE_NAME"
+        ],
+        [
+            "Operator",
+            "ContainsPattern"
+        ],
+        [
+            "Literal",
+            "String",
+            "FR:CAD-P2P-%%%%-PROC_APPROVER"
+        ]
+    ]
 }
