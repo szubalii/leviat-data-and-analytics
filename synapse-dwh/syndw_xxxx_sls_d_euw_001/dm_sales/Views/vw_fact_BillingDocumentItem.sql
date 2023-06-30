@@ -191,9 +191,24 @@ select
          , doc.[InOutID]
          , doc.CustomerGroupID
          , doc.[axbi_ItemNoCalc]
-         , case when ZNET_NetValue is null then 0 else ZNET_NetValue end  as ZNET_NetValue
-         , case when REA1_RebateAccrual is null then 0 else REA1_RebateAccrual end  as REA1_RebateAccrual
-         , case when ZNRV_NetRevenue is null then 0 else ZNRV_NetRevenue end  as ZNRV_NetRevenue
+         , edw.svf_getInvertAmountForReturns(
+                BDI.[ReturnItemProcessingType],
+                BDI.[BillingDocumentTypeID],
+                BDI.[SalesDocumentItemCategoryID],
+                COALESCE(BDPE.ZNET_NetValue,0)
+          )                                         AS ZNET_NetValue
+         , edw.svf_getInvertAmountForReturns(
+                BDI.[ReturnItemProcessingType],
+                BDI.[BillingDocumentTypeID],
+                BDI.[SalesDocumentItemCategoryID],
+                COALESCE(BDPE.REA1_RebateAccrual,0)
+          )                                         AS REA1_RebateAccrual
+         , edw.svf_getInvertAmountForReturns(
+                BDI.[ReturnItemProcessingType],
+                BDI.[BillingDocumentTypeID],
+                BDI.[SalesDocumentItemCategoryID],
+                COALESCE(BDPE.ZNRV_NetRevenue,0)
+          )                                         AS ZNRV_NetRevenue
          , doc.[t_applicationId]
          , doc.[t_extractionDtm]
     FROM [edw].[fact_BillingDocumentItem] doc
