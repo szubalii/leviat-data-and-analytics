@@ -191,9 +191,24 @@ select
          , doc.[InOutID]
          , doc.CustomerGroupID
          , doc.[axbi_ItemNoCalc]
-         , COALESCE(BDPE.ZNET_NetValue, 0) AS ZNET_NetValue
-         , COALESCE(BDPE.REA1_RebateAccrual, 0) AS REA1_RebateAccrual
-         , COALESCE(BDPE.ZNRV_NetRevenue, 0) AS ZNRV_NetRevenue
+         , edw.svf_getInvertAmountForReturns(
+                doc.[ReturnItemProcessingType],
+                doc.[BillingDocumentTypeID],
+                doc.[SalesDocumentItemCategoryID],
+                COALESCE(BDPE.ZNET_NetValue,0)
+          )                                         AS ZNET_NetValue
+         , edw.svf_getInvertAmountForReturns(
+                doc.[ReturnItemProcessingType],
+                doc.[BillingDocumentTypeID],
+                doc.[SalesDocumentItemCategoryID],
+                COALESCE(BDPE.REA1_RebateAccrual,0)
+          )                                         AS REA1_RebateAccrual
+         , edw.svf_getInvertAmountForReturns(
+                doc.[ReturnItemProcessingType],
+                doc.[BillingDocumentTypeID],
+                doc.[SalesDocumentItemCategoryID],
+                COALESCE(BDPE.ZNRV_NetRevenue,0)
+          )                                         AS ZNRV_NetRevenue
          , doc.[t_applicationId]
          , doc.[t_extractionDtm]
     FROM [edw].[fact_BillingDocumentItem] doc
@@ -243,10 +258,10 @@ select
                        on dimC.[CountryID] = doc.[CountryID]
              left join [edw].[dim_SalesDocumentType] dimSDT
                        on dimSDT.[SalesDocumentTypeID] = doc.[SalesOrderTypeID]
-             left join BillDocPrcgElmnt_max_value BDPE
-                       on doc.BillingDocument = BDPE.BillingDocument
+             inner join BillDocPrcgElmnt_max_value BDPE
+                       on  doc.BillingDocument = BDPE.BillingDocument
                        and doc.BillingDocumentItem = BDPE.BillingDocumentItem
-                       and doc.CurrencyTypeID = BDPE.CurrencyTypeID
+                       and doc.CurrencyTypeID = BDPE.CurrencyTypeID 
 
             WHERE doc.[CurrencyTypeID] <> '00' -- Transaction Currency
 )

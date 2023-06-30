@@ -124,13 +124,13 @@ BillingDocumentItemBase AS (
       doc.[BillingDocumentType],
       doc.[SalesDocumentItemCategory],
       doc.[TaxAmount]
-  )                                                 AS [TaxAmount]
+  ) * (-1)                                          AS [TaxAmount]
   , edw.svf_getInvertAmountForReturns(
       doc.[ReturnItemProcessingType],
       doc.[BillingDocumentType],
       doc.[SalesDocumentItemCategory],
       doc.[CostAmount]
-  )                                                 AS [CostAmount]
+  ) * (-1)                                          AS [CostAmount]
   , edw.svf_getInvertAmountForReturns(
       doc.[ReturnItemProcessingType],
       doc.[BillingDocumentType],
