@@ -165,7 +165,7 @@ stages:
         build: ${{ parameters.synapse_workspace }}
 
 
-- ${{ if and(parameters.runDeployment, ne(variables['isManualRunForSecuredBranches'], 'False')) }}:
+- ${{ if and(parameters.runDeployment, eq(variables['isManualRunForSecuredBranches'], 'False')) }}:
   - stage: DEPLOY_1
     jobs:
     - template: ./jobs-deploy-multi.yml
@@ -205,7 +205,7 @@ stages:
     #       deployEnvPrefix: ${{ variables.deployEnvPrefix }}
 
   
-  - ${{ if and(parameters.azure_data_factory, parameters.runDeployment, ne(variables['isManualRunForSecuredBranches'], 'False')) }}:
+  - ${{ if and(parameters.azure_data_factory, parameters.runDeployment, eq(variables['isManualRunForSecuredBranches'], 'False')) }}:
     - stage: DEPLOY_2
       jobs:
       - template: ./jobs-deploy-solution-helper.yml
