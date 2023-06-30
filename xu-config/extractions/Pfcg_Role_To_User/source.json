@@ -97,6 +97,23 @@
         [
             "Literal",
             "String",
+            "FR:CAD-P2P-%%%%-MGR-PROCUREMNT "
+        ],
+        [
+            "BoolOperator",
+            "Or"
+        ],
+        [
+            "ColumnName",
+            "PFCGROLE2USER_V~ROLE_NAME"
+        ],
+        [
+            "Operator",
+            "ContainsPattern"
+        ],
+        [
+            "Literal",
+            "String",
             "FR:CAD-P2P-%%%%-STRATEGIC-BUY"
         ],
         [
