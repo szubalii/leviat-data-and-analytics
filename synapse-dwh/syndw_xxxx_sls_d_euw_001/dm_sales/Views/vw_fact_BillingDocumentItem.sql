@@ -192,21 +192,21 @@ select
          , doc.CustomerGroupID
          , doc.[axbi_ItemNoCalc]
          , edw.svf_getInvertAmountForReturns(
-                BDI.[ReturnItemProcessingType],
-                BDI.[BillingDocumentTypeID],
-                BDI.[SalesDocumentItemCategoryID],
+                doc.[ReturnItemProcessingType],
+                doc.[BillingDocumentTypeID],
+                doc.[SalesDocumentItemCategoryID],
                 COALESCE(BDPE.ZNET_NetValue,0)
           )                                         AS ZNET_NetValue
          , edw.svf_getInvertAmountForReturns(
-                BDI.[ReturnItemProcessingType],
-                BDI.[BillingDocumentTypeID],
-                BDI.[SalesDocumentItemCategoryID],
+                doc.[ReturnItemProcessingType],
+                doc.[BillingDocumentTypeID],
+                doc.[SalesDocumentItemCategoryID],
                 COALESCE(BDPE.REA1_RebateAccrual,0)
           )                                         AS REA1_RebateAccrual
          , edw.svf_getInvertAmountForReturns(
-                BDI.[ReturnItemProcessingType],
-                BDI.[BillingDocumentTypeID],
-                BDI.[SalesDocumentItemCategoryID],
+                doc.[ReturnItemProcessingType],
+                doc.[BillingDocumentTypeID],
+                doc.[SalesDocumentItemCategoryID],
                 COALESCE(BDPE.ZNRV_NetRevenue,0)
           )                                         AS ZNRV_NetRevenue
          , doc.[t_applicationId]
