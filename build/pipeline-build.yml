@@ -205,7 +205,7 @@ stages:
     #       deployEnvPrefix: ${{ variables.deployEnvPrefix }}
 
   
-  - ${{ if and(parameters.azure_data_factory, parameters.runDeployment, not(variables['isManualRunForSecuredBranches']) }}:
+  - ${{ if and(parameters.azure_data_factory, parameters.runDeployment, not(variables['isManualRunForSecuredBranches'])) }}:
     - stage: DEPLOY_2
       jobs:
       - template: ./jobs-deploy-solution-helper.yml
