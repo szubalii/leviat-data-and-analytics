@@ -25,30 +25,11 @@ parameters:
   displayName: Synapse Workspace
   type: boolean
   default: True
-- name: clean
-  displayName: Clean Workspace
-  type: string
-  default: outputs
-  values:
-  - outputs
-  - resources
-  - all
 
 variables:
-
-- name: buildAndDeploy_synapse_dwh
-  value: ${{ parameters.synapse_dwh }}
-- name: buildAndDeploy_azure_data_factory
-  value: ${{ parameters.azure_data_factory }}
-- name: buildAndDeploy_orchestration
-  value: ${{ parameters.orchestration }}
-- name: buildAndDeploy_xu_config
-  value: ${{ parameters.xu_config }}
-- name: buildAndDeploy_synapse_workspace
-  value: ${{ parameters.synapse_workspace }}
-- name: clean
-  value: ${{ parameters.clean }}
-
+# Don't manual run deployments for main, qas, and prod branches
+- name: isManualRunForSecuredBranches
+  value: ${{ and(eq(variables['Build.Reason'], 'Manual'), in(variables['Build.SourceBranchName'], 'main', 'qas', 'prod')) }}
 
 - name: synDWHSolution
   value: '**/synapse-dwh/*.sln'
@@ -136,15 +117,23 @@ stages:
       - VisualStudio
       - Agent.ComputerName -equals $(VMName)
     steps:
+    # When this pipeline is run manually, only deployment to personal
+    # environments is allowed, so no TEST, QAS, PROD
+    # Include validation that branch names follow convention:
+    #   main/qas/prod
+    #   feature/<user>/<topic>
+    #   users/<user>/<topic>
+    #   hotfix/*** 
+    # output variables
     - script: |
         echo system.pullRequest.targetBranch: $(system.pullRequest.targetBranch)
+        echo isManualRunForSecuredBranches: $(isManualRunForSecuredBranches)
         echo user: $(user)
         echo dataFactoryName: $(dataFactoryName)
         echo sqlDatabaseName: $(sqlDatabaseName)
         echo synapseSqlPool: $(synapseSqlPool)
         echo storageAccountName: $(storageAccountName)
         echo xuPrefix: $(xuPrefix)
-        echo branchName: $(branchName)
         echo destination: $(destination)
         echo Build.Reason: ${{ variables['Build.Reason'] }}
         echo Build.SourceBranch: ${{ variables['Build.SourceBranch'] }}
@@ -176,7 +165,7 @@ stages:
         build: ${{ parameters.synapse_workspace }}
 
 
-- ${{ if parameters.runDeployment }}:
+- ${{ if and(parameters.runDeployment, not(variables['isManualRunForSecuredBranches'])) }}:
   - stage: DEPLOY_1
     jobs:
     - template: ./jobs-deploy-multi.yml
@@ -216,7 +205,7 @@ stages:
     #       deployEnvPrefix: ${{ variables.deployEnvPrefix }}
 
   
-  - ${{ if parameters.azure_data_factory }}:
+  - ${{ if and(parameters.azure_data_factory, parameters.runDeployment, not(variables['isManualRunForSecuredBranches']) }}:
     - stage: DEPLOY_2
       jobs:
       - template: ./jobs-deploy-solution-helper.yml
