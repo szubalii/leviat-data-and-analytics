@@ -36,10 +36,14 @@
 		,IBDIPE.[WithholdingTaxCode]
 		,IBDIPE.[CndnRoundingOffDiffAmount]
 		,CONVERT(decimal(19,6),
-                          case when CR.CurrencyTypeID = '00' then ConditionAmount
-                               when CR.CurrencyTypeID = '10' then [ConditionAmount] * COALESCE(BDI.[ExchangeRate] ,1)
-                               else [ConditionAmount] * COALESCE(BDI.[ExchangeRate] ,1)*CR.[ExchangeRate]
-                           end ) as ConditionAmount
+			edw.svf_getInvertAmountForReturns(
+				BDI.[ReturnItemProcessingType],
+				BDI.[BillingDocumentTypeID],
+				BDI.[SalesDocumentItemCategoryID], 
+  							case when CR.CurrencyTypeID = '00' then IBDIPE.[ConditionAmount]
+                               when CR.CurrencyTypeID = '10' then IBDIPE.[ConditionAmount] * COALESCE(BDI.[ExchangeRate] ,1)
+                               else IBDIPE.[ConditionAmount] * COALESCE(BDI.[ExchangeRate] ,1)*CR.[ExchangeRate]
+                           end) ) as ConditionAmount
 		,IBDIPE.[TransactionCurrency] as [TransactionCurrencyID]
 		,IBDIPE.[ConditionControl]
 		,IBDIPE.[ConditionInactiveReason]
