@@ -165,6 +165,7 @@ GLACCOUNT;FUNCTIONALAREA;TRANSACTIONTYPE;TRADINGPARTNER;CONTIGENCY1;CONTIGENCY2;
 15111118;;;;;;;;;BS121100;Trade debtors;;;;;S_MA;U;;BS
 15111123;;;;;;;;;BS121100;Trade debtors;;;;;S_MA;U;;BS
 15111124;;;;;;;;;BS121100;Trade debtors;;;;;S_MA;U;;BS
+15111125;;;;;;;;;BS121100;Trade debtors;;;;;S_MA;U;;BS
 15111199;;;;;;;;;BS121100;Trade debtors;;;;;S_MA;U;;BS
 15112100;;;;;;;;;BS121200;Trade debtors intercompany;;;;;S_MA;U;;BS
 15112101;;;;;;;;;BS121200;Trade debtors intercompany;;;;;S_MA;U;;BS
@@ -865,6 +866,7 @@ GLACCOUNT;FUNCTIONALAREA;TRANSACTIONTYPE;TRADINGPARTNER;CONTIGENCY1;CONTIGENCY2;
 21101103;;;;;;;;;BS311100;Trade creditors;;;;;S_MA;U;;BS
 21101105;;;;;;;;;BS311100;Trade creditors;;;;;S_MA;U;;BS
 21101110;;;;;;;;;BS311100;Trade creditors;;;;;S_MA;U;;BS
+21101112;;;;;;;;;BS311100;Trade creditors;;;;;S_MA;U;;BS
 21101120;;;;;;;;;BS311100;Trade creditors;;;;;S_MA;U;;BS
 21101121;;;;;;;;;BS311100;Trade creditors;;;;;S_MA;U;;BS
 21101199;;;;;;;;;BS311100;Trade creditors;;;;;S_MA;U;;BS
@@ -1073,6 +1075,7 @@ GLACCOUNT;FUNCTIONALAREA;TRANSACTIONTYPE;TRADINGPARTNER;CONTIGENCY1;CONTIGENCY2;
 35300102;;;;;;;;;BS337400;Intercompany current for intercompany cash pool;;;;;S_MA;U;;BS
 35300103;;;;;;;;;BS337400;Intercompany current for intercompany cash pool;;;;;S_MA;U;;BS
 35300104;;;;;;;;;BS337400;Intercompany current for intercompany cash pool;;;;;S_MA;U;;BS
+35300105;;;;;;;;;BS337400;Intercompany current for intercompany cash pool;;;;;S_MA;U;;BS
 35500100;;;;;;;;;BS337100;Intercompany current interest;;;;;S_MA;U;;BS
 35500101;;;;;;;;;BS337100;Intercompany current interest;;;;;S_MA;U;;BS
 35600100;;;;;;;;;BS337500;Intercompany current administration fees;;;;;S_MA;U;;BS
@@ -2544,6 +2547,7 @@ GLACCOUNT;FUNCTIONALAREA;TRANSACTIONTYPE;TRADINGPARTNER;CONTIGENCY1;CONTIGENCY2;
 52300350;DT999;;;;;Cost of goods for resale;Gross Margin;COGS;IS511000;Cost of goods sold trade sales;DT999;;;;S_MA;U;;IS
 52300350;;;;;;Cost of goods for resale;Gross Margin;COGS;IS511000;Cost of goods sold trade sales;DT999;;;;S_MA;U;;IS
 52300360;;;;;;Cost of goods for resale;Gross Margin;COGS;IS511000;Cost of goods sold trade sales;DT999;;;;S_MA;U;;IS
+52300360;DT999;;;;;Cost of goods for resale;Gross Margin;COGS;IS511000;Cost of goods sold trade sales;DT999;;;;S_MA;U;;IS
 52300199;;;;;;Cost of goods for resale;Gross Margin;COGS;IS511000;Cost of goods sold trade sales;DT999;;;;S_MA;U;;IS
 52300199;DT999;;;;;Cost of goods for resale;Gross Margin;COGS;IS511000;Cost of goods sold trade sales;DT999;;;;S_MA;U;;IS
 52129800;;;;;;Other (costs) / income - variable (detail);Gross Margin;COGS;IS512000;Cost of goods sold own production sales (standard costing);DT999;;;;S_MA;U;;IS
@@ -2607,207 +2611,207 @@ GLACCOUNT;FUNCTIONALAREA;TRANSACTIONTYPE;TRADINGPARTNER;CONTIGENCY1;CONTIGENCY2;
 52800519;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
 52800520;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
 52800699;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800502;DT999;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800503;DT999;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800504;DT999;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800505;DT999;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800506;DT999;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800507;DT999;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800508;DT999;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800509;DT999;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800561;DT999;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800562;DT999;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800563;DT999;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800564;DT999;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800565;DT999;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800566;DT999;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800567;DT999;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800568;DT999;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800569;DT999;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800571;DT999;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800572;DT999;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800573;DT999;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800574;DT999;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800575;DT999;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800576;DT999;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800577;DT999;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800578;DT999;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800579;DT999;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800581;DT999;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800582;DT999;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800586;DT999;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800587;DT999;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800594;DT999;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800595;DT999;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800596;DT999;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800597;DT999;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800501;DT999;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800521;DT999;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800522;DT999;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800523;DT999;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800524;DT999;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800525;DT999;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800526;DT999;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800527;DT999;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800528;DT999;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800529;DT999;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800531;DT999;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800598;DT999;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800599;DT999;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52801901;DT999;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52801902;DT999;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52801903;DT999;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52801904;DT999;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52801905;DT999;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52801906;DT999;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52801907;DT999;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52801908;DT999;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52801909;DT999;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52801920;DT999;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52801921;DT999;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52801922;DT999;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52801923;DT999;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52801924;DT999;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52801925;DT999;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52801926;DT999;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52801927;DT999;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52801928;DT999;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800502;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800503;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800504;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800505;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800506;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800507;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800508;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800509;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800561;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800562;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800563;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800564;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800565;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800566;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800567;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800568;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800569;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800571;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800572;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800573;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800574;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800575;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800576;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800577;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800578;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800579;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800581;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800582;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800586;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800587;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800594;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800595;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800596;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800597;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800501;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800521;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800522;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800523;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800524;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800525;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800526;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800527;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800528;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800529;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800531;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800598;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800599;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52801901;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52801902;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52801903;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52801904;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52801905;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52801906;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52801907;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52801908;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52801909;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52801920;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52801921;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52801922;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52801923;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52801924;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52801925;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52801926;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52801927;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52801928;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
 52801930;DT999;;;;;Other (costs) / income - variable (detail);Gross Margin;Other CoS;IS694000D;Absorbed production costs;FA1100;;;;S_MA;U;;IS
-52801931;DT999;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800502;;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800503;;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800504;;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800505;;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800506;;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800507;;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800508;;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800509;;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800561;;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800562;;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800563;;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800564;;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800565;;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800566;;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800567;;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800568;;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800569;;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800571;;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800572;;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800573;;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800574;;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800575;;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800576;;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800577;;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800578;;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800579;;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800581;;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800582;;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800586;;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800587;;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800594;;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800595;;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800596;;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800597;;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800501;;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800521;;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800522;;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800523;;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800524;;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800525;;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800526;;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800527;;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800528;;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800529;;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800531;;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800598;;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800599;;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52801901;;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52801902;;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52801903;;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52801904;;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52801905;;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52801906;;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52801907;;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52801908;;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52801909;;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52801920;;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52801921;;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52801922;;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52801923;;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52801924;;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52801925;;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52801926;;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52801927;;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52801928;;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52801931;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800502;;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800503;;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800504;;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800505;;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800506;;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800507;;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800508;;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800509;;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800561;;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800562;;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800563;;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800564;;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800565;;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800566;;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800567;;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800568;;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800569;;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800571;;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800572;;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800573;;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800574;;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800575;;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800576;;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800577;;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800578;;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800579;;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800581;;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800582;;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800586;;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800587;;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800594;;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800595;;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800596;;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800597;;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800501;;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800521;;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800522;;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800523;;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800524;;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800525;;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800526;;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800527;;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800528;;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800529;;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800531;;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800598;;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800599;;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52801901;;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52801902;;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52801903;;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52801904;;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52801905;;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52801906;;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52801907;;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52801908;;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52801909;;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52801920;;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52801921;;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52801922;;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52801923;;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52801924;;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52801925;;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52801926;;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52801927;;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52801928;;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
 52801930;;;;;;Other (costs) / income - variable (detail);Gross Margin;Other CoS;IS694000D;Absorbed production costs;FA1100;;;;S_MA;U;;IS
-52801931;;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800502;DT102;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800503;DT102;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800504;DT102;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800505;DT102;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800506;DT102;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800507;DT102;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800508;DT102;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800509;DT102;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800561;DT102;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800562;DT102;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800563;DT102;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800564;DT102;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800565;DT102;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800566;DT102;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800567;DT102;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800568;DT102;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800569;DT102;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800571;DT102;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800572;DT102;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800573;DT102;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800574;DT102;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800575;DT102;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800576;DT102;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800577;DT102;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800578;DT102;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800579;DT102;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800581;DT102;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800582;DT102;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800586;DT102;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800587;DT102;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800594;DT102;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800595;DT102;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800596;DT102;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800597;DT102;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800501;DT102;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800521;DT102;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800522;DT102;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800523;DT102;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800524;DT102;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800525;DT102;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800526;DT102;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800527;DT102;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800528;DT102;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800529;DT102;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800531;DT102;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800598;DT102;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800599;DT102;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52801901;DT102;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52801902;DT102;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52801903;DT102;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52801904;DT102;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52801905;DT102;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52801906;DT102;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52801907;DT102;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52801908;DT102;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52801909;DT102;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52801920;DT102;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52801921;DT102;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52801922;DT102;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52801923;DT102;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52801924;DT102;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52801925;DT102;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52801926;DT102;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52801927;DT102;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52801928;DT102;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52801931;;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800502;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800503;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800504;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800505;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800506;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800507;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800508;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800509;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800561;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800562;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800563;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800564;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800565;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800566;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800567;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800568;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800569;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800571;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800572;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800573;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800574;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800575;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800576;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800577;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800578;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800579;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800581;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800582;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800586;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800587;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800594;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800595;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800596;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800597;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800501;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800521;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800522;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800523;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800524;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800525;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800526;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800527;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800528;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800529;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800531;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800598;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800599;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52801901;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52801902;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52801903;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52801904;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52801905;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52801906;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52801907;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52801908;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52801909;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52801920;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52801921;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52801922;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52801923;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52801924;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52801925;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52801926;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52801927;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52801928;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
 52801930;DT102;;;;;Other (costs) / income - variable (detail);Gross Margin;Other CoS;IS694000D;Absorbed production costs;FA1100;;;;S_MA;U;;IS
-52801931;DT102;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52801931;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
 52800530;;;;;;Other (costs) / income - variable (detail);Gross Margin;COGS;IS512000;Cost of goods sold own production sales (standard costing);DT999;;;;S_MA;U;;IS
 52800530;DT999;;;;;Other (costs) / income - variable (detail);Gross Margin;COGS;IS512000;Cost of goods sold own production sales (standard costing);DT999;;;;S_MA;U;;IS
 52800530;DT102;;;;;Other (costs) / income - variable (detail);Gross Margin;COGS;IS512000;Cost of goods sold own production sales (standard costing);DT999;;;;S_MA;U;;IS
@@ -2837,12 +2841,12 @@ GLACCOUNT;FUNCTIONALAREA;TRANSACTIONTYPE;TRADINGPARTNER;CONTIGENCY1;CONTIGENCY2;
 52800538;DT999;;;;;Other (costs) / income - variable (detail);Gross Margin;COGS;IS512000;Cost of goods sold own production sales (standard costing);DT999;;;;S_MA;U;;IS
 52800538;DT102;;;;;Other (costs) / income - variable (detail);Gross Margin;COGS;IS512000;Cost of goods sold own production sales (standard costing);DT999;;;;S_MA;U;;IS
 52800600;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;IS681000;Additions and reversals inventory provision;FA1100;;;;S_MA;U;;IS
-52801929;;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52801929;DT102;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52801929;DT999;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52801999;;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52801999;DT102;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52801999;DT999;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52801929;;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52801929;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52801929;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52801999;;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52801999;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52801999;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
 52900400;;;;;;Other (costs) / income - variable (detail);Gross Margin;COGS;IS516100;Cost of goods sold other sales (non standard costing);DT999;;;;S_MA;U;;IS
 52900400;DT999;;;;;Other (costs) / income - variable (detail);Gross Margin;COGS;IS516100;Cost of goods sold other sales (non standard costing);DT999;;;;S_MA;U;;IS
 52900600;;;;;;Other (costs) / income - variable (detail);Gross Margin;COGS;IS512000;Cost of goods sold own production sales (standard costing);DT999;;;;S_MA;U;;IS
@@ -3114,6 +3118,7 @@ GLACCOUNT;FUNCTIONALAREA;TRANSACTIONTYPE;TRADINGPARTNER;CONTIGENCY1;CONTIGENCY2;
 59000300;DT131;;;;;;;Opex;IS756000D;Warehouse and stockyard supplies - outbound logistics;DT131;;;;S_MA;U;;IS
 59000300;DT132;;;;;Haulage;Gross Margin;Opex;IS756000D;Warehouse and stockyard supplies - outbound logistics;DT132;;;;S_MA;U;;IS
 59000320;DT999;;;;;Cost of goods for resale;Gross Margin;COGS;IS511000;Cost of goods sold trade sales;DT999;;;;S_MA;U;;IS
+59000320;;;;;;Cost of goods for resale;Gross Margin;COGS;IS511000;Cost of goods sold trade sales;DT999;;;;S_MA;U;;IS
 59000400;DT102;;;;;Other (costs) / income - variable (detail);Gross Margin;Other CoS;IS663000D;Other variable production costs;FA1100;;;;S_MA;U;;IS
 59000400;DT101;;;;;;;Other CoS;IS651000;Other fixed production costs;FA1200;;;;S_MA;U;;IS
 59000400;DT131;;;;;;;Opex;IS811900;Other operating costs;DT131;;;;S_MA;U;;IS
@@ -4870,8 +4875,8 @@ GLACCOUNT;FUNCTIONALAREA;TRANSACTIONTYPE;TRADINGPARTNER;CONTIGENCY1;CONTIGENCY2;
 69990300;DT999;;;;;;;;IS865000;(Profit) loss on leased asset terminations;DT999;;;;S_MA;U;;IS
 69990350;;;;;;;;;IS865000;(Profit) loss on leased asset terminations;DT999;;;;S_MA;U;;IS
 69990350;DT999;;;;;;;;IS865000;(Profit) loss on leased asset terminations;DT999;;;;S_MA;U;;IS
-69990650;DT999;;;;;;;;IS921100;Income from financial assets / listed investments;DT999;;;;S_MA;U;;IS
-69990650;;;;;;;;;IS921100;Income from financial assets / listed investments;DT999;;;;S_MA;U;;IS
+69990650;DT999;;;;;;;;IS875100;Income from financial assets / listed investments;DT999;;;;S_MA;U;;IS
+69990650;;;;;;;;;IS875100;Income from financial assets / listed investments;DT999;;;;S_MA;U;;IS
 69990600;;;;;;;;;IS891350;Profit on the sale of other financial fixed assets below Management PBT;DT999;;;;S_MA;U;;IS
 69990600;DT999;;;;;;;;IS891350;Profit on the sale of other financial fixed assets below Management PBT;DT999;;;;S_MA;U;;IS
 71000101;;;;;;;;;IS911300;Interest income - intercompany;DT999;;;;S_MA;U;;IS
@@ -5777,4 +5782,4 @@ GLACCOUNT;FUNCTIONALAREA;TRANSACTIONTYPE;TRADINGPARTNER;CONTIGENCY1;CONTIGENCY2;
 49000326;DT999;;;;;;Gross Margin;Sales;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
 49000327;DT999;;;;;;Gross Margin;Sales;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
 41100105;DT999;;;;;Gross sales;Gross Margin;Sales;IS411000;Trade sales;DT999;;;;S_MA;U;;IS
-41600102;DT999;;;;;Gross sales;Gross Margin;Sales;IS419900;Other sales;DT999;;;;S_MA;U;;IS;
+41600102;DT999;;;;;Gross sales;Gross Margin;Sales;IS419900;Other sales;DT999;;;;S_MA;U;;IS
