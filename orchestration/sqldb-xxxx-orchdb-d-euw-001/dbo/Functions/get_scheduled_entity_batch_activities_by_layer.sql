@@ -2,6 +2,7 @@
 CREATE FUNCTION [dbo].[get_scheduled_entity_batch_activities_by_layer](
     @adhoc bit = 0,
     @date DATE,
+    @rerunSuccessfulFullEntities BIT = 0 ,
     @layer_nk VARCHAR(50) = 'EDW'
 )
 RETURNS TABLE AS RETURN
@@ -111,7 +112,7 @@ RETURNS TABLE AS RETURN
             concat(
                 '[',
                 CASE
-                    WHEN isRequired = 1
+                    WHEN isRequired = 1 OR @rerunSuccessfulFullEntities = 1
                     THEN concat(
                         '"',
                         string_agg(activity_nk, '","') WITHIN group (ORDER BY activity_order asc),
@@ -123,7 +124,7 @@ RETURNS TABLE AS RETURN
             concat(
                 '{',
                 CASE
-                    WHEN isRequired = 0
+                    WHEN isRequired = 0 AND @rerunSuccessfulFullEntities != 1
                     THEN string_agg(
                         concat(
                             '"',

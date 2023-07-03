@@ -102,7 +102,10 @@ CREATE VIEW [dm_sales].[vw_fact_BillingDocItem_FinView]
 ,   docBilling.[axbi_CustomerID]
 ,   docBilling.[MaterialCalculated]
 ,   docBilling.[SoldToPartyCalculated]
-,   docBilling.[InOutID]
+,   CASE WHEN  docBilling.[axbi_DataAreaID] like 'ANDE' and  docBilling.[InOutID] is null
+         THEN 'OC'
+         ELSE docBilling.[InOutID]
+    END AS [InOutID]
 ,   VT.[ValueTypeID]
 ,   VT.[ValueType]
 ,   docBilling.[t_applicationId]
@@ -260,7 +263,7 @@ SELECT
 ,   NULL AS [SDDocumentCategoryID]
 ,   NULL AS [SDDocumentCategory]
 ,   docBillingBudget.[AccountingDate] AS [BillingDocumentDate]
-,   NULL AS [SalesOfficeID]
+,   SO.[SalesOfficeID]
 ,   docBillingBudget.[SalesOrganizationID]
 ,   dimSOrg.[SalesOrganization] AS [SalesOrganization]
 ,   NULL AS [DistributionChannelID]
@@ -359,6 +362,10 @@ left join
     [edw].[dim_SalesOrganization] dimSOrg
     on
         dimSOrg.[SalesOrganizationID] = docBillingBudget.[SalesOrganizationID]
+LEFT JOIN 
+    [map_AXBI].[SalesOffice] SO
+    ON 
+        docBillingBudget.[axbi_DataAreaID]= SO.[DataAreaID]
 CROSS JOIN
     [edw].[dim_ValueType] VT
 WHERE VT.ValueTypeID= '20'
@@ -466,7 +473,7 @@ SELECT
 ,   NULL AS [axbi_CustomerID]
 ,   docBillingBudget_US.[MaterialCalculated]
 ,   NULL AS [SoldToPartyCalculated]
-,   'O' AS [InOutID]
+,   'OC' AS [InOutID]
 ,   VT.[ValueTypeID]
 ,   VT.[ValueType]
 ,   docBillingBudget_US.[t_applicationId]

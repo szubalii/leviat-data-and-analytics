@@ -660,7 +660,7 @@ BEGIN
         ,   NULL AS [BillingDocumentIsTemporary]
         ,   NULL AS [OrganizationDivision]
         ,   NULL AS [Division]
-        ,   NULL AS [SalesOfficeID]
+        ,   [SalesOfficeID]
         ,   [SalesOrganizationID]
         ,   [DistributionChannelID]
         ,   [Material]

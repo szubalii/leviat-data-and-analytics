@@ -68,7 +68,7 @@
                 },
                 {
                     "name": "PURCHASINGORGANIZATION",
-                    "description": "Purchasing organization",
+                    "description": "Purchasing Organization",
                     "abapType": "CharacterString",
                     "length": 4,
                     "isSelected": true,
@@ -92,7 +92,7 @@
                 },
                 {
                     "name": "SUPPLIER",
-                    "description": "Account Number of Vendor or Creditor",
+                    "description": "Account Number of Supplier",
                     "abapType": "CharacterString",
                     "length": 10,
                     "isSelected": true,
@@ -371,6 +371,13 @@
                     "conversionExit": ""
                 },
                 {
+                    "name": "PURGDOCUMENTITEMDELETIONCODE",
+                    "description": "Asset class marked for deletion",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
                     "name": "PURCHASINGCOMPLETENESSSTATUS",
                     "description": "Purchase order not yet complete",
                     "abapType": "CharacterString",
@@ -412,7 +419,7 @@
                 },
                 {
                     "name": "CREATIONDATE",
-                    "description": "Date of Last Change",
+                    "description": "Last Changed On",
                     "abapType": "Date",
                     "isSelected": true,
                     "conversionExit": ""
@@ -427,7 +434,7 @@
                 },
                 {
                     "name": "CREATEDBYUSER",
-                    "description": "Name of Person who Created the Object",
+                    "description": "Name of Person Responsible for Creating the Object",
                     "abapType": "CharacterString",
                     "length": 12,
                     "isSelected": true,
@@ -444,7 +451,7 @@
                 },
                 {
                     "name": "PURCHASINGPROCESSINGSTATUS",
-                    "description": "Purchasing document processing state",
+                    "description": "Purchasing Document Processing State",
                     "abapType": "CharacterString",
                     "length": 2,
                     "isSelected": true,
@@ -486,11 +493,10 @@
                     "conversionExit": "CUNIT"
                 },
                 {
-                    "name": "PRODUCTTYPE",
-                    "description": "Product Type",
+                    "name": "PRODUCTTYPECODE",
+                    "description": "Product Type Group",
                     "abapType": "CharacterString",
-                    "length": 4,
-                    "isSelected": true,
+                    "length": 2,
                     "conversionExit": ""
                 },
                 {
@@ -519,14 +525,14 @@
                 },
                 {
                     "name": "PURORDITMFIRSTGRPOSTINGDATE",
-                    "description": "Goods Receipt Start Date",
+                    "description": "First Goods Receipt Date",
                     "abapType": "Date",
                     "isSelected": true,
                     "conversionExit": ""
                 },
                 {
                     "name": "PURORDITMFINALGRPOSTINGDATE",
-                    "description": "Goods Receipt End Date",
+                    "description": "Final Goods Receipt Date",
                     "abapType": "Date",
                     "isSelected": true,
                     "conversionExit": ""
@@ -575,10 +581,10 @@
                     "name": "TIMEVARIANCEINPCT",
                     "description": "Variance % for Statistical Delivery Date",
                     "abapType": "PackedNumber",
-                    "length": 13,
-                    "decimalCount": 2,
+                    "length": 11,
+                    "decimalCount": 3,
                     "isSelected": true,
-                    "formattedLength": 17,
+                    "formattedLength": 14,
                     "conversionExit": ""
                 },
                 {
@@ -593,25 +599,27 @@
                 },
                 {
                     "name": "TIMEVARIANCESCORE",
-                    "description": "Variance Score for Statistical Delivery Date",
+                    "description": "Time vairance Score",
                     "abapType": "PackedNumber",
-                    "length": 3,
+                    "length": 7,
+                    "decimalCount": 2,
                     "isSelected": true,
-                    "formattedLength": 3,
+                    "formattedLength": 8,
                     "conversionExit": ""
                 },
                 {
                     "name": "TIMEVARIANCESCOREBYDELIVDATE",
-                    "description": "MM_A_TIMEVARC_SCORE_DELIV_DATE",
+                    "description": "Time variance by statistical delivery date",
                     "abapType": "PackedNumber",
-                    "length": 3,
+                    "length": 7,
+                    "decimalCount": 2,
                     "isSelected": true,
-                    "formattedLength": 3,
+                    "formattedLength": 8,
                     "conversionExit": ""
                 },
                 {
                     "name": "SCHEDULELINEDELIVERYDATE",
-                    "description": "Item delivery date",
+                    "description": "Item Delivery Date",
                     "abapType": "Date",
                     "isSelected": true,
                     "conversionExit": ""
@@ -653,12 +661,12 @@
                     "isSelected": true,
                     "formattedLength": 18,
                     "conversionExit": "",
-                    "referenceTable": "EKPO",
-                    "referenceField": "MEINS"
+                    "referenceTable": "IPDSCHLINEEXT",
+                    "referenceField": "PURCHASEORDERQUANTITYUNIT"
                 },
                 {
                     "name": "GOODSRECEIPTQUANTITY",
-                    "description": "Quantity of goods received",
+                    "description": "Quantity of Goods Received",
                     "abapType": "PackedNumber",
                     "length": 13,
                     "decimalCount": 3,
@@ -738,8 +746,8 @@
                     "isSelected": true,
                     "formattedLength": 18,
                     "conversionExit": "",
-                    "referenceTable": "EKPO",
-                    "referenceField": "MEINS"
+                    "referenceTable": "IPDSCHLINEEXT",
+                    "referenceField": "PURCHASEORDERQUANTITYUNIT"
                 },
                 {
                     "name": "PRODUCTAVAILABILITYDATE",
@@ -815,19 +823,19 @@
                 },
                 {
                     "name": "ROUGHGOODSRECEIPTQTY",
-                    "description": "Quantity of goods received",
+                    "description": "Quantity of Goods Received",
                     "abapType": "PackedNumber",
                     "length": 13,
                     "decimalCount": 3,
                     "isSelected": true,
                     "formattedLength": 17,
                     "conversionExit": "",
-                    "referenceTable": "EKPO",
-                    "referenceField": "MEINS"
+                    "referenceTable": "IPDSCHLINEEXT",
+                    "referenceField": "PURCHASEORDERQUANTITYUNIT"
                 },
                 {
                     "name": "PURCHASECONTRACTITEM",
-                    "description": "Item number of principal purchase agreement",
+                    "description": "Item Number of Principal Purchase Agreement",
                     "abapType": "NumericCharacterString",
                     "length": 5,
                     "isSelected": true,
@@ -895,6 +903,57 @@
                     "description": "End Date for Period of Performance",
                     "abapType": "Date",
                     "isSelected": true,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ORDERITEMQTYTOBASEQTYNMRTR",
+                    "description": "Numerator for Conversion of Order Unit to Base Unit",
+                    "abapType": "PackedNumber",
+                    "length": 5,
+                    "formattedLength": 6,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ORDERITEMQTYTOBASEQTYDNMNTR",
+                    "description": "Denominator for Conversion of Order Unit to Base Unit",
+                    "abapType": "PackedNumber",
+                    "length": 5,
+                    "formattedLength": 6,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "BASEUNIT",
+                    "description": "Base Unit of Measure",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "conversionExit": "CUNIT"
+                },
+                {
+                    "name": "ORDERPRICEUNIT",
+                    "description": "Order Price Unit (Purchasing)",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "conversionExit": "CUNIT"
+                },
+                {
+                    "name": "SUPPLYINGPLANT",
+                    "description": "Supplying (issuing) plant in case of stock transport order",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PURGDOCITMANLYTSINDISACTV",
+                    "description": "Dimension Indicator",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PURGDOCSDMVERS",
+                    "description": "SDM Status",
+                    "abapType": "CharacterString",
+                    "length": 2,
                     "conversionExit": ""
                 }
             ]

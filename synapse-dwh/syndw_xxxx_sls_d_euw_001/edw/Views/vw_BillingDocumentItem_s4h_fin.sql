@@ -202,7 +202,7 @@ BDIwithMatType AS (
         ON
             BDI.[Material] = Product.[ProductID]
     LEFT JOIN
-        [edw].[vw_ProductHierarchyVariantConfigCharacteristic_delta] AS VC
+        [edw].[vw_ProductHierarchyVariantConfigCharacteristic] AS VC
            ON VC.SalesDocument =
             CASE
                WHEN BDI.SalesSDDocumentCategoryID='V'
@@ -1600,212 +1600,6 @@ FROM (
 ) subQ_FinNetAmountAllowances
 )
 
-
-
-,BDIFinancialsZZZDUMMYAllKPIWithoutS1 AS(
-SELECT
-    [nk_fact_BillingDocumentItem]
-,   [BillingDocument]
-,   [BillingDocumentItem]
-,   [CurrencyTypeID]
-,   [CurrencyType]
-,   [CurrencyID]
-,   [ExchangeRate]
-,   [SalesDocumentItemCategoryID]
-,   [SalesDocumentItemTypeID]
-,   [ReturnItemProcessingType]
-,   [BillingDocumentTypeID]
-,   [BillingDocumentCategoryID]
-,   [SDDocumentCategoryID]
-,   [CreationDate]
-,   [CreationTime]
-,   [LastChangeDate]
-,   [BillingDocumentDate]
-,   [BillingDocumentIsTemporary]
-,   [OrganizationDivision]
-,   [Division]
-,   [SalesOfficeID]
-,   [SalesOrganizationID]
-,   [DistributionChannelID]
-,   [Material]
-,   [ProductSurrogateKey]
-,   [OriginallyRequestedMaterial]
-,   [InternationalArticleNumber]
-,   [PricingReferenceMaterial]
-,   [LengthInMPer1]
-,   [LengthInM]
-,   [Batch]
-,   [MaterialGroupID]
-,   [BrandID]
-,   [Brand]
-,   [AdditionalMaterialGroup2]
-,   [AdditionalMaterialGroup3]
-,   [AdditionalMaterialGroup4]
-,   [AdditionalMaterialGroup5]
-,   [MaterialCommissionGroup]
-,   [PlantID]
-,   [StorageLocationID]
-,   [BillingDocumentIsCancelled]
-,   [CancelledBillingDocument]
-,   [CancelledInvoiceEffect]
-,   [BillingDocumentItemText]
-,   [ServicesRenderedDate]
-,   [BillingQuantity]
-,   [BillingQuantityUnitID]
-,   [BillingQuantityInBaseUnit]
-,   [BaseUnit]
-,   [MRPRequiredQuantityInBaseUnit]
-,   [BillingToBaseQuantityDnmntr]
-,   [BillingToBaseQuantityNmrtr]
-,   [ItemGrossWeight]
-,   [ItemNetWeight]
-,   [ItemWeightUnit]
-,   [ItemVolume]
-,   [ItemVolumeUnit]
-,   [BillToPartyCountry]
-,   [BillToPartyRegion]
-,   [BillingPlanRule]
-,   [BillingPlan]
-,   [BillingPlanItem]
-,   [CustomerPriceGroupID]
-,   [PriceListTypeID]
-,   [TaxDepartureCountry]
-,   [VATRegistration]
-,   [VATRegistrationCountry]
-,   [VATRegistrationOrigin]
-,   [CustomerTaxClassification1]
-,   [CustomerTaxClassification2]
-,   [CustomerTaxClassification3]
-,   [CustomerTaxClassification4]
-,   [CustomerTaxClassification5]
-,   [CustomerTaxClassification6]
-,   [CustomerTaxClassification7]
-,   [CustomerTaxClassification8]
-,   [CustomerTaxClassification9]
-,   [SDPricingProcedure]
-,   [NetAmount]
-,   [TransactionCurrencyID]
-,   [GrossAmount]
-,   [PricingDate]
-,   [PriceDetnExchangeRate]
-,   [PricingScaleQuantityInBaseUnit]
-,   [TaxAmount]
-,   [CostAmount]
-,   [Subtotal1Amount]
-,   [Subtotal2Amount]
-,   [Subtotal3Amount]
-,   [Subtotal4Amount]
-,   [Subtotal5Amount]
-,   [Subtotal6Amount]
-,   [StatisticalValueControl]
-,   [StatisticsExchangeRate]
-,   [StatisticsCurrency]
-,   [SalesOrganizationCurrency]
-,   [EligibleAmountForCashDiscount]
-,   [ContractAccount]
-,   [CustomerPaymentTerms]
-,   [PaymentMethod]
-,   [PaymentReference]
-,   [FixedValueDate]
-,   [AdditionalValueDays]
-,   [PayerParty]
-,   [CompanyCode]
-,   [FiscalYear]
-,   [FiscalPeriod]
-,   [CustomerAccountAssignmentGroupID]
-,   [BusinessArea]
-,   [ProfitCenter]
-,   [OrderID]
-,   [ControllingArea]
-,   [ProfitabilitySegment]
-,   [CostCenter]
-,   [OriginSDDocument]
-,   [OriginSDDocumentItem]
-,   [PriceDetnExchangeRateDate]
-,   [ExchangeRateTypeID]
-,   [FiscalYearVariant]
-,   [CompanyCodeCurrencyID]
-,   [AccountingExchangeRate]
-,   [AccountingExchangeRateIsSet]
-,   [ReferenceSDDocument]
-,   [ReferenceSDDocumentItem]
-,   [ReferenceSDDocumentCategoryID]
-,   [SalesDocumentID]
-,   [SalesDocumentItemID]
-,   [SalesSDDocumentCategoryID]
-,   [HigherLevelItem]
-,   [BillingDocumentItemInPartSgmt]
-,   [SalesGroup]
-,   [AdditionalCustomerGroup1]
-,   [AdditionalCustomerGroup2]
-,   [AdditionalCustomerGroup3]
-,   [AdditionalCustomerGroup4]
-,   [AdditionalCustomerGroup5]
-,   [SDDocumentReasonID]
-,   [ItemIsRelevantForCredit]
-,   [CreditRelatedPrice]
-,   [SalesDistrictID]
-,   [CustomerGroupID]
-,   [SoldToParty]
-,   [CountryID]
-,   [ShipToParty]
-,   [BillToParty]
-,   [ShippingPoint]
-,   [IncotermsVersion]
-,   [IncotermsClassification]
-,   [IncotermsTransferLocation]
-,   [IncotermsLocation1]
-,   [IncotermsLocation2]
-,   [ShippingCondition]
-,   [QuantitySold]
-,   [GrossMargin]
-,   [ExternalSalesAgentID]
-,   [ExternalSalesAgent]
-,   [ProjectID]
-,   [Project]
-,   [SalesEmployeeID]
-,   [SalesEmployee]
-,   [GlobalParentID]
-,   [GlobalParent]
-,   [GlobalParentCalculatedID]
-,   [GlobalParentCalculated]
-,   [LocalParentID]
-,   [LocalParent]
-,   [LocalParentCalculatedID]
-,   [LocalParentCalculated]
-,   [SalesOrderTypeID]
-,   [BillToID]
-,   [BillTo]
-,   [FinNetAmountRealProduct]
-,   [FinNetAmountFreight]
-,   [FinNetAmountMinQty]
-,   [FinNetAmountEngServ]
-,   [FinNetAmountMisc]
-,   [FinNetAmountServOther]
-,   [FinNetAmountVerp]
-,   [FinRebateAccrual]
-,   [PaymentTermCashDiscountPercentageRate]
-,   [FinNetAmountOtherSales]
-,   [FinReserveCashDiscount]
-,   [FinNetAmountAllowances]
-,   [FinSales100]
-,   [AccountingDate]
-,   [MaterialCalculated]
-,   [SoldToPartyCalculated]
-,   [InOutID]
-,   [t_applicationId]
-,   [t_extractionDtm]
-FROM
-    BDIFinancialsZZZDUMMYAllKPI
-WHERE
-    BillingDocumentTypeID <> 'S1')
-
-
-
-SELECT * FROM BDIFinancialsZZZDUMMYAllKPIWithoutS1
-
-UNION ALL
-
 SELECT
     BDI_CancellDocs.[nk_fact_BillingDocumentItem]
 ,   BDI_CancellDocs.[BillingDocument]
@@ -1979,18 +1773,62 @@ SELECT
 ,   BDI_CancellDocs.[SalesOrderTypeID]
 ,   BDI_CancellDocs.[BillToID]
 ,   BDI_CancellDocs.[BillTo]
-,   BDI_AllKPI.[FinNetAmountRealProduct]*(-1) AS [FinNetAmountRealProduct]
-,   BDI_AllKPI.[FinNetAmountFreight]*(-1) AS [FinNetAmountFreight]
-,   BDI_AllKPI.[FinNetAmountMinQty]*(-1) AS [FinNetAmountMinQty]
-,   BDI_AllKPI.[FinNetAmountEngServ]*(-1) AS [FinNetAmountEngServ]
-,   BDI_AllKPI.[FinNetAmountMisc]*(-1) AS [FinNetAmountMisc]
-,   BDI_AllKPI.[FinNetAmountServOther]*(-1) AS [FinNetAmountServOther]
-,   BDI_AllKPI.[FinNetAmountVerp]*(-1) AS [FinNetAmountVerp]
-,   BDI_AllKPI.[FinRebateAccrual]*(-1) AS [FinRebateAccrual]
+,   CASE
+        WHEN BDI_CancellDocs.BillingDocumentTypeID = 'S1'
+            THEN BDI_AllKPI.[FinNetAmountRealProduct]*(-1)
+        ELSE BDI_CancellDocs.[FinNetAmountRealProduct]
+    END                                                 AS [FinNetAmountRealProduct]  
+,   CASE
+        WHEN BDI_CancellDocs.BillingDocumentTypeID = 'S1'
+            THEN BDI_AllKPI.[FinNetAmountFreight]*(-1)
+        ELSE BDI_CancellDocs.[FinNetAmountFreight] 
+    END                                                 AS [FinNetAmountFreight]
+,   CASE
+        WHEN BDI_CancellDocs.BillingDocumentTypeID = 'S1'
+            THEN BDI_AllKPI.[FinNetAmountMinQty]*(-1)
+        ELSE BDI_CancellDocs.[FinNetAmountMinQty]
+    END                                                 AS [FinNetAmountMinQty]
+,   CASE
+        WHEN BDI_CancellDocs.BillingDocumentTypeID = 'S1'
+            THEN BDI_AllKPI.[FinNetAmountEngServ]*(-1)
+        ELSE BDI_CancellDocs.[FinNetAmountEngServ]
+    END                                                 AS [FinNetAmountEngServ]
+,   CASE
+        WHEN BDI_CancellDocs.BillingDocumentTypeID = 'S1'
+            THEN BDI_AllKPI.[FinNetAmountMisc]*(-1)
+        ELSE BDI_CancellDocs.[FinNetAmountMisc]
+    END                                                 AS [FinNetAmountMisc]
+,   CASE
+        WHEN BDI_CancellDocs.BillingDocumentTypeID = 'S1'
+            THEN BDI_AllKPI.[FinNetAmountServOther]*(-1)
+        ELSE BDI_CancellDocs.[FinNetAmountServOther]
+    END                                                 AS [FinNetAmountServOther]
+,   CASE
+        WHEN BDI_CancellDocs.BillingDocumentTypeID = 'S1'
+            THEN BDI_AllKPI.[FinNetAmountVerp]*(-1)
+        ELSE BDI_CancellDocs.[FinNetAmountVerp]
+    END                                                 AS [FinNetAmountVerp]
+,   CASE
+        WHEN BDI_CancellDocs.BillingDocumentTypeID = 'S1'
+            THEN BDI_AllKPI.[FinRebateAccrual]*(-1)
+        ELSE BDI_CancellDocs.[FinRebateAccrual]
+    END                                                 AS [FinRebateAccrual]
 ,   BDI_CancellDocs.[PaymentTermCashDiscountPercentageRate]
-,   BDI_AllKPI.[FinNetAmountOtherSales]*(-1) AS [FinNetAmountOtherSales]
-,   BDI_AllKPI.[FinReserveCashDiscount]*(-1) AS [FinReserveCashDiscount]
-,   BDI_AllKPI.[FinNetAmountAllowances]*(-1) AS [FinNetAmountAllowances]
+,   CASE
+        WHEN BDI_CancellDocs.BillingDocumentTypeID = 'S1'
+            THEN BDI_AllKPI.[FinNetAmountOtherSales]*(-1)
+        ELSE BDI_CancellDocs.[FinNetAmountOtherSales]
+    END                                                 AS [FinNetAmountOtherSales]
+,   CASE
+        WHEN BDI_CancellDocs.BillingDocumentTypeID = 'S1'
+            THEN BDI_AllKPI.[FinReserveCashDiscount]*(-1)
+        ELSE BDI_CancellDocs.[FinReserveCashDiscount]
+    END                                                 AS [FinReserveCashDiscount]
+,   CASE
+        WHEN BDI_CancellDocs.BillingDocumentTypeID = 'S1'
+            THEN BDI_AllKPI.[FinNetAmountAllowances]*(-1)
+        ELSE BDI_CancellDocs.[FinNetAmountAllowances]
+    END                                                 AS [FinNetAmountAllowances]
 ,   BDI_CancellDocs.[FinSales100]
 ,   BDI_CancellDocs.[AccountingDate]
 ,   BDI_CancellDocs.[MaterialCalculated]
@@ -2001,7 +1839,7 @@ SELECT
 FROM
     BDIFinancialsZZZDUMMYAllKPI BDI_CancellDocs
 LEFT JOIN 
-    BDIFinancialsZZZDUMMYAllKPIWithoutS1 BDI_AllKPI
+    BDIFinancialsZZZDUMMYAllKPI BDI_AllKPI
     ON
         BDI_AllKPI.BillingDocument = BDI_CancellDocs.CancelledBillingDocument
         AND
@@ -2010,6 +1848,7 @@ LEFT JOIN
         BDI_AllKPI.CurrencyTypeID = BDI_CancellDocs.CurrencyTypeID
         AND
         BDI_AllKPI.Material = BDI_CancellDocs.Material
-WHERE
-    BDI_CancellDocs.BillingDocumentTypeID = 'S1'
-    
+        AND
+        BDI_AllKPI.BillingDocumentTypeID <> 'S1'
+        AND
+        BDI_CancellDocs.BillingDocumentTypeID = 'S1'

@@ -80,6 +80,13 @@ EuroBudgetExchangeRate AS (
         ExchangeRateType = 'P'
         AND
         TargetCurrency = 'EUR'
+        AND
+        [ExchangeRateEffectiveDate] < GETDATE()
+            UNION ALL
+    SELECT
+        'EUR'
+        ,'1900-01-01'
+        ,1.0
 ), 
 
 USDBudgetExchangeRate as (
@@ -93,6 +100,8 @@ USDBudgetExchangeRate as (
            ExchangeRateType = 'P'
            AND
            SourceCurrency = 'USD'
+           AND
+           [ExchangeRateEffectiveDate] < GETDATE()
 ),
 
 
@@ -127,10 +136,7 @@ ProductValuationExchangeRate AS (
             USDBudgetExchangeRate
             ON 
                 USDBudgetExchangeRate.TargetCurrency = 'EUR'
-        WHERE 
-                EuroBudgetExchangeRate.[ExchangeRateEffectiveDate] <= CAST(GETDATE() as DATE)
-                AND 
-                USDBudgetExchangeRate.[ExchangeRateEffectiveDate] <= CAST(GETDATE() as DATE)
+        --WHERE 
                 /*
                 EuroBudgetExchangeRate.[ExchangeRateEffectiveDate] <=  PV.[FiscalStartYearPeriodDate]
                 AND 

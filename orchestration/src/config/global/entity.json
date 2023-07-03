@@ -1639,10 +1639,11 @@
         "data_category": "TEXT",
         "client_field": "MANDT",
         "tool_name": "Theobald",
-        "extraction_type": "ODP",
-        "update_mode": "Delta",
+        "extraction_type": "Table",
+        "update_mode": "Full",
         "base_table_name": "I_GLAccountText",
-        "pk_field_names": "TS_SEQUENCE_NUMBER, CHARTOFACCOUNTS, GLACCOUNT, LANGUAGE"
+        "pk_field_names": "CHARTOFACCOUNTS, GLACCOUNT, LANGUAGE",
+        "schedule_recurrence": "A"
       },
       {
         "entity_id": 200,
@@ -3255,7 +3256,28 @@
         "update_mode": "Delta",
         "base_table_name": "Z_C_VariantConfig_delta",
         "base_sproc_name": "sp_load_Z_C_VariantConfig",
-        "pk_field_names": "TS_SEQUENCE_NUMBER, SALESDOCUMENT, SALESDOCUMENTITEM",
+        "pk_field_names": "TS_SEQUENCE_NUMBER, SALESDOCUMENT, SALESDOCUMENTITEM, CHARACTERISTICNAME, CHARVALUE"
+      },
+      {
+        "entity_id": 592,
+        "entity_name": "Z_C_VariantConfig_ProductHierarchy_F",
+        "data_category": "FACT",
+        "tool_name": "Theobald",
+        "extraction_type": "ODP",
+        "update_mode": "Full",
+        "base_table_name": "Z_C_VariantConfig_ProductHierarchy_F",
+        "pk_field_names": "SALESDOCUMENT, SALESDOCUMENTITEM, CHARACTERISTICNAME, CHARVALUE",
+        "schedule_recurrence": "D"
+      },
+      {
+        "entity_id": 593,
+        "entity_name": "Z_C_VariantConfig_OtherCharacteristics_F",
+        "data_category": "FACT",
+        "tool_name": "Theobald",
+        "extraction_type": "ODP",
+        "update_mode": "Full",
+        "base_table_name": "Z_C_VariantConfig_OtherCharacteristics_F",
+        "pk_field_names": "SALESDOCUMENT, SALESDOCUMENTITEM, CHARACTERISTICNAME, CHARVALUE",
         "schedule_recurrence": "D"
       },
       {
@@ -3656,18 +3678,6 @@
         "schedule_recurrence": "D"
       },
       {
-        "entity_id": 468,
-        "entity_name": "I_GLAccountText_F",
-        "data_category": "TEXT",
-        "client_field": "MANDT",
-        "tool_name": "Theobald",
-        "extraction_type": "ODP",
-        "update_mode": "Full",
-        "base_table_name": "I_GLAccountText",
-        "pk_field_names": "CHARTOFACCOUNTS, GLACCOUNT, LANGUAGE",
-        "schedule_recurrence": "A"
-      },
-      {
         "entity_id": 469,
         "entity_name": "I_PurchasingDocumentItem",
         "data_category": "NULL",
@@ -4061,6 +4071,66 @@
         "base_table_name": "Opt_Vim_1Head",
         "schedule_recurrence": "D",
         "pk_field_names": "MANDT, DOCID"
+      },
+      {
+        "entity_id": 594,
+        "entity_name": "I_PersonWorkAgreement_1",
+        "data_category": "DIMENSION",
+        "client_field": "MANDT",
+        "tool_name": "Theobald",
+        "extraction_type": "Table",
+        "update_mode": "Full",
+        "base_table_name": "I_PersonWorkAgreement_1",
+        "schedule_recurrence": "D",
+        "pk_field_names": "MANDT, PERSONWORKAGREEMENT"
+      },
+      {
+        "entity_id": 597,
+        "entity_name": "I_BusinessPartnerBank",
+        "data_category": "NULL",
+        "client_field": "MANDT",
+        "tool_name": "Theobald",
+        "extraction_type": "Table",
+        "update_mode": "Full",
+        "base_table_name": "I_BusinessPartnerBank",
+        "schedule_recurrence": "D",
+        "pk_field_names": "MANDT, BUSINESSPARTNER, BANKIDENTIFICATION"
+      },
+      {
+        "entity_id": 598,
+        "entity_name": "I_Businesspartnertaxnumber",
+        "data_category": "NULL",
+        "client_field": "MANDT",
+        "tool_name": "Theobald",
+        "extraction_type": "Table",
+        "update_mode": "Full",
+        "base_table_name": "I_Businesspartnertaxnumber",
+        "schedule_recurrence": "D",
+        "pk_field_names": "MANDT, BUSINESSPARTNER, BPTAXTYPE"
+      },
+      {
+        "entity_id": 596,
+        "entity_name": "I_CustSalesPartnerFunc",
+        "data_category": "NULL",
+        "client_field": "MANDT",
+        "tool_name": "Theobald",
+        "extraction_type": "Table",
+        "update_mode": "Full",
+        "base_table_name": "I_CustSalesPartnerFunc",
+        "schedule_recurrence": "D",
+        "pk_field_names": "MANDT, CUSTOMER, SALESORGANIZATION, DISTRIBUTIONCHANNEL, DIVISION, PARTNERCOUNTER, PARTNERFUNCTION"
+      },
+      {
+        "entity_id": 595,
+        "entity_name": "P_OrganizationAddress",
+        "data_category": "NULL",
+        "client_field": "CLIENT",
+        "tool_name": "Theobald",
+        "extraction_type": "Table",
+        "update_mode": "Full",
+        "base_table_name": "P_OrganizationAddress",
+        "schedule_recurrence": "D",
+        "pk_field_names": "CLIENT, ADDRNUMBER, DATE_FROM, NATION"
       }
     ]
   },
@@ -5418,8 +5488,7 @@
         "entity_name": "fact_ProductHierarchyVariantConfigCharacteristic_active",
         "sproc_name": "sp_load_fact_ProductHierarchyVariantConfigCharacteristic_active",
         "update_mode": "Delta",
-        "execution_order": 0,
-        "schedule_recurrence": "D"
+        "execution_order": 0
       },
       {
         "entity_id": 429,
@@ -5967,6 +6036,77 @@
         "base_table_name": "ITEMTABLE_ISUK_orig",
         "pk_field_names": "ITEMID",
         "schedule_recurrence": "D"
+      }
+    ]
+  },
+  "dm_procurement": {
+    "layer_id": 20,
+    "schema_name": "dm_procurement",
+    "source_schema_name": "dm_procurement",
+    "dest_schema_name": "Leviat",
+    "entities": [
+      {
+        "entity_id": 599,
+        "entity_name": "Invoice3",
+        "source_view_name": "vw_dim_Invoice_LastMonth",
+        "execution_order": 2,
+        "schedule_recurrence": "M"
+      },
+      {
+        "entity_id": 600,
+        "entity_name": "PO3",
+        "source_view_name": "vw_dim_PurchaseOrder_LastMonth",
+        "execution_order": 2,
+        "schedule_recurrence": "M"
+      },
+      {
+        "entity_id": 601,
+        "entity_name": "Contract",
+        "source_view_name": "vw_dim_Contract",
+        "execution_order": 1,
+        "schedule_recurrence": "M"
+      },
+      {
+        "entity_id": 602,
+        "entity_name": "CostCenter",
+        "source_view_name": "vw_dim_CostCenter",
+        "execution_order": 1,
+        "schedule_recurrence": "M"
+      },
+      {
+        "entity_id": 603,
+        "entity_name": "User",
+        "source_view_name": "vw_dim_User",
+        "execution_order": 1,
+        "schedule_recurrence": "M"
+      },
+      {
+        "entity_id": 604,
+        "entity_name": "Account",
+        "source_view_name": "vw_dim_Account",
+        "execution_order": 1,
+        "schedule_recurrence": "M"
+      },
+      {
+        "entity_id": 605,
+        "entity_name": "ERPCommodity",
+        "source_view_name": "vw_dim_EClassCodes",
+        "execution_order": 0,
+        "schedule_recurrence": "M"
+      },
+      {
+        "entity_id": 606,
+        "entity_name": "Supplier",
+        "source_view_name": "vw_dim_Supplier",
+        "execution_order": 1,
+        "schedule_recurrence": "M"
+      },
+      {
+        "entity_id": 607,
+        "entity_name": "CompanySite",
+        "source_view_name": "vw_dim_CompanySite",
+        "execution_order": 0,
+        "schedule_recurrence": "M"
       }
     ]
   }

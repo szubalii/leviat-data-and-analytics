@@ -1454,7 +1454,7 @@ LEFT JOIN PA
         PA.PurchaseOrder COLLATE DATABASE_DEFAULT = [PurchasingDocument]
     AND
         PA.PurchaseOrderItem = [PurchasingDocumentItem]
-LEFT JOIN [edw].[vw_ProductHierarchyVariantConfigCharacteristic_delta] AS VC
+LEFT JOIN [edw].[vw_ProductHierarchyVariantConfigCharacteristic] AS VC
     ON
         VC.SalesDocument = CASE
             WHEN [ReferenceDocumentTypeID] = 'VBRK' AND GLAccountLineItemRawData.SalesDocumentID = ''

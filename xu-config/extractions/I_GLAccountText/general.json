@@ -1,13 +1,14 @@
 {
     "created": {
-        "machine": "[::ffff:84.82.142.194]:50969",
-        "timestamp": "20210621T120803.000Z"
+        "machine": "WEALEVAPP001",
+        "timestamp": "20230615T133015.471Z",
+        "user": "DEV\\adm_mpors"
     },
-    "destination": "stxxxxslsaeuw001_s4h-caa",
     "lastChange": {
-        "machine": "[::ffff:84.82.142.194]:50969",
-        "timestamp": "20210621T120803.000Z"
+        "machine": "WEALEVAPP001",
+        "timestamp": "20230615T133154.952Z",
+        "user": "DEV\\adm_mpors"
     },
     "source": "CRH_Leviat_S4HANA_CAA",
-    "type": "ODP"
+    "type": "Table"
 }

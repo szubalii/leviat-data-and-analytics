@@ -11,6 +11,13 @@ WITH EuroBudgetExchangeRate AS (
         ExchangeRateType = 'P'
         AND
         TargetCurrency = 'EUR'
+        AND
+        ExchangeRateEffectiveDate <= GETDATE()
+            UNION ALL
+    SELECT
+        'EUR'
+        ,'1900-01-01'
+        ,1.0
 )
 ,BillingDocumentItemBase AS
 (SELECT
@@ -140,10 +147,9 @@ SELECT
     ,   BDI_Base.[t_applicationId]                          
     ,   BDI_Base.[t_extractionDtm]
 FROM BillingDocumentItemBase BDI_Base
-CROSS JOIN
+JOIN
     [edw].[dim_CurrencyType] CT
-WHERE
-    CT.[CurrencyTypeID] = '10'
+    ON CT.[CurrencyTypeID] = '10'
 
 UNION ALL
 
@@ -238,8 +244,8 @@ FROM BillingDocumentItemBase BDI_Base
 LEFT JOIN 
     EuroBudgetExchangeRate
         ON EuroBudgetExchangeRate.SourceCurrency = 'USD'
-WHERE
-           EuroBudgetExchangeRate.ExchangeRateEffectiveDate <= CAST(GETDATE() as DATE)  --BDI_Base.[BillingDocumentDate]
+--WHERE
+            --BDI_Base.[BillingDocumentDate]
 GROUP BY
         BDI_Base.[BillingDocument]                          
     ,   BDI_Base.[BillingDocumentItem]      
@@ -287,10 +293,9 @@ LEFT JOIN
         EuroBudgetExchangeRate.[SourceCurrency] = 'USD'
         AND
         BDI_ExchangeRate_Date.[ExchangeRateEffectiveDate] = EuroBudgetExchangeRate.[ExchangeRateEffectiveDate]
-CROSS JOIN
+JOIN
     [edw].[dim_CurrencyType] CT
-WHERE
-    CT.[CurrencyTypeID] = '30'
+    ON CT.[CurrencyTypeID] = '30'
 
 UNION ALL
 
@@ -339,7 +344,6 @@ SELECT
     ,   BDI_Base.[t_applicationId]                          
     ,   BDI_Base.[t_extractionDtm]
 FROM BillingDocumentItemBase BDI_Base
-CROSS JOIN
+JOIN
     [edw].[dim_CurrencyType] CT
-WHERE
-    CT.[CurrencyTypeID] = '40'
+    ON CT.[CurrencyTypeID] = '40'

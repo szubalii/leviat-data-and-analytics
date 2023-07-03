@@ -323,7 +323,7 @@ C_SalesDocumentItemDEXBase as (
         ON
             doc.[Material] = Product.[ProductID]
     LEFT JOIN
-        [edw].[fact_ProductHierarchyVariantConfigCharacteristic_active] AS VC
+        [edw].[vw_ProductHierarchyVariantConfigCharacteristic] AS VC
         ON
             doc.[SalesDocument] = VC.[SalesDocument]
             AND
@@ -417,6 +417,13 @@ EuroBudgetExchangeRate as (
         ExchangeRateType = 'P'
         and
         TargetCurrency = 'EUR'
+        and
+        [ExchangeRateEffectiveDate] <= GETDATE()
+            UNION ALL
+    SELECT                  -- EUR2EUR rate
+        'EUR'
+        ,'1900-01-01'
+        ,1.0
 ),
 ExchangeRateEuro AS (
     SELECT
@@ -435,8 +442,7 @@ ExchangeRateEuro AS (
             EuroBudgetExchangeRate
             ON 
                 SDI.[TransactionCurrencyID] = EuroBudgetExchangeRate.SourceCurrency
-        WHERE 
-            [ExchangeRateEffectiveDate] <= CAST(GETDATE() as DATE) 
+        --WHERE 
          -- [ExchangeRateEffectiveDate] <= [CreationDate]
         GROUP BY
                 [SalesDocument]
@@ -650,6 +656,8 @@ EuroBudgetExchangeRateUSD as (
         ExchangeRateType = 'P'
         and
         SourceCurrency = 'USD'
+        and
+        [ExchangeRateEffectiveDate] <= GETDATE()
 ),
 ExchangeRateUSD as (
     SELECT
@@ -668,8 +676,7 @@ ExchangeRateUSD as (
             EuroBudgetExchangeRateUSD
             ON 
                 SD_30.CurrencyID = EuroBudgetExchangeRateUSD.TargetCurrency
-        WHERE 
-            [ExchangeRateEffectiveDate] <= CAST(GETDATE() as DATE)
+        --WHERE 
          -- [ExchangeRateEffectiveDate] <= [CreationDate]
         GROUP BY
                 [SalesDocument]

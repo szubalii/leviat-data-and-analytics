@@ -199,6 +199,7 @@ SELECT
 
 )   SELECT 
     [_hash],
+    edw.svf_get2PartNaturalKey (StorageLocationID,PlantID)  AS [nk_StoragePlantID],
     [ReportingYear],
     [ReportingMonth],
     [ReportingDate],

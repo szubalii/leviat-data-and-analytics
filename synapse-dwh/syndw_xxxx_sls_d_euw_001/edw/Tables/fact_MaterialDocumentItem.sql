@@ -1,6 +1,7 @@
 ﻿CREATE TABLE [edw].[fact_MaterialDocumentItem]
 (
     [_hash]                                     nvarchar(32) NOT NULL,
+    [nk_StoragePlantID]                         nvarchar(41) NOT NULL,
     [MaterialDocumentYear]                      char(4)      NOT NULL,
     [MaterialDocument]                          nvarchar(10) NOT NULL,
     [MaterialDocumentItem]                      char(10)      NOT NULL,

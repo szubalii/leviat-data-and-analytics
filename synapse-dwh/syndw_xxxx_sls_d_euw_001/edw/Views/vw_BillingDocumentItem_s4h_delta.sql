@@ -742,7 +742,6 @@ WITH BillingDocumentItemBase as (
         FROM  BillingDocumentItemBase_Margin BDI
         LEFT JOIN [edw].[vw_CurrencyConversionRate] ExchangeRate
            ON BDI.[CurrencyID] = ExchangeRate.[SourceCurrency]
-           AND CAST(GETDATE() as DATE) BETWEEN ExchangeRate.[ExchangeRateEffectiveDate] AND ExchangeRate.[LastDay]   
          --AND BDI.[BillingDocumentDate] BETWEEN ExchangeRate.[ExchangeRateEffectiveDate] AND ExchangeRate.[LastDay]   
         WHERE ExchangeRate.CurrencyTypeID ='30'
     ),
@@ -931,7 +930,6 @@ WITH BillingDocumentItemBase as (
         FROM  BillingDocumentItemBase_Margin BDI
         LEFT JOIN [edw].[vw_CurrencyConversionRate] ExchangeRate
            ON BDI.[CurrencyID] = ExchangeRate.[SourceCurrency]
-           AND CAST(GETDATE() as DATE) BETWEEN ExchangeRate.[ExchangeRateEffectiveDate] AND ExchangeRate.[LastDay] 
         -- AND BDI.[BillingDocumentDate] BETWEEN ExchangeRate.[ExchangeRateEffectiveDate] AND ExchangeRate.[LastDay]   
         WHERE ExchangeRate.CurrencyTypeID ='40'
      )
@@ -1123,10 +1121,9 @@ SELECT [BillingDocument]
       ,BDI.[t_filePath]   
 FROM 
     BillingDocumentItemBase_Margin BDI
-CROSS JOIN 
+JOIN 
     [edw].[dim_CurrencyType] CR
-WHERE 
-    CR.[CurrencyTypeID] = '00'
+    ON CR.[CurrencyTypeID] = '00'
 
 UNION ALL
 
@@ -1357,10 +1354,9 @@ SELECT
     ,BDI.[t_filePath]  
 FROM 
     BillingDocumentItemBase_Margin BDI
-CROSS JOIN 
+JOIN 
     [edw].[dim_CurrencyType] CR
-WHERE 
-    CR.[CurrencyTypeID] = '10'
+        ON CR.[CurrencyTypeID] = '10'
 
 UNION ALL
 
@@ -1556,10 +1552,9 @@ SELECT
     ,BD_30.[t_filePath]   
 FROM 
     BillingDocument_30 BD_30
-CROSS JOIN 
+JOIN 
     [edw].[dim_CurrencyType] CR
-WHERE 
-    CR.[CurrencyTypeID] = '30'
+        ON CR.[CurrencyTypeID] = '30'
 
 UNION ALL
 
@@ -1748,7 +1743,6 @@ SELECT
     ,BD_40.[t_filePath]   
 FROM 
     BillingDocument_40 BD_40
-CROSS JOIN 
+JOIN 
     [edw].[dim_CurrencyType] CR
-WHERE 
-    CR.[CurrencyTypeID] = '40'
+    ON CR.[CurrencyTypeID] = '40'

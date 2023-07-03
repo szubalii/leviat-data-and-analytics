@@ -38,6 +38,10 @@
 						"entity_filter": {
 							"value": "@pipeline().parameters.entity_filter",
 							"type": "Expression"
+						},
+						"rerun_successful_full_entities": {
+							"value": "@pipeline().parameters.rerun_successful_full_entities",
+							"type": "Expression"
 						}
 					}
 				}
@@ -308,10 +312,59 @@
 						]
 					}
 				],
+				"policy": {
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
 				"userProperties": [],
 				"typeProperties": {
 					"variableName": "dummy",
 					"value": "dummy"
+				}
+			},
+			{
+				"name": "Process unload to SFTP",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Process Synapse EDW",
+						"dependencyConditions": [
+							"Succeeded",
+							"Failed"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pl_SYNDW_SFTP_process_main",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"adhoc": {
+							"value": "@pipeline().parameters.adhoc",
+							"type": "Expression"
+						},
+						"parent_run_id": {
+							"value": "@pipeline().RunId",
+							"type": "Expression"
+						},
+						"date": {
+							"value": "@pipeline().parameters.date",
+							"type": "Expression"
+						},
+						"entity_filter": {
+							"value": "@pipeline().parameters.entity_filter",
+							"type": "Expression"
+						},
+						"rerun_successful_full_entities": {
+							"value": "@pipeline().parameters.rerun_successful_full_entities",
+							"type": "Expression"
+						}
+					}
 				}
 			}
 		],

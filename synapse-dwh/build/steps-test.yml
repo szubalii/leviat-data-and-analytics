@@ -32,6 +32,7 @@ steps:
       $edwEntities = {}
       $baseEntities = {}
       $dir = 'synapse-dwh' #${{ parameters.folder }}
+      $synDbFolder = 'syndw_xxxx_sls_d_euw_001'
       $entities = (Get-Content './orchestration/src/config/global/entity.json' | Out-String | ConvertFrom-Json)
 
       ForEach ($filePath in $filePaths) {
@@ -47,6 +48,14 @@ steps:
           # synapse-dwh/Test/edw/Functions/ScalarValued/svf_getInvertAmount
 
           $subFilePath = $filePathWithoutExt.SubString($dirIndex + $dir.Length + 1)
+
+          # if actual database artifact is changed, remove the database folder 
+          # from its path so that its corresponding test case will run
+          $synDbIndex = $subFilePath.IndexOf($synDbFolder)
+          if ($synDbIndex -ne -1) {
+            $subFilePath = $subFilePath.SubString($synDbIndex + $synDbFolder.Length + 1)
+          }          
+
           # Test/edw/Functions/ScalarValued/svf_getInvertAmount
 
           # Views
@@ -93,6 +102,16 @@ steps:
 - task: DownloadPipelineArtifact@2
   inputs:
     artifact: SynapseDWH
+
+
+# Substitute the connection string for the Test Project 
+# so Azure DevOps can run the Test Cases
+- task: FileTransform@1
+  displayName: 'Update Connection String for Test Project'
+  inputs:
+    folderPath: '$(Pipeline.Workspace)/Test/'
+    fileType: 'xml'
+    targetFiles: 'Test.dll.config'
 
 # Run test directly from assemblies and use Test Filter
 - task: VSTest@2

@@ -217,7 +217,7 @@ BEGIN
         ,   null            as [DistributionChannelID]
         ,   null            as [DivisionID]
         ,   null            as [SalesGroupID]
-        ,   null            as [SalesOfficeID]
+        ,   [SalesOfficeID]
         ,   null            as [InternationalArticleNumberID]
         ,   null            as [BatchID]
         ,   [MaterialID]

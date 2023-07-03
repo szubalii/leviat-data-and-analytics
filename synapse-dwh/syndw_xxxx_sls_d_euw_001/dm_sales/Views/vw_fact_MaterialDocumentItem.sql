@@ -1,16 +1,12 @@
 ﻿CREATE VIEW [dm_sales].[vw_fact_MaterialDocumentItem] AS
-SELECT  MDI.[MaterialDocumentYear] 
+SELECT  
+        MDI.[MaterialDocumentYear] 
     ,   MDI.[MaterialDocument] COLLATE DATABASE_DEFAULT          AS MaterialDocument
     ,   MDI.[MaterialDocumentItem]
     ,   MDI.[MaterialID] COLLATE DATABASE_DEFAULT                AS MaterialID
     ,   MDI.[PlantID] COLLATE DATABASE_DEFAULT                   AS PlantID
     ,   MDI.[StorageLocationID] COLLATE DATABASE_DEFAULT         AS StorageLocationID
-    ,   CONVERT(NVARCHAR(32),
-            HashBytes('SHA2_256',
-                  isNull(CAST([StorageLocationID] COLLATE DATABASE_DEFAULT AS VARCHAR) , '') +
-			      isNull(CAST([PlantID] COLLATE DATABASE_DEFAULT AS VARCHAR) , '') 
-            )
-        , 2)  as StoragePlantID
+    ,   MDI.[nk_StoragePlantID] 
     ,   MDI.[StorageTypeID]
     ,   MDI.[StorageBin] 
     ,   MDI.[Batch] 

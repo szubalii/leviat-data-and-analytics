@@ -338,7 +338,7 @@ BillingDocumentItemBase_axbi_mapped AS (
             THEN 
                 SO.target_SalesOrganizationID 
             ELSE
-                [DataAreaID]
+                SubQ.[DataAreaID]
         END AS [SalesOrganizationID]
     ,   SubQ.[DistributionChannelID]
     ,   CASE
@@ -470,6 +470,7 @@ BillingDocumentItemBase_axbi_mapped AS (
     ,   SubQ.[InOutID]
     ,   SubQ.[axbi_ItemNoCalc]
     ,   SubQ.[axbi_DataAreaID2]
+    ,   SOff.SalesOfficeID
     ,   SubQ.[t_applicationId]
     ,   SubQ.[t_extractionDtm]
 
@@ -570,6 +571,10 @@ BillingDocumentItemBase_axbi_mapped AS (
         [map_AXBI].[Brand] mapBrand
         ON
         mapBrand.[source_DataAreaID]= SubQ.[axbi_DataAreaID]
+
+    LEFT JOIN [map_AXBI].[SalesOffice] SOff
+        ON SubQ.[axbi_DataAreaID]  = SOff.[DataAreaID]
+
 ), BillingDocumentItemBase_axbi_mapped_calc as (
     SELECT
         CONCAT(TRIM(SubQ.[SalesOrganizationID]),'_',TRIM(SubQ.[BillingDocument]) COLLATE SQL_Latin1_General_CP1_CS_AS) AS [BillingDocument]
@@ -637,6 +642,7 @@ BillingDocumentItemBase_axbi_mapped AS (
     ,   SubQ.[Brand]
     ,   SubQ.[InOutID]
     ,   SubQ.[axbi_ItemNoCalc]
+    ,   SubQ.[SalesOfficeID]
     ,   SubQ.[t_applicationId]
     ,   SubQ.[t_extractionDtm]
     FROM
@@ -720,6 +726,7 @@ BillingDocumentItemBase_axbi_mapped AS (
     ,   NULL AS [Brand]
     ,   [InOutID]
     ,   [axbi_ItemNoCalc]
+    ,   [SalesOfficeID]
     ,   [t_applicationId]
     ,   [t_extractionDtm]
     FROM
@@ -749,6 +756,11 @@ BillingDocumentItemBase_axbi_mapped AS (
         ExchangeRateType = 'P'
         AND
         TargetCurrency = 'EUR'
+            UNION ALL
+    SELECT
+        'EUR'
+        ,'1900-01-01'
+        ,1.0
 )
 ,EuroBudgetExchangeRateUSD as (
     select
@@ -760,7 +772,9 @@ BillingDocumentItemBase_axbi_mapped AS (
     where
         ExchangeRateType = 'P'
         AND
-        SourceCurrency = 'USD')
+        SourceCurrency = 'USD'
+        AND
+        ExchangeRateEffectiveDate <= GETDATE())
 , BDIAXBI_DUMMY_30 AS(
     SELECT 
             [BillingDocument]
@@ -813,6 +827,7 @@ BillingDocumentItemBase_axbi_mapped AS (
         ,   [Brand]
         ,   [InOutID]
         ,   [axbi_ItemNoCalc]
+        ,   [SalesOfficeID]
         ,   BDIAXBI_DUMMY.[t_applicationId]
         ,   BDIAXBI_DUMMY.[t_extractionDtm]
     FROM 
@@ -835,8 +850,6 @@ BillingDocumentItemBase_axbi_mapped AS (
             EuroBudgetExchangeRateUSD
             ON
                 axbi_dummy_40.[CurrencyID] = EuroBudgetExchangeRateUSD.TargetCurrency
-        WHERE
-            [ExchangeRateEffectiveDate] <= CAST(GETDATE() as DATE) --[BillingDocumentDate]
         GROUP BY
                 [BillingDocument]
             ,   [BillingDocumentItem]
@@ -907,14 +920,14 @@ SELECT
     ,   [Brand]
     ,   [InOutID]
     ,   [axbi_ItemNoCalc]
+    ,   [SalesOfficeID]
     ,   BDIAXBI_DUMMY.[t_applicationId]
     ,   BDIAXBI_DUMMY.[t_extractionDtm]
 FROM 
     BDIAXBI_DUMMY
-CROSS JOIN
+JOIN
     [edw].[dim_CurrencyType] CT
-WHERE
-    CT.[CurrencyTypeID] = '10'
+        ON CT.[CurrencyTypeID] = '10'
 
 UNION ALL
 
@@ -976,14 +989,14 @@ SELECT
     ,   [Brand]
     ,   [InOutID]
     ,   [axbi_ItemNoCalc]
+    ,   [SalesOfficeID]
     ,   BDIAXBI_DUMMY_30.[t_applicationId]
     ,   BDIAXBI_DUMMY_30.[t_extractionDtm]
 FROM 
     BDIAXBI_DUMMY_30
-CROSS JOIN
+JOIN
     [edw].[dim_CurrencyType] CT
-WHERE
-    CT.[CurrencyTypeID] = '30'
+        ON CT.[CurrencyTypeID] = '30'
 
 UNION ALL
 
@@ -1041,6 +1054,7 @@ SELECT
     ,   [Brand]
     ,   [InOutID]
     ,   [axbi_ItemNoCalc]
+    ,   [SalesOfficeID]
     ,   BDIAXBI_DUMMY_30.[t_applicationId]
     ,   BDIAXBI_DUMMY_30.[t_extractionDtm]
 FROM 
@@ -1051,7 +1065,6 @@ LEFT JOIN
         BDIAXBI_DUMMY_30.BillingDocument=ExchangeRateUSD.BillingDocument 
         AND     
         BDIAXBI_DUMMY_30.BillingDocumentItem=ExchangeRateUSD.BillingDocumentItem  
-CROSS JOIN
+JOIN
     [edw].[dim_CurrencyType] CT
-WHERE
-    CT.[CurrencyTypeID] = '40'
+        ON CT.[CurrencyTypeID] = '40'

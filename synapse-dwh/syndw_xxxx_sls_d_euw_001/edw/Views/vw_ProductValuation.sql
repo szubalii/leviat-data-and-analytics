@@ -53,6 +53,13 @@ WITH ProductValuation AS (
         ExchangeRateType = 'P'
         AND
         TargetCurrency = 'EUR'
+        AND
+        [ExchangeRateEffectiveDate] <= GETDATE()
+            UNION ALL
+    SELECT
+        'EUR'
+        ,'1900-01-01'
+        ,1.0
 ), ProductValuationEuroExchangeRate AS (
     SELECT
             [ProductID]
@@ -74,8 +81,6 @@ WITH ProductValuation AS (
             EuroBudgetExchangeRate
             ON 
                 PV.[CurrencyID] = EuroBudgetExchangeRate.SourceCurrency
-        WHERE 
-              [ExchangeRateEffectiveDate] <= CAST(GETDATE() as DATE)
         GROUP BY
                 PV.[ProductID]
             ,   PV.[ValuationAreaID]

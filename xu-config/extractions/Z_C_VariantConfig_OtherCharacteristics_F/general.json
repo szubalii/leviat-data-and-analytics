@@ -1,0 +1,15 @@
+{
+    "created": {
+        "machine": "[::ffff:127.0.0.1]:56204",
+        "timestamp": "20220311T114441.883Z",
+        "user": "EMATCRHPP\\nbaranava"
+    },
+    "destination": "stxxxxslsaeuw001_s4h-caa",
+    "lastChange": {
+        "machine": "WEALEVAPP001",
+        "timestamp": "20220405T093115.334Z",
+        "user": "EMATCRHPP\\fbouw"
+    },
+    "source": "CRH_Leviat_S4HANA_CAA",
+    "type": "ODP"
+}
