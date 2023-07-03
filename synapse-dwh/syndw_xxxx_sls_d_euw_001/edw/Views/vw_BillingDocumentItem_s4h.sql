@@ -200,7 +200,11 @@ BillingDocumentItemBase AS (
   , doc.[ExchangeRateType]                          AS [ExchangeRateTypeID]
   , doc.[FiscalYearVariant]
   , doc.[Currency]                                  AS [CurrencyID]
-  , doc.[AccountingExchangeRate]
+  , CASE
+        WHEN doc.[AccountingExchangeRate] < 0
+            THEN 1/doc.[AccountingExchangeRate]
+        ELSE doc.[AccountingExchangeRate]
+    END                                             AS [AccountingExchangeRate]
   , doc.[AccountingExchangeRateIsSet]
   , doc.[ReferenceSDDocument]
   , doc.[ReferenceSDDocumentItem]
