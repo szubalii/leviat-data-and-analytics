@@ -1,5 +1,6 @@
 {
     "functionName": "Z_THEO_READ_TABLE",
+    "whereClause": "ROLE_NAME LIKE 'FR:CAD-P2P-%%%%-PURCHASER' OR ROLE_NAME LIKE 'FR:CAD-P2P-%%%%-MGR-PROCUREMNT' OR ROLE_NAME LIKE 'FR:CAD-P2P-%%%%-STRATEGIC-BUY' OR ROLE_NAME LIKE 'FR:CAD-P2P-%%%%-MATPLAN' OR ROLE_NAME LIKE 'FR:CAD-P2P-%%%%-BUS-PROC-SPLST' OR ROLE_NAME LIKE 'FR:CAD-P2P-%%%%-PROC_APPROVER'",
     "runInBackgroundJob": false,
     "backgroundJobTimeout": 180,
     "tables": 
@@ -18,8 +19,7 @@
                     "isPrimaryKey": true,
                     "isSelected": true,
                     "checkTable": "T000",
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "USER_NAME",
@@ -29,8 +29,7 @@
                     "isPrimaryKey": true,
                     "isSelected": true,
                     "checkTable": "USER_NAME",
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "ROLE_NAME",
@@ -40,8 +39,7 @@
                     "isPrimaryKey": true,
                     "isSelected": true,
                     "checkTable": "ROLE_NAME",
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "VALID_FROM",
@@ -50,8 +48,7 @@
                     "isPrimaryKey": true,
                     "isSelected": true,
                     "checkTable": "VALID_FROM",
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 },
                 {
                     "name": "VALID_TO",
@@ -60,112 +57,9 @@
                     "isPrimaryKey": true,
                     "isSelected": true,
                     "checkTable": "VALID_TO",
-                    "conversionExit": "",
-                    "isClientField": false
+                    "conversionExit": ""
                 }
             ]
         }
-    ],
-    "scalarRuntimeParameters": {
-    },
-    "whereSequence": [
-        [
-            "ColumnName",
-            "PFCGROLE2USER_V~ROLE_NAME"
-        ],
-        [
-            "Operator",
-            "ContainsPattern"
-        ],
-        [
-            "Literal",
-            "String",
-            "FR:CAD-P2P-%%%%-PURCHASER"
-        ],
-        [
-            "BoolOperator",
-            "Or"
-        ],
-        [
-            "ColumnName",
-            "PFCGROLE2USER_V~ROLE_NAME"
-        ],
-        [
-            "Operator",
-            "ContainsPattern"
-        ],
-        [
-            "Literal",
-            "String",
-            "FR:CAD-P2P-%%%%-STRATEGIC-BUY"
-        ],
-        [
-            "BoolOperator",
-            "Or"
-        ],
-        [
-            "ColumnName",
-            "PFCGROLE2USER_V~ROLE_NAME"
-        ],
-        [
-            "Operator",
-            "ContainsPattern"
-        ],
-        [
-            "Literal",
-            "String",
-            "FR:CAD-P2P-%%%%-MGR-PROCUREMNT"
-        ],
-        [
-            "BoolOperator",
-            "Or"
-        ],
-        [
-            "ColumnName",
-            "PFCGROLE2USER_V~ROLE_NAME"
-        ],
-        [
-            "Operator",
-            "ContainsPattern"
-        ],
-        [
-            "Literal",
-            "String",
-            "FR:CAD-P2P-%%%%-MATPLAN"
-        ],
-        [
-            "BoolOperator",
-            "Or"
-        ],
-        [
-            "ColumnName",
-            "PFCGROLE2USER_V~ROLE_NAME"
-        ],
-        [
-            "Operator",
-            "ContainsPattern"
-        ],
-        [
-            "Literal",
-            "String",
-            "FR:CAD-P2P-%%%%-BUS-PROC-SPLST"
-        ],
-        [
-            "BoolOperator",
-            "Or"
-        ],
-        [
-            "ColumnName",
-            "PFCGROLE2USER_V~ROLE_NAME"
-        ],
-        [
-            "Operator",
-            "ContainsPattern"
-        ],
-        [
-            "Literal",
-            "String",
-            "FR:CAD-P2P-%%%%-PROC_APPROVER"
-        ]
     ]
 }
