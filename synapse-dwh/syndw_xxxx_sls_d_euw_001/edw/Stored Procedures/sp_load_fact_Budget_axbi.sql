@@ -30,7 +30,33 @@ BEGIN
             DISTRIBUTION = HASH ([nk_fact_Budget]),
             CLUSTERED COLUMNSTORE INDEX
         )
-        AS SELECT *
+        AS SELECT 
+            [nk_fact_Budget]
+        ,   [CurrencyTypeID]
+        ,   [CurrencyType]
+        ,   [CurrencyID]
+        ,   [ExchangeRate]
+        ,   [AccountingDate]
+        ,   [SalesOrganizationID]
+        ,   [SoldToParty]
+        ,   [FinSales100]
+        ,   [Year]
+        ,   [Month]
+        ,   [YearMonth]
+        ,   [axbi_DataAreaID]
+        ,   [axbi_DataAreaName]
+        ,   [axbi_DataAreaGroup]
+        ,   [axbi_MaterialID]
+        ,   [axbi_CustomerID]
+        ,   [MaterialCalculated]
+        ,   [SoldToPartyCalculated]
+        ,   edw.svf_getInOutID_axbi (InOutID) as [InOutID]
+        ,   [t_applicationId]
+        ,   [t_extractionDtm]
+        ,   [t_jobId]
+        ,   [t_jobDtm]
+        ,   [t_lastActionCd]
+        ,   [t_jobBy]
            FROM
                [edw].[fact_Budget_axbi]
            WHERE
