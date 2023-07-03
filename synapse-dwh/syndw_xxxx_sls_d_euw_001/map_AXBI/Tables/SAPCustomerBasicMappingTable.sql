@@ -1,7 +1,7 @@
 CREATE TABLE [map_AXBI].[SAPCustomerBasicMappingTable] (
-    [AXCustomeraccount]       NVARCHAR (8)  NULL,
+    [AXCustomeraccount]       NVARCHAR (9)  NULL,
     [AXDataAreaId]            NVARCHAR (4)  NULL,
-    [SAPCustomeraccount]      NVARCHAR (4)  NULL,
+    [SAPCustomeraccount]      NVARCHAR (10)  NULL,
     [Migrate]                 CHAR(1)  NULL,
     [t_applicationId] VARCHAR    (32)  NULL,
     [t_jobId]         VARCHAR    (36)  NULL,
