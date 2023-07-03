@@ -68,4 +68,4 @@ JOIN
    ON
    C.[Customer] = CC.[Customer] 
 WHERE
-    C.[CustomerAccountGroup] = 'Y002'
+    C.[CustomerAccountGroup] = 'Z002'

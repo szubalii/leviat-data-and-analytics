@@ -83,3 +83,5 @@ JOIN
     [base_s4h_cax].[I_BusinessPartner] BP 
     ON
         OrganizationBPName.[OrganizationBPName1] = BP.[OrganizationBPName1]
+WHERE
+    BP.[BusinessPartnerGrouping] = 'Z001'

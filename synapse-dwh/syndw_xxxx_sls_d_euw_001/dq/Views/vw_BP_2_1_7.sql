@@ -68,6 +68,6 @@ LEFT JOIN
     ON 
         C.[Customer] = CSA.[Customer]
 WHERE 
-    C.[CustomerAccountGroup] IN ('Y001', 'Y002')
+    C.[CustomerAccountGroup] IN ('Z001', 'Z002')
     AND
     (CSA.[SalesOrganization] IS NULL OR CSA.[SalesOrganization] = '')
