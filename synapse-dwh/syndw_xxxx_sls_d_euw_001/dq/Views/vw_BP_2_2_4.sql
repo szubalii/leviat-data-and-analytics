@@ -79,4 +79,4 @@ LEFT JOIN
 WHERE
     LEFT(S.[Supplier], 2) = 'IP' AND S.[SupplierAccountGroup] = 'Z099'
     AND
-    SC.[Supplier] IS NULL
+    SC.[Supplier] IS NOT NULL
