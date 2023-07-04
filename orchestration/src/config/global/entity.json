@@ -6107,6 +6107,13 @@
         "source_view_name": "vw_dim_CompanySite",
         "execution_order": 0,
         "schedule_recurrence": "M"
+      },
+      {
+        "entity_id": 608,
+        "entity_name": "Part",
+        "source_view_name": "vw_dim_Product",
+        "execution_order": 0,
+        "schedule_recurrence": "M"
       }
     ]
   }
