@@ -79,7 +79,7 @@ SELECT
     ,   1 AS [Count]
 FROM
     OrganizationBPName
-JOIN
+INNER JOIN
     [base_s4h_cax].[I_BusinessPartner] BP 
     ON
         OrganizationBPName.[OrganizationBPName1] = BP.[OrganizationBPName1]
