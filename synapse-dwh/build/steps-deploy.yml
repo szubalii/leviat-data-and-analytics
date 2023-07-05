@@ -28,7 +28,7 @@ steps:
 #   be successful even though one azcopy script failed.
 
 - task: PowerShell@2
-  displayName: 'Copy Master Data to AzureBlob'
+  displayName: 'Copy Master Data to AzureBlob: map_AXBI Pt1'
   inputs:
     targetType: 'inline'
     pwsh: true
@@ -43,7 +43,7 @@ steps:
         --exclude-path 'BusinessPartner.csv;Material.csv;BusinessPartnerFull.csv;AXProductSAPHierarchy.csv;SAPCustomerBasicMappingTable.csv'
 
 - task: PowerShell@2
-  displayName: 'Copy Master Data to AzureBlob'
+  displayName: 'Copy Master Data to AzureBlob: map_AXBI\SAPCustomerBasicMappingTable'
   inputs:
     targetType: 'inline'
     pwsh: true
@@ -54,10 +54,10 @@ steps:
       # SAPCustomerBasicMappingTable.csv
       azcopy copy `
         '$(Pipeline.Workspace)\SynapseDWH\Master Data\map_AXBI\SAPCustomerBasicMappingTable.csv' `
-        'https://$(storageAccountName).blob.core.windows.net/flat-files/map_AXBI'
+        'https://$(storageAccountName).dfs.core.windows.net/flat-files/map_AXBI'
 
 - task: PowerShell@2
-  displayName: 'Copy Master Data to AzureBlob'
+  displayName: 'Copy Master Data to AzureBlob: map_AXBI Pt2'
   inputs:
     targetType: 'inline'
     pwsh: true
@@ -72,7 +72,7 @@ steps:
         --include-path 'BusinessPartner.csv;Material.csv;BusinessPartnerFull.csv;AXProductSAPHierarchy.csv'
 
 - task: PowerShell@2
-  displayName: 'Copy Master Data to AzureBlob'
+  displayName: 'Copy Master Data to AzureBlob: USA\*'
   inputs:
     targetType: 'inline'
     pwsh: true
@@ -86,7 +86,7 @@ steps:
         'https://$(storageAccountName).blob.core.windows.net/flat-files/USA'
 
 - task: PowerShell@2
-  displayName: 'Copy Master Data to AzureBlob'
+  displayName: 'Copy Master Data to AzureBlob: map_USA\Customer'
   inputs:
     targetType: 'inline'
     pwsh: true
@@ -100,7 +100,7 @@ steps:
         'https://$(storageAccountName).dfs.core.windows.net/flat-files/map_USA'
 
 - task: PowerShell@2
-  displayName: 'Copy Master Data to AzureBlob'
+  displayName: 'Copy Master Data to AzureBlob: EClassCodes'
   inputs:
     targetType: 'inline'
     pwsh: true
@@ -115,7 +115,7 @@ steps:
         'https://$(storageAccountName).dfs.core.windows.net/flat-files'
 
 - task: PowerShell@2
-  displayName: 'Copy Master Data to AzureBlob'
+  displayName: 'Copy Master Data to AzureBlob: Pt1'
   inputs:
     targetType: 'inline'
     pwsh: true
@@ -130,7 +130,7 @@ steps:
         --exclude-path 'ConfigurableProductCharacteristic.csv;EClassCodes.csv;ProductCalculated.csv;SalesDistrict.csv;CustomerCalculated.csv;ZE_EXQLMAP_DT.csv;SalesDocumentStatuses.csv'
 
 - task: PowerShell@2
-  displayName: 'Copy Master Data to AzureBlob'
+  displayName: 'Copy Master Data to AzureBlob: Pt2'
   inputs:
     targetType: 'inline'
     pwsh: true
@@ -145,14 +145,14 @@ steps:
         --include-path 'ConfigurableProductCharacteristic.csv;SalesDistrict.csv;CustomerCalculated.csv;ZE_EXQLMAP_DT.csv;SalesDocumentStatuses.csv'
 
 - task: PowerShell@2
-  displayName: 'Copy Master Data to AzureBlob'
+  displayName: 'Copy Master Data to AzureBlob: ProductCalculated'
   inputs:
     targetType: 'inline'
     pwsh: true
     script: |
       # connect to Azure using VM
       azcopy login --identity
-      
+
       # Copy ProductCalculated.csv to AzureBlob
       # workaround to exclude ProductCalculated as fix (dfs)
       azcopy copy `
