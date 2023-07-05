@@ -24,6 +24,8 @@ steps:
 # Workaround: copy files in separate task to fix copy issues:
 #   409 Blob operation is not supported.. When Staging block.
 #   000 : source modified during transfer. When epilogueWithCleanupSendToRemote.
+#   When only single task is used that includese many azcopy scripts, the task will
+#   be successful even though one azcopy script failed.
 
 - task: PowerShell@2
   displayName: 'Copy Master Data to AzureBlob'
@@ -40,26 +42,71 @@ steps:
         'https://$(storageAccountName).blob.core.windows.net/flat-files/map_AXBI' `
         --exclude-path 'BusinessPartner.csv;Material.csv;BusinessPartnerFull.csv;AXProductSAPHierarchy.csv;SAPCustomerBasicMappingTable.csv'
 
+- task: PowerShell@2
+  displayName: 'Copy Master Data to AzureBlob'
+  inputs:
+    targetType: 'inline'
+    pwsh: true
+    script: |
+      # connect to Azure using VM
+      azcopy login --identity
+
       # SAPCustomerBasicMappingTable.csv
       azcopy copy `
         '$(Pipeline.Workspace)\SynapseDWH\Master Data\map_AXBI\SAPCustomerBasicMappingTable.csv' `
         'https://$(storageAccountName).blob.core.windows.net/flat-files/map_AXBI'
 
+- task: PowerShell@2
+  displayName: 'Copy Master Data to AzureBlob'
+  inputs:
+    targetType: 'inline'
+    pwsh: true
+    script: |
+      # connect to Azure using VM
+      azcopy login --identity
+      
       # Copy map_AXBI Master Data Pt2 to AzureBlob
       azcopy copy `
         '$(Pipeline.Workspace)\SynapseDWH\Master Data\map_AXBI\*' `
         'https://$(storageAccountName).blob.core.windows.net/flat-files/map_AXBI' `
         --include-path 'BusinessPartner.csv;Material.csv;BusinessPartnerFull.csv;AXProductSAPHierarchy.csv'
 
+- task: PowerShell@2
+  displayName: 'Copy Master Data to AzureBlob'
+  inputs:
+    targetType: 'inline'
+    pwsh: true
+    script: |
+      # connect to Azure using VM
+      azcopy login --identity
+
       # USA Master Data
       azcopy copy `
         '$(Pipeline.Workspace)\SynapseDWH\Master Data\USA\*' `
         'https://$(storageAccountName).blob.core.windows.net/flat-files/USA'
 
+- task: PowerShell@2
+  displayName: 'Copy Master Data to AzureBlob'
+  inputs:
+    targetType: 'inline'
+    pwsh: true
+    script: |
+      # connect to Azure using VM
+      azcopy login --identity
+
       # Copy map_USA Master Data to AzureBlob
       azcopy copy `
         '$(Pipeline.Workspace)\SynapseDWH\Master Data\map_USA\Customer.csv' `
         'https://$(storageAccountName).dfs.core.windows.net/flat-files/map_USA'
+
+- task: PowerShell@2
+  displayName: 'Copy Master Data to AzureBlob'
+  inputs:
+    targetType: 'inline'
+    pwsh: true
+    script: |
+      # connect to Azure using VM
+      azcopy login --identity
 
       # Copy EClassCodes.csv to AzureBlob
       # workaround to exclude EClassCodes as fix (dfs)
@@ -67,11 +114,29 @@ steps:
         '$(Pipeline.Workspace)\SynapseDWH\Master Data\EClassCodes.csv' `
         'https://$(storageAccountName).dfs.core.windows.net/flat-files'
 
+- task: PowerShell@2
+  displayName: 'Copy Master Data to AzureBlob'
+  inputs:
+    targetType: 'inline'
+    pwsh: true
+    script: |
+      # connect to Azure using VM
+      azcopy login --identity
+
       # Copy Master Data Pt1 to AzureBlob
       azcopy copy `
         '$(Pipeline.Workspace)\SynapseDWH\Master Data\*' `
         'https://$(storageAccountName).blob.core.windows.net/flat-files' `
         --exclude-path 'ConfigurableProductCharacteristic.csv;EClassCodes.csv;ProductCalculated.csv;SalesDistrict.csv;CustomerCalculated.csv;ZE_EXQLMAP_DT.csv;SalesDocumentStatuses.csv'
+
+- task: PowerShell@2
+  displayName: 'Copy Master Data to AzureBlob'
+  inputs:
+    targetType: 'inline'
+    pwsh: true
+    script: |
+      # connect to Azure using VM
+      azcopy login --identity
 
       # Copy Master Data Pt2 to AzureBlob
       azcopy copy `
@@ -79,6 +144,15 @@ steps:
         'https://$(storageAccountName).blob.core.windows.net/flat-files' `
         --include-path 'ConfigurableProductCharacteristic.csv;SalesDistrict.csv;CustomerCalculated.csv;ZE_EXQLMAP_DT.csv;SalesDocumentStatuses.csv'
 
+- task: PowerShell@2
+  displayName: 'Copy Master Data to AzureBlob'
+  inputs:
+    targetType: 'inline'
+    pwsh: true
+    script: |
+      # connect to Azure using VM
+      azcopy login --identity
+      
       # Copy ProductCalculated.csv to AzureBlob
       # workaround to exclude ProductCalculated as fix (dfs)
       azcopy copy `
