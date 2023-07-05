@@ -2977,6 +2977,9 @@ GLACCOUNT;FUNCTIONALAREA;TRANSACTIONTYPE;TRADINGPARTNER;CONTIGENCY1;CONTIGENCY2;
 55000130;DT102;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS685000;Delivery costs;FA1100;;;;S_MA;U;;IS
 55000130;DT141;;;;;;;Opex;IS751000D;Outbound freight, customs and duty;DT141;;;;S_MA;U;;IS
 55000130;DT142;;;;;Haulage;Gross Margin;Opex;IS751000D;Outbound freight, customs and duty;DT142;;;;S_MA;U;;IS
+55000140;DT102;;;;;;;Opex;IS756000D;Warehouse and stockyard supplies - outbound logistics ;FA1100;;;;S_MA;U;;IS
+55000140;DT141;;;;;;;Opex;IS756000D;Warehouse and stockyard supplies - outbound logistics ;DT141;;;;S_MA;U;;IS
+55000140;DT142;;;;;;;Opex;IS756000D;Warehouse and stockyard supplies - outbound logistics ;DT142;;;;S_MA;U;;IS
 55000140;DT131;;;;;;;Opex;IS756000D;Warehouse and stockyard supplies - outbound logistics ;DT131;;;;S_MA;U;;IS
 55000150;DT122;;;;;Inbound logistic costs - variable;Gross Margin;Other CoS;IS530000D;Inbound logistic costs;FA1400;;;;S_MA;U;;IS
 55000150;DT121;;;;;;;Other CoS;IS530000D;Inbound logistic costs;FA1300;;;;S_MA;U;;IS
