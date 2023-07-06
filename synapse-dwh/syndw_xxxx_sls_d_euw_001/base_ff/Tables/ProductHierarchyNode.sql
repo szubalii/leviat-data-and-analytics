@@ -8,7 +8,7 @@ CREATE TABLE [base_ff].[ProductHierarchyNode] (
 ,   [t_jobBy]            VARCHAR  (128)
 ,   [t_extractionDtm]   DATETIME
 ,   [t_filePath]        NVARCHAR (1024)
-,   CONSTRAINT [PK_ProductHierarchyNodeMapping] PRIMARY KEY NONCLUSTERED ([MaterialID,ProductHierarchy]) NOT ENFORCED
+,   CONSTRAINT [PK_ProductHierarchyNodeMapping] PRIMARY KEY NONCLUSTERED ([MaterialID],[ProductHierarchy]) NOT ENFORCED
 )
 WITH (
     DISTRIBUTION = REPLICATE,

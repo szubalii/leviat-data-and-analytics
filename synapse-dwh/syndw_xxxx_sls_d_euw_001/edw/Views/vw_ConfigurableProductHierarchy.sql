@@ -1,6 +1,6 @@
 ﻿CREATE VIEW [edw].[vw_ConfigurableProductHierarchy]
 	AS SELECT
-        CONCAT_WS('_',product.[Product],vc.[CharValue]) AS [sk_dim_ConfigurableProductHierarchy]
+        CONCAT_WS('_',product.[Product],COALESCE(map.[ProductHierarchyNew],vc.[CharValue])) AS [sk_dim_ConfigurableProductHierarchy]
         , product.[Product] AS [ProductID]
         , product.[ProductExternalID]
         , pr_text.[ProductName] AS [Product]
@@ -27,7 +27,7 @@
         , product.[BaseUnit]
         , product.[ItemCategoryGroup]
         , product.[NetWeight]
-        , vc.[CharValue] AS [ProductHierarchy]
+        , COALESCE(map.[ProductHierarchyNew],vc.[CharValue]) AS [ProductHierarchy]
         , prodhier.[Product_L1_PillarID]   
         , prodhier.[Product_L2_GroupID]    
         , prodhier.[Product_L3_TypeID]     
@@ -174,6 +174,12 @@
         [base_ff].[ConfigurableProductCharacteristic] AS mcpc
         ON
             vc.[CharacteristicName] = mcpc.[CharacteristicName]
+    LEFT JOIN
+        [base_ff].[ProductHierarchyNode] map
+        ON
+            vc.[ProductID] = map.[ProductID]
+            AND
+            vc.[CharValue] = map.[ProductHierarchyNode]
     WHERE
         mcpc.[CharacteristicCategory] = 'ProductHierarchy'
     GROUP BY
@@ -203,7 +209,7 @@
         , product.[BaseUnit]
         , product.[ItemCategoryGroup]
         , product.[NetWeight]
-        , vc.[CharValue]
+        , COALESCE(map.[ProductHierarchyNew],vc.[CharValue])
         , prodhier.[Product_L1_PillarID]   
         , prodhier.[Product_L2_GroupID]    
         , prodhier.[Product_L3_TypeID]     
