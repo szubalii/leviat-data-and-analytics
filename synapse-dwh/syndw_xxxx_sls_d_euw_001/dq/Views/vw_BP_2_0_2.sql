@@ -2,12 +2,16 @@
   AS  
 
 WITH OrganizationBPName AS(
-SELECT  
-        BP.[OrganizationBPName1]
+SELECT
+        BP.[BusinessPartnerGrouping]
+    ,   BP.[OrganizationBPName1]
 FROM
     [base_s4h_cax].[I_BusinessPartner] BP
-GROUP BY    
-     [OrganizationBPName1]
+WHERE
+    BP.[BusinessPartnerGrouping] = 'Z001'
+GROUP BY
+        BP.[BusinessPartnerGrouping]
+    ,   BP.[OrganizationBPName1]
 HAVING
     COUNT(*)>1)
 SELECT    
@@ -82,6 +86,6 @@ FROM
 INNER JOIN
     [base_s4h_cax].[I_BusinessPartner] BP 
     ON
+        OrganizationBPName.[BusinessPartnerGrouping] = BP.[BusinessPartnerGrouping]
+        AND
         OrganizationBPName.[OrganizationBPName1] = BP.[OrganizationBPName1]
-WHERE
-    BP.[BusinessPartnerGrouping] = 'Z001'

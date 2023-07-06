@@ -83,5 +83,5 @@ WHERE
     AND
     BP.[SearchTerm1] COLLATE SQL_Latin1_General_CP1_CS_AS <> CONCAT_WS(
         '',
-        TRIM(LEFT(REPLACE(BP.[OrganizationBPName1] COLLATE SQL_Latin1_General_CP1_CS_AS,' ',''), 5)),
-        TRIM(LEFT(REPLACE(A.[CityName],' ',''), 5)))
+        TRIM(LEFT( REPLACE(TRANSLATE(BP.[OrganizationBPName1] COLLATE SQL_Latin1_General_CP1_CS_AS,'-,@./:+&#''','          '),' ',''), 5)),
+        TRIM(LEFT(REPLACE(TRANSLATE(A.[CityName],'-,@./:+&#''','          '),' ',''), 5)))
