@@ -625,6 +625,7 @@
     <Build Include="Security\Schemas\base_ff.sql" />
     <Build Include="Security\Schemas\dm_procurement.sql" />
     <Build Include="base_ff\Tables\CurrencyType.sql" />
+    <Build Include="base_ff\Tables\ProductHierarchyNode.sql" />
     <Build Include="edw\Views\vw_CurrencyType.sql" />
     <Build Include="edw\Views\vw_BillingDocumentItem_s4h.sql" />
     <Build Include="edw\Views\vw_BillingDocumentItem_axbi.sql" />
