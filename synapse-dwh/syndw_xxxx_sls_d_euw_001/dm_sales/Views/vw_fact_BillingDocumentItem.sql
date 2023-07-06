@@ -258,7 +258,7 @@ select
                        on dimC.[CountryID] = doc.[CountryID]
              left join [edw].[dim_SalesDocumentType] dimSDT
                        on dimSDT.[SalesDocumentTypeID] = doc.[SalesOrderTypeID]
-             inner join BillDocPrcgElmnt_max_value BDPE
+             left join BillDocPrcgElmnt_max_value BDPE
                        on  doc.BillingDocument = BDPE.BillingDocument
                        and doc.BillingDocumentItem = BDPE.BillingDocumentItem
                        and doc.CurrencyTypeID = BDPE.CurrencyTypeID 
