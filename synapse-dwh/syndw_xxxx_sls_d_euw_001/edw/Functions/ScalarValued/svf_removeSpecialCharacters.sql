@@ -5,14 +5,8 @@
 RETURNS NVARCHAR(255)
 AS
 BEGIN
-DECLARE @outputString NVARCHAR(255)
+    DECLARE @outputString NVARCHAR(255)
     SET @outputString =
-    CASE
-        WHEN PATINDEX('%''%',@listOfSpecialChars)>0
-        THEN
-            REPLACE(TRANSLATE(@outputString,@listOfSpecialChars,REPLICATE(' ',LEN(@listOfSpecialChars)-1)),' ','')
-        ELSE 
-            REPLACE(TRANSLATE(@outputString,@listOfSpecialChars,REPLICATE(' ',LEN(@listOfSpecialChars))),' ','')
-    END
+        REPLACE(TRANSLATE(@inputString,@listOfSpecialChars,REPLICATE(' ',LEN(@listOfSpecialChars))),' ','')
     RETURN @outputString
 END;
