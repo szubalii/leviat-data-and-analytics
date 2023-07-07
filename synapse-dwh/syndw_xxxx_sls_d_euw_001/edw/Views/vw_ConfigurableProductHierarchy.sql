@@ -166,20 +166,20 @@
             product.[ProductType] = type_text.[ProductType]
             AND
             type_text.[Language] = 'E'
-    LEFT JOIN 
-        [edw].[dim_ProductHierarchy] AS prodhier
-        ON
-            vc.[CharValue] = prodhier.[ProductHierarchyNode]
-    LEFT JOIN
-        [base_ff].[ConfigurableProductCharacteristic] AS mcpc
-        ON
-            vc.[CharacteristicName] = mcpc.[CharacteristicName]
     LEFT JOIN
         [base_ff].[ProductHierarchyNode] map
         ON
             vc.[ProductID] = map.[MaterialID]
             AND
             vc.[CharValue] = map.[ProductHierarchy]
+    LEFT JOIN 
+        [edw].[dim_ProductHierarchy] AS prodhier
+        ON
+            COALESCE(map.[ProductHierarchyNew],vc.[CharValue]) = prodhier.[ProductHierarchyNode]
+    LEFT JOIN
+        [base_ff].[ConfigurableProductCharacteristic] AS mcpc
+        ON
+            vc.[CharacteristicName] = mcpc.[CharacteristicName]
     WHERE
         mcpc.[CharacteristicCategory] = 'ProductHierarchy'
     GROUP BY
