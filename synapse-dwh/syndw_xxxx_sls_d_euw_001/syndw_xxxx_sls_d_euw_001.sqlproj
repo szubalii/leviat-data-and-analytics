@@ -1266,6 +1266,7 @@
     <Build Include="dq\Views\vw_BP_2_2_5.sql" />
     <Build Include="dq\Views\vw_BP_2_2_7.sql" />
     <Build Include="dq\Views\vw_BP_2_2_8.sql" />
+    <Build Include="edw\Functions\ScalarValued\svf_removeSpecialCharacters.sql" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PostDeploy Include="Scripts\Post-Deploy\Script.PostDeployment.sql" />
