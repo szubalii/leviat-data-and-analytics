@@ -4586,34 +4586,34 @@
         "entity_name": "CUSTOMERS",
         "base_table_name": "CUSTOMERS",
         "pk_field_names": "COMP, CUSTOMER",
-        "schedule_recurrence": "D"
+        "schedule_recurrence": "M"
       },
       {
         "entity_id": 389,
         "entity_name": "CUSTOMER_SALES",
         "base_table_name": "CUSTOMER_SALES",
         "axbi_date_field_name": "\"\"Inv Date\"\"",
-        "schedule_recurrence": "D"
+        "schedule_recurrence": "M"
       },
       {
         "entity_id": 390,
         "entity_name": "COMPANIES",
         "base_table_name": "COMPANIES",
         "pk_field_names": "COMP",
-        "schedule_recurrence": "D"
+        "schedule_recurrence": "M"
       },
       {
         "entity_id": 391,
         "entity_name": "ITEM_GROUPS",
         "base_table_name": "ITEM_GROUPS",
         "pk_field_names": "COMP, ItemGroup",
-        "schedule_recurrence": "D"
+        "schedule_recurrence": "M"
       },
       {
         "entity_id": 392,
         "entity_name": "ITEMS",
         "base_table_name": "ITEMS",
-        "schedule_recurrence": "D"
+        "schedule_recurrence": "M"
       }
     ]
   },
