@@ -179,7 +179,7 @@
         ON
             vc.[ProductID] = map.[MaterialID]
             AND
-            vc.[CharValue] = map.[ProductHierarchyNode]
+            vc.[CharValue] = map.[ProductHierarchy]
     WHERE
         mcpc.[CharacteristicCategory] = 'ProductHierarchy'
     GROUP BY
