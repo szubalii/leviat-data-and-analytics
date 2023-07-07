@@ -151,6 +151,7 @@ WHERE
        ISNULL(PP.[Commodity], '') = ''
     )
     AND
-    P.IsMarkedForDeletion <> 'X'
-
+    P.IsMarkedForDeletion <> 'X'    
+    AND
+    LEFT([Plant], 2) <> 'CN'
 	
