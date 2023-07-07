@@ -177,7 +177,7 @@
     LEFT JOIN
         [base_ff].[ProductHierarchyNode] map
         ON
-            vc.[ProductID] = map.[ProductID]
+            vc.[ProductID] = map.[MaterialID]
             AND
             vc.[CharValue] = map.[ProductHierarchyNode]
     WHERE

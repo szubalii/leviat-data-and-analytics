@@ -51,6 +51,6 @@ LEFT JOIN
 LEFT JOIN
     [base_ff].[ProductHierarchyNode] map
     ON
-        VC.[ProductID] = map.[ProductID]
+        VC.[ProductID] = map.[MaterialID]
         AND
         VC.[CharValue] = map.[ProductHierarchy]
