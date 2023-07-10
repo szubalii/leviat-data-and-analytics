@@ -349,6 +349,7 @@ BillingDocumentItemBase_axbi_mapped AS (
             ELSE
                 axbi_ItemNoCalc
         END AS [Material]
+    ,   edw.svf_get2PartNaturalKey (Material,SubQ.[PlantID]) AS [sk_ProductPlant]
     ,   SubQ.[LengthInMPer1]
     ,   SubQ.[LengthInM]
     ,   SubQ.[PlantID]
@@ -589,6 +590,7 @@ BillingDocumentItemBase_axbi_mapped AS (
     ,   SubQ.[SalesOrganizationID]
     ,   SubQ.[DistributionChannelID]
     ,   SubQ.[Material]
+    ,   SubQ.[sk_ProductPlant]
     ,   SubQ.[LengthInMPer1]
     ,   SubQ.[LengthInM]
     ,   SubQ.[PlantID]
@@ -679,6 +681,7 @@ BillingDocumentItemBase_axbi_mapped AS (
     ,   [SalesOrganizationID]
     ,   [DistributionChannelID]
     ,   'ZZZDUMMY01'                  AS [Material]
+    ,   edw.svf_get2PartNaturalKey (Material,PlantID) AS [sk_ProductPlant]
     ,   NULL                          AS LengthInMPer1
     ,   NULL                          AS LengthInM
     ,   [PlantID]
@@ -787,6 +790,7 @@ BillingDocumentItemBase_axbi_mapped AS (
         ,   [SalesOrganizationID]
         ,   [DistributionChannelID]
         ,   [Material]
+        ,   [sk_ProductPlant]
         ,   [LengthInMPer1]
         ,   [LengthInM]
         ,   [PlantID]
@@ -880,6 +884,7 @@ SELECT
     ,   [SalesOrganizationID]
     ,   [DistributionChannelID]
     ,   [Material]
+    ,   [sk_ProductPlant]
     ,   [LengthInMPer1]
     ,   [LengthInM]
     ,   [PlantID]
@@ -949,6 +954,7 @@ SELECT
     ,   [SalesOrganizationID]
     ,   [DistributionChannelID]
     ,   [Material]
+    ,   [sk_ProductPlant]
     ,   [LengthInMPer1]
     ,   [LengthInM]
     ,   [PlantID]
@@ -1014,6 +1020,7 @@ SELECT
     ,   [SalesOrganizationID]
     ,   [DistributionChannelID]
     ,   [Material]
+    ,   [sk_ProductPlant]
     ,   [LengthInMPer1]
     ,   [LengthInM]
     ,   [PlantID]

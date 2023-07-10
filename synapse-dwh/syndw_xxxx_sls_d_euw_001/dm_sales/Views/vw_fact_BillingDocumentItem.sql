@@ -59,6 +59,7 @@ select
          , dimDCh.[DistributionChannelID]
          , dimDCh.[DistributionChannel]
          , doc.[Material]
+         , doc.[sk_ProductPlant]
          , [ProductSurrogateKey]
          --, doc.[OriginallyRequestedMaterial]
          --, doc.[InternationalArticleNumber]
@@ -209,6 +210,8 @@ select
                 doc.[SalesDocumentItemCategoryID],
                 COALESCE(BDPE.ZNRV_NetRevenue,0)
           )                                         AS ZNRV_NetRevenue
+         , doc.SDPricingProcedure
+         , doc.PriceListTypeID
          , doc.[t_applicationId]
          , doc.[t_extractionDtm]
     FROM [edw].[fact_BillingDocumentItem] doc
@@ -296,6 +299,7 @@ SELECT [BillingDocument]
       ,[DistributionChannelID]
       ,[DistributionChannel]
       ,[Material]
+      ,[sk_ProductPlant]
       ,[ProductSurrogateKey]
       --,[OriginallyRequestedMaterial]
       --,[InternationalArticleNumber]
@@ -434,6 +438,8 @@ SELECT [BillingDocument]
       ,ZNET_NetValue
       ,REA1_RebateAccrual
       ,ZNRV_NetRevenue
+      ,SDPricingProcedure
+      ,PriceListTypeID
       ,[t_applicationId]
       ,[t_extractionDtm]
   FROM original

@@ -1,6 +1,7 @@
 ﻿CREATE VIEW [dm_sales].[vw_dim_ProductPlant] AS
 SELECT
-        [Product]
+        [sk_ProductPlant]
+    ,   [Product]
     ,   PP.[Plant]
     ,   PP.[PurchasingGroup]
     ,   [CountryOfOrigin]
