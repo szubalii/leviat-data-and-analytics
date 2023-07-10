@@ -1,6 +1,6 @@
 ﻿CREATE VIEW [edw].[vw_ConfigurableProductHierarchy]
 	AS SELECT
-        CONCAT_WS('_',product.[Product],vc.[CharValue]) AS [sk_dim_ConfigurableProductHierarchy]
+        CONCAT_WS('_',product.[Product],COALESCE(map.[new_ProductHierarchyNode],vc.[CharValue])) AS [sk_dim_ConfigurableProductHierarchy]
         , product.[Product] AS [ProductID]
         , product.[ProductExternalID]
         , pr_text.[ProductName] AS [Product]
@@ -27,7 +27,7 @@
         , product.[BaseUnit]
         , product.[ItemCategoryGroup]
         , product.[NetWeight]
-        , vc.[CharValue] AS [ProductHierarchy]
+        , COALESCE(map.[new_ProductHierarchyNode],vc.[CharValue]) AS [ProductHierarchy]
         , prodhier.[Product_L1_PillarID]   
         , prodhier.[Product_L2_GroupID]    
         , prodhier.[Product_L3_TypeID]     
@@ -166,10 +166,16 @@
             product.[ProductType] = type_text.[ProductType]
             AND
             type_text.[Language] = 'E'
+    LEFT JOIN
+        [base_ff].[ProductHierarchyNode] map
+        ON
+            vc.[ProductID] = map.[ProductID]
+            AND
+            vc.[CharValue] = map.[old_ProductHierarchyNode]
     LEFT JOIN 
         [edw].[dim_ProductHierarchy] AS prodhier
         ON
-            vc.[CharValue] = prodhier.[ProductHierarchyNode]
+            COALESCE(map.[new_ProductHierarchyNode],vc.[CharValue]) = prodhier.[ProductHierarchyNode]
     LEFT JOIN
         [base_ff].[ConfigurableProductCharacteristic] AS mcpc
         ON
@@ -203,7 +209,7 @@
         , product.[BaseUnit]
         , product.[ItemCategoryGroup]
         , product.[NetWeight]
-        , vc.[CharValue]
+        , COALESCE(map.[new_ProductHierarchyNode],vc.[CharValue])
         , prodhier.[Product_L1_PillarID]   
         , prodhier.[Product_L2_GroupID]    
         , prodhier.[Product_L3_TypeID]     
