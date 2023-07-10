@@ -39,23 +39,42 @@ CalculatedDelDate_calculation AS (
 )
 ,
 SDSLScheduleLine AS (
-            SELECT
-                 [SalesDocument]
-                ,[SalesDocumentItem]
-                ,MIN([ConfirmedDeliveryDate]) AS [ConfirmedDeliveryDate]
-                ,MIN(GoodsIssueDate) as [GoodsIssueDate]
-                ,SUM([ScheduleLineOrderQuantity]) AS ScheduleLineOrderQuantity
-                ,SUM([ConfdOrderQtyByMatlAvailCheck]) AS ConfdOrderQtyByMatlAvailCheck
-                ,SUM([DeliveredQtyInOrderQtyUnit]) AS DeliveredQtyInOrderQtyUnit
-                ,SUM([DeliveredQuantityInBaseUnit]) AS DeliveredQuantityInBaseUnit
-                ,MIN(ScheduleLine) as ScheduleLine
-            FROM
-                [base_s4h_cax].[I_SalesDocumentScheduleLine] SDSL
-            WHERE
-                [IsConfirmedDelivSchedLine] = 'X'
-            GROUP BY 
-                 [SalesDocument]
-                ,[SalesDocumentItem]
+SELECT
+     SDSL.[SalesDocument]
+    ,SDSL.[SalesDocumentItem]
+    ,MIN(SDSL.[ConfirmedDeliveryDate]) AS [ConfirmedDeliveryDate]
+    ,MIN(SDSL.GoodsIssueDate) AS [GoodsIssueDate]
+    ,MIN(SLS.ScheduleLine) AS [ScheduleLine]
+
+FROM [base_s4h_cax].[I_SalesDocumentScheduleLine] SDSL
+
+LEFT OUTER JOIN 
+    (
+         SELECT 
+             [SalesDocument]
+            ,[SalesDocumentItem]
+            ,[ConfirmedDeliveryDate]
+            ,[GoodsIssueDate]
+            ,[ScheduleLine]
+
+        FROM [base_s4h_cax].[I_SalesDocumentScheduleLine]
+
+        WHERE [IsConfirmedDelivSchedLine] = 'X'
+    ) SLS
+    ON 
+    SDSL.SalesDocument = SLS.SalesDocument
+    AND 
+    SDSL.SalesDocumentItem = SLS.SalesDocumentItem
+    AND 
+    SDSL.ConfirmedDeliveryDate = SLS.ConfirmedDeliveryDate
+    AND 
+    SDSL.GoodsIssueDate = SLS.GoodsIssueDate
+
+WHERE [IsConfirmedDelivSchedLine] = 'X'
+
+GROUP BY 
+     SDSL.[SalesDocument]
+    ,SDSL.[SalesDocumentItem]
 )
 ,
 SalesDocumentItem_EUR AS (
