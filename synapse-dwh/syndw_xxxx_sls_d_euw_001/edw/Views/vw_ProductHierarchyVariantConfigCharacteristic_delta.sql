@@ -28,14 +28,14 @@ SELECT
     , CN.[SalesDocumentItem]
     , VC.[ProductID]
     , VC.[ProductExternalID]
-    , CONCAT_WS('_', VC.[ProductID], COALESCE(map.[ProductHierarchyNew],VC.[CharValue])) AS [ProductSurrogateKey]
+    , CONCAT_WS('_', VC.[ProductID], COALESCE(map.[new_ProductHierarchyNode],VC.[CharValue])) AS [ProductSurrogateKey]
     , VC.[Configuration]
     , VC.[Instance]
     , VC.[LastChangeDate]
     , CN.[CharacteristicName]
     , VC.[CharacteristicDescription]
     , VC.[DecimalValueFrom]
-    , COALESCE(map.[ProductHierarchyNew],VC.[CharValue])                                AS [CharValue]
+    , COALESCE(map.[new_ProductHierarchyNode],VC.[CharValue])                                AS [CharValue]
     , VC.[CharValueDescription]
     , VC.[t_applicationId]
     , VC.[t_extractionDtm]
@@ -51,6 +51,6 @@ LEFT JOIN
 LEFT JOIN
     [base_ff].[ProductHierarchyNode] map
     ON
-        VC.[ProductID] = map.[MaterialID]
+        VC.[ProductID] = map.[ProductID]
         AND
-        VC.[CharValue] = map.[ProductHierarchy]
+        VC.[CharValue] = map.[old_ProductHierarchyNode]
