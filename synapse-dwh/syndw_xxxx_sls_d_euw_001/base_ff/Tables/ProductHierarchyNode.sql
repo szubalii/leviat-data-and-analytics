@@ -1,6 +1,6 @@
 CREATE TABLE [base_ff].[ProductHierarchyNode] (
     [ProductID]                    NVARCHAR(40) NOT NULL
-,   [old_ProductHierarchyNode]     NVARCHAR(18) NOT NULL
+,   [old_ProductHierarchyNode]     NVARCHAR(20) NOT NULL
 ,   [new_ProductHierarchyNode]     NVARCHAR(18) NOT NULL
 ,   [t_applicationId]    VARCHAR   (32)
 ,   [t_jobId]            VARCHAR   (36)
