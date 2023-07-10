@@ -1,7 +1,7 @@
 CREATE TABLE [base_ff].[ProductHierarchyNode] (
-    [ProductID]                    NVARCHAR(64) NOT NULL
-,   [old_ProductHierarchyNode]     NVARCHAR(64) NOT NULL
-,   [new_ProductHierarchyNode]     NVARCHAR(64) NOT NULL
+    [ProductID]                    NVARCHAR(40) NOT NULL
+,   [old_ProductHierarchyNode]     NVARCHAR(18) NOT NULL
+,   [new_ProductHierarchyNode]     NVARCHAR(18) NOT NULL
 ,   [t_applicationId]    VARCHAR   (32)
 ,   [t_jobId]            VARCHAR   (36)
 ,   [t_jobDtm]          DATETIME
