@@ -10,7 +10,7 @@
 					"type": "PipelineReference"
 				},
 				"parameters": {
-					"entity_filter": "entity_id in\n(--base\n24,27,275,26,592,21,35,36,37,38,67,48,584,132,38,185,526,28,83,588,589,590,591,\n--edw\n54,49,62,61,584,353,370,55,421,68,56)",
+					"entity_filter": "entity_id in\n(--base\n588,589,590,591,\n--edw\n370)",
 					"pbi_entity_filter": "WHERE dataset_guid = 'd5002396-c885-4ff7-9c29-c6dfd223a480'"
 				}
 			}
