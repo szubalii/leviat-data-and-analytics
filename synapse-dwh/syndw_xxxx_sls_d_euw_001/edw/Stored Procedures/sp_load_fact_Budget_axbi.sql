@@ -31,7 +31,8 @@ BEGIN
             CLUSTERED COLUMNSTORE INDEX
         )
         AS SELECT 
-            [nk_fact_Budget]
+            [sk_fact_Budget]
+        ,   [nk_fact_Budget]
         ,   [CurrencyTypeID]
         ,   [CurrencyType]
         ,   [CurrencyID]
