@@ -86,7 +86,7 @@ C_SalesDocumentItemDEXBase as (
          , doc.[InternationalArticleNumber]     as [InternationalArticleNumberID]
          , doc.[Batch]                          as [BatchID]
          , doc.[Material]                       as [MaterialID]
-         , edw.svf_get2PartNaturalKey (MaterialID,PlantID) AS [sk_ProductPlant]
+         , edw.svf_get2PartNaturalKey (Material,Plant) AS [sk_ProductPlant]
          , COALESCE(VC.[ProductSurrogateKey],Product.[ProductID]) AS [ProductSurrogateKey]
          , doc.[OriginallyRequestedMaterial]    as [OriginallyRequestedMaterialID]
          , doc.[MaterialSubstitutionReason]     as [MaterialSubstitutionReasonID]

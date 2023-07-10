@@ -606,7 +606,7 @@ BEGIN
         ,   null            as [InternationalArticleNumberID]
         ,   null            as [BatchID]
         ,   [MaterialID]
-        ,   edw.svf_get2PartNaturalKey (MaterialID,PlantID) AS [sk_ProductPlant]
+        ,   edw.svf_get2PartNaturalKey (MaterialID,NULL) AS [sk_ProductPlant]
         ,   [MaterialID]    as [ProductSurrogateKey]
         ,   null            as [OriginallyRequestedMaterialID]
         ,   null            as [MaterialSubstitutionReasonID]
