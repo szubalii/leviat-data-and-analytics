@@ -148,6 +148,16 @@ stages:
 - stage: VALIDATE
   jobs:
   - template: ./jobs-validate.yml
+
+- ${{ if and(parameters.orchestration, eq(variables['isManualRunForSecuredBranches'], 'False')) }}:
+  - stage: TEST
+    jobs:
+    - template: ./jobs-test-solution.yml
+      parameters:
+        solutions:
+        - name: 'orchestration'
+          build: ${{ parameters.orchestration }}
+
 - stage: BUILD
   jobs:
   - template: ./jobs-build-solution.yml
@@ -205,10 +215,10 @@ stages:
     #       deployEnvPrefix: ${{ variables.deployEnvPrefix }}
 
   
-  - ${{ if and(parameters.azure_data_factory, parameters.runDeployment, eq(variables['isManualRunForSecuredBranches'], 'False')) }}:
-    - stage: DEPLOY_2
-      jobs:
-      - template: ./jobs-deploy-solution-helper.yml
-        parameters:
-          folder: azure-data-factory
-          deployEnvPrefix: ${{ variables.deployEnvPrefix }}
+- ${{ if and(parameters.azure_data_factory, parameters.runDeployment, eq(variables['isManualRunForSecuredBranches'], 'False')) }}:
+  - stage: DEPLOY_2
+    jobs:
+    - template: ./jobs-deploy-solution-helper.yml
+      parameters:
+        folder: azure-data-factory
+        deployEnvPrefix: ${{ variables.deployEnvPrefix }}

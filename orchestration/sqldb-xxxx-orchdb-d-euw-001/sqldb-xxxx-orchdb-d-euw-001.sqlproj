@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <Sdk Name="Microsoft.Build.Sql" Version="0.1.9-preview" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -110,14 +111,6 @@
     <CatalogCollation>SQL_Latin1_General_CP1_CI_AS</CatalogCollation>
     <DataRetentionEnabled>False</DataRetentionEnabled>
   </PropertyGroup>
-  <PropertyGroup>
-    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
-    <!-- Default to the v11.0 targets path if the targets file for the current VS version is not found -->
-    <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
-    <VisualStudioVersion Condition="'$(SSDTExists)' == ''">11.0</VisualStudioVersion>
-  </PropertyGroup>
-  <Import Condition="'$(NetCoreBuild)' != 'true' AND '$(SQLDBExtensionsRefPath)' != ''" Project="$(SQLDBExtensionsRefPath)\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
-  <Import Condition="'$(NetCoreBuild)' != 'true' AND '$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
   <ItemGroup>
     <Folder Include="Properties" />
     <Folder Include="dbo\" />
@@ -135,6 +128,19 @@
     <Folder Include="log\Tables\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Scripts\Merge.batch_activity.sql" />
+    <None Include="Scripts\Merge.batch_execution_status.sql" />
+    <None Include="Scripts\Merge.entity.sql" />
+    <None Include="Scripts\Merge.error_category.sql" />
+    <None Include="Scripts\Merge.execution_status.sql" />
+    <None Include="Scripts\Merge.layer_activity.sql" />
+    <None Include="Scripts\Merge.layer.sql" />
+    <None Include="Scripts\Merge.location.sql" />
+    <None Include="Scripts\Merge.pbi_dataset_entity.sql" />
+    <None Include="Scripts\Merge.pbi_dataset.sql" />
+    <None Include="Scripts\Merge.pipeline_execution_status.sql" />
+    <None Include="Scripts\Merge.pipeline.sql" />
+    <None Include="Scripts\Merge.recipient_email_address.sql" />
     <Build Include="Security\MasterKey.sql" />
     <None Include="Security\Database Scoped Credentials\dsc_SAS_OrchDB.sql" />
     <None Include="External resources\External data sources\eds_OrchDB.sql" />

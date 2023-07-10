@@ -1,9 +1,11 @@
 -- Check if temp table already exists, if so drop it
 IF OBJECT_ID('error_category_tmp', 'U') IS NOT NULL
     DROP TABLE error_category_tmp;
+GO
 
 -- Create shallow copy of original table 
 SELECT TOP 0 * INTO error_category_tmp FROM dbo.error_category;
+GO
 
 -- Bulk insert data into temp table (does not work on actual #temp tables)
 BULK INSERT error_category_tmp
@@ -14,6 +16,7 @@ WITH (
 ,   FIELDTERMINATOR = ','
 ,   FORMAT = 'CSV'
 );
+GO
 
 -- Create a temporary table to hold the updated or inserted values
 -- from the OUTPUT clause.  
@@ -49,6 +52,8 @@ OUTPUT
 ,   Inserted.category_nk
 ,   Inserted.category_description
 ,	GETUTCDATE() INTO [log].error_category;
+GO
 
 -- drop temp table
 DROP TABLE error_category_tmp;
+GO

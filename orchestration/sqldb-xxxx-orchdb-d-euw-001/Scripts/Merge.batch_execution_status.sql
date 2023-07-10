@@ -1,9 +1,11 @@
 -- Check if temp table already exists, if so drop it
 IF OBJECT_ID('batch_execution_status_tmp', 'U') IS NOT NULL
     DROP TABLE batch_execution_status_tmp;
+GO
 
 -- Create shallow copy of original table 
 SELECT TOP 0 * INTO batch_execution_status_tmp FROM dbo.batch_execution_status;
+GO
 
 -- Bulk insert data into temp table (does not work on actual #temp tables)
 BULK INSERT batch_execution_status_tmp
@@ -14,6 +16,7 @@ WITH (
 ,   FIELDTERMINATOR = ','
 ,   FORMAT = 'CSV'
 );
+GO
 
 -- Create a temporary table to hold the updated or inserted values
 -- from the OUTPUT clause.  
@@ -49,6 +52,8 @@ OUTPUT
 ,   Inserted.status_nk
 ,   Inserted.status_description 
 ,	GETUTCDATE() INTO [log].batch_execution_status;
+GO
 
 -- drop temp table
 DROP TABLE batch_execution_status_tmp;
+GO

@@ -1,9 +1,11 @@
 -- Check if temp table already exists, if so drop it
 IF OBJECT_ID('layer_tmp', 'U') IS NOT NULL
     DROP TABLE layer_tmp;
+GO
 
 -- Create shallow copy of original table 
 SELECT TOP 0 * INTO layer_tmp FROM dbo.layer;
+GO
 
 -- Bulk insert data into temp table (does not work on actual #temp tables)
 BULK INSERT layer_tmp
@@ -14,6 +16,7 @@ WITH (
 ,   FIELDTERMINATOR = ','
 ,   FORMAT = 'CSV'
 );
+GO
 
 -- Create a temporary table to hold the updated or inserted values
 -- from the OUTPUT clause.  
@@ -54,6 +57,8 @@ OUTPUT
 ,   Inserted.layer_description
 ,	Inserted.location_id
 ,	GETUTCDATE() INTO [log].layer;
+GO
 
 -- drop temp tables
 DROP TABLE layer_tmp;
+GO

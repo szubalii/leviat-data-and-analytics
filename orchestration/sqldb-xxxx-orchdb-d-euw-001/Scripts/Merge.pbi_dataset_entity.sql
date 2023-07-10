@@ -1,9 +1,11 @@
 -- Check if temp table already exists, if so drop it
 IF OBJECT_ID('pbi_dataset_entity_tmp', 'U') IS NOT NULL
     DROP TABLE pbi_dataset_entity_tmp;
+GO
 
 -- Create shallow copy of original table 
 SELECT TOP 0 * INTO pbi_dataset_entity_tmp FROM dbo.pbi_dataset_entity;
+GO
 
 -- Bulk insert data into temp table (does not work on actual #temp tables)
 BULK INSERT pbi_dataset_entity_tmp
@@ -14,6 +16,7 @@ WITH (
 ,   FIELDTERMINATOR = ','
 ,   FORMAT = 'CSV'
 );
+GO
 
 -- Create a temporary table to hold the updated or inserted values
 -- from the OUTPUT clause.  
@@ -70,6 +73,8 @@ OUTPUT
 ,   Inserted.schema_name
 ,   Inserted.entity_name
 ,   GETUTCDATE() INTO [log].pbi_dataset_entity;
+GO
 
 -- drop temp tables
 DROP TABLE pbi_dataset_entity_tmp;
+GO
