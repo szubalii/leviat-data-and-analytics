@@ -9,7 +9,7 @@ BEGIN
     SET @Key =
     CONCAT_WS(
         '¦'
-    ,   @part1
+    ,   trim(@part1)
     ,   @part2
         ) 
 
