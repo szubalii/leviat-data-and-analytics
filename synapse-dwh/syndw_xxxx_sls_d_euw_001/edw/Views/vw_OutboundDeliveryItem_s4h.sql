@@ -38,7 +38,13 @@ CalculatedDelDate_calculation AS (
         CalculatedDelDate_precalculation
 )
 ,
+/*  The following section defines the first ConfirmedDeliveryDate and the first GoodsIssueDate for each combination of SalesDocument and SalesDocumenItem for
+    confirmed schedule lines. We join back to the confirmed schedule lines on the SalesDocument and SalesDocumentItems with the dates to identify the first
+    schedule line that has this combination. In case the dates are picked from different schedule lines this is expected to return NULL. The field ScheduleLine
+    is only used for reference in the dataset view of OTIF.
+*/
 SDSLScheduleLine AS (
+--Get the first dates for each Sales Document-Item combination.
 SELECT
      SDSL.[SalesDocument]
     ,SDSL.[SalesDocumentItem]
@@ -48,6 +54,7 @@ SELECT
 
 FROM [base_s4h_cax].[I_SalesDocumentScheduleLine] SDSL
 
+--Join back for the schedule line.
 LEFT OUTER JOIN 
     (
          SELECT 
