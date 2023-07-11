@@ -125,6 +125,9 @@ stages:
     #   users/<user>/<topic>
     #   hotfix/*** 
     # output variables
+    
+    - checkout: none
+    
     - script: |
         echo system.pullRequest.targetBranch: $(system.pullRequest.targetBranch)
         echo isManualRunForSecuredBranches: $(isManualRunForSecuredBranches)
