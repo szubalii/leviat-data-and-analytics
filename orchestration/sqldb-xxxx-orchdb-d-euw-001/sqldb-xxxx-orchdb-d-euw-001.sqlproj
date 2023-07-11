@@ -128,6 +128,10 @@
     <Folder Include="log\Tables\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Security\MasterKey.sql" />
+    <None Include="Security\Database Scoped Credentials\dsc_SAS_OrchDB.sql" />
+    <None Include="External resources\External data sources\eds_OrchDB.sql" />
+    <None Include="Security\Roles\db_developer.sql" />
     <None Include="Scripts\Merge.batch_activity.sql" />
     <None Include="Scripts\Merge.batch_execution_status.sql" />
     <None Include="Scripts\Merge.entity.sql" />
@@ -141,9 +145,6 @@
     <None Include="Scripts\Merge.pipeline_execution_status.sql" />
     <None Include="Scripts\Merge.pipeline.sql" />
     <None Include="Scripts\Merge.recipient_email_address.sql" />
-    <Build Include="Security\MasterKey.sql" />
-    <None Include="Security\Database Scoped Credentials\dsc_SAS_OrchDB.sql" />
-    <None Include="External resources\External data sources\eds_OrchDB.sql" />
     <Build Include="dbo\Tables\error_category.sql">
       <AnsiNulls>On</AnsiNulls>
       <QuotedIdentifier>On</QuotedIdentifier>
