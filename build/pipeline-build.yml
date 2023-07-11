@@ -107,52 +107,50 @@ variables:
 
 
 stages:
-- stage: VARIABLES
-  condition: eq(1, 2)
-  jobs:
-  - job: Vars
-    pool:
-      name: 'VM'
-      demands:
-      - node.js
-      - VisualStudio
-      - Agent.ComputerName -equals $(VMName)
-    steps:
-    # When this pipeline is run manually, only deployment to personal
-    # environments is allowed, so no TEST, QAS, PROD
-    # Include validation that branch names follow convention:
-    #   main/qas/prod
-    #   feature/<user>/<topic>
-    #   users/<user>/<topic>
-    #   hotfix/*** 
-    # output variables
+# - stage: VARIABLES
+#   jobs:
+#   - job: Vars
+#     pool:
+#       name: 'VM'
+#       demands:
+#       - node.js
+#       - VisualStudio
+#       - Agent.ComputerName -equals $(VMName)
+#     steps:
+#     # When this pipeline is run manually, only deployment to personal
+#     # environments is allowed, so no TEST, QAS, PROD
+#     # Include validation that branch names follow convention:
+#     #   main/qas/prod
+#     #   feature/<user>/<topic>
+#     #   users/<user>/<topic>
+#     #   hotfix/*** 
+#     # output variables
     
-    - checkout: none
+#     - checkout: none
 
-    - script: |
-        echo system.pullRequest.targetBranch: $(system.pullRequest.targetBranch)
-        echo isManualRunForSecuredBranches: $(isManualRunForSecuredBranches)
-        echo user: $(user)
-        echo dataFactoryName: $(dataFactoryName)
-        echo sqlDatabaseName: $(sqlDatabaseName)
-        echo synapseSqlPool: $(synapseSqlPool)
-        echo storageAccountName: $(storageAccountName)
-        echo xuPrefix: $(xuPrefix)
-        echo destination: $(destination)
-        echo Build.Reason: ${{ variables['Build.Reason'] }}
-        echo Build.SourceBranch: ${{ variables['Build.SourceBranch'] }}
-        echo Build.SourceBranchName: ${{ variables['Build.SourceBranchName'] }}
-        echo deployEnvPrefix: ${{ variables.deployEnvPrefix }}
-        echo parameters.synapse_dwh: ${{ parameters.synapse_dwh }}
-        echo parameters.azure_data_factory: ${{ parameters.azure_data_factory }}
-        echo parameters.orchestration: ${{ parameters.orchestration }}
-        echo parameters.xu_config: ${{ parameters.xu_config }}
-        echo parameters.synapse_workspace: ${{ parameters.synapse_workspace }}
-      displayName: Print Variables
-- stage: VALIDATE
-  condition: eq(1, 2)
-  jobs:
-  - template: ./jobs-validate.yml
+#     - script: |
+#         echo system.pullRequest.targetBranch: $(system.pullRequest.targetBranch)
+#         echo isManualRunForSecuredBranches: $(isManualRunForSecuredBranches)
+#         echo user: $(user)
+#         echo dataFactoryName: $(dataFactoryName)
+#         echo sqlDatabaseName: $(sqlDatabaseName)
+#         echo synapseSqlPool: $(synapseSqlPool)
+#         echo storageAccountName: $(storageAccountName)
+#         echo xuPrefix: $(xuPrefix)
+#         echo destination: $(destination)
+#         echo Build.Reason: ${{ variables['Build.Reason'] }}
+#         echo Build.SourceBranch: ${{ variables['Build.SourceBranch'] }}
+#         echo Build.SourceBranchName: ${{ variables['Build.SourceBranchName'] }}
+#         echo deployEnvPrefix: ${{ variables.deployEnvPrefix }}
+#         echo parameters.synapse_dwh: ${{ parameters.synapse_dwh }}
+#         echo parameters.azure_data_factory: ${{ parameters.azure_data_factory }}
+#         echo parameters.orchestration: ${{ parameters.orchestration }}
+#         echo parameters.xu_config: ${{ parameters.xu_config }}
+#         echo parameters.synapse_workspace: ${{ parameters.synapse_workspace }}
+#       displayName: Print Variables
+# - stage: VALIDATE
+#   jobs:
+#   - template: ./jobs-validate.yml
 
 - ${{ if and(parameters.orchestration, eq(variables['isManualRunForSecuredBranches'], 'False')) }}:
   - stage: TEST
