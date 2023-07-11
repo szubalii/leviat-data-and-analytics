@@ -5,20 +5,39 @@ steps:
   displayName: 'Start a mssql-server instance for SQL Server 2022'
 
 - script: |
+    dotnet build "$(System.DefaultWorkingDirectory)/orchestration/TestOrchestrationDB/TestOrchestrationDB.sqlproj" /p:NetCoreBuild=true
+  displayName: 'Build Test sqlproj'
+
+- script: |
     sleep 30
   displayName: 'Wait till SQL Server is ready'
 
 - script: |
     
-  displayName: 'Create Database in SQL Server?'
+  displayName: 'Create Database in SQL Server using entrypoint.sh script?'
 
-- script: |
-    dotnet build "$(System.DefaultWorkingDirectory)/orchestration/TestOrchestrationDB/TestOrchestrationDB.sqlproj" /p:NetCoreBuild=true
-  displayName: 'Deploy sqlproj to docker container'
+- task: SqlDacpacDeploymentOnMachineGroup@0
+  inputs:
+    TaskType: 'dacpac'
+    DacpacFile: '$(System.DefaultWorkingDirectory)/orchestration/TestOrchestrationDB/bin/Debug/TestOrchestrationDB.dacpac'
+    TargetMethod: 'server'
+    ServerName: 'localhost'
+    DatabaseName: 'TestOrchestrationDB'
+    AuthScheme: 'sqlServerAuthentication'
+    SqlUsername: 'sa'
+    SqlPassword: '$(mssql-sa-pwd)'
 
 # - script: |
-#     SqlPackage /Action:Publish /SourceFile:"C:\AdventureWorksLT.dacpac" \
-#     /TargetConnectionString:"Server=tcp:{yourserver}.database.windows.net,1433;Initial Catalog=AdventureWorksLT;Persist Security Info=False;User ID=sqladmin;Password={your_password};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+#     SqlPackage /Action:Publish /SourceFile:"$(System.DefaultWorkingDirectory)/orchestration/TestOrchestrationDB/bin/Debug/TestOrchestrationDB.dacpac" \
+#     /TargetConnectionString:"Server=localhost;Initial Catalog=TestOrchestrationDB;Persist Security Info=False;User ID=sa;Password=$(mssql-sa-pwd);MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+#   displayName: 'Deploy test dacpac to docker container'
+
+
+
+
+
+# - script: |
+#     docker exec -it <container_id|container_name> /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P $(mssql-sa-pwd)
 #   displayName: 'Run TSQLT tests'
 
 
