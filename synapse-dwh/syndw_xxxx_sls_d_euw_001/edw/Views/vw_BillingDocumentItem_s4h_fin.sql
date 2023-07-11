@@ -1103,7 +1103,7 @@ BDwithConditionAmountFreight AS (
     ,   [SalesOrganizationID]
     ,   [DistributionChannelID]
     ,   'ZZZDUMMY02' AS [Material]
-    ,   edw.svf_get2PartNaturalKey (Material,PlantID) AS [sk_ProductPlant]
+    ,   edw.svf_get2PartNaturalKey ('ZZZDUMMY02',PlantID) AS [sk_ProductPlant]
     ,   'ZZZDUMMY02' AS [ProductSurrogateKey]
     ,   [OriginallyRequestedMaterial]
     ,   [InternationalArticleNumber]
