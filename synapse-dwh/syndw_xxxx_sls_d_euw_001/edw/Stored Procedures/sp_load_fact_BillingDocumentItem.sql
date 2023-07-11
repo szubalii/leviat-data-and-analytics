@@ -222,6 +222,8 @@ BEGIN
         ,   [SoldToPartyCalculated]
         ,   [InOutID]
         ,   [axbi_ItemNoCalc]
+        ,   [SDPricingProcedure]
+        ,   [PriceListTypeID]
         ,   [t_applicationId]
         ,   [t_extractionDtm]
         ,   [t_jobId]
@@ -423,6 +425,8 @@ BEGIN
         ,   NULL            AS [axbi_ItemNoCalc]
         ,   [t_applicationId]
         ,   [t_extractionDtm]
+        ,   [SDPricingProcedure]
+        ,   [PriceListTypeID]
         ,   @t_jobId        AS t_jobId
         ,   @t_jobDtm       AS t_jobDtm
         ,   @t_lastActionCd AS t_lastActionCd
@@ -635,6 +639,8 @@ BEGIN
         ,   [SoldToPartyCalculated]
         ,   [InOutID]
         ,   [axbi_ItemNoCalc]
+        ,   [SDPricingProcedure]
+        ,   [PriceListTypeID]
         ,   [t_applicationId]
         ,   [t_extractionDtm]
         ,   [t_jobId]
@@ -839,6 +845,8 @@ BEGIN
         ,   [SoldToPartyCalculated]
         ,   [InOutID]
         ,   [axbi_ItemNoCalc]
+        ,   NULL AS [SDPricingProcedure]
+        ,   NULL AS [PriceListTypeID]
         ,   [t_applicationId]
         ,   [t_extractionDtm]
         ,   @t_jobId         AS t_jobId
