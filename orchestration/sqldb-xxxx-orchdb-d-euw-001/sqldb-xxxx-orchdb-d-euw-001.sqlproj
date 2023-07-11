@@ -131,6 +131,7 @@
     <None Include="Security\MasterKey.sql" />
     <None Include="Security\Database Scoped Credentials\dsc_SAS_OrchDB.sql" />
     <None Include="External resources\External data sources\eds_OrchDB.sql" />
+    <None Include="Scripts\DatabaseScopedCredential.sql" />
     <None Include="Security\Roles\db_developer.sql" />
     <None Include="Scripts\Merge.batch_activity.sql" />
     <None Include="Scripts\Merge.batch_execution_status.sql" />
@@ -349,9 +350,6 @@
       </DefaultValue>
       <Value>$(SqlCmdVar__1)</Value>
     </SqlCmdVariable>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Scripts\DatabaseScopedCredential.sql" />
   </ItemGroup>
   <Target Name="BeforeBuild">
     <Delete Files="$(BaseIntermediateOutputPath)\project.assets.json" />
