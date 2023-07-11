@@ -13,7 +13,7 @@ steps:
   displayName: 'Create Database in SQL Server?'
 
 - script: |
-    dotnet build "$(System.DefaultWorkingDirectory)/orchestration/TestOrchestrationDB/TestOrchestrationDB.sqlproj" /p:NetCoreBuild=true"
+    dotnet build "$(System.DefaultWorkingDirectory)/orchestration/TestOrchestrationDB/TestOrchestrationDB.sqlproj" /p:NetCoreBuild=true
   displayName: 'Deploy sqlproj to docker container'
 
 # - script: |
