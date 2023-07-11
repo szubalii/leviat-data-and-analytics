@@ -22,6 +22,11 @@ steps:
   displayName: 'Deploy Test dacpac to Docker Container'
 
 - script: |
+    sqlpackage /Action:Publish /SourceFile:"$(System.DefaultWorkingDirectory)/orchestration/sqldb-xxxx-orchdb-d-euw-001/bin/Debug/sqldb-xxxx-orchdb-d-euw-001.dacpac" \
+    /TargetConnectionString:"Server=localhost;Initial Catalog=TestOrchestrationDB;User ID=sa;Password=$(mssql-sa-pwd);Encrypt=False;TrustServerCertificate=False;Connection Timeout=30;"
+  displayName: 'Deploy Orch DB dacpac to Docker Container'
+
+- script: |
     sqlcmd -S localhost -d TestOrchestrationDB -U sa -P "$(mssql-sa-pwd)" -Q "EXEC tSQLt.RunAll;"
   displayName: 'Run TSQLT tests'
 
