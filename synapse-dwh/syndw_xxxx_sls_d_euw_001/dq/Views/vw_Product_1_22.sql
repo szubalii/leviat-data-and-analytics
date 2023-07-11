@@ -39,7 +39,8 @@ AND
 
 ) 
 
-SELECT P.[MANDT] 
+SELECT DISTINCT
+     P.[MANDT] 
     ,P.[Product] 
     ,P.[ProductExternalID] 
     ,P.[ProductType] 
@@ -181,8 +182,11 @@ INNER JOIN
 	Products 
 	ON 
 		P.Product = Products.Product
-
-WHERE IsMarkedForDeletion <> 'X'
-
-
-
+INNER JOIN
+    [base_s4h_cax].[I_ProductPlant] PP
+    ON
+        P.Product=PP.Product
+WHERE
+    P.IsMarkedForDeletion <> 'X'
+    AND
+    LEFT(PP.[Plant], 2) <> 'CN'
