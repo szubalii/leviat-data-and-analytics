@@ -20,7 +20,7 @@ jobs:
   - ${{ if eq(solution.build, True) }}:
     - job: TEST_${{ upper(replace(solution.name, '-', '_')) }}
       pool:
-        vmImage: 'windows-latest'
+        vmImage: 'ubuntu-20.04'
       steps:
       - script : |
           echo ${{ solution.name }}: ${{ solution.build }}

@@ -9,28 +9,32 @@ steps:
   displayName: 'Build Test sqlproj'
 
 - script: |
-    sleep 30
+    dotnet tool install -g microsoft.sqlpackage
+  displayName: 'Install sqlpackage'
+
+- script: |
+    sleep 20
   displayName: 'Wait till SQL Server is ready'
 
 - script: |
     
   displayName: 'Create Database in SQL Server using entrypoint.sh script?'
 
-- task: SqlDacpacDeploymentOnMachineGroup@0
-  inputs:
-    TaskType: 'dacpac'
-    DacpacFile: '$(System.DefaultWorkingDirectory)/orchestration/TestOrchestrationDB/bin/Debug/TestOrchestrationDB.dacpac'
-    TargetMethod: 'server'
-    ServerName: 'localhost'
-    DatabaseName: 'TestOrchestrationDB'
-    AuthScheme: 'sqlServerAuthentication'
-    SqlUsername: 'sa'
-    SqlPassword: '$(mssql-sa-pwd)'
+# - task: SqlDacpacDeploymentOnMachineGroup@0
+#   inputs:
+#     TaskType: 'dacpac'
+#     DacpacFile: '$(System.DefaultWorkingDirectory)/orchestration/TestOrchestrationDB/bin/Debug/TestOrchestrationDB.dacpac'
+#     TargetMethod: 'server'
+#     ServerName: 'localhost'
+#     DatabaseName: 'TestOrchestrationDB'
+#     AuthScheme: 'sqlServerAuthentication'
+#     SqlUsername: 'sa'
+#     SqlPassword: '$(mssql-sa-pwd)'
 
-# - script: |
-#     SqlPackage /Action:Publish /SourceFile:"$(System.DefaultWorkingDirectory)/orchestration/TestOrchestrationDB/bin/Debug/TestOrchestrationDB.dacpac" \
-#     /TargetConnectionString:"Server=localhost;Initial Catalog=TestOrchestrationDB;User ID=sa;Password=$(mssql-sa-pwd);Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
-#   displayName: 'Deploy test dacpac to docker container'
+- script: |
+    SqlPackage /Action:Publish /SourceFile:"$(System.DefaultWorkingDirectory)/orchestration/TestOrchestrationDB/bin/Debug/TestOrchestrationDB.dacpac" \
+    /TargetConnectionString:"Server=localhost;Initial Catalog=TestOrchestrationDB;User ID=sa;Password=$(mssql-sa-pwd);Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+  displayName: 'Deploy test dacpac to docker container'
 
 
 
