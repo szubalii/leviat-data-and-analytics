@@ -8,41 +8,22 @@ steps:
     dotnet build "$(System.DefaultWorkingDirectory)/orchestration/TestOrchestrationDB/TestOrchestrationDB.sqlproj" /p:NetCoreBuild=true
   displayName: 'Build Test sqlproj'
 
-# - script: |
-#     dotnet tool install -g microsoft.sqlpackage
-#   displayName: 'Install sqlpackage'
-
 - script: |
     sleep 10
   displayName: 'Wait till SQL Server is ready'
 
-- script: |
+# - script: |
     
-  displayName: 'Create Database in SQL Server using entrypoint.sh script?'
-
-# - task: SqlDacpacDeploymentOnMachineGroup@0
-#   inputs:
-#     TaskType: 'dacpac'
-#     DacpacFile: '$(System.DefaultWorkingDirectory)/orchestration/TestOrchestrationDB/bin/Debug/TestOrchestrationDB.dacpac'
-#     TargetMethod: 'server'
-#     ServerName: 'localhost'
-#     DatabaseName: 'TestOrchestrationDB'
-#     AuthScheme: 'sqlServerAuthentication'
-#     SqlUsername: 'sa'
-#     SqlPassword: '$(mssql-sa-pwd)'
+#   displayName: 'Create Database in SQL Server using entrypoint.sh script?'
 
 - script: |
     sqlpackage /Action:Publish /SourceFile:"$(System.DefaultWorkingDirectory)/orchestration/TestOrchestrationDB/bin/Debug/TestOrchestrationDB.dacpac" \
     /TargetConnectionString:"Server=localhost;Initial Catalog=TestOrchestrationDB;User ID=sa;Password=$(mssql-sa-pwd);Encrypt=False;TrustServerCertificate=False;Connection Timeout=30;"
-  displayName: 'Deploy test dacpac to docker container'
+  displayName: 'Deploy Test dacpac to Docker Container'
 
-
-
-
-
-# - script: |
-#     docker exec -it <container_id|container_name> /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P $(mssql-sa-pwd)
-#   displayName: 'Run TSQLT tests'
+- script: |
+    sqlcmd -S localhost\TestOrchestrationDB -U sa -P $(mssql-sa-pwd) -q "EXEC tSQLt.RunAll;"
+  displayName: 'Run TSQLT tests'
 
 
 # Cleaning existing deployments...
