@@ -328,7 +328,7 @@
     <Build Include="dbo\Views\vw_delta_entity_activity_batch_ids.sql" />
   </ItemGroup>
   <ItemGroup>
-    <PostDeploy Include="Scripts\Script.PostDeployment.sql" />
+    <PostDeploy  Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' " Include="Scripts\Script.PostDeployment.sql" />
   </ItemGroup>
   <Import Condition="'$(NetCoreBuild)' == 'true'" Project="$(NETCoreTargetsPath)\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
   <ItemGroup>
