@@ -31,6 +31,9 @@ steps:
     sqlcmd -S localhost -d TestOrchestrationDB -U sa -P "$(mssql-sa-pwd)" -i "$(System.DefaultWorkingDirectory)/orchestration/Scripts/RunTests.sql" -o "$(System.DefaultWorkingDirectory)/orchestration/TestOrchestrationDB/bin/Debug/TEST-Results.xml"
   displayName: 'Run TSQLT tests'
 
+- script: |
+    cat "$(System.DefaultWorkingDirectory)/orchestration/TestOrchestrationDB/bin/Debug/TEST-Results.xml"
+
 - task: PublishTestResults@2
   inputs:
     testResultsFormat: 'JUnit'
