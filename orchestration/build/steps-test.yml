@@ -22,7 +22,7 @@ steps:
   displayName: 'Deploy Test dacpac to Docker Container'
 
 - script: |
-    sqlcmd -S localhost -d TestOrchestrationDB -U sa -P $(mssql-sa-pwd) -q "EXEC tSQLt.RunAll;"
+    sqlcmd -S localhost -U sa -P $(mssql-sa-pwd) -q "EXEC tSQLt.RunAll;"
   displayName: 'Run TSQLT tests'
 
 
