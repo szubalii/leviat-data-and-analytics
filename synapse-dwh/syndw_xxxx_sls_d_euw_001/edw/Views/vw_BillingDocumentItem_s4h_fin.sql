@@ -1076,7 +1076,9 @@ BDwithConditionAmountFreight AS (
     Generate additional records for documents that consist of [MaterialTypeID] = 'ZSER' or 'ZVER' only
 */
     SELECT
-        BDIwithMatType.[nk_fact_BillingDocumentItem]
+        edw.svf_getNaturalKey (BDIwithMatType.[BillingDocument]
+                              ,STUFF(BDIwithMatType.[BillingDocumentItem], 1, 1, 'Z') + '0'
+                              ,BDIwithMatType.[CurrencyTypeID]) AS [nk_fact_BillingDocumentItem]
     ,   BDIwithMatType.[BillingDocument]
     ,   STUFF(BDIwithMatType.[BillingDocumentItem], 1, 1, 'Z') + '0' AS [BillingDocumentItem]
     ,   NULL AS [MaterialTypeID] --MPS 2021/11/04 MaterialTypeID is not used in output but required for UNION
