@@ -8,9 +8,9 @@ steps:
     dotnet build "$(System.DefaultWorkingDirectory)/orchestration/TestOrchestrationDB/TestOrchestrationDB.sqlproj" /p:NetCoreBuild=true
   displayName: 'Build Test sqlproj'
 
-- script: |
-    dotnet tool install -g microsoft.sqlpackage
-  displayName: 'Install sqlpackage'
+# - script: |
+#     dotnet tool install -g microsoft.sqlpackage
+#   displayName: 'Install sqlpackage'
 
 - script: |
     sleep 20
@@ -32,7 +32,7 @@ steps:
 #     SqlPassword: '$(mssql-sa-pwd)'
 
 - script: |
-    SqlPackage /Action:Publish /SourceFile:"$(System.DefaultWorkingDirectory)/orchestration/TestOrchestrationDB/bin/Debug/TestOrchestrationDB.dacpac" \
+    sqlpackage /Action:Publish /SourceFile:"$(System.DefaultWorkingDirectory)/orchestration/TestOrchestrationDB/bin/Debug/TestOrchestrationDB.dacpac" \
     /TargetConnectionString:"Server=localhost;Initial Catalog=TestOrchestrationDB;User ID=sa;Password=$(mssql-sa-pwd);Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
   displayName: 'Deploy test dacpac to docker container'
 
