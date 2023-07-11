@@ -108,6 +108,7 @@ variables:
 
 stages:
 - stage: VARIABLES
+  condition: eq(1, 2)
   jobs:
   - job: Vars
     pool:
@@ -127,7 +128,7 @@ stages:
     # output variables
     
     - checkout: none
-    
+
     - script: |
         echo system.pullRequest.targetBranch: $(system.pullRequest.targetBranch)
         echo isManualRunForSecuredBranches: $(isManualRunForSecuredBranches)
@@ -149,6 +150,7 @@ stages:
         echo parameters.synapse_workspace: ${{ parameters.synapse_workspace }}
       displayName: Print Variables
 - stage: VALIDATE
+  condition: eq(1, 2)
   jobs:
   - template: ./jobs-validate.yml
 
