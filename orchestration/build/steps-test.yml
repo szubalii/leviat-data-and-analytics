@@ -27,9 +27,14 @@ steps:
   displayName: 'Deploy Orch DB dacpac to Docker Container'
 
 - script: |
-    sqlcmd -S localhost -d TestOrchestrationDB -U sa -P "$(mssql-sa-pwd)" -Q "EXEC tSQLt.RunAll;"
+    sqlcmd -S localhost -d TestOrchestrationDB -U sa -P "$(mssql-sa-pwd)" -Q "EXEC tSQLt.RunAll; EXEC tSQLt.XmlResultFormatter;" -o "$(System.DefaultWorkingDirectory)/orchestration/TestOrchestrationDB/bin/Debug/TEST-Results.xml"
   displayName: 'Run TSQLT tests'
 
+- task: PublishTestResults@2
+  inputs:
+    testResultsFormat: 'JUnit'
+    testResultsFiles: '**/TEST-*.xml'
+    failTaskOnFailedTests: true
 
 # Cleaning existing deployments...
 #     > docker ps -q -a --filter label=source=sqldbproject-testorchestrationdb
