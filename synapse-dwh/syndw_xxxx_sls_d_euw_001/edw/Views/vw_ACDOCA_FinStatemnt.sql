@@ -12,6 +12,7 @@ AS (
       ,[FinStatementHierarchyLevelVal]
       ,[FinStatementItemDescription]
     FROM [edw].[dim_FinancialStatementItem]
+    --Sales Margin
     WHERE FinancialStatementItem IN ('9')
 ),
 L2 
@@ -28,7 +29,7 @@ AS (
       ,L1.[FinancialStatementItem] AS Level1
       ,L1.[FinStatementItemDescription] AS L1Description
     FROM [edw].[dim_FinancialStatementItem] FSI
-    JOIN L1 
+    INNER JOIN L1 
         ON FSI.ParentNode = L1.HierarchyNode
 ),
 L3 
@@ -49,7 +50,7 @@ AS  (
       ,L2.[FinancialStatementItem] AS Level2
       ,L2.[FinStatementItemDescription] AS L2Description
     FROM [edw].[dim_FinancialStatementItem] FSI
-    JOIN L2 
+    INNER JOIN L2 
         ON FSI.ParentNode = L2.HierarchyNode
     LEFT JOIN [edw].[dim_FinancialStatementHierarchy] FSH
         ON FSI.FinancialStatementItem = FSH.FinancialStatementItem

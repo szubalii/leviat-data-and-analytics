@@ -5727,7 +5727,7 @@
         "sproc_name": "sp_materialize_view",
         "source_view_name": "vw_ACDOCA_FinStatemnt",
         "dest_table_name": "fact_ACDOCA_FinStatemnt",
-        "execution_order": 0,
+        "execution_order": 2,
         "schedule_recurrence": "D"
       }
     ]

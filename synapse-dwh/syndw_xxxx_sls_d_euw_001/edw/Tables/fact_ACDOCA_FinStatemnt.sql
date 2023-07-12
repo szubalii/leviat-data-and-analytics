@@ -19,6 +19,5 @@
     [t_jobBy]                               NVARCHAR(128)
 )
     WITH
-        (
-        DISTRIBUTION = REPLICATE, HEAP )
+        (HEAP)
 GO
