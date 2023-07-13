@@ -6097,7 +6097,7 @@
       {
         "entity_id": 606,
         "entity_name": "Supplier",
-        "source_view_name": "vw_dim_Supplier",
+        "source_view_name": "vw_dim_Supplier_report",
         "execution_order": 1,
         "schedule_recurrence": "M"
       },
@@ -6111,7 +6111,7 @@
       {
         "entity_id": 608,
         "entity_name": "Part",
-        "source_view_name": "vw_dim_Product",
+        "source_view_name": "vw_dim_Product_report",
         "execution_order": 0,
         "schedule_recurrence": "M"
       }

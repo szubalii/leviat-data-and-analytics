@@ -596,9 +596,11 @@
     <Build Include="dm_procurement\Views\vw_dim_Invoice.sql" />
     <Build Include="dm_procurement\Views\vw_dim_Invoice_LastMonth.sql" />
     <Build Include="dm_procurement\Views\vw_dim_Product.sql" />
+    <Build Include="dm_procurement\Views\vw_dim_Product_report.sql" />
     <Build Include="dm_procurement\Views\vw_dim_PurchaseOrder.sql" />
     <Build Include="dm_procurement\Views\vw_dim_PurchaseOrder_LastMonth.sql" />
     <Build Include="dm_procurement\Views\vw_dim_Supplier.sql" />
+    <Build Include="dm_procurement\Views\vw_dim_Supplier_report.sql" />
     <Build Include="dm_procurement\Views\vw_dim_User.sql" />
     <Build Include="edw\Tables\dim_MaterialGroup.sql" />
     <Build Include="Security\Schemas\map_AXBI.sql" />
