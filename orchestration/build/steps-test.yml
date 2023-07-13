@@ -26,6 +26,16 @@ steps:
     /TargetConnectionString:"Server=localhost;Initial Catalog=TestOrchestrationDB;User ID=sa;Password=$(mssql-sa-pwd);Encrypt=False;TrustServerCertificate=False;Connection Timeout=30;"
   displayName: 'Deploy Orch DB dacpac to Docker Container'
 
+# User powershell instead of direct sqlcmd due to issues in fixed length of output of xml results
+# Also, xml output has incorrect headers by default which need to be removed which is done using powershell
+- script: |
+    sqlcmd \
+      -S localhost \
+      -d TestOrchestrationDB \
+      -U sa \
+      -P "$(mssql-sa-pwd)" \
+      -Q "EXEC tSQLt.RunAll;" \
+
 - task: PowerShell@2
   displayName: 'Run TSQLT tests'
   inputs:
@@ -33,7 +43,7 @@ steps:
     pwsh: true
     script: |
       $connectionString = "Data Source=localhost;User ID=sa;Password=$(mssql-sa-pwd);Initial Catalog=TestOrchestrationDB";
-      $sqlCommand = 'EXEC tSQLt.RunAll; EXEC tSQLt.XmlResultFormatter';
+      $sqlCommand = 'EXEC tSQLt.XmlResultFormatter';
       $connection = new-object system.data.SqlClient.SQLConnection($connectionString);
       $command = new-object system.data.sqlclient.sqlcommand($sqlCommand,$connection);
       $connection.Open();
@@ -43,21 +53,13 @@ steps:
       $connection.Close();
       $dataset.Tables[0].Rows[0].ItemArray[0] | Out-File "$(System.DefaultWorkingDirectory)/orchestration/TestOrchestrationDB/bin/Debug/TEST-Results.xml"
 
-# - script: |
-#     sqlcmd \
-#       -S localhost \
-#       -d TestOrchestrationDB \
-#       -U sa \
-#       -P "$(mssql-sa-pwd)" \
-#       -y 8000 # sets the length of the xml result set to 8000, up from 256 \
-#       -Q "EXEC tSQLt.RunAll;EXEC tSQLt.XmlResultFormatter;" \
-#       -o "$(System.DefaultWorkingDirectory)/orchestration/TestOrchestrationDB/bin/Debug/TEST-Results.xml"
+
     
 
   # sqlcmd -S localhost -d TestOrchestrationDB -U sa -P "$(mssql-sa-pwd)" -i "EXEC tSQLt.XmlResultFormatter;;"$(System.DefaultWorkingDirectory)/orchestration/Scripts/RunTests.sql" "
 
-- script: |
-    cat "$(System.DefaultWorkingDirectory)/orchestration/TestOrchestrationDB/bin/Debug/TEST-Results.xml"
+# - script: |
+#     cat "$(System.DefaultWorkingDirectory)/orchestration/TestOrchestrationDB/bin/Debug/TEST-Results.xml"
 
 - task: PublishTestResults@2
   inputs:
