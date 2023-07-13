@@ -32,7 +32,7 @@ steps:
       -d TestOrchestrationDB \
       -U sa \
       -P "$(mssql-sa-pwd)" \
-      -y 0 # sets the length of the xml result set to unlimited, up from 256 \
+      -y 8000 # sets the length of the xml result set to 8000, up from 256 \
       -Q "EXEC tSQLt.RunAll;EXEC tSQLt.XmlResultFormatter;" \
       -o "$(System.DefaultWorkingDirectory)/orchestration/TestOrchestrationDB/bin/Debug/TEST-Results.xml"
     
