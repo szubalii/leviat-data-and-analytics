@@ -38,9 +38,9 @@ steps:
       $connection.Open();
       $adapter = New-Object System.Data.sqlclient.sqlDataAdapter $command;
       $dataset = New-Object System.Data.DataSet;
-      $adapter.Fill($dataSet) | Out-Null;
+      $adapter.Fill($dataset) | Out-Null;
       $connection.Close();
-      $dataSet.Tables[0].Rows[0].ItemArray[0] | Out-File "$(System.DefaultWorkingDirectory)/orchestration/TestOrchestrationDB/bin/Debug/TEST-Results.xml"
+      $dataset.Tables[0].Rows[0].ItemArray[0] | Out-File "$(System.DefaultWorkingDirectory)/orchestration/TestOrchestrationDB/bin/Debug/TEST-Results.xml"
 
 # - script: |
 #     sqlcmd \
