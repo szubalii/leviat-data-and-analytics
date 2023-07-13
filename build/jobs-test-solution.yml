@@ -19,6 +19,9 @@ jobs:
   # so use format ${{ if eq(solution.build, True) }}
   - ${{ if eq(solution.build, True) }}:
     - job: TEST_${{ upper(replace(solution.name, '-', '_')) }}
+      variables:
+      - name: buildConfiguration
+        value: 'Debug'
       pool:
         vmImage: 'ubuntu-20.04'
       steps:

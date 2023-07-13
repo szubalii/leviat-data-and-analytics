@@ -1,9 +1,11 @@
 trigger: none # triggered by PR
 
-extends:
-  template: ../../build/stages-build-deploy.yml
-  parameters:
-    folder: orchestration
-    solution: Orchestration
-    hasVariables: true
-    env: test
+jobs:
+  job: TEST_ORCH_DB
+    variables:
+    - name: buildConfiguration
+      value: 'Debug'
+    pool:
+      vmImage: 'ubuntu-20.04'
+    steps:
+    - template: ./steps-test.yml

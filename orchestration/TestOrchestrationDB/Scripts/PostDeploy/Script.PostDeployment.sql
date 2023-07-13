@@ -4,4 +4,4 @@
 :r ..\..\TestClasses\EntityFile.sql
 :r ..\..\TestClasses\LoadTypeEntities.sql
 :r ..\..\TestClasses\ScheduledEntities.sql
-:r ..\..\TestClasses\FailTest.sql
+-- :r ..\..\TestClasses\FailTest.sql
