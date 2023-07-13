@@ -27,7 +27,15 @@ steps:
   displayName: 'Deploy Orch DB dacpac to Docker Container'
 
 - script: |
-    sqlcmd -S localhost -d TestOrchestrationDB -U sa -P "$(mssql-sa-pwd)" -Q "EXEC tSQLt.RunAll;EXEC tSQLt.XmlResultFormatter;" -o "$(System.DefaultWorkingDirectory)/orchestration/TestOrchestrationDB/bin/Debug/TEST-Results.xml"
+    sqlcmd \
+      -S localhost \
+      -d TestOrchestrationDB \
+      -U sa \
+      -P "$(mssql-sa-pwd)" \
+      -Q "EXEC tSQLt.RunAll;EXEC tSQLt.XmlResultFormatter;" \
+        | grep -w "<testsuites>" \ # make sure you only get the xml and not the noise around it
+      -o "$(System.DefaultWorkingDirectory)/orchestration/TestOrchestrationDB/bin/Debug/TEST-Results.xml"
+      -y0 # sets the length of the xml result set to unlimited, up from 256
     
   displayName: 'Run TSQLT tests'
 
