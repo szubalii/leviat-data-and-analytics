@@ -3,7 +3,7 @@ trigger: none # triggered by PR
 jobs:
 - job: TEST_ORCH_DB
   variables:
-  - template: ./variables-test.yml
+  - template: ../../build/variables-test.yml
   - name: buildConfiguration
     value: 'Debug'
   
