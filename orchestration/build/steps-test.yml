@@ -34,8 +34,7 @@ steps:
       -P "$(mssql-sa-pwd)" \
       -y0 # sets the length of the xml result set to unlimited, up from 256 \
       -Q "EXEC tSQLt.RunAll;EXEC tSQLt.XmlResultFormatter;" \
-        | grep -w "<testsuites>" # make sure you only get the xml and not the noise around it \
-        | tee "$(System.DefaultWorkingDirectory)/orchestration/TestOrchestrationDB/bin/Debug/TEST-Results.xml"
+      -o "$(System.DefaultWorkingDirectory)/orchestration/TestOrchestrationDB/bin/Debug/TEST-Results.xml"
     
   displayName: 'Run TSQLT tests'
 
