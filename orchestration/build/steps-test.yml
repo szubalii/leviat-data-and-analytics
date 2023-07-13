@@ -26,15 +26,31 @@ steps:
     /TargetConnectionString:"Server=localhost;Initial Catalog=TestOrchestrationDB;User ID=sa;Password=$(mssql-sa-pwd);Encrypt=False;TrustServerCertificate=False;Connection Timeout=30;"
   displayName: 'Deploy Orch DB dacpac to Docker Container'
 
-- script: |
-    sqlcmd \
-      -S localhost \
-      -d TestOrchestrationDB \
-      -U sa \
-      -P "$(mssql-sa-pwd)" \
-      -y 8000 # sets the length of the xml result set to 8000, up from 256 \
-      -Q "EXEC tSQLt.RunAll;EXEC tSQLt.XmlResultFormatter;" \
-      -o "$(System.DefaultWorkingDirectory)/orchestration/TestOrchestrationDB/bin/Debug/TEST-Results.xml"
+- task: PowerShell@2
+  displayName: 'Copy Master Data to AzureBlob (excl. entity.csv)'
+  inputs:
+    targetType: 'inline'
+    pwsh: true
+    script: |
+      $connectionString = "Data Source=localhost;User=sa;Password=$(mssql-sa-pwd);Initial Catalog=TestOrchestrationDB";
+      $connection = new-object system.data.SqlClient.SQLConnection($connectionString);
+      $command = new-object system.data.sqlclient.sqlcommand($sqlCommand,$connection);
+      $connection.Open();
+      $adapter = New-Object System.Data.sqlclient.sqlDataAdapter $command;
+      $dataset = New-Object System.Data.DataSet;
+      $adapter.Fill($dataSet) | Out-Null;
+      $connection.Close();
+      $dataSet.Tables[0].Rows[0].ItemArray[0] | Out-File "$(System.DefaultWorkingDirectory)/orchestration/TestOrchestrationDB/bin/Debug/TEST-Results.xml"
+
+# - script: |
+#     sqlcmd \
+#       -S localhost \
+#       -d TestOrchestrationDB \
+#       -U sa \
+#       -P "$(mssql-sa-pwd)" \
+#       -y 8000 # sets the length of the xml result set to 8000, up from 256 \
+#       -Q "EXEC tSQLt.RunAll;EXEC tSQLt.XmlResultFormatter;" \
+#       -o "$(System.DefaultWorkingDirectory)/orchestration/TestOrchestrationDB/bin/Debug/TEST-Results.xml"
     
   displayName: 'Run TSQLT tests'
 
