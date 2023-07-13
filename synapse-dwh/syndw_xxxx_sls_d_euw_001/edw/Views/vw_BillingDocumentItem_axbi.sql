@@ -870,11 +870,7 @@ BillingDocumentItemBase_axbi_mapped AS (
 */
 
 SELECT 
-        CONCAT_WS(
-             '¦',
-             edw.svf_getNaturalKey (BillingDocument,BillingDocumentItem,CT.CurrencyTypeID),
-             row_number() over (partition by BillingDocument order by BillingDocumentItem)
-             ) as nk_fact_BillingDocumentItem
+        [edw].svf_get4PartNaturalKey(BillingDocument,BillingDocumentItem,CT.CurrencyTypeID, row_number() over (partition by BillingDocument order by BillingDocumentItem)) as nk_fact_BillingDocumentItem
     ,   [BillingDocument]
     ,   [BillingDocumentItem]
     ,   [ReturnItemProcessingType]
@@ -944,11 +940,7 @@ UNION ALL
 */
 
 SELECT 
-        CONCAT_WS(
-             '¦',
-             edw.svf_getNaturalKey (BillingDocument,BillingDocumentItem,CT.CurrencyTypeID),
-             row_number() over (partition by BillingDocument order by BillingDocumentItem)
-             ) as nk_fact_BillingDocumentItem
+        [edw].svf_get4PartNaturalKey(BillingDocument,BillingDocumentItem,CT.CurrencyTypeID, row_number() over (partition by BillingDocument order by BillingDocumentItem)) as nk_fact_BillingDocumentItem
     ,   [BillingDocument]
     ,   [BillingDocumentItem]
     ,   [ReturnItemProcessingType]
@@ -1014,11 +1006,7 @@ JOIN
 UNION ALL
 
 SELECT 
-        CONCAT_WS(
-             '¦',
-             edw.svf_getNaturalKey (ExchangeRateUSD.BillingDocument,ExchangeRateUSD.BillingDocumentItem,CT.CurrencyTypeID),
-             row_number() over (partition by ExchangeRateUSD.BillingDocument order by ExchangeRateUSD.BillingDocumentItem)
-             ) as nk_fact_BillingDocumentItem
+        [edw].svf_get4PartNaturalKey(ExchangeRateUSD.BillingDocument,ExchangeRateUSD.BillingDocumentItem,CT.CurrencyTypeID, row_number() over (partition by ExchangeRateUSD.BillingDocument order by ExchangeRateUSD.BillingDocumentItem)) as nk_fact_BillingDocumentItem
     ,   ExchangeRateUSD.[BillingDocument]
     ,   ExchangeRateUSD.[BillingDocumentItem]
     ,   [ReturnItemProcessingType]

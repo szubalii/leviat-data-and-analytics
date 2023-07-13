@@ -1,7 +1,7 @@
 ﻿CREATE VIEW [edw].[vw_ProductPlant]
 AS
 SELECT
-        edw.svf_get2PartNaturalKey (Product,Plant)  AS [sk_ProductPlant]
+        edw.svf_get2PartNaturalKey (Product,Plant)  AS [nk_ProductPlant]
     ,   [Product]
     ,   [Plant]
     ,   [PurchasingGroup]
