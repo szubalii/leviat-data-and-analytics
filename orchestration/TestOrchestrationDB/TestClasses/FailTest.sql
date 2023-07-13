@@ -11,9 +11,9 @@ BEGIN
   -- Assemble: Fake Table
 
   -- Act: 
-  SELECT *
+  SELECT [test]
   INTO actual
-  FROM ( SELECT 1 ) a
+  FROM ( SELECT 1 AS [test] ) a
 
   -- Assert:
   EXEC tSQLt.AssertEmptyTable 'actual';
