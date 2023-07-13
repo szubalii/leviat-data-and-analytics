@@ -32,7 +32,7 @@ steps:
   displayName: 'Run TSQLT tests'
 
 - script: |
-    less "$(System.DefaultWorkingDirectory)/orchestration/TestOrchestrationDB/bin/Debug/TEST-Results.xml"
+    xmllint --format "$(System.DefaultWorkingDirectory)/orchestration/TestOrchestrationDB/bin/Debug/TEST-Results.xml"
 
 - task: PublishTestResults@2
   inputs:
