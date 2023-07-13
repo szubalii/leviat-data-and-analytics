@@ -32,7 +32,7 @@ steps:
     targetType: 'inline'
     pwsh: true
     script: |
-      $connectionString = "Data Source=localhost;User=sa;Password=$(mssql-sa-pwd);Initial Catalog=TestOrchestrationDB";
+      $connectionString = "Data Source=localhost;User=sa;Password='$(mssql-sa-pwd)';Initial Catalog=TestOrchestrationDB";
       $connection = new-object system.data.SqlClient.SQLConnection($connectionString);
       $command = new-object system.data.sqlclient.sqlcommand($sqlCommand,$connection);
       $connection.Open();
