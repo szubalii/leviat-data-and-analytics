@@ -1,11 +1,11 @@
 trigger: none # triggered by PR
 
 jobs:
-  job: TEST_ORCH_DB
-    variables:
-    - name: buildConfiguration
-      value: 'Debug'
-    pool:
-      vmImage: 'ubuntu-20.04'
-    steps:
-    - template: ./steps-test.yml
+- job: TEST_ORCH_DB
+  variables:
+  - name: buildConfiguration
+    value: 'Debug'
+  pool:
+    vmImage: 'ubuntu-20.04'
+  steps:
+  - template: ./steps-test.yml
