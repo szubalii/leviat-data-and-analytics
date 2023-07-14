@@ -6069,7 +6069,7 @@
       {
         "entity_id": 602,
         "entity_name": "CostCenter",
-        "source_view_name": "vw_dim_CostCenter",
+        "source_view_name": "vw_dim_CostCenter_report",
         "execution_order": 1,
         "schedule_recurrence": "M"
       },
@@ -6083,7 +6083,7 @@
       {
         "entity_id": 604,
         "entity_name": "Account",
-        "source_view_name": "vw_dim_Account",
+        "source_view_name": "vw_dim_Account_report",
         "execution_order": 1,
         "schedule_recurrence": "M"
       },

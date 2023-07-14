@@ -589,9 +589,11 @@
     <Build Include="dm_procurement\Views\vw_dim_ProductPlant.sql" />
     <Build Include="dm_procurement\Views\vw_fact_PurchasingDocumentItem.sql" />
     <Build Include="dm_procurement\Views\vw_dim_Account.sql" />
+    <Build Include="dm_procurement\Views\vw_dim_Account_report.sql" />
     <Build Include="dm_procurement\Views\vw_dim_CompanySite.sql" />
     <Build Include="dm_procurement\Views\vw_dim_Contract.sql" />
     <Build Include="dm_procurement\Views\vw_dim_CostCenter.sql" />
+    <Build Include="dm_procurement\Views\vw_dim_CostCenter_report.sql" />
     <Build Include="dm_procurement\Views\vw_dim_EClassCodes.sql" />
     <Build Include="dm_procurement\Views\vw_dim_Invoice.sql" />
     <Build Include="dm_procurement\Views\vw_dim_Invoice_LastMonth.sql" />
