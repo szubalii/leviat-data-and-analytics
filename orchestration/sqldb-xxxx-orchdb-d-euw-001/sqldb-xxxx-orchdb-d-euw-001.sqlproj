@@ -128,6 +128,7 @@
     <Folder Include="log\Tables\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="dbo\Views\vw_successful_delta_file_activity_before_first_failure.sql" />
     <None Include="Security\MasterKey.sql" />
     <None Include="Security\Database Scoped Credentials\dsc_SAS_OrchDB.sql" />
     <None Include="External resources\External data sources\eds_OrchDB.sql" />

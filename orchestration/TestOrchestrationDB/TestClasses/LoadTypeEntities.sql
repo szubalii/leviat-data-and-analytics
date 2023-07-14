@@ -2,7 +2,7 @@
 EXEC tSQLt.NewTestClass 'LoadTypeEntities';
 GO
 
-CREATE PROCEDURE [LoadTypeEntities].[test get full load entities]
+CREATE PROCEDURE [LoadTypeEntities].[test vw_full_load_entities]
 AS
 BEGIN
 
@@ -42,7 +42,7 @@ BEGIN
 END;
 GO
 
-CREATE PROCEDURE [LoadTypeEntities].[test get delta load entities]
+CREATE PROCEDURE [LoadTypeEntities].[test vw_delta_load_entities]
 AS
 BEGIN
 

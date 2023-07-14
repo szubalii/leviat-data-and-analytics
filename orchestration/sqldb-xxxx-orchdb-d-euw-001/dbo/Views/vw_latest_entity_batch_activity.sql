@@ -1,7 +1,6 @@
 /*
-  Return the batch attributes of the batches with the
-  latest start dates for each logged batch activity.
-  Filtered for the file names corresponding to the latest non
+  Return the latest batch activities of the file names
+  filtered for the file names corresponding to the latest non
   failed extractions
 */
 
@@ -34,10 +33,11 @@ full_and_delta AS (
 )
 
 -- get the latest batch in case of multiple batch activities of the same activity_id
-, latest_batch_activity AS (
+-- , latest_batch_activity AS (
   SELECT
     b.entity_id,
     b.activity_id,
+    ba.activity_order,
     MAX(b.start_date_time) AS start_date_time,
     b.file_name
   FROM
@@ -48,34 +48,38 @@ full_and_delta AS (
       b.entity_id = full_and_delta.entity_id
       AND
       b.file_name = full_and_delta.file_name
+  LEFT JOIN
+    dbo.batch_activity ba
+      ON ba.activity_id = b.activity_id
   GROUP BY
     b.entity_id,
     b.activity_id,
+    ba.activity_order,
     b.file_name
-)
+-- )
 
 -- Return the attributes related to the most recent entity activity
-SELECT
-  b.entity_id,
-  b.activity_id,
-  ba.activity_order,
-  b.run_id,
-  b.batch_id,
-  b.start_date_time,
-  b.status_id,
-  b.file_name,
-  b.output
-FROM
-  latest_batch_activity lba
-INNER JOIN
-  dbo.batch b
-  ON
-    b.entity_id = lba.entity_id
-    AND
-    b.file_name = lba.file_name
-    AND
-    b.activity_id = lba.activity_id
-    AND
-    b.start_date_time = lba.start_date_time
-LEFT JOIN dbo.batch_activity ba
-  ON ba.activity_id = b.activity_id
+-- SELECT
+--   b.entity_id,
+--   b.activity_id,
+--   ba.activity_order,
+--   b.run_id,
+--   b.batch_id,
+--   b.start_date_time,
+--   b.status_id,
+--   b.file_name,
+--   b.output
+-- FROM
+--   latest_batch_activity lba
+-- INNER JOIN
+--   dbo.batch b
+--   ON
+--     b.entity_id = lba.entity_id
+--     AND
+--     b.file_name = lba.file_name
+--     AND
+--     b.activity_id = lba.activity_id
+--     AND
+--     b.start_date_time = lba.start_date_time
+-- LEFT JOIN dbo.batch_activity ba
+--   ON ba.activity_id = b.activity_id

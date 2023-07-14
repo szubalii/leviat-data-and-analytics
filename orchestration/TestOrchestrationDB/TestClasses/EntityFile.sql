@@ -2,7 +2,7 @@
 EXEC tSQLt.NewTestClass 'EntityFile';
 GO
 
-CREATE PROCEDURE [EntityFile].[test filtered for EXTRACT activity only]
+CREATE PROCEDURE [EntityFile].[test vw_non_failed_extracted_entity_file: filtered for EXTRACT activity only]
 AS
 BEGIN
 
@@ -36,7 +36,7 @@ BEGIN
 END;
 GO
 
-CREATE PROCEDURE [EntityFile].[test filtered for S4H successful or in-progress, or non-S4H successful]
+CREATE PROCEDURE [EntityFile].[test vw_non_failed_extracted_entity_file: filtered for S4H successful or in-progress, or non-S4H successful]
 AS
 BEGIN
 
@@ -117,4 +117,203 @@ GO
 
 
 
+CREATE PROCEDURE [EntityFile].[test vw_latest_non_failed_extracted_entity_file]
+AS
+BEGIN
 
+  IF OBJECT_ID('actual') IS NOT NULL DROP TABLE actual;
+
+  -- Assemble: Fake Table
+  EXEC tSQLt.FakeTable '[dbo]', '[entity]';
+  EXEC tSQLt.FakeTable '[dbo]', '[layer]';
+  EXEC tSQLt.FakeTable '[dbo]', '[location]';
+  EXEC tSQLt.FakeTable '[dbo]', '[batch]';
+
+
+  INSERT INTO dbo.entity (entity_id, layer_id)
+  VALUES (1, 5);
+  INSERT INTO dbo.layer (layer_id, layer_nk, location_id)
+  VALUES (5, 'AXBI', 1);
+  INSERT INTO dbo.location (location_id, location_nk)
+  VALUES (1, 'DUMMY');
+  INSERT INTO dbo.batch (batch_id, entity_id, run_id, status_id, activity_id, file_name)
+  VALUES (NEWID(), 1, NEWID(), 2, 21, 'test_2023_01_01_12:00:00'); -- earlier
+  INSERT INTO dbo.batch (batch_id, entity_id, run_id, status_id, activity_id, file_name)
+  VALUES (NEWID(), 1, NEWID(), 2, 21, 'test_2023_01_01_13:00:00'); -- later
+
+  -- Act: 
+  SELECT entity_id, file_name
+  INTO actual
+  FROM vw_latest_non_failed_extracted_entity_file
+
+  -- Assert:
+  CREATE TABLE expected (
+    entity_id BIGINT,
+    file_name VARCHAR(50)
+  );
+
+  INSERT INTO expected(entity_id, file_name) SELECT 1, 'test_2023_01_01_13:00:00';
+
+  EXEC tSQLt.AssertEqualsTable 'expected', 'actual';
+END;
+GO
+
+
+
+CREATE PROCEDURE [EntityFile].[test vw_latest_entity_batch_activity]
+AS
+BEGIN
+
+  IF OBJECT_ID('actual') IS NOT NULL DROP TABLE actual;
+
+  -- Assemble: Fake Table
+  EXEC tSQLt.FakeTable '[dbo]', '[entity]';
+  EXEC tSQLt.FakeTable '[dbo]', '[layer]';
+  EXEC tSQLt.FakeTable '[dbo]', '[location]';
+  EXEC tSQLt.FakeTable '[dbo]', '[batch]';
+
+
+  INSERT INTO dbo.entity (entity_id, update_mode, layer_id)
+  VALUES (1, 'Full', 5);
+  INSERT INTO dbo.entity (entity_id, update_mode, layer_id)
+  VALUES (2, 'Delta', 5);
+  INSERT INTO dbo.layer (layer_id, layer_nk, location_id)
+  VALUES (5, 'AXBI', 1);
+  INSERT INTO dbo.location (location_id, location_nk)
+  VALUES (1, 'DUMMY');
+  INSERT INTO dbo.batch (batch_id, entity_id, run_id, status_id, activity_id, start_date_time, file_name)
+  VALUES (NEWID(), 1, NEWID(), 2, 21, '2023-01-01 12:00:00', 'test'); -- earlier full activity 1
+  INSERT INTO dbo.batch (batch_id, entity_id, run_id, status_id, activity_id, start_date_time, file_name)
+  VALUES (NEWID(), 1, NEWID(), 2, 21, '2023-01-01 13:00:00', 'test'); -- later full activity 1
+  INSERT INTO dbo.batch (batch_id, entity_id, run_id, status_id, activity_id, start_date_time, file_name)
+  VALUES (NEWID(), 1, NEWID(), 2, 22, '2023-01-01 12:00:00', 'test'); -- earlier full activity 2
+  INSERT INTO dbo.batch (batch_id, entity_id, run_id, status_id, activity_id, start_date_time, file_name)
+  VALUES (NEWID(), 1, NEWID(), 2, 22, '2023-01-01 13:00:00', 'test'); -- later full activity 2
+  INSERT INTO dbo.batch (batch_id, entity_id, run_id, status_id, activity_id, start_date_time, file_name)
+  VALUES (NEWID(), 2, NEWID(), 2, 21, '2023-01-01 12:00:00', 'test'); -- earlier delta activity 1
+  INSERT INTO dbo.batch (batch_id, entity_id, run_id, status_id, activity_id, start_date_time, file_name)
+  VALUES (NEWID(), 2, NEWID(), 2, 21, '2023-01-01 13:00:00', 'test'); -- later delta activity 1
+
+  -- Act: 
+  SELECT entity_id, activity_id, start_date_time
+  INTO actual
+  FROM vw_latest_entity_batch_activity
+
+  -- Assert:
+  CREATE TABLE expected (
+    entity_id BIGINT,
+    activity_id BIGINT,
+    start_date_time DATETIME
+  );
+
+  INSERT INTO expected(entity_id, activity_id, start_date_time) SELECT 1, 21, '2023-01-01 13:00:00';
+  INSERT INTO expected(entity_id, activity_id, start_date_time) SELECT 1, 22, '2023-01-01 13:00:00';
+  INSERT INTO expected(entity_id, activity_id, start_date_time) SELECT 2, 21, '2023-01-01 13:00:00';
+
+  EXEC tSQLt.AssertEqualsTable 'expected', 'actual';
+END;
+GO
+
+
+
+CREATE PROCEDURE [EntityFile].[test vw_first_failed_activity_order]
+AS
+BEGIN
+
+  IF OBJECT_ID('actual') IS NOT NULL DROP TABLE actual;
+
+  -- Assemble: Fake Table
+  EXEC tSQLt.FakeTable '[dbo]', '[entity]';
+  EXEC tSQLt.FakeTable '[dbo]', '[layer]';
+  EXEC tSQLt.FakeTable '[dbo]', '[location]';
+  EXEC tSQLt.FakeTable '[dbo]', '[batch]';
+  EXEC tSQLt.FakeTable '[dbo]', '[batch_activity]';
+
+
+  INSERT INTO dbo.entity (entity_id, update_mode, layer_id)
+  VALUES (1, 'Full', 5);
+  INSERT INTO dbo.layer (layer_id, layer_nk, location_id)
+  VALUES (5, 'AXBI', 1);
+  INSERT INTO dbo.location (location_id, location_nk)
+  VALUES (1, 'DUMMY');
+  INSERT INTO dbo.batch_activity (activity_id, activity_nk, activity_order)
+  VALUES (21, '1', 100);
+  INSERT INTO dbo.batch_activity (activity_id, activity_nk, activity_order)
+  VALUES (22, '2', 200);
+  INSERT INTO dbo.batch_activity (activity_id, activity_nk, activity_order)
+  VALUES (23, '3', 300);
+  INSERT INTO dbo.batch (batch_id, entity_id, run_id, status_id, activity_id, start_date_time, file_name)
+  VALUES (NEWID(), 1, NEWID(), 2, 21, '2023-01-01 12:00:00', 'test'); -- activity 1: success
+  INSERT INTO dbo.batch (batch_id, entity_id, run_id, status_id, activity_id, start_date_time, file_name)
+  VALUES (NEWID(), 1, NEWID(), 1, 22, '2023-01-01 12:00:00', 'test'); -- activity 2: fail
+  INSERT INTO dbo.batch (batch_id, entity_id, run_id, status_id, activity_id, start_date_time, file_name)
+  VALUES (NEWID(), 1, NEWID(), 2, 23, '2023-01-01 12:00:00', 'test'); -- activity 3: success
+
+  -- Act: 
+  SELECT entity_id, activity_order
+  INTO actual
+  FROM vw_first_failed_activity_order
+
+  -- Assert:
+  CREATE TABLE expected (
+    entity_id BIGINT,
+    activity_order INT
+  );
+
+  INSERT INTO expected(entity_id, activity_order) SELECT 1, 200;
+
+  EXEC tSQLt.AssertEqualsTable 'expected', 'actual';
+END;
+GO
+
+
+
+CREATE PROCEDURE [EntityFile].[test vw_successful_batch_activity_before_first_failure]
+AS
+BEGIN
+
+  IF OBJECT_ID('actual') IS NOT NULL DROP TABLE actual;
+
+  -- Assemble: Fake Table
+  EXEC tSQLt.FakeTable '[dbo]', '[entity]';
+  EXEC tSQLt.FakeTable '[dbo]', '[layer]';
+  EXEC tSQLt.FakeTable '[dbo]', '[location]';
+  EXEC tSQLt.FakeTable '[dbo]', '[batch]';
+  EXEC tSQLt.FakeTable '[dbo]', '[batch_activity]';
+
+
+  INSERT INTO dbo.entity (entity_id, update_mode, layer_id)
+  VALUES (1, 'Full', 5);
+  INSERT INTO dbo.layer (layer_id, layer_nk, location_id)
+  VALUES (5, 'AXBI', 1);
+  INSERT INTO dbo.location (location_id, location_nk)
+  VALUES (1, 'DUMMY');
+  INSERT INTO dbo.batch_activity (activity_id, activity_nk, activity_order)
+  VALUES (21, '1', 100);
+  INSERT INTO dbo.batch_activity (activity_id, activity_nk, activity_order)
+  VALUES (22, '2', 200);
+  INSERT INTO dbo.batch_activity (activity_id, activity_nk, activity_order)
+  VALUES (23, '3', 300);
+  INSERT INTO dbo.batch (batch_id, entity_id, run_id, status_id, activity_id, start_date_time, file_name)
+  VALUES (NEWID(), 1, NEWID(), 2, 21, '2023-01-01 12:00:00', 'test'); -- activity 1: success
+  INSERT INTO dbo.batch (batch_id, entity_id, run_id, status_id, activity_id, start_date_time, file_name)
+  VALUES (NEWID(), 1, NEWID(), 1, 22, '2023-01-01 12:00:00', 'test'); -- activity 2: fail
+  INSERT INTO dbo.batch (batch_id, entity_id, run_id, status_id, activity_id, start_date_time, file_name)
+  VALUES (NEWID(), 1, NEWID(), 2, 23, '2023-01-01 12:00:00', 'test'); -- activity 3: success
+
+  -- Act: 
+  SELECT entity_id, activity_id
+  INTO actual
+  FROM vw_successful_batch_activity_before_first_failure
+
+  -- Assert:
+  CREATE TABLE expected (
+    entity_id BIGINT,
+    activity_id INT
+  );
+
+  INSERT INTO expected(entity_id, activity_id) SELECT 1, 21;
+
+  EXEC tSQLt.AssertEqualsTable 'expected', 'actual';
+END;
+GO
