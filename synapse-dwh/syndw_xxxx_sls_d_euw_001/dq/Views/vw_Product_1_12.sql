@@ -153,5 +153,12 @@ WHERE
     AND
     P.IsMarkedForDeletion <> 'X'    
     AND
-    LEFT([Plant], 2) <> 'CN'
-	
+    NOT EXISTS
+        (SELECT 1
+         FROM
+            [base_s4h_cax].[I_ProductPlant] IPP 
+         WHERE
+            P.Product = PP.Product
+            AND
+            LEFT(IPP.[Plant], 2) = 'CN'
+        )	

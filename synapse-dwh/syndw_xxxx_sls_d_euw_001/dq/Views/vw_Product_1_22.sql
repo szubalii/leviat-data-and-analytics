@@ -189,4 +189,12 @@ INNER JOIN
 WHERE
     P.IsMarkedForDeletion <> 'X'
     AND
-    LEFT(PP.[Plant], 2) <> 'CN'
+    NOT EXISTS
+        (SELECT 1
+         FROM
+            [base_s4h_cax].[I_ProductPlant] PP 
+         WHERE
+            Products.Product = PP.Product
+            AND
+            LEFT(PP.[Plant], 2) = 'CN'
+        )
