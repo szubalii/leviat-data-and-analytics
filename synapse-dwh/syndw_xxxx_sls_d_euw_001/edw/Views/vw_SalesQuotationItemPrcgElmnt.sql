@@ -60,7 +60,7 @@ FROM
 CROSS JOIN 
     [edw].[dim_CurrencyType] CR
 WHERE 
-    CR.[CurrencyTypeID] = '00' and ISQIPE.ConditionInactiveReason = ''
+    CR.[CurrencyTypeID] = '00'
 
 UNION ALL
 
@@ -137,4 +137,4 @@ LEFT JOIN
 CROSS JOIN 
     [edw].[dim_CurrencyType] CR
 WHERE 
-    CR.[CurrencyTypeID] = '10' and ISQIPE.ConditionInactiveReason = ''
+    CR.[CurrencyTypeID] = '10'

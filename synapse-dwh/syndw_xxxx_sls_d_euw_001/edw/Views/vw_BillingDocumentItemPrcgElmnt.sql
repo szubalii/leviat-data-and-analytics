@@ -66,4 +66,3 @@
            ON BDI.CurrencyID = CR.SourceCurrency COLLATE DATABASE_DEFAULT
     INNER JOIN [edw].[dim_CurrencyType] CurrType
         ON CR.CurrencyTypeID = CurrType.CurrencyTypeID
-	WHERE  IBDIPE.ConditionInactiveReason = ''
