@@ -1,10 +1,9 @@
 /*
-  Return the latest batch activities of the file names
-  filtered for the file names corresponding to the latest non
-  failed extractions
+  Return the latest batch activities of those files
+  corresponding to the latest non-failed extractions
 */
 
-CREATE VIEW [dbo].[vw_latest_entity_batch_activity] AS
+CREATE VIEW [dbo].[vw_latest_entity_file_activity] AS
 
 -- Get the most recent start dates for each entity activity
 -- and file name
@@ -34,28 +33,30 @@ full_and_delta AS (
 
 -- get the latest batch in case of multiple batch activities of the same activity_id
 -- , latest_batch_activity AS (
-  SELECT
-    b.entity_id,
-    b.activity_id,
-    ba.activity_order,
-    MAX(b.start_date_time) AS start_date_time,
-    b.file_name
-  FROM
-    full_and_delta
-  INNER JOIN
-    dbo.batch b
-    ON
-      b.entity_id = full_and_delta.entity_id
-      AND
-      b.file_name = full_and_delta.file_name
-  LEFT JOIN
-    dbo.batch_activity ba
-      ON ba.activity_id = b.activity_id
-  GROUP BY
-    b.entity_id,
-    b.activity_id,
-    ba.activity_order,
-    b.file_name
+SELECT
+  b.entity_id,
+  b.file_name,
+  b.activity_id,
+  ba.activity_nk,
+  ba.activity_order,
+  MAX(b.start_date_time) AS start_date_time
+FROM
+  full_and_delta
+INNER JOIN
+  dbo.batch b
+  ON
+    b.entity_id = full_and_delta.entity_id
+    AND
+    b.file_name = full_and_delta.file_name
+LEFT JOIN
+  dbo.batch_activity ba
+    ON ba.activity_id = b.activity_id
+GROUP BY
+  b.entity_id,
+  b.file_name,
+  b.activity_id,
+  ba.activity_nk,
+  ba.activity_order
 -- )
 
 -- Return the attributes related to the most recent entity activity
