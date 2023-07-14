@@ -6,7 +6,7 @@ SELECT
     ,POLineNumber
     ,ExtraPOLineKey
     ,SplitAccountingNumber
-    ,format_datetime(OrderedDate,'yyyy-MM-dd')          AS OrderedDate
+    ,FORMAT(OrderedDate,'yyyy-MM-dd')          AS OrderedDate
     ,Quantity
     ,Amount
     ,LEFT(AmountCurrency,3)                             AS AmountCurrency

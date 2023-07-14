@@ -6,7 +6,7 @@ SELECT
     ,InvoiceLineNumber
     ,ExtraInvoiceLineKey
     ,SplitAccountingNumber
-    ,format_datetime(AccountingDate,'yyyy-MM-dd')       AS AccountingDate
+    ,FORMAT(AccountingDate,'yyyy-MM-dd')       AS AccountingDate
     ,Quantity
     ,Amount
     ,LEFT(AmountCurrency,3)                             AS AmountCurrency
@@ -28,7 +28,7 @@ SELECT
     ,ExtraPOKey
     ,POLineNumber
     ,ExtraPOLineKey
-    ,format_datetime(InvoiceDate,'yyyy-MM-dd')          AS InvoiceDate
+    ,FORMAT(InvoiceDate,'yyyy-MM-dd')          AS InvoiceDate
     ,PaidDate
     ,InvoiceNumber
     ,APPaymentTerms
