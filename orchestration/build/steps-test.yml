@@ -9,9 +9,9 @@ steps:
     dotnet build "$(System.DefaultWorkingDirectory)/orchestration/TestOrchestrationDB/TestOrchestrationDB.sqlproj" /p:NetCoreBuild=true
   displayName: 'Build Test sqlproj'
 
-- script: |
-    sleep 10
-  displayName: 'Wait till SQL Server is ready'
+# - script: |
+#     sleep 10
+#   displayName: 'Wait till SQL Server is ready'
 
 # - script: |
     
@@ -35,10 +35,11 @@ steps:
       -d TestOrchestrationDB \
       -U sa \
       -P "$(mssql-sa-pwd)" \
-      -Q "EXEC tSQLt.RunAll;" \
+      -Q "EXEC tSQLt.RunAll;"
+  displayName: 'Run TSQLT tests'
 
 - task: PowerShell@2
-  displayName: 'Run TSQLT tests'
+  displayName: 'Export Test Results'
   inputs:
     targetType: 'inline'
     pwsh: true
