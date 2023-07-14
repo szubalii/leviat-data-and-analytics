@@ -218,23 +218,23 @@ BEGIN
 
 	update [intm_axbi].[dim_CUSTTABLE]
 	set INOUT = 'I'
-	 where UPPER(DATAAREAID) in ('PLBE', 'PLFR') and  (substring(NAME, 1, 5) = 'Ancon' or substring(NAME, 1, 5) = 'ANCON')
+	 where UPPER(DATAAREAID) in ('PLBE', 'PLFR') and  UPPER(substring(NAME, 1, 5)) = 'ANCON'
 
 	update [intm_axbi].[dim_CUSTTABLE]
 	set INOUT = 'I'
-	 where UPPER(DATAAREAID) in ('PLBE', 'PLFR') and  (substring(NAME, 1, 5) = 'Plaka' or substring(NAME, 1, 5) = 'PLAKA')
+	 where UPPER(DATAAREAID) in ('PLBE', 'PLFR') and  UPPER(substring(NAME, 1, 5)) = 'PLAKA'
 
 	update [intm_axbi].[dim_CUSTTABLE]
 	set INOUT = 'I'
-	 where UPPER(DATAAREAID) in ('PLBE', 'PLFR') and  (substring(NAME, 1, 6) = 'Halfen' or substring(NAME, 1, 6) = 'HALFEN')
+	 where UPPER(DATAAREAID) in ('PLBE', 'PLFR') and  UPPER(substring(NAME, 1, 6)) = 'HALFEN'
 
 	update [intm_axbi].[dim_CUSTTABLE]
 	set INOUT = 'I'
-	 where UPPER(DATAAREAID) in ('PLBE', 'PLFR') and  (NAME like '%Aschwanden%' or NAME like '%ASCHWANDEN%')
+	 where UPPER(DATAAREAID) in ('PLBE', 'PLFR') and  UPPER(NAME) like '%ASCHWANDEN%'
 
 	update [intm_axbi].[dim_CUSTTABLE]
 	set INOUT = 'I'
-	 where UPPER(DATAAREAID) in ('PLBE', 'PLFR') and  (NAME like '%Helifix (Australia)%' or NAME like '%HELIFIX (Australia)%')
+	 where UPPER(DATAAREAID) in ('PLBE', 'PLFR') and  UPPER(NAME) like '%HELIFIX (AUSTRALIA)%'
 
 	-- Ancon AU, NZ
 
