@@ -24,7 +24,7 @@ CREATE TABLE [edw].[fact_BillingDocumentItem]
     [SalesOrganizationID]                   NVARCHAR(8)                                  NULL,
     [DistributionChannelID]                 NVARCHAR(4)                                  NULL,
     [Material]                              NVARCHAR(100)                                NULL,
-    [sk_ProductPlant]                       NVARCHAR(109)                                NULL,
+    [nk_ProductPlant]                       NVARCHAR(109)                                NULL,
     [ProductSurrogateKey]                   NVARCHAR(117)                                NULL,
     [OriginallyRequestedMaterial]           NVARCHAR(80)                                 NULL,
     [InternationalArticleNumber]            NVARCHAR(36)                                 NULL,
