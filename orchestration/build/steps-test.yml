@@ -60,7 +60,7 @@ steps:
           $xmloutput += $dr.ItemArray[0].ToString();
         }
       }
-      
+      $xmloutput;
       $xmloutput | Out-File "$(System.DefaultWorkingDirectory)/orchestration/TestOrchestrationDB/bin/Debug/TEST-Results.xml"
 
 
