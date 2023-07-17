@@ -54,6 +54,9 @@ steps:
       $dataset = New-Object System.Data.DataSet;
       $adapter.Fill($dataset) | Out-Null;
       $connection.Close();
+      $dataset.Tables[0].Rows.Count;
+      $dataset.Tables[0].Rows[0].ItemArray[0];
+      $dataset.Tables[0].Rows[1].ItemArray[0];
 
       if ($dataset.Tables[0].Rows.Count > 0) {
         foreach ($dr in $dataset.Tables[0].Rows) {
