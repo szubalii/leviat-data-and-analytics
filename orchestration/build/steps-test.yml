@@ -44,6 +44,7 @@ steps:
     targetType: 'inline'
     pwsh: true
     script: |
+      $xmloutput = "";
       $connectionString = "Data Source=localhost;User ID=sa;Password=$(mssql-sa-pwd);Initial Catalog=TestOrchestrationDB";
       $sqlCommand = 'EXEC tSQLt.XmlResultFormatter';
       $connection = new-object system.data.SqlClient.SQLConnection($connectionString);
@@ -53,9 +54,14 @@ steps:
       $dataset = New-Object System.Data.DataSet;
       $adapter.Fill($dataset) | Out-Null;
       $connection.Close();
-      $dataset.Tables[0].Rows[0].ItemArray[0];
-      $dataset.Tables[0].Rows[1].ItemArray[0];
-      $dataset.Tables[0].Rows[0].ItemArray[0] | Out-File "$(System.DefaultWorkingDirectory)/orchestration/TestOrchestrationDB/bin/Debug/TEST-Results.xml"
+
+      if ($dataset.Tables[0].Rows.Count > 0) {
+        foreach (DataRow dr in $dataset.Tables[0].Rows) {
+          $xmloutput += dr[0].ToString();
+        }
+      }
+      
+      $xmloutput | Out-File "$(System.DefaultWorkingDirectory)/orchestration/TestOrchestrationDB/bin/Debug/TEST-Results.xml"
 
 
     
