@@ -59,7 +59,10 @@ steps:
       $dataset.Tables[0].Rows[1].ItemArray[0];
 
       if ($dataset.Tables[0].Rows.Count > 0) {
+        Write-Host "test"
         foreach ($dr in $dataset.Tables[0].Rows) {
+          Write-Host "test2"
+          Write-Host $xmloutput
           $xmloutput += $dr.ItemArray[0].ToString();
         }
       }
