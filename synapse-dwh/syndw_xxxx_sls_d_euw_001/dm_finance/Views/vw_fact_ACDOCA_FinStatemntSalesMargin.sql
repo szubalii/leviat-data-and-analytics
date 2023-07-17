@@ -1,4 +1,4 @@
-﻿CREATE VIEW [dm_finance].[vw_fact_ACDOCA_FinStatemnt]
+﻿CREATE VIEW [dm_finance].[vw_fact_ACDOCA_FinStatemntSalesMargin]
 AS
 SELECT
      [CompanyCodeID]

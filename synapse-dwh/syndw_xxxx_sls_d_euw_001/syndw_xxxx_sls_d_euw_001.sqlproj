@@ -1279,9 +1279,9 @@
     <Build Include="dq\Views\vw_BP_2_2_7.sql" />
     <Build Include="dq\Views\vw_BP_2_2_8.sql" />
     <Build Include="map_AXBI\Tables\SAPCustomerBasicMappingTable.sql" />
-    <Build Include="edw\Tables\fact_ACDOCA_FinStatemnt.sql" />
-    <Build Include="edw\Views\vw_ACDOCA_FinStatemnt.sql" />
-    <Build Include="dm_finance\Views\vw_fact_ACDOCA_FinStatemnt.sql" />
+    <Build Include="edw\Tables\fact_ACDOCA_FinStatemntSalesMargin.sql" />
+    <Build Include="edw\Views\vw_ACDOCA_FinStatemntSalesMargin.sql" />
+    <Build Include="dm_finance\Views\vw_fact_ACDOCA_FinStatemntSalesMargin.sql" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PostDeploy Include="Scripts\Post-Deploy\Script.PostDeployment.sql" />

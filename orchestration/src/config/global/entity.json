@@ -5723,10 +5723,10 @@
       },
       {
         "entity_id": 609,
-        "entity_name": "fact_ACDOCA_FinStatemnt",
+        "entity_name": "fact_ACDOCA_FinStatemntSalesMargin",
         "sproc_name": "sp_materialize_view",
-        "source_view_name": "vw_ACDOCA_FinStatemnt",
-        "dest_table_name": "fact_ACDOCA_FinStatemnt",
+        "source_view_name": "vw_ACDOCA_FinStatemntSalesMargin",
+        "dest_table_name": "fact_ACDOCA_FinStatemntSalesMargin",
         "execution_order": 2,
         "schedule_recurrence": "D"
       }

@@ -1,4 +1,4 @@
-﻿CREATE VIEW [edw].[vw_ACDOCA_FinStatemnt]
+﻿CREATE VIEW [edw].[vw_ACDOCA_FinStatemntSalesMargin]
 	AS 
 WITH L1 
 AS (
@@ -139,7 +139,7 @@ SELECT
     ,FPeriod AS FiscalYearPeriod
 FROM Accs
 GROUP BY
-    CompanyCodeID
+     CompanyCodeID
     ,ProfitCenterID
     ,ProfitCenter
     ,GLAccountID
