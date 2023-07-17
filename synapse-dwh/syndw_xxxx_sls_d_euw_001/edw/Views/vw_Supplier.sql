@@ -157,7 +157,7 @@
       ,Supplier.[PaymentIsBlockedForSupplier]
       ,Supplier.[SortField]
       ,Supplier.[PhoneNumber2]
-      ,[DeletionIndicator]
+      ,Supplier.[DeletionIndicator]
       ,Supplier.[TradingPartner]
       ,Supplier.[TaxInvoiceRepresentativeName]
       ,Supplier.[IndustryType]
