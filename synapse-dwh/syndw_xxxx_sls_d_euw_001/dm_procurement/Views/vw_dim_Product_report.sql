@@ -3,7 +3,7 @@ AS
 SELECT
     PartNumber
     ,RevisionNumber
-    ,Replace(Replace(Description1,'"',''),CHAR(10),'') AS Description1
+    ,Replace(Replace(Replace(Description1,'"',''),CHAR(10),''),CHAR(13),'') AS Description1
     ,Description2
     ,StandardCost
     ,StandardCostCurrency
