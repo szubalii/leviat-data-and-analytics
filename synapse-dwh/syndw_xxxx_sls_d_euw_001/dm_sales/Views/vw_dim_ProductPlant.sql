@@ -77,6 +77,8 @@ FROM
 LEFT JOIN
     [base_s4h_cax].[I_MRPController] MRPC
     ON
+        PP.[Plant]=MRPC.[Plant]
+        AND
         PP.[MRPResponsible] = MRPC.[MRPController]
 LEFT JOIN
     [base_s4h_cax].[NSDM_V_MARC] NSDM
