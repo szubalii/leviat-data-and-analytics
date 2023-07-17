@@ -56,8 +56,8 @@ steps:
       $connection.Close();
 
       if ($dataset.Tables[0].Rows.Count > 0) {
-        foreach (DataRow dr in $dataset.Tables[0].Rows) {
-          $xmloutput += dr[0].ToString();
+        foreach ($dr in $dataset.Tables[0].Rows) {
+          $xmloutput += $dr[0].ToString();
         }
       }
       
