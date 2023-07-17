@@ -1,0 +1,24 @@
+CountryID;CountryName;RegionID;RegionName
+AT;Austria;EURCI;Europe Central
+AU;Australia;EURWA;Europe West & APAC
+BE;Belgium;EURSN;Europe South & Nordics
+CH;Switzerland;EURCI;Europe Central
+CN;China;EURWA;Europe West & APAC
+CZ;Czech Republic;EURCI;Europe Central
+DE;Germany;EURCI;Europe Central
+ES;Spain;EURSN;Europe South & Nordics
+EX;International;EURCI;Europe Central
+FI;Finland;EURSN;Europe South & Nordics
+FR;France;EURSN;Europe South & Nordics
+GB;United Kingdom;EURWA;Europe West & APAC
+IN;India;EURWA;Europe West & APAC
+IT;Italy;EURSN;Europe South & Nordics
+MY;Malaysia;EURWA;Europe West & APAC
+NL;Netherlands;EURSN;Europe South & Nordics
+NO;Norway;EURSN;Europe South & Nordics
+NZ;New Zealand;EURWA;Europe West & APAC
+PH;Philippines;EURWA;Europe West & APAC
+PL;Poland;EURCI;Europe Central
+SE;Sweden;EURSN;Europe South & Nordics
+SG;Singapore;EURWA;Europe West & APAC
+UAE;United Arab Emirates;EURWA;Europe Central
