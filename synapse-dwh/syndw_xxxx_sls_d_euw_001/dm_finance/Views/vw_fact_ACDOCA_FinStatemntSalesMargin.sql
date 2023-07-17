@@ -15,4 +15,4 @@ SELECT
     ,[t_applicationId]
     ,[t_extractionDtm]
 FROM
-    [edw].[fact_ACDOCA_FinStatemnt]
+    [edw].[fact_ACDOCA_FinStatemntSalesMargin]
