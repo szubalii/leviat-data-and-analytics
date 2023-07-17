@@ -1,5 +1,5 @@
 CREATE FUNCTION [edw].[svf_getClassification](
-    @Classif NVARCHAR(8),
+    @Class NVARCHAR(8),
     @ProductGroup NVARCHAR(9),
     @MaterialTypeID NVARCHAR(8)
 )
@@ -9,9 +9,9 @@ BEGIN
     DECLARE @Classification AS NVARCHAR(8)
     SET @Classification =
         CASE 
-            WHEN (@Classif is null or @Classif= '') and (@ProductGroup is null or @ProductGroup = '') THEN 
+            WHEN (@Class is null or @Class= '') and (@ProductGroup is null or @ProductGroup = '') THEN 
                  CASE WHEN @MaterialTypeID in ('ZKMA', 'ZKMB', 'ZKMC') THEN 'Direct' ELSE 'Indirect' END
-            ELSE @Classif
+            ELSE @Class
         END 
 
     RETURN @Classification
