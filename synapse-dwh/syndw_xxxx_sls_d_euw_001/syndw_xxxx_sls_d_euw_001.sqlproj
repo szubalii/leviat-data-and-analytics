@@ -1280,6 +1280,7 @@
     <Build Include="dq\Views\vw_BP_2_2_8.sql" />
     <Build Include="map_AXBI\Tables\SAPCustomerBasicMappingTable.sql" />
     <Build Include="edw\Functions\ScalarValued\svf_removeSpecialCharacters.sql" />
+    <Build Include="edw\Functions\ScalarValued\svf_get4PartNaturalKey.sql" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PostDeploy Include="Scripts\Post-Deploy\Script.PostDeployment.sql" />

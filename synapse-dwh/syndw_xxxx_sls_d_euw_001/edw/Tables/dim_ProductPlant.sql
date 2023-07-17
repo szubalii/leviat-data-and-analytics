@@ -1,5 +1,6 @@
 ﻿CREATE TABLE [edw].[dim_ProductPlant](
-         [Product]                        NVARCHAR(40)   NOT NULL
+         [nk_ProductPlant]                NVARCHAR(45)   NOT NULL
+    ,    [Product]                        NVARCHAR(40)   NOT NULL
     ,    [Plant]                          NVARCHAR(4)    NOT NULL
     ,    [PurchasingGroup]                NVARCHAR(3)
     ,    [CountryOfOrigin]                NVARCHAR(3)

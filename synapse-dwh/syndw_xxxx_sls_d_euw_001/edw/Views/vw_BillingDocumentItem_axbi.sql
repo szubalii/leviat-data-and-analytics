@@ -589,6 +589,7 @@ BillingDocumentItemBase_axbi_mapped AS (
     ,   SubQ.[SalesOrganizationID]
     ,   SubQ.[DistributionChannelID]
     ,   SubQ.[Material]
+    ,   edw.svf_get2PartNaturalKey (SubQ.Material,SubQ.[PlantID]) AS [nk_ProductPlant]
     ,   SubQ.[LengthInMPer1]
     ,   SubQ.[LengthInM]
     ,   SubQ.[PlantID]
@@ -679,6 +680,7 @@ BillingDocumentItemBase_axbi_mapped AS (
     ,   [SalesOrganizationID]
     ,   [DistributionChannelID]
     ,   'ZZZDUMMY01'                  AS [Material]
+    ,   edw.svf_get2PartNaturalKey ('ZZZDUMMY01',PlantID) AS [nk_ProductPlant]
     ,   NULL                          AS LengthInMPer1
     ,   NULL                          AS LengthInM
     ,   [PlantID]
@@ -787,6 +789,7 @@ BillingDocumentItemBase_axbi_mapped AS (
         ,   [SalesOrganizationID]
         ,   [DistributionChannelID]
         ,   [Material]
+        ,   [nk_ProductPlant]
         ,   [LengthInMPer1]
         ,   [LengthInM]
         ,   [PlantID]
@@ -867,7 +870,7 @@ BillingDocumentItemBase_axbi_mapped AS (
 */
 
 SELECT 
-        edw.svf_getNaturalKey (BillingDocument,BillingDocumentItem,CT.CurrencyTypeID) as [nk_fact_BillingDocumentItem]
+        [edw].svf_get4PartNaturalKey(BillingDocument,BillingDocumentItem,CT.CurrencyTypeID, row_number() over (partition by BillingDocument order by BillingDocumentItem)) as nk_fact_BillingDocumentItem
     ,   [BillingDocument]
     ,   [BillingDocumentItem]
     ,   [ReturnItemProcessingType]
@@ -880,6 +883,7 @@ SELECT
     ,   [SalesOrganizationID]
     ,   [DistributionChannelID]
     ,   [Material]
+    ,   [nk_ProductPlant]
     ,   [LengthInMPer1]
     ,   [LengthInM]
     ,   [PlantID]
@@ -936,7 +940,7 @@ UNION ALL
 */
 
 SELECT 
-        edw.svf_getNaturalKey (BillingDocument,BillingDocumentItem,CT.CurrencyTypeID) AS [nk_fact_BillingDocumentItem]
+        [edw].svf_get4PartNaturalKey(BillingDocument,BillingDocumentItem,CT.CurrencyTypeID, row_number() over (partition by BillingDocument order by BillingDocumentItem)) as nk_fact_BillingDocumentItem
     ,   [BillingDocument]
     ,   [BillingDocumentItem]
     ,   [ReturnItemProcessingType]
@@ -949,6 +953,7 @@ SELECT
     ,   [SalesOrganizationID]
     ,   [DistributionChannelID]
     ,   [Material]
+    ,   [nk_ProductPlant]
     ,   [LengthInMPer1]
     ,   [LengthInM]
     ,   [PlantID]
@@ -1001,7 +1006,7 @@ JOIN
 UNION ALL
 
 SELECT 
-        edw.svf_getNaturalKey (ExchangeRateUSD.BillingDocument,ExchangeRateUSD.BillingDocumentItem,CT.CurrencyTypeID) AS [nk_fact_BillingDocumentItem]
+        [edw].svf_get4PartNaturalKey(ExchangeRateUSD.BillingDocument,ExchangeRateUSD.BillingDocumentItem,CT.CurrencyTypeID, row_number() over (partition by ExchangeRateUSD.BillingDocument order by ExchangeRateUSD.BillingDocumentItem)) as nk_fact_BillingDocumentItem
     ,   ExchangeRateUSD.[BillingDocument]
     ,   ExchangeRateUSD.[BillingDocumentItem]
     ,   [ReturnItemProcessingType]
@@ -1014,6 +1019,7 @@ SELECT
     ,   [SalesOrganizationID]
     ,   [DistributionChannelID]
     ,   [Material]
+    ,   [nk_ProductPlant]
     ,   [LengthInMPer1]
     ,   [LengthInM]
     ,   [PlantID]
