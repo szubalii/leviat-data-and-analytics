@@ -53,6 +53,7 @@ steps:
       $dataset = New-Object System.Data.DataSet;
       $adapter.Fill($dataset) | Out-Null;
       $connection.Close();
+      $dataset.Tables[0].Rows[0].ItemArray[0];
       $dataset.Tables[0].Rows[0].ItemArray[0] | Out-File "$(System.DefaultWorkingDirectory)/orchestration/TestOrchestrationDB/bin/Debug/TEST-Results.xml"
 
 
