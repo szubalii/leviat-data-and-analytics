@@ -5720,6 +5720,15 @@
         "dest_table_name": "fact_SalesOrderItemPricingElement",
         "execution_order": 6,
         "schedule_recurrence": "A"
+      },
+      {
+        "entity_id": 609,
+        "entity_name": "fact_ACDOCA_FinStatemntSalesMargin",
+        "sproc_name": "sp_materialize_view",
+        "source_view_name": "vw_ACDOCA_FinStatemntSalesMargin",
+        "dest_table_name": "fact_ACDOCA_FinStatemntSalesMargin",
+        "execution_order": 2,
+        "schedule_recurrence": "D"
       }
     ]
   },
