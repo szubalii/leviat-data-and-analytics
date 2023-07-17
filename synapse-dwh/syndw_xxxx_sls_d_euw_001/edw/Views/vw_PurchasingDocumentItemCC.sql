@@ -33,10 +33,10 @@ SELECT
     PDI.[PurchaseRequisitionItem],
     CASE
         WHEN PRI.[PurchaseRequisitionType] = 'ZCAT'
-            THEN 'X'
-        ELSE NULL
+            THEN 'Yes'
+        ELSE 'No'
     END                                 [IsMercateo],
-    PDI.[IsReturnsItem],
+    edw.svf_getBooleanIndicator(PDI.[IsReturnsItem]) as IsReturnsItem,
     PDI.[t_applicationId],
     PDI.[t_extractionDtm]
 FROM
