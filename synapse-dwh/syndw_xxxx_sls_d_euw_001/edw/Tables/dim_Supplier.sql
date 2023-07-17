@@ -62,7 +62,7 @@
   [PaymentIsBlockedForSupplier]    nvarchar(1),
   [SortField]                      nvarchar(10),
   [PhoneNumber2]                   nvarchar(16),
-  [DeletionIndicator]              nvarchar(1),
+  [DeletionIndicator]              nvarchar(3),
   [TradingPartner]                 nvarchar(6),
   [TaxInvoiceRepresentativeName]   nvarchar(10),
   [IndustryType]                   nvarchar(30),

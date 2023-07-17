@@ -63,7 +63,7 @@
       ,Supplier.[PaymentIsBlockedForSupplier]
       ,Supplier.[SortField]
       ,Supplier.[PhoneNumber2]
-      ,Supplier.[DeletionIndicator]
+      ,edw.svf_getBooleanIndicator(Supplier.[DeletionIndicator]) as DeletionIndicator
       ,Supplier.[TradingPartner]
       ,Supplier.[TaxInvoiceRepresentativeName]
       ,Supplier.[IndustryType]

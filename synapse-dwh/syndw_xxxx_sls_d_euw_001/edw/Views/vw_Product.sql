@@ -871,7 +871,7 @@ SELECT
 ,   ECM.[Category_L2]
 ,   ECM.[Category_L3]
 ,   ECM.[Category_L4]
-,   C.[Classification]
+,   edw.svf_getClassification(C.Classification,CTE_Product.ProductGroup,MaterialTypeID) as Classification
 ,   [ZZ1_CustomFieldRiskMit_PRD]
 ,   [ZZ1_CustomFieldHighRis_PRD]
 ,   [ZZ1_CustomFieldRiskRea_PRD]

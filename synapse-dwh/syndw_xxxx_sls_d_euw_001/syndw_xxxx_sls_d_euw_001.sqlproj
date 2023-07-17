@@ -1284,6 +1284,8 @@
     <Build Include="edw\Tables\fact_ACDOCA_FinStatemntSalesMargin.sql" />
     <Build Include="edw\Views\vw_ACDOCA_FinStatemntSalesMargin.sql" />
     <Build Include="dm_finance\Views\vw_fact_ACDOCA_FinStatemntSalesMargin.sql" />
+    <Build Include="edw\Functions\ScalarValued\svf_getClassification.sql" />
+    <Build Include="edw\Functions\ScalarValued\svf_getBooleanIndicator.sql" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PostDeploy Include="Scripts\Post-Deploy\Script.PostDeployment.sql" />
