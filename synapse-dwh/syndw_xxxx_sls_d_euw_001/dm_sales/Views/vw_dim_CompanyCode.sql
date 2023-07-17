@@ -1,16 +1,5 @@
 ﻿CREATE VIEW [dm_sales].[vw_dim_CompanyCode]
 AS 
-WITH Regions AS (
-    SELECT 
-        RegionID,    
-        RegionName,
-        CountryID
-    FROM [map_AXBI].[SalesOrganization]
-    GROUP BY
-        RegionID,    
-        RegionName,
-        CountryID
-)
 SELECT
   CC.[CompanyCodeID]
 , CC.[CompanyCode]
@@ -21,11 +10,11 @@ SELECT
 , CC.[ChartOfAccounts]
 , CC.[Company]
 , CC.[CashDiscountBaseAmtIsNetAmt]
-, SO.[RegionID]         AS RegionID
-, SO.[RegionName]       AS Region
+, CC.[RegionID]         AS RegionID
+, CC.[RegionName]       AS Region
+, CC.[DescriptionReporting]
 , CC.[t_jobDtm]
 FROM [edw].[dim_CompanyCode]    CC
 LEFT JOIN [edw].[dim_Country]   Ctr
     ON CC.Country = Ctr.CountryID
-LEFT JOIN Regions               SO
-    ON CC.Country = SO.CountryID
+
