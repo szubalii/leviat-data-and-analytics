@@ -54,15 +54,8 @@ steps:
       $dataset = New-Object System.Data.DataSet;
       $adapter.Fill($dataset) | Out-Null;
       $connection.Close();
-      $dataset.Tables[0].Rows.Count;
-      $dataset.Tables[0].Rows[0].ItemArray[0];
-      $dataset.Tables[0].Rows[1].ItemArray[0];
-
       if ($dataset.Tables[0].Rows.Count -gt 0) {
-        Write-Host "test"
         foreach ($dr in $dataset.Tables[0].Rows) {
-          Write-Host "test2"
-          Write-Host $xmloutput
           $xmloutput += $dr.ItemArray[0].ToString();
         }
       }

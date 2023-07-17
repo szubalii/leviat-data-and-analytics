@@ -294,14 +294,22 @@ BEGIN
   VALUES (1, 'DUMMY');
   INSERT INTO dbo.batch_activity (activity_id, activity_nk, activity_order)
   VALUES (21, '1', 100);
+  INSERT INTO dbo.batch_activity (activity_id, activity_nk, activity_order)
+  VALUES (22, '2', 200);
   INSERT INTO dbo.batch (batch_id, entity_id, run_id, status_id, activity_id, start_date_time, file_name)
-  VALUES (NEWID(), 1, NEWID(), 2, 21, '2023-01-01 12:00:00', 'test_2023_01_01_12_00_00'); -- file 1: success
+  VALUES (NEWID(), 1, NEWID(), 2, 21, '2023-01-01 11:00:00', 'test_2023_01_01_11_00_00'); -- file 1: success extract
   INSERT INTO dbo.batch (batch_id, entity_id, run_id, status_id, activity_id, start_date_time, file_name)
-  VALUES (NEWID(), 1, NEWID(), 1, 21, '2023-01-02 12:00:00', 'test_2023_01_02_12_00_00'); -- file 2: fail
-  -- INSERT INTO dbo.batch (batch_id, entity_id, run_id, status_id, activity_id, start_date_time, file_name)
-  -- VALUES (NEWID(), 1, NEWID(), 2, 21, '2023-01-02 13:00:00', 'test_2023_01_02_12_00_00'); -- file 2: success
+  VALUES (NEWID(), 1, NEWID(), 1, 22, '2023-01-01 11:30:00', 'test_2023_01_01_11_00_00'); -- file 1: fail 22
   INSERT INTO dbo.batch (batch_id, entity_id, run_id, status_id, activity_id, start_date_time, file_name)
-  VALUES (NEWID(), 1, NEWID(), 2, 21, '2023-01-03 12:00:00', 'test_2023_01_03_12_00_00'); -- file 3: success
+  VALUES (NEWID(), 1, NEWID(), 2, 22, '2023-01-01 12:00:00', 'test_2023_01_01_11_00_00'); -- file 1: success 22
+  INSERT INTO dbo.batch (batch_id, entity_id, run_id, status_id, activity_id, start_date_time, file_name)
+  VALUES (NEWID(), 1, NEWID(), 2, 21, '2023-01-02 11:00:00', 'test_2023_01_02_11_00_00'); -- file 2: success extract
+  INSERT INTO dbo.batch (batch_id, entity_id, run_id, status_id, activity_id, start_date_time, file_name)
+  VALUES (NEWID(), 1, NEWID(), 1, 22, '2023-01-02 11:30:00', 'test_2023_01_02_11_00_00'); -- file 2: fail 22
+  INSERT INTO dbo.batch (batch_id, entity_id, run_id, status_id, activity_id, start_date_time, file_name)
+  VALUES (NEWID(), 1, NEWID(), 2, 21, '2023-01-03 11:00:00', 'test_2023_01_02_11_00_00'); -- file 3: success extract
+  INSERT INTO dbo.batch (batch_id, entity_id, run_id, status_id, activity_id, start_date_time, file_name)
+  VALUES (NEWID(), 1, NEWID(), 2, 22, '2023-01-03 12:00:00', 'test_2023_01_03_11_00_00'); -- file 3: success 22
 
   -- Act: 
   SELECT entity_id, file_name
@@ -314,7 +322,7 @@ BEGIN
     file_name VARCHAR(100)
   );
 
-  INSERT INTO expected(entity_id, file_name) SELECT 1, 'test_2023_01_02_12_00_00';
+  INSERT INTO expected(entity_id, file_name) SELECT 1, 'test_2023_01_02_11_00_00';
 
   EXEC tSQLt.AssertEqualsTable 'expected', 'actual';
 END;
