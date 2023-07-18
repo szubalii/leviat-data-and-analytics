@@ -4,7 +4,7 @@ SELECT
     SupplierID
     ,SupplierLocationId
     ,SupplierName
-    ,Replace(Replace(StreetAddress,'"',''),CHAR(10),'') AS StreetAddress
+    ,Replace(Replace(Replace(StreetAddress,'"',''),CHAR(10),''),CHAR(13),'') AS StreetAddress
     ,City
     ,State
     ,Country
