@@ -4131,6 +4131,30 @@
         "base_table_name": "P_OrganizationAddress",
         "schedule_recurrence": "D",
         "pk_field_names": "CLIENT, ADDRNUMBER, DATE_FROM, NATION"
+      },
+      {
+        "entity_id": 610,
+        "entity_name": "I_DataElementLabelText",
+        "data_category": "NULL",
+        "client_field": "MANDT",
+        "tool_name": "Theobald",
+        "extraction_type": "Table",
+        "update_mode": "Full",
+        "base_table_name": "I_DataElementLabelText",
+        "schedule_recurrence": "D",
+        "pk_field_names": "MANDT,ABAPDATAELEMENT,LANGUAGE"
+      },
+      {
+        "entity_id": 611,
+        "entity_name": "I_SDDocumentIncompletionLog",
+        "data_category": "NULL",
+        "client_field": "MANDT",
+        "tool_name": "Theobald",
+        "extraction_type": "Table",
+        "update_mode": "Full",
+        "base_table_name": "I_SDDocumentIncompletionLog",
+        "schedule_recurrence": "D",
+        "pk_field_names": "MANDT,SDDOCUMENT,SDDOCUMENTITEM,SCHEDULELINE,PARTNERFUNCTION,SDDOCUMENTTEXTID,SDDOCUMENTTABLE,SDDOCUMENTTABLEFIELD"
       }
     ]
   },
