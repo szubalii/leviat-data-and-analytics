@@ -81,7 +81,7 @@ LEFT JOIN
 WHERE
     BP.[BusinessPartnerGrouping] IN ('Z001', 'Z002')
     AND
-    BP.[SearchTerm1] COLLATE SQL_Latin1_General_CP1_CS_AS <> CONCAT_WS(
+    UPPER(BP.[SearchTerm1] COLLATE SQL_Latin1_General_CP1_CS_AS) <> UPPER(CONCAT_WS(
         '',
         LEFT(edw.svf_removeSpecialCharacters(BP.[OrganizationBPName1] COLLATE SQL_Latin1_General_CP1_CS_AS), 5),
-        LEFT(edw.svf_removeSpecialCharacters(A.[CityName]), 5))
+        LEFT(edw.svf_removeSpecialCharacters(A.[CityName]), 5)))
