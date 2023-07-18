@@ -41,6 +41,14 @@
 									"date": {
 										"value": "@formatDateTime(pipeline().TriggerTime, 'yyyy/MM/dd')",
 										"type": "Expression"
+									},
+									"entity_filter": {
+										"value": "@pipeline().parameters.entity_filter",
+										"type": "Expression"
+									},
+									"pbi_entity_filter": {
+										"value": "@pipeline().parameters.pbi_entity_filter",
+										"type": "Expression"
 									}
 								}
 							}
@@ -131,6 +139,14 @@
 				}
 			}
 		],
+		"parameters": {
+			"entity_filter": {
+				"type": "string"
+			},
+			"pbi_entity_filter": {
+				"type": "string"
+			}
+		},
 		"folder": {
 			"name": "10 Manage"
 		},
