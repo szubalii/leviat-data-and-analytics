@@ -13,7 +13,6 @@ SELECT
          ,[CurrencyID]
 FROM
   [edw].[fact_SalesOrderItemPricingElement]
-WHERE ([ConditionInactiveReason] is null or [ConditionInactiveReason]='')
 GROUP BY 
           [SalesOrder]
          ,[SalesOrderItem]

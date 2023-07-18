@@ -1,15 +1,15 @@
 CREATE FUNCTION [edw].[svf_get2PartNaturalKey](
-    @part1 NVARCHAR(20),
+    @part1 NVARCHAR(100),
     @part2 NVARCHAR(20)
 )
-RETURNS NVARCHAR(41)
+RETURNS NVARCHAR(121)
 AS
 BEGIN
-    DECLARE @Key AS NVARCHAR(41)
+    DECLARE @Key AS NVARCHAR(121)
     SET @Key =
     CONCAT_WS(
         '¦'
-    ,   @part1
+    ,   trim(@part1)
     ,   @part2
         ) 
 

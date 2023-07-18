@@ -4586,34 +4586,34 @@
         "entity_name": "CUSTOMERS",
         "base_table_name": "CUSTOMERS",
         "pk_field_names": "COMP, CUSTOMER",
-        "schedule_recurrence": "D"
+        "schedule_recurrence": "M"
       },
       {
         "entity_id": 389,
         "entity_name": "CUSTOMER_SALES",
         "base_table_name": "CUSTOMER_SALES",
         "axbi_date_field_name": "\"\"Inv Date\"\"",
-        "schedule_recurrence": "D"
+        "schedule_recurrence": "M"
       },
       {
         "entity_id": 390,
         "entity_name": "COMPANIES",
         "base_table_name": "COMPANIES",
         "pk_field_names": "COMP",
-        "schedule_recurrence": "D"
+        "schedule_recurrence": "M"
       },
       {
         "entity_id": 391,
         "entity_name": "ITEM_GROUPS",
         "base_table_name": "ITEM_GROUPS",
         "pk_field_names": "COMP, ItemGroup",
-        "schedule_recurrence": "D"
+        "schedule_recurrence": "M"
       },
       {
         "entity_id": 392,
         "entity_name": "ITEMS",
         "base_table_name": "ITEMS",
-        "schedule_recurrence": "D"
+        "schedule_recurrence": "M"
       }
     ]
   },
@@ -5720,6 +5720,15 @@
         "dest_table_name": "fact_SalesOrderItemPricingElement",
         "execution_order": 6,
         "schedule_recurrence": "A"
+      },
+      {
+        "entity_id": 609,
+        "entity_name": "fact_ACDOCA_FinStatemntSalesMargin",
+        "sproc_name": "sp_materialize_view",
+        "source_view_name": "vw_ACDOCA_FinStatemntSalesMargin",
+        "dest_table_name": "fact_ACDOCA_FinStatemntSalesMargin",
+        "execution_order": 2,
+        "schedule_recurrence": "D"
       }
     ]
   },

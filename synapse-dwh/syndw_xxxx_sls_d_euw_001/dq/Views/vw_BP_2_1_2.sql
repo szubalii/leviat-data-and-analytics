@@ -63,7 +63,7 @@ SELECT
     ,   1 AS [Count]
 FROM   
     [base_s4h_cax].[I_Customer] C
-JOIN
+INNER JOIN
    [base_s4h_cax].[I_CustomerCompany] CC
    ON
    C.[Customer] = CC.[Customer] 

@@ -39,6 +39,7 @@ BDIwithMatType AS (
     ,   BDI.[SalesOrganizationID]
     ,   BDI.[DistributionChannelID]
     ,   BDI.[Material]
+    ,   edw.svf_get2PartNaturalKey (BDI.Material,BDI.PlantID) AS [nk_ProductPlant]
     ,   COALESCE(VC.[ProductSurrogateKey],Product.[ProductID]) AS [ProductSurrogateKey]
     ,   BDI.[OriginallyRequestedMaterial]
     ,   BDI.[InternationalArticleNumber]
@@ -583,6 +584,7 @@ BDwithConditionAmountFreight AS (
     ,   BDIwithMatType.[SalesOrganizationID]
     ,   BDIwithMatType.[DistributionChannelID]
     ,   BDIwithMatType.[Material]
+    ,   BDIwithMatType.[nk_ProductPlant]
     ,   BDIwithMatType.[ProductSurrogateKey]
     ,   BDIwithMatType.[OriginallyRequestedMaterial]
     ,   BDIwithMatType.[InternationalArticleNumber]
@@ -852,6 +854,7 @@ BDwithConditionAmountFreight AS (
     ,   [SalesOrganizationID]
     ,   [DistributionChannelID]
     ,   [Material]
+    ,   [nk_ProductPlant]
     ,   [ProductSurrogateKey]
     ,   [OriginallyRequestedMaterial]
     ,   [InternationalArticleNumber]
@@ -1073,7 +1076,9 @@ BDwithConditionAmountFreight AS (
     Generate additional records for documents that consist of [MaterialTypeID] = 'ZSER' or 'ZVER' only
 */
     SELECT
-        BDIwithMatType.[nk_fact_BillingDocumentItem]
+        edw.svf_getNaturalKey (BDIwithMatType.[BillingDocument]
+                              ,STUFF(BDIwithMatType.[BillingDocumentItem], 1, 1, 'Z') + '0'
+                              ,BDIwithMatType.[CurrencyTypeID]) AS [nk_fact_BillingDocumentItem]
     ,   BDIwithMatType.[BillingDocument]
     ,   STUFF(BDIwithMatType.[BillingDocumentItem], 1, 1, 'Z') + '0' AS [BillingDocumentItem]
     ,   NULL AS [MaterialTypeID] --MPS 2021/11/04 MaterialTypeID is not used in output but required for UNION
@@ -1098,6 +1103,7 @@ BDwithConditionAmountFreight AS (
     ,   [SalesOrganizationID]
     ,   [DistributionChannelID]
     ,   'ZZZDUMMY02' AS [Material]
+    ,   edw.svf_get2PartNaturalKey ('ZZZDUMMY02',PlantID) AS [nk_ProductPlant]
     ,   'ZZZDUMMY02' AS [ProductSurrogateKey]
     ,   [OriginallyRequestedMaterial]
     ,   [InternationalArticleNumber]
@@ -1385,6 +1391,7 @@ SELECT
 ,   [SalesOrganizationID]
 ,   [DistributionChannelID]
 ,   [Material]
+,   edw.svf_get2PartNaturalKey (Material,PlantID) AS [nk_ProductPlant]
 ,   [ProductSurrogateKey]
 ,   [OriginallyRequestedMaterial]
 ,   [InternationalArticleNumber]
@@ -1625,6 +1632,7 @@ SELECT
 ,   BDI_CancellDocs.[SalesOrganizationID]
 ,   BDI_CancellDocs.[DistributionChannelID]
 ,   BDI_CancellDocs.[Material]
+,   BDI_CancellDocs.[nk_ProductPlant]
 ,   BDI_CancellDocs.[ProductSurrogateKey]
 ,   BDI_CancellDocs.[OriginallyRequestedMaterial]
 ,   BDI_CancellDocs.[InternationalArticleNumber]

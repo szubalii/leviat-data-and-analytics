@@ -38,40 +38,50 @@ CalculatedDelDate_calculation AS (
         CalculatedDelDate_precalculation
 )
 ,
+/*  The following section defines the first ConfirmedDeliveryDate and the first GoodsIssueDate for each combination of SalesDocument and SalesDocumenItem for
+    confirmed schedule lines. We join back to the confirmed schedule lines on the SalesDocument and SalesDocumentItems with the dates to identify the first
+    schedule line that has this combination. In case the dates are picked from different schedule lines this is expected to return NULL. The field ScheduleLine
+    is only used for reference in the dataset view of OTIF.
+*/
 SDSLScheduleLine AS (
-    SELECT 
-        SDSL.[SalesDocument]
-        ,SDSL.[SalesDocumentItem]
-        ,SDSL.[ScheduleLineOrderQuantity]
-        ,SDSL.[ConfirmedDeliveryDate]
-        ,SDSL.[ConfdOrderQtyByMatlAvailCheck]
-        ,SDSL.[OrderQuantityUnit]
-        ,SDSL.[GoodsIssueDate]
-        ,SDSL.[DeliveredQtyInOrderQtyUnit]
-        ,SDSL.[DeliveredQuantityInBaseUnit]
-        ,SDSL.[ScheduleLine]
-    FROM
-        [base_s4h_cax].[I_SalesDocumentScheduleLine] AS SDSL
-    INNER JOIN
-        (
-            SELECT
-                [SalesDocument]
-                ,[SalesDocumentItem]
-                ,MIN([ConfirmedDeliveryDate]) AS [ConfirmedDeliveryDate]
-            FROM
-                [base_s4h_cax].[I_SalesDocumentScheduleLine]
-            WHERE
-                [IsConfirmedDelivSchedLine] = 'X'
-            GROUP BY 
-                [SalesDocument]
-                ,[SalesDocumentItem]
-        ) EarliestDeliveryDate
-        ON
-            SDSL.[SalesDocument] = EarliestDeliveryDate.[SalesDocument]
-            AND
-            SDSL.[SalesDocumentItem] = EarliestDeliveryDate.[SalesDocumentItem]
-            AND
-            SDSL.[ConfirmedDeliveryDate] = EarliestDeliveryDate.[ConfirmedDeliveryDate]
+--Get the first dates for each Sales Document-Item combination.
+SELECT
+     SDSL.[SalesDocument]
+    ,SDSL.[SalesDocumentItem]
+    ,MIN(SDSL.[ConfirmedDeliveryDate]) AS [ConfirmedDeliveryDate]
+    ,MIN(SDSL.GoodsIssueDate) AS [GoodsIssueDate]
+    ,MIN(SLS.ScheduleLine) AS [ScheduleLine]
+
+FROM [base_s4h_cax].[I_SalesDocumentScheduleLine] SDSL
+
+--Join back for the schedule line.
+LEFT OUTER JOIN 
+    (
+         SELECT 
+             [SalesDocument]
+            ,[SalesDocumentItem]
+            ,[ConfirmedDeliveryDate]
+            ,[GoodsIssueDate]
+            ,[ScheduleLine]
+
+        FROM [base_s4h_cax].[I_SalesDocumentScheduleLine]
+
+        WHERE [IsConfirmedDelivSchedLine] = 'X'
+    ) SLS
+    ON 
+    SDSL.SalesDocument = SLS.SalesDocument
+    AND 
+    SDSL.SalesDocumentItem = SLS.SalesDocumentItem
+    AND 
+    SDSL.ConfirmedDeliveryDate = SLS.ConfirmedDeliveryDate
+    AND 
+    SDSL.GoodsIssueDate = SLS.GoodsIssueDate
+
+WHERE [IsConfirmedDelivSchedLine] = 'X'
+
+GROUP BY 
+     SDSL.[SalesDocument]
+    ,SDSL.[SalesDocumentItem]
 )
 ,
 SalesDocumentItem_EUR AS (

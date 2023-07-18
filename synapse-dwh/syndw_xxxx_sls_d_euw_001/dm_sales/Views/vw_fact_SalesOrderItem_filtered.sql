@@ -21,6 +21,7 @@ SELECT
     ,[DistributionChannelID]
     ,[DistributionChannel]
     ,[MaterialID]
+    ,[nk_ProductPlant]
     ,[ProductSurrogateKey]
     ,[OriginallyRequestedMaterialID]
     ,[MaterialSubstitutionReasonID]

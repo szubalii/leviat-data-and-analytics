@@ -23,6 +23,7 @@
     [InternationalArticleNumberID]     nvarchar(18),
     [BatchID]                          nvarchar(10),
     [MaterialID]                       nvarchar(40),
+    [nk_ProductPlant]                  nvarchar(45),
     [ProductSurrogateKey]              nvarchar(117),
     [OriginallyRequestedMaterialID]    nvarchar(40),
     [MaterialSubstitutionReasonID]     nvarchar(4),

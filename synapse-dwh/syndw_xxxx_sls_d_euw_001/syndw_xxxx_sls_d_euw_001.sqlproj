@@ -625,6 +625,7 @@
     <Build Include="Security\Schemas\base_ff.sql" />
     <Build Include="Security\Schemas\dm_procurement.sql" />
     <Build Include="base_ff\Tables\CurrencyType.sql" />
+    <Build Include="base_ff\Tables\ProductHierarchyNode.sql" />
     <Build Include="edw\Views\vw_CurrencyType.sql" />
     <Build Include="edw\Views\vw_BillingDocumentItem_s4h.sql" />
     <Build Include="edw\Views\vw_BillingDocumentItem_axbi.sql" />
@@ -1246,7 +1247,7 @@
     <Build Include="base_s4h_cax\Tables\Z_C_VariantConfig_ProductHierarchy_F.sql" />
     <Build Include="base_s4h_cax\Tables\Z_C_VariantConfig_OtherCharacteristics_F.sql" />
     <Build Include="base_s4h_cax\Tables\I_PersonWorkAgreement_1.sql" />
-    <Build Include="map_AXBI\Tables\SalesOffice.sql" /> 
+    <Build Include="map_AXBI\Tables\SalesOffice.sql" />
     <Build Include="edw\Functions\ScalarValued\svf_get2PartNaturalKey.sql" />
     <Build Include="base_s4h_cax\Tables\I_BusinessPartnerBank.sql" />
     <Build Include="base_s4h_cax\Tables\I_Businesspartnertaxnumber.sql" />
@@ -1278,6 +1279,13 @@
     <Build Include="dq\Views\vw_BP_2_2_7.sql" />
     <Build Include="dq\Views\vw_BP_2_2_8.sql" />
     <Build Include="map_AXBI\Tables\SAPCustomerBasicMappingTable.sql" />
+    <Build Include="edw\Functions\ScalarValued\svf_removeSpecialCharacters.sql" />
+    <Build Include="edw\Functions\ScalarValued\svf_get4PartNaturalKey.sql" />
+    <Build Include="edw\Tables\fact_ACDOCA_FinStatemntSalesMargin.sql" />
+    <Build Include="edw\Views\vw_ACDOCA_FinStatemntSalesMargin.sql" />
+    <Build Include="dm_finance\Views\vw_fact_ACDOCA_FinStatemntSalesMargin.sql" />
+    <Build Include="edw\Functions\ScalarValued\svf_getClassification.sql" />
+    <Build Include="edw\Functions\ScalarValued\svf_getBooleanIndicator.sql" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PostDeploy Include="Scripts\Post-Deploy\Script.PostDeployment.sql" />
