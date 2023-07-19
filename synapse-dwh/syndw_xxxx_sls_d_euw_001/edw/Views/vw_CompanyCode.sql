@@ -1,7 +1,7 @@
 ﻿CREATE VIEW [edw].[vw_CompanyCode]
 AS
 SELECT 
-	 [CompanyCode] AS [CompanyCodeID]
+	 ICC.[CompanyCode] AS [CompanyCodeID]
     ,[CompanyCodeName] AS [CompanyCode]
     ,[CityName]
     ,[Country]
