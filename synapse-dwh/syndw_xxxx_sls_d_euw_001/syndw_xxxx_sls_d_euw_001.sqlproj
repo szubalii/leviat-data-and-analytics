@@ -1244,6 +1244,7 @@
     <Build Include="dm_scm\Views\vw_fact_MaterialStockLevel_Weekly.sql" />
     <Build Include="edw\Functions\ScalarValued\svf_getProductSurrogateKey.sql" />
     <Build Include="dm_sales\Views\vw_fact_ProductSalesDelivery.sql" />
+    <Build Include="dm_sales\Views\vw_fact_OrderBacklog.sql" />
     <Build Include="base_s4h_cax\Tables\Z_C_VariantConfig_ProductHierarchy_F.sql" />
     <Build Include="base_s4h_cax\Tables\Z_C_VariantConfig_OtherCharacteristics_F.sql" />
     <Build Include="base_s4h_cax\Tables\I_PersonWorkAgreement_1.sql" />
@@ -1284,7 +1285,9 @@
     <Build Include="edw\Functions\ScalarValued\svf_removeSpecialCharacters.sql" />
     <Build Include="edw\Functions\ScalarValued\svf_get4PartNaturalKey.sql" />
     <Build Include="edw\Tables\fact_ACDOCA_FinStatemntSalesMargin.sql" />
+    <Build Include="edw\Tables\dim_SDDocumentIncompletionLog.sql" />
     <Build Include="edw\Views\vw_ACDOCA_FinStatemntSalesMargin.sql" />
+    <Build Include="edw\Views\vw_SDDocumentIncompletionLog.sql" />
     <Build Include="dm_finance\Views\vw_fact_ACDOCA_FinStatemntSalesMargin.sql" />
     <Build Include="edw\Functions\ScalarValued\svf_getClassification.sql" />
     <Build Include="edw\Functions\ScalarValued\svf_getBooleanIndicator.sql" />

@@ -41,12 +41,6 @@
 					"isPrimaryKey": true,
 					"isDeltaColumn": true,
 					"selectionPermission": "All",
-					"selections":
-						[
-							{
-								"value": "E"
-							}
-						],
 					"checkTable": "LANGUAGE",
 					"ConversionExit": "ISOLA"
 				},

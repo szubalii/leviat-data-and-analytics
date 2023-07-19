@@ -5753,6 +5753,15 @@
         "dest_table_name": "fact_ACDOCA_FinStatemntSalesMargin",
         "execution_order": 2,
         "schedule_recurrence": "D"
+      },
+      {
+        "entity_id": 612,
+        "entity_name": "dim_SDDocumentIncompletionLog",
+        "sproc_name": "sp_materialize_view",
+        "source_view_name": "vw_SDDocumentIncompletionLog",
+        "dest_table_name": "dim_SDDocumentIncompletionLog",
+        "execution_order": 0,
+        "schedule_recurrence": "D"
       }
     ]
   },
