@@ -97,8 +97,8 @@ SELECT
     , SDSL.DelivBlockReasonForSchedLine
     , SDSL.IsConfirmedDelivSchedLine
     , SDSL.IsRequestedDelivSchedLine
-    , SDSL.SchLineConfirmedDeliveryDate
-    , doc_delivery.RequestedDeliveryDate as RequestedDeliveryDate_Added
+    , SDSL.ConfirmedDeliveryDate                                        AS SchLineConfirmedDeliveryDate
+    , doc_delivery.RequestedDeliveryDate                                AS RequestedDeliveryDate_Added
     , OBDI.ActualDeliveryQuantity
     , CASE
         WHEN IL.SDDocument IS NULL
