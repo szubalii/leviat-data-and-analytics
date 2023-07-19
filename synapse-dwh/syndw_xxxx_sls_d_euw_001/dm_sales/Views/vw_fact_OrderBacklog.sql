@@ -100,6 +100,11 @@ SELECT
     , SDSL.ConfirmedDeliveryDate
     , doc_delivery.RequestedDeliveryDate as RequestedDeliveryDate_Added
     , OBDI.ActualDeliveryQuantity
+    , CASE
+        WHEN IL.SDDocument IS NULL
+            THEN 'No'
+        ELSE 'Yes'
+      END                               AS IsIncomplete
 
 FROM [base_s4h_cax].[C_SalesDocumentItemDEX] doc
 
@@ -155,7 +160,7 @@ LEFT JOIN doc_delivery
         AND doc.SalesDocumentItem = doc_delivery.SalesDocumentItem 
         AND SDSL.IsConfirmedDelivSchedLine = 'X'
 
-LEFT JOIN [edw].[vw_SDDocumentIncompletionLog] IL
+LEFT JOIN [edw].[dim_SDDocumentIncompletionLog] IL
     ON doc.SalesDocument = IL.SDDocument
         AND doc.SalesDocumentItem = IL.SDDocumentItem
 

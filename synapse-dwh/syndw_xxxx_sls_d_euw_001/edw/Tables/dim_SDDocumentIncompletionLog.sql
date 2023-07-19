@@ -6,7 +6,7 @@ CREATE TABLE [edw].[dim_SDDocumentIncompletionLog]
     , [ScheduleLine]      CHAR(4) NOT NULL
     , [FieldText]         NVARCHAR(55)
     , CONSTRAINT [PK_dim_SDDocumentIncompletionLog] PRIMARY KEY NONCLUSTERED(
-        , [SDDocument]
+          [SDDocument]
         , [SDDocumentItem]
         , [ScheduleLine]
     ) NOT ENFORCED
