@@ -64,7 +64,7 @@ SELECT
     , SDICT.SalesDocumentItemCategoryName as SalesDocumentItemCategory
     , doc.SoldToParty as SoldToPartyID
     , CSTMR.Country as CountryID
-    , doc.SDDocumentRejectionStatus as SDDocumentRejectionStatus --Change this to ID to run in SQL.
+    , doc.SDDocumentRejectionStatus as SDDocumentRejectionStatusID
     , OBD.DeliveryDate
     , OBD.LoadingDate
     , SDSL.ScheduleLine
@@ -97,7 +97,7 @@ SELECT
     , SDSL.DelivBlockReasonForSchedLine
     , SDSL.IsConfirmedDelivSchedLine
     , SDSL.IsRequestedDelivSchedLine
-    , SDSL.ConfirmedDeliveryDate
+    , SDSL.SchLineConfirmedDeliveryDate
     , doc_delivery.RequestedDeliveryDate as RequestedDeliveryDate_Added
     , OBDI.ActualDeliveryQuantity
     , CASE
