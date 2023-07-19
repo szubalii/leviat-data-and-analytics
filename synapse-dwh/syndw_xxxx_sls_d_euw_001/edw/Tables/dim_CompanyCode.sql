@@ -22,6 +22,8 @@
 , [DocDateIsUsedForTaxDetn] nvarchar(2)
 , [TaxRptgDateIsActive] nvarchar(2)
 , [CashDiscountBaseAmtIsNetAmt] nvarchar(2)
+, [RegionID] nvarchar(10)
+, [RegionName] nvarchar(80)
 , [DescriptionReporting] nvarchar(50)
 , [t_applicationId]       VARCHAR (32)
 , [t_jobId]               VARCHAR (36)
