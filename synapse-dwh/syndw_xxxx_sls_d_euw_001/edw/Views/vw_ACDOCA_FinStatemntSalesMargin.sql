@@ -114,6 +114,8 @@ AS (
             THEN 'COGSStd'
             ELSE ZED.CONTIGENCY5
         END AS [AmountCategory]
+        ,AC.t_applicationId
+        ,AC.t_extractionDtm
     FROM [edw].[fact_ACDOCA] AC
     INNER JOIN L3 
         ON AC.GLAccountID COLLATE Latin1_General_CI_AS BETWEEN L3.LowerBoundaryAccount AND L3.UpperBoundaryAccount 
@@ -137,6 +139,8 @@ SELECT
     ,sum(COALESCE([PL_Sales],0) + COALESCE([PL_COGS],0)) AS SAP_SalesMargin
     ,FY AS FiscalYear
     ,FPeriod AS FiscalYearPeriod
+    ,t_applicationId
+    ,t_extractionDtm
 FROM Accs
 GROUP BY
      CompanyCodeID
@@ -147,3 +151,5 @@ GROUP BY
     ,CompanyCodeCurrency
     ,FY
     ,FPeriod
+    ,t_applicationId
+    ,t_extractionDtm
