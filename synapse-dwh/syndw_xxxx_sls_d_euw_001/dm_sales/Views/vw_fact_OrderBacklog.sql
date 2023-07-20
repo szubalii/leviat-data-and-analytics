@@ -100,9 +100,6 @@ SELECT
     , SDSL.ConfirmedDeliveryDate                                        AS SchLineConfirmedDeliveryDate
     , doc_delivery.RequestedDeliveryDate                                AS RequestedDeliveryDate_Added
     , OBDI.ActualDeliveryQuantity
-    , IL.SDDocument
-    , IL.SDDocumentItem
-    , IL.ScheduleLine
     , IL.FieldText
     , CASE
         WHEN IL.SDDocument IS NULL
@@ -167,5 +164,6 @@ LEFT JOIN doc_delivery
 LEFT JOIN [edw].[dim_SDDocumentIncompletionLog] IL
     ON doc.SalesDocument = IL.SDDocument
         AND doc.SalesDocumentItem = IL.SDDocumentItem
+        AND SDSL.ScheduleLine = IL.ScheduleLine
 
 WHERE doc.SDDocumentCategory = 'C'
