@@ -8,18 +8,6 @@
 			"isView": true,
 			"fields": [
 				{
-					"name": "MANDT",
-					"description": "Client",
-					"abapType": "CharacterString",
-					"length": 3,
-					"isSelected": true,
-					"outputLength": 3,
-					"isPrimaryKey": true,
-					"isDeltaColumn": true,
-					"selectionPermission": "All",
-					"checkTable": "T000"
-				},
-				{
 					"name": "ABAPDATAELEMENT",
 					"description": "Data element (semantic domain)",
 					"abapType": "CharacterString",
@@ -41,6 +29,12 @@
 					"isPrimaryKey": true,
 					"isDeltaColumn": true,
 					"selectionPermission": "All",
+					"selections":
+						[
+							{
+								"value": "E"
+							}
+						],
 					"checkTable": "LANGUAGE",
 					"ConversionExit": "ISOLA"
 				},
