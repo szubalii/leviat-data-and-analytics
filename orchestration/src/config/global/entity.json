@@ -6069,7 +6069,7 @@
       {
         "entity_id": 602,
         "entity_name": "CostCenter",
-        "source_view_name": "vw_dim_CostCenter_report",
+        "source_view_name": "vw_dim_CostCenter",
         "execution_order": 1,
         "schedule_recurrence": "M"
       },
@@ -6083,7 +6083,7 @@
       {
         "entity_id": 604,
         "entity_name": "Account",
-        "source_view_name": "vw_dim_Account_report",
+        "source_view_name": "vw_dim_Account",
         "execution_order": 1,
         "schedule_recurrence": "M"
       },
@@ -6097,7 +6097,7 @@
       {
         "entity_id": 606,
         "entity_name": "Supplier",
-        "source_view_name": "vw_dim_Supplier_report",
+        "source_view_name": "vw_dim_Supplier",
         "execution_order": 1,
         "schedule_recurrence": "M"
       },
@@ -6111,7 +6111,7 @@
       {
         "entity_id": 608,
         "entity_name": "Part",
-        "source_view_name": "vw_dim_Product_report",
+        "source_view_name": "vw_dim_Product",
         "execution_order": 0,
         "schedule_recurrence": "M"
       }

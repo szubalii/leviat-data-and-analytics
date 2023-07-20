@@ -19,7 +19,7 @@ UNION ALL
 SELECT
     ProductExternalID               AS PartNumber
     ,''                             AS RevisionNumber
-    ,Product                        AS Description1
+    ,Replace(Replace(Replace(Product,'"',''),CHAR(10),''),CHAR(13),'') AS Description1
     ,''                             AS Description2
     ,''                             AS StandardCost
     ,''                             AS StandardCostCurrency
