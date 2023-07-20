@@ -6,10 +6,10 @@ SELECT
     ,POLineNumber
     ,ExtraPOLineKey
     ,SplitAccountingNumber
-    ,OrderedDate
+    ,FORMAT(OrderedDate,'yyyy-MM-dd')          AS OrderedDate
     ,Quantity
     ,Amount
-    ,AmountCurrency
+    ,LEFT(AmountCurrency,3)                             AS AmountCurrency
     ,Description
     ,ERPCommodityId
     ,PartNumber
