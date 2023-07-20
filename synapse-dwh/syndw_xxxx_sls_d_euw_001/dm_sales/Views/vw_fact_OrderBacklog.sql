@@ -162,8 +162,8 @@ LEFT JOIN doc_delivery
         AND SDSL.IsConfirmedDelivSchedLine = 'X'
 
 LEFT JOIN [edw].[dim_SDDocumentIncompletionLog] IL
-    ON doc.SalesDocument = IL.SDDocument
-        AND doc.SalesDocumentItem = IL.SDDocumentItem
-        AND SDSL.ScheduleLine = IL.ScheduleLine
+    ON doc.SalesDocument = IL.SDDocument    DATABASE_DEFAULT
+        AND doc.SalesDocumentItem = IL.SDDocumentItem   DATABASE_DEFAULT
+        AND SDSL.ScheduleLine = IL.ScheduleLine DATABASE_DEFAULT
 
 WHERE doc.SDDocumentCategory = 'C'
