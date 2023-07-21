@@ -112,11 +112,11 @@
     <DataRetentionEnabled>False</DataRetentionEnabled>
   </PropertyGroup>
   <ItemGroup>
-    <Folder Include="dbo\Functions\ScalarValued" />
     <Folder Include="Properties" />
     <Folder Include="dbo\" />
     <Folder Include="dbo\Tables\" />
     <Folder Include="dbo\Functions\" />
+    <Folder Include="dbo\Functions\ScalarValued\" />
     <Folder Include="dbo\Stored Procedures\" />
     <Folder Include="dbo\Views\" />
     <Folder Include="External resources\" />
@@ -333,6 +333,7 @@
     <Build Include="dbo\Views\vw_entity_batch_activity_status.sql" />
     <Build Include="dbo\Views\vw_full_entity_activity_batch_ids.sql" />
     <Build Include="dbo\Views\vw_delta_entity_activity_batch_ids.sql" />
+    <Build Include="dbo\Functions\ScalarValued\svf_get_triggerDate.sql" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PostDeploy Include="Scripts\Script.PostDeployment.sql" />
