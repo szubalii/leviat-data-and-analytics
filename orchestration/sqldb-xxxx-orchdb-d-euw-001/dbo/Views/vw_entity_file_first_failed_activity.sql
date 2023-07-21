@@ -18,7 +18,7 @@ AS
     OR (
       run_activity_id <> 21
       AND (
-        status_id = 2 OR status_id IS NULL
+        status_id <> 2 OR status_id IS NULL
       )
     )
   GROUP BY

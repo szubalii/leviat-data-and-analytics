@@ -209,7 +209,7 @@ BEGIN
   ));
 
   -- Assert:
-  EXEC tSQLt.AssertEquals 'Jul  8 2022', @actual;
+  EXEC tSQLt.AssertEquals '20220708', CONVERT(CHAR(8), @actual, 112);
 END;
 GO
 
