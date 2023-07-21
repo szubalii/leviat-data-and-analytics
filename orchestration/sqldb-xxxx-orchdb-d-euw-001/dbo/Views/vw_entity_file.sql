@@ -18,10 +18,10 @@ WHERE
   AND
   b.status_id IN (1, 2)
 GROUP BY
-  entity_id,
-  layer_id,
-  update_mode,
-  file_name
+  e.entity_id,
+  e.layer_id,
+  e.update_mode,
+  b.file_name
 -- )
 
 -- SELECT
