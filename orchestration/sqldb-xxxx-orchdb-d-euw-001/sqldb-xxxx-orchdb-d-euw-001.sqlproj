@@ -112,6 +112,7 @@
     <DataRetentionEnabled>False</DataRetentionEnabled>
   </PropertyGroup>
   <ItemGroup>
+    <Folder Include="dbo\Functions\ScalarValued" />
     <Folder Include="Properties" />
     <Folder Include="dbo\" />
     <Folder Include="dbo\Tables\" />
@@ -128,6 +129,11 @@
     <Folder Include="log\Tables\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="dbo\Views\vw_latest_entity_file_activity_batch.sql" />
+    <None Include="dbo\Views\vw_first_failed_activity_order.sql" />
+    <None Include="dbo\Views\vw_scheduled_entity_file_activities.sql" />
+    <None Include="dbo\Views\vw_successful_file_activity_before_first_failure.sql" />
+    <None Include="dbo\Views\vw_first_failed_file.sql" />
     <None Include="dbo\Views\vw_successful_delta_file_activity_before_first_failure.sql" />
     <None Include="Security\MasterKey.sql" />
     <None Include="Security\Database Scoped Credentials\dsc_SAS_OrchDB.sql" />

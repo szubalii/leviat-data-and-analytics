@@ -1,7 +1,7 @@
 -- drop function [dbo].[get_scheduled_entity_batch_activities]
 CREATE FUNCTION [dbo].[get_scheduled_entity_batch_activities](
   @adhoc bit = 0,
-  @date DATE,
+  @date DATE = GETDATE(), -- set default to current date
   @rerunSuccessfulFullEntities BIT = 0 -- In case a new run is required
   -- for full entities that have a successful run for the day already, set it to 1
 )
@@ -47,13 +47,12 @@ BEGIN
     e.base_table_name,
     e.axbi_date_field_name,
     e.adls_container_name,
-    dir.base_dir_path + '/In/' + FORMAT(trans.start_date_time, 'yyyy/MM/dd', 'en-US') AS adls_directory_path_In,
-    dir.base_dir_path + '/Out/' + FORMAT(trans.start_date_time, 'yyyy/MM/dd', 'en-US') AS adls_directory_path_Out,
     e.base_schema_name,
     e.base_sproc_name,
-    trans.file_name,
-    trans.required_activities,
-    trans.skipped_activities
+    efr.file_name,
+    COALESCE(svf_get_triggerDate(efr.file_name), @date) AS trigger_date,
+    efr.required_activities,
+    efr.skipped_activities
   FROM
     entity e
   LEFT JOIN
@@ -61,13 +60,9 @@ BEGIN
     ON
       l.layer_id = e.layer_id
   LEFT JOIN
-    dbo.vw_adls_base_directory_path dir
+    dbo.[entity_file_requirement] efr
     ON
-      dir.entity_id = e.entity_id
-  LEFT JOIN
-    vw_latest_entity_file_activity_batch_transposed trans
-    ON
-      trans.entity_id = e.entity_id
+      efr.entity_id = e.entity_id
   WHERE
   -- Daily load is only executed on workdays.
 
@@ -114,33 +109,37 @@ BEGIN
       )
     )
     AND
-      required_activities <> '[]'
+      efr.required_activities <> '[]'
   )
 
 
 
   INSERT INTO @scheduled_entity_batch_activities
   SELECT
-      entity_id,
-      entity_name,
-      layer_nk,
-      update_mode,
-      client_field,
-      extraction_type,
-      pk_field_names,
-      axbi_database_name,
-      axbi_schema_name,
-      base_table_name,
-      axbi_date_field_name,
-      adls_container_name,
-      adls_directory_path_In,
-      adls_directory_path_Out,
-      base_schema_name,
-      base_sproc_name,
-      file_name,
-      required_activities,
-      skipped_activities
-  FROM scheduled_entities
+    se.entity_id,
+    se.entity_name,
+    se.layer_nk,
+    se.update_mode,
+    se.client_field,
+    se.extraction_type,
+    se.pk_field_names,
+    se.axbi_database_name,
+    se.axbi_schema_name,
+    se.base_table_name,
+    se.axbi_date_field_name,
+    se.adls_container_name,
+    svf_get_adls_directory_path(dir.base_dir_path, '/In/', se.trigger_date) AS adls_directory_path_In,
+    svf_get_adls_directory_path(dir.base_dir_path, '/Out/', se.trigger_date) AS adls_directory_path_Out,
+    se.base_schema_name,
+    se.base_sproc_name,
+    se.file_name,
+    se.required_activities,
+    se.skipped_activities
+  FROM scheduled_entities se
+  LEFT JOIN
+    dbo.vw_adls_base_directory_path dir
+    ON
+      dir.entity_id = se.entity_id
 
   RETURN;
 END

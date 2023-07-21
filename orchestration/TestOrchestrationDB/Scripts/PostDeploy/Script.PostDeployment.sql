@@ -4,4 +4,5 @@
 :r ..\..\TestClasses\EntityFile.sql
 :r ..\..\TestClasses\LoadTypeEntities.sql
 :r ..\..\TestClasses\ScheduledEntities.sql
+:r ..\..\TestClasses\ScalarValuedFunction.sql
 -- :r ..\..\TestClasses\FailTest.sql
