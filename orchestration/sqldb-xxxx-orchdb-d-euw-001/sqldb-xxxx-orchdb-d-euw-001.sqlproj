@@ -153,6 +153,11 @@
     <None Include="Scripts\Merge.pipeline_execution_status.sql" />
     <None Include="Scripts\Merge.pipeline.sql" />
     <None Include="Scripts\Merge.recipient_email_address.sql" />
+    <Build Include="dbo\Functions\ScalarValued\svf_get_adls_directory_path.sql" />
+    <Build Include="dbo\Functions\ScalarValued\svf_get_isRequired_full_batch_activity.sql" />
+    <Build Include="dbo\Functions\ScalarValued\svf_get_isRequired_delta_batch_activity.sql" />
+    <Build Include="dbo\Functions\ScalarValued\svf_get_isRequired_batch_activity.sql" />
+    <Build Include="dbo\Functions\ScalarValued\svf_get_triggerDate.sql" />
     <Build Include="dbo\Tables\error_category.sql">
       <AnsiNulls>On</AnsiNulls>
       <QuotedIdentifier>On</QuotedIdentifier>
@@ -333,11 +338,6 @@
     <Build Include="dbo\Views\vw_entity_batch_activity_status.sql" />
     <Build Include="dbo\Views\vw_full_entity_activity_batch_ids.sql" />
     <Build Include="dbo\Views\vw_delta_entity_activity_batch_ids.sql" />
-    <Build Include="dbo\Functions\ScalarValued\svf_get_adls_directory_path.sql" />
-    <Build Include="dbo\Functions\ScalarValued\svf_get_isRequired_full_batch_activity.sql" />
-    <Build Include="dbo\Functions\ScalarValued\svf_get_isRequired_delta_batch_activity.sql" />
-    <Build Include="dbo\Functions\ScalarValued\svf_get_isRequired_batch_activity.sql" />
-    <Build Include="dbo\Functions\ScalarValued\svf_get_triggerDate.sql" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PostDeploy Include="Scripts\Script.PostDeployment.sql" />
