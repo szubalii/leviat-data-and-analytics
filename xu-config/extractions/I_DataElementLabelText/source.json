@@ -30,11 +30,11 @@
 					"isDeltaColumn": true,
 					"selectionPermission": "All",
 					"selections":
-						[
-							{
-								"value": "E"
-							}
-						],
+					[
+						{
+							"value": "E"
+						}
+					],
 					"checkTable": "LANGUAGE",
 					"ConversionExit": "ISOLA"
 				},
