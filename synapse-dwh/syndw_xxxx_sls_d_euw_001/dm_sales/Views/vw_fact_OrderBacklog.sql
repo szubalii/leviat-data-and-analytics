@@ -100,6 +100,7 @@ SELECT
     , SDSL.ConfirmedDeliveryDate                                        AS SchLineConfirmedDeliveryDate
     , doc_delivery.RequestedDeliveryDate                                AS RequestedDeliveryDate_Added
     , OBDI.ActualDeliveryQuantity
+    , IL.ScheduleLine                                                   AS IncompletionScheduleLine
     , IL.FieldText
     , CASE
         WHEN IL.SDDocument IS NULL
