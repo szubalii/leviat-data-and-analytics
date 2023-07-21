@@ -1,5 +1,6 @@
 {
 	"functionName": "Z_THEO_READ_TABLE",
+    "whereClause": "LANGUAGE = 'E'",
 	"runInBackGroundJob": false,
 	"tables": [
 		{
@@ -29,12 +30,6 @@
 					"isPrimaryKey": true,
 					"isDeltaColumn": true,
 					"selectionPermission": "All",
-					"selections":
-					[
-						{
-							"value": "E"
-						}
-					],
 					"checkTable": "LANGUAGE",
 					"ConversionExit": "ISOLA"
 				},

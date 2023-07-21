@@ -12,8 +12,7 @@
 
 CREATE TABLE [base_s4h_cax].[I_DataElementLabelText] (
     
-    [MANDT] CHAR(3) NOT NULL  -- Client
-  , [ABAPDATAELEMENT] NVARCHAR(30) NOT NULL  -- Data element (semantic domain)
+    [ABAPDATAELEMENT] NVARCHAR(30) NOT NULL  -- Data element (semantic domain)
   , [LANGUAGE] CHAR(1) NOT NULL  -- Language Key
   , [ABAPDATAELEMENTDESCRIPTION] NVARCHAR(60)  -- Short Description of Repository Objects
   , [ABAPDATAELEMENTHEADING] NVARCHAR(55)  -- Heading
@@ -27,9 +26,7 @@ CREATE TABLE [base_s4h_cax].[I_DataElementLabelText] (
   , [t_extractionDtm] DATETIME  -- Extraction Date Time
   , [t_filePath] NVARCHAR (1024)  -- Filepath
   , CONSTRAINT [PK_I_DataElementLabelText] PRIMARY KEY NONCLUSTERED(
-      
-      [MANDT]
-    , [ABAPDATAELEMENT]
+      [ABAPDATAELEMENT]
     , [LANGUAGE]
   ) NOT ENFORCED
 ) WITH (
