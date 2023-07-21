@@ -1,7 +1,7 @@
 -- drop function [dbo].[get_scheduled_entity_batch_activities]
 CREATE FUNCTION [dbo].[get_scheduled_entity_batch_activities](
   @adhoc bit = 0,
-  @date DATE = GETDATE(), -- set default to current date
+  @date DATE, -- set default to current date
   @rerunSuccessfulFullEntities BIT = 0 -- In case a new run is required
   -- for full entities that have a successful run for the day already, set it to 1
 )
@@ -31,6 +31,9 @@ BEGIN
 
   DECLARE @day_of_month INT = DAY(@date);
   DECLARE @day_of_week INT = DATEPART(dw, @date);
+
+  IF @date IS NULL
+    SET @date = GETDATE();
 
   WITH
   scheduled_entities AS (
