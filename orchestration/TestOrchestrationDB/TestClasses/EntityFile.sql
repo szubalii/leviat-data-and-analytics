@@ -414,74 +414,74 @@ BEGIN
 END;
 GO
 
-CREATE PROCEDURE [EntityFile].[test get_scheduled_entity_batch_activities: adls_directory_path: In Out]
-  -- Check that adls_directory_path_In includes /In/ and adls_directory_path_Out includes /Out/
-AS
-BEGIN
+-- CREATE PROCEDURE [EntityFile].[test get_scheduled_entity_batch_activities: adls_directory_path: In Out]
+--   -- Check that adls_directory_path_In includes /In/ and adls_directory_path_Out includes /Out/
+-- AS
+-- BEGIN
 
-END;
-GO
+-- END;
+-- GO
 
-CREATE PROCEDURE [EntityFile].[test get_scheduled_entity_batch_activities: adls_directory_path: Date]
-  -- Check that adls_directory_path_In and adls_directory_path_Out includes the correct date:
-  -- For full load entities, the date is equal to the provided date
-  -- For delta load entities, the date is equal to the date of the file 
-AS
-BEGIN
+-- CREATE PROCEDURE [EntityFile].[test get_scheduled_entity_batch_activities: adls_directory_path: Date]
+--   -- Check that adls_directory_path_In and adls_directory_path_Out includes the correct date:
+--   -- For full load entities, the date is equal to the provided date
+--   -- For delta load entities, the date is equal to the date of the file 
+-- AS
+-- BEGIN
 
-END;
-GO
+-- END;
+-- GO
 
-CREATE PROCEDURE [EntityFile].[test get_scheduled_entity_batch_activities: filtered on scheduled entities: daily]
-AS
-BEGIN
-  -- Check if all daily scheduled entities exist in output of get_scheduled_entity_batch_activities
-  -- and if not, these entities are also not returned by entity_file_requirement
+-- CREATE PROCEDURE [EntityFile].[test get_scheduled_entity_batch_activities: filtered on scheduled entities: daily]
+-- AS
+-- BEGIN
+--   -- Check if all daily scheduled entities exist in output of get_scheduled_entity_batch_activities
+--   -- and if not, these entities are also not returned by entity_file_requirement
 
-END;
-GO
+-- END;
+-- GO
 
-CREATE PROCEDURE [EntityFile].[test get_scheduled_entity_batch_activities: filtered on scheduled entities: weekly]
-AS
-BEGIN
+-- CREATE PROCEDURE [EntityFile].[test get_scheduled_entity_batch_activities: filtered on scheduled entities: weekly]
+-- AS
+-- BEGIN
 
-END;
-GO
+-- END;
+-- GO
 
-CREATE PROCEDURE [EntityFile].[test get_scheduled_entity_batch_activities: filtered on scheduled entities: monthly]
-AS
-BEGIN
+-- CREATE PROCEDURE [EntityFile].[test get_scheduled_entity_batch_activities: filtered on scheduled entities: monthly]
+-- AS
+-- BEGIN
 
-END;
-GO
+-- END;
+-- GO
 
-CREATE PROCEDURE [EntityFile].[test get_scheduled_entity_batch_activities: filtered on scheduled entities: adhoc]
-AS
-BEGIN
+-- CREATE PROCEDURE [EntityFile].[test get_scheduled_entity_batch_activities: filtered on scheduled entities: adhoc]
+-- AS
+-- BEGIN
 
-END;
-GO
+-- END;
+-- GO
 
-CREATE PROCEDURE [EntityFile].[test get_scheduled_entity_batch_activities: filter on entities with required activities]
-AS
-BEGIN
+-- CREATE PROCEDURE [EntityFile].[test get_scheduled_entity_batch_activities: filter on entities with required activities]
+-- AS
+-- BEGIN
 
-END;
-GO
+-- END;
+-- GO
 
-CREATE PROCEDURE [EntityFile].[test get_scheduled_entity_batch_activities: uniqueness]
-AS
-BEGIN
+-- CREATE PROCEDURE [EntityFile].[test get_scheduled_entity_batch_activities: uniqueness]
+-- AS
+-- BEGIN
 
-END;
-GO
+-- END;
+-- GO
 
-CREATE PROCEDURE [EntityFile].[test get_scheduled_entity_batch_activities: default current date]
-AS
-BEGIN
+-- CREATE PROCEDURE [EntityFile].[test get_scheduled_entity_batch_activities: default current date]
+-- AS
+-- BEGIN
   
-END;
-GO
+-- END;
+-- GO
 
 
 EXEC [tSQLt].[SetFakeViewOff] 'dbo';
