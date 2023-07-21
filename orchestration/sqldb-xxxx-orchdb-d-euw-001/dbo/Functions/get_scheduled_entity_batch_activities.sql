@@ -53,7 +53,7 @@ BEGIN
     e.base_schema_name,
     e.base_sproc_name,
     efr.file_name,
-    COALESCE(svf_get_triggerDate(efr.file_name), @date) AS trigger_date,
+    COALESCE(dbo.[svf_get_triggerDate](efr.file_name), @date) AS trigger_date,
     efr.required_activities,
     efr.skipped_activities
   FROM
@@ -131,8 +131,8 @@ BEGIN
     se.base_table_name,
     se.axbi_date_field_name,
     se.adls_container_name,
-    svf_get_adls_directory_path(dir.base_dir_path, '/In/', se.trigger_date) AS adls_directory_path_In,
-    svf_get_adls_directory_path(dir.base_dir_path, '/Out/', se.trigger_date) AS adls_directory_path_Out,
+    dbo.[svf_get_adls_directory_path](dir.base_dir_path, '/In/', se.trigger_date) AS adls_directory_path_In,
+    dbo.[svf_get_adls_directory_path](dir.base_dir_path, '/Out/', se.trigger_date) AS adls_directory_path_Out,
     se.base_schema_name,
     se.base_sproc_name,
     se.file_name,
