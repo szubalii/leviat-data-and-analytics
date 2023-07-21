@@ -54,7 +54,7 @@ GO
 -- GO
 
 
-CREATE PROCEDURE [EntityFile].[test svf_get_isRequired_full_batch_activity: activity before failure]
+CREATE PROCEDURE [ScalarValuedFunction].[test svf_get_isRequired_full_batch_activity: activity before failure]
 AS
 BEGIN  
   -- Act: 
@@ -67,7 +67,7 @@ BEGIN
 END;
 GO
 
-CREATE PROCEDURE [EntityFile].[test svf_get_isRequired_full_batch_activity: activity after failure]
+CREATE PROCEDURE [ScalarValuedFunction].[test svf_get_isRequired_full_batch_activity: activity after failure]
 AS
 BEGIN  
   -- Act: 
@@ -80,7 +80,7 @@ BEGIN
 END;
 GO
 
-CREATE PROCEDURE [EntityFile].[test svf_get_isRequired_full_batch_activity: no failed activity]
+CREATE PROCEDURE [ScalarValuedFunction].[test svf_get_isRequired_full_batch_activity: no failed activity]
 AS
 BEGIN  
   -- Act: 
@@ -93,7 +93,7 @@ BEGIN
 END;
 GO
 
-CREATE PROCEDURE [EntityFile].[test svf_get_isRequired_delta_batch_activity: activity_order 100]
+CREATE PROCEDURE [ScalarValuedFunction].[test svf_get_isRequired_delta_batch_activity: activity_order 100]
 AS
 BEGIN  
   -- Act: 
@@ -107,7 +107,7 @@ END;
 GO
 
 
-CREATE PROCEDURE [EntityFile].[test svf_get_isRequired_delta_batch_activity: file before failure]
+CREATE PROCEDURE [ScalarValuedFunction].[test svf_get_isRequired_delta_batch_activity: file before failure]
 AS
 BEGIN  
   -- Act: 
@@ -120,7 +120,7 @@ BEGIN
 END;
 GO
 
-CREATE PROCEDURE [EntityFile].[test svf_get_isRequired_delta_batch_activity: file after failure]
+CREATE PROCEDURE [ScalarValuedFunction].[test svf_get_isRequired_delta_batch_activity: file after failure]
 AS
 BEGIN  
   -- Act: 
@@ -133,7 +133,7 @@ BEGIN
 END;
 GO
 
-CREATE PROCEDURE [EntityFile].[test svf_get_isRequired_delta_batch_activity: no failed file]
+CREATE PROCEDURE [ScalarValuedFunction].[test svf_get_isRequired_delta_batch_activity: no failed file]
 AS
 BEGIN  
   -- Act: 
@@ -147,7 +147,7 @@ END;
 GO
 
 
-CREATE PROCEDURE [EntityFile].[test svf_get_isRequired_batch_activity: Full update_mode]
+CREATE PROCEDURE [ScalarValuedFunction].[test svf_get_isRequired_batch_activity: Full update_mode]
 AS
 BEGIN  
   -- Act: 
@@ -160,7 +160,7 @@ BEGIN
 END;
 GO
 
-CREATE PROCEDURE [EntityFile].[test svf_get_isRequired_batch_activity: NULL update_mode]
+CREATE PROCEDURE [ScalarValuedFunction].[test svf_get_isRequired_batch_activity: NULL update_mode]
 AS
 BEGIN  
   -- Act: 
@@ -173,7 +173,7 @@ BEGIN
 END;
 GO
 
-CREATE PROCEDURE [EntityFile].[test svf_get_isRequired_batch_activity: Delta update_mode]
+CREATE PROCEDURE [ScalarValuedFunction].[test svf_get_isRequired_batch_activity: Delta update_mode]
 AS
 BEGIN  
   -- Act: 
@@ -186,7 +186,7 @@ BEGIN
 END;
 GO
 
-CREATE PROCEDURE [EntityFile].[test svf_get_adls_directory_path]
+CREATE PROCEDURE [ScalarValuedFunction].[test svf_get_adls_directory_path]
 AS
 BEGIN  
   -- Act: 
@@ -200,11 +200,11 @@ END;
 GO
 
 
-CREATE PROCEDURE [EntityFile].[test svf_get_triggerDate]
+CREATE PROCEDURE [ScalarValuedFunction].[test svf_get_triggerDate]
 AS
 BEGIN  
   -- Act: 
-  DECLARE @date DATE = ( SELECT dbo.svf_get_triggerDate(
+  DECLARE @actual DATE = ( SELECT dbo.svf_get_triggerDate(
     'ITEM_GROUPS_2022_07_08_04_03_19_356.parquet'
   ));
 
