@@ -201,7 +201,7 @@ BEGIN
   EXEC ('INSERT INTO dbo.vw_entity_file_activity_latest_batch SELECT * FROM #vw_entity_file_activity_latest_batch');
 
   -- Act: 
-  SELECT entity_id, file_name, activity_order
+  SELECT entity_id, file_name, first_failed_activity_order
   INTO actual
   FROM vw_entity_file_first_failed_activity;
 

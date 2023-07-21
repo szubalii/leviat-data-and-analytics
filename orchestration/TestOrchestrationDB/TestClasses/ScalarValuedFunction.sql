@@ -190,7 +190,7 @@ CREATE PROCEDURE [ScalarValuedFunction].[test svf_get_adls_directory_path]
 AS
 BEGIN  
   -- Act: 
-  DECLARE @actual INT = ( SELECT dbo.svf_get_adls_directory_path(
+  DECLARE @actual VARCHAR(170) = ( SELECT dbo.svf_get_adls_directory_path(
     'FACT/C_BillingDocumentItemBasixDEX/Theobald/ODP/Full', 'In', '2023-07-20 12:00:00'
   ));
 
@@ -209,7 +209,7 @@ BEGIN
   ));
 
   -- Assert:
-  EXEC tSQLt.AssertEquals '2022-07-08', @actual;
+  EXEC tSQLt.AssertEquals 'Jul  8 2022', @actual;
 END;
 GO
 
