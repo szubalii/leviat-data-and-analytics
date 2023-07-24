@@ -1,3 +1,7 @@
+/*
+  Returns the required and skippable activities for 
+  each entity file on a single record
+*/
 CREATE VIEW [dbo].[vw_entity_file_requirement]
 AS
 

@@ -1,3 +1,6 @@
+/*
+  Returns which activities need to rerun for each entity file
+*/
 CREATE VIEW [dbo].[vw_entity_file_required_activity]
 AS
 

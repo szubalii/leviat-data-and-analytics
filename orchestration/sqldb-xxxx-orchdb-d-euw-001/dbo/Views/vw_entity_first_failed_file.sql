@@ -1,3 +1,8 @@
+/*
+  Returns the first file that contains any failed activities
+  for each entity
+*/
+
 CREATE VIEW [dbo].[vw_entity_first_failed_file]
 
 AS

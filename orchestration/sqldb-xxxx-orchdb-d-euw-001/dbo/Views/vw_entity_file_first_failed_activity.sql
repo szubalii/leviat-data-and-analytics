@@ -1,3 +1,7 @@
+/*
+  Returns the first failed activity for each entity file combination
+*/
+
 CREATE VIEW [dbo].[vw_entity_file_first_failed_activity]
 AS
 -- WITH firstFailedActivityOrder AS (

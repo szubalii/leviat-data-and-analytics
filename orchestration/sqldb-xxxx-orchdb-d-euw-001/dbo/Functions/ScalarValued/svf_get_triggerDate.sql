@@ -1,4 +1,7 @@
--- Write your own SQL object definition here, and it'll be included in your package.
+/*
+  Returns the triggered date for a file name with a format of:
+  CRHCURRENCY_2023_01_09_09_24_00_481
+*/
 CREATE FUNCTION [dbo].[svf_get_triggerDate](
   @file_name NVARCHAR (1024)
 )

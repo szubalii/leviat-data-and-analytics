@@ -1,6 +1,10 @@
+/*
+  Returns successfully or in progress extracted file names for each entity
+*/
+
 CREATE VIEW [dbo].[vw_entity_file]
 AS
--- WITH entity_file AS (
+
 SELECT
   e.entity_id,
   e.layer_id,
@@ -22,14 +26,3 @@ GROUP BY
   e.layer_id,
   e.update_mode,
   b.file_name
--- )
-
--- SELECT
---   entity_id,
---   layer_id,
---   update_mode,
---   file_name,
---   trigger_date
--- FROM
---   entity_file
-  -- trigger_date

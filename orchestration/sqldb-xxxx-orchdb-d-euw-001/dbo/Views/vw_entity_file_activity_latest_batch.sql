@@ -1,3 +1,8 @@
+/*
+  Returns the batch info corresponding to the latest ran activity
+  for each combination of entity file activity.
+  Additionally, the natural key and order of the activity is returned
+*/
 CREATE VIEW [dbo].[vw_entity_file_activity_latest_batch]
 AS
 SELECT
@@ -24,7 +29,7 @@ LEFT JOIN
     b.activity_id = efala.run_activity_id
     AND
     b.start_date_time = efala.start_date_time
-  LEFT JOIN
-    batch_activity ba
-    ON
-      ba.activity_id = efala.expected_activity_id
+LEFT JOIN
+  batch_activity ba
+  ON
+    ba.activity_id = efala.expected_activity_id

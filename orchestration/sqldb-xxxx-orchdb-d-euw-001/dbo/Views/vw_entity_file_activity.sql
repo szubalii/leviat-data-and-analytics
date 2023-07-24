@@ -1,3 +1,7 @@
+/*
+  Returns the expected activities to run for each 
+  entity file combination
+*/
 CREATE VIEW [dbo].[vw_entity_file_activity]
 AS
 SELECT

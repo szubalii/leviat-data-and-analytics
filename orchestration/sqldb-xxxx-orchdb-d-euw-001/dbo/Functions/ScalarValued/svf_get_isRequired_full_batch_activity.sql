@@ -1,4 +1,7 @@
--- Write your own SQL object definition here, and it'll be included in your package.
+/*
+  Returns if an activity needs to rerun based on if the provided activity
+  is later than the first failed activity or there is no failed activity
+*/
 CREATE FUNCTION [dbo].[svf_get_isRequired_full_batch_activity](
   @activity_order SMALLINT,
   @firstFailedActivityOrder SMALLINT
