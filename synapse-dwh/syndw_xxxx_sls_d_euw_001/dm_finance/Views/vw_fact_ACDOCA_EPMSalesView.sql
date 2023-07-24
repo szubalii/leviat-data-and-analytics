@@ -204,7 +204,7 @@ SELECT
     END                                             AS [ManualAdjustment],
     CASE
         WHEN GLALIRD.[GLAccountID]
-            IN ('0049000109', '0049000150', '0052300310', '0052300350', '0052900635') THEN 1
+            IN ('0049000109', '0049000150', '0052300310', '0052300350', '0052900635', '0052300351') THEN 1
         ELSE                                            0
     END                                             AS [TPAdjustment],
     CASE
