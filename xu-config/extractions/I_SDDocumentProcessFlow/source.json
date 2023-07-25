@@ -1,5 +1,6 @@
 {
     "functionName": "Z_THEO_READ_TABLE",
+	"whereClause": "PRECEDINGDOCUMENTCATEGORY in  ('B','C','I') AND SUBSEQUENTDOCUMENTCATEGORY in ('C','J')",
     "runInBackgroundJob": false,
     "backgroundJobTimeout": 180,
     "tables": 
@@ -54,17 +55,6 @@
                     "abapType": "CharacterString",
                     "length": 4,
                     "isSelected": true,
-					"selections": [
-						{
-						  "value": "B"
-						},
-						{
-						  "value": "C"
-						},
-						{
-						  "value": "E"
-						}
-					],
                     "checkTable": "PRECEDINGDOCUMENTCATEGORY",
                     "conversionExit": ""
                 },
@@ -92,14 +82,6 @@
                     "abapType": "CharacterString",
                     "length": 4,
                     "isSelected": true,
-					"selections": [
-						{
-						  "value": "C"
-						},
-						{
-						  "value": "J"
-						}
-					],
                     "checkTable": "SUBSEQUENTDOCUMENTCATEGORY",
                     "conversionExit": ""
                 },
