@@ -4140,7 +4140,7 @@
         "tool_name": "Theobald",
         "extraction_type": "Table",
         "update_mode": "Full",
-        "base_table_name": "P_OrganizationAddress",
+        "base_table_name": "I_SDDocumentProcessFlow",
         "schedule_recurrence": "D",
         "pk_field_names": "MANDT, DOCRELATIONSHIPUUID"
       }
