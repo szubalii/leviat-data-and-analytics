@@ -1,7 +1,8 @@
 ﻿CREATE VIEW [edw].[vw_ProductSalesDelivery]
 AS
 SELECT
-	CONCAT_WS('¦',psd.[Product], [ProductSalesOrg], [ProductDistributionChnl]) as [nk_ProductSalesDelivery]
+	CONCAT_WS('¦',psd.[Product], [ProductSalesOrg], [ProductDistributionChnl]) 	AS [nk_ProductSalesDelivery]
+	,CHECKSUM(svf_get2PartNaturalKey(psd.Product, psd.ProductSalesOrg))			AS [sk_ProductSalesOrg]
 	,psd.[Product] AS ProductID
 	,psd.[ProductSalesOrg] AS [SalesOrganizationID]
 	,psd.[ProductDistributionChnl] AS [DistributionChannelID]
@@ -69,6 +70,12 @@ SELECT
 	,[SubscrpnContrAltvExtnDurn1]
 	,[SubscrpnContrAltvExtnDurn2]
 	,[SubscrpnContrExtnDurnUnit]
+	,CASE
+		WHEN psd.ItemCategoryGroup IN
+			('ZUM1', 'Z001', 'Z002', '0002', 'ZBA1', 'ZBA2')
+			THEN 'Yes'
+		ELSE 'No'
+	END												AS IsConfigurable
 	,psd.[t_applicationId]
 FROM [base_s4h_cax].[I_ProductSalesDelivery] AS psd
 LEFT JOIN

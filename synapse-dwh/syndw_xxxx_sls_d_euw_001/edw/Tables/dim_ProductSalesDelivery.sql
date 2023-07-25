@@ -1,6 +1,7 @@
 ﻿CREATE TABLE [edw].[dim_ProductSalesDelivery] (
 -- Product Sales Delivery
   [sk_ProductSalesDelivery] int IDENTITY(1,1) NOT NULL
+, [sk_ProductSalesOrg]      int NOT NULL
 , [nk_ProductSalesDelivery] nvarchar(94) NOT NULL
 , [ProductID] nvarchar(80) NOT NULL -- renamed (ex Product)
 , [SalesOrganizationID] nvarchar(8) NOT NULL -- renamed (ex ProductSalesOrg)
@@ -70,6 +71,7 @@
 , [SubscrpnContrAltvExtnDurn1] char(3) collate Latin1_General_100_BIN2
 , [SubscrpnContrAltvExtnDurn2] char(3) collate Latin1_General_100_BIN2
 , [SubscrpnContrExtnDurnUnit] nvarchar(2)
+, [IsConfigurable]            varchar(3)
 , [t_applicationId]       VARCHAR (32)
 , [t_jobId]               VARCHAR (36)
 , [t_jobDtm]              DATETIME
