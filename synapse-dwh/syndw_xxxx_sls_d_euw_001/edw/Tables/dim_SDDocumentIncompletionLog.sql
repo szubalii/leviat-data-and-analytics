@@ -4,7 +4,7 @@ CREATE TABLE [edw].[dim_SDDocumentIncompletionLog]
     [SDDocument]          NVARCHAR(10) NOT NULL
     , [SDDocumentItem]    CHAR(6) NOT NULL
     , [ScheduleLine]      CHAR(4) NOT NULL
-    , [FieldText]         NVARCHAR(55)
+    , [FieldName]         NVARCHAR(55)
     , [t_applicationId]   VARCHAR(32)
     , [t_jobId]           VARCHAR(36)
     , [t_jobDtm]          DATETIME   

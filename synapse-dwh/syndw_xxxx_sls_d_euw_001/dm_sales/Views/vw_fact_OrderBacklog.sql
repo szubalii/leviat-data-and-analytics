@@ -101,7 +101,7 @@ SELECT
     , doc_delivery.RequestedDeliveryDate                                AS RequestedDeliveryDate_Added
     , OBDI.ActualDeliveryQuantity
     , IL.ScheduleLine                                                   AS IncompletionScheduleLine
-    , IL.FieldText
+    , IL.FieldName
     , CASE
         WHEN IL.SDDocument IS NULL
             THEN 'No'
