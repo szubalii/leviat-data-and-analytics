@@ -1481,18 +1481,18 @@ LEFT JOIN edw.dim_ProfitCenter PC
     ON GLAccountLineItemRawData.ProfitCenterID=PC.ProfitCenterID
 LEFT JOIN [base_s4h_cax].[I_SDDocumentProcessFlow] AS DPF
     ON
-            SalesDocument = DPF.PrecedingDocument AND
-            SalesDocumentItem = DPF.PrecedingDocumentItem AND
-            DPF.SubsequentDocumentCategory = 'C'
+       GLAccountLineItemRawData.SalesDocument = DPF.PrecedingDocument AND
+       GLAccountLineItemRawData.SalesDocumentItem = DPF.PrecedingDocumentItem AND
+       DPF.SubsequentDocumentCategory = 'C'
 LEFT JOIN [base_s4h_cax].[I_SDDocumentProcessFlow] AS PF
     ON
-            SalesDocument = PF.SubsequentDocument AND
-            SalesDocumentItem = PF.SubsequentDocumentItem AND
-            PF.PrecedingDocumentItemCategory in ('C', 'I')
+       GLAccountLineItemRawData.SalesDocumentID = PF.SubsequentDocument AND
+       GLAccountLineItemRawData.SalesDocumentItemID = PF.SubsequentDocumentItem AND
+       PF.PrecedingDocumentItemCategory in ('C', 'I')
 LEFT JOIN [edw].[fact_BillingDocumentItem] BDI 
     ON
-       SalesDocument = BDI.SalesDocumentID AND
-       SalesDocumentItem = BDI.SalesDocumentItemID
+       GLAccountLineItemRawData.SalesDocumentID = BDI.SalesDocumentID AND
+       GLAccountLineItemRawData.SalesDocumentItemID = BDI.SalesDocumentItemID
 
 -- WHERE
 --     GLAccountLineItemRawData.MANDT = 200 MPS 2021/11/01: commented out due to different client values between dev,qas, and prod
