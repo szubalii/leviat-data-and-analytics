@@ -1447,13 +1447,13 @@ SELECT
        [SoldProduct],
        ProfitCenterTypeID,
        CASE 
-            WHEN GLAccountLineItemRawData.SalesDocumentID LIKE '001*%' THEN DPF.SubsequentDocument COLLATE DATABASE_DEFAULT
-            WHEN GLAccountLineItemRawData.SalesDocumentID LIKE '008*%' THEN PF.PrecedingDocument
+            WHEN GLAccountLineItemRawData.SalesDocumentID LIKE '001%' THEN DPF.SubsequentDocument COLLATE DATABASE_DEFAULT
+            WHEN GLAccountLineItemRawData.SalesDocumentID LIKE '008%' THEN PF.PrecedingDocument
             ELSE GLAccountLineItemRawData.SalesDocumentID 
        END AS SalesReferenceDocumentCalculated,
        CASE 
-            WHEN GLAccountLineItemRawData.SalesDocumentID LIKE '001*%' THEN DPF.SubsequentDocumentItem COLLATE DATABASE_DEFAULT
-            WHEN GLAccountLineItemRawData.SalesDocumentID LIKE '008*%' THEN PF.PrecedingDocumentItem
+            WHEN GLAccountLineItemRawData.SalesDocumentID LIKE '001%' THEN DPF.SubsequentDocumentItem COLLATE DATABASE_DEFAULT
+            WHEN GLAccountLineItemRawData.SalesDocumentID LIKE '008%' THEN PF.PrecedingDocumentItem
             ELSE GLAccountLineItemRawData.SalesDocumentItemID
        END AS SalesReferenceDocumentItemCalculated,
        GLAccountLineItemRawData.[t_applicationId],
