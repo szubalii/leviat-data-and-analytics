@@ -1446,6 +1446,16 @@ SELECT
        PA.ICSalesDocumentItemID,
        [SoldProduct],
        ProfitCenterTypeID,
+       CASE 
+            WHEN SalesDocumentID LIKE '001*%' THEN DPF.SubsequentDocument
+            WHEN SalesDocumentID LIKE '008*%' THEN PF.PrecedingDocument
+            ELSE SalesDocumentID 
+       END AS SalesReferenceDocumentCalculated,
+       CASE 
+            WHEN SalesDocumentID LIKE '001*%' THEN DPF.SubsequentDocumentItem
+            WHEN SalesDocumentID LIKE '008*%' THEN PF.PrecedingDocumentItem
+            ELSE SalesDocumentItemID
+       END AS SalesReferenceDocumentItemCalculated,
        GLAccountLineItemRawData.[t_applicationId],
        GLAccountLineItemRawData.[t_extractionDtm]
 FROM GLAccountLineItemRawData
@@ -1469,6 +1479,21 @@ LEFT JOIN [edw].[vw_ProductHierarchyVariantConfigCharacteristic] AS VC
         END 
 LEFT JOIN edw.dim_ProfitCenter PC
     ON GLAccountLineItemRawData.ProfitCenterID=PC.ProfitCenterID
+LEFT JOIN [base_s4h_cax].[I_SDDocumentProcessFlow] AS DPF
+    ON
+            SalesDocument = DPF.PrecedingDocument AND
+            SalesDocumentItem = DPF.PrecedingDocumentItem AND
+            DPF.SubsequentDocumentCategory = 'C'
+LEFT JOIN [base_s4h_cax].[I_SDDocumentProcessFlow] AS PF
+    ON
+            SalesDocument = PF.SubsequentDocument AND
+            SalesDocumentItem = PF.SubsequentDocumentItem AND
+            PF.PrecedingDocumentItemCategory in ('C', 'I')
+LEFT JOIN [edw].[fact_BillingDocumentItem] BDI 
+    ON
+       SalesDocument = BDI.SalesDocumentID AND
+       SalesDocumentItem = BDI.SalesDocumentItemID
+
 -- WHERE
 --     GLAccountLineItemRawData.MANDT = 200 MPS 2021/11/01: commented out due to different client values between dev,qas, and prod
 
