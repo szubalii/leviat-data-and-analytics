@@ -1447,14 +1447,14 @@ SELECT
        [SoldProduct],
        ProfitCenterTypeID,
        CASE 
-            WHEN SalesDocumentID LIKE '001*%' THEN DPF.SubsequentDocument
-            WHEN SalesDocumentID LIKE '008*%' THEN PF.PrecedingDocument
-            ELSE SalesDocumentID 
+            WHEN GLAccountLineItemRawData.SalesDocumentID LIKE '001*%' THEN DPF.SubsequentDocument
+            WHEN GLAccountLineItemRawData.SalesDocumentID LIKE '008*%' THEN PF.PrecedingDocument
+            ELSE GLAccountLineItemRawData.SalesDocumentID 
        END AS SalesReferenceDocumentCalculated,
        CASE 
-            WHEN SalesDocumentID LIKE '001*%' THEN DPF.SubsequentDocumentItem
-            WHEN SalesDocumentID LIKE '008*%' THEN PF.PrecedingDocumentItem
-            ELSE SalesDocumentItemID
+            WHEN GLAccountLineItemRawData.SalesDocumentID LIKE '001*%' THEN DPF.SubsequentDocumentItem
+            WHEN GLAccountLineItemRawData.SalesDocumentID LIKE '008*%' THEN PF.PrecedingDocumentItem
+            ELSE GLAccountLineItemRawData.SalesDocumentItemID
        END AS SalesReferenceDocumentItemCalculated,
        GLAccountLineItemRawData.[t_applicationId],
        GLAccountLineItemRawData.[t_extractionDtm]
