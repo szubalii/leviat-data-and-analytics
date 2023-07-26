@@ -1,7 +1,6 @@
 ﻿CREATE TABLE [edw].[dim_ProductSalesDelivery] (
 -- Product Sales Delivery
   [sk_ProductSalesDelivery] int IDENTITY(1,1) NOT NULL
-, [sk_ProductSalesOrg]      int NOT NULL
 , [nk_ProductSalesDelivery] nvarchar(94) NOT NULL
 , [ProductID] nvarchar(80) NOT NULL -- renamed (ex Product)
 , [SalesOrganizationID] nvarchar(8) NOT NULL -- renamed (ex ProductSalesOrg)

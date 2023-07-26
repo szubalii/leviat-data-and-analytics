@@ -27,6 +27,8 @@ SELECT
         viewMD.[LatestPricePerPiece_EUR],    
         viewMD.[LatestPricePerPiece_USD],  
         SUM(viewMD.ConsumptionQty) AS ConsumptionQty, 
+        viewMD.[PlantSalesOrgID],
+        viewMD.[sk_ProductSalesDelivery],
         viewMD.t_applicationId,
         viewMD.t_extractionDtm
     FROM [edw].[fact_MaterialDocumentItem] viewMD
@@ -52,7 +54,9 @@ SELECT
         viewMD.[InventoryValuationTypeID],
         viewMD.[LatestPricePerPiece_Local],  
         viewMD.[LatestPricePerPiece_EUR],    
-        viewMD.[LatestPricePerPiece_USD],   
+        viewMD.[LatestPricePerPiece_USD],  
+        viewMD.[PlantSalesOrgID],
+        viewMD.[sk_ProductSalesDelivery],  
         viewMD.t_applicationId,
         viewMD.t_extractionDtm 
 ), Hash_Calc_Min AS(
@@ -175,7 +179,9 @@ SELECT
         CPPUP.[PriceControlIndicator], 
         CPPUP.[sk_dim_ProductValuationPUP]    AS [sk_dim_ProductValuationPUP],
         CPPUP.[nk_dim_ProductValuationPUP]    AS [nk_dim_ProductValuationPUP],
-        CPPUP.[CurrencyID],
+        CPPUP.[CurrencyID], 
+        HC.[PlantSalesOrgID],
+        HC.[sk_ProductSalesDelivery],
         CC.t_applicationId,
         CC.t_extractionDtm
         FROM Calendar_Calc CC
@@ -235,7 +241,9 @@ SELECT
     [PriceControlIndicator],
     [nk_dim_ProductValuationPUP],
     [sk_dim_ProductValuationPUP],
-    [CurrencyID],
+    [CurrencyID], 
+    [PlantSalesOrgID],
+    [sk_ProductSalesDelivery],
     [t_applicationId],
     [t_extractionDtm]
 FROM 

@@ -2,7 +2,6 @@
 AS
 SELECT
 	CONCAT_WS('¦',psd.[Product], [ProductSalesOrg], [ProductDistributionChnl]) 	AS [nk_ProductSalesDelivery]
-	,CHECKSUM(svf_get2PartNaturalKey(psd.Product, psd.ProductSalesOrg))			AS [sk_ProductSalesOrg]
 	,psd.[Product] AS ProductID
 	,psd.[ProductSalesOrg] AS [SalesOrganizationID]
 	,psd.[ProductDistributionChnl] AS [DistributionChannelID]

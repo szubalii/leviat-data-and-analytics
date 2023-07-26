@@ -1242,6 +1242,7 @@
     <Build Include="edw\Views\vw_dim_SalesEmployee.sql" />
     <Build Include="edw\Views\vw_MaterialStockLevel_Weekly.sql" />
     <Build Include="dm_scm\Views\vw_fact_MaterialStockLevel_Weekly.sql" />
+    <Build Include="dm_scm\Views\vw_fact_ProductSalesThirdPartyDelivery.sql" />
     <Build Include="edw\Functions\ScalarValued\svf_getProductSurrogateKey.sql" />
     <Build Include="dm_sales\Views\vw_fact_ProductSalesDelivery.sql" />
     <Build Include="base_s4h_cax\Tables\Z_C_VariantConfig_ProductHierarchy_F.sql" />
