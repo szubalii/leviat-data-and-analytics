@@ -343,6 +343,35 @@
             "fact_SupplierInvoiceItemPurOrdRef"
           ]
         }
+      },
+      "Procurement Analysis": {
+        "pbi_dataset_id": 25,
+        "schedule_recurrence": "D",
+        "entities": {
+          "edw": [
+            "fact_PurchasingDocument",
+            "fact_PurchasingDocumentItem",
+            "fact_SupplierInvoice",
+            "fact_SupplierInvoiceItemPurOrdRef"
+          ]
+        }
+      }
+    }
+  },
+  "Leviat_Data_Analytics Sales Pricing": {
+    "datasets": {
+      "Price Condition": {
+        "pbi_dataset_id": 26,
+        "schedule_recurrence": "D",
+        "entities": {
+          "edw": [
+            "fact_BillingDocumentItem",
+            "fact_BillingDocumentItemPrcgElmnt",
+            "fact_SalesDocumentItem",
+            "fact_SalesOrderItemPricingElement",
+            "fact_SalesQuotationItemPrcgElmnt"
+          ]
+        }
       }
     }
   }

@@ -858,7 +858,7 @@
         "update_mode": "Full",
         "base_table_name": "I_SalesOrderItemPricingElement",
         "pk_field_names": "SALESORDER, SALESORDERITEM, PRICINGPROCEDURESTEP, PRICINGPROCEDURECOUNTER",
-        "schedule_recurrence": "A"
+        "schedule_recurrence": "D"
       },
       {
         "entity_id": 134,
@@ -4046,7 +4046,7 @@
         "update_mode": "Full",
         "base_table_name": "I_SalesQuotationItemPrcgElmnt",
         "pk_field_names": "MANDT, SALESQUOTATION, SALESQUOTATIONITEM, PRICINGPROCEDURESTEP, PRICINGPROCEDURECOUNTER",
-        "schedule_recurrence": "A"
+        "schedule_recurrence": "D"
       },
       {
         "entity_id": 586,
@@ -4814,7 +4814,7 @@
         "source_view_name": "vw_BillingDocumentItemPrcgElmnt",
         "dest_table_name": "fact_BillingDocumentItemPrcgElmnt",
         "execution_order": 4,
-        "schedule_recurrence": "A"
+        "schedule_recurrence": "D"
       },
       {
         "entity_id": 325,
@@ -5710,7 +5710,7 @@
         "source_view_name": "vw_SalesQuotationItemPrcgElmnt",
         "dest_table_name": "fact_SalesQuotationItemPrcgElmnt",
         "execution_order": 6,
-        "schedule_recurrence": "A"
+        "schedule_recurrence": "D"
       },
       {
         "entity_id": 585,
@@ -5719,7 +5719,7 @@
         "source_view_name": "vw_SalesOrderItemPricingElement",
         "dest_table_name": "fact_SalesOrderItemPricingElement",
         "execution_order": 6,
-        "schedule_recurrence": "A"
+        "schedule_recurrence": "D"
       },
       {
         "entity_id": 609,
