@@ -79,6 +79,8 @@ SELECT
         max(viewMD.[LatestPricePerPiece_Local]) AS LatestPricePerPiece_Local,  
         max(viewMD.[LatestPricePerPiece_EUR]) AS LatestPricePerPiece_EUR,    
         max(viewMD.[LatestPricePerPiece_USD]) AS LatestPricePerPiece_USD,   
+        max(viewMD.[PlantSalesOrgID])         AS PlantSalesOrgID,
+        max(viewMD.[sk_ProductSalesDelivery]) AS sk_ProductSalesDelivery,  
         max(t_applicationId) AS t_applicationId,
         max(t_extractionDtm) AS t_extractionDtm,
         min([HDR_PostingDate_FMD]) AS minHDR_PostingDate       
@@ -108,7 +110,9 @@ SELECT
         HC.[minHDR_PostingDate],
         HC.[LatestPricePerPiece_Local], 
         HC.[LatestPricePerPiece_EUR],   
-        HC.[LatestPricePerPiece_USD],   
+        HC.[LatestPricePerPiece_USD],  
+        HC.[PlantSalesOrgID],
+        HC.[sk_ProductSalesDelivery],   
         HC.[t_applicationId],
         HC.[t_extractionDtm]
     FROM Hash_Calc_Min HC
@@ -180,8 +184,8 @@ SELECT
         CPPUP.[sk_dim_ProductValuationPUP]    AS [sk_dim_ProductValuationPUP],
         CPPUP.[nk_dim_ProductValuationPUP]    AS [nk_dim_ProductValuationPUP],
         CPPUP.[CurrencyID], 
-        HC.[PlantSalesOrgID],
-        HC.[sk_ProductSalesDelivery],
+        CC.[PlantSalesOrgID],
+        CC.[sk_ProductSalesDelivery],
         CC.t_applicationId,
         CC.t_extractionDtm
         FROM Calendar_Calc CC
