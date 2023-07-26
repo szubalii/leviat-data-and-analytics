@@ -11,10 +11,11 @@ SELECT
 , CC.[Company]
 , CC.[CashDiscountBaseAmtIsNetAmt]
 , CC.[RegionID]         AS RegionID
-, CC.[RegionName]       AS Region
-, CC.[DescriptionReporting]
+, Rgn.[RegionName]      AS Region
+, CC.[CompanyCodeDescription]
 , CC.[t_jobDtm]
 FROM [edw].[dim_CompanyCode]    CC
 LEFT JOIN [edw].[dim_Country]   Ctr
     ON CC.Country = Ctr.CountryID
-
+LEFT JOIN base_ff.Region  Rgn
+    ON CC.RegionID = Rgn.RegionID

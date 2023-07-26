@@ -34,5 +34,6 @@ map_AXBI;StockUnit.csv;",";map_AXBI;StockUnit
 map_AXBI;SalesOffice.csv;";";map_AXBI;SalesOffice
 map_AXBI;SAPCustomerBasicMappingTable.csv;";";map_AXBI;SAPCustomerBasicMappingTable
 ;ProductHierarchyNode.csv;";";base_ff;ProductHierarchyNode
-;CountryRegion.csv;";";base_ff;CountryRegion
+;CountryRegionMapping.csv;";";base_ff;CountryRegionMapping
+;Region.csv;";";base_ff;Region
 ;CompanyCode.csv;";";base_ff;CompanyCode

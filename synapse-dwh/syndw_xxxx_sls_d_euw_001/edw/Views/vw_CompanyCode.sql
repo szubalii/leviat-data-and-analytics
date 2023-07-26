@@ -22,15 +22,14 @@ SELECT
     ,[NonTaxableTransactionTaxCode]
     ,[DocDateIsUsedForTaxDetn]
     ,[TaxRptgDateIsActive]
-    ,CR.[RegionID]
-    ,CR.[RegionName]
-    ,CC.[DescriptionReporting]
+    ,CRM.[RegionID]
+    ,CC.[CompanyCodeDescription]
     ,ICC.[t_applicationId]
 FROM 
     [base_s4h_cax].[I_CompanyCode] ICC
 LEFT JOIN  
-    [base_ff].[CountryRegion] CR
-    ON  ICC.Country=CR.CountryID
+    [base_ff].[CountryRegionMapping] CRM
+    ON  ICC.Country=CRM.CountryID
 LEFT JOIN 
     [base_ff].[CompanyCode] CC
     ON ICC.CompanyCode=CC.CompanyCode

@@ -1,7 +1,5 @@
-CREATE TABLE base_ff.CountryRegion (
+CREATE TABLE base_ff.Region (
 
-	[CountryID]                    NVARCHAR(3),
-    [CountryName]                  NVARCHAR(50),
     [RegionID]                     NVARCHAR(10),
     [RegionName]                   NVARCHAR(80),
     [t_applicationId] [varchar](32) NULL,

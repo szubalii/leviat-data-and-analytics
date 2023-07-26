@@ -1,7 +1,7 @@
-CREATE TABLE base_ff.CompanyCode (
+CREATE TABLE base_ff.CountryRegionMapping (
 
-	[CompanyCode]                   NVARCHAR(10),
-    [CompanyCodeDescription]        NVARCHAR(50),
+	[CountryID]                    NVARCHAR(3),
+    [RegionID]                     NVARCHAR(10),
     [t_applicationId] [varchar](32) NULL,
 	[t_jobId] [varchar](36) NULL,
 	[t_jobDtm] [datetime] NULL,
