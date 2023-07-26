@@ -4,7 +4,8 @@ CREATE FUNCTION [dbo].[svf_get_isRequired_batch_activity](
   @file_name VARCHAR (250),
   @first_failed_file_name VARCHAR (250),
   @activity_order SMALLINT,
-  @first_failed_activity_order SMALLINT
+  @first_failed_activity_order SMALLINT,
+  @rerunSuccessfulFullEntities BIT = 0
 )
 RETURNS TINYINT
 AS
@@ -12,10 +13,15 @@ BEGIN
   DECLARE @isRequired AS TINYINT =
     CASE
       WHEN @update_mode = 'Full' OR @update_mode IS NULL
-      THEN dbo.svf_get_isRequired_full_batch_activity(
-        @activity_order,
-        @first_failed_activity_order
-      )
+      THEN
+        CASE
+          WHEN @rerunSuccessfulFullEntities = 1
+          THEN 1
+          ELSE dbo.svf_get_isRequired_full_batch_activity(
+            @activity_order,
+            @first_failed_activity_order
+          )
+        END
       WHEN @update_mode = 'Delta'
       THEN dbo.svf_get_isRequired_delta_batch_activity(
         @file_name,

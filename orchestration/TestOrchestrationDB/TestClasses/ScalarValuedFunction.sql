@@ -152,7 +152,7 @@ AS
 BEGIN  
   -- Act: 
   DECLARE @actual INT = ( SELECT dbo.svf_get_isRequired_batch_activity(
-    'Full', 'test1', NULL, 100, 200
+    'Full', 'test1', NULL, 100, 200, 0
   ));
 
   -- Assert:
@@ -165,11 +165,24 @@ AS
 BEGIN  
   -- Act: 
   DECLARE @actual INT = ( SELECT dbo.svf_get_isRequired_batch_activity(
-    NULL, 'test1', NULL, 100, 200
+    NULL, 'test1', NULL, 100, 200, 0
   ));
 
   -- Assert:
   EXEC tSQLt.AssertEquals 0, @actual;
+END;
+GO
+
+CREATE PROCEDURE [ScalarValuedFunction].[test svf_get_isRequired_batch_activity: rerunSuccessfulFullEntities]
+AS
+BEGIN  
+  -- Act: 
+  DECLARE @actual INT = ( SELECT dbo.svf_get_isRequired_batch_activity(
+    'Full', 'test1', NULL, 100, 200, 1
+  ));
+
+  -- Assert:
+  EXEC tSQLt.AssertEquals 1, @actual;
 END;
 GO
 
@@ -178,7 +191,7 @@ AS
 BEGIN  
   -- Act: 
   DECLARE @actual INT = ( SELECT dbo.svf_get_isRequired_batch_activity(
-    'Delta', 'test1', NULL, 100, 200
+    'Delta', 'test1', NULL, 100, 200, 0
   ));
 
   -- Assert:

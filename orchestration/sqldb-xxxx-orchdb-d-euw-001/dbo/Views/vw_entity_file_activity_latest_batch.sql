@@ -7,14 +7,28 @@ CREATE VIEW [dbo].[vw_entity_file_activity_latest_batch]
 AS
 SELECT
   efala.entity_id,
+  efala.entity_name,
+  efala.layer_id,
   efala.update_mode,
+  efala.client_field,
+  efala.extraction_type,
+  efala.pk_field_names,
+  efala.axbi_database_name,
+  efala.axbi_schema_name,
+  efala.base_table_name,
+  efala.axbi_date_field_name,
+  efala.adls_container_name,
+  efala.base_schema_name,
+  efala.base_sproc_name,
+  efala.schedule_recurrence,
+  efala.schedule_day,
   efala.file_name,
   efala.expected_activity_id,
   ba.activity_nk,
   ba.activity_order,
   b.batch_id,
   efala.run_activity_id,
-  efala.start_date_time,
+  efala.latest_start_date_time,
   b.status_id,
   b.output
 FROM
@@ -28,7 +42,7 @@ LEFT JOIN
     AND
     b.activity_id = efala.run_activity_id
     AND
-    b.start_date_time = efala.start_date_time
+    b.start_date_time = efala.latest_start_date_time
 LEFT JOIN
   batch_activity ba
   ON

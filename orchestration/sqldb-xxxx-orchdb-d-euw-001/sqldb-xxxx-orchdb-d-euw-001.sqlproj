@@ -117,6 +117,7 @@
     <Folder Include="dbo\Tables\" />
     <Folder Include="dbo\Functions\" />
     <Folder Include="dbo\Functions\ScalarValued\" />
+    <Folder Include="dbo\Functions\TableValued\" />
     <Folder Include="dbo\Stored Procedures\" />
     <Folder Include="dbo\Views\" />
     <Folder Include="External resources\" />
@@ -158,6 +159,8 @@
     <Build Include="dbo\Functions\ScalarValued\svf_get_isRequired_delta_batch_activity.sql" />
     <Build Include="dbo\Functions\ScalarValued\svf_get_isRequired_batch_activity.sql" />
     <Build Include="dbo\Functions\ScalarValued\svf_get_triggerDate.sql" />
+    <Build Include="dbo\Functions\TableValued\tvf_entity_file_required_activity.sql" />
+    <Build Include="dbo\Functions\TableValued\tvf_entity_file_requirement.sql" />
     <Build Include="dbo\Tables\error_category.sql">
       <AnsiNulls>On</AnsiNulls>
       <QuotedIdentifier>On</QuotedIdentifier>
