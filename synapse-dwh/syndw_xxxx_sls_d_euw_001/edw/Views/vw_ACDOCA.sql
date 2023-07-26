@@ -1319,8 +1319,8 @@ FROM [base_s4h_cax].[I_GLAccountLineItemRawData_202309] GLAccountLineItemRawData
 SELECT 
        [SourceLedgerID],
        [CompanyCodeID],
-       edw.svf_getProductSurrogateKey(VC.[ProductSurrogateKey],GLAccountLineItemRawData.[ProductID],SoldProduct) AS [ProductSurrogateKey],
-       GLAccountLineItemRawData.[FiscalYear],
+       edw.svf_getProductSurrogateKey(VC.[ProductSurrogateKey],GLA.[ProductID],SoldProduct) AS [ProductSurrogateKey],
+       GLA.[FiscalYear],
        [AccountingDocument],
        [LedgerGLLineItem],
        [LedgerFiscalYear],
@@ -1349,9 +1349,9 @@ SELECT
        [SourceReferenceDocumentItem],
        [IsCommitment],
        [JrnlEntryItemObsoleteReasonID],
-       GLAccountLineItemRawData.[GLAccountID],
-       GLAccountLineItemRawData.[CostCenterID],
-       GLAccountLineItemRawData.[ProfitCenterID],
+       GLA.[GLAccountID],
+       GLA.[CostCenterID],
+       GLA.[ProfitCenterID],
        [FunctionalAreaID],
        [BusinessAreaID],          
        [SegmentID],
@@ -1373,11 +1373,11 @@ SELECT
        [AmountInFreeDefinedCurrency1],
        [FreeDefinedCurrency2],
        [AmountInFreeDefinedCurrency2],
-       GLAccountLineItemRawData.[BaseUnit],
+       GLA.[BaseUnit],
        [Quantity],
        [DebitCreditID], 
-       GLAccountLineItemRawData.[FiscalPeriod], 
-       GLAccountLineItemRawData.[FiscalYearVariant],
+       GLA.[FiscalPeriod], 
+       GLA.[FiscalYearVariant],
        [FiscalYearPeriod],
        [PostingDate],
        [DocumentDate],
@@ -1391,7 +1391,7 @@ SELECT
        [AccountingDocCreatedByUserID],
        [LastChangeDateTime],
        [CreationDateTime],
-       GLAccountLineItemRawData.[CreationDate],
+       GLA.[CreationDate],
        [OriginObjectTypeID],
        [GLAccountTypeID],
        [InvoiceReference],
@@ -1402,10 +1402,10 @@ SELECT
        [PurchasingDocumentItem],
        [AccountAssignmentNumber],
        [DocumentItemText],
-       GLAccountLineItemRawData.[SalesDocumentID],          
-       GLAccountLineItemRawData.[SalesDocumentItemID],
-       GLAccountLineItemRawData.[ProductID],
-       GLAccountLineItemRawData.[PlantID],
+       GLA.[SalesDocumentID],          
+       GLA.[SalesDocumentItemID],
+       GLA.[ProductID],
+       GLA.[PlantID],
        [SupplierID],
        [CustomerID],
        [ExchangeRateDate],                    
@@ -1423,11 +1423,11 @@ SELECT
        [AccountAssignmentID],
        [AccountAssignmentTypeID],
        [CostCtrActivityTypeID],
-       GLAccountLineItemRawData.[OrderID],
+       GLA.[OrderID],
        [OrderCategoryID],
        [WBSElementID],
        [ProjectInternalID],
-       GLAccountLineItemRawData.[ProjectID],
+       GLA.[ProjectID],
        [OperatingConcernID],
        [BusinessProcessID],
        [CostObjectID],
@@ -1435,32 +1435,24 @@ SELECT
        [ServiceDocumentTypeID],
        [ServiceDocument],
        [ServiceDocumentItem],
-       GLAccountLineItemRawData.[BillingDocumentTypeID],
-       GLAccountLineItemRawData.[SalesOrganizationID],
-       GLAccountLineItemRawData.[DistributionChannelID],
-       GLAccountLineItemRawData.[SalesDistrictID],
+       GLA.[BillingDocumentTypeID],
+       GLA.[SalesOrganizationID],
+       GLA.[DistributionChannelID],
+       GLA.[SalesDistrictID],
        [BillToPartyID],
        [ShipToPartyID], 
-       GLAccountLineItemRawData.[SalesOfficeID],
+       GLA.[SalesOfficeID],
        PA.ICSalesDocumentID,
        PA.ICSalesDocumentItemID,
        [SoldProduct],
        ProfitCenterTypeID,
-       CASE 
-            WHEN GLAccountLineItemRawData.SalesDocumentID LIKE '001%' THEN DPF.SubsequentDocument COLLATE DATABASE_DEFAULT
-            WHEN GLAccountLineItemRawData.SalesDocumentID LIKE '008%' THEN PF.PrecedingDocument
-            ELSE GLAccountLineItemRawData.SalesDocumentID 
-       END AS SalesReferenceDocumentCalculated,
-       CASE 
-            WHEN GLAccountLineItemRawData.SalesDocumentID LIKE '001%' THEN DPF.SubsequentDocumentItem COLLATE DATABASE_DEFAULT
-            WHEN GLAccountLineItemRawData.SalesDocumentID LIKE '008%' THEN PF.PrecedingDocumentItem
-            ELSE GLAccountLineItemRawData.SalesDocumentItemID
-       END AS SalesReferenceDocumentItemCalculated,
+       edw.svf_getSalesDoc(GLA.SalesDocumentID,DPF.SubsequentDocument,PF.PrecedingDocument) AS SalesReferenceDocumentCalculated,
+       edw.svf_getSalesDocItem(GLA.SalesDocumentID,GLA.SalesDocumentItemID,DPF.SubsequentDocumentItem,PF.PrecedingDocumentItem) AS SalesReferenceDocumentItemCalculated,
        BDI.SalesDocumentItemCategoryID, 
        BDI.HigherLevelItem,
-       GLAccountLineItemRawData.[t_applicationId],
-       GLAccountLineItemRawData.[t_extractionDtm]
-FROM GLAccountLineItemRawData
+       GLA.[t_applicationId],
+       GLA.[t_extractionDtm]
+FROM GLAccountLineItemRawData AS GLA
 LEFT JOIN PA
     ON
         PA.PurchaseOrder COLLATE DATABASE_DEFAULT = [PurchasingDocument]
@@ -1469,32 +1461,32 @@ LEFT JOIN PA
 LEFT JOIN [edw].[vw_ProductHierarchyVariantConfigCharacteristic] AS VC
     ON
         VC.SalesDocument = CASE
-            WHEN [ReferenceDocumentTypeID] = 'VBRK' AND GLAccountLineItemRawData.SalesDocumentID = ''
+            WHEN [ReferenceDocumentTypeID] = 'VBRK' AND GLA.SalesDocumentID = ''
             THEN PA.ICSalesDocumentID COLLATE DATABASE_DEFAULT
-            ELSE GLAccountLineItemRawData.SalesDocumentID
+            ELSE GLA.SalesDocumentID
         END
     AND
         VC.SalesDocumentItem = CASE
-            WHEN [ReferenceDocumentTypeID] = 'VBRK' AND GLAccountLineItemRawData.SalesDocumentID = ''
+            WHEN [ReferenceDocumentTypeID] = 'VBRK' AND GLA.SalesDocumentID = ''
             THEN PA.ICSalesDocumentItemID COLLATE DATABASE_DEFAULT
-            ELSE GLAccountLineItemRawData.SalesDocumentItemID
+            ELSE GLA.SalesDocumentItemID
         END 
 LEFT JOIN edw.dim_ProfitCenter PC
-    ON GLAccountLineItemRawData.ProfitCenterID=PC.ProfitCenterID
+    ON GLA.ProfitCenterID=PC.ProfitCenterID
 LEFT JOIN [base_s4h_cax].[I_SDDocumentProcessFlow] AS DPF
     ON
-       GLAccountLineItemRawData.SalesDocumentID = DPF.PrecedingDocument COLLATE DATABASE_DEFAULT AND
-       GLAccountLineItemRawData.SalesDocumentItemID = DPF.PrecedingDocumentItem COLLATE DATABASE_DEFAULT AND
+       GLA.SalesDocumentID = DPF.PrecedingDocument COLLATE DATABASE_DEFAULT AND
+       GLA.SalesDocumentItemID = DPF.PrecedingDocumentItem COLLATE DATABASE_DEFAULT AND
        DPF.SubsequentDocumentCategory = 'C'
 LEFT JOIN [base_s4h_cax].[I_SDDocumentProcessFlow] AS PF
     ON
-       GLAccountLineItemRawData.SalesDocumentID = PF.SubsequentDocument COLLATE DATABASE_DEFAULT AND
-       GLAccountLineItemRawData.SalesDocumentItemID = PF.SubsequentDocumentItem COLLATE DATABASE_DEFAULT AND
+       GLA.SalesDocumentID = PF.SubsequentDocument COLLATE DATABASE_DEFAULT AND
+       GLA.SalesDocumentItemID = PF.SubsequentDocumentItem COLLATE DATABASE_DEFAULT AND
        PF.PrecedingDocumentCategory in ('C', 'I')
 LEFT JOIN [edw].[fact_BillingDocumentItem] BDI 
     ON
-       GLAccountLineItemRawData.SalesDocumentID = BDI.SalesDocumentID AND
-       GLAccountLineItemRawData.SalesDocumentItemID = BDI.SalesDocumentItemID
+       GLA.SalesDocumentID = BDI.SalesDocumentID AND
+       GLA.SalesDocumentItemID = BDI.SalesDocumentItemID
 
 -- WHERE
 --     GLAccountLineItemRawData.MANDT = 200 MPS 2021/11/01: commented out due to different client values between dev,qas, and prod

@@ -5240,7 +5240,7 @@
         "sproc_name": "sp_materialize_view",
         "source_view_name": "vw_ACDOCA",
         "dest_table_name": "fact_ACDOCA",
-        "execution_order": 1,
+        "execution_order": 4,
         "schedule_recurrence": "D"
       },
       {
