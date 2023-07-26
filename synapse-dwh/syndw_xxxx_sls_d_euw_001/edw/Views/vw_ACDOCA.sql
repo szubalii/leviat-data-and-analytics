@@ -1456,6 +1456,8 @@ SELECT
             WHEN GLAccountLineItemRawData.SalesDocumentID LIKE '008%' THEN PF.PrecedingDocumentItem
             ELSE GLAccountLineItemRawData.SalesDocumentItemID
        END AS SalesReferenceDocumentItemCalculated,
+       BDI.SalesDocumentItemCategoryID, 
+       BDI.HigherLevelItem,
        GLAccountLineItemRawData.[t_applicationId],
        GLAccountLineItemRawData.[t_extractionDtm]
 FROM GLAccountLineItemRawData
