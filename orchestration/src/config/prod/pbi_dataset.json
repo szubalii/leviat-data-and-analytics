@@ -103,6 +103,17 @@
     "datasets": {
       "Spend Report Mapped v3": {
         "dataset_guid": "127a714a-45ef-4a92-8cd0-2bf33c0fb316"
+      },
+      "Procurement Analysis": {
+        "dataset_guid": "cda00075-5df7-457e-8dff-a8ac2082fa7a"
+      }
+    }
+  },
+  "Leviat_Data_Analytics Sales Pricing": {
+    "workspace_guid": "60816e4d-1f87-49b5-bae6-9fd979d84c6a",
+    "datasets": {
+      "Price Condition": {
+        "dataset_guid": "859f46f5-7394-4e56-9af1-d5de02ace12a"
       }
     }
   }
