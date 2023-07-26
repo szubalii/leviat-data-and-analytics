@@ -352,7 +352,7 @@
             "fact_PurchasingDocument",
             "fact_PurchasingDocumentItem",
             "fact_SupplierInvoice",
-            "fact_SupplierInvoicePurOrdRef"
+            "fact_SupplierInvoiceItemPurOrdRef"
           ]
         }
       }
