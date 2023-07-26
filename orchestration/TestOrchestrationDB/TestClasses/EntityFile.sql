@@ -11,17 +11,32 @@ AS
 RETURN
   SELECT mock.*
   FROM ( VALUES
-    (1, 'Test1.1', 'Extract', 100, 0, '00000000-0000-0000-0000-000000000001', '{"timestamp":"2023-07-18_00:00:00"}'),
-    (1, 'Test1.1', 'Status',  200, 1, '00000000-0000-0000-0000-000000000002', '{"status":"FinishedNoErrors"}'),
-    (1, 'Test1.1', 'Test',    300, 1, '00000000-0000-0000-0000-000000000003', '{}'),
-    (1, 'Test1.2', 'Extract', 100, 0, '00000000-0000-0000-0000-000000000004', '{"timestamp":"2023-07-18_00:00:00"}'),
-    (1, 'Test1.2', 'Status',  200, 0, '00000000-0000-0000-0000-000000000005', '{"status":"FinishedNoErrors"}'),
-    (2, 'Test2.1', 'Extract', 100, 0, '00000000-0000-0000-0000-000000000006', '{"timestamp":"2023-07-18_00:00:00"}'),
-    (2, 'Test2.1', 'Status',  200, 1, '00000000-0000-0000-0000-000000000007', '{"status":"FinishedNoErrors"}'),
-    (3, 'Test3.1', 'Extract', 100, 1, NULL, '{}'),
-    (3, 'Test3.1', 'Status',  200, 1, NULL, '{}')
+    (1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Test1.1', 'Extract', 100, 0, '00000000-0000-0000-0000-000000000001', '{"timestamp":"2023-07-18_00:00:00"}'),
+    (1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Test1.1', 'Status',  200, 1, '00000000-0000-0000-0000-000000000002', '{"status":"FinishedNoErrors"}'),
+    (1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Test1.1', 'Test',    300, 1, '00000000-0000-0000-0000-000000000003', '{}'),
+    (1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Test1.2', 'Extract', 100, 0, '00000000-0000-0000-0000-000000000004', '{"timestamp":"2023-07-18_00:00:00"}'),
+    (1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Test1.2', 'Status',  200, 0, '00000000-0000-0000-0000-000000000005', '{"status":"FinishedNoErrors"}'),
+    (2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Test2.1', 'Extract', 100, 0, '00000000-0000-0000-0000-000000000006', '{"timestamp":"2023-07-18_00:00:00"}'),
+    (2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Test2.1', 'Status',  200, 1, '00000000-0000-0000-0000-000000000007', '{"status":"FinishedNoErrors"}'),
+    (3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Test3.1', 'Extract', 100, 1, NULL, '{}'),
+    (3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Test3.1', 'Status',  200, 1, NULL, '{}')
   ) AS mock (
     entity_id,
+    entity_name,
+    layer_id,
+    update_mode,
+    client_field,
+    extraction_type,
+    pk_field_names,
+    axbi_database_name,
+    axbi_schema_name,
+    base_table_name,
+    axbi_date_field_name,
+    adls_container_name,
+    base_schema_name,
+    base_sproc_name,
+    schedule_recurrence,
+    schedule_day,
     file_name,
     activity_nk,
     activity_order,
@@ -37,15 +52,18 @@ AS
 RETURN
   SELECT mock.*
   FROM ( VALUES
-    (0, 'FULL_2023_07_22_12_00_00_000', '2023-07-22', NULL, '{}'),
-    (1, 'FULL_2023_07_22_12_00_00_000', '2023-07-22', '["TestDuplicates"]', '{}'),
-    (1, 'FULL_2023_07_23_12_00_00_000', '2023-07-23', '["TestDuplicates"]', '{}'),
-    (1, 'FULL_2023_07_24_12_00_00_000', '2023-07-24', '["TestDuplicates"]', '{}'),
-    (2, 'DELTA_2023_07_22_12_00_00_000', '2023-07-22', '["TestDuplicates"]', '{}'),
-    (2, 'DELTA_2023_07_23_12_00_00_000', '2023-07-23', '["TestDuplicates"]', '{}'),
-    (2, 'DELTA_2023_07_24_12_00_00_000', '2023-07-24', '["TestDuplicates"]', '{}')
+    (0, 1, 'D', NULL, 'FULL_2023_07_22_12_00_00_000', '2023-07-22', NULL, '{}'),
+    (1, 1, 'D', NULL, 'FULL_2023_07_22_12_00_00_000', '2023-07-22', '["TestDuplicates"]', '{}'),
+    (1, 1, 'D', NULL, 'FULL_2023_07_23_12_00_00_000', '2023-07-23', '["TestDuplicates"]', '{}'),
+    (1, 1, 'D', NULL, 'FULL_2023_07_24_12_00_00_000', '2023-07-24', '["TestDuplicates"]', '{}'),
+    (2, 1, 'D', NULL, 'DELTA_2023_07_22_12_00_00_000', '2023-07-22', '["TestDuplicates"]', '{}'),
+    (2, 1, 'D', NULL, 'DELTA_2023_07_23_12_00_00_000', '2023-07-23', '["TestDuplicates"]', '{}'),
+    (2, 1, 'D', NULL, 'DELTA_2023_07_24_12_00_00_000', '2023-07-24', '["TestDuplicates"]', '{}')
   ) AS mock (
     entity_id,
+    layer_id,
+    schedule_recurrence,
+    schedule_day,
     file_name,
     trigger_date,
     required_activities,
@@ -305,10 +323,10 @@ BEGIN
   VALUES
     (1, 'Test1', 21, 'Extract',   100, '2023-07-20 12:00', 2, '{"timestamp":"2023-07-20 12:00"}'),
     (1, 'Test1', 19, 'GetStatus', 150, '2023-07-20 13:00', 2, '{"timestamp":"2023-07-20 13:00"}'),
-    (1, 'Test1', 2, NULL),
-    (2, NULL, 21, NULL),
-    (2, NULL, 19, NULL),
-    (2, NULL,  2, NULL);
+    (1, 'Test1', 2, 'TestDuplicates', 200, NULL, NULL, NULL),
+    (2, NULL, 21, 'Extract',   100, NULL, NULL, NULL),
+    (2, NULL, 19, 'GetStatus', 150, NULL, NULL, NULL),
+    (2, NULL,  2, 'TestDuplicates', 200, NULL, NULL, NULL);
 
   EXEC tSQLt.AssertEqualsTable 'expected', 'actual';
 END;
@@ -540,7 +558,7 @@ END;
 GO
 
 
-CREATE PROCEDURE [EntityFile].[test vw_entity_file_requirement: skipped_activities]
+CREATE PROCEDURE [EntityFile].[test tvf_entity_file_requirement: skipped_activities]
 AS
 BEGIN
 
