@@ -187,7 +187,7 @@ SELECT  CONVERT(NVARCHAR(32),
         + COALESCE(UV.[ConsumptionQtyICPOInBaseUnit],0))
         * LastPPU.[StockPricePerUnit_USD]                                   AS ConsumptionValueByLatestPrice_USD 
     ,   P.SalesOrganization                                                 AS PlantSalesOrgID
-    ,   PSD.sk_ProductSalesDelivery
+    ,   PSD.sk_ProductSalesDelivery                                         AS sk_ProductSalesOrg
     ,   UV.[t_applicationId]
     ,   UV.[t_extractionDtm]
     FROM
@@ -462,3 +462,5 @@ LEFT JOIN
         UV.MaterialID = PSD.ProductID
     AND
         P.SalesOrganization = PSD.SalesOrganizationID
+    AND
+        PSD.DistributionChannel = 10

@@ -137,7 +137,7 @@ SELECT
     ,   MDI.[ConsumptionValueByLatestPrice_EUR]       
     ,   MDI.[ConsumptionValueByLatestPrice_USD]    
     ,   MDI.[PlantSalesOrgID]
-    ,   MDI.[sk_ProductSalesDelivery]
+    ,   MDI.[sk_ProductSalesOrg]
     ,   MDI.[t_applicationId]
     ,   MDI.[t_extractionDtm]
 FROM

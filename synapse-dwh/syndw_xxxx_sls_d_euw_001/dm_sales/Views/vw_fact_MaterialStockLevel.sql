@@ -38,7 +38,7 @@ SELECT
     [sk_dim_ProductValuationPUP],
     [CurrencyID],
     [PlantSalesOrgID],
-    [sk_ProductSalesDelivery],
+    [sk_ProductSalesOrg],
     [t_applicationId],
   	[t_extractionDtm]
 FROM 

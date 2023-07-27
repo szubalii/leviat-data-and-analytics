@@ -135,7 +135,7 @@
     [ConsumptionValueByLatestPrice_EUR]         decimal(38,6),        
     [ConsumptionValueByLatestPrice_USD]         decimal(38,6), 
     [PlantSalesOrgID]                           NVARCHAR(4),
-    [sk_ProductSalesDelivery]                   INT,
+    [sk_ProductSalesOrg]                        INT,
     [t_applicationId]                           VARCHAR(32),
     [t_extractionDtm]                           DATETIME,
     [t_jobId]                                   VARCHAR(36),

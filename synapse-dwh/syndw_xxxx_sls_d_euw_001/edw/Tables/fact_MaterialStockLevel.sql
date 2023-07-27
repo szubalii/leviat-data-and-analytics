@@ -39,7 +39,7 @@ CREATE TABLE [edw].[fact_MaterialStockLevel]
     [sk_dim_ProductValuationPUP]                [bigint] NULL,
     [CurrencyID]                                CHAR(5) COLLATE Latin1_General_100_BIN2,
     [PlantSalesOrgID]                           VARCHAR(4),
-    [sk_ProductSalesDelivery]                   INT,
+    [sk_ProductSalesOrg]                        INT,
     [t_applicationId]                           VARCHAR(32),
     [t_extractionDtm]                           DATETIME,
     [t_jobId]                                   VARCHAR(36),
