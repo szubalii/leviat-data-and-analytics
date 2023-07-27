@@ -6,11 +6,11 @@ SELECT
     ,InvoiceLineNumber
     ,ExtraInvoiceLineKey
     ,SplitAccountingNumber
-    ,FORMAT(AccountingDate,'yyyy-MM-dd')       AS AccountingDate
+    ,FORMAT(AccountingDate,'yyyy-MM-dd')        AS AccountingDate
     ,Quantity
     ,Amount
-    ,LEFT(AmountCurrency,3)                             AS AmountCurrency
-    ,Description
+    ,LEFT(AmountCurrency,3)                     AS AmountCurrency
+    ,REPLACE(Description,'"','')                AS Description
     ,ERPCommodityId
     ,PartNumber
     ,PartRevisionNumber
