@@ -45,19 +45,19 @@
   , [MobilePhoneCountry] NVARCHAR(3)  -- Country for telephone/fax number
   , [EmailAddress] NVARCHAR(241)  -- E-Mail Address
   , [URLFieldLength] smallint  -- URI field length
-  , [WebsiteURL] NTEXT  -- Universal Resource Identifier (URI)
+  , [WebsiteURL] VARCHAR(50)  -- Universal Resource Identifier (URI)
   , [t_applicationId] VARCHAR (32)  -- Application ID
   , [t_jobId] VARCHAR (36)  -- Job ID
   , [t_jobDtm] DATETIME  -- Job Date Time
   , [t_jobBy] VARCHAR (128)  -- Job executed by
   , [t_extractionDtm] DATETIME  -- Extraction Date Time
   , [t_filePath] NVARCHAR (1024)  -- Filepath
-  , CONSTRAINT [PK_I_BusinessPartnerAddress] PRIMARY KEY NONCLUSTERED(
-      
+  , CONSTRAINT [PK_I_BusinessPartnerAddress] PRIMARY KEY NONCLUSTERED
+    (
       [MANDT]
     , [BUSINESSPARTNER]
     , [ADDRESSNUMBER]
-  ) NOT ENFORCED
+    ) NOT ENFORCED
 ) WITH (
   HEAP
 )
