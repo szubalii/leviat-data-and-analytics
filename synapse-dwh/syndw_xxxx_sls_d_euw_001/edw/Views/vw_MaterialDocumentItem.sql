@@ -186,6 +186,8 @@ SELECT  CONVERT(NVARCHAR(32),
         + COALESCE(UV.[ConsumptionQtySOInBaseUnit],0) 
         + COALESCE(UV.[ConsumptionQtyICPOInBaseUnit],0))
         * LastPPU.[StockPricePerUnit_USD]                                   AS ConsumptionValueByLatestPrice_USD 
+    ,   P.SalesOrganization                                                 AS PlantSalesOrgID
+    ,   PSD.sk_ProductSalesDelivery                                         AS sk_ProductSalesOrg
     ,   UV.[t_applicationId]
     ,   UV.[t_extractionDtm]
     FROM
@@ -450,3 +452,15 @@ LEFT JOIN
         UV.[PlantID] = LastPPU.[ValuationAreaID]                        COLLATE DATABASE_DEFAULT
     AND
         UV.[MaterialID] = LastPPU.[ProductID]                           COLLATE DATABASE_DEFAULT
+LEFT JOIN
+    [edw].[dim_Plant] P
+    ON
+        UV.PlantID = P.PlantID
+LEFT JOIN
+    [edw].[dim_ProductSalesDelivery] PSD
+    ON
+        UV.MaterialID = PSD.ProductID
+    AND
+        P.SalesOrganization = PSD.SalesOrganizationID
+    AND
+        PSD.DistributionChannel = 10

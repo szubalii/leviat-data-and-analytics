@@ -70,6 +70,7 @@
 , [SubscrpnContrAltvExtnDurn1] char(3) collate Latin1_General_100_BIN2
 , [SubscrpnContrAltvExtnDurn2] char(3) collate Latin1_General_100_BIN2
 , [SubscrpnContrExtnDurnUnit] nvarchar(2)
+, [IsConfigurable]            varchar(3)
 , [t_applicationId]       VARCHAR (32)
 , [t_jobId]               VARCHAR (36)
 , [t_jobDtm]              DATETIME
