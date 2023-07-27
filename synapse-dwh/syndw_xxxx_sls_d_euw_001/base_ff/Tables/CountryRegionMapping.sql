@@ -1,4 +1,4 @@
-CREATE TABLE base_ff.CountryRegionMapping (
+CREATE TABLE base_ff.CountryRegion (
 
 	[CountryID]                    NVARCHAR(3),
     [RegionID]                     NVARCHAR(10),

@@ -3,6 +3,7 @@ AS
 SELECT
   CC.[CompanyCodeID]
 , CC.[CompanyCode]
+, CC.[CompanyCodeDescription]
 , CC.[CityName]
 , CC.[Country]
 , Ctr.[Country]         AS CountryName
@@ -12,7 +13,6 @@ SELECT
 , CC.[CashDiscountBaseAmtIsNetAmt]
 , CC.[RegionID]         AS RegionID
 , Rgn.[RegionName]      AS Region
-, CC.[CompanyCodeDescription]
 , CC.[t_jobDtm]
 FROM [edw].[dim_CompanyCode]    CC
 LEFT JOIN [edw].[dim_Country]   Ctr

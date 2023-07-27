@@ -3,6 +3,7 @@ AS
 SELECT 
 	 ICC.[CompanyCode] AS [CompanyCodeID]
     ,[CompanyCodeName] AS [CompanyCode]
+    ,CC.[CompanyCodeDescription]
     ,[CityName]
     ,[Country]
     ,[Currency]
@@ -22,14 +23,13 @@ SELECT
     ,[NonTaxableTransactionTaxCode]
     ,[DocDateIsUsedForTaxDetn]
     ,[TaxRptgDateIsActive]
-    ,CRM.[RegionID]
-    ,CC.[CompanyCodeDescription]
+    ,CR.[RegionID]
     ,ICC.[t_applicationId]
 FROM 
     [base_s4h_cax].[I_CompanyCode] ICC
 LEFT JOIN  
-    [base_ff].[CountryRegionMapping] CRM
-    ON  ICC.Country=CRM.CountryID
+    [base_ff].[CountryRegion] CR
+    ON  ICC.Country=CR.CountryID
 LEFT JOIN 
     [base_ff].[CompanyCode] CC
     ON ICC.CompanyCode=CC.CompanyCode
