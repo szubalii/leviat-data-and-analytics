@@ -2,6 +2,7 @@
 -- Company Code
   [CompanyCodeID] nvarchar(8) NOT NULL 
 , [CompanyCode] nvarchar(50) 
+, [CompanyCodeDescription] nvarchar(50)
 , [CityName] nvarchar(50)
 , [Country] nvarchar(6)
 , [Currency] char(5) collate Latin1_General_100_BIN2
@@ -22,6 +23,7 @@
 , [DocDateIsUsedForTaxDetn] nvarchar(2)
 , [TaxRptgDateIsActive] nvarchar(2)
 , [CashDiscountBaseAmtIsNetAmt] nvarchar(2)
+, [RegionID] nvarchar(10)
 , [t_applicationId]       VARCHAR (32)
 , [t_jobId]               VARCHAR (36)
 , [t_jobDtm]              DATETIME
