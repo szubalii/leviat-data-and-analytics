@@ -10,4 +10,80 @@ jobs:
   pool:
     vmImage: 'ubuntu-20.04'
   steps:
-  - template: ./steps-test.yml
+  - template: ./steps-test-container.yml
+
+
+- job: TEST_ORCH_DB_2
+  variables:
+  - template: ../../build/variables-test.yml
+  - name: buildConfiguration
+    value: 'Debug'
+  
+  pool:
+    name: 'VM'
+    demands:
+    - node.js
+    - VisualStudio
+    - Agent.ComputerName -equals $(VMName)
+  steps:  
+  - task: SqlAzureDacpacDeployment@1
+    displayName: 'Deploy Test dacpac'
+    inputs:
+      azureSubscription: 'arm-pipeline'
+      AuthenticationType: servicePrincipal
+      ServerName: 'sqlsrv-xxxx-sls-d-euw-001.database.windows.net'
+      DatabaseName: 'TestOrchestrationDB'
+      DacpacFile: '$(System.DefaultWorkingDirectory)/orchestration/TestOrchestrationDB/bin/Debug/TestOrchestrationDB.dacpac'
+      # AdditionalArguments: '/v:masterKeyPwd=$(sqlsrv-xxxx-sls-x-euw-001-masterKeyPwd) /v:sasToken_OrchDB=$(sasToken_OrchDB) /v:containerURL=https://$(storageAccountName).blob.core.windows.net/orch-db'
+
+  - task: SqlAzureDacpacDeployment@1
+    displayName: 'Deploy Orch DB dacpac'
+    inputs:
+      azureSubscription: 'arm-pipeline'
+      AuthenticationType: servicePrincipal
+      ServerName: 'sqlsrv-xxxx-sls-d-euw-001.database.windows.net'
+      DatabaseName: 'TestOrchestrationDB'
+      DacpacFile: '$(System.DefaultWorkingDirectory)/orchestration/sqldb-xxxx-orchdb-d-euw-001/bin/Debug/sqldb-xxxx-orchdb-d-euw-001.dacpac'
+      # AdditionalArguments: '/v:masterKeyPwd=$(sqlsrv-xxxx-sls-x-euw-001-masterKeyPwd) /v:sasToken_OrchDB=$(sasToken_OrchDB) /v:containerURL=https://$(storageAccountName).blob.core.windows.net/orch-db'
+    
+  
+  # User powershell instead of direct sqlcmd due to issues in fixed length of output of xml results
+  # Also, xml output has incorrect headers by default which need to be removed which is done using powershell
+  - script: |
+      sqlcmd \
+        -S sqlsrv-xxxx-sls-d-euw-001.database.windows.net \
+        -d TestOrchestrationDB \
+        -G
+        -Q "EXEC tSQLt.RunAll;"
+    displayName: 'Run TSQLT tests'
+
+  - task: PowerShell@2
+    displayName: 'Export Test Results'
+    inputs:
+      targetType: 'inline'
+      pwsh: true
+      script: |
+        $xmloutput = "";
+        $connectionString = "Data Source=sqlsrv-xxxx-sls-d-euw-001.database.windows.net;Authentication=Active Directory Integrated;Initial Catalog=TestOrchestrationDB";
+        $sqlCommand = 'EXEC tSQLt.XmlResultFormatter';
+        $connection = new-object system.data.SqlClient.SQLConnection($connectionString);
+        $command = new-object system.data.sqlclient.sqlcommand($sqlCommand,$connection);
+        $connection.Open();
+        $adapter = New-Object System.Data.sqlclient.sqlDataAdapter $command;
+        $dataset = New-Object System.Data.DataSet;
+        $adapter.Fill($dataset) | Out-Null;
+        $connection.Close();
+        if ($dataset.Tables[0].Rows.Count -gt 0) {
+          foreach ($dr in $dataset.Tables[0].Rows) {
+            $xmloutput += $dr.ItemArray[0].ToString();
+          }
+        }
+        $xmloutput;
+        $xmloutput | Out-File "$(System.DefaultWorkingDirectory)/orchestration/TestOrchestrationDB/bin/Debug/TEST-Results.xml"
+
+
+  - task: PublishTestResults@2
+    inputs:
+      testResultsFormat: 'JUnit'
+      testResultsFiles: '**/TEST-*.xml'
+      failTaskOnFailedTests: true
