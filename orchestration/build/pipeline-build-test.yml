@@ -1,16 +1,16 @@
 trigger: none # triggered by PR
 
 jobs:
-- job: TEST_ORCH_DB
-  variables:
-  - template: ../../build/variables-test.yml
-  - name: buildConfiguration
-    value: 'Debug'
+# - job: TEST_ORCH_DB
+#   variables:
+#   - template: ../../build/variables-test.yml
+#   - name: buildConfiguration
+#     value: 'Debug'
   
-  pool:
-    vmImage: 'ubuntu-20.04'
-  steps:
-  - template: ./steps-test-container.yml
+#   pool:
+#     vmImage: 'ubuntu-20.04'
+#   steps:
+#   - template: ./steps-test-container.yml
 
 
 - job: TEST_ORCH_DB_2
@@ -25,7 +25,10 @@ jobs:
     - node.js
     - VisualStudio
     - Agent.ComputerName -equals $(VMName)
-  steps:  
+  steps:
+  - script: |
+      dotnet build "$(System.DefaultWorkingDirectory)/orchestration/TestOrchestrationDB/TestOrchestrationDB.sqlproj" /p:NetCoreBuild=true
+    displayName: 'Build Test sqlproj'
   - task: SqlAzureDacpacDeployment@1
     displayName: 'Deploy Test dacpac'
     inputs:
