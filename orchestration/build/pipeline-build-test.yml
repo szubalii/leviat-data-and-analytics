@@ -1,5 +1,9 @@
 trigger: none # triggered by PR
 
+variables:
+- name: testOrchDb
+  value: TestOrchestrationDB
+
 jobs:
 # - job: TEST_ORCH_DB_Container
 #   variables:
@@ -40,7 +44,7 @@ jobs:
       SqlUsername: 'sqladmin'
       SqlPassword: '$(sqlsrv-xxxx-sls-x-euw-001--sqladminPassword)'
       ServerName: 'sqlsrv-xxxx-sls-d-euw-001.database.windows.net'
-      DatabaseName: 'TestOrchestrationDB'
+      DatabaseName: $(testOrchDb)
       DacpacFile: '$(System.DefaultWorkingDirectory)/orchestration/TestOrchestrationDB/bin/Debug/TestOrchestrationDB.dacpac'
       # AdditionalArguments: '/v:masterKeyPwd=$(sqlsrv-xxxx-sls-x-euw-001-masterKeyPwd) /v:sasToken_OrchDB=$(sasToken_OrchDB) /v:containerURL=https://$(storageAccountName).blob.core.windows.net/orch-db'
 
@@ -52,21 +56,23 @@ jobs:
       SqlUsername: 'sqladmin'
       SqlPassword: '$(sqlsrv-xxxx-sls-x-euw-001--sqladminPassword)'
       ServerName: 'sqlsrv-xxxx-sls-d-euw-001.database.windows.net'
-      DatabaseName: 'TestOrchestrationDB'
+      DatabaseName: $(testOrchDb)
       DacpacFile: '$(System.DefaultWorkingDirectory)/orchestration/sqldb-xxxx-orchdb-d-euw-001/bin/Debug/sqldb-xxxx-orchdb-d-euw-001.dacpac'
       # AdditionalArguments: '/v:masterKeyPwd=$(sqlsrv-xxxx-sls-x-euw-001-masterKeyPwd) /v:sasToken_OrchDB=$(sasToken_OrchDB) /v:containerURL=https://$(storageAccountName).blob.core.windows.net/orch-db'
     
   
-  # User powershell instead of direct sqlcmd due to issues in fixed length of output of xml results
-  # Also, xml output has incorrect headers by default which need to be removed which is done using powershell
   - script: |
       sqlcmd \
         -S sqlsrv-xxxx-sls-d-euw-001.database.windows.net \
-        -d TestOrchestrationDB \
-        -G
+        -d $(testOrchDb) \
+        -U sqladmin \
+        -P $(sqlsrv-xxxx-sls-x-euw-001--sqladminPassword) \
         -Q "EXEC tSQLt.RunAll;"
     displayName: 'Run TSQLT tests'
 
+
+  # User powershell instead of direct sqlcmd due to issues in fixed length of output of xml results
+  # Also, xml output has incorrect headers by default which need to be removed which is done using powershell
   - task: PowerShell@2
     displayName: 'Export Test Results'
     inputs:
@@ -74,7 +80,7 @@ jobs:
       pwsh: true
       script: |
         $xmloutput = "";
-        $connectionString = "Data Source=sqlsrv-xxxx-sls-d-euw-001.database.windows.net;Authentication=Active Directory Integrated;Initial Catalog=TestOrchestrationDB";
+        $connectionString = "Data Source=sqlsrv-xxxx-sls-d-euw-001.database.windows.net;Authentication=Active Directory Integrated;Initial Catalog=$(testOrchDb)";
         $sqlCommand = 'EXEC tSQLt.XmlResultFormatter';
         $connection = new-object system.data.SqlClient.SQLConnection($connectionString);
         $command = new-object system.data.sqlclient.sqlcommand($sqlCommand,$connection);
@@ -97,3 +103,14 @@ jobs:
       testResultsFormat: 'JUnit'
       testResultsFiles: '**/TEST-*.xml'
       failTaskOnFailedTests: true
+
+  #  drop the database in all cases
+  - script: |
+      sqlcmd \
+        -S sqlsrv-xxxx-sls-d-euw-001.database.windows.net \
+        -d $(testOrchDb) \
+        -U sqladmin \
+        -P $(sqlsrv-xxxx-sls-x-euw-001--sqladminPassword) \
+        -Q "DROP DATABASE $(testOrchDb);"
+    displayName: 'Drop Database'
+    condition: always()
