@@ -62,11 +62,11 @@ jobs:
     
   
   - script: |
-      sqlcmd \
-        -S sqlsrv-xxxx-sls-d-euw-001.database.windows.net \
-        -d $(testOrchDb) \
-        -U sqladmin \
-        -P $(sqlsrv-xxxx-sls-x-euw-001--sqladminPassword) \
+      sqlcmd ^
+        -S sqlsrv-xxxx-sls-d-euw-001.database.windows.net ^
+        -d $(testOrchDb) ^
+        -U sqladmin ^
+        -P $(sqlsrv-xxxx-sls-x-euw-001--sqladminPassword) ^
         -Q "EXEC tSQLt.RunAll;"
     displayName: 'Run TSQLT tests'
 
@@ -106,11 +106,11 @@ jobs:
 
   #  drop the database in all cases
   - script: |
-      sqlcmd \
-        -S sqlsrv-xxxx-sls-d-euw-001.database.windows.net \
-        -d $(testOrchDb) \
-        -U sqladmin \
-        -P $(sqlsrv-xxxx-sls-x-euw-001--sqladminPassword) \
+      sqlcmd ^
+        -S sqlsrv-xxxx-sls-d-euw-001.database.windows.net ^
+        -d $(testOrchDb) ^
+        -U sqladmin ^
+        -P $(sqlsrv-xxxx-sls-x-euw-001--sqladminPassword) ^
         -Q "DROP DATABASE $(testOrchDb);"
     displayName: 'Drop Database'
     condition: always()
