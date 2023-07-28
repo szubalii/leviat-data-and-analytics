@@ -12,6 +12,6 @@ Pre-Deployment Script Template
 --------------------------------------------------------------------------------------
 */
 
-:r .\Script.ConfigureCLR.sql
+-- :r .\Script.ConfigureCLR.sql
 :r .\Script.InstallTSQLT.sql
 
