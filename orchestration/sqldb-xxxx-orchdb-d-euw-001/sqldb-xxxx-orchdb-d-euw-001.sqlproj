@@ -159,8 +159,10 @@
     <Build Include="dbo\Functions\ScalarValued\svf_get_isRequired_delta_batch_activity.sql" />
     <Build Include="dbo\Functions\ScalarValued\svf_get_isRequired_batch_activity.sql" />
     <Build Include="dbo\Functions\ScalarValued\svf_get_triggerDate.sql" />
-    <Build Include="dbo\Functions\TableValued\tvf_entity_file_required_activity.sql" />
-    <Build Include="dbo\Functions\TableValued\tvf_entity_file_requirement.sql" />
+    <Build Include="dbo\Functions\TableValued\tvf_entity_file_activities_by_date.sql" />
+    <Build Include="dbo\Functions\TableValued\tvf_entity_file_activity_isRequired.sql" />
+    <Build Include="dbo\Functions\TableValued\tvf_entity_file_activity_requirements.sql" />
+    <Build Include="dbo\Functions\TableValued\tvf_entity_file_required_activities.sql" />
     <Build Include="dbo\Tables\error_category.sql">
       <AnsiNulls>On</AnsiNulls>
       <QuotedIdentifier>On</QuotedIdentifier>
