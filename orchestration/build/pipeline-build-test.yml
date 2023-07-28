@@ -1,7 +1,7 @@
 trigger: none # triggered by PR
 
 jobs:
-# - job: TEST_ORCH_DB
+# - job: TEST_ORCH_DB_Container
 #   variables:
 #   - template: ../../build/variables-test.yml
 #   - name: buildConfiguration
@@ -13,7 +13,7 @@ jobs:
 #   - template: ./steps-test-container.yml
 
 
-- job: TEST_ORCH_DB_2
+- job: TEST_ORCH_DB
   variables:
   - template: ../../build/variables-test.yml
   - name: buildConfiguration
@@ -32,8 +32,13 @@ jobs:
   - task: SqlAzureDacpacDeployment@1
     displayName: 'Deploy Test dacpac'
     inputs:
-      azureSubscription: 'arm-pipeline'
-      AuthenticationType: servicePrincipal
+    # make sure that the service principal arm-pipeline (defined as leviatazure-Pilot_Leviat_Sales) is set as login in the server with permission
+    # to create databases (##MS_DatabaseManager##) 
+    # Documentation: https://learn.microsoft.com/en-us/azure/azure-sql/database/security-server-roles?view=azuresql-db#fixed-server-level-roles
+      azureSubscription: 'arm-pipeline' 
+      AuthenticationType: 'server'
+      SqlUsername: 'sqladmin'
+      SqlPassword: '$(azureSqladminPassword)'
       ServerName: 'sqlsrv-xxxx-sls-d-euw-001.database.windows.net'
       DatabaseName: 'TestOrchestrationDB'
       DacpacFile: '$(System.DefaultWorkingDirectory)/orchestration/TestOrchestrationDB/bin/Debug/TestOrchestrationDB.dacpac'
@@ -43,7 +48,9 @@ jobs:
     displayName: 'Deploy Orch DB dacpac'
     inputs:
       azureSubscription: 'arm-pipeline'
-      AuthenticationType: servicePrincipal
+      AuthenticationType: 'server'
+      SqlUsername: 'sqladmin'
+      SqlPassword: '$(azureSqladminPassword)'
       ServerName: 'sqlsrv-xxxx-sls-d-euw-001.database.windows.net'
       DatabaseName: 'TestOrchestrationDB'
       DacpacFile: '$(System.DefaultWorkingDirectory)/orchestration/sqldb-xxxx-orchdb-d-euw-001/bin/Debug/sqldb-xxxx-orchdb-d-euw-001.dacpac'
