@@ -4,13 +4,16 @@
 */
 CREATE FUNCTION [dbo].[svf_get_isRequired_full_batch_activity](
   @activity_order SMALLINT,
-  @firstFailedActivityOrder SMALLINT
+  @firstFailedActivityOrder SMALLINT,
+  @rerunSuccessfulFullEntities BIT
 )
 RETURNS TINYINT
 AS
 BEGIN
   DECLARE @isRequired AS TINYINT =
     CASE
+      WHEN @rerunSuccessfulFullEntities = 1
+      THEN 1
       WHEN @activity_order < @firstFailedActivityOrder OR @firstFailedActivityOrder IS NULL
       THEN 0
       ELSE 1

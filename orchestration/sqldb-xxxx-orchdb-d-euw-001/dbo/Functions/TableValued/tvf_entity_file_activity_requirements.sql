@@ -2,7 +2,7 @@
   Returns the required and skippable activities for 
   each entity file on a single record
 */
-CREATE FUNCTION [dbo].[tvf_entity_file_requirement](
+CREATE FUNCTION [dbo].[tvf_entity_file_activity_requirements](
   @rerunSuccessfulFullEntities BIT = 0
 )
 RETURNS TABLE
@@ -12,21 +12,7 @@ RETURN
   WITH transposed AS (
     SELECT
       entity_id,
-      entity_name,
       layer_id,
-      update_mode,
-      client_field,
-      extraction_type,
-      pk_field_names,
-      axbi_database_name,
-      axbi_schema_name,
-      base_table_name,
-      axbi_date_field_name,
-      adls_container_name,
-      base_schema_name,
-      base_sproc_name,
-      schedule_recurrence,
-      schedule_day,
       file_name,
       CONCAT(
         '[',
@@ -60,24 +46,10 @@ RETURN
         '}'
       ) AS skipped_activities
     FROM
-      [dbo].[tvf_entity_file_required_activity](@rerunSuccessfulFullEntities) f
+      [dbo].[tvf_entity_file_activity_isRequired](@rerunSuccessfulFullEntities) f
     GROUP BY
       entity_id,
-      entity_name,
       layer_id,
-      update_mode,
-      client_field,
-      extraction_type,
-      pk_field_names,
-      axbi_database_name,
-      axbi_schema_name,
-      base_table_name,
-      axbi_date_field_name,
-      adls_container_name,
-      base_schema_name,
-      base_sproc_name,
-      schedule_recurrence,
-      schedule_day,
       file_name,
       isRequired
   )
@@ -86,21 +58,7 @@ RETURN
   -- are on a single line for a single file_name
   SELECT
     entity_id,
-    entity_name,
     layer_id,
-    update_mode,
-    client_field,
-    extraction_type,
-    pk_field_names,
-    axbi_database_name,
-    axbi_schema_name,
-    base_table_name,
-    axbi_date_field_name,
-    adls_container_name,
-    base_schema_name,
-    base_sproc_name,
-    schedule_recurrence,
-    schedule_day,
     file_name,
     dbo.[svf_get_triggerDate](file_name) AS trigger_date,
     MIN(required_activities) AS required_activities,
@@ -108,19 +66,5 @@ RETURN
   FROM transposed
   GROUP BY
     entity_id,
-    entity_name,
     layer_id,
-    update_mode,
-    client_field,
-    extraction_type,
-    pk_field_names,
-    axbi_database_name,
-    axbi_schema_name,
-    base_table_name,
-    axbi_date_field_name,
-    adls_container_name,
-    base_schema_name,
-    base_sproc_name,
-    schedule_recurrence,
-    schedule_day,
     file_name

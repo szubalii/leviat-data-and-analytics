@@ -19,7 +19,8 @@ BEGIN
           THEN 1
           ELSE dbo.svf_get_isRequired_full_batch_activity(
             @activity_order,
-            @first_failed_activity_order
+            @first_failed_activity_order,
+            @rerunSuccessfulFullEntities
           )
         END
       WHEN @update_mode = 'Delta'

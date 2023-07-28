@@ -5,38 +5,25 @@ GO
 EXEC tSQLt.NewTestClass 'EntityFile';
 GO
 
-CREATE FUNCTION EntityFile.Fake_tvf_entity_file_required_activity (@rerunSuccessfulFullEntities BIT = 0)
+
+CREATE FUNCTION EntityFile.Fake_tvf_entity_file_activity_isRequired (@rerunSuccessfulFullEntities BIT = 0)
 RETURNS TABLE
 AS
 RETURN
   SELECT mock.*
   FROM ( VALUES
-    (1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Test1.1', 'Extract', 100, 0, '00000000-0000-0000-0000-000000000001', '{"timestamp":"2023-07-18_00:00:00"}'),
-    (1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Test1.1', 'Status',  200, 1, '00000000-0000-0000-0000-000000000002', '{"status":"FinishedNoErrors"}'),
-    (1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Test1.1', 'Test',    300, 1, '00000000-0000-0000-0000-000000000003', '{}'),
-    (1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Test1.2', 'Extract', 100, 0, '00000000-0000-0000-0000-000000000004', '{"timestamp":"2023-07-18_00:00:00"}'),
-    (1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Test1.2', 'Status',  200, 0, '00000000-0000-0000-0000-000000000005', '{"status":"FinishedNoErrors"}'),
-    (2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Test2.1', 'Extract', 100, 0, '00000000-0000-0000-0000-000000000006', '{"timestamp":"2023-07-18_00:00:00"}'),
-    (2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Test2.1', 'Status',  200, 1, '00000000-0000-0000-0000-000000000007', '{"status":"FinishedNoErrors"}'),
-    (3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Test3.1', 'Extract', 100, 1, NULL, '{}'),
-    (3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Test3.1', 'Status',  200, 1, NULL, '{}')
+    (1, NULL, 'Test1.1', 'Extract', 100, 0, '00000000-0000-0000-0000-000000000001', '{"timestamp":"2023-07-18_00:00:00"}'),
+    (1, NULL, 'Test1.1', 'Status',  200, 1, '00000000-0000-0000-0000-000000000002', '{"status":"FinishedNoErrors"}'),
+    (1, NULL, 'Test1.1', 'Test',    300, 1, '00000000-0000-0000-0000-000000000003', '{}'),
+    (1, NULL, 'Test1.2', 'Extract', 100, 0, '00000000-0000-0000-0000-000000000004', '{"timestamp":"2023-07-18_00:00:00"}'),
+    (1, NULL, 'Test1.2', 'Status',  200, 0, '00000000-0000-0000-0000-000000000005', '{"status":"FinishedNoErrors"}'),
+    (2, NULL, 'Test2.1', 'Extract', 100, 0, '00000000-0000-0000-0000-000000000006', '{"timestamp":"2023-07-18_00:00:00"}'),
+    (2, NULL, 'Test2.1', 'Status',  200, 1, '00000000-0000-0000-0000-000000000007', '{"status":"FinishedNoErrors"}'),
+    (3, NULL, 'Test3.1', 'Extract', 100, 1, NULL, '{}'),
+    (3, NULL, 'Test3.1', 'Status',  200, 1, NULL, '{}')
   ) AS mock (
     entity_id,
-    entity_name,
     layer_id,
-    update_mode,
-    client_field,
-    extraction_type,
-    pk_field_names,
-    axbi_database_name,
-    axbi_schema_name,
-    base_table_name,
-    axbi_date_field_name,
-    adls_container_name,
-    base_schema_name,
-    base_sproc_name,
-    schedule_recurrence,
-    schedule_day,
     file_name,
     activity_nk,
     activity_order,
@@ -46,24 +33,22 @@ RETURN
   );
 GO
 
-CREATE FUNCTION EntityFile.Fake_tvf_entity_file_requirement (@rerunSuccessfulFullEntities BIT = 0)
+CREATE FUNCTION EntityFile.Fake_tvf_entity_file_activity_requirements (@rerunSuccessfulFullEntities BIT = 0)
 RETURNS TABLE
 AS
 RETURN
   SELECT mock.*
   FROM ( VALUES
-    (0, 1, 'D', NULL, 'FULL_2023_07_22_12_00_00_000', '2023-07-22', NULL, '{}'),
-    (1, 1, 'D', NULL, 'FULL_2023_07_22_12_00_00_000', '2023-07-22', '["TestDuplicates"]', '{}'),
-    (1, 1, 'D', NULL, 'FULL_2023_07_23_12_00_00_000', '2023-07-23', '["TestDuplicates"]', '{}'),
-    (1, 1, 'D', NULL, 'FULL_2023_07_24_12_00_00_000', '2023-07-24', '["TestDuplicates"]', '{}'),
-    (2, 1, 'D', NULL, 'DELTA_2023_07_22_12_00_00_000', '2023-07-22', '["TestDuplicates"]', '{}'),
-    (2, 1, 'D', NULL, 'DELTA_2023_07_23_12_00_00_000', '2023-07-23', '["TestDuplicates"]', '{}'),
-    (2, 1, 'D', NULL, 'DELTA_2023_07_24_12_00_00_000', '2023-07-24', '["TestDuplicates"]', '{}')
+    (0, 1, 'FULL_2023_07_22_12_00_00_000', '2023-07-22', NULL, '{}'),
+    (1, 1, 'FULL_2023_07_22_12_00_00_000', '2023-07-22', '["TestDuplicates"]', '{}'),
+    (1, 1, 'FULL_2023_07_23_12_00_00_000', '2023-07-23', '["TestDuplicates"]', '{}'),
+    (1, 1, 'FULL_2023_07_24_12_00_00_000', '2023-07-24', '["TestDuplicates"]', '{}'),
+    (2, 1, 'DELTA_2023_07_22_12_00_00_000', '2023-07-22', '["TestDuplicates"]', '{}'),
+    (2, 1, 'DELTA_2023_07_23_12_00_00_000', '2023-07-23', '["TestDuplicates"]', '{}'),
+    (2, 1, 'DELTA_2023_07_24_12_00_00_000', '2023-07-24', '["TestDuplicates"]', '{}')
   ) AS mock (
     entity_id,
     layer_id,
-    schedule_recurrence,
-    schedule_day,
     file_name,
     trigger_date,
     required_activities,
@@ -275,25 +260,26 @@ BEGIN
     entity_id,
     file_name,
     expected_activity_id,
+    run_activity_id,
     latest_start_date_time
   )
   VALUES
-    (1, 'Test1', 21, '2023-07-20 12:00'),
-    (1, 'Test1', 19, '2023-07-20 13:00'),
-    (1, 'Test1', 2, NULL),
-    (2, NULL, 21, NULL),
-    (2, NULL, 19, NULL),
-    (2, NULL, 2, NULL);
+    (1, 'Test1', 21, 21, '2023-07-20 12:00:00.000'),
+    (1, 'Test1', 19, 19, '2023-07-20 13:00:00.000'),
+    (1, 'Test1', 2, NULL, NULL),
+    (2, NULL, 21, NULL, NULL),
+    (2, NULL, 19, NULL, NULL),
+    (2, NULL, 2, NULL, NULL);
 
   EXEC ('INSERT INTO dbo.vw_entity_file_activity_latest_run SELECT * FROM #vw_entity_file_activity_latest_run');
 
   INSERT INTO dbo.batch (batch_id, entity_id, run_id, status_id, activity_id, file_name, start_date_time, [output])
   VALUES
-    (NEWID(), 0, NEWID(), 2, 21, 'Test0', '2023-07-20 12:00', '{"timestamp":"2023-07-20 12:00"}'),
-    (NEWID(), 1, NEWID(), 2, 21, 'Test1', '2023-07-20 11:00', '{"timestamp":"2023-07-20 11:00"}'),
-    (NEWID(), 1, NEWID(), 2, 21, 'Test1', '2023-07-20 12:00', '{"timestamp":"2023-07-20 12:00"}'), -- entity 1: EXTRACT successful
-    (NEWID(), 1, NEWID(), 2, 19, 'Test1', '2023-07-20 12:30', '{"timestamp":"2023-07-20 12:30"}'), -- entity 1: Test Duplicates earlier
-    (NEWID(), 1, NEWID(), 2, 19, 'Test1', '2023-07-20 13:00', '{"timestamp":"2023-07-20 13:00"}'); -- entity 1: Test Duplicates later
+    (NEWID(), 0, NEWID(), 2, 21, 'Test0', '2023-07-20 12:00:00.000', '{"timestamp":"2023-07-20 12:00"}'),
+    (NEWID(), 1, NEWID(), 2, 21, 'Test1', '2023-07-20 11:00:00.000', '{"timestamp":"2023-07-20 11:00"}'),
+    (NEWID(), 1, NEWID(), 2, 21, 'Test1', '2023-07-20 12:00:00.000', '{"timestamp":"2023-07-20 12:00"}'), -- entity 1: EXTRACT successful
+    (NEWID(), 1, NEWID(), 2, 19, 'Test1', '2023-07-20 12:30:00.000', '{"timestamp":"2023-07-20 12:30"}'), -- entity 1: Test Duplicates earlier
+    (NEWID(), 1, NEWID(), 2, 19, 'Test1', '2023-07-20 13:00:00.000', '{"timestamp":"2023-07-20 13:00"}'); -- entity 1: Test Duplicates later
 
   INSERT INTO dbo.batch_activity (activity_id, activity_nk, activity_order)
   VALUES
@@ -321,8 +307,8 @@ BEGIN
 
   INSERT INTO expected(entity_id, file_name, expected_activity_id, activity_nk, activity_order, latest_start_date_time, status_id, [output])
   VALUES
-    (1, 'Test1', 21, 'Extract',   100, '2023-07-20 12:00', 2, '{"timestamp":"2023-07-20 12:00"}'),
-    (1, 'Test1', 19, 'GetStatus', 150, '2023-07-20 13:00', 2, '{"timestamp":"2023-07-20 13:00"}'),
+    (1, 'Test1', 21, 'Extract',   100, '2023-07-20 12:00:00.000', 2, '{"timestamp":"2023-07-20 12:00"}'),
+    (1, 'Test1', 19, 'GetStatus', 150, '2023-07-20 13:00:00.000', 2, '{"timestamp":"2023-07-20 13:00"}'),
     (1, 'Test1', 2, 'TestDuplicates', 200, NULL, NULL, NULL),
     (2, NULL, 21, 'Extract',   100, NULL, NULL, NULL),
     (2, NULL, 19, 'GetStatus', 150, NULL, NULL, NULL),
@@ -438,7 +424,7 @@ END;
 GO
 
 
-CREATE PROCEDURE [EntityFile].[test tvf_entity_file_required_activity: output]
+CREATE PROCEDURE [EntityFile].[test tvf_entity_file_activity_isRequired: output]
 AS
 BEGIN
 
@@ -468,7 +454,7 @@ BEGIN
   --Act
   SELECT [output]
   INTO actual
-  FROM dbo.tvf_entity_file_required_activity(0);
+  FROM dbo.tvf_entity_file_activity_isRequired(0);
 
   -- Assert:
   CREATE TABLE expected (
@@ -486,7 +472,7 @@ END;
 GO
 
 
-CREATE PROCEDURE [EntityFile].[test tvf_entity_file_requirement: required_activities]
+CREATE PROCEDURE [EntityFile].[test tvf_entity_file_activity_requirements: required_activities]
 AS
 BEGIN
 
@@ -495,37 +481,7 @@ BEGIN
   -- IF OBJECT_ID('tempdb..#vw_entity_file_required_activity') IS NOT NULL DROP TABLE #vw_entity_file_required_activity;
 
   -- Assemble: Fake Table
-  EXEC tSQLt.FakeFunction '[dbo].[tvf_entity_file_required_activity]', 'EntityFile.Fake_tvf_entity_file_required_activity';
-
-  /*
-    Workaround to ingest mock data into a view
-    https://stackoverflow.com/questions/14965427/tsqlt-faketable-doesnt-seem-to-work-with-views-that-have-constants-derived-field
-  */
-  -- #1
-  -- SELECT TOP(0) *
-  -- INTO #vw_entity_file_required_activity
-  -- FROM dbo.vw_entity_file_required_activity
-
-  -- -- #2
-  -- INSERT INTO #vw_entity_file_required_activity (
-  --   entity_id,
-  --   file_name,
-  --   activity_nk,
-  --   activity_order,
-  --   isRequired
-  -- )
-  -- VALUES
-  --   (1, 'Test1.1', 'Extract', 100, 0),
-  --   (1, 'Test1.1', 'Status',  200, 1),
-  --   (1, 'Test1.1', 'Test',    300, 1),
-  --   (1, 'Test1.2', 'Extract', 100, 0),
-  --   (1, 'Test1.2', 'Status',  200, 0),
-  --   (2, 'Test2.1', 'Extract', 100, 0),
-  --   (2, 'Test2.1', 'Status',  200, 1);
-
-  -- #3
-  -- EXEC tSQLt.FakeTable '[dbo]', '[vw_entity_file_required_activity]';
-  -- EXEC ('INSERT INTO dbo.vw_entity_file_required_activity SELECT * FROM #vw_entity_file_required_activity')
+  EXEC tSQLt.FakeFunction '[dbo].[tvf_entity_file_activity_isRequired]', 'EntityFile.Fake_tvf_entity_file_activity_isRequired';
 
   -- Act: 
   SELECT
@@ -533,7 +489,7 @@ BEGIN
     file_name,
     required_activities
   INTO actual
-  FROM tvf_entity_file_requirement(0);
+  FROM tvf_entity_file_activity_requirements(0);
 
   -- Assert:
   CREATE TABLE expected (
@@ -558,48 +514,14 @@ END;
 GO
 
 
-CREATE PROCEDURE [EntityFile].[test tvf_entity_file_requirement: skipped_activities]
+CREATE PROCEDURE [EntityFile].[test tvf_entity_file_activity_requirements: skipped_activities]
 AS
 BEGIN
 
   IF OBJECT_ID('actual') IS NOT NULL DROP TABLE actual;
   IF OBJECT_ID('expected') IS NOT NULL DROP TABLE expected;
-  -- IF OBJECT_ID('tempdb..#vw_entity_file_required_activity') IS NOT NULL DROP TABLE #vw_entity_file_required_activity;
 
-  -- Assemble: Fake Table
-  /*
-    Workaround to ingest mock data into a view
-    https://stackoverflow.com/questions/14965427/tsqlt-faketable-doesnt-seem-to-work-with-views-that-have-constants-derived-field
-  */
-  -- #1
-  -- SELECT TOP(0) *
-  -- INTO #vw_entity_file_required_activity
-  -- FROM dbo.vw_entity_file_required_activity
-
-  -- -- #2
-  -- INSERT INTO #vw_entity_file_required_activity (
-  --   entity_id,
-  --   file_name,
-  --   activity_nk,
-  --   activity_order,
-  --   isRequired,
-  --   batch_id,
-  --   [output]
-  -- )
-  -- VALUES
-  --   (1, 'Test1.1', 'Extract', 100, 0, '00000000-0000-0000-0000-000000000001', '{"timestamp":"2023-07-18_00:00:00"}'),
-  --   (1, 'Test1.1', 'Status',  200, 1, '00000000-0000-0000-0000-000000000002', '{"status":"FinishedNoErrors"}'),
-  --   (1, 'Test1.1', 'Test',    300, 1, '00000000-0000-0000-0000-000000000003', '{}'),
-  --   (1, 'Test1.2', 'Extract', 100, 0, '00000000-0000-0000-0000-000000000004', '{"timestamp":"2023-07-18_00:00:00"}'),
-  --   (1, 'Test1.2', 'Status',  200, 0, '00000000-0000-0000-0000-000000000005', '{"status":"FinishedNoErrors"}'),
-  --   (2, 'Test2.1', 'Extract', 100, 0, '00000000-0000-0000-0000-000000000006', '{"timestamp":"2023-07-18_00:00:00"}'),
-  --   (2, 'Test2.1', 'Status',  200, 1, '00000000-0000-0000-0000-000000000007', '{"status":"FinishedNoErrors"}');
-
-  -- #3
-  -- EXEC tSQLt.FakeTable '[dbo]', '[vw_entity_file_required_activity]';
-  -- EXEC ('INSERT INTO dbo.vw_entity_file_required_activity SELECT * FROM #vw_entity_file_required_activity')
-
-  EXEC tSQLt.FakeFunction 'dbo.tvf_entity_file_required_activity', 'EntityFile.Fake_tvf_entity_file_required_activity';
+  EXEC tSQLt.FakeFunction 'dbo.tvf_entity_file_activity_isRequired', 'EntityFile.Fake_tvf_entity_file_activity_isRequired';
 
   -- Act: 
   SELECT
@@ -607,7 +529,7 @@ BEGIN
     file_name,
     skipped_activities
   INTO actual
-  FROM dbo.tvf_entity_file_requirement(0);
+  FROM dbo.tvf_entity_file_activity_requirements(0);
 
   -- Assert:
   CREATE TABLE expected (
@@ -631,82 +553,172 @@ BEGIN
 END;
 GO
 
+CREATE FUNCTION EntityFile.Fake_tvf_entity_file_required_activity_requirements (@rerunSuccessfulFullEntities BIT = 0)
 
-CREATE PROCEDURE [EntityFile].[test get_scheduled_entity_batch_activities: adls_directory_path: In Out]
-  -- Check that adls_directory_path_In includes /In/ and adls_directory_path_Out includes /Out/
+  RETURNS TABLE
+  AS
+  RETURN
+    SELECT mock.*
+    FROM ( VALUES
+      (0, 1, NULL, NULL, NULL, NULL),
+      (1, 1, NULL, NULL, NULL, '[]'),
+      (2, 1, NULL, NULL, NULL, '["TestDuplicates"]')
+    ) AS mock (
+      entity_id,
+      layer_id,
+      file_name,
+      trigger_date,
+      skipped_activities,
+      required_activities
+    );
+GO
+
+CREATE PROCEDURE [EntityFile].[test tvf_entity_file_required_activities]
 AS
 BEGIN
+
   IF OBJECT_ID('actual') IS NOT NULL DROP TABLE actual;
   IF OBJECT_ID('expected') IS NOT NULL DROP TABLE expected;
-  -- IF OBJECT_ID('tempdb..#vw_entity_file_requirement') IS NOT NULL DROP TABLE #vw_entity_file_requirement;
+
+  EXEC tSQLt.FakeFunction 'dbo.tvf_entity_file_activity_requirements', 'EntityFile.Fake_tvf_entity_file_required_activity_requirements';
+
+  -- Act: 
+  SELECT
+    entity_id
+  INTO actual
+  FROM dbo.tvf_entity_file_required_activities(0);
+
+  -- Assert:
+  CREATE TABLE expected (
+    entity_id INT
+  );
+
+  INSERT INTO expected(
+    entity_id
+  )
+  VALUES
+    (2);
+
+  EXEC tSQLt.AssertEqualsTable 'expected', 'actual';
+END;
+GO
+
+
+CREATE FUNCTION EntityFile.Fake_tvf_entity_file_required_activities (@rerunSuccessfulFullEntities BIT = 0)
+
+  RETURNS TABLE
+  AS
+  RETURN
+    SELECT mock.*
+    FROM ( VALUES
+      (0, NULL, '2023-07-22', '2023-07-22', '["TestDuplicates"]', NULL),
+      (0, NULL, '2023-07-23', '2023-07-23', '["TestDuplicates"]', NULL),
+      (1, NULL, '2023-07-22', '2023-07-22', '["TestDuplicates"]', NULL),
+      (1, NULL, '2023-07-23', '2023-07-23', '["TestDuplicates"]', NULL),
+      (2, NULL, '2023-07-22', '2023-07-22', '["TestDuplicates"]', NULL),
+      (2, NULL, '2023-07-23', '2023-07-23', '["TestDuplicates"]', NULL),
+      (3, NULL, NULL, NULL, '["TestDuplicates"]', NULL)
+    ) AS mock (
+      entity_id,
+      layer_id,
+      file_name,
+      trigger_date,
+      required_activities,
+      skipped_activities
+    );
+GO
+
+CREATE PROCEDURE [EntityFile].[test tvf_entity_file_activities_by_date: date and update_mode filter]
+AS
+BEGIN
+
+  IF OBJECT_ID('actual') IS NOT NULL DROP TABLE actual;
+  IF OBJECT_ID('expected') IS NOT NULL DROP TABLE expected;
+
+  EXEC tSQLt.FakeTable 'dbo.entity';
+  EXEC tSQLt.FakeFunction 'dbo.tvf_entity_file_required_activities', 'EntityFile.Fake_tvf_entity_file_required_activities';
+
+
+  INSERT INTO entity (entity_id, update_mode)
+  VALUES
+    (0, 'Full'),
+    (1, NULL),
+    (2, 'Delta'),
+    (3, 'Full');
+
+  -- Act: 
+  SELECT
+    entity_id, file_name
+  INTO actual
+  FROM dbo.tvf_entity_file_activities_by_date('2023-07-23', 0);
+
+  -- Assert:
+  CREATE TABLE expected (
+    entity_id INT,
+    file_name VARCHAR(100)
+  );
+
+  INSERT INTO expected(
+    entity_id,
+    file_name
+  )
+  VALUES
+    (0, '2023-07-23'),
+    (1, '2023-07-23'),
+    (2, '2023-07-22'),
+    (2, '2023-07-23'),
+    (3, NULL);
+
+  EXEC tSQLt.AssertEqualsTable 'expected', 'actual';
+END;
+GO
+
+
+CREATE PROCEDURE [EntityFile].[test tvf_entity_file_activities_by_date: In Out ADLS Path]
+AS
+BEGIN
+
+  IF OBJECT_ID('actual') IS NOT NULL DROP TABLE actual;
+  IF OBJECT_ID('expected') IS NOT NULL DROP TABLE expected;
   IF OBJECT_ID('tempdb..#vw_adls_base_directory_path') IS NOT NULL DROP TABLE #vw_adls_base_directory_path;
 
   -- Assemble: Fake Table
-  EXEC tSQLt.FakeTable '[dbo]', '[entity]';
+  EXEC tSQLt.FakeTable 'dbo.entity';
   EXEC tSQLt.FakeTable '[dbo]', '[vw_adls_base_directory_path]';
-  EXEC tSQLt.FakeFunction '[dbo].[tvf_entity_file_requirement]', 'EntityFile.Fake_tvf_entity_file_requirement';
+  EXEC tSQLt.FakeFunction 'dbo.tvf_entity_file_required_activities', 'EntityFile.Fake_tvf_entity_file_required_activities';
 
   /*
     Workaround to ingest mock data into a view
     https://stackoverflow.com/questions/14965427/tsqlt-faketable-doesnt-seem-to-work-with-views-that-have-constants-derived-field
   */
-  -- #1
-  -- SELECT TOP(0) *
-  -- INTO #vw_entity_file_requirement
-  -- FROM dbo.vw_entity_file_requirement
-
-  
   SELECT TOP(0) *
   INTO #vw_adls_base_directory_path
   FROM dbo.vw_adls_base_directory_path
-
-  -- #2
-  -- INSERT INTO #vw_entity_file_requirement (
-  --   entity_id,
-  --   file_name,
-  --   required_activities
-  -- )
-  -- VALUES
-  --   (1, 'FULL_2023_07_22_12_00_00_000', '["TestDuplicates"]'),
-  --   (1, 'FULL_2023_07_23_12_00_00_000', '["TestDuplicates"]'),
-  --   (1, 'FULL_2023_07_24_12_00_00_000', '["TestDuplicates"]'),
-  --   (2, 'DELTA_2023_07_22_12_00_00_000', '["TestDuplicates"]'),
-  --   (2, 'DELTA_2023_07_23_12_00_00_000', '["TestDuplicates"]'),
-  --   (2, 'DELTA_2023_07_24_12_00_00_000', '["TestDuplicates"]');
-    
+   
   INSERT INTO #vw_adls_base_directory_path (
     entity_id,
     base_dir_path
   )
   VALUES
-    (1, 'FULL'),
-    (2, 'DELTA');
+    (0, 'FULL');
 
-  
-  INSERT INTO dbo.entity (entity_id, update_mode, schedule_recurrence)
-  VALUES
-    (1, 'Full', 'D'),
-    (2, 'Delta', 'D');
-
-  -- #3
-  -- EXEC ('INSERT INTO dbo.vw_entity_file_requirement SELECT * FROM #vw_entity_file_requirement');
   EXEC ('INSERT INTO dbo.vw_adls_base_directory_path SELECT * FROM #vw_adls_base_directory_path');
+
+  INSERT INTO entity (entity_id, update_mode)
+  VALUES
+    (0, 'Full');
 
   -- Act: 
   SELECT
-    entity_id,
-    adls_directory_path_In,
-    adls_directory_path_Out
+    entity_id, adls_directory_path_In, adls_directory_path_Out
   INTO actual
-  FROM dbo.get_scheduled_entity_batch_activities(
-    0, '2023-07-23', 0
-  );
+  FROM dbo.tvf_entity_file_activities_by_date('2023-07-23', 0);
 
   -- Assert:
   CREATE TABLE expected (
     entity_id INT,
-    adls_directory_path_In  NVARCHAR(100),
-    adls_directory_path_Out NVARCHAR(100)
+    adls_directory_path_In VARCHAR(100),
+    adls_directory_path_Out VARCHAR(100)
   );
 
   INSERT INTO expected(
@@ -715,13 +727,89 @@ BEGIN
     adls_directory_path_Out
   )
   VALUES
-    (1, 'FULL/In/2023/07/23', 'FULL/Out/2023/07/23'),
-    (2, 'DELTA/In/2023/07/22', 'DELTA/Out/2023/07/22'),
-    (2, 'DELTA/In/2023/07/23', 'DELTA/Out/2023/07/23');
+    (0, 'FULL/In/2023/07/23', 'FULL/Out/2023/07/23');
 
   EXEC tSQLt.AssertEqualsTable 'expected', 'actual';
 END;
 GO
+
+
+
+
+
+-- CREATE PROCEDURE [EntityFile].[test get_scheduled_entity_batch_activities: adls_directory_path: In Out]
+--   -- Check that adls_directory_path_In includes /In/ and adls_directory_path_Out includes /Out/
+-- AS
+-- BEGIN
+--   IF OBJECT_ID('actual') IS NOT NULL DROP TABLE actual;
+--   IF OBJECT_ID('expected') IS NOT NULL DROP TABLE expected;
+--   -- IF OBJECT_ID('tempdb..#vw_entity_file_requirement') IS NOT NULL DROP TABLE #vw_entity_file_requirement;
+--   IF OBJECT_ID('tempdb..#vw_adls_base_directory_path') IS NOT NULL DROP TABLE #vw_adls_base_directory_path;
+--   -- IF OBJECT_ID('tempdb..#vw_full_load_entities') IS NOT NULL DROP TABLE #vw_full_load_entities;
+--   -- IF OBJECT_ID('tempdb..#vw_delta_load_entities') IS NOT NULL DROP TABLE #vw_delta_load_entities;
+
+--   -- Assemble: Fake Table
+--   -- EXEC tSQLt.FakeTable '[dbo]', '[entity]';
+--   EXEC tSQLt.FakeTable '[dbo]', '[entity]';
+--   EXEC tSQLt.FakeTable '[dbo]', '[vw_adls_base_directory_path]';
+--   -- EXEC tSQLt.FakeTable '[dbo]', '[vw_full_load_entities]';
+--   -- EXEC tSQLt.FakeTable '[dbo]', '[vw_delta_load_entities]';
+--   EXEC tSQLt.FakeFunction '[dbo].[tvf_entity_file_activity_requirements]', 'EntityFile.Fake_tvf_entity_file_activity_requirements';
+
+--   /*
+--     Workaround to ingest mock data into a view
+--     https://stackoverflow.com/questions/14965427/tsqlt-faketable-doesnt-seem-to-work-with-views-that-have-constants-derived-field
+--   */
+--   SELECT TOP(0) *
+--   INTO #vw_adls_base_directory_path
+--   FROM dbo.vw_adls_base_directory_path
+   
+--   INSERT INTO #vw_adls_base_directory_path (
+--     entity_id,
+--     base_dir_path
+--   )
+--   VALUES
+--     (1, 'FULL'),
+--     (2, 'DELTA');
+
+--   EXEC ('INSERT INTO dbo.vw_adls_base_directory_path SELECT * FROM #vw_adls_base_directory_path');
+
+--   INSERT INTO entity (entity_id, update_mode, schedule_recurrence)
+--   VALUES
+--     (0, 'Full',  'D'),
+--     (1, NULL,    'D'),
+--     (2, 'Delta', 'D');
+
+--   -- Act: 
+--   SELECT
+--     entity_id,
+--     adls_directory_path_In,
+--     adls_directory_path_Out
+--   INTO actual
+--   FROM dbo.get_scheduled_entity_batch_activities(
+--     0, '2023-07-23', 0
+--   );
+
+--   -- Assert:
+--   CREATE TABLE expected (
+--     entity_id INT,
+--     adls_directory_path_In  NVARCHAR(100),
+--     adls_directory_path_Out NVARCHAR(100)
+--   );
+
+--   INSERT INTO expected(
+--     entity_id,
+--     adls_directory_path_In,
+--     adls_directory_path_Out
+--   )
+--   VALUES
+--     (1, 'FULL/In/2023/07/23', 'FULL/Out/2023/07/23'),
+--     (2, 'DELTA/In/2023/07/22', 'DELTA/Out/2023/07/22'),
+--     (2, 'DELTA/In/2023/07/23', 'DELTA/Out/2023/07/23');
+
+--   EXEC tSQLt.AssertEqualsTable 'expected', 'actual';
+-- END;
+-- GO
 
 -- CREATE PROCEDURE [EntityFile].[test get_scheduled_entity_batch_activities: adls_directory_path: Date]
 --   -- Check that adls_directory_path_In and adls_directory_path_Out includes the correct date:
@@ -733,6 +821,29 @@ GO
 -- END;
 -- GO
 
+CREATE FUNCTION EntityFile.Fake_tvf_entity_file_activities_by_date (@date DATE, @rerunSuccessfulFullEntities BIT = 0)
+
+  RETURNS TABLE
+  AS
+  RETURN
+    SELECT mock.*
+    FROM ( VALUES
+      (0, 1, NULL, NULL, NULL, NULL, NULL),
+      (1, 1, NULL, NULL, NULL, NULL, NULL),
+      (2, 1, NULL, NULL, NULL, NULL, NULL),
+      (3, 1, NULL, NULL, NULL, NULL, NULL)
+    ) AS mock (
+      entity_id,
+      layer_id,
+      adls_directory_path_In,
+      adls_directory_path_Out,
+      file_name,
+      required_activities,
+      skipped_activities
+    );
+GO
+
+
 CREATE PROCEDURE [EntityFile].[test get_scheduled_entity_batch_activities: filtered on scheduled entities]
 AS
 BEGIN
@@ -741,18 +852,28 @@ BEGIN
   
   IF OBJECT_ID('actual') IS NOT NULL DROP TABLE actual;
   IF OBJECT_ID('expected') IS NOT NULL DROP TABLE expected;
+  -- IF OBJECT_ID('tempdb..#vw_full_load_entities') IS NOT NULL DROP TABLE #vw_full_load_entities;
+  -- IF OBJECT_ID('tempdb..#vw_delta_load_entities') IS NOT NULL DROP TABLE #vw_delta_load_entities;
 
   -- Assemble: Fake Table
+  -- EXEC tSQLt.FakeTable '[dbo]', '[entity]';
   EXEC tSQLt.FakeTable '[dbo]', '[entity]';
-  
-  INSERT INTO dbo.entity (entity_id, schedule_recurrence, schedule_day)
+  -- EXEC tSQLt.FakeTable '[dbo]', '[vw_delta_load_entities]';
+  EXEC tSQLt.FakeFunction '[dbo].[tvf_entity_file_activities_by_date]', 'EntityFile.Fake_tvf_entity_file_activities_by_date';
+
+  /*
+    Workaround to ingest mock data into a view
+    https://stackoverflow.com/questions/14965427/tsqlt-faketable-doesnt-seem-to-work-with-views-that-have-constants-derived-field
+  */
+
+  INSERT INTO entity (entity_id, schedule_recurrence, schedule_day)
   VALUES
-    (1, NULL, NULL),
+    (0, NULL, NULL),
+    (1, 'D', NULL),
     (2, 'A', NULL),
-    (3, 'D', NULL),
-    (4, 'W', 1),
-    (5, 'W', 2),
-    (6, 'M', 1);
+    (3, 'W', 1),
+    (4, 'W', 4),
+    (5, 'M', 1);
 
   -- Act: 
   SELECT
@@ -771,8 +892,8 @@ BEGIN
     entity_id
   )
   VALUES
-    (3),
-    (4);
+    (1),
+    (3);
 
   EXEC tSQLt.AssertEqualsTable 'expected', 'actual';
 
@@ -791,6 +912,7 @@ BEGIN
 
   -- Assemble: Fake Table
   EXEC tSQLt.FakeTable '[dbo]', '[entity]';
+  EXEC tSQLt.FakeFunction '[dbo].[tvf_entity_file_activities_by_date]', 'EntityFile.Fake_tvf_entity_file_activities_by_date';
   
   INSERT INTO dbo.entity (entity_id, schedule_recurrence, schedule_day)
   VALUES
@@ -826,6 +948,8 @@ BEGIN
 
   -- Assemble: Fake Table
   EXEC tSQLt.FakeTable '[dbo]', '[entity]';
+  EXEC tSQLt.FakeFunction '[dbo].[tvf_entity_file_activities_by_date]', 'EntityFile.Fake_tvf_entity_file_activities_by_date';
+
 
   INSERT INTO dbo.entity (entity_id, schedule_recurrence, schedule_day)
   VALUES
@@ -863,6 +987,8 @@ BEGIN
 
   -- Assemble: Fake Table
   EXEC tSQLt.FakeTable '[dbo]', '[entity]';
+  EXEC tSQLt.FakeFunction '[dbo].[tvf_entity_file_activities_by_date]', 'EntityFile.Fake_tvf_entity_file_activities_by_date';
+
 
   INSERT INTO dbo.entity (entity_id, schedule_recurrence, schedule_day)
   VALUES
@@ -899,6 +1025,8 @@ BEGIN
 
   -- Assemble: Fake Table
   EXEC tSQLt.FakeTable '[dbo]', '[entity]';
+  EXEC tSQLt.FakeFunction '[dbo].[tvf_entity_file_activities_by_date]', 'EntityFile.Fake_tvf_entity_file_activities_by_date';
+
   
   INSERT INTO dbo.entity (entity_id, schedule_recurrence, schedule_day)
   VALUES
@@ -930,60 +1058,58 @@ GO
 -- GO
 
 
-CREATE PROCEDURE [EntityFile].[test get_scheduled_entity_batch_activities: filter on entities with required activities]
-AS
-BEGIN
-  IF OBJECT_ID('actual') IS NOT NULL DROP TABLE actual;
-  IF OBJECT_ID('expected') IS NOT NULL DROP TABLE expected;
-  -- IF OBJECT_ID('tempdb..#vw_entity_file_requirement') IS NOT NULL DROP TABLE #vw_entity_file_requirement;
+-- CREATE PROCEDURE [EntityFile].[test get_scheduled_entity_batch_activities: filter on entities with required activities]
+-- AS
+-- BEGIN
+--   IF OBJECT_ID('actual') IS NOT NULL DROP TABLE actual;
+--   IF OBJECT_ID('expected') IS NOT NULL DROP TABLE expected;
+--   -- IF OBJECT_ID('tempdb..#vw_entity_file_requirement') IS NOT NULL DROP TABLE #vw_entity_file_requirement;
 
-  -- Assemble: Fake Table
-  EXEC tSQLt.FakeTable '[dbo]', '[entity]';
-  EXEC tSQLt.FakeFunction '[dbo].[tvf_entity_file_requirement]', 'EntityFile.Fake_tvf_entity_file_requirement';
+--   -- Assemble: Fake Table
+--   EXEC tSQLt.FakeTable '[dbo]', '[entity]';
+--   EXEC tSQLt.FakeFunction '[dbo].[tvf_entity_file_activities_by_date]', 'EntityFile.Fake_tvf_entity_file_activities_by_date';
 
-  /*
-    Workaround to ingest mock data into a view
-    https://stackoverflow.com/questions/14965427/tsqlt-faketable-doesnt-seem-to-work-with-views-that-have-constants-derived-field
-  */
-  -- #1
-  -- SELECT TOP(0) *
-  -- INTO #vw_entity_file_requirement
-  -- FROM dbo.vw_entity_file_requirement
+--   /*
+--     Workaround to ingest mock data into a view
+--     https://stackoverflow.com/questions/14965427/tsqlt-faketable-doesnt-seem-to-work-with-views-that-have-constants-derived-field
+--   */
+--   -- #1
+--   -- SELECT TOP(0) *
+--   -- INTO #vw_entity_file_requirement
+--   -- FROM dbo.vw_entity_file_requirement
 
-  --   -- #2
-  -- INSERT INTO #vw_entity_file_requirement (
-  --   entity_id,
-  --   file_name,
-  --   required_activities
-  -- )
-  -- VALUES
-  --   (1, '1_2023_07_23_12_00_00_000', '[]'),
-  --   (2, '2_2023_07_23_12_00_00_000', '["TestDuplicates"]');
+--   --   -- #2
+--   -- INSERT INTO #vw_entity_file_requirement (
+--   --   entity_id,
+--   --   file_name,
+--   --   required_activities
+--   -- )
+--   -- VALUES
+--   --   (1, '1_2023_07_23_12_00_00_000', '[]'),
+--   --   (2, '2_2023_07_23_12_00_00_000', '["TestDuplicates"]');
     
   
-  INSERT INTO dbo.entity (entity_id, schedule_recurrence)
-  VALUES
-    (0, 'D'),
-    (1, 'D');
+--   INSERT INTO dbo.entity (entity_id, schedule_recurrence)
+--   VALUES (1, 'D');
 
-  -- #3
-  -- EXEC ('INSERT INTO dbo.vw_entity_file_requirement SELECT * FROM #vw_entity_file_requirement');
+--   -- #3
+--   -- EXEC ('INSERT INTO dbo.vw_entity_file_requirement SELECT * FROM #vw_entity_file_requirement');
  
-  -- Act: 
-  SELECT entity_id
-  INTO actual
-  FROM dbo.get_scheduled_entity_batch_activities(
-    0, '2023-07-22', 0
-  );
+--   -- Act: 
+--   SELECT entity_id
+--   INTO actual
+--   FROM dbo.get_scheduled_entity_batch_activities(
+--     0, '2023-07-22', 0
+--   );
 
-  -- Assert:
-  CREATE TABLE expected (entity_id INT);
-  INSERT INTO expected (entity_id) VALUES (0), (1);
+--   -- Assert:
+--   CREATE TABLE expected (entity_id INT);
+--   INSERT INTO expected (entity_id) VALUES (1);
 
-  EXEC tSQLt.AssertEqualsTable 'expected', 'actual';
+--   EXEC tSQLt.AssertEqualsTable 'expected', 'actual';
 
-END;
-GO
+-- END;
+-- GO
 
 -- CREATE PROCEDURE [EntityFile].[test get_scheduled_entity_batch_activities: uniqueness]
 -- AS

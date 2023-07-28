@@ -23,7 +23,8 @@ BEGIN
       -- check the first failed activity
       ELSE dbo.svf_get_isRequired_full_batch_activity(
         @activity_order,
-        @firstFailedActivityOrder
+        @firstFailedActivityOrder,
+        0
       )
     END;
 
