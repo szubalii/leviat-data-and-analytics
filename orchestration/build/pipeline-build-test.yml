@@ -80,7 +80,7 @@ jobs:
       pwsh: true
       script: |
         $xmloutput = "";
-        $connectionString = "Data Source=sqlsrv-xxxx-sls-d-euw-001.database.windows.net;Authentication=Active Directory Integrated;Initial Catalog=$(testOrchDb)";
+        $connectionString = "Data Source=sqlsrv-xxxx-sls-d-euw-001.database.windows.net;User ID=sqladmin;Password=$(sqlsrv-xxxx-sls-x-euw-001--sqladminPassword);Initial Catalog=$(testOrchDb)";
         $sqlCommand = 'EXEC tSQLt.XmlResultFormatter';
         $connection = new-object system.data.SqlClient.SQLConnection($connectionString);
         $command = new-object system.data.sqlclient.sqlcommand($sqlCommand,$connection);
@@ -108,7 +108,6 @@ jobs:
   - script: |
       sqlcmd ^
         -S sqlsrv-xxxx-sls-d-euw-001.database.windows.net ^
-        -d $(testOrchDb) ^
         -U sqladmin ^
         -P $(sqlsrv-xxxx-sls-x-euw-001--sqladminPassword) ^
         -Q "DROP DATABASE $(testOrchDb);"
