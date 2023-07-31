@@ -162,7 +162,7 @@ LEFT JOIN doc_delivery
         AND doc.SalesDocumentItem = doc_delivery.SalesDocumentItem 
         AND SDSL.IsConfirmedDelivSchedLine = 'X'
 
-LEFT JOIN [edw].[dim_SDDocumentIncompletionLog] IL
+LEFT JOIN [edw].[fact_SDDocumentIncompletionLog] IL
     ON doc.SalesDocument = IL.SDDocument    COLLATE DATABASE_DEFAULT
         AND doc.SalesDocumentItem = IL.SDDocumentItem   COLLATE DATABASE_DEFAULT
 
