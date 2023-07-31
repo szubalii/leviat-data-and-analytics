@@ -4135,12 +4135,12 @@
       {
         "entity_id": 610,
         "entity_name": "I_DataElementLabelText",
-        "data_category": "NULL",
+        "data_category": "TEXT",
         "tool_name": "Theobald",
         "extraction_type": "Table",
         "update_mode": "Full",
         "base_table_name": "I_DataElementLabelText",
-        "schedule_recurrence": "D",
+        "schedule_recurrence": "A",
         "pk_field_names": "ABAPDATAELEMENT,LANGUAGE"
       },
       {
@@ -5754,10 +5754,10 @@
       },
       {
         "entity_id": 612,
-        "entity_name": "dim_SDDocumentIncompletionLog",
+        "entity_name": "fact_SDDocumentIncompletionLog",
         "sproc_name": "sp_materialize_view",
         "source_view_name": "vw_SDDocumentIncompletionLog",
-        "dest_table_name": "dim_SDDocumentIncompletionLog",
+        "dest_table_name": "fact_SDDocumentIncompletionLog",
         "execution_order": 0,
         "schedule_recurrence": "D"
       }

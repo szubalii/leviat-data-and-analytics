@@ -1,4 +1,4 @@
-CREATE TABLE [edw].[dim_SDDocumentIncompletionLog]
+CREATE TABLE [edw].[fact_SDDocumentIncompletionLog]
 (
     
     [SDDocument]          NVARCHAR(10) NOT NULL
@@ -10,7 +10,7 @@ CREATE TABLE [edw].[dim_SDDocumentIncompletionLog]
     , [t_jobDtm]          DATETIME   
     , [t_lastActionCd]    VARCHAR(1)
     , [t_jobBy]           NVARCHAR(128)
-    , CONSTRAINT [PK_dim_SDDocumentIncompletionLog] PRIMARY KEY NONCLUSTERED(
+    , CONSTRAINT [PK_fact_SDDocumentIncompletionLog] PRIMARY KEY NONCLUSTERED(
           [SDDocument]
         , [SDDocumentItem]
         , [ScheduleLine]

@@ -15,6 +15,6 @@
 	"compress": true,
 	"blobType": "BlockBlob",
 	"columnNameKind": "Code",
-	"folderPath": "NULL\/I_SDDocumentIncompletionLog\/Theobald\/Table\/Full\/In\/#{ DateTime.Now.ToString(\"yyyy\/MM\/dd\") }#",
+	"folderPath": "TEXT\/I_SDDocumentIncompletionLog\/Theobald\/Table\/Full\/In\/#{ DateTime.Now.ToString(\"yyyy\/MM\/dd\") }#",
 	"maxBlobSize": 0
 }
