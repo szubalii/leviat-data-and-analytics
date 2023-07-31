@@ -247,6 +247,7 @@
     <None Include="edw\Stored Procedures\sp_load_fact_SalesDocumentItem_axbi.sql" />
     <None Include="edw\Stored Procedures\sp_load_fact_SalesDocumentItem_s4h_active.sql" />
     <None Include="edw\Stored Procedures\sp_load_fact_SalesDocumentItem.sql" />
+    <None Include="Security\Database Scoped Credentials\dsc_MSI.sql" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <Build Include="Security\Database Scoped Credentials\dsc_MSI.sql" />
