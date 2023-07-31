@@ -910,6 +910,7 @@
     <Build Include="dq\Tables\dim_Rule.sql" />
     <Build Include="dq\Views\vw_Product_1_2.sql" />
     <Build Include="dm_dq\Views\vw_dim_RuleProduct.sql" />
+    <Build Include="dm_dq\Views\vw_dim_RuleBusinessPartner.sql" />
     <Build Include="dq\Tables\fact_RuleTotal.sql" />
     <Build Include="dq\Views\vw_RuleTotal.sql" />
     <Build Include="edw\Views\vw_StockPricePerUnit.sql" />
@@ -924,8 +925,11 @@
     <Build Include="base_s4h_cax\Tables\I_Purreqvaluationarea.sql" />
     <Build Include="dm_dq\Views\vw_dim_Product.sql" />
     <Build Include="dm_dq\Views\vw_fact_ProductTotal.sql" />
+    <Build Include="dm_dq\Views\vw_fact_BusinessPartnerTotal.sql" />
     <Build Include="dq\Tables\dim_RuleProduct.sql" />
     <Build Include="dq\Tables\fact_ProductTotal.sql" />
+    <Build Include="dq\Tables\dim_RuleBusinessPartner.sql" />
+    <Build Include="dq\Tables\fact_BusinessPartnerTotal.sql" />
     <Build Include="dq\Views\vw_Product_1_3.sql" />
     <Build Include="dq\Views\vw_Product_1_6.sql" />
     <Build Include="dq\Views\vw_Product_1_7.sql" />
@@ -937,7 +941,9 @@
     <Build Include="dq\Views\vw_Product_1_29.sql" />
     <Build Include="dq\Views\vw_Product_1_22.sql" />
     <Build Include="dq\Views\vw_RuleProduct.sql" />
+    <Build Include="dq\Views\vw_RuleBusinessPartner.sql" />
     <Build Include="dq\Views\vw_ProductTotal.sql" />
+    <Build Include="dq\Views\vw_BusinessPartnerTotal.sql" />
     <Build Include="dm_dq\Views\vw_dim_ProductSalesDelivery.sql" />
     <Build Include="dm_dq\Views\vw_dim_ProductPlant.sql" />
     <Build Include="dm_dq\Views\vw_ProductText.sql" />
