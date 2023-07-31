@@ -1171,6 +1171,7 @@
     <Build Include="base_s4h_cax\Tables\P_ConditionTypeText.sql" />
     <Build Include="dm_dq\Views\vw_dim_MAWEV.sql" />
     <Build Include="dm_dq\Views\vw_dim_ProductValuationCosting.sql" />
+    <Build Include="dm_dq\Views\vw_fact_BusinessPartnerTotalLatest.sql" />
     <Build Include="dm_sales\Views\vw_dim_GLAccountText.sql" />
     <Build Include="utilities\Tables\t_field_values.sql" />
     <Build Include="base_s4h_cax\Tables\I_Purchaserequisitionitem.sql" />
