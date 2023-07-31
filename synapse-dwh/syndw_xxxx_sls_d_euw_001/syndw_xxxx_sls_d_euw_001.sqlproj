@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <Sdk Name="Microsoft.Build.Sql" Version="0.1.9-preview" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -117,13 +118,6 @@
     <QueryStoreStaleQueryThreshold>30</QueryStoreStaleQueryThreshold>
     <QueryStoreMaxStorageSize>100</QueryStoreMaxStorageSize>
   </PropertyGroup>
-  <PropertyGroup>
-    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
-    <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
-    <VisualStudioVersion Condition="'$(SSDTExists)' == ''">11.0</VisualStudioVersion>
-  </PropertyGroup>
-  <Import Condition="'$(NetCoreBuild)' != 'true' AND '$(SQLDBExtensionsRefPath)' != ''" Project="$(SQLDBExtensionsRefPath)\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
-  <Import Condition="'$(NetCoreBuild)' != 'true' AND '$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
   <ItemGroup>
     <Folder Include="Properties" />
     <Folder Include="Security" />
@@ -152,6 +146,7 @@
     <Folder Include="edw" />
     <Folder Include="edw\Tables" />
     <Folder Include="edw\Stored Procedures" />
+    <None Include="edw\Stored Procedures\Archive" />
     <Folder Include="edw\Functions\ScalarValued" />
     <Folder Include="dm_sales" />
     <Folder Include="dm_sales\Views" />
@@ -219,6 +214,39 @@
     <Folder Include="base_isedio_aus" />
     <Folder Include="base_isedio_aus\Tables" />
     <Folder Include="edw\Functions\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="edw\Views\vw_fact_MaterialStockLevel_temp.sql" />
+    <None Include="Security\RoleMemberships\RoleMemberships.sql" />
+    <None Include="edw\Views\vw_fact_MaterialDocumentItem_temp.sql" />
+    <None Include="Scripts\AXBI-Delta\FACT_HGDAWA-test.sql" />
+    <None Include="Scripts\AXBI-Delta\FACT_HGDAWA.sql" />
+    <None Include="Scripts\AXBI-Delta\insert_FACT_HGDAWA.sql" />
+    <None Include="Scripts\newUser.sql" />
+    <None Include="Scripts\Stock\Stock Level Investigation.sql" />
+    <None Include="Scripts\AXBI-Delta\FACT_HGDAWA-tests.sql" />
+  </ItemGroup>
+  <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <None Include="utilities\External Tables\ext_MasterDataConfig.sql" />
+    <None Include="External resources\External data sources\eds_MasterData.sql" />
+    <None Include="External resources\External file formats\eff_MasterDataConfigFileFormat.sql" />
+    <None Include="Scripts\Post-Deploy\Merge.master_data.sql" />
+    <None Include="Scripts\Post-Deploy\Script.PostDeployment.sql" />
+    <None Include="utilities\Stored Procedures\sp_ingest_master_data.sql" />
+    <None Include="utilities\Stored Procedures\sp_ingest_with_t_values.sql" />
+    <None Include="utilities\Tables\MasterDataConfig.sql" />
+    <None Include="edw\Stored Procedures\sp_load_fact_Budget_axbi.sql" />
+    <None Include="edw\Stored Procedures\sp_load_fact_BillingDocumentItem.sql" />
+    <None Include="edw\Stored Procedures\sp_load_dim_ProductHierarchy.sql" />
+    <None Include="edw\Stored Procedures\sp_load_dim_ProductSalesDelivery_delta.sql" />
+    <None Include="edw\Stored Procedures\sp_load_fact_ACDOCA_active.sql" />
+    <None Include="edw\Stored Procedures\sp_load_fact_BillingDocumentItem_axbi.sql" />
+    <None Include="edw\Stored Procedures\sp_load_fact_BillingDocumentItem_s4h_active.sql" />
+    <None Include="edw\Stored Procedures\sp_load_fact_OutboundDeliveryItem.sql" />
+    <None Include="edw\Stored Procedures\sp_load_fact_SalesDocItem_SAPSnapshotMonthly.sql" />
+    <None Include="edw\Stored Procedures\sp_load_fact_SalesDocumentItem_axbi.sql" />
+    <None Include="edw\Stored Procedures\sp_load_fact_SalesDocumentItem_s4h_active.sql" />
+    <None Include="edw\Stored Procedures\sp_load_fact_SalesDocumentItem.sql" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <Build Include="Security\Database Scoped Credentials\dsc_MSI.sql" />
