@@ -110,6 +110,7 @@
     <DefineTrace>true</DefineTrace>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <NumericRoundAbort>False</NumericRoundAbort>
     <QueryStoreCaptureMode>Auto</QueryStoreCaptureMode>
     <QueryStoreDesiredState>ReadWrite</QueryStoreDesiredState>
     <QueryStoreFlushInterval>900</QueryStoreFlushInterval>
