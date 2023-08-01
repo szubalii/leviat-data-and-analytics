@@ -42,6 +42,10 @@
 										"value": "@formatDateTime(pipeline().TriggerTime, 'yyyy/MM/dd')",
 										"type": "Expression"
 									},
+									"rerun_successful_full_entities": {
+										"value": "@pipeline().parameters.rerun_successful_full_entities",
+										"type": "Expression"
+									},
 									"entity_filter": {
 										"value": "@pipeline().parameters.entity_filter",
 										"type": "Expression"
@@ -145,6 +149,9 @@
 			},
 			"pbi_entity_filter": {
 				"type": "string"
+			},
+			"rerun_successful_full_entities": {
+				"type": "int"
 			}
 		},
 		"folder": {
