@@ -81,6 +81,8 @@ LEFT JOIN
     ON
         SC.[CompanyCode] COLLATE SQL_Latin1_General_CP1_CS_AS = CC.[CompanyCode]
 WHERE
+    S.SupplierAccountGroup = 'Z001'
+    AND
     SC.CashPlanningGroup<>'A1'
     AND
     S.[Country]=CC.[Country]
@@ -167,6 +169,8 @@ LEFT JOIN
     ON
         SC.[CompanyCode] COLLATE SQL_Latin1_General_CP1_CS_AS = CC.[CompanyCode]
 WHERE
+    S.SupplierAccountGroup = 'Z001'
+    AND
     (SC.CashPlanningGroup<>'A2' OR SC.CashPlanningGroup IS NULL OR SC.CashPlanningGroup='')
     AND
     S.[Country]<>CC.[Country]
