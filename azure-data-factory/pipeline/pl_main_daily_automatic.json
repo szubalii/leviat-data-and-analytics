@@ -151,7 +151,7 @@
 				"type": "string"
 			},
 			"rerun_successful_full_entities": {
-				"type": "string"
+				"type": "int"
 			}
 		},
 		"folder": {
