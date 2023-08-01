@@ -5,16 +5,16 @@ variables:
   value: TestDWH
 
 jobs:
-# - job: TEST_ORCH_DB_Container
-#   variables:
-#   - template: ../../build/variables-test.yml
-#   - name: buildConfiguration
-#     value: 'Debug'
+- job: TEST_SYN_DWH_Container
+  variables:
+  - template: ../../build/variables-test.yml
+  - name: buildConfiguration
+    value: 'Debug'
   
-#   pool:
-#     vmImage: 'ubuntu-20.04'
-#   steps:
-#   - template: ./steps-test-container.yml
+  pool:
+    vmImage: 'ubuntu-20.04'
+  steps:
+  - template: ./steps-test-container.yml
 
 
 - job: TEST_SYN_DWH
@@ -95,13 +95,13 @@ jobs:
           }
         }
         $xmloutput;
-        $xmloutput | Out-File "$(System.DefaultWorkingDirectory)/synapse-dwh/TestDWH/bin/Debug/TEST-Results.xml"
+        $xmloutput | Out-File "$(System.DefaultWorkingDirectory)/synapse-dwh/TestDWH/bin/Debug/SynapseDWH-TEST-Results.xml"
 
 
   - task: PublishTestResults@2
     inputs:
       testResultsFormat: 'JUnit'
-      testResultsFiles: '**/TEST-*.xml'
+      testResultsFiles: '$(System.DefaultWorkingDirectory)/synapse-dwh/TestDWH/bin/Debug/SynapseDWH-TEST-Results.xml'
       failTaskOnFailedTests: true
 
   #  drop the database in all cases
