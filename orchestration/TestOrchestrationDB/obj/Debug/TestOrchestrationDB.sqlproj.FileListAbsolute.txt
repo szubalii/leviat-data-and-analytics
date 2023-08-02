@@ -1,0 +1,14 @@
+c:\Users\Michiel_Pors\source\repos\leviat-data-and-analytics\orchestration\TestOrchestrationDB\bin\Debug\TestOrchestrationDB.dacpac
+c:\Users\Michiel_Pors\source\repos\leviat-data-and-analytics\orchestration\TestOrchestrationDB\obj\Debug\TestOrchestrationDB.sqlproj.AssemblyReference.cache
+c:\Users\Michiel_Pors\source\repos\leviat-data-and-analytics\orchestration\TestOrchestrationDB\obj\Debug\Model.xml
+c:\Users\Michiel_Pors\source\repos\leviat-data-and-analytics\orchestration\TestOrchestrationDB\obj\Debug\refactor.xml
+c:\Users\Michiel_Pors\source\repos\leviat-data-and-analytics\orchestration\TestOrchestrationDB\obj\Debug\postdeploy.sql
+c:\Users\Michiel_Pors\source\repos\leviat-data-and-analytics\orchestration\TestOrchestrationDB\obj\Debug\predeploy.sql
+c:\Users\Michiel_Pors\source\repos\leviat-data-and-analytics\orchestration\TestOrchestrationDB\obj\Debug\TestOrchestrationDB.dll
+c:\Users\Michiel_Pors\source\repos\leviat-data-and-analytics\orchestration\TestOrchestrationDB\obj\Debug\TestOrchestrationDB.pdb
+c:\Users\Michiel_Pors\source\repos\leviat-data-and-analytics\orchestration\TestOrchestrationDB\bin\Debug\TestOrchestrationDB.dll
+c:\Users\Michiel_Pors\source\repos\leviat-data-and-analytics\orchestration\TestOrchestrationDB\bin\Debug\TestOrchestrationDB.pdb
+c:\Users\Michiel_Pors\source\repos\leviat-data-and-analytics\orchestration\TestOrchestrationDB\bin\Debug\sqldb_xxxx_orchdb_d_euw_001.dll
+c:\Users\Michiel_Pors\source\repos\leviat-data-and-analytics\orchestration\TestOrchestrationDB\bin\Debug\sqldb_xxxx_orchdb_d_euw_001.pdb
+c:\Users\Michiel_Pors\source\repos\leviat-data-and-analytics\orchestration\TestOrchestrationDB\bin\Debug\sqldb-xxxx-orchdb-d-euw-001.dacpac
+c:\Users\Michiel_Pors\source\repos\leviat-data-and-analytics\orchestration\TestOrchestrationDB\obj\Debug\TestOrchestrationDB.sqlproj.CopyComplete
