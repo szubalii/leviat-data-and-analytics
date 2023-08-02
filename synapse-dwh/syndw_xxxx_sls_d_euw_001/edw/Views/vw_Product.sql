@@ -746,16 +746,56 @@ SELECT
 ,   ItemCategoryGroup.[ItemCategoryGroupName]
 ,   [NetWeight]
 ,   [ProductHierarchy]
-,   [Product_L1_PillarID]
-,   [Product_L2_GroupID]
-,   [Product_L3_TypeID]
-,   [Product_L4_FamilyID]
-,   [Product_L5_SubFamilyID]
-,   [Product_L1_Pillar]
-,   [Product_L2_Group]
-,   [Product_L3_Type]
-,   [Product_L4_Family]
-,   [Product_L5_SubFamily]
+,   CASE
+        WHEN ISNULL([Product_L1_PillarID],'') = ''
+        THEN 'Unassigned SAP Hierarchy'
+        ELSE [Product_L1_PillarID]
+    END AS [Product_L1_PillarID]
+,   CASE
+        WHEN ISNULL([Product_L2_GroupID],'') = ''
+        THEN 'Unassigned SAP Hierarchy'
+        ELSE [Product_L2_GroupID]
+    END AS [Product_L2_GroupID]
+,   CASE
+        WHEN ISNULL([Product_L3_TypeID],'') = ''
+        THEN 'Unassigned SAP Hierarchy'
+        ELSE [Product_L3_TypeID]
+    END AS [Product_L3_TypeID]
+,   CASE
+        WHEN ISNULL([Product_L4_FamilyID],'') = ''
+        THEN 'Unassigned SAP Hierarchy'
+        ELSE [Product_L4_FamilyID]
+    END AS [Product_L4_FamilyID]
+,   CASE
+        WHEN ISNULL([Product_L5_SubFamilyID],'') = ''
+        THEN 'Unassigned SAP Hierarchy'
+        ELSE [Product_L5_SubFamilyID]
+    END AS [Product_L5_SubFamilyID]
+,   CASE
+        WHEN ISNULL([Product_L1_Pillar],'') = ''
+        THEN 'Unassigned SAP Hierarchy'
+        ELSE [Product_L1_Pillar]
+    END AS [Product_L1_Pillar]
+,   CASE
+        WHEN ISNULL([Product_L2_Group],'') = ''
+        THEN 'Unassigned SAP Hierarchy'
+        ELSE [Product_L2_Group]
+    END AS [Product_L2_Group]
+,   CASE
+        WHEN ISNULL([Product_L3_Type],'') = ''
+        THEN 'Unassigned SAP Hierarchy'
+        ELSE [Product_L3_Type]
+    END AS [Product_L3_Type]
+,   CASE
+        WHEN ISNULL([Product_L4_Family],'') = ''
+        THEN 'Unassigned SAP Hierarchy'
+        ELSE [Product_L4_Family]
+    END AS [Product_L4_Family]
+,   CASE
+        WHEN ISNULL([Product_L5_SubFamily],'') = ''
+        THEN 'Unassigned SAP Hierarchy'
+        ELSE [Product_L5_SubFamily]
+    END AS [Product_L5_SubFamily]
 ,   [Division]
 ,   [VarblPurOrdUnitIsActive]
 ,   [VolumeUnit]
