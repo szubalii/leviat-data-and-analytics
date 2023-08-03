@@ -6,6 +6,108 @@ EXEC tSQLt.NewTestClass 'Uniqueness';
 GO
 
 
+CREATE PROCEDURE [Uniqueness].[test edw.vw_fact_ACDOCA_EPMSalesView: uniqueness]
+AS
+BEGIN
+
+  IF OBJECT_ID('actual') IS NOT NULL DROP TABLE actual;
+  IF OBJECT_ID('tempdb..#vw_entity_file') IS NOT NULL DROP TABLE #vw_entity_file;
+  -- IF OBJECT_ID('expected') IS NOT NULL DROP TABLE expected;
+
+  -- Assemble: Fake Table
+  EXEC tSQLt.FakeTable '[base_s4h_cax]', '[I_CustomerSalesArea]';
+  EXEC tSQLt.FakeTable '[edw]', '[dim_ZE_EXQLMAP_DT]';
+  EXEC tSQLt.FakeTable '[edw]', '[dim_BillingDocumentType]';
+  EXEC tSQLt.FakeTable '[edw]', '[dim_ProductSalesDelivery]';
+  EXEC tSQLt.FakeTable '[edw]', '[vw_CurrencyConversionRate]';
+  EXEC tSQLt.FakeTable '[edw]', '[dim_CurrencyType]';
+  EXEC tSQLt.FakeTable '[edw]', '[dim_Brand]';
+  EXEC tSQLt.FakeTable '[edw]', '[dim_CustomerGroup]';
+  EXEC tSQLt.FakeTable '[edw]', '[fact_ACDOCA]';
+
+  
+  INSERT INTO base_s4h_cax.I_CustomerSalesArea (Customer, SalesOrganization, DistributionChannel, Division)
+  VALUES
+    (1, 1, 1, 1),
+    (1, 1, 1, 2),
+    (1, 2, 2, 1);
+  INSERT INTO edw.dim_ZE_EXQLMAP_DT (GLAccountID, FunctionalAreaID)
+  VALUES (1, 1), (1, 2);
+  INSERT INTO edw.dim_BillingDocumentType (BillingDocumentTypeID)
+  VALUES (1);
+  INSERT INTO edw.dim_ProductSalesDelivery (ProductID, SalesOrganizationID, DistributionChannelID)
+  VALUES (1, 1, 1), (1, 1, 2), (1, 2, 1);
+  -- INSERT INTO edw.vw_CurrencyConversionRate (SourceCurrency)
+  -- VALUES (?);
+  INSERT INTO edw.dim_CurrencyType (CurrencyTypeID)
+  VALUES (1);
+  INSERT INTO edw.dim_Brand (BrandID)
+  VALUES (1);
+  INSERT INTO edw.dim_CustomerGroup (CustomerGroupID)
+  VALUES (1);
+
+  INSERT INTO edw.fact_ACDOCA (
+    SourceLedgerID,
+    CompanyCodeID,
+    FiscalYear,
+    AccountingDocument,
+    LedgerGLLineItem,
+    GLAccountID,
+    FunctionalAreaID,
+    BillingDocumentTypeID,
+    ProductID,
+    SalesOrganizationID,
+    DistributionChannelID,
+    CustomerID,
+    CompanyCodeCurrency
+  )
+  VALUES
+    (1, 1, 2023, 1, 1, 1, 1, 1, 1, 1, 1, 1, 'EUR'),
+    (1, 1, 2023, 1, 2, 1, 1, 1, 1, 1, 1, 1, 'EUR'),
+    (1, 1, 2023, 2, 1, 1, 1, 1, 1, 1, 1, 1, 'EUR'),
+    (1, 1, 2023, 2, 2, 1, 2, 1, 2, 2, 1, 1, 'EUR');
+    
+  SELECT TOP(0) *
+  INTO #vw_CurrencyConversionRate
+  FROM edw.vw_CurrencyConversionRate;
+
+  -- #2
+  INSERT INTO #vw_CurrencyConversionRate (
+    SourceCurrency,
+    TargetCurrency,
+    ExchangeRate,
+    CurrencyTypeID
+  )
+  VALUES
+    ('EUR', 'EUR', 1.0, '30'),
+    ('EUR', 'USD', 1.1, '40');
+
+  EXEC ('INSERT INTO edw.vw_CurrencyConversionRate SELECT * FROM #vw_CurrencyConversionRate');
+
+  -- Act: 
+  SELECT
+    SourceLedgerID,
+    CompanyCodeID,
+    FiscalYear,
+    AccountingDocument,
+    LedgerGLLineItem,
+    CurrencyTypeID
+  INTO actual
+  FROM [dm_finance].[vw_fact_ACDOCA_EPMSalesView]
+  GROUP BY
+    SourceLedgerID,
+    CompanyCodeID,
+    FiscalYear,
+    AccountingDocument,
+    LedgerGLLineItem,
+    CurrencyTypeID
+  HAVING COUNT(*) > 1
+
+  -- Assert:
+  EXEC tSQLt.AssertEmptyTable 'actual';
+END;
+GO
+
 
 
 CREATE PROCEDURE [Uniqueness].[test edw.vw_OutboundDeliveryItem_s4h: uniqueness]
@@ -34,7 +136,7 @@ BEGIN
   INSERT INTO base_s4h_cax.I_SDDocumentCompletePartners (SDDocument, SDDocumentItem, PartnerFunction, Supplier)
   VALUES
     (1, 1, 'XX', 1),
-    (1, 000000, 'SP', 1),
+    (1, 000000, 'SP', 1), -- SDDocumentItem is always 000000 for PartnerFunction SP (Delivery Agent)
     (1, 2, 'XX', 1),
     (2, 1, 'XX', 1),
     (2, 000000, 'SP', 1),
@@ -141,46 +243,6 @@ BEGIN
     (1, 1, 1, 1, 1, 1, 1, 1),
     (2, 2, 2, 2, 2, 2, 2, 2),
     (3, 2, 2, 2, 2, 2, 2, 2);
-
-  -- Act: 
-  -- SELECT
-  --   ReferenceSDDocumentCategoryID,
-  --   ProductGroupID,
-  --   DeliveryDocumentItemCategoryID,
-  --   HDR_DeliveryDocumentTypeID,
-  --   SalesDocumentItemTypeID,
-  --   DistributionChannelID,
-  --   SDProcessStatusID
-  -- INTO actual
-  -- FROM [dm_sales].[vw_fact_OutboundDeliveryItem];
-
-  -- Assert:
-  -- CREATE TABLE expected (
-  --   ReferenceSDDocumentCategory VARCHAR(10),
-  --   ProductGroup VARCHAR(10),
-  --   DeliveryDocumentItemCategory VARCHAR(10),
-  --   HDR_DeliveryDocumentType VARCHAR(10),
-  --   SalesDocumentItemType VARCHAR(10),
-  --   DistributionChannel VARCHAR(10),
-  --   SDProcessStatus VARCHAR(10)
-  -- );
-
-  -- INSERT INTO expected (
-  --   ReferenceSDDocumentCategory,
-  --   ProductGroup,
-  --   DeliveryDocumentItemCategory,
-  --   HDR_DeliveryDocumentType,
-  --   SalesDocumentItemType,
-  --   DistributionChannel,
-  --   SDProcessStatus
-  -- )
-  -- VALUES
-  --   ('text1', 'text1', 'text1', 'text1', 'text1', 'text1', 'text1'),
-  --   ('text1', 'text1', 'text1', 'text1', 'text1', 'text1', 'text1'),
-  --   ('text2', 'text2', 'text2', 'text2', 'text2', 'text2', 'text2'),
-  --   ('text2', 'text2', 'text2', 'text2', 'text2', 'text2', 'text2');
-
-  -- EXEC tSQLt.AssertEqualsTable 'expected', 'actual';
 
   -- Act: 
   SELECT
