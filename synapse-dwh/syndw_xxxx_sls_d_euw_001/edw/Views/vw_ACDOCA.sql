@@ -1315,14 +1315,63 @@ SELECT
        GLAccountLineItemRawData.[t_applicationId],
        GLAccountLineItemRawData.[t_extractionDtm]
 FROM [base_s4h_cax].[I_GLAccountLineItemRawData_202309] GLAccountLineItemRawData 
-)
-SELECT 
+),
+
+SalesReferenceDocumentCalculated AS (
+SELECT  
+       GLA.[SourceLedgerID],
+       GLA.[CompanyCodeID], 
+       GLA.[FiscalYear],
+       GLA.[AccountingDocument], 
+       GLA.[LedgerGLLineItem],
+       GLA.SalesDocumentID,
+       GLA.SalesDocumentItemID,
+       edw.svf_getSalesDoc(GLA.SalesDocumentID,DPF.SubsequentDocument,PF.PrecedingDocument) AS SalesReferenceDocumentCalculated,
+       edw.svf_getSalesDocItem(GLA.SalesDocumentID,GLA.SalesDocumentItemID,DPF.SubsequentDocumentItem,PF.PrecedingDocumentItem) AS SalesReferenceDocumentItemCalculated
+FROM GLAccountLineItemRawData AS GLA
+LEFT JOIN [base_s4h_cax].[I_SDDocumentProcessFlow] DPF
+    ON
+       GLA.SalesDocumentID = DPF.PrecedingDocument COLLATE DATABASE_DEFAULT 
+       AND
+       GLA.SalesDocumentItemID = DPF.PrecedingDocumentItem COLLATE DATABASE_DEFAULT 
+       AND
+       DPF.SubsequentDocumentCategory = 'C'
+LEFT JOIN [base_s4h_cax].[I_SDDocumentProcessFlow] AS PF
+    ON
+       GLA.SalesDocumentID = PF.SubsequentDocument COLLATE DATABASE_DEFAULT 
+       AND
+       GLA.SalesDocumentItemID = PF.SubsequentDocumentItem COLLATE DATABASE_DEFAULT 
+       AND
+       PF.PrecedingDocumentCategory IN ('C', 'I')
+),
+
+SalesReferenceDocumentUnique AS (
+SELECT
        [SourceLedgerID],
-       [CompanyCodeID],
+       [CompanyCodeID], 
+       [FiscalYear],
+       [AccountingDocument], 
+       [LedgerGLLineItem],
+       [SalesReferenceDocumentCalculated],
+       [SalesReferenceDocumentItemCalculated]
+FROM SalesReferenceDocumentCalculated 
+GROUP BY
+       [SourceLedgerID],
+       [CompanyCodeID], 
+       [FiscalYear],
+       [AccountingDocument], 
+       [LedgerGLLineItem],
+       [SalesReferenceDocumentCalculated],
+       [SalesReferenceDocumentItemCalculated]
+)
+
+SELECT 
+       GLA.[SourceLedgerID],
+       GLA.[CompanyCodeID],
        edw.svf_getProductSurrogateKey(VC.[ProductSurrogateKey],GLA.[ProductID],SoldProduct) AS [ProductSurrogateKey],
        GLA.[FiscalYear],
-       [AccountingDocument],
-       [LedgerGLLineItem],
+       GLA.[AccountingDocument],
+       GLA.[LedgerGLLineItem],
        [LedgerFiscalYear],
        [GLRecordTypeID],
        [ChartOfAccountsID],
@@ -1446,10 +1495,10 @@ SELECT
        PA.ICSalesDocumentItemID,
        [SoldProduct],
        ProfitCenterTypeID,
-       edw.svf_getSalesDoc(GLA.SalesDocumentID,DPF.SubsequentDocument,PF.PrecedingDocument) AS SalesReferenceDocumentCalculated,
-       edw.svf_getSalesDocItem(GLA.SalesDocumentID,GLA.SalesDocumentItemID,DPF.SubsequentDocumentItem,PF.PrecedingDocumentItem) AS SalesReferenceDocumentItemCalculated,
-       BDI.SalesDocumentItemCategoryID, 
-       BDI.HigherLevelItem,
+       SRDU.[SalesReferenceDocumentCalculated],
+       SRDU.[SalesReferenceDocumentItemCalculated],
+       BDI.[SalesDocumentItemCategoryID], 
+       BDI.[HigherLevelItem],
        GLA.[t_applicationId],
        GLA.[t_extractionDtm]
 FROM GLAccountLineItemRawData AS GLA
@@ -1472,21 +1521,18 @@ LEFT JOIN [edw].[vw_ProductHierarchyVariantConfigCharacteristic] AS VC
             ELSE GLA.SalesDocumentItemID
         END 
 LEFT JOIN edw.dim_ProfitCenter PC
-    ON GLA.ProfitCenterID=PC.ProfitCenterID
-LEFT JOIN [base_s4h_cax].[I_SDDocumentProcessFlow] AS DPF
-    ON
-       GLA.SalesDocumentID = DPF.PrecedingDocument COLLATE DATABASE_DEFAULT AND
-       GLA.SalesDocumentItemID = DPF.PrecedingDocumentItem COLLATE DATABASE_DEFAULT AND
-       DPF.SubsequentDocumentCategory = 'C'
-LEFT JOIN [base_s4h_cax].[I_SDDocumentProcessFlow] AS PF
-    ON
-       GLA.SalesDocumentID = PF.SubsequentDocument COLLATE DATABASE_DEFAULT AND
-       GLA.SalesDocumentItemID = PF.SubsequentDocumentItem COLLATE DATABASE_DEFAULT AND
-       PF.PrecedingDocumentCategory in ('C', 'I')
+    ON 
+        GLA.ProfitCenterID=PC.ProfitCenterID
+LEFT JOIN SalesReferenceDocumentUnique AS SRDU
+    ON GLA.[SourceLedgerID] = SRDU.[SourceLedgerID] 
+       AND GLA.[CompanyCodeID]= SRDU.[CompanyCodeID]
+       AND GLA.[FiscalYear]= SRDU.[FiscalYear]
+       AND GLA.[AccountingDocument]= SRDU.[AccountingDocument]
+       AND GLA.[LedgerGLLineItem]= SRDU.[LedgerGLLineItem]
 LEFT JOIN [edw].[fact_BillingDocumentItem] BDI 
-    ON
-       GLA.SalesDocumentID = BDI.SalesDocumentID AND
-       GLA.SalesDocumentItemID = BDI.SalesDocumentItemID
+    ON GLA.ReferenceDocument = BDI.BillingDocument 
+       AND GLA.ReferenceDocumentItem = BDI.BillingDocumentItem
+       AND BDI.CurrencyTypeID = '10'
 
 -- WHERE
 --     GLAccountLineItemRawData.MANDT = 200 MPS 2021/11/01: commented out due to different client values between dev,qas, and prod
