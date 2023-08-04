@@ -44,13 +44,13 @@ stages:
       name: write_resource_names
     - template: ./steps-build.yml
     # - template: ./steps-artifact.yml
-    - pwsh : |
+    - pwsh : | # use powershell 7 because this version has Az.* modules installed
         # connect to Azure using VM
         Connect-AzAccount -Identity
 
         New-AzResourceGroupDeployment `
           -ResourceGroupName $(resourceGroupName) `
-          -TemplateFile $(Build.Repository.LocalPath)/azure-data-factory/ArmTemplate\ARMTemplateForFactory.json
+          -TemplateFile $(Build.Repository.LocalPath)/azure-data-factory/ArmTemplate\ARMTemplateForFactory.json `
           -TemplateParameterFile $(Build.Repository.LocalPath)/azure-data-factory/ArmTemplate\ARMTemplateParametersForFactory.json `
           -factoryName "df-mpors-d-euw-001" `
           -ls_sap_c4c_properties_typeProperties_url "$(sapC4Curl)" `
