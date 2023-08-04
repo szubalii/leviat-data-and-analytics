@@ -25,8 +25,8 @@ jobs:
       subscriptionId: 'f199b488-7d9d-4992-aeda-c10a1e1c9b9e'
       resourceGroupName: '$(resourceGroupName)'
       location: 'West Europe'
-      csmFile: '$(Pipeline.Workspace)\DataFactoryARMTemplate\ARMTemplateForFactory.json'
-      csmParametersFile: '$(Pipeline.Workspace)\DataFactoryARMTemplate\ARMTemplateParametersForFactory.json'
+      csmFile: '$(Build.Repository.LocalPath)/azure-data-factory/ArmTemplate\ARMTemplateForFactory.json'
+      csmParametersFile: '$(Build.Repository.LocalPath)/azure-data-factory/ArmTemplate\ARMTemplateParametersForFactory.json'
       overrideParameters: '
         -factoryName "$(dataFactoryName)"
         -ls_sap_c4c_properties_typeProperties_url "$(sapC4Curl)"
