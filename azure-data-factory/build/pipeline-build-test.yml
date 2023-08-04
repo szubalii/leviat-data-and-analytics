@@ -18,12 +18,17 @@ stages:
         Write-Host "##vso[task.setvariable variable=user]('$(System.PullRequest.SourceBranch)' -split '/')[3]"
       name: set_user_var
     - powershell: |
-        Write-Host "##vso[task.setvariable variable=dataFactoryName]df-$(user)-d-euw-001"
-        Write-Host "##vso[task.setvariable variable=sqlDatabaseName]sqldb-$(user)-d-euw-001"
-        Write-Host "##vso[task.setvariable variable=synapseSqlPool]syndw_$(user)_d_euw_001"
-        Write-Host "##vso[task.setvariable variable=storageAccountName]st$(user)deuw001"
-        Write-Host "##vso[task.setvariable variable=xuPrefix]$(user)"
-        Write-Host "##vso[task.setvariable variable=workspaceName]'ws-$(user)-d-euw-001'"
+        $dataFactoryName = 'df-' + $(user) + '-d-euw-001'
+        $sqlDatabaseName = 'sqldb-' + $(user) + '-d-euw-001'
+        $synapseSqlPool = 'syndw_' + $(user) + '_d_euw_001'
+        $storageAccountName = 'st' + $(user) + 'deuw001"''
+        $workspaceName = 'ws-' + $(user) + '-d-euw-001'
+        Write-Host "##vso[task.setvariable variable=dataFactoryName]$dataFactoryName"
+        Write-Host "##vso[task.setvariable variable=sqlDatabaseName]$sqlDatabaseName"
+        Write-Host "##vso[task.setvariable variable=synapseSqlPool]$synapseSqlPool"
+        Write-Host "##vso[task.setvariable variable=storageAccountName]$storageAccountName"
+        Write-Host "##vso[task.setvariable variable=xuPrefix]$user"
+        Write-Host "##vso[task.setvariable variable=workspaceName]$workspaceName"
       name: set_resources_name_vars
     - powershell : |
         Write-Host "##vso[task.setvariable variable=destination]$(storageAccountName)_s4h-caa-200"
@@ -40,6 +45,11 @@ stages:
       name: write_resource_names
     - template: ./steps-build.yml
     - template: ./steps-artifact.yml
+    # - powershell : |
+    #     New-AzResourceGroupDeployment `
+    #       -ResourceGroupName $(resourceGroupName) `
+    #       -TemplateFile $(Pipeline.Workspace)\DataFactoryARMTemplate\ARMTemplateForFactory.json
+    #       -TemplateParameterFile $(Pipeline.Workspace)\DataFactoryARMTemplate\ARMTemplateParametersForFactory.json `
     
 
 # - stage: DEPLOY_ADF
