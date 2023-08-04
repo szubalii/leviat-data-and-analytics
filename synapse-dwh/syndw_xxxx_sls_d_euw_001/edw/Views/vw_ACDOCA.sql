@@ -1324,8 +1324,6 @@ SELECT
        GLA.[FiscalYear],
        GLA.[AccountingDocument], 
        GLA.[LedgerGLLineItem],
-       GLA.SalesDocumentID,
-       GLA.SalesDocumentItemID,
        edw.svf_getSalesDoc(GLA.SalesDocumentID,DPF.SubsequentDocument,PF.PrecedingDocument) AS SalesReferenceDocumentCalculated,
        edw.svf_getSalesDocItem(GLA.SalesDocumentID,GLA.SalesDocumentItemID,DPF.SubsequentDocumentItem,PF.PrecedingDocumentItem) AS SalesReferenceDocumentItemCalculated
 FROM GLAccountLineItemRawData AS GLA
