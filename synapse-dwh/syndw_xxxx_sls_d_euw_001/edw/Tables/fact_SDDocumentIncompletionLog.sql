@@ -16,5 +16,5 @@ CREATE TABLE [edw].[fact_SDDocumentIncompletionLog]
         , [ScheduleLine]
     ) NOT ENFORCED
 ) WITH (
-    DISTRIBUTION = HASH (SDDocument,SDDocumentItem,ScheduleLine)
+    DISTRIBUTION = HASH (SDDocument)
 )
