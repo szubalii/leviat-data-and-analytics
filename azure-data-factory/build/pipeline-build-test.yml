@@ -24,8 +24,8 @@ jobs:
   steps:
   - template: ./steps-build.yml
 
-  - pwsh: |
-      Set-AzDataFactoryV2 -ResourceGroupName $(resourceGroupName) -Location 'West Europe' -Name $(dataFactoryName)
+  # - pwsh: |
+  #     Set-AzDataFactoryV2 -ResourceGroupName $(resourceGroupName) -Location 'West Europe' -Name $(dataFactoryName)
   
   - task: AzureResourceManagerTemplateDeployment@3
     displayName: 'ARM Template deployment: Resource Group scope'
@@ -37,7 +37,7 @@ jobs:
       csmFile: '$(Build.Repository.LocalPath)/azure-data-factory/ArmTemplate\ARMTemplateForFactory.json'
       csmParametersFile: '$(Build.Repository.LocalPath)/azure-data-factory/ArmTemplate\ARMTemplateParametersForFactory.json'
       overrideParameters: '
-        -factoryName "$(dataFactoryName)"
+        -factoryName "df-mpors-d-euw-001"
         -ls_sap_c4c_properties_typeProperties_url "$(sapC4Curl)"
         -ls_ws_xxxx_sls_x_euw_001_ondemand__synapse_od_connectionString "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=$(workspaceName)-ondemand.sql.azuresynapse.net;Initial Catalog=synapse_od"
         -ls_ws_xxxx_sls_x_euw_001_ondemand__master_connectionString "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=$(workspaceName)-ondemand.sql.azuresynapse.net;Initial Catalog=master"
