@@ -15,11 +15,24 @@ stages:
       - Agent.ComputerName -equals $(VMName)
     steps:
     - powershell: |
-        Write-Host "##vso[task.setvariable variable=SourceBranch]variables['System.PullRequest.SourceBranch']"
         Write-Host "##vso[task.setvariable variable=user]('$(System.PullRequest.SourceBranch)' -split '/')[3]"
+        Write-Host "##vso[task.setvariable variable=dataFactoryName]df-$(user)-d-euw-001"
+        Write-Host "##vso[task.setvariable variable=sqlDatabaseName]sqldb-$(user)-d-euw-001"
+        Write-Host "##vso[task.setvariable variable=synapseSqlPool]syndw_$(user)_d_euw_001"
+        Write-Host "##vso[task.setvariable variable=storageAccountName]st$(user)deuw001"
+        Write-Host "##vso[task.setvariable variable=xuPrefix]$(user)"
+        Write-Host "##vso[task.setvariable variable=destination]$(storageAccountName)_s4h-caa-200"
+        Write-Host "##vso[task.setvariable variable=workspaceName]ws-$(user)-d-euw-001"
       name: outputVar
     - powershell : |
         Write-Host $(user)
+        Write-Host $(dataFactoryName)
+        Write-Host $(sqlDatabaseName)
+        Write-Host $(synapseSqlPool)
+        Write-Host $(storageAccountName)
+        Write-Host $(xuPrefix)
+        Write-Host $(destination)
+        Write-Host $(workspaceName)
     - template: ./steps-build.yml
     - template: ./steps-artifact.yml
     
