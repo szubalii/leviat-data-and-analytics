@@ -48,11 +48,11 @@ stages:
         # connect to Azure using VM
         Connect-AzAccount -Identity
 
-        $ls_ws_xxxx_sls_x_euw_001_ondemand__synapse_od_connectionString = "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=$(workspaceName)-ondemand.sql.azuresynapse.net;Initial Catalog=synapse_od" | ConvertTo-SecureString
-        $ls_ws_xxxx_sls_x_euw_001_ondemand__master_connectionString = "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=$(workspaceName)-ondemand.sql.azuresynapse.net;Initial Catalog=master" | ConvertTo-SecureString
-        $ls_ws_xxxx_sls_x_euw_001__syndw_xxxx_sls_x_euw_001_connectionString = "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=$(workspaceName).sql.azuresynapse.net;Initial Catalog=$(synapseSqlPool)" | ConvertTo-SecureString
-        $ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001_connectionString = "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=$(sqlServerName).database.windows.net;Initial Catalog=$(sqlDatabaseName)" | ConvertTo-SecureString
-        $ls_axbi_x_TimeXtender__master_connectionString = "Integrated Security=False;Data Source=$(axbiServer);Initial Catalog=master;User ID=JustBI" | ConvertTo-SecureString
+        $ls_ws_xxxx_sls_x_euw_001_ondemand__synapse_od_connectionString = "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=$(workspaceName)-ondemand.sql.azuresynapse.net;Initial Catalog=synapse_od" | ConvertTo-SecureString -AsPlainText -Force
+        $ls_ws_xxxx_sls_x_euw_001_ondemand__master_connectionString = "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=$(workspaceName)-ondemand.sql.azuresynapse.net;Initial Catalog=master" | ConvertTo-SecureString -AsPlainText -Force
+        $ls_ws_xxxx_sls_x_euw_001__syndw_xxxx_sls_x_euw_001_connectionString = "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=$(workspaceName).sql.azuresynapse.net;Initial Catalog=$(synapseSqlPool)" | ConvertTo-SecureString -AsPlainText -Force
+        $ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001_connectionString = "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=$(sqlServerName).database.windows.net;Initial Catalog=$(sqlDatabaseName)" | ConvertTo-SecureString -AsPlainText -Force
+        $ls_axbi_x_TimeXtender__master_connectionString = "Integrated Security=False;Data Source=$(axbiServer);Initial Catalog=master;User ID=JustBI" | ConvertTo-SecureString -AsPlainText -Force
 
         # Use Powershell to deploy ADF so it can use the dynamically set resource names from variables set in previous steps
         New-AzResourceGroupDeployment `
