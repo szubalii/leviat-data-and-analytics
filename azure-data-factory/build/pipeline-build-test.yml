@@ -18,16 +18,16 @@ stages:
         Write-Host "##vso[task.setvariable variable=user]('$(System.PullRequest.SourceBranch)' -split '/')[3]"
       name: set_user_var
     - powershell: |
-        $dataFactoryName = 'df-' + $(user) + '-d-euw-001'
+        $dataFactoryName =    'df-' + $(user) + '-d-euw-001'
         $sqlDatabaseName = 'sqldb-' + $(user) + '-d-euw-001'
-        $synapseSqlPool = 'syndw_' + $(user) + '_d_euw_001'
-        $storageAccountName = 'st' + $(user) + 'deuw001'
-        $workspaceName = 'ws-' + $(user) + '-d-euw-001'
+        $synapseSqlPool =  'syndw_' + $(user) + '_d_euw_001'
+        $storageAccountName =  'st' + $(user) + 'deuw001'
+        $workspaceName =      'ws-' + $(user) + '-d-euw-001'
         Write-Host "##vso[task.setvariable variable=dataFactoryName]$dataFactoryName"
         Write-Host "##vso[task.setvariable variable=sqlDatabaseName]$sqlDatabaseName"
         Write-Host "##vso[task.setvariable variable=synapseSqlPool]$synapseSqlPool"
         Write-Host "##vso[task.setvariable variable=storageAccountName]$storageAccountName"
-        Write-Host "##vso[task.setvariable variable=xuPrefix]$user"
+        Write-Host "##vso[task.setvariable variable=xuPrefix]$(user)"
         Write-Host "##vso[task.setvariable variable=workspaceName]$workspaceName"
       name: set_resources_name_vars
     - powershell : |
@@ -45,11 +45,34 @@ stages:
       name: write_resource_names
     - template: ./steps-build.yml
     - template: ./steps-artifact.yml
-    # - powershell : |
-    #     New-AzResourceGroupDeployment `
-    #       -ResourceGroupName $(resourceGroupName) `
-    #       -TemplateFile $(Pipeline.Workspace)\DataFactoryARMTemplate\ARMTemplateForFactory.json
-    #       -TemplateParameterFile $(Pipeline.Workspace)\DataFactoryARMTemplate\ARMTemplateParametersForFactory.json `
+    - powershell : |
+        New-AzResourceGroupDeployment `
+          -ResourceGroupName $(resourceGroupName) `
+          -TemplateFile $(Pipeline.Workspace)\DataFactoryARMTemplate\ARMTemplateForFactory.json
+          -TemplateParameterFile $(Pipeline.Workspace)\DataFactoryARMTemplate\ARMTemplateParametersForFactory.json `
+          -factoryName "df-mpors-d-euw-001" `
+          -ls_sap_c4c_properties_typeProperties_url "$(sapC4Curl)" `
+          -ls_ws_xxxx_sls_x_euw_001_ondemand__synapse_od_connectionString "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=$(workspaceName)-ondemand.sql.azuresynapse.net;Initial Catalog=synapse_od" `
+          -ls_ws_xxxx_sls_x_euw_001_ondemand__master_connectionString "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=$(workspaceName)-ondemand.sql.azuresynapse.net;Initial Catalog=master" `
+          -ls_ws_xxxx_sls_x_euw_001__syndw_xxxx_sls_x_euw_001_connectionString "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=$(workspaceName).sql.azuresynapse.net;Initial Catalog=$(synapseSqlPool)" `
+          -ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001_connectionString "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=$(sqlServerName).database.windows.net;Initial Catalog=$(sqlDatabaseName)" `
+          -ls_axbi_x_TimeXtender__master_connectionString "Integrated Security=False;Data Source=$(axbiServer);Initial Catalog=master;User ID=JustBI" `
+          -ls_kv_xxxx_sls_x_euw_001_properties_typeProperties_baseUrl "https://$(keyVaultName).vault.azure.net/" `
+          -stxxxxslsxeuw001_properties_typeProperties_url "https://$(storageAccountName).dfs.core.windows.net/" `
+          -ir-WEXLEVAPP001_properties_typeProperties_linkedInfo_resourceId "$(SHIRResourceId)" `
+          -default_properties_XU_hostName_value "$(XUHostName)" `
+          -default_properties_storageAccountName_value "$(storageAccountName)" `
+          -default_properties_resourceGroupName_value "$(resourceGroupName)" `
+          -default_properties_virtualMachineName_value "$(VMName)" `
+          -default_properties_synapseServerName_value "$(workspaceName)" `
+          -default_properties_synapseDatabaseName_value "$(synapseSqlPool)" `
+          -default_properties_keyVaultUrl_value "https://$(keyVaultName).vault.azure.net/" `
+          -default_properties_environment_value "$(xuPrefix)" `
+          -default_properties_sqlDb_value "$(sqlDatabaseName)" `
+          -default_properties_s4hSystemId_value "$(S4HSystemId)" `
+          -default_properties_s4hClientId_value "$(S4HClientId)" `
+          -default_properties_axbiDataBaseEnvSuffix_value "$(axbiDataBaseEnvSuffix)" `
+          -default_properties_axbiMinExtractionDate_value "$(axbiMinExtractionDate)"
     
 
 # - stage: DEPLOY_ADF
