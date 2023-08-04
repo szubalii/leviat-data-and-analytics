@@ -1290,6 +1290,7 @@
     <Build Include="base_ff\Tables\CountryRegion.sql" />
     <Build Include="base_ff\Tables\Region.sql" />
     <Build Include="base_ff\Tables\CompanyCode.sql" />
+    <Build Include="dm_sales\Views\vw_dim_PriceListType.sql" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PostDeploy Include="Scripts\Post-Deploy\Script.PostDeployment.sql" />

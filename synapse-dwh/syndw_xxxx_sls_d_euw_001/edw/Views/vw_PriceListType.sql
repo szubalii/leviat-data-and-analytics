@@ -2,7 +2,7 @@
 AS
      SELECT 
 		[PriceListType] AS [PriceListTypeID]
-     ,    [PriceListTypeName]
+     ,    [PriceListTypeName] AS [PriceListType]
      ,    [t_applicationId]
      FROM 
           [base_s4h_cax].[I_PriceListTypeText] PriceListTypeText
