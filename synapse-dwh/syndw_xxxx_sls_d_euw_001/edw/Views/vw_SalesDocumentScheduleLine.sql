@@ -24,6 +24,7 @@
         ,SalesDocumentScheduleLine.[DelivBlockReasonForSchedLine]
         ,SalesDocumentScheduleLine.[DeliveredQtyInOrderQtyUnit]
         ,SalesDocumentScheduleLine.[DeliveredQuantityInBaseUnit]
+        ,SalesDocumentScheduleLine.[DeliveryDate]
         ,fact_SalesDocumentItem.[SalesOrganizationID]
         ,fact_SalesDocumentItem.[MaterialID]
         ,fact_SalesDocumentItem.[SoldToPartyID]
