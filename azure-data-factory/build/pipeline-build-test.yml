@@ -5,6 +5,7 @@ trigger: none # triggered by PR
 jobs:
 - job: TEST_ADF
   variables:
+  - template: ../../build/variables-test.yml
   - name: dataFactoryName
     value: 'df-test'
   
