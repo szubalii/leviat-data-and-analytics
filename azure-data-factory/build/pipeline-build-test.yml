@@ -16,7 +16,7 @@ stages:
     steps:
     - powershell: |
         Write-Host "##vso[task.setvariable variable=SourceBranch]variables['System.PullRequest.SourceBranch']"
-        Write-Host "##vso[task.setvariable variable=user]($(System.PullRequest.SourceBranch) -split '/')[3]"
+        Write-Host "##vso[task.setvariable variable=user]('$(System.PullRequest.SourceBranch)' -split '/')[3]"
       name: outputVar
     - powershell : |
         Write-Host $(user)
