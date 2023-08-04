@@ -73,7 +73,7 @@ SELECT
 FROM 
     [base_s4h_cax].[I_SalesOrderItemPricingElement] ISOIPE
 LEFT JOIN [edw].[fact_SalesDocumentItem] SDI
-    ON edw.svf_getNaturalKey (SalesOrder,SalesOrderItem,'10') = SDI.[nk_fact_SalesDocumentItem] 
+    ON ISOIPE.SalesOrder = SDI.SalesOrder AND ISOIPE.SalesOrderItem = SDI.SalesOrderItem AND SDI.CurrencyTypeID = '10'
 LEFT JOIN [edw].[vw_CurrencyConversionRate] CCR   
     ON ISOIPE.TransactionCurrency = CCR.SourceCurrency    COLLATE DATABASE_DEFAULT AND CCR.CurrencyTypeID IN ('00','10')
 LEFT JOIN [edw].[vw_CurrencyConversionRate] CCR30  
