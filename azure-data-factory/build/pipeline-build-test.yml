@@ -48,17 +48,23 @@ stages:
         # connect to Azure using VM
         Connect-AzAccount -Identity
 
+        $ls_ws_xxxx_sls_x_euw_001_ondemand__synapse_od_connectionString = "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=$(workspaceName)-ondemand.sql.azuresynapse.net;Initial Catalog=synapse_od"
+        $ls_ws_xxxx_sls_x_euw_001_ondemand__master_connectionString = "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=$(workspaceName)-ondemand.sql.azuresynapse.net;Initial Catalog=master"
+        $ls_ws_xxxx_sls_x_euw_001__syndw_xxxx_sls_x_euw_001_connectionString = "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=$(workspaceName).sql.azuresynapse.net;Initial Catalog=$(synapseSqlPool)"
+        $ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001_connectionString = "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=$(sqlServerName).database.windows.net;Initial Catalog=$(sqlDatabaseName)"
+        $ls_axbi_x_TimeXtender__master_connectionString = "Integrated Security=False;Data Source=$(axbiServer);Initial Catalog=master;User ID=JustBI"
+
         New-AzResourceGroupDeployment `
           -ResourceGroupName $(resourceGroupName) `
           -TemplateFile $(Build.Repository.LocalPath)/azure-data-factory/ArmTemplate\ARMTemplateForFactory.json `
           -TemplateParameterFile $(Build.Repository.LocalPath)/azure-data-factory/ArmTemplate\ARMTemplateParametersForFactory.json `
           -factoryName "df-mpors-d-euw-001" `
           -ls_sap_c4c_properties_typeProperties_url "$(sapC4Curl)" `
-          -ls_ws_xxxx_sls_x_euw_001_ondemand__synapse_od_connectionString "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=$(workspaceName)-ondemand.sql.azuresynapse.net;Initial Catalog=synapse_od" `
-          -ls_ws_xxxx_sls_x_euw_001_ondemand__master_connectionString "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=$(workspaceName)-ondemand.sql.azuresynapse.net;Initial Catalog=master" `
-          -ls_ws_xxxx_sls_x_euw_001__syndw_xxxx_sls_x_euw_001_connectionString "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=$(workspaceName).sql.azuresynapse.net;Initial Catalog=$(synapseSqlPool)" `
-          -ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001_connectionString "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=$(sqlServerName).database.windows.net;Initial Catalog=$(sqlDatabaseName)" `
-          -ls_axbi_x_TimeXtender__master_connectionString "Integrated Security=False;Data Source=$(axbiServer);Initial Catalog=master;User ID=JustBI" `
+          -ls_ws_xxxx_sls_x_euw_001_ondemand__synapse_od_connectionString $ls_ws_xxxx_sls_x_euw_001_ondemand__synapse_od_connectionString `
+          -ls_ws_xxxx_sls_x_euw_001_ondemand__master_connectionString $ls_ws_xxxx_sls_x_euw_001_ondemand__master_connectionString `
+          -ls_ws_xxxx_sls_x_euw_001__syndw_xxxx_sls_x_euw_001_connectionString $ls_ws_xxxx_sls_x_euw_001__syndw_xxxx_sls_x_euw_001_connectionString `
+          -ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001_connectionString $ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001_connectionString `
+          -ls_axbi_x_TimeXtender__master_connectionString $ls_axbi_x_TimeXtender__master_connectionString `
           -ls_kv_xxxx_sls_x_euw_001_properties_typeProperties_baseUrl "https://$(keyVaultName).vault.azure.net/" `
           -stxxxxslsxeuw001_properties_typeProperties_url "https://$(storageAccountName).dfs.core.windows.net/" `
           -ir-WEXLEVAPP001_properties_typeProperties_linkedInfo_resourceId "$(SHIRResourceId)" `
