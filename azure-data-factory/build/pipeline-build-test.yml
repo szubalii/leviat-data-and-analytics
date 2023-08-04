@@ -16,9 +16,10 @@ stages:
     steps:
     - powershell: |
         Write-Host "##vso[task.setvariable variable=SourceBranch]variables['System.PullRequest.SourceBranch']"
-        Write-Host "##vso[task.setvariable variable=user;isoutput=true](variables['System.PullRequest.SourceBranch'] -split '/')[3]"
-        Write-Host "$(user)"
+        Write-Host "##vso[task.setvariable variable=user](variables['System.PullRequest.SourceBranch'] -split '/')[3]"
       name: outputVar
+    - powershell : |
+        Write-Host $(user)
     - template: ./steps-build.yml
     - template: ./steps-artifact.yml
     
