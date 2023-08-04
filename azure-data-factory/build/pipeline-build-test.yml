@@ -21,7 +21,7 @@ stages:
         $dataFactoryName = 'df-' + $(user) + '-d-euw-001'
         $sqlDatabaseName = 'sqldb-' + $(user) + '-d-euw-001'
         $synapseSqlPool = 'syndw_' + $(user) + '_d_euw_001'
-        $storageAccountName = 'st' + $(user) + 'deuw001"''
+        $storageAccountName = 'st' + $(user) + 'deuw001'
         $workspaceName = 'ws-' + $(user) + '-d-euw-001'
         Write-Host "##vso[task.setvariable variable=dataFactoryName]$dataFactoryName"
         Write-Host "##vso[task.setvariable variable=sqlDatabaseName]$sqlDatabaseName"
