@@ -16,6 +16,8 @@ stages:
     steps:
     - powershell: |
         Write-Host "##vso[task.setvariable variable=user]('$(System.PullRequest.SourceBranch)' -split '/')[3]"
+      name: set user var
+    - powershell: |
         Write-Host "##vso[task.setvariable variable=dataFactoryName]df-$(user)-d-euw-001"
         Write-Host "##vso[task.setvariable variable=sqlDatabaseName]sqldb-$(user)-d-euw-001"
         Write-Host "##vso[task.setvariable variable=synapseSqlPool]syndw_$(user)_d_euw_001"
@@ -23,7 +25,7 @@ stages:
         Write-Host "##vso[task.setvariable variable=xuPrefix]$(user)"
         Write-Host "##vso[task.setvariable variable=destination]$(storageAccountName)_s4h-caa-200"
         Write-Host "##vso[task.setvariable variable=workspaceName]ws-$(user)-d-euw-001"
-      name: outputVar
+      name: set resources name vars
     - powershell : |
         Write-Host $(user)
         Write-Host $(dataFactoryName)
@@ -33,6 +35,7 @@ stages:
         Write-Host $(xuPrefix)
         Write-Host $(destination)
         Write-Host $(workspaceName)
+      name: write resource names
     - template: ./steps-build.yml
     - template: ./steps-artifact.yml
     
