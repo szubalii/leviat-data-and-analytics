@@ -18,12 +18,12 @@ stages:
         Write-Host "##vso[task.setvariable variable=user]('$(System.PullRequest.SourceBranch)' -split '/')[3]"
       name: set_user_var
     - powershell: |
-        Write-Host "##vso[task.setvariable variable=dataFactoryName]df-$[variables.user]-d-euw-001"
+        Write-Host "##vso[task.setvariable variable=dataFactoryName]df-$(user)-d-euw-001"
         Write-Host "##vso[task.setvariable variable=sqlDatabaseName]sqldb-$(user)-d-euw-001"
         Write-Host "##vso[task.setvariable variable=synapseSqlPool]syndw_$(user)_d_euw_001"
         Write-Host "##vso[task.setvariable variable=storageAccountName]st$(user)deuw001"
         Write-Host "##vso[task.setvariable variable=xuPrefix]$(user)"
-        Write-Host "##vso[task.setvariable variable=workspaceName]ws-$(user)-d-euw-001"
+        Write-Host "##vso[task.setvariable variable=workspaceName]'ws-$(user)-d-euw-001'"
       name: set_resources_name_vars
     - powershell : |
         Write-Host "##vso[task.setvariable variable=destination]$(storageAccountName)_s4h-caa-200"
