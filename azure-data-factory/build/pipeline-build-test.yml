@@ -1,8 +1,95 @@
 trigger: none # triggered by PR
 
-extends:
-  template: ../../build/stages-build-deploy.yml
-  parameters:
-    folder: azure-data-factory
-    solution: ADF
-    env: test
+
+
+jobs:
+- job: TEST_ADF
+  variables:
+  - name: dataFactoryName
+    value: 'df-test'
+  
+  pool:
+    name: 'VM'
+    demands:
+    - node.js
+    - VisualStudio
+    - Agent.ComputerName -equals $(VMName)
+  steps:
+  - template: ./steps-build.yml
+  
+  - task: AzureResourceManagerTemplateDeployment@3
+    displayName: 'ARM Template deployment: Resource Group scope'
+    inputs:
+      azureResourceManagerConnection: 'arm-pipeline'
+      subscriptionId: 'f199b488-7d9d-4992-aeda-c10a1e1c9b9e'
+      resourceGroupName: '$(resourceGroupName)'
+      location: 'West Europe'
+      csmFile: '$(Pipeline.Workspace)\DataFactoryARMTemplate\ARMTemplateForFactory.json'
+      csmParametersFile: '$(Pipeline.Workspace)\DataFactoryARMTemplate\ARMTemplateParametersForFactory.json'
+      overrideParameters: '
+        -factoryName "$(dataFactoryName)"
+        -ls_sap_c4c_properties_typeProperties_url "$(sapC4Curl)"
+        -ls_ws_xxxx_sls_x_euw_001_ondemand__synapse_od_connectionString "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=$(workspaceName)-ondemand.sql.azuresynapse.net;Initial Catalog=synapse_od"
+        -ls_ws_xxxx_sls_x_euw_001_ondemand__master_connectionString "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=$(workspaceName)-ondemand.sql.azuresynapse.net;Initial Catalog=master"
+        -ls_ws_xxxx_sls_x_euw_001__syndw_xxxx_sls_x_euw_001_connectionString "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=$(workspaceName).sql.azuresynapse.net;Initial Catalog=$(synapseSqlPool)"
+        -ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001_connectionString "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=$(sqlServerName).database.windows.net;Initial Catalog=$(sqlDatabaseName)"
+        -ls_axbi_x_TimeXtender__master_connectionString "Integrated Security=False;Data Source=$(axbiServer);Initial Catalog=master;User ID=JustBI"
+        -ls_kv_xxxx_sls_x_euw_001_properties_typeProperties_baseUrl "https://$(keyVaultName).vault.azure.net/"
+        -stxxxxslsxeuw001_properties_typeProperties_url "https://$(storageAccountName).dfs.core.windows.net/"
+        -ir-WEXLEVAPP001_properties_typeProperties_linkedInfo_resourceId "$(SHIRResourceId)"
+        -default_properties_XU_hostName_value "$(XUHostName)"
+        -default_properties_storageAccountName_value "$(storageAccountName)"
+        -default_properties_resourceGroupName_value "$(resourceGroupName)"
+        -default_properties_virtualMachineName_value "$(VMName)"
+        -default_properties_synapseServerName_value "$(workspaceName)"
+        -default_properties_synapseDatabaseName_value "$(synapseSqlPool)"
+        -default_properties_keyVaultUrl_value "https://$(keyVaultName).vault.azure.net/"
+        -default_properties_environment_value "$(xuPrefix)"
+        -default_properties_sqlDb_value "$(sqlDatabaseName)"
+        -default_properties_s4hSystemId_value "$(S4HSystemId)"
+        -default_properties_s4hClientId_value "$(S4HClientId)"
+        -default_properties_axbiDataBaseEnvSuffix_value "$(axbiDataBaseEnvSuffix)"
+        -default_properties_axbiMinExtractionDate_value "$(axbiMinExtractionDate)"'
+
+  
+  # - task: NuGetCommand@2
+  #   displayName: Restore NuGet packages
+  #   inputs:
+  #     command: restore
+  #     feedsToUse: 'select'
+  #     restoreSolution: '$(Build.Repository.LocalPath)/azure-data-factory/TestADF/TestADF.csproj'
+
+  # - task: VSBuild@1
+  #   displayName: 'Build testing project'
+  #   inputs:
+  #     solution: '$(Build.Repository.LocalPath)/azure-data-factory/TestADF/TestADF.csproj'
+  #     configuration: 'Debug'
+  #     clean: true
+
+  # - task: AzureCLI@2
+  #   displayName: 'Set pipeline identity variables'
+  #   inputs:
+  #     azureSubscription: '$(PipelineServiceConnection)'
+  #     scriptType: 'pscore'
+  #     scriptLocation: 'inlineScript'
+  #     addSpnToEnvironment: true
+  #     inlineScript: |
+  #       Write-Host "##vso[task.setvariable variable=AzureTenantId;issecret=true]$env:tenantId"
+  #       Write-Host "##vso[task.setvariable variable=AzureSubscriptionId;issecret=true]$(az account show --query 'id' --output tsv)"
+  #       Write-Host "##vso[task.setvariable variable=AzureClientId;issecret=true]$env:servicePrincipalId"
+  #       Write-Host "##vso[task.setvariable variable=AzureClientSecret;issecret=true]$env:servicePrincipalKey"
+
+  # - task: VSTest@2
+  #   displayName: 'Run tests'
+  #   inputs:
+  #     testSelector: 'testAssemblies'
+  #     testAssemblyVer2: |
+  #       **\AdfTests.dll
+  #     searchFolder: '$(Build.Repository.LocalPath)/azure-data-factory/TestADF/bin/Debug'
+  #     testRunTitle: 'AdfTestRun'
+  #     runSettingsFile: '$(Build.Repository.LocalPath)/azure-data-factory/TestADF/tests.runsettings'
+  #   env:
+  #     AZURE_TENANT_ID: $(AzureTenantId)
+  #     AZURE_SUBSCRIPTION_ID: $(AzureSubscriptionId)
+  #     AZURE_CLIENT_ID: $(AzureClientId)
+  #     AZURE_CLIENT_SECRET: $(AzureClientSecret)
