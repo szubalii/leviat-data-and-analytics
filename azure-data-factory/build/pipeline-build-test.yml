@@ -1,65 +1,90 @@
 trigger: none # triggered by PR
 
 
+stages:
+- stage: BUILD_ADF
+  jobs:
+  - job: BUILD_ADF
+    variables:
+    - template: ../../build/variables-test.yml
+    pool:
+      name: 'VM'
+      demands:
+      - node.js
+      - VisualStudio
+      - Agent.ComputerName -equals $(VMName)
+    steps:
+    - powershell: |
+        Write-Host "##vso[task.setvariable variable=SourceBranch]variables['System.PullRequest.SourceBranch']"
+        Write-Host "##vso[task.setvariable variable=user;isoutput=true](variables['System.PullRequest.SourceBranch'] -split '/')[3]"
+        Write-Host "$(user)"
+      name: outputVar
+    - template: ./steps-build.yml
+    - template: ./steps-artifact.yml
+    
 
-jobs:
-- job: TEST_ADF
-  variables:
-  # - ${{ if or(contains(variables['Build.SourceBranch'], '/feature/'), contains(variables['Build.SourceBranch'], '/users/')) }}:
-  - name: user
-    value: ${{ split(variables['System.PullRequest.SourceBranch'], '/')[3] }} #refs/heads/feature/mpors/...
-  - template: ../../build/variables-personal.yml
-  - name: deployEnvPrefix # override value to map main branch to DEV deployment environment
-    value: ${{ format('30_DEV_{0}', upper(variables.user)) }}
-  # - template: ../../build/variables-test.yml
-  # - name: dataFactoryName
-  #   value: 'df-xxxx-d-euw-001'
-  
-  pool:
-    name: 'VM'
-    demands:
-    - node.js
-    - VisualStudio
-    - Agent.ComputerName -equals $(VMName)
-  steps:
-  - template: ./steps-build.yml
+# - stage: DEPLOY_ADF
+#   dependsOn: BUILD_ADF
+#   jobs:
+#   - deployment: DEPLOY_ADF
+#     variables:
+#       SourceBranch: $[ dependencies.BUILD_ADF.outputs['outputVar.SourceBranch'] ]
 
-  # - pwsh: |
-  #     Set-AzDataFactoryV2 -ResourceGroupName $(resourceGroupName) -Location 'West Europe' -Name $(dataFactoryName)
+#     pool:
+#       name: 'VM'
+#       demands:
+#       - node.js
+#       - VisualStudio
+#       - Python.Version
+#       - Agent.ComputerName -equals $(VMName)
+#     environment: 30_DEV_MPORS_AZURE_DATA_FACTORY
+#     workspace:
+#     # set clean to all when deploying xu-config
+#       ${{ if eq(parameters.folder, 'xu-config') }}: 
+#         clean: all
+#     strategy:
+#       runOnce:
+#         deploy:
+#           steps:
+#           # - template: ../${{ parameters.folder }}/build/steps-deploy.yml
+
+
+#   # - pwsh: |
+#   #     Set-AzDataFactoryV2 -ResourceGroupName $(resourceGroupName) -Location 'West Europe' -Name $(dataFactoryName)
   
-  - task: AzureResourceManagerTemplateDeployment@3
-    displayName: 'ARM Template deployment: Resource Group scope'
-    inputs:
-      azureResourceManagerConnection: 'arm-pipeline'
-      subscriptionId: 'f199b488-7d9d-4992-aeda-c10a1e1c9b9e'
-      resourceGroupName: '$(resourceGroupName)'
-      location: 'West Europe'
-      csmFile: '$(Build.Repository.LocalPath)/azure-data-factory/ArmTemplate\ARMTemplateForFactory.json'
-      csmParametersFile: '$(Build.Repository.LocalPath)/azure-data-factory/ArmTemplate\ARMTemplateParametersForFactory.json'
-      overrideParameters: '
-        -factoryName "df-mpors-d-euw-001"
-        -ls_sap_c4c_properties_typeProperties_url "$(sapC4Curl)"
-        -ls_ws_xxxx_sls_x_euw_001_ondemand__synapse_od_connectionString "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=$(workspaceName)-ondemand.sql.azuresynapse.net;Initial Catalog=synapse_od"
-        -ls_ws_xxxx_sls_x_euw_001_ondemand__master_connectionString "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=$(workspaceName)-ondemand.sql.azuresynapse.net;Initial Catalog=master"
-        -ls_ws_xxxx_sls_x_euw_001__syndw_xxxx_sls_x_euw_001_connectionString "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=$(workspaceName).sql.azuresynapse.net;Initial Catalog=$(synapseSqlPool)"
-        -ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001_connectionString "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=$(sqlServerName).database.windows.net;Initial Catalog=$(sqlDatabaseName)"
-        -ls_axbi_x_TimeXtender__master_connectionString "Integrated Security=False;Data Source=$(axbiServer);Initial Catalog=master;User ID=JustBI"
-        -ls_kv_xxxx_sls_x_euw_001_properties_typeProperties_baseUrl "https://$(keyVaultName).vault.azure.net/"
-        -stxxxxslsxeuw001_properties_typeProperties_url "https://$(storageAccountName).dfs.core.windows.net/"
-        -ir-WEXLEVAPP001_properties_typeProperties_linkedInfo_resourceId "$(SHIRResourceId)"
-        -default_properties_XU_hostName_value "$(XUHostName)"
-        -default_properties_storageAccountName_value "$(storageAccountName)"
-        -default_properties_resourceGroupName_value "$(resourceGroupName)"
-        -default_properties_virtualMachineName_value "$(VMName)"
-        -default_properties_synapseServerName_value "$(workspaceName)"
-        -default_properties_synapseDatabaseName_value "$(synapseSqlPool)"
-        -default_properties_keyVaultUrl_value "https://$(keyVaultName).vault.azure.net/"
-        -default_properties_environment_value "$(xuPrefix)"
-        -default_properties_sqlDb_value "$(sqlDatabaseName)"
-        -default_properties_s4hSystemId_value "$(S4HSystemId)"
-        -default_properties_s4hClientId_value "$(S4HClientId)"
-        -default_properties_axbiDataBaseEnvSuffix_value "$(axbiDataBaseEnvSuffix)"
-        -default_properties_axbiMinExtractionDate_value "$(axbiMinExtractionDate)"'
+#           - task: AzureResourceManagerTemplateDeployment@3
+#             displayName: 'ARM Template deployment: Resource Group scope'
+#             inputs:
+#               azureResourceManagerConnection: 'arm-pipeline'
+#               subscriptionId: 'f199b488-7d9d-4992-aeda-c10a1e1c9b9e'
+#               resourceGroupName: '$(resourceGroupName)'
+#               location: 'West Europe'
+#               csmFile: '$(Build.Repository.LocalPath)/azure-data-factory/ArmTemplate\ARMTemplateForFactory.json'
+#               csmParametersFile: '$(Build.Repository.LocalPath)/azure-data-factory/ArmTemplate\ARMTemplateParametersForFactory.json'
+#               overrideParameters: '
+#                 -factoryName "df-mpors-d-euw-001"
+#                 -ls_sap_c4c_properties_typeProperties_url "$(sapC4Curl)"
+#                 -ls_ws_xxxx_sls_x_euw_001_ondemand__synapse_od_connectionString "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=$(workspaceName)-ondemand.sql.azuresynapse.net;Initial Catalog=synapse_od"
+#                 -ls_ws_xxxx_sls_x_euw_001_ondemand__master_connectionString "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=$(workspaceName)-ondemand.sql.azuresynapse.net;Initial Catalog=master"
+#                 -ls_ws_xxxx_sls_x_euw_001__syndw_xxxx_sls_x_euw_001_connectionString "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=$(workspaceName).sql.azuresynapse.net;Initial Catalog=$(synapseSqlPool)"
+#                 -ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001_connectionString "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=$(sqlServerName).database.windows.net;Initial Catalog=$(sqlDatabaseName)"
+#                 -ls_axbi_x_TimeXtender__master_connectionString "Integrated Security=False;Data Source=$(axbiServer);Initial Catalog=master;User ID=JustBI"
+#                 -ls_kv_xxxx_sls_x_euw_001_properties_typeProperties_baseUrl "https://$(keyVaultName).vault.azure.net/"
+#                 -stxxxxslsxeuw001_properties_typeProperties_url "https://$(storageAccountName).dfs.core.windows.net/"
+#                 -ir-WEXLEVAPP001_properties_typeProperties_linkedInfo_resourceId "$(SHIRResourceId)"
+#                 -default_properties_XU_hostName_value "$(XUHostName)"
+#                 -default_properties_storageAccountName_value "$(storageAccountName)"
+#                 -default_properties_resourceGroupName_value "$(resourceGroupName)"
+#                 -default_properties_virtualMachineName_value "$(VMName)"
+#                 -default_properties_synapseServerName_value "$(workspaceName)"
+#                 -default_properties_synapseDatabaseName_value "$(synapseSqlPool)"
+#                 -default_properties_keyVaultUrl_value "https://$(keyVaultName).vault.azure.net/"
+#                 -default_properties_environment_value "$(xuPrefix)"
+#                 -default_properties_sqlDb_value "$(sqlDatabaseName)"
+#                 -default_properties_s4hSystemId_value "$(S4HSystemId)"
+#                 -default_properties_s4hClientId_value "$(S4HClientId)"
+#                 -default_properties_axbiDataBaseEnvSuffix_value "$(axbiDataBaseEnvSuffix)"
+#                 -default_properties_axbiMinExtractionDate_value "$(axbiMinExtractionDate)"'
 
   
   # - task: NuGetCommand@2
