@@ -5,9 +5,13 @@ SELECT
          ,[SalesOrderItem]
          ,[nk_SalesOrderItem]
          ,[ConditionType]
-         ,sum([ConditionBaseValue]) as ConditionBaseValue
-         ,sum([ConditionRateValue]) as ConditionRateValue
-         ,sum([ConditionAmount]) as ConditionAmount
+         ,sum([ConditionBaseValue])    AS ConditionBaseValue
+         ,sum([BaseAmountEUR])         AS BaseAmountEUR
+         ,sum([BaseAmountUSD])         AS BaseAmountUSD
+         ,sum([ConditionRateValue])    AS ConditionRateValue
+         ,sum([ConditionAmount])       AS ConditionAmount
+         ,sum([ConditionAmountEUR])    AS ConditionAmountEUR
+         ,sum([ConditionAmountUSD])    AS ConditionAmountUSD
          ,[CurrencyTypeID]
          ,[CurrencyType]
          ,[CurrencyID]
