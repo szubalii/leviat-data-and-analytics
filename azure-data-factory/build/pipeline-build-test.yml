@@ -5,9 +5,15 @@ trigger: none # triggered by PR
 jobs:
 - job: TEST_ADF
   variables:
-  - template: ../../build/variables-test.yml
-  - name: dataFactoryName
-    value: 'df-test'
+  - ${{ if or(contains(variables['Build.SourceBranch'], '/feature/'), contains(variables['Build.SourceBranch'], '/users/')) }}:
+    - name: user
+      value: ${{ split(variables['Build.SourceBranch'], '/')[3] }} #refs/heads/feature/mpors/...
+    - template: ../../build/variables-personal.yml
+    - name: deployEnvPrefix # override value to map main branch to DEV deployment environment
+      value: ${{ format('30_DEV_{0}', upper(variables.user)) }}
+  # - template: ../../build/variables-test.yml
+  # - name: dataFactoryName
+  #   value: 'df-xxxx-d-euw-001'
   
   pool:
     name: 'VM'
@@ -17,6 +23,9 @@ jobs:
     - Agent.ComputerName -equals $(VMName)
   steps:
   - template: ./steps-build.yml
+
+  - pwsh: |
+      Set-AzDataFactoryV2 -ResourceGroupName $(resourceGroupName) -Location 'West Europe' -Name $(dataFactoryName)
   
   - task: AzureResourceManagerTemplateDeployment@3
     displayName: 'ARM Template deployment: Resource Group scope'
