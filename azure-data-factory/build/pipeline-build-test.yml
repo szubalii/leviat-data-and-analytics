@@ -15,7 +15,7 @@ stages:
       - Agent.ComputerName -equals $(VMName)
     steps:
     - powershell: |
-        $user = '$(System.PullRequest.SourceBranch)' -split '/')[3]
+        $user = ('$(System.PullRequest.SourceBranch)' -split '/')[3]
         $dataFactoryName =    'df-' + $user + '-d-euw-001'
         $sqlDatabaseName = 'sqldb-' + $user + '-d-euw-001'
         $synapseSqlPool =  'syndw_' + $user + '_d_euw_001'
