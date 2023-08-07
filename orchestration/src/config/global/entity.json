@@ -4133,7 +4133,7 @@
         "pk_field_names": "CLIENT, ADDRNUMBER, DATE_FROM, NATION"
       },
       {
-        "entity_id": 610,
+        "entity_id": 613,
         "entity_name": "I_SDDocumentProcessFlow",
         "data_category": "DIMENSION",
         "client_field": "MANDT",
@@ -4142,7 +4142,7 @@
         "update_mode": "Full",
         "base_table_name": "I_SDDocumentProcessFlow",
         "schedule_recurrence": "D",
-        "pk_field_names": "MANDT, DOCRELATIONSHIPUUID"
+        "pk_field_names": "PRECEDINGDOCUMENT, SUBSEQUENTDOCUMENT"
       }
     ]
   },

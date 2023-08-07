@@ -15,8 +15,8 @@
                     "name": "PRECEDINGDOCUMENT",
                     "description": "Preceding sales and distribution document",
                     "abapType": "CharacterString",
-                    "isPrimaryKey": true,
                     "length": 10,
+                    "isPrimaryKey": true,
                     "isSelected": true,
                     "checkTable": "PRECEDINGDOCUMENT",
                     "conversionExit": "ALPHA"
@@ -43,8 +43,8 @@
                     "name": "SUBSEQUENTDOCUMENT",
                     "description": "Subsequent Sales and Distribution Document",
                     "abapType": "CharacterString",
-                    "isPrimaryKey": true,
                     "length": 10,
+                    "isPrimaryKey": true,
                     "isSelected": true,
                     "checkTable": "SUBSEQUENTDOCUMENT",
                     "conversionExit": "ALPHA"
