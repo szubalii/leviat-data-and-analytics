@@ -2,29 +2,22 @@
   AS  
 
 WITH CTE_CustomerCompany AS(
-SELECT 
+SELECT
      CC.[Customer]
     ,CC.[CompanyCode]
-    ,CC.[PaymentTerms]
-    ,SO.[SalesOrganizationID]
 FROM
+
     [base_s4h_cax].[I_CustomerCompany] CC
 LEFT JOIN
-    [edw].[dim_SalesOrganization] SO
+    [base_s4h_cax].[I_SalesOrganization] SO
     ON
         CC.[CompanyCode] = SO.[CompanyCode]
-),
-CTE_CC_Check AS(
-SELECT
-     CC.[Customer],CC.[CompanyCode]
-FROM
-    CTE_CustomerCompany CC
 LEFT JOIN
     [base_s4h_cax].[I_CustomerSalesArea] CSA
 ON
     CC.Customer = CSA.Customer
     AND
-    CC.SalesOrganizationID = CSA.SalesOrganization
+    SO.SalesOrganization = CSA.SalesOrganization
 WHERE
     CC.[PaymentTerms]<>CSA.[PaymentTerms]
 )
@@ -74,10 +67,10 @@ SELECT DISTINCT
     ,   '2.1.10' AS [RuleID]
     ,   1 AS [Count]
 FROM
-    CTE_CC_Check
+    CTE_CustomerCompany
 JOIN
     [base_s4h_cax].[I_CustomerCompany] CC
     ON
-        CTE_CC_Check.[Customer] = CC.[Customer]
+        CTE_CustomerCompany.[Customer] = CC.[Customer]
         AND
-        CTE_CC_Check.[CompanyCode] = CC.[CompanyCode]
+        CTE_CustomerCompany.[CompanyCode] = CC.[CompanyCode]

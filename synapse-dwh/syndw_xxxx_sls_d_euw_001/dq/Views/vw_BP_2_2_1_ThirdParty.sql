@@ -36,6 +36,6 @@ LEFT JOIN
     ON
         S.[Supplier] = SPO.[Supplier]
 WHERE
-    S.[SupplierAccountGroup] = 'Z099'
+    S.[SupplierAccountGroup] = 'Z011'
     AND
     LEFT(SPO.[PaymentTerms],1)<>'L'
