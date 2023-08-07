@@ -16,5 +16,5 @@ CREATE TABLE [edw].[dim_SDDocumentIncompletionLog]
         , [ScheduleLine]
     ) NOT ENFORCED
 ) WITH (
-    DISTRIBUTION = HASH (SDDocument)
+    DISTRIBUTION = REPLICATE
 )
