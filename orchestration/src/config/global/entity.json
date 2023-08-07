@@ -4133,7 +4133,7 @@
         "pk_field_names": "CLIENT, ADDRNUMBER, DATE_FROM, NATION"
       },
       {
-        "entity_id": 610,
+        "entity_id": 613,
         "entity_name": "I_BusinessPartnerAddress",
         "data_category": "NULL",
         "client_field": "MANDT",

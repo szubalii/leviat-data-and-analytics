@@ -32,4 +32,6 @@ SELECT
 FROM
     [base_s4h_cax].[I_SupplierPurchasingOrg] SPO
 WHERE
+    S.[SupplierAccountGroup] = 'Z011'
+    AND
     LEFT(SPO.[PaymentTerms],1)<>'L'
