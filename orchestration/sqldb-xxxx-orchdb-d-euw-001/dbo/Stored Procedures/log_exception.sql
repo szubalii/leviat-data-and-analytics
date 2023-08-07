@@ -17,8 +17,8 @@ BEGIN
     IF (@category_id IS NULL)
         SET @error_str += N'Category ' + @category + ' is not listed in the error_category table.' + CHAR(13) + CHAR(10);
 
-    IF @batch_id IS NOT NULL AND NOT EXISTS(SELECT [batch_id] FROM [dbo].[batch] WHERE [batch_id] = @batch_id)
-        SET @error_str += N'Batch with batch_id = ' + convert(nvarchar(36), @batch_id) + ' is not listed in the batches table.' + CHAR(13) + CHAR(10);
+    -- IF @batch_id IS NOT NULL AND NOT EXISTS(SELECT [batch_id] FROM [dbo].[batch] WHERE [batch_id] = @batch_id)
+    --     SET @error_str += N'Batch with batch_id = ' + convert(nvarchar(36), @batch_id) + ' is not listed in the batches table.' + CHAR(13) + CHAR(10);
 
     IF @error_str != ''
         THROW 51001, @error_str, 1;

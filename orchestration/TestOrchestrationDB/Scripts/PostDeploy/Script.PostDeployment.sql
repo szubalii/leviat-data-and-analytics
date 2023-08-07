@@ -6,4 +6,5 @@
 :r ..\..\TestClasses\ScheduledEntities.sql
 :r ..\..\TestClasses\ScalarValuedFunction.sql
 :r ..\..\TestClasses\StoredProcedures.sql
+:r ..\..\TestClasses\ForeignKeys.sql
 -- :r ..\..\TestClasses\FailTest.sql
