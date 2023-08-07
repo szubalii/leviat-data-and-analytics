@@ -1285,7 +1285,7 @@
     <Build Include="edw\Functions\ScalarValued\svf_removeSpecialCharacters.sql" />
     <Build Include="edw\Functions\ScalarValued\svf_get4PartNaturalKey.sql" />
     <Build Include="edw\Tables\fact_ACDOCA_FinStatemntSalesMargin.sql" />
-    <Build Include="edw\Tables\fact_SDDocumentIncompletionLog.sql" />
+    <Build Include="edw\Tables\dim_SDDocumentIncompletionLog.sql" />
     <Build Include="edw\Views\vw_ACDOCA_FinStatemntSalesMargin.sql" />
     <Build Include="edw\Views\vw_SDDocumentIncompletionLog.sql" />
     <Build Include="dm_finance\Views\vw_fact_ACDOCA_FinStatemntSalesMargin.sql" />
