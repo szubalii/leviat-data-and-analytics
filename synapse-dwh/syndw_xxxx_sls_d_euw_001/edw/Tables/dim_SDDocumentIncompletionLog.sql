@@ -1,4 +1,4 @@
-CREATE TABLE [edw].[fact_SDDocumentIncompletionLog]
+CREATE TABLE [edw].[dim_SDDocumentIncompletionLog]
 (
     
     [SDDocument]          NVARCHAR(10) NOT NULL
