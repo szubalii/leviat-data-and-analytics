@@ -1366,26 +1366,26 @@ GLACCOUNT;FUNCTIONALAREA;TRANSACTIONTYPE;TRADINGPARTNER;CONTIGENCY1;CONTIGENCY2;
 50106101;DT251;;;;;;;Opex;IS711100;Wages and salaries own personnel;DT251;;;;S_MA;U;;IS
 50106101;DT271;;;;;;;Opex;IS711100;Wages and salaries own personnel;DT271;;;;S_MA;U;;IS
 50106103;DT102;;;;;Wages & salaries - variable;Gross Margin;Other CoS;IS611100;Wages and salaries own personnel - production variable;FA1100;;;;S_MA;U;;IS
-50107100;DT102;;;;;Wages & salaries - variable;Gross Margin;Other CoS;IS611100;Wages and salaries own personnel - production variable;FA1100;;;;S_MA;U;;IS
-50107100;DT101;;;;;;;Other CoS;IS671100;Wages and salaries own personnel - production management / support and inbound logistics;FA1200;;;;S_MA;U;;IS
-50107100;DT121;;;;;;;Other CoS;IS671100;Wages and salaries own personnel - production management / support and inbound logistics;FA1300;;;;S_MA;U;;IS
-50107100;DT131;;;;;;;Opex;IS711100;Wages and salaries own personnel;DT131;;;;S_MA;U;;IS
-50107100;DT132;;;;;Wages & salaries - variable;Gross Margin;Opex;IS711100;Wages and salaries own personnel;DT132;;;;S_MA;U;;IS
-50107100;DT141;;;;;;;Opex;IS711100;Wages and salaries own personnel;DT141;;;;S_MA;U;;IS
-50107100;DT142;;;;;Wages & salaries - variable;Gross Margin;Opex;IS711100;Wages and salaries own personnel;DT142;;;;S_MA;U;;IS
-50107100;DT151;;;;;;;Opex;IS711100;Wages and salaries own personnel;DT151;;;;S_MA;U;;IS
-50107100;DT152;;;;;Wages & salaries - variable;Gross Margin;Opex;IS711100;Wages and salaries own personnel;DT152;;;;S_MA;U;;IS
-50107100;DT161;;;;;;;Opex;IS711100;Wages and salaries own personnel;DT161;;;;S_MA;U;;IS
-50107100;DT171;;;;;;;Opex;IS711100;Wages and salaries own personnel;DT171;;;;S_MA;U;;IS
-50107100;DT181;;;;;;;Opex;IS711100;Wages and salaries own personnel;DT181;;;;S_MA;U;;IS
-50107100;DT191;;;;;;;Opex;IS711100;Wages and salaries own personnel;DT191;;;;S_MA;U;;IS
-50107100;DT201;;;;;;;Opex;IS711100;Wages and salaries own personnel;DT201;;;;S_MA;U;;IS
-50107100;DT213;;;;;;;Opex;IS711100;Wages and salaries own personnel;DT213;;;;S_MA;U;;IS
-50107100;DT222;;;;;;;Opex;IS711100;Wages and salaries own personnel;DT222;;;;S_MA;U;;IS
-50107100;DT231;;;;;;;Opex;IS711100;Wages and salaries own personnel;DT231;;;;S_MA;U;;IS
-50107100;DT241;;;;;;;Opex;IS711100;Wages and salaries own personnel;DT241;;;;S_MA;U;;IS
-50107100;DT251;;;;;;;Opex;IS711100;Wages and salaries own personnel;DT251;;;;S_MA;U;;IS
-50107100;DT271;;;;;;;Opex;IS711100;Wages and salaries own personnel;DT271;;;;S_MA;U;;IS
+50107100;DT102;;;;;Wages & salaries - variable;Gross Margin;Other CoS;IS611900;Intercompany charged employment costs - production variable;FA1100;;;;S_MA;U;;IS
+50107100;DT101;;;;;;;Other CoS;IS671900;Intercompany charged employment costs - production / inbound logistics fixed;FA1200;;;;S_MA;U;;IS
+50107100;DT121;;;;;;;Other CoS;IS671900;Intercompany charged employment costs - production / inbound logistics fixed;FA1300;;;;S_MA;U;;IS
+50107100;DT131;;;;;;;Opex;IS711900;Intercompany charged employment costs;DT131;;;;S_MA;U;;IS
+50107100;DT132;;;;;Wages & salaries - variable;Gross Margin;Opex;IS711900;Intercompany charged employment costs;DT132;;;;S_MA;U;;IS
+50107100;DT141;;;;;;;Opex;IS711900;Intercompany charged employment costs;DT141;;;;S_MA;U;;IS
+50107100;DT142;;;;;Wages & salaries - variable;Gross Margin;Opex;IS711900;Intercompany charged employment costs;DT142;;;;S_MA;U;;IS
+50107100;DT151;;;;;;;Opex;IS711900;Intercompany charged employment costs;DT151;;;;S_MA;U;;IS
+50107100;DT152;;;;;Wages & salaries - variable;Gross Margin;Opex;IS711900;Intercompany charged employment costs;DT152;;;;S_MA;U;;IS
+50107100;DT161;;;;;;;Opex;IS711900;Intercompany charged employment costs;DT161;;;;S_MA;U;;IS
+50107100;DT171;;;;;;;Opex;IS711900;Intercompany charged employment costs;DT171;;;;S_MA;U;;IS
+50107100;DT181;;;;;;;Opex;IS711900;Intercompany charged employment costs;DT181;;;;S_MA;U;;IS
+50107100;DT191;;;;;;;Opex;IS711900;Intercompany charged employment costs;DT191;;;;S_MA;U;;IS
+50107100;DT201;;;;;;;Opex;IS711900;Intercompany charged employment costs;DT201;;;;S_MA;U;;IS
+50107100;DT213;;;;;;;Opex;IS711900;Intercompany charged employment costs;DT213;;;;S_MA;U;;IS
+50107100;DT222;;;;;;;Opex;IS711900;Intercompany charged employment costs;DT222;;;;S_MA;U;;IS
+50107100;DT231;;;;;;;Opex;IS711900;Intercompany charged employment costs;DT231;;;;S_MA;U;;IS
+50107100;DT241;;;;;;;Opex;IS711900;Intercompany charged employment costs;DT241;;;;S_MA;U;;IS
+50107100;DT251;;;;;;;Opex;IS711900;Intercompany charged employment costs;DT251;;;;S_MA;U;;IS
+50107100;DT271;;;;;;;Opex;IS711900;Intercompany charged employment costs;DT271;;;;S_MA;U;;IS
 50107101;DT102;;;;;Other employee costs - variable;Gross Margin;Other CoS;IS611900;Intercompany charged employment costs - production variable;FA1100;;;;S_MA;U;;IS
 50107101;DT101;;;;;;;Other CoS;IS671900;Intercompany charged employment costs - production management / support and inbound logistics;FA1200;;;;S_MA;U;;IS
 50107101;DT121;;;;;;;Other CoS;IS671900;Intercompany charged employment costs - production management / support and inbound logistics;FA1300;;;;S_MA;U;;IS
@@ -2546,6 +2546,8 @@ GLACCOUNT;FUNCTIONALAREA;TRANSACTIONTYPE;TRADINGPARTNER;CONTIGENCY1;CONTIGENCY2;
 52300311;DT999;;;;;Cost of goods for resale;Gross Margin;COGS;IS511000;Cost of goods sold trade sales;DT999;;;;S_MA;U;;IS
 52300350;DT999;;;;;Cost of goods for resale;Gross Margin;COGS;IS511000;Cost of goods sold trade sales;DT999;;;;S_MA;U;;IS
 52300350;;;;;;Cost of goods for resale;Gross Margin;COGS;IS511000;Cost of goods sold trade sales;DT999;;;;S_MA;U;;IS
+52300351;DT999;;;;;Cost of goods for resale;Gross Margin;COGS;IS511000;Cost of goods sold trade sales;DT999;;;;S_MA;U;;IS
+52300351;;;;;;Cost of goods for resale;Gross Margin;COGS;IS511000;Cost of goods sold trade sales;DT999;;;;S_MA;U;;IS
 52300360;;;;;;Cost of goods for resale;Gross Margin;COGS;IS511000;Cost of goods sold trade sales;DT999;;;;S_MA;U;;IS
 52300360;DT999;;;;;Cost of goods for resale;Gross Margin;COGS;IS511000;Cost of goods sold trade sales;DT999;;;;S_MA;U;;IS
 52300199;;;;;;Cost of goods for resale;Gross Margin;COGS;IS511000;Cost of goods sold trade sales;DT999;;;;S_MA;U;;IS
@@ -2977,16 +2979,18 @@ GLACCOUNT;FUNCTIONALAREA;TRANSACTIONTYPE;TRADINGPARTNER;CONTIGENCY1;CONTIGENCY2;
 55000130;DT102;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS685000;Delivery costs;FA1100;;;;S_MA;U;;IS
 55000130;DT141;;;;;;;Opex;IS751000D;Outbound freight, customs and duty;DT141;;;;S_MA;U;;IS
 55000130;DT142;;;;;Haulage;Gross Margin;Opex;IS751000D;Outbound freight, customs and duty;DT142;;;;S_MA;U;;IS
-55000140;DT102;;;;;;;Opex;IS756000D;Warehouse and stockyard supplies - outbound logistics ;FA1100;;;;S_MA;U;;IS
+55000140;DT102;;;;;Haulage;Gross Margin;Opex;IS756000D;Warehouse and stockyard supplies - outbound logistics ;FA1100;;;;S_MA;U;;IS
 55000140;DT141;;;;;;;Opex;IS756000D;Warehouse and stockyard supplies - outbound logistics ;DT141;;;;S_MA;U;;IS
-55000140;DT142;;;;;;;Opex;IS756000D;Warehouse and stockyard supplies - outbound logistics ;DT142;;;;S_MA;U;;IS
+55000140;DT142;;;;;Haulage;Gross Margin;Opex;IS756000D;Warehouse and stockyard supplies - outbound logistics ;DT142;;;;S_MA;U;;IS
+55000140;DT132;;;;;Haulage;Gross Margin;Opex;IS756000D;Warehouse and stockyard supplies - outbound logistics ;DT132;;;;S_MA;U;;IS
 55000140;DT131;;;;;;;Opex;IS756000D;Warehouse and stockyard supplies - outbound logistics ;DT131;;;;S_MA;U;;IS
 55000150;DT122;;;;;Inbound logistic costs - variable;Gross Margin;Other CoS;IS530000D;Inbound logistic costs;FA1400;;;;S_MA;U;;IS
 55000150;DT121;;;;;;;Other CoS;IS530000D;Inbound logistic costs;FA1300;;;;S_MA;U;;IS
 55000160;DT102;;;;;Inventory costs - variable;Gross Margin;Other CoS;IS685000;Delivery costs;FA1100;;;;S_MA;U;;IS
 55000160;DT141;;;;;;;Opex;IS751000D;Outbound freight, customs and duty;DT141;;;;S_MA;U;;IS
 55000160;DT142;;;;;Haulage;Gross Margin;Opex;IS751000D;Outbound freight, customs and duty;DT142;;;;S_MA;U;;IS
-55000200;DT121;;;;;;Gross Margin;Other CoS;IS530000D;Inbound logistic costs - variable;FA1400;;;;S_MA;U;;IS
+55000200;DT121;;;;;;;Other CoS;IS530000D;Inbound logistic costs - variable;FA1300;;;;S_MA;U;;IS
+55000200;DT122;;;;;Inbound logistic costs - variable;Gross Margin;Other CoS;IS530000D;Inbound logistic costs - variable;FA1400;;;;S_MA;U;;IS
 55502100;DT121;;;;;;;Opex;IS801950;Inbound logistic costs - variable;FA1300;;;;S_MA;U;;IS
 59000201;DT102;;;;;Rent and lease costs variable - variable;Gross Margin;Other CoS;IS642000;Rent and operational lease costs of buildings - production;FA1100;;;;S_MA;U;;IS
 59000201;DT101;;;;;;;Other CoS;IS642000;Rent and operational lease costs of buildings - production;FA1200;;;;S_MA;U;;IS
@@ -5626,7 +5630,9 @@ GLACCOUNT;FUNCTIONALAREA;TRANSACTIONTYPE;TRADINGPARTNER;CONTIGENCY1;CONTIGENCY2;
 54000108;DT251;;;;;;;Opex;IS801900;Bought in services;DT251;;;;S_MA;U;;IS
 54000108;DT271;;;;;;;Opex;IS801900;Bought in services;DT271;;;;S_MA;U;;IS
 55000201;DT121;;;;;;;Other CoS;IS530000D;Inbound logistic costs - variable;FA1300;;;;S_MA;U;;IS
+55000201;DT122;;;;;Inbound logistic costs - variable;Gross Margin;Other CoS;IS530000D;Inbound logistic costs - variable;FA1400;;;;S_MA;U;;IS
 55000202;DT121;;;;;;;Other CoS;IS530000D;Inbound logistic costs - variable;FA1300;;;;S_MA;U;;IS
+55000202;DT122;;;;;Inbound logistic costs - variable;Gross Margin;Other CoS;IS530000D;Inbound logistic costs - variable;FA1400;;;;S_MA;U;;IS
 59000301;DT102;;;;;Supplies and small tools - variable;Gross Margin;Other CoS;IS661000D;Supplies and small tools;FA1100;;;;S_MA;U;;IS
 59000301;DT131;;;;;;;Opex;IS756000D;Warehouse and stockyard supplies - outbound logistics;DT131;;;;S_MA;U;;IS
 59000301;DT132;;;;;Haulage;Gross Margin;Opex;IS756000D;Warehouse and stockyard supplies - outbound logistics;DT132;;;;S_MA;U;;IS
