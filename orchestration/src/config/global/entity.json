@@ -4131,6 +4131,28 @@
         "base_table_name": "P_OrganizationAddress",
         "schedule_recurrence": "D",
         "pk_field_names": "CLIENT, ADDRNUMBER, DATE_FROM, NATION"
+      },
+      {
+        "entity_id": 610,
+        "entity_name": "I_DataElementLabelText",
+        "data_category": "TEXT",
+        "tool_name": "Theobald",
+        "extraction_type": "Table",
+        "update_mode": "Full",
+        "base_table_name": "I_DataElementLabelText",
+        "schedule_recurrence": "A",
+        "pk_field_names": "ABAPDATAELEMENT,LANGUAGE"
+      },
+      {
+        "entity_id": 611,
+        "entity_name": "I_SDDocumentIncompletionLog",
+        "data_category": "DIMENSION",
+        "tool_name": "Theobald",
+        "extraction_type": "Table",
+        "update_mode": "Full",
+        "base_table_name": "I_SDDocumentIncompletionLog",
+        "schedule_recurrence": "D",
+        "pk_field_names": "MANDT,SDDOCUMENT,SDDOCUMENTITEM,SCHEDULELINE,PARTNERFUNCTION,SDDOCUMENTTEXTID,SDDOCUMENTTABLE,SDDOCUMENTTABLEFIELD"
       }
     ]
   },
@@ -5728,6 +5750,15 @@
         "source_view_name": "vw_ACDOCA_FinStatemntSalesMargin",
         "dest_table_name": "fact_ACDOCA_FinStatemntSalesMargin",
         "execution_order": 2,
+        "schedule_recurrence": "D"
+      },
+      {
+        "entity_id": 612,
+        "entity_name": "dim_SDDocumentIncompletionLog",
+        "sproc_name": "sp_materialize_view",
+        "source_view_name": "vw_SDDocumentIncompletionLog",
+        "dest_table_name": "dim_SDDocumentIncompletionLog",
+        "execution_order": 0,
         "schedule_recurrence": "D"
       }
     ]
