@@ -68,6 +68,8 @@ LEFT JOIN
     ON 
         C.[Customer] = CC.[Customer]
 WHERE
+    C.[CustomerAccountGroup] = 'Z011'
+    AND
     (CC.[PaymentMethodsList]<>'' AND CC.[PaymentMethodsList] IS NOT NULL)
     AND 
     C.[Customer] NOT IN

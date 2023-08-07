@@ -77,6 +77,8 @@ LEFT JOIN
     ON
         S.[Supplier] = SC.[Supplier]
 WHERE
+    S.[SupplierAccountGroup] = 'Z099'
+    AND
     (SC.[PaymentMethodsList] <> '' AND SC.[PaymentMethodsList] IS NOT NULL)
     AND
     S.[Supplier] NOT IN
