@@ -1,17 +1,6 @@
--- =============================================
--- Schema         : base_s4h_cax
--- CDS View       : I_SDDocumentProcessFlow
--- System Version : SAP S/4HANA 1909, SP 0002
--- Description    : Data from table ISDDOCPROCFLOW
--- Source:        : S/4HANA
--- Extraction_Mode: Full
--- Source Type    : Table
--- Source Name    : CAACLNT200
-
--- =============================================
-
 CREATE TABLE [base_s4h_cax].[I_SDDocumentProcessFlow] (
-    [PrecedingDocument] NVARCHAR(10) -- Preceding sales and distribution document
+    [DOCRELATIONSHIPUUID] BINARY(16) NOT NULL -- SD Unique Document Relationship Identification
+  , [PrecedingDocument] NVARCHAR(10) -- Preceding sales and distribution document
   , [PrecedingDocumentItem] CHAR(6)  -- Preceding Item of an SD Document
   , [PrecedingDocumentCategory] NVARCHAR(4)  -- Document Category of Preceding SD Document
   , [SubsequentDocument] NVARCHAR(10)  -- Subsequent Sales and Distribution Document
@@ -24,9 +13,7 @@ CREATE TABLE [base_s4h_cax].[I_SDDocumentProcessFlow] (
   , [t_extractionDtm] DATETIME  -- Extraction Date Time
   , [t_filePath] NVARCHAR (1024)  -- Filepath
   , CONSTRAINT [PK_I_SDDocumentProcessFlow] PRIMARY KEY NONCLUSTERED(
-      
-      [PrecedingDocument]
-    , [SubsequentDocument]
+      [DOCRELATIONSHIPUUID]
   ) NOT ENFORCED
 ) WITH (
   HEAP
