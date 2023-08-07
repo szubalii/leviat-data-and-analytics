@@ -73,7 +73,7 @@ SELECT
 FROM 
     [base_s4h_cax].[I_SalesQuotationItemPrcgElmnt] ISQIPE
 LEFT JOIN [edw].[fact_SalesDocumentItem] SDI
-    ON ISQIPE.SalesQuotation = SDI.SalesQuotation AND ISQIPE.SalesQuotationItem = SDI.SalesQuotationItem AND SDI.CurrencyTypeID = '10'
+    ON ISQIPE.SalesQuotation = SDI.SalesDocument AND ISQIPE.SalesQuotationItem = SDI.SalesDocumentItem  COLLATE DATABASE_DEFAULT AND SDI.CurrencyTypeID = '10'
 LEFT JOIN [edw].[vw_CurrencyConversionRate] CCR   
     ON ISQIPE.TransactionCurrency = CCR.SourceCurrency    COLLATE DATABASE_DEFAULT AND CCR.CurrencyTypeID IN ('00','10')
 LEFT JOIN [edw].[vw_CurrencyConversionRate] CCR30  

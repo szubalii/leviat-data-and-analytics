@@ -8,7 +8,7 @@ SELECT
 , CR.[CurrencyType]
 , CASE 
         WHEN CCR.[CurrencyTypeID] = '00' THEN [TransactionCurrency] COLLATE Latin1_General_100_BIN2 
-        WHEN CCR.[CurrencyTypeID] = '10' THEN COALESCE(SDI.[CurrencyID],[TransactionCurrency])
+        WHEN CCR.[CurrencyTypeID] = '10' THEN COALESCE(SDI.[CurrencyID],[TransactionCurrency] COLLATE Latin1_General_100_BIN2)
         ELSE CCR.[TargetCurrency]
   END                                                                             AS [CurrencyID]
 , CASE 
@@ -73,7 +73,7 @@ SELECT
 FROM 
     [base_s4h_cax].[I_SalesOrderItemPricingElement] ISOIPE
 LEFT JOIN [edw].[fact_SalesDocumentItem] SDI
-    ON ISOIPE.SalesOrder = SDI.SalesOrder AND ISOIPE.SalesOrderItem = SDI.SalesOrderItem AND SDI.CurrencyTypeID = '10'
+    ON ISOIPE.SalesOrder = SDI.SalesDocument AND ISOIPE.SalesOrderItem = SDI.SalesDocumentItem AND SDI.CurrencyTypeID = '10'
 LEFT JOIN [edw].[vw_CurrencyConversionRate] CCR   
     ON ISOIPE.TransactionCurrency = CCR.SourceCurrency    COLLATE DATABASE_DEFAULT AND CCR.CurrencyTypeID IN ('00','10')
 LEFT JOIN [edw].[vw_CurrencyConversionRate] CCR30  
