@@ -43,11 +43,29 @@ stages:
         Write-Host $(workspaceName)
       name: write_resource_names
     - template: ./steps-build.yml
+
+    - task: AzurePowerShell@5
+      displayName: 'Stop Triggers'
+      inputs:
+        azureSubscription: 'arm-pipeline'
+        ScriptPath: '$(Build.Repository.LocalPath)/azure-data-factory/ArmTemplate\PrePostDeploymentScript.ps1'
+        ScriptArguments: '
+          -armTemplate "$(Build.Repository.LocalPath)/azure-data-factory/ArmTemplate\ARMTemplateForFactory.json"
+          -ResourceGroupName $(resourceGroupName)
+          -DataFactoryName $(dataFactoryName)
+          -predeployment $true
+          -deleteDeployment $false
+          -ArmTemplateParameters "$(Build.Repository.LocalPath)/azure-data-factory/ArmTemplate\ARMTemplateParametersForFactory.json"
+          -ExplicitStopTriggerList "tr_AutoPauseSynDW", "tr_AutoDailyETL", "tr_OrchDB_Update"'
+        azurePowerShellVersion: LatestVersion
+        pwsh: true
+
     # - template: ./steps-artifact.yml
     - pwsh : | # use powershell 7 because this version has Az.* modules installed
         # connect to Azure using VM
         Connect-AzAccount -Identity
 
+        # convert to secure-strings
         $ls_ws_xxxx_sls_x_euw_001_ondemand__synapse_od_connectionString = "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=$(workspaceName)-ondemand.sql.azuresynapse.net;Initial Catalog=synapse_od" | ConvertTo-SecureString -AsPlainText -Force
         $ls_ws_xxxx_sls_x_euw_001_ondemand__master_connectionString = "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=$(workspaceName)-ondemand.sql.azuresynapse.net;Initial Catalog=master" | ConvertTo-SecureString -AsPlainText -Force
         $ls_ws_xxxx_sls_x_euw_001__syndw_xxxx_sls_x_euw_001_connectionString = "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=$(workspaceName).sql.azuresynapse.net;Initial Catalog=$(synapseSqlPool)" | ConvertTo-SecureString -AsPlainText -Force
@@ -83,6 +101,20 @@ stages:
           -default_properties_axbiDataBaseEnvSuffix_value "$(axbiDataBaseEnvSuffix)" `
           -default_properties_axbiMinExtractionDate_value "$(axbiMinExtractionDate)"
       name: Deploy_ADF
+
+    - task: AzurePowerShell@5
+      displayName: 'Start Triggers'
+      inputs:
+        azureSubscription: 'arm-pipeline'
+        ScriptPath: '$(Build.Repository.LocalPath)/azure-data-factory/ArmTemplate\PrePostDeploymentScript.ps1'
+        ScriptArguments: '
+          -armTemplate "$(Build.Repository.LocalPath)/azure-data-factory/ArmTemplate\ARMTemplateForFactory.json"
+          -ResourceGroupName $(resourceGroupName)
+          -DataFactoryName $(dataFactoryName)
+          -predeployment $false
+          -deleteDeployment $true'
+        azurePowerShellVersion: LatestVersion
+        pwsh: true
     
 
 # - stage: DEPLOY_ADF
