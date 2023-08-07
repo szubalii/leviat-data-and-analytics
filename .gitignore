@@ -1,5 +1,7 @@
 /.vs
 /.vscode
+/azure-data-factory/TestADF/bin
+/azure-data-factory/TestADF/obj
 /synapse-dwh/syndw_xxxx_sls_d_euw_001/syndw_xxxx_sls_d_euw_001.dbmdl
 /synapse-dwh/syndw_xxxx_sls_d_euw_001/syndw_xxxx_sls_d_euw_001.jfm
 /synapse-dwh/syndw_xxxx_sls_d_euw_001/syndw_xxxx_sls_d_euw_001.code-workspace

@@ -27,6 +27,7 @@
     <None Include="TestClasses\ScheduledEntities.sql" />
     <None Include="TestClasses\FailTest.sql" />
     <None Include="TestClasses\ScalarValuedFunction.sql" />
+    <None Include="TestClasses\StoredProcedures.sql" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\sqldb-xxxx-orchdb-d-euw-001\sqldb-xxxx-orchdb-d-euw-001.sqlproj">
