@@ -137,7 +137,8 @@ stages:
 - stage: SOLUTIONS
   # only run this template when the source branch is not a release branch (main, qas, prod)
   # and was triggered by git push
-  condition: ${{ and(in(variables['Build.SourceBranchName'], 'main', 'qas', 'prod'), eq(variables['Build.Reason'], 'IndividualCI')) }}
+  #TODO uncomment condition
+  # condition: ${{ and(in(variables['Build.SourceBranchName'], 'main', 'qas', 'prod'), eq(variables['Build.Reason'], 'IndividualCI')) }}
   variables:
   - name: commitId
     value: $(Build.SourceVersion)
