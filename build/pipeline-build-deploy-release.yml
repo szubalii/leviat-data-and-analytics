@@ -99,11 +99,11 @@ stages:
     build_synapse_dwh: true
     build_synapse_workspace: true
     build_xu_config: true
-    deploy_azure_data_factory: $[ variables.deploy_azure_data_factory ]
-    deploy_orchestration: $[ variables.deploy_orchestration ]
-    deploy_synapse_dwh: $[ variables.deploy_synapse_dwh ]
-    deploy_synapse_workspace: $[ variables.deploy_synapse_workspace ]
-    deploy_xu_config: $[ variables.deploy_xu_config ]
+    deploy_azure_data_factory: $[ eq(variables.deploy_azure_data_factory, true) ]
+    deploy_orchestration: $[ eq(variables.deploy_orchestration, true) ]
+    deploy_synapse_dwh: $[ eq(variables.deploy_synapse_dwh, true) ]
+    deploy_synapse_workspace: $[ eq(variables.deploy_synapse_workspace, true) ]
+    deploy_xu_config: $[ eq(variables.deploy_xu_config, true) ]
   
 
 # extends:
