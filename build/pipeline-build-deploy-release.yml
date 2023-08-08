@@ -80,11 +80,16 @@ stages:
           $solutionFolders = @('azure-data-factory/', 'orchestration/', 'synapse-dwh/', 'synapse-workspace/', 'xu-config/')
 
           ForEach ($solutionFolder in $solutionFolders) {
+            Write-Host "Checking"$solutionFolder
             if (($filePaths -match $solutionFolder).count -eq 0){
+              Write-Host "No changed files found for"$solutionFolder"
               $solutionVarName = 'deploy_' + $solutionFolder.TrimEnd('/')
               Write-Host "##vso[task.setvariable variable=$solutionVarName;isoutput=true]false"
+              Write-Host "variables."$solutionVarName"= $(solutionDeployment.$solutionVarName)
             }
           }
+
+
 - template: ./pipeline-build-deploy.yml
   # only run this template when the source branch is a release branch (main, qas, prod)
   # condition: ${{ in(variables['Build.SourceBranchName'], 'main', 'qas', 'prod') }}
@@ -94,11 +99,11 @@ stages:
     build_synapse_dwh: true
     build_synapse_workspace: true
     build_xu_config: true
-    deploy_azure_data_factory: ${{ variables.deploy_azure_data_factory }}
-    deploy_orchestration: ${{ variables.deploy_orchestration }}
-    deploy_synapse_dwh: ${{ variables.deploy_synapse_dwh }}
-    deploy_synapse_workspace: ${{ variables.deploy_synapse_workspace }}
-    deploy_xu_config: ${{ variables.deploy_xu_config }}
+    deploy_azure_data_factory: $[ variables.deploy_azure_data_factory ]
+    deploy_orchestration: $[ variables.deploy_orchestration ]
+    deploy_synapse_dwh: $[ variables.deploy_synapse_dwh ]
+    deploy_synapse_workspace: $[ variables.deploy_synapse_workspace ]
+    deploy_xu_config: $[ variables.deploy_xu_config ]
   
 
 # extends:
