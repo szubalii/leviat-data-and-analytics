@@ -201,6 +201,7 @@ stages:
       deployEnvPrefix: ${{ variables.deployEnvPrefix }}
 - stage: DEPLOY_ADF
   dependsOn: DEPLOYMENT
+  condition: $[ stageDependencies.DEPLOYMENT.SOLUTIONS.outputs['solutionDeployment.deploy_azure_data_factory'] ]
   jobs:
   - template: ./jobs-deploy-multi.yml
     parameters:
@@ -209,7 +210,6 @@ stages:
         deploy: True
       solution: azure-data-factory
       deployEnvPrefix: ${{ variables.deployEnvPrefix }}
-    condition: $[ stageDependencies.DEPLOYMENT.SOLUTIONS.outputs['solutionDeployment.deploy_azure_data_factory'] ]
 
 - stage: VARIABLES
   jobs:
