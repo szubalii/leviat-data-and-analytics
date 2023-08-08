@@ -15,7 +15,6 @@ parameters:
 
 jobs:
 - deployment: ${{ format('DEPLOY_{0}', parameters.solution) }}
-  dependsOn: SOLUTIONS
   timeoutInMinutes: 120
   pool:
     name: 'VM'

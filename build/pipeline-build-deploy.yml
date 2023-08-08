@@ -134,7 +134,7 @@ parameters:
 
 
 stages:
-- stage: DEPLOYMENT
+- stage: SOLUTIONS
   # only run this template when the source branch is not a release branch (main, qas, prod)
   # and was triggered by git push
   condition: ${{ and(in(variables['Build.SourceBranchName'], 'main', 'qas', 'prod'), eq(variables['Build.Reason'], 'IndividualCI')) }}
@@ -154,7 +154,7 @@ stages:
   - name: ConnectionString
     value: $(SynapseTesterConnectionString)
   jobs:
-  - job: SOLUTIONS
+  - job: Solutions
     pool:
       vmImage: 'ubuntu-20.04'
     steps:
@@ -186,21 +186,34 @@ stages:
               Write-Host "##vso[task.setvariable variable=$solutionVarName;isoutput=true]false"
             }
           }
-  - template: ./jobs-deploy-multi.yml
-    parameters:
-      solutions:
-      - name: 'orchestration'
-        deploy: $[ dependencies.SOLUTIONS.outputs['solutionDeployment.deploy_orchestration'] ]
-      - name: 'synapse-dwh'
-        deploy: $[ dependencies.SOLUTIONS.outputs['solutionDeployment.deploy_synapse_dwh'] ]
-        test: True
-      - name: 'synapse-workspace'
-        deploy: $[ dependencies.SOLUTIONS.outputs['solutionDeployment.deploy_synapse_workspace'] ]
-      - name: 'xu-config'
-        deploy: $[ dependencies.SOLUTIONS.outputs['solutionDeployment.deploy_xu_config'] ]
-      deployEnvPrefix: ${{ variables.deployEnvPrefix }}
+- stage: DEPLOYMENT
+  dependsOn: SOLUTIONS
+  jobs:
+  - job: test
+    pool:
+      vmImage: 'ubuntu-20.04'
+    steps:
+    - script: |
+        Write-Host "DeploySolutions: $[ stageDependencies.SOLUTIONS.Solutions.outputs['solutionDeployment.deploy_azure_data_factory'] ]"  
+
+
+  # - template: ./jobs-deploy-multi.yml
+  #   parameters:
+  #     solutions:
+  #     - name: 'orchestration'
+  #       deploy: $[ dependencies.SOLUTIONS.outputs['solutionDeployment.deploy_orchestration'] ]
+  #     - name: 'synapse-dwh'
+  #       deploy: $[ dependencies.SOLUTIONS.outputs['solutionDeployment.deploy_synapse_dwh'] ]
+  #       test: True
+  #     - name: 'synapse-workspace'
+  #       deploy: $[ dependencies.SOLUTIONS.outputs['solutionDeployment.deploy_synapse_workspace'] ]
+  #     - name: 'xu-config'
+  #       deploy: $[ dependencies.SOLUTIONS.outputs['solutionDeployment.deploy_xu_config'] ]
+  #     deployEnvPrefix: ${{ variables.deployEnvPrefix }}
 - stage: DEPLOY_ADF
-  # dependsOn: DEPLOYMENT
+  dependsOn:
+  - SOLUTIONS
+  - DEPLOYMENT
   # condition: True #$[ stageDependencies.DEPLOYMENT.SOLUTIONS.outputs['solutionDeployment.deploy_azure_data_factory'] ]
   jobs:
   - template: ./jobs-deploy-multi.yml
