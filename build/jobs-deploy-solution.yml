@@ -14,7 +14,7 @@ parameters:
 #   value: $(envIndex)_$(deployEnv)_${{ upper(replace(parameters.folder, '-', '_')) }}
 
 jobs:
-- job: Vars
+- job: ${{ format('VAR_{0}', parameters.solution) }}
   pool:
     name: 'VM'
     demands:
