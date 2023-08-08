@@ -87,13 +87,14 @@ stages:
 
             $filePaths -match $solutionFolder
             
-            if ($filePaths -match $solutionFolder){
+            if (($filePaths -match $solutionFolder).count() -eq 0){
               Write-Host 'No changed files found for'$solution;
               $solutionVarName = 'deploy_'+$solution;
               Write-Host "##vso[task.setvariable variable=$solutionVarName;isoutput=true]false";
-              Write-Host 'variables.'$solutionVarName= $(solutionDeployment.$solutionVarName);
             }
           }
+    - pswh: |
+              Write-Host 'variables.'$solutionVarName= $(solutionDeployment.$solutionVarName);
     - task: PowerShell@2
       displayName: 'Define which solutions deploy2'
       name: solutionDeployment2
