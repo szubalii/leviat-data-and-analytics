@@ -90,20 +90,39 @@ stages:
           }
 
 
-- template: ./pipeline-build-deploy.yml
-  # only run this template when the source branch is a release branch (main, qas, prod)
-  # condition: ${{ in(variables['Build.SourceBranchName'], 'main', 'qas', 'prod') }}
-  parameters:
-    build_azure_data_factory: true
-    build_orchestration: true
-    build_synapse_dwh: true
-    build_synapse_workspace: true
-    build_xu_config: true
-    deploy_azure_data_factory: $[ eq(variables['deploy_azure_data_factory'], 'true') ]
-    deploy_orchestration: $[ eq(variables['deploy_orchestration'], 'true') ]
-    deploy_synapse_dwh: $[ eq(variables['deploy_synapse_dwh'], 'true') ]
-    deploy_synapse_workspace: $[ eq(variables['deploy_synapse_workspace'], 'true') ]
-    deploy_xu_config: $[ eq(variables['deploy_xu_config'], 'true') ]
+- stage: VARIABLES
+  dependsOn: SET_SOLUTION_DEPLOYMENT
+  jobs:
+  - job: Vars
+    pool:
+      name: 'VM'
+      demands:
+      - node.js
+      - VisualStudio
+      - Agent.ComputerName -equals $(VMName)
+    steps:
+    - script: |
+        echo variables.deploy_synapse_dwh: ${{ variables.deploy_synapse_dwh }}
+        echo variables.deploy_azure_data_factory: ${{ variables.deploy_azure_data_factory }}
+        echo variables.deploy_synapse_dwh: $[ stageDependencies.SET_SOLUTION_DEPLOYMENT.Set_Solution_Deployment.outputs['solutionDeployment.deploy_synapse_dwh'] ]
+        echo variables.deploy_azure_data_factory: $[ stageDependencies.SET_SOLUTION_DEPLOYMENT.Set_Solution_Deployment.outputs['solutionDeployment.deploy_azure_data_factory'] ]
+      displayName: Print Variables
+
+
+# - template: ./pipeline-build-deploy.yml
+#   # only run this template when the source branch is a release branch (main, qas, prod)
+#   # condition: ${{ in(variables['Build.SourceBranchName'], 'main', 'qas', 'prod') }}
+#   parameters:
+#     build_azure_data_factory: true
+#     build_orchestration: true
+#     build_synapse_dwh: true
+#     build_synapse_workspace: true
+#     build_xu_config: true
+#     deploy_azure_data_factory: $[ eq('true', 'true') ]
+#     deploy_orchestration: $[ eq(variables['deploy_orchestration'], 'true') ]
+#     deploy_synapse_dwh: $[ eq(variables['deploy_synapse_dwh'], 'true') ]
+#     deploy_synapse_workspace: $[ eq(variables['deploy_synapse_workspace'], 'true') ]
+#     deploy_xu_config: $[ eq(variables['deploy_xu_config'], 'true') ]
   
 
 # extends:
