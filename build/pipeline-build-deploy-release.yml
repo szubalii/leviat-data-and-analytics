@@ -77,8 +77,7 @@ stages:
               Write-Host "##vso[task.setvariable variable=$solutionVarName;isoutput=true]false"
             }
           }
-- stage:
-  template: ./pipeline-build-deploy.yml
+- template: ./pipeline-build-deploy.yml
   # only run this template when the source branch is a release branch (main, qas, prod)
   # condition: ${{ in(variables['Build.SourceBranchName'], 'main', 'qas', 'prod') }}
   parameters:
