@@ -1296,6 +1296,11 @@
     <Build Include="base_ff\Tables\Region.sql" />
     <Build Include="base_ff\Tables\CompanyCode.sql" />
     <Build Include="base_s4h_cax\Tables\I_BusinessPartnerAddress.sql" />      
+    <Build Include="base_s4h_cax\Tables\I_SDDocumentProcessFlow.sql" />
+    <Build Include="edw\Functions\ScalarValued\svf_getSalesDoc.sql" />
+    <Build Include="edw\Functions\ScalarValued\svf_getSalesDocItem.sql" />
+    <Build Include="edw\Views\vw_GLAccountLineItemRawData.sql" />
+    <Build Include="edw\Views\vw_ACDOCA_ReferenceSalesDocument.sql" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PostDeploy Include="Scripts\Post-Deploy\Script.PostDeployment.sql" />

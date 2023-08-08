@@ -4165,6 +4165,17 @@
         "base_table_name": "I_BusinessPartnerAddress",
         "schedule_recurrence": "D",
         "pk_field_names": "MANDT, BUSINESSPARTNER, ADDRESSNUMBER"
+      },
+      {
+        "entity_id": 614,
+        "entity_name": "I_SDDocumentProcessFlow",
+        "data_category": "DIMENSION",
+        "tool_name": "Theobald",
+        "extraction_type": "Table",
+        "update_mode": "Full",
+        "base_table_name": "I_SDDocumentProcessFlow",
+        "schedule_recurrence": "D",
+        "pk_field_names": "DOCRELATIONSHIPUUID"
       }
     ]
   },
@@ -5262,7 +5273,7 @@
         "sproc_name": "sp_materialize_view",
         "source_view_name": "vw_ACDOCA",
         "dest_table_name": "fact_ACDOCA",
-        "execution_order": 1,
+        "execution_order": 4,
         "schedule_recurrence": "D"
       },
       {

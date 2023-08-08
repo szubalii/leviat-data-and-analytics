@@ -253,6 +253,10 @@ SELECT
          WHEN GLALIRD.ProfitCenterTypeID in ('2', '3')  and GLALIRD.CustomerID like 'I%' then 'Intercompany'
          ELSE ''
     END AS CustomerCategory,
+    GLALIRD.SalesReferenceDocumentCalculated,
+    GLALIRD.SalesReferenceDocumentItemCalculated,
+    GLALIRD.SalesDocumentItemCategoryID,
+    GLALIRD.HigherLevelItem,
     GLALIRD.[t_applicationId],
     GLALIRD.[t_extractionDtm]
 FROM [edw].[fact_ACDOCA] GLALIRD
