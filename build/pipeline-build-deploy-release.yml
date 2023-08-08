@@ -13,6 +13,44 @@ trigger:
     - prod
 
 variables:
+# In case of CI triggered pipelines (IndividualCI, triggered by git push),
+# use the system predefined variable Build.SourceBranchName to get the correct variable template
+- ${{ if eq(variables['Build.SourceBranchName'], 'main') }}:
+  - template: ./variables-test.yml
+  - name: deployEnvPrefix # override value to map main branch to TEST deployment environment
+    value: '20_TEST'
+- ${{ elseif eq(variables['Build.SourceBranchName'], 'qas') }}:
+  - template: ./variables-qas.yml
+  - name: deployEnvPrefix # override value to map main branch to TEST deployment environment
+    value: '10_QAS'
+- ${{ elseif eq(variables['Build.SourceBranchName'], 'prod') }}:
+  - template: ./variables-prod.yml
+  - name: deployEnvPrefix # override value to map main branch to TEST deployment environment
+    value: '00_PROD'
+
+extends:
+  template: ./pipeline-build-deploy.yml
+  # only run this template when the source branch is a release branch (main, qas, prod)
+  # condition: ${{ in(variables['Build.SourceBranchName'], 'main', 'qas', 'prod') }}
+  parameters:
+    build_azure_data_factory: true
+    build_orchestration: true
+    build_synapse_dwh: true
+    build_synapse_workspace: true
+    build_xu_config: true
+    deploy_azure_data_factory: true
+    deploy_orchestration: true
+    deploy_synapse_dwh: true
+    deploy_synapse_workspace: true
+    deploy_xu_config: true
+    # deploy_azure_data_factory: ${{ variables.deploy_azure_data_factory }}
+    # deploy_orchestration: ${{ variables.deploy_orchestration }}
+    # deploy_synapse_dwh: ${{ variables.deploy_synapse_dwh }}
+    # deploy_synapse_workspace: ${{ variables.deploy_synapse_workspace }}
+    # deploy_xu_config: ${{ variables.deploy_xu_config }}
+
+
+variables:
 # - name: build_azure_data_factory
 #   value: true
 # - name: build_orchestration
@@ -24,15 +62,15 @@ variables:
 # - name: build_xu_config
 #   value: true
 - name: deploy_azure_data_factory
-  value: false
+  value: true
 - name: deploy_orchestration
-  value: false
+  value: true
 - name: deploy_synapse_dwh
-  value: false
+  value: true
 - name: deploy_synapse_workspace
-  value: false
+  value: true
 - name: deploy_xu_config
-  value: false
+  value: true
 - name: commitId
   value: $(Build.SourceVersion)
 - name: synDWHSolution
@@ -60,9 +98,18 @@ variables:
   - template: ./variables-prod.yml
   - name: deployEnvPrefix # override value to map main branch to TEST deployment environment
     value: '00_PROD'
+- ${{ elseif or(contains(variables['Build.SourceBranch'], '/feature/'), contains(variables['Build.SourceBranch'], '/users/')) }}:
+  - name: user
+    value: ${{ split(variables['Build.SourceBranch'], '/')[3] }} #refs/heads/feature/mpors/...
+  - template: ./variables-personal.yml
+  - name: deployEnvPrefix # override value to map main branch to DEV deployment environment
+    value: ${{ format('30_DEV_{0}', upper(variables.user)) }}
 
 stages:
 - stage: SOLUTIONS
+  # only run this template when the source branch is not a release branch (main, qas, prod)
+  # and was triggered by git push
+  # condition: ${{ and(in(variables['Build.SourceBranchName'], 'main', 'qas', 'prod'), (eq(variables['Build.Reason'], 'IndividualCI')) }}
   jobs:
   - job: SOLUTIONS
     pool:
@@ -90,11 +137,12 @@ stages:
           $solutionFolders = @('azure-data-factory/', 'orchestration/', 'synapse-dwh/', 'synapse-workspace/', 'xu-config/')
 
           ForEach ($solutionFolder in $solutionFolders) {
-            if (($filePaths -match $solutionFolder).count -gt 0){
+            if (($filePaths -match $solutionFolder).count -eq 0){
               $solutionVarName = 'deploy_' + $solutionFolder.TrimEnd('/')
-              Write-Host "##vso[task.setvariable variable=$solutionVarName]true"
+              Write-Host "##vso[task.setvariable variable=$solutionVarName]false"
             }
           }
+  
 
 - template: ./stages-build-deploy-2.yml
   parameters:
@@ -110,12 +158,3 @@ stages:
     deploy_xu_config: ${{ variables.deploy_xu_config }}
 
 
-# extends:
-#   template: ./pipeline-build.yml
-#   parameters:
-#     synapse_dwh: ${{ variables.synapse_dwh }}
-#     azure_data_factory: ${{ variables.azure_data_factory }}
-#     orchestration: ${{ variables.orchestration }}
-#     xu_config: ${{ variables.xu_config }}
-#     synapse_workspace: ${{ variables.synapse_workspace }}
-#     runDeployment: true
