@@ -187,7 +187,6 @@ stages:
             }
           }
   - template: ./jobs-deploy-multi.yml
-    dependsOn: SOLUTIONS
     parameters:
       solutions:
       - name: 'orchestration'
@@ -202,14 +201,15 @@ stages:
       deployEnvPrefix: ${{ variables.deployEnvPrefix }}
 - stage: DEPLOY_ADF
   dependsOn: DEPLOYMENT
-  template: ./jobs-deploy-solution-multi.yml
+  jobs:
+  - template: ./jobs-deploy-multi.yml
     parameters:
       solutions:
       - name: 'azure-data-factory'
-        deploy: true
+        deploy: True
       solution: azure-data-factory
       deployEnvPrefix: ${{ variables.deployEnvPrefix }}
-  condition: $[ stageDependencies.DEPLOYMENT.SOLUTIONS.outputs['solutionDeployment.deploy_azure_data_factory'] ]
+    condition: $[ stageDependencies.DEPLOYMENT.SOLUTIONS.outputs['solutionDeployment.deploy_azure_data_factory'] ]
 
 - stage: VARIABLES
   jobs:
