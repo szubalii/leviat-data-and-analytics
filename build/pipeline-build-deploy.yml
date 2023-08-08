@@ -42,7 +42,7 @@ parameters:
   default: False
 
 
-variables:
+# variables:
 # - name: build_azure_data_factory
 #   value: ${{ parameters.build_azure_data_factory }}
 # - name: build_orchestration
@@ -53,28 +53,28 @@ variables:
 #   value: ${{ parameters.build_synapse_workspace }}
 # - name: build_xu_config
 #   value: ${{ parameters.build_xu_config }}
-- name: deploy_azure_data_factory
-  value: ${{ parameters.deploy_azure_data_factory }}
-- name: deploy_orchestration
-  value: ${{ parameters.deploy_orchestration }}
-- name: deploy_synapse_dwh
-  value: ${{ parameters.deploy_synapse_dwh }}
-- name: deploy_synapse_workspace
-  value: ${{ parameters.deploy_synapse_workspace }}
-- name: deploy_xu_config
-  value: ${{ parameters.deploy_xu_config }}
-- name: commitId
-  value: $(Build.SourceVersion)
-- name: synDWHSolution
-  value: '**/synapse-dwh/*.sln'
-- name: orchDBSolution
-  value: '**/orchestration/*.sln'
-- name: buildPlatform
-  value: 'Any CPU'
-- name: buildConfiguration
-  value: 'Release'
-- name: ConnectionString
-  value: $(SynapseTesterConnectionString)
+# - name: deploy_azure_data_factory
+#   value: ${{ parameters.deploy_azure_data_factory }}
+# - name: deploy_orchestration
+#   value: ${{ parameters.deploy_orchestration }}
+# - name: deploy_synapse_dwh
+#   value: ${{ parameters.deploy_synapse_dwh }}
+# - name: deploy_synapse_workspace
+#   value: ${{ parameters.deploy_synapse_workspace }}
+# - name: deploy_xu_config
+#   value: ${{ parameters.deploy_xu_config }}
+# - name: commitId
+#   value: $(Build.SourceVersion)
+# - name: synDWHSolution
+#   value: '**/synapse-dwh/*.sln'
+# - name: orchDBSolution
+#   value: '**/orchestration/*.sln'
+# - name: buildPlatform
+#   value: 'Any CPU'
+# - name: buildConfiguration
+#   value: 'Release'
+# - name: ConnectionString
+#   value: $(SynapseTesterConnectionString)
 # variables:
 # - name: synDWHSolution
 #   value: '**/synapse-dwh/*.sln'
@@ -134,10 +134,25 @@ variables:
 
 
 stages:
-- stage: SOLUTIONS
+- stage: DEPLOYMENT
   # only run this template when the source branch is not a release branch (main, qas, prod)
   # and was triggered by git push
   condition: ${{ and(in(variables['Build.SourceBranchName'], 'main', 'qas', 'prod'), eq(variables['Build.Reason'], 'IndividualCI')) }}
+  variables:
+  - name: commitId
+    value: $(Build.SourceVersion)
+  - name: deploy_azure_data_factory
+    value: ${{ parameters.deploy_azure_data_factory }}
+  - name: deploy_orchestration
+    value: ${{ parameters.deploy_orchestration }}
+  - name: deploy_synapse_dwh
+    value: ${{ parameters.deploy_synapse_dwh }}
+  - name: deploy_synapse_workspace
+    value: ${{ parameters.deploy_synapse_workspace }}
+  - name: deploy_xu_config
+    value: ${{ parameters.deploy_xu_config }}
+  - name: ConnectionString
+    value: $(SynapseTesterConnectionString)
   jobs:
   - job: SOLUTIONS
     pool:
@@ -148,6 +163,7 @@ stages:
     
     - task: PowerShell@2
       displayName: 'Define which solutions deploy'
+      name: solutionDeployment
       inputs:
         targetType: 'inline'
         pwsh: true
@@ -167,9 +183,33 @@ stages:
           ForEach ($solutionFolder in $solutionFolders) {
             if (($filePaths -match $solutionFolder).count -eq 0){
               $solutionVarName = 'deploy_' + $solutionFolder.TrimEnd('/')
-              Write-Host "##vso[task.setvariable variable=$solutionVarName]false"
+              Write-Host "##vso[task.setvariable variable=$solutionVarName;isoutput=true]false"
             }
           }
+  - template: ./jobs-deploy-multi.yml
+    dependsOn: SOLUTIONS
+    parameters:
+      solutions:
+      - name: 'orchestration'
+        deploy: $[ dependencies.SOLUTIONS.outputs['solutionDeployment.deploy_orchestration'] ]
+      - name: 'synapse-dwh'
+        deploy: $[ dependencies.SOLUTIONS.outputs['solutionDeployment.deploy_synapse_dwh'] ]
+        test: True
+      - name: 'synapse-workspace'
+        deploy: $[ dependencies.SOLUTIONS.outputs['solutionDeployment.deploy_synapse_workspace'] ]
+      - name: 'xu-config'
+        deploy: $[ dependencies.SOLUTIONS.outputs['solutionDeployment.deploy_xu_config'] ]
+      deployEnvPrefix: ${{ variables.deployEnvPrefix }}
+- stage: DEPLOY_ADF
+  dependsOn: DEPLOYMENT
+  template: ./jobs-deploy-solution-multi.yml
+    parameters:
+      solutions:
+      - name: 'azure-data-factory'
+        deploy: true
+      solution: azure-data-factory
+      deployEnvPrefix: ${{ variables.deployEnvPrefix }}
+  condition: $[ stageDependencies.DEPLOYMENT.SOLUTIONS.outputs['solutionDeployment.deploy_azure_data_factory'] ]
 
 - stage: VARIABLES
   jobs:
@@ -217,6 +257,15 @@ stages:
   jobs:
   - template: ./jobs-validate.yml
 - stage: BUILD
+  variables:
+  - name: buildPlatform
+    value: 'Any CPU'
+  - name: buildConfiguration
+    value: 'Release'
+  - name: synDWHSolution
+    value: '**/synapse-dwh/*.sln'
+  - name: orchDBSolution
+    value: '**/orchestration/*.sln'
   jobs:
   - template: ./jobs-build-solution.yml
     parameters:
