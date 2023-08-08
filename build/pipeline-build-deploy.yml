@@ -137,7 +137,7 @@ stages:
 - stage: SOLUTIONS
   # only run this template when the source branch is not a release branch (main, qas, prod)
   # and was triggered by git push
-  condition: ${{ and(in(variables['Build.SourceBranchName'], 'main', 'qas', 'prod'), (eq(variables['Build.Reason'], 'IndividualCI')) }}
+  condition: ${{ and(in(variables['Build.SourceBranchName'], 'main', 'qas', 'prod'), eq(variables['Build.Reason'], 'IndividualCI')) }}
   jobs:
   - job: SOLUTIONS
     pool:
@@ -170,7 +170,7 @@ stages:
               Write-Host "##vso[task.setvariable variable=$solutionVarName]false"
             }
           }
-          
+
 - stage: VARIABLES
   jobs:
   - job: Vars
