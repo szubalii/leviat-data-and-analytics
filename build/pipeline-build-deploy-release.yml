@@ -27,6 +27,12 @@ variables:
   - template: ./variables-prod.yml
   - name: deployEnvPrefix # override value to map main branch to TEST deployment environment
     value: '00_PROD'
+- ${{ elseif or(contains(variables['Build.SourceBranch'], '/feature/'), contains(variables['Build.SourceBranch'], '/users/')) }}:
+  - template: ./variables-personal.yml
+  - name: user
+    value: ${{ split(variables['Build.SourceBranch'], '/')[3] }} #refs/heads/feature/mpors/...
+  - name: deployEnvPrefix # override value to map main branch to DEV deployment environment
+    value: ${{ format('30_DEV_{0}', upper(variables.user)) }}
 - name: deploy_azure_data_factory
   value: true
 - name: deploy_orchestration
