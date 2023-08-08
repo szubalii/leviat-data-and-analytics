@@ -77,15 +77,18 @@ stages:
           # $filePaths2 = $(git diff-tree --no-commit-id --name-only -r $(Build.SourceVersion))
           Write-Host "Changed files using commitId: $($filePaths)"
 
-          $solutionFolders = @('azure-data-factory/', 'orchestration/', 'synapse-dwh/', 'synapse-workspace/', 'xu-config/')
+          $solutions = @('azure-data-factory', 'orchestration', 'synapse-dwh', 'synapse-workspace', 'xu-config')
 
-          ForEach ($solutionFolder in $solutionFolders) {
-            Write-Host "Checking"$solutionFolder
+          ForEach ($solution in $solutions) {
+            $solutionFolder = $solution+'/';
+            Write-Host $solutionFolder
+            Write-Host 'Checking solution:'$solution;
+            
             if (($filePaths -match $solutionFolder).count -eq 0){
-              Write-Host "No changed files found for"$solutionFolder"
-              $solutionVarName = 'deploy_' + $solutionFolder.TrimEnd('/')
-              Write-Host "##vso[task.setvariable variable=$solutionVarName;isoutput=true]false"
-              Write-Host "variables."$solutionVarName"= $(solutionDeployment.$solutionVarName)
+              Write-Host 'No changed files found for'$solution;
+              $solutionVarName = 'deploy_'+$solution;
+              Write-Host "##vso[task.setvariable variable=$solutionVarName;isoutput=true]false";
+              Write-Host 'variables.'$solutionVarName= $(solutionDeployment.$solutionVarName);
             }
           }
 
@@ -94,6 +97,9 @@ stages:
   dependsOn: SET_SOLUTION_DEPLOYMENT
   jobs:
   - job: Vars
+    variables:
+      deploy_synapse_dwh_2: $[ stageDependencies.SET_SOLUTION_DEPLOYMENT.Set_Solution_Deployment.outputs['solutionDeployment.deploy_synapse_dwh'] ]
+      deploy_azure_data_factory_2: $[ stageDependencies.SET_SOLUTION_DEPLOYMENT.Set_Solution_Deployment.outputs['solutionDeployment.deploy_azure_data_factory'] ]
     pool:
       name: 'VM'
       demands:
@@ -104,8 +110,8 @@ stages:
     - script: |
         echo variables.deploy_synapse_dwh: ${{ variables.deploy_synapse_dwh }}
         echo variables.deploy_azure_data_factory: ${{ variables.deploy_azure_data_factory }}
-        echo variables.deploy_synapse_dwh: $[ stageDependencies.SET_SOLUTION_DEPLOYMENT.Set_Solution_Deployment.outputs['solutionDeployment.deploy_synapse_dwh'] ]
-        echo variables.deploy_azure_data_factory: $[ stageDependencies.SET_SOLUTION_DEPLOYMENT.Set_Solution_Deployment.outputs['solutionDeployment.deploy_azure_data_factory'] ]
+        echo variables.deploy_synapse_dwh_2: ${{ variables.deploy_synapse_dwh_2 }}
+        echo variables.deploy_azure_data_factory_2: ${{ variables.deploy_azure_data_factory_2 }}
       displayName: Print Variables
 
 
