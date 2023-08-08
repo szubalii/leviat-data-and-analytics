@@ -86,7 +86,7 @@ stages:
 
             $filePaths -match $solutionFolder
             
-            if (($filePaths -match $solutionFolder).count -eq 0){
+            if ($filePaths -match $solutionFolder){
               Write-Host 'No changed files found for'$solution;
               $solutionVarName = 'deploy_'+$solution;
               Write-Host "##vso[task.setvariable variable=$solutionVarName;isoutput=true]false";
