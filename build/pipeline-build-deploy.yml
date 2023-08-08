@@ -43,16 +43,16 @@ parameters:
 
 
 variables:
-- name: build_azure_data_factory
-  value: ${{ parameters.build_azure_data_factory }}
-- name: build_orchestration
-  value: ${{ parameters.build_orchestration }}
-- name: build_synapse_dwh
-  value: ${{ parameters.build_synapse_dwh }}
-- name: build_synapse_workspace
-  value: ${{ parameters.build_synapse_workspace }}
-- name: build_xu_config
-  value: ${{ parameters.build_xu_config }}
+# - name: build_azure_data_factory
+#   value: ${{ parameters.build_azure_data_factory }}
+# - name: build_orchestration
+#   value: ${{ parameters.build_orchestration }}
+# - name: build_synapse_dwh
+#   value: ${{ parameters.build_synapse_dwh }}
+# - name: build_synapse_workspace
+#   value: ${{ parameters.build_synapse_workspace }}
+# - name: build_xu_config
+#   value: ${{ parameters.build_xu_config }}
 - name: deploy_azure_data_factory
   value: ${{ parameters.deploy_azure_data_factory }}
 - name: deploy_orchestration
@@ -233,21 +233,21 @@ stages:
         build: ${{ parameters.build_synapse_workspace }}
 
 
-- ${{ if or(parameters.deploy_synapse_dwh, parameters.deploy_orchestration, parameters.deploy_xu_config, parameters.deploy_synapse_workspace) }}:
+- ${{ if or(variables.deploy_synapse_dwh, variables.deploy_orchestration, variables.deploy_xu_config, variables.deploy_synapse_workspace) }}:
   - stage: DEPLOY_1
     jobs:
     - template: ./jobs-deploy-multi.yml
       parameters:
         solutions:
         - name: 'synapse-dwh'
-          deploy: ${{ parameters.deploy_synapse_dwh }}
+          deploy: ${{ variables.deploy_synapse_dwh }}
           test: True
         - name: 'orchestration'
-          deploy: ${{ parameters.deploy_orchestration }}
+          deploy: ${{ variables.deploy_orchestration }}
         - name: 'xu-config'
-          deploy: ${{ parameters.deploy_xu_config }}
+          deploy: ${{ variables.deploy_xu_config }}
         - name: 'synapse-workspace'
-          deploy: ${{ parameters.deploy_synapse_workspace }}
+          deploy: ${{ variables.deploy_synapse_workspace }}
         deployEnvPrefix: ${{ variables.deployEnvPrefix }}
     
     # - ${{ if variables.buildAndDeploy_xu_config }}:
@@ -273,7 +273,7 @@ stages:
     #       deployEnvPrefix: ${{ variables.deployEnvPrefix }}
 
   
-  - ${{ if parameters.deploy_azure_data_factory }}:
+  - ${{ if variables.deploy_azure_data_factory }}:
     - stage: DEPLOY_2
       jobs:
       - template: ./jobs-deploy-solution-helper.yml
