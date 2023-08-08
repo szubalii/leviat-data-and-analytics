@@ -12,21 +12,11 @@
             "fields": 
             [
                 {
-                    "name": "DOCRELATIONSHIPUUID",
-                    "description": "SD Unique Document Relationship Identification",
-                    "abapType": "ByteSequence",
-                    "length": 16,
-                    "isPrimaryKey": true,
-                    "isSelected": true,
-                    "checkTable": "DOCRELATIONSHIPUUID",
-                    "conversionExit": ""
-
-                },
-                {
                     "name": "PRECEDINGDOCUMENT",
                     "description": "Preceding sales and distribution document",
                     "abapType": "CharacterString",
                     "length": 10,
+                    "isPrimaryKey": true,
                     "isSelected": true,
                     "checkTable": "PRECEDINGDOCUMENT",
                     "conversionExit": "ALPHA"
@@ -36,6 +26,7 @@
                     "description": "Preceding Item of an SD Document",
                     "abapType": "NumericCharacterString",
                     "length": 6,
+                    "isPrimaryKey": true,
                     "isSelected": true,
                     "checkTable": "PRECEDINGDOCUMENTITEM",
                     "conversionExit": ""
@@ -54,6 +45,7 @@
                     "description": "Subsequent Sales and Distribution Document",
                     "abapType": "CharacterString",
                     "length": 10,
+                    "isPrimaryKey": true,
                     "isSelected": true,
                     "checkTable": "SUBSEQUENTDOCUMENT",
                     "conversionExit": "ALPHA"
@@ -63,6 +55,7 @@
                     "description": "Subsequent Item of an SD Document",
                     "abapType": "NumericCharacterString",
                     "length": 6,
+                    "isPrimaryKey": true,
                     "isSelected": true,
                     "checkTable": "SUBSEQUENTDOCUMENTITEM",
                     "conversionExit": ""

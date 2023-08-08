@@ -1,6 +1,5 @@
 CREATE TABLE [base_s4h_cax].[I_SDDocumentProcessFlow] (
-    [DOCRELATIONSHIPUUID] BINARY(16) NOT NULL -- SD Unique Document Relationship Identification
-  , [PrecedingDocument] NVARCHAR(10) -- Preceding sales and distribution document
+    [PrecedingDocument] NVARCHAR(10) -- Preceding sales and distribution document
   , [PrecedingDocumentItem] CHAR(6)  -- Preceding Item of an SD Document
   , [PrecedingDocumentCategory] NVARCHAR(4)  -- Document Category of Preceding SD Document
   , [SubsequentDocument] NVARCHAR(10)  -- Subsequent Sales and Distribution Document
@@ -13,7 +12,10 @@ CREATE TABLE [base_s4h_cax].[I_SDDocumentProcessFlow] (
   , [t_extractionDtm] DATETIME  -- Extraction Date Time
   , [t_filePath] NVARCHAR (1024)  -- Filepath
   , CONSTRAINT [PK_I_SDDocumentProcessFlow] PRIMARY KEY NONCLUSTERED(
-      [DOCRELATIONSHIPUUID]
+      [PrecedingDocument],
+      [PrecedingDocumentItem],
+      [SubsequentDocument],
+      [SubsequentDocumentItem]
   ) NOT ENFORCED
 ) WITH (
   HEAP
