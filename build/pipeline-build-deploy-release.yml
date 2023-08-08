@@ -43,6 +43,8 @@ variables:
   value: true
 - name: deploy_xu_config
   value: true
+- name: commitId
+  value: $(Build.SourceVersion)
 
 stages:
 - stage: SET_SOLUTION_DEPLOYMENT
