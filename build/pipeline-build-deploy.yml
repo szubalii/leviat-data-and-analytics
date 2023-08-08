@@ -208,7 +208,6 @@ stages:
       solutions:
       - name: 'azure-data-factory'
         deploy: True
-      solution: azure-data-factory
       deployEnvPrefix: ${{ variables.deployEnvPrefix }}
 
 - stage: VARIABLES
