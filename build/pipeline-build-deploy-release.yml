@@ -82,7 +82,9 @@ stages:
           ForEach ($solution in $solutions) {
             $solutionFolder = $solution+'/';
             Write-Host $solutionFolder
-            Write-Host 'Checking solution:'$solution;
+            Write-Host 'Check if there are any changed files for folder:'$solution;
+
+            $filePaths -match $solutionFolder
             
             if (($filePaths -match $solutionFolder).count -eq 0){
               Write-Host 'No changed files found for'$solution;
