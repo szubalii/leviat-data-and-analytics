@@ -35,6 +35,16 @@ variables:
   value: false
 - name: commitId
   value: $(Build.SourceVersion)
+- name: synDWHSolution
+  value: '**/synapse-dwh/*.sln'
+- name: orchDBSolution
+  value: '**/orchestration/*.sln'
+- name: buildPlatform
+  value: 'Any CPU'
+- name: buildConfiguration
+  value: 'Release'
+- name: ConnectionString
+  value: $(SynapseTesterConnectionString)
 
 # In case of CI triggered pipelines (IndividualCI, triggered by git push),
 # use the system predefined variable Build.SourceBranchName to get the correct variable template

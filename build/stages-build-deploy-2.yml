@@ -41,21 +41,17 @@ parameters:
   type: boolean
   default: False
 
-variables:
-# Don't manual run deployments for main, qas, and prod branches
-- name: isManualRunForSecuredBranches
-  value: ${{ and(eq(variables['Build.Reason'], 'Manual'), in(variables['Build.SourceBranchName'], 'main', 'qas', 'prod')) }}
-
-- name: synDWHSolution
-  value: '**/synapse-dwh/*.sln'
-- name: orchDBSolution
-  value: '**/orchestration/*.sln'
-- name: buildPlatform
-  value: 'Any CPU'
-- name: buildConfiguration
-  value: 'Release'
-- name: ConnectionString
-  value: $(SynapseTesterConnectionString)
+# variables:
+# - name: synDWHSolution
+#   value: '**/synapse-dwh/*.sln'
+# - name: orchDBSolution
+#   value: '**/orchestration/*.sln'
+# - name: buildPlatform
+#   value: 'Any CPU'
+# - name: buildConfiguration
+#   value: 'Release'
+# - name: ConnectionString
+#   value: $(SynapseTesterConnectionString)
 
 # Set these default values in case of manually triggered pipelines
 # These values will be overriden for production environment
@@ -95,12 +91,12 @@ variables:
 
 
 # store the latest source commit ID, used for running specific tests
-- ${{ if eq(variables['Build.Reason'], 'PullRequest') }}:
-  - name: commitId
-    value: $(System.PullRequest.SourceCommitId)
-- ${{ else }}:
-  - name: commitId
-    value: $(Build.SourceVersion)
+# - ${{ if eq(variables['Build.Reason'], 'PullRequest') }}:
+#   - name: commitId
+#     value: $(System.PullRequest.SourceCommitId)
+# - ${{ else }}:
+#   - name: commitId
+#     value: $(Build.SourceVersion)
 
 
 stages:
@@ -124,7 +120,6 @@ stages:
     # output variables
     - script: |
         echo system.pullRequest.targetBranch: $(system.pullRequest.targetBranch)
-        echo isManualRunForSecuredBranches: $(isManualRunForSecuredBranches)
         echo user: $(user)
         echo dataFactoryName: $(dataFactoryName)
         echo sqlDatabaseName: $(sqlDatabaseName)
@@ -167,7 +162,7 @@ stages:
         build: ${{ parameters.build_synapse_workspace }}
 
 
-- ${{ if and(or(parameters.deploy_synapse_dwh, parameters.deploy_orchestration, parameters.deploy_xu_config, parameters.deploy_synapse_workspace), eq(variables['isManualRunForSecuredBranches'], 'False')) }}:
+- ${{ if or(parameters.deploy_synapse_dwh, parameters.deploy_orchestration, parameters.deploy_xu_config, parameters.deploy_synapse_workspace) }}:
   - stage: DEPLOY_1
     jobs:
     - template: ./jobs-deploy-multi.yml
@@ -207,7 +202,7 @@ stages:
     #       deployEnvPrefix: ${{ variables.deployEnvPrefix }}
 
   
-  - ${{ if and(parameters.deploy_azure_data_factory, eq(variables['isManualRunForSecuredBranches'], 'False')) }}:
+  - ${{ if parameters.deploy_azure_data_factory }}:
     - stage: DEPLOY_2
       jobs:
       - template: ./jobs-deploy-solution-helper.yml
