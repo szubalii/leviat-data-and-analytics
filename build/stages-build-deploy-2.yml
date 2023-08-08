@@ -1,30 +1,45 @@
-trigger: none
-
 parameters:
-- name: runDeployment
-  displayName: Run Deployments
-  type: boolean
-  default: False
-- name: synapse_dwh
-  displayName: Synapse DWH
-  type: boolean
-  default: True
-- name: azure_data_factory
+- name: build_azure_data_factory
   displayName: Azure Data Factory
   type: boolean
   default: True
-- name: orchestration
+- name: build_orchestration
   displayName: Orchestration DB
   type: boolean
   default: True
-- name: xu_config
-  displayName: Xtract Universal
+- name: build_synapse_dwh
+  displayName: Synapse DWH
   type: boolean
   default: True
-- name: synapse_workspace
+- name: build_synapse_workspace
   displayName: Synapse Workspace
   type: boolean
   default: True
+- name: build_xu_config
+  displayName: Xtract Universal
+  type: boolean
+  default: True
+- name: deploy_azure_data_factory
+  displayName: Azure Data Factory
+  type: boolean
+  default: False 
+  # How to make dependend parameter based on True value of build_azure_data_factory
+- name: deploy_orchestration
+  displayName: Orchestration DB
+  type: boolean
+  default: False
+- name: deploy_synapse_dwh
+  displayName: Synapse DWH
+  type: boolean
+  default: False
+- name: deploy_synapse_workspace
+  displayName: Synapse Workspace
+  type: boolean
+  default: False
+- name: deploy_xu_config
+  displayName: Xtract Universal
+  type: boolean
+  default: False
 
 variables:
 # Don't manual run deployments for main, qas, and prod branches
@@ -54,20 +69,7 @@ variables:
 # cannot be used as source for name of environment and deployment
 # in deployment job
 
-# In case of CI triggered pipelines (IndividualCI, triggered by git push),
-# use the system predefined variable Build.SourceBranchName to get the correct variable template
-- ${{ if eq(variables['Build.SourceBranchName'], 'main') }}:
-  - template: ./variables-test.yml
-  - name: deployEnvPrefix # override value to map main branch to TEST deployment environment
-    value: '20_TEST'
-- ${{ elseif eq(variables['Build.SourceBranchName'], 'qas') }}:
-  - template: ./variables-qas.yml
-  - name: deployEnvPrefix # override value to map main branch to TEST deployment environment
-    value: '10_QAS'
-- ${{ elseif eq(variables['Build.SourceBranchName'], 'prod') }}:
-  - template: ./variables-prod.yml
-  - name: deployEnvPrefix # override value to map main branch to TEST deployment environment
-    value: '00_PROD'
+
 # - ${{ elseif startsWith(variables['Build.SourceBranchName'], 'dev_') }}:
 #   - name: user
 #     value: $[ replace( variables['Build.SourceBranchName'], 'dev_', '') ]
@@ -80,12 +82,7 @@ variables:
 #     value: ${{ format('DEV_{0}', upper(variables['Build.SourceBranchName'])) }}
 
 
-- ${{ if or(contains(variables['Build.SourceBranch'], '/feature/'), contains(variables['Build.SourceBranch'], '/users/')) }}:
-  - name: user
-    value: ${{ split(variables['Build.SourceBranch'], '/')[3] }} #refs/heads/feature/mpors/...
-  - template: ./variables-personal.yml
-  - name: deployEnvPrefix # override value to map main branch to DEV deployment environment
-    value: ${{ format('30_DEV_{0}', upper(variables.user)) }}
+
 # - ${{ else }}:
 #   - name: deployEnv
 #     value: ${{ format('{0}_{1}', variables.environmentIndex, variables.environment) }}
@@ -139,11 +136,16 @@ stages:
         echo Build.SourceBranch: ${{ variables['Build.SourceBranch'] }}
         echo Build.SourceBranchName: ${{ variables['Build.SourceBranchName'] }}
         echo deployEnvPrefix: ${{ variables.deployEnvPrefix }}
-        echo parameters.synapse_dwh: ${{ parameters.synapse_dwh }}
-        echo parameters.azure_data_factory: ${{ parameters.azure_data_factory }}
-        echo parameters.orchestration: ${{ parameters.orchestration }}
-        echo parameters.xu_config: ${{ parameters.xu_config }}
-        echo parameters.synapse_workspace: ${{ parameters.synapse_workspace }}
+        echo parameters.build_synapse_dwh: ${{ parameters.build_synapse_dwh }}
+        echo parameters.build_azure_data_factory: ${{ parameters.build_azure_data_factory }}
+        echo parameters.build_orchestration: ${{ parameters.build_orchestration }}
+        echo parameters.build_xu_config: ${{ parameters.build_xu_config }}
+        echo parameters.build_synapse_workspace: ${{ parameters.build_synapse_workspace }}
+        echo parameters.deploy_synapse_dwh: ${{ parameters.deploy_synapse_dwh }}
+        echo parameters.deploy_azure_data_factory: ${{ parameters.deploy_azure_data_factory }}
+        echo parameters.deploy_orchestration: ${{ parameters.deploy_orchestration }}
+        echo parameters.deploy_xu_config: ${{ parameters.deploy_xu_config }}
+        echo parameters.deploy_synapse_workspace: ${{ parameters.deploy_synapse_workspace }}
       displayName: Print Variables
 - stage: VALIDATE
   jobs:
@@ -154,32 +156,32 @@ stages:
     parameters:
       solutions:
       - name: 'synapse-dwh'
-        build: ${{ parameters.synapse_dwh }}
+        build: ${{ parameters.build_synapse_dwh }}
       - name: 'azure-data-factory'
-        build: ${{ parameters.azure_data_factory }}
+        build: ${{ parameters.build_azure_data_factory }}
       - name: 'orchestration'
-        build: ${{ parameters.orchestration }}
+        build: ${{ parameters.build_orchestration }}
       - name: 'xu-config'
-        build: ${{ parameters.xu_config }}
+        build: ${{ parameters.build_xu_config }}
       - name: 'synapse-workspace'
-        build: ${{ parameters.synapse_workspace }}
+        build: ${{ parameters.build_synapse_workspace }}
 
 
-- ${{ if and(parameters.runDeployment, eq(variables['isManualRunForSecuredBranches'], 'False')) }}:
+- ${{ if and(or(parameters.deploy_synapse_dwh, parameters.deploy_orchestration, parameters.deploy_xu_config, parameters.deploy_synapse_workspace), eq(variables['isManualRunForSecuredBranches'], 'False')) }}:
   - stage: DEPLOY_1
     jobs:
     - template: ./jobs-deploy-multi.yml
       parameters:
         solutions:
         - name: 'synapse-dwh'
-          deploy: ${{ parameters.synapse_dwh }}
+          deploy: ${{ parameters.deploy_synapse_dwh }}
           test: True
         - name: 'orchestration'
-          deploy: ${{ parameters.orchestration }}
+          deploy: ${{ parameters.deploy_orchestration }}
         - name: 'xu-config'
-          deploy: ${{ parameters.xu_config }}
+          deploy: ${{ parameters.deploy_xu_config }}
         - name: 'synapse-workspace'
-          deploy: ${{ parameters.synapse_workspace }}
+          deploy: ${{ parameters.deploy_synapse_workspace }}
         deployEnvPrefix: ${{ variables.deployEnvPrefix }}
     
     # - ${{ if variables.buildAndDeploy_xu_config }}:
@@ -205,7 +207,7 @@ stages:
     #       deployEnvPrefix: ${{ variables.deployEnvPrefix }}
 
   
-  - ${{ if and(parameters.azure_data_factory, parameters.runDeployment, eq(variables['isManualRunForSecuredBranches'], 'False')) }}:
+  - ${{ if and(parameters.deploy_azure_data_factory, eq(variables['isManualRunForSecuredBranches'], 'False')) }}:
     - stage: DEPLOY_2
       jobs:
       - template: ./jobs-deploy-solution-helper.yml

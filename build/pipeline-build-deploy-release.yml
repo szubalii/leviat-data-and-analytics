@@ -1,0 +1,110 @@
+# This pipeline is triggered whenever a PR is completed to any of the following branches:
+
+# By default, each solution is build.
+
+# The pipeline deploys a solution if for that solution files have changed in their respective 
+# folders. 
+
+trigger:
+  branches:
+  - main
+  - qas
+  - prod
+
+variables:
+# - name: build_azure_data_factory
+#   value: true
+# - name: build_orchestration
+#   value: true
+# - name: build_synapse_dwh
+#   value: true
+# - name: build_synapse_workspace
+#   value: true
+# - name: build_xu_config
+#   value: true
+- name: deploy_azure_data_factory
+  value: false
+- name: deploy_orchestration
+  value: false
+- name: deploy_synapse_dwh
+  value: false
+- name: deploy_synapse_workspace
+  value: false
+- name: deploy_xu_config
+  value: false
+- name: commitId
+  value: $(Build.SourceVersion)
+
+# In case of CI triggered pipelines (IndividualCI, triggered by git push),
+# use the system predefined variable Build.SourceBranchName to get the correct variable template
+- ${{ if eq(variables['Build.SourceBranchName'], 'main') }}:
+  - template: ./variables-test.yml
+  - name: deployEnvPrefix # override value to map main branch to TEST deployment environment
+    value: '20_TEST'
+- ${{ elseif eq(variables['Build.SourceBranchName'], 'qas') }}:
+  - template: ./variables-qas.yml
+  - name: deployEnvPrefix # override value to map main branch to TEST deployment environment
+    value: '10_QAS'
+- ${{ elseif eq(variables['Build.SourceBranchName'], 'prod') }}:
+  - template: ./variables-prod.yml
+  - name: deployEnvPrefix # override value to map main branch to TEST deployment environment
+    value: '00_PROD'
+
+stages:
+- stage: SOLUTIONS
+  jobs:
+  - job: SOLUTIONS
+    pool:
+      vmImage: 'ubuntu-20.04'
+    steps:
+    - checkout: self
+      fetchDepth: 0 # disables shallow fetch and results in correct return of git diff-tree
+    
+    - task: PowerShell@2
+      displayName: 'Define which solutions deploy'
+      inputs:
+        targetType: 'inline'
+        pwsh: true
+        script: |
+
+          # Retrieve list of changed files
+          Write-Host "System.DefaultWorkingDirectory: $(System.DefaultWorkingDirectory)"
+          Write-Host "CommitID: $(commitId)"
+          # Write-Host "Build.SourceVersion: $(Build.SourceVersion)"
+          Write-Host "Build.SourceVersionMessage: $(Build.SourceVersionMessage)"
+          $filePaths = $(git diff --name-only $(commitId)^!) #difference between parent of commit and commit
+          # $filePaths2 = $(git diff-tree --no-commit-id --name-only -r $(Build.SourceVersion))
+          Write-Host "Changed files using commitId: $($filePaths)"
+
+          $solutionFolders = @('azure-data-factory/', 'orchestration/', 'synapse-dwh/', 'synapse-workspace/', 'xu-config/')
+
+          ForEach ($solutionFolder in $solutionFolders) {
+            if (($filePaths -match $solutionFolder).count -gt 0){
+              $solutionVarName = 'deploy_' + $solutionFolder.TrimEnd('/')
+              Write-Host "##vso[task.setvariable variable=$solutionVarName]true"
+            }
+          }
+
+- template: ./stages-build-deploy-2.yml
+  parameters:
+    build_azure_data_factory: true
+    build_orchestration: true
+    build_synapse_dwh: true
+    build_synapse_workspace: true
+    build_xu_config: true
+    deploy_azure_data_factory: ${{ variables.azure_data_factory }}
+    deploy_orchestration: ${{ variables.orchestration }}
+    deploy_synapse_dwh: ${{ variables.synapse_dwh }}
+    deploy_synapse_workspace: ${{ variables.synapse_workspace }}
+    deploy_xu_config: ${{ variables.xu_config }}
+
+
+# extends:
+#   template: ./pipeline-build.yml
+#   parameters:
+#     synapse_dwh: ${{ variables.synapse_dwh }}
+#     azure_data_factory: ${{ variables.azure_data_factory }}
+#     orchestration: ${{ variables.orchestration }}
+#     xu_config: ${{ variables.xu_config }}
+#     synapse_workspace: ${{ variables.synapse_workspace }}
+#     runDeployment: true
