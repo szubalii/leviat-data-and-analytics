@@ -7,9 +7,10 @@
 
 trigger:
   branches:
-  - main
-  - qas
-  - prod
+    include:
+    - main
+    - qas
+    - prod
 
 variables:
 # - name: build_azure_data_factory
