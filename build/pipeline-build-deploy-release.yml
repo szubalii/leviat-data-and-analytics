@@ -73,7 +73,8 @@ stages:
           Write-Host "CommitID: $(commitId)"
           # Write-Host "Build.SourceVersion: $(Build.SourceVersion)"
           Write-Host "Build.SourceVersionMessage: $(Build.SourceVersionMessage)"
-          $filePaths = $(git diff --name-only $(commitId)^!) #difference between parent of commit and commit
+          $filePaths = git diff --name-only $(commitId)^! #difference between parent of commit and commit
+          $filePaths
           # $filePaths2 = $(git diff-tree --no-commit-id --name-only -r $(Build.SourceVersion))
           Write-Host "Changed files using commitId: $($filePaths)"
 
@@ -116,9 +117,9 @@ stages:
             Write-Host $solutionFolder
             Write-Host 'Check if there are any changed files for folder:'$solution;
 
-            $filePaths -match $solutionFolder
+            $filePaths -notmatch $solutionFolder
             
-            if (($filePaths -match $solutionFolder).count -eq 0){
+            if (($filePaths -notmatch $solutionFolder).count -eq 0){
               Write-Host 'No changed files found for'$solution;
               $solutionVarName = 'deploy_'+$solution;
               Write-Host "##vso[task.setvariable variable=$solutionVarName;isoutput=true]false";
