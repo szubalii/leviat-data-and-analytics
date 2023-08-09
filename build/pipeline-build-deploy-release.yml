@@ -147,6 +147,8 @@ stages:
         echo variables.deploy_azure_data_factory: ${{ variables.deploy_azure_data_factory }}
         echo variables.deploy_synapse_dwh_2: ${{ variables.deploy_synapse_dwh_2 }}
         echo variables.deploy_azure_data_factory_2: ${{ variables.deploy_azure_data_factory_2 }}
+        echo variables.deploy_synapse_dwh_2: $(deploy_synapse_dwh_2)
+        echo variables.deploy_azure_data_factory_2: $(deploy_azure_data_factory_2)
       displayName: Print Variables
 
 
