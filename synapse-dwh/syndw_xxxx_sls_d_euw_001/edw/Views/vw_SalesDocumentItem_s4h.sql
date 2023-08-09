@@ -402,310 +402,28 @@ C_SalesDocumentItemDEXBase as (
 
     LEFT JOIN  [edw].[dim_Customer] DimCust
             ON doc.SoldToParty = DimCust.CustomerID  
-),
-
-
-
-
-EuroBudgetExchangeRate as (
-    select
-         SourceCurrency
-        ,ExchangeRateEffectiveDate
-        ,ExchangeRate
-    from
-        edw.dim_ExchangeRates
-    where
-        ExchangeRateType = 'P'
-        and
-        TargetCurrency = 'EUR'
-        and
-        [ExchangeRateEffectiveDate] <= GETDATE()
-            UNION ALL
-    SELECT                  -- EUR2EUR rate
-        'EUR'
-        ,'1900-01-01'
-        ,1.0
-),
-ExchangeRateEuro AS (
-    SELECT
-            [SalesDocument]
-        ,   [SalesDocumentItem]
-        ,   EuroBudgetExchangeRate.[ExchangeRate] AS [ExchangeRate]
-    FROM (
-        SELECT
-                [SalesDocument]
-            ,   [SalesDocumentItem]
-            ,   [TransactionCurrencyID]
-            ,   MAX([ExchangeRateEffectiveDate]) as [ExchangeRateEffectiveDate]
-        FROM             
-            C_SalesDocumentItemDEXBase SDI 
-        LEFT JOIN 
-            EuroBudgetExchangeRate
-            ON 
-                SDI.[TransactionCurrencyID] = EuroBudgetExchangeRate.SourceCurrency
-        --WHERE 
-         -- [ExchangeRateEffectiveDate] <= [CreationDate]
-        GROUP BY
-                [SalesDocument]
-            ,   [SalesDocumentItem]
-            ,   [TransactionCurrencyID] 
-    ) bdi_er_date_eur
-    LEFT JOIN 
-        EuroBudgetExchangeRate
-        ON
-            bdi_er_date_eur.[TransactionCurrencyID] = EuroBudgetExchangeRate.[SourceCurrency]
-            AND
-            bdi_er_date_eur.[ExchangeRateEffectiveDate] = EuroBudgetExchangeRate.[ExchangeRateEffectiveDate]
-),
-SalesDocument_30 AS (
-    SELECT
-       ExchangeRateEuro.[SalesDocument]
-      ,ExchangeRateEuro.[SalesDocumentItem]
-      ,'EUR' AS [CurrencyID]
-      ,ExchangeRateEuro.[ExchangeRate] as [ExchangeRate]
-      ,[SDDocumentCategoryID]
-      ,[SalesDocumentTypeID]
-      ,[SalesDocumentItemCategoryID]
-      ,[IsReturnsItemID]
-      ,[CreationDate]
-      ,[CreationTime]
-      ,[LastChangeDate]
-      ,[SalesOrganizationID]
-      ,[DistributionChannelID]
-      ,[DivisionID]
-      ,[SalesGroupID]
-      ,[SalesOfficeID]
-      ,[InternationalArticleNumberID]
-      ,[BatchID]
-      ,[MaterialID]
-      ,[nk_ProductPlant]
-      ,[ProductSurrogateKey]
-      ,[OriginallyRequestedMaterialID]
-      ,[MaterialSubstitutionReasonID]
-      ,[MaterialGroupID]
-      ,[BrandID]
-      ,[Brand]
-      ,[AdditionalMaterialGroup2ID]
-      ,[AdditionalMaterialGroup3ID]
-      ,[AdditionalMaterialGroup4ID]
-      ,[AdditionalMaterialGroup5ID]
-      ,[SoldToPartyID]
-      ,[AdditionalCustomerGroup1ID]
-      ,[AdditionalCustomerGroup2ID]
-      ,[AdditionalCustomerGroup3ID]
-      ,[AdditionalCustomerGroup4ID]
-      ,[AdditionalCustomerGroup5ID]
-      ,[ShipToPartyID]
-      ,[PayerPartyID]
-      ,[BillToPartyID]
-      ,[SDDocumentReasonID]
-      ,[SalesDocumentDate]
-      ,[OrderQuantity]
-      ,[OrderQuantityUnitID]
-      ,[TargetQuantity]
-      ,[TargetQuantityUnitID]
-      ,[TargetToBaseQuantityDnmntr]
-      ,[TargetToBaseQuantityNmrtr]
-      ,[OrderToBaseQuantityDnmntr]
-      ,[OrderToBaseQuantityNmrtr]
-      ,[ConfdDelivQtyInOrderQtyUnit]
-      ,[TargetDelivQtyInOrderQtyUnit]
-      ,[ConfdDeliveryQtyInBaseUnit]
-      ,[BaseUnitID]
-      ,[ItemGrossWeight]
-      ,[ItemNetWeight]
-      ,[ItemWeightUnitID]
-      ,[ItemVolume]
-      ,[ItemVolumeUnitID]
-      ,[ServicesRenderedDate]
-      ,[SalesDistrictID]
-      ,[CustomerGroupID]
-      ,[HdrOrderProbabilityInPercentID]
-      ,[ItemOrderProbabilityInPercentID]
-      ,[SalesDocumentRjcnReasonID]
-      ,[PricingDate]
-      ,[ExchangeRateDate]
-      ,[PriceDetnExchangeRate]
-      ,[StatisticalValueControlID]
-      ,CONVERT(decimal(19,6), [NetAmount] * ExchangeRateEuro.[ExchangeRate]) as [NetAmount]
-      ,[TransactionCurrencyID]
-      ,[SalesOrganizationCurrencyID]
-      ,CONVERT(decimal(19,6), [NetPriceAmount] * ExchangeRateEuro.[ExchangeRate]) as [NetPriceAmount]
-      ,[NetPriceQuantity]
-      ,[NetPriceQuantityUnitID]
-	  ,CONVERT(decimal(19,6), [TaxAmount] * ExchangeRateEuro.[ExchangeRate]) as [TaxAmount]
-	  ,CONVERT(decimal(19,6), [CostAmount] * ExchangeRateEuro.[ExchangeRate]) as [CostAmount]
-      ,CONVERT(decimal(19, 6), [Margin] * ExchangeRateEuro.[ExchangeRate])          as [Margin]
-	  ,CONVERT(decimal(19,6), [Subtotal1Amount] * ExchangeRateEuro.[ExchangeRate]) as [Subtotal1Amount]
-	  ,CONVERT(decimal(19,6), [Subtotal2Amount] * ExchangeRateEuro.[ExchangeRate]) as [Subtotal2Amount]
-	  ,CONVERT(decimal(19,6), [Subtotal3Amount] * ExchangeRateEuro.[ExchangeRate]) as [Subtotal3Amount]
-	  ,CONVERT(decimal(19,6), [Subtotal4Amount] * ExchangeRateEuro.[ExchangeRate]) as [Subtotal4Amount]
-	  ,CONVERT(decimal(19,6), [Subtotal5Amount] * ExchangeRateEuro.[ExchangeRate]) as [Subtotal5Amount]
-      ,CONVERT(decimal(19,6), [Subtotal6Amount] * ExchangeRateEuro.[ExchangeRate]) as [Subtotal6Amount]
-      ,[ShippingPointID]
-      ,[ShippingTypeID]
-      ,[DeliveryPriorityID]
-      ,[InventorySpecialStockTypeID]
-      ,[RequestedDeliveryDate]
-      ,[ShippingConditionID]
-      ,[DeliveryBlockReasonID]
-      ,[PlantID]
-      ,[StorageLocationID]
-      ,[RouteID]
-      ,[IncotermsClassificationID]
-      ,[IncotermsVersionID]
-      ,[IncotermsTransferLocationID]
-      ,[IncotermsLocation1ID]
-      ,[IncotermsLocation2ID]
-      ,[MinDeliveryQtyInBaseUnit]
-      ,[UnlimitedOverdeliveryIsAllowedID]
-      ,[OverdelivTolrtdLmtRatioInPct]
-      ,[UnderdelivTolrtdLmtRatioInPct]
-      ,[PartialDeliveryIsAllowedID]
-      ,[BindingPeriodValidityStartDate]
-      ,[BindingPeriodValidityEndDate]
-      ,[OutlineAgreementTargetAmount]
-      ,[BillingDocumentDate]
-      ,[BillingCompanyCodeID]
-      ,[HeaderBillingBlockReasonID]
-      ,[ItemBillingBlockReasonID]
-      ,[FiscalYearID]
-      ,[FiscalPeriodID]
-      ,[CustomerAccountAssignmentGroupID]
-      ,[ExchangeRateTypeID]
-      ,[CurrencyID] as [CompanyCodeCurrencyID]
-      ,[FiscalYearVariantID]
-      ,[BusinessAreaID]
-      ,[ProfitCenterID]
-      ,[OrderID]
-      ,[ProfitabilitySegmentID]
-      ,[ControllingAreaID]
-      ,[ReferenceSDDocumentID]
-      ,[ReferenceSDDocumentItemID]
-      ,[ReferenceSDDocumentCategoryID]
-      ,[OriginSDDocumentID]
-      ,[OriginSDDocumentItemID]
-      ,[OverallSDProcessStatusID]
-      ,[OverallTotalDeliveryStatusID]
-      ,[OverallOrdReltdBillgStatusID]
-      ,[TotalCreditCheckStatusID]
-      ,[DeliveryBlockStatusID]
-      ,[BillingBlockStatusID]
-      ,[TotalSDDocReferenceStatusID]
-      ,[SDDocReferenceStatusID]
-      ,[OverallSDDocumentRejectionStsID]
-      ,[SDDocumentRejectionStatusID]
-      ,[OverallTotalSDDocRefStatusID]
-      ,[OverallSDDocReferenceStatusID]
-      ,[ItemGeneralIncompletionStatusID]
-      ,[ItemBillingIncompletionStatusID]
-      ,[PricingIncompletionStatusID]
-      ,[ItemDeliveryIncompletionStatusID]
-      ,SDI.[SalesAgentID]
-      ,SDI.[SalesAgent]
-      ,[ExternalSalesAgentID]
-      ,[ExternalSalesAgent]
-      ,[GlobalParentID]
-      ,[GlobalParent]
-      ,[LocalParentID]
-      ,[LocalParent]
-      ,[ProjectID]
-      ,[Project]
-      ,[SalesEmployeeID]
-      ,[SalesEmployee]
-      ,[GlobalParentCalculatedID]
-      ,[GlobalParentCalculated]
-      ,[LocalParentCalculatedID]
-      ,[LocalParentCalculated]
-      ,[SDoc_ControllingObjectID]
-      ,[SDItem_ControllingObjectID]
-      ,[CorrespncExternalReference] 
-      ,[InOutID]
-      ,CONVERT(decimal(19,6), [OpenDeliveryNetAmount] * ExchangeRateEuro.[ExchangeRate]) as [OpenDeliveryNetAmount]
-      ,[OrderType]
-      ,[ItemOrderStatus]
-      ,[OrderStatus]
-      ,[ActualDeliveredQuantityInBaseUnit]
-      ,[BillingQuantityInBaseUnit]
-      ,[ActualDeliveredQuantityIBUOverall]
-      ,[BillingQuantityIBUOverall]
-      ,[ItemDeliveryStatus]    
-      ,[OverallDeliveryStatus] 
-      ,[ScheduleLineCategory]
-      ,SDI.[t_applicationId]
-      ,SDI.[t_jobId]
-      ,SDI.[t_jobDtm]
-      ,SDI.[t_jobBy]
-      ,SDI.[t_extractionDtm]
-      ,SDI.[t_filePath]    
-    FROM 
-        ExchangeRateEuro
-    LEFT JOIN
-        C_SalesDocumentItemDEXBase SDI
-        ON
-            SDI.SalesDocument = ExchangeRateEuro.SalesDocument
-            AND
-            SDI.SalesDocumentItem = ExchangeRateEuro.SalesDocumentItem
-),
-EuroBudgetExchangeRateUSD as (
-    select
-         TargetCurrency
-        ,ExchangeRateEffectiveDate
-        ,ExchangeRate
-    from
-        edw.dim_ExchangeRates
-    where
-        ExchangeRateType = 'P'
-        and
-        SourceCurrency = 'USD'
-        and
-        [ExchangeRateEffectiveDate] <= GETDATE()
-),
-ExchangeRateUSD as (
-    SELECT
-            [SalesDocument]
-        ,   [SalesDocumentItem]
-        ,   EuroBudgetExchangeRateUSD.[ExchangeRate] AS [ExchangeRate]
-    FROM (
-        SELECT 
-                [SalesDocument]
-            ,   [SalesDocumentItem]
-            ,   [CurrencyID]
-            ,   MAX([ExchangeRateEffectiveDate]) as [ExchangeRateEffectiveDate]
-        FROM             
-            SalesDocument_30 SD_30
-        LEFT JOIN 
-            EuroBudgetExchangeRateUSD
-            ON 
-                SD_30.CurrencyID = EuroBudgetExchangeRateUSD.TargetCurrency
-        --WHERE 
-         -- [ExchangeRateEffectiveDate] <= [CreationDate]
-        GROUP BY
-                [SalesDocument]
-            ,   [SalesDocumentItem]
-            ,   [CurrencyID]
-    ) bdi_er_date_usd            
-    LEFT JOIN 
-        EuroBudgetExchangeRateUSD
-        ON
-            bdi_er_date_usd.[CurrencyID] = EuroBudgetExchangeRateUSD.[TargetCurrency]
-            AND
-            bdi_er_date_usd.[ExchangeRateEffectiveDate] = EuroBudgetExchangeRateUSD.[ExchangeRateEffectiveDate]
-     )
-
-
+)
 
 SELECT 
       -- [TS_SEQUENCE_NUMBER]
       --,[ODQ_CHANGEMODE]
       --,[ODQ_ENTITYCNTR]
-       CONCAT_WS('¦', [SalesDocument] collate SQL_Latin1_General_CP1_CS_AS, [SalesDocumentItem] collate SQL_Latin1_General_CP1_CS_AS, CR.[CurrencyTypeID]) as [nk_fact_SalesDocumentItem]
+       edw.svf_getNaturalKey (SalesDocument,SalesDocumentItem,CR.CurrencyTypeID)
+                                            AS [nk_fact_SalesDocumentItem]
       ,[SalesDocument]
       ,[SalesDocumentItem]
       ,CR.[CurrencyTypeID]
       ,CR.[CurrencyType]
-      ,[TransactionCurrencyID] as [CurrencyID]
-      ,1.0 as [ExchangeRate]
+      ,CASE
+            WHEN CCR.CurrencyTypeID = '00'
+                THEN [TransactionCurrencyID]
+            ELSE CCR.[TargetCurrency]
+       END                                  AS [CurrencyID]
+      ,CASE
+            WHEN CCR.CurrencyTypeID = '00' THEN
+                CCR.[ExchangeRate]
+            ELSE [PriceDetnExchangeRate] * CCR.[ExchangeRate]
+	   END                                  AS [ExchangeRate]
       ,[SDDocumentCategoryID]
       ,[SalesDocumentTypeID]
       ,[SalesDocumentItemCategoryID]
@@ -770,21 +488,76 @@ SELECT
       ,[ExchangeRateDate]
       ,[PriceDetnExchangeRate]
       ,[StatisticalValueControlID]
-      ,[NetAmount]
+      ,CASE
+        WHEN CCR.CurrencyTypeID = '00'
+            THEN [NetAmount]
+        ELSE CONVERT(decimal(19,6), 
+               [NetAmount] * [PriceDetnExchangeRate]*CCR.[ExchangeRate])
+        END                               AS [NetAmount]
       ,[TransactionCurrencyID]
       ,[SalesOrganizationCurrencyID]
-      ,[NetPriceAmount]
+      ,CASE
+        WHEN CCR.CurrencyTypeID = '00'
+            THEN [NetPriceAmount]
+        ELSE CONVERT(decimal(19,6), 
+               [NetPriceAmount] * [PriceDetnExchangeRate]*CCR.[ExchangeRate])
+        END                               AS [NetPriceAmount]
       ,[NetPriceQuantity]
       ,[NetPriceQuantityUnitID]
-      ,[TaxAmount]
-      ,[CostAmount]
-      ,[Margin]
-      ,[Subtotal1Amount]
-      ,[Subtotal2Amount]
-      ,[Subtotal3Amount]
-      ,[Subtotal4Amount]
-      ,[Subtotal5Amount]
-      ,[Subtotal6Amount]
+      ,CASE
+        WHEN CCR.CurrencyTypeID = '00'
+            THEN [TaxAmount]
+        ELSE CONVERT(decimal(19,6), 
+               [TaxAmount] * [PriceDetnExchangeRate]*CCR.[ExchangeRate])
+        END                               AS [TaxAmount]
+      ,CASE
+        WHEN CCR.CurrencyTypeID = '00'
+            THEN [CostAmount]
+        ELSE CONVERT(decimal(19,6), 
+               [CostAmount] * [PriceDetnExchangeRate]*CCR.[ExchangeRate])
+        END                               AS [CostAmount]
+      ,CASE
+        WHEN CCR.CurrencyTypeID = '00'
+            THEN [Margin]
+        ELSE CONVERT(decimal(19,6), 
+               [Margin] * [PriceDetnExchangeRate]*CCR.[ExchangeRate])
+        END                               AS [Margin]
+      ,CASE
+        WHEN CCR.CurrencyTypeID = '00'
+            THEN [Subtotal1Amount]
+        ELSE CONVERT(decimal(19,6), 
+               [Subtotal1Amount] * [PriceDetnExchangeRate]*CCR.[ExchangeRate])
+        END                               AS [Subtotal1Amount]
+      ,CASE
+        WHEN CCR.CurrencyTypeID = '00'
+            THEN [Subtotal2Amount]
+        ELSE CONVERT(decimal(19,6), 
+               [Subtotal2Amount] * [PriceDetnExchangeRate]*CCR.[ExchangeRate])
+        END                               AS [Subtotal2Amount]
+      ,CASE
+        WHEN CCR.CurrencyTypeID = '00'
+            THEN [Subtotal3Amount]
+        ELSE CONVERT(decimal(19,6), 
+               [Subtotal3Amount] * [PriceDetnExchangeRate]*CCR.[ExchangeRate])
+        END                               AS [Subtotal3Amount]
+      ,CASE
+        WHEN CCR.CurrencyTypeID = '00'
+            THEN [Subtotal4Amount]
+        ELSE CONVERT(decimal(19,6), 
+               [Subtotal4Amount] * [PriceDetnExchangeRate]*CCR.[ExchangeRate])
+        END                               AS [Subtotal4Amount]
+      ,CASE
+        WHEN CCR.CurrencyTypeID = '00'
+            THEN [Subtotal5Amount]
+        ELSE CONVERT(decimal(19,6), 
+               [Subtotal5Amount] * [PriceDetnExchangeRate]*CCR.[ExchangeRate])
+        END                               AS [Subtotal5Amount]
+      ,CASE
+        WHEN CCR.CurrencyTypeID = '00'
+            THEN [Subtotal6Amount]
+        ELSE CONVERT(decimal(19,6), 
+               [Subtotal6Amount] * [PriceDetnExchangeRate]*CCR.[ExchangeRate])
+        END                               AS [Subtotal6Amount]
       ,[ShippingPointID]
       ,[ShippingTypeID]
       ,[DeliveryPriorityID]
@@ -864,7 +637,12 @@ SELECT
       ,[SDItem_ControllingObjectID]
       ,[CorrespncExternalReference] 
       ,[InOutID]
-      ,OpenDeliveryNetAmount
+      ,CASE
+        WHEN CCR.CurrencyTypeID = '00'
+            THEN [OpenDeliveryNetAmount]
+        ELSE CONVERT(decimal(19,6), 
+               [OpenDeliveryNetAmount] * [PriceDetnExchangeRate]*CCR.[ExchangeRate])
+        END                               AS [OpenDeliveryNetAmount]
       ,[OrderType]
       ,[ItemOrderStatus]
       ,[OrderStatus]
@@ -882,619 +660,8 @@ SELECT
       ,SDI.[t_extractionDtm]
       ,SDI.[t_filePath]
   FROM [C_SalesDocumentItemDEXBase] SDI
- CROSS JOIN [edw].[dim_CurrencyType] CR
- WHERE CR.[CurrencyTypeID] = '00'
-  UNION ALL
-SELECT 
-      -- [TS_SEQUENCE_NUMBER]
-      --,[ODQ_CHANGEMODE]
-      --,[ODQ_ENTITYCNTR]
-       CONCAT_WS('¦', [SalesDocument] collate SQL_Latin1_General_CP1_CS_AS, [SalesDocumentItem] collate SQL_Latin1_General_CP1_CS_AS, CR.[CurrencyTypeID]) as [nk_fact_SalesDocumentItem]
-      ,[SalesDocument]
-      ,[SalesDocumentItem]
-	  ,CR.[CurrencyTypeID]
-      ,CR.[CurrencyType]
-      ,[CurrencyID]
-      ,(CASE
-			 WHEN ER.[ExchangeRate] IS NOT NULL
-			 THEN ER.[ExchangeRate]
-			 ELSE 1
-			 END) as [ExchangeRate]
-      ,[SDDocumentCategoryID]
-      ,[SalesDocumentTypeID]
-      ,[SalesDocumentItemCategoryID]
-      ,[IsReturnsItemID]
-      ,[CreationDate]
-      ,[CreationTime]
-      ,[LastChangeDate]
-      ,[SalesOrganizationID]
-      ,[DistributionChannelID]
-      ,[DivisionID]
-      ,[SalesGroupID]
-      ,[SalesOfficeID]
-      ,[InternationalArticleNumberID]
-      ,[BatchID]
-      ,[MaterialID]
-      ,[nk_ProductPlant]
-      ,[ProductSurrogateKey]
-      ,[OriginallyRequestedMaterialID]
-      ,[MaterialSubstitutionReasonID]
-      ,[MaterialGroupID]
-      ,[BrandID]
-      ,[Brand]
-      ,[AdditionalMaterialGroup2ID]
-      ,[AdditionalMaterialGroup3ID]
-      ,[AdditionalMaterialGroup4ID]
-      ,[AdditionalMaterialGroup5ID]
-      ,[SoldToPartyID]
-      ,[AdditionalCustomerGroup1ID]
-      ,[AdditionalCustomerGroup2ID]
-      ,[AdditionalCustomerGroup3ID]
-      ,[AdditionalCustomerGroup4ID]
-      ,[AdditionalCustomerGroup5ID]
-      ,[ShipToPartyID]
-      ,[PayerPartyID]
-      ,[BillToPartyID]
-      ,[SDDocumentReasonID]
-      ,[SalesDocumentDate]
-      ,[OrderQuantity]
-      ,[OrderQuantityUnitID]
-      ,[TargetQuantity]
-      ,[TargetQuantityUnitID]
-      ,[TargetToBaseQuantityDnmntr]
-      ,[TargetToBaseQuantityNmrtr]
-      ,[OrderToBaseQuantityDnmntr]
-      ,[OrderToBaseQuantityNmrtr]
-      ,[ConfdDelivQtyInOrderQtyUnit]
-      ,[TargetDelivQtyInOrderQtyUnit]
-      ,[ConfdDeliveryQtyInBaseUnit]
-      ,[BaseUnitID]
-      ,[ItemGrossWeight]
-      ,[ItemNetWeight]
-      ,[ItemWeightUnitID]
-      ,[ItemVolume]
-      ,[ItemVolumeUnitID]
-      ,[ServicesRenderedDate]
-      ,[SalesDistrictID]
-      ,[CustomerGroupID]
-      ,[HdrOrderProbabilityInPercentID]
-      ,[ItemOrderProbabilityInPercentID]
-      ,[SalesDocumentRjcnReasonID]
-      ,[PricingDate]
-      ,[ExchangeRateDate]
-      ,[PriceDetnExchangeRate]
-      ,[StatisticalValueControlID]
-      ,CONVERT(decimal(19,6), CASE WHEN ER.[ExchangeRate] IS NOT NULL THEN [NetAmount] * ER.[ExchangeRate] ELSE [NetAmount] END) as [NetAmount]
-      ,[TransactionCurrencyID]
-      ,[SalesOrganizationCurrencyID]
-	  ,CONVERT(decimal(19,6), CASE WHEN ER.[ExchangeRate] IS NOT NULL THEN [NetPriceAmount] * ER.[ExchangeRate] ELSE [NetPriceAmount] END) as [NetPriceAmount]
-      ,[NetPriceQuantity]
-      ,[NetPriceQuantityUnitID]
-	  ,CONVERT(decimal(19,6), CASE WHEN ER.[ExchangeRate] IS NOT NULL THEN [TaxAmount] * ER.[ExchangeRate] ELSE [TaxAmount] END) as [TaxAmount]
-	  ,CONVERT(decimal(19,6), CASE WHEN ER.[ExchangeRate] IS NOT NULL THEN [CostAmount] * ER.[ExchangeRate] ELSE [CostAmount] END) as [CostAmount]
-	  ,CONVERT(decimal(19, 6), CASE WHEN ER.[ExchangeRate] IS NOT NULL THEN [Margin] * ER.[ExchangeRate] ELSE [Margin] END)
-	  ,CONVERT(decimal(19,6), CASE WHEN ER.[ExchangeRate] IS NOT NULL THEN [Subtotal1Amount] * ER.[ExchangeRate] ELSE [Subtotal1Amount] END) as [Subtotal1Amount]
-	  ,CONVERT(decimal(19,6), CASE WHEN ER.[ExchangeRate] IS NOT NULL THEN [Subtotal2Amount] * ER.[ExchangeRate] ELSE [Subtotal2Amount] END) as [Subtotal2Amount]
-	  ,CONVERT(decimal(19,6), CASE WHEN ER.[ExchangeRate] IS NOT NULL THEN [Subtotal3Amount] * ER.[ExchangeRate] ELSE [Subtotal3Amount] END) as [Subtotal3Amount]
-	  ,CONVERT(decimal(19,6), CASE WHEN ER.[ExchangeRate] IS NOT NULL THEN [Subtotal4Amount] * ER.[ExchangeRate] ELSE [Subtotal4Amount] END) as [Subtotal4Amount]
-	  ,CONVERT(decimal(19,6), CASE WHEN ER.[ExchangeRate] IS NOT NULL THEN [Subtotal5Amount] * ER.[ExchangeRate] ELSE [Subtotal5Amount] END) as [Subtotal5Amount]
-	  ,CONVERT(decimal(19,6), CASE WHEN ER.[ExchangeRate] IS NOT NULL THEN [Subtotal6Amount] * ER.[ExchangeRate] ELSE [Subtotal6Amount] END) as [Subtotal6Amount]
-      ,[ShippingPointID]
-      ,[ShippingTypeID]
-      ,[DeliveryPriorityID]
-      ,[InventorySpecialStockTypeID]
-      ,[RequestedDeliveryDate]
-      ,[ShippingConditionID]
-      ,[DeliveryBlockReasonID]
-      ,[PlantID]
-      ,[StorageLocationID]
-      ,[RouteID]
-      ,[IncotermsClassificationID]
-      ,[IncotermsVersionID]
-      ,[IncotermsTransferLocationID]
-      ,[IncotermsLocation1ID]
-      ,[IncotermsLocation2ID]
-      ,[MinDeliveryQtyInBaseUnit]
-      ,[UnlimitedOverdeliveryIsAllowedID]
-      ,[OverdelivTolrtdLmtRatioInPct]
-      ,[UnderdelivTolrtdLmtRatioInPct]
-      ,[PartialDeliveryIsAllowedID]
-      ,[BindingPeriodValidityStartDate]
-      ,[BindingPeriodValidityEndDate]
-      ,[OutlineAgreementTargetAmount]
-      ,[BillingDocumentDate]
-      ,[BillingCompanyCodeID]
-      ,[HeaderBillingBlockReasonID]
-      ,[ItemBillingBlockReasonID]
-      ,[FiscalYearID]
-      ,[FiscalPeriodID]
-      ,[CustomerAccountAssignmentGroupID]
-      ,[ExchangeRateTypeID]
-      ,[CurrencyID] as [CompanyCodeCurrencyID]
-      ,[FiscalYearVariantID]
-      ,[BusinessAreaID]
-      ,[ProfitCenterID]
-      ,[OrderID]
-      ,[ProfitabilitySegmentID]
-      ,[ControllingAreaID]
-      ,[ReferenceSDDocumentID]
-      ,[ReferenceSDDocumentItemID]
-      ,[ReferenceSDDocumentCategoryID]
-      ,[OriginSDDocumentID]
-      ,[OriginSDDocumentItemID]
-      ,[OverallSDProcessStatusID]
-      ,[OverallTotalDeliveryStatusID]
-      ,[OverallOrdReltdBillgStatusID]
-      ,[TotalCreditCheckStatusID]
-      ,[DeliveryBlockStatusID]
-      ,[BillingBlockStatusID]
-      ,[TotalSDDocReferenceStatusID]
-      ,[SDDocReferenceStatusID]
-      ,[OverallSDDocumentRejectionStsID]
-      ,[SDDocumentRejectionStatusID]
-      ,[OverallTotalSDDocRefStatusID]
-      ,[OverallSDDocReferenceStatusID]
-      ,[ItemGeneralIncompletionStatusID]
-      ,[ItemBillingIncompletionStatusID]
-      ,[PricingIncompletionStatusID]
-      ,[ItemDeliveryIncompletionStatusID]
-      ,[SalesAgentID]
-      ,[SalesAgent]
-      ,[ExternalSalesAgentID]
-      ,[ExternalSalesAgent]
-      ,[GlobalParentID]
-      ,[GlobalParent]
-      ,[LocalParentID]
-      ,[LocalParent]
-      ,[ProjectID]
-      ,[Project]
-      ,[SalesEmployeeID]
-      ,[SalesEmployee]
-      ,[GlobalParentCalculatedID]
-      ,[GlobalParentCalculated]
-      ,[LocalParentCalculatedID]
-      ,[LocalParentCalculated]
-      ,[SDoc_ControllingObjectID]
-      ,[SDItem_ControllingObjectID]
-      ,[CorrespncExternalReference] 
-      ,[InOutID]
-      ,CONVERT(decimal(19,6), CASE WHEN ER.[ExchangeRate] IS NOT NULL THEN [OpenDeliveryNetAmount] * ER.[ExchangeRate] ELSE [OpenDeliveryNetAmount] END) as [OpenDeliveryNetAmount]
-      ,[OrderType]
-      ,[ItemOrderStatus]
-      ,[OrderStatus]
-      ,[ActualDeliveredQuantityInBaseUnit]
-      ,[BillingQuantityInBaseUnit]
-      ,[ActualDeliveredQuantityIBUOverall]
-      ,[BillingQuantityIBUOverall]
-      ,[ItemDeliveryStatus]    
-      ,[OverallDeliveryStatus]
-      ,[ScheduleLineCategory] 
-      ,SDI.[t_applicationId]
-      ,SDI.[t_jobId]
-      ,SDI.[t_jobDtm]
-      ,SDI.[t_jobBy]
-      ,SDI.[t_extractionDtm]
-      ,SDI.[t_filePath]
-  FROM
-    [C_SalesDocumentItemDEXBase] SDI
-  LEFT JOIN
-    [edw].[dim_ExchangeRates] ER
-    ON 
-        ER.[ExchangeRateEffectiveDate] =
-	    (SELECT 
-            TOP(1) [edw].[dim_ExchangeRates].[ExchangeRateEffectiveDate]
-		FROM 
-            [edw].[dim_ExchangeRates]
-		WHERE
-            [edw].[dim_ExchangeRates].[ExchangeRateEffectiveDate] <= SDI.[CreationDate]
-		    AND
-            [ExchangeRateType] = 'M'
-            AND
-            [SourceCurrency] = SDI.[TransactionCurrencyID]
-		ORDER BY
-            [ExchangeRateEffectiveDate] DESC)
-        AND 
-        SDI.[TransactionCurrencyID] = ER.[SourceCurrency]
-        AND
-        SDI.[CurrencyID] = ER.[TargetCurrency]
-        AND
-        ER.[ExchangeRateType] = 'M'
- CROSS JOIN
+    LEFT OUTER JOIN [edw].[vw_CurrencyConversionRate] CCR
+    ON SDI.CurrencyID = CCR.SourceCurrency
+    LEFT OUTER JOIN 
     [edw].[dim_CurrencyType] CR
- WHERE
-    CR.[CurrencyTypeID] = '10'
-
-UNION ALL
-
-SELECT 
-      -- [TS_SEQUENCE_NUMBER]
-      --,[ODQ_CHANGEMODE]
-      --,[ODQ_ENTITYCNTR]
-       CONCAT_WS('¦', [SalesDocument] collate SQL_Latin1_General_CP1_CS_AS, [SalesDocumentItem] collate SQL_Latin1_General_CP1_CS_AS, CR.[CurrencyTypeID]) as [nk_fact_SalesDocumentItem]
-      ,[SalesDocument]
-      ,[SalesDocumentItem]
-	  ,CR.[CurrencyTypeID]
-      ,CR.[CurrencyType]
-      ,[CurrencyID]
-      ,[ExchangeRate]
-      ,[SDDocumentCategoryID]
-      ,[SalesDocumentTypeID]
-      ,[SalesDocumentItemCategoryID]
-      ,[IsReturnsItemID]
-      ,[CreationDate]
-      ,[CreationTime]
-      ,[LastChangeDate]
-      ,[SalesOrganizationID]
-      ,[DistributionChannelID]
-      ,[DivisionID]
-      ,[SalesGroupID]
-      ,[SalesOfficeID]
-      ,[InternationalArticleNumberID]
-      ,[BatchID]
-      ,[MaterialID]
-      ,[nk_ProductPlant]
-      ,[ProductSurrogateKey]
-      ,[OriginallyRequestedMaterialID]
-      ,[MaterialSubstitutionReasonID]
-      ,[MaterialGroupID]
-      ,[BrandID]
-      ,[Brand]
-      ,[AdditionalMaterialGroup2ID]
-      ,[AdditionalMaterialGroup3ID]
-      ,[AdditionalMaterialGroup4ID]
-      ,[AdditionalMaterialGroup5ID]
-      ,[SoldToPartyID]
-      ,[AdditionalCustomerGroup1ID]
-      ,[AdditionalCustomerGroup2ID]
-      ,[AdditionalCustomerGroup3ID]
-      ,[AdditionalCustomerGroup4ID]
-      ,[AdditionalCustomerGroup5ID]
-      ,[ShipToPartyID]
-      ,[PayerPartyID]
-      ,[BillToPartyID]
-      ,[SDDocumentReasonID]
-      ,[SalesDocumentDate]
-      ,[OrderQuantity]
-      ,[OrderQuantityUnitID]
-      ,[TargetQuantity]
-      ,[TargetQuantityUnitID]
-      ,[TargetToBaseQuantityDnmntr]
-      ,[TargetToBaseQuantityNmrtr]
-      ,[OrderToBaseQuantityDnmntr]
-      ,[OrderToBaseQuantityNmrtr]
-      ,[ConfdDelivQtyInOrderQtyUnit]
-      ,[TargetDelivQtyInOrderQtyUnit]
-      ,[ConfdDeliveryQtyInBaseUnit]
-      ,[BaseUnitID]
-      ,[ItemGrossWeight]
-      ,[ItemNetWeight]
-      ,[ItemWeightUnitID]
-      ,[ItemVolume]
-      ,[ItemVolumeUnitID]
-      ,[ServicesRenderedDate]
-      ,[SalesDistrictID]
-      ,[CustomerGroupID]
-      ,[HdrOrderProbabilityInPercentID]
-      ,[ItemOrderProbabilityInPercentID]
-      ,[SalesDocumentRjcnReasonID]
-      ,[PricingDate]
-      ,[ExchangeRateDate]
-      ,[PriceDetnExchangeRate]
-      ,[StatisticalValueControlID]
-      ,[NetAmount]
-      ,[TransactionCurrencyID]
-      ,[SalesOrganizationCurrencyID]
-      ,[NetPriceAmount]
-      ,[NetPriceQuantity]
-      ,[NetPriceQuantityUnitID]
-	  ,[TaxAmount]
-	  ,[CostAmount]
-      ,[Margin]
-	  ,[Subtotal1Amount]
-	  ,[Subtotal2Amount]
-	  ,[Subtotal3Amount]
-	  ,[Subtotal4Amount]
-	  ,[Subtotal5Amount]
-      ,[Subtotal6Amount]
-      ,[ShippingPointID]
-      ,[ShippingTypeID]
-      ,[DeliveryPriorityID]
-      ,[InventorySpecialStockTypeID]
-      ,[RequestedDeliveryDate]
-      ,[ShippingConditionID]
-      ,[DeliveryBlockReasonID]
-      ,[PlantID]
-      ,[StorageLocationID]
-      ,[RouteID]
-      ,[IncotermsClassificationID]
-      ,[IncotermsVersionID]
-      ,[IncotermsTransferLocationID]
-      ,[IncotermsLocation1ID]
-      ,[IncotermsLocation2ID]
-      ,[MinDeliveryQtyInBaseUnit]
-      ,[UnlimitedOverdeliveryIsAllowedID]
-      ,[OverdelivTolrtdLmtRatioInPct]
-      ,[UnderdelivTolrtdLmtRatioInPct]
-      ,[PartialDeliveryIsAllowedID]
-      ,[BindingPeriodValidityStartDate]
-      ,[BindingPeriodValidityEndDate]
-      ,[OutlineAgreementTargetAmount]
-      ,[BillingDocumentDate]
-      ,[BillingCompanyCodeID]
-      ,[HeaderBillingBlockReasonID]
-      ,[ItemBillingBlockReasonID]
-      ,[FiscalYearID]
-      ,[FiscalPeriodID]
-      ,[CustomerAccountAssignmentGroupID]
-      ,[ExchangeRateTypeID]
-      ,[CurrencyID] as [CompanyCodeCurrencyID]
-      ,[FiscalYearVariantID]
-      ,[BusinessAreaID]
-      ,[ProfitCenterID]
-      ,[OrderID]
-      ,[ProfitabilitySegmentID]
-      ,[ControllingAreaID]
-      ,[ReferenceSDDocumentID]
-      ,[ReferenceSDDocumentItemID]
-      ,[ReferenceSDDocumentCategoryID]
-      ,[OriginSDDocumentID]
-      ,[OriginSDDocumentItemID]
-      ,[OverallSDProcessStatusID]
-      ,[OverallTotalDeliveryStatusID]
-      ,[OverallOrdReltdBillgStatusID]
-      ,[TotalCreditCheckStatusID]
-      ,[DeliveryBlockStatusID]
-      ,[BillingBlockStatusID]
-      ,[TotalSDDocReferenceStatusID]
-      ,[SDDocReferenceStatusID]
-      ,[OverallSDDocumentRejectionStsID]
-      ,[SDDocumentRejectionStatusID]
-      ,[OverallTotalSDDocRefStatusID]
-      ,[OverallSDDocReferenceStatusID]
-      ,[ItemGeneralIncompletionStatusID]
-      ,[ItemBillingIncompletionStatusID]
-      ,[PricingIncompletionStatusID]
-      ,[ItemDeliveryIncompletionStatusID]
-      ,[SalesAgentID]
-      ,[SalesAgent]
-      ,[ExternalSalesAgentID]
-      ,[ExternalSalesAgent]
-      ,[GlobalParentID]
-      ,[GlobalParent]
-      ,[LocalParentID]
-      ,[LocalParent]
-      ,[ProjectID]
-      ,[Project]
-      ,[SalesEmployeeID]
-      ,[SalesEmployee]
-      ,[GlobalParentCalculatedID]
-      ,[GlobalParentCalculated]
-      ,[LocalParentCalculatedID]
-      ,[LocalParentCalculated]
-      ,[SDoc_ControllingObjectID]
-      ,[SDItem_ControllingObjectID]
-      ,[CorrespncExternalReference] 
-      ,[InOutID]
-      ,OpenDeliveryNetAmount
-      ,[OrderType]
-      ,[ItemOrderStatus]
-      ,[OrderStatus]
-      ,[ActualDeliveredQuantityInBaseUnit]
-      ,[BillingQuantityInBaseUnit]
-      ,[ActualDeliveredQuantityIBUOverall]
-      ,[BillingQuantityIBUOverall]
-      ,[ItemDeliveryStatus]    
-      ,[OverallDeliveryStatus] 
-      ,[ScheduleLineCategory]
-      ,SD_30.[t_applicationId]
-      ,SD_30.[t_jobId]
-      ,SD_30.[t_jobDtm]
-      ,SD_30.[t_jobBy]
-      ,SD_30.[t_extractionDtm]
-      ,SD_30.[t_filePath]
-FROM 
-    SalesDocument_30 SD_30
-CROSS JOIN
-    [edw].[dim_CurrencyType] CR
-WHERE
-    CR.[CurrencyTypeID] = '30'
-UNION ALL
-
-SELECT 
-      -- [TS_SEQUENCE_NUMBER]
-      --,[ODQ_CHANGEMODE]
-      --,[ODQ_ENTITYCNTR]
-       CONCAT_WS('¦', ExchangeRateUSD.[SalesDocument] collate SQL_Latin1_General_CP1_CS_AS, ExchangeRateUSD.[SalesDocumentItem] collate SQL_Latin1_General_CP1_CS_AS, CR.[CurrencyTypeID]) as [nk_fact_SalesDocumentItem]
-      ,ExchangeRateUSD.[SalesDocument]
-      ,ExchangeRateUSD.[SalesDocumentItem]
-	  ,CR.[CurrencyTypeID]
-      ,CR.[CurrencyType]
-      ,'USD' AS [CurrencyID]
-      ,1/ExchangeRateUSD.[ExchangeRate] AS [ExchangeRate]
-      ,[SDDocumentCategoryID]
-      ,[SalesDocumentTypeID]
-      ,[SalesDocumentItemCategoryID]
-      ,[IsReturnsItemID]
-      ,[CreationDate]
-      ,[CreationTime]
-      ,[LastChangeDate]
-      ,[SalesOrganizationID]
-      ,[DistributionChannelID]
-      ,[DivisionID]
-      ,[SalesGroupID]
-      ,[SalesOfficeID]
-      ,[InternationalArticleNumberID]
-      ,[BatchID]
-      ,[MaterialID]
-      ,[nk_ProductPlant]
-      ,[ProductSurrogateKey]
-      ,[OriginallyRequestedMaterialID]
-      ,[MaterialSubstitutionReasonID]
-      ,[MaterialGroupID]
-      ,[BrandID]
-      ,[Brand]
-      ,[AdditionalMaterialGroup2ID]
-      ,[AdditionalMaterialGroup3ID]
-      ,[AdditionalMaterialGroup4ID]
-      ,[AdditionalMaterialGroup5ID]
-      ,[SoldToPartyID]
-      ,[AdditionalCustomerGroup1ID]
-      ,[AdditionalCustomerGroup2ID]
-      ,[AdditionalCustomerGroup3ID]
-      ,[AdditionalCustomerGroup4ID]
-      ,[AdditionalCustomerGroup5ID]
-      ,[ShipToPartyID]
-      ,[PayerPartyID]
-      ,[BillToPartyID]
-      ,[SDDocumentReasonID]
-      ,[SalesDocumentDate]
-      ,[OrderQuantity]
-      ,[OrderQuantityUnitID]
-      ,[TargetQuantity]
-      ,[TargetQuantityUnitID]
-      ,[TargetToBaseQuantityDnmntr]
-      ,[TargetToBaseQuantityNmrtr]
-      ,[OrderToBaseQuantityDnmntr]
-      ,[OrderToBaseQuantityNmrtr]
-      ,[ConfdDelivQtyInOrderQtyUnit]
-      ,[TargetDelivQtyInOrderQtyUnit]
-      ,[ConfdDeliveryQtyInBaseUnit]
-      ,[BaseUnitID]
-      ,[ItemGrossWeight]
-      ,[ItemNetWeight]
-      ,[ItemWeightUnitID]
-      ,[ItemVolume]
-      ,[ItemVolumeUnitID]
-      ,[ServicesRenderedDate]
-      ,[SalesDistrictID]
-      ,[CustomerGroupID]
-      ,[HdrOrderProbabilityInPercentID]
-      ,[ItemOrderProbabilityInPercentID]
-      ,[SalesDocumentRjcnReasonID]
-      ,[PricingDate]
-      ,[ExchangeRateDate]
-      ,[PriceDetnExchangeRate]
-      ,[StatisticalValueControlID]
-      ,CONVERT(decimal(19,6), [NetAmount] * (1/ExchangeRateUSD.[ExchangeRate])) as [NetAmount]
-      ,[TransactionCurrencyID]
-      ,[SalesOrganizationCurrencyID]
-      ,CONVERT(decimal(19,6), [NetPriceAmount] * (1/ExchangeRateUSD.[ExchangeRate])) as [NetPriceAmount]
-      ,[NetPriceQuantity]
-      ,[NetPriceQuantityUnitID]
-	  ,CONVERT(decimal(19,6), [TaxAmount] * (1/ExchangeRateUSD.[ExchangeRate])) as [TaxAmount]
-	  ,CONVERT(decimal(19,6), [CostAmount] * (1/ExchangeRateUSD.[ExchangeRate])) as [CostAmount]
-      ,CONVERT(decimal(19, 6), [Margin] * (1/ExchangeRateUSD.[ExchangeRate]))          as [Margin]
-	  ,CONVERT(decimal(19,6), [Subtotal1Amount] * (1/ExchangeRateUSD.[ExchangeRate])) as [Subtotal1Amount]
-	  ,CONVERT(decimal(19,6), [Subtotal2Amount] * (1/ExchangeRateUSD.[ExchangeRate])) as [Subtotal2Amount]
-	  ,CONVERT(decimal(19,6), [Subtotal3Amount] * (1/ExchangeRateUSD.[ExchangeRate])) as [Subtotal3Amount]
-	  ,CONVERT(decimal(19,6), [Subtotal4Amount] * (1/ExchangeRateUSD.[ExchangeRate])) as [Subtotal4Amount]
-	  ,CONVERT(decimal(19,6), [Subtotal5Amount] * (1/ExchangeRateUSD.[ExchangeRate])) as [Subtotal5Amount]
-      ,CONVERT(decimal(19,6), [Subtotal6Amount] * (1/ExchangeRateUSD.[ExchangeRate])) as [Subtotal6Amount]
-      ,[ShippingPointID]
-      ,[ShippingTypeID]
-      ,[DeliveryPriorityID]
-      ,[InventorySpecialStockTypeID]
-      ,[RequestedDeliveryDate]
-      ,[ShippingConditionID]
-      ,[DeliveryBlockReasonID]
-      ,[PlantID]
-      ,[StorageLocationID]
-      ,[RouteID]
-      ,[IncotermsClassificationID]
-      ,[IncotermsVersionID]
-      ,[IncotermsTransferLocationID]
-      ,[IncotermsLocation1ID]
-      ,[IncotermsLocation2ID]
-      ,[MinDeliveryQtyInBaseUnit]
-      ,[UnlimitedOverdeliveryIsAllowedID]
-      ,[OverdelivTolrtdLmtRatioInPct]
-      ,[UnderdelivTolrtdLmtRatioInPct]
-      ,[PartialDeliveryIsAllowedID]
-      ,[BindingPeriodValidityStartDate]
-      ,[BindingPeriodValidityEndDate]
-      ,[OutlineAgreementTargetAmount]
-      ,[BillingDocumentDate]
-      ,[BillingCompanyCodeID]
-      ,[HeaderBillingBlockReasonID]
-      ,[ItemBillingBlockReasonID]
-      ,[FiscalYearID]
-      ,[FiscalPeriodID]
-      ,[CustomerAccountAssignmentGroupID]
-      ,[ExchangeRateTypeID]
-      ,[CurrencyID] as [CompanyCodeCurrencyID]
-      ,[FiscalYearVariantID]
-      ,[BusinessAreaID]
-      ,[ProfitCenterID]
-      ,[OrderID]
-      ,[ProfitabilitySegmentID]
-      ,[ControllingAreaID]
-      ,[ReferenceSDDocumentID]
-      ,[ReferenceSDDocumentItemID]
-      ,[ReferenceSDDocumentCategoryID]
-      ,[OriginSDDocumentID]
-      ,[OriginSDDocumentItemID]
-      ,[OverallSDProcessStatusID]
-      ,[OverallTotalDeliveryStatusID]
-      ,[OverallOrdReltdBillgStatusID]
-      ,[TotalCreditCheckStatusID]
-      ,[DeliveryBlockStatusID]
-      ,[BillingBlockStatusID]
-      ,[TotalSDDocReferenceStatusID]
-      ,[SDDocReferenceStatusID]
-      ,[OverallSDDocumentRejectionStsID]
-      ,[SDDocumentRejectionStatusID]
-      ,[OverallTotalSDDocRefStatusID]
-      ,[OverallSDDocReferenceStatusID]
-      ,[ItemGeneralIncompletionStatusID]
-      ,[ItemBillingIncompletionStatusID]
-      ,[PricingIncompletionStatusID]
-      ,[ItemDeliveryIncompletionStatusID]
-      ,[SalesAgentID]
-      ,[SalesAgent]
-      ,[ExternalSalesAgentID]
-      ,[ExternalSalesAgent]
-      ,[GlobalParentID]
-      ,[GlobalParent]
-      ,[LocalParentID]
-      ,[LocalParent]
-      ,[ProjectID]
-      ,[Project]
-      ,[SalesEmployeeID]
-      ,[SalesEmployee]
-      ,[GlobalParentCalculatedID]
-      ,[GlobalParentCalculated]
-      ,[LocalParentCalculatedID]
-      ,[LocalParentCalculated]
-      ,[SDoc_ControllingObjectID]
-      ,[SDItem_ControllingObjectID]
-      ,[CorrespncExternalReference] 
-      ,[InOutID]
-      ,CONVERT(decimal(19,6), [OpenDeliveryNetAmount] * (1/ExchangeRateUSD.[ExchangeRate])) as [OpenDeliveryNetAmount]
-      ,[OrderType]
-      ,[ItemOrderStatus]
-      ,[OrderStatus]
-      ,[ActualDeliveredQuantityInBaseUnit]
-      ,[BillingQuantityInBaseUnit]
-      ,[ActualDeliveredQuantityIBUOverall]
-      ,[BillingQuantityIBUOverall]
-      ,[ItemDeliveryStatus]    
-      ,[OverallDeliveryStatus]
-      ,[ScheduleLineCategory]
-      ,SD_30.[t_applicationId]
-      ,SD_30.[t_jobId]
-      ,SD_30.[t_jobDtm]
-      ,SD_30.[t_jobBy]
-      ,SD_30.[t_extractionDtm]
-      ,SD_30.[t_filePath]
-FROM 
-    ExchangeRateUSD
-left join
-    SalesDocument_30 SD_30
-    ON
-        SD_30.[SalesDocument] = ExchangeRateUSD.[SalesDocument]
-        AND
-        SD_30.[SalesDocumentItem] = ExchangeRateUSD.[SalesDocumentItem]
-CROSS JOIN
-    [edw].[dim_CurrencyType] CR
-WHERE
-    CR.[CurrencyTypeID] = '40'
+    ON CCR.CurrencyTypeID = CR.CurrencyTypeID
