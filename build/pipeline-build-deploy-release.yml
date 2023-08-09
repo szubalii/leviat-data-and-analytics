@@ -93,8 +93,7 @@ stages:
             if (($filePaths -match $solutionFolder).count -eq 0){
               Write-Host 'No changed files found for'$solution;
               $solutionVarName = 'deploy_'+$solution.replace('-', '_');
-              # Write-Host "##vso[task.setvariable variable=$solutionVarName]false";
-              # Write-Host "##vso[task.setvariable variable=deploy_azure_data_factory]false";
+              Write-Host "##vso[task.setvariable variable=$solutionVarName]false";
             }
             else {
               Write-Host 'The following files were changed:';
