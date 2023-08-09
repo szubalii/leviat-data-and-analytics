@@ -74,16 +74,15 @@ stages:
           # Write-Host "Build.SourceVersion: $(Build.SourceVersion)"
           Write-Host "Build.SourceVersionMessage: $(Build.SourceVersionMessage)"
           $filePaths = git diff --name-only $(commitId)^! #difference between parent of commit and commit
-          $filePaths
           # $filePaths2 = $(git diff-tree --no-commit-id --name-only -r $(Build.SourceVersion))
-          Write-Host "Changed files using commitId: $($filePaths)"
+          Write-Host "Changed files using commitId:"
+          $filePaths
 
           $solutions = @('azure-data-factory', 'orchestration', 'synapse-dwh', 'synapse-workspace', 'xu-config')
 
           ForEach ($solution in $solutions) {
             $solutionFolder = $solution+'/';
-            Write-Host $solutionFolder
-            Write-Host 'Check if there are any changed files for folder:'$solution;
+            Write-Host 'Check if there are any changed files for folder:'$solutionFolder;
 
             $filePaths -match $solutionFolder
             
