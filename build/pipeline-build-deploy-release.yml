@@ -108,11 +108,11 @@ stages:
         Write-Host 'deploy_synapse_dwh:'$(deploy_synapse_dwh);
         Write-Host 'deploy_synapse_workspace:'$(deploy_synapse_workspace);
         Write-Host 'deploy_xu_config:'$(deploy_xu_config);
-        # Write-Host 'variables.deploy_azure_data_factory'= $(solutionDeployment.deploy_azure_data_factory);
-        # Write-Host 'variables.deploy_orchestration'= $(solutionDeployment.deploy_orchestration);
-        # Write-Host 'variables.deploy_synapse_dwh'= $(solutionDeployment.deploy_synapse_dwh);
-        # Write-Host 'variables.deploy_synapse_workspace'= $(solutionDeployment.deploy_synapse_workspace);
-        # Write-Host 'variables.deploy_xu_config'= $(solutionDeployment.deploy_xu_config);
+        Write-Host 'deploy_azure_data_factory:'$(solutionDeployment.deploy_azure_data_factory);
+        Write-Host 'deploy_orchestration:'$(solutionDeployment.deploy_orchestration);
+        Write-Host 'deploy_synapse_dwh:'$(solutionDeployment.deploy_synapse_dwh);
+        Write-Host 'deploy_synapse_workspace:'$(solutionDeployment.deploy_synapse_workspace);
+        Write-Host 'deploy_xu_config:'$(solutionDeployment.deploy_xu_config);
     
 - stage: VARIABLES
   dependsOn: SET_SOLUTION_DEPLOYMENT
