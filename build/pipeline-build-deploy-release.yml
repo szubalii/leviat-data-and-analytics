@@ -68,6 +68,12 @@ stages:
         pwsh: true
         script: |
 
+          Write-Host 'deploy_azure_data_factory:'$(deploy_azure_data_factory);
+          Write-Host 'deploy_orchestration:'$(deploy_orchestration);
+          Write-Host 'deploy_synapse_dwh:'$(deploy_synapse_dwh);
+          Write-Host 'deploy_synapse_workspace:'$(deploy_synapse_workspace);
+          Write-Host 'deploy_xu_config:'$(deploy_xu_config);
+
           # Retrieve list of changed files
           Write-Host "System.DefaultWorkingDirectory: $(System.DefaultWorkingDirectory)"
           Write-Host "CommitID: $(commitId)"
@@ -78,17 +84,11 @@ stages:
           Write-Host "Changed files using commitId:"
           $filePaths
 
-          Write-Host "Object Type of filePaths:"
-          $filePaths.GetType()
-
           $solutions = @('azure-data-factory', 'orchestration', 'synapse-dwh', 'synapse-workspace', 'xu-config')
 
           ForEach ($solution in $solutions) {
             $solutionFolder = $solution+'/';
             Write-Host 'Check if there are any changed files for folder:'$solutionFolder;
-
-            Write-Host 'count:'
-            ($filePaths -match $solutionFolder).count
             
             if (($filePaths -match $solutionFolder).count -eq 0){
               Write-Host 'No changed files found for'$solution;
@@ -96,18 +96,23 @@ stages:
               Write-Host "##vso[task.setvariable variable=$solutionVarName]false";
               Write-Host "##vso[task.setvariable variable=deploy_azure_data_factory]false";
             }
+            else {
+              Write-Host 'The following files were changed:';
+              $filePaths -match $solutionFolder
+              Write-Host 'Deployment of$solutionwill proceed.';
+            }
           }
     - pwsh: |
-        Write-Host $(deploy_azure_data_factory);
-        Write-Host $(deploy_orchestration);
-        Write-Host $(deploy_synapse_dwh);
-        Write-Host $(deploy_synapse_workspace);
-        Write-Host $(deploy_xu_config);
-        Write-Host 'variables.deploy_azure_data_factory'= $(solutionDeployment.deploy_azure_data_factory);
-        Write-Host 'variables.deploy_orchestration'= $(solutionDeployment.deploy_orchestration);
-        Write-Host 'variables.deploy_synapse_dwh'= $(solutionDeployment.deploy_synapse_dwh);
-        Write-Host 'variables.deploy_synapse_workspace'= $(solutionDeployment.deploy_synapse_workspace);
-        Write-Host 'variables.deploy_xu_config'= $(solutionDeployment.deploy_xu_config);
+        Write-Host 'deploy_azure_data_factory:'$(deploy_azure_data_factory);
+        Write-Host 'deploy_orchestration:'$(deploy_orchestration);
+        Write-Host 'deploy_synapse_dwh:'$(deploy_synapse_dwh);
+        Write-Host 'deploy_synapse_workspace:'$(deploy_synapse_workspace);
+        Write-Host 'deploy_xu_config:'$(deploy_xu_config);
+        # Write-Host 'variables.deploy_azure_data_factory'= $(solutionDeployment.deploy_azure_data_factory);
+        # Write-Host 'variables.deploy_orchestration'= $(solutionDeployment.deploy_orchestration);
+        # Write-Host 'variables.deploy_synapse_dwh'= $(solutionDeployment.deploy_synapse_dwh);
+        # Write-Host 'variables.deploy_synapse_workspace'= $(solutionDeployment.deploy_synapse_workspace);
+        # Write-Host 'variables.deploy_xu_config'= $(solutionDeployment.deploy_xu_config);
     
 - stage: VARIABLES
   dependsOn: SET_SOLUTION_DEPLOYMENT
