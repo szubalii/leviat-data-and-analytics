@@ -78,6 +78,9 @@ stages:
           Write-Host "Changed files using commitId:"
           $filePaths
 
+          Write-Host "Object Type of filePaths:"
+          $filePaths.GetType()
+
           $solutions = @('azure-data-factory', 'orchestration', 'synapse-dwh', 'synapse-workspace', 'xu-config')
 
           ForEach ($solution in $solutions) {
