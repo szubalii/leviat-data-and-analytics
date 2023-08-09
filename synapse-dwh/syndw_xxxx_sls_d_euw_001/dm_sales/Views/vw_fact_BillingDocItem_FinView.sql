@@ -144,7 +144,7 @@ SELECT
 ,   NULL AS [Brand]
 ,   NULL AS [BillingDocumentIsCancelled]
 ,   'N'  AS [CancelledInvoiceEffect]
-,   NULL AS [BillingQuantity]
+,   docBillingUS.[BillingQuantity]
 --,   docBilling.[UnitOfMeasureID]        AS [BillingQuantityUnitID]
 --,   docBilling.[UnitOfMeasure]          AS [BillingQuantityUnit]
 ,   CAST (docBillingUS.[NetAmount] AS decimal (15,2)) as [NetAmount] 
