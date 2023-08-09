@@ -98,7 +98,7 @@ stages:
             else {
               Write-Host 'The following files were changed:';
               $filePaths -match $solutionFolder
-              Write-Host 'Deployment of'$solution'will proceed.';
+              Write-Host 'Deployment of'$solution' will proceed.';
               Write-Host "##vso[task.setvariable variable=$solutionVarName;isOutput=true]true";
             }
           }
@@ -119,8 +119,10 @@ stages:
   jobs:
   - job: Vars
     variables:
-      deploy_synapse_dwh_2: $[ stageDependencies.SET_SOLUTION_DEPLOYMENT.Set_Solution_Deployment.outputs['solutionDeployment.deploy_synapse_dwh'] ]
-      deploy_azure_data_factory_2: $[ stageDependencies.SET_SOLUTION_DEPLOYMENT.Set_Solution_Deployment.outputs['solutionDeployment.deploy_azure_data_factory'] ]
+    - name: deploy_synapse_dwh_2
+      value: $[ stageDependencies.SET_SOLUTION_DEPLOYMENT.Set_Solution_Deployment.outputs['solutionDeployment.deploy_synapse_dwh'] ]
+    - name: deploy_azure_data_factory_2
+      value: $[ stageDependencies.SET_SOLUTION_DEPLOYMENT.Set_Solution_Deployment.outputs['solutionDeployment.deploy_azure_data_factory'] ]
     pool:
       name: 'VM'
       demands:
