@@ -132,9 +132,9 @@ stages:
   - job: Vars
     variables:
     - name: deploy_synapse_dwh_2
-      value: $[ stageDependencies.SET_SOLUTION_DEPLOYMENT.Set_Solution_Deployment.outputs['solutionDeployment.deploy_synapse_dwh'] ]
+      value: $[stageDependencies.SET_SOLUTION_DEPLOYMENT.Set_Solution_Deployment.outputs['solutionDeployment.deploy_synapse_dwh']]
     - name: deploy_azure_data_factory_2
-      value: $[ stageDependencies.SET_SOLUTION_DEPLOYMENT.Set_Solution_Deployment.outputs['solutionDeployment.deploy_azure_data_factory'] ]
+      value: $[stageDependencies.SET_SOLUTION_DEPLOYMENT.Set_Solution_Deployment.outputs['solutionDeployment.deploy_azure_data_factory']]
     pool:
       name: 'VM'
       demands:
