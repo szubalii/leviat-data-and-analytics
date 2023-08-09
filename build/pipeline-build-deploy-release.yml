@@ -88,12 +88,11 @@ stages:
 
           ForEach ($solution in $solutions) {
             $solutionFolder = $solution+'/';
+            $solutionVarName = 'deploy_'+$solution.replace('-', '_');
             Write-Host 'Check if there are any changed files for folder:'$solutionFolder;
             
             if (($filePaths -match $solutionFolder).count -eq 0){
-              Write-Host 'No changed files found for'$solution;
-              Write-Host 'Deployment of'$solution'will not take place.';
-              $solutionVarName = 'deploy_'+$solution.replace('-', '_');
+              Write-Host 'No changed files found for'$solution'. Deployment of'$solution'will not take place.';
               Write-Host "##vso[task.setvariable variable=$solutionVarName;isOutput=true]false";
             }
             else {
