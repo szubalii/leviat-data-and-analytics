@@ -1286,6 +1286,7 @@
     <Build Include="dm_finance\Views\vw_fact_ACDOCA_FinStatemntSalesMargin.sql" />
     <Build Include="edw\Functions\ScalarValued\svf_getClassification.sql" />
     <Build Include="edw\Functions\ScalarValued\svf_getBooleanIndicator.sql" />
+    <Build Include="edw\Functions\ScalarValued\svf_getSAPHierarchyNode.sql" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PostDeploy Include="Scripts\Post-Deploy\Script.PostDeployment.sql" />

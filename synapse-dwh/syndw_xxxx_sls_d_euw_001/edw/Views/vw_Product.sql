@@ -746,56 +746,16 @@ SELECT
 ,   ItemCategoryGroup.[ItemCategoryGroupName]
 ,   [NetWeight]
 ,   [ProductHierarchy]
-,   CASE
-        WHEN ISNULL([Product_L1_PillarID],'') = ''
-        THEN 'Unassigned SAP Hierarchy'
-        ELSE [Product_L1_PillarID]
-    END AS [Product_L1_PillarID]
-,   CASE
-        WHEN ISNULL([Product_L2_GroupID],'') = ''
-        THEN 'Unassigned SAP Hierarchy'
-        ELSE [Product_L2_GroupID]
-    END AS [Product_L2_GroupID]
-,   CASE
-        WHEN ISNULL([Product_L3_TypeID],'') = ''
-        THEN 'Unassigned SAP Hierarchy'
-        ELSE [Product_L3_TypeID]
-    END AS [Product_L3_TypeID]
-,   CASE
-        WHEN ISNULL([Product_L4_FamilyID],'') = ''
-        THEN 'Unassigned SAP Hierarchy'
-        ELSE [Product_L4_FamilyID]
-    END AS [Product_L4_FamilyID]
-,   CASE
-        WHEN ISNULL([Product_L5_SubFamilyID],'') = ''
-        THEN 'Unassigned SAP Hierarchy'
-        ELSE [Product_L5_SubFamilyID]
-    END AS [Product_L5_SubFamilyID]
-,   CASE
-        WHEN ISNULL([Product_L1_Pillar],'') = ''
-        THEN 'Unassigned SAP Hierarchy'
-        ELSE [Product_L1_Pillar]
-    END AS [Product_L1_Pillar]
-,   CASE
-        WHEN ISNULL([Product_L2_Group],'') = ''
-        THEN 'Unassigned SAP Hierarchy'
-        ELSE [Product_L2_Group]
-    END AS [Product_L2_Group]
-,   CASE
-        WHEN ISNULL([Product_L3_Type],'') = ''
-        THEN 'Unassigned SAP Hierarchy'
-        ELSE [Product_L3_Type]
-    END AS [Product_L3_Type]
-,   CASE
-        WHEN ISNULL([Product_L4_Family],'') = ''
-        THEN 'Unassigned SAP Hierarchy'
-        ELSE [Product_L4_Family]
-    END AS [Product_L4_Family]
-,   CASE
-        WHEN ISNULL([Product_L5_SubFamily],'') = ''
-        THEN 'Unassigned SAP Hierarchy'
-        ELSE [Product_L5_SubFamily]
-    END AS [Product_L5_SubFamily]
+,   [edw].[svf_getSAPHierarchyNode]([Product_L1_PillarID]) AS [Product_L1_PillarID]
+,   [edw].[svf_getSAPHierarchyNode]([Product_L2_GroupID]) AS [Product_L2_GroupID]
+,   [edw].[svf_getSAPHierarchyNode]([Product_L3_TypeID]) AS [Product_L3_TypeID]
+,   [edw].[svf_getSAPHierarchyNode]([Product_L4_FamilyID]) AS [Product_L4_FamilyID]
+,   [edw].[svf_getSAPHierarchyNode]([Product_L5_SubFamilyID]) AS [Product_L5_SubFamilyID]
+,   [edw].[svf_getSAPHierarchyNode]([Product_L1_Pillar]) AS [Product_L1_Pillar]
+,   [edw].[svf_getSAPHierarchyNode]([Product_L2_Group]) AS [Product_L2_Group]
+,   [edw].[svf_getSAPHierarchyNode]([Product_L3_Type]) AS [Product_L3_Type]
+,   [edw].[svf_getSAPHierarchyNode]([Product_L4_Family]) AS [Product_L4_Family]
+,   [edw].[svf_getSAPHierarchyNode]([Product_L5_SubFamily]) AS [Product_L5_SubFamily]
 ,   [Division]
 ,   [VarblPurOrdUnitIsActive]
 ,   [VolumeUnit]
