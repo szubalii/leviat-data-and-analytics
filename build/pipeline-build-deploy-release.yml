@@ -93,18 +93,22 @@ stages:
             if (($filePaths -match $solutionFolder).count -eq 0){
               Write-Host 'No changed files found for'$solution;
               $solutionVarName = 'deploy_'+$solution.replace('-', '_');
-              Write-Host "##vso[task.setvariable variable=$solutionVarName;isoutput=true]false";
+              Write-Host "##vso[task.setvariable variable=$solutionVarName]false";
+              Write-Host "##vso[task.setvariable variable=deploy_azure_data_factory]false";
             }
           }
     - pwsh: |
+        Write-Host $(deploy_azure_data_factory);
+        Write-Host $(deploy_orchestration);
+        Write-Host $(deploy_synapse_dwh);
+        Write-Host $(deploy_synapse_workspace);
+        Write-Host $(deploy_xu_config);
         Write-Host 'variables.deploy_azure_data_factory'= $(solutionDeployment.deploy_azure_data_factory);
         Write-Host 'variables.deploy_orchestration'= $(solutionDeployment.deploy_orchestration);
         Write-Host 'variables.deploy_synapse_dwh'= $(solutionDeployment.deploy_synapse_dwh);
         Write-Host 'variables.deploy_synapse_workspace'= $(solutionDeployment.deploy_synapse_workspace);
         Write-Host 'variables.deploy_xu_config'= $(solutionDeployment.deploy_xu_config);
     
-
-
 - stage: VARIABLES
   dependsOn: SET_SOLUTION_DEPLOYMENT
   jobs:
