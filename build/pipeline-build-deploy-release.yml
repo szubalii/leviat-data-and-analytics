@@ -151,7 +151,7 @@ stages:
     build_synapse_workspace: true
     build_xu_config: true
     # dynamic_deployment: ${{ eq(variables.['Build.Reason'], 'IndividualCI') }}
-    dynamic_deployment: ${{ eq(variables.['Build.Reason'], 'Manual') }}
+    dynamic_deployment: ${{ eq(variables['Build.Reason'], 'Manual') }}
     # deploy_azure_data_factory: $[stageDependencies.SET_SOLUTION_DEPLOYMENT.Set_Solution_Deployment.outputs['solutionDeployment.deploy_synapse_dwh']]
     # deploy_orchestration: $[stageDependencies.SET_SOLUTION_DEPLOYMENT.Set_Solution_Deployment.outputs['solutionDeployment.deploy_orchestration']]
     # deploy_synapse_dwh: $[stageDependencies.SET_SOLUTION_DEPLOYMENT.Set_Solution_Deployment.outputs['solutionDeployment.deploy_synapse_dwh']]
