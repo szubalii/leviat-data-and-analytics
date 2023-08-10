@@ -12,7 +12,7 @@ WITH CountRowsPerProductType AS (
 )
 ,
 -- Calculate count rows per BusinessPartnerType from I_BusinessPartner table
-WITH CountRowsPerBusinessPartnerType AS (
+CountRowsPerBusinessPartnerType AS (
     SELECT
         [BusinessPartnerType]
     , COUNT(*) as [RecordTotals]
@@ -51,7 +51,7 @@ FROM
 LEFT JOIN
     CountRowsPerBusinessPartnerType AS cnt
     ON
-        r.[RuleGroup] = cnt.[BusinessPartnerType]
+        r.[RuleGroup] = cnt.[BusinessPartnerType] COLLATE DATABASE_DEFAULT
 WHERE
     [DataArea] = 'BP'
 )
@@ -984,16 +984,37 @@ SELECT
 FROM
     CountBPRowsPerRuleID AS cnt
 LEFT OUTER JOIN
-    [dq].[vw_BP_2_2_1] AS p
+    [dq].[vw_BP_2_2_1_Intercompany] AS p
     ON
         cnt.[RuleID] = p.[RuleID]
 
-WHERE cnt.RuleID IN ('2.2.1_Intercompany','2.2.1_ThirdParty')
+WHERE cnt.RuleID IN ('2.2.1_Intercompany')
 
 GROUP BY
     cnt.[RuleID],
     cnt.[RuleGroup],
     cnt.[RecordTotals]  
+
+UNION ALL
+
+--2.2.1
+SELECT
+    cnt.[RuleID],
+    cnt.[RecordTotals],
+    COUNT(p.Count) AS [ErrorTotals]
+FROM
+    CountBPRowsPerRuleID AS cnt
+LEFT OUTER JOIN
+    [dq].[vw_BP_2_2_1_ThirdParty] AS p
+    ON
+        cnt.[RuleID] = p.[RuleID]
+
+WHERE cnt.RuleID IN ('2.2.1_ThirdParty')
+
+GROUP BY
+    cnt.[RuleID],
+    cnt.[RuleGroup],
+    cnt.[RecordTotals] 
 
 UNION ALL
 
@@ -1110,11 +1131,32 @@ SELECT
 FROM
     CountBPRowsPerRuleID AS cnt
 LEFT OUTER JOIN
-    [dq].[vw_BP_2_0_9] AS p
+    [dq].[vw_BP_2_0_9_Intercompany] AS p
     ON
         cnt.[RuleID] = p.[RuleID]
 
-WHERE cnt.RuleID IN ('2.0.9_Intercompany','2.0.9_ThirdParty')
+WHERE cnt.RuleID IN ('2.0.9_Intercompany')
+
+GROUP BY
+    cnt.[RuleID],
+    cnt.[RuleGroup],
+    cnt.[RecordTotals] 
+
+UNION ALL
+
+--2.0.9
+SELECT
+    cnt.[RuleID],
+    cnt.[RecordTotals],
+    COUNT(p.Count) AS [ErrorTotals]
+FROM
+    CountBPRowsPerRuleID AS cnt
+LEFT OUTER JOIN
+    [dq].[vw_BP_2_0_9_ThirdParty] AS p
+    ON
+        cnt.[RuleID] = p.[RuleID]
+
+WHERE cnt.RuleID IN ('2.0.9_ThirdParty')
 
 GROUP BY
     cnt.[RuleID],
