@@ -53,10 +53,6 @@ stages:
   #TODO uncomment condition
   # condition: ${{ and(in(variables['Build.SourceBranchName'], 'main', 'qas', 'prod'), eq(variables['Build.Reason'], 'IndividualCI')) }}
   jobs:
-  - job: A1
-    steps:
-    - powershell: Write-Host "##vso[task.setvariable variable=myStageVal;isOutput=true]this is a stage output variable"
-      name: MyOutputVar
   - job: Set_Solution_Deployment
     pool:
       vmImage: 'ubuntu-20.04'
@@ -117,14 +113,6 @@ stages:
         Write-Host 'deploy_synapse_dwh:'$(solutionDeployment.deploy_synapse_dwh);
         Write-Host 'deploy_synapse_workspace:'$(solutionDeployment.deploy_synapse_workspace);
         Write-Host 'deploy_xu_config:'$(solutionDeployment.deploy_xu_config);
-- stage: B
-  dependsOn: SET_SOLUTION_DEPLOYMENT
-  jobs:
-  - job: B1
-    variables:
-      myStageAVar: $[stageDependencies.SET_SOLUTION_DEPLOYMENT.A1.outputs['MyOutputVar.myStageVal']]
-    steps:
-    - powershell: Write-Host "$(myStageAVar)"
     
 - stage: VARIABLES
   dependsOn: SET_SOLUTION_DEPLOYMENT
@@ -145,27 +133,30 @@ stages:
     - script: |
         echo variables.deploy_synapse_dwh: ${{ variables.deploy_synapse_dwh }}
         echo variables.deploy_azure_data_factory: ${{ variables.deploy_azure_data_factory }}
-        echo variables.deploy_synapse_dwh_2: ${{ variables.deploy_synapse_dwh_2 }}
-        echo variables.deploy_azure_data_factory_2: ${{ variables.deploy_azure_data_factory_2 }}
         echo variables.deploy_synapse_dwh_2: $(deploy_synapse_dwh_2)
         echo variables.deploy_azure_data_factory_2: $(deploy_azure_data_factory_2)
       displayName: Print Variables
 
 
-# - template: ./pipeline-build-deploy.yml
-#   # only run this template when the source branch is a release branch (main, qas, prod)
-#   # condition: ${{ in(variables['Build.SourceBranchName'], 'main', 'qas', 'prod') }}
-#   parameters:
-#     build_azure_data_factory: true
-#     build_orchestration: true
-#     build_synapse_dwh: true
-#     build_synapse_workspace: true
-#     build_xu_config: true
-#     deploy_azure_data_factory: $[ eq('true', 'true') ]
-#     deploy_orchestration: $[ eq(variables['deploy_orchestration'], 'true') ]
-#     deploy_synapse_dwh: $[ eq(variables['deploy_synapse_dwh'], 'true') ]
-#     deploy_synapse_workspace: $[ eq(variables['deploy_synapse_workspace'], 'true') ]
-#     deploy_xu_config: $[ eq(variables['deploy_xu_config'], 'true') ]
+https://learn.microsoft.com/en-us/azure/devops/pipelines/process/conditions?view=azure-devops&tabs=yaml%2Cstages#use-the-output-variable-from-a-job-in-a-condition-in-a-subsequent-job
+
+
+- template: ./pipeline-build-deploy.yml
+  # only run this template when the source branch is a release branch (main, qas, prod)
+  # condition: ${{ in(variables['Build.SourceBranchName'], 'main', 'qas', 'prod') }}
+  parameters:
+    build_azure_data_factory: true
+    build_orchestration: true
+    build_synapse_dwh: true
+    build_synapse_workspace: true
+    build_xu_config: true
+    # dynamic_deployment: ${{ eq(variables.['Build.Reason'], 'IndividualCI') }}
+    dynamic_deployment: ${{ eq(variables.['Build.Reason'], 'Manual') }}
+    # deploy_azure_data_factory: $[stageDependencies.SET_SOLUTION_DEPLOYMENT.Set_Solution_Deployment.outputs['solutionDeployment.deploy_synapse_dwh']]
+    # deploy_orchestration: $[stageDependencies.SET_SOLUTION_DEPLOYMENT.Set_Solution_Deployment.outputs['solutionDeployment.deploy_orchestration']]
+    # deploy_synapse_dwh: $[stageDependencies.SET_SOLUTION_DEPLOYMENT.Set_Solution_Deployment.outputs['solutionDeployment.deploy_synapse_dwh']]
+    # deploy_synapse_workspace: $[stageDependencies.SET_SOLUTION_DEPLOYMENT.Set_Solution_Deployment.outputs['solutionDeployment.deploy_synapse_workspace']]
+    # deploy_xu_config: $[stageDependencies.SET_SOLUTION_DEPLOYMENT.Set_Solution_Deployment.outputs['solutionDeployment.deploy_xu_config']]
   
 
 # extends:
