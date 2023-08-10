@@ -232,34 +232,34 @@ stages:
   - job: A1
     steps:
     - pwsh: |
-      # Retrieve list of changed files
-      Write-Host "System.DefaultWorkingDirectory: $(System.DefaultWorkingDirectory)"
-      Write-Host "CommitID: $(commitId)"
-      # Write-Host "Build.SourceVersion: $(Build.SourceVersion)"
-      Write-Host "Build.SourceVersionMessage: $(Build.SourceVersionMessage)"
-      $filePaths = git diff --name-only $(commitId)^! #difference between parent of commit and commit
-      # $filePaths2 = $(git diff-tree --no-commit-id --name-only -r $(Build.SourceVersion))
-      Write-Host "Changed files using commitId:"
-      $filePaths
+        # Retrieve list of changed files
+        Write-Host "System.DefaultWorkingDirectory: $(System.DefaultWorkingDirectory)"
+        Write-Host "CommitID: $(commitId)"
+        # Write-Host "Build.SourceVersion: $(Build.SourceVersion)"
+        Write-Host "Build.SourceVersionMessage: $(Build.SourceVersionMessage)"
+        $filePaths = git diff --name-only $(commitId)^! #difference between parent of commit and commit
+        # $filePaths2 = $(git diff-tree --no-commit-id --name-only -r $(Build.SourceVersion))
+        Write-Host "Changed files using commitId:"
+        $filePaths
 
-      $solutions = @('azure-data-factory', 'orchestration', 'synapse-dwh', 'synapse-workspace', 'xu-config')
+        $solutions = @('azure-data-factory', 'orchestration', 'synapse-dwh', 'synapse-workspace', 'xu-config')
 
-      ForEach ($solution in $solutions) {
-        $solutionFolder = $solution+'/';
-        $solutionVarName = 'deploy_'+$solution.replace('-', '_');
-        Write-Host 'Check if there are any changed files for folder:'$solutionFolder;
-        
-        if (($filePaths -match $solutionFolder).count -eq 0){
-          Write-Host 'No changed files found for'$solution'. Deployment of'$solution'will not take place.';
-          Write-Host "##vso[task.setvariable variable=$solutionVarName;isOutput=true]false";
+        ForEach ($solution in $solutions) {
+          $solutionFolder = $solution+'/';
+          $solutionVarName = 'deploy_'+$solution.replace('-', '_');
+          Write-Host 'Check if there are any changed files for folder:'$solutionFolder;
+          
+          if (($filePaths -match $solutionFolder).count -eq 0){
+            Write-Host 'No changed files found for'$solution'. Deployment of'$solution'will not take place.';
+            Write-Host "##vso[task.setvariable variable=$solutionVarName;isOutput=true]false";
+          }
+          else {
+            Write-Host 'The following files were changed:';
+            $filePaths -match $solutionFolder
+            Write-Host 'Deployment of'$solution' will proceed.';
+            Write-Host "##vso[task.setvariable variable=$solutionVarName;isOutput=true]true";
+          }
         }
-        else {
-          Write-Host 'The following files were changed:';
-          $filePaths -match $solutionFolder
-          Write-Host 'Deployment of'$solution' will proceed.';
-          Write-Host "##vso[task.setvariable variable=$solutionVarName;isOutput=true]true";
-        }
-      }
       name: A1.1
 
 - stage: B
