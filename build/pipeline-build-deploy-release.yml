@@ -121,22 +121,22 @@ variables:
     build_synapse_workspace: true
     build_xu_config: true
 
-- ${{ if eq(variables['Build.Reason'], 'Manual') }}:
-  - stage: DEPLOY_1
-    jobs:
-    - template: ./jobs-deploy-multi.yml
-      parameters:
-        solutions:
-        - name: 'orchestration'
-          deploy: True
-        - name: 'synapse-dwh'
-          deploy: True
-        - name: 'synapse-workspace'
-          deploy: True
-        - name: 'xu-config'
-          deploy: True
-        deployEnvPrefix: ${{ variables.deployEnvPrefix }}
-- ${{ else }}:
+# - ${{ if eq(variables['Build.Reason'], 'Manual') }}:
+#   - stage: DEPLOY_1
+#     jobs:
+#     - template: ./jobs-deploy-multi.yml
+#       parameters:
+#         solutions:
+#         - name: 'orchestration'
+#           deploy: True
+#         - name: 'synapse-dwh'
+#           deploy: True
+#         - name: 'synapse-workspace'
+#           deploy: True
+#         - name: 'xu-config'
+#           deploy: True
+#         deployEnvPrefix: ${{ variables.deployEnvPrefix }}
+# - ${{ else }}:
   - stage: DEPLOY_1
     dependsOn: CHECK_CHANGED_SOLUTIONS
     jobs:
@@ -153,16 +153,16 @@ variables:
           deploy: $[stageDependencies.CHECK_CHANGED_SOLUTIONS.CheckChangedSolutions.outputs['SetVariables.deploy_xu_config']]
         deployEnvPrefix: ${{ variables.deployEnvPrefix }}
 
-- ${{ if eq(variables['Build.Reason'], 'Manual') }}:
-  - stage: DEPLOY_2
-    jobs:
-    - template: ./jobs-deploy-multi.yml
-      parameters:
-        solutions:
-        - name: 'azure-data-factory'
-          deploy: True
-        deployEnvPrefix: ${{ variables.deployEnvPrefix }}
-- ${{ else }}:
+# - ${{ if eq(variables['Build.Reason'], 'Manual') }}:
+#   - stage: DEPLOY_2
+#     jobs:
+#     - template: ./jobs-deploy-multi.yml
+#       parameters:
+#         solutions:
+#         - name: 'azure-data-factory'
+#           deploy: True
+#         deployEnvPrefix: ${{ variables.deployEnvPrefix }}
+# - ${{ else }}:
   - stage: DEPLOY_2
     jobs:
     - template: ./jobs-deploy-multi.yml
@@ -171,6 +171,24 @@ variables:
         - name: 'azure-data-factory'
           deploy: $[stageDependencies.CHECK_CHANGED_SOLUTIONS.CheckChangedSolutions.outputs['SetVariables.deploy_azure_data_factory']]
         deployEnvPrefix: ${{ variables.deployEnvPrefix }}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 # - stage: VARIABLES
