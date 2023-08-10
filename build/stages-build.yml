@@ -345,13 +345,13 @@ stages:
   - template: ./jobs-build-solution.yml
     parameters:
       solutions:
-      - name: 'synapse-dwh'
-        build: ${{ parameters.build_synapse_dwh }}
       - name: 'azure-data-factory'
         build: ${{ parameters.build_azure_data_factory }}
       - name: 'orchestration'
         build: ${{ parameters.build_orchestration }}
-      - name: 'xu-config'
-        build: ${{ parameters.build_xu_config }}
+      - name: 'synapse-dwh'
+        build: ${{ parameters.build_synapse_dwh }}
       - name: 'synapse-workspace'
         build: ${{ parameters.build_synapse_workspace }}
+      - name: 'xu-config'
+        build: ${{ parameters.build_xu_config }}

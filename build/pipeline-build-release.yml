@@ -1,0 +1,36 @@
+# This pipeline is triggered whenever a PR is completed to any of the following branches:
+
+# By default, each solution is build.
+
+# The pipeline deploys a solution if for that solution files have changed in their respective 
+# folders. 
+
+trigger:
+  branches:
+    include:
+    - main
+    - qas
+    - prod
+
+variables:
+# In case of CI triggered pipelines (IndividualCI, triggered by git push),
+# use the system predefined variable Build.SourceBranchName to get the correct variable template
+- ${{ if eq(variables['Build.SourceBranchName'], 'main') }}:
+  - template: ./variables-test.yml
+- ${{ elseif eq(variables['Build.SourceBranchName'], 'qas') }}:
+  - template: ./variables-qas.yml
+- ${{ elseif eq(variables['Build.SourceBranchName'], 'prod') }}:
+  - template: ./variables-prod.yml
+- ${{ elseif or(contains(variables['Build.SourceBranch'], '/feature/'), contains(variables['Build.SourceBranch'], '/users/')) }}:
+  - template: ./variables-personal.yml
+  - name: user
+    value: ${{ split(variables['Build.SourceBranch'], '/')[3] }} #refs/heads/feature/mpors/...
+
+stages:        
+- template: ./stages-build.yml
+  parameters:
+    build_azure_data_factory: true
+    build_orchestration: true
+    build_synapse_dwh: true
+    build_synapse_workspace: true
+    build_xu_config: true

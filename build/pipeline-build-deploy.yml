@@ -227,10 +227,12 @@ stages:
 #         deploy: True
 #       deployEnvPrefix: ${{ variables.deployEnvPrefix }}
 - stage: A
-  condition: ${{ eq(parameters.dynamic_deployment, true) }}
   jobs:
   - job: A1
+    condition: ${{ eq(parameters.dynamic_deployment, true) }}
     steps:
+    - checkout: self
+      fetchDepth: 0 # disables shallow fetch and results in correct return of git diff-tree
     - pwsh: |
         # Retrieve list of changed files
         Write-Host "System.DefaultWorkingDirectory: $(System.DefaultWorkingDirectory)"
@@ -250,7 +252,7 @@ stages:
           Write-Host 'Check if there are any changed files for folder:'$solutionFolder;
           
           if (($filePaths -match $solutionFolder).count -eq 0){
-            Write-Host 'No changed files found for'$solution'. Deployment of'$solution'will not take place.';
+            Write-Host 'No changed files found for'$solution'. Deployment of' $solution 'will not take place.';
             Write-Host "##vso[task.setvariable variable=$solutionVarName;isOutput=true]false";
           }
           else {
