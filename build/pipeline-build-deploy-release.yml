@@ -141,6 +141,10 @@ stages:
 - stage: DEPLOY_1
   dependsOn: CHECK_CHANGED_SOLUTIONS
   jobs:
+  - job: 
+    steps:
+    - bash: |
+        echo 'test'
   - template: ./jobs-deploy-multi.yml
     parameters:
       solutions:
@@ -165,7 +169,12 @@ stages:
 #         deployEnvPrefix: ${{ variables.deployEnvPrefix }}
 # - ${{ else }}:
 - stage: DEPLOY_2
+  dependsOn: CHECK_CHANGED_SOLUTIONS
   jobs:
+  - job: 
+    steps:
+    - bash: |
+        echo 'test'
   - template: ./jobs-deploy-multi.yml
     parameters:
       solutions:
