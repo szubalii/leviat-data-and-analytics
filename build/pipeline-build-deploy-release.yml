@@ -46,6 +46,7 @@ variables:
 - name: commitId
   value: $(Build.SourceVersion)
 
+stages:
 - stage: CHECK_CHANGED_SOLUTIONS
   #TODO only run this template when the source branch is not a release branch (main, qas, prod)
   # and was triggered by git push
