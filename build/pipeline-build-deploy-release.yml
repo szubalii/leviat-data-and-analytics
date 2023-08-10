@@ -149,10 +149,10 @@ stages:
     steps:
     - bash: |
         echo 'test'
-  - job: 
-    steps:
-    - bash: |
-        echo $[stageDependencies.CHECK_CHANGED_SOLUTIONS.CheckChangedSolutions.outputs['SetVariables.deploy_orchestration']]
+  # - job: 
+  #   steps:
+  #   - bash: |
+  #       echo $[stageDependencies.CHECK_CHANGED_SOLUTIONS.CheckChangedSolutions.outputs['SetVariables.deploy_orchestration']]
   - template: ./jobs-deploy-multi.yml
     parameters:
       solutions:
