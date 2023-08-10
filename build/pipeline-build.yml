@@ -5,13 +5,6 @@
 # The pipeline deploys a solution if for that solution files have changed in their respective 
 # folders. 
 
-trigger:
-  branches:
-    include:
-    - main
-    - qas
-    - prod
-
 parameters:
 - name: azure_data_factory
   displayName: Azure Data Factory
@@ -37,13 +30,7 @@ parameters:
 variables:
 # In case of CI triggered pipelines (IndividualCI, triggered by git push),
 # use the system predefined variable Build.SourceBranchName to get the correct variable template
-- ${{ if eq(variables['Build.SourceBranchName'], 'main') }}:
-  - template: ./variables-test.yml
-- ${{ elseif eq(variables['Build.SourceBranchName'], 'qas') }}:
-  - template: ./variables-qas.yml
-- ${{ elseif eq(variables['Build.SourceBranchName'], 'prod') }}:
-  - template: ./variables-prod.yml
-- ${{ elseif or(contains(variables['Build.SourceBranch'], '/feature/'), contains(variables['Build.SourceBranch'], '/users/')) }}:
+- ${{ if or(contains(variables['Build.SourceBranch'], '/feature/'), contains(variables['Build.SourceBranch'], '/users/')) }}:
   - template: ./variables-personal.yml
   - name: user
     value: ${{ split(variables['Build.SourceBranch'], '/')[3] }} #refs/heads/feature/mpors/...

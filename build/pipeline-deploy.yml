@@ -2,12 +2,6 @@ resources:
   pipelines:
   - pipeline: build
     source: Build
-    trigger:
-      branches:
-        include:
-        - main
-        - qas
-        - prod
 
 parameters:
 - name: azure_data_factory
@@ -34,19 +28,7 @@ parameters:
 variables:
 # In case of CI triggered pipelines (IndividualCI, triggered by git push),
 # use the system predefined variable Build.SourceBranchName to get the correct variable template
-- ${{ if eq(variables['Build.SourceBranchName'], 'main') }}:
-  - template: ./variables-test.yml
-  - name: deployEnvPrefix # override value to map main branch to TEST deployment environment
-    value: '20_TEST'
-- ${{ elseif eq(variables['Build.SourceBranchName'], 'qas') }}:
-  - template: ./variables-qas.yml
-  - name: deployEnvPrefix # override value to map main branch to TEST deployment environment
-    value: '10_QAS'
-- ${{ elseif eq(variables['Build.SourceBranchName'], 'prod') }}:
-  - template: ./variables-prod.yml
-  - name: deployEnvPrefix # override value to map main branch to TEST deployment environment
-    value: '00_PROD'
-- ${{ elseif or(contains(variables['Build.SourceBranch'], '/feature/'), contains(variables['Build.SourceBranch'], '/users/')) }}:
+- ${{ if or(contains(variables['Build.SourceBranch'], '/feature/'), contains(variables['Build.SourceBranch'], '/users/')) }}:
   - template: ./variables-personal.yml
   - name: user
     value: ${{ split(variables['Build.SourceBranch'], '/')[3] }} #refs/heads/feature/mpors/...
@@ -56,198 +38,26 @@ variables:
   value: $(Build.SourceVersion)
 
 stages:
-- ${{ if and(in(variables['Build.SourceBranchName'], 'main', 'qas', 'prod'), eq(variables['Build.Reason'], 'IndividualCI')) }}:
-  - stage: CHECK_CHANGED_SOLUTIONS
-    #TODO only run this template when the source branch is not a release branch (main, qas, prod)
-    # and was triggered by git push
-    #TODO uncomment condition
-    # condition: ${{ and(in(variables['Build.SourceBranchName'], 'main', 'qas', 'prod'), eq(variables['Build.Reason'], 'IndividualCI')) }}
-    jobs:
-    - job: CheckChangedSolutions
-      pool:
-        vmImage: 'ubuntu-20.04'
-      steps:
-      - checkout: self
-        fetchDepth: 0 # disables shallow fetch and results in correct return of git diff-tree
-      
-      - task: PowerShell@2
-        displayName: 'Define which solutions deploy'
-        name: SetVariables
-        inputs:
-          targetType: 'inline'
-          pwsh: true
-          script: |
+- stage: DEPLOY_1_MANUAL
+  jobs:
+  - template: ./jobs-deploy-multi.yml
+    parameters:
+      solutions:
+      - name: 'orchestration'
+        deploy: ${{ parameters.orchestration }}
+      - name: 'synapse-dwh'
+        deploy: ${{ parameters.synapse_dwh }}
+      - name: 'synapse-workspace'
+        deploy: ${{ parameters.synapse_workspace }}
+      - name: 'xu-config'
+        deploy: ${{ parameters.xu_config }}
+      deployEnvPrefix: ${{ variables.deployEnvPrefix }}
 
-            # Retrieve list of changed files
-            Write-Host "System.DefaultWorkingDirectory: $(System.DefaultWorkingDirectory)"
-            Write-Host "CommitID: $(commitId)"
-            # Write-Host "Build.SourceVersion: $(Build.SourceVersion)"
-            Write-Host "Build.SourceVersionMessage: $(Build.SourceVersionMessage)"
-            $changedFiles = git diff --name-only $(commitId)^! #difference between parent of commit and commit
-            # $changedFiles2 = $(git diff-tree --no-commit-id --name-only -r $(Build.SourceVersion))
-            Write-Host "The following files have changed:"
-            $changedFiles
-
-            $solutions = @('azure-data-factory', 'orchestration', 'synapse-dwh', 'synapse-workspace', 'xu-config')
-
-            ForEach ($solution in $solutions) {
-              $solutionFolder = $solution+'/';
-              $solutionVarName = 'deploy_'+$solution.replace('-', '_');
-              Write-Host 'Check if there are any changed files for folder '$solutionFolder':';
-
-              # If a single file has changed
-              if ($changedFiles.getType().Name -eq 'String') {
-                # Changed file matches selected solution, so do deploy
-                if ($changedFiles -match $solutionFolder){
-                  Write-Host 'The following files were changed:';
-                  $changedFiles -match $solutionFolder
-                  Write-Host 'Deployment of'$solution' will proceed.';
-                  Write-Host "##vso[task.setvariable variable=$solutionVarName;isOutput=true]true";
-                }
-                # Changed file doesn't match solution, so don't deploy
-                else {
-                  Write-Host 'No changed files found for'$solution'. Deployment of' $solution' will not take place.';
-                  Write-Host "##vso[task.setvariable variable=$solutionVarName;isOutput=true]false";
-                }
-              }
-
-              # If multiple files have changed            
-              else {
-                # No changed files match selected solution, so don't deploy
-                if (($changedFiles -match $solutionFolder).count -eq 0){
-                  Write-Host 'No changed files found for'$solution'. Deployment of' $solution' will not take place.';
-                  Write-Host "##vso[task.setvariable variable=$solutionVarName;isOutput=true]false";
-                }
-                # Changed files match solution, so do deploy
-                else {
-                  Write-Host 'The following files were changed:';
-                  $changedFiles -match $solutionFolder
-                  Write-Host 'Deployment of'$solution' will proceed.';
-                  Write-Host "##vso[task.setvariable variable=$solutionVarName;isOutput=true]true";
-                }
-              }
-            }
-      - pwsh: |
-          Write-Host 'deploy_azure_data_factory:'$(SetVariables.deploy_azure_data_factory);
-          Write-Host 'deploy_orchestration:'$(SetVariables.deploy_orchestration);
-          Write-Host 'deploy_synapse_dwh:'$(SetVariables.deploy_synapse_dwh);
-          Write-Host 'deploy_synapse_workspace:'$(SetVariables.deploy_synapse_workspace);
-          Write-Host 'deploy_xu_config:'$(SetVariables.deploy_xu_config);
-
-
-- ${{ if eq(variables['Build.Reason'], 'Manual') }}:
-  - stage: DEPLOY_1_MANUAL
-    jobs:
-    - template: ./jobs-deploy-multi.yml
-      parameters:
-        solutions:
-        - name: 'orchestration'
-          deploy: ${{ parameters.orchestration }}
-        - name: 'synapse-dwh'
-          deploy: ${{ parameters.synapse_dwh }}
-        - name: 'synapse-workspace'
-          deploy: ${{ parameters.synapse_workspace }}
-        - name: 'xu-config'
-          deploy: ${{ parameters.xu_config }}
-        deployEnvPrefix: ${{ variables.deployEnvPrefix }}
-- ${{ else }}:
-  - stage: DEPLOY_1_AUTO
-    dependsOn: 
-    - CHECK_CHANGED_SOLUTIONS
-    jobs:
-    - deployment: DEPLOY_ORCHESTRATION
-      condition: eq(stageDependencies.CHECK_CHANGED_SOLUTIONS.CheckChangedSolutions.outputs['SetVariables.deploy_orchestration'], 'true')
-      timeoutInMinutes: 120
-      pool:
-        name: 'VM'
-        demands:
-        - node.js
-        - VisualStudio
-        - Python.Version
-        - Agent.ComputerName -equals $(VMName)
-      environment: ${{ format('{0}_{1}', variables.deployEnvPrefix, 'ORCHESTRATION') }}
-      strategy:
-        runOnce:
-          deploy:
-            steps:
-            - template: ../orchestration/build/steps-deploy.yml
-    - deployment: DEPLOY_SYNAPSE_DWH
-      condition: eq(stageDependencies.CHECK_CHANGED_SOLUTIONS.CheckChangedSolutions.outputs['SetVariables.deploy_synapse_dwh'], 'true')
-      timeoutInMinutes: 120
-      pool:
-        name: 'VM'
-        demands:
-        - node.js
-        - VisualStudio
-        - Python.Version
-        - Agent.ComputerName -equals $(VMName)
-      environment: ${{ format('{0}_{1}', variables.deployEnvPrefix, 'SYNAPSE_DWH') }}
-      strategy:
-        runOnce:
-          deploy:
-            steps:
-            - template: ../synapse-dwh/build/steps-deploy.yml
-    - deployment: DEPLOY_SYNAPSE_WORKSPACE
-      condition: eq(stageDependencies.CHECK_CHANGED_SOLUTIONS.CheckChangedSolutions.outputs['SetVariables.deploy_synapse_workspace'], 'true')
-      timeoutInMinutes: 120
-      pool:
-        name: 'VM'
-        demands:
-        - node.js
-        - VisualStudio
-        - Python.Version
-        - Agent.ComputerName -equals $(VMName)
-      environment: ${{ format('{0}_{1}', variables.deployEnvPrefix, 'SYNAPSE_WORKSPACE') }}
-      strategy:
-        runOnce:
-          deploy:
-            steps:
-            - template: ../synapse-workspace/build/steps-deploy.yml
-    - deployment: DEPLOY_XU_CONFIG
-      condition: eq(stageDependencies.CHECK_CHANGED_SOLUTIONS.CheckChangedSolutions.outputs['SetVariables.deploy_xu_config'], 'true')
-      timeoutInMinutes: 120
-      pool:
-        name: 'VM'
-        demands:
-        - node.js
-        - VisualStudio
-        - Python.Version
-        - Agent.ComputerName -equals $(VMName)
-      environment: ${{ format('{0}_{1}', variables.deployEnvPrefix, 'XU_CONFIG') }}
-      strategy:
-        runOnce:
-          deploy:
-            steps:
-            - template: ../xu-config/build/steps-deploy.yml
-
-- ${{ if eq(variables['Build.Reason'], 'Manual') }}:
-  - stage: DEPLOY_2_MANUAL
-    jobs:
-    - template: ./jobs-deploy-multi.yml
-      parameters:
-        solutions:
-        - name: 'azure-data-factory'
-          deploy: true
-        deployEnvPrefix: ${{ variables.deployEnvPrefix }}
-- ${{ else }}:
-  - stage: DEPLOY_2_AUTO
-    dependsOn: 
-    - CHECK_CHANGED_SOLUTIONS
-    - DEPLOY_1_AUTO
-    jobs:
-    - deployment: DEPLOY_AZURE_DATA_FACTORY
-      condition: eq(stageDependencies.CHECK_CHANGED_SOLUTIONS.CheckChangedSolutions.outputs['SetVariables.deploy_azure_data_factory'], 'true')
-      timeoutInMinutes: 120
-      pool:
-        name: 'VM'
-        demands:
-        - node.js
-        - VisualStudio
-        - Python.Version
-        - Agent.ComputerName -equals $(VMName)
-      environment: ${{ format('{0}_{1}', variables.deployEnvPrefix, 'AZURE_DATA_FACTORY') }}
-      strategy:
-        runOnce:
-          deploy:
-            steps:
-            - template: ../azure-data-factory/build/steps-deploy.yml
+- stage: DEPLOY_2_MANUAL
+  jobs:
+  - template: ./jobs-deploy-multi.yml
+    parameters:
+      solutions:
+      - name: 'azure-data-factory'
+        deploy: ${{ parameters.azure_data_factory }}
+      deployEnvPrefix: ${{ variables.deployEnvPrefix }}
