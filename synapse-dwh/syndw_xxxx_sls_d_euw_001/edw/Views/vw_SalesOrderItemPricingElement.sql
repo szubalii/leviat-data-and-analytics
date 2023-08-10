@@ -7,12 +7,10 @@ SELECT
 , CR.[CurrencyTypeID]
 , CR.[CurrencyType]
 , CASE 
-        WHEN CCR.[CurrencyTypeID] = '00' THEN [TransactionCurrency] COLLATE Latin1_General_100_BIN2 
         WHEN CCR.[CurrencyTypeID] = '10' THEN COALESCE(SDI.[CurrencyID],[TransactionCurrency] COLLATE Latin1_General_100_BIN2)
         ELSE CCR.[TargetCurrency]
   END                                                                             AS [CurrencyID]
 , CASE 
-        WHEN CCR.[CurrencyTypeID] = '00' THEN 1.0
         WHEN CCR.[CurrencyTypeID] = '10' THEN COALESCE(SDI.[ExchangeRate], 1)
         ELSE CCR.[ExchangeRate]
   END                                                                             AS [ExchangeRate]
@@ -82,4 +80,3 @@ LEFT JOIN [edw].[vw_CurrencyConversionRate] CCR40
     ON ISOIPE.TransactionCurrency = CCR40.SourceCurrency  COLLATE DATABASE_DEFAULT AND CCR40.CurrencyTypeID = '40'
 LEFT JOIN [edw].[dim_CurrencyType] CR
     ON CCR.CurrencyTypeID = CR.CurrencyTypeID
-

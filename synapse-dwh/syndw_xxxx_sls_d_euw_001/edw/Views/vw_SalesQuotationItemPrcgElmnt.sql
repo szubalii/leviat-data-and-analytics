@@ -7,12 +7,10 @@ SELECT
   , CR.[CurrencyTypeID]
   , CR.[CurrencyType]
   , CASE 
-        WHEN CCR.[CurrencyTypeID] = '00' THEN [TransactionCurrency] COLLATE Latin1_General_100_BIN2 
         WHEN CCR.[CurrencyTypeID] = '10' THEN COALESCE(SDI.[CurrencyID],[TransactionCurrency])
         ELSE CCR.[TargetCurrency]
     END                                                                             AS [CurrencyID]
   , CASE 
-        WHEN CCR.[CurrencyTypeID] = '00' THEN 1.0
         WHEN CCR.[CurrencyTypeID] = '10' THEN COALESCE(SDI.[ExchangeRate], 1)
         ELSE CCR.[ExchangeRate]
     END                                                                             AS [ExchangeRate]
