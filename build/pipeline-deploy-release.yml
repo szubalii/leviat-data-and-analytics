@@ -28,12 +28,10 @@ variables:
   value: $(Build.SourceVersion)
 
 stages:
+# The pipeline deploys a solution if for that solution files have changed in their respective 
+# folders. 
 - ${{ if eq(variables['Build.Reason'], 'IndividualCI') }}:
   - stage: CHECK_CHANGED_SOLUTIONS
-    #TODO only run this template when the source branch is not a release branch (main, qas, prod)
-    # and was triggered by git push
-    #TODO uncomment condition
-    # condition: ${{ and(in(variables['Build.SourceBranchName'], 'main', 'qas', 'prod'), eq(variables['Build.Reason'], 'IndividualCI')) }}
     jobs:
     - job: CheckChangedSolutions
       pool:

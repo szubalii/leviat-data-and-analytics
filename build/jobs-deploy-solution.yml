@@ -26,25 +26,25 @@ jobs:
       echo deployEnvPrefix: ${{ variables.deployEnvPrefix }}
       echo parameters.deployEnvPrefix: ${{ parameters.deployEnvPrefix }}
     displayName: Print Variables
-# - deployment: ${{ format('DEPLOY_{0}', parameters.solution) }}
-#   timeoutInMinutes: 120
-#   pool:
-#     name: 'VM'
-#     demands:
-#     - node.js
-#     - VisualStudio
-#     - Python.Version
-#     - Agent.ComputerName -equals $(VMName)
-#   environment: ${{ format('{0}_{1}', parameters.deployEnvPrefix, parameters.solution) }}
-#   workspace:
-#   # set clean to all when deploying xu-config
-#     ${{ if eq(parameters.folder, 'xu-config') }}: 
-#       clean: all
-#   strategy:
-#     runOnce:
-#       deploy:
-#         steps:
-#         - template: ../${{ parameters.folder }}/build/steps-deploy.yml
+- deployment: ${{ format('DEPLOY_{0}', parameters.solution) }}
+  timeoutInMinutes: 120
+  pool:
+    name: 'VM'
+    demands:
+    - node.js
+    - VisualStudio
+    - Python.Version
+    - Agent.ComputerName -equals $(VMName)
+  environment: ${{ format('{0}_{1}', parameters.deployEnvPrefix, parameters.solution) }}
+  workspace:
+  # set clean to all when deploying xu-config
+    ${{ if eq(parameters.folder, 'xu-config') }}: 
+      clean: all
+  strategy:
+    runOnce:
+      deploy:
+        steps:
+        - template: ../${{ parameters.folder }}/build/steps-deploy.yml
         
-#         - ${{ if eq(parameters.test, True) }}:
-#           - template: ../${{ parameters.folder }}/build/steps-test.yml
+        - ${{ if eq(parameters.test, True) }}:
+          - template: ../${{ parameters.folder }}/build/steps-test.yml

@@ -2,9 +2,6 @@
 
 # By default, each solution is build.
 
-# The pipeline deploys a solution if for that solution files have changed in their respective 
-# folders. 
-
 trigger:
   branches:
     include:
