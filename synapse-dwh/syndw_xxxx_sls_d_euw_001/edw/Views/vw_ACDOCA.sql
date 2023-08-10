@@ -147,7 +147,7 @@ SELECT
        ProfitCenterTypeID,
        ARSD.[SalesReferenceDocumentCalculated],
        ARSD.[SalesReferenceDocumentItemCalculated],
-       BDI.[SalesDocumentItemCategoryID], 
+       ARSD.[SalesDocumentItemCategoryID], 
        BDI.[HigherLevelItem],
        GLA.[t_applicationId],
        GLA.[t_extractionDtm]
