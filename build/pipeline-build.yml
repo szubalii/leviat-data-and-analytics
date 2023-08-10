@@ -1,6 +1,7 @@
 # This pipeline is triggered whenever a PR is completed to any of the following branches:
 
 # By default, each solution is build.
+trigger: none
 
 parameters:
 - name: azure_data_factory

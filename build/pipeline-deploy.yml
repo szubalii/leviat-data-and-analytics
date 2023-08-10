@@ -3,6 +3,8 @@ resources:
   - pipeline: build
     source: Build
 
+trigger: none
+
 parameters:
 - name: azure_data_factory
   displayName: Azure Data Factory
