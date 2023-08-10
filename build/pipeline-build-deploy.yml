@@ -227,7 +227,7 @@ stages:
 #         deploy: True
 #       deployEnvPrefix: ${{ variables.deployEnvPrefix }}
 - stage: A
-  condition: eq(parameters.dynamic_deployment, 'true')
+  condition: $[ eq(parameters.dynamic_deployment, 'true') ]
   jobs:
   - job: A1
     steps:
