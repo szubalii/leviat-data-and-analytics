@@ -327,11 +327,6 @@ stages:
         echo parameters.build_orchestration: ${{ parameters.build_orchestration }}
         echo parameters.build_xu_config: ${{ parameters.build_xu_config }}
         echo parameters.build_synapse_workspace: ${{ parameters.build_synapse_workspace }}
-        # echo parameters.deploy_synapse_dwh: ${{ parameters.deploy_synapse_dwh }}
-        # echo parameters.deploy_azure_data_factory: ${{ parameters.deploy_azure_data_factory }}
-        # echo parameters.deploy_orchestration: ${{ parameters.deploy_orchestration }}
-        # echo parameters.deploy_xu_config: ${{ parameters.deploy_xu_config }}
-        # echo parameters.deploy_synapse_workspace: ${{ parameters.deploy_synapse_workspace }}
       displayName: Print Variables
 - stage: VALIDATE
   jobs:
