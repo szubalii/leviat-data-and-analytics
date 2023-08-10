@@ -47,95 +47,95 @@ variables:
   value: $(Build.SourceVersion)
 
 stages:
-- stage: SET_SOLUTION_DEPLOYMENT
-  # only run this template when the source branch is not a release branch (main, qas, prod)
-  # and was triggered by git push
-  #TODO uncomment condition
-  # condition: ${{ and(in(variables['Build.SourceBranchName'], 'main', 'qas', 'prod'), eq(variables['Build.Reason'], 'IndividualCI')) }}
-  jobs:
-  - job: Set_Solution_Deployment
-    pool:
-      vmImage: 'ubuntu-20.04'
-    steps:
-    - checkout: self
-      fetchDepth: 0 # disables shallow fetch and results in correct return of git diff-tree
+# - stage: SET_SOLUTION_DEPLOYMENT
+#   # only run this template when the source branch is not a release branch (main, qas, prod)
+#   # and was triggered by git push
+#   #TODO uncomment condition
+#   # condition: ${{ and(in(variables['Build.SourceBranchName'], 'main', 'qas', 'prod'), eq(variables['Build.Reason'], 'IndividualCI')) }}
+#   jobs:
+#   - job: Set_Solution_Deployment
+#     pool:
+#       vmImage: 'ubuntu-20.04'
+#     steps:
+#     - checkout: self
+#       fetchDepth: 0 # disables shallow fetch and results in correct return of git diff-tree
     
-    - task: PowerShell@2
-      displayName: 'Define which solutions deploy'
-      name: solutionDeployment
-      inputs:
-        targetType: 'inline'
-        pwsh: true
-        script: |
+#     - task: PowerShell@2
+#       displayName: 'Define which solutions deploy'
+#       name: solutionDeployment
+#       inputs:
+#         targetType: 'inline'
+#         pwsh: true
+#         script: |
 
-          Write-Host 'deploy_azure_data_factory:'$(deploy_azure_data_factory);
-          Write-Host 'deploy_orchestration:'$(deploy_orchestration);
-          Write-Host 'deploy_synapse_dwh:'$(deploy_synapse_dwh);
-          Write-Host 'deploy_synapse_workspace:'$(deploy_synapse_workspace);
-          Write-Host 'deploy_xu_config:'$(deploy_xu_config);
+#           Write-Host 'deploy_azure_data_factory:'$(deploy_azure_data_factory);
+#           Write-Host 'deploy_orchestration:'$(deploy_orchestration);
+#           Write-Host 'deploy_synapse_dwh:'$(deploy_synapse_dwh);
+#           Write-Host 'deploy_synapse_workspace:'$(deploy_synapse_workspace);
+#           Write-Host 'deploy_xu_config:'$(deploy_xu_config);
 
-          # Retrieve list of changed files
-          Write-Host "System.DefaultWorkingDirectory: $(System.DefaultWorkingDirectory)"
-          Write-Host "CommitID: $(commitId)"
-          # Write-Host "Build.SourceVersion: $(Build.SourceVersion)"
-          Write-Host "Build.SourceVersionMessage: $(Build.SourceVersionMessage)"
-          $filePaths = git diff --name-only $(commitId)^! #difference between parent of commit and commit
-          # $filePaths2 = $(git diff-tree --no-commit-id --name-only -r $(Build.SourceVersion))
-          Write-Host "Changed files using commitId:"
-          $filePaths
+#           # Retrieve list of changed files
+#           Write-Host "System.DefaultWorkingDirectory: $(System.DefaultWorkingDirectory)"
+#           Write-Host "CommitID: $(commitId)"
+#           # Write-Host "Build.SourceVersion: $(Build.SourceVersion)"
+#           Write-Host "Build.SourceVersionMessage: $(Build.SourceVersionMessage)"
+#           $filePaths = git diff --name-only $(commitId)^! #difference between parent of commit and commit
+#           # $filePaths2 = $(git diff-tree --no-commit-id --name-only -r $(Build.SourceVersion))
+#           Write-Host "Changed files using commitId:"
+#           $filePaths
 
-          $solutions = @('azure-data-factory', 'orchestration', 'synapse-dwh', 'synapse-workspace', 'xu-config')
+#           $solutions = @('azure-data-factory', 'orchestration', 'synapse-dwh', 'synapse-workspace', 'xu-config')
 
-          ForEach ($solution in $solutions) {
-            $solutionFolder = $solution+'/';
-            $solutionVarName = 'deploy_'+$solution.replace('-', '_');
-            Write-Host 'Check if there are any changed files for folder:'$solutionFolder;
+#           ForEach ($solution in $solutions) {
+#             $solutionFolder = $solution+'/';
+#             $solutionVarName = 'deploy_'+$solution.replace('-', '_');
+#             Write-Host 'Check if there are any changed files for folder:'$solutionFolder;
             
-            if (($filePaths -match $solutionFolder).count -eq 0){
-              Write-Host 'No changed files found for'$solution'. Deployment of'$solution'will not take place.';
-              Write-Host "##vso[task.setvariable variable=$solutionVarName;isOutput=true]false";
-            }
-            else {
-              Write-Host 'The following files were changed:';
-              $filePaths -match $solutionFolder
-              Write-Host 'Deployment of'$solution' will proceed.';
-              Write-Host "##vso[task.setvariable variable=$solutionVarName;isOutput=true]true";
-            }
-          }
-    - pwsh: |
-        Write-Host 'deploy_azure_data_factory:'$(deploy_azure_data_factory);
-        Write-Host 'deploy_orchestration:'$(deploy_orchestration);
-        Write-Host 'deploy_synapse_dwh:'$(deploy_synapse_dwh);
-        Write-Host 'deploy_synapse_workspace:'$(deploy_synapse_workspace);
-        Write-Host 'deploy_xu_config:'$(deploy_xu_config);
-        Write-Host 'deploy_azure_data_factory:'$(solutionDeployment.deploy_azure_data_factory);
-        Write-Host 'deploy_orchestration:'$(solutionDeployment.deploy_orchestration);
-        Write-Host 'deploy_synapse_dwh:'$(solutionDeployment.deploy_synapse_dwh);
-        Write-Host 'deploy_synapse_workspace:'$(solutionDeployment.deploy_synapse_workspace);
-        Write-Host 'deploy_xu_config:'$(solutionDeployment.deploy_xu_config);
+#             if (($filePaths -match $solutionFolder).count -eq 0){
+#               Write-Host 'No changed files found for'$solution'. Deployment of'$solution'will not take place.';
+#               Write-Host "##vso[task.setvariable variable=$solutionVarName;isOutput=true]false";
+#             }
+#             else {
+#               Write-Host 'The following files were changed:';
+#               $filePaths -match $solutionFolder
+#               Write-Host 'Deployment of'$solution' will proceed.';
+#               Write-Host "##vso[task.setvariable variable=$solutionVarName;isOutput=true]true";
+#             }
+#           }
+#     - pwsh: |
+#         Write-Host 'deploy_azure_data_factory:'$(deploy_azure_data_factory);
+#         Write-Host 'deploy_orchestration:'$(deploy_orchestration);
+#         Write-Host 'deploy_synapse_dwh:'$(deploy_synapse_dwh);
+#         Write-Host 'deploy_synapse_workspace:'$(deploy_synapse_workspace);
+#         Write-Host 'deploy_xu_config:'$(deploy_xu_config);
+#         Write-Host 'deploy_azure_data_factory:'$(solutionDeployment.deploy_azure_data_factory);
+#         Write-Host 'deploy_orchestration:'$(solutionDeployment.deploy_orchestration);
+#         Write-Host 'deploy_synapse_dwh:'$(solutionDeployment.deploy_synapse_dwh);
+#         Write-Host 'deploy_synapse_workspace:'$(solutionDeployment.deploy_synapse_workspace);
+#         Write-Host 'deploy_xu_config:'$(solutionDeployment.deploy_xu_config);
     
-- stage: VARIABLES
-  dependsOn: SET_SOLUTION_DEPLOYMENT
-  jobs:
-  - job: Vars
-    variables:
-    - name: deploy_synapse_dwh_2
-      value: $[stageDependencies.SET_SOLUTION_DEPLOYMENT.Set_Solution_Deployment.outputs['solutionDeployment.deploy_synapse_dwh']]
-    - name: deploy_azure_data_factory_2
-      value: $[stageDependencies.SET_SOLUTION_DEPLOYMENT.Set_Solution_Deployment.outputs['solutionDeployment.deploy_azure_data_factory']]
-    pool:
-      name: 'VM'
-      demands:
-      - node.js
-      - VisualStudio
-      - Agent.ComputerName -equals $(VMName)
-    steps:
-    - script: |
-        echo variables.deploy_synapse_dwh: ${{ variables.deploy_synapse_dwh }}
-        echo variables.deploy_azure_data_factory: ${{ variables.deploy_azure_data_factory }}
-        echo variables.deploy_synapse_dwh_2: $(deploy_synapse_dwh_2)
-        echo variables.deploy_azure_data_factory_2: $(deploy_azure_data_factory_2)
-      displayName: Print Variables
+# - stage: VARIABLES
+#   dependsOn: SET_SOLUTION_DEPLOYMENT
+#   jobs:
+#   - job: Vars
+#     variables:
+#     - name: deploy_synapse_dwh_2
+#       value: $[stageDependencies.SET_SOLUTION_DEPLOYMENT.Set_Solution_Deployment.outputs['solutionDeployment.deploy_synapse_dwh']]
+#     - name: deploy_azure_data_factory_2
+#       value: $[stageDependencies.SET_SOLUTION_DEPLOYMENT.Set_Solution_Deployment.outputs['solutionDeployment.deploy_azure_data_factory']]
+#     pool:
+#       name: 'VM'
+#       demands:
+#       - node.js
+#       - VisualStudio
+#       - Agent.ComputerName -equals $(VMName)
+#     steps:
+#     - script: |
+#         echo variables.deploy_synapse_dwh: ${{ variables.deploy_synapse_dwh }}
+#         echo variables.deploy_azure_data_factory: ${{ variables.deploy_azure_data_factory }}
+#         echo variables.deploy_synapse_dwh_2: $(deploy_synapse_dwh_2)
+#         echo variables.deploy_azure_data_factory_2: $(deploy_azure_data_factory_2)
+#       displayName: Print Variables
 
 
 # https://learn.microsoft.com/en-us/azure/devops/pipelines/process/conditions?view=azure-devops&tabs=yaml%2Cstages#use-the-output-variable-from-a-job-in-a-condition-in-a-subsequent-job
