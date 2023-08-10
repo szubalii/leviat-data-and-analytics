@@ -114,7 +114,7 @@ stages:
         Write-Host 'deploy_synapse_workspace:'$(solutionDeployment.deploy_synapse_workspace);
         Write-Host 'deploy_xu_config:'$(solutionDeployment.deploy_xu_config);
     
-- template: ./stages-build
+- template: ./stages-build.yml
   parameters:
     build_azure_data_factory: true
     build_orchestration: true
