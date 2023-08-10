@@ -75,7 +75,7 @@ FROM
 LEFT JOIN [edw].[fact_SalesDocumentItem] SDI
     ON ISQIPE.SalesQuotation = SDI.SalesDocument AND ISQIPE.SalesQuotationItem = SDI.SalesDocumentItem  COLLATE DATABASE_DEFAULT AND SDI.CurrencyTypeID = '10'
 LEFT JOIN [edw].[vw_CurrencyConversionRate] CCR   
-    ON ISQIPE.TransactionCurrency = CCR.SourceCurrency    COLLATE DATABASE_DEFAULT AND CCR.CurrencyTypeID IN ('00','10')
+    ON ISQIPE.TransactionCurrency = CCR.SourceCurrency    COLLATE DATABASE_DEFAULT AND CCR.CurrencyTypeID = '10'
 LEFT JOIN [edw].[vw_CurrencyConversionRate] CCR30  
     ON ISQIPE.TransactionCurrency = CCR30.SourceCurrency  COLLATE DATABASE_DEFAULT AND CCR30.CurrencyTypeID = '30'
 LEFT JOIN [edw].[vw_CurrencyConversionRate] CCR40  

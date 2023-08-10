@@ -17,7 +17,7 @@ SELECT
          ,[CurrencyID]
 FROM
   [edw].[fact_BillingDocumentItemPrcgElmnt] 
-WHERE [CurrencyTypeID] IN ('00' ,'10')
+WHERE [CurrencyTypeID] = '10'
 GROUP BY
           [BillingDocument]
          ,[BillingDocumentItem]

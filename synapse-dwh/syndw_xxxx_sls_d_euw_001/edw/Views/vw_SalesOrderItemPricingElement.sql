@@ -75,7 +75,7 @@ FROM
 LEFT JOIN [edw].[fact_SalesDocumentItem] SDI
     ON ISOIPE.SalesOrder = SDI.SalesDocument AND ISOIPE.SalesOrderItem = SDI.SalesDocumentItem AND SDI.CurrencyTypeID = '10'
 LEFT JOIN [edw].[vw_CurrencyConversionRate] CCR   
-    ON ISOIPE.TransactionCurrency = CCR.SourceCurrency    COLLATE DATABASE_DEFAULT AND CCR.CurrencyTypeID IN ('00','10')
+    ON ISOIPE.TransactionCurrency = CCR.SourceCurrency    COLLATE DATABASE_DEFAULT AND CCR.CurrencyTypeID = '10'
 LEFT JOIN [edw].[vw_CurrencyConversionRate] CCR30  
     ON ISOIPE.TransactionCurrency = CCR30.SourceCurrency  COLLATE DATABASE_DEFAULT AND CCR30.CurrencyTypeID = '30'
 LEFT JOIN [edw].[vw_CurrencyConversionRate] CCR40  
