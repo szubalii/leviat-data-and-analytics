@@ -4,12 +4,6 @@
 RETURNS NVARCHAR(80)
 AS
 BEGIN
-DECLARE @CheckProductHierarchyNode NVARCHAR(80) =
-  case
-    when ISNULL(@ProductHierarchyNode,'') = ''
-    then 'Unassigned SAP Hierarchy'
-    else @ProductHierarchyNode
-  end;
-
-  RETURN @CheckProductHierarchyNode
+    RETURN
+        COALESCE(@ProductHierarchyNode, 'Unassigned SAP Hierarchy');
 END;
