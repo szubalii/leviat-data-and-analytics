@@ -170,22 +170,96 @@ stages:
     steps:
     - bash: |
         echo 'test'
-  # - job: 
-  #   steps:
-  #   - bash: |
-  #       echo $[stageDependencies.CHECK_CHANGED_SOLUTIONS.CheckChangedSolutions.outputs['SetVariables.deploy_orchestration']]
-  - template: ./jobs-deploy-multi.yml
-    parameters:
-      solutions:
-      - name: 'orchestration'
-        deploy: $[stageDependencies.CHECK_CHANGED_SOLUTIONS.CheckChangedSolutions.outputs['SetVariables.deploy_orchestration']]
-      - name: 'synapse-dwh'
-        deploy: $[stageDependencies.CHECK_CHANGED_SOLUTIONS.CheckChangedSolutions.outputs['SetVariables.deploy_synapse_dwh']]
-      - name: 'synapse-workspace'
-        deploy: $[stageDependencies.CHECK_CHANGED_SOLUTIONS.CheckChangedSolutions.outputs['SetVariables.deploy_synapse_workspace']]
-      - name: 'xu-config'
-        deploy: $[stageDependencies.CHECK_CHANGED_SOLUTIONS.CheckChangedSolutions.outputs['SetVariables.deploy_xu_config']]
-      deployEnvPrefix: ${{ variables.deployEnvPrefix }}
+  - deployment: DEPLOY_ORCHESTRATION
+    condition: eq(stageDependencies.CHECK_CHANGED_SOLUTIONS.CheckChangedSolutions.outputs['SetVariables.deploy_orchestration'], 'true')
+    timeoutInMinutes: 120
+    pool:
+      name: 'VM'
+      demands:
+      - node.js
+      - VisualStudio
+      - Python.Version
+      - Agent.ComputerName -equals $(VMName)
+    environment: ${{ format('{0}_{1}', variables.deployEnvPrefix, upper(orchestration)) }}
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - template: ../orchestration/build/steps-deploy.yml
+  - deployment: DEPLOY_SYNAPSE_DWH
+    condition: eq(stageDependencies.CHECK_CHANGED_SOLUTIONS.CheckChangedSolutions.outputs['SetVariables.deploy_synapse_dwh'], 'true')
+    timeoutInMinutes: 120
+    pool:
+      name: 'VM'
+      demands:
+      - node.js
+      - VisualStudio
+      - Python.Version
+      - Agent.ComputerName -equals $(VMName)
+    environment: ${{ format('{0}_{1}', variables.deployEnvPrefix, upper(synapse_dwh)) }}
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - template: ../synapse-dwh/build/steps-deploy.yml
+  - deployment: DEPLOY_SYNAPSE_WORKSPACE
+    condition: eq(stageDependencies.CHECK_CHANGED_SOLUTIONS.CheckChangedSolutions.outputs['SetVariables.deploy_synapse_workspace'], 'true')
+    timeoutInMinutes: 120
+    pool:
+      name: 'VM'
+      demands:
+      - node.js
+      - VisualStudio
+      - Python.Version
+      - Agent.ComputerName -equals $(VMName)
+    environment: ${{ format('{0}_{1}', variables.deployEnvPrefix, upper(synapse_workspace)) }}
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - template: ../synapse-workspace/build/steps-deploy.yml
+  - deployment: DEPLOY_XU_CONFIG
+    condition: eq(stageDependencies.CHECK_CHANGED_SOLUTIONS.CheckChangedSolutions.outputs['SetVariables.deploy_xu_config'], 'true')
+    timeoutInMinutes: 120
+    pool:
+      name: 'VM'
+      demands:
+      - node.js
+      - VisualStudio
+      - Python.Version
+      - Agent.ComputerName -equals $(VMName)
+    environment: ${{ format('{0}_{1}', variables.deployEnvPrefix, upper(xu_config)) }}
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - template: ../xu-config/build/steps-deploy.yml
+
+
+  # - template: ./jobs-deploy-solution.yml
+  #   parameters:
+  #     folder: ${{ solution.name }}
+  #     solution: ${{ upper(replace( solution.name, '-', '_')) }}
+  #     deployEnvPrefix: ${{ parameters.deployEnvPrefix }}
+  #     # solution.test is not an actual boolean (part of parameter.solutions object)
+  #     # so include additional check if equal to True (string)
+  #     test: ${{ eq(solution.test, True) }}
+  # # - job: 
+  # #   steps:
+  # #   - bash: |
+  # #       echo $[stageDependencies.CHECK_CHANGED_SOLUTIONS.CheckChangedSolutions.outputs['SetVariables.deploy_orchestration']]
+  # - template: ./jobs-deploy-multi.yml
+  #   parameters:
+  #     solutions:
+  #     - name: 'orchestration'
+  #       deploy: $[stageDependencies.CHECK_CHANGED_SOLUTIONS.CheckChangedSolutions.outputs['SetVariables.deploy_orchestration']]
+  #     - name: 'synapse-dwh'
+  #       deploy: $[stageDependencies.CHECK_CHANGED_SOLUTIONS.CheckChangedSolutions.outputs['SetVariables.deploy_synapse_dwh']]
+  #     - name: 'synapse-workspace'
+  #       deploy: $[stageDependencies.CHECK_CHANGED_SOLUTIONS.CheckChangedSolutions.outputs['SetVariables.deploy_synapse_workspace']]
+  #     - name: 'xu-config'
+  #       deploy: $[stageDependencies.CHECK_CHANGED_SOLUTIONS.CheckChangedSolutions.outputs['SetVariables.deploy_xu_config']]
+  #     deployEnvPrefix: ${{ variables.deployEnvPrefix }}
 
 # - ${{ if eq(variables['Build.Reason'], 'Manual') }}:
 #   - stage: DEPLOY_2
@@ -203,16 +277,22 @@ stages:
   # - BUILD
   - DEPLOY_1
   jobs:
-  - job: 
-    steps:
-    - bash: |
-        echo $[stageDependencies.CHECK_CHANGED_SOLUTIONS.CheckChangedSolutions.outputs['SetVariables.deploy_azure_data_factory']]
-  - template: ./jobs-deploy-multi.yml
-    parameters:
-      solutions:
-      - name: 'azure-data-factory'
-        deploy: $[stageDependencies.CHECK_CHANGED_SOLUTIONS.CheckChangedSolutions.outputs['SetVariables.deploy_azure_data_factory']]
-      deployEnvPrefix: ${{ variables.deployEnvPrefix }}
+  - deployment: DEPLOY_AZURE_DATA_FACTORY
+    condition: eq(stageDependencies.CHECK_CHANGED_SOLUTIONS.CheckChangedSolutions.outputs['SetVariables.deploy_azure_data_factory'], 'true')
+    timeoutInMinutes: 120
+    pool:
+      name: 'VM'
+      demands:
+      - node.js
+      - VisualStudio
+      - Python.Version
+      - Agent.ComputerName -equals $(VMName)
+    environment: ${{ format('{0}_{1}', variables.deployEnvPrefix, upper(azure_data_factory)) }}
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - template: ../azure-data-factory/build/steps-deploy.yml
 
 
 
