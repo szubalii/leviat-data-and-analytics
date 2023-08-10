@@ -103,17 +103,18 @@ stages:
             }
           }
     - pwsh: |
-    #     Write-Host 'deploy_azure_data_factory:'$(deploy_azure_data_factory);
-    #     Write-Host 'deploy_orchestration:'$(deploy_orchestration);
-    #     Write-Host 'deploy_synapse_dwh:'$(deploy_synapse_dwh);
-    #     Write-Host 'deploy_synapse_workspace:'$(deploy_synapse_workspace);
-    #     Write-Host 'deploy_xu_config:'$(deploy_xu_config);
         Write-Host 'deploy_azure_data_factory:'$(CheckChangedSolutions.deploy_azure_data_factory);
         Write-Host 'deploy_orchestration:'$(CheckChangedSolutions.deploy_orchestration);
         Write-Host 'deploy_synapse_dwh:'$(CheckChangedSolutions.deploy_synapse_dwh);
         Write-Host 'deploy_synapse_workspace:'$(CheckChangedSolutions.deploy_synapse_workspace);
         Write-Host 'deploy_xu_config:'$(CheckChangedSolutions.deploy_xu_config);
     
+    #     Write-Host 'deploy_azure_data_factory:'$(deploy_azure_data_factory);
+    #     Write-Host 'deploy_orchestration:'$(deploy_orchestration);
+    #     Write-Host 'deploy_synapse_dwh:'$(deploy_synapse_dwh);
+    #     Write-Host 'deploy_synapse_workspace:'$(deploy_synapse_workspace);
+    #     Write-Host 'deploy_xu_config:'$(deploy_xu_config);
+        
 - template: ./stages-build.yml
   parameters:
     build_azure_data_factory: true
