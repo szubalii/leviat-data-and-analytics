@@ -135,7 +135,7 @@ stages:
 
 
 - ${{ if eq(variables['Build.Reason'], 'Manual') }}:
-  - stage: DEPLOY_1
+  - stage: DEPLOY_1_MANUAL
     jobs:
     - template: ./jobs-deploy-multi.yml
       parameters:
@@ -150,7 +150,7 @@ stages:
           deploy: ${{ parameters.xu_config }}
         deployEnvPrefix: ${{ variables.deployEnvPrefix }}
 - ${{ else }}:
-  - stage: DEPLOY_1
+  - stage: DEPLOY_1_AUTO
     dependsOn: 
     - CHECK_CHANGED_SOLUTIONS
     jobs:
@@ -220,7 +220,7 @@ stages:
             - template: ../xu-config/build/steps-deploy.yml
 
 - ${{ if eq(variables['Build.Reason'], 'Manual') }}:
-  - stage: DEPLOY_2
+  - stage: DEPLOY_2_MANUAL
     jobs:
     - template: ./jobs-deploy-multi.yml
       parameters:
@@ -229,10 +229,10 @@ stages:
           deploy: ${{ parameters.azure_data_factory }}
         deployEnvPrefix: ${{ variables.deployEnvPrefix }}
 - ${{ else }}:
-  - stage: DEPLOY_2
+  - stage: DEPLOY_2_AUTO
     dependsOn: 
     - CHECK_CHANGED_SOLUTIONS
-    - DEPLOY_1
+    - DEPLOY_1_AUTO
     jobs:
     - deployment: DEPLOY_AZURE_DATA_FACTORY
       condition: eq(stageDependencies.CHECK_CHANGED_SOLUTIONS.CheckChangedSolutions.outputs['SetVariables.deploy_azure_data_factory'], 'true')
