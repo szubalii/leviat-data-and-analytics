@@ -103,11 +103,11 @@ stages:
             }
           }
     - pwsh: |
-        Write-Host 'deploy_azure_data_factory:'$(CheckChangedSolutions.deploy_azure_data_factory);
-        Write-Host 'deploy_orchestration:'$(CheckChangedSolutions.deploy_orchestration);
-        Write-Host 'deploy_synapse_dwh:'$(CheckChangedSolutions.deploy_synapse_dwh);
-        Write-Host 'deploy_synapse_workspace:'$(CheckChangedSolutions.deploy_synapse_workspace);
-        Write-Host 'deploy_xu_config:'$(CheckChangedSolutions.deploy_xu_config);
+        Write-Host 'deploy_azure_data_factory:'$(SetVariables.deploy_azure_data_factory);
+        Write-Host 'deploy_orchestration:'$(SetVariables.deploy_orchestration);
+        Write-Host 'deploy_synapse_dwh:'$(SetVariables.deploy_synapse_dwh);
+        Write-Host 'deploy_synapse_workspace:'$(SetVariables.deploy_synapse_workspace);
+        Write-Host 'deploy_xu_config:'$(SetVariables.deploy_xu_config);
     
     #     Write-Host 'deploy_azure_data_factory:'$(deploy_azure_data_factory);
     #     Write-Host 'deploy_orchestration:'$(deploy_orchestration);
@@ -142,7 +142,7 @@ stages:
 - stage: DEPLOY_1
   dependsOn: 
   - CHECK_CHANGED_SOLUTIONS
-  - BUILD
+  # - BUILD
   jobs:
   - job: Test
     condition: eq(stageDependencies.CHECK_CHANGED_SOLUTIONS.CheckChangedSolutions.outputs['SetVariables.deploy_orchestration'], 'true')
@@ -179,7 +179,7 @@ stages:
 - stage: DEPLOY_2
   dependsOn: 
   - CHECK_CHANGED_SOLUTIONS
-  - BUILD
+  # - BUILD
   - DEPLOY_1
   jobs:
   - job: 
