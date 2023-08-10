@@ -68,11 +68,11 @@ stages:
         pwsh: true
         script: |
 
-          Write-Host 'deploy_azure_data_factory:'$(deploy_azure_data_factory);
-          Write-Host 'deploy_orchestration:'$(deploy_orchestration);
-          Write-Host 'deploy_synapse_dwh:'$(deploy_synapse_dwh);
-          Write-Host 'deploy_synapse_workspace:'$(deploy_synapse_workspace);
-          Write-Host 'deploy_xu_config:'$(deploy_xu_config);
+          # Write-Host 'deploy_azure_data_factory:'$(deploy_azure_data_factory);
+          # Write-Host 'deploy_orchestration:'$(deploy_orchestration);
+          # Write-Host 'deploy_synapse_dwh:'$(deploy_synapse_dwh);
+          # Write-Host 'deploy_synapse_workspace:'$(deploy_synapse_workspace);
+          # Write-Host 'deploy_xu_config:'$(deploy_xu_config);
 
           # Retrieve list of changed files
           Write-Host "System.DefaultWorkingDirectory: $(System.DefaultWorkingDirectory)"
@@ -102,17 +102,17 @@ stages:
               Write-Host "##vso[task.setvariable variable=$solutionVarName;isOutput=true]true";
             }
           }
-    - pwsh: |
-        Write-Host 'deploy_azure_data_factory:'$(deploy_azure_data_factory);
-        Write-Host 'deploy_orchestration:'$(deploy_orchestration);
-        Write-Host 'deploy_synapse_dwh:'$(deploy_synapse_dwh);
-        Write-Host 'deploy_synapse_workspace:'$(deploy_synapse_workspace);
-        Write-Host 'deploy_xu_config:'$(deploy_xu_config);
-        Write-Host 'deploy_azure_data_factory:'$(solutionDeployment.deploy_azure_data_factory);
-        Write-Host 'deploy_orchestration:'$(solutionDeployment.deploy_orchestration);
-        Write-Host 'deploy_synapse_dwh:'$(solutionDeployment.deploy_synapse_dwh);
-        Write-Host 'deploy_synapse_workspace:'$(solutionDeployment.deploy_synapse_workspace);
-        Write-Host 'deploy_xu_config:'$(solutionDeployment.deploy_xu_config);
+    # - pwsh: |
+    #     Write-Host 'deploy_azure_data_factory:'$(deploy_azure_data_factory);
+    #     Write-Host 'deploy_orchestration:'$(deploy_orchestration);
+    #     Write-Host 'deploy_synapse_dwh:'$(deploy_synapse_dwh);
+    #     Write-Host 'deploy_synapse_workspace:'$(deploy_synapse_workspace);
+    #     Write-Host 'deploy_xu_config:'$(deploy_xu_config);
+    #     Write-Host 'deploy_azure_data_factory:'$(solutionDeployment.deploy_azure_data_factory);
+    #     Write-Host 'deploy_orchestration:'$(solutionDeployment.deploy_orchestration);
+    #     Write-Host 'deploy_synapse_dwh:'$(solutionDeployment.deploy_synapse_dwh);
+    #     Write-Host 'deploy_synapse_workspace:'$(solutionDeployment.deploy_synapse_workspace);
+    #     Write-Host 'deploy_xu_config:'$(solutionDeployment.deploy_xu_config);
     
 - template: ./stages-build.yml
   parameters:
