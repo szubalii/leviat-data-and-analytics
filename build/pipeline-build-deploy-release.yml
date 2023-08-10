@@ -137,21 +137,21 @@ variables:
 #           deploy: True
 #         deployEnvPrefix: ${{ variables.deployEnvPrefix }}
 # - ${{ else }}:
-  - stage: DEPLOY_1
-    dependsOn: CHECK_CHANGED_SOLUTIONS
-    jobs:
-    - template: ./jobs-deploy-multi.yml
-      parameters:
-        solutions:
-        - name: 'orchestration'
-          deploy: $[stageDependencies.CHECK_CHANGED_SOLUTIONS.CheckChangedSolutions.outputs['SetVariables.deploy_orchestration']]
-        - name: 'synapse-dwh'
-          deploy: $[stageDependencies.CHECK_CHANGED_SOLUTIONS.CheckChangedSolutions.outputs['SetVariables.deploy_synapse_dwh']]
-        - name: 'synapse-workspace'
-          deploy: $[stageDependencies.CHECK_CHANGED_SOLUTIONS.CheckChangedSolutions.outputs['SetVariables.deploy_synapse_workspace']]
-        - name: 'xu-config'
-          deploy: $[stageDependencies.CHECK_CHANGED_SOLUTIONS.CheckChangedSolutions.outputs['SetVariables.deploy_xu_config']]
-        deployEnvPrefix: ${{ variables.deployEnvPrefix }}
+- stage: DEPLOY_1
+  dependsOn: CHECK_CHANGED_SOLUTIONS
+  jobs:
+  - template: ./jobs-deploy-multi.yml
+    parameters:
+      solutions:
+      - name: 'orchestration'
+        deploy: $[stageDependencies.CHECK_CHANGED_SOLUTIONS.CheckChangedSolutions.outputs['SetVariables.deploy_orchestration']]
+      - name: 'synapse-dwh'
+        deploy: $[stageDependencies.CHECK_CHANGED_SOLUTIONS.CheckChangedSolutions.outputs['SetVariables.deploy_synapse_dwh']]
+      - name: 'synapse-workspace'
+        deploy: $[stageDependencies.CHECK_CHANGED_SOLUTIONS.CheckChangedSolutions.outputs['SetVariables.deploy_synapse_workspace']]
+      - name: 'xu-config'
+        deploy: $[stageDependencies.CHECK_CHANGED_SOLUTIONS.CheckChangedSolutions.outputs['SetVariables.deploy_xu_config']]
+      deployEnvPrefix: ${{ variables.deployEnvPrefix }}
 
 # - ${{ if eq(variables['Build.Reason'], 'Manual') }}:
 #   - stage: DEPLOY_2
@@ -163,14 +163,14 @@ variables:
 #           deploy: True
 #         deployEnvPrefix: ${{ variables.deployEnvPrefix }}
 # - ${{ else }}:
-  - stage: DEPLOY_2
-    jobs:
-    - template: ./jobs-deploy-multi.yml
-      parameters:
-        solutions:
-        - name: 'azure-data-factory'
-          deploy: $[stageDependencies.CHECK_CHANGED_SOLUTIONS.CheckChangedSolutions.outputs['SetVariables.deploy_azure_data_factory']]
-        deployEnvPrefix: ${{ variables.deployEnvPrefix }}
+- stage: DEPLOY_2
+  jobs:
+  - template: ./jobs-deploy-multi.yml
+    parameters:
+      solutions:
+      - name: 'azure-data-factory'
+        deploy: $[stageDependencies.CHECK_CHANGED_SOLUTIONS.CheckChangedSolutions.outputs['SetVariables.deploy_azure_data_factory']]
+      deployEnvPrefix: ${{ variables.deployEnvPrefix }}
 
 
 
