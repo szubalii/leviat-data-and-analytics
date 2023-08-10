@@ -263,8 +263,11 @@ stages:
       name: A1.1
 
 - stage: B
+  # variables:
+  # - name: deploy_synapse_dwh
+  # - value: ${{ parameters.deploy_synapse_dwh }}
   dependsOn: A
-  condition: $[ or(eq(parameters.deploy_synapse_dwh, true), eq(stageDependencies.A.A1.outputs['A1.1.deploy_synapse_dwh'], 'true')) ]
+  condition: or(eq('${{ parameters.deploy_synapse_dwh }}', true), eq(stageDependencies.A.A1.outputs['A1.1.deploy_synapse_dwh'], 'true'))
 
   jobs:
   - job: B1
@@ -273,10 +276,13 @@ stages:
           Write-Host $(stageDependencies.A.A1.outputs['A1.1.deploy_synapse_dwh']);
 
 - stage: C
+  # variables:
+  # - name: deploy_azure_data_factory
+  # - value: ${{ parameters.deploy_azure_data_factory }}
   dependsOn:
   - A
   - B
-  condition: $[ or(eq(parameters.deploy_azure_data_factory, true), eq(stageDependencies.A.A1.outputs['A1.1.deploy_azure_data_factory'], 'true')) ]
+  condition: or(eq('${{ parameters.deploy_azure_data_factory }}', true), eq(stageDependencies.A.A1.outputs['A1.1.deploy_azure_data_factory'], 'true'))
   jobs:
   - job: C1
     steps:
