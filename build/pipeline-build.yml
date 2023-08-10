@@ -12,6 +12,28 @@ trigger:
     - qas
     - prod
 
+parameters:
+- name: azure_data_factory
+  displayName: Azure Data Factory
+  type: boolean
+  default: True
+- name: orchestration
+  displayName: Orchestration DB
+  type: boolean
+  default: True
+- name: synapse_dwh
+  displayName: Synapse DWH
+  type: boolean
+  default: True
+- name: synapse_workspace
+  displayName: Synapse Workspace
+  type: boolean
+  default: True
+- name: xu_config
+  displayName: Xtract Universal
+  type: boolean
+  default: True
+
 variables:
 # In case of CI triggered pipelines (IndividualCI, triggered by git push),
 # use the system predefined variable Build.SourceBranchName to get the correct variable template
@@ -29,8 +51,8 @@ variables:
 stages:        
 - template: ./stages-build.yml
   parameters:
-    build_azure_data_factory: true
-    build_orchestration: true
-    build_synapse_dwh: true
-    build_synapse_workspace: true
-    build_xu_config: true
+    build_azure_data_factory: ${{ parameters.azure_data_factory }}
+    build_orchestration: ${{ parameters.orchestration }}
+    build_synapse_dwh: ${{ parameters.synapse_dwh }}
+    build_synapse_workspace: ${{ parameters.synapse_workspace }}
+    build_xu_config: ${{ parameters.xu_config }}
