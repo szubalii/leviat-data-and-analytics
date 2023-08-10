@@ -27,19 +27,28 @@ LEFT JOIN [base_s4h_cax].[I_SDDocumentProcessFlow] AS PF
 )
 
 SELECT
-       [SourceLedgerID],
-       [CompanyCodeID], 
-       [FiscalYear],
-       [AccountingDocument], 
-       [LedgerGLLineItem],
-       [SalesReferenceDocumentCalculated],
-       [SalesReferenceDocumentItemCalculated]
-FROM SalesReferenceDocumentCalculated 
+       SRDC.[SourceLedgerID],
+       SRDC.[CompanyCodeID], 
+       SRDC.[FiscalYear],
+       SRDC.[AccountingDocument], 
+       SRDC.[LedgerGLLineItem],
+       SRDC.[SalesReferenceDocumentCalculated],
+       SRDC.[SalesReferenceDocumentItemCalculated],
+       SDI.[SalesDocumentItemCategoryID]
+FROM SalesReferenceDocumentCalculated SRDC
+LEFT JOIN [edw].[fact_SalesDocumentItem] SDI 
+    ON 
+       SRDC.SalesReferenceDocumentCalculated = SDI.SalesDocument
+       AND 
+       SRDC.SalesReferenceDocumentItemCalculated = SDI.SalesDocumentItem COLLATE DATABASE_DEFAULT
+       AND 
+       SDI.CurrencyTypeID = '10'
 GROUP BY
-       [SourceLedgerID],
-       [CompanyCodeID], 
-       [FiscalYear],
-       [AccountingDocument], 
-       [LedgerGLLineItem],
-       [SalesReferenceDocumentCalculated],
-       [SalesReferenceDocumentItemCalculated]
+       SRDC.[SourceLedgerID],
+       SRDC.[CompanyCodeID], 
+       SRDC.[FiscalYear],
+       SRDC.[AccountingDocument], 
+       SRDC.[LedgerGLLineItem],
+       SRDC.[SalesReferenceDocumentCalculated],
+       SRDC.[SalesReferenceDocumentItemCalculated],
+       SDI.[SalesDocumentItemCategoryID]

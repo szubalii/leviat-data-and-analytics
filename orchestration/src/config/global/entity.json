@@ -5239,7 +5239,7 @@
         "sproc_name": "sp_materialize_view",
         "source_view_name": "vw_ACDOCA",
         "dest_table_name": "fact_ACDOCA",
-        "execution_order": 4,
+        "execution_order": 6,
         "schedule_recurrence": "D"
       },
       {
