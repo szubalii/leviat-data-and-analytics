@@ -227,8 +227,7 @@ stages:
       parameters:
         solutions:
         - name: 'azure-data-factory'
-          deploy: ${{ parameters.azure_data_factory }}
-          test: false
+          deploy: true
         deployEnvPrefix: ${{ variables.deployEnvPrefix }}
 - ${{ else }}:
   - stage: DEPLOY_2_AUTO
