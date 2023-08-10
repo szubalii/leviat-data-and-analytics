@@ -180,7 +180,7 @@ stages:
       - VisualStudio
       - Python.Version
       - Agent.ComputerName -equals $(VMName)
-    environment: ${{ format('{0}_{1}', variables.deployEnvPrefix, upper(orchestration)) }}
+    environment: ${{ format('{0}_{1}', variables.deployEnvPrefix, 'ORCHESTRATION') }}
     strategy:
       runOnce:
         deploy:
@@ -196,7 +196,7 @@ stages:
       - VisualStudio
       - Python.Version
       - Agent.ComputerName -equals $(VMName)
-    environment: ${{ format('{0}_{1}', variables.deployEnvPrefix, upper(synapse_dwh)) }}
+    environment: ${{ format('{0}_{1}', variables.deployEnvPrefix, 'SYNAPSE_DWH') }}
     strategy:
       runOnce:
         deploy:
@@ -212,7 +212,7 @@ stages:
       - VisualStudio
       - Python.Version
       - Agent.ComputerName -equals $(VMName)
-    environment: ${{ format('{0}_{1}', variables.deployEnvPrefix, upper(synapse_workspace)) }}
+    environment: ${{ format('{0}_{1}', variables.deployEnvPrefix, 'SYNAPSE_WORKSPACE') }}
     strategy:
       runOnce:
         deploy:
@@ -228,7 +228,7 @@ stages:
       - VisualStudio
       - Python.Version
       - Agent.ComputerName -equals $(VMName)
-    environment: ${{ format('{0}_{1}', variables.deployEnvPrefix, upper(xu_config)) }}
+    environment: ${{ format('{0}_{1}', variables.deployEnvPrefix, 'XU_CONFIG') }}
     strategy:
       runOnce:
         deploy:
@@ -287,7 +287,7 @@ stages:
       - VisualStudio
       - Python.Version
       - Agent.ComputerName -equals $(VMName)
-    environment: ${{ format('{0}_{1}', variables.deployEnvPrefix, upper(azure_data_factory)) }}
+    environment: ${{ format('{0}_{1}', variables.deployEnvPrefix, 'AZURE_DATA_FACTORY') }}
     strategy:
       runOnce:
         deploy:
