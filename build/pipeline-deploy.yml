@@ -40,7 +40,7 @@ variables:
   value: $(Build.SourceVersion)
 
 stages:
-- ${{ if or( eq(parameters.orchestration, True), eq(parameters.synapse_dwh, True), eq(parameters.synapse_workspace, True), eq(parameters.xu_config, True) }}:
+- ${{ if or( eq(parameters.orchestration, True), eq(parameters.synapse_dwh, True), eq(parameters.synapse_workspace, True), eq(parameters.xu_config, True)) }}:
   - stage: DEPLOY_1_MANUAL
     jobs:
     - template: ./jobs-deploy-multi.yml
