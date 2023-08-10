@@ -9,6 +9,28 @@ resources:
         - qas
         - prod
 
+parameters:
+- name: azure_data_factory
+  displayName: Azure Data Factory
+  type: boolean
+  default: True
+- name: orchestration
+  displayName: Orchestration DB
+  type: boolean
+  default: True
+- name: synapse_dwh
+  displayName: Synapse DWH
+  type: boolean
+  default: True
+- name: synapse_workspace
+  displayName: Synapse Workspace
+  type: boolean
+  default: True
+- name: xu_config
+  displayName: Xtract Universal
+  type: boolean
+  default: True
+
 variables:
 # In case of CI triggered pipelines (IndividualCI, triggered by git push),
 # use the system predefined variable Build.SourceBranchName to get the correct variable template
@@ -38,7 +60,7 @@ stages:
   #TODO only run this template when the source branch is not a release branch (main, qas, prod)
   # and was triggered by git push
   #TODO uncomment condition
-  # condition: ${{ and(in(variables['Build.SourceBranchName'], 'main', 'qas', 'prod'), eq(variables['Build.Reason'], 'IndividualCI')) }}
+  condition: ${{ and(in(variables['Build.SourceBranchName'], 'main', 'qas', 'prod'), eq(variables['Build.Reason'], 'IndividualCI')) }}
   jobs:
   - job: CheckChangedSolutions
     pool:
@@ -112,121 +134,119 @@ stages:
         Write-Host 'deploy_xu_config:'$(SetVariables.deploy_xu_config);
 
 
-# - ${{ if eq(variables['Build.Reason'], 'Manual') }}:
-#   - stage: DEPLOY_1
-#     jobs:
-#     - template: ./jobs-deploy-multi.yml
-#       parameters:
-#         solutions:
-#         - name: 'orchestration'
-#           deploy: True
-#         - name: 'synapse-dwh'
-#           deploy: True
-#         - name: 'synapse-workspace'
-#           deploy: True
-#         - name: 'xu-config'
-#           deploy: True
-#         deployEnvPrefix: ${{ variables.deployEnvPrefix }}
-# - ${{ else }}:
-- stage: DEPLOY_1
-  dependsOn: 
-  - CHECK_CHANGED_SOLUTIONS
-  # - BUILD
-  jobs:
-  - deployment: DEPLOY_ORCHESTRATION
-    condition: eq(stageDependencies.CHECK_CHANGED_SOLUTIONS.CheckChangedSolutions.outputs['SetVariables.deploy_orchestration'], 'true')
-    timeoutInMinutes: 120
-    pool:
-      name: 'VM'
-      demands:
-      - node.js
-      - VisualStudio
-      - Python.Version
-      - Agent.ComputerName -equals $(VMName)
-    environment: ${{ format('{0}_{1}', variables.deployEnvPrefix, 'ORCHESTRATION') }}
-    strategy:
-      runOnce:
-        deploy:
-          steps:
-          - template: ../orchestration/build/steps-deploy.yml
-  - deployment: DEPLOY_SYNAPSE_DWH
-    condition: eq(stageDependencies.CHECK_CHANGED_SOLUTIONS.CheckChangedSolutions.outputs['SetVariables.deploy_synapse_dwh'], 'true')
-    timeoutInMinutes: 120
-    pool:
-      name: 'VM'
-      demands:
-      - node.js
-      - VisualStudio
-      - Python.Version
-      - Agent.ComputerName -equals $(VMName)
-    environment: ${{ format('{0}_{1}', variables.deployEnvPrefix, 'SYNAPSE_DWH') }}
-    strategy:
-      runOnce:
-        deploy:
-          steps:
-          - template: ../synapse-dwh/build/steps-deploy.yml
-  - deployment: DEPLOY_SYNAPSE_WORKSPACE
-    condition: eq(stageDependencies.CHECK_CHANGED_SOLUTIONS.CheckChangedSolutions.outputs['SetVariables.deploy_synapse_workspace'], 'true')
-    timeoutInMinutes: 120
-    pool:
-      name: 'VM'
-      demands:
-      - node.js
-      - VisualStudio
-      - Python.Version
-      - Agent.ComputerName -equals $(VMName)
-    environment: ${{ format('{0}_{1}', variables.deployEnvPrefix, 'SYNAPSE_WORKSPACE') }}
-    strategy:
-      runOnce:
-        deploy:
-          steps:
-          - template: ../synapse-workspace/build/steps-deploy.yml
-  - deployment: DEPLOY_XU_CONFIG
-    condition: eq(stageDependencies.CHECK_CHANGED_SOLUTIONS.CheckChangedSolutions.outputs['SetVariables.deploy_xu_config'], 'true')
-    timeoutInMinutes: 120
-    pool:
-      name: 'VM'
-      demands:
-      - node.js
-      - VisualStudio
-      - Python.Version
-      - Agent.ComputerName -equals $(VMName)
-    environment: ${{ format('{0}_{1}', variables.deployEnvPrefix, 'XU_CONFIG') }}
-    strategy:
-      runOnce:
-        deploy:
-          steps:
-          - template: ../xu-config/build/steps-deploy.yml
+- ${{ if eq(variables['Build.Reason'], 'Manual') }}:
+  - stage: DEPLOY_1
+    jobs:
+    - template: ./jobs-deploy-multi.yml
+      parameters:
+        solutions:
+        - name: 'orchestration'
+          deploy: ${{ parameters.orchestration }}
+        - name: 'synapse-dwh'
+          deploy: ${{ parameters.synapse_dwh }}
+        - name: 'synapse-workspace'
+          deploy: ${{ parameters.synapse_workspace }}
+        - name: 'xu-config'
+          deploy: ${{ parameters.xu_config }}
+        deployEnvPrefix: ${{ variables.deployEnvPrefix }}
+- ${{ else }}:
+  - stage: DEPLOY_1
+    dependsOn: 
+    - CHECK_CHANGED_SOLUTIONS
+    jobs:
+    - deployment: DEPLOY_ORCHESTRATION
+      condition: eq(stageDependencies.CHECK_CHANGED_SOLUTIONS.CheckChangedSolutions.outputs['SetVariables.deploy_orchestration'], 'true')
+      timeoutInMinutes: 120
+      pool:
+        name: 'VM'
+        demands:
+        - node.js
+        - VisualStudio
+        - Python.Version
+        - Agent.ComputerName -equals $(VMName)
+      environment: ${{ format('{0}_{1}', variables.deployEnvPrefix, 'ORCHESTRATION') }}
+      strategy:
+        runOnce:
+          deploy:
+            steps:
+            - template: ../orchestration/build/steps-deploy.yml
+    - deployment: DEPLOY_SYNAPSE_DWH
+      condition: eq(stageDependencies.CHECK_CHANGED_SOLUTIONS.CheckChangedSolutions.outputs['SetVariables.deploy_synapse_dwh'], 'true')
+      timeoutInMinutes: 120
+      pool:
+        name: 'VM'
+        demands:
+        - node.js
+        - VisualStudio
+        - Python.Version
+        - Agent.ComputerName -equals $(VMName)
+      environment: ${{ format('{0}_{1}', variables.deployEnvPrefix, 'SYNAPSE_DWH') }}
+      strategy:
+        runOnce:
+          deploy:
+            steps:
+            - template: ../synapse-dwh/build/steps-deploy.yml
+    - deployment: DEPLOY_SYNAPSE_WORKSPACE
+      condition: eq(stageDependencies.CHECK_CHANGED_SOLUTIONS.CheckChangedSolutions.outputs['SetVariables.deploy_synapse_workspace'], 'true')
+      timeoutInMinutes: 120
+      pool:
+        name: 'VM'
+        demands:
+        - node.js
+        - VisualStudio
+        - Python.Version
+        - Agent.ComputerName -equals $(VMName)
+      environment: ${{ format('{0}_{1}', variables.deployEnvPrefix, 'SYNAPSE_WORKSPACE') }}
+      strategy:
+        runOnce:
+          deploy:
+            steps:
+            - template: ../synapse-workspace/build/steps-deploy.yml
+    - deployment: DEPLOY_XU_CONFIG
+      condition: eq(stageDependencies.CHECK_CHANGED_SOLUTIONS.CheckChangedSolutions.outputs['SetVariables.deploy_xu_config'], 'true')
+      timeoutInMinutes: 120
+      pool:
+        name: 'VM'
+        demands:
+        - node.js
+        - VisualStudio
+        - Python.Version
+        - Agent.ComputerName -equals $(VMName)
+      environment: ${{ format('{0}_{1}', variables.deployEnvPrefix, 'XU_CONFIG') }}
+      strategy:
+        runOnce:
+          deploy:
+            steps:
+            - template: ../xu-config/build/steps-deploy.yml
 
-# - ${{ if eq(variables['Build.Reason'], 'Manual') }}:
-#   - stage: DEPLOY_2
-#     jobs:
-#     - template: ./jobs-deploy-multi.yml
-#       parameters:
-#         solutions:
-#         - name: 'azure-data-factory'
-#           deploy: True
-#         deployEnvPrefix: ${{ variables.deployEnvPrefix }}
-# - ${{ else }}:
-- stage: DEPLOY_2
-  dependsOn: 
-  - CHECK_CHANGED_SOLUTIONS
-  # - BUILD
-  - DEPLOY_1
-  jobs:
-  - deployment: DEPLOY_AZURE_DATA_FACTORY
-    condition: eq(stageDependencies.CHECK_CHANGED_SOLUTIONS.CheckChangedSolutions.outputs['SetVariables.deploy_azure_data_factory'], 'true')
-    timeoutInMinutes: 120
-    pool:
-      name: 'VM'
-      demands:
-      - node.js
-      - VisualStudio
-      - Python.Version
-      - Agent.ComputerName -equals $(VMName)
-    environment: ${{ format('{0}_{1}', variables.deployEnvPrefix, 'AZURE_DATA_FACTORY') }}
-    strategy:
-      runOnce:
-        deploy:
-          steps:
-          - template: ../azure-data-factory/build/steps-deploy.yml
+- ${{ if eq(variables['Build.Reason'], 'Manual') }}:
+  - stage: DEPLOY_2
+    jobs:
+    - template: ./jobs-deploy-multi.yml
+      parameters:
+        solutions:
+        - name: 'azure-data-factory'
+          deploy: ${{ parameters.azure_data_factory }}
+        deployEnvPrefix: ${{ variables.deployEnvPrefix }}
+- ${{ else }}:
+  - stage: DEPLOY_2
+    dependsOn: 
+    - CHECK_CHANGED_SOLUTIONS
+    - DEPLOY_1
+    jobs:
+    - deployment: DEPLOY_AZURE_DATA_FACTORY
+      condition: eq(stageDependencies.CHECK_CHANGED_SOLUTIONS.CheckChangedSolutions.outputs['SetVariables.deploy_azure_data_factory'], 'true')
+      timeoutInMinutes: 120
+      pool:
+        name: 'VM'
+        demands:
+        - node.js
+        - VisualStudio
+        - Python.Version
+        - Agent.ComputerName -equals $(VMName)
+      environment: ${{ format('{0}_{1}', variables.deployEnvPrefix, 'AZURE_DATA_FACTORY') }}
+      strategy:
+        runOnce:
+          deploy:
+            steps:
+            - template: ../azure-data-factory/build/steps-deploy.yml
