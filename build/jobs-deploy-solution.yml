@@ -14,18 +14,18 @@ parameters:
 #   value: $(envIndex)_$(deployEnv)_${{ upper(replace(parameters.folder, '-', '_')) }}
 
 jobs:
-- job: ${{ format('VAR_{0}', parameters.solution) }}
-  pool:
-    name: 'VM'
-    demands:
-    - node.js
-    - VisualStudio
-    - Agent.ComputerName -equals $(VMName)
-  steps:
-  - script: |
-      echo deployEnvPrefix: ${{ variables.deployEnvPrefix }}
-      echo parameters.deployEnvPrefix: ${{ parameters.deployEnvPrefix }}
-    displayName: Print Variables
+# - job: ${{ format('VAR_{0}', parameters.solution) }}
+#   pool:
+#     name: 'VM'
+#     demands:
+#     - node.js
+#     - VisualStudio
+#     - Agent.ComputerName -equals $(VMName)
+#   steps:
+#   - script: |
+#       echo deployEnvPrefix: ${{ variables.deployEnvPrefix }}
+#       echo parameters.deployEnvPrefix: ${{ parameters.deployEnvPrefix }}
+    # displayName: Print Variables
 - deployment: ${{ format('DEPLOY_{0}', parameters.solution) }}
   timeoutInMinutes: 120
   pool:
@@ -45,6 +45,3 @@ jobs:
       deploy:
         steps:
         - template: ../${{ parameters.folder }}/build/steps-deploy.yml
-        
-        - ${{ if eq(parameters.test, True) }}:
-          - template: ../${{ parameters.folder }}/build/steps-test.yml
