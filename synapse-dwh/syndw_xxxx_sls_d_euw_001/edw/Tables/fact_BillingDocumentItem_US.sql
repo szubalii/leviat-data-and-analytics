@@ -21,6 +21,7 @@
     ,[CustomerGroupID]                          NVARCHAR(8)                                          NULL
     ,[CountryID]                                NVARCHAR(20)                                         NULL
     ,[QuantitySold]                             DECIMAL(28,12)                                       NULL
+    ,[BillingQuantity]                          DECIMAL(28,12)                                       NULL
     ,[GrossMargin]                              DECIMAL(19, 6)                                       NULL
     ,[ExchangeRate]                             NUMERIC(15,6)                                        NULL
     ,[FinNetAmount]                             DECIMAL(28,12)                                       NULL
