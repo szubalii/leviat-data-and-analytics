@@ -24,13 +24,8 @@ stages:
 - stage: VARIABLES
   jobs:
   - job: Vars
-    pool:
-      name: 'VM'
-      demands:
-      - node.js
-      - VisualStudio
-      - Agent.ComputerName -equals $(VMName)
     steps:
+    - checkout: none
     - script: |
         echo system.pullRequest.targetBranch: $(system.pullRequest.targetBranch)
         echo user: $(user)
