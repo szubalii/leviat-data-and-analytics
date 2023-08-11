@@ -27,6 +27,18 @@
 			"storageAccount": {
 				"type": "string",
 				"defaultValue": "stxxxxslsdeuw001"
+			},
+			"row_delimiter": {
+				"type": "string",
+				"defaultValue": "\\r"
+			},
+			"quote_character": {
+				"type": "string",
+				"defaultValue": "\""
+			},
+			"escape_character": {
+				"type": "string",
+				"defaultValue": "\""
 			}
 		},
 		"annotations": [],
@@ -51,10 +63,19 @@
 				"value": "@dataset().field_delimiter",
 				"type": "Expression"
 			},
-			"rowDelimiter": "\r",
-			"escapeChar": "\"",
+			"rowDelimiter": {
+				"value": "@dataset().row_delimiter",
+				"type": "Expression"
+			},
+			"escapeChar": {
+				"value": "@dataset().escape_character",
+				"type": "Expression"
+			},
 			"firstRowAsHeader": true,
-			"quoteChar": "\""
+			"quoteChar": {
+				"value": "@dataset().quote_character",
+				"type": "Expression"
+			}
 		},
 		"schema": []
 	}
