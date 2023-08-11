@@ -38,7 +38,7 @@ stages:
         echo Build.Reason: ${{ variables['Build.Reason'] }}
         echo Build.SourceBranch: ${{ variables['Build.SourceBranch'] }}
         echo Build.SourceBranchName: ${{ variables['Build.SourceBranchName'] }}
-        echo deployEnvPrefix: $(variables.deployEnvPrefix)
+        echo deployEnvPrefix: $(deployEnvPrefix)
         echo parameters.build_synapse_dwh: ${{ parameters.build_synapse_dwh }}
         echo parameters.build_azure_data_factory: ${{ parameters.build_azure_data_factory }}
         echo parameters.build_orchestration: ${{ parameters.build_orchestration }}
