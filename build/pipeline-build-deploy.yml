@@ -46,26 +46,28 @@ stages:
     build_synapse_workspace: ${{ parameters.synapse_workspace }}
     build_xu_config: ${{ parameters.xu_config }}
 
-- stage: DEPLOY_1_MANUAL
-  jobs:
-  - template: ./jobs-deploy-multi.yml
-    parameters:
-      solutions:
-      - name: 'orchestration'
-        deploy: ${{ parameters.orchestration }}
-      - name: 'synapse-dwh'
-        deploy: ${{ parameters.synapse_dwh }}
-      - name: 'synapse-workspace'
-        deploy: ${{ parameters.synapse_workspace }}
-      - name: 'xu-config'
-        deploy: ${{ parameters.xu_config }}
-      deployEnvPrefix: ${{ variables.deployEnvPrefix }}
+- ${{ if or( eq(parameters.orchestration, True), eq(parameters.synapse_dwh, True), eq(parameters.synapse_workspace, True), eq(parameters.xu_config, True)) }}:
+  - stage: DEPLOY_1_MANUAL
+    jobs:
+    - template: ./jobs-deploy-multi.yml
+      parameters:
+        solutions:
+        - name: 'orchestration'
+          deploy: ${{ parameters.orchestration }}
+        - name: 'synapse-dwh'
+          deploy: ${{ parameters.synapse_dwh }}
+        - name: 'synapse-workspace'
+          deploy: ${{ parameters.synapse_workspace }}
+        - name: 'xu-config'
+          deploy: ${{ parameters.xu_config }}
+        deployEnvPrefix: ${{ variables.deployEnvPrefix }}
 
-- stage: DEPLOY_2_MANUAL
-  jobs:
-  - template: ./jobs-deploy-multi.yml
-    parameters:
-      solutions:
-      - name: 'azure-data-factory'
-        deploy: True
-      deployEnvPrefix: ${{ variables.deployEnvPrefix }}
+- ${{ if eq(parameters.azure_data_factory, True) }}:
+  - stage: DEPLOY_2_MANUAL
+    jobs:
+    - template: ./jobs-deploy-multi.yml
+      parameters:
+        solutions:
+        - name: 'azure-data-factory'
+          deploy: True
+        deployEnvPrefix: ${{ variables.deployEnvPrefix }}
