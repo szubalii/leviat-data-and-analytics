@@ -5779,7 +5779,7 @@
         "schedule_recurrence": "D"
       },
       {
-        "entity_id": 613,
+        "entity_id": 615,
         "entity_name": "dim_RuleBusinessPartner",
         "sproc_name": "sp_materialize_view",
         "source_view_name": "vw_RuleBusinessPartner",
@@ -5788,7 +5788,7 @@
         "schedule_recurrence": "D"
       },
       {
-        "entity_id": 614,
+        "entity_id": 616,
         "entity_name": "fact_BusinessPartnerTotal",
         "sproc_name": "sp_dq_materialize_view",
         "source_view_name": "vw_BusinessPartnerTotal",
