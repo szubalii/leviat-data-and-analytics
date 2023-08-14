@@ -42,7 +42,7 @@ UNION ALL
 
 SELECT
     [RuleID]
-    ,[BusinessPartner] 
+    ,BUSINESSPARTNER        AS [BusinessPartner] 
 FROM
     [dq].[vw_BP_2_0_8]
 

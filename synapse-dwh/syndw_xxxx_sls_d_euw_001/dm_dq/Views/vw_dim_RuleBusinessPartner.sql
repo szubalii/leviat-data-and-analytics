@@ -4,4 +4,4 @@ SELECT
     [BusinessPartner],
     [t_jobDtm]
 FROM
-    [dq].[dim_BusinessPartner]
+    [dq].[dim_RuleBusinessPartner]
