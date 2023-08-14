@@ -18,7 +18,7 @@ UNION ALL
 
 SELECT
     [RuleID]
-    ,[AddressID]            AS [BusinessPartner] 
+    ,[BusinessPartner] 
 FROM
     [dq].[vw_BP_2_0_4]
 
@@ -26,7 +26,7 @@ UNION ALL
 
 SELECT
     [RuleID]
-    ,[AddressID]            AS [BusinessPartner] 
+    ,[BusinessPartner] 
 FROM
     [dq].[vw_BP_2_0_5]
 
@@ -34,7 +34,7 @@ UNION ALL
 
 SELECT
     [RuleID]
-    ,[BUSINESSPARTNER]      AS [BusinessPartner] 
+    ,[BusinessPartner] 
 FROM
     [dq].[vw_BP_2_0_6]
 
