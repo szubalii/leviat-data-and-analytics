@@ -1,18 +1,18 @@
-trigger:
-  branches:
-    include:
-    - dev_mpors
-    - dev_fbouw
-    - dev_tdorodnova
-    - dev_nkukhtenko
-    - dev_sleshchuk
-    - dev/*
-    - main
-    - qas
-    - prod
-  paths:
-    include: 
-    - xu-config/*
+trigger: none
+  # branches:
+  #   include:
+  #   - dev_mpors
+  #   - dev_fbouw
+  #   - dev_tdorodnova
+  #   - dev_nkukhtenko
+  #   - dev_sleshchuk
+  #   - dev/*
+  #   - main
+  #   - qas
+  #   - prod
+  # paths:
+  #   include: 
+  #   - xu-config/*
 
 extends:
   template: ../../build/stages-build-deploy.yml
