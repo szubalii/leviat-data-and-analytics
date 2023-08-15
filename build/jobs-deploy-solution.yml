@@ -1,9 +1,7 @@
 parameters:
 - name: folder
   type: string
-- name: solution
-  type: string
-- name: deployEnvPrefix
+- name: deployEnvironment
   type: string
 - name: test
   type: boolean
@@ -14,19 +12,7 @@ parameters:
 #   value: $(envIndex)_$(deployEnv)_${{ upper(replace(parameters.folder, '-', '_')) }}
 
 jobs:
-# - job: ${{ format('VAR_{0}', parameters.solution) }}
-#   pool:
-#     name: 'VM'
-#     demands:
-#     - node.js
-#     - VisualStudio
-#     - Agent.ComputerName -equals $(VMName)
-#   steps:
-#   - script: |
-#       echo deployEnvPrefix: ${{ variables.deployEnvPrefix }}
-#       echo parameters.deployEnvPrefix: ${{ parameters.deployEnvPrefix }}
-    # displayName: Print Variables
-- deployment: ${{ format('DEPLOY_{0}', parameters.solution) }}
+- deployment: ${{ format('DEPLOY_{0}', parameters.deployEnvironment) }}
   timeoutInMinutes: 120
   pool:
     name: 'VM'
@@ -35,7 +21,7 @@ jobs:
     - VisualStudio
     - Python.Version
     - Agent.ComputerName -equals $(VMName)
-  environment: ${{ format('{0}_{1}', parameters.deployEnvPrefix, parameters.solution) }}
+  environment: ${{ parameters.deployEnvironment }}
   workspace:
   # set clean to all when deploying xu-config
     ${{ if eq(parameters.folder, 'xu-config') }}: 
@@ -45,3 +31,6 @@ jobs:
       deploy:
         steps:
         - template: ../${{ parameters.folder }}/build/steps-deploy.yml
+        
+        - ${{ if eq(parameters.test, True) }}:
+          - template: ../${{ parameters.folder }}/build/steps-test.yml
