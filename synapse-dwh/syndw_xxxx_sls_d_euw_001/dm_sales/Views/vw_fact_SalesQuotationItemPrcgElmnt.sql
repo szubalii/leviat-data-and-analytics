@@ -5,15 +5,19 @@ SELECT
          ,[SalesQuotationItem]
          ,nk_SalesQuotationItem
          ,[ConditionType]
-         ,sum([ConditionBaseValue]) as ConditionBaseValue
-         ,sum([ConditionRateValue]) as ConditionRateValue
-         ,sum([ConditionAmount]) as ConditionAmount
+         ,sum([ConditionBaseValue])    AS ConditionBaseValue
+         ,sum([BaseAmountEUR])         AS BaseAmountEUR
+         ,sum([BaseAmountUSD])         AS BaseAmountUSD
+         ,sum([ConditionRateValue])    AS ConditionRateValue
+         ,sum([ConditionAmount])       AS ConditionAmount
+         ,sum([ConditionAmountEUR])    AS ConditionAmountEUR
+         ,sum([ConditionAmountUSD])    AS ConditionAmountUSD
          ,[CurrencyTypeID]
          ,[CurrencyType]
          ,[CurrencyID]
 FROM
    [edw].[fact_SalesQuotationItemPrcgElmnt] 
-WHERE ([ConditionInactiveReason] is null or [ConditionInactiveReason]='')
+WHERE ([ConditionInactiveReason] IS NULL OR [ConditionInactiveReason] ='')
 GROUP BY  [SalesQuotation]
          ,[SalesQuotationItem]
          ,nk_SalesQuotationItem
