@@ -61,8 +61,7 @@
 							"storageAccount": {
 								"value": "@pipeline().globalParameters.storageAccountName",
 								"type": "Expression"
-							},
-							"row_delimiter": "\\r"
+							}
 						}
 					}
 				],
