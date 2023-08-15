@@ -6,8 +6,10 @@ resources:
     trigger:
       branches:
         include:
-        - feature/*
-        - users/*
+        - refs/heads/feature/*
+        - refs/heads/users/*
+        
+trigger: none
 
 # By default, each solution is build.
 
