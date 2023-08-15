@@ -8,8 +8,6 @@ resources:
         include:
         - feature/*
         - users/*
-        
-trigger: none
 
 # By default, each solution is build.
 
