@@ -1176,12 +1176,12 @@
     <Build Include="dm_dq\Views\vw_dim_BusinessPartnerBank.sql" />
     <Build Include="dm_dq\Views\vw_dim_Address.sql" />
     <Build Include="dm_dq\Views\vw_dim_BusinessPartnerAddress.sql" />
-    <Build Include="dm_dq\Views\vw_dim_BusinessPartnerTax.sql" />
+    <Build Include="dm_dq\Views\vw_dim_BusinessPartnerTaxNumber.sql" />
     <Build Include="dm_dq\Views\vw_dim_SupplierCompany.sql" />
     <Build Include="dm_dq\Views\vw_dim_CustomerCompany.sql" />
     <Build Include="dm_dq\Views\vw_dim_Customer.sql" />
     <Build Include="dm_dq\Views\vw_dim_CustomerSalesArea.sql" />
-    <Build Include="dm_dq\Views\vw_dim_CustomerSalesPartner.sql" />
+    <Build Include="dm_dq\Views\vw_dim_CustomerSalesPartnerFunction.sql" />
     <Build Include="dm_dq\Views\vw_dim_SupplierPurchasingOrg.sql" />
     <Build Include="dm_dq\Views\vw_dim_Supplier.sql" />
     <Build Include="dm_sales\Views\vw_dim_GLAccountText.sql" />

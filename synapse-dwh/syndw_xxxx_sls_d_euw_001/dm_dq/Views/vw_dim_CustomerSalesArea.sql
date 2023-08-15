@@ -3,6 +3,8 @@ AS
 SELECT
     Customer
     , SalesOrganization
+    , DistributionChannel
+    , Division
     , PaymentTerms
     , DeletionIndicator
 FROM

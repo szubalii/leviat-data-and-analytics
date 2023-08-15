@@ -1,4 +1,4 @@
-CREATE VIEW [dm_dq].[vw_dim_BusinessPartnerTax]
+CREATE VIEW [dm_dq].[vw_dim_BusinessPartnerTaxNumber]
 AS
 SELECT
     BUSINESSPARTNER     AS BusinessPartner

@@ -4,6 +4,7 @@ SELECT
     Supplier
     , PaymentTerms
     , CashPlanningGroup
+    , CompanyCode 
     , DeletionIndicator
     , PaymentMethodsList
 FROM

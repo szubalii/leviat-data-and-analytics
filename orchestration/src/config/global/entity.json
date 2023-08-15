@@ -5793,7 +5793,7 @@
         "sproc_name": "sp_dq_materialize_view",
         "source_view_name": "vw_BusinessPartnerTotal",
         "dest_table_name": "fact_BusinessPartnerTotal",
-        "execution_order": 0,
+        "execution_order": 1,
         "schedule_recurrence": "D"
       }
     ]
