@@ -3445,7 +3445,7 @@
         "update_mode": "Full",
         "base_table_name": "I_CN_CADEFinStatementLeafItem",
         "pk_field_names": "MANDT, FINANCIALSTATEMENTVARIANT, FINANCIALSTATEMENTITEM, CHARTOFACCOUNTS, LOWERBOUNDARYACCOUNT, LOWERBOUNDARYFUNCTIONALAREA",
-        "schedule_recurrence": "A"
+        "schedule_recurrence": "D"
       },
       {
         "entity_id": 455,
@@ -3480,7 +3480,7 @@
         "update_mode": "Full",
         "base_table_name": "I_CN_CADEFinancialStatementItm",
         "pk_field_names": "MANDT, FINANCIALSTATEMENTVARIANT, HIERARCHYNODE",
-        "schedule_recurrence": "A"
+        "schedule_recurrence": "D"
       },
       {
         "entity_id": 458,
@@ -5596,7 +5596,7 @@
         "source_view_name": "vw_FinancialStatementItem",
         "dest_table_name": "dim_FinancialStatementItem",
         "execution_order": 1,
-        "schedule_recurrence": "A"
+        "schedule_recurrence": "D"
       },
       {
         "entity_id": 463,
@@ -5605,7 +5605,7 @@
         "source_view_name": "vw_FinancialStatementHierarchy",
         "dest_table_name": "dim_FinancialStatementHierarchy",
         "execution_order": 1,
-        "schedule_recurrence": "A"
+        "schedule_recurrence": "D"
       },
       {
         "entity_id": 489,
