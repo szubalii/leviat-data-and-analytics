@@ -1,15 +1,16 @@
 # This pipeline is triggered only for manually triggered build pipelines to personal environments. 
+
+trigger: none
 resources:
   pipelines:
   - pipeline: build
     source: 'Build Personal'
-    trigger:
-      branches:
-        include:
-        - refs/heads/feature/*
-        - refs/heads/users/*
+    trigger: true
+      # branches:
+      #   include:
+      #   - refs/heads/feature/*
+      #   - refs/heads/users/*
         
-trigger: none
 
 # By default, each solution is build.
 
