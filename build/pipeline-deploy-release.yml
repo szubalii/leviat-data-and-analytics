@@ -1,3 +1,4 @@
+# This pipeline is triggered whenever the build pipeline to main, qas or prod is completed
 resources:
   pipelines:
   - pipeline: build
@@ -106,7 +107,7 @@ stages:
           Write-Host 'deploy_synapse_workspace:'$(SetVariables.deploy_synapse_workspace);
           Write-Host 'deploy_xu_config:'$(SetVariables.deploy_xu_config);
 
-
+# If triggered manually, deploy all solutions
 - ${{ if eq(variables['Build.Reason'], 'Manual') }}:
   - stage: DEPLOY_1_MANUAL
     jobs:
@@ -122,6 +123,7 @@ stages:
         - name: 'xu-config'
           deploy: True
         deployEnvPrefix: ${{ variables.deployEnvPrefix }}
+# If not triggered manually, deploy only those solutions for which files have changed
 - ${{ else }}:
   - stage: DEPLOY_1_AUTO
     dependsOn: 

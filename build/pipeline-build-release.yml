@@ -1,7 +1,4 @@
 # This pipeline is triggered whenever a PR is completed to any of the following branches:
-
-# By default, each solution is build.
-
 trigger:
   branches:
     include:
@@ -22,6 +19,7 @@ variables:
 stages:        
 - template: ./stages-build.yml
   parameters:
+    # By default, each solution is build.
     build_azure_data_factory: True
     build_orchestration: True
     build_synapse_dwh: True

@@ -1,7 +1,8 @@
-# This pipeline is triggered whenever a PR is completed to any of the following branches:
+# This pipeline is triggered only manually to build and deploy to personal environments. 
+
+trigger: none
 
 # By default, each solution is build.
-trigger: none
 
 parameters:
 - name: azure_data_factory
@@ -26,8 +27,7 @@ parameters:
   default: True
 
 variables:
-# In case of CI triggered pipelines (IndividualCI, triggered by git push),
-# use the system predefined variable Build.SourceBranchName to get the correct variable template
+# Get the personal variables template, user and deployment environment based on the source branch name. 
 - ${{ if or(contains(variables['Build.SourceBranch'], '/feature/'), contains(variables['Build.SourceBranch'], '/users/')) }}:
   - template: ./variables-personal.yml
   - name: user
@@ -37,7 +37,7 @@ variables:
   - name: commitId
     value: $(Build.SourceVersion)
 
-stages:        
+stages:
 - template: ./stages-build.yml
   parameters:
     build_azure_data_factory: ${{ parameters.azure_data_factory }}
