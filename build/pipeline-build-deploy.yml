@@ -20,7 +20,7 @@ parameters:
 - name: synapse_workspace
   displayName: Synapse Workspace
   type: boolean
-  default: True
+  default: False
 - name: xu_config
   displayName: Xtract Universal
   type: boolean
