@@ -1,17 +1,12 @@
 steps:
-- download: none
-
-- task: DownloadPipelineArtifact@2
-  inputs:
-    buildType: 'current' 
-    targetPath: '$(Pipeline.Workspace)'
-    artifact: 'XtractUniversal'
+- download: build
+  artifact: XtractUniversal
 
 # Update the source and destinations in the extractions
 - task: FileTransform@1
   displayName: 'File Transform: Destination and Source in Extractions'
   inputs:
-    folderPath: '$(Pipeline.Workspace)\XtractUniversal\extractions'
+    folderPath: '$(Pipeline.Workspace)\build\XtractUniversal\extractions'
     fileType: json
     targetFiles: '**/general.json'
 
@@ -28,7 +23,7 @@ steps:
 
       # directly copy to storage account using azcopy
       azcopy copy `
-        '$(Pipeline.Workspace)\XtractUniversal\extractions\*' `
+        '$(Pipeline.Workspace)\build\XtractUniversal\extractions\*' `
         'https://$(storageAccountName).dfs.core.windows.net/xu-configuration/extractions' `
         --recursive
 
@@ -40,7 +35,7 @@ steps:
     targetType: 'inline'
     pwsh: true
     script: |
-      Get-ChildItem -Path '$(Pipeline.Workspace)\XtractUniversal\extractions' |
+      Get-ChildItem -Path '$(Pipeline.Workspace)\build\XtractUniversal\extractions' |
       Foreach-Object {Rename-Item -Path $_.FullName -NewName ("$(xuPrefix)_"+($_.Name))}
 
 
@@ -49,7 +44,7 @@ steps:
 - task: CopyFiles@2
   displayName: 'Copy Repo XU Config to VM XU Config'
   inputs:
-    SourceFolder: '$(Pipeline.Workspace)\XtractUniversal\extractions'
+    SourceFolder: '$(Pipeline.Workspace)\build\XtractUniversal\extractions'
     Contents: '$(xuPrefix)*/**/*.json' # copy only those extractions required for deployment
     TargetFolder: 'C:\Program Files\XtractUniversal\config\extractions'
     OverWrite: true
