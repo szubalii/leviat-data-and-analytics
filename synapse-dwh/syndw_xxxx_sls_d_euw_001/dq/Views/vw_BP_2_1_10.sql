@@ -1,27 +1,21 @@
 ﻿CREATE VIEW [dq].[vw_BP_2_1_10]
   AS  
 
-WITH CTE_CustomerCompany AS(
+WITH CustCompany AS(
 SELECT
-     CC.[Customer]
-    ,CC.[CompanyCode]
+        CC.[Customer]
 FROM
-
     [base_s4h_cax].[I_CustomerCompany] CC
-LEFT JOIN
-    [base_s4h_cax].[I_SalesOrganization] SO
-    ON
-        CC.[CompanyCode] = SO.[CompanyCode]
 LEFT JOIN
     [base_s4h_cax].[I_CustomerSalesArea] CSA
 ON
-    CC.Customer = CSA.Customer
-    AND
-    SO.SalesOrganization = CSA.SalesOrganization
-WHERE
-    CC.[PaymentTerms]<>CSA.[PaymentTerms]
-)
-SELECT DISTINCT
+    CC.Customer = CSA.Customer 
+WHERE CC.[PaymentTerms]<>CSA.[PaymentTerms]
+GROUP BY
+     CC.[Customer]
+HAVING
+    COUNT(DISTINCT CC.[PaymentTerms])>1)
+SELECT
          CC.[Customer]
     ,    CC.[CompanyCode]
     ,    CC.[AccountingClerk]
@@ -67,10 +61,8 @@ SELECT DISTINCT
     ,   '2.1.10' AS [RuleID]
     ,   1 AS [Count]
 FROM
-    CTE_CustomerCompany
+    CustCompany
 JOIN
     [base_s4h_cax].[I_CustomerCompany] CC
     ON
-        CTE_CustomerCompany.[Customer] = CC.[Customer]
-        AND
-        CTE_CustomerCompany.[CompanyCode] = CC.[CompanyCode]
+        CustCompany.[Customer] = CC.[Customer]
