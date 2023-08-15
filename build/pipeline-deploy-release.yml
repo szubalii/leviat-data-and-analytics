@@ -47,7 +47,7 @@ stages:
         displayName: 'Define which solutions deploy'
         name: SetVariables
         inputs:
-          filePath: './src/libs/set-solutionDeploymentVars.ps1'
+          filePath: '$(System.DefaultWorkingDirectory)/src/libs/set-solutionDeploymentVars.ps1'
           arguments: >
             -commitId $(commitId)
           pwsh: true
