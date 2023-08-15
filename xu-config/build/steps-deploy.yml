@@ -1,4 +1,9 @@
 steps:
+- task: DownloadPipelineArtifact@2
+  inputs:
+    buildType: 'current' 
+    targetPath: '$(Pipeline.Workspace)'
+    artifact: 'XtractUniversal'
 
 # Update the source and destinations in the extractions
 - task: FileTransform@1

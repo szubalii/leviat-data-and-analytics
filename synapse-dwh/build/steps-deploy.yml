@@ -1,4 +1,10 @@
 steps:
+- task: DownloadPipelineArtifact@2
+  inputs:
+    buildType: 'current' 
+    targetPath: '$(Pipeline.Workspace)'
+    artifact: 'SynapseDWH'
+
 - task: AzurePowerShell@5
   displayName: 'Resume Synapse'
   inputs:

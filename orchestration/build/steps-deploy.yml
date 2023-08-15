@@ -1,4 +1,9 @@
 steps:
+- task: DownloadPipelineArtifact@2
+  inputs:
+    buildType: 'current' 
+    targetPath: '$(Pipeline.Workspace)'
+    artifact: 'OrchestrationDB'
   
 # - task: AzureFileCopy@4
 #   displayName: 'AzureBlob File Copy Master Data Generic'
