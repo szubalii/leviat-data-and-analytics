@@ -1,5 +1,5 @@
 steps:
-  download: build
+- download: build
   artifact: OrchestrationDB
 
 # - task: DownloadPipelineArtifact@2
