@@ -7,7 +7,7 @@ SELECT
   , CR.[CurrencyTypeID]
   , CR.[CurrencyType]
   , CASE 
-		  WHEN CCR.[CurrencyTypeID] = '10' THEN COALESCE(BDI.[CurrencyID],IBDIPE.[TransactionCurrency])
+		  WHEN CCR.[CurrencyTypeID] = '10' THEN COALESCE(BDI.[CurrencyID],IBDIPE.[TransactionCurrency]) COLLATE DATABASE_DEFAULT
 		  ELSE CCR.[TargetCurrency]
 	  END                                                                                        AS [CurrencyID]
   , CASE 
