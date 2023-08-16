@@ -101,6 +101,8 @@ stages:
   #       conditional: true
 
   - template: ./stages-deploy-auto.yml
+    parameters:
+      deployEnvPrefix: ${{ variables.deployEnvPrefix }}
           
 # Triggered Manually
 - ${{ elseif eq(variables['Build.Reason'], 'Manual') }}:

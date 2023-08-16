@@ -1,3 +1,7 @@
+parameters:
+- name: deployEnvPrefix
+  type: string
+
 stages:
 - stage: DEPLOY_1_AUTO
   dependsOn: 
@@ -10,7 +14,7 @@ stages:
       - name: 'synapse-dwh'
       - name: 'synapse-workspace'
       - name: 'xu-config'
-      deployEnvPrefix: ${{ variables.deployEnvPrefix }}
+      deployEnvPrefix: ${{ parameters.deployEnvPrefix }}
       conditional: true
     
 - stage: DEPLOY_2_AUTO
@@ -22,5 +26,5 @@ stages:
     parameters:
       solutions:
       - name: 'azure-data-factory'
-      deployEnvPrefix: ${{ variables.deployEnvPrefix }}
+      deployEnvPrefix: ${{ parameters.deployEnvPrefix }}
       conditional: true
