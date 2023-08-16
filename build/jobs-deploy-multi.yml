@@ -11,45 +11,14 @@ parameters:
   type: boolean
   default: false
 
-
 jobs:
 - ${{ each solution in parameters.solutions }}:
-
-  # - deployment: ${{ format('DEPLOY_{0}', upper(replace( solution.name, '-', '_'))) }}
-  #   ${{ if parameters.conditional }}:
-  #     condition: eq(stageDependencies.CHECK_SOLUTIONS_DEPLOYMENT.CheckSolutionsDeployment.outputs['SetVariables.deploy_orchestration'], 'true')
-  #   timeoutInMinutes: 120
-  #   pool:
-  #     name: 'VM'
-  #     demands:
-  #     - node.js
-  #     - VisualStudio
-  #     - Python.Version
-  #     - Agent.ComputerName -equals $(VMName)
-  #   environment: ${{ format('{0}_{1}', parameters.deployEnvPrefix, upper(replace( solution.name, '-', '_'))) }}
-  #   workspace:
-  #   # set clean to all when deploying xu-config
-  #     ${{ if eq(solution.name, 'xu-config') }}: 
-  #       clean: all
-  #   strategy:
-  #     runOnce:
-  #       deploy:
-  #         steps:
-  #         - template: ../${{ solution.name }}/build/steps-deploy.yml
-
- 
-    
-  
-
-  # solution.deploy is not an actual boolean (part of parameter.solutions object)
-  # so include additional check if equal to True (string)
-  # - ${{ if eq(solution.deploy, True) }}:
-    - template: ./jobs-deploy-solution.yml
-      parameters:
-        folder: ${{ solution.name }}
-        solution: ${{ upper(replace( solution.name, '-', '_')) }}
-        deployEnvPrefix: ${{ parameters.deployEnvPrefix }}
-        conditional: ${{ parameters.conditional }}
+  - template: ./jobs-deploy-solution.yml
+    parameters:
+      folder: ${{ solution.name }}
+      solution: ${{ upper(replace( solution.name, '-', '_')) }}
+      deployEnvPrefix: ${{ parameters.deployEnvPrefix }}
+      conditional: ${{ parameters.conditional }}
         # solution.test is not an actual boolean (part of parameter.solutions object)
         # so include additional check if equal to True (string)
         # test: ${{ eq(solution.test, True) }}

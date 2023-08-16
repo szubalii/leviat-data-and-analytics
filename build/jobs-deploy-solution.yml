@@ -12,33 +12,17 @@ parameters:
   type: boolean
   default: false
 
-
-# variables:
-# - name: deployEnvSolution
-#   value: $(envIndex)_$(deployEnv)_${{ upper(replace(parameters.folder, '-', '_')) }}
-
 jobs: 
-- job:
-  variables:
-    deploy_xu: "$[stageDependencies.CHECK_SOLUTIONS_DEPLOYMENT.CheckSolutionsDeployment.outputs['SetVariables.deploy_xu_config']]"
-    deploy_generic: "$[stageDependencies.CHECK_SOLUTIONS_DEPLOYMENT.CheckSolutionsDeployment.outputs['SetVariables.deploy_${{ parameters.solution }}']]"
-  steps:
-  - bash: |
-      echo param: ${{ parameters.solution }}
-      echo var: $(deploy_xu)
-      echo var: $(deploy_generic)
-# - job: ${{ format('VAR_{0}', parameters.solution) }}
-#   pool:
-#     name: 'VM'
-#     demands:
-#     - node.js
-#     - VisualStudio
-#     - Agent.ComputerName -equals $(VMName)
+# - job:
+#   variables:
+#     deploy_xu: "$[stageDependencies.CHECK_SOLUTIONS_DEPLOYMENT.CheckSolutionsDeployment.outputs['SetVariables.deploy_xu_config']]"
+#     deploy_generic: "$[stageDependencies.CHECK_SOLUTIONS_DEPLOYMENT.CheckSolutionsDeployment.outputs['SetVariables.deploy_${{ parameters.solution }}']]"
 #   steps:
-#   - script: |
-#       echo deployEnvPrefix: ${{ variables.deployEnvPrefix }}
-#       echo parameters.deployEnvPrefix: ${{ parameters.deployEnvPrefix }}
-    # displayName: Print Variables
+#   - bash: |
+#       echo param: ${{ parameters.solution }}
+#       echo var: $(deploy_xu)
+#       echo var: $(deploy_generic)
+      
 - deployment: ${{ format('DEPLOY_{0}', parameters.solution) }}
   ${{ if parameters.conditional }}:
     condition: eq(stageDependencies.CHECK_SOLUTIONS_DEPLOYMENT.CheckSolutionsDeployment.outputs['SetVariables.deploy_${{ parameters.solution }}'], 'true')
