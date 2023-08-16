@@ -1,9 +1,6 @@
 # Check which solution artifacts are available in the build
 # If a solution artifact is available, deploy it
 # If a solution artifact is not available, do not deploy it
-param (
-  [string]$workspace
-)
 
 # Array of solution folder names tupled with their respective artifact name
 $solutions = @(
@@ -20,7 +17,7 @@ ForEach ($solutionTuple in $solutions) {
   $solutionVarName = 'deploy_'+$solutionName.replace('-', '_');
 
   # The path includes the named pipeline resource
-  $path = $workspace+'/build/'+$solutionArtifact;
+  $path = $PIPELINE_WORKSPACE+'/build/'+$solutionArtifact;
 
   Write-Host $path;
 
