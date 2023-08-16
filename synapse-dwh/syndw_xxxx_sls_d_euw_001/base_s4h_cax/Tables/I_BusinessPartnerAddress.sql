@@ -3,8 +3,8 @@
     [MANDT] CHAR(3) NOT NULL  -- Client
   , [BUSINESSPARTNER] NVARCHAR(10) NOT NULL  -- Business Partner Number
   , [ADDRESSNUMBER] NVARCHAR(10) NOT NULL  -- Address Number
-  , [ValidityStartDate] DECIMAL(15)  -- Validity Start of a Business Partner Address
-  , [ValidityEndDate] DECIMAL(15)  -- Validity End of a Business Partner Address
+  , [ValidityStartDate] DATE  -- Validity Start of a Business Partner Address
+  , [ValidityEndDate] DATE  -- Validity End of a Business Partner Address
   , [Country] NVARCHAR(3)  -- Country Key
   , [Region] NVARCHAR(3)  -- Region (State, Province, County)
   , [PhoneNumber] NVARCHAR(30)  -- Telephone no.: dialling code+number

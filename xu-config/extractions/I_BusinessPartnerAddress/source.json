@@ -48,24 +48,18 @@
 				{
 					"name": "VALIDITYSTARTDATE",
 					"description": "Validity Start of a Business Partner Address",
-					"abapType": "PackedNumber",
-					"length": 15,
+					"abapType": "Date",
 					"isSelected": true,
-					"outputLength": 19,
-					"decimalCount": 0,
-					"isDeltaColumn": true,
+					"outputLength": 8,
 					"selectionPermission": "All",
 					"checkTable": "VALIDITYSTARTDATE"
 				},
 				{
 					"name": "VALIDITYENDDATE",
 					"description": "Validity End of a Business Partner Address",
-					"abapType": "PackedNumber",
-					"length": 15,
+					"abapType": "Date",
 					"isSelected": true,
-					"outputLength": 19,
-					"decimalCount": 0,
-					"isDeltaColumn": true,
+					"outputLength": 8,
 					"selectionPermission": "All",
 					"checkTable": "VALIDITYENDDATE"
 				},
