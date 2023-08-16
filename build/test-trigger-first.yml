@@ -1,2 +1,2 @@
 steps:
-  - bash: echo "The security-lib-ci pipeline runs first"
+  - bash: echo "The test-trigger-first pipeline runs first"
