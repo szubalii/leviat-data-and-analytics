@@ -43,6 +43,19 @@ stages:
       - checkout: self
         fetchDepth: 0 # disables shallow fetch and results in correct return of git diff-tree
       
+      - bash: |
+          git diff --name-only $(Build.SourceVersion)^!
+          git diff --name-only $BUILD_SOURCEVERSION^!
+
+          $(git diff --name-only $(Build.SourceVersion)^!)
+          $(git diff --name-only $BUILD_SOURCEVERSION^!)
+
+      - pwsh: |
+          $(git diff --name-only $BUILD_SOURCEVERSION^!)
+          git diff --name-only $BUILD_SOURCEVERSION^!
+          git diff --name-only $(Build.SourceVersion)^!
+
+      
       - task: PowerShell@2
         displayName: 'Define which solutions deploy'
         name: SetVariables
