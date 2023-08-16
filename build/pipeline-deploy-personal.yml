@@ -62,6 +62,9 @@ stages:
         name: SetVariables
         inputs:
           filePath: '$(System.DefaultWorkingDirectory)/src/libs/set-solutionDeploymentVarsPersonal.ps1'
+          arguments: >
+            -workspace $(Pipeline.Workspace)
+          pwsh: true
           
       
       - pwsh: |
