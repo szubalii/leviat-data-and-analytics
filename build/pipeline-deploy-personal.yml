@@ -51,9 +51,9 @@ stages:
 
 # if triggered automatically
 - ${{ if eq(variables['Build.Reason'], 'ResourceTrigger') }}:
-  - stage: CHECK_BUILT_SOLUTIONS
+  - stage: CHECK_SOLUTIONS_DEPLOYMENT
     jobs:
-    - job: CheckBuiltSolutions
+    - job: CheckSolutionsDeployment
       pool:
         vmImage: 'ubuntu-20.04'
       steps:
@@ -74,12 +74,29 @@ stages:
           Write-Host 'deploy_synapse_workspace:'$(SetVariables.deploy_synapse_workspace);
           Write-Host 'deploy_xu_config:'$(SetVariables.deploy_xu_config);
 
+  - stage: DEPLOY_1_AUTO_2
+    dependsOn: 
+    - CHECK_SOLUTIONS_DEPLOYMENT
+    jobs:
+    - template: ./jobs-deploy-multi.yml
+      parameters:
+        solutions:
+        # - name: 'orchestration'
+        #   deploy: ${{ parameters.orchestration }}
+        # - name: 'synapse-dwh'
+        #   deploy: ${{ parameters.synapse_dwh }}
+        # - name: 'synapse-workspace'
+        #   deploy: ${{ parameters.synapse_workspace }}
+        - name: 'xu-config'
+          deploy: eq(stageDependencies.CHECK_SOLUTIONS_DEPLOYMENT.CheckSolutionsDeployment.outputs['SetVariables.deploy_xu_config'], 'true')
+        deployEnvPrefix: ${{ variables.deployEnvPrefix }}
+
   - stage: DEPLOY_1_AUTO
     dependsOn: 
-    - CHECK_BUILT_SOLUTIONS
+    - CHECK_SOLUTIONS_DEPLOYMENT
     jobs:
     - deployment: DEPLOY_ORCHESTRATION
-      condition: eq(stageDependencies.CHECK_BUILT_SOLUTIONS.CheckBuiltSolutions.outputs['SetVariables.deploy_orchestration'], 'true')
+      condition: eq(stageDependencies.CHECK_SOLUTIONS_DEPLOYMENT.CheckSolutionsDeployment.outputs['SetVariables.deploy_orchestration'], 'true')
       timeoutInMinutes: 120
       pool:
         name: 'VM'
@@ -95,7 +112,7 @@ stages:
             steps:
             - template: ../orchestration/build/steps-deploy.yml
     - deployment: DEPLOY_SYNAPSE_DWH
-      condition: eq(stageDependencies.CHECK_BUILT_SOLUTIONS.CheckBuiltSolutions.outputs['SetVariables.deploy_synapse_dwh'], 'true')
+      condition: eq(stageDependencies.CHECK_SOLUTIONS_DEPLOYMENT.CheckSolutionsDeployment.outputs['SetVariables.deploy_synapse_dwh'], 'true')
       timeoutInMinutes: 120
       pool:
         name: 'VM'
@@ -111,7 +128,7 @@ stages:
             steps:
             - template: ../synapse-dwh/build/steps-deploy.yml
     - deployment: DEPLOY_SYNAPSE_WORKSPACE
-      condition: eq(stageDependencies.CHECK_BUILT_SOLUTIONS.CheckBuiltSolutions.outputs['SetVariables.deploy_synapse_workspace'], 'true')
+      condition: eq(stageDependencies.CHECK_SOLUTIONS_DEPLOYMENT.CheckSolutionsDeployment.outputs['SetVariables.deploy_synapse_workspace'], 'true')
       timeoutInMinutes: 120
       pool:
         name: 'VM'
@@ -127,7 +144,7 @@ stages:
             steps:
             - template: ../synapse-workspace/build/steps-deploy.yml
     - deployment: DEPLOY_XU_CONFIG
-      condition: eq(stageDependencies.CHECK_BUILT_SOLUTIONS.CheckBuiltSolutions.outputs['SetVariables.deploy_xu_config'], 'true')
+      condition: eq(stageDependencies.CHECK_SOLUTIONS_DEPLOYMENT.CheckSolutionsDeployment.outputs['SetVariables.deploy_xu_config'], 'true')
       timeoutInMinutes: 120
       pool:
         name: 'VM'
@@ -137,6 +154,8 @@ stages:
         - Python.Version
         - Agent.ComputerName -equals $(VMName)
       environment: ${{ format('{0}_{1}', variables.deployEnvPrefix, 'XU_CONFIG') }}
+      workspace:
+        clean: all
       strategy:
         runOnce:
           deploy:
@@ -145,11 +164,11 @@ stages:
   
   - stage: DEPLOY_2_AUTO
     dependsOn: 
-    - CHECK_BUILT_SOLUTIONS
+    - CHECK_SOLUTIONS_DEPLOYMENT
     - DEPLOY_1_AUTO
     jobs:
     - deployment: DEPLOY_AZURE_DATA_FACTORY
-      condition: eq(stageDependencies.CHECK_BUILT_SOLUTIONS.CheckChangedSolutions.outputs['SetVariables.deploy_azure_data_factory'], 'true')
+      condition: eq(stageDependencies.CHECK_SOLUTIONS_DEPLOYMENT.CheckChangedSolutions.outputs['SetVariables.deploy_azure_data_factory'], 'true')
       timeoutInMinutes: 120
       pool:
         name: 'VM'
