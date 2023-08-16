@@ -1,19 +1,19 @@
-trigger: none
-  # branches:
-  #   include: 
-  #   - dev_mpors
-  #   - dev_fbouw
-  #   - dev_nkukhtenko
-  #   - dev_sleshchuk
-  #   - dev_tdorodnova
-  #   - dev/*
-  #   - env/*
-  #   - main
-  #   - qas
-  #   - prod
-  # paths:
-  #   include: 
-  #   - synapse-workspace/*
+trigger:
+  branches:
+    include: 
+    - dev_mpors
+    - dev_fbouw
+    - dev_nkukhtenko
+    - dev_sleshchuk
+    - dev_tdorodnova
+    - dev/*
+    - env/*
+    - main
+    - qas
+    - prod
+  paths:
+    include: 
+    - synapse-workspace/*
 
 # variables:
 #   TIA.UserMapFile: $(System.DefaultWorkingDirectory)/synapse-dwh/test-impact-analysis.xml

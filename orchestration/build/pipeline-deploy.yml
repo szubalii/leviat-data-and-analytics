@@ -1,18 +1,18 @@
-trigger: none
-  # branches:
-  #   include: 
-  #   - dev_mpors
-  #   - dev_fbouw
-  #   - dev_nkukhtenko
-  #   - dev_sleshchuk
-  #   - dev_tdorodnova
-  #   - dev/*
-  #   - main
-  #   - qas
-  #   - prod
-  # paths:
-  #   include: 
-  #   - orchestration/*
+trigger:
+  branches:
+    include: 
+    - dev_mpors
+    - dev_fbouw
+    - dev_nkukhtenko
+    - dev_sleshchuk
+    - dev_tdorodnova
+    - dev/*
+    - main
+    - qas
+    - prod
+  paths:
+    include: 
+    - orchestration/*
 
 extends:
   template: ../../build/stages-build-deploy.yml
