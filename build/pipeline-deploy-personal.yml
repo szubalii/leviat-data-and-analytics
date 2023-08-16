@@ -74,31 +74,33 @@ stages:
       #     Write-Host 'deploy_synapse_workspace:'$(SetVariables.deploy_synapse_workspace);
       #     Write-Host 'deploy_xu_config:'$(SetVariables.deploy_xu_config);
 
-  - stage: DEPLOY_1_AUTO
-    dependsOn: 
-    - CHECK_SOLUTIONS_DEPLOYMENT
-    jobs:
-    - template: ./jobs-deploy-multi.yml
-      parameters:
-        solutions:
-        - name: 'orchestration'
-        - name: 'synapse-dwh'
-        - name: 'synapse-workspace'
-        - name: 'xu-config'
-        deployEnvPrefix: ${{ variables.deployEnvPrefix }}
-        conditional: true
+  # - stage: DEPLOY_1_AUTO
+  #   dependsOn: 
+  #   - CHECK_SOLUTIONS_DEPLOYMENT
+  #   jobs:
+  #   - template: ./jobs-deploy-multi.yml
+  #     parameters:
+  #       solutions:
+  #       - name: 'orchestration'
+  #       - name: 'synapse-dwh'
+  #       - name: 'synapse-workspace'
+  #       - name: 'xu-config'
+  #       deployEnvPrefix: ${{ variables.deployEnvPrefix }}
+  #       conditional: true
 
-  - stage: DEPLOY_2_AUTO
-    dependsOn: 
-    - CHECK_SOLUTIONS_DEPLOYMENT
-    - DEPLOY_1_AUTO
-    jobs:
-    - template: ./jobs-deploy-multi.yml
-      parameters:
-        solutions:
-        - name: 'azure-data-factory'
-        deployEnvPrefix: ${{ variables.deployEnvPrefix }}
-        conditional: true
+  # - stage: DEPLOY_2_AUTO
+  #   dependsOn: 
+  #   - CHECK_SOLUTIONS_DEPLOYMENT
+  #   - DEPLOY_1_AUTO
+  #   jobs:
+  #   - template: ./jobs-deploy-multi.yml
+  #     parameters:
+  #       solutions:
+  #       - name: 'azure-data-factory'
+  #       deployEnvPrefix: ${{ variables.deployEnvPrefix }}
+  #       conditional: true
+
+  - template: ./build/stages-deploy-auto.yml
           
 # Triggered Manually
 - ${{ elseif eq(variables['Build.Reason'], 'Manual') }}:
