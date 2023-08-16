@@ -27,8 +27,8 @@ variables:
   - template: ./variables-prod.yml
   - name: deployEnvPrefix # override value to map main branch to TEST deployment environment
     value: '00_PROD'
-- name: commitId
-  value: $(Build.SourceVersion)
+# - name: commitId
+#   value: $(Build.SourceVersion)
 
 stages:
 # The pipeline deploys a solution if for that solution files have changed in their respective 
@@ -49,7 +49,8 @@ stages:
         inputs:
           filePath: '$(System.DefaultWorkingDirectory)/src/libs/set-solutionDeploymentVarsRelease.ps1'
           arguments: >
-            -commitId $(commitId)
+            -commitId $(Build.SourceVersion)
+            -commitMessage $(Build.SourceVersionMessage)
           pwsh: true
 
       # - pwsh: |
