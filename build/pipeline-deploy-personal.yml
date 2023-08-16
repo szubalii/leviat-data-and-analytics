@@ -88,8 +88,8 @@ stages:
         # - name: 'synapse-workspace'
         #   deploy: ${{ parameters.synapse_workspace }}
         - name: 'xu-config'
-          deploy: $[stageDependencies.CHECK_SOLUTIONS_DEPLOYMENT.CheckSolutionsDeployment.outputs['SetVariables.deploy_xu_config']]
         deployEnvPrefix: ${{ variables.deployEnvPrefix }}
+        conditional: true
 
   - stage: DEPLOY_1_AUTO
     dependsOn: 
@@ -186,21 +186,20 @@ stages:
           
 # Triggered Manually
 - ${{ elseif eq(variables['Build.Reason'], 'Manual') }}:
-  - ${{ if or( eq(parameters.orchestration, True), eq(parameters.synapse_dwh, True), eq(parameters.synapse_workspace, True), eq(parameters.xu_config, True)) }}:
-    - stage: DEPLOY_1_MANUAL
-      jobs:
-      - template: ./jobs-deploy-multi.yml
-        parameters:
-          solutions:
-          - name: 'orchestration'
-            deploy: ${{ parameters.orchestration }}
-          - name: 'synapse-dwh'
-            deploy: ${{ parameters.synapse_dwh }}
-          - name: 'synapse-workspace'
-            deploy: ${{ parameters.synapse_workspace }}
-          - name: 'xu-config'
-            deploy: ${{ parameters.xu_config }}
-          deployEnvPrefix: ${{ variables.deployEnvPrefix }}
+  - stage: DEPLOY_1_MANUAL
+    jobs:
+    - template: ./jobs-deploy-multi.yml
+      parameters:
+        solutions:
+        - ${{ if or( eq(parameters.orchestration, True):
+          - name: 'orchestration'            
+        - ${{ if or( eq(parameters.synapse_dwh, True):
+          - name: 'synapse-dwh'            
+        - ${{ if or( eq(parameters.synapse_workspace, True):
+          - name: 'synapse-workspace'            
+        - ${{ if or( eq(parameters.xu_config, True):
+          - name: 'xu-config'            
+        deployEnvPrefix: ${{ variables.deployEnvPrefix }}
 
   - ${{ if eq(parameters.azure_data_factory, True) }}:
     - stage: DEPLOY_2_MANUAL
@@ -209,5 +208,4 @@ stages:
         parameters:
           solutions:
           - name: 'azure-data-factory'
-            deploy: True
           deployEnvPrefix: ${{ variables.deployEnvPrefix }}

@@ -8,12 +8,25 @@ parameters:
 - name: test
   type: boolean
   default: False
+- name: conditional
+  type: boolean
+  default: false
+
 
 # variables:
 # - name: deployEnvSolution
 #   value: $(envIndex)_$(deployEnv)_${{ upper(replace(parameters.folder, '-', '_')) }}
 
-jobs:
+jobs: 
+- job:
+  variables:
+    deploy_xu: "$[stageDependencies.CHECK_SOLUTIONS_DEPLOYMENT.CheckSolutionsDeployment.outputs['SetVariables.deploy_xu_config']]"
+    deploy_generic: "$[stageDependencies.CHECK_SOLUTIONS_DEPLOYMENT.CheckSolutionsDeployment.outputs['SetVariables.deploy_${{ parameters.solution }}']]"
+  steps:
+  - bash: |
+      echo param: ${{ solution.deploy }}
+      echo var: $(deploy_xu)
+      echo var: $(deploy_generic)
 # - job: ${{ format('VAR_{0}', parameters.solution) }}
 #   pool:
 #     name: 'VM'
@@ -27,6 +40,8 @@ jobs:
 #       echo parameters.deployEnvPrefix: ${{ parameters.deployEnvPrefix }}
     # displayName: Print Variables
 - deployment: ${{ format('DEPLOY_{0}', parameters.solution) }}
+  ${{ if parameters.conditional }}:
+    condition: eq(stageDependencies.CHECK_SOLUTIONS_DEPLOYMENT.CheckSolutionsDeployment.outputs['SetVariables.deploy_${{ parameters.solution }}'], 'true')
   timeoutInMinutes: 120
   pool:
     name: 'VM'
