@@ -1,5 +1,6 @@
 {
     "functionName": "/SAPDS/RFC_READ_TABLE2",
+    "whereClause": "LANGUAGE = 'E'",
     "runInBackgroundJob": false,
     "tables": 
     [
