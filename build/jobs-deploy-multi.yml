@@ -20,6 +20,10 @@ parameters:
 
 jobs:
 - ${{ each solution in parameters.solutions }}:
+  
+  - job:
+    steps:
+    - bash: echo $[ solution.deploy ]
   # solution.deploy is not an actual boolean (part of parameter.solutions object)
   # so include additional check if equal to True (string)
   - ${{ if eq(solution.deploy, True) }}:

@@ -88,7 +88,7 @@ stages:
         # - name: 'synapse-workspace'
         #   deploy: ${{ parameters.synapse_workspace }}
         - name: 'xu-config'
-          deploy: eq(stageDependencies.CHECK_SOLUTIONS_DEPLOYMENT.CheckSolutionsDeployment.outputs['SetVariables.deploy_xu_config'], 'true')
+          deploy: $[stageDependencies.CHECK_SOLUTIONS_DEPLOYMENT.CheckSolutionsDeployment.outputs['SetVariables.deploy_xu_config']]
         deployEnvPrefix: ${{ variables.deployEnvPrefix }}
 
   - stage: DEPLOY_1_AUTO
