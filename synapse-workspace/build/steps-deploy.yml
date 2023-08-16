@@ -1,4 +1,6 @@
 steps:
+- download: build
+  artifact: SynapseWorkspace
 
       
   # Validate & Deploy the Synapse Workspace
