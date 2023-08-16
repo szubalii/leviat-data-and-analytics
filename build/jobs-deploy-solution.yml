@@ -34,7 +34,7 @@ jobs:
     - VisualStudio
     - Python.Version
     - Agent.ComputerName -equals $(VMName)
-  environment: ${{ format('{0}_{1}', parameters.deployEnvPrefix, parameters.solution) }}
+  environment: ${{ format('{0}_{1}', variables.deployEnvPrefix, parameters.solution) }}
   workspace:
   # set clean to all when deploying xu-config
     ${{ if eq(parameters.folder, 'xu-config') }}: 
