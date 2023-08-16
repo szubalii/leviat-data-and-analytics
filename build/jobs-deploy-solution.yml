@@ -24,7 +24,7 @@ jobs:
     deploy_generic: "$[stageDependencies.CHECK_SOLUTIONS_DEPLOYMENT.CheckSolutionsDeployment.outputs['SetVariables.deploy_${{ parameters.solution }}']]"
   steps:
   - bash: |
-      echo param: ${{ solution.deploy }}
+      echo param: ${{ parameters.solution }}
       echo var: $(deploy_xu)
       echo var: $(deploy_generic)
 # - job: ${{ format('VAR_{0}', parameters.solution) }}
