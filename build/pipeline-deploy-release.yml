@@ -33,7 +33,7 @@ variables:
 stages:
 # The pipeline deploys a solution if for that solution files have changed in their respective 
 # folders. 
-- ${{ if eq(variables['Build.Reason'], 'IndividualCI') }}:
+- ${{ if eq(variables['Build.Reason'], 'ResourceTrigger') }}:
   - stage: CHECK_CHANGED_SOLUTIONS
     jobs:
     - job: CheckChangedSolutions
@@ -109,24 +109,6 @@ stages:
           Write-Host 'deploy_synapse_workspace:'$(SetVariables.deploy_synapse_workspace);
           Write-Host 'deploy_xu_config:'$(SetVariables.deploy_xu_config);
 
-# If triggered manually, deploy all solutions
-- ${{ if eq(variables['Build.Reason'], 'Manual') }}:
-  - stage: DEPLOY_1_MANUAL
-    jobs:
-    - template: ./jobs-deploy-multi.yml
-      parameters:
-        solutions:
-        - name: 'orchestration'
-          deploy: True
-        - name: 'synapse-dwh'
-          deploy: True
-        - name: 'synapse-workspace'
-          deploy: False
-        - name: 'xu-config'
-          deploy: True
-        deployEnvPrefix: ${{ variables.deployEnvPrefix }}
-# If not triggered manually, deploy only those solutions for which files have changed
-- ${{ else }}:
   - stage: DEPLOY_1_AUTO
     dependsOn: 
     - CHECK_CHANGED_SOLUTIONS
@@ -196,16 +178,6 @@ stages:
             steps:
             - template: ../xu-config/build/steps-deploy.yml
 
-- ${{ if eq(variables['Build.Reason'], 'Manual') }}:
-  - stage: DEPLOY_2_MANUAL
-    jobs:
-    - template: ./jobs-deploy-multi.yml
-      parameters:
-        solutions:
-        - name: 'azure-data-factory'
-          deploy: True
-        deployEnvPrefix: ${{ variables.deployEnvPrefix }}
-- ${{ else }}:
   - stage: DEPLOY_2_AUTO
     dependsOn: 
     - CHECK_CHANGED_SOLUTIONS
@@ -227,3 +199,29 @@ stages:
           deploy:
             steps:
             - template: ../azure-data-factory/build/steps-deploy.yml
+
+# If triggered manually, deploy all solutions
+- ${{ elseif eq(variables['Build.Reason'], 'Manual') }}:
+  - stage: DEPLOY_1_MANUAL
+    jobs:
+    - template: ./jobs-deploy-multi.yml
+      parameters:
+        solutions:
+        - name: 'orchestration'
+          deploy: True
+        - name: 'synapse-dwh'
+          deploy: True
+        - name: 'synapse-workspace'
+          deploy: False
+        - name: 'xu-config'
+          deploy: True
+        deployEnvPrefix: ${{ variables.deployEnvPrefix }}  
+
+  - stage: DEPLOY_2_MANUAL
+    jobs:
+    - template: ./jobs-deploy-multi.yml
+      parameters:
+        solutions:
+        - name: 'azure-data-factory'
+          deploy: True
+        deployEnvPrefix: ${{ variables.deployEnvPrefix }}

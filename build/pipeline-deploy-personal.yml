@@ -12,7 +12,7 @@ resources:
       #   - refs/heads/users/*
         
 
-# By default, each solution is build.
+# By default, each solution is deployed.
 
 parameters:
 - name: azure_data_factory
@@ -50,7 +50,7 @@ variables:
 stages:
 
 # if triggered automatically
-- ${{ if eq(variables['Build.Reason'], 'IndividualCI') }}:
+- ${{ if eq(variables['Build.Reason'], 'ResourceTrigger') }}:
   - stage: CHECK_BUILT_SOLUTIONS
     jobs:
     - job: CheckBuiltSolutions
@@ -164,7 +164,7 @@ stages:
             - template: ../azure-data-factory/build/steps-deploy.yml
           
 # Triggered Manually
-- ${{ else }}:
+- ${{ elseif eq(variables['Build.Reason'], 'Manual') }}:
   - ${{ if or( eq(parameters.orchestration, True), eq(parameters.synapse_dwh, True), eq(parameters.synapse_workspace, True), eq(parameters.xu_config, True)) }}:
     - stage: DEPLOY_1_MANUAL
       jobs:
