@@ -1,3 +1,8 @@
+# Check which solution artifacts are available in the build
+# If a solution artifact is available, deploy it
+# If a solution artifact is not available, do not deploy it
+
+# Array of solution folder names tupled with their respective artifact name
 $solutions = @(
   ('azure-data-factory', 'DataFactoryARMTemplate'),
   ('orchestration', 'OrchestrationDB'),
@@ -11,7 +16,8 @@ ForEach ($solutionTuple in $solutions) {
   $solutionArtifact = $solutionTuple[1];
   $solutionVarName = 'deploy_'+$solutionName.replace('-', '_');
 
-  $path = $(Pipeline.WorkSpace)+'/build/'+$solutionArtifact;
+  # The path includes the named pipeline resource
+  $path = $(Pipeline.Workspace)+'/build/'+$solutionArtifact;
 
   # Artifact name exists in pipeline workspace, so do deploy
   if (Test-Path -Path $path){
