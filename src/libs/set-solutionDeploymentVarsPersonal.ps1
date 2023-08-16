@@ -22,6 +22,8 @@ ForEach ($solutionTuple in $solutions) {
   # The path includes the named pipeline resource
   $path = $workspace+'/build/'+$solutionArtifact;
 
+  Write-Host $path;
+
   # Artifact name exists in pipeline workspace, so do deploy
   if (Test-Path -Path $path){
     Write-Host 'The following build was found:'$solutionArtifact;
@@ -30,7 +32,7 @@ ForEach ($solutionTuple in $solutions) {
   }
   # Artifact name doens't exist in pipeline workspace, so don't deploy
   else {
-    Write-Host 'No build found for'$solution'. Deployment of' $solution' will not take place.';
+    Write-Host 'No build found for'$solutionName'. Deployment of' $solutionName' will not take place.';
     Write-Host "##vso[task.setvariable variable=$solutionVarName;isOutput=true]false";
   }
   Write-Host "`n"  
