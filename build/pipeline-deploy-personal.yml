@@ -191,14 +191,14 @@ stages:
     - template: ./jobs-deploy-multi.yml
       parameters:
         solutions:
-          ${{ if eq(parameters.orchestration, True) }}:
-          - name: 'orchestration'
-          ${{ if eq(parameters.synapse_dwh, True) }}:
-          - name: 'synapse-dwh'
-          ${{ if eq(parameters.synapse_workspace, True) }}:
-          - name: 'synapse-workspace'
-          ${{ if eq(parameters.xu_config, True) }}:
-          - name: 'xu-config'
+          - ${{ if eq(parameters.orchestration, True) }}:
+            - name: 'orchestration'
+          - ${{ if eq(parameters.synapse_dwh, True) }}:
+            - name: 'synapse-dwh'
+          - ${{ if eq(parameters.synapse_workspace, True) }}:
+            - name: 'synapse-workspace'
+          - ${{ if eq(parameters.xu_config, True) }}:
+            - name: 'xu-config'
         deployEnvPrefix: ${{ variables.deployEnvPrefix }}
 
   - ${{ if eq(parameters.azure_data_factory, True) }}:
