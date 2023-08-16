@@ -1,0 +1,30 @@
+parameters:
+- name: deployEnvPrefix
+  type: string
+
+stages:
+- stage: DEPLOY_1_AUTO
+  dependsOn: 
+  - CHECK_SOLUTIONS_DEPLOYMENT
+  jobs:
+  - template: ./jobs-deploy-multi.yml
+    parameters:
+      solutions:
+      - name: 'orchestration'
+      - name: 'synapse-dwh'
+      - name: 'synapse-workspace'
+      - name: 'xu-config'
+      deployEnvPrefix: ${{ parameters.deployEnvPrefix }}
+      conditional: true
+    
+- stage: DEPLOY_2_AUTO
+  dependsOn: 
+  - CHECK_SOLUTIONS_DEPLOYMENT
+  - DEPLOY_1_AUTO
+  jobs:
+  - template: ./jobs-deploy-multi.yml
+    parameters:
+      solutions:
+      - name: 'azure-data-factory'
+      deployEnvPrefix: ${{ parameters.deployEnvPrefix }}
+      conditional: true
