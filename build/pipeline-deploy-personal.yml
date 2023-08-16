@@ -57,7 +57,6 @@ stages:
       pool:
         vmImage: 'ubuntu-20.04'
       steps:
-      - checkout: none # don't checkout repo
       - download: build # download the published artifacts from the build pipeline
       - task: PowerShell@2
         displayName: 'Define which solutions to deploy'
@@ -67,7 +66,6 @@ stages:
           arguments: >
             -workspace $(Pipeline.Workspace)
           pwsh: true
-          
       
       - pwsh: |
           Write-Host 'deploy_azure_data_factory:'$(SetVariables.deploy_azure_data_factory);
@@ -75,7 +73,6 @@ stages:
           Write-Host 'deploy_synapse_dwh:'$(SetVariables.deploy_synapse_dwh);
           Write-Host 'deploy_synapse_workspace:'$(SetVariables.deploy_synapse_workspace);
           Write-Host 'deploy_xu_config:'$(SetVariables.deploy_xu_config);
-
 
   - stage: DEPLOY_1_AUTO
     dependsOn: 
