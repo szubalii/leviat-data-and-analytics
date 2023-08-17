@@ -5819,6 +5819,24 @@
         "dest_table_name": "fact_RuleTotal",
         "execution_order": 0,
         "schedule_recurrence": "D"
+      },
+      {
+        "entity_id": 615,
+        "entity_name": "dim_RuleBusinessPartner",
+        "sproc_name": "sp_materialize_view",
+        "source_view_name": "vw_RuleBusinessPartner",
+        "dest_table_name": "dim_RuleBusinessPartner",
+        "execution_order": 0,
+        "schedule_recurrence": "D"
+      },
+      {
+        "entity_id": 616,
+        "entity_name": "fact_BusinessPartnerTotal",
+        "sproc_name": "sp_dq_materialize_view",
+        "source_view_name": "vw_BusinessPartnerTotal",
+        "dest_table_name": "fact_BusinessPartnerTotal",
+        "execution_order": 1,
+        "schedule_recurrence": "D"
       }
     ]
   },
