@@ -1,0 +1,137 @@
+EXEC [tSQLt].[SetFakeViewOn] 'edw';
+GO
+
+EXEC tSQLt.NewTestClass 'ACDOCA';
+GO
+
+CREATE PROCEDURE [ACDOCA].[test dm_finance.vw_fact_ACDOCA_EPMSalesView_CH_AT: CH_AT filter]
+AS
+BEGIN
+
+  IF OBJECT_ID('actual') IS NOT NULL DROP TABLE actual;
+  IF OBJECT_ID('tempdb..#vw_fact_ACDOCA_EPM_Base') IS NOT NULL DROP TABLE #vw_fact_ACDOCA_EPM_Base;
+  -- IF OBJECT_ID('expected') IS NOT NULL DROP TABLE expected;
+
+  -- Assemble: Fake Table
+  EXEC tSQLt.FakeTable '[edw]', '[vw_fact_ACDOCA_EPM_Base]';
+   
+  SELECT TOP(0) *
+  INTO #vw_fact_ACDOCA_EPM_Base
+  FROM edw.vw_fact_ACDOCA_EPM_Base;
+
+  -- #2
+  INSERT INTO #vw_fact_ACDOCA_EPM_Base (
+    CompanyCodeID
+  )
+  VALUES
+    ('CH35'),
+    ('AT35'),
+    ('DE35');
+
+  EXEC ('INSERT INTO edw.vw_fact_ACDOCA_EPM_Base SELECT * FROM #vw_fact_ACDOCA_EPM_Base');
+
+  -- Act: 
+  SELECT CompanyCodeID
+  INTO actual
+  FROM [edw].[vw_fact_ACDOCA_EPM_Base]
+  WHERE CompanyCodeID IN ('CH35', 'AT35');
+
+  -- Assert:
+  EXEC tSQLt.AssertEmptyTable 'actual';
+END;
+GO
+
+
+
+CREATE PROCEDURE [ACDOCA].[test dm_finance.vw_fact_ACDOCA_EPMSalesView_CH_AT: date filter]
+AS
+BEGIN
+
+  IF OBJECT_ID('actual') IS NOT NULL DROP TABLE actual;
+  IF OBJECT_ID('tempdb..#vw_fact_ACDOCA_EPM_Base') IS NOT NULL DROP TABLE #vw_fact_ACDOCA_EPM_Base;
+  -- IF OBJECT_ID('expected') IS NOT NULL DROP TABLE expected;
+
+  -- Assemble: Fake Table
+  EXEC tSQLt.FakeTable '[edw]', '[vw_fact_ACDOCA_EPM_Base]';
+   
+  SELECT TOP(0) *
+  INTO #vw_fact_ACDOCA_EPM_Base
+  FROM edw.vw_fact_ACDOCA_EPM_Base;
+
+  -- #2
+  INSERT INTO #vw_fact_ACDOCA_EPM_Base (
+    PostingDate
+  )
+  VALUES
+    ('2023-01-01'),
+    ('2022-01-01');
+
+  EXEC ('INSERT INTO edw.vw_fact_ACDOCA_EPM_Base SELECT * FROM #vw_fact_ACDOCA_EPM_Base');
+
+  -- Act: 
+  SELECT PostingDate
+  INTO actual
+  FROM [edw].[vw_fact_ACDOCA_EPM_Base]
+  WHERE PostingDate < '2023-01-01';
+
+  -- Assert:
+  EXEC tSQLt.AssertEmptyTable 'actual';
+END;
+GO
+
+
+
+
+CREATE PROCEDURE [ACDOCA].[test dm_finance.vw_fact_ACDOCA_EPMSalesView: empty mapping]
+AS
+BEGIN
+
+  IF OBJECT_ID('actual') IS NOT NULL DROP TABLE actual;
+  IF OBJECT_ID('tempdb..#vw_fact_ACDOCA_EPM_Base') IS NOT NULL DROP TABLE #vw_fact_ACDOCA_EPM_Base;
+  -- IF OBJECT_ID('expected') IS NOT NULL DROP TABLE expected;
+
+  -- Assemble: Fake Table
+  EXEC tSQLt.FakeTable '[edw]', '[vw_fact_ACDOCA_EPM_Base]';
+   
+  SELECT TOP(0) *
+  INTO #vw_fact_ACDOCA_EPM_Base
+  FROM edw.vw_fact_ACDOCA_EPM_Base;
+
+  -- #2
+  INSERT INTO #vw_fact_ACDOCA_EPM_Base (
+    GLAccountID,
+    EXQL_GLAccountID,
+    FunctionalAreaID,
+    EXQL_FunctionalAreaID
+  )
+  VALUES
+    (1, 1, 1, 1),
+    (2, NULL, 2, NULL),
+    (NULL, 3, NULL, 3),
+    (4, 4, 4, NULL),
+    (5, NULL, 5, 5),
+    (NULL, 6, 6, 6);
+
+  EXEC ('INSERT INTO edw.vw_fact_ACDOCA_EPM_Base SELECT * FROM #vw_fact_ACDOCA_EPM_Base');
+
+  -- Act: 
+  SELECT *
+  INTO actual
+  FROM [dm_finance].[vw_fact_ACDOCA_EPMSalesView]
+  WHERE
+    GLAccountID IS NULL
+    OR
+    EXQL_GLAccountID IS NULL
+    OR
+    FunctionalAreaID IS NULL
+    OR
+    EXQL_FunctionalAreaID IS NULL;
+
+  -- Assert:
+  EXEC tSQLt.AssertEmptyTable 'actual';
+END;
+GO
+
+EXEC [tSQLt].[SetFakeViewOff] 'edw';
+
+GO
