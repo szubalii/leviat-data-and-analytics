@@ -1,6 +1,6 @@
 param (
-  [string]$commitId,
-  [string]$commitMessage
+  [string]$commitId#,
+  # [string]$commitMessage
 )
 
 # $changedFiles = @(
@@ -14,7 +14,7 @@ $solutions = @('azure-data-factory', 'orchestration', 'synapse-dwh', 'synapse-wo
 # Write-Host "System.DefaultWorkingDirectory: $(System.DefaultWorkingDirectory)"
 Write-Host "CommitID:"$commitId
 # Write-Host "Build.SourceVersion: $(Build.SourceVersion)"
-Write-Host "Build.SourceVersionMessage: $commitMessage`n"
+# Write-Host "Build.SourceVersionMessage: $commitMessage`n"
 $changedFiles = git diff --name-only $commitId^! #difference between parent of commit and commit
 # $changedFiles2 = $(git diff-tree --no-commit-id --name-only -r $(Build.SourceVersion))
 Write-Host "The following files have changed:"

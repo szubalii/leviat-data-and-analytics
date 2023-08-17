@@ -44,16 +44,16 @@ stages:
         fetchDepth: 0 # disables shallow fetch and results in correct return of git diff-tree
       
       - bash: |
-          git diff --name-only $(Build.SourceVersion)^!
-          git diff --name-only $BUILD_SOURCEVERSION^!
+          git diff --name-only $(System.PullRequest.SourceCommitId)^!
+          git diff --name-only $SYSTEM_PULLREQUEST_SOURCECOMMITID^!
 
-          $(git diff --name-only $(Build.SourceVersion)^!)
-          $(git diff --name-only $BUILD_SOURCEVERSION^!)
+          $(git diff --name-only $(System.PullRequest.SourceCommitId)^!)
+          $(git diff --name-only $SYSTEM_PULLREQUEST_SOURCECOMMITID^!)
 
       - pwsh: |
-          $(git diff --name-only $BUILD_SOURCEVERSION^!)
-          git diff --name-only $BUILD_SOURCEVERSION^!
-          git diff --name-only $(Build.SourceVersion)^!
+          $(git diff --name-only $SYSTEM_PULLREQUEST_SOURCECOMMITID^!)
+          git diff --name-only $SYSTEM_PULLREQUEST_SOURCECOMMITID^!
+          git diff --name-only $(System.PullRequest.SourceCommitId)^!
 
       
       - task: PowerShell@2
@@ -62,8 +62,8 @@ stages:
         inputs:
           filePath: '$(System.DefaultWorkingDirectory)/src/libs/set-solutionDeploymentVarsRelease.ps1'
           arguments: >
-            -commitId $(Build.SourceVersion)
-            -commitMessage $(Build.SourceVersionMessage)
+            -commitId $(System.PullRequest.SourceCommitId)
+      #      -commitMessage $(System.PullRequest.SourceVersionMessage)
           pwsh: true
 
       # - pwsh: |
@@ -86,7 +86,7 @@ stages:
         solutions:
         - name: 'orchestration'
         - name: 'synapse-dwh'
-        - name: 'synapse-workspace'
+        # - name: 'synapse-workspace'
         - name: 'xu-config'
         deployEnvPrefix: ${{ variables.deployEnvPrefix }}  
 
