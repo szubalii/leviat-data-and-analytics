@@ -16,7 +16,7 @@ WITH BudgetBase_axbi as (
                 THEN docBud.[BUDGETLOC] / docBud.[BUDGETEUR]
             ELSE 0
         END                                                                                                                            AS [ExchangeRate]
-    ,   docBud.[ACCOUNTINGDATE]                                                                                                        AS [AccountingDate]
+    -- ,   docBud.[ACCOUNTINGDATE]                                                                                                        AS [AccountingDate]
     ,   CASE
             WHEN SO.[target_SalesOrganizationID] is not null
                 THEN SO.[target_SalesOrganizationID]
@@ -25,7 +25,7 @@ WITH BudgetBase_axbi as (
     ,   'ZZZ_BUD_AXBI'                                                                                                                 AS [SoldToParty]
     ,   docBud.[BUDGETLOC]                                                                                                             AS [Budget]             -- [FinSales100]
     ,   docBud.[BUDGETEUR]                                                                                                             AS [BudgetEUR]-- [FinSales100]
-    ,   docBud.[ACCOUNTINGDATE]
+    ,   docBud.[ACCOUNTINGDATE] AS AccountingDate
     ,   FORMAT(docBud.[ACCOUNTINGDATE], 'yyyy')                                                                                        AS [Year]
     ,   FORMAT(docBud.[ACCOUNTINGDATE], 'MM')                                                                                          AS [Month]
     ,   FORMAT(docBud.[ACCOUNTINGDATE], 'yyyyMM')                                                                                      AS [YearMonth]
