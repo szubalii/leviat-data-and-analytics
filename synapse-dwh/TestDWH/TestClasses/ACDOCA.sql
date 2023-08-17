@@ -33,8 +33,8 @@ BEGIN
   -- Act: 
   SELECT CompanyCodeID
   INTO actual
-  FROM [edw].[vw_fact_ACDOCA_EPM_Base]
-  WHERE CompanyCodeID IN ('CH35', 'AT35');
+  FROM [dm_finance].[vw_fact_ACDOCA_EPMSalesView_CH_AT]
+  WHERE CompanyCodeID NOT IN ('CH35', 'AT35');
 
   -- Assert:
   EXEC tSQLt.AssertEmptyTable 'actual';
@@ -71,7 +71,7 @@ BEGIN
   -- Act: 
   SELECT PostingDate
   INTO actual
-  FROM [edw].[vw_fact_ACDOCA_EPM_Base]
+  FROM [dm_finance].[vw_fact_ACDOCA_EPMSalesView_CH_AT]
   WHERE PostingDate < '2023-01-01';
 
   -- Assert:
@@ -82,13 +82,13 @@ GO
 
 
 
-CREATE PROCEDURE [ACDOCA].[test dm_finance.vw_fact_ACDOCA_EPMSalesView: empty mapping]
+CREATE PROCEDURE [ACDOCA].[test dm_finance.vw_fact_ACDOCA_EPMSalesView: no empty mapping]
 AS
 BEGIN
 
   IF OBJECT_ID('actual') IS NOT NULL DROP TABLE actual;
   IF OBJECT_ID('tempdb..#vw_fact_ACDOCA_EPM_Base') IS NOT NULL DROP TABLE #vw_fact_ACDOCA_EPM_Base;
-  -- IF OBJECT_ID('expected') IS NOT NULL DROP TABLE expected;
+  IF OBJECT_ID('expected') IS NOT NULL DROP TABLE expected;
 
   -- Assemble: Fake Table
   EXEC tSQLt.FakeTable '[edw]', '[vw_fact_ACDOCA_EPM_Base]';
@@ -117,18 +117,22 @@ BEGIN
   -- Act: 
   SELECT *
   INTO actual
-  FROM [dm_finance].[vw_fact_ACDOCA_EPMSalesView]
-  WHERE
-    GLAccountID IS NULL
-    OR
-    EXQL_GLAccountID IS NULL
-    OR
-    FunctionalAreaID IS NULL
-    OR
-    EXQL_FunctionalAreaID IS NULL;
+  FROM [dm_finance].[vw_fact_ACDOCA_EPMSalesView];
 
   -- Assert:
-  EXEC tSQLt.AssertEmptyTable 'actual';
+  CREATE TABLE expected (
+    GLAccountID INT,
+    FunctionalAreaID INT
+  );
+
+  INSERT INTO expected(
+    GLAccountID,
+    FunctionalAreaID
+  )
+  VALUES
+    (1, 1);
+
+  EXEC tSQLt.AssertEqualsTable 'expected', 'actual';
 END;
 GO
 
