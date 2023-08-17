@@ -6,7 +6,7 @@ EXEC tSQLt.NewTestClass 'Uniqueness';
 GO
 
 
-CREATE PROCEDURE [Uniqueness].[test edw.vw_fact_ACDOCA_EPMSalesView: uniqueness]
+CREATE PROCEDURE [Uniqueness].[test edw.vw_fact_ACDOCA_EPM_Base: uniqueness]
 AS
 BEGIN
 
@@ -93,7 +93,7 @@ BEGIN
     LedgerGLLineItem,
     CurrencyTypeID
   INTO actual
-  FROM [dm_finance].[vw_fact_ACDOCA_EPMSalesView]
+  FROM [edw].[vw_fact_ACDOCA_EPM_Base]
   GROUP BY
     SourceLedgerID,
     CompanyCodeID,

@@ -1,4 +1,4 @@
-CREATE VIEW [dbo].[vw_fact_ACDOCA_EPMSalesView_CH_AT]
+CREATE VIEW [dm_finance].[vw_fact_ACDOCA_EPMSalesView_CH_AT]
 AS
 
 SELECT
