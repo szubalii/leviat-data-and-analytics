@@ -220,13 +220,8 @@
     <None Include="edw\Views\vw_fact_MaterialStockLevel_temp.sql" />
     <None Include="Security\RoleMemberships\RoleMemberships.sql" />
     <None Include="edw\Views\vw_fact_MaterialDocumentItem_temp.sql" />
-    <None Include="Scripts\AXBI-Delta\FACT_HGDAWA-test.sql" />
-    <None Include="Scripts\AXBI-Delta\FACT_HGDAWA.sql" />
-    <None Include="Scripts\AXBI-Delta\insert_FACT_HGDAWA.sql" />
-    <None Include="Scripts\newUser.sql" />
-    <None Include="Scripts\Stock\Stock Level Investigation.sql" />
-    <None Include="Scripts\AXBI-Delta\FACT_HGDAWA-tests.sql" />
     <None Include="Scripts\**\*.sql" />
+    <None Include="Security\Roles\*.sql" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <None Include="utilities\External Tables\ext_MasterDataConfig.sql" />
