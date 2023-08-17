@@ -1158,6 +1158,7 @@
     <Build Include="edw\Views\vw_GLAccountLineItemRawData.sql" />
     <Build Include="edw\Views\vw_ACDOCA_ReferenceSalesDocument.sql" />
     <Build Include="edw\Views\vw_SDDocumentIncompletionLog.sql" />
+    <Build Include="edw\Views\vw_fact_ACDOCA_EPM_Base.sql" />
 
     <Build Include="dq\Views\vw_Product_1_2.sql" />
     <Build Include="dq\Views\vw_RuleTotal.sql" />
@@ -1229,6 +1230,7 @@
     <Build Include="dm_finance\Views\vw_dim_ExQLReportingEntity.sql" />
     <Build Include="dm_finance\Views\vw_dim_ZE_EXQLMAP_DT.sql" />
     <Build Include="dm_finance\Views\vw_fact_ACDOCA_FinStatemntSalesMargin.sql" />
+    <Build Include="dm_finance\Views\vw_fact_ACDOCA_EPMSalesView_CH_AT.sql" />
 
     <Build Include="dm_sales\Views\vw_dim_Customer.sql" />
     <Build Include="dm_sales\Views\vw_fact_BillingDocumentItem.sql" />

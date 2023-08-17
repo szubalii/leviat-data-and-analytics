@@ -13,6 +13,19 @@
             "fact_ACDOCA"
           ]
         }
+      },
+      "ACDOCA Self Service CH-AT": {
+        "pbi_dataset_id": 27,
+        "schedule_recurrence": "D",
+        "entities": {
+          "edw": [
+            "dim_Product",
+            "dim_SalesOrganization",
+            "dim_ProfitCenter",
+            "dim_SalesDistrict",
+            "fact_ACDOCA"
+          ]
+        }
       }
     }
   },

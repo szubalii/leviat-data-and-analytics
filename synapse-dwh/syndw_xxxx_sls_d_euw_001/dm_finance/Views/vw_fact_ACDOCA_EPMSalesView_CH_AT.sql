@@ -1,7 +1,7 @@
-CREATE VIEW [dm_finance].[vw_fact_ACDOCA_EPMSalesView]
+CREATE VIEW [dbo].[vw_fact_ACDOCA_EPMSalesView_CH_AT]
 AS
-SELECT
 
+SELECT
   [SourceLedgerID],
   [CompanyCodeID],
   [SKReportingEntityKey],
@@ -153,10 +153,6 @@ SELECT
 FROM
   [edw].[vw_fact_ACDOCA_EPM_Base]
 WHERE
-  [GLAccountID] IS NOT NULL
+  [CompanyCodeID] IN ('CH35', 'AT35')
   AND
-  EXQL_GLAccountID IS NOT NULL
-  AND
-  [FunctionalAreaID] IS NOT NULL
-  AND
-  EXQL_FunctionalAreaID IS NOT NULL
+  [PostingDate] >= '2023-01-01'
