@@ -37,23 +37,25 @@ stages:
   - stage: CHECK_SOLUTIONS_DEPLOYMENT
     jobs:
     - job: CheckSolutionsDeployment
+      variables:
+      - name: commitId
+        value: $(Build.SourceVersion)
       pool:
         vmImage: 'ubuntu-20.04'
       steps:
       - checkout: self
         fetchDepth: 0 # disables shallow fetch and results in correct return of git diff-tree
       
-      - bash: |
-          git diff --name-only $(System.PullRequest.SourceCommitId)^!
-          git diff --name-only $SYSTEM_PULLREQUEST_SOURCECOMMITID^!
+      # - bash: |
+      #     git diff --name-only $(System.PullRequest.SourceCommitId)^!
+      #     git diff --name-only $SYSTEM_PULLREQUEST_SOURCECOMMITID^!
 
-          $(git diff --name-only $(System.PullRequest.SourceCommitId)^!)
-          $(git diff --name-only $SYSTEM_PULLREQUEST_SOURCECOMMITID^!)
+      #     $(git diff --name-only $(System.PullRequest.SourceCommitId)^!)
+      #     $(git diff --name-only $SYSTEM_PULLREQUEST_SOURCECOMMITID^!)
 
       - pwsh: |
-          $(git diff --name-only $SYSTEM_PULLREQUEST_SOURCECOMMITID^!)
-          git diff --name-only $SYSTEM_PULLREQUEST_SOURCECOMMITID^!
-          git diff --name-only $(System.PullRequest.SourceCommitId)^!
+          git diff --name-only 199bf9131748a7e07d4074baf8f7dd2daf94d963^!
+          git diff --name-only $(commitId)^!
 
       
       - task: PowerShell@2
@@ -62,7 +64,7 @@ stages:
         inputs:
           filePath: '$(System.DefaultWorkingDirectory)/src/libs/set-solutionDeploymentVarsRelease.ps1'
           arguments: >
-            -commitId $(System.PullRequest.SourceCommitId)
+            -commitId $(commitId)
       #      -commitMessage $(System.PullRequest.SourceVersionMessage)
           pwsh: true
 
