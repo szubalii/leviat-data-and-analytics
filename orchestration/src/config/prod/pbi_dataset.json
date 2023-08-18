@@ -4,6 +4,9 @@
     "datasets": {
       "EPM Sales View": {
         "dataset_guid": "d5002396-c885-4ff7-9c29-c6dfd223a480"
+      },
+      "ACDOCA Self Service CH-AT": {
+        "dataset_guid": "af104a77-b333-4089-a46d-e4cf7982cd86"
       }
     }
   },
