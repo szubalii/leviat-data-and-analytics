@@ -250,59 +250,12 @@ GROUP BY
     ,   [PlantID]
     ,   [DATAAREAID]
 ),
-EuroExchangeRate AS (
-    SELECT 
-         [SourceCurrency]
-        ,[ExchangeRateEffectiveDate]
-        ,[ExchangeRate]
-    FROM 
-        edw.dim_ExchangeRates
-    WHERE
-        [ExchangeRateType] = 'P'
-        and
-        [TargetCurrency] = 'EUR'
-        and
-        [ExchangeRateEffectiveDate] <= GETDATE()
-            UNION ALL
-    SELECT
-        'EUR'
-        ,'1900-01-01'
-        ,1.0
-),
-ExchangeRateEuro as (
-    SELECT
-            [MaterialDocument]
-        ,   [MaterialDocumentItem]
-        ,   EuroExchangeRate.[ExchangeRate] AS [ExchangeRate]
-    FROM (
-        SELECT
-                [MaterialDocument]
-            ,   [MaterialDocumentItem]
-            ,   [CompanyCodeCurrency] COLLATE DATABASE_DEFAULT AS [CompanyCodeCurrency]
-            ,   MAX([ExchangeRateEffectiveDate]) as [ExchangeRateEffectiveDate]
-        FROM 
-            INVTRANS INV
-        LEFT JOIN 
-            EuroExchangeRate
-            ON 
-                INV.[CompanyCodeCurrency] COLLATE DATABASE_DEFAULT = EuroExchangeRate.SourceCurrency
-        GROUP BY
-                [MaterialDocument]
-            ,   [MaterialDocumentItem]
-            ,   [CompanyCodeCurrency] 
-    ) inv_er_date_eur
-    LEFT JOIN 
-        EuroExchangeRate
-        ON
-            inv_er_date_eur.[CompanyCodeCurrency] = EuroExchangeRate.[SourceCurrency]
-            AND
-            inv_er_date_eur.[ExchangeRateEffectiveDate] = EuroExchangeRate.[ExchangeRateEffectiveDate]
-),
+
 INVTRANS_QTY AS(
 SELECT
         INV.[MaterialDocumentYear]
-    ,   ExchangeRateEuro.[MaterialDocument]
-    ,   ExchangeRateEuro.[MaterialDocumentItem]
+    ,   INV.[MaterialDocument]
+    ,   INV.[MaterialDocumentItem]
     ,   INV.[MaterialID]
     ,   INV.[PlantID]
     ,   dmInvLocation.[INVENTLOCATIONID] AS [StorageLocationID]
@@ -338,18 +291,19 @@ SELECT
     ,   APU.AvgPrice AS [StandardPricePerUnit]
     ,   CASE 
             WHEN [CompanyCodeCurrency]='EUR' THEN APU.AvgPrice
-            ELSE APU.AvgPrice*ExchangeRateEuro.ExchangeRate
+            ELSE APU.AvgPrice*CCR.ExchangeRate
         END AS [StandardPricePerUnit_EUR]
     ,   INV.[t_applicationId]
     ,   INV.[t_extractionDtm]
 FROM
-    ExchangeRateEuro
-LEFT JOIN
     INVTRANS AS INV
-    ON
-        INV.[MaterialDocument] = ExchangeRateEuro.[MaterialDocument]
-        AND
-        INV.[MaterialDocumentItem] = ExchangeRateEuro.[MaterialDocumentItem]
+LEFT JOIN [edw].[vw_CurrencyConversionRate] CCR
+    ON 
+        INV.CompanyCodeCurrency = CCR.SourceCurrency  COLLATE DATABASE_DEFAULT
+LEFT JOIN 
+    [edw].[dim_CurrencyType] CR
+    ON 
+        CCR.CurrencyTypeID = CR.CurrencyTypeID
 LEFT JOIN
     [edw].[dim_SDDocumentCategory] vwSDDC
     ON 
