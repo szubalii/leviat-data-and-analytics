@@ -2,8 +2,7 @@
 	"nameGenerator": {
 		"suffix": "",
 		"appendsTimestamp": true,
-		"objectNamingMode": "Custom",
-		"customName": "I_BusinessPartnerGroupingText"
+		"objectNamingMode": "Custom"
 	},
 	"internalSettings": {
 		"sapDateConversion": {
@@ -24,6 +23,6 @@
 	"compress": true,
 	"blobType": "BlockBlob",
 	"columnNameKind": "Code",
-	"folderPath": "TEXT/I_BusinessPartnerGroupingText/Theobald/Table/Full/In/#{ DateTime.Now.ToString(\"yyyy/MM/dd\") }#",
+	"folderPath": "TEXT\/I_BusinessPartnerGroupingText\/Theobald\/Table\/Full\/In\/#{ DateTime.Now.ToString(\"yyyy\/MM\/dd\") }#",
 	"maxBlobSize": 0
 }
