@@ -4631,34 +4631,39 @@
         "entity_name": "CUSTOMERS",
         "base_table_name": "CUSTOMERS",
         "pk_field_names": "COMP, CUSTOMER",
-        "schedule_recurrence": "M"
+        "schedule_recurrence": "M",
+        "schedule_day": 1
       },
       {
         "entity_id": 389,
         "entity_name": "CUSTOMER_SALES",
         "base_table_name": "CUSTOMER_SALES",
         "axbi_date_field_name": "\"\"Inv Date\"\"",
-        "schedule_recurrence": "M"
+        "schedule_recurrence": "M",
+        "schedule_day": 1
       },
       {
         "entity_id": 390,
         "entity_name": "COMPANIES",
         "base_table_name": "COMPANIES",
         "pk_field_names": "COMP",
-        "schedule_recurrence": "M"
+        "schedule_recurrence": "M",
+        "schedule_day": 1
       },
       {
         "entity_id": 391,
         "entity_name": "ITEM_GROUPS",
         "base_table_name": "ITEM_GROUPS",
         "pk_field_names": "COMP, ItemGroup",
-        "schedule_recurrence": "M"
+        "schedule_recurrence": "M",
+        "schedule_day": 1
       },
       {
         "entity_id": 392,
         "entity_name": "ITEMS",
         "base_table_name": "ITEMS",
-        "schedule_recurrence": "M"
+        "schedule_recurrence": "M",
+        "schedule_day": 1
       }
     ]
   },
@@ -6131,70 +6136,80 @@
         "entity_name": "Invoice3",
         "source_view_name": "vw_dim_Invoice_LastMonth",
         "execution_order": 2,
-        "schedule_recurrence": "M"
+        "schedule_recurrence": "M",
+        "schedule_day": 1
       },
       {
         "entity_id": 600,
         "entity_name": "PO3",
         "source_view_name": "vw_dim_PurchaseOrder_LastMonth",
         "execution_order": 2,
-        "schedule_recurrence": "M"
+        "schedule_recurrence": "M",
+        "schedule_day": 1
       },
       {
         "entity_id": 601,
         "entity_name": "Contract",
         "source_view_name": "vw_dim_Contract",
         "execution_order": 1,
-        "schedule_recurrence": "M"
+        "schedule_recurrence": "M",
+        "schedule_day": 1
       },
       {
         "entity_id": 602,
         "entity_name": "CostCenter",
         "source_view_name": "vw_dim_CostCenter",
         "execution_order": 1,
-        "schedule_recurrence": "M"
+        "schedule_recurrence": "M",
+        "schedule_day": 1
       },
       {
         "entity_id": 603,
         "entity_name": "User",
         "source_view_name": "vw_dim_User",
         "execution_order": 1,
-        "schedule_recurrence": "M"
+        "schedule_recurrence": "M",
+        "schedule_day": 1
       },
       {
         "entity_id": 604,
         "entity_name": "Account",
         "source_view_name": "vw_dim_Account",
         "execution_order": 1,
-        "schedule_recurrence": "M"
+        "schedule_recurrence": "M",
+        "schedule_day": 1
       },
       {
         "entity_id": 605,
         "entity_name": "ERPCommodity",
         "source_view_name": "vw_dim_EClassCodes",
         "execution_order": 0,
-        "schedule_recurrence": "M"
+        "schedule_recurrence": "M",
+        "schedule_day": 1
       },
       {
         "entity_id": 606,
         "entity_name": "Supplier",
         "source_view_name": "vw_dim_Supplier",
         "execution_order": 1,
-        "schedule_recurrence": "M"
+        "schedule_recurrence": "M",
+        "schedule_day": 1
       },
       {
         "entity_id": 607,
         "entity_name": "CompanySite",
         "source_view_name": "vw_dim_CompanySite",
         "execution_order": 0,
-        "schedule_recurrence": "M"
+        "schedule_recurrence": "M",
+        "schedule_day": 1
       },
       {
         "entity_id": 608,
         "entity_name": "Part",
         "source_view_name": "vw_dim_Product",
         "execution_order": 0,
-        "schedule_recurrence": "M"
+        "schedule_recurrence": "M",
+        "schedule_day": 1
       }
     ]
   }
