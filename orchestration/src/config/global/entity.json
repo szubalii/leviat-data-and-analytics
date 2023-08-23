@@ -4133,7 +4133,7 @@
         "pk_field_names": "CLIENT, ADDRNUMBER, DATE_FROM, NATION"
       },
       {
-        "entity_id": 613,
+        "entity_id": 610,
         "entity_name": "I_BusinessPartnerAddress",
         "data_category": "NULL",
         "client_field": "MANDT",
@@ -4143,18 +4143,6 @@
         "base_table_name": "I_BusinessPartnerAddress",
         "schedule_recurrence": "D",
         "pk_field_names": "MANDT, BUSINESSPARTNER, ADDRESSNUMBER"
-      },
-      {
-        "entity_id": 617,
-        "entity_name": "I_BusinessPartnerGroupingText",
-        "data_category": "TEXT",
-        "client_field": "MANDT",
-        "tool_name": "Theobald",
-        "extraction_type": "Table",
-        "update_mode": "Full",
-        "base_table_name": "I_BusinessPartnerGroupingText",
-        "schedule_recurrence": "D",
-        "pk_field_names": "MANDT, LANGUAGE, BUSINESSPARTNERGROUPING"
       }
     ]
   },
