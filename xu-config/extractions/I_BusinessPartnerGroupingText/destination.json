@@ -12,7 +12,7 @@
 			"replacementForYear9999": "9999-12-31"
 		},
 		"columnNameKind": "Code",
-		"nameGenerator": {
+		"nameGenerator": { 
 			"suffix": "",
 			"appendsTimestamp": true,
 			"objectNamingMode": "Custom",

@@ -9,7 +9,7 @@
             "name": "IBPGROUPINGTXT",
             "description": "Generated Table for View",
             "isView": true,
-            "fields": 
+            "fields":  
             [
                 {
                     "name": "MANDT",
