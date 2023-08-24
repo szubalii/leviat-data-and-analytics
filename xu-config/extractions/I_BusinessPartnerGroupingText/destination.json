@@ -1,8 +1,7 @@
 {
 	"nameGenerator": {
 		"suffix": "",
-		"appendsTimestamp": true,
-		"objectNamingMode": "Custom"
+		"appendsTimestamp": true
 	},
 	"internalSettings": {
 		"sapDateConversion": {
@@ -11,14 +10,7 @@
 			"replacementForZeroDate": "0001-01-01",
 			"replacementForYear9999": "9999-12-31"
 		},
-		"columnNameKind": "Code",
-		"nameGenerator": { 
-			"suffix": "",
-			"appendsTimestamp": true,
-			"objectNamingMode": "Custom",
-			"customName": "I_BusinessPartnerGroupingText"
-		},
-		"existingFileAction": "Replace"
+		"columnNameKind": "Code"
 	},
 	"compress": true,
 	"blobType": "BlockBlob",
