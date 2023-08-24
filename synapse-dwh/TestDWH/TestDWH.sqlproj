@@ -22,6 +22,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="TestClasses\Uniqueness.sql" />
+    <None Include="TestClasses\CurrencyConversion.sql" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\syndw_xxxx_sls_d_euw_001\syndw_xxxx_sls_d_euw_001.sqlproj">
