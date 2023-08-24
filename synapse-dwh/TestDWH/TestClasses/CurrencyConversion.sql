@@ -34,12 +34,8 @@ BEGIN
   VALUES
     (1, 1, 1, 2022, 12, 'S', 100, 1000, NULL),
     (1, 1, 1, 2022, 12, 'V', 100, NULL, 1100),
-    -- (1, 1, 1, 2023, 12, 'S', 100, 2000, NULL),
-    -- (1, 1, 1, 2023, 12, 'V', 100, NULL, 2200),
     (1, 2, 1, 2022, 12, 'S', 400, 2000, NULL),
     (1, 2, 1, 2022, 12, 'V', 400, NULL, 2200);
-    -- (1, 2, 1, 2023, 12, 'S', 100, 2000, NULL),
-    -- (1, 2, 1, 2023, 12, 'V', 100, NULL, 2200);
 
   INSERT INTO base_s4h_cax.I_Purreqvaluationarea (ValuationArea, CompanyCode)
   VALUES (1, 1), (2, 2);
@@ -118,153 +114,73 @@ GO
 
 
 
--- CREATE PROCEDURE [CurrencyConversion].[test edw.vw_OutboundDeliveryItem_s4h: uniqueness]
--- AS
--- BEGIN
+CREATE PROCEDURE [CurrencyConversion].[test edw.vw_ProductValuation]
+AS
+BEGIN
 
---   IF OBJECT_ID('actual') IS NOT NULL DROP TABLE actual;
---   -- IF OBJECT_ID('expected') IS NOT NULL DROP TABLE expected;
+  IF OBJECT_ID('actual') IS NOT NULL DROP TABLE actual;
+  IF OBJECT_ID('tempdb..#vw_CurrencyConversionRate') IS NOT NULL DROP TABLE #vw_CurrencyConversionRate;
+  IF OBJECT_ID('expected') IS NOT NULL DROP TABLE expected;
 
---   -- Assemble: Fake Table
---   EXEC tSQLt.FakeTable '[base_s4h_cax]', '[I_OutboundDeliveryItem]';
---   EXEC tSQLt.FakeTable '[base_s4h_cax]', '[I_OutboundDelivery]';
---   EXEC tSQLt.FakeTable '[base_s4h_cax]', '[I_SDDocumentCompletePartners]';
---   EXEC tSQLt.FakeTable '[base_s4h_cax]', '[I_Supplier]';
---   EXEC tSQLt.FakeTable '[base_s4h_cax]', '[I_SalesDocumentScheduleLine]';
---   EXEC tSQLt.FakeTable '[edw]', '[dim_Route]';
---   EXEC tSQLt.FakeTable '[edw]', '[dim_Customer]';
---   EXEC tSQLt.FakeTable '[edw]', '[fact_SalesDocumentItem]';
+  -- Assemble: Fake Table
+  EXEC tSQLt.FakeTable '[base_s4h_cax]', '[I_ProductValuation]';
+  -- EXEC tSQLt.FakeTable '[edw]', '[dim_CurrencyType]';
+  EXEC tSQLt.FakeTable '[edw]', '[vw_CurrencyConversionRate]';
 
---   INSERT INTO base_s4h_cax.I_OutboundDeliveryItem (OutboundDelivery, OutboundDeliveryItem)
---   VALUES (1, 1), (1, 2), (2, 1), (2, 2);
+  INSERT INTO base_s4h_cax.I_ProductValuation (
+    Currency, StandardPrice, MovingAveragePrice, PriceUnitQty
+  )
+  VALUES ('PLN', 100, 50, 2), ('EUR', 10, 2, 2);
 
---   INSERT INTO base_s4h_cax.I_OutboundDelivery (OutboundDelivery, SoldToParty, ActualDeliveryRoute, ProposedDeliveryRoute)
---   VALUES (1, 1, 1, 1), (2, 2, 2, 2);
+  -- INSERT INTO edw.dim_CurrencyType (CurrencyTypeID, CurrencyID)
+  -- VALUES ('30', 'EUR');
 
---   INSERT INTO base_s4h_cax.I_SDDocumentCompletePartners (SDDocument, SDDocumentItem, PartnerFunction, Supplier)
---   VALUES
---     (1, 1, 'XX', 1),
---     (1, 000000, 'SP', 1), -- SDDocumentItem is always 000000 for PartnerFunction SP (Delivery Agent)
---     (1, 2, 'XX', 1),
---     (2, 1, 'XX', 1),
---     (2, 000000, 'SP', 1),
---     (2, 2, 'XX', 1);
+  SELECT TOP(0) *
+  INTO #vw_CurrencyConversionRate
+  FROM edw.vw_CurrencyConversionRate;
 
---   INSERT INTO base_s4h_cax.I_Supplier (Supplier)
---   VALUES (1), (2);
+  -- #2
+  INSERT INTO #vw_CurrencyConversionRate (SourceCurrency, CurrencyTypeID, ExchangeRate)
+  VALUES
+    ('EUR', '30', 1.0),
+    ('EUR', '40', 0.9),
+    ('PLN', '30', 0.05),
+    ('PLN', '40', 0.04);
 
---   INSERT INTO base_s4h_cax.I_SalesDocumentScheduleLine (SalesDocument, SalesDocumentItem, ScheduleLine)
---   VALUES (1, 1, 1), (1, 1, 2), (1, 2, 1), (1, 2, 2), (2, 1, 1), (2, 1, 2), (2, 2, 1), (2, 2, 2);
+  EXEC ('INSERT INTO edw.vw_CurrencyConversionRate SELECT * FROM #vw_CurrencyConversionRate');
 
---   INSERT INTO edw.dim_Route (ROUTEID)
---   VALUES (1), (2);
+  -- Act: 
+  SELECT
+    CurrencyID,
+    StandardPricePerUnit,
+    StandardPricePerUnit_EUR,
+    MovingAvgPricePerUnit,
+    MovingAvgPricePerUnit_EUR
+  INTO actual
+  FROM [edw].[vw_ProductValuation]
 
---   INSERT INTO edw.dim_Customer (CustomerID)
---   VALUES (1), (2);
+  -- Assert:
+  CREATE TABLE expected (
+    CurrencyID nchar(5) collate Latin1_General_100_BIN2,
+    StandardPricePerUnit decimal(11, 2),
+    StandardPricePerUnit_EUR decimal(11, 2),
+    MovingAvgPricePerUnit decimal(11, 2),
+    MovingAvgPricePerUnit_EUR decimal(11, 2)
+  );
+  INSERT INTO expected (
+    CurrencyID,
+    StandardPricePerUnit,
+    StandardPricePerUnit_EUR,
+    MovingAvgPricePerUnit,
+    MovingAvgPricePerUnit_EUR
+  )
+  VALUES
+    ('PLN', 50, 2.5, 25, 1.25),
+    ('EUR',  5, 5.0,  1, 1);
 
---   INSERT INTO edw.fact_SalesDocumentItem (
---     sk_fact_SalesDocumentItem,
---     -- nk_fact_SalesDocumentItem,
---     SalesDocument,
---     SalesDocumentItem,
---     CurrencyTypeID,
---     t_applicationId
---   )
---   VALUES
---     ( 0, 1, 1, 10, 's4h-ca'),
---     ( 1, 1, 1, 20, 's4h-ca'),
---     ( 2, 1, 1, 30, 's4h-ca'),
---     ( 3, 1, 2, 10, 's4h-ca'),
---     ( 4, 1, 2, 20, 's4h-ca'),
---     ( 5, 1, 2, 30, 's4h-ca'),
---     ( 6, 2, 1, 10, 's4h-ca'),
---     ( 7, 2, 1, 20, 's4h-ca'),
---     ( 8, 2, 1, 30, 's4h-ca'),
---     ( 9, 2, 2, 10, 's4h-ca'),
---     (10, 2, 2, 20, 's4h-ca'),
---     (11, 2, 2, 30, 's4h-ca');
-
---   -- Act: 
---   SELECT
---     nk_fact_OutboundDeliveryItem
---   INTO actual
---   FROM [edw].[vw_OutboundDeliveryItem_s4h]
---   GROUP BY
---     nk_fact_OutboundDeliveryItem
---   HAVING COUNT(*) > 1
-
---   -- Assert:
---   EXEC tSQLt.AssertEmptyTable 'actual';
--- END;
--- GO
-
--- CREATE PROCEDURE [CurrencyConversion].[test dm_sales.vw_fact_OutboundDeliveryItem: uniqueness]
--- AS
--- BEGIN
-
---   IF OBJECT_ID('actual') IS NOT NULL DROP TABLE actual;
---   -- IF OBJECT_ID('expected') IS NOT NULL DROP TABLE expected;
-
---   -- Assemble: Fake Table
---   EXEC tSQLt.FakeTable '[edw]', '[fact_OutboundDeliveryItem]';
---   EXEC tSQLt.FakeTable '[edw]', '[dim_SDDocumentCategory]';
---   EXEC tSQLt.FakeTable '[edw]', '[dim_MaterialGroup]';
---   EXEC tSQLt.FakeTable '[edw]', '[dim_SalesDocumentItemCategory]';
---   EXEC tSQLt.FakeTable '[edw]', '[dim_DeliveryDocumentType]';
---   EXEC tSQLt.FakeTable '[edw]', '[dim_SalesDocumentItemType]';
---   EXEC tSQLt.FakeTable '[edw]', '[dim_DistributionChannel]';
---   EXEC tSQLt.FakeTable '[edw]', '[dim_SDProcessStatus]';
-
---   INSERT INTO edw.dim_SDDocumentCategory (SDDocumentCategoryID, SDDocumentCategory)
---   VALUES (1, 'text1'), (2, 'text2');
-
---   INSERT INTO edw.dim_MaterialGroup (MaterialGroupID, MaterialGroup)
---   VALUES (1, 'text1'), (2, 'text2');
-
---   INSERT INTO edw.dim_SalesDocumentItemCategory (SalesDocumentItemCategoryID, SalesDocumentItemCategory)
---   VALUES (1, 'text1'), (2, 'text2');
-
---   INSERT INTO edw.dim_DeliveryDocumentType (DeliveryDocumentTypeID, DeliveryDocumentType)
---   VALUES (1, 'text1'), (2, 'text2');
-
---   INSERT INTO edw.dim_SalesDocumentItemType (SalesDocumentItemTypeID, SalesDocumentItemType)
---   VALUES (1, 'text1'), (2, 'text2');
-
---   INSERT INTO edw.dim_DistributionChannel (DistributionChannelID, DistributionChannel)
---   VALUES (1, 'text1'), (2, 'text2');
-
---   INSERT INTO edw.dim_SDProcessStatus (SDProcessStatusID, SDProcessStatus)
---   VALUES (1, 'text1'), (2, 'text2');
-
---   INSERT INTO edw.fact_OutboundDeliveryItem (
---     sk_fact_OutboundDeliveryItem,
---     ReferenceSDDocumentCategoryID,
---     ProductGroupID,
---     DeliveryDocumentItemCategoryID,
---     HDR_DeliveryDocumentTypeID,
---     SalesDocumentItemTypeID,
---     DistributionChannelID,
---     SDProcessStatusID
---   )
---   VALUES
---     (0, 1, 1, 1, 1, 1, 1, 1),
---     (1, 1, 1, 1, 1, 1, 1, 1),
---     (2, 2, 2, 2, 2, 2, 2, 2),
---     (3, 2, 2, 2, 2, 2, 2, 2);
-
---   -- Act: 
---   SELECT
---     sk_fact_OutboundDeliveryItem
---   INTO actual
---   FROM [dm_sales].[vw_fact_OutboundDeliveryItem]
---   GROUP BY
---     sk_fact_OutboundDeliveryItem
---   HAVING COUNT(*) > 1
-
---   -- Assert:
---   EXEC tSQLt.AssertEmptyTable 'actual';
--- END;
--- GO
+  EXEC tSQLt.AssertEqualsTable 'expected', 'actual';
+END;
+GO
 
 
 EXEC [tSQLt].[SetFakeViewOff] 'edw';
