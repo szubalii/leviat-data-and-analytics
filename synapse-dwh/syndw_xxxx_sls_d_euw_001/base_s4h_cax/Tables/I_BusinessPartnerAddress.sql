@@ -14,12 +14,12 @@
   , [t_jobBy] VARCHAR (128)  -- Job executed by
   , [t_extractionDtm] DATETIME  -- Extraction Date Time
   , [t_filePath] NVARCHAR (1024)  -- Filepath
-  , CONSTRAINT [PK_I_BusinessPartnerAddress] PRIMARY KEY NONCLUSTERED
-    (
+  , CONSTRAINT [PK_I_BusinessPartnerAddress] PRIMARY KEY NONCLUSTERED(
+      
       [MANDT]
     , [BUSINESSPARTNER]
     , [ADDRESSNUMBER]
-    ) NOT ENFORCED
+  ) NOT ENFORCED
 ) WITH (
   HEAP
 )

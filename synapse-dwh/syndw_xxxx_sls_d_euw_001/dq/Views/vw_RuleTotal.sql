@@ -18,7 +18,7 @@ CountRowsPerBusinessPartnerType AS (
         , COUNT(*) as [RecordTotals]
     FROM
         [base_s4h_cax].[I_BusinessPartner] BP
-    JOIN [base_s4h_cax].[I_BusinessPartnerGroupingText] BPGT
+    INNER JOIN [base_s4h_cax].[I_BusinessPartnerGroupingText] BPGT
         ON BP.BusinessPartnerGrouping = BPGT.BUSINESSPARTNERGROUPING    COLLATE DATABASE_DEFAULT
     GROUP BY
         BPGT.[BUSINESSPARTNERGROUPINGTEXT] 
