@@ -14,12 +14,14 @@ WITH CountRowsPerProductType AS (
 -- Calculate count rows per BusinessPartnerType from I_BusinessPartner table
 CountRowsPerBusinessPartnerType AS (
     SELECT
-        [BusinessPartnerType]
-    , COUNT(*) as [RecordTotals]
+        BPGT.[BUSINESSPARTNERGROUPINGTEXT]      AS BusinessPartnerType
+        , COUNT(*) as [RecordTotals]
     FROM
-        [base_s4h_cax].[I_BusinessPartner]
+        [base_s4h_cax].[I_BusinessPartner] BP
+    JOIN [base_s4h_cax].[I_BusinessPartnerGroupingText] BPGT
+        ON BP.I_BusinessPartnerGrouping = BPGT.BUSINESSPARTNERGROUPING
     GROUP BY
-        [BusinessPartnerType]
+        BPGT.[BUSINESSPARTNERGROUPINGTEXT] 
 )
 ,
 -- Calculate count rows per RuleID from Rule table for Product
