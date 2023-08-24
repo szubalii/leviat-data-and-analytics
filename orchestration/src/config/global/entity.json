@@ -4143,6 +4143,18 @@
         "base_table_name": "I_BusinessPartnerAddress",
         "schedule_recurrence": "D",
         "pk_field_names": "MANDT, BUSINESSPARTNER, ADDRESSNUMBER"
+      },
+      {
+        "entity_id": 617,
+        "entity_name": "I_BusinessPartnerGroupingText",
+        "data_category": "TEXT",
+        "client_field": "MANDT",
+        "tool_name": "Theobald",
+        "extraction_type": "Table",
+        "update_mode": "Full",
+        "base_table_name": "I_BusinessPartnerGroupingText",
+        "schedule_recurrence": "D",
+        "pk_field_names": "MANDT, LANGUAGE, BUSINESSPARTNERGROUPING"
       }
     ]
   },
@@ -5795,18 +5807,6 @@
         "dest_table_name": "fact_BusinessPartnerTotal",
         "execution_order": 1,
         "schedule_recurrence": "D"
-      },
-      {
-        "entity_id": 617,
-        "entity_name": "I_BusinessPartnerGroupingText",
-        "data_category": "TEXT",
-        "client_field": "MANDT",
-        "tool_name": "Theobald",
-        "extraction_type": "Table",
-        "update_mode": "Full",
-        "base_table_name": "I_BusinessPartnerGroupingText",
-        "schedule_recurrence": "D",
-        "pk_field_names": "MANDT, LANGUAGE, BUSINESSPARTNERGROUPING"
       }
     ]
   },
