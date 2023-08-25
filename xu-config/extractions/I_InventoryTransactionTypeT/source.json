@@ -1,5 +1,6 @@
 {
     "functionName": "Z_THEO_READ_TABLE",
+    "whereClause": "LANGUAGE = 'E'",
     "runInBackgroundJob": false,
     "backgroundJobTimeout": 180,
     "tables": 

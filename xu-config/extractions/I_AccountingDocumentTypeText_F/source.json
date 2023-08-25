@@ -38,6 +38,12 @@
             "isPrimaryKey": true,
             "isSelected": true,
             "selectionPermission": "All",
+            "selections":
+            [
+                {
+                    "value": "E"
+                }
+            ],
             "outputLength": 1
         },
         {
