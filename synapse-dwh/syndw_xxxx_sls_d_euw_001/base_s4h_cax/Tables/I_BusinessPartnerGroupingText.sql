@@ -1,9 +1,9 @@
 CREATE TABLE [base_s4h_cax].[I_BusinessPartnerGroupingText]
 (
     [MANDT] CHAR(3) NOT NULL  -- Client
-  , [LANGUAGE]  CHAR(1) NOT NULL -- Language Key  
-  , [BUSINESSPARTNERGROUPING] NVARCHAR(4) NOT NULL  -- Business Partner Grouping
-  , [BUSINESSPARTNERGROUPINGTEXT] NVARCHAR(40) NOT NULL  -- Description
+  , [Language]  CHAR(1) NOT NULL -- Language Key  
+  , [BusinessPartnerGrouping] NVARCHAR(4) NOT NULL  -- Business Partner Grouping
+  , [BusinessPartnerGroupingText] NVARCHAR(40) NOT NULL  -- Description
   , [t_applicationId] VARCHAR (32)  -- Application ID
   , [t_jobId] VARCHAR (36)  -- Job ID
   , [t_jobDtm] DATETIME  -- Job Date Time
@@ -13,8 +13,8 @@ CREATE TABLE [base_s4h_cax].[I_BusinessPartnerGroupingText]
   , CONSTRAINT [PK_I_BusinessPartnerGroupingText] PRIMARY KEY NONCLUSTERED
   (
       [MANDT]
-    , [LANGUAGE]
-    , [BUSINESSPARTNERGROUPING]
+    , [Language]
+    , [,BusinessPartnerGrouping]
   ) NOT ENFORCED
 ) WITH (
   HEAP
