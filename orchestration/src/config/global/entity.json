@@ -4176,6 +4176,18 @@
         "base_table_name": "I_SDDocumentProcessFlow",
         "schedule_recurrence": "D",
         "pk_field_names": "DOCRELATIONSHIPUUID"
+      },
+      {
+        "entity_id": 617,
+        "entity_name": "I_BusinessPartnerGroupingText",
+        "data_category": "TEXT",
+        "client_field": "MANDT",
+        "tool_name": "Theobald",
+        "extraction_type": "Table",
+        "update_mode": "Full",
+        "base_table_name": "I_BusinessPartnerGroupingText",
+        "schedule_recurrence": "D",
+        "pk_field_names": "MANDT, LANGUAGE, BUSINESSPARTNERGROUPING"
       }
     ]
   },

@@ -1,6 +1,6 @@
 ﻿CREATE VIEW [dq].[vw_BP_2_1_8]
   AS  
-
+--Each Ship-To customer (account group Z002) must be assigned to at least 1 Sold-To customer.
 SELECT
         C.[Customer]
     ,   C.[CustomerName]

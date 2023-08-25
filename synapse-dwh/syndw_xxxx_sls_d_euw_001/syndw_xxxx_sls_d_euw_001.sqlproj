@@ -710,6 +710,7 @@
     <Build Include="base_s4h_cax\Tables\I_BusinessPartnerAddress.sql" />
     <Build Include="base_s4h_cax\Tables\I_SDDocumentProcessFlow.sql" />
     <Build Include="base_s4h_cax\Tables\I_DataElementLabelText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_BusinessPartnerGroupingText.sql" />
 
     <Build Include="base_tx_ca_0_hlp\Tables\DATAAREA.sql" />
     <Build Include="base_tx_ca_0_hlp\Tables\CRHCURRENCY.sql" />
@@ -1346,7 +1347,7 @@
     <Build Include="dm_dq\Views\vw_dim_CustomerSalesArea.sql" />
     <Build Include="dm_dq\Views\vw_dim_CustomerSalesPartnerFunction.sql" />
     <Build Include="dm_dq\Views\vw_dim_SupplierPurchasingOrg.sql" />
-
+    <Build Include="dm_dq\Views\vw_dim_Supplier.sql" />
     <Build Include="dm_c4c\Views\vw_fact_OpportunityCollection.sql" />    
     <Build Include="dm_scm\Views\vw_fact_MaterialStockLevel_Weekly.sql" />
     <Build Include="dm_scm\Views\vw_fact_ProductSalesThirdPartyDelivery.sql" />
@@ -1409,7 +1410,7 @@
     <Build Include="utilities\Stored Procedures\sp_process_axbi_delta_insert.sql" />
     <Build Include="utilities\Stored Procedures\sp_process_axbi_delta_update.sql" />
     <Build Include="utilities\Stored Procedures\sp_process_axbi_delta_delete.sql" />
-    <Build Include="utilities\Stored Procedures\sp_process_axbi_delta.sql" />
+    <Build Include="utilities\Stored Procedures\sp_process_axbi_delta.sql" />  
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PostDeploy Include="Scripts\Post-Deploy\Script.PostDeployment.sql" />

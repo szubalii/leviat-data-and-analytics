@@ -1,0 +1,13 @@
+{
+	"created": {
+		"machine": "NL-HQ-D-AP013",
+		"timestamp": "20220111T094915.160Z" 
+	},
+	"destination": "stxxxxslsaeuw001_s4h-caa",
+	"lastChange": {
+		"machine": "NL-HQ-D-AP013",
+		"timestamp": "20220111T155303.992Z"
+	},
+	"source": "CRH_Leviat_S4HANA_CAA",
+	"type": "Table"
+}
