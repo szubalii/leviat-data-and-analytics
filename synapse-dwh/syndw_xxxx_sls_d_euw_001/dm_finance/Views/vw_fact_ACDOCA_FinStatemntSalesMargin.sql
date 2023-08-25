@@ -12,6 +12,7 @@ SELECT
     ,[SAP_SalesMargin]
     ,[FiscalYear]
     ,[FiscalYearPeriod]
+    ,CONCAT(CompanyCodeID,ProfitCenterID)   AS CompanyCodeProfitCenterID
     ,[t_applicationId]
     ,[t_extractionDtm]
 FROM
