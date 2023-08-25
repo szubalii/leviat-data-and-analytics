@@ -2,13 +2,15 @@
 resources:
   pipelines:
   - pipeline: build
-    source: 'Build Orchestration'
+    source: 'Build Orchestration DB'
     trigger:
       branches:
         include:
         - main
         - qas
         - prod
+        - feature/*
+        - users/*
 
 trigger: none
 
