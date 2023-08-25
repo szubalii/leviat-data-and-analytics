@@ -90,6 +90,3 @@ FROM
     ProductValuation AS PV
 LEFT JOIN [edw].[vw_CurrencyConversionRate] CCR
     ON PV.CurrencyID = CCR.SourceCurrency AND CCR.CurrencyTypeID ='30'
-LEFT JOIN 
-    [edw].[dim_CurrencyType] CR
-    ON CCR.CurrencyTypeID = CR.CurrencyTypeID
