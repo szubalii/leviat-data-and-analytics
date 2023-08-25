@@ -14,7 +14,7 @@ CREATE TABLE [base_s4h_cax].[I_BusinessPartnerGroupingText]
   (
       [MANDT]
     , [Language]
-    , [,BusinessPartnerGrouping]
+    , [BusinessPartnerGrouping]
   ) NOT ENFORCED
 ) WITH (
   HEAP
