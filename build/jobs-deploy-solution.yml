@@ -5,12 +5,12 @@ parameters:
   type: string
 - name: deployEnvPrefix
   type: string
-- name: test
-  type: boolean
-  default: False
-- name: conditional
-  type: boolean
-  default: false
+# - name: test
+#   type: boolean
+#   default: False
+# - name: conditional
+#   type: boolean
+#   default: false
 
 jobs: 
 # - job:
@@ -24,8 +24,8 @@ jobs:
 #       echo var: $(deploy_generic)
       
 - deployment: ${{ format('DEPLOY_{0}_TO_{1}', parameters.solution, parameters.deployEnvPrefix) }}
-  ${{ if parameters.conditional }}:
-    condition: eq(stageDependencies.CHECK_SOLUTIONS_DEPLOYMENT.CheckSolutionsDeployment.outputs['SetVariables.deploy_${{ parameters.solution }}'], 'true')
+  # ${{ if parameters.conditional }}:
+  #   condition: eq(stageDependencies.CHECK_SOLUTIONS_DEPLOYMENT.CheckSolutionsDeployment.outputs['SetVariables.deploy_${{ parameters.solution }}'], 'true')
   timeoutInMinutes: 120
   pool:
     name: 'VM'

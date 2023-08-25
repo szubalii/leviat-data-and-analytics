@@ -1,8 +1,15 @@
-trigger: none # triggered by PR
+trigger:
+  branches:
+    include:
+    - main
+    - qas
+    - prod
+  paths:
+    include:
+    - '../../synapse-dwh/*'
 
 extends:
-  template: ../../build/stages-build-deploy.yml
+  template: ../../build/stages-build.yml
   parameters:
     folder: synapse-dwh
-    solution: SynapseDWH
-    hasVariables: true
+    variables: true
