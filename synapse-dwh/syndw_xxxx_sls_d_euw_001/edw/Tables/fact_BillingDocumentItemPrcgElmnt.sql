@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [edw].[fact_BillingDocumentItemPrcgElmnt] (
 -- Billing Document Item Pricing Element 
 -- 1:1 as base layer table
-  [sk_fact_BillingDocumentItemPrcgElmnt] int
+  [fk_BillingDocumentItem] bigint
 , [BillingDocument] nvarchar(20) NOT NULL
 , [BillingDocumentItem] char(6) collate Latin1_General_100_BIN2 NOT NULL
 , [nk_BillingDocumentItem] NVARCHAR(20) NOT NULL 

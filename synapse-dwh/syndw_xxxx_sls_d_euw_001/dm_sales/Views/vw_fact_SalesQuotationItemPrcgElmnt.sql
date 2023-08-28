@@ -1,7 +1,7 @@
 CREATE VIEW [dm_sales].[vw_fact_SalesQuotationItemPrcgElmnt]
 AS
 SELECT
-          [sk_fact_SalesQuotationItemPrcgElmnt]
+          [fk_SalesDocumentItem]
          ,[SalesQuotation]
          ,[SalesQuotationItem]
          ,[nk_SalesQuotationItem]
@@ -20,7 +20,7 @@ FROM
    [edw].[fact_SalesQuotationItemPrcgElmnt] 
 WHERE ([ConditionInactiveReason] IS NULL OR [ConditionInactiveReason] ='')
 GROUP BY  
-          [sk_fact_SalesQuotationItemPrcgElmnt]
+          [fk_SalesDocumentItem]
          ,[SalesQuotation]
          ,[SalesQuotationItem]
          ,[nk_SalesQuotationItem]

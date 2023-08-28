@@ -1,7 +1,7 @@
 CREATE VIEW [edw].[vw_SalesOrderItemPricingElement]
 AS
 SELECT
-  SDI.[sk_fact_SalesDocumentItem] AS [sk_SalesOrderItemPricingElement]
+  SDI.[sk_fact_SalesDocumentItem] AS [fk_SalesDocumentItem]
 , [SalesOrder] 
 , [SalesOrderItem]
 , edw.svf_getNaturalKey (SalesOrder,SalesOrderItem,CR.CurrencyTypeID)             AS [nk_SalesOrderItem]

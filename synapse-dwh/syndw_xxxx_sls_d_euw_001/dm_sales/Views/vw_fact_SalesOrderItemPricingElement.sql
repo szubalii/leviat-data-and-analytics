@@ -1,7 +1,7 @@
 CREATE VIEW [dm_sales].[vw_fact_SalesOrderItemPricingElement]
 AS
 SELECT
-          [sk_fact_SalesOrderItemPricingElement]
+          [fk_SalesDocumentItem]
          ,[SalesOrder]
          ,[SalesOrderItem]
          ,[nk_SalesOrderItem]
@@ -19,7 +19,7 @@ SELECT
 FROM
   [edw].[fact_SalesOrderItemPricingElement]
 GROUP BY
-          [sk_fact_SalesOrderItemPricingElement]
+          [fk_SalesDocumentItem]
          ,[SalesOrder]
          ,[SalesOrderItem]
          ,[nk_SalesOrderItem]
