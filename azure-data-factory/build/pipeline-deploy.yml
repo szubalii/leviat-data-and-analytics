@@ -1,5 +1,5 @@
 # This pipeline is triggered whenever the build pipeline to main, qas or prod is completed
-# name: $(resources.pipeline.build.sourceBranch)_$(Date:yyyyMMdd).$(Rev:r)
+name: $(SourceBranch)_$(Date:yyyyMMdd).$(Rev:r)
 
 resources:
   pipelines:
