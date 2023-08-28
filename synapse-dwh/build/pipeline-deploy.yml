@@ -9,6 +9,8 @@ resources:
         - main
         - qas
         - prod
+        - feature/*
+        - users/*
 
 trigger: none
 

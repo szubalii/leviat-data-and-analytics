@@ -1,27 +1,21 @@
-trigger: none
-  # branches:
-  #   include: 
-  #   - dev_mpors
-  #   - dev_fbouw
-  #   - dev_nkukhtenko
-  #   - dev_sleshchuk
-  #   - dev_tdorodnova
-  #   - dev/*
-  #   - env/*
-  #   - main
-  #   - qas
-  #   - prod
-  # paths:
-  #   include: 
-  #   - synapse-workspace/*
+# This pipeline is triggered whenever the build pipeline to main, qas or prod is completed
+resources:
+  pipelines:
+  - pipeline: build
+    source: 'Build Synapse Workspace'
+    trigger:
+      branches:
+        include:
+        - main
+        - qas
+        - prod
+        - feature/*
+        - users/*
 
-# variables:
-#   TIA.UserMapFile: $(System.DefaultWorkingDirectory)/synapse-dwh/test-impact-analysis.xml
+trigger: none
 
 extends:
-  template: ../../build/stages-build-deploy.yml
+  template: ../../build/stages-deploy.yml
   parameters:
     folder: synapse-workspace
-    solution: SynapseServerless
-    deploy: true
   
