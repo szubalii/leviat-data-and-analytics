@@ -1,6 +1,6 @@
 CREATE TABLE [edw].[fact_SalesQuotationItemPrcgElmnt] 
 (
-    [fk_SalesDocumentItem] BIGINT
+    [fk_SalesDocumentItem] BIGINT NOT NULL
   , [SalesQuotation] NVARCHAR(10) NOT NULL  
   , [SalesQuotationItem] CHAR(6) NOT NULL  
   , [nk_SalesQuotationItem] NVARCHAR(20) NOT NULL 

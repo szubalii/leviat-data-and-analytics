@@ -1,7 +1,7 @@
 ﻿CREATE VIEW [dm_sales].[vw_fact_SalesOrderItem_filtered] 
 AS
 SELECT    
-     [sk_fact_SaleOrderItem] as [sk_fact_SalesOrderItem_filtered]
+     [sk_fact_SaleOrderItem]
     ,[SalesOrderID]
     ,[SalesOrderItemID]
     ,[nk_fact_SalesDocumentItem]
