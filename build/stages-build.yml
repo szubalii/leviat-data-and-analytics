@@ -6,14 +6,6 @@ parameters:
 - name: variables
   type: boolean
   default: false
-
-trigger:
-  branches:
-    include:
-    - main
-    - qas
-    - prod
-    - feature/*
 # - name: build_azure_data_factory
 #   displayName: Azure Data Factory
 #   type: boolean

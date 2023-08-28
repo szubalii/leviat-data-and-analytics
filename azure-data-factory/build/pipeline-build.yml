@@ -1,11 +1,11 @@
 name: $(SourceBranch)_$(Date:yyyyMMdd).$(Rev:r)
 
 trigger:
-#   branches:
-#     include:
-#     - main
-#     - qas
-#     - prod
+  branches:
+    include:
+    - main
+    - qas
+    - prod
   paths:
     include:
     - '../../azure-data-factory/*'
