@@ -1,9 +1,21 @@
+name: $(Build.DefinitionName)_$(SourceBranch)_$(Date:yyyyMMdd).$(Rev:r)
+
 parameters:
 - name: folder
   type: string
 - name: variables
   type: boolean
   default: false
+
+# trigger:
+#   branches:
+#     include:
+#     - main
+#     - qas
+#     - prod
+#   paths:
+#     include:
+#     - '../../${{ parameters.folder }}/*'
 # - name: build_azure_data_factory
 #   displayName: Azure Data Factory
 #   type: boolean
