@@ -13,6 +13,7 @@ trigger:
     - main
     - qas
     - prod
+    - feature/*
 # - name: build_azure_data_factory
 #   displayName: Azure Data Factory
 #   type: boolean
