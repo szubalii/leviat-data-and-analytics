@@ -1,7 +1,8 @@
 CREATE VIEW [dm_sales].[vw_fact_BillingDocumentItemPrcgElmnt]
 AS
 SELECT
-          [BillingDocument]
+          [sk_fact_BillingDocumentItemPrcgElmnt]
+         ,[BillingDocument]
          ,[BillingDocumentItem]
          ,[nk_BillingDocumentItem]  
          ,[ConditionType]

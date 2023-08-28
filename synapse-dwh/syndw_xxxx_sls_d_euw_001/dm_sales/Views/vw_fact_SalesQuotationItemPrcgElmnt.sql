@@ -1,17 +1,18 @@
 CREATE VIEW [dm_sales].[vw_fact_SalesQuotationItemPrcgElmnt]
 AS
 SELECT
-          [SalesQuotation]
+          [sk_fact_SalesQuotationItemPrcgElmnt]
+         ,[SalesQuotation]
          ,[SalesQuotationItem]
-         ,nk_SalesQuotationItem
+         ,[nk_SalesQuotationItem]
          ,[ConditionType]
-         ,sum([ConditionBaseValue])    AS ConditionBaseValue
-         ,sum([BaseAmountEUR])         AS BaseAmountEUR
-         ,sum([BaseAmountUSD])         AS BaseAmountUSD
-         ,sum([ConditionRateValue])    AS ConditionRateValue
-         ,sum([ConditionAmount])       AS ConditionAmount
-         ,sum([ConditionAmountEUR])    AS ConditionAmountEUR
-         ,sum([ConditionAmountUSD])    AS ConditionAmountUSD
+         ,sum([ConditionBaseValue])    AS [ConditionBaseValue]
+         ,sum([BaseAmountEUR])         AS [BaseAmountEUR]
+         ,sum([BaseAmountUSD])         AS [BaseAmountUSD]
+         ,sum([ConditionRateValue])    AS [ConditionRateValue]
+         ,sum([ConditionAmount])       AS [ConditionAmount]
+         ,sum([ConditionAmountEUR])    AS [ConditionAmountEUR]
+         ,sum([ConditionAmountUSD])    AS [ConditionAmountUSD]
          ,[CurrencyTypeID]
          ,[CurrencyType]
          ,[CurrencyID]
@@ -20,7 +21,7 @@ FROM
 WHERE ([ConditionInactiveReason] IS NULL OR [ConditionInactiveReason] ='')
 GROUP BY  [SalesQuotation]
          ,[SalesQuotationItem]
-         ,nk_SalesQuotationItem
+         ,[nk_SalesQuotationItem]
          ,[ConditionType]
          ,[CurrencyTypeID]
          ,[CurrencyType]
