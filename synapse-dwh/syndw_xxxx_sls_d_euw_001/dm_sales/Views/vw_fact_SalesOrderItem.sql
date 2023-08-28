@@ -2,7 +2,7 @@
 AS
 
 select  
-       doc.[sk_fact_SalesDocumentItem]           as [sk_fact_SalesOrderItem]
+       doc.[sk_fact_SalesDocumentItem]
      , doc.[SalesDocument]                       as [SalesOrderID]
      , doc.[SalesDocumentItem]                   as [SalesOrderItemID]
      , doc.nk_fact_SalesDocumentItem 
