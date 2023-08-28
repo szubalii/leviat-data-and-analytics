@@ -231,7 +231,7 @@ SELECT
   CASE 
     WHEN GLALIRD.[BillingDocumentTypeID] = ''
     THEN 'MA'
-    ELSE edw.svf_getInOutID_s4h (GLALIRD.CustomerID)
+    ELSE edw.svf_getInOutID_EPM (GLALIRD.CustomerID,GLALIRD.ProfitCenterTypeID )
   END                                             AS [InOutID],
   CASE
     WHEN GLALIRD.[BillingDocumentTypeID] = ''
