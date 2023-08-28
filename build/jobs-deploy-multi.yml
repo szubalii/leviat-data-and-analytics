@@ -3,30 +3,23 @@ parameters:
   type: object
   default:
   - name: 'synapse-dwh'
-    deploy: True
-    test: True
   - name: 'orchestration'
-    deploy: True
-    test: False
   - name: 'xu-config'
-    deploy: True
-    test: False
-  - name: 'synapse-workspace'
-    deploy: True
-    test: False
 - name: deployEnvPrefix
   type: string
-
+- name: conditional
+  type: boolean
+  default: false
 
 jobs:
 - ${{ each solution in parameters.solutions }}:
-  # solution.deploy is not an actual boolean (part of parameter.solutions object)
-  # so include additional check if equal to True (string)
-  - ${{ if eq(solution.deploy, True) }}:
-    - template: ./jobs-deploy-solution-helper.yml
-      parameters:
-        folder: ${{ solution.name }}
-        deployEnvPrefix: ${{ parameters.deployEnvPrefix }}
+  - template: ./jobs-deploy-solution.yml
+    parameters:
+      folder: ${{ solution.name }}
+      solution: ${{ upper(replace( solution.name, '-', '_')) }}
+      deployEnvPrefix: ${{ parameters.deployEnvPrefix }}
+      conditional: ${{ parameters.conditional }}
         # solution.test is not an actual boolean (part of parameter.solutions object)
         # so include additional check if equal to True (string)
-        test: ${{ eq(solution.test, True) }}
+        # test: ${{ eq(solution.test, True) }}
+  
