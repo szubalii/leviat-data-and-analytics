@@ -1,7 +1,8 @@
 CREATE VIEW [edw].[vw_SalesQuotationItemPrcgElmnt]
 AS
 SELECT
-    [SalesQuotation] 
+    SDI.[sk_fact_SalesDocumentItem] AS [fk_SalesDocumentItem]
+  , [SalesQuotation] 
   , [SalesQuotationItem] 
   , edw.svf_getNaturalKey (SalesQuotation,SalesQuotationItem,CR.CurrencyTypeID)     AS [nk_SalesQuotationItem]
   , CR.[CurrencyTypeID]

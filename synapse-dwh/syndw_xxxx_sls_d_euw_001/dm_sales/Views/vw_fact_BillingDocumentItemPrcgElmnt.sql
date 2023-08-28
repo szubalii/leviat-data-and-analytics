@@ -1,7 +1,8 @@
 CREATE VIEW [dm_sales].[vw_fact_BillingDocumentItemPrcgElmnt]
 AS
 SELECT
-          [BillingDocument]
+          [fk_BillingDocumentItem]
+         ,[BillingDocument]
          ,[BillingDocumentItem]
          ,[nk_BillingDocumentItem]  
          ,[ConditionType]
@@ -18,8 +19,9 @@ SELECT
 FROM
   [edw].[fact_BillingDocumentItemPrcgElmnt] 
 WHERE [CurrencyTypeID] = '10'
-GROUP BY
-          [BillingDocument]
+GROUP BY  
+          [fk_BillingDocumentItem]
+         ,[BillingDocument]
          ,[BillingDocumentItem]
          ,[nk_BillingDocumentItem]  
          ,[ConditionType]

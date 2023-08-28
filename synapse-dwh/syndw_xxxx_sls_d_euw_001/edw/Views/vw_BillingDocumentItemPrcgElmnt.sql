@@ -1,7 +1,8 @@
 ﻿CREATE VIEW [edw].[vw_BillingDocumentItemPrcgElmnt]
 AS
-SELECT 
-    IBDIPE.[BillingDocument]
+SELECT
+    BDI.[sk_fact_BillingDocumentItem] AS [fk_BillingDocumentItem]
+  , IBDIPE.[BillingDocument]
   , IBDIPE.[BillingDocumentItem]
   , edw.svf_getNaturalKey (IBDIPE.BillingDocument,IBDIPE.BillingDocumentItem,CR.CurrencyTypeID)  AS [nk_BillingDocumentItem]
   , CR.[CurrencyTypeID]
