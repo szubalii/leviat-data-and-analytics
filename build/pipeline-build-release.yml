@@ -1,10 +1,5 @@
 # This pipeline is triggered whenever a PR is completed to any of the following branches:
-trigger:
-  branches:
-    include:
-    - main
-    - qas
-    - prod
+trigger: none
 
 variables:
 # In case of CI triggered pipelines (IndividualCI, triggered by git push),
