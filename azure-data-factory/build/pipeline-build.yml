@@ -1,14 +1,14 @@
 name: $(Build.DefinitionName)_$(SourceBranch)_$(Date:yyyyMMdd).$(Rev:r)
 
-# trigger:
+trigger:
 #   branches:
 #     include:
 #     - main
 #     - qas
 #     - prod
-#   paths:
-#     include:
-#     - '../../azure-data-factory/*'
+  paths:
+    include:
+    - '../../azure-data-factory/*'
 
 extends:
   template: ../../build/stages-build.yml
