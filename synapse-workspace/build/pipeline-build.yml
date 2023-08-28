@@ -8,7 +8,7 @@ trigger:
     - prod
   paths:
     include:
-    - '../../synapse-workspace/*'
+    - synapse-workspace/*
 
 extends:
   template: ../../build/stages-build.yml

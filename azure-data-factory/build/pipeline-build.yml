@@ -8,7 +8,7 @@ trigger:
     - prod
   paths:
     include:
-    - '../../azure-data-factory/*'
+    - azure-data-factory/*
 
 extends:
   template: ../../build/stages-build.yml

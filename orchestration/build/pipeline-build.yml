@@ -8,7 +8,7 @@ trigger:
     - prod
   paths:
     include:
-    - '../../orchestration/*'
+    - orchestration/*
 
 extends:
   template: ../../build/stages-build.yml

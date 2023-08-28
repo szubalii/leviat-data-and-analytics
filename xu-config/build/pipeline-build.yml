@@ -8,7 +8,7 @@ trigger:
     - prod
   paths:
     include:
-    - '../../xu-config/*'
+    - xu-config/*
 
 extends:
   template: ../../build/stages-build.yml
