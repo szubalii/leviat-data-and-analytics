@@ -19,8 +19,9 @@ SELECT
 FROM
   [edw].[fact_BillingDocumentItemPrcgElmnt] 
 WHERE [CurrencyTypeID] = '10'
-GROUP BY
-          [BillingDocument]
+GROUP BY  
+          [sk_fact_BillingDocumentItemPrcgElmnt]
+         ,[BillingDocument]
          ,[BillingDocumentItem]
          ,[nk_BillingDocumentItem]  
          ,[ConditionType]

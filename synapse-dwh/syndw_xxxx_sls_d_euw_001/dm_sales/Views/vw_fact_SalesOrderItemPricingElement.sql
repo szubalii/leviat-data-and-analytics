@@ -18,8 +18,9 @@ SELECT
          ,[CurrencyID]
 FROM
   [edw].[fact_SalesOrderItemPricingElement]
-GROUP BY 
-          [SalesOrder]
+GROUP BY
+          [sk_fact_SalesOrderItemPricingElement]
+         ,[SalesOrder]
          ,[SalesOrderItem]
          ,[nk_SalesOrderItem]
          ,[ConditionType]

@@ -1,6 +1,6 @@
 CREATE TABLE [edw].[fact_SalesOrderItemPricingElement] 
 (   
-    [sk_fact_SalesOrderItemPricingElement] INT NOT NULL
+    [sk_fact_SalesOrderItemPricingElement] INT
   , [SalesOrder] NVARCHAR(10) NOT NULL  
   , [SalesOrderItem] CHAR(6) NOT NULL  
   , [nk_SalesOrderItem] NVARCHAR(20) NOT NULL 

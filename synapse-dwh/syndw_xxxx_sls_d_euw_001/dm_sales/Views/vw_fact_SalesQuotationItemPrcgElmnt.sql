@@ -19,7 +19,9 @@ SELECT
 FROM
    [edw].[fact_SalesQuotationItemPrcgElmnt] 
 WHERE ([ConditionInactiveReason] IS NULL OR [ConditionInactiveReason] ='')
-GROUP BY  [SalesQuotation]
+GROUP BY  
+          [sk_fact_SalesQuotationItemPrcgElmnt]
+         ,[SalesQuotation]
          ,[SalesQuotationItem]
          ,[nk_SalesQuotationItem]
          ,[ConditionType]
