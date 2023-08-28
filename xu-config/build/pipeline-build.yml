@@ -1,3 +1,5 @@
+name: $(SourceBranch)_$(Date:yyyyMMdd).$(Rev:r)
+
 trigger:
   branches:
     include:

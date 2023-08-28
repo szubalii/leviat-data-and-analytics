@@ -28,19 +28,6 @@ variables:
     value: $(Build.SourceVersion)
 
 stages:
-# - stage: UPDATE_BUILD_ID
-#   jobs:
-#   - job: Vars
-#     steps:
-#     - checkout: none
-#     - task: PowerShell@2
-#       displayName: Set the name of the build (i.e. the Build.BuildNumber)
-#       inputs:
-#         targetType: 'inline'
-#         script: |
-#           [string] $buildName = "$(resources.pipeline.build.sourceBranch)_$(Date:yyyyMMdd).$(Rev:r)"
-#           Write-Host "Setting the name of the build to '$buildName'."
-#           Write-Host "##vso[build.updatebuildnumber]$buildName"
 - stage: DEPLOY
   jobs:
   - template: ./jobs-deploy-solution.yml
