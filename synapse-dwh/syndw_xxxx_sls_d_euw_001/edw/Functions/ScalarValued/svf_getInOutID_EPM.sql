@@ -9,7 +9,7 @@ BEGIN
     SET @InOutID =
             CASE WHEN @ProfitCenterTypeID = '3' AND @CustomerID LIKE '005%'  THEN 'IC_Lev'
                  WHEN @CustomerID LIKE 'IP%' OR @CustomerID LIKE 'IC__35%' THEN 'IC_Lev'
-                 WHEN @CustomerID LIKE 'IC__[^3][^5]%' THEN 'IC_CRH'
+                 WHEN @CustomerID LIKE 'IC__[^3]%' THEN 'IC_CRH'
                  WHEN @CustomerID LIKE '005%' THEN 'OC'
                  WHEN @CustomerID IS NULL OR  @CustomerID = '' THEN
                     CASE WHEN @ProfitCenterTypeID = '2' THEN 'OC'
