@@ -1,12 +1,16 @@
 CREATE VIEW [edw].[vw_Budget_EPM]
 AS
 SELECT
-      [CompanyCode]        
+      [CompanyCodeID]        
     , [ExQLReportingEntity]
     , CONCAT(CompanyCode,'_',ExQLReportingEntity)                   AS [ReportingEntityID]
     , CR.[CurrencyTypeID]  
     , CR.[CurrencyType] 
-    , [LocalCurrency]      
+    , CASE 
+            WHEN CCR.[CurrencyTypeID] = '10'
+                THEN [LocalCurrencyID] COLLATE DATABASE_DEFAULT
+            ELSE CCR.[TargetCurrency]  
+      END                                                           AS [CurrencyID]      
     , [Date]               
     , [InOutID]            
     , CONVERT(decimal(19,6),[ReportedRevenue] * CCR.[ExchangeRate]) AS [3_ReportedRevenue]
@@ -14,7 +18,7 @@ SELECT
 FROM [base_ff].[Budget_EPM] Budget
 LEFT JOIN [edw].[vw_CurrencyConversionRate] CCR
     ON 
-    Budget.[LocalCurrency] = CCR.[SourceCurrency] COLLATE DATABASE_DEFAULT 
+    Budget.[LocalCurrencyID] = CCR.[SourceCurrency] COLLATE DATABASE_DEFAULT 
 LEFT JOIN [edw].[dim_CurrencyType] CR
     ON 
     CCR.CurrencyTypeID = CR.CurrencyTypeID

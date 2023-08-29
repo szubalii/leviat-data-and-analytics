@@ -1,7 +1,7 @@
 CREATE TABLE base_ff.Budget_EPM (
-	[CompanyCode]                   NVARCHAR(4),
+	[CompanyCodeID]                 NVARCHAR(4),
     [ExQLReportingEntity]           NVARCHAR(20),
-    [LocalCurrency]                 NVARCHAR(3),
+    [LocalCurrencyID]               NVARCHAR(3),
     [Date]                          DATE,
     [InOutID]                       NVARCHAR(6),
     [ReportedRevenue]               DECIMAL(15, 5),

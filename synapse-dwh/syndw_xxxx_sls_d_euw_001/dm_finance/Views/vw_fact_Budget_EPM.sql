@@ -1,12 +1,12 @@
 CREATE VIEW [dm_finance].[vw_fact_Budget_EPM]
 AS
 SELECT
-      [CompanyCode]        
+      [CompanyCodeID]        
     , [ExQLReportingEntity]
     , [ReportingEntityID]
     , [CurrencyTypeID]  
     , [CurrencyType] 
-    , [LocalCurrency]      
+    , [CurrencyID]      
     , [Date]               
     , [InOutID]            
     , [3_ReportedRevenue]

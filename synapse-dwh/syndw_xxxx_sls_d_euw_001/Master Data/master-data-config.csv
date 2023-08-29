@@ -37,4 +37,4 @@ map_AXBI;SAPCustomerBasicMappingTable.csv;";";map_AXBI;SAPCustomerBasicMappingTa
 ;CountryRegion.csv;";";base_ff;CountryRegion
 ;Region.csv;";";base_ff;Region
 ;CompanyCode.csv;";";base_ff;CompanyCode
-;Budget.csv;";";base_ff;Budget_EPM
+;Budget_EPM.csv;";";base_ff;Budget_EPM

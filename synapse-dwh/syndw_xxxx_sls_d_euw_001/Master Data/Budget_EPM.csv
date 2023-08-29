@@ -1,4 +1,4 @@
-CompanyCode;ExQLReportingEntity;LocalCurrency;Date;InOutID;ReportedRevenue
+CompanyCodeID;ExQLReportingEntity;LocalCurrencyID;Date;InOutID;ReportedRevenue
 DE35;Operations;EUR;2023-01-31;OC;12.88700
 DE35;Sales Int;EUR;2023-01-31;OC;276.84000
 DE35;Sales Dom;EUR;2023-01-31;OC;5662.00000

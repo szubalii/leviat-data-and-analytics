@@ -7,13 +7,13 @@ AS
 BEGIN
     DECLARE @InOutID AS NVARCHAR(6)
     SET @InOutID =
-            CASE WHEN @ProfitCenterTypeID = '3' AND @CustomerID LIKE '005%'  THEN 'IC_LEV'
-                 WHEN @CustomerID LIKE 'IP%' OR @CustomerID LIKE 'IC__35%' THEN 'IC_LEV'
+            CASE WHEN @ProfitCenterTypeID = '3' AND @CustomerID LIKE '005%'  THEN 'IC_Lev'
+                 WHEN @CustomerID LIKE 'IP%' OR @CustomerID LIKE 'IC__35%' THEN 'IC_Lev'
                  WHEN @CustomerID LIKE 'IC__[^3][^5]%' THEN 'IC_CRH'
                  WHEN @CustomerID LIKE '005%' THEN 'OC'
                  WHEN @CustomerID IS NULL OR  @CustomerID = '' THEN
                     CASE WHEN @ProfitCenterTypeID = '2' THEN 'OC'
-                         WHEN @ProfitCenterTypeID = '3' THEN 'IC_LEV'
+                         WHEN @ProfitCenterTypeID = '3' THEN 'IC_Lev'
                          ELSE 'MA'
                     END
                  ELSE 'MA'
