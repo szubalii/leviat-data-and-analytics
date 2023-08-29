@@ -14,9 +14,9 @@ BEGIN
                  WHEN @CustomerID IS NULL OR  @CustomerID = '' THEN
                     CASE WHEN @ProfitCenterTypeID = '2' THEN 'OC'
                          WHEN @ProfitCenterTypeID = '3' THEN 'IC_LEV'
-                         ELSE ''
+                         ELSE 'MA'
                     END
-                 ELSE ''
+                 ELSE 'MA'
              END 
 
     RETURN @InOutID
