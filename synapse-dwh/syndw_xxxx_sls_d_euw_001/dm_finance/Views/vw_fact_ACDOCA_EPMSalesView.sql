@@ -148,6 +148,7 @@ SELECT
   SalesReferenceDocumentItemCalculated,
   SalesDocumentItemCategoryID,
   HigherLevelItem,
+  '10' AS ValueTypeID,
   [t_applicationId],
   [t_extractionDtm]
 FROM

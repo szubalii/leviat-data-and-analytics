@@ -327,6 +327,7 @@
     <Build Include="base_ff\Tables\CountryRegion.sql" />
     <Build Include="base_ff\Tables\Region.sql" />
     <Build Include="base_ff\Tables\CompanyCode.sql" />
+    <Build Include="base_ff\Tables\Budget_EPM.sql" />
 
     <Build Include="base_ff_USA\Tables\Budget.sql" />
     <Build Include="base_ff_USA\Tables\DummyMaterial.sql" />
@@ -983,7 +984,8 @@
     <Build Include="edw\Functions\ScalarValued\svf_getBooleanIndicator.sql" />
     <Build Include="edw\Functions\ScalarValued\svf_getSalesDoc.sql" />
     <Build Include="edw\Functions\ScalarValued\svf_getSalesDocItem.sql" />
-    <Build Include="edw\Functions\ScalarValued\svf_getSAPHierarchyNode.sql" />    
+    <Build Include="edw\Functions\ScalarValued\svf_getSAPHierarchyNode.sql" />  
+    <Build Include="edw\Functions\ScalarValued\svf_getInOutID_EPM.sql" />   
     
     <Build Include="utilities\Functions\Scalar-valued Functions\svf_get_file_path.sql" />
 
@@ -1232,6 +1234,8 @@
     <Build Include="dm_finance\Views\vw_dim_ZE_EXQLMAP_DT.sql" />
     <Build Include="dm_finance\Views\vw_fact_ACDOCA_FinStatemntSalesMargin.sql" />
     <Build Include="dm_finance\Views\vw_fact_ACDOCA_EPMSalesView_CH_AT.sql" />
+    <Build Include="dm_finance\Views\vw_dim_ValueType.sql" />
+    <Build Include="dm_finance\Views\vw_fact_Budget_EPM.sql" />
 
     <Build Include="dm_sales\Views\vw_dim_Customer.sql" />
     <Build Include="dm_sales\Views\vw_fact_BillingDocumentItem.sql" />
