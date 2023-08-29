@@ -4,7 +4,7 @@ CREATE TABLE base_ff.Budget_EPM (
     [LocalCurrency]                 NVARCHAR(3),
     [Date]                          DATE,
     [InOutID]                       NVARCHAR(6),
-    [ReportedRevenue]             DECIMAL(15, 5),
+    [ReportedRevenue]               DECIMAL(15, 5),
     [t_applicationId] [varchar](32) NULL,
 	[t_jobId] [varchar](36) NULL,
 	[t_jobDtm] [datetime] NULL,

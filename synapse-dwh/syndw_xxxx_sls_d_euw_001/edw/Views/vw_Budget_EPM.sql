@@ -10,7 +10,7 @@ SELECT
     , [Date]               
     , [InOutID]            
     , CONVERT(decimal(19,6),[ReportedRevenue] * CCR.[ExchangeRate]) AS [3_ReportedRevenue]
-    , '20'                                        AS [ValueTypeID]
+    , '20'                                                          AS [ValueTypeID]
 FROM [base_ff].[Budget_EPM] Budget
 LEFT JOIN [edw].[vw_CurrencyConversionRate] CCR
     ON 
