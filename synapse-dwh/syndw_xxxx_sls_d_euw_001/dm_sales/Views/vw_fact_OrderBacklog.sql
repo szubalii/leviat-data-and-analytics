@@ -102,6 +102,7 @@ SELECT
     , OBDI.ActualDeliveryQuantity
     , IL.ScheduleLine                                                   AS IncompletionScheduleLine
     , IL.FieldName
+    , IL.FieldDescription
     , CASE
         WHEN IL.SDDocument IS NULL
             THEN 'No'
