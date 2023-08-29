@@ -3,7 +3,7 @@ AS
 SELECT
       [CompanyCodeID]        
     , [ExQLReportingEntity]
-    , CONCAT(CompanyCode,'_',ExQLReportingEntity)                   AS [ReportingEntityID]
+    , CONCAT(CompanyCodeID,'_',ExQLReportingEntity)                   AS [ReportingEntityID]
     , CR.[CurrencyTypeID]  
     , CR.[CurrencyType] 
     , CASE 
