@@ -79,4 +79,4 @@ stages:
     parameters:
       folder: ${{ parameters.folder }}
       solution: ${{ upper(replace( parameters.folder, '-', '_')) }}
-      deployEnvPrefix: $[ variables.deployEnvPrefix ]
+      deployEnvPrefix: $[ variables['deployEnvPrefix'] ]
