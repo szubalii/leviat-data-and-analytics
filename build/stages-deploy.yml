@@ -59,8 +59,10 @@ variables:
       value: $(Build.SourceVersion)
 
 
-- name: deployEnvPrefix
-  value: 30_DEV_MPORS
+- name: deployment_job_name
+  value: $[ format('DEPLOY_{0}_TO_{1}', ${{ upper(replace( parameters.folder, '-', '_')) }}, variables['deployEnvPrefix'] ) ]
+- name: environment_name
+  value: $[ format('{0}_{1}', variables['deployEnvPrefix'], ${{ upper(replace( parameters.folder, '-', '_')) }} ) ]
 
 stages:
 - stage: VARIABLES
@@ -76,6 +78,9 @@ stages:
         echo storageAccountName: $(storageAccountName)
         echo xuPrefix: $(xuPrefix)
         echo destination: $(destination)
+        echo deployment_job_name: $(deployment_job_name)
+        echo environment_name: $(environment_name)
+
 - stage: DEPLOY
   jobs:
   # - template: ./jobs-deploy-solution.yml
@@ -83,7 +88,7 @@ stages:
   #     folder: ${{ parameters.folder }}
   #     solution: ${{ upper(replace( parameters.folder, '-', '_')) }}
   #     deployEnvPrefix: $[ variables['deployEnvPrefix'] ]
-  - deployment: $[ format('DEPLOY_{0}_TO_{1}', ${{ upper(replace( parameters.folder, '-', '_')) }}, variables['deployEnvPrefix'] ) ]
+  - deployment: $(deployment_job_name)
     # ${{ if parameters.conditional }}:
     #   condition: eq(stageDependencies.CHECK_SOLUTIONS_DEPLOYMENT.CheckSolutionsDeployment.outputs['SetVariables.deploy_${{ parameters.solution }}'], 'true')
     timeoutInMinutes: 120
@@ -94,7 +99,7 @@ stages:
       - VisualStudio
       - Python.Version
       - Agent.ComputerName -equals $(VMName)
-    environment: $[ format('{0}_{1}', variables['deployEnvPrefix'], ${{ upper(replace( parameters.folder, '-', '_')) }} ) ]
+    environment: $(environment_name)
     workspace:
     # set clean to all when deploying xu-config
       ${{ if eq(parameters.folder, 'xu-config') }}: 
