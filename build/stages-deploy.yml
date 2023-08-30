@@ -64,11 +64,13 @@ stages:
   jobs:
   - job: vars
     steps:
-    - script: echo $(user)
-- stage: DEPLOY
-  jobs:
-  - template: ./jobs-deploy-solution.yml
-    parameters:
-      folder: ${{ parameters.folder }}
-      solution: ${{ upper(replace( parameters.folder, '-', '_')) }}
-      deployEnvPrefix: ${{ variables.deployEnvPrefix }}
+    - script: 
+        echo $(user)
+        echo $(deployEnvPrefix)
+# - stage: DEPLOY
+#   jobs:
+#   - template: ./jobs-deploy-solution.yml
+#     parameters:
+#       folder: ${{ parameters.folder }}
+#       solution: ${{ upper(replace( parameters.folder, '-', '_')) }}
+#       deployEnvPrefix: ${{ variables.deployEnvPrefix }}
