@@ -1,6 +1,15 @@
 parameters:
 - name: folder
   type: string
+- name: target_env
+  displayName: Target Environment
+  type: string
+  values:
+    - pers
+    - test
+    - qas
+    - prod
+  default: pers
 
 variables:
 
