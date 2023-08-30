@@ -75,8 +75,29 @@ stages:
         echo destination: $(destination)
 - stage: DEPLOY
   jobs:
-  - template: ./jobs-deploy-solution.yml
-    parameters:
-      folder: ${{ parameters.folder }}
-      solution: ${{ upper(replace( parameters.folder, '-', '_')) }}
-      deployEnvPrefix: $[ variables['deployEnvPrefix'] ]
+  # - template: ./jobs-deploy-solution.yml
+  #   parameters:
+  #     folder: ${{ parameters.folder }}
+  #     solution: ${{ upper(replace( parameters.folder, '-', '_')) }}
+  #     deployEnvPrefix: $[ variables['deployEnvPrefix'] ]
+  - deployment: $[ format('DEPLOY_{0}_TO_{1}', ${{ upper(replace( parameters.folder, '-', '_')) }}, variables['deployEnvPrefix'] ) ]
+    # ${{ if parameters.conditional }}:
+    #   condition: eq(stageDependencies.CHECK_SOLUTIONS_DEPLOYMENT.CheckSolutionsDeployment.outputs['SetVariables.deploy_${{ parameters.solution }}'], 'true')
+    timeoutInMinutes: 120
+    pool:
+      name: 'VM'
+      demands:
+      - node.js
+      - VisualStudio
+      - Python.Version
+      - Agent.ComputerName -equals $(VMName)
+    environment: $[ format('{0}_{1}', ${{ parameters.deployEnvPrefix }}, ${{ upper(replace( parameters.folder, '-', '_')) }} ) ]
+    workspace:
+    # set clean to all when deploying xu-config
+      ${{ if eq(parameters.folder, 'xu-config') }}: 
+        clean: all
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - template: ../${{ parameters.folder }}/build/steps-deploy.yml
