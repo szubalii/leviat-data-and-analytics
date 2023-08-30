@@ -1,4 +1,6 @@
--- Write your own SQL object definition here, and it'll be included in your package.
+-- Checks if a specific batch activity for a delta entity is required
+-- 1 means it is required
+-- 0 means it is not required
 CREATE FUNCTION [dbo].[svf_get_isRequired_delta_batch_activity](
   @file_name VARCHAR (250),
   @firstFailedFile VARCHAR (250),

@@ -212,7 +212,7 @@ GO
 -- END;
 -- GO
 
-CREATE PROCEDURE [ScalarValuedFunction].[test svf_get_adls_directory_path]
+CREATE PROCEDURE [ScalarValuedFunction].[test svf_get_adls_directory_path returns correct output]
 AS
 BEGIN  
   -- Act: 
@@ -226,7 +226,7 @@ END;
 GO
 
 
-CREATE PROCEDURE [ScalarValuedFunction].[test svf_get_triggerDate]
+CREATE PROCEDURE [ScalarValuedFunction].[test svf_get_triggerDate returns correct output]
 AS
 BEGIN  
   -- Act: 

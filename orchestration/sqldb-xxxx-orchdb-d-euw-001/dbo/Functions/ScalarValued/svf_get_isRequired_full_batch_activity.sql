@@ -1,6 +1,8 @@
 /*
   Returns if an activity needs to rerun based on if the provided activity
   is later than the first failed activity or there is no failed activity
+  1 means it is required
+  0 means it is not required
 */
 CREATE FUNCTION [dbo].[svf_get_isRequired_full_batch_activity](
   @activity_order SMALLINT,

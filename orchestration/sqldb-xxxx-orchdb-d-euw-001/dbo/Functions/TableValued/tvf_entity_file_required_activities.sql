@@ -1,5 +1,5 @@
 /*
-  Returns only those entity files for which 
+  Returns only those entity files for which
   required activities exist
 */
 CREATE FUNCTION [dbo].[tvf_entity_file_required_activities](

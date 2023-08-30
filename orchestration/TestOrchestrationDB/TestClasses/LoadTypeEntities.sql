@@ -2,7 +2,7 @@
 EXEC tSQLt.NewTestClass 'LoadTypeEntities';
 GO
 
-CREATE PROCEDURE [LoadTypeEntities].[test vw_full_load_entities]
+CREATE PROCEDURE [LoadTypeEntities].[test vw_full_load_entities contains full load entities only]
 AS
 BEGIN
 
@@ -14,9 +14,9 @@ BEGIN
   EXEC tSQLt.FakeTable '[dbo]', '[location]';
 
   INSERT INTO dbo.entity (entity_id, entity_name, layer_id, update_mode)
-  VALUES (1, 'full', 6, 'Full');
-  INSERT INTO dbo.entity (entity_id, entity_name, layer_id, update_mode)
-  VALUES (2, 'delta', 6, 'Delta');
+  VALUES
+    (1, 'full', 6, 'Full'),
+    (2, 'delta', 6, 'Delta');
   INSERT INTO dbo.entity (entity_id, entity_name, layer_id, update_mode)
   VALUES (3, 'null', 6, NULL);
   INSERT INTO dbo.layer (layer_id, layer_nk, location_id)
@@ -42,7 +42,7 @@ BEGIN
 END;
 GO
 
-CREATE PROCEDURE [LoadTypeEntities].[test vw_delta_load_entities]
+CREATE PROCEDURE [LoadTypeEntities].[test vw_delta_load_entities contains delta load entities only]
 AS
 BEGIN
 
@@ -54,11 +54,10 @@ BEGIN
   EXEC tSQLt.FakeTable '[dbo]', '[location]';
 
   INSERT INTO dbo.entity (entity_id, entity_name, layer_id, update_mode)
-  VALUES (1, 'full', 6, 'Full');
-  INSERT INTO dbo.entity (entity_id, entity_name, layer_id, update_mode)
-  VALUES (2, 'delta', 6, 'Delta');
-  INSERT INTO dbo.entity (entity_id, entity_name, layer_id, update_mode)
-  VALUES (3, 'null', 6, NULL);
+  VALUES
+    (1, 'full', 6, 'Full'),
+    (2, 'delta', 6, 'Delta'),
+    (3, 'null', 6, NULL);
   INSERT INTO dbo.layer (layer_id, layer_nk, location_id)
   VALUES (6, 'S4H', 1);
   INSERT INTO dbo.location (location_id, location_nk)

@@ -424,7 +424,7 @@ END;
 GO
 
 
-CREATE PROCEDURE [EntityFile].[test tvf_entity_file_activity_isRequired: output]
+CREATE PROCEDURE [EntityFile].[test tvf_entity_file_activity_isRequired: output field value]
 AS
 BEGIN
 
@@ -573,7 +573,7 @@ CREATE FUNCTION EntityFile.Fake_tvf_entity_file_required_activity_requirements (
     );
 GO
 
-CREATE PROCEDURE [EntityFile].[test tvf_entity_file_required_activities]
+CREATE PROCEDURE [EntityFile].[test tvf_entity_file_required_activities returning entities with required activities only]
 AS
 BEGIN
 
