@@ -60,13 +60,19 @@ variables:
       value: $(Build.SourceVersion)
 
 stages:
-- stage: Vars
+- stage: VARIABLES
   jobs:
-  - job: vars
+  - job: Vars
     steps:
-    - script: 
-        echo $(user)
-        echo $(deployEnvPrefix)
+    - checkout: none
+    - script: |
+        echo user: $(user)
+        echo dataFactoryName: $(dataFactoryName)
+        echo sqlDatabaseName: $(sqlDatabaseName)
+        echo synapseSqlPool: $(synapseSqlPool)
+        echo storageAccountName: $(storageAccountName)
+        echo xuPrefix: $(xuPrefix)
+        echo destination: $(destination)
 - stage: DEPLOY
   jobs:
   - template: ./jobs-deploy-solution.yml
