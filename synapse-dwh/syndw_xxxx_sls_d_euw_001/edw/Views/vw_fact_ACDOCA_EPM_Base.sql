@@ -228,11 +228,8 @@ SELECT
     THEN 'MA'
     ELSE DimBrand.Brand
   END                                                 AS [Brand],
-  CASE 
-    WHEN GLALIRD.[BillingDocumentTypeID] = ''
-    THEN 'MA'
-    ELSE edw.svf_getInOutID_EPM (GLALIRD.CustomerID,GLALIRD.ProfitCenterTypeID )
-  END                                             AS [InOutID],
+  edw.svf_getInOutID_EPM (GLALIRD.CustomerID,GLALIRD.ProfitCenterTypeID )
+                                                      AS [InOutID],
   CASE
     WHEN GLALIRD.[BillingDocumentTypeID] = ''
     AND COALESCE (CSA.[CustomerGroup], '') = ''
