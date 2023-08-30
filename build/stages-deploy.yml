@@ -91,7 +91,7 @@ stages:
       - VisualStudio
       - Python.Version
       - Agent.ComputerName -equals $(VMName)
-    environment: $[ format('{0}_{1}', ${{ parameters.deployEnvPrefix }}, ${{ upper(replace( parameters.folder, '-', '_')) }} ) ]
+    environment: $[ format('{0}_{1}', variables.deployEnvPrefix, ${{ upper(replace( parameters.folder, '-', '_')) }} ) ]
     workspace:
     # set clean to all when deploying xu-config
       ${{ if eq(parameters.folder, 'xu-config') }}: 
