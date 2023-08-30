@@ -100,14 +100,6 @@ SELECT
     , SDSL.ConfirmedDeliveryDate                                        AS SchLineConfirmedDeliveryDate
     , doc_delivery.RequestedDeliveryDate                                AS RequestedDeliveryDate_Added
     , OBDI.ActualDeliveryQuantity
-    , IL.ScheduleLine                                                   AS IncompletionScheduleLine
-    , IL.FieldName
-    , IL.FieldDescription
-    , CASE
-        WHEN IL.SDDocument IS NULL
-            THEN 'No'
-        ELSE 'Yes'
-      END                               AS IsIncomplete
 
 FROM [base_s4h_cax].[C_SalesDocumentItemDEX] doc
 
@@ -156,9 +148,5 @@ LEFT JOIN doc_delivery
     ON doc.SalesDocument = doc_delivery.SalesDocumentID
         AND doc.SalesDocumentItem = doc_delivery.SalesDocumentItem 
         AND SDSL.IsConfirmedDelivSchedLine = 'X'
-
-LEFT JOIN [edw].[dim_SDDocumentIncompletionLog] IL
-    ON doc.SalesDocument = IL.SDDocument    COLLATE DATABASE_DEFAULT
-        AND doc.SalesDocumentItem = IL.SDDocumentItem   COLLATE DATABASE_DEFAULT
 
 WHERE doc.SDDocumentCategory = 'C'
