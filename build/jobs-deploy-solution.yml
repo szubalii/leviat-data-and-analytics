@@ -23,7 +23,7 @@ jobs:
 #       echo var: $(deploy_xu)
 #       echo var: $(deploy_generic)
       
-- deployment: ${{ format('DEPLOY_{0}_TO_{1}', parameters.solution, parameters.deployEnvPrefix) }}
+- deployment: $[ format('DEPLOY_{0}_TO_{1}', parameters.solution, parameters.deployEnvPrefix) ]
   # ${{ if parameters.conditional }}:
   #   condition: eq(stageDependencies.CHECK_SOLUTIONS_DEPLOYMENT.CheckSolutionsDeployment.outputs['SetVariables.deploy_${{ parameters.solution }}'], 'true')
   timeoutInMinutes: 120
@@ -34,7 +34,7 @@ jobs:
     - VisualStudio
     - Python.Version
     - Agent.ComputerName -equals $(VMName)
-  environment: ${{ format('{0}_{1}', parameters.deployEnvPrefix, parameters.solution) }}
+  environment: $[ format('{0}_{1}', parameters.deployEnvPrefix, parameters.solution) ]
   workspace:
   # set clean to all when deploying xu-config
     ${{ if eq(parameters.folder, 'xu-config') }}: 
