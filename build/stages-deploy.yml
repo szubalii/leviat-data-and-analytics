@@ -59,7 +59,7 @@ variables:
       value: $(Build.SourceVersion)
 
 - name: solution
-  value: $[ upper(replace( ${{ parameters.folder }}, '-', '_')) ]
+  value: $[ upper(replace( '${{ parameters.folder }}', '-', '_')) ]
 - name: deployment_job_name
   value: $[ format('DEPLOY_{0}_TO_{1}', $(solution), variables['deployEnvPrefix'] ) ]
 - name: environment_name
