@@ -3,31 +3,60 @@ parameters:
   type: string
 
 variables:
+
 # In case of CI triggered pipelines (IndividualCI, triggered by git push),
 # use the system predefined variable Build.SourceBranchName to get the correct variable template
-- ${{ if eq(variables['Build.SourceBranchName'], 'main') }}:
-  - template: ./variables-test.yml
-  - name: deployEnvPrefix # override value to map main branch to TEST deployment environment
-    value: '20_TEST'
-- ${{ elseif eq(variables['Build.SourceBranchName'], 'qas') }}:
-  - template: ./variables-qas.yml
-  - name: deployEnvPrefix # override value to map main branch to TEST deployment environment
-    value: '10_QAS'
-- ${{ elseif eq(variables['Build.SourceBranchName'], 'prod') }}:
-  - template: ./variables-prod.yml
-  - name: deployEnvPrefix # override value to map main branch to TEST deployment environment
-    value: '00_PROD'
-# Get the personal variables template, user and deployment environment based on the source branch name. 
-- ${{ elseif or(contains(variables['Build.SourceBranch'], '/feature/'), contains(variables['Build.SourceBranch'], '/users/')) }}:
-  - template: ./variables-personal.yml
-  - name: user
-    value: ${{ split(variables['Build.SourceBranch'], '/')[3] }} #refs/heads/feature/mpors/...
-  - name: deployEnvPrefix # override value to map main branch to DEV deployment environment
-    value: ${{ format('30_DEV_{0}', upper(variables.user)) }}
-  - name: commitId
-    value: $(Build.SourceVersion)
+- ${{ if eq(variables['Build.Reason'], 'ResourceTrigger) }}:
+  - ${{ if eq(variables['Build.SourceBranchName'], 'main') }}:
+    - template: ./variables-test.yml
+    - name: deployEnvPrefix # override value to map main branch to TEST deployment environment
+      value: '20_TEST'
+  - ${{ elseif eq(variables['Build.SourceBranchName'], 'qas') }}:
+    - template: ./variables-qas.yml
+    - name: deployEnvPrefix # override value to map main branch to TEST deployment environment
+      value: '10_QAS'
+  - ${{ elseif eq(variables['Build.SourceBranchName'], 'prod') }}:
+    - template: ./variables-prod.yml
+    - name: deployEnvPrefix # override value to map main branch to TEST deployment environment
+      value: '00_PROD'
+  # Get the personal variables template, user and deployment environment based on the source branch name. 
+  - ${{ elseif or(contains(variables['Build.SourceBranch'], '/feature/'), contains(variables['Build.SourceBranch'], '/users/')) }}:
+    - template: ./variables-personal.yml
+    - name: user
+      value: ${{ split(variables['Build.SourceBranch'], '/')[3] }} #refs/heads/feature/mpors/...
+    - name: deployEnvPrefix # override value to map main branch to DEV deployment environment
+      value: ${{ format('30_DEV_{0}', upper(variables.user)) }}
+    - name: commitId
+      value: $(Build.SourceVersion)
+- ${{ elseif eq(variables['Build.Reason'], 'Manual) }}:
+  - ${{ if eq(parameters.target_env, 'test') }}:
+    - template: ./variables-test.yml
+    - name: deployEnvPrefix # override value to map main branch to TEST deployment environment
+      value: '20_TEST'
+  - ${{ elseif eq(parameters.target_env, 'qas') }}:
+    - template: ./variables-qas.yml
+    - name: deployEnvPrefix # override value to map main branch to TEST deployment environment
+      value: '10_QAS'
+  - ${{ elseif eq(parameters.target_env, 'prod') }}:
+    - template: ./variables-prod.yml
+    - name: deployEnvPrefix # override value to map main branch to TEST deployment environment
+      value: '00_PROD'
+  # Get the personal variables template, user and deployment environment based on the source branch name. 
+  - ${{ elseif eq(parameters.target_env, 'pers') }}:
+    - template: ./variables-personal.yml
+    - name: user
+      value: ${{ replace(split(variables['Build.RequestedForEmail'], '@')[0], 'adm_', '' }} #adm_mpors@crhemea.onmicrosoft.com
+    - name: deployEnvPrefix # override value to map main branch to DEV deployment environment
+      value: ${{ format('30_DEV_{0}', upper(variables.user)) }}
+    - name: commitId
+      value: $(Build.SourceVersion)
 
 stages:
+- stage: Vars
+  jobs:
+  - job: vars
+    steps:
+    - script: echo $(user)
 - stage: DEPLOY
   jobs:
   - template: ./jobs-deploy-solution.yml
