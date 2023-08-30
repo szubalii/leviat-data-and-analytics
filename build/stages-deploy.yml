@@ -11,7 +11,6 @@ parameters:
   default: pers
 
 variables:
-
 # In case of CI triggered pipelines (IndividualCI, triggered by git push),
 # use the system predefined variable Build.SourceBranchName to get the correct variable template
 - ${{ if eq(variables['Build.Reason'], 'ResourceTrigger') }}:
@@ -58,6 +57,10 @@ variables:
       value: $[ format('30_DEV_{0}', upper(variables['user'])) ]
     - name: commitId
       value: $(Build.SourceVersion)
+
+
+- name: deployEnvPrefix
+  value: 30_DEV_MPORS
 
 stages:
 - stage: VARIABLES
