@@ -6,7 +6,7 @@ variables:
 
 # In case of CI triggered pipelines (IndividualCI, triggered by git push),
 # use the system predefined variable Build.SourceBranchName to get the correct variable template
-- ${{ if eq(variables['Build.Reason'], 'ResourceTrigger) }}:
+- ${{ if eq(variables['Build.Reason'], 'ResourceTrigger') }}:
   - ${{ if eq(variables['Build.SourceBranchName'], 'main') }}:
     - template: ./variables-test.yml
     - name: deployEnvPrefix # override value to map main branch to TEST deployment environment
@@ -28,7 +28,7 @@ variables:
       value: ${{ format('30_DEV_{0}', upper(variables.user)) }}
     - name: commitId
       value: $(Build.SourceVersion)
-- ${{ elseif eq(variables['Build.Reason'], 'Manual) }}:
+- ${{ elseif eq(variables['Build.Reason'], 'Manual') }}:
   - ${{ if eq(parameters.target_env, 'test') }}:
     - template: ./variables-test.yml
     - name: deployEnvPrefix # override value to map main branch to TEST deployment environment
