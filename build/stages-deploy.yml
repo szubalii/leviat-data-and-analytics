@@ -61,9 +61,9 @@ variables:
 - name: solution
   value: $[ upper(replace( '${{ parameters.folder }}', '-', '_')) ]
 - name: deployment_job_name
-  value: $[ format('DEPLOY_{0}_TO_{1}', $(solution), variables['deployEnvPrefix'] ) ]
+  value: $[ format('DEPLOY_{0}_TO_{1}', variables['solution'], variables['deployEnvPrefix'] ) ]
 - name: environment_name
-  value: $[ format('{0}_{1}', variables['deployEnvPrefix'], $(solution) ) ]
+  value: $[ format('{0}_{1}', variables['deployEnvPrefix'], variables['solution'] ) ]
 
 stages:
 - stage: VARIABLES
