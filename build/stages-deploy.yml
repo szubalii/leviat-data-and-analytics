@@ -58,11 +58,12 @@ variables:
     - name: commitId
       value: $(Build.SourceVersion)
 
-
+- name: solution
+  value: $[ upper(replace( ${{ parameters.folder }}, '-', '_')) ]
 - name: deployment_job_name
-  value: $[ format('DEPLOY_{0}_TO_{1}', ${{ upper(replace( parameters.folder, '-', '_')) }}, variables['deployEnvPrefix'] ) ]
+  value: $[ format('DEPLOY_{0}_TO_{1}', $(solution), variables['deployEnvPrefix'] ) ]
 - name: environment_name
-  value: $[ format('{0}_{1}', variables['deployEnvPrefix'], ${{ upper(replace( parameters.folder, '-', '_')) }} ) ]
+  value: $[ format('{0}_{1}', variables['deployEnvPrefix'], $(solution) ) ]
 
 stages:
 - stage: VARIABLES
@@ -80,6 +81,7 @@ stages:
         echo destination: $(destination)
         echo deployment_job_name: $(deployment_job_name)
         echo environment_name: $(environment_name)
+        echo solution: $(solution)
 
 - stage: DEPLOY
   jobs:
