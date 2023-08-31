@@ -3,10 +3,5 @@ SELECT
     CompanyCodeID,
     ProfitCenterID,
     CompanyCodeID + ProfitCenterID AS [SKReportingEntityKey],
-    ExQLReportingEntity,
-    t_applicationId,
-    t_jobId,
-    t_jobDtm,
-    t_jobBy,
-    t_filePath
+    ExQLReportingEntity
 FROM base_ff.ExQLReportingEntity;

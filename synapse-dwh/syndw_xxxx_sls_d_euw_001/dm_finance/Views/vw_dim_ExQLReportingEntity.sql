@@ -1,17 +1,7 @@
 
-CREATE VIEW dm_finance.vw_dim_ExqlReportingEntity AS
+CREATE VIEW dm_finance.vw_dim_ExQLReportingEntity AS
 SELECT
-    ExQLReportingEntity
-    t_applicationId,
-    t_jobId,
-    t_jobDtm,
-    t_jobBy,
-    t_filePath
+       ExQLReportingEntity
 FROM base_ff.Budget_EPM
 GROUP BY
-    ExQLReportingEntity,
-    t_applicationId,
-    t_jobId,
-    t_jobDtm,
-    t_jobBy,
-    t_filePath
+       ExQLReportingEntity
