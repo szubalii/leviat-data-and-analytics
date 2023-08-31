@@ -95,7 +95,7 @@ stages:
   #     folder: ${{ parameters.folder }}
   #     solution: ${{ upper(replace( parameters.folder, '-', '_')) }}
   #     deployEnvPrefix: $[ variables['deployEnvPrefix'] ]
-  - deployment: $[ variables['deployment_job_name'] ]
+  - deployment: ${{ variables['deployment_job_name'] }}
     # ${{ if parameters.conditional }}:
     #   condition: eq(stageDependencies.CHECK_SOLUTIONS_DEPLOYMENT.CheckSolutionsDeployment.outputs['SetVariables.deploy_${{ parameters.solution }}'], 'true')
     timeoutInMinutes: 120
@@ -106,7 +106,7 @@ stages:
       - VisualStudio
       - Python.Version
       - Agent.ComputerName -equals $(VMName)
-    environment: $[ variables['environment_name'] ]
+    environment: ${{ variables['environment_name'] }}
     workspace:
     # set clean to all when deploying xu-config
       ${{ if eq(parameters.folder, 'xu-config') }}: 
