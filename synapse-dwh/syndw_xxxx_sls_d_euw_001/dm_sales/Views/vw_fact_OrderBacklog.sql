@@ -27,11 +27,25 @@ doc_delivery AS(
     WHERE IsRequestedDelivSchedLine = 'X'
 
     GROUP BY SalesDocumentID, SalesDocumentItem, RequestedDeliveryDate
+),
+
+CTE_IncompletionLog AS (
+    SELECT
+        SalesDocument,
+        SalesDocumentItem,
+        ScheduleLine
+    FROM
+        [edw].[dim_SDDocumentIncompletionLog]
+    GROUP BY
+        SalesDocument,
+        SalesDocumentItem,
+        ScheduleLine
 )
 
 SELECT 
       doc.SalesDocument
     , doc.SalesDocumentItem
+    , svf_get2PartNaturalKey(doc.SalesDocument, doc.SalesDocumentItem)  AS nk_SDDocumentItem
     , doc.SDDocumentCategory as SDDocumentCategoryID
     , SDCT.SDDocumentCategory
     , doc.SalesOrganization as SalesOrganizationID
@@ -100,6 +114,11 @@ SELECT
     , SDSL.ConfirmedDeliveryDate                                        AS SchLineConfirmedDeliveryDate
     , doc_delivery.RequestedDeliveryDate                                AS RequestedDeliveryDate_Added
     , OBDI.ActualDeliveryQuantity
+    , CASE
+        WHEN IL.SDDocumentItem IS NULL 
+            THEN 'No' 
+        ELSE 'Yes'
+      END                                                               AS IsIncomplete
 
 FROM [base_s4h_cax].[C_SalesDocumentItemDEX] doc
 
@@ -148,5 +167,10 @@ LEFT JOIN doc_delivery
     ON doc.SalesDocument = doc_delivery.SalesDocumentID
         AND doc.SalesDocumentItem = doc_delivery.SalesDocumentItem 
         AND SDSL.IsConfirmedDelivSchedLine = 'X'
+
+LEFT JOIN CTE_IncompletionLog IL
+    ON doc.SalesDocument = IL.SDDocument COLLATE DATABASE_DEFAULT
+        AND doc.SalesDocumentItem = IL.SDDocumentItem COLLATE DATABASE_DEFAULT
+        AND SDSL.ScheduleLine = IL.ScheduleLine
 
 WHERE doc.SDDocumentCategory = 'C'
