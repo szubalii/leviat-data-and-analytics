@@ -4,7 +4,7 @@ SELECT
     [MANDT]
     , [SDDocument]
     , [SDDocumentItem]
-    , svf_get2PartNaturalKey(SDDocument, SDDocumentItem)  AS nk_SDDocumentItem
+    , edw.svf_get2PartNaturalKey(SDDocument, SDDocumentItem)  AS nk_SDDocumentItem
     , [ScheduleLine]
     , [PartnerFunction]
     , [SDDocumentTextID]

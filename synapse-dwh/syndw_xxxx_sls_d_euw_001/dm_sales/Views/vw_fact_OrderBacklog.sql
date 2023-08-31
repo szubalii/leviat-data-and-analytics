@@ -45,7 +45,7 @@ CTE_IncompletionLog AS (
 SELECT 
       doc.SalesDocument
     , doc.SalesDocumentItem
-    , svf_get2PartNaturalKey(doc.SalesDocument, doc.SalesDocumentItem)  AS nk_SDDocumentItem
+    , edw.svf_get2PartNaturalKey(doc.SalesDocument, doc.SalesDocumentItem)  AS nk_SDDocumentItem
     , doc.SDDocumentCategory as SDDocumentCategoryID
     , SDCT.SDDocumentCategory
     , doc.SalesOrganization as SalesOrganizationID
