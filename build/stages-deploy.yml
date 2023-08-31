@@ -54,15 +54,15 @@ variables:
     - name: user
       value: ${{ replace(split(variables['Build.RequestedForEmail'], '@')[0], 'adm_', '') }} #adm_mpors@crhemea.onmicrosoft.com
     - name: deployEnvPrefix # override value to map main branch to DEV deployment environment
-      value: $[ format('30_DEV_{0}', upper(variables['user'])) ]
+      value: ${{ format('30_DEV_{0}', upper(variables['user'])) }}
     - name: commitId
       value: $(Build.SourceVersion)
 
 - name: solution
   value: $[ upper(replace( '${{ parameters.folder }}', '-', '_')) ]
 - name: deployment_job_name
-  value: DEPLOY_AZURE_DATA_FACTORY_TO_30_DEV_MPORS
-  # value: $[ format('DEPLOY_{0}_TO_{1}', variables['solution'], variables['deployEnvPrefix'] ) ]
+  # value: DEPLOY_AZURE_DATA_FACTORY_TO_30_DEV_MPORS
+  value: ${{ format('DEPLOY_{0}_TO_{1}', variables['solution'], variables['deployEnvPrefix'] ) }}
 - name: environment_name
   # value: $[ format('{0}_{1}', variables['deployEnvPrefix'], variables['solution'] ) ]
   value: 30_DEV_MPORS_AZURE_DATA_FACTORY
@@ -86,7 +86,7 @@ stages:
         echo environment_name: $(environment_name)
         echo solution: $(solution)
         echo variables['Build.SourceBranchName']
-        echo $(Build.SourceBranchName)
+        echo Build.SourceBranchName: $(Build.SourceBranchName)
 
 - stage: DEPLOY
   jobs:
