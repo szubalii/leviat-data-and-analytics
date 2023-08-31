@@ -3,7 +3,6 @@ AS
 SELECT
       [CompanyCodeID]        
     , [ExQLReportingEntity]
-    , [ReportingEntityID]
     , [CurrencyTypeID]  
     , [CurrencyType] 
     , [CurrencyID]      

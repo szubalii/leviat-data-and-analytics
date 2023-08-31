@@ -3,7 +3,6 @@ AS
 SELECT
       Budget.[CompanyCodeID]        
     , Budget.[ExQLReportingEntity]
-    , CONCAT(Budget.[CompanyCodeID],'_',Budget.[ExQLReportingEntity])      AS [ReportingEntityID]
     , CR.[CurrencyTypeID]  
     , CR.[CurrencyType] 
     , CASE 
