@@ -59,7 +59,7 @@ variables:
       value: $(Build.SourceVersion)
 
 - name: solution
-  value: $[ upper(replace( '${{ parameters.folder }}', '-', '_')) ]
+  value: ${{ upper(replace( '${{ parameters.folder }}', '-', '_')) }}
 - name: deployment_job_name
   # value: DEPLOY_AZURE_DATA_FACTORY_TO_30_DEV_MPORS
   value: ${{ format('DEPLOY_{0}_TO_{1}', variables['solution'], variables['deployEnvPrefix'] ) }}
