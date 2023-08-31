@@ -171,6 +171,6 @@ LEFT JOIN doc_delivery
 LEFT JOIN CTE_IncompletionLog IL
     ON doc.SalesDocument = IL.SDDocument COLLATE DATABASE_DEFAULT
         AND doc.SalesDocumentItem = IL.SDDocumentItem COLLATE DATABASE_DEFAULT
-        AND SDSL.ScheduleLine = IL.ScheduleLine
+        AND SDSL.ScheduleLine = IL.ScheduleLine COLLATE DATABASE_DEFAULT
 
 WHERE doc.SDDocumentCategory = 'C'
