@@ -16,6 +16,17 @@ resources:
 
 trigger: none
 
+parameters:
+- name: target_env
+  displayName: Target Environment
+  type: string
+  values:
+    - pers
+    - test
+    - qas
+    - prod
+  default: pers
+
 extends:
   template: ../../build/stages-deploy.yml
   parameters:
