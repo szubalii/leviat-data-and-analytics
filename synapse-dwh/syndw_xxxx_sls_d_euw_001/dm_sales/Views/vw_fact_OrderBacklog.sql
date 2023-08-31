@@ -31,14 +31,14 @@ doc_delivery AS(
 
 CTE_IncompletionLog AS (
     SELECT
-        SalesDocument,
-        SalesDocumentItem,
+        SDDocument,
+        SDDocumentItem,
         ScheduleLine
     FROM
         [edw].[dim_SDDocumentIncompletionLog]
     GROUP BY
-        SalesDocument,
-        SalesDocumentItem,
+        SDDocument,
+        SDDocumentItem,
         ScheduleLine
 )
 
