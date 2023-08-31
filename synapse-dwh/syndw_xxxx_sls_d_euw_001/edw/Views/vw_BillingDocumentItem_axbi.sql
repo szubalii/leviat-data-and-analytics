@@ -747,137 +747,25 @@ BillingDocumentItemBase_axbi_mapped AS (
     SELECT *
     FROM BDIZZZDUMMY
 )
-,EuroBudgetExchangeRate AS (
-    SELECT 
-        SourceCurrency
-    ,   ExchangeRateEffectiveDate
-    ,   ExchangeRate
-    FROM 
-        edw.dim_ExchangeRates
-    WHERE 
-        ExchangeRateType = 'P'
-        AND
-        TargetCurrency = 'EUR'
-            UNION ALL
-    SELECT
-        'EUR'
-        ,'1900-01-01'
-        ,1.0
-)
-,EuroBudgetExchangeRateUSD as (
-    select
-         TargetCurrency
-        ,ExchangeRateEffectiveDate
-        ,ExchangeRate
-    from
-        edw.dim_ExchangeRates
-    where
-        ExchangeRateType = 'P'
-        AND
-        SourceCurrency = 'USD'
-        AND
-        ExchangeRateEffectiveDate <= GETDATE())
-, BDIAXBI_DUMMY_30 AS(
-    SELECT 
-            [BillingDocument]
-        ,   [BillingDocumentItem]
-        ,   [ReturnItemProcessingType]
-        ,   CurrencyIDGroupEUR                       AS [CurrencyID]
-        ,   [ExchangeRate]
-        ,   [SDDocumentCategoryID]
-        ,   [BillingDocumentDate]
-        ,   [SalesOrganizationID]
-        ,   [DistributionChannelID]
-        ,   [Material]
-        ,   [nk_ProductPlant]
-        ,   [LengthInMPer1]
-        ,   [LengthInM]
-        ,   [PlantID]
-        ,   [BillingQuantity]
-        ,   [BillingQuantityUnitID]
-        ,   [NetAmountGroupEUR]                      AS [NetAmount]
-        ,   [CostAmountGroupEUR]                     AS [CostAmount]
-        ,   [QuantitySold]
-        ,   [CountryID]
-        ,   [SalesDocumentID]
-        ,   [CustomerGroupID]
-        ,   [SalesDistrictID]
-        ,   [SoldToParty]
-        ,   [ExternalSalesAgentID]
-        ,   [ProjectID]
-        ,   [Project]
-        ,   [SalesEmployeeID]
-        ,   [GlobalParentID]
-        ,   [GlobalParentCalculatedID]
-        ,   [GlobalParentCalculated]
-        ,   [LocalParentCalculatedID]
-        ,   [LocalParentCalculated]
-        ,   [SalesOrderTypeID]
-        ,   COALESCE([FinNetAmountEUR], 0)           AS [FinNetAmountRealProduct]
-        ,   COALESCE([FinNetAmountOtherSalesEUR], 0) AS [FinNetAmountOtherSales]
-        ,   COALESCE([FinNetAmountServOtherEUR], 0)  AS [FinNetAmountServOther]        
-        ,   COALESCE([FinNetAmountAllowancesEUR], 0) AS [FinNetAmountAllowances]
-        ,   COALESCE([FinSales100EUR], 0)            AS [FinSales100]
-        ,   [AccountingDate]
-        ,   [axbi_DataAreaID]
-        ,   [axbi_DataAreaName]
-        ,   [axbi_DataAreaGroup]
-        ,   [axbi_MaterialID]
-        ,   [axbi_CustomerID]
-        ,   [MaterialCalculated]
-        ,   [SoldToPartyCalculated]
-        ,   [BrandID]
-        ,   [Brand]
-        ,   [InOutID]
-        ,   [axbi_ItemNoCalc]
-        ,   [SalesOfficeID]
-        ,   BDIAXBI_DUMMY.[t_applicationId]
-        ,   BDIAXBI_DUMMY.[t_extractionDtm]
-    FROM 
-        BDIAXBI_DUMMY
-)
-,ExchangeRateUSD AS(
-    SELECT
-            [BillingDocument]
-        ,   [BillingDocumentItem]
-        ,   EuroBudgetExchangeRateUSD.[ExchangeRate] AS [ExchangeRate]
-    FROM
-        (SELECT
-                [BillingDocument]
-            ,   [BillingDocumentItem]
-            ,   [CurrencyID]
-            ,    MAX([ExchangeRateEffectiveDate]) AS [ExchangeRateEffectiveDate]
-        FROM 
-            BDIAXBI_DUMMY_30 axbi_dummy_40
-        LEFT JOIN
-            EuroBudgetExchangeRateUSD
-            ON
-                axbi_dummy_40.[CurrencyID] = EuroBudgetExchangeRateUSD.TargetCurrency
-        GROUP BY
-                [BillingDocument]
-            ,   [BillingDocumentItem]
-            ,   [CurrencyID]
-        ) axbiUSD
-    LEFT JOIN
-        EuroBudgetExchangeRateUSD
-        ON
-            axbiUSD.[CurrencyID] = EuroBudgetExchangeRateUSD.[TargetCurrency]
-            AND
-            axbiUSD.[ExchangeRateEffectiveDate] = EuroBudgetExchangeRateUSD.[ExchangeRateEffectiveDate]
-)
-/*
-    Local currency data from AX BI
-*/
 
 SELECT 
-        [edw].svf_get4PartNaturalKey(BillingDocument,BillingDocumentItem,CT.CurrencyTypeID, row_number() over (partition by BillingDocument order by BillingDocumentItem)) as nk_fact_BillingDocumentItem
+        edw.svf_getNaturalKey (BillingDocument,BillingDocumentItem,CR.CurrencyTypeID) 
+                                                 AS [nk_fact_BillingDocumentItem]
     ,   [BillingDocument]
     ,   [BillingDocumentItem]
     ,   [ReturnItemProcessingType]
-    ,   CT.[CurrencyTypeID]                      as [CurrencyTypeID]
-    ,   CT.[CurrencyType]                        as [CurrencyType]
-    ,   CurrencyIDLocal                          as [CurrencyID]
-    ,   1.0                                      as [ExchangeRate]
+    ,   CR.[CurrencyTypeID]                      AS [CurrencyTypeID]
+    ,   CR.[CurrencyType]                        AS [CurrencyType]
+    ,   CASE 
+            WHEN CCR.[CurrencyTypeID]= '10' 
+                THEN CurrencyIDLocal  
+            ELSE CCR.[TargetCurrency]  
+        END                                      AS [CurrencyID]
+    ,   CASE 
+            WHEN CCR.CurrencyTypeID = '10' THEN 1.0
+            WHEN CCR.CurrencyTypeID = '40' THEN CCR40.[ExchangeRate]
+            ELSE BDI.[ExchangeRate]
+        END                                      AS [ExchangeRate]
     ,   [SDDocumentCategoryID]
     ,   [BillingDocumentDate]
     ,   [SalesOrganizationID]
@@ -889,8 +777,16 @@ SELECT
     ,   [PlantID]
     ,   [BillingQuantity]
     ,   [BillingQuantityUnitID]
-    ,   [NetAmountLocal]                         as [NetAmount]
-    ,   [CostAmountLocal]                        as [CostAmount]
+    ,   CASE
+            WHEN CCR.CurrencyTypeID = '30' THEN NetAmountGroupEUR 
+            WHEN CCR.CurrencyTypeID = '40' THEN CONVERT(decimal(19,6), NetAmountGroupEUR * CCR40.[ExchangeRate])
+          ELSE NetAmountLocal
+        END                                        AS [NetAmount]
+    ,   CASE
+            WHEN CCR.CurrencyTypeID = '30' THEN CostAmountGroupEUR 
+            WHEN CCR.CurrencyTypeID = '40' THEN CONVERT(decimal(19,6), CostAmountGroupEUR * CCR40.[ExchangeRate]) 
+          ELSE CostAmountLocal
+        END                                        AS [CostAmount]
     ,   [QuantitySold]
     ,   [CountryID]
     ,   [SalesDocumentID]
@@ -907,11 +803,31 @@ SELECT
     ,   [LocalParentCalculatedID]
     ,   [LocalParentCalculated]
     ,   [SalesOrderTypeID]
-    ,   COALESCE([FinNetAmountLOCAL], 0)           AS [FinNetAmountRealProduct]
-    ,   COALESCE([FinNetAmountOtherSalesLOCAL], 0) AS [FinNetAmountOtherSales]
-    ,   COALESCE([FinNetAmountServOtherLOCAL], 0)  AS [FinNetAmountServOther]
-    ,   COALESCE([FinNetAmountAllowancesLOCAL], 0) AS [FinNetAmountAllowances]
-    ,   COALESCE([FinSales100LOCAL], 0)            AS [FinSales100]
+    ,   CASE
+            WHEN CCR.CurrencyTypeID = '30' THEN COALESCE([FinNetAmountEUR], 0)
+            WHEN CCR.CurrencyTypeID = '40' THEN CONVERT(decimal(19,6), (COALESCE([FinNetAmountEUR], 0) * CCR40.[ExchangeRate]))  
+          ELSE COALESCE([FinNetAmountLOCAL], 0)
+        END                                        AS [FinNetAmountRealProduct]
+    ,   CASE
+            WHEN CCR.CurrencyTypeID = '30' THEN COALESCE([FinNetAmountOtherSalesEUR], 0)  
+            WHEN CCR.CurrencyTypeID = '40' THEN CONVERT(decimal(19,6), (COALESCE([FinNetAmountOtherSalesEUR], 0) * CCR40.[ExchangeRate]))
+          ELSE COALESCE([FinNetAmountOtherSalesLOCAL], 0)
+        END                                        AS [FinNetAmountOtherSales]
+    ,   CASE
+            WHEN CCR.CurrencyTypeID = '30' THEN COALESCE([FinNetAmountServOtherEUR], 0)
+            WHEN CCR.CurrencyTypeID = '40' THEN CONVERT(decimal(19,6), (COALESCE([FinNetAmountServOtherEUR], 0) * CCR40.[ExchangeRate]))
+          ELSE COALESCE([FinNetAmountServOtherLOCAL], 0)
+        END                                        AS [FinNetAmountServOther]
+    ,   CASE
+            WHEN CCR.CurrencyTypeID = '30' THEN COALESCE([FinNetAmountAllowancesEUR], 0)
+            WHEN CCR.CurrencyTypeID = '40' THEN CONVERT(decimal(19,6), (COALESCE([FinNetAmountAllowancesEUR], 0) * CCR40.[ExchangeRate]))
+          ELSE COALESCE([FinNetAmountAllowancesLOCAL], 0)
+        END                                        AS [FinNetAmountAllowances]
+    ,   CASE
+            WHEN CCR.CurrencyTypeID = '30' THEN COALESCE([FinSales100EUR], 0)
+            WHEN CCR.CurrencyTypeID = '40' THEN CONVERT(decimal(19,6), (COALESCE([FinSales100EUR], 0) * CCR40.[ExchangeRate]))
+          ELSE COALESCE([FinSales100LOCAL], 0)
+        END                                        AS [FinSales100]
     ,   [AccountingDate]
     ,   [axbi_DataAreaID]
     ,   [axbi_DataAreaName]
@@ -925,152 +841,15 @@ SELECT
     ,   [InOutID]
     ,   [axbi_ItemNoCalc]
     ,   [SalesOfficeID]
-    ,   BDIAXBI_DUMMY.[t_applicationId]
-    ,   BDIAXBI_DUMMY.[t_extractionDtm]
+    ,   BDI.[t_applicationId]
+    ,   BDI.[t_extractionDtm]
 FROM 
-    BDIAXBI_DUMMY
-JOIN
-    [edw].[dim_CurrencyType] CT
-        ON CT.[CurrencyTypeID] = '10'
-
-UNION ALL
-
-/*
-    Euro currency data from AX BI
-*/
-
-SELECT 
-        [edw].svf_get4PartNaturalKey(BillingDocument,BillingDocumentItem,CT.CurrencyTypeID, row_number() over (partition by BillingDocument order by BillingDocumentItem)) as nk_fact_BillingDocumentItem
-    ,   [BillingDocument]
-    ,   [BillingDocumentItem]
-    ,   [ReturnItemProcessingType]
-    ,   CT.[CurrencyTypeID]                      AS [CurrencyTypeID]
-    ,   CT.[CurrencyType]                        AS [CurrencyType]
-    ,   [CurrencyID]
-    ,   [ExchangeRate]
-    ,   [SDDocumentCategoryID]
-    ,   [BillingDocumentDate]
-    ,   [SalesOrganizationID]
-    ,   [DistributionChannelID]
-    ,   [Material]
-    ,   [nk_ProductPlant]
-    ,   [LengthInMPer1]
-    ,   [LengthInM]
-    ,   [PlantID]
-    ,   [BillingQuantity]
-    ,   [BillingQuantityUnitID]
-    ,   [NetAmount]
-    ,   [CostAmount]
-    ,   [QuantitySold]
-    ,   [CountryID]
-    ,   [SalesDocumentID]
-    ,   [CustomerGroupID]
-    ,   [SalesDistrictID]
-    ,   [SoldToParty]
-    ,   [ExternalSalesAgentID]
-    ,   [ProjectID]
-    ,   [Project]
-    ,   [SalesEmployeeID]
-    ,   [GlobalParentID]
-    ,   [GlobalParentCalculatedID]
-    ,   [GlobalParentCalculated]
-    ,   [LocalParentCalculatedID]
-    ,   [LocalParentCalculated]
-    ,   [SalesOrderTypeID]
-    ,   [FinNetAmountRealProduct]
-    ,   [FinNetAmountOtherSales]    
-    ,   [FinNetAmountServOther]
-    ,   [FinNetAmountAllowances]
-    ,   [FinSales100]
-    ,   [AccountingDate]
-    ,   [axbi_DataAreaID]
-    ,   [axbi_DataAreaName]
-    ,   [axbi_DataAreaGroup]
-    ,   [axbi_MaterialID]
-    ,   [axbi_CustomerID]
-    ,   [MaterialCalculated]
-    ,   [SoldToPartyCalculated]
-    ,   [BrandID]
-    ,   [Brand]
-    ,   [InOutID]
-    ,   [axbi_ItemNoCalc]
-    ,   [SalesOfficeID]
-    ,   BDIAXBI_DUMMY_30.[t_applicationId]
-    ,   BDIAXBI_DUMMY_30.[t_extractionDtm]
-FROM 
-    BDIAXBI_DUMMY_30
-JOIN
-    [edw].[dim_CurrencyType] CT
-        ON CT.[CurrencyTypeID] = '30'
-
-UNION ALL
-
-SELECT 
-        [edw].svf_get4PartNaturalKey(ExchangeRateUSD.BillingDocument,ExchangeRateUSD.BillingDocumentItem,CT.CurrencyTypeID, row_number() over (partition by ExchangeRateUSD.BillingDocument order by ExchangeRateUSD.BillingDocumentItem)) as nk_fact_BillingDocumentItem
-    ,   ExchangeRateUSD.[BillingDocument]
-    ,   ExchangeRateUSD.[BillingDocumentItem]
-    ,   [ReturnItemProcessingType]
-    ,   CT.[CurrencyTypeID]                      AS [CurrencyTypeID]
-    ,   CT.[CurrencyType]                        AS [CurrencyType]
-    ,   'USD'                                    AS [CurrencyID]
-    ,   1/ExchangeRateUSD.[ExchangeRate] AS [ExchangeRate]
-    ,   [SDDocumentCategoryID]
-    ,   [BillingDocumentDate]
-    ,   [SalesOrganizationID]
-    ,   [DistributionChannelID]
-    ,   [Material]
-    ,   [nk_ProductPlant]
-    ,   [LengthInMPer1]
-    ,   [LengthInM]
-    ,   [PlantID]
-    ,   [BillingQuantity]
-    ,   [BillingQuantityUnitID]
-    ,   [NetAmount]*(1/ExchangeRateUSD.[ExchangeRate]) AS [NetAmount]
-    ,   [CostAmount]*(1/ExchangeRateUSD.[ExchangeRate]) AS [CostAmount]
-    ,   [QuantitySold]
-    ,   [CountryID]
-    ,   [SalesDocumentID]
-    ,   [CustomerGroupID]
-    ,   [SalesDistrictID]
-    ,   [SoldToParty]
-    ,   [ExternalSalesAgentID]
-    ,   [ProjectID]
-    ,   [Project]
-    ,   [SalesEmployeeID]
-    ,   [GlobalParentID]
-    ,   [GlobalParentCalculatedID]
-    ,   [GlobalParentCalculated]
-    ,   [LocalParentCalculatedID]
-    ,   [LocalParentCalculated]
-    ,   [SalesOrderTypeID]
-    ,   [FinNetAmountRealProduct]*(1/ExchangeRateUSD.[ExchangeRate]) AS [FinNetAmountRealProduct]
-    ,   [FinNetAmountOtherSales]*(1/ExchangeRateUSD.[ExchangeRate]) AS [FinNetAmountOtherSales]
-    ,   [FinNetAmountServOther]*(1/ExchangeRateUSD.[ExchangeRate]) AS [FinNetAmountServOther]  
-    ,   [FinNetAmountAllowances]*(1/ExchangeRateUSD.[ExchangeRate]) AS [FinNetAmountAllowances]
-    ,   [FinSales100]*(1/ExchangeRateUSD.[ExchangeRate]) AS [FinSales100]
-    ,   [AccountingDate]
-    ,   [axbi_DataAreaID]
-    ,   [axbi_DataAreaName]
-    ,   [axbi_DataAreaGroup]
-    ,   [axbi_MaterialID]
-    ,   [axbi_CustomerID]
-    ,   [MaterialCalculated]
-    ,   [SoldToPartyCalculated]
-    ,   [BrandID]
-    ,   [Brand]
-    ,   [InOutID]
-    ,   [axbi_ItemNoCalc]
-    ,   [SalesOfficeID]
-    ,   BDIAXBI_DUMMY_30.[t_applicationId]
-    ,   BDIAXBI_DUMMY_30.[t_extractionDtm]
-FROM 
-    ExchangeRateUSD
-LEFT JOIN
-    BDIAXBI_DUMMY_30
-    ON 
-        BDIAXBI_DUMMY_30.BillingDocument=ExchangeRateUSD.BillingDocument 
-        AND     
-        BDIAXBI_DUMMY_30.BillingDocumentItem=ExchangeRateUSD.BillingDocumentItem  
-JOIN
-    [edw].[dim_CurrencyType] CT
-        ON CT.[CurrencyTypeID] = '40'
+    BDIAXBI_DUMMY BDI
+LEFT JOIN [edw].[vw_CurrencyConversionRate] CCR
+    ON BDI.CurrencyIDLocal = CCR.SourceCurrency
+LEFT JOIN 
+    [edw].[dim_CurrencyType] CR
+    ON CCR.CurrencyTypeID = CR.CurrencyTypeID
+LEFT JOIN [edw].[vw_CurrencyConversionRate] CCR40
+    ON CCR40.SourceCurrency= 'EUR' and CCR40.TargetCurrency = 'USD'
+WHERE CCR.CurrencyTypeID <> '00'

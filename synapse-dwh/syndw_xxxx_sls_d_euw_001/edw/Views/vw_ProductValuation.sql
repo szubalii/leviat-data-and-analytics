@@ -42,58 +42,8 @@ WITH ProductValuation AS (
        basePV.[t_applicationId],
        basePV.[t_extractionDtm]
     FROM [base_s4h_cax].[I_ProductValuation] AS basePV
-), EuroBudgetExchangeRate AS (
-    SELECT
-            SourceCurrency
-        ,   ExchangeRateEffectiveDate
-        ,   ExchangeRate
-    FROM
-        edw.dim_ExchangeRates
-    WHERE
-        ExchangeRateType = 'P'
-        AND
-        TargetCurrency = 'EUR'
-        AND
-        [ExchangeRateEffectiveDate] <= GETDATE()
-            UNION ALL
-    SELECT
-        'EUR'
-        ,'1900-01-01'
-        ,1.0
-), ProductValuationEuroExchangeRate AS (
-    SELECT
-            [ProductID]
-        ,   [ValuationAreaID]
-        ,   [ValuationTypeID]
-        ,   [CurrencyID]
-        ,   EuroBudgetExchangeRate.[ExchangeRate] AS [ExchangeRate]
-    FROM
-    (    
-        SELECT
-                PV.[ProductID]
-            ,   PV.[ValuationAreaID]
-            ,   PV.[ValuationTypeID]
-            ,   PV.[CurrencyID]
-            ,   MAX([ExchangeRateEffectiveDate]) AS [ExchangeRateEffectiveDate]
-        FROM 
-            ProductValuation AS PV
-        LEFT JOIN 
-            EuroBudgetExchangeRate
-            ON 
-                PV.[CurrencyID] = EuroBudgetExchangeRate.SourceCurrency
-        GROUP BY
-                PV.[ProductID]
-            ,   PV.[ValuationAreaID]
-            ,   PV.[ValuationTypeID]
-            ,   PV.[CurrencyID]
-    ) date_eur
-    LEFT JOIN 
-        EuroBudgetExchangeRate
-        ON
-            date_eur.[CurrencyID] = EuroBudgetExchangeRate.[SourceCurrency]
-            AND
-            date_eur.[ExchangeRateEffectiveDate] = EuroBudgetExchangeRate.[ExchangeRateEffectiveDate]
-)                      
+)
+                     
 SELECT
        PV.[ProductID],
        PV.[ValuationAreaID],
@@ -105,14 +55,14 @@ SELECT
        PV.[StandardPrice],
        PV.[PriceUnitQuantity],
        PV.[StandardPricePerUnit],
-       CONVERT(decimal(19,6), PV.[StandardPricePerUnit] * PVEER.[ExchangeRate]) AS StandardPricePerUnit_EUR,
+       CONVERT(decimal(19,6), PV.[StandardPricePerUnit] * CCR.[ExchangeRate]) AS StandardPricePerUnit_EUR,
        PV.[InventoryValuationProcedure],
        PV.[FutureEvaluatedAmountValue],
        PV.[FuturePriceValidityStartDate],
        PV.[PrevInvtryPriceInCoCodeCrcy],
        PV.[MovingAveragePrice],
        PV.[MovingAvgPricePerUnit],
-       CONVERT(decimal(19,6), PV.[MovingAvgPricePerUnit] * PVEER.[ExchangeRate]) AS MovingAvgPricePerUnit_EUR,
+       CONVERT(decimal(19,6), PV.[MovingAvgPricePerUnit] * CCR.[ExchangeRate]) AS MovingAvgPricePerUnit_EUR,
        PV.[ValuationCategoryID],
        PV.[ProductUsageType], 
        PV.[ProductOriginType],
@@ -138,11 +88,5 @@ SELECT
        PV.[t_extractionDtm]
 FROM 
     ProductValuation AS PV
-LEFT JOIN
-    ProductValuationEuroExchangeRate PVEER 
-        ON 
-            PVEER.[ProductID] = PV.[ProductID]
-            AND
-            PVEER.[ValuationAreaID] = PV.[ValuationAreaID]
-            AND
-            PVEER.[ValuationTypeID] = PV.[ValuationTypeID]
+LEFT JOIN [edw].[vw_CurrencyConversionRate] CCR
+    ON PV.CurrencyID = CCR.SourceCurrency AND CCR.CurrencyTypeID ='30'

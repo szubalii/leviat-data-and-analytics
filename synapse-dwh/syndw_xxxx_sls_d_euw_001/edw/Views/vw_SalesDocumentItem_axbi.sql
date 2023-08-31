@@ -1,6 +1,5 @@
 CREATE VIEW [edw].[vw_SalesDocumentItem_axbi]
 AS
-
 WITH
 SalesDocumentItem_Filtered_Out_Organization AS
 (
@@ -382,65 +381,20 @@ subCalculationMargin AS (
         [edw].[dim_Customer] DIM_CUST_S4H
             on
                 DIM_CUST_S4H.[CustomerID] = SDIaxbi.[SoldToPartyID]
-),
-EuroBudgetExchangeRateUSD as (
-    select
-         TargetCurrency
-        ,ExchangeRateEffectiveDate
-        ,ExchangeRate
-    from
-        edw.dim_ExchangeRates
-    where
-        ExchangeRateType = 'P'
-        and
-        SourceCurrency = 'USD'
-),
-ExchangeRateUSD as (
-    SELECT
-            [SalesDocument]
-        ,   [SalesDocumentItem]
-        ,   [CurrencyID]
-        ,   EuroBudgetExchangeRateUSD.[ExchangeRate] AS [ExchangeRate]
-    FROM (
-        SELECT 
-                [SalesDocument]
-            ,   [SalesDocumentItem]
-            ,   [CurrencyID]
-            ,   MAX([ExchangeRateEffectiveDate]) as [ExchangeRateEffectiveDate]
-        FROM             
-            subCalculationMargin SCM
-        LEFT JOIN 
-            EuroBudgetExchangeRateUSD
-            ON 
-                EuroBudgetExchangeRateUSD.TargetCurrency = 'EUR'
-        WHERE 
-            [ExchangeRateEffectiveDate] <= GETDATE()  --[CreationDate]
-        GROUP BY
-                [SalesDocument]
-            ,   [SalesDocumentItem]
-            ,   [CurrencyID]
-    ) bdi_er_date_usd            
-    LEFT JOIN 
-        EuroBudgetExchangeRateUSD
-        ON
-            EuroBudgetExchangeRateUSD.[TargetCurrency] = 'EUR'
-            AND
-            bdi_er_date_usd.[ExchangeRateEffectiveDate] = EuroBudgetExchangeRateUSD.[ExchangeRateEffectiveDate]
-     )
--- group currency/EUR currency
+)
+
 SELECT
-    CONCAT_WS(
-        '¦'
-    ,   SDIaxbi.[SalesDocument] collate SQL_Latin1_General_CP1_CS_AS
-    ,   SDIaxbi.[SalesDocumentItem] collate SQL_Latin1_General_CP1_CS_AS
-    ,   CR.[CurrencyTypeID]
-    ) AS [nk_fact_SalesDocumentItem]
+    edw.svf_getNaturalKey(SDIaxbi.[SalesDocument],SDIaxbi.[SalesDocumentItem],CR.[CurrencyTypeID]) AS [nk_fact_SalesDocumentItem]
 ,   SDIaxbi.[SalesDocument]
 ,   SDIaxbi.[SalesDocumentItem]
 ,   CR.[CurrencyTypeID]
 ,   CR.[CurrencyType]
-,   SDIaxbi.[ExchangeRate]
-,   'EUR' AS [CurrencyID]
+,   CASE
+        WHEN CCR.CurrencyTypeID = '10' THEN 1.0
+        WHEN CCR.CurrencyTypeID = '40' THEN CCR40.[ExchangeRate]
+        ELSE SDIaxbi.[ExchangeRate]
+	END                                        AS [ExchangeRate]
+,   CCR.[TargetCurrency]                       AS [CurrencyID]
 ,   SDIaxbi.[SDDocumentCategoryID]
 ,   SDIaxbi.[SalesDocumentTypeID]
 ,   SDIaxbi.[IsReturnsItemID]
@@ -457,9 +411,21 @@ SELECT
 ,   SDIaxbi.[GlobalParentCalculated]
 ,   SDIaxbi.[LocalParentCalculatedID]
 ,   SDIaxbi.[LocalParentCalculated]
-,   SDIaxbi.[NetAmount_EUR] AS [NetAmount]
-,   SDIaxbi.[Margin_EUR] AS [Margin]
-,   SDIaxbi.[NetAmount_EUR] - SDIaxbi.[Margin_EUR] AS CostAmount
+,   CASE
+        WHEN CCR.CurrencyTypeID = '30' THEN SDIaxbi.[NetAmount_EUR]
+        WHEN CCR.CurrencyTypeID = '40' THEN SDIaxbi.[NetAmount_EUR]*CCR40.[ExchangeRate]
+        ELSE [NetAmount_LOCAL]
+    END                                                                                     AS [NetAmount]
+,   CASE
+        WHEN CCR.CurrencyTypeID = '30' THEN SDIaxbi.[Margin_EUR]
+        WHEN CCR.CurrencyTypeID = '40' THEN SDIaxbi.[Margin_EUR]*CCR40.[ExchangeRate]
+        ELSE [Margin_LOCAL]
+    END                                                                                     AS [Margin]
+,   CASE
+        WHEN CCR.CurrencyTypeID = '30' THEN SDIaxbi.[NetAmount_EUR]-SDIaxbi.[Margin_EUR]
+        WHEN CCR.CurrencyTypeID = '40' THEN (SDIaxbi.[NetAmount_EUR]-SDIaxbi.[Margin_EUR])*CCR40.[ExchangeRate]
+        ELSE SDIaxbi.[NetAmount_LOCAL] - SDIaxbi.[Margin_LOCAL]
+    END                                                                                     AS [CostAmount]
 ,   SDIaxbi.[RequestedDeliveryDate]
 ,   SDIaxbi.[ExternalSalesAgentID]
 ,   SDIaxbi.[SalesEmployeeID]
@@ -473,136 +439,11 @@ SELECT
 ,   SDIaxbi.[t_extractionDtm]
 FROM 
     subCalculationMargin SDIaxbi
-CROSS JOIN
+LEFT JOIN [edw].[vw_CurrencyConversionRate] CCR
+    ON SDIaxbi.CurrencyID = CCR.SourceCurrency    COLLATE DATABASE_DEFAULT
+LEFT JOIN 
     [edw].[dim_CurrencyType] CR
-WHERE 
-    CR.[CurrencyTypeID] = '30'
-UNION ALL
--- local currency
-SELECT  
-    CONCAT_WS(
-        '¦'
-    ,   SDIaxbi.[SalesDocument] collate SQL_Latin1_General_CP1_CS_AS
-    ,   SDIaxbi.[SalesDocumentItem] collate SQL_Latin1_General_CP1_CS_AS
-    ,   CR.[CurrencyTypeID]
-    ) AS [nk_fact_SalesDocumentItem]
-,   SDIaxbi.[SalesDocument]
-,   SDIaxbi.[SalesDocumentItem]
-,   CR.[CurrencyTypeID]
-,   CR.[CurrencyType]
-,   1.0 AS [ExchangeRate]
-,   SDIaxbi.[CurrencyID]
-,   SDIaxbi.[SDDocumentCategoryID]
-,   SDIaxbi.[SalesDocumentTypeID]
-,   SDIaxbi.[IsReturnsItemID]
-,   SDIaxbi.[CreationDate]
-,   SDIaxbi.[CreationTime]
-,   SDIaxbi.[MaterialID]
-,   SDIaxbi.[BrandID]
-,   SDIaxbi.[Brand]
-,   SDIaxbi.[SoldToPartyID]
-,   SDIaxbi.[BillToPartyID]
-,   SDIaxbi.[OrderQuantity]
-,   SDIaxbi.[CustomerGroupID]
-,   SDIaxbi.[GlobalParentCalculatedID]
-,   SDIaxbi.[GlobalParentCalculated]
-,   SDIaxbi.[LocalParentCalculatedID]
-,   SDIaxbi.[LocalParentCalculated]
-,   SDIaxbi.[NetAmount_LOCAL] AS [NetAmount]
-,   SDIaxbi.[Margin_LOCAL] AS [Margin]
-,   SDIaxbi.[NetAmount_LOCAL] - SDIaxbi.[Margin_LOCAL] AS CostAmount
-,   SDIaxbi.[RequestedDeliveryDate]
-,   SDIaxbi.[ExternalSalesAgentID]
-,   SDIaxbi.[SalesEmployeeID]
-,   SDIaxbi.[ProjectID]
-,   SDIaxbi.[Project]
-,   SDIaxbi.[SalesOrganizationID]
-,   SDIaxbi.[InOutID]
-,   SDIaxbi.[SalesDistrictID]
-,   SDIaxbi.[SalesOfficeID]
-,   SDIaxbi.[t_applicationId]
-,   SDIaxbi.[t_extractionDtm]
-FROM
-    subCalculationMargin SDIaxbi
-CROSS JOIN
-    [edw].[dim_CurrencyType] CR
-WHERE 
-    CR.[CurrencyTypeID] = '10'
-
-UNION ALL
-
-SELECT
-    CONCAT_WS(
-        '¦'
-    ,   ExchangeRateUSD.[SalesDocument] collate SQL_Latin1_General_CP1_CS_AS
-    ,   ExchangeRateUSD.[SalesDocumentItem] collate SQL_Latin1_General_CP1_CS_AS
-    ,   CR.[CurrencyTypeID]
-    ) AS [nk_fact_SalesDocumentItem]
-,   ExchangeRateUSD.[SalesDocument]
-,   ExchangeRateUSD.[SalesDocumentItem]
-,   CR.[CurrencyTypeID]
-,   CR.[CurrencyType]
-,   CASE 
-        WHEN ExchangeRateUSD.[CurrencyID] = 'USD'
-            THEN 1
-        ELSE
-            1/ExchangeRateUSD.[ExchangeRate]
-    END AS [ExchangeRate]
-,   'USD' AS [CurrencyID]
-,   SDIaxbi.[SDDocumentCategoryID]
-,   SDIaxbi.[SalesDocumentTypeID]
-,   SDIaxbi.[IsReturnsItemID]
-,   SDIaxbi.[CreationDate]
-,   SDIaxbi.[CreationTime]
-,   SDIaxbi.[MaterialID]
-,   SDIaxbi.[BrandID]
-,   SDIaxbi.[Brand]
-,   SDIaxbi.[SoldToPartyID]
-,   SDIaxbi.[BillToPartyID]
-,   SDIaxbi.[OrderQuantity]
-,   SDIaxbi.[CustomerGroupID]
-,   SDIaxbi.[GlobalParentCalculatedID]
-,   SDIaxbi.[GlobalParentCalculated]
-,   SDIaxbi.[LocalParentCalculatedID]
-,   SDIaxbi.[LocalParentCalculated]
-,   CASE 
-        WHEN  ExchangeRateUSD.[CurrencyID] = 'USD'
-            THEN SDIaxbi.[NetAmount_LOCAL]
-        ELSE
-           SDIaxbi.[NetAmount_EUR] * (1/ExchangeRateUSD.[ExchangeRate])
-    END AS [NetAmount]
-,   CASE 
-        WHEN  ExchangeRateUSD.[CurrencyID] = 'USD'
-            THEN SDIaxbi.[Margin_LOCAL]
-        ELSE
-           SDIaxbi.[Margin_EUR] * (1/ExchangeRateUSD.[ExchangeRate])
-    END AS [Margin]
-,   CASE 
-        WHEN  ExchangeRateUSD.[CurrencyID] = 'USD'
-            THEN SDIaxbi.[NetAmount_LOCAL] - SDIaxbi.[Margin_EUR]
-        ELSE
-           (SDIaxbi.[NetAmount_EUR] - SDIaxbi.[Margin_EUR]) * (1/ExchangeRateUSD.[ExchangeRate])
-    END AS [CostAmount]
-,   SDIaxbi.[RequestedDeliveryDate]
-,   SDIaxbi.[ExternalSalesAgentID]
-,   SDIaxbi.[SalesEmployeeID]
-,   SDIaxbi.[ProjectID]
-,   SDIaxbi.[Project]
-,   SDIaxbi.[SalesOrganizationID]
-,   SDIaxbi.[InOutID]
-,   SDIaxbi.[SalesDistrictID]
-,   SDIaxbi.[SalesOfficeID]
-,   SDIaxbi.[t_applicationId]
-,   SDIaxbi.[t_extractionDtm]
-FROM 
-    ExchangeRateUSD
-left join
-    subCalculationMargin SDIaxbi
-    ON
-        SDIaxbi.[SalesDocument] = ExchangeRateUSD.[SalesDocument]
-        AND
-        SDIaxbi.[SalesDocumentItem] = ExchangeRateUSD.[SalesDocumentItem]
-CROSS JOIN
-    [edw].[dim_CurrencyType] CR
-WHERE
-    CR.[CurrencyTypeID] = '40'
+    ON CCR.CurrencyTypeID = CR.CurrencyTypeID
+LEFT JOIN [edw].[vw_CurrencyConversionRate] CCR40
+    ON CCR40.SourceCurrency= 'EUR' and CCR40.TargetCurrency = 'USD'
+WHERE CCR.[CurrencyTypeID] <> '00'
