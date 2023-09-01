@@ -75,7 +75,7 @@ RuleID;DataArea;RuleClass;RuleGroup;RuleBusinessDescription;RuleTechnicalDefinit
 1.41_ZVER;Material;Completeness;ZVER;Packaging Material Type is ZMT1 for ZVER materials;If (MARA-MTART= ZVER), then (MARA-VHART) = ZMT1;Packaging Material Type (MARA-VHART);R
 2.0.10;BP;Conformity;3rd Party BP;Search Term 1 of 3rd Party and Ship-To BP's should have format: first 5 characters of the name_first 5 characters of the city (skipping special characters and spaces);If (BUT000-BU_GROUP) = Z001 or Z002, then (BUT000-BU_SORT1) = First 5 Characters of (BUT000-NAME_ORG1)_First 5 Characters of (ADRC_CITY1);Search Term 1;
 2.2.4;BP;Conformity;Intercompany;IP vendors should have NO assignment to a Company Code;If (LFA1-LIFNR = IP*) & (LFA1-KTOKK) = Z099,  then no data on table LFB1 should exist for that specific vendor (LIFNR).;IP Vendors (LFA1-LIFNR = IP*);
-2.0.2;BP;Uniqueness;3rd Party;Search for similar name data;BUT000- NAME_ORG1  ≠ BUT000- NAME_ORG1  (existing table values);Name 1;
+2.0.2;BP;Uniqueness;3rd Party BP;Search for similar name data;BUT000- NAME_ORG1  ≠ BUT000- NAME_ORG1  (existing table values);Name 1;
 2.0.1;BP;Uniqueness;All;Search for identical bank account data (Combination of Bank Country, Bank Key & Bank Acc or IBAN);(BUT0BK-BANKS + BUT0BK-BANKL + BUT0BK-BANKN) ≠ (BUT0BK-BANKS + BUT0BK-BANKL + BUT0BK-BANKN) Or TIBAN  (existing table values);Bank Data;
 2.2.7;BP;Consistency;All;Vendor company code payment terms and purchase organization payment terms should be identical;LFB1-ZTERM = LFM1-ZTERM;Payment Term;
 2.2.8;BP;Integrity;All;List discrepancies between different purchase organization payment terms for the same vendor. ;(LFM1-ZTERM) value should be same for a Vendor (LIFNR) across all EKORG;Payment Term;
