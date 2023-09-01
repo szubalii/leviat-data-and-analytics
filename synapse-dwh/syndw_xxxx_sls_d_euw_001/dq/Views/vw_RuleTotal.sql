@@ -54,6 +54,7 @@ LEFT JOIN
     CountRowsPerBusinessPartnerType AS cnt
     ON
         r.[RuleGroup] = cnt.[BusinessPartnerType] COLLATE DATABASE_DEFAULT
+        OR r.[RuleGroup] = 'All'
 WHERE
     [DataArea] = 'BP'
 )
