@@ -1,14 +1,17 @@
 CREATE VIEW [edw].[vw_SDDocumentIncompletionLog]
 AS
 SELECT
-    IL.SDDocument
-    ,IL.SDDocumentItem
-    ,IL.ScheduleLine
-    ,MAX(LT.ABAPDATAELEMENTHEADING)      AS FieldName
+    IL.[MANDT]
+    , IL.[SDDocument]
+    , IL.[SDDocumentItem]
+    , IL.[ScheduleLine]
+    , IL.[PartnerFunction]
+    , IL.[SDDocumentTextID]
+    , IL.[SDDocumentTable]
+    , IL.[SDDocumentTableField] 
+    , LT.[ABAPDATAELEMENTHEADING]          AS FieldName
+    , LT.[ABAPDATAELEMENTDESCRIPTION]      AS FieldDescription
 FROM [base_s4h_cax].[I_SDDocumentIncompletionLog] IL
 LEFT JOIN [base_s4h_cax].[I_DataElementLabelText] LT
     ON IL.SDDocumentTableField = LT.ABAPDATAELEMENT
-GROUP BY
-    IL.SDDocument
-    ,IL.SDDocumentItem
-    ,IL.ScheduleLine
+WHERE IL.SDDocument NOT LIKE '001%'

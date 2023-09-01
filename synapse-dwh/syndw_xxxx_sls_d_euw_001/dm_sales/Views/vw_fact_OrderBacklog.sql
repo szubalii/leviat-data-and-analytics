@@ -27,11 +27,25 @@ doc_delivery AS(
     WHERE IsRequestedDelivSchedLine = 'X'
 
     GROUP BY SalesDocumentID, SalesDocumentItem, RequestedDeliveryDate
+),
+
+CTE_IncompletionLog AS (
+    SELECT
+        SDDocument,
+        SDDocumentItem,
+        ScheduleLine
+    FROM
+        [edw].[dim_SDDocumentIncompletionLog]
+    GROUP BY
+        SDDocument,
+        SDDocumentItem,
+        ScheduleLine
 )
 
 SELECT 
       doc.SalesDocument
     , doc.SalesDocumentItem
+    , edw.svf_get2PartNaturalKey(doc.SalesDocument, doc.SalesDocumentItem)  AS nk_SDDocumentItem
     , doc.SDDocumentCategory as SDDocumentCategoryID
     , SDCT.SDDocumentCategory
     , doc.SalesOrganization as SalesOrganizationID
@@ -100,13 +114,11 @@ SELECT
     , SDSL.ConfirmedDeliveryDate                                        AS SchLineConfirmedDeliveryDate
     , doc_delivery.RequestedDeliveryDate                                AS RequestedDeliveryDate_Added
     , OBDI.ActualDeliveryQuantity
-    , IL.ScheduleLine                                                   AS IncompletionScheduleLine
-    , IL.FieldName
     , CASE
-        WHEN IL.SDDocument IS NULL
-            THEN 'No'
+        WHEN IL.SDDocumentItem IS NULL 
+            THEN 'No' 
         ELSE 'Yes'
-      END                               AS IsIncomplete
+      END                                                               AS IsIncomplete
 
 FROM [base_s4h_cax].[C_SalesDocumentItemDEX] doc
 
@@ -156,8 +168,9 @@ LEFT JOIN doc_delivery
         AND doc.SalesDocumentItem = doc_delivery.SalesDocumentItem 
         AND SDSL.IsConfirmedDelivSchedLine = 'X'
 
-LEFT JOIN [edw].[dim_SDDocumentIncompletionLog] IL
-    ON doc.SalesDocument = IL.SDDocument    COLLATE DATABASE_DEFAULT
-        AND doc.SalesDocumentItem = IL.SDDocumentItem   COLLATE DATABASE_DEFAULT
+LEFT JOIN CTE_IncompletionLog IL
+    ON doc.SalesDocument = IL.SDDocument COLLATE DATABASE_DEFAULT
+        AND doc.SalesDocumentItem = IL.SDDocumentItem COLLATE DATABASE_DEFAULT
+        AND SDSL.ScheduleLine = IL.ScheduleLine COLLATE DATABASE_DEFAULT
 
 WHERE doc.SDDocumentCategory = 'C'
