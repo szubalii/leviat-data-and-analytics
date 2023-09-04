@@ -109,7 +109,7 @@ stages:
       - VisualStudio
       - Python.Version
       - Agent.ComputerName -equals $(VMName)
-    environment: 40_DUMMY_AZURE_DATA_FACTORY #${{ format('{0}_{1}', '40_DUMMY', 'AZURE_DATA_FACTORY' ) }}
+    environment: 30_DEV_MPORS_AZURE_DATA_FACTORY #${{ format('{0}_{1}', '40_DUMMY', 'AZURE_DATA_FACTORY' ) }}
     workspace:
     # set clean to all when deploying xu-config
       ${{ if eq(parameters.folder, 'xu-config') }}: 
