@@ -56,8 +56,8 @@ variables:
     - template: ./variables-personal.yml
     - name: user
       value: ${{ replace(split(variables['Build.RequestedForEmail'], '@')[0], 'adm_', '') }} #adm_mpors@crhemea.onmicrosoft.com
-    - name: deployEnvPrefix # override value to map main branch to DEV deployment environment
-      value: ${{ format('30_DEV_{0}', upper(variables['user'])) }}
+    # - name: deployEnvPrefix # override value to map main branch to DEV deployment environment
+    #   value: ${{ format('30_DEV_{0}', upper(variables['user'])) }}
     - name: commitId
       value: $(Build.SourceVersion)
 
