@@ -46,7 +46,7 @@ CountBPRowsPerRuleID AS (
 SELECT
      r.[RuleID]
     ,r.[RuleGroup]
-    ,cnt.[RecordTotals]
+    ,SUM(cnt.[RecordTotals])    AS RecordTotals
     ,(SELECT COUNT(*) FROM [base_s4h_cax].[I_BusinessPartner]) as [AllRecordTotals]
 FROM
     [dq].[dim_Rule] AS r
@@ -57,6 +57,9 @@ LEFT JOIN
         OR r.[RuleGroup] = 'All'
 WHERE
     [DataArea] = 'BP'
+GROUP BY
+    r.[RuleID]
+    ,r.[RuleGroup]
 )
 
 SELECT
