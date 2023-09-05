@@ -2,4 +2,5 @@
 
 :r ..\..\TestClasses\Uniqueness.sql
 :r ..\..\TestClasses\ACDOCA.sql
+:r ..\..\TestClasses\IncompletionLog.sql
 -- :r ..\..\TestClasses\FailTest.sql
