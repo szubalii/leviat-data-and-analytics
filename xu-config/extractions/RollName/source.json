@@ -1,0 +1,294 @@
+{
+    "functionName": "Z_THEO_READ_TABLE",
+    "whereClause": "AS4LOCAL = 'A' AND ROLLNAME <> ''",
+    "runInBackgroundJob": false,
+    "backgroundJobTimeout": 180,
+    "tables": 
+    [
+        {
+            "name": "DD03L",
+            "description": "Table Fields",
+            "isView": false,
+            "fields": 
+            [
+                {
+                    "name": "TABNAME",
+                    "description": "Table Name",
+                    "abapType": "CharacterString",
+                    "length": 30,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "DD02L",
+                    "indexed": "Ascending",
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "FIELDNAME",
+                    "description": "Field Name",
+                    "abapType": "CharacterString",
+                    "length": 30,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "indexed": "Ascending",
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "AS4LOCAL",
+                    "description": "Activation State of Repository Object",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isPrimaryKey": true,
+                    "indexed": "Ascending",
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "AS4VERS",
+                    "description": "Version of the entry (not used)",
+                    "abapType": "NumericCharacterString",
+                    "length": 4,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "indexed": "Ascending",
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "POSITION",
+                    "description": "Position of the field in the table",
+                    "abapType": "NumericCharacterString",
+                    "length": 4,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "indexed": "Ascending",
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "KEYFLAG",
+                    "description": "Identifies a key field of a table",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "MANDATORY",
+                    "description": "Flag: Field is required (not blank)",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "ROLLNAME",
+                    "description": "Data element (semantic domain)",
+                    "abapType": "CharacterString",
+                    "length": 30,
+                    "isSelected": true,
+                    "checkTable": "DD04L",
+                    "indexed": "Ascending",
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "CHECKTABLE",
+                    "description": "Check table name of the foreign key",
+                    "abapType": "CharacterString",
+                    "length": 30,
+                    "indexed": "Ascending",
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "ADMINFIELD",
+                    "description": "Nesting depth for includes",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "INTTYPE",
+                    "description": "ABAP data type (C,D,N,...)",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "INTLEN",
+                    "description": "Internal Length in Bytes",
+                    "abapType": "NumericCharacterString",
+                    "length": 6,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "REFTABLE",
+                    "description": "Reference Table for Field",
+                    "abapType": "CharacterString",
+                    "length": 30,
+                    "indexed": "Ascending",
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "PRECFIELD",
+                    "description": "Name of included table",
+                    "abapType": "CharacterString",
+                    "length": 30,
+                    "indexed": "Ascending",
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "REFFIELD",
+                    "description": "Reference Field for Currency and Quantity Fields",
+                    "abapType": "CharacterString",
+                    "length": 30,
+                    "indexed": "Ascending",
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "CONROUT",
+                    "description": "Check or generating module for fields",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "NOTNULL",
+                    "description": "Indicator for initial values in database fields",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "DATATYPE",
+                    "description": "Data Type in ABAP Dictionary",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "formattedLength": 10,
+                    "conversionExit": "DTYPE",
+                    "isClientField": false
+                },
+                {
+                    "name": "LENG",
+                    "description": "Length (No. of Characters)",
+                    "abapType": "NumericCharacterString",
+                    "length": 6,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "DECIMALS",
+                    "description": "Number of Decimal Places",
+                    "abapType": "NumericCharacterString",
+                    "length": 6,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "DOMNAME",
+                    "description": "Domain name",
+                    "abapType": "CharacterString",
+                    "length": 30,
+                    "checkTable": "DD01L",
+                    "indexed": "Ascending",
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "SHLPORIGIN",
+                    "description": "Origin of an Input Help",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "TABLETYPE",
+                    "description": "DD: Flag if it is a table",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "DEPTH",
+                    "description": "DD: Depth for structured types",
+                    "abapType": "NumericCharacterString",
+                    "length": 2,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "COMPTYPE",
+                    "description": "DD: Component Type",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "REFTYPE",
+                    "description": "Type of Object Referenced",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "LANGUFLAG",
+                    "description": "DD: Indicator for a Language Field",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "DBPOSITION",
+                    "description": "Position of the field in the table",
+                    "abapType": "NumericCharacterString",
+                    "length": 4,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "ANONYMOUS",
+                    "description": "Anonymization Indicator (for User Fields)",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "OUTPUTSTYLE",
+                    "description": "DD: Output Style (Output Style) for Decfloat Types",
+                    "abapType": "NumericCharacterString",
+                    "length": 2,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "SRS_ID",
+                    "description": "Spatial Reference System",
+                    "abapType": "FourByteInteger",
+                    "formattedLength": 11,
+                    "conversionExit": "",
+                    "isClientField": false
+                }
+            ]
+        }
+    ],
+    "complexRuntimeParameters": {
+    },
+    "whereSequence": [
+    ]
+}
