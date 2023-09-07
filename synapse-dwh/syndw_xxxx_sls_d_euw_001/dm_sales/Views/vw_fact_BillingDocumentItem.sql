@@ -6,17 +6,17 @@ SELECT
        ,BDPE.BillingDocumentItem
        ,CASE  
               WHEN [ConditionType] = 'ZNET' 
-              THEN edw.svf_getConditionAmount (BDI.CurrencyType,BDPE.ConditionAmount,BDPE.ConditionAmountEUR,BDPE.ConditionAmountUSD)
+              THEN edw.svf_getConditionAmount (BDI.CurrencyTypeID,BDPE.ConditionAmount,BDPE.ConditionAmountEUR,BDPE.ConditionAmountUSD)
               ELSE 0 
         END AS ZNET_NetValue
        ,CASE  
               WHEN [ConditionType] = 'REA1' 
-              THEN edw.svf_getConditionAmount (BDI.CurrencyType,BDPE.ConditionAmount,BDPE.ConditionAmountEUR,BDPE.ConditionAmountUSD)
+              THEN edw.svf_getConditionAmount (BDI.CurrencyTypeID,BDPE.ConditionAmount,BDPE.ConditionAmountEUR,BDPE.ConditionAmountUSD)
               ELSE 0 
         END AS REA1_RebateAccrual
        ,CASE  
               WHEN [ConditionType] = 'ZNRV' 
-              THEN edw.svf_getConditionAmount (BDI.CurrencyType,BDPE.ConditionAmount,BDPE.ConditionAmountEUR,BDPE.ConditionAmountUSD)
+              THEN edw.svf_getConditionAmount (BDI.CurrencyTypeID,BDPE.ConditionAmount,BDPE.ConditionAmountEUR,BDPE.ConditionAmountUSD)
               ELSE 0 
         END AS ZNRV_NetRevenue
        ,BDI.CurrencyTypeID        

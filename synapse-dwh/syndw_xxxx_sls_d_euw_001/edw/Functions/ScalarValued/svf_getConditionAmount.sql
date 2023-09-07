@@ -1,6 +1,6 @@
 CREATE FUNCTION [edw].[svf_getConditionAmount](
-    @CurrencyType NVARCHAR(20),
-    @ConditionAmount DECIMAL(15,2),
+    @CurrencyTypeID     CHAR(2) ,
+    @ConditionAmount    DECIMAL(15,2),
     @ConditionAmountEUR DECIMAL(15,2),
     @ConditionAmountUSD DECIMAL(15,2)
 )
@@ -10,8 +10,8 @@ BEGIN
 DECLARE @Amount AS DECIMAL(15,2)  
     SET @Amount =
         CASE 
-            WHEN @CurrencyType = 'Group Currency EUR' THEN @ConditionAmountEUR
-            WHEN @CurrencyType = 'Group Currency USD' THEN @ConditionAmountUSD
+            WHEN @CurrencyTypeID = '30' THEN @ConditionAmountEUR
+            WHEN @CurrencyTypeID = '40' THEN @ConditionAmountUSD
             ELSE @ConditionAmount 
         END
 
