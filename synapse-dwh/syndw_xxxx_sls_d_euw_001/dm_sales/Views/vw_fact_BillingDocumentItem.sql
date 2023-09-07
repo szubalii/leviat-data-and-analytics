@@ -19,7 +19,7 @@ SELECT
               THEN edw.svf_getConditionAmount (BDI.CurrencyType,BDPE.ConditionAmount,BDPE.ConditionAmountEUR,BDPE.ConditionAmountUSD)
               ELSE 0 
         END AS ZNRV_NetRevenue
-       ,BDI.CurrencyType        
+       ,BDI.CurrencyTypeID        
 FROM  
        [edw].[fact_BillingDocumentItemPrcgElmnt] BDPE
 LEFT JOIN 
@@ -28,7 +28,7 @@ LEFT JOIN
         BDI.BillingDocument = BDPE.BillingDocument
     AND BDI.BillingDocumentItem = BDPE.BillingDocumentItem
 WHERE 
-       BDPE.[CurrencyTypeID] = 10 AND BDI.CurrencyType <> 'Transaction Currency' AND BDPE.ConditionType IN ('ZNRV','REA1','ZNET') 
+       BDPE.[CurrencyTypeID] = '10' AND BDI.[CurrencyTypeID] <> '00' AND BDPE.ConditionType IN ('ZNRV','REA1','ZNET') 
 )
 
 , BillDocPrcgElmnt_Grouping AS (
@@ -38,12 +38,12 @@ SELECT
        ,sum(ZNET_NetValue) as ZNET_NetValue
        ,sum(REA1_RebateAccrual) as REA1_RebateAccrual
        ,sum(ZNRV_NetRevenue) as ZNRV_NetRevenue
-       ,CurrencyType        
+       ,CurrencyTypeID        
 FROM  BillDocPrcgElmnt
 GROUP BY
         BillingDocument
        ,BillingDocumentItem
-       ,CurrencyType 
+       ,CurrencyTypeID 
 
 ),
 
@@ -285,7 +285,7 @@ GROUP BY
              left join BillDocPrcgElmnt_Grouping BDPE
                        on  doc.BillingDocument = BDPE.BillingDocument
                        and doc.BillingDocumentItem = BDPE.BillingDocumentItem
-                       and doc.CurrencyType = BDPE.CurrencyType
+                       and doc.CurrencyTypeID = BDPE.CurrencyTypeID
 
             WHERE doc.[CurrencyTypeID] <> '00' -- Transaction Currency
 )
