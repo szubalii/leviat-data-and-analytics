@@ -90,7 +90,7 @@
 				}
 			},
 			{
-				"name": "Get DQ Execution Orders",
+				"name": "Get Synapse DQ Entities",
 				"type": "Lookup",
 				"dependsOn": [
 					{
@@ -112,7 +112,7 @@
 					"source": {
 						"type": "AzureSqlSource",
 						"sqlReaderQuery": {
-							"value": "SELECT DISTINCT [execution_order] AS [ExecOrder] \nFROM [dbo].[get_scheduled_entity_batch_activities_by_layer] (\n    @{pipeline().parameters.adhoc},\n    '@{pipeline().parameters.date}',\n    @{pipeline().parameters.rerun_successful_full_entities},\n    'DQ'\n)\nWHERE\n@{pipeline().parameters.entity_filter}\nORDER BY [execution_order]",
+							"value": "SELECT *\n    FROM [dbo].[get_scheduled_entity_batch_activities_by_layer] (\n    @{pipeline().parameters.adhoc},\n    '@{pipeline().parameters.date}',\n    @{pipeline().parameters.rerun_successful_full_entities},\n    'DQ'\n) \nWHERE\n    @{pipeline().parameters.entity_filter}",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
@@ -136,7 +136,7 @@
 				"type": "ForEach",
 				"dependsOn": [
 					{
-						"activity": "Get DQ Execution Orders",
+						"activity": "Get Synapse DQ Entities",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -145,48 +145,77 @@
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@activity('Get DQ execution Orders').output.value",
+						"value": "@activity('Get Synapse DQ Entities').output.value",
 						"type": "Expression"
 					},
-					"isSequential": true,
+					"isSequential": false,
+					"batchCount": 10,
 					"activities": [
 						{
-							"name": "Process DQ Batch",
-							"type": "ExecutePipeline",
+							"name": "If Required to Process DQ",
+							"type": "IfCondition",
 							"dependsOn": [],
 							"userProperties": [],
 							"typeProperties": {
-								"pipeline": {
-									"referenceName": "pl_SYNDW_DQ_process_batch",
-									"type": "PipelineReference"
+								"expression": {
+									"value": "@contains(\n    item().required_activities,\n    'ProcessDQ'\n)",
+									"type": "Expression"
 								},
-								"waitOnCompletion": true,
-								"parameters": {
-									"OrderNumber": {
-										"value": "@item().ExecOrder",
-										"type": "Expression"
-									},
-									"adhoc": {
-										"value": "@pipeline().parameters.adhoc",
-										"type": "Expression"
-									},
-									"run_id": {
-										"value": "@pipeline().RunId",
-										"type": "Expression"
-									},
-									"date": {
-										"value": "@pipeline().parameters.date",
-										"type": "Expression"
-									},
-									"entity_filter": {
-										"value": "@pipeline().parameters.entity_filter",
-										"type": "Expression"
-									},
-									"rerun_successful_full_entities": {
-										"value": "@pipeline().parameters.rerun_successful_full_entities",
-										"type": "Expression"
+								"ifTrueActivities": [
+									{
+										"name": "Process DQ Entity",
+										"type": "ExecutePipeline",
+										"dependsOn": [],
+										"userProperties": [],
+										"typeProperties": {
+											"pipeline": {
+												"referenceName": "pl_SYNDW_DQ_process_entity",
+												"type": "PipelineReference"
+											},
+											"waitOnCompletion": true,
+											"parameters": {
+												"sproc_schema_name": {
+													"value": "@item().sproc_schema_name",
+													"type": "Expression"
+												},
+												"sproc_name": {
+													"value": "@item().sproc_name",
+													"type": "Expression"
+												},
+												"source_schema_name": {
+													"value": "@item().source_schema_name",
+													"type": "Expression"
+												},
+												"source_view_name": {
+													"value": "@item().source_view_name",
+													"type": "Expression"
+												},
+												"dest_schema_name": {
+													"value": "@item().dest_schema_name",
+													"type": "Expression"
+												},
+												"dest_table_name": {
+													"value": "@item().dest_table_name",
+													"type": "Expression"
+												},
+												"entity_id": {
+													"value": "@item().entity_id",
+													"type": "Expression"
+												},
+												"run_id": {
+													"value": "@pipeline().RunId",
+													"type": "Expression"
+												},
+												"entity_name": {
+													"value": "@item().entity_name",
+													"type": "Expression"
+												},
+												"source_layer": "Base",
+												"target_layer": "DQ"
+											}
+										}
 									}
-								}
+								]
 							}
 						}
 					]
@@ -197,7 +226,7 @@
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "Get DQ Execution Orders",
+						"activity": "Get Synapse DQ Entities",
 						"dependencyConditions": [
 							"Failed"
 						]
@@ -228,7 +257,7 @@
 						},
 						"error_msg": {
 							"value": {
-								"value": "@activity('Get DQ Execution Orders').Error.Message",
+								"value": "@activity('Get Synapse DQ Entities').Error.Message",
 								"type": "Expression"
 							},
 							"type": "String"
@@ -456,7 +485,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"message": {
-						"value": "@concat(\n    'Failed to get DQ Execution Orders ',\n    activity('Get DQ Execution Orders').Error.Message\n)",
+						"value": "@concat(\n    'Failed to get Synapse DQ Entities ',\n    activity('Get Synapse DQ Entities').Error.Message\n)",
 						"type": "Expression"
 					},
 					"errorCode": "500"
@@ -476,7 +505,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"message": {
-						"value": "@concat(\n    'One or more Synapse base procedures failed: ',\n    activity('Process DQ Batch').Error.Message\n)",
+						"value": "@concat(\n    'One or more Synapse base procedures failed: ',\n    activity('Process DQ Entity').Error.Message\n)",
 						"type": "Expression"
 					},
 					"errorCode": "500"
@@ -494,6 +523,8 @@
 					}
 				],
 				"policy": {
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
 					"secureOutput": false,
 					"secureInput": false
 				},
