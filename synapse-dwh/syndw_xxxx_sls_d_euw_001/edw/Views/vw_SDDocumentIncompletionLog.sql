@@ -14,10 +14,9 @@ SELECT
 , LT.[ABAPDataElementDescription]      AS FieldDescription
 FROM [base_s4h_cax].[I_SDDocumentIncompletionLog] IL
 LEFT JOIN [base_s4h_cax].[RollName] RN
-  ON
-    RN.TabName = IL.SDDocumentTable
+  ON IL.SDDocumentTable = RN.TabName
     AND
-    RN.FieldName = IL.SDDocumentTableField
+    IL.SDDocumentTableField = RN.FieldName
 LEFT JOIN [base_s4h_cax].[I_DataElementLabelText] LT
-  ON LT.ABAPDataElement = RN.RollName
+  ON RN.RollName = LT.ABAPDataElement
 WHERE IL.SDDocument NOT LIKE '001%'
