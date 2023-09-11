@@ -12,13 +12,13 @@
 
 CREATE TABLE [base_s4h_cax].[I_DataElementLabelText] (
     
-    [ABAPDATAELEMENT] NVARCHAR(30) NOT NULL  -- Data element (semantic domain)
-  , [LANGUAGE] CHAR(1) NOT NULL  -- Language Key
-  , [ABAPDATAELEMENTDESCRIPTION] NVARCHAR(60)  -- Short Description of Repository Objects
-  , [ABAPDATAELEMENTHEADING] NVARCHAR(55)  -- Heading
-  , [ABAPSHORTFIELDLABEL] NVARCHAR(10)  -- Short Field Label
-  , [ABAPMEDIUMFIELDLABEL] NVARCHAR(20)  -- Medium Field Label
-  , [ABAPLONGFIELDLABEL] NVARCHAR(40)  -- Long Field Label
+    [ABAPDataElement] NVARCHAR(30) NOT NULL  -- Data element (semantic domain)
+  , [Language] CHAR(1) NOT NULL  -- Language Key
+  , [ABAPDataElementDescription] NVARCHAR(60)  -- Short Description of Repository Objects
+  , [ABAPDataElementHeading] NVARCHAR(55)  -- Heading
+  , [ABAPShortFieldLabel] NVARCHAR(10)  -- Short Field Label
+  , [ABAPMediumElementLabel] NVARCHAR(20)  -- Medium Field Label
+  , [ABAPLongFieldLabel] NVARCHAR(40)  -- Long Field Label
   , [t_applicationId] VARCHAR (32)  -- Application ID
   , [t_jobId] VARCHAR (36)  -- Job ID
   , [t_jobDtm] DATETIME  -- Job Date Time
@@ -26,8 +26,8 @@ CREATE TABLE [base_s4h_cax].[I_DataElementLabelText] (
   , [t_extractionDtm] DATETIME  -- Extraction Date Time
   , [t_filePath] NVARCHAR (1024)  -- Filepath
   , CONSTRAINT [PK_I_DataElementLabelText] PRIMARY KEY NONCLUSTERED(
-      [ABAPDATAELEMENT]
-    , [LANGUAGE]
+      [ABAPDataElement]
+    , [Language]
   ) NOT ENFORCED
 ) WITH (
   HEAP

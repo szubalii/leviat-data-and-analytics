@@ -10,14 +10,14 @@ SELECT
 , IL.[SDDocumentTextID]
 , IL.[SDDocumentTable]
 , IL.[SDDocumentTableField]
-, LT.[ABAPDATAELEMENTHEADING]          AS FieldName
-, LT.[ABAPDATAELEMENTDESCRIPTION]      AS FieldDescription
+, LT.[ABAPDataElementHeading]          AS FieldName
+, LT.[ABAPDataElementDescription]      AS FieldDescription
 FROM [base_s4h_cax].[I_SDDocumentIncompletionLog] IL
 LEFT JOIN [base_s4h_cax].[RollName] RN
   ON
-    RN.TABNAME = IL.SDDocumentTable
+    RN.TabName = IL.SDDocumentTable
     AND
-    RN.FIELDNAME = IL.SDDocumentTableField
+    RN.FieldName = IL.SDDocumentTableField
 LEFT JOIN [base_s4h_cax].[I_DataElementLabelText] LT
-  ON LT.ABAPDATAELEMENT = RN.ROLLNAME
+  ON LT.ABAPDataElement = RN.RollName
 WHERE IL.SDDocument NOT LIKE '001%'
