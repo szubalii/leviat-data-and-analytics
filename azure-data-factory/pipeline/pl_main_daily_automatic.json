@@ -117,27 +117,6 @@
 								},
 								"waitOnCompletion": true
 							}
-						},
-						{
-							"name": "Deallocate VM",
-							"type": "ExecutePipeline",
-							"dependsOn": [
-								{
-									"activity": "Main Daily ETL",
-									"dependencyConditions": [
-										"Succeeded",
-										"Failed"
-									]
-								}
-							],
-							"userProperties": [],
-							"typeProperties": {
-								"pipeline": {
-									"referenceName": "pl_VM_deallocate",
-									"type": "PipelineReference"
-								},
-								"waitOnCompletion": true
-							}
 						}
 					]
 				}
