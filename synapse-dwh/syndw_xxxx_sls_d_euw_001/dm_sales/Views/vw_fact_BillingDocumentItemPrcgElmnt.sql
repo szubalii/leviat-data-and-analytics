@@ -7,18 +7,13 @@ SELECT
          ,[nk_BillingDocumentItem]  
          ,[ConditionType]
          ,sum([ConditionBaseValue])    AS ConditionBaseValue
-         ,sum([BaseAmountEUR])         AS BaseAmountEUR
-         ,sum([BaseAmountUSD])         AS BaseAmountUSD
          ,sum([ConditionRateValue])    AS ConditionRateValue
          ,sum([ConditionAmount])       AS ConditionAmount
-         ,sum([ConditionAmountEUR])    AS ConditionAmountEUR
-         ,sum([ConditionAmountUSD])    AS ConditionAmountUSD
          ,[CurrencyTypeID]
          ,[CurrencyType]
          ,[CurrencyID]
 FROM
-  [edw].[fact_BillingDocumentItemPrcgElmnt] 
-WHERE [CurrencyTypeID] = '10'
+  [edw].[fact_BillingDocumentItemPrcgElmnt]
 GROUP BY  
           [fk_BillingDocumentItem]
          ,[BillingDocument]
