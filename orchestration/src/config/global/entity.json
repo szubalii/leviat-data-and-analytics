@@ -4191,12 +4191,12 @@
       },
       {
         "entity_id": 618,
-        "entity_name": "Rollname",
+        "entity_name": "RollName",
         "data_category": "NULL",
         "tool_name": "Theobald",
         "extraction_type": "Table",
         "update_mode": "Full",
-        "base_table_name": "Rollname",
+        "base_table_name": "RollName",
         "schedule_recurrence": "D",
         "pk_field_names": "TABNAME, FIELDNAME, AS4VERS, POSITION"
       }
