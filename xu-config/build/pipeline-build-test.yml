@@ -17,10 +17,6 @@ jobs:
   variables:
   - name: storageAccountName
     value: stprteuw001
-  # - name: S4HSystemId_
-  #   value: $(S4HSystemId)
-  # - name: S4HClientId_
-  #   value: $(S4HClientId)
   - name: destination
     value: $[ format('{0}_s4h-{1}-{2}', variables['storageAccountName'], variables['S4HSystemId'], variables['S4HClientId']) ]
   pool:
@@ -31,8 +27,7 @@ jobs:
     - Agent.ComputerName -equals $(VMName)
   steps:
   - template: ./steps-build.yml
-  # - template: ./steps-artifact.yml
-  # steps:
+  
   # Update the source and destinations in the extractions
   - task: FileTransform@1
     displayName: 'File Transform: Destination and Source in Extractions'
@@ -40,23 +35,6 @@ jobs:
       folderPath: '$(Build.SourcesDirectory)/xu-config/extractions'
       fileType: json
       targetFiles: '**/general.json'
-  
-    # Copy Repo XU Config Extractions to ADLS
-    # This is used by ADF to know which extraction is configured to use file splitting
-  # - task: PowerShell@2
-  #   displayName: 'Copy XU Config to ADLS'
-  #   inputs:
-  #     targetType: 'inline'
-  #     pwsh: true
-  #     script: |
-  #       # connect to Azure using VM
-  #       azcopy login --identity
-  
-  #       # directly copy to storage account using azcopy
-  #       azcopy copy `
-  #         '$(Build.SourcesDirectory)/xu-config/extractions\*' `
-  #         'https://$(storageAccountName).dfs.core.windows.net/xu-configuration/extractions' `
-  #         --recursive
   
   # Update the extraction names by renaming the folders to include the environment prefix
   # - script: for /d %D in ("$(System.DefaultWorkingDirectory)\xu-config\extractions\*") do ren "%D" "$(environment)_%~nxD"
@@ -68,8 +46,6 @@ jobs:
       script: |
         Get-ChildItem -Path '$(Build.SourcesDirectory)/xu-config/extractions' |
         Foreach-Object {Rename-Item -Path $_.FullName -NewName ("$(xuPrefix)_"+($_.Name))}
-  
-  
   
     # Copy Repo XU Config to VM XU Config
   - task: CopyFiles@2
