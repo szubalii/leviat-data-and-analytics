@@ -93,7 +93,7 @@ jobs:
     displayName: 'Get Changed Extractions'
     name: GetChangedExtractions
     inputs:
-      filePath: '../src/getChangedExtractions.ps1'
+      filePath: $(System.DefaultWorkingDirectory)/xu-config/src/getChangedExtractions.ps1
       arguments: >
         -commitId $(commitId)
       pwsh: true
