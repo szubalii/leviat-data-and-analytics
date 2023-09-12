@@ -118,22 +118,7 @@
 					"expression": {
 						"value": "@if(\n    equals(\n        pipeline().globalParameters.environment,\n        'prod'\n    ),\n    true,\n    false\n)",
 						"type": "Expression"
-					},
-					"ifTrueActivities": [
-						{
-							"name": "pl_VM_deallocate",
-							"type": "ExecutePipeline",
-							"dependsOn": [],
-							"userProperties": [],
-							"typeProperties": {
-								"pipeline": {
-									"referenceName": "pl_VM_deallocate",
-									"type": "PipelineReference"
-								},
-								"waitOnCompletion": true
-							}
-						}
-					]
+					}
 				}
 			},
 			{
@@ -313,8 +298,6 @@
 					}
 				],
 				"policy": {
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
 					"secureOutput": false,
 					"secureInput": false
 				},
