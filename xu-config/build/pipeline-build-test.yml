@@ -12,7 +12,7 @@ jobs:
   - name: storageAccountName
     value: stprteuw001
   - name: destination
-    value: ${{ format('{0}_s4h-{1}-{2}', $storageAccountName, $S4HSystemId, S4HClientId) }}
+    value: ${{ format('{0}_s4h-{1}-{2}', $(storageAccountName), $(S4HSystemId), $(S4HClientId)) }}
   pool:
     name: 'VM'
     demands:
