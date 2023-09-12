@@ -80,6 +80,7 @@ jobs:
       TargetFolder: 'C:\Program Files\XtractUniversal\config\extractions'
       OverWrite: true
 
+
 - job: RUN_EXTRACTIONS
   dependsOn: BUILD_DEPLOY
   pool:
@@ -89,47 +90,22 @@ jobs:
     - VisualStudio
     - Agent.ComputerName -equals $(VMName)
   steps:
-  # - checkout: self
-  #   fetchDepth: 0 # disables shallow fetch and results in correct return of git diff-tree
+    
   - task: PowerShell@2
     displayName: 'Get Changed Extractions'
     name: GetChangedExtractions
     inputs:
       filePath: $(System.DefaultWorkingDirectory)/xu-config/src/getChangedExtractions.ps1
       pwsh: true
-  - script: |
-      "C:\Program Files\XtractUniversal\xu.exe" -s localhost -p 8065 -n 3295_I_BrandText
 
-    
-# - job: GET_CHANGED_EXTRACTIONS
-#   pool:
-#     vmImage: 'ubuntu-20.04'
-#   steps:
-#   - checkout: self
-#     fetchDepth: 0 # disables shallow fetch and results in correct return of git diff-tree
-  
-#   # - bash: |
-#   #     git diff --name-only $(System.PullRequest.SourceCommitId)^!
-#   #     git diff --name-only $SYSTEM_PULLREQUEST_SOURCECOMMITID^!
-
-#   #     $(git diff --name-only $(System.PullRequest.SourceCommitId)^!)
-#   #     $(git diff --name-only $SYSTEM_PULLREQUEST_SOURCECOMMITID^!)
-
-#   - pwsh: |
-#       git diff --name-only 199bf9131748a7e07d4074baf8f7dd2daf94d963^!
-#       git diff --name-only $(commitId)^!
-# - job: TEST_XU_CONFIG
-#   variables:
-  
-#   pool: 'VM'
-#   demands:
-#   - node.js
-#   - VisualStudio
-#   - Agent.ComputerName -equals $(VMName)
-  
-#   steps:
-#   - script
-
+  - task: PowerShell@2
+    displayName: 'Run Changed Extractions'
+    name: RunChangedExtractions
+    inputs:
+      filePath: $(System.DefaultWorkingDirectory)/xu-config/src/runExtractions.ps1
+      arguments: >
+        -extractions $(extractions)
+      pwsh: true
 
 - job: CLEAN_UP
   dependsOn:
