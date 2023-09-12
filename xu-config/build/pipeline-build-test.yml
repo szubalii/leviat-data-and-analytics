@@ -89,15 +89,13 @@ jobs:
     - VisualStudio
     - Agent.ComputerName -equals $(VMName)
   steps:
-  - checkout: self
-    fetchDepth: 0 # disables shallow fetch and results in correct return of git diff-tree
+  # - checkout: self
+  #   fetchDepth: 0 # disables shallow fetch and results in correct return of git diff-tree
   - task: PowerShell@2
     displayName: 'Get Changed Extractions'
     name: GetChangedExtractions
     inputs:
       filePath: $(System.DefaultWorkingDirectory)/xu-config/src/getChangedExtractions.ps1
-      # arguments: >
-      #   -targetBranch $(System.PullRequest.TargetBranch)
       pwsh: true
   - script: |
       "C:\Program Files\XtractUniversal\xu.exe" -s localhost -p 8065 -n 3295_I_BrandText

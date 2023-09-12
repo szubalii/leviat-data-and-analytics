@@ -1,7 +1,3 @@
-# param (
-#   [string]$targetBranch
-# )
-
 Write-Host "CommitID:"$commitId
 
 $targetBranch = 'origin/'+$env:SYSTEM_PULLREQUEST_TARGETBRANCHNAME
@@ -17,7 +13,7 @@ $changedFiles
 Write-Host "Target Branch:"
 $env:SYSTEM_PULLREQUEST_TARGETBRANCH
 
-# If a single file is changed
+# If a single file is changed convert to an array
 if ($changedFiles.getType().Name -eq 'String') {
   $changedFile = $changedFiles
   $changedFiles = @()
@@ -35,3 +31,12 @@ $extractions = $( foreach ($changedExtractionsFile in $changedExtractionsFiles) 
 
 Write-Host "The following extraction(s) have changed:"
 $extractions
+
+# Write-Host "##vso[task.setvariable variable=changedExtractions;isOutput=true]$extractions"
+
+ForEach ($extraction in $extractions) {
+  $extractionName = $env:SYSTEM_PULLREQUEST_PULLREQUESTID + '_' + $extraction
+  $params = '-s localhost -p 8065 -n '+$extractionName
+  $Command = "C:\Program Files\XtractUniversal\xu.exe"
+  Invoke-Expression -Command "$Command $params"
+}
