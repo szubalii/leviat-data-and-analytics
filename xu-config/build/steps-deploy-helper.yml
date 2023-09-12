@@ -22,9 +22,8 @@ steps:
     targetType: 'inline'
     pwsh: true
     script: |
-      Get-ChildItem -Path '$(parameters.xuPath)' |
+      Get-ChildItem -Path '${{ parameters.xuPath }}' |
       Foreach-Object {Rename-Item -Path $_.FullName -NewName ("$(xuPrefix)_"+($_.Name))}
-
 
 
   # Copy Repo XU Config to VM XU Config
