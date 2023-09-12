@@ -7,7 +7,17 @@ Write-Host "CommitID:"$commitId
 $extractionsFolder = 'xu-config/extractions/'
 $changedFiles = git diff --name-only $commitId^!
 
-# $changedFiles = 'xu-config/test/I_DeliveryDocument/source.json','xu-config/extractions/I_Brand/source.json','xu-config/extractions/I_DeliveryDocument/source.json','xu-config/extractions/I_DeliveryDocument/general.json'
+# $changedFiles = 'xu-config/extractions/I_DeliveryDocument/source.json'#,'xu-config/extractions/I_Brand/source.json','xu-config/extractions/I_DeliveryDocument/source.json','xu-config/extractions/I_DeliveryDocument/general.json'
+
+Write-Host "The following file(s) have changed:"
+$changedFiles
+
+# If a single file is changed
+if ($changedFiles.getType().Name -eq 'String') {
+  $changedFile = $changedFiles
+  $changedFiles = @()
+  $changedFiles += $changedFile
+}
 
 $changedExtractionsFiles = $changedFiles -match $extractionsFolder
 
@@ -20,34 +30,3 @@ $extractions = $( foreach ($changedExtractionsFile in $changedExtractionsFiles) 
 
 Write-Host "The following extraction(s) have changed:"
 $extractions
-
-# # If a single file is changed
-# if ($changedFiles.getType().Name -eq 'String') {
-
-#   $match = $changedFiles -match $extractionsFolder
-
-#   if ($match){
-
-#     $changedExtraction += $match
-    
-#     Write-Host 'The following extraction is changed:';
-#     $match
-#   }
-# }
-
-# # If multiple files have changed
-# else {
-
-#   ForEach ($changedFile in $changedFiles) {
-
-#     $match = $changedFiles -match $extractionsFolder
-
-#     if ($match){
-
-#       $changedExtraction += $match
-      
-#       Write-Host 'The following extraction is changed:';
-#       $match
-#     }
-#   }
-# }
