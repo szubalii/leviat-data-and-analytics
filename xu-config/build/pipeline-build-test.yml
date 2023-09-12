@@ -1,6 +1,7 @@
 trigger: none # triggered by PR
 
 variables:
+- template: ../../build/variables-test.yml
 - name: xuPrefix
   value: $(System.PullRequest.PullRequestId)
 - name: storageAccountName
@@ -18,6 +19,7 @@ jobs:
   - template: ./steps-build.yml
   - template: ./steps-artifact.yml
 - job: DEPLOY
+  dependsOn: BUILD
   pool:
     name: 'VM'
     demands:
