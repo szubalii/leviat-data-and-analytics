@@ -328,13 +328,13 @@
     <Build Include="base_ff\Tables\Region.sql" />
     <Build Include="base_ff\Tables\CompanyCode.sql" />
     <Build Include="base_ff\Tables\Budget_EPM.sql" />
+    <Build Include="base_ff_USA\Tables\LeviatLocations.sql" />
 
     <Build Include="base_ff_USA\Tables\Budget.sql" />
     <Build Include="base_ff_USA\Tables\DummyMaterial.sql" />
     <Build Include="base_ff_USA\Tables\SubPCAT_Pillar.sql" />
     <Build Include="base_ff_USA\Tables\CAProductGroup.sql" />
-    <Build Include="base_ff_USA\Tables\LeviatLocations.sql" />
-
+    
     <Build Include="base_dw_halfen_0_hlp\Tables\CUSTOMER.sql" />
     <Build Include="base_dw_halfen_0_hlp\Tables\DIM_ARTICLE.sql" />
     <Build Include="base_dw_halfen_0_hlp\Tables\SAPCustomerBasicMappingTable.sql" />
