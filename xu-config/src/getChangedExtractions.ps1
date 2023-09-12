@@ -1,16 +1,19 @@
-param (
-  [string]$targetBranch
-)
+# param (
+#   [string]$targetBranch
+# )
 
 Write-Host "CommitID:"$commitId
 
 $extractionsFolder = 'xu-config/extractions/'
-$changedFiles = git diff --name-only $targetBranch #$commitId^!
+$changedFiles = git diff --name-only $env:SYSTEM_PULLREQUEST_TARGETBRANCH #$commitId^!
 
 # $changedFiles = 'xu-config/extractions/I_DeliveryDocument/source.json'#,'xu-config/extractions/I_Brand/source.json','xu-config/extractions/I_DeliveryDocument/source.json','xu-config/extractions/I_DeliveryDocument/general.json'
 
 Write-Host "The following file(s) have changed:"
 $changedFiles
+
+Write-Host "Target Branch:"
+$env:SYSTEM_PULLREQUEST_TARGETBRANCH
 
 # If a single file is changed
 if ($changedFiles.getType().Name -eq 'String') {
