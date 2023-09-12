@@ -1,11 +1,11 @@
 param (
-  [string]$commitId
+  [string]$targetBranch
 )
 
 Write-Host "CommitID:"$commitId
 
 $extractionsFolder = 'xu-config/extractions/'
-$changedFiles = git diff --name-only $(SYSTEM_PULLREQUEST_TARGETBRANCH) #$commitId^!
+$changedFiles = git diff --name-only $targetBranch #$commitId^!
 
 # $changedFiles = 'xu-config/extractions/I_DeliveryDocument/source.json'#,'xu-config/extractions/I_Brand/source.json','xu-config/extractions/I_DeliveryDocument/source.json','xu-config/extractions/I_DeliveryDocument/general.json'
 

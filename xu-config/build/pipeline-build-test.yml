@@ -97,7 +97,7 @@ jobs:
     inputs:
       filePath: $(System.DefaultWorkingDirectory)/xu-config/src/getChangedExtractions.ps1
       arguments: >
-        -commitId $(commitId)
+        -targetBranch $(System.PullRequest.TargetBranch)
       pwsh: true
   - script: |
       "C:\Program Files\XtractUniversal\xu.exe" -s localhost -p 8065 -n 3295_I_BrandText
