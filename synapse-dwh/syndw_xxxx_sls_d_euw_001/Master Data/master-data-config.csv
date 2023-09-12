@@ -38,3 +38,4 @@ map_AXBI;SAPCustomerBasicMappingTable.csv;";";map_AXBI;SAPCustomerBasicMappingTa
 ;Region.csv;";";base_ff;Region
 ;CompanyCode.csv;";";base_ff;CompanyCode
 ;Budget_EPM.csv;";";base_ff;Budget_EPM
+;LeviatLocations.csv;";";base_ff;LeviatLocations
