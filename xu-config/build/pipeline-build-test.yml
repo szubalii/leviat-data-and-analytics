@@ -15,8 +15,8 @@ jobs:
     - VisualStudio
     - Agent.ComputerName -equals $(VMName)
   steps:
-  - template: ../xu-config/build/steps-build.yml
-  - template: ../xu-config/build/steps-artifact.yml
+  - template: ./steps-build.yml
+  - template: ./steps-artifact.yml
 - job: DEPLOY
   pool:
     name: 'VM'
@@ -25,7 +25,7 @@ jobs:
     - VisualStudio
     - Agent.ComputerName -equals $(VMName)
   steps:
-  - template: ../xu-config/build/steps-deploy.yml
+  - template: ./steps-deploy.yml
 # - job: GET_CHANGED_EXTRACTIONS
 #   pool:
 #     vmImage: 'ubuntu-20.04'
