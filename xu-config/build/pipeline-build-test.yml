@@ -19,6 +19,8 @@ jobs:
     value: stprteuw001
   - name: destination
     value: $[ format('{0}_s4h-{1}-{2}', variables['storageAccountName'], variables['S4HSystemId'], variables['S4HClientId']) ]
+  - name: xuPath
+    value: $(Build.SourcesDirectory)/xu-config
   pool:
     name: 'VM'
     demands:
@@ -32,7 +34,7 @@ jobs:
   - task: FileTransform@1
     displayName: 'File Transform: Destination and Source in Extractions'
     inputs:
-      folderPath: '$(Build.SourcesDirectory)/xu-config/extractions'
+      folderPath: '$(xuPath)/extractions'
       fileType: json
       targetFiles: '**/general.json'
   
@@ -44,14 +46,14 @@ jobs:
       targetType: 'inline'
       pwsh: true
       script: |
-        Get-ChildItem -Path '$(Build.SourcesDirectory)/xu-config/extractions' |
+        Get-ChildItem -Path '$(xuPath)/extractions' |
         Foreach-Object {Rename-Item -Path $_.FullName -NewName ("$(xuPrefix)_"+($_.Name))}
   
     # Copy Repo XU Config to VM XU Config
   - task: CopyFiles@2
     displayName: 'Copy Repo XU Config to VM XU Config'
     inputs:
-      SourceFolder: '$(Build.SourcesDirectory)/xu-config/extractions'
+      SourceFolder: '$(xuPath)/extractions'
       Contents: '$(xuPrefix)*/**/*.json' # copy only those extractions required for deployment
       TargetFolder: 'C:\Program Files\XtractUniversal\config\extractions'
       OverWrite: true
@@ -80,7 +82,7 @@ jobs:
     inputs:
       filePath: $(System.DefaultWorkingDirectory)/xu-config/src/runExtractions.ps1
       arguments: >
-        -extractions $(extractions)
+        -extractions $(changedExtractions)
       pwsh: true
 
 - job: CLEAN_UP
