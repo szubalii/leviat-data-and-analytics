@@ -16,10 +16,6 @@ resources:
 
 trigger: none
 
-variables:
-  - name: xuPath
-    value: $(Pipeline.Workspace)\build\XtractUniversal
-
 parameters:
 - name: target_env
   displayName: Target Environment
