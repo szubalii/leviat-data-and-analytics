@@ -6,6 +6,8 @@ variables:
 - ${{ if eq(variables['Build.Reason'], 'PullRequest') }}:
   - name: xuPrefix
     value: $(System.PullRequest.PullRequestId)
+  - name: commitId
+    value: $(System.PullRequest.SourceCommitId)
 - ${{ elseif eq(variables['Build.Reason'], 'Manual') }}:
   - name: xuPrefix
     value: PR0000
@@ -77,6 +79,26 @@ jobs:
       Contents: '$(xuPrefix)*/**/*.json' # copy only those extractions required for deployment
       TargetFolder: 'C:\Program Files\XtractUniversal\config\extractions'
       OverWrite: true
+
+- job: RUN_EXTRACTIONS
+  pool:
+    name: 'VM'
+    demands:
+    - node.js
+    - VisualStudio
+    - Agent.ComputerName -equals $(VMName)
+  steps:
+  - task: PowerShell@2
+    displayName: 'Get Changed Extractions'
+    name: GetChangedExtractions
+    inputs:
+      filePath: '../src/getChangedExtractions.ps1'
+      arguments: >
+        -commitId $(commitId)
+      pwsh: true
+  - script: |
+      "C:\Program Files\XtractUniversal\xu.exe" -s localhost -p 8065 -n 3295_I_BrandText
+
     
 # - job: GET_CHANGED_EXTRACTIONS
 #   pool:
