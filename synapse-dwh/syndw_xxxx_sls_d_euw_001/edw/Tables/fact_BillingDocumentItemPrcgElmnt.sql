@@ -12,8 +12,6 @@
 , [PricingDateTime] nvarchar(28)
 , [ConditionCalculationType] nvarchar(6)
 , [ConditionBaseValue] decimal(24,9)
-, [BaseAmountEUR] DECIMAL(24,9) 
-, [BaseAmountUSD] DECIMAL(24,9) 
 , [ConditionRateValue] decimal(24,9)
 , [ConditionCurrency] char(5) collate Latin1_General_100_BIN2
 , [ConditionQuantity] decimal(5)
@@ -31,8 +29,6 @@
 , [WithholdingTaxCode] nvarchar(4)
 , [CndnRoundingOffDiffAmount] decimal(5,2)
 , [ConditionAmount] decimal(15,2)
-, [ConditionAmountEUR] DECIMAL(15,2)  
-, [ConditionAmountUSD] DECIMAL(15,2)  
 , [ExchangeRate] DECIMAL(15,6) 
 , [TransactionCurrencyID] char(5) collate Latin1_General_100_BIN2
 , [CurrencyTypeID] CHAR(2)
