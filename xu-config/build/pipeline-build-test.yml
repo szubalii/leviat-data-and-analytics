@@ -81,6 +81,7 @@ jobs:
       OverWrite: true
 
 - job: RUN_EXTRACTIONS
+  dependsOn: BUILD_DEPLOY
   pool:
     name: 'VM'
     demands:
