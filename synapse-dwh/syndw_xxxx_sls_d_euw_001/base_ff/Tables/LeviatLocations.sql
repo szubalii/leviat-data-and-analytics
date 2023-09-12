@@ -9,8 +9,8 @@ CREATE TABLE base_ff.LeviatLocations
     ,SAPCode                VARCHAR(4)
     ,TypeOfWHS              VARCHAR(20) NOT NULL
     ,Address                VARCHAR(100) NOT NULL
-    ,Zipcode                VARCHAR(16) NOT NULL
-    ,City                   VARCHAR(32) NOT NULL
+    ,Zipcode                VARCHAR(16)
+    ,City                   VARCHAR(32)
     ,LogisticArea           DECIMAL(10,2)
     ,FTELogistics           DECIMAL(10,2)
     ,FullAddress            VARCHAR(160)
