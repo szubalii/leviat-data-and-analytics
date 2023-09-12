@@ -89,6 +89,8 @@ jobs:
     - VisualStudio
     - Agent.ComputerName -equals $(VMName)
   steps:
+  - checkout: self
+    fetchDepth: 0 # disables shallow fetch and results in correct return of git diff-tree
   - task: PowerShell@2
     displayName: 'Get Changed Extractions'
     name: GetChangedExtractions
@@ -131,11 +133,21 @@ jobs:
 #   - script
 
 
-# - job: CLEAN_UP
-#   pool:
-#     name: 'VM'
-#     demands:
-#     - node.js
-#     - VisualStudio
-#     - Agent.ComputerName -equals $(VMName)
-#   steps:
+- job: CLEAN_UP
+  dependsOn:
+  - BUILD_DEPLOY
+  - RUN_EXTRACTIONS
+  condition: always()
+  pool:
+    name: 'VM'
+    demands:
+    - node.js
+    - VisualStudio
+    - Agent.ComputerName -equals $(VMName)
+  steps:
+  - task: DeleteFiles@1
+    displayName: 'Clean up'
+    inputs:
+      SourceFolder: 'C:\Program Files\XtractUniversal\config\extractions'
+      Contents: '$(xuPrefix)*'
+  
