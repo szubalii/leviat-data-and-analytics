@@ -3,12 +3,16 @@ trigger: none # triggered by PR
 
 variables:
 - template: ../../build/variables-test.yml
+- ${{ if eq(variables['Build.Reason'], 'PullRequest') }}:
+  - name: xuPrefix
+    value: $(System.PullRequest.PullRequestId)
+- ${{ elseif eq(variables['Build.Reason'], 'Manual') }}:
+  - name: xuPrefix
+    value: PR0000
 
 jobs:
 - job: BUILD_DEPLOY
   variables:
-  - name: xuPrefix
-    value: $(System.PullRequest.PullRequestId)
   - name: storageAccountName
     value: stprteuw001
   - name: destination
