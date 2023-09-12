@@ -102,26 +102,6 @@
 				}
 			},
 			{
-				"name": "Deallocate VM if PROD",
-				"type": "IfCondition",
-				"dependsOn": [
-					{
-						"activity": "Process ADLS and Synapse Ingestion",
-						"dependencyConditions": [
-							"Succeeded",
-							"Failed"
-						]
-					}
-				],
-				"userProperties": [],
-				"typeProperties": {
-					"expression": {
-						"value": "@if(\n    equals(\n        pipeline().globalParameters.environment,\n        'prod'\n    ),\n    true,\n    false\n)",
-						"type": "Expression"
-					}
-				}
-			},
-			{
 				"name": "Process Synapse Intm",
 				"type": "ExecutePipeline",
 				"dependsOn": [
