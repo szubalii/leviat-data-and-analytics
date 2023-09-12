@@ -1,8 +1,56 @@
 trigger: none # triggered by PR
 
-extends:
-  template: ../../build/stages-build-deploy.yml
-  parameters:
-    folder: xu-config
-    solution: XtractUniversal
-    env: test
+variables:
+- name: xuPrefix
+  value: $(System.PullRequest.PullRequestId)
+- name: storageAccountName
+  value: stprdeuw001
+
+jobs:
+- job: BUILD
+  pool:
+    name: 'VM'
+    demands:
+    - node.js
+    - VisualStudio
+    - Agent.ComputerName -equals $(VMName)
+  steps:
+  - template: ../xu-config/build/steps-build.yml
+  - template: ../xu-config/build/steps-artifact.yml
+- job: DEPLOY
+  pool:
+    name: 'VM'
+    demands:
+    - node.js
+    - VisualStudio
+    - Agent.ComputerName -equals $(VMName)
+  steps:
+  - template: ../xu-config/build/steps-deploy.yml
+# - job: GET_CHANGED_EXTRACTIONS
+#   pool:
+#     vmImage: 'ubuntu-20.04'
+#   steps:
+#   - checkout: self
+#     fetchDepth: 0 # disables shallow fetch and results in correct return of git diff-tree
+  
+#   # - bash: |
+#   #     git diff --name-only $(System.PullRequest.SourceCommitId)^!
+#   #     git diff --name-only $SYSTEM_PULLREQUEST_SOURCECOMMITID^!
+
+#   #     $(git diff --name-only $(System.PullRequest.SourceCommitId)^!)
+#   #     $(git diff --name-only $SYSTEM_PULLREQUEST_SOURCECOMMITID^!)
+
+#   - pwsh: |
+#       git diff --name-only 199bf9131748a7e07d4074baf8f7dd2daf94d963^!
+#       git diff --name-only $(commitId)^!
+# - job: TEST_XU_CONFIG
+#   variables:
+  
+#   pool: 'VM'
+#   demands:
+#   - node.js
+#   - VisualStudio
+#   - Agent.ComputerName -equals $(VMName)
+  
+#   steps:
+#   - script
