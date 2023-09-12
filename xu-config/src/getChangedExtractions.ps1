@@ -4,8 +4,10 @@
 
 Write-Host "CommitID:"$commitId
 
+$targetBranch = 'origin/'+$env:SYSTEM_PULLREQUEST_TARGETBRANCHNAME
+
 $extractionsFolder = 'xu-config/extractions/'
-$changedFiles = git diff --name-only $env:SYSTEM_PULLREQUEST_TARGETBRANCHNAME #$commitId^!
+$changedFiles = git diff --name-only $targetBranch #$commitId^!
 
 # $changedFiles = 'xu-config/extractions/I_DeliveryDocument/source.json'#,'xu-config/extractions/I_Brand/source.json','xu-config/extractions/I_DeliveryDocument/source.json','xu-config/extractions/I_DeliveryDocument/general.json'
 
