@@ -5,18 +5,7 @@ variables:
 - template: ../../build/variables-test.yml
 
 jobs:
-- job: BUILD
-  pool:
-    name: 'VM'
-    demands:
-    - node.js
-    - VisualStudio
-    - Agent.ComputerName -equals $(VMName)
-  steps:
-  - template: ./steps-build.yml
-  - template: ./steps-artifact.yml
-- job: DEPLOY
-  dependsOn: BUILD
+- job: BUILD_DEPLOY
   variables:
   - name: xuPrefix
     value: $(System.PullRequest.PullRequestId)
@@ -29,11 +18,14 @@ jobs:
     - VisualStudio
     - Agent.ComputerName -equals $(VMName)
   steps:
+  - template: ./steps-build.yml
+  # - template: ./steps-artifact.yml
+  # steps:
   # Update the source and destinations in the extractions
   - task: FileTransform@1
     displayName: 'File Transform: Destination and Source in Extractions'
     inputs:
-      folderPath: '$(Pipeline.Workspace)\XtractUniversal\extractions'
+      folderPath: '$(Build.SourcesDirectory)/xu-config/extractions'
       fileType: json
       targetFiles: '**/general.json'
   
@@ -50,7 +42,7 @@ jobs:
   
         # directly copy to storage account using azcopy
         azcopy copy `
-          '$(Pipeline.Workspace)\XtractUniversal\extractions\*' `
+          '$(Build.SourcesDirectory)/xu-config/extractions\*' `
           'https://$(storageAccountName).dfs.core.windows.net/xu-configuration/extractions' `
           --recursive
   
@@ -62,7 +54,7 @@ jobs:
       targetType: 'inline'
       pwsh: true
       script: |
-        Get-ChildItem -Path '$(Pipeline.Workspace)\XtractUniversal\extractions' |
+        Get-ChildItem -Path '$(Build.SourcesDirectory)/xu-config/extractions' |
         Foreach-Object {Rename-Item -Path $_.FullName -NewName ("$(xuPrefix)_"+($_.Name))}
   
   
@@ -71,7 +63,7 @@ jobs:
   - task: CopyFiles@2
     displayName: 'Copy Repo XU Config to VM XU Config'
     inputs:
-      SourceFolder: '$(Pipeline.Workspace)\XtractUniversal\extractions'
+      SourceFolder: '$(Build.SourcesDirectory)/xu-config/extractions'
       Contents: '$(xuPrefix)*/**/*.json' # copy only those extractions required for deployment
       TargetFolder: 'C:\Program Files\XtractUniversal\config\extractions'
       OverWrite: true
@@ -104,3 +96,13 @@ jobs:
   
 #   steps:
 #   - script
+
+
+# - job: CLEAN_UP
+#   pool:
+#     name: 'VM'
+#     demands:
+#     - node.js
+#     - VisualStudio
+#     - Agent.ComputerName -equals $(VMName)
+#   steps:
