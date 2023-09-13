@@ -44,7 +44,7 @@ jobs:
   # - template: ./steps-artifact.yml
   - template: ./steps-deploy-helper.yml
     parameters:
-      xuPath: $(System.SourcesDirectory)/xu-config/extractions
+      xuPath: $(Build.SourcesDirectory)/xu-config/extractions
   
 # - job: RUN_EXTRACTIONS
 #   dependsOn: BUILD_DEPLOY
