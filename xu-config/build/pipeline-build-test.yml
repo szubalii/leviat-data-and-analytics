@@ -25,18 +25,13 @@ jobs:
     - node.js
     - VisualStudio
     - Agent.ComputerName -equals $(VMName)
-  steps:  
-
-  # - checkout: none
+  steps:
 
   - script: |
-      # git clean -ffdx
-      # git reset --hard HEAD
       git fetch origin main
       git checkout origin/main
-      # git fetch origin pull/$(System.PullRequest.PullRequestId)/merge
-      git checkout pull/$(System.PullRequest.PullRequestId)/merge
 
+  - checkout: self
   
   - task: PowerShell@2
     displayName: 'Get Changed Extractions'
