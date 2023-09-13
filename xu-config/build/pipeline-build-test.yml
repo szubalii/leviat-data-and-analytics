@@ -36,11 +36,19 @@ jobs:
       git checkout origin/main
       git checkout pull/$(System.PullRequest.PullRequestId)/merge
 
+  
+  - task: PowerShell@2
+    displayName: 'Get Changed Extractions'
+    name: GetChangedExtractions
+    inputs:
+      filePath: $(System.DefaultWorkingDirectory)/xu-config/src/getChangedExtractions.ps1
+      pwsh: true
+
   - template: ./steps-build.yml
-  - template: ./steps-artifact.yml
+  # - template: ./steps-artifact.yml
   - template: ./steps-deploy-helper.yml
     parameters:
-      xuPath: $(Build.ArtifactStagingDirectory)/extractions
+      xuPath: $(System.SourcesDirectory)/xu-config/extractions
   
 # - job: RUN_EXTRACTIONS
 #   dependsOn: BUILD_DEPLOY
@@ -61,12 +69,6 @@ jobs:
   # - checkout: self
   #   fetchDepth: 0
     
-  - task: PowerShell@2
-    displayName: 'Get Changed Extractions'
-    name: GetChangedExtractions
-    inputs:
-      filePath: $(System.DefaultWorkingDirectory)/xu-config/src/getChangedExtractions.ps1
-      pwsh: true
 
   - task: PowerShell@2
     displayName: 'Run Changed Extractions'
