@@ -41,6 +41,15 @@ jobs:
     - VisualStudio
     - Agent.ComputerName -equals $(VMName)
   steps:
+
+  - checkout: none
+
+  - script: |
+      git fetch origin main
+      git checkout origin/main
+      git checkout origin/$(System.PullRequest.SourceCommitId)
+  # - checkout: self
+  #   fetchDepth: 0
     
   - task: PowerShell@2
     displayName: 'Get Changed Extractions'
