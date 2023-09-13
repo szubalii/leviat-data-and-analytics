@@ -67,10 +67,10 @@ SELECT
 , ISOIPE.[t_jobDtm]   
 FROM 
     [base_s4h_cax].[I_SalesOrderItemPricingElement] ISOIPE
-LEFT JOIN [edw].[fact_SalesDocumentItem] SDI
-    ON ISOIPE.SalesOrder = SDI.SalesDocument AND ISOIPE.SalesOrderItem = SDI.SalesDocumentItem AND SDI.CurrencyTypeID = '10'
 LEFT JOIN [edw].[vw_CurrencyConversionRate] CCR   
     ON ISOIPE.TransactionCurrency = CCR.SourceCurrency    COLLATE DATABASE_DEFAULT
 LEFT JOIN [edw].[dim_CurrencyType] CR
     ON CCR.CurrencyTypeID = CR.CurrencyTypeID
+LEFT JOIN [edw].[fact_SalesDocumentItem] SDI
+    ON SDI.nk_fact_SalesDocumentItem = edw.svf_getNaturalKey (SalesOrder,SalesOrderItem,CR.CurrencyTypeID) 
 WHERE CCR.CurrencyTypeID <> '00'

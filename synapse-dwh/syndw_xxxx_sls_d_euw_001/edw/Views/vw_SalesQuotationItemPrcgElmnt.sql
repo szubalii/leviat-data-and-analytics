@@ -67,10 +67,10 @@ SELECT
   , ISQIPE.[t_jobDtm]   
 FROM 
     [base_s4h_cax].[I_SalesQuotationItemPrcgElmnt] ISQIPE
-LEFT JOIN [edw].[fact_SalesDocumentItem] SDI
-    ON ISQIPE.SalesQuotation = SDI.SalesDocument AND ISQIPE.SalesQuotationItem = SDI.SalesDocumentItem  COLLATE DATABASE_DEFAULT AND SDI.CurrencyTypeID = '10'
 LEFT JOIN [edw].[vw_CurrencyConversionRate] CCR   
     ON ISQIPE.TransactionCurrency = CCR.SourceCurrency    COLLATE DATABASE_DEFAULT
 LEFT JOIN [edw].[dim_CurrencyType] CR
     ON CCR.CurrencyTypeID = CR.CurrencyTypeID
+LEFT JOIN [edw].[fact_SalesDocumentItem] SDI
+    ON SDI.nk_fact_SalesDocumentItem = edw.svf_getNaturalKey  (SalesQuotation,SalesQuotationItem,CR.CurrencyTypeID)
 WHERE CCR.CurrencyTypeID <> '00'

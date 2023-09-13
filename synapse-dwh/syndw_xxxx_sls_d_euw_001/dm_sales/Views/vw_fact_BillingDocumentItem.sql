@@ -271,7 +271,9 @@ select
             WHERE doc.[CurrencyTypeID] <> '00' -- Transaction Currency
 )
 
-SELECT [BillingDocument]
+SELECT 
+       [sk_fact_BillingDocumentItem]
+      ,[BillingDocument]
       ,[BillingDocumentItem]
       ,[nk_fact_BillingDocumentItem]
       ,[CurrencyType]
