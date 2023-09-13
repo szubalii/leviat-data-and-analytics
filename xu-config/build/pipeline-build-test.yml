@@ -29,6 +29,7 @@ jobs:
 
   - checkout: self
     persistCredentials: true
+    fetchDepth: 0
 
   # fetch and checkout main branch to get correct changed files using git diff
   - script: |
