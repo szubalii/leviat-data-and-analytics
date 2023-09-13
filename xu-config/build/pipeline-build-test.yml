@@ -28,9 +28,10 @@ jobs:
   steps:  
 
   - checkout: none
-    clean: true
 
   - script: |
+      git clean -ffdx
+      git reset --hard HEAD
       git fetch origin main
       git checkout origin/main
       git checkout pull/$(System.PullRequest.PullRequestId)/merge
