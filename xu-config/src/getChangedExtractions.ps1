@@ -1,6 +1,6 @@
 Write-Host "CommitID:"$commitId
 
-$targetBranch = 'origin/'+$env:SYSTEM_PULLREQUEST_TARGETBRANCHNAME
+$targetBranch = 'refs/remotes/origin/'+$env:SYSTEM_PULLREQUEST_TARGETBRANCHNAME+'...HEAD'
 $extractionsFolder = 'xu-config/extractions/'
 $changedFiles = git diff --name-only $targetBranch #$commitId^!
 

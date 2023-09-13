@@ -30,8 +30,7 @@ jobs:
   # fetch and checkout main branch to get correct changed files using git diff
   - script: |
       git fetch
-      git checkout origin/main
-    displayName: Checkout main
+    displayName: git fetch
 
   - checkout: self
   
