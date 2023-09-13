@@ -67,10 +67,10 @@ SELECT
   , IBDIPE.[t_extractionDtm]
 FROM 
 	[base_s4h_cax].[I_BillingDocumentItemPrcgElmnt] IBDIPE
-LEFT JOIN  [edw].[fact_BillingDocumentItem] BDI
-    ON IBDIPE.BillingDocument = BDI.BillingDocument AND IBDIPE.BillingDocumentItem = BDI.BillingDocumentItem AND BDI.CurrencyTypeID = '10'
 LEFT JOIN [edw].[vw_CurrencyConversionRate] CCR   
     ON IBDIPE.TransactionCurrency = CCR.SourceCurrency  COLLATE DATABASE_DEFAULT
 LEFT JOIN [edw].[dim_CurrencyType] CR
     ON CCR.CurrencyTypeID = CR.CurrencyTypeID
+LEFT JOIN [edw].[fact_BillingDocumentItem] BDI
+    ON BDI.nk_fact_BillingDocumentItem =  edw.svf_getNaturalKey (IBDIPE.BillingDocument,IBDIPE.BillingDocumentItem,CR.CurrencyTypeID) 
 WHERE CCR.CurrencyTypeID <> '00'
