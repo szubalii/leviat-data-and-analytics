@@ -30,7 +30,7 @@ jobs:
   steps:
     
   - script: |
-    "C:\Program Files\XtractUniversal\xu.exe" -s localhost -p 8065 -n 3295_I_BrandTextn
+      "C:\Program Files\XtractUniversal\xu.exe" -s localhost -p 8065 -n 3295_I_BrandTextn
 
   - template: ./steps-build.yml
   - template: ./steps-deploy-helper.yml
