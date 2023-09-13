@@ -29,7 +29,9 @@ select
 ),
 
  original AS (
-    SELECT doc.[BillingDocument]
+    SELECT 
+           doc.[sk_fact_BillingDocumentItem]
+         , doc.[BillingDocument]
          , doc.[BillingDocumentItem]
          , doc.nk_fact_BillingDocumentItem
          , doc.[CurrencyType]
