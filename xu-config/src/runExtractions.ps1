@@ -1,5 +1,5 @@
 param (
-  [string[]]$extractions
+  [string[]]$extractions,
   [string]$xuPrefix
 )
 
