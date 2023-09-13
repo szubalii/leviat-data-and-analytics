@@ -19,8 +19,6 @@ jobs:
     value: stprteuw001
   - name: destination
     value: $[ format('{0}_s4h-{1}-{2}', variables['storageAccountName'], variables['S4HSystemId'], variables['S4HClientId']) ]
-  # - name: xuPath
-  #   value: $(Build.SourcesDirectory)/xu-config
   pool:
     name: 'VM'
     demands:
@@ -28,44 +26,12 @@ jobs:
     - VisualStudio
     - Agent.ComputerName -equals $(VMName)
   steps:
-    
-  - script: |
-      "C:\Program Files\XtractUniversal\xu.exe" -s localhost -p 8065 -n 3295_I_BrandTextn
 
   - template: ./steps-build.yml
   - template: ./steps-deploy-helper.yml
     parameters:
       xuPath: $(Build.SourcesDirectory)/xu-config/extractions
   
-  # # Update the source and destinations in the extractions
-  # - task: FileTransform@1
-  #   displayName: 'File Transform: Destination and Source in Extractions'
-  #   inputs:
-  #     folderPath: '$(xuPath)/extractions'
-  #     fileType: json
-  #     targetFiles: '**/general.json'
-  
-  # # Update the extraction names by renaming the folders to include the environment prefix
-  # # - script: for /d %D in ("$(System.DefaultWorkingDirectory)\xu-config\extractions\*") do ren "%D" "$(environment)_%~nxD"
-  # - task: PowerShell@2
-  #   displayName: Add environment prefix to extraction folder names
-  #   inputs:
-  #     targetType: 'inline'
-  #     pwsh: true
-  #     script: |
-  #       Get-ChildItem -Path '$(xuPath)/extractions' |
-  #       Foreach-Object {Rename-Item -Path $_.FullName -NewName ("$(xuPrefix)_"+($_.Name))}
-  
-  #   # Copy Repo XU Config to VM XU Config
-  # - task: CopyFiles@2
-  #   displayName: 'Copy Repo XU Config to VM XU Config'
-  #   inputs:
-  #     SourceFolder: '$(xuPath)/extractions'
-  #     Contents: '$(xuPrefix)*/**/*.json' # copy only those extractions required for deployment
-  #     TargetFolder: 'C:\Program Files\XtractUniversal\config\extractions'
-  #     OverWrite: true
-
-
 - job: RUN_EXTRACTIONS
   dependsOn: BUILD_DEPLOY
   pool:
