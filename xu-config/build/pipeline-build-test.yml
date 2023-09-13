@@ -27,12 +27,13 @@ jobs:
     - Agent.ComputerName -equals $(VMName)
   steps:
 
+  - checkout: self
+    persistCredentials: true
+
   # fetch and checkout main branch to get correct changed files using git diff
   - script: |
       git fetch
     displayName: git fetch
-
-  - checkout: self
   
   # Get changed extractions before any other tasks that might change source files
   - task: PowerShell@2
