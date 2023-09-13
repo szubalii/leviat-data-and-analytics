@@ -5,7 +5,7 @@ variables:
 - template: ../../build/variables-test.yml
 - ${{ if eq(variables['Build.Reason'], 'PullRequest') }}:
   - name: xuPrefix
-    value: ${{ 'PR{0}', $(System.PullRequest.PullRequestId) }}
+    value: ${{ format('PR{0}', $(System.PullRequest.PullRequestId)) }}
   - name: commitId
     value: $(System.PullRequest.SourceCommitId)
 - ${{ elseif eq(variables['Build.Reason'], 'Manual') }}:
