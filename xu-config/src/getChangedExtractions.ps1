@@ -1,4 +1,6 @@
 Write-Host "CommitID:"$commitId
+Write-Host "Target Branch:"
+$env:SYSTEM_PULLREQUEST_TARGETBRANCH
 
 $targetBranch = 'origin/'+$env:SYSTEM_PULLREQUEST_TARGETBRANCHNAME
 
@@ -10,8 +12,7 @@ $changedFiles = git diff --name-only $targetBranch #$commitId^!
 Write-Host "The following file(s) have changed:"
 $changedFiles
 
-Write-Host "Target Branch:"
-$env:SYSTEM_PULLREQUEST_TARGETBRANCH
+
 
 # If a single file is changed convert to an array
 if ($changedFiles.getType().Name -eq 'String') {

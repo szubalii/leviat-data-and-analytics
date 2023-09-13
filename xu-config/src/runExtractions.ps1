@@ -8,3 +8,4 @@ ForEach ($extraction in $extractions) {
   $Command = "C:\'Program Files'\XtractUniversal\xu.exe"
   Invoke-Expression -Command "$Command $params"
 }
+
