@@ -1165,6 +1165,7 @@
     <Build Include="edw\Views\vw_ACDOCA_ReferenceSalesDocument.sql" />
     <Build Include="edw\Views\vw_SDDocumentIncompletionLog.sql" />
     <Build Include="edw\Views\vw_fact_ACDOCA_EPM_Base.sql" />
+    <Build Include="edw\Views\vw_Locations.sql" />
 
     <Build Include="dq\Views\vw_Product_1_2.sql" />
     <Build Include="dq\Views\vw_RuleTotal.sql" />
@@ -1314,6 +1315,7 @@
     <Build Include="dm_sales\Views\vw_dim_PriceListType.sql" />
     <Build Include="dm_sales\Views\vw_fact_OrderBacklog.sql" />
     <Build Include="dm_sales\Views\vw_dim_SDDocumentIncompletionLog.sql" />
+    <Build Include="dm_sales\Views\vw_dim_Locations.sql" />
 
     <Build Include="dm_procurement\Views\vw_dim_OptVim1Head.sql" />
     <Build Include="dm_procurement\Views\vw_dim_PfcgRoleToUser.sql" />
