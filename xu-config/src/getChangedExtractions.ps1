@@ -1,9 +1,6 @@
 Write-Host "CommitID:"$commitId
-Write-Host "Target Branch:"
-$env:SYSTEM_PULLREQUEST_TARGETBRANCH
 
 $targetBranch = 'origin/'+$env:SYSTEM_PULLREQUEST_TARGETBRANCHNAME
-
 $extractionsFolder = 'xu-config/extractions/'
 $changedFiles = git diff --name-only $targetBranch #$commitId^!
 
@@ -11,8 +8,6 @@ $changedFiles = git diff --name-only $targetBranch #$commitId^!
 
 Write-Host "The following file(s) have changed:"
 $changedFiles
-
-
 
 # If a single file is changed convert to an array
 if ($changedFiles.getType().Name -eq 'String') {

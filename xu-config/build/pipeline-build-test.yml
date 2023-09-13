@@ -34,6 +34,7 @@ jobs:
       git reset --hard HEAD
       git fetch origin main
       git checkout origin/main
+      git fetch origin pull/$(System.PullRequest.PullRequestId)/merge
       git checkout pull/$(System.PullRequest.PullRequestId)/merge
 
   
