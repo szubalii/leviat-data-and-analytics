@@ -713,6 +713,9 @@
     <Build Include="base_s4h_cax\Tables\I_SDDocumentProcessFlow.sql" />
     <Build Include="base_s4h_cax\Tables\I_DataElementLabelText.sql" />
     <Build Include="base_s4h_cax\Tables\I_BusinessPartnerGroupingText.sql" />
+    <Build Include="base_s4h_cax\Tables\I_FrtCostDistrItm.sql" />
+    <Build Include="base_s4h_cax\Tables\I_TransportationOrder.sql" />
+    <Build Include="base_s4h_cax\Tables\I_TransportationOrderItem.sql" />
 
     <Build Include="base_tx_ca_0_hlp\Tables\DATAAREA.sql" />
     <Build Include="base_tx_ca_0_hlp\Tables\CRHCURRENCY.sql" />

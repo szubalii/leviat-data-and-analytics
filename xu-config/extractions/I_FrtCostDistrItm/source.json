@@ -1,0 +1,115 @@
+{
+	"functionName": "Z_THEO_READ_TABLE",
+	"runInBackGroundJob": false,
+	"tables": [
+		{
+			"name": "IFRTCDITM",
+			"description": "Generated Table for View IFRTCDITM",
+			"isView": true,
+			"fields": [
+				{
+					"name": "MANDT",
+					"description": "Client",
+					"abapType": "CharacterString",
+					"length": 3,
+					"isSelected": true,
+					"outputLength": 3,
+					"isPrimaryKey": true,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "T000"
+				},
+				{
+					"name": "FRTCOSTDISTRITEMUUID",
+					"description": "NodeID",
+					"abapType": "OneByteInteger",
+					"length": 16,
+					"isSelected": true,
+					"outputLength": 32,
+					"isPrimaryKey": true,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": ""
+				},
+				{
+					"name": "FRTCOSTDISTRROOTUUID",
+					"description": "NodeID",
+					"abapType": "OneByteInteger",
+					"length": 16,
+					"isSelected": true,
+					"outputLength": 32,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": ""
+				},
+				{
+					"name": "FRTCOSTDISTRITMREFUUID",
+					"description": "NodeID",
+					"abapType": "OneByteInteger",
+					"length": 16,
+					"isSelected": true,
+					"outputLength": 32,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": ""
+				},
+				{
+					"name": "FRTCOSTDISTRITEMAMOUNT",
+					"description": "",
+					"abapType": "PackedNumber",
+					"length": 31,
+					"isSelected": true,
+					"outputLength": 41,
+					"decimalCount": 2,
+					"isDeltaColumn": true,
+					"checkTable": ""
+				},
+				{
+					"name": "FRTCOSTDISTRITEMAMTCRCY",
+					"description": "Currency",
+					"abapType": "CharacterString",
+					"length": 5,
+					"isSelected": true,
+					"outputLength": 5,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": ""
+				},
+				{
+					"name": "FRTCOSTDISTRITMQTY",
+					"description": "Quantity",
+					"abapType": "PackedNumber",
+					"length": 13,
+					"isSelected": true,
+					"outputLength": 17,
+					"decimalCount": 3,
+					"isDeltaColumn": true,
+					"checkTable": ""
+				},
+				{
+					"name": "FRTCOSTDISTRITMQTYUNIT",
+					"description": "Base Unit of Measure",
+					"abapType": "CharacterString",
+					"length": 3,
+					"isSelected": true,
+					"outputLength": 3,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "",
+					"ConversionExit": "CUNIT"
+				},
+				{
+					"name": "TRANSPORTATIONORDERUUID",
+					"description": "NodeID",
+					"abapType": "OneByteInteger",
+					"length": 16,
+					"isSelected": true,
+					"outputLength": 32,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": ""
+				}
+			]
+		}
+	]
+}

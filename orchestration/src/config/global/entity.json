@@ -4188,6 +4188,39 @@
         "base_table_name": "I_BusinessPartnerGroupingText",
         "schedule_recurrence": "D",
         "pk_field_names": "MANDT, LANGUAGE, BUSINESSPARTNERGROUPING"
+      },
+      {
+        "entity_id": 619,
+        "entity_name": "I_FrtCostDistrItm",
+        "data_category": "NULL",
+        "tool_name": "Theobald",
+        "extraction_type": "Table",
+        "update_mode": "Full",
+        "base_table_name": "I_FrtCostDistrItm",
+        "schedule_recurrence": "D",
+        "pk_field_names": "MANDT, FRTCOSTDISTRITEMUUID"
+      },
+      {
+        "entity_id": 620,
+        "entity_name": "I_TransportationOrder",
+        "data_category": "NULL",
+        "tool_name": "Theobald",
+        "extraction_type": "Table",
+        "update_mode": "Full",
+        "base_table_name": "I_TransportationOrderItem",
+        "schedule_recurrence": "D",
+        "pk_field_names": "MANDT, TRANSPORTATIONORDERUUID"
+      },
+      {
+        "entity_id": 621,
+        "entity_name": "I_TransportationOrderItem",
+        "data_category": "NULL",
+        "tool_name": "Theobald",
+        "extraction_type": "Table",
+        "update_mode": "Full",
+        "base_table_name": "I_TransportationOrderItem",
+        "schedule_recurrence": "D",
+        "pk_field_names": "MANDT, TRANSPORTATIONORDERITEMUUID"
       }
     ]
   },
