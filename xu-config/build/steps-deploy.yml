@@ -5,20 +5,4 @@ steps:
 - template: ./steps-deploy-helper.yml
   parameters:
     xuPath: $(Pipeline.Workspace)\build\XtractUniversal\extractions
-
-  # Copy Repo XU Config Extractions to ADLS
-  # This is used by ADF to know which extraction is configured to use file splitting
-- task: PowerShell@2
-  displayName: 'Copy XU Config to ADLS'
-  inputs:
-    targetType: 'inline'
-    pwsh: true
-    script: |
-      # connect to Azure using VM
-      azcopy login --identity
-
-      # directly copy to storage account using azcopy
-      azcopy copy `
-        '$(Pipeline.Workspace)\build\XtractUniversal\extractions\*' `
-        'https://$(storageAccountName).dfs.core.windows.net/xu-configuration/extractions' `
-        --recursive
+    copyToStorage: true

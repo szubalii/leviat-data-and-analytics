@@ -47,7 +47,8 @@ jobs:
   - template: ./steps-build.yml
   - template: ./steps-deploy-helper.yml
     parameters:
-      xuPath: $(Build.SourcesDirectory)/xu-config/extractions    
+      xuPath: $(Build.SourcesDirectory)/xu-config/extractions
+      copyToStorage: false
 
   - task: PowerShell@2
     displayName: 'Run Changed Extractions'
