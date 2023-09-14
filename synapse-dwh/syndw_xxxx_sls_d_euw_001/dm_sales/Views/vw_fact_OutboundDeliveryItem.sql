@@ -14,7 +14,7 @@ SELECT
       ,[LastChangeDate]
       ,ODI.[DistributionChannelID]
       ,DistributionChannel.[DistributionChannel]
-      ,[ProductID]
+      ,ODI.[ProductID]
       ,[OriginallyRequestedMaterialID]
       ,[ProductGroupID]
       ,MaterialGroup.[MaterialGroupText] as [ProductGroup]
@@ -271,7 +271,7 @@ LEFT JOIN [edw].[dim_DistributionChannel] DistributionChannel
 LEFT JOIN [edw].[dim_SDProcessStatus] SDProcessStatus
   ON ODI.[SDProcessStatusID] = SDProcessStatus.[SDProcessStatusID]
 LEFT JOIN [edw].[vw_TransportationOrderItem] TOI
-  ON ODI.[OutboundDelivery] = TOI.[TranspOrdDocReferenceID]
-  AND ODI.[OutboundDeliveryItem] = TOI.[TranspOrdDocReferenceItmID]
+  ON ODI.[OutboundDelivery] = TOI.[TranspOrdDocReferenceID]             COLLATE DATABASE_DEFAULT
+  AND ODI.[OutboundDeliveryItem] = TOI.[TranspOrdDocReferenceItmID]     COLLATE DATABASE_DEFAULT
 LEFT JOIN [edw].[vw_FrtCostDistrItm] FCDI
   ON TOI.TransportationOrderItemUUID = FCDI.FrtCostDistrItmRefUUID
