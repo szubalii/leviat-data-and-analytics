@@ -34,6 +34,7 @@ if ($null -eq $extractions) {
   $extractions
 }
 # Write-Host "`n"
+$extractionNames = $extractions -join ',';
 
 #expose list of extractions to other tasks in same job
-Write-Host "##vso[task.setvariable variable=changedExtractions]$extractions"
+Write-Host "##vso[task.setvariable variable=changedExtractions]$extractionNames"
