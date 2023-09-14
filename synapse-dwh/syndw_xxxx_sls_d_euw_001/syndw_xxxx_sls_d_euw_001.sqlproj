@@ -1169,6 +1169,8 @@
     <Build Include="edw\Views\vw_SDDocumentIncompletionLog.sql" />
     <Build Include="edw\Views\vw_fact_ACDOCA_EPM_Base.sql" />
     <Build Include="edw\Views\vw_Locations.sql" />
+    <Build Include="edw\Views\vw_TransportationOrderItem.sql" />
+    <Build Include="edw\Views\vw_FrtCostDistrItm.sql" />
 
     <Build Include="dq\Views\vw_Product_1_2.sql" />
     <Build Include="dq\Views\vw_RuleTotal.sql" />
