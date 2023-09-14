@@ -44,7 +44,7 @@ jobs:
       filePath: $(System.DefaultWorkingDirectory)/xu-config/src/getChangedExtractions.ps1
       pwsh: true
 
-  - ${{ if(gt(length(variables.changedExtractions), 0)) }}:
+  - ${{ gt(length(variables.changedExtractions), 0) }}:
     - template: ./steps-build.yml
     - template: ./steps-deploy-helper.yml
       parameters:
