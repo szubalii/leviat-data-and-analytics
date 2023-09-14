@@ -303,6 +303,6 @@ LEFT JOIN [edw].[dim_Brand] DimBrand
 LEFT JOIN [edw].[dim_CustomerGroup] dimCGr
   ON CSA.CustomerGroup = dimCGr.[CustomerGroupID]
 LEFT JOIN  [edw].[fact_SalesDocumentItem] SDI
-  ON GLALIRD.[SalesReferenceDocumentCalculatedID] = SDI.[SalesDocument]
+  ON GLALIRD.[SalesReferenceDocumentCalculated] = SDI.[SalesDocument]
     AND GLALIRD.[SalesReferenceDocumentItemCalculated] = SDI.[SalesDocumentItem]
 WHERE ExchangeRate.CurrencyTypeID <> '00'
