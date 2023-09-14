@@ -22,7 +22,7 @@
 				{
 					"name": "FRTCOSTDISTRITEMUUID",
 					"description": "NodeID",
-					"abapType": "OneByteInteger",
+					"abapType": "X",
 					"length": 16,
 					"isSelected": true,
 					"outputLength": 32,
@@ -34,7 +34,7 @@
 				{
 					"name": "FRTCOSTDISTRROOTUUID",
 					"description": "NodeID",
-					"abapType": "OneByteInteger",
+					"abapType": "X",
 					"length": 16,
 					"isSelected": true,
 					"outputLength": 32,
@@ -45,7 +45,7 @@
 				{
 					"name": "FRTCOSTDISTRITMREFUUID",
 					"description": "NodeID",
-					"abapType": "OneByteInteger",
+					"abapType": "X",
 					"length": 16,
 					"isSelected": true,
 					"outputLength": 32,
@@ -101,7 +101,7 @@
 				{
 					"name": "TRANSPORTATIONORDERUUID",
 					"description": "NodeID",
-					"abapType": "OneByteInteger",
+					"abapType": "X",
 					"length": 16,
 					"isSelected": true,
 					"outputLength": 32,
