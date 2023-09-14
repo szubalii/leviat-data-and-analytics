@@ -22,7 +22,7 @@
 				{
 					"name": "TRANSPORTATIONORDERUUID",
 					"description": "Transportation Order UUID",
-					"abapType": "OneByteInteger",
+					"abapType": "ByteSequence",
 					"length": 16,
 					"isSelected": true,
 					"outputLength": 32,
@@ -156,7 +156,7 @@
 				{
 					"name": "CARRIERUUID",
 					"description": "Business Partner GUID",
-					"abapType": "OneByteInteger",
+					"abapType": "ByteSequence",
 					"length": 16,
 					"isSelected": true,
 					"outputLength": 32,
@@ -234,7 +234,7 @@
 				{
 					"name": "SHIPPERUUID",
 					"description": "Business Partner GUID",
-					"abapType": "OneByteInteger",
+					"abapType": "ByteSequence",
 					"length": 16,
 					"isSelected": true,
 					"outputLength": 32,
@@ -268,7 +268,7 @@
 				{
 					"name": "CONSIGNEEUUID",
 					"description": "Business Partner GUID",
-					"abapType": "OneByteInteger",
+					"abapType": "ByteSequence",
 					"length": 16,
 					"isSelected": true,
 					"outputLength": 32,

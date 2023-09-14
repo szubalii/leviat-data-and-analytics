@@ -22,7 +22,7 @@
 				{
 					"name": "TRANSPORTATIONORDERITEMUUID",
 					"description": "UUID of Transportation Order Item with Conversion Exit",
-					"abapType": "OneByteInteger",
+					"abapType": "ByteSequence",
 					"length": 16,
 					"isSelected": true,
 					"outputLength": 46,
@@ -34,7 +34,7 @@
 				{
 					"name": "TRANSPORTATIONORDERUUID",
 					"description": "Transportation Order UUID",
-					"abapType": "OneByteInteger",
+					"abapType": "ByteSequence",
 					"length": 16,
 					"isSelected": true,
 					"outputLength": 32,
@@ -79,7 +79,7 @@
 				{
 					"name": "TRANSPORDITEMPARENTITEMUUID",
 					"description": "Key of Transportation Order Item",
-					"abapType": "OneByteInteger",
+					"abapType": "ByteSequence",
 					"length": 16,
 					"isSelected": true,
 					"outputLength": 32,
@@ -90,7 +90,7 @@
 				{
 					"name": "SOURCESTOPUUID",
 					"description": "Key of a Stop of a Transportation Order",
-					"abapType": "OneByteInteger",
+					"abapType": "ByteSequence",
 					"length": 16,
 					"isSelected": true,
 					"outputLength": 32,
@@ -101,7 +101,7 @@
 				{
 					"name": "DESTINATIONSTOPUUID",
 					"description": "Key of a Stop of a Transportation Order",
-					"abapType": "OneByteInteger",
+					"abapType": "ByteSequence",
 					"length": 16,
 					"isSelected": true,
 					"outputLength": 32,
@@ -622,7 +622,7 @@
 				{
 					"name": "SHIPPERUUID",
 					"description": "Shipper Universally Unique Identifier",
-					"abapType": "OneByteInteger",
+					"abapType": "ByteSequence",
 					"length": 16,
 					"isSelected": true,
 					"outputLength": 32,
@@ -644,7 +644,7 @@
 				{
 					"name": "CONSIGNEEUUID",
 					"description": "Ship-to Party UUID",
-					"abapType": "OneByteInteger",
+					"abapType": "ByteSequence",
 					"length": 16,
 					"isSelected": true,
 					"outputLength": 32,
@@ -655,7 +655,7 @@
 				{
 					"name": "PRODUCTUUID",
 					"description": "Product GUID",
-					"abapType": "OneByteInteger",
+					"abapType": "ByteSequence",
 					"length": 16,
 					"isSelected": true,
 					"outputLength": 32,
