@@ -3,6 +3,9 @@ parameters:
 - name: xuPath
   default: $(Pipeline.Workspace)\build\XtractUniversal\extractions
   type: string
+- name: copyToStorage
+  default: true
+  type: boolean
 
 steps:
 
@@ -13,6 +16,24 @@ steps:
     folderPath: ${{ parameters.xuPath }}
     fileType: json
     targetFiles: '**/general.json'
+
+# Copy Repo XU Config Extractions to ADLS
+# This is used by ADF to know which extraction is configured to use file splitting
+- task: PowerShell@2
+  displayName: 'Copy XU Config to ADLS'
+  condition: ${{ parameters.copyToStorage }}
+  inputs:
+    targetType: 'inline'
+    pwsh: true
+    script: |
+      # connect to Azure using VM
+      azcopy login --identity
+
+      # directly copy to storage account using azcopy
+      azcopy copy `
+        '$(Pipeline.Workspace)\build\XtractUniversal\extractions\*' `
+        'https://$(storageAccountName).dfs.core.windows.net/xu-configuration/extractions' `
+        --recursive
 
 # Update the extraction names by renaming the folders to include the environment prefix
 # - script: for /d %D in ("$(System.DefaultWorkingDirectory)\xu-config\extractions\*") do ren "%D" "$(environment)_%~nxD"

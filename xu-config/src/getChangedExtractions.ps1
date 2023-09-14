@@ -16,17 +16,24 @@ if ($changedFiles.getType().Name -eq 'String') {
   $changedFiles += $changedFile
 }
 
+# Get the changed extraction files
 $changedExtractionsFiles = $changedFiles -match $extractionsFolder
 
 # Write-Host "The following extraction files have changed:"
 # $changedExtractionsFiles
 $extractions = $( foreach ($changedExtractionsFile in $changedExtractionsFiles) {
   $changedExtractionsFile.split('/')[2]
-}) | Sort-Object| Get-Unique
-# Write-Host "`n"
+}) | Sort-Object | Get-Unique
 
-Write-Host "The following extraction(s) have changed:"
-$extractions
+# Set to empty array in case of no changed extractions
+if ($null -eq $extractions) {
+  $extractions = @()
+  Write-Host "No extractions have changed"
+} else {
+  Write-Host "The following extraction(s) have changed:"
+  $extractions
+}
+# Write-Host "`n"
 
 #expose list of extractions to other tasks in same job
 Write-Host "##vso[task.setvariable variable=changedExtractions]$extractions"
