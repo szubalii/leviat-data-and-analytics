@@ -267,9 +267,9 @@ SELECT
   ZED.[FunctionalAreaID] AS EXQL_FunctionalAreaID,
   GLALIRD.[ProjectNumber],
   CASE 
-      WHEN GLALIRD.ProjectNumber IS NULL THEN 
+      WHEN GLALIRD.ProjectNumber IS NULL OR GLALIRD.ProjectNumber = '' THEN 
         CASE 
-          WHEN GLALIRD.SalesReferenceDocumentCalculated IS NOT NULL 
+          WHEN GLALIRD.SalesReferenceDocumentCalculated IS NOT NULL OR GLALIRD.SalesReferenceDocumentCalculated <> ''
           THEN SDI.ProjectID
           ELSE ''
         END
