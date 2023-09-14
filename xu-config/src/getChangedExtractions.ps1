@@ -16,13 +16,19 @@ if ($changedFiles.getType().Name -eq 'String') {
   $changedFiles += $changedFile
 }
 
+# Get the changed extraction files
 $changedExtractionsFiles = $changedFiles -match $extractionsFolder
 
 # Write-Host "The following extraction files have changed:"
 # $changedExtractionsFiles
 $extractions = $( foreach ($changedExtractionsFile in $changedExtractionsFiles) {
   $changedExtractionsFile.split('/')[2]
-}) | Sort-Object| Get-Unique
+}) | Sort-Object | Get-Unique
+
+# Set to empty array in case of no changed extractions
+if ($null -eq $extractions) {
+  $extractions = @()
+}
 # Write-Host "`n"
 
 Write-Host "The following extraction(s) have changed:"
