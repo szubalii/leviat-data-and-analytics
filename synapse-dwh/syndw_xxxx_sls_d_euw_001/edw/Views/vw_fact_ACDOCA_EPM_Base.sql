@@ -265,6 +265,16 @@ SELECT
   GLALIRD.HigherLevelItem,
   ZED.[GLAccountID] AS EXQL_GLAccountID,
   ZED.[FunctionalAreaID] AS EXQL_FunctionalAreaID,
+  GLALIRD.[ProjectNumber],
+  CASE 
+      WHEN GLALIRD.ProjectNumber IS NULL THEN 
+        CASE 
+          WHEN GLALIRD.SalesReferenceDocumentCalculated IS NOT NULL 
+          THEN SDI.ProjectID
+          ELSE ''
+        END
+      ELSE GLALIRD.ProjectNumber
+  END AS [ProjectNumberCalculated],
   GLALIRD.[t_applicationId],
   GLALIRD.[t_extractionDtm]
 FROM [edw].[fact_ACDOCA] GLALIRD
@@ -292,4 +302,7 @@ LEFT JOIN [edw].[dim_Brand] DimBrand
   ON PSD.FirstSalesSpecProductGroup = DimBrand.[BrandID]
 LEFT JOIN [edw].[dim_CustomerGroup] dimCGr
   ON CSA.CustomerGroup = dimCGr.[CustomerGroupID]
+LEFT JOIN  [edw].[fact_SalesDocumentItem] SDI
+  ON GLALIRD.[SalesReferenceDocumentCalculatedID] = SDI.[SalesDocument]
+    AND GLALIRD.[SalesReferenceDocumentItemCalculated] = SDI.[SalesDocumentItem]
 WHERE ExchangeRate.CurrencyTypeID <> '00'

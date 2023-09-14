@@ -126,6 +126,7 @@ SELECT
        [ShipToParty]                            AS [ShipToPartyID], 
        [KMVKBUPA]                               AS [SalesOfficeID],
        [SoldProduct],
+       [WWPRNPA],
        GLAccountLineItemRawData.[t_applicationId],
        GLAccountLineItemRawData.[t_extractionDtm]
 --FROM [base_s4h_cax].[I_GLAccountLineItemRawData] GLAccountLineItemRawData 
@@ -257,6 +258,7 @@ SELECT
        [ShipToParty],
        [KMVKBUPA],
        [SoldProduct],
+       [WWPRNPA],
        GLAccountLineItemRawData.[t_applicationId],
        GLAccountLineItemRawData.[t_extractionDtm]
 FROM [base_s4h_cax].[I_GLAccountLineItemRawData_202301] GLAccountLineItemRawData 
@@ -387,6 +389,7 @@ SELECT
        [ShipToParty],
        [KMVKBUPA],
        [SoldProduct],
+       [WWPRNPA],
        GLAccountLineItemRawData.[t_applicationId],
        GLAccountLineItemRawData.[t_extractionDtm]
 FROM [base_s4h_cax].[I_GLAccountLineItemRawData_202302] GLAccountLineItemRawData 
@@ -517,6 +520,7 @@ SELECT
        [ShipToParty],
        [KMVKBUPA],
        [SoldProduct],
+       [WWPRNPA],
        GLAccountLineItemRawData.[t_applicationId],
        GLAccountLineItemRawData.[t_extractionDtm]
 FROM [base_s4h_cax].[I_GLAccountLineItemRawData_202303] GLAccountLineItemRawData 
@@ -647,6 +651,7 @@ SELECT
        [ShipToParty],
        [KMVKBUPA],
        [SoldProduct],
+       [WWPRNPA],
        GLAccountLineItemRawData.[t_applicationId],
        GLAccountLineItemRawData.[t_extractionDtm]
 FROM [base_s4h_cax].[I_GLAccountLineItemRawData_202304] GLAccountLineItemRawData 
@@ -777,6 +782,7 @@ SELECT
        [ShipToParty],
        [KMVKBUPA],
        [SoldProduct],
+       [WWPRNPA],
        GLAccountLineItemRawData.[t_applicationId],
        GLAccountLineItemRawData.[t_extractionDtm]
 FROM [base_s4h_cax].[I_GLAccountLineItemRawData_202305] GLAccountLineItemRawData 
@@ -907,6 +913,7 @@ SELECT
        [ShipToParty],
        [KMVKBUPA],
        [SoldProduct],
+       [WWPRNPA],
        GLAccountLineItemRawData.[t_applicationId],
        GLAccountLineItemRawData.[t_extractionDtm]
 FROM [base_s4h_cax].[I_GLAccountLineItemRawData_202306] GLAccountLineItemRawData 
@@ -1037,6 +1044,7 @@ SELECT
        [ShipToParty],
        [KMVKBUPA],
        [SoldProduct],
+       [WWPRNPA],
        GLAccountLineItemRawData.[t_applicationId],
        GLAccountLineItemRawData.[t_extractionDtm]
 FROM [base_s4h_cax].[I_GLAccountLineItemRawData_202307] GLAccountLineItemRawData 
@@ -1167,6 +1175,7 @@ SELECT
        [ShipToParty],
        [KMVKBUPA],
        [SoldProduct],
+       [WWPRNPA],
        GLAccountLineItemRawData.[t_applicationId],
        GLAccountLineItemRawData.[t_extractionDtm]
 FROM [base_s4h_cax].[I_GLAccountLineItemRawData_202308] GLAccountLineItemRawData 
@@ -1297,6 +1306,7 @@ SELECT
        [ShipToParty],
        [KMVKBUPA],
        [SoldProduct],
+       [WWPRNPA],
        GLAccountLineItemRawData.[t_applicationId],
        GLAccountLineItemRawData.[t_extractionDtm]
 FROM [base_s4h_cax].[I_GLAccountLineItemRawData_202309] GLAccountLineItemRawData 
