@@ -145,7 +145,7 @@
 				{
 					"name": "PREDECESSORTRANSPORTATIONORDER",
 					"description": "NodeID",
-					"abapType": "OneByteInteger",
+					"abapType": "ByteSequence",
 					"length": 16,
 					"isSelected": true,
 					"outputLength": 32,
