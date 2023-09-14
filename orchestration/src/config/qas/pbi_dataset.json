@@ -14,43 +14,43 @@
     "workspace_guid": "4a9fc391-9b5a-41ff-844e-6299c32bc537",
     "datasets": {
       "Customer Card": {
-        "dataset_guid": "39b580a7-f100-4e95-ad79-f034b40ec4e0"
+        "dataset_guid": "425852a8-6af2-427a-a6cf-c8083de61a34"
       },
       "Invoiced Products Master Data": {
-        "dataset_guid": "77faf36c-bd7b-4a3a-bee8-e6945ba7646a"
+        "dataset_guid": "8ae006d4-28ef-4de2-bd0d-4a903e8fe96b"
       },
       "Orderbook": {
         "dataset_guid": "dc5aa88d-199f-41b3-a81d-20998a9b2b92"
       },
       "Orderbook - Intake": {
-        "dataset_guid": "292980c7-7409-499f-9568-bdf6b1c204d8"
+        "dataset_guid": "4092dbd5-79a6-42d2-ba5e-ccb4621b48d0"
       },
       "Orderbook - Open Orders": {
-        "dataset_guid": "5a3d32e2-f247-40eb-8c9e-64325846e101"
+        "dataset_guid": "c18826b2-9935-49d8-b2b6-89ad4abe3109"
       },
       "Product Top Flop": {
-        "dataset_guid": "aa40a0cd-b7c2-489d-9e48-86d25912969f"
+        "dataset_guid": "562a2b13-ed06-425e-83e1-0d53b6a64fd9"
       },
       "PVM": {
-        "dataset_guid": "6b84bea0-6175-4997-aea5-6387b4fd5aef"
+        "dataset_guid": "6626fa68-58d6-46e7-9932-d83f8e199508"
       },
       "Quotations": {
-        "dataset_guid": "34d4ef6e-6bd0-4c0c-914f-376d1376e9d2"
+        "dataset_guid": "d8d6e1ed-cdb2-4273-b5e7-620577fcfc7b"
       },
       "Sales View": {
-        "dataset_guid": "ee1251af-8e46-40df-8f5c-e902b2c67813"
+        "dataset_guid": "6f937c88-b6cc-4799-941e-f9278c7b316c"
       },
       "Sales View Invoiced Cost Outliers": {
-        "dataset_guid": "9ec06b32-19eb-43f7-a40a-47d9d8100fa8"
+        "dataset_guid": "94e720c9-affa-4e33-9818-7c17757c8717"
       },
       "Whale Curve": {
-        "dataset_guid": "ba7c4d9d-9237-4c59-913d-c35b622c1975"
+        "dataset_guid": "f532efc5-1dcc-4a16-bcd7-280437b7aa91"
       },
       "Project Card": {
-        "dataset_guid": "192c33c2-4e39-42f6-8223-a215f93fa44a"
+        "dataset_guid": "2b86c3dd-3b04-451a-b493-caabb249404d"
       },
       "$$ SELF-SERVICE (Sales)": {
-        "dataset_guid": "e354cc75-e902-4dde-93e4-45e13700ee09"
+        "dataset_guid": "dbe19e7e-3889-4d8a-9e7d-bb07fdbfafa5"
       }
     }
   },
