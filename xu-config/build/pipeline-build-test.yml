@@ -44,28 +44,29 @@ jobs:
       filePath: $(System.DefaultWorkingDirectory)/xu-config/src/getChangedExtractions.ps1
       pwsh: true
 
-  - template: ./steps-build.yml
-  - template: ./steps-deploy-helper.yml
-    parameters:
-      xuPath: $(Build.SourcesDirectory)/xu-config/extractions
-      copyToStorage: false
+  - ${{ if(gt(length(variables.changedExtractions), 0)) }}:
+    - template: ./steps-build.yml
+    - template: ./steps-deploy-helper.yml
+      parameters:
+        xuPath: $(Build.SourcesDirectory)/xu-config/extractions
+        copyToStorage: false
 
-  - task: PowerShell@2
-    displayName: 'Run Changed Extractions'
-    # only run extractions if at least one has changed
-    condition: gt(length(variables.changedExtractions), 0)
-    name: RunChangedExtractions
-    inputs:
-      filePath: $(System.DefaultWorkingDirectory)/xu-config/src/runExtractions.ps1
-      arguments: >
-        -extractions $(changedExtractions)
-        -xuPrefix $(xuPrefix)
-      pwsh: true
+    - task: PowerShell@2
+      displayName: 'Run Changed Extractions'
+      # only run extractions if at least one has changed
+      # condition: gt(length(variables.changedExtractions), 0)
+      name: RunChangedExtractions
+      inputs:
+        filePath: $(System.DefaultWorkingDirectory)/xu-config/src/runExtractions.ps1
+        arguments: >
+          -extractions $(changedExtractions)
+          -xuPrefix $(xuPrefix)
+        pwsh: true
 
-  - task: DeleteFiles@1
-    condition: always()
-    displayName: 'Clean up'
-    inputs:
-      SourceFolder: 'C:\Program Files\XtractUniversal\config\extractions'
-      Contents: $(xuPrefix)*
+    - task: DeleteFiles@1
+      condition: always()
+      displayName: 'Clean up'
+      inputs:
+        SourceFolder: 'C:\Program Files\XtractUniversal\config\extractions'
+        Contents: $(xuPrefix)*
   
