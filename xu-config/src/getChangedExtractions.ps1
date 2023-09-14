@@ -28,11 +28,12 @@ $extractions = $( foreach ($changedExtractionsFile in $changedExtractionsFiles) 
 # Set to empty array in case of no changed extractions
 if ($null -eq $extractions) {
   $extractions = @()
+  Write-Host "No extractions have changed"
+} else {
+  Write-Host "The following extraction(s) have changed:"
+  $extractions
 }
 # Write-Host "`n"
-
-Write-Host "The following extraction(s) have changed:"
-$extractions
 
 #expose list of extractions to other tasks in same job
 Write-Host "##vso[task.setvariable variable=changedExtractions]$extractions"
