@@ -25,6 +25,7 @@ WITH BDIFreight AS (
     BDI_TC.[ReferenceSDDocument]
     ,BDI_TC.[ReferenceSDDocumentItem]
     ,BDI_TC.[CurrencyID]
+    ,BDI_LC.[CurrencyID]
 )
 SELECT  
        [sk_fact_OutboundDeliveryItem]
@@ -99,8 +100,8 @@ SELECT
       ,[IsCompletelyDelivered]
       ,[ReceivingPoint]
       ,[ItemIsBillingRelevant]
-      ,[ReferenceSDDocument]
-      ,[ReferenceSDDocumentItem]
+      ,ODI.[ReferenceSDDocument]
+      ,ODI.[ReferenceSDDocumentItem]
       ,[ReferenceSDDocumentCategoryID]
       ,SDDocumentCategory.[SDDocumentCategory] as [ReferenceSDDocumentCategory]
       ,ODI.[SDProcessStatusID]
