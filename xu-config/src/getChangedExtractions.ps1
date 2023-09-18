@@ -1,4 +1,4 @@
-Write-Host "CommitID:"$commitId
+# Write-Host "CommitID:"$commitId
 
 $targetBranch = 'refs/remotes/origin/'+$env:SYSTEM_PULLREQUEST_TARGETBRANCHNAME+'...HEAD'
 $extractionsFolder = 'xu-config/extractions/'

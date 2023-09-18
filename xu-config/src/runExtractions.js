@@ -1,5 +1,6 @@
 const { exec } = require('child_process');
-const { config } = require('process');
+// const { config } = require('process');
+const fs = require('fs');
 // const xuPrefix;
 // const dir = __dirname + '..\\extractions';
 
@@ -50,7 +51,8 @@ function getExtractionType(extractionName) {
 
 // Read an extraction config file for a given extraction
 function readExtractionConfigFile(extractionName, configFileName) {
-
+  console.log(__dirname);
+  console.log(fs.readdirSync(__dirname));
   let filePath = './xu-config/extractions/' + extractionName + '/' + configFileName + '.json';
   // dir + '\\' + extractionName + '\\' + configFileName + '.json';
   
