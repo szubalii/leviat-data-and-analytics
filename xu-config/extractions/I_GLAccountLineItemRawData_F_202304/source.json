@@ -2830,6 +2830,15 @@
             "isSelected": true,
             "selectionPermission": "All",
             "outputLength": 4
+        },
+        {
+            "name": "WWPRNPA",
+            "description": "Project number",
+            "abapType": "CharacterString",
+            "length": 10,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 10
         }
     ],
     "parameters": {
