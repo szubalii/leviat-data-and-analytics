@@ -54,7 +54,7 @@ function readExtractionConfigFile(extractionName, configFileName) {
   // let filePath = dir + '\\' + extractionName + '\\' + configFileName + '.json';
   
   try {
-    return require('../' + extractionName + '/' + configFileName + '.json');
+    return require('../extractions/' + extractionName + '/' + configFileName + '.json');
   }
   catch (e) {
     console.log('##[warning] File "' + filePath + '" does not exist: ' + e);
