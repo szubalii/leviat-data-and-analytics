@@ -53,6 +53,7 @@ jobs:
   - script: |
       node .\xu-config\src\runExtractions.js $(xuPrefix) $(changedExtractions)
     condition: gt(length(variables.changedExtractions), 0)
+    displayName: Run Extractions
 
   # - task: PowerShell@2
   #   displayName: 'Run Changed Extractions'

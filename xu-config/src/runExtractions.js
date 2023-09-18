@@ -1,6 +1,6 @@
 const { exec } = require('child_process');
 // const xuPrefix;
-const dir = __dirname + '/../extractions';
+const dir = __dirname + '..\extractions';
 
 // Run comma separated list of extraction names
 function runExtractions(xuPrefix, extractionNames) {
@@ -10,6 +10,8 @@ function runExtractions(xuPrefix, extractionNames) {
 // Run single extraction
 function runExtraction(xuPrefix, extractionName) {
   let command = getExtractionCommand(xuPrefix, extractionName);
+  
+  console.log('Run extraction ' + extractionName);
 
   exec(command, (error, stdout, stderr) => {
 
@@ -48,7 +50,7 @@ function getExtractionType(extractionName) {
 // Read an extraction config file for a given extraction
 function readExtractionConfigFile(extractionName, configFileName) {
 
-  let filePath = dir + '/' + extractionName + '/' + configFileName + '.json';
+  let filePath = dir + '\\' + extractionName + '\\' + configFileName + '.json';
   
   try {
     return require(filePath);
