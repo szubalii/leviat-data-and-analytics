@@ -6,7 +6,7 @@ const fs = require('fs');
 
 // Run comma separated list of extraction names
 function runExtractions(xuPrefix, extractionNames) {
-  extractionNames.split(',').forEach((extractionName) => runExtraction(xuPrefix, extractionName));
+  extractionNames.split(',').forEach((extractionName) => runExtraction(xuPrefix, xuPrefix + '_' + extractionName));
 }
 
 // Run single extraction
