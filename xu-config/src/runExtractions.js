@@ -1,6 +1,7 @@
 const { exec } = require('child_process');
+const { config } = require('process');
 // const xuPrefix;
-const dir = __dirname + '..\\extractions';
+// const dir = __dirname + '..\\extractions';
 
 // Run comma separated list of extraction names
 function runExtractions(xuPrefix, extractionNames) {
@@ -50,10 +51,10 @@ function getExtractionType(extractionName) {
 // Read an extraction config file for a given extraction
 function readExtractionConfigFile(extractionName, configFileName) {
 
-  let filePath = dir + '\\' + extractionName + '\\' + configFileName + '.json';
+  // let filePath = dir + '\\' + extractionName + '\\' + configFileName + '.json';
   
   try {
-    return require(filePath);
+    return require('../' + extractionName + '/' + configFileName + '.json');
   }
   catch (e) {
     console.log('##[warning] File "' + filePath + '" does not exist: ' + e);
