@@ -51,9 +51,9 @@ function getExtractionType(extractionName) {
 
 // Read an extraction config file for a given extraction
 function readExtractionConfigFile(extractionName, configFileName) {
-  console.log(__dirname);
+  // console.log(__dirname);
   const dir = __dirname + '/../extractions';
-  console.log(fs.readdirSync(dir));
+  // console.log(fs.readdirSync(dir));
   let filePath = dir + '/' + extractionName + '/' + configFileName + '.json';
   // './xu-config/extractions/' + extractionName + '/' + configFileName + '.json';
   // dir + '\\' + extractionName + '\\' + configFileName + '.json';
