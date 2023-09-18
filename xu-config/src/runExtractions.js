@@ -1,6 +1,6 @@
 const { exec } = require('child_process');
 // const xuPrefix;
-const dir = __dirname + '..\extractions';
+const dir = __dirname + '..\\extractions';
 
 // Run comma separated list of extraction names
 function runExtractions(xuPrefix, extractionNames) {
