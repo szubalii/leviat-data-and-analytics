@@ -2823,7 +2823,7 @@
             "outputLength": 4
         },
         {
-            "name": "WWPRNPA_TEST",
+            "name": "WWPRNPA",
             "description": "Project number",
             "abapType": "CharacterString",
             "length": 10,
