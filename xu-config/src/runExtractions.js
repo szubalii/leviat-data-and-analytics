@@ -51,10 +51,11 @@ function getExtractionType(extractionName) {
 // Read an extraction config file for a given extraction
 function readExtractionConfigFile(extractionName, configFileName) {
 
-  // let filePath = dir + '\\' + extractionName + '\\' + configFileName + '.json';
+  let filePath = '../extractions/' + extractionName + '/' + configFileName + '.json';
+  // dir + '\\' + extractionName + '\\' + configFileName + '.json';
   
   try {
-    return require('../extractions/' + extractionName + '/' + configFileName + '.json');
+    return require(filePath);
   }
   catch (e) {
     console.log('##[warning] File "' + filePath + '" does not exist: ' + e);
