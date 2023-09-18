@@ -1,4 +1,4 @@
-Write-Host "CommitID:"$commitId
+# Write-Host "CommitID:"$commitId
 
 $targetBranch = 'refs/remotes/origin/'+$env:SYSTEM_PULLREQUEST_TARGETBRANCHNAME+'...HEAD'
 $extractionsFolder = 'xu-config/extractions/'
@@ -25,15 +25,15 @@ $extractions = $( foreach ($changedExtractionsFile in $changedExtractionsFiles) 
   $changedExtractionsFile.split('/')[2]
 }) | Sort-Object | Get-Unique
 
-# Set to empty array in case of no changed extractions
 if ($null -eq $extractions) {
-  $extractions = @()
+  # $extractions = @()
   Write-Host "No extractions have changed"
 } else {
   Write-Host "The following extraction(s) have changed:"
   $extractions
+  # Convert to comma separated list of extraction names
+  $extractionNames = $extractions -join ',';
+  #expose list of extractions to other tasks in same job
+  Write-Host "##vso[task.setvariable variable=changedExtractions]$extractionNames"
 }
 # Write-Host "`n"
-
-#expose list of extractions to other tasks in same job
-Write-Host "##vso[task.setvariable variable=changedExtractions]$extractions"
