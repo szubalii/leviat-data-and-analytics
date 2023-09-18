@@ -149,6 +149,7 @@ SELECT
        ARSD.[SalesReferenceDocumentItemCalculated],
        ARSD.[SalesDocumentItemCategoryID], 
        BDI.[HigherLevelItem],
+       GLA.[WWPRNPA] AS ProjectNumber,
        GLA.[t_applicationId],
        GLA.[t_extractionDtm]
 FROM [edw].[vw_GLAccountLineItemRawData] AS GLA
