@@ -16,16 +16,27 @@ WITH BDIFreight AS (
     [edw].[fact_BillingDocumentItemPrcgElmnt] PE
     ON BDI_TC.BillingDocument = PE.BillingDocument
       AND BDI_TC.BillingDocumentItem = PE.BillingDocumentItem
-      AND PE.ConditionType in ( 'ZF10', 'ZF20', 'ZF40','ZF60', 'ZTMF')
-  WHERE
-    BDI_TC.[CurrencyType] = 'Transaction Currency'
-    AND BDI_LC.[CurrencyType] = 'Local Currency'
-    AND BDI_TC.Material='000000000070000011'
+      AND PE.ConditionType in ( 'ZF10', 'ZF20', 'ZF40','ZF60', 'ZTMF')        -- ZF10 - Freight surchage %
+  WHERE                                                                       -- ZF20 - Min. Freight charges
+    BDI_TC.[CurrencyType] = 'Transaction Currency'                            -- ZF40 - Freight Charge- Pack
+    AND BDI_LC.[CurrencyType] = 'Local Currency'                              -- ZF60 - Man. Freight Charges
+    --AND BDI_TC.Material='000000000070000011'      -- Freight                     ZTMF - Freight from SAP TM
   GROUP BY
     BDI_TC.[ReferenceSDDocument]
     ,BDI_TC.[ReferenceSDDocumentItem]
     ,BDI_TC.[CurrencyID]
     ,BDI_LC.[CurrencyID]
+)
+, TransportationOrderItem AS (        -- TODO
+  SELECT 
+    TranspOrdDocReferenceID           -- doublicates contain the same UUID
+    ,TranspOrdDocReferenceItmID
+    ,MIN(TransportationOrderItemUUID)     AS TransportationOrderItemUUID
+  FROM 
+    [edw].[vw_TransportationOrderItem]
+  GROUP BY
+    TranspOrdDocReferenceID
+    ,TranspOrdDocReferenceItmID
 )
 SELECT  
        [sk_fact_OutboundDeliveryItem]
@@ -284,17 +295,13 @@ SELECT
       ,BDIFreight.[TransactionCurrencyID]     AS [FreightTransactionCurrencyID]
       ,BDIFreight.[LocalCurrencyID]           AS [FreightLocalCurrencyID]
       ,BDIFreight.[InvoicedFreightValueTransactionCurrency]
-      ,FCDI.[FrtCostDistrItemAmount] * CCR_LOC.ExchangeRate
+      ,FCDI.[FrtCostDistrItemAmount] * CCR_FR_LOC.ExchangeRate
                                               AS [CalculatedFreightAmountInLocalCodeCurrency]
-      ,FCDI.[FrtCostDistrItemAmtCrcy] * CCR_LOC.ExchangeRate         
-                                              AS [CalculatedFreightAmountLocalCodeCurrency]
       ,BDIFreight.[InvoicedFreightValueTransactionCurrency] * CCR_LOC.ExchangeRate
                                               AS [InvoicedFreightValueLocalCurrency]
-      ,FCDI.[FrtCostDistrItemAmount] * CCR_LOC.ExchangeRate
+      ,FCDI.[FrtCostDistrItemAmount] * CCR_FR_EUR.ExchangeRate
                                               AS [CalculatedFreightAmountInEUR]
-      ,FCDI.[FrtCostDistrItemAmtCrcy] * CCR_LOC.ExchangeRate         
-                                              AS [CalculatedFreightAmountEUR]
-      ,BDIFreight.[InvoicedFreightValueTransactionCurrency] * CCR_LOC.ExchangeRate
+      ,BDIFreight.[InvoicedFreightValueTransactionCurrency] * CCR_EUR.ExchangeRate
                                               AS [InvoicedFreightValueEUR]
       ,ODI.[t_extractionDtm]
       ,ODI.[t_applicationId]
@@ -324,6 +331,16 @@ LEFT JOIN BDIFreight
 LEFT JOIN [edw].[vw_CurrencyConversionRate] CCR_LOC
   ON BDIFreight.[TransactionCurrencyID] = CCR_LOC.[SourceCurrency]
   AND BDIFreight.[LocalCurrencyID] = CCR_LOC.[TargetCurrency]
+  AND CCR_LOC.CurrencyTypeID<>'00'
 LEFT JOIN [edw].[vw_CurrencyConversionRate] CCR_EUR
   ON BDIFreight.TransactionCurrencyID = CCR_EUR.[SourceCurrency]
   AND CCR_EUR.[TargetCurrency] = 'EUR'
+  AND CCR_EUR.CurrencyTypeID<>'00'
+LEFT JOIN [edw].[vw_CurrencyConversionRate] CCR_FR_LOC
+  ON FCDI.[FrtCostDistrItemAmtCrcy] = CCR_FR_LOC.[SourceCurrency]        COLLATE DATABASE_DEFAULT
+  AND BDIFreight.[LocalCurrencyID] = CCR_FR_LOC.[TargetCurrency]
+  AND CCR_FR_LOC.CurrencyTypeID<>'00'
+LEFT JOIN [edw].[vw_CurrencyConversionRate] CCR_FR_EUR
+  ON FCDI.[FrtCostDistrItemAmtCrcy] = CCR_FR_EUR.[SourceCurrency]        COLLATE DATABASE_DEFAULT
+  AND CCR_FR_EUR.[TargetCurrency] = 'EUR'
+  AND CCR_FR_EUR.CurrencyTypeID<>'00'
