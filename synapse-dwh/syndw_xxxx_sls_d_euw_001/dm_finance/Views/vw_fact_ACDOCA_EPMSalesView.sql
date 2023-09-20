@@ -150,7 +150,7 @@ SELECT
   HigherLevelItem,
   '10' AS ValueTypeID,
   [ProjectNumber],
-  [ProjectNumberCalculated]
+  [ProjectNumberCalculated],
   [t_applicationId],
   [t_extractionDtm]
 FROM
