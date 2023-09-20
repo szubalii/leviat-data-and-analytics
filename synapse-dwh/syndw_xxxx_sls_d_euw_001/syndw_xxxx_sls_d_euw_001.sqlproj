@@ -328,7 +328,7 @@
     <Build Include="base_ff\Tables\Region.sql" />
     <Build Include="base_ff\Tables\CompanyCode.sql" />
     <Build Include="base_ff\Tables\Budget_EPM.sql" />
-    <Build Include="base_ff\Tables\LeviatLocations.sql" />
+    <Build Include="base_ff\Tables\LeviatWarehouse.sql" />
 
     <Build Include="base_ff_USA\Tables\Budget.sql" />
     <Build Include="base_ff_USA\Tables\DummyMaterial.sql" />
