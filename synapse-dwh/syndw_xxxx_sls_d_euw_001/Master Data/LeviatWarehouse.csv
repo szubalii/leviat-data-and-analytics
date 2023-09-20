@@ -17,8 +17,8 @@ APAC;CN;CNS1 China Beijing NF (CNS1);ChinaBeijing NF;3PL;CNS1;3PL warehouse;West
 APAC;CN;CNS2 Tianjin Dezhen (CNS2);Tianjin Dezhen;3PL;CNS2;3PL warehouse;Building 3 No. 6 Xingliang Road Daliang town Wuqing ;;;;;China Building 3 No. 6 Xingliang Road Daliang town Wuqing   
 APAC;CN;CNS3 Jiangsu Huacan (CNS3);Jiangsu Huacan;3PL;CNS3;3PL warehouse;Yongfu Industrial Concentration Area Changjiang town;;;;;China Yongfu Industrial Concentration Area Changjiang town  
 Europe;CZ;CZS1 Gebrueder Weiss (CZS1);Gebrüder Weiss;3PL;CZS1;3PL warehouse;Průmyslová 477;252 61;Jeneč;;;Czech Republic Průmyslová 477 252 61 Jeneč
-Europe;DEDE01 Leviat Langenfeld (DE01);Leviat Langenfeld;Leviat;DE01;Central warehouse;Liebigstrasse 14;40764;Langenfeld;11000;;Germany Liebigstrasse 14 40764 Langenfeld
-Europe;DEDE02 Leviat Artern (DE02);Leviat Artern;Leviat;DE02;Central warehouse;Otto-Brünner Straße 3;06556;Artern;5000;;Germany Otto-Brünner Straße 3 06556 Artern
+Europe;DE;DE01 Leviat Langenfeld (DE01);Leviat Langenfeld;Leviat;DE01;Central warehouse;Liebigstrasse 14;40764;Langenfeld;11000;;Germany Liebigstrasse 14 40764 Langenfeld
+Europe;DE;DE02 Leviat Artern (DE02);Leviat Artern;Leviat;DE02;Central warehouse;Otto-Brünner Straße 3;06556;Artern;5000;;Germany Otto-Brünner Straße 3 06556 Artern
 Europe;DE;Winner Iserlohn;3PL;;HUB;Brinkhofstraße 41;58642;Iserlohn;;;Germany Brinkhofstraße 41 58642 Iserlohn
 Europe;DE;Winner Hemer;3PL;;HUB;Edelburg 5;58675;Hemer;;;Germany Edelburg 5 58675 Hemer
 Europe;DE;Winner Bitterfeld;3PL;;HUB;Hallesche Straße 18;06749;Bitterfeld-Wolfen;;;Germany Hallesche Straße 18 06749 Bitterfeld-Wolfen
