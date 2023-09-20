@@ -4220,7 +4220,7 @@
         "update_mode": "Full",
         "base_table_name": "I_TransportationOrderItem",
         "schedule_recurrence": "D",
-        "pk_field_names": "MANDT, TRANSPORTATIONORDERITEMUUID"
+        "pk_field_names": "TRANSPORTATIONORDERITEMUUID"
       }
     ]
   },
