@@ -1,0 +1,62 @@
+Region;CountryCode;SAPShippingPoint;WarehouseName;Type;SAPCode;WarehouseType;Address;Zipcode;City;LogisticsAreaInM2;FTELogistics;FullAddress
+Europe;AT;Velox Express (ATS1);Velox Express;3PL;ATS1;3PL warehouse;Wagner-Schönkirch-Gasse 3;1230;Wien;;;Austria Wagner-Schönkirch-Gasse 3 1230 Wien
+APAC;AU;;Leviat Casino;Leviat;;Central warehouse;10 Irving Drive;NSW 2470;Casino;;;Australia 10 Irving Drive NSW 2470 Casino
+APAC;AU;;Leviat Sydney;Leviat;;Central warehouse;Unit 4/98 Kurrajong Ave;NSW 2770;Mt Druitt;;;Australia Unit 4/98 Kurrajong Ave NSW 2770 Mt Druitt
+APAC;AU;;Leviat Perth;Leviat;;Local warehouse;18 Tennant Street;WA 6106  ;Welshpool;;;Australia 18 Tennant Street WA 6106   Welshpool
+APAC;AU;;Leviat Sydney;Leviat;;Local warehouse;Unit 1/98 Kurrajong Ave;NSW 2770;Mt Druitt;;;Australia Unit 1/98 Kurrajong Ave NSW 2770 Mt Druitt
+APAC;AU;;Leviat Melbourne;Leviat;;Local warehouse;9/63-69 Pipe Road;VIC 3026 ;Laverton North;;;Australia 9/63-69 Pipe Road VIC 3026  Laverton North
+APAC;AU;;Leviat Brisbane;Leviat;;Local warehouse;4/15 Terrace Place;QLD 4172  ;Murrarie;;;Australia 4/15 Terrace Place QLD 4172   Murrarie
+Europe;BE;;Leviat Ternat;Leviat;;Central warehouse;Industrielaan 21;1730;Ternat;20700;22;Belgium Industrielaan 21 1730 Ternat
+Europe;BE;;Leviat ETS;Leviat;;Central warehouse;Kasteelstraat 160;9255;Buggenhout;1000;4;Belgium Kasteelstraat 160 9255 Buggenhout
+Europe;BE;;Leviat Techno coating & PAS;Leviat;;Central warehouse;Kasteelstraat 47;1840;Londerzeel;500;2;Belgium Kasteelstraat 47 1840 Londerzeel
+Europe;CH;Leviat Lyss (CH01);Leviat Lyss;Leviat;CH01;Central warehouse;Grenzstrasse 24;3250;Lyss;2200;;Switzerland Grenzstrasse 24 3250 Lyss
+Europe;CH;;Fissinox;Subcon;CHS1;Subcontractor;Via Girella 14b;6814;Lamone;;;Switzerland Via Girella 14b 6814 Lamone
+Europe;CH;;Haesag;Subcon;CHS2;Subcontractor;Industriestrasse 5;3661;Uetendorf;;;Switzerland Industriestrasse 5 3661 Uetendorf
+Europe;CH;;Haenni Galvanik;Subcon;CHS3;Subcontractor;Schwadernaustrasse 29;2558;Aegerten;;;Switzerland Schwadernaustrasse 29 2558 Aegerten
+APAC;CN;CNS1 China Beijing NF (CNS1);ChinaBeijing NF;3PL;CNS1;3PL warehouse;West Gate 1 No. 8 Yanjiaying Section, Tianbei Road Shunyi;;;;;China West Gate 1 No. 8 Yanjiaying Section, Tianbei Road Shunyi  
+APAC;CN;CNS2 Tianjin Dezhen (CNS2);Tianjin Dezhen;3PL;CNS2;3PL warehouse;Building 3 No. 6 Xingliang Road Daliang town Wuqing ;;;;;China Building 3 No. 6 Xingliang Road Daliang town Wuqing   
+APAC;CN;CNS3 Jiangsu Huacan (CNS3);Jiangsu Huacan;3PL;CNS3;3PL warehouse;Yongfu Industrial Concentration Area Changjiang town;;;;;China Yongfu Industrial Concentration Area Changjiang town  
+Europe;CZ;CZS1 Gebrueder Weiss (CZS1);Gebrüder Weiss;3PL;CZS1;3PL warehouse;Průmyslová 477;252 61;Jeneč;;;Czech Republic Průmyslová 477 252 61 Jeneč
+Europe;DEDE01 Leviat Langenfeld (DE01);Leviat Langenfeld;Leviat;DE01;Central warehouse;Liebigstrasse 14;40764;Langenfeld;11000;;Germany Liebigstrasse 14 40764 Langenfeld
+Europe;DEDE02 Leviat Artern (DE02);Leviat Artern;Leviat;DE02;Central warehouse;Otto-Brünner Straße 3;06556;Artern;5000;;Germany Otto-Brünner Straße 3 06556 Artern
+Europe;DE;Winner Iserlohn;3PL;;HUB;Brinkhofstraße 41;58642;Iserlohn;;;Germany Brinkhofstraße 41 58642 Iserlohn
+Europe;DE;Winner Hemer;3PL;;HUB;Edelburg 5;58675;Hemer;;;Germany Edelburg 5 58675 Hemer
+Europe;DE;Winner Bitterfeld;3PL;;HUB;Hallesche Straße 18;06749;Bitterfeld-Wolfen;;;Germany Hallesche Straße 18 06749 Bitterfeld-Wolfen
+Europe;DE;Modersohn;Leviat;;Central warehouse;Auf der Freiheit 31;32139;Spenge;8300;;Germany Auf der Freiheit 31 32139 Spenge
+Europe;ES;ES01 LEVIAT IBERICA S.L (ES01);Leviat Rivas Vaciamadrid;Leviat;ES01;Local warehouse;Pol. Ind. Santa Ana, C/ Ignacio Zuloaga, 20;28522;Rivas Vaciamadrid ;;;Spain Pol. Ind. Santa Ana, C/ Ignacio Zuloaga, 20 28522 Rivas Vaciamadrid 
+Europe;FR;;Leviat Castelsarrasin;Leviat;;Central warehouse;Zone Industriel Artel;82100;Castelsarassin;1900;2;France Zone Industriel Artel 82100 Castelsarassin
+Europe;FR;;Leviat Toulouse;Leviat;;Local warehouse;Zone Industriel Artel;82100;Castelsarassin;;;France Zone Industriel Artel 82100 Castelsarassin
+Europe;FR;;Leviat Clermont Ferrand;Leviat;;Central warehouse;Novialle;63670;La Roche Blanche;;;France Novialle 63670 La Roche Blanche
+Europe;FR;;Leviat Survilliers;Leviat;;Local warehouse; ZA Porte des Champs;95470;Survilliers;4500;4;France  ZA Porte des Champs 95470 Survilliers
+Europe;FR;;Leviat Meyzieu;Leviat;;Local warehouse;Rue de Luxembourg;69330;Meyzieu;4500;6;France Rue de Luxembourg 69330 Meyzieu
+Europe;GB;;Leviat Sheffield;Leviat;;Central warehouse;9 President Way;S4 7UR;Sheffield;226;10;United Kingdom 9 President Way S4 7UR Sheffield
+Europe;GB;;Leviat Deeside;Leviat;;Central warehouse;Unit 104, Tenth Avenue, Zone 3;CH5 2UA;Deeside;1257;1;United Kingdom Unit 104, Tenth Avenue, Zone 3 CH5 2UA Deeside
+Europe;GB;;Leviat Somerton;Leviat;;Central warehouse;Unit 10 Jubilee Park;TA11 7JF;Somerton;;;United Kingdom Unit 10 Jubilee Park TA11 7JF Somerton
+Europe;GB;;Leviat Houghton Regis;Leviat;;Local warehouse;A1/A2 Portland Close;LU5 5AW;Houghton Regis;1187;3;United Kingdom A1/A2 Portland Close LU5 5AW Houghton Regis
+Europe;IT;;Leviat Italy;Leviat;IT01;Local warehouse;Via F.lli Bronzetti 28;24124;Bergamo;;;Italy Via F.lli Bronzetti 28 24124 Bergamo
+Europe;IT;ITS1 Gamma Trasporti (ITS1);Gamma Trasporti;3PL;ITS1;3PL warehouse;Via B. Buozzi 23/25;25125;Brescia;;;Italy Via B. Buozzi 23/25 25125 Brescia
+Europe;IT;ITS2 Panza Basilio (ITS2);Panza Basilio;3PL;ITS2;3PL warehouse;Via Briantea 14;24030;Palazzago;;;Italy Via Briantea 14 24030 Palazzago
+Europe;IT;;Chito Forniture;3PL;ITS3;3PL warehouse;Via Pascoli 8;24050;Cortenuova;;;Italy Via Pascoli 8 24050 Cortenuova
+Europe;IT;ITS4 Paleni (ITS4);Paleni;3PL;ITS4;3PL warehouse;Viale Matteotti 43a;24050;Grassobbio;;;Italy Viale Matteotti 43a 24050 Grassobbio
+Europe;IT;ITS5 Plastypiemonte (ITS5);Plastypiemonte s.r.l.;3PL;ITS5;3PL warehouse;Via Tommaso Agudio 10;10040;Leinì;;;Italy Via Tommaso Agudio 10 10040 Leinì
+APAC;MY;;Leviat Malaysia;Leviat;;Local warehouse;28 Jalan Anggerik Mokara 31/59;40460;Kota Kemuning;;;Malaysia 28 Jalan Anggerik Mokara 31/59 40460 Kota Kemuning
+Europe;NL;NLS1 Wecoat Sub co (NLS1);Wecoat;Subcon;NLS1;Subcontractor;Industrieweg 35;6039 AP;Stramproy;;;Netherlands Industrieweg 35 6039 AP Stramproy
+Europe;NL;NLS2 Rotocoat Subco (NLS2);Rotocoat;Subcon;NLS2;Subcontractor;Aan de Schipsloot 13;8471 ZC;Wolvega;;;Netherlands Aan de Schipsloot 13 8471 ZC Wolvega
+Europe;NO;;Leviat Stavanger;Leviat;;Local warehouse;Vestre Svanholmen 5;4313;Sandnes;;;Norway Vestre Svanholmen 5 4313 Sandnes
+APAC;NZ;;Leviat Otahuhu;Leviat;;Local warehouse;246D James Fletcher Drive;2024;Otahuhu;;;New-Zealand 246D James Fletcher Drive 2024 Otahuhu
+APAC;NZ;;Leviat Christchurch;Leviat;;Local warehouse;2/19 Nuttall Drive;8022;Hillsborough;;;New-Zealand 2/19 Nuttall Drive 8022 Hillsborough
+Europe;PL;PL01 LEVIAT KALISZ (PL01);Leviat Kalisz;Leviat;PL01;Central warehouse;Rozwojowa 3;62-800;Kalisz;;;Poland Rozwojowa 3 62-800 Kalisz
+Europe;PL;;Winner Kalisz;3PL;;HUB;Ul. Rozwojowa 1;62-800;Kalisz;;;Poland Ul. Rozwojowa 1 62-800 Kalisz
+Europe;SE;SES1 Incorp (SES1);Incorp;3PL;SES1;3PL warehouse;Exportgatan 61;422 46;Hisings Backa;;;Sweden Exportgatan 61 422 46 Hisings Backa
+Europe;SE;;Milles TeknikPla;3PL;SES2;3PL warehouse;Bergsjödalen 55;415 23;Göteborg;;;Sweden Bergsjödalen 55 415 23 Göteborg
+Europe;SE;;DISTEX Bygg. AB;3PL;SES3;3PL warehouse;Hedentorpsvägen 8;291 59;Kristianstad;;;Sweden Hedentorpsvägen 8 291 59 Kristianstad
+APAC;SG;;Leviat Singapore;Leviat;;Local warehouse;14 Benoi Cres;629977;Singapore;;;Singapore 14 Benoi Cres 629977 Singapore
+US;US;;Leviat Anaheim;Leviat;;Local warehouse;3611 E La Palme Avenue;CA 92806;Anaheim;1847.84;3;United States 3611 E La Palme Avenue CA 92806 Anaheim
+US;US;;Leviat Tampa;Leviat;;Local warehouse;6467 S Falkenburg Road;FL 33578;Tampa;4472.26;5;United States 6467 S Falkenburg Road FL 33578 Tampa
+US;US;;Leviat Atlanta;Leviat;;Local warehouse;3080 N Lanier Parkway;GA 30034;Decatur;3773.44;7;United States 3080 N Lanier Parkway GA 30034 Decatur
+US;US;;Leviat Des Moines;Leviat;;Local warehouse;1000 Technology Drive;IA 50036;Des Moines;5574.18;3;United States 1000 Technology Drive IA 50036 Des Moines
+US;US;;Leviat Bergen County;Leviat;;Local warehouse;526 US Route 46;NJ 07608;Teterboro ;1660.83;3;United States 526 US Route 46 NJ 07608 Teterboro 
+US;US;;Leviat Portland;Leviat;;Local warehouse;155 SE Hazel Dell Way;0R 97013;Canby;1282.06;3;United States 155 SE Hazel Dell Way 0R 97013 Canby
+US;US;;Leviat Hazleton;Leviat;;Local warehouse;565 Oak Ridge Road;PA 18202;Hazleton;4366.44;5;United States 565 Oak Ridge Road PA 18202 Hazleton
+US;US;;Leviat San Antonio;Leviat;;Local warehouse;4965 Eisenhauer Rd #101;TX 78218;Windcrest;6340.63;6;United States 4965 Eisenhauer Rd #101 TX 78218 Windcrest
+US;US;;Leviat Fort Worth;Leviat;;Local warehouse;7000 Will Rogers Blvd;TX 76140;Fort Worth;4598.70;7;United States 7000 Will Rogers Blvd TX 76140 Fort Worth

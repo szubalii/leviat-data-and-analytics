@@ -1171,6 +1171,8 @@
     <Build Include="edw\Views\vw_Locations.sql" />
     <Build Include="edw\Views\vw_TransportationOrderItem.sql" />
     <Build Include="edw\Views\vw_FrtCostDistrItm.sql" />
+    <Build Include="edw\Views\vw_TransportationOrderItemFreightCost.sql" />
+    <Build Include="edw\Views\vw_fact_BillingDocumentItemFreight.sql" />
 
     <Build Include="dq\Views\vw_Product_1_2.sql" />
     <Build Include="dq\Views\vw_RuleTotal.sql" />

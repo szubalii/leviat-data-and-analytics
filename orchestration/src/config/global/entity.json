@@ -4208,7 +4208,7 @@
         "extraction_type": "Table",
         "update_mode": "Full",
         "base_table_name": "I_TransportationOrder",
-        "schedule_recurrence": "D",
+        "schedule_recurrence": "A",
         "pk_field_names": "MANDT, TRANSPORTATIONORDERUUID"
       },
       {

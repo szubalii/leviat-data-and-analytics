@@ -4,15 +4,15 @@ SELECT
     Region                  
     ,CountryCode            
     ,Country                
-    ,ShippingPointNameSAP   
-    ,NameOfWHS              
+    ,SAPShippingPoint   
+    ,WarehouseName              
     ,Type                   
     ,SAPCode                
-    ,TypeOfWHS              
+    ,WarehouseType              
     ,Address                
     ,Zipcode                
     ,City                   
-    ,LogisticArea           
+    ,LogisticsAreaInM2           
     ,FTELogistics           
     ,FullAddress            
 FROM edw.vw_Locations
