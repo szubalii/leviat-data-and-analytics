@@ -3,7 +3,6 @@ AS
 SELECT
     Region                  
     ,CountryCode            
-    ,Country                
     ,SAPShippingPoint   
     ,WarehouseName              
     ,Type                   

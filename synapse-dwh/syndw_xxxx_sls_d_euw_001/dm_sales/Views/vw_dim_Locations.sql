@@ -2,8 +2,7 @@ CREATE VIEW [dm_sales].[vw_dim_Locations]
 AS
 SELECT
     Region                  
-    ,CountryCode            
-    ,Country                
+    ,CountryCode
     ,SAPShippingPoint   
     ,WarehouseName              
     ,Type                   
