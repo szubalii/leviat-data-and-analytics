@@ -19,10 +19,10 @@ APAC;CN;CNS3 Jiangsu Huacan (CNS3);Jiangsu Huacan;3PL;CNS3;3PL warehouse;Yongfu 
 Europe;CZ;CZS1 Gebrueder Weiss (CZS1);Gebrüder Weiss;3PL;CZS1;3PL warehouse;Průmyslová 477;252 61;Jeneč;;;Czech Republic Průmyslová 477 252 61 Jeneč
 Europe;DE;DE01 Leviat Langenfeld (DE01);Leviat Langenfeld;Leviat;DE01;Central warehouse;Liebigstrasse 14;40764;Langenfeld;11000;;Germany Liebigstrasse 14 40764 Langenfeld
 Europe;DE;DE02 Leviat Artern (DE02);Leviat Artern;Leviat;DE02;Central warehouse;Otto-Brünner Straße 3;06556;Artern;5000;;Germany Otto-Brünner Straße 3 06556 Artern
-Europe;DE;Winner Iserlohn;3PL;;HUB;Brinkhofstraße 41;58642;Iserlohn;;;Germany Brinkhofstraße 41 58642 Iserlohn
-Europe;DE;Winner Hemer;3PL;;HUB;Edelburg 5;58675;Hemer;;;Germany Edelburg 5 58675 Hemer
-Europe;DE;Winner Bitterfeld;3PL;;HUB;Hallesche Straße 18;06749;Bitterfeld-Wolfen;;;Germany Hallesche Straße 18 06749 Bitterfeld-Wolfen
-Europe;DE;Modersohn;Leviat;;Central warehouse;Auf der Freiheit 31;32139;Spenge;8300;;Germany Auf der Freiheit 31 32139 Spenge
+Europe;DE;;Winner Iserlohn;3PL;;HUB;Brinkhofstraße 41;58642;Iserlohn;;;Germany Brinkhofstraße 41 58642 Iserlohn
+Europe;DE;;Winner Hemer;3PL;;HUB;Edelburg 5;58675;Hemer;;;Germany Edelburg 5 58675 Hemer
+Europe;DE;;Winner Bitterfeld;3PL;;HUB;Hallesche Straße 18;06749;Bitterfeld-Wolfen;;;Germany Hallesche Straße 18 06749 Bitterfeld-Wolfen
+Europe;DE;;Modersohn;Leviat;;Central warehouse;Auf der Freiheit 31;32139;Spenge;8300;;Germany Auf der Freiheit 31 32139 Spenge
 Europe;ES;ES01 LEVIAT IBERICA S.L (ES01);Leviat Rivas Vaciamadrid;Leviat;ES01;Local warehouse;Pol. Ind. Santa Ana, C/ Ignacio Zuloaga, 20;28522;Rivas Vaciamadrid ;;;Spain Pol. Ind. Santa Ana, C/ Ignacio Zuloaga, 20 28522 Rivas Vaciamadrid 
 Europe;FR;;Leviat Castelsarrasin;Leviat;;Central warehouse;Zone Industriel Artel;82100;Castelsarassin;1900;2;France Zone Industriel Artel 82100 Castelsarassin
 Europe;FR;;Leviat Toulouse;Leviat;;Local warehouse;Zone Industriel Artel;82100;Castelsarassin;;;France Zone Industriel Artel 82100 Castelsarassin
