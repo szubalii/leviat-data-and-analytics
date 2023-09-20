@@ -27,10 +27,10 @@ WITH BDIFreight AS (
   SELECT
     TOI.TranspOrdDocReferenceID
     , TOI.TranspOrdDocReferenceItmID
-    , SUM(FrtCostDistrItemAmount)           AS FrtCostDistrItemAmount
-    , MIN(FrtCostDistrItemAmtCrcy)          AS FrtCostDistrItemAmtCrcy     -- the same value for a whole group
+    , SUM(FCDI.FrtCostDistrItemAmount)           AS FrtCostDistrItemAmount
+    , MIN(FCDI.FrtCostDistrItemAmtCrcy)          AS FrtCostDistrItemAmtCrcy     -- the same value for a whole group
   FROM [edw].[vw_TransportationOrderItem] TOI
-  JOIN [edw].[vw_FrtCostDistrItm] FCDI
+  INNER JOIN [edw].[vw_FrtCostDistrItm] FCDI
     ON TOI.TransportationOrderItemUUID = FCDI.FrtCostDistrItmRefUUID
   GROUP BY
     TOI.TranspOrdDocReferenceID
