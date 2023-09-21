@@ -136,6 +136,9 @@ select
      , dimSO.[SalesOffice]
      , doc.[CostAmount] 
      , doc.[ShippingConditionID]
+     , doc.[HeaderBillingBlockReasonID]
+     , doc.[ItemBillingBlockReasonID]
+     , doc.[DeliveryBlockReasonID]
      , doc.[t_applicationId]
      , doc.[t_extractionDtm]
 from [edw].[fact_SalesDocumentItem] doc
