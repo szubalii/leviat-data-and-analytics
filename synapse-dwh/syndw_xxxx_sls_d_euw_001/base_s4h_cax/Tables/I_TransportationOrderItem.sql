@@ -12,8 +12,8 @@
 
 CREATE TABLE [base_s4h_cax].[I_TransportationOrderItem] (
     
---    [MANDT] CHAR(3) NOT NULL  -- Client
-   [TransportationOrderItemUUID] BINARY(16) NOT NULL  -- UUID of Transportation Order Item with Conversion Exit
+    [MANDT] CHAR(3) NOT NULL  -- Client
+   [,TransportationOrderItemUUID] BINARY(16) NOT NULL  -- UUID of Transportation Order Item with Conversion Exit
   --, [TransportationOrderUUID] BINARY(16)  -- Transportation Order UUID
   --, [TranspOrdItem] NVARCHAR(10)  -- Item
   --, [TranspOrdItemType] NVARCHAR(4)  -- Transportation Order Item Type
@@ -89,8 +89,8 @@ CREATE TABLE [base_s4h_cax].[I_TransportationOrderItem] (
   , [t_filePath] NVARCHAR (1024)  -- Filepath
   , CONSTRAINT [PK_I_TransportationOrderItem] PRIMARY KEY NONCLUSTERED(
       
---      [MANDT]
-     [TransportationOrderItemUUID]
+    [MANDT]
+    , [TransportationOrderItemUUID]
   ) NOT ENFORCED
 ) WITH (
   HEAP

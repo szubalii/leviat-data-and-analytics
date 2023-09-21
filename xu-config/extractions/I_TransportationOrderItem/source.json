@@ -12,7 +12,7 @@
 					"description": "Client",
 					"abapType": "CharacterString",
 					"length": 3,
-					"isSelected": false,
+					"isSelected": true,
 					"outputLength": 3,
 					"isPrimaryKey": true,
 					"isDeltaColumn": true,
