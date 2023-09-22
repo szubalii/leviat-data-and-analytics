@@ -132,6 +132,8 @@ SELECT
     , [HDR_ShipmentBlockReason]
     , [HDR_DeliveryBlockReason]
     , [CreatedByUserID]
+    , [LatestOutboundDelivery]
+    , [LatestOutboundDeliveryItem]
     ,[t_applicationId]
     ,[t_extractionDtm]
 FROM [dm_sales].[vw_fact_SalesOrderItem]

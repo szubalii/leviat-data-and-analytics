@@ -5,6 +5,8 @@ DeliveryItem_ordered AS (
   SELECT
     [ReferenceSDDocument]
 		, [ReferenceSDDocumentItem]
+    , [OutboundDelivery]                            -- to improve
+    , [OutboundDeliveryItem]                        -- trackability
     , [HDR_PlannedGoodsIssueDate]
     , [HDR_ShippingPointID]
     , [HDR_HeaderBillingBlockReason]
@@ -16,8 +18,9 @@ DeliveryItem_ordered AS (
         PARTITION BY
           [ReferenceSDDocument]
 		      , [ReferenceSDDocumentItem]
-        ORDER BY [HDR_ActualGoodsMovementDate]
-          DESC
+        ORDER BY 
+          [HDR_ActualGoodsMovementDate] DESC
+          ,[OutboundDelivery]           DESC          -- to stabilize the result
       )                                                 AS rn
   FROM [edw].[fact_OutboundDeliveryItem]
 )
@@ -25,6 +28,8 @@ DeliveryItem_ordered AS (
   SELECT
     [ReferenceSDDocument]
 		, [ReferenceSDDocumentItem]
+    , [OutboundDelivery]
+    , [OutboundDeliveryItem]
     , [HDR_PlannedGoodsIssueDate]
     , [HDR_ShippingPointID]
     , [HDR_HeaderBillingBlockReason]
@@ -175,13 +180,15 @@ select
      , doc.[HeaderBillingBlockReasonID]
      , doc.[ItemBillingBlockReasonID]
      , doc.[DeliveryBlockReasonID]
-     , [HDR_PlannedGoodsIssueDate]
-     , [HDR_ShippingPointID]
-     , [HDR_HeaderBillingBlockReason]
-     , [HDR_TotalBlockStatusID]
-     , [HDR_ShipmentBlockReason]
-     , [HDR_DeliveryBlockReason]
-     , [CreatedByUserID]
+     , DeliveryItem.[HDR_PlannedGoodsIssueDate]
+     , DeliveryItem.[HDR_ShippingPointID]
+     , DeliveryItem.[HDR_HeaderBillingBlockReason]
+     , DeliveryItem.[HDR_TotalBlockStatusID]
+     , DeliveryItem.[HDR_ShipmentBlockReason]
+     , DeliveryItem.[HDR_DeliveryBlockReason]
+     , DeliveryItem.[CreatedByUserID]
+     , DeliveryItem.[OutboundDelivery]            AS [LatestOutboundDelivery]
+     , DeliveryItem.[OutboundDeliveryItem]        AS [LatestOutboundDeliveryItem]
      , doc.[t_applicationId]
      , doc.[t_extractionDtm]
 from [edw].[fact_SalesDocumentItem] doc
