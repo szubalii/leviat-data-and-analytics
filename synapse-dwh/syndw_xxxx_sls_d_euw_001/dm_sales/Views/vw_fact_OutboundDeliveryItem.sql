@@ -268,12 +268,10 @@ SELECT
       ,FCDI.[FrtCostDistrItemAmount] * CCR_FR_EUR.ExchangeRate
                                               AS [CalculatedFreightAmount_EUR]
       ,FCDI.[FrtCostDistrItemAmtCrcy]         AS [CalculatedFreightAmountCompanyCodeCurrency]
-      ,BDIFreight.[InvoicedFreightValueTransactionCurrency]
-      ,BDIFreight.[InvoicedFreightValueTransactionCurrency] * CCR_LOC.ExchangeRate
-                                              AS [InvoicedFreightValue_LC]
-      ,BDIFreight.[InvoicedFreightValueTransactionCurrency] * CCR_EUR.ExchangeRate
+      ,BDIFreight.[InvoicedFreightValue_LC]
+      ,BDIFreight.[InvoicedFreightValue_LC] * CCR_EUR.ExchangeRate
                                               AS [InvoicedFreightValue_EUR]
-      ,BDIFreight.[TransactionCurrencyID]     AS [FreightTransactionCurrencyID]
+      ,BDIFreight.[LocalCurrencyID]           AS [FreightLocalCurrencyID]
       ,ODI.[t_extractionDtm]
       ,ODI.[t_applicationId]
 FROM [edw].[fact_OutboundDeliveryItem] ODI
@@ -297,11 +295,8 @@ LEFT JOIN [edw].[vw_TransportationOrderItemFreightCost] FCDI
 LEFT JOIN [edw].[vw_fact_BillingDocumentItemFreight] BDIFreight
   ON ODI.[OutboundDelivery] = BDIFreight.[ReferenceSDDocument]
   AND ODI.[OutboundDeliveryItem] = BDIFreight.[ReferenceSDDocumentItem]
-LEFT JOIN CurrencyConversionRate CCR_LOC
-  ON BDIFreight.[TransactionCurrencyID] = CCR_LOC.[SourceCurrency]
-  AND SDI_LocalCurrency = CCR_LOC.[TargetCurrency]                       COLLATE DATABASE_DEFAULT
 LEFT JOIN CurrencyConversionRate CCR_EUR
-  ON BDIFreight.TransactionCurrencyID = CCR_EUR.[SourceCurrency]
+  ON BDIFreight.LocalCurrencyID = CCR_EUR.[SourceCurrency]              COLLATE DATABASE_DEFAULT
   AND CCR_EUR.[TargetCurrency] = 'EUR'
 LEFT JOIN CurrencyConversionRate CCR_FR_LOC
   ON FCDI.[FrtCostDistrItemAmtCrcy] = CCR_FR_LOC.[SourceCurrency]        COLLATE DATABASE_DEFAULT
