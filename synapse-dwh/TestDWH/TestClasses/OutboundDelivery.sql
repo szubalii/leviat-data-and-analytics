@@ -22,8 +22,8 @@ BEGIN
 END;
 GO
 
-
-CREATE PROCEDURE [Uniqueness].[test edw.vw_LatestOutboundDeliveryItem uniqueness]
+-- test we have latest HDR_ActualGoodsMovementDate in dm_sales.vw_fact_ScheduleLineStatus
+CREATE PROCEDURE [Uniqueness].[test latest HDR_ActualGoodsMovementDate in vw_fact_ScheduleLineStatus]
 AS
 BEGIN
 
