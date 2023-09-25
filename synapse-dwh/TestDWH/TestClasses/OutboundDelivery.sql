@@ -8,7 +8,6 @@ AS
 BEGIN
 
   IF OBJECT_ID('actual') IS NOT NULL DROP TABLE actual;
-  
 
   -- Assemble: Fake Table
   EXEC tSQLt.FakeTable '[edw]', '[fact_OutboundDeliveryItem]';
@@ -51,7 +50,6 @@ BEGIN
   IF OBJECT_ID('actual') IS NOT NULL DROP TABLE actual;
   IF OBJECT_ID('expected') IS NOT NULL DROP TABLE expected;
 
-  
   -- Assemble: Fake Table
   EXEC tSQLt.FakeTable '[edw]', '[fact_OutboundDeliveryItem]';
 
@@ -72,13 +70,14 @@ BEGIN
   -- Act
   SELECT
     [ReferenceSDDocument],
-    [ReferenceSDDocumentItem]
+    [ReferenceSDDocumentItem],
+    [HDR_ActualGoodsMovementDate]
   INTO actual
   FROM [edw].[vw_LatestOutboundDeliveryItem]
   GROUP BY
     [ReferenceSDDocument],
-    [ReferenceSDDocumentItem]
-  HAVING COUNT(*) > 1
+    [ReferenceSDDocumentItem],
+    [HDR_ActualGoodsMovementDate]
 
   -- Assert:
   CREATE TABLE expected (
