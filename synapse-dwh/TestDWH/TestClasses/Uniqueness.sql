@@ -258,6 +258,31 @@ BEGIN
 END;
 GO
 
+[edw].[vw_LatestOutboundDeliveryItem]
+
+
+CREATE PROCEDURE [Uniqueness].[test edw.vw_LatestOutboundDeliveryItem uniqueness]
+AS
+BEGIN
+
+  IF OBJECT_ID('actual') IS NOT NULL DROP TABLE actual;
+  -- IF OBJECT_ID('expected') IS NOT NULL DROP TABLE expected;
+
+  -- Collect non-unique records
+  SELECT
+    [ReferenceSDDocument]
+    , [ReferenceSDDocumentItem]
+  INTO actual
+  FROM [edw].[vw_LatestOutboundDeliveryItem]
+  GROUP BY
+    [ReferenceSDDocument]
+    , [ReferenceSDDocumentItem]
+  HAVING COUNT(*) > 1
+
+  -- Assert:
+  EXEC tSQLt.AssertEmptyTable 'actual';
+END;
+GO
 -- CREATE PROCEDURE [EntityFile].[test vw_entity_file_activity]
 -- AS
 -- BEGIN
