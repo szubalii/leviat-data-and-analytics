@@ -259,7 +259,7 @@ END;
 GO
 
 -- Test for duplicates in [dm_sales].[vw_fact_OutboundDeliveryItem].[sk_fact_OutboundDeliveryItem]
-CREATE PROCEDURE [OutboundDeliveryItem].[test for sk duplicates]
+CREATE PROCEDURE [Uniqueness].[test for sk duplicates]
 AS
 BEGIN
 
@@ -286,7 +286,7 @@ GO
 
 
 -- Test for duplicates in [dm_sales].[vw_fact_OutboundDeliveryItem].[nk_fact_OutboundDeliveryItem]
-CREATE PROCEDURE [OutboundDeliveryItem].[test for nk duplicates]
+CREATE PROCEDURE [Uniqueness].[test for nk duplicates]
 AS
 BEGIN
 
@@ -312,7 +312,7 @@ END;
 GO
 
 -- Test for duplicates in [dm_sales].[vw_fact_OutboundDeliveryItem].[nk_fact_OutboundDeliveryItem]
-CREATE PROCEDURE [OutboundDeliveryItem].[test for composite key duplicates]
+CREATE PROCEDURE [Uniqueness].[test for composite key duplicates]
 AS
 BEGIN
 
