@@ -71,25 +71,25 @@ BEGIN
   SELECT
     [ReferenceSDDocument],
     [ReferenceSDDocumentItem],
-    [HDR_ActualGoodsMovementDate]
+    [LatestActualGoodsMovementDate]
   INTO actual
   FROM [edw].[vw_LatestOutboundDeliveryItem]
   GROUP BY
     [ReferenceSDDocument],
     [ReferenceSDDocumentItem],
-    [HDR_ActualGoodsMovementDate]
+    [LatestActualGoodsMovementDate]
 
   -- Assert:
   CREATE TABLE expected (
     ReferenceSDDocument INT,
     ReferenceSDDocumentItem INT,
-    HDR_ActualGoodsMovementDate DATE
+    LatestActualGoodsMovementDate DATE
   );
 
   INSERT INTO expected(
     ReferenceSDDocument,
     ReferenceSDDocumentItem,
-    HDR_ActualGoodsMovementDate
+    LatestActualGoodsMovementDate
   )
   VALUES
     (1, 1, '2020-01-10'),

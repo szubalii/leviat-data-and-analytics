@@ -8,6 +8,7 @@ DeliveryItem_ordered AS (
         , [OutboundDelivery]                                    -- to improve
         , [OutboundDeliveryItem]                                -- trackability
         , [HDR_PlannedGoodsIssueDate]
+        , [HDR_ActualGoodsMovementDate]
         , [HDR_ShippingPointID]
         , [HDR_HeaderBillingBlockReason]
         , [HDR_TotalBlockStatusID]
@@ -30,6 +31,7 @@ SELECT
     , [ReferenceSDDocumentItem]
     , [OutboundDelivery]
     , [OutboundDeliveryItem]
+    , [LatestActualGoodsMovementDate]
     , [HDR_PlannedGoodsIssueDate]
     , [HDR_ShippingPointID]
     , [HDR_HeaderBillingBlockReason]
