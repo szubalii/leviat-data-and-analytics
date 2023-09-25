@@ -21,7 +21,8 @@ DeliveryItem_ordered AS (
                 ORDER BY 
                     [HDR_ActualGoodsMovementDate]   DESC
                     ,[OutboundDelivery]             DESC        -- to stabilize the result
-            )                                       AS rn
+            )                                       AS rn       -- originally it was only MovementDate, so if we have two records in the same Date it's possible to get the different order each time
+                                                                -- adding the part of NK helps get the stable result
     FROM [edw].[fact_OutboundDeliveryItem]
 )
 SELECT

@@ -5,4 +5,5 @@
 :r ..\..\TestClasses\ScalarValuedFunctions.sql
 :r ..\..\TestClasses\CurrencyConversion.sql
 :r ..\..\TestClasses\IncompletionLog.sql
+:r ..\..\TestClasses\OutboundDelivery.sql
 -- :r ..\..\TestClasses\FailTest.sql
