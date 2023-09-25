@@ -258,6 +258,87 @@ BEGIN
 END;
 GO
 
+-- Test for duplicates in [dm_sales].[vw_fact_OutboundDeliveryItem].[sk_fact_OutboundDeliveryItem]
+CREATE PROCEDURE [OutboundDeliveryItem].[test for sk duplicates]
+AS
+BEGIN
+
+  IF OBJECT_ID('actual') IS NOT NULL DROP TABLE actual;
+  
+  -- Act: 
+  SELECT
+    [sk_fact_OutboundDeliveryItem]
+    ,COUNT(*)
+  INTO
+    actual
+  FROM 
+    [dm_sales].[vw_fact_OutboundDeliveryItem]
+  GROUP BY
+    sk_fact_OutboundDeliveryItem
+  HAVING
+    COUNT(*)>1;
+  
+  -- Assert:
+
+  EXEC tSQLt.AssertEmptyTable 'actual';
+END;
+GO
+
+
+-- Test for duplicates in [dm_sales].[vw_fact_OutboundDeliveryItem].[nk_fact_OutboundDeliveryItem]
+CREATE PROCEDURE [OutboundDeliveryItem].[test for nk duplicates]
+AS
+BEGIN
+
+  IF OBJECT_ID('actual') IS NOT NULL DROP TABLE actual;
+  
+  -- Act: 
+  SELECT
+    [nk_fact_OutboundDeliveryItem]
+    ,COUNT(*)
+  INTO
+    actual
+  FROM 
+    [dm_sales].[vw_fact_OutboundDeliveryItem]
+  GROUP BY
+    nk_fact_OutboundDeliveryItem
+  HAVING
+    COUNT(*)>1;
+  
+  -- Assert:
+
+  EXEC tSQLt.AssertEmptyTable 'actual';
+END;
+GO
+
+-- Test for duplicates in [dm_sales].[vw_fact_OutboundDeliveryItem].[nk_fact_OutboundDeliveryItem]
+CREATE PROCEDURE [OutboundDeliveryItem].[test for composite key duplicates]
+AS
+BEGIN
+
+  IF OBJECT_ID('actual') IS NOT NULL DROP TABLE actual;
+  
+  -- Act: 
+  SELECT
+    [OutboundDelivery]
+    ,[OutboundDeliveryItem]
+    ,COUNT(*)
+  INTO
+    actual
+  FROM 
+    [dm_sales].[vw_fact_OutboundDeliveryItem]
+  GROUP BY
+    [OutboundDelivery]
+    ,[OutboundDeliveryItem]
+  HAVING
+    COUNT(*)>1;
+  
+  -- Assert:
+
+  EXEC tSQLt.AssertEmptyTable 'actual';
+END;
+GO
+
 -- CREATE PROCEDURE [EntityFile].[test vw_entity_file_activity]
 -- AS
 -- BEGIN
