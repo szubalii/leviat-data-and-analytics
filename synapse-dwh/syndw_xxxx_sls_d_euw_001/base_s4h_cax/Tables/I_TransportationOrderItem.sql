@@ -13,7 +13,7 @@
 CREATE TABLE [base_s4h_cax].[I_TransportationOrderItem] (
     
     [MANDT] CHAR(3) NOT NULL  -- Client
-   [,TransportationOrderItemUUID] BINARY(16) NOT NULL  -- UUID of Transportation Order Item with Conversion Exit
+   ,[TransportationOrderItemUUID] BINARY(16) NOT NULL  -- UUID of Transportation Order Item with Conversion Exit
   --, [TransportationOrderUUID] BINARY(16)  -- Transportation Order UUID
   --, [TranspOrdItem] NVARCHAR(10)  -- Item
   --, [TranspOrdItemType] NVARCHAR(4)  -- Transportation Order Item Type
