@@ -31,7 +31,7 @@ SELECT
     , [ReferenceSDDocumentItem]
     , [OutboundDelivery]
     , [OutboundDeliveryItem]
-    , [LatestActualGoodsMovementDate]
+    , [HDR_ActualGoodsMovementDate] AS [LatestActualGoodsMovementDate]
     , [HDR_PlannedGoodsIssueDate]
     , [HDR_ShippingPointID]
     , [HDR_HeaderBillingBlockReason]
