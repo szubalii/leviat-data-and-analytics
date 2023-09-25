@@ -1165,6 +1165,7 @@
     <Build Include="edw\Views\vw_ACDOCA_ReferenceSalesDocument.sql" />
     <Build Include="edw\Views\vw_SDDocumentIncompletionLog.sql" />
     <Build Include="edw\Views\vw_fact_ACDOCA_EPM_Base.sql" />
+    <Build Include="edw\Views\vw_LatestOutboundDeliveryItem.sql" />
 
     <Build Include="dq\Views\vw_Product_1_2.sql" />
     <Build Include="dq\Views\vw_RuleTotal.sql" />

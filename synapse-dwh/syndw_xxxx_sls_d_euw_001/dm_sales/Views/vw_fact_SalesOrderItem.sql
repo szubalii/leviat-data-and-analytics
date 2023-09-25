@@ -1,6 +1,5 @@
 ﻿CREATE VIEW [dm_sales].[vw_fact_SalesOrderItem] 
 AS
-
 select  
        doc.[sk_fact_SalesDocumentItem]
      , doc.[SalesDocument]                       as [SalesOrderID]
@@ -139,6 +138,15 @@ select
      , doc.[HeaderBillingBlockReasonID]
      , doc.[ItemBillingBlockReasonID]
      , doc.[DeliveryBlockReasonID]
+     , DeliveryItem.[HDR_PlannedGoodsIssueDate]
+     , DeliveryItem.[HDR_ShippingPointID]
+     , DeliveryItem.[HDR_HeaderBillingBlockReason]
+     , DeliveryItem.[HDR_TotalBlockStatusID]
+     , DeliveryItem.[HDR_ShipmentBlockReason]
+     , DeliveryItem.[HDR_DeliveryBlockReason]
+     , DeliveryItem.[CreatedByUserID]
+     , DeliveryItem.[OutboundDelivery]            AS [LatestOutboundDelivery]
+     , DeliveryItem.[OutboundDeliveryItem]        AS [LatestOutboundDeliveryItem]
      , doc.[t_applicationId]
      , doc.[t_extractionDtm]
 from [edw].[fact_SalesDocumentItem] doc
@@ -221,6 +229,8 @@ from [edw].[fact_SalesDocumentItem] doc
 
           LEFT JOIN [edw].[dim_SalesOffice] dimSO
                     ON doc.[SalesOfficeID] = dimSO.[SalesOfficeID]
-
+          LEFT JOIN [edw].[vw_LatestOutboundDeliveryItem] DeliveryItem
+                  ON doc.[SalesDocument] = DeliveryItem.[ReferenceSDDocument]
+                    AND doc.[SalesDocumentItem] = DeliveryItem.[ReferenceSDDocumentItem]
 where doc.[SDDocumentCategoryID] <> 'B'
 --     AND dimSDDRjS.[SDDocumentRejectionStatus] <> 'Fully Rejected'
