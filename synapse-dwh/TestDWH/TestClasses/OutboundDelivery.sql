@@ -1,3 +1,5 @@
+EXEC tSQLt.NewTestClass 'OutboundDelivery';
+GO
 
 CREATE PROCEDURE [OutboundDelivery].[test edw.vw_LatestOutboundDeliveryItem uniqueness]
 AS
