@@ -1,47 +1,5 @@
 ﻿CREATE VIEW [dm_sales].[vw_fact_SalesOrderItem] 
 AS
-WITH
-DeliveryItem_ordered AS (
-  SELECT
-    [ReferenceSDDocument]
-		, [ReferenceSDDocumentItem]
-    , [OutboundDelivery]                            -- to improve
-    , [OutboundDeliveryItem]                        -- trackability
-    , [HDR_PlannedGoodsIssueDate]
-    , [HDR_ShippingPointID]
-    , [HDR_HeaderBillingBlockReason]
-    , [HDR_TotalBlockStatusID]
-    , [HDR_ShipmentBlockReason]
-    , [HDR_DeliveryBlockReason]
-    , [CreatedByUserID]
-    , ROW_NUMBER() OVER (
-        PARTITION BY
-          [ReferenceSDDocument]
-		      , [ReferenceSDDocumentItem]
-        ORDER BY 
-          [HDR_ActualGoodsMovementDate] DESC
-          ,[OutboundDelivery]           DESC          -- to stabilize the result
-      )                                                 AS rn
-  FROM [edw].[fact_OutboundDeliveryItem]
-)
-, DeliveryItem AS (
-  SELECT
-    [ReferenceSDDocument]
-		, [ReferenceSDDocumentItem]
-    , [OutboundDelivery]
-    , [OutboundDeliveryItem]
-    , [HDR_PlannedGoodsIssueDate]
-    , [HDR_ShippingPointID]
-    , [HDR_HeaderBillingBlockReason]
-    , [HDR_TotalBlockStatusID]
-    , [HDR_ShipmentBlockReason]
-    , [HDR_DeliveryBlockReason]
-    , [CreatedByUserID]
-  FROM
-    DeliveryItem_ordered
-  WHERE
-    rn = 1
-)
 select  
        doc.[sk_fact_SalesDocumentItem]
      , doc.[SalesDocument]                       as [SalesOrderID]
@@ -271,7 +229,7 @@ from [edw].[fact_SalesDocumentItem] doc
 
           LEFT JOIN [edw].[dim_SalesOffice] dimSO
                     ON doc.[SalesOfficeID] = dimSO.[SalesOfficeID]
-          LEFT JOIN DeliveryItem
+          LEFT JOIN [edw].[vw_LatestOutboundDeliveryItem] DeliveryItem
                   ON doc.[SalesDocument] = DeliveryItem.[ReferenceSDDocument]
                     AND doc.[SalesDocumentItem] = DeliveryItem.[ReferenceSDDocumentItem]
 where doc.[SDDocumentCategoryID] <> 'B'
