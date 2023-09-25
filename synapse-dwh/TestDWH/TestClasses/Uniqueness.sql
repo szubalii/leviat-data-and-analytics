@@ -268,7 +268,6 @@ BEGIN
   -- Act: 
   SELECT
     [sk_fact_OutboundDeliveryItem]
-    ,COUNT(*)
   INTO
     actual
   FROM 
@@ -295,7 +294,6 @@ BEGIN
   -- Act: 
   SELECT
     [nk_fact_OutboundDeliveryItem]
-    ,COUNT(*)
   INTO
     actual
   FROM 
@@ -322,7 +320,6 @@ BEGIN
   SELECT
     [OutboundDelivery]
     ,[OutboundDeliveryItem]
-    ,COUNT(*)
   INTO
     actual
   FROM 
