@@ -3,7 +3,7 @@ GO
 EXEC tSQLt.NewTestClass 'OutboundDelivery';
 GO
 
-CREATE PROCEDURE [OutboundDelivery].[test edw.vw_LatestOutboundDeliveryItem uniqueness]
+CREATE PROCEDURE [OutboundDelivery].[test edw.vw_LatestOutboundDeliveryItem: uniqueness]
 AS
 BEGIN
 
@@ -14,25 +14,28 @@ BEGIN
   EXEC tSQLt.FakeTable '[edw]', '[fact_OutboundDeliveryItem]';
 
   INSERT INTO edw.fact_OutboundDeliveryItem (
-    ReferenceSDDocument
-    , ReferenceSDDocumentItem
-    , HDR_ActualGoodsMovementDate
-    , OutboundDelivery)
-  VALUES (1, 1, '2020-01-01', 1)
-  , (1, 1, '2020-01-02', 2)
-  , (1, 1, '2020-01-03', 3)
-  , (2, 2, '2020-01-10', 4)
-  , (2, 2, '2020-01-10', 5)
+    OutboundDelivery,
+    OutboundDeliveryItem,
+    ReferenceSDDocument,
+    ReferenceSDDocumentItem,
+    HDR_ActualGoodsMovementDate
+  )
+  VALUES
+    (1, 1, 1, 1, '2020-01-01')
+  , (1, 2, 1, 2, '2020-01-01')
+  , (1, 3, 1, 2, '2020-01-01')
+  , (2, 1, 1, 1, '2020-01-10')
+  , (2, 2, 1, 2, '2020-01-10')
 
   -- Collect non-unique records
   SELECT
-    [ReferenceSDDocument]
-    , [ReferenceSDDocumentItem]
+    [ReferenceSDDocument],
+    [ReferenceSDDocumentItem]
   INTO actual
   FROM [edw].[vw_LatestOutboundDeliveryItem]
   GROUP BY
-    [ReferenceSDDocument]
-    , [ReferenceSDDocumentItem]
+    [ReferenceSDDocument],
+    [ReferenceSDDocumentItem]
   HAVING COUNT(*) > 1
 
   -- Assert:
@@ -41,49 +44,63 @@ END;
 GO
 
 -- test we have latest HDR_ActualGoodsMovementDate in dm_sales.vw_fact_ScheduleLineStatus
-CREATE PROCEDURE [OutboundDelivery].[test latest HDR_ActualGoodsMovementDate in vw_fact_ScheduleLineStatus]
+CREATE PROCEDURE [OutboundDelivery].[test vw_LatestOutboundDeliveryItem: latest HDR_ActualGoodsMovementDate]
 AS
 BEGIN
 
   IF OBJECT_ID('actual') IS NOT NULL DROP TABLE actual;
-  -- IF OBJECT_ID('expected') IS NOT NULL DROP TABLE expected;
+  IF OBJECT_ID('expected') IS NOT NULL DROP TABLE expected;
 
+  
   -- Assemble: Fake Table
   EXEC tSQLt.FakeTable '[edw]', '[fact_OutboundDeliveryItem]';
-  EXEC tSQLt.FakeTable '[edw]', '[dim_SalesDocumentScheduleLine]';
 
-  INSERT INTO [edw].[fact_OutboundDeliveryItem] 
-    (ReferenceSDDocument, ReferenceSDDocumentItem, HDR_ActualGoodsMovementDate)
-  VALUES 
-    (1,1,'2020-01-01')
-    , (1,1,'2020-01-02')
-    , (1,1,'2020-01-03');
-
-  INSERT INTO [edw].[dim_SalesDocumentScheduleLine]
-    (SalesDocumentID, SalesDocumentItem)
+  INSERT INTO edw.fact_OutboundDeliveryItem (
+    OutboundDelivery,
+    OutboundDeliveryItem,
+    ReferenceSDDocument,
+    ReferenceSDDocumentItem,
+    HDR_ActualGoodsMovementDate
+  )
   VALUES
-    (1,1);
-    
-  -- Collect records with not latest date
+    (1, 1, 1, 1, '2020-01-01')
+  , (1, 2, 1, 2, '2020-01-01')
+  , (1, 3, 1, 2, '2020-01-01')
+  , (2, 1, 1, 1, '2020-01-10')
+  , (3, 1, 1, 2, '2020-01-11');
+
+  -- Act
   SELECT
-    [nk_fact_SalesDocumentItem]
+    [ReferenceSDDocument],
+    [ReferenceSDDocumentItem]
   INTO actual
-  FROM 
-    [dm_sales].[vw_fact_ScheduleLineStatus] SLS
-  LEFT JOIN 
-    [edw].[fact_OutboundDeliveryItem]       ODI
-    ON SLS.SalesDocumentID = ODI.ReferenceSDDocument
-        AND SLS.SalesDocumentItem = ODI.ReferenceSDDocumentItem
-  WHERE
-    ODI.[HDR_ActualGoodsMovementDate] <= GETDATE()
-    AND SLS.[SDI_ODB_LatestActualGoodsMovmtDate] < ODI.[HDR_ActualGoodsMovementDate];
+  FROM [edw].[vw_LatestOutboundDeliveryItem]
+  GROUP BY
+    [ReferenceSDDocument],
+    [ReferenceSDDocumentItem]
+  HAVING COUNT(*) > 1
 
   -- Assert:
-  EXEC tSQLt.AssertEmptyTable 'actual';
+  CREATE TABLE expected (
+    ReferenceSDDocument INT,
+    ReferenceSDDocumentItem INT,
+    HDR_ActualGoodsMovementDate DATE
+  );
+
+  INSERT INTO expected(
+    ReferenceSDDocument,
+    ReferenceSDDocumentItem,
+    HDR_ActualGoodsMovementDate
+  )
+  VALUES
+    (1, 1, '2020-01-10'),
+    (1, 2, '2020-01-11');
+
+  EXEC tSQLt.AssertEqualsTable 'expected', 'actual';
 END;
 GO
 
-CREATE PROCEDURE [Uniqueness].[test dm_sales.vw_fact_OutboundDeliveryItem: uniqueness]
+CREATE PROCEDURE [OutboundDelivery].[test dm_sales.vw_fact_OutboundDeliveryItem: uniqueness]
 AS
 BEGIN
 
@@ -151,7 +168,7 @@ BEGIN
 END;
 GO
 
-CREATE PROCEDURE [Uniqueness].[test edw.vw_OutboundDeliveryItem_s4h: uniqueness]
+CREATE PROCEDURE [OutboundDelivery].[test edw.vw_OutboundDeliveryItem_s4h: uniqueness]
 AS
 BEGIN
 
