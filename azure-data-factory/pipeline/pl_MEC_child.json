@@ -113,6 +113,9 @@
 			"directory": {
 				"type": "string",
 				"defaultValue": "2023-08"
+			},
+			"container": {
+				"type": "string"
 			}
 		},
 		"variables": {
