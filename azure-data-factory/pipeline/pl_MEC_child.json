@@ -77,9 +77,25 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"fieldList": [
-						"childItems"
-					],
+					"dataset": {
+						"referenceName": "ds_adls_csv_container",
+						"type": "DatasetReference",
+						"parameters": {
+							"container": {
+								"value": "@pipeline().parameters.container",
+								"type": "Expression"
+							},
+							"storageAccount": {
+								"value": "@pipeline().globalParameters.storageAccountName",
+								"type": "Expression"
+							},
+							"directory": {
+								"value": "@pipeline().parameters.directory",
+								"type": "Expression"
+							}
+						}
+					},
+					"fieldList": [],
 					"storeSettings": {
 						"type": "AzureBlobFSReadSettings",
 						"recursive": true,
