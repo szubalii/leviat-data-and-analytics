@@ -269,13 +269,13 @@ BEGIN
 
   INSERT INTO base_s4h_cax.I_TransportationOrderItem
     (MANDT, TransportationOrderItemUUID, TranspOrdDocReferenceID, TranspOrdDocReferenceItmID)
-  VALUES (200, 'b94b6a2f-823b-4011-80e3-55b480211d03', 1, 1);
+  VALUES (200, CAST('0x000D3A2775B31EECA598CFA2549EA269' AS BINARY(16)), 1, 1);
   
   INSERT INTO base_s4h_cax.I_FrtCostDistrItm
     (FrtCostDistrItmRefUUID, FrtCostDistrItemAmount, FrtCostDistrItemAmtCrcy)
   VALUES
-    ('b94b6a2f-823b-4011-80e3-55b480211d03', 120, 'CHF')
-    ,('b94b6a2f-823b-4011-80e3-55b480211d03', 140, 'CHF')
+    (CAST('0x000D3A2775B31EECA598CFA2549EA269' AS BINARY(16)), 120, 'CHF')
+    ,(CAST('0x000D3A2775B31EECA598CFA2549EA269' AS BINARY(16)), 140, 'CHF')
     ,('340fb1ff-69a5-4018-b1c2-468fd4b25628', 100, 'CHF');
 
   INSERT INTO edw.fact_BillingDocumentItem
@@ -336,13 +336,13 @@ BEGIN
 
   INSERT INTO base_s4h_cax.I_TransportationOrderItem
     (MANDT, TransportationOrderItemUUID, TranspOrdDocReferenceID, TranspOrdDocReferenceItmID)
-  VALUES (200, 'b94b6a2f-823b-4011-80e3-55b480211d03', 1, 1);
+  VALUES (200, CAST('0x000D3A2775B31EECA598CFA2549EA269' AS BINARY(16)), 1, 1);
   
   INSERT INTO base_s4h_cax.I_FrtCostDistrItm
     (FrtCostDistrItmRefUUID, FrtCostDistrItemAmount, FrtCostDistrItemAmtCrcy)
   VALUES
-    ('b94b6a2f-823b-4011-80e3-55b480211d03', 120, 'CHF')
-    ,('b94b6a2f-823b-4011-80e3-55b480211d03', 140, 'CHF')
+    (CAST('0x000D3A2775B31EECA598CFA2549EA269' AS BINARY(16)), 120, 'CHF')
+    ,(CAST('0x000D3A2775B31EECA598CFA2549EA269' AS BINARY(16)), 140, 'CHF')
     ,('340fb1ff-69a5-4018-b1c2-468fd4b25628', 100, 'CHF');
 
   INSERT INTO edw.fact_BillingDocumentItem
@@ -402,14 +402,14 @@ BEGIN
 
   INSERT INTO base_s4h_cax.I_TransportationOrderItem
     (MANDT, TransportationOrderItemUUID, TranspOrdDocReferenceID, TranspOrdDocReferenceItmID)
-  VALUES (200, 'b94b6a2f-823b-4011-80e3-55b480211d03', 1, 1);
+  VALUES (200, CAST('0x000D3A2775B31EECA598CFA2549EA269' AS BINARY(16)), 1, 1);
   
   INSERT INTO base_s4h_cax.I_FrtCostDistrItm
     (FrtCostDistrItmRefUUID, FrtCostDistrItemAmount, FrtCostDistrItemAmtCrcy)
   VALUES
-    ('b94b6a2f-823b-4011-80e3-55b480211d03', 120, 'CHF')
-    ,('b94b6a2f-823b-4011-80e3-55b480211d03', 140, 'CHF')
-    ,('340fb1ff-69a5-4018-b1c2-468fd4b25628', 100, 'CHF');
+    (CAST('0x000D3A2775B31EECA598CFA2549EA269' AS BINARY(16)), 120, 'CHF')
+    ,(CAST('0x000D3A2775B31EECA598CFA2549EA269' AS BINARY(16)), 140, 'CHF')
+    ,(CAST('0x000D3A2775B31EECA598CFA2549ED269' AS BINARY(16)), 100, 'CHF');
 
   INSERT INTO edw.fact_BillingDocumentItem
     (ReferenceSDDocument, ReferenceSDDocumentItem, BillingDocument, BillingDocumentItem, CurrencyTypeID)
