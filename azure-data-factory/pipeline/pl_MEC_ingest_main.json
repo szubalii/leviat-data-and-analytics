@@ -28,7 +28,15 @@
 					},
 					"dataset": {
 						"referenceName": "ds_adls_csv_read_list_of_containers",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"storageAccount": {
+								"value": "@pipeline().globalParameters.storageAccountName",
+								"type": "Expression"
+							},
+							"container": "month-end-closure-companies",
+							"file_name": "month-end-closure-companies.txt"
+						}
 					},
 					"firstRowOnly": false
 				}
@@ -65,13 +73,11 @@
 							],
 							"userProperties": [],
 							"typeProperties": {
-								"waitOnCompletion": true,
-								"parameters": {
-									"container": {
-										"value": "@variables('container')",
-										"type": "Expression"
-									}
-								}
+								"pipeline": {
+									"referenceName": "pl_MEC_child",
+									"type": "PipelineReference"
+								},
+								"waitOnCompletion": true
 							}
 						},
 						{
