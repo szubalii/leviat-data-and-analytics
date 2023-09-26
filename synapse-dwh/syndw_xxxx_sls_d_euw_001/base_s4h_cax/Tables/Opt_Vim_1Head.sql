@@ -43,7 +43,7 @@ CREATE TABLE [base_s4h_cax].[Opt_Vim_1Head]
     ,LIFNR                  NVARCHAR(10)                
 --    ,VEND_NAME              NVARCHAR(35)
 --    ,VEND_NAME2             NVARCHAR(35)
-    ,EBELN                  NVARCHAR(10)                
+--    ,EBELN                  NVARCHAR(10)                
 --    ,RECIPIENT_NAME         NVARCHAR(35)
 --    ,LXBLNR                 NVARCHAR(60)
 --    ,REQUISITIONER          NVARCHAR(35)
