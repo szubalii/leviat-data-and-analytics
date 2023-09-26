@@ -279,6 +279,12 @@ CREATE TABLE [base_s4h_cax].[Opt_Vim_1Head]
 --    ,GST_REG_NUM            NVARCHAR(18)
 --    ,REC_GST_REG_NUM        NVARCHAR(18)
 --    ,AIC_STATUS             NVARCHAR(2)
+    , [t_applicationId]       VARCHAR (32)
+    , [t_jobId]               VARCHAR (36)
+    , [t_jobDtm]             DATETIME
+    , [t_jobBy]        NVARCHAR (128)
+    , [t_filePath]            NVARCHAR (1024)
+    , [t_extractionDtm]             DATETIME
     , CONSTRAINT [PK_OPT_VIM_1HEAD] PRIMARY KEY NONCLUSTERED (
     [MANDT], [DOCID]
   ) NOT ENFORCED
