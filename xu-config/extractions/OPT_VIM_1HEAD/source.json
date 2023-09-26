@@ -37,6 +37,21 @@
                     "isSelected": true,
                     "checkTable": "/OPT/VIM_T100",
                     "indexed": "Ascending",
+                    "selections":
+                        [
+                            {
+                                "value": "PO_S4"
+                            }
+                            ,{
+                                "value": "ZPO_S4"
+                            }
+                            ,{
+                                "value": "NPO_S4"
+                            }
+                            ,{
+                                "value": "ZNPO_S4"
+                            }
+                        ],
                     "conversionExit": ""
                 },
                 {
@@ -152,7 +167,16 @@
                     "isSelected": true,
                     "checkTable": "/OPT/VIM_T101",
                     "indexed": "Ascending",
-                    "conversionExit": ""
+                    "conversionExit": "",
+                    "selections":
+                        [
+                            {
+                                "value": "12"
+                            }
+                            ,{
+                                "value": "15"
+                            }
+                        ]
                 },
                 {
                     "name": "CURR_ROLE",
