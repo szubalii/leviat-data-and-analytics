@@ -26,6 +26,10 @@
 							"type": "DelimitedTextReadSettings"
 						}
 					},
+					"dataset": {
+						"referenceName": "ds_adls_csv_read_list_of_containers",
+						"type": "DatasetReference"
+					},
 					"firstRowOnly": false
 				}
 			},
