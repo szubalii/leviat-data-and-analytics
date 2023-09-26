@@ -275,6 +275,22 @@ SELECT
         END
       ELSE GLALIRD.ProjectNumber
   END AS [ProjectNumberCalculated],
+  CASE 
+      WHEN GLALIRD.AccountingDocumentTypeID IN ('SA','JR','AB') AND GLALIRD.BusinessTransactionTypeID IN ('RFBU','RFPT,''RFCL','AZUM','RFCV')
+           AND GLALIRD.ReferenceDocumentTypeID IN ('BKPFF','BKPF')
+      THEN GLALIRD.[AmountInCompanyCodeCurrency] * ExchangeRate.ExchangeRate
+      ELSE 0
+  END AS [Manual_JE_KPI],
+  CASE 
+      WHEN GLALIRD.GLAccountID IN (SELECT GLAccountID FROM base_ff.IC_ReconciliationGLAccounts) AND GLALIRD.PartnerCompanyID <> ''
+      THEN AmountInCompanyCodeCurrency * ExchangeRate.ExchangeRate
+      ELSE 0
+  END AS [IC_Balance_KPI],
+  CASE
+      WHEN GLALIRD.BusinessTransactionTypeID LIKE 'RMBL' AND GLALIRD.TransactionTypeDeterminationID LIKE 'UMB'
+      THEN AmountInCompanyCodeCurrency * ExchangeRate.ExchangeRate
+      ELSE 0
+  END AS [Inventory_Adj_KPI],
   GLALIRD.[t_applicationId],
   GLALIRD.[t_extractionDtm]
 FROM [edw].[fact_ACDOCA] GLALIRD
