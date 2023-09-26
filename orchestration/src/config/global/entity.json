@@ -4199,6 +4199,18 @@
         "base_table_name": "RollName",
         "schedule_recurrence": "A",
         "pk_field_names": "TABNAME, FIELDNAME, AS4VERS, POSITION"
+      },
+      {
+        "entity_id": 622,
+        "entity_name": "OPT_VIM_2HEAD",
+        "data_category": "NULL",
+        "client_field": "MANDT",
+        "tool_name": "Theobald",
+        "extraction_type": "Table",
+        "update_mode": "Full",
+        "base_table_name": "Opt_Vim_2Head",
+        "schedule_recurrence": "D",
+        "pk_field_names": "MANDT, DOCID"
       }
     ]
   },

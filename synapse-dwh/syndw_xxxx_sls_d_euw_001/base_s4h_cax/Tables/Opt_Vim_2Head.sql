@@ -6,7 +6,6 @@ CREATE TABLE [base_s4h_cax].[Opt_Vim_2Head]
     ,BELNR_MM               NVARCHAR(10)   
     ,BELNR_FI               NVARCHAR(10)   
     ,POSTING_USER           NVARCHAR(12)
-
     , [t_applicationId]       VARCHAR (32)
     , [t_jobId]               VARCHAR (36)
     , [t_jobDtm]             DATETIME
