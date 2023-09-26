@@ -77,7 +77,13 @@
 									"referenceName": "pl_MEC_child",
 									"type": "PipelineReference"
 								},
-								"waitOnCompletion": true
+								"waitOnCompletion": true,
+								"parameters": {
+									"container": {
+										"value": "@variables('container')",
+										"type": "Expression"
+									}
+								}
 							}
 						},
 						{

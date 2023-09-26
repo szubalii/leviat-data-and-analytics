@@ -82,7 +82,7 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"container": {
-								"value": "@pipeline().parameters.container",
+								"value": "@variables('container')",
 								"type": "Expression"
 							},
 							"storageAccount": {
