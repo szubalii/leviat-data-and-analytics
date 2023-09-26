@@ -132,6 +132,7 @@
                     "description": "Object Type",
                     "abapType": "CharacterString",
                     "length": 10,
+                    "isSelected": true,
                     "indexed": "Ascending",
                     "conversionExit": ""
                 },
@@ -148,6 +149,7 @@
                     "description": "Document Status",
                     "abapType": "CharacterString",
                     "length": 2,
+                    "isSelected": true,
                     "checkTable": "/OPT/VIM_T101",
                     "indexed": "Ascending",
                     "conversionExit": ""
@@ -205,6 +207,7 @@
                     "description": "Not First Pass",
                     "abapType": "CharacterString",
                     "length": 1,
+                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -264,6 +267,7 @@
                     "description": "Fiscal Year",
                     "abapType": "NumericCharacterString",
                     "length": 4,
+                    "isSelected": true,
                     "indexed": "Ascending",
                     "conversionExit": "GJAHR"
                 },
@@ -272,6 +276,7 @@
                     "description": "Document type",
                     "abapType": "CharacterString",
                     "length": 2,
+                    "isSelected": true,
                     "checkTable": "T003",
                     "conversionExit": ""
                 },
@@ -279,12 +284,14 @@
                     "name": "BLDAT",
                     "description": "Document Date in Document",
                     "abapType": "Date",
+                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
                     "name": "BUDAT",
                     "description": "Posting Date in the Document",
                     "abapType": "Date",
+                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -292,6 +299,7 @@
                     "description": "Reference Document Number",
                     "abapType": "CharacterString",
                     "length": 16,
+                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -312,6 +320,7 @@
                     "description": "Currency Key",
                     "abapType": "CharacterString",
                     "length": 5,
+                    "isSelected": true,
                     "checkTable": "TCURC",
                     "conversionExit": ""
                 },
@@ -320,6 +329,7 @@
                     "description": "Account Number of Vendor or Creditor",
                     "abapType": "CharacterString",
                     "length": 10,
+                    "isSelected": true,
                     "indexed": "Ascending",
                     "conversionExit": "ALPHA"
                 },
@@ -342,7 +352,6 @@
                     "description": "Purchasing Document Number",
                     "abapType": "CharacterString",
                     "length": 10,
-                    "isSelected": true,
                     "conversionExit": "ALPHA"
                 },
                 {
@@ -629,6 +638,7 @@
                     "description": "Document Header Text",
                     "abapType": "CharacterString",
                     "length": 25,
+                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
@@ -1264,6 +1274,7 @@
                     "description": "Country Key",
                     "abapType": "CharacterString",
                     "length": 3,
+                    "isSelected": true,
                     "conversionExit": ""
                 },
                 {
