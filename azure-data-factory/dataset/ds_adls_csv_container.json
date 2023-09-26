@@ -5,7 +5,10 @@
 			"referenceName": "stxxxxslsxeuw001",
 			"type": "LinkedServiceReference",
 			"parameters": {
-				"storageAccount": "stxxxxslsdeuw001"
+				"storageAccount": {
+					"value": "@dataset().storageAccount",
+					"type": "Expression"
+				}
 			}
 		},
 		"parameters": {
