@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "ForEach",
+				"name": "For Each File",
 				"type": "ForEach",
 				"dependsOn": [
 					{
