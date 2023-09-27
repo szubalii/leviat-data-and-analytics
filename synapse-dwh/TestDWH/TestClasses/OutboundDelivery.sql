@@ -456,6 +456,11 @@ BEGIN
     ,(2, 2, 1, 1, '00')
     ,(3, 3, 1, 1, '30')
     ,(4, 4, 1, 1, '40');
+
+  INSERT INTO edw.fact_BillingDocumentItemPrcgElmnt
+    (BillingDocument, BillingDocumentItem, CurrencyTypeID, ConditionType)
+  VALUES
+    (1, 1, '10', 'ZF10');
   
   -- Act: 
   SELECT
