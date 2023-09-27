@@ -378,7 +378,7 @@ BEGIN
     ,(1, 1, 'ZF20', '10', 'CHF', 20)
     ,(1, 1, 'ZF40', '10', 'CHF', 20)
     ,(1, 1, 'ZF60', '10', 'CHF', 20)
-    ,(1, 1, 'ZTFM', '10', 'CHF', 20)
+    ,(1, 1, 'ZTMF', '10', 'CHF', 20)
     ,(1, 1, 'ZF99', '10', 'CHF', 20)
     ,(1, 1, 'ZF01', '10', 'CHF', 20);
   
@@ -418,6 +418,11 @@ BEGIN
     ,(2, 2, 1, 1, '10', '1', NULL)
     ,(3, 3, 1, 1, '10', NULL, '1')
     ,(4, 4, 1, 1, '10', '1', '1');
+
+  INSERT INTO edw.fact_BillingDocumentItemPrcgElmnt
+    (BillingDocument, BillingDocumentItem, CurrencyTypeID, ConditionType)
+  VALUES
+    (1, 1, '10', 'ZF10');
   
   -- Act: 
   SELECT
@@ -445,7 +450,7 @@ BEGIN
   EXEC tSQLt.FakeTable '[edw]', '[fact_BillingDocumentItemPrcgElmnt]';
   
   INSERT INTO edw.fact_BillingDocumentItem
-    (ReferenceSDDocument, ReferenceSDDocumentItem, BillingDocument, BillingDocumentItem, CurrencyTypeID, BillingDocumentIsCancelled, CancelledBillingDocument)
+    (ReferenceSDDocument, ReferenceSDDocumentItem, BillingDocument, BillingDocumentItem, CurrencyTypeID)
   VALUES
     (1, 1, 1, 1, '10')
     ,(2, 2, 1, 1, '00')
@@ -499,6 +504,12 @@ BEGIN
     [edw].[vw_TransportationOrderItemFreightCost];
 
   -- Fill expected
+  CREATE TABLE expected (
+    TranspOrdDocReferenceID     INT,
+    TranspOrdDocReferenceItmID  INT,
+    FrtCostDistrItemAmount      INT,
+    FrtCostDistrItemAmtCrcy     VARCHAR(3)
+  );
 
   INSERT INTO expected 
     (TranspOrdDocReferenceID, TranspOrdDocReferenceItmID, FrtCostDistrItemAmount, FrtCostDistrItemAmtCrcy)
