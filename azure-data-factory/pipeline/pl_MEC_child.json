@@ -78,19 +78,21 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataset": {
-						"referenceName": "ds_adls_csv_container",
+						"referenceName": "ds_adls_csv",
 						"type": "DatasetReference",
 						"parameters": {
 							"container": {
 								"value": "@pipeline().parameters.container",
 								"type": "Expression"
 							},
-							"storageAccount": {
-								"value": "@pipeline().globalParameters.storageAccountName",
-								"type": "Expression"
-							},
 							"directory": {
 								"value": "@pipeline().parameters.directory",
+								"type": "Expression"
+							},
+							"file_name": "/",
+							"field_delimiter": ";",
+							"storageAccount": {
+								"value": "@pipeline().globalParameters.storageAccountName",
 								"type": "Expression"
 							}
 						}
