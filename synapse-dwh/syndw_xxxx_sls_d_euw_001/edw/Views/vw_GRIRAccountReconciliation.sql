@@ -30,3 +30,7 @@ SELECT
         GRIPA.[t_applicationId],
         GRIPA.[t_extractionDtm]
 FROM [base_s4h_cax].[C_GRIRAccountReconciliation] GRIPA
+LEFT JOIN [edw].[vw_CurrencyConversionRate] CCR   
+    ON GRIPA.CompanyCodeCurrency = CCR.SourceCurrency  COLLATE DATABASE_DEFAULT
+LEFT JOIN [edw].[dim_CurrencyType] CT
+    ON CCR.CurrencyTypeID = CT.CurrencyTypeID

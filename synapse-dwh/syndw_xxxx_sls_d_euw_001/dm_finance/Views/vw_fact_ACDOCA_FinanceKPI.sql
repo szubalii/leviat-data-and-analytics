@@ -158,4 +158,4 @@ SELECT
   [t_extractionDtm]
 FROM
   [edw].[vw_fact_ACDOCA_EPM_Base]
---WHERE
+WHERE (Manual_JE_KPI IS NOT NULL OR IC_Balance_KPI IS NOT NULL OR Inventory_Adj_KPI IS NOT NULL) AND SourceLedgerID IN ('0L','OC')
