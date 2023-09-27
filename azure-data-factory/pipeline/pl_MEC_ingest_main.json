@@ -72,6 +72,10 @@
 								},
 								"waitOnCompletion": true,
 								"parameters": {
+									"directory": {
+										"value": "@pipeline().parameters.directory",
+										"type": "Expression"
+									},
 									"container": {
 										"value": "@item().container_name",
 										"type": "Expression"
