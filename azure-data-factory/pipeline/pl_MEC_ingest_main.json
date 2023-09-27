@@ -63,14 +63,7 @@
 						{
 							"name": "Run child pipeline",
 							"type": "ExecutePipeline",
-							"dependsOn": [
-								{
-									"activity": "Set variable for containers",
-									"dependencyConditions": [
-										"Succeeded"
-									]
-								}
-							],
+							"dependsOn": [],
 							"userProperties": [],
 							"typeProperties": {
 								"pipeline": {
@@ -80,26 +73,9 @@
 								"waitOnCompletion": true,
 								"parameters": {
 									"container": {
-										"value": "@variables('container')",
+										"value": "@item().container_name",
 										"type": "Expression"
 									}
-								}
-							}
-						},
-						{
-							"name": "Set variable for containers",
-							"type": "SetVariable",
-							"dependsOn": [],
-							"policy": {
-								"secureOutput": false,
-								"secureInput": false
-							},
-							"userProperties": [],
-							"typeProperties": {
-								"variableName": "container",
-								"value": {
-									"value": "@item().container_name",
-									"type": "Expression"
 								}
 							}
 						}
