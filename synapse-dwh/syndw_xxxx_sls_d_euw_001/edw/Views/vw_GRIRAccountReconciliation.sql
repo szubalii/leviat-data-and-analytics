@@ -1,7 +1,7 @@
 CREATE VIEW [edw].[vw_GRIRAccountReconciliation]
 AS 
 SELECT
-        GRIPA.[CompanyCodeID],
+        GRIPA.[CompanyCode] AS [CompanyCodeID],
         GRIPA.[PurchasingDocument],
         GRIPA.[PurchasingDocumentItem],
         GRIPA.[PurchasingDocumentItemUniqueID],
