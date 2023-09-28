@@ -4060,7 +4060,7 @@
             ]
         },
         {
-            "name": "/OPT/VIM_2HEAD",
+            "name": "/OPT/VIM_1HEAD",
             "description": "Additional Fields for Table /OPT/VIM_1HEAD",
             "isView": false,
             "fields": 
