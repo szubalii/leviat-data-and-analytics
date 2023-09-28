@@ -1,0 +1,28 @@
+{
+	"nameGenerator": {
+		"suffix": "",
+		"appendsTimestamp": true,
+		"objectNamingMode": "Custom",
+		"customName": "OPT_VIM_1ITEM"
+	},
+	"internalSettings": {
+		"nameGenerator": {
+			"suffix": "",
+			"appendsTimestamp": true,
+			"objectNamingMode": "Custom",
+			"customName": "OPT_VIM_1ITEM"
+		},
+		"sapDateConversion": {
+			"enabled": true,
+			"replacementForInvalidDate": null,
+			"replacementForZeroDate": "0001-01-01",
+			"replacementForYear9999": "9999-12-31"
+		},
+		"existingFileAction": "Replace",
+		"columnNameKind": "Code"
+	},
+	"blobType": "BlockBlob",
+	"columnNameKind": "Code",
+	"folderPath": "NULL/OPT_VIM_1ITEM/Theobald/Table/Full/In/#{ DateTime.Now.ToString(\"yyyy/MM/dd\") }#",
+	"maxBlobSize": 0
+}
