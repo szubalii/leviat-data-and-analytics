@@ -5823,6 +5823,15 @@
         "dest_table_name": "dim_SDDocumentIncompletionLog",
         "execution_order": 0,
         "schedule_recurrence": "D"
+      },
+      {
+        "entity_id": 620,
+        "entity_name": "fact_GRIRAccountReconciliation",
+        "sproc_name": "sp_materialize_view",
+        "source_view_name": "vw_GRIRAccountReconciliation",
+        "dest_table_name": "fact_GRIRAccountReconciliation",
+        "execution_order": 0,
+        "schedule_recurrence": "D"
       }
     ]
   },

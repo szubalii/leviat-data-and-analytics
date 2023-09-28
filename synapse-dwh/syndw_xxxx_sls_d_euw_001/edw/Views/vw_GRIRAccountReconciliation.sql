@@ -10,7 +10,9 @@ SELECT
         GRIPA.[Supplier],
         GRIPA.[SupplierName],
         GRIPA.[HasNoInvoiceReceiptPosted],
-        GRIPA.[BalAmtInCompanyCodeCrcy],
+        GRIPA.[BalAmtInCompanyCodeCrcy] * ExchangeRate.ExchangeRate AS BalAmtInCompanyCodeCrcy,
+        GRIPA.[BalAmtInCompanyCodeCrcy] * ExchangeRate_30.ExchangeRate AS BalAmtInEUR,
+        GRIPA.[BalAmtInCompanyCodeCrcy] * ExchangeRate_40.ExchangeRate AS BalAmtInUSD,
         GRIPA.[CompanyCodeCurrency],
         GRIPA.[BalanceQuantityInRefQtyUnit],
         GRIPA.[ReferenceQuantityUnit],
@@ -30,7 +32,10 @@ SELECT
         GRIPA.[t_applicationId],
         GRIPA.[t_extractionDtm]
 FROM [base_s4h_cax].[C_GRIRAccountReconciliation] GRIPA
-LEFT JOIN [edw].[vw_CurrencyConversionRate] CCR   
-    ON GRIPA.CompanyCodeCurrency = CCR.SourceCurrency  COLLATE DATABASE_DEFAULT
-LEFT JOIN [edw].[dim_CurrencyType] CT
-    ON CCR.CurrencyTypeID = CT.CurrencyTypeID
+LEFT JOIN [edw].[vw_CurrencyConversionRate] ExchangeRate   
+    ON GRIPA.CompanyCodeCurrency = ExchangeRate AND ExchangeRate.CurrencyTypeID = '10'
+LEFT JOIN [edw].[vw_CurrencyConversionRate] ExchangeRate_30   
+    ON GRIPA.CompanyCodeCurrency = ExchangeRate.SourceCurrency AND ExchangeRate_30.CurrencyTypeID = '30'
+LEFT JOIN [edw].[vw_CurrencyConversionRate] ExchangeRate_40  
+    ON GRIPA.CompanyCodeCurrency = ExchangeRate.SourceCurrency AND ExchangeRate_40.CurrencyTypeID = '40'
+WHERE ExchangeRate.CurrencyTypeID <> '00'

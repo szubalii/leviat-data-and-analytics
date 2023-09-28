@@ -967,6 +967,7 @@
     <Build Include="edw\Tables\fact_SalesOrderItemPricingElement.sql" />
     <Build Include="edw\Tables\fact_ACDOCA_FinStatemntSalesMargin.sql" />
     <Build Include="edw\Tables\dim_SDDocumentIncompletionLog.sql" />
+    <Build Include="edw\Tables\fact_GRIRAccountReconciliation.sql" />
 
     <!-- FUNCTIONS -->
 
@@ -1167,6 +1168,7 @@
     <Build Include="edw\Views\vw_SDDocumentIncompletionLog.sql" />
     <Build Include="edw\Views\vw_fact_ACDOCA_EPM_Base.sql" />
     <Build Include="edw\Views\vw_LatestOutboundDeliveryItem.sql" />
+    <Build Include="edw\Views\vw_GRIRAccountReconciliation.sql" />
 
     <Build Include="dq\Views\vw_Product_1_2.sql" />
     <Build Include="dq\Views\vw_RuleTotal.sql" />
@@ -1243,6 +1245,7 @@
     <Build Include="dm_finance\Views\vw_fact_Budget_EPM.sql" />
     <Build Include="dm_finance\Views\vw_dim_CompanyCodeProfitCenter.sql" />
     <Build Include="dm_finance\Views\vw_fact_ACDOCA_Full_CH_AT.sql" />
+    <Build Include="dm_finance\Views\vw_fact_GRIRAccountReconciliation.sql" />
 
     <Build Include="dm_sales\Views\vw_dim_Customer.sql" />
     <Build Include="dm_sales\Views\vw_fact_BillingDocumentItem.sql" />
