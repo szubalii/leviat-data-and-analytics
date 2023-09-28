@@ -35,7 +35,7 @@ CREATE TABLE [edw].[fact_GRIRAccountReconciliation]
     [t_lastActionCd]                                    VARCHAR(1),
     [t_jobBy]                                           VARCHAR(128),
     CONSTRAINT [PK_fact_GRIRAccountReconciliation] PRIMARY KEY NONCLUSTERED (
-      [CompanyCode]
+      [CompanyCodeID]
     , [PurchasingDocument]
     , [PurchasingDocumentItem]
     ) NOT ENFORCED
