@@ -34,6 +34,23 @@ CREATE TABLE [base_s4h_cax].[Opt_Vim_1Item]
     ,BSMNG              DECIMAL(13,3)
     ,REMNG              DECIMAL(13,3)
     ,WEMNG              DECIMAL(13,3)
+    --from Opt_Vim_1Head
+    ,Bus_ObjType        VARCHAR(10)
+    ,Status             VARCHAR(2)
+    ,NoFirstPass        VARCHAR(1)
+    ,GJAHR              NVARCHAR(4)
+    ,BLART              VARCHAR(2)
+    ,BLDAT              DATE    
+    ,BUDAT              DATE
+    ,XBLNR              VARCHAR(16)     
+    ,WAERS              VARCHAR(5)                       
+    ,LIFNR              VARCHAR(10)                
+    ,BKTXT              VARCHAR(25)                
+    ,LAND1              VARCHAR(3)                
+    --from Opt_Vim_2Head                
+    ,BELNR_MM           VARCHAR(10)
+    ,BELNR_FI           VARCHAR(10)  
+    ,POSTING_USER       VARCHAR(12)          
     , [t_applicationId]       VARCHAR (32)
     , [t_jobId]               VARCHAR (36)
     , [t_jobDtm]             DATETIME
