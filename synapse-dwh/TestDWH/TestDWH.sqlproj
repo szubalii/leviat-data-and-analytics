@@ -5,7 +5,7 @@
     <Name>TestDWH</Name>
     <ProjectGuid>{A8A032D6-5E9A-4304-85EF-B2EFC67EA575}</ProjectGuid>
     <DSP>Microsoft.Data.Tools.Schema.Sql.SqlAzureV12DatabaseSchemaProvider</DSP>
-    <ModelCollation>1033, CI</ModelCollation>
+    <ModelCollation>1033, CS</ModelCollation>
   </PropertyGroup>
   <ItemGroup>
     <PreDeploy Include="Scripts\PreDeploy\Script.PreDeployment.sql" />
