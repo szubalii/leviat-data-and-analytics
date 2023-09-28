@@ -41,5 +41,5 @@ SELECT
 FROM [dm_sales].[vw_fact_ScheduleLineStatus] SLS
 LEFT JOIN [edw].[fact_OutboundDeliveryItem] ODI
        ON SLS.SalesDocumentID = ODI.ReferenceSDDocument
-       AND SLS.SalesDocumentItemID = ODI.ReferenceSDDocumentItem
+       AND SLS.SalesDocumentItem = ODI.ReferenceSDDocumentItem
 WHERE SLS.SLDeliveryStatus IN ('P', 'C') AND SLS.SLInvoicedStatus IN ('P', 'N')
