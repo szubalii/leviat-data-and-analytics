@@ -33,9 +33,9 @@ SELECT
         GRIPA.[t_extractionDtm]
 FROM [base_s4h_cax].[C_GRIRAccountReconciliation] GRIPA
 LEFT JOIN [edw].[vw_CurrencyConversionRate] ExchangeRate   
-    ON GRIPA.CompanyCodeCurrency = ExchangeRate AND ExchangeRate.CurrencyTypeID = '10'
+    ON GRIPA.CompanyCodeCurrency = ExchangeRate.SourceCurrency COLLATE DATABASE_DEFAULT AND ExchangeRate.CurrencyTypeID = '10'
 LEFT JOIN [edw].[vw_CurrencyConversionRate] ExchangeRate_30   
-    ON GRIPA.CompanyCodeCurrency = ExchangeRate.SourceCurrency AND ExchangeRate_30.CurrencyTypeID = '30'
+    ON GRIPA.CompanyCodeCurrency = ExchangeRate.SourceCurrency COLLATE DATABASE_DEFAULT AND ExchangeRate_30.CurrencyTypeID = '30'
 LEFT JOIN [edw].[vw_CurrencyConversionRate] ExchangeRate_40  
-    ON GRIPA.CompanyCodeCurrency = ExchangeRate.SourceCurrency AND ExchangeRate_40.CurrencyTypeID = '40'
+    ON GRIPA.CompanyCodeCurrency = ExchangeRate.SourceCurrency COLLATE DATABASE_DEFAULT AND ExchangeRate_40.CurrencyTypeID = '40'
 WHERE ExchangeRate.CurrencyTypeID <> '00'
