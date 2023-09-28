@@ -4211,6 +4211,18 @@
         "base_table_name": "Opt_Vim_2Head",
         "schedule_recurrence": "D",
         "pk_field_names": "MANDT, DOCID"
+      },
+      {
+        "entity_id": 623,
+        "entity_name": "OPT_VIM_1ITEM",
+        "data_category": "NULL",
+        "client_field": "MANDT",
+        "tool_name": "Theobald",
+        "extraction_type": "Table",
+        "update_mode": "Full",
+        "base_table_name": "Opt_Vim_1Item",
+        "schedule_recurrence": "D",
+        "pk_field_names": "MANDT, DOCID, ITEMID"
       }
     ]
   },
