@@ -17,5 +17,5 @@ Pre-Deployment Script Template
 :r ..\..\TestClasses\ScalarValuedFunctions.sql
 -- :r .\Script.AddSchemasAsTestClasses.sql
 
--- EXEC [tSQLt].[SetFakeViewOff] 'edw';
--- GO
+EXEC [tSQLt].[SetFakeViewOff] 'edw';
+GO
