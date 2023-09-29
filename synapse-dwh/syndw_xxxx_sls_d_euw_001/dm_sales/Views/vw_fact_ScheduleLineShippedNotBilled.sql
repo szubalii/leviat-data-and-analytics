@@ -38,4 +38,5 @@ SELECT
     ,[PricePerUnit]                              
     ,[InScope]                                   
     ,[HDR_ActualGoodsMovementDate]
+    ,[ReportDate]
 FROM [edw].[fact_ScheduleLineShippedNotBilled]   

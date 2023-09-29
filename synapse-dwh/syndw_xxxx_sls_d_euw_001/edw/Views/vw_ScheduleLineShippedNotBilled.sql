@@ -37,7 +37,8 @@ SELECT
         SLS.[ClosedInvoicedValue],
         SLS.[PricePerUnit],
         SLS.[InScope],
-        ODI.[HDR_ActualGoodsMovementDate]
+        ODI.[HDR_ActualGoodsMovementDate],
+        GETDATE() AS [ReportDate]
 FROM [dm_sales].[vw_fact_ScheduleLineStatus] SLS
 LEFT JOIN [edw].[fact_OutboundDeliveryItem] ODI
        ON SLS.SalesDocumentID = ODI.ReferenceSDDocument

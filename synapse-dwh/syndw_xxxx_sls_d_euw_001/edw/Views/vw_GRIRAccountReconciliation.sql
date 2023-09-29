@@ -29,6 +29,7 @@ SELECT
         GRIPA.[IsGdsRcptDelivCostAmtSurplus],
         GRIPA.[SystemMessageType],
         GRIPA.[SystemMessageNumber],
+        GETDATE() AS [ReportDate],
         GRIPA.[t_applicationId],
         GRIPA.[t_extractionDtm]
 FROM [base_s4h_cax].[C_GRIRAccountReconciliation] GRIPA

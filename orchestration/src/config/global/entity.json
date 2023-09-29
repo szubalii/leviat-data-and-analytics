@@ -5831,7 +5831,8 @@
         "source_view_name": "vw_GRIRAccountReconciliation",
         "dest_table_name": "fact_GRIRAccountReconciliation",
         "execution_order": 0,
-        "schedule_recurrence": "D"
+        "schedule_recurrence": "M",
+        "schedule_day": 1
       },
       {
         "entity_id": 621,
@@ -5840,7 +5841,8 @@
         "source_view_name": " vw_ScheduleLineShippedNotBilled",
         "dest_table_name": "fact_ScheduleLineShippedNotBilled",
         "execution_order": 6,
-        "schedule_recurrence": "D"
+        "schedule_recurrence": "M",
+        "schedule_day": 1
       }
     ]
   },

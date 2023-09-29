@@ -36,6 +36,7 @@ CREATE TABLE [edw].[fact_ScheduleLineShippedNotBilled] (
     [PricePerUnit]                                            decimal(38,22),
     [InScope]                                                 varchar(1),
     [HDR_ActualGoodsMovementDate]                             date,
+    [ReportDate]                                              date NOT NULL
     CONSTRAINT [PK_fact_ScheduleLineShippedNotBilled] PRIMARY KEY NONCLUSTERED ([SalesDocumentID], [SalesDocumentItem], [ScheduleLine]) NOT ENFORCED
 )
 WITH (

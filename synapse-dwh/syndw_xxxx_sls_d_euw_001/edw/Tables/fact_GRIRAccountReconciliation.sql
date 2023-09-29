@@ -28,6 +28,7 @@ CREATE TABLE [edw].[fact_GRIRAccountReconciliation]
     [IsGdsRcptDelivCostAmtSurplus]                      NVARCHAR(1),
     [SystemMessageType]                                 NVARCHAR(1),
     [SystemMessageNumber]                               NVARCHAR(3),
+    [ReportDate]                                        DATE NOT NULL,
     [t_applicationId]                                   VARCHAR(32),
     [t_extractionDtm]                                   DATETIME,
     [t_jobId]                                           VARCHAR(36),

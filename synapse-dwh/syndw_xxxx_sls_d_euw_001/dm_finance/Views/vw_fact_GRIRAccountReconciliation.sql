@@ -29,5 +29,5 @@ SELECT
     ,[IsGdsRcptDelivCostAmtSurplus]
     ,[SystemMessageType]
     ,[SystemMessageNumber]
-   -- ,[ReportDate]
+    ,[ReportDate]
 FROM [edw].[fact_GRIRAccountReconciliation]
