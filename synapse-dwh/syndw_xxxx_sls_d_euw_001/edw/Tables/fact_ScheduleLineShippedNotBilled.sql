@@ -1,13 +1,12 @@
 CREATE TABLE [edw].[fact_ScheduleLineShippedNotBilled] (
-    [sk_fact_ScheduleLineShippedNotBilled]                               int IDENTITY (1,1) NOT NULL,
     [nk_fact_SalesDocumentItem]                               nvarchar(94) NOT NULL,
     [SalesDocumentID]                                         nvarchar(20) NOT NULL,
     [SalesDocumentItem]                                       nvarchar(24) NOT NULL,
-    [CurrencyTypeID]                                          char(2),
     [SalesDocumentTypeID]                                     nvarchar(4),
     [SDDocumentRejectionStatusID]                             nvarchar(1),
     [IsUnconfirmedDelivery]                                   nvarchar(1),
-    [ScheduleLine]                                            char(4),
+    [CurrencyTypeID]                                          char(2),
+    [ScheduleLine]                                            char(4) NOT NULL,
     [SalesDocumentOrderType]                                  varchar(35),
     [OrderStatus]                                             varchar(32),
     [ItemOrderStatus]                                         varchar(32),
@@ -37,7 +36,7 @@ CREATE TABLE [edw].[fact_ScheduleLineShippedNotBilled] (
     [PricePerUnit]                                            decimal(38,22),
     [InScope]                                                 varchar(1),
     [HDR_ActualGoodsMovementDate]                             date,
-    CONSTRAINT [PK_fact_ScheduleLineShippedNotBilled] PRIMARY KEY NONCLUSTERED ([sk_fact_ScheduleLineShippedNotBilled]) NOT ENFORCED
+    CONSTRAINT [PK_fact_ScheduleLineShippedNotBilled] PRIMARY KEY NONCLUSTERED ([SalesDocumentID], [SalesDocumentItem], [ScheduleLine]) NOT ENFORCED
 )
 WITH (
     DISTRIBUTION = HASH ([nk_fact_SalesDocumentItem]), CLUSTERED COLUMNSTORE INDEX

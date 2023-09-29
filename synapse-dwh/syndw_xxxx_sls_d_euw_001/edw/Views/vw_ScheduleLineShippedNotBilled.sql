@@ -2,10 +2,10 @@ CREATE VIEW [edw].[vw_ScheduleLineShippedNotBilled]
 AS
 SELECT 
         SLS.[nk_fact_SalesDocumentItem],
-        SLS.[SalesDocumentTypeID],
-        SLS.[SDDocumentRejectionStatusID], 
         SLS.[SalesDocumentID],      
         SLS.[SalesDocumentItem],
+        SLS.[SalesDocumentTypeID],
+        SLS.[SDDocumentRejectionStatusID], 
         SLS.[IsUnconfirmedDelivery],
         SLS.[CurrencyTypeID],
         SLS.[ScheduleLine],
