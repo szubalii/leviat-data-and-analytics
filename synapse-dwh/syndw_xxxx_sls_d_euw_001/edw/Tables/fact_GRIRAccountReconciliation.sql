@@ -3,6 +3,7 @@ CREATE TABLE [edw].[fact_GRIRAccountReconciliation]
     [CompanyCodeID]                                     NVARCHAR(4) NOT NULL,
     [PurchasingDocument]                                NVARCHAR(10) NOT NULL,
     [PurchasingDocumentItem]                            CHAR(5) NOT NULL,
+    [ReportDate]                                        DATE NOT NULL,
     [PurchasingDocumentItemUniqueID]                    NVARCHAR(15),
     [OldestOpenItemPostingDate]                         DATE,
     [LatestOpenItemPostingDate]                         DATE,
@@ -28,7 +29,6 @@ CREATE TABLE [edw].[fact_GRIRAccountReconciliation]
     [IsGdsRcptDelivCostAmtSurplus]                      NVARCHAR(1),
     [SystemMessageType]                                 NVARCHAR(1),
     [SystemMessageNumber]                               NVARCHAR(3),
-    [ReportDate]                                        DATE NOT NULL,
     [t_applicationId]                                   VARCHAR(32),
     [t_extractionDtm]                                   DATETIME,
     [t_jobId]                                           VARCHAR(36),
@@ -39,6 +39,7 @@ CREATE TABLE [edw].[fact_GRIRAccountReconciliation]
       [CompanyCodeID]
     , [PurchasingDocument]
     , [PurchasingDocumentItem]
+    , [ReportDate]
     ) NOT ENFORCED
 )
 WITH ( DISTRIBUTION = HASH ([PurchasingDocument]), CLUSTERED COLUMNSTORE INDEX )
