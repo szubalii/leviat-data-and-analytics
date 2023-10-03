@@ -5,18 +5,6 @@ SELECT
     ,DocumentType
     ,CreationDate
     ,AccountingDocumentID
-    ,NULL AS PurchasingDocumentID
-    ,[Object Type]
-    ,[Document Status]
-    ,NotFirstPass
-    ,AccountingDocumentTypeID
-    ,FiscalYear
-    ,DocumentDate
-    ,PostingDat
-    ,SupplierID
-    ,ReferenceID
-    ,CurrencyID
-    ,HeaderTex
-    ,CountryI
+    ,PurchasingDocumentID
 FROM
     [edw].[vw_OptVim1Head]

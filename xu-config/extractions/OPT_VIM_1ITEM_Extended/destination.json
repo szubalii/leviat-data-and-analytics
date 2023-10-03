@@ -3,14 +3,14 @@
 		"suffix": "",
 		"appendsTimestamp": true,
 		"objectNamingMode": "Custom",
-		"customName": "OPT_VIM_1ITEM"
+		"customName": "OPT_VIM_1ITEM_Extended"
 	},
 	"internalSettings": {
 		"nameGenerator": {
 			"suffix": "",
 			"appendsTimestamp": true,
 			"objectNamingMode": "Custom",
-			"customName": "OPT_VIM_1ITEM"
+			"customName": "OPT_VIM_1ITEM_Extended"
 		},
 		"sapDateConversion": {
 			"enabled": true,
@@ -23,6 +23,6 @@
 	},
 	"blobType": "BlockBlob",
 	"columnNameKind": "Code",
-	"folderPath": "NULL/OPT_VIM_1ITEM/Theobald/Table/Full/In/#{ DateTime.Now.ToString(\"yyyy/MM/dd\") }#",
+	"folderPath": "NULL/OPT_VIM_1ITEM_Extended/Theobald/Table/Full/In/#{ DateTime.Now.ToString(\"yyyy/MM/dd\") }#",
 	"maxBlobSize": 0
 }

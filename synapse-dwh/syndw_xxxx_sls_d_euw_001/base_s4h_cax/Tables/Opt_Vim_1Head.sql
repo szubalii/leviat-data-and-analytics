@@ -16,34 +16,34 @@ CREATE TABLE [base_s4h_cax].[Opt_Vim_1Head]
 --    ,CHANGE_DATE            DATE
 --    ,CHANGE_TIME            TIME(0)                
 --    ,CHANGE_USER            NVARCHAR(12)
-    ,BUS_OBJTYPE            NVARCHAR(10)
+--    ,BUS_OBJTYPE            NVARCHAR(10)
 --    ,BUS_OBJKEY             NVARCHAR(70)
-    ,STATUS                 NVARCHAR(2)
+--    ,STATUS                 NVARCHAR(2)
 --    ,CURR_ROLE              NVARCHAR(15)
 --    ,CURR_PROC_TYPE         NVARCHAR(3)
 --    ,RESCANID               NVARCHAR(2)
 --    ,DELREASON              NVARCHAR(2)
 --    ,SCAN_LOCATION          NVARCHAR(25)
 --    ,PRIORITY               NVARCHAR(1)
-    ,NOFIRSTPASS            NVARCHAR(1)
+--    ,NOFIRSTPASS            NVARCHAR(1)
 --    ,CHECKRULE              NVARCHAR(1)
 --    ,CHECKDUPS              NVARCHAR(1)
 --    ,CONFIRMED_NO_DUP       NVARCHAR(1)
 --    ,DUP_CHK_RUN            NVARCHAR(1)
 --    ,TARGET_SYSTEM          NVARCHAR(10)                
 --    ,BUKRS                  NVARCHAR(4)
-    ,BELNR                  NVARCHAR(10)                
-    ,GJAHR                  NVARCHAR(4)                
-    ,BLART                  NVARCHAR(2)
-    ,BLDAT                  DATE
-    ,BUDAT                  DATE
-    ,XBLNR                  NVARCHAR(16)
+--    ,BELNR                  NVARCHAR(10)                
+--    ,GJAHR                  NVARCHAR(4)                
+--    ,BLART                  NVARCHAR(2)
+--    ,BLDAT                  DATE
+--    ,BUDAT                  DATE
+--    ,XBLNR                  NVARCHAR(16)
 --    ,RMWWR                  DECIMAL(13,2)                                    
-    ,WAERS                  NVARCHAR(5)
-    ,LIFNR                  NVARCHAR(10)                
+--    ,WAERS                  NVARCHAR(5)
+--    ,LIFNR                  NVARCHAR(10)                
 --    ,VEND_NAME              NVARCHAR(35)
 --    ,VEND_NAME2             NVARCHAR(35)
---    ,EBELN                  NVARCHAR(10)                
+   ,EBELN                  NVARCHAR(10)                
 --    ,RECIPIENT_NAME         NVARCHAR(35)
 --    ,LXBLNR                 NVARCHAR(60)
 --    ,REQUISITIONER          NVARCHAR(35)
@@ -82,7 +82,7 @@ CREATE TABLE [base_s4h_cax].[Opt_Vim_1Head]
 --    ,SHIPTO_AD_CITY1        NVARCHAR(40)
 --    ,SHIPTO_REGIO           NVARCHAR(3)
 --    ,SHIPTO_PO_BOX          NVARCHAR(10)
-    ,BKTXT                  NVARCHAR(25)
+--    ,BKTXT                  NVARCHAR(25)
 --    ,SGTXT                  NVARCHAR(50)
 --    ,PRORITY_FLAG           NVARCHAR(1)
 --    ,NET_AMOUNT             DECIMAL(13,2)                                    
@@ -161,7 +161,7 @@ CREATE TABLE [base_s4h_cax].[Opt_Vim_1Head]
 --    ,BKONT                  NVARCHAR(2)
 --    ,GSBER                  NVARCHAR(4)
 --    ,RESTART                NVARCHAR(1)
-    ,LAND1                  NVARCHAR(3)
+--    ,LAND1                  NVARCHAR(3)
 --    ,BARCODE                NVARCHAR(64)
 --    ,ZFBDT                  DATE
 --    ,ZBD1T                  DECIMAL(3)
@@ -279,12 +279,6 @@ CREATE TABLE [base_s4h_cax].[Opt_Vim_1Head]
 --    ,GST_REG_NUM            NVARCHAR(18)
 --    ,REC_GST_REG_NUM        NVARCHAR(18)
 --    ,AIC_STATUS             NVARCHAR(2)
-    , [t_applicationId]       VARCHAR (32)
-    , [t_jobId]               VARCHAR (36)
-    , [t_jobDtm]             DATETIME
-    , [t_jobBy]        NVARCHAR (128)
-    , [t_filePath]            NVARCHAR (1024)
-    , [t_extractionDtm]             DATETIME
     , CONSTRAINT [PK_OPT_VIM_1HEAD] PRIMARY KEY NONCLUSTERED (
     [MANDT], [DOCID]
   ) NOT ENFORCED

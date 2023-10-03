@@ -4069,7 +4069,7 @@
         "extraction_type": "Table",
         "update_mode": "Full",
         "base_table_name": "Opt_Vim_1Head",
-        "schedule_recurrence": "D",
+        "schedule_recurrence": "A",
         "pk_field_names": "MANDT, DOCID"
       },
       {
@@ -4201,26 +4201,14 @@
         "pk_field_names": "TABNAME, FIELDNAME, AS4VERS, POSITION"
       },
       {
-        "entity_id": 622,
-        "entity_name": "OPT_VIM_2HEAD",
-        "data_category": "NULL",
-        "client_field": "MANDT",
-        "tool_name": "Theobald",
-        "extraction_type": "Table",
-        "update_mode": "Full",
-        "base_table_name": "Opt_Vim_2Head",
-        "schedule_recurrence": "D",
-        "pk_field_names": "MANDT, DOCID"
-      },
-      {
         "entity_id": 623,
-        "entity_name": "OPT_VIM_1ITEM",
+        "entity_name": "OPT_VIM_1ITEM_Extended",
         "data_category": "NULL",
         "client_field": "MANDT",
         "tool_name": "Theobald",
         "extraction_type": "Table",
         "update_mode": "Full",
-        "base_table_name": "Opt_Vim_1Item",
+        "base_table_name": "Opt_Vim_1Item_Extended",
         "schedule_recurrence": "D",
         "pk_field_names": "MANDT, DOCID, ITEMID"
       }
@@ -5833,6 +5821,24 @@
         "sproc_name": "sp_materialize_view",
         "source_view_name": "vw_SDDocumentIncompletionLog",
         "dest_table_name": "dim_SDDocumentIncompletionLog",
+        "execution_order": 0,
+        "schedule_recurrence": "D"
+      },
+      {
+        "entity_id": 612,
+        "entity_name": "dim_SDDocumentIncompletionLog",
+        "sproc_name": "sp_materialize_view",
+        "source_view_name": "vw_SDDocumentIncompletionLog",
+        "dest_table_name": "dim_SDDocumentIncompletionLog",
+        "execution_order": 0,
+        "schedule_recurrence": "D"
+      },
+      {
+        "entity_id": ***,
+        "entity_name": "fact_VendorInvoice_ApprovedAndPosted",
+        "sproc_name": "sp_materialize_view",
+        "source_view_name": "vw_VendorInvoice_ApprovedAndPosted",
+        "dest_table_name": "fact_VendorInvoice_ApprovedAndPosted",
         "execution_order": 0,
         "schedule_recurrence": "D"
       }
