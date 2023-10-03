@@ -2,7 +2,7 @@
 -- This fact table contains the following document types only:
 -- 'PO_S4','ZPO_S4','NPO_S4','ZNPO_S4'
 
-CREATE TABLE [edw].[fact_VendorInvoice_ApprovedAndPosted] AS (
+CREATE TABLE [edw].[fact_VendorInvoice_ApprovedAndPosted] (
   MANDT NVARCHAR(3) NOT NULL
 , DocumentLedgerID NVARCHAR(12) NOT NULL
 , DocumentItemID NVARCHAR(5) NOT NULL
