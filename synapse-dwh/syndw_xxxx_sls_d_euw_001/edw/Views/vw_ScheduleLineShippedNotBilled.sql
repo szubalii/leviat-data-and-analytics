@@ -4,7 +4,7 @@ SELECT
         SLS.[nk_fact_SalesDocumentItem],
         SLS.[SalesDocumentID],      
         SLS.[SalesDocumentItem],
-        GETDATE() AS [ReportDate],
+        CONVERT (date, GETDATE()) AS [ReportDate],
         SLS.[SalesDocumentTypeID],
         SLS.[SDDocumentRejectionStatusID], 
         SLS.[IsUnconfirmedDelivery],
