@@ -1,16 +1,12 @@
 {
 	"nameGenerator": {
 		"suffix": "",
-		"appendsTimestamp": true,
-		"objectNamingMode": "Custom",
-		"customName": "OPT_VIM_1ITEM_Extended"
+		"appendsTimestamp": true
 	},
 	"internalSettings": {
 		"nameGenerator": {
 			"suffix": "",
-			"appendsTimestamp": true,
-			"objectNamingMode": "Custom",
-			"customName": "OPT_VIM_1ITEM_Extended"
+			"appendsTimestamp": true
 		},
 		"sapDateConversion": {
 			"enabled": true,
