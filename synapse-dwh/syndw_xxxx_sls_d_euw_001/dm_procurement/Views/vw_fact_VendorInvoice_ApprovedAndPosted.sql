@@ -4,8 +4,8 @@ SELECT
   DocumentLedgerID
 , DocumentItemID
 , CompanyCodeID
-, PurchasingDocumentID
-, PurchasingDocumentItemID
+, PurchasingDocument
+, PurchasingDocumentItem
 , sk_fact_PurchasingDocumentItem
 , MaterialID
 , Quantity

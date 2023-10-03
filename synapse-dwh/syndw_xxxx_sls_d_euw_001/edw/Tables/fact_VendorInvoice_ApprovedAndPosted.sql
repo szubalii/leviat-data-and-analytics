@@ -7,8 +7,8 @@ CREATE TABLE [edw].[fact_VendorInvoice_ApprovedAndPosted] (
 , DocumentLedgerID NVARCHAR(12) NOT NULL
 , DocumentItemID NVARCHAR(5) NOT NULL
 , CompanyCodeID NVARCHAR(4)
-, PurchasingDocumentID NVARCHAR(10)
-, PurchasingDocumentItemID NVARCHAR(5)
+, PurchasingDocument NVARCHAR(10)
+, PurchasingDocumentItem NVARCHAR(5)
 , MaterialID NVARCHAR(40)
 , Quantity DECIMAL(13, 3)
 , OrderUnit NVARCHAR(3)

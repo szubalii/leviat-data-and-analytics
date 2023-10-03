@@ -7,8 +7,8 @@ SELECT
 , DOCID        AS DocumentLedgerID
 , ITEMID       AS DocumentItemID
 , BUKRS        AS CompanyCodeID
-, EBELN        AS PurchasingDocumentID
-, EBELP        AS PurchasingDocumentItemID
+, EBELN        AS PurchasingDocument
+, EBELP        AS PurchasingDocumentItem
 , MATNR        AS MaterialID
 , MENGE        AS Quantity
 , BSTME        AS OrderUnit

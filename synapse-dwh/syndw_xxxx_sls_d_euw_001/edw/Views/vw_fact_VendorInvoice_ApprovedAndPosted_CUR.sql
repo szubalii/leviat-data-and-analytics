@@ -3,8 +3,8 @@ SELECT
   VIM.DocumentLedgerID
 , VIM.DocumentItemID
 , VIM.CompanyCodeID
-, VIM.PurchasingDocumentID
-, VIM.PurchasingDocumentItemID
+, VIM.PurchasingDocument
+, VIM.PurchasingDocumentItem
 , PDI.sk_fact_PurchasingDocumentItem
 , VIM.MaterialID
 , VIM.Quantity
