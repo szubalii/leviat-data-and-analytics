@@ -1,0 +1,2846 @@
+{
+    "name": "IFIGLACCTLIR$F",
+    "description": "GL Account Line Item without ledger logic",
+    "guid": "66edc6e5-d468-456a-9f39-3fd03b4b6495",
+    "hierarchy": "",
+    "semantics": "TransactionalDataOrFacts",
+    "context": "ABAP_CDS",
+    "supportsFull": true,
+    "supportsDelta": true,
+    "mode": "Full",
+    "transferDataOnDeltaInit": true,
+    "columns": 
+    [
+        {
+            "name": "TS_SEQUENCE_NUMBER",
+            "description": "[GENERATED] Sequence number of row in current extraction",
+            "abapType": "FourByteInteger",
+            "isPrimaryKey": true,
+            "isDeltaColumn": true,
+            "generated": true,
+            "outputLength": 0
+        },
+        {
+            "name": "SOURCELEDGER",
+            "description": "Source Ledger",
+            "abapType": "CharacterString",
+            "length": 2,
+            "isPrimaryKey": true,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 2
+        },
+        {
+            "name": "COMPANYCODE",
+            "description": "Company Code",
+            "abapType": "CharacterString",
+            "length": 4,
+            "isPrimaryKey": true,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 4
+        },
+        {
+            "name": "FISCALYEAR",
+            "description": "Fiscal Year",
+            "abapType": "NumericCharacterString",
+            "length": 4,
+            "isPrimaryKey": true,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "selections":
+            [
+                {
+                    "value": "2023"
+                }
+            ],
+            "outputLength": 4
+        },
+        {
+            "name": "ACCOUNTINGDOCUMENT",
+            "description": "Journal Entry",
+            "abapType": "CharacterString",
+            "length": 10,
+            "isPrimaryKey": true,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 10
+        },
+        {
+            "name": "LEDGERGLLINEITEM",
+            "description": "Ledger Journal Entry Item",
+            "abapType": "CharacterString",
+            "length": 6,
+            "isPrimaryKey": true,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 6
+        },
+        {
+            "name": "LEDGERFISCALYEAR",
+            "description": "Ledger Fiscal Year",
+            "abapType": "NumericCharacterString",
+            "length": 4,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 4,
+            "referenceField": "FISCALYEARVARIANT"
+        },
+        {
+            "name": "GLRECORDTYPE",
+            "description": "Record Type",
+            "abapType": "CharacterString",
+            "length": 1,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 1
+        },
+        {
+            "name": "CHARTOFACCOUNTS",
+            "description": "Chart of Accounts",
+            "abapType": "CharacterString",
+            "length": 4,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 4
+        },
+        {
+            "name": "CONTROLLINGAREA",
+            "description": "Controlling Area",
+            "abapType": "CharacterString",
+            "length": 4,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 4
+        },
+        {
+            "name": "FINANCIALTRANSACTIONTYPE",
+            "description": "Financial Transaction Type",
+            "abapType": "CharacterString",
+            "length": 3,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 3
+        },
+        {
+            "name": "BUSINESSTRANSACTIONTYPE",
+            "description": "Business Transaction Type",
+            "abapType": "CharacterString",
+            "length": 4,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 4
+        },
+        {
+            "name": "CONTROLLINGBUSTRANSACTYPE",
+            "description": "CO Business Transaction",
+            "abapType": "CharacterString",
+            "length": 4,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 4
+        },
+        {
+            "name": "REFERENCEDOCUMENTTYPE",
+            "description": "Reference Document Type",
+            "abapType": "CharacterString",
+            "length": 5,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 5
+        },
+        {
+            "name": "LOGICALSYSTEM",
+            "description": "Logical System",
+            "abapType": "CharacterString",
+            "length": 10,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 10
+        },
+        {
+            "name": "REFERENCEDOCUMENTCONTEXT",
+            "description": "Reference Document Context",
+            "abapType": "CharacterString",
+            "length": 10,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 10
+        },
+        {
+            "name": "REFERENCEDOCUMENT",
+            "description": "Reference document number",
+            "abapType": "CharacterString",
+            "length": 10,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 10
+        },
+        {
+            "name": "REFERENCEDOCUMENTITEM",
+            "description": "Reference Document Line Item",
+            "abapType": "NumericCharacterString",
+            "length": 6,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 6
+        },
+        {
+            "name": "REFERENCEDOCUMENTITEMGROUP",
+            "description": "Group of Reference Document Line Items",
+            "abapType": "NumericCharacterString",
+            "length": 6,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 6
+        },
+        {
+            "name": "ISREVERSAL",
+            "description": "Indicator: Item is reversing another item",
+            "abapType": "CharacterString",
+            "length": 1,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 1
+        },
+        {
+            "name": "ISREVERSED",
+            "description": "Indicator: Item is reversed",
+            "abapType": "CharacterString",
+            "length": 1,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 1
+        },
+        {
+            "name": "REVERSALREFERENCEDOCUMENTCNTXT",
+            "description": "Reversal: Reverse Document Reference Organization",
+            "abapType": "CharacterString",
+            "length": 10,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 10
+        },
+        {
+            "name": "REVERSALREFERENCEDOCUMENT",
+            "description": "Reversal: Reverse Document Reference Document Number",
+            "abapType": "CharacterString",
+            "length": 10,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 10
+        },
+        {
+            "name": "ISSETTLEMENT",
+            "description": "Indicator: Item is settling or transferring another item",
+            "abapType": "CharacterString",
+            "length": 1,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 1
+        },
+        {
+            "name": "ISSETTLED",
+            "description": "Indicator: Line item is settled or transferred",
+            "abapType": "CharacterString",
+            "length": 1,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 1
+        },
+        {
+            "name": "PREDECESSORREFERENCEDOCTYPE",
+            "description": "Preceding Document Reference Transaction",
+            "abapType": "CharacterString",
+            "length": 5,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 5
+        },
+        {
+            "name": "PREDECESSORREFERENCEDOCCNTXT",
+            "description": "Preceding Document Reference Organizational Units",
+            "abapType": "CharacterString",
+            "length": 10,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 10
+        },
+        {
+            "name": "PREDECESSORREFERENCEDOCUMENT",
+            "description": "Preceding Document Reference Document Number",
+            "abapType": "CharacterString",
+            "length": 10,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 10
+        },
+        {
+            "name": "PREDECESSORREFERENCEDOCITEM",
+            "description": "Preceding Reference Document Line Item",
+            "abapType": "NumericCharacterString",
+            "length": 6,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 6
+        },
+        {
+            "name": "SOURCEREFERENCEDOCUMENTTYPE",
+            "description": "Source Document Reference Transaction",
+            "abapType": "CharacterString",
+            "length": 5,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 5
+        },
+        {
+            "name": "SOURCELOGICALSYSTEM",
+            "description": "Logical System of Source Reference Document",
+            "abapType": "CharacterString",
+            "length": 10,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 10
+        },
+        {
+            "name": "SOURCEREFERENCEDOCUMENTCNTXT",
+            "description": "Source Document Reference Organizational Units",
+            "abapType": "CharacterString",
+            "length": 10,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 10
+        },
+        {
+            "name": "SOURCEREFERENCEDOCUMENT",
+            "description": "Source Document Reference Document Number",
+            "abapType": "CharacterString",
+            "length": 10,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 10
+        },
+        {
+            "name": "SOURCEREFERENCEDOCUMENTITEM",
+            "description": "Source Reference Document Line Item",
+            "abapType": "NumericCharacterString",
+            "length": 6,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 6
+        },
+        {
+            "name": "SOURCEREFERENCEDOCSUBITEM",
+            "description": "Source Reference Document Sub-Item",
+            "abapType": "NumericCharacterString",
+            "length": 6,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 6
+        },
+        {
+            "name": "ISCOMMITMENT",
+            "description": "Indicator: Commitment",
+            "abapType": "CharacterString",
+            "length": 1,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 1
+        },
+        {
+            "name": "JRNLENTRYITEMOBSOLETEREASON",
+            "description": "Reason why this item is obsolete",
+            "abapType": "CharacterString",
+            "length": 1,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 1
+        },
+        {
+            "name": "GLACCOUNT",
+            "description": "G/L Account",
+            "abapType": "CharacterString",
+            "length": 10,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 10
+        },
+        {
+            "name": "COSTCENTER",
+            "description": "Cost Center",
+            "abapType": "CharacterString",
+            "length": 10,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 10
+        },
+        {
+            "name": "PROFITCENTER",
+            "description": "Profit Center",
+            "abapType": "CharacterString",
+            "length": 10,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 10
+        },
+        {
+            "name": "FUNCTIONALAREA",
+            "description": "Functional Area",
+            "abapType": "CharacterString",
+            "length": 16,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 16
+        },
+        {
+            "name": "BUSINESSAREA",
+            "description": "Business Area",
+            "abapType": "CharacterString",
+            "length": 4,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 4
+        },
+        {
+            "name": "SEGMENT",
+            "description": "Segment for Segmental Reporting",
+            "abapType": "CharacterString",
+            "length": 10,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 10
+        },
+        {
+            "name": "PARTNERCOSTCENTER",
+            "description": "Partner Cost Center",
+            "abapType": "CharacterString",
+            "length": 10,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 10
+        },
+        {
+            "name": "PARTNERPROFITCENTER",
+            "description": "Partner Profit Center",
+            "abapType": "CharacterString",
+            "length": 10,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 10
+        },
+        {
+            "name": "PARTNERFUNCTIONALAREA",
+            "description": "Partner Functional Area",
+            "abapType": "CharacterString",
+            "length": 16,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 16
+        },
+        {
+            "name": "PARTNERBUSINESSAREA",
+            "description": "Partner Business Area",
+            "abapType": "CharacterString",
+            "length": 4,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 4
+        },
+        {
+            "name": "PARTNERCOMPANY",
+            "description": "Company ID of Trading Partner",
+            "abapType": "CharacterString",
+            "length": 6,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 6
+        },
+        {
+            "name": "PARTNERSEGMENT",
+            "description": "Partner Segment for Segmental Reporting",
+            "abapType": "CharacterString",
+            "length": 10,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 10
+        },
+        {
+            "name": "BALANCETRANSACTIONCURRENCY",
+            "description": "Balance Transaction Currency",
+            "abapType": "CharacterString",
+            "length": 5,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 5
+        },
+        {
+            "name": "AMOUNTINBALANCETRANSACCRCY",
+            "description": "Amount in Balance Transaction Currency",
+            "abapType": "PackedNumber",
+            "length": 23,
+            "decimalCount": 2,
+            "isSelected": true,
+            "isCurrency": true,
+            "outputLength": 25,
+            "referenceField": "BALANCETRANSACTIONCURRENCY"
+        },
+        {
+            "name": "TRANSACTIONCURRENCY",
+            "description": "Transaction Currency",
+            "abapType": "CharacterString",
+            "length": 5,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 5
+        },
+        {
+            "name": "AMOUNTINTRANSACTIONCURRENCY",
+            "description": "Amount in Transaction Currency",
+            "abapType": "PackedNumber",
+            "length": 23,
+            "decimalCount": 2,
+            "isSelected": true,
+            "isCurrency": true,
+            "outputLength": 25,
+            "referenceField": "TRANSACTIONCURRENCY"
+        },
+        {
+            "name": "COMPANYCODECURRENCY",
+            "description": "Company Code Currency",
+            "abapType": "CharacterString",
+            "length": 5,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 5
+        },
+        {
+            "name": "AMOUNTINCOMPANYCODECURRENCY",
+            "description": "Amount in Company Code Currency",
+            "abapType": "PackedNumber",
+            "length": 23,
+            "decimalCount": 2,
+            "isSelected": true,
+            "isCurrency": true,
+            "outputLength": 25,
+            "referenceField": "COMPANYCODECURRENCY"
+        },
+        {
+            "name": "GLOBALCURRENCY",
+            "description": "Global Currency",
+            "abapType": "CharacterString",
+            "length": 5,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 5
+        },
+        {
+            "name": "AMOUNTINGLOBALCURRENCY",
+            "description": "Amount in Global Currency",
+            "abapType": "PackedNumber",
+            "length": 23,
+            "decimalCount": 2,
+            "isSelected": true,
+            "isCurrency": true,
+            "outputLength": 25,
+            "referenceField": "GLOBALCURRENCY"
+        },
+        {
+            "name": "FREEDEFINEDCURRENCY1",
+            "description": "Freely Defined Currency 1",
+            "abapType": "CharacterString",
+            "length": 5,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 5
+        },
+        {
+            "name": "AMOUNTINFREEDEFINEDCURRENCY1",
+            "description": "Amount in Freely Defined Currency 1",
+            "abapType": "PackedNumber",
+            "length": 23,
+            "decimalCount": 2,
+            "isSelected": true,
+            "isCurrency": true,
+            "outputLength": 25,
+            "referenceField": "FREEDEFINEDCURRENCY1"
+        },
+        {
+            "name": "FREEDEFINEDCURRENCY2",
+            "description": "Freely Defined Currency 2",
+            "abapType": "CharacterString",
+            "length": 5,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 5
+        },
+        {
+            "name": "AMOUNTINFREEDEFINEDCURRENCY2",
+            "description": "Amount in Freely Defined Currency 2",
+            "abapType": "PackedNumber",
+            "length": 23,
+            "decimalCount": 2,
+            "isSelected": true,
+            "isCurrency": true,
+            "outputLength": 25,
+            "referenceField": "FREEDEFINEDCURRENCY2"
+        },
+        {
+            "name": "FREEDEFINEDCURRENCY3",
+            "description": "Freely Defined Currency 3",
+            "abapType": "CharacterString",
+            "length": 5,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 5
+        },
+        {
+            "name": "AMOUNTINFREEDEFINEDCURRENCY3",
+            "description": "Amount in Freely Defined Currency 3",
+            "abapType": "PackedNumber",
+            "length": 23,
+            "decimalCount": 2,
+            "isSelected": true,
+            "isCurrency": true,
+            "outputLength": 25,
+            "referenceField": "FREEDEFINEDCURRENCY3"
+        },
+        {
+            "name": "FREEDEFINEDCURRENCY4",
+            "description": "Freely Defined Currency 4",
+            "abapType": "CharacterString",
+            "length": 5,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 5
+        },
+        {
+            "name": "AMOUNTINFREEDEFINEDCURRENCY4",
+            "description": "Amount in Freely Defined Currency 4",
+            "abapType": "PackedNumber",
+            "length": 23,
+            "decimalCount": 2,
+            "isSelected": true,
+            "isCurrency": true,
+            "outputLength": 25,
+            "referenceField": "FREEDEFINEDCURRENCY4"
+        },
+        {
+            "name": "FREEDEFINEDCURRENCY5",
+            "description": "Freely Defined Currency 5",
+            "abapType": "CharacterString",
+            "length": 5,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 5
+        },
+        {
+            "name": "AMOUNTINFREEDEFINEDCURRENCY5",
+            "description": "Amount in Freely Defined Currency 5",
+            "abapType": "PackedNumber",
+            "length": 23,
+            "decimalCount": 2,
+            "isSelected": true,
+            "isCurrency": true,
+            "outputLength": 25,
+            "referenceField": "FREEDEFINEDCURRENCY5"
+        },
+        {
+            "name": "FREEDEFINEDCURRENCY6",
+            "description": "Freely Defined Currency 6",
+            "abapType": "CharacterString",
+            "length": 5,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 5
+        },
+        {
+            "name": "AMOUNTINFREEDEFINEDCURRENCY6",
+            "description": "Amount in Freely Defined Currency 6",
+            "abapType": "PackedNumber",
+            "length": 23,
+            "decimalCount": 2,
+            "isSelected": true,
+            "isCurrency": true,
+            "outputLength": 25,
+            "referenceField": "FREEDEFINEDCURRENCY6"
+        },
+        {
+            "name": "FREEDEFINEDCURRENCY7",
+            "description": "Freely Defined Currency 7",
+            "abapType": "CharacterString",
+            "length": 5,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 5
+        },
+        {
+            "name": "AMOUNTINFREEDEFINEDCURRENCY7",
+            "description": "Amount in Freely Defined Currency 7",
+            "abapType": "PackedNumber",
+            "length": 23,
+            "decimalCount": 2,
+            "isSelected": true,
+            "isCurrency": true,
+            "outputLength": 25,
+            "referenceField": "FREEDEFINEDCURRENCY7"
+        },
+        {
+            "name": "FREEDEFINEDCURRENCY8",
+            "description": "Freely Defined Currency 8",
+            "abapType": "CharacterString",
+            "length": 5,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 5
+        },
+        {
+            "name": "AMOUNTINFREEDEFINEDCURRENCY8",
+            "description": "Amount in Freely Defined Currency 8",
+            "abapType": "PackedNumber",
+            "length": 23,
+            "decimalCount": 2,
+            "isSelected": true,
+            "isCurrency": true,
+            "outputLength": 25,
+            "referenceField": "FREEDEFINEDCURRENCY8"
+        },
+        {
+            "name": "FIXEDAMOUNTINGLOBALCRCY",
+            "description": "Fixed Amount in Global Currency",
+            "abapType": "PackedNumber",
+            "length": 23,
+            "decimalCount": 2,
+            "isSelected": true,
+            "isCurrency": true,
+            "outputLength": 25,
+            "referenceField": "GLOBALCURRENCY"
+        },
+        {
+            "name": "GRPVALNFIXEDAMTINGLOBCRCY",
+            "description": "Group Valuation Fixed Amount in Global Currency",
+            "abapType": "PackedNumber",
+            "length": 23,
+            "decimalCount": 2,
+            "isSelected": true,
+            "isCurrency": true,
+            "outputLength": 25,
+            "referenceField": "GLOBALCURRENCY"
+        },
+        {
+            "name": "PRFTCTRVALNFXDAMTINGLOBCRCY",
+            "description": "PrCtr Valuation Fixed Amount in Global Currency",
+            "abapType": "PackedNumber",
+            "length": 23,
+            "decimalCount": 2,
+            "isSelected": true,
+            "isCurrency": true,
+            "outputLength": 25,
+            "referenceField": "GLOBALCURRENCY"
+        },
+        {
+            "name": "FIXEDAMOUNTINCOCODECRCY",
+            "description": "Fixed Amount in Company Currency",
+            "abapType": "PackedNumber",
+            "length": 23,
+            "decimalCount": 2,
+            "isSelected": true,
+            "isCurrency": true,
+            "outputLength": 25,
+            "referenceField": "COMPANYCODECURRENCY"
+        },
+        {
+            "name": "TOTALPRICEVARCINGLOBALCRCY",
+            "description": "Total Price Variance in Global Currency",
+            "abapType": "PackedNumber",
+            "length": 23,
+            "decimalCount": 2,
+            "isSelected": true,
+            "isCurrency": true,
+            "outputLength": 25,
+            "referenceField": "GLOBALCURRENCY"
+        },
+        {
+            "name": "GRPVALNTOTPRCVARCINGLOBCRCY",
+            "description": "Group Valuation Total Price Variance in Global Currency",
+            "abapType": "PackedNumber",
+            "length": 23,
+            "decimalCount": 2,
+            "isSelected": true,
+            "isCurrency": true,
+            "outputLength": 25,
+            "referenceField": "GLOBALCURRENCY"
+        },
+        {
+            "name": "PRFTCTRVALNTOTPRCVARCINGLBCRCY",
+            "description": "PrCtr Valuation Total Price Variance in Global Currency",
+            "abapType": "PackedNumber",
+            "length": 23,
+            "decimalCount": 2,
+            "isSelected": true,
+            "isCurrency": true,
+            "outputLength": 25,
+            "referenceField": "GLOBALCURRENCY"
+        },
+        {
+            "name": "FIXEDPRICEVARCINGLOBALCRCY",
+            "description": "Fixed Price Variance in Global Currency",
+            "abapType": "PackedNumber",
+            "length": 23,
+            "decimalCount": 2,
+            "isSelected": true,
+            "isCurrency": true,
+            "outputLength": 25,
+            "referenceField": "GLOBALCURRENCY"
+        },
+        {
+            "name": "GRPVALNFIXEDPRCVARCINGLOBCRCY",
+            "description": "Group Valuation Fixed Price Variance in Global Currency",
+            "abapType": "PackedNumber",
+            "length": 23,
+            "decimalCount": 2,
+            "isSelected": true,
+            "isCurrency": true,
+            "outputLength": 25,
+            "referenceField": "GLOBALCURRENCY"
+        },
+        {
+            "name": "PRFTCTRVALNFXDPRCVARCINGLBCRCY",
+            "description": "PrCtr Valuation Fixed Price Variance in Global Currency",
+            "abapType": "PackedNumber",
+            "length": 23,
+            "decimalCount": 2,
+            "isSelected": true,
+            "isCurrency": true,
+            "outputLength": 25,
+            "referenceField": "GLOBALCURRENCY"
+        },
+        {
+            "name": "CONTROLLINGOBJECTCURRENCY",
+            "description": "CO Object Currency",
+            "abapType": "CharacterString",
+            "length": 5,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 5
+        },
+        {
+            "name": "AMOUNTINOBJECTCURRENCY",
+            "description": "Amount in CO Object Currency",
+            "abapType": "PackedNumber",
+            "length": 23,
+            "decimalCount": 2,
+            "isSelected": true,
+            "isCurrency": true,
+            "outputLength": 25,
+            "referenceField": "CONTROLLINGOBJECTCURRENCY"
+        },
+        {
+            "name": "BASEUNIT",
+            "description": "Base Unit of Measure",
+            "abapType": "CharacterString",
+            "length": 3,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 3
+        },
+        {
+            "name": "QUANTITY",
+            "description": "Quantity",
+            "abapType": "PackedNumber",
+            "length": 23,
+            "decimalCount": 3,
+            "isSelected": true,
+            "outputLength": 25,
+            "referenceField": "BASEUNIT"
+        },
+        {
+            "name": "FIXEDQUANTITY",
+            "description": "Fixed quantity",
+            "abapType": "PackedNumber",
+            "length": 23,
+            "decimalCount": 3,
+            "isSelected": true,
+            "outputLength": 25,
+            "referenceField": "BASEUNIT"
+        },
+        {
+            "name": "COSTSOURCEUNIT",
+            "description": "Cost Source Unit",
+            "abapType": "CharacterString",
+            "length": 3,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 3
+        },
+        {
+            "name": "VALUATIONQUANTITY",
+            "description": "Valuation quantity",
+            "abapType": "PackedNumber",
+            "length": 23,
+            "decimalCount": 3,
+            "isSelected": true,
+            "outputLength": 25,
+            "referenceField": "COSTSOURCEUNIT"
+        },
+        {
+            "name": "VALUATIONFIXEDQUANTITY",
+            "description": "Fixed valuation quantity",
+            "abapType": "PackedNumber",
+            "length": 23,
+            "decimalCount": 3,
+            "isSelected": true,
+            "outputLength": 25,
+            "referenceField": "COSTSOURCEUNIT"
+        },
+        {
+            "name": "ADDITIONALQUANTITY1UNIT",
+            "description": "Additional Unit of Measure 1",
+            "abapType": "CharacterString",
+            "length": 3,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 3
+        },
+        {
+            "name": "ADDITIONALQUANTITY1",
+            "description": "Additional Quantity 1",
+            "abapType": "PackedNumber",
+            "length": 23,
+            "decimalCount": 3,
+            "isSelected": true,
+            "outputLength": 25,
+            "referenceField": "ADDITIONALQUANTITY1UNIT"
+        },
+        {
+            "name": "ADDITIONALQUANTITY2UNIT",
+            "description": "Additional Unit of Measure 2",
+            "abapType": "CharacterString",
+            "length": 3,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 3
+        },
+        {
+            "name": "ADDITIONALQUANTITY2",
+            "description": "Additional Quantity 2",
+            "abapType": "PackedNumber",
+            "length": 23,
+            "decimalCount": 3,
+            "isSelected": true,
+            "outputLength": 25,
+            "referenceField": "ADDITIONALQUANTITY2UNIT"
+        },
+        {
+            "name": "ADDITIONALQUANTITY3UNIT",
+            "description": "Additional Unit of Measure 3",
+            "abapType": "CharacterString",
+            "length": 3,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 3
+        },
+        {
+            "name": "ADDITIONALQUANTITY3",
+            "description": "Additional Quantity 3",
+            "abapType": "PackedNumber",
+            "length": 23,
+            "decimalCount": 3,
+            "isSelected": true,
+            "outputLength": 25,
+            "referenceField": "ADDITIONALQUANTITY3UNIT"
+        },
+        {
+            "name": "DEBITCREDITCODE",
+            "description": "Debit/Credit Code",
+            "abapType": "CharacterString",
+            "length": 1,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 1
+        },
+        {
+            "name": "FISCALPERIOD",
+            "description": "Fiscal Period",
+            "abapType": "NumericCharacterString",
+            "length": 3,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "selections":
+            [
+                {
+                    "value": "012"
+                }
+            ],
+            "outputLength": 3,
+            "referenceField": "FISCALYEARVARIANT"
+        },
+        {
+            "name": "FISCALYEARVARIANT",
+            "description": "Fiscal Year Variant",
+            "abapType": "CharacterString",
+            "length": 2,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 2
+        },
+        {
+            "name": "FISCALYEARPERIOD",
+            "description": "Fiscal Year Period",
+            "abapType": "NumericCharacterString",
+            "length": 7,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 7,
+            "referenceField": "FISCALYEARVARIANT"
+        },
+        {
+            "name": "POSTINGDATE",
+            "description": "Posting Date",
+            "abapType": "Date",
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 8
+        },
+        {
+            "name": "DOCUMENTDATE",
+            "description": "Journal Entry Date",
+            "abapType": "Date",
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 8
+        },
+        {
+            "name": "ACCOUNTINGDOCUMENTTYPE",
+            "description": "Journal Entry Type",
+            "abapType": "CharacterString",
+            "length": 2,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 2
+        },
+        {
+            "name": "ACCOUNTINGDOCUMENTITEM",
+            "description": "Journal Entry Posting View Item",
+            "abapType": "NumericCharacterString",
+            "length": 3,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 3
+        },
+        {
+            "name": "ASSIGNMENTREFERENCE",
+            "description": "Assignment Reference",
+            "abapType": "CharacterString",
+            "length": 18,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 18
+        },
+        {
+            "name": "ACCOUNTINGDOCUMENTCATEGORY",
+            "description": "Journal Entry Category",
+            "abapType": "CharacterString",
+            "length": 1,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 1
+        },
+        {
+            "name": "POSTINGKEY",
+            "description": "Posting Key",
+            "abapType": "CharacterString",
+            "length": 2,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 2
+        },
+        {
+            "name": "TRANSACTIONTYPEDETERMINATION",
+            "description": "Transaction Key",
+            "abapType": "CharacterString",
+            "length": 3,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 3
+        },
+        {
+            "name": "SUBLEDGERACCTLINEITEMTYPE",
+            "description": "Subledger-Specific Line Item Type",
+            "abapType": "NumericCharacterString",
+            "length": 5,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 5
+        },
+        {
+            "name": "ACCOUNTINGDOCCREATEDBYUSER",
+            "description": "User that created the journal entry",
+            "abapType": "CharacterString",
+            "length": 12,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 12
+        },
+        {
+            "name": "LASTCHANGEDATETIME",
+            "description": "Time Stamp of Last Change",
+            "abapType": "PackedNumber",
+            "length": 15,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 16
+        },
+        {
+            "name": "CREATIONDATETIME",
+            "description": "Time Stamp of Creation",
+            "abapType": "PackedNumber",
+            "length": 15,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 16
+        },
+        {
+            "name": "CREATIONDATE",
+            "description": "Creation Date",
+            "abapType": "Date",
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 8
+        },
+        {
+            "name": "ELIMINATIONPROFITCENTER",
+            "description": "Partner profit center for elimination of internal business",
+            "abapType": "CharacterString",
+            "length": 10,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 10
+        },
+        {
+            "name": "ORIGINOBJECTTYPE",
+            "description": "Type of Origin Object",
+            "abapType": "NumericCharacterString",
+            "length": 2,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 2
+        },
+        {
+            "name": "GLACCOUNTTYPE",
+            "description": "Type of a General Ledger Account",
+            "abapType": "CharacterString",
+            "length": 1,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 1
+        },
+        {
+            "name": "ALTERNATIVEGLACCOUNT",
+            "description": "Alternative G/L Account Number In Company Code",
+            "abapType": "CharacterString",
+            "length": 10,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 10
+        },
+        {
+            "name": "COUNTRYCHARTOFACCOUNTS",
+            "description": "Country Chart of Accounts",
+            "abapType": "CharacterString",
+            "length": 4,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 4
+        },
+        {
+            "name": "INVOICEREFERENCE",
+            "description": "Invoice Reference",
+            "abapType": "CharacterString",
+            "length": 10,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 10
+        },
+        {
+            "name": "INVOICEREFERENCEFISCALYEAR",
+            "description": "Invoice Reference Fiscal Year",
+            "abapType": "NumericCharacterString",
+            "length": 4,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 4
+        },
+        {
+            "name": "FOLLOWONDOCUMENTTYPE",
+            "description": "Follow-On Document Type",
+            "abapType": "CharacterString",
+            "length": 1,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 1
+        },
+        {
+            "name": "INVOICEITEMREFERENCE",
+            "description": "Invoice Item Reference",
+            "abapType": "NumericCharacterString",
+            "length": 3,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 3
+        },
+        {
+            "name": "REFERENCEPURCHASEORDERCATEGORY",
+            "description": "Category of Reference Purchase Order",
+            "abapType": "NumericCharacterString",
+            "length": 3,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 3
+        },
+        {
+            "name": "PURCHASINGDOCUMENT",
+            "description": "Purchasing Document",
+            "abapType": "CharacterString",
+            "length": 10,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 10
+        },
+        {
+            "name": "PURCHASINGDOCUMENTITEM",
+            "description": "Purchasing Document Item",
+            "abapType": "NumericCharacterString",
+            "length": 5,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 5
+        },
+        {
+            "name": "ACCOUNTASSIGNMENTNUMBER",
+            "description": "Sequential Number of Account Assignment",
+            "abapType": "NumericCharacterString",
+            "length": 2,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 2
+        },
+        {
+            "name": "DOCUMENTITEMTEXT",
+            "description": "Item Text",
+            "abapType": "CharacterString",
+            "length": 50,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 50
+        },
+        {
+            "name": "SALESDOCUMENT",
+            "description": "Sales Document",
+            "abapType": "CharacterString",
+            "length": 10,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 10
+        },
+        {
+            "name": "SALESDOCUMENTITEM",
+            "description": "Sales Document Item",
+            "abapType": "NumericCharacterString",
+            "length": 6,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 6
+        },
+        {
+            "name": "PRODUCT",
+            "description": "Product Number",
+            "abapType": "CharacterString",
+            "length": 40,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 40
+        },
+        {
+            "name": "PLANT",
+            "description": "Plant",
+            "abapType": "CharacterString",
+            "length": 4,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 4
+        },
+        {
+            "name": "SUPPLIER",
+            "description": "Supplier",
+            "abapType": "CharacterString",
+            "length": 10,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 10
+        },
+        {
+            "name": "CUSTOMER",
+            "description": "Customer Number",
+            "abapType": "CharacterString",
+            "length": 10,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 10
+        },
+        {
+            "name": "SERVICESRENDEREDDATE",
+            "description": "Date on which services are rendered",
+            "abapType": "Date",
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 8
+        },
+        {
+            "name": "CONDITIONCONTRACT",
+            "description": "Condition Contract",
+            "abapType": "CharacterString",
+            "length": 10,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 10
+        },
+        {
+            "name": "EXCHANGERATEDATE",
+            "description": "Translation date",
+            "abapType": "Date",
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 8
+        },
+        {
+            "name": "FINANCIALACCOUNTTYPE",
+            "description": "Account Type",
+            "abapType": "CharacterString",
+            "length": 1,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 1
+        },
+        {
+            "name": "SPECIALGLCODE",
+            "description": "Special G/L Indicator",
+            "abapType": "CharacterString",
+            "length": 1,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 1
+        },
+        {
+            "name": "TAXCODE",
+            "description": "Tax on Sales/Purchases Code",
+            "abapType": "CharacterString",
+            "length": 2,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 2
+        },
+        {
+            "name": "HOUSEBANK",
+            "description": "House Bank Key",
+            "abapType": "CharacterString",
+            "length": 5,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 5
+        },
+        {
+            "name": "HOUSEBANKACCOUNT",
+            "description": "House Bank Account",
+            "abapType": "CharacterString",
+            "length": 5,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 5
+        },
+        {
+            "name": "ISOPENITEMMANAGED",
+            "description": "Managed on an Open Item Basis",
+            "abapType": "CharacterString",
+            "length": 1,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 1
+        },
+        {
+            "name": "CLEARINGDATE",
+            "description": "Clearing Date",
+            "abapType": "Date",
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 8
+        },
+        {
+            "name": "CLEARINGACCOUNTINGDOCUMENT",
+            "description": "Clearing Entry",
+            "abapType": "CharacterString",
+            "length": 10,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 10
+        },
+        {
+            "name": "CLEARINGDOCFISCALYEAR",
+            "description": "Fiscal Year of Clearing Journal Entry",
+            "abapType": "NumericCharacterString",
+            "length": 4,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 4
+        },
+        {
+            "name": "ASSETDEPRECIATIONAREA",
+            "description": "Asset Depreciation Area (Real or Derived)",
+            "abapType": "NumericCharacterString",
+            "length": 2,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 2
+        },
+        {
+            "name": "MASTERFIXEDASSET",
+            "description": "Fixed Asset",
+            "abapType": "CharacterString",
+            "length": 12,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 12
+        },
+        {
+            "name": "FIXEDASSET",
+            "description": "Asset Subnumber",
+            "abapType": "CharacterString",
+            "length": 4,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 4
+        },
+        {
+            "name": "ASSETVALUEDATE",
+            "description": "Asset Value Date",
+            "abapType": "Date",
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 8
+        },
+        {
+            "name": "ASSETTRANSACTIONTYPE",
+            "description": "Asset Transaction Type",
+            "abapType": "CharacterString",
+            "length": 3,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 3
+        },
+        {
+            "name": "ASSETACCTTRANSCLASSFCTN",
+            "description": "Transaction Type Category",
+            "abapType": "CharacterString",
+            "length": 2,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 2
+        },
+        {
+            "name": "DEPRECIATIONFISCALPERIOD",
+            "description": "Fiscal Period of Depreciation",
+            "abapType": "NumericCharacterString",
+            "length": 3,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 3
+        },
+        {
+            "name": "GROUPMASTERFIXEDASSET",
+            "description": "Group Asset",
+            "abapType": "CharacterString",
+            "length": 12,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 12
+        },
+        {
+            "name": "GROUPFIXEDASSET",
+            "description": "Group Asset Subnumber",
+            "abapType": "CharacterString",
+            "length": 4,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 4
+        },
+        {
+            "name": "ASSETCLASS",
+            "description": "Asset Class",
+            "abapType": "CharacterString",
+            "length": 8,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 8
+        },
+        {
+            "name": "COSTESTIMATE",
+            "description": "Cost Estimate",
+            "abapType": "NumericCharacterString",
+            "length": 12,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 12
+        },
+        {
+            "name": "INVENTORYSPECIALSTOCKVALNTYPE",
+            "description": "Inventory Special Stock Valuation Type",
+            "abapType": "CharacterString",
+            "length": 1,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 1
+        },
+        {
+            "name": "INVENTORYSPECIALSTOCKTYPE",
+            "description": "Inventory Special Stock Type",
+            "abapType": "CharacterString",
+            "length": 1,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 1
+        },
+        {
+            "name": "INVENTORYSPCLSTKSALESDOCUMENT",
+            "description": "Sales Document Number of Valuated Special Inventory",
+            "abapType": "CharacterString",
+            "length": 10,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 10
+        },
+        {
+            "name": "INVENTORYSPCLSTKSALESDOCITM",
+            "description": "Sales Document Item Number of Valuated Special Inventory",
+            "abapType": "NumericCharacterString",
+            "length": 6,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 6
+        },
+        {
+            "name": "INVTRYSPCLSTOCKWBSELMNTINTID",
+            "description": "Inventory WBS Element Internal ID",
+            "abapType": "NumericCharacterString",
+            "length": 8,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 8
+        },
+        {
+            "name": "INVENTORYSPCLSTOCKWBSELEMENT",
+            "description": "Inventory WBS Element External ID",
+            "abapType": "CharacterString",
+            "length": 24,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 24
+        },
+        {
+            "name": "INVENTORYSPECIALSTOCKSUPPLIER",
+            "description": "Supplier of Valuated Special Inventory",
+            "abapType": "CharacterString",
+            "length": 10,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 10
+        },
+        {
+            "name": "INVENTORYVALUATIONTYPE",
+            "description": "Valuation Type",
+            "abapType": "CharacterString",
+            "length": 10,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 10
+        },
+        {
+            "name": "VALUATIONAREA",
+            "description": "Valuation area",
+            "abapType": "CharacterString",
+            "length": 4,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 4
+        },
+        {
+            "name": "SENDERCOMPANYCODE",
+            "description": "Company Code in Sender System",
+            "abapType": "CharacterString",
+            "length": 4,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 4
+        },
+        {
+            "name": "SENDERGLACCOUNT",
+            "description": "Sender G/L Account",
+            "abapType": "CharacterString",
+            "length": 10,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 10
+        },
+        {
+            "name": "SENDERACCOUNTASSIGNMENT",
+            "description": "Account Assignment in Sender System",
+            "abapType": "CharacterString",
+            "length": 30,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 30
+        },
+        {
+            "name": "SENDERACCOUNTASSIGNMENTTYPE",
+            "description": "Account Assignment Type in Sender System",
+            "abapType": "CharacterString",
+            "length": 2,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 2
+        },
+        {
+            "name": "CONTROLLINGOBJECT",
+            "description": "Controlling Object",
+            "abapType": "CharacterString",
+            "length": 22,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 22
+        },
+        {
+            "name": "COSTORIGINGROUP",
+            "description": "Origin Group as Subdivision of Cost Element",
+            "abapType": "CharacterString",
+            "length": 4,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 4
+        },
+        {
+            "name": "ORIGINSENDEROBJECT",
+            "description": "Origin Sender Object",
+            "abapType": "CharacterString",
+            "length": 22,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 22
+        },
+        {
+            "name": "CONTROLLINGDEBITCREDITCODE",
+            "description": "CO Debit/Credit Indicator",
+            "abapType": "CharacterString",
+            "length": 1,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 1
+        },
+        {
+            "name": "CONTROLLINGOBJECTDEBITTYPE",
+            "description": "Debit Type",
+            "abapType": "NumericCharacterString",
+            "length": 1,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 1
+        },
+        {
+            "name": "QUANTITYISINCOMPLETE",
+            "description": "Indicator: Quantity Is Incomplete",
+            "abapType": "NumericCharacterString",
+            "length": 1,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 1
+        },
+        {
+            "name": "OFFSETTINGACCOUNT",
+            "description": "Offsetting Account",
+            "abapType": "CharacterString",
+            "length": 10,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 10
+        },
+        {
+            "name": "OFFSETTINGACCOUNTTYPE",
+            "description": "Offsetting Account Type",
+            "abapType": "CharacterString",
+            "length": 1,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 1
+        },
+        {
+            "name": "OFFSETTINGCHARTOFACCOUNTS",
+            "description": "Chart of Accounts",
+            "abapType": "CharacterString",
+            "length": 4,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 4
+        },
+        {
+            "name": "LINEITEMISCOMPLETED",
+            "description": "Indicator: Line Item Is Completed",
+            "abapType": "CharacterString",
+            "length": 1,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 1
+        },
+        {
+            "name": "PERSONNELNUMBER",
+            "description": "Personnel Number",
+            "abapType": "NumericCharacterString",
+            "length": 8,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 8
+        },
+        {
+            "name": "CONTROLLINGOBJECTCLASS",
+            "description": "Object Class",
+            "abapType": "CharacterString",
+            "length": 2,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 2
+        },
+        {
+            "name": "PARTNERCOMPANYCODE",
+            "description": "Company Code of Partner",
+            "abapType": "CharacterString",
+            "length": 4,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 4
+        },
+        {
+            "name": "PARTNERCONTROLLINGOBJECTCLASS",
+            "description": "Partner object class",
+            "abapType": "CharacterString",
+            "length": 2,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 2
+        },
+        {
+            "name": "ORIGINCOSTCENTER",
+            "description": "Origin cost center",
+            "abapType": "CharacterString",
+            "length": 10,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 10
+        },
+        {
+            "name": "ORIGINPROFITCENTER",
+            "description": "Origin Profit Center",
+            "abapType": "CharacterString",
+            "length": 10,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 10
+        },
+        {
+            "name": "ORIGINCOSTCTRACTIVITYTYPE",
+            "description": "Activity Type of the Origin Cost Center",
+            "abapType": "CharacterString",
+            "length": 6,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 6
+        },
+        {
+            "name": "ACCOUNTASSIGNMENT",
+            "description": "Account Assignment",
+            "abapType": "CharacterString",
+            "length": 30,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 30
+        },
+        {
+            "name": "ACCOUNTASSIGNMENTTYPE",
+            "description": "Object Type",
+            "abapType": "CharacterString",
+            "length": 2,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 2
+        },
+        {
+            "name": "COSTCTRACTIVITYTYPE",
+            "description": "Activity Type",
+            "abapType": "CharacterString",
+            "length": 6,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 6
+        },
+        {
+            "name": "ORDERID",
+            "description": "Order ID",
+            "abapType": "CharacterString",
+            "length": 12,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 12
+        },
+        {
+            "name": "ORDERCATEGORY",
+            "description": "Order category",
+            "abapType": "NumericCharacterString",
+            "length": 2,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 2
+        },
+        {
+            "name": "WBSELEMENTINTERNALID",
+            "description": "WBS Element Internal ID",
+            "abapType": "NumericCharacterString",
+            "length": 8,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 8
+        },
+        {
+            "name": "WBSELEMENT",
+            "description": "WBS Element External ID",
+            "abapType": "CharacterString",
+            "length": 24,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 24
+        },
+        {
+            "name": "PARTNERWBSELEMENTINTERNALID",
+            "description": "Partner WBS Element Internal ID",
+            "abapType": "NumericCharacterString",
+            "length": 8,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 8
+        },
+        {
+            "name": "PARTNERWBSELEMENT",
+            "description": "Partner WBS Element External ID",
+            "abapType": "CharacterString",
+            "length": 24,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 24
+        },
+        {
+            "name": "PROJECTINTERNALID",
+            "description": "Project Internal ID",
+            "abapType": "NumericCharacterString",
+            "length": 8,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 8
+        },
+        {
+            "name": "PROJECT",
+            "description": "Project External ID",
+            "abapType": "CharacterString",
+            "length": 24,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 24
+        },
+        {
+            "name": "PARTNERPROJECTINTERNALID",
+            "description": "Partner Project Internal ID",
+            "abapType": "NumericCharacterString",
+            "length": 8,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 8
+        },
+        {
+            "name": "PARTNERPROJECT",
+            "description": "Partner Project External ID",
+            "abapType": "CharacterString",
+            "length": 24,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 24
+        },
+        {
+            "name": "OPERATINGCONCERN",
+            "description": "Operating concern",
+            "abapType": "CharacterString",
+            "length": 4,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 4
+        },
+        {
+            "name": "PROJECTNETWORK",
+            "description": "Network Number for Account Assignment",
+            "abapType": "CharacterString",
+            "length": 12,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 12
+        },
+        {
+            "name": "RELATEDNETWORKACTIVITY",
+            "description": "Network activity",
+            "abapType": "CharacterString",
+            "length": 4,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 4
+        },
+        {
+            "name": "BUSINESSPROCESS",
+            "description": "Business Process",
+            "abapType": "CharacterString",
+            "length": 12,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 12
+        },
+        {
+            "name": "COSTOBJECT",
+            "description": "Cost Object",
+            "abapType": "CharacterString",
+            "length": 12,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 12
+        },
+        {
+            "name": "BILLABLECONTROL",
+            "description": "Billable Control",
+            "abapType": "CharacterString",
+            "length": 2,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 2
+        },
+        {
+            "name": "COSTANALYSISRESOURCE",
+            "description": "Resource (Cost analysis view)",
+            "abapType": "CharacterString",
+            "length": 10,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 10
+        },
+        {
+            "name": "CUSTOMERSERVICENOTIFICATION",
+            "description": "Notification Number",
+            "abapType": "CharacterString",
+            "length": 12,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 12
+        },
+        {
+            "name": "SERVICEDOCUMENTTYPE",
+            "description": "Service Document Type",
+            "abapType": "CharacterString",
+            "length": 4,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 4
+        },
+        {
+            "name": "SERVICEDOCUMENT",
+            "description": "Service Document ID",
+            "abapType": "CharacterString",
+            "length": 10,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 10
+        },
+        {
+            "name": "SERVICEDOCUMENTITEM",
+            "description": "Service Document Item ID",
+            "abapType": "NumericCharacterString",
+            "length": 6,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 6
+        },
+        {
+            "name": "PARTNERSERVICEDOCUMENTTYPE",
+            "description": "Partner Service Document Type",
+            "abapType": "CharacterString",
+            "length": 4,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 4
+        },
+        {
+            "name": "PARTNERSERVICEDOCUMENT",
+            "description": "Partner Service Document ID",
+            "abapType": "CharacterString",
+            "length": 10,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 10
+        },
+        {
+            "name": "PARTNERSERVICEDOCUMENTITEM",
+            "description": "Partner Service Document Item ID",
+            "abapType": "NumericCharacterString",
+            "length": 6,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 6
+        },
+        {
+            "name": "SERVICECONTRACTTYPE",
+            "description": "Service Contract Type",
+            "abapType": "CharacterString",
+            "length": 4,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 4
+        },
+        {
+            "name": "SERVICECONTRACT",
+            "description": "Service Contract ID",
+            "abapType": "CharacterString",
+            "length": 10,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 10
+        },
+        {
+            "name": "SERVICECONTRACTITEM",
+            "description": "Service Contract Item ID",
+            "abapType": "NumericCharacterString",
+            "length": 6,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 6
+        },
+        {
+            "name": "TIMESHEETOVERTIMECATEGORY",
+            "description": "Overtime Category",
+            "abapType": "CharacterString",
+            "length": 4,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 4
+        },
+        {
+            "name": "PARTNERACCOUNTASSIGNMENT",
+            "description": "Partner Account Assignment",
+            "abapType": "CharacterString",
+            "length": 30,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 30
+        },
+        {
+            "name": "PARTNERACCOUNTASSIGNMENTTYPE",
+            "description": "Partner Account Assignment Type",
+            "abapType": "CharacterString",
+            "length": 2,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 2
+        },
+        {
+            "name": "WORKPACKAGE",
+            "description": "Plan Item",
+            "abapType": "CharacterString",
+            "length": 50,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 50
+        },
+        {
+            "name": "WORKITEM",
+            "description": "Work Item ID",
+            "abapType": "CharacterString",
+            "length": 10,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 10
+        },
+        {
+            "name": "PARTNERCOSTCTRACTIVITYTYPE",
+            "description": "Partner Cost Center Activity Type",
+            "abapType": "CharacterString",
+            "length": 6,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 6
+        },
+        {
+            "name": "PARTNERORDER",
+            "description": "Partner Order",
+            "abapType": "CharacterString",
+            "length": 12,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 12
+        },
+        {
+            "name": "PARTNERORDERCATEGORY",
+            "description": "Partner Order Category",
+            "abapType": "NumericCharacterString",
+            "length": 2,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 2
+        },
+        {
+            "name": "PARTNERSALESDOCUMENT",
+            "description": "Partner Sales Document",
+            "abapType": "CharacterString",
+            "length": 10,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 10
+        },
+        {
+            "name": "PARTNERSALESDOCUMENTITEM",
+            "description": "Partner Sales Document Item",
+            "abapType": "NumericCharacterString",
+            "length": 6,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 6
+        },
+        {
+            "name": "PARTNERPROJECTNETWORK",
+            "description": "Partner Project Network",
+            "abapType": "CharacterString",
+            "length": 12,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 12
+        },
+        {
+            "name": "PARTNERPROJECTNETWORKACTIVITY",
+            "description": "Partner Project Network Activity",
+            "abapType": "CharacterString",
+            "length": 4,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 4
+        },
+        {
+            "name": "PARTNERBUSINESSPROCESS",
+            "description": "Partner Business Process",
+            "abapType": "CharacterString",
+            "length": 12,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 12
+        },
+        {
+            "name": "PARTNERCOSTOBJECT",
+            "description": "Partner Cost Object",
+            "abapType": "CharacterString",
+            "length": 12,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 12
+        },
+        {
+            "name": "BILLINGDOCUMENTTYPE",
+            "description": "Billing Type",
+            "abapType": "CharacterString",
+            "length": 4,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 4
+        },
+        {
+            "name": "SALESORGANIZATION",
+            "description": "Sales Organization",
+            "abapType": "CharacterString",
+            "length": 4,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 4
+        },
+        {
+            "name": "DISTRIBUTIONCHANNEL",
+            "description": "Distribution Channel",
+            "abapType": "CharacterString",
+            "length": 2,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 2
+        },
+        {
+            "name": "ORGANIZATIONDIVISION",
+            "description": "Division",
+            "abapType": "CharacterString",
+            "length": 2,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 2
+        },
+        {
+            "name": "SOLDPRODUCT",
+            "description": "Product Sold",
+            "abapType": "CharacterString",
+            "length": 40,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 40
+        },
+        {
+            "name": "SOLDPRODUCTGROUP",
+            "description": "Product Group",
+            "abapType": "CharacterString",
+            "length": 9,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 9
+        },
+        {
+            "name": "CUSTOMERGROUP",
+            "description": "Customer Pillars",
+            "abapType": "CharacterString",
+            "length": 2,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 2
+        },
+        {
+            "name": "CUSTOMERSUPPLIERCOUNTRY",
+            "description": "Country Key",
+            "abapType": "CharacterString",
+            "length": 3,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 3
+        },
+        {
+            "name": "CUSTOMERSUPPLIERINDUSTRY",
+            "description": "Industry key",
+            "abapType": "CharacterString",
+            "length": 4,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 4
+        },
+        {
+            "name": "SALESDISTRICT",
+            "description": "Sales District",
+            "abapType": "CharacterString",
+            "length": 6,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 6
+        },
+        {
+            "name": "BILLTOPARTY",
+            "description": "Bill-to party",
+            "abapType": "CharacterString",
+            "length": 10,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 10
+        },
+        {
+            "name": "SHIPTOPARTY",
+            "description": "Ship-to party",
+            "abapType": "CharacterString",
+            "length": 10,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 10
+        },
+        {
+            "name": "CUSTOMERSUPPLIERCORPORATEGROUP",
+            "description": "Group key",
+            "abapType": "CharacterString",
+            "length": 10,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 10
+        },
+        {
+            "name": "CASHLEDGERCOMPANYCODE",
+            "description": "Cash Ledger: Company Code for Expense/Revenue",
+            "abapType": "CharacterString",
+            "length": 4,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 4
+        },
+        {
+            "name": "CASHLEDGERACCOUNT",
+            "description": "Cash Ledger: Expense or Revenue Account",
+            "abapType": "CharacterString",
+            "length": 10,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 10
+        },
+        {
+            "name": "FINANCIALMANAGEMENTAREA",
+            "description": "Financial Management Area",
+            "abapType": "CharacterString",
+            "length": 4,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 4
+        },
+        {
+            "name": "FUNDSCENTER",
+            "description": "Funds Management Center",
+            "abapType": "CharacterString",
+            "length": 16,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 16
+        },
+        {
+            "name": "FUNDEDPROGRAM",
+            "description": "Funded Program",
+            "abapType": "CharacterString",
+            "length": 24,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 24
+        },
+        {
+            "name": "FUND",
+            "description": "Fund",
+            "abapType": "CharacterString",
+            "length": 10,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 10
+        },
+        {
+            "name": "GRANTID",
+            "description": "Grant",
+            "abapType": "CharacterString",
+            "length": 20,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 20
+        },
+        {
+            "name": "BUDGETPERIOD",
+            "description": "Budget Period",
+            "abapType": "CharacterString",
+            "length": 10,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 10
+        },
+        {
+            "name": "PARTNERFUND",
+            "description": "Partner Fund",
+            "abapType": "CharacterString",
+            "length": 10,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 10
+        },
+        {
+            "name": "PARTNERGRANT",
+            "description": "Partner Grant",
+            "abapType": "CharacterString",
+            "length": 20,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 20
+        },
+        {
+            "name": "PARTNERBUDGETPERIOD",
+            "description": "FM: Partner Budget Period",
+            "abapType": "CharacterString",
+            "length": 10,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 10
+        },
+        {
+            "name": "PUBSECBUDGETACCOUNT",
+            "description": "Budget Account",
+            "abapType": "CharacterString",
+            "length": 10,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 10
+        },
+        {
+            "name": "PUBSECBUDGETACCOUNTCOCODE",
+            "description": "Company Code for Budget Account",
+            "abapType": "CharacterString",
+            "length": 4,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 4
+        },
+        {
+            "name": "PUBSECBUDGETCNSMPNDATE",
+            "description": "Budget Consumption Date",
+            "abapType": "Date",
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 8
+        },
+        {
+            "name": "PUBSECBUDGETCNSMPNFSCLPERIOD",
+            "description": "Posting Period for Budget Consumption",
+            "abapType": "NumericCharacterString",
+            "length": 3,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 3
+        },
+        {
+            "name": "PUBSECBUDGETCNSMPNFSCLYEAR",
+            "description": "Year of Budget Consumption",
+            "abapType": "NumericCharacterString",
+            "length": 4,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 4
+        },
+        {
+            "name": "PUBSECBUDGETISRELEVANT",
+            "description": "Budget-Relevant Indicator",
+            "abapType": "CharacterString",
+            "length": 1,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 1
+        },
+        {
+            "name": "PUBSECBUDGETCNSMPNTYPE",
+            "description": "Budget Consumption Type",
+            "abapType": "CharacterString",
+            "length": 2,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 2
+        },
+        {
+            "name": "PUBSECBUDGETCNSMPNAMTTYPE",
+            "description": "Amount Type for Budget Consumption",
+            "abapType": "CharacterString",
+            "length": 4,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 4
+        },
+        {
+            "name": "JOINTVENTURE",
+            "description": "Joint venture",
+            "abapType": "CharacterString",
+            "length": 6,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 6
+        },
+        {
+            "name": "JOINTVENTUREEQUITYGROUP",
+            "description": "Joint Venture Equity Group",
+            "abapType": "CharacterString",
+            "length": 3,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 3
+        },
+        {
+            "name": "JOINTVENTURECOSTRECOVERYCODE",
+            "description": "Joint Venture Cost Recovery Code",
+            "abapType": "CharacterString",
+            "length": 2,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 2
+        },
+        {
+            "name": "JOINTVENTUREPARTNER",
+            "description": "Joint Venture Partner",
+            "abapType": "CharacterString",
+            "length": 10,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 10
+        },
+        {
+            "name": "JOINTVENTUREBILLINGTYPE",
+            "description": "Joint Venture Billing Type",
+            "abapType": "CharacterString",
+            "length": 2,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 2
+        },
+        {
+            "name": "JOINTVENTUREEQUITYTYPE",
+            "description": "Joint Venture Equity Type",
+            "abapType": "CharacterString",
+            "length": 3,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 3
+        },
+        {
+            "name": "JOINTVENTUREPRODUCTIONDATE",
+            "description": "Joint Venture Production Date",
+            "abapType": "Date",
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 8
+        },
+        {
+            "name": "JOINTVENTUREBILLINGDATE",
+            "description": "Joint Venture Billing Date",
+            "abapType": "Date",
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 8
+        },
+        {
+            "name": "JOINTVENTUREOPERATIONALDATE",
+            "description": "Joint Venture Operational Date",
+            "abapType": "Date",
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 8
+        },
+        {
+            "name": "CUTBACKRUN",
+            "description": "Cutback Run",
+            "abapType": "PackedNumber",
+            "length": 21,
+            "decimalCount": 7,
+            "isSelected": true,
+            "outputLength": 23
+        },
+        {
+            "name": "JOINTVENTUREACCOUNTINGACTIVITY",
+            "description": "Joint Venture Accounting Activity",
+            "abapType": "CharacterString",
+            "length": 2,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 2
+        },
+        {
+            "name": "PARTNERVENTURE",
+            "description": "Partner Venture",
+            "abapType": "CharacterString",
+            "length": 6,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 6
+        },
+        {
+            "name": "PARTNEREQUITYGROUP",
+            "description": "Partner Equity Group",
+            "abapType": "CharacterString",
+            "length": 3,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 3
+        },
+        {
+            "name": "SENDERCOSTRECOVERYCODE",
+            "description": "Sender Cost Recovery Code",
+            "abapType": "CharacterString",
+            "length": 2,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 2
+        },
+        {
+            "name": "CUTBACKACCOUNT",
+            "description": "Cutback Account",
+            "abapType": "CharacterString",
+            "length": 10,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 10
+        },
+        {
+            "name": "CUTBACKCOSTOBJECT",
+            "description": "Cutback Cost Object",
+            "abapType": "CharacterString",
+            "length": 22,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 22
+        },
+        {
+            "name": "SETTLEMENTREFERENCEDATE",
+            "description": "Reference Date for Settlement",
+            "abapType": "Date",
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 8
+        },
+        {
+            "name": "ACCRUALOBJECTTYPE",
+            "description": "Type of the Accrual Object",
+            "abapType": "CharacterString",
+            "length": 4,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 4
+        },
+        {
+            "name": "ACCRUALOBJECT",
+            "description": "Identifier of the Accrual Object",
+            "abapType": "CharacterString",
+            "length": 32,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 32
+        },
+        {
+            "name": "ACCRUALSUBOBJECT",
+            "description": "Identifier of the Accrual Subobject",
+            "abapType": "CharacterString",
+            "length": 32,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 32
+        },
+        {
+            "name": "ACCRUALITEMTYPE",
+            "description": "Type of the Item of the Accrual Subobject",
+            "abapType": "CharacterString",
+            "length": 11,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 11
+        },
+        {
+            "name": "ACCRUALVALUEDATE",
+            "description": "Accrual Value Date",
+            "abapType": "Date",
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 8
+        },
+        {
+            "name": "FINANCIALVALUATIONOBJECTTYPE",
+            "description": "Type of the Financial Valuation Object",
+            "abapType": "CharacterString",
+            "length": 4,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 4
+        },
+        {
+            "name": "FINANCIALVALUATIONOBJECT",
+            "description": "Identifier of the Financial Valuation Object",
+            "abapType": "CharacterString",
+            "length": 32,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 32
+        },
+        {
+            "name": "FINANCIALVALUATIONSUBOBJECT",
+            "description": "Identifier of the Financial Valuation Subobject",
+            "abapType": "CharacterString",
+            "length": 32,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 32
+        },
+        {
+            "name": "NETDUEDATE",
+            "description": "Net Due Date",
+            "abapType": "Date",
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 8
+        },
+        {
+            "name": "CREDITRISKCLASS",
+            "description": "Credit Risk Class",
+            "abapType": "CharacterString",
+            "length": 3,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 3
+        },
+        {
+            "name": "WORKCENTERINTERNALID",
+            "description": "Object ID of the resource",
+            "abapType": "NumericCharacterString",
+            "length": 8,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 8
+        },
+        {
+            "name": "ORDEROPERATION",
+            "description": "Operation/Activity Number",
+            "abapType": "CharacterString",
+            "length": 4,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 4
+        },
+        {
+            "name": "ORDERITEM",
+            "description": "Order item number",
+            "abapType": "NumericCharacterString",
+            "length": 4,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 4
+        },
+        {
+            "name": "ORDERSUBOPERATION",
+            "description": "Suboperation",
+            "abapType": "CharacterString",
+            "length": 4,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 4
+        },
+        {
+            "name": "EQUIPMENT",
+            "description": "Equipment Number",
+            "abapType": "CharacterString",
+            "length": 18,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 18
+        },
+        {
+            "name": "FUNCTIONALLOCATION",
+            "description": "Functional Location",
+            "abapType": "CharacterString",
+            "length": 30,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 30
+        },
+        {
+            "name": "ASSEMBLY",
+            "description": "Assembly",
+            "abapType": "CharacterString",
+            "length": 40,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 40
+        },
+        {
+            "name": "MAINTENANCEACTIVITYTYPE",
+            "description": "Maintenance activity type",
+            "abapType": "CharacterString",
+            "length": 3,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 3
+        },
+        {
+            "name": "MAINTENANCEORDERPLANNINGCODE",
+            "description": "Maintenance order planning indicator",
+            "abapType": "CharacterString",
+            "length": 1,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 1
+        },
+        {
+            "name": "MAINTPRIORITYTYPE",
+            "description": "Priority Type",
+            "abapType": "CharacterString",
+            "length": 2,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 2
+        },
+        {
+            "name": "MAINTPRIORITY",
+            "description": "Priority",
+            "abapType": "CharacterString",
+            "length": 1,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 1
+        },
+        {
+            "name": "SUPERIORORDER",
+            "description": "Number of Superior Order",
+            "abapType": "CharacterString",
+            "length": 12,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 12
+        },
+        {
+            "name": "PRODUCTGROUP",
+            "description": "Material Group",
+            "abapType": "CharacterString",
+            "length": 9,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 9
+        },
+        {
+            "name": "MAINTENANCEORDERISPLANNED",
+            "description": "Planned Parts/Work",
+            "abapType": "CharacterString",
+            "length": 1,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 1
+        },
+        {
+            "name": "ODQ_CHANGEMODE",
+            "description": "Change Mode for a Data Record in the Delta",
+            "abapType": "CharacterString",
+            "length": 1,
+            "isDeltaColumn": true,
+            "outputLength": 1
+        },
+        {
+            "name": "ODQ_ENTITYCNTR",
+            "description": "Number of Data Units (Data Records for Example)",
+            "abapType": "PackedNumber",
+            "length": 19,
+            "isDeltaColumn": true,
+            "outputLength": 20
+        },
+        {
+            "name": "KMVKBUPA",
+            "description": "Sales office",
+            "abapType": "CharacterString",
+            "length": 4,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 4
+        },
+        {
+            "name": "WWPRNPA",
+            "description": "Project number",
+            "abapType": "CharacterString",
+            "length": 10,
+            "isSelected": true,
+            "selectionPermission": "All",
+            "outputLength": 10
+        }
+    ],
+    "parameters": {
+    }
+}
