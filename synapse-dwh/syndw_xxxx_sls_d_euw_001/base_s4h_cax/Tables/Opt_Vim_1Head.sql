@@ -32,7 +32,7 @@ CREATE TABLE [base_s4h_cax].[Opt_Vim_1Head]
 --    ,DUP_CHK_RUN            NVARCHAR(1)
 --    ,TARGET_SYSTEM          NVARCHAR(10)                
 --    ,BUKRS                  NVARCHAR(4)
---    ,BELNR                  NVARCHAR(10)                
+    ,BELNR                  NVARCHAR(10)                
 --    ,GJAHR                  NVARCHAR(4)                
 --    ,BLART                  NVARCHAR(2)
 --    ,BLDAT                  DATE

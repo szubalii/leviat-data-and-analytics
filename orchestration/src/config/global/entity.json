@@ -4069,7 +4069,6 @@
         "extraction_type": "Table",
         "update_mode": "Full",
         "base_table_name": "Opt_Vim_1Head",
-        "schedule_recurrence": "A",
         "pk_field_names": "MANDT, DOCID"
       },
       {
@@ -5825,16 +5824,7 @@
         "schedule_recurrence": "D"
       },
       {
-        "entity_id": 612,
-        "entity_name": "dim_SDDocumentIncompletionLog",
-        "sproc_name": "sp_materialize_view",
-        "source_view_name": "vw_SDDocumentIncompletionLog",
-        "dest_table_name": "dim_SDDocumentIncompletionLog",
-        "execution_order": 0,
-        "schedule_recurrence": "D"
-      },
-      {
-        "entity_id": ***,
+        "entity_id": 624,
         "entity_name": "fact_VendorInvoice_ApprovedAndPosted",
         "sproc_name": "sp_materialize_view",
         "source_view_name": "vw_VendorInvoice_ApprovedAndPosted",

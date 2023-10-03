@@ -51,4 +51,4 @@ SELECT
 , HDR2_AccountDocumentID
 , HDR2_PostingUser
 FROM
-  [edw].[fact_VendorInvoice_ApprovedAndPosted]
+  [edw].[vw_fact_VendorInvoice_ApprovedAndPosted_CUR]
