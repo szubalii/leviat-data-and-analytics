@@ -54,15 +54,15 @@ FROM
 LEFT JOIN
   [edw].[vw_CurrencyConversionRate] CCR_EUR
     ON
-      CCR.SourceCurrency = VIM.HDR1_CurrencyID
+      CCR_EUR.SourceCurrency = VIM.HDR1_CurrencyID
       AND
-      CCR.CurrencyTypeID = '30'
+      CCR_EUR.CurrencyTypeID = '30'
 LEFT JOIN
   [edw].[vw_CurrencyConversionRate] CCR_USD
     ON
-      CCR.SourceCurrency = VIM.HDR1_CurrencyID
+      CCR_USD.SourceCurrency = VIM.HDR1_CurrencyID
       AND
-      CCR.CurrencyTypeID = '40'
+      CCR_USD.CurrencyTypeID = '40'
 LEFT JOIN
   [edw].[fact_PurchasingDocumentItem] PDI
     ON
