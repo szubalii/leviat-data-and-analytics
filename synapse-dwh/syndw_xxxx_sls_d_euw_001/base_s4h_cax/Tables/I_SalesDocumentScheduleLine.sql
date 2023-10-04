@@ -1,13 +1,13 @@
 CREATE TABLE [base_s4h_cax].[I_SalesDocumentScheduleLine](
-  [MANDT] char(3) collate Latin1_General_100_BIN2 NOT NULL
+  [MANDT] char(3) NOT NULL --collate Latin1_General_100_BIN2 NOT NULL
 , [SalesDocument] nvarchar(10) NOT NULL
-, [SalesDocumentItem] char(6) collate Latin1_General_100_BIN2 NOT NULL
-, [ScheduleLine] char(4) collate Latin1_General_100_BIN2 NOT NULL
+, [SalesDocumentItem] char(6) NOT NULL --collate Latin1_General_100_BIN2 NOT NULL
+, [ScheduleLine] char(4) NOT NULL --collate Latin1_General_100_BIN2 NOT NULL
 , [ScheduleLineCategory] nvarchar(2)
-, [OrderQuantityUnit] nvarchar(3) collate Latin1_General_100_BIN2
+, [OrderQuantityUnit] nvarchar(3) -- collate Latin1_General_100_BIN2
 , [OrderToBaseQuantityDnmntr] decimal(5)
 , [OrderToBaseQuantityNmrtr] decimal(5)
-, [BaseUnit] nvarchar(3) collate Latin1_General_100_BIN2
+, [BaseUnit] nvarchar(3) -- collate Latin1_General_100_BIN2
 , [DeliveryDate] date
 , [DelivDateCategory] nvarchar(1)
 , [IsRequestedDelivSchedLine] nvarchar(1)
@@ -30,10 +30,10 @@ CREATE TABLE [base_s4h_cax].[I_SalesDocumentScheduleLine](
 , [PlannedOrder] nvarchar(10)
 , [OrderID] nvarchar(12)
 , [SchedulingAgreementReleaseType] nvarchar(1)
-, [ScheduleLineByForecastDelivery] char(10) collate Latin1_General_100_BIN2
-, [OrderSchedulingGroup] char(4) collate Latin1_General_100_BIN2
+, [ScheduleLineByForecastDelivery] char(10) -- collate Latin1_General_100_BIN2
+, [OrderSchedulingGroup] char(4) -- collate Latin1_General_100_BIN2
 , [PurchaseRequisition] nvarchar(10)
-, [PurchaseRequisitionItem] char(5) collate Latin1_General_100_BIN2
+, [PurchaseRequisitionItem] char(5) -- collate Latin1_General_100_BIN2
 , [PurchasingOrderType] nvarchar(4)
 , [PurchasingDocumentCategory] nvarchar(1)
 , [DeliveryCreationDate] date
@@ -56,7 +56,7 @@ CREATE TABLE [base_s4h_cax].[I_SalesDocumentScheduleLine](
 , [GoodsMovementType] nvarchar(3)
 , [RouteSchedule] nvarchar(10)
 , [OpenDeliveryNetAmount] decimal(15,2)
-, [TransactionCurrency] char(5) collate Latin1_General_100_BIN2
+, [TransactionCurrency] char(5) -- collate Latin1_General_100_BIN2
 , [t_applicationId]       VARCHAR (32)
 , [t_jobId]               VARCHAR (36)
 , [t_jobDtm]              DATETIME
