@@ -1,8 +1,9 @@
 ﻿CREATE TABLE [edw].[dim_DeliveryDocument]
 (
-    [DeliveryDocumentID]             nvarchar(10) collate Latin1_General_100_BIN2 NOT NULL,
-    [SDDocumentCategory]             nvarchar(4) collate Latin1_General_100_BIN2,
-    [DeliveryDocumentType]           nvarchar(4) collate Latin1_General_100_BIN2, /*
+    [DeliveryDocumentID]             nvarchar(10) NOT NULL, --collate Latin1_General_100_BIN2 NOT NULL,
+    [SDDocumentCategory]             nvarchar(4), -- collate Latin1_General_100_BIN2,
+    [DeliveryDocumentType]           nvarchar(4), -- collate Latin1_General_100_BIN2, 
+    /*
     [CreatedByUser]                  nvarchar(12),
     [CreationDate]                   date,
     [CreationTime]                   time(0),
