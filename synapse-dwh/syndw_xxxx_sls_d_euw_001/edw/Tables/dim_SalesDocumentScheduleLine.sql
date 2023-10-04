@@ -1,10 +1,10 @@
 ﻿CREATE TABLE [edw].[dim_SalesDocumentScheduleLine]
 (
     [SalesDocumentID]					NVARCHAR(10) NOT NULL,
-    [SalesDocumentItem]					CHAR(6) collate Latin1_General_100_BIN2 NOT NULL,
-    [ScheduleLine]						CHAR(4) collate Latin1_General_100_BIN2 NOT NULL,
+    [SalesDocumentItem]					CHAR(6) NOT NULL, --collate Latin1_General_100_BIN2 NOT NULL,
+    [ScheduleLine]						CHAR(4) NOT NULL, --collate Latin1_General_100_BIN2 NOT NULL,
     [ScheduleLineCategory]				NVARCHAR(2),
-    [OrderQuantityUnit]					NVARCHAR(3) collate Latin1_General_100_BIN2,
+    [OrderQuantityUnit]					NVARCHAR(3), -- collate Latin1_General_100_BIN2,
     [IsRequestedDelivSchedLine]			NVARCHAR(1),
     [RequestedDeliveryDate]				DATE,
     [ScheduleLineOrderQuantity]			DECIMAL(13,3),
