@@ -1,9 +1,9 @@
 CREATE TABLE [base_s4h_cax].[I_GLAccountText]
 (
-    [MANDT]              char(3) NOT NULL -- collate Latin1_General_100_BIN2 NOT NULL,
+    [MANDT]              char(3) NOT NULL, -- collate Latin1_General_100_BIN2 NOT NULL,
     [ChartOfAccounts]    nvarchar(4)                             NOT NULL,
     [GLAccount]          nvarchar(10)                            NOT NULL,
-    [Language]           char(1) NOT NULL -- collate Latin1_General_100_BIN2 NOT NULL,
+    [Language]           char(1) NOT NULL, -- collate Latin1_General_100_BIN2 NOT NULL,
     [GLAccountName]      nvarchar(20),
     [GLAccountLongName]  nvarchar(50),
     [LastChangeDateTime] decimal(15),

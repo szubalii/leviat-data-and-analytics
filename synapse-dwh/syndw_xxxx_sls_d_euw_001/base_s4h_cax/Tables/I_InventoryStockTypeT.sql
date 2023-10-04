@@ -1,8 +1,8 @@
 CREATE TABLE [base_s4h_cax].[I_InventoryStockTypeT]
 (
-    [InventoryStockType]     NVARCHAR(2) NOT NULL -- collate Latin1_General_100_BIN2 NOT NULL,
+    [InventoryStockType]     NVARCHAR(2) NOT NULL, -- collate Latin1_General_100_BIN2 NOT NULL,
     [Language]               NCHAR(1) collate Latin1_General_100_BIN2    NOT NULL,
-    [InventoryStockTypeName] NVARCHAR(60) -- collate Latin1_General_100_BIN2,
+    [InventoryStockTypeName] NVARCHAR(60), -- collate Latin1_General_100_BIN2,
     [t_applicationId]        VARCHAR (32),
     [t_jobId]                VARCHAR(36),
     [t_jobDtm]               DATETIME,

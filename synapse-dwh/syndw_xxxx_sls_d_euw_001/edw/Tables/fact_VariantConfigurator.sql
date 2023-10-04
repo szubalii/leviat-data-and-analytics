@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [edw].[fact_VariantConfigurator]
 (
     [SalesDocument]                 NVARCHAR(20) NOT NULL,
-    [SalesDocumentItem]             NVARCHAR(24) NOT NULL -- collate Latin1_General_100_BIN2 NOT NULL,
+    [SalesDocumentItem]             NVARCHAR(24) NOT NULL, -- collate Latin1_General_100_BIN2 NOT NULL,
     [ProductID]                     NVARCHAR(40),
     [ProductExternalID]             NVARCHAR(40),
     [SO_ITEM_PROD_HIERARCHY]        NVARCHAR(141),

@@ -2,8 +2,8 @@ CREATE TABLE [base_s4h_cax].[T025L]
 (
     [MANDT]                 NCHAR(3) collate Latin1_General_100_BIN2    NOT NULL,
     [SPRAS]                 NCHAR(1) collate Latin1_General_100_BIN2    NOT NULL,
-    [KKREF]                 NVARCHAR(4) NOT NULL -- collate Latin1_General_100_BIN2 NOT NULL,
-    [KRFTX]                 NVARCHAR(35) -- collate Latin1_General_100_BIN2,
+    [KKREF]                 NVARCHAR(4) NOT NULL, -- collate Latin1_General_100_BIN2 NOT NULL,
+    [KRFTX]                 NVARCHAR(35), -- collate Latin1_General_100_BIN2,
     [t_applicationId]       VARCHAR (32),
     [t_jobId]               VARCHAR(36),
     [t_jobDtm]              DATETIME,

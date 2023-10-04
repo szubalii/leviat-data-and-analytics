@@ -1,8 +1,8 @@
 CREATE TABLE [base_s4h_cax].[I_InventoryTransactionTypeT]
 (
-    [InventoryTransactionType]     nvarchar (2) NOT NULL -- collate Latin1_General_100_BIN2 NOT NULL,
-    [Language]                     nchar(1) NOT NULL -- collate Latin1_General_100_BIN2 NOT NULL,
-    [InventoryTransactionTypeText] nvarchar(40) -- collate Latin1_General_100_BIN2,
+    [InventoryTransactionType]     nvarchar (2) NOT NULL, -- collate Latin1_General_100_BIN2 NOT NULL,
+    [Language]                     nchar(1) NOT NULL, -- collate Latin1_General_100_BIN2 NOT NULL,
+    [InventoryTransactionTypeText] nvarchar(40), -- collate Latin1_General_100_BIN2,
     [t_applicationId]              VARCHAR(32),
     [t_jobId]                      VARCHAR(36),
     [t_jobDtm]                     DATETIME,

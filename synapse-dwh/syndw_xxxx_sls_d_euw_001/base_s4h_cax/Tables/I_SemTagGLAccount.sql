@@ -1,6 +1,6 @@
 CREATE TABLE [base_s4h_cax].[I_SemTagGLAccount]
 (
-    [MANDT]                     char(3) NOT NULL -- collate Latin1_General_100_BIN2 NOT NULL,
+    [MANDT]                     char(3) NOT NULL, -- collate Latin1_General_100_BIN2 NOT NULL,
     [GLAccountHierarchy]        nvarchar(42)                            NOT NULL,
     [HierarchyNode]             nvarchar(50)                            NOT NULL,
     [SemanticTag]               nvarchar(10)                            NOT NULL,
