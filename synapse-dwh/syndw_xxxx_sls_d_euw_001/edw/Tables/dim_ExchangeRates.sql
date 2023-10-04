@@ -1,8 +1,8 @@
 ﻿CREATE TABLE [edw].[dim_ExchangeRates] (
 -- Exchange Rate
   [ExchangeRateType] nvarchar(8) NOT NULL
-, [SourceCurrency] char(5) collate Latin1_General_100_BIN2 NOT NULL
-, [TargetCurrency] char(5) collate Latin1_General_100_BIN2 NOT NULL
+, [SourceCurrency] char(5) NOT NULL -- collate Latin1_General_100_BIN2 NOT NULL
+, [TargetCurrency] char(5) NOT NULL -- collate Latin1_General_100_BIN2 NOT NULL
 , [ExchangeRateEffectiveDate] date NOT NULL
 , [ExchangeRate] numeric(15,6)
 , [NumberOfSourceCurrencyUnits] decimal(9)
