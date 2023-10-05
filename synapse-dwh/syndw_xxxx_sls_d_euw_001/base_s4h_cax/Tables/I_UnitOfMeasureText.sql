@@ -1,7 +1,7 @@
 CREATE TABLE [base_s4h_cax].[I_UnitOfMeasureText](
-  [MANDT] char(3) collate Latin1_General_100_BIN2 NOT NULL
-, [Language] char(1) collate  Latin1_General_100_BIN2 NOT NULL
-, [UnitOfMeasure] nvarchar(3) collate Latin1_General_100_BIN2 NOT NULL
+  [MANDT] char(3) NOT NULL -- collate Latin1_General_100_BIN2 NOT NULL
+, [Language] char(1) NOT NULL -- collate Latin1_General_100_BIN2 NOT NULL
+, [UnitOfMeasure] nvarchar(3) NOT NULL -- collate Latin1_General_100_BIN2 NOT NULL
 , [UnitOfMeasureLongName] nvarchar(30)
 , [UnitOfMeasureName] nvarchar(10)
 , [UnitOfMeasureTechnicalName] nvarchar(6)

@@ -1,9 +1,9 @@
 CREATE TABLE [base_s4h_cax].[I_PurchasingDocumentItem]
 -- Purchasing Document Item
 (
-    [MANDT]                          nchar(3) collate Latin1_General_100_BIN2     NOT NULL,
+    [MANDT]                          nchar(3) NOT NULL, -- collate Latin1_General_100_BIN2 NOT NULL,
     [PurchasingDocument]             nvarchar(10) NOT NULL, -- collate Latin1_General_100_BIN2 NOT NULL,
-    [PurchasingDocumentItem]         char(5) collate Latin1_General_100_BIN2      NOT NULL,
+    [PurchasingDocumentItem]         char(5) NOT NULL, -- collate Latin1_General_100_BIN2 NOT NULL,
     [PurchasingDocumentItemUniqueID] nvarchar(15), -- collate Latin1_General_100_BIN2,
     [PurchasingDocumentCategory]     nvarchar(1), -- collate Latin1_General_100_BIN2,
     [PurchasingDocumentDeletionCode] nvarchar(1), -- collate Latin1_General_100_BIN2,

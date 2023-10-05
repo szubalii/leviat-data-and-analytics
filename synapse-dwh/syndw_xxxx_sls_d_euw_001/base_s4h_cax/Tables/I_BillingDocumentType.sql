@@ -1,8 +1,8 @@
 CREATE TABLE [base_s4h_cax].[I_BillingDocumentType](
-  [MANDT] char(3) collate Latin1_General_100_BIN2 NOT NULL
+  [MANDT] char(3) NOT NULL -- collate Latin1_General_100_BIN2 NOT NULL
 , [BillingDocumentType] nvarchar(4) NOT NULL
 , [SDDocumentCategory] nvarchar(4)
-, [IncrementItemNumber] char(6) collate Latin1_General_100_BIN2
+, [IncrementItemNumber] char(6) -- collate Latin1_General_100_BIN2
 , [BillingDocumentCategory] nvarchar(1)
 , [t_applicationId]       VARCHAR (32)
 , [t_jobId]               VARCHAR (36)

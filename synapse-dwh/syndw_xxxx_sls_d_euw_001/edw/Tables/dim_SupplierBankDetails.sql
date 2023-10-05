@@ -1,7 +1,7 @@
 CREATE TABLE [edw].[dim_SupplierBankDetails]
 (
     [SupplierID]                     nvarchar(10) NOT NULL, -- collate Latin1_General_100_BIN2 NOT NULL,
-    [BankCountryID]                  nvarchar(3) collate Latin1_General_100_BIN2  NOT NULL,
+    [BankCountryID]                  nvarchar(3) NOT NULL, -- collate Latin1_General_100_BIN2  NOT NULL,
     [BankID]                         nvarchar(15) NOT NULL, -- collate Latin1_General_100_BIN2 NOT NULL,
     [BankAccountID]                  nvarchar(18) NOT NULL, -- collate Latin1_General_100_BIN2 NOT NULL,
     [t_applicationId]                VARCHAR(32),

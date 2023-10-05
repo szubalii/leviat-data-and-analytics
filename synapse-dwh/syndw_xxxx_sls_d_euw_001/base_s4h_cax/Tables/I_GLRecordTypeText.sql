@@ -1,5 +1,5 @@
 CREATE TABLE [base_s4h_cax].[I_GLRecordTypeText](
-  [Language] char(1) collate  Latin1_General_100_BIN2 NOT NULL
+  [Language] char(1) NOT NULL -- collate Latin1_General_100_BIN2 NOT NULL
 , [GLRecordType] nvarchar(1) NOT NULL
 , [GLRecordTypeName] nvarchar(60)
 , [t_applicationId]       VARCHAR (32)

@@ -1,11 +1,11 @@
 CREATE TABLE [base_s4h_cax].[I_CompanyCode](
-  [MANDT] char(3) collate Latin1_General_100_BIN2 NOT NULL
+  [MANDT] char(3) NOT NULL -- collate Latin1_General_100_BIN2 NOT NULL
 , [CompanyCode] nvarchar(4) NOT NULL
 , [CompanyCodeName] nvarchar(25)
 , [CityName] nvarchar(25)
 , [Country] nvarchar(3)
-, [Currency] char(5) collate Latin1_General_100_BIN2
-, [Language] char(1) collate Latin1_General_100_BIN2
+, [Currency] char(5) -- collate Latin1_General_100_BIN2
+, [Language] char(1) -- collate Latin1_General_100_BIN2
 , [ChartOfAccounts] nvarchar(4)
 , [FiscalYearVariant] nvarchar(2)
 , [Company] nvarchar(6)

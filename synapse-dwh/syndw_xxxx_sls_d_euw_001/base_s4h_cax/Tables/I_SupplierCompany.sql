@@ -1,9 +1,9 @@
 CREATE TABLE [base_s4h_cax].[I_SupplierCompany]
 -- Supplier Company
 (
-    [MANDT]                          nchar(3) collate Latin1_General_100_BIN2     NOT NULL,
+    [MANDT]                          nchar(3) NOT NULL, -- collate Latin1_General_100_BIN2 NOT NULL,
     [Supplier]                       nvarchar(10) NOT NULL, -- collate Latin1_General_100_BIN2 NOT NULL,
-    [CompanyCode]                    nvarchar(4) collate Latin1_General_100_BIN2  NOT NULL,
+    [CompanyCode]                    nvarchar(4) NOT NULL, -- collate Latin1_General_100_BIN2  NOT NULL,
     [AuthorizationGroup]             nvarchar(4), -- collate Latin1_General_100_BIN2,
     [CompanyCodeName]                nvarchar(25), -- collate Latin1_General_100_BIN2,
     [PaymentBlockingReason]          nvarchar(1), -- collate Latin1_General_100_BIN2,

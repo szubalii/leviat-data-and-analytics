@@ -1,6 +1,6 @@
 CREATE TABLE [base_s4h_cax].[I_InventoryValuationType]
 (
-    [MANDT]                  char(3) collate Latin1_General_100_BIN2      NOT NULL,
+    [MANDT]                  char(3) NOT NULL, -- collate Latin1_General_100_BIN2 NOT NULL,
     [InventoryValuationType] nvarchar(10) NOT NULL, -- collate Latin1_General_100_BIN2 NOT NULL,
     [AcctCategoryRef]        nvarchar(4), -- collate Latin1_General_100_BIN2,
     [InternalPurchasingRule] nvarchar(1), -- collate Latin1_General_100_BIN2,

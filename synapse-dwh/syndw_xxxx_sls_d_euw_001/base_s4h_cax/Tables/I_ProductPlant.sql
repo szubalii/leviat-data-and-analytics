@@ -1,5 +1,5 @@
 CREATE TABLE [base_s4h_cax].[I_ProductPlant](
-  [MANDT] char(3) collate Latin1_General_100_BIN2 NOT NULL
+  [MANDT] char(3) NOT NULL -- collate Latin1_General_100_BIN2 NOT NULL
 , [Product] nvarchar(40) NOT NULL
 , [Plant] nvarchar(4) NOT NULL
 , [PurchasingGroup] nvarchar(3)
@@ -35,8 +35,8 @@ CREATE TABLE [base_s4h_cax].[I_ProductPlant](
 , [IsNegativeStockAllowed] nvarchar(1)
 , [GoodsReceiptBlockedStockQty] decimal(13,3)
 , [HasConsignmentCtrl] nvarchar(1)
-, [FiscalYearCurrentPeriod] char(4) collate Latin1_General_100_BIN2
-, [FiscalMonthCurrentPeriod] char(2) collate Latin1_General_100_BIN2
+, [FiscalYearCurrentPeriod] char(4) -- collate Latin1_General_100_BIN2
+, [FiscalMonthCurrentPeriod] char(2) -- collate Latin1_General_100_BIN2
 , [IsPurgAcrossPurgGroup] nvarchar(1)
 , [IsInternalBatchManaged] nvarchar(1)
 , [ProductCFOPCategory] nvarchar(2)
@@ -48,7 +48,7 @@ CREATE TABLE [base_s4h_cax].[I_ProductPlant](
 , [ProductionSchedulingProfile] nvarchar(6)
 , [ProductionSupervisor] nvarchar(3)
 , [SafetyStockQuantity] decimal(13,3)
-, [GoodsIssueUnit] nvarchar(3) collate Latin1_General_100_BIN2
+, [GoodsIssueUnit] nvarchar(3) -- collate Latin1_General_100_BIN2
 , [SourceOfSupplyCategory] nvarchar(1)
 , [ConsumptionReferenceProduct] nvarchar(40)
 , [ConsumptionReferencePlant] nvarchar(4)
@@ -65,7 +65,7 @@ CREATE TABLE [base_s4h_cax].[I_ProductPlant](
 , [MaterialFreightGroup] nvarchar(8)
 , [OriginalBatchReferenceMaterial] nvarchar(40)
 , [OriglBatchManagementIsRequired] nvarchar(1)
-, [ProductConfiguration] char(18) collate Latin1_General_100_BIN2
+, [ProductConfiguration] char(18) -- collate Latin1_General_100_BIN2
 , [t_applicationId]       VARCHAR (32)
 , [t_jobId]               VARCHAR (36)
 , [t_jobDtm]              DATETIME

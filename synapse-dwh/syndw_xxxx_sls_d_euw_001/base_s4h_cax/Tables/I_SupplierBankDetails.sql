@@ -1,9 +1,9 @@
 CREATE TABLE [base_s4h_cax].[I_SupplierBankDetails]
 -- core view for Bank details
 (
-    [MANDT]                   nchar(3) collate Latin1_General_100_BIN2     NOT NULL,
+    [MANDT]                   nchar(3) NOT NULL, -- collate Latin1_General_100_BIN2 NOT NULL,
     [Supplier]                nvarchar(10) NOT NULL, -- collate Latin1_General_100_BIN2 NOT NULL,
-    [BankCountry]             nvarchar(3) collate Latin1_General_100_BIN2  NOT NULL,
+    [BankCountry]             nvarchar(3) NOT NULL, -- collate Latin1_General_100_BIN2  NOT NULL,
     [Bank]                    nvarchar(15) NOT NULL, -- collate Latin1_General_100_BIN2 NOT NULL,
     [BankAccount]             nvarchar(18) NOT NULL, -- collate Latin1_General_100_BIN2 NOT NULL,
     [BPBankAccountInternalID] nvarchar(4), -- collate Latin1_General_100_BIN2,

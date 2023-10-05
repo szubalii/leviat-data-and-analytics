@@ -1,7 +1,7 @@
 CREATE TABLE [base_s4h_cax].[I_CountryText](
-  [MANDT] char(3) collate Latin1_General_100_BIN2 NOT NULL
+  [MANDT] char(3) NOT NULL -- collate Latin1_General_100_BIN2 NOT NULL
 , [Country] nvarchar(3) NOT NULL
-, [Language] char(1) collate  Latin1_General_100_BIN2 NOT NULL
+, [Language] char(1) NOT NULL -- collate Latin1_General_100_BIN2 NOT NULL
 , [CountryName] nvarchar(50)
 , [NationalityName] nvarchar(15)
 , [NationalityLongName] nvarchar(50)

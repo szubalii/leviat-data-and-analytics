@@ -1,7 +1,7 @@
 CREATE TABLE [base_s4h_cax].[I_Productprocurement](
-  [MANDT] char(3) collate Latin1_General_100_BIN2 NOT NULL
+  [MANDT] char(3) NOT NULL -- collate Latin1_General_100_BIN2 NOT NULL
 , [Product] nvarchar(40) NOT NULL
-, [PurchaseOrderQuantityUnit] nvarchar(3) collate Latin1_General_100_BIN2
+, [PurchaseOrderQuantityUnit] nvarchar(3) -- collate Latin1_General_100_BIN2
 , [VarblPurOrdUnitStatus] nvarchar(1)
 , [PurchasingAcknProfile] nvarchar(4)
 , [ProcurementRule] nvarchar(1)

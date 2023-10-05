@@ -10,7 +10,7 @@
 , [AlternativeExchangeRateType] nvarchar(8)
 , [AltvExchangeRateTypeValdtyDate] date
 , [InvertedExchangeRateIsAllowed] nvarchar(2)
-, [ReferenceCurrency] char(5) collate Latin1_General_100_BIN2
+, [ReferenceCurrency] char(5) -- collate Latin1_General_100_BIN2
 , [BuyingRateAvgExchangeRateType] nvarchar(8)
 , [SellingRateAvgExchangeRateType] nvarchar(8)
 , [FixedExchangeRateIsUsed] nvarchar(2)

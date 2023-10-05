@@ -1,7 +1,7 @@
 CREATE TABLE [base_s4h_cax].[I_MaterialGroupText](
-  [MANDT] char(3) collate Latin1_General_100_BIN2 NOT NULL
+  [MANDT] char(3) NOT NULL -- collate Latin1_General_100_BIN2 NOT NULL
 , [MaterialGroup] nvarchar(9) NOT NULL
-, [Language] char(1) collate  Latin1_General_100_BIN2 NOT NULL
+, [Language] char(1) NOT NULL -- collate Latin1_General_100_BIN2 NOT NULL
 , [MaterialGroupName] nvarchar(20)
 , [MaterialGroupText] nvarchar(60)
 , [t_applicationId]       VARCHAR (32)

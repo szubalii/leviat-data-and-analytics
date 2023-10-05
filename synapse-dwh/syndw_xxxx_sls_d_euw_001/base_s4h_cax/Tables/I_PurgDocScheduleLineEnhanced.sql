@@ -1,10 +1,10 @@
 CREATE TABLE [base_s4h_cax].[I_PurgDocScheduleLineEnhanced]
 -- Schedule Line of Purchasing Document – Enhanced
 (
-    [MANDT]                          nchar(3) collate Latin1_General_100_BIN2     NOT NULL,
+    [MANDT]                          nchar(3) NOT NULL, -- collate Latin1_General_100_BIN2 NOT NULL,
     [PurchasingDocument]             nvarchar(10) NOT NULL, -- collate Latin1_General_100_BIN2 NOT NULL,
-    [PurchasingDocumentItem]         char(5) collate Latin1_General_100_BIN2      NOT NULL,
-    [ScheduleLine]                   char(4) collate Latin1_General_100_BIN2      NOT NULL,
+    [PurchasingDocumentItem]         char(5) NOT NULL, -- collate Latin1_General_100_BIN2 NOT NULL,
+    [ScheduleLine]                   char(4) NOT NULL, -- collate Latin1_General_100_BIN2 NOT NULL,
     [ProcurementHubSourceSystem]     nvarchar(10) NOT NULL, -- collate Latin1_General_100_BIN2 NOT NULL,
     [ScheduleLineUniqueID]           nvarchar(19), -- collate Latin1_General_100_BIN2,
     [PurchasingOrganization]         nvarchar(4), -- collate Latin1_General_100_BIN2,

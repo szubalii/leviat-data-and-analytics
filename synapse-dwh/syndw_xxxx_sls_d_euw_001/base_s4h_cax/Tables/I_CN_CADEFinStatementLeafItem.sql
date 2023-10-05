@@ -1,9 +1,9 @@
 CREATE TABLE [base_s4h_cax].[I_CN_CADEFinStatementLeafItem]
 (
-    [MANDT]                       nchar(3) collate Latin1_General_100_BIN2     NOT NULL,
-    [FinancialStatementVariant]   nvarchar(4) collate Latin1_General_100_BIN2  NOT NULL,
+    [MANDT]                       nchar(3) NOT NULL, -- collate Latin1_General_100_BIN2 NOT NULL,
+    [FinancialStatementVariant]   nvarchar(4) NOT NULL, -- collate Latin1_General_100_BIN2  NOT NULL,
     [FinancialStatementItem]      nvarchar(10) NOT NULL, -- collate Latin1_General_100_BIN2 NOT NULL,
-    [ChartOfAccounts]             nvarchar(4) collate Latin1_General_100_BIN2  NOT NULL,
+    [ChartOfAccounts]             nvarchar(4) NOT NULL, -- collate Latin1_General_100_BIN2  NOT NULL,
     [LowerBoundaryAccount]        nvarchar(10) NOT NULL, -- collate Latin1_General_100_BIN2 NOT NULL,
     [LowerBoundaryFunctionalArea] nvarchar(16) NOT NULL, -- collate Latin1_General_100_BIN2 NOT NULL,
     [UpperBoundaryAccount]        nvarchar(10), -- collate Latin1_General_100_BIN2,

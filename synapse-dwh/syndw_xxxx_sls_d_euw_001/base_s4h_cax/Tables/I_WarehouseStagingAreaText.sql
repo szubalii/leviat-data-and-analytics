@@ -1,10 +1,10 @@
 CREATE TABLE [base_s4h_cax].[I_WarehouseStagingAreaText]
 -- Warehouse Staging Area Text
 (
-  [MANDT] char(3) collate Latin1_General_100_BIN2 NOT NULL
+  [MANDT] char(3) NOT NULL -- collate Latin1_General_100_BIN2 NOT NULL
 , [Warehouse] nvarchar(3) NOT NULL
 , [WarehouseStagingArea] nvarchar(10) NOT NULL
-, [Language] char(1) collate  Latin1_General_100_BIN2 NOT NULL
+, [Language] char(1) NOT NULL -- collate Latin1_General_100_BIN2 NOT NULL
 , [WarehouseStagingAreaName] nvarchar(25)
 , [t_applicationId]       VARCHAR (32)
 , [t_jobId]               VARCHAR (36)

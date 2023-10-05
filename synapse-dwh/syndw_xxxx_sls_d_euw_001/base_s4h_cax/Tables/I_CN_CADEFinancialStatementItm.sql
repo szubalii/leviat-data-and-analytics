@@ -1,8 +1,8 @@
 CREATE TABLE [base_s4h_cax].[I_CN_CADEFinancialStatementItm]
 (
-    [MANDT]                         nchar(3) collate Latin1_General_100_BIN2    NOT NULL,
+    [MANDT]                         nchar(3) NOT NULL, -- collate Latin1_General_100_BIN2 NOT NULL,
     [FinancialStatementVariant]     nvarchar(4) NOT NULL, -- collate Latin1_General_100_BIN2 NOT NULL,
-    [HierarchyNode]                 char(6) collate Latin1_General_100_BIN2     NOT NULL,
+    [HierarchyNode]                 char(6) NOT NULL, -- collate Latin1_General_100_BIN2 NOT NULL,
     [NodeType]                      nvarchar(4), -- collate Latin1_General_100_BIN2,
     [FinancialStatementItem]        nvarchar(10), -- collate Latin1_General_100_BIN2,
     [ParentNode]                    char(6), -- collate Latin1_General_100_BIN2,

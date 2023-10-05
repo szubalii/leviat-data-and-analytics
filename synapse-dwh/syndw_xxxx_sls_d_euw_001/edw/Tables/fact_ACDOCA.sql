@@ -2,7 +2,7 @@
 (
     [SourceLedgerID]                        nvarchar(4) NOT NULL,
     [CompanyCodeID]                         nvarchar(8) NOT NULL,
-    [FiscalYear]                            char(4) collate Latin1_General_100_BIN2  NOT NULL,
+    [FiscalYear]                            char(4) NOT NULL, -- collate Latin1_General_100_BIN2  NOT NULL,
     [AccountingDocument]                    nvarchar(20)  NOT NULL,
     [LedgerGLLineItem]                      nvarchar(12)  NOT NULL,
     [ProductSurrogateKey]                   nvarchar(117),

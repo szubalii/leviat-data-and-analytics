@@ -1,7 +1,7 @@
 CREATE TABLE [edw].[dim_SupplierCompany]
 (
     [SupplierID]                     NVARCHAR(10) NOT NULL, -- collate Latin1_General_100_BIN2 NOT NULL,
-    [CompanyCodeID]                  NVARCHAR(4) collate Latin1_General_100_BIN2  NOT NULL,
+    [CompanyCodeID]                  NVARCHAR(4) NOT NULL, -- collate Latin1_General_100_BIN2  NOT NULL,
     [PaymentMethodsList]             NVARCHAR(10), -- collate Latin1_General_100_BIN2,
     [t_applicationId]                VARCHAR(32), 
     [t_extractionDtm]                DATETIME,

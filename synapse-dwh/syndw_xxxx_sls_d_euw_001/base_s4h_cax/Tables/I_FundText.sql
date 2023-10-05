@@ -1,8 +1,8 @@
 CREATE TABLE [base_s4h_cax].[I_FundText](
-  [MANDT] char(3) collate Latin1_General_100_BIN2 NOT NULL
+  [MANDT] char(3) NOT NULL -- collate Latin1_General_100_BIN2 NOT NULL
 , [FinancialManagementArea] nvarchar(4) NOT NULL
 , [Fund] nvarchar(10) NOT NULL
-, [Language] char(1) collate  Latin1_General_100_BIN2 NOT NULL
+, [Language] char(1) NOT NULL -- collate Latin1_General_100_BIN2 NOT NULL
 , [FundName] nvarchar(20)
 , [FundDescription] nvarchar(40)
 , [t_applicationId]       VARCHAR (32)

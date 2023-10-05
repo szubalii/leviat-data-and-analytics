@@ -1,9 +1,9 @@
 CREATE TABLE [base_s4h_cax].[I_SupplierPurchasingOrg]
 -- SupplierPurchasingOrganization
 (
-    [MANDT]                          nchar(3) collate Latin1_General_100_BIN2     NOT NULL,
+    [MANDT]                          nchar(3) NOT NULL, -- collate Latin1_General_100_BIN2 NOT NULL,
     [Supplier]                       nvarchar(10) NOT NULL, -- collate Latin1_General_100_BIN2 NOT NULL,
-    [PurchasingOrganization]         nvarchar(4) collate Latin1_General_100_BIN2  NOT NULL,
+    [PurchasingOrganization]         nvarchar(4) NOT NULL, -- collate Latin1_General_100_BIN2  NOT NULL,
     [PurchasingGroup]                nvarchar(3), -- collate Latin1_General_100_BIN2,
     [MaterialPlannedDeliveryDurn]    decimal(3),
     [PurchasingIsBlockedForSupplier] nvarchar(1), -- collate Latin1_General_100_BIN2,

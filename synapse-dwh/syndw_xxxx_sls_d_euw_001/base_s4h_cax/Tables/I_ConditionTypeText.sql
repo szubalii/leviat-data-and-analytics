@@ -1,6 +1,6 @@
 CREATE TABLE [base_s4h_cax].[I_ConditionTypeText](
-  [MANDT] char(3) collate Latin1_General_100_BIN2 NOT NULL
-, [Language] char(1) collate  Latin1_General_100_BIN2 NOT NULL
+  [MANDT] char(3) NOT NULL -- collate Latin1_General_100_BIN2 NOT NULL
+, [Language] char(1) NOT NULL -- collate Latin1_General_100_BIN2 NOT NULL
 , [ConditionUsage] nvarchar(1) NOT NULL
 , [ConditionApplication] nvarchar(2) NOT NULL
 , [ConditionType] nvarchar(4) NOT NULL

@@ -2,24 +2,24 @@ CREATE TABLE [base_s4h_cax].[I_FiscalCalendarDate](
   [TS_SEQUENCE_NUMBER] INTEGER NOT NULL
 , [ODQ_CHANGEMODE] CHAR(1)
 , [ODQ_ENTITYCNTR] NUMERIC(19,0)
-, [MANDT] char(3) collate Latin1_General_100_BIN2 NOT NULL
+, [MANDT] char(3) NOT NULL -- collate Latin1_General_100_BIN2 NOT NULL
 , [FiscalYearVariant] nvarchar(2) NOT NULL
 , [CalendarDate] date NOT NULL
-, [FiscalYear] char(4) collate Latin1_General_100_BIN2
+, [FiscalYear] char(4) -- collate Latin1_General_100_BIN2
 , [FiscalYearStartDate] date
 , [FiscalYearEndDate] date
-, [FiscalPeriod] char(3) collate Latin1_General_100_BIN2
+, [FiscalPeriod] char(3) -- collate Latin1_General_100_BIN2
 , [FiscalPeriodStartDate] date
 , [FiscalPeriodEndDate] date
-, [FiscalQuarter] char(1) collate Latin1_General_100_BIN2
+, [FiscalQuarter] char(1) -- collate Latin1_General_100_BIN2
 , [FiscalQuarterStartDate] date
 , [FiscalQuarterEndDate] date
-, [FiscalWeek] char(2) collate Latin1_General_100_BIN2
+, [FiscalWeek] char(2) -- collate Latin1_General_100_BIN2
 , [FiscalWeekStartDate] date
 , [FiscalWeekEndDate] date
-, [FiscalYearPeriod] char(7) collate Latin1_General_100_BIN2
-, [FiscalYearQuarter] char(5) collate Latin1_General_100_BIN2
-, [FiscalYearWeek] char(6) collate Latin1_General_100_BIN2
+, [FiscalYearPeriod] char(7) -- collate Latin1_General_100_BIN2
+, [FiscalYearQuarter] char(5) -- collate Latin1_General_100_BIN2
+, [FiscalYearWeek] char(6) -- collate Latin1_General_100_BIN2
 , [FiscalYearConsecutiveNumber] int
 , [FiscalPeriodConsecutiveNumber] int
 , [FiscalQuarterConsecutiveNumber] int

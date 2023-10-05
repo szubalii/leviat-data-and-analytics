@@ -1,5 +1,5 @@
 CREATE TABLE [base_s4h_cax].[I_CustomerCompany](
-  [MANDT] char(3) collate Latin1_General_100_BIN2 NOT NULL
+  [MANDT] char(3) NOT NULL -- collate Latin1_General_100_BIN2 NOT NULL
 , [Customer] nvarchar(10) NOT NULL
 , [CompanyCode] nvarchar(4) NOT NULL
 , [AccountingClerk] nvarchar(2)
@@ -10,7 +10,7 @@ CREATE TABLE [base_s4h_cax].[I_CustomerCompany](
 , [PaymentBlockingReason] nvarchar(1)
 , [InterestCalculationCode] nvarchar(2)
 , [InterestCalculationDate] date
-, [IntrstCalcFrequencyInMonths] char(2) collate Latin1_General_100_BIN2
+, [IntrstCalcFrequencyInMonths] char(2) -- collate Latin1_General_100_BIN2
 , [CustomerAccountNote] nvarchar(30)
 , [APARToleranceGroup] nvarchar(4)
 , [HouseBank] nvarchar(5)
@@ -38,7 +38,7 @@ CREATE TABLE [base_s4h_cax].[I_CustomerCompany](
 , [IsBusinessPurposeCompleted] nvarchar(1)
 , [LastDunnedOn] date
 , [DunningProcedure] nvarchar(4)
-, [DunningLevel] char(1) collate Latin1_General_100_BIN2
+, [DunningLevel] char(1) -- collate Latin1_General_100_BIN2
 , [DunningBlock] nvarchar(1)
 , [DunningRecipient] nvarchar(10)
 , [LegDunningProcedureOn] date

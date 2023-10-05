@@ -1,6 +1,6 @@
 CREATE TABLE [base_s4h_cax].[I_SemanticTagText](
-  [MANDT] char(3) collate Latin1_General_100_BIN2 NOT NULL
-, [Language] char(1) collate  Latin1_General_100_BIN2 NOT NULL
+  [MANDT] char(3) NOT NULL -- collate Latin1_General_100_BIN2 NOT NULL
+, [Language] char(1) NOT NULL -- collate Latin1_General_100_BIN2 NOT NULL
 , [SemanticTag] nvarchar(10) NOT NULL
 , [SemanticTagName] nvarchar(20)
 , [t_applicationId]       VARCHAR (32)

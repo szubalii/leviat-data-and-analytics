@@ -1,5 +1,5 @@
 CREATE TABLE [base_s4h_cax].[I_ProductSalesDelivery](
-  [MANDT] char(3) collate Latin1_General_100_BIN2 NOT NULL
+  [MANDT] char(3) NOT NULL -- collate Latin1_General_100_BIN2 NOT NULL
 , [Product] nvarchar(40) NOT NULL
 , [ProductSalesOrg] nvarchar(4) NOT NULL
 , [ProductDistributionChnl] nvarchar(2) NOT NULL
@@ -9,11 +9,11 @@ CREATE TABLE [base_s4h_cax].[I_ProductSalesDelivery](
 , [AccountDetnProductGroup] nvarchar(2)
 , [DeliveryNoteProcMinDelivQty] decimal(13,3)
 , [ItemCategoryGroup] nvarchar(4)
-, [DeliveryQuantityUnit] nvarchar(3) collate Latin1_General_100_BIN2
+, [DeliveryQuantityUnit] nvarchar(3) -- collate Latin1_General_100_BIN2
 , [DeliveryQuantity] decimal(13,3)
 , [ProductSalesStatus] nvarchar(2)
 , [ProductSalesStatusValidityDate] date
-, [SalesMeasureUnit] nvarchar(3) collate Latin1_General_100_BIN2
+, [SalesMeasureUnit] nvarchar(3) -- collate Latin1_General_100_BIN2
 , [IsMarkedForDeletion] nvarchar(1)
 , [ProductHierarchy] nvarchar(18)
 , [FirstSalesSpecProductGroup] nvarchar(3)
@@ -56,13 +56,13 @@ CREATE TABLE [base_s4h_cax].[I_ProductSalesDelivery](
 , [ProductHasAttributeID10] nvarchar(1)
 , [IsActiveEntity] nvarchar(1)
 , [ProdExtAssortmentPriority] nvarchar(1)
-, [SubscrpnContrDfltDuration] char(3) collate Latin1_General_100_BIN2
-, [SubscrpnContrAltvDuration1] char(3) collate Latin1_General_100_BIN2
-, [SubscrpnContrAltvDuration2] char(3) collate Latin1_General_100_BIN2
+, [SubscrpnContrDfltDuration] char(3) -- collate Latin1_General_100_BIN2
+, [SubscrpnContrAltvDuration1] char(3) -- collate Latin1_General_100_BIN2
+, [SubscrpnContrAltvDuration2] char(3) -- collate Latin1_General_100_BIN2
 , [SubscrpnContrDurationUnit] nvarchar(1)
-, [SubscrpnContrDfltExtnDurn] char(3) collate Latin1_General_100_BIN2
-, [SubscrpnContrAltvExtnDurn1] char(3) collate Latin1_General_100_BIN2
-, [SubscrpnContrAltvExtnDurn2] char(3) collate Latin1_General_100_BIN2
+, [SubscrpnContrDfltExtnDurn] char(3) -- collate Latin1_General_100_BIN2
+, [SubscrpnContrAltvExtnDurn1] char(3) -- collate Latin1_General_100_BIN2
+, [SubscrpnContrAltvExtnDurn2] char(3) -- collate Latin1_General_100_BIN2
 , [SubscrpnContrExtnDurnUnit] nvarchar(1)
 , [t_applicationId]       VARCHAR (32)
 , [t_jobId]               VARCHAR (36)

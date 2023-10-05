@@ -1,6 +1,6 @@
 CREATE TABLE [base_s4h_cax].[I_PurchasingDocumentType]
 (
-    [MANDT]                        nchar(3) collate Latin1_General_100_BIN2    NOT NULL,
+    [MANDT]                        nchar(3) NOT NULL, -- collate Latin1_General_100_BIN2 NOT NULL,
     [PurchasingDocumentCategory]   nvarchar(1) NOT NULL, -- collate Latin1_General_100_BIN2 NOT NULL,
     [PurchasingDocumentType]       nvarchar(4) NOT NULL, -- collate Latin1_General_100_BIN2 NOT NULL,
     [PurgDocFieldSelControlKey]    nvarchar(20), -- collate Latin1_General_100_BIN2,

@@ -1,9 +1,9 @@
 CREATE TABLE [base_s4h_cax].[I_SupplierInvoice]
 -- Supplier Invoice
 (
-    [MANDT]                          nchar(3) collate Latin1_General_100_BIN2     NOT NULL,
+    [MANDT]                          nchar(3) NOT NULL, -- collate Latin1_General_100_BIN2 NOT NULL,
     [SupplierInvoice]                nvarchar(10) NOT NULL, -- collate Latin1_General_100_BIN2 NOT NULL,
-    [FiscalYear]                     char(4) collate Latin1_General_100_BIN2      NOT NULL,
+    [FiscalYear]                     char(4) NOT NULL, -- collate Latin1_General_100_BIN2 NOT NULL,
     [SupplierInvoiceUUID]            binary(16),
     [CompanyCode]                    nvarchar(4), -- collate Latin1_General_100_BIN2,
     [DocumentDate]                   date,

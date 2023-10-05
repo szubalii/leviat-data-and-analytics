@@ -2,10 +2,10 @@
 -- Customer Returns Delivery Document Item
 -- 1:1 as base layer table
 [CustomerReturnDelivery] nvarchar(20) NOT NULL
-, [CustomerReturnDeliveryItem] char(6) collate Latin1_General_100_BIN2 NOT NULL
+, [CustomerReturnDeliveryItem] char(6) NOT NULL -- collate Latin1_General_100_BIN2 NOT NULL
 , [DeliveryDocumentItemCategory] nvarchar(8)
 , [SalesDocumentItemType] nvarchar(2)
-, [HigherLvlItmOfBatSpltItm] char(6) collate Latin1_General_100_BIN2
+, [HigherLvlItmOfBatSpltItm] char(6) -- collate Latin1_General_100_BIN2
 , [CreatedByUser] nvarchar(24)
 , [CreationDate] date
 , [CreationTime] time(0)
@@ -20,7 +20,7 @@
 , [OriginallyRequestedMaterial] nvarchar(80)
 , [InternationalArticleNumber] nvarchar(36)
 , [Batch] nvarchar(20)
-, [BatchClassification] char(18) collate Latin1_General_100_BIN2
+, [BatchClassification] char(18) -- collate Latin1_General_100_BIN2
 , [BatchBySupplier] nvarchar(30)
 , [MaterialIsIntBatchManaged] nvarchar(2)
 , [MaterialIsBatchManaged] nvarchar(2)
@@ -39,29 +39,29 @@
 , [InventorySpecialStockType] nvarchar(2)
 , [ShelfLifeExpirationDate] date
 , [NumberOfSerialNumbers] int
-, [ProductConfiguration] char(18) collate Latin1_General_100_BIN2
+, [ProductConfiguration] char(18) -- collate Latin1_General_100_BIN2
 , [ProductHierarchyNode] nvarchar(36)
 , [ManufactureDate] date
 , [DeliveryDocumentItemText] nvarchar(80)
-, [HigherLevelItem] char(6) collate Latin1_General_100_BIN2
+, [HigherLevelItem] char(6) -- collate Latin1_General_100_BIN2
 , [ActualDeliveryQuantity] decimal(13,3)
 , [QuantityIsFixed] nvarchar(2)
 , [OriginalDeliveryQuantity] decimal(13,3)
-, [DeliveryQuantityUnit] nvarchar(6) collate Latin1_General_100_BIN2
+, [DeliveryQuantityUnit] nvarchar(6) -- collate Latin1_General_100_BIN2
 , [ActualDeliveredQtyInBaseUnit] decimal(13,3)
-, [BaseUnit] nvarchar(6) collate Latin1_General_100_BIN2
+, [BaseUnit] nvarchar(6) -- collate Latin1_General_100_BIN2
 , [DeliveryToBaseQuantityDnmntr] decimal(5)
 , [DeliveryToBaseQuantityNmrtr] decimal(5)
 , [ProductAvailabilityDate] date
 , [ProductAvailabilityTime] time(0)
-, [DeliveryGroup] char(3) collate Latin1_General_100_BIN2
+, [DeliveryGroup] char(3) -- collate Latin1_General_100_BIN2
 , [ItemGrossWeight] decimal(15,3)
 , [ItemNetWeight] decimal(15,3)
-, [ItemWeightUnit] nvarchar(6) collate Latin1_General_100_BIN2
+, [ItemWeightUnit] nvarchar(6) -- collate Latin1_General_100_BIN2
 , [ItemVolume] decimal(15,3)
-, [ItemVolumeUnit] nvarchar(6) collate Latin1_General_100_BIN2
-, [InspectionLot] char(12) collate Latin1_General_100_BIN2
-, [InspectionPartialLot] char(6) collate Latin1_General_100_BIN2
+, [ItemVolumeUnit] nvarchar(6) -- collate Latin1_General_100_BIN2
+, [InspectionLot] char(12) -- collate Latin1_General_100_BIN2
+, [InspectionPartialLot] char(6) -- collate Latin1_General_100_BIN2
 , [PartialDeliveryIsAllowed] nvarchar(2)
 , [UnlimitedOverdeliveryIsAllowed] nvarchar(2)
 , [OverdelivTolrtdLmtRatioInPct] decimal(3,1)
@@ -71,7 +71,7 @@
 , [IsNotGoodsMovementsRelevant] nvarchar(2)
 , [StockType] nvarchar(2)
 , [GLAccount] nvarchar(20)
-, [GoodsMovementReasonCode] char(4) collate Latin1_General_100_BIN2
+, [GoodsMovementReasonCode] char(4) -- collate Latin1_General_100_BIN2
 , [IsCompletelyDelivered] nvarchar(2)
 , [PickingControl] nvarchar(2)
 , [LoadingGroup] nvarchar(8)
@@ -85,16 +85,16 @@
 , [ItemBillingBlockReason] nvarchar(4)
 , [BusinessArea] nvarchar(8)
 , [ControllingArea] nvarchar(8)
-, [ProfitabilitySegment] char(10) collate Latin1_General_100_BIN2
+, [ProfitabilitySegment] char(10) -- collate Latin1_General_100_BIN2
 , [ProfitCenter] nvarchar(20)
 , [InventoryValuationType] nvarchar(20)
 , [IsSeparateValuation] nvarchar(2)
 , [ConsumptionPosting] nvarchar(2)
 , [OrderID] nvarchar(24)
-, [OrderItem] char(4) collate Latin1_General_100_BIN2
+, [OrderItem] char(4) -- collate Latin1_General_100_BIN2
 , [CostCenter] nvarchar(20)
 , [ReferenceSDDocument] nvarchar(20)
-, [ReferenceSDDocumentItem] char(6) collate Latin1_General_100_BIN2
+, [ReferenceSDDocumentItem] char(6) -- collate Latin1_General_100_BIN2
 , [ReferenceSDDocumentCategory] nvarchar(8)
 , [ReferenceDocumentLogicalSystem] nvarchar(20)
 , [AdditionalCustomerGroup1] nvarchar(6)

@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [base_s4h_cax].[T141T]
 (
     [MANDT]           NCHAR(3) NOT NULL, -- collate Latin1_General_100_BIN2 NOT NULL,
-    [SPRAS]           NCHAR(1) collate Latin1_General_100_BIN2    NOT NULL,
+    [SPRAS]           NCHAR(1) NOT NULL, -- collate Latin1_General_100_BIN2 NOT NULL,
     [MMSTA]           NCHAR(2) NOT NULL, -- collate Latin1_General_100_BIN2 NOT NULL,
     [MTSTB]           NVARCHAR(25) NOT NULL, -- collate Latin1_General_100_BIN2 NOT NULL,
     [t_applicationId] VARCHAR(32),

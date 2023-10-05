@@ -1,6 +1,6 @@
 CREATE TABLE [base_s4h_cax].[I_Supplier](
-  [MANDT] char(3) collate Latin1_General_100_BIN2 NOT NULL
-, [Supplier] nvarchar(10) collate Latin1_General_100_BIN2 NOT NULL
+  [MANDT] char(3) NOT NULL -- collate Latin1_General_100_BIN2 NOT NULL
+, [Supplier] nvarchar(10) NOT NULL -- collate Latin1_General_100_BIN2 NOT NULL
 , [SupplierAccountGroup] nvarchar(4)
 , [SupplierName] nvarchar(80)
 , [SupplierFullName] nvarchar(220)
@@ -22,9 +22,9 @@ CREATE TABLE [base_s4h_cax].[I_Supplier](
 , [TaxNumber5] nvarchar(60)
 , [PostingIsBlocked] nvarchar(1)
 , [PurchasingIsBlocked] nvarchar(1)
-, [InternationalLocationNumber1] char(7) collate Latin1_General_100_BIN2
-, [InternationalLocationNumber2] char(5) collate Latin1_General_100_BIN2
-, [InternationalLocationNumber3] char(1) collate Latin1_General_100_BIN2
+, [InternationalLocationNumber1] char(7) -- collate Latin1_General_100_BIN2
+, [InternationalLocationNumber2] char(5) -- collate Latin1_General_100_BIN2
+, [InternationalLocationNumber3] char(1) -- collate Latin1_General_100_BIN2
 , [AddressID] nvarchar(10)
 , [Region] nvarchar(3)
 , [OrganizationBPName1] nvarchar(35)
@@ -37,7 +37,7 @@ CREATE TABLE [base_s4h_cax].[I_Supplier](
 , [SupplierProcurementBlock] nvarchar(2)
 , [SuplrQualityManagementSystem] nvarchar(4)
 , [SuplrQltyInProcmtCertfnValidTo] date
-, [SupplierLanguage] char(1) collate  Latin1_General_100_BIN2
+, [SupplierLanguage] char(1) -- collate Latin1_General_100_BIN2
 , [AlternativePayeeAccountNumber] nvarchar(10)
 , [PhoneNumber1] nvarchar(16)
 , [FaxNumber] nvarchar(31)
