@@ -14,8 +14,6 @@ BEGIN
   EXEC tSQLt.FakeTable '[edw]', '[dim_SalesDocumentItemType]';
   EXEC tSQLt.FakeTable '[edw]', '[dim_DistributionChannel]';
   EXEC tSQLt.FakeTable '[edw]', '[dim_SDProcessStatus]';
-  EXEC tSQLt.FakeTable '[base_s4h_cax]', '[I_TransportationOrderItem]';
-  EXEC tSQLt.FakeTable '[base_s4h_cax]', '[I_FrtCostDistrItm]';
   EXEC tSQLt.FakeTable '[edw]', '[fact_BillingDocumentItem]';
   EXEC tSQLt.FakeTable '[edw]', '[fact_BillingDocumentItemPrcgElmnt]';
   EXEC tSQLt.FakeTable '[edw]', '[dim_ExchangeRates]';
@@ -58,19 +56,6 @@ BEGIN
     (1, 1, 1, 1, 1, 1, 1, 1, 2, 2),
     (2, 2, 2, 2, 2, 2, 2, 2, 3, 3),
     (3, 2, 2, 2, 2, 2, 2, 2, 4, 4);
-
-  INSERT INTO base_s4h_cax.I_TransportationOrderItem
-    (MANDT, TransportationOrderItemUUID, TranspOrdDocReferenceID, TranspOrdDocReferenceItmID)
-  VALUES
-    (200, CONVERT(BINARY(16),0x000D3A2775B31EECA598CFA2549EA269), 1, 1)
-    ,(200, CONVERT(BINARY(16),0x000D3A2775B31EECA598CFA2549DA269), 2, 2);
-  
-  INSERT INTO base_s4h_cax.I_FrtCostDistrItm
-    (FrtCostDistrItmRefUUID, FrtCostDistrItemAmount, FrtCostDistrItemAmtCrcy)
-  VALUES
-    (CONVERT(BINARY(16),0x000D3A2775B31EECA598CFA2549EA269), 120, 'CHF')
-    ,(CONVERT(BINARY(16),0x000D3A2775B31EECA598CFA2549EA269), 140, 'CHF')
-    ,(CONVERT(BINARY(16),0x000D3A2775B31EECA598CFA2549DA269), 100, 'CHF');
 
   INSERT INTO edw.fact_BillingDocumentItem
     (ReferenceSDDocument, ReferenceSDDocumentItem, BillingDocument, BillingDocumentItem, CurrencyTypeID)
