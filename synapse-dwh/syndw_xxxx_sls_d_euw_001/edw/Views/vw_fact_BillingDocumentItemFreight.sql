@@ -11,7 +11,7 @@ LEFT JOIN
     [edw].[fact_BillingDocumentItemPrcgElmnt] PE
     ON BDI_TC.BillingDocument = PE.BillingDocument
       AND BDI_TC.BillingDocumentItem = PE.BillingDocumentItem
-      AND PE.ConditionType in ( 'ZF10', 'ZF20', 'ZF40','ZF60', 'ZTMF')          -- ZF10 - Freight surchage %
+      AND PE.ConditionType in ( 'ZF10', 'ZF20', 'ZF40', 'ZF60', 'ZTMF')          -- ZF10 - Freight surchage %
 WHERE                                                                           -- ZF20 - Min. Freight charges
     BDI_TC.[CurrencyTypeID] = '10'                                              -- ZF40 - Freight Charge- Pack
     AND PE.[CurrencyTypeID] = '10'                                              -- ZF60 - Man. Freight Charges

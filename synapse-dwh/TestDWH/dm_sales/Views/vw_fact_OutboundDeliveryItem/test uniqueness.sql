@@ -3,6 +3,9 @@ AS
 BEGIN
 
   IF OBJECT_ID('actual') IS NOT NULL DROP TABLE actual;
+  IF OBJECT_ID('tempdb..#vw_TransportationOrderItemFreightCost') IS NOT NULL DROP TABLE #vw_TransportationOrderItemFreightCost;
+  IF OBJECT_ID('tempdb..#vw_fact_BillingDocumentItemFreight') IS NOT NULL DROP TABLE #vw_fact_BillingDocumentItemFreight;
+  IF OBJECT_ID('tempdb..#vw_CurrencyConversionRate') IS NOT NULL DROP TABLE #vw_CurrencyConversionRate;
   -- IF OBJECT_ID('expected') IS NOT NULL DROP TABLE expected;
 
   -- Assemble: Fake Table
@@ -14,6 +17,9 @@ BEGIN
   EXEC tSQLt.FakeTable '[edw]', '[dim_SalesDocumentItemType]';
   EXEC tSQLt.FakeTable '[edw]', '[dim_DistributionChannel]';
   EXEC tSQLt.FakeTable '[edw]', '[dim_SDProcessStatus]';
+  EXEC tSQLt.FakeTable '[edw]', '[vw_TransportationOrderItemFreightCost]';
+  EXEC tSQLt.FakeTable '[edw]', '[vw_fact_BillingDocumentItemFreight]';
+  EXEC tSQLt.FakeTable '[edw]', '[vw_CurrencyConversionRate]';
   EXEC tSQLt.FakeTable '[edw]', '[fact_BillingDocumentItem]';
   EXEC tSQLt.FakeTable '[edw]', '[fact_BillingDocumentItemPrcgElmnt]';
   EXEC tSQLt.FakeTable '[edw]', '[dim_ExchangeRates]';
@@ -57,23 +63,58 @@ BEGIN
     (2, 2, 2, 2, 2, 2, 2, 2, 3, 3),
     (3, 2, 2, 2, 2, 2, 2, 2, 4, 4);
 
+  INSERT INTO #vw_TransportationOrderItemFreightCost (
+    TranspOrdDocReferenceID,
+    TranspOrdDocReferenceItmID
+  )
+  VALUES
+    (1, 1),
+    (1, 2),
+    (3, 3),
+    (4, 4);
+
+  EXEC ('INSERT INTO edw.vw_TransportationOrderItemFreightCost SELECT * FROM #vw_TransportationOrderItemFreightCost');
+
+  INSERT INTO #vw_fact_BillingDocumentItemFreight (
+    ReferenceSDDocument,
+    ReferenceSDDocumentItem
+  )
+  VALUES
+    (1, 1),
+    (1, 2),
+    (3, 3),
+    (4, 4);
+
+  EXEC ('INSERT INTO edw.vw_fact_BillingDocumentItemFreight SELECT * FROM #vw_fact_BillingDocumentItemFreight');
+
+  INSERT INTO #vw_CurrencyConversionRate (
+  )
+  VALUES
+    (1, 1),
+    (1, 2),
+    (3, 3),
+    (4, 4);
+
+  EXEC ('INSERT INTO edw.vw_CurrencyConversionRate SELECT * FROM #vw_CurrencyConversionRate');
+
+
   INSERT INTO edw.fact_BillingDocumentItem
     (ReferenceSDDocument, ReferenceSDDocumentItem, BillingDocument, BillingDocumentItem, CurrencyTypeID)
   VALUES
-    (1, 1, 1, 1, '10')
-    ,(2, 2, 1, 2, '10');
+    (1, 1, 1, 1, '10'),
+    (2, 2, 1, 2, '10');
 
   INSERT INTO edw.fact_BillingDocumentItemPrcgElmnt
     (BillingDocument, BillingDocumentItem, ConditionType, CurrencyTypeID, CurrencyID, ConditionAmount)
   VALUES
-    (1, 1, 'ZF10', '10', 'CHF', 20)
-    ,(1, 1, 'ZF20', '10', 'CHF', 15)
-    ,(1, 2, 'ZF20', '10', 'CHF', 10);
+    (1, 1, 'ZF10', '10', 'CHF', 20),
+    (1, 1, 'ZF20', '10', 'CHF', 15),
+    (1, 2, 'ZF20', '10', 'CHF', 10);
 
   INSERT INTO edw.dim_ExchangeRates
     (SourceCurrency, TargetCurrency, ExchangeRate, ExchangeRateType, ExchangeRateEffectiveDate)
   VALUES
-    ('CHF','EUR', 1.2, 'P', '2000-01-01');
+    ('CHF', 'EUR', 1.2, 'P', '2000-01-01');
 
   -- Act: 
   SELECT
