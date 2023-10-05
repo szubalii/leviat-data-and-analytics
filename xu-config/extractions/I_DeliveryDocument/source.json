@@ -1,1 +1,1221 @@
-{"name":"ILEDELIVDOC$P","description":"Delivery Document","guid":"99a7cdde-cdc8-4e7d-b4e9-bd8a12bc9488","semantics":"MasterDataOrAttributes","context":"ABAP_CDS","supportsFull":true,"supportsDelta":false,"mode":"Full","transferDataOnDeltaInit":true,"columns":[{"name":"DELIVERYDOCUMENT","description":"Sales and distribution document number","abapType":"CharacterString","length":10,"isPrimaryKey":true,"isSelected":true,"selectionPermission":"All","outputLength":10},{"name":"SDDOCUMENTCATEGORY","description":"SD Document Category","abapType":"CharacterString","length":4,"isSelected":true,"selectionPermission":"All","outputLength":4},{"name":"DELIVERYDOCUMENTTYPE","description":"Delivery note type","abapType":"CharacterString","length":4,"isSelected":true,"selectionPermission":"All","outputLength":4},{"name":"CREATEDBYUSER","description":"User name","abapType":"CharacterString","length":12,"isSelected":true,"selectionPermission":"All","outputLength":12},{"name":"CREATIONDATE","description":"Date","abapType":"Date","isSelected":true,"selectionPermission":"All","outputLength":8},{"name":"CREATIONTIME","description":"Time","abapType":"Time","isSelected":true,"selectionPermission":"All","outputLength":6},{"name":"LASTCHANGEDBYUSER","description":"User name","abapType":"CharacterString","length":12,"isSelected":true,"selectionPermission":"All","outputLength":12},{"name":"LASTCHANGEDATE","description":"Date","abapType":"Date","isSelected":true,"selectionPermission":"All","outputLength":8},{"name":"SHIPPINGPOINT","description":"Shipping point","abapType":"CharacterString","length":4,"isSelected":true,"selectionPermission":"All","outputLength":4},{"name":"SALESORGANIZATION","description":"Sales Organization","abapType":"CharacterString","length":4,"isSelected":true,"selectionPermission":"All","outputLength":4},{"name":"SALESOFFICE","description":"Sales office","abapType":"CharacterString","length":4,"isSelected":true,"selectionPermission":"All","outputLength":4},{"name":"COMPLETEDELIVERYISDEFINED","description":"Yes\/No field","abapType":"CharacterString","length":1,"isSelected":true,"selectionPermission":"All","outputLength":1},{"name":"ORDERCOMBINATIONISALLOWED","description":"Yes\/No field","abapType":"CharacterString","length":1,"isSelected":true,"selectionPermission":"All","outputLength":1},{"name":"DELIVERYPRIORITY","description":"Delivery priority","abapType":"NumericCharacterString","length":2,"isSelected":true,"selectionPermission":"All","outputLength":2},{"name":"DELIVERYBLOCKREASON","description":"Indicator: Delivery note block","abapType":"CharacterString","length":2,"isSelected":true,"selectionPermission":"All","outputLength":2},{"name":"SUPPLIER","description":"Account Number of Supplier","abapType":"CharacterString","length":10,"isSelected":true,"selectionPermission":"All","outputLength":10},{"name":"DELIVERYDOCUMENTBYSUPPLIER","description":"Text length 35","abapType":"CharacterString","length":35,"isSelected":true,"selectionPermission":"All","outputLength":35},{"name":"DELIVERYISINPLANT","description":"Yes\/No field","abapType":"CharacterString","length":1,"isSelected":true,"selectionPermission":"All","outputLength":1},{"name":"RECEIVINGPLANT","description":"Plant","abapType":"CharacterString","length":4,"isSelected":true,"selectionPermission":"All","outputLength":4},{"name":"WAREHOUSE","description":"Warehouse Number","abapType":"CharacterString","length":3,"isSelected":true,"selectionPermission":"All","outputLength":3},{"name":"ISEXPORTDELIVERY","description":"Export indicator","abapType":"CharacterString","length":1,"isSelected":true,"selectionPermission":"All","outputLength":1},{"name":"ORDERID","description":"Order number","abapType":"CharacterString","length":12,"isSelected":true,"selectionPermission":"All","outputLength":12},{"name":"HEADERGROSSWEIGHT","description":"Quantity field, length 15","abapType":"PackedNumber","length":17,"decimalCount":3,"isSelected":true,"outputLength":19,"referenceField":"HEADERWEIGHTUNIT"},{"name":"HEADERNETWEIGHT","description":"Quantity field, length 15","abapType":"PackedNumber","length":17,"decimalCount":3,"isSelected":true,"outputLength":19,"referenceField":"HEADERWEIGHTUNIT"},{"name":"HEADERWEIGHTUNIT","description":"Units of Measurement of Various Types","abapType":"CharacterString","length":3,"isSelected":true,"selectionPermission":"All","outputLength":3},{"name":"HEADERVOLUME","description":"Quantity field, length 15","abapType":"PackedNumber","length":17,"decimalCount":3,"isSelected":true,"outputLength":19,"referenceField":"HEADERVOLUMEUNIT"},{"name":"HEADERVOLUMEUNIT","description":"Units of Measurement of Various Types","abapType":"CharacterString","length":3,"isSelected":true,"selectionPermission":"All","outputLength":3},{"name":"ISDELIVERYFORSINGLEWAREHOUSE","description":"Delivery within one warehouse","abapType":"CharacterString","length":1,"isSelected":true,"selectionPermission":"All","outputLength":1},{"name":"GOODSISSUEORRECEIPTSLIPNUMBER","description":"Accounting document number","abapType":"CharacterString","length":10,"isSelected":true,"selectionPermission":"All","outputLength":10},{"name":"WAREHOUSEGATE","description":"Door for warehouse number","abapType":"CharacterString","length":3,"isSelected":true,"selectionPermission":"All","outputLength":3},{"name":"WAREHOUSESTAGINGAREA","description":"Staging area for warehouse complex","abapType":"CharacterString","length":10,"isSelected":true,"selectionPermission":"All","outputLength":10},{"name":"MEANSOFTRANSPORTREFMATERIAL","description":"Material Number (C40 Field)","abapType":"CharacterString","length":40,"isSelected":true,"selectionPermission":"All","outputLength":40},{"name":"SPECIALPROCESSINGCODE","description":"Special Processing Indicator","abapType":"CharacterString","length":4,"isSelected":true,"selectionPermission":"All","outputLength":4},{"name":"EXTERNALIDENTIFICATIONTYPE","description":"Type of External Identification","abapType":"CharacterString","length":1,"isSelected":true,"selectionPermission":"All","outputLength":1},{"name":"DELIVERYVERSION","description":"Delivery Version","abapType":"NumericCharacterString","length":4,"isSelected":true,"selectionPermission":"All","outputLength":4},{"name":"PICKEDITEMSLOCATION","description":"Picked items location","abapType":"CharacterString","length":20,"isSelected":true,"selectionPermission":"All","outputLength":20},{"name":"DOCUMENTDATE","description":"Date","abapType":"Date","isSelected":true,"selectionPermission":"All","outputLength":8},{"name":"PICKINGDATE","description":"Date","abapType":"Date","isSelected":true,"selectionPermission":"All","outputLength":8},{"name":"PICKINGTIME","description":"Local time, with reference to one plant","abapType":"Time","isSelected":true,"selectionPermission":"All","outputLength":6},{"name":"TOTALNUMBEROFPACKAGE","description":"Total number of parcels","abapType":"NumericCharacterString","length":5,"isSelected":true,"selectionPermission":"All","outputLength":5},{"name":"LOADINGPOINT","description":"Loading point","abapType":"CharacterString","length":2,"isSelected":true,"selectionPermission":"All","outputLength":2},{"name":"LOADINGDATE","description":"Date","abapType":"Date","isSelected":true,"selectionPermission":"All","outputLength":8},{"name":"LOADINGTIME","description":"Local time, with reference to one shipping point","abapType":"Time","isSelected":true,"selectionPermission":"All","outputLength":6},{"name":"BILLOFLADING","description":"Character field length 35","abapType":"CharacterString","length":35,"isSelected":true,"selectionPermission":"All","outputLength":35},{"name":"HANDLINGUNITINSTOCK","description":"Shipping unit placed in stock","abapType":"CharacterString","length":1,"isSelected":true,"selectionPermission":"All","outputLength":1},{"name":"SHIPTOPARTY","description":"Customer Number","abapType":"CharacterString","length":10,"isSelected":true,"selectionPermission":"All","outputLength":10},{"name":"SHIPPINGTYPE","description":"Shipping type","abapType":"CharacterString","length":2,"isSelected":true,"selectionPermission":"All","outputLength":2},{"name":"DELIVERYDATE","description":"Date","abapType":"Date","isSelected":true,"selectionPermission":"All","outputLength":8},{"name":"DELIVERYTIME","description":"Time of delivery","abapType":"Time","isSelected":true,"selectionPermission":"All","outputLength":6},{"name":"SHIPPINGCONDITION","description":"Shipping conditions","abapType":"CharacterString","length":2,"isSelected":true,"selectionPermission":"All","outputLength":2},{"name":"SHIPMENTBLOCKREASON","description":"Shipment Blocking Reason","abapType":"CharacterString","length":2,"isSelected":true,"selectionPermission":"All","outputLength":2},{"name":"TRANSPORTATIONPLANNINGDATE","description":"Date","abapType":"Date","isSelected":true,"selectionPermission":"All","outputLength":8},{"name":"TRANSPORTATIONPLANNINGTIME","description":"Local time, with reference to one shipping point","abapType":"Time","isSelected":true,"selectionPermission":"All","outputLength":6},{"name":"PROPOSEDDELIVERYROUTE","description":"Route for shipping","abapType":"CharacterString","length":6,"isSelected":true,"selectionPermission":"All","outputLength":6},{"name":"ACTUALDELIVERYROUTE","description":"Route for shipping","abapType":"CharacterString","length":6,"isSelected":true,"selectionPermission":"All","outputLength":6},{"name":"ROUTESCHEDULE","description":"Route schedule","abapType":"CharacterString","length":10,"isSelected":true,"selectionPermission":"All","outputLength":10},{"name":"PLANNEDGOODSISSUEDATE","description":"Date","abapType":"Date","isSelected":true,"selectionPermission":"All","outputLength":8},{"name":"GOODSISSUETIME","description":"Local time, with reference to one plant","abapType":"Time","isSelected":true,"selectionPermission":"All","outputLength":6},{"name":"ACTUALGOODSMOVEMENTDATE","description":"Date","abapType":"Date","isSelected":true,"selectionPermission":"All","outputLength":8},{"name":"ACTUALGOODSMOVEMENTTIME","description":"Local time, with reference to one plant","abapType":"Time","isSelected":true,"selectionPermission":"All","outputLength":6},{"name":"INCOTERMSCLASSIFICATION","description":"Incoterms part 1","abapType":"CharacterString","length":3,"isSelected":true,"selectionPermission":"All","outputLength":3},{"name":"INCOTERMSTRANSFERLOCATION","description":"Incoterms part 2","abapType":"CharacterString","length":28,"isSelected":true,"selectionPermission":"All","outputLength":28},{"name":"EXTERNALTRANSPORTSYSTEM","description":"Communication number for the APPQ interface","abapType":"CharacterString","length":5,"isSelected":true,"selectionPermission":"All","outputLength":5},{"name":"TRANSPORTATIONGROUP","description":"Transport group","abapType":"CharacterString","length":4,"isSelected":true,"selectionPermission":"All","outputLength":4},{"name":"MEANSOFTRANSPORT","description":"Shipment ID","abapType":"CharacterString","length":20,"isSelected":true,"selectionPermission":"All","outputLength":20},{"name":"MEANSOFTRANSPORTTYPE","description":"Packaging material type","abapType":"CharacterString","length":4,"isSelected":true,"selectionPermission":"All","outputLength":4},{"name":"UNLOADINGPOINTNAME","description":"25-character text length","abapType":"CharacterString","length":25,"isSelected":true,"selectionPermission":"All","outputLength":25},{"name":"PROOFOFDELIVERYDATE","description":"Date","abapType":"Date","isSelected":true,"selectionPermission":"All","outputLength":8},{"name":"CONFIRMATIONTIME","description":"Local time, with reference to one plant","abapType":"Time","isSelected":true,"selectionPermission":"All","outputLength":6},{"name":"FACTORYCALENDARBYCUSTOMER","description":"Factory calendar ID","abapType":"CharacterString","length":2,"isSelected":true,"selectionPermission":"All","outputLength":2},{"name":"SHIPPINGLOCATIONTIMEZONE","description":"Time zone","abapType":"CharacterString","length":6,"isSelected":true,"selectionPermission":"All","outputLength":6},{"name":"RECEIVINGLOCATIONTIMEZONE","description":"Time zone","abapType":"CharacterString","length":6,"isSelected":true,"selectionPermission":"All","outputLength":6},{"name":"INTERCOMPANYBILLINGDATE","description":"Date","abapType":"Date","isSelected":true,"selectionPermission":"All","outputLength":8},{"name":"BILLINGDOCUMENTDATE","description":"Date","abapType":"Date","isSelected":true,"selectionPermission":"All","outputLength":8},{"name":"HEADERBILLINGBLOCKREASON","description":"Billing document type block (for example, credit memos)","abapType":"CharacterString","length":2,"isSelected":true,"selectionPermission":"All","outputLength":2},{"name":"INTERNALFINANCIALDOCUMENT","description":"Financial Document Processing: Financial Document Number","abapType":"CharacterString","length":10,"isSelected":true,"selectionPermission":"All","outputLength":10},{"name":"PAYMENTGUARANTEEPROCEDURE","description":"Payment guarantee procedure","abapType":"CharacterString","length":6,"isSelected":true,"selectionPermission":"All","outputLength":6},{"name":"DEPRECIATIONPERCENTAGE","description":"Packed percentage NNN,NN","abapType":"PackedNumber","length":17,"decimalCount":2,"isSelected":true,"outputLength":19},{"name":"NEXTSHIPPINGDATE","description":"Date","abapType":"Date","isSelected":true,"selectionPermission":"All","outputLength":8},{"name":"CUSTOMERCREDITACCOUNT","description":"Customer Number","abapType":"CharacterString","length":10,"isSelected":true,"selectionPermission":"All","outputLength":10},{"name":"CENTRALCREDITCHKTECHERRSTS","description":"Status of credit limit check","abapType":"CharacterString","length":1,"isSelected":true,"selectionPermission":"All","outputLength":1},{"name":"RELEASEDCREDITAMOUNT","description":"Value field PL8 with +\/- sign","abapType":"PackedNumber","length":17,"decimalCount":2,"isSelected":true,"outputLength":19,"referenceField":"CONTROLLINGAREACURRENCY"},{"name":"CONTROLLINGAREACURRENCY","description":"Currency Key","abapType":"CharacterString","length":5,"isSelected":true,"selectionPermission":"All","outputLength":5},{"name":"CREDITBLOCKRELEASEDATE","description":"Date","abapType":"Date","isSelected":true,"selectionPermission":"All","outputLength":8},{"name":"SOLDTOPARTY","description":"Customer Number","abapType":"CharacterString","length":10,"isSelected":true,"selectionPermission":"All","outputLength":10},{"name":"CUSTOMERGROUP","description":"Customer group","abapType":"CharacterString","length":2,"isSelected":true,"selectionPermission":"All","outputLength":2},{"name":"SALESDISTRICT","description":"Sales district","abapType":"CharacterString","length":6,"isSelected":true,"selectionPermission":"All","outputLength":6},{"name":"TRANSACTIONCURRENCY","description":"Currency Key","abapType":"CharacterString","length":5,"isSelected":true,"selectionPermission":"All","outputLength":5},{"name":"STATISTICSCURRENCY","description":"Currency Key","abapType":"CharacterString","length":5,"isSelected":true,"selectionPermission":"All","outputLength":5},{"name":"OVERALLINTCOBILLINGSTATUS","description":"Document status","abapType":"CharacterString","length":1,"isSelected":true,"selectionPermission":"All","outputLength":1},{"name":"OVERALLSDPROCESSSTATUS","description":"Document status","abapType":"CharacterString","length":1,"isSelected":true,"selectionPermission":"All","outputLength":1},{"name":"TOTALBLOCKSTATUS","description":"Document status","abapType":"CharacterString","length":1,"isSelected":true,"selectionPermission":"All","outputLength":1},{"name":"OVERALLDELIVCONFSTATUS","description":"Document status","abapType":"CharacterString","length":1,"isSelected":true,"selectionPermission":"All","outputLength":1},{"name":"TRANSPORTATIONPLANNINGSTATUS","description":"Transportation planning status","abapType":"CharacterString","length":1,"isSelected":true,"selectionPermission":"All","outputLength":1},{"name":"OVERALLPICKINGCONFSTATUS","description":"Document status","abapType":"CharacterString","length":1,"isSelected":true,"selectionPermission":"All","outputLength":1},{"name":"OVERALLPICKINGSTATUS","description":"Document status","abapType":"CharacterString","length":1,"isSelected":true,"selectionPermission":"All","outputLength":1},{"name":"OVERALLPACKINGSTATUS","description":"Packing status of all items","abapType":"CharacterString","length":1,"isSelected":true,"selectionPermission":"All","outputLength":1},{"name":"OVERALLWAREHOUSEACTIVITYSTATUS","description":"Document status","abapType":"CharacterString","length":1,"isSelected":true,"selectionPermission":"All","outputLength":1},{"name":"DISTRSTATUSBYDECENTRALIZEDWRHS","description":"Distribution status (decentralized warehouse processing)","abapType":"CharacterString","length":1,"isSelected":true,"selectionPermission":"All","outputLength":1},{"name":"OVERALLGOODSMOVEMENTSTATUS","description":"Document status","abapType":"CharacterString","length":1,"isSelected":true,"selectionPermission":"All","outputLength":1},{"name":"OVERALLDELIVRELTDBILLGSTATUS","description":"Document status","abapType":"CharacterString","length":1,"isSelected":true,"selectionPermission":"All","outputLength":1},{"name":"OVERALLPROOFOFDELIVERYSTATUS","description":"Document status","abapType":"CharacterString","length":1,"isSelected":true,"selectionPermission":"All","outputLength":1},{"name":"HDRGENERALINCOMPLETIONSTATUS","description":"Document status","abapType":"CharacterString","length":1,"isSelected":true,"selectionPermission":"All","outputLength":1},{"name":"HEADERDELIVINCOMPLETIONSTATUS","description":"Document status","abapType":"CharacterString","length":1,"isSelected":true,"selectionPermission":"All","outputLength":1},{"name":"HEADERPICKGINCOMPLETIONSTATUS","description":"Document status","abapType":"CharacterString","length":1,"isSelected":true,"selectionPermission":"All","outputLength":1},{"name":"HEADERPACKINGINCOMPLETIONSTS","description":"Document status","abapType":"CharacterString","length":1,"isSelected":true,"selectionPermission":"All","outputLength":1},{"name":"HDRGOODSMVTINCOMPLETIONSTATUS","description":"Document status","abapType":"CharacterString","length":1,"isSelected":true,"selectionPermission":"All","outputLength":1},{"name":"HEADERBILLGINCOMPLETIONSTATUS","description":"Document status","abapType":"CharacterString","length":1,"isSelected":true,"selectionPermission":"All","outputLength":1},{"name":"OVRLITMGENERALINCOMPLETIONSTS","description":"Document status","abapType":"CharacterString","length":1,"isSelected":true,"selectionPermission":"All","outputLength":1},{"name":"OVRLITMPACKINGINCOMPLETIONSTS","description":"Document status","abapType":"CharacterString","length":1,"isSelected":true,"selectionPermission":"All","outputLength":1},{"name":"OVRLITMPICKINGINCOMPLETIONSTS","description":"Document status","abapType":"CharacterString","length":1,"isSelected":true,"selectionPermission":"All","outputLength":1},{"name":"OVRLITMDELIVINCOMPLETIONSTS","description":"Document status","abapType":"CharacterString","length":1,"isSelected":true,"selectionPermission":"All","outputLength":1},{"name":"OVRLITMGDSMVTINCOMPLETIONSTS","description":"Document status","abapType":"CharacterString","length":1,"isSelected":true,"selectionPermission":"All","outputLength":1},{"name":"TOTALCREDITCHECKSTATUS","description":"Overall status of credit limit checks","abapType":"CharacterString","length":1,"isSelected":true,"selectionPermission":"All","outputLength":1},{"name":"FINDOCCREDITCHECKSTATUS","description":"Status of credit limit check","abapType":"CharacterString","length":1,"isSelected":true,"selectionPermission":"All","outputLength":1},{"name":"PAYTAUTHSNCREDITCHECKSTS","description":"Status of credit limit check","abapType":"CharacterString","length":1,"isSelected":true,"selectionPermission":"All","outputLength":1},{"name":"CENTRALCREDITCHECKSTATUS","description":"Status of credit limit check","abapType":"CharacterString","length":1,"isSelected":true,"selectionPermission":"All","outputLength":1},{"name":"EXPRTINSURCREDITCHECKSTATUS","description":"Status of credit limit check","abapType":"CharacterString","length":1,"isSelected":true,"selectionPermission":"All","outputLength":1},{"name":"MAXDOCVALUECREDITCHECKSTATUS","description":"Status of credit limit check","abapType":"CharacterString","length":1,"isSelected":true,"selectionPermission":"All","outputLength":1},{"name":"PAYMENTTERMCREDITCHECKSTATUS","description":"Status of credit limit check","abapType":"CharacterString","length":1,"isSelected":true,"selectionPermission":"All","outputLength":1},{"name":"SHIPPINGGROUPNUMBER","description":"PSST Group","abapType":"CharacterString","length":10,"isSelected":true,"selectionPermission":"All","outputLength":10},{"name":"PRICINGDOCUMENT","description":"No.of condition in the document","abapType":"CharacterString","length":10,"isSelected":true,"selectionPermission":"All","outputLength":10},{"name":"SALESORGFORINTCOBILLING","description":"Sales Organization","abapType":"CharacterString","length":4,"isSelected":true,"selectionPermission":"All","outputLength":4},{"name":"DISTRCHNLFORINTCOBILLING","description":"Distribution channel","abapType":"CharacterString","length":2,"isSelected":true,"selectionPermission":"All","outputLength":2},{"name":"DIVISIONFORINTCOBILLING","description":"Division","abapType":"CharacterString","length":2,"isSelected":true,"selectionPermission":"All","outputLength":2},{"name":"INTERCOMPANYBILLINGTYPE","description":"Billing Type","abapType":"CharacterString","length":4,"isSelected":true,"selectionPermission":"All","outputLength":4},{"name":"FACTORYCALENDARFORINTCOBILLING","description":"Factory calendar ID","abapType":"CharacterString","length":2,"isSelected":true,"selectionPermission":"All","outputLength":2},{"name":"INTERCOMPANYBILLINGCUSTOMER","description":"Customer Number","abapType":"CharacterString","length":10,"isSelected":true,"selectionPermission":"All","outputLength":10},{"name":"DELIVERYDOCUMENTCONDITION","description":"No.of condition in the document","abapType":"CharacterString","length":10,"isSelected":true,"selectionPermission":"All","outputLength":10},{"name":"TOTALNETAMOUNT","description":"Value field PL8 with +\/- sign","abapType":"PackedNumber","length":17,"decimalCount":2,"isSelected":true,"outputLength":19,"referenceField":"TRANSACTIONCURRENCY"},{"name":"REFERENCEDOCUMENTNUMBER","description":"Reference Document Number","abapType":"CharacterString","length":25,"isSelected":true,"selectionPermission":"All","outputLength":16},{"name":"DELETIONINDICATOR","description":"Yes\/No field","abapType":"CharacterString","length":1,"isSelected":true,"selectionPermission":"All","outputLength":1},{"name":"OVERALLCHMLCMPLNCSTATUS","description":"Total Product Marketability Check Status","abapType":"CharacterString","length":1,"isSelected":true,"selectionPermission":"All","outputLength":1},{"name":"OVERALLDANGEROUSGOODSSTATUS","description":"Total Dangerous Goods Check Status","abapType":"CharacterString","length":1,"isSelected":true,"selectionPermission":"All","outputLength":1},{"name":"OVERALLSAFETYDATASHEETSTATUS","description":"Safety Data Sheet Check Status (All Items)","abapType":"CharacterString","length":1,"isSelected":true,"selectionPermission":"All","outputLength":1},{"name":"ISCORRECTIONDELIVERY","description":"Yes\/No field","abapType":"CharacterString","length":1,"isSelected":true,"selectionPermission":"All","outputLength":1}]}
+{
+  "name": "ILEDELIVDOC$P",
+  "description": "Delivery Document",
+  "guid": "99a7cdde-cdc8-4e7d-b4e9-bd8a12bc9488",
+  "semantics": "MasterDataOrAttributes",
+  "context": "ABAP_CDS",
+  "supportsFull": true,
+  "supportsDelta": false,
+  "mode": "Full",
+  "transferDataOnDeltaInit": true,
+  "columns": [
+    {
+      "name": "DELIVERYDOCUMENT",
+      "description": "Sales and distribution document number",
+      "abapType": "CharacterString",
+      "length": 10,
+      "isPrimaryKey": true,
+      "isSelected": true,
+      "selectionPermission": "All",
+      "outputLength": 10
+    },
+    {
+      "name": "SDDOCUMENTCATEGORY",
+      "description": "SD Document Category",
+      "abapType": "CharacterString",
+      "length": 4,
+      "isSelected": true,
+      "selectionPermission": "All",
+      "outputLength": 4
+    },
+    {
+      "name": "DELIVERYDOCUMENTTYPE",
+      "description": "Delivery note type",
+      "abapType": "CharacterString",
+      "length": 4,
+      "isSelected": true,
+      "selectionPermission": "All",
+      "outputLength": 4
+    },
+    {
+      "name": "CREATEDBYUSER",
+      "description": "User name",
+      "abapType": "CharacterString",
+      "length": 12,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 12
+    },
+    {
+      "name": "CREATIONDATE",
+      "description": "Date",
+      "abapType": "Date",
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 8
+    },
+    {
+      "name": "CREATIONTIME",
+      "description": "Time",
+      "abapType": "Time",
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 6
+    },
+    {
+      "name": "LASTCHANGEDBYUSER",
+      "description": "User name",
+      "abapType": "CharacterString",
+      "length": 12,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 12
+    },
+    {
+      "name": "LASTCHANGEDATE",
+      "description": "Date",
+      "abapType": "Date",
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 8
+    },
+    {
+      "name": "SHIPPINGPOINT",
+      "description": "Shipping point",
+      "abapType": "CharacterString",
+      "length": 4,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 4
+    },
+    {
+      "name": "SALESORGANIZATION",
+      "description": "Sales Organization",
+      "abapType": "CharacterString",
+      "length": 4,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 4
+    },
+    {
+      "name": "SALESOFFICE",
+      "description": "Sales office",
+      "abapType": "CharacterString",
+      "length": 4,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 4
+    },
+    {
+      "name": "COMPLETEDELIVERYISDEFINED",
+      "description": "Yes\/No field",
+      "abapType": "CharacterString",
+      "length": 1,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 1
+    },
+    {
+      "name": "ORDERCOMBINATIONISALLOWED",
+      "description": "Yes\/No field",
+      "abapType": "CharacterString",
+      "length": 1,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 1
+    },
+    {
+      "name": "DELIVERYPRIORITY",
+      "description": "Delivery priority",
+      "abapType": "NumericCharacterString",
+      "length": 2,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 2
+    },
+    {
+      "name": "DELIVERYBLOCKREASON",
+      "description": "Indicator: Delivery note block",
+      "abapType": "CharacterString",
+      "length": 2,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 2
+    },
+    {
+      "name": "SUPPLIER",
+      "description": "Account Number of Supplier",
+      "abapType": "CharacterString",
+      "length": 10,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 10
+    },
+    {
+      "name": "DELIVERYDOCUMENTBYSUPPLIER",
+      "description": "Text length 35",
+      "abapType": "CharacterString",
+      "length": 35,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 35
+    },
+    {
+      "name": "DELIVERYISINPLANT",
+      "description": "Yes\/No field",
+      "abapType": "CharacterString",
+      "length": 1,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 1
+    },
+    {
+      "name": "RECEIVINGPLANT",
+      "description": "Plant",
+      "abapType": "CharacterString",
+      "length": 4,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 4
+    },
+    {
+      "name": "WAREHOUSE",
+      "description": "Warehouse Number",
+      "abapType": "CharacterString",
+      "length": 3,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 3
+    },
+    {
+      "name": "ISEXPORTDELIVERY",
+      "description": "Export indicator",
+      "abapType": "CharacterString",
+      "length": 1,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 1
+    },
+    {
+      "name": "ORDERID",
+      "description": "Order number",
+      "abapType": "CharacterString",
+      "length": 12,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 12
+    },
+    {
+      "name": "HEADERGROSSWEIGHT",
+      "description": "Quantity field, length 15",
+      "abapType": "PackedNumber",
+      "length": 17,
+      "decimalCount": 3,
+      "isSelected": false,
+      "outputLength": 19,
+      "referenceField": "HEADERWEIGHTUNIT"
+    },
+    {
+      "name": "HEADERNETWEIGHT",
+      "description": "Quantity field, length 15",
+      "abapType": "PackedNumber",
+      "length": 17,
+      "decimalCount": 3,
+      "isSelected": false,
+      "outputLength": 19,
+      "referenceField": "HEADERWEIGHTUNIT"
+    },
+    {
+      "name": "HEADERWEIGHTUNIT",
+      "description": "Units of Measurement of Various Types",
+      "abapType": "CharacterString",
+      "length": 3,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 3
+    },
+    {
+      "name": "HEADERVOLUME",
+      "description": "Quantity field, length 15",
+      "abapType": "PackedNumber",
+      "length": 17,
+      "decimalCount": 3,
+      "isSelected": false,
+      "outputLength": 19,
+      "referenceField": "HEADERVOLUMEUNIT"
+    },
+    {
+      "name": "HEADERVOLUMEUNIT",
+      "description": "Units of Measurement of Various Types",
+      "abapType": "CharacterString",
+      "length": 3,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 3
+    },
+    {
+      "name": "ISDELIVERYFORSINGLEWAREHOUSE",
+      "description": "Delivery within one warehouse",
+      "abapType": "CharacterString",
+      "length": 1,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 1
+    },
+    {
+      "name": "GOODSISSUEORRECEIPTSLIPNUMBER",
+      "description": "Accounting document number",
+      "abapType": "CharacterString",
+      "length": 10,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 10
+    },
+    {
+      "name": "WAREHOUSEGATE",
+      "description": "Door for warehouse number",
+      "abapType": "CharacterString",
+      "length": 3,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 3
+    },
+    {
+      "name": "WAREHOUSESTAGINGAREA",
+      "description": "Staging area for warehouse complex",
+      "abapType": "CharacterString",
+      "length": 10,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 10
+    },
+    {
+      "name": "MEANSOFTRANSPORTREFMATERIAL",
+      "description": "Material Number (C40 Field)",
+      "abapType": "CharacterString",
+      "length": 40,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 40
+    },
+    {
+      "name": "SPECIALPROCESSINGCODE",
+      "description": "Special Processing Indicator",
+      "abapType": "CharacterString",
+      "length": 4,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 4
+    },
+    {
+      "name": "EXTERNALIDENTIFICATIONTYPE",
+      "description": "Type of External Identification",
+      "abapType": "CharacterString",
+      "length": 1,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 1
+    },
+    {
+      "name": "DELIVERYVERSION",
+      "description": "Delivery Version",
+      "abapType": "NumericCharacterString",
+      "length": 4,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 4
+    },
+    {
+      "name": "PICKEDITEMSLOCATION",
+      "description": "Picked items location",
+      "abapType": "CharacterString",
+      "length": 20,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 20
+    },
+    {
+      "name": "DOCUMENTDATE",
+      "description": "Date",
+      "abapType": "Date",
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 8
+    },
+    {
+      "name": "PICKINGDATE",
+      "description": "Date",
+      "abapType": "Date",
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 8
+    },
+    {
+      "name": "PICKINGTIME",
+      "description": "Local time, with reference to one plant",
+      "abapType": "Time",
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 6
+    },
+    {
+      "name": "TOTALNUMBEROFPACKAGE",
+      "description": "Total number of parcels",
+      "abapType": "NumericCharacterString",
+      "length": 5,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 5
+    },
+    {
+      "name": "LOADINGPOINT",
+      "description": "Loading point",
+      "abapType": "CharacterString",
+      "length": 2,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 2
+    },
+    {
+      "name": "LOADINGDATE",
+      "description": "Date",
+      "abapType": "Date",
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 8
+    },
+    {
+      "name": "LOADINGTIME",
+      "description": "Local time, with reference to one shipping point",
+      "abapType": "Time",
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 6
+    },
+    {
+      "name": "BILLOFLADING",
+      "description": "Character field length 35",
+      "abapType": "CharacterString",
+      "length": 35,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 35
+    },
+    {
+      "name": "HANDLINGUNITINSTOCK",
+      "description": "Shipping unit placed in stock",
+      "abapType": "CharacterString",
+      "length": 1,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 1
+    },
+    {
+      "name": "SHIPTOPARTY",
+      "description": "Customer Number",
+      "abapType": "CharacterString",
+      "length": 10,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 10
+    },
+    {
+      "name": "SHIPPINGTYPE",
+      "description": "Shipping type",
+      "abapType": "CharacterString",
+      "length": 2,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 2
+    },
+    {
+      "name": "DELIVERYDATE",
+      "description": "Date",
+      "abapType": "Date",
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 8
+    },
+    {
+      "name": "DELIVERYTIME",
+      "description": "Time of delivery",
+      "abapType": "Time",
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 6
+    },
+    {
+      "name": "SHIPPINGCONDITION",
+      "description": "Shipping conditions",
+      "abapType": "CharacterString",
+      "length": 2,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 2
+    },
+    {
+      "name": "SHIPMENTBLOCKREASON",
+      "description": "Shipment Blocking Reason",
+      "abapType": "CharacterString",
+      "length": 2,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 2
+    },
+    {
+      "name": "TRANSPORTATIONPLANNINGDATE",
+      "description": "Date",
+      "abapType": "Date",
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 8
+    },
+    {
+      "name": "TRANSPORTATIONPLANNINGTIME",
+      "description": "Local time, with reference to one shipping point",
+      "abapType": "Time",
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 6
+    },
+    {
+      "name": "PROPOSEDDELIVERYROUTE",
+      "description": "Route for shipping",
+      "abapType": "CharacterString",
+      "length": 6,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 6
+    },
+    {
+      "name": "ACTUALDELIVERYROUTE",
+      "description": "Route for shipping",
+      "abapType": "CharacterString",
+      "length": 6,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 6
+    },
+    {
+      "name": "ROUTESCHEDULE",
+      "description": "Route schedule",
+      "abapType": "CharacterString",
+      "length": 10,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 10
+    },
+    {
+      "name": "PLANNEDGOODSISSUEDATE",
+      "description": "Date",
+      "abapType": "Date",
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 8
+    },
+    {
+      "name": "GOODSISSUETIME",
+      "description": "Local time, with reference to one plant",
+      "abapType": "Time",
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 6
+    },
+    {
+      "name": "ACTUALGOODSMOVEMENTDATE",
+      "description": "Date",
+      "abapType": "Date",
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 8
+    },
+    {
+      "name": "ACTUALGOODSMOVEMENTTIME",
+      "description": "Local time, with reference to one plant",
+      "abapType": "Time",
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 6
+    },
+    {
+      "name": "INCOTERMSCLASSIFICATION",
+      "description": "Incoterms part 1",
+      "abapType": "CharacterString",
+      "length": 3,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 3
+    },
+    {
+      "name": "INCOTERMSTRANSFERLOCATION",
+      "description": "Incoterms part 2",
+      "abapType": "CharacterString",
+      "length": 28,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 28
+    },
+    {
+      "name": "EXTERNALTRANSPORTSYSTEM",
+      "description": "Communication number for the APPQ interface",
+      "abapType": "CharacterString",
+      "length": 5,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 5
+    },
+    {
+      "name": "TRANSPORTATIONGROUP",
+      "description": "Transport group",
+      "abapType": "CharacterString",
+      "length": 4,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 4
+    },
+    {
+      "name": "MEANSOFTRANSPORT",
+      "description": "Shipment ID",
+      "abapType": "CharacterString",
+      "length": 20,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 20
+    },
+    {
+      "name": "MEANSOFTRANSPORTTYPE",
+      "description": "Packaging material type",
+      "abapType": "CharacterString",
+      "length": 4,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 4
+    },
+    {
+      "name": "UNLOADINGPOINTNAME",
+      "description": "25-character text length",
+      "abapType": "CharacterString",
+      "length": 25,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 25
+    },
+    {
+      "name": "PROOFOFDELIVERYDATE",
+      "description": "Date",
+      "abapType": "Date",
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 8
+    },
+    {
+      "name": "CONFIRMATIONTIME",
+      "description": "Local time, with reference to one plant",
+      "abapType": "Time",
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 6
+    },
+    {
+      "name": "FACTORYCALENDARBYCUSTOMER",
+      "description": "Factory calendar ID",
+      "abapType": "CharacterString",
+      "length": 2,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 2
+    },
+    {
+      "name": "SHIPPINGLOCATIONTIMEZONE",
+      "description": "Time zone",
+      "abapType": "CharacterString",
+      "length": 6,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 6
+    },
+    {
+      "name": "RECEIVINGLOCATIONTIMEZONE",
+      "description": "Time zone",
+      "abapType": "CharacterString",
+      "length": 6,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 6
+    },
+    {
+      "name": "INTERCOMPANYBILLINGDATE",
+      "description": "Date",
+      "abapType": "Date",
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 8
+    },
+    {
+      "name": "BILLINGDOCUMENTDATE",
+      "description": "Date",
+      "abapType": "Date",
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 8
+    },
+    {
+      "name": "HEADERBILLINGBLOCKREASON",
+      "description": "Billing document type block (for example, credit memos)",
+      "abapType": "CharacterString",
+      "length": 2,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 2
+    },
+    {
+      "name": "INTERNALFINANCIALDOCUMENT",
+      "description": "Financial Document Processing: Financial Document Number",
+      "abapType": "CharacterString",
+      "length": 10,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 10
+    },
+    {
+      "name": "PAYMENTGUARANTEEPROCEDURE",
+      "description": "Payment guarantee procedure",
+      "abapType": "CharacterString",
+      "length": 6,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 6
+    },
+    {
+      "name": "DEPRECIATIONPERCENTAGE",
+      "description": "Packed percentage NNN,NN",
+      "abapType": "PackedNumber",
+      "length": 17,
+      "decimalCount": 2,
+      "isSelected": false,
+      "outputLength": 19
+    },
+    {
+      "name": "NEXTSHIPPINGDATE",
+      "description": "Date",
+      "abapType": "Date",
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 8
+    },
+    {
+      "name": "CUSTOMERCREDITACCOUNT",
+      "description": "Customer Number",
+      "abapType": "CharacterString",
+      "length": 10,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 10
+    },
+    {
+      "name": "CENTRALCREDITCHKTECHERRSTS",
+      "description": "Status of credit limit check",
+      "abapType": "CharacterString",
+      "length": 1,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 1
+    },
+    {
+      "name": "RELEASEDCREDITAMOUNT",
+      "description": "Value field PL8 with +\/- sign",
+      "abapType": "PackedNumber",
+      "length": 17,
+      "decimalCount": 2,
+      "isSelected": false,
+      "outputLength": 19,
+      "referenceField": "CONTROLLINGAREACURRENCY"
+    },
+    {
+      "name": "CONTROLLINGAREACURRENCY",
+      "description": "Currency Key",
+      "abapType": "CharacterString",
+      "length": 5,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 5
+    },
+    {
+      "name": "CREDITBLOCKRELEASEDATE",
+      "description": "Date",
+      "abapType": "Date",
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 8
+    },
+    {
+      "name": "SOLDTOPARTY",
+      "description": "Customer Number",
+      "abapType": "CharacterString",
+      "length": 10,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 10
+    },
+    {
+      "name": "CUSTOMERGROUP",
+      "description": "Customer group",
+      "abapType": "CharacterString",
+      "length": 2,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 2
+    },
+    {
+      "name": "SALESDISTRICT",
+      "description": "Sales district",
+      "abapType": "CharacterString",
+      "length": 6,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 6
+    },
+    {
+      "name": "TRANSACTIONCURRENCY",
+      "description": "Currency Key",
+      "abapType": "CharacterString",
+      "length": 5,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 5
+    },
+    {
+      "name": "STATISTICSCURRENCY",
+      "description": "Currency Key",
+      "abapType": "CharacterString",
+      "length": 5,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 5
+    },
+    {
+      "name": "OVERALLINTCOBILLINGSTATUS",
+      "description": "Document status",
+      "abapType": "CharacterString",
+      "length": 1,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 1
+    },
+    {
+      "name": "OVERALLSDPROCESSSTATUS",
+      "description": "Document status",
+      "abapType": "CharacterString",
+      "length": 1,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 1
+    },
+    {
+      "name": "TOTALBLOCKSTATUS",
+      "description": "Document status",
+      "abapType": "CharacterString",
+      "length": 1,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 1
+    },
+    {
+      "name": "OVERALLDELIVCONFSTATUS",
+      "description": "Document status",
+      "abapType": "CharacterString",
+      "length": 1,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 1
+    },
+    {
+      "name": "TRANSPORTATIONPLANNINGSTATUS",
+      "description": "Transportation planning status",
+      "abapType": "CharacterString",
+      "length": 1,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 1
+    },
+    {
+      "name": "OVERALLPICKINGCONFSTATUS",
+      "description": "Document status",
+      "abapType": "CharacterString",
+      "length": 1,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 1
+    },
+    {
+      "name": "OVERALLPICKINGSTATUS",
+      "description": "Document status",
+      "abapType": "CharacterString",
+      "length": 1,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 1
+    },
+    {
+      "name": "OVERALLPACKINGSTATUS",
+      "description": "Packing status of all items",
+      "abapType": "CharacterString",
+      "length": 1,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 1
+    },
+    {
+      "name": "OVERALLWAREHOUSEACTIVITYSTATUS",
+      "description": "Document status",
+      "abapType": "CharacterString",
+      "length": 1,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 1
+    },
+    {
+      "name": "DISTRSTATUSBYDECENTRALIZEDWRHS",
+      "description": "Distribution status (decentralized warehouse processing)",
+      "abapType": "CharacterString",
+      "length": 1,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 1
+    },
+    {
+      "name": "OVERALLGOODSMOVEMENTSTATUS",
+      "description": "Document status",
+      "abapType": "CharacterString",
+      "length": 1,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 1
+    },
+    {
+      "name": "OVERALLDELIVRELTDBILLGSTATUS",
+      "description": "Document status",
+      "abapType": "CharacterString",
+      "length": 1,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 1
+    },
+    {
+      "name": "OVERALLPROOFOFDELIVERYSTATUS",
+      "description": "Document status",
+      "abapType": "CharacterString",
+      "length": 1,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 1
+    },
+    {
+      "name": "HDRGENERALINCOMPLETIONSTATUS",
+      "description": "Document status",
+      "abapType": "CharacterString",
+      "length": 1,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 1
+    },
+    {
+      "name": "HEADERDELIVINCOMPLETIONSTATUS",
+      "description": "Document status",
+      "abapType": "CharacterString",
+      "length": 1,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 1
+    },
+    {
+      "name": "HEADERPICKGINCOMPLETIONSTATUS",
+      "description": "Document status",
+      "abapType": "CharacterString",
+      "length": 1,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 1
+    },
+    {
+      "name": "HEADERPACKINGINCOMPLETIONSTS",
+      "description": "Document status",
+      "abapType": "CharacterString",
+      "length": 1,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 1
+    },
+    {
+      "name": "HDRGOODSMVTINCOMPLETIONSTATUS",
+      "description": "Document status",
+      "abapType": "CharacterString",
+      "length": 1,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 1
+    },
+    {
+      "name": "HEADERBILLGINCOMPLETIONSTATUS",
+      "description": "Document status",
+      "abapType": "CharacterString",
+      "length": 1,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 1
+    },
+    {
+      "name": "OVRLITMGENERALINCOMPLETIONSTS",
+      "description": "Document status",
+      "abapType": "CharacterString",
+      "length": 1,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 1
+    },
+    {
+      "name": "OVRLITMPACKINGINCOMPLETIONSTS",
+      "description": "Document status",
+      "abapType": "CharacterString",
+      "length": 1,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 1
+    },
+    {
+      "name": "OVRLITMPICKINGINCOMPLETIONSTS",
+      "description": "Document status",
+      "abapType": "CharacterString",
+      "length": 1,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 1
+    },
+    {
+      "name": "OVRLITMDELIVINCOMPLETIONSTS",
+      "description": "Document status",
+      "abapType": "CharacterString",
+      "length": 1,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 1
+    },
+    {
+      "name": "OVRLITMGDSMVTINCOMPLETIONSTS",
+      "description": "Document status",
+      "abapType": "CharacterString",
+      "length": 1,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 1
+    },
+    {
+      "name": "TOTALCREDITCHECKSTATUS",
+      "description": "Overall status of credit limit checks",
+      "abapType": "CharacterString",
+      "length": 1,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 1
+    },
+    {
+      "name": "FINDOCCREDITCHECKSTATUS",
+      "description": "Status of credit limit check",
+      "abapType": "CharacterString",
+      "length": 1,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 1
+    },
+    {
+      "name": "PAYTAUTHSNCREDITCHECKSTS",
+      "description": "Status of credit limit check",
+      "abapType": "CharacterString",
+      "length": 1,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 1
+    },
+    {
+      "name": "CENTRALCREDITCHECKSTATUS",
+      "description": "Status of credit limit check",
+      "abapType": "CharacterString",
+      "length": 1,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 1
+    },
+    {
+      "name": "EXPRTINSURCREDITCHECKSTATUS",
+      "description": "Status of credit limit check",
+      "abapType": "CharacterString",
+      "length": 1,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 1
+    },
+    {
+      "name": "MAXDOCVALUECREDITCHECKSTATUS",
+      "description": "Status of credit limit check",
+      "abapType": "CharacterString",
+      "length": 1,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 1
+    },
+    {
+      "name": "PAYMENTTERMCREDITCHECKSTATUS",
+      "description": "Status of credit limit check",
+      "abapType": "CharacterString",
+      "length": 1,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 1
+    },
+    {
+      "name": "SHIPPINGGROUPNUMBER",
+      "description": "PSST Group",
+      "abapType": "CharacterString",
+      "length": 10,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 10
+    },
+    {
+      "name": "PRICINGDOCUMENT",
+      "description": "No.of condition in the document",
+      "abapType": "CharacterString",
+      "length": 10,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 10
+    },
+    {
+      "name": "SALESORGFORINTCOBILLING",
+      "description": "Sales Organization",
+      "abapType": "CharacterString",
+      "length": 4,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 4
+    },
+    {
+      "name": "DISTRCHNLFORINTCOBILLING",
+      "description": "Distribution channel",
+      "abapType": "CharacterString",
+      "length": 2,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 2
+    },
+    {
+      "name": "DIVISIONFORINTCOBILLING",
+      "description": "Division",
+      "abapType": "CharacterString",
+      "length": 2,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 2
+    },
+    {
+      "name": "INTERCOMPANYBILLINGTYPE",
+      "description": "Billing Type",
+      "abapType": "CharacterString",
+      "length": 4,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 4
+    },
+    {
+      "name": "FACTORYCALENDARFORINTCOBILLING",
+      "description": "Factory calendar ID",
+      "abapType": "CharacterString",
+      "length": 2,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 2
+    },
+    {
+      "name": "INTERCOMPANYBILLINGCUSTOMER",
+      "description": "Customer Number",
+      "abapType": "CharacterString",
+      "length": 10,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 10
+    },
+    {
+      "name": "DELIVERYDOCUMENTCONDITION",
+      "description": "No.of condition in the document",
+      "abapType": "CharacterString",
+      "length": 10,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 10
+    },
+    {
+      "name": "TOTALNETAMOUNT",
+      "description": "Value field PL8 with +\/- sign",
+      "abapType": "PackedNumber",
+      "length": 17,
+      "decimalCount": 2,
+      "isSelected": false,
+      "outputLength": 19,
+      "referenceField": "TRANSACTIONCURRENCY"
+    },
+    {
+      "name": "REFERENCEDOCUMENTNUMBER",
+      "description": "Reference Document Number",
+      "abapType": "CharacterString",
+      "length": 25,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 16
+    },
+    {
+      "name": "DELETIONINDICATOR",
+      "description": "Yes\/No field",
+      "abapType": "CharacterString",
+      "length": 1,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 1
+    },
+    {
+      "name": "OVERALLCHMLCMPLNCSTATUS",
+      "description": "Total Product Marketability Check Status",
+      "abapType": "CharacterString",
+      "length": 1,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 1
+    },
+    {
+      "name": "OVERALLDANGEROUSGOODSSTATUS",
+      "description": "Total Dangerous Goods Check Status",
+      "abapType": "CharacterString",
+      "length": 1,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 1
+    },
+    {
+      "name": "OVERALLSAFETYDATASHEETSTATUS",
+      "description": "Safety Data Sheet Check Status (All Items)",
+      "abapType": "CharacterString",
+      "length": 1,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 1
+    },
+    {
+      "name": "ISCORRECTIONDELIVERY",
+      "description": "Yes\/No field",
+      "abapType": "CharacterString",
+      "length": 1,
+      "isSelected": false,
+      "selectionPermission": "All",
+      "outputLength": 1
+    }
+  ]
+}

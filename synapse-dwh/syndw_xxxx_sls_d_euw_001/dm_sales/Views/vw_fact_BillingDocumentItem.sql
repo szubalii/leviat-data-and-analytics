@@ -1,54 +1,35 @@
-﻿CREATE VIEW [dm_sales].[vw_fact_BillingDocumentItem] 
-AS
+﻿CREATE VIEW [dm_sales].[vw_fact_BillingDocumentItem] AS
+
 WITH BillDocPrcgElmnt AS (
-SELECT 
-        BDPE.BillingDocument
-       ,BDPE.BillingDocumentItem
-       ,CASE  
-              WHEN [ConditionType] = 'ZNET' 
-              THEN edw.svf_getConditionAmount (BDI.CurrencyTypeID,BDPE.ConditionAmount,BDPE.ConditionAmountEUR,BDPE.ConditionAmountUSD)
-              ELSE 0 
-        END AS ZNET_NetValue
-       ,CASE  
-              WHEN [ConditionType] = 'REA1' 
-              THEN edw.svf_getConditionAmount (BDI.CurrencyTypeID,BDPE.ConditionAmount,BDPE.ConditionAmountEUR,BDPE.ConditionAmountUSD)
-              ELSE 0 
-        END AS REA1_RebateAccrual
-       ,CASE  
-              WHEN [ConditionType] = 'ZNRV' 
-              THEN edw.svf_getConditionAmount (BDI.CurrencyTypeID,BDPE.ConditionAmount,BDPE.ConditionAmountEUR,BDPE.ConditionAmountUSD)
-              ELSE 0 
-        END AS ZNRV_NetRevenue
-       ,BDI.CurrencyTypeID        
-FROM  
-       [edw].[fact_BillingDocumentItemPrcgElmnt] BDPE
-LEFT JOIN 
-       [edw].[fact_BillingDocumentItem] BDI
-     ON 
-        BDI.BillingDocument = BDPE.BillingDocument
-    AND BDI.BillingDocumentItem = BDPE.BillingDocumentItem
-WHERE 
-       BDPE.[CurrencyTypeID] = '10' AND BDI.[CurrencyTypeID] <> '00' AND BDPE.ConditionType IN ('ZNRV','REA1','ZNET') 
+    select BillingDocument,
+           BillingDocumentItem,
+           CurrencyTypeID,
+           ConditionType,
+           ConditionAmount
+         , case when [ConditionType] = 'ZNET' then [ConditionAmount] else NULL end as ZNET_NetValue
+         , case when [ConditionType] = 'REA1' then [ConditionAmount] else NULL end as REA1_RebateAccrual
+         , case when [ConditionType] = 'ZNRV' then [ConditionAmount] else NULL end as ZNRV_NetRevenue
+    from [edw].[fact_BillingDocumentItemPrcgElmnt]
 )
 
-, BillDocPrcgElmnt_Grouping AS (
-SELECT 
-        BillingDocument
-       ,BillingDocumentItem
-       ,sum(ZNET_NetValue) as ZNET_NetValue
-       ,sum(REA1_RebateAccrual) as REA1_RebateAccrual
-       ,sum(ZNRV_NetRevenue) as ZNRV_NetRevenue
-       ,CurrencyTypeID        
-FROM  BillDocPrcgElmnt
-GROUP BY
-        BillingDocument
-       ,BillingDocumentItem
-       ,CurrencyTypeID 
-
+,BillDocPrcgElmnt_max_value AS (
+select 
+    BillingDocument,
+    BillingDocumentItem,
+    CurrencyTypeID,
+    max(ZNET_NetValue) as ZNET_NetValue,
+    max(REA1_RebateAccrual) as REA1_RebateAccrual,
+    max(ZNRV_NetRevenue) as ZNRV_NetRevenue
+    from BillDocPrcgElmnt
+    group by 
+        BillingDocument,
+        BillingDocumentItem,
+        CurrencyTypeID
+        
 ),
 
  original AS (
-    SELECT
+    SELECT 
            doc.[sk_fact_BillingDocumentItem]
          , doc.[BillingDocument]
          , doc.[BillingDocumentItem]
@@ -282,15 +263,15 @@ GROUP BY
                        on dimC.[CountryID] = doc.[CountryID]
              left join [edw].[dim_SalesDocumentType] dimSDT
                        on dimSDT.[SalesDocumentTypeID] = doc.[SalesOrderTypeID]
-             left join BillDocPrcgElmnt_Grouping BDPE
+             left join BillDocPrcgElmnt_max_value BDPE
                        on  doc.BillingDocument = BDPE.BillingDocument
                        and doc.BillingDocumentItem = BDPE.BillingDocumentItem
-                       and doc.CurrencyTypeID = BDPE.CurrencyTypeID
+                       and doc.CurrencyTypeID = BDPE.CurrencyTypeID 
 
             WHERE doc.[CurrencyTypeID] <> '00' -- Transaction Currency
 )
 
-SELECT
+SELECT 
        [sk_fact_BillingDocumentItem]
       ,[BillingDocument]
       ,[BillingDocumentItem]

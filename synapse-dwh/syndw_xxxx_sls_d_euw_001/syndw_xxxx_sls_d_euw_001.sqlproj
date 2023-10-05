@@ -431,6 +431,9 @@
     <Build Include="base_s4h_cax\Tables\I_GLAccountLineItemRawData_202307.sql" />
     <Build Include="base_s4h_cax\Tables\I_GLAccountLineItemRawData_202308.sql" />
     <Build Include="base_s4h_cax\Tables\I_GLAccountLineItemRawData_202309.sql" />
+    <Build Include="base_s4h_cax\Tables\I_GLAccountLineItemRawData_202310.sql" />
+    <Build Include="base_s4h_cax\Tables\I_GLAccountLineItemRawData_202311.sql" />
+    <Build Include="base_s4h_cax\Tables\I_GLAccountLineItemRawData_202312.sql" />
     <Build Include="base_s4h_cax\Tables\I_GLAccountLineItemRawData_upto2022.sql" />
     <Build Include="base_s4h_cax\Tables\I_GLAccountLineItemRawData_delta.sql" />
     <Build Include="base_s4h_cax\Tables\I_GLAccountLineItemRawData_active.sql" />
@@ -713,6 +716,7 @@
     <Build Include="base_s4h_cax\Tables\I_SDDocumentProcessFlow.sql" />
     <Build Include="base_s4h_cax\Tables\I_DataElementLabelText.sql" />
     <Build Include="base_s4h_cax\Tables\I_BusinessPartnerGroupingText.sql" />
+    <Build Include="base_s4h_cax\Tables\RollName.sql" />
     <Build Include="base_s4h_cax\Tables\I_FrtCostDistrItm.sql" />
     <Build Include="base_s4h_cax\Tables\I_TransportationOrder.sql" />
     <Build Include="base_s4h_cax\Tables\I_TransportationOrderItem.sql" />
@@ -1168,6 +1172,7 @@
     <Build Include="edw\Views\vw_ACDOCA_ReferenceSalesDocument.sql" />
     <Build Include="edw\Views\vw_SDDocumentIncompletionLog.sql" />
     <Build Include="edw\Views\vw_fact_ACDOCA_EPM_Base.sql" />
+    <Build Include="edw\Views\vw_LatestOutboundDeliveryItem.sql" />
     <Build Include="edw\Views\vw_Locations.sql" />
     <Build Include="edw\Views\vw_TransportationOrderItem.sql" />
     <Build Include="edw\Views\vw_FrtCostDistrItm.sql" />
@@ -1248,6 +1253,7 @@
     <Build Include="dm_finance\Views\vw_dim_ValueType.sql" />
     <Build Include="dm_finance\Views\vw_fact_Budget_EPM.sql" />
     <Build Include="dm_finance\Views\vw_dim_CompanyCodeProfitCenter.sql" />
+    <Build Include="dm_finance\Views\vw_fact_ACDOCA_Full_CH_AT.sql" />
 
     <Build Include="dm_sales\Views\vw_dim_Customer.sql" />
     <Build Include="dm_sales\Views\vw_fact_BillingDocumentItem.sql" />

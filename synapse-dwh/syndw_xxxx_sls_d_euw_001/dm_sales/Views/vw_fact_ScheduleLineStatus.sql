@@ -3,8 +3,9 @@ AS
 WITH DeliveryItem AS 
 ( 
 	SELECT 
-		SUM([ActualDeliveredQtyInBaseUnit]) AS [ActualDeliveredQtyInBaseUnit],
-		SUM([ActualDeliveryQuantity]) AS [ActualDeliveredQtySalesUnit], /*use Qty in SO UoM*/
+		SUM([ActualDeliveredQtyInBaseUnit])     AS [ActualDeliveredQtyInBaseUnit],
+		SUM([ActualDeliveryQuantity])           AS [ActualDeliveredQtySalesUnit], /*use Qty in SO UoM*/
+        MAX([HDR_ActualGoodsMovementDate])      AS [SDI_ODB_LatestActualGoodsMovmtDate],
 		[ReferenceSDDocument],
 		[ReferenceSDDocumentItem]
 	FROM [edw].[fact_OutboundDeliveryItem] 
@@ -58,7 +59,10 @@ WITH DeliveryItem AS
                 AND SDSL.ConfirmedDeliveryDate = '0001-01-01'
             THEN 'X'
             ELSE ''
-        END                                         AS IsUnconfirmedDelivery
+        END                                         AS IsUnconfirmedDelivery,
+        DeliveryItem.[SDI_ODB_LatestActualGoodsMovmtDate],
+        SDSL.DelivBlockReasonForSchedLine,
+        SDSL.LoadingDate
 	FROM [edw].[dim_SalesDocumentScheduleLine] SDSL 
 	LEFT JOIN DeliveryItem 
         ON SDSL.[SalesDocumentID] = DeliveryItem.[ReferenceSDDocument] 
@@ -99,6 +103,9 @@ SELECT
         SDSL.[ScheduleLine],
         SDSL.[RequestedDeliveryDate],
         SDSL.[ConfirmedDeliveryDate],
+        SDSL.[SDI_ODB_LatestActualGoodsMovmtDate],
+        SDSL.[DelivBlockReasonForSchedLine],
+        SDSL.[LoadingDate],
         SDSL.[ConfirmedQty],
         SDI.[OrderQuantity]                     AS [TotalOrderQty],
         SDSL.[TotalDelivered],
@@ -193,6 +200,9 @@ SELECT
         pre_report.[CreationDate],
         pre_report.[RequestedDeliveryDate],
         pre_report.[ConfirmedDeliveryDate],
+        pre_report.[SDI_ODB_LatestActualGoodsMovmtDate],
+        pre_report.[DelivBlockReasonForSchedLine],
+        pre_report.[LoadingDate],
         pre_report.[ConfirmedQty],
         pre_report.[TotalOrderQty],
         pre_report.[TotalDelivered],

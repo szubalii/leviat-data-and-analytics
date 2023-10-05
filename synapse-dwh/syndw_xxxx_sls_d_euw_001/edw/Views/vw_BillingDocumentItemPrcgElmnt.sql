@@ -24,10 +24,8 @@ SELECT
   , CASE 
         WHEN CCR.CurrencyTypeID = '10' 
         THEN CONVERT(decimal(19,6), COALESCE([ConditionBaseValue] * BDI.[ExchangeRate],[ConditionBaseValue]))
-        ELSE [ConditionBaseValue]
+        ELSE [ConditionBaseValue] * CCR.ExchangeRate
     END                                                                                          AS [ConditionBaseValue]
-  , CONVERT(decimal(19,6), [ConditionBaseValue] * CCR30.ExchangeRate)                            AS [BaseAmountEUR]
-  , CONVERT(decimal(19,6), [ConditionBaseValue] * CCR40.ExchangeRate)                            AS [BaseAmountUSD]
   , IBDIPE.[ConditionRateValue]
   , IBDIPE.[ConditionCurrency]
   , IBDIPE.[ConditionQuantity]
@@ -47,10 +45,8 @@ SELECT
   , CASE 
         WHEN CCR.CurrencyTypeID = '10' 
         THEN CONVERT(decimal(19,6), COALESCE([ConditionAmount] * BDI.[ExchangeRate],[ConditionAmount]))
-        ELSE [ConditionAmount]
+        ELSE [ConditionAmount]* CCR.ExchangeRate
     END                                                                                          AS [ConditionAmount] 
-  , CONVERT(decimal(19,6), [ConditionAmount] * CCR30.ExchangeRate)                               AS [ConditionAmountEUR]
-  , CONVERT(decimal(19,6), [ConditionAmount] * CCR40.ExchangeRate)                               AS [ConditionAmountUSD]
   , IBDIPE.[TransactionCurrency] as [TransactionCurrencyID]
   , IBDIPE.[ConditionControl]
   , IBDIPE.[ConditionInactiveReason]
@@ -71,13 +67,10 @@ SELECT
   , IBDIPE.[t_extractionDtm]
 FROM 
 	[base_s4h_cax].[I_BillingDocumentItemPrcgElmnt] IBDIPE
-LEFT JOIN  [edw].[fact_BillingDocumentItem] BDI
-    ON IBDIPE.BillingDocument = BDI.BillingDocument AND IBDIPE.BillingDocumentItem = BDI.BillingDocumentItem AND BDI.CurrencyTypeID = '10'
 LEFT JOIN [edw].[vw_CurrencyConversionRate] CCR   
-    ON IBDIPE.TransactionCurrency = CCR.SourceCurrency    COLLATE DATABASE_DEFAULT AND CCR.CurrencyTypeID = '10'
-LEFT JOIN [edw].[vw_CurrencyConversionRate] CCR30  
-    ON IBDIPE.TransactionCurrency = CCR30.SourceCurrency  COLLATE DATABASE_DEFAULT AND CCR30.CurrencyTypeID = '30'
-LEFT JOIN [edw].[vw_CurrencyConversionRate] CCR40  
-    ON IBDIPE.TransactionCurrency = CCR40.SourceCurrency  COLLATE DATABASE_DEFAULT AND CCR40.CurrencyTypeID = '40'
+    ON IBDIPE.TransactionCurrency = CCR.SourceCurrency  COLLATE DATABASE_DEFAULT
 LEFT JOIN [edw].[dim_CurrencyType] CR
     ON CCR.CurrencyTypeID = CR.CurrencyTypeID
+LEFT JOIN [edw].[fact_BillingDocumentItem] BDI
+    ON BDI.nk_fact_BillingDocumentItem =  edw.svf_getNaturalKey (IBDIPE.BillingDocument,IBDIPE.BillingDocumentItem,CR.CurrencyTypeID) 
+WHERE CCR.CurrencyTypeID <> '00'

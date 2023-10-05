@@ -1,8 +1,76 @@
 trigger: none # triggered by PR
 
-extends:
-  template: ../../build/stages-build-deploy.yml
-  parameters:
-    folder: xu-config
-    solution: XtractUniversal
-    env: test
+
+variables:
+- template: ../../build/variables-test.yml
+- ${{ if eq(variables['Build.Reason'], 'PullRequest') }}:
+  - name: xuPrefix
+    value: $[ format('PR{0}', variables['System.PullRequest.PullRequestId']) ]
+  - name: commitId
+    value: $(System.PullRequest.SourceCommitId)
+- ${{ elseif eq(variables['Build.Reason'], 'Manual') }}:
+  - name: xuPrefix
+    value: PR0000
+
+jobs:
+- job: RUN_CHANGED_EXTRACTIONS
+  variables:
+  - name: storageAccountName
+    value: stprteuw001
+  - name: destination
+    value: $[ format('{0}_s4h-{1}-{2}', variables['storageAccountName'], variables['S4HSystemId'], variables['S4HClientId']) ]
+  pool:
+    name: 'VM'
+    demands:
+    - node.js
+    - VisualStudio
+    - Agent.ComputerName -equals $(VMName)
+  steps:
+
+  - checkout: self
+    persistCredentials: true
+    fetchDepth: 0
+
+  # fetch and checkout main branch to get correct changed files using git diff
+  - script: |
+      git fetch
+    displayName: git fetch
+  
+  # Get changed extractions before any other tasks that might change source files
+  - task: PowerShell@2
+    displayName: 'Get Changed Extractions'
+    name: GetChangedExtractions
+    inputs:
+      filePath: $(System.DefaultWorkingDirectory)/xu-config/src/getChangedExtractions.ps1
+      pwsh: true
+
+  - template: ./steps-build.yml
+  - template: ./steps-deploy-helper.yml
+    parameters:
+      xuPath: $(Build.SourcesDirectory)/xu-config/extractions
+      copyToStorage: false
+
+  - script: |
+      node .\xu-config\src\runExtractions.js $(xuPrefix) $(changedExtractions)
+    condition: gt(length(variables.changedExtractions), 0)
+    displayName: Run Extractions
+
+  # - task: PowerShell@2
+  #   displayName: 'Run Changed Extractions'
+  #   # only run extractions if at least one has changed
+  #   condition: gt(length(variables.changedExtractions), 0)
+  #   name: RunChangedExtractions
+  #   inputs:
+  #     filePath: $(System.DefaultWorkingDirectory)/xu-config/src/runExtractions.ps1
+  #     arguments: >
+  #       -extractions $(changedExtractions)
+  #       -xuPrefix $(xuPrefix)
+  #     pwsh: true
+
+  - task: DeleteFiles@1
+    condition: always()
+    displayName: 'Clean up'
+    inputs:
+      SourceFolder: 'C:\Program Files\XtractUniversal\config\extractions'
+      Contents: $(xuPrefix)*
+  

@@ -131,6 +131,7 @@
     [SalesReferenceDocumentItemCalculated]  char(6) collate Latin1_General_100_BIN2,
     [SalesDocumentItemCategoryID]           nvarchar(8),
     [HigherLevelItem]                       char(6) collate Latin1_General_100_BIN2,
+    [ProjectNumber]                         nvarchar(10),
     [t_applicationId]                       VARCHAR(32),
     [t_extractionDtm]                       DATETIME,
     [t_jobId]                               VARCHAR(36),

@@ -24,10 +24,8 @@ SELECT
 , CASE 
         WHEN CCR.CurrencyTypeID = '10' 
         THEN CONVERT(decimal(19,6), COALESCE([ConditionBaseValue] * SDI.[ExchangeRate],[ConditionBaseValue]))
-        ELSE [ConditionBaseValue]
+        ELSE [ConditionBaseValue] * CCR.ExchangeRate
   END                                                                             AS [ConditionBaseValue]
-, CONVERT(decimal(19,6), [ConditionBaseValue] * CCR30.ExchangeRate)               AS [BaseAmountEUR]
-, CONVERT(decimal(19,6), [ConditionBaseValue] * CCR40.ExchangeRate)               AS [BaseAmountUSD]
 , [ConditionRateValue] 
 , [ConditionCurrency] 
 , [ConditionQuantity] 
@@ -47,10 +45,8 @@ SELECT
 , CASE 
         WHEN CCR.CurrencyTypeID = '10' 
         THEN CONVERT(decimal(19,6), COALESCE([ConditionAmount] * SDI.[ExchangeRate],[ConditionAmount]))
-        ELSE [ConditionAmount]
+        ELSE [ConditionAmount] * CCR.ExchangeRate
   END                                                                             AS [ConditionAmount] 
-, CONVERT(decimal(19,6), [ConditionAmount] * CCR30.ExchangeRate)                  AS [ConditionAmountEUR]
-, CONVERT(decimal(19,6), [ConditionAmount] * CCR40.ExchangeRate)                  AS [ConditionAmountUSD]
 , [TransactionCurrency] as [TransactionCurrencyID] 
 , [ConditionControl] 
 , [ConditionInactiveReason] 
@@ -71,13 +67,10 @@ SELECT
 , ISOIPE.[t_jobDtm]   
 FROM 
     [base_s4h_cax].[I_SalesOrderItemPricingElement] ISOIPE
-LEFT JOIN [edw].[fact_SalesDocumentItem] SDI
-    ON ISOIPE.SalesOrder = SDI.SalesDocument AND ISOIPE.SalesOrderItem = SDI.SalesDocumentItem AND SDI.CurrencyTypeID = '10'
 LEFT JOIN [edw].[vw_CurrencyConversionRate] CCR   
-    ON ISOIPE.TransactionCurrency = CCR.SourceCurrency    COLLATE DATABASE_DEFAULT AND CCR.CurrencyTypeID = '10'
-LEFT JOIN [edw].[vw_CurrencyConversionRate] CCR30  
-    ON ISOIPE.TransactionCurrency = CCR30.SourceCurrency  COLLATE DATABASE_DEFAULT AND CCR30.CurrencyTypeID = '30'
-LEFT JOIN [edw].[vw_CurrencyConversionRate] CCR40  
-    ON ISOIPE.TransactionCurrency = CCR40.SourceCurrency  COLLATE DATABASE_DEFAULT AND CCR40.CurrencyTypeID = '40'
+    ON ISOIPE.TransactionCurrency = CCR.SourceCurrency    COLLATE DATABASE_DEFAULT
 LEFT JOIN [edw].[dim_CurrencyType] CR
     ON CCR.CurrencyTypeID = CR.CurrencyTypeID
+LEFT JOIN [edw].[fact_SalesDocumentItem] SDI
+    ON SDI.nk_fact_SalesDocumentItem = edw.svf_getNaturalKey (SalesOrder,SalesOrderItem,CR.CurrencyTypeID) 
+WHERE CCR.CurrencyTypeID <> '00'
