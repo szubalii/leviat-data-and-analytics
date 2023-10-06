@@ -172,9 +172,9 @@ BEGIN
         FROM
             [edw].[vw_ScheduleLineShippedNotBilled];
 
-        RENAME OBJECT [edw].[fact_ScheduleLineShippedNotBilled] TO [fact_GRIRAccountReconciliation_old];
-        RENAME OBJECT [edw].[fact_GRIRAccountReconciliation_tmp] TO [fact_GRIRAccountReconciliation];
-        DROP TABLE [edw].[fact_GRIRAccountReconciliation_old];
+        RENAME OBJECT [edw].[fact_ScheduleLineShippedNotBilled] TO [fact_ScheduleLineShippedNotBilled_old];
+        RENAME OBJECT [edw].[fact_ScheduleLineShippedNotBilled_tmp] TO [fact_ScheduleLineShippedNotBilled];
+        DROP TABLE [edw].[fact_ScheduleLineShippedNotBilled_old];
 
     END TRY
     BEGIN CATCH
