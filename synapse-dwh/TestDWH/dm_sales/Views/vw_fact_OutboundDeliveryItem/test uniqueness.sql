@@ -55,45 +55,61 @@ BEGIN
     DistributionChannelID,
     SDProcessStatusID,
     OutboundDelivery,
-    OutboundDeliveryItem
+    OutboundDeliveryItem,
+    SDI_LocalCurrency
   )
   VALUES
-    (0, 1, 1, 1, 1, 1, 1, 1, 1, 1),
-    (1, 1, 1, 1, 1, 1, 1, 1, 2, 2),
-    (2, 2, 2, 2, 2, 2, 2, 2, 3, 3),
-    (3, 2, 2, 2, 2, 2, 2, 2, 4, 4);
+    (0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 'PLN'),
+    (1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 'PLN'),
+    (2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 'EUR'),
+    (3, 2, 2, 2, 2, 2, 2, 2, 4, 4, 'PLN');
+
+  SELECT TOP(0) *
+  INTO #vw_TransportationOrderItemFreightCost
+  FROM edw.vw_TransportationOrderItemFreightCost;
 
   INSERT INTO #vw_TransportationOrderItemFreightCost (
     TranspOrdDocReferenceID,
-    TranspOrdDocReferenceItmID
+    TranspOrdDocReferenceItmID,
+    FrtCostDistrItemAmtCrcy
   )
   VALUES
-    (1, 1),
-    (1, 2),
-    (3, 3),
-    (4, 4);
+    (1, 1, 'EUR'),
+    (1, 2, 'USD'),
+    (3, 3, 'PLN'),
+    (4, 4, 'EUR');
 
   EXEC ('INSERT INTO edw.vw_TransportationOrderItemFreightCost SELECT * FROM #vw_TransportationOrderItemFreightCost');
 
+  SELECT TOP(0) *
+  INTO #vw_fact_BillingDocumentItemFreight
+  FROM edw.vw_fact_BillingDocumentItemFreight;
+
   INSERT INTO #vw_fact_BillingDocumentItemFreight (
     ReferenceSDDocument,
-    ReferenceSDDocumentItem
+    ReferenceSDDocumentItem,
+    LocalCurrencyID
   )
   VALUES
-    (1, 1),
-    (1, 2),
-    (3, 3),
-    (4, 4);
+    (1, 1, 'PLN'),
+    (1, 2, 'EUR'),
+    (3, 3, 'USD'),
+    (4, 4, 'EUR');
 
   EXEC ('INSERT INTO edw.vw_fact_BillingDocumentItemFreight SELECT * FROM #vw_fact_BillingDocumentItemFreight');
 
+  SELECT TOP(0) *
+  INTO #vw_CurrencyConversionRate
+  FROM edw.vw_CurrencyConversionRate;
+
   INSERT INTO #vw_CurrencyConversionRate (
+    SourceCurrency,
+    TargetCurrency,
+    CurrencyTypeID
   )
   VALUES
-    (1, 1),
-    (1, 2),
-    (3, 3),
-    (4, 4);
+    ('PLN', 'EUR', '30'),
+    ('EUR', 'USD', '40');
 
   EXEC ('INSERT INTO edw.vw_CurrencyConversionRate SELECT * FROM #vw_CurrencyConversionRate');
 
