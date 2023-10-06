@@ -15,3 +15,23 @@ Pre-Deployment Script Template
 :r .\Script.ConfigureCLR.sql
 :r .\Script.InstallTSQLT.sql
 
+-- Test Classes
+-- :r ..\..\TestClasses\Uniqueness.sql
+-- :r ..\..\TestClasses\ACDOCA.sql
+-- :r ..\..\TestClasses\ScalarValuedFunctions.sql
+-- :r ..\..\TestClasses\CurrencyConversion.sql
+-- :r ..\..\TestClasses\OutboundDelivery.sql
+
+-- EXEC tSQLt.NewTestClass 'dm_sales.vw_fact_OutboundDeliveryItem';
+-- GO
+-- EXEC tSQLt.NewTestClass 'edw.vw_fact_BillingDocumentItemFreight';
+-- GO
+-- EXEC tSQLt.NewTestClass 'edw.vw_LatestOutboundDeliveryItem';
+-- GO
+-- EXEC tSQLt.NewTestClass 'edw.vw_OutboundDeliveryItem_s4h';
+-- GO
+-- EXEC tSQLt.NewTestClass 'edw.vw_TransportationOrderItemFreightCost';
+-- GO
+
+EXEC [tSQLt].[SetFakeViewOn] 'edw';
+GO
