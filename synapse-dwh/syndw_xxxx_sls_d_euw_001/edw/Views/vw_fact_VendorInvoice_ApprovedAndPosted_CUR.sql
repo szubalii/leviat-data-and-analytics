@@ -66,6 +66,6 @@ LEFT JOIN
 LEFT JOIN
   [edw].[fact_PurchasingDocumentItem] PDI
     ON
-      PDI.PurchasingDocument = VIM.PurchasingDocument
+      PDI.PurchasingDocument COLLATE DATABASE_DEFAULT = VIM.PurchasingDocument
       AND
-      PDI.PurchasingDocumentItem = VIM.PurchasingDocumentItem
+      PDI.PurchasingDocumentItem COLLATE DATABASE_DEFAULT = VIM.PurchasingDocumentItem
