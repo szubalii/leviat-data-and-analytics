@@ -12,7 +12,7 @@
     ,[Material]                                 NVARCHAR(80)                                         NULL
     ,[MaterialGroupID]                          NVARCHAR(40)                                         NULL
     ,[NetAmount]                                DECIMAL(28,12)                                       NULL
-    ,[TransactionCurrencyID]                    CHAR(6) collate Latin1_General_100_BIN2              NULL
+    ,[TransactionCurrencyID]                    CHAR(6) -- collate Latin1_General_100_BIN2
     ,[TaxAmount]                                DECIMAL(28,12)                                       NULL
     ,[CostAmount]                               DECIMAL(38,12)                                       NULL
     ,[CostCenter]                               NVARCHAR(30)                                         NULL
