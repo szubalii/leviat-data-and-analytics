@@ -20,7 +20,7 @@ CREATE TABLE [edw].[fact_Budget_axbi]
     [axbi_CustomerID]       NVARCHAR(100)                                NULL,
     [MaterialCalculated]    NVARCHAR(80)                                 NULL,
     [SoldToPartyCalculated] NVARCHAR(20)                                 NULL,
-    [InOutID]               NVARCHAR(6) collate Latin1_General_100_BIN2  NULL,
+    [InOutID]               NVARCHAR(6), -- collate Latin1_General_100_BIN2 NULL,
     [t_applicationId]       VARCHAR(32),
     [t_extractionDtm]       DATETIME,
     [t_jobId]               VARCHAR(36),
