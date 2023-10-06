@@ -4233,7 +4233,7 @@
         "pk_field_names": "TABNAME, FIELDNAME, AS4VERS, POSITION"
       },
       {
-        "entity_id": 623,
+        "entity_id": 625,
         "entity_name": "OPT_VIM_1ITEM_Extended",
         "data_category": "NULL",
         "client_field": "MANDT",
@@ -5857,7 +5857,7 @@
         "schedule_recurrence": "D"
       },
       {
-        "entity_id": 624,
+        "entity_id": 626,
         "entity_name": "fact_VendorInvoice_ApprovedAndPosted",
         "sproc_name": "sp_materialize_view",
         "source_view_name": "vw_VendorInvoice_ApprovedAndPosted",
