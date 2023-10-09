@@ -171,7 +171,7 @@ CREATE TABLE [edw].[fact_SalesDocumentItem_axbi]
     CONSTRAINT [PK_fact_SalesDocumentItem_axbi] PRIMARY KEY NONCLUSTERED ([sk_fact_SalesDocumentItem]) NOT ENFORCED
 )
 WITH (
-    DISTRIBUTION = HASH ([nk_fact_SalesDocumentItem]), CLUSTERED COLUMNSTORE INDEX
+    DISTRIBUTION = HASH ([SalesDocument]), CLUSTERED COLUMNSTORE INDEX
 )
 
 
