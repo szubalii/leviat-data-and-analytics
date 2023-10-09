@@ -46,5 +46,5 @@ CREATE TABLE [edw].[fact_ScheduleLineShippedNotBilled] (
     CONSTRAINT [PK_fact_ScheduleLineShippedNotBilled] PRIMARY KEY NONCLUSTERED ([SalesDocumentID], [SalesDocumentItem], [ScheduleLine], [ReportDate]) NOT ENFORCED
 )
 WITH (
-    DISTRIBUTION = HASH ([SalesDocument]), CLUSTERED COLUMNSTORE INDEX
+    DISTRIBUTION = HASH ([SalesDocumentID]), CLUSTERED COLUMNSTORE INDEX
 )
