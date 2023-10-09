@@ -4232,6 +4232,17 @@
         "base_table_name": "RollName",
         "schedule_recurrence": "A",
         "pk_field_names": "TABNAME, FIELDNAME, AS4VERS, POSITION"
+      },
+      {
+        "entity_id": 625,
+        "entity_name": "I_ChangeDocumentItem_VBEP_EDATU",
+        "data_category": "NULL",
+        "tool_name": "Theobald",
+        "extraction_type": "Table",
+        "update_mode": "Full",
+        "base_table_name": "I_ChangeDocumentItem_VBEP_EDATU",
+        "schedule_recurrence": "D",
+        "pk_field_names": "MANDT, CHANGEDOCOBJECT, CHANGEDOCOBJECTCLASS, CHANGEDOCUMENT, DATABASETABLE, CHANGEDOCTABLEKEY, CHANGEDOCDATABASETABLEFIELD, CHANGEDOCITEMCHANGETYPE"
       }
     ]
   },

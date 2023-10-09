@@ -57,18 +57,23 @@
 					"checkTable": "",
 					"ConversionExit": "ALPHA"
 				},
-				{
-					"name": "DATABASETABLE",
-					"description": "Table Name",
-					"abapType": "CharacterString",
-					"length": 30,
-					"isSelected": true,
-					"outputLength": 30,
-					"isPrimaryKey": true,
-					"isDeltaColumn": true,
-					"selectionPermission": "All",
-					"checkTable": ""
-				},
+        {
+          "name": "DATABASETABLE",
+          "description": "Table Name",
+          "abapType": "CharacterString",
+          "length": 30,
+          "isSelected": true,
+          "outputLength": 30,
+          "isPrimaryKey": true,
+          "isDeltaColumn": true,
+          "selectionPermission": "All",
+          "selections": [
+            {
+              "value": "VBEP"
+            }
+          ],
+          "checkTable": ""
+        },
 				{
 					"name": "CHANGEDOCTABLEKEY",
 					"description": "Changed table record key",
@@ -81,18 +86,23 @@
 					"selectionPermission": "All",
 					"checkTable": ""
 				},
-				{
-					"name": "CHANGEDOCDATABASETABLEFIELD",
-					"description": "Field Name",
-					"abapType": "CharacterString",
-					"length": 30,
-					"isSelected": true,
-					"outputLength": 30,
-					"isPrimaryKey": true,
-					"isDeltaColumn": true,
-					"selectionPermission": "All",
-					"checkTable": ""
-				},
+        {
+          "name": "CHANGEDOCDATABASETABLEFIELD",
+          "description": "Field Name",
+          "abapType": "CharacterString",
+          "length": 30,
+          "isSelected": true,
+          "outputLength": 30,
+          "isPrimaryKey": true,
+          "isDeltaColumn": true,
+          "selectionPermission": "All",
+          "selections": [
+            {
+              "value": "EDATU"
+            }
+          ],
+          "checkTable": ""
+        },
 				{
 					"name": "CHANGEDOCITEMCHANGETYPE",
 					"description": "Type of Change",
