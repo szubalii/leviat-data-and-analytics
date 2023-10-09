@@ -1173,6 +1173,7 @@
     <Build Include="edw\Views\vw_LatestOutboundDeliveryItem.sql" />
     <Build Include="edw\Views\vw_GRIRAccountReconciliation.sql" />
     <Build Include="edw\Views\vw_ScheduleLineShippedNotBilled.sql" />
+    <Build Include="edw\Views\vw_fact_ScheduleLineStatus.sql" />
 
     <Build Include="dq\Views\vw_Product_1_2.sql" />
     <Build Include="dq\Views\vw_RuleTotal.sql" />
