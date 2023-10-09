@@ -1,0 +1,188 @@
+{
+	"functionName": "Z_THEO_READ_TABLE",
+	"runInBackGroundJob": false,
+	"tables": [
+		{
+			"name": "ICHANGEDOCITEM",
+			"description": "Generated Table for View ICHANGEDOCITEM",
+			"isView": true,
+			"fields": [
+				{
+					"name": "MANDT",
+					"description": "Client",
+					"abapType": "CharacterString",
+					"length": 3,
+					"isSelected": true,
+					"outputLength": 3,
+					"isPrimaryKey": true,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "T000"
+				},
+				{
+					"name": "CHANGEDOCOBJECT",
+					"description": "Object Value",
+					"abapType": "CharacterString",
+					"length": 90,
+					"isSelected": true,
+					"outputLength": 90,
+					"isPrimaryKey": true,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": ""
+				},
+				{
+					"name": "CHANGEDOCOBJECTCLASS",
+					"description": "Object class",
+					"abapType": "CharacterString",
+					"length": 15,
+					"isSelected": true,
+					"outputLength": 15,
+					"isPrimaryKey": true,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "",
+					"ConversionExit": "ALPHA"
+				},
+				{
+					"name": "CHANGEDOCUMENT",
+					"description": "Change Number of Document",
+					"abapType": "CharacterString",
+					"length": 10,
+					"isSelected": true,
+					"outputLength": 10,
+					"isPrimaryKey": true,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "",
+					"ConversionExit": "ALPHA"
+				},
+				{
+					"name": "DATABASETABLE",
+					"description": "Table Name",
+					"abapType": "CharacterString",
+					"length": 30,
+					"isSelected": true,
+					"outputLength": 30,
+					"isPrimaryKey": true,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": ""
+				},
+				{
+					"name": "CHANGEDOCTABLEKEY",
+					"description": "Changed table record key",
+					"abapType": "CharacterString",
+					"length": 70,
+					"isSelected": true,
+					"outputLength": 70,
+					"isPrimaryKey": true,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": ""
+				},
+				{
+					"name": "CHANGEDOCDATABASETABLEFIELD",
+					"description": "Field Name",
+					"abapType": "CharacterString",
+					"length": 30,
+					"isSelected": true,
+					"outputLength": 30,
+					"isPrimaryKey": true,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": ""
+				},
+				{
+					"name": "CHANGEDOCITEMCHANGETYPE",
+					"description": "Type of Change",
+					"abapType": "CharacterString",
+					"length": 1,
+					"isSelected": true,
+					"outputLength": 1,
+					"isPrimaryKey": true,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": ""
+				},
+				{
+					"name": "CHANGEDOCPREVIOUSUNIT",
+					"description": "Change documents, unit referenced",
+					"abapType": "CharacterString",
+					"length": 3,
+					"isSelected": true,
+					"outputLength": 3,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": ""
+				},
+				{
+					"name": "CHANGEDOCNEWUNIT",
+					"description": "Change documents, unit referenced",
+					"abapType": "CharacterString",
+					"length": 3,
+					"isSelected": true,
+					"outputLength": 3,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": ""
+				},
+				{
+					"name": "CHANGEDOCPREVIOUSCURRENCY",
+					"description": "Change documents, referenced currency",
+					"abapType": "CharacterString",
+					"length": 5,
+					"isSelected": true,
+					"outputLength": 5,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": ""
+				},
+				{
+					"name": "CHANGEDOCNEWCURRENCY",
+					"description": "Change documents, referenced currency",
+					"abapType": "CharacterString",
+					"length": 5,
+					"isSelected": true,
+					"outputLength": 5,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": ""
+				},
+				{
+					"name": "CHANGEDOCNEWFIELDVALUE",
+					"description": "New Content of Changed Field",
+					"abapType": "CharacterString",
+					"length": 254,
+					"isSelected": true,
+					"outputLength": 254,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": ""
+				},
+				{
+					"name": "CHANGEDOCPREVIOUSFIELDVALUE",
+					"description": "Old Content of Changed Field",
+					"abapType": "CharacterString",
+					"length": 254,
+					"isSelected": true,
+					"outputLength": 254,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": ""
+				},
+				{
+					"name": "CHANGEDOCTEXTISCHANGED",
+					"description": "Flag: X = Text Change",
+					"abapType": "CharacterString",
+					"length": 1,
+					"isSelected": true,
+					"outputLength": 1,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": ""
+				}
+			]
+		}
+	]
+}
