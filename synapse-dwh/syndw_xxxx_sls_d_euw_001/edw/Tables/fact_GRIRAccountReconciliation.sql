@@ -7,7 +7,7 @@ CREATE TABLE [edw].[fact_GRIRAccountReconciliation]
     [PurchasingDocumentItemUniqueID]                    NVARCHAR(15),
     [OldestOpenItemPostingDate]                         DATE,
     [LatestOpenItemPostingDate]                         DATE,
-    [Supplier]                                          NVARCHAR(10),
+    [SupplierID]                                        NVARCHAR(10),
     [SupplierName]                                      NVARCHAR(80),
     [HasNoInvoiceReceiptPosted]                         NVARCHAR(1),
     [BalAmtInCompanyCodeCrcy]                           DECIMAL(23,2),
@@ -42,4 +42,5 @@ CREATE TABLE [edw].[fact_GRIRAccountReconciliation]
     , [ReportDate]
     ) NOT ENFORCED
 )
-WITH ( DISTRIBUTION = HASH ([PurchasingDocument]), CLUSTERED COLUMNSTORE INDEX )
+WITH
+    (DISTRIBUTION = REPLICATE, HEAP )

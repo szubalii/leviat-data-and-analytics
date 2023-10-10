@@ -7,7 +7,7 @@ SELECT
     ,[PurchasingDocumentItemUniqueID]
     ,[OldestOpenItemPostingDate]
     ,[LatestOpenItemPostingDate]
-    ,[Supplier]
+    ,[SupplierID]
     ,[SupplierName]
     ,[HasNoInvoiceReceiptPosted]
     ,[BalAmtInCompanyCodeCrcy]
