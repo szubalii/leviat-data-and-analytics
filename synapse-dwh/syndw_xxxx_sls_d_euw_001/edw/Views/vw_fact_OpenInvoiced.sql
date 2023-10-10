@@ -1,14 +1,15 @@
+CREATE VIEW [edw].[vw_fact_OpenInvoiced] AS
 SELECT
   SO.BillingCompanyCodeID AS CompanyCodeID,
-  'OpenInvoicedValue' AS KPIName,
   YEAR(SO.BillingDocumentDate) AS FiscalYear,
   MONTH(SO.BillingDocumentDate) AS FiscalPeriod,
   CONCAT(YEAR(SO.BillingDocumentDate), '0', MONTH(SO.BillingDocumentDate)) AS FiscalYearPeriod,
+  'OpenInvoicedValue' AS KPIName,
   SUM(SL.OpenInvoicedValue) AS KPIValue
 FROM
-  [dm_sales].[vw_fact_ScheduleLineStatus] SL
+  [edw].[vw_fact_ScheduleLineStatus] SL
 LEFT JOIN
-  [dm_sales].[vw_fact_SalesOrderItem] SO
+  [edw].[vw_fact_SalesOrderItem] SO
   ON
     SL.nk_fact_SalesDocumentItem = SO.nk_fact_SalesDocumentItem --TODO, correct key?
 WHERE

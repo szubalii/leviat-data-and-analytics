@@ -1,9 +1,9 @@
 SELECT
   CompanyCodeID,
-  'ManualJournalEntriesCount' AS KPIName,
   FiscalYear,
   FiscalPeriod,
   FiscalYearPeriod,
+  'ManualJournalEntriesCount' AS KPIName,
   COUNT (DISTINCT AccountingDocument) AS KPIValue
 FROM
   [edw].[vw_fact_ACDOCA_EPM_Base]

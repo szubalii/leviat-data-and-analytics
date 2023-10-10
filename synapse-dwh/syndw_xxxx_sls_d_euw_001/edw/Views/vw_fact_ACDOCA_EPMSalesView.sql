@@ -1,4 +1,4 @@
-CREATE VIEW [dm_finance].[vw_fact_ACDOCA_EPMSalesView]
+CREATE VIEW [edw].[vw_fact_ACDOCA_EPMSalesView]
 AS
 SELECT
 
@@ -154,4 +154,12 @@ SELECT
   [t_applicationId],
   [t_extractionDtm]
 FROM
-  [edw].[vw_fact_ACDOCA_EPMSalesView]
+  [edw].[vw_fact_ACDOCA_EPM_Base]
+WHERE
+  [GLAccountID] IS NOT NULL
+  AND
+  EXQL_GLAccountID IS NOT NULL
+  AND
+  [FunctionalAreaID] IS NOT NULL
+  AND
+  EXQL_FunctionalAreaID IS NOT NULL

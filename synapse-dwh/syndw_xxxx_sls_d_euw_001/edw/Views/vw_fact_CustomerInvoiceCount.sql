@@ -1,12 +1,13 @@
+CREATE VIEW [edw].[vw_fact_CustomerInvoiceCount] AS
 SELECT
   CompanyCodeID,
-  'NumOfCustomerInvoices' AS KPIName,
   FiscalYear,
   FiscalPeriod
   FiscalYearPeriod,
+  'NumOfCustomerInvoices' AS KPIName,
   COUNT(DISTINCT ReferenceDocument) AS KPIValue
 FROM 
-  [dm_finance].[vw_fact_ACDOCA_EPMSalesView]
+  [edw].[vw_fact_ACDOCA_EPMSalesView]
 WHERE
   AccountingDocumentTypeID IN ('RV')
   AND

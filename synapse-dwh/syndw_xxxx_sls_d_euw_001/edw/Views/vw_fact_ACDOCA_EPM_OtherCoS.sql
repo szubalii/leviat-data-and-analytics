@@ -6,7 +6,7 @@ SELECT
   FiscalYearPeriod,
   SUM(OpexAmount) + SUM(OtherCoSAmount) AS OtherCoSExclFreight
 FROM
-  [dm_finance].[vw_fact_ACDOCA_EPMSalesView]
+  [edw].[vw_fact_ACDOCA_EPMSalesView]
 WHERE
   GrossMarginAmount <> 0
   AND
