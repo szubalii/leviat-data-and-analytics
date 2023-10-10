@@ -1,5 +1,4 @@
-CREATE VIEW [edw].[vw_GRIRAccountReconciliation]
-AS 
+CREATE VIEW [edw].[vw_GRIRAccountReconciliation] AS 
 SELECT
         GRIPA.[CompanyCode] AS [CompanyCodeID],
         GRIPA.[PurchasingDocument],
@@ -12,8 +11,8 @@ SELECT
         GRIPA.[SupplierName],
         GRIPA.[HasNoInvoiceReceiptPosted],
         GRIPA.[BalAmtInCompanyCodeCrcy],
-        GRIPA.[BalAmtInCompanyCodeCrcy] * ExchangeRate_30.ExchangeRate AS BalAmtInEUR,
-        GRIPA.[BalAmtInCompanyCodeCrcy] * ExchangeRate_40.ExchangeRate AS BalAmtInUSD,
+        GRIPA.[BalAmtInCompanyCodeCrcy] * CCR_EUR.ExchangeRate AS BalAmtInEUR,
+        GRIPA.[BalAmtInCompanyCodeCrcy] * CCR_USD.ExchangeRate AS BalAmtInUSD,
         GRIPA.[CompanyCodeCurrency],
         GRIPA.[BalanceQuantityInRefQtyUnit],
         GRIPA.[ReferenceQuantityUnit],
@@ -32,11 +31,17 @@ SELECT
         GRIPA.[SystemMessageNumber],
         GRIPA.[t_applicationId],
         GRIPA.[t_extractionDtm]
-FROM [base_s4h_cax].[C_GRIRAccountReconciliation] GRIPA
-LEFT JOIN [edw].[vw_CurrencyConversionRate] ExchangeRate   
-    ON GRIPA.CompanyCodeCurrency = ExchangeRate.SourceCurrency COLLATE DATABASE_DEFAULT AND ExchangeRate.CurrencyTypeID = '10'
-LEFT JOIN [edw].[vw_CurrencyConversionRate] ExchangeRate_30   
-    ON GRIPA.CompanyCodeCurrency = ExchangeRate_30.SourceCurrency COLLATE DATABASE_DEFAULT AND ExchangeRate_30.CurrencyTypeID = '30'
-LEFT JOIN [edw].[vw_CurrencyConversionRate] ExchangeRate_40  
-    ON GRIPA.CompanyCodeCurrency = ExchangeRate_40.SourceCurrency COLLATE DATABASE_DEFAULT AND ExchangeRate_40.CurrencyTypeID = '40'
-WHERE ExchangeRate.CurrencyTypeID <> '00'
+FROM 
+    [base_s4h_cax].[C_GRIRAccountReconciliation] GRIPA
+LEFT JOIN 
+    [edw].[vw_CurrencyConversionRate] CCR_EUR   
+      ON 
+        GRIPA.CompanyCodeCurrency = CCR_EUR.SourceCurrency COLLATE DATABASE_DEFAULT 
+        AND 
+        CCR_EUR.CurrencyTypeID = '30'
+LEFT JOIN 
+    [edw].[vw_CurrencyConversionRate] CCR_USD  
+      ON 
+        GRIPA.CompanyCodeCurrency = CCR_USD.SourceCurrency COLLATE DATABASE_DEFAULT 
+        AND 
+        CCR_USD.CurrencyTypeID = '40'
