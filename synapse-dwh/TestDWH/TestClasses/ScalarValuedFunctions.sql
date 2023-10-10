@@ -567,6 +567,125 @@ BEGIN
 END;
 GO
 
-EXEC [tSQLt].[SetFakeViewOff] 'edw';
+-- edw.svf_getIC_Balance_KPI
+CREATE PROCEDURE [ScalarValuedFunctions].[test edw.svf_getIC_Balance_KPI: (0015112100,DE35;AmountInCompanyCodeCurrency)=AmountInLocalCurrency]
+AS
+BEGIN
+  -- Act: 
+  DECLARE @actual DECIMAL(23, 2) = ( SELECT edw.svf_getIC_Balance_KPI(
+    '0015112100', 'DE35', 1000.00
+  ));
 
+  -- Assert:
+  EXEC tSQLt.AssertEquals 1000.00, @actual;
+END;
 GO
+
+CREATE PROCEDURE [ScalarValuedFunctions].[test edw.svf_getIC_Balance_KPI: (0015112100,'';AmountInCompanyCodeCurrency)=AmountInLocalCurrency]
+AS
+BEGIN
+  -- Act: 
+  DECLARE @actual DECIMAL(23, 2) = ( SELECT edw.svf_getIC_Balance_KPI(
+    '0015112100', '', 1000.00
+  ));
+
+  -- Assert:
+  EXEC tSQLt.AssertEquals 0.00, @actual;
+END;
+GO
+
+CREATE PROCEDURE [ScalarValuedFunctions].[test edw.svf_getIC_Balance_KPI: (0011111111,DE35;AmountInCompanyCodeCurrency)=AmountInLocalCurrency]
+AS
+BEGIN
+  -- Act: 
+  DECLARE @actual DECIMAL(23, 2) = ( SELECT edw.svf_getIC_Balance_KPI(
+    '0011111111', 'DE35', 1000.00
+  ));
+
+  -- Assert:
+  EXEC tSQLt.AssertEquals 0.00, @actual;
+END;
+GO
+
+-- svf_getInventory_Adj_KPI
+CREATE PROCEDURE [ScalarValuedFunctions].[test edw.svf_getInventory_Adj_KPI: (RMBL;UMB;AmountInCompanyCodeCurrency)=AmountInLocalCurrency]
+AS
+BEGIN
+  -- Act: 
+  DECLARE @actual DECIMAL(23, 2) = ( SELECT edw.svf_getInventory_Adj_KPI(
+    'RMBL', 'UMB', 1000.00
+  ));
+
+  -- Assert:
+  EXEC tSQLt.AssertEquals 1000.00, @actual;
+END;
+GO
+
+CREATE PROCEDURE [ScalarValuedFunctions].[test edw.svf_getInventory_Adj_KPI: (AS91;UMB;AmountInCompanyCodeCurrency)=AmountInLocalCurrency]
+AS
+BEGIN
+  -- Act: 
+  DECLARE @actual DECIMAL(23, 2) = ( SELECT edw.svf_getInventory_Adj_KPI(
+    'AS91', 'UMB', 1000.00
+  ));
+
+    -- Assert:
+  EXEC tSQLt.AssertEquals 0.00, @actual;
+END;
+GO
+
+CREATE PROCEDURE [ScalarValuedFunctions].[test edw.svf_getInventory_Adj_KPI: (RMBL;BSX;AmountInCompanyCodeCurrency)=AmountInLocalCurrency]
+AS
+BEGIN
+  -- Act: 
+  DECLARE @actual DECIMAL(23, 2) = ( SELECT edw.svf_getInventory_Adj_KPI(
+    'RMBL', 'BSX', 1000.00
+  ));
+
+  -- Assert:
+  EXEC tSQLt.AssertEquals 0.00, @actual;
+END;
+GO
+
+CREATE PROCEDURE [ScalarValuedFunctions].[test edw.svf_getInventory_Adj_KPI: (RMBL;'';AmountInCompanyCodeCurrency)=AmountInLocalCurrency]
+AS
+BEGIN
+  -- Act: 
+  DECLARE @actual DECIMAL(23, 2) = ( SELECT edw.svf_getInventory_Adj_KPI(
+    'RMBL', '', 1000.00
+  ));
+
+  -- Assert:
+  EXEC tSQLt.AssertEquals 0.00, @actual;
+END;
+GO
+
+CREATE PROCEDURE [ScalarValuedFunctions].[test edw.svf_getInventory_Adj_KPI: ('';UMB;AmountInCompanyCodeCurrency)=AmountInLocalCurrency]
+AS
+BEGIN
+  -- Act: 
+  DECLARE @actual DECIMAL(23, 2) = ( SELECT edw.svf_getInventory_Adj_KPI(
+    '', 'UMB', 1000.00
+  ));
+
+    -- Assert:
+  EXEC tSQLt.AssertEquals 0.00, @actual;
+END;
+GO
+
+CREATE PROCEDURE [ScalarValuedFunctions].[test edw.svf_getInventory_Adj_KPI: ('';'';AmountInCompanyCodeCurrency)=AmountInLocalCurrency]
+AS
+BEGIN
+  -- Act: 
+  DECLARE @actual DECIMAL(23, 2) = ( SELECT edw.svf_getInventory_Adj_KPI(
+    '', '', 1000.00
+  ));
+
+    -- Assert:
+  EXEC tSQLt.AssertEquals 0.00, @actual;
+END;
+GO
+
+-- EXEC [tSQLt].[SetFakeViewOff] 'edw';
+
+-- GO
