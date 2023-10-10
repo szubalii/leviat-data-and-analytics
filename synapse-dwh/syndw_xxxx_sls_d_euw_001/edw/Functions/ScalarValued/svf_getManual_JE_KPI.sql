@@ -11,7 +11,7 @@ BEGIN
     SET @AmountInLocalCurrency =
             CASE  
                 WHEN @AccountingDocumentTypeID  IN ('SA','JR','AB') 
-                 AND @BusinessTransactionTypeID IN ('RFBU','RFPT,''RFCL','AZUM','RFCV')
+                 AND @BusinessTransactionTypeID IN ('RFBU','RFPT','RFCL','AZUM','RFCV')
                  AND @ReferenceDocumentTypeID IN ('BKPFF','BKPF')
                 THEN @AmountInCompanyCodeCurrency
                 ELSE 0 
