@@ -8,6 +8,10 @@ BEGIN
 
   -- Assemble: Fake Table
   EXEC tSQLt.FakeTable '[edw]', '[vw_fact_ScheduleLineStatus]';
+
+  SELECT TOP(0) *
+  INTO #vw_fact_ScheduleLineStatus
+  FROM edw.vw_fact_ScheduleLineStatus;
    
   INSERT INTO #vw_fact_ScheduleLineStatus (
     SLInvoicedStatus
