@@ -1324,7 +1324,6 @@
     <Build Include="dm_sales\Views\vw_dim_PriceListType.sql" />
     <Build Include="dm_sales\Views\vw_fact_OrderBacklog.sql" />
     <Build Include="dm_sales\Views\vw_dim_SDDocumentIncompletionLog.sql" />
-    <Build Include="dm_sales\Views\vw_dim_ShippingPoint_Extended.sql" />
 
     <Build Include="dm_procurement\Views\vw_dim_OptVim1Head.sql" />
     <Build Include="dm_procurement\Views\vw_dim_PfcgRoleToUser.sql" />
