@@ -189,6 +189,8 @@
     <Folder Include="intm_axbi\Tables" />
     <Folder Include="intm_axbi\Views" />
     <Folder Include="intm_axbi\Stored Procedures" />
+    <Folder Include="intm_s4h" />
+    <Folder Include="intm_s4h\Views" />
     <Folder Include="base_ancon_australia_2_dwh" />
     <Folder Include="base_ancon_australia_2_dwh\Tables" />
     <Folder Include="base_tx_crh_1_stg" />
@@ -306,6 +308,7 @@
     <Build Include="Security\Schemas\base_halfen_moment_sg.sql" />
     <Build Include="Security\Schemas\base_isedio.sql" />
     <Build Include="Security\Schemas\base_isedio_aus.sql" />
+    <Build Include="Security\Schemas\intm_s4h.sql" />
 
     <!-- TABLES -->
 
@@ -1020,6 +1023,8 @@
     <Build Include="intm_axbi\Views\vw_DIM_INVENTLOCATION.sql" />
     <Build Include="intm_axbi\Views\vw_FACT_CUSTPACKINGSLIPTRANS.sql" />
     <Build Include="intm_axbi\Views\vw_DIM_INVENTTABLE.sql" />
+      
+    <Build Include="intm_s4h\Views\vw_OriginalConfirmedScheduleLineDeliveryDate.sql" />
 
     <Build Include="edw\Views\vw_ACDOCA_delta.sql" />
     <Build Include="edw\Views\vw_CurrencyConversionRate.sql" />
