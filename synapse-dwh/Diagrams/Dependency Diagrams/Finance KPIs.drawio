@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="JDSlT0zyboyRpqrjVtRk" name="Page-1">
-        <mxGraphModel dx="1376" dy="968" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+        <mxGraphModel dx="1950" dy="1176" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -16,12 +16,36 @@
                     <mxGeometry relative="1" as="geometry">
                         <Array as="points">
                             <mxPoint x="1010" y="160"/>
-                            <mxPoint x="1358" y="160"/>
+                            <mxPoint x="1688" y="160"/>
                         </Array>
                     </mxGeometry>
                 </mxCell>
                 <mxCell id="36" style="edgeStyle=orthogonalEdgeStyle;jumpStyle=arc;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontColor=#808080;" edge="1" parent="1" source="2" target="34">
                     <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="42" style="edgeStyle=orthogonalEdgeStyle;jumpStyle=arc;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontColor=#808080;" edge="1" parent="1" source="2" target="41">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="1010" y="160"/>
+                            <mxPoint x="1950" y="160"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="45" style="edgeStyle=orthogonalEdgeStyle;jumpStyle=arc;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontColor=#808080;" edge="1" parent="1" source="2" target="43">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="1010" y="160"/>
+                            <mxPoint x="1280" y="160"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="47" style="edgeStyle=orthogonalEdgeStyle;jumpStyle=arc;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontColor=#808080;" edge="1" parent="1" source="2" target="46">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="1010" y="160"/>
+                            <mxPoint x="1520" y="160"/>
+                        </Array>
+                    </mxGeometry>
                 </mxCell>
                 <mxCell id="2" value="dm_finance&lt;br&gt;vw_fact_FinanceKPI" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
                     <mxGeometry x="930" y="40" width="160" height="80" as="geometry"/>
@@ -58,8 +82,8 @@
                 <mxCell id="23" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="8" target="21">
                     <mxGeometry relative="1" as="geometry">
                         <Array as="points">
-                            <mxPoint x="1140" y="620"/>
-                            <mxPoint x="1020" y="620"/>
+                            <mxPoint x="1140" y="640"/>
+                            <mxPoint x="1020" y="640"/>
                         </Array>
                     </mxGeometry>
                 </mxCell>
@@ -73,7 +97,7 @@
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
                 <mxCell id="9" value="edw&lt;br&gt;vw_fact_OpenInvoiced" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-                    <mxGeometry x="1280" y="360" width="155" height="80" as="geometry"/>
+                    <mxGeometry x="1610" y="360" width="155" height="80" as="geometry"/>
                 </mxCell>
                 <mxCell id="28" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="15" target="21">
                     <mxGeometry relative="1" as="geometry"/>
@@ -93,36 +117,36 @@
                     <mxGeometry x="-160" y="40" width="200" height="80" as="geometry"/>
                 </mxCell>
                 <mxCell id="21" value="edw&lt;br&gt;vw_fact_ACDOCA_EPM_Base" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-                    <mxGeometry x="920" y="640" width="200" height="80" as="geometry"/>
+                    <mxGeometry x="920" y="680" width="200" height="80" as="geometry"/>
                 </mxCell>
                 <mxCell id="24" value="edw&lt;br&gt;vw_fact_ScheduleLineStatus" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-                    <mxGeometry x="1257.5" y="520" width="200" height="80" as="geometry"/>
+                    <mxGeometry x="1587.5" y="520" width="200" height="80" as="geometry"/>
                 </mxCell>
                 <mxCell id="25" value="edw&lt;br&gt;vw_fact_SalesOrderItem" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-                    <mxGeometry x="1500" y="520" width="200" height="80" as="geometry"/>
+                    <mxGeometry x="1830" y="520" width="200" height="80" as="geometry"/>
                 </mxCell>
                 <mxCell id="33" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;jumpStyle=arc;" edge="1" parent="1" source="29" target="24">
                     <mxGeometry relative="1" as="geometry">
                         <Array as="points">
-                            <mxPoint x="1220" y="480"/>
-                            <mxPoint x="1358" y="480"/>
+                            <mxPoint x="1590" y="480"/>
+                            <mxPoint x="1688" y="480"/>
                         </Array>
                     </mxGeometry>
                 </mxCell>
                 <mxCell id="29" value="dm_sales&lt;br&gt;vw_fact_ScheduleLineStatus" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-                    <mxGeometry x="1120" y="40" width="200" height="80" as="geometry"/>
+                    <mxGeometry x="1490" y="50" width="200" height="80" as="geometry"/>
                 </mxCell>
                 <mxCell id="32" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="30" target="25">
                     <mxGeometry relative="1" as="geometry">
-                        <mxPoint x="1690" y="350" as="targetPoint"/>
+                        <mxPoint x="2020" y="350" as="targetPoint"/>
                         <Array as="points">
-                            <mxPoint x="1778" y="480"/>
-                            <mxPoint x="1600" y="480"/>
+                            <mxPoint x="2300" y="480"/>
+                            <mxPoint x="1930" y="480"/>
                         </Array>
                     </mxGeometry>
                 </mxCell>
                 <mxCell id="30" value="dm_sales&lt;br&gt;vw_fact_SalesOrderItem" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-                    <mxGeometry x="1687.5" y="40" width="200" height="80" as="geometry"/>
+                    <mxGeometry x="2200" y="40" width="200" height="80" as="geometry"/>
                 </mxCell>
                 <mxCell id="37" value="" style="edgeStyle=orthogonalEdgeStyle;jumpStyle=arc;html=1;fontColor=#808080;" edge="1" parent="1" source="34" target="5">
                     <mxGeometry relative="1" as="geometry"/>
@@ -143,6 +167,15 @@
                 </mxCell>
                 <mxCell id="34" value="edw&lt;br&gt;vw_fact_ACDOCA_EPM_Sales_agg_unpvt" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
                     <mxGeometry x="340" y="200" width="240" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="41" value="edw&lt;br&gt;vw_fact_VendorInvoice_ApprovedAndPosted_agg" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="1810" y="360" width="280" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="43" value="edw&lt;br&gt;fact_GRIRAccountReconciliation" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="1180" y="840" width="200" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="46" value="edw&lt;br&gt;vw_fact_ScheduleLineShippedNotBilled" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="1400" y="680" width="240" height="80" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>
