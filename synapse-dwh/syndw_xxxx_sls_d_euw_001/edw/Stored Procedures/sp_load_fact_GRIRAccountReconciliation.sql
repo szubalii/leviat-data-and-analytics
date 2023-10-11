@@ -38,7 +38,7 @@ BEGIN
             , [PurchasingDocumentItemUniqueID]   
             , [OldestOpenItemPostingDate]        
             , [LatestOpenItemPostingDate]        
-            , [Supplier]                         
+            , [SupplierID]                         
             , [SupplierName]                     
             , [HasNoInvoiceReceiptPosted]        
             , [BalAmtInCompanyCodeCrcy]          
@@ -67,7 +67,9 @@ BEGIN
             , [t_lastActionCd]                   
             , [t_jobBy]                          
            FROM
-               [edw].[fact_GRIRAccountReconciliation];
+               [edw].[fact_GRIRAccountReconciliation]
+           WHERE 
+               FORMAT(ReportDate, 'yyyyMM') <> FORMAT(t_jobDtm,'yyyyMM');
 
         INSERT INTO [edw].[fact_GRIRAccountReconciliation_tmp] (
                 [CompanyCodeID]                    
@@ -77,7 +79,7 @@ BEGIN
             ,   [PurchasingDocumentItemUniqueID]   
             ,   [OldestOpenItemPostingDate]        
             ,   [LatestOpenItemPostingDate]        
-            ,   [Supplier]                         
+            ,   [SupplierID]                         
             ,   [SupplierName]                     
             ,   [HasNoInvoiceReceiptPosted]        
             ,   [BalAmtInCompanyCodeCrcy]          
@@ -114,7 +116,7 @@ BEGIN
             ,   [PurchasingDocumentItemUniqueID]   
             ,   [OldestOpenItemPostingDate]        
             ,   [LatestOpenItemPostingDate]        
-            ,   [Supplier]                         
+            ,   [SupplierID]                         
             ,   [SupplierName]                     
             ,   [HasNoInvoiceReceiptPosted]        
             ,   [BalAmtInCompanyCodeCrcy]          
@@ -145,9 +147,9 @@ BEGIN
         FROM
             [edw].[vw_GRIRAccountReconciliation];
 
-        RENAME OBJECT [edw].[fact_GRIRAccountReconciliation] TO [fact_ScheduleLineShippedNotBilled_old];
-        RENAME OBJECT [edw].[fact_ScheduleLineShippedNotBilled_tmp] TO [fact_ScheduleLineShippedNotBilled];
-        DROP TABLE [edw].[fact_ScheduleLineShippedNotBilled_old];
+        RENAME OBJECT [edw].[fact_GRIRAccountReconciliation] TO [fact_GRIRAccountReconciliation_old];
+        RENAME OBJECT [edw].[fact_GRIRAccountReconciliation_tmp] TO [fact_GRIRAccountReconciliation];
+        DROP TABLE [edw].[fact_GRIRAccountReconciliation_old];
 
     END TRY
     BEGIN CATCH

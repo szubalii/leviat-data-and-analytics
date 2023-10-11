@@ -27,7 +27,7 @@ BEGIN
         CREATE TABLE [edw].[fact_ScheduleLineShippedNotBilled_tmp]
         WITH
         (
-            DISTRIBUTION = HASH ([nk_fact_SalesDocumentItem]),
+            DISTRIBUTION = HASH ([SalesDocumentID]),
             CLUSTERED COLUMNSTORE INDEX
         )
         AS SELECT 
@@ -76,7 +76,9 @@ BEGIN
              ,  [t_lastActionCd]                           
              ,  [t_jobBy]                                  
            FROM
-               [edw].[fact_ScheduleLineShippedNotBilled];
+               [edw].[fact_ScheduleLineShippedNotBilled]
+           WHERE 
+                FORMAT(ReportDate, 'yyyyMM') <> FORMAT(t_jobDtm,'yyyyMM');
 
         INSERT INTO [edw].[fact_ScheduleLineShippedNotBilled_tmp] (
                 [nk_fact_SalesDocumentItem]                

@@ -30,7 +30,6 @@ BEGIN
                                       '0035800100')
                  AND @PartnerCompanyID <> ''
                 THEN @AmountInCompanyCodeCurrency
-                ELSE 0 
             END 
 
     RETURN @AmountInLocalCurrency

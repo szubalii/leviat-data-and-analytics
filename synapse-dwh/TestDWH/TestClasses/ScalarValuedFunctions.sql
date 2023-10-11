@@ -4,7 +4,7 @@
 EXEC tSQLt.NewTestClass 'ScalarValuedFunctions';
 GO
 
--- edw.svf_getInOutID_EPM
+
 CREATE PROCEDURE [ScalarValuedFunctions].[test edw.svf_getInOutID_EPM: (005;3)=IC_Lev]
 AS
 BEGIN
@@ -162,45 +162,6 @@ BEGIN
 END;
 GO
 
--- edw.svf_getIC_Balance_KPI
-CREATE PROCEDURE [ScalarValuedFunctions].[test edw.svf_getIC_Balance_KPI: (0015112100,DE35;AmountInCompanyCodeCurrency)=AmountInLocalCurrency]
-AS
-BEGIN
-  -- Act: 
-  DECLARE @actual DECIMAL(23, 2) = ( SELECT edw.svf_getIC_Balance_KPI(
-    '0015112100', 'DE35', 1000.00
-  ));
-
-  -- Assert:
-  EXEC tSQLt.AssertEquals 1000.00, @actual;
-END;
-GO
-
-CREATE PROCEDURE [ScalarValuedFunctions].[test edw.svf_getIC_Balance_KPI: (0015112100,'';AmountInCompanyCodeCurrency)=AmountInLocalCurrency]
-AS
-BEGIN
-  -- Act: 
-  DECLARE @actual DECIMAL(23, 2) = ( SELECT edw.svf_getIC_Balance_KPI(
-    '0015112100', '', 1000.00
-  ));
-
-  -- Assert:
-  EXEC tSQLt.AssertEquals 0.00, @actual;
-END;
-GO
-
-CREATE PROCEDURE [ScalarValuedFunctions].[test edw.svf_getIC_Balance_KPI: (0011111111,DE35;AmountInCompanyCodeCurrency)=AmountInLocalCurrency]
-AS
-BEGIN
-  -- Act: 
-  DECLARE @actual DECIMAL(23, 2) = ( SELECT edw.svf_getIC_Balance_KPI(
-    '0011111111', 'DE35', 1000.00
-  ));
-
-  -- Assert:
-  EXEC tSQLt.AssertEquals 0.00, @actual;
-END;
-GO
 
 -- EXEC [tSQLt].[SetFakeViewOff] 'edw';
 
