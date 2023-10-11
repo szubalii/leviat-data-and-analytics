@@ -17,15 +17,16 @@ steps:
     
 #   displayName: 'Create Database in SQL Server using entrypoint.sh script?'
 
-- script: |
-    sqlpackage /Action:Publish /SourceFile:"$(System.DefaultWorkingDirectory)/synapse-dwh/TestDWH/bin/Debug/TestDWH.dacpac" \
-    /TargetConnectionString:"Server=localhost;Initial Catalog=TestDWH;User ID=sa;Password=$(mssql-sa-pwd);Encrypt=False;TrustServerCertificate=False;Connection Timeout=30;"
-  displayName: 'Deploy Test dacpac to Docker Container'
 
 - script: |
     sqlpackage /Action:Publish /SourceFile:"$(System.DefaultWorkingDirectory)/synapse-dwh/syndw_xxxx_sls_d_euw_001/bin/Debug/syndw_xxxx_sls_d_euw_001.dacpac" \
     /TargetConnectionString:"Server=localhost;Initial Catalog=TestDWH;User ID=sa;Password=$(mssql-sa-pwd);Encrypt=False;TrustServerCertificate=False;Connection Timeout=30;"
   displayName: 'Deploy Synapse SQL Pool dacpac to Docker Container'
+  
+- script: |
+    sqlpackage /Action:Publish /SourceFile:"$(System.DefaultWorkingDirectory)/synapse-dwh/TestDWH/bin/Debug/TestDWH.dacpac" \
+    /TargetConnectionString:"Server=localhost;Initial Catalog=TestDWH;User ID=sa;Password=$(mssql-sa-pwd);Encrypt=False;TrustServerCertificate=False;Connection Timeout=30;"
+  displayName: 'Deploy Test dacpac to Docker Container'
 
 
 # User powershell instead of direct sqlcmd due to issues in fixed length of output of xml results

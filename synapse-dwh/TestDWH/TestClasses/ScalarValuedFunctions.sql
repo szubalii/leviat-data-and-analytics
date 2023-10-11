@@ -1,5 +1,5 @@
-EXEC [tSQLt].[SetFakeViewOn] 'edw';
-GO
+-- EXEC [tSQLt].[SetFakeViewOn] 'edw';
+-- GO
 
 EXEC tSQLt.NewTestClass 'ScalarValuedFunctions';
 GO

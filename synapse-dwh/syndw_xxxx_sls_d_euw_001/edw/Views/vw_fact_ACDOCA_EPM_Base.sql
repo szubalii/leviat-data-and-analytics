@@ -266,15 +266,16 @@ SELECT
   ZED.[GLAccountID] AS EXQL_GLAccountID,
   ZED.[FunctionalAreaID] AS EXQL_FunctionalAreaID,
   GLALIRD.[ProjectNumber],
-  CASE 
-      WHEN GLALIRD.ProjectNumber IS NULL OR GLALIRD.ProjectNumber = '' THEN 
-        CASE 
-          WHEN GLALIRD.SalesReferenceDocumentCalculated IS NOT NULL OR GLALIRD.SalesReferenceDocumentCalculated <> ''
-          THEN SDI.ProjectID
-          ELSE ''
-        END
-      ELSE GLALIRD.ProjectNumber
-  END AS [ProjectNumberCalculated],
+  GLALIRD.[ProjectNumber] AS [ProjectNumberCalculated],
+  -- CASE 
+  --     WHEN GLALIRD.ProjectNumber IS NULL OR GLALIRD.ProjectNumber = '' THEN 
+  --       CASE 
+  --         WHEN GLALIRD.SalesReferenceDocumentCalculated IS NOT NULL OR GLALIRD.SalesReferenceDocumentCalculated <> ''
+  --         THEN SDI.ProjectID
+  --         ELSE ''
+  --       END
+  --     ELSE GLALIRD.ProjectNumber
+  -- END AS [ProjectNumberCalculated],
   edw.[svf_getManual_JE_KPI]( GLALIRD.AccountingDocumentTypeID,
                               GLALIRD.BusinessTransactionTypeID,
                               GLALIRD.ReferenceDocumentTypeID,
@@ -312,7 +313,7 @@ LEFT JOIN [edw].[dim_Brand] DimBrand
   ON PSD.FirstSalesSpecProductGroup = DimBrand.[BrandID]
 LEFT JOIN [edw].[dim_CustomerGroup] dimCGr
   ON CSA.CustomerGroup = dimCGr.[CustomerGroupID]
-LEFT JOIN  [edw].[fact_SalesDocumentItem] SDI
-  ON GLALIRD.[SalesReferenceDocumentCalculated] = SDI.[SalesDocument]
-    AND GLALIRD.[SalesReferenceDocumentItemCalculated] = SDI.[SalesDocumentItem]
+-- LEFT JOIN  [edw].[fact_SalesDocumentItem] SDI
+--   ON GLALIRD.[SalesReferenceDocumentCalculated] = SDI.[SalesDocument]
+--     AND GLALIRD.[SalesReferenceDocumentItemCalculated] = SDI.[SalesDocumentItem]
 WHERE ExchangeRate.CurrencyTypeID <> '00'
