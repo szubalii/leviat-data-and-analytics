@@ -364,6 +364,8 @@ OutboundDeliveryItem_s4h AS (
         ,ODI.[IntercompanyBillingStatus] AS [IntercompanyBillingStatusID]
         ,ODI.[IsReturnsItem] 
         ,SDSL.[ConfirmedDeliveryDate] AS [SL_ConfirmedDeliveryDate]
+        ,COALESCE(OCDD.[OriginalConfirmedDeliveryDate],SDSL.[ConfirmedDeliveryDate]) AS [SL_OriginalConfirmedDeliveryDate]
+        ,SDSL_1st.[ConfirmedDeliveryDate] AS [SL_FirstCustomerRequestedDeliveryDate]
         ,SDSL.[GoodsIssueDate] AS [SL_GoodsIssueDate]
         ,SDSL.[ScheduleLine] AS [SL_ScheduleLine]
         ,OD.[SalesDistrict] AS [HDR_SalesDistrictID]
@@ -724,6 +726,20 @@ OutboundDeliveryItem_s4h AS (
             AND
             ODI.[ReferenceSDDocumentItem] = SDSL.[SalesDocumentItem]
     LEFT JOIN
+        SDSLScheduleLine AS SDSL_1st
+        ON
+            ODI.[ReferenceSDDocument] = SDSL_1st.[SalesDocument]
+            AND
+            ODI.[ReferenceSDDocumentItem] = SDSL_1st.[SalesDocumentItem]
+    LEFT JOIN
+        [intm_s4h].[vw_OriginalConfirmedScheduleLineDeliveryDate] OCDD
+        ON
+            SDSL.[SalesDocument] = OCDD.[SalesDocument]
+            AND
+            SDSL.[SalesDocumentItem] = OCDD.[SalesDocumentItem]
+            AND
+            SDSL.[ScheduleLine] = OCDD.[ScheduleLine]
+    LEFT JOIN
         [edw].[dim_Route] AS DimActualRoute
         ON
             DimActualRoute.[ROUTEID] = OD.[ActualDeliveryRoute]
@@ -765,6 +781,8 @@ OutboundDeliveryItem_s4h AS (
 		    SDDCP.[Supplier] = SPL.[Supplier]
     LEFT JOIN [edw].[dim_Customer] DimCust
             ON OD.SoldToParty = DimCust.CustomerID
+    WHERE
+        SDSL_1st.[ScheduleLine] = '0001'
 )
 ,
 OutboundDeliveryItem_s4h_calculated AS (
@@ -855,38 +873,72 @@ OutboundDeliveryItem_s4h_calculated AS (
         ,[IntercompanyBillingStatusID]
         ,[IsReturnsItem] 
         ,[SL_ConfirmedDeliveryDate]
+        ,[SL_OriginalConfirmedDeliveryDate]
+        ,[SL_FirstCustomerRequestedDeliveryDate]
         ,CASE
             WHEN
-                ([SL_ConfirmedDeliveryDate] IS NULL
+                ([SL_OriginalConfirmedDeliveryDate] IS NULL
                 OR
-                [SL_ConfirmedDeliveryDate]  = '0001-01-01')
+                [SL_OriginalConfirmedDeliveryDate]  = '0001-01-01')
             THEN NULL
             WHEN
-                DATENAME(weekday, [SL_ConfirmedDeliveryDate]) = 'Saturday'
+                DATENAME(weekday, [SL_OriginalConfirmedDeliveryDate]) = 'Saturday'
                 AND
-                ([SL_ConfirmedDeliveryDate] < [CalculatedDelDate]
+                ([SL_OriginalConfirmedDeliveryDate] < [CalculatedDelDate]
                 OR
                 [CalculatedDelDate] IS NULL)
-            THEN DATEADD(day, -1, [SL_ConfirmedDeliveryDate])
+            THEN DATEADD(day, -1, [SL_OriginalConfirmedDeliveryDate])
             WHEN
-                DATENAME(weekday, [SL_ConfirmedDeliveryDate]) = 'Saturday'
+                DATENAME(weekday, [SL_OriginalConfirmedDeliveryDate]) = 'Saturday'
                 AND
-                [SL_ConfirmedDeliveryDate] > [CalculatedDelDate]
-            THEN DATEADD(day, 2, [SL_ConfirmedDeliveryDate])
+                [SL_OriginalConfirmedDeliveryDate] > [CalculatedDelDate]
+            THEN DATEADD(day, 2, [SL_OriginalConfirmedDeliveryDate])
             WHEN
-                DATENAME(weekday, [SL_ConfirmedDeliveryDate]) = 'Sunday'
+                DATENAME(weekday, [SL_OriginalConfirmedDeliveryDate]) = 'Sunday'
                 AND
-                ([SL_ConfirmedDeliveryDate] < [CalculatedDelDate]
+                ([SL_OriginalConfirmedDeliveryDate] < [CalculatedDelDate]
                 OR
                 [CalculatedDelDate] IS NULL)
-            THEN DATEADD(day, -2, [SL_ConfirmedDeliveryDate])
+            THEN DATEADD(day, -2, [SL_OriginalConfirmedDeliveryDate])
             WHEN
-                DATENAME(weekday, [SL_ConfirmedDeliveryDate]) = 'Sunday'
+                DATENAME(weekday, [SL_OriginalConfirmedDeliveryDate]) = 'Sunday'
                 AND
-                [SL_ConfirmedDeliveryDate] > [CalculatedDelDate]
-            THEN  DATEADD(day, 1, [SL_ConfirmedDeliveryDate])
-            ELSE [SL_ConfirmedDeliveryDate]
-        END AS [SL_ConfirmedDeliveryDate_weekday] -- including logic to exclude weekends from SL_ConfirmedDeliveryDate column
+                [SL_OriginalConfirmedDeliveryDate] > [CalculatedDelDate]
+            THEN  DATEADD(day, 1, [SL_OriginalConfirmedDeliveryDate])
+            ELSE [SL_OriginalConfirmedDeliveryDate]
+        END AS [SL_ConfirmedDeliveryDate_weekday] -- including logic to exclude weekends from SL_OriginalConfirmedDeliveryDate column
+        ,CASE
+            WHEN
+                ([SL_FirstCustomerRequestedDeliveryDate] IS NULL
+                OR
+                [SL_FirstCustomerRequestedDeliveryDate]  = '0001-01-01')
+            THEN NULL
+            WHEN
+                DATENAME(weekday, [SL_FirstCustomerRequestedDeliveryDate]) = 'Saturday'
+                AND
+                ([SL_FirstCustomerRequestedDeliveryDate] < [CalculatedDelDate]
+                OR
+                [CalculatedDelDate] IS NULL)
+            THEN DATEADD(day, -1, [SL_FirstCustomerRequestedDeliveryDate])
+            WHEN
+                DATENAME(weekday, [SL_FirstCustomerRequestedDeliveryDate]) = 'Saturday'
+                AND
+                [SL_FirstCustomerRequestedDeliveryDate] > [CalculatedDelDate]
+            THEN DATEADD(day, 2, [SL_FirstCustomerRequestedDeliveryDate])
+            WHEN
+                DATENAME(weekday, [SL_FirstCustomerRequestedDeliveryDate]) = 'Sunday'
+                AND
+                ([SL_FirstCustomerRequestedDeliveryDate] < [CalculatedDelDate]
+                OR
+                [CalculatedDelDate] IS NULL)
+            THEN DATEADD(day, -2, [SL_FirstCustomerRequestedDeliveryDate])
+            WHEN
+                DATENAME(weekday, [SL_FirstCustomerRequestedDeliveryDate]) = 'Sunday'
+                AND
+                [SL_FirstCustomerRequestedDeliveryDate] > [CalculatedDelDate]
+            THEN  DATEADD(day, 1, [SL_FirstCustomerRequestedDeliveryDate])
+            ELSE [SL_FirstCustomerRequestedDeliveryDate]
+        END AS [SL_CustomerRequestedDeliveryDate_weekday] -- including logic to exclude weekends from SL_FirstCustomerRequestedDeliveryDate column
         ,[SL_GoodsIssueDate]
         ,[SL_ScheduleLine]
         ,[HDR_SalesDistrictID]
@@ -1095,7 +1147,7 @@ OutboundDeliveryItem_s4h_calculated AS (
     FROM OutboundDeliveryItem_s4h
 )
 ,
-OTS_OTD_DaysDiff_calculation AS (
+OTS_OTD_OTR_DaysDiff_calculation AS (
 SELECT
         [nk_fact_OutboundDeliveryItem]
         ,[OutboundDelivery]
@@ -1183,6 +1235,8 @@ SELECT
         ,[IntercompanyBillingStatusID]
         ,[IsReturnsItem] 
         ,[SL_ConfirmedDeliveryDate]
+        ,[SL_OriginalConfirmedDeliveryDate]
+        ,[SL_FirstCustomerRequestedDeliveryDate]
         ,[SL_GoodsIssueDate]
         ,[SL_ScheduleLine]
         ,[HDR_SalesDistrictID]
@@ -1362,12 +1416,31 @@ SELECT
                 (DATEDIFF(day, [SL_ConfirmedDeliveryDate_weekday], [CalculatedDelDate])) -- count of all days diff
                  -(DATEDIFF(week, [SL_ConfirmedDeliveryDate_weekday], [CalculatedDelDate]) * 2) -- count of weekends
         END AS [OTD_DaysDiff]
+        ,CASE
+            WHEN
+                ([SL_CustomerRequestedDeliveryDate_weekday] IS NULL
+                OR
+                [SL_CustomerRequestedDeliveryDate_weekday]  = '0001-01-01')
+            THEN NULL
+            WHEN
+                ([CalculatedDelDate] IS NULL 
+                OR
+                [CalculatedDelDate] = '0001-01-01')
+                AND
+                [SL_CustomerRequestedDeliveryDate_weekday] < CONVERT (DATE, GETUTCDATE())
+            THEN
+                (DATEDIFF(day, [SL_CustomerRequestedDeliveryDate_weekday], CONVERT (DATE, GETUTCDATE()))) -- count of all days diff
+                 -(DATEDIFF(week, [SL_CustomerRequestedDeliveryDate_weekday], CONVERT (DATE, GETUTCDATE())) * 2) -- subtracting the amount of weekends
+            ELSE
+                (DATEDIFF(day, [SL_CustomerRequestedDeliveryDate_weekday], [CalculatedDelDate])) -- count of all days diff
+                 -(DATEDIFF(week, [SL_CustomerRequestedDeliveryDate_weekday], [CalculatedDelDate]) * 2) -- count of weekends
+        END AS [OTR_DaysDiff]
         ,[t_applicationId]
         ,[t_extractionDtm]
     FROM OutboundDeliveryItem_s4h_calculated
 )
 ,
-OTS_OTD_Group_calculation AS (
+OTS_OTD_OTR_Group_calculation AS (
 SELECT
     [nk_fact_OutboundDeliveryItem]
     ,[OutboundDelivery]
@@ -1455,6 +1528,8 @@ SELECT
     ,[IntercompanyBillingStatusID]
     ,[IsReturnsItem] 
     ,[SL_ConfirmedDeliveryDate]
+    ,[SL_OriginalConfirmedDeliveryDate]
+    ,[SL_FirstCustomerRequestedDeliveryDate]
     ,[SL_GoodsIssueDate]
     ,[SL_ScheduleLine]
     ,[HDR_SalesDistrictID]
@@ -1616,13 +1691,24 @@ SELECT
         WHEN [OTD_DaysDiff] > 0
         THEN 'Late'
     END AS [OTD_Group]
+    ,[OTR_DaysDiff]
+    ,CASE
+        WHEN [OTR_DaysDiff] IS NULL
+        THEN NULL
+        WHEN [OTR_DaysDiff] = 0
+        THEN 'OnTime'
+        WHEN [OTR_DaysDiff] < 0
+        THEN 'Early'
+        WHEN [OTR_DaysDiff] > 0
+        THEN 'Late'
+    END AS [OTR_Group]
     ,[t_applicationId]
     ,[t_extractionDtm]
 FROM
-	OTS_OTD_DaysDiff_calculation
+	OTS_OTD_OTR_DaysDiff_calculation
 )
 ,
-OTS_OTD_Is_Days_calculation AS (
+OTS_OTD_OTR_Is_Days_calculation AS (
 SELECT
     [nk_fact_OutboundDeliveryItem]
     ,[OutboundDelivery]
@@ -1710,6 +1796,8 @@ SELECT
     ,[IntercompanyBillingStatusID]
     ,[IsReturnsItem] 
     ,[SL_ConfirmedDeliveryDate]
+    ,[SL_OriginalConfirmedDeliveryDate]
+    ,[SL_FirstCustomerRequestedDeliveryDate]
     ,[SL_GoodsIssueDate]
     ,[SL_ScheduleLine]
     ,[HDR_SalesDistrictID]
@@ -1903,10 +1991,37 @@ SELECT
         THEN [OTD_DaysDiff]
         ELSE 0
     END AS [OTD_LateDays]
+    ,[OTR_DaysDiff]
+    ,[OTR_Group]
+    ,CASE
+        WHEN [OTR_Group] = 'Early'
+        THEN [OTR_DaysDiff]
+        ELSE 0
+    END AS [OTR_EarlyDays]
+    ,CASE
+        WHEN [OTD_Group] = 'Early'
+        THEN 1
+            ELSE 0
+        END AS [OTR_IsEarly]
+    ,CASE
+        WHEN [OTR_Group] = 'Late'
+        THEN 1
+        ELSE 0
+    END AS [OTR_IsLate]
+    ,CASE
+        WHEN [OTR_Group] = 'OnTime'
+        THEN 1
+        ELSE 0
+    END AS [OTR_IsOnTime]
+    ,CASE
+        WHEN [OTR_Group] = 'Late'
+        THEN [OTR_DaysDiff]
+        ELSE 0
+    END AS [OTR_LateDays]
     ,[t_applicationId]
     ,[t_extractionDtm]
 FROM
-	OTS_OTD_Group_calculation
+	OTS_OTD_OTR_Group_calculation
 )
 SELECT
     [nk_fact_OutboundDeliveryItem]
@@ -2000,6 +2115,8 @@ SELECT
     ,[IntercompanyBillingStatusID]
     ,[IsReturnsItem] 
     ,[SL_ConfirmedDeliveryDate]
+    ,[SL_OriginalConfirmedDeliveryDate]
+    ,[SL_FirstCustomerRequestedDeliveryDate]
     ,[SL_GoodsIssueDate]
     ,[SL_ScheduleLine]
     ,[HDR_SalesDistrictID]
@@ -2171,6 +2288,8 @@ SELECT
     ,[RLT001_DataQualityCode]  
     ,[OTD_DaysDiff]
     ,[OTD_Group]
+    ,[OTR_DaysDiff]
+    ,[OTR_Group]
     ,[OTD_EarlyDays]
     ,[OTD_IsEarly]
     ,[OTD_IsLate]
@@ -2200,6 +2319,37 @@ SELECT
             [IF_IsInFull] = 0
         THEN 'NOTNIF'
     END AS [OTDIF_OnTimeDelInFull]
+    ,[OTR_DaysDiff]
+    ,[OTR_Group]
+    ,[OTR_EarlyDays]
+    ,[OTR_IsEarly]
+    ,[OTR_IsLate]
+    ,[OTR_IsOnTime]
+    ,[OTR_LateDays]
+    ,CASE
+        WHEN [OTR_Group] IS NULL
+        THEN NULL
+        WHEN
+            [OTR_IsOnTime] = 1
+            AND
+            [IF_IsInFull] = 1
+        THEN 'OTIF'
+        WHEN
+            [OTR_IsOnTime] = 1
+            AND
+            [IF_IsInFull] = 0
+        THEN 'OTNIF'
+        WHEN
+            [OTR_IsOnTime] = 0
+            AND
+            [IF_IsInFull] = 1
+        THEN 'NOTIF'
+        WHEN
+            [OTR_IsOnTime] = 0
+            AND
+            [IF_IsInFull] = 0
+        THEN 'NOTNIF'
+    END AS [OTRIF_OnTimeCusReqInFull]
     ,[t_applicationId]
     ,[t_extractionDtm]
 FROM
