@@ -12,7 +12,6 @@ BEGIN
                 WHEN @BusinessTransactionTypeID  LIKE 'RMBL' 
                  AND @TransactionTypeDeterminationID LIKE 'UMB'
                 THEN @AmountInCompanyCodeCurrency
-                ELSE 0 
             END 
 
     RETURN @AmountInLocalCurrency
