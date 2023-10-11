@@ -14,7 +14,6 @@ BEGIN
                  AND @BusinessTransactionTypeID IN ('RFBU','RFPT','RFCL','AZUM','RFCV')
                  AND @ReferenceDocumentTypeID IN ('BKPFF','BKPF')
                 THEN @AmountInCompanyCodeCurrency
-                ELSE 0 
             END 
 
     RETURN @AmountInLocalCurrency
