@@ -9,6 +9,7 @@ BEGIN
 
   -- Assemble: Fake Table
   EXEC tSQLt.FakeTable '[edw]', '[fact_OutboundDeliveryItem]';
+  EXEC tSQLt.FakeTable '[edw]', '[vw_fact_ScheduleLineStatus]';
 
   
    INSERT INTO edw.fact_OutboundDeliveryItem (
