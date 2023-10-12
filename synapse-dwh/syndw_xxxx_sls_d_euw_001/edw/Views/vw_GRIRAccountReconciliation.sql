@@ -3,7 +3,6 @@ SELECT
         GRIPA.[CompanyCode] AS [CompanyCodeID],
         GRIPA.[PurchasingDocument],
         GRIPA.[PurchasingDocumentItem],
-        CONVERT (date, GETDATE()) AS [ReportDate],
         GRIPA.[PurchasingDocumentItemUniqueID],
         GRIPA.[OldestOpenItemPostingDate],
         GRIPA.[LatestOpenItemPostingDate],

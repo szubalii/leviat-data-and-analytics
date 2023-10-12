@@ -280,9 +280,10 @@ SELECT
                               GLALIRD.BusinessTransactionTypeID,
                               GLALIRD.ReferenceDocumentTypeID,
                               GLALIRD.AmountInCompanyCodeCurrency) * ExchangeRate.ExchangeRate AS [Manual_JE_KPI],
-  edw.[svf_getIC_Balance_KPI]( GLALIRD.GLAccountID,
-                               GLALIRD.PartnerCompanyID,
-                               GLALIRD.AmountInCompanyCodeCurrency) * ExchangeRate.ExchangeRate AS [IC_Balance_KPI],
+  CASE 
+      WHEN GLALIRD.GLAccountID IN (SELECT GLAccountID FROM base_ff.IC_ReconciliationGLAccounts) AND GLALIRD.PartnerCompanyID <> ''
+      THEN AmountInCompanyCodeCurrency * ExchangeRate.ExchangeRate
+  END AS [IC_Balance_KPI],
   edw.[svf_getInventory_Adj_KPI]( GLALIRD.BusinessTransactionTypeID,
                                   GLALIRD.TransactionTypeDeterminationID,
                                   GLALIRD.AmountInCompanyCodeCurrency) * ExchangeRate.ExchangeRate AS [Inventory_Adj_KPI],

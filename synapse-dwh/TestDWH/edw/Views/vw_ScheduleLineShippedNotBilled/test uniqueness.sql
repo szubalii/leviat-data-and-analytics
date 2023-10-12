@@ -8,30 +8,12 @@ BEGIN
   -- IF OBJECT_ID('expected') IS NOT NULL DROP TABLE expected;
 
   -- Assemble: Fake Table
-  EXEC tSQLt.FakeTable '[edw]', '[fact_OutboundDeliveryItem]';
   EXEC tSQLt.FakeTable '[edw]', '[vw_fact_ScheduleLineStatus]';
 
-  
-   INSERT INTO edw.fact_OutboundDeliveryItem (
-    OutboundDelivery,
-    OutboundDeliveryItem,
-    ReferenceSDDocument,
-    ReferenceSDDocumentItem,
-    HDR_ActualGoodsMovementDate
-  )
-  VALUES
-    (1, 1, 1, 1, '2020-01-01')
-  , (1, 2, 1, 2, '2020-01-01')
-  , (1, 3, 1, 2, '2020-01-01')
-  , (2, 1, 1, 1, '2020-01-10')
-  , (2, 2, 1, 2, '2020-01-10');
-
-   
   SELECT TOP(0) *
   INTO #vw_fact_ScheduleLineStatus
   FROM edw.vw_fact_ScheduleLineStatus;
 
-  -- #2
   INSERT INTO #vw_fact_ScheduleLineStatus (
     nk_fact_SalesDocumentItem,
     SalesDocumentID,

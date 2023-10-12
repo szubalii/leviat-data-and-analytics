@@ -8,6 +8,8 @@ BEGIN
 
     DECLARE @isViewNotEmpty   BIT = 0;
     DECLARE @errmessage NVARCHAR(2048);
+    -- Set reportDate to first day of the current month
+    DECLARE @reportDate DATE = DATEADD(DAY, 1, EOMONTH(GETDATE(), -1));
 
     BEGIN TRY
         SELECT TOP 1
@@ -78,7 +80,7 @@ BEGIN
            FROM
                [edw].[fact_ScheduleLineShippedNotBilled]
            WHERE 
-                FORMAT(ReportDate, 'yyyyMM') <> FORMAT(t_jobDtm,'yyyyMM');
+                FORMAT(ReportDate, 'yyyyMM') <> FORMAT(@ReportDate,'yyyyMM');
 
         INSERT INTO [edw].[fact_ScheduleLineShippedNotBilled_tmp] (
                 [nk_fact_SalesDocumentItem]                
@@ -130,7 +132,7 @@ BEGIN
                 [nk_fact_SalesDocumentItem]                
              ,  [SalesDocumentID]                          
              ,  [SalesDocumentItem]                        
-             ,  [ReportDate]                               
+             ,  CONVERT (date, GETDATE()) AS [ReportDate]  
              ,  [SalesDocumentTypeID]                      
              ,  [SDDocumentRejectionStatusID]              
              ,  [IsUnconfirmedDelivery]                    

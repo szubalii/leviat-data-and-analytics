@@ -18,7 +18,7 @@ SELECT
     ,[CreationDate]                              
     ,[RequestedDeliveryDate]                     
     ,[ConfirmedDeliveryDate]                     
-    ,[SDI_ODB_LatestActualGoodsMovmtDate]        
+    ,[SDI_ODB_LatestActualGoodsMovmtDate] AS LatestActualGoodsMovmtDate
     ,[DelivBlockReasonForSchedLine]              
     ,[LoadingDate]                               
     ,[ConfirmedQty]                              
@@ -37,6 +37,5 @@ SELECT
     ,[ClosedInvoicedValue]                       
     ,[PricePerUnit]                              
     ,[InScope]                                   
-    ,[HDR_ActualGoodsMovementDate]
     ,[ReportDate]
 FROM [edw].[fact_ScheduleLineShippedNotBilled]   

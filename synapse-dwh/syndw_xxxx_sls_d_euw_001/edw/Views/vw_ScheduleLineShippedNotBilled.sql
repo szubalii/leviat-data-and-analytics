@@ -3,7 +3,6 @@ SELECT
   SLS.[nk_fact_SalesDocumentItem],
   SLS.[SalesDocumentID],
   SLS.[SalesDocumentItem],
-  CONVERT (date, GETDATE()) AS [ReportDate],
   SLS.[SalesDocumentTypeID],
   SLS.[SDDocumentRejectionStatusID],
   SLS.[IsUnconfirmedDelivery],
@@ -36,16 +35,9 @@ SELECT
   SLS.[OpenInvoicedValue],
   SLS.[ClosedInvoicedValue],
   SLS.[PricePerUnit],
-  SLS.[InScope],
-  LODI.[LatestActualGoodsMovementDate] AS HDR_ActualGoodsMovementDate
+  SLS.[InScope]
 FROM
   [edw].[vw_fact_ScheduleLineStatus] SLS
-LEFT JOIN
-  [edw].[vw_LatestOutboundDeliveryItem] LODI
-  ON
-    SLS.SalesDocumentID = LODI.ReferenceSDDocument
-    AND
-    SLS.SalesDocumentItem = LODI.ReferenceSDDocumentItem
 WHERE
   SLS.SLDeliveryStatus IN ('P', 'C')
   AND
