@@ -734,11 +734,11 @@ OutboundDeliveryItem_s4h AS (
     LEFT JOIN
         [intm_s4h].[vw_OriginalConfirmedScheduleLineDeliveryDate] OCDD
         ON
-            SDSL.[SalesDocument] = OCDD.[SalesDocument]
+            SDSL.[SalesDocument] = OCDD.[SalesDocumentID]
             AND
-            SDSL.[SalesDocumentItem] = OCDD.[SalesDocumentItem]
+            SDSL.[SalesDocumentItem] = OCDD.[SalesDocumentItemID] COLLATE Latin1_General_100_BIN2
             AND
-            SDSL.[ScheduleLine] = OCDD.[ScheduleLine]
+            SDSL.[ScheduleLine] = OCDD.[ScheduleLine] COLLATE Latin1_General_100_BIN2
     LEFT JOIN
         [edw].[dim_Route] AS DimActualRoute
         ON
@@ -1999,7 +1999,7 @@ SELECT
         ELSE 0
     END AS [OTR_EarlyDays]
     ,CASE
-        WHEN [OTD_Group] = 'Early'
+        WHEN [OTR_Group] = 'Early'
         THEN 1
             ELSE 0
         END AS [OTR_IsEarly]
@@ -2288,8 +2288,6 @@ SELECT
     ,[RLT001_DataQualityCode]  
     ,[OTD_DaysDiff]
     ,[OTD_Group]
-    ,[OTR_DaysDiff]
-    ,[OTR_Group]
     ,[OTD_EarlyDays]
     ,[OTD_IsEarly]
     ,[OTD_IsLate]
@@ -2353,4 +2351,4 @@ SELECT
     ,[t_applicationId]
     ,[t_extractionDtm]
 FROM
-	OTS_OTD_Is_Days_calculation
+	OTS_OTD_OTR_Is_Days_calculation
