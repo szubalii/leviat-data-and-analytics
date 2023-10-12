@@ -37,17 +37,15 @@ SELECT
   SLS.[ClosedInvoicedValue],
   SLS.[PricePerUnit],
   SLS.[InScope],
-  ODI.[HDR_ActualGoodsMovementDate],
-  ODI.[t_applicationId],
-  ODI.[t_extractionDtm]
+  LODI.[LatestActualGoodsMovementDate] AS HDR_ActualGoodsMovementDate
 FROM
   [edw].[vw_fact_ScheduleLineStatus] SLS
 LEFT JOIN
-  [edw].[fact_OutboundDeliveryItem] ODI
+  [edw].[vw_LatestOutboundDeliveryItem] LODI
   ON
-    SLS.SalesDocumentID = ODI.ReferenceSDDocument
+    SLS.SalesDocumentID = LODI.ReferenceSDDocument
     AND
-    SLS.SalesDocumentItem = ODI.ReferenceSDDocumentItem
+    SLS.SalesDocumentItem = LODI.ReferenceSDDocumentItem
 WHERE
   SLS.SLDeliveryStatus IN ('P', 'C')
   AND
