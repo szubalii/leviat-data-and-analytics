@@ -37,7 +37,7 @@ SELECT
   SLS.[ClosedInvoicedValue],
   SLS.[PricePerUnit],
   SLS.[InScope],
-  LODI.[LatestActualGoodsMovementDate]
+  LODI.[LatestActualGoodsMovementDate] AS HDR_ActualGoodsMovementDate
 FROM
   [edw].[vw_fact_ScheduleLineStatus] SLS
 LEFT JOIN
