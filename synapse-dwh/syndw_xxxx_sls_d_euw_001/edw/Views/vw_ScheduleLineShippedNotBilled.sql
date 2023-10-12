@@ -17,7 +17,7 @@ SELECT
   SLS.[CreationDate],
   SLS.[RequestedDeliveryDate],
   SLS.[ConfirmedDeliveryDate],
-  SLS.[SDI_ODB_LatestActualGoodsMovmtDate],
+  SLS.[SDI_ODB_LatestActualGoodsMovmtDate] AS HDR_ActualGoodsMovementDate,
   SLS.[DelivBlockReasonForSchedLine],
   SLS.[LoadingDate],
   SLS.[ConfirmedQty],

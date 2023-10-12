@@ -18,7 +18,7 @@ SELECT
     ,[CreationDate]                              
     ,[RequestedDeliveryDate]                     
     ,[ConfirmedDeliveryDate]                     
-    ,[SDI_ODB_LatestActualGoodsMovmtDate] AS LatestActualGoodsMovmtDate
+    ,[HDR_ActualGoodsMovementDate]
     ,[DelivBlockReasonForSchedLine]              
     ,[LoadingDate]                               
     ,[ConfirmedQty]                              
