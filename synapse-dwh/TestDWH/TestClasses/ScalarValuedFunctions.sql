@@ -4,7 +4,6 @@
 EXEC tSQLt.NewTestClass 'ScalarValuedFunctions';
 GO
 
-
 CREATE PROCEDURE [ScalarValuedFunctions].[test edw.svf_getInOutID_EPM: (005;3)=IC_Lev]
 AS
 BEGIN
@@ -161,7 +160,6 @@ BEGIN
   EXEC tSQLt.AssertEquals 'MA', @actual;
 END;
 GO
-
 
 -- EXEC [tSQLt].[SetFakeViewOff] 'edw';
 
