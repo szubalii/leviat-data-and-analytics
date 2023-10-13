@@ -117,6 +117,15 @@
     "datasets": {
       "Price Condition": {
         "dataset_guid": "536cbdc4-ed44-49c1-8ba3-ce269dbb49d9"
+      },
+      "Invoice Price Condition": {
+        "dataset_guid": "25aed51c-847f-488a-b771-cb5f9434bb53"
+      },
+      "Order Price Condition": {
+        "dataset_guid": "0b2d22a6-a968-4a7b-8d04-046a718e6212"
+      },
+      "Quote Price Condition": {
+        "dataset_guid": "12aee073-b78d-4474-902e-52b29e7a6368"
       }
     }
   }
