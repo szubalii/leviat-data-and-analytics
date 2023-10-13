@@ -17,3 +17,7 @@ SELECT
   END AS FirstTimePassCount
 FROM
   [edw].[fact_VendorInvoice_ApprovedAndPosted]
+GROUP BY
+  CompanyCodeID,
+  HDR1_FiscalYear,
+  HDR1_AccountingDocumentTypeID
