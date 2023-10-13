@@ -48,7 +48,7 @@ SELECT
 , HDR1_HeaderText
 , HDR1_CountryID
 , HDR2_SupplierInvoiceID
-, HDR2_AccountDocumentID
+, HDR2_AccountingDocument
 , HDR2_PostingUser
 FROM
   [edw].[vw_fact_VendorInvoice_ApprovedAndPosted_CUR]
