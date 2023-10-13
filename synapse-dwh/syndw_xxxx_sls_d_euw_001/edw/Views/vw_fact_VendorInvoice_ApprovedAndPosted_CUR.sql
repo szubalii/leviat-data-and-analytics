@@ -47,7 +47,7 @@ SELECT
 , VIM.HDR1_HeaderText
 , VIM.HDR1_CountryID
 , VIM.HDR2_SupplierInvoiceID
-, VIM.HDR2_AccountDocumentID
+, VIM.HDR2_AccountingDocument
 , VIM.HDR2_PostingUser
 FROM
   [edw].[fact_VendorInvoice_ApprovedAndPosted] VIM

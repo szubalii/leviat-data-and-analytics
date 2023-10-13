@@ -49,7 +49,7 @@ CREATE TABLE [edw].[fact_VendorInvoice_ApprovedAndPosted] (
 , HDR1_HeaderText NVARCHAR(25)
 , HDR1_CountryID NVARCHAR(3)
 , HDR2_SupplierInvoiceID NVARCHAR(10)
-, HDR2_AccountDocumentID NVARCHAR(10)
+, HDR2_AccountingDocument NVARCHAR(10)
 , HDR2_PostingUser NVARCHAR(12)
 , [t_applicationId]VARCHAR(32)
 , [t_extractionDtm]DATETIME
