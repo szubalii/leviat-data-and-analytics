@@ -10,7 +10,7 @@ BEGIN
 
   INSERT INTO edw.fact_ScheduleLineShippedNotBilled (
     ReportDate,
-    HDR_ActualGoodsMovementDate,
+    SDI_ODB_LatestActualGoodsMovmtDate,
     OpenInvoicedValue
   )
   VALUES
