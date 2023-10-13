@@ -1,6 +1,6 @@
 CREATE VIEW [edw].[vw_fact_ScheduleLineShippedNotBilled_agg] AS
 
-WITH By_HDR_ActualGoodsMovementDate AS (
+WITH By_SDI_ODB_LatestActualGoodsMovmtDate AS (
   SELECT
     NULL AS CompanyCodeID, --TODO, where to get CompanyCodeID value from?
     YEAR(ReportDate) AS FiscalYear,
@@ -8,7 +8,7 @@ WITH By_HDR_ActualGoodsMovementDate AS (
     NULL AS FiscalYearPeriod,
     CASE
       WHEN
-        DATEDIFF(MONTH, HDR_ActualGoodsMovementDate, ReportDate) > 2
+        DATEDIFF(MONTH, SDI_ODB_LatestActualGoodsMovmtDate, ReportDate) > 2
       THEN
         SUM(OpenInvoicedValue)
     END AS SOShippedNotBilledAmount
@@ -16,7 +16,7 @@ WITH By_HDR_ActualGoodsMovementDate AS (
     [edw].[fact_ScheduleLineShippedNotBilled]
   GROUP BY
     ReportDate,
-    HDR_ActualGoodsMovementDate
+    SDI_ODB_LatestActualGoodsMovmtDate
 )
 
 SELECT
@@ -26,7 +26,7 @@ SELECT
   FiscalYearPeriod,
   SUM(SOShippedNotBilledAmount) AS SOShippedNotBilledAmount
 FROM
-  By_HDR_ActualGoodsMovementDate
+  By_SDI_ODB_LatestActualGoodsMovmtDate
 GROUP BY
   CompanyCodeID,
   FiscalYear,

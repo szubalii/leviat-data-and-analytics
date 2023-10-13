@@ -17,7 +17,7 @@ CREATE TABLE [edw].[fact_ScheduleLineShippedNotBilled] (
     [CreationDate]                                            datetime2(7),
     [RequestedDeliveryDate]                                   date,
     [ConfirmedDeliveryDate]                                   date,
-    [HDR_ActualGoodsMovementDate]                             date,
+    [SDI_ODB_LatestActualGoodsMovmtDate]                      date,
     [DelivBlockReasonForSchedLine]                            nvarchar(2),
     [LoadingDate]                                             date,
     [ConfirmedQty]                                            decimal(13,3),
