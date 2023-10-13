@@ -5,6 +5,12 @@
       "EPM Sales View": {
         "dataset_guid": "d5002396-c885-4ff7-9c29-c6dfd223a480"
       },
+      "EPM Sales View EUR": {
+        "dataset_guid": "e7b95ae1-3e7c-44c0-bfc8-bf07c6b574c4"
+      },
+      "EPM Sales View USD": {
+        "dataset_guid": "e3c79db8-775f-4255-8033-5cfa24f00eca"
+      },
       "ACDOCA Self Service CH-AT": {
         "dataset_guid": "23996ca8-3555-49de-937b-ed6929eb4e09"
       }
@@ -117,6 +123,15 @@
     "datasets": {
       "Price Condition": {
         "dataset_guid": "859f46f5-7394-4e56-9af1-d5de02ace12a"
+      },
+      "Invoice Price Condition": {
+        "dataset_guid": "34e63765-f633-4fae-ad88-1a9513011341"
+      },
+      "Order Price Condition": {
+        "dataset_guid": "3d4b931e-4df0-41a8-93db-22724b3b6c6e"
+      },
+      "Quote Price Condition": {
+        "dataset_guid": "dfe1d15f-727d-452b-8862-95b8d516eca9"
       }
     }
   }
