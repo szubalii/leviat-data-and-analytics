@@ -20,4 +20,5 @@ FROM
 GROUP BY
   CompanyCodeID,
   HDR1_FiscalYear,
-  HDR1_AccountingDocumentTypeID
+  HDR1_AccountingDocumentTypeID,
+  HDR1_NotFirstPass
