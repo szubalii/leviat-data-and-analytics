@@ -1,281 +1,5 @@
 ﻿CREATE VIEW [edw].[vw_OutboundDeliveryItem_s4h] AS
 WITH
-CalculatedDelDate_precalculation AS (
-    SELECT
-        ODI.[OutboundDelivery]
-        ,OD.[ActualGoodsMovementDate] AS [HDR_ActualGoodsMovementDate]
-        ,CAST(DimActualRoute.[DurInDays] AS INT) AS [ActualDeliveryRouteDurationInDays]
-        ,CAST(CAST(DimActualRoute.[DurInDays] AS INT)%5 AS INT) AS [leftoverdays]
-        /* CAST((DimActualRoute.[DurInDays])/5 AS INT)  calculates the number of weeks,
-        [DurInDays] defines the duration but only weekdays. Hence the divide by 5 and then multiply by 7 to get the number of weeks */
-        ,DATEADD(day, CAST((DimActualRoute.[DurInDays])/5 AS INT)*7, OD.[ActualGoodsMovementDate]) AS [HDR_ActualGoodsMovementDate_upd]
-        ,DATEPART(weekday, OD.[ActualGoodsMovementDate]) AS [weekday]
-    FROM
-        [base_s4h_cax].[I_OutboundDeliveryItem] AS ODI
-    LEFT JOIN
-        [base_s4h_cax].[I_OutboundDelivery] OD
-        ON ODI.[OutboundDelivery] = OD.[OutboundDelivery]
-    LEFT JOIN
-        [edw].[dim_Route] DimActualRoute
-        ON DimActualRoute.[ROUTEID] = OD.[ActualDeliveryRoute]
-    WHERE
-        OD.[ActualGoodsMovementDate] <> '0001-01-01'
-    GROUP BY
-        ODI.[OutboundDelivery]
-        ,OD.[ActualGoodsMovementDate]
-        ,DimActualRoute.[DurInDays]
-)
-,
-CalculatedDelDate_calculation AS (
-    SELECT
-        [OutboundDelivery]
-        /* calculates Delivery Date excluding weekends.
-        @@DATEFIRST value is set to Sunday, thus Monday has weekday value of 2, hence we do weekday-1
-        Then check if after adding the left over days the new date is in a weekend or not.
-        This is why we divide by 6 and then multiply by 2 so we potentially increase by another 2 days to fall over the weekend. */
-        ,CAST(DATEADD(day, CAST(((weekday-1+[leftoverdays])/6) AS INT)*2 + [leftoverdays], [HDR_ActualGoodsMovementDate_upd]) AS DATE) AS [CalculatedDelDate]
-    FROM
-        CalculatedDelDate_precalculation
-)
-,
-/*  The following section defines the first ConfirmedDeliveryDate and the first GoodsIssueDate for each combination of SalesDocument and SalesDocumenItem for
-    confirmed schedule lines. We join back to the confirmed schedule lines on the SalesDocument and SalesDocumentItems with the dates to identify the first
-    schedule line that has this combination. In case the dates are picked from different schedule lines this is expected to return NULL. The field ScheduleLine
-    is only used for reference in the dataset view of OTIF.
-*/
-SDSLScheduleLine AS (
---Get the first dates for each Sales Document-Item combination.
-SELECT
-     SDSL.[SalesDocument]
-    ,SDSL.[SalesDocumentItem]
-    ,MIN(SDSL.[ConfirmedDeliveryDate]) AS [ConfirmedDeliveryDate]
-    ,MIN(SDSL.GoodsIssueDate) AS [GoodsIssueDate]
-    ,MIN(SLS.ScheduleLine) AS [ScheduleLine]
-
-FROM [base_s4h_cax].[I_SalesDocumentScheduleLine] SDSL
-
---Join back for the schedule line.
-LEFT OUTER JOIN 
-    (
-         SELECT 
-             [SalesDocument]
-            ,[SalesDocumentItem]
-            ,[ConfirmedDeliveryDate]
-            ,[GoodsIssueDate]
-            ,[ScheduleLine]
-
-        FROM [base_s4h_cax].[I_SalesDocumentScheduleLine]
-
-        WHERE [IsConfirmedDelivSchedLine] = 'X'
-    ) SLS
-    ON 
-    SDSL.SalesDocument = SLS.SalesDocument
-    AND 
-    SDSL.SalesDocumentItem = SLS.SalesDocumentItem
-    AND 
-    SDSL.ConfirmedDeliveryDate = SLS.ConfirmedDeliveryDate
-    AND 
-    SDSL.GoodsIssueDate = SLS.GoodsIssueDate
-
-WHERE [IsConfirmedDelivSchedLine] = 'X'
-
-GROUP BY 
-     SDSL.[SalesDocument]
-    ,SDSL.[SalesDocumentItem]
-)
-,
-SalesDocumentItem_EUR AS (
-    SELECT
-        SDI_EUR.[SalesDocument]
-        ,SDI_EUR.[SalesDocumentItem]
-        ,CASE
-            WHEN
-                SDI_EUR.[OrderQuantity] > 0 
-            THEN
-                SDI_EUR.[NetAmount] / SDI_EUR.[OrderQuantity]
-         END AS [SDI_PricePerPiece_EUR]
-        ,SDI_EUR.[CostAmount] AS [SDI_CostAmount_EUR]
-        ,SDI_EUR.[NetAmount] AS [SDI_NetAmount_EUR]
-    FROM
-        [edw].[fact_SalesDocumentItem] AS SDI_EUR
-    WHERE
-        [CurrencyTypeID] = 30
-        AND
-        [t_applicationId] LIKE 's4h-ca%'
-),
-SalesDocumentItem_LC AS (
-    SELECT
-        SDI_LC.[SalesDocument]
-        ,SDI_LC.[SalesDocumentItem]
-        ,CASE
-            WHEN SDI_LC.[OrderQuantity] > 0
-            THEN SDI_LC.[NetAmount] / SDI_LC.[OrderQuantity]
-         END AS [SDI_PricePerPiece_LC]
-        ,SDI_LC.[CurrencyID] AS [SDI_LocalCurrency]
-        ,SDI_LC.[CostAmount] AS [SDI_CostAmount_LC]
-        ,SDI_LC.[NetAmount] AS [SDI_NetAmount_LC]
-    FROM
-        [edw].[fact_SalesDocumentItem] AS SDI_LC
-    WHERE
-        [CurrencyTypeID] = 10
-        AND
-        [t_applicationId] LIKE 's4h-ca%'                  
-)
-,
-SalesDocumentItem_LC_EUR AS (
-    SELECT
-        SDI.[SalesDocument]
-        ,SDI.[SalesDocumentItem]
-        ,SDI.[CreationDate] AS [SDI_CreationDate]
-        ,SDI.[RequestedDeliveryDate] AS [SDI_RequestedDeliveryDate]
-        ,SDI_LC.[SDI_PricePerPiece_LC]
-        ,SDI_EUR.[SDI_PricePerPiece_EUR]
-        ,SDI_LC.[SDI_LocalCurrency]
-        ,SDI.[SalesDocumentTypeID] AS [SDI_SalesDocumentTypeID]
-        ,SDI.[IsReturnsItemID] AS [SDI_IsReturnsItemID]
-        ,SDI.[BillToPartyID] AS [SDI_BillToParty]
-        ,SDI.[ConfdDeliveryQtyInBaseUnit] AS [SDI_ConfdDeliveryQtyInBaseUnit]
-        ,SDI.[ConfdDelivQtyInOrderQtyUnit] AS [SDI_ConfdDelivQtyInOrderQtyUnit]
-        ,SDI_LC.[SDI_CostAmount_LC]
-        ,SDI_EUR.[SDI_CostAmount_EUR]
-        ,SDI.[DeliveryBlockStatusID] AS [SDI_DeliveryBlockStatusID]
-        ,SDI.[ExchangeRateDate] AS [SDI_ExchangeRateDate]
-        ,SDI.[ExchangeRateTypeID] AS [SDI_ExchangeRateType]
-        ,SDI_LC.[SDI_NetAmount_LC]
-        ,SDI_EUR.[SDI_NetAmount_EUR]
-        ,SDI.[NetPriceQuantityUnitID] AS [SDI_NetPriceQuantityUnit]
-        ,SDI.[OrderID] AS [SDI_OrderID]
-        ,SDI.[OrderQuantity] AS [SDI_OrderQuantity]
-        ,SDI.[OrderQuantityUnitID] AS [SDI_OrderQuantityUnit]
-        ,SDI.[OverallTotalDeliveryStatusID] AS [SDI_OverallTotalDeliveryStatusID]
-        ,SDI.[PayerPartyID] AS [SDI_PayerParty]
-        ,SDI.[RouteID] AS [SDI_Route]
-        ,SDI.[SalesDocumentItemCategoryID] AS [SDI_SalesDocumentItemCategory]
-        ,SDI.[SalesOrganizationCurrencyID] AS [SDI_SalesOrganizationCurrency]
-        ,SDI.[SDDocumentCategoryID] AS [SDI_SDDocumentCategory]
-        ,SDI.[SDDocumentRejectionStatusID] AS [SDI_SDDocumentRejectionStatusID]
-        ,SDI.[StorageLocationID] AS [SDI_StorageLocationID]
-        ,SDI.[SalesDocumentDate] AS [SDI_SalesDocumentDate]
-    FROM
-        [edw].[fact_SalesDocumentItem] AS SDI
-    LEFT JOIN
-        SalesDocumentItem_EUR SDI_EUR
-        ON
-            SDI.[SalesDocument] = SDI_EUR.[SalesDocument]
-            AND
-            SDI.[SalesDocumentItem] = SDI_EUR.[SalesDocumentItem]
-    LEFT JOIN
-        SalesDocumentItem_LC SDI_LC
-        ON
-            SDI.[SalesDocument] = SDI_LC.[SalesDocument]
-            AND
-            SDI.[SalesDocumentItem] = SDI_LC.[SalesDocumentItem]
-     WHERE
-        [CurrencyTypeID] in (10,30)
-        AND
-        [t_applicationId] LIKE 's4h-ca%'
-    GROUP BY
-       SDI.[SalesDocument]
-        ,SDI.[SalesDocumentItem]
-        ,SDI.[CreationDate]
-        ,SDI.[RequestedDeliveryDate]
-        ,SDI_LC.[SDI_PricePerPiece_LC]
-        ,SDI_EUR.[SDI_PricePerPiece_EUR]
-        ,SDI_LC.[SDI_LocalCurrency]
-        ,SDI.[SalesDocumentTypeID]
-        ,SDI.[IsReturnsItemID]
-        ,SDI.[BillToPartyID]
-        ,SDI.[ConfdDeliveryQtyInBaseUnit]
-        ,SDI.[ConfdDelivQtyInOrderQtyUnit]
-        ,SDI_LC.[SDI_CostAmount_LC]
-        ,SDI_EUR.[SDI_CostAmount_EUR]
-        ,SDI.[DeliveryBlockStatusID]
-        ,SDI.[ExchangeRateDate]
-        ,SDI.[ExchangeRateTypeID]
-        ,SDI_LC.[SDI_NetAmount_LC]
-        ,SDI_EUR.[SDI_NetAmount_EUR]
-        ,SDI.[NetPriceQuantityUnitID]
-        ,SDI.[OrderID]
-        ,SDI.[OrderQuantity]
-        ,SDI.[OrderQuantityUnitID]
-        ,SDI.[OverallTotalDeliveryStatusID]
-        ,SDI.[PayerPartyID]
-        ,SDI.[RouteID]
-        ,SDI.[SalesDocumentItemCategoryID]
-        ,SDI.[SalesOrganizationCurrencyID]
-        ,SDI.[SDDocumentCategoryID]
-        ,SDI.[SDDocumentRejectionStatusID]
-        ,SDI.[StorageLocationID]
-        ,SDI.[SalesDocumentDate]
-)
-,
-ODIPerSDI AS (   
-    SELECT
-        SDI_ODI_list.SalesDocument
-        ,SDI_ODI_list.SalesDocumentItem
-        ,COUNT(*) AS [NrODIPerSDIAndQtyNot0]
-        ,SUM(SDI_ODI_list.[ActualDeliveryQuantity]) AS [ActDelQtyTotalForSDI]
-    FROM (
-            SELECT 
-                SDI.[SalesDocument]
-                ,SDI.[SalesDocumentItem]
-                ,ODI.[OutboundDelivery]
-                ,ODI.[OutboundDeliveryItem]
-                ,ODI.[ActualDeliveryQuantity]
-            FROM
-                [base_s4h_cax].[I_OutboundDeliveryItem] AS ODI
-            INNER JOIN
-                SalesDocumentItem_LC_EUR AS SDI
-                ON
-                    ODI.[ReferenceSDDocument] = SDI.[SalesDocument]
-                    AND
-                    ODI.[ReferenceSDDocumentItem] = SDI.[SalesDocumentItem]
-            WHERE
-                (ODI.[ReferenceSDDocument] IS NOT NULL
-                OR
-                ODI.[ReferenceSDDocument] != '')
-            GROUP BY
-                SDI.[SalesDocument]
-                ,SDI.[SalesDocumentItem]
-                ,ODI.[OutboundDelivery]
-                ,ODI.[OutboundDeliveryItem]
-                ,ODI.[ActualDeliveryQuantity]
-        ) SDI_ODI_list
-    GROUP BY 
-     SDI_ODI_list.[SalesDocument]
-    ,SDI_ODI_list.[SalesDocumentItem]
-)
-,
-SDSLPerSDI AS (
-    SELECT
-        SDI_SDSL_list.[SalesDocument]
-        ,SDI_SDSL_list.[SalesDocumentItem]
-        ,COUNT(*) AS [NrSLInScope]
-    FROM (
-            SELECT
-                SDI.[SalesDocument]
-                ,SDI.[SalesDocumentItem]
-                ,SDSL.[ScheduleLine]
-            FROM
-                [base_s4h_cax].[I_SalesDocumentScheduleLine] AS SDSL
-            INNER JOIN
-                SalesDocumentItem_LC_EUR AS SDI
-                ON
-                    SDSL.[SalesDocument] = SDI.[SalesDocument]
-                    AND
-                    SDSL.[SalesDocumentItem] = SDI.[SalesDocumentItem]
-            WHERE
-            [IsConfirmedDelivSchedLine] = 'X'
-            GROUP BY 
-                SDI.[SalesDocument]
-                ,SDI.[SalesDocumentItem]
-                ,SDSL.[ScheduleLine]
-        ) SDI_SDSL_list
-    GROUP BY
-        SDI_SDSL_list.[SalesDocument]
-        ,SDI_SDSL_list.[SalesDocumentItem]
-)
-,
 OutboundDeliveryItem_s4h AS (
     SELECT 
         CONCAT_WS('¦', ODI.[OutboundDelivery] collate SQL_Latin1_General_CP1_CS_AS, ODI.[OutboundDeliveryItem] collate SQL_Latin1_General_CP1_CS_AS) AS [nk_fact_OutboundDeliveryItem]
@@ -720,13 +444,13 @@ OutboundDeliveryItem_s4h AS (
         ON
             ODI.[OutboundDelivery] = OD.[OutboundDelivery]
     LEFT JOIN
-        SDSLScheduleLine AS SDSL
+        [intm_s4h].[vw_SalesDocumentFirstScheduleLine] AS SDSL
         ON
             ODI.[ReferenceSDDocument] = SDSL.[SalesDocument]
             AND
             ODI.[ReferenceSDDocumentItem] = SDSL.[SalesDocumentItem]
     LEFT JOIN
-        SDSLScheduleLine AS SDSL_1st
+        [intm_s4h].[vw_SalesDocumentFirstScheduleLine] AS SDSL_1st
         ON
             ODI.[ReferenceSDDocument] = SDSL_1st.[SalesDocument]
             AND
@@ -748,25 +472,25 @@ OutboundDeliveryItem_s4h AS (
         ON
             DimProposedRoute.[ROUTEID] = OD.[ProposedDeliveryRoute]
     LEFT JOIN
-        SalesDocumentItem_LC_EUR AS SDI
+        [edw].[vw_fact_SalesDocumentItem_LC_EUR] AS SDI
         ON
             ODI.[ReferenceSDDocument] = SDI.[SalesDocument]
             AND
             ODI.[ReferenceSDDocumentItem] = SDI.[SalesDocumentItem]
     LEFT JOIN
-        ODIPerSDI
+        [edw].[vw_fact_SalesDocumentItem_ODICount]
         ON
             ODI.[ReferenceSDDocument] = ODIPerSDI.[SalesDocument]
             AND
             ODI.[ReferenceSDDocumentItem] = ODIPerSDI.[SalesDocumentItem]
     LEFT JOIN
-        SDSLPerSDI
+        [edw].[vw_fact_SalesDocumentItem_ScheduleLineCount]
         ON
             ODI.[ReferenceSDDocument] = SDSLPerSDI.[SalesDocument]
             AND
             ODI.[ReferenceSDDocumentItem] = SDSLPerSDI.[SalesDocumentItem]
     LEFT JOIN
-        CalculatedDelDate_calculation AS cdd
+        [intm_s4h].[vw_OutboundDelivery_DeliveryDate] AS cdd
         ON
             ODI.[OutboundDelivery] = cdd.[OutboundDelivery]
     LEFT JOIN 

@@ -1,9 +1,7 @@
-
-
+CREATE VIEW [edw].[vw_fact_SalesDocumentItem_LC_EUR] AS
 -- TODO instead of creating 2 CTEs from [edw].[fact_SalesDocumentItem], do this directly
 -- in one go, so no JOINS are required. 
-
-
+WITH
 SalesDocumentItem_EUR AS (
     SELECT
         SDI_EUR.[SalesDocument]
@@ -127,4 +125,3 @@ SalesDocumentItem_LC_EUR AS (
         ,SDI.[SDDocumentRejectionStatusID]
         ,SDI.[StorageLocationID]
         ,SDI.[SalesDocumentDate]
-)

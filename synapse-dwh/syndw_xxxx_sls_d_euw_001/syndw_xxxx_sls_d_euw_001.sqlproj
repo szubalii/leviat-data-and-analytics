@@ -1025,6 +1025,8 @@
     <Build Include="intm_axbi\Views\vw_DIM_INVENTTABLE.sql" />
       
     <Build Include="intm_s4h\Views\vw_OriginalConfirmedScheduleLineDeliveryDate.sql" />
+    <Build Include="intm_s4h\Views\vw_OutboundDelivery_DeliveryDate.sql" />
+    <Build Include="intm_s4h\Views\vw_SalesDocumentFirstScheduleLine.sql" />
 
     <Build Include="edw\Views\vw_ACDOCA_delta.sql" />
     <Build Include="edw\Views\vw_CurrencyConversionRate.sql" />
@@ -1174,8 +1176,11 @@
     <Build Include="edw\Views\vw_SDDocumentIncompletionLog.sql" />
     <Build Include="edw\Views\vw_fact_ACDOCA_EPM_Base.sql" />
     <Build Include="edw\Views\vw_LatestOutboundDeliveryItem.sql" />
+    <Build Include="edw\Views\vw_fact_SalesDocumentItem_LC_EUR.sql" />
+    <Build Include="edw\Views\vw_fact_SalesDocumentItem_ODICount.sql" />
+    <Build Include="edw\Views\vw_fact_SalesDocumentItem_ScheduleLineCount.sql" />
 
-    <Build Include="dq\Views\vw_Product_1_2.sql" />
+      <Build Include="dq\Views\vw_Product_1_2.sql" />
     <Build Include="dq\Views\vw_RuleTotal.sql" />
     <Build Include="dq\Views\vw_Product_1_17.sql" />
     <Build Include="dq\Views\vw_Product_1_19.sql" />
