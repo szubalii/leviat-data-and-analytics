@@ -36,6 +36,7 @@ CREATE TABLE [edw].[fact_VendorInvoice_ApprovedAndPosted] (
 , QuantityOrdered DECIMAL(13, 3)
 , QuantityInvoiced DECIMAL(13, 3)
 , QuantityOfGoodsReceived DECIMAL(13, 3)
+, HDR1_DocumentType NVARCHAR(10)
 , HDR1_ObjectType NVARCHAR(10)
 , HDR1_DocumentStatus NVARCHAR(2)
 , HDR1_NotFirstPass NVARCHAR(1)

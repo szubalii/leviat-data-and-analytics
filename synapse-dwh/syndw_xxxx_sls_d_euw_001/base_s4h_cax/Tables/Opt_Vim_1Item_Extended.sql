@@ -34,6 +34,7 @@ CREATE TABLE [base_s4h_cax].[Opt_Vim_1Item_Extended]
 , REMNG              DECIMAL(13, 3)
 , WEMNG              DECIMAL(13, 3)
 --from Opt_Vim_1Head
+, DOCTYPE            NVARCHAR(10)
 , BUS_OBJTYPE        NVARCHAR(10)
 , STATUS             NVARCHAR(2)
 , NOFIRSTPASS        NVARCHAR(1)

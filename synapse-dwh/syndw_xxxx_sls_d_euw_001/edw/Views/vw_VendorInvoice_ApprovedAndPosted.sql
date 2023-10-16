@@ -37,6 +37,7 @@ SELECT
 , REMNG        AS QuantityInvoiced
 , WEMNG        AS QuantityOfGoodsReceived
 -- Fields from /Opt/Vim_1Head
+, DOCTYPE      AS HDR1_DocumentType
 , BUS_OBJTYPE  AS HDR1_ObjectType
 , STATUS       AS HDR1_DocumentStatus
 , NOFIRSTPASS  AS HDR1_NotFirstPass

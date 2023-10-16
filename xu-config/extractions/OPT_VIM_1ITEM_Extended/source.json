@@ -1636,6 +1636,7 @@
                     "description": "Document Type",
                     "abapType": "CharacterString",
                     "length": 10,
+                    "isSelected": true,
                     "checkTable": "/OPT/VIM_T100",
                     "indexed": "Ascending",
                     "conversionExit": "",
