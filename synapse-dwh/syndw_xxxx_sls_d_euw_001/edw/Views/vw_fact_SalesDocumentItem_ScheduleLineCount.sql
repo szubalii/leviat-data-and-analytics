@@ -11,13 +11,13 @@ FROM (
         FROM
             [base_s4h_cax].[I_SalesDocumentScheduleLine] AS SDSL
         INNER JOIN
-            SalesDocumentItem_LC_EUR AS SDI
+            [edw].[vw_fact_SalesDocumentItem_LC_EUR] AS SDI
             ON
                 SDSL.[SalesDocument] = SDI.[SalesDocument]
                 AND
                 SDSL.[SalesDocumentItem] = SDI.[SalesDocumentItem]
         WHERE
-        [IsConfirmedDelivSchedLine] = 'X'
+            [IsConfirmedDelivSchedLine] = 'X'
         GROUP BY 
             SDI.[SalesDocument]
             ,SDI.[SalesDocumentItem]

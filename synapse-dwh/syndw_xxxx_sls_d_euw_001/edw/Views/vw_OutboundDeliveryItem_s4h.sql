@@ -478,13 +478,13 @@ OutboundDeliveryItem_s4h AS (
             AND
             ODI.[ReferenceSDDocumentItem] = SDI.[SalesDocumentItem]
     LEFT JOIN
-        [edw].[vw_fact_SalesDocumentItem_ODICount]
+        [edw].[vw_fact_SalesDocumentItem_ODICount] ODIPerSDI
         ON
             ODI.[ReferenceSDDocument] = ODIPerSDI.[SalesDocument]
             AND
             ODI.[ReferenceSDDocumentItem] = ODIPerSDI.[SalesDocumentItem]
     LEFT JOIN
-        [edw].[vw_fact_SalesDocumentItem_ScheduleLineCount]
+        [edw].[vw_fact_SalesDocumentItem_ScheduleLineCount] SDSLPerSDI
         ON
             ODI.[ReferenceSDDocument] = SDSLPerSDI.[SalesDocument]
             AND
