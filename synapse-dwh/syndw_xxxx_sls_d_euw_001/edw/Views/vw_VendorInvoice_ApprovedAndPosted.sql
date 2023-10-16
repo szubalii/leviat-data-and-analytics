@@ -51,7 +51,7 @@ SELECT
 , LAND1        AS HDR1_CountryID
 -- Fields from /Opt/Vim_2Head
 , BELNR_MM     AS HDR2_SupplierInvoiceID
-, BELNR_FI     AS HDR2_AccountDocumentID
+, BELNR_FI     AS HDR2_AccountingDocument
 , POSTING_USER AS HDR2_PostingUser
 
 FROM
