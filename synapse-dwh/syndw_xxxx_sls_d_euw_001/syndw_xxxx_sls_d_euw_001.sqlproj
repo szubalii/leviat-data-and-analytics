@@ -329,6 +329,7 @@
     <Build Include="base_ff\Tables\CompanyCode.sql" />
     <Build Include="base_ff\Tables\Budget_EPM.sql" />
     <Build Include="base_ff\Tables\LeviatWarehouse.sql" />
+    <Build Include="base_ff\Tables\ShippingPointLogistics.sql" />
 
     <Build Include="base_ff_USA\Tables\Budget.sql" />
     <Build Include="base_ff_USA\Tables\DummyMaterial.sql" />
@@ -1328,7 +1329,6 @@
     <Build Include="dm_sales\Views\vw_dim_PriceListType.sql" />
     <Build Include="dm_sales\Views\vw_fact_OrderBacklog.sql" />
     <Build Include="dm_sales\Views\vw_dim_SDDocumentIncompletionLog.sql" />
-    <Build Include="dm_sales\Views\vw_dim_ShippingPoint_Extended.sql" />
 
     <Build Include="dm_procurement\Views\vw_dim_OptVim1Head.sql" />
     <Build Include="dm_procurement\Views\vw_dim_PfcgRoleToUser.sql" />
@@ -1375,6 +1375,7 @@
     <Build Include="dm_c4c\Views\vw_fact_OpportunityCollection.sql" />    
     <Build Include="dm_scm\Views\vw_fact_MaterialStockLevel_Weekly.sql" />
     <Build Include="dm_scm\Views\vw_fact_ProductSalesThirdPartyDelivery.sql" />
+    <Build Include="dm_scm\Views\vw_dim_ShippingPoint.sql" />
 
     <!-- STORED PROCEDURES -->
 
