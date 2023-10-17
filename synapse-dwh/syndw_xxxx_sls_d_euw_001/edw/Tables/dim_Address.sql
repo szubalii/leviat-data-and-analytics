@@ -6,7 +6,7 @@ CREATE TABLE [edw].[dim_Address](
   PostalCode NVARCHAR(10),
   StreetName NVARCHAR(60),
   HouseNumber NVARCHAR(10),
-  FullAddress NVARCHAR(128),
+  FullAddress NVARCHAR(170),
   CONSTRAINT [PK_dim_Address] PRIMARY KEY NONCLUSTERED ([AddressID]) NOT ENFORCED
 )
 WITH (
