@@ -3,8 +3,8 @@ SELECT
   FiscalYear,
   FiscalPeriod,
   FiscalYearPeriod,
-  'ManualJournalEntriesCount' AS KPIName,
-  COUNT (DISTINCT AccountingDocument) AS KPIValue
+  -- 'ManualJournalEntriesCount' AS KPIName,
+  COUNT (DISTINCT AccountingDocument) AS ManualJournalEntriesCount--KPIValue
 FROM
   [edw].[vw_fact_ACDOCA_EPM_Base]
 WHERE

@@ -4,8 +4,8 @@ SELECT
   YEAR(SO.BillingDocumentDate) AS FiscalYear,
   MONTH(SO.BillingDocumentDate) AS FiscalPeriod,
   CONCAT(YEAR(SO.BillingDocumentDate), '0', MONTH(SO.BillingDocumentDate)) AS FiscalYearPeriod,
-  'OpenInvoicedValue' AS KPIName,
-  SUM(SL.OpenInvoicedValue) AS KPIValue
+  -- 'OpenInvoicedValue' AS KPIName,
+  SUM(SL.OpenInvoicedValue) AS OpenInvoicedValue--KPIValue
 FROM
   [edw].[vw_fact_ScheduleLineStatus] SL
 LEFT JOIN

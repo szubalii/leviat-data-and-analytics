@@ -4,10 +4,10 @@ SELECT
   FiscalYear,
   FiscalPeriod,
   FiscalYearPeriod,
-  KPIName
-  KPIValue
+  ICOutOfBalance--KPIName
+  -- KPIValue
 FROM
-  [edw].[vw_fact_ACDOCA_EPM_Sales_agg_unpvt]
+  [edw].[vw_fact_ACDOCA_EPM_Sales_agg]
 
 UNION
 
@@ -16,8 +16,8 @@ SELECT
   FiscalYear,
   FiscalPeriod,
   FiscalYearPeriod,
-  KPIName
-  KPIValue
+  ManualJournalEntriesCount--KPIName
+  -- KPIValue
 FROM
   [edw].[vw_fact_ManualJournalEntriesCount]
 
@@ -28,8 +28,8 @@ SELECT
   FiscalYear,
   FiscalPeriod,
   FiscalYearPeriod,
-  KPIName
-  KPIValue
+  OpenInvoicedValue--KPIName
+  -- KPIValue
 FROM
   [edw].[vw_fact_OpenInvoiced]
 
@@ -40,8 +40,12 @@ SELECT
   FiscalYear,
   FiscalPeriod,
   FiscalYearPeriod,
-  KPIName
-  KPIValue
+  InvoicesCount,
+  POInvoicesCount,
+  NPOInvoicesCount,
+  FirstTimePassCount
+  -- KPIName
+  -- KPIValue
 FROM
   [edw].[vw_fact_VendorInvoice_ApprovedAndPosted_agg]
 
