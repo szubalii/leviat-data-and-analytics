@@ -5884,8 +5884,9 @@
         "sproc_name": "sp_materialize_view",
         "source_view_name": "vw_Address",
         "dest_table_name": "dim_Address",
-        "execution_order": 0,
-        "schedule_recurrence": "D"
+        "execution_order": 1,
+        "schedule_recurrence": "W",
+        "schedule_day": 1
       }
     ]
   },
