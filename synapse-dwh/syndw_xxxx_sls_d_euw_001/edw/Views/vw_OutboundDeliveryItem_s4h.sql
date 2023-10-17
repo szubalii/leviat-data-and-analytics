@@ -150,71 +150,11 @@ OutboundDeliveryItem_s4h AS (
         ,ODIPerSDI.[NrODIPerSDIAndQtyNot0]
         ,SDSLPerSDI.[NrSLInScope]
         ,OD.[PlannedGoodsIssueDate] AS [HDR_PlannedGoodsIssueDate]
-        ,CASE
-            WHEN
-                (OD.[PlannedGoodsIssueDate] IS NULL
-                OR
-                OD.[PlannedGoodsIssueDate]  = '0001-01-01')
-            THEN NULL
-            WHEN
-                DATENAME(weekday, OD.[PlannedGoodsIssueDate]) = 'Saturday'
-                AND
-                (OD.[PlannedGoodsIssueDate] < OD.[ActualGoodsMovementDate]
-                OR
-                OD.[ActualGoodsMovementDate] IS NULL)
-            THEN DATEADD(day, -1, OD.[PlannedGoodsIssueDate])
-            WHEN
-                DATENAME(weekday, OD.[PlannedGoodsIssueDate]) = 'Saturday'
-                AND
-                OD.[PlannedGoodsIssueDate] > OD.[ActualGoodsMovementDate]
-            THEN DATEADD(day, 2, OD.[PlannedGoodsIssueDate])
-            WHEN
-                DATENAME(weekday, OD.[PlannedGoodsIssueDate]) = 'Sunday'
-                AND
-                (OD.[PlannedGoodsIssueDate] < OD.[ActualGoodsMovementDate]
-                OR
-                OD.[ActualGoodsMovementDate] IS NULL)
-            THEN DATEADD(day, -2, OD.[PlannedGoodsIssueDate])
-            WHEN
-                DATENAME(weekday, OD.[PlannedGoodsIssueDate]) = 'Sunday'
-                AND
-                OD.[PlannedGoodsIssueDate] > OD.[ActualGoodsMovementDate]
-            THEN  DATEADD(day, 1, OD.[PlannedGoodsIssueDate])
-            ELSE OD.[PlannedGoodsIssueDate]
-        END AS [HDR_PlannedGoodsIssueDate_weekday] -- including logic to exclude weekends from HDR_PlannedGoodsIssueDate column
+        -- including logic to exclude weekends from HDR_PlannedGoodsIssueDate column
+        ,[edw].[svf_excludeWeekends]([PlannedGoodsIssueDate],[ActualGoodsMovementDate]) AS [HDR_PlannedGoodsIssueDate_weekday]
         ,OD.[ActualGoodsMovementDate] AS [HDR_ActualGoodsMovementDate]
-        ,CASE
-            WHEN
-                (OD.[ActualGoodsMovementDate] IS NULL
-                OR
-                OD.[ActualGoodsMovementDate]  = '0001-01-01')
-            THEN NULL
-            WHEN
-                DATENAME(weekday, OD.[ActualGoodsMovementDate]) = 'Saturday'
-                AND
-                (OD.[PlannedGoodsIssueDate] < OD.[ActualGoodsMovementDate]
-                OR
-                OD.[ActualGoodsMovementDate] IS NULL)
-            THEN DATEADD(day, 2, OD.[ActualGoodsMovementDate])
-            WHEN
-                DATENAME(weekday, OD.[ActualGoodsMovementDate]) = 'Saturday'
-                AND
-                OD.[PlannedGoodsIssueDate] > OD.[ActualGoodsMovementDate]
-            THEN DATEADD(day, -1, OD.[ActualGoodsMovementDate])
-           WHEN
-                DATENAME(weekday, OD.[ActualGoodsMovementDate]) = 'Sunday'
-                AND
-                (OD.[PlannedGoodsIssueDate] < OD.[ActualGoodsMovementDate]
-                OR
-                OD.[ActualGoodsMovementDate] IS NULL)
-            THEN DATEADD(day, 1, OD.[ActualGoodsMovementDate])
-             WHEN
-                DATENAME(weekday, OD.[ActualGoodsMovementDate]) = 'Sunday'
-                AND
-                OD.[PlannedGoodsIssueDate] > OD.[ActualGoodsMovementDate]
-            THEN  DATEADD(day, -2, OD.[ActualGoodsMovementDate])
-            ELSE OD.[ActualGoodsMovementDate]
-        END AS [HDR_ActualGoodsMovementDate_weekday] -- including logic to exclude weekends from HDR_ActualGoodsMovementDate column
+        -- including logic to exclude weekends from HDR_ActualGoodsMovementDate column
+        ,[edw].[svf_excludeWeekends]([ActualGoodsMovementDate],[PlannedGoodsIssueDate]) AS [HDR_ActualGoodsMovementDate_weekday]
         ,OD.[ShippingPoint] AS [HDR_ShippingPointID]
         ,OD.[OrderCombinationIsAllowed] AS [HDR_OrderCombinationIsAllowed]
         ,OD.[DeliveryPriority] AS	[HDR_DeliveryPriority]
@@ -599,70 +539,10 @@ OutboundDeliveryItem_s4h_calculated AS (
         ,[SL_ConfirmedDeliveryDate]
         ,[SL_OriginalConfirmedDeliveryDate]
         ,[SL_FirstCustomerRequestedDeliveryDate]
-        ,CASE
-            WHEN
-                ([SL_OriginalConfirmedDeliveryDate] IS NULL
-                OR
-                [SL_OriginalConfirmedDeliveryDate]  = '0001-01-01')
-            THEN NULL
-            WHEN
-                DATENAME(weekday, [SL_OriginalConfirmedDeliveryDate]) = 'Saturday'
-                AND
-                ([SL_OriginalConfirmedDeliveryDate] < [CalculatedDelDate]
-                OR
-                [CalculatedDelDate] IS NULL)
-            THEN DATEADD(day, -1, [SL_OriginalConfirmedDeliveryDate])
-            WHEN
-                DATENAME(weekday, [SL_OriginalConfirmedDeliveryDate]) = 'Saturday'
-                AND
-                [SL_OriginalConfirmedDeliveryDate] > [CalculatedDelDate]
-            THEN DATEADD(day, 2, [SL_OriginalConfirmedDeliveryDate])
-            WHEN
-                DATENAME(weekday, [SL_OriginalConfirmedDeliveryDate]) = 'Sunday'
-                AND
-                ([SL_OriginalConfirmedDeliveryDate] < [CalculatedDelDate]
-                OR
-                [CalculatedDelDate] IS NULL)
-            THEN DATEADD(day, -2, [SL_OriginalConfirmedDeliveryDate])
-            WHEN
-                DATENAME(weekday, [SL_OriginalConfirmedDeliveryDate]) = 'Sunday'
-                AND
-                [SL_OriginalConfirmedDeliveryDate] > [CalculatedDelDate]
-            THEN  DATEADD(day, 1, [SL_OriginalConfirmedDeliveryDate])
-            ELSE [SL_OriginalConfirmedDeliveryDate]
-        END AS [SL_ConfirmedDeliveryDate_weekday] -- including logic to exclude weekends from SL_OriginalConfirmedDeliveryDate column
-        ,CASE
-            WHEN
-                ([SL_FirstCustomerRequestedDeliveryDate] IS NULL
-                OR
-                [SL_FirstCustomerRequestedDeliveryDate]  = '0001-01-01')
-            THEN NULL
-            WHEN
-                DATENAME(weekday, [SL_FirstCustomerRequestedDeliveryDate]) = 'Saturday'
-                AND
-                ([SL_FirstCustomerRequestedDeliveryDate] < [CalculatedDelDate]
-                OR
-                [CalculatedDelDate] IS NULL)
-            THEN DATEADD(day, -1, [SL_FirstCustomerRequestedDeliveryDate])
-            WHEN
-                DATENAME(weekday, [SL_FirstCustomerRequestedDeliveryDate]) = 'Saturday'
-                AND
-                [SL_FirstCustomerRequestedDeliveryDate] > [CalculatedDelDate]
-            THEN DATEADD(day, 2, [SL_FirstCustomerRequestedDeliveryDate])
-            WHEN
-                DATENAME(weekday, [SL_FirstCustomerRequestedDeliveryDate]) = 'Sunday'
-                AND
-                ([SL_FirstCustomerRequestedDeliveryDate] < [CalculatedDelDate]
-                OR
-                [CalculatedDelDate] IS NULL)
-            THEN DATEADD(day, -2, [SL_FirstCustomerRequestedDeliveryDate])
-            WHEN
-                DATENAME(weekday, [SL_FirstCustomerRequestedDeliveryDate]) = 'Sunday'
-                AND
-                [SL_FirstCustomerRequestedDeliveryDate] > [CalculatedDelDate]
-            THEN  DATEADD(day, 1, [SL_FirstCustomerRequestedDeliveryDate])
-            ELSE [SL_FirstCustomerRequestedDeliveryDate]
-        END AS [SL_CustomerRequestedDeliveryDate_weekday] -- including logic to exclude weekends from SL_FirstCustomerRequestedDeliveryDate column
+        -- including logic to exclude weekends from SL_OriginalConfirmedDeliveryDate column
+        ,[edw].[svf_excludeWeekends]([SL_OriginalConfirmedDeliveryDate],[CalculatedDelDate]) AS [SL_ConfirmedDeliveryDate_weekday]
+        -- including logic to exclude weekends from SL_FirstCustomerRequestedDeliveryDate column
+        ,[edw].[svf_excludeWeekends]([SL_FirstCustomerRequestedDeliveryDate],[CalculatedDelDate]) AS [SL_CustomerRequestedDeliveryDate_weekday]
         ,[SL_GoodsIssueDate]
         ,[SL_ScheduleLine]
         ,[HDR_SalesDistrictID]
@@ -1087,27 +967,7 @@ SELECT
         ,[IF_IsInFullFlag]
         ,[IF_IsInFull]
         ,[NoActualDeliveredQtyFlag]
-        ,CASE
-            WHEN
-                ([HDR_PlannedGoodsIssueDate_weekday] IS NULL
-                OR
-                [HDR_PlannedGoodsIssueDate_weekday] = '0001-01-01')
-            THEN NULL
-            WHEN
-                ([HDR_ActualGoodsMovementDate_weekday] IS NULL 
-                OR
-                [HDR_ActualGoodsMovementDate_weekday] = '0001-01-01')
-                AND
-                [HDR_PlannedGoodsIssueDate_weekday] < CONVERT (DATE, GETUTCDATE())
-            THEN
-                (DATEDIFF(day, [HDR_PlannedGoodsIssueDate_weekday], CONVERT (DATE, GETUTCDATE()))) -- count of all days diff
-                 -(DATEDIFF(week, [HDR_PlannedGoodsIssueDate_weekday], CONVERT (DATE, GETUTCDATE())) * 2) -- count of weekends
-            WHEN [HDR_ActualGoodsMovementDate_weekday] = '0001-01-01'
-			THEN NULL
-            ELSE
-                (DATEDIFF(day, [HDR_PlannedGoodsIssueDate_weekday], [HDR_ActualGoodsMovementDate_weekday])) -- count of all days diff
-                 -(DATEDIFF(week, [HDR_PlannedGoodsIssueDate_weekday], [HDR_ActualGoodsMovementDate_weekday]) * 2) -- count of weekends
-        END AS [OTS_DaysDiff]
+        ,[edw].[svf_getOT_DaysDiff]([HDR_PlannedGoodsIssueDate_weekday], [HDR_ActualGoodsMovementDate_weekday]) AS [OTS_DaysDiff]
         ,[OTS_GoodsIssueDateDiffInDays]
         ,[OTS_GIDateCheckGroup]
         ,[SDAvailableFlag]
@@ -1120,45 +980,9 @@ SELECT
         ,[ActualLeadTime]
         ,[ALT001_DataQualityCode]  
         ,[RequestedLeadTime]
-        ,[RLT001_DataQualityCode]  
-        ,CASE
-            WHEN
-                ([SL_ConfirmedDeliveryDate_weekday] IS NULL
-                OR
-                [SL_ConfirmedDeliveryDate_weekday]  = '0001-01-01')
-            THEN NULL
-            WHEN
-                ([CalculatedDelDate] IS NULL 
-                OR
-                [CalculatedDelDate] = '0001-01-01')
-                AND
-                [SL_ConfirmedDeliveryDate_weekday] < CONVERT (DATE, GETUTCDATE())
-            THEN
-                (DATEDIFF(day, [SL_ConfirmedDeliveryDate_weekday], CONVERT (DATE, GETUTCDATE()))) -- count of all days diff
-                 -(DATEDIFF(week, [SL_ConfirmedDeliveryDate_weekday], CONVERT (DATE, GETUTCDATE())) * 2) -- subtracting the amount of weekends
-            ELSE
-                (DATEDIFF(day, [SL_ConfirmedDeliveryDate_weekday], [CalculatedDelDate])) -- count of all days diff
-                 -(DATEDIFF(week, [SL_ConfirmedDeliveryDate_weekday], [CalculatedDelDate]) * 2) -- count of weekends
-        END AS [OTD_DaysDiff]
-        ,CASE
-            WHEN
-                ([SL_CustomerRequestedDeliveryDate_weekday] IS NULL
-                OR
-                [SL_CustomerRequestedDeliveryDate_weekday]  = '0001-01-01')
-            THEN NULL
-            WHEN
-                ([CalculatedDelDate] IS NULL 
-                OR
-                [CalculatedDelDate] = '0001-01-01')
-                AND
-                [SL_CustomerRequestedDeliveryDate_weekday] < CONVERT (DATE, GETUTCDATE())
-            THEN
-                (DATEDIFF(day, [SL_CustomerRequestedDeliveryDate_weekday], CONVERT (DATE, GETUTCDATE()))) -- count of all days diff
-                 -(DATEDIFF(week, [SL_CustomerRequestedDeliveryDate_weekday], CONVERT (DATE, GETUTCDATE())) * 2) -- subtracting the amount of weekends
-            ELSE
-                (DATEDIFF(day, [SL_CustomerRequestedDeliveryDate_weekday], [CalculatedDelDate])) -- count of all days diff
-                 -(DATEDIFF(week, [SL_CustomerRequestedDeliveryDate_weekday], [CalculatedDelDate]) * 2) -- count of weekends
-        END AS [OTR_DaysDiff]
+        ,[RLT001_DataQualityCode]
+        ,[edw].[svf_getOT_DaysDiff]([SL_ConfirmedDeliveryDate_weekday], [CalculatedDelDate]) AS [OTD_DaysDiff]
+        ,[edw].[svf_getOT_DaysDiff]([SL_CustomerRequestedDeliveryDate_weekday], [CalculatedDelDate])  AS [OTR_DaysDiff]
         ,[t_applicationId]
         ,[t_extractionDtm]
     FROM OutboundDeliveryItem_s4h_calculated
@@ -1383,16 +1207,7 @@ SELECT
     ,[OTS_DaysDiff]
     ,[OTS_GoodsIssueDateDiffInDays]
     ,[OTS_GIDateCheckGroup]
-        ,CASE
-	        WHEN [OTS_DaysDiff] IS NULL
-	        THEN NULL
-	        WHEN [OTS_DaysDiff] = 0
-	        THEN 'OnTime'
-	        WHEN [OTS_DaysDiff] < 0
-	        THEN 'Early'
-	        WHEN [OTS_DaysDiff] > 0
-            THEN 'Late'
-        END AS [OTS_Group]
+    ,[edw].[svf_getOT_Group]([OTS_DaysDiff]) AS [OTS_Group]
     ,[SDAvailableFlag]
     ,[SDI_ConfQtyEqOrderQtyFlag]
     ,[SLAvailableFlag]
@@ -1405,27 +1220,9 @@ SELECT
     ,[RequestedLeadTime]
     ,[RLT001_DataQualityCode]  
     ,[OTD_DaysDiff]
-    ,CASE
-        WHEN [OTD_DaysDiff] IS NULL
-        THEN NULL
-        WHEN [OTD_DaysDiff] = 0
-        THEN 'OnTime'
-        WHEN [OTD_DaysDiff] < 0
-        THEN 'Early'
-        WHEN [OTD_DaysDiff] > 0
-        THEN 'Late'
-    END AS [OTD_Group]
+    ,[edw].[svf_getOT_Group]([OTD_DaysDiff]) AS [OTD_Group]
     ,[OTR_DaysDiff]
-    ,CASE
-        WHEN [OTR_DaysDiff] IS NULL
-        THEN NULL
-        WHEN [OTR_DaysDiff] = 0
-        THEN 'OnTime'
-        WHEN [OTR_DaysDiff] < 0
-        THEN 'Early'
-        WHEN [OTR_DaysDiff] > 0
-        THEN 'Late'
-    END AS [OTR_Group]
+    ,[edw].[svf_getOT_Group]([OTR_DaysDiff]) AS [OTR_Group]
     ,[t_applicationId]
     ,[t_extractionDtm]
 FROM
@@ -1892,29 +1689,7 @@ SELECT
     ,[RouteIsChangedFlag]
     ,[NrODIPerSDIAndQtyNot0]
     ,[NrSLInScope]
-    ,CASE
-            WHEN [OTS_Group] IS NULL
-            THEN NULL
-            WHEN
-                [OTS_IsOnTime] = 1 
-                AND
-                [IF_IsInFull] = 1
-            THEN 'OTIF'
-            WHEN
-                [OTS_IsOnTime] = 1
-                AND [IF_IsInFull] = 0
-            THEN 'OTNIF'
-            WHEN
-                [OTS_IsOnTime] = 0
-                AND
-                [IF_IsInFull] = 1
-            THEN 'NOTIF'
-            WHEN
-                [OTS_IsOnTime] = 0
-                AND
-                [IF_IsInFull] = 0
-            THEN 'NOTNIF'
-        END AS [OTSIF_OnTimeShipInFull]
+    ,[edw].[svf_getOTIF_OnTimeInFull]([OTS_Group],[OTS_IsOnTime],[IF_IsInFull]) AS [OTSIF_OnTimeShipInFull]
     ,[HDR_PlannedGoodsIssueDate]
     ,[HDR_ActualGoodsMovementDate]
     ,[HDR_ShippingPointID]
@@ -2017,30 +1792,7 @@ SELECT
     ,[OTD_IsLate]
     ,[OTD_IsOnTime]
     ,[OTD_LateDays]
-    ,CASE
-        WHEN [OTD_Group] IS NULL
-        THEN NULL
-        WHEN
-            [OTD_IsOnTime] = 1
-            AND
-            [IF_IsInFull] = 1
-        THEN 'OTIF'
-        WHEN
-            [OTD_IsOnTime] = 1
-            AND
-            [IF_IsInFull] = 0
-        THEN 'OTNIF'
-        WHEN
-            [OTD_IsOnTime] = 0
-            AND
-            [IF_IsInFull] = 1
-        THEN 'NOTIF'
-        WHEN
-            [OTD_IsOnTime] = 0
-            AND
-            [IF_IsInFull] = 0
-        THEN 'NOTNIF'
-    END AS [OTDIF_OnTimeDelInFull]
+    ,[edw].[svf_getOTIF_OnTimeInFull]([OTD_Group],[OTD_IsOnTime],[IF_IsInFull]) AS [OTDIF_OnTimeDelInFull]
     ,[OTR_DaysDiff]
     ,[OTR_Group]
     ,[OTR_EarlyDays]
@@ -2048,30 +1800,7 @@ SELECT
     ,[OTR_IsLate]
     ,[OTR_IsOnTime]
     ,[OTR_LateDays]
-    ,CASE
-        WHEN [OTR_Group] IS NULL
-        THEN NULL
-        WHEN
-            [OTR_IsOnTime] = 1
-            AND
-            [IF_IsInFull] = 1
-        THEN 'OTIF'
-        WHEN
-            [OTR_IsOnTime] = 1
-            AND
-            [IF_IsInFull] = 0
-        THEN 'OTNIF'
-        WHEN
-            [OTR_IsOnTime] = 0
-            AND
-            [IF_IsInFull] = 1
-        THEN 'NOTIF'
-        WHEN
-            [OTR_IsOnTime] = 0
-            AND
-            [IF_IsInFull] = 0
-        THEN 'NOTNIF'
-    END AS [OTRIF_OnTimeCusReqInFull]
+    ,[edw].[svf_getOTIF_OnTimeInFull]([OTR_Group],[OTR_IsOnTime],[IF_IsInFull]) AS [OTRIF_OnTimeCusReqInFull]
     ,[t_applicationId]
     ,[t_extractionDtm]
 FROM

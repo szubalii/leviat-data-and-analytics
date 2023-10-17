@@ -995,6 +995,10 @@
     <Build Include="edw\Functions\ScalarValued\svf_getInOutID_EPM.sql" />
     <Build Include="edw\Functions\ScalarValued\svf_get5PartNaturalKey.sql" />
     <Build Include="edw\Functions\ScalarValued\svf_getConditionAmount.sql" />
+    <Build Include="edw\Functions\ScalarValued\svf_excludeWeekends.sql" />
+    <Build Include="edw\Functions\ScalarValued\svf_getOT_DaysDiff.sql" />
+    <Build Include="edw\Functions\ScalarValued\svf_getOT_Group.sql" />
+    <Build Include="edw\Functions\ScalarValued\svf_getOTIF_OnTimeInFull.sql" />
     
     <Build Include="utilities\Functions\Scalar-valued Functions\svf_get_file_path.sql" />
 
