@@ -1,4 +1,4 @@
-CREATE PROCEDURE [tc.dm_finance.vw_fact_ACDOCA_EPMSalesView].[test IC_Balance_KPI]
+CREATE PROCEDURE [tc.edw.vw_fact_ACDOCA_EPM_Base].[test IC_Balance_KPI]
 AS
 BEGIN
 
