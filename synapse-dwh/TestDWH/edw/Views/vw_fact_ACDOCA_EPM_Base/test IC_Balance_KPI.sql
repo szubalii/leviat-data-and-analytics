@@ -3,6 +3,7 @@ AS
 BEGIN
 
   IF OBJECT_ID('actual') IS NOT NULL DROP TABLE actual;
+  IF OBJECT_ID('tempdb..#vw_CurrencyConversionRate') IS NOT NULL DROP TABLE #vw_CurrencyConversionRate;
   IF OBJECT_ID('expected') IS NOT NULL DROP TABLE expected;
 
   -- Assemble: Fake Table
@@ -80,15 +81,16 @@ BEGIN
     ,('1111111111',NULL,10.00,'PLN')
     ,(NULL,NULL,10.00,'PLN');
 
-  INSERT INTO edw.vw_CurrencyConversionRate (
-    SourceCurrency,
-    ExchangeRate,
-    CurrencyTypeID
-  )
+  SELECT TOP(0) *
+  INTO #vw_CurrencyConversionRate
+  FROM edw.vw_CurrencyConversionRate;
+
+  INSERT INTO #vw_CurrencyConversionRate (SourceCurrency, CurrencyTypeID, ExchangeRate)
   VALUES
-    ('PLN',1, 10);
+    ('PLN',10, 1);
 
-
+  EXEC ('INSERT INTO edw.vw_CurrencyConversionRate SELECT * FROM #vw_CurrencyConversionRate');
+  
   -- Act: 
   SELECT  GLAccountID
          ,PartnerCompanyID
