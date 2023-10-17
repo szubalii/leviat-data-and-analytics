@@ -12,7 +12,7 @@ SELECT
   a.StreetName,
   a.HouseNumber,
   a.FullAddress,
-  w.LogisticsAreaInM2
+  w.LogisticsAreaInM2,
   w.FTELogistics
 FROM
   [edw].[dim_ShippingPoint] s
@@ -21,6 +21,6 @@ LEFT JOIN
   ON
     a.AddressID = s.AddressID
 LEFT JOIN
-  [base_ff].[dim_ShippingPointLogistics] w
+  [base_ff].[ShippingPointLogistics] w
   ON
     w.ShippingPointID = s.ShippingPointID

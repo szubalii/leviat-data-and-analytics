@@ -39,3 +39,4 @@ map_AXBI;SAPCustomerBasicMappingTable.csv;";";map_AXBI;SAPCustomerBasicMappingTa
 ;CompanyCode.csv;";";base_ff;CompanyCode
 ;Budget_EPM.csv;";";base_ff;Budget_EPM
 ;LeviatWarehouse.csv;";";base_ff;LeviatWarehouse
+;ShippingPointLogistics.csv;";";base_ff;ShippingPointLogistics
