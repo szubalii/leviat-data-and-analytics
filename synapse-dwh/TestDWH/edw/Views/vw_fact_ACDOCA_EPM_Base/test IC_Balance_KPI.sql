@@ -9,24 +9,76 @@ BEGIN
   EXEC tSQLt.FakeTable '[edw]', '[fact_ACDOCA]';
   EXEC tSQLt.FakeTable '[edw]', '[vw_CurrencyConversionRate]';
    
-  SELECT *
-  INTO edw.fact_ACDOCA
-  FROM (
-      SELECT *
-    FROM
-    ( SELECT  GLAccountID FROM base_ff.IC_ReconciliationGLAccounts
-      UNION ALL SELECT '1111111111'
-      UNION ALL SELECT NULL
-    ) a
-    CROSS JOIN (
-        SELECT 'DE35' AS PartnerCompanyID
-        UNION ALL SELECT ''
-        UNION ALL SELECT NULL
-    ) b
-    CROSS JOIN (
-      SELECT 10 AS AmountInCompanyCodeCurrency
-    ) c
-  ) d;
+ INSERT INTO edw.fact_ACDOCA (
+    GLAccountID,
+    PartnerCompanyID,
+    AmountInCompanyCodeCurrency
+  )
+  VALUES
+     (0021102100,'DE35',10)
+    ,(0026200100,'DE35',10)
+    ,(0018300100,'DE35',10)
+    ,(0021390121,'DE35',10)
+    ,(0035800100,'DE35',10)
+    ,(0015112105,'DE35',10)
+    ,(0021102111,'DE35',10)
+    ,(0035500101,'DE35',10)
+    ,(0015112110,'DE35',10)
+    ,(0021102198,'DE35',10)
+    ,(0035600100,'DE35',10)
+    ,(0015112199,'DE35',10)
+    ,(0021102199,'DE35',10)
+    ,(0035700100,'DE35',10)
+    ,(0021102101,'DE35',10)
+    ,(0035200100,'DE35',10)
+    ,(0015112100,'DE35',10)
+    ,(0021102110,'DE35',10)
+    ,(0035500100,'DE35',10)
+    ,(1111111111,'DE35',10)
+    ,(NULL,'DE35',10)
+    ,(0021102100,'',10)
+    ,(0026200100,'',10)
+    ,(0018300100,'',10)
+    ,(0021390121,'',10)
+    ,(0035800100,'',10)
+    ,(0015112105,'',10)
+    ,(0021102111,'',10)
+    ,(0035500101,'',10)
+    ,(0015112110,'',10)
+    ,(0021102198,'',10)
+    ,(0035600100,'',10)
+    ,(0015112199,'',10)
+    ,(0021102199,'',10)
+    ,(0035700100,'',10)
+    ,(0021102101,'',10)
+    ,(0035200100,'',10)
+    ,(0015112100,'',10)
+    ,(0021102110,'',10)
+    ,(0035500100,'',10)
+    ,(1111111111,'',10)
+    ,(NULL,'',10)
+    ,(0021102100,NULL,10)
+    ,(0026200100,NULL,10)
+    ,(0018300100,NULL,10)
+    ,(0021390121,NULL,10)
+    ,(0035800100,NULL,10)
+    ,(0015112105,NULL,10)
+    ,(0021102111,NULL,10)
+    ,(0035500101,NULL,10)
+    ,(0015112110,NULL,10)
+    ,(0021102198,NULL,10)
+    ,(0035600100,NULL,10)
+    ,(0015112199,NULL,10)
+    ,(0021102199,NULL,10)
+    ,(0035700100,NULL,10)
+    ,(0021102101,NULL,10)
+    ,(0035200100,NULL,10)
+    ,(0015112100,NULL,10)
+    ,(0021102110,NULL,10)
+    ,(0035500100,NULL,10)
+    ,(1111111111,NULL,10)
+    ,(NULL,NULL,10);
+
 
   SELECT TOP(0) *
   INTO #vw_CurrencyConversionRate
