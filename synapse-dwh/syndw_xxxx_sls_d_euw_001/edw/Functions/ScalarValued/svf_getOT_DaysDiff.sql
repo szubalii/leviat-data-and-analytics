@@ -1,6 +1,7 @@
 ﻿CREATE FUNCTION [edw].[svf_getOT_DaysDiff](
     @DeliveryDate DATE,
-    @CalculatedDate DATE
+    @CalculatedDate DATE,
+    @Current_date DATE
 )
 RETURNS INT
 AS
@@ -19,10 +20,10 @@ BEGIN
                 OR
                 @CalculatedDate = '0001-01-01')
                 AND
-                @DeliveryDate < CONVERT (DATE, GETUTCDATE())
+                @DeliveryDate < CONVERT (DATE, @Current_date)
             THEN
-                (DATEDIFF(day, @DeliveryDate, CONVERT (DATE, GETUTCDATE()))) -- count of all days diff
-                 -(DATEDIFF(week, @DeliveryDate, CONVERT (DATE, GETUTCDATE())) * 2) -- count of weekends
+                (DATEDIFF(day, @DeliveryDate, CONVERT (DATE, @Current_date))) -- count of all days diff
+                 -(DATEDIFF(week, @DeliveryDate, CONVERT (DATE, @Current_date)) * 2) -- count of weekends
             WHEN @CalculatedDate = '0001-01-01'
 			THEN NULL
             ELSE
