@@ -90,14 +90,17 @@ BEGIN
     ('PLN',10, 1);
 
   EXEC ('INSERT INTO edw.vw_CurrencyConversionRate SELECT * FROM #vw_CurrencyConversionRate');
-  
+
   -- Act: 
   SELECT  GLAccountID
          ,PartnerCompanyID
          ,IC_Balance_KPI
   INTO actual
   FROM [edw].[vw_fact_ACDOCA_EPM_Base]
-  WHERE CurrencyTypeID = 10;
+  WHERE CurrencyTypeID = 10
+  ORDER BY GLAccountID
+          ,PartnerCompanyID
+          ,IC_Balance_KPI;
 
   -- Assert:
   CREATE TABLE expected (
