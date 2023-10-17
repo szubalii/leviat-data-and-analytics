@@ -1,7 +1,7 @@
 CREATE TABLE [edw].[dim_Address](
   AddressID NVARCHAR(10) NOT NULL,
   Region NVARCHAR(3),
-  CountryCode NVARCHAR(3),
+  CountryID NVARCHAR(3),
   CityName NVARCHAR(40),
   PostalCode NVARCHAR(10),
   StreetName NVARCHAR(60),

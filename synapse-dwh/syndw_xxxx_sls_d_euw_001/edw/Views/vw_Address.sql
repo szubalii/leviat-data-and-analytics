@@ -3,7 +3,7 @@ AS
 SELECT
   a.AddressID,
   a.Region,
-  a.Country AS CountryCode,
+  a.Country AS CountryID,
   a.CityName,
   a.PostalCode,
   a.StreetName,

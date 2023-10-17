@@ -2,7 +2,7 @@ CREATE VIEW [dm_scm].[vw_dim_CustomerAddress]
 AS
 SELECT
   c.CustomerID,
-  a.CountryCode,
+  a.CountryID,
   a.FullAddress
 FROM
   [edw].[dim_Customer] c

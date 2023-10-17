@@ -5,7 +5,7 @@ SELECT
   NULL AS ShippingPointName,
   s.ShippingPointType,
   NULL AS ShippingPointCategory,
-  a.CountryCode,
+  a.CountryID,
   a.FullAddress,
   w.LogisticsAreaInM2,
   w.FTELogistics
