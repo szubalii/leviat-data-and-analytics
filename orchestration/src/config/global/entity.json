@@ -5877,6 +5877,15 @@
         "dest_table_name": "dim_SDDocumentIncompletionLog",
         "execution_order": 0,
         "schedule_recurrence": "D"
+      },
+      {
+        "entity_id": 627,
+        "entity_name": "dim_Address",
+        "sproc_name": "sp_materialize_view",
+        "source_view_name": "vw_Address",
+        "dest_table_name": "dim_Address",
+        "execution_order": 0,
+        "schedule_recurrence": "D"
       }
     ]
   },
