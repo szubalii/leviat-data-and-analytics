@@ -20,4 +20,4 @@ FROM
 LEFT JOIN
   [edw].[dim_Country] co
   ON
-    co.CountryID = a.CountryCode
+    co.CountryID = a.Country
