@@ -9,11 +9,11 @@ RETURNS NVARCHAR(170)
 AS
 BEGIN
   RETURN CONCAT_WS(
+    ' ',
     @StreetName,
     @HouseNumber,
     @PostalCode,
     @CityName,
-    @Country,
-    ' '
+    @Country
   );
 END
