@@ -1,222 +1,249 @@
 {
-    "name": "IFIFCALENDARDATE$P",
-    "description": "Fiscal Calendar Date",
-    "guid": "ae24ae62-2c00-4ef4-8341-21d8e3b1dea6",
-    "semantics": "MasterDataOrAttributes",
-    "context": "ABAP_CDS",
-    "supportsFull": true,
-    "supportsDelta": true,
-    "mode": "Delta",
-    "transferDataOnDeltaInit": true,
-    "columns": 
-    [
-        {
-            "name": "TS_SEQUENCE_NUMBER",
-            "description": "[GENERATED] Sequence number of row in current extraction",
-            "abapType": "FourByteInteger",
-            "isPrimaryKey": true,
-            "isSelected": true,
-            "isDeltaColumn": true,
-            "generated": true,
-            "outputLength": 0
-        },
-        {
-            "name": "ODQ_CHANGEMODE",
-            "description": "Change Mode for a Data Record in the Delta",
-            "abapType": "CharacterString",
-            "length": 1,
-            "isSelected": true,
-            "isDeltaColumn": true,
-            "outputLength": 1
-        },
-        {
-            "name": "ODQ_ENTITYCNTR",
-            "description": "Number of Data Units (Data Records for Example)",
-            "abapType": "PackedNumber",
-            "length": 19,
-            "isSelected": true,
-            "isDeltaColumn": true,
-            "outputLength": 20
-        },
-        {
-            "name": "FISCALYEARVARIANT",
-            "description": "Period version",
-            "abapType": "CharacterString",
-            "length": 2,
-            "isPrimaryKey": true,
-            "isSelected": true,
-            "selectionPermission": "All",
-            "outputLength": 2
-        },
-        {
-            "name": "CALENDARDATE",
-            "description": "Field of type DATS",
-            "abapType": "Date",
-            "isPrimaryKey": true,
-            "isSelected": true,
-            "selectionPermission": "All",
-            "outputLength": 8
-        },
-        {
-            "name": "FISCALYEAR",
-            "description": "Fiscal year",
-            "abapType": "NumericCharacterString",
-            "length": 4,
-            "isSelected": true,
-            "selectionPermission": "All",
-            "outputLength": 4
-        },
-        {
-            "name": "FISCALYEARSTARTDATE",
-            "description": "Date",
-            "abapType": "Date",
-            "isSelected": true,
-            "selectionPermission": "All",
-            "outputLength": 8
-        },
-        {
-            "name": "FISCALYEARENDDATE",
-            "description": "Date",
-            "abapType": "Date",
-            "isSelected": true,
-            "selectionPermission": "All",
-            "outputLength": 8
-        },
-        {
-            "name": "FISCALPERIOD",
-            "description": "Posting period",
-            "abapType": "NumericCharacterString",
-            "length": 3,
-            "isSelected": true,
-            "selectionPermission": "All",
-            "outputLength": 3
-        },
-        {
-            "name": "FISCALPERIODSTARTDATE",
-            "description": "Date",
-            "abapType": "Date",
-            "isSelected": true,
-            "selectionPermission": "All",
-            "outputLength": 8
-        },
-        {
-            "name": "FISCALPERIODENDDATE",
-            "description": "Date",
-            "abapType": "Date",
-            "isSelected": true,
-            "selectionPermission": "All",
-            "outputLength": 8
-        },
-        {
-            "name": "FISCALQUARTER",
-            "description": "Fiscal Quarter",
-            "abapType": "NumericCharacterString",
-            "length": 1,
-            "isSelected": true,
-            "selectionPermission": "All",
-            "outputLength": 1
-        },
-        {
-            "name": "FISCALQUARTERSTARTDATE",
-            "description": "Date",
-            "abapType": "Date",
-            "isSelected": true,
-            "selectionPermission": "All",
-            "outputLength": 8
-        },
-        {
-            "name": "FISCALQUARTERENDDATE",
-            "description": "Date",
-            "abapType": "Date",
-            "isSelected": true,
-            "selectionPermission": "All",
-            "outputLength": 8
-        },
-        {
-            "name": "FISCALWEEK",
-            "description": "Fiscal Week",
-            "abapType": "NumericCharacterString",
-            "length": 2,
-            "isSelected": true,
-            "selectionPermission": "All",
-            "outputLength": 2
-        },
-        {
-            "name": "FISCALWEEKSTARTDATE",
-            "description": "Date",
-            "abapType": "Date",
-            "isSelected": true,
-            "selectionPermission": "All",
-            "outputLength": 8
-        },
-        {
-            "name": "FISCALWEEKENDDATE",
-            "description": "Date",
-            "abapType": "Date",
-            "isSelected": true,
-            "selectionPermission": "All",
-            "outputLength": 8
-        },
-        {
-            "name": "FISCALYEARPERIOD",
-            "description": "Fiscal Year + Fiscal Period",
-            "abapType": "NumericCharacterString",
-            "length": 7,
-            "isSelected": true,
-            "selectionPermission": "All",
-            "outputLength": 7
-        },
-        {
-            "name": "FISCALYEARQUARTER",
-            "description": "Fiscal Year + Fiscal Quarter",
-            "abapType": "NumericCharacterString",
-            "length": 5,
-            "isSelected": true,
-            "selectionPermission": "All",
-            "outputLength": 6
-        },
-        {
-            "name": "FISCALYEARWEEK",
-            "description": "Fiscal Year + Fiscal Week",
-            "abapType": "NumericCharacterString",
-            "length": 6,
-            "isSelected": true,
-            "selectionPermission": "All",
-            "outputLength": 6
-        },
-        {
-            "name": "FISCALYEARCONSECUTIVENUMBER",
-            "description": "Fiscal Year (Integer)",
-            "abapType": "FourByteInteger",
-            "isSelected": true,
-            "selectionPermission": "All",
-            "outputLength": 11
-        },
-        {
-            "name": "FISCALPERIODCONSECUTIVENUMBER",
-            "description": "Fiscal Year Period (Numbering)",
-            "abapType": "FourByteInteger",
-            "isSelected": true,
-            "selectionPermission": "All",
-            "outputLength": 11
-        },
-        {
-            "name": "FISCALQUARTERCONSECUTIVENUMBER",
-            "description": "Fiscal Year Quarter (Numbering)",
-            "abapType": "FourByteInteger",
-            "isSelected": true,
-            "selectionPermission": "All",
-            "outputLength": 11
-        },
-        {
-            "name": "FISCALWEEKCONSECUTIVENUMBER",
-            "description": "Fiscal Year Week (Numbering)",
-            "abapType": "FourByteInteger",
-            "isSelected": true,
-            "selectionPermission": "All",
-            "outputLength": 11
-        }
-    ],
-    "parameters": {
-    }
+	"name": "IFIFCALENDARDATE$P",
+	"description": "Fiscal Calendar Date",
+	"guid": "cbe4f8f6-9e1b-47f9-8031-5d5aa2e99d18",
+	"semantics": "TransactionalDataOrFacts",
+	"context": "ABAP_CDS",
+	"supportsFull": true,
+	"supportsDelta": true,
+	"mode": "Full",
+	"transferDataOnDeltaInit": true,
+	"columns": [
+		{
+			"name": "ODQ_CHANGEMODE",
+			"description": "Change Mode for a Data Record in the Delta",
+			"abapType": "CharacterString",
+			"length": 1,
+			"isSelected": true,
+			"outputLength": 1,
+			"isDeltaColumn": true,
+			"selectionPermission": "All",
+			"checkTable": ""
+		},
+		{
+			"name": "ODQ_ENTITYCNTR",
+			"description": "Number of Data Units (Data Records for Example)",
+			"abapType": "PackedNumber",
+			"length": 19,
+			"isSelected": true,
+			"outputLength": 20,
+			"decimalCount": 0,
+			"isDeltaColumn": true,
+			"selectionPermission": "All",
+			"checkTable": ""
+		},
+		{
+			"name": "FISCALYEARVARIANT",
+			"description": "Fiscal Year Variant",
+			"abapType": "CharacterString",
+			"length": 2,
+			"isSelected": true,
+			"outputLength": 2,
+			"isPrimaryKey": true,
+			"selectionPermission": "All",
+			"checkTable": ""
+		},
+		{
+			"name": "CALENDARDATE",
+			"description": "Calendar Date",
+			"abapType": "Date",
+			"length": 8,
+			"isSelected": true,
+			"outputLength": 8,
+			"isPrimaryKey": true,
+			"selectionPermission": "All",
+			"checkTable": ""
+		},
+		{
+			"name": "FISCALYEAR",
+			"description": "Fiscal Year",
+			"abapType": "NumericCharacterString",
+			"length": 4,
+			"isSelected": true,
+			"outputLength": 4,
+			"selectionPermission": "All",
+			"checkTable": ""
+		},
+		{
+			"name": "FISCALYEARSTARTDATE",
+			"description": "Start Date of Fiscal Year",
+			"abapType": "Date",
+			"length": 8,
+			"isSelected": true,
+			"outputLength": 8,
+			"selectionPermission": "All",
+			"checkTable": ""
+		},
+		{
+			"name": "FISCALYEARENDDATE",
+			"description": "End Date of Fiscal Year",
+			"abapType": "Date",
+			"length": 8,
+			"isSelected": true,
+			"outputLength": 8,
+			"selectionPermission": "All",
+			"checkTable": ""
+		},
+		{
+			"name": "FISCALPERIOD",
+			"description": "Fiscal Period",
+			"abapType": "NumericCharacterString",
+			"length": 3,
+			"isSelected": true,
+			"outputLength": 3,
+			"selectionPermission": "All",
+			"checkTable": ""
+		},
+		{
+			"name": "FISCALPERIODSTARTDATE",
+			"description": "Start Date of Fiscal Period",
+			"abapType": "Date",
+			"length": 8,
+			"isSelected": true,
+			"outputLength": 8,
+			"selectionPermission": "All",
+			"checkTable": ""
+		},
+		{
+			"name": "FISCALPERIODENDDATE",
+			"description": "End Date of Fiscal Period",
+			"abapType": "Date",
+			"length": 8,
+			"isSelected": true,
+			"outputLength": 8,
+			"selectionPermission": "All",
+			"checkTable": ""
+		},
+		{
+			"name": "FISCALQUARTER",
+			"description": "Fiscal Quarter",
+			"abapType": "NumericCharacterString",
+			"length": 1,
+			"isSelected": true,
+			"outputLength": 1,
+			"selectionPermission": "All",
+			"checkTable": ""
+		},
+		{
+			"name": "FISCALQUARTERSTARTDATE",
+			"description": "Start Date of Fiscal Quarter",
+			"abapType": "Date",
+			"length": 8,
+			"isSelected": true,
+			"outputLength": 8,
+			"selectionPermission": "All",
+			"checkTable": ""
+		},
+		{
+			"name": "FISCALQUARTERENDDATE",
+			"description": "End Date of Fiscal Quarter",
+			"abapType": "Date",
+			"length": 8,
+			"isSelected": true,
+			"outputLength": 8,
+			"selectionPermission": "All",
+			"checkTable": ""
+		},
+		{
+			"name": "FISCALWEEK",
+			"description": "Fiscal Week",
+			"abapType": "NumericCharacterString",
+			"length": 2,
+			"isSelected": true,
+			"outputLength": 2,
+			"selectionPermission": "All",
+			"checkTable": ""
+		},
+		{
+			"name": "FISCALWEEKSTARTDATE",
+			"description": "Start Date of Fiscal Week",
+			"abapType": "Date",
+			"length": 8,
+			"isSelected": true,
+			"outputLength": 8,
+			"selectionPermission": "All",
+			"checkTable": ""
+		},
+		{
+			"name": "FISCALWEEKENDDATE",
+			"description": "End Date of Fiscal Week",
+			"abapType": "Date",
+			"length": 8,
+			"isSelected": true,
+			"outputLength": 8,
+			"selectionPermission": "All",
+			"checkTable": ""
+		},
+		{
+			"name": "FISCALYEARPERIOD",
+			"description": "Fiscal Year + Fiscal Period",
+			"abapType": "NumericCharacterString",
+			"length": 7,
+			"isSelected": true,
+			"outputLength": 7,
+			"selectionPermission": "All",
+			"checkTable": ""
+		},
+		{
+			"name": "FISCALYEARQUARTER",
+			"description": "Fiscal Year + Fiscal Quarter",
+			"abapType": "NumericCharacterString",
+			"length": 5,
+			"isSelected": true,
+			"outputLength": 5,
+			"selectionPermission": "All",
+			"checkTable": ""
+		},
+		{
+			"name": "FISCALYEARWEEK",
+			"description": "Fiscal Year + Fiscal Week",
+			"abapType": "NumericCharacterString",
+			"length": 6,
+			"isSelected": true,
+			"outputLength": 6,
+			"selectionPermission": "All",
+			"checkTable": ""
+		},
+		{
+			"name": "FISCALYEARCONSECUTIVENUMBER",
+			"description": "Fiscal Year (Integer)",
+			"abapType": "OneByteInteger",
+			"length": 10,
+			"isSelected": true,
+			"outputLength": 11,
+			"selectionPermission": "All",
+			"checkTable": ""
+		},
+		{
+			"name": "FISCALPERIODCONSECUTIVENUMBER",
+			"description": "Fiscal Year Period (Numbering)",
+			"abapType": "OneByteInteger",
+			"length": 10,
+			"isSelected": true,
+			"outputLength": 11,
+			"selectionPermission": "All",
+			"checkTable": ""
+		},
+		{
+			"name": "FISCALQUARTERCONSECUTIVENUMBER",
+			"description": "Fiscal Year Quarter (Numbering)",
+			"abapType": "OneByteInteger",
+			"length": 10,
+			"isSelected": true,
+			"outputLength": 11,
+			"selectionPermission": "All",
+			"checkTable": ""
+		},
+		{
+			"name": "FISCALWEEKCONSECUTIVENUMBER",
+			"description": "Fiscal Year Week (Numbering)",
+			"abapType": "OneByteInteger",
+			"length": 10,
+			"isSelected": true,
+			"outputLength": 11,
+			"selectionPermission": "All",
+			"checkTable": ""
+		}
+	],
+	"parameters": {}
 }

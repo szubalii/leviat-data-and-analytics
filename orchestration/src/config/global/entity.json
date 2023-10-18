@@ -525,9 +525,11 @@
         "client_field": "MANDT",
         "tool_name": "Theobald",
         "extraction_type": "ODP",
-        "update_mode": "Delta",
+        "update_mode": "Full",
         "base_table_name": "I_FiscalCalendarDate",
-        "pk_field_names": "TS_SEQUENCE_NUMBER, FISCALYEARVARIANT, CALENDARDATE"
+        "pk_field_names": "MANDT, FISCALYEARVARIANT, CALENDARDATE",
+        "schedule_recurrence": "M",
+        "schedule_day": 1
       },
       {
         "entity_id": 106,
@@ -5865,6 +5867,16 @@
         "dest_table_name": "fact_BusinessPartnerTotal",
         "execution_order": 1,
         "schedule_recurrence": "D"
+      },
+      {
+        "entity_id": 616,
+        "entity_name": "dim_FiscalCalendar",
+        "sproc_name": "sp_dq_materialize_view",
+        "source_view_name": "vw_FiscalCalendar",
+        "dest_table_name": "dim_FiscalCalendar",
+        "execution_order": 1,
+        "schedule_recurrence": "M",
+        "schedule_day": 1
       }
     ]
   },

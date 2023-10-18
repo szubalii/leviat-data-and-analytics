@@ -1,18 +1,6 @@
--- =============================================
--- Schema         : base_s4h_cax
--- CDS View       : I_FiscalCalendarDate
--- System Version : SAP S/4HANA 2022, SP 0001
--- Description    : Fiscal Calendar Date
--- Source:        : S/4HANA
--- Extraction_Mode: Full
--- Source Type    : ODP
--- Source Name    : CAACLNT200
-
--- =============================================
-
-CREATE TABLE [base_s4h_cax].[I_FiscalCalendarDate] (
-    [MANDT] CHAR(3) NOT NULL  -- Client
-  , [FiscalYearVariant] NVARCHAR(2) NOT NULL  -- Fiscal Year Variant
+CREATE TABLE [edw].[dim_FiscalCalendarDate] (
+    
+    [FiscalYearVariant] NVARCHAR(2) NOT NULL  -- Fiscal Year Variant
   , [CalendarDate] DATE NOT NULL  -- Calendar Date
   , [FiscalYear] CHAR(4)  -- Fiscal Year
   , [FiscalYearStartDate] DATE  -- Start Date of Fiscal Year
@@ -36,14 +24,13 @@ CREATE TABLE [base_s4h_cax].[I_FiscalCalendarDate] (
   , [t_applicationId] VARCHAR (32)  -- Application ID
   , [t_jobId] VARCHAR (36)  -- Job ID
   , [t_jobDtm] DATETIME  -- Job Date Time
+  , [t_lastActionCd]  VARCHAR(1)
   , [t_jobBy] VARCHAR (128)  -- Job executed by
-  , [t_extractionDtm] DATETIME  -- Extraction Date Time
-  , [t_filePath] NVARCHAR (1024)  -- Filepath
-  , CONSTRAINT [PK_I_FiscalCalendarDate] PRIMARY KEY NONCLUSTERED(
+  , CONSTRAINT [PK_dim_FiscalCalendarDate] PRIMARY KEY NONCLUSTERED(
       [MANDT]
     , [FiscalYearVariant]
     , [CalendarDate]
   ) NOT ENFORCED
 ) WITH (
-  HEAP
+  DISTRIBUTION = REPLICATE, HEAP
 )
