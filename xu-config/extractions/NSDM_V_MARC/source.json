@@ -1157,6 +1157,7 @@
                     "description": "Planning Strategy Group",
                     "abapType": "CharacterString",
                     "length": 2,
+                    "isSelected": true,
                     "checkTable": "T461P",
                     "conversionExit": ""
                 },

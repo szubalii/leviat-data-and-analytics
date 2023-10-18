@@ -147,7 +147,7 @@ CREATE TABLE [base_s4h_cax].[NSDM_V_MARC]
 -- , [itark] nvarchar(1) collate Latin1_General_100_BIN2
 -- , [servg] nvarchar(1) collate Latin1_General_100_BIN2
 -- , [kzkup] nvarchar(1) collate Latin1_General_100_BIN2
--- , [strgr] nvarchar(2) collate Latin1_General_100_BIN2
+, [STRGR] nvarchar(2) collate Latin1_General_100_BIN2
 -- , [cuobv] char(18) collate Latin1_General_100_BIN2
 -- , [lgfsb] nvarchar(4) collate Latin1_General_100_BIN2
 -- , [schgt] nvarchar(1) collate Latin1_General_100_BIN2
