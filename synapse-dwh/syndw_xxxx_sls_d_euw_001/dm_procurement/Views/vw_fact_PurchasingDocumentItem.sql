@@ -1,6 +1,7 @@
 CREATE VIEW [dm_procurement].[vw_fact_PurchasingDocumentItem]
 AS
 SELECT
+    PDI.[sk_fact_PurchasingDocumentItem],
     PDI.[PurchasingDocument],
     PDI.[PurchasingDocumentItem],
     PDI.[MaterialID],

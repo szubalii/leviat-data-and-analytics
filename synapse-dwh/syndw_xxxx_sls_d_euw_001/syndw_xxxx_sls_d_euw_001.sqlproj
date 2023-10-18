@@ -293,6 +293,7 @@
     <Build Include="Security\Schemas\dm_dq.sql" />
     <Build Include="Security\Schemas\base_c4c.sql" />
     <Build Include="Security\Schemas\dm_c4c.sql" />
+    <Build Include="Security\Schemas\intm.sql" />
     <Build Include="Security\Schemas\intm_axbi.sql" />
     <Build Include="Security\Schemas\base_ancon_australia_2_dwh.sql" />
     <Build Include="Security\Schemas\base_tx_crh_1_stg.sql" />
@@ -430,6 +431,9 @@
     <Build Include="base_s4h_cax\Tables\I_GLAccountLineItemRawData_202307.sql" />
     <Build Include="base_s4h_cax\Tables\I_GLAccountLineItemRawData_202308.sql" />
     <Build Include="base_s4h_cax\Tables\I_GLAccountLineItemRawData_202309.sql" />
+    <Build Include="base_s4h_cax\Tables\I_GLAccountLineItemRawData_202310.sql" />
+    <Build Include="base_s4h_cax\Tables\I_GLAccountLineItemRawData_202311.sql" />
+    <Build Include="base_s4h_cax\Tables\I_GLAccountLineItemRawData_202312.sql" />
     <Build Include="base_s4h_cax\Tables\I_GLAccountLineItemRawData_upto2022.sql" />
     <Build Include="base_s4h_cax\Tables\I_GLAccountLineItemRawData_delta.sql" />
     <Build Include="base_s4h_cax\Tables\I_GLAccountLineItemRawData_active.sql" />
@@ -713,6 +717,7 @@
     <Build Include="base_s4h_cax\Tables\I_DataElementLabelText.sql" />
     <Build Include="base_s4h_cax\Tables\I_BusinessPartnerGroupingText.sql" />
     <Build Include="base_s4h_cax\Tables\RollName.sql" />
+    <Build Include="base_s4h_cax\Tables\Opt_Vim_1Item_Extended.sql" />
 
     <Build Include="base_tx_ca_0_hlp\Tables\DATAAREA.sql" />
     <Build Include="base_tx_ca_0_hlp\Tables\CRHCURRENCY.sql" />
@@ -966,6 +971,7 @@
     <Build Include="edw\Tables\fact_SalesOrderItemPricingElement.sql" />
     <Build Include="edw\Tables\fact_ACDOCA_FinStatemntSalesMargin.sql" />
     <Build Include="edw\Tables\dim_SDDocumentIncompletionLog.sql" />
+    <Build Include="edw\Tables\fact_VendorInvoice_ApprovedAndPosted.sql" />
 
     <!-- FUNCTIONS -->
 
@@ -1166,6 +1172,8 @@
     <Build Include="edw\Views\vw_SDDocumentIncompletionLog.sql" />
     <Build Include="edw\Views\vw_fact_ACDOCA_EPM_Base.sql" />
     <Build Include="edw\Views\vw_LatestOutboundDeliveryItem.sql" />
+    <Build Include="edw\Views\vw_fact_VendorInvoice_ApprovedAndPosted_CUR.sql" />
+    <Build Include="edw\Views\vw_VendorInvoice_ApprovedAndPosted.sql" />
 
     <Build Include="dq\Views\vw_Product_1_2.sql" />
     <Build Include="dq\Views\vw_RuleTotal.sql" />
@@ -1333,6 +1341,7 @@
     <Build Include="dm_procurement\Views\vw_dim_PurchaseOrder_LastMonth.sql" />
     <Build Include="dm_procurement\Views\vw_dim_Supplier.sql" />
     <Build Include="dm_procurement\Views\vw_dim_User.sql" />
+    <Build Include="dm_procurement\Views\vw_fact_VendorInvoice_ApprovedAndPosted.sql" />
 
     <Build Include="dm_dq\Views\vw_dim_RuleProduct.sql" />
     <Build Include="dm_dq\Views\vw_fact_RuleTotal.sql" />
