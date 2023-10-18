@@ -522,12 +522,11 @@
         "entity_id": 105,
         "entity_name": "I_FiscalCalendarDate",
         "data_category": "DIMENSION",
-        "client_field": "MANDT",
         "tool_name": "Theobald",
         "extraction_type": "ODP",
         "update_mode": "Full",
         "base_table_name": "I_FiscalCalendarDate",
-        "pk_field_names": "MANDT, FISCALYEARVARIANT, CALENDARDATE",
+        "pk_field_names": "FISCALYEARVARIANT, CALENDARDATE",
         "schedule_recurrence": "M",
         "schedule_day": 1
       },

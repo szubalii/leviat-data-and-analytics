@@ -11,8 +11,7 @@
 -- =============================================
 
 CREATE TABLE [base_s4h_cax].[I_FiscalCalendarDate] (
-    [MANDT] CHAR(3) NOT NULL  -- Client
-  , [FiscalYearVariant] NVARCHAR(2) NOT NULL  -- Fiscal Year Variant
+    [FiscalYearVariant] NVARCHAR(2) NOT NULL  -- Fiscal Year Variant
   , [CalendarDate] DATE NOT NULL  -- Calendar Date
   , [FiscalYear] CHAR(4)  -- Fiscal Year
   , [FiscalYearStartDate] DATE  -- Start Date of Fiscal Year
@@ -29,10 +28,10 @@ CREATE TABLE [base_s4h_cax].[I_FiscalCalendarDate] (
   , [FiscalYearPeriod] CHAR(7)  -- Fiscal Year + Fiscal Period
   , [FiscalYearQuarter] CHAR(5)  -- Fiscal Year + Fiscal Quarter
   , [FiscalYearWeek] CHAR(6)  -- Fiscal Year + Fiscal Week
-  , [FiscalYearConsecutiveNumber] INT  -- Fiscal Year (Integer)
-  , [FiscalPeriodConsecutiveNumber] INT  -- Fiscal Year Period (Numbering)
-  , [FiscalQuarterConsecutiveNumber] INT  -- Fiscal Year Quarter (Numbering)
-  , [FiscalWeekConsecutiveNumber] INT  -- Fiscal Year Week (Numbering)
+  -- , [FiscalYearConsecutiveNumber] INT  -- Fiscal Year (Integer)
+  -- , [FiscalPeriodConsecutiveNumber] INT  -- Fiscal Year Period (Numbering)
+  -- , [FiscalQuarterConsecutiveNumber] INT  -- Fiscal Year Quarter (Numbering)
+  -- , [FiscalWeekConsecutiveNumber] INT  -- Fiscal Year Week (Numbering)
   , [t_applicationId] VARCHAR (32)  -- Application ID
   , [t_jobId] VARCHAR (36)  -- Job ID
   , [t_jobDtm] DATETIME  -- Job Date Time
@@ -40,8 +39,7 @@ CREATE TABLE [base_s4h_cax].[I_FiscalCalendarDate] (
   , [t_extractionDtm] DATETIME  -- Extraction Date Time
   , [t_filePath] NVARCHAR (1024)  -- Filepath
   , CONSTRAINT [PK_I_FiscalCalendarDate] PRIMARY KEY NONCLUSTERED(
-      [MANDT]
-    , [FiscalYearVariant]
+      [FiscalYearVariant]
     , [CalendarDate]
   ) NOT ENFORCED
 ) WITH (

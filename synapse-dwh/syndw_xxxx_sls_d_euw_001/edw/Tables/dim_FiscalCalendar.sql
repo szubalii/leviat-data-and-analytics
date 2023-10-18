@@ -1,4 +1,4 @@
-CREATE TABLE [edw].[dim_FiscalCalendarDate] (
+CREATE TABLE [edw].[dim_FiscalCalendar] (
     
     [FiscalYearVariant] NVARCHAR(2) NOT NULL  -- Fiscal Year Variant
   , [CalendarDate] DATE NOT NULL  -- Calendar Date
@@ -26,9 +26,8 @@ CREATE TABLE [edw].[dim_FiscalCalendarDate] (
   , [t_jobDtm] DATETIME  -- Job Date Time
   , [t_lastActionCd]  VARCHAR(1)
   , [t_jobBy] VARCHAR (128)  -- Job executed by
-  , CONSTRAINT [PK_dim_FiscalCalendarDate] PRIMARY KEY NONCLUSTERED(
-      [MANDT]
-    , [FiscalYearVariant]
+  , CONSTRAINT [PK_dim_FiscalCalendar] PRIMARY KEY NONCLUSTERED(
+      [FiscalYearVariant]
     , [CalendarDate]
   ) NOT ENFORCED
 ) WITH (
