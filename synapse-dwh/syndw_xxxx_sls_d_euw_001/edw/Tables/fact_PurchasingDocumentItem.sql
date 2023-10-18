@@ -1,6 +1,6 @@
 CREATE TABLE [edw].[fact_PurchasingDocumentItem]
 (
-    [sk_fact_PurchasingDocumentItem]            bigint IDENTITY(1,1) NOT NULL,
+    [sk_fact_PurchasingDocumentItem]            bigint IDENTITY(1, 1) NOT NULL,
     [PurchasingDocument]                        nvarchar(10) collate Latin1_General_100_BIN2 NOT NULL,
     [PurchasingDocumentItem]                    char(5) collate Latin1_General_100_BIN2      NOT NULL,
     [MaterialID]                                nvarchar(40) collate Latin1_General_100_BIN2,
@@ -21,11 +21,13 @@ CREATE TABLE [edw].[fact_PurchasingDocumentItem]
     [PurchasingDocumentItemCategoryID]          nvarchar(1) collate Latin1_General_100_BIN2,
     [NextDeliveryOpenQuantity]                  decimal(13, 3),
     [NextDeliveryDate]                          date,
-    [IsCompletelyDelivered]                     nvarchar(1) collate Latin1_General_100_BIN2,    
+    [IsCompletelyDelivered]                     nvarchar(1) collate Latin1_General_100_BIN2,
     [OrderQuantityUnit]                         nvarchar(3) collate Latin1_General_100_BIN2,
     [CostCenterID]                              nvarchar(10) collate Latin1_General_100_BIN2,
     [GLAccountID]                                 nvarchar(10) collate Latin1_General_100_BIN2,
     [GoodsReceiptQuantity]                      decimal(13, 3),
+    [PurchaseRequisition]                       nvarchar(10) collate Latin1_General_100_BIN2,
+    [PurchaseRequisitionItem]                   char(5) collate Latin1_General_100_BIN2,
     [t_applicationId]                           VARCHAR(32),
     [t_extractionDtm]                           DATETIME,
     [t_jobId]                                   VARCHAR(36),
@@ -36,4 +38,3 @@ CREATE TABLE [edw].[fact_PurchasingDocumentItem]
 )
 WITH ( DISTRIBUTION = HASH (PurchasingDocument), CLUSTERED COLUMNSTORE INDEX )
 GO
-
