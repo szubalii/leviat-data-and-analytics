@@ -276,6 +276,27 @@ SELECT
   --       END
   --     ELSE GLALIRD.ProjectNumber
   -- END AS [ProjectNumberCalculated],
+  edw.[svf_getManual_JE_KPI](
+    GLALIRD.AccountingDocumentTypeID,
+    GLALIRD.BusinessTransactionTypeID,
+    GLALIRD.ReferenceDocumentTypeID,
+    GLALIRD.AmountInCompanyCodeCurrency
+  ) * ExchangeRate.ExchangeRate AS [Manual_JE_KPI],
+  CASE
+    WHEN
+      GLALIRD.GLAccountID IN (
+        SELECT GLAccountID
+        FROM base_ff.IC_ReconciliationGLAccounts
+      )
+      AND
+      GLALIRD.PartnerCompanyID <> ''
+    THEN AmountInCompanyCodeCurrency * ExchangeRate.ExchangeRate
+  END AS [IC_Balance_KPI],
+  edw.[svf_getInventory_Adj_KPI](
+    GLALIRD.BusinessTransactionTypeID,
+    GLALIRD.TransactionTypeDeterminationID,
+    GLALIRD.AmountInCompanyCodeCurrency
+  ) * ExchangeRate.ExchangeRate AS [Inventory_Adj_KPI],
   GLALIRD.[t_applicationId],
   GLALIRD.[t_extractionDtm]
 FROM [edw].[fact_ACDOCA] GLALIRD
