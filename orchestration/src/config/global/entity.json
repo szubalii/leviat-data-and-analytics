@@ -5893,6 +5893,16 @@
         "dest_table_name": "fact_VendorInvoice_ApprovedAndPosted",
         "execution_order": 0,
         "schedule_recurrence": "D"
+      },
+      {
+        "entity_id": 628,
+        "entity_name": "dim_FiscalCalendar",
+        "sproc_name": "sp_materialize_view",
+        "source_view_name": "vw_FiscalCalendar",
+        "dest_table_name": "dim_FiscalCalendar",
+        "execution_order": 1,
+        "schedule_recurrence": "M",
+        "schedule_day": 1
       }
     ]
   },
@@ -5947,16 +5957,6 @@
         "dest_table_name": "fact_BusinessPartnerTotal",
         "execution_order": 1,
         "schedule_recurrence": "D"
-      },
-      {
-        "entity_id": 628,
-        "entity_name": "dim_FiscalCalendar",
-        "sproc_name": "sp_dq_materialize_view",
-        "source_view_name": "vw_FiscalCalendar",
-        "dest_table_name": "dim_FiscalCalendar",
-        "execution_order": 1,
-        "schedule_recurrence": "M",
-        "schedule_day": 1
       }
     ]
   },
