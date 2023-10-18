@@ -209,7 +209,7 @@
 			"description": "Fiscal Year (Integer)",
 			"abapType": "OneByteInteger",
 			"length": 10,
-			"isSelected": true,
+			"isSelected": false,
 			"outputLength": 11,
 			"selectionPermission": "All",
 			"checkTable": ""
@@ -219,7 +219,7 @@
 			"description": "Fiscal Year Period (Numbering)",
 			"abapType": "OneByteInteger",
 			"length": 10,
-			"isSelected": true,
+			"isSelected": false,
 			"outputLength": 11,
 			"selectionPermission": "All",
 			"checkTable": ""
@@ -229,7 +229,7 @@
 			"description": "Fiscal Year Quarter (Numbering)",
 			"abapType": "OneByteInteger",
 			"length": 10,
-			"isSelected": true,
+			"isSelected": false,
 			"outputLength": 11,
 			"selectionPermission": "All",
 			"checkTable": ""
@@ -239,7 +239,7 @@
 			"description": "Fiscal Year Week (Numbering)",
 			"abapType": "OneByteInteger",
 			"length": 10,
-			"isSelected": true,
+			"isSelected": false,
 			"outputLength": 11,
 			"selectionPermission": "All",
 			"checkTable": ""
