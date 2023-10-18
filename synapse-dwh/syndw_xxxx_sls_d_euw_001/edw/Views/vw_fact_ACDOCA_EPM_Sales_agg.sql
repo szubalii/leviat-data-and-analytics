@@ -18,7 +18,7 @@ SELECT
   CASE
     WHEN AccountingDocumentTypeID IN ('RV')
     THEN COUNT(DISTINCT ReferenceDocument)
-  END AS NumOfCustomerInvoices,
+  END AS CustomerInvoicesCount,
   CASE
     WHEN
       PartnerCompanyID NOT LIKE ''
