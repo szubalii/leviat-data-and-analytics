@@ -11,6 +11,7 @@ SELECT
 , Quantity
 , OrderUnit
 , OrderPriceUnit
+, NetAmount
 , NetAmount_EUR
 , NetAmount_USD
 , PlantID
@@ -35,6 +36,7 @@ SELECT
 , QuantityOrdered
 , QuantityInvoiced
 , QuantityOfGoodsReceived
+, HDR1_DocumentType
 , HDR1_ObjectType
 , HDR1_DocumentStatus
 , HDR1_NotFirstPass

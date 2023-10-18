@@ -1,6 +1,7 @@
 CREATE VIEW [edw].[vw_PurchasingDocumentItemCC]
 AS
 SELECT
+    PDI.[sk_fact_PurchasingDocumentItem],
     PDI.[PurchasingDocument],
     PDI.[PurchasingDocumentItem],
     PDI.[MaterialID],
@@ -40,9 +41,9 @@ SELECT
     PDI.[t_applicationId],
     PDI.[t_extractionDtm]
 FROM
-    [edw].[vw_PurchasingDocumentItem]   AS PDI
+    [edw].[fact_PurchasingDocumentItem]   AS PDI -- Why not use [edw].[fact_PurchasingDocumentItem]?
 INNER JOIN
-    [edw].[vw_PurchasingDocument]       AS PD
+    [edw].[fact_PurchasingDocument]       AS PD -- Why not use [edw].[fact_PurchasingDocument]?
         ON PDI.PurchasingDocument = PD.PurchasingDocument
 INNER JOIN
     [edw].[vw_CurrencyConversionRate]   AS CCR

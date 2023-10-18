@@ -10,6 +10,7 @@ SELECT
 , VIM.Quantity
 , VIM.OrderUnit
 , VIM.OrderPriceUnit
+, VIM.NetAmount
 , VIM.NetAmount * CCR_EUR.ExchangeRate AS NetAmount_EUR
 , VIM.NetAmount * CCR_USD.ExchangeRate AS NetAmount_USD
 , VIM.PlantID
@@ -34,6 +35,7 @@ SELECT
 , VIM.QuantityOrdered
 , VIM.QuantityInvoiced
 , VIM.QuantityOfGoodsReceived
+, VIM.HDR1_DocumentType
 , VIM.HDR1_ObjectType
 , VIM.HDR1_DocumentStatus
 , VIM.HDR1_NotFirstPass
