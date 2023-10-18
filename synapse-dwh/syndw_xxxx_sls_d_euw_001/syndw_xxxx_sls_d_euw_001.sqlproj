@@ -330,6 +330,7 @@
     <Build Include="base_ff\Tables\Region.sql" />
     <Build Include="base_ff\Tables\CompanyCode.sql" />
     <Build Include="base_ff\Tables\Budget_EPM.sql" />
+    <Build Include="base_ff\Tables\IC_ReconciliationGLAccounts.sql" />
 
     <Build Include="base_ff_USA\Tables\Budget.sql" />
     <Build Include="base_ff_USA\Tables\DummyMaterial.sql" />
@@ -1179,6 +1180,8 @@
     <Build Include="edw\Views\vw_GRIRAccountReconciliation.sql" />
     <Build Include="edw\Views\vw_ScheduleLineShippedNotBilled.sql" />
     <Build Include="edw\Views\vw_fact_ScheduleLineStatus.sql" />
+    <Build Include="edw\Views\vw_fact_GRIRAccountReconciliation_agg.sql" />
+    <Build Include="edw\Views\vw_fact_ScheduleLineShippedNotBilled_agg.sql" />
 
     <Build Include="dq\Views\vw_Product_1_2.sql" />
     <Build Include="dq\Views\vw_RuleTotal.sql" />
