@@ -37,7 +37,7 @@ SELECT
     THEN 'Yes'
     ELSE 'No'
   END AS [IsMercateo],
-  edw.svf_getBooleanIndicator(PDI.[IsReturnsItem]) as IsReturnsItem,
+  edw.svf_getBooleanIndicator(PDI.[IsReturnsItem]) AS IsReturnsItem,
   PDI.[t_applicationId],
   PDI.[t_extractionDtm]
 FROM
