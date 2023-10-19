@@ -62,7 +62,9 @@ WITH DeliveryItem AS
         END                                         AS IsUnconfirmedDelivery,
         DeliveryItem.[SDI_ODB_LatestActualGoodsMovmtDate],
         SDSL.DelivBlockReasonForSchedLine,
-        SDSL.LoadingDate
+        SDSL.LoadingDate,
+        DeliveryItem.t_applicationId,
+        DeliveryItem.t_extractionDtm
 	FROM [edw].[dim_SalesDocumentScheduleLine] SDSL 
 	LEFT JOIN DeliveryItem 
         ON SDSL.[SalesDocumentID] = DeliveryItem.[ReferenceSDDocument] 
@@ -170,7 +172,9 @@ SELECT
             WHEN documentItems.[BillingQuantity] >= SDSL.[SDSLOrderQtyRunningSum]
                 THEN SDSL.[ConfirmedQty] * SDI.[NetAmount] / SDI.[OrderQuantity]
         END                                     AS ClosedInvoicedValue,
-        SDI.[NetAmount] / SDI.[OrderQuantity]   AS [PricePerUnit]
+        SDI.[NetAmount] / SDI.[OrderQuantity]   AS [PricePerUnit],
+        SDSL.t_applicationId,
+        SDSL.t_extractionDtm
 	FROM SDSL 
     LEFT JOIN [edw].[fact_SalesDocumentItem] SDI 
         ON SDSL.[SalesDocumentID] = SDI.[SalesDocument] 
@@ -222,7 +226,9 @@ SELECT
             WHEN pre_report.[SalesDocumentTypeID] LIKE 'ZOR'
                 THEN '1'
             ELSE '0'
-        END                                 AS InScope
+        END                                 AS InScope,
+        pre_report.t_applicationId,
+        pre_report.t_extractionDtm
 FROM pre_report
 LEFT JOIN [base_ff].[SalesDocumentStatuses] statuses
     ON  pre_report.SalesDocumentOrderType = statuses.OrderTypeText

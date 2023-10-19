@@ -35,7 +35,9 @@ SELECT
   SLS.[OpenInvoicedValue],
   SLS.[ClosedInvoicedValue],
   SLS.[PricePerUnit],
-  SLS.[InScope]
+  SLS.[InScope],
+  SLS.[t_applicationId],
+  SLS.[t_extractionDtm]
 FROM
   [edw].[vw_fact_ScheduleLineStatus] SLS
 WHERE
