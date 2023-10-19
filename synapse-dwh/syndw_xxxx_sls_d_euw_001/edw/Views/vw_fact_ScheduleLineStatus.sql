@@ -62,9 +62,7 @@ WITH DeliveryItem AS
         END                                         AS IsUnconfirmedDelivery,
         DeliveryItem.[SDI_ODB_LatestActualGoodsMovmtDate],
         SDSL.DelivBlockReasonForSchedLine,
-        SDSL.LoadingDate,
-        DeliveryItem.t_applicationId,
-        DeliveryItem.t_extractionDtm
+        SDSL.LoadingDate
 	FROM [edw].[dim_SalesDocumentScheduleLine] SDSL 
 	LEFT JOIN DeliveryItem 
         ON SDSL.[SalesDocumentID] = DeliveryItem.[ReferenceSDDocument] 
@@ -173,8 +171,8 @@ SELECT
                 THEN SDSL.[ConfirmedQty] * SDI.[NetAmount] / SDI.[OrderQuantity]
         END                                     AS ClosedInvoicedValue,
         SDI.[NetAmount] / SDI.[OrderQuantity]   AS [PricePerUnit],
-        SDSL.t_applicationId,
-        SDSL.t_extractionDtm
+        SDI.t_applicationId,
+        SDI.t_extractionDtm
 	FROM SDSL 
     LEFT JOIN [edw].[fact_SalesDocumentItem] SDI 
         ON SDSL.[SalesDocumentID] = SDI.[SalesDocument] 
