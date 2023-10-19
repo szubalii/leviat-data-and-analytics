@@ -80,7 +80,7 @@ BEGIN
            FROM
                [edw].[fact_ScheduleLineShippedNotBilled]
            WHERE 
-                FORMAT(ReportDate, 'yyyyMM') <> FORMAT(@ReportDate,'yyyyMM');
+                FORMAT(ReportDate, 'yyyyMM') <> FORMAT(@reportDate,'yyyyMM');
 
         INSERT INTO [edw].[fact_ScheduleLineShippedNotBilled_tmp] (
                 [nk_fact_SalesDocumentItem]                
