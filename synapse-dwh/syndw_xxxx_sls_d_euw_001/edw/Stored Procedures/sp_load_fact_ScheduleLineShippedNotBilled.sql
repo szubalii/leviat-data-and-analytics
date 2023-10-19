@@ -70,7 +70,6 @@ BEGIN
              ,  [ClosedInvoicedValue]                      
              ,  [PricePerUnit]                             
              ,  [InScope]                                  
-             ,  [HDR_ActualGoodsMovementDate]              
              ,  [t_applicationId]                          
              ,  [t_extractionDtm]                          
              ,  [t_jobId]                                  
@@ -120,7 +119,6 @@ BEGIN
              ,  [ClosedInvoicedValue]                      
              ,  [PricePerUnit]                             
              ,  [InScope]                                  
-             ,  [HDR_ActualGoodsMovementDate]              
              ,  [t_applicationId]                          
              ,  [t_extractionDtm]                          
              ,  [t_jobId]                                  
@@ -166,7 +164,6 @@ BEGIN
              ,  [ClosedInvoicedValue]                      
              ,  [PricePerUnit]                             
              ,  [InScope]                                  
-             ,  [HDR_ActualGoodsMovementDate]              
              ,  [t_applicationId]                          
              ,  [t_extractionDtm]                          
              ,  @t_jobId AS t_jobId

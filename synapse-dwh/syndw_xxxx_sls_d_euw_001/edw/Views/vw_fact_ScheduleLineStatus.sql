@@ -170,7 +170,9 @@ SELECT
             WHEN documentItems.[BillingQuantity] >= SDSL.[SDSLOrderQtyRunningSum]
                 THEN SDSL.[ConfirmedQty] * SDI.[NetAmount] / SDI.[OrderQuantity]
         END                                     AS ClosedInvoicedValue,
-        SDI.[NetAmount] / SDI.[OrderQuantity]   AS [PricePerUnit]
+        SDI.[NetAmount] / SDI.[OrderQuantity]   AS [PricePerUnit],
+        SDI.t_applicationId,
+        SDI.t_extractionDtm
 	FROM SDSL 
     LEFT JOIN [edw].[fact_SalesDocumentItem] SDI 
         ON SDSL.[SalesDocumentID] = SDI.[SalesDocument] 
@@ -222,7 +224,9 @@ SELECT
             WHEN pre_report.[SalesDocumentTypeID] LIKE 'ZOR'
                 THEN '1'
             ELSE '0'
-        END                                 AS InScope
+        END                                 AS InScope,
+        pre_report.t_applicationId,
+        pre_report.t_extractionDtm
 FROM pre_report
 LEFT JOIN [base_ff].[SalesDocumentStatuses] statuses
     ON  pre_report.SalesDocumentOrderType = statuses.OrderTypeText
