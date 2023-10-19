@@ -4232,6 +4232,18 @@
         "base_table_name": "RollName",
         "schedule_recurrence": "A",
         "pk_field_names": "TABNAME, FIELDNAME, AS4VERS, POSITION"
+      },
+      {
+        "entity_id": 619,
+        "entity_name": "C_GRIRAccountReconciliation",
+        "data_category": "NULL",
+        "client_field": "MANDT",
+        "tool_name": "Theobald",
+        "extraction_type": "Table",
+        "update_mode": "Full",
+        "base_table_name": "C_GRIRAccountReconciliation",
+        "schedule_recurrence": "D",
+        "pk_field_names": "MANDT, COMPANYCODE, PURCHASINGDOCUMENT,PURCHASINGDOCUMENTITEM"
       }
     ]
   },
@@ -5844,6 +5856,22 @@
         "dest_table_name": "dim_SDDocumentIncompletionLog",
         "execution_order": 0,
         "schedule_recurrence": "D"
+      },
+      {
+        "entity_id": 620,
+        "entity_name": "fact_GRIRAccountReconciliation",
+        "sproc_name": "sp_load_fact_GRIRAccountReconciliation",
+        "execution_order": 0,
+        "schedule_recurrence": "M",
+        "schedule_day": 1
+      },
+      {
+        "entity_id": 621,
+        "entity_name": "fact_ScheduleLineShippedNotBilled",
+        "sproc_name": "sp_load_fact_ScheduleLineShippedNotBilled",
+        "execution_order": 6,
+        "schedule_recurrence": "M",
+        "schedule_day": 1
       }
     ]
   },

@@ -244,6 +244,8 @@
     <None Include="edw\Stored Procedures\sp_load_fact_SalesDocumentItem_axbi.sql" />
     <None Include="edw\Stored Procedures\sp_load_fact_SalesDocumentItem_s4h_active.sql" />
     <None Include="edw\Stored Procedures\sp_load_fact_SalesDocumentItem.sql" />
+    <None Include="edw\Stored Procedures\sp_load_fact_GRIRAccountReconciliation.sql" />
+    <None Include="edw\Stored Procedures\sp_load_fact_ScheduleLineShippedNotBilled.sql" />
     <None Include="Security\Database Scoped Credentials\dsc_MSI.sql" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -328,6 +330,7 @@
     <Build Include="base_ff\Tables\Region.sql" />
     <Build Include="base_ff\Tables\CompanyCode.sql" />
     <Build Include="base_ff\Tables\Budget_EPM.sql" />
+    <Build Include="base_ff\Tables\IC_ReconciliationGLAccounts.sql" />
 
     <Build Include="base_ff_USA\Tables\Budget.sql" />
     <Build Include="base_ff_USA\Tables\DummyMaterial.sql" />
@@ -716,6 +719,7 @@
     <Build Include="base_s4h_cax\Tables\I_DataElementLabelText.sql" />
     <Build Include="base_s4h_cax\Tables\I_BusinessPartnerGroupingText.sql" />
     <Build Include="base_s4h_cax\Tables\RollName.sql" />
+    <Build Include="base_s4h_cax\Tables\C_GRIRAccountReconciliation.sql" />
 
     <Build Include="base_tx_ca_0_hlp\Tables\DATAAREA.sql" />
     <Build Include="base_tx_ca_0_hlp\Tables\CRHCURRENCY.sql" />
@@ -969,6 +973,8 @@
     <Build Include="edw\Tables\fact_SalesOrderItemPricingElement.sql" />
     <Build Include="edw\Tables\fact_ACDOCA_FinStatemntSalesMargin.sql" />
     <Build Include="edw\Tables\dim_SDDocumentIncompletionLog.sql" />
+    <Build Include="edw\Tables\fact_GRIRAccountReconciliation.sql" />
+    <Build Include="edw\Tables\fact_ScheduleLineShippedNotBilled.sql" />
 
     <!-- FUNCTIONS -->
 
@@ -992,6 +998,8 @@
     <Build Include="edw\Functions\ScalarValued\svf_getInOutID_EPM.sql" />
     <Build Include="edw\Functions\ScalarValued\svf_get5PartNaturalKey.sql" />
     <Build Include="edw\Functions\ScalarValued\svf_getConditionAmount.sql" />
+    <Build Include="edw\Functions\ScalarValued\svf_getManual_JE_KPI.sql" />
+    <Build Include="edw\Functions\ScalarValued\svf_getInventory_Adj_KPI.sql" />
     
     <Build Include="utilities\Functions\Scalar-valued Functions\svf_get_file_path.sql" />
 
@@ -1169,6 +1177,11 @@
     <Build Include="edw\Views\vw_SDDocumentIncompletionLog.sql" />
     <Build Include="edw\Views\vw_fact_ACDOCA_EPM_Base.sql" />
     <Build Include="edw\Views\vw_LatestOutboundDeliveryItem.sql" />
+    <Build Include="edw\Views\vw_GRIRAccountReconciliation.sql" />
+    <Build Include="edw\Views\vw_ScheduleLineShippedNotBilled.sql" />
+    <Build Include="edw\Views\vw_fact_ScheduleLineStatus.sql" />
+    <Build Include="edw\Views\vw_fact_GRIRAccountReconciliation_agg.sql" />
+    <Build Include="edw\Views\vw_fact_ScheduleLineShippedNotBilled_agg.sql" />
 
     <Build Include="dq\Views\vw_Product_1_2.sql" />
     <Build Include="dq\Views\vw_RuleTotal.sql" />
@@ -1245,6 +1258,8 @@
     <Build Include="dm_finance\Views\vw_fact_Budget_EPM.sql" />
     <Build Include="dm_finance\Views\vw_dim_CompanyCodeProfitCenter.sql" />
     <Build Include="dm_finance\Views\vw_fact_ACDOCA_Full_CH_AT.sql" />
+    <Build Include="dm_finance\Views\vw_fact_GRIRAccountReconciliation.sql" />
+    <Build Include="dm_finance\Views\vw_fact_ACDOCA_FinanceKPI.sql" />
 
     <Build Include="dm_sales\Views\vw_dim_Customer.sql" />
     <Build Include="dm_sales\Views\vw_fact_BillingDocumentItem.sql" />
@@ -1319,6 +1334,7 @@
     <Build Include="dm_sales\Views\vw_dim_PriceListType.sql" />
     <Build Include="dm_sales\Views\vw_fact_OrderBacklog.sql" />
     <Build Include="dm_sales\Views\vw_dim_SDDocumentIncompletionLog.sql" />
+    <Build Include="dm_sales\Views\vw_fact_ScheduleLineShippedNotBilled.sql" />
 
     <Build Include="dm_procurement\Views\vw_dim_OptVim1Head.sql" />
     <Build Include="dm_procurement\Views\vw_dim_PfcgRoleToUser.sql" />
