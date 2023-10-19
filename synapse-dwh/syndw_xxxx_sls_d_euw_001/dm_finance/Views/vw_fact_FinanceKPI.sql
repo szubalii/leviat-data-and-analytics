@@ -13,16 +13,16 @@ WITH Periods AS (
 ,
 CompanyCodePeriod AS (
   SELECT
-    CompanyCodeID,
-    FiscalYear,
-    FiscalPeriod,
-    FiscalYearPeriod
+    cc.CompanyCodeID,
+    p.FiscalYear,
+    p.FiscalPeriod,
+    p.FiscalYearPeriod
   FROM
-    [edw].[dim_CompanyCode]
+    [edw].[dim_CompanyCode] AS cc
 
   CROSS JOIN
 
-  Periods
+  Periods AS p
 )
 
 SELECT
