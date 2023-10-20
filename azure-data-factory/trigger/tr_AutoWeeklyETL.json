@@ -6,7 +6,7 @@
 		"pipelines": [
 			{
 				"pipelineReference": {
-					"referenceName": "pl_main_automatic_qas",
+					"referenceName": "pl_main_weekly_automatic",
 					"type": "PipelineReference"
 				}
 			}

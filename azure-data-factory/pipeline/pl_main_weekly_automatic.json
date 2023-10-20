@@ -1,15 +1,15 @@
 {
-	"name": "pl_main_automatic_qas",
+	"name": "pl_main_weekly_automatic",
 	"properties": {
 		"activities": [
 			{
-				"name": "If environment is qas",
+				"name": "If environment is qas or dev",
 				"type": "IfCondition",
 				"dependsOn": [],
 				"userProperties": [],
 				"typeProperties": {
 					"expression": {
-						"value": "@equals(pipeline().globalParameters.environment, 'qas')",
+						"value": "@contains(\n    createArray('qas','dev'),\n    pipeline().globalParameters.environment\n)",
 						"type": "Expression"
 					},
 					"ifTrueActivities": [
@@ -75,6 +75,11 @@
 				}
 			}
 		],
+		"variables": {
+			"test": {
+				"type": "String"
+			}
+		},
 		"folder": {
 			"name": "10 Manage"
 		},
