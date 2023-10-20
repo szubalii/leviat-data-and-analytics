@@ -55,6 +55,9 @@ SELECT
 , BELNR_FI     AS HDR2_AccountingDocument
 , POSTING_USER AS HDR2_PostingUser
 
+, t_applicationId
+, t_extractionDtm
+
 FROM
     [base_s4h_cax].[Opt_Vim_1Item_Extended]
 --WHERE
