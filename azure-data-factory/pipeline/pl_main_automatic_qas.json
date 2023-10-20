@@ -3,13 +3,20 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "If environment is qas",
+				"name": "If environment is qas or dev",
 				"type": "IfCondition",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "If Condition1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"userProperties": [],
 				"typeProperties": {
 					"expression": {
-						"value": "@equals(pipeline().globalParameters.environment, 'qas')",
+						"value": "@contains(\r\n    ['qas','dev'],\r\n    pipeline().globalParameters.environment\r\n)",
 						"type": "Expression"
 					},
 					"ifTrueActivities": [
@@ -73,8 +80,41 @@
 						}
 					]
 				}
+			},
+			{
+				"name": "If Condition1",
+				"type": "IfCondition",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@contains(\n    ['qas','dev'],\n    pipeline().globalParameters.environment\n)",
+						"type": "Expression"
+					},
+					"ifTrueActivities": [
+						{
+							"name": "Set variable1",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"policy": {
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "test",
+								"value": "test"
+							}
+						}
+					]
+				}
 			}
 		],
+		"variables": {
+			"test": {
+				"type": "String"
+			}
+		},
 		"folder": {
 			"name": "10 Manage"
 		},
