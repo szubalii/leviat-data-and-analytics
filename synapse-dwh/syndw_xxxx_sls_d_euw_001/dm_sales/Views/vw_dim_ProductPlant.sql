@@ -71,6 +71,7 @@ SELECT
     ,   NSDM.[MINBE] AS [Re-Order Point]
     ,   NSDM.[BSTRF] AS [Rounding Value]
     ,   NSDM.[STRGR] AS [PlanningStrategyGroup]
+    ,   PSGT.[PlanningStrategyGroupName]
     ,   PP.[t_applicationId]
     ,   PP.[t_extractionDtm]
 FROM
@@ -87,3 +88,7 @@ LEFT JOIN
         PP.[Product] = NSDM.[MATNR] COLLATE SQL_Latin1_General_CP1_CS_AS
         AND
         PP.[Plant] = NSDM.[WERKS] COLLATE SQL_Latin1_General_CP1_CS_AS
+LEFT JOIN
+    [base_s4h_cax].[I_PlanningStrategyGroupText] PSGT
+    ON 
+        NSDM.STRGR = PSGT.PlanningStrategyGroup COLLATE DATABASE_DEFAULT
