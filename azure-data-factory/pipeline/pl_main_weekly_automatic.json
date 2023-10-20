@@ -1,22 +1,15 @@
 {
-	"name": "pl_main_automatic_qas",
+	"name": "pl_main_weekly_automatic",
 	"properties": {
 		"activities": [
 			{
 				"name": "If environment is qas or dev",
 				"type": "IfCondition",
-				"dependsOn": [
-					{
-						"activity": "If Condition1",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
+				"dependsOn": [],
 				"userProperties": [],
 				"typeProperties": {
 					"expression": {
-						"value": "@contains(\r\n    ['qas','dev'],\r\n    pipeline().globalParameters.environment\r\n)",
+						"value": "@contains(\n    createArray('qas','dev'),\n    pipeline().globalParameters.environment\n)",
 						"type": "Expression"
 					},
 					"ifTrueActivities": [
@@ -76,34 +69,6 @@
 									"type": "PipelineReference"
 								},
 								"waitOnCompletion": true
-							}
-						}
-					]
-				}
-			},
-			{
-				"name": "If Condition1",
-				"type": "IfCondition",
-				"dependsOn": [],
-				"userProperties": [],
-				"typeProperties": {
-					"expression": {
-						"value": "@contains(\n    ['qas','dev'],\n    pipeline().globalParameters.environment\n)",
-						"type": "Expression"
-					},
-					"ifTrueActivities": [
-						{
-							"name": "Set variable1",
-							"type": "SetVariable",
-							"dependsOn": [],
-							"policy": {
-								"secureOutput": false,
-								"secureInput": false
-							},
-							"userProperties": [],
-							"typeProperties": {
-								"variableName": "test",
-								"value": "test"
 							}
 						}
 					]
