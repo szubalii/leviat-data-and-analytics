@@ -71,7 +71,7 @@ SELECT
     ,   NSDM.[MINBE] AS [Re-Order Point]
     ,   NSDM.[BSTRF] AS [Rounding Value]
     ,   NSDM.[STRGR] AS [PlanningStrategyGroup]
-    ,   PSGT.[PlanningStrategyGroupText]
+    ,   PSGT.[PlanningStrategyGroupName]
     ,   PP.[t_applicationId]
     ,   PP.[t_extractionDtm]
 FROM
