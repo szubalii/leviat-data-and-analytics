@@ -50,7 +50,7 @@
 							"userProperties": [],
 							"typeProperties": {
 								"url": {
-									"value": "@concat(\n 'https://management.azure.com/subscriptions/',\n  pipeline().parameters.SubscriptionId,\n  '/resourceGroups/',\n  pipeline().globalParameters.resourceGroupName,\n  '/providers/Microsoft.Compute/virtualMachines/',\n  pipeline().globalParameters.virtualMachineName,\n  '/InstanceView?api-version=2021-07-01'\n)",
+									"value": "@concat(\n 'https://management.azure.com/subscriptions/',\n  pipeline().parameters.SubscriptionId,\n  '/resourceGroups/',\n  pipeline().globalParameters.VMResourceGroupName,\n  '/providers/Microsoft.Compute/virtualMachines/',\n  pipeline().globalParameters.virtualMachineName,\n  '/InstanceView?api-version=2021-07-01'\n)",
 									"type": "Expression"
 								},
 								"method": "GET",
@@ -104,7 +104,7 @@
 				],
 				"typeProperties": {
 					"url": {
-						"value": "@concat(\n  'https://management.azure.com/subscriptions/',\n  pipeline().parameters.SubscriptionId,\n  '/resourceGroups/',\n  pipeline().globalParameters.resourceGroupName,\n  '/providers/Microsoft.Compute/virtualMachines/',\n  pipeline().globalParameters.virtualMachineName,\n  '/Start?api-version=2021-07-01'\n)",
+						"value": "@concat(\n  'https://management.azure.com/subscriptions/',\n  pipeline().parameters.SubscriptionId,\n  '/resourceGroups/',\n  pipeline().globalParameters.VMResourceGroupName,\n  '/providers/Microsoft.Compute/virtualMachines/',\n  pipeline().globalParameters.virtualMachineName,\n  '/Start?api-version=2021-07-01'\n)",
 						"type": "Expression"
 					},
 					"method": "POST",

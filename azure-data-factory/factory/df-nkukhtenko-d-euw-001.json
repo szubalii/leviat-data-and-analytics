@@ -14,6 +14,10 @@
 				"type": "string",
 				"value": "rg-xxxx-sls-d-euw-001"
 			},
+			"VMResourceGroupName": {
+				"type": "string",
+				"value": "rg-xxxx-sls-a-euw-001"
+			},
 			"virtualMachineName": {
 				"type": "string",
 				"value": "WEDLEVAPP001"

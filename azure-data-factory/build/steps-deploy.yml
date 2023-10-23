@@ -55,6 +55,7 @@ steps:
         -default_properties_XU_hostName_value "$(XUHostName)"
         -default_properties_storageAccountName_value "$(storageAccountName)"
         -default_properties_resourceGroupName_value "$(resourceGroupName)"
+        -default_properties_VMResourceGroupName_value "$(VMResourceGroup)"
         -default_properties_virtualMachineName_value "$(VMName)"
         -default_properties_synapseServerName_value "$(workspaceName)"
         -default_properties_synapseDatabaseName_value "$(synapseSqlPool)"
