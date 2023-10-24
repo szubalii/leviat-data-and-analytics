@@ -21,11 +21,11 @@ AS
   LEFT JOIN
     [edw].[fact_VendorInvoice_ApprovedAndPosted] vim
     ON
-      vim.PurchasingDocument = pd.PurchasingDocument
+      vim.PurchasingDocument COLLATE DATABASE_DEFAULT = pd.PurchasingDocument COLLATE DATABASE_DEFAULT
   LEFT JOIN
     [edw].[fact_SupplierInvoice] si
     ON
-      si.SupplierInvoiceID = vim.HDR2_SupplierInvoiceID
+      si.SupplierInvoiceID COLLATE DATABASE_DEFAULT = vim.HDR2_SupplierInvoiceID COLLATE DATABASE_DEFAULT
   GROUP BY
     pd.[PurchasingDocument],
     pd.[SupplierID],
