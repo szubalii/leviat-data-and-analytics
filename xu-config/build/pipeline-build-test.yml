@@ -19,6 +19,8 @@ jobs:
     value: stprteuw001
   - name: destination
     value: $[ format('{0}_s4h-{1}-{2}', variables['storageAccountName'], variables['S4HSystemId'], variables['S4HClientId']) ]
+  - name: changedExtractions
+    value: ''
   pool:
     name: 'VM'
     demands:

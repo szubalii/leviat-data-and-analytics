@@ -30,7 +30,7 @@ variables:
     - name: deployEnvPrefix # override value to map main branch to TEST deployment environment
       value: '00_PROD'
   # Get the personal variables template, user and deployment environment based on the source branch name. 
-  - ${{ elseif or(contains(variables['Build.SourceBranch'], '/feature/'), contains(variables['Build.SourceBranch'], '/users/')) }}:
+  - ${{ elseif or(contains(variables['Build.SourceBranch'], '/feature/'), contains(variables['Build.SourceBranch'], '/users/'), contains(variables['Build.SourceBranch'], '/hotfix/')) }}:
     - template: ./variables-personal.yml
     - name: user
       value: ${{ split(variables['Build.SourceBranch'], '/')[3] }} #refs/heads/feature/mpors/...
