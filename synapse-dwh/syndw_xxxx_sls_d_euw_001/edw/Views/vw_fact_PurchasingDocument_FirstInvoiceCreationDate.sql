@@ -1,20 +1,20 @@
 CREATE VIEW [edw].[vw_fact_PurchasingDocument_FirstInvoiceCreationDate]
 AS
   SELECT
-    [PurchasingDocument],
-    [SupplierID],
-    [PurchasingDocumentCategoryID],
-    [PurchasingDocumentTypeID],
-    [CreationDate],
-    [CreatedByUser],
-    [CompanyCodeID],
-    [PurchasingDocumentOrderDate],
-    [PurchasingOrganizationID],
-    [PurchasingGroupID],
-    [SupplyingPlantID],
-    [PurchasingProcessingStatusID],
-    [PurchaseContract],
-    [PurchasingDocumentCondition],
+    pd.[PurchasingDocument],
+    pd.[SupplierID],
+    pd.[PurchasingDocumentCategoryID],
+    pd.[PurchasingDocumentTypeID],
+    pd.[CreationDate],
+    pd.[CreatedByUser],
+    pd.[CompanyCodeID],
+    pd.[PurchasingDocumentOrderDate],
+    pd.[PurchasingOrganizationID],
+    pd.[PurchasingGroupID],
+    pd.[SupplyingPlantID],
+    pd.[PurchasingProcessingStatusID],
+    pd.[PurchaseContract],
+    pd.[PurchasingDocumentCondition],
     MIN(si.[CreationDate]) AS [FirstInvoiceCreationDate]
   FROM
     [edw].[fact_PurchasingDocument] pd
@@ -27,17 +27,17 @@ AS
     ON
       si.SupplierInvoiceID = vim.HDR2_SupplierInvoiceID
   GROUP BY
-    [PurchasingDocument],
-    [SupplierID],
-    [PurchasingDocumentCategoryID],
-    [PurchasingDocumentTypeID],
-    [CreationDate],
-    [CreatedByUser],
-    [CompanyCodeID],
-    [PurchasingDocumentOrderDate],
-    [PurchasingOrganizationID],
-    [PurchasingGroupID],
-    [SupplyingPlantID],
-    [PurchasingProcessingStatusID],
-    [PurchaseContract],
-    [PurchasingDocumentCondition]
+    pd.[PurchasingDocument],
+    pd.[SupplierID],
+    pd.[PurchasingDocumentCategoryID],
+    pd.[PurchasingDocumentTypeID],
+    pd.[CreationDate],
+    pd.[CreatedByUser],
+    pd.[CompanyCodeID],
+    pd.[PurchasingDocumentOrderDate],
+    pd.[PurchasingOrganizationID],
+    pd.[PurchasingGroupID],
+    pd.[SupplyingPlantID],
+    pd.[PurchasingProcessingStatusID],
+    pd.[PurchaseContract],
+    pd.[PurchasingDocumentCondition]
