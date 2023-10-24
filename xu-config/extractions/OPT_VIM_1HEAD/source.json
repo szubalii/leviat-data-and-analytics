@@ -1,2116 +1,2116 @@
 {
-    "functionName": "Z_THEO_READ_TABLE",
-    "runInBackgroundJob": false,
-    "backgroundJobTimeout": 180,
-    "tables": 
-    [
-        {
-            "name": "/OPT/VIM_1HEAD",
-            "description": "Document Header",
-            "isView": false,
-            "fields": 
-            [
-                {
-                    "name": "MANDT",
-                    "description": "Client",
-                    "abapType": "CharacterString",
-                    "length": 3,
-                    "isSelected": true,
-                    "isPrimaryKey": true,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "DOCID",
-                    "description": "Document Ledger Number",
-                    "abapType": "NumericCharacterString",
-                    "length": 12,
-                    "isSelected": true,
-                    "isPrimaryKey": true,
-                    "indexed": "Ascending",
-                    "conversionExit": ""
-                },
-                {
-                    "name": "DOCTYPE",
-                    "description": "Document Type",
-                    "abapType": "CharacterString",
-                    "length": 10,
-                    "isSelected": true,
-                    "checkTable": "/OPT/VIM_T100",
-                    "indexed": "Ascending",
-                    "conversionExit": ""
-                },
-                {
-                    "name": "ARCHIV_ID",
-                    "description": "Content Repository Identification",
-                    "abapType": "CharacterString",
-                    "length": 2,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "ARC_DOC_ID",
-                    "description": "SAP ArchiveLink: Document ID",
-                    "abapType": "CharacterString",
-                    "length": 40,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "AR_OBJECT",
-                    "description": "Archive Document Type",
-                    "abapType": "CharacterString",
-                    "length": 10,
-                    "checkTable": "TOADV",
-                    "indexed": "Ascending",
-                    "conversionExit": ""
-                },
-                {
-                    "name": "EDI_DOCNUM",
-                    "description": "IDoc number",
-                    "abapType": "NumericCharacterString",
-                    "length": 16,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "ARCHIVE_DATE",
-                    "description": "Document Archive Date",
-                    "abapType": "Date",
-                    "conversionExit": ""
-                },
-                {
-                    "name": "ARCHIVE_TIME",
-                    "description": "Document Archive Time",
-                    "abapType": "Time",
-                    "conversionExit": ""
-                },
-                {
-                    "name": "ARCHIVE_USER",
-                    "description": "Document Archive User",
-                    "abapType": "CharacterString",
-                    "length": 12,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "INDEX_DATE",
-                    "description": "Document Create Date",
-                    "abapType": "Date",
-                    "isSelected": true,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "INDEX_TIME",
-                    "description": "Document Create Time",
-                    "abapType": "Time",
-                    "conversionExit": ""
-                },
-                {
-                    "name": "INDEX_USER",
-                    "description": "User Responsible for Document Creation",
-                    "abapType": "CharacterString",
-                    "length": 12,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "CHANGE_DATE",
-                    "description": "Document Change Date",
-                    "abapType": "Date",
-                    "conversionExit": ""
-                },
-                {
-                    "name": "CHANGE_TIME",
-                    "description": "Document Change Time",
-                    "abapType": "Time",
-                    "conversionExit": ""
-                },
-                {
-                    "name": "CHANGE_USER",
-                    "description": "Document Data Change User",
-                    "abapType": "CharacterString",
-                    "length": 12,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "BUS_OBJTYPE",
-                    "description": "Object Type",
-                    "abapType": "CharacterString",
-                    "length": 10,
-                    "indexed": "Ascending",
-                    "conversionExit": ""
-                },
-                {
-                    "name": "BUS_OBJKEY",
-                    "description": "Object key",
-                    "abapType": "CharacterString",
-                    "length": 70,
-                    "indexed": "Ascending",
-                    "conversionExit": ""
-                },
-                {
-                    "name": "STATUS",
-                    "description": "Document Status",
-                    "abapType": "CharacterString",
-                    "length": 2,
-                    "checkTable": "/OPT/VIM_T101",
-                    "indexed": "Ascending",
-                    "conversionExit": ""
-                },
-                {
-                    "name": "CURR_ROLE",
-                    "description": "To Actor",
-                    "abapType": "CharacterString",
-                    "length": 15,
-                    "checkTable": "/PTGWFI/W_ROLET",
-                    "conversionExit": ""
-                },
-                {
-                    "name": "CURR_PROC_TYPE",
-                    "description": "Process Type",
-                    "abapType": "NumericCharacterString",
-                    "length": 3,
-                    "checkTable": "/OPT/VIM_T800",
-                    "conversionExit": ""
-                },
-                {
-                    "name": "RESCANID",
-                    "description": "Rescan Reason Code",
-                    "abapType": "CharacterString",
-                    "length": 2,
-                    "checkTable": "/OPT/VIM_T116",
-                    "conversionExit": ""
-                },
-                {
-                    "name": "DELREASON",
-                    "description": "Document Obsolete Reason Code",
-                    "abapType": "CharacterString",
-                    "length": 2,
-                    "checkTable": "/OPT/VIM_T117",
-                    "conversionExit": ""
-                },
-                {
-                    "name": "SCAN_LOCATION",
-                    "description": "Scan Location for Archiving",
-                    "abapType": "CharacterString",
-                    "length": 25,
-                    "checkTable": "/OPT/VIM_T121",
-                    "conversionExit": ""
-                },
-                {
-                    "name": "PRIORITY",
-                    "description": "Document Priority",
-                    "abapType": "CharacterString",
-                    "length": 1,
-                    "checkTable": "/OPT/VIM_T122",
-                    "conversionExit": ""
-                },
-                {
-                    "name": "NOFIRSTPASS",
-                    "description": "Not First Pass",
-                    "abapType": "CharacterString",
-                    "length": 1,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "CHECKRULE",
-                    "description": "Check Rules to Determine Process Types Pending",
-                    "abapType": "CharacterString",
-                    "length": 1,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "CHECKDUPS",
-                    "description": "Duplicate Check Run Pending",
-                    "abapType": "CharacterString",
-                    "length": 1,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "CONFIRMED_NO_DUP",
-                    "description": "Duplicate Check Run Pending",
-                    "abapType": "CharacterString",
-                    "length": 1,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "DUP_CHK_RUN",
-                    "description": "Duplicate Check Run Pending",
-                    "abapType": "CharacterString",
-                    "length": 1,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "TARGET_SYSTEM",
-                    "description": "OpenText: System ID",
-                    "abapType": "CharacterString",
-                    "length": 10,
-                    "conversionExit": "ALPHA"
-                },
-                {
-                    "name": "BUKRS",
-                    "description": "Company Code",
-                    "abapType": "CharacterString",
-                    "length": 4,
-                    "indexed": "Ascending",
-                    "conversionExit": ""
-                },
-                {
-                    "name": "BELNR",
-                    "description": "Accounting Document Number",
-                    "abapType": "CharacterString",
-                    "length": 10,
-                    "isSelected": true,
-                    "indexed": "Ascending",
-                    "conversionExit": "ALPHA"
-                },
-                {
-                    "name": "GJAHR",
-                    "description": "Fiscal Year",
-                    "abapType": "NumericCharacterString",
-                    "length": 4,
-                    "indexed": "Ascending",
-                    "conversionExit": "GJAHR"
-                },
-                {
-                    "name": "BLART",
-                    "description": "Document type",
-                    "abapType": "CharacterString",
-                    "length": 2,
-                    "checkTable": "T003",
-                    "conversionExit": ""
-                },
-                {
-                    "name": "BLDAT",
-                    "description": "Document Date in Document",
-                    "abapType": "Date",
-                    "conversionExit": ""
-                },
-                {
-                    "name": "BUDAT",
-                    "description": "Posting Date in the Document",
-                    "abapType": "Date",
-                    "conversionExit": ""
-                },
-                {
-                    "name": "XBLNR",
-                    "description": "Reference Document Number",
-                    "abapType": "CharacterString",
-                    "length": 16,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "RMWWR",
-                    "description": "Gross Invoice Amount in Document Currency",
-                    "abapType": "PackedNumber",
-                    "length": 13,
-                    "decimalCount": 2,
-                    "formattedLength": 16,
-                    "indexed": "Ascending",
-                    "conversionExit": "",
-                    "referenceTable": "/OPT/VIM_1RHEAD",
-                    "referenceField": "WAERS",
-                    "isCurrency": true
-                },
-                {
-                    "name": "WAERS",
-                    "description": "Currency Key",
-                    "abapType": "CharacterString",
-                    "length": 5,
-                    "checkTable": "TCURC",
-                    "conversionExit": ""
-                },
-                {
-                    "name": "LIFNR",
-                    "description": "Account Number of Vendor or Creditor",
-                    "abapType": "CharacterString",
-                    "length": 10,
-                    "indexed": "Ascending",
-                    "conversionExit": "ALPHA"
-                },
-                {
-                    "name": "VEND_NAME",
-                    "description": "Name 1",
-                    "abapType": "CharacterString",
-                    "length": 35,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "VEND_NAME2",
-                    "description": "Name 2",
-                    "abapType": "CharacterString",
-                    "length": 35,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "EBELN",
-                    "description": "Purchasing Document Number",
-                    "abapType": "CharacterString",
-                    "length": 10,
-                    "isSelected": true,
-                    "conversionExit": "ALPHA"
-                },
-                {
-                    "name": "RECIPIENT_NAME",
-                    "description": "Recipient Name",
-                    "abapType": "CharacterString",
-                    "length": 35,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "LXBLNR",
-                    "description": "Long Invoice Referance Number",
-                    "abapType": "CharacterString",
-                    "length": 60,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "REQUISITIONER",
-                    "description": "Open Text User Mapping Object ID",
-                    "abapType": "CharacterString",
-                    "length": 35,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "EMAIL_ID",
-                    "description": "E-Mail Address",
-                    "abapType": "CharacterString",
-                    "length": 80,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "WINDOWS_ID",
-                    "description": "Windows Id",
-                    "abapType": "CharacterString",
-                    "length": 30,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "WINDOWS_DOMAIN",
-                    "description": "Windows Domain",
-                    "abapType": "CharacterString",
-                    "length": 63,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "SKIP_STACK",
-                    "description": "Skip Approval Stack",
-                    "abapType": "CharacterString",
-                    "length": 1,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "BLOCK_PA",
-                    "description": "Payment Block Key",
-                    "abapType": "CharacterString",
-                    "length": 1,
-                    "checkTable": "T008",
-                    "conversionExit": ""
-                },
-                {
-                    "name": "PAS_ACTIVE",
-                    "description": "Activate PAS for whole process flow",
-                    "abapType": "CharacterString",
-                    "length": 1,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "ALTERNATIVE",
-                    "description": "Cost handling alternative",
-                    "abapType": "CharacterString",
-                    "length": 2,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "DISTR_TYPE",
-                    "description": "Distribution Type for Unplanned Costs",
-                    "abapType": "CharacterString",
-                    "length": 1,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "EASYMATCH",
-                    "description": "Add. Cost Easymatch Flag",
-                    "abapType": "CharacterString",
-                    "length": 1,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "AUTO_POST",
-                    "description": "Document Creation (Autopost)",
-                    "abapType": "CharacterString",
-                    "length": 1,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "SCAN_DATE",
-                    "description": "System Date",
-                    "abapType": "Date",
-                    "conversionExit": ""
-                },
-                {
-                    "name": "SCAN_TIME",
-                    "description": "System Time",
-                    "abapType": "Time",
-                    "conversionExit": ""
-                },
-                {
-                    "name": "SCAN_LOC",
-                    "description": "Scan Location",
-                    "abapType": "CharacterString",
-                    "length": 25,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "BATCHNUMBER",
-                    "description": "Batch Number",
-                    "abapType": "CharacterString",
-                    "length": 40,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "CREDIT_MEMO",
-                    "description": "Credit Memo Indicator",
-                    "abapType": "CharacterString",
-                    "length": 1,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "VORGANG",
-                    "description": "List field: transaction/event",
-                    "abapType": "CharacterString",
-                    "length": 1,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "CLASSIFIER",
-                    "description": "Classifier for VIM document types",
-                    "abapType": "CharacterString",
-                    "length": 2,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "WERKS",
-                    "description": "Plant",
-                    "abapType": "CharacterString",
-                    "length": 4,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "WMWST",
-                    "description": "Tax Amount in Document Currency",
-                    "abapType": "PackedNumber",
-                    "length": 23,
-                    "decimalCount": 2,
-                    "formattedLength": 30,
-                    "conversionExit": "AU132",
-                    "referenceTable": "/OPT/VIM_1RHEAD",
-                    "referenceField": "WAERS",
-                    "isCurrency": true
-                },
-                {
-                    "name": "BEZNK",
-                    "description": "Unplanned Delivery Costs",
-                    "abapType": "PackedNumber",
-                    "length": 13,
-                    "decimalCount": 2,
-                    "formattedLength": 16,
-                    "conversionExit": "",
-                    "referenceTable": "/OPT/VIM_1RHEAD",
-                    "referenceField": "WAERS",
-                    "isCurrency": true
-                },
-                {
-                    "name": "REMIT_STREET",
-                    "description": "Street",
-                    "abapType": "CharacterString",
-                    "length": 60,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "REMIT_HSNM1",
-                    "description": "House Number",
-                    "abapType": "CharacterString",
-                    "length": 10,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "REMIT_PSTLZ",
-                    "description": "City postal code",
-                    "abapType": "CharacterString",
-                    "length": 10,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "REMIT_LAND1",
-                    "description": "Country Key",
-                    "abapType": "CharacterString",
-                    "length": 3,
-                    "checkTable": "T005",
-                    "conversionExit": ""
-                },
-                {
-                    "name": "REMIT_AD_CITY1",
-                    "description": "City",
-                    "abapType": "CharacterString",
-                    "length": 40,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "REMIT_REGIO",
-                    "description": "Region (State, Province, County)",
-                    "abapType": "CharacterString",
-                    "length": 3,
-                    "checkTable": "T005S",
-                    "conversionExit": ""
-                },
-                {
-                    "name": "REMIT_PO_BOX",
-                    "description": "PO Box",
-                    "abapType": "CharacterString",
-                    "length": 10,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "REMIT_PSTL2",
-                    "description": "P.O. Box Postal Code",
-                    "abapType": "CharacterString",
-                    "length": 10,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "SHIPTO_STREET",
-                    "description": "Street",
-                    "abapType": "CharacterString",
-                    "length": 60,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "SHIPTO_HSNM1",
-                    "description": "House Number",
-                    "abapType": "CharacterString",
-                    "length": 10,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "SHIPTO_PSTLZ",
-                    "description": "City postal code",
-                    "abapType": "CharacterString",
-                    "length": 10,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "SHIPTO_LAND1",
-                    "description": "Country Key",
-                    "abapType": "CharacterString",
-                    "length": 3,
-                    "checkTable": "T005",
-                    "conversionExit": ""
-                },
-                {
-                    "name": "SHIPTO_AD_CITY1",
-                    "description": "City",
-                    "abapType": "CharacterString",
-                    "length": 40,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "SHIPTO_REGIO",
-                    "description": "Region (State, Province, County)",
-                    "abapType": "CharacterString",
-                    "length": 3,
-                    "checkTable": "T005S",
-                    "conversionExit": ""
-                },
-                {
-                    "name": "SHIPTO_PO_BOX",
-                    "description": "PO Box",
-                    "abapType": "CharacterString",
-                    "length": 10,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "BKTXT",
-                    "description": "Document Header Text",
-                    "abapType": "CharacterString",
-                    "length": 25,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "SGTXT",
-                    "description": "Item Text",
-                    "abapType": "CharacterString",
-                    "length": 50,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "PRORITY_FLAG",
-                    "description": "Document Priority",
-                    "abapType": "CharacterString",
-                    "length": 1,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "NET_AMOUNT",
-                    "description": "Amount",
-                    "abapType": "PackedNumber",
-                    "length": 13,
-                    "decimalCount": 2,
-                    "formattedLength": 16,
-                    "conversionExit": "",
-                    "referenceTable": "/OPT/VIM_1RHEAD",
-                    "referenceField": "WAERS",
-                    "isCurrency": true
-                },
-                {
-                    "name": "GROSS_AMOUNT",
-                    "description": "Amount",
-                    "abapType": "PackedNumber",
-                    "length": 13,
-                    "decimalCount": 2,
-                    "formattedLength": 16,
-                    "indexed": "Ascending",
-                    "conversionExit": "",
-                    "referenceTable": "/OPT/VIM_1RHEAD",
-                    "referenceField": "WAERS",
-                    "isCurrency": true
-                },
-                {
-                    "name": "F_TAX_AMOUNT",
-                    "description": "Amount",
-                    "abapType": "PackedNumber",
-                    "length": 13,
-                    "decimalCount": 2,
-                    "formattedLength": 16,
-                    "conversionExit": "",
-                    "referenceTable": "/OPT/VIM_1RHEAD",
-                    "referenceField": "WAERS",
-                    "isCurrency": true
-                },
-                {
-                    "name": "S_TAX_AMOUNT",
-                    "description": "Amount",
-                    "abapType": "PackedNumber",
-                    "length": 13,
-                    "decimalCount": 2,
-                    "formattedLength": 16,
-                    "conversionExit": "",
-                    "referenceTable": "/OPT/VIM_1RHEAD",
-                    "referenceField": "WAERS",
-                    "isCurrency": true
-                },
-                {
-                    "name": "VAT_AMOUNT",
-                    "description": "Signed Amount",
-                    "abapType": "PackedNumber",
-                    "length": 13,
-                    "decimalCount": 2,
-                    "formattedLength": 18,
-                    "conversionExit": "",
-                    "referenceTable": "/OPT/VIM_1RHEAD",
-                    "referenceField": "WAERS",
-                    "isCurrency": true
-                },
-                {
-                    "name": "TOT_TAX_AMOUNT",
-                    "description": "Signed Amount",
-                    "abapType": "PackedNumber",
-                    "length": 13,
-                    "decimalCount": 2,
-                    "formattedLength": 18,
-                    "conversionExit": "",
-                    "referenceTable": "/OPT/VIM_1RHEAD",
-                    "referenceField": "WAERS",
-                    "isCurrency": true
-                },
-                {
-                    "name": "FREIGHT_AMOUNT",
-                    "description": "Amount",
-                    "abapType": "PackedNumber",
-                    "length": 13,
-                    "decimalCount": 2,
-                    "formattedLength": 16,
-                    "conversionExit": "",
-                    "referenceTable": "/OPT/VIM_1RHEAD",
-                    "referenceField": "WAERS",
-                    "isCurrency": true
-                },
-                {
-                    "name": "HANDLING_CHARGES",
-                    "description": "Amount",
-                    "abapType": "PackedNumber",
-                    "length": 13,
-                    "decimalCount": 2,
-                    "formattedLength": 16,
-                    "conversionExit": "",
-                    "referenceTable": "/OPT/VIM_1RHEAD",
-                    "referenceField": "WAERS",
-                    "isCurrency": true
-                },
-                {
-                    "name": "UN_ALLOCATED_EXP",
-                    "description": "Amount",
-                    "abapType": "PackedNumber",
-                    "length": 13,
-                    "decimalCount": 2,
-                    "formattedLength": 16,
-                    "conversionExit": "",
-                    "referenceTable": "/OPT/VIM_1RHEAD",
-                    "referenceField": "WAERS",
-                    "isCurrency": true
-                },
-                {
-                    "name": "EXPENSE_TYPE",
-                    "description": "Invoice Approval Expense Type",
-                    "abapType": "CharacterString",
-                    "length": 2,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "ATTRIBUTE1",
-                    "description": "Character Field Length = 10",
-                    "abapType": "CharacterString",
-                    "length": 10,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "ATTRIBUTE2",
-                    "description": "Character Field Length = 10",
-                    "abapType": "CharacterString",
-                    "length": 10,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "ATTRIBUTE3",
-                    "description": "Char 20",
-                    "abapType": "CharacterString",
-                    "length": 20,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "ATTRIBUTE4",
-                    "description": "Char 20",
-                    "abapType": "CharacterString",
-                    "length": 20,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "TAX_CODE",
-                    "description": "Tax Code",
-                    "abapType": "CharacterString",
-                    "length": 2,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "AUTO_CALC",
-                    "description": "Calculate Tax Automatically",
-                    "abapType": "CharacterString",
-                    "length": 1,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "TAX_CODE_WH",
-                    "description": "Withholding Tax Code",
-                    "abapType": "CharacterString",
-                    "length": 2,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "SUPPLY_DATE",
-                    "description": "Date of Supply",
-                    "abapType": "Date",
-                    "conversionExit": ""
-                },
-                {
-                    "name": "VENDOR_VAT_NO",
-                    "description": "VAT Registration Number",
-                    "abapType": "CharacterString",
-                    "length": 20,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "VENDOR_TAX_NO",
-                    "description": "Tax number at responsible tax office",
-                    "abapType": "CharacterString",
-                    "length": 18,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "RECEPIENT_VAT_NO",
-                    "description": "VAT Registration Number",
-                    "abapType": "CharacterString",
-                    "length": 20,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "FISCAL_REP_VAT_N",
-                    "description": "Fiscal Representative VAT Number",
-                    "abapType": "CharacterString",
-                    "length": 18,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "PYMNT_TERMS",
-                    "description": "Terms of payment key",
-                    "abapType": "CharacterString",
-                    "length": 4,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "PYMNT_TERMS_TEXT",
-                    "description": "Payment Terms text",
-                    "abapType": "CharacterString",
-                    "length": 40,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "ISR",
-                    "description": "POR subscriber number",
-                    "abapType": "CharacterString",
-                    "length": 90,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "CM_REF_NO",
-                    "description": "Reference document number",
-                    "abapType": "CharacterString",
-                    "length": 16,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "CM_REF_DAT",
-                    "description": "Credit Memo Ref Date",
-                    "abapType": "Date",
-                    "conversionExit": ""
-                },
-                {
-                    "name": "TAX_RATE",
-                    "description": "Data element for Tax rate",
-                    "abapType": "PackedNumber",
-                    "length": 13,
-                    "decimalCount": 3,
-                    "formattedLength": 15,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "SIRET_NO",
-                    "description": "Siret Number",
-                    "abapType": "CharacterString",
-                    "length": 14,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "ZERO_TAX_RATE",
-                    "description": "Zero Tax Rate",
-                    "abapType": "CharacterString",
-                    "length": 10,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "DOC_ARC_DOC_ID",
-                    "description": "SAP ArchiveLink: Document ID",
-                    "abapType": "CharacterString",
-                    "length": 40,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "TRNG_LEARN",
-                    "description": "Flag: Training/Learning required",
-                    "abapType": "CharacterString",
-                    "length": 1,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "FEEDB_LEARN",
-                    "description": "Flag: Feedback Learning",
-                    "abapType": "CharacterString",
-                    "length": 1,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "CHANNEL_ID",
-                    "description": "Channel ID",
-                    "abapType": "CharacterString",
-                    "length": 10,
-                    "indexed": "Ascending",
-                    "conversionExit": ""
-                },
-                {
-                    "name": "CUSTOM_FIELD4",
-                    "description": "Character Field Length 1",
-                    "abapType": "CharacterString",
-                    "length": 1,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "CUSTOM_FIELD5",
-                    "description": "Text Field of Length 60",
-                    "abapType": "CharacterString",
-                    "length": 60,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "CUSTOM_FIELD6",
-                    "description": "Text (10 Characters)",
-                    "abapType": "CharacterString",
-                    "length": 10,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "CUSTOM_FIELD7",
-                    "description": "Character Field Length 1",
-                    "abapType": "CharacterString",
-                    "length": 1,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "CUSTOM_FIELD8",
-                    "description": "Text (10 Characters)",
-                    "abapType": "CharacterString",
-                    "length": 10,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "CUSTOM_FIELD9",
-                    "description": "Text (20 Characters)",
-                    "abapType": "CharacterString",
-                    "length": 20,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "CUSTOM_FIELD0",
-                    "description": "Text (20 Characters)",
-                    "abapType": "CharacterString",
-                    "length": 20,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "PAYMENT_METHOD",
-                    "description": "Payment Method",
-                    "abapType": "CharacterString",
-                    "length": 1,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "PAY_METHOD_TEXT",
-                    "description": "Name of Payment Method in Language of the Country",
-                    "abapType": "CharacterString",
-                    "length": 30,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "KIDNO",
-                    "description": "Payment Reference",
-                    "abapType": "CharacterString",
-                    "length": 30,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "INV_CAT",
-                    "description": "Invoice category",
-                    "abapType": "CharacterString",
-                    "length": 2,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "TAX_EXEMPT_TEXT",
-                    "description": "Tax Exempt Text",
-                    "abapType": "CharacterString",
-                    "length": 50,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "IMPORT_TEXT",
-                    "description": "Import Special Text",
-                    "abapType": "CharacterString",
-                    "length": 50,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "TRI_TEXT",
-                    "description": "Triangulation Text",
-                    "abapType": "CharacterString",
-                    "length": 50,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "ORG_NUMBER",
-                    "description": "Organization Number",
-                    "abapType": "CharacterString",
-                    "length": 20,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "DISCOUNT",
-                    "description": "Discount mentioned on the Invocie",
-                    "abapType": "PackedNumber",
-                    "length": 11,
-                    "decimalCount": 2,
-                    "formattedLength": 14,
-                    "conversionExit": "",
-                    "referenceTable": "/OPT/VIM_1RHEAD",
-                    "referenceField": "WAERS",
-                    "isCurrency": true
-                },
-                {
-                    "name": "TAXRATE_1",
-                    "description": "Data element for Tax rate",
-                    "abapType": "PackedNumber",
-                    "length": 13,
-                    "decimalCount": 3,
-                    "formattedLength": 15,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "TAXRATE_2",
-                    "description": "Data element for Tax rate",
-                    "abapType": "PackedNumber",
-                    "length": 13,
-                    "decimalCount": 3,
-                    "formattedLength": 15,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "TAXRATE_3",
-                    "description": "Data element for Tax rate",
-                    "abapType": "PackedNumber",
-                    "length": 13,
-                    "decimalCount": 3,
-                    "formattedLength": 15,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "TAXRATE_4",
-                    "description": "Data element for Tax rate",
-                    "abapType": "PackedNumber",
-                    "length": 13,
-                    "decimalCount": 3,
-                    "formattedLength": 15,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "TAXAMT_1",
-                    "description": "Amount",
-                    "abapType": "PackedNumber",
-                    "length": 13,
-                    "decimalCount": 2,
-                    "formattedLength": 16,
-                    "conversionExit": "",
-                    "referenceTable": "/OPT/VIM_1RHEAD",
-                    "referenceField": "WAERS",
-                    "isCurrency": true
-                },
-                {
-                    "name": "TAXAMT_2",
-                    "description": "Amount",
-                    "abapType": "PackedNumber",
-                    "length": 13,
-                    "decimalCount": 2,
-                    "formattedLength": 16,
-                    "conversionExit": "",
-                    "referenceTable": "/OPT/VIM_1RHEAD",
-                    "referenceField": "WAERS",
-                    "isCurrency": true
-                },
-                {
-                    "name": "TAXAMT_3",
-                    "description": "Amount",
-                    "abapType": "PackedNumber",
-                    "length": 13,
-                    "decimalCount": 2,
-                    "formattedLength": 16,
-                    "conversionExit": "",
-                    "referenceTable": "/OPT/VIM_1RHEAD",
-                    "referenceField": "WAERS",
-                    "isCurrency": true
-                },
-                {
-                    "name": "TAXAMT_4",
-                    "description": "Amount",
-                    "abapType": "PackedNumber",
-                    "length": 13,
-                    "decimalCount": 2,
-                    "formattedLength": 16,
-                    "conversionExit": "",
-                    "referenceTable": "/OPT/VIM_1RHEAD",
-                    "referenceField": "WAERS",
-                    "isCurrency": true
-                },
-                {
-                    "name": "SCB_IND",
-                    "description": "State Central Bank Indicator",
-                    "abapType": "CharacterString",
-                    "length": 3,
-                    "checkTable": "T015L",
-                    "conversionExit": ""
-                },
-                {
-                    "name": "TAX_INVOICE",
-                    "description": "Tax Invoice",
-                    "abapType": "CharacterString",
-                    "length": 1,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "POST_DATE_DET",
-                    "description": "Date to be used as Posting Date while creating the SAP Doc",
-                    "abapType": "CharacterString",
-                    "length": 1,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "ZFBDT_DET",
-                    "description": "Baseline Date Determination Method",
-                    "abapType": "CharacterString",
-                    "length": 1,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "NF_TYPE",
-                    "description": "Nota Fiscal Type",
-                    "abapType": "CharacterString",
-                    "length": 2,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "BUPLA",
-                    "description": "Business Place",
-                    "abapType": "CharacterString",
-                    "length": 4,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "TAX_LAWS",
-                    "description": "Tax Laws - Brazil",
-                    "abapType": "CharacterString",
-                    "length": 20,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "SUPCOUNTRY",
-                    "description": "Supplying Country",
-                    "abapType": "CharacterString",
-                    "length": 3,
-                    "checkTable": "T005",
-                    "conversionExit": ""
-                },
-                {
-                    "name": "BVTYP",
-                    "description": "Partner bank type",
-                    "abapType": "CharacterString",
-                    "length": 4,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "IBAN",
-                    "description": "IBAN (International Bank Account Number)",
-                    "abapType": "CharacterString",
-                    "length": 34,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "BANKL",
-                    "description": "Bank number",
-                    "abapType": "CharacterString",
-                    "length": 15,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "BANKA",
-                    "description": "Name of bank",
-                    "abapType": "CharacterString",
-                    "length": 60,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "BANKN",
-                    "description": "Bank account number",
-                    "abapType": "CharacterString",
-                    "length": 18,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "BKREF",
-                    "description": "Reference specifications for bank details",
-                    "abapType": "CharacterString",
-                    "length": 20,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "BANKS",
-                    "description": "Bank country key",
-                    "abapType": "CharacterString",
-                    "length": 3,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "BKONT",
-                    "description": "Bank Control Key",
-                    "abapType": "CharacterString",
-                    "length": 2,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "GSBER",
-                    "description": "Business Area",
-                    "abapType": "CharacterString",
-                    "length": 4,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "RESTART",
-                    "description": "X: Restart",
-                    "abapType": "CharacterString",
-                    "length": 1,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "LAND1",
-                    "description": "Country Key",
-                    "abapType": "CharacterString",
-                    "length": 3,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "BARCODE",
-                    "description": "Bar code",
-                    "abapType": "CharacterString",
-                    "length": 64,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "ZFBDT",
-                    "description": "Baseline Date for Due Date Calculation",
-                    "abapType": "Date",
-                    "conversionExit": ""
-                },
-                {
-                    "name": "ZBD1T",
-                    "description": "Cash discount days 1",
-                    "abapType": "PackedNumber",
-                    "length": 3,
-                    "formattedLength": 3,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "ZBD1P",
-                    "description": "Cash discount percentage 1",
-                    "abapType": "PackedNumber",
-                    "length": 5,
-                    "decimalCount": 3,
-                    "formattedLength": 6,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "ZBD2T",
-                    "description": "Cash discount days 2",
-                    "abapType": "PackedNumber",
-                    "length": 3,
-                    "formattedLength": 3,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "ZBD2P",
-                    "description": "Cash Discount Percentage 2",
-                    "abapType": "PackedNumber",
-                    "length": 5,
-                    "decimalCount": 3,
-                    "formattedLength": 6,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "ZBD3T",
-                    "description": "Net Payment Terms Period",
-                    "abapType": "PackedNumber",
-                    "length": 3,
-                    "formattedLength": 3,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "SWIFT",
-                    "description": "SWIFT/BIC for International Payments",
-                    "abapType": "CharacterString",
-                    "length": 11,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "HBKID",
-                    "description": "Short key for a house bank",
-                    "abapType": "CharacterString",
-                    "length": 5,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "HKTID",
-                    "description": "ID for account details",
-                    "abapType": "CharacterString",
-                    "length": 5,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "ZUONR",
-                    "description": "Assignment number",
-                    "abapType": "CharacterString",
-                    "length": 18,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "DTAWS",
-                    "description": "Instruction key for data medium exchange",
-                    "abapType": "CharacterString",
-                    "length": 2,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "DTAMS",
-                    "description": "Report key for data medium exchange",
-                    "abapType": "CharacterString",
-                    "length": 1,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "FITYP",
-                    "description": "Tax type",
-                    "abapType": "CharacterString",
-                    "length": 2,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "STCDT",
-                    "description": "Tax Number Type",
-                    "abapType": "CharacterString",
-                    "length": 2,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "STKZN",
-                    "description": "Natural Person",
-                    "abapType": "CharacterString",
-                    "length": 1,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "STKZU",
-                    "description": "Liable for VAT",
-                    "abapType": "CharacterString",
-                    "length": 1,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "STKZA",
-                    "description": "Indicator: Business Partner Subject to Equalization Tax?",
-                    "abapType": "CharacterString",
-                    "length": 1,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "EMPFB",
-                    "description": "Vendor Permitted as Payee",
-                    "abapType": "CharacterString",
-                    "length": 10,
-                    "conversionExit": "ALPHA"
-                },
-                {
-                    "name": "WHT_TYPE",
-                    "description": "Withholding Tax Processing Type",
-                    "abapType": "CharacterString",
-                    "length": 1,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "ENRICH_FLAG",
-                    "description": "Flag indicating data enrichment",
-                    "abapType": "CharacterString",
-                    "length": 1,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "DUE_DATE",
-                    "description": "Due Date",
-                    "abapType": "Date",
-                    "conversionExit": ""
-                },
-                {
-                    "name": "DUE_DATE1",
-                    "description": "Due Date for Cash Discount 1",
-                    "abapType": "Date",
-                    "conversionExit": ""
-                },
-                {
-                    "name": "DUE_DATE2",
-                    "description": "Due Date for Cash Discount 2",
-                    "abapType": "Date",
-                    "conversionExit": ""
-                },
-                {
-                    "name": "SECCO",
-                    "description": "Section Code",
-                    "abapType": "CharacterString",
-                    "length": 4,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "VEND_GRP",
-                    "description": "Vendor Group",
-                    "abapType": "CharacterString",
-                    "length": 10,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "TH_BCODE",
-                    "description": "Branch Code - Thailand",
-                    "abapType": "CharacterString",
-                    "length": 5,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "ESRRE",
-                    "description": "ISR/QR Reference Number",
-                    "abapType": "CharacterString",
-                    "length": 27,
-                    "conversionExit": "ALPHA"
-                },
-                {
-                    "name": "QR_REF_TYP",
-                    "description": "QR code reference type",
-                    "abapType": "CharacterString",
-                    "length": 4,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "VAT_INV_IDENT",
-                    "description": "VAT Invoice Identifier",
-                    "abapType": "CharacterString",
-                    "length": 10,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "SECRET_CODE1",
-                    "description": "Secret Code",
-                    "abapType": "CharacterString",
-                    "length": 27,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "SECRET_CODE2",
-                    "description": "Secret Code",
-                    "abapType": "CharacterString",
-                    "length": 27,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "SECRET_CODE3",
-                    "description": "Secret Code",
-                    "abapType": "CharacterString",
-                    "length": 27,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "SECRET_CODE4",
-                    "description": "Secret Code",
-                    "abapType": "CharacterString",
-                    "length": 27,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "INVOICE_CODE",
-                    "description": "Invoice Code",
-                    "abapType": "CharacterString",
-                    "length": 12,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "VALIDATION_CODE",
-                    "description": "Validation Code",
-                    "abapType": "CharacterString",
-                    "length": 30,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "NOT_HAND_WRITTEN",
-                    "description": "Not a Hand Written Invoice",
-                    "abapType": "CharacterString",
-                    "length": 1,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "AFTCS_VALIDATION",
-                    "description": "AFTCS Validation Indicator",
-                    "abapType": "CharacterString",
-                    "length": 1,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "USER_ID",
-                    "description": "User id that set the AFTCS Validation Indicator",
-                    "abapType": "CharacterString",
-                    "length": 12,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "TIME_STAMP",
-                    "description": "AFTCS Validation TimeStamp",
-                    "abapType": "PackedNumber",
-                    "length": 15,
-                    "formattedLength": 19,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "TAX_DESC",
-                    "description": "Tax Description",
-                    "abapType": "CharacterString",
-                    "length": 1,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "PAN_NO",
-                    "description": "Permanent Account Number",
-                    "abapType": "CharacterString",
-                    "length": 40,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "STC_NO",
-                    "description": "STC Number",
-                    "abapType": "CharacterString",
-                    "length": 30,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "TIN_TOT",
-                    "description": "TIN/TOT Number",
-                    "abapType": "CharacterString",
-                    "length": 11,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "LST_NO",
-                    "description": "LST Number",
-                    "abapType": "CharacterString",
-                    "length": 40,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "CST_NO",
-                    "description": "CST Number",
-                    "abapType": "CharacterString",
-                    "length": 40,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "ECC_NO",
-                    "description": "ECC Number",
-                    "abapType": "CharacterString",
-                    "length": 40,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "EDC_CESS",
-                    "description": "Educational Cess",
-                    "abapType": "PackedNumber",
-                    "length": 13,
-                    "decimalCount": 2,
-                    "formattedLength": 16,
-                    "conversionExit": "",
-                    "referenceTable": "/OPT/VIM_1RHEAD",
-                    "referenceField": "WAERS",
-                    "isCurrency": true
-                },
-                {
-                    "name": "EXC_DUTY",
-                    "description": "Excise Duty",
-                    "abapType": "PackedNumber",
-                    "length": 13,
-                    "decimalCount": 2,
-                    "formattedLength": 16,
-                    "conversionExit": "",
-                    "referenceTable": "/OPT/VIM_1RHEAD",
-                    "referenceField": "WAERS",
-                    "isCurrency": true
-                },
-                {
-                    "name": "SAHE_CESS",
-                    "description": "Secondary & Higher Educational Cess",
-                    "abapType": "PackedNumber",
-                    "length": 13,
-                    "decimalCount": 2,
-                    "formattedLength": 16,
-                    "conversionExit": "",
-                    "referenceTable": "/OPT/VIM_1RHEAD",
-                    "referenceField": "WAERS",
-                    "isCurrency": true
-                },
-                {
-                    "name": "MODEL",
-                    "description": "Model of Nota Fiscal",
-                    "abapType": "NumericCharacterString",
-                    "length": 2,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "SERIES",
-                    "description": "Series",
-                    "abapType": "CharacterString",
-                    "length": 3,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "NFNUM",
-                    "description": "Nota Fiscal Number",
-                    "abapType": "NumericCharacterString",
-                    "length": 6,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "CGC",
-                    "description": "CNPJ Number",
-                    "abapType": "NumericCharacterString",
-                    "length": 14,
-                    "formattedLength": 18,
-                    "conversionExit": "CGCBR"
-                },
-                {
-                    "name": "XMLVERS",
-                    "description": "NF-e: XML Version",
-                    "abapType": "PackedNumber",
-                    "length": 5,
-                    "decimalCount": 2,
-                    "formattedLength": 5,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "AUTHCOD",
-                    "description": "NF-e: Protocol Number",
-                    "abapType": "CharacterString",
-                    "length": 15,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "DOCNUM9",
-                    "description": "NF-e: Random Number",
-                    "abapType": "CharacterString",
-                    "length": 9,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "ACCESSKEY",
-                    "description": "NF-e: 44-Digit Access Key",
-                    "abapType": "CharacterString",
-                    "length": 44,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "NFNUM9",
-                    "description": "Nine-Digit NF-e Number",
-                    "abapType": "CharacterString",
-                    "length": 9,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "CDV",
-                    "description": "Check Digit for NF-e Access Key",
-                    "abapType": "CharacterString",
-                    "length": 1,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "TRANSPAYMENT",
-                    "description": "Payment flag",
-                    "abapType": "CharacterString",
-                    "length": 1,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "NFTOT",
-                    "description": "Total value including all taxes",
-                    "abapType": "PackedNumber",
-                    "length": 15,
-                    "decimalCount": 2,
-                    "formattedLength": 21,
-                    "conversionExit": "",
-                    "referenceTable": "/OPT/VIM_1RHEAD",
-                    "referenceField": "WAERS",
-                    "isCurrency": true
-                },
-                {
-                    "name": "REFNFENUM",
-                    "description": "Nine-Digit NF-e Number",
-                    "abapType": "CharacterString",
-                    "length": 9,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "ACTION_DATE",
-                    "description": "NF-e Processing Timestamp - Date",
-                    "abapType": "Date",
-                    "conversionExit": ""
-                },
-                {
-                    "name": "ACTION_TIME",
-                    "description": "NF-e Processing Timestamp - Time",
-                    "abapType": "Time",
-                    "conversionExit": ""
-                },
-                {
-                    "name": "DOCDAT",
-                    "description": "Document date",
-                    "abapType": "Date",
-                    "conversionExit": ""
-                },
-                {
-                    "name": "PARID",
-                    "description": "Partner ID (Customer, Vendor, Business Place)",
-                    "abapType": "CharacterString",
-                    "length": 10,
-                    "conversionExit": "ALPHA"
-                },
-                {
-                    "name": "STCD1",
-                    "description": "CNPJ Number",
-                    "abapType": "NumericCharacterString",
-                    "length": 14,
-                    "formattedLength": 18,
-                    "conversionExit": "CGCBR"
-                },
-                {
-                    "name": "FLAG_ENFE",
-                    "description": "Checkbox",
-                    "abapType": "CharacterString",
-                    "length": 1,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "FLAG_SNFE",
-                    "description": "Checkbox",
-                    "abapType": "CharacterString",
-                    "length": 1,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "FLAG_SIG_VALID",
-                    "description": "FLAG_SIG_VALID(Checkbox)",
-                    "abapType": "CharacterString",
-                    "length": 1,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "ORG_NUM",
-                    "description": "Invoice Number of original invoice",
-                    "abapType": "CharacterString",
-                    "length": 16,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "ORG_DATE",
-                    "description": "Date of original invoice",
-                    "abapType": "Date",
-                    "conversionExit": ""
-                },
-                {
-                    "name": "REV_NUM",
-                    "description": "Revision number of invoice",
-                    "abapType": "CharacterString",
-                    "length": 16,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "REV_DATE",
-                    "description": "Date of revision invoice",
-                    "abapType": "Date",
-                    "conversionExit": ""
-                },
-                {
-                    "name": "REV_NUM_COR",
-                    "description": "Revision number of corrective invoice",
-                    "abapType": "CharacterString",
-                    "length": 16,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "REV_DATE_COR",
-                    "description": "Revision date of corrective invoice",
-                    "abapType": "Date",
-                    "conversionExit": ""
-                },
-                {
-                    "name": "BSTYP",
-                    "description": "Purchasing Document Category",
-                    "abapType": "CharacterString",
-                    "length": 1,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "CONTRACT",
-                    "description": "Purchasing Document Number",
-                    "abapType": "CharacterString",
-                    "length": 10,
-                    "conversionExit": "ALPHA"
-                },
-                {
-                    "name": "RECNTYPE",
-                    "description": "Contract Type",
-                    "abapType": "CharacterString",
-                    "length": 4,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "RECNNR",
-                    "description": "Contract Number",
-                    "abapType": "CharacterString",
-                    "length": 13,
-                    "conversionExit": "ALPHA"
-                },
-                {
-                    "name": "RECNTXT",
-                    "description": "Contract name",
-                    "abapType": "CharacterString",
-                    "length": 80,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "RECNTXTOLD",
-                    "description": "Number of old contract",
-                    "abapType": "CharacterString",
-                    "length": 20,
-                    "conversionExit": "ALPHA"
-                },
-                {
-                    "name": "REC_MANUAL_CHK",
-                    "description": "Manual Contract Check Results",
-                    "abapType": "CharacterString",
-                    "length": 1,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "EVRTN",
-                    "description": "Agreement Number",
-                    "abapType": "CharacterString",
-                    "length": 10,
-                    "conversionExit": "ALPHA"
-                },
-                {
-                    "name": "REP_COUNTRY",
-                    "description": "Reporting Country for Delivery of Goods Within the EU",
-                    "abapType": "CharacterString",
-                    "length": 3,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "ROUTE_ID",
-                    "description": "Route ID",
-                    "abapType": "CharacterString",
-                    "length": 46,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "ROUTE_ID1",
-                    "description": "Route ID1",
-                    "abapType": "CharacterString",
-                    "length": 16,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "ROUTE_ID2",
-                    "description": "Route ID2",
-                    "abapType": "CharacterString",
-                    "length": 16,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "RETRY_NO1",
-                    "description": "Extraction Retry",
-                    "abapType": "FourByteInteger",
-                    "conversionExit": ""
-                },
-                {
-                    "name": "RETRY_NO2",
-                    "description": "Validation Retry",
-                    "abapType": "FourByteInteger",
-                    "conversionExit": ""
-                },
-                {
-                    "name": "RFC_DUP",
-                    "description": "Duplicate Check Run Pending",
-                    "abapType": "CharacterString",
-                    "length": 1,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "RETRY_COUNT_EXT",
-                    "description": "Number of retries for external workflow",
-                    "abapType": "NumericCharacterString",
-                    "length": 4,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "ORIG_AR_OBJECT",
-                    "description": "Original Archive Document Type",
-                    "abapType": "CharacterString",
-                    "length": 10,
-                    "indexed": "Ascending",
-                    "conversionExit": ""
-                },
-                {
-                    "name": "SCAN_TIMESTAMP",
-                    "description": "UTC Time Stamp in Short Form (YYYYMMDDhhmmss)",
-                    "abapType": "PackedNumber",
-                    "length": 15,
-                    "formattedLength": 19,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "DOC_ARCHIV_ID",
-                    "description": "Content Repository Identification",
-                    "abapType": "CharacterString",
-                    "length": 2,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "SKIP_DETERMINE",
-                    "description": "General Flag",
-                    "abapType": "CharacterString",
-                    "length": 1,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "REG_ID",
-                    "description": "Registration Number for incoming document handler",
-                    "abapType": "NumericCharacterString",
-                    "length": 12,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "OTYPE",
-                    "description": "Object Type",
-                    "abapType": "CharacterString",
-                    "length": 2,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "ACTORID",
-                    "description": "Agent ID in Organizational Management",
-                    "abapType": "CharacterString",
-                    "length": 12,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "RTV_REASON",
-                    "description": "Return to Vendor - reasons",
-                    "abapType": "CharacterString",
-                    "length": 2,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "VATDATE",
-                    "description": "VAT Date",
-                    "abapType": "Date",
-                    "conversionExit": ""
-                },
-                {
-                    "name": "MWSKZ_BNK",
-                    "description": "Tax code for delivery costs",
-                    "abapType": "CharacterString",
-                    "length": 2,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "TXJCD_BNK",
-                    "description": "Jurisdiction code for delivery costs",
-                    "abapType": "CharacterString",
-                    "length": 15,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "CM_REF_BEL",
-                    "description": "Document No. of the Invoice to Which the Transaction Belongs",
-                    "abapType": "CharacterString",
-                    "length": 10,
-                    "conversionExit": "ALPHA"
-                },
-                {
-                    "name": "CM_REF_GJA",
-                    "description": "Fiscal Year of the Relevant Invoice (for Credit Memo)",
-                    "abapType": "NumericCharacterString",
-                    "length": 4,
-                    "conversionExit": "GJAHR"
-                },
-                {
-                    "name": "CM_REF_ZEI",
-                    "description": "Line Item in the Relevant Invoice",
-                    "abapType": "NumericCharacterString",
-                    "length": 3,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "WHT_CHECK",
-                    "description": "Withholding tax check",
-                    "abapType": "CharacterString",
-                    "length": 1,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "KURSF",
-                    "description": "Exchange rate",
-                    "abapType": "PackedNumber",
-                    "length": 9,
-                    "decimalCount": 5,
-                    "formattedLength": 12,
-                    "conversionExit": "EXCRT"
-                },
-                {
-                    "name": "IGNORE_IP",
-                    "description": "Ignore Invoicing Party (IP)",
-                    "abapType": "CharacterString",
-                    "length": 1,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "TXKRS",
-                    "description": "Exchange Rate for Taxes",
-                    "abapType": "PackedNumber",
-                    "length": 9,
-                    "decimalCount": 5,
-                    "formattedLength": 12,
-                    "conversionExit": "EXCRT"
-                },
-                {
-                    "name": "EGMLD",
-                    "description": "Reporting Country for Delivery of Goods Within the EU",
-                    "abapType": "CharacterString",
-                    "length": 3,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "GST_PART",
-                    "description": "GST Partner",
-                    "abapType": "CharacterString",
-                    "length": 10,
-                    "conversionExit": "ALPHA"
-                },
-                {
-                    "name": "PLC_SUP",
-                    "description": "Place of Supply",
-                    "abapType": "CharacterString",
-                    "length": 3,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "GST_REG_NUM",
-                    "description": "GST Registration Number",
-                    "abapType": "CharacterString",
-                    "length": 18,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "REC_GST_REG_NUM",
-                    "description": "Receiving Entity GST Registration Number",
-                    "abapType": "CharacterString",
-                    "length": 18,
-                    "conversionExit": ""
-                },
-                {
-                    "name": "AIC_STATUS",
-                    "description": "Signature Validation Status",
-                    "abapType": "NumericCharacterString",
-                    "length": 2,
-                    "conversionExit": ""
-                }
-            ]
-        }
-    ]
+  "functionName": "Z_THEO_READ_TABLE",
+  "runInBackgroundJob": false,
+  "backgroundJobTimeout": 180,
+  "tables": 
+  [
+      {
+          "name": "/OPT/VIM_1HEAD",
+          "description": "Document Header",
+          "isView": false,
+          "fields": 
+          [
+              {
+                  "name": "MANDT",
+                  "description": "Client",
+                  "abapType": "CharacterString",
+                  "length": 3,
+                  "isSelected": true,
+                  "isPrimaryKey": true,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "DOCID",
+                  "description": "Document Ledger Number",
+                  "abapType": "NumericCharacterString",
+                  "length": 12,
+                  "isSelected": true,
+                  "isPrimaryKey": true,
+                  "indexed": "Ascending",
+                  "conversionExit": ""
+              },
+              {
+                  "name": "DOCTYPE",
+                  "description": "Document Type",
+                  "abapType": "CharacterString",
+                  "length": 10,
+                  "isSelected": true,
+                  "checkTable": "/OPT/VIM_T100",
+                  "indexed": "Ascending",
+                  "conversionExit": ""
+              },
+              {
+                  "name": "ARCHIV_ID",
+                  "description": "Content Repository Identification",
+                  "abapType": "CharacterString",
+                  "length": 2,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "ARC_DOC_ID",
+                  "description": "SAP ArchiveLink: Document ID",
+                  "abapType": "CharacterString",
+                  "length": 40,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "AR_OBJECT",
+                  "description": "Archive Document Type",
+                  "abapType": "CharacterString",
+                  "length": 10,
+                  "checkTable": "TOADV",
+                  "indexed": "Ascending",
+                  "conversionExit": ""
+              },
+              {
+                  "name": "EDI_DOCNUM",
+                  "description": "IDoc number",
+                  "abapType": "NumericCharacterString",
+                  "length": 16,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "ARCHIVE_DATE",
+                  "description": "Document Archive Date",
+                  "abapType": "Date",
+                  "conversionExit": ""
+              },
+              {
+                  "name": "ARCHIVE_TIME",
+                  "description": "Document Archive Time",
+                  "abapType": "Time",
+                  "conversionExit": ""
+              },
+              {
+                  "name": "ARCHIVE_USER",
+                  "description": "Document Archive User",
+                  "abapType": "CharacterString",
+                  "length": 12,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "INDEX_DATE",
+                  "description": "Document Create Date",
+                  "abapType": "Date",
+                  "isSelected": true,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "INDEX_TIME",
+                  "description": "Document Create Time",
+                  "abapType": "Time",
+                  "conversionExit": ""
+              },
+              {
+                  "name": "INDEX_USER",
+                  "description": "User Responsible for Document Creation",
+                  "abapType": "CharacterString",
+                  "length": 12,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "CHANGE_DATE",
+                  "description": "Document Change Date",
+                  "abapType": "Date",
+                  "conversionExit": ""
+              },
+              {
+                  "name": "CHANGE_TIME",
+                  "description": "Document Change Time",
+                  "abapType": "Time",
+                  "conversionExit": ""
+              },
+              {
+                  "name": "CHANGE_USER",
+                  "description": "Document Data Change User",
+                  "abapType": "CharacterString",
+                  "length": 12,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "BUS_OBJTYPE",
+                  "description": "Object Type",
+                  "abapType": "CharacterString",
+                  "length": 10,
+                  "indexed": "Ascending",
+                  "conversionExit": ""
+              },
+              {
+                  "name": "BUS_OBJKEY",
+                  "description": "Object key",
+                  "abapType": "CharacterString",
+                  "length": 70,
+                  "indexed": "Ascending",
+                  "conversionExit": ""
+              },
+              {
+                  "name": "STATUS",
+                  "description": "Document Status",
+                  "abapType": "CharacterString",
+                  "length": 2,
+                  "checkTable": "/OPT/VIM_T101",
+                  "indexed": "Ascending",
+                  "conversionExit": ""
+              },
+              {
+                  "name": "CURR_ROLE",
+                  "description": "To Actor",
+                  "abapType": "CharacterString",
+                  "length": 15,
+                  "checkTable": "/PTGWFI/W_ROLET",
+                  "conversionExit": ""
+              },
+              {
+                  "name": "CURR_PROC_TYPE",
+                  "description": "Process Type",
+                  "abapType": "NumericCharacterString",
+                  "length": 3,
+                  "checkTable": "/OPT/VIM_T800",
+                  "conversionExit": ""
+              },
+              {
+                  "name": "RESCANID",
+                  "description": "Rescan Reason Code",
+                  "abapType": "CharacterString",
+                  "length": 2,
+                  "checkTable": "/OPT/VIM_T116",
+                  "conversionExit": ""
+              },
+              {
+                  "name": "DELREASON",
+                  "description": "Document Obsolete Reason Code",
+                  "abapType": "CharacterString",
+                  "length": 2,
+                  "checkTable": "/OPT/VIM_T117",
+                  "conversionExit": ""
+              },
+              {
+                  "name": "SCAN_LOCATION",
+                  "description": "Scan Location for Archiving",
+                  "abapType": "CharacterString",
+                  "length": 25,
+                  "checkTable": "/OPT/VIM_T121",
+                  "conversionExit": ""
+              },
+              {
+                  "name": "PRIORITY",
+                  "description": "Document Priority",
+                  "abapType": "CharacterString",
+                  "length": 1,
+                  "checkTable": "/OPT/VIM_T122",
+                  "conversionExit": ""
+              },
+              {
+                  "name": "NOFIRSTPASS",
+                  "description": "Not First Pass",
+                  "abapType": "CharacterString",
+                  "length": 1,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "CHECKRULE",
+                  "description": "Check Rules to Determine Process Types Pending",
+                  "abapType": "CharacterString",
+                  "length": 1,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "CHECKDUPS",
+                  "description": "Duplicate Check Run Pending",
+                  "abapType": "CharacterString",
+                  "length": 1,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "CONFIRMED_NO_DUP",
+                  "description": "Duplicate Check Run Pending",
+                  "abapType": "CharacterString",
+                  "length": 1,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "DUP_CHK_RUN",
+                  "description": "Duplicate Check Run Pending",
+                  "abapType": "CharacterString",
+                  "length": 1,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "TARGET_SYSTEM",
+                  "description": "OpenText: System ID",
+                  "abapType": "CharacterString",
+                  "length": 10,
+                  "conversionExit": "ALPHA"
+              },
+              {
+                  "name": "BUKRS",
+                  "description": "Company Code",
+                  "abapType": "CharacterString",
+                  "length": 4,
+                  "indexed": "Ascending",
+                  "conversionExit": ""
+              },
+              {
+                  "name": "BELNR",
+                  "description": "Accounting Document Number",
+                  "abapType": "CharacterString",
+                  "length": 10,
+                  "isSelected": true,
+                  "indexed": "Ascending",
+                  "conversionExit": "ALPHA"
+              },
+              {
+                  "name": "GJAHR",
+                  "description": "Fiscal Year",
+                  "abapType": "NumericCharacterString",
+                  "length": 4,
+                  "indexed": "Ascending",
+                  "conversionExit": "GJAHR"
+              },
+              {
+                  "name": "BLART",
+                  "description": "Document type",
+                  "abapType": "CharacterString",
+                  "length": 2,
+                  "checkTable": "T003",
+                  "conversionExit": ""
+              },
+              {
+                  "name": "BLDAT",
+                  "description": "Document Date in Document",
+                  "abapType": "Date",
+                  "conversionExit": ""
+              },
+              {
+                  "name": "BUDAT",
+                  "description": "Posting Date in the Document",
+                  "abapType": "Date",
+                  "conversionExit": ""
+              },
+              {
+                  "name": "XBLNR",
+                  "description": "Reference Document Number",
+                  "abapType": "CharacterString",
+                  "length": 16,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "RMWWR",
+                  "description": "Gross Invoice Amount in Document Currency",
+                  "abapType": "PackedNumber",
+                  "length": 13,
+                  "decimalCount": 2,
+                  "formattedLength": 16,
+                  "indexed": "Ascending",
+                  "conversionExit": "",
+                  "referenceTable": "/OPT/VIM_1RHEAD",
+                  "referenceField": "WAERS",
+                  "isCurrency": true
+              },
+              {
+                  "name": "WAERS",
+                  "description": "Currency Key",
+                  "abapType": "CharacterString",
+                  "length": 5,
+                  "checkTable": "TCURC",
+                  "conversionExit": ""
+              },
+              {
+                  "name": "LIFNR",
+                  "description": "Account Number of Vendor or Creditor",
+                  "abapType": "CharacterString",
+                  "length": 10,
+                  "indexed": "Ascending",
+                  "conversionExit": "ALPHA"
+              },
+              {
+                  "name": "VEND_NAME",
+                  "description": "Name 1",
+                  "abapType": "CharacterString",
+                  "length": 35,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "VEND_NAME2",
+                  "description": "Name 2",
+                  "abapType": "CharacterString",
+                  "length": 35,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "EBELN",
+                  "description": "Purchasing Document Number",
+                  "abapType": "CharacterString",
+                  "length": 10,
+                  "isSelected": true,
+                  "conversionExit": "ALPHA"
+              },
+              {
+                  "name": "RECIPIENT_NAME",
+                  "description": "Recipient Name",
+                  "abapType": "CharacterString",
+                  "length": 35,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "LXBLNR",
+                  "description": "Long Invoice Referance Number",
+                  "abapType": "CharacterString",
+                  "length": 60,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "REQUISITIONER",
+                  "description": "Open Text User Mapping Object ID",
+                  "abapType": "CharacterString",
+                  "length": 35,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "EMAIL_ID",
+                  "description": "E-Mail Address",
+                  "abapType": "CharacterString",
+                  "length": 80,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "WINDOWS_ID",
+                  "description": "Windows Id",
+                  "abapType": "CharacterString",
+                  "length": 30,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "WINDOWS_DOMAIN",
+                  "description": "Windows Domain",
+                  "abapType": "CharacterString",
+                  "length": 63,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "SKIP_STACK",
+                  "description": "Skip Approval Stack",
+                  "abapType": "CharacterString",
+                  "length": 1,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "BLOCK_PA",
+                  "description": "Payment Block Key",
+                  "abapType": "CharacterString",
+                  "length": 1,
+                  "checkTable": "T008",
+                  "conversionExit": ""
+              },
+              {
+                  "name": "PAS_ACTIVE",
+                  "description": "Activate PAS for whole process flow",
+                  "abapType": "CharacterString",
+                  "length": 1,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "ALTERNATIVE",
+                  "description": "Cost handling alternative",
+                  "abapType": "CharacterString",
+                  "length": 2,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "DISTR_TYPE",
+                  "description": "Distribution Type for Unplanned Costs",
+                  "abapType": "CharacterString",
+                  "length": 1,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "EASYMATCH",
+                  "description": "Add. Cost Easymatch Flag",
+                  "abapType": "CharacterString",
+                  "length": 1,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "AUTO_POST",
+                  "description": "Document Creation (Autopost)",
+                  "abapType": "CharacterString",
+                  "length": 1,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "SCAN_DATE",
+                  "description": "System Date",
+                  "abapType": "Date",
+                  "conversionExit": ""
+              },
+              {
+                  "name": "SCAN_TIME",
+                  "description": "System Time",
+                  "abapType": "Time",
+                  "conversionExit": ""
+              },
+              {
+                  "name": "SCAN_LOC",
+                  "description": "Scan Location",
+                  "abapType": "CharacterString",
+                  "length": 25,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "BATCHNUMBER",
+                  "description": "Batch Number",
+                  "abapType": "CharacterString",
+                  "length": 40,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "CREDIT_MEMO",
+                  "description": "Credit Memo Indicator",
+                  "abapType": "CharacterString",
+                  "length": 1,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "VORGANG",
+                  "description": "List field: transaction/event",
+                  "abapType": "CharacterString",
+                  "length": 1,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "CLASSIFIER",
+                  "description": "Classifier for VIM document types",
+                  "abapType": "CharacterString",
+                  "length": 2,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "WERKS",
+                  "description": "Plant",
+                  "abapType": "CharacterString",
+                  "length": 4,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "WMWST",
+                  "description": "Tax Amount in Document Currency",
+                  "abapType": "PackedNumber",
+                  "length": 23,
+                  "decimalCount": 2,
+                  "formattedLength": 30,
+                  "conversionExit": "AU132",
+                  "referenceTable": "/OPT/VIM_1RHEAD",
+                  "referenceField": "WAERS",
+                  "isCurrency": true
+              },
+              {
+                  "name": "BEZNK",
+                  "description": "Unplanned Delivery Costs",
+                  "abapType": "PackedNumber",
+                  "length": 13,
+                  "decimalCount": 2,
+                  "formattedLength": 16,
+                  "conversionExit": "",
+                  "referenceTable": "/OPT/VIM_1RHEAD",
+                  "referenceField": "WAERS",
+                  "isCurrency": true
+              },
+              {
+                  "name": "REMIT_STREET",
+                  "description": "Street",
+                  "abapType": "CharacterString",
+                  "length": 60,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "REMIT_HSNM1",
+                  "description": "House Number",
+                  "abapType": "CharacterString",
+                  "length": 10,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "REMIT_PSTLZ",
+                  "description": "City postal code",
+                  "abapType": "CharacterString",
+                  "length": 10,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "REMIT_LAND1",
+                  "description": "Country Key",
+                  "abapType": "CharacterString",
+                  "length": 3,
+                  "checkTable": "T005",
+                  "conversionExit": ""
+              },
+              {
+                  "name": "REMIT_AD_CITY1",
+                  "description": "City",
+                  "abapType": "CharacterString",
+                  "length": 40,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "REMIT_REGIO",
+                  "description": "Region (State, Province, County)",
+                  "abapType": "CharacterString",
+                  "length": 3,
+                  "checkTable": "T005S",
+                  "conversionExit": ""
+              },
+              {
+                  "name": "REMIT_PO_BOX",
+                  "description": "PO Box",
+                  "abapType": "CharacterString",
+                  "length": 10,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "REMIT_PSTL2",
+                  "description": "P.O. Box Postal Code",
+                  "abapType": "CharacterString",
+                  "length": 10,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "SHIPTO_STREET",
+                  "description": "Street",
+                  "abapType": "CharacterString",
+                  "length": 60,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "SHIPTO_HSNM1",
+                  "description": "House Number",
+                  "abapType": "CharacterString",
+                  "length": 10,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "SHIPTO_PSTLZ",
+                  "description": "City postal code",
+                  "abapType": "CharacterString",
+                  "length": 10,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "SHIPTO_LAND1",
+                  "description": "Country Key",
+                  "abapType": "CharacterString",
+                  "length": 3,
+                  "checkTable": "T005",
+                  "conversionExit": ""
+              },
+              {
+                  "name": "SHIPTO_AD_CITY1",
+                  "description": "City",
+                  "abapType": "CharacterString",
+                  "length": 40,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "SHIPTO_REGIO",
+                  "description": "Region (State, Province, County)",
+                  "abapType": "CharacterString",
+                  "length": 3,
+                  "checkTable": "T005S",
+                  "conversionExit": ""
+              },
+              {
+                  "name": "SHIPTO_PO_BOX",
+                  "description": "PO Box",
+                  "abapType": "CharacterString",
+                  "length": 10,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "BKTXT",
+                  "description": "Document Header Text",
+                  "abapType": "CharacterString",
+                  "length": 25,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "SGTXT",
+                  "description": "Item Text",
+                  "abapType": "CharacterString",
+                  "length": 50,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "PRORITY_FLAG",
+                  "description": "Document Priority",
+                  "abapType": "CharacterString",
+                  "length": 1,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "NET_AMOUNT",
+                  "description": "Amount",
+                  "abapType": "PackedNumber",
+                  "length": 13,
+                  "decimalCount": 2,
+                  "formattedLength": 16,
+                  "conversionExit": "",
+                  "referenceTable": "/OPT/VIM_1RHEAD",
+                  "referenceField": "WAERS",
+                  "isCurrency": true
+              },
+              {
+                  "name": "GROSS_AMOUNT",
+                  "description": "Amount",
+                  "abapType": "PackedNumber",
+                  "length": 13,
+                  "decimalCount": 2,
+                  "formattedLength": 16,
+                  "indexed": "Ascending",
+                  "conversionExit": "",
+                  "referenceTable": "/OPT/VIM_1RHEAD",
+                  "referenceField": "WAERS",
+                  "isCurrency": true
+              },
+              {
+                  "name": "F_TAX_AMOUNT",
+                  "description": "Amount",
+                  "abapType": "PackedNumber",
+                  "length": 13,
+                  "decimalCount": 2,
+                  "formattedLength": 16,
+                  "conversionExit": "",
+                  "referenceTable": "/OPT/VIM_1RHEAD",
+                  "referenceField": "WAERS",
+                  "isCurrency": true
+              },
+              {
+                  "name": "S_TAX_AMOUNT",
+                  "description": "Amount",
+                  "abapType": "PackedNumber",
+                  "length": 13,
+                  "decimalCount": 2,
+                  "formattedLength": 16,
+                  "conversionExit": "",
+                  "referenceTable": "/OPT/VIM_1RHEAD",
+                  "referenceField": "WAERS",
+                  "isCurrency": true
+              },
+              {
+                  "name": "VAT_AMOUNT",
+                  "description": "Signed Amount",
+                  "abapType": "PackedNumber",
+                  "length": 13,
+                  "decimalCount": 2,
+                  "formattedLength": 18,
+                  "conversionExit": "",
+                  "referenceTable": "/OPT/VIM_1RHEAD",
+                  "referenceField": "WAERS",
+                  "isCurrency": true
+              },
+              {
+                  "name": "TOT_TAX_AMOUNT",
+                  "description": "Signed Amount",
+                  "abapType": "PackedNumber",
+                  "length": 13,
+                  "decimalCount": 2,
+                  "formattedLength": 18,
+                  "conversionExit": "",
+                  "referenceTable": "/OPT/VIM_1RHEAD",
+                  "referenceField": "WAERS",
+                  "isCurrency": true
+              },
+              {
+                  "name": "FREIGHT_AMOUNT",
+                  "description": "Amount",
+                  "abapType": "PackedNumber",
+                  "length": 13,
+                  "decimalCount": 2,
+                  "formattedLength": 16,
+                  "conversionExit": "",
+                  "referenceTable": "/OPT/VIM_1RHEAD",
+                  "referenceField": "WAERS",
+                  "isCurrency": true
+              },
+              {
+                  "name": "HANDLING_CHARGES",
+                  "description": "Amount",
+                  "abapType": "PackedNumber",
+                  "length": 13,
+                  "decimalCount": 2,
+                  "formattedLength": 16,
+                  "conversionExit": "",
+                  "referenceTable": "/OPT/VIM_1RHEAD",
+                  "referenceField": "WAERS",
+                  "isCurrency": true
+              },
+              {
+                  "name": "UN_ALLOCATED_EXP",
+                  "description": "Amount",
+                  "abapType": "PackedNumber",
+                  "length": 13,
+                  "decimalCount": 2,
+                  "formattedLength": 16,
+                  "conversionExit": "",
+                  "referenceTable": "/OPT/VIM_1RHEAD",
+                  "referenceField": "WAERS",
+                  "isCurrency": true
+              },
+              {
+                  "name": "EXPENSE_TYPE",
+                  "description": "Invoice Approval Expense Type",
+                  "abapType": "CharacterString",
+                  "length": 2,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "ATTRIBUTE1",
+                  "description": "Character Field Length = 10",
+                  "abapType": "CharacterString",
+                  "length": 10,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "ATTRIBUTE2",
+                  "description": "Character Field Length = 10",
+                  "abapType": "CharacterString",
+                  "length": 10,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "ATTRIBUTE3",
+                  "description": "Char 20",
+                  "abapType": "CharacterString",
+                  "length": 20,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "ATTRIBUTE4",
+                  "description": "Char 20",
+                  "abapType": "CharacterString",
+                  "length": 20,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "TAX_CODE",
+                  "description": "Tax Code",
+                  "abapType": "CharacterString",
+                  "length": 2,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "AUTO_CALC",
+                  "description": "Calculate Tax Automatically",
+                  "abapType": "CharacterString",
+                  "length": 1,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "TAX_CODE_WH",
+                  "description": "Withholding Tax Code",
+                  "abapType": "CharacterString",
+                  "length": 2,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "SUPPLY_DATE",
+                  "description": "Date of Supply",
+                  "abapType": "Date",
+                  "conversionExit": ""
+              },
+              {
+                  "name": "VENDOR_VAT_NO",
+                  "description": "VAT Registration Number",
+                  "abapType": "CharacterString",
+                  "length": 20,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "VENDOR_TAX_NO",
+                  "description": "Tax number at responsible tax office",
+                  "abapType": "CharacterString",
+                  "length": 18,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "RECEPIENT_VAT_NO",
+                  "description": "VAT Registration Number",
+                  "abapType": "CharacterString",
+                  "length": 20,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "FISCAL_REP_VAT_N",
+                  "description": "Fiscal Representative VAT Number",
+                  "abapType": "CharacterString",
+                  "length": 18,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "PYMNT_TERMS",
+                  "description": "Terms of payment key",
+                  "abapType": "CharacterString",
+                  "length": 4,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "PYMNT_TERMS_TEXT",
+                  "description": "Payment Terms text",
+                  "abapType": "CharacterString",
+                  "length": 40,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "ISR",
+                  "description": "POR subscriber number",
+                  "abapType": "CharacterString",
+                  "length": 90,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "CM_REF_NO",
+                  "description": "Reference document number",
+                  "abapType": "CharacterString",
+                  "length": 16,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "CM_REF_DAT",
+                  "description": "Credit Memo Ref Date",
+                  "abapType": "Date",
+                  "conversionExit": ""
+              },
+              {
+                  "name": "TAX_RATE",
+                  "description": "Data element for Tax rate",
+                  "abapType": "PackedNumber",
+                  "length": 13,
+                  "decimalCount": 3,
+                  "formattedLength": 15,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "SIRET_NO",
+                  "description": "Siret Number",
+                  "abapType": "CharacterString",
+                  "length": 14,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "ZERO_TAX_RATE",
+                  "description": "Zero Tax Rate",
+                  "abapType": "CharacterString",
+                  "length": 10,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "DOC_ARC_DOC_ID",
+                  "description": "SAP ArchiveLink: Document ID",
+                  "abapType": "CharacterString",
+                  "length": 40,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "TRNG_LEARN",
+                  "description": "Flag: Training/Learning required",
+                  "abapType": "CharacterString",
+                  "length": 1,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "FEEDB_LEARN",
+                  "description": "Flag: Feedback Learning",
+                  "abapType": "CharacterString",
+                  "length": 1,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "CHANNEL_ID",
+                  "description": "Channel ID",
+                  "abapType": "CharacterString",
+                  "length": 10,
+                  "indexed": "Ascending",
+                  "conversionExit": ""
+              },
+              {
+                  "name": "CUSTOM_FIELD4",
+                  "description": "Character Field Length 1",
+                  "abapType": "CharacterString",
+                  "length": 1,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "CUSTOM_FIELD5",
+                  "description": "Text Field of Length 60",
+                  "abapType": "CharacterString",
+                  "length": 60,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "CUSTOM_FIELD6",
+                  "description": "Text (10 Characters)",
+                  "abapType": "CharacterString",
+                  "length": 10,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "CUSTOM_FIELD7",
+                  "description": "Character Field Length 1",
+                  "abapType": "CharacterString",
+                  "length": 1,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "CUSTOM_FIELD8",
+                  "description": "Text (10 Characters)",
+                  "abapType": "CharacterString",
+                  "length": 10,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "CUSTOM_FIELD9",
+                  "description": "Text (20 Characters)",
+                  "abapType": "CharacterString",
+                  "length": 20,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "CUSTOM_FIELD0",
+                  "description": "Text (20 Characters)",
+                  "abapType": "CharacterString",
+                  "length": 20,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "PAYMENT_METHOD",
+                  "description": "Payment Method",
+                  "abapType": "CharacterString",
+                  "length": 1,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "PAY_METHOD_TEXT",
+                  "description": "Name of Payment Method in Language of the Country",
+                  "abapType": "CharacterString",
+                  "length": 30,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "KIDNO",
+                  "description": "Payment Reference",
+                  "abapType": "CharacterString",
+                  "length": 30,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "INV_CAT",
+                  "description": "Invoice category",
+                  "abapType": "CharacterString",
+                  "length": 2,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "TAX_EXEMPT_TEXT",
+                  "description": "Tax Exempt Text",
+                  "abapType": "CharacterString",
+                  "length": 50,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "IMPORT_TEXT",
+                  "description": "Import Special Text",
+                  "abapType": "CharacterString",
+                  "length": 50,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "TRI_TEXT",
+                  "description": "Triangulation Text",
+                  "abapType": "CharacterString",
+                  "length": 50,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "ORG_NUMBER",
+                  "description": "Organization Number",
+                  "abapType": "CharacterString",
+                  "length": 20,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "DISCOUNT",
+                  "description": "Discount mentioned on the Invocie",
+                  "abapType": "PackedNumber",
+                  "length": 11,
+                  "decimalCount": 2,
+                  "formattedLength": 14,
+                  "conversionExit": "",
+                  "referenceTable": "/OPT/VIM_1RHEAD",
+                  "referenceField": "WAERS",
+                  "isCurrency": true
+              },
+              {
+                  "name": "TAXRATE_1",
+                  "description": "Data element for Tax rate",
+                  "abapType": "PackedNumber",
+                  "length": 13,
+                  "decimalCount": 3,
+                  "formattedLength": 15,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "TAXRATE_2",
+                  "description": "Data element for Tax rate",
+                  "abapType": "PackedNumber",
+                  "length": 13,
+                  "decimalCount": 3,
+                  "formattedLength": 15,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "TAXRATE_3",
+                  "description": "Data element for Tax rate",
+                  "abapType": "PackedNumber",
+                  "length": 13,
+                  "decimalCount": 3,
+                  "formattedLength": 15,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "TAXRATE_4",
+                  "description": "Data element for Tax rate",
+                  "abapType": "PackedNumber",
+                  "length": 13,
+                  "decimalCount": 3,
+                  "formattedLength": 15,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "TAXAMT_1",
+                  "description": "Amount",
+                  "abapType": "PackedNumber",
+                  "length": 13,
+                  "decimalCount": 2,
+                  "formattedLength": 16,
+                  "conversionExit": "",
+                  "referenceTable": "/OPT/VIM_1RHEAD",
+                  "referenceField": "WAERS",
+                  "isCurrency": true
+              },
+              {
+                  "name": "TAXAMT_2",
+                  "description": "Amount",
+                  "abapType": "PackedNumber",
+                  "length": 13,
+                  "decimalCount": 2,
+                  "formattedLength": 16,
+                  "conversionExit": "",
+                  "referenceTable": "/OPT/VIM_1RHEAD",
+                  "referenceField": "WAERS",
+                  "isCurrency": true
+              },
+              {
+                  "name": "TAXAMT_3",
+                  "description": "Amount",
+                  "abapType": "PackedNumber",
+                  "length": 13,
+                  "decimalCount": 2,
+                  "formattedLength": 16,
+                  "conversionExit": "",
+                  "referenceTable": "/OPT/VIM_1RHEAD",
+                  "referenceField": "WAERS",
+                  "isCurrency": true
+              },
+              {
+                  "name": "TAXAMT_4",
+                  "description": "Amount",
+                  "abapType": "PackedNumber",
+                  "length": 13,
+                  "decimalCount": 2,
+                  "formattedLength": 16,
+                  "conversionExit": "",
+                  "referenceTable": "/OPT/VIM_1RHEAD",
+                  "referenceField": "WAERS",
+                  "isCurrency": true
+              },
+              {
+                  "name": "SCB_IND",
+                  "description": "State Central Bank Indicator",
+                  "abapType": "CharacterString",
+                  "length": 3,
+                  "checkTable": "T015L",
+                  "conversionExit": ""
+              },
+              {
+                  "name": "TAX_INVOICE",
+                  "description": "Tax Invoice",
+                  "abapType": "CharacterString",
+                  "length": 1,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "POST_DATE_DET",
+                  "description": "Date to be used as Posting Date while creating the SAP Doc",
+                  "abapType": "CharacterString",
+                  "length": 1,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "ZFBDT_DET",
+                  "description": "Baseline Date Determination Method",
+                  "abapType": "CharacterString",
+                  "length": 1,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "NF_TYPE",
+                  "description": "Nota Fiscal Type",
+                  "abapType": "CharacterString",
+                  "length": 2,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "BUPLA",
+                  "description": "Business Place",
+                  "abapType": "CharacterString",
+                  "length": 4,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "TAX_LAWS",
+                  "description": "Tax Laws - Brazil",
+                  "abapType": "CharacterString",
+                  "length": 20,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "SUPCOUNTRY",
+                  "description": "Supplying Country",
+                  "abapType": "CharacterString",
+                  "length": 3,
+                  "checkTable": "T005",
+                  "conversionExit": ""
+              },
+              {
+                  "name": "BVTYP",
+                  "description": "Partner bank type",
+                  "abapType": "CharacterString",
+                  "length": 4,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "IBAN",
+                  "description": "IBAN (International Bank Account Number)",
+                  "abapType": "CharacterString",
+                  "length": 34,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "BANKL",
+                  "description": "Bank number",
+                  "abapType": "CharacterString",
+                  "length": 15,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "BANKA",
+                  "description": "Name of bank",
+                  "abapType": "CharacterString",
+                  "length": 60,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "BANKN",
+                  "description": "Bank account number",
+                  "abapType": "CharacterString",
+                  "length": 18,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "BKREF",
+                  "description": "Reference specifications for bank details",
+                  "abapType": "CharacterString",
+                  "length": 20,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "BANKS",
+                  "description": "Bank country key",
+                  "abapType": "CharacterString",
+                  "length": 3,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "BKONT",
+                  "description": "Bank Control Key",
+                  "abapType": "CharacterString",
+                  "length": 2,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "GSBER",
+                  "description": "Business Area",
+                  "abapType": "CharacterString",
+                  "length": 4,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "RESTART",
+                  "description": "X: Restart",
+                  "abapType": "CharacterString",
+                  "length": 1,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "LAND1",
+                  "description": "Country Key",
+                  "abapType": "CharacterString",
+                  "length": 3,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "BARCODE",
+                  "description": "Bar code",
+                  "abapType": "CharacterString",
+                  "length": 64,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "ZFBDT",
+                  "description": "Baseline Date for Due Date Calculation",
+                  "abapType": "Date",
+                  "conversionExit": ""
+              },
+              {
+                  "name": "ZBD1T",
+                  "description": "Cash discount days 1",
+                  "abapType": "PackedNumber",
+                  "length": 3,
+                  "formattedLength": 3,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "ZBD1P",
+                  "description": "Cash discount percentage 1",
+                  "abapType": "PackedNumber",
+                  "length": 5,
+                  "decimalCount": 3,
+                  "formattedLength": 6,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "ZBD2T",
+                  "description": "Cash discount days 2",
+                  "abapType": "PackedNumber",
+                  "length": 3,
+                  "formattedLength": 3,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "ZBD2P",
+                  "description": "Cash Discount Percentage 2",
+                  "abapType": "PackedNumber",
+                  "length": 5,
+                  "decimalCount": 3,
+                  "formattedLength": 6,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "ZBD3T",
+                  "description": "Net Payment Terms Period",
+                  "abapType": "PackedNumber",
+                  "length": 3,
+                  "formattedLength": 3,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "SWIFT",
+                  "description": "SWIFT/BIC for International Payments",
+                  "abapType": "CharacterString",
+                  "length": 11,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "HBKID",
+                  "description": "Short key for a house bank",
+                  "abapType": "CharacterString",
+                  "length": 5,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "HKTID",
+                  "description": "ID for account details",
+                  "abapType": "CharacterString",
+                  "length": 5,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "ZUONR",
+                  "description": "Assignment number",
+                  "abapType": "CharacterString",
+                  "length": 18,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "DTAWS",
+                  "description": "Instruction key for data medium exchange",
+                  "abapType": "CharacterString",
+                  "length": 2,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "DTAMS",
+                  "description": "Report key for data medium exchange",
+                  "abapType": "CharacterString",
+                  "length": 1,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "FITYP",
+                  "description": "Tax type",
+                  "abapType": "CharacterString",
+                  "length": 2,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "STCDT",
+                  "description": "Tax Number Type",
+                  "abapType": "CharacterString",
+                  "length": 2,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "STKZN",
+                  "description": "Natural Person",
+                  "abapType": "CharacterString",
+                  "length": 1,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "STKZU",
+                  "description": "Liable for VAT",
+                  "abapType": "CharacterString",
+                  "length": 1,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "STKZA",
+                  "description": "Indicator: Business Partner Subject to Equalization Tax?",
+                  "abapType": "CharacterString",
+                  "length": 1,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "EMPFB",
+                  "description": "Vendor Permitted as Payee",
+                  "abapType": "CharacterString",
+                  "length": 10,
+                  "conversionExit": "ALPHA"
+              },
+              {
+                  "name": "WHT_TYPE",
+                  "description": "Withholding Tax Processing Type",
+                  "abapType": "CharacterString",
+                  "length": 1,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "ENRICH_FLAG",
+                  "description": "Flag indicating data enrichment",
+                  "abapType": "CharacterString",
+                  "length": 1,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "DUE_DATE",
+                  "description": "Due Date",
+                  "abapType": "Date",
+                  "conversionExit": ""
+              },
+              {
+                  "name": "DUE_DATE1",
+                  "description": "Due Date for Cash Discount 1",
+                  "abapType": "Date",
+                  "conversionExit": ""
+              },
+              {
+                  "name": "DUE_DATE2",
+                  "description": "Due Date for Cash Discount 2",
+                  "abapType": "Date",
+                  "conversionExit": ""
+              },
+              {
+                  "name": "SECCO",
+                  "description": "Section Code",
+                  "abapType": "CharacterString",
+                  "length": 4,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "VEND_GRP",
+                  "description": "Vendor Group",
+                  "abapType": "CharacterString",
+                  "length": 10,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "TH_BCODE",
+                  "description": "Branch Code - Thailand",
+                  "abapType": "CharacterString",
+                  "length": 5,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "ESRRE",
+                  "description": "ISR/QR Reference Number",
+                  "abapType": "CharacterString",
+                  "length": 27,
+                  "conversionExit": "ALPHA"
+              },
+              {
+                  "name": "QR_REF_TYP",
+                  "description": "QR code reference type",
+                  "abapType": "CharacterString",
+                  "length": 4,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "VAT_INV_IDENT",
+                  "description": "VAT Invoice Identifier",
+                  "abapType": "CharacterString",
+                  "length": 10,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "SECRET_CODE1",
+                  "description": "Secret Code",
+                  "abapType": "CharacterString",
+                  "length": 27,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "SECRET_CODE2",
+                  "description": "Secret Code",
+                  "abapType": "CharacterString",
+                  "length": 27,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "SECRET_CODE3",
+                  "description": "Secret Code",
+                  "abapType": "CharacterString",
+                  "length": 27,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "SECRET_CODE4",
+                  "description": "Secret Code",
+                  "abapType": "CharacterString",
+                  "length": 27,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "INVOICE_CODE",
+                  "description": "Invoice Code",
+                  "abapType": "CharacterString",
+                  "length": 12,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "VALIDATION_CODE",
+                  "description": "Validation Code",
+                  "abapType": "CharacterString",
+                  "length": 30,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "NOT_HAND_WRITTEN",
+                  "description": "Not a Hand Written Invoice",
+                  "abapType": "CharacterString",
+                  "length": 1,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "AFTCS_VALIDATION",
+                  "description": "AFTCS Validation Indicator",
+                  "abapType": "CharacterString",
+                  "length": 1,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "USER_ID",
+                  "description": "User id that set the AFTCS Validation Indicator",
+                  "abapType": "CharacterString",
+                  "length": 12,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "TIME_STAMP",
+                  "description": "AFTCS Validation TimeStamp",
+                  "abapType": "PackedNumber",
+                  "length": 15,
+                  "formattedLength": 19,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "TAX_DESC",
+                  "description": "Tax Description",
+                  "abapType": "CharacterString",
+                  "length": 1,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "PAN_NO",
+                  "description": "Permanent Account Number",
+                  "abapType": "CharacterString",
+                  "length": 40,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "STC_NO",
+                  "description": "STC Number",
+                  "abapType": "CharacterString",
+                  "length": 30,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "TIN_TOT",
+                  "description": "TIN/TOT Number",
+                  "abapType": "CharacterString",
+                  "length": 11,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "LST_NO",
+                  "description": "LST Number",
+                  "abapType": "CharacterString",
+                  "length": 40,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "CST_NO",
+                  "description": "CST Number",
+                  "abapType": "CharacterString",
+                  "length": 40,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "ECC_NO",
+                  "description": "ECC Number",
+                  "abapType": "CharacterString",
+                  "length": 40,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "EDC_CESS",
+                  "description": "Educational Cess",
+                  "abapType": "PackedNumber",
+                  "length": 13,
+                  "decimalCount": 2,
+                  "formattedLength": 16,
+                  "conversionExit": "",
+                  "referenceTable": "/OPT/VIM_1RHEAD",
+                  "referenceField": "WAERS",
+                  "isCurrency": true
+              },
+              {
+                  "name": "EXC_DUTY",
+                  "description": "Excise Duty",
+                  "abapType": "PackedNumber",
+                  "length": 13,
+                  "decimalCount": 2,
+                  "formattedLength": 16,
+                  "conversionExit": "",
+                  "referenceTable": "/OPT/VIM_1RHEAD",
+                  "referenceField": "WAERS",
+                  "isCurrency": true
+              },
+              {
+                  "name": "SAHE_CESS",
+                  "description": "Secondary & Higher Educational Cess",
+                  "abapType": "PackedNumber",
+                  "length": 13,
+                  "decimalCount": 2,
+                  "formattedLength": 16,
+                  "conversionExit": "",
+                  "referenceTable": "/OPT/VIM_1RHEAD",
+                  "referenceField": "WAERS",
+                  "isCurrency": true
+              },
+              {
+                  "name": "MODEL",
+                  "description": "Model of Nota Fiscal",
+                  "abapType": "NumericCharacterString",
+                  "length": 2,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "SERIES",
+                  "description": "Series",
+                  "abapType": "CharacterString",
+                  "length": 3,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "NFNUM",
+                  "description": "Nota Fiscal Number",
+                  "abapType": "NumericCharacterString",
+                  "length": 6,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "CGC",
+                  "description": "CNPJ Number",
+                  "abapType": "NumericCharacterString",
+                  "length": 14,
+                  "formattedLength": 18,
+                  "conversionExit": "CGCBR"
+              },
+              {
+                  "name": "XMLVERS",
+                  "description": "NF-e: XML Version",
+                  "abapType": "PackedNumber",
+                  "length": 5,
+                  "decimalCount": 2,
+                  "formattedLength": 5,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "AUTHCOD",
+                  "description": "NF-e: Protocol Number",
+                  "abapType": "CharacterString",
+                  "length": 15,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "DOCNUM9",
+                  "description": "NF-e: Random Number",
+                  "abapType": "CharacterString",
+                  "length": 9,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "ACCESSKEY",
+                  "description": "NF-e: 44-Digit Access Key",
+                  "abapType": "CharacterString",
+                  "length": 44,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "NFNUM9",
+                  "description": "Nine-Digit NF-e Number",
+                  "abapType": "CharacterString",
+                  "length": 9,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "CDV",
+                  "description": "Check Digit for NF-e Access Key",
+                  "abapType": "CharacterString",
+                  "length": 1,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "TRANSPAYMENT",
+                  "description": "Payment flag",
+                  "abapType": "CharacterString",
+                  "length": 1,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "NFTOT",
+                  "description": "Total value including all taxes",
+                  "abapType": "PackedNumber",
+                  "length": 15,
+                  "decimalCount": 2,
+                  "formattedLength": 21,
+                  "conversionExit": "",
+                  "referenceTable": "/OPT/VIM_1RHEAD",
+                  "referenceField": "WAERS",
+                  "isCurrency": true
+              },
+              {
+                  "name": "REFNFENUM",
+                  "description": "Nine-Digit NF-e Number",
+                  "abapType": "CharacterString",
+                  "length": 9,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "ACTION_DATE",
+                  "description": "NF-e Processing Timestamp - Date",
+                  "abapType": "Date",
+                  "conversionExit": ""
+              },
+              {
+                  "name": "ACTION_TIME",
+                  "description": "NF-e Processing Timestamp - Time",
+                  "abapType": "Time",
+                  "conversionExit": ""
+              },
+              {
+                  "name": "DOCDAT",
+                  "description": "Document date",
+                  "abapType": "Date",
+                  "conversionExit": ""
+              },
+              {
+                  "name": "PARID",
+                  "description": "Partner ID (Customer, Vendor, Business Place)",
+                  "abapType": "CharacterString",
+                  "length": 10,
+                  "conversionExit": "ALPHA"
+              },
+              {
+                  "name": "STCD1",
+                  "description": "CNPJ Number",
+                  "abapType": "NumericCharacterString",
+                  "length": 14,
+                  "formattedLength": 18,
+                  "conversionExit": "CGCBR"
+              },
+              {
+                  "name": "FLAG_ENFE",
+                  "description": "Checkbox",
+                  "abapType": "CharacterString",
+                  "length": 1,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "FLAG_SNFE",
+                  "description": "Checkbox",
+                  "abapType": "CharacterString",
+                  "length": 1,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "FLAG_SIG_VALID",
+                  "description": "FLAG_SIG_VALID(Checkbox)",
+                  "abapType": "CharacterString",
+                  "length": 1,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "ORG_NUM",
+                  "description": "Invoice Number of original invoice",
+                  "abapType": "CharacterString",
+                  "length": 16,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "ORG_DATE",
+                  "description": "Date of original invoice",
+                  "abapType": "Date",
+                  "conversionExit": ""
+              },
+              {
+                  "name": "REV_NUM",
+                  "description": "Revision number of invoice",
+                  "abapType": "CharacterString",
+                  "length": 16,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "REV_DATE",
+                  "description": "Date of revision invoice",
+                  "abapType": "Date",
+                  "conversionExit": ""
+              },
+              {
+                  "name": "REV_NUM_COR",
+                  "description": "Revision number of corrective invoice",
+                  "abapType": "CharacterString",
+                  "length": 16,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "REV_DATE_COR",
+                  "description": "Revision date of corrective invoice",
+                  "abapType": "Date",
+                  "conversionExit": ""
+              },
+              {
+                  "name": "BSTYP",
+                  "description": "Purchasing Document Category",
+                  "abapType": "CharacterString",
+                  "length": 1,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "CONTRACT",
+                  "description": "Purchasing Document Number",
+                  "abapType": "CharacterString",
+                  "length": 10,
+                  "conversionExit": "ALPHA"
+              },
+              {
+                  "name": "RECNTYPE",
+                  "description": "Contract Type",
+                  "abapType": "CharacterString",
+                  "length": 4,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "RECNNR",
+                  "description": "Contract Number",
+                  "abapType": "CharacterString",
+                  "length": 13,
+                  "conversionExit": "ALPHA"
+              },
+              {
+                  "name": "RECNTXT",
+                  "description": "Contract name",
+                  "abapType": "CharacterString",
+                  "length": 80,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "RECNTXTOLD",
+                  "description": "Number of old contract",
+                  "abapType": "CharacterString",
+                  "length": 20,
+                  "conversionExit": "ALPHA"
+              },
+              {
+                  "name": "REC_MANUAL_CHK",
+                  "description": "Manual Contract Check Results",
+                  "abapType": "CharacterString",
+                  "length": 1,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "EVRTN",
+                  "description": "Agreement Number",
+                  "abapType": "CharacterString",
+                  "length": 10,
+                  "conversionExit": "ALPHA"
+              },
+              {
+                  "name": "REP_COUNTRY",
+                  "description": "Reporting Country for Delivery of Goods Within the EU",
+                  "abapType": "CharacterString",
+                  "length": 3,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "ROUTE_ID",
+                  "description": "Route ID",
+                  "abapType": "CharacterString",
+                  "length": 46,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "ROUTE_ID1",
+                  "description": "Route ID1",
+                  "abapType": "CharacterString",
+                  "length": 16,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "ROUTE_ID2",
+                  "description": "Route ID2",
+                  "abapType": "CharacterString",
+                  "length": 16,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "RETRY_NO1",
+                  "description": "Extraction Retry",
+                  "abapType": "FourByteInteger",
+                  "conversionExit": ""
+              },
+              {
+                  "name": "RETRY_NO2",
+                  "description": "Validation Retry",
+                  "abapType": "FourByteInteger",
+                  "conversionExit": ""
+              },
+              {
+                  "name": "RFC_DUP",
+                  "description": "Duplicate Check Run Pending",
+                  "abapType": "CharacterString",
+                  "length": 1,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "RETRY_COUNT_EXT",
+                  "description": "Number of retries for external workflow",
+                  "abapType": "NumericCharacterString",
+                  "length": 4,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "ORIG_AR_OBJECT",
+                  "description": "Original Archive Document Type",
+                  "abapType": "CharacterString",
+                  "length": 10,
+                  "indexed": "Ascending",
+                  "conversionExit": ""
+              },
+              {
+                  "name": "SCAN_TIMESTAMP",
+                  "description": "UTC Time Stamp in Short Form (YYYYMMDDhhmmss)",
+                  "abapType": "PackedNumber",
+                  "length": 15,
+                  "formattedLength": 19,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "DOC_ARCHIV_ID",
+                  "description": "Content Repository Identification",
+                  "abapType": "CharacterString",
+                  "length": 2,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "SKIP_DETERMINE",
+                  "description": "General Flag",
+                  "abapType": "CharacterString",
+                  "length": 1,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "REG_ID",
+                  "description": "Registration Number for incoming document handler",
+                  "abapType": "NumericCharacterString",
+                  "length": 12,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "OTYPE",
+                  "description": "Object Type",
+                  "abapType": "CharacterString",
+                  "length": 2,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "ACTORID",
+                  "description": "Agent ID in Organizational Management",
+                  "abapType": "CharacterString",
+                  "length": 12,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "RTV_REASON",
+                  "description": "Return to Vendor - reasons",
+                  "abapType": "CharacterString",
+                  "length": 2,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "VATDATE",
+                  "description": "VAT Date",
+                  "abapType": "Date",
+                  "conversionExit": ""
+              },
+              {
+                  "name": "MWSKZ_BNK",
+                  "description": "Tax code for delivery costs",
+                  "abapType": "CharacterString",
+                  "length": 2,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "TXJCD_BNK",
+                  "description": "Jurisdiction code for delivery costs",
+                  "abapType": "CharacterString",
+                  "length": 15,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "CM_REF_BEL",
+                  "description": "Document No. of the Invoice to Which the Transaction Belongs",
+                  "abapType": "CharacterString",
+                  "length": 10,
+                  "conversionExit": "ALPHA"
+              },
+              {
+                  "name": "CM_REF_GJA",
+                  "description": "Fiscal Year of the Relevant Invoice (for Credit Memo)",
+                  "abapType": "NumericCharacterString",
+                  "length": 4,
+                  "conversionExit": "GJAHR"
+              },
+              {
+                  "name": "CM_REF_ZEI",
+                  "description": "Line Item in the Relevant Invoice",
+                  "abapType": "NumericCharacterString",
+                  "length": 3,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "WHT_CHECK",
+                  "description": "Withholding tax check",
+                  "abapType": "CharacterString",
+                  "length": 1,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "KURSF",
+                  "description": "Exchange rate",
+                  "abapType": "PackedNumber",
+                  "length": 9,
+                  "decimalCount": 5,
+                  "formattedLength": 12,
+                  "conversionExit": "EXCRT"
+              },
+              {
+                  "name": "IGNORE_IP",
+                  "description": "Ignore Invoicing Party (IP)",
+                  "abapType": "CharacterString",
+                  "length": 1,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "TXKRS",
+                  "description": "Exchange Rate for Taxes",
+                  "abapType": "PackedNumber",
+                  "length": 9,
+                  "decimalCount": 5,
+                  "formattedLength": 12,
+                  "conversionExit": "EXCRT"
+              },
+              {
+                  "name": "EGMLD",
+                  "description": "Reporting Country for Delivery of Goods Within the EU",
+                  "abapType": "CharacterString",
+                  "length": 3,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "GST_PART",
+                  "description": "GST Partner",
+                  "abapType": "CharacterString",
+                  "length": 10,
+                  "conversionExit": "ALPHA"
+              },
+              {
+                  "name": "PLC_SUP",
+                  "description": "Place of Supply",
+                  "abapType": "CharacterString",
+                  "length": 3,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "GST_REG_NUM",
+                  "description": "GST Registration Number",
+                  "abapType": "CharacterString",
+                  "length": 18,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "REC_GST_REG_NUM",
+                  "description": "Receiving Entity GST Registration Number",
+                  "abapType": "CharacterString",
+                  "length": 18,
+                  "conversionExit": ""
+              },
+              {
+                  "name": "AIC_STATUS",
+                  "description": "Signature Validation Status",
+                  "abapType": "NumericCharacterString",
+                  "length": 2,
+                  "conversionExit": ""
+              }
+          ]
+      }
+  ]
 }

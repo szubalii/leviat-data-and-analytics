@@ -4,17 +4,21 @@
 		"appendsTimestamp": true
 	},
 	"internalSettings": {
+		"nameGenerator": {
+			"suffix": "",
+			"appendsTimestamp": true
+		},
 		"sapDateConversion": {
 			"enabled": true,
 			"replacementForInvalidDate": null,
 			"replacementForZeroDate": "0001-01-01",
 			"replacementForYear9999": "9999-12-31"
 		},
+		"existingFileAction": "Replace",
 		"columnNameKind": "Code"
 	},
-	"compress": true,
 	"blobType": "BlockBlob",
 	"columnNameKind": "Code",
-	"folderPath": "DIMENSION\/I_FiscalCalendarDate\/Theobald\/ODP\/Full\/In\/#{ DateTime.Now.ToString(\"yyyy\/MM\/dd\") }#",
+	"folderPath": "NULL/OPT_VIM_1ITEM_Extended/Theobald/Table/Full/In/#{ DateTime.Now.ToString(\"yyyy/MM/dd\") }#",
 	"maxBlobSize": 0
 }
