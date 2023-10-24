@@ -8,7 +8,12 @@ WITH Periods AS (
   FROM
     [edw].[dim_FiscalCalendar]
   WHERE
-    FiscalYear BETWEEN 2021 AND 2024 -- TODO smaller than current CalMonth
+    FiscalYear 
+      BETWEEN
+        2021 
+        AND YEAR(DATEADD(MONTH,-1,SYSDATETIME()))
+    AND FiscalPeriod <= MONTH(DATEADD(MONTH,-1,SYSDATETIME()))
+
 )
 ,
 CompanyCodePeriod AS (
