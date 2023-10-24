@@ -1,6 +1,5 @@
 ﻿CREATE VIEW [dq].[vw_BP_2_1_6]
-  AS  
-
+  AS
 
 SELECT
          CC.[Customer]
@@ -54,13 +53,9 @@ LEFT JOIN
     ON
         CC.[Customer] = BPB.[BUSINESSPARTNER]
 WHERE
-    (CC.[PaymentMethodsList] <> 'F'
+    CC.[PaymentMethodsList] = 'F'
     AND
-    BPB.[CollectionAuthInd] = '')
-    OR
-    (CC.[PaymentMethodsList] = 'F'
-    AND
-    BPB.[CollectionAuthInd] <> '')
+    (BPB.[CollectionAuthInd] IS NULL OR  BPB.[CollectionAuthInd]='')
 GROUP BY
          CC.[Customer]
     ,    CC.[CompanyCode]
