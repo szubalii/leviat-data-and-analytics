@@ -26,7 +26,7 @@ BEGIN
     WHERE
         [PaymentMethodsList] = 'F'
         AND
-        ([CollectionAuthInd] IS NULL OR  BPB.[CollectionAuthInd]='')
+        ([CollectionAuthInd] IS NULL OR [CollectionAuthInd]='')
 
     SELECT TOP(0) *
     INTO expected
