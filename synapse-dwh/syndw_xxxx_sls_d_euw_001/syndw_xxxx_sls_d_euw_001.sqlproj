@@ -215,6 +215,8 @@
     <Folder Include="base_isedio_aus" />
     <Folder Include="base_isedio_aus\Tables" />
     <Folder Include="edw\Functions\" />
+    <Folder Include="dm_global" />
+    <Folder Include="dm_global\Views" />
   </ItemGroup>
   <ItemGroup>
     <None Include="edw\Views\vw_fact_MaterialStockLevel_temp.sql" />
@@ -307,6 +309,7 @@
     <Build Include="Security\Schemas\base_halfen_moment_sg.sql" />
     <Build Include="Security\Schemas\base_isedio.sql" />
     <Build Include="Security\Schemas\base_isedio_aus.sql" />
+    <Build Include="Security\Schemas\dm_global.sql" />
 
     <!-- TABLES -->
 
@@ -1174,6 +1177,8 @@
     <Build Include="edw\Views\vw_LatestOutboundDeliveryItem.sql" />
     <Build Include="edw\Views\vw_fact_VendorInvoice_ApprovedAndPosted_CUR.sql" />
     <Build Include="edw\Views\vw_VendorInvoice_ApprovedAndPosted.sql" />
+    <Build Include="edw\Views\vw_fact_VendorInvoice_ApprovedAndPosted_agg.sql" />
+    <Build Include="edw\Views\vw_fact_PurchasingDocument_FirstInvoiceCreationDate.sql" />
 
     <Build Include="dq\Views\vw_Product_1_2.sql" />
     <Build Include="dq\Views\vw_RuleTotal.sql" />
@@ -1250,6 +1255,8 @@
     <Build Include="dm_finance\Views\vw_fact_Budget_EPM.sql" />
     <Build Include="dm_finance\Views\vw_dim_CompanyCodeProfitCenter.sql" />
     <Build Include="dm_finance\Views\vw_fact_ACDOCA_Full_CH_AT.sql" />
+    
+    <Build Include="dm_global\Views\vw_CompCodeRegion.sql" />
 
     <Build Include="dm_sales\Views\vw_dim_Customer.sql" />
     <Build Include="dm_sales\Views\vw_fact_BillingDocumentItem.sql" />
