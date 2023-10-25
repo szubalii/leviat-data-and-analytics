@@ -3,40 +3,29 @@ AS
 BEGIN
     IF OBJECT_ID('actual') IS NOT NULL DROP TABLE actual;
     IF OBJECT_ID('expected') IS NOT NULL DROP TABLE expected;
-    IF OBJECT_ID('temp_table') IS NOT NULL DROP TABLE temp_table;
 
-    CREATE TABLE temp_table (
-	    [BusinessPartnerID] NVARCHAR(10),
-	    [PaymentMethodsList] NVARCHAR(10),
-	    [CollectionAuthInd] NVARCHAR(1)
-    );
+    -- Assemble: Fake Table
+    EXEC tSQLt.FakeTable '[base_s4h_cax]', '[I_CustomerCompany]';
+    EXEC tSQLt.FakeTable '[base_s4h_cax]', '[I_BusinessPartnerBank]';
 
-    INSERT INTO temp_table(BusinessPartnerID,PaymentMethodsList,CollectionAuthInd)
-    VALUES ('1','F',NULL);
-    INSERT INTO temp_table(BusinessPartnerID,PaymentMethodsList,CollectionAuthInd)
-    VALUES ('2','F','');
-    INSERT INTO temp_table(BusinessPartnerID,PaymentMethodsList,CollectionAuthInd)
-    VALUES ('3','E',NULL);
-    INSERT INTO temp_table(BusinessPartnerID,PaymentMethodsList,CollectionAuthInd)
-    VALUES ('4','E','');
+    INSERT INTO [base_s4h_cax].[I_CustomerCompany] ([Customer],[PaymentMethodsList])
+    VALUES ('1','F'), ('2','F'), ('3','E'), ('4','E');
 
+    INSERT INTO [base_s4h_cax].[I_BusinessPartnerBank] ([BUSINESSPARTNER],[CollectionAuthInd])
+    VALUES ('1',NULL),  ('2',''), ('3',NULL),('4','');
+
+     -- Act:
     SELECT *
     INTO actual
-    FROM temp_table
-    WHERE
-        [PaymentMethodsList] = 'F'
-        AND
-        ([CollectionAuthInd] IS NULL OR [CollectionAuthInd]='')
+    FROM dq.vw_2_1_6
 
     SELECT TOP(0) *
     INTO expected
-    FROM temp_table;
+    FROM actual;
 
-    INSERT INTO expected(BusinessPartnerID,PaymentMethodsList,CollectionAuthInd)
-    VALUES ('1','F',NULL);
+    INSERT INTO expected([Customer],[PaymentMethodsList])
+    VALUES ('1','F'),('2','F');
 
-    INSERT INTO expected(BusinessPartnerID,PaymentMethodsList,CollectionAuthInd)
-    VALUES ('2','F','');
-
+    -- Assert:
     EXEC tSQLt.AssertEqualsTable 'expected', 'actual';
 END;
