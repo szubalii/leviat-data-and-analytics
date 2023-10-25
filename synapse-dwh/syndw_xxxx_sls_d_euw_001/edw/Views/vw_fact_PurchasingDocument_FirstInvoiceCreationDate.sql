@@ -18,8 +18,6 @@ SELECT
   pd.[SupplyingPlantID],
   pd.[PurchasingProcessingStatusID],
   pd.[PurchasingDocumentStatus],
-  pd.[PurchaseContract],
-  pd.[PurchasingDocumentCondition],
   MIN(si.[CreationDate]) AS [FirstInvoiceCreationDate],
   pd.[t_applicationId],
   pd.[t_extractionDtm]
@@ -51,7 +49,5 @@ GROUP BY
   pd.[SupplyingPlantID],
   pd.[PurchasingProcessingStatusID],
   pd.[PurchasingDocumentStatus],
-  pd.[PurchaseContract],
-  pd.[PurchasingDocumentCondition],
   pd.[t_applicationId],
   pd.[t_extractionDtm]

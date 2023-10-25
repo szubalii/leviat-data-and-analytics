@@ -18,8 +18,6 @@ SELECT
   PD.[CompanyCodeID],
   PD.[PurchasingProcessingStatusID],
   PDST.[PurchasingDocumentStatusName]    AS [PurchasingDocumentStatus],
-  PD.[PurchaseContract],
-  PD.[PurchasingDocumentCondition],
   PD.[t_applicationId],
   PD.[t_extractionDtm]
 FROM
