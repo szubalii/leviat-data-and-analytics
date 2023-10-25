@@ -15,7 +15,7 @@ BEGIN
     VALUES ('1',NULL),  ('2',''), ('3',NULL),('4','');
 
      -- Act:
-    SELECT *
+    SELECT [Customer],[PaymentMethodsList]
     INTO actual
     FROM [dq].[vw_BP_2_1_6]
 

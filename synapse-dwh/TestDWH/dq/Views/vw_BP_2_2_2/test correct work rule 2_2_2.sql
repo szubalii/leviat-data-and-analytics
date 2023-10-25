@@ -22,7 +22,10 @@ BEGIN
     VALUES('IT35','IT'),('FR35','FR');
 
     -- Act:
-    SELECT *
+    SELECT
+        [Supplier],
+        [SupplierAccountGroup],
+        [Country]
     INTO actual
     FROM [dq].[vw_BP_2_2_2]
 
