@@ -50,7 +50,7 @@ SELECT
   gr.AgedGRPurchaseOrdersAmount,
   sls.SOShippedNotBilledAmount
 FROM
-  CompanyCodePeriod
+  CompanyCodePeriod       ccp
 
 LEFT JOIN
   [edw].[vw_fact_ACDOCA_FinanceKPI_agg] fin_agg
