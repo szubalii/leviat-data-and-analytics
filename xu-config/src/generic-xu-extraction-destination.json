@@ -4,6 +4,11 @@
         "appendsTimestamp": true,
         "objectNamingMode": "Custom"
     },
+    "sapDateConverter": {
+        "minDateReplacement": "0001-01-01",
+        "maxDateReplacement": "9999-12-31",
+        "invalidDateReplacement": null
+    },
     "internalSettings": {
         "nameGenerator": {
             "suffix": "",

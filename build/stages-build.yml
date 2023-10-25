@@ -37,7 +37,7 @@ variables:
 - ${{ elseif eq(variables['Build.SourceBranchName'], 'prod') }}:
   - template: ./variables-prod.yml
 # Get the personal variables template, user and deployment environment based on the source branch name. 
-- ${{ elseif or(contains(variables['Build.SourceBranch'], '/feature/'), contains(variables['Build.SourceBranch'], '/users/')) }}:
+- ${{ elseif or(contains(variables['Build.SourceBranch'], '/feature/'), contains(variables['Build.SourceBranch'], '/users/'), contains(variables['Build.SourceBranch'], '/hotfix/')) }}:
   - template: ./variables-personal.yml
 
 stages:
