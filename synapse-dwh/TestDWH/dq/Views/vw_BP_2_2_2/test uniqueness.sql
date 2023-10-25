@@ -16,12 +16,12 @@ BEGIN
   INSERT INTO [base_s4h_cax].[I_SupplierCompany] ([Supplier],[CompanyCode])
   VALUES ('1','IT35'),  ('1','DE35'), ('2','DE35'),('2','IT35');
 
-  INSERT INTO [base_s4h_cax].[I_CompanyCode] ([CompanyCode],[Country],)
+  INSERT INTO [base_s4h_cax].[I_CompanyCode] ([CompanyCode],[Country])
   VALUES ('IT35','IT'),  ('IT01','IT'), ('DE35','DE');
 
   
   SELECT
-    [Supplier],
+    [Supplier]
   INTO actual
   FROM [dq].[vw_BP_2_2_2]
   GROUP BY
