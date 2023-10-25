@@ -13,6 +13,7 @@ resources:
         - prod
         - feature/*
         - users/*
+        - hotfix/*
 
 trigger: none
 
