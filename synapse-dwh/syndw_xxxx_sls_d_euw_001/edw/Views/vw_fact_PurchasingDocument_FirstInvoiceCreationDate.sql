@@ -52,4 +52,6 @@ GROUP BY
   pd.[PurchasingProcessingStatusID],
   pd.[PurchasingDocumentStatus],
   pd.[PurchaseContract],
-  pd.[PurchasingDocumentCondition]
+  pd.[PurchasingDocumentCondition],
+  pd.[t_applicationId],
+  pd.[t_extractionDtm]
