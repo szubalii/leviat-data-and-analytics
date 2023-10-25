@@ -17,10 +17,10 @@ CREATE TABLE [edw].[dim_FiscalCalendar] (
   , [FiscalYearPeriod] CHAR(7)  -- Fiscal Year + Fiscal Period
   , [FiscalYearQuarter] CHAR(5)  -- Fiscal Year + Fiscal Quarter
   , [FiscalYearWeek] CHAR(6)  -- Fiscal Year + Fiscal Week
-  , [FiscalYearConsecutiveNumber] INT  -- Fiscal Year (Integer)
-  , [FiscalPeriodConsecutiveNumber] INT  -- Fiscal Year Period (Numbering)
-  , [FiscalQuarterConsecutiveNumber] INT  -- Fiscal Year Quarter (Numbering)
-  , [FiscalWeekConsecutiveNumber] INT  -- Fiscal Year Week (Numbering)
+  --, [FiscalYearConsecutiveNumber] INT  -- Fiscal Year (Integer)
+  --, [FiscalPeriodConsecutiveNumber] INT  -- Fiscal Year Period (Numbering)
+  --, [FiscalQuarterConsecutiveNumber] INT  -- Fiscal Year Quarter (Numbering)
+ -- , [FiscalWeekConsecutiveNumber] INT  -- Fiscal Year Week (Numbering)
   , [t_applicationId] VARCHAR (32)  -- Application ID
   , [t_jobId] VARCHAR (36)  -- Job ID
   , [t_jobDtm] DATETIME  -- Job Date Time

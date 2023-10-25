@@ -18,9 +18,9 @@ SELECT
   , [FiscalYearPeriod]
   , [FiscalYearQuarter]
   , [FiscalYearWeek]
-  , [FiscalYearConsecutiveNumber]
-  , [FiscalPeriodConsecutiveNumber]
-  , [FiscalQuarterConsecutiveNumber]
-  , [FiscalWeekConsecutiveNumber]
+  --, [FiscalYearConsecutiveNumber]
+  --, [FiscalPeriodConsecutiveNumber]
+  --, [FiscalQuarterConsecutiveNumber]
+  --, [FiscalWeekConsecutiveNumber]
 FROM
   [base_s4h_cax].[I_FiscalCalendarDate]
