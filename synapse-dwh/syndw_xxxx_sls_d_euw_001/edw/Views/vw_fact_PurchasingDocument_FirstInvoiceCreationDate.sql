@@ -20,7 +20,9 @@ SELECT
   pd.[PurchasingDocumentStatus],
   pd.[PurchaseContract],
   pd.[PurchasingDocumentCondition],
-  MIN(si.[CreationDate]) AS [FirstInvoiceCreationDate]
+  MIN(si.[CreationDate]) AS [FirstInvoiceCreationDate],
+  pd.[t_applicationId],
+  pd.[t_extractionDtm]
 FROM
   [edw].[vw_fact_PurchasingDocument] pd
 LEFT JOIN

@@ -18,10 +18,12 @@ SELECT
   PD.[CompanyCodeID],
   PD.[PurchasingProcessingStatusID],
   PDST.[PurchasingDocumentStatusName]    AS [PurchasingDocumentStatus],
+  PD.[PurchaseContract],
+  PD.[PurchasingDocumentCondition],
   PD.[t_applicationId],
   PD.[t_extractionDtm]
 FROM
-  [edw].[vw_fact_PurchasingDocument_FirstInvoiceCreationDate] PD
+  [edw].[fact_PurchasingDocument] PD
 LEFT JOIN
   [edw].[dim_PurchasingDocumentType] dim_PDT
   ON
