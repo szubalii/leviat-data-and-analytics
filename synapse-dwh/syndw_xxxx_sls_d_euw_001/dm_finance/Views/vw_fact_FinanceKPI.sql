@@ -78,7 +78,7 @@ LEFT JOIN
   ON
     vim.CompanyCodeID = ccp.CompanyCodeID
     AND
-    vim.FiscalYearPeriod = ccp.FiscalYearPeriod
+    vim.FiscalYear = ccp.FiscalYear
 
 LEFT JOIN
   [edw].[vw_fact_GRIRAccountReconciliation_agg] gr
