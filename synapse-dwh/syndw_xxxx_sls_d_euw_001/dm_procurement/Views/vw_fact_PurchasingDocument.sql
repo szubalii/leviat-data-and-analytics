@@ -1,4 +1,4 @@
-CREATE VIEW [dm_sales].[vw_fact_PurchasingDocument]
+CREATE VIEW [dm_procurement].[vw_fact_PurchasingDocument]
 AS
 SELECT
   [PurchasingDocument],
@@ -18,7 +18,8 @@ SELECT
   [CompanyCodeID],
   [PurchasingProcessingStatusID],
   [PurchasingDocumentStatus],
+  [FirstInvoiceCreationDate],
   [t_applicationId],
   [t_extractionDtm]
 FROM
-  [edw].[vw_fact_PurchasingDocument]
+  [edw].[vw_fact_PurchasingDocument_FirstInvoiceCreationDate]
