@@ -8,6 +8,8 @@ CREATE TABLE [base_s4h_cax].[ZE_EXQLMAP_DT](
     ,[CONTIGENCY3]          VARCHAR(64)
     ,[CONTIGENCY4]          VARCHAR(64)
     ,[CONTIGENCY5]          VARCHAR(64)
+    ,[CONTIGENCY6]          VARCHAR(64)
+    ,[CONTIGENCY7]          VARCHAR(64)
     ,[REKNR]                VARCHAR(64)
     ,[REKOMS]               VARCHAR(256)
     ,[DI1NR]                VARCHAR(64)
