@@ -939,7 +939,7 @@ GLACCOUNT;FUNCTIONALAREA;TRANSACTIONTYPE;TRADINGPARTNER;CONTIGENCY1;CONTIGENCY2;
 21360107;;;;;;;;;;;BS312100;Invoices to be received goods;;;;;S_MA;U;;BS
 21360110;;;;;;;;;;;BS312100;Invoices to be received goods;;;;;S_MA;U;;BS
 21360199;;;;;;;;;;;BS312100;Invoices to be received goods;;;;;S_MA;U;;BS
-21380200;;;;;;;;;;;BS331700;Audit fees - Group’s auditor;;;;;S_MA;U;;BS
+21380200;;;;;;;;;;;BS331700;Audit fees - Groupï¿½s auditor;;;;;S_MA;U;;BS
 21380300;;;;;;;;;;;BS331800;Audit fees - other auditors;;;;;S_MA;U;;BS
 21380400;;;;;;;;;;;BS334000D;Accruals and deferred income;;;;;S_MA;U;;BS
 21390100;;;;;;;;;;;BS338300;Taxes (VAT) payable;;;;;S_MA;U;;BS
@@ -1991,8 +1991,8 @@ GLACCOUNT;FUNCTIONALAREA;TRANSACTIONTYPE;TRADINGPARTNER;CONTIGENCY1;CONTIGENCY2;
 50705111;DT241;;;;;;;Opex;;;IS711450;Defined Benefit Pension schemes - total service costs, settlements and curtailments;DT241;;;;S_MA;U;;IS
 50705111;DT251;;;;;;;Opex;;;IS711450;Defined Benefit Pension schemes - total service costs, settlements and curtailments;DT251;;;;S_MA;U;;IS
 50705111;DT271;;;;;;;Opex;;;IS711450;Defined Benefit Pension schemes - total service costs, settlements and curtailments;DT271;;;;S_MA;U;;IS
-50705114;;;;;;;;;;;IS913250;Remeasurements of other long term benefits (jubilee – IAS19);DT999;;;;S_MA;U;;IS
-50705114;DT999;;;;;;;;;;IS913250;Remeasurements of other long term benefits (jubilee – IAS19);DT999;;;;S_MA;U;;IS
+50705114;;;;;;;;;;;IS913250;Remeasurements of other long term benefits (jubilee ï¿½ IAS19);DT999;;;;S_MA;U;;IS
+50705114;DT999;;;;;;;;;;IS913250;Remeasurements of other long term benefits (jubilee ï¿½ IAS19);DT999;;;;S_MA;U;;IS
 50705115;DT131;;;;;;;Opex;;;IS711470;Defined Benefit Pension schemes - administrative expenses and / or taxes (not reserved within DBO);DT131;;;;S_MA;U;;IS
 50705115;DT132;;;;;Other employee costs - variable;Gross Margin;Opex;Variable logistics costs;Variable logistics costs;IS711470;Defined Benefit Pension schemes - administrative expenses and / or taxes (not reserved within DBO);DT132;;;;S_MA;U;;IS
 50705115;DT141;;;;;;;Opex;;;IS711470;Defined Benefit Pension schemes - administrative expenses and / or taxes (not reserved within DBO);DT141;;;;S_MA;U;;IS
@@ -3012,25 +3012,25 @@ GLACCOUNT;FUNCTIONALAREA;TRANSACTIONTYPE;TRADINGPARTNER;CONTIGENCY1;CONTIGENCY2;
 59000204;DT131;;;;;;;Opex;;;IS742000;Rent and operational lease costs of buildings;DT131;;;;S_MA;U;;IS
 59000204;DT132;;;;;Rent and lease costs variable - variable;Gross Margin;Opex;Variable logistics costs;Variable logistics costs;IS742000;Rent and operational lease costs of buildings;DT132;;;;S_MA;U;;IS
 59000204;DT191;;;;;;;Opex;;;IS742000;Rent and operational lease costs of buildings;DT191;;;;S_MA;U;;IS
-59000210;DT121;;;;;;;Other CoS;;;IS646000;Rent and operational lease costs of transport (excluding company cars) – inbound logistics fixed;FA1300;;;;S_MA;U;;IS
+59000210;DT121;;;;;;;Other CoS;;;IS646000;Rent and operational lease costs of transport (excluding company cars) ï¿½ inbound logistics fixed;FA1300;;;;S_MA;U;;IS
 59000210;DT131;;;;;;;Opex;;;IS746000;Rent and operational lease costs of transport (excluding company cars);DT131;;;;S_MA;U;;IS
 59000210;DT132;;;;;Rent and lease costs variable - variable;Gross Margin;Opex;Variable logistics costs;Variable logistics costs;IS746000;Rent and operational lease costs of transport (excluding company cars);DT132;;;;S_MA;U;;IS
 59000210;DT141;;;;;;;Opex;;;IS746000;Rent and operational lease costs of transport (excluding company cars);DT141;;;;S_MA;U;;IS
 59000210;DT142;;;;;Rent and lease costs variable - variable;Gross Margin;Opex;Freight outbound;Freight outbound;IS746000;Rent and operational lease costs of transport (excluding company cars);DT142;;;;S_MA;U;;IS
 59000210;DT191;;;;;;;Opex;;;IS746000;Rent and operational lease costs of transport (excluding company cars);DT191;;;;S_MA;U;;IS
-59000215;DT121;;;;;;;Other CoS;;;IS646000;Rent and operational lease costs of transport (excluding company cars) – inbound logistics fixed;FA1300;;;;S_MA;U;;IS
+59000215;DT121;;;;;;;Other CoS;;;IS646000;Rent and operational lease costs of transport (excluding company cars) ï¿½ inbound logistics fixed;FA1300;;;;S_MA;U;;IS
 59000215;DT131;;;;;;;Opex;;;IS746000;Rent and operational lease costs of transport (excluding company cars);DT131;;;;S_MA;U;;IS
 59000215;DT132;;;;;Rent and lease costs variable - variable;Gross Margin;Opex;Variable logistics costs;Variable logistics costs;IS746000;Rent and operational lease costs of transport (excluding company cars);DT132;;;;S_MA;U;;IS
 59000215;DT141;;;;;;;Opex;;;IS746000;Rent and operational lease costs of transport (excluding company cars);DT141;;;;S_MA;U;;IS
 59000215;DT142;;;;;Rent and lease costs variable - variable;Gross Margin;Opex;Freight outbound;Freight outbound;IS746000;Rent and operational lease costs of transport (excluding company cars);DT142;;;;S_MA;U;;IS
 59000215;DT191;;;;;;;Opex;;;IS746000;Rent and operational lease costs of transport (excluding company cars);DT191;;;;S_MA;U;;IS
-59000211;DT121;;;;;;;Other CoS;;;IS646000;Rent and operational lease costs of transport (excluding company cars) – inbound logistics fixed;FA1300;;;;S_MA;U;;IS
+59000211;DT121;;;;;;;Other CoS;;;IS646000;Rent and operational lease costs of transport (excluding company cars) ï¿½ inbound logistics fixed;FA1300;;;;S_MA;U;;IS
 59000211;DT131;;;;;;;Opex;;;IS746000;Rent and operational lease costs of transport (excluding company cars);DT131;;;;S_MA;U;;IS
 59000211;DT132;;;;;Rent and lease costs variable - variable;Gross Margin;Opex;Variable logistics costs;Variable logistics costs;IS746000;Rent and operational lease costs of transport (excluding company cars);DT132;;;;S_MA;U;;IS
 59000211;DT141;;;;;;;Opex;;;IS746000;Rent and operational lease costs of transport (excluding company cars);DT141;;;;S_MA;U;;IS
 59000211;DT142;;;;;Rent and lease costs variable - variable;Gross Margin;Opex;Freight outbound;Freight outbound;IS746000;Rent and operational lease costs of transport (excluding company cars);DT142;;;;S_MA;U;;IS
 59000211;DT191;;;;;;;Opex;;;IS746000;Rent and operational lease costs of transport (excluding company cars);DT191;;;;S_MA;U;;IS
-59000212;DT121;;;;;;;Other CoS;;;IS646000;Rent and operational lease costs of transport (excluding company cars) – inbound logistics fixed;FA1300;;;;S_MA;U;;IS
+59000212;DT121;;;;;;;Other CoS;;;IS646000;Rent and operational lease costs of transport (excluding company cars) ï¿½ inbound logistics fixed;FA1300;;;;S_MA;U;;IS
 59000212;DT131;;;;;;;Opex;;;IS746000;Rent and operational lease costs of transport (excluding company cars);DT131;;;;S_MA;U;;IS
 59000212;DT132;;;;;Rent and lease costs variable - variable;Gross Margin;Opex;Variable logistics costs;Variable logistics costs;IS746000;Rent and operational lease costs of transport (excluding company cars);DT132;;;;S_MA;U;;IS
 59000212;DT141;;;;;;;Opex;;;IS746000;Rent and operational lease costs of transport (excluding company cars);DT141;;;;S_MA;U;;IS
@@ -4383,42 +4383,42 @@ GLACCOUNT;FUNCTIONALAREA;TRANSACTIONTYPE;TRADINGPARTNER;CONTIGENCY1;CONTIGENCY2;
 59200200;DT181;;;;;;;Opex;;;IS802200;Software applications costs;DT181;;;;S_MA;U;;IS
 59200300;DT181;;;;;;;Opex;;;IS802300;Cabling and datalines costs;DT181;;;;S_MA;U;;IS
 59200400;DT181;;;;;;;Opex;;;IS802900;Other computer and network costs;DT181;;;;S_MA;U;;IS
-59300400;DT131;;;;;;;Opex;;;IS782950;Other consultancy fees non Group’s auditor;DT131;;;;S_MA;U;;IS
-59300400;DT132;;;;;;;Opex;;;IS782950;Other consultancy fees non Group’s auditor;DT132;;;;S_MA;U;;IS
-59300400;DT141;;;;;;;Opex;;;IS782950;Other consultancy fees non Group’s auditor;DT141;;;;S_MA;U;;IS
-59300400;DT142;;;;;;;Opex;;;IS782950;Other consultancy fees non Group’s auditor;DT142;;;;S_MA;U;;IS
-59300400;DT151;;;;;;;Opex;;;IS782950;Other consultancy fees non Group’s auditor;DT151;;;;S_MA;U;;IS
-59300400;DT152;;;;;;;Opex;;;IS782950;Other consultancy fees non Group’s auditor;DT152;;;;S_MA;U;;IS
-59300400;DT161;;;;;;;Opex;;;IS782950;Other consultancy fees non Group’s auditor;DT161;;;;S_MA;U;;IS
-59300400;DT171;;;;;;;Opex;;;IS782950;Other consultancy fees non Group’s auditor;DT171;;;;S_MA;U;;IS
-59300400;DT181;;;;;;;Opex;;;IS782950;Other consultancy fees non Group’s auditor;DT181;;;;S_MA;U;;IS
-59300400;DT191;;;;;;;Opex;;;IS782950;Other consultancy fees non Group’s auditor;DT191;;;;S_MA;U;;IS
-59300400;DT201;;;;;;;Opex;;;IS782950;Other consultancy fees non Group’s auditor;DT201;;;;S_MA;U;;IS
-59300400;DT213;;;;;;;Opex;;;IS782950;Other consultancy fees non Group’s auditor;DT213;;;;S_MA;U;;IS
-59300400;DT222;;;;;;;Opex;;;IS782950;Other consultancy fees non Group’s auditor;DT222;;;;S_MA;U;;IS
-59300400;DT231;;;;;;;Opex;;;IS782950;Other consultancy fees non Group’s auditor;DT231;;;;S_MA;U;;IS
-59300400;DT241;;;;;;;Opex;;;IS782950;Other consultancy fees non Group’s auditor;DT241;;;;S_MA;U;;IS
-59300400;DT251;;;;;;;Opex;;;IS782950;Other consultancy fees non Group’s auditor;DT251;;;;S_MA;U;;IS
-59300400;DT271;;;;;;;Opex;;;IS782950;Other consultancy fees non Group’s auditor;DT271;;;;S_MA;U;;IS
-59300500;DT161;;;;;;;Opex;;;IS782150;Legal fees non Group’s auditor;DT161;;;;S_MA;U;;IS
-59300600;DT131;;;;;;;Opex;;;IS782950;Other consultancy fees non Group’s auditor;DT131;;;;S_MA;U;;IS
-59300600;DT132;;;;;;;Opex;;;IS782950;Other consultancy fees non Group’s auditor;DT132;;;;S_MA;U;;IS
-59300600;DT141;;;;;;;Opex;;;IS782950;Other consultancy fees non Group’s auditor;DT141;;;;S_MA;U;;IS
-59300600;DT142;;;;;;;Opex;;;IS782950;Other consultancy fees non Group’s auditor;DT142;;;;S_MA;U;;IS
-59300600;DT151;;;;;;;Opex;;;IS782950;Other consultancy fees non Group’s auditor;DT151;;;;S_MA;U;;IS
-59300600;DT152;;;;;;;Opex;;;IS782950;Other consultancy fees non Group’s auditor;DT152;;;;S_MA;U;;IS
-59300600;DT161;;;;;;;Opex;;;IS782950;Other consultancy fees non Group’s auditor;DT161;;;;S_MA;U;;IS
-59300600;DT171;;;;;;;Opex;;;IS782950;Other consultancy fees non Group’s auditor;DT171;;;;S_MA;U;;IS
-59300600;DT181;;;;;;;Opex;;;IS782950;Other consultancy fees non Group’s auditor;DT181;;;;S_MA;U;;IS
-59300600;DT191;;;;;;;Opex;;;IS782950;Other consultancy fees non Group’s auditor;DT191;;;;S_MA;U;;IS
-59300600;DT201;;;;;;;Opex;;;IS782950;Other consultancy fees non Group’s auditor;DT201;;;;S_MA;U;;IS
-59300600;DT213;;;;;;;Opex;;;IS782950;Other consultancy fees non Group’s auditor;DT213;;;;S_MA;U;;IS
-59300600;DT222;;;;;;;Opex;;;IS782950;Other consultancy fees non Group’s auditor;DT222;;;;S_MA;U;;IS
-59300600;DT231;;;;;;;Opex;;;IS782950;Other consultancy fees non Group’s auditor;DT231;;;;S_MA;U;;IS
-59300600;DT241;;;;;;;Opex;;;IS782950;Other consultancy fees non Group’s auditor;DT241;;;;S_MA;U;;IS
-59300600;DT251;;;;;;;Opex;;;IS782950;Other consultancy fees non Group’s auditor;DT251;;;;S_MA;U;;IS
-59300600;DT271;;;;;;;Opex;;;IS782950;Other consultancy fees non Group’s auditor;DT271;;;;S_MA;U;;IS
-59300601;DT161;;;;;;;Opex;;;IS782150;Legal fees non Group’s auditor;DT161;;;;S_MA;U;;IS
+59300400;DT131;;;;;;;Opex;;;IS782950;Other consultancy fees non Groupï¿½s auditor;DT131;;;;S_MA;U;;IS
+59300400;DT132;;;;;;;Opex;;;IS782950;Other consultancy fees non Groupï¿½s auditor;DT132;;;;S_MA;U;;IS
+59300400;DT141;;;;;;;Opex;;;IS782950;Other consultancy fees non Groupï¿½s auditor;DT141;;;;S_MA;U;;IS
+59300400;DT142;;;;;;;Opex;;;IS782950;Other consultancy fees non Groupï¿½s auditor;DT142;;;;S_MA;U;;IS
+59300400;DT151;;;;;;;Opex;;;IS782950;Other consultancy fees non Groupï¿½s auditor;DT151;;;;S_MA;U;;IS
+59300400;DT152;;;;;;;Opex;;;IS782950;Other consultancy fees non Groupï¿½s auditor;DT152;;;;S_MA;U;;IS
+59300400;DT161;;;;;;;Opex;;;IS782950;Other consultancy fees non Groupï¿½s auditor;DT161;;;;S_MA;U;;IS
+59300400;DT171;;;;;;;Opex;;;IS782950;Other consultancy fees non Groupï¿½s auditor;DT171;;;;S_MA;U;;IS
+59300400;DT181;;;;;;;Opex;;;IS782950;Other consultancy fees non Groupï¿½s auditor;DT181;;;;S_MA;U;;IS
+59300400;DT191;;;;;;;Opex;;;IS782950;Other consultancy fees non Groupï¿½s auditor;DT191;;;;S_MA;U;;IS
+59300400;DT201;;;;;;;Opex;;;IS782950;Other consultancy fees non Groupï¿½s auditor;DT201;;;;S_MA;U;;IS
+59300400;DT213;;;;;;;Opex;;;IS782950;Other consultancy fees non Groupï¿½s auditor;DT213;;;;S_MA;U;;IS
+59300400;DT222;;;;;;;Opex;;;IS782950;Other consultancy fees non Groupï¿½s auditor;DT222;;;;S_MA;U;;IS
+59300400;DT231;;;;;;;Opex;;;IS782950;Other consultancy fees non Groupï¿½s auditor;DT231;;;;S_MA;U;;IS
+59300400;DT241;;;;;;;Opex;;;IS782950;Other consultancy fees non Groupï¿½s auditor;DT241;;;;S_MA;U;;IS
+59300400;DT251;;;;;;;Opex;;;IS782950;Other consultancy fees non Groupï¿½s auditor;DT251;;;;S_MA;U;;IS
+59300400;DT271;;;;;;;Opex;;;IS782950;Other consultancy fees non Groupï¿½s auditor;DT271;;;;S_MA;U;;IS
+59300500;DT161;;;;;;;Opex;;;IS782150;Legal fees non Groupï¿½s auditor;DT161;;;;S_MA;U;;IS
+59300600;DT131;;;;;;;Opex;;;IS782950;Other consultancy fees non Groupï¿½s auditor;DT131;;;;S_MA;U;;IS
+59300600;DT132;;;;;;;Opex;;;IS782950;Other consultancy fees non Groupï¿½s auditor;DT132;;;;S_MA;U;;IS
+59300600;DT141;;;;;;;Opex;;;IS782950;Other consultancy fees non Groupï¿½s auditor;DT141;;;;S_MA;U;;IS
+59300600;DT142;;;;;;;Opex;;;IS782950;Other consultancy fees non Groupï¿½s auditor;DT142;;;;S_MA;U;;IS
+59300600;DT151;;;;;;;Opex;;;IS782950;Other consultancy fees non Groupï¿½s auditor;DT151;;;;S_MA;U;;IS
+59300600;DT152;;;;;;;Opex;;;IS782950;Other consultancy fees non Groupï¿½s auditor;DT152;;;;S_MA;U;;IS
+59300600;DT161;;;;;;;Opex;;;IS782950;Other consultancy fees non Groupï¿½s auditor;DT161;;;;S_MA;U;;IS
+59300600;DT171;;;;;;;Opex;;;IS782950;Other consultancy fees non Groupï¿½s auditor;DT171;;;;S_MA;U;;IS
+59300600;DT181;;;;;;;Opex;;;IS782950;Other consultancy fees non Groupï¿½s auditor;DT181;;;;S_MA;U;;IS
+59300600;DT191;;;;;;;Opex;;;IS782950;Other consultancy fees non Groupï¿½s auditor;DT191;;;;S_MA;U;;IS
+59300600;DT201;;;;;;;Opex;;;IS782950;Other consultancy fees non Groupï¿½s auditor;DT201;;;;S_MA;U;;IS
+59300600;DT213;;;;;;;Opex;;;IS782950;Other consultancy fees non Groupï¿½s auditor;DT213;;;;S_MA;U;;IS
+59300600;DT222;;;;;;;Opex;;;IS782950;Other consultancy fees non Groupï¿½s auditor;DT222;;;;S_MA;U;;IS
+59300600;DT231;;;;;;;Opex;;;IS782950;Other consultancy fees non Groupï¿½s auditor;DT231;;;;S_MA;U;;IS
+59300600;DT241;;;;;;;Opex;;;IS782950;Other consultancy fees non Groupï¿½s auditor;DT241;;;;S_MA;U;;IS
+59300600;DT251;;;;;;;Opex;;;IS782950;Other consultancy fees non Groupï¿½s auditor;DT251;;;;S_MA;U;;IS
+59300600;DT271;;;;;;;Opex;;;IS782950;Other consultancy fees non Groupï¿½s auditor;DT271;;;;S_MA;U;;IS
+59300601;DT161;;;;;;;Opex;;;IS782150;Legal fees non Groupï¿½s auditor;DT161;;;;S_MA;U;;IS
 59300602;DT271;;;;;;;Opex;;;IS812000D;Research and development costs;DT271;;;;S_MA;U;;IS
 59300603;DT271;;;;;;;Opex;;;IS812000D;Research and development costs;DT271;;;;S_MA;U;;IS
 59300604;DT271;;;;;;;Opex;;;IS812000D;Research and development costs;DT271;;;;S_MA;U;;IS
@@ -4429,12 +4429,12 @@ GLACCOUNT;FUNCTIONALAREA;TRANSACTIONTYPE;TRADINGPARTNER;CONTIGENCY1;CONTIGENCY2;
 59300609;DT271;;;;;;;Opex;;;IS812000D;Research and development costs;DT271;;;;S_MA;U;;IS
 59300610;DT271;;;;;;;Opex;;;IS812000D;Research and development costs;DT271;;;;S_MA;U;;IS
 59300611;DT271;;;;;;;Opex;;;IS812000D;Research and development costs;DT271;;;;S_MA;U;;IS
-59300620;DT181;;;;;;;Opex;;;IS782550;IT consulting costs non Group’s auditor;DT181;;;;S_MA;U;;IS
-59300630;DT161;;;;;;;Opex;;;IS782250;Pension consultancy fees non Group’s auditor;DT161;;;;S_MA;U;;IS
-59310100;DT161;;;;;;;Opex;;;IS781100;Audit fees annual report Group’s auditor;DT161;;;;S_MA;U;;IS
+59300620;DT181;;;;;;;Opex;;;IS782550;IT consulting costs non Groupï¿½s auditor;DT181;;;;S_MA;U;;IS
+59300630;DT161;;;;;;;Opex;;;IS782250;Pension consultancy fees non Groupï¿½s auditor;DT161;;;;S_MA;U;;IS
+59310100;DT161;;;;;;;Opex;;;IS781100;Audit fees annual report Groupï¿½s auditor;DT161;;;;S_MA;U;;IS
 59310300;DT161;;;;;;;Opex;;;IS781200;Audit fees annual report other auditors;DT161;;;;S_MA;U;;IS
-59320100;DT161;;;;;;;Opex;;;IS782300;Tax consultancy fees Group’s auditor;DT161;;;;S_MA;U;;IS
-59320200;DT161;;;;;;;Opex;;;IS782350;Tax consultancy fees non Group’s auditor;DT161;;;;S_MA;U;;IS
+59320100;DT161;;;;;;;Opex;;;IS782300;Tax consultancy fees Groupï¿½s auditor;DT161;;;;S_MA;U;;IS
+59320200;DT161;;;;;;;Opex;;;IS782350;Tax consultancy fees non Groupï¿½s auditor;DT161;;;;S_MA;U;;IS
 59400100;DT151;;;;;;;Opex;;;IS761000;Marketing & promotion costs;DT151;;;;S_MA;U;;IS
 59400100;DT152;;;;;Sales, marketing and debtor costs - variable;Gross Margin;Opex;Variable sales and marketing costs;Variable sales and marketing costs;IS761000;Marketing & promotion costs;DT152;;;;S_MA;U;;IS
 59400200;DT151;;;;;;;Opex;;;IS761000;Marketing & promotion costs;DT151;;;;S_MA;U;;IS
@@ -4933,9 +4933,9 @@ GLACCOUNT;FUNCTIONALAREA;TRANSACTIONTYPE;TRADINGPARTNER;CONTIGENCY1;CONTIGENCY2;
 71120354;DT999;;;;;;;;;;IS912210;Interest cost - lease liability (discount unwind);DT999;;;;S_MA;U;;IS
 71120355;DT999;;;;;;;;;;IS912210;Interest cost - lease liability (discount unwind);DT999;;;;S_MA;U;;IS
 71120356;DT999;;;;;;;;;;IS912210;Interest cost - lease liability (discount unwind);DT999;;;;S_MA;U;;IS
-71121600;;;;;;;;;;;IS912120;Interest cost – bank overdraft;DT999;;;;S_MA;U;;IS
+71121600;;;;;;;;;;;IS912120;Interest cost ï¿½ bank overdraft;DT999;;;;S_MA;U;;IS
 71121700;;;;;;;;;;;IS919900;Other interest costs;DT999;;;;S_MA;U;;IS
-71121600;DT999;;;;;;;;;;IS912120;Interest cost – bank overdraft;DT999;;;;S_MA;U;;IS
+71121600;DT999;;;;;;;;;;IS912120;Interest cost ï¿½ bank overdraft;DT999;;;;S_MA;U;;IS
 71121700;DT999;;;;;;;;;;IS919900;Other interest costs;DT999;;;;S_MA;U;;IS
 71130100;;;;;;;;;;;IS913100;Expected return on scheme assets;DT999;;;;S_MA;U;;IS
 71130200;;;;;;;;;;;IS913200;Interest cost on scheme liabilities;DT999;;;;S_MA;U;;IS
