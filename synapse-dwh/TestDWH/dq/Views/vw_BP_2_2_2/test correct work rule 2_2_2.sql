@@ -14,7 +14,7 @@ BEGIN
     VALUES('1','Z008','IT'),('2','Z008','IT'),('3','Z099','IT'),
     ('4','Z001','FR'),('5','Z001','IT'),('6','Z099','IT');
 
-    INSERT INTO [base_s4h_cax].[I_SupplierCompany]([Supplier],[CompanyCode],[CashPlanningGroup])
+    INSERT INTO [base_s4h_cax].[I_SupplierCompany]([Supplier],[CashPlanningGroup],[CompanyCode])
     VALUES ('1','A1','FR35'),('2','A2','IT35'),('3','A1','FR35'),
     ('4','A2','FR35'),('5','A2','FR35'),('6','A2','IT35');
 
