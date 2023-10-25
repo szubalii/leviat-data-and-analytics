@@ -17,7 +17,7 @@ BEGIN
      -- Act:
     SELECT *
     INTO actual
-    FROM dq.vw_2_1_6
+    FROM [dq].[vw_BP_2_1_6]
 
     SELECT TOP(0) *
     INTO expected

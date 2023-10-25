@@ -12,7 +12,7 @@ BEGIN
     
     INSERT INTO [base_s4h_cax].[I_Supplier]([Supplier],[SupplierAccountGroup],[Country])
     VALUES('1','Z008','IT'),('2','Z008','IT'),('3','Z099','IT'),
-    ('4','Z001','FR'),('5','Z001','IT'),('6','Z099','IT');,('','','')
+    ('4','Z001','FR'),('5','Z001','IT'),('6','Z099','IT');
 
     INSERT INTO [base_s4h_cax].[I_SupplierCompany]([Supplier],[CompanyCode],[CashPlanningGroup])
     VALUES ('1','A1','FR35'),('2','A2','IT35'),('3','A1','FR35'),
@@ -24,7 +24,7 @@ BEGIN
     -- Act:
     SELECT *
     INTO actual
-    FROM dq.vw_2_2_2
+    FROM [dq].[vw_BP_2_2_2]
 
     SELECT TOP(0) *
     INTO expected
