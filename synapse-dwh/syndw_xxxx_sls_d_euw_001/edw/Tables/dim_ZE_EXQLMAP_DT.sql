@@ -6,6 +6,8 @@ CREATE TABLE [edw].[dim_ZE_EXQLMAP_DT](
     ,[ExQLAccount]               VARCHAR(256)
     ,[CONTIGENCY4]               VARCHAR(64)
     ,[CONTIGENCY5]               VARCHAR(64)
+    ,[CONTIGENCY6]               VARCHAR(64)
+    ,[CONTIGENCY7]               VARCHAR(64)
     ,[t_applicationId]           VARCHAR(32)
     ,[t_jobId]                   VARCHAR(36)
     ,[t_jobDtm]                  DATETIME
