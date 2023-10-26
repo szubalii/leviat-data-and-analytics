@@ -8,11 +8,11 @@ WITH Periods AS (
   FROM
     [edw].[dim_FiscalCalendar]
   WHERE
-    FiscalYear 
+    CAST(FiscalYear AS INT)
       BETWEEN
         2021 
-        AND YEAR(DATEADD(MONTH,-1,SYSDATETIME()))              COLLATE DATABASE_DEFAULT
-    AND FiscalPeriod <= MONTH(DATEADD(MONTH,-1,SYSDATETIME())) COLLATE DATABASE_DEFAULT
+        AND YEAR(DATEADD(MONTH,-1,SYSDATETIME()))
+    AND CAST(FiscalPeriod AS INT) <= MONTH(DATEADD(MONTH,-1,SYSDATETIME()))
 
 )
 ,
