@@ -55,16 +55,16 @@ FROM
 LEFT JOIN
   [edw].[vw_fact_ACDOCA_FinanceKPI_agg] fin_agg
   ON
-    fin_agg.CompanyCodeID = ccp.CompanyCodeID
+    fin_agg.CompanyCodeID = ccp.CompanyCodeID         COLLATE DATABASE_DEFAULT
     AND
-    fin_agg.FiscalYearPeriod = ccp.FiscalYearPeriod
+    fin_agg.FiscalYearPeriod = ccp.FiscalYearPeriod   COLLATE DATABASE_DEFAULT
 
 LEFT JOIN
   [edw].[vw_fact_ACDOCA_EPM_Sales_agg] sales_agg
   ON
-    sales_agg.CompanyCodeID = ccp.CompanyCodeID
+    sales_agg.CompanyCodeID = ccp.CompanyCodeID       COLLATE DATABASE_DEFAULT
     AND
-    sales_agg.FiscalYearPeriod = ccp.FiscalYearPeriod
+    sales_agg.FiscalYearPeriod = ccp.FiscalYearPeriod COLLATE DATABASE_DEFAULT
 
 -- LEFT JOIN
 --   [edw].[vw_fact_OpenInvoiced] oi
@@ -76,20 +76,20 @@ LEFT JOIN
 LEFT JOIN
   [edw].[vw_fact_VendorInvoice_ApprovedAndPosted_agg] vim
   ON
-    vim.CompanyCodeID = ccp.CompanyCodeID
+    vim.CompanyCodeID = ccp.CompanyCodeID             COLLATE DATABASE_DEFAULT
     AND
-    vim.FiscalYear = ccp.FiscalYear
+    vim.FiscalYear = ccp.FiscalYear                   COLLATE DATABASE_DEFAULT
 
 LEFT JOIN
   [edw].[vw_fact_GRIRAccountReconciliation_agg] gr
   ON
-    gr.CompanyCodeID = ccp.CompanyCodeID
+    gr.CompanyCodeID = ccp.CompanyCodeID              COLLATE DATABASE_DEFAULT
     AND
-    gr.FiscalYearPeriod = ccp.FiscalYearPeriod
+    gr.FiscalYearPeriod = ccp.FiscalYearPeriod        COLLATE DATABASE_DEFAULT
 
 LEFT JOIN
   [edw].[vw_fact_ScheduleLineShippedNotBilled_agg] sls
   ON
-    sls.CompanyCodeID = ccp.CompanyCodeID
+    sls.CompanyCodeID = ccp.CompanyCodeID             COLLATE DATABASE_DEFAULT
     AND
-    sls.FiscalYearPeriod = ccp.FiscalYearPeriod
+    sls.FiscalYearPeriod = ccp.FiscalYearPeriod       COLLATE DATABASE_DEFAULT
