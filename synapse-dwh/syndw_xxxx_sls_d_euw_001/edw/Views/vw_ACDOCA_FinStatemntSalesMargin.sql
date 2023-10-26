@@ -77,42 +77,42 @@ AS (
         END                         AS PL_COGS
         ,AC.FiscalYear              AS FY
         ,AC.FiscalYearPeriod        AS FPeriod
-        ,CASE ZED.CONTIGENCY5
+        ,CASE ZED.Contingency5
             WHEN 'Sales'
             THEN -1 * AC.[AmountInCompanyCodeCurrency]
             ELSE null
         END AS [SalesAmount],
-        CASE ZED.CONTIGENCY5
+        CASE ZED.Contingency5
             WHEN 'COGS'
             THEN -1 * AC.[AmountInCompanyCodeCurrency]
             ELSE null
         END AS [COGSActCostAmount],
         CASE 
-            WHEN ZED.CONTIGENCY5 = 'COGS' AND AC.[AccountingDocumentTypeID] <> 'ML'
+            WHEN ZED.Contingency5 = 'COGS' AND AC.[AccountingDocumentTypeID] <> 'ML'
             THEN -1 * AC.[AmountInCompanyCodeCurrency]
             ELSE null
         END AS [COGSStdCostAmount],
-        CASE ZED.CONTIGENCY5
+        CASE ZED.Contingency5
             WHEN 'Other CoS'
             THEN -1 * AC.[AmountInCompanyCodeCurrency]
             ELSE null
         END AS [OtherCoSAmount],
-        CASE ZED.CONTIGENCY5
+        CASE ZED.Contingency5
             WHEN 'Opex'
             THEN -1 * AC.[AmountInCompanyCodeCurrency]
             ELSE null
         END AS [OpexAmount],
-        CASE ZED.CONTIGENCY4
+        CASE ZED.Contingency4
             WHEN 'Gross Margin'
             THEN -1 * AC.[AmountInCompanyCodeCurrency]
             ELSE null
         END AS [GrossMarginAmount],
         CASE
-            WHEN ZED.CONTIGENCY5 = 'COGS'
+            WHEN ZED.Contingency5 = 'COGS'
             THEN 'COGSAct'
-            WHEN ZED.CONTIGENCY5 = 'COGS' AND AC.[AccountingDocumentTypeID] <> 'ML'    --it's unreachable code at the moment, reserved for future needs
+            WHEN ZED.Contingency5 = 'COGS' AND AC.[AccountingDocumentTypeID] <> 'ML'    --it's unreachable code at the moment, reserved for future needs
             THEN 'COGSStd'
-            ELSE ZED.CONTIGENCY5
+            ELSE ZED.Contingency5
         END AS [AmountCategory]
         ,AC.t_applicationId
         ,AC.t_extractionDtm

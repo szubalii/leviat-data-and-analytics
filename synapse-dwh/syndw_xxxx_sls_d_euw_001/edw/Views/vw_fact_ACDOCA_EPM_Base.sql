@@ -58,42 +58,43 @@ SELECT
   -- GLALIRD.[TransactionCurrency],
   -- GLALIRD.[AmountInTransactionCurrency],
   -- GLALIRD.[CompanyCodeCurrency],
-  CASE ZED.CONTIGENCY5
+  CASE ZED.Contingency5
     WHEN 'Sales'
     THEN -1 * GLALIRD.[AmountInCompanyCodeCurrency] * ExchangeRate.ExchangeRate
     ELSE null
   END AS [SalesAmount],
-  CASE ZED.CONTIGENCY5
+  CASE ZED.Contingency5
     WHEN 'COGS'
     THEN -1 * GLALIRD.[AmountInCompanyCodeCurrency] * ExchangeRate.ExchangeRate
     ELSE null
   END AS [COGSActCostAmount],
   CASE
-    WHEN ZED.CONTIGENCY5 = 'COGS' AND GLALIRD.[AccountingDocumentTypeID] <> 'ML'
+    WHEN ZED.Contingency5 = 'COGS' AND GLALIRD.[AccountingDocumentTypeID] <> 'ML'
     THEN -1 * GLALIRD.[AmountInCompanyCodeCurrency] * ExchangeRate.ExchangeRate
     ELSE null
   END AS [COGSStdCostAmount],
-  CASE ZED.CONTIGENCY5
+  CASE ZED.Contingency5
     WHEN 'Other CoS'
     THEN -1 * GLALIRD.[AmountInCompanyCodeCurrency] * ExchangeRate.ExchangeRate
     ELSE null
   END AS [OtherCoSAmount],
-  CASE ZED.CONTIGENCY5
+  CASE ZED.Contingency5
     WHEN 'Opex'
     THEN -1 * GLALIRD.[AmountInCompanyCodeCurrency] * ExchangeRate.ExchangeRate
     ELSE null
   END AS [OpexAmount],
-  CASE ZED.CONTIGENCY4
+  CASE ZED.Contingency4
     WHEN 'Gross Margin'
     THEN -1 * GLALIRD.[AmountInCompanyCodeCurrency] * ExchangeRate.ExchangeRate
     ELSE null
   END AS [GrossMarginAmount],
   CASE
-    WHEN ZED.CONTIGENCY5 = 'COGS'
+    WHEN ZED.Contingency5 = 'COGS'
     THEN 'COGSAct'
-    WHEN ZED.CONTIGENCY5 = 'COGS' AND GLALIRD.[AccountingDocumentTypeID] <> 'ML'    --it's unreachable code at the moment, reserved for future needs
+    WHEN ZED.Contingency5 = 'COGS' AND GLALIRD.[AccountingDocumentTypeID] <> 'ML'    --it's unreachable code at the moment, reserved for future needs
     THEN 'COGSStd'
-    ELSE ZED.CONTIGENCY5
+    ELSE ZED.Contingency5
+    
   END AS [AmountCategory],
   -1 * GLALIRD.[AmountInCompanyCodeCurrency] * ExchangeRate.ExchangeRate AS [Amount],
   -- GLALIRD.[GlobalCurrency],
