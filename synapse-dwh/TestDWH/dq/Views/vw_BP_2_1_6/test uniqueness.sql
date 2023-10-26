@@ -18,14 +18,12 @@ BEGIN
   -- Act: 
   SELECT
     [Customer],
-    [CompanyCode],
-    [PaymentMethodsList]
+    [CompanyCode]
   INTO actual
   FROM [dq].[vw_BP_2_1_6]
   GROUP BY
     [Customer],
-    [CompanyCode],
-    [PaymentMethodsList]
+    [CompanyCode]
   HAVING COUNT(*) > 1
 
   -- Assert:

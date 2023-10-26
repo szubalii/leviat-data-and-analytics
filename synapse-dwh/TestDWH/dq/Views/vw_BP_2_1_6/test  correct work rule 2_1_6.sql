@@ -9,10 +9,10 @@ BEGIN
     EXEC tSQLt.FakeTable '[base_s4h_cax]', '[I_BusinessPartnerBank]';
 
     INSERT INTO [base_s4h_cax].[I_CustomerCompany] ([Customer],[PaymentMethodsList])
-    VALUES ('1','F'), ('2','F'), ('3','E'), ('4','E');
+    VALUES ('1','F'), ('2','F'), ('3','E'), ('4','E'), ('5', 'E');
 
     INSERT INTO [base_s4h_cax].[I_BusinessPartnerBank] ([BUSINESSPARTNER],[CollectionAuthInd])
-    VALUES ('1',NULL),  ('2',''), ('3',NULL),('4','');
+    VALUES ('1',NULL),  ('2',''), ('3',NULL),('4',''), ('5', 'X');
 
      -- Act:
     SELECT [Customer],[PaymentMethodsList]
