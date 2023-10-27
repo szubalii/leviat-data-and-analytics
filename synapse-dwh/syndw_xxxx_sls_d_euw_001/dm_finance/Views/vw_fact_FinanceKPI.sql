@@ -12,8 +12,11 @@ WITH Periods AS (
       BETWEEN
         2021 
         AND YEAR(DATEADD(MONTH,-1,SYSDATETIME()))
-    AND CAST(FiscalPeriod AS INT) <= MONTH(DATEADD(MONTH,-1,SYSDATETIME()))
-
+    AND (
+      CAST(FiscalPeriod AS INT) <= MONTH(DATEADD(MONTH,-1,SYSDATETIME()))
+        OR
+      CAST(FiscalYear AS INT) <  YEAR(SYSDATETIME())
+    )
 )
 ,
 CompanyCodePeriod AS (
