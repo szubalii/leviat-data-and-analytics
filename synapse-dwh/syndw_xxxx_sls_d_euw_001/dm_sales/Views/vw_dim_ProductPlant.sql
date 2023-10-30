@@ -70,8 +70,8 @@ SELECT
     ,   [MRPControllerName] AS [MRPController]
     ,   NSDM.[MINBE] AS [Re-Order Point]
     ,   NSDM.[BSTRF] AS [Rounding Value]
-    ,   NSDM.[STRGR] AS [PlanningStrategyGroup]
-    ,   PSGT.[PlanningStrategyGroupName]
+    ,   NSDM.[STRGR] AS [PlanningStrategyGroupID]
+    ,   PSGT.[PlanningStrategyGroup]
     ,   PP.[t_applicationId]
     ,   PP.[t_extractionDtm]
 FROM
