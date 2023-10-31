@@ -2,7 +2,7 @@ CREATE VIEW [dm_scm].[vw_dim_ShippingPoint]
 AS
 SELECT
   s.ShippingPointID,
-  NULL AS ShippingPointName,
+  s.ShippingPoint,
   s.ShippingPointType,
   NULL AS ShippingPointCategory,
   a.CountryID,
