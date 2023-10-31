@@ -18,7 +18,7 @@ WITH By_SDI_ODB_LatestActualGoodsMovmtDate AS (
   FROM
     [edw].[fact_ScheduleLineShippedNotBilled]
   GROUP BY
-    CompanyCodeID,
+    CompanyCode,
     ReportDate,
     SDI_ODB_LatestActualGoodsMovmtDate
 )
