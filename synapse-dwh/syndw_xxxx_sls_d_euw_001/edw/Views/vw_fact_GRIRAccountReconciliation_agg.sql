@@ -25,6 +25,7 @@ WITH By_OldestOpenItemPostingDate AS (
     [edw].[fact_GRIRAccountReconciliation]
   GROUP BY
     CompanyCodeID,
+    ReportDate,
     t_extractionDtm,
     OldestOpenItemPostingDate
 )
