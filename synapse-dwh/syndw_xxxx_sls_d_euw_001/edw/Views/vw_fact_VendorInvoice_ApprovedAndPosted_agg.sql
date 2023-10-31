@@ -26,6 +26,7 @@ WITH GroupBy AS (
   GROUP BY
     CompanyCodeID,
     HDR1_FiscalYear,
+    HDR1_PostingDate,
     HDR1_DocumentType,
     HDR1_NotFirstPass
 )
