@@ -28,7 +28,7 @@ BEGIN
     [GoodsIssueDate],
     [ScheduleLine]
   INTO actual
-  FROM [intm_s4h].[vw_SalesDocumentFirstScheduleLine]
+  FROM [intm_s4h].[vw_SalesDocumentFirstScheduleLine];
 
   SELECT TOP(0) *
   INTO expected

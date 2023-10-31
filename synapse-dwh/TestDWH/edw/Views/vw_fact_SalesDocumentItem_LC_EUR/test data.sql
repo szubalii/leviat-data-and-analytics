@@ -34,7 +34,7 @@ BEGIN
     ,[SDI_NetAmount_LC]
     ,[SDI_NetAmount_EUR]
   INTO actual
-  FROM [intm_s4h].[vw_SalesDocumentFirstScheduleLine];
+  FROM [edw].[vw_fact_SalesDocumentItem_LC_EUR];
 
   SELECT TOP(0) *
   INTO expected

@@ -16,7 +16,7 @@ BEGIN
     ,[ReferenceSDDocument]
     ,[ReferenceSDDocumentItem])
   VALUES('1','1',32.000,'1','1'),('1','1',10.000,'',''),
-  ('1','1',7.000,NULL,NULL),,('1','1',10.000,'1','1');
+  ('1','1',7.000,NULL,NULL),('1','1',10.000,'1','1');
 
   INSERT INTO [edw].[fact_SalesDocumentItem] (
     [SalesDocument],

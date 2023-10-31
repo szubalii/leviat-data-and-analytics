@@ -11,7 +11,7 @@ BEGIN
   
   INSERT INTO [base_s4h_cax].[I_ChangeDocumentItem_VBEP_EDATU] (
     [ChangeDocTableKey],
-    [ChangeDocPreviousFieldValue]
+    [ChangeDocPreviousFieldValue])
   VALUES
     ('20000200658340000100002','2023-08-28'),
     ('20000200658340000100002','2023-07-05')
