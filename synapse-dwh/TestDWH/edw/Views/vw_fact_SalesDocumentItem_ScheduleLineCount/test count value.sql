@@ -14,7 +14,7 @@ BEGIN
     [SalesDocumentItem],
     [ScheduleLine],
     [IsConfirmedDelivSchedLine])
-  VALUES('1','1','001','X')('1','1','001','');
+  VALUES ('1','1','001','X'),('1','1','001','');
 
   INSERT INTO [edw].[fact_SalesDocumentItem] (
     [SalesDocument],

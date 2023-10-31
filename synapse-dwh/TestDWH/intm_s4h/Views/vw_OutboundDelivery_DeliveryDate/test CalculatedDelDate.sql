@@ -10,9 +10,6 @@ BEGIN
   EXEC tSQLt.FakeTable '[base_s4h_cax]', '[I_OutboundDelivery]';
   EXEC tSQLt.FakeTable '[edw]', '[dim_Route]';
 
-
-  [base_s4h_cax].[I_OutboundDelivery]
-   [edw].[dim_Route] 
   INSERT INTO [base_s4h_cax].[I_OutboundDelivery]([OutboundDelivery],[ActualDeliveryRoute],[ActualGoodsMovementDate])
   VALUES ('1','1','2023-04-28'),('2','2','0001-01-01'),('3','3','2023-10-08');
 

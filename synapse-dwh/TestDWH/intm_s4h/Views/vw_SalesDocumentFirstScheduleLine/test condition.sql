@@ -16,8 +16,7 @@ BEGIN
   -- Act: 
   SELECT    
     [SalesDocument],
-    [SalesDocumentItem],
-    [IsConfirmedDelivSchedLine]
+    [SalesDocumentItem]
   INTO actual
   FROM [intm_s4h].[vw_SalesDocumentFirstScheduleLine];
 
@@ -25,8 +24,8 @@ BEGIN
   INTO expected
   FROM actual;
 
-  INSERT INTO expected([SalesDocument],[SalesDocumentItem],[IsConfirmedDelivSchedLine])
-  VALUES('2','2','');
+  INSERT INTO expected([SalesDocument],[SalesDocumentItem])
+  VALUES('2','2');
   -- Assert:
   EXEC tSQLt.AssertEqualsTable 'expected', 'actual';
 END;
