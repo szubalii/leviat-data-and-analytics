@@ -35,7 +35,7 @@ BEGIN
     ,[NrODIPerSDIAndQtyNot0]
     ,[ActDelQtyTotalForSDI]
   INTO actual
-  FROM [edw].[vw_fact_SalesDocumentItem_ODICount]
+  FROM [edw].[vw_fact_SalesDocumentItem_ODICount];
 
   SELECT TOP(0) *
   INTO expected

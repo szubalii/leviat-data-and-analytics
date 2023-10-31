@@ -6,7 +6,7 @@ BEGIN
   IF OBJECT_ID('expected') IS NOT NULL DROP TABLE expected;
 
   -- Assemble: Fake Table
-  EXEC tSQLt.FakeTable '[base_s4h_cax]', '[I_SalesDocumentScheduleLine]';
+  EXEC tSQLt.FakeTable '[base_s4h_cax]', '[I_ChangeDocumentItem_VBEP_EDATU]';
 
   
   INSERT INTO [base_s4h_cax].[I_ChangeDocumentItem_VBEP_EDATU] (

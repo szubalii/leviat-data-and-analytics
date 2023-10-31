@@ -12,28 +12,7 @@ BEGIN
     Cur_date DATETIME,
     OT_DaysDiff INT
   );
-  
-       CASE
-            WHEN
-                (@DeliveryDate IS NULL
-                OR
-                @DeliveryDate = '0001-01-01')
-            THEN NULL
-            WHEN
-                (@CalculatedDate IS NULL 
-                OR
-                @CalculatedDate = '0001-01-01')
-                AND
-                @DeliveryDate < CONVERT (DATE, @Current_date)
-            THEN
-                (DATEDIFF(day, @DeliveryDate, CONVERT (DATE, @Current_date))) -- count of all days diff
-                 -(DATEDIFF(week, @DeliveryDate, CONVERT (DATE, @Current_date)) * 2) -- count of weekends
-            WHEN @CalculatedDate = '0001-01-01'
-			THEN NULL
-            ELSE
-                (DATEDIFF(day, @DeliveryDate, @CalculatedDate)) -- count of all days diff
-                 -(DATEDIFF(week, @DeliveryDate, @CalculatedDate) * 2) -- count of weekends
-        END
+
   INSERT INTO testdata (DeliveryDate,CalculatedDate,Cur_date)
   VALUES (NULL,'0001-01-01',NULL),('0001-01-01',NULL,'0001-01-01'),
   ('2023-10-18',NULL,'2023-10-24'),('2023-10-18','0001-01-01','2023-10-24'),
@@ -43,6 +22,7 @@ BEGIN
   ---- Act:
   SELECT
     DeliveryDate,
+    CalculatedDate,
     Cur_date,
     [edw].[svf_getOT_DaysDiff](DeliveryDate,CalculatedDate) AS OT_DaysDiff
   INTO actual

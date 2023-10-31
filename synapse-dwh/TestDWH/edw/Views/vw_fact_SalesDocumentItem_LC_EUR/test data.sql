@@ -14,7 +14,7 @@ BEGIN
     [SalesDocument],
     [SalesDocumentItem],
     [OrderQuantity],
-    [CostAmount]
+    [CostAmount],
     [NetAmount],
     [CurrencyTypeID],
     [t_applicationId])
@@ -34,7 +34,7 @@ BEGIN
     ,[SDI_NetAmount_LC]
     ,[SDI_NetAmount_EUR]
   INTO actual
-  FROM [intm_s4h].[vw_SalesDocumentFirstScheduleLine]
+  FROM [intm_s4h].[vw_SalesDocumentFirstScheduleLine];
 
   SELECT TOP(0) *
   INTO expected

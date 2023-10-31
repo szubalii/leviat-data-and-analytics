@@ -20,7 +20,7 @@ BEGIN
     [SalesDocument],
     [SalesDocumentItem],
     [OrderQuantity],
-    [CostAmount]
+    [CostAmount],
     [NetAmount],
     [CurrencyTypeID],
     [t_applicationId])
@@ -35,7 +35,7 @@ BEGIN
     ,[SalesDocumentItem]
     ,[NrSLInScope]
   INTO actual
-  FROM [edw].[vw_fact_SalesDocumentItem_ScheduleLineCount]
+  FROM [edw].[vw_fact_SalesDocumentItem_ScheduleLineCount];
 
   SELECT TOP(0) *
   INTO expected
