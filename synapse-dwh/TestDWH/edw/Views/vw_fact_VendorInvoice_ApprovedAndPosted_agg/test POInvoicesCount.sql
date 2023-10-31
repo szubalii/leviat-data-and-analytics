@@ -10,21 +10,21 @@ BEGIN
 
   INSERT INTO edw.fact_VendorInvoice_ApprovedAndPosted (
     CompanyCodeID,
-    HDR1_FiscalYear,
+    HDR1_PostingDate,
     HDR1_DocumentType,
     HDR2_AccountingDocument
   )
   VALUES
-    (1, 2019, 'PO_S4', 1),
-    (1, 2020, 'ZPO_S4', 2),
-    (1, 2020, 'ZPO_S4', 3),
-    (1, 2020, 'ZPO_S4', 3),
-    (1, 2021, NULL, 4),
-    (2, 2019, 'PO_S4', 1),
-    (2, 2020, 'ZPO_S4', 2),
-    (2, 2020, 'ZPO_S4', 3),
-    (2, 2020, 'ZPO_S4', 3),
-    (2, 2021, NULL, 4);
+    (1, '2019-01-01', 'PO_S4', 1),
+    (1, '2020-01-01', 'ZPO_S4', 2),
+    (1, '2020-01-01', 'ZPO_S4', 3),
+    (1, '2020-01-01', 'ZPO_S4', 3),
+    (1, '2021-01-01', NULL, 4),
+    (2, '2019-01-01', 'PO_S4', 1),
+    (2, '2020-01-01', 'ZPO_S4', 2),
+    (2, '2020-01-01', 'ZPO_S4', 3),
+    (2, '2020-01-01', 'ZPO_S4', 3),
+    (2, '2021-01-01', NULL, 4);
 
   -- Act: 
   SELECT
