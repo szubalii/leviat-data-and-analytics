@@ -173,7 +173,7 @@ SELECT
                 THEN SDSL.[ConfirmedQty] * SDI.[NetAmount] / SDI.[OrderQuantity]
         END                                     AS ClosedInvoicedValue,
         SDI.[NetAmount] / SDI.[OrderQuantity]   AS [PricePerUnit],
-        documentItems.[CompanyCode]
+        documentItems.[CompanyCode],
         SDI.t_applicationId,
         SDI.t_extractionDtm
 	FROM SDSL 
@@ -228,7 +228,7 @@ SELECT
                 THEN '1'
             ELSE '0'
         END                                 AS InScope,
-        pre_report.[CompanyCode]            AS [CompanyCodeID]
+        pre_report.[CompanyCode]            AS [CompanyCodeID],
         pre_report.t_applicationId,
         pre_report.t_extractionDtm
 FROM pre_report
