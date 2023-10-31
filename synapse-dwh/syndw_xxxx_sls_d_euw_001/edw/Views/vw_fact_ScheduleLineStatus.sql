@@ -173,7 +173,7 @@ SELECT
                 THEN SDSL.[ConfirmedQty] * SDI.[NetAmount] / SDI.[OrderQuantity]
         END                                     AS ClosedInvoicedValue,
         SDI.[NetAmount] / SDI.[OrderQuantity]   AS [PricePerUnit],
-        SDI.[BillingCompanyCodeID]              AS [CompanyCode],
+        SDI.[SalesOrganizationID]               AS [CompanyCode],
         SDI.t_applicationId,
         SDI.t_extractionDtm
 	FROM SDSL 
