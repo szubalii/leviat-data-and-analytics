@@ -2,7 +2,7 @@ CREATE VIEW [edw].[vw_fact_VendorInvoice_ApprovedAndPosted_agg] AS
 WITH GroupBy AS (
   SELECT
     CompanyCodeID,
-    HDR1_FiscalYear,
+    YEAR(HDR1_PostingDate)       AS FiscalYear,
     MONTH(HDR1_PostingDate)      AS FiscalPeriod,
     CONCAT(
       CAST(YEAR(HDR1_PostingDate)  AS VARCHAR)
@@ -25,7 +25,6 @@ WITH GroupBy AS (
     [edw].[fact_VendorInvoice_ApprovedAndPosted]
   GROUP BY
     CompanyCodeID,
-    HDR1_FiscalYear,
     HDR1_PostingDate,
     HDR1_DocumentType,
     HDR1_NotFirstPass
@@ -33,7 +32,7 @@ WITH GroupBy AS (
 
 SELECT
   CompanyCodeID,
-  HDR1_FiscalYear AS FiscalYear,
+  FiscalYear,
   FiscalPeriod,
   FiscalYearPeriod,
   SUM(InvoicesCount) AS InvoicesCount,
@@ -44,6 +43,6 @@ FROM
   GroupBy
 GROUP BY
   CompanyCodeID,
-  HDR1_FiscalYear,
+  FiscalYear,
   FiscalPeriod,
   FiscalYearPeriod

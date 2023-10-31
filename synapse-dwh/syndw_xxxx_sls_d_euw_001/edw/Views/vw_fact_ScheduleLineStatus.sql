@@ -62,16 +62,11 @@ WITH DeliveryItem AS
         END                                         AS IsUnconfirmedDelivery,
         DeliveryItem.[SDI_ODB_LatestActualGoodsMovmtDate],
         SDSL.DelivBlockReasonForSchedLine,
-        SDSL.LoadingDate,
-        SDI.BillingCompanyCodeID                    AS CompanyCode
+        SDSL.LoadingDate
 	FROM [edw].[dim_SalesDocumentScheduleLine] SDSL 
 	LEFT JOIN DeliveryItem 
         ON SDSL.[SalesDocumentID] = DeliveryItem.[ReferenceSDDocument] 
 	        AND SDSL.[SalesDocumentItem] = DeliveryItem.[ReferenceSDDocumentItem]
-    LEFT JOIN [edw].[fact_SalesDocumentItem] SDI
-        ON SDSL.SalesDocumentID = SDI.SalesDocument
-            AND SDSL.SalesDocumentItem = SDI.SalesDocumentItem
-            AND SDI.CurrencyTypeID = '00'
 )
 ,documentItems AS (
     SELECT MAX(BillingQuantityInBaseUnit)           AS [BillingQuantityInBaseUnit] 
@@ -178,7 +173,7 @@ SELECT
                 THEN SDSL.[ConfirmedQty] * SDI.[NetAmount] / SDI.[OrderQuantity]
         END                                     AS ClosedInvoicedValue,
         SDI.[NetAmount] / SDI.[OrderQuantity]   AS [PricePerUnit],
-        SDSL.[CompanyCode],
+        SDI.[BillingCompanyCodeID]              AS [CompanyCode],
         SDI.t_applicationId,
         SDI.t_extractionDtm
 	FROM SDSL 
