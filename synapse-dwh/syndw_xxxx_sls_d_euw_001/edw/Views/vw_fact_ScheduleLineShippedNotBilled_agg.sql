@@ -2,7 +2,7 @@ CREATE VIEW [edw].[vw_fact_ScheduleLineShippedNotBilled_agg] AS
 
 WITH By_SDI_ODB_LatestActualGoodsMovmtDate AS (
   SELECT
-    CompanyCodeID,
+    CompanyCode,
     YEAR(ReportDate) AS FiscalYear,
     MONTH(ReportDate) AS FiscalPeriod,
     CONCAT(
@@ -24,7 +24,7 @@ WITH By_SDI_ODB_LatestActualGoodsMovmtDate AS (
 )
 
 SELECT
-  CompanyCodeID,
+  CompanyCode                   AS CompanyCodeID,
   FiscalYear,
   FiscalPeriod,
   FiscalYearPeriod,
@@ -32,7 +32,7 @@ SELECT
 FROM
   By_SDI_ODB_LatestActualGoodsMovmtDate
 GROUP BY
-  CompanyCodeID,
+  CompanyCode,
   FiscalYear,
   FiscalPeriod,
   FiscalYearPeriod
