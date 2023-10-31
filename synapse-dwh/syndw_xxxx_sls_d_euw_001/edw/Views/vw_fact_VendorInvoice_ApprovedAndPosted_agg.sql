@@ -44,4 +44,6 @@ FROM
   GroupBy
 GROUP BY
   CompanyCodeID,
-  HDR1_FiscalYear
+  HDR1_FiscalYear,
+  FiscalPeriod,
+  FiscalYearPeriod
