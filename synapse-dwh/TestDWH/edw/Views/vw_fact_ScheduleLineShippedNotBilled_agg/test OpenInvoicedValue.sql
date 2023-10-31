@@ -34,7 +34,7 @@ BEGIN
     CompanyCodeID VARCHAR(8),
     FiscalYear INT,
     FiscalPeriod INT,
-    FiscalYearPeriod INT,
+    FiscalYearPeriod VARCHAR(8),
     SOShippedNotBilledAmount INT
   )
 
@@ -46,8 +46,8 @@ BEGIN
     SOShippedNotBilledAmount
   )
   VALUES
-    ('TST1', 2019, 12, NULL,  100),
-    ('TST1', 2020,  1, NULL, 1000);
+    ('TST1', 2019, 12, '2019012',  100),
+    ('TST1', 2020,  1, '2020001', 1000);
 
   EXEC tSQLt.AssertEqualsTable 'expected', 'actual';
 END
