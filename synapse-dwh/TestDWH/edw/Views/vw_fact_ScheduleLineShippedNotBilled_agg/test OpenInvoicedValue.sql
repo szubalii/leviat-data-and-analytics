@@ -31,7 +31,7 @@ BEGIN
 
   -- Assert:
   CREATE TABLE expected (
-    CompanyCodeID INT,
+    CompanyCodeID VARCHAR(8),
     FiscalYear INT,
     FiscalPeriod INT,
     FiscalYearPeriod INT,

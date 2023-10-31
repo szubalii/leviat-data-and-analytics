@@ -35,7 +35,7 @@ BEGIN
     CompanyCodeID INT,
     FiscalYear INT,
     FiscalPeriod INT,
-    FiscalYearPeriod INT,
+    FiscalYearPeriod VARCHAR(8),
     AgedGRPurchaseOrderCount INT
   )
 
@@ -47,8 +47,8 @@ BEGIN
     AgedGRPurchaseOrderCount
   )
   VALUES
-    (NULL, 2020,  1, NULL, 1)
-  , (NULL, 2019, 12, NULL, 2);
+    (NULL, 2020,  1, '2020001', 1)
+  , (NULL, 2019, 12, '2019012', 2);
 
   EXEC tSQLt.AssertEqualsTable 'expected', 'actual';
 END
