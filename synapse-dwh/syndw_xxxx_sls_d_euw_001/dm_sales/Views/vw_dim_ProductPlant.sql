@@ -70,8 +70,11 @@ SELECT
     ,   [MRPControllerName] AS [MRPController]
     ,   NSDM.[MINBE] AS [Re-Order Point]
     ,   NSDM.[BSTRF] AS [Rounding Value]
-    ,   NSDM.[STRGR] AS [PlanningStrategyGroup]
-    ,   PSGT.[PlanningStrategyGroupName]
+    ,   CONCAT_WS(
+          '_',
+          NSDM.[STRGR] COLLATE DATABASE_DEFAULT,
+          PSGT.[PlanningStrategyGroupName]
+        ) AS [PlanningStrategyGroupID_Name]
     ,   PP.[t_applicationId]
     ,   PP.[t_extractionDtm]
 FROM
