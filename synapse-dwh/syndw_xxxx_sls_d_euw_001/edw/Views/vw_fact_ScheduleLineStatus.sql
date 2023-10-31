@@ -71,11 +71,13 @@ WITH DeliveryItem AS
 ,documentItems AS (
     SELECT MAX(BillingQuantityInBaseUnit)           AS [BillingQuantityInBaseUnit] 
         , MAX(BillingQuantity)                      AS [BillingQuantity] 
+        , MAX(CompanyCode)                          AS [CompanyCode]
         , ReferenceSDDocument
         , ReferenceSDDocumentItem
     FROM (
         SELECT SUM(BillingQuantityInBaseUnit)   AS [BillingQuantityInBaseUnit] 
             ,SUM(BillingQuantity)               AS [BillingQuantity] 
+            ,MAX(CompanyCode)                   AS [CompanyCode]
             ,[SalesDocumentID]                  AS [ReferenceSDDocument]          
             ,[SalesDocumentItemID]              AS [ReferenceSDDocumentItem]      
         FROM [edw].[vw_BillingDocumentItem_for_SalesDocumentItem]
@@ -171,6 +173,7 @@ SELECT
                 THEN SDSL.[ConfirmedQty] * SDI.[NetAmount] / SDI.[OrderQuantity]
         END                                     AS ClosedInvoicedValue,
         SDI.[NetAmount] / SDI.[OrderQuantity]   AS [PricePerUnit],
+        documentItems.[CompanyCode]
         SDI.t_applicationId,
         SDI.t_extractionDtm
 	FROM SDSL 
@@ -225,6 +228,7 @@ SELECT
                 THEN '1'
             ELSE '0'
         END                                 AS InScope,
+        pre_report.[CompanyCode]            AS [CompanyCodeID]
         pre_report.t_applicationId,
         pre_report.t_extractionDtm
 FROM pre_report

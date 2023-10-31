@@ -81,7 +81,7 @@ LEFT JOIN
   ON
     vim.CompanyCodeID = ccp.CompanyCodeID             COLLATE DATABASE_DEFAULT
     AND
-    vim.FiscalYear = ccp.FiscalYear                   COLLATE DATABASE_DEFAULT
+    vim.FiscalYearPeriod = ccp.FiscalYearPeriod       COLLATE DATABASE_DEFAULT
 
 LEFT JOIN
   [edw].[vw_fact_GRIRAccountReconciliation_agg] gr

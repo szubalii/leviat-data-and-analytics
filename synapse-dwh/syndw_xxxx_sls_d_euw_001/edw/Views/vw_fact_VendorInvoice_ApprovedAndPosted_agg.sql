@@ -3,6 +3,11 @@ WITH GroupBy AS (
   SELECT
     CompanyCodeID,
     HDR1_FiscalYear,
+    MONTH(HDR1_PostingDate)      AS FiscalPeriod,
+    CONCAT(
+      CAST(YEAR(HDR1_PostingDate)  AS VARCHAR)
+      ,RIGHT(CONCAT('00',MONTH(HDR1_PostingDate)),3)
+    ) AS FiscalYearPeriod,
     COUNT(DISTINCT HDR2_AccountingDocument) AS InvoicesCount,
     CASE
       WHEN HDR1_DocumentType IN ('PO_S4', 'ZPO_S4')
@@ -28,6 +33,8 @@ WITH GroupBy AS (
 SELECT
   CompanyCodeID,
   HDR1_FiscalYear AS FiscalYear,
+  FiscalPeriod,
+  FiscalYearPeriod,
   SUM(InvoicesCount) AS InvoicesCount,
   SUM(POInvoicesCount) AS POInvoicesCount,
   SUM(NPOInvoicesCount) AS NPOInvoicesCount,
