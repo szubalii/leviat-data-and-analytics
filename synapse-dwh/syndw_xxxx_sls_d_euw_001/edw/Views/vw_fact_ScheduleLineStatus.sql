@@ -62,22 +62,27 @@ WITH DeliveryItem AS
         END                                         AS IsUnconfirmedDelivery,
         DeliveryItem.[SDI_ODB_LatestActualGoodsMovmtDate],
         SDSL.DelivBlockReasonForSchedLine,
-        SDSL.LoadingDate
+        SDSL.LoadingDate,
+        SDI.BillingCompanyCodeID                    AS CompanyCode
 	FROM [edw].[dim_SalesDocumentScheduleLine] SDSL 
 	LEFT JOIN DeliveryItem 
         ON SDSL.[SalesDocumentID] = DeliveryItem.[ReferenceSDDocument] 
 	        AND SDSL.[SalesDocumentItem] = DeliveryItem.[ReferenceSDDocumentItem]
+    LEFT JOIN [edw].[fact_SalesDocumentItem] SDI
+        ON SDSL.SalesDocumentID = SDI.SalesDocument
+            AND SDSL.SalesDocumentItem = SDI.SalesDocumentItem
+            AND SDI.CurrencyTypeID = '00'
 )
 ,documentItems AS (
     SELECT MAX(BillingQuantityInBaseUnit)           AS [BillingQuantityInBaseUnit] 
         , MAX(BillingQuantity)                      AS [BillingQuantity] 
-        , MAX(CompanyCode)                          AS [CompanyCode]
+        --, MAX(CompanyCode)                          AS [CompanyCode]
         , ReferenceSDDocument
         , ReferenceSDDocumentItem
     FROM (
         SELECT SUM(BillingQuantityInBaseUnit)   AS [BillingQuantityInBaseUnit] 
             ,SUM(BillingQuantity)               AS [BillingQuantity] 
-            ,MAX(CompanyCode)                   AS [CompanyCode]
+            --,MAX(CompanyCode)                   AS [CompanyCode]
             ,[SalesDocumentID]                  AS [ReferenceSDDocument]          
             ,[SalesDocumentItemID]              AS [ReferenceSDDocumentItem]      
         FROM [edw].[vw_BillingDocumentItem_for_SalesDocumentItem]
@@ -173,7 +178,7 @@ SELECT
                 THEN SDSL.[ConfirmedQty] * SDI.[NetAmount] / SDI.[OrderQuantity]
         END                                     AS ClosedInvoicedValue,
         SDI.[NetAmount] / SDI.[OrderQuantity]   AS [PricePerUnit],
-        documentItems.[CompanyCode],
+        SDSL.[CompanyCode],
         SDI.t_applicationId,
         SDI.t_extractionDtm
 	FROM SDSL 
@@ -228,7 +233,7 @@ SELECT
                 THEN '1'
             ELSE '0'
         END                                 AS InScope,
-        pre_report.[CompanyCode]            AS [CompanyCodeID],
+        pre_report.[CompanyCode],
         pre_report.t_applicationId,
         pre_report.t_extractionDtm
 FROM pre_report
