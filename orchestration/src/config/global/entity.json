@@ -586,7 +586,7 @@
         "base_table_name": "I_MaterialGroup",
         "pk_field_names": "MATERIALGROUP",
         "schedule_recurrence": "W",
-        "schedule_day": 1
+        "schedule_day": 2
       },
       {
         "entity_id": 111,
@@ -670,7 +670,7 @@
         "base_table_name": "I_Supplier",
         "pk_field_names": "SUPPLIER",
         "schedule_recurrence": "W",
-        "schedule_day": 1
+        "schedule_day": 2
       },
       {
         "entity_id": 118,
@@ -1647,7 +1647,7 @@
         "base_table_name": "I_GLAccountText",
         "pk_field_names": "CHARTOFACCOUNTS, GLACCOUNT, LANGUAGE",
         "schedule_recurrence": "W",
-        "schedule_day": 1
+        "schedule_day": 2
       },
       {
         "entity_id": 200,
@@ -1972,7 +1972,7 @@
         "base_table_name": "I_MaterialGroupText",
         "pk_field_names": "MATERIALGROUP, LANGUAGE",
         "schedule_recurrence": "W",
-        "schedule_day": 1
+        "schedule_day": 2
       },
       {
         "entity_id": 227,
@@ -3977,7 +3977,7 @@
         "base_table_name": "P_UserAddress",
         "pk_field_names": "MANDT,BNAME",
         "schedule_recurrence": "W",
-        "schedule_day": 1
+        "schedule_day": 2
       },
       {
         "entity_id": 545,
@@ -5155,7 +5155,7 @@
         "dest_table_name": "dim_MaterialGroup",
         "execution_order": 0,
         "schedule_recurrence": "W",
-        "schedule_day": 1
+        "schedule_day": 2
       },
       {
         "entity_id": 344,
@@ -5354,7 +5354,7 @@
         "dest_table_name": "dim_Supplier",
         "execution_order": 0,
         "schedule_recurrence": "W",
-        "schedule_day": 1
+        "schedule_day": 2
       },
       {
         "entity_id": 366,
@@ -5845,7 +5845,7 @@
         "dest_table_name": "dim_UserAddress",
         "execution_order": 0,
         "schedule_recurrence": "W",
-        "schedule_day": 1
+        "schedule_day": 2
       },
       {
         "entity_id": 576,
