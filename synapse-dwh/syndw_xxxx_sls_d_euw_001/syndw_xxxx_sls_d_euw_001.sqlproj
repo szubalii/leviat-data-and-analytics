@@ -978,6 +978,7 @@
     <Build Include="edw\Tables\fact_VendorInvoice_ApprovedAndPosted.sql" />
     <Build Include="edw\Tables\fact_GRIRAccountReconciliation.sql" />
     <Build Include="edw\Tables\fact_ScheduleLineShippedNotBilled.sql" />
+    <Build Include="edw\Tables\dim_FiscalCalendar.sql" />
 
     <!-- FUNCTIONS -->
 
@@ -1188,6 +1189,11 @@
     <Build Include="edw\Views\vw_fact_ScheduleLineStatus.sql" />
     <Build Include="edw\Views\vw_fact_GRIRAccountReconciliation_agg.sql" />
     <Build Include="edw\Views\vw_fact_ScheduleLineShippedNotBilled_agg.sql" />
+    <Build Include="edw\Views\vw_fact_ACDOCA_FinanceKPI.sql" />
+    <Build Include="edw\Views\vw_fact_ACDOCA_FinanceKPI_agg.sql" />
+    <Build Include="edw\Views\vw_fact_ACDOCA_EPMSalesView.sql" />
+    <Build Include="edw\Views\vw_fact_ACDOCA_EPM_Sales_agg.sql" />
+    <Build Include="edw\Views\vw_FiscalCalendar.sql" />
 
     <Build Include="dq\Views\vw_Product_1_2.sql" />
     <Build Include="dq\Views\vw_RuleTotal.sql" />
@@ -1266,6 +1272,7 @@
     <Build Include="dm_finance\Views\vw_fact_ACDOCA_Full_CH_AT.sql" />
     <Build Include="dm_finance\Views\vw_fact_GRIRAccountReconciliation.sql" />
     <Build Include="dm_finance\Views\vw_fact_ACDOCA_FinanceKPI.sql" />
+    <Build Include="dm_finance\Views\vw_fact_FinanceKPI.sql" />
 
     <Build Include="dm_sales\Views\vw_dim_Customer.sql" />
     <Build Include="dm_sales\Views\vw_fact_BillingDocumentItem.sql" />

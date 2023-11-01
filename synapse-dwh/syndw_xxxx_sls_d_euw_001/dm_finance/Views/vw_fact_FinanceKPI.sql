@@ -11,9 +11,9 @@ WITH Periods AS (
     CAST(FiscalYear AS INT)
       BETWEEN
         2021 
-        AND YEAR(DATEADD(MONTH,-1,SYSDATETIME()))
+        AND YEAR(SYSDATETIME())
     AND (
-      CAST(FiscalPeriod AS INT) <= MONTH(DATEADD(MONTH,-1,SYSDATETIME()))
+      CAST(FiscalPeriod AS INT) <= MONTH(SYSDATETIME())
         OR
       CAST(FiscalYear AS INT) <  YEAR(SYSDATETIME())
     )
