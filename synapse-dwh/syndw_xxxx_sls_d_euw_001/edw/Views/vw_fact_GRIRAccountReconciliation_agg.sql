@@ -3,11 +3,11 @@ CREATE VIEW [edw].[vw_fact_GRIRAccountReconciliation_agg] AS
 WITH By_OldestOpenItemPostingDate AS (
   SELECT
     CompanyCodeID,
-    YEAR(t_extractionDtm)       AS FiscalYear,
-    MONTH(t_extractionDtm)      AS FiscalPeriod,
+    YEAR(ReportDate)       AS FiscalYear,
+    MONTH(ReportDate)      AS FiscalPeriod,
     CONCAT(
-      CAST(YEAR(t_extractionDtm)  AS VARCHAR)
-      ,RIGHT(CONCAT('00',MONTH(t_extractionDtm)),3)
+      CAST(YEAR(ReportDate)  AS VARCHAR)
+      ,RIGHT(CONCAT('00',MONTH(ReportDate)),3)
     ) AS FiscalYearPeriod,
     CASE
       WHEN
@@ -26,7 +26,6 @@ WITH By_OldestOpenItemPostingDate AS (
   GROUP BY
     CompanyCodeID,
     ReportDate,
-    t_extractionDtm,
     OldestOpenItemPostingDate
 )
 

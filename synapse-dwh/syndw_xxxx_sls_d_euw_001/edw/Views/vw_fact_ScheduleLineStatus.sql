@@ -173,13 +173,15 @@ SELECT
                 THEN SDSL.[ConfirmedQty] * SDI.[NetAmount] / SDI.[OrderQuantity]
         END                                     AS ClosedInvoicedValue,
         SDI.[NetAmount] / SDI.[OrderQuantity]   AS [PricePerUnit],
-        SDI.[SalesOrganizationID]               AS [CompanyCode],
+        SO.[CompanyCode],
         SDI.t_applicationId,
         SDI.t_extractionDtm
 	FROM SDSL 
     LEFT JOIN [edw].[fact_SalesDocumentItem] SDI 
         ON SDSL.[SalesDocumentID] = SDI.[SalesDocument] 
         AND SDSL.[SalesDocumentItem] = SDI.[SalesDocumentItem]
+    LEFT JOIN [edw].[dim_SalesOrganization] SO
+        ON SDI.[SalesOrganizationID] = SO.[SalesOrganizationID]
     LEFT JOIN documentItems
         ON SDSL.[SalesDocumentID] = documentItems.[ReferenceSDDocument] 
         AND SDSL.[SalesDocumentItem] = documentItems.[ReferenceSDDocumentItem]
