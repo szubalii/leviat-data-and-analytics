@@ -1,7 +1,5 @@
-CREATE VIEW [dm_finance].[vw_fact_ACDOCA_EPMSalesView]
-AS
+CREATE VIEW [edw].[vw_fact_ACDOCA_FinanceKPI] AS
 SELECT
-
   [SourceLedgerID],
   [CompanyCodeID],
   [SKReportingEntityKey],
@@ -120,7 +118,7 @@ SELECT
   [OperatingConcernID],
   [BusinessProcessID],
   [CostObjectID],
-  [BillableControlID],
+  [BillableControlID],    
   [ServiceDocumentTypeID],
   [ServiceDocument],
   [ServiceDocumentItem],
@@ -143,15 +141,28 @@ SELECT
   [CurrencyType],
   [SalesOfficeID],
   [SoldProduct],
-  CustomerCategory,
-  SalesReferenceDocumentCalculated,
-  SalesReferenceDocumentItemCalculated,
-  SalesDocumentItemCategoryID,
-  HigherLevelItem,
-  '10' AS ValueTypeID,
+  [CustomerCategory],
+  [SalesReferenceDocumentCalculated],
+  [SalesReferenceDocumentItemCalculated],
+  [SalesDocumentItemCategoryID],
+  [HigherLevelItem],
+  [EXQL_GLAccountID],
+  [EXQL_FunctionalAreaID],
   [ProjectNumber],
   [ProjectNumberCalculated],
+  [Manual_JE_KPI],
+  [IC_Balance_KPI],
+  [Inventory_Adj_KPI],
   [t_applicationId],
   [t_extractionDtm]
 FROM
-  [edw].[vw_fact_ACDOCA_EPMSalesView]
+  [edw].[vw_fact_ACDOCA_EPM_Base]
+WHERE (
+    Manual_JE_KPI IS NOT NULL
+    OR
+    IC_Balance_KPI IS NOT NULL
+    OR
+    Inventory_Adj_KPI IS NOT NULL
+  )
+  AND
+  SourceLedgerID IN ('0L','OC')

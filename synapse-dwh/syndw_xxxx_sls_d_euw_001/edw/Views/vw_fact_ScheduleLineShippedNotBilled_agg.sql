@@ -2,10 +2,10 @@ CREATE VIEW [edw].[vw_fact_ScheduleLineShippedNotBilled_agg] AS
 
 WITH By_SDI_ODB_LatestActualGoodsMovmtDate AS (
   SELECT
-    NULL AS CompanyCodeID, --TODO, where to get CompanyCodeID value from?
+    CompanyCode,
     YEAR(ReportDate) AS FiscalYear,
     MONTH(ReportDate) AS FiscalPeriod,
-    NULL AS FiscalYearPeriod,
+    edw.svf_getYearPeriod(ReportDate) AS FiscalYearPeriod,
     CASE
       WHEN
         DATEDIFF(MONTH, SDI_ODB_LatestActualGoodsMovmtDate, ReportDate) > 2
@@ -15,12 +15,13 @@ WITH By_SDI_ODB_LatestActualGoodsMovmtDate AS (
   FROM
     [edw].[fact_ScheduleLineShippedNotBilled]
   GROUP BY
+    CompanyCode,
     ReportDate,
     SDI_ODB_LatestActualGoodsMovmtDate
 )
 
 SELECT
-  CompanyCodeID,
+  CompanyCode                   AS CompanyCodeID,
   FiscalYear,
   FiscalPeriod,
   FiscalYearPeriod,
@@ -28,7 +29,7 @@ SELECT
 FROM
   By_SDI_ODB_LatestActualGoodsMovmtDate
 GROUP BY
-  CompanyCodeID,
+  CompanyCode,
   FiscalYear,
   FiscalPeriod,
   FiscalYearPeriod

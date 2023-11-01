@@ -3,6 +3,7 @@ CREATE TABLE [edw].[fact_ScheduleLineShippedNotBilled] (
     [SalesDocumentID]                                         nvarchar(20) NOT NULL,
     [SalesDocumentItem]                                       nvarchar(24) NOT NULL,
     [ReportDate]                                              date NOT NULL,
+    [CompanyCode]                                             NVARCHAR(8),
     [SalesDocumentTypeID]                                     nvarchar(4),
     [SDDocumentRejectionStatusID]                             nvarchar(1),
     [IsUnconfirmedDelivery]                                   nvarchar(1),

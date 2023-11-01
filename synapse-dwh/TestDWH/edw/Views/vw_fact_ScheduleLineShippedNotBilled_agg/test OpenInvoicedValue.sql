@@ -9,18 +9,19 @@ BEGIN
   EXEC tSQLt.FakeTable '[edw]', '[fact_ScheduleLineShippedNotBilled]';
 
   INSERT INTO edw.fact_ScheduleLineShippedNotBilled (
+    CompanyCode,
     ReportDate,
     SDI_ODB_LatestActualGoodsMovmtDate,
     OpenInvoicedValue
   )
   VALUES
-    ('2020-01-01', '2020-01-01', 100)
-  , ('2020-01-01', '2020-02-01', 200)
-  , ('2020-01-01', '2019-12-01', 300)
-  , ('2020-01-01', '2019-11-01', 400)
-  , ('2020-01-01', '2019-10-01', 500)
-  , ('2020-01-01', '2019-10-01', 500)
-  , ('2019-12-01', '2019-09-01', 100);
+    ('TST1', '2020-01-01', '2020-01-01', 100)
+  , ('TST1', '2020-01-01', '2020-02-01', 200)
+  , ('TST1', '2020-01-01', '2019-12-01', 300)
+  , ('TST1', '2020-01-01', '2019-11-01', 400)
+  , ('TST1', '2020-01-01', '2019-10-01', 500)
+  , ('TST1', '2020-01-01', '2019-10-01', 500)
+  , ('TST1', '2019-12-01', '2019-09-01', 100);
 
   -- Collect non-unique records
   SELECT
@@ -30,10 +31,10 @@ BEGIN
 
   -- Assert:
   CREATE TABLE expected (
-    CompanyCodeID INT,
+    CompanyCodeID VARCHAR(8),
     FiscalYear INT,
     FiscalPeriod INT,
-    FiscalYearPeriod INT,
+    FiscalYearPeriod VARCHAR(8),
     SOShippedNotBilledAmount INT
   )
 
@@ -45,8 +46,8 @@ BEGIN
     SOShippedNotBilledAmount
   )
   VALUES
-    (NULL, 2019, 12, NULL,  100),
-    (NULL, 2020,  1, NULL, 1000);
+    ('TST1', 2019, 12, '2019012',  100),
+    ('TST1', 2020,  1, '2020001', 1000);
 
   EXEC tSQLt.AssertEqualsTable 'expected', 'actual';
 END

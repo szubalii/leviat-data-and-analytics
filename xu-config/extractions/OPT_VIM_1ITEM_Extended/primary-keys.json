@@ -1,0 +1,9 @@
+{
+    "isSurrogateKeyEnabled": false,
+    "columns": 
+    [
+        "/OPT/VIM_1ITEM~MANDT",
+        "/OPT/VIM_1ITEM~DOCID",
+        "/OPT/VIM_1ITEM~ITEMID"
+    ]
+}
