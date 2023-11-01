@@ -5,10 +5,7 @@ WITH By_OldestOpenItemPostingDate AS (
     CompanyCodeID,
     YEAR(ReportDate)       AS FiscalYear,
     MONTH(ReportDate)      AS FiscalPeriod,
-    CONCAT(
-      CAST(YEAR(ReportDate)  AS VARCHAR)
-      ,RIGHT(CONCAT('00',MONTH(ReportDate)),3)
-    ) AS FiscalYearPeriod,
+    edw.svf_getYearPeriod(ReportDate) AS FiscalYearPeriod,
     CASE
       WHEN
         DATEDIFF(MONTH, OldestOpenItemPostingDate, ReportDate) > 2

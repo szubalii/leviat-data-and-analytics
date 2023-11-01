@@ -5,10 +5,7 @@ WITH By_SDI_ODB_LatestActualGoodsMovmtDate AS (
     CompanyCode,
     YEAR(ReportDate) AS FiscalYear,
     MONTH(ReportDate) AS FiscalPeriod,
-    CONCAT(
-      CAST(YEAR(ReportDate) AS VARCHAR),
-      RIGHT(CONCAT('00',CAST(MONTH(ReportDate) AS VARCHAR)),3)          -- pad month to 3 digits
-    ) AS FiscalYearPeriod,
+    edw.svf_getYearPeriod(ReportDate) AS FiscalYearPeriod,
     CASE
       WHEN
         DATEDIFF(MONTH, SDI_ODB_LatestActualGoodsMovmtDate, ReportDate) > 2

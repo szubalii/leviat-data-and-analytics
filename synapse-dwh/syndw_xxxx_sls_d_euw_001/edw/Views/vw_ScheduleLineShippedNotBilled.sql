@@ -3,6 +3,7 @@ SELECT
   SLS.[nk_fact_SalesDocumentItem],
   SLS.[SalesDocumentID],
   SLS.[SalesDocumentItem],
+  SLS.[CompanyCode],
   SLS.[SalesDocumentTypeID],
   SLS.[SDDocumentRejectionStatusID],
   SLS.[IsUnconfirmedDelivery],
@@ -36,7 +37,6 @@ SELECT
   SLS.[ClosedInvoicedValue],
   SLS.[PricePerUnit],
   SLS.[InScope],
-  SLS.[CompanyCode],
   SLS.[t_applicationId],
   SLS.[t_extractionDtm]
 FROM
