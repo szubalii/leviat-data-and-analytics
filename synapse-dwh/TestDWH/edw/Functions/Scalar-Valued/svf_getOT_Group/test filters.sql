@@ -8,8 +8,7 @@ BEGIN
 
   -- Assemble:
   CREATE TABLE testdata (
-    OT_DaysDiff INT,
-    OT_GroupValue NVARCHAR(6)
+    OT_DaysDiff INT
   );
   INSERT INTO testdata (OT_DaysDiff)
   VALUES (NULL),(0),(1),(-1);

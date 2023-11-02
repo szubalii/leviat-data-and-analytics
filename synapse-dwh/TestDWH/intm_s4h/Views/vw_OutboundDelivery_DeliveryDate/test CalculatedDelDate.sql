@@ -17,7 +17,8 @@ BEGIN
   VALUES ('1',3),('2',0),('3',2);
 
   -- Act: 
-  SELECT    
+  SELECT
+    [OutboundDelivery],
     [CalculatedDelDate]
   INTO actual
   FROM [intm_s4h].[vw_OutboundDelivery_DeliveryDate];
@@ -26,8 +27,8 @@ BEGIN
   INTO expected
   FROM actual;
 
-  INSERT INTO expected([CalculatedDelDate])
-  VALUES('2023-05-06'),('2023-10-10');
+  INSERT INTO expected([OutboundDelivery],[CalculatedDelDate])
+  VALUES('1','2023-05-03'),('3','2023-10-10');
   -- Assert:
   EXEC tSQLt.AssertEqualsTable 'expected', 'actual';
 END;

@@ -24,7 +24,7 @@ BEGIN
     DeliveryDate,
     CalculatedDate,
     Cur_date,
-    [edw].[svf_getOT_DaysDiff](DeliveryDate,CalculatedDate) AS OT_DaysDiff
+    [edw].[svf_getOT_DaysDiff](DeliveryDate,CalculatedDate,Cur_date) AS OT_DaysDiff
   INTO actual
   FROM testdata;
 
