@@ -1,7 +1,7 @@
 ﻿CREATE FUNCTION [edw].[svf_getOT_DaysDiff](
     @DeliveryDate DATE,
     @CalculatedDate DATE,
-    @Current_date DATETIME
+    @Current_date DATE
 )
 RETURNS INT
 AS
