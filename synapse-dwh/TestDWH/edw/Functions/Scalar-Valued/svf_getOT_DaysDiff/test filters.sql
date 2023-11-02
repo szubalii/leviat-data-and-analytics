@@ -9,8 +9,7 @@ BEGIN
   CREATE TABLE testdata (
     DeliveryDate DATE,
     CalculatedDate DATE,
-    Cur_date DATETIME,
-    OT_DaysDiff INT
+    Cur_date DATE
   );
 
   INSERT INTO testdata (DeliveryDate,CalculatedDate,Cur_date)
@@ -32,7 +31,7 @@ BEGIN
   CREATE TABLE expected (
     DeliveryDate DATE,
     CalculatedDate DATE,
-    Cur_date DATETIME,
+    Cur_date DATE,
     OT_DaysDiff INT
   );
 

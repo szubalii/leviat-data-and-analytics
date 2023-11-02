@@ -10,8 +10,7 @@ BEGIN
   CREATE TABLE testdata (
     OT_Group NVARCHAR(6),
     OT_IsOnTime BIT,
-    IF_IsInFull BIT,
-    OTIF_OnTimeInFull NVARCHAR(6)
+    IF_IsInFull BIT
   );
 
   INSERT INTO testdata (OT_Group,OT_IsOnTime,IF_IsInFull)
@@ -22,7 +21,7 @@ BEGIN
     [OT_Group],
     [OT_IsOnTime],
     [IF_IsInFull],
-    [edw].[svf_getOT_Group](OT_Group,OT_IsOnTime,IF_IsInFull) AS OTIF_OnTimeInFull
+    [edw].[svf_getOTIF_OnTimeInFull](OT_Group,OT_IsOnTime,IF_IsInFull) AS OTIF_OnTimeInFull
   INTO actual
   FROM testdata;
 
