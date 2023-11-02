@@ -25,7 +25,7 @@ BEGIN
   FROM actual;
 
   INSERT INTO expected([SalesDocument],[SalesDocumentItem])
-  VALUES('2','2');
+  VALUES('1','1');
   -- Assert:
   EXEC tSQLt.AssertEqualsTable 'expected', 'actual';
 END;

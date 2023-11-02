@@ -32,7 +32,8 @@ BEGIN
     ,[SDI_CostAmount_LC]
     ,[SDI_CostAmount_EUR]
     ,[SDI_NetAmount_LC]
-    ,[SDI_NetAmount_EUR]
+    ,[SDI_NetAmount_EUR]    
+    ,[SDI_OrderQuantity]
   INTO actual
   FROM [edw].[vw_fact_SalesDocumentItem_LC_EUR];
 
@@ -48,8 +49,10 @@ BEGIN
     ,[SDI_CostAmount_LC]
     ,[SDI_CostAmount_EUR]
     ,[SDI_NetAmount_LC]
-    ,[SDI_NetAmount_EUR])
-  VALUES('1','1',91.6200000000000000000000,40.5700000000000000000000,382.580000,2056.000000,1099.440000,8114.000000);
+    ,[SDI_NetAmount_EUR]
+    ,[SDI_OrderQuantity])
+  VALUES('1','1',91.6200000000000000000000,10.2800000000000000000000,382.580000,8114.000000,1099.440000,2056.000000,12.000),
+  ('1','1',91.6200000000000000000000,10.2800000000000000000000,382.580000,8114.000000,1099.440000,2056.000000,200.000);
   -- Assert:
   EXEC tSQLt.AssertEqualsTable 'expected', 'actual';
 END;
