@@ -328,7 +328,6 @@
     <Build Include="base_ff\Tables\Region.sql" />
     <Build Include="base_ff\Tables\CompanyCode.sql" />
     <Build Include="base_ff\Tables\Budget_EPM.sql" />
-    <Build Include="base_ff\Tables\LeviatWarehouse.sql" />
     <Build Include="base_ff\Tables\ShippingPointLogistics.sql" />
 
     <Build Include="base_ff_USA\Tables\Budget.sql" />
@@ -1174,7 +1173,6 @@
     <Build Include="edw\Views\vw_SDDocumentIncompletionLog.sql" />
     <Build Include="edw\Views\vw_fact_ACDOCA_EPM_Base.sql" />
     <Build Include="edw\Views\vw_LatestOutboundDeliveryItem.sql" />
-    <Build Include="edw\Views\vw_Locations.sql" />
     <Build Include="edw\Views\vw_TransportationOrderItem.sql" />
     <Build Include="edw\Views\vw_FrtCostDistrItm.sql" />
     <Build Include="edw\Views\vw_TransportationOrderItemFreightCost.sql" />

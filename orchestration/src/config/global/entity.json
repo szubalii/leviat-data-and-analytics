@@ -5886,7 +5886,7 @@
         "dest_table_name": "dim_Address",
         "execution_order": 1,
         "schedule_recurrence": "W",
-        "schedule_day": 1
+        "schedule_day": 2
       }
     ]
   },
