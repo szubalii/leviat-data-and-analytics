@@ -63,6 +63,7 @@ SELECT
   , IBDIPE.[ConditionIsManuallyChanged]
   , IBDIPE.[ConditionIsForConfiguration]
   , IBDIPE.[VariantCondition]
+  , IBDIPE.[GLAccount]
   , IBDIPE.[t_applicationId]
   , IBDIPE.[t_extractionDtm]
 FROM 

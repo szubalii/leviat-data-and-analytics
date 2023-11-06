@@ -49,6 +49,7 @@
 , [ConditionIsManuallyChanged] nvarchar(2)
 , [ConditionIsForConfiguration] nvarchar(2)
 , [VariantCondition] nvarchar(52)
+, [GLAccount] nvarchar(10)
 , [t_applicationId]       VARCHAR (32)
 , [t_jobId]               VARCHAR (36)
 , [t_jobDtm]              DATETIME

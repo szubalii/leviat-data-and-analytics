@@ -42,6 +42,7 @@ CREATE TABLE [base_s4h_cax].[I_SalesOrderItemPricingElement](
 , [ConditionIsManuallyChanged] nvarchar(1)
 , [ConditionIsForConfiguration] nvarchar(1)
 , [VariantCondition] nvarchar(26)
+, [GLAccount] nvarchar(10)
 , [t_applicationId]       VARCHAR (32)
 , [t_jobId]               VARCHAR (36)
 , [t_jobDtm]              DATETIME

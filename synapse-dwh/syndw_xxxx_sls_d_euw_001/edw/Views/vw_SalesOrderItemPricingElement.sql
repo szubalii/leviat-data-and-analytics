@@ -63,6 +63,7 @@ SELECT
 , [ConditionIsManuallyChanged] 
 , [ConditionIsForConfiguration] 
 , [VariantCondition] 
+, [GLAccount]
 , ISOIPE.[t_applicationId]
 , ISOIPE.[t_jobDtm]   
 FROM 

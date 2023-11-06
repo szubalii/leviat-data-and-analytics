@@ -48,6 +48,7 @@ CREATE TABLE [edw].[fact_SalesOrderItemPricingElement]
   , [ConditionIsManuallyChanged] NVARCHAR(1)
   , [ConditionIsForConfiguration] NVARCHAR(1)
   , [VariantCondition] NVARCHAR(26)
+  , [GLAccount] NVARCHAR(10)
   , [t_applicationId]       VARCHAR (32)
   , [t_jobId]               VARCHAR (36)
   , [t_jobDtm]              DATETIME
