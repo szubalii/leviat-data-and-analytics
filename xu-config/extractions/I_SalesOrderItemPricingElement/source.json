@@ -371,6 +371,14 @@
                     "length": 26,
                     "isSelected": true,
                     "conversionExit": ""
+                },
+                {
+                    "name": "GLACCOUNT",
+                    "description": "G/L Account Number",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": "ALPHA"
                 }
             ]
         }

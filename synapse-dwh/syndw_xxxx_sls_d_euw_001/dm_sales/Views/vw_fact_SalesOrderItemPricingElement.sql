@@ -12,6 +12,7 @@ SELECT
          ,[CurrencyTypeID]
          ,[CurrencyType]
          ,[CurrencyID]
+         ,[GLAccount]
 FROM
   [edw].[fact_SalesOrderItemPricingElement]
 GROUP BY
@@ -23,3 +24,4 @@ GROUP BY
          ,[CurrencyTypeID]
          ,[CurrencyType]
          ,[CurrencyID]
+         ,[GLAccount]
