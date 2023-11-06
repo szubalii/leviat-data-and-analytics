@@ -332,12 +332,13 @@
     <Build Include="base_ff\Tables\CompanyCode.sql" />
     <Build Include="base_ff\Tables\Budget_EPM.sql" />
     <Build Include="base_ff\Tables\IC_ReconciliationGLAccounts.sql" />
+    <Build Include="base_ff\Tables\ShippingPointLogistics.sql" />
 
     <Build Include="base_ff_USA\Tables\Budget.sql" />
     <Build Include="base_ff_USA\Tables\DummyMaterial.sql" />
     <Build Include="base_ff_USA\Tables\SubPCAT_Pillar.sql" />
     <Build Include="base_ff_USA\Tables\CAProductGroup.sql" />
-
+    
     <Build Include="base_dw_halfen_0_hlp\Tables\CUSTOMER.sql" />
     <Build Include="base_dw_halfen_0_hlp\Tables\DIM_ARTICLE.sql" />
     <Build Include="base_dw_halfen_0_hlp\Tables\SAPCustomerBasicMappingTable.sql" />
@@ -722,6 +723,9 @@
     <Build Include="base_s4h_cax\Tables\RollName.sql" />
     <Build Include="base_s4h_cax\Tables\Opt_Vim_1Item_Extended.sql" />
     <Build Include="base_s4h_cax\Tables\C_GRIRAccountReconciliation.sql" />
+    <Build Include="base_s4h_cax\Tables\I_FrtCostDistrItm.sql" />
+    <Build Include="base_s4h_cax\Tables\I_TransportationOrder.sql" />
+    <Build Include="base_s4h_cax\Tables\I_TransportationOrderItem.sql" />
 
     <Build Include="base_tx_ca_0_hlp\Tables\DATAAREA.sql" />
     <Build Include="base_tx_ca_0_hlp\Tables\CRHCURRENCY.sql" />
@@ -1194,6 +1198,10 @@
     <Build Include="edw\Views\vw_fact_ACDOCA_EPMSalesView.sql" />
     <Build Include="edw\Views\vw_fact_ACDOCA_EPM_Sales_agg.sql" />
     <Build Include="edw\Views\vw_FiscalCalendar.sql" />
+    <Build Include="edw\Views\vw_TransportationOrderItem.sql" />
+    <Build Include="edw\Views\vw_FrtCostDistrItm.sql" />
+    <Build Include="edw\Views\vw_TransportationOrderItemFreightCost.sql" />
+    <Build Include="edw\Views\vw_fact_BillingDocumentItemFreight.sql" />
 
     <Build Include="dq\Views\vw_Product_1_2.sql" />
     <Build Include="dq\Views\vw_RuleTotal.sql" />
@@ -1395,6 +1403,7 @@
     <Build Include="dm_c4c\Views\vw_fact_OpportunityCollection.sql" />    
     <Build Include="dm_scm\Views\vw_fact_MaterialStockLevel_Weekly.sql" />
     <Build Include="dm_scm\Views\vw_fact_ProductSalesThirdPartyDelivery.sql" />
+    <Build Include="dm_scm\Views\vw_dim_ShippingPoint.sql" />
 
     <!-- STORED PROCEDURES -->
 

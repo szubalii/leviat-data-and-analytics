@@ -4256,6 +4256,39 @@
         "base_table_name": "Opt_Vim_1Item_Extended",
         "schedule_recurrence": "D",
         "pk_field_names": "MANDT, DOCID, ITEMID"
+      },
+      {
+        "entity_id": 629,
+        "entity_name": "I_FrtCostDistrItm",
+        "data_category": "NULL",
+        "tool_name": "Theobald",
+        "extraction_type": "Table",
+        "update_mode": "Full",
+        "base_table_name": "I_FrtCostDistrItm",
+        "schedule_recurrence": "D",
+        "pk_field_names": "MANDT, FRTCOSTDISTRITEMUUID"
+      },
+      {
+        "entity_id": 630,
+        "entity_name": "I_TransportationOrder",
+        "data_category": "NULL",
+        "tool_name": "Theobald",
+        "extraction_type": "Table",
+        "update_mode": "Full",
+        "base_table_name": "I_TransportationOrder",
+        "schedule_recurrence": "A",
+        "pk_field_names": "MANDT, TRANSPORTATIONORDERUUID"
+      },
+      {
+        "entity_id": 631,
+        "entity_name": "I_TransportationOrderItem",
+        "data_category": "NULL",
+        "tool_name": "Theobald",
+        "extraction_type": "Table",
+        "update_mode": "Full",
+        "base_table_name": "I_TransportationOrderItem",
+        "schedule_recurrence": "D",
+        "pk_field_names": "MANDT, TRANSPORTATIONORDERITEMUUID"
       }
     ]
   },
@@ -5903,6 +5936,16 @@
         "execution_order": 1,
         "schedule_recurrence": "M",
         "schedule_day": 1
+      },
+      {
+        "entity_id": 627,
+        "entity_name": "dim_Address",
+        "sproc_name": "sp_materialize_view",
+        "source_view_name": "vw_Address",
+        "dest_table_name": "dim_Address",
+        "execution_order": 1,
+        "schedule_recurrence": "W",
+        "schedule_day": 2
       }
     ]
   },

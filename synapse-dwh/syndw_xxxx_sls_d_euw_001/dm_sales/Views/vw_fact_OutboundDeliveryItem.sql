@@ -1,4 +1,15 @@
 ﻿CREATE VIEW [dm_sales].[vw_fact_OutboundDeliveryItem] AS 
+WITH CurrencyConversionRate AS (
+  SELECT 
+    SourceCurrency
+    , TargetCurrency
+    , ExchangeRate
+  FROM
+    [edw].[vw_CurrencyConversionRate]
+  WHERE
+    CurrencyTypeID<>'00'
+    AND NOT (CurrencyTypeID<>'10' AND [SourceCurrency]='EUR')
+)
 SELECT  
        [sk_fact_OutboundDeliveryItem]
       ,[nk_fact_OutboundDeliveryItem]
@@ -14,7 +25,7 @@ SELECT
       ,[LastChangeDate]
       ,ODI.[DistributionChannelID]
       ,DistributionChannel.[DistributionChannel]
-      ,[ProductID]
+      ,ODI.[ProductID]
       ,[OriginallyRequestedMaterialID]
       ,[ProductGroupID]
       ,MaterialGroup.[MaterialGroupText] as [ProductGroup]
@@ -72,8 +83,8 @@ SELECT
       ,[IsCompletelyDelivered]
       ,[ReceivingPoint]
       ,[ItemIsBillingRelevant]
-      ,[ReferenceSDDocument]
-      ,[ReferenceSDDocumentItem]
+      ,ODI.[ReferenceSDDocument]
+      ,ODI.[ReferenceSDDocumentItem]
       ,[ReferenceSDDocumentCategoryID]
       ,SDDocumentCategory.[SDDocumentCategory] as [ReferenceSDDocumentCategory]
       ,ODI.[SDProcessStatusID]
@@ -251,6 +262,16 @@ SELECT
       ,[OTD_IsOnTime]
       ,[OTD_LateDays]
       ,[OTDIF_OnTimeDelInFull]
+      ,FCDI.[FrtCostDistrItemAmount]          AS [CalculatedFreightAmountInCompanyCodeCurrency]
+      ,FCDI.[FrtCostDistrItemAmount] * CCR_FR_LOC.ExchangeRate
+                                              AS [CalculatedFreightAmount_LC]
+      ,FCDI.[FrtCostDistrItemAmount] * CCR_FR_EUR.ExchangeRate
+                                              AS [CalculatedFreightAmount_EUR]
+      ,FCDI.[FrtCostDistrItemAmtCrcy]         AS [CalculatedFreightAmountCompanyCodeCurrency]
+      ,BDIFreight.[InvoicedFreightValue_LC]
+      ,BDIFreight.[InvoicedFreightValue_LC] * CCR_EUR.ExchangeRate
+                                              AS [InvoicedFreightValue_EUR]
+      ,BDIFreight.[LocalCurrencyID]           AS [FreightLocalCurrencyID]
       ,ODI.[t_extractionDtm]
       ,ODI.[t_applicationId]
 FROM [edw].[fact_OutboundDeliveryItem] ODI
@@ -268,3 +289,18 @@ LEFT JOIN [edw].[dim_DistributionChannel] DistributionChannel
   ON ODI.[DistributionChannelID] = DistributionChannel.[DistributionChannelID]
 LEFT JOIN [edw].[dim_SDProcessStatus] SDProcessStatus
   ON ODI.[SDProcessStatusID] = SDProcessStatus.[SDProcessStatusID]
+LEFT JOIN [edw].[vw_TransportationOrderItemFreightCost] FCDI
+  ON ODI.[OutboundDelivery] = FCDI.[TranspOrdDocReferenceID]             COLLATE DATABASE_DEFAULT
+  AND ODI.[OutboundDeliveryItem] = FCDI.[TranspOrdDocReferenceItmID]     COLLATE DATABASE_DEFAULT
+LEFT JOIN [edw].[vw_fact_BillingDocumentItemFreight] BDIFreight
+  ON ODI.[OutboundDelivery] = BDIFreight.[ReferenceSDDocument]
+  AND ODI.[OutboundDeliveryItem] = BDIFreight.[ReferenceSDDocumentItem]
+LEFT JOIN CurrencyConversionRate CCR_EUR
+  ON BDIFreight.LocalCurrencyID = CCR_EUR.[SourceCurrency]              COLLATE DATABASE_DEFAULT
+  AND CCR_EUR.[TargetCurrency] = 'EUR'
+LEFT JOIN CurrencyConversionRate CCR_FR_LOC
+  ON FCDI.[FrtCostDistrItemAmtCrcy] = CCR_FR_LOC.[SourceCurrency]        COLLATE DATABASE_DEFAULT
+  AND SDI_LocalCurrency = CCR_FR_LOC.[TargetCurrency]                    COLLATE DATABASE_DEFAULT
+LEFT JOIN CurrencyConversionRate CCR_FR_EUR
+  ON FCDI.[FrtCostDistrItemAmtCrcy] = CCR_FR_EUR.[SourceCurrency]        COLLATE DATABASE_DEFAULT
+  AND CCR_FR_EUR.[TargetCurrency] = 'EUR'
