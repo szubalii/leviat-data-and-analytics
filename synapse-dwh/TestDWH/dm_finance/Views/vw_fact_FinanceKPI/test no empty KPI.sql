@@ -21,7 +21,7 @@ BEGIN
   EXEC tSQLt.FakeTable '[edw]', '[dim_ExchangeRates]';
   EXEC tSQLt.FakeTable '[edw]', '[dim_CurrencyType]';
   EXEC tSQLt.FakeTable '[edw]', '[dim_ZE_EXQLMAP_DT]';
-  EXEC tSQLt.FakeTable '[edw]', '[fact_VendorInvoice_ApprovedAndPos]';
+  EXEC tSQLt.FakeTable '[edw]', '[fact_VendorInvoice_ApprovedAndPosted]';
   EXEC tSQLt.FakeTable '[edw]', '[fact_GRIRAccountReconciliation]';
   EXEC tSQLt.FakeTable '[edw]', '[fact_ScheduleLineShippedNotBilled]';
   
