@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [tc.intm_s4h.vw_OriginalConfirmedScheduleLineDeliveryDate].[test min values]
+﻿CREATE PROCEDURE [tc.intm_s4h.vw_OriginalConfirmedScheduleLineDeliveryDate].[test OriginalConfirmedDeliveryDate]
 AS
 BEGIN
 
