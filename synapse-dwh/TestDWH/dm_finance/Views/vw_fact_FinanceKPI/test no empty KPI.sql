@@ -79,7 +79,7 @@ BEGIN
     TargetCurrency,
     ExchangeRate,
     ExchangeRateEffectiveDate,
-    ExchangeRateType,
+    ExchangeRateType
   )
   VALUES
   ('GBP','EUR','1.1', '2020-01-01', 'P'),
@@ -130,7 +130,7 @@ BEGIN
   VALUES
     ('NZ35', '2023-08-01', '2023-05-01',1,100)
     ,('NZ35', '2023-08-01', '2023-09-01',1,100)
-    ('NZ35', '2023-08-01', '2023-04-01',2,100);
+    ,('NZ35', '2023-08-01', '2023-04-01',2,100);
 
   INSERT INTO [edw].[fact_ScheduleLineShippedNotBilled]
   ( CompanyCode,
