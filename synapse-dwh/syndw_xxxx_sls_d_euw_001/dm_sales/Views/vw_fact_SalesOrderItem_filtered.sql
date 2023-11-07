@@ -4,7 +4,6 @@ SELECT
      [sk_fact_SalesDocumentItem]
     ,[SalesOrderID]
     ,[SalesOrderItemID]
-    ,[nk_fact_SalesDocumentItem]
     ,[CurrencyTypeID]
     ,[CurrencyType]
     ,[CurrencyID]
