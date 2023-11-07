@@ -15,7 +15,12 @@ BEGIN
   IF OBJECT_ID('tempdb..#fact_GRIRAccountReconciliation')       IS NOT NULL DROP TABLE #fact_GRIRAccountReconciliation;
   IF OBJECT_ID('tempdb..#fact_ScheduleLineShippedNotBilled')    IS NOT NULL DROP TABLE #fact_ScheduleLineShippedNotBilled;
   
-   
+  EXEC tSQLt.FakeTable '[edw]', '[dim_FiscalCalendar]'; 
+  
+  SELECT TOP(0) *
+  INTO #dim_FiscalCalendar
+  FROM edw.dim_FiscalCalendar;
+
   INSERT INTO #dim_FiscalCalendar (
     FiscalYear,
     FiscalPeriod,
