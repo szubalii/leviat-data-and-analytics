@@ -126,8 +126,8 @@ BEGIN
   INSERT INTO #dim_ZE_EXQLMAP_DT (
     GLAccountID,
     FunctionalAreaID,
-    CONTIGENCY4,
-    CONTIGENCY5
+    Contingency4,
+    Contingency5
   )
   VALUES
   ( '1111', 'TST1', 'Gross Margin',null)
