@@ -16,6 +16,14 @@ BEGIN
   IF OBJECT_ID('tempdb..#fact_ScheduleLineShippedNotBilled')    IS NOT NULL DROP TABLE #fact_ScheduleLineShippedNotBilled;
   
   EXEC tSQLt.FakeTable '[edw]', '[dim_FiscalCalendar]'; 
+  EXEC tSQLt.FakeTable '[edw]', '[dim_CompanyCode]';
+  EXEC tSQLt.FakeTable '[edw]', '[fact_ACDOCA]';
+  EXEC tSQLt.FakeTable '[edw]', '[dim_ExchangeRates]';
+  EXEC tSQLt.FakeTable '[edw]', '[dim_CurrencyType]';
+  EXEC tSQLt.FakeTable '[edw]', '[dim_ZE_EXQLMAP_DT]';
+  EXEC tSQLt.FakeTable '[edw]', '[fact_VendorInvoice_ApprovedAndPos]';
+  EXEC tSQLt.FakeTable '[edw]', '[fact_GRIRAccountReconciliation]';
+  EXEC tSQLt.FakeTable '[edw]', '[fact_ScheduleLineShippedNotBilled]';
   
   SELECT TOP(0) *
   INTO #dim_FiscalCalendar
@@ -33,6 +41,10 @@ BEGIN
 
   INSERT INTO edw.dim_FiscalCalendar SELECT * FROM #dim_FiscalCalendar;
 
+  SELECT TOP(0) *
+  INTO #dim_CompanyCode
+  FROM edw.dim_CompanyCode;
+
   INSERT INTO #dim_CompanyCode (
     CompanyCodeID
   )
@@ -40,6 +52,10 @@ BEGIN
     ('NZ35');
 
   INSERT INTO edw.dim_CompanyCode SELECT * FROM #dim_CompanyCode;
+
+  SELECT TOP(0) *
+  INTO #fact_ACDOCA
+  FROM edw.fact_ACDOCA;
 
   INSERT INTO #fact_ACDOCA (
     [CompanyCodeID],
@@ -85,6 +101,10 @@ BEGIN
     '1111');
 
   INSERT INTO edw.fact_ACDOCA SELECT * FROM #fact_ACDOCA;
+  
+  SELECT TOP(0) *
+  INTO #dim_ExchangeRates
+  FROM edw.dim_ExchangeRates;
 
   INSERT INTO #dim_ExchangeRates (
     SourceCurrency,
@@ -99,6 +119,10 @@ BEGIN
 
   INSERT INTO edw.dim_ExchangeRates SELECT * FROM #dim_ExchangeRates;
 
+  SELECT TOP(0) *
+  INTO #dim_ZE_EXQLMAP_DT
+  FROM edw.dim_ZE_EXQLMAP_DT;
+
   INSERT INTO #dim_ZE_EXQLMAP_DT (
     GLAccountID,
     FunctionalAreaID,
@@ -110,6 +134,10 @@ BEGIN
   ,( '1112', 'TST1', null, 'Opex');
 
   INSERT INTO edw.dim_ZE_EXQLMAP_DT  SELECT * FROM #dim_ZE_EXQLMAP_DT;
+
+  SELECT TOP(0) *
+  INTO #dim_CurrencyType
+  FROM edw.dim_CurrencyType;
 
   INSERT INTO #dim_CurrencyType (
     CurrencyTypeID,
@@ -123,6 +151,9 @@ BEGIN
 
   INSERT INTO edw.dim_CurrencyType SELECT * FROM #dim_CurrencyType;
 
+  SELECT TOP(0) *
+  INTO #fact_VendorInvoice_ApprovedAndPosted
+  FROM edw.fact_VendorInvoice_ApprovedAndPosted;
 
   INSERT INTO #fact_VendorInvoice_ApprovedAndPosted (
     CompanyCodeID,
@@ -137,6 +168,10 @@ BEGIN
 
   INSERT INTO [edw].[fact_VendorInvoice_ApprovedAndPosted] SELECT * FROM #fact_VendorInvoice_ApprovedAndPosted;
 
+  SELECT TOP(0) *
+  INTO #fact_GRIRAccountReconciliation
+  FROM edw.fact_GRIRAccountReconciliation;
+
   INSERT INTO #fact_GRIRAccountReconciliation (
     CompanyCodeID,
     ReportDate,
@@ -150,6 +185,10 @@ BEGIN
     ,('NZ35', '2023-08-01', '2023-04-01',2,100);
 
   INSERT INTO [edw].[fact_GRIRAccountReconciliation] SELECT * FROM #fact_GRIRAccountReconciliation;
+
+  SELECT TOP(0) *
+  INTO #fact_ScheduleLineShippedNotBilled
+  FROM edw.fact_ScheduleLineShippedNotBilled;
 
   INSERT INTO #fact_ScheduleLineShippedNotBilled
   ( CompanyCode,
