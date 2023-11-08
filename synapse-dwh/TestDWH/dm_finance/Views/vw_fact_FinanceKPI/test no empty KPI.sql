@@ -14,6 +14,7 @@ BEGIN
   IF OBJECT_ID('tempdb..#fact_VendorInvoice_ApprovedAndPosted') IS NOT NULL DROP TABLE #fact_VendorInvoice_ApprovedAndPosted;
   IF OBJECT_ID('tempdb..#fact_GRIRAccountReconciliation')       IS NOT NULL DROP TABLE #fact_GRIRAccountReconciliation;
   IF OBJECT_ID('tempdb..#fact_ScheduleLineShippedNotBilled')    IS NOT NULL DROP TABLE #fact_ScheduleLineShippedNotBilled;
+  IF OBJECT_ID('tempdb..#IC_ReconciliationGLAccounts')          IS NOT NULL DROP TABLE #IC_ReconciliationGLAccounts;
   
   EXEC tSQLt.FakeTable '[edw]', '[dim_FiscalCalendar]'; 
   EXEC tSQLt.FakeTable '[edw]', '[dim_CompanyCode]';
@@ -24,6 +25,7 @@ BEGIN
   EXEC tSQLt.FakeTable '[edw]', '[fact_VendorInvoice_ApprovedAndPosted]';
   EXEC tSQLt.FakeTable '[edw]', '[fact_GRIRAccountReconciliation]';
   EXEC tSQLt.FakeTable '[edw]', '[fact_ScheduleLineShippedNotBilled]';
+  EXEC tSQLt.FakeTable '[base_ff]', '[IC_ReconciliationGLAccounts]';
   
   SELECT TOP(0) *
   INTO #dim_FiscalCalendar
@@ -50,6 +52,17 @@ BEGIN
     ('NZ35');
 
   INSERT INTO edw.dim_CompanyCode SELECT * FROM #dim_CompanyCode;
+
+  SELET TOP(0) *
+  INTO #IC_ReconciliationGLAccounts
+  FROM base_ff.IC_ReconciliationGLAccounts;
+
+  INSERT INTO #IC_ReconciliationGLAccounts (
+    GLAccountID
+  )
+  VALUES ('1111');
+
+  INSERT INTO base_ff.IC_ReconciliationGLAccounts SELECT * FROM #IC_ReconciliationGLAccounts;
 
   SELECT TOP(0) *
   INTO #fact_ACDOCA
