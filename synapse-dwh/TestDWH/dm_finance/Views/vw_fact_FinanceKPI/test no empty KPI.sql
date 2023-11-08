@@ -152,15 +152,16 @@ BEGIN
   FROM edw.dim_ZE_EXQLMAP_DT;
 
   INSERT INTO #dim_ZE_EXQLMAP_DT (
+    nk_ExQLmap,
     GLAccountID,
     FunctionalAreaID,
     Contingency4,
     Contingency5
   )
   VALUES
-  ( '1111', 'TST1', 'Gross Margin',null)
-  ,( '1113', 'TST1', null, 'Sales')
-  ,( '1112', 'TST1', null, 'Opex');
+  ( '1', '1111', 'TST1', 'Gross Margin',null)
+  ,( '2', '1112', 'TST1', null, 'Opex')
+  ,( '3', '1113', 'TST1', null, 'Sales');
 
   INSERT INTO edw.dim_ZE_EXQLMAP_DT  SELECT * FROM #dim_ZE_EXQLMAP_DT;
 
