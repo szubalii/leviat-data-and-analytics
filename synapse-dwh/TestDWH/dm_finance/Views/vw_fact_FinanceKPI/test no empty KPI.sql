@@ -69,6 +69,7 @@ BEGIN
   FROM edw.fact_ACDOCA;
 
   INSERT INTO #fact_ACDOCA (
+    [SourceLedgerID],
     [CompanyCodeID],
     [FiscalYear],
     [FiscalPeriod],
@@ -84,7 +85,8 @@ BEGIN
     [PartnerCompanyID]
   )
   VALUES
-  ('NZ35',
+  ( 1,
+    'NZ35',
     '2023',
     '8',
     '2023008',
@@ -97,7 +99,8 @@ BEGIN
     'RV',
     '12345',
     '1111')
-    , ('NZ35',
+    , (
+      2,'NZ35',
     '2023',
     '8',
     '2023008',
@@ -110,7 +113,8 @@ BEGIN
     'RV',
     '12345',
     '1111')
-    , ('NZ35',
+    , (3,
+    'NZ35',
     '2023',
     '8',
     '2023008',
