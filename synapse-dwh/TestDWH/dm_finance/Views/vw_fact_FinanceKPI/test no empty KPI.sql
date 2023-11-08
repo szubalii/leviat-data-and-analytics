@@ -53,7 +53,7 @@ BEGIN
 
   INSERT INTO edw.dim_CompanyCode SELECT * FROM #dim_CompanyCode;
 
-  SELET TOP(0) *
+  SELECT TOP(0) *
   INTO #IC_ReconciliationGLAccounts
   FROM base_ff.IC_ReconciliationGLAccounts;
 
