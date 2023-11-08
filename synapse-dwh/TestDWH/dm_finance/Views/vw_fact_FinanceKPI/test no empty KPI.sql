@@ -109,6 +109,19 @@ BEGIN
     'TST1',
     'T',
     '12345',
+    '1111')
+    , ('NZ35',
+    '2023',
+    '8',
+    '2023008',
+    123,
+    123,
+    120,
+    'GBP',
+    '1113',
+    'TST1',
+    'T',
+    '12345',
     '1111');
 
   INSERT INTO edw.fact_ACDOCA SELECT * FROM #fact_ACDOCA;
@@ -142,6 +155,7 @@ BEGIN
   )
   VALUES
   ( '1111', 'TST1', 'Gross Margin',null)
+  ,( '1113', 'TST1', null, 'Sales')
   ,( '1112', 'TST1', null, 'Opex');
 
   INSERT INTO edw.dim_ZE_EXQLMAP_DT  SELECT * FROM #dim_ZE_EXQLMAP_DT;
