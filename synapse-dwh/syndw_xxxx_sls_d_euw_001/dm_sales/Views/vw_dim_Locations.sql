@@ -17,4 +17,4 @@ SELECT
 , [t_applicationId]
 , [t_jobDtm]
 
-FROM [base_ff].[LeviatWarehouse]
+FROM [edw].[vw_Locations]
