@@ -35,9 +35,7 @@ BEGIN
     FiscalYearPeriod
   )
   VALUES
-    ('2023', '008', '2023008'),
-    ('2023', '009', '2023009'),
-    ('2023', '010', '2023010');
+    ('2023', '008', '2023008');
 
   INSERT INTO edw.dim_FiscalCalendar SELECT * FROM #dim_FiscalCalendar;
 
@@ -197,9 +195,9 @@ BEGIN
     OpenInvoicedValue)
   VALUES
     ('NZ35', '2023-08-01', '2023-04-01', 100)
-    ,('NZ35', '2023-09-01', '2023-04-01', 100)
-    ,('NZ35', '2023-10-01', '2023-04-01', 100)
-    ,('NZ35', '2023-11-01', '2023-04-01', 100);
+    ,('NZ35', '2023-08-02', '2023-04-01', 100)
+    ,('NZ35', '2023-08-03', '2023-04-01', 100)
+    ,('NZ35', '2023-08-04', '2023-04-01', 100);
 
   INSERT INTO [edw].[fact_ScheduleLineShippedNotBilled] SELECT * FROM #fact_ScheduleLineShippedNotBilled;
 
