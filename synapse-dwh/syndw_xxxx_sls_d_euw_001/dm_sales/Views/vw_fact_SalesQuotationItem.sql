@@ -2,7 +2,6 @@
 
 select doc.[SalesDocument]           as [QuotationID]
      , doc.[SalesDocumentItem]       as [QuotationItemID]
-     , doc.nk_fact_SalesDocumentItem as [nk_fact_SalesQuotationItem]
      , doc.[CurrencyTypeID]
      , doc.[CurrencyType]
      , doc.[sk_fact_SalesDocumentItem] as sk_fact_SalesQuotationItem

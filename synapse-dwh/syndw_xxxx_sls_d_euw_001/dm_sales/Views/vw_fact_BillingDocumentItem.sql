@@ -33,7 +33,6 @@ select
            doc.[sk_fact_BillingDocumentItem]
          , doc.[BillingDocument]
          , doc.[BillingDocumentItem]
-         , doc.nk_fact_BillingDocumentItem
          , doc.[CurrencyType]
          , dimCr.[CurrencyID]
          , dimCr.[Currency]
@@ -275,7 +274,6 @@ SELECT
        [sk_fact_BillingDocumentItem]
       ,[BillingDocument]
       ,[BillingDocumentItem]
-      ,[nk_fact_BillingDocumentItem]
       ,[CurrencyType]
       ,[CurrencyID]
       ,[Currency]
