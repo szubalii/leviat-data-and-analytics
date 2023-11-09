@@ -68,21 +68,21 @@ SELECT
     ,SDI.[SalesDocumentItem]
     ,SDI.[SDI_CreationDate]
     ,SDI.[SDI_RequestedDeliveryDate]
-    ,MAX(SDI.[SDI_PricePerPiece_LC])
-    ,MAX(SDI.[SDI_PricePerPiece_EUR])
-    ,MAX(SDI.[SDI_LocalCurrency])
+    ,MAX(SDI.[SDI_PricePerPiece_LC]) AS [SDI_PricePerPiece_LC]
+    ,MAX(SDI.[SDI_PricePerPiece_EUR]) AS [SDI_PricePerPiece_EUR]
+    ,MAX(SDI.[SDI_LocalCurrency]) AS [SDI_LocalCurrency]
     ,SDI.[SDI_SalesDocumentTypeID]
     ,SDI.[SDI_IsReturnsItemID]
     ,SDI.[SDI_BillToParty]
     ,SDI.[SDI_ConfdDeliveryQtyInBaseUnit]
     ,SDI.[SDI_ConfdDelivQtyInOrderQtyUnit]
-    ,MAX(SDI.[SDI_CostAmount_LC])
-    ,MAX(SDI.[SDI_CostAmount_EUR])
+    ,MAX(SDI.[SDI_CostAmount_LC]) AS [SDI_CostAmount_LC]
+    ,MAX(SDI.[SDI_CostAmount_EUR]) AS [SDI_CostAmount_EUR]
     ,SDI.[SDI_DeliveryBlockStatusID]
     ,SDI.[SDI_ExchangeRateDate]
     ,SDI.[SDI_ExchangeRateType]
-    ,MAX(SDI.[SDI_NetAmount_LC])
-    ,MAX(SDI.[SDI_NetAmount_EUR])
+    ,MAX(SDI.[SDI_NetAmount_LC]) AS [SDI_NetAmount_LC]
+    ,MAX(SDI.[SDI_NetAmount_EUR]) AS [SDI_NetAmount_EUR]
     ,SDI.[SDI_NetPriceQuantityUnit]
     ,SDI.[SDI_OrderID]
     ,SDI.[SDI_OrderQuantity]
