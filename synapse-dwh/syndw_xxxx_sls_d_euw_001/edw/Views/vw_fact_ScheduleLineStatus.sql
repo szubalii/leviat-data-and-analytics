@@ -90,6 +90,12 @@ WITH DeliveryItem AS
 , pre_report AS (
 SELECT 
         SDSL.[sk_dim_SalesDocumentScheduleLine],
+        CONCAT_WS(
+            '¦',
+            SDSL.[SalesDocumentID]             COLLATE DATABASE_DEFAULT,
+            SDSL.[SalesDocumentItem]           COLLATE DATABASE_DEFAULT,
+            SDI.[CurrencyTypeID]               COLLATE DATABASE_DEFAULT
+        )                                       AS [nk_fact_SalesDocumentItem],
         SDSL.[SalesDocumentID],
         SDI.[SalesDocumentTypeID],
         SDI.[SDDocumentRejectionStatusID],
