@@ -1,6 +1,6 @@
 CREATE VIEW [dm_sales].[vw_fact_ScheduleLineStatus] AS
 SELECT
-  [nk_fact_SalesDocumentItem],
+  [sk_fact_SalesDocumentItem] AS [sk_fact_ScheduleLineStatus],
   [SalesDocumentTypeID],
   [SDDocumentRejectionStatusID],
   [SalesDocumentID],

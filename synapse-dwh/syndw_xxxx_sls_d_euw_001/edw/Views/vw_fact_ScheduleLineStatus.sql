@@ -88,13 +88,7 @@ WITH DeliveryItem AS
 )
 , pre_report AS (
 SELECT 
-        CONCAT(
-            SDSL.[SalesDocumentID]              COLLATE DATABASE_DEFAULT
-            ,'¦'
-            ,SDSL.[SalesDocumentItem]           COLLATE DATABASE_DEFAULT
-            ,'¦'
-            ,SDI.[CurrencyTypeID]               COLLATE DATABASE_DEFAULT
-        )                                       AS nk_fact_SalesDocumentItem,
+        SDI.[sk_fact_SalesDocumentItem],
         SDSL.[SalesDocumentID],
         SDI.[SalesDocumentTypeID],
         SDI.[SDDocumentRejectionStatusID],
@@ -190,7 +184,7 @@ SELECT
         AND SDI.[SDDocumentCategoryID] <> 'B'
 )
 SELECT
-        pre_report.[nk_fact_SalesDocumentItem],
+        pre_report.[sk_fact_SalesDocumentItem],
         pre_report.[SalesDocumentTypeID],
         pre_report.[SDDocumentRejectionStatusID], 
         pre_report.[SalesDocumentID],      

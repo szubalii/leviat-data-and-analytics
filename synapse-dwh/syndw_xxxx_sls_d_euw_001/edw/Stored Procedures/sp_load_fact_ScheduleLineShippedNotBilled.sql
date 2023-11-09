@@ -33,7 +33,7 @@ BEGIN
             CLUSTERED COLUMNSTORE INDEX
         )
         AS SELECT 
-                [nk_fact_SalesDocumentItem]                
+                [sk_fact_ScheduleLineShippedNotBilled]     
              ,  [SalesDocumentID]                          
              ,  [SalesDocumentItem]                        
              ,  [ReportDate]       
@@ -83,7 +83,7 @@ BEGIN
                 FORMAT(ReportDate, 'yyyyMM') <> FORMAT(@reportDate,'yyyyMM');
 
         INSERT INTO [edw].[fact_ScheduleLineShippedNotBilled_tmp] (
-                [nk_fact_SalesDocumentItem]                
+                [sk_fact_ScheduleLineShippedNotBilled]
              ,  [SalesDocumentID]                          
              ,  [SalesDocumentItem]                        
              ,  [ReportDate]           
@@ -129,7 +129,7 @@ BEGIN
              ,  [t_jobBy] 
         )
         SELECT
-                [nk_fact_SalesDocumentItem]                
+                [sk_fact_SalesDocumentItem]     
              ,  [SalesDocumentID]                          
              ,  [SalesDocumentItem]                        
              ,  CONVERT (date, GETDATE()) AS [ReportDate]   

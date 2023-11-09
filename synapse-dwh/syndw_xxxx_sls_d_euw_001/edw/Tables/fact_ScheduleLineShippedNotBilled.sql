@@ -1,5 +1,5 @@
 CREATE TABLE [edw].[fact_ScheduleLineShippedNotBilled] (
-    [nk_fact_SalesDocumentItem]                               nvarchar(94) NOT NULL,
+    [sk_fact_ScheduleLineShippedNotBilled]                    BIGINT NOT NULL,
     [SalesDocumentID]                                         nvarchar(20) NOT NULL,
     [SalesDocumentItem]                                       nvarchar(24) NOT NULL,
     [ReportDate]                                              date NOT NULL,
