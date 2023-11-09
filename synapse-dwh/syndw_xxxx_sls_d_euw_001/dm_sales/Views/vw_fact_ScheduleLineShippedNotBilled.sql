@@ -1,8 +1,7 @@
 CREATE VIEW [dm_sales].[vw_fact_ScheduleLineShippedNotBilled]
 AS
 SELECT  
-     [sk_fact_ScheduleLineShippedNotBilled]
-    ,[nk_fact_SalesDocumentItem]                 
+     [sk_fact_ScheduleLineShippedNotBilled]      
     ,[SalesDocumentID]                           
     ,[SalesDocumentItem]                         
     ,[CurrencyTypeID]                            
