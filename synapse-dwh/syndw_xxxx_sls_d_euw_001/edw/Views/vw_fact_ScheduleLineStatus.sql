@@ -192,6 +192,7 @@ SELECT
 )
 SELECT
         pre_report.[sk_dim_SalesDocumentScheduleLine],
+        pre_report.[nk_fact_SalesDocumentItem],
         pre_report.[SalesDocumentTypeID],
         pre_report.[SDDocumentRejectionStatusID], 
         pre_report.[SalesDocumentID],      
