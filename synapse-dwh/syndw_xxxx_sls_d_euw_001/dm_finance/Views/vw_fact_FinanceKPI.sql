@@ -17,6 +17,7 @@ WITH Periods AS (
         OR
       CAST(FiscalYear AS INT) <  YEAR(SYSDATETIME())
     )
+    AND CAST(FiscalPeriod AS INT) <= 12
     AND FiscalYearVariant = 'DL'
 )
 ,

@@ -5,11 +5,6 @@ BEGIN
   IF OBJECT_ID('actual') IS NOT NULL DROP TABLE actual;
     
   -- Assemble: Fake Table
-  IF OBJECT_ID('tempdb..#fact_ACDOCA')                          IS NOT NULL DROP TABLE #fact_ACDOCA;
-  IF OBJECT_ID('tempdb..#dim_ExchangeRates')                    IS NOT NULL DROP TABLE #dim_ExchangeRates;
-  IF OBJECT_ID('tempdb..#dim_CurrencyType')                     IS NOT NULL DROP TABLE #dim_CurrencyType;
-  IF OBJECT_ID('tempdb..#dim_ZE_EXQLMAP_DT')                    IS NOT NULL DROP TABLE #dim_ZE_EXQLMAP_DT;
-  IF OBJECT_ID('tempdb..#IC_ReconciliationGLAccounts')          IS NOT NULL DROP TABLE #IC_ReconciliationGLAccounts;
 
   EXEC tSQLt.FakeTable '[edw]', '[fact_ACDOCA]';
   EXEC tSQLt.FakeTable '[edw]', '[dim_ExchangeRates]';
@@ -17,22 +12,12 @@ BEGIN
   EXEC tSQLt.FakeTable '[edw]', '[dim_ZE_EXQLMAP_DT]';
   EXEC tSQLt.FakeTable '[base_ff]', '[IC_ReconciliationGLAccounts]';
   
-  SELECT TOP(0) *
-  INTO #IC_ReconciliationGLAccounts
-  FROM base_ff.IC_ReconciliationGLAccounts;
-
-  INSERT INTO #IC_ReconciliationGLAccounts (
+  INSERT INTO base_ff.IC_ReconciliationGLAccounts (
     GLAccountID
   )
   VALUES ('1111');
 
-  INSERT INTO base_ff.IC_ReconciliationGLAccounts SELECT * FROM #IC_ReconciliationGLAccounts;
-
-  SELECT TOP(0) *
-  INTO #fact_ACDOCA
-  FROM edw.fact_ACDOCA;
-
-  INSERT INTO #fact_ACDOCA (
+  INSERT INTO edw.fact_ACDOCA (
     [SourceLedgerID],
     [CompanyCodeID],
     [FiscalYear],
@@ -92,13 +77,7 @@ BEGIN
     '12345',
     '1111');
 
-  INSERT INTO edw.fact_ACDOCA SELECT * FROM #fact_ACDOCA;
-  
-  SELECT TOP(0) *
-  INTO #dim_ExchangeRates
-  FROM edw.dim_ExchangeRates;
-
-  INSERT INTO #dim_ExchangeRates (
+  INSERT INTO edw.dim_ExchangeRates (
     SourceCurrency,
     TargetCurrency,
     ExchangeRate,
@@ -109,13 +88,7 @@ BEGIN
   ('GBP','EUR','1.1', '2020-01-01', 'P'),
   ('USD','EUR','1.2', '2020-01-01', 'P');
 
-  INSERT INTO edw.dim_ExchangeRates SELECT * FROM #dim_ExchangeRates;
-
-  SELECT TOP(0) *
-  INTO #dim_ZE_EXQLMAP_DT
-  FROM edw.dim_ZE_EXQLMAP_DT;
-
-  INSERT INTO #dim_ZE_EXQLMAP_DT (
+  INSERT INTO edw.dim_ZE_EXQLMAP_DT (
     nk_ExQLmap,
     GLAccountID,
     FunctionalAreaID,
@@ -127,13 +100,7 @@ BEGIN
   ,( '2', '1112', 'TST1', null, 'Opex')
   ,( '3', '1113', 'TST1', null, 'Sales');
 
-  INSERT INTO edw.dim_ZE_EXQLMAP_DT  SELECT * FROM #dim_ZE_EXQLMAP_DT;
-
-  SELECT TOP(0) *
-  INTO #dim_CurrencyType
-  FROM edw.dim_CurrencyType;
-
-  INSERT INTO #dim_CurrencyType (
+  INSERT INTO edw.dim_CurrencyType (
     CurrencyTypeID,
     CurrencyType
   )
@@ -142,8 +109,6 @@ BEGIN
     ('10','Transaction'),
     ('20','Group EUR'),
     ('30','Group USD');
-
-  INSERT INTO edw.dim_CurrencyType SELECT * FROM #dim_CurrencyType;
 
 -- Act: 
   SELECT
