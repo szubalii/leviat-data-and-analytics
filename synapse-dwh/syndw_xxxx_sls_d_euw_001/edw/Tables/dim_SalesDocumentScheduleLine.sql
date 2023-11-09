@@ -34,7 +34,6 @@
     [t_jobDtm]                      DATETIME       NULL,
     [t_lastActionCd]                VARCHAR(1),
     [t_jobBy]                       NVARCHAR(128),
-
     CONSTRAINT [PK_dim_SalesDocumentScheduleLine] PRIMARY KEY NONCLUSTERED ([SalesDocumentID],[SalesDocumentItem],[ScheduleLine]) NOT ENFORCED
 )
     WITH
