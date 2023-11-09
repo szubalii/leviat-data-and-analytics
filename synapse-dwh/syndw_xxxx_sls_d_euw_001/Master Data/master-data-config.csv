@@ -40,3 +40,4 @@ map_AXBI;SAPCustomerBasicMappingTable.csv;";";map_AXBI;SAPCustomerBasicMappingTa
 ;Budget_EPM.csv;";";base_ff;Budget_EPM
 ;IC_ReconciliationGLAccounts.csv;";";base_ff;IC_ReconciliationGLAccounts
 ;ShippingPointLogistics.csv;";";base_ff;ShippingPointLogistics
+;LeviatWarehouse.csv;";";base_ff;LeviatWarehouse
