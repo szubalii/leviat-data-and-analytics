@@ -1,6 +1,6 @@
 CREATE VIEW [edw].[vw_ScheduleLineShippedNotBilled] AS
 SELECT
-  SLS.[sk_dim_SalesDocumentScheduleLine],
+  SLS.[sk_fact_SalesDocumentItem],
   SLS.[nk_fact_SalesDocumentItem],
   SLS.[SalesDocumentID],
   SLS.[SalesDocumentItem],

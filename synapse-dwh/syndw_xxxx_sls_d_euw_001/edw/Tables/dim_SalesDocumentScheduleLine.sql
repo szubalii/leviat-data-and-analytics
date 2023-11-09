@@ -1,6 +1,5 @@
 ﻿CREATE TABLE [edw].[dim_SalesDocumentScheduleLine]
 (
-    [sk_dim_SalesDocumentScheduleLine]          BIGINT IDENTITY (1,1) NOT NULL,
     [SalesDocumentID]					        NVARCHAR(10) NOT NULL,
     [SalesDocumentItem]					        CHAR(6) collate Latin1_General_100_BIN2 NOT NULL,
     [ScheduleLine]						        CHAR(4) collate Latin1_General_100_BIN2 NOT NULL,

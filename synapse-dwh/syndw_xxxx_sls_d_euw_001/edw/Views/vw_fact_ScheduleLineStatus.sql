@@ -17,7 +17,6 @@ WITH DeliveryItem AS
 )	
 ,SDSL AS ( 
 	SELECT
-        SDSL.[sk_dim_SalesDocumentScheduleLine],
 		SDSL.[SalesDocumentID],
 		SDSL.[SalesDocumentItem],
 		SDSL.[ScheduleLine],
@@ -89,7 +88,7 @@ WITH DeliveryItem AS
 )
 , pre_report AS (
 SELECT 
-        SDSL.[sk_dim_SalesDocumentScheduleLine],
+        SDI.[sk_fact_SalesDocumentItem],
         CONCAT_WS(
             '¦',
             SDSL.[SalesDocumentID]             COLLATE DATABASE_DEFAULT,
@@ -191,7 +190,7 @@ SELECT
         AND SDI.[SDDocumentCategoryID] <> 'B'
 )
 SELECT
-        pre_report.[sk_dim_SalesDocumentScheduleLine],
+        pre_report.[sk_fact_SalesDocumentItem],
         pre_report.[nk_fact_SalesDocumentItem],
         pre_report.[SalesDocumentTypeID],
         pre_report.[SDDocumentRejectionStatusID], 
