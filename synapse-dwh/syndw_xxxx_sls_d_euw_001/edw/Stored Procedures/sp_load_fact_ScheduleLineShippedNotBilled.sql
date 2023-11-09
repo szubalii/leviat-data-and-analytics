@@ -129,7 +129,7 @@ BEGIN
              ,  [t_jobBy] 
         )
         SELECT
-                [sk_fact_ScheduleLineShippedNotBilled]     
+                [sk_fact_SalesDocumentItem]     
              ,  [SalesDocumentID]                          
              ,  [SalesDocumentItem]                        
              ,  CONVERT (date, GETDATE()) AS [ReportDate]   
