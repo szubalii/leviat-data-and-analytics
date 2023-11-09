@@ -1,4 +1,4 @@
-CREATE PROCEDURE [tc.dm_finance.vw_fact_FinanceKPI].[test no empty KPI]
+CREATE PROCEDURE [tc.dm_finance.vw_fact_FinanceKPI].[test no FiscalCalendar duplicates]
 AS
 BEGIN
 
