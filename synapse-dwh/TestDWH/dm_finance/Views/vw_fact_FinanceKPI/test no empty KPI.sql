@@ -32,12 +32,13 @@ BEGIN
   FROM edw.dim_FiscalCalendar;
 
   INSERT INTO #dim_FiscalCalendar (
+    FiscalYearVariant,
     FiscalYear,
     FiscalPeriod,
     FiscalYearPeriod
   )
   VALUES
-    ('2023', '008', '2023008');
+    ('DL', '2023', '008', '2023008');
 
   INSERT INTO edw.dim_FiscalCalendar SELECT * FROM #dim_FiscalCalendar;
 
