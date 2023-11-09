@@ -1,4 +1,5 @@
 ﻿CREATE FUNCTION [edw].[svf_getOT_DaysDiff](
+--function calculates the number of working days between two dates
     @DeliveryDate DATE,
     @CalculatedDate DATE,
     @Current_date DATE

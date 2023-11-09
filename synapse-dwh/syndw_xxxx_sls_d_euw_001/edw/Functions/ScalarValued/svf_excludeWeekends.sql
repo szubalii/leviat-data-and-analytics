@@ -2,6 +2,7 @@
     @DeliveryDate DATE,
     @CalculatedDate DATE
 )
+--fuction calculates new delivery date with excluded weekend days
 RETURNS DATE
 AS
 BEGIN

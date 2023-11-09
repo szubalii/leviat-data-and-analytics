@@ -241,7 +241,6 @@
     <None Include="edw\Stored Procedures\sp_load_fact_ACDOCA_active.sql" />
     <None Include="edw\Stored Procedures\sp_load_fact_BillingDocumentItem_axbi.sql" />
     <None Include="edw\Stored Procedures\sp_load_fact_BillingDocumentItem_s4h_active.sql" />
-    <None Include="edw\Stored Procedures\sp_load_fact_OutboundDeliveryItem.sql" />
     <None Include="edw\Stored Procedures\sp_load_fact_SalesDocItem_SAPSnapshotMonthly.sql" />
     <None Include="edw\Stored Procedures\sp_load_fact_SalesDocumentItem_axbi.sql" />
     <None Include="edw\Stored Procedures\sp_load_fact_SalesDocumentItem_s4h_active.sql" />

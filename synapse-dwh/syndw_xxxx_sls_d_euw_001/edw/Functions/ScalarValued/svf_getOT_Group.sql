@@ -1,6 +1,7 @@
 ﻿CREATE FUNCTION [edw].[svf_getOT_Group](
     @OT_DaysDiff INT
 )
+--function calculates group of delivery depends on delivery days
 RETURNS NVARCHAR(6)
 AS
 BEGIN
