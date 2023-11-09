@@ -17,6 +17,7 @@ WITH Periods AS (
         OR
       CAST(FiscalYear AS INT) <  YEAR(SYSDATETIME())
     )
+    AND FiscalYearVariant = 'DL'
 )
 ,
 CompanyCodePeriod AS (
