@@ -1,0 +1,146 @@
+GLAccountID;GLAccountDescription
+21393207;Other accruals - transport, warehouse & stockyard
+50108115;Wages & salaries - other - transportation
+52901200;Cost of sales transport (non standard costing) -OM
+55000100;External Transport Costs
+55000110;External Outbound Transport - Prov freight charges
+55000120;External Outbound Transport - Transp Costs accrual
+55000130;External Outbound Transport - Customs
+55000140;External Outbound Transport - Logistic & Warehouse
+55000150;External Inbound Transport Costs
+55000160;External Outbound Transport costs - Packaging Material
+55000200;Cost of goods delivered - transport
+55502100;Intracompany Transport costs
+59001210;Travel Costs - Taxi & Public Transport
+61105554;Transport (IO clearing)
+59002800;Taxes - other 
+59003700;Property Tax
+59001120;Marketing & promotion - Sponsoring
+21393209;Other accruals - rent & operational lease costs
+25100100;Lease liabilities - Land and building 
+25100150;Lease liabilities - Land and building -  manual
+25200100;Lease liabilities - Machinery and equipment 
+25200101;Lease Liabilities - Acc.P.C - Plant & Machinery
+25200102;Lease liabilities - CARS
+25200105;Lease liabilities - Computer Equipment
+25200106;Lease liabilities - Transport (e.g. Forklifts) 
+25200107;Lease liabilities - Furniture and Fittings
+25200108;Lease Liabilities - Cars - short term
+25200150;Lease liabilities - Machinery and equipment - manual
+25200151;Lease liabilities - CARS - manual
+25200152;Lease liabilities - Computer Equipment - manual
+25200153;Lease liabilities - Transport (e.g. Forklifts) - manual
+25200154;Lease liabilities - Furniture and Fittings - manual
+25300200;Lease Liabilities - technical AP clearing account
+50707350;Rent & Operational Lease - Comp Cars - Installment
+50707351;Rent & Operational Lease - Comp Cars - Insurance
+50707352;Rent & Operational Lease - Comp Cars - Maintenance
+50707353;Rent & Operational Lease - Comp Cars - fuel 
+50707354;Rent & Operational Lease - Comp Cars - other fees
+50707355;Rent & Operational Lease - Comp Cars- priv contrib
+50707356;Rent & Operational Lease - Comp Cars - car tax
+50707360;Set-Off IFRS Rent & Oper. Lease - Comp Cars Inst.
+59000201;Rent & lease costs - Warehouse
+59000202;Rent & lease costs - Warehouse Short term
+59000204;Rent & lease costs - Warehouse variable costs
+59000210;Rent & lease costs - Transport
+59000211;Rent & lease costs - Transport Short term
+59000215;Set-off Rent & lease costs - Transport
+59000220;Rent & lease costs - Computer equipment
+59000222;Rent & lease costs - Computer equip short term
+59000225;Set-off Rent & lease costs - Computer equipment
+59000230;Rent & lease costs - Buildings
+59000231;Rent & lease costs - Buildings short term
+59000232;Rent & lease costs - Buildings low value
+59000235;Set-off Rent & lease costs - Buildings
+59000240;Rent & lease costs - furniture & equipment
+59000241;Rent & lease costs - furniture & equipm short term
+59000242;Rent & lease costs - furniture & equipm low value
+59000245;Set-off Rent & lease costs - furniture & equipment
+59000260;Rent & lease costs - other assets
+59000270;Rent & lease costs - machinery & equipment
+59000271;Rent & lease costs - machinery & equip short term
+59000275;Set-off Rent & lease costs - machinery & equipment
+59000280;Lease Expense - technical AP clearing acc.
+71120301;Lease interest - buildings leasehold
+71120302;Lease interest - company cars leasehold
+71120303;Lease interest - leased computer equipment
+71120304;Lease interest - leased fixtures and fittings
+71120305;Lease interest - leased transport
+71120306;Lease interest - machinery and equipment
+71120351;Lease interest - Land & Building - manual
+71120352;Lease interest - company cars leasehold - manual
+71120353;Lease interest - leased computer equipment -manual
+71120354;Lease interest - leased fixtures & fittings manual
+71120355;Lease interest - leased transport - manual
+71120356;Lease interest - machinery and equipment - manual
+15310001;Prepayments for old-age and disability insurance
+15310003;Prepayment for accident insurance
+15310005;Prepayments for sick leave insurance
+15311100;Prepaid insurance
+21311201;Other insurance costs accr. - property ins. 
+21311202;Other insurance costs accr. - credit ins. customer
+21393204;Other accruals - related to insurance costs
+21393220;Other accurals - employees - life insurance
+22100101;Insurance provision - trade association (BG) PY
+22100102;Insurance provision - trade association (BG) CY
+50707100;Accident insurance
+50707101;Sick leave insurance
+50707102;Social insurances on accruals
+50707351;Rent & Operational Lease - Comp Cars - Insurance
+59001700;Credit insurance costs
+59100100;Insurance claims
+59100300;Other Insurance income
+59100301;Other Insurance income Credit
+59100400;Other Insurance Costs
+59100403;Other Insurance Costs - Business interruption 
+59100404;Other Insurance Costs - Building Insurance
+59100405;Other Insurance Costs - Product Liability
+59100406;Other Insurance Costs - Transport
+15360104;Other receivables - returns adv payment travel exp
+59001200;Travel Costs
+59001201;Travel Costs - Daily Allowances tax free
+59001202;Travel Costs - Daily Allowances taxable
+59001203;Travel Costs - Entertainment decutible
+59001204;Travel Costs - Entertainment non-decutible
+59001205;Travel Costs - Travel Fees
+59001206;Travel Costs - Hotel
+59001207;Travel Costs - Car Park/ Toll
+59001208;Travel Costs - Flight
+59001209;Travel Costs - Train
+59001210;Travel Costs - Taxi & Public Transport
+59001211;Travel Costs - Meals
+59001212;Travel Costs - Reinvoicing
+59001214;Travel Costs - Credit Cards
+59001215;Travel Costs - Car Rental
+59001216;Travel Costs - Car milage&fuel comps  decutible
+59001217;Travel Costs - Car milage&fuel comps non-decutible
+59001218;Travel Costs - Conferences
+21380200;Accrued group auditor fees
+21380300;Accrued other auditor fees
+21380400;Accrued other professional fees
+21380400;Accrued other professional fees
+21393212;Other accruals -  consultancy and audit fees
+35600100;IC admin fees payable / receivable
+50707354;Rent & Operational Lease - Comp Cars - other fees
+59300400;Other consultancy / professional fees
+59300400;Other consultancy / professional fees
+59300500;Legal Fees
+59300600;Consulting Fees
+59300601;Court fees
+59300602;Technical consulting fees
+59300603;Professional services - New approvals
+59300604;Professional services -  Product improvement
+59300605;Professional services -  Approvals/Maintenance
+59300606;Professional services - Other R&D costs
+59300607;Professional services - Patent Attorney
+59300608;Professional services - New Products
+59300610;Professional services - R&D Small tool costs
+59300620;Consulting Fees - IT Consulting
+59300630;Consulting Fees -Pensions - non Group Auditor
+59310100;Group auditors - audit fees
+59310300;Other auditors - audit fee
+59320100;Group auditors - tax fees
+59320200;Other auditors - tax fees
+75000200;Value based fee
+75000300;CRH guarantee fees cost / (income)
