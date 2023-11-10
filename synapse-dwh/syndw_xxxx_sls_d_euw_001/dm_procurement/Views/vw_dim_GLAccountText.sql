@@ -7,7 +7,7 @@ SELECT
     at.GLAccountLongName,
     at.LastChangeDateTime,
     CASE
-        WHEN gla.GLAccountID
+        WHEN gla.GLAccountID IS NOT NULL
             THEN 'Y'
     END                             AS ExpectedPO
     at.t_applicationId,
