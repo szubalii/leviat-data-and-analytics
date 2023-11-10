@@ -11,7 +11,6 @@ GLAccountID;GLAccountDescription
 55000160;External Outbound Transport costs - Packaging Material
 55000200;Cost of goods delivered - transport
 55502100;Intracompany Transport costs
-59001210;Travel Costs - Taxi & Public Transport
 61105554;Transport (IO clearing)
 59002800;Taxes - other 
 59003700;Property Tax
@@ -87,7 +86,6 @@ GLAccountID;GLAccountDescription
 50707100;Accident insurance
 50707101;Sick leave insurance
 50707102;Social insurances on accruals
-50707351;Rent & Operational Lease - Comp Cars - Insurance
 59001700;Credit insurance costs
 59100100;Insurance claims
 59100300;Other Insurance income
@@ -119,11 +117,8 @@ GLAccountID;GLAccountDescription
 21380200;Accrued group auditor fees
 21380300;Accrued other auditor fees
 21380400;Accrued other professional fees
-21380400;Accrued other professional fees
 21393212;Other accruals -  consultancy and audit fees
 35600100;IC admin fees payable / receivable
-50707354;Rent & Operational Lease - Comp Cars - other fees
-59300400;Other consultancy / professional fees
 59300400;Other consultancy / professional fees
 59300500;Legal Fees
 59300600;Consulting Fees
