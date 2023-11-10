@@ -1247,6 +1247,8 @@
     <Build Include="dq\Views\vw_BP_2_0_10.sql" />
     <Build Include="dq\Views\vw_BP_2_0_11.sql" />
     <Build Include="dq\Views\vw_BP_2_1_2.sql" />
+    <Build Include="dq\Views\vw_BP_2_1_3_Intercompany.sql" />
+    <Build Include="dq\Views\vw_BP_2_1_3_ThirdParty.sql" />
     <Build Include="dq\Views\vw_BP_2_1_4.sql" />
     <Build Include="dq\Views\vw_BP_2_1_6.sql" />
     <Build Include="dq\Views\vw_BP_2_1_7.sql" />
@@ -1261,6 +1263,7 @@
     <Build Include="dq\Views\vw_BP_2_2_5.sql" />
     <Build Include="dq\Views\vw_BP_2_2_7.sql" />
     <Build Include="dq\Views\vw_BP_2_2_8.sql" />
+    <Build Include="dq\Views\vw_BP_2_2_9.sql" />
 
     <Build Include="dm_finance\Views\vw_fact_ACDOCA_SalesView.sql" />
     <Build Include="dm_finance\Views\vw_fact_ACDOCA_EPMSalesView.sql" />

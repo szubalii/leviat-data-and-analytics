@@ -92,6 +92,22 @@ SELECT
     [RuleID]
     ,[Customer]             AS [BusinessPartner] 
 FROM
+    [dq].[vw_BP_2_1_3_Intercompany]
+
+UNION ALL
+
+SELECT
+    [RuleID]
+    ,[Customer]             AS [BusinessPartner] 
+FROM
+    [dq].[vw_BP_2_1_3_ThirdParty]
+
+UNION ALL
+
+SELECT
+    [RuleID]
+    ,[Customer]             AS [BusinessPartner] 
+FROM
     [dq].[vw_BP_2_1_4]
 
 UNION ALL
@@ -197,3 +213,11 @@ SELECT
     ,[Supplier]             AS [BusinessPartner] 
 FROM
     [dq].[vw_BP_2_2_8]
+
+UNION ALL
+
+SELECT
+    [RuleID]
+    ,[BusinessPartner]
+FROM
+    [dq].[vw_BP_2_2_9]
