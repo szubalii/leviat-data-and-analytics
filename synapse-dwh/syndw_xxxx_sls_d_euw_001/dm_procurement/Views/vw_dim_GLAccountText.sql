@@ -9,7 +9,7 @@ SELECT
     CASE
         WHEN gla.GLAccountID IS NOT NULL
             THEN 'Y'
-    END                             AS ExpectedPO
+    END                             AS ExpectedPO,
     at.t_applicationId,
     at.t_extractionDtm
 FROM [edw].[vw_GLAccountText]        at
