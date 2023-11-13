@@ -17,6 +17,8 @@ WITH Periods AS (
         OR
       CAST(FiscalYear AS INT) <  YEAR(SYSDATETIME())
     )
+    AND CAST(FiscalPeriod AS INT) <= 12                 -- we don't have months in the table
+    AND FiscalYearVariant = 'DL'                        -- there are a lot of different types, added that filter instead of DISTINCT or GROUP BY all
 )
 ,
 CompanyCodePeriod AS (
