@@ -68,11 +68,11 @@ INNER JOIN
    ON
    C.[Customer] = CC.[Customer] 
 WHERE
-    (SC.[CashPlanningGroup]<>'E2'
+    (CC.[CashPlanningGroup]<>'E2'
     AND
     C.[Country]<>CC.[Country])
     OR
-    (C.[CashPlanningGroup]<>'E3'
+    (CashPlanningGroup.[CashPlanningGroup]<>'E3'
     AND
     C.[Country]=CC.[Country])
 GROUP BY

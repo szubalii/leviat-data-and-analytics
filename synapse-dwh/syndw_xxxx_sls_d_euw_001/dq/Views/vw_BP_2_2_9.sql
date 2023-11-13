@@ -1,7 +1,7 @@
 ﻿CREATE VIEW [dq].[vw_BP_2_2_9]
   AS  
 
-SELECT
+SELECT DISTINCT
         BP.[BusinessPartner]
     ,   BP.[BusinessPartnerCategory]
     ,   BP.[AuthorizationGroup]
