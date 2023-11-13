@@ -146,6 +146,13 @@ select
      , DeliveryItem.[CreatedByUserID]
      , DeliveryItem.[OutboundDelivery]            AS [LatestOutboundDelivery]
      , DeliveryItem.[OutboundDeliveryItem]        AS [LatestOutboundDeliveryItem]
+     , edw.[svf_getIsBlockedFlagOrderItem] (
+          doc.[DeliveryBlockReasonID]
+        , dimBBS.[BillingBlockStatusID]
+        , doc.[HeaderBillingBlockReasonID]
+        , doc.[ItemBillingBlockReasonID]
+        , DeliveryItem.[HDR_DeliveryBlockReason] 
+       )                                          AS [IsBlockedFlagOrderItem]
      , doc.[t_applicationId]
      , doc.[t_extractionDtm]
 from [edw].[fact_SalesDocumentItem] doc

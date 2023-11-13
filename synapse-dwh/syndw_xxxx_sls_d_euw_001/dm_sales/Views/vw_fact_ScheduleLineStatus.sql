@@ -35,6 +35,7 @@ SELECT
   [OpenInvoicedValue],
   [ClosedInvoicedValue],
   [PricePerUnit],
-  [InScope]
+  [InScope],
+  [IsBlockedFlagScheduleLine]
 FROM
   [edw].[vw_fact_ScheduleLineStatus]

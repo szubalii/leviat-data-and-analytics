@@ -225,6 +225,11 @@ SELECT
             ELSE '0'
         END                                 AS InScope,
         pre_report.[CompanyCode],
+        CASE 
+            WHEN pre_report.[DelivBlockReasonForSchedLine] <> ''
+                THEN 1
+            ELSE 0
+        END                                 AS [IsBlockedFlagScheduleLine],
         pre_report.t_applicationId,
         pre_report.t_extractionDtm
 FROM pre_report

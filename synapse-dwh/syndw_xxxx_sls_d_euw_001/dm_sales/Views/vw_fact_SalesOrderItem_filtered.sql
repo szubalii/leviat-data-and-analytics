@@ -133,6 +133,7 @@ SELECT
     , [CreatedByUserID]
     , [LatestOutboundDelivery]
     , [LatestOutboundDeliveryItem]
+    ,[IsBlockedFlagOrderItem]
     ,[t_applicationId]
     ,[t_extractionDtm]
 FROM [dm_sales].[vw_fact_SalesOrderItem]
