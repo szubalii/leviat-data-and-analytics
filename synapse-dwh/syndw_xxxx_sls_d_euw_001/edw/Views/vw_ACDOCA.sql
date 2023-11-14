@@ -151,7 +151,7 @@ SELECT
             , GLA.[PurchasingDocument]
             , PA.[ICSalesDocumentID] COLLATE DATABASE_DEFAULT
             , ARSD.[SalesReferenceDocumentCalculated]
-       ) AS [SalesReferenceDocumentItemCalculated],
+       ) AS [SalesReferenceDocumentCalculated],
        edw.[svf_getSalesRefDocItemCalc] (
               GLA.[SalesDocumentID]
             , GLA.[ReferenceDocumentTypeID]
