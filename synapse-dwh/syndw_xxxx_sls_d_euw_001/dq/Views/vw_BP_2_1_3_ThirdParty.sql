@@ -62,19 +62,23 @@ SELECT
     ,   '2.1.3_ThirdParty' AS [RuleID]
     ,   1 AS [Count]
 FROM   
-    [base_s4h_cax].[I_Customer] C
+    [base_s4h_cax].[I_Customer] Customer
 INNER JOIN
-   [base_s4h_cax].[I_CustomerCompany] CC
+   [base_s4h_cax].[I_CustomerCompany] CustCompany
    ON
-   C.[Customer] = CC.[Customer] 
+   Customer.[Customer] = CustCompany.[Customer] 
+LEFT JOIN
+   [base_s4h_cax].[I_CompanyCode] CompanyCode
+   ON
+   CustCompany.[CompanyCode] = CompanyCode.[CompanyCode] 
 WHERE
-    (CC.[CashPlanningGroup]<>'E2'
+    (CustCompany.[CashPlanningGroup]<>'E2'
     AND
-    C.[Country]<>CC.[Country])
+    Customer.[Country]<>CompanyCode.[Country])
     OR
-    (CashPlanningGroup.[CashPlanningGroup]<>'E3'
+    (CustCompany.[CashPlanningGroup]<>'E3'
     AND
-    C.[Country]=CC.[Country])
+    Customer.[Country]=CompanyCode.[Country])
 GROUP BY
         C.[Customer]
     ,   C.[CustomerName]
