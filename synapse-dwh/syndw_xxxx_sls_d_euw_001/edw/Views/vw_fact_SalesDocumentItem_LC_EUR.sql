@@ -1,64 +1,26 @@
 CREATE VIEW [edw].[vw_fact_SalesDocumentItem_LC_EUR] AS
--- TODO instead of creating 2 CTEs from [edw].[fact_SalesDocumentItem], do this directly
--- in one go, so no JOINS are required. 
-WITH
-SalesDocumentItem_EUR AS (
-    SELECT
-        SDI_EUR.[SalesDocument]
-        ,SDI_EUR.[SalesDocumentItem]
-        ,CASE
-            WHEN
-                SDI_EUR.[OrderQuantity] > 0 
-            THEN
-                SDI_EUR.[NetAmount] / SDI_EUR.[OrderQuantity]
-         END AS [SDI_PricePerPiece_EUR]
-        ,SDI_EUR.[CostAmount] AS [SDI_CostAmount_EUR]
-        ,SDI_EUR.[NetAmount] AS [SDI_NetAmount_EUR]
-    FROM
-        [edw].[fact_SalesDocumentItem] AS SDI_EUR
-    WHERE
-        [CurrencyTypeID] = 30
-        AND
-        [t_applicationId] LIKE 's4h-ca%'
-),
-SalesDocumentItem_LC AS (
-    SELECT
-        SDI_LC.[SalesDocument]
-        ,SDI_LC.[SalesDocumentItem]
-        ,CASE
-            WHEN SDI_LC.[OrderQuantity] > 0
-            THEN SDI_LC.[NetAmount] / SDI_LC.[OrderQuantity]
-         END AS [SDI_PricePerPiece_LC]
-        ,SDI_LC.[CurrencyID] AS [SDI_LocalCurrency]
-        ,SDI_LC.[CostAmount] AS [SDI_CostAmount_LC]
-        ,SDI_LC.[NetAmount] AS [SDI_NetAmount_LC]
-    FROM
-        [edw].[fact_SalesDocumentItem] AS SDI_LC
-    WHERE
-        [CurrencyTypeID] = 10
-        AND
-        [t_applicationId] LIKE 's4h-ca%'                  
-)
+WITH PVT_CTE AS(
+SELECT * FROM (
 SELECT
-    SDI.[SalesDocument]
+     SDI.[SalesDocument]
     ,SDI.[SalesDocumentItem]
     ,SDI.[CreationDate] AS [SDI_CreationDate]
     ,SDI.[RequestedDeliveryDate] AS [SDI_RequestedDeliveryDate]
-    ,SDI_LC.[SDI_PricePerPiece_LC]
-    ,SDI_EUR.[SDI_PricePerPiece_EUR]
-    ,SDI_LC.[SDI_LocalCurrency]
+    ,CASE
+        WHEN SDI.[OrderQuantity] > 0
+        THEN SDI.[NetAmount] / SDI.[OrderQuantity]
+     END AS [SDI_PricePerPiece]
+    ,SDI.[CurrencyID]
     ,SDI.[SalesDocumentTypeID] AS [SDI_SalesDocumentTypeID]
     ,SDI.[IsReturnsItemID] AS [SDI_IsReturnsItemID]
     ,SDI.[BillToPartyID] AS [SDI_BillToParty]
     ,SDI.[ConfdDeliveryQtyInBaseUnit] AS [SDI_ConfdDeliveryQtyInBaseUnit]
     ,SDI.[ConfdDelivQtyInOrderQtyUnit] AS [SDI_ConfdDelivQtyInOrderQtyUnit]
-    ,SDI_LC.[SDI_CostAmount_LC]
-    ,SDI_EUR.[SDI_CostAmount_EUR]
+    ,SDI.[CostAmount]
     ,SDI.[DeliveryBlockStatusID] AS [SDI_DeliveryBlockStatusID]
     ,SDI.[ExchangeRateDate] AS [SDI_ExchangeRateDate]
     ,SDI.[ExchangeRateTypeID] AS [SDI_ExchangeRateType]
-    ,SDI_LC.[SDI_NetAmount_LC]
-    ,SDI_EUR.[SDI_NetAmount_EUR]
+    ,SDI.[NetAmount]
     ,SDI.[NetPriceQuantityUnitID] AS [SDI_NetPriceQuantityUnit]
     ,SDI.[OrderID] AS [SDI_OrderID]
     ,SDI.[OrderQuantity] AS [SDI_OrderQuantity]
@@ -72,54 +34,84 @@ SELECT
     ,SDI.[SDDocumentRejectionStatusID] AS [SDI_SDDocumentRejectionStatusID]
     ,SDI.[StorageLocationID] AS [SDI_StorageLocationID]
     ,SDI.[SalesDocumentDate] AS [SDI_SalesDocumentDate]
+    ,SDI.CurrencyTypeID AS CurrencyTypeIDForCostAmount
+    ,SDI.CurrencyTypeID + '1' AS CurrencyTypeIDForNetAmount
+    ,SDI.CurrencyTypeID + '2' AS LocalCurrency
+    ,SDI.CurrencyTypeID + '3' AS CurrencyTypeIDForPricePerPiece
 FROM
     [edw].[fact_SalesDocumentItem] AS SDI
-LEFT JOIN
-    SalesDocumentItem_EUR SDI_EUR
-    ON
-        SDI.[SalesDocument] = SDI_EUR.[SalesDocument]
-        AND
-        SDI.[SalesDocumentItem] = SDI_EUR.[SalesDocumentItem]
-LEFT JOIN
-    SalesDocumentItem_LC SDI_LC
-    ON
-        SDI.[SalesDocument] = SDI_LC.[SalesDocument]
-        AND
-        SDI.[SalesDocumentItem] = SDI_LC.[SalesDocumentItem]
  WHERE
-    [CurrencyTypeID] in (10,30)
+    [CurrencyTypeID] IN (10,30)
     AND
     [t_applicationId] LIKE 's4h-ca%'
+) P
+PIVOT
+(SUM([CostAmount]) for CurrencyTypeIDForCostAmount IN ([10],[30])) AS PVT_CostAmount
+PIVOT
+(SUM([NetAmount]) for CurrencyTypeIDForNetAmount IN ([101],[301])) AS PVT_NetAmount
+PIVOT
+(MAX([CurrencyID]) for LocalCurrency IN ([102])) AS PVT_LocalCurrency
+PIVOT
+(SUM([SDI_PricePerPiece]) for CurrencyTypeIDForPricePerPiece IN ([103],[303])) AS PVT_PricePerPiece
+)
+SELECT 
+     [SalesDocument]
+    ,[SalesDocumentItem]
+    ,[SDI_CreationDate]
+    ,[SDI_RequestedDeliveryDate]
+    ,MAX([103]) AS [SDI_PricePerPiece_LC]
+    ,MAX([303]) AS [SDI_PricePerPiece_EUR]
+    ,MAX([102]) AS [SDI_LocalCurrency]
+    ,[SDI_SalesDocumentTypeID]
+    ,[SDI_IsReturnsItemID]
+    ,[SDI_BillToParty]
+    ,[SDI_ConfdDeliveryQtyInBaseUnit]
+    ,[SDI_ConfdDelivQtyInOrderQtyUnit]
+    ,MAX([10]) AS [SDI_CostAmount_LC]
+    ,MAX([30]) AS [SDI_CostAmount_EUR] 
+    ,[SDI_DeliveryBlockStatusID]
+    ,[SDI_ExchangeRateDate]
+    ,[SDI_ExchangeRateType]   
+    ,MAX([101]) AS [SDI_NetAmount_LC]
+    ,MAX([301]) AS [SDI_NetAmount_EUR]
+    ,[SDI_NetPriceQuantityUnit]
+    ,[SDI_OrderID]
+    ,[SDI_OrderQuantity]
+    ,[SDI_OrderQuantityUnit]
+    ,[SDI_OverallTotalDeliveryStatusID]
+    ,[SDI_PayerParty]
+    ,[SDI_Route]
+    ,[SDI_SalesDocumentItemCategory]
+    ,[SDI_SalesOrganizationCurrency]
+    ,[SDI_SDDocumentCategory]
+    ,[SDI_SDDocumentRejectionStatusID]
+    ,[SDI_StorageLocationID]
+    ,[SDI_SalesDocumentDate]
+FROM
+    PVT_CTE
 GROUP BY
-   SDI.[SalesDocument]
-    ,SDI.[SalesDocumentItem]
-    ,SDI.[CreationDate]
-    ,SDI.[RequestedDeliveryDate]
-    ,SDI_LC.[SDI_PricePerPiece_LC]
-    ,SDI_EUR.[SDI_PricePerPiece_EUR]
-    ,SDI_LC.[SDI_LocalCurrency]
-    ,SDI.[SalesDocumentTypeID]
-    ,SDI.[IsReturnsItemID]
-    ,SDI.[BillToPartyID]
-    ,SDI.[ConfdDeliveryQtyInBaseUnit]
-    ,SDI.[ConfdDelivQtyInOrderQtyUnit]
-    ,SDI_LC.[SDI_CostAmount_LC]
-    ,SDI_EUR.[SDI_CostAmount_EUR]
-    ,SDI.[DeliveryBlockStatusID]
-    ,SDI.[ExchangeRateDate]
-    ,SDI.[ExchangeRateTypeID]
-    ,SDI_LC.[SDI_NetAmount_LC]
-    ,SDI_EUR.[SDI_NetAmount_EUR]
-    ,SDI.[NetPriceQuantityUnitID]
-    ,SDI.[OrderID]
-    ,SDI.[OrderQuantity]
-    ,SDI.[OrderQuantityUnitID]
-    ,SDI.[OverallTotalDeliveryStatusID]
-    ,SDI.[PayerPartyID]
-    ,SDI.[RouteID]
-    ,SDI.[SalesDocumentItemCategoryID]
-    ,SDI.[SalesOrganizationCurrencyID]
-    ,SDI.[SDDocumentCategoryID]
-    ,SDI.[SDDocumentRejectionStatusID]
-    ,SDI.[StorageLocationID]
-    ,SDI.[SalesDocumentDate]
+     [SalesDocument]
+    ,[SalesDocumentItem]
+    ,[SDI_CreationDate]
+    ,[SDI_RequestedDeliveryDate]
+    ,[SDI_SalesDocumentTypeID]
+    ,[SDI_IsReturnsItemID]
+    ,[SDI_BillToParty]
+    ,[SDI_ConfdDeliveryQtyInBaseUnit]
+    ,[SDI_ConfdDelivQtyInOrderQtyUnit]
+    ,[SDI_DeliveryBlockStatusID]
+    ,[SDI_ExchangeRateDate]
+    ,[SDI_ExchangeRateType]
+    ,[SDI_NetPriceQuantityUnit]
+    ,[SDI_OrderID]
+    ,[SDI_OrderQuantity]
+    ,[SDI_OrderQuantityUnit]
+    ,[SDI_OverallTotalDeliveryStatusID]
+    ,[SDI_PayerParty]
+    ,[SDI_Route]
+    ,[SDI_SalesDocumentItemCategory]
+    ,[SDI_SalesOrganizationCurrency]
+    ,[SDI_SDDocumentCategory]
+    ,[SDI_SDDocumentRejectionStatusID]
+    ,[SDI_StorageLocationID]
+    ,[SDI_SalesDocumentDate]
