@@ -6,5 +6,5 @@ BEGIN
     SELECT [edw].[svf_getIsOrderItemBlockedFlag](NULL, NULL, NULL, NULL, 1)
   );
 
-  EXEC tSQLt.AssertEquals 0, @actual;
+  EXEC tSQLt.AssertEquals 1, @actual;
 END;
