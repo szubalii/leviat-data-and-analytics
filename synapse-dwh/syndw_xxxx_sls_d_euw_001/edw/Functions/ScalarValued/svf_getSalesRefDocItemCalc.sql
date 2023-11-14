@@ -9,7 +9,7 @@ RETURNS NVARCHAR(10)
 AS
 BEGIN
     DECLARE @SalesReferenceDocumentItemCalculated AS NVARCHAR(10)
-    SET @SalesReferenceDocumentCalculated =
+    SET @SalesReferenceDocumentItemCalculated =
         CASE 
             WHEN @SalesDocumentID = '' 
                   AND @ReferenceDocumentTypeID LIKE 'VBRK' 
