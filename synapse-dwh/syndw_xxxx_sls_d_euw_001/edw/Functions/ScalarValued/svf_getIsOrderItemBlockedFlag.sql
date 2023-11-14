@@ -1,4 +1,4 @@
-CREATE FUNCTION [edw].[svf_getIsBlockedFlagOrderItem](
+CREATE FUNCTION [edw].[svf_getIsOrderItemBlockedFlag](
     @DeliveryBlockReasonID NVARCHAR(2),
     @BillingBlockStatusID NVARCHAR(1),
     @HeaderBillingBlockReasonID NVARCHAR(2),

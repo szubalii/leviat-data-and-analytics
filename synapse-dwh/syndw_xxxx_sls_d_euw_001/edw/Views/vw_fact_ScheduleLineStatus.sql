@@ -229,7 +229,7 @@ SELECT
             WHEN pre_report.[DelivBlockReasonForSchedLine] <> ''
                 THEN 1
             ELSE 0
-        END                                 AS [IsBlockedFlagScheduleLine],
+        END                                 AS [IsScheduleLineBlockedFlag],
         pre_report.t_applicationId,
         pre_report.t_extractionDtm
 FROM pre_report

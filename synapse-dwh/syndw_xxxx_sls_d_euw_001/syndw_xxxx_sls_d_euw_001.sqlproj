@@ -1014,7 +1014,7 @@
     <Build Include="edw\Functions\ScalarValued\svf_getManual_JE_KPI.sql" />
     <Build Include="edw\Functions\ScalarValued\svf_getInventory_Adj_KPI.sql" />
     <Build Include="edw\Functions\ScalarValued\svf_getYearPeriod.sql" />
-    <Build Include="edw\Functions\ScalarValued\svf_getIsBlockedFlagOrderItem.sql" />
+    <Build Include="edw\Functions\ScalarValued\svf_getIsOrderItemBlockedFlag.sql" />
     
     <Build Include="utilities\Functions\Scalar-valued Functions\svf_get_file_path.sql" />
 

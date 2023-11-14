@@ -1,1 +1,0 @@
-CREATE SCHEMA [tc.edw.svf_getIsBlockedFlagOrderItem]
