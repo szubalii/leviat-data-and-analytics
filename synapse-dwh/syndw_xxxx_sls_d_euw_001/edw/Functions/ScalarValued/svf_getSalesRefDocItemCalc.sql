@@ -2,7 +2,7 @@ CREATE FUNCTION [edw].[svf_getSalesRefDocItemCalc](
     @SalesDocumentID NVARCHAR(10),
     @ReferenceDocumentTypeID NVARCHAR(10),
     @PurchasingDocument NVARCHAR(20),
-    @ICSalesDocumentID NVARCHAR(10),
+    @ICSalesDocumentItemID NVARCHAR(10),
     @SalesRefDocItemCalc NVARCHAR(10)
 )
 RETURNS NVARCHAR(10)
