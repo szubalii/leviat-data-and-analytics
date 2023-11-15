@@ -24,7 +24,7 @@
 					"headers": {
 						"Content-Type": "application/json"
 					},
-					"body": "{ “sku”: { “name”: DW400c}’ } }"
+					"body": ""
 				}
 			}
 		],
