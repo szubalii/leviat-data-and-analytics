@@ -377,7 +377,7 @@
 			},
 			{
 				"name": "Scale Down SQL Pool",
-				"description": "To scale up the SQL Pool for the Daily Load",
+				"description": "To scale down the SQL Pool for the Daily Load",
 				"type": "WebActivity",
 				"dependsOn": [
 					{
