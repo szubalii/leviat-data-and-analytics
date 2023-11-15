@@ -1,14 +1,14 @@
-CREATE PROCEDURE [tc.dm_procurement.vw_dim_GLAccountText].[test account with no marker]
+CREATE PROCEDURE [tc.dm_procurement.vw_dim_GLAccount].[test account with no marker]
 AS
 BEGIN
 
   IF OBJECT_ID('actual') IS NOT NULL DROP TABLE actual;
 
   -- Assemble: Fake Table
-  EXEC tSQLt.FakeTable '[base_ff]', '[POAccount]';
+  EXEC tSQLt.FakeTable '[base_ff]', '[PurchaseOrderExpectedGLAccount]';
   EXEC tSQLt.FakeTable '[base_s4h_cax]', '[I_GLAccountText]';
    
-  INSERT INTO [base_ff].[POAccount] (
+  INSERT INTO [base_ff].[PurchaseOrderExpectedGLAccount] (
     GLAccountID
   )
   VALUES
@@ -30,7 +30,7 @@ BEGIN
   -- Act: 
   SELECT *
   INTO actual
-  FROM [dm_global].[vw_dim_GLAccountText]
+  FROM [dm_global].[vw_dim_GLAccount]
   WHERE GLAccountID IN ('0045678901')
     AND IsPurchaseOrderExpected <> 0;
 
