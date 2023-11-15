@@ -17,7 +17,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"url": {
-						"value": "@https://management.azure.com/subscriptions/\nf199b488-7d9d-4992-aeda-c10a1e1c9b9e/resourceGroups/rg-xxxx-sls-d-euw-001/providers/Microsoft.Synapse/workspaces/ws-fbouw-d-euw-001/sqlPools/syndw_fbouw_d_euw_001?api-version=2019-06-01-preview",
+						"value": "@https://management.azure.com/subscriptions/\nf199b488-7d9d-4992-aeda-c10a1e1c9b9e/resourceGroups/rg-xxxx-sls-d-euw-001/providers/Microsoft.Synapse/workspaces/ws-fbouw-d-euw-001/sqlPools/syndw_fbouw_d_euw_001/?api-version=2019-06-01-preview",
 						"type": "Expression"
 					},
 					"connectVia": {
