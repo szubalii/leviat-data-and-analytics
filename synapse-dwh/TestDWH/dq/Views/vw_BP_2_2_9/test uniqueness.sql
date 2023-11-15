@@ -18,8 +18,10 @@ BEGIN
     [CreatedByUser]
   INTO actual
   FROM [dq].[vw_BP_2_2_9]
-  GROUP BY
-    [Supplier]
+  GROUP BY    
+    [BusinessPartner],
+    [BusinessPartnerGrouping],
+    [CreatedByUser]
   HAVING COUNT(*) > 1
 
   -- Assert:
