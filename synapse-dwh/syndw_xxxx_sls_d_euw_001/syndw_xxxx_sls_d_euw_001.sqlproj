@@ -215,6 +215,8 @@
     <Folder Include="base_isedio_aus" />
     <Folder Include="base_isedio_aus\Tables" />
     <Folder Include="edw\Functions\" />
+    <Folder Include="dm_global" />
+    <Folder Include="dm_global\Views" />
   </ItemGroup>
   <ItemGroup>
     <None Include="edw\Views\vw_fact_MaterialStockLevel_temp.sql" />
@@ -308,6 +310,7 @@
     <Build Include="Security\Schemas\base_halfen_moment_sg.sql" />
     <Build Include="Security\Schemas\base_isedio.sql" />
     <Build Include="Security\Schemas\base_isedio_aus.sql" />
+    <Build Include="Security\Schemas\dm_global.sql" />
 
     <!-- TABLES -->
 
