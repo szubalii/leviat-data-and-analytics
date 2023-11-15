@@ -29,10 +29,8 @@
 						"Content-Type": "application/json"
 					},
 					"body": {
-						"location": "westeurope",
-						"sku": {
-							"name": "DW400c"
-						}
+						"value": "@concat('{\"location\":\"westeurope\",\"sku\":{\"name\":\"DW', pipeline().parameters.DWU_Size, 'c\"}}')",
+						"type": "Expression"
 					},
 					"authentication": {
 						"type": "MSI",
@@ -41,6 +39,12 @@
 				}
 			}
 		],
+		"parameters": {
+			"DWU_Size": {
+				"type": "string",
+				"defaultValue": "400"
+			}
+		},
 		"folder": {
 			"name": "90 Utilities/Synapse"
 		},
