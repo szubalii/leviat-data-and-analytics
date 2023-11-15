@@ -1211,7 +1211,7 @@
     <Build Include="edw\Views\vw_fact_VendorInvoice_ApprovedAndPosted_agg.sql" />
     <Build Include="edw\Views\vw_fact_PurchasingDocument_FirstInvoiceCreationDate.sql" />
     <Build Include="edw\Views\vw_Locations.sql" />
-
+    <Build Include="edw\Views\vw_fact_SalesDocumentItem.sql" />
 
     <Build Include="dq\Views\vw_Product_1_2.sql" />
     <Build Include="dq\Views\vw_RuleTotal.sql" />
