@@ -17,7 +17,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"url": {
-						"value": "https://management.azure.com/subscriptions/f199b488-7d9d-4992-aeda-c10a1e1c9b9e/resourceGroups/rg-xxxx-sls-d-euw-001/providers/Microsoft.Synapse/workspaces/ws-fbouw-d-euw-001/sqlPools/syndw_fbouw_d_euw_001?api-version=2021-04-01-preview",
+						"value": "@concat('https://management.azure.com/subscriptions/f199b488-7d9d-4992-aeda-c10a1e1c9b9e/resourceGroups/', pipeline().globalParameters.resourceGroupName, '/providers/Microsoft.Synapse/workspaces/',pipeline().globalParameters.synapseServerName, '/sqlPools/', pipeline().globalParameters.synapseDatabaseName, '?api-version=2021-04-01-preview'  )",
 						"type": "Expression"
 					},
 					"connectVia": {
@@ -31,7 +31,7 @@
 					"body": {
 						"location": "westeurope",
 						"sku": {
-							"name": "DW100c"
+							"name": "DW400c"
 						}
 					},
 					"authentication": {
