@@ -337,6 +337,7 @@
     <Build Include="base_ff\Tables\IC_ReconciliationGLAccounts.sql" />
     <Build Include="base_ff\Tables\ShippingPointLogistics.sql" />
     <Build Include="base_ff\Tables\LeviatWarehouse.sql" />
+    <Build Include="base_ff\Tables\PurchaseOrderExpectedGLAccount.sql" />
 
 
     <Build Include="base_ff_USA\Tables\Budget.sql" />
@@ -1211,6 +1212,7 @@
     <Build Include="edw\Views\vw_fact_VendorInvoice_ApprovedAndPosted_agg.sql" />
     <Build Include="edw\Views\vw_fact_PurchasingDocument_FirstInvoiceCreationDate.sql" />
     <Build Include="edw\Views\vw_Locations.sql" />
+    <Build Include="edw\Views\vw_PurchaseOrderExpectedGLAccount.sql" />
 
 
     <Build Include="dq\Views\vw_Product_1_2.sql" />
@@ -1296,6 +1298,7 @@
     <Build Include="dm_finance\Views\vw_fact_FinanceKPI.sql" />
     
     <Build Include="dm_global\Views\vw_dim_CompCodeRegion.sql" />
+    <Build Include="dm_global\Views\vw_dim_GLAccount.sql" />
 
     <Build Include="dm_sales\Views\vw_dim_Customer.sql" />
     <Build Include="dm_sales\Views\vw_fact_BillingDocumentItem.sql" />
