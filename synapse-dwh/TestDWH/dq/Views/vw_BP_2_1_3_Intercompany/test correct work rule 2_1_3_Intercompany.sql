@@ -24,7 +24,7 @@ BEGIN
     FROM actual;
 
     INSERT INTO expected([Customer],[CustomerAccountGroup])
-    VALUES ('2','E3'), ('2',NULL), ('2','');
+    VALUES ('2','Z099');
 
     -- Assert:
     EXEC tSQLt.AssertEqualsTable 'expected', 'actual';
