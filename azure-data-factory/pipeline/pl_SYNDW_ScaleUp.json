@@ -1,5 +1,5 @@
 {
-	"name": "pipeline1",
+	"name": "pl_SYNDW_ScaleUp",
 	"properties": {
 		"activities": [
 			{
@@ -41,6 +41,9 @@
 				}
 			}
 		],
+		"folder": {
+			"name": "90 Utilities/Synapse"
+		},
 		"annotations": []
 	}
 }
