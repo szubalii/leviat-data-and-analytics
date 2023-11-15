@@ -17,7 +17,7 @@ BEGIN
      -- Act:
     SELECT [Customer],[CustomerAccountGroup]
     INTO actual
-    FROM [dq].[2_1_3_Intercompany]
+    FROM [dq].[vw_BP_2_1_3_Intercompany]
 
     SELECT TOP(0) *
     INTO expected

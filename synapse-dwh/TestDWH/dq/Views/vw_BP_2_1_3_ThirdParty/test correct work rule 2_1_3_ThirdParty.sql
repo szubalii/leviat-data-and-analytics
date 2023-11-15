@@ -22,7 +22,7 @@ BEGIN
      -- Act:
     SELECT [Customer],[Country]
     INTO actual
-    FROM [dq].[2_1_3_ThirdParty]
+    FROM [dq].[vw_BP_2_1_3_ThirdParty]
 
     SELECT TOP(0) *
     INTO expected
