@@ -1,0 +1,53 @@
+{
+	"name": "pl_SYNDW_ScaleDown",
+	"properties": {
+		"activities": [
+			{
+				"name": "Scale Down SQL Pool",
+				"description": "To scale down the SQL Pool for the Daily Load",
+				"type": "WebActivity",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"url": {
+						"value": "@concat('https://management.azure.com/subscriptions/f199b488-7d9d-4992-aeda-c10a1e1c9b9e/resourceGroups/', pipeline().globalParameters.resourceGroupName, '/providers/Microsoft.Synapse/workspaces/',pipeline().globalParameters.synapseServerName, '/sqlPools/', pipeline().globalParameters.synapseDatabaseName, '?api-version=2021-04-01-preview'  )",
+						"type": "Expression"
+					},
+					"connectVia": {
+						"referenceName": "ir-WEXLEVAPP001",
+						"type": "IntegrationRuntimeReference"
+					},
+					"method": "PUT",
+					"headers": {
+						"Content-Type": "application/json"
+					},
+					"body": {
+						"value": "@concat('{\"location\":\"westeurope\",\"sku\":{\"name\":\"DW', pipeline().parameters.DWU_Size, 'c\"}}')",
+						"type": "Expression"
+					},
+					"authentication": {
+						"type": "MSI",
+						"resource": "https://management.azure.com/"
+					}
+				}
+			}
+		],
+		"parameters": {
+			"DWU_Size": {
+				"type": "string",
+				"defaultValue": "100"
+			}
+		},
+		"folder": {
+			"name": "90 Utilities/Synapse"
+		},
+		"annotations": []
+	}
+}
