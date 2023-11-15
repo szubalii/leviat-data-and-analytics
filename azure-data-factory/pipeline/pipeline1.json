@@ -24,7 +24,11 @@
 					"headers": {
 						"Content-Type": "application/json"
 					},
-					"body": ""
+					"body": {
+						"properties": {
+							"requestedServiceObjectiveName": "DW200c"
+						}
+					}
 				}
 			}
 		],
