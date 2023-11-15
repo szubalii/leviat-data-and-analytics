@@ -1,0 +1,10 @@
+CREATE PROCEDURE [tc.edw.svf_getSalesRefDocItemCalc].[test PurchasingDocument empty]
+AS
+BEGIN
+
+  DECLARE @actual INT = ( 
+    SELECT [edw].[svf_getSalesRefDocCalc]('', 'VBRK', '', '2222222222', '3333333333')
+  );
+
+  EXEC tSQLt.AssertEquals '3333333333', @actual;
+END;
