@@ -1,4 +1,4 @@
-CREATE VIEW [edw].[vw_POGLAccount]
+CREATE VIEW [edw].[vw_PurchaseOrderExpectedGLAccount]
 AS
 SELECT
     RIGHT(
@@ -8,5 +8,4 @@ SELECT
         )
         ,10
     )                               AS [GLAccountID]
-    ,[GLAccountDescription] 
-FROM base_ff.POAccount
+FROM base_ff.PurchaseOrderExpectedGLAccount

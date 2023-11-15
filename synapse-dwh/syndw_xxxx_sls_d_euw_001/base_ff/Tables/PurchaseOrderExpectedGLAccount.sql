@@ -1,8 +1,7 @@
-CREATE TABLE base_ff.POAccount
+CREATE TABLE base_ff.PurchaseOrderExpectedGLAccount
 (
 
     [GLAccountID]                  NVARCHAR(10) NOT NULL,
-    [GLAccountDescription]         NVARCHAR(128),
     [t_applicationId] [varchar](32) NULL,
 	[t_jobId] [varchar](36) NULL,
 	[t_jobDtm] [datetime] NULL,

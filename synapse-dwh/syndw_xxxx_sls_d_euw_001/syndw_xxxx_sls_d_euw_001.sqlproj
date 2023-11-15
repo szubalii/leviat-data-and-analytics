@@ -331,7 +331,7 @@
     <Build Include="base_ff\Tables\CompanyCode.sql" />
     <Build Include="base_ff\Tables\Budget_EPM.sql" />
     <Build Include="base_ff\Tables\IC_ReconciliationGLAccounts.sql" />
-    <Build Include="base_ff\Tables\POAccount.sql" />
+    <Build Include="base_ff\Tables\PurchaseOrderExpectedGLAccount.sql" />
 
     <Build Include="base_ff_USA\Tables\Budget.sql" />
     <Build Include="base_ff_USA\Tables\DummyMaterial.sql" />
@@ -1183,7 +1183,7 @@
     <Build Include="edw\Views\vw_fact_ScheduleLineStatus.sql" />
     <Build Include="edw\Views\vw_fact_GRIRAccountReconciliation_agg.sql" />
     <Build Include="edw\Views\vw_fact_ScheduleLineShippedNotBilled_agg.sql" />
-    <Build Include="edw\Views\vw_POGLAccount.sql" />
+    <Build Include="edw\Views\vw_PurchaseOrderExpectedGLAccount.sql" />
 
     <Build Include="dq\Views\vw_Product_1_2.sql" />
     <Build Include="dq\Views\vw_RuleTotal.sql" />
@@ -1262,6 +1262,8 @@
     <Build Include="dm_finance\Views\vw_fact_ACDOCA_Full_CH_AT.sql" />
     <Build Include="dm_finance\Views\vw_fact_GRIRAccountReconciliation.sql" />
     <Build Include="dm_finance\Views\vw_fact_ACDOCA_FinanceKPI.sql" />
+
+    <Build Include="dm_global\Views\vw_dim_GLAccount.sql" />
 
     <Build Include="dm_sales\Views\vw_dim_Customer.sql" />
     <Build Include="dm_sales\Views\vw_fact_BillingDocumentItem.sql" />
@@ -1354,7 +1356,6 @@
     <Build Include="dm_procurement\Views\vw_dim_PurchaseOrder_LastMonth.sql" />
     <Build Include="dm_procurement\Views\vw_dim_Supplier.sql" />
     <Build Include="dm_procurement\Views\vw_dim_User.sql" />
-    <Build Include="dm_procurement\Views\vw_dim_GLAccountText.sql" />
 
     <Build Include="dm_dq\Views\vw_dim_RuleProduct.sql" />
     <Build Include="dm_dq\Views\vw_fact_RuleTotal.sql" />

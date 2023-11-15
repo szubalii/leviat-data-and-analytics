@@ -1,4 +1,4 @@
-CREATE VIEW [dm_procurement].[vw_dim_GLAccountText]
+CREATE VIEW [dm_global].[vw_dim_GLAccount]
 AS
 SELECT
     at.ChartOfAccounts,
@@ -14,5 +14,5 @@ SELECT
     at.t_applicationId,
     at.t_extractionDtm
 FROM [edw].[vw_GLAccountText]        at
-LEFT JOIN [edw].[vw_POGLAccount]     gla
+LEFT JOIN [edw].[vw_PurchaseOrderExpectedGLAccount]     gla
     ON at.GLAccountID = gla.GLAccountID   
