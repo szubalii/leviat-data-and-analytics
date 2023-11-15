@@ -28,6 +28,10 @@
 						"properties": {
 							"requestedServiceObjectiveName": "DW200c"
 						}
+					},
+					"authentication": {
+						"type": "MSI",
+						"resource": "https://management.azure.com/"
 					}
 				}
 			}
