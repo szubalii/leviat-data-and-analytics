@@ -31,7 +31,7 @@
 					"body": {
 						"location": "westeurope",
 						"sku": {
-							"name": "DW300c"
+							"name": "DW400c"
 						}
 					},
 					"authentication": {
