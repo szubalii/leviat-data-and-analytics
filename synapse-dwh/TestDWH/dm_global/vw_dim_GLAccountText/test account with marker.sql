@@ -1,4 +1,4 @@
-CREATE PROCEDURE [tc.dm_procurement.vw_dim_GLAccountText].[test account with no marker]
+CREATE PROCEDURE [tc.dm_procurement.vw_dim_GLAccountText].[test account with marker]
 AS
 BEGIN
 
@@ -30,9 +30,9 @@ BEGIN
   -- Act: 
   SELECT *
   INTO actual
-  FROM [dm_procurement].[vw_dim_GLAccountText]
-  WHERE GLAccountID IN ('0045678901')
-    AND IsPurchaseOrderExpected <> 0;
+  FROM [dm_global].[vw_dim_GLAccountText]
+  WHERE GLAccountID IN ('0012345678','0023456789')
+    AND IsPurchaseOrderExpected <> 1;
 
   -- Assert:
   EXEC tSQLt.AssertEmptyTable 'actual';
