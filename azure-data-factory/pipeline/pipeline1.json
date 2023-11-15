@@ -20,6 +20,10 @@
 						"value": "@https://management.azure.com/subscriptions/\nf199b488-7d9d-4992-aeda-c10a1e1c9b9e/resourceGroups/pipeline().globalParameters.resourceGroupName/providers/Microsoft.Synapse/workspaces/pipeline().globalParameters.synapseServerName/sqlPools/pipeline().globalParameters.synapseDatabaseName/?api-version=2019-06-01-preview",
 						"type": "Expression"
 					},
+					"connectVia": {
+						"referenceName": "ir-WEXLEVAPP001",
+						"type": "IntegrationRuntimeReference"
+					},
 					"method": "PATCH",
 					"headers": {
 						"Content-Type": "application/json"
