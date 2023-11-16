@@ -27,7 +27,20 @@
 							}
 						},
 						{
-							"name": "Main ETL",
+							"name": "Start VM",
+							"type": "ExecutePipeline",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"pipeline": {
+									"referenceName": "pl_VM_start",
+									"type": "PipelineReference"
+								},
+								"waitOnCompletion": true
+							}
+						},
+						{
+							"name": "Process ETL",
 							"type": "ExecutePipeline",
 							"dependsOn": [
 								{
@@ -46,29 +59,17 @@
 							"userProperties": [],
 							"typeProperties": {
 								"pipeline": {
-									"referenceName": "pl_main_daily_etl_process",
+									"referenceName": "pl_child_daily_etl_process",
 									"type": "PipelineReference"
 								},
 								"waitOnCompletion": true,
 								"parameters": {
+									"adhoc": 0,
 									"date": {
 										"value": "@formatDateTime(pipeline().TriggerTime, 'yyyy/MM/dd')",
 										"type": "Expression"
 									}
 								}
-							}
-						},
-						{
-							"name": "Start VM",
-							"type": "ExecutePipeline",
-							"dependsOn": [],
-							"userProperties": [],
-							"typeProperties": {
-								"pipeline": {
-									"referenceName": "pl_VM_start",
-									"type": "PipelineReference"
-								},
-								"waitOnCompletion": true
 							}
 						}
 					]
