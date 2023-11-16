@@ -64,7 +64,7 @@
 				"type": "ExecutePipeline",
 				"dependsOn": [
 					{
-						"activity": "Scale Up SQL Pool",
+						"activity": "Scale Up Synapse",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -331,9 +331,8 @@
 				}
 			},
 			{
-				"name": "Scale Up SQL Pool",
-				"description": "To scale up the SQL Pool for the Daily Load",
-				"type": "WebActivity",
+				"name": "Scale Up Synapse",
+				"type": "ExecutePipeline",
 				"dependsOn": [
 					{
 						"activity": "Resume Synapse DWH",
@@ -342,43 +341,18 @@
 						]
 					}
 				],
-				"policy": {
-					"timeout": "0.12:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
 				"userProperties": [],
 				"typeProperties": {
-					"url": {
-						"value": "@concat('https://management.azure.com/subscriptions/f199b488-7d9d-4992-aeda-c10a1e1c9b9e/resourceGroups/', pipeline().globalParameters.resourceGroupName, '/providers/Microsoft.Synapse/workspaces/',pipeline().globalParameters.synapseServerName, '/sqlPools/', pipeline().globalParameters.synapseDatabaseName, '?api-version=2021-04-01-preview'  )",
-						"type": "Expression"
+					"pipeline": {
+						"referenceName": "pl_SYNDW_ScaleUp",
+						"type": "PipelineReference"
 					},
-					"connectVia": {
-						"referenceName": "ir-WEXLEVAPP001",
-						"type": "IntegrationRuntimeReference"
-					},
-					"method": "PUT",
-					"headers": {
-						"Content-Type": "application/json"
-					},
-					"body": {
-						"location": "westeurope",
-						"sku": {
-							"name": "DW400c"
-						}
-					},
-					"authentication": {
-						"type": "MSI",
-						"resource": "https://management.azure.com/"
-					}
+					"waitOnCompletion": true
 				}
 			},
 			{
-				"name": "Scale Down SQL Pool",
-				"description": "To scale down the SQL Pool for the Daily Load",
-				"type": "WebActivity",
+				"name": "Scale Down Synapse",
+				"type": "ExecutePipeline",
 				"dependsOn": [
 					{
 						"activity": "Process Synapse EDW",
@@ -387,37 +361,13 @@
 						]
 					}
 				],
-				"policy": {
-					"timeout": "0.12:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
 				"userProperties": [],
 				"typeProperties": {
-					"url": {
-						"value": "@concat('https://management.azure.com/subscriptions/f199b488-7d9d-4992-aeda-c10a1e1c9b9e/resourceGroups/', pipeline().globalParameters.resourceGroupName, '/providers/Microsoft.Synapse/workspaces/',pipeline().globalParameters.synapseServerName, '/sqlPools/', pipeline().globalParameters.synapseDatabaseName, '?api-version=2021-04-01-preview'  )",
-						"type": "Expression"
+					"pipeline": {
+						"referenceName": "pl_SYNDW_ScaleDown",
+						"type": "PipelineReference"
 					},
-					"connectVia": {
-						"referenceName": "ir-WEXLEVAPP001",
-						"type": "IntegrationRuntimeReference"
-					},
-					"method": "PUT",
-					"headers": {
-						"Content-Type": "application/json"
-					},
-					"body": {
-						"location": "westeurope",
-						"sku": {
-							"name": "DW100c"
-						}
-					},
-					"authentication": {
-						"type": "MSI",
-						"resource": "https://management.azure.com/"
-					}
+					"waitOnCompletion": true
 				}
 			}
 		],
