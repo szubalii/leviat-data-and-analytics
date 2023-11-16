@@ -169,6 +169,4 @@ CREATE TABLE [base_s4h_cax].[I_OutboundDeliveryItem](
     [MANDT], [OutboundDelivery], [OutboundDeliveryItem]
   ) NOT ENFORCED
 )
-WITH (
-  HEAP
-)
+WITH (DISTRIBUTION = HASH ([ReferenceSDDocument]), CLUSTERED COLUMNSTORE INDEX)
