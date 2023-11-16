@@ -45,7 +45,7 @@ BEGIN
 
   EXEC ('INSERT INTO edw.vw_LatestOutboundDeliveryItem SELECT * FROM #vw_LatestOutboundDeliveryItem');
 
-  INSERT INTO edw.BillingBlockStatusID (BillingBlockStatusID)
+  INSERT INTO edw.dim_BillingBlockStatus (BillingBlockStatusID)
   VALUES (1), (2);
 
 -- Act: 
