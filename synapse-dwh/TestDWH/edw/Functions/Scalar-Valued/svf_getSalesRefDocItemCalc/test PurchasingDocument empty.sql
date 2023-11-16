@@ -3,8 +3,8 @@ AS
 BEGIN
 
   DECLARE @actual INT = ( 
-    SELECT [edw].[svf_getSalesRefDocItemCalc]('', 'VBRK', '', '5555555555', '7777777777')
+    SELECT [edw].[svf_getSalesRefDocItemCalc]('', 'VBRK', '', '5555555555', 7777777777)
   );
 
-  EXEC tSQLt.AssertEquals '7777777777', @actual;
+  EXEC tSQLt.AssertEquals 7777777777, @actual;
 END;

@@ -6,5 +6,5 @@ BEGIN
     SELECT [edw].[svf_getSalesRefDocItemCalc]('', 'VBRK', '1111111111', '5555555555', '7777777777')
   );
 
-  EXEC tSQLt.AssertEquals '5555555555', @actual;
+  EXEC tSQLt.AssertEquals 5555555555, @actual;
 END;
