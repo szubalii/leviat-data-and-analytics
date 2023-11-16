@@ -1,4 +1,4 @@
-CREATE PROCEDURE [tc.edw.svf_getSalesRefDocItemCalc].[test positive filter]
+CREATE PROCEDURE [tc.edw.svf_getSalesRefDocCalc].[test positive filter]
 AS
 BEGIN
 

@@ -1,4 +1,4 @@
-CREATE PROCEDURE [tc.edw.svf_getSalesRefDocItemCalc].[test ReferenceDocumentTypeID not VBRK]
+CREATE PROCEDURE [tc.edw.svf_getSalesRefDocCalc].[test ReferenceDocumentTypeID not VBRK]
 AS
 BEGIN
 

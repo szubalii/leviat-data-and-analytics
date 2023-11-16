@@ -1,4 +1,4 @@
-CREATE PROCEDURE [tc.edw.svf_getSalesRefDocItemCalc].[test PurchasingDocument empty]
+CREATE PROCEDURE [tc.edw.svf_getSalesRefDocCalc].[test PurchasingDocument empty]
 AS
 BEGIN
 
