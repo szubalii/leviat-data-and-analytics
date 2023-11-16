@@ -1,1 +1,0 @@
-CREATE SCHEMA [tc.edw.tc.edw.svf_getSalesRefDocCalc]
