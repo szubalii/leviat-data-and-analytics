@@ -81,14 +81,19 @@ LEFT JOIN
     ON
         SC.[CompanyCode] COLLATE SQL_Latin1_General_CP1_CS_AS = CC.[CompanyCode]
 WHERE
+    (S.SupplierAccountGroup <> 'Z008' --Employees
+    AND
+    SC.CashPlanningGroup<>'A2'
+    AND
+    S.[Country]<>CC.[Country])
+    OR
+    (S.SupplierAccountGroup = 'Z001'
+    AND
     SC.CashPlanningGroup<>'A1'
     AND
-    S.[Country]=CC.[Country]
-
-UNION
-
-SELECT
-        S.[Supplier]
+    S.[Country]=CC.[Country])
+GROUP BY
+ S.[Supplier]
     ,   S.[SupplierAccountGroup]
     ,   S.[SupplierName]
     ,   S.[SupplierFullName]
@@ -154,22 +159,6 @@ SELECT
     ,   S.[TaxInvoiceRepresentativeName]
     ,   S.[IndustryType]
     ,   S.[IN_GSTSupplierClassification]
-    ,   '2.2.2' AS [RuleID]
-    ,   1 AS [Count]
-FROM
-    [base_s4h_cax].[I_Supplier] S
-LEFT JOIN
-    [base_s4h_cax].[I_SupplierCompany] SC
-    ON
-        S.[Supplier] = SC.[Supplier]
-LEFT JOIN
-    [base_s4h_cax].[I_CompanyCode] CC
-    ON
-        SC.[CompanyCode] COLLATE SQL_Latin1_General_CP1_CS_AS = CC.[CompanyCode]
-WHERE
-    (SC.CashPlanningGroup<>'A2' OR SC.CashPlanningGroup IS NULL OR SC.CashPlanningGroup='')
-    AND
-    S.[Country]<>CC.[Country]
 
 
 

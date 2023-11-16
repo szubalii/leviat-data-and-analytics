@@ -1,7 +1,6 @@
 CREATE VIEW [dm_sales].[vw_fact_SalesDocumentItem_active] AS
     SELECT
-        [sk_fact_SalesDocumentItem] 
-    ,   [nk_fact_SalesDocumentItem]
+        [sk_fact_SalesDocumentItem]
     ,   [SalesDocument]
     ,   [SalesDocumentItem]
     ,   [CurrencyTypeID]
@@ -170,8 +169,7 @@ CREATE VIEW [dm_sales].[vw_fact_SalesDocumentItem_active] AS
         Where [t_lastActionCd] <> 'D'                
     UNION ALL
     SELECT
-        [sk_fact_SalesDocumentItem] 
-    ,   [nk_fact_SalesDocumentItem]
+        [sk_fact_SalesDocumentItem]
     ,   [SalesDocument]
     ,   [SalesDocumentItem]
     ,   [CurrencyTypeID]

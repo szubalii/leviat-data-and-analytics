@@ -1,0 +1,149 @@
+steps:
+
+# MS Azure SQL Edge instance (mcr.microsoft.com/azure-sql-edge) doesn't support tSQLt to use SQL Server 2022
+- script: |
+    docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=$(mssql-sa-pwd)" -p 1433:1433 -d mcr.microsoft.com/mssql/server:2022-latest
+  displayName: 'Start a mssql-server instance for SQL Server 2022'
+
+- script: |
+    dotnet build "$(System.DefaultWorkingDirectory)/synapse-dwh/TestDWH/TestDWH.sqlproj" /p:NetCoreBuild=true
+  displayName: 'Build Test sqlproj'
+
+# - script: |
+#     sleep 10
+#   displayName: 'Wait till SQL Server is ready'
+
+# - script: |
+    
+#   displayName: 'Create Database in SQL Server using entrypoint.sh script?'
+
+
+- script: |
+    sqlpackage /Action:Publish /SourceFile:"$(System.DefaultWorkingDirectory)/synapse-dwh/syndw_xxxx_sls_d_euw_001/bin/Debug/syndw_xxxx_sls_d_euw_001.dacpac" \
+    /TargetConnectionString:"Server=localhost;Initial Catalog=TestDWH;User ID=sa;Password=$(mssql-sa-pwd);Encrypt=False;TrustServerCertificate=False;Connection Timeout=30;"
+  displayName: 'Deploy Synapse SQL Pool dacpac to Docker Container'
+  
+- script: |
+    sqlpackage /Action:Publish /SourceFile:"$(System.DefaultWorkingDirectory)/synapse-dwh/TestDWH/bin/Debug/TestDWH.dacpac" \
+    /TargetConnectionString:"Server=localhost;Initial Catalog=TestDWH;User ID=sa;Password=$(mssql-sa-pwd);Encrypt=False;TrustServerCertificate=False;Connection Timeout=30;"
+  displayName: 'Deploy Test dacpac to Docker Container'
+
+
+# User powershell instead of direct sqlcmd due to issues in fixed length of output of xml results
+# Also, xml output has incorrect headers by default which need to be removed which is done using powershell
+- script: |
+    sqlcmd \
+      -S localhost \
+      -d TestDWH \
+      -U sa \
+      -P "$(mssql-sa-pwd)" \
+      -Q "EXEC tSQLt.RunAll;"
+  displayName: 'Run TSQLT tests'
+
+- task: PowerShell@2
+  displayName: 'Export Test Results'
+  inputs:
+    targetType: 'inline'
+    pwsh: true
+    script: |
+      $xmloutput = "";
+      $connectionString = "Data Source=localhost;User ID=sa;Password=$(mssql-sa-pwd);Initial Catalog=TestDWH";
+      $sqlCommand = 'EXEC tSQLt.XmlResultFormatter';
+      $connection = new-object system.data.SqlClient.SQLConnection($connectionString);
+      $command = new-object system.data.sqlclient.sqlcommand($sqlCommand,$connection);
+      $connection.Open();
+      $adapter = New-Object System.Data.sqlclient.sqlDataAdapter $command;
+      $dataset = New-Object System.Data.DataSet;
+      $adapter.Fill($dataset) | Out-Null;
+      $connection.Close();
+      if ($dataset.Tables[0].Rows.Count -gt 0) {
+        foreach ($dr in $dataset.Tables[0].Rows) {
+          $xmloutput += $dr.ItemArray[0].ToString();
+        }
+      }
+      $xmloutput;
+      $xmloutput | Out-File "$(System.DefaultWorkingDirectory)/synapse-dwh/TestDWH/bin/Debug/TEST-Results.xml"
+
+
+    
+
+  # sqlcmd -S localhost -d TestOrchestrationDB -U sa -P "$(mssql-sa-pwd)" -i "EXEC tSQLt.XmlResultFormatter;;"$(System.DefaultWorkingDirectory)/orchestration/Scripts/RunTests.sql" "
+
+# - script: |
+#     cat "$(System.DefaultWorkingDirectory)/orchestration/TestOrchestrationDB/bin/Debug/TEST-Results.xml"
+
+- task: PublishTestResults@2
+  inputs:
+    testResultsFormat: 'JUnit'
+    testResultsFiles: '**/TEST-*.xml'
+    failTaskOnFailedTests: true
+
+# Cleaning existing deployments...
+#     > docker ps -q -a --filter label=source=sqldbproject-testorchestrationdb
+
+# Cleaning existing deployments...
+#     > docker stop 9f8b848e3064
+#     > docker rm 9f8b848e3064
+
+# Creating deployment settings ...
+# Running the docker container ...
+#     > docker pull mcr.microsoft.com/mssql/server
+#     > docker run -p 1433:1433 -e "MSSQL_SA_PASSWORD=***" -e "ACCEPT_EULA=Y" -e "MSSQL_PID=Developer" --label source=sqldbproject-testorchestrationdb -d --name sqldbproject-testorchestrationdb-d68658da-fd66-4a33-b786-0c0b32b9692f mcr.microsoft.com/mssql/server
+#     > docker ps -q -a --filter label=source=sqldbproject-testorchestrationdb -q
+
+# Docker container created. Id: 91efd33cafb8
+
+# Waiting for 2 seconds before another attempt for operation 'Validating the docker container'
+# Running operation 'Validating the docker container' Attempt 0 of 10
+#     > docker ps -q -a --filter label=source=sqldbproject-testorchestrationdb -q
+
+# Operation 'Validating the docker container' completed successfully. Result: 91efd33cafb8
+
+# Docker created id: '91efd33cafb8
+
+# Waiting for 10 seconds before another attempt for operation 'Connecting to SQL Server'
+# Running operation 'Connecting to SQL Server' Attempt 0 of 3
+# Operation 'Connecting to SQL Server' failed. Re-trying... Error: 'Connection request for {"password":"Welcome1","server":"localhost","port":1433,"database":"master","savePassword":false,"user":"sa","authenticationType":"SqlLogin","encrypt":false,"connectTimeout":30,"applicationName":"SQL Database Project","profileName":"sqldbproject-testorchestrationdb-d68658da-fd66-4a33-b786-0c0b32b9692f"} failed' 
+# Waiting for 10 seconds before another attempt for operation 'Connecting to SQL Server'
+# Running operation 'Connecting to SQL Server' Attempt 1 of 3
+# Operation 'Connecting to SQL Server' failed. Re-trying... Error: 'Connection request for {"password":"Welcome1","server":"localhost","port":1433,"database":"master","savePassword":false,"user":"sa","authenticationType":"SqlLogin","encrypt":false,"connectTimeout":30,"applicationName":"SQL Database Project","profileName":"sqldbproject-testorchestrationdb-d68658da-fd66-4a33-b786-0c0b32b9692f"} failed' 
+# Waiting for 10 seconds before another attempt for operation 'Connecting to SQL Server'
+# Running operation 'Connecting to SQL Server' Attempt 2 of 3
+# Operation 'Connecting to SQL Server' completed successfully. Result: vscode-mssql-adhoc://query2
+
+# [ Build ]
+#     > "C:\\Program Files\\dotnet\\dotnet.exe"  build "c:\\Users\\Michiel_Pors\\source\\repos\\leviat-data-and-analytics\\orchestration\\TestOrchestrationDB\\TestOrchestrationDB.sqlproj" /p:NetCoreBuild=true /p:SystemDacpacsLocation="c:\\Users\\Michiel_Pors\\.vscode\\extensions\\ms-mssql.sql-database-projects-vscode-1.1.1\\BuildDirectory"
+
+# # - script: |
+# #     sqlcmd -S localhost -U sa -P P@ssw0rd -d master -Q "select getdate()"
+# #     if [ $? -eq 0 ]
+# #     then
+# #         echo "sql server ready"
+# #         break
+# #     else
+# #         echo "not ready yet..."
+# #         sleep 1
+# #     fi
+# #   displayName: 'Start a mssql-server instance for SQL Server 2022'
+
+
+# # - name: 'Create and setup database'
+# #   uses: azure/sql-action@v2
+# #   with:
+# #     connection-string: "Server=localhost;Initial Catalog=master;User ID=sa;Password=P@ssw0rd;Encrypt=False;TrustServerCertificate=False;"  # the local connection string
+# #     path: './setups/setupDatabase.sql' # the sql script to create db and configure for clr
+
+# # - script: |
+# #   docker exec -it <container_id|container_name> /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P <your_password>
+# #   displayName: 'Deploy Projects'
+# #   with:
+# #     connection-string: "Server=localhost;Initial Catalog=testingDB;User ID=sa;Password=P@ssw0rd;Encrypt=False;TrustServerCertificate=False;"  # the local connection string
+# #     path: './TestsSQLServer/TestsSQLServer.sqlproj' # the SQLproj file
+# #     action: 'Publish'
+# #     arguments: '/p:IncludeCompositeObjects=True'
+
+# # - script: 'Run tSQLt tests'
+# #   uses: azure/sql-action@v2
+# #   with:
+# #     connection-string: "Server=localhost;Initial Catalog=testingDB;User ID=sa;Password=P@ssw0rd;"  # the local connection string
+# #     path: './TestsSQLServer/myTests/demoExecAzureSQL.sql' # the tsqlt test command

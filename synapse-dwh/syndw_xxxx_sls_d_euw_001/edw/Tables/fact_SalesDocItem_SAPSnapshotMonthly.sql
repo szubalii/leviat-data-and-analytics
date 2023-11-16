@@ -173,6 +173,6 @@
 , CONSTRAINT [PK_fact_SalesDocItem_SAPSnapshotMonthly] PRIMARY KEY NONCLUSTERED ([sk_fact_SalesDocItem_SAPSnapshotMonthly]) NOT ENFORCED
 )
 WITH (
-    DISTRIBUTION = HASH ([nk_fact_SalesDocItem_SAPSnapshotMonthly]), CLUSTERED COLUMNSTORE INDEX
+    DISTRIBUTION = HASH ([SalesDocument]), CLUSTERED COLUMNSTORE INDEX
 )
 

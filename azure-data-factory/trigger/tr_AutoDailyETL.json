@@ -9,6 +9,11 @@
 				"pipelineReference": {
 					"referenceName": "pl_main_daily_automatic",
 					"type": "PipelineReference"
+				},
+				"parameters": {
+					"entity_filter": "'a' = 'a'",
+					"pbi_entity_filter": "WHERE dataset_name != 'Master Data Quality Checks'",
+					"rerun_successful_full_entities": 0
 				}
 			}
 		],

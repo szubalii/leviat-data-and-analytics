@@ -1,0 +1,133 @@
+{
+	"functionName": "Z_THEO_READ_TABLE",
+	"runInBackGroundJob": false,
+	"tables": [
+		{
+			"name": "ISDDOCINCMPLTLOG",
+			"description": "Generated Table for View ISDDOCINCMPLTLOG",
+			"isView": true,
+			"fields": [
+				{
+					"name": "MANDT",
+					"description": "Client",
+					"abapType": "CharacterString",
+					"length": 3,
+					"isSelected": true,
+					"outputLength": 3,
+					"isPrimaryKey": true,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "T000"
+				},
+				{
+					"name": "SDDOCUMENT",
+					"description": "Sales and Distribution Document Number",
+					"abapType": "CharacterString",
+					"length": 10,
+					"isSelected": true,
+					"outputLength": 10,
+					"isPrimaryKey": true,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "SDDOCUMENT",
+					"ConversionExit": "ALPHA"
+				},
+				{
+					"name": "SDDOCUMENTITEM",
+					"description": "Item number of the SD document",
+					"abapType": "NumericCharacterString",
+					"length": 6,
+					"isSelected": true,
+					"outputLength": 6,
+					"isPrimaryKey": true,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "SDDOCUMENTITEM"
+				},
+				{
+					"name": "SCHEDULELINE",
+					"description": "Schedule Line Number",
+					"abapType": "NumericCharacterString",
+					"length": 4,
+					"isSelected": true,
+					"outputLength": 4,
+					"isPrimaryKey": true,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "SCHEDULELINE"
+				},
+				{
+					"name": "PARTNERFUNCTION",
+					"description": "Partner Function",
+					"abapType": "CharacterString",
+					"length": 2,
+					"isSelected": true,
+					"outputLength": 2,
+					"isPrimaryKey": true,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "PARTNERFUNCTION",
+					"ConversionExit": "PARVW"
+				},
+				{
+					"name": "SDDOCUMENTTEXTID",
+					"description": "Text ID",
+					"abapType": "CharacterString",
+					"length": 4,
+					"isSelected": true,
+					"outputLength": 4,
+					"isPrimaryKey": true,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "SDDOCUMENTTEXTID"
+				},
+				{
+					"name": "SDDOCUMENTTABLE",
+					"description": "Table for documents in Sales",
+					"abapType": "CharacterString",
+					"length": 30,
+					"isSelected": true,
+					"outputLength": 30,
+					"isPrimaryKey": true,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "SDDOCUMENTTABLE"
+				},
+				{
+					"name": "SDDOCUMENTTABLEFIELD",
+					"description": "Document field name",
+					"abapType": "CharacterString",
+					"length": 30,
+					"isSelected": true,
+					"outputLength": 30,
+					"isPrimaryKey": true,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "SDDOCUMENTTABLEFIELD"
+				},
+				{
+					"name": "INCOMPLETIONPROCEDURE",
+					"description": "Incompleteness Procedure for Sales Document",
+					"abapType": "CharacterString",
+					"length": 2,
+					"isSelected": true,
+					"outputLength": 2,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "INCOMPLETIONPROCEDURE"
+				},
+				{
+					"name": "INCOMPLETIONSTATUSGROUP",
+					"description": "Status group",
+					"abapType": "CharacterString",
+					"length": 2,
+					"isSelected": true,
+					"outputLength": 2,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "INCOMPLETIONSTATUSGROUP"
+				}
+			]
+		}
+	]
+}

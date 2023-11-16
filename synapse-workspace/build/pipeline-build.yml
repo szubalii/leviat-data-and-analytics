@@ -1,7 +1,16 @@
-trigger: none # triggered by PR
+name: $(SourceBranch)_$(Date:yyyyMMdd).$(Rev:r)
+
+trigger:
+  branches:
+    include:
+    - main
+    - qas
+    - prod
+  paths:
+    include:
+    - synapse-workspace/*
 
 extends:
-  template: ../../build/stages-build-deploy.yml
+  template: ../../build/stages-build.yml
   parameters:
     folder: synapse-workspace
-    solution: SynapseServerless

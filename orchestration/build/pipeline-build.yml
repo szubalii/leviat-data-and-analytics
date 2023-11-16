@@ -1,8 +1,17 @@
-trigger: none # triggered by PR
+name: $(SourceBranch)_$(Date:yyyyMMdd).$(Rev:r)
+
+trigger:
+  branches:
+    include:
+    - main
+    - qas
+    - prod
+  paths:
+    include:
+    - orchestration/*
 
 extends:
-  template: ../../build/stages-build-deploy.yml
+  template: ../../build/stages-build.yml
   parameters:
     folder: orchestration
-    solution: Orchestration
-    hasVariables: true
+    variables: true

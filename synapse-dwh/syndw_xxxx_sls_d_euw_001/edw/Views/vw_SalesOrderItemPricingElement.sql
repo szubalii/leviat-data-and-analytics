@@ -1,91 +1,31 @@
 CREATE VIEW [edw].[vw_SalesOrderItemPricingElement]
-As
-/*
-    Transaction currency data from S4H
-*/
-SELECT 
-  [SalesOrder] 
-, [SalesOrderItem]
-, edw.svf_getNaturalKey (SalesOrder,SalesOrderItem,CR.CurrencyTypeID) as nk_SalesOrderItem
-, CR.[CurrencyTypeID]
-, CR.[CurrencyType]
-, [TransactionCurrency] COLLATE Latin1_General_100_BIN2 as [CurrencyID]
-, 1.0 as [ExchangeRate]
-, [PricingProcedureStep] 
-, [PricingProcedureCounter] 
-, [ConditionApplication] 
-, [ConditionType] 
-, [PricingDateTime] 
-, [ConditionCalculationType] 
-, [ConditionBaseValue] 
-, [ConditionRateValue] 
-, [ConditionCurrency] 
-, [ConditionQuantity] 
-, [ConditionQuantityUnit] 
-, [ConditionCategory] 
-, [ConditionIsForStatistics] 
-, [PricingScaleType] 
-, [IsRelevantForAccrual] 
-, [CndnIsRelevantForInvoiceList] 
-, [ConditionOrigin] 
-, [IsGroupCondition] 
-, [ConditionRecord] 
-, [ConditionSequentialNumber] 
-, [TaxCode] 
-, [WithholdingTaxCode] 
-, [CndnRoundingOffDiffAmount] 
-, [ConditionAmount] 
-, [TransactionCurrency] as [TransactionCurrencyID] 
-, [ConditionControl] 
-, [ConditionInactiveReason] 
-, [ConditionClass] 
-, [PrcgProcedureCounterForHeader] 
-, [FactorForConditionBasisValue] 
-, [StructureCondition] 
-, [PeriodFactorForCndnBasisValue]
-, [PricingScaleBasis] 
-, [ConditionScaleBasisValue] 
-, [ConditionScaleBasisUnit] 
-, [ConditionScaleBasisCurrency] 
-, [CndnIsRelevantForIntcoBilling] 
-, [ConditionIsManuallyChanged] 
-, [ConditionIsForConfiguration] 
-, [VariantCondition] 
-, ISOIPE.[t_applicationId]
-, ISOIPE.[t_jobDtm]   
-FROM 
-    [base_s4h_cax].[I_SalesOrderItemPricingElement] ISOIPE
-CROSS JOIN 
-    [edw].[dim_CurrencyType] CR
-WHERE 
-    CR.[CurrencyTypeID] = '00'
-
-UNION ALL
-
-/*
-    Local Company Code currency data from S4H
-*/
+AS
 SELECT
-  [SalesOrder] 
+  SDI.[sk_fact_SalesDocumentItem] AS [fk_SalesDocumentItem]
+, [SalesOrder] 
 , [SalesOrderItem]
-, edw.svf_getNaturalKey (SalesOrder,SalesOrderItem,CR.CurrencyTypeID) as nk_SalesOrderItem
+, edw.svf_getNaturalKey (SalesOrder,SalesOrderItem,CR.CurrencyTypeID)             AS [nk_SalesOrderItem]
 , CR.[CurrencyTypeID]
 , CR.[CurrencyType]
-, SDI.[CurrencyID] COLLATE Latin1_General_100_BIN2 as CurrencyID
-, COALESCE(SDI.[ExchangeRate], 1) AS [ExchangeRate]
+, CASE 
+        WHEN CCR.[CurrencyTypeID] = '10' THEN COALESCE(SDI.[CurrencyID],[TransactionCurrency] COLLATE Latin1_General_100_BIN2)
+        ELSE CCR.[TargetCurrency]
+  END                                                                             AS [CurrencyID]
+, CASE 
+        WHEN CCR.[CurrencyTypeID] = '10' THEN COALESCE(SDI.[ExchangeRate], 1)
+        ELSE CCR.[ExchangeRate]
+  END                                                                             AS [ExchangeRate]
 , [PricingProcedureStep] 
 , [PricingProcedureCounter] 
 , [ConditionApplication] 
 , [ConditionType] 
 , [PricingDateTime] 
 , [ConditionCalculationType] 
-, CONVERT(decimal(19,6), 
-	CASE 
-	 		WHEN SDI.[ExchangeRate] IS NOT NULL 
-			THEN [ConditionBaseValue] * SDI.[ExchangeRate] 
-			ELSE [ConditionBaseValue] 
-	END) 
-			as [ConditionBaseValue]
+, CASE 
+        WHEN CCR.CurrencyTypeID = '10' 
+        THEN CONVERT(decimal(19,6), COALESCE([ConditionBaseValue] * SDI.[ExchangeRate],[ConditionBaseValue]))
+        ELSE [ConditionBaseValue] * CCR.ExchangeRate
+  END                                                                             AS [ConditionBaseValue]
 , [ConditionRateValue] 
 , [ConditionCurrency] 
 , [ConditionQuantity] 
@@ -102,13 +42,11 @@ SELECT
 , [TaxCode] 
 , [WithholdingTaxCode] 
 , [CndnRoundingOffDiffAmount] 
-, CONVERT(decimal(19,6), 
-	CASE 
-			WHEN SDI.[ExchangeRate] IS NOT NULL 
-			THEN [ConditionAmount] * SDI.[ExchangeRate] 
-			ELSE [ConditionAmount] 
-	END) 
-			as [ConditionAmount]
+, CASE 
+        WHEN CCR.CurrencyTypeID = '10' 
+        THEN CONVERT(decimal(19,6), COALESCE([ConditionAmount] * SDI.[ExchangeRate],[ConditionAmount]))
+        ELSE [ConditionAmount] * CCR.ExchangeRate
+  END                                                                             AS [ConditionAmount] 
 , [TransactionCurrency] as [TransactionCurrencyID] 
 , [ConditionControl] 
 , [ConditionInactiveReason] 
@@ -125,15 +63,15 @@ SELECT
 , [ConditionIsManuallyChanged] 
 , [ConditionIsForConfiguration] 
 , [VariantCondition] 
+, [GLAccount]
 , ISOIPE.[t_applicationId]
 , ISOIPE.[t_jobDtm]   
 FROM 
     [base_s4h_cax].[I_SalesOrderItemPricingElement] ISOIPE
-LEFT JOIN
-   [edw].[fact_SalesDocumentItem] SDI
-        on edw.svf_getNaturalKey (SalesOrder,SalesOrderItem,'10') = SDI.[nk_fact_SalesDocumentItem] 
-CROSS JOIN 
-    [edw].[dim_CurrencyType] CR
-WHERE 
-    CR.[CurrencyTypeID] = '10'
-
+LEFT JOIN [edw].[vw_CurrencyConversionRate] CCR   
+    ON ISOIPE.TransactionCurrency = CCR.SourceCurrency    COLLATE DATABASE_DEFAULT
+LEFT JOIN [edw].[dim_CurrencyType] CR
+    ON CCR.CurrencyTypeID = CR.CurrencyTypeID
+LEFT JOIN [edw].[fact_SalesDocumentItem] SDI
+    ON SDI.nk_fact_SalesDocumentItem = edw.svf_getNaturalKey (SalesOrder,SalesOrderItem,CR.CurrencyTypeID) 
+WHERE CCR.CurrencyTypeID <> '00'

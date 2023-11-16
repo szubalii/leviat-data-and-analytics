@@ -5,7 +5,7 @@ SELECT
                                                 AS SupplierID               --trim leading zeros
     ,NULL                                       AS SupplierLocationId
     ,SupplierID                                 AS SupplierName
-    ,StreetName                                 AS StreetAddress
+    ,Replace(Replace(Replace(StreetName,'"',''),CHAR(10),''),CHAR(13),'')                                 AS StreetAddress
     ,CityName                                   AS City
     ,''                                         AS State
     ,Country

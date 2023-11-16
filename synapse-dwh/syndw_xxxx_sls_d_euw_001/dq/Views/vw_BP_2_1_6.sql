@@ -1,5 +1,5 @@
 ﻿CREATE VIEW [dq].[vw_BP_2_1_6]
-  AS  
+  AS
 
 SELECT
          CC.[Customer]
@@ -55,4 +55,47 @@ LEFT JOIN
 WHERE
     CC.[PaymentMethodsList] = 'F'
     AND
-    (BPB.[CollectionAuthInd] IS NULL OR BPB.[CollectionAuthInd] = '')
+    (BPB.[CollectionAuthInd] IS NULL OR  BPB.[CollectionAuthInd]='')
+GROUP BY
+         CC.[Customer]
+    ,    CC.[CompanyCode]
+    ,    CC.[AccountingClerk]
+    ,    CC.[ReconciliationAccount]
+    ,    CC.[AuthorizationGroup]
+    ,    CC.[CustomerHeadOffice]
+    ,    CC.[AlternativePayerAccount]
+    ,    CC.[PaymentBlockingReason]
+    ,    CC.[InterestCalculationCode]
+    ,    CC.[InterestCalculationDate]
+    ,    CC.[IntrstCalcFrequencyInMonths]
+    ,    CC.[CustomerAccountNote]
+    ,    CC.[APARToleranceGroup]
+    ,    CC.[HouseBank]
+    ,    CC.[ItemIsToBePaidSeparately]
+    ,    CC.[PaytAdviceIsSentbyEDI]
+    ,    CC.[PhysicalInventoryBlockInd]
+    ,    CC.[UserAtCustomer]
+    ,    CC.[AccountingClerkPhoneNumber]
+    ,    CC.[AccountingClerkFaxNumber]
+    ,    CC.[AccountingClerkInternetAddress]
+    ,    CC.[AccountByCustomer]
+    ,    CC.[IsToBeLocallyProcessed]
+    ,    CC.[CollectiveInvoiceVariant]
+    ,    CC.[LayoutSortingRule]
+    ,    CC.[PaymentTerms]
+    ,    CC.[CustomerSupplierClearingIsUsed]
+    ,    CC.[RecordPaymentHistoryIndicator]
+    ,    CC.[PaymentMethodsList]
+    ,    CC.[DeletionIndicator]
+    ,    CC.[CreditMemoPaymentTerms]
+    ,    CC.[DunningNoticeGroup]
+    ,    CC.[LastInterestCalcRunDate]
+    ,    CC.[CustPreviousMasterRecordNumber]
+    ,    CC.[ValueAdjustmentKey]
+    ,    CC.[IsBusinessPurposeCompleted]
+    ,    CC.[LastDunnedOn]
+    ,    CC.[DunningProcedure]
+    ,    CC.[DunningLevel]
+    ,    CC.[DunningBlock]
+    ,    CC.[DunningRecipient]
+    ,    CC.[LegDunningProcedureOn]

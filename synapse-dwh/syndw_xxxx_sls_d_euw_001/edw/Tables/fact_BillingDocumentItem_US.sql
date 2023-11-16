@@ -1,6 +1,7 @@
 ﻿CREATE TABLE [edw].[fact_BillingDocumentItem_US]
 (
-     [BillingDocument]                          NVARCHAR(40)                                         NOT NULL
+     [sk_fact_BillingDocumentItem]              INT IDENTITY (1,1)                                   NOT NULL
+    ,[BillingDocument]                          NVARCHAR(40)                                         NOT NULL
     ,[BillingDocumentItem]                      CHAR(7) collate Latin1_General_100_BIN2              NOT NULL
     ,[CurrencyTypeID]                           CHAR(2)                                              NOT NULL
     ,[CurrencyType]                             NVARCHAR(20)                                         NOT NULL
@@ -21,6 +22,7 @@
     ,[CustomerGroupID]                          NVARCHAR(8)                                          NULL
     ,[CountryID]                                NVARCHAR(20)                                         NULL
     ,[QuantitySold]                             DECIMAL(28,12)                                       NULL
+    ,[BillingQuantity]                          DECIMAL(28,12)                                       NULL
     ,[GrossMargin]                              DECIMAL(19, 6)                                       NULL
     ,[ExchangeRate]                             NUMERIC(15,6)                                        NULL
     ,[FinNetAmount]                             DECIMAL(28,12)                                       NULL

@@ -1,5 +1,6 @@
 CREATE TABLE [edw].[fact_BillingDocumentItem]
 (
+    [sk_fact_BillingDocumentItem]           BIGINT IDENTITY (1,1)                        NOT NULL,
     [nk_fact_BillingDocumentItem]           NVARCHAR(51)                                 NOT NULL,
     [BillingDocument]                       NVARCHAR(40)                                 NOT NULL,
     [BillingDocumentItem]                   CHAR(7) collate Latin1_General_100_BIN2      NOT NULL,

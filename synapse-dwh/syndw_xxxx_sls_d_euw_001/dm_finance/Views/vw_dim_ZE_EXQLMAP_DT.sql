@@ -5,6 +5,8 @@ CREATE VIEW dm_finance.vw_dim_ZE_EXQLMAP_DT AS
     FunctionalAreaID,
     ExQLNode,
     ExQLAccount,
+    Contingency6,
+    Contingency7,
     t_applicationId,
     t_jobDtm,
     t_extractionDtm

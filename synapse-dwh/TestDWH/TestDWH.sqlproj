@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build">
+  <Sdk Name="Microsoft.Build.Sql" Version="0.1.9-preview" />
+  <PropertyGroup>
+    <Name>TestDWH</Name>
+    <ProjectGuid>{A8A032D6-5E9A-4304-85EF-B2EFC67EA575}</ProjectGuid>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.SqlAzureV12DatabaseSchemaProvider</DSP>
+    <ModelCollation>1033,CS</ModelCollation>
+    <DefaultCollation>SQL_Latin1_General_CP1_CS_AS</DefaultCollation>
+  </PropertyGroup>
+  <ItemGroup>
+    <PreDeploy Include="Scripts\PreDeploy\Script.PreDeployment.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="Scripts\PostDeploy\Script.PostDeployment.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Scripts\PreDeploy\Script.ConfigureCLR.sql" />
+    <None Include="Scripts\PreDeploy\Script.InstallTSQLT.sql" />
+    <None Include="Scripts\PostDeploy\Script.AddSchemasAsTestClasses.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="TestClasses" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="TestClasses\**\*.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\syndw_xxxx_sls_d_euw_001\syndw_xxxx_sls_d_euw_001.sqlproj">
+      <Name>syndw_xxxx_sls_d_euw_001</Name>
+      <Project>{13dae2ec-5b7b-4433-9f63-a147334be85c}</Project>
+      <Private>True</Private>
+      <SuppressMissingDependenciesErrors>False</SuppressMissingDependenciesErrors>
+    </ProjectReference>
+  </ItemGroup>
+  <Target Name="BeforeBuild">
+    <Delete Files="$(BaseIntermediateOutputPath)\project.assets.json" />
+  </Target>
+</Project>

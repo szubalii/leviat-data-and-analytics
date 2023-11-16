@@ -18,7 +18,7 @@
 							"type": "ExecutePipeline",
 							"dependsOn": [
 								{
-									"activity": "Resume Synapse Dedicated SQL Pool",
+									"activity": "Scale Up Synapse",
 									"dependencyConditions": [
 										"Succeeded"
 									]
@@ -40,6 +40,18 @@
 								"parameters": {
 									"date": {
 										"value": "@formatDateTime(pipeline().TriggerTime, 'yyyy/MM/dd')",
+										"type": "Expression"
+									},
+									"rerun_successful_full_entities": {
+										"value": "@pipeline().parameters.rerun_successful_full_entities",
+										"type": "Expression"
+									},
+									"entity_filter": {
+										"value": "@pipeline().parameters.entity_filter",
+										"type": "Expression"
+									},
+									"pbi_entity_filter": {
+										"value": "@pipeline().parameters.pbi_entity_filter",
 										"type": "Expression"
 									}
 								}
@@ -63,10 +75,9 @@
 							"type": "ExecutePipeline",
 							"dependsOn": [
 								{
-									"activity": "Main Daily ETL",
+									"activity": "Scale Down Synapse",
 									"dependencyConditions": [
-										"Succeeded",
-										"Failed"
+										"Succeeded"
 									]
 								}
 							],
@@ -76,21 +87,7 @@
 									"referenceName": "pl_SYNDW_pause",
 									"type": "PipelineReference"
 								},
-								"waitOnCompletion": true,
-								"parameters": {
-									"SynapseServerName": {
-										"value": "@pipeline().globalParameters.synapseServerName",
-										"type": "Expression"
-									},
-									"SynapseDatabaseName": {
-										"value": "@pipeline().globalParameters.synapseDatabaseName",
-										"type": "Expression"
-									},
-									"ResourceGroupName": {
-										"value": "@pipeline().globalParameters.resourceGroupName",
-										"type": "Expression"
-									}
-								}
+								"waitOnCompletion": true
 							}
 						},
 						{
@@ -107,7 +104,27 @@
 							}
 						},
 						{
-							"name": "Deallocate VM",
+							"name": "Scale Up Synapse",
+							"type": "ExecutePipeline",
+							"dependsOn": [
+								{
+									"activity": "Resume Synapse Dedicated SQL Pool",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"userProperties": [],
+							"typeProperties": {
+								"pipeline": {
+									"referenceName": "pl_SYNDW_ScaleUp",
+									"type": "PipelineReference"
+								},
+								"waitOnCompletion": true
+							}
+						},
+						{
+							"name": "Scale Down Synapse",
 							"type": "ExecutePipeline",
 							"dependsOn": [
 								{
@@ -121,7 +138,7 @@
 							"userProperties": [],
 							"typeProperties": {
 								"pipeline": {
-									"referenceName": "pl_VM_deallocate",
+									"referenceName": "pl_SYNDW_ScaleDown",
 									"type": "PipelineReference"
 								},
 								"waitOnCompletion": true
@@ -131,6 +148,17 @@
 				}
 			}
 		],
+		"parameters": {
+			"entity_filter": {
+				"type": "string"
+			},
+			"pbi_entity_filter": {
+				"type": "string"
+			},
+			"rerun_successful_full_entities": {
+				"type": "int"
+			}
+		},
 		"folder": {
 			"name": "10 Manage"
 		},

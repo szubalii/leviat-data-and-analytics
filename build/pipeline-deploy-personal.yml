@@ -1,52 +1,105 @@
-trigger:
-- none
+# This pipeline is triggered only for manually triggered build pipelines to personal environments. 
+
+trigger: none
+resources:
+  pipelines:
+  - pipeline: build
+    source: 'Build Personal'
+    trigger:
+      branches:
+        include:
+        - feature/*
+        - users/*
+        
+
+# By default, each solution is deployed.
 
 parameters:
-- name: user
-  displayName: User Name
-  type: string
-  default: $[ replace(variables['Build.RequestedForEmail'], '@crh.com','') ] # runtime expression to get user name
-- name: adf
-  displayName: Build & Deploy Azure Data Factory
+- name: azure_data_factory
+  displayName: Azure Data Factory
   type: boolean
-  default: true
-- name: orchdb
-  displayName: Build & Deploy Orchestration DB
+  default: True
+- name: orchestration
+  displayName: Orchestration DB
   type: boolean
-  default: true
-- name: syn
-  displayName: Build & Deploy Synapse DWH
+  default: True
+- name: synapse_dwh
+  displayName: Synapse DWH
   type: boolean
-  default: true
-- name: xu
-  displayName: Build & Deploy Theobald Xtract Universal
+  default: True
+- name: synapse_workspace
+  displayName: Synapse Workspace
   type: boolean
-  default: true
+  default: False
+- name: xu_config
+  displayName: Xtract Universal
+  type: boolean
+  default: True
 
 variables:
-- group: DnA_DEV
-- group: KeyVault_DEV
-- name: user
-  value: ${{ parameters.user }} # template expression to expand template parameter
-- name: dataFactoryName
-  value: "df-$(user)-d-euw-001"
-- name: sqlDatabaseName
-  value: "sqldb-$(user)-d-euw-001"
-- name: synapseSqlPool
-  value: "syndw_$(user)_d_euw_001"
-- name: storageAccountName
-  value: "st$(user)deuw001"
-- name: xuPrefix
-  value: "$(user)"
-- name: destination
-  value: "$(storageAccountName)_s4h-caa-200"
+# Get the personal variables template, user and deployment environment based on the source branch name. 
+- ${{ if or(contains(variables['Build.SourceBranch'], '/feature/'), contains(variables['Build.SourceBranch'], '/users/')) }}:
+  - template: ./variables-personal.yml
+  - name: user
+    value: ${{ split(variables['Build.SourceBranch'], '/')[3] }} #refs/heads/feature/mpors/...
+  - name: deployEnvPrefix # override value to map main branch to DEV deployment environment
+    value: ${{ format('30_DEV_{0}', upper(variables.user)) }}
+  - name: commitId
+    value: $(Build.SourceVersion)
 
-jobs:
-# - template: ./jobs-pre-build.yml
-- template: ./jobs-build.yml
-  parameters:
-    deploy: true
-    adf: ${{ parameters.adf }}
-    orchdb: ${{ parameters.orchdb }}
-    syn: ${{ parameters.syn }}
-    xu: ${{ parameters.xu }}
+stages:
+
+# if triggered automatically
+- ${{ if eq(variables['Build.Reason'], 'ResourceTrigger') }}:
+  - stage: CHECK_SOLUTIONS_DEPLOYMENT
+    jobs:
+    - job: CheckSolutionsDeployment
+      pool:
+        vmImage: 'ubuntu-20.04'
+      steps:
+      - download: build # download the published artifacts from the build pipeline
+      - task: PowerShell@2
+        displayName: 'Define which solutions to deploy'
+        name: SetVariables
+        inputs:
+          filePath: '$(System.DefaultWorkingDirectory)/src/libs/set-solutionDeploymentVarsPersonal.ps1'
+          arguments: >
+            -workspace $(Pipeline.Workspace)
+          pwsh: true
+      
+      # - pwsh: |
+      #     Write-Host 'deploy_azure_data_factory:'$(SetVariables.deploy_azure_data_factory);
+      #     Write-Host 'deploy_orchestration:'$(SetVariables.deploy_orchestration);
+      #     Write-Host 'deploy_synapse_dwh:'$(SetVariables.deploy_synapse_dwh);
+      #     Write-Host 'deploy_synapse_workspace:'$(SetVariables.deploy_synapse_workspace);
+      #     Write-Host 'deploy_xu_config:'$(SetVariables.deploy_xu_config);
+
+  - template: ./stages-deploy-auto.yml
+    parameters:
+      deployEnvPrefix: ${{ variables.deployEnvPrefix }}
+          
+# Triggered Manually
+- ${{ elseif eq(variables['Build.Reason'], 'Manual') }}:
+  - stage: DEPLOY_1_MANUAL
+    jobs:
+    - template: ./jobs-deploy-multi.yml
+      parameters:
+        solutions:
+          - ${{ if eq(parameters.orchestration, True) }}:
+            - name: 'orchestration'
+          - ${{ if eq(parameters.synapse_dwh, True) }}:
+            - name: 'synapse-dwh'
+          - ${{ if eq(parameters.synapse_workspace, True) }}:
+            - name: 'synapse-workspace'
+          - ${{ if eq(parameters.xu_config, True) }}:
+            - name: 'xu-config'
+        deployEnvPrefix: ${{ variables.deployEnvPrefix }}
+
+  - ${{ if eq(parameters.azure_data_factory, True) }}:
+    - stage: DEPLOY_2_MANUAL
+      jobs:
+      - template: ./jobs-deploy-multi.yml
+        parameters:
+          solutions:
+          - name: 'azure-data-factory'
+          deployEnvPrefix: ${{ variables.deployEnvPrefix }}

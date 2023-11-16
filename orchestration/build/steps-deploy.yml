@@ -1,9 +1,17 @@
 steps:
+- download: build
+  artifact: OrchestrationDB
+
+# - task: DownloadPipelineArtifact@2
+#   inputs:
+#     buildType: 'current' 
+#     targetPath: '$(Pipeline.Workspace)\build'
+#     artifact: 'OrchestrationDB'
   
 # - task: AzureFileCopy@4
 #   displayName: 'AzureBlob File Copy Master Data Generic'
 #   inputs:
-#     SourcePath: '$(Pipeline.Workspace)/OrchestrationDB/Master Data/*'
+#     SourcePath: '$(Pipeline.Workspace)\build/OrchestrationDB/Master Data/*'
 #     azureSubscription: 'Leviat-we-sub-01 (f199b488-7d9d-4992-aeda-c10a1e1c9b9e)'
 #     Destination: AzureBlob
 #     storage: '$(storageAccountName)'
@@ -21,12 +29,12 @@ steps:
 
       # directly copy to storage account using azcopy only the csv-files directly under Master Data folder
       azcopy copy `
-        '$(Pipeline.Workspace)\OrchestrationDB\Master Data\*' `
+        '$(Pipeline.Workspace)\build\OrchestrationDB\Master Data\*' `
         'https://$(storageAccountName).blob.core.windows.net/orch-db' `
       
       # directly copy to storage account using azcopy only the environment specific csv-files 
       azcopy copy `
-        '$(Pipeline.Workspace)\OrchestrationDB\Master Data\$(environment)\*' `
+        '$(Pipeline.Workspace)\build\OrchestrationDB\Master Data\$(environment)\*' `
         'https://$(storageAccountName).blob.core.windows.net/orch-db' `
         --exclude-path=entity.csv
 
@@ -41,7 +49,7 @@ steps:
 
       # directly copy to storage account using azcopy
       azcopy copy `
-        '$(Pipeline.Workspace)\OrchestrationDB\Master Data\$(environment)\*' `
+        '$(Pipeline.Workspace)\build\OrchestrationDB\Master Data\$(environment)\*' `
         'https://$(storageAccountName).blob.core.windows.net/orch-db' `
         --include-path=entity.csv
 
@@ -79,5 +87,5 @@ steps:
     AuthenticationType: servicePrincipal
     ServerName: '$(sqlServerName).database.windows.net'
     DatabaseName: '$(sqlDatabaseName)'
-    DacpacFile: '$(Pipeline.Workspace)/OrchestrationDB/sqldb-xxxx-orchdb-d-euw-001.dacpac'
+    DacpacFile: '$(Pipeline.Workspace)\build/OrchestrationDB/sqldb-xxxx-orchdb-d-euw-001.dacpac'
     AdditionalArguments: '/v:masterKeyPwd=$(sqlsrv-xxxx-sls-x-euw-001-masterKeyPwd) /v:sasToken_OrchDB=$(sasToken_OrchDB) /v:containerURL=https://$(storageAccountName).blob.core.windows.net/orch-db'

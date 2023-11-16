@@ -1,0 +1,73 @@
+# This pipeline is triggered only manually to build and deploy to personal environments. 
+
+trigger: none
+
+# By default, each solution is build.
+
+parameters:
+- name: azure_data_factory
+  displayName: Azure Data Factory
+  type: boolean
+  default: True
+- name: orchestration
+  displayName: Orchestration DB
+  type: boolean
+  default: True
+- name: synapse_dwh
+  displayName: Synapse DWH
+  type: boolean
+  default: True
+- name: synapse_workspace
+  displayName: Synapse Workspace
+  type: boolean
+  default: False
+- name: xu_config
+  displayName: Xtract Universal
+  type: boolean
+  default: True
+
+variables:
+# Get the personal variables template, user and deployment environment based on the source branch name. 
+- ${{ if or(contains(variables['Build.SourceBranch'], '/feature/'), contains(variables['Build.SourceBranch'], '/users/')) }}:
+  - template: ./variables-personal.yml
+  - name: user
+    value: ${{ split(variables['Build.SourceBranch'], '/')[3] }} #refs/heads/feature/mpors/...
+  - name: deployEnvPrefix # override value to map main branch to DEV deployment environment
+    value: ${{ format('30_DEV_{0}', upper(variables.user)) }}
+  - name: commitId
+    value: $(Build.SourceVersion)
+
+stages:
+- template: ./stages-build.yml
+  parameters:
+    build_azure_data_factory: ${{ parameters.azure_data_factory }}
+    build_orchestration: ${{ parameters.orchestration }}
+    build_synapse_dwh: ${{ parameters.synapse_dwh }}
+    build_synapse_workspace: ${{ parameters.synapse_workspace }}
+    build_xu_config: ${{ parameters.xu_config }}
+
+- ${{ if or( eq(parameters.orchestration, True), eq(parameters.synapse_dwh, True), eq(parameters.synapse_workspace, True), eq(parameters.xu_config, True)) }}:
+  - stage: DEPLOY_1_MANUAL
+    jobs:
+    - template: ./jobs-deploy-multi.yml
+      parameters:
+        solutions:
+        - name: 'orchestration'
+          deploy: ${{ parameters.orchestration }}
+        - name: 'synapse-dwh'
+          deploy: ${{ parameters.synapse_dwh }}
+        - name: 'synapse-workspace'
+          deploy: ${{ parameters.synapse_workspace }}
+        - name: 'xu-config'
+          deploy: ${{ parameters.xu_config }}
+        deployEnvPrefix: ${{ variables.deployEnvPrefix }}
+
+- ${{ if eq(parameters.azure_data_factory, True) }}:
+  - stage: DEPLOY_2_MANUAL
+    jobs:
+    - template: ./jobs-deploy-multi.yml
+      parameters:
+        solutions:
+        - name: 'azure-data-factory'
+          deploy: True
+        deployEnvPrefix: ${{ variables.deployEnvPrefix }}

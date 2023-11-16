@@ -1,24 +1,27 @@
 CREATE VIEW [dm_sales].[vw_fact_BillingDocumentItemPrcgElmnt]
 AS
 SELECT
-          [BillingDocument]
+          [fk_BillingDocumentItem]
+         ,[BillingDocument]
          ,[BillingDocumentItem]
          ,[nk_BillingDocumentItem]  
          ,[ConditionType]
-         ,sum([ConditionBaseValue]) as ConditionBaseValue
-         ,sum([ConditionRateValue]) as ConditionRateValue
-         ,sum([ConditionAmount]) as ConditionAmount
+         ,sum([ConditionBaseValue])    AS ConditionBaseValue
+         ,sum([ConditionRateValue])    AS ConditionRateValue
+         ,sum([ConditionAmount])       AS ConditionAmount
          ,[CurrencyTypeID]
          ,[CurrencyType]
          ,[CurrencyID]
+         ,[GLAccount]
 FROM
-  [edw].[fact_BillingDocumentItemPrcgElmnt] 
-WHERE [CurrencyTypeID] in ('00' ,'10')
-GROUP BY
-          [BillingDocument]
+  [edw].[fact_BillingDocumentItemPrcgElmnt]
+GROUP BY  
+          [fk_BillingDocumentItem]
+         ,[BillingDocument]
          ,[BillingDocumentItem]
          ,[nk_BillingDocumentItem]  
          ,[ConditionType]
          ,[CurrencyTypeID]
          ,[CurrencyType]
          ,[CurrencyID]
+         ,[GLAccount]

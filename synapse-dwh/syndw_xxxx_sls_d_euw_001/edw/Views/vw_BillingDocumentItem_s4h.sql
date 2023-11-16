@@ -344,11 +344,11 @@ SELECT
                 THEN [TransactionCurrencyID]
             ELSE CCR.[TargetCurrency]
        END                                  AS [CurrencyID]
-      ,CASE 
-            WHEN CCR.CurrencyTypeID = '10'
-                THEN [AccountingExchangeRate]
-            ELSE CCR.[ExchangeRate]
-        END                                 AS [ExchangeRate]
+      ,CASE
+            WHEN CCR.CurrencyTypeID = '00' THEN
+                CCR.[ExchangeRate]
+            ELSE [AccountingExchangeRate] * CCR.[ExchangeRate]
+	   END                                  AS [ExchangeRate]
       ,[SalesDocumentItemCategoryID]
       ,[SalesDocumentItemTypeID]
       ,[ReturnItemProcessingType]

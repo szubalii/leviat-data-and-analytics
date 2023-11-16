@@ -1,0 +1,43 @@
+{
+	"name": "tr_EPM_Sales",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "pl_main_daily_automatic",
+					"type": "PipelineReference"
+				},
+				"parameters": {
+					"entity_filter": "--edw \nentity_id = 370 \nOR \n--base\nentity_name like '%I_GLAccountLineItemRawData_F_2023%'\nand TRY_CONVERT(INT, RIGHT(entity_name, 2)) >= MONTH(getdate()) - 1\nand TRY_CONVERT(INT, RIGHT(entity_name, 2)) <= MONTH(getdate())",
+					"pbi_entity_filter": "WHERE dataset_name LIKE 'EPM Sales View%'",
+					"rerun_successful_full_entities": 1
+				}
+			}
+		],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Month",
+				"interval": 1,
+				"startTime": "2023-06-28T11:00:00Z",
+				"timeZone": "UTC",
+				"schedule": {
+					"hours": [
+						12
+					],
+					"monthDays": [
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7
+					]
+				}
+			}
+		}
+	}
+}

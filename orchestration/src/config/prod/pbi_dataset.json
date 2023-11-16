@@ -4,6 +4,15 @@
     "datasets": {
       "EPM Sales View": {
         "dataset_guid": "d5002396-c885-4ff7-9c29-c6dfd223a480"
+      },
+      "EPM Sales View EUR": {
+        "dataset_guid": "e7b95ae1-3e7c-44c0-bfc8-bf07c6b574c4"
+      },
+      "EPM Sales View USD": {
+        "dataset_guid": "e3c79db8-775f-4255-8033-5cfa24f00eca"
+      },
+      "ACDOCA Self Service CH-AT": {
+        "dataset_guid": "23996ca8-3555-49de-937b-ed6929eb4e09"
       }
     }
   },
@@ -11,43 +20,43 @@
     "workspace_guid": "42ba5d7d-cee0-4837-ac07-9937e34c815b",
     "datasets": {
       "Customer Card": {
-        "dataset_guid": "34e7eecb-2c86-4e96-b4ab-42f3382071ca"
+        "dataset_guid": "1d644f0c-498c-4ebe-a92e-6d67051ee01b"
       },
       "Invoiced Products Master Data": {
-        "dataset_guid": "79d50e6d-89b2-4be3-9670-6ec99743ae88"
+        "dataset_guid": "5dc69cee-124e-414b-8d53-9d2158d9b392"
       },
       "Orderbook": {
         "dataset_guid": "d697bc62-f25b-4b71-9f19-203211daa31c"
       },
       "Orderbook - Intake": {
-        "dataset_guid": "af094db9-4f11-4b60-b1b6-79e71bfca662"
+        "dataset_guid": "220fb47d-c453-44f5-966a-770aa36ce9ec"
       },
       "Orderbook - Open Orders": {
-        "dataset_guid": "6de5bbe9-ccf0-4b85-8471-0efb9687311a"
+        "dataset_guid": "fd0aea54-8ebe-4f1d-aae1-1155933fc27f"
       },
       "Product Top Flop": {
-        "dataset_guid": "a2880655-7d9f-40c0-811e-ecc04213b1d6"
+        "dataset_guid": "8e017c84-dadc-46e6-8e98-d95cd60dd82a"
       },
       "PVM": {
-        "dataset_guid": "f1ca37c1-b7ce-4f7d-9c53-de09b07f14bc"
+        "dataset_guid": "f0f20088-4a93-4596-9dad-e8b63f1f7deb"
       },
       "Quotations": {
-        "dataset_guid": "2782db55-7533-4334-9328-9f23e52d7698"
+        "dataset_guid": "d595ac62-04d7-464f-bb4c-d37f0b4d0232"
       },
       "Sales View": {
-        "dataset_guid": "2226fa7e-40e9-4ab8-b2dd-9205cd693ce4"
+        "dataset_guid": "30cd9f2c-fb36-41c1-880c-8691f1f08a15"
       },
       "Sales View Invoiced Cost Outliers": {
-        "dataset_guid": "45a5de05-f226-4a6a-8345-8c2a9f57df0f"
+        "dataset_guid": "58c94599-ea7b-4ea0-9844-deb33bd3f317"
       },
       "Whale Curve": {
-        "dataset_guid": "7fd8fb91-dc45-474d-bf24-f71223716541"
+        "dataset_guid": "18ca0a6e-6e17-436b-a751-ce33eec4212f"
       },
       "Project Card": {
-        "dataset_guid": "4bab9014-0e66-42a6-8405-9686d7f1e1d8"
+        "dataset_guid": "56a15c82-a821-4c51-9209-b6f12e7e5cda"
       },
       "$$ SELF-SERVICE (Sales)": {
-        "dataset_guid": "7db9ed65-db3c-4175-bfd4-62864979334a"
+        "dataset_guid": "6cfcaea3-6104-457e-bb1d-86368c12e35a"
       }
     }
   },
@@ -103,6 +112,26 @@
     "datasets": {
       "Spend Report Mapped v3": {
         "dataset_guid": "127a714a-45ef-4a92-8cd0-2bf33c0fb316"
+      },
+      "Procurement Analysis": {
+        "dataset_guid": "cda00075-5df7-457e-8dff-a8ac2082fa7a"
+      }
+    }
+  },
+  "Leviat_Data_Analytics Sales Pricing": {
+    "workspace_guid": "60816e4d-1f87-49b5-bae6-9fd979d84c6a",
+    "datasets": {
+      "Price Condition": {
+        "dataset_guid": "859f46f5-7394-4e56-9af1-d5de02ace12a"
+      },
+      "Invoice Price Condition": {
+        "dataset_guid": "34e63765-f633-4fae-ad88-1a9513011341"
+      },
+      "Order Price Condition": {
+        "dataset_guid": "3d4b931e-4df0-41a8-93db-22724b3b6c6e"
+      },
+      "Quote Price Condition": {
+        "dataset_guid": "dfe1d15f-727d-452b-8862-95b8d516eca9"
       }
     }
   }

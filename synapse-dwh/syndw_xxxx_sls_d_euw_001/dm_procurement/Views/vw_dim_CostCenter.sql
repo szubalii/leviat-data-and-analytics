@@ -3,5 +3,5 @@ AS
 SELECT
     CostCenterID        AS CostCenterId
     ,CompanyCode
-    ,CostCenter         AS CostCenterName
+    ,REPLACE(CostCenter,'"','') AS CostCenterName
 FROM [edw].[dim_CostCenter]

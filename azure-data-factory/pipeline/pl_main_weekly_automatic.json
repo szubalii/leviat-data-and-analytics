@@ -1,0 +1,88 @@
+{
+	"name": "pl_main_weekly_automatic",
+	"properties": {
+		"activities": [
+			{
+				"name": "If environment is qas or dev",
+				"type": "IfCondition",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@contains(\n    createArray('qas','dev'),\n    pipeline().globalParameters.environment\n)",
+						"type": "Expression"
+					},
+					"ifTrueActivities": [
+						{
+							"name": "Resume Synapse Dedicated SQL Pool",
+							"type": "ExecutePipeline",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"pipeline": {
+									"referenceName": "pl_SYNDW_resume",
+									"type": "PipelineReference"
+								},
+								"waitOnCompletion": true
+							}
+						},
+						{
+							"name": "Main ETL",
+							"type": "ExecutePipeline",
+							"dependsOn": [
+								{
+									"activity": "Resume Synapse Dedicated SQL Pool",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								},
+								{
+									"activity": "Start VM",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"userProperties": [],
+							"typeProperties": {
+								"pipeline": {
+									"referenceName": "pl_main_daily_etl_process",
+									"type": "PipelineReference"
+								},
+								"waitOnCompletion": true,
+								"parameters": {
+									"date": {
+										"value": "@formatDateTime(pipeline().TriggerTime, 'yyyy/MM/dd')",
+										"type": "Expression"
+									}
+								}
+							}
+						},
+						{
+							"name": "Start VM",
+							"type": "ExecutePipeline",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"pipeline": {
+									"referenceName": "pl_VM_start",
+									"type": "PipelineReference"
+								},
+								"waitOnCompletion": true
+							}
+						}
+					]
+				}
+			}
+		],
+		"variables": {
+			"test": {
+				"type": "String"
+			}
+		},
+		"folder": {
+			"name": "10 Manage"
+		},
+		"annotations": []
+	}
+}

@@ -35,6 +35,7 @@ CREATE TABLE [base_s4h_cax].[I_CustomerCompany](
 , [LastInterestCalcRunDate] date
 , [CustPreviousMasterRecordNumber] nvarchar(10)
 , [ValueAdjustmentKey] nvarchar(2)
+, [CashPlanningGroup] nvarchar(10)
 , [IsBusinessPurposeCompleted] nvarchar(1)
 , [LastDunnedOn] date
 , [DunningProcedure] nvarchar(4)

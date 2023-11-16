@@ -47,5 +47,11 @@ SELECT
     ,   1 AS [Count]
 FROM
     [base_s4h_cax].[I_SupplierCompany] SC
+LEFT JOIN
+    [base_s4h_cax].[I_Supplier] S
+    ON
+        S.[Supplier] = SC.[Supplier]
 WHERE
+    S.[SupplierAccountGroup] = 'Z099'
+    AND
     LEFT(SC.[PaymentTerms],1)<>'L'

@@ -7,6 +7,12 @@ SELECT
     ,   BPTN.[BPTAXNUMBER]
 FROM
     [base_s4h_cax].[I_Businesspartnertaxnumber] BPTN
+INNER JOIN
+    [base_s4h_cax].[I_BusinessPartner] BP
+    ON
+        BPTN.[BUSINESSPARTNER] COLLATE Latin1_General_100_BIN2 = BP.[BusinessPartner]
+WHERE
+    BP.[IsMarkedForArchiving] <> 'X'
 GROUP BY
         BPTN.[BPTAXTYPE]
     ,   BPTN.[BPTAXNUMBER]
@@ -22,7 +28,7 @@ SELECT
     ,   1 AS [Count]
 FROM
     TaxNumber
-JOIN
+INNER JOIN
     [base_s4h_cax].[I_Businesspartnertaxnumber] BPTN
     ON
         TaxNumber.[BPTAXTYPE] = BPTN.[BPTAXTYPE]

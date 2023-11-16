@@ -1,6 +1,6 @@
 ﻿CREATE VIEW [dq].[vw_BP_2_1_8]
   AS  
-
+--Each Ship-To customer (account group Z002) must be assigned to at least 1 Sold-To customer.
 SELECT
         C.[Customer]
     ,   C.[CustomerName]
@@ -63,13 +63,22 @@ SELECT
     ,   1 AS [Count]
 FROM   
     [base_s4h_cax].[I_Customer] C
-LEFT JOIN
-    [base_s4h_cax].[I_CustSalesPartnerFunc] CSPF
-    ON 
-        C.[Customer] = CSPF.[CUSTOMER]
 WHERE
-    [CustomerAccountGroup] = 'Z002'
+    C.[CustomerAccountGroup] = 'Z002'
     AND
-    CSPF.[PartnerFunction] = 'Z1'
-    AND
-    C.[Customer] <> CSPF.[BPCustomerNumber]
+    NOT EXISTS
+    (SELECT 
+        CSPF.[CUSTOMER]
+    FROM
+        [base_s4h_cax].[I_CustSalesPartnerFunc] CSPF
+    INNER JOIN
+        [base_s4h_cax].[I_Customer] IC
+        ON
+            CSPF.[CUSTOMER] = IC.[Customer]
+    WHERE
+        CSPF.[BPCustomerNumber] = C.[Customer]
+        AND
+        CSPF.[PartnerFunction] = 'Z1'
+        AND
+        IC.[CustomerAccountGroup] = 'Z001'
+    )

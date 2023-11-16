@@ -1,23 +1,35 @@
-trigger:
-  branches:
-    include:
-    - dev_mpors
-    - dev_fbouw
-    - dev_tdorodnova
-    - dev_nkukhtenko
-    - dev_sleshchuk
-    - dev/*
-    - main
+# This pipeline is triggered whenever the build pipeline to main, qas or prod is completed
+name: $(SourceBranch)_$(Date:yyyyMMdd).$(Rev:r)
+
+resources:
+  pipelines:
+  - pipeline: build
+    source: 'Build Xtract Universal'
+    trigger:
+      branches:
+        include:
+        - main
+        - qas
+        - prod
+        - feature/*
+        - users/*
+        - hotfix/*
+
+trigger: none
+
+parameters:
+- name: target_env
+  displayName: Target Environment
+  type: string
+  values:
+    - pers
+    - test
     - qas
     - prod
-  paths:
-    include: 
-    - xu-config/*
+  default: pers
 
 extends:
-  template: ../../build/stages-build-deploy.yml
+  template: ../../build/stages-deploy.yml
   parameters:
     folder: xu-config
-    solution: XtractUniversal
-    deploy: true
-    clean: all # TODO or should this be done before BUILD job?
+  

@@ -77,43 +77,45 @@ AS (
         END                         AS PL_COGS
         ,AC.FiscalYear              AS FY
         ,AC.FiscalYearPeriod        AS FPeriod
-        ,CASE ZED.CONTIGENCY5
+        ,CASE ZED.Contingency5
             WHEN 'Sales'
             THEN -1 * AC.[AmountInCompanyCodeCurrency]
             ELSE null
         END AS [SalesAmount],
-        CASE ZED.CONTIGENCY5
+        CASE ZED.Contingency5
             WHEN 'COGS'
             THEN -1 * AC.[AmountInCompanyCodeCurrency]
             ELSE null
         END AS [COGSActCostAmount],
         CASE 
-            WHEN ZED.CONTIGENCY5 = 'COGS' AND AC.[AccountingDocumentTypeID] <> 'ML'
+            WHEN ZED.Contingency5 = 'COGS' AND AC.[AccountingDocumentTypeID] <> 'ML'
             THEN -1 * AC.[AmountInCompanyCodeCurrency]
             ELSE null
         END AS [COGSStdCostAmount],
-        CASE ZED.CONTIGENCY5
+        CASE ZED.Contingency5
             WHEN 'Other CoS'
             THEN -1 * AC.[AmountInCompanyCodeCurrency]
             ELSE null
         END AS [OtherCoSAmount],
-        CASE ZED.CONTIGENCY5
+        CASE ZED.Contingency5
             WHEN 'Opex'
             THEN -1 * AC.[AmountInCompanyCodeCurrency]
             ELSE null
         END AS [OpexAmount],
-        CASE ZED.CONTIGENCY4
+        CASE ZED.Contingency4
             WHEN 'Gross Margin'
             THEN -1 * AC.[AmountInCompanyCodeCurrency]
             ELSE null
         END AS [GrossMarginAmount],
         CASE
-            WHEN ZED.CONTIGENCY5 = 'COGS'
+            WHEN ZED.Contingency5 = 'COGS'
             THEN 'COGSAct'
-            WHEN ZED.CONTIGENCY5 = 'COGS' AND AC.[AccountingDocumentTypeID] <> 'ML'    --it's unreachable code at the moment, reserved for future needs
+            WHEN ZED.Contingency5 = 'COGS' AND AC.[AccountingDocumentTypeID] <> 'ML'    --it's unreachable code at the moment, reserved for future needs
             THEN 'COGSStd'
-            ELSE ZED.CONTIGENCY5
+            ELSE ZED.Contingency5
         END AS [AmountCategory]
+        ,AC.t_applicationId
+        ,AC.t_extractionDtm
     FROM [edw].[fact_ACDOCA] AC
     INNER JOIN L3 
         ON AC.GLAccountID COLLATE Latin1_General_CI_AS BETWEEN L3.LowerBoundaryAccount AND L3.UpperBoundaryAccount 
@@ -137,6 +139,8 @@ SELECT
     ,sum(COALESCE([PL_Sales],0) + COALESCE([PL_COGS],0)) AS SAP_SalesMargin
     ,FY AS FiscalYear
     ,FPeriod AS FiscalYearPeriod
+    ,t_applicationId
+    ,t_extractionDtm
 FROM Accs
 GROUP BY
      CompanyCodeID
@@ -147,3 +151,5 @@ GROUP BY
     ,CompanyCodeCurrency
     ,FY
     ,FPeriod
+    ,t_applicationId
+    ,t_extractionDtm

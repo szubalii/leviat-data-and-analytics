@@ -1,0 +1,25 @@
+CREATE VIEW [dm_procurement].[vw_fact_PurchasingDocument]
+AS
+SELECT
+  [PurchasingDocument],
+  [SupplierID],
+  [PurchasingDocumentCategoryID],
+  [PurchasingDocumentCategory],
+  [PurchasingDocumentTypeID],
+  [PurchasingDocumentType],
+  [CreationDate],
+  [CreatedByUser],
+  [PurchasingDocumentOrderDate],
+  [PurchasingOrganizationID],
+  [PurchasingOrganization],
+  [PurchasingGroupID],
+  [PurchasingGroup],
+  [SupplyingPlantID],
+  [CompanyCodeID],
+  [PurchasingProcessingStatusID],
+  [PurchasingDocumentStatus],
+  [FirstInvoiceCreationDate],
+  [t_applicationId],
+  [t_extractionDtm]
+FROM
+  [edw].[vw_fact_PurchasingDocument_FirstInvoiceCreationDate]

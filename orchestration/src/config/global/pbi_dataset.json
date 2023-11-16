@@ -13,6 +13,45 @@
             "fact_ACDOCA"
           ]
         }
+      },
+      "EPM Sales View EUR": {
+        "pbi_dataset_id": 31,
+        "schedule_recurrence": "D",
+        "entities": {
+          "edw": [
+            "dim_Product",
+            "dim_SalesOrganization",
+            "dim_ProfitCenter",
+            "dim_SalesDistrict",
+            "fact_ACDOCA"
+          ]
+        }
+      },
+      "EPM Sales View USD": {
+        "pbi_dataset_id": 32,
+        "schedule_recurrence": "D",
+        "entities": {
+          "edw": [
+            "dim_Product",
+            "dim_SalesOrganization",
+            "dim_ProfitCenter",
+            "dim_SalesDistrict",
+            "fact_ACDOCA"
+          ]
+        }
+      },
+      "ACDOCA Self Service CH-AT": {
+        "pbi_dataset_id": 27,
+        "schedule_recurrence": "D",
+        "entities": {
+          "edw": [
+            "dim_Product",
+            "dim_SalesOrganization",
+            "dim_ProfitCenter",
+            "dim_SalesDistrict",
+            "fact_ACDOCA"
+          ]
+        }
       }
     }
   },
@@ -341,6 +380,65 @@
             "fact_PurchasingDocumentItem",
             "fact_SupplierInvoice",
             "fact_SupplierInvoiceItemPurOrdRef"
+          ]
+        }
+      },
+      "Procurement Analysis": {
+        "pbi_dataset_id": 25,
+        "schedule_recurrence": "D",
+        "entities": {
+          "edw": [
+            "fact_PurchasingDocument",
+            "fact_PurchasingDocumentItem",
+            "fact_SupplierInvoice",
+            "fact_SupplierInvoiceItemPurOrdRef"
+          ]
+        }
+      }
+    }
+  },
+  "Leviat_Data_Analytics Sales Pricing": {
+    "datasets": {
+      "Price Condition": {
+        "pbi_dataset_id": 26,
+        "schedule_recurrence": "A",
+        "entities": {
+          "edw": [
+            "fact_BillingDocumentItem",
+            "fact_BillingDocumentItemPrcgElmnt",
+            "fact_SalesDocumentItem",
+            "fact_SalesOrderItemPricingElement",
+            "fact_SalesQuotationItemPrcgElmnt"
+          ]
+        }
+      },
+      "Invoice Price Condition": {
+        "pbi_dataset_id": 28,
+        "schedule_recurrence": "D",
+        "entities": {
+          "edw": [
+            "fact_BillingDocumentItem",
+            "fact_BillingDocumentItemPrcgElmnt"
+          ]
+        }
+      },
+      "Order Price Condition": {
+        "pbi_dataset_id": 29,
+        "schedule_recurrence": "D",
+        "entities": {
+          "edw": [
+            "fact_SalesDocumentItem",
+            "fact_SalesOrderItemPricingElement"
+          ]
+        }
+      },
+      "Quote Price Condition": {
+        "pbi_dataset_id": 30,
+        "schedule_recurrence": "D",
+        "entities": {
+          "edw": [
+            "fact_SalesDocumentItem",
+            "fact_SalesQuotationItemPrcgElmnt"
           ]
         }
       }

@@ -1,0 +1,94 @@
+{
+	"functionName": "Z_THEO_READ_TABLE",
+    "whereClause": "LANGUAGE = 'E'",
+	"runInBackGroundJob": false,
+	"tables": [
+		{
+			"name": "IDATLABELTXT",
+			"description": "Generated Table for View IDATLABELTXT",
+			"isView": true,
+			"fields": [
+				{
+					"name": "ABAPDATAELEMENT",
+					"description": "Data element (semantic domain)",
+					"abapType": "CharacterString",
+					"length": 30,
+					"isSelected": true,
+					"outputLength": 30,
+					"isPrimaryKey": true,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "ABAPDATAELEMENT"
+				},
+				{
+					"name": "LANGUAGE",
+					"description": "Language Key",
+					"abapType": "CharacterString",
+					"length": 1,
+					"isSelected": true,
+					"outputLength": 2,
+					"isPrimaryKey": true,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "LANGUAGE",
+					"ConversionExit": "ISOLA"
+				},
+				{
+					"name": "ABAPDATAELEMENTDESCRIPTION",
+					"description": "Short Description of Repository Objects",
+					"abapType": "CharacterString",
+					"length": 60,
+					"isSelected": true,
+					"outputLength": 60,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "ABAPDATAELEMENTDESCRIPTION"
+				},
+				{
+					"name": "ABAPDATAELEMENTHEADING",
+					"description": "Heading",
+					"abapType": "CharacterString",
+					"length": 55,
+					"isSelected": true,
+					"outputLength": 55,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "ABAPDATAELEMENTHEADING"
+				},
+				{
+					"name": "ABAPSHORTFIELDLABEL",
+					"description": "Short Field Label",
+					"abapType": "CharacterString",
+					"length": 10,
+					"isSelected": true,
+					"outputLength": 10,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "ABAPSHORTFIELDLABEL"
+				},
+				{
+					"name": "ABAPMEDIUMFIELDLABEL",
+					"description": "Medium Field Label",
+					"abapType": "CharacterString",
+					"length": 20,
+					"isSelected": true,
+					"outputLength": 20,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "ABAPMEDIUMFIELDLABEL"
+				},
+				{
+					"name": "ABAPLONGFIELDLABEL",
+					"description": "Long Field Label",
+					"abapType": "CharacterString",
+					"length": 40,
+					"isSelected": true,
+					"outputLength": 40,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "ABAPLONGFIELDLABEL"
+				}
+			]
+		}
+	]
+}

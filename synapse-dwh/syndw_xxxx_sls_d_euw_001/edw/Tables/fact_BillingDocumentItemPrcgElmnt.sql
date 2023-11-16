@@ -1,7 +1,8 @@
 ﻿CREATE TABLE [edw].[fact_BillingDocumentItemPrcgElmnt] (
 -- Billing Document Item Pricing Element 
 -- 1:1 as base layer table
-  [BillingDocument] nvarchar(20) NOT NULL
+  [fk_BillingDocumentItem] bigint
+, [BillingDocument] nvarchar(20) NOT NULL
 , [BillingDocumentItem] char(6) collate Latin1_General_100_BIN2 NOT NULL
 , [nk_BillingDocumentItem] NVARCHAR(20) NOT NULL 
 , [PricingProcedureStep] char(3) collate Latin1_General_100_BIN2 NOT NULL
@@ -48,6 +49,7 @@
 , [ConditionIsManuallyChanged] nvarchar(2)
 , [ConditionIsForConfiguration] nvarchar(2)
 , [VariantCondition] nvarchar(52)
+, [GLAccount] nvarchar(10)
 , [t_applicationId]       VARCHAR (32)
 , [t_jobId]               VARCHAR (36)
 , [t_jobDtm]              DATETIME

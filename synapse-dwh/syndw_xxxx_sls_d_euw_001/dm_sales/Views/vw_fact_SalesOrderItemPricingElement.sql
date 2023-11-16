@@ -1,23 +1,27 @@
 CREATE VIEW [dm_sales].[vw_fact_SalesOrderItemPricingElement]
 AS
 SELECT
-          [SalesOrder]
+          [fk_SalesDocumentItem]
+         ,[SalesOrder]
          ,[SalesOrderItem]
          ,[nk_SalesOrderItem]
          ,[ConditionType]
-         ,sum([ConditionBaseValue]) as ConditionBaseValue
-         ,sum([ConditionRateValue]) as ConditionRateValue
-         ,sum([ConditionAmount]) as ConditionAmount
+         ,sum([ConditionBaseValue])    AS [ConditionBaseValue]
+         ,sum([ConditionRateValue])    AS [ConditionRateValue]
+         ,sum([ConditionAmount])       AS [ConditionAmount]
          ,[CurrencyTypeID]
          ,[CurrencyType]
          ,[CurrencyID]
+         ,[GLAccount]
 FROM
   [edw].[fact_SalesOrderItemPricingElement]
-GROUP BY 
-          [SalesOrder]
+GROUP BY
+          [fk_SalesDocumentItem]
+         ,[SalesOrder]
          ,[SalesOrderItem]
          ,[nk_SalesOrderItem]
          ,[ConditionType]
          ,[CurrencyTypeID]
          ,[CurrencyType]
          ,[CurrencyID]
+         ,[GLAccount]

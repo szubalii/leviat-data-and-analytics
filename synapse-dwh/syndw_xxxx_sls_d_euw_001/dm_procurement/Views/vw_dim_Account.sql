@@ -3,7 +3,7 @@ AS
 SELECT
     PDI.GLAccountID                     AS AccountId
     ,PDI.CompanyCodeID                  AS CompanyCode
-    ,Acc.GLAccountLongName              AS AccountName
+    ,REPLACE(Acc.GLAccountLongName ,'"','') AS AccountName
     ,''                                 AS MajorAccountId
     ,''                                 AS MajorAccountName
     ,''                                 AS ChartOfAccountsId

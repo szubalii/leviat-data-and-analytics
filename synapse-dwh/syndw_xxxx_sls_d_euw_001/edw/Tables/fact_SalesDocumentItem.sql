@@ -186,5 +186,5 @@
     CONSTRAINT [PK_fact_SalesDocumentItem] PRIMARY KEY NONCLUSTERED ([sk_fact_SalesDocumentItem]) NOT ENFORCED
 )
 WITH (
-    DISTRIBUTION = HASH ([nk_fact_SalesDocumentItem]), CLUSTERED COLUMNSTORE INDEX
+    DISTRIBUTION = HASH ([SalesDocument]), CLUSTERED COLUMNSTORE INDEX
 )

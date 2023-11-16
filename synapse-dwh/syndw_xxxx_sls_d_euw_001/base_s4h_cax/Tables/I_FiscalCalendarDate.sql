@@ -1,39 +1,47 @@
-CREATE TABLE [base_s4h_cax].[I_FiscalCalendarDate](
-  [TS_SEQUENCE_NUMBER] INTEGER NOT NULL
-, [ODQ_CHANGEMODE] CHAR(1)
-, [ODQ_ENTITYCNTR] NUMERIC(19,0)
-, [MANDT] char(3) collate Latin1_General_100_BIN2 NOT NULL
-, [FiscalYearVariant] nvarchar(2) NOT NULL
-, [CalendarDate] date NOT NULL
-, [FiscalYear] char(4) collate Latin1_General_100_BIN2
-, [FiscalYearStartDate] date
-, [FiscalYearEndDate] date
-, [FiscalPeriod] char(3) collate Latin1_General_100_BIN2
-, [FiscalPeriodStartDate] date
-, [FiscalPeriodEndDate] date
-, [FiscalQuarter] char(1) collate Latin1_General_100_BIN2
-, [FiscalQuarterStartDate] date
-, [FiscalQuarterEndDate] date
-, [FiscalWeek] char(2) collate Latin1_General_100_BIN2
-, [FiscalWeekStartDate] date
-, [FiscalWeekEndDate] date
-, [FiscalYearPeriod] char(7) collate Latin1_General_100_BIN2
-, [FiscalYearQuarter] char(5) collate Latin1_General_100_BIN2
-, [FiscalYearWeek] char(6) collate Latin1_General_100_BIN2
-, [FiscalYearConsecutiveNumber] int
-, [FiscalPeriodConsecutiveNumber] int
-, [FiscalQuarterConsecutiveNumber] int
-, [FiscalWeekConsecutiveNumber] int
-, [t_applicationId]       VARCHAR (32)
-, [t_jobId]               VARCHAR (36)
-, [t_jobDtm]              DATETIME
-, [t_jobBy]        		  NVARCHAR (128)
-, [t_extractionDtm]		  DATETIME
-, [t_filePath]            NVARCHAR (1024)
-, CONSTRAINT [PK_I_FiscalCalendarDate] PRIMARY KEY NONCLUSTERED (
-    [TS_SEQUENCE_NUMBER], [MANDT], [FiscalYearVariant], [CalendarDate]
+-- =============================================
+-- Schema         : base_s4h_cax
+-- CDS View       : I_FiscalCalendarDate
+-- System Version : SAP S/4HANA 2022, SP 0001
+-- Description    : Fiscal Calendar Date
+-- Source:        : S/4HANA
+-- Extraction_Mode: Full
+-- Source Type    : ODP
+-- Source Name    : CAACLNT200
+
+-- =============================================
+
+CREATE TABLE [base_s4h_cax].[I_FiscalCalendarDate] (
+    [FiscalYearVariant] NVARCHAR(2) NOT NULL  -- Fiscal Year Variant
+  , [CalendarDate] DATE NOT NULL  -- Calendar Date
+  , [FiscalYear] CHAR(4)  -- Fiscal Year
+  , [FiscalYearStartDate] DATE  -- Start Date of Fiscal Year
+  , [FiscalYearEndDate] DATE  -- End Date of Fiscal Year
+  , [FiscalPeriod] CHAR(3)  -- Fiscal Period
+  , [FiscalPeriodStartDate] DATE  -- Start Date of Fiscal Period
+  , [FiscalPeriodEndDate] DATE  -- End Date of Fiscal Period
+  , [FiscalQuarter] CHAR(1)  -- Fiscal Quarter
+  , [FiscalQuarterStartDate] DATE  -- Start Date of Fiscal Quarter
+  , [FiscalQuarterEndDate] DATE  -- End Date of Fiscal Quarter
+  , [FiscalWeek] CHAR(2)  -- Fiscal Week
+  , [FiscalWeekStartDate] DATE  -- Start Date of Fiscal Week
+  , [FiscalWeekEndDate] DATE  -- End Date of Fiscal Week
+  , [FiscalYearPeriod] CHAR(7)  -- Fiscal Year + Fiscal Period
+  , [FiscalYearQuarter] CHAR(5)  -- Fiscal Year + Fiscal Quarter
+  , [FiscalYearWeek] CHAR(6)  -- Fiscal Year + Fiscal Week
+  -- , [FiscalYearConsecutiveNumber] INT  -- Fiscal Year (Integer)
+  -- , [FiscalPeriodConsecutiveNumber] INT  -- Fiscal Year Period (Numbering)
+  -- , [FiscalQuarterConsecutiveNumber] INT  -- Fiscal Year Quarter (Numbering)
+  -- , [FiscalWeekConsecutiveNumber] INT  -- Fiscal Year Week (Numbering)
+  , [t_applicationId] VARCHAR (32)  -- Application ID
+  , [t_jobId] VARCHAR (36)  -- Job ID
+  , [t_jobDtm] DATETIME  -- Job Date Time
+  , [t_jobBy] VARCHAR (128)  -- Job executed by
+  , [t_extractionDtm] DATETIME  -- Extraction Date Time
+  , [t_filePath] NVARCHAR (1024)  -- Filepath
+  , CONSTRAINT [PK_I_FiscalCalendarDate] PRIMARY KEY NONCLUSTERED(
+      [FiscalYearVariant]
+    , [CalendarDate]
   ) NOT ENFORCED
-)
-WITH (
+) WITH (
   HEAP
 )

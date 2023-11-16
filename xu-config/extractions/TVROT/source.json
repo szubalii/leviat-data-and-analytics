@@ -1,5 +1,6 @@
 {
     "functionName": "Z_THEO_READ_TABLE",
+    "whereClause": "SPRAS = 'E'",
     "runInBackgroundJob": false,
     "tables": 
     [

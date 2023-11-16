@@ -6,11 +6,11 @@ SELECT
     ,InvoiceLineNumber
     ,ExtraInvoiceLineKey
     ,SplitAccountingNumber
-    ,AccountingDate
+    ,FORMAT(AccountingDate,'yyyy-MM-dd')        AS AccountingDate
     ,Quantity
     ,Amount
-    ,AmountCurrency
-    ,Description
+    ,LEFT(AmountCurrency,3)                     AS AmountCurrency
+    ,REPLACE(Description,'"','')                AS Description
     ,ERPCommodityId
     ,PartNumber
     ,PartRevisionNumber
@@ -28,7 +28,7 @@ SELECT
     ,ExtraPOKey
     ,POLineNumber
     ,ExtraPOLineKey
-    ,InvoiceDate
+    ,FORMAT(InvoiceDate,'yyyy-MM-dd')          AS InvoiceDate
     ,PaidDate
     ,InvoiceNumber
     ,APPaymentTerms

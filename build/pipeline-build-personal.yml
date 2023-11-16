@@ -1,0 +1,41 @@
+# This pipeline is triggered only manually to build for personal environments. 
+
+trigger: none
+
+# By default, each solution is build.
+
+parameters:
+- name: azure_data_factory
+  displayName: Azure Data Factory
+  type: boolean
+  default: True
+- name: orchestration
+  displayName: Orchestration DB
+  type: boolean
+  default: True
+- name: synapse_dwh
+  displayName: Synapse DWH
+  type: boolean
+  default: True
+- name: synapse_workspace
+  displayName: Synapse Workspace
+  type: boolean
+  default: False
+- name: xu_config
+  displayName: Xtract Universal
+  type: boolean
+  default: True
+
+variables:
+# Get the personal variables template, user and deployment environment based on the source branch name. 
+- ${{ if or(contains(variables['Build.SourceBranch'], '/feature/'), contains(variables['Build.SourceBranch'], '/users/')) }}:
+  - template: ./variables-personal.yml
+
+stages:
+- template: ./stages-build.yml
+  parameters:
+    build_azure_data_factory: ${{ parameters.azure_data_factory }}
+    build_orchestration: ${{ parameters.orchestration }}
+    build_synapse_dwh: ${{ parameters.synapse_dwh }}
+    build_synapse_workspace: ${{ parameters.synapse_workspace }}
+    build_xu_config: ${{ parameters.xu_config }}

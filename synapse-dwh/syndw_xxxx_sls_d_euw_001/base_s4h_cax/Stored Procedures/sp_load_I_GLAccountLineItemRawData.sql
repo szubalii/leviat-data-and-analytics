@@ -1,4 +1,4 @@
-﻿CREATE PROC [base_s4h_cax].[sp_load_I_GLAccountLineItemRawData]
+CREATE PROC [base_s4h_cax].[sp_load_I_GLAccountLineItemRawData]
 AS
 BEGIN
 

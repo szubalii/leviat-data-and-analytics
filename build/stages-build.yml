@@ -1,0 +1,104 @@
+
+
+parameters:
+- name: folder
+  type: string
+- name: variables
+  type: boolean
+  default: false
+# - name: build_azure_data_factory
+#   displayName: Azure Data Factory
+#   type: boolean
+#   default: True
+# - name: build_orchestration
+#   displayName: Orchestration DB
+#   type: boolean
+#   default: True
+# - name: build_synapse_dwh
+#   displayName: Synapse DWH
+#   type: boolean
+#   default: True
+# - name: build_synapse_workspace
+#   displayName: Synapse Workspace
+#   type: boolean
+#   default: True
+# - name: build_xu_config
+#   displayName: Xtract Universal
+#   type: boolean
+#   default: True
+
+variables:
+# In case of CI triggered pipelines (IndividualCI, triggered by git push),
+# use the system predefined variable Build.SourceBranchName to get the correct variable template
+- ${{ if eq(variables['Build.SourceBranchName'], 'main') }}:
+  - template: ./variables-test.yml
+- ${{ elseif eq(variables['Build.SourceBranchName'], 'qas') }}:
+  - template: ./variables-qas.yml
+- ${{ elseif eq(variables['Build.SourceBranchName'], 'prod') }}:
+  - template: ./variables-prod.yml
+# Get the personal variables template, user and deployment environment based on the source branch name. 
+- ${{ elseif or(contains(variables['Build.SourceBranch'], '/feature/'), contains(variables['Build.SourceBranch'], '/users/'), contains(variables['Build.SourceBranch'], '/hotfix/')) }}:
+  - template: ./variables-personal.yml
+
+stages:
+# - stage: VARIABLES
+#   jobs:
+#   - job: Vars
+#     steps:
+#     - checkout: none
+#     - script: |
+#         echo system.pullRequest.targetBranch: $(system.pullRequest.targetBranch)
+#         echo user: $(user)
+#         echo dataFactoryName: $(dataFactoryName)
+#         echo sqlDatabaseName: $(sqlDatabaseName)
+#         echo synapseSqlPool: $(synapseSqlPool)
+#         echo storageAccountName: $(storageAccountName)
+#         echo xuPrefix: $(xuPrefix)
+#         echo destination: $(destination)
+#         echo Build.Reason: ${{ variables['Build.Reason'] }}
+#         echo Build.SourceBranch: ${{ variables['Build.SourceBranch'] }}
+#         echo Build.SourceBranchName: ${{ variables['Build.SourceBranchName'] }}
+#         echo deployEnvPrefix: $(deployEnvPrefix)
+#         echo parameters.build_synapse_dwh: ${{ parameters.build_synapse_dwh }}
+#         echo parameters.build_azure_data_factory: ${{ parameters.build_azure_data_factory }}
+#         echo parameters.build_orchestration: ${{ parameters.build_orchestration }}
+#         echo parameters.build_xu_config: ${{ parameters.build_xu_config }}
+#         echo parameters.build_synapse_workspace: ${{ parameters.build_synapse_workspace }}
+#       displayName: Print Variables
+# - stage: VALIDATE
+#   jobs:
+#   - template: ./jobs-validate.yml
+- stage: BUILD
+  variables:
+  - name: buildPlatform
+    value: 'Any CPU'
+  - name: buildConfiguration
+    value: 'Release'
+  - name: synDWHSolution
+    value: '**/synapse-dwh/*.sln'
+  - name: orchDBSolution
+    value: '**/orchestration/*.sln'
+  jobs:
+  - job: BUILD_${{ upper(replace(parameters.folder, '-', '_')) }}
+    pool:
+      name: 'VM'
+      demands:
+      - node.js
+      - VisualStudio
+      - Agent.ComputerName -equals $(VMName)
+    steps:
+    # - script : |
+    #     echo ${{ solution.name }}: ${{ solution.build }}
+    - template: ../${{ parameters.folder }}/build/steps-build.yml
+    - template: ../${{ parameters.folder }}/build/steps-artifact.yml
+      # solutions:
+      # - name: 'azure-data-factory'
+      #   build: ${{ parameters.build_azure_data_factory }}
+      # - name: 'orchestration'
+      #   build: ${{ parameters.build_orchestration }}
+      # - name: 'synapse-dwh'
+      #   build: ${{ parameters.build_synapse_dwh }}
+      # - name: 'synapse-workspace'
+      #   build: ${{ parameters.build_synapse_workspace }}
+      # - name: 'xu-config'
+      #   build: ${{ parameters.build_xu_config }}

@@ -1,6 +1,7 @@
 CREATE TABLE [edw].[fact_SalesOrderItemPricingElement] 
 (   
-    [SalesOrder] NVARCHAR(10) NOT NULL  
+    [fk_SalesDocumentItem] BIGINT
+  , [SalesOrder] NVARCHAR(10) NOT NULL  
   , [SalesOrderItem] CHAR(6) NOT NULL  
   , [nk_SalesOrderItem] NVARCHAR(20) NOT NULL 
   , [CurrencyTypeID] CHAR(2) NOT NULL
@@ -13,7 +14,7 @@ CREATE TABLE [edw].[fact_SalesOrderItemPricingElement]
   , [ConditionType] NVARCHAR(4) 
   , [PricingDateTime] NVARCHAR(14) 
   , [ConditionCalculationType] NVARCHAR(3) 
-  , [ConditionBaseValue] DECIMAL(24,9)  
+  , [ConditionBaseValue] DECIMAL(24,9) 
   , [ConditionRateValue] DECIMAL(24,9)  
   , [ConditionCurrency] CHAR(5) 
   , [ConditionQuantity] DECIMAL(5,0)
@@ -47,6 +48,7 @@ CREATE TABLE [edw].[fact_SalesOrderItemPricingElement]
   , [ConditionIsManuallyChanged] NVARCHAR(1)
   , [ConditionIsForConfiguration] NVARCHAR(1)
   , [VariantCondition] NVARCHAR(26)
+  , [GLAccount] NVARCHAR(10)
   , [t_applicationId]       VARCHAR (32)
   , [t_jobId]               VARCHAR (36)
   , [t_jobDtm]              DATETIME

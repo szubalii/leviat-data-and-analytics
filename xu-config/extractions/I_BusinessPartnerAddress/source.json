@@ -1,0 +1,490 @@
+{
+	"functionName": "Z_THEO_READ_TABLE",
+	"runInBackGroundJob": false,
+	"tables": [
+		{
+			"name": "IBPADDRESS",
+			"description": "Generated Table for View IBPADDRESS",
+			"isView": true,
+			"fields": [
+				{
+					"name": "MANDT",
+					"description": "Client",
+					"abapType": "CharacterString",
+					"length": 3,
+					"isSelected": true,
+					"outputLength": 3,
+					"isPrimaryKey": true,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "T000"
+				},
+				{
+					"name": "BUSINESSPARTNER",
+					"description": "Business Partner Number",
+					"abapType": "CharacterString",
+					"length": 10,
+					"isSelected": true,
+					"outputLength": 10,
+					"isPrimaryKey": true,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "BUSINESSPARTNER",
+					"ConversionExit": "ALPHA"
+				},
+				{
+					"name": "ADDRESSNUMBER",
+					"description": "Address Number",
+					"abapType": "CharacterString",
+					"length": 10,
+					"isSelected": true,
+					"outputLength": 10,
+					"isPrimaryKey": true,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "ADDRESSNUMBER",
+					"ConversionExit": "ALPHA"
+				},
+				{
+					"name": "VALIDITYSTARTDATE",
+					"description": "Validity Start of a Business Partner Address",
+					"abapType": "PackedNumber",
+					"length": 15,
+					"isSelected": true,
+					"outputLength": 19,
+					"decimalCount": 0,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "VALIDITYSTARTDATE"
+				},
+				{
+					"name": "VALIDITYENDDATE",
+					"description": "Validity End of a Business Partner Address",
+					"abapType": "PackedNumber",
+					"length": 15,
+					"isSelected": true,
+					"outputLength": 19,
+					"decimalCount": 0,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "VALIDITYENDDATE"
+				},
+				{
+					"name": "CAREOFNAME",
+					"description": "c/o name",
+					"abapType": "CharacterString",
+					"length": 40,
+					"outputLength": 40,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "CAREOFNAME"
+				},
+				{
+					"name": "FULLNAME",
+					"description": "Full name of a party (Bus. Partner, Org. Unit, Doc. address)",
+					"abapType": "CharacterString",
+					"length": 80,
+					"outputLength": 80,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "FULLNAME"
+				},
+				{
+					"name": "HOUSENUMBER",
+					"description": "House Number",
+					"abapType": "CharacterString",
+					"length": 10,
+					"outputLength": 10,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "HOUSENUMBER"
+				},
+				{
+					"name": "STREETNAME",
+					"description": "Street",
+					"abapType": "CharacterString",
+					"length": 60,
+					"outputLength": 60,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "STREETNAME"
+				},
+				{
+					"name": "HOUSENUMBERSUPPLEMENTTEXT",
+					"description": "House number supplement",
+					"abapType": "CharacterString",
+					"length": 10,
+					"outputLength": 10,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "HOUSENUMBERSUPPLEMENTTEXT"
+				},
+				{
+					"name": "DISTRICT",
+					"description": "District",
+					"abapType": "CharacterString",
+					"length": 40,
+					"outputLength": 40,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "DISTRICT"
+				},
+				{
+					"name": "POSTALCODE",
+					"description": "City postal code",
+					"abapType": "CharacterString",
+					"length": 10,
+					"outputLength": 10,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "POSTALCODE"
+				},
+				{
+					"name": "CITYNAME",
+					"description": "City",
+					"abapType": "CharacterString",
+					"length": 40,
+					"outputLength": 40,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "CITYNAME"
+				},
+				{
+					"name": "COUNTRY",
+					"description": "Country Key",
+					"abapType": "CharacterString",
+					"length": 3,
+					"isSelected": true,
+					"outputLength": 3,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "COUNTRY"
+				},
+				{
+					"name": "REGION",
+					"description": "Region (State, Province, County)",
+					"abapType": "CharacterString",
+					"length": 3,
+					"isSelected": true,
+					"outputLength": 3,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "REGION"
+				},
+				{
+					"name": "ADDRESSTIMEZONE",
+					"description": "Address time zone",
+					"abapType": "CharacterString",
+					"length": 6,
+					"outputLength": 6,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "ADDRESSTIMEZONE"
+				},
+				{
+					"name": "TAXJURISDICTION",
+					"description": "Tax Jurisdiction",
+					"abapType": "CharacterString",
+					"length": 15,
+					"outputLength": 15,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "TAXJURISDICTION"
+				},
+				{
+					"name": "TRANSPORTZONE",
+					"description": "Transportation zone to or from which the goods are delivered",
+					"abapType": "CharacterString",
+					"length": 10,
+					"outputLength": 10,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "TRANSPORTZONE"
+				},
+				{
+					"name": "COMPANYPOSTALCODE",
+					"description": "Company Postal Code (for Large Customers)",
+					"abapType": "CharacterString",
+					"length": 10,
+					"outputLength": 10,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "COMPANYPOSTALCODE"
+				},
+				{
+					"name": "DELIVERYSERVICENUMBER",
+					"description": "Number of Delivery Service",
+					"abapType": "CharacterString",
+					"length": 10,
+					"outputLength": 10,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "DELIVERYSERVICENUMBER"
+				},
+				{
+					"name": "POBOX",
+					"description": "PO Box",
+					"abapType": "CharacterString",
+					"length": 10,
+					"outputLength": 10,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "POBOX"
+				},
+				{
+					"name": "POBOXISWITHOUTNUMBER",
+					"description": "Flag: PO Box Without Number",
+					"abapType": "CharacterString",
+					"length": 1,
+					"outputLength": 1,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "POBOXISWITHOUTNUMBER"
+				},
+				{
+					"name": "POBOXPOSTALCODE",
+					"description": "PO Box Postal Code",
+					"abapType": "CharacterString",
+					"length": 10,
+					"outputLength": 10,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "POBOXPOSTALCODE"
+				},
+				{
+					"name": "POBOXLOBBYNAME",
+					"description": "PO Box Lobby",
+					"abapType": "CharacterString",
+					"length": 40,
+					"outputLength": 40,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "POBOXLOBBYNAME"
+				},
+				{
+					"name": "POBOXDEVIATINGCITYNAME",
+					"description": "PO Box city",
+					"abapType": "CharacterString",
+					"length": 40,
+					"outputLength": 40,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "POBOXDEVIATINGCITYNAME"
+				},
+				{
+					"name": "POBOXDEVIATINGREGION",
+					"description": "Region for PO Box (Country, State, Province, ...)",
+					"abapType": "CharacterString",
+					"length": 3,
+					"outputLength": 3,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "POBOXDEVIATINGREGION"
+				},
+				{
+					"name": "POBOXDEVIATINGCOUNTRY",
+					"description": "PO box country",
+					"abapType": "CharacterString",
+					"length": 3,
+					"outputLength": 3,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "POBOXDEVIATINGCOUNTRY"
+				},
+				{
+					"name": "CORRESPONDENCELANGUAGE",
+					"description": "Language Key",
+					"abapType": "CharacterString",
+					"length": 1,
+					"outputLength": 2,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "CORRESPONDENCELANGUAGE",
+					"ConversionExit": "ISOLA"
+				},
+				{
+					"name": "PRFRDCOMMMEDIUMTYPE",
+					"description": "Communication Method (Key) (Business Address Services)",
+					"abapType": "CharacterString",
+					"length": 3,
+					"outputLength": 3,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "PRFRDCOMMMEDIUMTYPE"
+				},
+				{
+					"name": "STREETPREFIXNAME",
+					"description": "Street 2",
+					"abapType": "CharacterString",
+					"length": 40,
+					"outputLength": 40,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "STREETPREFIXNAME"
+				},
+				{
+					"name": "ADDITIONALSTREETPREFIXNAME",
+					"description": "Street 3",
+					"abapType": "CharacterString",
+					"length": 40,
+					"outputLength": 40,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "ADDITIONALSTREETPREFIXNAME"
+				},
+				{
+					"name": "STREETSUFFIXNAME",
+					"description": "Street 4",
+					"abapType": "CharacterString",
+					"length": 40,
+					"outputLength": 40,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "STREETSUFFIXNAME"
+				},
+				{
+					"name": "ADDITIONALSTREETSUFFIXNAME",
+					"description": "Street 5",
+					"abapType": "CharacterString",
+					"length": 40,
+					"outputLength": 40,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "ADDITIONALSTREETSUFFIXNAME"
+				},
+				{
+					"name": "HOMECITYNAME",
+					"description": "City (different from postal city)",
+					"abapType": "CharacterString",
+					"length": 40,
+					"outputLength": 40,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "HOMECITYNAME"
+				},
+				{
+					"name": "DELIVERYSERVICETYPECODE",
+					"description": "Type of Delivery Service",
+					"abapType": "CharacterString",
+					"length": 4,
+					"outputLength": 4,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "DELIVERYSERVICETYPECODE"
+				},
+				{
+					"name": "PHONENUMBER",
+					"description": "Telephone no.: dialling code+number",
+					"abapType": "CharacterString",
+					"length": 30,
+					"isSelected": true,
+					"outputLength": 30,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "PHONENUMBER"
+				},
+				{
+					"name": "PHONENUMBERCOUNTRY",
+					"description": "Country for telephone/fax number",
+					"abapType": "CharacterString",
+					"length": 3,
+					"outputLength": 3,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "PHONENUMBERCOUNTRY"
+				},
+				{
+					"name": "PHONENUMBEREXTENSION",
+					"description": "Telephone no.: Extension",
+					"abapType": "CharacterString",
+					"length": 10,
+					"outputLength": 10,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "PHONENUMBEREXTENSION"
+				},
+				{
+					"name": "FAXNUMBER",
+					"description": "Fax number: dialling code+number",
+					"abapType": "CharacterString",
+					"length": 30,
+					"outputLength": 30,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "FAXNUMBER"
+				},
+				{
+					"name": "FAXCOUNTRY",
+					"description": "Country for telephone/fax number",
+					"abapType": "CharacterString",
+					"length": 3,
+					"outputLength": 3,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "FAXCOUNTRY"
+				},
+				{
+					"name": "FAXNUMBEREXTENSION",
+					"description": "Fax no.: Extension",
+					"abapType": "CharacterString",
+					"length": 10,
+					"outputLength": 10,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "FAXNUMBEREXTENSION"
+				},
+				{
+					"name": "MOBILEPHONENUMBER",
+					"description": "Telephone no.: dialling code+number",
+					"abapType": "CharacterString",
+					"length": 30,
+					"outputLength": 30,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "MOBILEPHONENUMBER"
+				},
+				{
+					"name": "MOBILEPHONECOUNTRY",
+					"description": "Country for telephone/fax number",
+					"abapType": "CharacterString",
+					"length": 3,
+					"outputLength": 3,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "MOBILEPHONECOUNTRY"
+				},
+				{
+					"name": "EMAILADDRESS",
+					"description": "E-Mail Address",
+					"abapType": "CharacterString",
+					"length": 241,
+					"outputLength": 241,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "EMAILADDRESS",
+					"ConversionExit": "SXIDN"
+				},
+				{
+					"name": "URLFIELDLENGTH",
+					"description": "URI field length",
+					"abapType": "OneByteInteger",
+					"length": 5,
+					"outputLength": 5,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "URLFIELDLENGTH"
+				},
+				{
+					"name": "WEBSITEURL",
+					"description": "Universal Resource Identifier (URI)",
+					"abapType": "CharacterString",
+					"length": 2048,
+					"outputLength": 2048,
+					"isDeltaColumn": true,
+					"selectionPermission": "All",
+					"checkTable": "WEBSITEURL"
+				}
+			]
+		}
+	]
+}

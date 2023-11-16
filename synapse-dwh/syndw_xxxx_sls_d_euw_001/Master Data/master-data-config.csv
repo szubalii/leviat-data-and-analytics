@@ -34,3 +34,11 @@ map_AXBI;StockUnit.csv;",";map_AXBI;StockUnit
 map_AXBI;SalesOffice.csv;";";map_AXBI;SalesOffice
 map_AXBI;SAPCustomerBasicMappingTable.csv;";";map_AXBI;SAPCustomerBasicMappingTable
 ;ProductHierarchyNode.csv;";";base_ff;ProductHierarchyNode
+;CountryRegion.csv;";";base_ff;CountryRegion
+;Region.csv;";";base_ff;Region
+;CompanyCode.csv;";";base_ff;CompanyCode
+;Budget_EPM.csv;";";base_ff;Budget_EPM
+;IC_ReconciliationGLAccounts.csv;";";base_ff;IC_ReconciliationGLAccounts
+;ShippingPointLogistics.csv;";";base_ff;ShippingPointLogistics
+;LeviatWarehouse.csv;";";base_ff;LeviatWarehouse
+;PurchaseOrderExpectedGLAccount.csv;";";base_ff;PurchaseOrderExpectedGLAccount

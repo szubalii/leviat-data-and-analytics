@@ -2,6 +2,7 @@ DECLARE
     @nbr_statements INT = (SELECT COUNT(*) FROM pgr.masterdata),
     @i INT = 1,
     @date CHAR(23) = FORMAT(GETUTCDATE(), 'yyyy-MM-dd HH:mm:ss.fff');
+GO
 
 CREATE TABLE #CopyScripts 
 WITH (
@@ -67,7 +68,8 @@ SELECT
         FIRSTROW = 2
     );' AS copyScript
 FROM
-    ColumnList
+    ColumnList;
+GO
 
 WHILE @i <= @nbr_statements
 BEGIN
@@ -75,5 +77,6 @@ BEGIN
     EXEC    sp_executesql @sql_code;
     SET     @i +=1;
 END
+GO
 
 DROP TABLE #CopyScripts;

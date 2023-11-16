@@ -1,0 +1,251 @@
+{
+    "functionName": "Z_THEO_READ_TABLE",
+	"whereClause": "PRECEDINGDOCUMENTCATEGORY in  ('B','C','I') AND SUBSEQUENTDOCUMENTCATEGORY in ('C','J')",
+    "runInBackgroundJob": false,
+    "backgroundJobTimeout": 180,
+    "tables": 
+    [
+        {
+            "name": "ISDDOCPROCFLOW",
+            "description": "Generated Table for View ISDDOCPROCFLOW",
+            "isView": true,
+            "fields": 
+            [
+                {
+                    "name": "MANDT",
+                    "description": "Client",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": false,
+                    "checkTable": "T000",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "DOCRELATIONSHIPUUID",
+                    "description": "SD Unique Document Relationship Identification",
+                    "abapType": "ByteSequence",
+                    "length": 16,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "DOCRELATIONSHIPUUID",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRECEDINGDOCUMENT",
+                    "description": "Preceding sales and distribution document",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "checkTable": "PRECEDINGDOCUMENT",
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "PRECEDINGDOCUMENTITEM",
+                    "description": "Preceding Item of an SD Document",
+                    "abapType": "NumericCharacterString",
+                    "length": 6,
+                    "isSelected": true,
+                    "checkTable": "PRECEDINGDOCUMENTITEM",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PRECEDINGDOCUMENTCATEGORY",
+                    "description": "Document Category of Preceding SD Document",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "PRECEDINGDOCUMENTCATEGORY",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SUBSEQUENTDOCUMENT",
+                    "description": "Subsequent Sales and Distribution Document",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "checkTable": "SUBSEQUENTDOCUMENT",
+                    "conversionExit": "ALPHA"
+                },
+                {
+                    "name": "SUBSEQUENTDOCUMENTITEM",
+                    "description": "Subsequent Item of an SD Document",
+                    "abapType": "NumericCharacterString",
+                    "length": 6,
+                    "isSelected": true,
+                    "checkTable": "SUBSEQUENTDOCUMENTITEM",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "SUBSEQUENTDOCUMENTCATEGORY",
+                    "description": "Document Category of Subsequent Document",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "checkTable": "SUBSEQUENTDOCUMENTCATEGORY",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "PROCESSFLOWLEVEL",
+                    "description": "Level of the document flow record",
+                    "abapType": "NumericCharacterString",
+                    "length": 2,
+                    "isSelected": false,
+                    "checkTable": "PROCESSFLOWLEVEL",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CREATIONDATE",
+                    "description": "Record Created On",
+                    "abapType": "Date",
+                    "isSelected": false,
+                    "checkTable": "CREATIONDATE",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CREATIONTIME",
+                    "description": "Entry time",
+                    "abapType": "Time",
+                    "isSelected": false,
+                    "checkTable": "CREATIONTIME",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "LASTCHANGEDATE",
+                    "description": "Last Changed On",
+                    "abapType": "Date",
+                    "isSelected": false,
+                    "checkTable": "LASTCHANGEDATE",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "QUANTITYINBASEUNIT",
+                    "description": "Referenced quantity in base unit of measure",
+                    "abapType": "PackedNumber",
+                    "length": 15,
+                    "decimalCount": 3,
+                    "isSelected": false,
+                    "formattedLength": 19,
+                    "checkTable": "QUANTITYINBASEUNIT",
+                    "conversionExit": "",
+                    "referenceTable": "ISDDOCPROCFLOW",
+                    "referenceField": "BASEUNIT"
+                },
+                {
+                    "name": "REFQUANTITYINORDQTYUNITASFLOAT",
+                    "description": "Referenced quantity in sales unit (float)",
+                    "abapType": "FloatingPoint",
+                    "isSelected": false,
+                    "checkTable": "REFQUANTITYINORDQTYUNITASFLOAT",
+                    "conversionExit": "",
+                    "referenceTable": "ISDDOCPROCFLOW",
+                    "referenceField": "ORDERQUANTITYUNIT"
+                },
+                {
+                    "name": "REFQUANTITYINBASEUNITASFLOAT",
+                    "description": "Referenced quantity in base unit of measure (float)",
+                    "abapType": "FloatingPoint",
+                    "isSelected": false,
+                    "checkTable": "REFQUANTITYINBASEUNITASFLOAT",
+                    "conversionExit": "",
+                    "referenceTable": "ISDDOCPROCFLOW",
+                    "referenceField": "BASEUNIT"
+                },
+                {
+                    "name": "BASEUNIT",
+                    "description": "Base Unit of Measure",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": false,
+                    "checkTable": "BASEUNIT",
+                    "conversionExit": "CUNIT"
+                },
+                {
+                    "name": "ORDERQUANTITYUNIT",
+                    "description": "Sales Unit",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": false,
+                    "checkTable": "ORDERQUANTITYUNIT",
+                    "conversionExit": "CUNIT"
+                },
+                {
+                    "name": "SDFULFILLMENTCALCULATIONRULE",
+                    "description": "Quantity is calculated positively, negatively or not at all",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": false,
+                    "checkTable": "SDFULFILLMENTCALCULATIONRULE",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "NETAMOUNT",
+                    "description": "Reference Value",
+                    "abapType": "PackedNumber",
+                    "length": 15,
+                    "decimalCount": 2,
+                    "isSelected": false,
+                    "formattedLength": 21,
+                    "checkTable": "NETAMOUNT",
+                    "conversionExit": "",
+                    "referenceTable": "ISDDOCPROCFLOW",
+                    "referenceField": "STATISTICSCURRENCY",
+                    "isCurrency": true
+                },
+                {
+                    "name": "STATISTICSCURRENCY",
+                    "description": "Statistics currency",
+                    "abapType": "CharacterString",
+                    "length": 5,
+                    "isSelected": false,
+                    "checkTable": "STATISTICSCURRENCY",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "TRANSFERORDERINWRHSMGMTISCONFD",
+                    "description": "ID: MM-WM Transfer Order Confirmed",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": false,
+                    "checkTable": "TRANSFERORDERINWRHSMGMTISCONFD",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "WAREHOUSENUMBER",
+                    "description": "Warehouse Number / Warehouse Complex",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": false,
+                    "checkTable": "WAREHOUSENUMBER",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "MATERIALDOCUMENTYEAR",
+                    "description": "Material Document Year",
+                    "abapType": "NumericCharacterString",
+                    "length": 4,
+                    "isSelected": false,
+                    "checkTable": "MATERIALDOCUMENTYEAR",
+                    "conversionExit": "GJAHR"
+                },
+                {
+                    "name": "BILLINGPLAN",
+                    "description": "Billing Plan Number / Invoicing Plan Number",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": false,
+                    "checkTable": "BILLINGPLAN",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "BILLINGPLANITEM",
+                    "description": "Item for billing plan/invoice plan/payment cards",
+                    "abapType": "NumericCharacterString",
+                    "length": 6,
+                    "isSelected": false,
+                    "checkTable": "BILLINGPLANITEM",
+                    "conversionExit": ""
+                }
+            ]
+        }
+    ]
+}

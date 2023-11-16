@@ -1,0 +1,101 @@
+# This pipeline is triggered whenever the build pipeline to main, qas or prod is completed
+resources:
+  pipelines:
+  - pipeline: build
+    source: 'Build Release'
+    trigger:
+      branches:
+        include:
+        - main
+        - qas
+        - prod
+
+trigger: none
+
+variables:
+# In case of CI triggered pipelines (IndividualCI, triggered by git push),
+# use the system predefined variable Build.SourceBranchName to get the correct variable template
+- ${{ if eq(variables['Build.SourceBranchName'], 'main') }}:
+  - template: ./variables-test.yml
+  - name: deployEnvPrefix # override value to map main branch to TEST deployment environment
+    value: '20_TEST'
+- ${{ elseif eq(variables['Build.SourceBranchName'], 'qas') }}:
+  - template: ./variables-qas.yml
+  - name: deployEnvPrefix # override value to map main branch to TEST deployment environment
+    value: '10_QAS'
+- ${{ elseif eq(variables['Build.SourceBranchName'], 'prod') }}:
+  - template: ./variables-prod.yml
+  - name: deployEnvPrefix # override value to map main branch to TEST deployment environment
+    value: '00_PROD'
+# - name: commitId
+#   value: $(Build.SourceVersion)
+
+stages:
+# The pipeline deploys a solution if for that solution files have changed in their respective 
+# folders. 
+- ${{ if eq(variables['Build.Reason'], 'ResourceTrigger') }}:
+  - stage: CHECK_SOLUTIONS_DEPLOYMENT
+    jobs:
+    - job: CheckSolutionsDeployment
+      variables:
+      - name: commitId
+        value: $(Build.SourceVersion)
+      pool:
+        vmImage: 'ubuntu-20.04'
+      steps:
+      - checkout: self
+        fetchDepth: 0 # disables shallow fetch and results in correct return of git diff-tree
+      
+      # - bash: |
+      #     git diff --name-only $(System.PullRequest.SourceCommitId)^!
+      #     git diff --name-only $SYSTEM_PULLREQUEST_SOURCECOMMITID^!
+
+      #     $(git diff --name-only $(System.PullRequest.SourceCommitId)^!)
+      #     $(git diff --name-only $SYSTEM_PULLREQUEST_SOURCECOMMITID^!)
+
+      - pwsh: |
+          git diff --name-only 199bf9131748a7e07d4074baf8f7dd2daf94d963^!
+          git diff --name-only $(commitId)^!
+
+      
+      - task: PowerShell@2
+        displayName: 'Define which solutions deploy'
+        name: SetVariables
+        inputs:
+          filePath: '$(System.DefaultWorkingDirectory)/src/libs/set-solutionDeploymentVarsRelease.ps1'
+          arguments: >
+            -commitId $(commitId)
+      #      -commitMessage $(System.PullRequest.SourceVersionMessage)
+          pwsh: true
+
+      # - pwsh: |
+      #     Write-Host 'deploy_azure_data_factory:'$(SetVariables.deploy_azure_data_factory);
+      #     Write-Host 'deploy_orchestration:'$(SetVariables.deploy_orchestration);
+      #     Write-Host 'deploy_synapse_dwh:'$(SetVariables.deploy_synapse_dwh);
+      #     Write-Host 'deploy_synapse_workspace:'$(SetVariables.deploy_synapse_workspace);
+      #     Write-Host 'deploy_xu_config:'$(SetVariables.deploy_xu_config);
+
+  - template: ./stages-deploy-auto.yml
+    parameters:
+      deployEnvPrefix: ${{ variables.deployEnvPrefix }}
+
+# If triggered manually, deploy all solutions
+- ${{ elseif eq(variables['Build.Reason'], 'Manual') }}:
+  - stage: DEPLOY_1_MANUAL
+    jobs:
+    - template: ./jobs-deploy-multi.yml
+      parameters:
+        solutions:
+        - name: 'orchestration'
+        - name: 'synapse-dwh'
+        # - name: 'synapse-workspace'
+        - name: 'xu-config'
+        deployEnvPrefix: ${{ variables.deployEnvPrefix }}  
+
+  - stage: DEPLOY_2_MANUAL
+    jobs:
+    - template: ./jobs-deploy-multi.yml
+      parameters:
+        solutions:
+        - name: 'azure-data-factory'
+        deployEnvPrefix: ${{ variables.deployEnvPrefix }}

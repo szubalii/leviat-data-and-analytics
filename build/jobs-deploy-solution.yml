@@ -1,18 +1,31 @@
 parameters:
 - name: folder
   type: string
-- name: deployEnvironment
+- name: solution
   type: string
-- name: test
-  type: boolean
-  default: False
+- name: deployEnvPrefix
+  type: string
+# - name: test
+#   type: boolean
+#   default: False
+# - name: conditional
+#   type: boolean
+#   default: false
 
-# variables:
-# - name: deployEnvSolution
-#   value: $(envIndex)_$(deployEnv)_${{ upper(replace(parameters.folder, '-', '_')) }}
-
-jobs:
-- deployment: ${{ format('DEPLOY_{0}', parameters.deployEnvironment) }}
+jobs: 
+# - job:
+#   variables:
+#     deploy_xu: "$[stageDependencies.CHECK_SOLUTIONS_DEPLOYMENT.CheckSolutionsDeployment.outputs['SetVariables.deploy_xu_config']]"
+#     deploy_generic: "$[stageDependencies.CHECK_SOLUTIONS_DEPLOYMENT.CheckSolutionsDeployment.outputs['SetVariables.deploy_${{ parameters.solution }}']]"
+#   steps:
+#   - bash: |
+#       echo param: ${{ parameters.solution }}
+#       echo var: $(deploy_xu)
+#       echo var: $(deploy_generic)
+      
+- deployment: $[ format('DEPLOY_{0}_TO_{1}', ${{ parameters.solution }}, variables['deployEnvPrefix'] ) ]
+  # ${{ if parameters.conditional }}:
+  #   condition: eq(stageDependencies.CHECK_SOLUTIONS_DEPLOYMENT.CheckSolutionsDeployment.outputs['SetVariables.deploy_${{ parameters.solution }}'], 'true')
   timeoutInMinutes: 120
   pool:
     name: 'VM'
@@ -21,7 +34,7 @@ jobs:
     - VisualStudio
     - Python.Version
     - Agent.ComputerName -equals $(VMName)
-  environment: ${{ parameters.deployEnvironment }}
+  environment: $[ format('{0}_{1}', ${{ parameters.deployEnvPrefix }}, ${{ parameters.solution }} ) ]
   workspace:
   # set clean to all when deploying xu-config
     ${{ if eq(parameters.folder, 'xu-config') }}: 
@@ -31,6 +44,3 @@ jobs:
       deploy:
         steps:
         - template: ../${{ parameters.folder }}/build/steps-deploy.yml
-        
-        - ${{ if eq(parameters.test, True) }}:
-          - template: ../${{ parameters.folder }}/build/steps-test.yml

@@ -24,6 +24,7 @@
     [DelivBlockReasonForSchedLine]		NVARCHAR(2),
     [DeliveredQtyInOrderQtyUnit]		DECIMAL(13,3),
     [DeliveredQuantityInBaseUnit]		DECIMAL(13,3),
+    [DeliveryDate]                      DATE,
     [SalesOrganizationID]				NVARCHAR(4),
     [MaterialID]						NVARCHAR(40),
     [SoldToPartyID]						NVARCHAR(10),

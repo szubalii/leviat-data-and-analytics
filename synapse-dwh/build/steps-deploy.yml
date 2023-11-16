@@ -1,4 +1,7 @@
 steps:
+- download: build
+  artifact: SynapseDWH
+
 - task: AzurePowerShell@5
   displayName: 'Resume Synapse'
   inputs:
@@ -15,7 +18,7 @@ steps:
 # - task: AzureFileCopy@5
 #   displayName: 'AzureBlob File Copy'
 #   inputs:
-#     SourcePath: '$(Pipeline.Workspace)/SynapseDWH/Master Data/*'
+#     SourcePath: '$(Pipeline.Workspace)\build/SynapseDWH/Master Data/*'
 #     azureSubscription: 'arm-pipeline'
 #     Destination: AzureBlob
 #     storage: '$(storageAccountName)'
@@ -38,7 +41,7 @@ steps:
 
       # Copy map_AXBI Master Data Pt1 to AzureBlob
       azcopy copy `
-        '$(Pipeline.Workspace)\SynapseDWH\Master Data\map_AXBI\*' `
+        '$(Pipeline.Workspace)\build\SynapseDWH\Master Data\map_AXBI\*' `
         'https://$(storageAccountName).blob.core.windows.net/flat-files/map_AXBI' `
         --exclude-path 'BusinessPartner.csv;Material.csv;BusinessPartnerFull.csv;AXProductSAPHierarchy.csv;SAPCustomerBasicMappingTable.csv'
 
@@ -53,7 +56,7 @@ steps:
 
       # SAPCustomerBasicMappingTable.csv
       azcopy copy `
-        '$(Pipeline.Workspace)\SynapseDWH\Master Data\map_AXBI\SAPCustomerBasicMappingTable.csv' `
+        '$(Pipeline.Workspace)\build\SynapseDWH\Master Data\map_AXBI\SAPCustomerBasicMappingTable.csv' `
         'https://$(storageAccountName).dfs.core.windows.net/flat-files/map_AXBI'
 
 - task: PowerShell@2
@@ -67,7 +70,7 @@ steps:
       
       # Copy map_AXBI Master Data Pt2 to AzureBlob
       azcopy copy `
-        '$(Pipeline.Workspace)\SynapseDWH\Master Data\map_AXBI\*' `
+        '$(Pipeline.Workspace)\build\SynapseDWH\Master Data\map_AXBI\*' `
         'https://$(storageAccountName).blob.core.windows.net/flat-files/map_AXBI' `
         --include-path 'BusinessPartner.csv;Material.csv;BusinessPartnerFull.csv;AXProductSAPHierarchy.csv'
 
@@ -82,7 +85,7 @@ steps:
 
       # USA Master Data
       azcopy copy `
-        '$(Pipeline.Workspace)\SynapseDWH\Master Data\USA\*' `
+        '$(Pipeline.Workspace)\build\SynapseDWH\Master Data\USA\*' `
         'https://$(storageAccountName).blob.core.windows.net/flat-files/USA'
 
 - task: PowerShell@2
@@ -96,7 +99,7 @@ steps:
 
       # Copy map_USA Master Data to AzureBlob
       azcopy copy `
-        '$(Pipeline.Workspace)\SynapseDWH\Master Data\map_USA\Customer.csv' `
+        '$(Pipeline.Workspace)\build\SynapseDWH\Master Data\map_USA\Customer.csv' `
         'https://$(storageAccountName).dfs.core.windows.net/flat-files/map_USA'
 
 - task: PowerShell@2
@@ -111,7 +114,7 @@ steps:
       # Copy EClassCodes.csv to AzureBlob
       # workaround to exclude EClassCodes as fix (dfs)
       azcopy copy `
-        '$(Pipeline.Workspace)\SynapseDWH\Master Data\EClassCodes.csv' `
+        '$(Pipeline.Workspace)\build\SynapseDWH\Master Data\EClassCodes.csv' `
         'https://$(storageAccountName).dfs.core.windows.net/flat-files'
 
 - task: PowerShell@2
@@ -125,7 +128,7 @@ steps:
 
       # Copy Master Data Pt1 to AzureBlob
       azcopy copy `
-        '$(Pipeline.Workspace)\SynapseDWH\Master Data\*' `
+        '$(Pipeline.Workspace)\build\SynapseDWH\Master Data\*' `
         'https://$(storageAccountName).blob.core.windows.net/flat-files' `
         --exclude-path 'ConfigurableProductCharacteristic.csv;EClassCodes.csv;ProductCalculated.csv;SalesDistrict.csv;CustomerCalculated.csv;ZE_EXQLMAP_DT.csv;ProductHierarchyNode.csv;SalesDocumentStatuses.csv'
 
@@ -140,7 +143,7 @@ steps:
 
       # Copy Master Data Pt2 to AzureBlob
       azcopy copy `
-        '$(Pipeline.Workspace)\SynapseDWH\Master Data\*' `
+        '$(Pipeline.Workspace)\build\SynapseDWH\Master Data\*' `
         'https://$(storageAccountName).blob.core.windows.net/flat-files' `
         --include-path 'ConfigurableProductCharacteristic.csv;SalesDistrict.csv;CustomerCalculated.csv;ZE_EXQLMAP_DT.csv;ProductHierarchyNode.csv;SalesDocumentStatuses.csv'
 
@@ -156,7 +159,7 @@ steps:
       # Copy ProductCalculated.csv to AzureBlob
       # workaround to exclude ProductCalculated as fix (dfs)
       azcopy copy `
-        '$(Pipeline.Workspace)\SynapseDWH\Master Data\ProductCalculated.csv' `
+        '$(Pipeline.Workspace)\build\SynapseDWH\Master Data\ProductCalculated.csv' `
         'https://$(storageAccountName).dfs.core.windows.net/flat-files'
       
 - task: SqlAzureDacpacDeployment@1
@@ -166,5 +169,5 @@ steps:
     AuthenticationType: servicePrincipal
     ServerName: '$(workspaceName).sql.azuresynapse.net'
     DatabaseName: '$(synapseSqlPool)'
-    DacpacFile: '$(Pipeline.Workspace)/SynapseDWH/syndw_xxxx_sls_d_euw_001.dacpac'
+    DacpacFile: '$(Pipeline.Workspace)\build/SynapseDWH/syndw_xxxx_sls_d_euw_001.dacpac'
     AdditionalArguments: '/v:masterKeyPwd=$(ws-xxxx-sls-x-euw-001-masterKeyPwd) /v:storageAccount=$(storageAccountName) /v:EXQL_Sales_Node=$(EXQL_Sales_Node)'

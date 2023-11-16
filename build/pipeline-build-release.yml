@@ -1,0 +1,22 @@
+# This pipeline is triggered whenever a PR is completed to any of the following branches:
+trigger: none
+
+variables:
+# In case of CI triggered pipelines (IndividualCI, triggered by git push),
+# use the system predefined variable Build.SourceBranchName to get the correct variable template
+- ${{ if eq(variables['Build.SourceBranchName'], 'main') }}:
+  - template: ./variables-test.yml
+- ${{ elseif eq(variables['Build.SourceBranchName'], 'qas') }}:
+  - template: ./variables-qas.yml
+- ${{ elseif eq(variables['Build.SourceBranchName'], 'prod') }}:
+  - template: ./variables-prod.yml
+
+stages:        
+- template: ./stages-build.yml
+  parameters:
+    # By default, each solution is build.
+    build_azure_data_factory: True
+    build_orchestration: True
+    build_synapse_dwh: True
+    build_synapse_workspace: True
+    build_xu_config: True
