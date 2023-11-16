@@ -41,12 +41,6 @@
 				}
 			}
 		],
-		"parameters": {
-			"DWU_Size": {
-				"type": "string",
-				"defaultValue": "100"
-			}
-		},
 		"folder": {
 			"name": "90 Utilities/Synapse"
 		},
