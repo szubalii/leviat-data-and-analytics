@@ -64,7 +64,7 @@
 				"type": "ExecutePipeline",
 				"dependsOn": [
 					{
-						"activity": "Scale Up Synapse",
+						"activity": "Resume Synapse DWH",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -328,46 +328,6 @@
 							"type": "Expression"
 						}
 					}
-				}
-			},
-			{
-				"name": "Scale Up Synapse",
-				"type": "ExecutePipeline",
-				"dependsOn": [
-					{
-						"activity": "Resume Synapse DWH",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"userProperties": [],
-				"typeProperties": {
-					"pipeline": {
-						"referenceName": "pl_SYNDW_ScaleUp",
-						"type": "PipelineReference"
-					},
-					"waitOnCompletion": true
-				}
-			},
-			{
-				"name": "Scale Down Synapse",
-				"type": "ExecutePipeline",
-				"dependsOn": [
-					{
-						"activity": "Process Synapse EDW",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"userProperties": [],
-				"typeProperties": {
-					"pipeline": {
-						"referenceName": "pl_SYNDW_ScaleDown",
-						"type": "PipelineReference"
-					},
-					"waitOnCompletion": true
 				}
 			}
 		],
