@@ -87,7 +87,7 @@ Whenever a PR into main, qas, or prod branch is completed, this pipeline is trig
 
 This deployment pipeline is triggered when the release build pipeline is successfully completed. 
 
-## Manual build of release branch 
+### Manual build of release branch 
 
 Manually build a release branch (main, qas, prod). 
 
