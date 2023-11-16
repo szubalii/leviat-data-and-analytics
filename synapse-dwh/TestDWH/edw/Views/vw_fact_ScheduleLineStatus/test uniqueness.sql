@@ -51,12 +51,21 @@ BEGIN
   FROM edw.vw_BillingDocumentItem_for_SalesDocumentItem;
 
   -- #2
-  INSERT INTO #vw_BillingDocumentItem_for_SalesDocumentItem (ReferenceSDDocument, ReferenceSDDocumentItem, BillingQuantity)
-  VALUES
-    (1, 1, 10),
-    (1, 2, 20),
-    (2, 1, 30),
-    (2, 2, 40);
+  INSERT INTO #vw_BillingDocumentItem_for_SalesDocumentItem (
+    BillingDocument,
+    BillingDocumentItem,
+    CurrencyTypeID,
+    SalesDocumentID,
+    SalesDocumentItemID,
+    BillingQuantity
+ )
+ VALUES
+    (1, 1, 10, 1, 1, 10),
+    (1, 1, 20, 1, 1, 10),
+    (1, 1, 30, 1, 1, 10),
+    (1, 2, 10, 1, 2, 20),
+    (1, 2, 20, 1, 2, 20),
+    (1, 2, 30, 1, 2, 20);
 
   EXEC ('INSERT INTO edw.vw_BillingDocumentItem_for_SalesDocumentItem SELECT * FROM #vw_BillingDocumentItem_for_SalesDocumentItem');
 
