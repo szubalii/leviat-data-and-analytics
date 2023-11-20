@@ -145,9 +145,20 @@ SELECT
        PA.ICSalesDocumentItemID,
        [SoldProduct],
        ProfitCenterTypeID,
-       ARSD.[SalesReferenceDocumentCalculated],
-       ARSD.[SalesReferenceDocumentItemCalculated],
-       ARSD.[SalesDocumentItemCategoryID], 
+       edw.[svf_getSalesRefDocCalc] (
+              GLA.[SalesDocumentID]
+            , GLA.[ReferenceDocumentTypeID]
+            , GLA.[PurchasingDocument]
+            , PA.[ICSalesDocumentID] COLLATE DATABASE_DEFAULT
+            , ARSD.[SalesReferenceDocumentCalculated]
+       ) AS [SalesReferenceDocumentCalculated],
+       edw.[svf_getSalesRefDocItemCalc] (
+              GLA.[SalesDocumentID]
+            , GLA.[ReferenceDocumentTypeID]
+            , GLA.[PurchasingDocument]
+            , PA.[ICSalesDocumentItemID] COLLATE DATABASE_DEFAULT
+            , ARSD.[SalesReferenceDocumentItemCalculated]
+       ) AS [SalesReferenceDocumentItemCalculated],
        BDI.[HigherLevelItem],
        GLA.[WWPRNPA] AS ProjectNumber,
        GLA.[t_applicationId],
