@@ -390,7 +390,7 @@ OutboundDeliveryItem_s4h AS (
             AND
             ODI.[ReferenceSDDocumentItem] = SDSL.[SalesDocumentItem]
     LEFT JOIN
-        [intm_s4h].[vw_SalesDocumentFirstScheduleLine] AS SDSL_1st
+        [base_s4h_cax].[I_SalesDocumentScheduleLine] AS SDSL_1st
         ON
             ODI.[ReferenceSDDocument] = SDSL_1st.[SalesDocument]
             AND
