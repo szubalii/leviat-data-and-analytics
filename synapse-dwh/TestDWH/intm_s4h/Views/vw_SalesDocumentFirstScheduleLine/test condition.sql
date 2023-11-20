@@ -29,7 +29,7 @@ BEGIN
   INTO expected
   FROM actual;
 
-  INSERT INTO expected([SalesDocument],[SalesDocumentItem])
+  INSERT INTO expected([SalesDocument],[SalesDocumentItem],[ConfirmedDeliveryDate])
   VALUES('1','1','2023-04-02');
   -- Assert:
   EXEC tSQLt.AssertEqualsTable 'expected', 'actual';
