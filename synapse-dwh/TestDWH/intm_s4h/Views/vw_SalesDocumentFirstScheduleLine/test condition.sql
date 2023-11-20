@@ -10,13 +10,18 @@ BEGIN
   EXEC tSQLt.FakeTable '[base_s4h_cax]', '[I_SalesDocumentScheduleLine]';
 
   
-  INSERT INTO [base_s4h_cax].[I_SalesDocumentScheduleLine] ([SalesDocument],[SalesDocumentItem],[IsConfirmedDelivSchedLine])
-  VALUES ('1','1','X'),('2','2','');
+  INSERT INTO [base_s4h_cax].[I_SalesDocumentScheduleLine]
+  ([SalesDocument],
+   [SalesDocumentItem],
+   [IsConfirmedDelivSchedLine],
+   [ConfirmedDeliveryDate])
+  VALUES ('1','1','X','2023-04-02'),('2','2','','2023-04-01');
 
   -- Act: 
   SELECT    
     [SalesDocument],
-    [SalesDocumentItem]
+    [SalesDocumentItem],
+    [ConfirmedDeliveryDate]
   INTO actual
   FROM [intm_s4h].[vw_SalesDocumentFirstScheduleLine];
 
@@ -25,7 +30,7 @@ BEGIN
   FROM actual;
 
   INSERT INTO expected([SalesDocument],[SalesDocumentItem])
-  VALUES('1','1');
+  VALUES('1','1','2023-04-02');
   -- Assert:
   EXEC tSQLt.AssertEqualsTable 'expected', 'actual';
 END;

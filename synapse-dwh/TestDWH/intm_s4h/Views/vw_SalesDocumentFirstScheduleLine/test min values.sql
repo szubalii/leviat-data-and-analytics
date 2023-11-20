@@ -42,7 +42,7 @@ BEGIN
     [GoodsIssueDate],
     [ScheduleLine])
   VALUES
-    ('1','1','2023-10-18','2023-10-17','001');
+    ('1','1','2023-10-18','2023-10-17','002');
 
   -- Assert:
   EXEC tSQLt.AssertEqualsTable 'expected', 'actual';
