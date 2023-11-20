@@ -395,6 +395,8 @@ OutboundDeliveryItem_s4h AS (
             ODI.[ReferenceSDDocument] = SDSL_1st.[SalesDocument]
             AND
             ODI.[ReferenceSDDocumentItem] = SDSL_1st.[SalesDocumentItem]
+            AND
+            SDSL_1st.[ScheduleLine] = '0001'
     LEFT JOIN
         [intm_s4h].[vw_OriginalConfirmedScheduleLineDeliveryDate] OCDD
         ON
@@ -445,8 +447,6 @@ OutboundDeliveryItem_s4h AS (
 		    SDDCP.[Supplier] = SPL.[Supplier]
     LEFT JOIN [edw].[dim_Customer] DimCust
             ON OD.SoldToParty = DimCust.CustomerID
-    WHERE
-        SDSL_1st.[ScheduleLine] = '0001'
 )
 ,
 OutboundDeliveryItem_s4h_calculated AS (
