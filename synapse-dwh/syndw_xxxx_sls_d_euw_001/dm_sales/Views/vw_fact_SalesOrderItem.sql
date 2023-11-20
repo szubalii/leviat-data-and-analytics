@@ -78,8 +78,8 @@ select
      , dimTCCS.[TotalCreditCheckStatus]
      , dimDBS.[DeliveryBlockStatusID]
      , dimDBS.[DeliveryBlockStatus]
-     , dimBBS.[BillingBlockStatusID]
-     , dimBBS.[BillingBlockStatus]
+     , doc.[BillingBlockStatusID]
+     , doc.[BillingBlockStatus]
      , dimTSDDRS.[TotalSDDocReferenceStatusID]
      , dimTSDDRS.[TotalSDDocReferenceStatus]     as [TotalSDDocReferenceStatus]
      , dimSDDRS.[SDDocReferenceStatusID]
@@ -137,25 +137,19 @@ select
      , doc.[HeaderBillingBlockReasonID]
      , doc.[ItemBillingBlockReasonID]
      , doc.[DeliveryBlockReasonID]
-     , DeliveryItem.[HDR_PlannedGoodsIssueDate]
-     , DeliveryItem.[HDR_ShippingPointID]
-     , DeliveryItem.[HDR_HeaderBillingBlockReason]
-     , DeliveryItem.[HDR_TotalBlockStatusID]
-     , DeliveryItem.[HDR_ShipmentBlockReason]
-     , DeliveryItem.[HDR_DeliveryBlockReason]
-     , DeliveryItem.[CreatedByUserID]
-     , DeliveryItem.[OutboundDelivery]            AS [LatestOutboundDelivery]
-     , DeliveryItem.[OutboundDeliveryItem]        AS [LatestOutboundDeliveryItem]
-     , edw.[svf_getIsOrderItemBlockedFlag] (
-          doc.[DeliveryBlockReasonID]
-        , dimBBS.[BillingBlockStatusID]
-        , doc.[HeaderBillingBlockReasonID]
-        , doc.[ItemBillingBlockReasonID]
-        , DeliveryItem.[HDR_DeliveryBlockReason] 
-       )                                          AS [IsOrderItemBlockedFlag]
+     , doc.[HDR_PlannedGoodsIssueDate]
+     , doc.[HDR_ShippingPointID]
+     , doc.[HDR_HeaderBillingBlockReason]
+     , doc.[HDR_TotalBlockStatusID]
+     , doc.[HDR_ShipmentBlockReason]
+     , doc.[HDR_DeliveryBlockReason]
+     , doc.[CreatedByUserID]
+     , doc.[OutboundDelivery]            AS [LatestOutboundDelivery]
+     , doc.[OutboundDeliveryItem]        AS [LatestOutboundDeliveryItem]
+     , doc.[IsOrderItemBlockedFlag]
      , doc.[t_applicationId]
      , doc.[t_extractionDtm]
-from [edw].[fact_SalesDocumentItem] doc
+from [edw].[vw_fact_SalesDocumentItem]  doc
          left join [edw].[fact_SalesDocumentItem] quo
                    on doc.ReferenceSDDocumentID = quo.SalesDocument
                        AND
@@ -178,9 +172,6 @@ from [edw].[fact_SalesDocumentItem] doc
 
          left join [edw].[dim_SalesDocumentType] dimSDT
                    on dimSDT.[SalesDocumentTypeID] = doc.[SalesDocumentTypeID]
-
-         left join [edw].[dim_BillingBlockStatus] dimBBS
-                   on dimBBS.[BillingBlockStatusID] = doc.[BillingBlockStatusID]
 
          left join [edw].[dim_DeliveryBlockStatus] dimDBS
                    on dimDBS.[DeliveryBlockStatusID] = doc.[DeliveryBlockStatusID]
@@ -235,8 +226,5 @@ from [edw].[fact_SalesDocumentItem] doc
 
           LEFT JOIN [edw].[dim_SalesOffice] dimSO
                     ON doc.[SalesOfficeID] = dimSO.[SalesOfficeID]
-          LEFT JOIN [edw].[vw_LatestOutboundDeliveryItem] DeliveryItem
-                  ON doc.[SalesDocument] = DeliveryItem.[ReferenceSDDocument]
-                    AND doc.[SalesDocumentItem] = DeliveryItem.[ReferenceSDDocumentItem]
 where doc.[SDDocumentCategoryID] <> 'B'
 --     AND dimSDDRjS.[SDDocumentRejectionStatus] <> 'Fully Rejected'

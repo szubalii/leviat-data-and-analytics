@@ -36,6 +36,11 @@ SELECT
   [ClosedInvoicedValue],
   [PricePerUnit],
   [InScope],
-  [IsScheduleLineBlockedFlag]
+  [IsScheduleLineBlockedFlag],
+  CASE 
+      WHEN IsScheduleLineBlockedFlag = 1 AND IsOrderItemBlockedFlag = 1
+      THEN 1
+      ELSE 0
+  END AS [IsBlockedFlag] 
 FROM
   [edw].[vw_fact_ScheduleLineStatus]

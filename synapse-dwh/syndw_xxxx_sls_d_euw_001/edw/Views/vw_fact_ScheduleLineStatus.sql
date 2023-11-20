@@ -168,10 +168,11 @@ SELECT
         END                                     AS ClosedInvoicedValue,
         SDI.[NetAmount] / SDI.[OrderQuantity]   AS [PricePerUnit],
         SO.[CompanyCode],
+        SDI.[IsOrderItemBlockedFlag],
         SDI.t_applicationId,
         SDI.t_extractionDtm
 	FROM SDSL 
-    LEFT JOIN [edw].[fact_SalesDocumentItem] SDI 
+    LEFT JOIN [edw].[vw_fact_SalesDocumentItem] SDI 
         ON SDSL.[SalesDocumentID] = SDI.[SalesDocument] 
         AND SDSL.[SalesDocumentItem] = SDI.[SalesDocumentItem]
     LEFT JOIN [edw].[dim_SalesOrganization] SO
@@ -230,6 +231,7 @@ SELECT
                 THEN 1
             ELSE 0
         END                                 AS [IsScheduleLineBlockedFlag],
+        pre_report.[IsOrderItemBlockedFlag],
         pre_report.t_applicationId,
         pre_report.t_extractionDtm
 FROM pre_report
