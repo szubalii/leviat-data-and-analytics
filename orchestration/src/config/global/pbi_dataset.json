@@ -225,6 +225,15 @@
             "dim_CurrencyType"
           ]
         }
+      },
+      "Customer Details": {
+        "pbi_dataset_id": 33,
+        "schedule_recurrence": "D",
+        "entities": {
+          "edw": [
+            "fact_BillingDocumentItem"
+          ]
+        }
       }
     }
   },
