@@ -384,7 +384,7 @@ OutboundDeliveryItem_s4h AS (
         ON
             ODI.[OutboundDelivery] = OD.[OutboundDelivery]
     LEFT JOIN
-        [intm_s4h].[vw_SalesDocumentFirstScheduleLine] AS SDSL
+        [intm_s4h].[vw_SalesDocumentEarliestConfirmedDeliveryDate] AS SDSL
         ON
             ODI.[ReferenceSDDocument] = SDSL.[SalesDocument]
             AND

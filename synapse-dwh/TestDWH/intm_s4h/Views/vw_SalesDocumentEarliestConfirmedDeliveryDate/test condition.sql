@@ -1,5 +1,5 @@
 ﻿
-CREATE PROCEDURE [tc.intm_s4h.vw_SalesDocumentFirstScheduleLine].[test condition]
+CREATE PROCEDURE [tc.intm_s4h.vw_SalesDocumentEarliestConfirmedDeliveryDate].[test condition]
 AS
 BEGIN
 
@@ -23,7 +23,7 @@ BEGIN
     [SalesDocumentItem],
     [ConfirmedDeliveryDate]
   INTO actual
-  FROM [intm_s4h].[vw_SalesDocumentFirstScheduleLine];
+  FROM [intm_s4h].[vw_SalesDocumentEarliestConfirmedDeliveryDate];
 
   SELECT TOP(0) *
   INTO expected

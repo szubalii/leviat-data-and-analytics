@@ -1,5 +1,5 @@
 
-CREATE VIEW [intm_s4h].[vw_SalesDocumentFirstScheduleLine] AS
+CREATE VIEW [intm_s4h].[vw_SalesDocumentEarliestConfirmedDeliveryDate] AS
 --TODO investigate options for optimizing
 --Get the first dates for each Sales Document-Item combination.
 WITH SLS AS
@@ -21,7 +21,7 @@ SELECT
     ,SLS.[SalesDocumentItem]
     ,SLS.[ConfirmedDeliveryDate]
     ,SLS.[GoodsIssueDate]
-    ,SDSL.[ScheduleLine]
+    ,MIN(SDSL.[ScheduleLine])
 FROM
     SLS
 LEFT JOIN 
@@ -34,3 +34,8 @@ LEFT JOIN
     SDSL.[ConfirmedDeliveryDate] = SLS.[ConfirmedDeliveryDate]
 WHERE
     SDSL.[IsConfirmedDelivSchedLine] = 'X'
+GROUP BY
+     SLS.[SalesDocument]
+    ,SLS.[SalesDocumentItem]
+    ,SLS.[ConfirmedDeliveryDate]
+    ,SLS.[GoodsIssueDate]

@@ -1029,7 +1029,7 @@
       
     <Build Include="intm_s4h\Views\vw_OriginalConfirmedScheduleLineDeliveryDate.sql" />
     <Build Include="intm_s4h\Views\vw_OutboundDelivery_DeliveryDate.sql" />
-    <Build Include="intm_s4h\Views\vw_SalesDocumentFirstScheduleLine.sql" />
+    <Build Include="intm_s4h\Views\vw_SalesDocumentEarliestConfirmedDeliveryDate.sql" />
 
     <Build Include="edw\Views\vw_ACDOCA_delta.sql" />
     <Build Include="edw\Views\vw_CurrencyConversionRate.sql" />
