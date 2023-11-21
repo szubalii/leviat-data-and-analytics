@@ -259,7 +259,6 @@
     <Build Include="edw\Stored Procedures\sp_load_dim_ProductSalesDelivery_delta.sql" />
     <Build Include="edw\Stored Procedures\sp_load_fact_BillingDocumentItem.sql" />
     <Build Include="edw\Stored Procedures\sp_load_fact_SalesDocumentItem.sql" />
-    <Build Include="edw\Stored Procedures\sp_load_fact_OutboundDeliveryItem.sql" />
     <Build Include="edw\Stored Procedures\sp_load_fact_SalesDocItem_SAPSnapshotMonthly.sql" />
     <Build Include="edw\Stored Procedures\sp_load_fact_Budget_axbi.sql" />
     <Build Include="edw\Stored Procedures\sp_load_fact_BillingDocumentItem_s4h_active.sql" />
