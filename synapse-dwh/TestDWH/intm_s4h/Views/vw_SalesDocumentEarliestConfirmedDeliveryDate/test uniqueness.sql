@@ -28,8 +28,7 @@ BEGIN
     [SalesDocumentItem],
     [ScheduleLine],
     [ConfirmedDeliveryDate],
-    [GoodsIssueDate],
-    [IsConfirmedDelivSchedLine]
+    [GoodsIssueDate]
   INTO actual
   FROM [intm_s4h].[vw_SalesDocumentEarliestConfirmedDeliveryDate]
   GROUP BY
@@ -37,8 +36,7 @@ BEGIN
     [SalesDocumentItem],
     [ScheduleLine],
     [ConfirmedDeliveryDate],
-    [GoodsIssueDate],
-    [IsConfirmedDelivSchedLine]
+    [GoodsIssueDate]
   HAVING COUNT(*) > 1
 
   -- Assert:
