@@ -4763,7 +4763,7 @@
         "sproc_name": "sp_materialize_view",
         "source_view_name": "vw_OutboundDeliveryItem_s4h",
         "dest_table_name": "fact_OutboundDeliveryItem",
-        "execution_order": 4,
+        "execution_order": 6,
         "schedule_recurrence": "D"
       },
       {
