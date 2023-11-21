@@ -21,7 +21,7 @@ SELECT
     ,SLS.[SalesDocumentItem]
     ,SLS.[ConfirmedDeliveryDate]
     ,SLS.[GoodsIssueDate]
-    ,MIN(SDSL.[ScheduleLine])
+    ,MIN(SDSL.[ScheduleLine]) AS [ScheduleLine]
 FROM
     SLS
 LEFT JOIN 
