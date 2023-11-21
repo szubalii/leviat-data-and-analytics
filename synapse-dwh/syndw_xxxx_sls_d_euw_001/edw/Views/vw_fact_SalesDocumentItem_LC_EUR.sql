@@ -11,6 +11,7 @@ SELECT
         THEN SDI.[NetAmount] / SDI.[OrderQuantity]
      END AS [SDI_PricePerPiece]
     ,SDI.[CurrencyID]
+    ,SDI.[TransactionCurrencyID] AS [SDI_LocalCurrency]
     ,SDI.[SalesDocumentTypeID] AS [SDI_SalesDocumentTypeID]
     ,SDI.[IsReturnsItemID] AS [SDI_IsReturnsItemID]
     ,SDI.[BillToPartyID] AS [SDI_BillToParty]
@@ -34,10 +35,9 @@ SELECT
     ,SDI.[SDDocumentRejectionStatusID] AS [SDI_SDDocumentRejectionStatusID]
     ,SDI.[StorageLocationID] AS [SDI_StorageLocationID]
     ,SDI.[SalesDocumentDate] AS [SDI_SalesDocumentDate]
-    ,SDI.CurrencyTypeID AS CurrencyTypeIDForCostAmount
-    ,SDI.CurrencyTypeID + '1' AS CurrencyTypeIDForNetAmount
-    ,SDI.CurrencyTypeID + '2' AS LocalCurrency
-    ,SDI.CurrencyTypeID + '3' AS CurrencyTypeIDForPricePerPiece
+    ,SDI.[CurrencyTypeID] AS [CurrencyTypeIDForCostAmount]
+    ,SDI.[CurrencyTypeID] + '1' AS [CurrencyTypeIDForNetAmount]
+    ,SDI.[CurrencyTypeID] + '2' AS [CurrencyTypeIDForPricePerPiece]
 FROM
     [edw].[fact_SalesDocumentItem] AS SDI
  WHERE
@@ -46,22 +46,20 @@ FROM
     [t_applicationId] LIKE 's4h-ca%'
 ) P
 PIVOT
-(SUM([CostAmount]) for CurrencyTypeIDForCostAmount IN ([10],[30])) AS PVT_CostAmount
+(SUM([CostAmount]) for [CurrencyTypeIDForCostAmount] IN ([10],[30])) AS PVT_CostAmount
 PIVOT
-(SUM([NetAmount]) for CurrencyTypeIDForNetAmount IN ([101],[301])) AS PVT_NetAmount
+(SUM([NetAmount]) for [CurrencyTypeIDForNetAmount] IN ([101],[301])) AS PVT_NetAmount
 PIVOT
-(MAX([CurrencyID]) for LocalCurrency IN ([102])) AS PVT_LocalCurrency
-PIVOT
-(SUM([SDI_PricePerPiece]) for CurrencyTypeIDForPricePerPiece IN ([103],[303])) AS PVT_PricePerPiece
+(SUM([SDI_PricePerPiece]) for [CurrencyTypeIDForPricePerPiece] IN ([102],[302])) AS PVT_PricePerPiece
 )
 SELECT 
      [SalesDocument]
     ,[SalesDocumentItem]
     ,[SDI_CreationDate]
     ,[SDI_RequestedDeliveryDate]
-    ,MAX([103]) AS [SDI_PricePerPiece_LC]
-    ,MAX([303]) AS [SDI_PricePerPiece_EUR]
-    ,MAX([102]) AS [SDI_LocalCurrency]
+    ,MAX([102]) AS [SDI_PricePerPiece_LC]
+    ,MAX([302]) AS [SDI_PricePerPiece_EUR]
+    ,[SDI_LocalCurrency]
     ,[SDI_SalesDocumentTypeID]
     ,[SDI_IsReturnsItemID]
     ,[SDI_BillToParty]
@@ -94,6 +92,7 @@ GROUP BY
     ,[SalesDocumentItem]
     ,[SDI_CreationDate]
     ,[SDI_RequestedDeliveryDate]
+    ,[SDI_LocalCurrency]
     ,[SDI_SalesDocumentTypeID]
     ,[SDI_IsReturnsItemID]
     ,[SDI_BillToParty]

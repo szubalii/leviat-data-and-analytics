@@ -25,18 +25,12 @@ BEGIN
   -- Act: 
   SELECT    
     [SalesDocument],
-    [SalesDocumentItem],
-    [ScheduleLine],
-    [ConfirmedDeliveryDate],
-    [GoodsIssueDate]
+    [SalesDocumentItem]
   INTO actual
   FROM [intm_s4h].[vw_SalesDocumentEarliestConfirmedDeliveryDate]
   GROUP BY
     [SalesDocument],
-    [SalesDocumentItem],
-    [ScheduleLine],
-    [ConfirmedDeliveryDate],
-    [GoodsIssueDate]
+    [SalesDocumentItem]
   HAVING COUNT(*) > 1
 
   -- Assert:
