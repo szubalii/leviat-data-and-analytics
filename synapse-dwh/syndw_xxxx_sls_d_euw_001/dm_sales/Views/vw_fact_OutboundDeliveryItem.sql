@@ -105,6 +105,8 @@ SELECT
       ,[IntercompanyBillingStatusID]
       ,[IsReturnsItem]
       ,[SL_ConfirmedDeliveryDate]
+      ,[SL_OriginalConfirmedDeliveryDate]
+      ,[SL_FirstCustomerRequestedDeliveryDate]
       ,[SL_ConfdOrderQtyByMatlAvailCheck]
       ,[SL_GoodsIssueDate]
       ,[SL_ScheduleLine]
@@ -272,6 +274,14 @@ SELECT
       ,BDIFreight.[InvoicedFreightValue_LC] * CCR_EUR.ExchangeRate
                                               AS [InvoicedFreightValue_EUR]
       ,BDIFreight.[LocalCurrencyID]           AS [FreightLocalCurrencyID]
+      ,[OTR_DaysDiff]
+      ,[OTR_Group]
+      ,[OTR_EarlyDays]
+      ,[OTR_IsEarly]
+      ,[OTR_IsLate]
+      ,[OTR_IsOnTime]
+      ,[OTR_LateDays]
+      ,[OTRIF_OnTimeCusReqInFull]
       ,ODI.[t_extractionDtm]
       ,ODI.[t_applicationId]
 FROM [edw].[fact_OutboundDeliveryItem] ODI

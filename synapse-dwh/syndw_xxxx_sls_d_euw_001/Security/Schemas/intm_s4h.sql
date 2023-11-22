@@ -1,0 +1,1 @@
+﻿CREATE SCHEMA [intm_s4h]

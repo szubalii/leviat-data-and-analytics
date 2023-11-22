@@ -189,6 +189,8 @@
     <Folder Include="intm_axbi\Tables" />
     <Folder Include="intm_axbi\Views" />
     <Folder Include="intm_axbi\Stored Procedures" />
+    <Folder Include="intm_s4h" />
+    <Folder Include="intm_s4h\Views" />
     <Folder Include="base_ancon_australia_2_dwh" />
     <Folder Include="base_ancon_australia_2_dwh\Tables" />
     <Folder Include="base_tx_crh_1_stg" />
@@ -241,7 +243,6 @@
     <None Include="edw\Stored Procedures\sp_load_fact_ACDOCA_active.sql" />
     <None Include="edw\Stored Procedures\sp_load_fact_BillingDocumentItem_axbi.sql" />
     <None Include="edw\Stored Procedures\sp_load_fact_BillingDocumentItem_s4h_active.sql" />
-    <None Include="edw\Stored Procedures\sp_load_fact_OutboundDeliveryItem.sql" />
     <None Include="edw\Stored Procedures\sp_load_fact_SalesDocItem_SAPSnapshotMonthly.sql" />
     <None Include="edw\Stored Procedures\sp_load_fact_SalesDocumentItem_axbi.sql" />
     <None Include="edw\Stored Procedures\sp_load_fact_SalesDocumentItem_s4h_active.sql" />
@@ -262,7 +263,6 @@
     <Build Include="edw\Stored Procedures\sp_load_dim_ProductSalesDelivery_delta.sql" />
     <Build Include="edw\Stored Procedures\sp_load_fact_BillingDocumentItem.sql" />
     <Build Include="edw\Stored Procedures\sp_load_fact_SalesDocumentItem.sql" />
-    <Build Include="edw\Stored Procedures\sp_load_fact_OutboundDeliveryItem.sql" />
     <Build Include="edw\Stored Procedures\sp_load_fact_SalesDocItem_SAPSnapshotMonthly.sql" />
     <Build Include="edw\Stored Procedures\sp_load_fact_Budget_axbi.sql" />
     <Build Include="edw\Stored Procedures\sp_load_fact_BillingDocumentItem_s4h_active.sql" />
@@ -312,6 +312,7 @@
     <Build Include="Security\Schemas\base_isedio.sql" />
     <Build Include="Security\Schemas\base_isedio_aus.sql" />
     <Build Include="Security\Schemas\dm_global.sql" />
+    <Build Include="Security\Schemas\intm_s4h.sql" />
 
     <!-- TABLES -->
 
@@ -1018,6 +1019,10 @@
     <Build Include="edw\Functions\ScalarValued\svf_getIsOrderItemBlockedFlag.sql" />
     <Build Include="edw\Functions\ScalarValued\svf_getSalesRefDocCalc.sql" />
     <Build Include="edw\Functions\ScalarValued\svf_getSalesRefDocItemCalc.sql" />
+    <Build Include="edw\Functions\ScalarValued\svf_excludeWeekends.sql" />
+    <Build Include="edw\Functions\ScalarValued\svf_getOT_DaysDiff.sql" />
+    <Build Include="edw\Functions\ScalarValued\svf_getOT_Group.sql" />
+    <Build Include="edw\Functions\ScalarValued\svf_getOTIF_OnTimeInFull.sql" />
     
     <Build Include="utilities\Functions\Scalar-valued Functions\svf_get_file_path.sql" />
 
@@ -1046,6 +1051,10 @@
     <Build Include="intm_axbi\Views\vw_DIM_INVENTLOCATION.sql" />
     <Build Include="intm_axbi\Views\vw_FACT_CUSTPACKINGSLIPTRANS.sql" />
     <Build Include="intm_axbi\Views\vw_DIM_INVENTTABLE.sql" />
+      
+    <Build Include="intm_s4h\Views\vw_OriginalConfirmedScheduleLineDeliveryDate.sql" />
+    <Build Include="intm_s4h\Views\vw_OutboundDelivery_DeliveryDate.sql" />
+    <Build Include="intm_s4h\Views\vw_SalesDocumentEarliestConfirmedDeliveryDate.sql" />
 
     <Build Include="edw\Views\vw_ACDOCA_delta.sql" />
     <Build Include="edw\Views\vw_CurrencyConversionRate.sql" />
@@ -1216,7 +1225,10 @@
     <Build Include="edw\Views\vw_Locations.sql" />
     <Build Include="edw\Views\vw_PurchaseOrderExpectedGLAccount.sql" />
     <Build Include="edw\Views\vw_fact_SalesDocumentItem.sql" />
-    <Build Include="dq\Views\vw_Product_1_2.sql" />
+    <Build Include="edw\Views\vw_fact_SalesDocumentItem_LC_EUR.sql" />
+    <Build Include="edw\Views\vw_fact_SalesDocumentItem_ODICount.sql" />
+    <Build Include="edw\Views\vw_fact_SalesDocumentItem_ScheduleLineCount.sql" />
+      <Build Include="dq\Views\vw_Product_1_2.sql" />
     <Build Include="dq\Views\vw_RuleTotal.sql" />
     <Build Include="dq\Views\vw_Product_1_17.sql" />
     <Build Include="dq\Views\vw_Product_1_19.sql" />

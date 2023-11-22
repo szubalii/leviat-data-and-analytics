@@ -1,0 +1,163 @@
+{
+  "functionName": "Z_THEO_READ_TABLE",
+  "whereClause": "DATABASETABLE = 'VBEP' AND CHANGEDOCDATABASETABLEFIELD = 'EDATU'",
+  "runInBackgroundJob": false,
+  "backgroundJobTimeout": 180,
+  "tables": [
+    {
+      "name": "ICHANGEDOCITEM",
+      "description": "Generated Table for View ICHANGEDOCITEM",
+      "isView": true,
+      "fields": [
+        {
+          "name": "MANDT",
+          "description": "Client",
+          "abapType": "CharacterString",
+          "length": 3,
+          "isPrimaryKey": true,
+          "isSelected": true,
+          "checkTable": "T000",
+          "conversionExit": "",
+          "isClientField": false
+        },
+        {
+          "name": "CHANGEDOCOBJECT",
+          "description": "Object Value",
+          "abapType": "CharacterString",
+          "length": 90,
+          "isPrimaryKey": true,
+          "isSelected": true,
+          "conversionExit": "",
+          "isClientField": false
+        },
+        {
+          "name": "CHANGEDOCOBJECTCLASS",
+          "description": "Object class",
+          "abapType": "CharacterString",
+          "length": 15,
+          "isPrimaryKey": true,
+          "isSelected": true,
+          "conversionExit": "ALPHA",
+          "isClientField": false
+        },
+        {
+          "name": "CHANGEDOCUMENT",
+          "description": "Change Number of Document",
+          "abapType": "CharacterString",
+          "length": 10,
+          "isPrimaryKey": true,
+          "isSelected": true,
+          "conversionExit": "ALPHA",
+          "isClientField": false
+        },
+        {
+          "name": "DATABASETABLE",
+          "description": "Table Name",
+          "abapType": "CharacterString",
+          "length": 30,
+          "isPrimaryKey": true,
+          "isSelected": true,
+          "conversionExit": "",
+          "isClientField": false
+        },
+        {
+          "name": "CHANGEDOCTABLEKEY",
+          "description": "Changed table record key",
+          "abapType": "CharacterString",
+          "length": 70,
+          "isPrimaryKey": true,
+          "isSelected": true,
+          "conversionExit": "",
+          "isClientField": false
+        },
+        {
+          "name": "CHANGEDOCDATABASETABLEFIELD",
+          "description": "Field Name",
+          "abapType": "CharacterString",
+          "length": 30,
+          "isPrimaryKey": true,
+          "isSelected": true,
+          "conversionExit": "",
+          "isClientField": false
+        },
+        {
+          "name": "CHANGEDOCITEMCHANGETYPE",
+          "description": "Type of Change",
+          "abapType": "CharacterString",
+          "length": 1,
+          "isPrimaryKey": true,
+          "isSelected": true,
+          "conversionExit": "",
+          "isClientField": false
+        },
+        {
+          "name": "CHANGEDOCPREVIOUSUNIT",
+          "description": "Change documents, unit referenced",
+          "abapType": "CharacterString",
+          "length": 3,
+          "isSelected": true,
+          "conversionExit": "",
+          "isClientField": false
+        },
+        {
+          "name": "CHANGEDOCNEWUNIT",
+          "description": "Change documents, unit referenced",
+          "abapType": "CharacterString",
+          "length": 3,
+          "isSelected": true,
+          "conversionExit": "",
+          "isClientField": false
+        },
+        {
+          "name": "CHANGEDOCPREVIOUSCURRENCY",
+          "description": "Change documents, referenced currency",
+          "abapType": "CharacterString",
+          "length": 5,
+          "isSelected": true,
+          "conversionExit": "",
+          "isClientField": false
+        },
+        {
+          "name": "CHANGEDOCNEWCURRENCY",
+          "description": "Change documents, referenced currency",
+          "abapType": "CharacterString",
+          "length": 5,
+          "isSelected": true,
+          "conversionExit": "",
+          "isClientField": false
+        },
+        {
+          "name": "CHANGEDOCNEWFIELDVALUE",
+          "description": "New Content of Changed Field",
+          "abapType": "CharacterString",
+          "length": 254,
+          "isSelected": true,
+          "conversionExit": "",
+          "isClientField": false
+        },
+        {
+          "name": "CHANGEDOCPREVIOUSFIELDVALUE",
+          "description": "Old Content of Changed Field",
+          "abapType": "CharacterString",
+          "length": 254,
+          "isSelected": true,
+          "conversionExit": "",
+          "isClientField": false
+        },
+        {
+          "name": "CHANGEDOCTEXTISCHANGED",
+          "description": "Char Column",
+          "abapType": "CharacterString",
+          "length": 1,
+          "isSelected": true,
+          "conversionExit": "",
+          "isClientField": false
+        }
+      ]
+    }
+  ],
+  "complexRuntimeParameters": {
+  },
+  "whereSequence": [
+  ]
+}
