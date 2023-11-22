@@ -25,7 +25,7 @@ SELECT
   [FiscalPeriod],
   [FiscalYearPeriod],
   COUNT(DISTINCT [Manual_JE_KPIAccountingDocument]) AS [ManualJournalEntriesCount],
-  SUM([ManualInventoryAdjustmentsCount])            AS [ManualInventoryAdjustmentsCount],
+  COUNT([ManualInventoryAdjustmentsCount])          AS [ManualInventoryAdjustmentsCount],
   SUM([IC_Balance_KPI])                             AS [IC_Balance_KPI]
 FROM
   ManualInventoryAdjustmentsCount
