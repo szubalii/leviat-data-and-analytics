@@ -1,6 +1,6 @@
 CREATE VIEW [edw].[vw_fact_ScheduleLineShippedNotBilled_agg] AS
 SELECT
-  CompanyCode,
+  CompanyCode                       AS [CompanyCodeID],
   YEAR(ReportDate)                  AS FiscalYear,
   MONTH(ReportDate)                 AS FiscalPeriod,
   edw.svf_getYearPeriod(ReportDate) AS FiscalYearPeriod,
