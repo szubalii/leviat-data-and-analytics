@@ -27,7 +27,7 @@
         , product.[BaseUnit]
         , product.[ItemCategoryGroup]
         , product.[NetWeight]
-        , COALESCE(map.[new_ProductHierarchyNode],vc.[CharValue]) AS [ProductHierarchy]
+        , COALESCE(maphn.[NewProductHierarchyNode],map.[new_ProductHierarchyNode],vc.[CharValue]) AS [ProductHierarchy]
         , prodhier.[Product_L1_PillarID]   
         , prodhier.[Product_L2_GroupID]    
         , prodhier.[Product_L3_TypeID]     
@@ -175,11 +175,15 @@
     LEFT JOIN 
         [edw].[dim_ProductHierarchy] AS prodhier
         ON
-            COALESCE(map.[new_ProductHierarchyNode],vc.[CharValue]) = prodhier.[ProductHierarchyNode]
+            COALESCE(maphn.[NewProductHierarchyNode],map.[new_ProductHierarchyNode],vc.[CharValue]) = prodhier.[ProductHierarchyNode]
     LEFT JOIN
         [base_ff].[ConfigurableProductCharacteristic] AS mcpc
         ON
             vc.[CharacteristicName] = mcpc.[CharacteristicName]
+    LEFT JOIN
+        [base_ff].[ProductHierarchyNodeMapping] maphn
+        ON
+            maphn.[OldProductHierarchyNode] = COALESCE(map.[new_ProductHierarchyNode],vc.[CharValue])
     WHERE
         mcpc.[CharacteristicCategory] = 'ProductHierarchy'
     GROUP BY

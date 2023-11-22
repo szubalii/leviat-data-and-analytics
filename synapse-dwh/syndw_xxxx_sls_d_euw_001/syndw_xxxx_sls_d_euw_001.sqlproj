@@ -339,6 +339,7 @@
     <Build Include="base_ff\Tables\ShippingPointLogistics.sql" />
     <Build Include="base_ff\Tables\LeviatWarehouse.sql" />
     <Build Include="base_ff\Tables\PurchaseOrderExpectedGLAccount.sql" />
+    <Build Include="base_ff\Tables\ProductHierarchyNodeMapping.sql" />
 
 
     <Build Include="base_ff_USA\Tables\Budget.sql" />
