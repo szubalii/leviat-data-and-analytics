@@ -667,7 +667,7 @@ GROUP BY
 
 UNION ALL
 
---2.0.10
+--2.0.1
 SELECT
     cnt.[RuleID],
     cnt.[RecordTotals],
@@ -675,32 +675,11 @@ SELECT
 FROM
     CountBPRowsPerRuleID AS cnt
 LEFT OUTER JOIN
-    [dq].[vw_BP_2_0_10] AS p
+    [dq].[vw_BP_2_0_1] AS p
     ON
         cnt.[RuleID] = p.[RuleID]
 
-WHERE cnt.RuleID IN ('2.0.10')
-
-GROUP BY
-    cnt.[RuleID],
-    cnt.[RuleGroup],
-    cnt.[RecordTotals]  
-
-UNION ALL
-
---2.2.4
-SELECT
-    cnt.[RuleID],
-    cnt.[RecordTotals],
-    COUNT(p.Count) AS [ErrorTotals]
-FROM
-    CountBPRowsPerRuleID AS cnt
-LEFT OUTER JOIN
-    [dq].[vw_BP_2_2_4] AS p
-    ON
-        cnt.[RuleID] = p.[RuleID]
-
-WHERE cnt.RuleID IN ('2.2.4')
+WHERE cnt.RuleID IN ('2.0.1')
 
 GROUP BY
     cnt.[RuleID],
@@ -730,7 +709,7 @@ GROUP BY
 
 UNION ALL
 
---2.0.1
+--2.0.4
 SELECT
     cnt.[RuleID],
     cnt.[RecordTotals],
@@ -738,16 +717,478 @@ SELECT
 FROM
     CountBPRowsPerRuleID AS cnt
 LEFT OUTER JOIN
-    [dq].[vw_BP_2_0_1] AS p
+    [dq].[vw_BP_2_0_4] AS p
     ON
         cnt.[RuleID] = p.[RuleID]
 
-WHERE cnt.RuleID IN ('2.0.1')
+WHERE cnt.RuleID IN ('2.0.4')
 
 GROUP BY
     cnt.[RuleID],
     cnt.[RuleGroup],
     cnt.[RecordTotals]  
+
+UNION ALL
+
+--2.0.5
+SELECT
+    cnt.[RuleID],
+    cnt.[RecordTotals],
+    COUNT(p.Count) AS [ErrorTotals]
+FROM
+    CountBPRowsPerRuleID AS cnt
+LEFT OUTER JOIN
+    [dq].[vw_BP_2_0_5] AS p
+    ON
+        cnt.[RuleID] = p.[RuleID]
+
+WHERE cnt.RuleID IN ('2.0.5')
+
+GROUP BY
+    cnt.[RuleID],
+    cnt.[RuleGroup],
+    cnt.[RecordTotals] 
+
+UNION ALL
+
+--2.0.6
+SELECT
+    cnt.[RuleID],
+    cnt.[RecordTotals],
+    COUNT(p.Count) AS [ErrorTotals]
+FROM
+    CountBPRowsPerRuleID AS cnt
+LEFT OUTER JOIN
+    [dq].[vw_BP_2_0_6] AS p
+    ON
+        cnt.[RuleID] = p.[RuleID]
+
+WHERE cnt.RuleID IN ('2.0.6')
+
+GROUP BY
+    cnt.[RuleID],
+    cnt.[RuleGroup],
+    cnt.[RecordTotals] 
+
+UNION ALL
+
+--2.0.8
+SELECT
+    cnt.[RuleID],
+    cnt.[RecordTotals],
+    COUNT(p.Count) AS [ErrorTotals]
+FROM
+    CountBPRowsPerRuleID AS cnt
+LEFT OUTER JOIN
+    [dq].[vw_BP_2_0_8] AS p
+    ON
+        cnt.[RuleID] = p.[RuleID]
+
+WHERE cnt.RuleID IN ('2.0.8')
+
+GROUP BY
+    cnt.[RuleID],
+    cnt.[RuleGroup],
+    cnt.[RecordTotals]  
+
+UNION ALL
+
+--2.0.9_Intercompany
+SELECT
+    cnt.[RuleID],
+    cnt.[RecordTotals],
+    COUNT(p.Count) AS [ErrorTotals]
+FROM
+    CountBPRowsPerRuleID AS cnt
+LEFT OUTER JOIN
+    [dq].[vw_BP_2_0_9_Intercompany] AS p
+    ON
+        cnt.[RuleID] = p.[RuleID]
+
+WHERE cnt.RuleID IN ('2.0.9_Intercompany')
+
+GROUP BY
+    cnt.[RuleID],
+    cnt.[RuleGroup],
+    cnt.[RecordTotals] 
+
+UNION ALL
+
+--2.0.9_ThirdParty
+SELECT
+    cnt.[RuleID],
+    cnt.[RecordTotals],
+    COUNT(p.Count) AS [ErrorTotals]
+FROM
+    CountBPRowsPerRuleID AS cnt
+LEFT OUTER JOIN
+    [dq].[vw_BP_2_0_9_ThirdParty] AS p
+    ON
+        cnt.[RuleID] = p.[RuleID]
+
+WHERE cnt.RuleID IN ('2.0.9_ThirdParty')
+
+GROUP BY
+    cnt.[RuleID],
+    cnt.[RuleGroup],
+    cnt.[RecordTotals] 
+
+UNION ALL
+
+--2.0.10
+SELECT
+    cnt.[RuleID],
+    cnt.[RecordTotals],
+    COUNT(p.Count) AS [ErrorTotals]
+FROM
+    CountBPRowsPerRuleID AS cnt
+LEFT OUTER JOIN
+    [dq].[vw_BP_2_0_10] AS p
+    ON
+        cnt.[RuleID] = p.[RuleID]
+
+WHERE cnt.RuleID IN ('2.0.10')
+
+GROUP BY
+    cnt.[RuleID],
+    cnt.[RuleGroup],
+    cnt.[RecordTotals]  
+
+UNION ALL
+
+--2.0.11
+SELECT
+    cnt.[RuleID],
+    cnt.[RecordTotals],
+    COUNT(p.Count) AS [ErrorTotals]
+FROM
+    CountBPRowsPerRuleID AS cnt
+LEFT OUTER JOIN
+    [dq].[vw_BP_2_0_11] AS p
+    ON
+        cnt.[RuleID] = p.[RuleID]
+
+WHERE cnt.RuleID IN ('2.0.11')
+
+GROUP BY
+    cnt.[RuleID],
+    cnt.[RuleGroup],
+    cnt.[RecordTotals] 
+
+UNION ALL
+
+--2.1.2
+SELECT
+    cnt.[RuleID],
+    cnt.[RecordTotals],
+    COUNT(p.Count) AS [ErrorTotals]
+FROM
+    CountBPRowsPerRuleID AS cnt
+LEFT OUTER JOIN
+    [dq].[vw_BP_2_1_2] AS p
+    ON
+        cnt.[RuleID] = p.[RuleID]
+
+WHERE cnt.RuleID IN ('2.1.2')
+
+GROUP BY
+    cnt.[RuleID],
+    cnt.[RuleGroup],
+    cnt.[RecordTotals]  
+
+UNION ALL
+
+--2.1.3_Intercompany
+SELECT
+    cnt.[RuleID],
+    cnt.[RecordTotals],
+    COUNT(p.Count) AS [ErrorTotals]
+FROM
+    CountBPRowsPerRuleID AS cnt
+LEFT OUTER JOIN
+    [dq].[vw_BP_2_1_3_Intercompany] AS p
+    ON
+        cnt.[RuleID] = p.[RuleID]
+
+WHERE cnt.RuleID IN ('2.1.3_Intercompany')
+
+GROUP BY
+    cnt.[RuleID],
+    cnt.[RuleGroup],
+    cnt.[RecordTotals]  
+
+UNION ALL
+
+--2.1.3_ThirdParty
+SELECT
+    cnt.[RuleID],
+    cnt.[RecordTotals],
+    COUNT(p.Count) AS [ErrorTotals]
+FROM
+    CountBPRowsPerRuleID AS cnt
+LEFT OUTER JOIN
+    [dq].[vw_BP_2_1_3_ThirdParty] AS p
+    ON
+        cnt.[RuleID] = p.[RuleID]
+
+WHERE cnt.RuleID IN ('2.1.3_ThirdParty')
+
+GROUP BY
+    cnt.[RuleID],
+    cnt.[RuleGroup],
+    cnt.[RecordTotals]  
+
+UNION ALL
+
+--2.1.4
+SELECT
+    cnt.[RuleID],
+    cnt.[RecordTotals],
+    COUNT(p.Count) AS [ErrorTotals]
+FROM
+    CountBPRowsPerRuleID AS cnt
+LEFT OUTER JOIN
+    [dq].[vw_BP_2_1_4] AS p
+    ON
+        cnt.[RuleID] = p.[RuleID]
+
+WHERE cnt.RuleID IN ('2.1.4')
+
+GROUP BY
+    cnt.[RuleID],
+    cnt.[RuleGroup],
+    cnt.[RecordTotals] 
+
+UNION ALL
+
+--2.1.6
+SELECT
+    cnt.[RuleID],
+    cnt.[RecordTotals],
+    COUNT(p.Count) AS [ErrorTotals]
+FROM
+    CountBPRowsPerRuleID AS cnt
+LEFT OUTER JOIN
+    [dq].[vw_BP_2_1_6] AS p
+    ON
+        cnt.[RuleID] = p.[RuleID]
+
+WHERE cnt.RuleID IN ('2.1.6')
+
+GROUP BY
+    cnt.[RuleID],
+    cnt.[RuleGroup],
+    cnt.[RecordTotals] 
+
+UNION ALL
+
+--2.1.7
+SELECT
+    cnt.[RuleID],
+    cnt.[RecordTotals],
+    COUNT(p.Count) AS [ErrorTotals]
+FROM
+    CountBPRowsPerRuleID AS cnt
+LEFT OUTER JOIN
+    [dq].[vw_BP_2_1_7] AS p
+    ON
+        cnt.[RuleID] = p.[RuleID]
+
+WHERE cnt.RuleID IN ('2.1.7')
+
+GROUP BY
+    cnt.[RuleID],
+    cnt.[RuleGroup],
+    cnt.[RecordTotals]  
+
+UNION ALL
+
+--2.1.8
+SELECT
+    cnt.[RuleID],
+    cnt.[RecordTotals],
+    COUNT(p.Count) AS [ErrorTotals]
+FROM
+    CountBPRowsPerRuleID AS cnt
+LEFT OUTER JOIN
+    [dq].[vw_BP_2_1_8] AS p
+    ON
+        cnt.[RuleID] = p.[RuleID]
+
+WHERE cnt.RuleID IN ('2.1.8')
+
+GROUP BY
+    cnt.[RuleID],
+    cnt.[RuleGroup],
+    cnt.[RecordTotals]  
+
+UNION ALL
+
+--2.1.9
+SELECT
+    cnt.[RuleID],
+    cnt.[RecordTotals],
+    COUNT(p.Count) AS [ErrorTotals]
+FROM
+    CountBPRowsPerRuleID AS cnt
+LEFT OUTER JOIN
+    [dq].[vw_BP_2_1_9] AS p
+    ON
+        cnt.[RuleID] = p.[RuleID]
+
+WHERE cnt.RuleID IN ('2.1.9')
+
+GROUP BY
+    cnt.[RuleID],
+    cnt.[RuleGroup],
+    cnt.[RecordTotals] 
+
+UNION ALL
+
+--2.1.10
+SELECT
+    cnt.[RuleID],
+    cnt.[RecordTotals],
+    COUNT(p.Count) AS [ErrorTotals]
+FROM
+    CountBPRowsPerRuleID AS cnt
+LEFT OUTER JOIN
+    [dq].[vw_BP_2_1_10] AS p
+    ON
+        cnt.[RuleID] = p.[RuleID]
+
+WHERE cnt.RuleID IN ('2.1.10')
+
+GROUP BY
+    cnt.[RuleID],
+    cnt.[RuleGroup],
+    cnt.[RecordTotals]  
+
+UNION ALL
+
+--2.2.1_Intercompany
+SELECT
+    cnt.[RuleID],
+    cnt.[RecordTotals],
+    COUNT(p.Count) AS [ErrorTotals]
+FROM
+    CountBPRowsPerRuleID AS cnt
+LEFT OUTER JOIN
+    [dq].[vw_BP_2_2_1_Intercompany] AS p
+    ON
+        cnt.[RuleID] = p.[RuleID]
+
+WHERE cnt.RuleID IN ('2.2.1_Intercompany')
+
+GROUP BY
+    cnt.[RuleID],
+    cnt.[RuleGroup],
+    cnt.[RecordTotals]  
+
+UNION ALL
+
+--2.2.1_ThirdParty
+SELECT
+    cnt.[RuleID],
+    cnt.[RecordTotals],
+    COUNT(p.Count) AS [ErrorTotals]
+FROM
+    CountBPRowsPerRuleID AS cnt
+LEFT OUTER JOIN
+    [dq].[vw_BP_2_2_1_ThirdParty] AS p
+    ON
+        cnt.[RuleID] = p.[RuleID]
+
+WHERE cnt.RuleID IN ('2.2.1_ThirdParty')
+
+GROUP BY
+    cnt.[RuleID],
+    cnt.[RuleGroup],
+    cnt.[RecordTotals] 
+
+UNION ALL
+
+--2.2.2
+SELECT
+    cnt.[RuleID],
+    cnt.[RecordTotals],
+    COUNT(p.Count) AS [ErrorTotals]
+FROM
+    CountBPRowsPerRuleID AS cnt
+LEFT OUTER JOIN
+    [dq].[vw_BP_2_2_2] AS p
+    ON
+        cnt.[RuleID] = p.[RuleID]
+
+WHERE cnt.RuleID IN ('2.2.2')
+
+GROUP BY
+    cnt.[RuleID],
+    cnt.[RuleGroup],
+    cnt.[RecordTotals]  
+
+UNION ALL
+
+--2.2.3
+SELECT
+    cnt.[RuleID],
+    cnt.[RecordTotals],
+    COUNT(p.Count) AS [ErrorTotals]
+FROM
+    CountBPRowsPerRuleID AS cnt
+LEFT OUTER JOIN
+    [dq].[vw_BP_2_2_3] AS p
+    ON
+        cnt.[RuleID] = p.[RuleID]
+
+WHERE cnt.RuleID IN ('2.2.3')
+
+GROUP BY
+    cnt.[RuleID],
+    cnt.[RuleGroup],
+    cnt.[RecordTotals]  
+
+UNION ALL
+
+--2.2.4
+SELECT
+    cnt.[RuleID],
+    cnt.[RecordTotals],
+    COUNT(p.Count) AS [ErrorTotals]
+FROM
+    CountBPRowsPerRuleID AS cnt
+LEFT OUTER JOIN
+    [dq].[vw_BP_2_2_4] AS p
+    ON
+        cnt.[RuleID] = p.[RuleID]
+
+WHERE cnt.RuleID IN ('2.2.4')
+
+GROUP BY
+    cnt.[RuleID],
+    cnt.[RuleGroup],
+    cnt.[RecordTotals]  
+
+UNION ALL
+
+--2.2.5
+SELECT
+    cnt.[RuleID],
+    cnt.[RecordTotals],
+    COUNT(p.Count) AS [ErrorTotals]
+FROM
+    CountBPRowsPerRuleID AS cnt
+LEFT OUTER JOIN
+    [dq].[vw_BP_2_2_5] AS p
+    ON
+        cnt.[RuleID] = p.[RuleID]
+
+WHERE cnt.RuleID IN ('2.2.5')
+
+GROUP BY
+    cnt.[RuleID],
+    cnt.[RuleGroup],
+    cnt.[RecordTotals] 
 
 UNION ALL
 
@@ -789,11 +1230,11 @@ WHERE cnt.RuleID IN ('2.2.8')
 GROUP BY
     cnt.[RuleID],
     cnt.[RuleGroup],
-    cnt.[RecordTotals]  
+    cnt.[RecordTotals]
 
 UNION ALL
 
---2.1.10
+--2.2.9
 SELECT
     cnt.[RuleID],
     cnt.[RecordTotals],
@@ -801,391 +1242,13 @@ SELECT
 FROM
     CountBPRowsPerRuleID AS cnt
 LEFT OUTER JOIN
-    [dq].[vw_BP_2_1_10] AS p
+    [dq].[vw_BP_2_2_9] AS p
     ON
         cnt.[RuleID] = p.[RuleID]
 
-WHERE cnt.RuleID IN ('2.1.10')
+WHERE cnt.RuleID IN ('2.2.9')
 
 GROUP BY
     cnt.[RuleID],
     cnt.[RuleGroup],
     cnt.[RecordTotals]  
-
-UNION ALL
-
---2.1.9
-SELECT
-    cnt.[RuleID],
-    cnt.[RecordTotals],
-    COUNT(p.Count) AS [ErrorTotals]
-FROM
-    CountBPRowsPerRuleID AS cnt
-LEFT OUTER JOIN
-    [dq].[vw_BP_2_1_9] AS p
-    ON
-        cnt.[RuleID] = p.[RuleID]
-
-WHERE cnt.RuleID IN ('2.1.9')
-
-GROUP BY
-    cnt.[RuleID],
-    cnt.[RuleGroup],
-    cnt.[RecordTotals] 
-
-UNION ALL
-
---2.1.8
-SELECT
-    cnt.[RuleID],
-    cnt.[RecordTotals],
-    COUNT(p.Count) AS [ErrorTotals]
-FROM
-    CountBPRowsPerRuleID AS cnt
-LEFT OUTER JOIN
-    [dq].[vw_BP_2_1_8] AS p
-    ON
-        cnt.[RuleID] = p.[RuleID]
-
-WHERE cnt.RuleID IN ('2.1.8')
-
-GROUP BY
-    cnt.[RuleID],
-    cnt.[RuleGroup],
-    cnt.[RecordTotals]  
-
-UNION ALL
-
---2.1.7
-SELECT
-    cnt.[RuleID],
-    cnt.[RecordTotals],
-    COUNT(p.Count) AS [ErrorTotals]
-FROM
-    CountBPRowsPerRuleID AS cnt
-LEFT OUTER JOIN
-    [dq].[vw_BP_2_1_7] AS p
-    ON
-        cnt.[RuleID] = p.[RuleID]
-
-WHERE cnt.RuleID IN ('2.1.7')
-
-GROUP BY
-    cnt.[RuleID],
-    cnt.[RuleGroup],
-    cnt.[RecordTotals]  
-
-UNION ALL
-
---2.1.2
-SELECT
-    cnt.[RuleID],
-    cnt.[RecordTotals],
-    COUNT(p.Count) AS [ErrorTotals]
-FROM
-    CountBPRowsPerRuleID AS cnt
-LEFT OUTER JOIN
-    [dq].[vw_BP_2_1_2] AS p
-    ON
-        cnt.[RuleID] = p.[RuleID]
-
-WHERE cnt.RuleID IN ('2.1.2')
-
-GROUP BY
-    cnt.[RuleID],
-    cnt.[RuleGroup],
-    cnt.[RecordTotals]  
-
-UNION ALL
-
---2.0.8
-SELECT
-    cnt.[RuleID],
-    cnt.[RecordTotals],
-    COUNT(p.Count) AS [ErrorTotals]
-FROM
-    CountBPRowsPerRuleID AS cnt
-LEFT OUTER JOIN
-    [dq].[vw_BP_2_0_8] AS p
-    ON
-        cnt.[RuleID] = p.[RuleID]
-
-WHERE cnt.RuleID IN ('2.0.8')
-
-GROUP BY
-    cnt.[RuleID],
-    cnt.[RuleGroup],
-    cnt.[RecordTotals]  
-
-UNION ALL
-
---2.0.4
-SELECT
-    cnt.[RuleID],
-    cnt.[RecordTotals],
-    COUNT(p.Count) AS [ErrorTotals]
-FROM
-    CountBPRowsPerRuleID AS cnt
-LEFT OUTER JOIN
-    [dq].[vw_BP_2_0_4] AS p
-    ON
-        cnt.[RuleID] = p.[RuleID]
-
-WHERE cnt.RuleID IN ('2.0.4')
-
-GROUP BY
-    cnt.[RuleID],
-    cnt.[RuleGroup],
-    cnt.[RecordTotals]  
-
-UNION ALL
-
---2.2.3
-SELECT
-    cnt.[RuleID],
-    cnt.[RecordTotals],
-    COUNT(p.Count) AS [ErrorTotals]
-FROM
-    CountBPRowsPerRuleID AS cnt
-LEFT OUTER JOIN
-    [dq].[vw_BP_2_2_3] AS p
-    ON
-        cnt.[RuleID] = p.[RuleID]
-
-WHERE cnt.RuleID IN ('2.2.3')
-
-GROUP BY
-    cnt.[RuleID],
-    cnt.[RuleGroup],
-    cnt.[RecordTotals]  
-
-UNION ALL
-
---2.2.2
-SELECT
-    cnt.[RuleID],
-    cnt.[RecordTotals],
-    COUNT(p.Count) AS [ErrorTotals]
-FROM
-    CountBPRowsPerRuleID AS cnt
-LEFT OUTER JOIN
-    [dq].[vw_BP_2_2_2] AS p
-    ON
-        cnt.[RuleID] = p.[RuleID]
-
-WHERE cnt.RuleID IN ('2.2.2')
-
-GROUP BY
-    cnt.[RuleID],
-    cnt.[RuleGroup],
-    cnt.[RecordTotals]  
-
-UNION ALL
-
---2.2.1
-SELECT
-    cnt.[RuleID],
-    cnt.[RecordTotals],
-    COUNT(p.Count) AS [ErrorTotals]
-FROM
-    CountBPRowsPerRuleID AS cnt
-LEFT OUTER JOIN
-    [dq].[vw_BP_2_2_1_Intercompany] AS p
-    ON
-        cnt.[RuleID] = p.[RuleID]
-
-WHERE cnt.RuleID IN ('2.2.1_Intercompany')
-
-GROUP BY
-    cnt.[RuleID],
-    cnt.[RuleGroup],
-    cnt.[RecordTotals]  
-
-UNION ALL
-
---2.2.1
-SELECT
-    cnt.[RuleID],
-    cnt.[RecordTotals],
-    COUNT(p.Count) AS [ErrorTotals]
-FROM
-    CountBPRowsPerRuleID AS cnt
-LEFT OUTER JOIN
-    [dq].[vw_BP_2_2_1_ThirdParty] AS p
-    ON
-        cnt.[RuleID] = p.[RuleID]
-
-WHERE cnt.RuleID IN ('2.2.1_ThirdParty')
-
-GROUP BY
-    cnt.[RuleID],
-    cnt.[RuleGroup],
-    cnt.[RecordTotals] 
-
-UNION ALL
-
---2.0.11
-SELECT
-    cnt.[RuleID],
-    cnt.[RecordTotals],
-    COUNT(p.Count) AS [ErrorTotals]
-FROM
-    CountBPRowsPerRuleID AS cnt
-LEFT OUTER JOIN
-    [dq].[vw_BP_2_0_11] AS p
-    ON
-        cnt.[RuleID] = p.[RuleID]
-
-WHERE cnt.RuleID IN ('2.0.11')
-
-GROUP BY
-    cnt.[RuleID],
-    cnt.[RuleGroup],
-    cnt.[RecordTotals] 
-
-UNION ALL
-
---2.0.5
-SELECT
-    cnt.[RuleID],
-    cnt.[RecordTotals],
-    COUNT(p.Count) AS [ErrorTotals]
-FROM
-    CountBPRowsPerRuleID AS cnt
-LEFT OUTER JOIN
-    [dq].[vw_BP_2_0_5] AS p
-    ON
-        cnt.[RuleID] = p.[RuleID]
-
-WHERE cnt.RuleID IN ('2.0.5')
-
-GROUP BY
-    cnt.[RuleID],
-    cnt.[RuleGroup],
-    cnt.[RecordTotals] 
-
-UNION ALL
-
---2.1.4
-SELECT
-    cnt.[RuleID],
-    cnt.[RecordTotals],
-    COUNT(p.Count) AS [ErrorTotals]
-FROM
-    CountBPRowsPerRuleID AS cnt
-LEFT OUTER JOIN
-    [dq].[vw_BP_2_1_4] AS p
-    ON
-        cnt.[RuleID] = p.[RuleID]
-
-WHERE cnt.RuleID IN ('2.1.4')
-
-GROUP BY
-    cnt.[RuleID],
-    cnt.[RuleGroup],
-    cnt.[RecordTotals] 
-
-UNION ALL
-
---2.2.5
-SELECT
-    cnt.[RuleID],
-    cnt.[RecordTotals],
-    COUNT(p.Count) AS [ErrorTotals]
-FROM
-    CountBPRowsPerRuleID AS cnt
-LEFT OUTER JOIN
-    [dq].[vw_BP_2_2_5] AS p
-    ON
-        cnt.[RuleID] = p.[RuleID]
-
-WHERE cnt.RuleID IN ('2.2.5')
-
-GROUP BY
-    cnt.[RuleID],
-    cnt.[RuleGroup],
-    cnt.[RecordTotals] 
-
-UNION ALL
-
---2.0.6
-SELECT
-    cnt.[RuleID],
-    cnt.[RecordTotals],
-    COUNT(p.Count) AS [ErrorTotals]
-FROM
-    CountBPRowsPerRuleID AS cnt
-LEFT OUTER JOIN
-    [dq].[vw_BP_2_0_6] AS p
-    ON
-        cnt.[RuleID] = p.[RuleID]
-
-WHERE cnt.RuleID IN ('2.0.6')
-
-GROUP BY
-    cnt.[RuleID],
-    cnt.[RuleGroup],
-    cnt.[RecordTotals] 
-
-UNION ALL
-
---2.0.9
-SELECT
-    cnt.[RuleID],
-    cnt.[RecordTotals],
-    COUNT(p.Count) AS [ErrorTotals]
-FROM
-    CountBPRowsPerRuleID AS cnt
-LEFT OUTER JOIN
-    [dq].[vw_BP_2_0_9_Intercompany] AS p
-    ON
-        cnt.[RuleID] = p.[RuleID]
-
-WHERE cnt.RuleID IN ('2.0.9_Intercompany')
-
-GROUP BY
-    cnt.[RuleID],
-    cnt.[RuleGroup],
-    cnt.[RecordTotals] 
-
-UNION ALL
-
---2.0.9
-SELECT
-    cnt.[RuleID],
-    cnt.[RecordTotals],
-    COUNT(p.Count) AS [ErrorTotals]
-FROM
-    CountBPRowsPerRuleID AS cnt
-LEFT OUTER JOIN
-    [dq].[vw_BP_2_0_9_ThirdParty] AS p
-    ON
-        cnt.[RuleID] = p.[RuleID]
-
-WHERE cnt.RuleID IN ('2.0.9_ThirdParty')
-
-GROUP BY
-    cnt.[RuleID],
-    cnt.[RuleGroup],
-    cnt.[RecordTotals] 
-
-UNION ALL
-
---2.1.6
-SELECT
-    cnt.[RuleID],
-    cnt.[RecordTotals],
-    COUNT(p.Count) AS [ErrorTotals]
-FROM
-    CountBPRowsPerRuleID AS cnt
-LEFT OUTER JOIN
-    [dq].[vw_BP_2_1_6] AS p
-    ON
-        cnt.[RuleID] = p.[RuleID]
-
-WHERE cnt.RuleID IN ('2.1.6')
-
-GROUP BY
-    cnt.[RuleID],
-    cnt.[RuleGroup],
-    cnt.[RecordTotals] 
