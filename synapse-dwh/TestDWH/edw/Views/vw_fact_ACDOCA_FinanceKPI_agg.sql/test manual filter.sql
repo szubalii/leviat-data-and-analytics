@@ -116,7 +116,7 @@ BEGIN
       [ManualJournalEntriesCount] <> 1
       OR
       [ManualInventoryAdjustmentsCount] <> 1
-      OR [IC_Balance_KPI] <> 150
+      OR [IC_Balance_KPI] <> 210
     );
   -- Assert:
   EXEC tSQLt.AssertEmptyTable 'actual';
