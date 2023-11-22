@@ -32,4 +32,5 @@ extends:
   template: ../../build/stages-deploy.yml
   parameters:
     folder: xu-config
+    target_env: ${{ parameters.target_env }}
   
