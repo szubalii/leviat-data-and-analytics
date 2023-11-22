@@ -32,3 +32,4 @@ extends:
   template: ../../build/stages-deploy.yml
   parameters:
     folder: azure-data-factory
+    target_env: ${{ parameters.target_env }}
