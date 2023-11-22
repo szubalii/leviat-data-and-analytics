@@ -6,17 +6,17 @@ WITH ManualInventoryAdjustmentsCount AS (
     [FiscalYear],
     [FiscalPeriod],
     [FiscalYearPeriod],
-    [AccountingDocument],
-    COUNT(DISTINCT LedgerGLLineItem) AS ManualInventoryAdjustmentsCount,
-    SUM(IC_Balance_KPI) AS IC_Balance_KPI
+    CASE
+      WHEN [Manual_JE_KPI] IS NOT NULL
+        THEN [AccountingDocument]
+    END                                   AS [Manual_JE_KPIAccountingDocument],
+    CASE 
+      WHEN Inventory_Adj_KPI IS NOT NULL
+        THEN CONCAT([AccountingDocument], [LedgerGLLineItem])
+    END                                   AS [ManualInventoryAdjustmentsCount],
+    IC_Balance_KPI
   FROM
     [edw].[vw_fact_ACDOCA_EPM_Base]
-  GROUP BY
-    [CompanyCodeID],
-    [FiscalYear],
-    [FiscalPeriod],
-    [FiscalYearPeriod],
-    [AccountingDocument]
 )
 
 SELECT
@@ -24,9 +24,9 @@ SELECT
   [FiscalYear],
   [FiscalPeriod],
   [FiscalYearPeriod],
-  COUNT(DISTINCT AccountingDocument) AS ManualJournalEntriesCount,
-  SUM(ManualInventoryAdjustmentsCount) AS ManualInventoryAdjustmentsCount,
-  SUM(IC_Balance_KPI) AS IC_Balance_KPI
+  COUNT(DISTINCT [Manual_JE_KPIAccountingDocument]) AS [ManualJournalEntriesCount],
+  SUM([ManualInventoryAdjustmentsCount])            AS [ManualInventoryAdjustmentsCount],
+  SUM([IC_Balance_KPI])                             AS [IC_Balance_KPI]
 FROM
   ManualInventoryAdjustmentsCount
 GROUP BY
