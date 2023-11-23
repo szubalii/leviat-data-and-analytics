@@ -38,7 +38,7 @@ BEGIN
 
   INSERT INTO base_ff.ProductHierarchyNode (ProductID, old_ProductHierarchyNode, new_ProductHierarchyNode)
   VALUES 
-    (1, 1, 3), (1, 2, 3), (2, 1, 3), (2, 2, 4);
+    (1, 1, 5), (1, 2, 6), (2, 1, 7), (2, 2, 8);
 
   INSERT INTO base_ff.ProductHierarchyNodeMapping (OldProductHierarchyNode, NewProductHierarchyNode)
   VALUES (1, 1), (1, 2), (2, 1), (2, 2);
