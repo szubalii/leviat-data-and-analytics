@@ -3,121 +3,69 @@ AS
 BEGIN
 
   IF OBJECT_ID('actual') IS NOT NULL DROP TABLE actual;
+  IF OBJECT_ID('expected') IS NOT NULL DROP TABLE expected;
     
   -- Assemble: Fake Table
-  EXEC tSQLt.FakeTable '[edw]', '[fact_ACDOCA]';
-  EXEC tSQLt.FakeTable '[edw]', '[dim_ExchangeRates]';
-  EXEC tSQLt.FakeTable '[edw]', '[dim_CurrencyType]';
-  EXEC tSQLt.FakeTable '[edw]', '[dim_ZE_EXQLMAP_DT]';
-  EXEC tSQLt.FakeTable '[base_ff]', '[IC_ReconciliationGLAccounts]';
+  EXEC tSQLt.FakeTable '[edw]', '[vw_fact_ACDOCA_EPM_Base]';
 
-  INSERT INTO base_ff.IC_ReconciliationGLAccounts (
-    GLAccountID
-  )
-  VALUES ('1111');
+  SELECT TOP(0) *
+  INTO #vw_fact_ACDOCA_EPM_Base
+  FROM edw.vw_fact_ACDOCA_EPM_Base;
 
-  INSERT INTO edw.fact_ACDOCA (
-    [SourceLedgerID],
+  INSERT INTO #vw_fact_ACDOCA_EPM_Base (
     [CompanyCodeID],
     [FiscalYear],
     [FiscalPeriod],
     [FiscalYearPeriod],
     [AccountingDocument],
     [LedgerGLLineItem],
-    [AmountInCompanyCodeCurrency],
-    [CompanyCodeCurrency],
-    [GLAccountID],
-    [FunctionalAreaID],
-    [AccountingDocumentTypeID],
-    [ReferenceDocument],
-    [PartnerCompanyID],
-    [BusinessTransactionTypeID],
-    [ReferenceDocumentTypeID],
-    [TransactionTypeDeterminationID]
+    [Manual_JE_KPI],
+    [Inventory_Adj_KPI],
+    [IC_Balance_KPI]
   )
   VALUES
-  ( '0L',
-    'NZ35',
-    '2023',
-    '8',
-    '2023008',
-    123,
-    123,
-    100,
-    'GBP',
-    '1111',
-    'TST1',
-    'SA',
-    '12345',
-    '1111',
-    'RFBU',
-    'BKPFF',
-    'TST')
-    , (
-      '0L','NZ35',
-    '2023',
-    '8',
-    '2023008',
-    123,
-    123,
-    50,
-    'GBP',
-    '1112',
-    'TST1',
-    'RV',
-    '12345',
-    '1111',
-    'RMBL',
-    'TST',
-    'UMB');
+    ('DE1', 2023, 9, 202309, 'AD1', 'GL1', 10, 10, 20),
+    ('DE1', 2023, 8, 202308, 'AD2', 'GL1', 20, 20, 30),
+    ('CH1', 2023, 9, 202309, 'AD3', 'GL1', 10, 10, 20),
+    ('CH1', 2023, 8, 202308, 'AD4', 'GL1', 20, 20, 30),
+    ('DE1', 2023, 9, 202309, 'AD1', 'GL1', NULL, 1, 25),
+    ('DE1', 2023, 8, 202308, 'AD2', 'GL1', NULL, NULL, 35),
+    ('CH1', 2023, 9, 202309, 'AD3', 'GL1', 2, NULL, 25),
+    ('CH1', 2023, 8, 202308, 'AD4', 'GL1', 1, 2, 35);
 
-  INSERT INTO edw.dim_ExchangeRates (
-    SourceCurrency,
-    TargetCurrency,
-    ExchangeRate,
-    ExchangeRateEffectiveDate,
-    ExchangeRateType
-  )
-  VALUES
-  ('GBP','EUR','1.1', '2020-01-01', 'P'),
-  ('USD','EUR','1.2', '2020-01-01', 'P');
-
-  INSERT INTO edw.dim_ZE_EXQLMAP_DT (
-    nk_ExQLmap,
-    GLAccountID,
-    FunctionalAreaID,
-    Contingency4,
-    Contingency5
-  )
-  VALUES
-  ( '1', '1111', 'TST1', 'Gross Margin',null)
-  ,( '2', '1112', 'TST1', null, 'Opex')
-  ,( '3', '1113', 'TST1', null, 'Sales');
-
-  INSERT INTO edw.dim_CurrencyType (
-    CurrencyTypeID,
-    CurrencyType
-  )
-  VALUES
-    ('00','Local'),
-    ('10','Transaction'),
-    ('20','Group EUR'),
-    ('30','Group USD');
+  EXEC ('INSERT INTO edw.vw_fact_ACDOCA_EPM_Base SELECT * FROM #vw_fact_ACDOCA_EPM_Base');
 
 -- Act: 
   SELECT
-    *
+    [CompanyCodeID],
+    [FiscalYear],
+    [FiscalPeriod],
+    [FiscalYearPeriod],
+    [ManualJournalEntriesCount],
+    [ManualInventoryAdjustmentsCount],
+    [IC_Balance_KPI]
   INTO actual
   FROM [edw].[vw_fact_ACDOCA_FinanceKPI_agg]
-  WHERE
-    CompanyCodeID = 'NZ35'
-    AND FiscalYearPeriod = '2023008'
-    AND (
-      [ManualJournalEntriesCount] <> 1
-      OR
-      [ManualInventoryAdjustmentsCount] <> 1
-      OR [IC_Balance_KPI] <> 210
-    );
+
   -- Assert:
-  EXEC tSQLt.AssertEmptyTable 'actual';
+  SELECT TOP(0) *
+  INTO expected
+  FROM actual;
+
+  INSERT INTO expected (
+    [CompanyCodeID],
+    [FiscalYear],
+    [FiscalPeriod],
+    [FiscalYearPeriod],
+    [ManualJournalEntriesCount],
+    [ManualInventoryAdjustmentsCount],
+    [IC_Balance_KPI]
+  )
+  VALUES
+    ('DE1', 2023, 9, 202309, 1, 2, 45),
+    ('DE1', 2023, 8, 202308, 1, 1, 65),
+    ('CH1', 2023, 9, 202309, 2, 1, 45),
+    ('CH1', 2023, 8, 202308, 2, 2, 65);
+
+  EXEC tSQLt.AssertEqualsTable 'expected', 'actual';
 END;
