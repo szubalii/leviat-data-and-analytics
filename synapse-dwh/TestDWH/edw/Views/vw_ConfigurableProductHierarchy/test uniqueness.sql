@@ -24,8 +24,8 @@ BEGIN
   VALUES 
     (1, 1, 'ZCH_SO_ITEM_PROD_HIERARCHY', 1, 1), 
     (1, 2, 'ZCH_SO_ITEM_PROD_HIERARCHY', 2, 2), 
-    (2, 1, 'ZCH_SO_ITEM_PROD_HIERARCHY1', 1, 1), 
-    (2, 2, 'ZCH_SO_ITEM_PROD_HIERARCHY1', 2, 2);
+    (2, 1, 'ZCH_SO_ITEM_PROD_HIERARCHY1', 3, 1), 
+    (2, 2, 'ZCH_SO_ITEM_PROD_HIERARCHY1', 4, 2);
 
   INSERT INTO base_s4h_cax.I_Product (MANDT, Product)
   VALUES (100, 1), (100, 2);
