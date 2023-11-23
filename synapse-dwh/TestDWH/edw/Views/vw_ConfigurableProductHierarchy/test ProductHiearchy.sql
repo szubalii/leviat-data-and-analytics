@@ -1,4 +1,4 @@
-CREATE PROCEDURE [tc.edw.vw_ConfigurableProductHierarchy].[test uniqueness]
+CREATE PROCEDURE [tc.edw.vw_ConfigurableProductHierarchy].[test ProductHierarchy]
 AS
 BEGIN
 
