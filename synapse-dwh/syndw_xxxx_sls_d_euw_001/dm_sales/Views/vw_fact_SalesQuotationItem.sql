@@ -1,5 +1,21 @@
 ﻿CREATE VIEW [dm_sales].[vw_fact_SalesQuotationItem] AS
 
+WITH
+PrcgElmnt AS (
+    SELECT
+        [SalesQuotation]
+        ,[SalesQuotationItem]
+        ,[CurrencyTypeID]
+        ,[ConditionType]
+        ,SUM([ConditionAmount])         AS [ConditionAmount]
+    FROM [edw].[vw_fact_SalesQuotationItemPrcgElmnt]
+    WHERE [ConditionType] IN ('ZC10', 'ZCF1', 'VPRS', 'ER02')
+    GROUP BY 
+        [SalesQuotation]
+        ,[SalesQuotationItem]
+        ,[CurrencyTypeID]
+        ,[ConditionType]
+)
 select doc.[SalesDocument]           as [QuotationID]
      , doc.[SalesDocumentItem]       as [QuotationItemID]
      , doc.[CurrencyTypeID]
@@ -122,6 +138,13 @@ select doc.[SalesDocument]           as [QuotationID]
      , ord.[SO_Margin]
      , doc.[CorrespncExternalReference] 
      , doc.SalesOfficeID
+     , PEZC10.ConditionAmount                   AS [PrcgElmntZC10ConditionAmount]
+     , PEZCF1.ConditionAmount                   AS [PrcgElmntZCF1ConditionAmount]
+     , CASE
+         WHEN PEVPRS.ConditionAmount > 0
+             THEN PEVPRS.ConditionAmount
+         ELSE PEEK02.ConditionAmount
+     END                                     AS [PrcgElmntVPRS/EK02ConditionAmount]
      , doc.[t_applicationId]
      , doc.[t_extractionDtm]
 from [edw].[fact_SalesDocumentItem] doc
@@ -210,5 +233,26 @@ from [edw].[fact_SalesDocumentItem] doc
 
          left join [edw].[dim_OverallTotalDeliveryStatus] dimOTDS
                    on dimOTDS.[OverallTotalDeliveryStatusID] = doc.[OverallTotalDeliveryStatusID]
+        
+         LEFT JOIN PrcgElmnt         PEZC10
+                 ON doc.SalesDocument = PEZC10.SalesQuotation
+                     AND doc.SalesDocumentItem = PEZC10.SalesQuotationItem
+                     AND doc.CurrencyTypeID = PEZC10.CurrencyTypeID
+                     AND PEZC10.ConditionType = 'ZC10'
+         LEFT JOIN PrcgElmnt         PEZCF1
+             ON doc.SalesDocument = PEZC10.SalesQuotation
+                 AND doc.SalesDocumentItem = PEZCF1.SalesQuotationItem
+                 AND doc.CurrencyTypeID = PEZCF1.CurrencyTypeID
+                 AND PEZCF1.ConditionType = 'ZCF1'
+         LEFT JOIN PrcgElmnt         PEVPRS
+             ON doc.SalesDocument = PEVPRS.SalesQuotation
+                 AND doc.SalesDocumentItem = PEVPRS.SalesQuotationItem
+                 AND doc.CurrencyTypeID = PEVPRS.CurrencyTypeID
+                 AND PEVPRS.ConditionType = 'ZCVPRS'
+         LEFT JOIN PrcgElmnt         PEEK02
+            ON doc.SalesDocument = PEEK02.SalesQuotation
+                AND doc.SalesDocumentItem = PEEK02.SalesQuotationItem
+                AND doc.CurrencyTypeID = PEEK02.CurrencyTypeID
+                AND PEEK02.ConditionType = 'EK02'
 
 where doc.[SDDocumentCategoryID] = 'B'
