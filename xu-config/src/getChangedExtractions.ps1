@@ -2,7 +2,9 @@
 
 $targetBranch = 'refs/remotes/origin/'+$env:SYSTEM_PULLREQUEST_TARGETBRANCHNAME+'...HEAD'
 $extractionsFolder = 'xu-config/extractions/'
-$changedFiles = git diff --name-only $targetBranch #$commitId^!
+
+# exclude deleted files
+$changedFiles = git diff --name-only --diff-filter=d $targetBranch #$commitId^!
 
 # $changedFiles = 'xu-config/extractions/I_DeliveryDocument/source.json'#,'xu-config/extractions/I_Brand/source.json','xu-config/extractions/I_DeliveryDocument/source.json','xu-config/extractions/I_DeliveryDocument/general.json'
 
