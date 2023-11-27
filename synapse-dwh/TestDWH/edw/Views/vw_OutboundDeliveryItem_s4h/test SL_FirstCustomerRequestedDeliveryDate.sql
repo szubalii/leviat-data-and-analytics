@@ -12,7 +12,7 @@ BEGIN
   INSERT INTO [base_s4h_cax].[I_OutboundDeliveryItem] ([ReferenceSDDocument], [ReferenceSDDocumentItem])
   VALUES (1, 1), (2, 2);
 
-  INSERT INTO [base_s4h_cax].[I_SalesDocumentScheduleLine] ([SalesDocument], [SalesDocumentItem], [ScheduleLine],[ConfirmedDeliveryDate])
+  INSERT INTO [base_s4h_cax].[I_SalesDocumentScheduleLine] ([SalesDocument], [SalesDocumentItem], [ScheduleLine],[RequestedDeliveryDate])
   VALUES
     (1, 1, '0001','2023-10-11'),
     (1, 1, '0002','2023-10-11'),
