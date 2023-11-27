@@ -89,7 +89,7 @@ OutboundDeliveryItem_s4h AS (
         ,ODI.[IsReturnsItem] 
         ,SDSL.[ConfirmedDeliveryDate] AS [SL_ConfirmedDeliveryDate]
         ,COALESCE(OCDD.[OriginalConfirmedDeliveryDate],SDSL.[ConfirmedDeliveryDate]) AS [SL_OriginalConfirmedDeliveryDate]
-        ,SDSL_1st.[ConfirmedDeliveryDate] AS [SL_FirstCustomerRequestedDeliveryDate]
+        ,SDSL_1st.[RequestedDeliveryDate] AS [SL_FirstCustomerRequestedDeliveryDate]
         ,SDSL.[GoodsIssueDate] AS [SL_GoodsIssueDate]
         ,SDSL.[ScheduleLine] AS [SL_ScheduleLine]
         ,OD.[SalesDistrict] AS [HDR_SalesDistrictID]
