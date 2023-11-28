@@ -22,7 +22,7 @@ SELECT
     , CN.[SalesDocumentItem]
     , VC.[ProductID]
     , VC.[ProductExternalID]
-    , CONCAT_WS('_', VC.[ProductID], COALESCE(map.[new_ProductHierarchyNode],VC.[CharValue])) AS [sk_dim_ConfigurableProductHierarchy]
+    , CONCAT_WS('_', VC.[ProductID], COALESCE(map.[new_ProductHierarchyNode],VC.[CharValue])) AS [ProductSurrogateKey]
     , VC.[Configuration]
     , VC.[Instance]
     , VC.[LastChangeDate]
