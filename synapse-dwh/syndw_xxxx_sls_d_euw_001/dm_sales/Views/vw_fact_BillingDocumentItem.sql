@@ -1,15 +1,15 @@
 ﻿CREATE VIEW [dm_sales].[vw_fact_BillingDocumentItem] AS
 
 WITH BillDocPrcgElmnt AS (
-    select BillingDocument,
+    SELECT BillingDocument,
            BillingDocumentItem,
            CurrencyTypeID,
            ConditionType,
            ConditionAmount
-         , case when [ConditionType] = 'ZNET' then [ConditionAmount] else NULL end as ZNET_NetValue
-         , case when [ConditionType] = 'REA1' then [ConditionAmount] else NULL end as REA1_RebateAccrual
-         , case when [ConditionType] = 'ZNRV' then [ConditionAmount] else NULL end as ZNRV_NetRevenue
-    from [edw].[fact_BillingDocumentItemPrcgElmnt]
+         , CASE WHEN [ConditionType] = 'ZNET' THEN [ConditionAmount] END AS ZNET_NetValue
+         , CASE WHEN [ConditionType] = 'REA1' THEN [ConditionAmount] END AS REA1_RebateAccrual
+         , CASE WHEN [ConditionType] = 'ZNRV' THEN [ConditionAmount] END AS ZNRV_NetRevenue
+    FROM [edw].[fact_BillingDocumentItemPrcgElmnt]
 )
 
 ,BillDocPrcgElmnt_max_value AS (
@@ -36,7 +36,7 @@ WITH BillDocPrcgElmnt AS (
         ,[ConditionType]
         ,SUM([ConditionAmount])         AS [ConditionAmount]
     FROM [edw].[fact_BillingDocumentItemPrcgElmnt]
-    WHERE [ConditionType] IN ('ZC10', 'ZCF1', 'VPRS', 'ER02')
+    WHERE [ConditionType] IN ('ZC10', 'ZCF1', 'VPRS', 'EK02')
     GROUP BY 
         [BillingDocument]
         ,[BillingDocumentItem]
@@ -303,7 +303,7 @@ WITH BillDocPrcgElmnt AS (
                 ON doc.BillingDocument = PEVPRS.BillingDocument
                     AND doc.BillingDocumentItem = PEVPRS.BillingDocumentItem
                     AND doc.CurrencyTypeID = PEVPRS.CurrencyTypeID
-                    AND PEVPRS.ConditionType = 'ZCVPRS'
+                    AND PEVPRS.ConditionType = 'VPRS'
             LEFT JOIN PrcgElmnt         PEEK02
                 ON doc.BillingDocument = PEEK02.BillingDocument
                     AND doc.BillingDocumentItem = PEEK02.BillingDocumentItem
