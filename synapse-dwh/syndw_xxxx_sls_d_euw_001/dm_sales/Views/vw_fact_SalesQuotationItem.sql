@@ -236,22 +236,22 @@ from [edw].[fact_SalesDocumentItem] doc
         
          LEFT JOIN PrcgElmnt         PEZC10
                  ON doc.SalesDocument = PEZC10.SalesQuotation
-                     AND doc.SalesDocumentItem = PEZC10.SalesQuotationItem
+                     AND doc.SalesDocumentItem = PEZC10.SalesQuotationItem  COLLATE DATABASE_DEFAULT
                      AND doc.CurrencyTypeID = PEZC10.CurrencyTypeID
                      AND PEZC10.ConditionType = 'ZC10'
          LEFT JOIN PrcgElmnt         PEZCF1
              ON doc.SalesDocument = PEZC10.SalesQuotation
-                 AND doc.SalesDocumentItem = PEZCF1.SalesQuotationItem
+                 AND doc.SalesDocumentItem = PEZCF1.SalesQuotationItem COLLATE DATABASE_DEFAULT
                  AND doc.CurrencyTypeID = PEZCF1.CurrencyTypeID
                  AND PEZCF1.ConditionType = 'ZCF1'
          LEFT JOIN PrcgElmnt         PEVPRS
              ON doc.SalesDocument = PEVPRS.SalesQuotation
-                 AND doc.SalesDocumentItem = PEVPRS.SalesQuotationItem
+                 AND doc.SalesDocumentItem = PEVPRS.SalesQuotationItem COLLATE DATABASE_DEFAULT
                  AND doc.CurrencyTypeID = PEVPRS.CurrencyTypeID
                  AND PEVPRS.ConditionType = 'ZCVPRS'
          LEFT JOIN PrcgElmnt         PEEK02
             ON doc.SalesDocument = PEEK02.SalesQuotation
-                AND doc.SalesDocumentItem = PEEK02.SalesQuotationItem
+                AND doc.SalesDocumentItem = PEEK02.SalesQuotationItem COLLATE DATABASE_DEFAULT
                 AND doc.CurrencyTypeID = PEEK02.CurrencyTypeID
                 AND PEEK02.ConditionType = 'EK02'
 
