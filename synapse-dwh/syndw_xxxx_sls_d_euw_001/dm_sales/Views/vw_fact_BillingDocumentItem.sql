@@ -485,6 +485,9 @@ SELECT
       ,ZNRV_NetRevenue
       ,SDPricingProcedure
       ,PriceListTypeID
+      ,[PrcgElmntZC10ConditionAmount]
+      ,[PrcgElmntZCF1ConditionAmount]
+      ,[PrcgElmntVPRS/EK02ConditionAmount]
       ,[t_applicationId]
       ,[t_extractionDtm]
   FROM original
