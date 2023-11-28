@@ -22,14 +22,14 @@ SELECT
     , CN.[SalesDocumentItem]
     , VC.[ProductID]
     , VC.[ProductExternalID]
-    , CONCAT_WS('_', VC.[ProductID], COALESCE(map.[new_ProductHierarchyNode],VC.[CharValue])) AS [ProductSurrogateKey]
+    , CONCAT_WS('_', VC.[ProductID], COALESCE(map.[new_ProductHierarchyNode],VC.[CharValue])) AS [sk_dim_ConfigurableProductHierarchy]
     , VC.[Configuration]
     , VC.[Instance]
     , VC.[LastChangeDate]
     , CN.[CharacteristicName]
     , VC.[CharacteristicDescription]
     , VC.[DecimalValueFrom]
-    , COALESCE(map.[new_ProductHierarchyNode],VC.[CharValue])                                 AS [CharValue]
+    , COALESCE(maphn.[NewProductHierarchyNode],map.[new_ProductHierarchyNode],VC.[CharValue]) AS [CharValue]
     , VC.[CharValueDescription]
     , VC.[t_applicationId]
     , VC.[t_extractionDtm]
@@ -48,3 +48,7 @@ LEFT JOIN
         VC.[ProductID] = map.[ProductID]
         AND
         VC.[CharValue] = map.[old_ProductHierarchyNode]
+LEFT JOIN
+    [base_ff].[ProductHierarchyNodeMapping] maphn
+    ON
+        maphn.[OldProductHierarchyNode] = COALESCE(map.[new_ProductHierarchyNode],VC.[CharValue])
