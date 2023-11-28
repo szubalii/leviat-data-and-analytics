@@ -15,21 +15,26 @@ BEGIN
     ,[CurrencyTypeID]
     ,[ConditionType]
     ,[ConditionAmount]
+    ,[nk_BillingDocumentItem]
+    ,[PricingProcedureStep]
+    ,[PricingProcedureCounter]
   )
   VALUES
-    ('0000000001', '000010', '10', 'ZC10', 100)
-    ,('0000000001', '000010', '10', 'ZCF1', 200)
-    ,('0000000001', '000010', '10', 'VPRS', 400)
-    ,('0000000001', '000010', '10', 'EK02', 300)
-    ,('0000000001', '000010', '10', 'TST1', 100);
+    ('0000000001', '000010', '10', 'ZC10', 100, '1000010', 'TST','TST')
+    ,('0000000001', '000010', '10', 'ZCF1', 200, '1000010', 'TST','TST')
+    ,('0000000001', '000010', '10', 'VPRS', 400, '1000010', 'TST','TST')
+    ,('0000000001', '000010', '10', 'EK02', 300, '1000010', 'TST','TST')
+    ,('0000000001', '000010', '10', 'TST1', 100, '1000010', 'TST','TST');
 
   INSERT INTO edw.fact_BillingDocumentItem (
     [BillingDocument]
     ,[BillingDocumentItem]
     ,[CurrencyTypeID]
+    ,[nk_fact_BillingDocumentItem]
+    ,[CurrencyType]
   )
   VALUES
-    ('0000000001', '000010', '10');
+    ('0000000001', '000010', '10', '1000010', 'Transaction Currency');
 
  
 -- Act: 
