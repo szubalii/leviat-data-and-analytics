@@ -251,23 +251,23 @@ from [edw].[vw_fact_SalesDocumentItem]  doc
                     ON doc.[SalesOfficeID] = dimSO.[SalesOfficeID]
 
           LEFT JOIN PrcgElmnt         PEZC10
-                ON doc.SalesOrder = PEZC10.SalesOrder
-                    AND doc.SalesOrderItem = PEZC10.SalesOrderItem
+                ON doc.SalesDocument = PEZC10.SalesOrder
+                    AND doc.SalesDocumentItem = PEZC10.SalesOrderItem
                     AND doc.CurrencyTypeID = PEZC10.CurrencyTypeID
                     AND PEZC10.ConditionType = 'ZC10'
           LEFT JOIN PrcgElmnt         PEZCF1
-              ON doc.SalesOrder = PEZC10.SalesOrder
-                  AND doc.SalesOrderItem = PEZCF1.SalesOrderItem
+              ON doc.SalesDocument = PEZC10.SalesOrder
+                  AND doc.SalesDocumentItem = PEZCF1.SalesOrderItem
                   AND doc.CurrencyTypeID = PEZCF1.CurrencyTypeID
                   AND PEZCF1.ConditionType = 'ZCF1'
           LEFT JOIN PrcgElmnt         PEVPRS
-              ON doc.SalesOrder = PEVPRS.SalesOrder
-                  AND doc.SalesOrderItem = PEVPRS.SalesOrderItem
+              ON doc.SalesDocument = PEVPRS.SalesOrder
+                  AND doc.SalesDocumentItem = PEVPRS.SalesOrderItem
                   AND doc.CurrencyTypeID = PEVPRS.CurrencyTypeID
                   AND PEVPRS.ConditionType = 'ZCVPRS'
           LEFT JOIN PrcgElmnt         PEEK02
-              ON doc.SalesOrder = PEEK02.SalesOrder
-                  AND doc.SalesOrderItem = PEEK02.SalesOrderItem
+              ON doc.SalesDocument = PEEK02.SalesOrder
+                  AND doc.SalesDocumentItem = PEEK02.SalesOrderItem
                   AND doc.CurrencyTypeID = PEEK02.CurrencyTypeID
                   AND PEEK02.ConditionType = 'EK02'
 where doc.[SDDocumentCategoryID] <> 'B'
