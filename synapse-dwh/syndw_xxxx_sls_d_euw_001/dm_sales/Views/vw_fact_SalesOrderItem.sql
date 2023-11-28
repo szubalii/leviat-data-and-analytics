@@ -252,22 +252,22 @@ from [edw].[vw_fact_SalesDocumentItem]  doc
 
           LEFT JOIN PrcgElmnt         PEZC10
                 ON doc.SalesDocument = PEZC10.SalesOrder
-                    AND doc.SalesDocumentItem = PEZC10.SalesOrderItem
+                    AND doc.SalesDocumentItem = PEZC10.SalesOrderItem   COLLATE DATABASE_DEFAULT
                     AND doc.CurrencyTypeID = PEZC10.CurrencyTypeID
                     AND PEZC10.ConditionType = 'ZC10'
           LEFT JOIN PrcgElmnt         PEZCF1
               ON doc.SalesDocument = PEZC10.SalesOrder
-                  AND doc.SalesDocumentItem = PEZCF1.SalesOrderItem
+                  AND doc.SalesDocumentItem = PEZCF1.SalesOrderItem     COLLATE DATABASE_DEFAULT
                   AND doc.CurrencyTypeID = PEZCF1.CurrencyTypeID
                   AND PEZCF1.ConditionType = 'ZCF1'
           LEFT JOIN PrcgElmnt         PEVPRS
               ON doc.SalesDocument = PEVPRS.SalesOrder
-                  AND doc.SalesDocumentItem = PEVPRS.SalesOrderItem
+                  AND doc.SalesDocumentItem = PEVPRS.SalesOrderItem     COLLATE DATABASE_DEFAULT
                   AND doc.CurrencyTypeID = PEVPRS.CurrencyTypeID
                   AND PEVPRS.ConditionType = 'ZCVPRS'
           LEFT JOIN PrcgElmnt         PEEK02
               ON doc.SalesDocument = PEEK02.SalesOrder
-                  AND doc.SalesDocumentItem = PEEK02.SalesOrderItem
+                  AND doc.SalesDocumentItem = PEEK02.SalesOrderItem     COLLATE DATABASE_DEFAULT
                   AND doc.CurrencyTypeID = PEEK02.CurrencyTypeID
                   AND PEEK02.ConditionType = 'EK02'
 where doc.[SDDocumentCategoryID] <> 'B'
