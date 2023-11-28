@@ -36,7 +36,6 @@ BEGIN
   SELECT
     [BillingDocument]
     ,[BillingDocumentItem]
-    ,[CurrencyTypeID]
     ,[PrcgElmntZC10ConditionAmount]
     ,[PrcgElmntZCF1ConditionAmount]
     ,[PrcgElmntVPRS/EK02ConditionAmount]
@@ -46,7 +45,6 @@ BEGIN
   SELECT 
     '0000000001'        AS [BillingDocument]
     ,'000010'           AS [BillingDocumentItem]
-    ,'10'               AS [CurrencyTypeID]
     ,100                AS [PrcgElmntZC10ConditionAmount]
     ,200                AS [PrcgElmntZCF1ConditionAmount]
     ,400                AS [PrcgElmntVPRS/EK02ConditionAmount]
