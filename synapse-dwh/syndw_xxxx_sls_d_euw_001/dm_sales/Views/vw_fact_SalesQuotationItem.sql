@@ -8,7 +8,7 @@ PrcgElmnt AS (
         ,[CurrencyTypeID]
         ,[ConditionType]
         ,SUM([ConditionAmount])         AS [ConditionAmount]
-    FROM [edw].[vw_fact_SalesQuotationItemPrcgElmnt]
+    FROM [edw].[fact_SalesQuotationItemPrcgElmnt]
     WHERE [ConditionType] IN ('ZC10', 'ZCF1', 'VPRS', 'ER02')
     GROUP BY 
         [SalesQuotation]
