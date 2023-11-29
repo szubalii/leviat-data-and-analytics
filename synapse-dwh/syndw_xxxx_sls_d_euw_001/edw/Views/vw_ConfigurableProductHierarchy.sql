@@ -1,7 +1,7 @@
 ﻿CREATE VIEW [edw].[vw_ConfigurableProductHierarchy]
 AS
 SELECT
-    vc.[sk_dim_ConfigurableProductHierarchy]
+    vc.[ProductSurrogateKey] AS [sk_dim_ConfigurableProductHierarchy]
     , product.[Product] AS [ProductID]
     , product.[ProductExternalID]
     , pr_text.[ProductName] AS [Product]
@@ -28,7 +28,7 @@ SELECT
     , product.[BaseUnit]
     , product.[ItemCategoryGroup]
     , product.[NetWeight]
-    , [CharValue] AS [ProductHierarchy]
+    , vc.[CharValue] AS [ProductHierarchy]
     , prodhier.[Product_L1_PillarID]
     , prodhier.[Product_L2_GroupID]
     , prodhier.[Product_L3_TypeID]
@@ -184,7 +184,7 @@ LEFT JOIN
 WHERE
     mcpc.[CharacteristicCategory] = 'ProductHierarchy'
 GROUP BY
-    vc.[sk_dim_ConfigurableProductHierarchy]
+    vc.[ProductSurrogateKey]
     , product.[Product]
     , product.[ProductExternalID]
     , pr_text.[ProductName]

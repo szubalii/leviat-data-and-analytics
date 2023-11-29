@@ -9,8 +9,8 @@ BEGIN
   EXEC tSQLt.FakeTable '[edw]', '[vw_ProductHierarchyVariantConfigCharacteristic]';
   EXEC tSQLt.FakeTable '[base_ff]', '[ConfigurableProductCharacteristic]';
 
-  INSERT INTO base_s4h_cax.Z_C_VariantConfig_ProductHierarchy_F (
-    sk_dim_ConfigurableProductHierarchy,
+  INSERT INTO edw.vw_ProductHierarchyVariantConfigCharacteristic (
+    ProductSurrogateKey,
     CharacteristicName
     )
   VALUES 
