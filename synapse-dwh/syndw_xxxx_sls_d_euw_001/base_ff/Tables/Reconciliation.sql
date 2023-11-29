@@ -2,7 +2,7 @@
     [ReportingEntity]               NVARCHAR(40),
     [CompanyCode]                   NVARCHAR(4),
     [ExQLReportingEntity]           NVARCHAR(20),
-    [Key]                           NVARCHAR(24),
+    [KeyValue]                      NVARCHAR(24),
     [YTD]                           DATE,
     [HFMvaluesIN$M]                 DECIMAL(15, 3),
     [t_applicationId] [varchar](32) NULL,

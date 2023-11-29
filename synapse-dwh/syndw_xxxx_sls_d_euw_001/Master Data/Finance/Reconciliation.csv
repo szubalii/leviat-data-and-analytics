@@ -1,4 +1,4 @@
-ReportingEntity;CompanyCode;ExQLReportingEntity;Key;YTD;HFMvaluesIN$M
+ReportingEntity;CompanyCode;ExQLReportingEntity;KeyValue;YTD;HFMvaluesIN$M
 Italy;IT35;Sales;IT35Sales;9/30/2023;4.230
 Germany Sales;DE35;Sales Dom;DE35Sales Dom;9/30/2023;22.727
 Germany International;DE35;Sales Intl;DE35Sales Intl;9/30/2023;1.119
