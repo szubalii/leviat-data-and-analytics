@@ -264,7 +264,7 @@ from [edw].[vw_fact_SalesDocumentItem]  doc
               ON doc.SalesDocument = PEVPRS.SalesOrder
                   AND doc.SalesDocumentItem = PEVPRS.SalesOrderItem     COLLATE DATABASE_DEFAULT
                   AND doc.CurrencyTypeID = PEVPRS.CurrencyTypeID
-                  AND PEVPRS.ConditionType = 'ZCVPRS'
+                  AND PEVPRS.ConditionType = 'VPRS'
           LEFT JOIN PrcgElmnt         PEEK02
               ON doc.SalesDocument = PEEK02.SalesOrder
                   AND doc.SalesDocumentItem = PEEK02.SalesOrderItem     COLLATE DATABASE_DEFAULT

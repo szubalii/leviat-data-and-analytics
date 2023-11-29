@@ -248,7 +248,7 @@ from [edw].[fact_SalesDocumentItem] doc
              ON doc.SalesDocument = PEVPRS.SalesQuotation
                  AND doc.SalesDocumentItem = PEVPRS.SalesQuotationItem COLLATE DATABASE_DEFAULT
                  AND doc.CurrencyTypeID = PEVPRS.CurrencyTypeID
-                 AND PEVPRS.ConditionType = 'ZCVPRS'
+                 AND PEVPRS.ConditionType = 'VPRS'
          LEFT JOIN PrcgElmnt         PEEK02
             ON doc.SalesDocument = PEEK02.SalesQuotation
                 AND doc.SalesDocumentItem = PEEK02.SalesQuotationItem COLLATE DATABASE_DEFAULT
