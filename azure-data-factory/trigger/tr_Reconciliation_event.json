@@ -1,0 +1,17 @@
+{
+	"name": "tr_Reconciliation_event",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Stopped",
+		"pipelines": [],
+		"type": "BlobEventsTrigger",
+		"typeProperties": {
+			"blobPathBeginsWith": "/flat-files/blobs/Finance/Reconciliation.csv",
+			"ignoreEmptyBlobs": true,
+			"scope": "/subscriptions/f199b488-7d9d-4992-aeda-c10a1e1c9b9e/resourceGroups/rg-xxxx-sls-d-euw-001/providers/Microsoft.Storage/storageAccounts/sttdorodnovadeuw001",
+			"events": [
+				"Microsoft.Storage.BlobCreated"
+			]
+		}
+	}
+}
