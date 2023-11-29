@@ -1,0 +1,14 @@
+ReportingEntity;CompanyCode;ExQLReportingEntity;Key;YTD;HFMvaluesIN$M
+Italy;IT35;Sales;IT35Sales;9/30/2023;4.230
+Germany Sales;DE35;Sales Dom;DE35Sales Dom;9/30/2023;22.727
+Germany International;DE35;Sales Intl;DE35Sales Intl;9/30/2023;1.119
+Germany Production;DE35;Operations;DE35Operations;9/30/2023;13.414
+Poland Sales;PL35;Sales;PL35Sales;9/30/2023;3.092
+Poland Production;PL35;Operations;PL35Operations;9/30/2023;2.894
+Austria;AT35;Sales;AT35Sales;9/30/2023;3.432
+Netherlands;NL35;Sales;NL35Sales;9/30/2023;8.843
+Czechia;CZ35;Sales;CZ35Sales;9/30/2023;1.678
+Switzerland;CH35;Sales;CH35Sales;9/30/2023;13.755
+China;CN35;Sales;CN35Sales;9/30/2023;3.791
+Sweden ;SE35;Sales;SE35Sales;9/30/2023;3.804
+Spain;ES35;Sales;ES35Sales;9/30/2023;2.358
