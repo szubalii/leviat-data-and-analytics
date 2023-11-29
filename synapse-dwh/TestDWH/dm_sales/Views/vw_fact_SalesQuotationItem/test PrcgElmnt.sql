@@ -32,9 +32,10 @@ BEGIN
     ,[CurrencyTypeID]
     ,[nk_fact_SalesDocumentItem]
     ,[CurrencyType]
+    ,[SDDocumentCategoryID]
   )
   VALUES
-    ('0000000001', '000010', '10', '1000010', 'Transaction Currency');
+    ('0000000001', '000010', '10', '1000010', 'Transaction Currency','A');
 
  
 -- Act: 
