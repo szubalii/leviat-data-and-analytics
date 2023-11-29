@@ -72,8 +72,6 @@ variables:
   # value: 30_DEV_MPORS_AZURE_DATA_FACTORY
 - name: StorageEventTriggerScope
   value: "/subscriptions/$(subscriptionId)/resourceGroups/$(resourceGroupName)/providers/Microsoft.Storage/storageAccounts/$(storageAccountName)"
-  # value: ${{ format('/subscriptions/{0}/resourceGroups/{1}/providers/Microsoft.Storage/storageAccounts/{2}', variables['subscriptionId'], variables['resourceGroup'], variables[''])}}
-
 
 stages:
 - stage: VARIABLES
