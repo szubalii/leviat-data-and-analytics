@@ -30,7 +30,7 @@ BEGIN
     [SalesDocument]
     ,[SalesDocumentItem]
     ,[CurrencyTypeID]
-    ,[nk_fact_SalesQuotationItem]
+    ,[nk_fact_SalesDocumentItem]
     ,[CurrencyType]
   )
   VALUES
