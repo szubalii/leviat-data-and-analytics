@@ -6,10 +6,10 @@ BEGIN
   IF OBJECT_ID('expected') IS NOT NULL DROP TABLE expected;
     
   -- Assemble: Fake Table
-  EXEC tSQLt.FakeTable '[edw]', '[fact_SalesOrderItemPrcgElmnt]'; 
+  EXEC tSQLt.FakeTable '[edw]', '[fact_SalesOrderItemPricingElement]'; 
   EXEC tSQLt.FakeTable '[edw]', '[vw_fact_SalesDocumentItem]';
 
-  INSERT INTO edw.fact_SalesOrderItemPrcgElmnt (
+  INSERT INTO edw.fact_SalesOrderItemPricingElement (
     [SalesOrder]
     ,[SalesOrderItem]
     ,[CurrencyTypeID]
