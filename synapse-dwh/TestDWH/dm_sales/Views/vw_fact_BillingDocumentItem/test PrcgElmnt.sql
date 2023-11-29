@@ -47,13 +47,13 @@ BEGIN
   INTO actual
   FROM [dm_sales].[vw_fact_BillingDocumentItem];
 
-  CREATE TABLE expected (
-    BillingDocument             VARCHAR(10)
-    ,BillingDocumentItem        VARCHAR(6)
-    ,[PrcgElmntZC10ConditionAmount]         INTEGER
-    ,[PrcgElmntZCF1ConditionAmount]         INTEGER
-    ,[PrcgElmntVPRS/EK02ConditionAmount]    INTEGER
-  );
+  CREATE TABLE expected AS SELECT TOP 0
+    [BillingDocument]
+    ,[BillingDocumentItem]
+    ,[PrcgElmntZC10ConditionAmount]
+    ,[PrcgElmntZCF1ConditionAmount]
+    ,[PrcgElmntVPRS/EK02ConditionAmount]
+  FROM actual;
 
   INSERT INTO expected (
     [BillingDocument]
