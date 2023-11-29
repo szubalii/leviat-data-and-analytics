@@ -15,40 +15,60 @@ WITH CN AS (
     GROUP BY
           VC.[SalesDocument]
         , VC.[SalesDocumentItem]
+),
+
+CharValue AS (
+    SELECT
+          CN.[SalesDocument]
+        , CN.[SalesDocumentItem]
+        , VC.[ProductID]
+        , VC.[ProductExternalID]
+        , VC.[Configuration]
+        , VC.[Instance]
+        , VC.[LastChangeDate]
+        , CN.[CharacteristicName]
+        , VC.[CharacteristicDescription]
+        , VC.[DecimalValueFrom]
+        , COALESCE(maphn.[NewProductHierarchyNode], map.[new_ProductHierarchyNode], VC.[CharValue]) AS [CharValue]
+        , VC.[CharValueDescription]
+        , VC.[t_applicationId]
+        , VC.[t_extractionDtm]
+    FROM CN
+    LEFT JOIN
+        [base_s4h_cax].[Z_C_VariantConfig_ProductHierarchy_F] VC
+        ON
+            VC.[SalesDocument] = CN.[SalesDocument]
+            AND
+            VC.[SalesDocumentItem] = CN.[SalesDocumentItem]
+            AND
+            VC.[CharacteristicName] = CN.[CharacteristicName]
+    LEFT JOIN
+        [base_ff].[ProductHierarchyNode] map
+        ON
+            VC.[ProductID] = map.[ProductID]
+            AND
+            VC.[CharValue] = map.[old_ProductHierarchyNode]
+    LEFT JOIN
+        [base_ff].[ProductHierarchyNodeMapping] maphn
+        ON
+            maphn.[OldProductHierarchyNode] = COALESCE(map.[new_ProductHierarchyNode], VC.[CharValue])
 )
 
 SELECT
-      CN.[SalesDocument]
-    , CN.[SalesDocumentItem]
-    , VC.[ProductID]
-    , VC.[ProductExternalID]
-    , CONCAT_WS('_', VC.[ProductID], COALESCE(map.[new_ProductHierarchyNode],VC.[CharValue])) AS [ProductSurrogateKey]
-    , VC.[Configuration]
-    , VC.[Instance]
-    , VC.[LastChangeDate]
-    , CN.[CharacteristicName]
-    , VC.[CharacteristicDescription]
-    , VC.[DecimalValueFrom]
-    , COALESCE(maphn.[NewProductHierarchyNode],map.[new_ProductHierarchyNode],VC.[CharValue]) AS [CharValue]
-    , VC.[CharValueDescription]
-    , VC.[t_applicationId]
-    , VC.[t_extractionDtm]
-FROM CN
-LEFT JOIN
-    [base_s4h_cax].[Z_C_VariantConfig_ProductHierarchy_F] VC
-    ON
-        VC.[SalesDocument] = CN.[SalesDocument]
-        AND
-        VC.[SalesDocumentItem] = CN.[SalesDocumentItem]
-        AND
-        VC.[CharacteristicName] = CN.[CharacteristicName]
-LEFT JOIN
-    [base_ff].[ProductHierarchyNode] map
-    ON
-        VC.[ProductID] = map.[ProductID]
-        AND
-        VC.[CharValue] = map.[old_ProductHierarchyNode]
-LEFT JOIN
-    [base_ff].[ProductHierarchyNodeMapping] maphn
-    ON
-        maphn.[OldProductHierarchyNode] = COALESCE(map.[new_ProductHierarchyNode],VC.[CharValue])
+      [SalesDocument]
+    , [SalesDocumentItem]
+    , [ProductID]
+    , [ProductExternalID]
+    , CONCAT_WS('_', [ProductID], [CharValue]) AS [ProductSurrogateKey]
+    , [Configuration]
+    , [Instance]
+    , [LastChangeDate]
+    , [CharacteristicName]
+    , [CharacteristicDescription]
+    , [DecimalValueFrom]
+    , [CharValue]
+    , [CharValueDescription]
+    , [t_applicationId]
+    , [t_extractionDtm]
+FROM
+    CharValue

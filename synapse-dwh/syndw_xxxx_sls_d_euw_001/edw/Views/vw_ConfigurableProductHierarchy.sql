@@ -1,11 +1,11 @@
 ﻿CREATE VIEW [edw].[vw_ConfigurableProductHierarchy]
 AS
 SELECT
-    CONCAT_WS('_', product.[Product], vc.[CharValue]) AS [sk_dim_ConfigurableProductHierarchy]
+    vc.[sk_dim_ConfigurableProductHierarchy]
     , product.[Product] AS [ProductID]
     , product.[ProductExternalID]
     , pr_text.[ProductName] AS [Product]
-    , product.[ProductExternalID] + '_' + pr_text.[ProductName] AS [ProductID_Name]	
+    , product.[ProductExternalID] + '_' + pr_text.[ProductName] AS [ProductID_Name]
     , product.[ProductType] AS [MaterialTypeID]
     , type_text.[MaterialTypeName] AS [MaterialType]
     , product.[CreationDate]
@@ -184,7 +184,8 @@ LEFT JOIN
 WHERE
     mcpc.[CharacteristicCategory] = 'ProductHierarchy'
 GROUP BY
-    product.[Product]
+    vc.[sk_dim_ConfigurableProductHierarchy]
+    , product.[Product]
     , product.[ProductExternalID]
     , pr_text.[ProductName]
     , product.[ProductType]
