@@ -3,7 +3,7 @@ SELECT
      [ReportingEntity]
     ,[CompanyCode]
     ,[ExQLReportingEntity]
-    ,[KeyValue]
+    ,[nk_ExQL_Reconciliation]
     ,[YTD]
     ,[HFMvaluesIN$M]
     ,[t_applicationId]
