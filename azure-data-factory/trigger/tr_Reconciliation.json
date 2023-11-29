@@ -3,7 +3,23 @@
 	"properties": {
 		"annotations": [],
 		"runtimeState": "Started",
-		"pipelines": [],
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "pl_ADLS_SYNDW_flat-files-csv",
+					"type": "PipelineReference"
+				},
+				"parameters": {
+					"container": "flat-files",
+					"directory": "Finance",
+					"file_name": "Reconciliation.csv",
+					"field_delimiter": ";",
+					"base_schema_name": "base_ff",
+					"base_table_name": "Reconciliation",
+					"applicationId": "flat-files"
+				}
+			}
+		],
 		"type": "BlobEventsTrigger",
 		"typeProperties": {
 			"blobPathBeginsWith": "/flat-files/blobs/Finance/Reconciliation.csv",
