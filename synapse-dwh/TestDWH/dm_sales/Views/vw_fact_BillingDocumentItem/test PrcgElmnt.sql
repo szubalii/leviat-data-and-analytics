@@ -47,13 +47,7 @@ BEGIN
   INTO actual
   FROM [dm_sales].[vw_fact_BillingDocumentItem];
 
-  CREATE TABLE expected AS SELECT TOP 0
-    [BillingDocument]
-    ,[BillingDocumentItem]
-    ,[PrcgElmntZC10ConditionAmount]
-    ,[PrcgElmntZCF1ConditionAmount]
-    ,[PrcgElmntVPRS/EK02ConditionAmount]
-  FROM actual;
+  SELECT TOP 0 * INTO expected FROM actual;
 
   INSERT INTO expected (
     [BillingDocument]
