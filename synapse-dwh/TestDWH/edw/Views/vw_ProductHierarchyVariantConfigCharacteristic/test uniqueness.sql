@@ -13,7 +13,7 @@ BEGIN
   INSERT INTO base_s4h_cax.Z_C_VariantConfig_ProductHierarchy_F (
     SalesDocument,
     SalesDocumentItem,
-    ProductName,
+    ProductID,
     CharacteristicName,
     CharValue
   )
