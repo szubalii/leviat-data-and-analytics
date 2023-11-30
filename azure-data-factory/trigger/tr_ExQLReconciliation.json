@@ -24,7 +24,7 @@
 		"typeProperties": {
 			"blobPathBeginsWith": "/flat-files/blobs/Finance/ExQLReconciliation.csv",
 			"ignoreEmptyBlobs": true,
-			"scope": "/subscriptions/f199b488-7d9d-4992-aeda-c10a1e1c9b9e/resourceGroups/rg-xxxx-sls-d-euw-001/providers/Microsoft.Storage/storageAccounts/sttdorodnovadeuw001",
+			"scope": "/subscriptions/f199b488-7d9d-4992-aeda-c10a1e1c9b9e/resourceGroups/rg-xxxx-sls-d-euw-001/providers/Microsoft.Storage/storageAccounts/stxxxxslsdeuw001",
 			"events": [
 				"Microsoft.Storage.BlobCreated"
 			]
