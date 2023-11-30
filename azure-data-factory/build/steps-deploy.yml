@@ -52,7 +52,7 @@ steps:
         -ls_kv_xxxx_sls_x_euw_001_properties_typeProperties_baseUrl "https://$(keyVaultName).vault.azure.net/"
         -stxxxxslsxeuw001_properties_typeProperties_url "https://$(storageAccountName).dfs.core.windows.net/"
         -ir-WEXLEVAPP001_properties_typeProperties_linkedInfo_resourceId "$(SHIRResourceId)"
-        -tr_Reconciliation_properties_typeProperties_scope "$(StorageEventTriggerScope)"
+        -tr_ExQLReconciliation_properties_typeProperties_scope "$(StorageEventTriggerScope)"
         -default_properties_XU_hostName_value "$(XUHostName)"
         -default_properties_storageAccountName_value "$(storageAccountName)"
         -default_properties_resourceGroupName_value "$(resourceGroupName)"
