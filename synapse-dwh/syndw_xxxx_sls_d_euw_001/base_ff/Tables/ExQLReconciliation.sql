@@ -9,7 +9,7 @@
 	[t_jobDtm] [datetime] NULL,
 	[t_jobBy] [varchar](128) NULL,
 	[t_filePath] [nvarchar](1024) NULL,
-    CONSTRAINT [PK_Reconciliation] PRIMARY KEY NONCLUSTERED (
+    CONSTRAINT [PK_ExQLReconciliation] PRIMARY KEY NONCLUSTERED (
         [CompanyCode],
         [ExQLReportingEntity]
     ) NOT ENFORCED
