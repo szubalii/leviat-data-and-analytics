@@ -138,11 +138,9 @@ select doc.[SalesDocument]           as [QuotationID]
      , doc.SalesOfficeID
     , PrcgElmnt.[ZC10]                         AS [PrcgElmntZC10ConditionAmount]
     , PrcgElmnt.[ZCF1]                         AS [PrcgElmntZCF1ConditionAmount]
-    , CASE
-        WHEN PrcgElmnt.[VPRS] <> 0
-            THEN PrcgElmnt.[VPRS]
-        ELSE PrcgElmnt.[EK02]
-    END                                     AS [PrcgElmntVPRS/EK02ConditionAmount]
+    , [edw].[svf_replaceZero](
+            PrcgElmnt.[VPRS]
+            ,PrcgElmnt.[EK02])                 AS [PrcgElmntVPRS/EK02ConditionAmount]
      , doc.[t_applicationId]
      , doc.[t_extractionDtm]
 from [edw].[fact_SalesDocumentItem] doc
