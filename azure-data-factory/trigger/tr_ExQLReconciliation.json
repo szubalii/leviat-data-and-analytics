@@ -12,10 +12,10 @@
 				"parameters": {
 					"container": "flat-files",
 					"directory": "Finance",
-					"file_name": "Reconciliation.csv",
+					"file_name": "ExQLReconciliation.csv",
 					"field_delimiter": ";",
 					"base_schema_name": "base_ff",
-					"base_table_name": "Reconciliation",
+					"base_table_name": "ExQLReconciliation",
 					"applicationId": "flat-files"
 				}
 			}
