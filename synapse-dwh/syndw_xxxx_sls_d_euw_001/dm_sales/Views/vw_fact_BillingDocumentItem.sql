@@ -33,15 +33,13 @@ WITH BillDocPrcgElmnt AS (
         [BillingDocument]
         ,[BillingDocumentItem]
         ,[CurrencyTypeID]
-        ,[ConditionType]
-        ,SUM([ConditionAmount])         AS [ConditionAmount]
+        ,[ZC10],[ZCF1],[VPRS],[EK02]
     FROM [edw].[fact_BillingDocumentItemPrcgElmnt]
-    WHERE [ConditionType] IN ('ZC10', 'ZCF1', 'VPRS', 'EK02')
-    GROUP BY 
-        [BillingDocument]
-        ,[BillingDocumentItem]
-        ,[CurrencyTypeID]
-        ,[ConditionType]
+    PIVOT  
+    (  
+        SUM(ConditionAmount)  
+        FOR [ConditionType] IN ([ZC10], [ZCF1], [VPRS], [EK02])  
+    ) AS PivotTable
 )
 
  , original AS (
@@ -229,12 +227,12 @@ WITH BillDocPrcgElmnt AS (
           )                                         AS ZNRV_NetRevenue
          , doc.SDPricingProcedure
          , doc.PriceListTypeID
-         , PEZC10.ConditionAmount                   AS [PrcgElmntZC10ConditionAmount]
-         , PEZCF1.ConditionAmount                   AS [PrcgElmntZCF1ConditionAmount]
+         , PrcgElmnt.[ZC10]                         AS [PrcgElmntZC10ConditionAmount]
+         , PrcgElmnt.[ZCF1]                         AS [PrcgElmntZCF1ConditionAmount]
          , CASE
-                WHEN PEVPRS.ConditionAmount > 0
-                    THEN PEVPRS.ConditionAmount
-                ELSE PEEK02.ConditionAmount
+                WHEN PrcgElmnt.[VPRS] <> 0
+                    THEN PrcgElmnt.[VPRS]
+                ELSE PrcgElmnt.[EK02]
             END                                     AS [PrcgElmntVPRS/EK02ConditionAmount]
          , doc.[t_applicationId]
          , doc.[t_extractionDtm]
@@ -289,27 +287,10 @@ WITH BillDocPrcgElmnt AS (
                        on  doc.BillingDocument = BDPE.BillingDocument
                        and doc.BillingDocumentItem = BDPE.BillingDocumentItem
                        and doc.CurrencyTypeID = BDPE.CurrencyTypeID 
-            LEFT JOIN PrcgElmnt         PEZC10
-                ON doc.BillingDocument = PEZC10.BillingDocument
-                    AND doc.BillingDocumentItem = PEZC10.BillingDocumentItem
-                    AND doc.CurrencyTypeID = PEZC10.CurrencyTypeID
-                    AND PEZC10.ConditionType = 'ZC10'
-            LEFT JOIN PrcgElmnt         PEZCF1
-                ON doc.BillingDocument = PEZC10.BillingDocument
-                    AND doc.BillingDocumentItem = PEZCF1.BillingDocumentItem
-                    AND doc.CurrencyTypeID = PEZCF1.CurrencyTypeID
-                    AND PEZCF1.ConditionType = 'ZCF1'
-            LEFT JOIN PrcgElmnt         PEVPRS
-                ON doc.BillingDocument = PEVPRS.BillingDocument
-                    AND doc.BillingDocumentItem = PEVPRS.BillingDocumentItem
-                    AND doc.CurrencyTypeID = PEVPRS.CurrencyTypeID
-                    AND PEVPRS.ConditionType = 'VPRS'
-            LEFT JOIN PrcgElmnt         PEEK02
-                ON doc.BillingDocument = PEEK02.BillingDocument
-                    AND doc.BillingDocumentItem = PEEK02.BillingDocumentItem
-                    AND doc.CurrencyTypeID = PEEK02.CurrencyTypeID
-                    AND PEEK02.ConditionType = 'EK02'
-
+            LEFT JOIN PrcgElmnt
+                ON doc.BillingDocument = PrcgElmnt.BillingDocument
+                    AND doc.BillingDocumentItem = PrcgElmnt.BillingDocumentItem
+                    AND doc.CurrencyTypeID = PrcgElmnt.CurrencyTypeID
             WHERE doc.[CurrencyTypeID] <> '00' -- Transaction Currency
 )
 
