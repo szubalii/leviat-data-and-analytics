@@ -1,9 +1,9 @@
-﻿CREATE VIEW [dm_finance].[vw_fact_Reconciliation] AS
+﻿CREATE VIEW [dm_finance].[vw_fact_ExQLReconciliation] AS
 SELECT
      [edw].[svf_get2PartNaturalKey](
         [CompanyCode],
         [ExQLReportingEntity]
-     ) AS [nk_ExQL_Reconciliation]
+     ) AS [nk_ExQLReconciliation]
     ,[ReportingEntity]
     ,[CompanyCode]
     ,[ExQLReportingEntity]
@@ -12,4 +12,4 @@ SELECT
     ,[t_applicationId]
 	,[t_jobDtm]
 FROM
-    [base_ff].[Reconciliation]
+    [base_ff].[ExQLReconciliation]

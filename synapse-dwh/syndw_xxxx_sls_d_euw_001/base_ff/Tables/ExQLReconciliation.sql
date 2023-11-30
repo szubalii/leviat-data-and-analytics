@@ -1,4 +1,4 @@
-﻿CREATE TABLE [base_ff].[Reconciliation] (
+﻿CREATE TABLE [base_ff].[ExQLReconciliation] (
     [ReportingEntity]               NVARCHAR(40),
     [CompanyCode]                   NVARCHAR(4),
     [ExQLReportingEntity]           NVARCHAR(20),
