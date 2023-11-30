@@ -1,5 +1,5 @@
 {
-	"name": "tr_Reconciliation",
+	"name": "tr_ExQLReconciliation",
 	"properties": {
 		"annotations": [],
 		"runtimeState": "Started",
@@ -22,7 +22,7 @@
 		],
 		"type": "BlobEventsTrigger",
 		"typeProperties": {
-			"blobPathBeginsWith": "/flat-files/blobs/Finance/Reconciliation.csv",
+			"blobPathBeginsWith": "/flat-files/blobs/Finance/ExQLReconciliation.csv",
 			"ignoreEmptyBlobs": true,
 			"scope": "/subscriptions/f199b488-7d9d-4992-aeda-c10a1e1c9b9e/resourceGroups/rg-xxxx-sls-d-euw-001/providers/Microsoft.Storage/storageAccounts/stxxxxslsdeuw001",
 			"events": [
