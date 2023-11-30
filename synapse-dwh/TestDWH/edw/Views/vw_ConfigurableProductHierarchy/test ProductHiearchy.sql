@@ -9,7 +9,9 @@ BEGIN
   EXEC tSQLt.FakeTable '[edw]', '[vw_ProductHierarchyVariantConfigCharacteristic]';
   EXEC tSQLt.FakeTable '[base_ff]', '[ConfigurableProductCharacteristic]';
 
-  SELECT TOP(0) *
+  SELECT TOP(0)
+    ProductSurrogateKey,
+    CharacteristicName
   INTO #vw_ProductHierarchyVariantConfigCharacteristic
   FROM edw.vw_ProductHierarchyVariantConfigCharacteristic;
 
