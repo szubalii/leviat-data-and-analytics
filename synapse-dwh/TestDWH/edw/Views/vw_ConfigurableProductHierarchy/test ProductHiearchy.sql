@@ -9,25 +9,20 @@ BEGIN
   EXEC tSQLt.FakeTable '[edw]', '[vw_ProductHierarchyVariantConfigCharacteristic]';
   EXEC tSQLt.FakeTable '[base_ff]', '[ConfigurableProductCharacteristic]';
 
-  INSERT INTO edw.vw_ProductHierarchyVariantConfigCharacteristic (
+  SELECT TOP(0) *
+  INTO #vw_ProductHierarchyVariantConfigCharacteristic
+  FROM edw.vw_ProductHierarchyVariantConfigCharacteristic;
+
+  INSERT INTO #vw_ProductHierarchyVariantConfigCharacteristic (
     ProductSurrogateKey,
     CharacteristicName
-    )
-  VALUES 
+  )
+  VALUES
     ('1_1', 'NEGATIVE_TEST'),
     ('2_2', 'ZCH_SO_ITEM_PROD_HIERARCHY'),
     ('3_3', 'ZCH_SO_ITEM_PROD_HIERARCHY1');
 
-  -- INSERT INTO base_s4h_cax.I_Product (Product)
-  -- VALUES (1), (2), (3);
-
-  -- INSERT INTO base_ff.ProductHierarchyNode (ProductID, old_ProductHierarchyNode, new_ProductHierarchyNode)
-  -- VALUES 
-  --   (2, 2, 6), 
-  --   (3, 3, 7);
-
-  -- INSERT INTO base_ff.ProductHierarchyNodeMapping (OldProductHierarchyNode, NewProductHierarchyNode)
-  -- VALUES (7, 11), (4, 12);
+  EXEC ('INSERT INTO edw.vw_ProductHierarchyVariantConfigCharacteristic SELECT * FROM #vw_ProductHierarchyVariantConfigCharacteristic');
 
   INSERT INTO base_ff.ConfigurableProductCharacteristic (CharacteristicName, CharacteristicCategory)
   VALUES 

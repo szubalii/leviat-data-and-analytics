@@ -14,13 +14,14 @@ BEGIN
     SalesDocument,
     SalesDocumentItem,
     ProductID,
+    CharacteristicName,
     CharValue
   )
   VALUES 
-    (1, 1, 1, 1),
-    (1, 2, 2, 2),
-    (2, 1, 3, 3),
-    (2, 2, 4, 4);
+    (1, 1, 1, 1, 1),
+    (1, 2, 2, 2, 2),
+    (2, 1, 3, 3, 3),
+    (2, 2, 4, 4, 4);
 
   INSERT INTO base_ff.ProductHierarchyNode (ProductID, old_ProductHierarchyNode, new_ProductHierarchyNode)
   VALUES

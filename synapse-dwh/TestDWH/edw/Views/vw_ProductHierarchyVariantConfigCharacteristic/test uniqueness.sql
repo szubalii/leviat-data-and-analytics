@@ -35,12 +35,16 @@ BEGIN
 -- Act: 
   SELECT
     SalesDocument,
-    SalesDocumentItem
+    SalesDocumentItem,
+    [CharacteristicName],
+    [CharValue]
   INTO actual
   FROM [edw].[vw_ProductHierarchyVariantConfigCharacteristic]
   GROUP BY
     SalesDocument,
-    SalesDocumentItem
+    SalesDocumentItem,
+    [CharacteristicName],
+    [CharValue]
   HAVING COUNT(*) > 1
 
   -- Assert:
