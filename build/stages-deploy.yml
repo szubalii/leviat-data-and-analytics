@@ -11,6 +11,7 @@ parameters:
   default: pers
 
 variables:
+- group: DnA
 - name: deployEnvPrefix
   value: '40_DUMMY'
 
@@ -69,7 +70,8 @@ variables:
 - name: environment_name
   value: ${{ format('{0}_{1}', variables['deployEnvPrefix'], variables['solution'] ) }}
   # value: 30_DEV_MPORS_AZURE_DATA_FACTORY
-
+- name: StorageEventTriggerScope
+  value: "/subscriptions/$(subscriptionId)/resourceGroups/$(resourceGroupName)/providers/Microsoft.Storage/storageAccounts/$(storageAccountName)"
 
 stages:
 - stage: VARIABLES
