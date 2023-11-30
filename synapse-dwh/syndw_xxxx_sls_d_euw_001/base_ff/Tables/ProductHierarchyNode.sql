@@ -9,8 +9,7 @@ CREATE TABLE [base_ff].[ProductHierarchyNode] (
 ,   [t_filePath]        NVARCHAR (1024)
 ,   CONSTRAINT [PK_ProductHierarchyNode] PRIMARY KEY NONCLUSTERED (
         [ProductID],
-        [old_ProductHierarchyNode],
-        [new_ProductHierarchyNode]
+        [old_ProductHierarchyNode]
     ) NOT ENFORCED
 )
 WITH (
