@@ -42,4 +42,3 @@ map_AXBI;SAPCustomerBasicMappingTable.csv;";";map_AXBI;SAPCustomerBasicMappingTa
 ;ShippingPointLogistics.csv;";";base_ff;ShippingPointLogistics
 ;LeviatWarehouse.csv;";";base_ff;LeviatWarehouse
 ;PurchaseOrderExpectedGLAccount.csv;";";base_ff;PurchaseOrderExpectedGLAccount
-Finance;Reconciliation.csv;";";base_ff;Reconciliation
