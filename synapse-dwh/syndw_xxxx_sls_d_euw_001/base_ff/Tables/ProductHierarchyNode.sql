@@ -7,7 +7,10 @@ CREATE TABLE [base_ff].[ProductHierarchyNode] (
 ,   [t_jobDtm]          DATETIME
 ,   [t_jobBy]            VARCHAR  (128)
 ,   [t_filePath]        NVARCHAR (1024)
-,   CONSTRAINT [PK_ProductHierarchyNodeMapping] PRIMARY KEY NONCLUSTERED ([ProductID],[old_ProductHierarchyNode]) NOT ENFORCED
+,   CONSTRAINT [PK_ProductHierarchyNode] PRIMARY KEY NONCLUSTERED (
+        [ProductID],
+        [old_ProductHierarchyNode]
+    ) NOT ENFORCED
 )
 WITH (
     DISTRIBUTION = REPLICATE,

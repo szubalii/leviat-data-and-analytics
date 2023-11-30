@@ -1,6 +1,7 @@
 ﻿CREATE PROCEDURE [tc.dq.vw_BP_2_1_3_ThirdParty].[test correct work rule 2_1_3_ThirdParty]
 AS
 BEGIN
+    IF OBJECT_ID('actual') IS NOT NULL DROP TABLE actual;
 --Select customers with CashPlanningGroup='E2' and I_Customer.Country<> I_CompanyCode.Country - this is not error.
 --Select customers with CashPlanningGroup<>'E2'(equal E1, NULL, BLANK) and I_Customer.Country<> I_CompanyCode.Country - this is error.
 --Select customers with CashPlanningGroup='E3' and I_Customer.Country= I_CompanyCode.Country - this is not error.
