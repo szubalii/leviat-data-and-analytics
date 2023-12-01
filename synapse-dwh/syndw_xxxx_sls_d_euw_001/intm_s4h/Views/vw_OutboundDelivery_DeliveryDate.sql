@@ -20,7 +20,7 @@ CalculatedDelDate_precalculation AS (
         [base_s4h_cax].[I_OutboundDelivery] OD
     LEFT JOIN
         [edw].[dim_Route] DimActualRoute
-        ON DimActualRoute.[ROUTEID] = OD.[ActualDeliveryRoute]
+        ON DimActualRoute.[ROUTEID] = OD.[ProposedDeliveryRoute]
     WHERE
         OD.[ActualGoodsMovementDate] <> '0001-01-01'
     GROUP BY

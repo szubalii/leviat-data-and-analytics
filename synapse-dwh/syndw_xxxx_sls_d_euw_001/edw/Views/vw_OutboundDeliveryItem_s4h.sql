@@ -341,11 +341,19 @@ OutboundDeliveryItem_s4h AS (
                 OR
                 OD.[ActualGoodsMovementDate] = '0001-01-01'
                 OR
-                DimActualRoute.[DurInDays] = 0
-                OR
                 DimActualRoute.[DurInDays] IS NULL
             THEN NULL
-            ELSE cdd.[CalculatedDelDate]
+            WHEN
+                OD.[ShippingCondition] <> 70
+                AND
+                DimActualRoute.[DurInDays] = 0
+            THEN NULL
+            WHEN
+                OD.[ShippingCondition] = 70
+                AND
+                DimActualRoute.[DurInDays] = 0
+            THEN DATEADD(DAY, 1, OD.[ActualGoodsMovementDate]
+            ELSE OD.[ActualGoodsMovementDate]
         END AS [CalculatedDelDate]
       ,CASE
            WHEN
