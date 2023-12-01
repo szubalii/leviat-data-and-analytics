@@ -20,7 +20,7 @@ BEGIN
   -- Act:
   SELECT
     VPRS,
-    EK02
+    EK02,
     [edw].[svf_replaceZero](VPRS, EK02) AS [VPRS/EK02]
   INTO actual
   FROM testdata;
@@ -32,7 +32,7 @@ BEGIN
     ,[VPRS/EK02]  decimal
   );
 
-  INSERT INTO expected (VPRS, EK02, )
+  INSERT INTO expected (VPRS, EK02, [VPRS/EK02])
   VALUES 
     (0, 1, 1)
     ,(-1, 2, -1)
