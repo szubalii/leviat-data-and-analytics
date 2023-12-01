@@ -11,7 +11,7 @@ BEGIN
     VPRS    decimal
     ,EK02   decimal
   );
-  INSERT INTO testdata (OT_DaysDiff)
+  INSERT INTO testdata (VPRS, EK02)
   VALUES 
     (0, 1)
     ,(-1, 2)
