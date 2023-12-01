@@ -8,8 +8,10 @@ RETURNS decimal
 -- otherwise it returns second arg
 AS
 BEGIN
+    DECLARE @output decimal;
     IF @firstValue <> 0
-        RETURN @firstValue
+        SET @output = @firstValue
     ELSE
-        RETURN @secondValue;
+        SET @output = @secondValue;
+    RETURN @output;
 END;
