@@ -6,13 +6,20 @@ PrcgElmnt AS (
         [SalesOrder]
         ,[SalesOrderItem]
         ,[CurrencyTypeID]
-        ,[ZC10],[ZCF1],[VPRS],[EK02]
+        ,MAX([ZC10])    AS [ZC10]
+        ,MAX([ZCF1])    AS [ZCF1]
+        ,MAX([VPRS])    AS [VPRS]
+        ,MAX([EK02])    AS [EK02]
     FROM [edw].[fact_SalesOrderItemPricingElement]
     PIVOT  
     (  
         SUM(ConditionAmount)  
         FOR [ConditionType] IN ([ZC10], [ZCF1], [VPRS], [EK02])  
     ) AS PivotTable
+    GROUP BY
+        [SalesOrder]
+        ,[SalesOrderItem]
+        ,[CurrencyTypeID]
 )
 select  
        doc.[sk_fact_SalesDocumentItem]
