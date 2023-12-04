@@ -38,7 +38,7 @@ SELECT
   [InScope],
   [IsScheduleLineBlockedFlag],
   CASE 
-      WHEN IsScheduleLineBlockedFlag = 1 AND IsOrderItemBlockedFlag = 1
+      WHEN IsScheduleLineBlockedFlag = 1 OR IsOrderItemBlockedFlag = 1
       THEN 1
       ELSE 0
   END AS [IsBlockedFlag] 
