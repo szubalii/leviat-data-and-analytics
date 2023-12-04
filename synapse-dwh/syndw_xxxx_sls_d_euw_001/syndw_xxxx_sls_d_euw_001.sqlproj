@@ -733,6 +733,9 @@
     <Build Include="base_s4h_cax\Tables\I_FrtCostDistrItm.sql" />
     <Build Include="base_s4h_cax\Tables\I_TransportationOrder.sql" />
     <Build Include="base_s4h_cax\Tables\I_TransportationOrderItem.sql" />
+    <Build Include="base_s4h_cax\Tables\I_ACMAuthznDataForActivityGrp.sql" />
+    <Build Include="base_s4h_cax\Tables\P_USR_AUTH_ROLE.sql" />
+    <Build Include="base_s4h_cax\Tables\P_SU2X_HEAD_TR.sql" />
 
     <Build Include="base_tx_ca_0_hlp\Tables\DATAAREA.sql" />
     <Build Include="base_tx_ca_0_hlp\Tables\CRHCURRENCY.sql" />

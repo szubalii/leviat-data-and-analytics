@@ -4305,6 +4305,39 @@
         "base_table_name": "I_ChangeDocumentItem_VBEP_EDATU",
         "schedule_recurrence": "D",
         "pk_field_names": "MANDT, CHANGEDOCOBJECT, CHANGEDOCOBJECTCLASS, CHANGEDOCUMENT, DATABASETABLE, CHANGEDOCTABLEKEY, CHANGEDOCDATABASETABLEFIELD, CHANGEDOCITEMCHANGETYPE"
+      },
+      {
+        "entity_id": 633,
+        "entity_name": "I_ACMAuthznDataForActivityGrp",
+        "data_category": "NULL",
+        "tool_name": "Theobald",
+        "extraction_type": "Table",
+        "update_mode": "Full",
+        "base_table_name": "I_ACMAuthznDataForActivityGrp",
+        "schedule_recurrence": "D",
+        "pk_field_names": "MANDT, LOGACCMACTYGRPPROFILEROLENAME, LOGACCMACTYGRPPRFLCHGSTINTID"
+      },
+      {
+        "entity_id": 634,
+        "entity_name": "P_USR_AUTH_ROLE",
+        "data_category": "NULL",
+        "tool_name": "Theobald",
+        "extraction_type": "Table",
+        "update_mode": "Full",
+        "base_table_name": "P_USR_AUTH_ROLE",
+        "schedule_recurrence": "D",
+        "pk_field_names": "MANDT"
+      },
+      {
+        "entity_id": 635,
+        "entity_name": "P_SU2X_HEAD_TR",
+        "data_category": "NULL",
+        "tool_name": "Theobald",
+        "extraction_type": "Table",
+        "update_mode": "Full",
+        "base_table_name": "P_SU2X_HEAD_TR",
+        "schedule_recurrence": "D",
+        "pk_field_names": "MANDT, OBJECT, OBJ_NAME"
       }
     ]
   },

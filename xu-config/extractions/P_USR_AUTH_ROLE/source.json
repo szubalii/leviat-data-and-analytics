@@ -1,0 +1,124 @@
+{
+  "functionName": "Z_THEO_READ_TABLE",
+  "runInBackGroundJob": false,
+  "tables": [
+    {
+      "name": "PUSRAUTHROLE",
+      "description": "Generated Table for View PUSRAUTHROLE",
+      "isView": true,
+      "fields": [
+        {
+          "name": "MANDT",
+          "description": "Client",
+          "abapType": "CharacterString",
+          "length": 3,
+          "isSelected": true,
+          "outputLength": 3,
+          "isPrimaryKey": true,
+          "isDeltaColumn": true,
+          "selectionPermission": "All",
+          "checkTable": "T000"
+        },
+        {
+          "name": "BNAME",
+          "description": "User Name in User Master Record",
+          "abapType": "CharacterString",
+          "length": 12,
+          "isSelected": true,
+          "outputLength": 12,
+          "isDeltaColumn": true,
+          "selectionPermission": "All",
+          "checkTable": ""
+        },
+        {
+          "name": "PROFILE",
+          "description": "Profile name",
+          "abapType": "CharacterString",
+          "length": 12,
+          "isSelected": true,
+          "outputLength": 12,
+          "isDeltaColumn": true,
+          "selectionPermission": "All",
+          "checkTable": ""
+        },
+        {
+          "name": "AGR_NAME",
+          "description": "Role Name",
+          "abapType": "CharacterString",
+          "length": 30,
+          "isSelected": true,
+          "outputLength": 30,
+          "isDeltaColumn": true,
+          "selectionPermission": "All",
+          "checkTable": ""
+        },
+        {
+          "name": "REFUSER",
+          "description": "Reference user",
+          "abapType": "CharacterString",
+          "length": 12,
+          "isSelected": true,
+          "outputLength": 12,
+          "isDeltaColumn": true,
+          "selectionPermission": "All",
+          "checkTable": ""
+        },
+        {
+          "name": "FROM_DAT",
+          "description": "Date of validity",
+          "abapType": "Date",
+          "length": 8,
+          "isSelected": true,
+          "outputLength": 10,
+          "isDeltaColumn": true,
+          "selectionPermission": "All",
+          "checkTable": ""
+        },
+        {
+          "name": "TO_DAT",
+          "description": "Date of validity",
+          "abapType": "Date",
+          "length": 8,
+          "isSelected": true,
+          "outputLength": 10,
+          "isDeltaColumn": true,
+          "selectionPermission": "All",
+          "checkTable": ""
+        },
+        {
+          "name": "COL_FLAG",
+          "description": "Flag: Assignment from composite role",
+          "abapType": "CharacterString",
+          "length": 1,
+          "isSelected": true,
+          "outputLength": 1,
+          "isDeltaColumn": true,
+          "selectionPermission": "All",
+          "checkTable": ""
+        },
+        {
+          "name": "ORG_FLAG",
+          "description": "Flag: Assignment Comes From HR Organization Management",
+          "abapType": "CharacterString",
+          "length": 1,
+          "isSelected": true,
+          "outputLength": 1,
+          "isDeltaColumn": true,
+          "selectionPermission": "All",
+          "checkTable": ""
+        },
+        {
+          "name": "TEXT",
+          "description": "Role Description",
+          "abapType": "CharacterString",
+          "length": 80,
+          "isSelected": true,
+          "outputLength": 80,
+          "isDeltaColumn": true,
+          "selectionPermission": "All",
+          "checkTable": ""
+        }
+      ]
+    }
+  ]
+}
