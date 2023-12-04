@@ -352,7 +352,7 @@ OutboundDeliveryItem_s4h AS (
                 OD.[ShippingCondition] = 70
                 AND
                 DimActualRoute.[DurInDays] = 0
-            THEN DATEADD(DAY, 1, OD.[ActualGoodsMovementDate]
+            THEN DATEADD(DAY, 1, OD.[ActualGoodsMovementDate])
             ELSE OD.[ActualGoodsMovementDate]
         END AS [CalculatedDelDate]
       ,CASE
