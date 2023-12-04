@@ -22,8 +22,8 @@ BEGIN
     IsOrderItemBlockedFlag
     )
   VALUES
-    (1, 1, 1, 10, 1, 1, 1), 
-    (2, 1, 1, 30, 1, 1, 1), 
+    (1, 1, 1, 10, 1, 1, 0), 
+    (2, 1, 1, 30, 1, 0, 1), 
     (3, 1, 1, 40, 1, 1, 1);
 
   EXEC ('INSERT INTO edw.vw_fact_ScheduleLineStatus SELECT * FROM #vw_fact_ScheduleLineStatus');
