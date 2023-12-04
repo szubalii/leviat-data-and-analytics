@@ -28,7 +28,7 @@ BEGIN
   ,(200, 5, '2001-01-01', 70, 1)          -- CalculatedDelDate = ActualGoodsMovementDate + 1 DAY
   ,(200, 6, '2001-01-01', 70, 3)          -- CalculatedDelDate = ActualGoodsMovementDate
 
-  INSERT INTO [dim_Route].[dim_Route] ([ROUTEID], [DurInDays], [ROUTE], [TRAZT], [TDVZT], [SPFBK], [EXPVZ], [TDIIX])
+  INSERT INTO [edw].[dim_Route] ([ROUTEID], [DurInDays], [ROUTE], [TRAZT], [TDVZT], [SPFBK], [EXPVZ], [TDIIX])
   VALUES
     (1, 0, 'TST', 0, 0, 'T', 'T', 'T')
     ,(2, NULL, 'TST', 0, 0, 'T', 'T', 'T')
