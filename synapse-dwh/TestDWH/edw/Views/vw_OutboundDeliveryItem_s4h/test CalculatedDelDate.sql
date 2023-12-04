@@ -50,9 +50,9 @@ BEGIN
 
   INSERT INTO expected(
     [OutboundDelivery],
-    HDR_ActualGoodsMovementDate],
-    HDR_ShippingCondition],
-    HDR_ActualDeliveryRoute],
+    [HDR_ActualGoodsMovementDate],
+    [HDR_ShippingCondition],
+    [HDR_ActualDeliveryRoute],
     [CalculatedDelDate])
   VALUES
     (200, 1, NULL, 70, 1, NULL)                   -- CalculatedDelDate NULL
