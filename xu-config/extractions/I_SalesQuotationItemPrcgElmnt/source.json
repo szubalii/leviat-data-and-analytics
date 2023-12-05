@@ -1,6 +1,5 @@
 {
 	"functionName": "Z_THEO_READ_TABLE",
-	"whereClause": "CONDITIONINACTIVEREASON = ''",
 	"runInBackGroundJob": false,
 	"tables": [
 		{
