@@ -23,10 +23,10 @@ BEGIN
   VALUES 
   (200, 1, NULL, 70, 1)                   -- CalculatedDelDate NULL
   ,(200, 2, '0001-01-01', 60, 1)          -- CalculatedDelDate NULL
-  ,(200, 3, '2001-01-01', 50, 2)          -- CalculatedDelDate NULL
-  ,(200, 4, '2001-01-01', 60, 1)          -- CalculatedDelDate NULL
-  ,(200, 5, '2001-01-01', 70, 1)          -- CalculatedDelDate = ActualGoodsMovementDate + 1 DAY
-  ,(200, 6, '2001-01-01', 70, 3)          -- CalculatedDelDate = ActualGoodsMovementDate
+  ,(200, 3, '2023-01-01', 50, 2)          -- CalculatedDelDate NULL
+  ,(200, 4, '2023-01-01', 60, 1)          -- CalculatedDelDate NULL
+  ,(200, 5, '2023-01-01', 70, 1)          -- CalculatedDelDate = ActualGoodsMovementDate + 1 DAY
+  ,(200, 6, '2023-01-01', 70, 3)          -- CalculatedDelDate = ActualGoodsMovementDate
 
   INSERT INTO [edw].[dim_Route] ([ROUTEID], [DurInDays], [ROUTE], [TRAZT], [TDVZT], [SPFBK], [EXPVZ], [TDIIX])
   VALUES
@@ -57,10 +57,11 @@ BEGIN
   VALUES
     (1, NULL, 70, 1, NULL)                   -- CalculatedDelDate NULL
     ,(2, '0001-01-01', 60, 1, NULL)          -- CalculatedDelDate NULL
-    ,(3, '2001-01-01', 50, 2, NULL)          -- CalculatedDelDate NULL
-    ,(4, '2001-01-01', 60, 1, NULL)          -- CalculatedDelDate NULL
-    ,(5, '2001-01-01', 70, 1, '2001-01-02')  -- CalculatedDelDate = ActualGoodsMovementDate + 1 DAY
-    ,(6, '2001-01-01', 70, 3, '2001-01-01')  -- CalculatedDelDate = ActualGoodsMovementDate
+    ,(3, '2023-01-01', 50, 2, NULL)          -- CalculatedDelDate NULL
+    ,(4, '2023-01-01', 60, 1, NULL)          -- CalculatedDelDate NULL
+    ,(5, '2023-01-01', 70, 1, '2023-01-02')  -- CalculatedDelDate = ActualGoodsMovementDate + 1 DAY
+    ,(6, '2023-01-01', 70, 3, '2023-01-01')  -- CalculatedDelDate = ActualGoodsMovementDate
+    ,(10, '2023-01-01', 70, 3, '2001-01-01');
 
   -- Assert:
   EXEC tSQLt.AssertEqualsTable 'expected', 'actual';
