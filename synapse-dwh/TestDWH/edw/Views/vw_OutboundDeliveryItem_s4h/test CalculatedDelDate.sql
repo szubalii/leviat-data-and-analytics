@@ -3,7 +3,7 @@ AS
 BEGIN
 
   IF OBJECT_ID('actual') IS NOT NULL DROP TABLE actual;
-  -- IF OBJECT_ID('expected') IS NOT NULL DROP TABLE expected;
+  IF OBJECT_ID('expected') IS NOT NULL DROP TABLE expected;
 
   -- Assemble: Fake Table
   EXEC tSQLt.FakeTable '[base_s4h_cax]', '[I_OutboundDeliveryItem]';
@@ -48,7 +48,7 @@ BEGIN
   INTO expected
   FROM actual;
 
-  /*INSERT INTO expected(
+  INSERT INTO expected(
     [OutboundDelivery],
     [HDR_ActualGoodsMovementDate],
     [HDR_ShippingCondition],
@@ -60,7 +60,7 @@ BEGIN
     ,(3, '2023-01-01', 50, 2, NULL)          -- CalculatedDelDate NULL
     ,(4, '2023-01-01', 60, 1, NULL)          -- CalculatedDelDate NULL
     ,(5, '2023-01-01', 70, 1, '2023-01-02')  -- CalculatedDelDate = ActualGoodsMovementDate + 1 DAY
-    ,(6, '2023-01-01', 70, 3, '2023-01-01'); -- CalculatedDelDate = ActualGoodsMovementDate*/
+    ,(6, '2023-01-01', 70, 3, '2023-01-01'); -- CalculatedDelDate = ActualGoodsMovementDate
 
   -- Assert:
   EXEC tSQLt.AssertEqualsTable 'expected', 'actual';
