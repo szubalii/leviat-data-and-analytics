@@ -1,5 +1,26 @@
 ﻿CREATE VIEW [dm_sales].[vw_fact_SalesOrderItem] 
 AS
+WITH
+PrcgElmnt AS (
+    SELECT
+        [SalesOrder]
+        ,[SalesOrderItem]
+        ,[CurrencyTypeID]
+        ,MAX([ZC10])    AS [ZC10]
+        ,MAX([ZCF1])    AS [ZCF1]
+        ,MAX([VPRS])    AS [VPRS]
+        ,MAX([EK02])    AS [EK02]
+    FROM [edw].[fact_SalesOrderItemPricingElement]
+    PIVOT  
+    (  
+        SUM(ConditionAmount)  
+        FOR [ConditionType] IN ([ZC10], [ZCF1], [VPRS], [EK02])  
+    ) AS PivotTable
+    GROUP BY
+        [SalesOrder]
+        ,[SalesOrderItem]
+        ,[CurrencyTypeID]
+)
 select  
        doc.[sk_fact_SalesDocumentItem]
      , doc.[SalesDocument]                       as [SalesOrderID]
@@ -147,6 +168,11 @@ select
      , doc.[OutboundDelivery]            AS [LatestOutboundDelivery]
      , doc.[OutboundDeliveryItem]        AS [LatestOutboundDeliveryItem]
      , doc.[IsOrderItemBlockedFlag]
+     , PrcgElmnt.[ZC10]                         AS [PrcgElmntZC10ConditionAmount]
+     , PrcgElmnt.[ZCF1]                         AS [PrcgElmntZCF1ConditionAmount]
+     , [edw].[svf_replaceZero](
+            PrcgElmnt.[VPRS]
+            ,PrcgElmnt.[EK02])                  AS [PrcgElmntVPRS/EK02ConditionAmount]
      , doc.[t_applicationId]
      , doc.[t_extractionDtm]
 from [edw].[vw_fact_SalesDocumentItem]  doc
@@ -226,5 +252,10 @@ from [edw].[vw_fact_SalesDocumentItem]  doc
 
           LEFT JOIN [edw].[dim_SalesOffice] dimSO
                     ON doc.[SalesOfficeID] = dimSO.[SalesOfficeID]
+
+          LEFT JOIN PrcgElmnt
+                ON doc.SalesDocument = PrcgElmnt.SalesOrder
+                    AND doc.SalesDocumentItem = PrcgElmnt.SalesOrderItem   COLLATE DATABASE_DEFAULT
+                    AND doc.CurrencyTypeID = PrcgElmnt.CurrencyTypeID
 where doc.[SDDocumentCategoryID] <> 'B'
 --     AND dimSDDRjS.[SDDocumentRejectionStatus] <> 'Fully Rejected'
