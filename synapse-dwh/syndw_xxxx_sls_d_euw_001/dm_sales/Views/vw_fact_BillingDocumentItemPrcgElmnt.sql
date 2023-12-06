@@ -13,6 +13,7 @@ SELECT
          ,[CurrencyType]
          ,[CurrencyID]
          ,[GLAccount] AS GLAccountID
+         ,[ConditionInactiveReason]
 FROM
   [edw].[fact_BillingDocumentItemPrcgElmnt]
 GROUP BY  
@@ -25,3 +26,4 @@ GROUP BY
          ,[CurrencyType]
          ,[CurrencyID]
          ,[GLAccount]
+         ,[ConditionInactiveReason]
