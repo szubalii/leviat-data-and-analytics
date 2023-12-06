@@ -12,7 +12,7 @@ SELECT
          ,[CurrencyTypeID]
          ,[CurrencyType]
          ,[CurrencyID]
-         ,[GLAccount]
+         ,[GLAccount] AS GLAccountID
 FROM
   [edw].[fact_SalesOrderItemPricingElement]
 GROUP BY
