@@ -13,6 +13,7 @@ SELECT
          ,[CurrencyType]
          ,[CurrencyID]
          ,[GLAccount]
+         ,[ConditionInactiveReason]
 FROM
   [edw].[fact_SalesOrderItemPricingElement]
 GROUP BY
@@ -25,3 +26,4 @@ GROUP BY
          ,[CurrencyType]
          ,[CurrencyID]
          ,[GLAccount]
+         ,[ConditionInactiveReason]
