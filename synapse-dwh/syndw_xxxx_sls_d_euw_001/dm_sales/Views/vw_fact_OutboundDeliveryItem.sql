@@ -13,6 +13,7 @@ WITH CurrencyConversionRate AS (
 SELECT  
        [sk_fact_OutboundDeliveryItem]
       ,[nk_fact_OutboundDeliveryItem]
+      ,[nk2_fact_OutboundDeliveryItem]
       ,[OutboundDelivery]
       ,[OutboundDeliveryItem]
       ,[DeliveryDocumentItemCategoryID]

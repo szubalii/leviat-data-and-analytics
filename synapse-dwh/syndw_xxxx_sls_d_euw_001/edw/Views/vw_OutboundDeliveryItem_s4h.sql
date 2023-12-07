@@ -2,8 +2,7 @@
 WITH
 OutboundDeliveryItem_s4h AS (
     SELECT 
-        CONCAT_WS('¦', ODI.[OutboundDelivery] collate SQL_Latin1_General_CP1_CS_AS, ODI.[OutboundDeliveryItem] collate SQL_Latin1_General_CP1_CS_AS) AS [nk_fact_OutboundDeliveryItem]
-        ,ODI.[OutboundDelivery]
+        CONCAT_WS('¦', ODI.[OutboundDelivery] collate SQL_Latin1_General_CP1_CS_AS, ODI.[OutboundDeliveryItem] collate SQL_Latin1_General_CP1_CS_AS) AS [nk_fact_OutboundDeliveryItem]        ,ODI.[OutboundDelivery]
         ,ODI.[OutboundDeliveryItem]
         ,ODI.[DeliveryDocumentItemCategory] AS [DeliveryDocumentItemCategoryID]
         ,ODI.[SalesDocumentItemType] AS [SalesDocumentItemTypeID]
@@ -265,8 +264,8 @@ OutboundDeliveryItem_s4h AS (
             WHEN SDI.[SDI_ConfdDelivQtyInOrderQtyUnit] = ODI.[ActualDeliveryQuantity]
             THEN 'In Full Delivered'
             WHEN SDI.[SDI_ConfdDelivQtyInOrderQtyUnit] > ODI.[ActualDeliveryQuantity]
-            THEN 'Over Delivered'
-            ELSE 'Under Delivered'
+            THEN 'Under Delivered'
+            ELSE 'Over Delivered'
          END AS [IF_Group]
         ,CASE
             WHEN
@@ -353,7 +352,8 @@ OutboundDeliveryItem_s4h AS (
                 AND
                 DimActualRoute.[DurInDays] = 0
             THEN DATEADD(DAY, 1, OD.[ActualGoodsMovementDate])
-            ELSE OD.[ActualGoodsMovementDate]
+            --ELSE OD.[ActualGoodsMovementDate]
+            ELSE cdd.CalculatedDelDate
         END AS [CalculatedDelDate]
       ,CASE
            WHEN
@@ -416,7 +416,7 @@ OutboundDeliveryItem_s4h AS (
     LEFT JOIN
         [edw].[dim_Route] AS DimActualRoute
         ON
-            DimActualRoute.[ROUTEID] = OD.[ActualDeliveryRoute]
+            DimActualRoute.[ROUTEID] = OD.[ProposedDeliveryRoute]
     LEFT JOIN
         [edw].[dim_Route] AS DimProposedRoute
         ON
@@ -1554,6 +1554,7 @@ FROM
 )
 SELECT
     [nk_fact_OutboundDeliveryItem]
+    ,edw.[svf_get2PartNaturalKey] ([ProductID], [PlantID]) AS [nk2_fact_OutboundDeliveryItem]
     ,[OutboundDelivery]
     ,[OutboundDeliveryItem]
     ,[DeliveryDocumentItemCategoryID]

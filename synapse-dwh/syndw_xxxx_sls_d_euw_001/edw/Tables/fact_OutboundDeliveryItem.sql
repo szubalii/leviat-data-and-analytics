@@ -1,6 +1,7 @@
 ﻿CREATE TABLE [edw].[fact_OutboundDeliveryItem] (
        [sk_fact_OutboundDeliveryItem] int IDENTITY(1,1) NOT NULL
       ,[nk_fact_OutboundDeliveryItem] nvarchar(45) NOT NULL
+      ,[nk2_fact_OutboundDeliveryItem] nvarchar(45) NOT NULL
       ,[OutboundDelivery] nvarchar(20) NOT NULL
       ,[OutboundDeliveryItem] char(6) collate Latin1_General_100_BIN2 NOT NULL
       ,[DeliveryDocumentItemCategoryID] nvarchar(4)
