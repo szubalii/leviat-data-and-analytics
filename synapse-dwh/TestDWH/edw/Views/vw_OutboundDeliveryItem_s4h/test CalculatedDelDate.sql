@@ -47,7 +47,7 @@ BEGIN
     [OutboundDelivery],
     [HDR_ActualGoodsMovementDate],
     [HDR_ShippingCondition],
-    [HDR_ActualDeliveryRoute],
+    [HDR_ProposedDeliveryRoute],
     [CalculatedDelDate]
   INTO actual
   FROM [edw].[vw_OutboundDeliveryItem_s4h];
@@ -60,7 +60,7 @@ BEGIN
     [OutboundDelivery],
     [HDR_ActualGoodsMovementDate],
     [HDR_ShippingCondition],
-    [ProposedDeliveryRoute],
+    [HDR_ProposedDeliveryRoute],
     [CalculatedDelDate])
   VALUES
     (1, NULL, 70, 1, NULL)                   -- CalculatedDelDate NULL
