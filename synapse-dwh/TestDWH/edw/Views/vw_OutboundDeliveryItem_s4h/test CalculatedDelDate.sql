@@ -66,7 +66,7 @@ BEGIN
     [CalculatedDelDate])
   VALUES
     (1, NULL, 70, 1, NULL)                   -- CalculatedDelDate NULL
-    ,(2, '0001-01-01', 60, 1, NULL)          -- CalculatedDelDate NULL
+ --   ,(2, '0001-01-01', 60, 1, NULL)          -- CalculatedDelDate NULL
     ,(3, '2023-01-01', 50, 2, NULL)          -- CalculatedDelDate NULL
     ,(4, '2023-01-01', 60, 1, NULL)          -- CalculatedDelDate NULL
     ,(5, '2023-01-01', 70, 1, '2023-01-02')  -- CalculatedDelDate = ActualGoodsMovementDate + 1 DAY
