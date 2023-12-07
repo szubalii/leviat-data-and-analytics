@@ -4,6 +4,7 @@ BEGIN
 
   IF OBJECT_ID('actual')    IS NOT NULL DROP TABLE actual;
   IF OBJECT_ID('expected')  IS NOT NULL DROP TABLE expected;
+  IF OBJECT_ID('tempdb..#vw_OutboundDelivery_DeliveryDate') IS NOT NULL DROP TABLE #vw_OutboundDelivery_DeliveryDate;
 
   -- Assemble: Fake Table
   EXEC tSQLt.FakeTable '[base_s4h_cax]', '[I_OutboundDeliveryItem]';
@@ -35,8 +36,14 @@ BEGIN
     ,(2, NULL, 'TST', 0, 0, 'T', 'T', 'T')
     ,(3, 10, 'TST', 0, 0, 'T', 'T', 'T');
 
+  SELECT TOP(0) *
+  INTO #vw_OutboundDelivery_DeliveryDate
+  FROM intm_s4h.vw_OutboundDelivery_DeliveryDate;
+
   INSERT INTO [intm_s4h].[vw_OutboundDelivery_DeliveryDate] (OutboundDelivery, CalculatedDelDate)
-  VALUES (6, '2023-05-01')
+  VALUES (6, '2023-05-01');
+
+  EXEC ('INSERT INTO intm_s4h.vw_OutboundDelivery_DeliveryDate SELECT * FROM #vw_OutboundDelivery_DeliveryDate');
   -- Act: 
   SELECT
     [OutboundDelivery],
