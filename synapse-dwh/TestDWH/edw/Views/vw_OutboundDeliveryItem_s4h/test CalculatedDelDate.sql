@@ -40,7 +40,7 @@ BEGIN
   INTO #vw_OutboundDelivery_DeliveryDate
   FROM intm_s4h.vw_OutboundDelivery_DeliveryDate;
 
-  INSERT INTO [intm_s4h].[vw_OutboundDelivery_DeliveryDate] (OutboundDelivery, CalculatedDelDate)
+  INSERT INTO #vw_OutboundDelivery_DeliveryDate (OutboundDelivery, CalculatedDelDate)
   VALUES (6, '2023-05-01');
 
   EXEC ('INSERT INTO intm_s4h.vw_OutboundDelivery_DeliveryDate SELECT * FROM #vw_OutboundDelivery_DeliveryDate');
