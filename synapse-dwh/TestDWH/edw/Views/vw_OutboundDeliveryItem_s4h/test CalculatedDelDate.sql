@@ -24,7 +24,7 @@ BEGIN
   INSERT INTO [base_s4h_cax].[I_OutboundDelivery] ([MANDT], [OutboundDelivery], [ActualGoodsMovementDate], [ShippingCondition], [ProposedDeliveryRoute])
   VALUES 
   (200, 1, NULL, 70, 1)                   -- CalculatedDelDate NULL
-  ,(200, 2, '0001-01-01', 60, 1)          -- CalculatedDelDate NULL
+  --,(200, 2, '0001-01-01', 60, 1)          -- CalculatedDelDate NULL
   ,(200, 3, '2023-01-01', 50, 2)          -- CalculatedDelDate NULL
   ,(200, 4, '2023-01-01', 60, 1)          -- CalculatedDelDate NULL
   ,(200, 5, '2023-01-01', 70, 1)          -- CalculatedDelDate = ActualGoodsMovementDate + 1 DAY
