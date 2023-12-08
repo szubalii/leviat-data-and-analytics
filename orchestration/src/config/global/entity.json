@@ -4326,7 +4326,7 @@
         "update_mode": "Full",
         "base_table_name": "P_USR_AUTH_ROLE",
         "schedule_recurrence": "D",
-        "pk_field_names": "MANDT"
+        "pk_field_names": "MANDT, BNAME, PROFILE, FROM_DAT"
       },
       {
         "entity_id": 635,
