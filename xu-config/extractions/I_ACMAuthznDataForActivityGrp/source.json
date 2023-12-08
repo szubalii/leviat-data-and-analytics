@@ -1,5 +1,6 @@
 {
   "functionName": "Z_THEO_READ_TABLE",
+  "whereClause": "AUTHORIZATIONGROUPOBJECT = 'S_TCODE' AND LOGACCMACTYGRPPROFILEROLENAME LIKE 'TR%XXXX%'",
   "runInBackGroundJob": false,
   "tables": [
     {

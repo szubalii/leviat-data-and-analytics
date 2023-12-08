@@ -1,5 +1,6 @@
 {
   "functionName": "Z_THEO_READ_TABLE",
+  "whereClause": "AGR_NAME LIKE 'TR%XXXX%'",
   "runInBackGroundJob": false,
   "tables": [
     {
