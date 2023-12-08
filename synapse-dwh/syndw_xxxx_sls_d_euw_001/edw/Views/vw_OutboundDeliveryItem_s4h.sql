@@ -2,7 +2,8 @@
 WITH
 OutboundDeliveryItem_s4h AS (
     SELECT 
-        CONCAT_WS('¦', ODI.[OutboundDelivery] collate SQL_Latin1_General_CP1_CS_AS, ODI.[OutboundDeliveryItem] collate SQL_Latin1_General_CP1_CS_AS) AS [nk_fact_OutboundDeliveryItem]        ,ODI.[OutboundDelivery]
+        CONCAT_WS('¦', ODI.[OutboundDelivery] collate SQL_Latin1_General_CP1_CS_AS, ODI.[OutboundDeliveryItem] collate SQL_Latin1_General_CP1_CS_AS) AS [nk_fact_OutboundDeliveryItem]
+        ,ODI.[OutboundDelivery]
         ,ODI.[OutboundDeliveryItem]
         ,ODI.[DeliveryDocumentItemCategory] AS [DeliveryDocumentItemCategoryID]
         ,ODI.[SalesDocumentItemType] AS [SalesDocumentItemTypeID]
