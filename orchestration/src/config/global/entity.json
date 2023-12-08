@@ -3621,7 +3621,7 @@
         "update_mode": "Full",
         "base_table_name": "I_GLAccountLineItemRawData_202309",
         "pk_field_names": "SOURCELEDGER, COMPANYCODE, FISCALYEAR, ACCOUNTINGDOCUMENT, LEDGERGLLINEITEM",
-        "schedule_recurrence": "D"
+        "schedule_recurrence": "A"
       },{
         "entity_id": 622,
         "entity_name": "I_GLAccountLineItemRawData_F_202310",
@@ -3653,6 +3653,72 @@
         "extraction_type": "ODP",
         "update_mode": "Full",
         "base_table_name": "I_GLAccountLineItemRawData_202312",
+        "pk_field_names": "SOURCELEDGER, COMPANYCODE, FISCALYEAR, ACCOUNTINGDOCUMENT, LEDGERGLLINEITEM",
+        "schedule_recurrence": "D"
+      },{
+        "entity_id": 633,
+        "entity_name": "I_GLAccountLineItemRawData_F_202401",
+        "data_category": "CUBE",
+        "client_field": "MANDT",
+        "tool_name": "Theobald",
+        "extraction_type": "ODP",
+        "update_mode": "Full",
+        "base_table_name": "I_GLAccountLineItemRawData_202401",
+        "pk_field_names": "SOURCELEDGER, COMPANYCODE, FISCALYEAR, ACCOUNTINGDOCUMENT, LEDGERGLLINEITEM",
+        "schedule_recurrence": "D"
+      },{
+        "entity_id": 634,
+        "entity_name": "I_GLAccountLineItemRawData_F_202402",
+        "data_category": "CUBE",
+        "client_field": "MANDT",
+        "tool_name": "Theobald",
+        "extraction_type": "ODP",
+        "update_mode": "Full",
+        "base_table_name": "I_GLAccountLineItemRawData_202402",
+        "pk_field_names": "SOURCELEDGER, COMPANYCODE, FISCALYEAR, ACCOUNTINGDOCUMENT, LEDGERGLLINEITEM",
+        "schedule_recurrence": "D"
+      },{
+        "entity_id": 635,
+        "entity_name": "I_GLAccountLineItemRawData_F_202403",
+        "data_category": "CUBE",
+        "client_field": "MANDT",
+        "tool_name": "Theobald",
+        "extraction_type": "ODP",
+        "update_mode": "Full",
+        "base_table_name": "I_GLAccountLineItemRawData_202403",
+        "pk_field_names": "SOURCELEDGER, COMPANYCODE, FISCALYEAR, ACCOUNTINGDOCUMENT, LEDGERGLLINEITEM",
+        "schedule_recurrence": "D"
+      },{
+        "entity_id": 636,
+        "entity_name": "I_GLAccountLineItemRawData_F_202404",
+        "data_category": "CUBE",
+        "client_field": "MANDT",
+        "tool_name": "Theobald",
+        "extraction_type": "ODP",
+        "update_mode": "Full",
+        "base_table_name": "I_GLAccountLineItemRawData_202404",
+        "pk_field_names": "SOURCELEDGER, COMPANYCODE, FISCALYEAR, ACCOUNTINGDOCUMENT, LEDGERGLLINEITEM",
+        "schedule_recurrence": "D"
+      },{
+        "entity_id": 637,
+        "entity_name": "I_GLAccountLineItemRawData_F_202405",
+        "data_category": "CUBE",
+        "client_field": "MANDT",
+        "tool_name": "Theobald",
+        "extraction_type": "ODP",
+        "update_mode": "Full",
+        "base_table_name": "I_GLAccountLineItemRawData_202405",
+        "pk_field_names": "SOURCELEDGER, COMPANYCODE, FISCALYEAR, ACCOUNTINGDOCUMENT, LEDGERGLLINEITEM",
+        "schedule_recurrence": "D"
+      },{
+        "entity_id": 638,
+        "entity_name": "I_GLAccountLineItemRawData_F_202406",
+        "data_category": "CUBE",
+        "client_field": "MANDT",
+        "tool_name": "Theobald",
+        "extraction_type": "ODP",
+        "update_mode": "Full",
+        "base_table_name": "I_GLAccountLineItemRawData_202406",
         "pk_field_names": "SOURCELEDGER, COMPANYCODE, FISCALYEAR, ACCOUNTINGDOCUMENT, LEDGERGLLINEITEM",
         "schedule_recurrence": "D"
       },{
