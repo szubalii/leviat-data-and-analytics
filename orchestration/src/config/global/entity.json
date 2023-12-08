@@ -4338,6 +4338,17 @@
         "base_table_name": "P_SU2X_HEAD_TR",
         "schedule_recurrence": "D",
         "pk_field_names": "MANDT, OBJECT, OBJ_NAME"
+      },
+      {
+        "entity_id": 636,
+        "entity_name": "AGR_AGRS",
+        "data_category": "NULL",
+        "tool_name": "Theobald",
+        "extraction_type": "Table",
+        "update_mode": "Full",
+        "base_table_name": "AGR_AGRS",
+        "schedule_recurrence": "D",
+        "pk_field_names": "MANDT, AGR_NAME, CHILD_AGR"
       }
     ]
   },

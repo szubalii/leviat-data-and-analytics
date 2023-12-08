@@ -1,0 +1,55 @@
+{
+    "functionName": "Z_THEO_READ_TABLE",
+    "whereClause": "CHILD_AGR LIKE 'TR%XXXX%'",
+    "runInBackgroundJob": false,
+    "backgroundJobTimeout": 180,
+    "tables": 
+    [
+        {
+            "name": "AGR_AGRS",
+            "description": "Roles in Composite Roles",
+            "isView": false,
+            "fields": 
+            [
+                {
+                    "name": "MANDT",
+                    "description": "Client ID",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "T000",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "AGR_NAME",
+                    "description": "Composite role",
+                    "abapType": "CharacterString",
+                    "length": 30,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "AGR_DEFINE",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "CHILD_AGR",
+                    "description": "Single Role in Composite Role",
+                    "abapType": "CharacterString",
+                    "length": 30,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "AGR_DEFINE",
+                    "conversionExit": ""
+                },
+                {
+                    "name": "ATTRIBUTES",
+                    "description": "Assignment active",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": ""
+                }
+            ]
+        }
+    ]
+}
