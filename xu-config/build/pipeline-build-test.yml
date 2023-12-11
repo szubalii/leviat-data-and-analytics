@@ -40,7 +40,7 @@ jobs:
   
   # Get changed extractions before any other tasks that might change source files
   - task: PowerShell@2
-    displayName: 'Get Changed Extractions'
+    displayName: 'Get Changed Extractions (Excl. Deleted)'
     name: GetChangedExtractions
     inputs:
       filePath: $(System.DefaultWorkingDirectory)/xu-config/src/getChangedExtractions.ps1

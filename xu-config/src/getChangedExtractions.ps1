@@ -2,11 +2,13 @@
 
 $targetBranch = 'refs/remotes/origin/'+$env:SYSTEM_PULLREQUEST_TARGETBRANCHNAME+'...HEAD'
 $extractionsFolder = 'xu-config/extractions/'
-$changedFiles = git diff --name-only $targetBranch #$commitId^!
+
+# exclude deleted files
+$changedFiles = git diff --name-only --diff-filter=d $targetBranch #$commitId^!
 
 # $changedFiles = 'xu-config/extractions/I_DeliveryDocument/source.json'#,'xu-config/extractions/I_Brand/source.json','xu-config/extractions/I_DeliveryDocument/source.json','xu-config/extractions/I_DeliveryDocument/general.json'
 
-Write-Host "The following file(s) have changed:"
+Write-Host "The following file(s) have changed (excl. deleted ones):"
 $changedFiles
 
 # If a single file is changed convert to an array
@@ -16,7 +18,7 @@ if ($changedFiles.getType().Name -eq 'String') {
   $changedFiles += $changedFile
 }
 
-# Get the changed extraction files
+# Get the changed extraction files 
 $changedExtractionsFiles = $changedFiles -match $extractionsFolder
 
 # Write-Host "The following extraction files have changed:"
@@ -29,7 +31,7 @@ if ($null -eq $extractions) {
   # $extractions = @()
   Write-Host "No extractions have changed"
 } else {
-  Write-Host "The following extraction(s) have changed:"
+  Write-Host "The following extraction(s) have changed (excl. deleted ones):"
   $extractions
   # Convert to comma separated list of extraction names
   $extractionNames = $extractions -join ',';
