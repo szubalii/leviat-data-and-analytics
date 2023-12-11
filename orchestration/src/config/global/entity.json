@@ -4319,7 +4319,7 @@
         "entity_name": "OpportunityCollection",
         "base_table_name": "OpportunityCollection",
         "pk_field_names": "ObjectID",
-        "schedule_recurrence": "D"
+        "schedule_recurrence": "A"
       }
     ]
   },
@@ -5823,7 +5823,7 @@
         "source_view_name": "vw_OpportunityCollection",
         "dest_table_name": "fact_OpportunityCollection",
         "execution_order": 1,
-        "schedule_recurrence": "D"
+        "schedule_recurrence": "A"
       },
       {
         "entity_id": 504,
