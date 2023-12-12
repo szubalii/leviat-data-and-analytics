@@ -22,9 +22,8 @@
   , [t_jobBy] VARCHAR (128)  -- Job executed by
   , [t_extractionDtm] DATETIME  -- Extraction Date Time
   , [t_filePath] NVARCHAR (1024)  -- Filepath
-  , CONSTRAINT [PK_P_SU2X_HEAD_TR] PRIMARY KEY NONCLUSTERED(      
-      [MANDT]
-    , [object]
+  , CONSTRAINT [PK_P_SU2X_HEAD_TR] PRIMARY KEY NONCLUSTERED( 
+     [object]
     , [obj_name]
   ) NOT ENFORCED
 ) WITH (
