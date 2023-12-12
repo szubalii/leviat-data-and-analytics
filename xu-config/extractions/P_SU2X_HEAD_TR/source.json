@@ -1,215 +1,173 @@
 {
-	"functionName": "Z_THEO_READ_TABLE",
-	"runInBackGroundJob": false,
-	"tables": [
-		{
-			"name": "PSU2X_HEAD_TR",
-			"description": "Generated Table for View PSU2X_HEAD_TR",
-			"isView": true,
-			"fields": [
-				{
-					"name": "MANDT",
-					"description": "Client",
-					"abapType": "CharacterString",
-					"length": 3,
-					"isSelected": true,
-					"outputLength": 3,
-					"isPrimaryKey": true,
-					"isDeltaColumn": true,
-					"selectionPermission": "All",
-					"checkTable": "T000"
-				},
-				{
-					"name": "OBJECT",
-					"description": "Object Type",
-					"abapType": "CharacterString",
-					"length": 4,
-					"isSelected": true,
-					"outputLength": 4,
-					"isPrimaryKey": true,
-					"isDeltaColumn": true,
-					"selectionPermission": "All",
-					"checkTable": ""
-				},
-				{
-					"name": "OBJ_NAME",
-					"description": "Object Name in Object Directory",
-					"abapType": "CharacterString",
-					"length": 40,
-					"isSelected": true,
-					"outputLength": 40,
-					"isPrimaryKey": true,
-					"isDeltaColumn": true,
-					"selectionPermission": "All",
-					"checkTable": ""
-				},
-				{
-					"name": "MODIFIER",
-					"description": "Last Changed By",
-					"abapType": "CharacterString",
-					"length": 12,
-					"isSelected": true,
-					"outputLength": 12,
-					"isDeltaColumn": true,
-					"selectionPermission": "All",
-					"checkTable": ""
-				},
-				{
-					"name": "MODDATE",
-					"description": "Modification date",
-					"abapType": "Date",
-					"length": 8,
-					"isSelected": true,
-					"outputLength": 10,
-					"isDeltaColumn": true,
-					"selectionPermission": "All",
-					"checkTable": ""
-				},
-				{
-					"name": "MODTIME",
-					"description": "Modification time",
-					"abapType": "Time",
-					"length": 6,
-					"isSelected": true,
-					"outputLength": 8,
-					"isDeltaColumn": true,
-					"selectionPermission": "All",
-					"checkTable": ""
-				},
-				{
-					"name": "OKFLAG",
-					"description": "Maintenance Mode",
-					"abapType": "CharacterString",
-					"length": 1,
-					"isSelected": true,
-					"outputLength": 1,
-					"isDeltaColumn": true,
-					"selectionPermission": "All",
-					"checkTable": ""
-				},
-				{
-					"name": "AL_VERS",
-					"description": "ABAP Language Version",
-					"abapType": "CharacterString",
-					"length": 1,
-					"isSelected": true,
-					"outputLength": 1,
-					"isDeltaColumn": true,
-					"selectionPermission": "All",
-					"checkTable": ""
-				},
-				{
-					"name": "DEVCLASS",
-					"description": "Package",
-					"abapType": "CharacterString",
-					"length": 30,
-					"isSelected": true,
-					"outputLength": 30,
-					"isDeltaColumn": true,
-					"selectionPermission": "All",
-					"checkTable": ""
-				},
-				{
-					"name": "DLVUNIT",
-					"description": "Software Component",
-					"abapType": "CharacterString",
-					"length": 30,
-					"isSelected": true,
-					"outputLength": 30,
-					"isDeltaColumn": true,
-					"selectionPermission": "All",
-					"checkTable": ""
-				},
-				{
-					"name": "PS_POSID",
-					"description": "Application component ID",
-					"abapType": "CharacterString",
-					"length": 24,
-					"isSelected": true,
-					"outputLength": 24,
-					"isDeltaColumn": true,
-					"selectionPermission": "All",
-					"checkTable": ""
-				},
-				{
-					"name": "SRCSYSTEM",
-					"description": "Original System of Object",
-					"abapType": "CharacterString",
-					"length": 10,
-					"isSelected": true,
-					"outputLength": 10,
-					"isDeltaColumn": true,
-					"selectionPermission": "All",
-					"checkTable": ""
-				},
-				{
-					"name": "AUTHOR",
-					"description": "Person Responsible for a Repository Object",
-					"abapType": "CharacterString",
-					"length": 12,
-					"isSelected": true,
-					"outputLength": 12,
-					"isDeltaColumn": true,
-					"selectionPermission": "All",
-					"checkTable": ""
-				},
-				{
-					"name": "MASTERLANG",
-					"description": "Original Language in Repository objects",
-					"abapType": "CharacterString",
-					"length": 1,
-					"isSelected": true,
-					"outputLength": 2,
-					"isDeltaColumn": true,
-					"selectionPermission": "All",
-					"checkTable": "",
-					"ConversionExit": "ISOLA"
-				},
-				{
-					"name": "STEXT",
-					"description": "Transaction text",
-					"abapType": "CharacterString",
-					"length": 36,
-					"isSelected": true,
-					"outputLength": 36,
-					"isDeltaColumn": true,
-					"selectionPermission": "All",
-					"checkTable": ""
-				},
-				{
-					"name": "CINFO",
-					"description": "HEX01 data element for SYST",
-					"abapType": "OneByteInteger",
-					"length": 1,
-					"isSelected": true,
-					"outputLength": 1,
-					"isDeltaColumn": true,
-					"selectionPermission": "All",
-					"checkTable": ""
-				},
-				{
-					"name": "X_CNT",
-					"description": "",
-					"abapType": "OneByteInteger",
-					"length": 10,
-					"isSelected": true,
-					"outputLength": 11,
-					"isDeltaColumn": true,
-					"selectionPermission": "All",
-					"checkTable": ""
-				},
-				{
-					"name": "X_CNT_C",
-					"description": "",
-					"abapType": "OneByteInteger",
-					"length": 10,
-					"isSelected": true,
-					"outputLength": 11,
-					"isDeltaColumn": true,
-					"selectionPermission": "All",
-					"checkTable": ""
-				}
-			]
-		}
-	]
+    "functionName": "Z_THEO_READ_TABLE",
+    "runInBackgroundJob": false,
+    "backgroundJobTimeout": 180,
+    "tables": 
+    [
+        {
+            "name": "PSU2X_HEAD_TR",
+            "description": "Generated Table for View PSU2X_HEAD_TR",
+            "isView": true,
+            "fields": 
+            [
+                {
+                    "name": "OBJECT",
+                    "description": "Object Type",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "OBJ_NAME",
+                    "description": "Object Name in Object Directory",
+                    "abapType": "CharacterString",
+                    "length": 40,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "MODIFIER",
+                    "description": "Last Changed By",
+                    "abapType": "CharacterString",
+                    "length": 12,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "MODDATE",
+                    "description": "Modification date",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "MODTIME",
+                    "description": "Modification time",
+                    "abapType": "Time",
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "OKFLAG",
+                    "description": "Maintenance Mode",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "AL_VERS",
+                    "description": "ABAP Language Version",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "DEVCLASS",
+                    "description": "Package",
+                    "abapType": "CharacterString",
+                    "length": 30,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "DLVUNIT",
+                    "description": "Software Component",
+                    "abapType": "CharacterString",
+                    "length": 30,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "PS_POSID",
+                    "description": "Application component ID",
+                    "abapType": "CharacterString",
+                    "length": 24,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "SRCSYSTEM",
+                    "description": "Original System of Object",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "AUTHOR",
+                    "description": "Person Responsible for a Repository Object",
+                    "abapType": "CharacterString",
+                    "length": 12,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "MASTERLANG",
+                    "description": "Original Language in Repository objects",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "formattedLength": 2,
+                    "conversionExit": "ISOLA",
+                    "isClientField": false
+                },
+                {
+                    "name": "STEXT",
+                    "description": "Transaction text",
+                    "abapType": "CharacterString",
+                    "length": 36,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "CINFO",
+                    "description": "HEX01 data element for SYST",
+                    "abapType": "ByteSequence",
+                    "length": 1,
+                    "isSelected": true,
+                    "formattedLength": 1,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "X_CNT",
+                    "abapType": "FourByteInteger",
+                    "isSelected": true,
+                    "formattedLength": 11,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "X_CNT_C",
+                    "abapType": "FourByteInteger",
+                    "isSelected": true,
+                    "formattedLength": 11,
+                    "conversionExit": "",
+                    "isClientField": false
+                }
+            ]
+        }
+    ],
+    "complexRuntimeParameters": {
+    },
+    "whereSequence": [
+    ]
 }

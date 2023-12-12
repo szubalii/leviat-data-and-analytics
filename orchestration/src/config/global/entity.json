@@ -4337,7 +4337,7 @@
         "update_mode": "Full",
         "base_table_name": "P_SU2X_HEAD_TR",
         "schedule_recurrence": "D",
-        "pk_field_names": "MANDT, OBJECT, OBJ_NAME"
+        "pk_field_names": "OBJECT, OBJ_NAME"
       },
       {
         "entity_id": 636,

@@ -1,6 +1,5 @@
-﻿CREATE TABLE [base_s4h_cax].[P_SU2X_HEAD_TR] (    
-    [MANDT] CHAR(3) NOT NULL  -- Client
-  , [object] NVARCHAR(4) NOT NULL  -- Object Type
+﻿CREATE TABLE [base_s4h_cax].[P_SU2X_HEAD_TR] (
+    [object] NVARCHAR(4) NOT NULL  -- Object Type
   , [obj_name] NVARCHAR(40) NOT NULL  -- Object Name in Object Directory
   , [modifier] NVARCHAR(12)  -- Last Changed By
   , [moddate] DATE  -- Modification date
