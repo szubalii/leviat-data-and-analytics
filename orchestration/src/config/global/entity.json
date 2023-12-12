@@ -4307,7 +4307,7 @@
         "pk_field_names": "MANDT, CHANGEDOCOBJECT, CHANGEDOCOBJECTCLASS, CHANGEDOCUMENT, DATABASETABLE, CHANGEDOCTABLEKEY, CHANGEDOCDATABASETABLEFIELD, CHANGEDOCITEMCHANGETYPE"
       },
       {
-        "entity_id": 633,
+        "entity_id": 639,
         "entity_name": "I_ACMAuthznDataForActivityGrp",
         "data_category": "NULL",
         "tool_name": "Theobald",
@@ -4318,7 +4318,7 @@
         "pk_field_names": "MANDT, LOGACCMACTYGRPPROFILEROLENAME, LOGACCMACTYGRPPRFLCHGSTINTID"
       },
       {
-        "entity_id": 634,
+        "entity_id": 640,
         "entity_name": "P_USR_AUTH_ROLE",
         "data_category": "NULL",
         "tool_name": "Theobald",
@@ -4329,7 +4329,7 @@
         "pk_field_names": "MANDT, BNAME, PROFILE, FROM_DAT"
       },
       {
-        "entity_id": 635,
+        "entity_id": 641,
         "entity_name": "P_SU2X_HEAD_TR",
         "data_category": "NULL",
         "tool_name": "Theobald",
@@ -4340,7 +4340,7 @@
         "pk_field_names": "OBJECT, OBJ_NAME"
       },
       {
-        "entity_id": 636,
+        "entity_id": 642,
         "entity_name": "AGR_AGRS",
         "data_category": "NULL",
         "tool_name": "Theobald",
