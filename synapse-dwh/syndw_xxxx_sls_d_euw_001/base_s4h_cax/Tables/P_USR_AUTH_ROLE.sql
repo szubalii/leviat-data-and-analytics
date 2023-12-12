@@ -16,7 +16,10 @@
   , [t_extractionDtm] DATETIME  -- Extraction Date Time
   , [t_filePath] NVARCHAR (1024)  -- Filepath
   , CONSTRAINT [PK_P_USR_AUTH_ROLE] PRIMARY KEY NONCLUSTERED(      
-      [MANDT]
+      [MANDT],
+      [BNAME],
+      [profile],
+      [from_dat]
   ) NOT ENFORCED
 ) WITH (
   HEAP
