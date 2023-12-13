@@ -270,7 +270,7 @@ OutboundDeliveryItem_s4h AS (
                 OR
                 ODI.[ActualDeliveryQuantity] = 0
             THEN NULL
-            WHEN ODI.[OutboundDelivery] LIKE '9%' THEN 
+            WHEN ODI.[OutboundDeliveryItem] LIKE '9%' THEN 
                 CASE 
                     WHEN SDI.[SDI_ConfdDelivQtyInOrderQtyUnit] = SUM(ODI.[ActualDeliveryQuantity]) OVER (Partition By ODI.ReferenceSDDocument, ODI.ReferenceSDDocumentItem)
                         THEN 'In Full Delivered'
