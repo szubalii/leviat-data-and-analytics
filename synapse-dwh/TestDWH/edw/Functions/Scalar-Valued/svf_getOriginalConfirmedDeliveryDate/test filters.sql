@@ -32,7 +32,14 @@ BEGIN
     (10, 40, NULL, '2023-02-13', '2023-10-24', 4, 40);
 
   ---- Act:
-  SELECT
+    SELECT
+    ActualDeliveryQuantity,
+    SDI_ConfdDelivQtyInOrderQtyUnit,
+    OriginalConfirmedDeliveryDate1,
+    OriginalConfirmedDeliveryDate2,
+    ConfirmedDeliveryDate,
+    SalesDocumentID,
+    SalesDocumentItemID,
     [edw].[svf_getOriginalConfirmedDeliveryDate](
         ActualDeliveryQuantity
         ,SDI_ConfdDelivQtyInOrderQtyUnit
