@@ -37,10 +37,10 @@ BEGIN
         ActualDeliveryQuantity
         ,SDI_ConfdDelivQtyInOrderQtyUnit
         ,[OriginalConfirmedDeliveryDate1]
-        ,[SalesDocumentID]
-        ,[SalesDocumentItemID]
         ,[OriginalConfirmedDeliveryDate2]
         ,[ConfirmedDeliveryDate]
+        ,[SalesDocumentID]
+        ,[SalesDocumentItemID]
     ) AS SL_OriginalConfirmedDeliveryDate
   INTO actual
   FROM testdata;
