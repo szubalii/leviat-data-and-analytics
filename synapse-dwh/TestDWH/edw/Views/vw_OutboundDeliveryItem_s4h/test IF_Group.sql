@@ -8,9 +8,7 @@ BEGIN
 
   -- Assemble: Fake Table
   EXEC tSQLt.FakeTable '[base_s4h_cax]', '[I_OutboundDeliveryItem]';
-  EXEC tSQLt.FakeTable '[base_s4h_cax]', '[I_OutboundDelivery]';
-  EXEC tSQLt.FakeTable '[edw]', '[dim_Route]';
-  EXEC tSQLt.FakeTable '[intm_s4h]', '[vw_OutboundDelivery_DeliveryDate]';
+  EXEC tSQLt.FakeTable '[edw]', '[vw_fact_SalesDocumentItem_LC_EUR]';
 
   INSERT INTO [base_s4h_cax].[I_OutboundDeliveryItem] (
     [MANDT], 
