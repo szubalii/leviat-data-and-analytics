@@ -1,11 +1,11 @@
 ﻿CREATE VIEW [dm_RiskAndCompliance].[vw_dim_ACMAuthznDataForActivityGrp]
 AS
 SELECT
-     [LOGACCMACTYGRPPROFILEROLENAME]
-    ,[LOGACCMACTYGRPPRFLCHGSTINTID]
-    ,[AUTHORIZATIONGROUPOBJECT]
-    ,[AUTHORIZATIONFROMVALUE]
-    ,[AUTHORIZATIONTOVALUE]
+     [LogAccmActyGrpProfileRolename]
+    ,[LogAccmActyGrpPrflChgsTintId]
+    ,[AuthorizationGroupObject]
+    ,[AuthorizationFromValue]
+    ,[AuthorizationToValue]
     ,[t_applicationId]
     ,[t_extractionDtm]
 FROM
