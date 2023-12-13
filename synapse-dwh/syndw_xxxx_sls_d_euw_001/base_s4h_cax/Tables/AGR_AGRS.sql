@@ -1,8 +1,8 @@
 ﻿CREATE TABLE [base_s4h_cax].[AGR_AGRS] (
     [MANDT] CHAR(3) NOT NULL
-  , [AGR_NAME] NVARCHAR(30)
-  , [CHILD_AGR] NVARCHAR(30)
-  , [ATTRIBUTES] NVARCHAR(30)
+  , [Agr_Name] NVARCHAR(30)
+  , [Child_Agr] NVARCHAR(30)
+  , [Attributes] NVARCHAR(30)
   , [t_applicationId] VARCHAR (32)
   , [t_jobId] VARCHAR (36)
   , [t_jobDtm] DATETIME
@@ -10,7 +10,7 @@
   , [t_extractionDtm] DATETIME
   , [t_filePath] NVARCHAR (1024)
   , CONSTRAINT [PK_AGR_AGRS] PRIMARY KEY NONCLUSTERED(
-      [MANDT],[AGR_NAME],[CHILD_AGR]
+      [MANDT],[Agr_Name],[Child_Agr]
   ) NOT ENFORCED
 ) WITH (
   HEAP

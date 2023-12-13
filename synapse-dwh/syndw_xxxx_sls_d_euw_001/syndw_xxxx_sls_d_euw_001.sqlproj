@@ -1445,10 +1445,10 @@
     <Build Include="dm_scm\Views\vw_fact_ProductSalesThirdPartyDelivery.sql" />
     <Build Include="dm_scm\Views\vw_dim_ShippingPoint.sql" />
 
-    <Build Include="dm_RiskAndCompliance\Views\vw_dim_AGR_AGRS.sql" />
+    <Build Include="dm_RiskAndCompliance\Views\vw_dim_ActivityGroupRolesInCompositeRoles.sql" />
     <Build Include="dm_RiskAndCompliance\Views\vw_dim_ACMAuthznDataForActivityGrp.sql" />
     <Build Include="dm_RiskAndCompliance\Views\vw_dim_P_SU2X_HEAD_TR.sql" />
-    <Build Include="dm_RiskAndCompliance\Views\vw_fact_P_USR_AUTH_ROLE.sql" />
+    <Build Include="dm_RiskAndCompliance\Views\vw_dim_UserAuthorizationRoles.sql" />
 
       <!-- STORED PROCEDURES -->
 
