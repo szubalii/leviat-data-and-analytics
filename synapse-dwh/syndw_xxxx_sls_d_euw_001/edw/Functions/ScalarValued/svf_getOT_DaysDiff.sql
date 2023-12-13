@@ -21,8 +21,6 @@ BEGIN
                 OR
                 @CalculatedDate = '0001-01-01')
             THEN NULL
-            WHEN @CalculatedDate = '0001-01-01'
-			THEN NULL
             ELSE
                 (DATEDIFF(day, @DeliveryDate, @CalculatedDate)) -- count of all days diff
                  -(DATEDIFF(week, @DeliveryDate, @CalculatedDate) * 2) -- count of weekends
