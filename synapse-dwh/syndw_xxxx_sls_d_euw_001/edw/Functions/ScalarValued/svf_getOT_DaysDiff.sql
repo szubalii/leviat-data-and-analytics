@@ -20,11 +20,7 @@ BEGIN
                 (@CalculatedDate IS NULL 
                 OR
                 @CalculatedDate = '0001-01-01')
-                AND
-                @DeliveryDate < CONVERT (DATE, @Current_date)
-            THEN
-                (DATEDIFF(day, @DeliveryDate, CONVERT (DATE, @Current_date))) -- count of all days diff
-                 -(DATEDIFF(week, @DeliveryDate, CONVERT (DATE, @Current_date)) * 2) -- count of weekends
+            THEN NULL
             WHEN @CalculatedDate = '0001-01-01'
 			THEN NULL
             ELSE
