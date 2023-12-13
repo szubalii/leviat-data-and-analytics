@@ -9,7 +9,7 @@ BEGIN
   -- Assemble:
   CREATE TABLE testdata (
     SalesDocumentID NVARCHAR(10),
-    SalesDocumentItemID CHAR(6)
+    SalesDocumentItemID CHAR(6),
     SubsequentDocument NVARCHAR(10),
     PrecedingDocument NVARCHAR(10),
     AccountingDocumentTypeID VARCHAR(2)
@@ -25,7 +25,7 @@ BEGIN
 
   -- Act:
   SELECT
-    SalesDocumentID, SalesDocumentItemID, SubsequentDocument, PrecedingDocument, AccountingDocumentTypeID
+    SalesDocumentID, SalesDocumentItemID, SubsequentDocument, PrecedingDocument, AccountingDocumentTypeID,
     [edw].[svf_getSalesDocItem](SalesDocumentID, SalesDocumentItemID, SubsequentDocument, PrecedingDocument, AccountingDocumentTypeID) AS [SalesDoc]
   INTO actual
   FROM testdata;
