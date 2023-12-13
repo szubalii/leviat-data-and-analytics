@@ -1,0 +1,1 @@
+CREATE SCHEMA [tc.edw.svf_getOriginalConfirmedDeliveryDate]
