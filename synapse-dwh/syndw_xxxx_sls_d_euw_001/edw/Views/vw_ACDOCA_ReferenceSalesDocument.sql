@@ -7,8 +7,19 @@ SELECT
        GLA.[FiscalYear],
        GLA.[AccountingDocument], 
        GLA.[LedgerGLLineItem],
-       edw.svf_getSalesDoc(GLA.SalesDocumentID,DPF.SubsequentDocument,PF.PrecedingDocument) AS SalesReferenceDocumentCalculated,
-       edw.svf_getSalesDocItem(GLA.SalesDocumentID,GLA.SalesDocumentItemID,DPF.SubsequentDocumentItem,PF.PrecedingDocumentItem) AS SalesReferenceDocumentItemCalculated
+       edw.svf_getSalesDoc(
+              GLA.SalesDocumentID
+              ,DPF.SubsequentDocument
+              ,PF.PrecedingDocument
+              ,GLA.[AccountingDocumentTypeID]
+       ) AS SalesReferenceDocumentCalculated,
+       edw.svf_getSalesDocItem(
+              GLA.SalesDocumentID
+              ,GLA.SalesDocumentItemID
+              ,DPF.SubsequentDocumentItem
+              ,PF.PrecedingDocumentItem
+              ,GLA.[AccountingDocumentTypeID]
+       ) AS SalesReferenceDocumentItemCalculated
 FROM [edw].[vw_GLAccountLineItemRawData] AS GLA
 LEFT JOIN [base_s4h_cax].[I_SDDocumentProcessFlow] DPF
     ON
