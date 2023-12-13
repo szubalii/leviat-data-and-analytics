@@ -71,15 +71,15 @@ BEGIN
    ,[IF_Group]
     )
   VALUES
-     (200, 1, 10, NULL, 11111, 10, NULL)
-    ,(200, 3, 30, 0, 33333, 30, NULL)
-    ,(200, 4, 901, 40, 44444, 40, 'In Full Delivered')
-    ,(200, 4, 902, 50, 44444, 40, 'In Full Delivered')
-    ,(200, 5, 903, 50, 55555, 50, 'Under Delivered')
-    ,(200, 5, 904, 80, 55555, 10, 'Over Delivered')
-    ,(200, 6, 10, 60, 66666, 60, 'In Full Delivered')
-    ,(200, 7, 20, 350, 77777, 70, 'Under Delivered')
-    ,(200, 7, 10, 160, 88888, 80, 'Over Delivered');
+     (1, 10, NULL, 10, '11111', '10', NULL)
+    ,(3, 30, 0, NULL, '33333', '30', NULL)
+    ,(4, 901, 40, 90, '44444', '40', 'In Full Delivered')
+    ,(4, 902, 50, 90, '44444', '40', 'In Full Delivered')
+    ,(5, 903, 50, 70, '55555', '50', 'Under Delivered')
+    ,(5, 904, 80, 30, '55555', '10', 'Over Delivered')
+    ,(6, 10, 60, 60, '66666', '60', 'In Full Delivered')
+    ,(7, 20, 350, 770, '77777', '70', 'Under Delivered')
+    ,(7, 10, 160, 80, '88888', '80', 'Over Delivered');
 
   -- Assert:
   EXEC tSQLt.AssertEqualsTable 'expected', 'actual';
