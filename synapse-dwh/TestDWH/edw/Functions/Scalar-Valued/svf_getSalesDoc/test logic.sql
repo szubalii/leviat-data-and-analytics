@@ -10,22 +10,20 @@ BEGIN
   CREATE TABLE testdata (
     SalesDocumentID NVARCHAR(10),
     SubsequentDocument NVARCHAR(10),
-    PrecedingDocument NVARCHAR(10),
-    AccountingDocumentTypeID VARCHAR(2)
+    PrecedingDocument NVARCHAR(10)
   );
-  INSERT INTO testdata (SalesDocumentID, SubsequentDocument, PrecedingDocument, AccountingDocumentTypeID)
+  INSERT INTO testdata (SalesDocumentID, SubsequentDocument, PrecedingDocument)
   VALUES 
-    (null, null, null, 'DC')
-    ,('001008', '1', null, 'TS')
-    ,('001008', null, null, 'TS')
-    ,('008001', null, '2', 'TS')
-    ,('008001', null, null, 'TS')
-    ,('000', null, null, 'TS');
+    ('001008', '1', null)
+    ,('001008', null, null)
+    ,('008001', null, '2')
+    ,('008001', null, null)
+    ,('000', null, null);
 
   -- Act:
   SELECT
-    SalesDocumentID, SubsequentDocument, PrecedingDocument, AccountingDocumentTypeID,
-    [edw].[svf_getSalesDoc](SalesDocumentID, SubsequentDocument, PrecedingDocument, AccountingDocumentTypeID) AS [SalesDoc]
+    SalesDocumentID, SubsequentDocument, PrecedingDocument
+    [edw].[svf_getSalesDoc](SalesDocumentID, SubsequentDocument, PrecedingDocument) AS [SalesDoc]
   INTO actual
   FROM testdata;
 
@@ -34,18 +32,16 @@ BEGIN
     SalesDocumentID NVARCHAR(10),
     SubsequentDocument NVARCHAR(10),
     PrecedingDocument NVARCHAR(10),
-    AccountingDocumentTypeID VARCHAR(2),
     SalesDoc NVARCHAR(10)
   );
 
-  INSERT INTO expected (SalesDocumentID, SubsequentDocument, PrecedingDocument, AccountingDocumentTypeID, SalesDoc)
+  INSERT INTO expected (SalesDocumentID, SubsequentDocument, PrecedingDocument, SalesDoc)
   VALUES 
-    (null, null, null, 'DC', null)
-    ,('001008', '1', null, 'TS', '1')
-    ,('001008', null, null, 'TS', '001008')
-    ,('008001', null, '2', 'TS', '2')
-    ,('008001', null, null, 'TS', '008001')
-    ,('000', null, null, 'TS', '000');
+    ('001008', '1', null, '1')
+    ,('001008', null, null, '001008')
+    ,('008001', null, '2', '2')
+    ,('008001', null, null, '008001')
+    ,('000', null, null, '000');
 
   EXEC tSQLt.AssertEqualsTable 'expected', 'actual';
 END;

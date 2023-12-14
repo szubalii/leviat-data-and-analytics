@@ -14,19 +14,18 @@ BEGIN
     PrecedingDocument NVARCHAR(10),
     AccountingDocumentTypeID VARCHAR(2)
   );
-  INSERT INTO testdata (SalesDocumentID, SalesDocumentItemID, SubsequentDocument, PrecedingDocument, AccountingDocumentTypeID)
+  INSERT INTO testdata (SalesDocumentID, SalesDocumentItemID, SubsequentDocument, PrecedingDocument)
   VALUES 
-    (null, null, null, null, 'DC')
-    ,('001008', '000001', '1', null, 'TS')
-    ,('001008', '000002', null, null, 'TS')
-    ,('008001', '000003', null, '2', 'TS')
-    ,('008001', '000004', null, null, 'TS')
-    ,('000', '000005', null, null, 'TS');
+    ('001008', '000001', '1', null)
+    ,('001008', '000002', null, null)
+    ,('008001', '000003', null, '2')
+    ,('008001', '000004', null, null)
+    ,('000', '000005', null, null);
 
   -- Act:
   SELECT
-    SalesDocumentID, SalesDocumentItemID, SubsequentDocument, PrecedingDocument, AccountingDocumentTypeID,
-    [edw].[svf_getSalesDocItem](SalesDocumentID, SalesDocumentItemID, SubsequentDocument, PrecedingDocument, AccountingDocumentTypeID) AS [SalesDoc]
+    SalesDocumentID, SalesDocumentItemID, SubsequentDocument, PrecedingDocument,
+    [edw].[svf_getSalesDocItem](SalesDocumentID, SalesDocumentItemID, SubsequentDocument, PrecedingDocument) AS [SalesDoc]
   INTO actual
   FROM testdata;
 
@@ -36,18 +35,16 @@ BEGIN
     SalesDocumentItemID CHAR(6),
     SubsequentDocument NVARCHAR(10),
     PrecedingDocument NVARCHAR(10),
-    AccountingDocumentTypeID VARCHAR(2),
     SalesDoc NVARCHAR(10)
   );
 
-  INSERT INTO expected (SalesDocumentID, SalesDocumentItemID, SubsequentDocument, PrecedingDocument, AccountingDocumentTypeID, SalesDoc)
+  INSERT INTO expected (SalesDocumentID, SalesDocumentItemID, SubsequentDocument, PrecedingDocument, SalesDoc)
   VALUES 
-    (null, null, null, null, 'DC', null)
-    ,('001008', '000001', '1', null, 'TS', '1')
-    ,('001008', '000002', null, null, 'TS', '000002')
-    ,('008001', '000003', null, '2', 'TS', '2')
-    ,('008001', '000004', null, null, 'TS', '000004')
-    ,('000', '000005', null, null, 'TS', '000005');
+    ('001008', '000001', '1', null, '1')
+    ,('001008', '000002', null, null, '000002')
+    ,('008001', '000003', null, '2', '2')
+    ,('008001', '000004', null, null, '000004')
+    ,('000', '000005', null, null, '000005');
 
   EXEC tSQLt.AssertEqualsTable 'expected', 'actual';
 END;
