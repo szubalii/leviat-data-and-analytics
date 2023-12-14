@@ -5,50 +5,42 @@
     "tables": 
     [
         {
-            "name": "AGR_AGRS",
-            "description": "Roles in Composite Roles",
+            "name": "TSTCT",
+            "description": "Transaction Code Texts",
             "isView": false,
             "fields": 
             [
                 {
-                    "name": "MANDT",
-                    "description": "Client ID",
+                    "name": "SPRSL",
+                    "description": "Language Key",
                     "abapType": "CharacterString",
-                    "length": 3,
+                    "length": 1,
                     "isPrimaryKey": true,
                     "isSelected": true,
-                    "checkTable": "T000",
-                    "conversionExit": "",
-                    "isClientField": true
+                    "formattedLength": 2,
+                    "checkTable": "T002",
+                    "conversionExit": "ISOLA",
+                    "isClientField": false
                 },
                 {
-                    "name": "AGR_NAME",
-                    "description": "Composite role",
+                    "name": "TCODE",
+                    "description": "Transaction Code",
                     "abapType": "CharacterString",
-                    "length": 30,
+                    "length": 20,
                     "isPrimaryKey": true,
                     "isSelected": true,
-                    "checkTable": "AGR_DEFINE",
+                    "checkTable": "TSTC",
+                    "indexed": "Ascending",
                     "conversionExit": "",
                     "isClientField": false
                 },
                 {
-                    "name": "CHILD_AGR",
-                    "description": "Single Role in Composite Role",
+                    "name": "TTEXT",
+                    "description": "Transaction text",
                     "abapType": "CharacterString",
-                    "length": 30,
-                    "isPrimaryKey": true,
+                    "length": 36,
                     "isSelected": true,
-                    "checkTable": "AGR_DEFINE",
-                    "conversionExit": "",
-                    "isClientField": false
-                },
-                {
-                    "name": "ATTRIBUTES",
-                    "description": "Assignment active",
-                    "abapType": "CharacterString",
-                    "length": 10,
-                    "isSelected": true,
+                    "indexed": "Ascending",
                     "conversionExit": "",
                     "isClientField": false
                 }
@@ -60,16 +52,16 @@
     "whereSequence": [
         [
             "ColumnName",
-            "AGR_AGRS~CHILD_AGR"
+            "TSTCT~SPRSL"
         ],
         [
             "Operator",
-            "ContainsPattern"
+            "Equal"
         ],
         [
             "Literal",
             "String",
-            "TR:%"
+            "E"
         ]
     ]
 }

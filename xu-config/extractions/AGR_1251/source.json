@@ -1,0 +1,181 @@
+{
+    "functionName": "Z_THEO_READ_TABLE",
+    "runInBackgroundJob": false,
+    "backgroundJobTimeout": 180,
+    "tables": 
+    [
+        {
+            "name": "AGR_1251",
+            "description": "Authorization data for the activity group",
+            "isView": false,
+            "fields": 
+            [
+                {
+                    "name": "MANDT",
+                    "description": "Client ID",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "T000",
+                    "conversionExit": "",
+                    "isClientField": true
+                },
+                {
+                    "name": "AGR_NAME",
+                    "description": "Role Name",
+                    "abapType": "CharacterString",
+                    "length": 30,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "AGR_DEFINE",
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "COUNTER",
+                    "description": "Menu ID for BIW",
+                    "abapType": "NumericCharacterString",
+                    "length": 6,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "OBJECT",
+                    "description": "Auth. Object in User Master Maintenance",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "AUTH",
+                    "description": "Authorization name in user master maintenance",
+                    "abapType": "CharacterString",
+                    "length": 12,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "VARIANT",
+                    "description": "Variants for Profile Generator",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "FIELD",
+                    "description": "Field name of an authorization",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "LOW",
+                    "description": "Authorization value",
+                    "abapType": "CharacterString",
+                    "length": 40,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "HIGH",
+                    "description": "Authorization value",
+                    "abapType": "CharacterString",
+                    "length": 40,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "MODIFIED",
+                    "description": "Object status",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "DELETED",
+                    "description": "ID whether object is deleted",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "COPIED",
+                    "description": "ID whether object is copied",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "NEU",
+                    "description": "ID whether object is new",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "NODE",
+                    "description": "Internal: Node ID",
+                    "abapType": "NumericCharacterString",
+                    "length": 6,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                }
+            ]
+        }
+    ],
+    "complexRuntimeParameters": {
+    },
+    "whereSequence": [
+        [
+            "ColumnName",
+            "AGR_1251~AGR_NAME"
+        ],
+        [
+            "Operator",
+            "ContainsPattern"
+        ],
+        [
+            "Literal",
+            "String",
+            "TR:%"
+        ],
+        [
+            "BoolOperator",
+            "And"
+        ],
+        [
+            "ColumnName",
+            "AGR_1251~OBJECT"
+        ],
+        [
+            "Operator",
+            "Equal"
+        ],
+        [
+            "Literal",
+            "String",
+            "S_TCODE"
+        ]
+    ]
+}

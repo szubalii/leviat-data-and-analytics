@@ -740,6 +740,9 @@
     <Build Include="base_s4h_cax\Tables\P_USR_AUTH_ROLE.sql" />
     <Build Include="base_s4h_cax\Tables\P_SU2X_HEAD_TR.sql" />
     <Build Include="base_s4h_cax\Tables\AGR_AGRS.sql" />
+    <Build Include="base_s4h_cax\Tables\AGR_TEXTS.sql" />
+    <Build Include="base_s4h_cax\Tables\AGR_1251.sql" />
+    <Build Include="base_s4h_cax\Tables\TSTCT.sql" />
 
     <Build Include="base_tx_ca_0_hlp\Tables\DATAAREA.sql" />
     <Build Include="base_tx_ca_0_hlp\Tables\CRHCURRENCY.sql" />

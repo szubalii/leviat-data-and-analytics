@@ -4349,6 +4349,39 @@
         "base_table_name": "AGR_AGRS",
         "schedule_recurrence": "D",
         "pk_field_names": "MANDT, AGR_NAME, CHILD_AGR"
+      },
+      {
+        "entity_id": 643,
+        "entity_name": "AGR_TEXTS",
+        "data_category": "NULL",
+        "tool_name": "Theobald",
+        "extraction_type": "Table",
+        "update_mode": "Full",
+        "base_table_name": "AGR_TEXTS",
+        "schedule_recurrence": "D",
+        "pk_field_names": "MANDT, AGR_NAME, SPRAS, LINE"
+      },
+      {
+        "entity_id": 644,
+        "entity_name": "AGR_1251",
+        "data_category": "NULL",
+        "tool_name": "Theobald",
+        "extraction_type": "Table",
+        "update_mode": "Full",
+        "base_table_name": "AGR_1251",
+        "schedule_recurrence": "D",
+        "pk_field_names": "MANDT, AGR_NAME, COUNTER"
+      },
+      {
+        "entity_id": 645,
+        "entity_name": "TSTCT",
+        "data_category": "NULL",
+        "tool_name": "Theobald",
+        "extraction_type": "Table",
+        "update_mode": "Full",
+        "base_table_name": "TSTCT",
+        "schedule_recurrence": "D",
+        "pk_field_names": "SPRSL,TCODE"
       }
     ]
   },

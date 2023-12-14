@@ -5,8 +5,8 @@
     "tables": 
     [
         {
-            "name": "AGR_AGRS",
-            "description": "Roles in Composite Roles",
+            "name": "AGR_TEXTS",
+            "description": "File Structure for Hierarchical Menu - Customer",
             "isView": false,
             "fields": 
             [
@@ -17,13 +17,12 @@
                     "length": 3,
                     "isPrimaryKey": true,
                     "isSelected": true,
-                    "checkTable": "T000",
                     "conversionExit": "",
                     "isClientField": true
                 },
                 {
                     "name": "AGR_NAME",
-                    "description": "Composite role",
+                    "description": "Role Name",
                     "abapType": "CharacterString",
                     "length": 30,
                     "isPrimaryKey": true,
@@ -33,21 +32,32 @@
                     "isClientField": false
                 },
                 {
-                    "name": "CHILD_AGR",
-                    "description": "Single Role in Composite Role",
+                    "name": "SPRAS",
+                    "description": "Language of menu texts",
                     "abapType": "CharacterString",
-                    "length": 30,
+                    "length": 1,
                     "isPrimaryKey": true,
                     "isSelected": true,
-                    "checkTable": "AGR_DEFINE",
+                    "formattedLength": 2,
+                    "checkTable": "T002",
+                    "conversionExit": "ISOLA",
+                    "isClientField": false
+                },
+                {
+                    "name": "LINE",
+                    "description": "Counter for menu ID",
+                    "abapType": "NumericCharacterString",
+                    "length": 5,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
                     "conversionExit": "",
                     "isClientField": false
                 },
                 {
-                    "name": "ATTRIBUTES",
-                    "description": "Assignment active",
+                    "name": "TEXT",
+                    "description": "Role Description",
                     "abapType": "CharacterString",
-                    "length": 10,
+                    "length": 80,
                     "isSelected": true,
                     "conversionExit": "",
                     "isClientField": false
@@ -60,7 +70,24 @@
     "whereSequence": [
         [
             "ColumnName",
-            "AGR_AGRS~CHILD_AGR"
+            "AGR_TEXTS~SPRAS"
+        ],
+        [
+            "Operator",
+            "Equal"
+        ],
+        [
+            "Literal",
+            "String",
+            "E"
+        ],
+        [
+            "BoolOperator",
+            "And"
+        ],
+        [
+            "ColumnName",
+            "AGR_TEXTS~AGR_NAME"
         ],
         [
             "Operator",
