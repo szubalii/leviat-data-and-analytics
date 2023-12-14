@@ -25,6 +25,7 @@ BEGIN
     ('TS', 'TS35', 2023, '00123', '000001', 'DC')
     ,('TS', 'TS35', 2023, '00123', '000001', 'AC');
 
+  EXEC ('INSERT INTO edw.vw_GLAccountLineItemRawData SELECT * FROM #vw_GLAccountLineItemRawData');
   -- Act: 
   SELECT
     [SourceLedgerID]
