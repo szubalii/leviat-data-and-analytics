@@ -17,8 +17,8 @@ BEGIN
     ,[AccountingDocument]
     ,[LedgerGLLineItem]
     ,[AccountingDocumentType]
-    ,[SalesDocumentID]
-    ,[SalesDocumentItemID]
+    ,[SalesDocument]
+    ,[SalesDocumentItem]
     )
   VALUES 
     ('TS', 'TS35', 2023, '00123', '000001', 'DC', '1', '000001')
