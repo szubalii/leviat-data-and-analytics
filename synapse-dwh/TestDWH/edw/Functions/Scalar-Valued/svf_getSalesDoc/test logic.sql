@@ -22,7 +22,7 @@ BEGIN
 
   -- Act:
   SELECT
-    SalesDocumentID, SubsequentDocument, PrecedingDocument
+    SalesDocumentID, SubsequentDocument, PrecedingDocument,
     [edw].[svf_getSalesDoc](SalesDocumentID, SubsequentDocument, PrecedingDocument) AS [SalesDoc]
   INTO actual
   FROM testdata;
