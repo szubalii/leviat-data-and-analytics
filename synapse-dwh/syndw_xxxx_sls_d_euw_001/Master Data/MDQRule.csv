@@ -90,4 +90,4 @@ RuleID;DataArea;RuleClass;RuleGroup;RuleBusinessDescription;RuleTechnicalDefinit
 2.0.9_ThirdParty;BP;Consistency;3rd Party BP;BP's without bank account data while all possible payment methods require a bank account;No entry in BUT0BK, while KNB1-ZWELS have an entry;Bank data;R
 2.1.6;BP;Consistency;3rd Party BP;Field Collect. auth. marked when bank account then payment method F;BUT0BK-XEZER is checked with KNB1-ZWELS = F;;A
 2.1.1;BP;Completeness;3rd Party BP;This checkbox should be defaulted marked in each Sales Org;KNVV-BOKRE;Rebates;A
-2.2.9;BP;Consistency;Employee BP;BP's with Account Group Z008 should be created only with User ID = BP_SYNC;Table BUT000-PARTNER: when BU_GROUP = Z008 then CRUSR = BP_SYNC else Error;CREATION_GROUP;A
+2.2.9;BP;Consistency;Employee (Leviat);BP's with Account Group Z008 should be created only with User ID = BP_SYNC;Table BUT000-PARTNER: when BU_GROUP = Z008 then CRUSR = BP_SYNC else Error;CREATION_GROUP;A
