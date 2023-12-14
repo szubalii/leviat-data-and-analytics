@@ -9,12 +9,12 @@ BEGIN
   EXEC tSQLt.FakeTable '[base_s4h_cax]', '[I_GLAccountLineItemRawData_202301]';
   
   INSERT INTO base_s4h_cax.I_GLAccountLineItemRawData_202301 (
-     [SourceLedgerID]
-    ,[CompanyCodeID]
+     [SourceLedger]
+    ,[CompanyCode]
     ,[FiscalYear]
     ,[AccountingDocument]
     ,[LedgerGLLineItem]
-    ,[AccountingDocumentTypeID]
+    ,[AccountingDocumentType]
     )
   VALUES 
     ('TS', 'TS35', 2023, '00123', '000001', 'DC')
