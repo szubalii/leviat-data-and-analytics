@@ -92,10 +92,10 @@ OutboundDeliveryItem_s4h AS (
                 ODI.ActualDeliveryQuantity
                ,SDI.SDI_ConfdDelivQtyInOrderQtyUnit
                ,OCSD.[OriginalConfirmedDeliveryDate]
-               ,OCSD.[SalesDocumentID]
-               ,OCSD.[SalesDocumentItemID]
                ,OCDD.[OriginalConfirmedDeliveryDate]
                ,SDSL.[ConfirmedDeliveryDate]
+               ,OCSD.[SalesDocumentID]
+               ,OCSD.[SalesDocumentItemID]
                ) AS [SL_OriginalConfirmedDeliveryDate]
         ,SDSL_1st.[RequestedDeliveryDate] AS [SL_FirstCustomerRequestedDeliveryDate]
         ,SDSL.[GoodsIssueDate] AS [SL_GoodsIssueDate]
