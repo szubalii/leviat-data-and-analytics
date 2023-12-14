@@ -3,17 +3,12 @@ AS
 BEGIN
 
   IF OBJECT_ID('actual') IS NOT NULL DROP TABLE actual;
-  IF OBJECT_ID('#vw_GLAccountLineItemRawData') IS NOT NULL DROP TABLE #vw_GLAccountLineItemRawData;
   -- IF OBJECT_ID('expected') IS NOT NULL DROP TABLE expected;
 
   -- Assemble: Fake Table
-  EXEC tSQLt.FakeTable '[edw]', '[vw_GLAccountLineItemRawData]';
+  EXEC tSQLt.FakeTable '[base_s4h_cax]', '[I_GLAccountLineItemRawData_202301]';
   
-  SELECT TOP(0) *
-  INTO #vw_GLAccountLineItemRawData
-  FROM edw.vw_GLAccountLineItemRawData;
-
-  INSERT INTO edw.vw_GLAccountLineItemRawData (
+  INSERT INTO base_s4h_cax.I_GLAccountLineItemRawData_202301 (
      [SourceLedgerID]
     ,[CompanyCodeID]
     ,[FiscalYear]
@@ -25,7 +20,6 @@ BEGIN
     ('TS', 'TS35', 2023, '00123', '000001', 'DC')
     ,('TS', 'TS35', 2023, '00123', '000001', 'AC');
 
-  EXEC ('INSERT INTO edw.vw_GLAccountLineItemRawData SELECT * FROM #vw_GLAccountLineItemRawData');
   -- Act: 
   SELECT
     [SourceLedgerID]
@@ -34,7 +28,7 @@ BEGIN
     ,[AccountingDocument]
     ,[LedgerGLLineItem]
   INTO actual
-  FROM [edw].[vw_GLAccountLineItemRawData]
+  FROM [edw].[vw_ACDOCA_ReferenceSalesDocument]
   GROUP BY
     [SourceLedgerID]
     ,[CompanyCodeID]
