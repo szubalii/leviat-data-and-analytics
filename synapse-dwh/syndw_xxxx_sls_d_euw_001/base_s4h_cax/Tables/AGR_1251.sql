@@ -12,7 +12,7 @@
   , [Deleted] CHAR(1)
   , [Copied] CHAR(1)
   , [Neu] CHAR(1)
-  , [Node] NVARCHAR(3)
+  , [Node] NVARCHAR(6)
   , [t_applicationId] VARCHAR (32)
   , [t_jobId] VARCHAR (36)
   , [t_jobDtm] DATETIME
