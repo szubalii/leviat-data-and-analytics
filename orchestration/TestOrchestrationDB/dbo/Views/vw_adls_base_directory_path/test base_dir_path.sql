@@ -1,8 +1,4 @@
--- Write your own SQL object definition here, and it'll be included in your package.
-EXEC tSQLt.NewTestClass 'DirectoryPath';
-GO
-
-CREATE PROCEDURE [DirectoryPath].[test vw_adls_base_directory_path returns correct base_dir_path]
+CREATE PROCEDURE [tc.dbo.vw_adls_base_directory_path].[test base_dir_path]
 AS
 BEGIN
 
@@ -57,4 +53,3 @@ BEGIN
   EXEC tSQLt.AssertEqualsTable 'expected', 'actual';
 END;
 GO
-
