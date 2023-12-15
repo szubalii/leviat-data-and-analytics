@@ -1,0 +1,30 @@
+parameters:
+- name: solutions
+  type: object
+  default:
+  - name: 'synapse-dwh'
+    build: False
+  - name: 'azure-data-factory'
+    build: False
+  - name: 'orchestration'
+    build: True
+  - name: 'xu-config'
+    build: False
+  - name: 'synapse-workspace'
+    build: False
+
+jobs:
+- ${{ each solution in parameters.solutions }}:
+  # Format ${{ if solution.build }} doesn't work, False is still truthy,
+  # so use format ${{ if eq(solution.build, True) }}
+  - ${{ if eq(solution.build, True) }}:
+    - job: TEST_${{ upper(replace(solution.name, '-', '_')) }}
+      variables:
+      - name: buildConfiguration
+        value: 'Debug'
+      pool:
+        vmImage: 'ubuntu-20.04'
+      steps:
+      - script : |
+          echo ${{ solution.name }}: ${{ solution.build }}
+      - template: ../${{ solution.name }}/build/steps-test.yml

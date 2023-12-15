@@ -1,9 +1,11 @@
 -- Check if temp table already exists, if so drop it
 IF OBJECT_ID('batch_activity_tmp', 'U') IS NOT NULL
     DROP TABLE batch_activity_tmp;
+GO
 
 -- Create shallow copy of original table 
 SELECT TOP 0 * INTO batch_activity_tmp FROM dbo.batch_activity;
+GO
 
 -- Bulk insert data into temp table (does not work on actual #temp tables)
 BULK INSERT batch_activity_tmp
@@ -14,6 +16,7 @@ WITH (
 ,   FIELDTERMINATOR = ','
 ,   FORMAT = 'CSV'
 );
+GO
 
 -- Empty any potentially existing data in the logging
 -- from the OUTPUT clause.  
@@ -59,6 +62,8 @@ OUTPUT
 ,   Inserted.activity_order
 ,   Inserted.is_deprecated
 ,	GETUTCDATE() INTO [log].batch_activity;
+GO
 
 -- drop temp table
 DROP TABLE batch_activity_tmp;
+GO
