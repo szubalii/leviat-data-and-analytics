@@ -1452,6 +1452,7 @@
     <Build Include="dm_RiskAndCompliance\Views\vw_dim_ACMAuthznDataForActivityGrp.sql" />
     <Build Include="dm_RiskAndCompliance\Views\vw_dim_P_SU2X_HEAD_TR.sql" />
     <Build Include="dm_RiskAndCompliance\Views\vw_dim_UserAuthorizationRoles.sql" />
+    <Build Include="dm_RiskAndCompliance\Views\vw_dim_ActivityGroupAuthorization.sql" />
 
       <!-- STORED PROCEDURES -->
 
