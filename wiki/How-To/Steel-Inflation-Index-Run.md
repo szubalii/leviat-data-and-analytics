@@ -13,19 +13,19 @@ The SII run is simple, and consists of a few standardized steps.
     - The files are stored on the Leviat Data and Analytics Platform/007_Procurement/Steel Inflation Index/Files.
     - Each month should contain the 4 regional files. Any other files such as Beroe forecast are optional.
 
-1. Update the dataset with the latest data.
+2. Update the dataset with the latest data.
     - Take the latest available version of the SII from D&A Procurement.
     - Go to "Transform Data" in PowerBI.
     - Under Raw [6], change the source path of the four received files to the new files.
     - Optional: Update any other new files received in their relative PowerQuery steps.
 
-1. Update the Report.
+3. Update the Report.
     - Change the title of the Report to the applicable time period. (E.G.: 2023 NOVEMBER)
     - Update the reader's note (*) to report the date at which the refresh is done. (E.G.: *08-12-23: All regions are updated and forecasting has been updated till 2024-12.)
     - Update the Date Selection in the slicer panel to the applicable month. (E.G.: 2023-11)
     - On each of the visuals, update the X-Axis constant line to the 1st of the applicable period. (E.G.: 01-11-2023)
 
-1. Publish and confirm.
+4. Publish and confirm.
     - Verify the report on Procurement_QAS with Judy. 
     - On confirmation, publish to Procurement, update the app and  confirm to Judy. 
     - Judy will create a standardized slide deck and confirm to all end-users that the update is succesful and available.
