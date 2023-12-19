@@ -1,4 +1,4 @@
-CREATE FUNCTION tc.dbo.FakeFunctions.Fake_tvf_entity_file_activities_by_date (@date DATE, @rerunSuccessfulFullEntities BIT = 0)
+CREATE FUNCTION [tc.dbo.FakeFunctions].Fake_tvf_entity_file_activities_by_date (@date DATE, @rerunSuccessfulFullEntities BIT = 0)
 
   RETURNS TABLE
   AS
