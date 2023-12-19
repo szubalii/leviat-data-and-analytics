@@ -16,6 +16,8 @@ Pre-Deployment Script Template
 
 :r "..\..\TestClasses\Fake Functions\Fake_tvf_entity_file_activity_isRequired.sql"
 :r "..\..\TestClasses\Fake Functions\Fake_tvf_entity_file_required_activities.sql"
+:r "..\..\TestClasses\Fake Functions\Fake_tvf_entity_file_activities_by_date.sql"
+:r "..\..\TestClasses\Fake Functions\Fake_tvf_entity_file_required_activity_requirements.sql"
 
 :r .\Script.AddSchemasAsTestClasses.sql
 

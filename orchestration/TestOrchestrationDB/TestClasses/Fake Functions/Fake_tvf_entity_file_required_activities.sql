@@ -1,4 +1,4 @@
-CREATE FUNCTION EntityFile.Fake_tvf_entity_file_required_activities (@rerunSuccessfulFullEntities BIT = 0)
+CREATE FUNCTION tc.dbo.FakeFunctions.Fake_tvf_entity_file_required_activities (@rerunSuccessfulFullEntities BIT = 0)
 
   RETURNS TABLE
   AS
