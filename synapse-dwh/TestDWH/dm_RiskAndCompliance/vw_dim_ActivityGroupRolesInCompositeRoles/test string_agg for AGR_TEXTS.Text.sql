@@ -12,8 +12,8 @@ BEGIN
     INSERT INTO [base_s4h_cax].[AGR_AGRS] ([Agr_Name])
     VALUES ('1');
 
-    INSERT INTO [base_s4h_cax].[AGR_TEXTS] ([Agr_Name],[Text])
-    VALUES ('1','a'),  ('1','b'), ('1','c');
+    INSERT INTO [base_s4h_cax].[AGR_TEXTS] ([Agr_Name],[Line],[Text])
+    VALUES ('1','00000','a'),  ('1','00001','b'), ('1','00002','c');
 
      -- Act:
     SELECT [CompositeActivityGroupRoleName],[Text]
