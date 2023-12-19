@@ -155,4 +155,4 @@ FROM
 WHERE
   [CompanyCodeID] IN ('CH35', 'AT35')
 AND
-  [PostingDate] >= '2021-01-01'
+  [PostingDate] >= '2023-01-01'
