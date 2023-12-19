@@ -14,6 +14,8 @@ Pre-Deployment Script Template
 
 -- :r ..\..\TestClasses\FailTest.sql
 
+:r ..\..\TestClasses\Fake Functions\*.sql
+
 :r .\Script.AddSchemasAsTestClasses.sql
 
 EXEC [tSQLt].[SetFakeViewOff] 'edw';
