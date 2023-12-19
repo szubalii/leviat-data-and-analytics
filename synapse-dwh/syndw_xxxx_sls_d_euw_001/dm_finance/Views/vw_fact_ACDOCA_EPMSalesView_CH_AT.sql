@@ -154,3 +154,5 @@ FROM
   [edw].[vw_fact_ACDOCA_EPM_Base]
 WHERE
   [CompanyCodeID] IN ('CH35', 'AT35')
+AND
+  [PostingDate] >= '2021-01-01'
