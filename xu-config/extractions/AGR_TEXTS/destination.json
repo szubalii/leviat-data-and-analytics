@@ -15,6 +15,6 @@
   "compress": true,
   "blobType": "BlockBlob",
   "columnNameKind": "Code",
-  "folderPath": "NULL\/AGR_TEXTS\/Theobald\/Table\/Full\/In\/#{ DateTime.Now.ToString(\"yyyy\/MM\/dd\") }#",
+  "folderPath": "TEXT\/AGR_TEXTS\/Theobald\/Table\/Full\/In\/#{ DateTime.Now.ToString(\"yyyy\/MM\/dd\") }#",
   "maxBlobSize": 0
 }

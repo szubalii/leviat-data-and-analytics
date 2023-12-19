@@ -4350,7 +4350,7 @@
       {
         "entity_id": 643,
         "entity_name": "AGR_TEXTS",
-        "data_category": "NULL",
+        "data_category": "TEXT",
         "tool_name": "Theobald",
         "extraction_type": "Table",
         "update_mode": "Full",
@@ -4372,7 +4372,7 @@
       {
         "entity_id": 645,
         "entity_name": "TSTCT",
-        "data_category": "NULL",
+        "data_category": "TEXT",
         "tool_name": "Theobald",
         "extraction_type": "Table",
         "update_mode": "Full",

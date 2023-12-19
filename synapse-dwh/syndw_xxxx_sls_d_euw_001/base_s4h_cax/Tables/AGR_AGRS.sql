@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [base_s4h_cax].[AGR_AGRS] (
     [MANDT] CHAR(3) NOT NULL
-  , [Agr_Name] NVARCHAR(30)
-  , [Child_Agr] NVARCHAR(30)
+  , [Agr_Name] NVARCHAR(30) NOT NULL
+  , [Child_Agr] NVARCHAR(30) NOT NULL
   , [Attributes] NVARCHAR(30)
   , [t_applicationId] VARCHAR (32)
   , [t_jobId] VARCHAR (36)
