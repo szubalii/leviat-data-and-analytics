@@ -4314,7 +4314,6 @@
         "extraction_type": "Table",
         "update_mode": "Full",
         "base_table_name": "I_ACMAuthznDataForActivityGrp",
-        "schedule_recurrence": "D",
         "pk_field_names": "MANDT, LOGACCMACTYGRPPROFILEROLENAME, LOGACCMACTYGRPPRFLCHGSTINTID"
       },
       {
@@ -4325,7 +4324,6 @@
         "extraction_type": "Table",
         "update_mode": "Full",
         "base_table_name": "P_USR_AUTH_ROLE",
-        "schedule_recurrence": "D",
         "pk_field_names": "MANDT, BNAME, PROFILE, FROM_DAT"
       },
       {
@@ -4336,7 +4334,6 @@
         "extraction_type": "Table",
         "update_mode": "Full",
         "base_table_name": "P_SU2X_HEAD_TR",
-        "schedule_recurrence": "D",
         "pk_field_names": "OBJECT, OBJ_NAME"
       },
       {
