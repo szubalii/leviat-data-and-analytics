@@ -16,7 +16,7 @@ BEGIN
     VALUES ('1','a'),  ('1','b'), ('1','c');
 
      -- Act:
-    SELECT [Agr_Name],[Text]
+    SELECT [CompositeActivityGroupRoleName],[Text]
     INTO actual
     FROM [dm_RiskAndCompliance].[vw_dim_ActivityGroupRolesInCompositeRoles]
 
@@ -24,7 +24,7 @@ BEGIN
     INTO expected
     FROM actual;
 
-    INSERT INTO expected([Agr_Name],[Text])
+    INSERT INTO expected([CompositeActivityGroupRoleName],[Text])
     VALUES ('1','a b c');
 
     -- Assert:
