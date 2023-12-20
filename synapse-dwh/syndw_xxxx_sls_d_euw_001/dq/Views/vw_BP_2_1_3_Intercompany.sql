@@ -68,6 +68,10 @@ INNER JOIN
    ON
    C.[Customer] = CC.[Customer] 
 WHERE
-    C.[CustomerAccountGroup] = 'Z099'
+    (C.[CustomerAccountGroup] = 'Z099'
     AND
-    CC.[CashPlanningGroup] <> 'E4'
+    CC.[CashPlanningGroup] <> 'E4')
+    OR
+    (C.[CustomerAccountGroup] <> 'Z099'
+    AND
+    CC.[CashPlanningGroup] = 'E4')

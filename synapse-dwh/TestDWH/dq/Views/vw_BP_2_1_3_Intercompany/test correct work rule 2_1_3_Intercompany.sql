@@ -9,10 +9,10 @@ BEGIN
     EXEC tSQLt.FakeTable '[base_s4h_cax]', '[I_CustomerCompany]';
 
     INSERT INTO [base_s4h_cax].[I_Customer] ([Customer],[CustomerAccountGroup])
-    VALUES ('1','Z099'), ('2','Z099'), ('3','Z008');
+    VALUES ('1','Z099'), ('2','Z099'), ('3','Z008'),('4','Z008');
 
     INSERT INTO [base_s4h_cax].[I_CustomerCompany] ([Customer],[CashPlanningGroup])
-    VALUES ('1','E4'), ('2','E3'), ('2',NULL), ('2',''), ('3', 'E4');
+    VALUES ('1','E4'), ('2','E3'), ('2',NULL), ('2',''), ('3', 'E4'),('4','E3');
 
      -- Act:
     SELECT [Customer],[CustomerAccountGroup]
@@ -24,7 +24,7 @@ BEGIN
     FROM actual;
 
     INSERT INTO expected([Customer],[CustomerAccountGroup])
-    VALUES ('2','Z099');
+    VALUES ('2','Z099'),('3','Z008');
 
     -- Assert:
     EXEC tSQLt.AssertEqualsTable 'expected', 'actual';

@@ -12,9 +12,9 @@ SELECT
          ,[CurrencyTypeID]
          ,[CurrencyType]
          ,[CurrencyID]
+         ,[ConditionInactiveReason]
 FROM
-   [edw].[fact_SalesQuotationItemPrcgElmnt] 
-WHERE ([ConditionInactiveReason] IS NULL OR [ConditionInactiveReason] ='')
+   [edw].[fact_SalesQuotationItemPrcgElmnt]
 GROUP BY  
           [fk_SalesDocumentItem]
          ,[SalesQuotation]
@@ -24,3 +24,4 @@ GROUP BY
          ,[CurrencyTypeID]
          ,[CurrencyType]
          ,[CurrencyID]
+         ,[ConditionInactiveReason]

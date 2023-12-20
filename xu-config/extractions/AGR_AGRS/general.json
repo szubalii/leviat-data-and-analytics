@@ -1,0 +1,15 @@
+{
+    "created": {
+        "machine": "WEALEVAPP001",
+        "timestamp": "20231214T090426.121Z",
+        "user": "DEV\\adm_mpors"
+    },
+    "destination": "http-csv",
+    "lastChange": {
+        "machine": "WEALEVAPP001",
+        "timestamp": "20231214T100046.931Z",
+        "user": "DEV\\adm_mpors"
+    },
+    "source": "CRH_Leviat_S4HANA_CAA_200",
+    "type": "Table"
+}

@@ -1,34 +1,55 @@
 ﻿CREATE VIEW [dm_sales].[vw_fact_BillingDocumentItem] AS
 
 WITH BillDocPrcgElmnt AS (
-    select BillingDocument,
+    SELECT BillingDocument,
            BillingDocumentItem,
            CurrencyTypeID,
            ConditionType,
            ConditionAmount
-         , case when [ConditionType] = 'ZNET' then [ConditionAmount] else NULL end as ZNET_NetValue
-         , case when [ConditionType] = 'REA1' then [ConditionAmount] else NULL end as REA1_RebateAccrual
-         , case when [ConditionType] = 'ZNRV' then [ConditionAmount] else NULL end as ZNRV_NetRevenue
-    from [edw].[fact_BillingDocumentItemPrcgElmnt]
+         , CASE WHEN [ConditionType] = 'ZNET' THEN [ConditionAmount] END AS ZNET_NetValue
+         , CASE WHEN [ConditionType] = 'REA1' THEN [ConditionAmount] END AS REA1_RebateAccrual
+         , CASE WHEN [ConditionType] = 'ZNRV' THEN [ConditionAmount] END AS ZNRV_NetRevenue
+    FROM [edw].[fact_BillingDocumentItemPrcgElmnt]
 )
 
 ,BillDocPrcgElmnt_max_value AS (
-select 
-    BillingDocument,
-    BillingDocumentItem,
-    CurrencyTypeID,
-    max(ZNET_NetValue) as ZNET_NetValue,
-    max(REA1_RebateAccrual) as REA1_RebateAccrual,
-    max(ZNRV_NetRevenue) as ZNRV_NetRevenue
+    select 
+        BillingDocument,
+        BillingDocumentItem,
+        CurrencyTypeID,
+        max(ZNET_NetValue) as ZNET_NetValue,
+        max(REA1_RebateAccrual) as REA1_RebateAccrual,
+        max(ZNRV_NetRevenue) as ZNRV_NetRevenue
     from BillDocPrcgElmnt
     group by 
         BillingDocument,
         BillingDocumentItem,
         CurrencyTypeID
         
-),
+)
 
- original AS (
+, PrcgElmnt AS (
+    SELECT
+        [BillingDocument]
+        ,[BillingDocumentItem]
+        ,[CurrencyTypeID]
+        ,MAX([ZC10])    AS [ZC10]
+        ,MAX([ZCF1])    AS [ZCF1]
+        ,MAX([VPRS])    AS [VPRS]
+        ,MAX([EK02])    AS [EK02]
+    FROM [edw].[fact_BillingDocumentItemPrcgElmnt]
+    PIVOT  
+    (  
+        SUM(ConditionAmount)  
+        FOR [ConditionType] IN ([ZC10], [ZCF1], [VPRS], [EK02])  
+    ) AS PivotTable
+    GROUP BY
+        [BillingDocument]
+        ,[BillingDocumentItem]
+        ,[CurrencyTypeID]
+)
+
+ , original AS (
     SELECT 
            doc.[sk_fact_BillingDocumentItem]
          , doc.[BillingDocument]
@@ -213,6 +234,11 @@ select
           )                                         AS ZNRV_NetRevenue
          , doc.SDPricingProcedure
          , doc.PriceListTypeID
+         , PrcgElmnt.[ZC10]                         AS [PrcgElmntZC10ConditionAmount]
+         , PrcgElmnt.[ZCF1]                         AS [PrcgElmntZCF1ConditionAmount]
+         , [edw].[svf_replaceZero](
+                PrcgElmnt.[VPRS]
+                ,PrcgElmnt.[EK02])                  AS [PrcgElmntVPRS/EK02ConditionAmount]
          , doc.[t_applicationId]
          , doc.[t_extractionDtm]
     FROM [edw].[fact_BillingDocumentItem] doc
@@ -266,7 +292,10 @@ select
                        on  doc.BillingDocument = BDPE.BillingDocument
                        and doc.BillingDocumentItem = BDPE.BillingDocumentItem
                        and doc.CurrencyTypeID = BDPE.CurrencyTypeID 
-
+            LEFT JOIN PrcgElmnt
+                ON doc.BillingDocument = PrcgElmnt.BillingDocument
+                    AND doc.BillingDocumentItem = PrcgElmnt.BillingDocumentItem
+                    AND doc.CurrencyTypeID = PrcgElmnt.CurrencyTypeID
             WHERE doc.[CurrencyTypeID] <> '00' -- Transaction Currency
 )
 
@@ -442,6 +471,9 @@ SELECT
       ,ZNRV_NetRevenue
       ,SDPricingProcedure
       ,PriceListTypeID
+      ,[PrcgElmntZC10ConditionAmount]
+      ,[PrcgElmntZCF1ConditionAmount]
+      ,[PrcgElmntVPRS/EK02ConditionAmount]
       ,[t_applicationId]
       ,[t_extractionDtm]
   FROM original

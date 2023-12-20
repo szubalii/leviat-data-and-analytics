@@ -1,5 +1,26 @@
 ﻿CREATE VIEW [dm_sales].[vw_fact_SalesQuotationItem] AS
 
+WITH
+PrcgElmnt AS (
+    SELECT
+        [SalesQuotation]
+        ,[SalesQuotationItem]
+        ,[CurrencyTypeID]
+        ,MAX([ZC10])    AS [ZC10]
+        ,MAX([ZCF1])    AS [ZCF1]
+        ,MAX([VPRS])    AS [VPRS]
+        ,MAX([EK02])    AS [EK02]
+    FROM [edw].[fact_SalesQuotationItemPrcgElmnt]
+    PIVOT  
+    (  
+        SUM(ConditionAmount)  
+        FOR [ConditionType] IN ([ZC10], [ZCF1], [VPRS], [EK02])  
+    ) AS PivotTable
+    GROUP BY
+        [SalesQuotation]
+        ,[SalesQuotationItem]
+        ,[CurrencyTypeID]
+)
 select doc.[SalesDocument]           as [QuotationID]
      , doc.[SalesDocumentItem]       as [QuotationItemID]
      , doc.[CurrencyTypeID]
@@ -122,6 +143,11 @@ select doc.[SalesDocument]           as [QuotationID]
      , ord.[SO_Margin]
      , doc.[CorrespncExternalReference] 
      , doc.SalesOfficeID
+    , PrcgElmnt.[ZC10]                         AS [PrcgElmntZC10ConditionAmount]
+    , PrcgElmnt.[ZCF1]                         AS [PrcgElmntZCF1ConditionAmount]
+    , [edw].[svf_replaceZero](
+            PrcgElmnt.[VPRS]
+            ,PrcgElmnt.[EK02])                 AS [PrcgElmntVPRS/EK02ConditionAmount]
      , doc.[t_applicationId]
      , doc.[t_extractionDtm]
 from [edw].[fact_SalesDocumentItem] doc
@@ -210,5 +236,10 @@ from [edw].[fact_SalesDocumentItem] doc
 
          left join [edw].[dim_OverallTotalDeliveryStatus] dimOTDS
                    on dimOTDS.[OverallTotalDeliveryStatusID] = doc.[OverallTotalDeliveryStatusID]
+        
+         LEFT JOIN PrcgElmnt
+                 ON doc.SalesDocument = PrcgElmnt.SalesQuotation
+                     AND doc.SalesDocumentItem = PrcgElmnt.SalesQuotationItem  COLLATE DATABASE_DEFAULT
+                     AND doc.CurrencyTypeID = PrcgElmnt.CurrencyTypeID
 
 where doc.[SDDocumentCategoryID] = 'B'

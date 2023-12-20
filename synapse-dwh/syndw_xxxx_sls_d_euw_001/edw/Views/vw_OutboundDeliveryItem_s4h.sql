@@ -1,281 +1,5 @@
 ﻿CREATE VIEW [edw].[vw_OutboundDeliveryItem_s4h] AS
 WITH
-CalculatedDelDate_precalculation AS (
-    SELECT
-        ODI.[OutboundDelivery]
-        ,OD.[ActualGoodsMovementDate] AS [HDR_ActualGoodsMovementDate]
-        ,CAST(DimActualRoute.[DurInDays] AS INT) AS [ActualDeliveryRouteDurationInDays]
-        ,CAST(CAST(DimActualRoute.[DurInDays] AS INT)%5 AS INT) AS [leftoverdays]
-        /* CAST((DimActualRoute.[DurInDays])/5 AS INT)  calculates the number of weeks,
-        [DurInDays] defines the duration but only weekdays. Hence the divide by 5 and then multiply by 7 to get the number of weeks */
-        ,DATEADD(day, CAST((DimActualRoute.[DurInDays])/5 AS INT)*7, OD.[ActualGoodsMovementDate]) AS [HDR_ActualGoodsMovementDate_upd]
-        ,DATEPART(weekday, OD.[ActualGoodsMovementDate]) AS [weekday]
-    FROM
-        [base_s4h_cax].[I_OutboundDeliveryItem] AS ODI
-    LEFT JOIN
-        [base_s4h_cax].[I_OutboundDelivery] OD
-        ON ODI.[OutboundDelivery] = OD.[OutboundDelivery]
-    LEFT JOIN
-        [edw].[dim_Route] DimActualRoute
-        ON DimActualRoute.[ROUTEID] = OD.[ActualDeliveryRoute]
-    WHERE
-        OD.[ActualGoodsMovementDate] <> '0001-01-01'
-    GROUP BY
-        ODI.[OutboundDelivery]
-        ,OD.[ActualGoodsMovementDate]
-        ,DimActualRoute.[DurInDays]
-)
-,
-CalculatedDelDate_calculation AS (
-    SELECT
-        [OutboundDelivery]
-        /* calculates Delivery Date excluding weekends.
-        @@DATEFIRST value is set to Sunday, thus Monday has weekday value of 2, hence we do weekday-1
-        Then check if after adding the left over days the new date is in a weekend or not.
-        This is why we divide by 6 and then multiply by 2 so we potentially increase by another 2 days to fall over the weekend. */
-        ,CAST(DATEADD(day, CAST(((weekday-1+[leftoverdays])/6) AS INT)*2 + [leftoverdays], [HDR_ActualGoodsMovementDate_upd]) AS DATE) AS [CalculatedDelDate]
-    FROM
-        CalculatedDelDate_precalculation
-)
-,
-/*  The following section defines the first ConfirmedDeliveryDate and the first GoodsIssueDate for each combination of SalesDocument and SalesDocumenItem for
-    confirmed schedule lines. We join back to the confirmed schedule lines on the SalesDocument and SalesDocumentItems with the dates to identify the first
-    schedule line that has this combination. In case the dates are picked from different schedule lines this is expected to return NULL. The field ScheduleLine
-    is only used for reference in the dataset view of OTIF.
-*/
-SDSLScheduleLine AS (
---Get the first dates for each Sales Document-Item combination.
-SELECT
-     SDSL.[SalesDocument]
-    ,SDSL.[SalesDocumentItem]
-    ,MIN(SDSL.[ConfirmedDeliveryDate]) AS [ConfirmedDeliveryDate]
-    ,MIN(SDSL.GoodsIssueDate) AS [GoodsIssueDate]
-    ,MIN(SLS.ScheduleLine) AS [ScheduleLine]
-
-FROM [base_s4h_cax].[I_SalesDocumentScheduleLine] SDSL
-
---Join back for the schedule line.
-LEFT OUTER JOIN 
-    (
-         SELECT 
-             [SalesDocument]
-            ,[SalesDocumentItem]
-            ,[ConfirmedDeliveryDate]
-            ,[GoodsIssueDate]
-            ,[ScheduleLine]
-
-        FROM [base_s4h_cax].[I_SalesDocumentScheduleLine]
-
-        WHERE [IsConfirmedDelivSchedLine] = 'X'
-    ) SLS
-    ON 
-    SDSL.SalesDocument = SLS.SalesDocument
-    AND 
-    SDSL.SalesDocumentItem = SLS.SalesDocumentItem
-    AND 
-    SDSL.ConfirmedDeliveryDate = SLS.ConfirmedDeliveryDate
-    AND 
-    SDSL.GoodsIssueDate = SLS.GoodsIssueDate
-
-WHERE [IsConfirmedDelivSchedLine] = 'X'
-
-GROUP BY 
-     SDSL.[SalesDocument]
-    ,SDSL.[SalesDocumentItem]
-)
-,
-SalesDocumentItem_EUR AS (
-    SELECT
-        SDI_EUR.[SalesDocument]
-        ,SDI_EUR.[SalesDocumentItem]
-        ,CASE
-            WHEN
-                SDI_EUR.[OrderQuantity] > 0 
-            THEN
-                SDI_EUR.[NetAmount] / SDI_EUR.[OrderQuantity]
-         END AS [SDI_PricePerPiece_EUR]
-        ,SDI_EUR.[CostAmount] AS [SDI_CostAmount_EUR]
-        ,SDI_EUR.[NetAmount] AS [SDI_NetAmount_EUR]
-    FROM
-        [edw].[fact_SalesDocumentItem] AS SDI_EUR
-    WHERE
-        [CurrencyTypeID] = 30
-        AND
-        [t_applicationId] LIKE 's4h-ca%'
-),
-SalesDocumentItem_LC AS (
-    SELECT
-        SDI_LC.[SalesDocument]
-        ,SDI_LC.[SalesDocumentItem]
-        ,CASE
-            WHEN SDI_LC.[OrderQuantity] > 0
-            THEN SDI_LC.[NetAmount] / SDI_LC.[OrderQuantity]
-         END AS [SDI_PricePerPiece_LC]
-        ,SDI_LC.[CurrencyID] AS [SDI_LocalCurrency]
-        ,SDI_LC.[CostAmount] AS [SDI_CostAmount_LC]
-        ,SDI_LC.[NetAmount] AS [SDI_NetAmount_LC]
-    FROM
-        [edw].[fact_SalesDocumentItem] AS SDI_LC
-    WHERE
-        [CurrencyTypeID] = 10
-        AND
-        [t_applicationId] LIKE 's4h-ca%'                  
-)
-,
-SalesDocumentItem_LC_EUR AS (
-    SELECT
-        SDI.[SalesDocument]
-        ,SDI.[SalesDocumentItem]
-        ,SDI.[CreationDate] AS [SDI_CreationDate]
-        ,SDI.[RequestedDeliveryDate] AS [SDI_RequestedDeliveryDate]
-        ,SDI_LC.[SDI_PricePerPiece_LC]
-        ,SDI_EUR.[SDI_PricePerPiece_EUR]
-        ,SDI_LC.[SDI_LocalCurrency]
-        ,SDI.[SalesDocumentTypeID] AS [SDI_SalesDocumentTypeID]
-        ,SDI.[IsReturnsItemID] AS [SDI_IsReturnsItemID]
-        ,SDI.[BillToPartyID] AS [SDI_BillToParty]
-        ,SDI.[ConfdDeliveryQtyInBaseUnit] AS [SDI_ConfdDeliveryQtyInBaseUnit]
-        ,SDI.[ConfdDelivQtyInOrderQtyUnit] AS [SDI_ConfdDelivQtyInOrderQtyUnit]
-        ,SDI_LC.[SDI_CostAmount_LC]
-        ,SDI_EUR.[SDI_CostAmount_EUR]
-        ,SDI.[DeliveryBlockStatusID] AS [SDI_DeliveryBlockStatusID]
-        ,SDI.[ExchangeRateDate] AS [SDI_ExchangeRateDate]
-        ,SDI.[ExchangeRateTypeID] AS [SDI_ExchangeRateType]
-        ,SDI_LC.[SDI_NetAmount_LC]
-        ,SDI_EUR.[SDI_NetAmount_EUR]
-        ,SDI.[NetPriceQuantityUnitID] AS [SDI_NetPriceQuantityUnit]
-        ,SDI.[OrderID] AS [SDI_OrderID]
-        ,SDI.[OrderQuantity] AS [SDI_OrderQuantity]
-        ,SDI.[OrderQuantityUnitID] AS [SDI_OrderQuantityUnit]
-        ,SDI.[OverallTotalDeliveryStatusID] AS [SDI_OverallTotalDeliveryStatusID]
-        ,SDI.[PayerPartyID] AS [SDI_PayerParty]
-        ,SDI.[RouteID] AS [SDI_Route]
-        ,SDI.[SalesDocumentItemCategoryID] AS [SDI_SalesDocumentItemCategory]
-        ,SDI.[SalesOrganizationCurrencyID] AS [SDI_SalesOrganizationCurrency]
-        ,SDI.[SDDocumentCategoryID] AS [SDI_SDDocumentCategory]
-        ,SDI.[SDDocumentRejectionStatusID] AS [SDI_SDDocumentRejectionStatusID]
-        ,SDI.[StorageLocationID] AS [SDI_StorageLocationID]
-        ,SDI.[SalesDocumentDate] AS [SDI_SalesDocumentDate]
-    FROM
-        [edw].[fact_SalesDocumentItem] AS SDI
-    LEFT JOIN
-        SalesDocumentItem_EUR SDI_EUR
-        ON
-            SDI.[SalesDocument] = SDI_EUR.[SalesDocument]
-            AND
-            SDI.[SalesDocumentItem] = SDI_EUR.[SalesDocumentItem]
-    LEFT JOIN
-        SalesDocumentItem_LC SDI_LC
-        ON
-            SDI.[SalesDocument] = SDI_LC.[SalesDocument]
-            AND
-            SDI.[SalesDocumentItem] = SDI_LC.[SalesDocumentItem]
-     WHERE
-        [CurrencyTypeID] in (10,30)
-        AND
-        [t_applicationId] LIKE 's4h-ca%'
-    GROUP BY
-       SDI.[SalesDocument]
-        ,SDI.[SalesDocumentItem]
-        ,SDI.[CreationDate]
-        ,SDI.[RequestedDeliveryDate]
-        ,SDI_LC.[SDI_PricePerPiece_LC]
-        ,SDI_EUR.[SDI_PricePerPiece_EUR]
-        ,SDI_LC.[SDI_LocalCurrency]
-        ,SDI.[SalesDocumentTypeID]
-        ,SDI.[IsReturnsItemID]
-        ,SDI.[BillToPartyID]
-        ,SDI.[ConfdDeliveryQtyInBaseUnit]
-        ,SDI.[ConfdDelivQtyInOrderQtyUnit]
-        ,SDI_LC.[SDI_CostAmount_LC]
-        ,SDI_EUR.[SDI_CostAmount_EUR]
-        ,SDI.[DeliveryBlockStatusID]
-        ,SDI.[ExchangeRateDate]
-        ,SDI.[ExchangeRateTypeID]
-        ,SDI_LC.[SDI_NetAmount_LC]
-        ,SDI_EUR.[SDI_NetAmount_EUR]
-        ,SDI.[NetPriceQuantityUnitID]
-        ,SDI.[OrderID]
-        ,SDI.[OrderQuantity]
-        ,SDI.[OrderQuantityUnitID]
-        ,SDI.[OverallTotalDeliveryStatusID]
-        ,SDI.[PayerPartyID]
-        ,SDI.[RouteID]
-        ,SDI.[SalesDocumentItemCategoryID]
-        ,SDI.[SalesOrganizationCurrencyID]
-        ,SDI.[SDDocumentCategoryID]
-        ,SDI.[SDDocumentRejectionStatusID]
-        ,SDI.[StorageLocationID]
-        ,SDI.[SalesDocumentDate]
-)
-,
-ODIPerSDI AS (   
-    SELECT
-        SDI_ODI_list.SalesDocument
-        ,SDI_ODI_list.SalesDocumentItem
-        ,COUNT(*) AS [NrODIPerSDIAndQtyNot0]
-        ,SUM(SDI_ODI_list.[ActualDeliveryQuantity]) AS [ActDelQtyTotalForSDI]
-    FROM (
-            SELECT 
-                SDI.[SalesDocument]
-                ,SDI.[SalesDocumentItem]
-                ,ODI.[OutboundDelivery]
-                ,ODI.[OutboundDeliveryItem]
-                ,ODI.[ActualDeliveryQuantity]
-            FROM
-                [base_s4h_cax].[I_OutboundDeliveryItem] AS ODI
-            INNER JOIN
-                SalesDocumentItem_LC_EUR AS SDI
-                ON
-                    ODI.[ReferenceSDDocument] = SDI.[SalesDocument]
-                    AND
-                    ODI.[ReferenceSDDocumentItem] = SDI.[SalesDocumentItem]
-            WHERE
-                (ODI.[ReferenceSDDocument] IS NOT NULL
-                OR
-                ODI.[ReferenceSDDocument] != '')
-            GROUP BY
-                SDI.[SalesDocument]
-                ,SDI.[SalesDocumentItem]
-                ,ODI.[OutboundDelivery]
-                ,ODI.[OutboundDeliveryItem]
-                ,ODI.[ActualDeliveryQuantity]
-        ) SDI_ODI_list
-    GROUP BY 
-     SDI_ODI_list.[SalesDocument]
-    ,SDI_ODI_list.[SalesDocumentItem]
-)
-,
-SDSLPerSDI AS (
-    SELECT
-        SDI_SDSL_list.[SalesDocument]
-        ,SDI_SDSL_list.[SalesDocumentItem]
-        ,COUNT(*) AS [NrSLInScope]
-    FROM (
-            SELECT
-                SDI.[SalesDocument]
-                ,SDI.[SalesDocumentItem]
-                ,SDSL.[ScheduleLine]
-            FROM
-                [base_s4h_cax].[I_SalesDocumentScheduleLine] AS SDSL
-            INNER JOIN
-                SalesDocumentItem_LC_EUR AS SDI
-                ON
-                    SDSL.[SalesDocument] = SDI.[SalesDocument]
-                    AND
-                    SDSL.[SalesDocumentItem] = SDI.[SalesDocumentItem]
-            WHERE
-            [IsConfirmedDelivSchedLine] = 'X'
-            GROUP BY 
-                SDI.[SalesDocument]
-                ,SDI.[SalesDocumentItem]
-                ,SDSL.[ScheduleLine]
-        ) SDI_SDSL_list
-    GROUP BY
-        SDI_SDSL_list.[SalesDocument]
-        ,SDI_SDSL_list.[SalesDocumentItem]
-)
-,
 OutboundDeliveryItem_s4h AS (
     SELECT 
         CONCAT_WS('¦', ODI.[OutboundDelivery] collate SQL_Latin1_General_CP1_CS_AS, ODI.[OutboundDeliveryItem] collate SQL_Latin1_General_CP1_CS_AS) AS [nk_fact_OutboundDeliveryItem]
@@ -364,6 +88,8 @@ OutboundDeliveryItem_s4h AS (
         ,ODI.[IntercompanyBillingStatus] AS [IntercompanyBillingStatusID]
         ,ODI.[IsReturnsItem] 
         ,SDSL.[ConfirmedDeliveryDate] AS [SL_ConfirmedDeliveryDate]
+        ,COALESCE(OCDD.[OriginalConfirmedDeliveryDate],SDSL.[ConfirmedDeliveryDate]) AS [SL_OriginalConfirmedDeliveryDate]
+        ,SDSL_1st.[RequestedDeliveryDate] AS [SL_FirstCustomerRequestedDeliveryDate]
         ,SDSL.[GoodsIssueDate] AS [SL_GoodsIssueDate]
         ,SDSL.[ScheduleLine] AS [SL_ScheduleLine]
         ,OD.[SalesDistrict] AS [HDR_SalesDistrictID]
@@ -424,71 +150,11 @@ OutboundDeliveryItem_s4h AS (
         ,ODIPerSDI.[NrODIPerSDIAndQtyNot0]
         ,SDSLPerSDI.[NrSLInScope]
         ,OD.[PlannedGoodsIssueDate] AS [HDR_PlannedGoodsIssueDate]
-        ,CASE
-            WHEN
-                (OD.[PlannedGoodsIssueDate] IS NULL
-                OR
-                OD.[PlannedGoodsIssueDate]  = '0001-01-01')
-            THEN NULL
-            WHEN
-                DATENAME(weekday, OD.[PlannedGoodsIssueDate]) = 'Saturday'
-                AND
-                (OD.[PlannedGoodsIssueDate] < OD.[ActualGoodsMovementDate]
-                OR
-                OD.[ActualGoodsMovementDate] IS NULL)
-            THEN DATEADD(day, -1, OD.[PlannedGoodsIssueDate])
-            WHEN
-                DATENAME(weekday, OD.[PlannedGoodsIssueDate]) = 'Saturday'
-                AND
-                OD.[PlannedGoodsIssueDate] > OD.[ActualGoodsMovementDate]
-            THEN DATEADD(day, 2, OD.[PlannedGoodsIssueDate])
-            WHEN
-                DATENAME(weekday, OD.[PlannedGoodsIssueDate]) = 'Sunday'
-                AND
-                (OD.[PlannedGoodsIssueDate] < OD.[ActualGoodsMovementDate]
-                OR
-                OD.[ActualGoodsMovementDate] IS NULL)
-            THEN DATEADD(day, -2, OD.[PlannedGoodsIssueDate])
-            WHEN
-                DATENAME(weekday, OD.[PlannedGoodsIssueDate]) = 'Sunday'
-                AND
-                OD.[PlannedGoodsIssueDate] > OD.[ActualGoodsMovementDate]
-            THEN  DATEADD(day, 1, OD.[PlannedGoodsIssueDate])
-            ELSE OD.[PlannedGoodsIssueDate]
-        END AS [HDR_PlannedGoodsIssueDate_weekday] -- including logic to exclude weekends from HDR_PlannedGoodsIssueDate column
+        -- including logic to exclude weekends from HDR_PlannedGoodsIssueDate column
+        ,[edw].[svf_excludeWeekends]([PlannedGoodsIssueDate],[ActualGoodsMovementDate]) AS [HDR_PlannedGoodsIssueDate_weekday]
         ,OD.[ActualGoodsMovementDate] AS [HDR_ActualGoodsMovementDate]
-        ,CASE
-            WHEN
-                (OD.[ActualGoodsMovementDate] IS NULL
-                OR
-                OD.[ActualGoodsMovementDate]  = '0001-01-01')
-            THEN NULL
-            WHEN
-                DATENAME(weekday, OD.[ActualGoodsMovementDate]) = 'Saturday'
-                AND
-                (OD.[PlannedGoodsIssueDate] < OD.[ActualGoodsMovementDate]
-                OR
-                OD.[ActualGoodsMovementDate] IS NULL)
-            THEN DATEADD(day, 2, OD.[ActualGoodsMovementDate])
-            WHEN
-                DATENAME(weekday, OD.[ActualGoodsMovementDate]) = 'Saturday'
-                AND
-                OD.[PlannedGoodsIssueDate] > OD.[ActualGoodsMovementDate]
-            THEN DATEADD(day, -1, OD.[ActualGoodsMovementDate])
-           WHEN
-                DATENAME(weekday, OD.[ActualGoodsMovementDate]) = 'Sunday'
-                AND
-                (OD.[PlannedGoodsIssueDate] < OD.[ActualGoodsMovementDate]
-                OR
-                OD.[ActualGoodsMovementDate] IS NULL)
-            THEN DATEADD(day, 1, OD.[ActualGoodsMovementDate])
-             WHEN
-                DATENAME(weekday, OD.[ActualGoodsMovementDate]) = 'Sunday'
-                AND
-                OD.[PlannedGoodsIssueDate] > OD.[ActualGoodsMovementDate]
-            THEN  DATEADD(day, -2, OD.[ActualGoodsMovementDate])
-            ELSE OD.[ActualGoodsMovementDate]
-        END AS [HDR_ActualGoodsMovementDate_weekday] -- including logic to exclude weekends from HDR_ActualGoodsMovementDate column
+        -- including logic to exclude weekends from HDR_ActualGoodsMovementDate column
+        ,[edw].[svf_excludeWeekends]([ActualGoodsMovementDate],[PlannedGoodsIssueDate]) AS [HDR_ActualGoodsMovementDate_weekday]
         ,OD.[ShippingPoint] AS [HDR_ShippingPointID]
         ,OD.[OrderCombinationIsAllowed] AS [HDR_OrderCombinationIsAllowed]
         ,OD.[DeliveryPriority] AS	[HDR_DeliveryPriority]
@@ -599,8 +265,8 @@ OutboundDeliveryItem_s4h AS (
             WHEN SDI.[SDI_ConfdDelivQtyInOrderQtyUnit] = ODI.[ActualDeliveryQuantity]
             THEN 'In Full Delivered'
             WHEN SDI.[SDI_ConfdDelivQtyInOrderQtyUnit] > ODI.[ActualDeliveryQuantity]
-            THEN 'Over Delivered'
-            ELSE 'Under Delivered'
+            THEN 'Under Delivered'
+            ELSE 'Over Delivered'
          END AS [IF_Group]
         ,CASE
             WHEN
@@ -675,11 +341,20 @@ OutboundDeliveryItem_s4h AS (
                 OR
                 OD.[ActualGoodsMovementDate] = '0001-01-01'
                 OR
-                DimActualRoute.[DurInDays] = 0
-                OR
                 DimActualRoute.[DurInDays] IS NULL
             THEN NULL
-            ELSE cdd.[CalculatedDelDate]
+            WHEN
+                OD.[ShippingCondition] <> 70
+                AND
+                DimActualRoute.[DurInDays] = 0
+            THEN NULL
+            WHEN
+                OD.[ShippingCondition] = 70
+                AND
+                DimActualRoute.[DurInDays] = 0
+            THEN DATEADD(DAY, 1, OD.[ActualGoodsMovementDate])
+            --ELSE OD.[ActualGoodsMovementDate]
+            ELSE cdd.CalculatedDelDate
         END AS [CalculatedDelDate]
       ,CASE
            WHEN
@@ -718,39 +393,55 @@ OutboundDeliveryItem_s4h AS (
         ON
             ODI.[OutboundDelivery] = OD.[OutboundDelivery]
     LEFT JOIN
-        SDSLScheduleLine AS SDSL
+        [intm_s4h].[vw_SalesDocumentEarliestConfirmedDeliveryDate] AS SDSL
         ON
             ODI.[ReferenceSDDocument] = SDSL.[SalesDocument]
             AND
             ODI.[ReferenceSDDocumentItem] = SDSL.[SalesDocumentItem]
     LEFT JOIN
+        [base_s4h_cax].[I_SalesDocumentScheduleLine] AS SDSL_1st
+        ON
+            ODI.[ReferenceSDDocument] = SDSL_1st.[SalesDocument]
+            AND
+            ODI.[ReferenceSDDocumentItem] = SDSL_1st.[SalesDocumentItem]
+            AND
+            SDSL_1st.[ScheduleLine] = '0001'
+    LEFT JOIN
+        [intm_s4h].[vw_OriginalConfirmedScheduleLineDeliveryDate] OCDD
+        ON
+            SDSL.[SalesDocument] = OCDD.[SalesDocumentID]
+            AND
+            SDSL.[SalesDocumentItem]  COLLATE DATABASE_DEFAULT = OCDD.[SalesDocumentItemID]
+            AND
+            SDSL.[ScheduleLine]  COLLATE DATABASE_DEFAULT = OCDD.[ScheduleLine]
+    LEFT JOIN
         [edw].[dim_Route] AS DimActualRoute
         ON
-            DimActualRoute.[ROUTEID] = OD.[ActualDeliveryRoute]
+            DimActualRoute.[ROUTEID] = OD.[ProposedDeliveryRoute]
     LEFT JOIN
         [edw].[dim_Route] AS DimProposedRoute
         ON
             DimProposedRoute.[ROUTEID] = OD.[ProposedDeliveryRoute]
     LEFT JOIN
-        SalesDocumentItem_LC_EUR AS SDI
+        [edw].[vw_fact_SalesDocumentItem_LC_EUR] AS SDI
         ON
             ODI.[ReferenceSDDocument] = SDI.[SalesDocument]
             AND
             ODI.[ReferenceSDDocumentItem] = SDI.[SalesDocumentItem]
     LEFT JOIN
-        ODIPerSDI
+        [edw].[vw_fact_SalesDocumentItem_ODICount] ODIPerSDI
         ON
             ODI.[ReferenceSDDocument] = ODIPerSDI.[SalesDocument]
             AND
             ODI.[ReferenceSDDocumentItem] = ODIPerSDI.[SalesDocumentItem]
     LEFT JOIN
-        SDSLPerSDI
+        [edw].[vw_fact_SalesDocumentItem_ScheduleLineCount] SDSLPerSDI
         ON
             ODI.[ReferenceSDDocument] = SDSLPerSDI.[SalesDocument]
             AND
             ODI.[ReferenceSDDocumentItem] = SDSLPerSDI.[SalesDocumentItem]
     LEFT JOIN
-        CalculatedDelDate_calculation AS cdd
+        [intm_s4h].[vw_OutboundDelivery_DeliveryDate] AS cdd
         ON
             ODI.[OutboundDelivery] = cdd.[OutboundDelivery]
     LEFT JOIN 
@@ -855,38 +546,12 @@ OutboundDeliveryItem_s4h_calculated AS (
         ,[IntercompanyBillingStatusID]
         ,[IsReturnsItem] 
         ,[SL_ConfirmedDeliveryDate]
-        ,CASE
-            WHEN
-                ([SL_ConfirmedDeliveryDate] IS NULL
-                OR
-                [SL_ConfirmedDeliveryDate]  = '0001-01-01')
-            THEN NULL
-            WHEN
-                DATENAME(weekday, [SL_ConfirmedDeliveryDate]) = 'Saturday'
-                AND
-                ([SL_ConfirmedDeliveryDate] < [CalculatedDelDate]
-                OR
-                [CalculatedDelDate] IS NULL)
-            THEN DATEADD(day, -1, [SL_ConfirmedDeliveryDate])
-            WHEN
-                DATENAME(weekday, [SL_ConfirmedDeliveryDate]) = 'Saturday'
-                AND
-                [SL_ConfirmedDeliveryDate] > [CalculatedDelDate]
-            THEN DATEADD(day, 2, [SL_ConfirmedDeliveryDate])
-            WHEN
-                DATENAME(weekday, [SL_ConfirmedDeliveryDate]) = 'Sunday'
-                AND
-                ([SL_ConfirmedDeliveryDate] < [CalculatedDelDate]
-                OR
-                [CalculatedDelDate] IS NULL)
-            THEN DATEADD(day, -2, [SL_ConfirmedDeliveryDate])
-            WHEN
-                DATENAME(weekday, [SL_ConfirmedDeliveryDate]) = 'Sunday'
-                AND
-                [SL_ConfirmedDeliveryDate] > [CalculatedDelDate]
-            THEN  DATEADD(day, 1, [SL_ConfirmedDeliveryDate])
-            ELSE [SL_ConfirmedDeliveryDate]
-        END AS [SL_ConfirmedDeliveryDate_weekday] -- including logic to exclude weekends from SL_ConfirmedDeliveryDate column
+        ,[SL_OriginalConfirmedDeliveryDate]
+        ,[SL_FirstCustomerRequestedDeliveryDate]
+        -- including logic to exclude weekends from SL_OriginalConfirmedDeliveryDate column
+        ,[edw].[svf_excludeWeekends]([SL_OriginalConfirmedDeliveryDate],[CalculatedDelDate]) AS [SL_ConfirmedDeliveryDate_weekday]
+        -- including logic to exclude weekends from SL_FirstCustomerRequestedDeliveryDate column
+        ,[edw].[svf_excludeWeekends]([SL_FirstCustomerRequestedDeliveryDate],[CalculatedDelDate]) AS [SL_CustomerRequestedDeliveryDate_weekday]
         ,[SL_GoodsIssueDate]
         ,[SL_ScheduleLine]
         ,[HDR_SalesDistrictID]
@@ -1095,7 +760,7 @@ OutboundDeliveryItem_s4h_calculated AS (
     FROM OutboundDeliveryItem_s4h
 )
 ,
-OTS_OTD_DaysDiff_calculation AS (
+OTS_OTD_OTR_DaysDiff_calculation AS (
 SELECT
         [nk_fact_OutboundDeliveryItem]
         ,[OutboundDelivery]
@@ -1183,6 +848,8 @@ SELECT
         ,[IntercompanyBillingStatusID]
         ,[IsReturnsItem] 
         ,[SL_ConfirmedDeliveryDate]
+        ,[SL_OriginalConfirmedDeliveryDate]
+        ,[SL_FirstCustomerRequestedDeliveryDate]
         ,[SL_GoodsIssueDate]
         ,[SL_ScheduleLine]
         ,[HDR_SalesDistrictID]
@@ -1309,27 +976,7 @@ SELECT
         ,[IF_IsInFullFlag]
         ,[IF_IsInFull]
         ,[NoActualDeliveredQtyFlag]
-        ,CASE
-            WHEN
-                ([HDR_PlannedGoodsIssueDate_weekday] IS NULL
-                OR
-                [HDR_PlannedGoodsIssueDate_weekday] = '0001-01-01')
-            THEN NULL
-            WHEN
-                ([HDR_ActualGoodsMovementDate_weekday] IS NULL 
-                OR
-                [HDR_ActualGoodsMovementDate_weekday] = '0001-01-01')
-                AND
-                [HDR_PlannedGoodsIssueDate_weekday] < CONVERT (DATE, GETUTCDATE())
-            THEN
-                (DATEDIFF(day, [HDR_PlannedGoodsIssueDate_weekday], CONVERT (DATE, GETUTCDATE()))) -- count of all days diff
-                 -(DATEDIFF(week, [HDR_PlannedGoodsIssueDate_weekday], CONVERT (DATE, GETUTCDATE())) * 2) -- count of weekends
-            WHEN [HDR_ActualGoodsMovementDate_weekday] = '0001-01-01'
-			THEN NULL
-            ELSE
-                (DATEDIFF(day, [HDR_PlannedGoodsIssueDate_weekday], [HDR_ActualGoodsMovementDate_weekday])) -- count of all days diff
-                 -(DATEDIFF(week, [HDR_PlannedGoodsIssueDate_weekday], [HDR_ActualGoodsMovementDate_weekday]) * 2) -- count of weekends
-        END AS [OTS_DaysDiff]
+        ,[edw].[svf_getOT_DaysDiff]([HDR_PlannedGoodsIssueDate_weekday], [HDR_ActualGoodsMovementDate_weekday],GETUTCDATE()) AS [OTS_DaysDiff]
         ,[OTS_GoodsIssueDateDiffInDays]
         ,[OTS_GIDateCheckGroup]
         ,[SDAvailableFlag]
@@ -1342,32 +989,15 @@ SELECT
         ,[ActualLeadTime]
         ,[ALT001_DataQualityCode]  
         ,[RequestedLeadTime]
-        ,[RLT001_DataQualityCode]  
-        ,CASE
-            WHEN
-                ([SL_ConfirmedDeliveryDate_weekday] IS NULL
-                OR
-                [SL_ConfirmedDeliveryDate_weekday]  = '0001-01-01')
-            THEN NULL
-            WHEN
-                ([CalculatedDelDate] IS NULL 
-                OR
-                [CalculatedDelDate] = '0001-01-01')
-                AND
-                [SL_ConfirmedDeliveryDate_weekday] < CONVERT (DATE, GETUTCDATE())
-            THEN
-                (DATEDIFF(day, [SL_ConfirmedDeliveryDate_weekday], CONVERT (DATE, GETUTCDATE()))) -- count of all days diff
-                 -(DATEDIFF(week, [SL_ConfirmedDeliveryDate_weekday], CONVERT (DATE, GETUTCDATE())) * 2) -- subtracting the amount of weekends
-            ELSE
-                (DATEDIFF(day, [SL_ConfirmedDeliveryDate_weekday], [CalculatedDelDate])) -- count of all days diff
-                 -(DATEDIFF(week, [SL_ConfirmedDeliveryDate_weekday], [CalculatedDelDate]) * 2) -- count of weekends
-        END AS [OTD_DaysDiff]
+        ,[RLT001_DataQualityCode]
+        ,[edw].[svf_getOT_DaysDiff]([SL_ConfirmedDeliveryDate_weekday], [CalculatedDelDate],GETUTCDATE()) AS [OTD_DaysDiff]
+        ,[edw].[svf_getOT_DaysDiff]([SL_CustomerRequestedDeliveryDate_weekday], [CalculatedDelDate],GETUTCDATE())  AS [OTR_DaysDiff]
         ,[t_applicationId]
         ,[t_extractionDtm]
     FROM OutboundDeliveryItem_s4h_calculated
 )
 ,
-OTS_OTD_Group_calculation AS (
+OTS_OTD_OTR_Group_calculation AS (
 SELECT
     [nk_fact_OutboundDeliveryItem]
     ,[OutboundDelivery]
@@ -1455,6 +1085,8 @@ SELECT
     ,[IntercompanyBillingStatusID]
     ,[IsReturnsItem] 
     ,[SL_ConfirmedDeliveryDate]
+    ,[SL_OriginalConfirmedDeliveryDate]
+    ,[SL_FirstCustomerRequestedDeliveryDate]
     ,[SL_GoodsIssueDate]
     ,[SL_ScheduleLine]
     ,[HDR_SalesDistrictID]
@@ -1584,16 +1216,7 @@ SELECT
     ,[OTS_DaysDiff]
     ,[OTS_GoodsIssueDateDiffInDays]
     ,[OTS_GIDateCheckGroup]
-        ,CASE
-	        WHEN [OTS_DaysDiff] IS NULL
-	        THEN NULL
-	        WHEN [OTS_DaysDiff] = 0
-	        THEN 'OnTime'
-	        WHEN [OTS_DaysDiff] < 0
-	        THEN 'Early'
-	        WHEN [OTS_DaysDiff] > 0
-            THEN 'Late'
-        END AS [OTS_Group]
+    ,[edw].[svf_getOT_Group]([OTS_DaysDiff]) AS [OTS_Group]
     ,[SDAvailableFlag]
     ,[SDI_ConfQtyEqOrderQtyFlag]
     ,[SLAvailableFlag]
@@ -1606,23 +1229,16 @@ SELECT
     ,[RequestedLeadTime]
     ,[RLT001_DataQualityCode]  
     ,[OTD_DaysDiff]
-    ,CASE
-        WHEN [OTD_DaysDiff] IS NULL
-        THEN NULL
-        WHEN [OTD_DaysDiff] = 0
-        THEN 'OnTime'
-        WHEN [OTD_DaysDiff] < 0
-        THEN 'Early'
-        WHEN [OTD_DaysDiff] > 0
-        THEN 'Late'
-    END AS [OTD_Group]
+    ,[edw].[svf_getOT_Group]([OTD_DaysDiff]) AS [OTD_Group]
+    ,[OTR_DaysDiff]
+    ,[edw].[svf_getOT_Group]([OTR_DaysDiff]) AS [OTR_Group]
     ,[t_applicationId]
     ,[t_extractionDtm]
 FROM
-	OTS_OTD_DaysDiff_calculation
+	OTS_OTD_OTR_DaysDiff_calculation
 )
 ,
-OTS_OTD_Is_Days_calculation AS (
+OTS_OTD_OTR_Is_Days_calculation AS (
 SELECT
     [nk_fact_OutboundDeliveryItem]
     ,[OutboundDelivery]
@@ -1710,6 +1326,8 @@ SELECT
     ,[IntercompanyBillingStatusID]
     ,[IsReturnsItem] 
     ,[SL_ConfirmedDeliveryDate]
+    ,[SL_OriginalConfirmedDeliveryDate]
+    ,[SL_FirstCustomerRequestedDeliveryDate]
     ,[SL_GoodsIssueDate]
     ,[SL_ScheduleLine]
     ,[HDR_SalesDistrictID]
@@ -1903,13 +1521,41 @@ SELECT
         THEN [OTD_DaysDiff]
         ELSE 0
     END AS [OTD_LateDays]
+    ,[OTR_DaysDiff]
+    ,[OTR_Group]
+    ,CASE
+        WHEN [OTR_Group] = 'Early'
+        THEN [OTR_DaysDiff]
+        ELSE 0
+    END AS [OTR_EarlyDays]
+    ,CASE
+        WHEN [OTR_Group] = 'Early'
+        THEN 1
+            ELSE 0
+        END AS [OTR_IsEarly]
+    ,CASE
+        WHEN [OTR_Group] = 'Late'
+        THEN 1
+        ELSE 0
+    END AS [OTR_IsLate]
+    ,CASE
+        WHEN [OTR_Group] = 'OnTime'
+        THEN 1
+        ELSE 0
+    END AS [OTR_IsOnTime]
+    ,CASE
+        WHEN [OTR_Group] = 'Late'
+        THEN [OTR_DaysDiff]
+        ELSE 0
+    END AS [OTR_LateDays]
     ,[t_applicationId]
     ,[t_extractionDtm]
 FROM
-	OTS_OTD_Group_calculation
+	OTS_OTD_OTR_Group_calculation
 )
 SELECT
     [nk_fact_OutboundDeliveryItem]
+    ,edw.[svf_get2PartNaturalKey] ([ProductID], [PlantID]) AS [nk2_fact_OutboundDeliveryItem]
     ,[OutboundDelivery]
     ,[OutboundDeliveryItem]
     ,[DeliveryDocumentItemCategoryID]
@@ -2000,6 +1646,8 @@ SELECT
     ,[IntercompanyBillingStatusID]
     ,[IsReturnsItem] 
     ,[SL_ConfirmedDeliveryDate]
+    ,[SL_OriginalConfirmedDeliveryDate]
+    ,[SL_FirstCustomerRequestedDeliveryDate]
     ,[SL_GoodsIssueDate]
     ,[SL_ScheduleLine]
     ,[HDR_SalesDistrictID]
@@ -2051,29 +1699,7 @@ SELECT
     ,[RouteIsChangedFlag]
     ,[NrODIPerSDIAndQtyNot0]
     ,[NrSLInScope]
-    ,CASE
-            WHEN [OTS_Group] IS NULL
-            THEN NULL
-            WHEN
-                [OTS_IsOnTime] = 1 
-                AND
-                [IF_IsInFull] = 1
-            THEN 'OTIF'
-            WHEN
-                [OTS_IsOnTime] = 1
-                AND [IF_IsInFull] = 0
-            THEN 'OTNIF'
-            WHEN
-                [OTS_IsOnTime] = 0
-                AND
-                [IF_IsInFull] = 1
-            THEN 'NOTIF'
-            WHEN
-                [OTS_IsOnTime] = 0
-                AND
-                [IF_IsInFull] = 0
-            THEN 'NOTNIF'
-        END AS [OTSIF_OnTimeShipInFull]
+    ,[edw].[svf_getOTIF_OnTimeInFull]([OTS_Group],[OTS_IsOnTime],[IF_IsInFull]) AS [OTSIF_OnTimeShipInFull]
     ,[HDR_PlannedGoodsIssueDate]
     ,[HDR_ActualGoodsMovementDate]
     ,[HDR_ShippingPointID]
@@ -2176,31 +1802,16 @@ SELECT
     ,[OTD_IsLate]
     ,[OTD_IsOnTime]
     ,[OTD_LateDays]
-    ,CASE
-        WHEN [OTD_Group] IS NULL
-        THEN NULL
-        WHEN
-            [OTD_IsOnTime] = 1
-            AND
-            [IF_IsInFull] = 1
-        THEN 'OTIF'
-        WHEN
-            [OTD_IsOnTime] = 1
-            AND
-            [IF_IsInFull] = 0
-        THEN 'OTNIF'
-        WHEN
-            [OTD_IsOnTime] = 0
-            AND
-            [IF_IsInFull] = 1
-        THEN 'NOTIF'
-        WHEN
-            [OTD_IsOnTime] = 0
-            AND
-            [IF_IsInFull] = 0
-        THEN 'NOTNIF'
-    END AS [OTDIF_OnTimeDelInFull]
+    ,[edw].[svf_getOTIF_OnTimeInFull]([OTD_Group],[OTD_IsOnTime],[IF_IsInFull]) AS [OTDIF_OnTimeDelInFull]
+    ,[OTR_DaysDiff]
+    ,[OTR_Group]
+    ,[OTR_EarlyDays]
+    ,[OTR_IsEarly]
+    ,[OTR_IsLate]
+    ,[OTR_IsOnTime]
+    ,[OTR_LateDays]
+    ,[edw].[svf_getOTIF_OnTimeInFull]([OTR_Group],[OTR_IsOnTime],[IF_IsInFull]) AS [OTRIF_OnTimeCusReqInFull]
     ,[t_applicationId]
     ,[t_extractionDtm]
 FROM
-	OTS_OTD_Is_Days_calculation
+	OTS_OTD_OTR_Is_Days_calculation

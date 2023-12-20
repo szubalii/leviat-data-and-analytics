@@ -7,8 +7,17 @@ SELECT
        GLA.[FiscalYear],
        GLA.[AccountingDocument], 
        GLA.[LedgerGLLineItem],
-       edw.svf_getSalesDoc(GLA.SalesDocumentID,DPF.SubsequentDocument,PF.PrecedingDocument) AS SalesReferenceDocumentCalculated,
-       edw.svf_getSalesDocItem(GLA.SalesDocumentID,GLA.SalesDocumentItemID,DPF.SubsequentDocumentItem,PF.PrecedingDocumentItem) AS SalesReferenceDocumentItemCalculated
+       edw.svf_getSalesDoc(
+              GLA.SalesDocumentID
+              ,DPF.SubsequentDocument
+              ,PF.PrecedingDocument
+       ) AS SalesReferenceDocumentCalculated,
+       edw.svf_getSalesDocItem(
+              GLA.SalesDocumentID
+              ,GLA.SalesDocumentItemID
+              ,DPF.SubsequentDocumentItem
+              ,PF.PrecedingDocumentItem
+       ) AS SalesReferenceDocumentItemCalculated
 FROM [edw].[vw_GLAccountLineItemRawData] AS GLA
 LEFT JOIN [base_s4h_cax].[I_SDDocumentProcessFlow] DPF
     ON
@@ -24,6 +33,7 @@ LEFT JOIN [base_s4h_cax].[I_SDDocumentProcessFlow] AS PF
        GLA.SalesDocumentItemID = PF.SubsequentDocumentItem COLLATE DATABASE_DEFAULT 
        AND
        PF.PrecedingDocumentCategory IN ('C', 'I')
+WHERE GLA.[AccountingDocumentTypeID] <> 'DC'
 )
 
 SELECT

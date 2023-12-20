@@ -1357,6 +1357,8 @@ BDwithConditionAmountFreight AS (
             BDI.[BillingDocumentItem] = BDIPE.[BillingDocumentItem]
             AND
             BDIPE.[ConditionType] = 'REA1'
+    WHERE
+        BDIPE.ConditionInactiveReason = ''
     GROUP BY 
         BDI.BillingDocument
     ,   BDI.BillingDocumentItem

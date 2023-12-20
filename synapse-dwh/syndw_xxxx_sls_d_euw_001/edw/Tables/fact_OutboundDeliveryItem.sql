@@ -1,6 +1,7 @@
 ﻿CREATE TABLE [edw].[fact_OutboundDeliveryItem] (
        [sk_fact_OutboundDeliveryItem] int IDENTITY(1,1) NOT NULL
       ,[nk_fact_OutboundDeliveryItem] nvarchar(45) NOT NULL
+      ,[nk2_fact_OutboundDeliveryItem] nvarchar(45)
       ,[OutboundDelivery] nvarchar(20) NOT NULL
       ,[OutboundDeliveryItem] char(6) collate Latin1_General_100_BIN2 NOT NULL
       ,[DeliveryDocumentItemCategoryID] nvarchar(4)
@@ -87,6 +88,8 @@
       ,[IntercompanyBillingStatusID] nvarchar(1)
       ,[IsReturnsItem] nvarchar(1)
       ,[SL_ConfirmedDeliveryDate] date
+      ,[SL_FirstCustomerRequestedDeliveryDate] date
+      ,[SL_OriginalConfirmedDeliveryDate] date
       ,[SL_ConfdOrderQtyByMatlAvailCheck] decimal(38,12)
       ,[SL_GoodsIssueDate] date
       ,[SL_ScheduleLine] char(4) collate Latin1_General_100_BIN2
@@ -243,6 +246,14 @@
       ,[OTD_IsOnTime] bit
       ,[OTD_LateDays] int
       ,[OTDIF_OnTimeDelInFull] nvarchar(6)
+      ,[OTR_DaysDiff] int
+      ,[OTR_Group]  nvarchar (7)
+      ,[OTR_EarlyDays] int
+      ,[OTR_IsEarly] bit
+      ,[OTR_IsLate] bit
+      ,[OTR_IsOnTime] bit
+      ,[OTR_LateDays] int
+      ,[OTRIF_OnTimeCusReqInFull] nvarchar(6)
       ,[t_applicationId]       varchar (32)
       ,[t_extractionDtm]       datetime
       ,[t_jobId]               varchar (36)

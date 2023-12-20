@@ -51,6 +51,9 @@
       },
       "$$ SELF-SERVICE (Sales)": {
         "dataset_guid": "dbe19e7e-3889-4d8a-9e7d-bb07fdbfafa5"
+      },
+      "Customer Details": {
+        "dataset_guid": "9d14f80e-3af3-4165-a632-2a4d99ab166f"
       }
     }
   },
