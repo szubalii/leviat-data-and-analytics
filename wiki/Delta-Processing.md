@@ -27,12 +27,23 @@
 
 1. Extract 
 
-   Run the Xtract Universal extraction for this entity and store the parquet file on ADLS
+   Run the Xtract Universal extraction for this delta entity and store the delta parquet file on ADLS. Additional delta fields are added to the delta entity ODP extraction:
+   - TS_SEQUENCE_NUMBER
+
+     A sequence number defining the chronological order of the delta records
+   - ODQ_CHANGEMODE
+
+     A character defining the delta operation: insert, update, delete
+   - ODQ_ENTITYCNTR
+
+     Value defining if a row is added or removed
 
 1. Get Extraction Status
 1. Store Extraction Log
 1. Test for Duplicates
 1. Ingest into Synapse Base
+
+   Ingest the delta parquet file into the base delta table in Synapse SQL Pool.
 1. Process Base
 
    For a delta entity, this step is executed after all required delta parquet files have been ingested into Synapse SQL Pool Base. It processes the new delta parquet files and applies the delta information in the active table that contains the latest up to date status.
