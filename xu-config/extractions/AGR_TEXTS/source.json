@@ -1,0 +1,102 @@
+{
+    "functionName": "Z_THEO_READ_TABLE",
+    "runInBackgroundJob": false,
+    "backgroundJobTimeout": 180,
+    "tables": 
+    [
+        {
+            "name": "AGR_TEXTS",
+            "description": "File Structure for Hierarchical Menu - Customer",
+            "isView": false,
+            "fields": 
+            [
+                {
+                    "name": "MANDT",
+                    "description": "Client ID",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": true
+                },
+                {
+                    "name": "AGR_NAME",
+                    "description": "Role Name",
+                    "abapType": "CharacterString",
+                    "length": 30,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "AGR_DEFINE",
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "SPRAS",
+                    "description": "Language of menu texts",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "formattedLength": 2,
+                    "checkTable": "T002",
+                    "conversionExit": "ISOLA",
+                    "isClientField": false
+                },
+                {
+                    "name": "LINE",
+                    "description": "Counter for menu ID",
+                    "abapType": "NumericCharacterString",
+                    "length": 5,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "TEXT",
+                    "description": "Role Description",
+                    "abapType": "CharacterString",
+                    "length": 80,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                }
+            ]
+        }
+    ],
+    "complexRuntimeParameters": {
+    },
+    "whereSequence": [
+        [
+            "ColumnName",
+            "AGR_TEXTS~SPRAS"
+        ],
+        [
+            "Operator",
+            "Equal"
+        ],
+        [
+            "Literal",
+            "String",
+            "E"
+        ],
+        [
+            "BoolOperator",
+            "And"
+        ],
+        [
+            "ColumnName",
+            "AGR_TEXTS~AGR_NAME"
+        ],
+        [
+            "Operator",
+            "ContainsPattern"
+        ],
+        [
+            "Literal",
+            "String",
+            "FR%XXXX%"
+        ]
+    ]
+}

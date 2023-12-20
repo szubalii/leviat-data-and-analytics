@@ -1,0 +1,83 @@
+{
+  "functionName": "Z_THEO_READ_TABLE",
+  "whereClause": "AUTHORIZATIONGROUPOBJECT = 'S_TCODE' AND LOGACCMACTYGRPPROFILEROLENAME LIKE 'TR%XXXX%'",
+  "runInBackGroundJob": false,
+  "tables": [
+    {
+      "name": "IACMAUTHACTVTGRP",
+      "description": "Generated Table for View IACMAUTHACTVTGRP",
+      "isView": true,
+      "fields": [
+        {
+          "name": "MANDT",
+          "description": "Client",
+          "abapType": "CharacterString",
+          "length": 3,
+          "isSelected": true,
+          "outputLength": 3,
+          "isPrimaryKey": true,
+          "isDeltaColumn": true,
+          "selectionPermission": "All",
+          "checkTable": "T000"
+        },
+        {
+          "name": "LOGACCMACTYGRPPROFILEROLENAME",
+          "description": "Role Name",
+          "abapType": "CharacterString",
+          "length": 30,
+          "isSelected": true,
+          "outputLength": 30,
+          "isPrimaryKey": true,
+          "isDeltaColumn": true,
+          "selectionPermission": "All",
+          "checkTable": ""
+        },
+        {
+          "name": "LOGACCMACTYGRPPRFLCHGSTINTID",
+          "description": "Menu ID for BIW",
+          "abapType": "NumericCharacterString",
+          "length": 6,
+          "isSelected": true,
+          "outputLength": 6,
+          "isPrimaryKey": true,
+          "isDeltaColumn": true,
+          "selectionPermission": "All",
+          "checkTable": ""
+        },
+        {
+          "name": "AUTHORIZATIONGROUPOBJECT",
+          "description": "Auth. Object in User Master Maintenance",
+          "abapType": "CharacterString",
+          "length": 10,
+          "isSelected": true,
+          "outputLength": 10,
+          "isDeltaColumn": true,
+          "selectionPermission": "All",
+          "checkTable": ""
+        },
+        {
+          "name": "AUTHORIZATIONFROMVALUE",
+          "description": "Authorization value",
+          "abapType": "CharacterString",
+          "length": 40,
+          "isSelected": true,
+          "outputLength": 40,
+          "isDeltaColumn": true,
+          "selectionPermission": "All",
+          "checkTable": ""
+        },
+        {
+          "name": "AUTHORIZATIONTOVALUE",
+          "description": "Authorization value",
+          "abapType": "CharacterString",
+          "length": 40,
+          "isSelected": true,
+          "outputLength": 40,
+          "isDeltaColumn": true,
+          "selectionPermission": "All",
+          "checkTable": ""
+        }
+      ]
+    }
+  ]
+}

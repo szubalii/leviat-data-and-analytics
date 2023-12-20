@@ -1,0 +1,9 @@
+{
+    "isSurrogateKeyEnabled": false,
+    "columns": 
+    [
+        "AGR_1251~MANDT",
+        "AGR_1251~AGR_NAME",
+        "AGR_1251~COUNTER"
+    ]
+}

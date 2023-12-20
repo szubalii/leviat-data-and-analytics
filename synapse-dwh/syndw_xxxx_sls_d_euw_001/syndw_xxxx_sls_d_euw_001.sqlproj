@@ -219,6 +219,8 @@
     <Folder Include="edw\Functions\" />
     <Folder Include="dm_global" />
     <Folder Include="dm_global\Views" />
+    <Folder Include="dm_RiskAndCompliance" />
+    <Folder Include="dm_RiskAndCompliance\Views" />
   </ItemGroup>
   <ItemGroup>
     <None Include="edw\Views\vw_fact_MaterialStockLevel_temp.sql" />
@@ -313,8 +315,9 @@
     <Build Include="Security\Schemas\base_isedio_aus.sql" />
     <Build Include="Security\Schemas\dm_global.sql" />
     <Build Include="Security\Schemas\intm_s4h.sql" />
+    <Build Include="Security\Schemas\dm_RiskAndCompliance.sql" />
 
-    <!-- TABLES -->
+      <!-- TABLES -->
 
     <Build Include="base_ff\Tables\CurrencyType.sql" />
     <Build Include="base_ff\Tables\ProductHierarchyNode.sql" />
@@ -741,6 +744,13 @@
     <Build Include="base_s4h_cax\Tables\I_FrtCostDistrItm.sql" />
     <Build Include="base_s4h_cax\Tables\I_TransportationOrder.sql" />
     <Build Include="base_s4h_cax\Tables\I_TransportationOrderItem.sql" />
+    <Build Include="base_s4h_cax\Tables\I_ACMAuthznDataForActivityGrp.sql" />
+    <Build Include="base_s4h_cax\Tables\P_USR_AUTH_ROLE.sql" />
+    <Build Include="base_s4h_cax\Tables\P_SU2X_HEAD_TR.sql" />
+    <Build Include="base_s4h_cax\Tables\AGR_AGRS.sql" />
+    <Build Include="base_s4h_cax\Tables\AGR_TEXTS.sql" />
+    <Build Include="base_s4h_cax\Tables\AGR_1251.sql" />
+    <Build Include="base_s4h_cax\Tables\TSTCT.sql" />
 
     <Build Include="base_tx_ca_0_hlp\Tables\DATAAREA.sql" />
     <Build Include="base_tx_ca_0_hlp\Tables\CRHCURRENCY.sql" />
@@ -1448,7 +1458,10 @@
     <Build Include="dm_scm\Views\vw_fact_ProductSalesThirdPartyDelivery.sql" />
     <Build Include="dm_scm\Views\vw_dim_ShippingPoint.sql" />
 
-    <!-- STORED PROCEDURES -->
+    <Build Include="dm_RiskAndCompliance\Views\vw_dim_ActivityGroupRolesInCompositeRoles.sql" />
+    <Build Include="dm_RiskAndCompliance\Views\vw_dim_ActivityGroupAuthorization.sql" />
+
+      <!-- STORED PROCEDURES -->
 
     <!-- <Build Include="base_s4h_cax\Stored Procedures\sp_load_C_BillingDocumentItemBasicDEX.sql" /> -->
     <!-- <Build Include="base_s4h_cax\Stored Procedures\sp_load_C_SalesDocumentItemDEX.sql" /> -->
