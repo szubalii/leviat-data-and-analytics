@@ -16,7 +16,10 @@ BEGIN
     VALUES ('1','00000','a'),  ('1','00001','b'), ('1','00002','c');
 
      -- Act:
-    SELECT [CompositeActivityGroupRoleName],[ActivityGroupRoleName],[Text]
+    SELECT
+        [CompositeActivityGroupRoleName],
+        [ActivityGroupRoleName],
+        [CompositeActivityGroupRoleDescription]
     INTO actual
     FROM [dm_RiskAndCompliance].[vw_dim_ActivityGroupRolesInCompositeRoles]
 
@@ -24,7 +27,11 @@ BEGIN
     INTO expected
     FROM actual;
 
-    INSERT INTO expected([CompositeActivityGroupRoleName],[ActivityGroupRoleName],[Text])
+    INSERT INTO expected(
+        [CompositeActivityGroupRoleName],
+        [ActivityGroupRoleName],
+        [CompositeActivityGroupRoleDescription]
+    )
     VALUES ('1','1','a b c');
 
     -- Assert:

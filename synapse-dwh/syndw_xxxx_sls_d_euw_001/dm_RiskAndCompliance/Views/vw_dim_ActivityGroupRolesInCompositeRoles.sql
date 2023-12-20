@@ -13,7 +13,7 @@ SELECT
      AA.[Agr_Name] AS [CompositeActivityGroupRoleName]
     ,AA.[Child_Agr] AS [ActivityGroupRoleName]
     ,AA.[Attributes]
-    ,AGR_TEXTS_SINGLE_LINE.[Text]
+    ,AGR_TEXTS_SINGLE_LINE.[Text] AS [CompositeActivityGroupRoleDescription]
     ,AA.[t_applicationId]
     ,AA.[t_extractionDtm]
 FROM
@@ -21,4 +21,4 @@ FROM
 LEFT JOIN
     AGR_TEXTS_SINGLE_LINE
     ON
-        AA.[Child_Agr] = AGR_TEXTS_SINGLE_LINE.[Agr_Name]
+        AA.[Agr_Name] = AGR_TEXTS_SINGLE_LINE.[Agr_Name]
