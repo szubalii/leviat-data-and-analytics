@@ -624,7 +624,7 @@
                     "description": "Valuation Area",
                     "abapType": "CharacterString",
                     "length": 4,
-                    "isSelected": false,
+                    "isSelected": true,
                     "conversionExit": "",
                     "isClientField": false
                 },

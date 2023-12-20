@@ -4314,7 +4314,7 @@
         "update_mode": "Full",
         "base_table_name": "C_GRIRAccountReconciliation",
         "schedule_recurrence": "D",
-        "pk_field_names": "MANDT, COMPANYCODE, PURCHASINGDOCUMENT,PURCHASINGDOCUMENTITEM"
+        "pk_field_names": "MANDT, COMPANYCODE, PURCHASINGDOCUMENT,PURCHASINGDOCUMENTITEM, VALUATIONAREA"
       },
       {
         "entity_id": 625,

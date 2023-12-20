@@ -62,7 +62,7 @@ CREATE TABLE [base_s4h_cax].[C_GRIRAccountReconciliation] (
   , [OldestOpenItemPostingDate] DATE  -- Posting Date of Oldest Open Item
   -- , [NumberOfOpenItems] INT  -- Number of Open Items
   -- , [PurchasingDocumentItemText] NVARCHAR(40)  -- Short Text
-  -- , [ValuationArea] NVARCHAR(4)  -- Valuation Area
+  , [ValuationArea] NVARCHAR(4)   NOT NULL-- Valuation Area
   , [ValuationType] NVARCHAR(10)  -- Valuation Type
   -- , [PurchasingDocumentItemCategory] NVARCHAR(1)  -- Item category in purchasing document
   -- , [NumberOfPurchaseOrderItems] INT  -- Number of Purchasing Document Items
@@ -107,6 +107,7 @@ CREATE TABLE [base_s4h_cax].[C_GRIRAccountReconciliation] (
     , [CompanyCode]
     , [PurchasingDocument]
     , [PurchasingDocumentItem]
+    , [ValuationArea]
   ) NOT ENFORCED
 ) WITH (
   HEAP
