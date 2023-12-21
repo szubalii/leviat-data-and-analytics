@@ -8,7 +8,7 @@ BEGIN
   IF OBJECT_ID('expected') IS NOT NULL DROP TABLE expected;
 
   EXEC tSQLt.FakeTable '[dbo]', '[entity]';
-  EXEC tSQLt.FakeFunction '[dbo].[tvf_entity_file_activities_by_date]', 'EntityFile.Fake_tvf_entity_file_activities_by_date';
+  EXEC tSQLt.FakeFunction '[dbo].[tvf_entity_file_activities_by_date]', 'fake.tvf_entity_file_activities_by_date';
 
   /*
     Workaround to ingest mock data into a view

@@ -5,7 +5,7 @@ BEGIN
   IF OBJECT_ID('actual') IS NOT NULL DROP TABLE actual;
   IF OBJECT_ID('expected') IS NOT NULL DROP TABLE expected;
 
-  EXEC tSQLt.FakeFunction 'dbo.tvf_entity_file_activity_isRequired', 'EntityFile.Fake_tvf_entity_file_activity_isRequired';
+  EXEC tSQLt.FakeFunction 'dbo.tvf_entity_file_activity_isRequired', 'fake.tvf_entity_file_activity_isRequired';
 
   -- Act: 
   SELECT

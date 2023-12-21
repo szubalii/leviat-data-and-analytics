@@ -7,7 +7,7 @@ BEGIN
   -- IF OBJECT_ID('tempdb..#vw_entity_file_required_activity') IS NOT NULL DROP TABLE #vw_entity_file_required_activity;
 
   -- Assemble: Fake Table
-  EXEC tSQLt.FakeFunction '[dbo].[tvf_entity_file_activity_isRequired]', 'EntityFile.Fake_tvf_entity_file_activity_isRequired';
+  EXEC tSQLt.FakeFunction '[dbo].[tvf_entity_file_activity_isRequired]', 'fake.tvf_entity_file_activity_isRequired';
 
   -- Act: 
   SELECT

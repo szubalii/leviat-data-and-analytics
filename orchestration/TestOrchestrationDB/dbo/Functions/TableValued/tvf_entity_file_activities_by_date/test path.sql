@@ -9,7 +9,7 @@ BEGIN
   -- Assemble: Fake Table
   EXEC tSQLt.FakeTable 'dbo.entity';
   EXEC tSQLt.FakeTable '[dbo]', '[vw_adls_base_directory_path]';
-  EXEC tSQLt.FakeFunction 'dbo.tvf_entity_file_required_activities', 'EntityFile.Fake_tvf_entity_file_required_activities';
+  EXEC tSQLt.FakeFunction 'dbo.tvf_entity_file_required_activities', 'fake.tvf_entity_file_required_activities';
 
   /*
     Workaround to ingest mock data into a view

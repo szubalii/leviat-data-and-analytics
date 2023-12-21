@@ -9,7 +9,7 @@ BEGIN
 
   -- Assemble: Fake Table
   EXEC tSQLt.FakeTable '[dbo]', '[entity]';
-  EXEC tSQLt.FakeFunction '[dbo].[tvf_entity_file_activities_by_date]', 'EntityFile.Fake_tvf_entity_file_activities_by_date';
+  EXEC tSQLt.FakeFunction '[dbo].[tvf_entity_file_activities_by_date]', 'fake.tvf_entity_file_activities_by_date';
   
   INSERT INTO dbo.entity (entity_id, schedule_recurrence, schedule_day)
   VALUES
