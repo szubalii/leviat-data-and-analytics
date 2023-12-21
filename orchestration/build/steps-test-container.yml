@@ -18,14 +18,15 @@ steps:
 #   displayName: 'Create Database in SQL Server using entrypoint.sh script?'
 
 - script: |
+    sqlpackage /Action:Publish /SourceFile:"$(System.DefaultWorkingDirectory)/orchestration/sqldb-xxxx-orchdb-d-euw-001/bin/Debug/sqldb-xxxx-orchdb-d-euw-001.dacpac" \
+    /TargetConnectionString:"Server=localhost;Initial Catalog=TestOrchestrationDB;User ID=sa;Password=$(mssql-sa-pwd);Encrypt=False;TrustServerCertificate=False;Connection Timeout=30;"
+  displayName: 'Deploy Orch DB dacpac to Docker Container'
+  
+- script: |
     sqlpackage /Action:Publish /SourceFile:"$(System.DefaultWorkingDirectory)/orchestration/TestOrchestrationDB/bin/Debug/TestOrchestrationDB.dacpac" \
     /TargetConnectionString:"Server=localhost;Initial Catalog=TestOrchestrationDB;User ID=sa;Password=$(mssql-sa-pwd);Encrypt=False;TrustServerCertificate=False;Connection Timeout=30;"
   displayName: 'Deploy Test dacpac to Docker Container'
 
-- script: |
-    sqlpackage /Action:Publish /SourceFile:"$(System.DefaultWorkingDirectory)/orchestration/sqldb-xxxx-orchdb-d-euw-001/bin/Debug/sqldb-xxxx-orchdb-d-euw-001.dacpac" \
-    /TargetConnectionString:"Server=localhost;Initial Catalog=TestOrchestrationDB;User ID=sa;Password=$(mssql-sa-pwd);Encrypt=False;TrustServerCertificate=False;Connection Timeout=30;"
-  displayName: 'Deploy Orch DB dacpac to Docker Container'
 
 
 # User powershell instead of direct sqlcmd due to issues in fixed length of output of xml results
