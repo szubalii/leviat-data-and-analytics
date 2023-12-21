@@ -25,7 +25,7 @@ outboundDeliveries AS (
      SELECT SUM(ActualDeliveredQtyInBaseUnit)          AS ActualDeliveredQuantityInBaseUnit
           ,[ReferenceSDDocument]
           ,[ReferenceSDDocumentItem]
-     FROM [edw].[vw_OutboundDeliveryItem_for_SalesDocumentItem]
+     FROM [base_s4h_cax].[I_OutboundDeliveryItem]
      GROUP BY [ReferenceSDDocument]
                ,[ReferenceSDDocumentItem]
 ),
