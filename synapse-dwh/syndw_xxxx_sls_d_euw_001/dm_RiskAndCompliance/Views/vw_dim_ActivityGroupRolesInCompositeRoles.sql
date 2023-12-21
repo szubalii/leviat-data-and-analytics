@@ -10,15 +10,15 @@ WITH AGR_TEXTS_SINGLE_LINE AS (
     [Agr_Name]
 )
 SELECT
-     AA.[Agr_Name] AS [CompositeActivityGroupRoleName]
-    ,AA.[Child_Agr] AS [ActivityGroupRoleName]
-    ,AA.[Attributes]
-    ,AGR_TEXTS_SINGLE_LINE.[Text] AS [CompositeActivityGroupRoleDescription]
-    ,AA.[t_applicationId]
-    ,AA.[t_extractionDtm]
+  AA.[Agr_Name] AS [CompositeActivityGroupRoleName]
+, AA.[Child_Agr] AS [ActivityGroupRoleName]
+, AA.[Attributes]
+, AGR_TEXTS_SINGLE_LINE.[Text] AS [CompositeActivityGroupRoleDescription]
+, AA.[t_applicationId]
+, AA.[t_extractionDtm]
 FROM
-    [base_s4h_cax].[AGR_AGRS] AA
+  [base_s4h_cax].[AGR_AGRS] AA
 LEFT JOIN
-    AGR_TEXTS_SINGLE_LINE
-    ON
-        AA.[Agr_Name] = AGR_TEXTS_SINGLE_LINE.[Agr_Name]
+  AGR_TEXTS_SINGLE_LINE
+  ON
+    AA.[Agr_Name] = AGR_TEXTS_SINGLE_LINE.[Agr_Name]
