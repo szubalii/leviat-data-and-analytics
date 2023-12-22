@@ -88,7 +88,15 @@ OutboundDeliveryItem_s4h AS (
         ,ODI.[IntercompanyBillingStatus] AS [IntercompanyBillingStatusID]
         ,ODI.[IsReturnsItem] 
         ,SDSL.[ConfirmedDeliveryDate] AS [SL_ConfirmedDeliveryDate]
-        ,COALESCE(OCDD.[OriginalConfirmedDeliveryDate],SDSL.[ConfirmedDeliveryDate]) AS [SL_OriginalConfirmedDeliveryDate]
+        ,[edw].[svf_getOriginalConfirmedDeliveryDate] (
+                ODI.ActualDeliveryQuantity
+               ,SDI.SDI_ConfdDelivQtyInOrderQtyUnit
+               ,OCSD.[OriginalConfirmedDeliveryDate]
+               ,OCDD.[OriginalConfirmedDeliveryDate]
+               ,SDSL.[ConfirmedDeliveryDate]
+               ,OCSD.[SalesDocumentID]
+               ,OCSD.[SalesDocumentItemID]
+               ) AS [SL_OriginalConfirmedDeliveryDate]
         ,SDSL_1st.[RequestedDeliveryDate] AS [SL_FirstCustomerRequestedDeliveryDate]
         ,SDSL.[GoodsIssueDate] AS [SL_GoodsIssueDate]
         ,SDSL.[ScheduleLine] AS [SL_ScheduleLine]
@@ -262,11 +270,22 @@ OutboundDeliveryItem_s4h AS (
                 OR
                 ODI.[ActualDeliveryQuantity] = 0
             THEN NULL
-            WHEN SDI.[SDI_ConfdDelivQtyInOrderQtyUnit] = ODI.[ActualDeliveryQuantity]
-            THEN 'In Full Delivered'
-            WHEN SDI.[SDI_ConfdDelivQtyInOrderQtyUnit] > ODI.[ActualDeliveryQuantity]
-            THEN 'Under Delivered'
-            ELSE 'Over Delivered'
+            WHEN ODI.[OutboundDeliveryItem] LIKE '9%' THEN -- OutboundDeliveryItems starting with a '9' are part of an original outbound delivery item that has been split into multiple batches.
+                CASE 
+                    WHEN SDI.[SDI_ConfdDelivQtyInOrderQtyUnit] = SUM(ODI.[ActualDeliveryQuantity]) OVER (Partition By ODI.ReferenceSDDocument, ODI.ReferenceSDDocumentItem)
+                        THEN 'In Full Delivered'
+                    WHEN SDI.[SDI_ConfdDelivQtyInOrderQtyUnit] > SUM(ODI.[ActualDeliveryQuantity]) OVER (Partition By ODI.ReferenceSDDocument, ODI.ReferenceSDDocumentItem)
+                        THEN 'Under Delivered'
+                ELSE 'Over Delivered'
+            END
+            ELSE 
+                CASE 
+                    WHEN SDI.[SDI_ConfdDelivQtyInOrderQtyUnit] = ODI.[ActualDeliveryQuantity]
+                        THEN 'In Full Delivered'
+                    WHEN SDI.[SDI_ConfdDelivQtyInOrderQtyUnit] > ODI.[ActualDeliveryQuantity]
+                        THEN 'Under Delivered'
+                ELSE 'Over Delivered'
+                END
          END AS [IF_Group]
         ,CASE
             WHEN
@@ -456,6 +475,12 @@ OutboundDeliveryItem_s4h AS (
 		    SDDCP.[Supplier] = SPL.[Supplier]
     LEFT JOIN [edw].[dim_Customer] DimCust
             ON OD.SoldToParty = DimCust.CustomerID
+    LEFT JOIN
+        [intm_s4h].[vw_OriginalConfirmedScheduleLineDeliveryDate] OCSD
+        ON
+            SDSL.[SalesDocument] = OCSD.[SalesDocumentID]
+            AND
+            SDSL.[SalesDocumentItem]  COLLATE DATABASE_DEFAULT = OCSD.[SalesDocumentItemID]
 )
 ,
 OutboundDeliveryItem_s4h_calculated AS (
