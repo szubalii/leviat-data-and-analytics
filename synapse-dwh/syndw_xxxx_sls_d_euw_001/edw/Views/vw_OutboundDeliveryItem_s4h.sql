@@ -91,11 +91,11 @@ OutboundDeliveryItem_s4h AS (
         ,[edw].[svf_getOriginalConfirmedDeliveryDate] (
                 ODI.ActualDeliveryQuantity
                ,SDI.SDI_ConfdDelivQtyInOrderQtyUnit
-               ,OCSD.[OriginalConfirmedDeliveryDate]
                ,OCDD.[OriginalConfirmedDeliveryDate]
+               ,MIN(OCDD.[OriginalConfirmedDeliveryDate])
+                    OVER (PARTITION BY
+                        OCDD.SalesDocumentID, OCDD.SalesDocumentItemID)
                ,SDSL.[ConfirmedDeliveryDate]
-               ,OCSD.[SalesDocumentID]
-               ,OCSD.[SalesDocumentItemID]
                ) AS [SL_OriginalConfirmedDeliveryDate]
         ,SDSL_1st.[RequestedDeliveryDate] AS [SL_FirstCustomerRequestedDeliveryDate]
         ,SDSL.[GoodsIssueDate] AS [SL_GoodsIssueDate]
@@ -475,12 +475,6 @@ OutboundDeliveryItem_s4h AS (
 		    SDDCP.[Supplier] = SPL.[Supplier]
     LEFT JOIN [edw].[dim_Customer] DimCust
             ON OD.SoldToParty = DimCust.CustomerID
-    LEFT JOIN
-        [intm_s4h].[vw_OriginalConfirmedScheduleLineDeliveryDate] OCSD
-        ON
-            SDSL.[SalesDocument] = OCSD.[SalesDocumentID]
-            AND
-            SDSL.[SalesDocumentItem]  COLLATE DATABASE_DEFAULT = OCSD.[SalesDocumentItemID]
 )
 ,
 OutboundDeliveryItem_s4h_calculated AS (
