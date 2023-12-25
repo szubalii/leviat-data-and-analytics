@@ -12,7 +12,7 @@ BEGIN
     SET @OrigDeliveryDate =
         CASE
             WHEN @ActualDeliveryQuantity <> @SDI_ConfdDelivQtyInOrderQtyUnit
-                THEN @MinOriginalConfirmedDeliveryDate
+                THEN COALESCE(@MinOriginalConfirmedDeliveryDate,@ConfirmedDeliveryDate)
             ELSE COALESCE(@OriginalConfirmedDeliveryDate,@ConfirmedDeliveryDate)
         END
     RETURN @OrigDeliveryDate
