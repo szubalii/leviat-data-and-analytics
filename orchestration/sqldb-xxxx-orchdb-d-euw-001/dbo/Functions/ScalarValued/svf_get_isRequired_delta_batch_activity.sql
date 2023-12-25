@@ -5,13 +5,16 @@ CREATE FUNCTION [dbo].[svf_get_isRequired_delta_batch_activity](
   @file_name VARCHAR (250),
   @firstFailedFile VARCHAR (250),
   @activity_order SMALLINT,
-  @firstFailedActivityOrder SMALLINT
+  @firstFailedActivityOrder SMALLINT,
+  @rerunSuccessfulFullEntities BIT
 )
 RETURNS TINYINT
 AS
 BEGIN
   DECLARE @isRequired AS TINYINT =
     CASE
+      WHEN @rerunSuccessfulFullEntities = 1
+      THEN 1
       -- Don't rerun extraction for delta files
       WHEN @activity_order = 100 THEN 0
       -- All activities of files that are earlier
