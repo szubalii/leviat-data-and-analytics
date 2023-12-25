@@ -3,7 +3,7 @@ AS
 BEGIN  
   -- Act: 
   DECLARE @actual INT = ( SELECT dbo.svf_get_isRequired_delta_batch_activity(
-    'test1', 'test2', 100, 200
+    'test1', 'test2', 100, 200, 0
   ));
 
   -- Assert:
