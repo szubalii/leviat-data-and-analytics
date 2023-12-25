@@ -57,11 +57,9 @@ BEGIN
   INSERT INTO expected (
     ActualDeliveryQuantity,
     SDI_ConfdDelivQtyInOrderQtyUnit,
-    OriginalConfirmedDeliveryDate1,
-    OriginalConfirmedDeliveryDate2,
+    OriginalConfirmedDeliveryDate,
+    MinOriginalConfirmedDeliveryDate,
     ConfirmedDeliveryDate,
-    SalesDocumentID,
-    SalesDocumentItemID,
     SL_OriginalConfirmedDeliveryDate
   )
   VALUES 
