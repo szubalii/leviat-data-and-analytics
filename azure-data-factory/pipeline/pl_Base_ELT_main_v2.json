@@ -668,49 +668,6 @@
 				}
 			},
 			{
-				"name": "Get List of Delta Tables",
-				"description": "Truncate delta tables at the beginning of the run. \nFull tables are only truncated when data is actually loaded from parquet to Synapse Base. As multiple parquet files can be loaded to the same table, one cannot truncate before each load for delta tables. ",
-				"type": "Lookup",
-				"dependsOn": [
-					{
-						"activity": "Get Delta Entity Batch Activities",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"policy": {
-					"timeout": "7.00:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"source": {
-						"type": "AzureSqlSource",
-						"sqlReaderQuery": {
-							"value": "SELECT base_schema_name, base_table_name \nFROM dbo.get_scheduled_entities(\n    @{pipeline().parameters.adhoc},\n    '@{pipeline().parameters.date}'\n)\nWHERE\n    update_mode = 'Delta'\n    AND\n    layer_nk <> 'EDW'\n    AND\n    @{pipeline().parameters.entity_filter}",
-							"type": "Expression"
-						},
-						"queryTimeout": "02:00:00",
-						"partitionOption": "None"
-					},
-					"dataset": {
-						"referenceName": "ds_orch_db",
-						"type": "DatasetReference",
-						"parameters": {
-							"sqlDb": {
-								"value": "@pipeline().globalParameters.sqlDb",
-								"type": "Expression"
-							}
-						}
-					},
-					"firstRowOnly": false
-				}
-			},
-			{
 				"name": "Fail Getting Batch Activities",
 				"type": "Fail",
 				"dependsOn": [
@@ -843,7 +800,7 @@
 				"type": "ForEach",
 				"dependsOn": [
 					{
-						"activity": "Get List of Delta Tables",
+						"activity": "Get Delta Entity Batch Activities",
 						"dependencyConditions": [
 							"Succeeded"
 						]
