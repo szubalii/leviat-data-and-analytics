@@ -33,7 +33,7 @@ BEGIN
     SDI_ConfdDelivQtyInOrderQtyUnit,
     OriginalConfirmedDeliveryDate,
     MinOriginalConfirmedDeliveryDate,
-    ConfirmedDeliveryDate
+    ConfirmedDeliveryDate,
     [edw].[svf_getOriginalConfirmedDeliveryDate](
         ActualDeliveryQuantity
         ,SDI_ConfdDelivQtyInOrderQtyUnit
@@ -50,7 +50,7 @@ BEGIN
     SDI_ConfdDelivQtyInOrderQtyUnit decimal(15,3),
     OriginalConfirmedDeliveryDate DATE,
     MinOriginalConfirmedDeliveryDate DATE,
-    ConfirmedDeliveryDate DATE
+    ConfirmedDeliveryDate DATE,
     SL_OriginalConfirmedDeliveryDate DATE
   );
 
