@@ -167,7 +167,7 @@ LEFT JOIN doc_delivery
         AND SDSL.IsConfirmedDelivSchedLine = 'X'
 
 LEFT JOIN CTE_IncompletionLog IL
-    ON doc.SalesDocument = IL.SDDocument COLLATE DATABASE_DEFAULT
-        AND doc.SalesDocumentItem = IL.SDDocumentItem COLLATE DATABASE_DEFAULT
+    ON doc.SalesDocument = IL.SDDocument 
+        AND doc.SalesDocumentItem = IL.SDDocumentItem 
 
 WHERE doc.SDDocumentCategory = 'C'

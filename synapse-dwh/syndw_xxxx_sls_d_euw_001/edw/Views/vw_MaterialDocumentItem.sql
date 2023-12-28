@@ -28,27 +28,27 @@ WITH LastPPU AS (
 )
 SELECT  CONVERT(NVARCHAR(32),
             HashBytes('SHA2_256',
-            isNull(CAST(UV.[MaterialID] COLLATE DATABASE_DEFAULT AS VARCHAR) , '')  +
-            isNull(CAST(UV.[PlantID] COLLATE DATABASE_DEFAULT AS VARCHAR) , '') +
-            isNull(CAST(UV.[StorageLocationID] COLLATE DATABASE_DEFAULT AS VARCHAR) , '')  +
-            isNull(CAST(UV.[InventorySpecialStockTypeID] COLLATE DATABASE_DEFAULT AS VARCHAR) , '') +
-            isNull(CAST(UV.[InventoryStockTypeID] COLLATE DATABASE_DEFAULT AS VARCHAR) , '') +
-            isNull(CAST(UV.[StockOwner] COLLATE DATABASE_DEFAULT AS VARCHAR) , '') +
-            isNull(CAST(UV.[CostCenterID] COLLATE DATABASE_DEFAULT AS VARCHAR) , '')  +
-            isNull(CAST(UV.[CompanyCodeID] COLLATE DATABASE_DEFAULT AS VARCHAR) , '') +
-            isNull(CAST(UV.[SalesDocumentTypeID] COLLATE DATABASE_DEFAULT AS VARCHAR) , '')  +
-            isNull(CAST(UV.[SalesDocumentItemCategoryID] COLLATE DATABASE_DEFAULT AS VARCHAR) , '')  +
-            isNull(CAST(UV.[MaterialBaseUnitID] COLLATE DATABASE_DEFAULT AS VARCHAR) , '') +
-            isNull(CAST(UV.[PurchaseOrderTypeID] COLLATE DATABASE_DEFAULT AS VARCHAR) , '')
+            isNull(CAST(UV.[MaterialID]  AS VARCHAR) , '')  +
+            isNull(CAST(UV.[PlantID]  AS VARCHAR) , '') +
+            isNull(CAST(UV.[StorageLocationID]  AS VARCHAR) , '')  +
+            isNull(CAST(UV.[InventorySpecialStockTypeID]  AS VARCHAR) , '') +
+            isNull(CAST(UV.[InventoryStockTypeID]  AS VARCHAR) , '') +
+            isNull(CAST(UV.[StockOwner]  AS VARCHAR) , '') +
+            isNull(CAST(UV.[CostCenterID]  AS VARCHAR) , '')  +
+            isNull(CAST(UV.[CompanyCodeID]  AS VARCHAR) , '') +
+            isNull(CAST(UV.[SalesDocumentTypeID]  AS VARCHAR) , '')  +
+            isNull(CAST(UV.[SalesDocumentItemCategoryID]  AS VARCHAR) , '')  +
+            isNull(CAST(UV.[MaterialBaseUnitID]  AS VARCHAR) , '') +
+            isNull(CAST(UV.[PurchaseOrderTypeID]  AS VARCHAR) , '')
             )
         , 2)  _hash
     ,   UV.[nk_StoragePlantID]
     ,   UV.[MaterialDocumentYear] 
-    ,   UV.[MaterialDocument] COLLATE DATABASE_DEFAULT          AS MaterialDocument
+    ,   UV.[MaterialDocument]           AS MaterialDocument
     ,   UV.[MaterialDocumentItem]
-    ,   UV.[MaterialID] COLLATE DATABASE_DEFAULT                AS MaterialID
-    ,   UV.[PlantID] COLLATE DATABASE_DEFAULT                   AS PlantID
-    ,   UV.[StorageLocationID] COLLATE DATABASE_DEFAULT         AS StorageLocationID
+    ,   UV.[MaterialID]                 AS MaterialID
+    ,   UV.[PlantID]                    AS PlantID
+    ,   UV.[StorageLocationID]          AS StorageLocationID
     ,   UV.[axbi_DataAreaID]
     ,   UV.[StorageTypeID]
     ,   UV.[StorageBin] 
@@ -56,8 +56,8 @@ SELECT  CONVERT(NVARCHAR(32),
     ,   UV.[ShelfLifeExpirationDate] 
     ,   UV.[ManufactureDate] 
     ,   UV.[SupplierID]
-    ,   UV.[SalesOrder] COLLATE DATABASE_DEFAULT                AS SalesOrder
-    ,   UV.[SalesOrderItem] COLLATE DATABASE_DEFAULT            AS SalesOrderItem
+    ,   UV.[SalesOrder]                 AS SalesOrder
+    ,   UV.[SalesOrderItem]             AS SalesOrderItem
     ,   UV.[SalesOrderScheduleLine] 
     ,   UV.[WBSElementInternalID] 
     ,   UV.[CustomerID]
@@ -68,20 +68,20 @@ SELECT  CONVERT(NVARCHAR(32),
     ,   UV.[DebitCreditCode] 
     ,   UV.[InventoryUsabilityCode] 
     ,   UV.[QuantityInBaseUnit] 
-    ,   UV.[MaterialBaseUnitID] COLLATE DATABASE_DEFAULT        AS MaterialBaseUnitID
+    ,   UV.[MaterialBaseUnitID]         AS MaterialBaseUnitID
     ,   UV.[QuantityInEntryUnit] 
     ,   UV.[EntryUnitID]
     ,   UV.[HDR_PostingDate]
     ,   UV.[DocumentDate] 
     ,   UV.[TotalGoodsMvtAmtInCCCrcy] 
-    ,   UV.[CompanyCodeCurrency]  COLLATE DATABASE_DEFAULT      AS CompanyCodeCurrency
+    ,   UV.[CompanyCodeCurrency]        AS CompanyCodeCurrency
     ,   UV.[InventoryValuationTypeID]
     ,   UV.[ReservationIsFinallyIssued]
-    ,   UV.[PurchaseOrder] COLLATE DATABASE_DEFAULT             AS PurchaseOrder
-    ,   UV.[PurchaseOrderItem] COLLATE DATABASE_DEFAULT         AS PurchaseOrderItem
+    ,   UV.[PurchaseOrder]              AS PurchaseOrder
+    ,   UV.[PurchaseOrderItem]          AS PurchaseOrderItem
     ,   UV.[ProjectNetwork] 
-    ,   UV.[Order]                 COLLATE DATABASE_DEFAULT     AS [Order]
-    ,   UV.[OrderItem]             COLLATE DATABASE_DEFAULT     AS OrderItem
+    ,   UV.[Order]                      AS [Order]
+    ,   UV.[OrderItem]                  AS OrderItem
     ,   UV.[SalesDocumentItemCategoryID]
     ,   UV.[SalesDocumentItemCategory]
     ,   UV.[Reservation]
@@ -133,8 +133,8 @@ SELECT  CONVERT(NVARCHAR(32),
     ,   UV.[GoodsMovementIsCancelled]
     ,   UV.[GoodsMovementCancellationType]
     ,   UV.[ConsumptionPosting]
-    ,   UV.[ManufacturingOrder] COLLATE DATABASE_DEFAULT        AS ManufacturingOrder
-    ,   UV.[ManufacturingOrderItem] COLLATE DATABASE_DEFAULT    AS ManufacturingOrderItem
+    ,   UV.[ManufacturingOrder]         AS ManufacturingOrder
+    ,   UV.[ManufacturingOrderItem]     AS ManufacturingOrderItem
     ,   UV.[IsReversalMovementType]
     ,   UV.[nk_dim_ProductValuationPUP]
     ,   UV.[StockPricePerUnit]
@@ -447,11 +447,11 @@ SELECT  CONVERT(NVARCHAR(32),
 LEFT JOIN 
     LastPPU
     ON  
-        UV.[InventoryValuationTypeID] =  LastPPU.[ValuationTypeID]      COLLATE DATABASE_DEFAULT
+        UV.[InventoryValuationTypeID] =  LastPPU.[ValuationTypeID]      
     AND
-        UV.[PlantID] = LastPPU.[ValuationAreaID]                        COLLATE DATABASE_DEFAULT
+        UV.[PlantID] = LastPPU.[ValuationAreaID]                        
     AND
-        UV.[MaterialID] = LastPPU.[ProductID]                           COLLATE DATABASE_DEFAULT
+        UV.[MaterialID] = LastPPU.[ProductID]                           
 LEFT JOIN
     [edw].[dim_Plant] P
     ON

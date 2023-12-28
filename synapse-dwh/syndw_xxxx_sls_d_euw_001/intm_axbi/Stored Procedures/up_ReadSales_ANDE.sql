@@ -196,7 +196,7 @@ select
 	into #inventtrans_ANDE_SB
 	from [intm_axbi].[fact_CUSTINVOICETRANS] as t
 	inner join #inventtrans_ANDE_OS os
-	on t.INVOICEID COLLATE DATABASE_DEFAULT= os.INVOICEID COLLATE DATABASE_DEFAULT
+	on t.INVOICEID = os.INVOICEID 
 	where upper(t.DATAAREAID) = 'ANDE' and t.ITEMID not in ('ANDE-DIENST', 'ANDE-FRACHT', 'ANDE-MINDERMENGE', 'ANDE-POSZU')
 	group by t.INVOICEID
 
@@ -221,11 +221,11 @@ set [intm_axbi].[fact_CUSTINVOICETRANS].OTHERSALESLOCAL += (la.LINEAMOUNTMST_os_
     [intm_axbi].[fact_CUSTINVOICETRANS].OTHERSALESEUR   += (la.LINEAMOUNTMST_os_sum * t.PRODUCTSALESEUR/sb.salesbalance) * os.cnt_inv
 from [intm_axbi].[fact_CUSTINVOICETRANS] as t
 inner join #inventtrans_ANDE_OS os
-on t.INVOICEID  COLLATE DATABASE_DEFAULT= os.INVOICEID  COLLATE DATABASE_DEFAULT
+on t.INVOICEID  = os.INVOICEID  
 inner join #inventtrans_ANDE_SB sb
-on t.INVOICEID COLLATE DATABASE_DEFAULT=sb.INVOICEID COLLATE DATABASE_DEFAULT
+on t.INVOICEID =sb.INVOICEID 
 inner join #inventtrans_ANDE_LA la
-on t.INVOICEID COLLATE DATABASE_DEFAULT=la.INVOICEID COLLATE DATABASE_DEFAULT
+on t.INVOICEID =la.INVOICEID 
 where upper(t.DATAAREAID) = 'ANDE'  and t.ITEMID not in ('ANDE-DIENST', 'ANDE-FRACHT', 'ANDE-MINDERMENGE', 'ANDE-POSZU')
 and sb.salesbalance<>0
 
@@ -236,11 +236,11 @@ update [intm_axbi].[fact_CUSTINVOICETRANS]
 	   [intm_axbi].[fact_CUSTINVOICETRANS].OTHERSALESEUR   += la.LINEAMOUNTMST_os_sum / cnt.lcounter
 from [intm_axbi].[fact_CUSTINVOICETRANS] as t
 inner join #inventtrans_ANDE_SB sb
-on t.INVOICEID COLLATE DATABASE_DEFAULT=sb.INVOICEID COLLATE DATABASE_DEFAULT
+on t.INVOICEID =sb.INVOICEID 
 inner join #inventtrans_ANDE_LA la
-on t.INVOICEID COLLATE DATABASE_DEFAULT=la.INVOICEID COLLATE DATABASE_DEFAULT
+on t.INVOICEID =la.INVOICEID 
 inner join #inventtrans_ANDE_cnt cnt
-on t.INVOICEID COLLATE DATABASE_DEFAULT=cnt.INVOICEID COLLATE DATABASE_DEFAULT
+on t.INVOICEID =cnt.INVOICEID 
 where upper(t.DATAAREAID) = 'ANDE'  and t.ITEMID not in ('ANDE-DIENST', 'ANDE-FRACHT', 'ANDE-MINDERMENGE', 'ANDE-POSZU')
 and sb.salesbalance = 0
 
@@ -305,7 +305,7 @@ insert [intm_axbi].[fact_CUSTINVOICETRANS]
     t_jobBy,
     t_extractionDtm 
 	from #inventtrans_ANDE_OS
-	where INVOICEID COLLATE DATABASE_DEFAULT not in (select INVOICEID from [intm_axbi].[fact_CUSTINVOICETRANS]
+	where INVOICEID  not in (select INVOICEID from [intm_axbi].[fact_CUSTINVOICETRANS]
 	where upper(DATAAREAID) = 'ANDE'  and ITEMID not in ('ANDE-DIENST', 'ANDE-FRACHT', 'ANDE-MINDERMENGE', 'ANDE-POSZU'))
 
 

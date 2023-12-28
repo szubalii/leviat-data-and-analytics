@@ -149,14 +149,14 @@ SELECT
               GLA.[SalesDocumentID]
             , GLA.[ReferenceDocumentTypeID]
             , GLA.[PurchasingDocument]
-            , PA.[ICSalesDocumentID] COLLATE DATABASE_DEFAULT
+            , PA.[ICSalesDocumentID] 
             , ARSD.[SalesReferenceDocumentCalculated]
        ) AS [SalesReferenceDocumentCalculated],
        edw.[svf_getSalesRefDocItemCalc] (
               GLA.[SalesDocumentID]
             , GLA.[ReferenceDocumentTypeID]
             , GLA.[PurchasingDocument]
-            , PA.[ICSalesDocumentItemID] COLLATE DATABASE_DEFAULT
+            , PA.[ICSalesDocumentItemID] 
             , ARSD.[SalesReferenceDocumentItemCalculated]
        ) AS [SalesReferenceDocumentItemCalculated],
        BDI.[HigherLevelItem],
@@ -166,20 +166,20 @@ SELECT
 FROM [edw].[vw_GLAccountLineItemRawData] AS GLA
 LEFT JOIN PA
     ON
-        PA.PurchaseOrder COLLATE DATABASE_DEFAULT = [PurchasingDocument]
+        PA.PurchaseOrder  = [PurchasingDocument]
     AND
         PA.PurchaseOrderItem = [PurchasingDocumentItem]
 LEFT JOIN [edw].[vw_ProductHierarchyVariantConfigCharacteristic] AS VC
     ON
         VC.SalesDocument = CASE
             WHEN [ReferenceDocumentTypeID] = 'VBRK' AND GLA.SalesDocumentID = ''
-            THEN PA.ICSalesDocumentID COLLATE DATABASE_DEFAULT
+            THEN PA.ICSalesDocumentID 
             ELSE GLA.SalesDocumentID
         END
     AND
         VC.SalesDocumentItem = CASE
             WHEN [ReferenceDocumentTypeID] = 'VBRK' AND GLA.SalesDocumentID = ''
-            THEN PA.ICSalesDocumentItemID COLLATE DATABASE_DEFAULT
+            THEN PA.ICSalesDocumentItemID 
             ELSE GLA.SalesDocumentItemID
         END 
 LEFT JOIN edw.dim_ProfitCenter PC

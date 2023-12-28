@@ -304,18 +304,18 @@ LEFT JOIN [edw].[dim_ZE_EXQLMAP_DT] ZED
   ON GLALIRD.[GLAccountID] = ZED.[GLAccountID]
     AND GLALIRD.[FunctionalAreaID] = ZED.[FunctionalAreaID]
 /*INNER JOIN [edw].[dim_FinancialStatementHierarchy] FSH
-    ON GLALIRD.[GLAccountID] = FSH.LowerBoundaryAccount                     COLLATE DATABASE_DEFAULT
+    ON GLALIRD.[GLAccountID] = FSH.LowerBoundaryAccount                     
 INNER JOIN [edw].[dim_FinancialStatementItem]   FSI
-    ON FSH.[FinancialStatementItem] = FSI.[FinancialStatementItem]          COLLATE DATABASE_DEFAULT*/
+    ON FSH.[FinancialStatementItem] = FSI.[FinancialStatementItem]          */
 LEFT JOIN [edw].[dim_BillingDocumentType] dimBDT
-  ON GLALIRD.BillingDocumentTypeID = dimBDT.[BillingDocumentTypeID]       COLLATE DATABASE_DEFAULT
+  ON GLALIRD.BillingDocumentTypeID = dimBDT.[BillingDocumentTypeID]       
 LEFT JOIN [edw].[dim_ProductSalesDelivery] PSD
-  ON GLALIRD.[ProductID] = PSD.[ProductID]                                COLLATE DATABASE_DEFAULT
-    AND GLALIRD.[SalesOrganizationID] = PSD.[SalesOrganizationID]       COLLATE DATABASE_DEFAULT
-    AND GLALIRD.[DistributionChannelID] = PSD.[DistributionChannelID]   COLLATE DATABASE_DEFAULT
+  ON GLALIRD.[ProductID] = PSD.[ProductID]                                
+    AND GLALIRD.[SalesOrganizationID] = PSD.[SalesOrganizationID]       
+    AND GLALIRD.[DistributionChannelID] = PSD.[DistributionChannelID]   
 LEFT JOIN [base_s4h_cax].[I_CustomerSalesArea] CSA
-  ON GLALIRD.[CustomerID] = CSA.[Customer]                                COLLATE DATABASE_DEFAULT
-    AND GLALIRD.[SalesOrganizationID] = CSA.[SalesOrganization]         COLLATE DATABASE_DEFAULT
+  ON GLALIRD.[CustomerID] = CSA.[Customer]                                
+    AND GLALIRD.[SalesOrganizationID] = CSA.[SalesOrganization]         
 LEFT JOIN [edw].[vw_CurrencyConversionRate] ExchangeRate
   ON GLALIRD.[CompanyCodeCurrency] = ExchangeRate.[SourceCurrency]
 INNER JOIN [dm_sales].[vw_dim_CurrencyType]     CurrType

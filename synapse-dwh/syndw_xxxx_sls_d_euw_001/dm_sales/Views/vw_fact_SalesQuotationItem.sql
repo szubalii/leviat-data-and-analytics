@@ -239,7 +239,7 @@ from [edw].[fact_SalesDocumentItem] doc
         
          LEFT JOIN PrcgElmnt
                  ON doc.SalesDocument = PrcgElmnt.SalesQuotation
-                     AND doc.SalesDocumentItem = PrcgElmnt.SalesQuotationItem  COLLATE DATABASE_DEFAULT
+                     AND doc.SalesDocumentItem = PrcgElmnt.SalesQuotationItem  
                      AND doc.CurrencyTypeID = PrcgElmnt.CurrencyTypeID
 
 where doc.[SDDocumentCategoryID] = 'B'

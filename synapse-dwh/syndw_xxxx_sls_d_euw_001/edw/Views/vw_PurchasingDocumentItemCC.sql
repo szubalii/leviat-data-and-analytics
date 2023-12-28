@@ -57,7 +57,7 @@ INNER JOIN
 LEFT JOIN
   [base_s4h_cax].[I_Purchaserequisitionitem] AS PRI
   ON
-    PDI.PurchaseRequisition = PRI.PurchaseRequisition COLLATE DATABASE_DEFAULT
+    PDI.PurchaseRequisition = PRI.PurchaseRequisition 
     AND
-    PDI.PurchaseRequisitionItem = PRI.PurchaseRequisitionItem COLLATE DATABASE_DEFAULT
+    PDI.PurchaseRequisitionItem = PRI.PurchaseRequisitionItem 
 WHERE CurrType.[CurrencyTypeID] <> '00'

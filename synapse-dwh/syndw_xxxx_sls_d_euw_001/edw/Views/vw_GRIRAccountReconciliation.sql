@@ -35,12 +35,12 @@ FROM
 LEFT JOIN 
     [edw].[vw_CurrencyConversionRate] CCR_EUR   
       ON 
-        GRIPA.CompanyCodeCurrency = CCR_EUR.SourceCurrency COLLATE DATABASE_DEFAULT 
+        GRIPA.CompanyCodeCurrency = CCR_EUR.SourceCurrency  
         AND 
         CCR_EUR.CurrencyTypeID = '30'
 LEFT JOIN 
     [edw].[vw_CurrencyConversionRate] CCR_USD  
       ON 
-        GRIPA.CompanyCodeCurrency = CCR_USD.SourceCurrency COLLATE DATABASE_DEFAULT 
+        GRIPA.CompanyCodeCurrency = CCR_USD.SourceCurrency  
         AND 
         CCR_USD.CurrencyTypeID = '40'

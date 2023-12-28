@@ -194,15 +194,15 @@ SELECT
                 CC._hash = HC._hash AND CC.CalendarDate=HC.HDR_PostingDate_FMD
         LEFT JOIN [edw].[dim_ProductValuationPUP]  CPPUP 
         ON             
-            CPPUP.[ValuationTypeID] = CC.[InventoryValuationTypeID] COLLATE DATABASE_DEFAULT
+            CPPUP.[ValuationTypeID] = CC.[InventoryValuationTypeID] 
             AND
-            CPPUP.[ValuationAreaID] = CC.[PlantID] COLLATE DATABASE_DEFAULT
+            CPPUP.[ValuationAreaID] = CC.[PlantID] 
             AND
-            CPPUP.[ProductID] = CC.[MaterialID]   COLLATE DATABASE_DEFAULT  
+            CPPUP.[ProductID] = CC.[MaterialID]     
             AND 
-            CPPUP.[CalendarYear] = CC.[CalendarYear] COLLATE DATABASE_DEFAULT
+            CPPUP.[CalendarYear] = CC.[CalendarYear] 
             AND
-            CPPUP.[CalendarMonth] = CC.[CalendarMonth] COLLATE DATABASE_DEFAULT
+            CPPUP.[CalendarMonth] = CC.[CalendarMonth] 
         LEFT JOIN [map_AXBI].[Migration] AXM
         ON
             CC.axbi_DataAreaID = AXM.DataAreaID

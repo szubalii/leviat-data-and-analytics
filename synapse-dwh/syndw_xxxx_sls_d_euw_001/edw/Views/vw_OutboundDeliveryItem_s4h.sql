@@ -411,9 +411,9 @@ OutboundDeliveryItem_s4h AS (
         ON
             SDSL.[SalesDocument] = OCDD.[SalesDocumentID]
             AND
-            SDSL.[SalesDocumentItem]  COLLATE DATABASE_DEFAULT = OCDD.[SalesDocumentItemID]
+            SDSL.[SalesDocumentItem]   = OCDD.[SalesDocumentItemID]
             AND
-            SDSL.[ScheduleLine]  COLLATE DATABASE_DEFAULT = OCDD.[ScheduleLine]
+            SDSL.[ScheduleLine]   = OCDD.[ScheduleLine]
     LEFT JOIN
         [edw].[dim_Route] AS DimActualRoute
         ON

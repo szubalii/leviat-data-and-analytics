@@ -69,7 +69,7 @@ SELECT
 FROM 
     [base_s4h_cax].[I_SalesOrderItemPricingElement] ISOIPE
 LEFT JOIN [edw].[vw_CurrencyConversionRate] CCR   
-    ON ISOIPE.TransactionCurrency = CCR.SourceCurrency    COLLATE DATABASE_DEFAULT
+    ON ISOIPE.TransactionCurrency = CCR.SourceCurrency    
 LEFT JOIN [edw].[dim_CurrencyType] CR
     ON CCR.CurrencyTypeID = CR.CurrencyTypeID
 LEFT JOIN [edw].[fact_SalesDocumentItem] SDI

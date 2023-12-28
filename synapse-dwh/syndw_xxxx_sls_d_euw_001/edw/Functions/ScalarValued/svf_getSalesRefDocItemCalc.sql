@@ -13,7 +13,7 @@ BEGIN
         CASE 
             WHEN @SalesDocumentID = '' 
                   AND @ReferenceDocumentTypeID LIKE 'VBRK' 
-                  AND @PurchasingDocument <> ''  COLLATE DATABASE_DEFAULT
+                  AND @PurchasingDocument <> ''
             THEN @ICSalesDocumentItemID
             ELSE @SalesRefDocItemCalc
         END

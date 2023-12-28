@@ -255,7 +255,7 @@ from [edw].[vw_fact_SalesDocumentItem]  doc
 
           LEFT JOIN PrcgElmnt
                 ON doc.SalesDocument = PrcgElmnt.SalesOrder
-                    AND doc.SalesDocumentItem = PrcgElmnt.SalesOrderItem   COLLATE DATABASE_DEFAULT
+                    AND doc.SalesDocumentItem = PrcgElmnt.SalesOrderItem   
                     AND doc.CurrencyTypeID = PrcgElmnt.CurrencyTypeID
 where doc.[SDDocumentCategoryID] <> 'B'
 --     AND dimSDDRjS.[SDDocumentRejectionStatus] <> 'Fully Rejected'

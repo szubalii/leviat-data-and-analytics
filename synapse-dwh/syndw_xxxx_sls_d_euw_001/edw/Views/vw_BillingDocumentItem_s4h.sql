@@ -326,7 +326,7 @@ from [base_s4h_cax].[C_BillingDocumentItemBasicDEX] doc
   left join [edw].[dim_Brand] DimBrand
         on DimBrand.[BrandID] = doc.[AdditionalMaterialGroup1]
   left join [edw].[dim_PurgAccAssignment] PA
-    ON doc.SalesDocument = PA.PurchaseOrder                   COLLATE DATABASE_DEFAULT
+    ON doc.SalesDocument = PA.PurchaseOrder                   
         AND right(doc.SalesDocumentItem,5) = PA.PurchaseOrderItem 
   left join [edw].[dim_Customer] DimCust
       ON doc.SoldToParty = DimCust.CustomerID  

@@ -299,7 +299,7 @@ FROM
     INVTRANS AS INV
 LEFT JOIN [edw].[vw_CurrencyConversionRate] CCR
     ON 
-        INV.CompanyCodeCurrency = CCR.SourceCurrency  COLLATE DATABASE_DEFAULT
+        INV.CompanyCodeCurrency = CCR.SourceCurrency  
 LEFT JOIN 
     [edw].[dim_CurrencyType] CR
     ON 

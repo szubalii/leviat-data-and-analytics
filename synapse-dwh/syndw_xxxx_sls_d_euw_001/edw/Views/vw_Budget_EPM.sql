@@ -7,7 +7,7 @@ SELECT
     , CR.[CurrencyType] 
     , CASE 
             WHEN CCR.[CurrencyTypeID] = '10'
-                THEN Budget.[LocalCurrencyID] COLLATE DATABASE_DEFAULT
+                THEN Budget.[LocalCurrencyID] 
             ELSE CCR.[TargetCurrency]  
       END                                                                  AS [CurrencyID]
     , Budget.[Date]               
@@ -17,7 +17,7 @@ SELECT
 FROM [base_ff].[Budget_EPM] Budget
 LEFT JOIN [edw].[vw_CurrencyConversionRate] CCR
     ON 
-    Budget.[LocalCurrencyID] = CCR.[SourceCurrency] COLLATE DATABASE_DEFAULT 
+    Budget.[LocalCurrencyID] = CCR.[SourceCurrency]  
 LEFT JOIN [edw].[dim_CurrencyType] CR
     ON 
     CCR.CurrencyTypeID = CR.CurrencyTypeID

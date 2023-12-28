@@ -13,5 +13,5 @@ FROM
     [edw].[dim_ProductPlant] PP
 LEFT JOIN
     [base_s4h_cax].[NSDM_V_MARC] NVM
-    ON PP.Plant = NVM.WERKS COLLATE DATABASE_DEFAULT
-        AND PP.Product = NVM.MATNR COLLATE DATABASE_DEFAULT
+    ON PP.Plant = NVM.WERKS 
+        AND PP.Product = NVM.MATNR 

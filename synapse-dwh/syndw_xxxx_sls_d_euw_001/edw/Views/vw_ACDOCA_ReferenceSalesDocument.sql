@@ -21,16 +21,16 @@ SELECT
 FROM [edw].[vw_GLAccountLineItemRawData] AS GLA
 LEFT JOIN [base_s4h_cax].[I_SDDocumentProcessFlow] DPF
     ON
-       GLA.SalesDocumentID = DPF.PrecedingDocument COLLATE DATABASE_DEFAULT 
+       GLA.SalesDocumentID = DPF.PrecedingDocument  
        AND
-       GLA.SalesDocumentItemID = DPF.PrecedingDocumentItem COLLATE DATABASE_DEFAULT 
+       GLA.SalesDocumentItemID = DPF.PrecedingDocumentItem  
        AND
        DPF.SubsequentDocumentCategory = 'C'
 LEFT JOIN [base_s4h_cax].[I_SDDocumentProcessFlow] AS PF
     ON
-       GLA.SalesDocumentID = PF.SubsequentDocument COLLATE DATABASE_DEFAULT 
+       GLA.SalesDocumentID = PF.SubsequentDocument  
        AND
-       GLA.SalesDocumentItemID = PF.SubsequentDocumentItem COLLATE DATABASE_DEFAULT 
+       GLA.SalesDocumentItemID = PF.SubsequentDocumentItem  
        AND
        PF.PrecedingDocumentCategory IN ('C', 'I')
 WHERE GLA.[AccountingDocumentTypeID] <> 'DC'
@@ -50,7 +50,7 @@ LEFT JOIN [edw].[fact_SalesDocumentItem] SDI
     ON 
        SRDC.SalesReferenceDocumentCalculated = SDI.SalesDocument
        AND 
-       SRDC.SalesReferenceDocumentItemCalculated = SDI.SalesDocumentItem COLLATE DATABASE_DEFAULT
+       SRDC.SalesReferenceDocumentItemCalculated = SDI.SalesDocumentItem 
        AND 
        SDI.CurrencyTypeID = '10'
 GROUP BY

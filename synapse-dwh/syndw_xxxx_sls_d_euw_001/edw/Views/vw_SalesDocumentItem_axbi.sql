@@ -440,7 +440,7 @@ SELECT
 FROM 
     subCalculationMargin SDIaxbi
 LEFT JOIN [edw].[vw_CurrencyConversionRate] CCR
-    ON SDIaxbi.CurrencyID = CCR.SourceCurrency    COLLATE DATABASE_DEFAULT
+    ON SDIaxbi.CurrencyID = CCR.SourceCurrency    
 LEFT JOIN 
     [edw].[dim_CurrencyType] CR
     ON CCR.CurrencyTypeID = CR.CurrencyTypeID

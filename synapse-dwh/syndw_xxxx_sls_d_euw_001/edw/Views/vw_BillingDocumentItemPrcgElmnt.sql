@@ -8,7 +8,7 @@ SELECT
   , CR.[CurrencyTypeID]
   , CR.[CurrencyType]
   , CASE 
-		  WHEN CCR.[CurrencyTypeID] = '10' THEN COALESCE(BDI.[CurrencyID],IBDIPE.[TransactionCurrency]) COLLATE DATABASE_DEFAULT
+		  WHEN CCR.[CurrencyTypeID] = '10' THEN COALESCE(BDI.[CurrencyID],IBDIPE.[TransactionCurrency]) 
 		  ELSE CCR.[TargetCurrency]
 	  END                                                                                        AS [CurrencyID]
   , CASE 
@@ -69,7 +69,7 @@ SELECT
 FROM 
 	[base_s4h_cax].[I_BillingDocumentItemPrcgElmnt] IBDIPE
 LEFT JOIN [edw].[vw_CurrencyConversionRate] CCR   
-    ON IBDIPE.TransactionCurrency = CCR.SourceCurrency  COLLATE DATABASE_DEFAULT
+    ON IBDIPE.TransactionCurrency = CCR.SourceCurrency  
 LEFT JOIN [edw].[dim_CurrencyType] CR
     ON CCR.CurrencyTypeID = CR.CurrencyTypeID
 LEFT JOIN [edw].[fact_BillingDocumentItem] BDI

@@ -381,11 +381,11 @@ FROM
 LEFT OUTER JOIN
   [edw].[dim_ProductValuationPUP] PUP
   ON
-    PUP.[ProductID] = StockLevels.[MaterialID] COLLATE DATABASE_DEFAULT
+    PUP.[ProductID] = StockLevels.[MaterialID] 
     AND
-    PUP.[ValuationAreaID] = StockLevels.[PlantID] COLLATE DATABASE_DEFAULT
+    PUP.[ValuationAreaID] = StockLevels.[PlantID] 
     AND
-    PUP.[ValuationTypeID] = StockLevels.[InventoryValuationTypeID] COLLATE DATABASE_DEFAULT
+    PUP.[ValuationTypeID] = StockLevels.[InventoryValuationTypeID] 
     AND
     PUP.[FirstDayOfMonthDate] = StockLevels.[FirstDayOfMonthDate]
 
