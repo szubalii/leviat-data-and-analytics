@@ -1,6 +1,6 @@
 CREATE TABLE [edw].[dim_ValuationCategory]
 (
-    [ValuationCategoryID] NCHAR(1) NOT NULL, --collate Latin1_General_100_BIN2 NOT NULL,
+    [ValuationCategoryID] NCHAR(1) NOT NULL,
     [ValuationCategory]   NVARCHAR(25),
     [t_applicationId]     VARCHAR(32),
     [t_jobId]             VARCHAR(36),

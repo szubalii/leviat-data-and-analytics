@@ -5,18 +5,18 @@ WITH Hash_Calc AS (
     SELECT
         CONVERT(NVARCHAR(32),
             HashBytes('SHA2_256',
-            isNull(CAST(viewMD.[MaterialID] AS VARCHAR) COLLATE Latin1_General_100_BIN2, '')  +
-            isNull(CAST(viewMD.[PlantID] AS VARCHAR) COLLATE Latin1_General_100_BIN2, '') +
-            isNull(CAST(viewMD.[StorageLocationID] AS VARCHAR) COLLATE Latin1_General_100_BIN2, '')  +
-            isNull(CAST(viewMD.[InventorySpecialStockTypeID] AS VARCHAR) COLLATE Latin1_General_100_BIN2, '') +
-            isNull(CAST(viewMD.[InventoryStockTypeID] AS VARCHAR) COLLATE Latin1_General_100_BIN2, '') +
-            isNull(CAST(viewMD.[StockOwner] AS VARCHAR) COLLATE Latin1_General_100_BIN2, '') +
-            isNull(CAST(viewMD.[CostCenterID] AS VARCHAR) COLLATE Latin1_General_100_BIN2, '')  +
-            isNull(CAST(viewMD.[CompanyCodeID] AS VARCHAR) COLLATE Latin1_General_100_BIN2, '') +
-            isNull(CAST(viewMD.[SalesDocumentTypeID] AS VARCHAR) COLLATE Latin1_General_100_BIN2, '')  +
-            isNull(CAST(viewMD.[SalesDocumentItemCategoryID] AS VARCHAR) COLLATE Latin1_General_100_BIN2, '')  +
-            isNull(CAST(viewMD.[MaterialBaseUnitID] AS VARCHAR) COLLATE Latin1_General_100_BIN2, '') +
-            isNull(CAST(viewMD.[PurchaseOrderTypeID] AS VARCHAR) COLLATE Latin1_General_100_BIN2, '')
+            isNull(CAST(viewMD.[MaterialID] AS VARCHAR) , '')  +
+            isNull(CAST(viewMD.[PlantID] AS VARCHAR) , '') +
+            isNull(CAST(viewMD.[StorageLocationID] AS VARCHAR) , '')  +
+            isNull(CAST(viewMD.[InventorySpecialStockTypeID] AS VARCHAR) , '') +
+            isNull(CAST(viewMD.[InventoryStockTypeID] AS VARCHAR) , '') +
+            isNull(CAST(viewMD.[StockOwner] AS VARCHAR) , '') +
+            isNull(CAST(viewMD.[CostCenterID] AS VARCHAR) , '')  +
+            isNull(CAST(viewMD.[CompanyCodeID] AS VARCHAR) , '') +
+            isNull(CAST(viewMD.[SalesDocumentTypeID] AS VARCHAR) , '')  +
+            isNull(CAST(viewMD.[SalesDocumentItemCategoryID] AS VARCHAR) , '')  +
+            isNull(CAST(viewMD.[MaterialBaseUnitID] AS VARCHAR) , '') +
+            isNull(CAST(viewMD.[PurchaseOrderTypeID] AS VARCHAR) , '')
             )
         , 2)  _hash,
         viewMD.[MaterialID],
@@ -192,15 +192,15 @@ WITH Hash_Calc AS (
                 CC.[CalendarMonth] = HC.HDR_PostingDate_Month
         LEFT JOIN [edw].[dim_ProductValuationPUP]  CPPUP 
         ON             
-            CPPUP.[ValuationTypeID] = CC.[InventoryValuationTypeID]  COLLATE Latin1_General_100_BIN2
+            CPPUP.[ValuationTypeID] = CC.[InventoryValuationTypeID]
             AND
-            CPPUP.[ValuationAreaID] = CC.[PlantID] COLLATE Latin1_General_100_BIN2
+            CPPUP.[ValuationAreaID] = CC.[PlantID] 
             AND
-            CPPUP.[ProductID] = CC.[MaterialID] COLLATE Latin1_General_100_BIN2     
+            CPPUP.[ProductID] = CC.[MaterialID]      
             AND 
-            CPPUP.[CalendarYear] = CC.[CalendarYear] COLLATE Latin1_General_100_BIN2
+            CPPUP.[CalendarYear] = CC.[CalendarYear] 
             AND
-            CPPUP.[CalendarMonth] = CC.[CalendarMonth] COLLATE Latin1_General_100_BIN2
+            CPPUP.[CalendarMonth] = CC.[CalendarMonth] 
 
 )   SELECT 
     _hash,

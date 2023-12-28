@@ -195,7 +195,7 @@
         "extraction_type": "Table",
         "update_mode": "Full",
         "base_table_name": "I_ProductText",
-        "pk_field_names": "PRODUCT, LANGUAGE collate Latin1_General_100_BIN2",
+        "pk_field_names": "PRODUCT, LANGUAGE",
         "schedule_recurrence": "D"
       },
       {

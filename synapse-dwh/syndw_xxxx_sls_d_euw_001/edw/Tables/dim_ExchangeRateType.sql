@@ -2,7 +2,7 @@ CREATE TABLE [edw].[dim_ExchangeRateType]
 (
     [ExchangeRateTypeID]             NVARCHAR(4) NOT NULL,
     [ExchangeRateType]               nvarchar(40),
-    [ReferenceCurrency]              char(5), -- collate Latin1_General_100_BIN2,
+    [ReferenceCurrency]              char(5),
     [BuyingRateAvgExchangeRateType]  nvarchar(4),
     [InvertedExchangeRateIsAllowed]  nvarchar(1),
     [SellingRateAvgExchangeRateType] nvarchar(4),

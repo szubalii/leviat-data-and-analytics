@@ -14,11 +14,11 @@
 , [AccountDetnProductGroup] nvarchar(4)
 , [DeliveryNoteProcMinDelivQty] decimal(13,3)
 , [ItemCategoryGroup] nvarchar(8)
-, [DeliveryQuantityUnit] nvarchar(6) -- collate Latin1_General_100_BIN2
+, [DeliveryQuantityUnit] nvarchar(6) 
 , [DeliveryQuantity] decimal(13,3)
 , [ProductSalesStatus] nvarchar(4)
 , [ProductSalesStatusValidityDate] date
-, [SalesMeasureUnit] nvarchar(6) -- collate Latin1_General_100_BIN2
+, [SalesMeasureUnit] nvarchar(6) 
 , [IsMarkedForDeletion] nvarchar(2)
 , [ProductHierarchy] nvarchar(36)
 , [FirstSalesSpecProductGroup] nvarchar(6)
@@ -61,14 +61,14 @@
 , [ProductHasAttributeID10] nvarchar(2)
 , [IsActiveEntity] nvarchar(2)
 , [ProdExtAssortmentPriority] nvarchar(2)
---, [BaseUnit] nvarchar(6) -- collate Latin1_General_100_BIN2
-, [SubscrpnContrDfltDuration] char(3) -- collate Latin1_General_100_BIN2
-, [SubscrpnContrAltvDuration1] char(3) -- collate Latin1_General_100_BIN2
-, [SubscrpnContrAltvDuration2] char(3) -- collate Latin1_General_100_BIN2
+--, [BaseUnit] nvarchar(6) 
+, [SubscrpnContrDfltDuration] char(3) 
+, [SubscrpnContrAltvDuration1] char(3) 
+, [SubscrpnContrAltvDuration2] char(3) 
 , [SubscrpnContrDurationUnit] nvarchar(2)
-, [SubscrpnContrDfltExtnDurn] char(3) -- collate Latin1_General_100_BIN2
-, [SubscrpnContrAltvExtnDurn1] char(3) -- collate Latin1_General_100_BIN2
-, [SubscrpnContrAltvExtnDurn2] char(3) -- collate Latin1_General_100_BIN2
+, [SubscrpnContrDfltExtnDurn] char(3) 
+, [SubscrpnContrAltvExtnDurn1] char(3) 
+, [SubscrpnContrAltvExtnDurn2] char(3) 
 , [SubscrpnContrExtnDurnUnit] nvarchar(2)
 , [IsConfigurable]            varchar(3)
 , [t_applicationId]       VARCHAR (32)

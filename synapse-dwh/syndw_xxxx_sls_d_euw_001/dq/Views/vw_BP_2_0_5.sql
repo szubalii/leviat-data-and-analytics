@@ -1,7 +1,5 @@
 ﻿CREATE VIEW [dq].[vw_BP_2_0_5]
   AS  
-
-
 SELECT
         BP.[BusinessPartner]
     ,   BP.[BusinessPartnerCategory]
@@ -74,7 +72,7 @@ FROM
 INNER JOIN
     [base_s4h_cax].[I_BusinessPartnerAddress] BPA
     ON
-        BP.[BusinessPartner] = BPA.[BUSINESSPARTNER] COLLATE Latin1_General_100_BIN2
+        BP.[BusinessPartner] = BPA.[BUSINESSPARTNER]
 WHERE
     BPA.[Country] IN ('US', 'CA', 'BR', 'MX', 'AU', 'IT', 'IE', 'GB')
     AND

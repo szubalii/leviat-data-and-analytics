@@ -51,7 +51,7 @@ WITH ProductValuationPUP AS (
     LEFT JOIN  
         [edw].[dim_SalesOrganization] dim_org   
         ON    
-            dim_org.[SalesOrganizationID] = [BWKEY] COLLATE Latin1_General_100_BIN2
+            dim_org.[SalesOrganizationID] = [BWKEY]
     LEFT JOIN 
         [base_s4h_cax].[I_Purreqvaluationarea] purArea  
         ON 
@@ -59,7 +59,7 @@ WITH ProductValuationPUP AS (
     LEFT JOIN 
         [edw].[dim_CompanyCode] dim_comCode   
         ON 
-            dim_comCode.[CompanyCodeID] = purArea.[CompanyCode] COLLATE Latin1_General_100_BIN2  
+            dim_comCode.[CompanyCodeID] = purArea.[CompanyCode]  
 )
 
 SELECT 

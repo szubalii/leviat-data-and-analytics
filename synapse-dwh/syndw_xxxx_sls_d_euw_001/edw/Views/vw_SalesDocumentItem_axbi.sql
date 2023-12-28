@@ -5,7 +5,7 @@ SalesDocumentItem_Filtered_Out_Organization AS
 (
     SELECT
         FSL_DOC.[SALESID]                                                AS [SalesDocument]
-    ,   FSL_DOC.[INVENTTRANSID] collate Latin1_General_100_BIN2          AS [SalesDocumentItem]
+    ,   FSL_DOC.[INVENTTRANSID]                                          AS [SalesDocumentItem]
     ,   FSL_DOC.[adm_CompCurrency]                                       AS [CurrencyID]
     ,   FSL_DOC.[RETURNREASONCODEID]
     ,   FSL_DOC.[SALESQTY]                                               AS [OrderQuantity]  
@@ -315,7 +315,7 @@ SalesDocumentItem_axbi_mapping AS (
     LEFT JOIN 
         [base_s4h_cax].[I_BusinessPartner] ibp 
         ON 
-            ibp.BusinessPartner = RIGHT('0000000000'+CAST(mbp.target_XRefID collate Latin1_General_100_BIN2 AS VARCHAR(10)),10)
+            ibp.BusinessPartner = RIGHT('0000000000'+CAST(mbp.target_XRefID  AS VARCHAR(10)),10)
             -- AND 
             -- ibp.[MANDT] = 200 MPS 2021/11/01: commented out due to different client values between dev,qas, and prod
     LEFT JOIN 

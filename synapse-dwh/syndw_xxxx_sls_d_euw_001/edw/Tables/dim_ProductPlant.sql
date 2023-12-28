@@ -35,8 +35,8 @@
     ,    [IsNegativeStockAllowed]         NVARCHAR(1)
     ,    [GoodsReceiptBlockedStockQty]    DECIMAL(13,3)
     ,    [HasConsignmentCtrl]             NVARCHAR(1)
-    ,    [FiscalYearCurrentPeriod]        CHAR(4) COLLATE Latin1_General_100_BIN2
-    ,    [FiscalMonthCurrentPeriod]       CHAR(2) COLLATE Latin1_General_100_BIN2
+    ,    [FiscalYearCurrentPeriod]        CHAR(4) 
+    ,    [FiscalMonthCurrentPeriod]       CHAR(2) 
     ,    [IsPurgAcrossPurgGroup]          NVARCHAR(1)
     ,    [IsInternalBatchManaged]         NVARCHAR(1)
     ,    [ProductCFOPCategory]            NVARCHAR(2)
@@ -48,7 +48,7 @@
     ,    [ProductionSchedulingProfile]    NVARCHAR(6)
     ,    [ProductionSupervisor]           NVARCHAR(3)
     ,    [SafetyStockQuantity]            DECIMAL(13,3)
-    ,    [GoodsIssueUnit]                 NVARCHAR(3) COLLATE Latin1_General_100_BIN2
+    ,    [GoodsIssueUnit]                 NVARCHAR(3) 
     ,    [SourceOfSupplyCategory]         NVARCHAR(1)
     ,    [ConsumptionReferenceProduct]    NVARCHAR(40)
     ,    [ConsumptionReferencePlant]      NVARCHAR(4)
@@ -65,7 +65,7 @@
     ,    [MaterialFreightGroup]           NVARCHAR(8)
     ,    [OriginalBatchReferenceMaterial] NVARCHAR(40)
     ,    [OriglBatchManagementIsRequired] NVARCHAR(1)
-    ,    [ProductConfiguration]           CHAR(18) COLLATE Latin1_General_100_BIN2
+    ,    [ProductConfiguration]           CHAR(18) 
     ,    [t_applicationId]                VARCHAR(32)
     ,    [t_jobId]                        VARCHAR(36)
     ,    [t_jobDtm]                       DATETIME

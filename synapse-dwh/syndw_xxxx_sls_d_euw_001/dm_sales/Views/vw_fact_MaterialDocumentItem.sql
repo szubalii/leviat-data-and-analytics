@@ -170,7 +170,7 @@ SELECT
     , dimIST.[InventoryStockTypeName]
     , MDI.[StockOwner]
     , MDI.[GoodsMovementTypeID]
-    , dimGMT.[GoodsMovementTypeName] COLLATE Latin1_General_100_BIN2 as GoodsMovementTypeName
+    , dimGMT.[GoodsMovementTypeName] as GoodsMovementTypeName
     , MDI.[DebitCreditCode]
     , MDI.[InventoryUsabilityCode]
     , MDI.[QuantityInBaseUnit]
@@ -274,7 +274,7 @@ SELECT
     FROM [edw].[fact_MaterialDocumentItem] MDI
     LEFT JOIN 
         [edw].[fact_SalesDocumentItem] SDI
-            ON MDI.[SalesOrder] = SDI.[SalesDocument] collate Latin1_General_100_BIN2
+            ON MDI.[SalesOrder] = SDI.[SalesDocument]
                 AND
                 MDI.[SalesOrderItem] = SDI.[SalesDocumentItem]
                 AND
@@ -576,7 +576,7 @@ FROM
 LEFT JOIN 
     [edw].[fact_PurchasingDocument] dimPD 
         ON 
-            MDIU.[PurchaseOrder] COLLATE Latin1_General_100_BIN2 = dimPD.[PurchasingDocument] 
+            MDIU.[PurchaseOrder] = dimPD.[PurchasingDocument] 
 LEFT JOIN  
     [edw].[dim_PurchasingDocumentType] dimPDT 
         ON  

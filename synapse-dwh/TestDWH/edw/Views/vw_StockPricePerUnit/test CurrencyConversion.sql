@@ -67,15 +67,15 @@ BEGIN
 
   -- Assert:
   CREATE TABLE expected (
-    ProductID NVARCHAR(40), -- collate Latin1_General_100_BIN2,
-    ValuationAreaID NVARCHAR(4), -- collate Latin1_General_100_BIN2,
-    ValuationTypeID NVARCHAR(10), -- collate Latin1_General_100_BIN2,
-    FiscalYearPeriod CHAR(4), -- collate Latin1_General_100_BIN2,
-    FiscalMonthPeriod CHAR(2), -- collate Latin1_General_100_BIN2,
-    CurrencyID CHAR(5), -- collate Latin1_General_100_BIN2,
+    ProductID NVARCHAR(40),
+    ValuationAreaID NVARCHAR(4),
+    ValuationTypeID NVARCHAR(10),
+    FiscalYearPeriod CHAR(4),
+    FiscalMonthPeriod CHAR(2),
+    CurrencyID CHAR(5),
     ExchangeRate_EUR numeric(15, 6),
     ExchangeRate_USD numeric(15, 6),
-    PriceControlIndicatorID NVARCHAR(1), -- collate Latin1_General_100_BIN2,
+    PriceControlIndicatorID NVARCHAR(1),
     StockPricePerUnit DECIMAL(11, 2),
     StockPricePerUnit_EUR DECIMAL(11, 2),
     StockPricePerUnit_USD DECIMAL(11, 2)

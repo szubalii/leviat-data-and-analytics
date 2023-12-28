@@ -1,8 +1,8 @@
 CREATE TABLE [edw].[dim_SupplierPurchasingOrg]
 (
-    [SupplierID]                     nvarchar(10) NOT NULL, --collate Latin1_General_100_BIN2 NOT NULL,
-    [PurchasingOrganizationID]       nvarchar(4) NOT NULL, --collate Latin1_General_100_BIN2  NOT NULL,
-    [PurchasingGroupID]              nvarchar(3), -- collate Latin1_General_100_BIN2,
+    [SupplierID]                     nvarchar(10) NOT NULL,
+    [PurchasingOrganizationID]       nvarchar(4) NOT NULL, 
+    [PurchasingGroupID]              nvarchar(3), 
     [t_applicationId]                VARCHAR(32), 
     [t_extractionDtm]                DATETIME,
     [t_jobId]                        VARCHAR (36),

@@ -5,8 +5,8 @@
 , [CompanyCodeDescription] nvarchar(50)
 , [CityName] nvarchar(50)
 , [Country] nvarchar(6)
-, [Currency] char(5) -- collate Latin1_General_100_BIN2
-, [Language] char(1) -- collate Latin1_General_100_BIN2
+, [Currency] char(5)
+, [Language] char(1)
 , [ChartOfAccounts] nvarchar(8)
 , [FiscalYearVariant] nvarchar(4)
 , [Company] nvarchar(12)

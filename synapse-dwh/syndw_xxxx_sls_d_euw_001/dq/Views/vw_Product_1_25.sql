@@ -152,9 +152,9 @@ LEFT JOIN
 LEFT JOIN 
     [base_s4h_cax].[NSDM_V_MARC] NVM
     ON 
-      PP.[Product] = NVM.[MATNR]  COLLATE Latin1_General_100_BIN2
+      PP.[Product] = NVM.[MATNR]
       AND
-      PP.[Plant] = NVM.[WERKS]  COLLATE Latin1_General_100_BIN2
+      PP.[Plant] = NVM.[WERKS]
 WHERE
       P.[ProductType] in ('ZVER')
     AND 

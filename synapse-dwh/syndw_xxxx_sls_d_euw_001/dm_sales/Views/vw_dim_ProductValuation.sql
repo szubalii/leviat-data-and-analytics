@@ -44,4 +44,4 @@ CREATE VIEW [dm_sales].[vw_dim_ProductValuation]
     LEFT JOIN 
         [edw].[dim_SalesOrganization] AS SO      
             ON
-            SO.[SalesOrganizationID] collate Latin1_General_100_BIN2 = PV.[ValuationAreaID]
+            SO.[SalesOrganizationID] = PV.[ValuationAreaID]

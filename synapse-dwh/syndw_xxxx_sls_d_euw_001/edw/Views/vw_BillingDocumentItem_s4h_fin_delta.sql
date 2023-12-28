@@ -1595,7 +1595,7 @@ FROM (
             ,   [PaymentTermCashDiscountPercentageRate] = (
                     SELECT TOP (1) [CashDiscount1Percent]
                     FROM [base_s4h_cax].[I_PaymentTermsConditions]
-                    WHERE [PaymentTerms] COLLATE Latin1_General_100_BIN2 = BDIFinancialsZZZDUMMYAndOtherSales.[CustomerPaymentTerms]
+                    WHERE [PaymentTerms] = BDIFinancialsZZZDUMMYAndOtherSales.[CustomerPaymentTerms]
                     ORDER BY PaymentTermsValidityMonthDay
                 )
             ,   FinRebateAccrual.FinRebateAccrual

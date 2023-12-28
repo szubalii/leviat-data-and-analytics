@@ -1,7 +1,7 @@
 CREATE TABLE [edw].[dim_PurchasingDocumentType]
 (
-    [PurchasingDocumentTypeID]      nvarchar(4) NOT NULL, --collate Latin1_General_100_BIN2 NOT NULL,
-    [PurchasingDocumentCategoryID]  nvarchar(1) NOT NULL, --collate Latin1_General_100_BIN2 NOT NULL,
+    [PurchasingDocumentTypeID]      nvarchar(4) NOT NULL,
+    [PurchasingDocumentCategoryID]  nvarchar(1) NOT NULL,
     [PurgDocFieldSelControlKey]     nvarchar(20),
     [PurgHasFlxblWorkflowApproval]  nvarchar(1),
     [PurchasingDocumentTypeName]    nvarchar(20),

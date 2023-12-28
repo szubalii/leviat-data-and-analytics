@@ -18,14 +18,14 @@
 ,[CrossPlantStatusValidityDate]         DATE
 ,[ProductOldID]                         NVARCHAR(80)
 ,[GrossWeight]                          DECIMAL(13, 3)
-,[PurchaseOrderQuantityUnit]            NVARCHAR(6) -- collate Latin1_General_100_BIN2
+,[PurchaseOrderQuantityUnit]            NVARCHAR(6) 
 ,[SourceOfSupply]                       NVARCHAR(2)
-,[WeightUnit]                           NVARCHAR(6) -- collate Latin1_General_100_BIN2
+,[WeightUnit]                           NVARCHAR(6) 
 ,[CountryOfOrigin]                      NVARCHAR(6)
 ,[CompetitorID]                         NVARCHAR(20)
 ,[ProductGroup]                         NVARCHAR(9)
 ,[MaterialGroup]                        NVARCHAR(18)
-,[BaseUnit]                             NVARCHAR(6) -- collate Latin1_General_100_BIN2
+,[BaseUnit]                             NVARCHAR(6) 
 ,[ItemCategoryGroup]                    NVARCHAR(8)
 ,[NetWeight]                            DECIMAL(13, 3)
 ,[ProductHierarchy]                     NVARCHAR(36)
@@ -41,13 +41,13 @@
 ,[Product_L5_SubFamily]                 NVARCHAR(80) NULL
 ,[Division]                             NVARCHAR(4)
 ,[VarblPurOrdUnitIsActive]              NVARCHAR(2)
-,[VolumeUnit]                           NVARCHAR(6) -- collate Latin1_General_100_BIN2
+,[VolumeUnit]                           NVARCHAR(6) 
 ,[MaterialVolume]                       DECIMAL(13, 3)
 ,[SalesStatus]                          NVARCHAR(4)
 ,[TransportationGroup]                  NVARCHAR(8)
 ,[SalesStatusValidityDate]              DATE
 ,[AuthorizationGroup]                   NVARCHAR(8)
-,[ANPCode]                              CHAR(9) -- collate Latin1_General_100_BIN2
+,[ANPCode]                              CHAR(9) 
 ,[ProductCategory]                      NVARCHAR(4)
 ,[Brand]                                NVARCHAR(8)
 ,[ProcurementRule]                      NVARCHAR(2)
@@ -76,11 +76,11 @@
 ,[StandardHandlingUnitType]             NVARCHAR(8)
 ,[SerialNumberProfile]                  NVARCHAR(8)
 ,[AdjustmentProfile]                    NVARCHAR(6)
-,[PreferredUnitOfMeasure]               NVARCHAR(6) -- collate Latin1_General_100_BIN2
+,[PreferredUnitOfMeasure]               NVARCHAR(6) 
 ,[IsPilferable]                         NVARCHAR(2)
 ,[IsRelevantForHzdsSubstances]          NVARCHAR(2)
 ,[QuarantinePeriod]                     DECIMAL(3)
-,[TimeUnitForQuarantinePeriod]          NVARCHAR(6) -- collate Latin1_General_100_BIN2
+,[TimeUnitForQuarantinePeriod]          NVARCHAR(6) 
 ,[QualityInspectionGroup]               NVARCHAR(8)
 ,[HandlingUnitType]                     NVARCHAR(8)
 ,[HasVariableTareWeight]                NVARCHAR(2)
@@ -89,14 +89,14 @@
 ,[MaximumPackagingHeight]               DECIMAL(15, 3)
 ,[MaximumCapacity]                      DECIMAL(15, 3)
 ,[OvercapacityTolerance]                DECIMAL(3, 1)
-,[UnitForMaxPackagingDimensions]        NVARCHAR(6) -- collate Latin1_General_100_BIN2
+,[UnitForMaxPackagingDimensions]        NVARCHAR(6) 
 ,[BaseUnitSpecificProductLength]        DECIMAL(13, 3)
 ,[BaseUnitSpecificProductWidth]         DECIMAL(13, 3)
 ,[BaseUnitSpecificProductHeight]        DECIMAL(13, 3)
-,[ProductMeasurementUnit]               NVARCHAR(6) -- collate Latin1_General_100_BIN2
+,[ProductMeasurementUnit]               NVARCHAR(6) 
 ,[ProductValidStartDate]                DATE
 ,[ArticleCategory]                      NVARCHAR(4)
-,[ContentUnit]                          NVARCHAR(6) -- collate Latin1_General_100_BIN2
+,[ContentUnit]                          NVARCHAR(6) 
 ,[NetContent]                           DECIMAL(13, 3)
 ,[ComparisonPriceQuantity]              DECIMAL(5)
 ,[GrossContent]                         DECIMAL(13, 3)
@@ -114,7 +114,7 @@
 ,[ProductUUID]                          BINARY(16)
 ,[ProdSupChnMgmtUUID22]                 NVARCHAR(44)
 ,[ProductDocumentChangeNumber]          NVARCHAR(12)
-,[ProductDocumentPageCount]             CHAR(3) -- collate Latin1_General_100_BIN2
+,[ProductDocumentPageCount]             CHAR(3) 
 ,[ProductDocumentPageNumber]            NVARCHAR(6)
 ,[OwnInventoryManagedProduct]           NVARCHAR(80)
 ,[DocumentIsCreatedByCAD]               NVARCHAR(2)
@@ -137,15 +137,15 @@
 ,[ProductDocumentVersion]               NVARCHAR(4)
 ,[ProductDocumentType]                  NVARCHAR(6)
 ,[ProductDocumentPageFormat]            NVARCHAR(8)
-,[ProductConfiguration]                 CHAR(18) -- collate Latin1_General_100_BIN2
+,[ProductConfiguration]                 CHAR(18) 
 ,[SegmentationStrategy]                 NVARCHAR(16)
 ,[SegmentationIsRelevant]               NVARCHAR(2)
 ,[IsChemicalComplianceRelevant]         NVARCHAR(2)
 ,[LogisticalProductCategory]            NVARCHAR(2)
 ,[SalesProduct]                         NVARCHAR(80)
-,[ProdCHARc1InternalNumber]             CHAR(10) -- collate Latin1_General_100_BIN2
-,[ProdCHARc2InternalNumber]             CHAR(10) -- collate Latin1_General_100_BIN2
-,[ProdCHARc3InternalNumber]             CHAR(10) -- collate Latin1_General_100_BIN2
+,[ProdCHARc1InternalNumber]             CHAR(10) 
+,[ProdCHARc2InternalNumber]             CHAR(10) 
+,[ProdCHARc3InternalNumber]             CHAR(10) 
 ,[ProductCHARacteristic1]               NVARCHAR(36)
 ,[ProductCHARacteristic2]               NVARCHAR(36)
 ,[ProductCHARacteristic3]               NVARCHAR(36)

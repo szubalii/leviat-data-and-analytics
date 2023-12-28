@@ -8,7 +8,7 @@ SELECT
 , CR.[CurrencyTypeID]
 , CR.[CurrencyType]
 , CASE 
-        WHEN CCR.[CurrencyTypeID] = '10' THEN COALESCE(SDI.[CurrencyID],[TransactionCurrency] COLLATE Latin1_General_100_BIN2)
+        WHEN CCR.[CurrencyTypeID] = '10' THEN COALESCE(SDI.[CurrencyID],[TransactionCurrency] )
         ELSE CCR.[TargetCurrency]
   END                                                                             AS [CurrencyID]
 , CASE 

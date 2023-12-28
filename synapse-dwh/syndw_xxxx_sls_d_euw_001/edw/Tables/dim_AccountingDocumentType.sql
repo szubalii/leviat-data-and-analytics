@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [edw].[dim_AccountingDocumentType] (
 -- Journal Entry Type
   [AccountingDocumentTypeID] nvarchar(4) NOT NULL --renamed (ex AccountingDocumentType)
---, [Language] char(1) collate  Latin1_General_100_BIN2 NOT NULL --from [base_s4h_cax].[I_AccountingDocumentTypeText]
+--, [Language] char(1)  NOT NULL --from [base_s4h_cax].[I_AccountingDocumentTypeText]
 , [AccountingDocumentType] nvarchar(40) --renamed (ex AccountingDocumentTypeName) from [base_s4h_cax].[I_AccountingDocumentTypeText]
 , [AccountingDocumentNumberRange] nvarchar(4)
 , [AuthorizationGroup] nvarchar(8)

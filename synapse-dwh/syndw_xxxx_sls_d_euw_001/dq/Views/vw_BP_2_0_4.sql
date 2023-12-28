@@ -95,4 +95,4 @@ FROM
 INNER JOIN
     BP_PhoneNumber
     ON
-        BP.[BusinessPartner] = BP_PhoneNumber.[BUSINESSPARTNER] COLLATE Latin1_General_100_BIN2
+        BP.[BusinessPartner] = BP_PhoneNumber.[BUSINESSPARTNER]

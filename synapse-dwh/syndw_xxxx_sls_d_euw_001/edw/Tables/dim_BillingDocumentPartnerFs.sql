@@ -4,7 +4,7 @@
 ,[PartnerFunction]      NVARCHAR(2)  NOT NULL
 ,[PartnerFunctionName]  NVARCHAR(20)
 ,[Customer]             NVARCHAR(10)
-,[Personnel]            CHAR(8) -- collate Latin1_General_100_BIN2
+,[Personnel]            CHAR(8)
 ,[FullName]             NVARCHAR(80)
 ,[t_applicationId]      VARCHAR (32)
 ,[t_extractionDtm]      DATETIME
