@@ -751,6 +751,7 @@
     <Build Include="base_s4h_cax\Tables\AGR_TEXTS.sql" />
     <Build Include="base_s4h_cax\Tables\AGR_1251.sql" />
     <Build Include="base_s4h_cax\Tables\TSTCT.sql" />
+    <Build Include="base_s4h_cax\Tables\KNVH.sql" />
 
     <Build Include="base_tx_ca_0_hlp\Tables\DATAAREA.sql" />
     <Build Include="base_tx_ca_0_hlp\Tables\CRHCURRENCY.sql" />
