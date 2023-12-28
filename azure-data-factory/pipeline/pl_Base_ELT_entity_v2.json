@@ -600,7 +600,7 @@
 								"source": {
 									"type": "AzureSqlSource",
 									"sqlReaderQuery": {
-										"value": "SELECT file_name, output, adls_directory_path_In\nFROM [dbo].[batch]\nWHERE batch_id = '@{variables('batch_id_Extract')}'",
+										"value": "SELECT file_name, output, directory_path\nFROM [dbo].[batch]\nWHERE batch_id = '@{variables('batch_id_Extract')}'",
 										"type": "Expression"
 									},
 									"queryTimeout": "02:00:00",
@@ -686,7 +686,7 @@
 							"typeProperties": {
 								"variableName": "adls_directory_path",
 								"value": {
-									"value": "@activity('Lookup ADLS File Name And Output').output.firstRow.adls_directory_path_In",
+									"value": "@activity('Lookup ADLS File Name And Output').output.firstRow.directory_path",
 									"type": "Expression"
 								}
 							}
