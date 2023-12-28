@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [base_s4h_cax].[I_OutboundDelivery] (
-  [MANDT] char(3) collate Latin1_General_100_BIN2 NOT NULL
+  [MANDT] char(3) NOT NULL --collate Latin1_General_100_BIN2 NOT NULL
 , [OutboundDelivery] nvarchar(10) NOT NULL
 , [DeliveryDocumentType] nvarchar(4)
 , [CreatedByUser] nvarchar(12)
@@ -12,7 +12,7 @@
 , [SalesOffice] nvarchar(4)
 , [CompleteDeliveryIsDefined] nvarchar(1)
 , [OrderCombinationIsAllowed] nvarchar(1)
-, [DeliveryPriority] char(2) collate Latin1_General_100_BIN2
+, [DeliveryPriority] char(2) -- collate Latin1_General_100_BIN2
 , [DeliveryBlockReason] nvarchar(2)
 , [Supplier] nvarchar(10)
 , [DeliveryDocumentBySupplier] nvarchar(35)
@@ -23,13 +23,13 @@
 , [OrderID] nvarchar(12)
 , [HeaderGrossWeight] decimal(15,3)
 , [HeaderNetWeight] decimal(15,3)
-, [HeaderWeightUnit] nvarchar(3) collate Latin1_General_100_BIN2
+, [HeaderWeightUnit] nvarchar(3) -- collate Latin1_General_100_BIN2
 , [HeaderVolume] decimal(15,3)
-, [HeaderVolumeUnit] nvarchar(3) collate Latin1_General_100_BIN2
+, [HeaderVolumeUnit] nvarchar(3) -- collate Latin1_General_100_BIN2
 , [DocumentDate] date
 , [PickingDate] date
 , [PickingTime] time(0)
-, [TotalNumberOfPackage] char(5) collate Latin1_General_100_BIN2
+, [TotalNumberOfPackage] char(5) -- collate Latin1_General_100_BIN2
 , [LoadingPoint] nvarchar(2)
 , [LoadingDate] date
 , [LoadingTime] time(0)
@@ -65,7 +65,7 @@
 , [SoldToParty] nvarchar(10)
 , [CustomerGroup] nvarchar(2)
 , [SalesDistrict] nvarchar(6)
-, [TransactionCurrency] char(5) collate Latin1_General_100_BIN2
+, [TransactionCurrency] char(5) -- collate Latin1_General_100_BIN2
 , [OverallIntcoBillingStatus] nvarchar(1)
 , [OverallSDProcessStatus] nvarchar(1)
 , [TotalBlockStatus] nvarchar(1)

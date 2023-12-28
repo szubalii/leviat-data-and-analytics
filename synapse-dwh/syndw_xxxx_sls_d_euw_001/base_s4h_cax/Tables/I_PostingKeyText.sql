@@ -5,8 +5,8 @@ CREATE TABLE [base_s4h_cax].[I_PostingKeyText](
 --, [ODQ_CHANGEMODE] CHAR(1)
 --, [ODQ_ENTITYCNTR] NUMERIC(19,0)
 --, 
-  [MANDT] char(3) collate Latin1_General_100_BIN2 NOT NULL
-, [Language] char(1) collate  Latin1_General_100_BIN2 NOT NULL
+  [MANDT] char(3) NOT NULL -- collate Latin1_General_100_BIN2 NOT NULL
+, [Language] char(1) NOT NULL -- collate Latin1_General_100_BIN2 NOT NULL
 , [PostingKey] nvarchar(2) NOT NULL
 , [PostingKeyName] nvarchar(20)
 , [t_applicationId]       VARCHAR (32)

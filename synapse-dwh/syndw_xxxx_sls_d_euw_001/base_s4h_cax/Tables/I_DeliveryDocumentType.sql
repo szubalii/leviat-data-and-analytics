@@ -1,7 +1,7 @@
 CREATE TABLE [base_s4h_cax].[I_DeliveryDocumentType]
 -- Delivery Document Type
 (
-  [MANDT] char(3) collate Latin1_General_100_BIN2 NOT NULL
+  [MANDT] char(3) NOT NULL -- collate Latin1_General_100_BIN2 NOT NULL
 , [DeliveryDocumentType] nvarchar(4) NOT NULL
 , [SDDocumentCategory] nvarchar(4)
 , [PrecedingDocumentRequirement] nvarchar(1)

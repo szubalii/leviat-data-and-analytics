@@ -1,6 +1,6 @@
 CREATE TABLE [base_s4h_cax].[I_FactoryCalWorkingDaysPerYr](
   [FactoryCalendar] nvarchar(2) NOT NULL
-, [CalendarYear] char(4) collate Latin1_General_100_BIN2 NOT NULL
+, [CalendarYear] char(4) NOT NULL -- collate Latin1_General_100_BIN2 NOT NULL
 , [Month01WorkingDaysString] nvarchar(31)
 , [Month02WorkingDaysString] nvarchar(31)
 , [Month03WorkingDaysString] nvarchar(31)
@@ -13,9 +13,9 @@ CREATE TABLE [base_s4h_cax].[I_FactoryCalWorkingDaysPerYr](
 , [Month10WorkingDaysString] nvarchar(31)
 , [Month11WorkingDaysString] nvarchar(31)
 , [Month12WorkingDaysString] nvarchar(31)
-, [FactoryCalYearStartDayValue] char(5) collate Latin1_General_100_BIN2
-, [NumberOfNonWorkingDays] char(3) collate Latin1_General_100_BIN2
-, [NumberOfWorkingDays] char(3) collate Latin1_General_100_BIN2
+, [FactoryCalYearStartDayValue] char(5) -- collate Latin1_General_100_BIN2
+, [NumberOfNonWorkingDays] char(3) -- collate Latin1_General_100_BIN2
+, [NumberOfWorkingDays] char(3) -- collate Latin1_General_100_BIN2
 , [t_applicationId]       VARCHAR (32)
 , [t_jobId]               VARCHAR (36)
 , [t_jobDtm]              DATETIME

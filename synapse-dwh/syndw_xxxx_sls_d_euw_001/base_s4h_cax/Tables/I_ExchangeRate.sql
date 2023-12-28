@@ -1,8 +1,8 @@
 CREATE TABLE [base_s4h_cax].[I_ExchangeRate](
-  [MANDT] char(3) collate Latin1_General_100_BIN2 NOT NULL
+  [MANDT] char(3) NOT NULL -- collate Latin1_General_100_BIN2 NOT NULL
 , [ExchangeRateType] nvarchar(4) NOT NULL
-, [SourceCurrency] char(5) collate Latin1_General_100_BIN2 NOT NULL
-, [TargetCurrency] char(5) collate Latin1_General_100_BIN2 NOT NULL
+, [SourceCurrency] char(5) NOT NULL -- collate Latin1_General_100_BIN2 NOT NULL
+, [TargetCurrency] char(5) NOT NULL -- collate Latin1_General_100_BIN2 NOT NULL
 , [ExchangeRateEffectiveDate] date NOT NULL
 , [ExchangeRate] decimal(9,5)
 , [NumberOfSourceCurrencyUnits] decimal(9)
@@ -10,7 +10,7 @@ CREATE TABLE [base_s4h_cax].[I_ExchangeRate](
 , [AlternativeExchangeRateType] nvarchar(4)
 , [AltvExchangeRateTypeValdtyDate] date
 , [InvertedExchangeRateIsAllowed] nvarchar(1)
-, [ReferenceCurrency] char(5) collate Latin1_General_100_BIN2
+, [ReferenceCurrency] char(5) -- collate Latin1_General_100_BIN2
 , [BuyingRateAvgExchangeRateType] nvarchar(4)
 , [SellingRateAvgExchangeRateType] nvarchar(4)
 , [FixedExchangeRateIsUsed] nvarchar(1)

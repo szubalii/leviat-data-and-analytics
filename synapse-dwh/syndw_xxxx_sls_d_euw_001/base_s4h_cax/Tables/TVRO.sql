@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [base_s4h_cax].[TVRO](
-  [MANDT]           CHAR(3) collate Latin1_General_100_BIN2 NOT NULL
+  [MANDT]           CHAR(3) NOT NULL -- collate Latin1_General_100_BIN2 NOT NULL
 , [ROUTE]           NVARCHAR(6) NOT NULL
 , [TRAZT]           DECIMAL(5,2) NOT NULL
 , [TRAZTD]          DECIMAL(11)
@@ -12,7 +12,7 @@
 , [SPZST]           NVARCHAR(10)
 , [FAHZTD]          DECIMAL(11)
 , [DISTZ]           DECIMAL(13,3)
-, [MEDST]           NVARCHAR(3) collate Latin1_General_100_BIN2
+, [MEDST]           NVARCHAR(3) -- collate Latin1_General_100_BIN2
 , [VSART]           NVARCHAR(2)
 , [VSAVL]           NVARCHAR(2)
 , [VSANL]           NVARCHAR(2)
@@ -20,7 +20,7 @@
 , [ROUTID]          NVARCHAR(100)
 , [TCTAB]           NVARCHAR(1)
 , [ALLOWED_TWGT]    DECIMAL(8)
-, [ALLOWED_UOM]     NVARCHAR(3) collate Latin1_General_100_BIN2
+, [ALLOWED_UOM]     NVARCHAR(3) -- collate Latin1_General_100_BIN2
 , [t_applicationId] VARCHAR (32)
 , [t_jobId]         VARCHAR (36)
 , [t_jobDtm]        DATETIME

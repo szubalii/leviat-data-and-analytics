@@ -1,6 +1,6 @@
 CREATE TABLE [base_s4h_cax].[I_Currency](
-  [MANDT] char(3) collate Latin1_General_100_BIN2 NOT NULL
-, [Currency] char(5) collate Latin1_General_100_BIN2 NOT NULL
+  [MANDT] char(3) NOT NULL -- collate Latin1_General_100_BIN2 NOT NULL
+, [Currency] char(5) NOT NULL -- collate Latin1_General_100_BIN2 NOT NULL
 , [Decimals] tinyint
 , [CurrencyISOCode] nvarchar(3)
 , [AlternativeCurrencyKey] nvarchar(3)

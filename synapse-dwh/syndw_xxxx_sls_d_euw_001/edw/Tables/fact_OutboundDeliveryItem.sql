@@ -3,7 +3,7 @@
       ,[nk_fact_OutboundDeliveryItem] nvarchar(45) NOT NULL
       ,[nk2_fact_OutboundDeliveryItem] nvarchar(45)
       ,[OutboundDelivery] nvarchar(20) NOT NULL
-      ,[OutboundDeliveryItem] char(6) collate Latin1_General_100_BIN2 NOT NULL
+      ,[OutboundDeliveryItem] char(6) NOT NULL --collate Latin1_General_100_BIN2 NOT NULL
       ,[DeliveryDocumentItemCategoryID] nvarchar(4)
       ,[SalesDocumentItemTypeID] nvarchar(1)
       ,[CreatedByUserID] nvarchar(12)
@@ -17,14 +17,14 @@
       ,[PlantID] nvarchar(4)
       ,[WarehouseID] nvarchar(3)
       ,[StorageLocationID] nvarchar(4)
-      ,[HigherLevelItem] char(6) collate Latin1_General_100_BIN2
+      ,[HigherLevelItem] char(6) -- collate Latin1_General_100_BIN2
       ,[ActualDeliveryQuantity] decimal(38,12)
       ,[ActDelQtyTotalForSDI] decimal(38,12)
-      ,[DeliveryQuantityUnit] nvarchar(3) collate Latin1_General_100_BIN2
+      ,[DeliveryQuantityUnit] nvarchar(3) -- collate Latin1_General_100_BIN2
       ,[ActualDeliveredQtyInBaseUnit] decimal(13,3)
-      ,[BaseUnit] nvarchar(3) collate Latin1_General_100_BIN2
+      ,[BaseUnit] nvarchar(3) -- collate Latin1_General_100_BIN2
       ,[Batch] nvarchar(10)
-      ,[BatchClassification] char(18) collate Latin1_General_100_BIN2
+      ,[BatchClassification] char(18) -- collate Latin1_General_100_BIN2
       ,[BusinessArea] nvarchar(4)
       ,[ChmlCmplncStatusID] nvarchar(1)
       ,[ControllingArea] nvarchar(4)
@@ -32,7 +32,7 @@
       ,[CostInDocumentCurrency] decimal(13,2)
       ,[CreditRelatedPrice] float
       ,[DangerousGoodsStatusID] nvarchar(1)
-      ,[DeliveryGroup] char(3) collate Latin1_General_100_BIN2
+      ,[DeliveryGroup] char(3) -- collate Latin1_General_100_BIN2
       ,[Division] nvarchar(2)
       ,[FixedShipgProcgDurationInDays] decimal(5,2)
       ,[FunctionalArea] nvarchar(16)
@@ -43,13 +43,13 @@
       ,[ItemNetWeight] decimal(15,3)
       ,[WGT001_DataQualityCode]  nvarchar (6)      
       ,[ItemVolume] decimal(15,3)
-      ,[ItemVolumeUnit] nvarchar(3) collate Latin1_General_100_BIN2
-      ,[ItemWeightUnit] nvarchar(3) collate Latin1_General_100_BIN2
+      ,[ItemVolumeUnit] nvarchar(3) -- collate Latin1_General_100_BIN2
+      ,[ItemWeightUnit] nvarchar(3) -- collate Latin1_General_100_BIN2
       ,[LoadingGroup] nvarchar(4)
       ,[NetPriceAmount_LC] decimal(11,2)
       ,[OrderDocument] nvarchar(10)
       ,[OrderID] nvarchar(12)
-      ,[OrderItem] char(4) collate Latin1_General_100_BIN2
+      ,[OrderItem] char(4) -- collate Latin1_General_100_BIN2
       ,[OriginalDeliveryQuantity] decimal(13,3)
       ,[OriginSDDocument] nvarchar(10)
       ,[OverdelivTolrtdLmtRatioInPct] decimal(3,1)
@@ -59,7 +59,7 @@
       ,[ProfitCenterID] nvarchar(10)
       ,[SalesGroup] nvarchar(3)
       ,[SalesOffice] nvarchar(4)
-      ,[SDDocumentItem] char(6) collate Latin1_General_100_BIN2
+      ,[SDDocumentItem] char(6) -- collate Latin1_General_100_BIN2
       ,[SubsequentMovementType] nvarchar(3)
       ,[HDR_TotalNetAmount_LC] decimal(15,2)
       ,[VarblShipgProcgDurationInDays] decimal(5,2)
@@ -69,7 +69,7 @@
       ,[ReceivingPoint] nvarchar(25)
       ,[ItemIsBillingRelevant] nvarchar(1)
       ,[ReferenceSDDocument] nvarchar(20)
-      ,[ReferenceSDDocumentItem] char(24) collate Latin1_General_100_BIN2
+      ,[ReferenceSDDocumentItem] char(24) -- collate Latin1_General_100_BIN2
       ,[ReferenceSDDocumentCategoryID] nvarchar(4)
       ,[SDProcessStatusID] nvarchar(1)
       ,[PickingConfirmationStatusID] nvarchar(1)
@@ -92,7 +92,7 @@
       ,[SL_OriginalConfirmedDeliveryDate] date
       ,[SL_ConfdOrderQtyByMatlAvailCheck] decimal(38,12)
       ,[SL_GoodsIssueDate] date
-      ,[SL_ScheduleLine] char(4) collate Latin1_General_100_BIN2
+      ,[SL_ScheduleLine] char(4) -- collate Latin1_General_100_BIN2
       ,[HDR_SalesDistrictID] nvarchar(6)
       ,[HDR_SalesOrganizationID] nvarchar(4)
       ,[HDR_SoldToPartyID] nvarchar(10)
@@ -122,15 +122,15 @@
       ,[SDI_ExchangeRateType] nvarchar(4)
       ,[SDI_NetAmount_LC] decimal(19,6)
       ,[SDI_NetAmount_EUR] decimal(19,6)
-      ,[SDI_NetPriceQuantityUnit] nvarchar(3) collate Latin1_General_100_BIN2
+      ,[SDI_NetPriceQuantityUnit] nvarchar(3) -- collate Latin1_General_100_BIN2
       ,[SDI_OrderID] nvarchar(12)
       ,[SDI_OrderQuantity] decimal(15,3)
-      ,[SDI_OrderQuantityUnit] nvarchar(3) collate Latin1_General_100_BIN2
+      ,[SDI_OrderQuantityUnit] nvarchar(3) -- collate Latin1_General_100_BIN2
       ,[SDI_OverallTotalDeliveryStatusID] nvarchar(1)
       ,[SDI_PayerParty] nvarchar(10)
       ,[SDI_Route] nvarchar(6)
       ,[SDI_SalesDocumentItemCategory] nvarchar(4)
-      ,[SDI_SalesOrganizationCurrency] char(5) collate Latin1_General_100_BIN2
+      ,[SDI_SalesOrganizationCurrency] char(5) -- collate Latin1_General_100_BIN2
       ,[SDI_SDDocumentCategory] nvarchar(4)
       ,[SDI_SDDocumentRejectionStatusID] nvarchar(1)
       ,[SDI_StorageLocationID] nvarchar(4)
@@ -139,7 +139,7 @@
       ,[OTS_LateDays] int
       ,[OTS_IsEarly] bit
       ,[OTS_IsLate] bit
-      ,[RouteIsChangedFlag] char(1)  collate Latin1_General_100_BIN2
+      ,[RouteIsChangedFlag] char(1)  -- collate Latin1_General_100_BIN2
       ,[NrODIPerSDIAndQtyNot0] int
       ,[NrSLInScope] int
       ,[OTSIF_OnTimeShipInFull] nvarchar(6)
@@ -147,7 +147,7 @@
       ,[HDR_ActualGoodsMovementDate] date
       ,[HDR_ShippingPointID] nvarchar(4)
       ,[HDR_OrderCombinationIsAllowed] nvarchar(1)
-      ,[HDR_DeliveryPriority] char(2) collate Latin1_General_100_BIN2
+      ,[HDR_DeliveryPriority] char(2) -- collate Latin1_General_100_BIN2
       ,[HDR_DeliveryBlockReason] nvarchar(2)
       ,[HDR_DeliveryDocumentBySupplier] nvarchar(35)
       ,[HDR_DeliveryIsInPlant] nvarchar(1)
@@ -207,8 +207,8 @@
       ,[HDR_OvrlItmPackingIncompletionSts] nvarchar(1)
       ,[HDR_OvrlItmPickingIncompletionSts] nvarchar(1)
       ,[HDR_ShippingGroupNumber] nvarchar(10)
-      ,[HDR_TotalNumberOfPackage] char(5) collate Latin1_General_100_BIN2
-      ,[HDR_TransactionCurrency] char(5) collate Latin1_General_100_BIN2
+      ,[HDR_TotalNumberOfPackage] char(5) -- collate Latin1_General_100_BIN2
+      ,[HDR_TransactionCurrency] char(5) -- collate Latin1_General_100_BIN2
       ,[Currency_EUR] nvarchar(3)
       ,[ActualDeliveryRouteName] nvarchar(40)
       ,[ActualDeliveryRouteDurationInHrs] decimal(11)
@@ -216,20 +216,20 @@
       ,[ProposedDeliveryRouteDurationInHrs] decimal(11)
       ,[ActualDeliveryRouteDurationInDays] decimal(11)
       ,[ProposedDeliveryRouteDurationInDays] decimal(11)
-      ,[InOutID] NVARCHAR (6) collate Latin1_General_100_BIN2
-      ,[SDICreationDateIsODICreationDateFlag] char(1) collate Latin1_General_100_BIN2
+      ,[InOutID] NVARCHAR (6) -- collate Latin1_General_100_BIN2
+      ,[SDICreationDateIsODICreationDateFlag] char(1) -- collate Latin1_General_100_BIN2
       ,[IF_Total_Group] nvarchar (17)
       ,[IF_Group] nvarchar (17)
-      ,[IF_IsInFullFlag] char(1) collate Latin1_General_100_BIN2
+      ,[IF_IsInFullFlag] char(1) -- collate Latin1_General_100_BIN2
       ,[IF_IsInFull] bit
-      ,[NoActualDeliveredQtyFlag] char(1) collate Latin1_General_100_BIN2
+      ,[NoActualDeliveredQtyFlag] char(1) -- collate Latin1_General_100_BIN2
       ,[OTS_GoodsIssueDateDiffInDays] int
       ,[OTS_DaysDiff] int
       ,[OTS_GIDateCheckGroup] nvarchar (7)
       ,[OTS_Group] nvarchar (7)
-      ,[SDAvailableFlag] char(1) collate Latin1_General_100_BIN2
-      ,[SDI_ConfQtyEqOrderQtyFlag] char(1) collate Latin1_General_100_BIN2
-      ,[SLAvailableFlag] char(1) collate Latin1_General_100_BIN2
+      ,[SDAvailableFlag] char(1) -- collate Latin1_General_100_BIN2
+      ,[SDI_ConfQtyEqOrderQtyFlag] char(1) -- collate Latin1_General_100_BIN2
+      ,[SLAvailableFlag] char(1) -- collate Latin1_General_100_BIN2
       ,[IF_DataQualityCode] nvarchar (5)
       ,[OTD_DataQualityCode] nvarchar (6)
       ,[OTS_DataQualityCode] nvarchar (6)

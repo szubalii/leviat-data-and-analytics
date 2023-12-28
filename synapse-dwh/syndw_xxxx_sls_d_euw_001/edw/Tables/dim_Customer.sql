@@ -17,7 +17,7 @@
 , [PostingIsBlocked] nvarchar(2)
 , [BillingIsBlockedForCustomer] nvarchar(4)
 , [OrderIsBlockedForCustomer] nvarchar(4)
-, [InternationalLocationNumber1] char(7) collate Latin1_General_100_BIN2
+, [InternationalLocationNumber1] char(7) -- collate Latin1_General_100_BIN2
 , [IsOneTimeAccount] nvarchar(2)
 , [TaxJurisdiction] nvarchar(30)
 , [Industry] nvarchar(8)
@@ -60,7 +60,7 @@
 , [FiscalAddress] nvarchar(20)
 , [NFPartnerIsNaturalPerson] nvarchar(2)
 , [DeletionIndicator] nvarchar(2)
-, [Language] char(1) collate  Latin1_General_100_BIN2
+, [Language] char(1) -- collate  Latin1_General_100_BIN2
 , [TradingPartner] nvarchar(12)
 , [DeliveryDateTypeRule] nvarchar(2)
 , [TaxInvoiceRepresentativeName] nvarchar(20)

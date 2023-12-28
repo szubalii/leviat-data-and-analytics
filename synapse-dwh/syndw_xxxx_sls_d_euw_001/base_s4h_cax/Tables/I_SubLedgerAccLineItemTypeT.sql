@@ -1,6 +1,6 @@
 CREATE TABLE [base_s4h_cax].[I_SubLedgerAccLineItemTypeT](
-  [SubLedgerAcctLineItemType] char(5) collate Latin1_General_100_BIN2 NOT NULL
-, [Language] char(1) collate  Latin1_General_100_BIN2 NOT NULL
+  [SubLedgerAcctLineItemType] char(5) NOT NULL -- collate Latin1_General_100_BIN2 NOT NULL
+, [Language] char(1) NOT NULL -- collate Latin1_General_100_BIN2 NOT NULL
 , [SubLedgerAcctLineItemTypeName] nvarchar(70)
 , [t_applicationId]       VARCHAR (32)
 , [t_jobId]               VARCHAR (36)

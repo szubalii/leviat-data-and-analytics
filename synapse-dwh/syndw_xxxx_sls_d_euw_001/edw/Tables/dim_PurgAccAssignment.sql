@@ -1,12 +1,12 @@
 CREATE TABLE [edw].[dim_PurgAccAssignment](
-      [MANDT]                 NCHAR(3)        COLLATE Latin1_General_100_BIN2 NOT NULL
-    , [PurchaseOrder]         NVARCHAR(10)    COLLATE Latin1_General_100_BIN2 NOT NULL
-    , [PurchaseOrderItem]     NCHAR(5)        COLLATE Latin1_General_100_BIN2 NOT NULL
-    , [SequentialNumberOfAccountAssignment]   NCHAR(2)  COLLATE Latin1_General_100_BIN2 NOT NULL
-    , [GLAccountID]           NVARCHAR(10)    COLLATE Latin1_General_100_BIN2
-    , [CostCenterID]          NVARCHAR(10)    COLLATE Latin1_General_100_BIN2
-    , [ICSalesDocumentID]     NVARCHAR(10)    COLLATE Latin1_General_100_BIN2
-    , [ICSalesDocumentItemID] NVARCHAR(10)    COLLATE Latin1_General_100_BIN2
+      [MANDT]                 NCHAR(3)        NOT NULL -- COLLATE Latin1_General_100_BIN2 NOT NULL
+    , [PurchaseOrder]         NVARCHAR(10)    NOT NULL -- COLLATE Latin1_General_100_BIN2 NOT NULL
+    , [PurchaseOrderItem]     NCHAR(5)        NOT NULL -- COLLATE Latin1_General_100_BIN2 NOT NULL
+    , [SequentialNumberOfAccountAssignment]   NCHAR(2)  NOT NULL -- COLLATE Latin1_General_100_BIN2 NOT NULL
+    , [GLAccountID]           NVARCHAR(10)   -- COLLATE Latin1_General_100_BIN2
+    , [CostCenterID]          NVARCHAR(10)   -- COLLATE Latin1_General_100_BIN2
+    , [ICSalesDocumentID]     NVARCHAR(10)   -- COLLATE Latin1_General_100_BIN2
+    , [ICSalesDocumentItemID] NVARCHAR(10)   -- COLLATE Latin1_General_100_BIN2
     , [t_applicationId]       VARCHAR(32)
     , [t_jobId]               VARCHAR(36)
     , [t_jobDtm]              DATETIME

@@ -5,10 +5,10 @@
     ,   [BillingDocumentDate]                      DATETIME                                             NULL
     ,   [SalesOrganizationID]                      NVARCHAR(24)                                         NULL
     ,   [NetAmount]                                DECIMAL(28,12)                                       NULL
-    ,   [TransactionCurrencyID]                    CHAR(6) collate Latin1_General_100_BIN2              NULL
+    ,   [TransactionCurrencyID]                    CHAR(6) -- collate Latin1_General_100_BIN2
     ,   [CurrencyTypeID]                           CHAR(2)                                              NULL
     ,   [CurrencyType]                             NVARCHAR(20)                                         NULL
-    ,   [CurrencyID]                               CHAR(3) collate Latin1_General_100_BIN2              NULL
+    ,   [CurrencyID]                               CHAR(3) -- collate Latin1_General_100_BIN2
     ,   [ExchangeRate]                             DECIMAL(15, 6)                                       NULL
     ,   [FinNetAmount]                             DECIMAL(28,12)                                       NULL
     ,   [AccountingDate]                           DATETIME                                             NULL

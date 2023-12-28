@@ -2,7 +2,7 @@ CREATE TABLE [base_s4h_cax].[I_AccountingDocumentType](
   [TS_SEQUENCE_NUMBER] INTEGER NOT NULL
 , [ODQ_CHANGEMODE] CHAR(1)
 , [ODQ_ENTITYCNTR] NUMERIC(19,0)
-, [MANDT] char(3) collate Latin1_General_100_BIN2 NOT NULL
+, [MANDT] char(3) NOT NULL -- collate Latin1_General_100_BIN2 NOT NULL
 , [AccountingDocumentType] nvarchar(2) NOT NULL
 , [AccountingDocumentNumberRange] nvarchar(2)
 , [AuthorizationGroup] nvarchar(4)

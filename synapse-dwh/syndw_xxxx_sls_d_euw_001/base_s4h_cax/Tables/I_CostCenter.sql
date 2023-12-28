@@ -1,5 +1,5 @@
 CREATE TABLE [base_s4h_cax].[I_CostCenter](
-  [MANDT] char(3) collate Latin1_General_100_BIN2 NOT NULL
+  [MANDT] char(3) NOT NULL -- collate Latin1_General_100_BIN2 NOT NULL
 , [ControllingArea] nvarchar(4) NOT NULL
 , [CostCenter] nvarchar(10) NOT NULL
 , [ValidityEndDate] date NOT NULL
@@ -11,7 +11,7 @@ CREATE TABLE [base_s4h_cax].[I_CostCenter](
 , [CostCenterCategory] nvarchar(1)
 , [CostCtrResponsiblePersonName] nvarchar(20)
 , [CostCtrResponsibleUser] nvarchar(12)
-, [CostCenterCurrency] char(5) collate Latin1_General_100_BIN2
+, [CostCenterCurrency] char(5) -- collate Latin1_General_100_BIN2
 , [CostingSheet] nvarchar(6)
 , [TaxJurisdiction] nvarchar(15)
 , [ProfitCenter] nvarchar(10)
@@ -44,7 +44,7 @@ CREATE TABLE [base_s4h_cax].[I_CostCenter](
 , [PostalCode] nvarchar(10)
 , [POBoxPostalCode] nvarchar(10)
 , [Region] nvarchar(3)
-, [Language] char(1) collate  Latin1_General_100_BIN2
+, [Language] char(1) -- collate Latin1_General_100_BIN2
 , [TeleboxNumber] nvarchar(15)
 , [PhoneNumber1] nvarchar(16)
 , [PhoneNumber2] nvarchar(16)

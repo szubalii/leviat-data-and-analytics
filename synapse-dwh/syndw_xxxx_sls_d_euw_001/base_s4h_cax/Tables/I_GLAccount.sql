@@ -1,5 +1,5 @@
 CREATE TABLE [base_s4h_cax].[I_GLAccount](
-  [MANDT] char(3) collate Latin1_General_100_BIN2 NOT NULL
+  [MANDT] char(3) NOT NULL -- collate Latin1_General_100_BIN2 NOT NULL
 , [GLAccount] nvarchar(10) NOT NULL
 , [CompanyCode] nvarchar(4) NOT NULL
 , [ChartOfAccounts] nvarchar(4)

@@ -30,7 +30,7 @@
     [Country]                        nvarchar(6),
     [Region]                         nvarchar(6),
     [TaxJurisdiction]                nvarchar(30),
-    [Language]                       char(1) collate Latin1_General_100_BIN2,
+    [Language]                       char(1), -- collate Latin1_General_100_BIN2,
     [PhoneNumber1]                   nvarchar(32),
     [PhoneNumber2]                   nvarchar(32),
     [TeleboxNumber]                  nvarchar(30),
