@@ -44,6 +44,10 @@
 						]
 					}
 				],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
 				"userProperties": [],
 				"typeProperties": {
 					"variableName": "XUExtractionTimestamp",
@@ -249,7 +253,7 @@
 						},
 						"directory_path": {
 							"value": {
-								"value": "@pipeline().parameters.adls_directory_path",
+								"value": "@variables('directory_path')",
 								"type": "Expression"
 							},
 							"type": "String"
@@ -298,6 +302,10 @@
 						]
 					}
 				],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
 				"userProperties": [],
 				"typeProperties": {
 					"variableName": "adlsFileName",
@@ -372,6 +380,10 @@
 						]
 					}
 				],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
 				"userProperties": [],
 				"typeProperties": {
 					"variableName": "extraction_url",
@@ -385,6 +397,10 @@
 				"name": "Set source url param",
 				"type": "SetVariable",
 				"dependsOn": [],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
 				"userProperties": [],
 				"typeProperties": {
 					"variableName": "sourceUrlParam",
@@ -398,6 +414,10 @@
 				"name": "Set destination url param",
 				"type": "SetVariable",
 				"dependsOn": [],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
 				"userProperties": [],
 				"typeProperties": {
 					"variableName": "destinationUrlParam",
@@ -424,6 +444,10 @@
 						]
 					}
 				],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
 				"userProperties": [],
 				"typeProperties": {
 					"variableName": "urlParams",
@@ -442,6 +466,12 @@
 						"dependencyConditions": [
 							"Succeeded"
 						]
+					},
+					{
+						"activity": "Set directory_path",
+						"dependencyConditions": [
+							"Succeeded"
+						]
 					}
 				],
 				"userProperties": [],
@@ -455,10 +485,31 @@
 							"name": "Set adlsFileNameSuffix Wildcard",
 							"type": "SetVariable",
 							"dependsOn": [],
+							"policy": {
+								"secureOutput": false,
+								"secureInput": false
+							},
 							"userProperties": [],
 							"typeProperties": {
 								"variableName": "adlsFileNameSuffix",
 								"value": "*.parquet"
+							}
+						},
+						{
+							"name": "Reset directory_path",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"policy": {
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "directory_path",
+								"value": {
+									"value": "@activity('Lookup Extraction Destination').output.firstRow.folderPath",
+									"type": "Expression"
+								}
 							}
 						}
 					]
@@ -508,6 +559,23 @@
 								"type": "Expression"
 							}
 						}
+					}
+				}
+			},
+			{
+				"name": "Set directory_path",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "directory_path",
+					"value": {
+						"value": "@pipeline().parameters.adls_directory_path",
+						"type": "Expression"
 					}
 				}
 			}
@@ -566,6 +634,9 @@
 			"adlsFileNameSuffix": {
 				"type": "String",
 				"defaultValue": ".parquet"
+			},
+			"directory_path": {
+				"type": "String"
 			}
 		},
 		"folder": {
