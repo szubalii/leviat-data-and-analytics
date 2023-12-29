@@ -494,23 +494,6 @@
 								"variableName": "adlsFileNameSuffix",
 								"value": "*.parquet"
 							}
-						},
-						{
-							"name": "Reset directory_path",
-							"type": "SetVariable",
-							"dependsOn": [],
-							"policy": {
-								"secureOutput": false,
-								"secureInput": false
-							},
-							"userProperties": [],
-							"typeProperties": {
-								"variableName": "directory_path",
-								"value": {
-									"value": "@replace(\n    activity('Lookup Extraction Destination').output.firstRow.folderPath,\n    '#{ DateTime.Now.ToString(\\\"yyyy/MM/dd\\\") }#',\n    pipeline().parameters.date\n)",
-									"type": "Expression"
-								}
-							}
 						}
 					]
 				}
@@ -574,7 +557,7 @@
 				"typeProperties": {
 					"variableName": "directory_path",
 					"value": {
-						"value": "@pipeline().parameters.adls_directory_path",
+						"value": "@concat(\n    substring(\n        pipeline().parameters.adls_directory_path,\n        0,\n        sub(length(pipeline().parameters.adls_directory_path), 10)\n    )\n    ,pipeline().parameters.date\n)",
 						"type": "Expression"
 					}
 				}
