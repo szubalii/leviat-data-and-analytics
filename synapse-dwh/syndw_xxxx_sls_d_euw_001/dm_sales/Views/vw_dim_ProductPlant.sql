@@ -88,9 +88,9 @@ LEFT JOIN
 LEFT JOIN
     [base_s4h_cax].[NSDM_V_MARC] NSDM
     ON 
-        PP.[Product] = NSDM.[MATNR] COLLATE SQL_Latin1_General_CP1_CS_AS
+        PP.[Product] = NSDM.[MATNR]
         AND
-        PP.[Plant] = NSDM.[WERKS] COLLATE SQL_Latin1_General_CP1_CS_AS
+        PP.[Plant] = NSDM.[WERKS]
 LEFT JOIN
     [base_s4h_cax].[I_PlanningStrategyGroupText] PSGT
     ON 
