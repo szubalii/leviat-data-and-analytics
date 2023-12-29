@@ -504,6 +504,9 @@ SELECT
       ,[PrcgElmntZC10ConditionAmount]
       ,[PrcgElmntZCF1ConditionAmount]
       ,[PrcgElmntVPRS/EK02ConditionAmount]
+      ,[PrcgElmntZC10ConditionRate]
+      ,[PrcgElmntZCF1ConditionRate]
+      ,[PrcgElmntVPRS/EK02ConditionRate]
       ,[t_applicationId]
       ,[t_extractionDtm]
   FROM original
