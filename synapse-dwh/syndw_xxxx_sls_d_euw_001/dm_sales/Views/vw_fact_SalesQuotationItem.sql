@@ -21,6 +21,26 @@ PrcgElmnt AS (
         ,[SalesQuotationItem]
         ,[CurrencyTypeID]
 )
+,PrcgElmntCR AS (
+    SELECT
+        [SalesQuotation]
+        ,[SalesQuotationItem]
+        ,[CurrencyTypeID]
+        ,MAX([ZC10])    AS [ZC10]
+        ,MAX([ZCF1])    AS [ZCF1]
+        ,MAX([VPRS])    AS [VPRS]
+        ,MAX([EK02])    AS [EK02]
+    FROM [edw].[fact_SalesQuotationItemPrcgElmnt]
+    PIVOT  
+    (  
+        SUM(ConditionRateValue)  
+        FOR [ConditionType] IN ([ZC10], [ZCF1], [VPRS], [EK02])  
+    ) AS PivotTable
+    GROUP BY
+        [SalesQuotation]
+        ,[SalesQuotationItem]
+        ,[CurrencyTypeID]
+)
 select doc.[SalesDocument]           as [QuotationID]
      , doc.[SalesDocumentItem]       as [QuotationItemID]
      , doc.[CurrencyTypeID]
@@ -148,6 +168,11 @@ select doc.[SalesDocument]           as [QuotationID]
     , [edw].[svf_replaceZero](
             PrcgElmnt.[VPRS]
             ,PrcgElmnt.[EK02])                 AS [PrcgElmntVPRS/EK02ConditionAmount]
+    , PrcgElmntCR.[ZC10]                       AS [PrcgElmntZC10ConditionRate]
+    , PrcgElmntCR.[ZCF1]                       AS [PrcgElmntZCF1ConditionRate]
+    , [edw].[svf_replaceZero](
+            PrcgElmntCR.[VPRS]
+            ,PrcgElmntCR.[EK02])               AS [PrcgElmntVPRS/EK02ConditionRate]
      , doc.[t_applicationId]
      , doc.[t_extractionDtm]
 from [edw].[fact_SalesDocumentItem] doc
@@ -241,5 +266,9 @@ from [edw].[fact_SalesDocumentItem] doc
                  ON doc.SalesDocument = PrcgElmnt.SalesQuotation
                      AND doc.SalesDocumentItem = PrcgElmnt.SalesQuotationItem  COLLATE DATABASE_DEFAULT
                      AND doc.CurrencyTypeID = PrcgElmnt.CurrencyTypeID
+         LEFT JOIN PrcgElmntCR
+                 ON doc.SalesDocument = PrcgElmntCR.SalesQuotation
+                     AND doc.SalesDocumentItem = PrcgElmntCR.SalesQuotationItem  COLLATE DATABASE_DEFAULT
+                     AND doc.CurrencyTypeID = PrcgElmntCR.CurrencyTypeID
 
 where doc.[SDDocumentCategoryID] = 'B'

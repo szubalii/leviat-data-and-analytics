@@ -49,6 +49,27 @@ WITH BillDocPrcgElmnt AS (
         ,[CurrencyTypeID]
 )
 
+, PrcgElmntCR AS (
+    SELECT
+        [BillingDocument]
+        ,[BillingDocumentItem]
+        ,[CurrencyTypeID]
+        ,MAX([ZC10])    AS [ZC10]
+        ,MAX([ZCF1])    AS [ZCF1]
+        ,MAX([VPRS])    AS [VPRS]
+        ,MAX([EK02])    AS [EK02]
+    FROM [edw].[fact_BillingDocumentItemPrcgElmnt]
+    PIVOT  
+    (  
+        SUM(ConditionRateValue)  
+        FOR [ConditionType] IN ([ZC10], [ZCF1], [VPRS], [EK02])  
+    ) AS PivotTable
+    GROUP BY
+        [BillingDocument]
+        ,[BillingDocumentItem]
+        ,[CurrencyTypeID]
+)
+
  , original AS (
     SELECT 
            doc.[sk_fact_BillingDocumentItem]
@@ -239,6 +260,11 @@ WITH BillDocPrcgElmnt AS (
          , [edw].[svf_replaceZero](
                 PrcgElmnt.[VPRS]
                 ,PrcgElmnt.[EK02])                  AS [PrcgElmntVPRS/EK02ConditionAmount]
+         , PrcgElmntCR.[ZC10]                         AS [PrcgElmntZC10ConditionRate]
+         , PrcgElmntCR.[ZCF1]                         AS [PrcgElmntZCF1ConditionRate]
+         , [edw].[svf_replaceZero](
+                PrcgElmntCR.[VPRS]
+                ,PrcgElmntCR.[EK02])                  AS [PrcgElmntVPRS/EK02ConditionRate]
          , doc.[t_applicationId]
          , doc.[t_extractionDtm]
     FROM [edw].[fact_BillingDocumentItem] doc
@@ -296,6 +322,10 @@ WITH BillDocPrcgElmnt AS (
                 ON doc.BillingDocument = PrcgElmnt.BillingDocument
                     AND doc.BillingDocumentItem = PrcgElmnt.BillingDocumentItem
                     AND doc.CurrencyTypeID = PrcgElmnt.CurrencyTypeID
+            LEFT JOIN PrcgElmntCR
+                ON doc.BillingDocument = PrcgElmntCR.BillingDocument
+                    AND doc.BillingDocumentItem = PrcgElmntCR.BillingDocumentItem
+                    AND doc.CurrencyTypeID = PrcgElmntCR.CurrencyTypeID
             WHERE doc.[CurrencyTypeID] <> '00' -- Transaction Currency
 )
 
@@ -474,6 +504,9 @@ SELECT
       ,[PrcgElmntZC10ConditionAmount]
       ,[PrcgElmntZCF1ConditionAmount]
       ,[PrcgElmntVPRS/EK02ConditionAmount]
+      ,[PrcgElmntZC10ConditionRate]
+      ,[PrcgElmntZCF1ConditionRate]
+      ,[PrcgElmntVPRS/EK02ConditionRate]
       ,[t_applicationId]
       ,[t_extractionDtm]
   FROM original
