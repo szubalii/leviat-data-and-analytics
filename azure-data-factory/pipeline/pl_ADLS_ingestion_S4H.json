@@ -507,7 +507,7 @@
 							"typeProperties": {
 								"variableName": "directory_path",
 								"value": {
-									"value": "@activity('Lookup Extraction Destination').output.firstRow.folderPath",
+									"value": "@replace(\n    activity('Lookup Extraction Destination').output.firstRow.folderPath,\n    '#{ DateTime.Now.ToString(\\\"yyyy/MM/dd\\\") }#',\n    pipeline().parameters.date\n)",
 									"type": "Expression"
 								}
 							}
