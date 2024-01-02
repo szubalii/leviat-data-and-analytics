@@ -1,31 +1,32 @@
 CREATE TABLE [base_s4h_cax].[KNVH]
-/*
 (
-    [MANDT]           nchar(3) collate Latin1_General_100_BIN2 NOT NULL,
-    [MATNR]           nvarchar(40) collate Latin1_General_100_BIN2 NOT NULL,
-    [BWKEY]           nvarchar(4) collate Latin1_General_100_BIN2 NOT NULL,
-    [BWTAR]           nvarchar(10) collate Latin1_General_100_BIN2 NOT NULL,
-    [LFGJA]           char(4) collate Latin1_General_100_BIN2 NOT NULL,
-    [LFMON]           char(2) collate Latin1_General_100_BIN2 NOT NULL,
-    [LBKUM]           decimal(13,3),
-    [SALK3]           decimal(13,2),
-    [VPRSV]           nvarchar(1) collate Latin1_General_100_BIN2,
-    [VERPR]           decimal(11,2),
-    [STPRS]           decimal(11,2),
-    [PEINH]           decimal(5),
-    [BKLAS]           nvarchar(4) collate Latin1_General_100_BIN2,
-    [SALKV]           decimal(13,2),
-    [VKSAL]           decimal(13,2),
+    [MANDT]           nchar(3)      NOT NULL,
+    [HITYP]           nvarchar(1)   NOT NULL,
+    [KUNNR]           nvarchar(10)  NOT NULL,
+    [VKORG]           nvarchar(4)   NOT NULL,
+    [VTWEG]           nvarchar(2)   NOT NULL,
+    [SPART]           nvarchar(2)   NOT NULL,
+    [DATAB]           date          NOT NULL,
+    [DATBI]           date,
+    [HKUNNR]          nvarchar(10),
+    [HVKORG]          nvarchar(4),
+    [HVTWEG]          nvarchar(2),
+    [HSPART]          nvarchar(2),
+    [GRPNO]           nvarchar(3),
+    [BOKRE]           nvarchar(1),
+    [PRFRE]           nvarchar(1),
+    [HZUOR]           nvarchar(2),
+    [NODE_GUID]       nvarchar(32),
+    [NODE_ID]         nvarchar(20),
     [t_applicationId] VARCHAR (32),
     [t_jobId]         VARCHAR(36),
     [t_jobDtm]        DATETIME,
     [t_jobBy]         NVARCHAR(128),
     [t_extractionDtm] DATETIME,
     [t_filePath]      NVARCHAR(1024),
-    CONSTRAINT [PK_MBEWH] PRIMARY KEY NONCLUSTERED (
-        [MANDT],[MATNR],[BWKEY],[BWTAR],[LFGJA],[LFMON]
+    CONSTRAINT [PK_KNVH] PRIMARY KEY NONCLUSTERED (
+        [MANDT],[HITYP],[KUNNR],[VKORG],[VTWEG],[SPART],[DATAB]
     ) NOT ENFORCED
 ) WITH (
   HEAP
 )
-*/
