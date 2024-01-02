@@ -213,8 +213,8 @@ C_SalesDocumentItemDEXBase as (
          , ZA.[FullName]                        as SalesAgent
          , ZB.[Customer]                        as [ExternalSalesAgentID]
          , ZB.[FullName]                        as [ExternalSalesAgent]
-         , D1.[Customer]                        as [GlobalParentID]
-         , D1.[FullName]                        as [GlobalParent]
+         , KNVH.[HKUNNR]                        as [GlobalParentID]
+         , DimCust.[CustomerFullName]           as [GlobalParent]
          , C1.[Customer]                        as [LocalParentID]
          , C1.[FullName]                        as [LocalParent]
          , ZP.[Customer]                        as [ProjectID]
@@ -222,13 +222,15 @@ C_SalesDocumentItemDEXBase as (
          , dim_SalesEmployee.[Personnel]        as [SalesEmployeeID]
          , dim_SalesEmployee.[FullName]         as [SalesEmployee]
          , case
-               when D1.[Customer] is not null then D1.[Customer]
-               else AG.[Customer]
+                when KNVH.[HKUNNR] is not null 
+                then KNVH.[HKUNNR]
+                else AG.[Customer]
            end                                  as [GlobalParentCalculatedID]
          , case
-               when D1.[FullName] is not null then D1.[FullName]
-               else AG.[FullName]
-          end                                   as [GlobalParentCalculated]
+                when DimCust.[CustomerFullName] is not null 
+                then DimCust.[CustomerFullName]
+                else AG.[FullName]
+           end                                  as [GlobalParentCalculated]
          , case
                when C1.[Customer] is not null then C1.[Customer]
                else AG.[Customer]
@@ -400,8 +402,17 @@ C_SalesDocumentItemDEXBase as (
             AND doc.[SDDocumentCategory] <> 'B'
             AND doc.[SDDocumentRejectionStatus] <> 'C'
 
-    LEFT JOIN  [edw].[dim_Customer] DimCust
-            ON doc.SoldToParty = DimCust.CustomerID  
+    LEFT JOIN [edw].[vw_Latest_HKUNNR] KNVH
+            ON doc.SoldToParty = KNVH.KUNNR
+                AND 
+                doc.SalesOrganization = KNVH.VKORG
+                AND 
+                doc.DistributionChannel = KNVH.VTWEG
+                AND 
+                doc.Division = KNVH.SPART
+
+    LEFT JOIN [edw].[dim_Customer] DimCust
+            ON KNVH.HKUNNR = DimCust.CustomerID 
 )
 
 SELECT 

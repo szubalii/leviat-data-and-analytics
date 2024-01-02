@@ -164,8 +164,8 @@ C_SalesDocumentItemDEXBase as (
     , doc.[ItemDeliveryIncompletionStatus] as [ItemDeliveryIncompletionStatusID]
     , ZB.[Customer]                        as [ExternalSalesAgentID]
     , ZB.[FullName]                        as [ExternalSalesAgent]
-    , D1.[Customer]                        as [GlobalParentID]
-    , D1.[FullName]                        as [GlobalParent]
+    , KNVH.[HKUNNR]                        as [GlobalParentID]
+    , DimCust.[CustomerFullName]           as [GlobalParent]
     , C1.[Customer]                        as [LocalParentID]
     , C1.[FullName]                        as [LocalParent]
     , ZP.[Customer]                        as [ProjectID]
@@ -173,13 +173,13 @@ C_SalesDocumentItemDEXBase as (
     , VE.[Personnel]                       as [SalesEmployeeID]
     , VE.[FullName]                        as [SalesEmployee]
     , case
-          when D1.[Customer] is not null 
-          then D1.[Customer]
+          when KNVH.[HKUNNR]is not null 
+          then KNVH.[HKUNNR]
           else AG.[Customer]
       end                                  as [GlobalParentCalculatedID]
     , case
-          when D1.[FullName] is not null 
-          then D1.[FullName]
+          when DimCust.[CustomerFullName] is not null 
+          then DimCust.[CustomerFullName]
           else AG.[FullName]
     end                                   as [GlobalParentCalculated]
     , case
@@ -260,8 +260,17 @@ C_SalesDocumentItemDEXBase as (
             AND 
             ORDAM.SalesDocumentItem = doc.SalesDocumentItem
             
-    LEFT JOIN  [edw].[dim_Customer] DimCust
-            ON doc.SoldToParty = DimCust.CustomerID  
+    LEFT JOIN [edw].[vw_Latest_HKUNNR] KNVH
+        ON doc.SoldToParty = KNVH.KUNNR
+            AND 
+            doc.SalesOrganization = KNVH.VKORG
+            AND 
+            doc.DistributionChannel = KNVH.VTWEG
+            AND 
+            doc.Division = KNVH.SPART
+
+    LEFT JOIN [edw].[dim_Customer] DimCust
+        ON KNVH.HKUNNR = DimCust.CustomerID 
     WHERE 
     -- casting the left and right sides of equality to the same data type DATE
         CAST(doc.[t_lastActionDtm] as DATE) >  -- the view displays new data that is not yet in the fact table
