@@ -749,6 +749,7 @@
     <Build Include="base_s4h_cax\Tables\AGR_TEXTS.sql" />
     <Build Include="base_s4h_cax\Tables\AGR_1251.sql" />
     <Build Include="base_s4h_cax\Tables\TSTCT.sql" />
+    <Build Include="base_s4h_cax\Tables\AGR_DEFINE.sql" />
     <Build Include="base_s4h_cax\Tables\Opt_Vim_1Item_Extended.sql" />
     <Build Include="base_s4h_cax\Tables\C_GRIRAccountReconciliation.sql" />
     <Build Include="base_tx_ca_0_hlp\Tables\DATAAREA.sql" />
