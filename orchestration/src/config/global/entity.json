@@ -6107,6 +6107,15 @@
         "execution_order": 1,
         "schedule_recurrence": "W",
         "schedule_day": 2
+      },
+      {
+        "entity_id": 647,
+        "entity_name": "dim_BillingDocProject",
+        "sproc_name": "sp_materialize_view",
+        "source_view_name": "vw_BillingDocProject",
+        "dest_table_name": "dim_BillingDocProject",
+        "execution_order": 0,
+        "schedule_recurrence": "D"
       }
     ]
   },

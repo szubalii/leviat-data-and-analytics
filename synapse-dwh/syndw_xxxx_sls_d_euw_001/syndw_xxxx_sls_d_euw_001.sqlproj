@@ -1008,7 +1008,7 @@
     <Build Include="edw\Tables\fact_GRIRAccountReconciliation.sql" />
     <Build Include="edw\Tables\fact_ScheduleLineShippedNotBilled.sql" />
     <Build Include="edw\Tables\dim_FiscalCalendar.sql" />
-
+    <Build Include="edw\Tables\dim_BillingDocProject.sql" />
     <!-- FUNCTIONS -->
 
     <Build Include="intm_axbi\Functions\uf_get_CashDiscPct.sql" />
@@ -1247,7 +1247,9 @@
     <Build Include="edw\Views\vw_fact_SalesDocumentItem_LC_EUR.sql" />
     <Build Include="edw\Views\vw_fact_SalesDocumentItem_ODICount.sql" />
     <Build Include="edw\Views\vw_fact_SalesDocumentItem_ScheduleLineCount.sql" />
-      <Build Include="dq\Views\vw_Product_1_2.sql" />
+    <Build Include="edw\Views\vw_BillingDocProject.sql" />
+    
+    <Build Include="dq\Views\vw_Product_1_2.sql" />
     <Build Include="dq\Views\vw_RuleTotal.sql" />
     <Build Include="dq\Views\vw_Product_1_17.sql" />
     <Build Include="dq\Views\vw_Product_1_19.sql" />
