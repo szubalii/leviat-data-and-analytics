@@ -5,6 +5,8 @@ BEGIN
   IF OBJECT_ID('actual') IS NOT NULL DROP TABLE actual;
   IF OBJECT_ID('expected') IS NOT NULL DROP TABLE expected;
   IF OBJECT_ID('tempdb..#vw_fact_SalesDocumentItem_LC_EUR') IS NOT NULL DROP TABLE #vw_fact_SalesDocumentItem_LC_EUR;
+  IF OBJECT_ID('tempdb..#vw_SalesDocumentEarliestConfirmedDeliveryDate') IS NOT NULL DROP TABLE #vw_SalesDocumentEarliestConfirmedDeliveryDate;
+  IF OBJECT_ID('tempdb..#vw_OriginalConfirmedScheduleLineDeliveryDate') IS NOT NULL DROP TABLE #vw_OriginalConfirmedScheduleLineDeliveryDate;
 
   -- Assemble: Fake Table
   EXEC tSQLt.FakeTable '[base_s4h_cax]', '[I_OutboundDeliveryItem]';
@@ -26,20 +28,32 @@ BEGIN
     (2, 2, 200);
 
   EXEC ('INSERT INTO edw.vw_fact_SalesDocumentItem_LC_EUR SELECT * FROM #vw_fact_SalesDocumentItem_LC_EUR');
+
+  SELECT TOP(0) *
+  INTO #vw_SalesDocumentEarliestConfirmedDeliveryDate
+  FROM intm_s4h.vw_SalesDocumentEarliestConfirmedDeliveryDate;
   
-  INSERT INTO [intm_s4h].[vw_SalesDocumentEarliestConfirmedDeliveryDate] ([SalesDocument], [SalesDocumentItem], [ConfirmedDeliveryDate], [ScheduleLine])
+  INSERT INTO #vw_SalesDocumentEarliestConfirmedDeliveryDate ([SalesDocument], [SalesDocumentItem], [ConfirmedDeliveryDate], [ScheduleLine])
   VALUES
     (1, 1, '2024-01-01', 1),
     (1, 1, '2023-12-01', 2),
     (2, 2, '2023-01-01', 3),
     (2, 2, '2023-06-01', 4);
+
+  EXEC ('INSERT INTO intm_s4h.vw_SalesDocumentEarliestConfirmedDeliveryDate SELECT * FROM #vw_SalesDocumentEarliestConfirmedDeliveryDate');
+
+  SELECT TOP(0) *
+  INTO #vw_OriginalConfirmedScheduleLineDeliveryDate
+  FROM intm_s4h.vw_OriginalConfirmedScheduleLineDeliveryDate;
   
-  INSERT INTO [intm_s4h].[vw_OriginalConfirmedScheduleLineDeliveryDate] ([SalesDocumentID], [SalesDocumentItemID], [OriginalConfirmedDeliveryDate], [ScheduleLine])
+  INSERT INTO #vw_OriginalConfirmedScheduleLineDeliveryDate ([SalesDocumentID], [SalesDocumentItemID], [OriginalConfirmedDeliveryDate], [ScheduleLine])
   VALUES
     (1, 1, '2024-01-01', 1),
     (1, 1, '2023-11-01', 2),
     (2, 2, '2023-02-01', 3),
     (2, 2, '2023-07-01', 4);
+
+  EXEC ('INSERT INTO intm_s4h.vw_OriginalConfirmedScheduleLineDeliveryDate SELECT * FROM #vw_OriginalConfirmedScheduleLineDeliveryDate');
 
   -- Act: 
   SELECT
