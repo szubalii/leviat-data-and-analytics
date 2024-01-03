@@ -1,4 +1,4 @@
-CREATE PROCEDURE [tc.edw.svf_getOriginalConfirmedDeliveryDate].[test filters]
+CREATE PROCEDURE [tc.edw.svf_getOriginalConfirmedDeliveryDate].[test logic]
 AS
 BEGIN
   IF OBJECT_ID('actual') IS NOT NULL DROP TABLE actual;

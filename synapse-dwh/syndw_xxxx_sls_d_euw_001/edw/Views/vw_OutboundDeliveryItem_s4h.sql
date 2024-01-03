@@ -92,8 +92,8 @@ OutboundDeliveryItem_s4h AS (
                 ODI.ActualDeliveryQuantity
                ,SDI.SDI_ConfdDelivQtyInOrderQtyUnit
                ,OCDD.[OriginalConfirmedDeliveryDate]
-               ,MIN(OCDD.[OriginalConfirmedDeliveryDate])
-                    OVER (PARTITION BY
+               ,MIN(OCDD.[OriginalConfirmedDeliveryDate])           -- it's to get the earliest OriginalConfirmedDeliveryDate
+                    OVER (PARTITION BY                              -- for that SalesDocumentID and SalesDocumentItem
                         OCDD.SalesDocumentID, OCDD.SalesDocumentItemID)
                ,SDSL.[ConfirmedDeliveryDate]
                ) AS [SL_OriginalConfirmedDeliveryDate]
