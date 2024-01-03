@@ -4,6 +4,7 @@ BEGIN
 
   IF OBJECT_ID('actual') IS NOT NULL DROP TABLE actual;
   IF OBJECT_ID('expected') IS NOT NULL DROP TABLE expected;
+  IF OBJECT_ID('tempdb..#vw_fact_SalesDocumentItem_LC_EUR') IS NOT NULL DROP TABLE #vw_fact_SalesDocumentItem_LC_EUR;
 
   -- Assemble: Fake Table
   EXEC tSQLt.FakeTable '[base_s4h_cax]', '[I_OutboundDeliveryItem]';
@@ -15,10 +16,16 @@ BEGIN
   INSERT INTO [base_s4h_cax].[I_OutboundDeliveryItem] ([ReferenceSDDocument], [ReferenceSDDocumentItem], [ActualDeliveryQuantity])
   VALUES (1, 1, 100), (2, 2, 200);
 
-  INSERT INTO [edw].[vw_fact_SalesDocumentItem_LC_EUR] ([SalesDocument], [SalesDocumentItem], [SDI_ConfdDelivQtyInOrderQtyUnit])
+  SELECT TOP(0) *
+  INTO #vw_fact_SalesDocumentItem_LC_EUR
+  FROM edw.vw_fact_SalesDocumentItem_LC_EUR;
+
+  INSERT INTO #vw_fact_SalesDocumentItem_LC_EUR ([SalesDocument], [SalesDocumentItem], [SDI_ConfdDelivQtyInOrderQtyUnit])
   VALUES
     (1, 1, 110),
     (2, 2, 200);
+
+  EXEC ('INSERT INTO edw.vw_fact_SalesDocumentItem_LC_EUR SELECT * FROM #vw_fact_SalesDocumentItem_LC_EUR');
   
   INSERT INTO [intm_s4h].[vw_SalesDocumentEarliestConfirmedDeliveryDate] ([SalesDocument], [SalesDocumentItem], [ConfirmedDeliveryDate], [ScheduleLine])
   VALUES
