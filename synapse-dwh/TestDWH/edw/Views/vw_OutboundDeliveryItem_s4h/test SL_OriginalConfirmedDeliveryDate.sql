@@ -70,7 +70,7 @@ BEGIN
   INSERT INTO expected(
     [ReferenceSDDocument],
     [ReferenceSDDocumentItem],
-    [SL_FirstCustomerRequestedDeliveryDate])
+    [SL_OriginalConfirmedDeliveryDate])
   VALUES
     (1, 1,'2023-11-01')
     ,(1, 1,'2023-11-01')
