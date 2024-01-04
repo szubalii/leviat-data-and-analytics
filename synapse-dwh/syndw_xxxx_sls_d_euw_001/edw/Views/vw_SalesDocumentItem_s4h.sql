@@ -242,7 +242,7 @@ C_SalesDocumentItemDEXBase as (
          , doc.[SDoc_ControllingObject]         as [SDoc_ControllingObjectID]
          , doc.[SDItem_ControllingObject]       as [SDItem_ControllingObjectID]
          , doc.[CorrespncExternalReference]     as [CorrespncExternalReference] 
-         , edw.svf_getInOutID_s4h (CustomerID)  as [InOutID]
+         , edw.svf_getInOutID_s4h (Cust.CustomerID)  as [InOutID]
          , ORDAM.OpenDeliveryNetAmount
          , CASE
             WHEN SDSL.ScheduleLineCategory = 'ZS'
@@ -401,6 +401,9 @@ C_SalesDocumentItemDEXBase as (
                     END = os_status.InvoiceStatus
             AND doc.[SDDocumentCategory] <> 'B'
             AND doc.[SDDocumentRejectionStatus] <> 'C'
+    LEFT JOIN  [edw].[dim_Customer] Cust
+            ON 
+                doc.SoldToParty = Cust.CustomerID 
 
     LEFT JOIN [edw].[vw_LatestGlobalParent] KNVH
             ON 

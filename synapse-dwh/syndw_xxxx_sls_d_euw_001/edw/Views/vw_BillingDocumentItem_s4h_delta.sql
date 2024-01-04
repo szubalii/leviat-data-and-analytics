@@ -324,7 +324,7 @@ WITH BillingDocumentItemBase as (
         , doc.[BillingDocumentDate]                     as [AccountingDate]
         , doc.[Material] as MaterialCalculated
         , doc.[SoldToParty] as SoldToPartyCalculated
-        , edw.svf_getInOutID_s4h (CustomerID) as InOutID
+        , edw.svf_getInOutID_s4h (Cust.CustomerID) as InOutID
         , PA.ICSalesDocumentID 
         , PA.ICSalesDocumentItemID
         , doc.[t_applicationId]
@@ -363,8 +363,10 @@ WITH BillingDocumentItemBase as (
         left join [edw].[dim_PurgAccAssignment] PA
             ON doc.SalesDocument = PA.PurchaseOrder                   COLLATE DATABASE_DEFAULT
                 AND right(doc.SalesDocumentItem,5) = PA.PurchaseOrderItem
+        left join [edw].[dim_Customer] Cust
+            ON doc.SoldToParty = Cust.CustomerID 
         left join [edw].[vw_LatestGlobalParent] KNVH
-            ON doc.SoldToParty = KNVH.CustomerID
+            ON  doc.SoldToParty = KNVH.CustomerID
                 AND 
                 doc.SalesOrganization = KNVH.SalesOrganizationID
                 AND 

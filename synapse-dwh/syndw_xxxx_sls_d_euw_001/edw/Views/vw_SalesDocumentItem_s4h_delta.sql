@@ -195,7 +195,7 @@ C_SalesDocumentItemDEXBase as (
     , doc.[SDoc_ControllingObject]        as [SDoc_ControllingObjectID]
     , doc.[SDItem_ControllingObject]      as [SDItem_ControllingObjectID]
     , doc.[CorrespncExternalReference]    as [CorrespncExternalReference] 
-    , edw.svf_getInOutID_s4h (CustomerID) as [InOutID]
+    , edw.svf_getInOutID_s4h (Cust.CustomerID) as [InOutID]
     , ORDAM.OpenDeliveryNetAmount
     ,doc.[t_applicationId]
     ,doc.[t_extractionDtm]
@@ -259,6 +259,10 @@ C_SalesDocumentItemDEXBase as (
             ORDAM.SalesDocument = doc.SalesDocument 
             AND 
             ORDAM.SalesDocumentItem = doc.SalesDocumentItem
+     LEFT JOIN  
+        [edw].[dim_Customer] Cust
+        ON 
+            doc.SoldToParty = Cust.CustomerID 
 
     LEFT JOIN  [edw].[vw_LatestGlobalParent] KNVH
         ON 
