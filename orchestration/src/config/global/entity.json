@@ -3632,7 +3632,7 @@
         "update_mode": "Full",
         "base_table_name": "I_GLAccountLineItemRawData_202310",
         "pk_field_names": "SOURCELEDGER, COMPANYCODE, FISCALYEAR, ACCOUNTINGDOCUMENT, LEDGERGLLINEITEM",
-        "schedule_recurrence": "D"
+        "schedule_recurrence": "A"
       },{
         "entity_id": 623,
         "entity_name": "I_GLAccountLineItemRawData_F_202311",
