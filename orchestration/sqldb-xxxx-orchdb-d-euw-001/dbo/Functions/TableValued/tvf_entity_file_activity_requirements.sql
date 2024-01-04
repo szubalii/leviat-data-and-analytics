@@ -35,7 +35,8 @@ RETURN
       [activity_order],
       NULL            AS [batch_id],
       NULL            AS [output]
-    [dbo].[tvf_entity_scheduled](@adhoc, @date, @rerunSuccessfulFullEntities)
+    FROM  
+      [dbo].[tvf_entity_scheduled](@adhoc, @date, @rerunSuccessfulFullEntities)
   )
   ,transposed AS (
     SELECT
