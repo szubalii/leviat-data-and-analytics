@@ -28,8 +28,7 @@ BEGIN
         @file_name,
         @first_failed_file_name,
         @activity_order,
-        @first_failed_activity_order,
-        @rerunSuccessfulFullEntities
+        @first_failed_activity_order
       )
     END;
 
