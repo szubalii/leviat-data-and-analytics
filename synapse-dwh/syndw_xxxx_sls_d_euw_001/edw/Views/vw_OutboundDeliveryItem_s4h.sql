@@ -1555,7 +1555,7 @@ FROM
 )
 SELECT
     [nk_fact_OutboundDeliveryItem]
-    ,edw.[svf_get2PartNaturalKey] ([ProductID], [PlantID]) AS [nk2_fact_OutboundDeliveryItem]
+    ,edw.[svf_get2PartNaturalKey] ([ProductID], [PlantID]) AS [ProductPlant]
     ,[OutboundDelivery]
     ,[OutboundDeliveryItem]
     ,[DeliveryDocumentItemCategoryID]
