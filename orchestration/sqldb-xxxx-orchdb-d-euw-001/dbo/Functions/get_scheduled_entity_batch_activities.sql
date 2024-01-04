@@ -60,6 +60,7 @@ BEGIN
       efr.skipped_activities
     FROM
       dbo.[tvf_entity_file_activities_by_date](
+        @adhoc,
         @date,
         @rerunSuccessfulFullEntities
       ) efr

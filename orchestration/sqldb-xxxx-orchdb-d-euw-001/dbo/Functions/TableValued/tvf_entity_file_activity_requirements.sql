@@ -3,13 +3,41 @@
   each entity file on a single record
 */
 CREATE FUNCTION [dbo].[tvf_entity_file_activity_requirements](
+  @adhoc BIT = 0,
+  @date DATE,
   @rerunSuccessfulFullEntities BIT = 0
 )
 RETURNS TABLE
 AS
 RETURN
 
-  WITH transposed AS (
+  WITH combined_activities AS (
+    SELECT                -- activities based on batch
+      [entity_id],
+      [layer_id],
+      [file_name],
+      [isRequired],
+      [activity_nk],
+      [activity_order],
+      [batch_id],
+      [output]
+    FROM
+      [dbo].[tvf_entity_file_activity_isRequired](@rerunSuccessfulFullEntities)
+
+              UNION ALL
+
+    SELECT                -- activities based on schedule
+      [entity_id],
+      [layer_id],
+      [file_name],
+      1               AS [isRequired],
+      [activity_nk],
+      [activity_order],
+      NULL            AS [batch_id],
+      NULL            AS [output]
+    [dbo].[tvf_entity_scheduled](@adhoc, @date, @rerunSuccessfulFullEntities)
+  )
+  ,transposed AS (
     SELECT
       entity_id,
       layer_id,
@@ -46,7 +74,7 @@ RETURN
         '}'
       ) AS skipped_activities
     FROM
-      [dbo].[tvf_entity_file_activity_isRequired](@rerunSuccessfulFullEntities) f
+      combined_activities f
     GROUP BY
       entity_id,
       layer_id,

@@ -1,5 +1,6 @@
 -- Write your own SQL object definition here, and it'll be included in your package.
 CREATE FUNCTION [dbo].[tvf_entity_file_activities_by_date](
+  @adhoc,
   @date DATE, -- set default to current date
   @rerunSuccessfulFullEntities BIT = 0 -- In case a new run is required
   -- for full entities that have a successful run for the day already, set it to 1
@@ -18,7 +19,11 @@ RETURN
       efr.required_activities,
       efr.skipped_activities
     FROM
-      dbo.[tvf_entity_file_required_activities](@rerunSuccessfulFullEntities) efr
+      dbo.[tvf_entity_file_required_activities](
+        @adhoc,
+        @date,
+        @rerunSuccessfulFullEntities
+      ) efr
     LEFT JOIN
       vw_full_load_entities fle
       ON
