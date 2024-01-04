@@ -33,8 +33,7 @@ RETURN
         efalb.file_name,
         efff.first_failed_file_name,
         efalb.activity_order,
-        efffa.first_failed_activity_order,
-        @rerunSuccessfulFullEntities
+        efffa.first_failed_activity_order
       )
     END AS isRequired
   FROM
