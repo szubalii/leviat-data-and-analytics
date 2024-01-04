@@ -1015,8 +1015,7 @@
     <Build Include="edw\Functions\ScalarValued\svf_getSalesDoc.sql" />
     <Build Include="edw\Functions\ScalarValued\svf_getSalesDocItem.sql" />
     <Build Include="edw\Functions\ScalarValued\svf_getSAPHierarchyNode.sql" />  
-    <Build Include="edw\Functions\ScalarValued\svf_getInOutID_EPM.sql" />   
-    <Build Include="edw\Functions\ScalarValued\svf_getConditionAmount.sql" />
+    <Build Include="edw\Functions\ScalarValued\svf_getInOutID_EPM.sql" /> 
     <Build Include="edw\Functions\ScalarValued\svf_get5PartNaturalKey.sql" />
     <Build Include="edw\Functions\ScalarValued\svf_getConditionAmount.sql" />
     <Build Include="edw\Functions\ScalarValued\svf_getManual_JE_KPI.sql" />
