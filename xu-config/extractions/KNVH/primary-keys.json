@@ -1,0 +1,13 @@
+{
+    "isSurrogateKeyEnabled": false,
+    "columns": 
+    [
+        "KNVH~MANDT",
+        "KNVH~HITYP",
+        "KNVH~KUNNR",
+        "KNVH~VKORG",
+        "KNVH~VTWEG",
+        "KNVH~SPART",
+        "KNVH~DATAB"
+    ]
+}

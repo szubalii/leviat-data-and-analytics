@@ -213,8 +213,8 @@ C_SalesDocumentItemDEXBase as (
          , ZA.[FullName]                        as SalesAgent
          , ZB.[Customer]                        as [ExternalSalesAgentID]
          , ZB.[FullName]                        as [ExternalSalesAgent]
-         , D1.[Customer]                        as [GlobalParentID]
-         , D1.[FullName]                        as [GlobalParent]
+         , KNVH.[GlobalParentID]                as [GlobalParentID]
+         , DimCust.[CustomerFullName]           as [GlobalParent]
          , C1.[Customer]                        as [LocalParentID]
          , C1.[FullName]                        as [LocalParent]
          , ZP.[Customer]                        as [ProjectID]
@@ -222,13 +222,15 @@ C_SalesDocumentItemDEXBase as (
          , dim_SalesEmployee.[Personnel]        as [SalesEmployeeID]
          , dim_SalesEmployee.[FullName]         as [SalesEmployee]
          , case
-               when D1.[Customer] is not null then D1.[Customer]
-               else AG.[Customer]
+                when KNVH.[GlobalParentID] is not null 
+                then KNVH.[GlobalParentID]
+                else AG.[Customer]
            end                                  as [GlobalParentCalculatedID]
          , case
-               when D1.[FullName] is not null then D1.[FullName]
-               else AG.[FullName]
-          end                                   as [GlobalParentCalculated]
+                when DimCust.[CustomerFullName] is not null 
+                then DimCust.[CustomerFullName]
+                else AG.[FullName]
+           end                                  as [GlobalParentCalculated]
          , case
                when C1.[Customer] is not null then C1.[Customer]
                else AG.[Customer]
@@ -240,7 +242,7 @@ C_SalesDocumentItemDEXBase as (
          , doc.[SDoc_ControllingObject]         as [SDoc_ControllingObjectID]
          , doc.[SDItem_ControllingObject]       as [SDItem_ControllingObjectID]
          , doc.[CorrespncExternalReference]     as [CorrespncExternalReference] 
-         , edw.svf_getInOutID_s4h (CustomerID)  as [InOutID]
+         , edw.svf_getInOutID_s4h (Cust.CustomerID)  as [InOutID]
          , ORDAM.OpenDeliveryNetAmount
          , CASE
             WHEN SDSL.ScheduleLineCategory = 'ZS'
@@ -275,13 +277,6 @@ C_SalesDocumentItemDEXBase as (
             AND
             ZB.[PartnerFunction] = 'ZB'
             --  and ZB.[MANDT] = 200 MPS 2021/11/01: commented out due to different client values between dev,qas, and prod
-    LEFT JOIN
-        [edw].[dim_BillingDocumentPartnerFs] D1
-        ON
-            D1.[SDDocument] = doc.[SalesDocument]
-            AND
-            D1.[PartnerFunction] = '1D'
-            --  and D1.[MANDT] = 200 MPS 2021/11/01: commented out due to different client values between dev,qas, and prod
     LEFT JOIN
         [edw].[dim_BillingDocumentPartnerFs] C1
         ON
@@ -399,9 +394,23 @@ C_SalesDocumentItemDEXBase as (
                     END = os_status.InvoiceStatus
             AND doc.[SDDocumentCategory] <> 'B'
             AND doc.[SDDocumentRejectionStatus] <> 'C'
+    LEFT JOIN  [edw].[dim_Customer] Cust
+            ON 
+                doc.SoldToParty = Cust.CustomerID 
 
-    LEFT JOIN  [edw].[dim_Customer] DimCust
-            ON doc.SoldToParty = DimCust.CustomerID  
+    LEFT JOIN [edw].[vw_LatestGlobalParent] KNVH
+            ON 
+                doc.SoldToParty = KNVH.CustomerID
+                AND 
+                doc.SalesOrganization = KNVH.SalesOrganizationID
+                AND 
+                doc.DistributionChannel = KNVH.DistributionChannel
+                AND 
+                doc.Division = KNVH.Division
+
+    LEFT JOIN [edw].[dim_Customer] DimCust
+            ON 
+                KNVH.GlobalParentID = DimCust.CustomerID 
 )
 
 SELECT 

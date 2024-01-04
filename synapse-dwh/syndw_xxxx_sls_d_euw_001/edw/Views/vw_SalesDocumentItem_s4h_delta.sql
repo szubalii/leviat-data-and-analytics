@@ -164,8 +164,8 @@ C_SalesDocumentItemDEXBase as (
     , doc.[ItemDeliveryIncompletionStatus] as [ItemDeliveryIncompletionStatusID]
     , ZB.[Customer]                        as [ExternalSalesAgentID]
     , ZB.[FullName]                        as [ExternalSalesAgent]
-    , D1.[Customer]                        as [GlobalParentID]
-    , D1.[FullName]                        as [GlobalParent]
+    , KNVH.[GlobalParentID]                as [GlobalParentID]
+    , DimCust.[CustomerFullName]           as [GlobalParent]
     , C1.[Customer]                        as [LocalParentID]
     , C1.[FullName]                        as [LocalParent]
     , ZP.[Customer]                        as [ProjectID]
@@ -173,13 +173,13 @@ C_SalesDocumentItemDEXBase as (
     , VE.[Personnel]                       as [SalesEmployeeID]
     , VE.[FullName]                        as [SalesEmployee]
     , case
-          when D1.[Customer] is not null 
-          then D1.[Customer]
+          when KNVH.[GlobalParentID]is not null 
+          then KNVH.[GlobalParentID]
           else AG.[Customer]
       end                                  as [GlobalParentCalculatedID]
     , case
-          when D1.[FullName] is not null 
-          then D1.[FullName]
+          when DimCust.[CustomerFullName] is not null 
+          then DimCust.[CustomerFullName]
           else AG.[FullName]
     end                                   as [GlobalParentCalculated]
     , case
@@ -195,7 +195,7 @@ C_SalesDocumentItemDEXBase as (
     , doc.[SDoc_ControllingObject]        as [SDoc_ControllingObjectID]
     , doc.[SDItem_ControllingObject]      as [SDItem_ControllingObjectID]
     , doc.[CorrespncExternalReference]    as [CorrespncExternalReference] 
-    , edw.svf_getInOutID_s4h (CustomerID) as [InOutID]
+    , edw.svf_getInOutID_s4h (Cust.CustomerID) as [InOutID]
     , ORDAM.OpenDeliveryNetAmount
     ,doc.[t_applicationId]
     ,doc.[t_extractionDtm]
@@ -211,13 +211,6 @@ C_SalesDocumentItemDEXBase as (
             ZB.[SDDocument] = doc.[SalesDocument]
             AND
             ZB.[PartnerFunction] = 'ZB'
-
-    LEFT JOIN 
-        [edw].[dim_BillingDocumentPartnerFs] D1
-        ON 
-            D1.[SDDocument] = doc.[SalesDocument] 
-            AND 
-            D1.[PartnerFunction] = '1D'
 
     LEFT JOIN 
         [edw].[dim_BillingDocumentPartnerFs] C1
@@ -259,9 +252,24 @@ C_SalesDocumentItemDEXBase as (
             ORDAM.SalesDocument = doc.SalesDocument 
             AND 
             ORDAM.SalesDocumentItem = doc.SalesDocumentItem
-            
-    LEFT JOIN  [edw].[dim_Customer] DimCust
-            ON doc.SoldToParty = DimCust.CustomerID  
+     LEFT JOIN  
+        [edw].[dim_Customer] Cust
+        ON 
+            doc.SoldToParty = Cust.CustomerID 
+
+    LEFT JOIN  [edw].[vw_LatestGlobalParent] KNVH
+        ON 
+            doc.SoldToParty = KNVH.CustomerID
+            AND 
+            doc.SalesOrganization = KNVH.SalesOrganizationID
+            AND 
+            doc.DistributionChannel = KNVH.DistributionChannel
+            AND 
+            doc.Division = KNVH.Division
+
+    LEFT JOIN [edw].[dim_Customer] DimCust
+        ON 
+            KNVH.GlobalParentID = DimCust.CustomerID 
     WHERE 
     -- casting the left and right sides of equality to the same data type DATE
         CAST(doc.[t_lastActionDtm] as DATE) >  -- the view displays new data that is not yet in the fact table

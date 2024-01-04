@@ -4445,6 +4445,17 @@
         "base_table_name": "TSTCT",
         "schedule_recurrence": "D",
         "pk_field_names": "SPRSL,TCODE"
+      },
+      {
+        "entity_id": 646,
+        "entity_name": "KNVH",
+        "data_category": "NULL",
+        "tool_name": "Theobald",
+        "extraction_type": "Table",
+        "update_mode": "Full",
+        "base_table_name": "KNVH",
+        "schedule_recurrence": "D",
+        "pk_field_names": "MANDT, HITYP, KUNNR, VKORG, VTWEG, SPART, DATAB"
       }
     ]
   },
