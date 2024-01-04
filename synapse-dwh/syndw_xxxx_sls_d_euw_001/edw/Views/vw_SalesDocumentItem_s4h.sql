@@ -278,13 +278,6 @@ C_SalesDocumentItemDEXBase as (
             ZB.[PartnerFunction] = 'ZB'
             --  and ZB.[MANDT] = 200 MPS 2021/11/01: commented out due to different client values between dev,qas, and prod
     LEFT JOIN
-        [edw].[dim_BillingDocumentPartnerFs] D1
-        ON
-            D1.[SDDocument] = doc.[SalesDocument]
-            AND
-            D1.[PartnerFunction] = '1D'
-            --  and D1.[MANDT] = 200 MPS 2021/11/01: commented out due to different client values between dev,qas, and prod
-    LEFT JOIN
         [edw].[dim_BillingDocumentPartnerFs] C1
         ON
             C1.[SDDocument] = doc.[SalesDocument]

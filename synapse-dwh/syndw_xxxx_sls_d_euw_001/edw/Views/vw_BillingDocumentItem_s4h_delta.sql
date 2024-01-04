@@ -344,9 +344,6 @@ WITH BillingDocumentItemBase as (
         left join [edw].[dim_BillingDocumentPartnerFs] VE
             on VE.SDDocument = doc.[BillingDocument] and VE.[PartnerFunction] = 'VE'
             -- and VE.[MANDT] = 200 MPS 2021/11/01: commented out due to different client values between dev,qas, and prod
-        left join [edw].[dim_BillingDocumentPartnerFs] D1
-            on D1.SDDocument = doc.[BillingDocument] and D1.[PartnerFunction] = '1D'
-            -- and D1.[MANDT] = 200 MPS 2021/11/01: commented out due to different client values between dev,qas, and prod
         left join [edw].[dim_BillingDocumentPartnerFs] C1
             on C1.SDDocument = doc.[BillingDocument] and C1.[PartnerFunction] = '1C'
             -- and C1.[MANDT] = 200 MPS 2021/11/01: commented out due to different client values between dev,qas, and prod

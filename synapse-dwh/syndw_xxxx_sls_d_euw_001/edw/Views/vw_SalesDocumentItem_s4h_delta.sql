@@ -213,13 +213,6 @@ C_SalesDocumentItemDEXBase as (
             ZB.[PartnerFunction] = 'ZB'
 
     LEFT JOIN 
-        [edw].[dim_BillingDocumentPartnerFs] D1
-        ON 
-            D1.[SDDocument] = doc.[SalesDocument] 
-            AND 
-            D1.[PartnerFunction] = '1D'
-
-    LEFT JOIN 
         [edw].[dim_BillingDocumentPartnerFs] C1
         ON
             C1.[SDDocument] = doc.[SalesDocument]

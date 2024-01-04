@@ -304,9 +304,6 @@ from [base_s4h_cax].[C_BillingDocumentItemBasicDEX] doc
   left join [edw].[vw_dim_SalesEmployee] dim_SalesEmployee
       on dim_SalesEmployee.SDDocument = doc.[BillingDocument]
       -- and VE.[MANDT] = 200 MPS 2021/11/01: commented out due to different client values between dev,qas, and prod
-  left join [edw].[dim_BillingDocumentPartnerFs] D1
-      on D1.SDDocument = doc.[BillingDocument] and D1.[PartnerFunction] = '1D'
-      -- and D1.[MANDT] = 200 MPS 2021/11/01: commented out due to different client values between dev,qas, and prod
   left join [edw].[dim_BillingDocumentPartnerFs] C1
       on C1.SDDocument = doc.[BillingDocument] and C1.[PartnerFunction] = '1C'
       -- and C1.[MANDT] = 200 MPS 2021/11/01: commented out due to different client values between dev,qas, and prod
