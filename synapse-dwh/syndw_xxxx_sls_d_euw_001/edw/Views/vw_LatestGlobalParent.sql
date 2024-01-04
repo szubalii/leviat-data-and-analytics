@@ -1,5 +1,5 @@
 CREATE VIEW [edw].[vw_LatestGlobalParent]
-AS
+AS -- find  the latest available GlobalParentID for the CustomerID, SalesOrganizationID, DistributionChannel and Division
 WITH
 LatestCustomerNum AS (
     SELECT
