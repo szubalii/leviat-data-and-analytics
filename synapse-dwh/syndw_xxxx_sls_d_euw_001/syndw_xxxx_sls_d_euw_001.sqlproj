@@ -1248,7 +1248,7 @@
     <Build Include="edw\Views\vw_fact_SalesDocumentItem_LC_EUR.sql" />
     <Build Include="edw\Views\vw_fact_SalesDocumentItem_ODICount.sql" />
     <Build Include="edw\Views\vw_fact_SalesDocumentItem_ScheduleLineCount.sql" />
-    <Build Include="edw\Views\vw_Latest_HKUNNR.sql" />
+    <Build Include="edw\Views\vw_LatestGlobalParent.sql" />
       <Build Include="dq\Views\vw_Product_1_2.sql" />
     <Build Include="dq\Views\vw_RuleTotal.sql" />
     <Build Include="dq\Views\vw_Product_1_17.sql" />

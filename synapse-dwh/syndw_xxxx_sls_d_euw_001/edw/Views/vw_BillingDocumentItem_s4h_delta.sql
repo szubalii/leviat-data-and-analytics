@@ -293,11 +293,11 @@ WITH BillingDocumentItemBase as (
         , ZP.FullName                                     as Project
         , VE.Personnel                                    as SalesEmployeeID
         , VE.FullName                                     as SalesEmployee
-        , KNVH.[HKUNNR]                                   AS GlobalParentID
+        , KNVH.[GlobalParentID]                           AS GlobalParentID
         , DimCust.[CustomerFullName]                      AS GlobalParent
         , case
-          when KNVH.[HKUNNR] is not Null 
-              then KNVH.[HKUNNR] 
+          when KNVH.[GlobalParentID] is not Null 
+              then KNVH.[GlobalParentID] 
           else AG.[Customer] end                          AS GlobalParentCalculatedID
         , case
           when DimCust.[CustomerFullName] is not Null 
@@ -363,16 +363,16 @@ WITH BillingDocumentItemBase as (
         left join [edw].[dim_PurgAccAssignment] PA
             ON doc.SalesDocument = PA.PurchaseOrder                   COLLATE DATABASE_DEFAULT
                 AND right(doc.SalesDocumentItem,5) = PA.PurchaseOrderItem
-        left join [edw].[vw_Latest_HKUNNR] KNVH
-            ON doc.SoldToParty = KNVH.KUNNR
+        left join [edw].[vw_LatestGlobalParent] KNVH
+            ON doc.SoldToParty = KNVH.CustomerID
                 AND 
-                doc.SalesOrganization = KNVH.VKORG
+                doc.SalesOrganization = KNVH.SalesOrganizationID
                 AND 
-                doc.DistributionChannel = KNVH.VTWEG
+                doc.DistributionChannel = KNVH.DistributionChannel
                 AND 
-                doc.Division = KNVH.SPART
+                doc.Division = KNVH.Division
         left join [edw].[dim_Customer] DimCust
-            ON KNVH.HKUNNR = DimCust.CustomerID 
+            ON KNVH.GlobalParentID = DimCust.CustomerID 
         -- move to DM            
         --left join [base_s4h_cax].[I_SalesDocumentTypeText] SDTT
         --    on SDTT.[SalesDocumentType] = SDID.[SalesDocumentType] and SDTT.[Language] = 'E' 

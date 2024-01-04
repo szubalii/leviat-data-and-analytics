@@ -213,7 +213,7 @@ C_SalesDocumentItemDEXBase as (
          , ZA.[FullName]                        as SalesAgent
          , ZB.[Customer]                        as [ExternalSalesAgentID]
          , ZB.[FullName]                        as [ExternalSalesAgent]
-         , KNVH.[HKUNNR]                        as [GlobalParentID]
+         , KNVH.[GlobalParentID]                as [GlobalParentID]
          , DimCust.[CustomerFullName]           as [GlobalParent]
          , C1.[Customer]                        as [LocalParentID]
          , C1.[FullName]                        as [LocalParent]
@@ -222,8 +222,8 @@ C_SalesDocumentItemDEXBase as (
          , dim_SalesEmployee.[Personnel]        as [SalesEmployeeID]
          , dim_SalesEmployee.[FullName]         as [SalesEmployee]
          , case
-                when KNVH.[HKUNNR] is not null 
-                then KNVH.[HKUNNR]
+                when KNVH.[GlobalParentID] is not null 
+                then KNVH.[GlobalParentID]
                 else AG.[Customer]
            end                                  as [GlobalParentCalculatedID]
          , case
@@ -402,17 +402,19 @@ C_SalesDocumentItemDEXBase as (
             AND doc.[SDDocumentCategory] <> 'B'
             AND doc.[SDDocumentRejectionStatus] <> 'C'
 
-    LEFT JOIN [edw].[vw_Latest_HKUNNR] KNVH
-            ON doc.SoldToParty = KNVH.KUNNR
+    LEFT JOIN [edw].[vw_LatestGlobalParent] KNVH
+            ON 
+                doc.SoldToParty = KNVH.CustomerID
                 AND 
-                doc.SalesOrganization = KNVH.VKORG
+                doc.SalesOrganization = KNVH.SalesOrganizationID
                 AND 
-                doc.DistributionChannel = KNVH.VTWEG
+                doc.DistributionChannel = KNVH.DistributionChannel
                 AND 
-                doc.Division = KNVH.SPART
+                doc.Division = KNVH.Division
 
     LEFT JOIN [edw].[dim_Customer] DimCust
-            ON KNVH.HKUNNR = DimCust.CustomerID 
+            ON 
+                KNVH.GlobalParentID = DimCust.CustomerID 
 )
 
 SELECT 

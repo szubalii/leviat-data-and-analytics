@@ -254,11 +254,11 @@ BillingDocumentItemBase AS (
   , ZP.FullName                                     AS Project
   , dim_SalesEmployee.Personnel                     AS SalesEmployeeID
   , dim_SalesEmployee.FullName                      AS SalesEmployee
-  , KNVH.[HKUNNR]                                   AS GlobalParentID
+  , KNVH.[GlobalParentID]                           AS GlobalParentID
   , DimCust.[CustomerFullName]                      AS GlobalParent
   , case
-      when KNVH.[HKUNNR] is not Null 
-          then KNVH.[HKUNNR] 
+      when KNVH.[GlobalParentID] is not Null 
+          then KNVH.[GlobalParentID] 
       else AG.[Customer] end                        AS GlobalParentCalculatedID
   , case
       when DimCust.[CustomerFullName] is not Null 
@@ -330,16 +330,16 @@ from [base_s4h_cax].[C_BillingDocumentItemBasicDEX] doc
   left join [edw].[dim_PurgAccAssignment] PA
     ON doc.SalesDocument = PA.PurchaseOrder                   COLLATE DATABASE_DEFAULT
         AND right(doc.SalesDocumentItem,5) = PA.PurchaseOrderItem  
-  left join [edw].[vw_Latest_HKUNNR] KNVH
-    ON doc.SoldToParty = KNVH.KUNNR
+  left join [edw].[vw_LatestGlobalParent] KNVH
+    ON doc.SoldToParty = KNVH.CustomerID
         AND 
-        doc.SalesOrganization = KNVH.VKORG
+        doc.SalesOrganization = KNVH.SalesOrganizationID
         AND 
-        doc.DistributionChannel = KNVH.VTWEG
+        doc.DistributionChannel = KNVH.DistributionChannel
         AND 
-        doc.Division = KNVH.SPART
+        doc.Division = KNVH.Division
   left join [edw].[dim_Customer] DimCust
-      ON KNVH.HKUNNR = DimCust.CustomerID 
+    ON KNVH.GlobalParentID = DimCust.CustomerID 
     )
 
 SELECT
