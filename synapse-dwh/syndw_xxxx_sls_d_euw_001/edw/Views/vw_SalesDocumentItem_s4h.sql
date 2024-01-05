@@ -217,8 +217,8 @@ C_SalesDocumentItemDEXBase as (
          , DimCust.[CustomerFullName]           as [GlobalParent]
          , C1.[Customer]                        as [LocalParentID]
          , C1.[FullName]                        as [LocalParent]
-         , ZP.[Customer]                        as [ProjectID]
-         , ZP.[FullName]                        as [Project]
+         , Proj.[ProjectID]
+         , Proj.[Project]
          , dim_SalesEmployee.[Personnel]        as [SalesEmployeeID]
          , dim_SalesEmployee.[FullName]         as [SalesEmployee]
          , case
@@ -285,11 +285,9 @@ C_SalesDocumentItemDEXBase as (
             C1.[PartnerFunction] = '1C'
             --  and C1.[MANDT] = 200 MPS 2021/11/01: commented out due to different client values between dev,qas, and prod
     LEFT JOIN
-        [edw].[dim_BillingDocumentPartnerFs] ZP
+        [edw].[dim_BillingDocProject] Proj
         ON
-            ZP.[SDDocument] = doc.[SalesDocument]
-            AND
-            ZP.[PartnerFunction] = 'ZP'
+            Proj.[SDDocument] = doc.[SalesDocument]
             --  and ZP.[MANDT] = 200 MPS 2021/11/01: commented out due to different client values between dev,qas, and prod
     LEFT JOIN
         [edw].[vw_dim_SalesEmployee] dim_SalesEmployee

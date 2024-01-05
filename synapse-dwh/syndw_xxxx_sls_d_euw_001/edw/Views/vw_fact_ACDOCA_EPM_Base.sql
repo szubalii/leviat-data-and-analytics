@@ -267,15 +267,23 @@ SELECT
   ZED.[GLAccountID] AS EXQL_GLAccountID,
   ZED.[FunctionalAreaID] AS EXQL_FunctionalAreaID,
   GLALIRD.[ProjectNumber],
-  CASE 
-      WHEN GLALIRD.ProjectNumber IS NULL OR GLALIRD.ProjectNumber = '' THEN 
-         CASE 
-           WHEN GLALIRD.SalesReferenceDocumentCalculated IS NOT NULL OR GLALIRD.SalesReferenceDocumentCalculated <> ''
-           THEN SDI.ProjectID
-           ELSE ''
-         END
-       ELSE GLALIRD.ProjectNumber
-   END AS [ProjectNumberCalculated],
+  -- GLALIRD.[ProjectNumber] AS [ProjectNumberCalculated],
+  CASE
+    WHEN
+      GLALIRD.ProjectNumber IS NULL
+      OR
+      GLALIRD.ProjectNumber = ''
+    THEN
+      CASE
+        WHEN
+          GLALIRD.SalesReferenceDocumentCalculated IS NOT NULL
+          AND
+          GLALIRD.SalesReferenceDocumentCalculated <> ''
+        THEN proj.ProjectID
+        ELSE ''
+      END
+    ELSE GLALIRD.ProjectNumber
+  END AS [ProjectNumberCalculated],
   edw.[svf_getManual_JE_KPI](
     GLALIRD.AccountingDocumentTypeID,
     GLALIRD.BusinessTransactionTypeID,
@@ -307,25 +315,43 @@ LEFT JOIN [edw].[dim_ZE_EXQLMAP_DT] ZED
     ON GLALIRD.[GLAccountID] = FSH.LowerBoundaryAccount                     COLLATE DATABASE_DEFAULT
 INNER JOIN [edw].[dim_FinancialStatementItem]   FSI
     ON FSH.[FinancialStatementItem] = FSI.[FinancialStatementItem]          COLLATE DATABASE_DEFAULT*/
-LEFT JOIN [edw].[dim_BillingDocumentType] dimBDT
-  ON GLALIRD.BillingDocumentTypeID = dimBDT.[BillingDocumentTypeID]       COLLATE DATABASE_DEFAULT
-LEFT JOIN [edw].[dim_ProductSalesDelivery] PSD
-  ON GLALIRD.[ProductID] = PSD.[ProductID]                                COLLATE DATABASE_DEFAULT
-    AND GLALIRD.[SalesOrganizationID] = PSD.[SalesOrganizationID]       COLLATE DATABASE_DEFAULT
-    AND GLALIRD.[DistributionChannelID] = PSD.[DistributionChannelID]   COLLATE DATABASE_DEFAULT
-LEFT JOIN [base_s4h_cax].[I_CustomerSalesArea] CSA
-  ON GLALIRD.[CustomerID] = CSA.[Customer]                                COLLATE DATABASE_DEFAULT
-    AND GLALIRD.[SalesOrganizationID] = CSA.[SalesOrganization]         COLLATE DATABASE_DEFAULT
-LEFT JOIN [edw].[vw_CurrencyConversionRate] ExchangeRate
-  ON GLALIRD.[CompanyCodeCurrency] = ExchangeRate.[SourceCurrency]
-INNER JOIN [dm_sales].[vw_dim_CurrencyType]     CurrType
-  ON ExchangeRate.CurrencyTypeID = CurrType.CurrencyTypeID
-LEFT JOIN [edw].[dim_Brand] DimBrand
-  ON PSD.FirstSalesSpecProductGroup = DimBrand.[BrandID]
-LEFT JOIN [edw].[dim_CustomerGroup] dimCGr
-  ON CSA.CustomerGroup = dimCGr.[CustomerGroupID]
-LEFT JOIN  [edw].[fact_SalesDocumentItem] SDI
-  ON GLALIRD.[SalesReferenceDocumentCalculated] = SDI.[SalesDocument]
- AND GLALIRD.[SalesReferenceDocumentItemCalculated] = SDI.[SalesDocumentItem]
- AND ExchangeRate.[CurrencyTypeID] = SDI.[CurrencyTypeID]
-WHERE ExchangeRate.CurrencyTypeID <> '00'
+LEFT JOIN
+  [edw].[dim_BillingDocumentType] dimBDT
+  ON
+    GLALIRD.BillingDocumentTypeID = dimBDT.[BillingDocumentTypeID] COLLATE DATABASE_DEFAULT
+LEFT JOIN
+  [edw].[dim_ProductSalesDelivery] PSD
+  ON
+    GLALIRD.[ProductID] = PSD.[ProductID] COLLATE DATABASE_DEFAULT
+    AND
+    GLALIRD.[SalesOrganizationID] = PSD.[SalesOrganizationID] COLLATE DATABASE_DEFAULT
+    AND
+    GLALIRD.[DistributionChannelID] = PSD.[DistributionChannelID] COLLATE DATABASE_DEFAULT
+LEFT JOIN
+  [base_s4h_cax].[I_CustomerSalesArea] CSA
+  ON
+    GLALIRD.[CustomerID] = CSA.[Customer] COLLATE DATABASE_DEFAULT
+    AND
+    GLALIRD.[SalesOrganizationID] = CSA.[SalesOrganization] COLLATE DATABASE_DEFAULT
+LEFT JOIN
+  [edw].[vw_CurrencyConversionRate] ExchangeRate
+  ON
+    GLALIRD.[CompanyCodeCurrency] = ExchangeRate.[SourceCurrency]
+INNER JOIN
+  [dm_sales].[vw_dim_CurrencyType] CurrType
+  ON
+    ExchangeRate.CurrencyTypeID = CurrType.CurrencyTypeID
+LEFT JOIN
+  [edw].[dim_Brand] DimBrand
+  ON
+    PSD.FirstSalesSpecProductGroup = DimBrand.[BrandID]
+LEFT JOIN
+  [edw].[dim_CustomerGroup] dimCGr
+  ON
+    CSA.CustomerGroup = dimCGr.[CustomerGroupID]
+LEFT JOIN
+  [edw].[dim_BillingDocProject] proj
+  ON
+    GLALIRD.[SalesReferenceDocumentCalculated] = proj.[SDDocument]
+WHERE
+  ExchangeRate.CurrencyTypeID <> '00'
