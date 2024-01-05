@@ -221,6 +221,12 @@
     <Folder Include="dm_global\Views" />
     <Folder Include="dm_RiskAndCompliance" />
     <Folder Include="dm_RiskAndCompliance\Views" />
+    <Folder Include="Security\RoleMemberships\" />
+    <Folder Include="Scripts\AXBI-Delta\" />
+    <Folder Include="Scripts\Currency-Conversion\" />
+    <Folder Include="Scripts\Stock\" />
+    <Folder Include="dm_procurement\" />
+    <Folder Include="dm_procurement\Views\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="edw\Views\vw_fact_MaterialStockLevel_temp.sql" />
@@ -275,9 +281,7 @@
     <Build Include="utilities\Stored Procedures\sp_ingest_master_data.sql" />
   </ItemGroup>
   <ItemGroup>
-
-  <!-- SCHEMAS -->
-
+    <!-- SCHEMAS -->
     <Build Include="Security\Schemas\base_dw_halfen_0_hlp.sql" />
     <Build Include="Security\Schemas\base_tx_halfen_2_dwh.sql" />
     <Build Include="Security\Schemas\base_dw_halfen_2_dwh.sql" />
@@ -316,9 +320,7 @@
     <Build Include="Security\Schemas\dm_global.sql" />
     <Build Include="Security\Schemas\intm_s4h.sql" />
     <Build Include="Security\Schemas\dm_RiskAndCompliance.sql" />
-
-      <!-- TABLES -->
-
+    <!-- TABLES -->
     <Build Include="base_ff\Tables\CurrencyType.sql" />
     <Build Include="base_ff\Tables\ProductHierarchyNode.sql" />
     <Build Include="base_ff\Tables\ProductCalculated.sql" />
@@ -345,12 +347,10 @@
     <Build Include="base_ff\Tables\ExQLReconciliation.sql" />
     <Build Include="base_ff\Tables\ProductHierarchyNodeMapping.sql" />
 
-
     <Build Include="base_ff_USA\Tables\Budget.sql" />
     <Build Include="base_ff_USA\Tables\DummyMaterial.sql" />
     <Build Include="base_ff_USA\Tables\SubPCAT_Pillar.sql" />
     <Build Include="base_ff_USA\Tables\CAProductGroup.sql" />
-    
     <Build Include="base_dw_halfen_0_hlp\Tables\CUSTOMER.sql" />
     <Build Include="base_dw_halfen_0_hlp\Tables\DIM_ARTICLE.sql" />
     <Build Include="base_dw_halfen_0_hlp\Tables\SAPCustomerBasicMappingTable.sql" />
@@ -359,7 +359,6 @@
     <Build Include="base_dw_halfen_0_hlp\Tables\CALENDAR.sql" />
     <Build Include="base_dw_halfen_0_hlp\Tables\HGDAWA.sql" />
     <Build Include="base_dw_halfen_0_hlp\Tables\PRODUCTLINE.sql" />
-
     <Build Include="base_dw_halfen_2_dwh\Tables\DIM_CRHPRODUCTGROUP.sql" />
     <Build Include="base_dw_halfen_2_dwh\Tables\DIM_DISTRIBUTIONCOMPANY.sql" />
     <Build Include="base_dw_halfen_2_dwh\Tables\FACT_HGDAWA.sql" />
@@ -370,7 +369,6 @@
     <Build Include="base_dw_halfen_2_dwh\Tables\DIM_CUSTOMER_Archive.sql" />
     <Build Include="base_dw_halfen_2_dwh\Tables\FACT_HGDAWA_Archive.sql" />
     <Build Include="base_dw_halfen_2_dwh\Tables\FACT_HGPLUM_Archive.sql" />
-
     <Build Include="base_s4h_cax\Tables\C_BillingDocumentItemBasicDEX.sql" />
     <Build Include="base_s4h_cax\Tables\C_BillingDocumentPartnerFs.sql" />
     <Build Include="base_s4h_cax\Tables\C_CnsldtnProfitCenter.sql" />
@@ -752,7 +750,9 @@
     <Build Include="base_s4h_cax\Tables\AGR_1251.sql" />
     <Build Include="base_s4h_cax\Tables\TSTCT.sql" />
     <Build Include="base_s4h_cax\Tables\KNVH.sql" />
-
+    <Build Include="base_s4h_cax\Tables\AGR_DEFINE.sql" />
+    <Build Include="base_s4h_cax\Tables\Opt_Vim_1Item_Extended.sql" />
+    <Build Include="base_s4h_cax\Tables\C_GRIRAccountReconciliation.sql" />
     <Build Include="base_tx_ca_0_hlp\Tables\DATAAREA.sql" />
     <Build Include="base_tx_ca_0_hlp\Tables\CRHCURRENCY.sql" />
     <Build Include="base_tx_ca_0_hlp\Tables\CUSTINVOICETRANS.sql" />
@@ -760,7 +760,6 @@
     <Build Include="base_tx_ca_0_hlp\Tables\ITEMTABLE.sql" />
     <Build Include="base_tx_ca_0_hlp\Tables\PRODUCTGROUP.sql" />
     <Build Include="base_tx_ca_0_hlp\Tables\BUDGET.sql" />
-
     <Build Include="base_tx_crh_2_dwh\Tables\DIM_ADUASCHWITEMGROUP4.sql" />
     <Build Include="base_tx_crh_2_dwh\Tables\DIM_CUSTINVOICEJOUR.sql" />
     <Build Include="base_tx_crh_2_dwh\Tables\DIM_CUSTTABLE.sql" />
@@ -768,7 +767,6 @@
     <Build Include="base_tx_crh_2_dwh\Tables\FACT_CUSTINVOICETRANS.sql" />
     <Build Include="base_tx_crh_2_dwh\Tables\FACT_INVENTRANS_NOT_INVOICED.sql" />
     <Build Include="base_tx_crh_2_dwh\Tables\FACT_SALESLINE.sql" />
-
     <Build Include="base_tx_halfen_2_dwh\Tables\FACT_SALESLINE.sql" />
     <Build Include="base_tx_halfen_2_dwh\Tables\FACT_CUSTPACKINGSLIPJOUR.sql" />
     <Build Include="base_tx_halfen_2_dwh\Tables\FACT_CUSTPACKINGSLIPTRANS.sql" />
@@ -796,13 +794,11 @@
     <Build Include="base_tx_halfen_2_dwh\Tables\DIM_INVENTLOCATION_Archive.sql" />
     <Build Include="base_tx_halfen_2_dwh\Tables\FACT_CUSTPACKINGSLIPTRANS_Archive.sql" />
     <Build Include="base_tx_halfen_2_dwh\Tables\DIM_INVENTTABLE_Archive.sql" />
-
     <Build Include="base_us_leviat_db\Tables\COMPANIES.sql" />
     <Build Include="base_us_leviat_db\Tables\ITEM_GROUPS.sql" />
     <Build Include="base_us_leviat_db\Tables\CUSTOMERS.sql" />
     <Build Include="base_us_leviat_db\Tables\CUSTOMER_SALES.sql" />
     <Build Include="base_us_leviat_db\Tables\ITEMS.sql" />
-
     <Build Include="base_isedio_aus\Tables\CUSTINVOICETRANS_ISAU.sql" />
     <Build Include="base_isedio_aus\Tables\CUSTTABLE_ISAU.sql" />
     <Build Include="base_isedio_aus\Tables\ITEMTABLE_ISAU.sql" />
@@ -841,7 +837,6 @@
     <Build Include="base_halfen_moment_in\Tables\CUSTINVOICETRANS_HMIN.sql" />
     <Build Include="base_halfen_moment_in\Tables\CUSTTABLE_HMIN.sql" />
     <Build Include="base_halfen_moment_in\Tables\ITEMTABLE_HMIN.sql" />
-
     <Build Include="base_dw_halfen_1_stg\Tables\AX_Halfen_dbo_INVENTITEMPRICE.sql" />
     <Build Include="base_c4c\Tables\OpportunityCollection.sql" />
     <Build Include="base_dw_halfen_1_stg\Tables\AX_Halfen_dbo_COMPANYINFO.sql" />
@@ -849,7 +844,6 @@
     <Build Include="base_tx_crh_1_stg\Tables\AX_CRH_A_dbo_INVENTTRANS.sql" />
     <Build Include="base_tx_crh_1_stg\Tables\AX_CRH_A_dbo_CUSTTABLE.sql" />
     <Build Include="utilities\Tables\t_field_values.sql" />
-
     <Build Include="map_AXBI\Tables\SalesOrganization.sql" />
     <Build Include="map_AXBI\Tables\SDDocumentCategory.sql" />
     <Build Include="map_AXBI\Tables\SalesDocumentType.sql" />
@@ -864,21 +858,17 @@
     <Build Include="map_AXBI\Tables\StockUnit.sql" />
     <Build Include="map_AXBI\Tables\SalesOffice.sql" />
     <Build Include="map_AXBI\Tables\SAPCustomerBasicMappingTable.sql" />
-
     <Build Include="map_USA\Tables\Customer.sql" />
-
     <Build Include="intm_axbi\Tables\dim_ITEMTABLE.sql" />
     <Build Include="intm_axbi\Tables\fact_CUSTINVOICETRANS.sql" />
     <Build Include="intm_axbi\Tables\dim_CUSTTABLE.sql" />
     <Build Include="intm_axbi\Tables\dim_ITEMGROUP.sql" />
-
     <Build Include="dq\Tables\dim_Rule.sql" />
     <Build Include="dq\Tables\fact_RuleTotal.sql" />
     <Build Include="dq\Tables\dim_RuleProduct.sql" />
     <Build Include="dq\Tables\fact_ProductTotal.sql" />
     <Build Include="dq\Tables\dim_RuleBusinessPartner.sql" />
     <Build Include="dq\Tables\fact_BusinessPartnerTotal.sql" />
-
     <Build Include="edw\Tables\dim_Customer.sql" />
     <Build Include="edw\Tables\dim_Product.sql" />
     <Build Include="edw\Tables\dim_ProductSalesDelivery.sql" />
@@ -1009,11 +999,8 @@
     <Build Include="edw\Tables\fact_GRIRAccountReconciliation.sql" />
     <Build Include="edw\Tables\fact_ScheduleLineShippedNotBilled.sql" />
     <Build Include="edw\Tables\dim_FiscalCalendar.sql" />
-
     <!-- FUNCTIONS -->
-
     <Build Include="intm_axbi\Functions\uf_get_CashDiscPct.sql" />
-
     <Build Include="edw\Functions\ScalarValued\svf_getInOutID_axbi.sql" />
     <Build Include="edw\Functions\ScalarValued\svf_getInOutID_s4h.sql" />
     <Build Include="edw\Functions\ScalarValued\svf_getNaturalKey.sql" />
@@ -1028,8 +1015,8 @@
     <Build Include="edw\Functions\ScalarValued\svf_getBooleanIndicator.sql" />
     <Build Include="edw\Functions\ScalarValued\svf_getSalesDoc.sql" />
     <Build Include="edw\Functions\ScalarValued\svf_getSalesDocItem.sql" />
-    <Build Include="edw\Functions\ScalarValued\svf_getSAPHierarchyNode.sql" /> 
-    <Build Include="edw\Functions\ScalarValued\svf_getInOutID_EPM.sql" />
+    <Build Include="edw\Functions\ScalarValued\svf_getSAPHierarchyNode.sql" />  
+    <Build Include="edw\Functions\ScalarValued\svf_getInOutID_EPM.sql" /> 
     <Build Include="edw\Functions\ScalarValued\svf_get5PartNaturalKey.sql" />
     <Build Include="edw\Functions\ScalarValued\svf_getConditionAmount.sql" />
     <Build Include="edw\Functions\ScalarValued\svf_getManual_JE_KPI.sql" />
@@ -1043,11 +1030,8 @@
     <Build Include="edw\Functions\ScalarValued\svf_getOT_Group.sql" />
     <Build Include="edw\Functions\ScalarValued\svf_getOTIF_OnTimeInFull.sql" />
     <Build Include="edw\Functions\ScalarValued\svf_replaceZero.sql" />
-    
     <Build Include="utilities\Functions\Scalar-valued Functions\svf_get_file_path.sql" />
-
     <!-- VIEWS -->
-
     <Build Include="base_s4h_cax\Views\vw_I_GLAccountLineItemRawData.sql" />
     <Build Include="base_s4h_cax\Views\vw_C_BillingDocumentItemBasicDEX.sql" />
     <Build Include="base_s4h_cax\Views\vw_C_SalesDocumentItemDEX.sql" />
@@ -1056,7 +1040,6 @@
     <Build Include="base_s4h_cax\Views\vw_C_BillingDocumentItemBasicDEX_delta.sql" />
     <Build Include="base_s4h_cax\Views\vw_I_GLAccountLineItemRawData_delta.sql" />
     <Build Include="base_s4h_cax\Views\vw_C_SalesDocumentItemDEX_delta.sql" />
-
     <Build Include="intm_axbi\Views\vw_DIM_CUSTOMER.sql" />
     <Build Include="intm_axbi\Views\vw_FACT_INVENTSUM.sql" />
     <Build Include="intm_axbi\Views\vw_FACT_INVENTTRANS.sql" />
@@ -1071,11 +1054,10 @@
     <Build Include="intm_axbi\Views\vw_DIM_INVENTLOCATION.sql" />
     <Build Include="intm_axbi\Views\vw_FACT_CUSTPACKINGSLIPTRANS.sql" />
     <Build Include="intm_axbi\Views\vw_DIM_INVENTTABLE.sql" />
-      
     <Build Include="intm_s4h\Views\vw_OriginalConfirmedScheduleLineDeliveryDate.sql" />
     <Build Include="intm_s4h\Views\vw_OutboundDelivery_DeliveryDate.sql" />
     <Build Include="intm_s4h\Views\vw_SalesDocumentEarliestConfirmedDeliveryDate.sql" />
-
+    <Build Include="intm_s4h\Views\vw_ActivityGroupRoleText.sql" />
     <Build Include="edw\Views\vw_ACDOCA_delta.sql" />
     <Build Include="edw\Views\vw_CurrencyConversionRate.sql" />
     <Build Include="edw\Views\vw_OptVim1Head.sql" />
@@ -1249,7 +1231,7 @@
     <Build Include="edw\Views\vw_fact_SalesDocumentItem_ODICount.sql" />
     <Build Include="edw\Views\vw_fact_SalesDocumentItem_ScheduleLineCount.sql" />
     <Build Include="edw\Views\vw_LatestGlobalParent.sql" />
-      <Build Include="dq\Views\vw_Product_1_2.sql" />
+    <Build Include="dq\Views\vw_Product_1_2.sql" />
     <Build Include="dq\Views\vw_RuleTotal.sql" />
     <Build Include="dq\Views\vw_Product_1_17.sql" />
     <Build Include="dq\Views\vw_Product_1_19.sql" />
@@ -1310,7 +1292,6 @@
     <Build Include="dq\Views\vw_BP_2_2_7.sql" />
     <Build Include="dq\Views\vw_BP_2_2_8.sql" />
     <Build Include="dq\Views\vw_BP_2_2_9.sql" />
-
     <Build Include="dm_finance\Views\vw_fact_ACDOCA_SalesView.sql" />
     <Build Include="dm_finance\Views\vw_fact_ACDOCA_EPMSalesView.sql" />
     <Build Include="dm_finance\Views\vw_dim_Customer.sql" />
@@ -1331,10 +1312,8 @@
     <Build Include="dm_finance\Views\vw_fact_ACDOCA_FinanceKPI.sql" />
     <Build Include="dm_finance\Views\vw_fact_FinanceKPI.sql" />
     <Build Include="dm_finance\Views\vw_fact_ExQLReconciliation.sql" />
-    
     <Build Include="dm_global\Views\vw_dim_CompCodeRegion.sql" />
     <Build Include="dm_global\Views\vw_dim_GLAccount.sql" />
-
     <Build Include="dm_sales\Views\vw_dim_Customer.sql" />
     <Build Include="dm_sales\Views\vw_fact_BillingDocumentItem.sql" />
     <Build Include="dm_sales\Views\vw_dim_Product.sql" />
@@ -1429,7 +1408,6 @@
     <Build Include="dm_procurement\Views\vw_dim_User.sql" />
     <Build Include="dm_procurement\Views\vw_fact_VendorInvoice_ApprovedAndPosted.sql" />
     <Build Include="dm_procurement\Views\vw_fact_PurchasingDocument.sql" />
-
     <Build Include="dm_dq\Views\vw_dim_RuleProduct.sql" />
     <Build Include="dm_dq\Views\vw_fact_RuleTotal.sql" />
     <Build Include="dm_dq\Views\vw_dim_Rule.sql" />
@@ -1455,23 +1433,19 @@
     <Build Include="dm_dq\Views\vw_dim_CustomerSalesPartnerFunction.sql" />
     <Build Include="dm_dq\Views\vw_dim_SupplierPurchasingOrg.sql" />
     <Build Include="dm_dq\Views\vw_dim_Supplier.sql" />
-    <Build Include="dm_c4c\Views\vw_fact_OpportunityCollection.sql" />    
+    <Build Include="dm_c4c\Views\vw_fact_OpportunityCollection.sql" />
     <Build Include="dm_scm\Views\vw_fact_MaterialStockLevel_Weekly.sql" />
     <Build Include="dm_scm\Views\vw_fact_ProductSalesThirdPartyDelivery.sql" />
     <Build Include="dm_scm\Views\vw_dim_ShippingPoint.sql" />
-
-    <Build Include="dm_RiskAndCompliance\Views\vw_dim_ActivityGroupRolesInCompositeRoles.sql" />
+    <Build Include="dm_RiskAndCompliance\Views\vw_dim_ActivityGroupRoleInCompositeRole.sql" />
     <Build Include="dm_RiskAndCompliance\Views\vw_dim_ActivityGroupAuthorization.sql" />
-
-      <!-- STORED PROCEDURES -->
-
+    <Build Include="dm_RiskAndCompliance\Views\vw_dim_ActivityGroupRole.sql" />
+    <!-- STORED PROCEDURES -->
     <!-- <Build Include="base_s4h_cax\Stored Procedures\sp_load_C_BillingDocumentItemBasicDEX.sql" /> -->
     <!-- <Build Include="base_s4h_cax\Stored Procedures\sp_load_C_SalesDocumentItemDEX.sql" /> -->
     <!-- <Build Include="base_s4h_cax\Stored Procedures\sp_load_Z_C_VariantConfig.sql" /> -->
     <Build Include="base_s4h_cax\Stored Procedures\sp_load_I_GLAccountLineItemRawData.sql" />
-
     <Build Include="base_dw_halfen_2_dwh\Stored Procedures\sp_load_FACT_HGDAWA.sql" />
-
     <Build Include="intm_axbi\Stored Procedures\up_ReadSales_ANAH.sql" />
     <Build Include="intm_axbi\Stored Procedures\up_ReadSales_ANAU.sql" />
     <Build Include="intm_axbi\Stored Procedures\up_ReadSales_ANDE.sql" />
@@ -1492,7 +1466,6 @@
     <Build Include="intm_axbi\Stored Procedures\up_createAxBiBasicData.sql" />
     <Build Include="intm_axbi\Stored Procedures\up_CollectSales_CA.sql" />
     <Build Include="intm_axbi\Stored Procedures\up_CUSTINVOICETRANS_Werte_nach_CRH_Kurs_umrechnen.sql" />
-
     <!-- <Build Include="edw\Stored Procedures\sp_load_dim_ProductHierarchy.sql" /> -->
     <!-- <Build Include="edw\Stored Procedures\sp_load_dim_ProductSalesDelivery_delta.sql" /> -->
     <!-- <Build Include="edw\Stored Procedures\sp_load_fact_BillingDocumentItem.sql" /> -->
@@ -1507,10 +1480,8 @@
     <!-- <Build Include="edw\Stored Procedures\sp_load_fact_ProductHierarchyVariantConfigCharacteristic_active.sql" /> -->
     <Build Include="edw\Stored Procedures\sp_load_fact_ACDOCA_active.sql" />
     <Build Include="edw\Stored Procedures\sp_materialize_view.sql" />
-
     <Build Include="dq\Stored Procedures\sp_materialize_view.sql" />
     <Build Include="dq\Stored Procedures\sp_dq_materialize_view.sql" />
-
     <!-- <Build Include="utilities\Stored Procedures\sp_ingest_master_data.sql" /> -->
     <Build Include="utilities\Stored Procedures\sp_add_t_values_old.sql" />
     <Build Include="utilities\Stored Procedures\sp_ingest_with_t_values.sql" />
@@ -1521,7 +1492,7 @@
     <Build Include="utilities\Stored Procedures\sp_process_axbi_delta_insert.sql" />
     <Build Include="utilities\Stored Procedures\sp_process_axbi_delta_update.sql" />
     <Build Include="utilities\Stored Procedures\sp_process_axbi_delta_delete.sql" />
-    <Build Include="utilities\Stored Procedures\sp_process_axbi_delta.sql" />  
+    <Build Include="utilities\Stored Procedures\sp_process_axbi_delta.sql" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PostDeploy Include="Scripts\Post-Deploy\Script.PostDeployment.sql" />

@@ -4456,6 +4456,17 @@
         "base_table_name": "KNVH",
         "schedule_recurrence": "D",
         "pk_field_names": "MANDT, HITYP, KUNNR, VKORG, VTWEG, SPART, DATAB"
+      },
+      {
+        "entity_id": 647,
+        "entity_name": "AGR_DEFINE",
+        "data_category": "NULL",
+        "tool_name": "Theobald",
+        "extraction_type": "Table",
+        "update_mode": "Full",
+        "base_table_name": "AGR_DEFINE",
+        "schedule_recurrence": "D",
+        "pk_field_names": "MANDT, AGR_NAME"
       }
     ]
   },

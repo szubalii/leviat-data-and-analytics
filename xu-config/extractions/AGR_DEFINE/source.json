@@ -1,0 +1,138 @@
+{
+    "functionName": "Z_THEO_READ_TABLE",
+    "runInBackgroundJob": false,
+    "backgroundJobTimeout": 180,
+    "tables": 
+    [
+        {
+            "name": "AGR_DEFINE",
+            "description": "Role definition",
+            "isView": false,
+            "fields": 
+            [
+                {
+                    "name": "MANDT",
+                    "description": "Client ID",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "T000",
+                    "indexed": "Ascending",
+                    "conversionExit": "",
+                    "isClientField": true
+                },
+                {
+                    "name": "AGR_NAME",
+                    "description": "Role Name",
+                    "abapType": "CharacterString",
+                    "length": 30,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "indexed": "Ascending",
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "PARENT_AGR",
+                    "description": "Name of imparting role",
+                    "abapType": "CharacterString",
+                    "length": 30,
+                    "isSelected": true,
+                    "checkTable": "AGR_DEFINE",
+                    "indexed": "Ascending",
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "CREATE_USR",
+                    "description": "User Name",
+                    "abapType": "CharacterString",
+                    "length": 12,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "CREATE_DAT",
+                    "description": "Date of menu generation",
+                    "abapType": "Date",
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "CREATE_TIM",
+                    "description": "Time when the menu was generated last",
+                    "abapType": "Time",
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "CREATE_TMP",
+                    "description": "UTC Time Stamp in Short Form (YYYYMMDDhhmmss)",
+                    "abapType": "PackedNumber",
+                    "length": 15,
+                    "formattedLength": 19,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "CHANGE_USR",
+                    "description": "User Name",
+                    "abapType": "CharacterString",
+                    "length": 12,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "CHANGE_DAT",
+                    "description": "Date of menu generation",
+                    "abapType": "Date",
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "CHANGE_TIM",
+                    "description": "Time when the menu was generated last",
+                    "abapType": "Time",
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "CHANGE_TMP",
+                    "description": "UTC Time Stamp in Short Form (YYYYMMDDhhmmss)",
+                    "abapType": "PackedNumber",
+                    "length": 15,
+                    "formattedLength": 19,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "ATTRIBUTES",
+                    "description": "Attributes of the menu",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                }
+            ]
+        }
+    ],
+    "complexRuntimeParameters": {
+    },
+    "whereSequence": [
+        [
+            "ColumnName",
+            "AGR_DEFINE~AGR_NAME"
+        ],
+        [
+            "Operator",
+            "ContainsPattern"
+        ],
+        [
+            "Literal",
+            "String",
+            "TR%XXXX%"
+        ]
+    ]
+}
