@@ -12,12 +12,11 @@ RETURN
   SELECT
     sde.entity_id,
     sde.layer_id,
-    sde.file_name,
     la.activity_id,
     ba.activity_nk,
     ba.activity_order
   FROM
-    dbo.get_scheduled_entities(@adhoc, @date) sde
+    dbo.entity sde
   LEFT JOIN 
     dbo.layer_activity la
     ON 

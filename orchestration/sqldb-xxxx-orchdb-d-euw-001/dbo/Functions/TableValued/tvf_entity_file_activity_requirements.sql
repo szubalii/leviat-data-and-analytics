@@ -29,12 +29,12 @@ RETURN
     SELECT                -- activities based on schedule
       [entity_id],
       [layer_id],
-      [file_name],
+      NULL            AS [file_name],
       1               AS [isRequired],
       [activity_nk],
       [activity_order],
       NULL            AS [batch_id],
-      NULL            AS [output]
+      '{}'            AS [output]
     FROM  
       [dbo].[tvf_entity_scheduled](@adhoc, @date, @rerunSuccessfulFullEntities)
   )
