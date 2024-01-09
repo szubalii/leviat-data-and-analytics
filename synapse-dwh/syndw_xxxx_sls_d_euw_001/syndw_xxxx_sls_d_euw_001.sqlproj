@@ -1031,6 +1031,8 @@
     <Build Include="edw\Functions\ScalarValued\svf_getOT_Group.sql" />
     <Build Include="edw\Functions\ScalarValued\svf_getOTIF_OnTimeInFull.sql" />
     <Build Include="edw\Functions\ScalarValued\svf_replaceZero.sql" />
+    <Build Include="edw\Functions\ScalarValued\svf_getOriginalConfirmedDeliveryDate.sql" />
+    
     <Build Include="utilities\Functions\Scalar-valued Functions\svf_get_file_path.sql" />
     <!-- VIEWS -->
     <Build Include="base_s4h_cax\Views\vw_I_GLAccountLineItemRawData.sql" />

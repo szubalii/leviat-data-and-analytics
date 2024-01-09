@@ -1,5 +1,20 @@
 ﻿CREATE VIEW [edw].[vw_OutboundDeliveryItem_s4h] AS
 WITH
+
+-- it's to get the earliest OriginalConfirmedDeliveryDate
+-- for that SalesDocumentID and SalesDocumentItem
+OriginalConfirmedSalesOrderItemDeliveryDate AS (
+    SELECT
+        SalesDocumentID,
+        SalesDocumentItemID,
+        MIN(OriginalConfirmedDeliveryDate) AS OriginalConfirmedDeliveryDate
+    FROM
+        [intm_s4h].[vw_OriginalConfirmedScheduleLineDeliveryDate]
+    GROUP BY
+        SalesDocumentID,
+        SalesDocumentItemID
+),
+
 OutboundDeliveryItem_s4h AS (
     SELECT 
         CONCAT_WS('¦', ODI.[OutboundDelivery] collate SQL_Latin1_General_CP1_CS_AS, ODI.[OutboundDeliveryItem] collate SQL_Latin1_General_CP1_CS_AS) AS [nk_fact_OutboundDeliveryItem]
@@ -88,7 +103,13 @@ OutboundDeliveryItem_s4h AS (
         ,ODI.[IntercompanyBillingStatus] AS [IntercompanyBillingStatusID]
         ,ODI.[IsReturnsItem] 
         ,SDSL.[ConfirmedDeliveryDate] AS [SL_ConfirmedDeliveryDate]
-        ,COALESCE(OCDD.[OriginalConfirmedDeliveryDate],SDSL.[ConfirmedDeliveryDate]) AS [SL_OriginalConfirmedDeliveryDate]
+        ,[edw].[svf_getOriginalConfirmedDeliveryDate] (
+             ODI.ActualDeliveryQuantity
+            ,SDI.SDI_ConfdDelivQtyInOrderQtyUnit
+            ,OCDD.[OriginalConfirmedDeliveryDate]
+            ,OCSDIDD.[OriginalConfirmedDeliveryDate]
+            ,SDSL.[ConfirmedDeliveryDate]
+        ) AS [SL_OriginalConfirmedDeliveryDate]
         ,SDSL_1st.[RequestedDeliveryDate] AS [SL_FirstCustomerRequestedDeliveryDate]
         ,SDSL.[GoodsIssueDate] AS [SL_GoodsIssueDate]
         ,SDSL.[ScheduleLine] AS [SL_ScheduleLine]
@@ -262,11 +283,22 @@ OutboundDeliveryItem_s4h AS (
                 OR
                 ODI.[ActualDeliveryQuantity] = 0
             THEN NULL
-            WHEN SDI.[SDI_ConfdDelivQtyInOrderQtyUnit] = ODI.[ActualDeliveryQuantity]
-            THEN 'In Full Delivered'
-            WHEN SDI.[SDI_ConfdDelivQtyInOrderQtyUnit] > ODI.[ActualDeliveryQuantity]
-            THEN 'Under Delivered'
-            ELSE 'Over Delivered'
+            WHEN ODI.[OutboundDeliveryItem] LIKE '9%' THEN -- OutboundDeliveryItems starting with a '9' are part of an original outbound delivery item that has been split into multiple batches.
+                CASE 
+                    WHEN SDI.[SDI_ConfdDelivQtyInOrderQtyUnit] = SUM(ODI.[ActualDeliveryQuantity]) OVER (Partition By ODI.ReferenceSDDocument, ODI.ReferenceSDDocumentItem)
+                        THEN 'In Full Delivered'
+                    WHEN SDI.[SDI_ConfdDelivQtyInOrderQtyUnit] > SUM(ODI.[ActualDeliveryQuantity]) OVER (Partition By ODI.ReferenceSDDocument, ODI.ReferenceSDDocumentItem)
+                        THEN 'Under Delivered'
+                ELSE 'Over Delivered'
+            END
+            ELSE 
+                CASE 
+                    WHEN SDI.[SDI_ConfdDelivQtyInOrderQtyUnit] = ODI.[ActualDeliveryQuantity]
+                        THEN 'In Full Delivered'
+                    WHEN SDI.[SDI_ConfdDelivQtyInOrderQtyUnit] > ODI.[ActualDeliveryQuantity]
+                        THEN 'Under Delivered'
+                ELSE 'Over Delivered'
+                END
          END AS [IF_Group]
         ,CASE
             WHEN
@@ -414,6 +446,12 @@ OutboundDeliveryItem_s4h AS (
             SDSL.[SalesDocumentItem]  COLLATE DATABASE_DEFAULT = OCDD.[SalesDocumentItemID]
             AND
             SDSL.[ScheduleLine]  COLLATE DATABASE_DEFAULT = OCDD.[ScheduleLine]
+    LEFT JOIN
+        OriginalConfirmedSalesOrderItemDeliveryDate OCSDIDD
+        ON
+            OCSDIDD.[SalesDocumentID] = SDSL.[SalesDocument]
+            AND
+            OCSDIDD.[SalesDocumentItemID] = SDSL.[SalesDocumentItem] COLLATE DATABASE_DEFAULT
     LEFT JOIN
         [edw].[dim_Route] AS DimActualRoute
         ON
