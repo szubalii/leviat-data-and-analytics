@@ -1,5 +1,20 @@
 ﻿CREATE VIEW [edw].[vw_OutboundDeliveryItem_s4h] AS
 WITH
+
+-- it's to get the earliest OriginalConfirmedDeliveryDate
+-- for that SalesDocumentID and SalesDocumentItem
+OriginalConfirmedSalesOrderItemDeliveryDate AS (
+    SELECT
+        SalesDocumentID,
+        SalesDocumentItemID,
+        MIN(OriginalConfirmedDeliveryDate) AS OriginalConfirmedDeliveryDate
+    FROM
+        [intm_s4h].[vw_OriginalConfirmedScheduleLineDeliveryDate]
+    GROUP BY
+        SalesDocumentID,
+        SalesDocumentItemID
+),
+
 OutboundDeliveryItem_s4h AS (
     SELECT 
         CONCAT_WS('¦', ODI.[OutboundDelivery] collate SQL_Latin1_General_CP1_CS_AS, ODI.[OutboundDeliveryItem] collate SQL_Latin1_General_CP1_CS_AS) AS [nk_fact_OutboundDeliveryItem]
@@ -89,14 +104,12 @@ OutboundDeliveryItem_s4h AS (
         ,ODI.[IsReturnsItem] 
         ,SDSL.[ConfirmedDeliveryDate] AS [SL_ConfirmedDeliveryDate]
         ,[edw].[svf_getOriginalConfirmedDeliveryDate] (
-                ODI.ActualDeliveryQuantity
-               ,SDI.SDI_ConfdDelivQtyInOrderQtyUnit
-               ,OCDD.[OriginalConfirmedDeliveryDate]
-               ,MIN(OCDD.[OriginalConfirmedDeliveryDate])           -- it's to get the earliest OriginalConfirmedDeliveryDate
-                    OVER (PARTITION BY                              -- for that SalesDocumentID and SalesDocumentItem
-                        OCDD.SalesDocumentID, OCDD.SalesDocumentItemID)
-               ,SDSL.[ConfirmedDeliveryDate]
-               ) AS [SL_OriginalConfirmedDeliveryDate]
+             ODI.ActualDeliveryQuantity
+            ,SDI.SDI_ConfdDelivQtyInOrderQtyUnit
+            ,OCDD.[OriginalConfirmedDeliveryDate]
+            ,OCSDIDD.[OriginalConfirmedDeliveryDate]
+            ,SDSL.[ConfirmedDeliveryDate]
+        ) AS [SL_OriginalConfirmedDeliveryDate]
         ,SDSL_1st.[RequestedDeliveryDate] AS [SL_FirstCustomerRequestedDeliveryDate]
         ,SDSL.[GoodsIssueDate] AS [SL_GoodsIssueDate]
         ,SDSL.[ScheduleLine] AS [SL_ScheduleLine]
@@ -433,6 +446,12 @@ OutboundDeliveryItem_s4h AS (
             SDSL.[SalesDocumentItem]  COLLATE DATABASE_DEFAULT = OCDD.[SalesDocumentItemID]
             AND
             SDSL.[ScheduleLine]  COLLATE DATABASE_DEFAULT = OCDD.[ScheduleLine]
+    LEFT JOIN
+        OriginalConfirmedSalesOrderItemDeliveryDate OCSDIDD
+        ON
+            OCSDIDD.[SalesDocumentID] = ODI.[ReferenceSDDocument]
+            AND
+            OCSDIDD.[SalesDocumentItemID] COLLATE DATABASE_DEFAULT = ODI.[ReferenceSDDocumentItem]           
     LEFT JOIN
         [edw].[dim_Route] AS DimActualRoute
         ON

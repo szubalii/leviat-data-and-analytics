@@ -16,7 +16,10 @@ BEGIN
 
 
   INSERT INTO [base_s4h_cax].[I_OutboundDeliveryItem] ([ReferenceSDDocument], [ReferenceSDDocumentItem], [ActualDeliveryQuantity])
-  VALUES (1, 1, 100), (2, 2, 200);
+  VALUES
+    (1, 1, 100),
+    (1, 1,  10),
+    (2, 2, 200);
 
   SELECT TOP(0) *
   INTO #vw_fact_SalesDocumentItem_LC_EUR
@@ -33,12 +36,16 @@ BEGIN
   INTO #vw_SalesDocumentEarliestConfirmedDeliveryDate
   FROM intm_s4h.vw_SalesDocumentEarliestConfirmedDeliveryDate;
   
-  INSERT INTO #vw_SalesDocumentEarliestConfirmedDeliveryDate ([SalesDocument], [SalesDocumentItem], [ConfirmedDeliveryDate], [ScheduleLine])
+  INSERT INTO #vw_SalesDocumentEarliestConfirmedDeliveryDate (
+    [SalesDocument],
+    [SalesDocumentItem],
+    [ScheduleLine],
+    [ConfirmedDeliveryDate]
+  )
   VALUES
-    (1, 1, '2024-01-01', 1),
-    (1, 1, '2023-12-01', 2),
-    (2, 2, '2023-01-01', 3),
-    (2, 2, '2023-06-01', 4);
+    (1, 1, 1, '2023-12-01'),
+    (1, 1, 2, '2024-01-01'),
+    (2, 2, 1, '2023-02-01');
 
   EXEC ('INSERT INTO intm_s4h.vw_SalesDocumentEarliestConfirmedDeliveryDate SELECT * FROM #vw_SalesDocumentEarliestConfirmedDeliveryDate');
 
@@ -46,12 +53,15 @@ BEGIN
   INTO #vw_OriginalConfirmedScheduleLineDeliveryDate
   FROM intm_s4h.vw_OriginalConfirmedScheduleLineDeliveryDate;
   
-  INSERT INTO #vw_OriginalConfirmedScheduleLineDeliveryDate ([SalesDocumentID], [SalesDocumentItemID], [OriginalConfirmedDeliveryDate], [ScheduleLine])
+  INSERT INTO #vw_OriginalConfirmedScheduleLineDeliveryDate (
+    [SalesDocumentID],
+    [SalesDocumentItemID],
+    [ScheduleLine],
+    [OriginalConfirmedDeliveryDate]
+  )
   VALUES
-    (1, 1, '2024-01-01', 1),
-    (1, 1, '2023-11-01', 2),
-    (2, 2, '2023-02-01', 3),
-    (2, 2, '2023-07-01', 4);
+    (1, 1, 0, '2023-11-01'),
+    (2, 2, 1, '2023-01-01');
 
   EXEC ('INSERT INTO intm_s4h.vw_OriginalConfirmedScheduleLineDeliveryDate SELECT * FROM #vw_OriginalConfirmedScheduleLineDeliveryDate');
 
@@ -59,6 +69,7 @@ BEGIN
   SELECT
     [ReferenceSDDocument],
     [ReferenceSDDocumentItem],
+    [SL_ScheduleLine],
     [SL_OriginalConfirmedDeliveryDate]
   INTO actual
   FROM [edw].[vw_OutboundDeliveryItem_s4h]
@@ -70,12 +81,14 @@ BEGIN
   INSERT INTO expected(
     [ReferenceSDDocument],
     [ReferenceSDDocumentItem],
+    [SL_ScheduleLine],
     [SL_OriginalConfirmedDeliveryDate])
   VALUES
-    (1, 1,'2023-11-01')
-    ,(1, 1,'2023-11-01')
-    ,(2, 2,'2023-02-01')
-    ,(2, 2,'2023-07-01');
+     (1, 1, 1, '2023-11-01')
+    ,(1, 1, 2, '2023-11-01')
+    ,(1, 1, 1, '2023-11-01')
+    ,(1, 1, 2, '2023-11-01')
+    ,(2, 2, 1, '2023-01-01');
 
   -- Assert:
   EXEC tSQLt.AssertEqualsTable 'expected', 'actual';
