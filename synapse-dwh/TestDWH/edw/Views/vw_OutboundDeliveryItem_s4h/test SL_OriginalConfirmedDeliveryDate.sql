@@ -39,13 +39,11 @@ BEGIN
   INSERT INTO #vw_SalesDocumentEarliestConfirmedDeliveryDate (
     [SalesDocument],
     [SalesDocumentItem],
-    [ScheduleLine],
     [ConfirmedDeliveryDate]
   )
   VALUES
-    (1, 1, 1, '2023-12-01'),
-    (1, 1, 2, '2024-01-01'),
-    (2, 2, 1, '2023-02-01');
+    (1, 1, '2023-12-01'),
+    (2, 2, '2023-02-01');
 
   EXEC ('INSERT INTO intm_s4h.vw_SalesDocumentEarliestConfirmedDeliveryDate SELECT * FROM #vw_SalesDocumentEarliestConfirmedDeliveryDate');
 
@@ -85,8 +83,6 @@ BEGIN
     [SL_OriginalConfirmedDeliveryDate])
   VALUES
      (1, 1, 1, '2023-11-01')
-    ,(1, 1, 2, '2023-11-01')
-    ,(1, 1, 1, '2023-11-01')
     ,(1, 1, 2, '2023-11-01')
     ,(2, 2, 1, '2023-01-01');
 
