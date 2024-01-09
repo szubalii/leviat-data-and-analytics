@@ -18,7 +18,6 @@ BEGIN
   INSERT INTO [base_s4h_cax].[I_OutboundDeliveryItem] ([ReferenceSDDocument], [ReferenceSDDocumentItem], [ActualDeliveryQuantity])
   VALUES
     (1, 1, 100),
-    (1, 1,  10),
     (2, 2, 200);
 
   SELECT TOP(0) *
@@ -39,11 +38,12 @@ BEGIN
   INSERT INTO #vw_SalesDocumentEarliestConfirmedDeliveryDate (
     [SalesDocument],
     [SalesDocumentItem],
+    [ScheduleLine],
     [ConfirmedDeliveryDate]
   )
   VALUES
-    (1, 1, '2023-12-01'),
-    (2, 2, '2023-02-01');
+    (1, 1, 3, '2023-12-01'),
+    (2, 2, 1, '2023-02-01');
 
   EXEC ('INSERT INTO intm_s4h.vw_SalesDocumentEarliestConfirmedDeliveryDate SELECT * FROM #vw_SalesDocumentEarliestConfirmedDeliveryDate');
 
@@ -58,7 +58,7 @@ BEGIN
     [OriginalConfirmedDeliveryDate]
   )
   VALUES
-    (1, 1, 0, '2023-11-01'),
+    (1, 1, 2, '2023-11-01'),
     (2, 2, 1, '2023-01-01');
 
   EXEC ('INSERT INTO intm_s4h.vw_OriginalConfirmedScheduleLineDeliveryDate SELECT * FROM #vw_OriginalConfirmedScheduleLineDeliveryDate');
@@ -82,8 +82,7 @@ BEGIN
     [SL_ScheduleLine],
     [SL_OriginalConfirmedDeliveryDate])
   VALUES
-     (1, 1, 1, '2023-11-01')
-    ,(1, 1, 2, '2023-11-01')
+     (1, 1, 3, '2023-11-01')
     ,(2, 2, 1, '2023-01-01');
 
   -- Assert:

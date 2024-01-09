@@ -449,9 +449,9 @@ OutboundDeliveryItem_s4h AS (
     LEFT JOIN
         OriginalConfirmedSalesOrderItemDeliveryDate OCSDIDD
         ON
-            OCSDIDD.[SalesDocumentID] = ODI.[ReferenceSDDocument]
+            OCSDIDD.[SalesDocumentID] = SDSL.[SalesDocument]
             AND
-            OCSDIDD.[SalesDocumentItemID] COLLATE DATABASE_DEFAULT = ODI.[ReferenceSDDocumentItem]
+            OCSDIDD.[SalesDocumentItemID] = SDSL.[SalesDocumentItem] COLLATE DATABASE_DEFAULT
     LEFT JOIN
         [edw].[dim_Route] AS DimActualRoute
         ON
