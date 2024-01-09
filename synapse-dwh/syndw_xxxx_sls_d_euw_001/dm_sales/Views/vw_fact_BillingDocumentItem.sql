@@ -85,48 +85,6 @@ CTE_PrcgElmnt AS (
     ,[CurrencyTypeID]
 )
 
--- , PrcgElmnt AS (
---     SELECT
---         [BillingDocument]
---         ,[BillingDocumentItem]
---         ,[CurrencyTypeID]
---         ,MAX([ZC10])    AS [ZC10]
---         ,MAX([ZCF1])    AS [ZCF1]
---         ,MAX([VPRS])    AS [VPRS]
---         ,MAX([EK02])    AS [EK02]
---     FROM [edw].[fact_BillingDocumentItemPrcgElmnt]
---     PIVOT  
---     (  
---         SUM(ConditionAmount)  
---         FOR [ConditionType] IN ([ZC10], [ZCF1], [VPRS], [EK02])  
---     ) AS PivotTable
---     GROUP BY
---         [BillingDocument]
---         ,[BillingDocumentItem]
---         ,[CurrencyTypeID]
--- )
-
--- , PrcgElmntCR AS (
---     SELECT
---         [BillingDocument]
---         ,[BillingDocumentItem]
---         ,[CurrencyTypeID]
---         ,MAX([ZC10])    AS [ZC10]
---         ,MAX([ZCF1])    AS [ZCF1]
---         ,MAX([VPRS])    AS [VPRS]
---         ,MAX([EK02])    AS [EK02]
---     FROM [edw].[fact_BillingDocumentItemPrcgElmnt]
---     PIVOT  
---     (  
---         SUM(ConditionRateValue)  
---         FOR [ConditionType] IN ([ZC10], [ZCF1], [VPRS], [EK02])  
---     ) AS PivotTable
---     GROUP BY
---         [BillingDocument]
---         ,[BillingDocumentItem]
---         ,[CurrencyTypeID]
--- )
-
  ,
  original AS (
   SELECT 
