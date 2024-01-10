@@ -307,11 +307,11 @@ LEFT JOIN [edw].[vw_fact_BillingDocumentItemFreight] BDIFreight
   ON ODI.[OutboundDelivery] = BDIFreight.[ReferenceSDDocument]
   AND ODI.[OutboundDeliveryItem] = BDIFreight.[ReferenceSDDocumentItem]
 LEFT JOIN CurrencyConversionRate CCR_EUR
-  ON BDIFreight.LocalCurrencyID = CCR_EUR.[SourceCurrency]  COLLATE SQL_Latin1_General_CP1_CS_AS             
+  ON BDIFreight.LocalCurrencyID = CCR_EUR.[SourceCurrency]            
   AND CCR_EUR.[TargetCurrency] = 'EUR'
 LEFT JOIN CurrencyConversionRate CCR_FR_LOC
-  ON FCDI.[FrtCostDistrItemAmtCrcy] = CCR_FR_LOC.[SourceCurrency]   COLLATE SQL_Latin1_General_CP1_CS_AS     
-  AND SDI_LocalCurrency = CCR_FR_LOC.[TargetCurrency]   COLLATE SQL_Latin1_General_CP1_CS_AS                  
+  ON FCDI.[FrtCostDistrItemAmtCrcy] = CCR_FR_LOC.[SourceCurrency]   
+  AND SDI_LocalCurrency = CCR_FR_LOC.[TargetCurrency]           
 LEFT JOIN CurrencyConversionRate CCR_FR_EUR  
-  ON FCDI.[FrtCostDistrItemAmtCrcy] = CCR_FR_EUR.[SourceCurrency] COLLATE SQL_Latin1_General_CP1_CS_AS    
+  ON FCDI.[FrtCostDistrItemAmtCrcy] = CCR_FR_EUR.[SourceCurrency]   
   AND CCR_FR_EUR.[TargetCurrency] = 'EUR'

@@ -72,7 +72,7 @@ SELECT
     ,   NSDM.[BSTRF] AS [Rounding Value]
     ,   CONCAT_WS(
           '_',
-          NSDM.[STRGR] COLLATE SQL_Latin1_General_CP1_CS_AS,
+          NSDM.[STRGR],
           PSGT.[PlanningStrategyGroupName]
         ) AS [PlanningStrategyGroupID_Name]
     ,   PP.[t_applicationId]
@@ -94,4 +94,4 @@ LEFT JOIN
 LEFT JOIN
     [base_s4h_cax].[I_PlanningStrategyGroupText] PSGT
     ON 
-        NSDM.STRGR = PSGT.PlanningStrategyGroup COLLATE SQL_Latin1_General_CP1_CS_AS
+        NSDM.STRGR = PSGT.PlanningStrategyGroup
