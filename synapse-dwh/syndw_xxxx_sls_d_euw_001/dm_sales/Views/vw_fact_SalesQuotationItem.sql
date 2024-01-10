@@ -34,10 +34,15 @@ CTE_ConditionTypes AS (
     ,[CurrencyTypeID]
     ,ConditionType AS ConditionTypeForConditionAmount
     ,ConditionType + '1' AS ConditionTypeForConditionRateValue
-    ,ConditionAmount
-    ,ConditionRateValue
+    ,SUM(ConditionAmount) AS ConditionAmount
+    ,SUM(ConditionRateValue) AS ConditionRateValue
   FROM
     [edw].[fact_SalesQuotationItemPrcgElmnt]
+  GROUP BY
+    [SalesQuotation]
+    ,[SalesQuotationItem]
+    ,[CurrencyTypeID]
+    ,[ConditionType]
 )
 ,
 CTE_PVT AS (

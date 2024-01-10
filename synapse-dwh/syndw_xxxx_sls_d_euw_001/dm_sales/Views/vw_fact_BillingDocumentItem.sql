@@ -39,10 +39,15 @@ CTE_ConditionTypes AS (
     ,[CurrencyTypeID]
     ,ConditionType AS ConditionTypeForConditionAmount
     ,ConditionType + '1' AS ConditionTypeForConditionRateValue
-    ,ConditionAmount
-    ,ConditionRateValue
+    ,SUM(ConditionAmount) AS ConditionAmount
+    ,SUM(ConditionRateValue) AS ConditionRateValue
   FROM
     [edw].[fact_BillingDocumentItemPrcgElmnt]
+  GROUP BY
+    [BillingDocument]
+    ,[BillingDocumentItem]
+    ,[CurrencyTypeID]
+    ,[ConditionType]
 )
 
 ,
