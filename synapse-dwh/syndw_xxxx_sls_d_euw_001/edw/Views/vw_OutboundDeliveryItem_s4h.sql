@@ -1849,6 +1849,16 @@ SELECT
     ,[OTR_IsOnTime]
     ,[OTR_LateDays]
     ,[edw].[svf_getOTIF_OnTimeInFull]([OTR_Group],[OTR_IsOnTime],[IF_IsInFull]) AS [OTRIF_OnTimeCusReqInFull]
+    ,CASE 
+        WHEN [SL_FirstCustomerRequestedDeliveryDate] = [CreationDate]
+        THEN 1
+        ELSE 0
+     END AS [SameDayRequested]
+     ,CASE 
+        WHEN [SL_FirstCustomerRequestedDeliveryDate] < [CreationDate]
+        THEN 1
+        ELSE 0
+     END AS [RequestedInThePast]
     ,[t_applicationId]
     ,[t_extractionDtm]
 FROM
