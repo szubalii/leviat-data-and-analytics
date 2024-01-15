@@ -428,7 +428,7 @@ OutboundDeliveryItem_s4h AS (
            THEN 
                NULL
            ELSE 
-               DATEDIFF(day,SDI.[SDI_SalesDocumentDate],[SL_FirstCustomerRequestedDeliveryDate])
+               DATEDIFF(day,SDI.[SDI_SalesDocumentDate],SDSL_1st.[RequestedDeliveryDate])
        END AS [RequestedLeadTimeOTR] 
       ,ODI.[t_applicationId]
       ,ODI.[t_extractionDtm]
