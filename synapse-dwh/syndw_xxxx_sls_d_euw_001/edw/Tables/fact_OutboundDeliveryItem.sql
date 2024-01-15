@@ -255,8 +255,8 @@
       ,[OTR_IsOnTime] bit
       ,[OTR_LateDays] int
       ,[OTRIF_OnTimeCusReqInFull] nvarchar(6)
-      ,[SameDayRequested] binary(1)
-      ,[RequestedInThePast] binary(1)
+      ,[SameDayRequested] bit
+      ,[RequestedInThePast] bit
       ,[t_applicationId]       varchar (32)
       ,[t_extractionDtm]       datetime
       ,[t_jobId]               varchar (36)
