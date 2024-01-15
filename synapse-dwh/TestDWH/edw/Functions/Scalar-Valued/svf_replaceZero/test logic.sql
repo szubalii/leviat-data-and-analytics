@@ -8,14 +8,14 @@ BEGIN
 
   -- Assemble:
   CREATE TABLE testdata (
-    VPRS    decimal
-    ,EK02   decimal
+     VPRS   DECIMAL(15,2)
+    ,EK02   DECIMAL(15,2)
   );
   INSERT INTO testdata (VPRS, EK02)
   VALUES 
-    (0, 1)
-    ,(-1, 2)
-    ,(3, 4);
+     ( 0, 1.0)
+    ,(-1.0, 2)
+    ,( 3, 4);
 
   -- Act:
   SELECT
@@ -27,16 +27,16 @@ BEGIN
 
   -- Assert:
   CREATE TABLE expected (
-    VPRS    decimal
-    ,EK02   decimal
-    ,[VPRS/EK02]  decimal
+     VPRS        DECIMAL(15,2)
+    ,EK02        DECIMAL(15,2)
+    ,[VPRS/EK02] DECIMAL(15,2)
   );
 
   INSERT INTO expected (VPRS, EK02, [VPRS/EK02])
   VALUES 
-    (0, 1, 1)
-    ,(-1, 2, -1)
-    ,(3, 4, 3);
+     ( 0,   1.0, 1.0)
+    ,(-1.0, 2,  -1.0)
+    ,( 3,   4,   3);
 
   EXEC tSQLt.AssertEqualsTable 'expected', 'actual';
 END;

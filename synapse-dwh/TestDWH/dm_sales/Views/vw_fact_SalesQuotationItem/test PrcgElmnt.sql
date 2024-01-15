@@ -10,39 +10,41 @@ BEGIN
   EXEC tSQLt.FakeTable '[edw]', '[fact_SalesDocumentItem]';
 
   INSERT INTO edw.fact_SalesQuotationItemPrcgElmnt (
-    [SalesQuotation]
+     [SalesQuotation]
     ,[SalesQuotationItem]
     ,[CurrencyTypeID]
     ,[ConditionType]
-    ,[ConditionAmount]
-    ,[nk_SalesQuotationItem]
-    ,[PricingProcedureStep]
     ,[PricingProcedureCounter]
+    ,[ConditionAmount]
     ,[ConditionRateValue]
   )
   VALUES
-    ('0000000001', '000010', '10', 'ZC10', 100, '1000010', 'TST','TST', 100)
-    ,('0000000001', '000010', '10', 'ZCF1', 200, '1000010', 'TST','TST', 200)
-    ,('0000000001', '000010', '10', 'VPRS', 400, '1000010', 'TST','TST', 400)
-    ,('0000000001', '000010', '10', 'EK02', 300, '1000010', 'TST','TST', 300)
-    ,('0000000001', '000010', '10', 'TST1', 100, '1000010', 'TST','TST', 100);
+     ('0000000001', '000010', '10', 'ZC10', 1, 100, 100)
+    ,('0000000001', '000010', '10', 'ZC10', 2, 100, 100)
+    ,('0000000001', '000010', '10', 'ZCF1', 1, 200, 200)
+    ,('0000000001', '000010', '10', 'ZCF1', 2, 200, 200)
+    ,('0000000001', '000010', '10', 'VPRS', 1, 400, 400)
+    ,('0000000001', '000010', '10', 'VPRS', 2, 400, 400)
+    ,('0000000001', '000010', '10', 'EK02', 1, 300, 300)
+    ,('0000000001', '000010', '10', 'EK02', 2, 300, 300)
+    ,('0000000001', '000010', '10', 'TST1', 1, 100, 100)
+    ,('0000000001', '000010', '10', 'TST1', 2, 100, 100);
 
   INSERT INTO edw.fact_SalesDocumentItem (
-    [SalesDocument]
+     [SalesDocument]
     ,[SalesDocumentItem]
     ,[CurrencyTypeID]
-    ,[nk_fact_SalesDocumentItem]
-    ,[CurrencyType]
     ,[SDDocumentCategoryID]
   )
   VALUES
-    ('0000000001', '000010', '10', '1000010', 'Transaction Currency','B');
+    ('0000000001', '000010', '10', 'B');
 
  
 -- Act: 
   SELECT
-    [QuotationID]
+     [QuotationID]
     ,[QuotationItemID]
+    ,[CurrencyTypeID]
     ,[PrcgElmntZC10ConditionAmount]
     ,[PrcgElmntZCF1ConditionAmount]
     ,[PrcgElmntVPRS/EK02ConditionAmount]
@@ -55,8 +57,9 @@ BEGIN
   SELECT TOP 0 * INTO expected FROM actual;
 
   INSERT INTO expected (
-    [QuotationID]
+     [QuotationID]
     ,[QuotationItemID]
+    ,[CurrencyTypeID]
     ,[PrcgElmntZC10ConditionAmount]
     ,[PrcgElmntZCF1ConditionAmount]
     ,[PrcgElmntVPRS/EK02ConditionAmount]
@@ -64,16 +67,8 @@ BEGIN
     ,[PrcgElmntZCF1ConditionRate]
     ,[PrcgElmntVPRS/EK02ConditionRate]
   )
-  VALUES (
-    '0000000001'
-    ,'000010'   
-    ,100        
-    ,200        
-    ,400    
-    ,100        
-    ,200        
-    ,400          
-  );
+  VALUES
+    ('0000000001', '000010', 10, 200, 400, 800, 200, 400, 800);
   
   -- Assert:
   EXEC tSQLt.AssertEqualsTable 'expected', 'actual';;
