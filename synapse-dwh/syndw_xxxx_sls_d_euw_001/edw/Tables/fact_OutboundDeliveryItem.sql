@@ -237,6 +237,7 @@
       ,[ActualLeadTime] int
       ,[ALT001_DataQualityCode] nvarchar (6)
       ,[RequestedLeadTime] int
+      ,[RequestedLeadTimeOTR] int
       ,[RLT001_DataQualityCode] nvarchar (6)
       ,[OTD_DaysDiff] int
       ,[OTD_Group]  nvarchar (7)

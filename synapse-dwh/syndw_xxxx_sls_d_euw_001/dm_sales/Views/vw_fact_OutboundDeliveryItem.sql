@@ -256,6 +256,7 @@ SELECT
       ,[ActualLeadTime]
       ,[ALT001_DataQualityCode]
       ,[RequestedLeadTime]
+      ,[RequestedLeadTimeOTR]
       ,[RLT001_DataQualityCode]
       ,[OTD_DaysDiff]
       ,[OTD_Group]
