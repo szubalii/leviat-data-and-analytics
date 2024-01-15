@@ -416,6 +416,20 @@ OutboundDeliveryItem_s4h AS (
            ELSE 
                DATEDIFF(day,SDI.[SDI_SalesDocumentDate],[SDI_RequestedDeliveryDate])
        END AS [RequestedLeadTime] 
+       ,CASE
+           WHEN
+               SDI.[SDI_RequestedDeliveryDate] IS NULL
+               OR
+               SDI.[SDI_RequestedDeliveryDate] = '0001-01-01'
+               OR
+               SDI.[SDI_SalesDocumentDate] IS NULL
+               OR
+               SDI.[SDI_SalesDocumentDate] = '0001-01-01'
+           THEN 
+               NULL
+           ELSE 
+               DATEDIFF(day,SDI.[SDI_SalesDocumentDate],[SL_FirstCustomerRequestedDeliveryDate])
+       END AS [RequestedLeadTimeOTR] 
       ,ODI.[t_applicationId]
       ,ODI.[t_extractionDtm]
     FROM
@@ -752,9 +766,9 @@ OutboundDeliveryItem_s4h_calculated AS (
                 [NrSLInScope] IS NULL   
             THEN 'OTD003'
             WHEN
-                [HDR_ActualDeliveryRoute] = ''
+                [HDR_ProposedDeliveryRoute] = ''
                 OR
-                [HDR_ActualDeliveryRoute] IS NULL
+                [HDR_ProposedDeliveryRoute] IS NULL
             THEN 'OTD004'
             WHEN [ActualDeliveryRouteDurationInDays] = 0
             THEN 'OTD005'
