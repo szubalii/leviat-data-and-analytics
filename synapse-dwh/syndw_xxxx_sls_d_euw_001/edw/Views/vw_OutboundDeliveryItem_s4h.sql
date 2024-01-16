@@ -416,6 +416,20 @@ OutboundDeliveryItem_s4h AS (
            ELSE 
                DATEDIFF(day,SDI.[SDI_SalesDocumentDate],[SDI_RequestedDeliveryDate])
        END AS [RequestedLeadTime] 
+       ,CASE
+           WHEN
+               SDSL_1st.[RequestedDeliveryDate] IS NULL
+               OR
+               SDSL_1st.[RequestedDeliveryDate] = '0001-01-01'
+               OR
+               SDI.[SDI_SalesDocumentDate] IS NULL
+               OR
+               SDI.[SDI_SalesDocumentDate] = '0001-01-01'
+           THEN 
+               NULL
+           ELSE 
+               DATEDIFF(day,SDI.[SDI_SalesDocumentDate],SDSL_1st.[RequestedDeliveryDate])
+       END AS [RequestedLeadTimeOTR] 
       ,ODI.[t_applicationId]
       ,ODI.[t_extractionDtm]
     FROM
@@ -752,9 +766,9 @@ OutboundDeliveryItem_s4h_calculated AS (
                 [NrSLInScope] IS NULL   
             THEN 'OTD003'
             WHEN
-                [HDR_ActualDeliveryRoute] = ''
+                [HDR_ProposedDeliveryRoute] = ''
                 OR
-                [HDR_ActualDeliveryRoute] IS NULL
+                [HDR_ProposedDeliveryRoute] IS NULL
             THEN 'OTD004'
             WHEN [ActualDeliveryRouteDurationInDays] = 0
             THEN 'OTD005'
@@ -788,6 +802,7 @@ OutboundDeliveryItem_s4h_calculated AS (
              THEN 0
              ELSE [RequestedLeadTime]
          END AS [RequestedLeadTime]
+        ,[RequestedLeadTimeOTR]
         ,CASE
            WHEN RequestedLeadTime < 0
            THEN 
@@ -1027,6 +1042,7 @@ SELECT
         ,[ActualLeadTime]
         ,[ALT001_DataQualityCode]  
         ,[RequestedLeadTime]
+        ,[RequestedLeadTimeOTR]
         ,[RLT001_DataQualityCode]
         ,[edw].[svf_getOT_DaysDiff]([SL_ConfirmedDeliveryDate_weekday], [CalculatedDelDate],GETUTCDATE()) AS [OTD_DaysDiff]
         ,[edw].[svf_getOT_DaysDiff]([SL_CustomerRequestedDeliveryDate_weekday], [CalculatedDelDate],GETUTCDATE())  AS [OTR_DaysDiff]
@@ -1265,6 +1281,7 @@ SELECT
     ,[ActualLeadTime]
     ,[ALT001_DataQualityCode]  
     ,[RequestedLeadTime]
+    ,[RequestedLeadTimeOTR]
     ,[RLT001_DataQualityCode]  
     ,[OTD_DaysDiff]
     ,[edw].[svf_getOT_Group]([OTD_DaysDiff]) AS [OTD_Group]
@@ -1531,6 +1548,7 @@ SELECT
     ,[ActualLeadTime]
     ,[ALT001_DataQualityCode]  
     ,[RequestedLeadTime]
+    ,[RequestedLeadTimeOTR]
     ,[RLT001_DataQualityCode]  
     ,[OTD_DaysDiff]
     ,[OTD_Group]
@@ -1832,6 +1850,7 @@ SELECT
     ,[ActualLeadTime]
     ,[ALT001_DataQualityCode]  
     ,[RequestedLeadTime]
+    ,[RequestedLeadTimeOTR]
     ,[RLT001_DataQualityCode]  
     ,[OTD_DaysDiff]
     ,[OTD_Group]
@@ -1849,6 +1868,16 @@ SELECT
     ,[OTR_IsOnTime]
     ,[OTR_LateDays]
     ,[edw].[svf_getOTIF_OnTimeInFull]([OTR_Group],[OTR_IsOnTime],[IF_IsInFull]) AS [OTRIF_OnTimeCusReqInFull]
+    ,CASE 
+        WHEN [SL_FirstCustomerRequestedDeliveryDate] = [CreationDate]
+        THEN 1
+        ELSE 0
+     END AS [IsRequestedOnTheSameDay]
+     ,CASE 
+        WHEN [SL_FirstCustomerRequestedDeliveryDate] < [CreationDate]
+        THEN 1
+        ELSE 0
+     END AS [IsRequestedInThePast]
     ,[t_applicationId]
     ,[t_extractionDtm]
 FROM

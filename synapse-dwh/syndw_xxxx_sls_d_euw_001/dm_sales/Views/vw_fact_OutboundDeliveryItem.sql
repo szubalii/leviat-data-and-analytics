@@ -256,6 +256,7 @@ SELECT
       ,[ActualLeadTime]
       ,[ALT001_DataQualityCode]
       ,[RequestedLeadTime]
+      ,[RequestedLeadTimeOTR]
       ,[RLT001_DataQualityCode]
       ,[OTD_DaysDiff]
       ,[OTD_Group]
@@ -283,6 +284,8 @@ SELECT
       ,[OTR_IsOnTime]
       ,[OTR_LateDays]
       ,[OTRIF_OnTimeCusReqInFull]
+      ,[IsRequestedOnTheSameDay]
+      ,[IsRequestedInThePast]
       ,ODI.[t_extractionDtm]
       ,ODI.[t_applicationId]
 FROM [edw].[fact_OutboundDeliveryItem] ODI
