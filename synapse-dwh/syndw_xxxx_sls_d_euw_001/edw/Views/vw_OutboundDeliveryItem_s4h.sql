@@ -418,9 +418,9 @@ OutboundDeliveryItem_s4h AS (
        END AS [RequestedLeadTime] 
        ,CASE
            WHEN
-               SDI.[SDI_RequestedDeliveryDate] IS NULL
+               SDSL_1st.[RequestedDeliveryDate] IS NULL
                OR
-               SDI.[SDI_RequestedDeliveryDate] = '0001-01-01'
+               SDSL_1st.[RequestedDeliveryDate] = '0001-01-01'
                OR
                SDI.[SDI_SalesDocumentDate] IS NULL
                OR
@@ -1872,7 +1872,7 @@ SELECT
         WHEN [SL_FirstCustomerRequestedDeliveryDate] = [CreationDate]
         THEN 1
         ELSE 0
-     END AS [SameDayRequested]
+     END AS [IsRequestedOnTheSameDay]
      ,CASE 
         WHEN [SL_FirstCustomerRequestedDeliveryDate] < [CreationDate]
         THEN 1
