@@ -285,7 +285,7 @@ SELECT
       ,[OTR_LateDays]
       ,[OTRIF_OnTimeCusReqInFull]
       ,[IsRequestedOnTheSameDay]
-      ,[RequestedInThePast]
+      ,[IsRequestedInThePast]
       ,ODI.[t_extractionDtm]
       ,ODI.[t_applicationId]
 FROM [edw].[fact_OutboundDeliveryItem] ODI

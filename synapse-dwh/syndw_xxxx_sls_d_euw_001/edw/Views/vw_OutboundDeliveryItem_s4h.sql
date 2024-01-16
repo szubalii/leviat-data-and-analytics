@@ -1877,7 +1877,7 @@ SELECT
         WHEN [SL_FirstCustomerRequestedDeliveryDate] < [CreationDate]
         THEN 1
         ELSE 0
-     END AS [RequestedInThePast]
+     END AS [IsRequestedInThePast]
     ,[t_applicationId]
     ,[t_extractionDtm]
 FROM
