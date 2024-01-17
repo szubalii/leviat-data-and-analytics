@@ -305,6 +305,16 @@ SELECT
     GLALIRD.TransactionTypeDeterminationID,
     GLALIRD.AmountInCompanyCodeCurrency
   ) * ExchangeRate.ExchangeRate AS [Inventory_Adj_KPI],
+  ZED.[Contingency5] AS GMElementL1,
+  CASE
+    WHEN ZED.[Contingency5] = 'COGS'
+    THEN
+        CASE WHEN GLALIRD.[AccountingDocumentTypeID] = 'ML'
+             THEN 'Material ledger actual costing run'
+             ELSE 'Standard COGS' 
+        END
+    ELSE ZED.[Contingency5] 
+  END AS GMElementL2,
   GLALIRD.[t_applicationId],
   GLALIRD.[t_extractionDtm]
 FROM [edw].[fact_ACDOCA] GLALIRD

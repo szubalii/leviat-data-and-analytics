@@ -151,6 +151,8 @@ SELECT
   '10' AS ValueTypeID,
   [ProjectNumber],
   [ProjectNumberCalculated],
+  [GMElementL1],
+  [GMElementL2],
   [t_applicationId],
   [t_extractionDtm]
 FROM
