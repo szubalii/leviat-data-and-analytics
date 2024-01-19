@@ -217,6 +217,7 @@ SELECT
      CTE_PrcgElmnt.[PrcgElmntVPRSConditionRate]
     ,CTE_PrcgElmnt.[PrcgElmntEK02ConditionRate]
 ) AS [PrcgElmntVPRS/EK02ConditionRate]
+, doc.[SalesGroupID]
 , doc.[t_applicationId]
 , doc.[t_extractionDtm]
 FROM
