@@ -14,6 +14,7 @@
 , [AccountDetnProductGroup] nvarchar(4)
 , [DeliveryNoteProcMinDelivQty] decimal(13,3)
 , [ItemCategoryGroup] nvarchar(8)
+, [ItemCategoryGroupName] nvarchar(20)
 , [DeliveryQuantityUnit] nvarchar(6) collate Latin1_General_100_BIN2
 , [DeliveryQuantity] decimal(13,3)
 , [ProductSalesStatus] nvarchar(4)
