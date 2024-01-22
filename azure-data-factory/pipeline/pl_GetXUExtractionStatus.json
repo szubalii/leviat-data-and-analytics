@@ -434,6 +434,10 @@
 							"name": "Set Timestamp from Param",
 							"type": "SetVariable",
 							"dependsOn": [],
+							"policy": {
+								"secureOutput": false,
+								"secureInput": false
+							},
 							"userProperties": [],
 							"typeProperties": {
 								"variableName": "extraction_timestamp",
@@ -490,6 +494,10 @@
 									]
 								}
 							],
+							"policy": {
+								"secureOutput": false,
+								"secureInput": false
+							},
 							"userProperties": [],
 							"typeProperties": {
 								"variableName": "extraction_timestamp",
@@ -571,6 +579,10 @@
 									]
 								}
 							],
+							"policy": {
+								"secureOutput": false,
+								"secureInput": false
+							},
 							"userProperties": [],
 							"typeProperties": {
 								"variableName": "extraction_status",
@@ -736,6 +748,44 @@
 									"type": "Expression"
 								},
 								"errorCode": "500"
+							}
+						},
+						{
+							"name": "If no run for extraction",
+							"type": "IfCondition",
+							"dependsOn": [
+								{
+									"activity": "Get XU Extraction Status",
+									"dependencyConditions": [
+										"Failed"
+									]
+								}
+							],
+							"userProperties": [],
+							"typeProperties": {
+								"expression": {
+									"value": "@startswith(\n    activity('Get XU Extraction Status').output.response,\n    'No run for extraction'\n)",
+									"type": "Expression"
+								},
+								"ifTrueActivities": [
+									{
+										"name": "Set extraction status to No run for extraction",
+										"type": "SetVariable",
+										"dependsOn": [],
+										"policy": {
+											"secureOutput": false,
+											"secureInput": false
+										},
+										"userProperties": [],
+										"typeProperties": {
+											"variableName": "extraction_status",
+											"value": {
+												"value": "'No run for extraction'",
+												"type": "Expression"
+											}
+										}
+									}
+								]
 							}
 						}
 					],
