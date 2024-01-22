@@ -850,6 +850,22 @@
 									"entity_id": {
 										"value": "@item().entity_id",
 										"type": "Expression"
+									},
+									"base_schema_name": {
+										"value": "@item().base_schema_name",
+										"type": "Expression"
+									},
+									"base_table_name": {
+										"value": "@item().base_table_name",
+										"type": "Expression"
+									},
+									"base_sproc_name": {
+										"value": "@item().base_sproc_name",
+										"type": "Expression"
+									},
+									"source_date_field_name": {
+										"value": "@item().axbi_date_field_name",
+										"type": "Expression"
 									}
 								}
 							}
