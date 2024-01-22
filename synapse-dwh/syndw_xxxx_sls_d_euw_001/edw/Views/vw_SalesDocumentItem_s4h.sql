@@ -82,6 +82,7 @@ C_SalesDocumentItemDEXBase as (
          , doc.[DistributionChannel]            as [DistributionChannelID]
          , doc.[Division]                       as [DivisionID]
          , doc.[SalesGroup]                     as [SalesGroupID]
+         , sgt.[SalesGroupName]
          , doc.[SalesOffice]                    as [SalesOfficeID]
          , doc.[InternationalArticleNumber]     as [InternationalArticleNumberID]
          , doc.[Batch]                          as [BatchID]
@@ -409,6 +410,10 @@ C_SalesDocumentItemDEXBase as (
     LEFT JOIN [edw].[dim_Customer] DimCust
             ON 
                 KNVH.GlobalParentID = DimCust.CustomerID 
+
+    LEFT JOIN [base_s4h_cax].[I_SalesGroupText] sgt
+            ON 
+                sgt.SalesGroup = doc.SalesGroup
 )
 
 SELECT 
@@ -442,6 +447,7 @@ SELECT
       ,[DistributionChannelID]
       ,[DivisionID]
       ,[SalesGroupID]
+      ,[SalesGroupName]
       ,[SalesOfficeID]
       ,[InternationalArticleNumberID]
       ,[BatchID]
