@@ -14,12 +14,12 @@ steps:
     restoreSolution: '$(synDWHSolution)'
 
   # Build the Test Project
-- task: VSBuild@1
-  displayName: 'Build Test Project'
-  inputs:
-    solution: '**/synapse-dwh/**/*.csproj'
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
+# - task: VSBuild@1
+#  displayName: 'Build Test Project'
+#  inputs:
+#    solution: '**/synapse-dwh/**/*.csproj'
+#    platform: '$(buildPlatform)'
+#    configuration: '$(buildConfiguration)'
 
 # Run tests from provided Test Plan and Suites
 # - task: VSTest@2
