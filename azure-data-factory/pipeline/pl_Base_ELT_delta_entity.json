@@ -3,10 +3,175 @@
 	"properties": {
 		"activities": [
 			{
+				"name": "Get Failed Extract",
+				"description": "",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderQuery": {
+							"value": "SELECT dbo.svf_get_failed_extract(pipeline().parameters.entity_id)",
+							"type": "Expression"
+						},
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "ds_orch_db",
+						"type": "DatasetReference",
+						"parameters": {
+							"sqlDb": {
+								"value": "@pipeline().globalParameters.sqlDb",
+								"type": "Expression"
+							}
+						}
+					},
+					"firstRowOnly": false
+				}
+			},
+			{
+				"name": "Set failed_extract",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "Get Failed Extract",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "failed_extract",
+					"value": {
+						"value": "@activity('Get Failed Extract').output.value",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "If failed extract",
+				"type": "IfCondition",
+				"dependsOn": [
+					{
+						"activity": "Set failed_extract",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@equals(\n    variables('failed_extract')\n    ,1)",
+						"type": "Expression"
+					},
+					"ifTrueActivities": [
+						{
+							"name": "Log Exception Failed Extract",
+							"type": "SqlServerStoredProcedure",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"storedProcedureName": "[dbo].[log_exception]",
+								"storedProcedureParameters": {
+									"batch_id": {
+										"value": null,
+										"type": "Guid"
+									},
+									"category": {
+										"value": "InternalError",
+										"type": "String"
+									},
+									"entity_id": {
+										"value": {
+											"value": "@pipeline().parameters.entity_id",
+											"type": "Expression"
+										},
+										"type": "Int64"
+									},
+									"error_msg": {
+										"value": {
+											"value": "@concat('Failed extraction found for delta entity ('\n,pipeline().parameters.entity_id\n,').\nReset delta subscription and delete batches in orch db')",
+											"type": "Expression"
+										},
+										"type": "String"
+									},
+									"run_id": {
+										"value": {
+											"value": "@pipeline().parameters.parent_run_id",
+											"type": "Expression"
+										},
+										"type": "Guid"
+									}
+								}
+							},
+							"linkedServiceName": {
+								"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
+								"type": "LinkedServiceReference",
+								"parameters": {
+									"sqlDb": {
+										"value": "@pipeline().globalParameters.sqlDb",
+										"type": "Expression"
+									}
+								}
+							}
+						},
+						{
+							"name": "Fail Entity Pipeline Failed Extract",
+							"type": "Fail",
+							"dependsOn": [
+								{
+									"activity": "Log Exception Failed Extract",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"userProperties": [],
+							"typeProperties": {
+								"message": {
+									"value": "@concat('Failed extraction found for delta entity ('\n,pipeline().parameters.entity_id\n,').\nReset delta subscription and delete batches in orch db')",
+									"type": "Expression"
+								},
+								"errorCode": "500"
+							}
+						}
+					]
+				}
+			},
+			{
 				"name": "Get Delta Entity FileName Batch Activities",
 				"description": "First ",
 				"type": "Lookup",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "If failed extract",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "7.00:00:00",
 					"retry": 0,
@@ -457,6 +622,10 @@
 			},
 			"deltaEntityFileNameBatchActivities": {
 				"type": "Array"
+			},
+			"failed_extract": {
+				"type": "Integer",
+				"defaultValue": 0
 			}
 		},
 		"folder": {
