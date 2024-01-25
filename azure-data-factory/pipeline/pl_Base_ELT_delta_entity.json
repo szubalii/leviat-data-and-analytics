@@ -19,7 +19,7 @@
 					"source": {
 						"type": "AzureSqlSource",
 						"sqlReaderQuery": {
-							"value": "SELECT dbo.svf_get_failed_extract(pipeline().parameters.entity_id)",
+							"value": "SELECT \ndbo.svf_get_failed_extract(@{pipeline().parameters.entity_id}) AS failed_extract",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
@@ -57,7 +57,7 @@
 				"typeProperties": {
 					"variableName": "failed_extract",
 					"value": {
-						"value": "@activity('Get Failed Extract').output.value",
+						"value": "@activity('Get Failed Extract').output.value[0].failed_extract",
 						"type": "Expression"
 					}
 				}
