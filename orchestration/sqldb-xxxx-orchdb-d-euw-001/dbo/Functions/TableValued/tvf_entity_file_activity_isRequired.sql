@@ -38,7 +38,7 @@ RETURN
     END AS isRequired
   FROM
     dbo.[vw_entity_file_activity_latest_batch] efalb
-  LEFT JOIN
+  JOIN
     dbo.[vw_entity_file_first_failed_activity] efffa
     ON
       efffa.entity_id = efalb.entity_id
