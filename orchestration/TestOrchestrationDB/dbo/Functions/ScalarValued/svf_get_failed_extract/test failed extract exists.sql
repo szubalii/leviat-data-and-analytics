@@ -20,8 +20,7 @@ BEGIN
     (2, 21 , 2);
 
   -- Act: 
-  SELECT
-    @actual = svf_get_failed_extract(1);
+  SET @actual = dbo.svf_get_failed_extract(1);
 
   -- Assert:
   EXEC tSQLt.AssertEquals @actual, 1;
