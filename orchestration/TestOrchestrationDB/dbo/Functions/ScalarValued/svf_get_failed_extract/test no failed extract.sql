@@ -1,7 +1,7 @@
 CREATE PROCEDURE [tc.dbo.svf_get_failed_extract].[test no failed extract]
 AS
 BEGIN  
-  DECLARE TINYINT @actual;
+  DECLARE @actual TINYINT;
 
   -- Assemble: Fake Table
   EXEC tSQLt.FakeTable '[dbo]', '[batch]';
