@@ -11,7 +11,7 @@ BEGIN
   SELECT
     entity_id
   INTO actual
-  FROM dbo.tvf_entity_file_required_activities(0);
+  FROM dbo.tvf_entity_file_required_activities(0, '2024/01/01', 0);
 
   -- Assert:
   CREATE TABLE expected (

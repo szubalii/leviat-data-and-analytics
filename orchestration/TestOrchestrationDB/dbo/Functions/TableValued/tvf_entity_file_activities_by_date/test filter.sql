@@ -20,7 +20,7 @@ BEGIN
   SELECT
     entity_id, file_name
   INTO actual
-  FROM dbo.tvf_entity_file_activities_by_date('2023-07-23', 0);
+  FROM dbo.tvf_entity_file_activities_by_date(0, '2023-07-23', 0);
 
   -- Assert:
   CREATE TABLE expected (
