@@ -1,4 +1,4 @@
-CREATE PROCEDURE [tc.dbo.svf_get_triggerDate].[test returns correct output]
+CREATE PROCEDURE [tc.dbo.svf_get_triggerDate].[test returns correct output with star]
 AS
 BEGIN  
   -- Act: 
