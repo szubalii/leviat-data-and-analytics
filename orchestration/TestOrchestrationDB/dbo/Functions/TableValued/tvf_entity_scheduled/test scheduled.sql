@@ -67,7 +67,7 @@ BEGIN
     (1, 6, 1, 'Load2Base', 400),
     (1, 6, 2, 'ProcessBase', 500),
     (2, 5, 1, 'Load2Base', 400),
-    (2, 5, 2, 'ProcessBase', 500),;
+    (2, 5, 2, 'ProcessBase', 500);
 
   EXEC tSQLt.AssertEqualsTable 'expected', 'actual';
 END;
