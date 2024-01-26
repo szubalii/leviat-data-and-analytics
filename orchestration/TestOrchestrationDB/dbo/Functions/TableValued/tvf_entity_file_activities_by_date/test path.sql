@@ -36,7 +36,7 @@ BEGIN
   SELECT
     entity_id, adls_directory_path_In, adls_directory_path_Out
   INTO actual
-  FROM dbo.tvf_entity_file_activities_by_date(0, '2023-07-23', 0);
+  FROM dbo.tvf_entity_file_activities_by_date('2023-07-23', 0);
 
   -- Assert:
   CREATE TABLE expected (
