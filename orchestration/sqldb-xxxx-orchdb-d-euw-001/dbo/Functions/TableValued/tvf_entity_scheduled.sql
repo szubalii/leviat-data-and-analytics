@@ -1,11 +1,7 @@
 /*
   Returns which activities need to rerun for each entity file
 */
-CREATE FUNCTION [dbo].[tvf_entity_scheduled](
-  @adhoc BIT = 0,
-  @date DATE,
-  @rerunSuccessfulFullEntities BIT = 0
-)
+CREATE FUNCTION [dbo].[tvf_entity_scheduled]()
 RETURNS TABLE
 AS
 RETURN

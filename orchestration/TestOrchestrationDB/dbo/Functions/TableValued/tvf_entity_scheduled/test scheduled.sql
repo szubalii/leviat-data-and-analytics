@@ -43,7 +43,7 @@ BEGIN
     activity_nk,
     activity_order
   INTO actual
-  FROM dbo.tvf_entity_scheduled;
+  FROM dbo.tvf_entity_scheduled();
 
   -- Assert:
   SELECT

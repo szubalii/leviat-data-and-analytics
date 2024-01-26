@@ -20,8 +20,6 @@ RETURN
       efr.skipped_activities
     FROM
       dbo.[tvf_entity_file_required_activities](
-        @adhoc,
-        @date,
         @rerunSuccessfulFullEntities
       ) efr
     LEFT JOIN

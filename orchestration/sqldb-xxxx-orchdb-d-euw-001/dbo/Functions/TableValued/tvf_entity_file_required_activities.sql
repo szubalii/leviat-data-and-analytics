@@ -3,8 +3,6 @@
   required activities exist
 */
 CREATE FUNCTION [dbo].[tvf_entity_file_required_activities](
-  @adhoc BIT = 0,
-  @date DATE,
   @rerunSuccessfulFullEntities BIT = 0
 )
 RETURNS TABLE
@@ -20,8 +18,6 @@ RETURN
     skipped_activities
   FROM
     [dbo].[tvf_entity_file_activity_requirements](
-      @adhoc,
-      @date,
       @rerunSuccessfulFullEntities
     )
   WHERE

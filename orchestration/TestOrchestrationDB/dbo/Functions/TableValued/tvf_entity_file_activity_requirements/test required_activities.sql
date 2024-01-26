@@ -15,7 +15,7 @@ BEGIN
     file_name,
     required_activities
   INTO actual
-  FROM tvf_entity_file_activity_requirements(0, '2024/01/01', 0);
+  FROM tvf_entity_file_activity_requirements(0);
 
   -- Assert:
   CREATE TABLE expected (

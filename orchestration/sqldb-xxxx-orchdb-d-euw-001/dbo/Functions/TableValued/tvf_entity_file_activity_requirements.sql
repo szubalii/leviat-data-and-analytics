@@ -3,8 +3,6 @@
   each entity file on a single record
 */
 CREATE FUNCTION [dbo].[tvf_entity_file_activity_requirements](
-  @adhoc BIT = 0,
-  @date DATE,
   @rerunSuccessfulFullEntities BIT = 0
 )
 RETURNS TABLE
@@ -36,7 +34,7 @@ RETURN
       NULL            AS [batch_id],
       '{}'            AS [output]
     FROM  
-      [dbo].[tvf_entity_scheduled](@adhoc, @date, @rerunSuccessfulFullEntities)
+      [dbo].[tvf_entity_scheduled]()
   )
   ,transposed AS (
     SELECT

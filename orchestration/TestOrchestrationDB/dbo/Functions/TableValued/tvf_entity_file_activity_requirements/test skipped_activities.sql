@@ -13,7 +13,7 @@ BEGIN
     file_name,
     skipped_activities
   INTO actual
-  FROM dbo.tvf_entity_file_activity_requirements(0, '2024/01/01', 0);
+  FROM dbo.tvf_entity_file_activity_requirements(0);
 
   -- Assert:
   CREATE TABLE expected (
