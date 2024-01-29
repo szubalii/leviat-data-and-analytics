@@ -7,17 +7,17 @@ CREATE FUNCTION [dbo].[svf_get_failed_extract](
 RETURNS TINYINT
 AS
 BEGIN
-  DECLARE @failed_extract TINYINT;
+  DECLARE @failed_extract AS TINYINT = 0;
 
   SELECT 
-    @failed_extract = MIN(
+    @failed_extract = COALESCE(MIN(
       CASE 
         WHEN status_id = 2
           THEN 0
         ELSE
           1
       END
-     )
+     ),0)
     FROM
       dbo.batch
   WHERE
