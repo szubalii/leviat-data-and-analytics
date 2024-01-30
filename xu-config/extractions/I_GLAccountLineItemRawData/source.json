@@ -9,7 +9,6 @@
     "supportsDelta": true,
     "mode": "Delta",
     "transferDataOnDeltaInit": true,
-    "whereClause": "ACCOUNTINGDOCCREATEDBYUSER = 'HKOCHEM'",
     "columns": 
     [
         {
@@ -1087,7 +1086,13 @@
             "length": 12,
             "isSelected": true,
             "selectionPermission": "All",
-            "outputLength": 12
+            "outputLength": 12,
+            "selections":
+            [
+                {
+                    "value": "HKOCHEM"
+                }
+            ]
         },
         {
             "name": "LASTCHANGEDATETIME",
