@@ -9,6 +9,7 @@
     "supportsDelta": true,
     "mode": "Delta",
     "transferDataOnDeltaInit": true,
+    "whereClause": "ACCOUNTINGDOCCREATEDBYUSER = 'HKOCHEM'",
     "columns": 
     [
         {
