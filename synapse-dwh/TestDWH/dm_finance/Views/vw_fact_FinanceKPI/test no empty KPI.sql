@@ -153,7 +153,7 @@ BEGIN
     ,('NZ35', '2023-08-01', '2023-04-01',2,100);
 
   INSERT INTO edw.fact_ScheduleLineShippedNotBilled
-  ( CompanyCode,
+  ( CompanyCodeID,
     ReportDate,
     SDI_ODB_LatestActualGoodsMovmtDate,
     OpenInvoicedValue)
