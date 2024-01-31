@@ -9,7 +9,7 @@ BEGIN
   EXEC tSQLt.FakeTable '[edw]', '[fact_ScheduleLineShippedNotBilled]';
 
   INSERT INTO edw.fact_ScheduleLineShippedNotBilled (
-    CompanyCode,
+    CompanyCodeID,
     ReportDate,
     SDI_ODB_LatestActualGoodsMovmtDate,
     OpenInvoicedValue

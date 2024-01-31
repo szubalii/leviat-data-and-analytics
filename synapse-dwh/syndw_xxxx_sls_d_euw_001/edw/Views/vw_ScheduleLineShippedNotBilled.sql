@@ -3,7 +3,7 @@ SELECT
   SLS.[sk_fact_SalesDocumentItem],
   SLS.[SalesDocumentID],
   SLS.[SalesDocumentItem],
-  SLS.[CompanyCode],
+  SLS.[CompanyCode] AS CompanyCodeID,
   SLS.[SalesDocumentTypeID],
   SLS.[SDDocumentRejectionStatusID],
   SLS.[IsUnconfirmedDelivery],
