@@ -26,7 +26,7 @@ jobs:
 - deployment: $[ format('DEPLOY_{0}_TO_{1}', ${{ parameters.solution }}, variables['deployEnvPrefix'] ) ]
   # ${{ if parameters.conditional }}:
   #   condition: eq(stageDependencies.CHECK_SOLUTIONS_DEPLOYMENT.CheckSolutionsDeployment.outputs['SetVariables.deploy_${{ parameters.solution }}'], 'true')
-  timeoutInMinutes: 120
+  timeoutInMinutes: 180
   pool:
     name: 'VM'
     demands:
