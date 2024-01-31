@@ -20,7 +20,7 @@
 			},
 			"virtualMachineName": {
 				"type": "string",
-				"value": "WEALEVAPP001"
+				"value": "WEDLEVAPP001"
 			},
 			"synapseServerName": {
 				"type": "string",
