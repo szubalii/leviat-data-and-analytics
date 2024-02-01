@@ -14,7 +14,5 @@ FROM
   edw.[dim_BillingDocProject]
 GROUP BY
     ProjectID
-  , Project
-  , ProjectID_Name
   , [t_applicationId]
   , [t_extractionDtm]
