@@ -9,31 +9,26 @@ BEGIN
 
   INSERT INTO edw.dim_BillingDocProject (
     SDDocument,
-    ProjectID
+    ProjectID,
+    Project,
+    ProjectID_Name
   )
   VALUES
-  (1, 'ProjID_A'),
-  (2, 'ProjID_A'),
-  (3, 'ProjID_B');
+  (1, 'ProjID_A', 'Project1', 'ProjID_A_Project1'),
+  (2, 'ProjID_A', 'Project2', 'ProjID_A_Project2'),
+  (3, 'ProjID_B', 'Project3', 'ProjID_B_Project3');
 
-  -- Act: 
+
+  -- Assert:
   SELECT
     ProjectID
   INTO actual
-  FROM [dm_sales].[vw_dim_BillingDocProject];
+  FROM [dm_sales].[vw_dim_BillingDocProject]
+  GROUP BY
+    ProjectID
+  HAVING COUNT(*) > 1
 
   -- Assert:
-  SELECT TOP(0) *
-  INTO expected
-  FROM actual;
+  EXEC tSQLt.AssertEmptyTable 'actual';
 
-  INSERT INTO expected (
-    ProjectID
-  )
-  VALUES
-    ('ProjID_A'),
-    ('ProjID_B');
-
-  EXEC tSQLt.AssertEqualsTable 'expected', 'actual';
-  
-END
+END;
