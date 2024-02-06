@@ -103,6 +103,7 @@ SELECT
 , dimDCh.[DistributionChannelID]
 , dimDCh.[DistributionChannel]
 , doc.[MaterialID]
+, doc.[nk_ProductPlant]
 , doc.[ProductSurrogateKey]
 , doc.[OriginallyRequestedMaterialID]
 , doc.[MaterialSubstitutionReasonID]
