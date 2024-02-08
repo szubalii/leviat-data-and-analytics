@@ -3,7 +3,7 @@ AS
 BEGIN  
   -- Act: 
   DECLARE @actual INT = ( SELECT dbo.svf_get_isRequired_full_batch_activity(
-    100, 200, 0
+    'test_file', 100, 200, 0
   ));
 
   -- Assert:

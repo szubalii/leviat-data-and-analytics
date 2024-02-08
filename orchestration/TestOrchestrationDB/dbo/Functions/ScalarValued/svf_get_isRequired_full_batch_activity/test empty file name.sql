@@ -1,9 +1,9 @@
-CREATE PROCEDURE [tc.dbo.svf_get_isRequired_full_batch_activity].[test activity after failure]
+CREATE PROCEDURE [tc.dbo.svf_get_isRequired_full_batch_activity].[test empty file name]
 AS
 BEGIN  
   -- Act: 
   DECLARE @actual INT = ( SELECT dbo.svf_get_isRequired_full_batch_activity(
-    'test_file', 200, 100, 0
+    NULL, 200, 100, 0
   ));
 
   -- Assert:
