@@ -1,0 +1,1 @@
+CREATE SCHEMA [tc.utilities.up_upsert_delta_active_table]

@@ -24,6 +24,8 @@ RETURN
     CASE
       WHEN [full].entity_id IS NOT NULL
       THEN [dbo].[svf_get_isRequired_full_batch_activity](
+        -- efalb.batch_id,
+        efalb.file_name,
         efalb.activity_order,
         efffa.first_failed_activity_order,
         @rerunSuccessfulFullEntities
@@ -38,7 +40,7 @@ RETURN
     END AS isRequired
   FROM
     dbo.[vw_entity_file_activity_latest_batch] efalb
-  JOIN
+  LEFT JOIN
     dbo.[vw_entity_file_first_failed_activity] efffa
     ON
       efffa.entity_id = efalb.entity_id

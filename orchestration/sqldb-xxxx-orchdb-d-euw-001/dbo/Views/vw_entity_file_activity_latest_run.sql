@@ -1,5 +1,5 @@
 /*
-  Returns the latest ran activity for each 
+  Returns the most recent activity that ran for each 
   entity file activity combination
 */
 CREATE VIEW [dbo].[vw_entity_file_activity_latest_run]

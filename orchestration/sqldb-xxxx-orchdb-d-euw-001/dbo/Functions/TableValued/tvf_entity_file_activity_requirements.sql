@@ -9,34 +9,36 @@ RETURNS TABLE
 AS
 RETURN
 
-  WITH combined_activities AS (
-    SELECT                -- activities based on batch
-      [entity_id],
-      [layer_id],
-      [file_name],
-      [isRequired],
-      [activity_nk],
-      [activity_order],
-      [batch_id],
-      [output]
-    FROM
-      [dbo].[tvf_entity_file_activity_isRequired](@rerunSuccessfulFullEntities)
+  WITH 
+  -- combined_activities AS (
+  --   SELECT                -- activities based on batch
+  --     [entity_id],
+  --     [layer_id],
+  --     [file_name],
+  --     [isRequired],
+  --     [activity_nk],
+  --     [activity_order],
+  --     [batch_id],
+  --     [output]
+  --   FROM
+  --     [dbo].[tvf_entity_file_activity_isRequired](@rerunSuccessfulFullEntities)
 
-              UNION ALL
+              -- UNION ALL
 
-    SELECT                -- activities based on schedule
-      [entity_id],
-      [layer_id],
-      NULL            AS [file_name],
-      1               AS [isRequired],
-      [activity_nk],
-      [activity_order],
-      NULL            AS [batch_id],
-      '{}'            AS [output]
-    FROM  
-      [dbo].[tvf_entity_scheduled]()
-  )
-  ,transposed AS (
+    -- SELECT                -- activities based on schedule
+    --   [entity_id],
+    --   [layer_id],
+    --   NULL            AS [file_name],
+    --   1               AS [isRequired],
+    --   [activity_nk],
+    --   [activity_order],
+    --   NULL            AS [batch_id],
+    --   '{}'            AS [output]
+    -- FROM  
+    --   [dbo].[tvf_entity_scheduled]()
+  -- )
+  -- ,
+  transposed AS (
     SELECT
       entity_id,
       layer_id,
@@ -73,7 +75,7 @@ RETURN
         '}'
       ) AS skipped_activities
     FROM
-      combined_activities f
+      [dbo].[tvf_entity_file_activity_isRequired](@rerunSuccessfulFullEntities) f
     GROUP BY
       entity_id,
       layer_id,
