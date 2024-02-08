@@ -21,7 +21,7 @@ Pre-Deployment Script Template
 
 :r .\Script.AddSchemasAsTestClasses.sql
 
-r: .\Script.InsertMasterData.sql
+:r .\Script.InsertMasterData.sql
 
 EXEC [tSQLt].[SetFakeViewOff] 'edw';
 GO
