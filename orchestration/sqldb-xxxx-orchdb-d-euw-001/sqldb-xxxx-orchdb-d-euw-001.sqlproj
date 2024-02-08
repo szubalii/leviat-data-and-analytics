@@ -164,7 +164,7 @@
     <Build Include="dbo\Functions\TableValued\tvf_entity_file_activity_isRequired.sql" />
     <Build Include="dbo\Functions\TableValued\tvf_entity_file_activity_requirements.sql" />
     <Build Include="dbo\Functions\TableValued\tvf_entity_file_required_activities.sql" />
-    <Build Include="dbo\Functions\TableValued\tvf_entity_scheduled.sql" />
+    <!-- <Build Include="dbo\Functions\TableValued\tvf_entity_scheduled.sql" /> -->
     <Build Include="dbo\Tables\error_category.sql">
       <AnsiNulls>On</AnsiNulls>
       <QuotedIdentifier>On</QuotedIdentifier>
