@@ -7,10 +7,12 @@ BEGIN
   IF OBJECT_ID('expected') IS NOT NULL DROP TABLE expected;
 
   -- Assemble: Fake Table
-  EXEC tSQLt.FakeTable '[base_s4h_cax]', '[_active]';
-  EXEC tSQLt.FakeTable '[base_s4h_cax]', '[_delta]';
+  -- EXEC tSQLt.FakeTable '[base_s4h_cax]', '[_active]';
+  -- EXEC tSQLt.FakeTable '[base_s4h_cax]', '[_delta]';
 
-  -- truncate table [base_s4h_cax].[_active]
+  
+  TRUNCATE TABLE [base_s4h_cax].[_active];
+  TRUNCATE TABLE [base_s4h_cax].[_delta];
 
   INSERT INTO [base_s4h_cax].[_active] (
     [PrimaryKeyField_1],
