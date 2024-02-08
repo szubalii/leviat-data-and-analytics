@@ -18,6 +18,7 @@ BEGIN
           WHEN @rerunSuccessfulFullEntities = 1
           THEN 1
           ELSE dbo.svf_get_isRequired_full_batch_activity(
+            @file_name,
             @activity_order,
             @first_failed_activity_order,
             @rerunSuccessfulFullEntities
