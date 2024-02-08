@@ -17,6 +17,7 @@
     <None Include="Scripts\PreDeploy\Script.ConfigureCLR.sql" />
     <None Include="Scripts\PreDeploy\Script.InstallTSQLT.sql" />
     <None Include="Scripts\PostDeploy\Script.AddSchemasAsTestClasses.sql" />
+    <None Include="Scripts\PostDeploy\Script.InsertMasterData.sql" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="TestClasses" />
