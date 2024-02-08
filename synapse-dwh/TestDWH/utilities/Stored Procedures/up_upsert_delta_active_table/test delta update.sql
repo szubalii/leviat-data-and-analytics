@@ -27,17 +27,17 @@ BEGIN
 
   INSERT INTO [base_s4h_cax].[_delta] (
     [TS_SEQUENCE_NUMBER],
-    -- [ODQ_CHANGEMODE],
-    -- [ODQ_ENTITYCNTR],
+    [ODQ_CHANGEMODE],
+    [ODQ_ENTITYCNTR],
     [PrimaryKeyField_1],
     [PrimaryKeyField_2],
     [NonPrimaryKeyField_1],
     [t_extractionDtm]
   )
   VALUES
-    (1, 1, 1, 'A2', '2024-01-02'),
-    (2, 1, 1, 'A3', '2024-01-02'),
-    (3, 2, 1, 'C2', '2024-01-02');
+    (1, 'U', 1, 1, 1, 'A2', '2024-01-02'),
+    (2, 'U', 1, 1, 1, 'A3', '2024-01-02'),
+    (3, 'U', 1, 2, 1, 'C2', '2024-01-02');
 
   EXEC utilities.up_upsert_delta_active_table 'base_s4h_cax', '';
 

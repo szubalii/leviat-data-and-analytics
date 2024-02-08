@@ -1,1 +1,0 @@
-CREATE SCHEMA [tc.utilities.vw_PrimaryKeyFields]
