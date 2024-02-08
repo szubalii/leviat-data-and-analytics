@@ -2,8 +2,12 @@ steps:
 
 # MS Azure SQL Edge instance (mcr.microsoft.com/azure-sql-edge) doesn't support tSQLt to use SQL Server 2022
 - script: |
-    docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=$(mssql-sa-pwd)" -p 1433:1433 -d mcr.microsoft.com/mssql/server:2022-latest
+    docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=$(mssql-sa-pwd)" -p 1433:1433 -d mcr.microsoft.com/mssql/server:2022-latest --name test-orchestration-db
   displayName: 'Start a mssql-server instance for SQL Server 2022'
+
+- script: |
+    docker cp '$(System.DefaultWorkingDirectory)/orchestration/Master Data/' test-orchestration-db:/
+  displayName: 'Copy Master Data to docker instance'
 
 - script: |
     dotnet build "$(System.DefaultWorkingDirectory)/orchestration/TestOrchestrationDB/TestOrchestrationDB.sqlproj" /p:NetCoreBuild=true
