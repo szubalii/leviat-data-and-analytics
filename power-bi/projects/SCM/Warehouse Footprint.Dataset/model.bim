@@ -4,7 +4,7 @@
     "annotations": [
       {
         "name": "PBI_QueryOrder",
-        "value": "[\"fact_OutboundDeliveryItem\",\"ShippingPoint\",\"Product\",\"Customer.ShipToParty\",\"_Measures\",\"Currency\",\"CurrencyType\",\"Calendar\",\"UnitOfMeasure\",\"SalesOrganization\",\"Country\",\"CustomerAddress\",\"Locations\",\"ProductPlant\",\"Customer.SoldToParty\",\"VIM\",\"CompanyCode\"]"
+        "value": "[\"Source\",\"DB\",\"fact_OutboundDeliveryItem\",\"ShippingPoint\",\"Product\",\"Customer.ShipToParty\",\"_Measures\",\"Currency\",\"CurrencyType\",\"Calendar\",\"UnitOfMeasure\",\"SalesOrganization\",\"Country\",\"CustomerAddress\",\"Locations\",\"ProductPlant\",\"Customer.SoldToParty\",\"VIM\",\"CompanyCode\"]"
       },
       {
         "name": "PBIDesktopVersion",
@@ -15,8 +15,8 @@
         "value": "1"
       },
       {
-        "name": "__LastRPTime",
-        "value": "133523947298893459"
+        "name": "PBI_ProTooling",
+        "value": "[\"DevMode\"]"
       }
     ],
     "culture": "en-US",
@@ -80952,6 +80952,36 @@
       "returnErrorValuesAsNull": true
     },
     "defaultPowerBIDataSourceVersion": "powerBI_V3",
+    "expressions": [
+      {
+        "name": "Source",
+        "annotations": [
+          {
+            "name": "PBI_ResultType",
+            "value": "Text"
+          },
+          {
+            "name": "PBI_NavigationStepName",
+            "value": "Navigation"
+          }
+        ],
+        "expression": "\"ws-xxxx-sls-a-euw-001.sql.azuresynapse.net\" meta [IsParameterQuery=true, List={\"ws-xxxx-sls-p-euw-001.sql.azuresynapse.net\", \"ws-xxxx-sls-a-euw-001.sql.azuresynapse.net\", \"ws-xxxx-sls-d-euw-001.sql.azuresynapse.net\", \"ws-nkukhtenko-d-euw-001.sql.azuresynapse.net\"}, DefaultValue=\"ws-xxxx-sls-p-euw-001.sql.azuresynapse.net\", Type=\"Any\", IsParameterQueryRequired=true]",
+        "kind": "m",
+        "lineageTag": "7474f1ce-c400-4ae8-966a-dd61a8bba0b9"
+      },
+      {
+        "name": "DB",
+        "annotations": [
+          {
+            "name": "PBI_ResultType",
+            "value": "Text"
+          }
+        ],
+        "expression": "\"syndw_xxxx_sls_a_euw_001\" meta [IsParameterQuery=true, List={\"syndw_xxxx_sls_p_euw_001\", \"syndw_xxxx_sls_a_euw_001\", \"syndw_xxxx_sls_d_euw_001\", \"syndw_nkukhtenko_d_euw_001\"}, DefaultValue=\"syndw_xxxx_sls_p_euw_001\", Type=\"Any\", IsParameterQueryRequired=true]",
+        "kind": "m",
+        "lineageTag": "43233a7d-8cc8-4252-be12-820869bbca9c"
+      }
+    ],
     "relationships": [
       {
         "name": "aa7be5fe-580f-4fa7-b297-1d767be90c15",
@@ -86752,48 +86782,6 @@
             "lineageTag": "96a190ab-f08a-47ad-b000-03982acab571",
             "sourceColumn": "ProductPlant",
             "summarizeBy": "none"
-          },
-          {
-            "name": "RequestedLeadTimeOTR",
-            "annotations": [
-              {
-                "name": "SummarizationSetBy",
-                "value": "Automatic"
-              }
-            ],
-            "dataType": "int64",
-            "formatString": "0",
-            "lineageTag": "f504623c-345a-46e9-8da3-eaa39fd75757",
-            "sourceColumn": "RequestedLeadTimeOTR",
-            "summarizeBy": "sum"
-          },
-          {
-            "name": "IsRequestedOnTheSameDay",
-            "annotations": [
-              {
-                "name": "SummarizationSetBy",
-                "value": "Automatic"
-              }
-            ],
-            "dataType": "boolean",
-            "formatString": "\"TRUE\";\"TRUE\";\"FALSE\"",
-            "lineageTag": "3beb1b67-3bb1-4405-bc94-e3932dbd29f4",
-            "sourceColumn": "IsRequestedOnTheSameDay",
-            "summarizeBy": "none"
-          },
-          {
-            "name": "IsRequestedInThePast",
-            "annotations": [
-              {
-                "name": "SummarizationSetBy",
-                "value": "Automatic"
-              }
-            ],
-            "dataType": "boolean",
-            "formatString": "\"TRUE\";\"TRUE\";\"FALSE\"",
-            "lineageTag": "328dc4aa-0bdd-4585-8574-6a91a2cb44bc",
-            "sourceColumn": "IsRequestedInThePast",
-            "summarizeBy": "none"
           }
         ],
         "lineageTag": "2a0a7b8c-68dc-4a97-8c96-5097fac4461b",
@@ -86804,7 +86792,7 @@
             "source": {
               "expression": [
                 "let",
-                "    Source = Sql.Database(\"ws-xxxx-sls-a-euw-001.sql.azuresynapse.net\", \"syndw_xxxx_sls_a_euw_001\"),",
+                "    Source = Sql.Database(Source, DB),",
                 "    dm_sales_vw_fact_OutboundDeliveryItem = Source{[Schema=\"dm_sales\",Item=\"vw_fact_OutboundDeliveryItem\"]}[Data]",
                 "in",
                 "    dm_sales_vw_fact_OutboundDeliveryItem"
@@ -87651,11 +87639,7 @@
         "annotations": [
           {
             "name": "PBI_ResultType",
-            "value": "Exception"
-          },
-          {
-            "name": "PBI_NavigationStepName",
-            "value": "Navigation"
+            "value": "Table"
           }
         ],
         "columns": [
@@ -87836,7 +87820,7 @@
             "source": {
               "expression": [
                 "let",
-                "    Source = Sql.Database(\"ws-xxxx-sls-a-euw-001.sql.azuresynapse.net\", \"syndw_xxxx_sls_a_euw_001\"),",
+                "    Source = Sql.Database(Source, DB),",
                 "    dm_sales_vw_dim_Locations = Source{[Schema=\"dm_scm\",Item=\"vw_dim_ShippingPoint\"]}[Data],",
                 "    #\"Filtered Rows\" = Table.SelectRows(dm_sales_vw_dim_Locations, each ([FullAddress] <> null))",
                 "in",
@@ -87853,10 +87837,6 @@
           {
             "name": "PBI_ResultType",
             "value": "Table"
-          },
-          {
-            "name": "PBI_NavigationStepName",
-            "value": "Navigation"
           }
         ],
         "columns": [
@@ -89299,7 +89279,7 @@
             "source": {
               "expression": [
                 "let",
-                "    Source = Sql.Database(\"ws-xxxx-sls-a-euw-001.sql.azuresynapse.net\", \"syndw_xxxx_sls_a_euw_001\"),",
+                "    Source = Sql.Database(Source, DB),",
                 "    dm_sales_vw_dim_Product = Source{[Schema=\"dm_sales\",Item=\"vw_dim_Product\"]}[Data]",
                 "in",
                 "    dm_sales_vw_dim_Product"
@@ -89936,10 +89916,6 @@
           {
             "name": "PBI_ResultType",
             "value": "Table"
-          },
-          {
-            "name": "PBI_NavigationStepName",
-            "value": "Navigation"
           }
         ],
         "changedProperties": [
@@ -90487,7 +90463,7 @@
             "source": {
               "expression": [
                 "let",
-                "    Source = Sql.Database(\"ws-xxxx-sls-a-euw-001.sql.azuresynapse.net\", \"syndw_xxxx_sls_a_euw_001\"),",
+                "    Source = Sql.Database(Source, DB),",
                 "    dm_sales_vw_dim_Customer = Source{[Schema=\"dm_sales\",Item=\"vw_dim_Customer\"]}[Data]",
                 "in",
                 "    dm_sales_vw_dim_Customer"
@@ -91670,16 +91646,6 @@
       },
       {
         "name": "Currency",
-        "annotations": [
-          {
-            "name": "PBI_NavigationStepName",
-            "value": "Navigation"
-          },
-          {
-            "name": "PBI_ResultType",
-            "value": "Table"
-          }
-        ],
         "columns": [
           {
             "name": "CurrencyID",
@@ -91726,7 +91692,7 @@
             "source": {
               "expression": [
                 "let",
-                "    Source = Sql.Database(\"ws-xxxx-sls-a-euw-001.sql.azuresynapse.net\", \"syndw_xxxx_sls_a_euw_001\"),",
+                "    Source = Sql.Database(Source, DB),",
                 "    dm_sales_vw_dim_Currency = Source{[Schema=\"dm_sales\",Item=\"vw_dim_Currency\"]}[Data]",
                 "in",
                 "    dm_sales_vw_dim_Currency"
@@ -91738,16 +91704,6 @@
       },
       {
         "name": "CurrencyType",
-        "annotations": [
-          {
-            "name": "PBI_NavigationStepName",
-            "value": "Navigation"
-          },
-          {
-            "name": "PBI_ResultType",
-            "value": "Table"
-          }
-        ],
         "columns": [
           {
             "name": "CurrencyTypeID",
@@ -91794,7 +91750,7 @@
             "source": {
               "expression": [
                 "let",
-                "    Source = Sql.Database(\"ws-xxxx-sls-a-euw-001.sql.azuresynapse.net\", \"syndw_xxxx_sls_a_euw_001\"),",
+                "    Source = Sql.Database(Source, DB),",
                 "    dm_sales_vw_dim_CurrencyType = Source{[Schema=\"dm_sales\",Item=\"vw_dim_CurrencyType\"]}[Data]",
                 "in",
                 "    dm_sales_vw_dim_CurrencyType"
@@ -91806,16 +91762,6 @@
       },
       {
         "name": "Calendar",
-        "annotations": [
-          {
-            "name": "PBI_NavigationStepName",
-            "value": "Navigation"
-          },
-          {
-            "name": "PBI_ResultType",
-            "value": "Table"
-          }
-        ],
         "columns": [
           {
             "name": "Date",
@@ -92229,7 +92175,7 @@
             "source": {
               "expression": [
                 "let",
-                "    Source = Sql.Database(\"ws-xxxx-sls-a-euw-001.sql.azuresynapse.net\", \"syndw_xxxx_sls_a_euw_001\"),",
+                "    Source = Sql.Database(Source, DB),",
                 "    dm_sales_vw_dim_Calendar = Source{[Schema=\"dm_sales\",Item=\"vw_dim_Calendar\"]}[Data]",
                 "in",
                 "    dm_sales_vw_dim_Calendar"
@@ -92845,10 +92791,6 @@
           {
             "name": "PBI_ResultType",
             "value": "Table"
-          },
-          {
-            "name": "PBI_NavigationStepName",
-            "value": "Navigation"
           }
         ],
         "columns": [
@@ -93053,7 +92995,7 @@
             "source": {
               "expression": [
                 "let",
-                "    Source = Sql.Database(\"ws-xxxx-sls-a-euw-001.sql.azuresynapse.net\", \"syndw_xxxx_sls_a_euw_001\"),",
+                "    Source = Sql.Database(Source, DB),",
                 "    dm_sales_vw_dim_UnitOfMeasure = Source{[Schema=\"dm_sales\",Item=\"vw_dim_UnitOfMeasure\"]}[Data],",
                 "    #\"Removed Duplicates\" = Table.Distinct(dm_sales_vw_dim_UnitOfMeasure),",
                 "    #\"Sorted Rows\" = Table.Sort(#\"Removed Duplicates\",{{\"UnitOfMeasureID\", Order.Ascending}}),",
@@ -93499,7 +93441,7 @@
             "source": {
               "expression": [
                 "let",
-                "    Source = Sql.Database(\"ws-xxxx-sls-a-euw-001.sql.azuresynapse.net\", \"syndw_xxxx_sls_a_euw_001\"),",
+                "    Source = Sql.Database(Source, DB),",
                 "    dm_sales_vw_dim_SalesOrganization = Source{[Schema=\"dm_sales\",Item=\"vw_dim_SalesOrganization\"]}[Data]",
                 "in",
                 "    dm_sales_vw_dim_SalesOrganization"
@@ -93714,11 +93656,7 @@
         "annotations": [
           {
             "name": "PBI_ResultType",
-            "value": "Exception"
-          },
-          {
-            "name": "PBI_NavigationStepName",
-            "value": "Navigation"
+            "value": "Table"
           }
         ],
         "columns": [
@@ -93767,7 +93705,7 @@
             "source": {
               "expression": [
                 "let",
-                "    Source = Sql.Database(\"ws-xxxx-sls-a-euw-001.sql.azuresynapse.net\", \"syndw_xxxx_sls_a_euw_001\"),",
+                "    Source = Sql.Database(Source, DB),",
                 "    dm_global_vw_dim_Country = Source{[Schema=\"dm_global\",Item=\"vw_dim_Country\"]}[Data]",
                 "in",
                 "    dm_global_vw_dim_Country"
@@ -93782,11 +93720,7 @@
         "annotations": [
           {
             "name": "PBI_ResultType",
-            "value": "Exception"
-          },
-          {
-            "name": "PBI_NavigationStepName",
-            "value": "Navigation"
+            "value": "Table"
           }
         ],
         "columns": [
@@ -93889,7 +93823,7 @@
             "source": {
               "expression": [
                 "let",
-                "    Source = Sql.Database(\"ws-xxxx-sls-a-euw-001.sql.azuresynapse.net\", \"syndw_xxxx_sls_a_euw_001\"),",
+                "    Source = Sql.Database(Source, DB),",
                 "    dm_scm_vw_dim_CustomerAddress = Source{[Schema=\"dm_scm\",Item=\"vw_dim_CustomerAddress\"]}[Data],",
                 "    #\"Filtered Rows\" = Table.SelectRows(dm_scm_vw_dim_CustomerAddress, each ([FullAddress] <> \"   \")),",
                 "    #\"Merged Queries\" = Table.NestedJoin(#\"Filtered Rows\", {\"CustomerID\"}, Customer.ShipToParty, {\"CustomerID\"}, \"Customer\", JoinKind.LeftOuter),",
@@ -93907,7 +93841,7 @@
         "annotations": [
           {
             "name": "PBI_ResultType",
-            "value": "Exception"
+            "value": "Table"
           },
           {
             "name": "PBI_NavigationStepName",
@@ -94209,7 +94143,7 @@
             "source": {
               "expression": [
                 "let",
-                "    Source = Sql.Database(\"ws-xxxx-sls-a-euw-001.sql.azuresynapse.net\", \"syndw_xxxx_sls_a_euw_001\"),",
+                "    Source = Sql.Database(Source, DB),",
                 "    dm_sales_vw_dim_Locations = Source{[Schema=\"dm_sales\",Item=\"vw_dim_Locations\"]}[Data],",
                 "    #\"Replaced Value\" = Table.ReplaceValue(dm_sales_vw_dim_Locations,\"9 President Way\",\"9 President Way, Sheffield\",Replacer.ReplaceText,{\"Address\"}),",
                 "    #\"Replaced Value1\" = Table.ReplaceValue(#\"Replaced Value\",\"Bergsjödalen 55\",\"Bergsjödalen 55, Göteborg\",Replacer.ReplaceText,{\"Address\"}),",
@@ -97426,16 +97360,6 @@
       },
       {
         "name": "ProductPlant",
-        "annotations": [
-          {
-            "name": "PBI_NavigationStepName",
-            "value": "Navigation"
-          },
-          {
-            "name": "PBI_ResultType",
-            "value": "Exception"
-          }
-        ],
         "columns": [
           {
             "name": "nk_ProductPlant",
@@ -98499,7 +98423,7 @@
             "source": {
               "expression": [
                 "let",
-                "    Source = Sql.Database(\"ws-xxxx-sls-a-euw-001.sql.azuresynapse.net\", \"syndw_xxxx_sls_a_euw_001\"),",
+                "    Source = Sql.Database(Source, DB),",
                 "    dm_sales_vw_dim_ProductPlant = Source{[Schema=\"dm_sales\",Item=\"vw_dim_ProductPlant\"]}[Data]",
                 "in",
                 "    dm_sales_vw_dim_ProductPlant"
@@ -99114,16 +99038,6 @@
       },
       {
         "name": "Customer.SoldToParty",
-        "annotations": [
-          {
-            "name": "PBI_ResultType",
-            "value": "Table"
-          },
-          {
-            "name": "PBI_NavigationStepName",
-            "value": "Navigation"
-          }
-        ],
         "columns": [
           {
             "name": "CustomerID",
@@ -99524,7 +99438,7 @@
             "source": {
               "expression": [
                 "let",
-                "    Source = Sql.Database(\"ws-xxxx-sls-a-euw-001.sql.azuresynapse.net\", \"syndw_xxxx_sls_a_euw_001\"),",
+                "    Source = Sql.Database(Source, DB),",
                 "    dm_sales_vw_dim_Customer = Source{[Schema=\"dm_sales\",Item=\"vw_dim_Customer\"]}[Data]",
                 "in",
                 "    dm_sales_vw_dim_Customer"
@@ -99940,12 +99854,12 @@
         "name": "VIM",
         "annotations": [
           {
-            "name": "PBI_ResultType",
-            "value": "Exception"
-          },
-          {
             "name": "PBI_NavigationStepName",
             "value": "Navigation"
+          },
+          {
+            "name": "PBI_ResultType",
+            "value": "Table"
           }
         ],
         "columns": [
@@ -100675,7 +100589,7 @@
             "source": {
               "expression": [
                 "let",
-                "    Source = Sql.Database(\"ws-xxxx-sls-a-euw-001.sql.azuresynapse.net\", \"syndw_xxxx_sls_a_euw_001\"),",
+                "    Source = Sql.Database(Source, DB),",
                 "    dm_sales_vw_dim_Locations = Source{[Schema=\"dm_procurement\",Item=\"vw_fact_VendorInvoice_ApprovedAndPosted\"]}[Data],",
                 "    #\"Filtered Rows\" = Table.SelectRows(dm_sales_vw_dim_Locations, each Text.Contains([GLAccountID], \"0055000\"))",
                 "in",
@@ -100891,12 +100805,12 @@
         "name": "CompanyCode",
         "annotations": [
           {
-            "name": "PBI_ResultType",
-            "value": "Table"
-          },
-          {
             "name": "PBI_NavigationStepName",
             "value": "Navigation"
+          },
+          {
+            "name": "PBI_ResultType",
+            "value": "Table"
           }
         ],
         "columns": [
@@ -101090,7 +101004,7 @@
             "source": {
               "expression": [
                 "let",
-                "    Source = Sql.Database(\"ws-xxxx-sls-a-euw-001.sql.azuresynapse.net\", \"syndw_xxxx_sls_a_euw_001\"),",
+                "    Source = Sql.Database(Source, DB),",
                 "    dm_sales_vw_dim_SalesOrganization = Source{[Schema=\"dm_sales\",Item=\"vw_dim_CompanyCode\"]}[Data]",
                 "in",
                 "    dm_sales_vw_dim_SalesOrganization"
