@@ -1,0 +1,9 @@
+{
+  "version": "1.0",
+  "datasetReference": {
+    "byPath": {
+      "path": "../Spend Report Mapped v1.Dataset"
+    },
+    "byConnection": null
+  }
+}
