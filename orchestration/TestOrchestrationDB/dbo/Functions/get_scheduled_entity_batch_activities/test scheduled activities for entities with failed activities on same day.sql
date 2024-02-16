@@ -14,29 +14,20 @@ BEGIN
   VALUES
     (1, 'D', 6, 'Delta'),
     (2, 'D', 6, 'Full');
-
-  DECLARE
-    @batch_id_1 UNIQUEIDENTIFIER = NEWID(),
-    @batch_id_2 UNIQUEIDENTIFIER = NEWID(),
-    @batch_id_3 UNIQUEIDENTIFIER = NEWID(),
-    @batch_id_4 UNIQUEIDENTIFIER = NEWID();
   
   INSERT INTO dbo.batch (
-    batch_id,
-    run_id,
     start_date_time,
     entity_id,
     status_id,
     activity_id,
-    directory_path,
     file_name,
     output
   )
   VALUES
-    (@batch_id_1, NEWID(), '2023-06-01', 1, 2, 21, 'directory_path', 'DELTA_2023_06_01_12_00_00_000.parquet', '{}'),
-    (@batch_id_2, NEWID(), '2023-06-01', 1, 4, 19, 'directory_path', 'DELTA_2023_06_01_12_00_00_000.parquet', '{}'),
-    (@batch_id_3, NEWID(), '2023-06-01', 2, 2, 21, 'directory_path', 'FULL_2023_06_01_12_00_00_000.parquet', '{}'),
-    (@batch_id_4, NEWID(), '2023-06-01', 2, 4, 19, 'directory_path', 'FULL_2023_06_01_12_00_00_000.parquet', '{}');
+    ('2023-06-01', 1, 2, 21, 'DELTA_2023_06_01_12_00_00_000.parquet', '{}'),
+    ('2023-06-01', 1, 4, 19, 'DELTA_2023_06_01_12_00_00_000.parquet', '{}'),
+    ('2023-06-01', 2, 2, 21, 'FULL_2023_06_01_12_00_00_000.parquet', '{}'),
+    ('2023-06-01', 2, 4, 19, 'FULL_2023_06_01_12_00_00_000.parquet', '{}');
 
   -- Act: 
   SELECT
@@ -62,8 +53,8 @@ BEGIN
     required_activities,
     skipped_activities
   ) VALUES
-    (1, 'DELTA_2023_06_01_12_00_00_000.parquet', '["TestDuplicates","ProcessADLS","Load2Base","ProcessBase"]', '{"Extract": {"batch_id":"'+convert(nvarchar(36),@batch_id_1)+'", "output":{}},"CheckXUExtractionStatus": {"batch_id":"", "output":{}},"StoreXUExtractionLog": {"batch_id":"", "output":{}}}'),
-    (2, 'FULL_2023_06_01_12_00_00_000.parquet',  '["TestDuplicates","ProcessADLS","Load2Base","ProcessBase"]', '{"Extract": {"batch_id":"'+convert(nvarchar(36),@batch_id_3)+'", "output":{}},"CheckXUExtractionStatus": {"batch_id":"", "output":{}},"StoreXUExtractionLog": {"batch_id":"", "output":{}}}');
+    (1, 'DELTA_2023_06_01_12_00_00_000.parquet', '["CheckXUExtractionStatus","StoreXUExtractionLog","TestDuplicates","ProcessADLS","Load2Base","ProcessBase"]', '{"Extract": {"batch_id":"", "output":{}}}'),
+    (2, 'FULL_2023_06_01_12_00_00_000.parquet',  '["CheckXUExtractionStatus","StoreXUExtractionLog","TestDuplicates","ProcessADLS","Load2Base","ProcessBase"]', '{"Extract": {"batch_id":"", "output":{}}}');
 
   EXEC tSQLt.AssertEqualsTable 'expected', 'actual';
 

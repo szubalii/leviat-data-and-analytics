@@ -16,10 +16,10 @@ BEGIN
     (2, 'D', 6, 'Full');
 
   
-  INSERT INTO dbo.batch (batch_id, start_date_time, entity_id, status_id, activity_id, directory_path, file_name, output)
+  INSERT INTO dbo.batch (start_date_time, entity_id, status_id, activity_id, directory_path, file_name, output)
   VALUES
-    (NEWID(), '2023-05-01', 1, 2, 21, 'directory_path', 'DELTA_2023_05_01_12_00_00_000.parquet', '{}'),
-    (NEWID(), '2023-05-01', 2, 2, 21, 'directory_path', 'FULL_2023_05_01_12_00_00_000.parquet', '{}');
+    ('2023-05-01', 1, 2, 21, 'directory_path', 'DELTA_2023_05_01_12_00_00_000.parquet', '{}'),
+    ('2023-05-01', 2, 2, 21, 'directory_path', 'FULL_2023_05_01_12_00_00_000.parquet', '{}');
 
   -- Act: 
   SELECT
@@ -45,6 +45,7 @@ BEGIN
     required_activities,
     skipped_activities
   ) VALUES
+    (1, 'DELTA_2023_05_01_12_00_00_000.parquet', '["CheckXUExtractionStatus","StoreXUExtractionLog","TestDuplicates","ProcessADLS","Load2Base","ProcessBase"]', '{"Extract": {"batch_id":"", "output":{}}}'),
     (1, NULL, '["Extract","CheckXUExtractionStatus","StoreXUExtractionLog","TestDuplicates","ProcessADLS","Load2Base","ProcessBase"]', '{}'),
     (2, NULL, '["Extract","CheckXUExtractionStatus","StoreXUExtractionLog","TestDuplicates","ProcessADLS","Load2Base","ProcessBase"]', '{}');
 
