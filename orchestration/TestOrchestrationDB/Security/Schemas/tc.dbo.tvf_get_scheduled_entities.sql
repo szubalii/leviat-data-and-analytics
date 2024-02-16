@@ -1,1 +1,0 @@
-CREATE SCHEMA [tvf_scheduled_entities]
