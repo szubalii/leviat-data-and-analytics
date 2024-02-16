@@ -51,7 +51,8 @@ BEGIN
     (1, 'StoreXUExtractionLog', 1),
     (1, 'TestDuplicates', 1),
     (1, 'ProcessADLS', 1),
-    (1, 'Load2Base', 1);
+    (1, 'Load2Base', 1),
+    (1, 'ProcessBase', 1);
 
   EXEC tSQLt.AssertEqualsTable 'expected', 'actual';
 END;

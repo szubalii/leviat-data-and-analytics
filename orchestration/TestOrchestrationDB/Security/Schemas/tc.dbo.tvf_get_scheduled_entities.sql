@@ -1,1 +1,1 @@
-CREATE SCHEMA [tc.dbo.tvf_get_scheduled_entities]
+CREATE SCHEMA [tvf_scheduled_entities]

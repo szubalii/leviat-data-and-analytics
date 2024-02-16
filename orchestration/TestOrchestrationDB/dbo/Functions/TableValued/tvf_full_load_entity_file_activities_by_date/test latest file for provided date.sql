@@ -49,7 +49,7 @@ BEGIN
     file_name
   )
   VALUES
-    (1, 'FULL_2023_06_01_14_00_00_000.parquet');
+    (2, 'FULL_2023_06_01_14_00_00_000.parquet');
 
   EXEC tSQLt.AssertEqualsTable 'expected', 'actual';
 END;

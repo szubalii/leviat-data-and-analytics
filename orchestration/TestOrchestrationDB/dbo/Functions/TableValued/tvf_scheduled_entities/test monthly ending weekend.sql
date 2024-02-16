@@ -1,4 +1,4 @@
-CREATE PROCEDURE [tc.dbo.tvf_get_scheduled_entities].[test monthly: ending weekend]
+CREATE PROCEDURE [tvf_scheduled_entities].[test monthly: ending weekend]
 AS
 BEGIN
   -- Check if all daily, weekly, monthly, adhoc scheduled entities exist in output of get_scheduled_entity_batch_activities

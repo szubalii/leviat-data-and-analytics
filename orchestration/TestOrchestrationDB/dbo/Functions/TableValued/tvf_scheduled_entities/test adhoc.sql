@@ -1,4 +1,4 @@
-CREATE PROCEDURE [tc.dbo.tvf_get_scheduled_entities].[test adhoc]
+CREATE PROCEDURE [tc.dbo.tvf_scheduled_entities].[test adhoc]
 AS
 BEGIN
   -- Check if all daily, weekly, monthly, adhoc scheduled entities exist in output of get_scheduled_entity_batch_activities
@@ -19,7 +19,7 @@ BEGIN
   -- Act: 
   SELECT entity_id
   INTO actual
-  FROM dbo.tvf_get_scheduled_entities(
+  FROM dbo.tvf_scheduled_entities(
     1, '2023-04-28'
   );
 
