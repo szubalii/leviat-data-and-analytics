@@ -1,8 +1,9 @@
 /*
   Returns the required and skippable activities for 
-  each entity file on a single record
+  each entity file on a single line
 */
 CREATE FUNCTION [dbo].[tvf_entity_file_activity_requirements](
+  @date DATE, -- set default to current date
   @rerunSuccessfulFullEntities BIT = 0
 )
 RETURNS TABLE
@@ -43,6 +44,7 @@ RETURN
       entity_id,
       layer_id,
       file_name,
+      trigger_date,
       CONCAT(
         '[',
         CASE
@@ -75,11 +77,15 @@ RETURN
         '}'
       ) AS skipped_activities
     FROM
-      [dbo].[tvf_entity_file_activity_isRequired](@rerunSuccessfulFullEntities) f
+      [dbo].[tvf_entity_file_activity_by_date](
+        @date,
+        @rerunSuccessfulFullEntities
+      ) f
     GROUP BY
       entity_id,
       layer_id,
       file_name,
+      trigger_date,
       isRequired
   )
 
@@ -89,11 +95,12 @@ RETURN
     entity_id,
     layer_id,
     file_name,
-    dbo.[svf_get_triggerDate](file_name) AS trigger_date,
+    trigger_date,
     MIN(required_activities) AS required_activities,
     MIN(skipped_activities) AS skipped_activities
   FROM transposed
   GROUP BY
     entity_id,
     layer_id,
-    file_name
+    file_name,
+    trigger_date

@@ -59,7 +59,7 @@ BEGIN
       efr.required_activities,
       efr.skipped_activities
     FROM
-      dbo.[tvf_entity_file_activities_by_date](
+      dbo.[tvf_entity_file_required_activities](
         @date,
         @rerunSuccessfulFullEntities
       ) efr
@@ -71,58 +71,65 @@ BEGIN
       layer l
       ON
         l.layer_id = efr.layer_id
-    WHERE (
-    -- Daily load is only executed on workdays.
+    INNER JOIN
+      dbo.[tvf_scheduled_entities](
+        @adhoc,
+        @date
+      ) se
+      ON
+        se.entity_id = e.entity_id
+    -- WHERE (
+    -- -- Daily load is only executed on workdays.
 
-    -- Account for situations where entities need to run at beginning or end of the month
-    -- and these days are in the weekend.
-        e.[schedule_recurrence] = 'D'
-        OR
-        (
-          e.[schedule_recurrence] = 'A'
-          AND
-          @adhoc = 1
-        )
-        OR (
-          e.[schedule_recurrence] = 'W'
-          AND
-          e.[schedule_day] = @day_of_week
-        )
-        OR (
-          e.[schedule_recurrence] = 'M'
-          AND (
-            e.[schedule_day] = @day_of_month
-            -- Beginning of month (schedule_day = 1) and
-            -- first day of month falls in weekend
-            OR (
-              e.[schedule_day] = 1
-              AND
-              @day_of_month IN (2, 3)
-              AND
-              @day_of_week = 2 --Monday
-            )
-            -- End of month (schedule_day = 0) and
-            -- last day of month falls in weekend
-            OR (
-              e.[schedule_day] = 0
-              AND (
-                @day_of_month = DAY(EOMONTH(@date))
-                OR (
-                  @day_of_week = 2 --Monday
-                  AND
-                  @day_of_month IN (1, 2)
-                )
-                OR (
-                  @day_of_week = 6 --Friday
-                  AND
-                  -- last day of month falls in weekend
-                  DATEPART(dw, (EOMONTH(@date))) IN (1, 7)
-                )
-              )
-            )
-          )
-        )
-      )
+    -- -- Account for situations where entities need to run at beginning or end of the month
+    -- -- and these days are in the weekend.
+    --     e.[schedule_recurrence] = 'D'
+    --     OR
+    --     (
+    --       e.[schedule_recurrence] = 'A'
+    --       AND
+    --       @adhoc = 1
+    --     )
+    --     OR (
+    --       e.[schedule_recurrence] = 'W'
+    --       AND
+    --       e.[schedule_day] = @day_of_week
+    --     )
+    --     OR (
+    --       e.[schedule_recurrence] = 'M'
+    --       AND (
+    --         e.[schedule_day] = @day_of_month
+    --         -- Beginning of month (schedule_day = 1) and
+    --         -- first day of month falls in weekend
+    --         OR (
+    --           e.[schedule_day] = 1
+    --           AND
+    --           @day_of_month IN (2, 3)
+    --           AND
+    --           @day_of_week = 2 --Monday
+    --         )
+    --         -- End of month (schedule_day = 0) and
+    --         -- last day of month falls in weekend
+    --         OR (
+    --           e.[schedule_day] = 0
+    --           AND (
+    --             @day_of_month = DAY(EOMONTH(@date))
+    --             OR (
+    --               @day_of_week = 2 --Monday
+    --               AND
+    --               @day_of_month IN (1, 2)
+    --             )
+    --             OR (
+    --               @day_of_week = 6 --Friday
+    --               AND
+    --               -- last day of month falls in weekend
+    --               DATEPART(dw, (EOMONTH(@date))) IN (1, 7)
+    --             )
+    --           )
+    --         )
+    --       )
+    --     )
+    --   )
   )
 
 

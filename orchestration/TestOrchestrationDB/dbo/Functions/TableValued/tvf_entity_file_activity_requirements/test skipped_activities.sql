@@ -5,7 +5,7 @@ BEGIN
   IF OBJECT_ID('actual') IS NOT NULL DROP TABLE actual;
   IF OBJECT_ID('expected') IS NOT NULL DROP TABLE expected;
 
-  EXEC tSQLt.FakeFunction 'dbo.tvf_entity_file_activity_isRequired', 'fake.tvf_entity_file_activity_isRequired';
+  EXEC tSQLt.FakeFunction 'dbo.tvf_entity_file_activity_by_date', 'fake.tvf_entity_file_activity_by_date';
 
   -- Act: 
   SELECT
@@ -13,7 +13,7 @@ BEGIN
     file_name,
     skipped_activities
   INTO actual
-  FROM dbo.tvf_entity_file_activity_requirements(0);
+  FROM dbo.tvf_entity_file_activity_requirements('2024-01-01', 0);
 
   -- Assert:
   CREATE TABLE expected (

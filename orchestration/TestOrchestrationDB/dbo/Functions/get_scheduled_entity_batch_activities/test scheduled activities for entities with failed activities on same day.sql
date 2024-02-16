@@ -1,18 +1,42 @@
-CREATE PROCEDURE [tc.dbo.get_scheduled_entity_batch_activities].[test scheduled activities for new entity]
+CREATE PROCEDURE [tc.dbo.get_scheduled_entity_batch_activities].[test scheduled activities for entities with failed activities on same day]
 AS
 BEGIN
-  -- Check if the correct activities are returned for a new entities for which no batches exist.
+  -- Check if the correct activities are returned for a new entities for which batches exist.
   
   IF OBJECT_ID('actual') IS NOT NULL DROP TABLE actual;
   IF OBJECT_ID('expected') IS NOT NULL DROP TABLE expected;
 
   -- Assemble: Fake Table
   EXEC tSQLt.FakeTable '[dbo]', '[entity]';
+  EXEC tSQLt.FakeTable '[dbo]', '[batch]';
   
   INSERT INTO dbo.entity (entity_id, schedule_recurrence, layer_id, update_mode)
   VALUES
     (1, 'D', 6, 'Delta'),
     (2, 'D', 6, 'Full');
+
+  DECLARE
+    @batch_id_1 UNIQUEIDENTIFIER = NEWID(),
+    @batch_id_2 UNIQUEIDENTIFIER = NEWID(),
+    @batch_id_3 UNIQUEIDENTIFIER = NEWID(),
+    @batch_id_4 UNIQUEIDENTIFIER = NEWID();
+  
+  INSERT INTO dbo.batch (
+    batch_id,
+    run_id,
+    start_date_time,
+    entity_id,
+    status_id,
+    activity_id,
+    directory_path,
+    file_name,
+    output
+  )
+  VALUES
+    (@batch_id_1, NEWID(), '2023-06-01', 1, 2, 21, 'directory_path', 'DELTA_2023_06_01_12_00_00_000.parquet', '{}'),
+    (@batch_id_2, NEWID(), '2023-06-01', 1, 4, 19, 'directory_path', 'DELTA_2023_06_01_12_00_00_000.parquet', '{}'),
+    (@batch_id_3, NEWID(), '2023-06-01', 2, 2, 21, 'directory_path', 'FULL_2023_06_01_12_00_00_000.parquet', '{}'),
+    (@batch_id_4, NEWID(), '2023-06-01', 2, 4, 19, 'directory_path', 'FULL_2023_06_01_12_00_00_000.parquet', '{}');
 
   -- Act: 
   SELECT
@@ -25,6 +49,8 @@ BEGIN
     0, '2023-06-01', 0
   );
 
+  -- SELECT cast(1 AS uniqueidentifier)
+
   -- Assert:
   SELECT TOP(0) *
   INTO expected
@@ -36,25 +62,155 @@ BEGIN
     required_activities,
     skipped_activities
   ) VALUES
-    (1, NULL, '["Extract","CheckXUExtractionStatus","StoreXUExtractionLog","TestDuplicates","ProcessADLS","Load2Base","ProcessBase"]', '{}'),
-    (2, NULL, '["Extract","CheckXUExtractionStatus","StoreXUExtractionLog","TestDuplicates","ProcessADLS","Load2Base","ProcessBase"]', '{}');
+    (1, 'DELTA_2023_06_01_12_00_00_000.parquet', '["TestDuplicates","ProcessADLS","Load2Base","ProcessBase"]', '{"Extract": {"batch_id":"'+convert(nvarchar(36),@batch_id_1)+'", "output":{}},"CheckXUExtractionStatus": {"batch_id":"", "output":{}},"StoreXUExtractionLog": {"batch_id":"", "output":{}}}'),
+    (2, 'FULL_2023_06_01_12_00_00_000.parquet',  '["TestDuplicates","ProcessADLS","Load2Base","ProcessBase"]', '{"Extract": {"batch_id":"'+convert(nvarchar(36),@batch_id_3)+'", "output":{}},"CheckXUExtractionStatus": {"batch_id":"", "output":{}},"StoreXUExtractionLog": {"batch_id":"", "output":{}}}');
 
   EXEC tSQLt.AssertEqualsTable 'expected', 'actual';
 
 END;
 GO
 
--- truncate table batch
 
+-- truncate table batch
+-- select * from batch_activity
+-- select * from batch_execution_status
+
+-- select *
+-- FROM dbo.get_scheduled_entity_batch_activities(
+--   0, '2023-06-01', 0
+-- )
+
+-- select * from dbo.[tvf_entity_file_activities_by_date](
+--   '2023-06-01',
+--   0
+-- )
+
+-- DECLARE @date DATE = '2023-06-01', -- set default to current date
+--   @rerunSuccessfulFullEntities BIT = 0; -- In case a new run is required
+
+-- WITH
+-- -- help AS (
+-- --   SELECT
+-- --     entity_id,
+-- --     file_name,
+-- --     COALESCE(efr.trigger_date, @date) AS trigger_date
+-- --   FROM
+-- --     dbo.[tvf_entity_file_required_activities](
+-- --       @rerunSuccessfulFullEntities
+-- --     ) efr
+-- --   GROUP BY
+-- --     entity_id,
+-- --     file_name,
+-- --     efr.trigger_date
+-- -- )
+
+-- entity_file_activities AS (
 --   SELECT
---     entity_id,
---     file_name,
---     required_activities,
---     skipped_activities
---   -- INTO actual
---   FROM dbo.get_scheduled_entity_batch_activities(
---     0, '2023-06-01', 0
---   );
+--     efr.entity_id,
+--     efr.layer_id,
+--     efr.file_name,
+--     COALESCE(efr.trigger_date, @date) AS trigger_date,
+--     efr.required_activities,
+--     efr.skipped_activities
+--   FROM
+--     dbo.[tvf_entity_file_required_activities](
+--       @rerunSuccessfulFullEntities
+--     ) efr
+--   LEFT JOIN
+--     vw_full_load_entities fle
+--     ON
+--       fle.entity_id = efr.entity_id
+--   LEFT JOIN
+--     vw_delta_load_entities dle
+--     ON
+--       dle.entity_id = efr.entity_id
+--   WHERE (
+--       -- If entity is full load and date is provided,
+--       -- we're only interested in activities that failed 
+--       -- that need to rerun
+--       fle.entity_id IS NOT NULL
+--       AND (
+--         (
+--           efr.trigger_date = @date
+--           AND
+--           efr.file_name IS NOT NULL
+--         )
+--         OR (
+--           efr.trigger_date IS NULL
+--           AND
+--           efr.file_name IS NULL
+--         )
+--       )
+--     )
+--     OR (
+--       -- for delta entities, we're interested in the activities
+--       -- of all delta files that need to rerun
+--       dle.entity_id IS NOT NULL
+--       AND (
+--         efr.trigger_date <= @date
+--         OR
+--         efr.trigger_date IS NULL
+--       )
+--     )
+-- )
+
+-- SELECT
+--   se.entity_id,
+--   se.layer_id,
+--   dbo.[svf_get_adls_directory_path](dir.base_dir_path, 'In', se.trigger_date) AS adls_directory_path_In,
+--   dbo.[svf_get_adls_directory_path](dir.base_dir_path, 'Out', se.trigger_date) AS adls_directory_path_Out,
+--   se.file_name,
+--   se.required_activities,
+--   se.skipped_activities
+-- FROM entity_file_activities se
+-- LEFT JOIN
+--   dbo.vw_adls_base_directory_path dir
+--   ON
+--     dir.entity_id = se.entity_id
+
+
+-- select * from dbo.[tvf_entity_file_required_activities](
+--   -- '2023-06-01',
+--   0
+-- )
+
+
+-- select * from dbo.[tvf_entity_file_activity_requirements](
+--   -- '2023-06-01',
+--   0
+-- )
+
+-- !!!
+-- select *
+-- FROM
+--   [dbo].[tvf_entity_file_activity_isRequired](0)
+
+-- select *
+-- FROM
+--     dbo.[vw_entity_file_activity_latest_batch]
+
+-- !!!
+-- select * from
+--   dbo.[vw_entity_file_first_failed_activity] 
+  
+-- !!!
+-- select * from
+--   dbo.[vw_entity_first_failed_file] 
+
+-- select * FROM
+--   dbo.vw_entity_file_activity_latest_batch
+  
+-- select * from
+--   dbo.[vw_full_load_entities]
+  
+-- select * from
+--   dbo.[vw_delta_load_entities]
+
+
+
+-- select * from entity
+-- select * from batch
+
 
 -- insert into batch_activity (activity_id,activity_nk,activity_description,activity_order,is_deprecated)
 -- values

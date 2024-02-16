@@ -1,4 +1,4 @@
-CREATE PROCEDURE [tc.dbo.get_scheduled_entity_batch_activities].[test daily and weekly]
+CREATE PROCEDURE [tc.dbo.tvf_get_scheduled_entities].[test daily and weekly]
 AS
 BEGIN
   -- Check if all daily, weekly, monthly, adhoc scheduled entities exist in output of get_scheduled_entity_batch_activities
@@ -8,7 +8,6 @@ BEGIN
   IF OBJECT_ID('expected') IS NOT NULL DROP TABLE expected;
 
   EXEC tSQLt.FakeTable '[dbo]', '[entity]';
-  EXEC tSQLt.FakeFunction '[dbo].[tvf_entity_file_activities_by_date]', 'fake.tvf_entity_file_activities_by_date';
 
   /*
     Workaround to ingest mock data into a view
@@ -28,8 +27,8 @@ BEGIN
   SELECT
     entity_id
   INTO actual
-  FROM dbo.get_scheduled_entity_batch_activities(
-    0, '2023-07-23', 0 -- First day of week is on a Sunday
+  FROM dbo.tvf_get_scheduled_entities(
+    0, '2023-07-23' -- First day of week is on a Sunday
   );
 
   -- Assert:

@@ -12,11 +12,9 @@ WITH entityFailedFile AS (
     entity_id,
     file_name
   FROM
-    [vw_entity_file_activity_latest_batch]
+    [vw_entity_file_first_failed_activity]
   WHERE
-    -- activity_id <> 21
-    -- AND
-    status_id <> 2
+    first_failed_activity_order IS NOT NULL
   GROUP BY
     entity_id,
     file_name

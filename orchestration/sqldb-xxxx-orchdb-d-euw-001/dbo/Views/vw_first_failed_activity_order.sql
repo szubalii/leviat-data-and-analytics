@@ -34,9 +34,14 @@ SELECT
 FROM
   vw_latest_entity_file_activity_batch
 WHERE
-  status_id <> 2 --@BATCH_EXECUTION_STATUS_ID__SUCCESSFUL -- 'Successful'
-  AND
-  activity_id <> 21 --@BATCH_ACTIVITY_ID__EXTRACT -- Extract
+  -- status_id <> 2 --@BATCH_EXECUTION_STATUS_ID__SUCCESSFUL -- 'Successful'
+  -- AND
+  -- activity_id <> 21 --@BATCH_ACTIVITY_ID__EXTRACT -- Extract
+  status_id IS NULL
+  OR
+  (activity_id <> 21 AND (status_id <> 2)) --@BATCH_EXECUTION_STATUS_ID__SUCCESSFUL -- 'Successful'
+  OR
+  (activity_id = 21 AND (status_id NOT IN (1, 2))) --@BATCH_ACTIVITY_ID__EXTRACT -- Extract
 GROUP BY
   entity_id,
   file_name

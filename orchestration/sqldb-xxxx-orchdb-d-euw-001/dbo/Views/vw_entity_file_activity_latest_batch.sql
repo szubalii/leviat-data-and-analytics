@@ -9,6 +9,7 @@ SELECT
   efala.entity_id,
   efala.layer_id,
   efala.file_name,
+  dbo.svf_get_triggerDate(efala.file_name) AS trigger_date,
   efala.expected_activity_id,
   ba.activity_nk,
   ba.activity_order,

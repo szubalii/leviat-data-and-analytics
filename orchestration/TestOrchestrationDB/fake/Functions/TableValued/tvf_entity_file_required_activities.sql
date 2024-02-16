@@ -1,4 +1,4 @@
-CREATE FUNCTION fake.tvf_entity_file_required_activities (@rerunSuccessfulFullEntities BIT = 0)
+CREATE FUNCTION fake.tvf_entity_file_required_activities (@date DATE, @rerunSuccessfulFullEntities BIT = 0)
 
 RETURNS TABLE
 AS

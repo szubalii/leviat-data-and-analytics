@@ -7,7 +7,7 @@ BEGIN
   -- IF OBJECT_ID('tempdb..#vw_entity_file_required_activity') IS NOT NULL DROP TABLE #vw_entity_file_required_activity;
 
   -- Assemble: Fake Table
-  EXEC tSQLt.FakeFunction '[dbo].[tvf_entity_file_activity_isRequired]', 'fake.tvf_entity_file_activity_isRequired';
+  EXEC tSQLt.FakeFunction '[dbo].[tvf_entity_file_activity_by_date]', 'fake.tvf_entity_file_activity_by_date';
 
   -- Act: 
   SELECT
@@ -15,7 +15,7 @@ BEGIN
     file_name,
     required_activities
   INTO actual
-  FROM tvf_entity_file_activity_requirements(0);
+  FROM tvf_entity_file_activity_requirements('2024-01-01', 0);
 
   -- Assert:
   CREATE TABLE expected (

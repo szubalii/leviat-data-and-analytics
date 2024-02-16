@@ -14,13 +14,13 @@ AS
   WHERE (
       -- The Extract activity can be skipped if it's already in progress
       -- For other activities they will re-run if still in progress.
-      run_activity_id = 21
+      expected_activity_id = 21
       AND (
         status_id NOT IN (1, 2) OR status_id IS NULL
       )
     )
     OR (
-      run_activity_id <> 21
+      expected_activity_id <> 21
       AND (
         status_id <> 2 OR status_id IS NULL
       )
