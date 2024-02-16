@@ -19,7 +19,7 @@ BEGIN
   -- Act: 
   SELECT entity_id
   INTO actual
-  FROM dbo.tvf_get_scheduled_entities(
+  FROM dbo.tvf_scheduled_entities(
     0, '2023-06-01'
   );
 

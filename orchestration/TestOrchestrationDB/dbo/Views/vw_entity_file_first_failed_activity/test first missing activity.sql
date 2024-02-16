@@ -60,7 +60,7 @@ BEGIN
   INTO expected
   FROM actual
 
-  INSERT INTO expected(entity_id, first_failed_activity_order)
+  INSERT INTO expected(entity_id, file_name, first_failed_activity_order)
   VALUES
     (1, 'SuccessfulFile', NULL),
     (1, 'MissingActivity', 160);

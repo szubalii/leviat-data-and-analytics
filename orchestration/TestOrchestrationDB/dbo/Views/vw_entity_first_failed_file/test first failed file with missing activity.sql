@@ -66,7 +66,8 @@ BEGIN
 
   INSERT INTO expected(entity_id, first_failed_file_name)
   VALUES
-    (1, 'FailedFile');
+    (1, 'FailedFile'),
+    (2, NULL);
 
   EXEC tSQLt.AssertEqualsTable 'expected', 'actual';
 END;

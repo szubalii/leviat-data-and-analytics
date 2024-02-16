@@ -25,18 +25,18 @@ BEGIN
 
   INSERT INTO expected(entity_id, expected_activity_id)
   VALUES
-    (6,21),
-    (6,13),
-    (6,9),
-    (6,19),
-    (6,20),
-    (6,2),
-    (6,15),
-    (5,21),
-    (5,19),
-    (5,20),
-    (5,2),
-    (5,15);
+    (1,21),
+    (1,13),
+    (1,9),
+    (1,19),
+    (1,20),
+    (1,2),
+    (1,15),
+    (2,21),
+    (2,19),
+    (2,20),
+    (2,2),
+    (2,15);
 
   EXEC tSQLt.AssertEqualsTable 'expected', 'actual';
 END;

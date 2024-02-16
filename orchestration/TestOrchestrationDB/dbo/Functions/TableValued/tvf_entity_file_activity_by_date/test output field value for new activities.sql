@@ -62,7 +62,7 @@ BEGIN
     (1, 'DELTA_2023_06_01_12_00_00_000.parquet', 'StoreXUExtractionLog', '{}'),
     (1, 'DELTA_2023_06_01_12_00_00_000.parquet', 'TestDuplicates', '{}'),
     (1, NULL, 'CheckXUExtractionStatus', '{}'),
-    (1, NULL, 'Extract', 'test_output'),
+    (1, NULL, 'Extract', '{}'),
     (1, NULL, 'Load2Base', '{}'),
     (1, NULL, 'ProcessADLS', '{}'),
     (1, NULL, 'ProcessBase', '{}'),

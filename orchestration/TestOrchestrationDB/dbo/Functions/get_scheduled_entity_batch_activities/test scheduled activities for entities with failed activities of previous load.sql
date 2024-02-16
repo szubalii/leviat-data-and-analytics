@@ -55,9 +55,9 @@ BEGIN
     required_activities,
     skipped_activities
   ) VALUES
-    (1, 'DELTA_2023_05_01_12_00_00_000.parquet', '["CheckXUExtractionStatus","StoreXUExtractionLog","TestDuplicates","ProcessADLS","Load2Base","ProcessBase"]', '{"Extract": {"batch_id":"", "output":{}}, "CheckXUExtractionStatus": {"batch_id":"", "output":{}},"StoreXUExtractionLog": {"batch_id":"", "output":{}}}'),
+    (1, 'DELTA_2023_05_01_12_00_00_000.parquet', '["CheckXUExtractionStatus","StoreXUExtractionLog","TestDuplicates","ProcessADLS","Load2Base","ProcessBase"]', '{"Extract": {"batch_id":"", "output":{}}}'),
     (1, NULL, '["Extract","CheckXUExtractionStatus","StoreXUExtractionLog","TestDuplicates","ProcessADLS","Load2Base","ProcessBase"]', '{}'),
-    (2, 'FULL_2023_06_01_12_00_00_000.parquet',  '["CheckXUExtractionStatus","StoreXUExtractionLog","TestDuplicates","ProcessADLS","Load2Base","ProcessBase"]', '{"Extract": {"batch_id":"", "output":{}}, "CheckXUExtractionStatus": {"batch_id":"", "output":{}},"StoreXUExtractionLog": {"batch_id":"", "output":{}}}');
+    (2, 'FULL_2023_06_01_12_00_00_000.parquet',  '["CheckXUExtractionStatus","StoreXUExtractionLog","TestDuplicates","ProcessADLS","Load2Base","ProcessBase"]', '{"Extract": {"batch_id":"", "output":{}}}');
 
   EXEC tSQLt.AssertEqualsTable 'expected', 'actual';
 
