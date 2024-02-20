@@ -4467,6 +4467,18 @@
         "base_table_name": "AGR_DEFINE",
         "schedule_recurrence": "D",
         "pk_field_names": "MANDT, AGR_NAME"
+      },
+      {
+        "entity_id": 649,
+        "entity_name": "I_Businesspartnersalesarea",
+        "data_category": "NULL",
+        "client_field": "MANDT",
+        "tool_name": "Theobald",
+        "extraction_type": "Table",
+        "update_mode": "Full",
+        "base_table_name": "I_Businesspartnersalesarea",
+        "schedule_recurrence": "D",
+        "pk_field_names": "MANDT, SALESORGANIZATION, DISTRIBUTIONCHANNEL, DIVISION, BUSINESSPARTNER"
       }
     ]
   },

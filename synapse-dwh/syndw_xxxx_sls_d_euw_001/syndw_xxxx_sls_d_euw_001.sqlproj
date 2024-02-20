@@ -753,6 +753,7 @@
     <Build Include="base_s4h_cax\Tables\AGR_DEFINE.sql" />
     <Build Include="base_s4h_cax\Tables\Opt_Vim_1Item_Extended.sql" />
     <Build Include="base_s4h_cax\Tables\C_GRIRAccountReconciliation.sql" />
+    <Build Include="base_s4h_cax\Tables\I_Businesspartnersalesarea.sql" />
     <Build Include="base_tx_ca_0_hlp\Tables\DATAAREA.sql" />
     <Build Include="base_tx_ca_0_hlp\Tables\CRHCURRENCY.sql" />
     <Build Include="base_tx_ca_0_hlp\Tables\CUSTINVOICETRANS.sql" />
