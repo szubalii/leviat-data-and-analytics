@@ -555,7 +555,7 @@
                 {
                     "name": "PROOFOFDELIVERYTIME",
                     "abapType": "Time",
-                    "isSelected": true,
+                    "isSelected": false,
                     "conversionExit": "",
                     "isClientField": false
                 },
