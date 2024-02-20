@@ -4479,7 +4479,7 @@
         "base_table_name": "I_Businesspartnersalesarea",
         "schedule_recurrence": "D",
         "pk_field_names": "MANDT, SALESORGANIZATION, DISTRIBUTIONCHANNEL, DIVISION, BUSINESSPARTNER"
-      },
+      }
     ]
   },
   "c4c": {
