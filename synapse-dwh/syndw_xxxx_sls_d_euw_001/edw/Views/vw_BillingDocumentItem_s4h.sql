@@ -346,7 +346,7 @@ from [base_s4h_cax].[C_BillingDocumentItemBasicDEX] doc
         AND 
         doc.Division = BPSA.Division
         AND
-        doc.SoldToParty = BPSA.BusinessPartner
+        AG.Customer = BPSA.BusinessPartner
   
     )
 
