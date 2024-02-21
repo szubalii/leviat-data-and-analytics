@@ -136,9 +136,14 @@ SELECT
   GLALIRD.[SalesDocumentItemID],
   CASE
     WHEN GLALIRD.[BillingDocumentTypeID] = ''
-    AND COALESCE (GLALIRD.[ProductID], '') = ''
-      THEN CONCAT('(MA)-', GLALIRD.[GLAccountID])
-    ELSE GLALIRD.[ProductID]
+       AND COALESCE (GLALIRD.[ProductID], '') = ''
+    THEN CONCAT('(MA)-', GLALIRD.[GLAccountID])
+    ELSE
+        CASE 
+          WHEN GLALIRD.[ProductID] = ''
+          THEN GLALIRD.[SoldProduct]
+          ELSE GLALIRD.[ProductID]
+        END
   END                                             AS [ProductID],
   GLALIRD.[PlantID],
   GLALIRD.[SupplierID],
