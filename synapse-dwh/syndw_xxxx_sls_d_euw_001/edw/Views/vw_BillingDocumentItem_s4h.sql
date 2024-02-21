@@ -82,7 +82,7 @@ BillingDocumentItemBase AS (
   , doc.[BillingPlanRule]
   , doc.[BillingPlan]
   , doc.[BillingPlanItem]
-  , BPSA.[CustomerPriceGroup]                       AS [CustomerPriceGroupID]
+  , COALESCE(BPSA.[CustomerPriceGroup],'')          AS [CustomerPriceGroupID]
   , doc.[PriceListType]                             AS [PriceListTypeID]
   , doc.[TaxDepartureCountry]
   , doc.[VATRegistration]
