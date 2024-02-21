@@ -82,7 +82,7 @@ BillingDocumentItemBase AS (
   , doc.[BillingPlanRule]
   , doc.[BillingPlan]
   , doc.[BillingPlanItem]
-  , doc.[CustomerPriceGroup]                        AS [CustomerPriceGroupID]
+  , COALESCE(BPSA.[CustomerPriceGroup],'')          AS [CustomerPriceGroupID]
   , doc.[PriceListType]                             AS [PriceListTypeID]
   , doc.[TaxDepartureCountry]
   , doc.[VATRegistration]
@@ -339,6 +339,15 @@ from [base_s4h_cax].[C_BillingDocumentItemBasicDEX] doc
         doc.Division = KNVH.Division
   left join [edw].[dim_Customer] DimCust
     ON KNVH.GlobalParentID = DimCust.CustomerID 
+  left join  [base_s4h_cax].[I_Businesspartnersalesarea] BPSA
+    ON  doc.SalesOrganization = BPSA.SalesOrganization
+        AND 
+        doc.DistributionChannel = BPSA.DistributionChannel
+        AND 
+        doc.Division = BPSA.Division
+        AND
+        AG.Customer = BPSA.BusinessPartner
+  
     )
 
 SELECT
