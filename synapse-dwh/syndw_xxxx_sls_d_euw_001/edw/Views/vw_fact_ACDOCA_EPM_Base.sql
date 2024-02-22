@@ -215,9 +215,9 @@ SELECT
     )
     THEN 1
     WHEN 
-    (GLALIRD.[GLAccountID] = '0052300310' AND GLALIRD.[AccountingDocumentTypeID] = 'ML')
+    (GLALIRD.[GLAccountID] = '0052300310' AND GLALIRD.[AccountingDocumentTypeID] <> 'ML')
     OR
-    (GLALIRD.[GLAccountID] = '0052900635' AND GLALIRD.[AccountingDocumentTypeID] = 'ML')
+    (GLALIRD.[GLAccountID] = '0052900635' AND GLALIRD.[AccountingDocumentTypeID] <> 'ML')
     THEN 1
     ELSE 0
   END                                             AS [TPAdjustment],
