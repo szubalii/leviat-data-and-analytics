@@ -1,5 +1,4 @@
 CREATE VIEW [edw].[vw_fact_ACDOCA_EPM_Base]
-
 AS
 
 SELECT
@@ -135,23 +134,33 @@ SELECT
   GLALIRD.[SalesDocumentID],
   GLALIRD.[SalesDocumentItemID],
   CASE
-    WHEN GLALIRD.[BillingDocumentTypeID] = ''
+      WHEN GLALIRD.[BillingDocumentTypeID] = ''
        AND COALESCE (GLALIRD.[ProductID], '') = ''
-    THEN CONCAT('(MA)-', GLALIRD.[GLAccountID])
-    ELSE
-        CASE 
-          WHEN GLALIRD.[ProductID] = ''
-          THEN GLALIRD.[SoldProduct]
-          ELSE GLALIRD.[ProductID]
-        END
+      THEN CONCAT('(MA)-', GLALIRD.[GLAccountID])
+      ELSE
+          CASE 
+              WHEN COALESCE (GLALIRD.[ProductID], '') = ''
+              THEN 
+                  CASE 
+                      WHEN COALESCE (SDI.[MaterialID], '') <> ''
+                      THEN SDI.[MaterialID]
+                      ELSE GLALIRD.SoldProduct
+                  END
+              ELSE GLALIRD.[ProductID]
+          END
   END                                             AS [ProductID],
   GLALIRD.[PlantID],
   GLALIRD.[SupplierID],
   CASE
-    WHEN GLALIRD.[BillingDocumentTypeID] = ''
-    AND COALESCE (GLALIRD.[CustomerID], '') = ''
-      THEN CONCAT('(MA)-', GLALIRD.[GLAccountID])
-    ELSE GLALIRD.[CustomerID]
+     WHEN GLALIRD.[BillingDocumentTypeID] = ''
+      AND COALESCE (GLALIRD.[CustomerID], '') = ''
+     THEN CONCAT('(MA)-', GLALIRD.[GLAccountID])
+     ELSE
+        CASE 
+          WHEN COALESCE (GLALIRD.[CustomerID], '') = ''
+          THEN SDI.[SoldToPartyID]
+          ELSE GLALIRD.[CustomerID]
+        END
   END                                             AS [CustomerID],
   GLALIRD.[ExchangeRateDate],
   GLALIRD.[FinancialAccountTypeID],
@@ -238,15 +247,25 @@ SELECT
                                                       AS [InOutID],
   CASE
     WHEN GLALIRD.[BillingDocumentTypeID] = ''
-    AND COALESCE (CSA.[CustomerGroup], '') = ''
+     AND COALESCE (CSA.[CustomerGroup], '') = ''
     THEN 'MA'
-    ELSE CSA.[CustomerGroup]
+    ELSE
+        CASE 
+            WHEN COALESCE (CSA.[CustomerGroup], '') = '' AND COALESCE (SDI.[SoldToPartyID], '') = ''
+            THEN 'MA'
+            ELSE CSA.[CustomerGroup]
+        END
   END                                                 AS [CustomerGroupID],
   CASE
     WHEN GLALIRD.[BillingDocumentTypeID] = ''
-    AND COALESCE (CSA.[CustomerGroup], '') = ''
+     AND COALESCE (CSA.[CustomerGroup], '') = ''
     THEN 'Manual Adjustment'
-    ELSE dimCGr.CustomerGroup
+    ELSE 
+        CASE 
+            WHEN COALESCE (CSA.[CustomerGroup], '') = '' AND COALESCE (SDI.[SoldToPartyID], '') = ''
+            THEN 'Manual Adjustment'
+            ELSE dimCGr.CustomerGroup
+        END
   END                                                 AS [CustomerGroup],
   CASE
     WHEN GLALIRD.[BillingDocumentTypeID] = ''
@@ -368,5 +387,13 @@ LEFT JOIN
   [edw].[dim_BillingDocProject] proj
   ON
     GLALIRD.[SalesReferenceDocumentCalculated] = proj.[SDDocument]
+LEFT JOIN 
+  [edw].[fact_SalesDocumentItem] SDI 
+    ON 
+       GLALIRD.SalesReferenceDocumentCalculated = SDI.SalesDocument
+       AND 
+       GLALIRD.SalesReferenceDocumentItemCalculated = SDI.SalesDocumentItem COLLATE DATABASE_DEFAULT
+       AND
+       SDI.CurrencyTypeID = '10'
 WHERE
   ExchangeRate.CurrencyTypeID <> '00'
