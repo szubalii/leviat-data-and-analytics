@@ -13,7 +13,7 @@ BEGIN
 
   INSERT INTO edw.fact_ACDOCA (
     SalesReferenceDocumentCalculated,
-    SalesReferenceDocumentCalculatedItem,
+    SalesReferenceDocumentItemCalculated,
     CompanyCodeCurrency,
     BillingDocumentTypeID,
     ProductID,
