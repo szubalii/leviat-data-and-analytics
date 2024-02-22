@@ -209,11 +209,15 @@ SELECT
     WHEN GLALIRD.[GLAccountID] IN (
       '0049000109',
       '0049000150',
-      '0052300310',
       '0052300350',
-      '0052900635',
-      '0052300351'
+      '0052300351',
+      '0052300352'
     )
+    THEN 1
+    WHEN 
+    (GLALIRD.[GLAccountID] = '0052300310' AND GLALIRD.[AccountingDocumentTypeID] <> 'ML')
+    OR
+    (GLALIRD.[GLAccountID] = '0052900635' AND GLALIRD.[AccountingDocumentTypeID] <> 'ML')
     THEN 1
     ELSE 0
   END                                             AS [TPAdjustment],
