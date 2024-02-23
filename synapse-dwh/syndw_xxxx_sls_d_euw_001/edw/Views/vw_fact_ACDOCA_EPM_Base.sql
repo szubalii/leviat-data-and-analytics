@@ -197,7 +197,12 @@ SELECT
   CASE
     WHEN GLALIRD.[BillingDocumentTypeID] = ''
       AND COALESCE (GLALIRD.[SalesOrganizationID], '') = ''
-      THEN 'MA-Dummy'
+    THEN 
+          CASE 
+              WHEN COALESCE (SDI.[SalesOrganizationID], '') = ''
+              THEN 'MA-Dummy'
+              ELSE SDI.[SalesOrganizationID]
+          END
     ELSE GLALIRD.[SalesOrganizationID]
   END                                                 AS [SalesOrganizationID],
   GLALIRD.[DistributionChannelID],
