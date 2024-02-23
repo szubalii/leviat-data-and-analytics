@@ -23,7 +23,9 @@ BEGIN
   ('SD2', '02', 'EUR', '', NULL),
   ('SD3', '03', 'EUR', 'BT3', 'SO3'),
   ('SD4', '04', 'EUR', '', 'SO4'),
-  ('SD5', '05', 'EUR', '', '');
+  ('SD5', '05', 'EUR', '', ''),
+  ('SD6', '06', 'EUR', 'BT6', ''),
+  ('SD7', '07', 'EUR', 'BT7', '');
 
   INSERT INTO edw.fact_SalesDocumentItem (
     SalesDocument,
@@ -36,7 +38,9 @@ BEGIN
   ('SD2', '02', 'SO02', '10'),
   ('SD3', '03', 'SO03', '10'),
   ('SD4', '04', '', '10'),
-  ('SD5', '05', '', '10');
+  ('SD5', '05', '', '10'),
+  ('SD6', '06', 'SO06', '10'),
+  ('SD7', '07', '', '10')
 
 
   INSERT INTO dm_sales.vw_dim_CurrencyType (
@@ -81,7 +85,9 @@ BEGIN
     ('SD2', 'SO02'),
     ('SD3', 'SO3'),
     ('SD4', 'SO4'),
-    ('SD5', 'MA-Dummy');
+    ('SD5', 'MA-Dummy'),
+    ('SD6', 'SO06'),
+    ('SD7', '');
 
   EXEC tSQLt.AssertEqualsTable 'expected', 'actual';
 
