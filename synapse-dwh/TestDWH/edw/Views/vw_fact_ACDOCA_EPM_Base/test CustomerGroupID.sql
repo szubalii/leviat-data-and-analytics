@@ -42,7 +42,7 @@ BEGIN
   ('SD4', '04', '', '10'),
   ('SD5', '05', '0005', '10');
 
-  INSERT INTO edw.dim_CustomerGroup ( CustomerGroupID ) VALUES ('0003');
+  INSERT INTO edw.dim_CustomerGroup ( CustomerGroupID ) VALUES ('33');
 
   INSERT INTO [base_s4h_cax].[I_CustomerSalesArea] (
     Customer,
@@ -52,7 +52,7 @@ BEGIN
   VALUES
   ('Cust1', '01', ''),
   ('Cust2', '02', NULL),
-  ('Cust3', '03', '0003'),
+  ('Cust3', '03', '33'),
   ('Cust4', '04', ''),
   ('Cust5', '05', '');
 
@@ -97,7 +97,7 @@ BEGIN
   VALUES
     ('SD1', 'MA'),
     ('SD2', 'MA'),
-    ('SD3', '0003'),
+    ('SD3', '33'),
     ('SD4', 'MA'),
     ('SD5', '');
 
