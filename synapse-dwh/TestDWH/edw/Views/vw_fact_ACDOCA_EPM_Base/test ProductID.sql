@@ -1,4 +1,4 @@
-CREATE PROCEDURE [tc.edw.vw_fact_ACDOCA_EPM_Base].[test ProjectID]
+CREATE PROCEDURE [tc.edw.vw_fact_ACDOCA_EPM_Base].[test ProductID]
 AS
 BEGIN
   IF OBJECT_ID('actual') IS NOT NULL DROP TABLE actual;
@@ -22,7 +22,7 @@ BEGIN
   )
   VALUES
   ('SD1', '01', 'EUR', '', '', '0001', '111'),
-  ('SD2', '02', 'EUR', '', NULL, '0002', '222'),
+  ('SD2', '02', 'EUR', '', NULL, '0002', ''),
   ('SD3', '03', 'EUR', 'BT3', '', '0003', '333'),
   ('SD4', '04', 'EUR', 'XC4', '114', '0004', '444'),
   ('SD5', '05', 'EUR', 'VM5', '', '0005', '555');
@@ -34,8 +34,8 @@ BEGIN
     CurrencyTypeID
   )
   VALUES
-  ('SD1', '01', '0001', '10'),
-  ('SD2', '02', '0002', '10'),
+  ('SD1', '01', '', '10'),
+  ('SD2', '02', '', '10'),
   ('SD3', '03', '0003', '10'),
   ('SD4', '04', '', '10'),
   ('SD5', '05', '', '10');
@@ -79,7 +79,7 @@ BEGIN
     ProductID
   )
   VALUES
-    ('SD1', '(MA)-0001'),
+    ('SD1', '111'),
     ('SD2', '(MA)-0002'),
     ('SD3', '0003'),
     ('SD4', '114'),

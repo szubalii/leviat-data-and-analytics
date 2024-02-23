@@ -277,7 +277,7 @@ SELECT
             THEN 'MA'
             ELSE ''
         END
-      ELSE CSA.[CustomerGroup]
+     ELSE CSA.[CustomerGroup]
   END                                                 AS [CustomerGroupID],
   CASE
     WHEN GLALIRD.[BillingDocumentTypeID] = ''
