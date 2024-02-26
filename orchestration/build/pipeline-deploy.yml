@@ -38,7 +38,7 @@ parameters:
 variables:
 - ${{ if eq(parameters.target_env, 'pers') }}:
   - name: recreateDatabase
-    value: ${{ parameters.recreateDatase }}
+    value: ${{ parameters.recreateDatabase }}
 - ${{ else }}:
   - name: recreateDatabase
     value: false
