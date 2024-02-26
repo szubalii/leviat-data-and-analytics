@@ -22,5 +22,6 @@
 /testDWH/testDWH.jfm
 /testDWH/testDWH.dbmdl
 /node_modules
+/dependency-diagram/node_modules/
 /synapse-dwh/TestDWH/.vs
 /synapse-dwh/TestDWH/TestDWH.sqlproj.user
