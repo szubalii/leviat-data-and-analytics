@@ -47,7 +47,7 @@ RETURN
   FROM
     vw_full_load_entities [full]
   LEFT JOIN
-    entity_activity ea
+    vw_entity_activity ea
     ON
       ea.entity_id = [full].entity_id
   LEFT JOIN
