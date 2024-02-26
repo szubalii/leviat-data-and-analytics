@@ -18,11 +18,15 @@ RETURN
   full_entity_file_activity_date AS ( -- Check if for provided day activities already exist
     SELECT
       [full].entity_id,
-      [full].layer_id,
+      e.layer_id,
       @date AS trigger_date,
       MAX(efalb.file_name) AS file_name
     FROM
       dbo.[vw_full_load_entities] [full]
+    LEFT JOIN
+      dbo.entity AS e
+      ON
+        e.entity_id = [full].entity_id
     LEFT JOIN
       dbo.[vw_entity_file_activity_latest_batch] efalb
       ON
@@ -31,7 +35,7 @@ RETURN
         efalb.trigger_date = @date
     GROUP BY
       [full].entity_id,
-      [full].layer_id,
+      e.layer_id,
       efalb.trigger_date
   )
 
