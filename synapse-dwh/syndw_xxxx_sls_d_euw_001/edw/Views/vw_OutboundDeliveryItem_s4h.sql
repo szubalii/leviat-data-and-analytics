@@ -322,18 +322,7 @@ OutboundDeliveryItem_s4h AS (
             THEN 'Y'
             ELSE 'N'
         END AS [NoActualDeliveredQtyFlag]
-        ,CASE
-            WHEN
-                OD.[PlannedGoodsIssueDate] IS NULL
-                OR
-                OD.[PlannedGoodsIssueDate] = '0001-01-01'
-                OR
-                SDSL.[GoodsIssueDate] IS NULL
-                OR
-                SDSL.[GoodsIssueDate] = '0001-01-01'
-            THEN NULL
-            ELSE DATEDIFF(day, SDSL.[GoodsIssueDate], OD.[PlannedGoodsIssueDate])
-        END AS [OTS_GoodsIssueDateDiffInDays]
+        ,[edw].[svf_getOT_DaysDiff](SDSL.[GoodsIssueDate], OD.[PlannedGoodsIssueDate],GETUTCDATE()) AS [OTS_GoodsIssueDateDiffInDays]
         ,CASE
             WHEN
                 OD.[PlannedGoodsIssueDate] IS NULL
@@ -388,48 +377,9 @@ OutboundDeliveryItem_s4h AS (
             --ELSE OD.[ActualGoodsMovementDate]
             ELSE cdd.CalculatedDelDate
         END AS [CalculatedDelDate]
-      ,CASE
-           WHEN
-               OD.[ActualGoodsMovementDate] IS NULL
-               OR
-               OD.[ActualGoodsMovementDate] = '0001-01-01'
-               OR
-               SDI.[SDI_SalesDocumentDate] IS NULL
-               OR
-               SDI.[SDI_SalesDocumentDate] = '0001-01-01'
-           THEN 
-               NULL
-           ELSE 
-               DATEDIFF(day,SDI.[SDI_SalesDocumentDate],OD.[ActualGoodsMovementDate])
-       END AS [ActualLeadTime]       
-      ,CASE
-           WHEN
-               SDI.[SDI_RequestedDeliveryDate] IS NULL
-               OR
-               SDI.[SDI_RequestedDeliveryDate] = '0001-01-01'
-               OR
-               SDI.[SDI_SalesDocumentDate] IS NULL
-               OR
-               SDI.[SDI_SalesDocumentDate] = '0001-01-01'
-           THEN 
-               NULL
-           ELSE 
-               DATEDIFF(day,SDI.[SDI_SalesDocumentDate],[SDI_RequestedDeliveryDate])
-       END AS [RequestedLeadTime] 
-       ,CASE
-           WHEN
-               SDSL_1st.[RequestedDeliveryDate] IS NULL
-               OR
-               SDSL_1st.[RequestedDeliveryDate] = '0001-01-01'
-               OR
-               SDI.[SDI_SalesDocumentDate] IS NULL
-               OR
-               SDI.[SDI_SalesDocumentDate] = '0001-01-01'
-           THEN 
-               NULL
-           ELSE 
-               DATEDIFF(day,SDI.[SDI_SalesDocumentDate],SDSL_1st.[RequestedDeliveryDate])
-       END AS [RequestedLeadTimeOTR] 
+       ,[edw].[svf_getOT_DaysDiff](SDI.[SDI_SalesDocumentDate], OD.[ActualGoodsMovementDate],GETUTCDATE()) AS [ActualLeadTime]       
+       ,[edw].[svf_getOT_DaysDiff](SDI.[SDI_SalesDocumentDate], SDI.[SDI_RequestedDeliveryDate],GETUTCDATE()) AS [RequestedLeadTime] 
+       ,[edw].[svf_getOT_DaysDiff](SDI.[SDI_SalesDocumentDate], SDSL_1st.[RequestedDeliveryDate] ,GETUTCDATE())  AS [RequestedLeadTimeOTR] 
       ,ODI.[t_applicationId]
       ,ODI.[t_extractionDtm]
     FROM
