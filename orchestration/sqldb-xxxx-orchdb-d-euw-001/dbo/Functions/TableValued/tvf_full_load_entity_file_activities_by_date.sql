@@ -60,6 +60,8 @@ RETURN
       efalb.entity_id = [full].entity_id
       AND
       efalb.file_name = fef.file_name
+      AND
+      efalb.activity_order = ea.activity_order
   LEFT JOIN
     dbo.[vw_entity_file_first_failed_activity] efffa
     ON
