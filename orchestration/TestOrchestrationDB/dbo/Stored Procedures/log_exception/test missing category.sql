@@ -12,7 +12,7 @@ BEGIN
   BEGIN TRY
     EXEC dbo.log_exception
       @run_guid,
-      'InternalError',
+      'UnlistedErrorCategory',
       1,
       @batch_guid,
       'test error message',

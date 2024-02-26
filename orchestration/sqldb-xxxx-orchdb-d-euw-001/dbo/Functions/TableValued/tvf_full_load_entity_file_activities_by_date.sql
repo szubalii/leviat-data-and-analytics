@@ -22,13 +22,13 @@ RETURN
       efalb.trigger_date,
       MAX(efalb.file_name) AS file_name
     FROM
-      dbo.[vw_entity_file_activity_latest_batch] efalb
-    INNER JOIN
       dbo.[vw_full_load_entities] [full]
+    LEFT JOIN
+      dbo.[vw_entity_file_activity_latest_batch] efalb
       ON
-        [full].entity_id = efalb.entity_id
-    WHERE
-      efalb.trigger_date = @date
+        [efalb].entity_id = [full].entity_id
+        AND
+        efalb.trigger_date = @date
     GROUP BY
       efalb.entity_id,
       efalb.layer_id,
