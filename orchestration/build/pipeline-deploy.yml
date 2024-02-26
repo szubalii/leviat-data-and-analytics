@@ -40,4 +40,5 @@ extends:
   parameters:
     folder: orchestration
     target_env: ${{ parameters.target_env }}
+    recreateDatabase: ${{ parameters.recreateDatabase }}
   
