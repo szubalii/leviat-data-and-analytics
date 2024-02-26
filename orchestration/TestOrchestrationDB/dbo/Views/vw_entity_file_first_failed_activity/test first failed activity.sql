@@ -29,18 +29,18 @@ BEGIN
     (1, 2, 20, '2023-06-01 12:00:00.000', 'SuccessfulFile_2023_06_01_12_00_00_000.parquet'),
     (1, 2, 2,  '2023-06-01 12:00:00.000', 'SuccessfulFile_2023_06_01_12_00_00_000.parquet'),
     (1, 2, 15, '2023-06-01 12:00:00.000', 'SuccessfulFile_2023_06_01_12_00_00_000.parquet'),
-    (1, 4, 21, '2023-06-01 12:00:00.000', 'FailedExtraction_2023_06_01_12_00_00_000.parquet'), -- Failed extraction
-    (1, 2, 13, '2023-06-01 12:00:00.000', 'FailedExtraction_2023_06_01_12_00_00_000.parquet'),
-    (1, 2, 9,  '2023-06-01 12:00:00.000', 'FailedExtraction_2023_06_01_12_00_00_000.parquet'),
-    (1, 2, 19, '2023-06-01 12:00:00.000', 'FailedExtraction_2023_06_01_12_00_00_000.parquet'),
-    (1, 2, 20, '2023-06-01 12:00:00.000', 'FailedExtraction_2023_06_01_12_00_00_000.parquet'),
-    (1, 4, 2,  '2023-06-01 12:00:00.000', 'FailedExtraction_2023_06_01_12_00_00_000.parquet'),
-    (1, 2, 21, '2023-06-01 12:00:00.000', 'FailedActivity_2023_06_01_12_00_00_000.parquet'),
-    (1, 2, 13, '2023-06-01 12:00:00.000', 'FailedActivity_2023_06_01_12_00_00_000.parquet'),
-    (1, 2, 9,  '2023-06-01 12:00:00.000', 'FailedActivity_2023_06_01_12_00_00_000.parquet'),
-    (1, 2, 19, '2023-06-01 12:00:00.000', 'FailedActivity_2023_06_01_12_00_00_000.parquet'),
-    (1, 2, 20, '2023-06-01 12:00:00.000', 'FailedActivity_2023_06_01_12_00_00_000.parquet'),
-    (1, 4, 2,  '2023-06-01 12:00:00.000', 'FailedActivity_2023_06_01_12_00_00_000.parquet'); -- Failed activity
+    (1, 4, 21, '2023-06-02 12:00:00.000', 'FailedExtraction_2023_06_02_12_00_00_000.parquet'), -- Failed extraction
+    (1, 2, 13, '2023-06-02 12:00:00.000', 'FailedExtraction_2023_06_02_12_00_00_000.parquet'),
+    (1, 2, 9,  '2023-06-02 12:00:00.000', 'FailedExtraction_2023_06_02_12_00_00_000.parquet'),
+    (1, 2, 19, '2023-06-02 12:00:00.000', 'FailedExtraction_2023_06_02_12_00_00_000.parquet'),
+    (1, 2, 20, '2023-06-02 12:00:00.000', 'FailedExtraction_2023_06_02_12_00_00_000.parquet'),
+    (1, 4, 2,  '2023-06-02 12:00:00.000', 'FailedExtraction_2023_06_02_12_00_00_000.parquet'),
+    (1, 2, 21, '2023-06-03 12:00:00.000', 'FailedActivity_2023_06_03_12_00_00_000.parquet'),
+    (1, 2, 13, '2023-06-03 12:00:00.000', 'FailedActivity_2023_06_03_12_00_00_000.parquet'),
+    (1, 2, 9,  '2023-06-03 12:00:00.000', 'FailedActivity_2023_06_03_12_00_00_000.parquet'),
+    (1, 2, 19, '2023-06-03 12:00:00.000', 'FailedActivity_2023_06_03_12_00_00_000.parquet'),
+    (1, 2, 20, '2023-06-03 12:00:00.000', 'FailedActivity_2023_06_03_12_00_00_000.parquet'),
+    (1, 4, 2,  '2023-06-03 12:00:00.000', 'FailedActivity_2023_06_03_12_00_00_000.parquet'); -- Failed activity
 
   -- Act: 
   SELECT entity_id, file_name, first_failed_activity_order
@@ -54,9 +54,8 @@ BEGIN
 
   INSERT INTO expected(entity_id, file_name, first_failed_activity_order)
   VALUES
-    (1, 'SuccessfulFile', NULL),
-    (1, 'FailedExtraction', 100),
-    (1, 'FailedActivity', 400);
+    (1, 'FailedActivity_2023_06_03_12_00_00_000.parquet', 100),
+    (2, NULL, 100);
 
   EXEC tSQLt.AssertEqualsTable 'expected', 'actual';
 END;
