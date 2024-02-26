@@ -17,14 +17,14 @@ RETURN
   -- for full load entities, get the most recent file for the provided date
   full_entity_file_activity_date AS ( -- Check if for provided day activities already exist
     SELECT
-      [full].entity_id,
+      efalb.entity_id,
       MAX(efalb.file_name) AS file_name
     FROM
       dbo.[vw_entity_file_activity_latest_batch] efalb
     WHERE
       efalb.trigger_date = @date
     GROUP BY
-      [full].entity_id
+      efalb.entity_id
   )
 
   SELECT
@@ -51,11 +51,15 @@ RETURN
     ON
       ea.entity_id = [full].entity_id
   LEFT JOIN
+    full_entity_file_activity_date fef
+    ON
+      fef.entity_id = [full].entity_id
+  LEFT JOIN
     dbo.vw_entity_file_activity_latest_batch efalb
     ON
-      efalb.entity_id = fe.entity_id
+      efalb.entity_id = [full].entity_id
       AND
-      efalb.file_name = fe.file_name
+      efalb.file_name = fef.file_name
   LEFT JOIN
     dbo.[vw_entity_file_first_failed_activity] efffa
     ON
