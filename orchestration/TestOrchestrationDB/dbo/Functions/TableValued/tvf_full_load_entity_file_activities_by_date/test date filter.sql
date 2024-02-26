@@ -15,7 +15,8 @@ BEGIN
     update_mode
   )
   VALUES
-    (1, 6, 'Full');
+    (1, 6, 'Full'),
+    (2, 6, 'Full');
   
   INSERT INTO dbo.batch (
     start_date_time,
@@ -45,10 +46,12 @@ BEGIN
 
   INSERT INTO expected(
     entity_id,
+    trigger_date,
     file_name
   )
   VALUES
-    (1, 'FULL_2023_06_01.parquet');
+    (1, '2023-06-01', 'FULL_2023_06_01.parquet'),
+    (2, '2023-06-01', NULL);
 
   EXEC tSQLt.AssertEqualsTable 'expected', 'actual';
 END;

@@ -17,9 +17,9 @@ RETURN
   -- for full load entities, get the most recent file for the provided date
   full_entity_file_activity_date AS ( -- Check if for provided day activities already exist
     SELECT
-      efalb.entity_id,
-      efalb.layer_id,
-      efalb.trigger_date,
+      [full].entity_id,
+      [full].layer_id,
+      @date AS trigger_date,
       MAX(efalb.file_name) AS file_name
     FROM
       dbo.[vw_full_load_entities] [full]
@@ -30,8 +30,8 @@ RETURN
         AND
         efalb.trigger_date = @date
     GROUP BY
-      efalb.entity_id,
-      efalb.layer_id,
+      [full].entity_id,
+      [full].layer_id,
       efalb.trigger_date
   )
 
