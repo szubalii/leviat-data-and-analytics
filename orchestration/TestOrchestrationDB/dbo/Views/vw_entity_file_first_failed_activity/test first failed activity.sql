@@ -4,7 +4,6 @@ BEGIN
 
   IF OBJECT_ID('actual') IS NOT NULL DROP TABLE actual;
   IF OBJECT_ID('expected') IS NOT NULL DROP TABLE expected;
-  -- IF OBJECT_ID('tempdb..#vw_entity_file_activity_latest_batch') IS NOT NULL DROP TABLE #vw_entity_file_activity_latest_batch;
 
   -- Assemble: Fake Table
   EXEC tSQLt.FakeTable '[dbo]', '[entity]';
@@ -19,46 +18,29 @@ BEGIN
     entity_id,
     status_id,
     activity_id,
+    start_date_time,
     file_name
   )
   VALUES
-    (1, 2, 21, 'SuccessfulFile'),
-    (1, 2, 13, 'SuccessfulFile'),
-    (1, 2, 9,  'SuccessfulFile'),
-    (1, 2, 19, 'SuccessfulFile'),
-    (1, 2, 20, 'SuccessfulFile'),
-    (1, 2, 2,  'SuccessfulFile'),
-    (1, 4, 21, 'FailedExtraction'), -- Failed extraction
-    (1, 2, 13, 'FailedExtraction'),
-    (1, 2, 9,  'FailedExtraction'),
-    (1, 2, 19, 'FailedExtraction'),
-    (1, 2, 20, 'FailedExtraction'),
-    (1, 4, 2,  'FailedExtraction'),
-    (1, 2, 21, 'FailedActivity'),
-    (1, 2, 13, 'FailedActivity'),
-    (1, 2, 9,  'FailedActivity'),
-    (1, 2, 19, 'FailedActivity'),
-    (1, 2, 20, 'FailedActivity'),
-    (1, 4, 2,  'FailedActivity'); -- Failed activity
-
-  -- EXEC tSQLt.FakeTable '[dbo]', '[vw_entity_file_activity_latest_batch]';
-
-  -- SELECT TOP(0) *
-  -- INTO #vw_entity_file_activity_latest_batch
-  -- FROM dbo.vw_entity_file_activity_latest_batch;
-
-  -- -- #2
-  -- INSERT INTO #vw_entity_file_activity_latest_batch (
-  --   entity_id,
-  --   file_name,
-  --   run_activity_id,
-  --   status_id
-  -- )
-  -- VALUES
-  --   (1, 'Test1', 21, 2),
-  --   (1, 'Test2', 19, 4);
-
-  -- EXEC ('INSERT INTO dbo.vw_entity_file_activity_latest_batch SELECT * FROM #vw_entity_file_activity_latest_batch');
+    (1, 2, 21, '2023-06-01 12:00:00.000', 'SuccessfulFile_2023_06_01_12_00_00_000.parquet'),
+    (1, 2, 13, '2023-06-01 12:00:00.000', 'SuccessfulFile_2023_06_01_12_00_00_000.parquet'),
+    (1, 2, 9,  '2023-06-01 12:00:00.000', 'SuccessfulFile_2023_06_01_12_00_00_000.parquet'),
+    (1, 2, 19, '2023-06-01 12:00:00.000', 'SuccessfulFile_2023_06_01_12_00_00_000.parquet'),
+    (1, 2, 20, '2023-06-01 12:00:00.000', 'SuccessfulFile_2023_06_01_12_00_00_000.parquet'),
+    (1, 2, 2,  '2023-06-01 12:00:00.000', 'SuccessfulFile_2023_06_01_12_00_00_000.parquet'),
+    (1, 2, 15, '2023-06-01 12:00:00.000', 'SuccessfulFile_2023_06_01_12_00_00_000.parquet'),
+    (1, 4, 21, '2023-06-01 12:00:00.000', 'FailedExtraction_2023_06_01_12_00_00_000.parquet'), -- Failed extraction
+    (1, 2, 13, '2023-06-01 12:00:00.000', 'FailedExtraction_2023_06_01_12_00_00_000.parquet'),
+    (1, 2, 9,  '2023-06-01 12:00:00.000', 'FailedExtraction_2023_06_01_12_00_00_000.parquet'),
+    (1, 2, 19, '2023-06-01 12:00:00.000', 'FailedExtraction_2023_06_01_12_00_00_000.parquet'),
+    (1, 2, 20, '2023-06-01 12:00:00.000', 'FailedExtraction_2023_06_01_12_00_00_000.parquet'),
+    (1, 4, 2,  '2023-06-01 12:00:00.000', 'FailedExtraction_2023_06_01_12_00_00_000.parquet'),
+    (1, 2, 21, '2023-06-01 12:00:00.000', 'FailedActivity_2023_06_01_12_00_00_000.parquet'),
+    (1, 2, 13, '2023-06-01 12:00:00.000', 'FailedActivity_2023_06_01_12_00_00_000.parquet'),
+    (1, 2, 9,  '2023-06-01 12:00:00.000', 'FailedActivity_2023_06_01_12_00_00_000.parquet'),
+    (1, 2, 19, '2023-06-01 12:00:00.000', 'FailedActivity_2023_06_01_12_00_00_000.parquet'),
+    (1, 2, 20, '2023-06-01 12:00:00.000', 'FailedActivity_2023_06_01_12_00_00_000.parquet'),
+    (1, 4, 2,  '2023-06-01 12:00:00.000', 'FailedActivity_2023_06_01_12_00_00_000.parquet'); -- Failed activity
 
   -- Act: 
   SELECT entity_id, file_name, first_failed_activity_order
@@ -79,4 +61,3 @@ BEGIN
   EXEC tSQLt.AssertEqualsTable 'expected', 'actual';
 END;
 GO
-

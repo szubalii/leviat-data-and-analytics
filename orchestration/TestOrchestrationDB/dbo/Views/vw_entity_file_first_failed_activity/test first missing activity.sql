@@ -19,36 +19,19 @@ BEGIN
     entity_id,
     status_id,
     activity_id,
+    start_date_time,
     file_name
   )
   VALUES
-    (1, 2, 21, 'SuccessfulFile'),
-    (1, 2, 13, 'SuccessfulFile'),
-    (1, 2, 9,  'SuccessfulFile'),
-    (1, 2, 19, 'SuccessfulFile'),
-    (1, 2, 20, 'SuccessfulFile'),
-    (1, 2, 2,  'SuccessfulFile'),
-    (1, 2, 21, 'MissingActivity'),
-    (1, 2, 13, 'MissingActivity'); -- Missing activities
-
-  -- EXEC tSQLt.FakeTable '[dbo]', '[vw_entity_file_activity_latest_batch]';
-
-  -- SELECT TOP(0) *
-  -- INTO #vw_entity_file_activity_latest_batch
-  -- FROM dbo.vw_entity_file_activity_latest_batch;
-
-  -- -- #2
-  -- INSERT INTO #vw_entity_file_activity_latest_batch (
-  --   entity_id,
-  --   file_name,
-  --   run_activity_id,
-  --   status_id
-  -- )
-  -- VALUES
-  --   (1, 'Test1', 21, 2),
-  --   (1, 'Test2', 19, 4);
-
-  -- EXEC ('INSERT INTO dbo.vw_entity_file_activity_latest_batch SELECT * FROM #vw_entity_file_activity_latest_batch');
+    (1, 2, 21, '2023-06-01 12:00:00.000', 'SuccessfulFile_2023_06_01_12_00_00_000.parquet'),
+    (1, 2, 13, '2023-06-01 12:00:00.000', 'SuccessfulFile_2023_06_01_12_00_00_000.parquet'),
+    (1, 2, 9,  '2023-06-01 12:00:00.000', 'SuccessfulFile_2023_06_01_12_00_00_000.parquet'),
+    (1, 2, 19, '2023-06-01 12:00:00.000', 'SuccessfulFile_2023_06_01_12_00_00_000.parquet'),
+    (1, 2, 20, '2023-06-01 12:00:00.000', 'SuccessfulFile_2023_06_01_12_00_00_000.parquet'),
+    (1, 2, 2,  '2023-06-01 12:00:00.000', 'SuccessfulFile_2023_06_01_12_00_00_000.parquet'),
+    (1, 2, 15, '2023-06-01 12:00:00.000', 'SuccessfulFile_2023_06_01_12_00_00_000.parquet'),
+    (1, 2, 21, '2023-06-01 12:00:00.000', 'MissingActivity_2023_06_01_12_00_00_000.parquet'),
+    (1, 2, 13, '2023-06-01 12:00:00.000', 'MissingActivity_2023_06_01_12_00_00_000.parquet'); -- Missing activities
 
   -- Act: 
   SELECT entity_id, file_name, first_failed_activity_order
