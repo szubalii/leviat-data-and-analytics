@@ -35,5 +35,9 @@ INNER JOIN
   dbo.[vw_delta_load_entities] delta
   ON
     delta.entity_id = efalb.entity_id
+-- filter on those rows that contains a file_name.
+-- new delta entity activities are added in tvf_entity_file_activity_by_date
+WHERE
+  efalb.file_name IS NOT NULL
     
 GO
