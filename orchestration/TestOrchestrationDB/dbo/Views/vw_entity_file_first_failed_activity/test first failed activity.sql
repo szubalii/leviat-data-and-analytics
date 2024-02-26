@@ -54,7 +54,7 @@ BEGIN
 
   INSERT INTO expected(entity_id, file_name, first_failed_activity_order)
   VALUES
-    (1, 'FailedActivity_2023_06_03_12_00_00_000.parquet', 100),
+    (1, 'FailedActivity_2023_06_03_12_00_00_000.parquet', 400),
     (2, NULL, 100);
 
   EXEC tSQLt.AssertEqualsTable 'expected', 'actual';
