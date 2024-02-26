@@ -32,11 +32,13 @@ BEGIN
   -- Act: 
   SELECT
     entity_id,
+    trigger_date,
     file_name
   INTO actual
   FROM dbo.tvf_full_load_entity_file_activities_by_date('2023-06-01', 0)
   GROUP BY
     entity_id,
+    trigger_date,
     file_name;
 
   -- Assert:

@@ -80,6 +80,28 @@ RETURN
       [delta].isRequired
     FROM
       dbo.[vw_delta_load_entity_file_activities] [delta]
+
+    UNION ALL
+
+    -- Add new activities for delta entiites
+    SELECT
+      [delta].entity_id,
+      [activity].layer_id,
+      NULL AS file_name,
+      @date AS trigger_date,
+      [activity].activity_nk,
+      [activity].activity_order,
+      NULL AS batch_id,
+      NULL AS status_id,
+      NULL AS output,
+      NULL AS isRequired
+    FROM
+      dbo.[vw_delta_load_entities] [delta]
+    LEFT JOIN
+      dbo.[vw_entity_activity] [activity]
+      ON
+        [activity].entity_id = [delta].entity_id
+
   )
 
   SELECT
