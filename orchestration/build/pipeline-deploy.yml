@@ -35,14 +35,6 @@ parameters:
     - true
   default: false
 
-variables:
-- ${{ if eq(parameters.target_env, 'pers') }}:
-  - name: recreateDatabase
-    value: ${{ parameters.recreateDatabase }}
-- ${{ else }}:
-  - name: recreateDatabase
-    value: false
-
 extends:
   template: ../../build/stages-deploy.yml
   parameters:

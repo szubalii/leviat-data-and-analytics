@@ -62,6 +62,13 @@ variables:
     - name: commitId
       value: $(Build.SourceVersion)
 
+- ${{ if eq(parameters.target_env, 'pers') }}:
+  - name: recreateDatabase
+    value: ${{ parameters.recreateDatabase }}
+- ${{ else }}:
+  - name: recreateDatabase
+    value: false
+
 - name: solution
   value: ${{ upper(replace( parameters.folder, '-', '_')) }}
 - name: deployment_job_name
