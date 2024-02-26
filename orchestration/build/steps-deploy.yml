@@ -88,4 +88,4 @@ steps:
     ServerName: '$(sqlServerName).database.windows.net'
     DatabaseName: '$(sqlDatabaseName)'
     DacpacFile: '$(Pipeline.Workspace)\build/OrchestrationDB/sqldb-xxxx-orchdb-d-euw-001.dacpac'
-    AdditionalArguments: '/v:masterKeyPwd=$(sqlsrv-xxxx-sls-x-euw-001-masterKeyPwd) /v:sasToken_OrchDB=$(sasToken_OrchDB) /v:containerURL=https://$(storageAccountName).blob.core.windows.net/orch-db'
+    AdditionalArguments: '/p:CreateNewDatabase=$(recreateDatabase) /v:masterKeyPwd=$(sqlsrv-xxxx-sls-x-euw-001-masterKeyPwd) /v:sasToken_OrchDB=$(sasToken_OrchDB) /v:containerURL=https://$(storageAccountName).blob.core.windows.net/orch-db'

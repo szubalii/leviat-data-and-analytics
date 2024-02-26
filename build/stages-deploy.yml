@@ -92,6 +92,7 @@ stages:
         echo solution: $(solution)
         echo variables['Build.SourceBranchName']
         echo Build.SourceBranchName: $(Build.SourceBranchName)
+        echo recreateDatabase: $(recreateDatabase)
 
 - stage: DEPLOY
   jobs:
