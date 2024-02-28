@@ -44,11 +44,11 @@
 			},
 			"s4hSystemId": {
 				"type": "string",
-				"value": "CAA"
+				"value": "CAP"
 			},
 			"s4hClientId": {
 				"type": "string",
-				"value": "200"
+				"value": "100"
 			},
 			"axbiDataBaseEnvSuffix": {
 				"type": "string",
