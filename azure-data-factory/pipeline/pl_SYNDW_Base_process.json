@@ -187,6 +187,10 @@
 							"name": "Set batch_id",
 							"type": "SetVariable",
 							"dependsOn": [],
+							"policy": {
+								"secureOutput": false,
+								"secureInput": false
+							},
 							"userProperties": [],
 							"typeProperties": {
 								"variableName": "batch_id",
@@ -411,9 +415,22 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"storedProcedureName": {
-						"value": "@{pipeline().parameters.base_schema_name}.@{pipeline().parameters.base_sproc_name}",
-						"type": "Expression"
+					"storedProcedureName": "[utilities].[up_upsert_delta_active_table]",
+					"storedProcedureParameters": {
+						"schema_name": {
+							"value": {
+								"value": "@pipeline().parameters.base_schema_name",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"table_name": {
+							"value": {
+								"value": "@pipeline().parameters.base_table_name",
+								"type": "Expression"
+							},
+							"type": "String"
+						}
 					}
 				},
 				"linkedServiceName": {
