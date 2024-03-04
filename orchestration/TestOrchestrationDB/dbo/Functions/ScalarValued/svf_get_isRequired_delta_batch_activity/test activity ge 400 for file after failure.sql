@@ -1,4 +1,4 @@
-CREATE PROCEDURE [tc.dbo.svf_get_isRequired_delta_batch_activity].[test activity>=400 for file after failure]
+CREATE PROCEDURE [tc.dbo.svf_get_isRequired_delta_batch_activity].[test activity ge 400 for file after failure]
 AS
 BEGIN  
   -- Act: 

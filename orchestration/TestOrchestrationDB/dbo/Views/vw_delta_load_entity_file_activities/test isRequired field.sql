@@ -71,9 +71,7 @@ BEGIN
     (1, 'DELTA_2023_06_01_12_00_00_000.parquet', 'CheckXUExtractionStatus', 1),
     (1, 'DELTA_2023_06_01_12_00_00_000.parquet', 'Extract', 0),
     (1, 'DELTA_2023_06_01_12_00_00_000.parquet', 'Load2Base', 1),
-    (1, 'DELTA_2023_06_01_12_00_00_000.parquet', 'ProcessADLS', 1),
     (1, 'DELTA_2023_06_01_12_00_00_000.parquet', 'ProcessBase', 1),
-    (1, 'DELTA_2023_06_01_12_00_00_000.parquet', 'StoreXUExtractionLog', 1),
     (1, 'DELTA_2023_06_01_12_00_00_000.parquet', 'TestDuplicates', 1);
 
   EXEC tSQLt.AssertEqualsTable 'expected', 'actual';

@@ -53,9 +53,9 @@ BEGIN
     required_activities,
     skipped_activities
   ) VALUES
-    (1, NULL, '["Extract","CheckXUExtractionStatus","StoreXUExtractionLog","TestDuplicates","ProcessADLS","Load2Base","ProcessBase"]', '{}'),
-    (1, 'DELTA_2023_06_01_12_00_00_000.parquet', '["CheckXUExtractionStatus","StoreXUExtractionLog","TestDuplicates","ProcessADLS","Load2Base","ProcessBase"]', '{"Extract": {"batch_id":"", "output":{}}}'),
-    (2, 'FULL_2023_06_01_12_00_00_000.parquet',  '["CheckXUExtractionStatus","StoreXUExtractionLog","TestDuplicates","ProcessADLS","Load2Base","ProcessBase"]', '{"Extract": {"batch_id":"", "output":{}}}');
+    (1, NULL, '["Extract","CheckXUExtractionStatus","TestDuplicates","Load2Base","ProcessBase"]', '{}'),
+    (1, 'DELTA_2023_06_01_12_00_00_000.parquet', '["CheckXUExtractionStatus","TestDuplicates","Load2Base","ProcessBase"]', '{"Extract": {"batch_id":"", "output":{}}}'),
+    (2, 'FULL_2023_06_01_12_00_00_000.parquet',  '["CheckXUExtractionStatus","TestDuplicates","Load2Base","ProcessBase"]', '{"Extract": {"batch_id":"", "output":{}}}');
 
   EXEC tSQLt.AssertEqualsTable 'expected', 'actual';
 
@@ -214,7 +214,7 @@ GO
 -- (6,'BasetoEDWExecGenericSP','Load data using a generic function sp_materialize_view',NULL,1),
 -- (7,'BasetoEDWExecCustomSP','Load data using a custom function',NULL,1),
 -- (8,'RunXUExtraction','Start Xtract Universal Extraction via web url call',120,1),
--- (9,'StoreXUExtractionLog','Get Logs',160,0),
+-- (9,'Get Logs,0),
 -- (10,'ProcessEDW','Load data into edw layer - Dedicated SQL Pool',600,0),
 -- (11,'S4HBlobInToBlobOut','S4H Data is loaded from In to Out blob storage folder - Data Lake',NULL,1),
 -- (12,'S4HToBlobIn','The data has been extracted to a folder IN on the Blob Storage',NULL,1),

@@ -36,13 +36,21 @@ BEGIN
     required_activities,
     skipped_activities
   ) VALUES
-    (1, NULL, '["Extract","CheckXUExtractionStatus","StoreXUExtractionLog","TestDuplicates","ProcessADLS","Load2Base","ProcessBase"]', '{}'),
-    (2, NULL, '["Extract","CheckXUExtractionStatus","StoreXUExtractionLog","TestDuplicates","ProcessADLS","Load2Base","ProcessBase"]', '{}');
+    (1, NULL, '["Extract","CheckXUExtractionStatus","TestDuplicates","Load2Base","ProcessBase"]', '{}'),
+    (2, NULL, '["Extract","CheckXUExtractionStatus","TestDuplicates","Load2Base","ProcessBase"]', '{}');
 
   EXEC tSQLt.AssertEqualsTable 'expected', 'actual';
 
 END;
 GO
+
+-- select * from tvf_entity_file_activity_by_date
+-- select * from vw_delta_load_entity_file_activities
+-- select * from vw_entity_file
+-- select * from batch
+-- select * from entity
+
+-- truncate table batch
 
 -- truncate table batch
 

@@ -25,7 +25,6 @@ BEGIN
   VALUES
     (1, 2, 21, '2023-06-01 12:00:00.000', 'SuccessfulFile_2023_06_01_12_00_00_000.parquet'),
     (1, 2, 13, '2023-06-01 12:00:00.000', 'SuccessfulFile_2023_06_01_12_00_00_000.parquet'),
-    (1, 2, 9,  '2023-06-01 12:00:00.000', 'SuccessfulFile_2023_06_01_12_00_00_000.parquet'),
     (1, 2, 19, '2023-06-01 12:00:00.000', 'SuccessfulFile_2023_06_01_12_00_00_000.parquet'),
     (1, 2, 20, '2023-06-01 12:00:00.000', 'SuccessfulFile_2023_06_01_12_00_00_000.parquet'),
     (1, 2, 2,  '2023-06-01 12:00:00.000', 'SuccessfulFile_2023_06_01_12_00_00_000.parquet'),
@@ -45,7 +44,7 @@ BEGIN
 
   INSERT INTO expected(entity_id, file_name, first_failed_activity_order)
   VALUES
-    (1, 'MissingActivity_2023_06_02_12_00_00_000.parquet', 160),
+    (1, 'MissingActivity_2023_06_02_12_00_00_000.parquet', 200),
     (2, NULL, 100);
 
   EXEC tSQLt.AssertEqualsTable 'expected', 'actual';
