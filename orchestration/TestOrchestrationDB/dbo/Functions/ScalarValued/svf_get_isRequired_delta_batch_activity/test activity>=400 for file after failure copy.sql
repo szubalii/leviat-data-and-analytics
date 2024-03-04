@@ -1,9 +1,9 @@
-CREATE PROCEDURE [tc.dbo.svf_get_isRequired_delta_batch_activity].[test file after failure]
+CREATE PROCEDURE [tc.dbo.svf_get_isRequired_delta_batch_activity].[test activity>=400 for file after failure]
 AS
 BEGIN  
   -- Act: 
   DECLARE @actual INT = ( SELECT dbo.svf_get_isRequired_delta_batch_activity(
-    'test2', 'test1', 200, 300
+    'test2', 'test1', 400, 300
   ));
 
   -- Assert:

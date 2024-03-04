@@ -19,8 +19,8 @@ BEGIN
       WHEN @file_name IS NOT NULL AND (@file_name < @firstFailedFile OR @firstFailedFile IS NULL) THEN 0
       -- In case of available delta files more recent
       -- than the delta file that had failed activities,
-      -- rerun activities other than extraction
-      WHEN @file_name > @firstFailedFile THEN 1
+      -- rerun activities from ingestIntoBase onwards
+      WHEN @file_name > @firstFailedFile AND @activity_order >= 400 THEN 1 -- TODO: extend logic to make sure that only the ingestIntoBase activity is redone if previous activities were successfull
       -- For activities of the first failed file
       -- check the first failed activity
       ELSE dbo.svf_get_isRequired_full_batch_activity(
