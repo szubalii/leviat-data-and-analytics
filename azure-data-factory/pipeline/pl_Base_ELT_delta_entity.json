@@ -227,6 +227,9 @@
 							"name": "Execute ELT",
 							"type": "ExecutePipeline",
 							"dependsOn": [],
+							"policy": {
+								"secureInput": false
+							},
 							"userProperties": [],
 							"typeProperties": {
 								"pipeline": {
@@ -304,7 +307,7 @@
 										"type": "Expression"
 									},
 									"base_table_name": {
-										"value": "@item().base_table_name",
+										"value": "@concat(\n    item().base_table_name,\n    '_delta'\n)",
 										"type": "Expression"
 									},
 									"required_activities": {
@@ -449,6 +452,9 @@
 							"name": "Process Synapse Base Procedure",
 							"type": "ExecutePipeline",
 							"dependsOn": [],
+							"policy": {
+								"secureInput": false
+							},
 							"userProperties": [],
 							"typeProperties": {
 								"pipeline": {
