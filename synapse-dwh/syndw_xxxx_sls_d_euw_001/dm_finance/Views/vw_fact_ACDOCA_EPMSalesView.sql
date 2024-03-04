@@ -57,6 +57,7 @@ SELECT
   [GrossMarginAmount],
   [AmountCategory],
   [Amount],
+  [AmountInCompanyCodeCurrency],
   [AmountInGlobalCurrency],
   [FreeDefinedCurrency1],
   [AmountInFreeDefinedCurrency1],
