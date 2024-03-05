@@ -44,7 +44,7 @@
 						},
 						"error_msg": {
 							"value": {
-								"value": "@activity('Process Base').Error.Message",
+								"value": "@activity('Update Delta Active Table').Error.Message",
 								"type": "Expression"
 							},
 							"type": "String"
