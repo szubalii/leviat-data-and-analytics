@@ -507,8 +507,8 @@
 										"value": "@pipeline().parameters.source_date_field_name",
 										"type": "Expression"
 									},
-									"deltaEntityFileNameBatchActivities": {
-										"value": "@variables('deltaEntityFileNameBatchActivities')",
+									"deltaFiles": {
+										"value": "@variables('deltaFiles')",
 										"type": "Expression"
 									}
 								}
