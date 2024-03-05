@@ -932,7 +932,7 @@
 				}
 			},
 			{
-				"name": "Return ADLS FileName",
+				"name": "Return Values",
 				"type": "SetVariable",
 				"dependsOn": [
 					{
@@ -955,6 +955,13 @@
 							"value": {
 								"type": "Expression",
 								"content": "@variables('adlsFileName')"
+							}
+						},
+						{
+							"key": "directoryPath",
+							"value": {
+								"type": "Expression",
+								"content": "@variables('adls_directory_path')"
 							}
 						}
 					],
