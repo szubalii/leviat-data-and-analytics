@@ -47,6 +47,12 @@
 						"dependencyConditions": [
 							"Succeeded"
 						]
+					},
+					{
+						"activity": "Set Delta Table Name",
+						"dependencyConditions": [
+							"Succeeded"
+						]
 					}
 				],
 				"policy": {
@@ -307,7 +313,7 @@
 										"type": "Expression"
 									},
 									"base_table_name": {
-										"value": "@concat(\n    item().base_table_name,\n    '_delta'\n)",
+										"value": "@variables('deltaTableName')",
 										"type": "Expression"
 									},
 									"required_activities": {
@@ -553,7 +559,7 @@
 						},
 						"table_name": {
 							"value": {
-								"value": "@pipeline().parameters.base_table_name",
+								"value": "@variables('deltaTableName')",
 								"type": "Expression"
 							},
 							"type": "String"
@@ -572,6 +578,23 @@
 							"value": "@pipeline().globalParameters.synapseServerName",
 							"type": "Expression"
 						}
+					}
+				}
+			},
+			{
+				"name": "Set Delta Table Name",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "deltaTableName",
+					"value": {
+						"value": "@concat(\n    pipeline().parameters.base_table_name,\n    '_delta'\n)",
+						"type": "Expression"
 					}
 				}
 			}
@@ -632,6 +655,9 @@
 			"failed_extract": {
 				"type": "Integer",
 				"defaultValue": 0
+			},
+			"deltaTableName": {
+				"type": "String"
 			}
 		},
 		"folder": {
