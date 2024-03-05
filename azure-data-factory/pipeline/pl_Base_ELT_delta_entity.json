@@ -47,12 +47,6 @@
 						"dependencyConditions": [
 							"Succeeded"
 						]
-					},
-					{
-						"activity": "Set Delta Table Name",
-						"dependencyConditions": [
-							"Succeeded"
-						]
 					}
 				],
 				"policy": {
@@ -509,6 +503,12 @@
 				"dependsOn": [
 					{
 						"activity": "Get Delta Entity FileName Batch Activities",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "Set Delta Table Name",
 						"dependencyConditions": [
 							"Succeeded"
 						]
