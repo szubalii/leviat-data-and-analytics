@@ -439,7 +439,7 @@
 							],
 							"userProperties": [],
 							"typeProperties": {
-								"variableName": "delta_files",
+								"variableName": "deltaFiles",
 								"value": {
 									"value": "@activity('Execute ELT').output.pipelineReturnValue",
 									"type": "Expression"
@@ -663,7 +663,7 @@
 			}
 		},
 		"variables": {
-			"delta_files": {
+			"deltaFiles": {
 				"type": "Array"
 			},
 			"requiresSynapseIngestion": {
