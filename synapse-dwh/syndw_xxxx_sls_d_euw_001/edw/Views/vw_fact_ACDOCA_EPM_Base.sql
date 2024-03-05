@@ -389,7 +389,7 @@ LEFT JOIN
   ON
     GLALIRD.[CustomerID] = CSA.[Customer] COLLATE DATABASE_DEFAULT
     AND
-    GLALIRD.[SalesOrganizationID_new] = CSA.[SalesOrganization] COLLATE DATABASE_DEFAULT
+    GLALIRD.[SalesOrganizationID_New] = CSA.[SalesOrganization] COLLATE DATABASE_DEFAULT
 LEFT JOIN
   [edw].[vw_CurrencyConversionRate] ExchangeRate
   ON
