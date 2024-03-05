@@ -76,7 +76,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@pipeline().parameters.deltaEntityFileNameBatchActivities",
+						"value": "@pipeline().parameters.deltaFiles",
 						"type": "Expression"
 					},
 					"isSequential": true,
@@ -123,7 +123,7 @@
 									},
 									"file_name": {
 										"value": {
-											"value": "@item().file_name",
+											"value": "@item().adlsFileName",
 											"type": "Expression"
 										},
 										"type": "String"
@@ -166,7 +166,7 @@
 									},
 									"directory_path": {
 										"value": {
-											"value": "@item().adls_directory_path_In",
+											"value": "@item().directoryPath",
 											"type": "Expression"
 										}
 									}
@@ -468,7 +468,7 @@
 			"source_date_field_name": {
 				"type": "string"
 			},
-			"deltaEntityFileNameBatchActivities": {
+			"deltaFiles": {
 				"type": "array"
 			}
 		},
