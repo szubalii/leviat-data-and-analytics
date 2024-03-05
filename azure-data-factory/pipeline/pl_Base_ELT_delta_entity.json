@@ -425,6 +425,26 @@
 									"type": "Expression"
 								}
 							}
+						},
+						{
+							"name": "Append Delta File",
+							"type": "AppendVariable",
+							"dependsOn": [
+								{
+									"activity": "Execute ELT",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "delta_files",
+								"value": {
+									"value": "@activity('Execute ELT').output.pipelineReturnValue",
+									"type": "Expression"
+								}
+							}
 						}
 					]
 				}
@@ -643,7 +663,7 @@
 			}
 		},
 		"variables": {
-			"delta_entities": {
+			"delta_files": {
 				"type": "Array"
 			},
 			"requiresSynapseIngestion": {
