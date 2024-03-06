@@ -97,6 +97,7 @@ SELECT
     
   END AS [AmountCategory],
   -1 * GLALIRD.[AmountInCompanyCodeCurrency] * ExchangeRate.ExchangeRate AS [Amount],
+  GLALIRD.AmountInCompanyCodeCurrency,
   -- GLALIRD.[GlobalCurrency],
   GLALIRD.[AmountInGlobalCurrency],
   GLALIRD.[FreeDefinedCurrency1],
@@ -404,6 +405,7 @@ SELECT
   [GrossMarginAmount],
   [AmountCategory],
   [Amount],
+  [AmountInCompanyCodeCurrency],
   [AmountInGlobalCurrency],
   [FreeDefinedCurrency1],
   [AmountInFreeDefinedCurrency1],
