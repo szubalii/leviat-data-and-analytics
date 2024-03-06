@@ -1,0 +1,11 @@
+{
+  "location": "westeurope",
+  "tags": {},
+  "sku": {
+    "name": "DW100c"
+  },
+  "properties": {
+    "createMode": "Recovery",
+    "recoverableDatabaseId": "/subscriptions/f199b488-7d9d-4992-aeda-c10a1e1c9b9e/resourceGroups/rg-xxxx-sls-d-euw-001/providers/Microsoft.Synapse/workspaces/ws-xxxx-sls-d-euw-001/recoverabledatabases/syndw_xxxx_sls_d_euw_001"
+  }
+}

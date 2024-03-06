@@ -17,9 +17,11 @@
 /orchestration/Master Data/entity.csv
 /orchestration/Master Data/pbi_dataset_entity.csv
 /orchestration/Master Data/pbi_dataset.csv
+/orchestration/node_modules/
 /testDWH/.vs
 /testDWH/testDWH.jfm
 /testDWH/testDWH.dbmdl
 /node_modules
+/dependency-diagram/node_modules/
 /synapse-dwh/TestDWH/.vs
 /synapse-dwh/TestDWH/TestDWH.sqlproj.user
