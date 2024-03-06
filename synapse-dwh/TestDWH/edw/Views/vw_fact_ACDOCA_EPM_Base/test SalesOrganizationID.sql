@@ -7,7 +7,6 @@ BEGIN
 
   -- Assemble: Fake Table
   EXEC tSQLt.FakeTable '[edw]', '[fact_ACDOCA]';
-  EXEC tSQLt.FakeTable '[edw]', '[fact_SalesDocumentItem]';
   EXEC tSQLt.FakeTable '[edw]', '[vw_CurrencyConversionRate]';
   EXEC tSQLt.FakeTable '[dm_sales]', '[vw_dim_CurrencyType]';
 
@@ -16,31 +15,18 @@ BEGIN
     SalesReferenceDocumentItemCalculated,
     CompanyCodeCurrency,
     BillingDocumentTypeID,
-    SalesOrganizationID
-  )
-  VALUES
-  ('SD1', '01', 'EUR', '', ''),
-  ('SD2', '02', 'EUR', '', NULL),
-  ('SD3', '03', 'EUR', 'BT3', 'SO3'),
-  ('SD4', '04', 'EUR', '', 'SO4'),
-  ('SD5', '05', 'EUR', '', ''),
-  ('SD6', '06', 'EUR', 'BT6', ''),
-  ('SD7', '07', 'EUR', 'BT7', '');
-
-  INSERT INTO edw.fact_SalesDocumentItem (
-    SalesDocument,
-    SalesDocumentItem,
     SalesOrganizationID,
-    CurrencyTypeID
+    SDI_SalesOrganizationID
   )
   VALUES
-  ('SD1', '01', 'SO01', '10'),
-  ('SD2', '02', 'SO02', '10'),
-  ('SD3', '03', 'SO03', '10'),
-  ('SD4', '04', '', '10'),
-  ('SD5', '05', '', '10'),
-  ('SD6', '06', 'SO06', '10'),
-  ('SD7', '07', '', '10')
+  ('SD1', '01', 'EUR', '', '', ''),
+  ('SD2', '02', 'EUR', '', NULL, '') ,
+  ('SD3', '03', 'EUR', 'BT3', 'SO3', 'SD3'),
+  ('SD4', '04', 'EUR', '', 'SO4', 'SD4'),
+  ('SD5', '05', 'EUR', '', '', 'SD5'),
+  ('SD6', '06', 'EUR', 'BT6', '', 'SD6'),
+  ('SD7', '07', 'EUR', 'BT7', '', '');
+
 
 
   INSERT INTO dm_sales.vw_dim_CurrencyType (
@@ -81,12 +67,12 @@ BEGIN
     SalesOrganizationID
   )
   VALUES
-    ('SD1', 'SO01'),
-    ('SD2', 'SO02'),
+    ('SD1', 'MA-Dummy'),
+    ('SD2', 'MA-Dummy'),
     ('SD3', 'SO3'),
     ('SD4', 'SO4'),
-    ('SD5', 'MA-Dummy'),
-    ('SD6', 'SO06'),
+    ('SD5', 'SD5'),
+    ('SD6', 'SD6'),
     ('SD7', '');
 
   EXEC tSQLt.AssertEqualsTable 'expected', 'actual';
