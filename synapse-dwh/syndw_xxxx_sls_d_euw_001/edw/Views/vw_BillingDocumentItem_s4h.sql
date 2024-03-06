@@ -423,7 +423,6 @@ SELECT
       ,[BillingPlan]
       ,[BillingPlanItem]
       ,[CustomerPriceGroupID]
-      ,[CustomerPriceGroupID_BPSA]
       ,[PriceListTypeID]
       ,[TaxDepartureCountry]
       ,[VATRegistration]
