@@ -11,5 +11,6 @@ SELECT
     ,[AccountDetnProductGroup]
     ,[CashDiscountIsDeductible]
     ,[IsMarkedForDeletion]
+    ,[ItemCategoryGroup]
 FROM 
     [edw].[dim_ProductSalesDelivery]

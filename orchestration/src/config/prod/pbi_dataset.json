@@ -5,12 +5,6 @@
       "EPM Sales View": {
         "dataset_guid": "d5002396-c885-4ff7-9c29-c6dfd223a480"
       },
-      "EPM Sales View EUR": {
-        "dataset_guid": "e7b95ae1-3e7c-44c0-bfc8-bf07c6b574c4"
-      },
-      "EPM Sales View USD": {
-        "dataset_guid": "e3c79db8-775f-4255-8033-5cfa24f00eca"
-      },
       "ACDOCA Self Service CH-AT": {
         "dataset_guid": "23996ca8-3555-49de-937b-ed6929eb4e09"
       }
