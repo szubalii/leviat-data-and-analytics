@@ -96,7 +96,6 @@ BEGIN
         ,   [BillingPlan]
         ,   [BillingPlanItem]
         ,   [CustomerPriceGroupID] --new
-        ,   [CustomerPriceGroupID_BPSA]
         ,   [PriceListTypeID]
         ,   [TaxDepartureCountry]
         ,   [VATRegistration]
@@ -296,7 +295,6 @@ BEGIN
         ,   [BillingPlan]
         ,   [BillingPlanItem]
         ,   [CustomerPriceGroupID]          --new
-        ,   [CustomerPriceGroupID_BPSA]
         ,   [PriceListTypeID]
         ,   [TaxDepartureCountry]
         ,   [VATRegistration]
@@ -506,7 +504,6 @@ BEGIN
         ,   [BillingPlan]
         ,   [BillingPlanItem]
         ,   [CustomerPriceGroupID] --new
-        ,   [CustomerPriceGroupID_BPSA]
         ,   [PriceListTypeID]
         ,   [TaxDepartureCountry]
         ,   [VATRegistration]
@@ -711,7 +708,6 @@ BEGIN
         ,   NULL AS [BillingPlan]
         ,   NULL AS [BillingPlanItem]
         ,   NULL AS [CustomerPriceGroupID]
-        ,   NULL AS [CustomerPriceGroupID_BPSA]
         ,   NULL AS [PriceListTypeID]
         ,   NULL AS [TaxDepartureCountry]
         ,   NULL AS [VATRegistration]

@@ -80,7 +80,6 @@ BDIwithMatType AS (
     ,   BDI.[BillingPlan]
     ,   BDI.[BillingPlanItem]
     ,   BDI.[CustomerPriceGroupID]
-    ,   BDI.[CustomerPriceGroupID_BPSA]
     ,   BDI.[PriceListTypeID]
     ,   BDI.[TaxDepartureCountry]
     ,   BDI.[VATRegistration]

@@ -150,9 +150,8 @@ CTE_PrcgElmnt AS (
   --, doc.[BillToPartyCountry]
   --, doc.[BillToPartyRegion]
   , doc.[CustomerPriceGroupID]
-  , doc.[CustomerPriceGroupID_BPSA]
   , dimCPG.[CustomerPriceGroup] 
-  , dimCPG_BPSA.[CustomerPriceGroup] AS [CustomerPriceGroup_BPSA]
+  , dimCPG.[CustomerPriceGroupID] AS [CustomerPriceGroupID_BPSA]
   --, dimPT.[PriceListTypeID]
   --, dimPT.[PriceListType]
   --, doc.[SDPricingProcedure]
@@ -317,11 +316,7 @@ CTE_PrcgElmnt AS (
   LEFT JOIN
     [edw].[dim_CustomerPriceGroup] dimCPG
     ON
-      dimCPG.[CustomerPriceGroupID] = doc.[CustomerPriceGroupID] --6.1
-  LEFT JOIN
-    [edw].[dim_CustomerPriceGroup] dimCPG_BPSA
-    ON
-      dimCPG_BPSA.[CustomerPriceGroupID] = doc.[CustomerPriceGroupID_BPSA] --6.2
+      dimCPG.[CustomerPriceGroupID] = doc.[CustomerPriceGroupID] --6
   LEFT JOIN
     [edw].[dim_Currency] dimCr
     ON

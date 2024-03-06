@@ -66,7 +66,6 @@ CREATE TABLE [edw].[fact_BillingDocumentItem]
     [BillingPlan]                           NVARCHAR(20)                                 NULL,
     [BillingPlanItem]                       CHAR(6) collate Latin1_General_100_BIN2      NULL,
     [CustomerPriceGroupID]                  NVARCHAR(4)                                  NULL,
-    [CustomerPriceGroupID_BPSA]             NVARCHAR(4)                                  NULL,
     [PriceListTypeID]                       NVARCHAR(4)                                  NULL,
     [TaxDepartureCountry]                   NVARCHAR(6)                                  NULL,
     [VATRegistration]                       NVARCHAR(40)                                 NULL,
