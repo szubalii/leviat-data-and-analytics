@@ -24,6 +24,9 @@
 							"name": "Test for Duplicates",
 							"type": "ExecutePipeline",
 							"dependsOn": [],
+							"policy": {
+								"secureInput": false
+							},
 							"userProperties": [],
 							"typeProperties": {
 								"pipeline": {
@@ -135,6 +138,9 @@
 									]
 								}
 							],
+							"policy": {
+								"secureInput": false
+							},
 							"userProperties": [],
 							"typeProperties": {
 								"pipeline": {
@@ -248,6 +254,9 @@
 							"name": "Ingest Parquet into Synapse Base",
 							"type": "ExecutePipeline",
 							"dependsOn": [],
+							"policy": {
+								"secureInput": false
+							},
 							"userProperties": [],
 							"typeProperties": {
 								"pipeline": {
@@ -398,6 +407,9 @@
 							"name": "Execute Get Extraction Status",
 							"type": "ExecutePipeline",
 							"dependsOn": [],
+							"policy": {
+								"secureInput": false
+							},
 							"userProperties": [],
 							"typeProperties": {
 								"pipeline": {
@@ -470,6 +482,9 @@
 							"name": "Execute Pipeline Store XU Extraction Logs 2",
 							"type": "ExecutePipeline",
 							"dependsOn": [],
+							"policy": {
+								"secureInput": false
+							},
 							"userProperties": [],
 							"typeProperties": {
 								"pipeline": {
@@ -717,6 +732,9 @@
 							"name": "Execute Pipeline Store XU Extraction Logs",
 							"type": "ExecutePipeline",
 							"dependsOn": [],
+							"policy": {
+								"secureInput": false
+							},
 							"userProperties": [],
 							"typeProperties": {
 								"pipeline": {
@@ -911,6 +929,43 @@
 						"value": "@pipeline().parameters.adls_directory_path_In",
 						"type": "Expression"
 					}
+				}
+			},
+			{
+				"name": "Return Values",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "If Synapse Ingestion Required",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "pipelineReturnValue",
+					"value": [
+						{
+							"key": "adlsFileName",
+							"value": {
+								"type": "Expression",
+								"content": "@variables('adlsFileName')"
+							}
+						},
+						{
+							"key": "directoryPath",
+							"value": {
+								"type": "Expression",
+								"content": "@variables('adls_directory_path')"
+							}
+						}
+					],
+					"setSystemVariable": true
 				}
 			}
 		],

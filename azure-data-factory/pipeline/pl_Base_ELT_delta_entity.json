@@ -307,7 +307,7 @@
 										"type": "Expression"
 									},
 									"base_table_name": {
-										"value": "@concat(\n    item().base_table_name,\n    '_delta'\n)",
+										"value": "@variables('deltaTableName')",
 										"type": "Expression"
 									},
 									"required_activities": {
@@ -425,6 +425,26 @@
 									"type": "Expression"
 								}
 							}
+						},
+						{
+							"name": "Append Delta File",
+							"type": "AppendVariable",
+							"dependsOn": [
+								{
+									"activity": "Execute ELT",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "deltaFiles",
+								"value": {
+									"value": "@activity('Execute ELT').output.pipelineReturnValue",
+									"type": "Expression"
+								}
+							}
 						}
 					]
 				}
@@ -487,8 +507,8 @@
 										"value": "@pipeline().parameters.source_date_field_name",
 										"type": "Expression"
 									},
-									"deltaEntityFileNameBatchActivities": {
-										"value": "@variables('deltaEntityFileNameBatchActivities')",
+									"deltaFiles": {
+										"value": "@variables('deltaFiles')",
 										"type": "Expression"
 									}
 								}
@@ -503,6 +523,12 @@
 				"dependsOn": [
 					{
 						"activity": "Get Delta Entity FileName Batch Activities",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "Set Delta Table Name",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -553,7 +579,7 @@
 						},
 						"table_name": {
 							"value": {
-								"value": "@pipeline().parameters.base_table_name",
+								"value": "@variables('deltaTableName')",
 								"type": "Expression"
 							},
 							"type": "String"
@@ -572,6 +598,23 @@
 							"value": "@pipeline().globalParameters.synapseServerName",
 							"type": "Expression"
 						}
+					}
+				}
+			},
+			{
+				"name": "Set Delta Table Name",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "deltaTableName",
+					"value": {
+						"value": "@concat(\n    pipeline().parameters.base_table_name,\n    '_delta'\n)",
+						"type": "Expression"
 					}
 				}
 			}
@@ -620,7 +663,7 @@
 			}
 		},
 		"variables": {
-			"delta_entities": {
+			"deltaFiles": {
 				"type": "Array"
 			},
 			"requiresSynapseIngestion": {
@@ -632,6 +675,9 @@
 			"failed_extract": {
 				"type": "Integer",
 				"defaultValue": 0
+			},
+			"deltaTableName": {
+				"type": "String"
 			}
 		},
 		"folder": {
