@@ -1,4 +1,4 @@
-CREATE VIEW [edw].[vw_fact_ACDOCA_EPM_Base_V2]
+CREATE VIEW [edw].[vw_fact_ACDOCA_EPM_Base]
 AS
 
 WITH orig AS (
