@@ -354,6 +354,9 @@
 							"name": "Execute Full ELT",
 							"type": "ExecutePipeline",
 							"dependsOn": [],
+							"policy": {
+								"secureInput": false
+							},
 							"userProperties": [],
 							"typeProperties": {
 								"pipeline": {
@@ -559,6 +562,9 @@
 										"name": "Process Synapse Base",
 										"type": "ExecutePipeline",
 										"dependsOn": [],
+										"policy": {
+											"secureInput": false
+										},
 										"userProperties": [],
 										"typeProperties": {
 											"pipeline": {
@@ -588,11 +594,7 @@
 													"type": "Expression"
 												},
 												"source_date_field_name": {
-													"value": "@item().source_date_field_name",
-													"type": "Expression"
-												},
-												"deltaEntityFileNameBatchActivities": {
-													"value": "@array(item().file_name)",
+													"value": "@item().axbi_date_field_name",
 													"type": "Expression"
 												}
 											}
@@ -741,11 +743,11 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
+					"method": "GET",
 					"url": {
 						"value": "@concat(\n    'https://management.azure.com/subscriptions/',\n    'f199b488-7d9d-4992-aeda-c10a1e1c9b9e',\n    '/resourceGroups/',\n    pipeline().globalParameters.resourceGroupName,\n    '/providers/Microsoft.DataFactory/factories/',\n    pipeline().DataFactory,\n    if(equals(pipeline().TriggerName, 'Sandbox'), '/sandboxpipelineruns/', '/pipelineruns/'),\n    pipeline().RunId,\n    if(equals(pipeline().TriggerName, 'Sandbox'), '?api-version=2017-09-01-preview', '?api-version=2018-06-01')\n)",
 						"type": "Expression"
 					},
-					"method": "GET",
 					"authentication": {
 						"type": "MSI",
 						"resource": "https://management.core.windows.net/"
@@ -819,6 +821,9 @@
 							"name": "Execute Delta ELT",
 							"type": "ExecutePipeline",
 							"dependsOn": [],
+							"policy": {
+								"secureInput": false
+							},
 							"userProperties": [],
 							"typeProperties": {
 								"pipeline": {
