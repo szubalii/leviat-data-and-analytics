@@ -1006,6 +1006,13 @@
             "abapType": "Date",
             "isSelected": true,
             "selectionPermission": "All",
+            "selections": 
+            [
+                {
+                    "value": "20240301",
+                    "option": "GreaterOrEqual"
+                }
+            ],
             "outputLength": 8
         },
         {
@@ -1086,34 +1093,7 @@
             "length": 12,
             "isSelected": true,
             "selectionPermission": "All",
-            "outputLength": 12,
-            "selections":
-            [
-                {
-                    "value": "MMARELLA"
-                },
-                {
-                    "value": "AVANLOON"
-                },
-                {
-                    "value": "RKHAN"
-                },
-                {
-                    "value": "GGUNDALE"
-                },
-                {
-                    "value": "ABEERS"
-                },
-                {
-                    "value": "MALI"
-                },
-                {
-                    "value": "MKONINGS"
-                },
-                {
-                    "value": "RKHAN"
-                }
-            ]
+            "outputLength": 12
         },
         {
             "name": "LASTCHANGEDATETIME",
