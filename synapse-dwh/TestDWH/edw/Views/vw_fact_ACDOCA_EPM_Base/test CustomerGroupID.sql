@@ -7,7 +7,6 @@ BEGIN
 
   -- Assemble: Fake Table
   EXEC tSQLt.FakeTable '[edw]', '[fact_ACDOCA]';
-  EXEC tSQLt.FakeTable '[edw]', '[fact_SalesDocumentItem]';
   EXEC tSQLt.FakeTable '[edw]', '[dim_CustomerGroup]';
   EXEC tSQLt.FakeTable '[base_s4h_cax]','[I_CustomerSalesArea]';
   EXEC tSQLt.FakeTable '[edw]', '[vw_CurrencyConversionRate]';
@@ -20,27 +19,16 @@ BEGIN
     BillingDocumentTypeID,
     GLAccountID,
     CustomerID,
-    SalesOrganizationID
+    SalesOrganizationID,
+    SoldToPartyID
   )
   VALUES
-  ('SD1', '01', 'EUR', '',  '0001', 'Cust1', '01'),
-  ('SD2', '02', 'EUR', '',  '0002', 'Cust2', '02'),
-  ('SD3', '03', 'EUR', 'BT3', '0003', 'Cust3', '03'),
-  ('SD4', '04', 'EUR', '', '0004', 'Cust4', '04'),
-  ('SD5', '05', 'EUR', 'VM5', '0005', 'Cust5', '05');
-
-  INSERT INTO edw.fact_SalesDocumentItem (
-    SalesDocument,
-    SalesDocumentItem,
-    SoldToPartyID,
-    CurrencyTypeID
-  )
-  VALUES
-  ('SD1', '01', '0001', '10'),
-  ('SD2', '02', '', '10'),
-  ('SD3', '03', '0003', '10'),
-  ('SD4', '04', '', '10'),
-  ('SD5', '05', '0005', '10');
+  ('SD1', '01', 'EUR', '', '0001', 'Cust1', '01', ''),
+  ('SD2', '02', 'EUR', '', '0002', 'Cust2', '02', '20'),
+  ('SD3', '03', 'EUR', 'BT3', '0003', 'Cust3', '03', '30'),
+  ('SD4', '04', 'EUR', '', '0004', 'Cust4', '04', '40'),
+  ('SD5', '05', 'EUR', '', '0005', 'Cust5', '05', '50');
+ 
 
   INSERT INTO edw.dim_CustomerGroup ( CustomerGroupID ) VALUES ('33');
 
@@ -53,7 +41,7 @@ BEGIN
   ('Cust1', '01', ''),
   ('Cust2', '02', NULL),
   ('Cust3', '03', '33'),
-  ('Cust4', '04', ''),
+  ('Cust4', '04', '44'),
   ('Cust5', '05', '');
 
 
@@ -95,10 +83,10 @@ BEGIN
     CustomerGroupID
   )
   VALUES
-    ('SD1', ''),
-    ('SD2', 'MA'),
+    ('SD1', 'MA'),
+    ('SD2', ''),
     ('SD3', '33'),
-    ('SD4', 'MA'),
+    ('SD4', '44'),
     ('SD5', '');
 
   EXEC tSQLt.AssertEqualsTable 'expected', 'actual';

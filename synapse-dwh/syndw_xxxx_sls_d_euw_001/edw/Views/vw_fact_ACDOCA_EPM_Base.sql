@@ -484,9 +484,9 @@ SELECT
   [ServiceDocument],
   [ServiceDocumentItem],
   CASE
-    WHEN GLALIRD.[BillingDocumentTypeID] = ''
+    WHEN [BillingDocumentTypeID] = ''
       THEN 'MA'
-    ELSE GLALIRD.[BillingDocumentTypeID]
+    ELSE [BillingDocumentTypeID]
   END                                                 AS [BillingDocumentTypeID],
   CASE
      WHEN [BillingDocumentTypeID] = ''
