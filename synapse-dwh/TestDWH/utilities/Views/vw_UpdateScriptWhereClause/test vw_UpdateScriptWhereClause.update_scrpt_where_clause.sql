@@ -12,7 +12,9 @@ BEGIN
     @expected NVARCHAR(MAX) = 
       '[base_s4h_cax].[_active].[PrimaryKeyField_1] = src.[PrimaryKeyField_1]'
       + CHAR(13) + CHAR(10) + ' AND ' + CHAR(13) + CHAR(10) +
-      '[base_s4h_cax].[_active].[PrimaryKeyField_2] = src.[PrimaryKeyField_2]';
+      '[base_s4h_cax].[_active].[PrimaryKeyField_2] = src.[PrimaryKeyField_2]'
+      + CHAR(13) + CHAR(10) + ' AND ' + CHAR(13) + CHAR(10) +
+      '[base_s4h_cax].[_active].[t_extractionDtm] > src.[t_extractionDtm]';
 
   -- Assert
   EXEC tSQLt.AssertEqualsString @expected, @actual;

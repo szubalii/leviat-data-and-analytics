@@ -44,7 +44,7 @@ BEGIN
     ),
     @expected NVARCHAR(MAX) = N'
 UPDATE
-  [base_s4h_cax].[_active]
+  [base_s4h_cax].[_active] 
 SET
   [base_s4h_cax].[_active].[PrimaryKeyField_1] = src.[PrimaryKeyField_1],'
   + CHAR(13) + CHAR(10) +
@@ -78,8 +78,12 @@ FROM
 WHERE
   [base_s4h_cax].[_active].[PrimaryKeyField_1] = src.[PrimaryKeyField_1]'
   + CHAR(13) + CHAR(10) + ' AND ' + CHAR(13) + CHAR(10) +
-  '[base_s4h_cax].[_active].[PrimaryKeyField_2] = src.[PrimaryKeyField_2]';
+  '[base_s4h_cax].[_active].[PrimaryKeyField_2] = src.[PrimaryKeyField_2]'
+  + CHAR(13) + CHAR(10) + ' AND ' + CHAR(13) + CHAR(10) +
+  '[base_s4h_cax].[_active].[t_extractionDtm] > src.[t_extractionDtm]';
 
-  EXEC tSQLt.AssertEqualsTable 'expected', 'actual';
+  -- TODO include where clause where extraction DTm is higher in delta vw than active
+
+  EXEC tSQLt.AssertEqualsString @actual, @expected;
 
 END
