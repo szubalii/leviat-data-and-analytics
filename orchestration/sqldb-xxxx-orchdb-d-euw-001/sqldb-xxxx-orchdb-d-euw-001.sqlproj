@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <Sdk Name="Microsoft.Build.Sql" Version="0.1.9-preview" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -110,19 +111,13 @@
     <CatalogCollation>SQL_Latin1_General_CP1_CI_AS</CatalogCollation>
     <DataRetentionEnabled>False</DataRetentionEnabled>
   </PropertyGroup>
-  <PropertyGroup>
-    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
-    <!-- Default to the v11.0 targets path if the targets file for the current VS version is not found -->
-    <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
-    <VisualStudioVersion Condition="'$(SSDTExists)' == ''">11.0</VisualStudioVersion>
-  </PropertyGroup>
-  <Import Condition="'$(NetCoreBuild)' != 'true' AND '$(SQLDBExtensionsRefPath)' != ''" Project="$(SQLDBExtensionsRefPath)\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
-  <Import Condition="'$(NetCoreBuild)' != 'true' AND '$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
   <ItemGroup>
     <Folder Include="Properties" />
     <Folder Include="dbo\" />
     <Folder Include="dbo\Tables\" />
     <Folder Include="dbo\Functions\" />
+    <Folder Include="dbo\Functions\ScalarValued\" />
+    <Folder Include="dbo\Functions\TableValued\" />
     <Folder Include="dbo\Stored Procedures\" />
     <Folder Include="dbo\Views\" />
     <Folder Include="External resources\" />
@@ -135,9 +130,41 @@
     <Folder Include="log\Tables\" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="Security\MasterKey.sql" />
+    <None Include="dbo\Views\vw_latest_entity_file_activity_batch.sql" />
+    <None Include="dbo\Views\vw_first_failed_activity_order.sql" />
+    <None Include="dbo\Views\vw_scheduled_entity_file_activities.sql" />
+    <None Include="dbo\Views\vw_successful_file_activity_before_first_failure.sql" />
+    <None Include="dbo\Views\vw_first_failed_file.sql" />
+    <None Include="dbo\Views\vw_successful_delta_file_activity_before_first_failure.sql" />
+    <None Include="Security\MasterKey.sql" />
     <None Include="Security\Database Scoped Credentials\dsc_SAS_OrchDB.sql" />
     <None Include="External resources\External data sources\eds_OrchDB.sql" />
+    <None Include="Scripts\DatabaseScopedCredential.sql" />
+    <None Include="Security\Roles\db_developer.sql" />
+    <None Include="Scripts\Merge.batch_activity.sql" />
+    <None Include="Scripts\Merge.batch_execution_status.sql" />
+    <None Include="Scripts\Merge.entity.sql" />
+    <None Include="Scripts\Merge.error_category.sql" />
+    <None Include="Scripts\Merge.execution_status.sql" />
+    <None Include="Scripts\Merge.layer_activity.sql" />
+    <None Include="Scripts\Merge.layer.sql" />
+    <None Include="Scripts\Merge.location.sql" />
+    <None Include="Scripts\Merge.pbi_dataset_entity.sql" />
+    <None Include="Scripts\Merge.pbi_dataset.sql" />
+    <None Include="Scripts\Merge.pipeline_execution_status.sql" />
+    <None Include="Scripts\Merge.pipeline.sql" />
+    <None Include="Scripts\Merge.recipient_email_address.sql" />
+    <Build Include="dbo\Functions\ScalarValued\svf_get_adls_directory_path.sql" />
+    <Build Include="dbo\Functions\ScalarValued\svf_get_isRequired_full_batch_activity.sql" />
+    <Build Include="dbo\Functions\ScalarValued\svf_get_isRequired_delta_batch_activity.sql" />
+    <Build Include="dbo\Functions\ScalarValued\svf_get_isRequired_batch_activity.sql" />
+    <Build Include="dbo\Functions\ScalarValued\svf_get_triggerDate.sql" />
+    <Build Include="dbo\Functions\ScalarValued\svf_get_failed_extract.sql" />
+    <Build Include="dbo\Functions\TableValued\tvf_entity_file_activities_by_date.sql" />
+    <Build Include="dbo\Functions\TableValued\tvf_entity_file_activity_isRequired.sql" />
+    <Build Include="dbo\Functions\TableValued\tvf_entity_file_activity_requirements.sql" />
+    <Build Include="dbo\Functions\TableValued\tvf_entity_file_required_activities.sql" />
+    <!-- <Build Include="dbo\Functions\TableValued\tvf_entity_scheduled.sql" /> -->
     <Build Include="dbo\Tables\error_category.sql">
       <AnsiNulls>On</AnsiNulls>
       <QuotedIdentifier>On</QuotedIdentifier>
@@ -319,8 +346,11 @@
     <Build Include="dbo\Views\vw_full_entity_activity_batch_ids.sql" />
     <Build Include="dbo\Views\vw_delta_entity_activity_batch_ids.sql" />
   </ItemGroup>
-  <ItemGroup>
+  <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PostDeploy Include="Scripts\Script.PostDeployment.sql" />
+  </ItemGroup>
+  <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <None Include="Scripts\Script.PostDeployment.sql" />
   </ItemGroup>
   <Import Condition="'$(NetCoreBuild)' == 'true'" Project="$(NETCoreTargetsPath)\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
   <ItemGroup>
@@ -342,9 +372,6 @@
       </DefaultValue>
       <Value>$(SqlCmdVar__1)</Value>
     </SqlCmdVariable>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Scripts\DatabaseScopedCredential.sql" />
   </ItemGroup>
   <Target Name="BeforeBuild">
     <Delete Files="$(BaseIntermediateOutputPath)\project.assets.json" />

@@ -1006,6 +1006,13 @@
             "abapType": "Date",
             "isSelected": true,
             "selectionPermission": "All",
+            "selections": 
+            [
+                {
+                    "value": "20240301",
+                    "option": "GreaterOrEqual"
+                }
+            ],
             "outputLength": 8
         },
         {

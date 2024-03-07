@@ -346,7 +346,6 @@
     <Build Include="base_ff\Tables\PurchaseOrderExpectedGLAccount.sql" />
     <Build Include="base_ff\Tables\ExQLReconciliation.sql" />
     <Build Include="base_ff\Tables\ProductHierarchyNodeMapping.sql" />
-
     <Build Include="base_ff_USA\Tables\Budget.sql" />
     <Build Include="base_ff_USA\Tables\DummyMaterial.sql" />
     <Build Include="base_ff_USA\Tables\SubPCAT_Pillar.sql" />
@@ -1017,7 +1016,7 @@
     <Build Include="edw\Functions\ScalarValued\svf_getBooleanIndicator.sql" />
     <Build Include="edw\Functions\ScalarValued\svf_getSalesDoc.sql" />
     <Build Include="edw\Functions\ScalarValued\svf_getSalesDocItem.sql" />
-    <Build Include="edw\Functions\ScalarValued\svf_getSAPHierarchyNode.sql" />  
+    <Build Include="edw\Functions\ScalarValued\svf_getSAPHierarchyNode.sql" />
     <Build Include="edw\Functions\ScalarValued\svf_getInOutID_EPM.sql" /> 
     <Build Include="edw\Functions\ScalarValued\svf_get5PartNaturalKey.sql" />
     <Build Include="edw\Functions\ScalarValued\svf_getConditionAmount.sql" />
@@ -1033,7 +1032,6 @@
     <Build Include="edw\Functions\ScalarValued\svf_getOTIF_OnTimeInFull.sql" />
     <Build Include="edw\Functions\ScalarValued\svf_replaceZero.sql" />
     <Build Include="edw\Functions\ScalarValued\svf_getOriginalConfirmedDeliveryDate.sql" />
-    
     <Build Include="utilities\Functions\Scalar-valued Functions\svf_get_file_path.sql" />
     <!-- VIEWS -->
     <Build Include="base_s4h_cax\Views\vw_I_GLAccountLineItemRawData.sql" />
@@ -1395,7 +1393,6 @@
     <Build Include="dm_sales\Views\vw_dim_SDDocumentIncompletionLog.sql" />
     <Build Include="dm_sales\Views\vw_fact_ScheduleLineShippedNotBilled.sql" />
     <Build Include="dm_sales\Views\vw_dim_Locations.sql" />
-
     <Build Include="dm_procurement\Views\vw_dim_OptVim1Head.sql" />
     <Build Include="dm_procurement\Views\vw_dim_PfcgRoleToUser.sql" />
     <Build Include="dm_procurement\Views\vw_dim_ProductPlant.sql" />
@@ -1506,6 +1503,11 @@
   <Import Condition="'$(NetCoreBuild)' == 'true'" Project="$(NETCoreTargetsPath)\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
   <ItemGroup>
     <PackageReference Condition="'$(NetCoreBuild)' == 'true'" Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.SqlServer.Dacpacs.Synapse.Master">
+      <Version>130.0.0</Version>
+      <GeneratePathProperty>True</GeneratePathProperty>
+      <DatabaseVariableLiteralValue>master</DatabaseVariableLiteralValue>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <SqlCmdVariable Include="EXQL_Sales_Node">

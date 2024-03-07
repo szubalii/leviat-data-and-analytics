@@ -49,8 +49,8 @@
         "tool_name": "Theobald",
         "extraction_type": "ODP",
         "update_mode": "Delta",
-        "base_table_name": "I_GLAccountLineItemRawData_delta",
-        "base_sproc_name": "sp_load_I_GLAccountLineItemRawData",
+        "base_table_name": "I_GLAccountLineItemRawData",
+        "base_sproc_name": "up_upsert_delta_active_table",
         "pk_field_names": "TS_SEQUENCE_NUMBER, SOURCELEDGER, COMPANYCODE, FISCALYEAR, ACCOUNTINGDOCUMENT, LEDGERGLLINEITEM",
         "schedule_recurrence": "D"
 

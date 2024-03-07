@@ -1,0 +1,1 @@
+CREATE SCHEMA [tc.dbo.tvf_full_load_entity_file_activities_by_date]

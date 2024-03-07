@@ -20,7 +20,7 @@
 			},
 			"virtualMachineName": {
 				"type": "string",
-				"value": "WEALEVAPP001"
+				"value": "WEDLEVAPP001"
 			},
 			"synapseServerName": {
 				"type": "string",
@@ -44,7 +44,7 @@
 			},
 			"s4hSystemId": {
 				"type": "string",
-				"value": "CAA"
+				"value": "CAQ"
 			},
 			"s4hClientId": {
 				"type": "string",
