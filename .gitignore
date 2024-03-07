@@ -25,3 +25,4 @@
 /dependency-diagram/node_modules/
 /synapse-dwh/TestDWH/.vs
 /synapse-dwh/TestDWH/TestDWH.sqlproj.user
+/power-bi/projects/*/*/.pbi
