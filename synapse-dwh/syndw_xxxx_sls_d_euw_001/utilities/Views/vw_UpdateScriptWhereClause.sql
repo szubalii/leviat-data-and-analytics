@@ -7,7 +7,7 @@ SELECT
   CONCAT(
     STRING_AGG( '[' + SCHEMA_NAME(t.schema_id) + '].[' + t.name + '].[' + CAST(COL_NAME(ic.object_id, ic.column_id) AS NVARCHAR(MAX)) + '] = src.[' + COL_NAME(ic.object_id, ic.column_id) + ']', CHAR(13) + CHAR(10) + ' AND ' + CHAR(13) + CHAR(10))
     WITHIN GROUP ( ORDER BY ic.column_id ),
-    CHAR(13) + CHAR(10) + ' AND ' + CHAR(13) + CHAR(10) + '[' + SCHEMA_NAME(t.schema_id) + '].[' + t.name + '].[t_extractionDtm] > src.[t_extractionDtm]'
+    CHAR(13) + CHAR(10) + ' AND ' + CHAR(13) + CHAR(10) + '[' + SCHEMA_NAME(t.schema_id) + '].[' + t.name + '].[t_extractionDtm] < src.[t_extractionDtm]'
   ) AS update_scrpt_where_clause
   -- ic.column_id,
   -- COL_NAME(ic.object_id, ic.column_id) AS col_name
