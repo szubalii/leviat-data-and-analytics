@@ -179,11 +179,7 @@ SELECT
   GLALIRD.[ServiceDocumentTypeID],
   GLALIRD.[ServiceDocument],
   GLALIRD.[ServiceDocumentItem],
-  CASE
-    WHEN GLALIRD.[BillingDocumentTypeID] = ''
-      THEN 'MA'
-    ELSE GLALIRD.[BillingDocumentTypeID]
-  END                                                 AS [BillingDocumentTypeID],
+  GLALIRD.[BillingDocumentTypeID],
   CASE 
     WHEN COALESCE (GLALIRD.[SalesOrganizationID], '') = ''
     THEN GLALIRD.[SDI_SalesOrganizationID]
@@ -483,7 +479,11 @@ SELECT
   [ServiceDocumentTypeID],
   [ServiceDocument],
   [ServiceDocumentItem],
-  [BillingDocumentTypeID],
+  CASE
+    WHEN GLALIRD.[BillingDocumentTypeID] = ''
+      THEN 'MA'
+    ELSE GLALIRD.[BillingDocumentTypeID]
+  END                                                 AS [BillingDocumentTypeID],
   CASE
      WHEN [BillingDocumentTypeID] = ''
       AND COALESCE ([SalesOrganizationID], '') = ''
