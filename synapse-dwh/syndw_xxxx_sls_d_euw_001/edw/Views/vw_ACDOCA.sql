@@ -161,6 +161,9 @@ SELECT
        ) AS [SalesReferenceDocumentItemCalculated],
        BDI.[HigherLevelItem],
        GLA.[WWPRNPA] AS ProjectNumber,
+       ARSD.SDI_SalesOrganizationID,
+       ARSD.SDI_SoldToPartyID,
+       ARSD.SDI_MaterialID,
        GLA.[t_applicationId],
        GLA.[t_extractionDtm]
 FROM [edw].[vw_GLAccountLineItemRawData] AS GLA
