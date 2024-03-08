@@ -179,11 +179,7 @@ SELECT
   GLALIRD.[ServiceDocumentTypeID],
   GLALIRD.[ServiceDocument],
   GLALIRD.[ServiceDocumentItem],
-  CASE
-    WHEN GLALIRD.[BillingDocumentTypeID] = ''
-      THEN 'MA'
-    ELSE GLALIRD.[BillingDocumentTypeID]
-  END                                                 AS [BillingDocumentTypeID],
+  GLALIRD.[BillingDocumentTypeID],
   CASE 
     WHEN COALESCE (GLALIRD.[SalesOrganizationID], '') = ''
     THEN GLALIRD.[SDI_SalesOrganizationID]
@@ -427,7 +423,7 @@ SELECT
   [TransactionTypeDeterminationID],
   [SubLedgerAcctLineItemTypeID],
   [AccountingDocCreatedByUserID],
-  [LastChangeDateTime],
+  [LastChangeDateTime]
   [CreationDateTime],
   [CreationDate],
   [OriginObjectTypeID],
