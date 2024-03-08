@@ -423,7 +423,7 @@ SELECT
   [TransactionTypeDeterminationID],
   [SubLedgerAcctLineItemTypeID],
   [AccountingDocCreatedByUserID],
-  [LastChangeDateTime]
+  [LastChangeDateTime],
   [CreationDateTime],
   [CreationDate],
   [OriginObjectTypeID],
