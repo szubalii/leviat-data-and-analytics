@@ -20,7 +20,7 @@ BEGIN
     GLAccountID,
     CustomerID,
     SalesOrganizationID,
-    SoldToPartyID
+    SDI_SoldToPartyID
   )
   VALUES
   ('SD1', '01', 'EUR', '', '0001', 'Cust1', '01', ''),
