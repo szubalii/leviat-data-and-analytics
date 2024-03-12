@@ -1,0 +1,148 @@
+-- CREATE VIEW [edw].[vw_fact_MaterialInventoryFirstPostingDate]
+-- AS
+
+-- /*
+-- 1. Aggregate stock changes on a weekly level
+-- 2. Get the first posting date of each hash
+-- 3. Get the corresponding year week of the first posting date
+-- 4. Add the missing yearWeeks for each hash based on calendar table
+-- 5. Include the stock changes for the reported weeks
+-- 6. Calculate the stock levels for each combo of yearWeek and hash
+-- 7. Calculate the stock level price per unit
+-- */
+
+-- -- 2. Get the first posting date for each key
+-- WITH
+-- FirstPostingDate AS (
+--   SELECT
+--     [MaterialID]
+--   , [PlantID]
+--   , [StorageLocationID]
+--   , [InventorySpecialStockTypeID]
+--   , [InventoryStockTypeID]
+--   , [StockOwner]
+--   , [CostCenterID]
+--   , [CompanyCodeID]
+--   , [SalesDocumentTypeID]
+--   , [SalesDocumentItemCategoryID]
+--   , [MaterialBaseUnitID]
+--   , [PurchaseOrderTypeID]
+--   , [InventoryValuationTypeID]
+--   , MIN(HDR_PostingDate) AS FirstPostingDate
+--   , [t_applicationId]
+--   FROM
+--     [edw].[fact_MaterialDocumentItem]
+--   -- WHERE
+--   --   t_applicationId LIKE '%s4h%' -- TODO filter on S4H only now
+--   GROUP BY
+--     [MaterialID]
+--   , [PlantID]
+--   , [StorageLocationID]
+--   , [InventorySpecialStockTypeID]
+--   , [InventoryStockTypeID]
+--   , [StockOwner]
+--   , [CostCenterID]
+--   , [CompanyCodeID]
+--   , [SalesDocumentTypeID]
+--   , [SalesDocumentItemCategoryID]
+--   , [MaterialBaseUnitID]
+--   , [PurchaseOrderTypeID]
+--   , [InventoryValuationTypeID]
+--   , [t_applicationId]
+-- )
+
+-- -- 3. Get the YearWeek of the first posting date
+-- SELECT
+--   FirstPostingDate.[MaterialID]
+-- , FirstPostingDate.[PlantID]
+-- , FirstPostingDate.[StorageLocationID]
+-- , FirstPostingDate.[InventorySpecialStockTypeID]
+-- , FirstPostingDate.[InventoryStockTypeID]
+-- , FirstPostingDate.[StockOwner]
+-- , FirstPostingDate.[CostCenterID]
+-- , FirstPostingDate.[CompanyCodeID]
+-- , FirstPostingDate.[SalesDocumentTypeID]
+-- , FirstPostingDate.[SalesDocumentItemCategoryID]
+-- , FirstPostingDate.[MaterialBaseUnitID]
+-- , FirstPostingDate.[PurchaseOrderTypeID]
+-- , FirstPostingDate.[InventoryValuationTypeID]
+-- , cal.[YearWeek] AS FirstYearWeek
+-- , cal.[YearMonth] AS FirstYearMonth
+-- , FirstPostingDate.[t_applicationId]
+-- FROM
+--   FirstPostingDate
+-- LEFT JOIN
+--   [edw].[dim_Calendar] AS cal
+--   ON
+--     cal.CalendarDate = FirstPostingDate.FirstPostingDate
+
+
+-- WITH
+-- row_number AS (
+--   SELECT
+--     [MaterialID]
+--   , [PlantID]
+--   , [StorageLocationID]
+--   , [InventorySpecialStockTypeID]
+--   , [InventoryStockTypeID]
+--   , [StockOwner]
+--   , [CostCenterID]
+--   , [CompanyCodeID]
+--   , [SalesDocumentTypeID]
+--   , [SalesDocumentItemCategoryID]
+--   , [MaterialBaseUnitID]
+--   , [PurchaseOrderTypeID]
+--   , [InventoryValuationTypeID]
+--   -- , MIN(HDR_PostingDate) AS FirstPostingDate
+--   , ROW_NUMBER() OVER (PARTITION BY
+--         [MaterialID]
+--       , [PlantID]
+--       , [StorageLocationID]
+--       , [InventorySpecialStockTypeID]
+--       , [InventoryStockTypeID]
+--       , [StockOwner]
+--       , [CostCenterID]
+--       , [CompanyCodeID]
+--       , [SalesDocumentTypeID]
+--       , [SalesDocumentItemCategoryID]
+--       , [MaterialBaseUnitID]
+--       , [PurchaseOrderTypeID]
+--       , [InventoryValuationTypeID]
+--       , [t_applicationId]
+--       ORDER BY (HDR_PostingDate)
+--     ) AS rn
+--   , HDR_PostingDate
+--   , MatlStkChangeQtyInBaseUnit
+--   , [t_applicationId]
+--   FROM
+--     [edw].[fact_MaterialDocumentItem]
+-- )
+
+-- SELECT
+--   [MaterialID]
+-- , [PlantID]
+-- , [StorageLocationID]
+-- , [InventorySpecialStockTypeID]
+-- , [InventoryStockTypeID]
+-- , [StockOwner]
+-- , [CostCenterID]
+-- , [CompanyCodeID]
+-- , [SalesDocumentTypeID]
+-- , [SalesDocumentItemCategoryID]
+-- , [MaterialBaseUnitID]
+-- , [PurchaseOrderTypeID]
+-- , [InventoryValuationTypeID]
+-- , HDR_PostingDate
+-- , cal.[CalendarDate] AS FirstPostingDate
+-- , cal.[YearWeek] AS FirstYearWeek
+-- , cal.[YearMonth] AS FirstYearMonth
+-- , MatlStkChangeQtyInBaseUnit
+-- , [t_applicationId]
+-- FROM
+--   row_number
+-- LEFT JOIN
+--   [edw].[dim_Calendar] AS cal
+--   ON
+--     cal.CalendarDate = row_number.HDR_PostingDate
+--     AND
+--     row_number.rn = 1
