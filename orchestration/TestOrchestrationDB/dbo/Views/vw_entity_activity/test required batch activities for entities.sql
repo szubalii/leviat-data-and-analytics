@@ -29,11 +29,9 @@ BEGIN
     (1,13),
     (1,19),
     (1,2),
-    (1,15),
     (2,21),
     (2,19),
-    (2,2),
-    (2,15);
+    (2,2);
 
   EXEC tSQLt.AssertEqualsTable 'expected', 'actual';
 END;
