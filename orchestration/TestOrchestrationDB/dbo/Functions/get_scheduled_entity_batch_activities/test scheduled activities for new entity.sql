@@ -9,10 +9,10 @@ BEGIN
   -- Assemble: Fake Table
   EXEC tSQLt.FakeTable '[dbo]', '[entity]';
   
-  INSERT INTO dbo.entity (entity_id, schedule_recurrence, layer_id, update_mode)
+  INSERT INTO dbo.entity (entity_id, schedule_recurrence, layer_id, update_mode, base_sproc_name)
   VALUES
-    (1, 'D', 6, 'Delta'),
-    (2, 'D', 6, 'Full');
+    (1, 'D', 6, 'Delta', 'up_upsert_delta_active_table'),
+    (2, 'D', 6, 'Full', NULL);
 
   -- Act: 
   SELECT
@@ -37,7 +37,7 @@ BEGIN
     skipped_activities
   ) VALUES
     (1, NULL, '["Extract","CheckXUExtractionStatus","TestDuplicates","Load2Base","ProcessBase"]', '{}'),
-    (2, NULL, '["Extract","CheckXUExtractionStatus","TestDuplicates","Load2Base","ProcessBase"]', '{}');
+    (2, NULL, '["Extract","CheckXUExtractionStatus","TestDuplicates","Load2Base"]', '{}');
 
   EXEC tSQLt.AssertEqualsTable 'expected', 'actual';
 

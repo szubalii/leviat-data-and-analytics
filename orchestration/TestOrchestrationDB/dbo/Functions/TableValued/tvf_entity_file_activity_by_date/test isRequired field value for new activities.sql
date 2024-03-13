@@ -14,12 +14,13 @@ BEGIN
   INSERT INTO dbo.entity (
     entity_id, 
     layer_id,
-    update_mode
+    update_mode,
+    base_sproc_name
   )
   VALUES
-    (1, 6, 'Delta'),
-    (2, 6, 'Full'),
-    (3, 6, 'Full');
+    (1, 6, 'Delta', 'up_upsert_delta_active_table'),
+    (2, 6, 'Full', NULL),
+    (3, 6, 'Full', NULL);
   
   INSERT INTO dbo.batch (
     start_date_time,
@@ -66,12 +67,10 @@ BEGIN
     (2, 'FULL_2023_06_01_12_00_00_000.parquet', 'CheckXUExtractionStatus', 1),
     (2, 'FULL_2023_06_01_12_00_00_000.parquet', 'Extract', 0),
     (2, 'FULL_2023_06_01_12_00_00_000.parquet', 'Load2Base', 1),
-    (2, 'FULL_2023_06_01_12_00_00_000.parquet', 'ProcessBase', 1),
     (2, 'FULL_2023_06_01_12_00_00_000.parquet', 'TestDuplicates', 1),
     (3, NULL, 'CheckXUExtractionStatus', 1),	
 	  (3, NULL, 'Extract', 1),	
-	  (3, NULL, 'Load2Base', 1),	
-	  (3, NULL, 'ProcessBase', 1),	
+	  (3, NULL, 'Load2Base', 1),
 	  (3, NULL, 'TestDuplicates', 1);
 
   EXEC tSQLt.AssertEqualsTable 'expected', 'actual';

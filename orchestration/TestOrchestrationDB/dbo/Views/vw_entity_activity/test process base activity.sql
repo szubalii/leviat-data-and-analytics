@@ -1,4 +1,4 @@
-CREATE PROCEDURE [tc.dbo.vw_entity_activity].[test required batch activities for entities]
+CREATE PROCEDURE [tc.dbo.vw_entity_activity].[test process base activity]
 AS
 BEGIN
 
@@ -8,10 +8,10 @@ BEGIN
   -- Assemble: Fake Table
   EXEC tSQLt.FakeTable '[dbo]', '[entity]';
 
-  INSERT INTO dbo.entity (entity_id, layer_id)
+  INSERT INTO dbo.entity (entity_id, layer_id, base_sproc_name)
   VALUES
-    (1, 6),
-    (2, 5);
+    (1, 6, NULL),
+    (2, 6, 'up_upsert_delta_active_table');
 
   -- Act: 
   SELECT entity_id, expected_activity_id
@@ -30,8 +30,10 @@ BEGIN
     (1,19),
     (1,2),
     (2,21),
+    (2,13),
     (2,19),
-    (2,2);
+    (2,2),
+    (2,15);
 
   EXEC tSQLt.AssertEqualsTable 'expected', 'actual';
 END;

@@ -20,3 +20,6 @@ LEFT JOIN
   [batch_activity] ba
   ON
     ba.activity_id = la.activity_id
+-- Don't return activities for ProcessBase activity if base_sproc_name value is not defined
+WHERE
+  NOT(la.activity_id = 15 AND base_sproc_name IS NULL)
