@@ -3117,8 +3117,7 @@
         "update_mode": "Delta",
         "base_table_name": "C_BillingDocumentItemBasicDEX_delta",
         "base_sproc_name": "sp_load_C_BillingDocumentItemBasicDEX",
-        "pk_field_names": "TS_SEQUENCE_NUMBER, BILLINGDOCUMENT, BILLINGDOCUMENTITEM",
-        "schedule_recurrence": "D"
+        "pk_field_names": "TS_SEQUENCE_NUMBER, BILLINGDOCUMENT, BILLINGDOCUMENTITEM"
       },
       {
         "entity_id": 387,
@@ -3130,8 +3129,7 @@
         "update_mode": "Delta",
         "base_table_name": "C_SalesDocumentItemDEX_delta",
         "base_sproc_name": "sp_load_C_SalesDocumentItemDEX",
-        "pk_field_names": "TS_SEQUENCE_NUMBER, SALESDOCUMENT, SALESDOCUMENTITEM",
-        "schedule_recurrence": "D"
+        "pk_field_names": "TS_SEQUENCE_NUMBER, SALESDOCUMENT, SALESDOCUMENTITEM"
       },
       {
         "entity_id": 395,
