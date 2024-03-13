@@ -1347,7 +1347,6 @@
     <Build Include="dm_sales\Views\vw_fact_SalesOrderItem_active.sql" />
     <Build Include="dm_sales\Views\vw_fact_SalesQuotationItem_active.sql" />
     <Build Include="dm_sales\Views\vw_fact_MaterialStockLevel.sql" />
-    <Build Include="dm_sales\Views\vw_fact_MaterialStockLevel_filtered.sql" />
     <Build Include="dm_sales\Views\vw_dim_InventoryStockType.sql" />
     <Build Include="dm_sales\Views\vw_dim_InventorySpecialStockType.sql" />
     <Build Include="dm_sales\Views\vw_dim_UnitOfMeasure.sql" />

@@ -1,1 +1,0 @@
-CREATE SCHEMA [tc.edw.vw_MaterialStockLevel_MonthWeekly]
