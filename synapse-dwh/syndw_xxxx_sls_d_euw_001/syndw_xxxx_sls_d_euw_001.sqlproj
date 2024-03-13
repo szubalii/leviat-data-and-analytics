@@ -1201,7 +1201,6 @@
     <Build Include="edw\Views\vw_SalesOrderItemPricingElement.sql" />
     <Build Include="edw\Views\vw_SalesQuotationItemPrcgElmnt.sql" />
     <Build Include="edw\Views\vw_dim_SalesEmployee.sql" />
-    <Build Include="edw\Views\vw_MaterialStockLevel_Weekly.sql" />
     <Build Include="edw\Views\vw_ACDOCA_FinStatemntSalesMargin.sql" />
     <Build Include="edw\Views\vw_GLAccountLineItemRawData.sql" />
     <Build Include="edw\Views\vw_ACDOCA_ReferenceSalesDocument.sql" />
@@ -1436,7 +1435,6 @@
     <Build Include="dm_dq\Views\vw_dim_SupplierPurchasingOrg.sql" />
     <Build Include="dm_dq\Views\vw_dim_Supplier.sql" />
     <Build Include="dm_c4c\Views\vw_fact_OpportunityCollection.sql" />
-    <Build Include="dm_scm\Views\vw_fact_MaterialStockLevel_Weekly.sql" />
     <Build Include="dm_scm\Views\vw_fact_ProductSalesThirdPartyDelivery.sql" />
     <Build Include="dm_scm\Views\vw_dim_ShippingPoint.sql" />
     <Build Include="dm_RiskAndCompliance\Views\vw_dim_ActivityGroupRoleInCompositeRole.sql" />
