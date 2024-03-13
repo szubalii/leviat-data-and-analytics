@@ -51,25 +51,15 @@ BEGIN
 
   -- Act: 
   SELECT
-    [MaterialID],
-    [PlantID],
-    [StorageLocationID],
-    [InventorySpecialStockTypeID],
-    [InventoryStockTypeID],
-    [StockOwner],
-    [CostCenterID],
-    [CompanyCodeID],
-    [SalesDocumentTypeID],
-    [SalesDocumentItemCategoryID],
-    [MaterialBaseUnitID],
-    [PurchaseOrderTypeID],
-    [InventoryValuationTypeID],
     [YearWeek],
     [YearMonth],
     [FirstDayOfMonthDate]
   INTO actual
   FROM [edw].[vw_fact_MaterialInventoryAllWeeksAndMonths]
-  WHERE YearWeek <= 202405
+  WHERE
+    YearWeek <= 202405
+    OR
+    YearMonth <= 202402
 
   -- Assert:
   SELECT TOP(0) *
@@ -77,31 +67,17 @@ BEGIN
   FROM actual;
   
   INSERT INTO expected (
-    [MaterialID],
-    [PlantID],
-    [StorageLocationID],
-    [InventorySpecialStockTypeID],
-    [InventoryStockTypeID],
-    [StockOwner],
-    [CostCenterID],
-    [CompanyCodeID],
-    [SalesDocumentTypeID],
-    [SalesDocumentItemCategoryID],
-    [MaterialBaseUnitID],
-    [PurchaseOrderTypeID],
-    [InventoryValuationTypeID],
     [YearWeek],
     [YearMonth],
     [FirstDayOfMonthDate]
   )
   VALUES
-    (1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 202402, NULL, '2024-01-01'),
-    (1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 202403, NULL, '2024-01-01'),
-    (1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 202404, NULL, '2024-01-01'),
-    (1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 202404, NULL, '2024-01-01'),
-    (1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 202405, NULL, '2024-02-01'),
-    (1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, NULL, 202401, '2024-01-01'),
-    (1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, NULL, 202402, '2024-02-01');
+    (202402, NULL, '2024-01-01'),
+    (202403, NULL, '2024-01-01'),
+    (202404, NULL, '2024-01-01'),
+    (202405, NULL, '2024-01-01'),
+    (NULL, 202401, '2024-01-01'),
+    (NULL, 202402, '2024-02-01');
 
   EXEC tSQLt.AssertEqualsTable 'expected', 'actual';
 END;

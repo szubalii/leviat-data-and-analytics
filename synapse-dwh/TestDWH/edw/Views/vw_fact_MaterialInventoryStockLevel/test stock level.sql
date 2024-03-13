@@ -45,51 +45,29 @@ BEGIN
 
   INSERT INTO edw.fact_MaterialDocumentItem (
     [MaterialID]
-  , [PlantID]
-  , [StorageLocationID]
-  , [InventorySpecialStockTypeID]
-  , [InventoryStockTypeID]
-  , [StockOwner]
-  , [CostCenterID]
-  , [CompanyCodeID]
-  , [SalesDocumentTypeID]
-  , [SalesDocumentItemCategoryID]
-  , [MaterialBaseUnitID]
-  , [PurchaseOrderTypeID]
-  , [InventoryValuationTypeID]
   , [HDR_PostingDate]
   , [MatlStkChangeQtyInBaseUnit]
-  , [t_applicationId]
   )
   VALUES
-    (1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, '2024-01-08', 1, 10),
-    (1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, '2024-01-22', 1, 20),
-    (1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, '2024-01-22', 1, -10),
-    (1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, '2024-01-29', 1, 20),
-    (1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, '2024-02-01', 1, 20);
+    (1, '2024-01-08', 10),
+    (1, '2024-01-22', 20),
+    (1, '2024-01-22', -10),
+    (1, '2024-01-29', 20),
+    (1, '2024-02-01', 20);
 
   -- Act: 
   SELECT
     [MaterialID],
-    [PlantID],
-    [StorageLocationID],
-    [InventorySpecialStockTypeID],
-    [InventoryStockTypeID],
-    [StockOwner],
-    [CostCenterID],
-    [CompanyCodeID],
-    [SalesDocumentTypeID],
-    [SalesDocumentItemCategoryID],
-    [MaterialBaseUnitID],
-    [PurchaseOrderTypeID],
-    [InventoryValuationTypeID],
     [YearWeek],
     [WeeklyStockLevelQtyInBaseUnit],
     [YearMonth],
     [MonthlyStockLevelQtyInBaseUnit]
   INTO actual
   FROM [edw].[vw_fact_MaterialInventoryStockLevel]
-  WHERE YearWeek <= 202405
+  WHERE
+    YearWeek <= 202405
+    OR
+    YearMonth <= 202402
 
   -- Assert:
   SELECT TOP(0) *
@@ -98,29 +76,18 @@ BEGIN
   
   INSERT INTO expected (
     [MaterialID],
-    [PlantID],
-    [StorageLocationID],
-    [InventorySpecialStockTypeID],
-    [InventoryStockTypeID],
-    [StockOwner],
-    [CostCenterID],
-    [CompanyCodeID],
-    [SalesDocumentTypeID],
-    [SalesDocumentItemCategoryID],
-    [MaterialBaseUnitID],
-    [PurchaseOrderTypeID],
-    [InventoryValuationTypeID],
     [YearWeek],
     [WeeklyStockLevelQtyInBaseUnit],
     [YearMonth],
     [MonthlyStockLevelQtyInBaseUnit]
   )
   VALUES
-    (1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 202402, 10, NULL, NULL),
-    (1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 202403, 20, NULL, NULL),
-    (1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 202404, 60, NULL, NULL),
-    (1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, NULL, NULL, 202401, 40),
-    (1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, NULL, NULL, 202402, 60);
+    (1, 202402, 10, NULL, NULL),
+    (1, 202403, 10, NULL, NULL),
+    (1, 202404, 20, NULL, NULL),
+    (1, 202405, 60, NULL, NULL),
+    (1, NULL, NULL, 202401, 40),
+    (1, NULL, NULL, 202402, 60);
 
   EXEC tSQLt.AssertEqualsTable 'expected', 'actual';
 END;

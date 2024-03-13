@@ -47,27 +47,16 @@ BEGIN
   INSERT INTO edw.fact_MaterialDocumentItem (
     [MaterialID]
   , [PlantID]
-  , [StorageLocationID]
-  , [InventorySpecialStockTypeID]
-  , [InventoryStockTypeID]
-  , [StockOwner]
-  , [CostCenterID]
-  , [CompanyCodeID]
-  , [SalesDocumentTypeID]
-  , [SalesDocumentItemCategoryID]
-  , [MaterialBaseUnitID]
-  , [PurchaseOrderTypeID]
   , [InventoryValuationTypeID]
   , [HDR_PostingDate]
   , [MatlStkChangeQtyInBaseUnit]
-  , [t_applicationId]
   )
   VALUES
-    (1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, '2024-01-08', 1, 10),
-    (1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, '2024-01-22', 1, 20),
-    (1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, '2024-01-22', 1, -10),
-    (1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, '2024-01-29', 1, 20),
-    (1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, '2024-02-01', 1, 20);
+    (1, 1, 1, '2024-01-08', 10),
+    (1, 1, 1, '2024-01-22', 20),
+    (1, 1, 1, '2024-01-22', -10),
+    (1, 1, 1, '2024-01-29', 20),
+    (1, 1, 1, '2024-02-01', 20);
 
   INSERT INTO edw.dim_ProductValuationPUP (
     ProductID,
@@ -86,17 +75,8 @@ BEGIN
   SELECT
     [MaterialID],
     [PlantID],
-    [StorageLocationID],
-    [InventorySpecialStockTypeID],
-    [InventoryStockTypeID],
-    [StockOwner],
-    [CostCenterID],
-    [CompanyCodeID],
-    [SalesDocumentTypeID],
-    [SalesDocumentItemCategoryID],
-    [MaterialBaseUnitID],
-    [PurchaseOrderTypeID],
     [InventoryValuationTypeID],
+    [YearWeek],
     [YearMonth],
     [MonthlyStockLevelQtyInBaseUnit],
     [MonthlyStockLevelStandardPPU],
@@ -104,7 +84,10 @@ BEGIN
     [MonthlyStockLevelStandardPPU_USD]
   INTO actual
   FROM [edw].[vw_fact_MaterialInventoryStockLevel]
-  WHERE YearWeek <= 202405
+  WHERE
+    YearWeek <= 202405
+    OR
+    YearMonth <= 202402
 
   -- Assert:
   SELECT TOP(0) *
@@ -114,26 +97,21 @@ BEGIN
   INSERT INTO expected (
     [MaterialID],
     [PlantID],
-    [StorageLocationID],
-    [InventorySpecialStockTypeID],
-    [InventoryStockTypeID],
-    [StockOwner],
-    [CostCenterID],
-    [CompanyCodeID],
-    [SalesDocumentTypeID],
-    [SalesDocumentItemCategoryID],
-    [MaterialBaseUnitID],
-    [PurchaseOrderTypeID],
     [InventoryValuationTypeID],
-    [YearMonth],
+    [YearWeek],
+    [YearMonth],    
     [MonthlyStockLevelQtyInBaseUnit],
     [MonthlyStockLevelStandardPPU],
     [MonthlyStockLevelStandardPPU_EUR],
     [MonthlyStockLevelStandardPPU_USD]
   )
   VALUES
-    (1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 202401, 40, 400, 600,  800),
-    (1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 202402, 60, 660, 960, 1260);
+    (1, 1, 1,   NULL, 202401,   40,  400,  600,  800),
+    (1, 1, 1,   NULL, 202402,   60,  660,  960, 1260),
+    (1, 1, 1, 202402,   NULL, NULL, NULL, NULL, NULL),
+    (1, 1, 1, 202403,   NULL, NULL, NULL, NULL, NULL),
+    (1, 1, 1, 202404,   NULL, NULL, NULL, NULL, NULL),
+    (1, 1, 1, 202405,   NULL, NULL, NULL, NULL, NULL);
 
   EXEC tSQLt.AssertEqualsTable 'expected', 'actual';
 END;

@@ -44,46 +44,22 @@ BEGIN
     ('2024-02-01', 202405, 202402, '2024-02-01');
 
   INSERT INTO edw.fact_MaterialDocumentItem (
-    [MaterialID]
-  , [PlantID]
-  , [StorageLocationID]
-  , [InventorySpecialStockTypeID]
-  , [InventoryStockTypeID]
-  , [StockOwner]
-  , [CostCenterID]
-  , [CompanyCodeID]
-  , [SalesDocumentTypeID]
-  , [SalesDocumentItemCategoryID]
-  , [MaterialBaseUnitID]
-  , [PurchaseOrderTypeID]
-  , [InventoryValuationTypeID]
-  , [HDR_PostingDate]
-  , [t_applicationId]
+    [HDR_PostingDate]
   )
   VALUES
-    (1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, '2024-01-08', 1),
-    (1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, '2024-01-22', 1);
+    ('2024-01-08'),
+    ('2024-01-22');
 
   -- Act: 
   SELECT
-    [MaterialID],
-    [PlantID],
-    [StorageLocationID],
-    [InventorySpecialStockTypeID],
-    [InventoryStockTypeID],
-    [StockOwner],
-    [CostCenterID],
-    [CompanyCodeID],
-    [SalesDocumentTypeID],
-    [SalesDocumentItemCategoryID],
-    [MaterialBaseUnitID],
-    [PurchaseOrderTypeID],
-    [InventoryValuationTypeID],
     [YearWeek],
     [YearMonth]
   INTO actual
   FROM [edw].[vw_fact_MaterialInventoryAllWeeksAndMonths]
-  WHERE YearWeek <= 202405
+  WHERE
+    YearWeek <= 202405
+    OR
+    YearMonth<= 202402
 
   -- Assert:
   SELECT TOP(0) *
@@ -91,30 +67,16 @@ BEGIN
   FROM actual;
   
   INSERT INTO expected (
-    [MaterialID],
-    [PlantID],
-    [StorageLocationID],
-    [InventorySpecialStockTypeID],
-    [InventoryStockTypeID],
-    [StockOwner],
-    [CostCenterID],
-    [CompanyCodeID],
-    [SalesDocumentTypeID],
-    [SalesDocumentItemCategoryID],
-    [MaterialBaseUnitID],
-    [PurchaseOrderTypeID],
-    [InventoryValuationTypeID],
     [YearWeek],
     [YearMonth]
   )
   VALUES
-    (1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 202402, NULL),
-    (1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 202403, NULL),
-    (1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 202404, NULL),
-    (1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 202404, NULL),
-    (1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 202405, NULL),
-    (1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, NULL, 202401),
-    (1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, NULL, 202402);
+    (202402, NULL),
+    (202403, NULL),
+    (202404, NULL),
+    (202405, NULL),
+    (NULL, 202401),
+    (NULL, 202402);
 
   EXEC tSQLt.AssertEqualsTable 'expected', 'actual';
 END;

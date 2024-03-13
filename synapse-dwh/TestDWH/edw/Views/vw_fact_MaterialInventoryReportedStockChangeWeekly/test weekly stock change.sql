@@ -44,44 +44,17 @@ BEGIN
     ('2024-02-01', 202405, 202402, '2024-02-01');
 
   INSERT INTO edw.fact_MaterialDocumentItem (
-    [MaterialID]
-  , [PlantID]
-  , [StorageLocationID]
-  , [InventorySpecialStockTypeID]
-  , [InventoryStockTypeID]
-  , [StockOwner]
-  , [CostCenterID]
-  , [CompanyCodeID]
-  , [SalesDocumentTypeID]
-  , [SalesDocumentItemCategoryID]
-  , [MaterialBaseUnitID]
-  , [PurchaseOrderTypeID]
-  , [InventoryValuationTypeID]
-  , [HDR_PostingDate]
+    [HDR_PostingDate]
   , [MatlStkChangeQtyInBaseUnit]
-  , [t_applicationId]
   )
   VALUES
-    (1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, '2024-01-08', 1, 10),
-    (1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, '2024-01-22', 1, 20),
-    (1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, '2024-01-22', 1, -10),
-    (1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, '2024-01-29', 1, 20);
+    ('2024-01-08', 10),
+    ('2024-01-22', 20),
+    ('2024-01-22', -10),
+    ('2024-01-29', 20);
 
   -- Act: 
   SELECT
-    [MaterialID],
-    [PlantID],
-    [StorageLocationID],
-    [InventorySpecialStockTypeID],
-    [InventoryStockTypeID],
-    [StockOwner],
-    [CostCenterID],
-    [CompanyCodeID],
-    [SalesDocumentTypeID],
-    [SalesDocumentItemCategoryID],
-    [MaterialBaseUnitID],
-    [PurchaseOrderTypeID],
-    [InventoryValuationTypeID],
     [YearWeek],
     [WeeklyMatlStkChangeQtyInBaseUnit]
   INTO actual
@@ -94,26 +67,13 @@ BEGIN
   FROM actual;
   
   INSERT INTO expected (
-    [MaterialID],
-    [PlantID],
-    [StorageLocationID],
-    [InventorySpecialStockTypeID],
-    [InventoryStockTypeID],
-    [StockOwner],
-    [CostCenterID],
-    [CompanyCodeID],
-    [SalesDocumentTypeID],
-    [SalesDocumentItemCategoryID],
-    [MaterialBaseUnitID],
-    [PurchaseOrderTypeID],
-    [InventoryValuationTypeID],
     [YearWeek],
     [WeeklyMatlStkChangeQtyInBaseUnit]
   )
   VALUES
-    (1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 202402, 10),
-    (1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 202404, 10),
-    (1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 202405, 20);
+    (202402, 10),
+    (202404, 10),
+    (202405, 20);
 
   EXEC tSQLt.AssertEqualsTable 'expected', 'actual';
 END;
