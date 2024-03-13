@@ -59,9 +59,8 @@ BEGIN
   SELECT
     [MaterialID],
     [YearWeek],
-    [WeeklyStockLevelQtyInBaseUnit],
     [YearMonth],
-    [MonthlyStockLevelQtyInBaseUnit]
+    [StockLevelQtyInBaseUnit]
   INTO actual
   FROM [edw].[vw_fact_MaterialInventoryStockLevel]
   WHERE
@@ -77,17 +76,16 @@ BEGIN
   INSERT INTO expected (
     [MaterialID],
     [YearWeek],
-    [WeeklyStockLevelQtyInBaseUnit],
     [YearMonth],
-    [MonthlyStockLevelQtyInBaseUnit]
+    [StockLevelQtyInBaseUnit]
   )
   VALUES
-    (1, 202402, 10, NULL, NULL),
-    (1, 202403, 10, NULL, NULL),
-    (1, 202404, 20, NULL, NULL),
-    (1, 202405, 60, NULL, NULL),
-    (1, NULL, NULL, 202401, 40),
-    (1, NULL, NULL, 202402, 60);
+    (1, 202402, NULL, 10),
+    (1, 202403, NULL, 10),
+    (1, 202404, NULL, 20),
+    (1, 202405, NULL, 60),
+    (1, NULL, 202401, 40),
+    (1, NULL, 202402, 60);
 
   EXEC tSQLt.AssertEqualsTable 'expected', 'actual';
 END;

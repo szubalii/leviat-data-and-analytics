@@ -27,10 +27,17 @@ SELECT
 , allWeeks.[MaterialBaseUnitID]
 , allWeeks.[PurchaseOrderTypeID]
 , allWeeks.[InventoryValuationTypeID]
+, allWeeks.[ReportingDate]
 , allWeeks.[YearWeek]
-, stockChangeWeekly.[WeeklyMatlStkChangeQtyInBaseUnit]
+-- , stockChangeWeekly.[WeeklyMatlStkChangeQtyInBaseUnit]
 , allWeeks.[YearMonth]
-, stockChangeMonthly.[MonthlyMatlStkChangeQtyInBaseUnit]
+, CASE
+    WHEN allWeeks.[YearWeek] IS NOT NULL
+    THEN stockChangeWeekly.[WeeklyMatlStkChangeQtyInBaseUnit]
+    WHEN allWeeks.[YearMonth] IS NOT NULL
+    THEN stockChangeMonthly.[MonthlyMatlStkChangeQtyInBaseUnit]
+  END AS MatlStkChangeQtyInBaseUnit
+-- , stockChangeMonthly.[MonthlyMatlStkChangeQtyInBaseUnit]
 -- , allWeeks.[IsWeekly]
 -- , allWeeks.[IsMonthly]
 , allWeeks.[FirstDayOfMonthDate]

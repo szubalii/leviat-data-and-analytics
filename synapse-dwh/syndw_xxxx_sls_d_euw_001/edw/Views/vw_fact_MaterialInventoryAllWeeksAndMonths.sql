@@ -93,11 +93,13 @@ AllYearWeeks AS (
     -- END AS IsMonthly,
   -- required to get the monthly StockPricePerUnit
   -- If a weeks falls in two months, take the first month
+    FirstDayOfWeekDate AS ReportingDate,
     MIN(FirstDayOfMonthDate) AS FirstDayOfMonthDate
   FROM
     [edw].[dim_Calendar]
   GROUP BY
-    YearWeek--,
+    YearWeek,
+    FirstDayOfWeekDate
     -- YearMonth
   --Order by YearWeek, YearMonth
   UNION ALL
@@ -117,11 +119,13 @@ AllYearWeeks AS (
     -- END AS IsMonthly,
   -- required to get the monthly StockPricePerUnit
   -- If a weeks falls in two months, take the first month
-    MIN(FirstDayOfMonthDate) AS FirstDayOfMonthDate
+    FirstDayOfMonthDate AS ReportingDate,
+    FirstDayOfMonthDate
   FROM
     [edw].[dim_Calendar]
   GROUP BY
-    YearMonth--,
+    YearMonth,
+    FirstDayOfMonthDate
 )
 
 SELECT
@@ -138,8 +142,9 @@ SELECT
 , fw.[MaterialBaseUnitID]
 , fw.[PurchaseOrderTypeID]
 , fw.[InventoryValuationTypeID]
-, AllYearWeeks.YearWeek
-, AllYearWeeks.YearMonth
+, AllYearWeeks.[ReportingDate]
+, AllYearWeeks.[YearWeek]
+, AllYearWeeks.[YearMonth]
 -- , AllYearWeeks.IsWeekly
 -- , AllYearWeeks.IsMonthly
 , AllYearWeeks.FirstDayOfMonthDate

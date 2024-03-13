@@ -78,10 +78,10 @@ BEGIN
     [InventoryValuationTypeID],
     [YearWeek],
     [YearMonth],
-    [MonthlyStockLevelQtyInBaseUnit],
-    [MonthlyStockLevelStandardPPU],
-    [MonthlyStockLevelStandardPPU_EUR],
-    [MonthlyStockLevelStandardPPU_USD]
+    [StockLevelQtyInBaseUnit],
+    [StockLevelStandardPPU],
+    [StockLevelStandardPPU_EUR],
+    [StockLevelStandardPPU_USD]
   INTO actual
   FROM [edw].[vw_fact_MaterialInventoryStockLevel]
   WHERE
@@ -100,18 +100,18 @@ BEGIN
     [InventoryValuationTypeID],
     [YearWeek],
     [YearMonth],    
-    [MonthlyStockLevelQtyInBaseUnit],
-    [MonthlyStockLevelStandardPPU],
-    [MonthlyStockLevelStandardPPU_EUR],
-    [MonthlyStockLevelStandardPPU_USD]
+    [StockLevelQtyInBaseUnit],
+    [StockLevelStandardPPU],
+    [StockLevelStandardPPU_EUR],
+    [StockLevelStandardPPU_USD]
   )
   VALUES
     (1, 1, 1,   NULL, 202401,   40,  400,  600,  800),
     (1, 1, 1,   NULL, 202402,   60,  660,  960, 1260),
-    (1, 1, 1, 202402,   NULL, NULL, NULL, NULL, NULL),
-    (1, 1, 1, 202403,   NULL, NULL, NULL, NULL, NULL),
-    (1, 1, 1, 202404,   NULL, NULL, NULL, NULL, NULL),
-    (1, 1, 1, 202405,   NULL, NULL, NULL, NULL, NULL);
+    (1, 1, 1, 202402,   NULL,   10,  100,  150,  200),
+    (1, 1, 1, 202403,   NULL,   10,  100,  150,  200),
+    (1, 1, 1, 202404,   NULL,   20,  200,  300,  400),
+    (1, 1, 1, 202405,   NULL,   60,  600,  900, 1200);
 
   EXEC tSQLt.AssertEqualsTable 'expected', 'actual';
 END;

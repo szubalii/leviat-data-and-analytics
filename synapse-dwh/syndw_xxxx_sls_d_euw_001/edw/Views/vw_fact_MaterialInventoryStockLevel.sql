@@ -29,15 +29,16 @@ StockLevels AS (
   , [MaterialBaseUnitID]
   , [PurchaseOrderTypeID]
   , [InventoryValuationTypeID]
+  , [ReportingDate]
   , [YearWeek]
   , [YearMonth]
   -- , [IsWeekly]
   -- , [IsMonthly]
   , [FirstDayOfMonthDate]
-  , [MonthlyMatlStkChangeQtyInBaseUnit]
+  , [MatlStkChangeQtyInBaseUnit]
   , CASE
-      WHEN YearWeek IS NULL
-      THEN SUM(MonthlyMatlStkChangeQtyInBaseUnit) OVER (
+      WHEN YearWeek IS NOT NULL
+      THEN SUM(MatlStkChangeQtyInBaseUnit) OVER (
         PARTITION BY
           [MaterialID]
         , [PlantID]
@@ -52,30 +53,50 @@ StockLevels AS (
         , [MaterialBaseUnitID]
         , [PurchaseOrderTypeID]
         , [InventoryValuationTypeID]
-          ORDER BY YearMonth
-        ) 
-    END AS MonthlyStockLevelQtyInBaseUnit
-  , [WeeklyMatlStkChangeQtyInBaseUnit]
-  , CASE
-      WHEN YearMonth IS NULL
-      THEN SUM(WeeklyMatlStkChangeQtyInBaseUnit) OVER (
-        PARTITION BY
-          [MaterialID]
-        , [PlantID]
-        , [StorageLocationID]
-        , [InventorySpecialStockTypeID]
-        , [InventoryStockTypeID]
-        , [StockOwner]
-        , [CostCenterID]
-        , [CompanyCodeID]
-        , [SalesDocumentTypeID]
-        , [SalesDocumentItemCategoryID]
-        , [MaterialBaseUnitID]
-        , [PurchaseOrderTypeID]
-        , [InventoryValuationTypeID]
+        , [YearMonth]
           ORDER BY YearWeek
         )
-      END AS WeeklyStockLevelQtyInBaseUnit
+      WHEN YearMonth IS NOT NULL
+      THEN SUM(MatlStkChangeQtyInBaseUnit) OVER (
+        PARTITION BY
+          [MaterialID]
+        , [PlantID]
+        , [StorageLocationID]
+        , [InventorySpecialStockTypeID]
+        , [InventoryStockTypeID]
+        , [StockOwner]
+        , [CostCenterID]
+        , [CompanyCodeID]
+        , [SalesDocumentTypeID]
+        , [SalesDocumentItemCategoryID]
+        , [MaterialBaseUnitID]
+        , [PurchaseOrderTypeID]
+        , [InventoryValuationTypeID]
+        , [YearWeek]
+          ORDER BY YearMonth
+        ) 
+    END AS StockLevelQtyInBaseUnit
+  -- , [WeeklyMatlStkChangeQtyInBaseUnit]
+  -- , CASE
+  --     WHEN YearMonth IS NULL
+  --     THEN SUM(WeeklyMatlStkChangeQtyInBaseUnit) OVER (
+  --       PARTITION BY
+  --         [MaterialID]
+  --       , [PlantID]
+  --       , [StorageLocationID]
+  --       , [InventorySpecialStockTypeID]
+  --       , [InventoryStockTypeID]
+  --       , [StockOwner]
+  --       , [CostCenterID]
+  --       , [CompanyCodeID]
+  --       , [SalesDocumentTypeID]
+  --       , [SalesDocumentItemCategoryID]
+  --       , [MaterialBaseUnitID]
+  --       , [PurchaseOrderTypeID]
+  --       , [InventoryValuationTypeID]
+  --         ORDER BY YearWeek
+  --       )
+  --     END AS WeeklyStockLevelQtyInBaseUnit
   FROM
     [edw].[vw_fact_MaterialInventoryStockChange]
 )
@@ -95,20 +116,21 @@ SELECT
 , StockLevels.[MaterialBaseUnitID]
 , StockLevels.[PurchaseOrderTypeID]
 , StockLevels.[InventoryValuationTypeID]
+, StockLevels.[ReportingDate]
 , StockLevels.[YearWeek]
+, StockLevels.[YearMonth]
 -- , StockLevels.[IsWeekly]
 -- , StockLevels.[IsMonthly]
 , PUP.[StockPricePerUnit]
 , PUP.[StockPricePerUnit_EUR]
 , PUP.[StockPricePerUnit_USD]
-, StockLevels.[WeeklyMatlStkChangeQtyInBaseUnit]
-, StockLevels.[WeeklyStockLevelQtyInBaseUnit]
-, StockLevels.[YearMonth]
-, StockLevels.[MonthlyMatlStkChangeQtyInBaseUnit]
-, StockLevels.[MonthlyStockLevelQtyInBaseUnit]
-, StockLevels.[MonthlyStockLevelQtyInBaseUnit] * PUP.[StockPricePerUnit]     AS MonthlyStockLevelStandardPPU
-, StockLevels.[MonthlyStockLevelQtyInBaseUnit] * PUP.[StockPricePerUnit_EUR] AS MonthlyStockLevelStandardPPU_EUR
-, StockLevels.[MonthlyStockLevelQtyInBaseUnit] * PUP.[StockPricePerUnit_USD] AS MonthlyStockLevelStandardPPU_USD
+, StockLevels.[MatlStkChangeQtyInBaseUnit]
+, StockLevels.[StockLevelQtyInBaseUnit]
+-- , StockLevels.[MonthlyMatlStkChangeQtyInBaseUnit]
+-- , StockLevels.[MonthlyStockLevelQtyInBaseUnit]
+, StockLevels.[StockLevelQtyInBaseUnit] * PUP.[StockPricePerUnit] AS StockLevelStandardPPU
+, StockLevels.[StockLevelQtyInBaseUnit] * PUP.[StockPricePerUnit_EUR] AS StockLevelStandardPPU_EUR
+, StockLevels.[StockLevelQtyInBaseUnit] * PUP.[StockPricePerUnit_USD] AS StockLevelStandardPPU_USD
 -- , StockLevels.[WeeklyStockLevelQtyInBaseUnit] * PUP.[StockPricePerUnit]     AS WeeklyStockLevelStandardPPU
 -- , StockLevels.[WeeklyStockLevelQtyInBaseUnit] * PUP.[StockPricePerUnit_EUR] AS WeeklyStockLevelStandardPPU_EUR
 -- , StockLevels.[WeeklyStockLevelQtyInBaseUnit] * PUP.[StockPricePerUnit_USD] AS WeeklyStockLevelStandardPPU_USD
