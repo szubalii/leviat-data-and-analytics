@@ -68,7 +68,6 @@ BEGIN
     (2, 'FULL_2023_06_01_12_00_00_000.parquet', 'CheckXUExtractionStatus', '{}'),
     (2, 'FULL_2023_06_01_12_00_00_000.parquet', 'Extract', 'test_output'),
     (2, 'FULL_2023_06_01_12_00_00_000.parquet', 'Load2Base', '{}'),
-    (2, 'FULL_2023_06_01_12_00_00_000.parquet', 'ProcessBase', '{}'),
     (2, 'FULL_2023_06_01_12_00_00_000.parquet', 'TestDuplicates', '{}');
 
   EXEC tSQLt.AssertEqualsTable 'expected', 'actual';

@@ -46,7 +46,7 @@ BEGIN
     skipped_activities
   ) VALUES
     (1, 'DELTA_2023_05_01_12_00_00_000.parquet', '["CheckXUExtractionStatus","TestDuplicates","Load2Base","ProcessBase"]', '{"Extract": {"batch_id":"", "output":{}}}'),
-    (1, NULL, '["Extract","CheckXUExtractionStatus","TestDuplicates","Load2Base"]', '{}'),
+    (1, NULL, '["Extract","CheckXUExtractionStatus","TestDuplicates","Load2Base", "ProcessBase"]', '{}'),
     (2, NULL, '["Extract","CheckXUExtractionStatus","TestDuplicates","Load2Base"]', '{}');
 
   EXEC tSQLt.AssertEqualsTable 'expected', 'actual';

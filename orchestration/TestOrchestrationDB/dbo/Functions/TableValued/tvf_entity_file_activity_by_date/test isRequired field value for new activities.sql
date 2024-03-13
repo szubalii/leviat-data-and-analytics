@@ -67,12 +67,10 @@ BEGIN
     (2, 'FULL_2023_06_01_12_00_00_000.parquet', 'CheckXUExtractionStatus', 1),
     (2, 'FULL_2023_06_01_12_00_00_000.parquet', 'Extract', 0),
     (2, 'FULL_2023_06_01_12_00_00_000.parquet', 'Load2Base', 1),
-    (2, 'FULL_2023_06_01_12_00_00_000.parquet', 'ProcessBase', 1),
     (2, 'FULL_2023_06_01_12_00_00_000.parquet', 'TestDuplicates', 1),
     (3, NULL, 'CheckXUExtractionStatus', 1),	
 	  (3, NULL, 'Extract', 1),	
-	  (3, NULL, 'Load2Base', 1),	
-	  (3, NULL, 'ProcessBase', 1),	
+	  (3, NULL, 'Load2Base', 1),
 	  (3, NULL, 'TestDuplicates', 1);
 
   EXEC tSQLt.AssertEqualsTable 'expected', 'actual';
