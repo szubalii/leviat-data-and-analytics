@@ -28,7 +28,19 @@ SELECT
 , MDI.[PurchaseOrderTypeID]
 , MDI.[InventoryValuationTypeID]
 , cal.[YearWeek]
-, SUM(MDI.MatlStkChangeQtyInBaseUnit) AS WeeklyMatlStkChangeQtyInBaseUnit
+, SUM(MDI.MatlStkChangeQtyInBaseUnit) AS MatlStkChangeQtyInBaseUnit
+, SUM(MDI.ConsumptionQtyICPOInStandardValue_EUR) AS ConsumptionQtyICPOInStandardValue_EUR
+, SUM(MDI.ConsumptionQtyICPOInStandardValue_USD) AS ConsumptionQtyICPOInStandardValue_USD
+, SUM(MDI.ConsumptionQtyOBDProStandardValue) AS ConsumptionQtyOBDProStandardValue
+, SUM(MDI.ConsumptionQtyOBDProStandardValue_EUR) AS ConsumptionQtyOBDProStandardValue_EUR
+, SUM(MDI.ConsumptionQtyOBDProStandardValue_USD) AS ConsumptionQtyOBDProStandardValue_USD
+, SUM(MDI.ConsumptionQtySOStandardValue) AS ConsumptionQtySOStandardValue
+, SUM(MDI.ConsumptionQtySOStandardValue_EUR) AS ConsumptionQtySOStandardValue_EUR
+, SUM(MDI.ConsumptionQtySOStandardValue_USD) AS ConsumptionQtySOStandardValue_USD
+, SUM(MDI.ConsumptionQty) AS ConsumptionQty
+, SUM(MDI.ConsumptionValueByLatestPriceInBaseValue) AS ConsumptionValueByLatestPriceInBaseValue
+, SUM(MDI.ConsumptionValueByLatestPrice_EUR) AS ConsumptionValueByLatestPrice_EUR
+, SUM(MDI.ConsumptionValueByLatestPrice_USD) AS ConsumptionValueByLatestPrice_USD
 , MDI.[t_applicationId]
 FROM
   [edw].[fact_MaterialDocumentItem] AS MDI

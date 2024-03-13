@@ -56,7 +56,7 @@ BEGIN
   -- Act: 
   SELECT
     [YearWeek],
-    [WeeklyMatlStkChangeQtyInBaseUnit]
+    [MatlStkChangeQtyInBaseUnit]
   INTO actual
   FROM [edw].[vw_fact_MaterialInventoryReportedStockChangeWeekly]
   WHERE YearWeek <= 202405
@@ -68,7 +68,7 @@ BEGIN
   
   INSERT INTO expected (
     [YearWeek],
-    [WeeklyMatlStkChangeQtyInBaseUnit]
+    [MatlStkChangeQtyInBaseUnit]
   )
   VALUES
     (202402, 10),

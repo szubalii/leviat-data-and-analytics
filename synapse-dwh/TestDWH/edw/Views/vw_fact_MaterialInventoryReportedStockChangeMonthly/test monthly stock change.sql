@@ -57,7 +57,7 @@ BEGIN
   -- Act: 
   SELECT
     [YearMonth],
-    [MonthlyMatlStkChangeQtyInBaseUnit]
+    [MatlStkChangeQtyInBaseUnit]
   INTO actual
   FROM [edw].[vw_fact_MaterialInventoryReportedStockChangeMonthly]
   WHERE YearMonth <= 202402
@@ -69,7 +69,7 @@ BEGIN
   
   INSERT INTO expected (
     [YearMonth],
-    [MonthlyMatlStkChangeQtyInBaseUnit]
+    [MatlStkChangeQtyInBaseUnit]
   )
   VALUES
     (202401, 40),

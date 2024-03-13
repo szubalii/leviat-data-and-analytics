@@ -30,11 +30,11 @@ StockLevels AS (
   , [PurchaseOrderTypeID]
   , [InventoryValuationTypeID]
   , [ReportingDate]
+  , [FirstDayOfMonthDate]
   , [YearWeek]
   , [YearMonth]
   -- , [IsWeekly]
   -- , [IsMonthly]
-  , [FirstDayOfMonthDate]
   , [MatlStkChangeQtyInBaseUnit]
   , CASE
       WHEN YearWeek IS NOT NULL
@@ -76,6 +76,18 @@ StockLevels AS (
           ORDER BY YearMonth
         ) 
     END AS StockLevelQtyInBaseUnit
+  , [ConsumptionQtyICPOInStandardValue_EUR]
+  , [ConsumptionQtyICPOInStandardValue_USD]
+  , [ConsumptionQtyOBDProStandardValue]
+  , [ConsumptionQtyOBDProStandardValue_EUR]
+  , [ConsumptionQtyOBDProStandardValue_USD]
+  , [ConsumptionQtySOStandardValue]
+  , [ConsumptionQtySOStandardValue_EUR]
+  , [ConsumptionQtySOStandardValue_USD]
+  , [ConsumptionQty]
+  , [ConsumptionValueByLatestPriceInBaseValue]
+  , [ConsumptionValueByLatestPrice_EUR]
+  , [ConsumptionValueByLatestPrice_USD]
   -- , [WeeklyMatlStkChangeQtyInBaseUnit]
   -- , CASE
   --     WHEN YearMonth IS NULL
@@ -131,9 +143,18 @@ SELECT
 , StockLevels.[StockLevelQtyInBaseUnit] * PUP.[StockPricePerUnit] AS StockLevelStandardPPU
 , StockLevels.[StockLevelQtyInBaseUnit] * PUP.[StockPricePerUnit_EUR] AS StockLevelStandardPPU_EUR
 , StockLevels.[StockLevelQtyInBaseUnit] * PUP.[StockPricePerUnit_USD] AS StockLevelStandardPPU_USD
--- , StockLevels.[WeeklyStockLevelQtyInBaseUnit] * PUP.[StockPricePerUnit]     AS WeeklyStockLevelStandardPPU
--- , StockLevels.[WeeklyStockLevelQtyInBaseUnit] * PUP.[StockPricePerUnit_EUR] AS WeeklyStockLevelStandardPPU_EUR
--- , StockLevels.[WeeklyStockLevelQtyInBaseUnit] * PUP.[StockPricePerUnit_USD] AS WeeklyStockLevelStandardPPU_USD
+, StockLevels.[ConsumptionQtyICPOInStandardValue_EUR]
+, StockLevels.[ConsumptionQtyICPOInStandardValue_USD]
+, StockLevels.[ConsumptionQtyOBDProStandardValue]
+, StockLevels.[ConsumptionQtyOBDProStandardValue_EUR]
+, StockLevels.[ConsumptionQtyOBDProStandardValue_USD]
+, StockLevels.[ConsumptionQtySOStandardValue]
+, StockLevels.[ConsumptionQtySOStandardValue_EUR]
+, StockLevels.[ConsumptionQtySOStandardValue_USD]
+, StockLevels.[ConsumptionQty]
+, StockLevels.[ConsumptionValueByLatestPriceInBaseValue]
+, StockLevels.[ConsumptionValueByLatestPrice_EUR]
+, StockLevels.[ConsumptionValueByLatestPrice_USD]
 FROM
   StockLevels
 LEFT OUTER JOIN

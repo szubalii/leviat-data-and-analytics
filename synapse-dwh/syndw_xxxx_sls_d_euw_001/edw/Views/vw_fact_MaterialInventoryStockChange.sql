@@ -10,7 +10,73 @@ AS
 6. Calculate the stock levels for each combo of yearWeek and hash
 7. Calculate the stock level price per unit
 */
+WITH _union AS (
+  SELECT
+    stockChangeWeekly.[MaterialID]
+  , stockChangeWeekly.[PlantID]
+  , stockChangeWeekly.[StorageLocationID]
+  , stockChangeWeekly.[InventorySpecialStockTypeID]
+  , stockChangeWeekly.[InventoryStockTypeID]
+  , stockChangeWeekly.[StockOwner]
+  , stockChangeWeekly.[CostCenterID]
+  , stockChangeWeekly.[CompanyCodeID]
+  , stockChangeWeekly.[SalesDocumentTypeID]
+  , stockChangeWeekly.[SalesDocumentItemCategoryID]
+  , stockChangeWeekly.[MaterialBaseUnitID]
+  , stockChangeWeekly.[PurchaseOrderTypeID]
+  , stockChangeWeekly.[InventoryValuationTypeID]
+  , stockChangeWeekly.[YearWeek]
+  , NULL AS [YearMonth]
+  , stockChangeWeekly.[MatlStkChangeQtyInBaseUnit]
+  , stockChangeWeekly.[ConsumptionQtyICPOInStandardValue_EUR]
+  , stockChangeWeekly.[ConsumptionQtyICPOInStandardValue_USD]
+  , stockChangeWeekly.[ConsumptionQtyOBDProStandardValue]
+  , stockChangeWeekly.[ConsumptionQtyOBDProStandardValue_EUR]
+  , stockChangeWeekly.[ConsumptionQtyOBDProStandardValue_USD]
+  , stockChangeWeekly.[ConsumptionQtySOStandardValue]
+  , stockChangeWeekly.[ConsumptionQtySOStandardValue_EUR]
+  , stockChangeWeekly.[ConsumptionQtySOStandardValue_USD]
+  , stockChangeWeekly.[ConsumptionQty]
+  , stockChangeWeekly.[ConsumptionValueByLatestPriceInBaseValue]
+  , stockChangeWeekly.[ConsumptionValueByLatestPrice_EUR]
+  , stockChangeWeekly.[ConsumptionValueByLatestPrice_USD]
+  FROM
+    [edw].[vw_fact_MaterialInventoryReportedStockChangeWeekly] AS stockChangeWeekly
 
+  UNION ALL
+
+  SELECT
+    stockChangeMonthly.[MaterialID]
+  , stockChangeMonthly.[PlantID]
+  , stockChangeMonthly.[StorageLocationID]
+  , stockChangeMonthly.[InventorySpecialStockTypeID]
+  , stockChangeMonthly.[InventoryStockTypeID]
+  , stockChangeMonthly.[StockOwner]
+  , stockChangeMonthly.[CostCenterID]
+  , stockChangeMonthly.[CompanyCodeID]
+  , stockChangeMonthly.[SalesDocumentTypeID]
+  , stockChangeMonthly.[SalesDocumentItemCategoryID]
+  , stockChangeMonthly.[MaterialBaseUnitID]
+  , stockChangeMonthly.[PurchaseOrderTypeID]
+  , stockChangeMonthly.[InventoryValuationTypeID]
+  , NULL AS [YearWeek]
+  , stockChangeMonthly.[YearMonth]
+  , stockChangeMonthly.[MatlStkChangeQtyInBaseUnit]
+  , stockChangeMonthly.[ConsumptionQtyICPOInStandardValue_EUR]
+  , stockChangeMonthly.[ConsumptionQtyICPOInStandardValue_USD]
+  , stockChangeMonthly.[ConsumptionQtyOBDProStandardValue]
+  , stockChangeMonthly.[ConsumptionQtyOBDProStandardValue_EUR]
+  , stockChangeMonthly.[ConsumptionQtyOBDProStandardValue_USD]
+  , stockChangeMonthly.[ConsumptionQtySOStandardValue]
+  , stockChangeMonthly.[ConsumptionQtySOStandardValue_EUR]
+  , stockChangeMonthly.[ConsumptionQtySOStandardValue_USD]
+  , stockChangeMonthly.[ConsumptionQty]
+  , stockChangeMonthly.[ConsumptionValueByLatestPriceInBaseValue]
+  , stockChangeMonthly.[ConsumptionValueByLatestPrice_EUR]
+  , stockChangeMonthly.[ConsumptionValueByLatestPrice_USD]
+  FROM
+    [edw].[vw_fact_MaterialInventoryReportedStockChangeMonthly] AS stockChangeMonthly
+)
 
 -- 5. Include the stock changes for the weeks on which they are reported
 SELECT
@@ -28,245 +94,265 @@ SELECT
 , allWeeks.[PurchaseOrderTypeID]
 , allWeeks.[InventoryValuationTypeID]
 , allWeeks.[ReportingDate]
+, allWeeks.[FirstDayOfMonthDate]
 , allWeeks.[YearWeek]
 -- , stockChangeWeekly.[WeeklyMatlStkChangeQtyInBaseUnit]
 , allWeeks.[YearMonth]
-, CASE
-    WHEN allWeeks.[YearWeek] IS NOT NULL
-    THEN stockChangeWeekly.[WeeklyMatlStkChangeQtyInBaseUnit]
-    WHEN allWeeks.[YearMonth] IS NOT NULL
-    THEN stockChangeMonthly.[MonthlyMatlStkChangeQtyInBaseUnit]
-  END AS MatlStkChangeQtyInBaseUnit
+, _union.[MatlStkChangeQtyInBaseUnit]
+, _union.[ConsumptionQtyICPOInStandardValue_EUR]
+, _union.[ConsumptionQtyICPOInStandardValue_USD]
+, _union.[ConsumptionQtyOBDProStandardValue]
+, _union.[ConsumptionQtyOBDProStandardValue_EUR]
+, _union.[ConsumptionQtyOBDProStandardValue_USD]
+, _union.[ConsumptionQtySOStandardValue]
+, _union.[ConsumptionQtySOStandardValue_EUR]
+, _union.[ConsumptionQtySOStandardValue_USD]
+, _union.[ConsumptionQty]
+, _union.[ConsumptionValueByLatestPriceInBaseValue]
+, _union.[ConsumptionValueByLatestPrice_EUR]
+, _union.[ConsumptionValueByLatestPrice_USD]
 -- , stockChangeMonthly.[MonthlyMatlStkChangeQtyInBaseUnit]
 -- , allWeeks.[IsWeekly]
 -- , allWeeks.[IsMonthly]
-, allWeeks.[FirstDayOfMonthDate]
 FROM
   [edw].[vw_fact_MaterialInventoryAllWeeksAndMonths] allWeeks
 LEFT JOIN
-  [edw].[vw_fact_MaterialInventoryReportedStockChangeWeekly] stockChangeWeekly
+  _union
   ON
   -- Weekly._hash = Weeks._hash
   -- Join on all required fields
   -- Include checks for cases when one or both fields are NULL
-    stockChangeWeekly.[MaterialID] = allWeeks.[MaterialID]
+    _union.[MaterialID] = allWeeks.[MaterialID]
     AND (
-    stockChangeWeekly.[PlantID] = allWeeks.[PlantID]
+    _union.[PlantID] = allWeeks.[PlantID]
       OR (
-        stockChangeWeekly.[PlantID] IS NULL
+        _union.[PlantID] IS NULL
         AND
         allWeeks.[PlantID] IS NULL
       )
     )
     AND (
-      stockChangeWeekly.[StorageLocationID] = allWeeks.[StorageLocationID]
+      _union.[StorageLocationID] = allWeeks.[StorageLocationID]
       OR (
-        stockChangeWeekly.[StorageLocationID] IS NULL
+        _union.[StorageLocationID] IS NULL
         AND
         allWeeks.[StorageLocationID] IS NULL
       )
     )
     AND (
-      stockChangeWeekly.[InventorySpecialStockTypeID] = allWeeks.[InventorySpecialStockTypeID]
+      _union.[InventorySpecialStockTypeID] = allWeeks.[InventorySpecialStockTypeID]
       OR (
-        stockChangeWeekly.[InventorySpecialStockTypeID] IS NULL
+        _union.[InventorySpecialStockTypeID] IS NULL
         AND
         allWeeks.[InventorySpecialStockTypeID] IS NULL
       )
     )
     AND (
-      stockChangeWeekly.[InventoryStockTypeID] = allWeeks.[InventoryStockTypeID]
+      _union.[InventoryStockTypeID] = allWeeks.[InventoryStockTypeID]
       OR (
-        stockChangeWeekly.[InventoryStockTypeID] IS NULL
+        _union.[InventoryStockTypeID] IS NULL
         AND
         allWeeks.[InventoryStockTypeID] IS NULL
       )
     )
     AND (
-      stockChangeWeekly.[StockOwner] = allWeeks.[StockOwner]
+      _union.[StockOwner] = allWeeks.[StockOwner]
       OR (
-        stockChangeWeekly.[StockOwner] IS NULL
+        _union.[StockOwner] IS NULL
         AND
         allWeeks.[StockOwner] IS NULL
       )
     )
     AND (
-      stockChangeWeekly.[CostCenterID] = allWeeks.[CostCenterID]
+      _union.[CostCenterID] = allWeeks.[CostCenterID]
       OR (
-        stockChangeWeekly.[CostCenterID] IS NULL
+        _union.[CostCenterID] IS NULL
         AND
         allWeeks.[CostCenterID] IS NULL
       )
     )
     AND (
-      stockChangeWeekly.[CompanyCodeID] = allWeeks.[CompanyCodeID]
+      _union.[CompanyCodeID] = allWeeks.[CompanyCodeID]
       OR (
-        stockChangeWeekly.[CompanyCodeID] IS NULL
+        _union.[CompanyCodeID] IS NULL
         AND
         allWeeks.[CompanyCodeID] IS NULL
       )
     )
     AND (
-      stockChangeWeekly.[SalesDocumentTypeID] = allWeeks.[SalesDocumentTypeID]
+      _union.[SalesDocumentTypeID] = allWeeks.[SalesDocumentTypeID]
       OR (
-        stockChangeWeekly.[SalesDocumentTypeID] IS NULL
+        _union.[SalesDocumentTypeID] IS NULL
         AND
         allWeeks.[SalesDocumentTypeID] IS NULL
       )
     )
     AND (
-      stockChangeWeekly.[SalesDocumentItemCategoryID] = allWeeks.[SalesDocumentItemCategoryID]
+      _union.[SalesDocumentItemCategoryID] = allWeeks.[SalesDocumentItemCategoryID]
       OR (
-        stockChangeWeekly.[SalesDocumentItemCategoryID] IS NULL
+        _union.[SalesDocumentItemCategoryID] IS NULL
         AND
         allWeeks.[SalesDocumentItemCategoryID] IS NULL
       )
     )
     AND (
-      stockChangeWeekly.[MaterialBaseUnitID] = allWeeks.[MaterialBaseUnitID]
+      _union.[MaterialBaseUnitID] = allWeeks.[MaterialBaseUnitID]
       OR (
-        stockChangeWeekly.[MaterialBaseUnitID] IS NULL
+        _union.[MaterialBaseUnitID] IS NULL
         AND
         allWeeks.[MaterialBaseUnitID] IS NULL
       )
     )
     AND (
-      stockChangeWeekly.[PurchaseOrderTypeID] = allWeeks.[PurchaseOrderTypeID]
+      _union.[PurchaseOrderTypeID] = allWeeks.[PurchaseOrderTypeID]
       OR (
-        stockChangeWeekly.[PurchaseOrderTypeID] IS NULL
+        _union.[PurchaseOrderTypeID] IS NULL
         AND
         allWeeks.[PurchaseOrderTypeID] IS NULL
       )
     )
     AND (
-      stockChangeWeekly.[InventoryValuationTypeID] = allWeeks.[InventoryValuationTypeID]
+      _union.[InventoryValuationTypeID] = allWeeks.[InventoryValuationTypeID]
       OR (
-        stockChangeWeekly.[InventoryValuationTypeID] IS NULL
+        _union.[InventoryValuationTypeID] IS NULL
         AND
         allWeeks.[InventoryValuationTypeID] IS NULL
       )
     )
     AND (
-      stockChangeWeekly.[YearWeek] = allWeeks.[YearWeek]
+      _union.[YearWeek] = allWeeks.[YearWeek]
+      OR (
+        _union.[YearWeek] IS NULL
+        AND
+        allWeeks.[YearWeek] IS NULL
+      )
+    )
+    AND (
+      _union.[YearMonth] = allWeeks.[YearMonth]
+      OR (
+        _union.[YearMonth] IS NULL
+        AND
+        allWeeks.[YearMonth] IS NULL
+      )
+    )
       -- OR (
       --   stockChangeWeekly.[YearWeek] IS NULL
       --   AND
       --   allWeeks.[YearWeek] IS NULL
       -- )
-    )
     -- AND
     -- allWeeks.IsWeekly = 1
 
-LEFT JOIN
-  [edw].[vw_fact_MaterialInventoryReportedStockChangeMonthly] stockChangeMonthly
-  ON
-  -- Weekly._hash = Weeks._hash
-  -- Join on all required fields
-  -- Include checks for cases when one or both fields are NULL
-    stockChangeMonthly.[MaterialID] = allWeeks.[MaterialID]
-    AND (
-    stockChangeMonthly.[PlantID] = allWeeks.[PlantID]
-      OR (
-        stockChangeMonthly.[PlantID] IS NULL
-        AND
-        allWeeks.[PlantID] IS NULL
-      )
-    )
-    AND (
-      stockChangeMonthly.[StorageLocationID] = allWeeks.[StorageLocationID]
-      OR (
-        stockChangeMonthly.[StorageLocationID] IS NULL
-        AND
-        allWeeks.[StorageLocationID] IS NULL
-      )
-    )
-    AND (
-      stockChangeMonthly.[InventorySpecialStockTypeID] = allWeeks.[InventorySpecialStockTypeID]
-      OR (
-        stockChangeMonthly.[InventorySpecialStockTypeID] IS NULL
-        AND
-        allWeeks.[InventorySpecialStockTypeID] IS NULL
-      )
-    )
-    AND (
-      stockChangeMonthly.[InventoryStockTypeID] = allWeeks.[InventoryStockTypeID]
-      OR (
-        stockChangeMonthly.[InventoryStockTypeID] IS NULL
-        AND
-        allWeeks.[InventoryStockTypeID] IS NULL
-      )
-    )
-    AND (
-      stockChangeMonthly.[StockOwner] = allWeeks.[StockOwner]
-      OR (
-        stockChangeMonthly.[StockOwner] IS NULL
-        AND
-        allWeeks.[StockOwner] IS NULL
-      )
-    )
-    AND (
-      stockChangeMonthly.[CostCenterID] = allWeeks.[CostCenterID]
-      OR (
-        stockChangeMonthly.[CostCenterID] IS NULL
-        AND
-        allWeeks.[CostCenterID] IS NULL
-      )
-    )
-    AND (
-      stockChangeMonthly.[CompanyCodeID] = allWeeks.[CompanyCodeID]
-      OR (
-        stockChangeMonthly.[CompanyCodeID] IS NULL
-        AND
-        allWeeks.[CompanyCodeID] IS NULL
-      )
-    )
-    AND (
-      stockChangeMonthly.[SalesDocumentTypeID] = allWeeks.[SalesDocumentTypeID]
-      OR (
-        stockChangeMonthly.[SalesDocumentTypeID] IS NULL
-        AND
-        allWeeks.[SalesDocumentTypeID] IS NULL
-      )
-    )
-    AND (
-      stockChangeMonthly.[SalesDocumentItemCategoryID] = allWeeks.[SalesDocumentItemCategoryID]
-      OR (
-        stockChangeMonthly.[SalesDocumentItemCategoryID] IS NULL
-        AND
-        allWeeks.[SalesDocumentItemCategoryID] IS NULL
-      )
-    )
-    AND (
-      stockChangeMonthly.[MaterialBaseUnitID] = allWeeks.[MaterialBaseUnitID]
-      OR (
-        stockChangeMonthly.[MaterialBaseUnitID] IS NULL
-        AND
-        allWeeks.[MaterialBaseUnitID] IS NULL
-      )
-    )
-    AND (
-      stockChangeMonthly.[PurchaseOrderTypeID] = allWeeks.[PurchaseOrderTypeID]
-      OR (
-        stockChangeMonthly.[PurchaseOrderTypeID] IS NULL
-        AND
-        allWeeks.[PurchaseOrderTypeID] IS NULL
-      )
-    )
-    AND (
-      stockChangeMonthly.[InventoryValuationTypeID] = allWeeks.[InventoryValuationTypeID]
-      OR (
-        stockChangeMonthly.[InventoryValuationTypeID] IS NULL
-        AND
-        allWeeks.[InventoryValuationTypeID] IS NULL
-      )
-    )
-    AND (
-      stockChangeMonthly.[YearMonth] = allWeeks.[YearMonth]
-      -- OR (
-      --   stockChangeMonthly.[YearMonth] IS NULL
-      --   AND
-      --   allWeeks.[YearMonth] IS NULL
-      -- )
-    )
-    -- AND
-    -- allWeeks.IsMonthly = 1
+-- LEFT JOIN
+--   [edw].[vw_fact_MaterialInventoryReportedStockChangeMonthly] stockChangeMonthly
+--   ON
+--   -- Weekly._hash = Weeks._hash
+--   -- Join on all required fields
+--   -- Include checks for cases when one or both fields are NULL
+--     stockChangeMonthly.[MaterialID] = allWeeks.[MaterialID]
+--     AND (
+--     stockChangeMonthly.[PlantID] = allWeeks.[PlantID]
+--       OR (
+--         stockChangeMonthly.[PlantID] IS NULL
+--         AND
+--         allWeeks.[PlantID] IS NULL
+--       )
+--     )
+--     AND (
+--       stockChangeMonthly.[StorageLocationID] = allWeeks.[StorageLocationID]
+--       OR (
+--         stockChangeMonthly.[StorageLocationID] IS NULL
+--         AND
+--         allWeeks.[StorageLocationID] IS NULL
+--       )
+--     )
+--     AND (
+--       stockChangeMonthly.[InventorySpecialStockTypeID] = allWeeks.[InventorySpecialStockTypeID]
+--       OR (
+--         stockChangeMonthly.[InventorySpecialStockTypeID] IS NULL
+--         AND
+--         allWeeks.[InventorySpecialStockTypeID] IS NULL
+--       )
+--     )
+--     AND (
+--       stockChangeMonthly.[InventoryStockTypeID] = allWeeks.[InventoryStockTypeID]
+--       OR (
+--         stockChangeMonthly.[InventoryStockTypeID] IS NULL
+--         AND
+--         allWeeks.[InventoryStockTypeID] IS NULL
+--       )
+--     )
+--     AND (
+--       stockChangeMonthly.[StockOwner] = allWeeks.[StockOwner]
+--       OR (
+--         stockChangeMonthly.[StockOwner] IS NULL
+--         AND
+--         allWeeks.[StockOwner] IS NULL
+--       )
+--     )
+--     AND (
+--       stockChangeMonthly.[CostCenterID] = allWeeks.[CostCenterID]
+--       OR (
+--         stockChangeMonthly.[CostCenterID] IS NULL
+--         AND
+--         allWeeks.[CostCenterID] IS NULL
+--       )
+--     )
+--     AND (
+--       stockChangeMonthly.[CompanyCodeID] = allWeeks.[CompanyCodeID]
+--       OR (
+--         stockChangeMonthly.[CompanyCodeID] IS NULL
+--         AND
+--         allWeeks.[CompanyCodeID] IS NULL
+--       )
+--     )
+--     AND (
+--       stockChangeMonthly.[SalesDocumentTypeID] = allWeeks.[SalesDocumentTypeID]
+--       OR (
+--         stockChangeMonthly.[SalesDocumentTypeID] IS NULL
+--         AND
+--         allWeeks.[SalesDocumentTypeID] IS NULL
+--       )
+--     )
+--     AND (
+--       stockChangeMonthly.[SalesDocumentItemCategoryID] = allWeeks.[SalesDocumentItemCategoryID]
+--       OR (
+--         stockChangeMonthly.[SalesDocumentItemCategoryID] IS NULL
+--         AND
+--         allWeeks.[SalesDocumentItemCategoryID] IS NULL
+--       )
+--     )
+--     AND (
+--       stockChangeMonthly.[MaterialBaseUnitID] = allWeeks.[MaterialBaseUnitID]
+--       OR (
+--         stockChangeMonthly.[MaterialBaseUnitID] IS NULL
+--         AND
+--         allWeeks.[MaterialBaseUnitID] IS NULL
+--       )
+--     )
+--     AND (
+--       stockChangeMonthly.[PurchaseOrderTypeID] = allWeeks.[PurchaseOrderTypeID]
+--       OR (
+--         stockChangeMonthly.[PurchaseOrderTypeID] IS NULL
+--         AND
+--         allWeeks.[PurchaseOrderTypeID] IS NULL
+--       )
+--     )
+--     AND (
+--       stockChangeMonthly.[InventoryValuationTypeID] = allWeeks.[InventoryValuationTypeID]
+--       OR (
+--         stockChangeMonthly.[InventoryValuationTypeID] IS NULL
+--         AND
+--         allWeeks.[InventoryValuationTypeID] IS NULL
+--       )
+--     )
+--     AND (
+--       stockChangeMonthly.[YearMonth] = allWeeks.[YearMonth]
+--       -- OR (
+--       --   stockChangeMonthly.[YearMonth] IS NULL
+--       --   AND
+--       --   allWeeks.[YearMonth] IS NULL
+--       -- )
+--     )
+--     -- AND
+--     -- allWeeks.IsMonthly = 1
