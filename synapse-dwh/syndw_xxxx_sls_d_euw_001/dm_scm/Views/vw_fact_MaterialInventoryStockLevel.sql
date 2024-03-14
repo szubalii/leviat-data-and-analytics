@@ -20,7 +20,6 @@ SELECT
 , [StockPricePerUnit]
 , [StockPricePerUnit_EUR]
 , [StockPricePerUnit_USD]
-, [MatlStkChangeQtyInBaseUnit]
 , [StockLevelQtyInBaseUnit]
 , [StockLevelStandardPPU]
 , [StockLevelStandardPPU_EUR]
