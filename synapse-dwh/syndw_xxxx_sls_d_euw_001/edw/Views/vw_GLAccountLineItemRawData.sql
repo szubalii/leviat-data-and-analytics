@@ -2120,4 +2120,6 @@ SELECT
   [WWPRNPA],
   [t_applicationId],
   [t_extractionDtm]
-FROM [base_s4h_cax].[I_GLAccountLineItemRawData_active] 
+FROM [base_s4h_cax].[I_GLAccountLineItemRawData_active]
+WHERE
+  [t_lastActionCd] <> 'D'
