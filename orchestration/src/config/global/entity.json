@@ -4488,7 +4488,7 @@
       "extraction_type": "Table",
       "update_mode": "Full",
       "base_table_name": "Z_I_MaterialDocumentItem",
-      "pk_field_names": "MANDT, MATERIALDOCUMENTYEAR, MATERIALDOCUMENT, MATERIALDOCUMENTITEM",
+      "pk_field_names": "MANDT, MATERIALDOCUMENTYEAR, MATERIALDOCUMENT, MATERIALDOCUMENTITEM, MaterialDocumentRecordType",
       "schedule_recurrence": "D"
     }
     ]
