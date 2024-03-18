@@ -134,9 +134,10 @@ SELECT
 , dimIST.[InventoryStockTypeName]           COLLATE DATABASE_DEFAULT        AS InventoryStockTypeName
 , dimPVs.[PriceControlIndicatorID]          COLLATE DATABASE_DEFAULT        AS PriceControlIndicatorID
 , dimPVs.[PriceControlIndicator]            COLLATE DATABASE_DEFAULT        AS PriceControlIndicator
+, MDI.[MaterialDocumentRecordType]
 , MDI.[t_applicationId] collate DATABASE_DEFAULT AS t_applicationId
 , MDI.[t_extractionDtm]
-FROM [base_s4h_cax].[I_MaterialDocumentItem] MDI
+FROM [base_s4h_cax].[Z_I_MaterialDocumentItem] MDI
 LEFT JOIN [base_s4h_cax].[I_MaterialDocumentHeader] MDH
   ON 
   MDI.[MaterialDocumentYear]=MDH.[MaterialDocumentYear]

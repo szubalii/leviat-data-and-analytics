@@ -663,6 +663,7 @@
     <Build Include="base_s4h_cax\Tables\C_SalesDocumentItemDEX_active.sql" />
     <Build Include="base_s4h_cax\Tables\I_MaterialDocumentHeader.sql" />
     <Build Include="base_s4h_cax\Tables\I_MaterialDocumentItem.sql" />
+    <Build Include="base_s4h_cax\Tables\Z_I_MaterialDocumentItem.sql" />
     <Build Include="base_s4h_cax\Tables\TVRO.sql" />
     <Build Include="base_s4h_cax\Tables\TVROT.sql" />
     <Build Include="base_s4h_cax\Tables\I_SDDocumentCompletePartners.sql" />

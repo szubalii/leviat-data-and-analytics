@@ -1,0 +1,10 @@
+{
+    "isSurrogateKeyEnabled": false,
+    "columns": 
+    [
+        "ZIMATDOCITEM~MANDT",
+        "ZIMATDOCITEM~MATERIALDOCUMENTYEAR",
+        "ZIMATDOCITEM~MATERIALDOCUMENT",
+        "ZIMATDOCITEM~MATERIALDOCUMENTITEM"
+    ]
+}
