@@ -140,17 +140,17 @@ SELECT
 FROM [edw].[vw_MaterialDocumentItemMerged] MDI
 LEFT JOIN [base_s4h_cax].[I_MaterialDocumentHeader] MDH
   ON 
-  MDI.[MaterialDocumentYear]=MDH.[MaterialDocumentYear]
+  MDI.[MaterialDocumentYear]=MDH.[MaterialDocumentYear] collate DATABASE_DEFAULT
     AND
-  MDI.[MaterialDocument]=MDH.[MaterialDocument]
+  MDI.[MaterialDocument]=MDH.[MaterialDocument] collate DATABASE_DEFAULT
 LEFT JOIN 
   [edw].[dim_ProductValuationPUP] dimPVs
   ON  
-  dimPVs.[ValuationTypeID] =  MDI.[InventoryValuationType] 
+  dimPVs.[ValuationTypeID] collate DATABASE_DEFAULT =  MDI.[InventoryValuationType] 
     AND
-  dimPVs.[ValuationAreaID] = MDI.[Plant]
+  dimPVs.[ValuationAreaID] collate DATABASE_DEFAULT = MDI.[Plant]
     AND
-  dimPVs.[ProductID] = MDI.[Material]    
+  dimPVs.[ProductID] collate DATABASE_DEFAULT = MDI.[Material]    
     AND 
   dimPVs.[CalendarYear] =  FORMAT(MDI.[PostingDate],'yyyy')
     AND
@@ -159,7 +159,7 @@ LEFT JOIN
     [edw].[fact_SalesDocumentItem] SDI
         ON MDI.[SalesOrder] = SDI.[SalesDocument] collate DATABASE_DEFAULT
             AND
-            MDI.[SalesOrderItem] = SDI.[SalesDocumentItem]
+            MDI.[SalesOrderItem] = SDI.[SalesDocumentItem] collate DATABASE_DEFAULT
             AND
             SDI.[CurrencyTypeID] = 10
 LEFT JOIN 
@@ -184,11 +184,11 @@ LEFT JOIN
 LEFT JOIN
         [edw].[dim_GoodsMovementType] dimGMT
             ON 
-                dimGMT.GoodsMovementTypeID = MDI.[GoodsMovementType]
+                dimGMT.GoodsMovementTypeID collate DATABASE_DEFAULT = MDI.[GoodsMovementType]
 LEFT JOIN
         [edw].[dim_InventorySpecialStockType] dimISST
-            ON  dimISST.[InventorySpecialStockTypeID] = MDI.[InventorySpecialStockType]
+            ON  dimISST.[InventorySpecialStockTypeID] collate DATABASE_DEFAULT = MDI.[InventorySpecialStockType]
 LEFT JOIN
         [edw].[dim_InventoryStockType] dimIST
-            ON dimIST.[InventoryStockTypeID] = MDI.[InventoryStockType]  
+            ON dimIST.[InventoryStockTypeID] collate DATABASE_DEFAULT = MDI.[InventoryStockType]  
 -- WHERE MDI.[MANDT] = 200 MPS 2021/11/01: commented out due to different client values between dev,qas, and prod
