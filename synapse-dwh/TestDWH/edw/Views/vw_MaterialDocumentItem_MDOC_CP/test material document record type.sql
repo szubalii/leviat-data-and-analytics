@@ -14,14 +14,14 @@ BEGIN
     MANDT,
     MaterialDocumentYear,
     MaterialDocument,
-    MaterialDocumentItem,
-    MaterialDocumentRecordType
+    MaterialDocumentItem
+
   )
   VALUES
-    ( 200, 2024, 1, 1, 'MDOC'),
-    ( 200, 2024, 1, 2, 'MDOC'),
-    ( 200, 2024, 2, 1, 'MDOC'),    
-    ( 200, 2024, 3, 1, 'MDOC');
+    ( 200, 2024, 1, 1),
+    ( 200, 2024, 1, 2),
+    ( 200, 2024, 2, 1),    
+    ( 200, 2024, 3, 1);
 
 -- #2
   INSERT INTO [base_s4h_cax].[Z_I_MaterialDocumentItem_MDOC_CP] (
@@ -58,12 +58,12 @@ BEGIN
     MaterialDocumentRecordType
   )
   VALUES
-    (200, 2024, 1, 1, 'MDOC'),
-    (200, 2024, 1, 2, 'MDOC'),
-    (200, 2024, 2, 1, 'MDOC'),
-    (200, 2024, 3, 1, 'MDOC'),
-    (200, 2024, 4, 1, 'MDOC_CP'),
-    (200, 2024, 5, 1, 'MDOC_CP');
+    (2024, 1, 1, 'MDOC'),
+    (2024, 1, 2, 'MDOC'),
+    (2024, 2, 1, 'MDOC'),
+    (2024, 3, 1, 'MDOC'),
+    (2024, 4, 1, 'MDOC_CP'),
+    (2024, 5, 1, 'MDOC_CP');
 
   EXEC tSQLt.AssertEqualsTable 'expected', 'actual';
 END
