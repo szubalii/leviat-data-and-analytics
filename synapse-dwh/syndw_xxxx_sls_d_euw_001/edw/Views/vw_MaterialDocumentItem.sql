@@ -188,7 +188,7 @@ SELECT  CONVERT(NVARCHAR(32),
         * LastPPU.[StockPricePerUnit_USD]                                   AS ConsumptionValueByLatestPrice_USD 
     ,   P.SalesOrganization                                                 AS PlantSalesOrgID
     ,   PSD.sk_ProductSalesDelivery                                         AS sk_ProductSalesOrg
-    ,   [MaterialDocumentRecordType]
+    ,   UV.[MaterialDocumentRecordType]
     ,   UV.[t_applicationId]
     ,   UV.[t_extractionDtm]
     FROM
