@@ -137,7 +137,7 @@ SELECT
 , MDI.[MaterialDocumentRecordType]
 , MDI.[t_applicationId] collate DATABASE_DEFAULT AS t_applicationId
 , MDI.[t_extractionDtm]
-FROM [edw].[vw_MaterialDocumentItemMerged] MDI
+FROM [edw].[vw_MaterialDocumentItem_MDOC_CP] MDI
 LEFT JOIN [base_s4h_cax].[I_MaterialDocumentHeader] MDH
   ON 
   MDI.[MaterialDocumentYear]=MDH.[MaterialDocumentYear] collate DATABASE_DEFAULT

@@ -1,4 +1,4 @@
-CREATE VIEW [edw].[vw_MaterialDocumentItem_MDOC_MDOC_CP]
+CREATE VIEW [edw].[vw_MaterialDocumentItem_MDOC_CP]
 AS
 WITH MatDocMDOC AS
 (

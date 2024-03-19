@@ -3,7 +3,7 @@
         "machine": "NL-HQ-D-AP013",
         "timestamp": "20220111T094915.160Z"
     },
-    "destination": "http-csv",
+    "destination": "stxxxxslsaeuw001_s4h-caa",
     "lastChange": {
         "machine": "WEALEVAPP001",
         "timestamp": "20240318T082401.981Z",
