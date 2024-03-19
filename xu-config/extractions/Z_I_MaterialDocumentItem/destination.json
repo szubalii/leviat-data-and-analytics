@@ -1,8 +1,20 @@
 {
+    "nameGenerator": {
+        "suffix": "",
+        "appendsTimestamp": true
+    },
+    "internalSettings": {
+        "sapDateConversion": {
+            "enabled": true,
+            "replacementForInvalidDate": null,
+            "replacementForZeroDate": "0001-01-01",
+            "replacementForYear9999": "9999-12-31"
+        },
+        "columnNameKind": "Code"
+    },
+    "compress": true,
+    "blobType": "BlockBlob",
     "columnNameKind": "Code",
-    "sapDateConverter": {
-        "minDateReplacement": "1970-01-01",
-        "maxDateReplacement": "2099-12-31",
-        "invalidDateReplacement": "1970-01-02"
-    }
+    "folderPath": "DIMENSION\/Z_I_MaterialDocumentItem\/Theobald\/Table\/Full\/In\/#{ DateTime.Now.ToString(\"yyyy\/MM\/dd\") }#",
+    "maxBlobSize": 0
 }
