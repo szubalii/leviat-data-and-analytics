@@ -90,6 +90,7 @@ CREATE TABLE [base_s4h_cax].[Z_I_MaterialDocumentItem_MDOC_CP] (
     [ManufacturingOrder]            char(12) collate Latin1_General_100_BIN2,
     [ManufacturingOrderItem]        nvarchar(4) collate Latin1_General_100_BIN2,
     [IsReversalMovementType]        nvarchar(1) collate Latin1_General_100_BIN2,
+    [MaterialDocumentRecordType]    nvarchar(9) collate Latin1_General_100_BIN2,
     [t_applicationId]               VARCHAR(32),
     [t_jobId]                       VARCHAR(36),
     [t_jobDtm]                      DATETIME,
