@@ -1,4 +1,4 @@
-CREATE VIEW [edw].[vw_MaterialDocumentItemMerged]
+CREATE VIEW [edw].[vw_MaterialDocumentItem_MDOC_MDOC_CP]
 AS
 WITH MatDocMDOC AS
 (
@@ -187,7 +187,7 @@ SELECT
   , [t_extractionDtm]  
   , [t_filePath]   
 
-FROM [base_s4h_cax].[Z_I_MaterialDocumentItem]    
+FROM [base_s4h_cax].[Z_I_MaterialDocumentItem_MDOC_CP]    
 ),
 
 MatDocMDOC_CP_Filtered AS(

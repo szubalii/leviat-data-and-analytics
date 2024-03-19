@@ -4487,7 +4487,7 @@
       "tool_name": "Theobald",
       "extraction_type": "Table",
       "update_mode": "Full",
-      "base_table_name": "Z_I_MaterialDocumentItem",
+      "base_table_name": "Z_I_MaterialDocumentItem_MDOC_CP",
       "pk_field_names": "MANDT, MATERIALDOCUMENTYEAR, MATERIALDOCUMENT, MATERIALDOCUMENTITEM",
       "schedule_recurrence": "D"
     }
