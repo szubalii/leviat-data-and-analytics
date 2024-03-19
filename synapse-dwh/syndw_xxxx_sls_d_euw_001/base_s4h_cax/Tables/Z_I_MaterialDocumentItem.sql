@@ -107,7 +107,6 @@ CREATE TABLE [base_s4h_cax].[Z_I_MaterialDocumentItem] (
     , [MaterialDocumentYear]
     , [MaterialDocument]
     , [MaterialDocumentItem]
-    , [MaterialDocumentRecordType]
   ) NOT ENFORCED
 ) WITH (
   HEAP
