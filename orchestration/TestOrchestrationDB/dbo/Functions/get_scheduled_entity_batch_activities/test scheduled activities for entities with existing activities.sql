@@ -10,10 +10,10 @@ BEGIN
   EXEC tSQLt.FakeTable '[dbo]', '[entity]';
   EXEC tSQLt.FakeTable '[dbo]', '[batch]';
   
-  INSERT INTO dbo.entity (entity_id, schedule_recurrence, layer_id, update_mode, base_sproc_name)
+  INSERT INTO dbo.entity (entity_id, schedule_recurrence, layer_id, update_mode, base_sproc_name, pk_field_names)
   VALUES
-    (1, 'D', 6, 'Delta', 'up_upsert_delta_active_table'),
-    (2, 'D', 6, 'Full', NULL);
+    (1, 'D', 6, 'Delta', 'up_upsert_delta_active_table', NULL),
+    (2, 'D', 6, 'Full', NULL, 'pk_field');
 
   
   INSERT INTO dbo.batch (start_date_time, entity_id, status_id, activity_id, directory_path, file_name, output)
@@ -45,8 +45,8 @@ BEGIN
     required_activities,
     skipped_activities
   ) VALUES
-    (1, 'DELTA_2023_05_01_12_00_00_000.parquet', '["CheckXUExtractionStatus","TestDuplicates","Load2Base","ProcessBase"]', '{"Extract": {"batch_id":"", "output":{}}}'),
-    (1, NULL, '["Extract","CheckXUExtractionStatus","TestDuplicates","Load2Base","ProcessBase"]', '{}'),
+    (1, 'DELTA_2023_05_01_12_00_00_000.parquet', '["CheckXUExtractionStatus","Load2Base","ProcessBase"]', '{"Extract": {"batch_id":"", "output":{}}}'),
+    (1, NULL, '["Extract","CheckXUExtractionStatus","Load2Base","ProcessBase"]', '{}'),
     (2, NULL, '["Extract","CheckXUExtractionStatus","TestDuplicates","Load2Base"]', '{}');
 
   EXEC tSQLt.AssertEqualsTable 'expected', 'actual';

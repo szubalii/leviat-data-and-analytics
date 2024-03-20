@@ -8,10 +8,11 @@ SELECT
   ef.entity_id,
   ef.layer_id,
   ef.file_name,
-  la.activity_id AS expected_activity_id
+  ea.expected_activity_id
 FROM
   [dbo].[vw_entity_file] ef
 LEFT JOIN
-  [layer_activity] la
+  [vw_entity_activity] ea
   ON
-    la.layer_id = ef.layer_id
+    ea.entity_id = ef.entity_id
+

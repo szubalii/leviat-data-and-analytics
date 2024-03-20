@@ -14,22 +14,23 @@ BEGIN
   INSERT INTO dbo.entity (
     entity_id, 
     layer_id,
-    update_mode
+    update_mode,
+    base_sproc_name
   )
   VALUES
-    (1, 6, 'Delta');
+    (1, 6, 'Delta', 'base_sproc');
 
-  DECLARE
-    @batch_id_1 UNIQUEIDENTIFIER = NEWID(),
-    @batch_id_2 UNIQUEIDENTIFIER = NEWID(),
-    @batch_id_3 UNIQUEIDENTIFIER = NEWID(),
-    @batch_id_4 UNIQUEIDENTIFIER = NEWID(),
-    @batch_id_5 UNIQUEIDENTIFIER = NEWID(),
-    @batch_id_6 UNIQUEIDENTIFIER = NEWID();
+  -- DECLARE
+  --   @batch_id_1 UNIQUEIDENTIFIER = NEWID(),
+  --   @batch_id_2 UNIQUEIDENTIFIER = NEWID(),
+  --   @batch_id_3 UNIQUEIDENTIFIER = NEWID(),
+  --   @batch_id_4 UNIQUEIDENTIFIER = NEWID(),
+  --   @batch_id_5 UNIQUEIDENTIFIER = NEWID(),
+  --   @batch_id_6 UNIQUEIDENTIFIER = NEWID();
   
   INSERT INTO dbo.batch (
-    batch_id,
-    run_id,
+    -- batch_id,
+    -- run_id,
     start_date_time,
     entity_id,
     status_id,
@@ -38,7 +39,7 @@ BEGIN
     output
   )
   VALUES
-    (@batch_id_1, NEWID(), '2023-06-01', 1, 2, 21, 'DELTA_2023_06_01_12_00_00_000.parquet', 'test_output');
+    ('2023-06-01', 1, 2, 21, 'DELTA_2023_06_01_12_00_00_000.parquet', 'test_output');
 
   -- Act: 
   SELECT
@@ -71,8 +72,7 @@ BEGIN
     (1, 'DELTA_2023_06_01_12_00_00_000.parquet', 'CheckXUExtractionStatus', 1),
     (1, 'DELTA_2023_06_01_12_00_00_000.parquet', 'Extract', 0),
     (1, 'DELTA_2023_06_01_12_00_00_000.parquet', 'Load2Base', 1),
-    (1, 'DELTA_2023_06_01_12_00_00_000.parquet', 'ProcessBase', 1),
-    (1, 'DELTA_2023_06_01_12_00_00_000.parquet', 'TestDuplicates', 1);
+    (1, 'DELTA_2023_06_01_12_00_00_000.parquet', 'ProcessBase', 1);
 
   EXEC tSQLt.AssertEqualsTable 'expected', 'actual';
 END;

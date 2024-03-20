@@ -55,17 +55,14 @@ BEGIN
     (1, 'DELTA_2023_06_01_12_00_00_000.parquet', 'Extract'),
     (1, 'DELTA_2023_06_01_12_00_00_000.parquet', 'Load2Base'),
     (1, 'DELTA_2023_06_01_12_00_00_000.parquet', 'ProcessBase'),
-    (1, 'DELTA_2023_06_01_12_00_00_000.parquet', 'TestDuplicates'),
     (1, NULL, 'CheckXUExtractionStatus'),
     (1, NULL, 'Extract'),
     (1, NULL, 'Load2Base'),
     (1, NULL, 'ProcessBase'),
-    (1, NULL, 'TestDuplicates'),
     (2, NULL, 'CheckXUExtractionStatus'),
     (2, NULL, 'Extract'),
     (2, NULL, 'Load2Base'),
-    (2, NULL, 'ProcessBase'),
-    (2, NULL, 'TestDuplicates');
+    (2, NULL, 'ProcessBase');
 
   EXEC tSQLt.AssertEqualsTable 'expected', 'actual';
 END;
