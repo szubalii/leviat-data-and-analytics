@@ -5752,32 +5752,28 @@
         "entity_name": "fact_BillingDocumentItem_s4h_active",
         "sproc_name": "sp_load_fact_BillingDocumentItem_s4h_active",
         "update_mode": "Delta",
-        "execution_order": 3,
-        "schedule_recurrence": "D"
+        "execution_order": 3
       },
       {
         "entity_id": 403,
         "entity_name": "fact_BillingDocumentItem_axbi",
         "sproc_name": "sp_load_fact_BillingDocumentItem_axbi",
         "update_mode": "Delta",
-        "execution_order": 2,
-        "schedule_recurrence": "D"
+        "execution_order": 2
       },
       {
         "entity_id": 404,
         "entity_name": "fact_SalesDocumentItem_s4h_active",
         "sproc_name": "sp_load_fact_SalesDocumentItem_s4h_active",
         "update_mode": "Delta",
-        "execution_order": 3,
-        "schedule_recurrence": "D"
+        "execution_order": 3
       },
       {
         "entity_id": 405,
         "entity_name": "fact_SalesDocumentItem_axbi",
         "sproc_name": "sp_load_fact_SalesDocumentItem_axbi",
         "execution_order": 1,
-        "update_mode": "Delta",
-        "schedule_recurrence": "D"
+        "update_mode": "Delta"
       },
       {
         "entity_id": 410,

@@ -46,7 +46,7 @@ RETURN
     ) AS isRequired
   FROM
     vw_full_load_entities [full]
-  LEFT JOIN
+  INNER JOIN
     vw_entity_activity ea
     ON
       ea.entity_id = [full].entity_id
