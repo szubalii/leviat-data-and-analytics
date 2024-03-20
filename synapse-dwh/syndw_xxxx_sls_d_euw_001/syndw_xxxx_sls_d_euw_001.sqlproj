@@ -663,6 +663,7 @@
     <Build Include="base_s4h_cax\Tables\C_SalesDocumentItemDEX_active.sql" />
     <Build Include="base_s4h_cax\Tables\I_MaterialDocumentHeader.sql" />
     <Build Include="base_s4h_cax\Tables\I_MaterialDocumentItem.sql" />
+    <Build Include="base_s4h_cax\Tables\Z_I_MaterialDocumentItem_MDOC_CP.sql" />
     <Build Include="base_s4h_cax\Tables\TVRO.sql" />
     <Build Include="base_s4h_cax\Tables\TVROT.sql" />
     <Build Include="base_s4h_cax\Tables\I_SDDocumentCompletePartners.sql" />
@@ -1234,6 +1235,7 @@
     <Build Include="edw\Views\vw_fact_SalesDocumentItem_ScheduleLineCount.sql" />
     <Build Include="edw\Views\vw_LatestGlobalParent.sql" />
     <Build Include="edw\Views\vw_BillingDocProject.sql" />
+    <Build Include="edw\Views\vw_MaterialDocumentItem_MDOC_CP.sql" />
     
     <Build Include="dq\Views\vw_Product_1_2.sql" />
     <Build Include="dq\Views\vw_RuleTotal.sql" />

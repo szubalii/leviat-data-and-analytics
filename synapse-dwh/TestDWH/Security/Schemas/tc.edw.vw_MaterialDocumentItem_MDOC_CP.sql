@@ -1,0 +1,1 @@
+CREATE SCHEMA [tc.edw.vw_MaterialDocumentItem_MDOC_CP]
