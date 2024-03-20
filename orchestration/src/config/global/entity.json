@@ -4479,7 +4479,18 @@
         "base_table_name": "I_Businesspartnersalesarea",
         "schedule_recurrence": "D",
         "pk_field_names": "MANDT, SALESORGANIZATION, DISTRIBUTIONCHANNEL, DIVISION, BUSINESSPARTNER"
-      }
+      },
+      {"entity_id": 650,
+      "entity_name": "Z_I_MaterialDocumentItem",
+      "data_category": "DIMENSION",
+      "client_field": "MANDT",
+      "tool_name": "Theobald",
+      "extraction_type": "Table",
+      "update_mode": "Full",
+      "base_table_name": "Z_I_MaterialDocumentItem_MDOC_CP",
+      "pk_field_names": "MANDT, MATERIALDOCUMENTYEAR, MATERIALDOCUMENT, MATERIALDOCUMENTITEM",
+      "schedule_recurrence": "D"
+    }
     ]
   },
   "c4c": {
