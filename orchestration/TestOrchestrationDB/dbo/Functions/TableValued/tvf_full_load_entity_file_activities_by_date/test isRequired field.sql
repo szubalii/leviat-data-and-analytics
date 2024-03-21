@@ -48,7 +48,6 @@ BEGIN
   VALUES
     (1, 'Extract', 0),
     (1, 'CheckXUExtractionStatus', 1),
-    (1, 'TestDuplicates', 1),
     (1, 'Load2Base', 1);
 
   EXEC tSQLt.AssertEqualsTable 'expected', 'actual';

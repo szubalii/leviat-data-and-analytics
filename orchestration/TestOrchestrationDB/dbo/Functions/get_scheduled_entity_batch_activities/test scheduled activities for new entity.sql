@@ -36,8 +36,8 @@ BEGIN
     required_activities,
     skipped_activities
   ) VALUES
-    (1, NULL, '["Extract","CheckXUExtractionStatus","TestDuplicates","Load2Base","ProcessBase"]', '{}'),
-    (2, NULL, '["Extract","CheckXUExtractionStatus","TestDuplicates","Load2Base"]', '{}');
+    (1, NULL, '["Extract","CheckXUExtractionStatus","Load2Base","ProcessBase"]', '{}'),
+    (2, NULL, '["Extract","CheckXUExtractionStatus","Load2Base"]', '{}');
 
   EXEC tSQLt.AssertEqualsTable 'expected', 'actual';
 

@@ -20,6 +20,12 @@ LEFT JOIN
   [batch_activity] ba
   ON
     ba.activity_id = la.activity_id
--- Don't return activities for ProcessBase activity if base_sproc_name value is not defined
 WHERE
-  NOT(la.activity_id = 15 AND base_sproc_name IS NULL)
+  -- Don't return activities for ProcessBase activity if base_sproc_name value is not defined
+  NOT(la.activity_id = 15 AND e.base_sproc_name IS NULL)
+  AND
+  -- Don't return activities for TestDuplicates activity if no primary key fields are defined
+  NOT(la.activity_id = 19 AND e.pk_field_names IS NULL)
+  AND
+  -- Return entities from the following layers only: S4H, AXBI, C4C, USA
+  e.layer_id IN (5, 6, 7, 8)
