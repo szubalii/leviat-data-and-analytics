@@ -1,0 +1,765 @@
+{
+    "functionName": "Z_THEO_READ_TABLE",
+    "runInBackgroundJob": false,
+    "backgroundJobTimeout": 180,
+    "tables": 
+    [
+        {
+            "name": "ZIMATDOCITEM",
+            "description": "Generated Table for View",
+            "isView": true,
+            "fields": 
+            [
+                {
+                    "name": "MANDT",
+                    "description": "Client",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": true
+                },
+                {
+                    "name": "MATERIALDOCUMENTYEAR",
+                    "description": "Material Document Year",
+                    "abapType": "NumericCharacterString",
+                    "length": 4,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": "GJAHR",
+                    "isClientField": false
+                },
+                {
+                    "name": "MATERIALDOCUMENT",
+                    "description": "Number of Material Document",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": "ALPHA",
+                    "isClientField": false
+                },
+                {
+                    "name": "MATERIALDOCUMENTITEM",
+                    "description": "Material Document Item",
+                    "abapType": "NumericCharacterString",
+                    "length": 4,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "MATERIAL",
+                    "description": "Material Number",
+                    "abapType": "CharacterString",
+                    "length": 40,
+                    "isSelected": true,
+                    "conversionExit": "MATN1",
+                    "isClientField": false
+                },
+                {
+                    "name": "PLANT",
+                    "description": "Plant",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "STORAGELOCATION",
+                    "description": "Storage Location",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "STORAGETYPE",
+                    "description": "Storage Type",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "STORAGEBIN",
+                    "description": "Storage Bin",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "BATCH",
+                    "description": "Batch Number",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "SHELFLIFEEXPIRATIONDATE",
+                    "description": "Shelf Life Expiration or Best-Before Date",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "MANUFACTUREDATE",
+                    "description": "Date of Manufacture",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "SUPPLIER",
+                    "description": "Vendor's account number",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": "ALPHA",
+                    "isClientField": false
+                },
+                {
+                    "name": "SALESORDER",
+                    "description": "Sales Order Number",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": "ALPHA",
+                    "isClientField": false
+                },
+                {
+                    "name": "SALESORDERITEM",
+                    "description": "Sales Order Item",
+                    "abapType": "NumericCharacterString",
+                    "length": 6,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "SALESORDERSCHEDULELINE",
+                    "description": "Sales Order Schedule",
+                    "abapType": "NumericCharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "WBSELEMENTINTERNALID",
+                    "description": "WBS Element Internal ID",
+                    "abapType": "NumericCharacterString",
+                    "length": 8,
+                    "isSelected": true,
+                    "formattedLength": 24,
+                    "conversionExit": "ABPSP",
+                    "isClientField": false
+                },
+                {
+                    "name": "CUSTOMER",
+                    "description": "Account number of customer",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": "ALPHA",
+                    "isClientField": false
+                },
+                {
+                    "name": "INVENTORYSPECIALSTOCKTYPE",
+                    "description": "Special Stock Type",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "INVENTORYSTOCKTYPE",
+                    "description": "Stock Type of Goods Movement (Stock Identifier)",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "STOCKOWNER",
+                    "description": "Additional Supplier for Special Stock",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": "ALPHA",
+                    "isClientField": false
+                },
+                {
+                    "name": "GOODSMOVEMENTTYPE",
+                    "description": "Movement Type (Inventory Management)",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "DEBITCREDITCODE",
+                    "description": "Debit/Credit Indicator",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "INVENTORYUSABILITYCODE",
+                    "description": "Posting Control Stock Type",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "QUANTITYINBASEUNIT",
+                    "description": "Quantity",
+                    "abapType": "PackedNumber",
+                    "length": 13,
+                    "decimalCount": 3,
+                    "isSelected": true,
+                    "formattedLength": 17,
+                    "conversionExit": "",
+                    "referenceTable": "ZIMATDOCITEM",
+                    "referenceField": "MATERIALBASEUNIT",
+                    "isClientField": false
+                },
+                {
+                    "name": "MATERIALBASEUNIT",
+                    "description": "Base Unit of Measure",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "conversionExit": "CUNIT",
+                    "isClientField": false
+                },
+                {
+                    "name": "QUANTITYINENTRYUNIT",
+                    "description": "Quantity in unit of entry",
+                    "abapType": "PackedNumber",
+                    "length": 13,
+                    "decimalCount": 3,
+                    "isSelected": true,
+                    "formattedLength": 17,
+                    "conversionExit": "",
+                    "referenceTable": "ZIMATDOCITEM",
+                    "referenceField": "ENTRYUNIT",
+                    "isClientField": false
+                },
+                {
+                    "name": "ENTRYUNIT",
+                    "description": "Unit of entry",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "conversionExit": "CUNIT",
+                    "isClientField": false
+                },
+                {
+                    "name": "POSTINGDATE",
+                    "description": "Posting Date in the Document",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "DOCUMENTDATE",
+                    "description": "Document Date in Document",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "TOTALGOODSMVTAMTINCCCRCY",
+                    "description": "Amount in Local Currency",
+                    "abapType": "PackedNumber",
+                    "length": 13,
+                    "decimalCount": 2,
+                    "isSelected": true,
+                    "formattedLength": 16,
+                    "conversionExit": "",
+                    "referenceTable": "ZIMATDOCITEM",
+                    "referenceField": "COMPANYCODECURRENCY",
+                    "isCurrency": true,
+                    "isClientField": false
+                },
+                {
+                    "name": "COMPANYCODECURRENCY",
+                    "description": "Company Code Currency",
+                    "abapType": "CharacterString",
+                    "length": 5,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "INVENTORYVALUATIONTYPE",
+                    "description": "Valuation Type",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "RESERVATIONISFINALLYISSUED",
+                    "description": "Final Issue for Reservation",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "PURCHASEORDER",
+                    "description": "Purchase order number",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": "ALPHA",
+                    "isClientField": false
+                },
+                {
+                    "name": "PURCHASEORDERITEM",
+                    "description": "Item Number of Purchasing Document",
+                    "abapType": "NumericCharacterString",
+                    "length": 5,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "PROJECTNETWORK",
+                    "description": "Network Number for Account Assignment",
+                    "abapType": "CharacterString",
+                    "length": 12,
+                    "isSelected": true,
+                    "conversionExit": "ALPHA",
+                    "isClientField": false
+                },
+                {
+                    "name": "ORDERID",
+                    "description": "Order Number",
+                    "abapType": "CharacterString",
+                    "length": 12,
+                    "isSelected": true,
+                    "conversionExit": "ALPHA",
+                    "isClientField": false
+                },
+                {
+                    "name": "ORDERITEM",
+                    "description": "Order Item",
+                    "abapType": "NumericCharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "RESERVATION",
+                    "description": "Number of reservation/dependent requirements",
+                    "abapType": "NumericCharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "RESERVATIONITEM",
+                    "description": "Item Number of Reservation / Dependent Requirements",
+                    "abapType": "NumericCharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "DELIVERYDOCUMENT",
+                    "description": "Delivery",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": "ALPHA",
+                    "isClientField": false
+                },
+                {
+                    "name": "DELIVERYDOCUMENTITEM",
+                    "description": "Delivery Document Item",
+                    "abapType": "NumericCharacterString",
+                    "length": 6,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "REVERSEDMATERIALDOCUMENTYEAR",
+                    "description": "Reversed Material Document Year",
+                    "abapType": "NumericCharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "conversionExit": "GJAHR",
+                    "isClientField": false
+                },
+                {
+                    "name": "REVERSEDMATERIALDOCUMENT",
+                    "description": "Reversed Material Document",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": "ALPHA",
+                    "isClientField": false
+                },
+                {
+                    "name": "REVERSEDMATERIALDOCUMENTITEM",
+                    "description": "Reversed Material Document Item",
+                    "abapType": "NumericCharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "RVSLOFGOODSRECEIPTISALLOWED",
+                    "description": "Reversal of GR allowed for GR-based IV despite invoice",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "GOODSRECIPIENTNAME",
+                    "description": "Goods Recipient",
+                    "abapType": "CharacterString",
+                    "length": 12,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "UNLOADINGPOINTNAME",
+                    "description": "Unloading Point",
+                    "abapType": "CharacterString",
+                    "length": 25,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "COSTCENTER",
+                    "description": "Cost Center",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": "ALPHA",
+                    "isClientField": false
+                },
+                {
+                    "name": "GLACCOUNT",
+                    "description": "G/L Account Number",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": "ALPHA",
+                    "isClientField": false
+                },
+                {
+                    "name": "SERVICEPERFORMER",
+                    "description": "Service Performer",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": "ALPHA",
+                    "isClientField": false
+                },
+                {
+                    "name": "EMPLOYMENTINTERNALID",
+                    "description": "Employment ID (Deprecated)",
+                    "abapType": "NumericCharacterString",
+                    "length": 8,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "ACCOUNTASSIGNMENTCATEGORY",
+                    "description": "Account Assignment Category",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "WORKITEM",
+                    "description": "Work Item ID",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "SERVICESRENDEREDDATE",
+                    "description": "Date on which services are rendered",
+                    "abapType": "Date",
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "ISSGORRCVGMATERIAL",
+                    "description": "Transfer Material",
+                    "abapType": "CharacterString",
+                    "length": 40,
+                    "isSelected": true,
+                    "conversionExit": "MATN1",
+                    "isClientField": false
+                },
+                {
+                    "name": "ISSUINGORRECEIVINGPLANT",
+                    "description": "Transfer Plant",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "ISSUINGORRECEIVINGSTORAGELOC",
+                    "description": "Receiving/issuing storage location",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "ISSGORRCVGBATCH",
+                    "description": "Transfer Batch",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "ISSGORRCVGSPCLSTOCKIND",
+                    "description": "Special Stock Indicator",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "COMPANYCODE",
+                    "description": "Company Code",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "BUSINESSAREA",
+                    "description": "Business Area",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "CONTROLLINGAREA",
+                    "description": "Controlling Area",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "FISCALYEARPERIOD",
+                    "description": "Period Year",
+                    "abapType": "NumericCharacterString",
+                    "length": 7,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "FISCALYEARVARIANT",
+                    "description": "Fiscal Year Variant",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "GOODSMOVEMENTREFDOCTYPE",
+                    "description": "Goods movement ref doc type",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "ISCOMPLETELYDELIVERED",
+                    "description": "\"Delivery Completed\" Indicator",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "MATERIALDOCUMENTITEMTEXT",
+                    "description": "Item Text",
+                    "abapType": "CharacterString",
+                    "length": 50,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "ISAUTOMATICALLYCREATED",
+                    "description": "Item Automatically Created Indicator",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "MATLSTKCHANGEQTYINBASEUNIT",
+                    "description": "Stock Quantity",
+                    "abapType": "PackedNumber",
+                    "length": 31,
+                    "decimalCount": 14,
+                    "isSelected": true,
+                    "formattedLength": 38,
+                    "conversionExit": "",
+                    "referenceTable": "ZIMATDOCITEM",
+                    "referenceField": "ENTRYUNIT",
+                    "isClientField": false
+                },
+                {
+                    "name": "MATLCNSMPNQTYINMATLBASEUNIT",
+                    "description": "Consumption Quantity",
+                    "abapType": "PackedNumber",
+                    "length": 31,
+                    "decimalCount": 14,
+                    "isSelected": true,
+                    "formattedLength": 38,
+                    "conversionExit": "",
+                    "referenceTable": "ZIMATDOCITEM",
+                    "referenceField": "ENTRYUNIT",
+                    "isClientField": false
+                },
+                {
+                    "name": "GOODSRECEIPTQTYINORDERUNIT",
+                    "description": "Goods receipt quantity in order unit",
+                    "abapType": "PackedNumber",
+                    "length": 13,
+                    "decimalCount": 3,
+                    "isSelected": true,
+                    "formattedLength": 17,
+                    "conversionExit": "",
+                    "referenceTable": "ZIMATDOCITEM",
+                    "referenceField": "ENTRYUNIT",
+                    "isClientField": false
+                },
+                {
+                    "name": "GOODSMOVEMENTISCANCELLED",
+                    "description": "Item has been Cancelled",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "GOODSMOVEMENTCANCELLATIONTYPE",
+                    "description": "Relevance for Analytics",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "CONSUMPTIONPOSTING",
+                    "description": "Consumption posting",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "MANUFACTURINGORDER",
+                    "description": "Manufacturing Order",
+                    "abapType": "CharacterString",
+                    "length": 12,
+                    "isSelected": true,
+                    "conversionExit": "ALPHA",
+                    "isClientField": false
+                },
+                {
+                    "name": "MANUFACTURINGORDERITEM",
+                    "description": "Manufacturing Order Item",
+                    "abapType": "NumericCharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "ISREVERSALMOVEMENTTYPE",
+                    "description": "Has Reversal Movement Type",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "MATERIALDOCUMENTRECORDTYPE",
+                    "description": "Record Type",
+                    "abapType": "CharacterString",
+                    "length": 30,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                }
+            ]
+        }
+    ],
+    "complexRuntimeParameters": {
+    },
+    "whereSequence": [
+    ]
+}

@@ -136,6 +136,7 @@
     [ConsumptionValueByLatestPrice_USD]         decimal(38,6), 
     [PlantSalesOrgID]                           NVARCHAR(4),
     [sk_ProductSalesOrg]                        INT,
+    [MaterialDocumentRecordType]                NVARCHAR(9),
     [t_applicationId]                           VARCHAR(32),
     [t_extractionDtm]                           DATETIME,
     [t_jobId]                                   VARCHAR(36),
