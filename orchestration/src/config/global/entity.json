@@ -15,7 +15,8 @@
         "update_mode": "Full",
         "base_table_name": "I_CostCenter",
         "pk_field_names": "CONTROLLINGAREA, COSTCENTER, VALIDITYENDDATE",
-        "schedule_recurrence": "D"
+        "schedule_recurrence": "W",
+        "schedule_day": 2
       },
       {
         "entity_id": 2,
@@ -39,7 +40,8 @@
         "update_mode": "Full",
         "base_table_name": "I_ProfitCenterText",
         "pk_field_names": "LANGUAGE, CONTROLLINGAREA, PROFITCENTER, VALIDITYENDDATE",
-        "schedule_recurrence": "D"
+        "schedule_recurrence": "W",
+        "schedule_day": 2
       },
       {
         "entity_id": 4,
@@ -208,7 +210,8 @@
         "update_mode": "Full",
         "base_table_name": "I_ProfitCenter",
         "pk_field_names": "CONTROLLINGAREA, PROFITCENTER, VALIDITYENDDATE",
-        "schedule_recurrence": "D"
+        "schedule_recurrence": "W",
+        "schedule_day": 2
       },
       {
         "entity_id": 29,
@@ -232,7 +235,8 @@
         "update_mode": "Full",
         "base_table_name": "I_CostCenterText",
         "pk_field_names": "COSTCENTER, CONTROLLINGAREA, LANGUAGE, VALIDITYENDDATE",
-        "schedule_recurrence": "D"
+        "schedule_recurrence": "W",
+        "schedule_day": 2
       },
       {
         "entity_id": 31,
@@ -244,7 +248,8 @@
         "update_mode": "Full",
         "base_table_name": "I_CustomerAccountAssgmtGroupT",
         "pk_field_names": "CUSTOMERACCOUNTASSIGNMENTGROUP, LANGUAGE",
-        "schedule_recurrence": "D"
+        "schedule_recurrence": "W",
+        "schedule_day": 2
       },
       {
         "entity_id": 32,
@@ -268,7 +273,7 @@
         "update_mode": "Full",
         "base_table_name": "I_ExchangeRateTypeText",
         "pk_field_names": "EXCHANGERATETYPE, LANGUAGE",
-        "schedule_recurrence": "D"
+        "schedule_recurrence": "A"
       },
       {
         "entity_id": 34,
@@ -280,7 +285,8 @@
         "update_mode": "Full",
         "base_table_name": "I_Plant",
         "pk_field_names": "PLANT",
-        "schedule_recurrence": "D"
+        "schedule_recurrence": "W",
+        "schedule_day": 2
       },
       {
         "entity_id": 35,
@@ -292,7 +298,8 @@
         "update_mode": "Full",
         "base_table_name": "I_SalesDistrict",
         "pk_field_names": "SALESDISTRICT",
-        "schedule_recurrence": "D"
+        "schedule_recurrence": "W",
+        "schedule_day": 2
       },
       {
         "entity_id": 36,
@@ -304,7 +311,8 @@
         "update_mode": "Full",
         "base_table_name": "I_SalesDistrictText",
         "pk_field_names": "SALESDISTRICT, LANGUAGE",
-        "schedule_recurrence": "D"
+        "schedule_recurrence": "W",
+        "schedule_day": 2
       },
       {
         "entity_id": 37,
@@ -316,7 +324,8 @@
         "update_mode": "Full",
         "base_table_name": "I_SalesOrganization",
         "pk_field_names": "SALESORGANIZATION",
-        "schedule_recurrence": "D"
+        "schedule_recurrence": "W",
+        "schedule_day": 2
       },
       {
         "entity_id": 38,
@@ -328,7 +337,8 @@
         "update_mode": "Full",
         "base_table_name": "I_SalesOrganizationText",
         "pk_field_names": "SALESORGANIZATION, LANGUAGE",
-        "schedule_recurrence": "D"
+        "schedule_recurrence": "W",
+        "schedule_day": 2
       },
       {
         "entity_id": 39,
@@ -340,7 +350,8 @@
         "update_mode": "Full",
         "base_table_name": "I_StorageLocation",
         "pk_field_names": "PLANT, STORAGELOCATION",
-        "schedule_recurrence": "D"
+        "schedule_recurrence": "W",
+        "schedule_day": 2
       },
       {
         "entity_id": 40,
@@ -445,7 +456,7 @@
         "update_mode": "Full",
         "base_table_name": "I_CompanyCode",
         "pk_field_names": "COMPANYCODE",
-        "schedule_recurrence": "D"
+        "schedule_recurrence": "A"
       },
       {
         "entity_id": 99,
@@ -1480,7 +1491,8 @@
         "update_mode": "Full",
         "base_table_name": "I_DistributionChannelText",
         "pk_field_names": "DISTRIBUTIONCHANNEL, LANGUAGE",
-        "schedule_recurrence": "D"
+        "schedule_recurrence": "W",
+        "schedule_day": 2
       },
       {
         "entity_id": 186,
@@ -2559,7 +2571,8 @@
         "update_mode": "Full",
         "base_table_name": "I_ProductTypeText",
         "pk_field_names": "PRODUCTTYPE, LANGUAGE",
-        "schedule_recurrence": "D"
+        "schedule_recurrence": "W",
+        "schedule_day": 2
       },
       {
         "entity_id": 276,
@@ -3143,7 +3156,8 @@
         "update_mode": "Full",
         "base_table_name": "TVRO",
         "pk_field_names": "ROUTE",
-        "schedule_recurrence": "D"
+        "schedule_recurrence": "W",
+        "schedule_day": 2
       },
       {
         "entity_id": 396,
@@ -3155,7 +3169,8 @@
         "update_mode": "Full",
         "base_table_name": "TVROT",
         "pk_field_names": "SPRAS, ROUTE",
-        "schedule_recurrence": "D"
+        "schedule_recurrence": "W",
+        "schedule_day": 2
       },
       {
         "entity_id": 406,
@@ -3202,7 +3217,8 @@
         "update_mode": "Full",
         "base_table_name": "I_InventoryStockTypeT",
         "pk_field_names": "INVENTORYSTOCKTYPE, LANGUAGE",
-        "schedule_recurrence": "D"
+        "schedule_recurrence": "W",
+        "schedule_day": 2
       },
       {
         "entity_id": 413,
@@ -3214,7 +3230,7 @@
         "update_mode": "Full",
         "base_table_name": "I_GoodsMovementType",
         "pk_field_names": "GOODSMOVEMENTTYPE",
-        "schedule_recurrence": "D"
+        "schedule_recurrence": "A"
       },
       {
         "entity_id": 416,
@@ -3238,7 +3254,8 @@
         "update_mode": "Full",
         "base_table_name": "I_PurchasingDocumentTypeText",
         "pk_field_names": "PURCHASINGDOCUMENTTYPE, PURCHASINGDOCUMENTCATEGORY, LANGUAGE",
-        "schedule_recurrence": "D"
+        "schedule_recurrence": "W",
+        "schedule_day": 2
       },
       {
         "entity_id": 418,
@@ -3250,7 +3267,8 @@
         "update_mode": "Full",
         "base_table_name": "I_PurchasingDocumentType",
         "pk_field_names": "PURCHASINGDOCUMENTCATEGORY, PURCHASINGDOCUMENTTYPE",
-        "schedule_recurrence": "D"
+        "schedule_recurrence": "W",
+        "schedule_day": 2
       },
       {
         "entity_id": 420,
@@ -3306,7 +3324,8 @@
         "update_mode": "Full",
         "base_table_name": "I_InventoryValuationType",
         "pk_field_names": "INVENTORYVALUATIONTYPE",
-        "schedule_recurrence": "D"
+        "schedule_recurrence": "W",
+        "schedule_day": 2
       },
       {
         "entity_id": 426,
@@ -3318,7 +3337,8 @@
         "update_mode": "Full",
         "base_table_name": "I_Prodvaluationclasstxt",
         "pk_field_names": "MANDT, VALUATIONCLASS, LANGUAGE",
-        "schedule_recurrence": "D"
+        "schedule_recurrence": "W",
+        "schedule_day": 2
       },
       {
         "entity_id": 427,
@@ -3330,7 +3350,8 @@
         "update_mode": "Full",
         "base_table_name": "T149T",
         "pk_field_names": "MANDT, SPRAS, BWTTY, BTBEZ",
-        "schedule_recurrence": "D"
+        "schedule_recurrence": "W",
+        "schedule_day": 2
       },
       {
         "entity_id": 428,
@@ -3342,7 +3363,8 @@
         "update_mode": "Full",
         "base_table_name": "T025L",
         "pk_field_names": "MANDT, SPRAS, KKREF",
-        "schedule_recurrence": "D"
+        "schedule_recurrence": "W",
+        "schedule_day": 2
       },
       {
         "entity_id": 434,
@@ -3366,7 +3388,8 @@
         "update_mode": "Full",
         "base_table_name": "I_Purreqvaluationarea",
         "pk_field_names": "MANDT, VALUATIONAREA",
-        "schedule_recurrence": "D"
+        "schedule_recurrence": "W",
+        "schedule_day": 2
       },
       {
         "entity_id": 440,
@@ -3643,7 +3666,7 @@
         "update_mode": "Full",
         "base_table_name": "I_GLAccountLineItemRawData_202311",
         "pk_field_names": "SOURCELEDGER, COMPANYCODE, FISCALYEAR, ACCOUNTINGDOCUMENT, LEDGERGLLINEITEM",
-        "schedule_recurrence": "D"
+        "schedule_recurrence": "A"
       },{
         "entity_id": 624,
         "entity_name": "I_GLAccountLineItemRawData_F_202312",
@@ -3654,7 +3677,7 @@
         "update_mode": "Full",
         "base_table_name": "I_GLAccountLineItemRawData_202312",
         "pk_field_names": "SOURCELEDGER, COMPANYCODE, FISCALYEAR, ACCOUNTINGDOCUMENT, LEDGERGLLINEITEM",
-        "schedule_recurrence": "D"
+        "schedule_recurrence": "A"
       },{
         "entity_id": 633,
         "entity_name": "I_GLAccountLineItemRawData_F_202401",
@@ -3803,7 +3826,8 @@
         "update_mode": "Full",
         "base_table_name": "I_PurchasingOrganization",
         "pk_field_names": "MANDT, PURCHASINGORGANIZATION",
-        "schedule_recurrence": "D"
+        "schedule_recurrence": "W",
+        "schedule_day": 2
       },
       {
         "entity_id": 472,
@@ -3815,7 +3839,8 @@
         "update_mode": "Full",
         "base_table_name": "I_PurchasingGroup",
         "pk_field_names": "MANDT, PURCHASINGGROUP",
-        "schedule_recurrence": "D"
+        "schedule_recurrence": "W",
+        "schedule_day": 2
       },
       {
         "entity_id": 473,
@@ -3827,7 +3852,8 @@
         "update_mode": "Full",
         "base_table_name": "I_PurchasingDocumentStatusText",
         "pk_field_names": "PURCHASINGDOCUMENTSTATUS, LANGUAGE",
-        "schedule_recurrence": "D"
+        "schedule_recurrence": "W",
+        "schedule_day": 2
       },
       {
         "entity_id": 474,
@@ -3850,7 +3876,8 @@
         "update_mode": "Full",
         "base_table_name": "I_PurgDocumentCategoryText",
         "pk_field_names": "PURCHASINGDOCUMENTCATEGORY, LANGUAGE",
-        "schedule_recurrence": "D"
+        "schedule_recurrence": "W",
+        "schedule_day": 2
       },
       {
         "entity_id": 477,
@@ -3898,7 +3925,8 @@
         "update_mode": "Full",
         "base_table_name": "I_PurgDocumentItemCategoryText",
         "pk_field_names": "MANDT, PURCHASINGDOCUMENTITEMCATEGORY, LANGUAGE",
-        "schedule_recurrence": "D"
+        "schedule_recurrence": "W",
+        "schedule_day": 2
       },
       {
         "entity_id": 486,
@@ -3910,7 +3938,8 @@
         "update_mode": "Full",
         "base_table_name": "I_PurgDocumentItemCategory",
         "pk_field_names": "MANDT, PURCHASINGDOCUMENTITEMCATEGORY",
-        "schedule_recurrence": "D"
+        "schedule_recurrence": "W",
+        "schedule_day": 2
       },
       {
         "entity_id": 494,
@@ -4055,7 +4084,8 @@
         "update_mode": "Full",
         "base_table_name": "P_ConditionTypeText",
         "pk_field_names": "MANDT, SPRAS, KSCHL, KAPPL, KVEWE",
-        "schedule_recurrence": "D"
+        "schedule_recurrence": "W",
+        "schedule_day": 2
       },
       {
         "entity_id": 546,
@@ -4185,7 +4215,8 @@
         "extraction_type": "Table",
         "update_mode": "Full",
         "base_table_name": "I_PersonWorkAgreement_1",
-        "schedule_recurrence": "D",
+        "schedule_recurrence": "W",
+        "schedule_day": 2,
         "pk_field_names": "MANDT, PERSONWORKAGREEMENT"
       },
       {
@@ -4197,7 +4228,8 @@
         "extraction_type": "Table",
         "update_mode": "Full",
         "base_table_name": "I_BusinessPartnerBank",
-        "schedule_recurrence": "D",
+        "schedule_recurrence": "W",
+        "schedule_day": 2,
         "pk_field_names": "MANDT, BUSINESSPARTNER, BANKIDENTIFICATION"
       },
       {
@@ -4290,7 +4322,8 @@
         "extraction_type": "Table",
         "update_mode": "Full",
         "base_table_name": "I_BusinessPartnerGroupingText",
-        "schedule_recurrence": "D",
+        "schedule_recurrence": "W",
+        "schedule_day": 2,
         "pk_field_names": "MANDT, LANGUAGE, BUSINESSPARTNERGROUPING"
       },
       {
@@ -4410,7 +4443,8 @@
         "extraction_type": "Table",
         "update_mode": "Full",
         "base_table_name": "AGR_AGRS",
-        "schedule_recurrence": "D",
+        "schedule_recurrence": "W",
+        "schedule_day": 2,
         "pk_field_names": "MANDT, AGR_NAME, CHILD_AGR"
       },
       {
@@ -4421,7 +4455,8 @@
         "extraction_type": "Table",
         "update_mode": "Full",
         "base_table_name": "AGR_TEXTS",
-        "schedule_recurrence": "D",
+        "schedule_recurrence": "W",
+        "schedule_day": 2,
         "pk_field_names": "MANDT, AGR_NAME, SPRAS, LINE"
       },
       {
@@ -4465,7 +4500,8 @@
         "extraction_type": "Table",
         "update_mode": "Full",
         "base_table_name": "AGR_DEFINE",
-        "schedule_recurrence": "D",
+        "schedule_recurrence": "W",
+        "schedule_day": 2,
         "pk_field_names": "MANDT, AGR_NAME"
       },
       {
@@ -5054,7 +5090,8 @@
         "source_view_name": "vw_ProfitCenter",
         "dest_table_name": "dim_ProfitCenter",
         "execution_order": 0,
-        "schedule_recurrence": "D"
+        "schedule_recurrence": "W",
+        "schedule_day": 2
       },
       {
         "entity_id": 57,
@@ -5063,7 +5100,8 @@
         "source_view_name": "vw_CostCenter",
         "dest_table_name": "dim_CostCenter",
         "execution_order": 0,
-        "schedule_recurrence": "D"
+        "schedule_recurrence": "W",
+        "schedule_day": 2
       },
       {
         "entity_id": 58,
@@ -5072,7 +5110,7 @@
         "source_view_name": "vw_ExchangeRateType",
         "dest_table_name": "dim_ExchangeRateType",
         "execution_order": 0,
-        "schedule_recurrence": "D"
+        "schedule_recurrence": "A"
       },
       {
         "entity_id": 59,
@@ -5081,7 +5119,8 @@
         "source_view_name": "vw_CustomerAccountAssignmentGroup",
         "dest_table_name": "dim_CustomerAccountAssignmentGroup",
         "execution_order": 0,
-        "schedule_recurrence": "D"
+        "schedule_recurrence": "W",
+        "schedule_day": 2
       },
       {
         "entity_id": 60,
@@ -5090,7 +5129,8 @@
         "source_view_name": "vw_Plant",
         "dest_table_name": "dim_Plant",
         "execution_order": 0,
-        "schedule_recurrence": "D"
+        "schedule_recurrence": "W",
+        "schedule_day": 2
       },
       {
         "entity_id": 61,
@@ -5099,7 +5139,8 @@
         "source_view_name": "vw_SalesDistrict",
         "dest_table_name": "dim_SalesDistrict",
         "execution_order": 0,
-        "schedule_recurrence": "D"
+        "schedule_recurrence": "W",
+        "schedule_day": 2
       },
       {
         "entity_id": 62,
@@ -5108,7 +5149,8 @@
         "source_view_name": "vw_SalesOrganization",
         "dest_table_name": "dim_SalesOrganization",
         "execution_order": 0,
-        "schedule_recurrence": "D"
+        "schedule_recurrence": "W",
+        "schedule_day": 2
       },
       {
         "entity_id": 63,
@@ -5117,7 +5159,8 @@
         "source_view_name": "vw_StorageLocation",
         "dest_table_name": "dim_StorageLocation",
         "execution_order": 0,
-        "schedule_recurrence": "D"
+        "schedule_recurrence": "W",
+        "schedule_day": 2
       },
       {
         "entity_id": 65,
@@ -5818,7 +5861,8 @@
         "source_view_name": "vw_InventoryStockType",
         "dest_table_name": "dim_InventoryStockType",
         "execution_order": 0,
-        "schedule_recurrence": "D"
+        "schedule_recurrence": "W",
+        "schedule_day": 2
       },
       {
         "entity_id": 419,
