@@ -1,6 +1,6 @@
 ﻿CREATE PROC [edw].[sp_materialize_view]
 	@SourceSchema NVARCHAR(128),
-	@SourceView  NVARCHAR(128),
+	@SourceView NVARCHAR(128),
 	@DestSchema NVARCHAR(128),
 	@DestTable NVARCHAR(128),
 	@t_jobId VARCHAR(36),
@@ -14,84 +14,73 @@ BEGIN
 	DECLARE @Columns NVARCHAR(MAX);
 	DECLARE @errmessage NVARCHAR(2048);
 
+  -- Test if the provided destination table name exists
 	IF OBJECT_ID(@DestSchema + '.' + @DestTable, 'U') IS NULL
 	BEGIN
-		SET @errmessage = 'Object [' + @DestSchema + '].['+ @DestTable +'] does not exist. 
-            Please check parameter values: @DestSchema = ''' + @DestSchema + 
-            ''',@DestTable = ''' + @DestTable + '''';
+		SET @errmessage = 'Object [' + @DestSchema + '].['+ @DestTable +'] does not exist.' + CHAR(13) + CHAR(10) +
+      'Please check parameter values: @DestSchema = ''' + @DestSchema + ''',@DestTable = ''' + @DestTable + '''';
 		THROW 50001, @errmessage, 1;
 	END
 
+-- Test if the provided view name exists
 	IF NOT EXISTS(
 		SELECT 1 
-		FROM sys.views 
-		JOIN sys.[schemas] 
-			ON sys.views.schema_id = sys.[schemas].schema_id 
+		FROM sys.views
+		JOIN sys.[schemas]
+			ON sys.views.schema_id = sys.[schemas].schema_id
 		WHERE 
-			sys.[schemas].name = @SourceSchema 
-			AND 
-			sys.views.name = @SourceView 
-			AND 
+			sys.[schemas].name = @SourceSchema
+			AND
+			sys.views.name = @SourceView
+			AND
 			sys.views.type = 'v'
 	)
 	BEGIN
-		SET @errmessage = 'Object [' + @SourceSchema + '].['+ @SourceView +'] does not exist. 
-            Please check parameter values: @SourceSchema = ''' + @SourceSchema + 
-            ''',@SourceView = ''' + @SourceView + '''';
+		SET @errmessage = 'Object [' + @SourceSchema + '].['+ @SourceView +'] does not exist.'  + CHAR(13) + CHAR(10) +
+      'Please check parameter values: @SourceSchema = ''' + @SourceSchema + ''',@SourceView = ''' + @SourceView + '''';
 		THROW 50001, @errmessage, 1;
 	END
 
+  -- Store the destination table contents to temp backup table
+  -- Truncate the destination table
 	BEGIN
-		SET @create_tmp_script = N'
-			IF OBJECT_ID(''[' + @DestSchema + '].[' + @DestTable + '_tmp]'') IS NOT NULL
-				DROP TABLE [' + @DestSchema + '].[' + @DestTable + '_tmp];
-			
-			SELECT TOP 0 * 
-            INTO [' + @DestSchema + '].[' + @DestTable + '_tmp] 
-            FROM [' + @DestSchema + '].[' + @DestTable + '];';
+		SET @create_tmp_script = utilities.svf_getMaterializeTempScript(
+      @DestSchema,
+      @DestTable
+    );
 
-        EXECUTE sp_executesql @create_tmp_script;
+    EXECUTE sp_executesql @create_tmp_script;
 
-	--Insert data
-        SET @Columns = (
-            SELECT 
-                STRING_AGG(
-                    CAST('[' + src.COLUMN_NAME + ']' AS NVARCHAR(MAX)), 
-                    ','
-                ) 
-            FROM 
-                INFORMATION_SCHEMA.COLUMNS src
-            JOIN 
-                INFORMATION_SCHEMA.COLUMNS dest
-                ON 
-                    src.COLUMN_NAME = dest.COLUMN_NAME
-            WHERE 
-                src.COLUMN_NAME NOT IN ('t_jobId','t_jobDtm','t_lastActionCd','t_jobBy')
-                AND src.TABLE_SCHEMA = @SourceSchema
-                AND src.TABLE_NAME = @SourceView
-                AND dest.TABLE_SCHEMA = @DestSchema
-                AND dest.TABLE_NAME = @DestTable
-        );
+	  -- Retrieve the column list of the provided destination table
+    SET @Columns = (
+      SELECT
+        non_t_job_col_names
+      FROM
+        utilities.vw_MaterializeColumnList
+      WHERE
+        table_name = @DestTable
+        AND
+        schema_name = @DestSchema
+    );
 
-        DECLARE @insert_script NVARCHAR(MAX) = N'
-            INSERT INTO 
-                [' + @DestSchema + '].[' + @DestTable + '_tmp]' + '(' + @Columns + ',t_jobId,t_jobDtm,t_lastActionCd,t_jobBy' + ') 
-            SELECT 
-                ' + @Columns + '
-            ,	''' + @t_jobId + ''' AS t_jobId
-            ,	''' + CONVERT(NVARCHAR(23), @t_jobDtm, 121) + ''' AS t_jobDtm
-            ,	''' + @t_lastActionCd + ''' AS t_lastActionCd
-            ,	''' + @t_jobBy + ''' AS t_jobBy
-            FROM 
-                [' + @SourceSchema + '].[' + @SourceView + ']';
+    -- Create the insert statement script
+    DECLARE @insert_script NVARCHAR(MAX) = utilities.svf_getMaterializeInsertScript(
+      @DestSchema,
+      @DestTable,
+      @Columns,
+      @t_jobId,
+      @t_jobDtm,
+      @t_lastActionCd,
+      @t_jobBy
+    );
 
-        EXECUTE sp_executesql @insert_script;
+    EXECUTE sp_executesql @insert_script;
 
-        DECLARE @rename_script NVARCHAR(MAX) = N'
-            RENAME OBJECT [' + @DestSchema + '].[' + @DestTable + '] TO [' + @DestTable + '_old];
-            RENAME OBJECT [' + @DestSchema + '].[' + @DestTable + '_tmp] TO [' + @DestTable + '];
-            DROP TABLE [' + @DestSchema + '].[' + @DestTable + '_old]';
+      -- DECLARE @rename_script NVARCHAR(MAX) = N'
+      --     RENAME OBJECT [' + @DestSchema + '].[' + @DestTable + '] TO [' + @DestTable + '_old];
+      --     RENAME OBJECT [' + @DestSchema + '].[' + @DestTable + '_tmp] TO [' + @DestTable + '];
+      --     DROP TABLE [' + @DestSchema + '].[' + @DestTable + '_old]';
 
-        EXECUTE sp_executesql @rename_script;
-    END
+      -- EXECUTE sp_executesql @rename_script;
+  END
 END
