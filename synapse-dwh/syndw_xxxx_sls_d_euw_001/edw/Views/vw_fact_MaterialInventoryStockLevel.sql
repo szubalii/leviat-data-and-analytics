@@ -15,7 +15,6 @@ AS
 WITH
 StockLevels AS (
   SELECT
-      -- [_hash]
     [MaterialID]
   , [PlantID]
   , [StorageLocationID]
