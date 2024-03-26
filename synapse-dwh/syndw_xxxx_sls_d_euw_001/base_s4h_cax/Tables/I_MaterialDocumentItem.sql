@@ -13,7 +13,9 @@
     [ShelfLifeExpirationDate]       date,
     [ManufactureDate]               date,
     [Supplier]                      nvarchar(10) collate Latin1_General_100_BIN2,
-    [SalesOrder]                    nvarchar(10) collate Latin1_General_100_BIN2,
+    -- make sure same data type and length of SalesOrder is equal to SalesDocument in fact_SalesDocumentItem
+    -- so join performance is sped up
+    [SalesOrder]                    nvarchar(20) collate Latin1_General_100_BIN2,
     [SalesOrderItem]                char(6) collate Latin1_General_100_BIN2,
     [SalesOrderScheduleLine]        char(4) collate Latin1_General_100_BIN2,
     [WBSElementInternalID]          char(8) collate Latin1_General_100_BIN2,
@@ -90,5 +92,5 @@
   ) NOT ENFORCED
 )
 WITH (
-  HEAP
+  HEAP, DISTRIBUTION = HASH ([SalesOrder])
 )

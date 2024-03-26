@@ -22,5 +22,5 @@
     [t_extractionDtm]       DATETIME,
     [t_filePath]            NVARCHAR (1024)  NULL
 )
-WITH (HEAP, DISTRIBUTION = ROUND_ROBIN);
+WITH (HEAP, DISTRIBUTION = REPLICATE);
 
