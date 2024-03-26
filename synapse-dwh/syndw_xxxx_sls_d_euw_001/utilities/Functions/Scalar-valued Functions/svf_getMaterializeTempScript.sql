@@ -6,16 +6,15 @@ CREATE FUNCTION [utilities].[svf_getMaterializeTempScript](
 RETURNS NVARCHAR(MAX)
 AS
 BEGIN
-  SET @create_tmp_script = N'
-    IF OBJECT_ID(''tempdb..#' + @DestSchema + '.' + @DestTable + ']'') IS NOT NULL
-      DROP TABLE [tempdb..#' + @DestSchema + '.' + @DestTable + '];
-    
-    SELECT *
-    INTO [tempdb..#' + @DestSchema + '.' + @DestTable + ']
-    FROM [' + @DestSchema + '].[' + @DestTable + '];
-    GO;
+  DECLARE @create_tmp_script NVARCHAR(MAX) = N'
+IF OBJECT_ID(''tempdb..#' + @DestSchema + '_' + @DestTable + ''') IS NOT NULL
+  DROP TABLE [tempdb..#' + @DestSchema + '_' + @DestTable + '];
 
-    TRUNCATE TABLE [' + @DestSchema + '].[' + @DestTable + ']';
+SELECT *
+INTO [#' + @DestSchema + '_' + @DestTable + ']
+FROM [' + @DestSchema + '].[' + @DestTable + '];
+
+TRUNCATE TABLE [' + @DestSchema + '].[' + @DestTable + ']';
 
   RETURN(@create_tmp_script);
 END;

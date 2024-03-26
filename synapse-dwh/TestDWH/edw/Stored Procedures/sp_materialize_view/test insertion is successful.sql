@@ -13,30 +13,22 @@ BEGIN
     [t_lastActionCd] VARCHAR(1),
     [t_jobBy] NVARCHAR(128)
   );
-  GO;
-
-  CREATE VIEW [edw].[vw_test]
-  AS
-  SELECT
-    1 AS [id],
-    'test' AS [t_applicationId];
-  GO;
 
   DECLARE
     @DestSchema NVARCHAR(128) = 'edw',
     @DestTable NVARCHAR(128) = 'dim_test',
     @SourceSchema NVARCHAR(128) = 'edw',
-    @SourceView NVARCHAR(128) = 'vw_test',
+    @SourceView NVARCHAR(128) = 'vw_TestMaterialize',
     @t_jobId VARCHAR(36) = '1',
     @t_jobDtm DATETIME = '2024-03-26',
     @t_lastActionCd VARCHAR(1) = 'I',
     @t_jobBy NVARCHAR(128) = 'system_user';
 
   EXEC edw.sp_materialize_view
-    @DestSchema,
-    @DestTable,
     @SourceSchema,
     @SourceView,
+    @DestSchema,
+    @DestTable,
     @t_jobId,
     @t_jobDtm,
     @t_lastActionCd,
@@ -67,6 +59,19 @@ BEGIN
   EXEC tSQLt.AssertEqualsTable 'expected', 'actual';
 
   DROP TABLE [edw].[dim_test];
-  DROP VIEW [edw].[vw_test];
 
 END
+
+-- select OBJECT_ID('edw.vw_SalesOffice', 'V')
+
+
+-- SELECT 1 
+-- FROM sys.views
+-- JOIN sys.[schemas]
+--   ON sys.views.schema_id = sys.[schemas].schema_id
+-- WHERE 
+--   sys.[schemas].name = 'edw'
+--   AND
+--   sys.views.name = 'vw_TestMaterialize'
+--   AND
+--   sys.views.type = 'v'

@@ -16,13 +16,12 @@ BEGIN
       @DestTable
     ),
     @expected NVARCHAR(MAX) = N'
-IF OBJECT_ID(''tempdb..#edw.dim_table]'') IS NOT NULL
-  DROP TABLE [tempdb..#edw.dim_table];
+IF OBJECT_ID(''tempdb..#edw_dim_table'') IS NOT NULL
+  DROP TABLE [tempdb..#edw_dim_table];
 
 SELECT *
-INTO [tempdb..#edw.dim_table]
+INTO [#edw_dim_table]
 FROM [edw].[dim_table];
-GO;
 
 TRUNCATE TABLE [edw].[dim_table]';
 

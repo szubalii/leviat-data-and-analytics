@@ -1,4 +1,22 @@
-﻿CREATE PROC [edw].[sp_materialize_view]
+﻿/*
+
+  This stored procedure handles the materialization of data from a provided source view
+  into a provided destination table. 
+
+  To make sure the destination table keeps the same distribution and indexes the following
+  approach is taken:
+  
+  1. Store the current data in the destination table into a temp table
+  2. Truncate the destination table
+  3. Insert the new data from the view into the destination table
+  
+  If anything goes wrong during the insert:
+  4. Truncate the destination table once more
+  5. Insert the data from the temp table back into the destination table
+
+*/
+
+CREATE PROC [edw].[sp_materialize_view]
 	@SourceSchema NVARCHAR(128),
 	@SourceView NVARCHAR(128),
 	@DestSchema NVARCHAR(128),
@@ -10,9 +28,13 @@
 AS
 BEGIN
 
-	DECLARE @create_tmp_script NVARCHAR(MAX);
-	DECLARE @Columns NVARCHAR(MAX);
-	DECLARE @errmessage NVARCHAR(2048);
+	DECLARE
+    @create_tmp_script NVARCHAR(MAX),
+	  @Columns NVARCHAR(MAX),
+	  @errmessage NVARCHAR(2048),
+    @total_script NVARCHAR(MAX),
+    @insert_script NVARCHAR(MAX);
+
 
   -- Test if the provided destination table name exists
 	IF OBJECT_ID(@DestSchema + '.' + @DestTable, 'U') IS NULL
@@ -23,18 +45,7 @@ BEGIN
 	END
 
 -- Test if the provided view name exists
-	IF NOT EXISTS(
-		SELECT 1 
-		FROM sys.views
-		JOIN sys.[schemas]
-			ON sys.views.schema_id = sys.[schemas].schema_id
-		WHERE 
-			sys.[schemas].name = @SourceSchema
-			AND
-			sys.views.name = @SourceView
-			AND
-			sys.views.type = 'v'
-	)
+	IF OBJECT_ID(@SourceSchema + '.' + @SourceView, 'V') IS NULL
 	BEGIN
 		SET @errmessage = 'Object [' + @SourceSchema + '].['+ @SourceView +'] does not exist.'  + CHAR(13) + CHAR(10) +
       'Please check parameter values: @SourceSchema = ''' + @SourceSchema + ''',@SourceView = ''' + @SourceView + '''';
@@ -44,12 +55,15 @@ BEGIN
   -- Store the destination table contents to temp backup table
   -- Truncate the destination table
 	BEGIN
-		SET @create_tmp_script = utilities.svf_getMaterializeTempScript(
+
+  --TODO create single dynamic script so that compilation is done over all script
+  -- and potential issues arise before truncate table is executed.
+    SET @create_tmp_script = utilities.svf_getMaterializeTempScript(
       @DestSchema,
       @DestTable
     );
 
-    EXECUTE sp_executesql @create_tmp_script;
+    -- EXECUTE sp_executesql @create_tmp_script;
 
 	  -- Retrieve the column list of the provided destination table
     SET @Columns = (
@@ -64,9 +78,11 @@ BEGIN
     );
 
     -- Create the insert statement script
-    DECLARE @insert_script NVARCHAR(MAX) = utilities.svf_getMaterializeInsertScript(
+    SET @insert_script = utilities.svf_getMaterializeInsertScript(
       @DestSchema,
       @DestTable,
+      @SourceSchema,
+      @SourceView,
       @Columns,
       @t_jobId,
       @t_jobDtm,
@@ -74,7 +90,9 @@ BEGIN
       @t_jobBy
     );
 
-    EXECUTE sp_executesql @insert_script;
+    SET @total_script = ( SELECT CONCAT_WS(CHAR(13) + CHAR(10), @create_tmp_script, @insert_script) );
+
+    EXECUTE sp_executesql @total_script;
 
       -- DECLARE @rename_script NVARCHAR(MAX) = N'
       --     RENAME OBJECT [' + @DestSchema + '].[' + @DestTable + '] TO [' + @DestTable + '_old];

@@ -1,0 +1,1 @@
+CREATE SCHEMA [tc.utilities.vw_MaterializeColumnList]

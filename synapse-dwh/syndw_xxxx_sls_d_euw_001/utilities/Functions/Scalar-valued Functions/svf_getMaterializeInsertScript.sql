@@ -14,29 +14,27 @@ RETURNS NVARCHAR(MAX)
 AS
 BEGIN
 
-
+-- This script is used in sp_materialize_view and handles
+-- the materialization of the provided source view output into the 
+-- provided destination table.
   DECLARE @insert_script NVARCHAR(MAX) = N'
 BEGIN TRY
-  INSERT INTO 
-    [' + @DestSchema + '].[' + @DestTable + '](' + @Columns + ',t_jobId,t_jobDtm,t_lastActionCd,t_jobBy) 
-  SELECT 
-      ' + @Columns + '
-  ,	''' + @t_jobId + ''' AS t_jobId
-  ,	''' + CONVERT(NVARCHAR(23), @t_jobDtm, 121) + ''' AS t_jobDtm
-  ,	''' + @t_lastActionCd + ''' AS t_lastActionCd
-  ,	''' + @t_jobBy + ''' AS t_jobBy
-  FROM 
-    [' + @SourceSchema + '].[' + @SourceView + ']
+  INSERT INTO [' + @DestSchema + '].[' + @DestTable + '](' + @Columns + ',t_jobId,t_jobDtm,t_lastActionCd,t_jobBy)
+SELECT ' + @Columns + '
+,	''' + @t_jobId + ''' AS t_jobId
+,	''' + CONVERT(NVARCHAR(23), @t_jobDtm, 121) + ''' AS t_jobDtm
+,	''' + @t_lastActionCd + ''' AS t_lastActionCd
+,	''' + @t_jobBy + ''' AS t_jobBy
+FROM [' + @SourceSchema + '].[' + @SourceView + '];
 END TRY
 BEGIN CATCH
   TRUNCATE TABLE [' + @DestSchema + '].[' + @DestTable + '];
 
-  INSERT INTO
-    [' + @DestSchema + '].[' + @DestTable + ']
-  SELECT
-    *
-  FROM
-    [tempdb..#' + @DestSchema + '.' + @DestTable + '] 
+  INSERT INTO [' + @DestSchema + '].[' + @DestTable + ']
+  SELECT *
+  FROM [#' + @DestSchema + '_' + @DestTable + '];
+
+  THROW 50001, ''Failed to materialize data from [' + @SourceSchema + '].[' + @SourceView + '] into [' + @DestSchema + '].[' + @DestTable + ']'', 1;
 END CATCH';
 
   RETURN(@insert_script);

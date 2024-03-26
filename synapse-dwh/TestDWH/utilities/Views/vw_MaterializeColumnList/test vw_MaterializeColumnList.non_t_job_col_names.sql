@@ -20,7 +20,7 @@ BEGIN
       WHERE table_name = 'dim_table' and schema_name = 'edw'
     ),
     @expected NVARCHAR(MAX) =
-      '[int],'
+      '[id],'
       + CHAR(13) + CHAR(10) +
       '[t_applicationId]';
 

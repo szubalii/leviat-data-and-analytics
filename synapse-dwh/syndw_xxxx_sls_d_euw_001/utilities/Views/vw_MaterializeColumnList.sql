@@ -15,7 +15,7 @@ WHERE
   c.name NOT IN (
     't_jobId',
     't_jobDtm',
-    't_lastActionDtm',
+    't_lastActionCd',
     't_jobBy'
   )
 GROUP BY
