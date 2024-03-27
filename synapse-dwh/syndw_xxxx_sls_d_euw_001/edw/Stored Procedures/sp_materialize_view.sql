@@ -6,13 +6,12 @@
   To make sure the destination table keeps the same distribution and indexes the following
   approach is taken:
   
-  1. Store the current data in the destination table into a temp table
-  2. Truncate the destination table
+  1. Begin transaction
+  2. Delete all records from the destination table
   3. Insert the new data from the view into the destination table
   
   If anything goes wrong during the insert:
-  4. Truncate the destination table once more
-  5. Insert the data from the temp table back into the destination table
+  4. Rollback transaction
 
 */
 
