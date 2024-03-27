@@ -4,6 +4,7 @@ BEGIN
 
   IF OBJECT_ID('actual') IS NOT NULL DROP TABLE actual;
   IF OBJECT_ID('expected') IS NOT NULL DROP TABLE expected;
+  IF OBJECT_ID('edw.dim_test') IS NOT NULL DROP TABLE [edw].[dim_test];
 
   CREATE TABLE [edw].[dim_test](
     [id] INT,
@@ -57,8 +58,6 @@ BEGIN
     (1, 'test', @t_jobId, @t_jobDtm, @t_lastActionCd, @t_jobBy);
 
   EXEC tSQLt.AssertEqualsTable 'expected', 'actual';
-
-  DROP TABLE [edw].[dim_test];
 
 END
 

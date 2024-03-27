@@ -1,4 +1,4 @@
-CREATE PROCEDURE [tc.utilities.svf_getMaterializeInsertScript].[test materialize insert script]
+CREATE PROCEDURE [tc.utilities.svf_getMaterializeTransactionScript].[test materialize transaction script]
 AS
 BEGIN
 
@@ -35,7 +35,7 @@ BEGIN
   );
 
   DECLARE
-    @actual NVARCHAR(MAX) = [utilities].[svf_getMaterializeInsertScript](
+    @actual NVARCHAR(MAX) = [utilities].[svf_getMaterializeTransactionScript](
       @DestSchema,
       @DestTable,
       @SourceSchema,
@@ -47,6 +47,17 @@ BEGIN
       @t_jobBy
     ),
     @expected NVARCHAR(MAX) = N'
+BEGIN TRANSACTION;
+
+IF OBJECT_ID(''tempdb..#edw_dim_test'') IS NOT NULL
+  DROP TABLE [tempdb..#edw_dim_test];
+
+SELECT *
+INTO [#edw_dim_test]
+FROM [edw].[dim_test];
+
+TRUNCATE TABLE [edw].[dim_test]
+
 BEGIN TRY
   INSERT INTO [edw].[dim_test]([id],'
     + CHAR(13) + CHAR(10) +
@@ -61,17 +72,18 @@ SELECT [id],'
 FROM [edw].[vw_TestMaterialize];
 END TRY
 BEGIN CATCH
-  TRUNCATE TABLE [edw].[dim_test];
-
-  INSERT INTO [edw].[dim_test]
-  SELECT *
-  FROM [#edw_dim_test];
+  IF @@TRANCOUNT > 0
+    ROLLBACK TRANSACTION;
 
   THROW 50001, ''Failed to materialize data from [edw].[vw_TestMaterialize] into [edw].[dim_test]'', 1;
-END CATCH';
+END CATCH
 
-  -- TODO include where clause where extraction DTm is higher in delta vw than active
+IF @@TRANCOUNT > 0
+  COMMIT TRANSACTION;';
 
   EXEC tSQLt.AssertEqualsString @expected, @actual;
+
+  DROP TABLE [edw].[dim_test];
+
 
 END
