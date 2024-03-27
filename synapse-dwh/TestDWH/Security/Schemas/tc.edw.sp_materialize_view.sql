@@ -1,0 +1,1 @@
+CREATE SCHEMA [tc.edw.sp_materialize_view]
