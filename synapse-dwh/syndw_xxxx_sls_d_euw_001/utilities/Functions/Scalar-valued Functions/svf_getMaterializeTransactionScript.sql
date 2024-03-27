@@ -20,14 +20,7 @@ BEGIN
   DECLARE @insert_script NVARCHAR(MAX) = N'
 BEGIN TRANSACTION
 
-IF OBJECT_ID(''tempdb..#' + @DestSchema + '_' + @DestTable + ''') IS NOT NULL
-  DROP TABLE [tempdb..#' + @DestSchema + '_' + @DestTable + '];
-
-SELECT *
-INTO [#' + @DestSchema + '_' + @DestTable + ']
-FROM [' + @DestSchema + '].[' + @DestTable + '];
-
-TRUNCATE TABLE [' + @DestSchema + '].[' + @DestTable + '];
+DELETE FROM [' + @DestSchema + '].[' + @DestTable + '];
 
 BEGIN TRY
   INSERT INTO [' + @DestSchema + '].[' + @DestTable + '](' + @Columns + ',t_jobId,t_jobDtm,t_lastActionCd,t_jobBy)

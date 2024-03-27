@@ -49,14 +49,7 @@ BEGIN
     @expected NVARCHAR(MAX) = N'
 BEGIN TRANSACTION;
 
-IF OBJECT_ID(''tempdb..#edw_dim_test'') IS NOT NULL
-  DROP TABLE [tempdb..#edw_dim_test];
-
-SELECT *
-INTO [#edw_dim_test]
-FROM [edw].[dim_test];
-
-TRUNCATE TABLE [edw].[dim_test]
+DELETE FROM [edw].[dim_test]
 
 BEGIN TRY
   INSERT INTO [edw].[dim_test]([id],'
