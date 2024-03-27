@@ -93,7 +93,7 @@ SELECT
 , allWeeks.[MaterialBaseUnitID]
 , allWeeks.[PurchaseOrderTypeID]
 , allWeeks.[InventoryValuationTypeID]
-, allWeeks.[nk_StoragePlantId]
+, allWeeks.[nk_StoragePlantID]
 , allWeeks.[sk_ProductSalesOrg]
 , allWeeks.[ReportingDate]
 , allWeeks.[FirstDayOfMonthDate]
