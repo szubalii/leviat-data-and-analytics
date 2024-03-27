@@ -14,11 +14,18 @@ RETURNS NVARCHAR(MAX)
 AS
 BEGIN
 
--- This script is used in sp_materialize_view and handles
--- the materialization of the provided source view output into the 
--- provided destination table.
+/*
+  This script is used in sp_materialize_view and handles
+  the materialization of the provided source view output into the 
+  provided destination table.
+
+  Start a transaction so in case of failures, deletion of records is rolled back.
+
+  This also makes sure that the distribution type and indexes of the original table is kept
+*/
+
   DECLARE @insert_script NVARCHAR(MAX) = N'
-BEGIN TRANSACTION
+BEGIN TRANSACTION;
 
 DELETE FROM [' + @DestSchema + '].[' + @DestTable + '];
 
@@ -39,7 +46,7 @@ BEGIN CATCH
 END CATCH;
 
 IF @@TRANCOUNT > 0
-  COMMIT TRANSACTION';
+  COMMIT TRANSACTION;';
 
   RETURN(@insert_script);
 END;

@@ -49,7 +49,7 @@ BEGIN
     @expected NVARCHAR(MAX) = N'
 BEGIN TRANSACTION;
 
-DELETE FROM [edw].[dim_test]
+DELETE FROM [edw].[dim_test];
 
 BEGIN TRY
   INSERT INTO [edw].[dim_test]([id],'
@@ -69,7 +69,7 @@ BEGIN CATCH
     ROLLBACK TRANSACTION;
 
   THROW 50001, ''Failed to materialize data from [edw].[vw_TestMaterialize] into [edw].[dim_test]'', 1;
-END CATCH
+END CATCH;
 
 IF @@TRANCOUNT > 0
   COMMIT TRANSACTION;';
