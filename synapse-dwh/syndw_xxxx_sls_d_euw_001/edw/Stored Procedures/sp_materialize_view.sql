@@ -54,13 +54,6 @@ BEGIN
 
 	BEGIN
     
-    -- Store the destination table contents to temp backup table
-    -- Truncate the destination table
-    -- SET @create_tmp_script = utilities.svf_getMaterializeTempScript(
-    --   @DestSchema,
-    --   @DestTable
-    -- );
-
 	  -- Retrieve the column list of the provided destination table
     SET @Columns = (
       SELECT
@@ -87,18 +80,6 @@ BEGIN
       @t_jobBy
     );
 
-
-    -- create single dynamic script so that compilation is done over all scripts
-    -- and potential issues arise before truncate table is executed.
-    -- SET @total_script = ( SELECT CONCAT_WS(CHAR(13) + CHAR(10), @create_tmp_script, @insert_script) );
-
     EXECUTE sp_executesql @transaction_script;
-
-      -- DECLARE @rename_script NVARCHAR(MAX) = N'
-      --     RENAME OBJECT [' + @DestSchema + '].[' + @DestTable + '] TO [' + @DestTable + '_old];
-      --     RENAME OBJECT [' + @DestSchema + '].[' + @DestTable + '_tmp] TO [' + @DestTable + '];
-      --     DROP TABLE [' + @DestSchema + '].[' + @DestTable + '_old]';
-
-      -- EXECUTE sp_executesql @rename_script;
   END
 END
