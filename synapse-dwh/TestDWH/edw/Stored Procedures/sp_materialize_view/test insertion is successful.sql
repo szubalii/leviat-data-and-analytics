@@ -60,17 +60,3 @@ BEGIN
   EXEC tSQLt.AssertEqualsTable 'expected', 'actual';
 
 END
-
--- select OBJECT_ID('edw.vw_SalesOffice', 'V')
-
-
--- SELECT 1 
--- FROM sys.views
--- JOIN sys.[schemas]
---   ON sys.views.schema_id = sys.[schemas].schema_id
--- WHERE 
---   sys.[schemas].name = 'edw'
---   AND
---   sys.views.name = 'vw_TestMaterialize'
---   AND
---   sys.views.type = 'v'

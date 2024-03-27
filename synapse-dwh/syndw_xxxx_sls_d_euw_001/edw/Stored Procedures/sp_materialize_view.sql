@@ -31,8 +31,7 @@ BEGIN
     @create_tmp_script NVARCHAR(MAX),
 	  @Columns NVARCHAR(MAX),
 	  @errmessage NVARCHAR(2048),
-    @total_script NVARCHAR(MAX),
-    @insert_script NVARCHAR(MAX);
+    @total_script NVARCHAR(MAX);
 
 
   -- Test if the provided destination table name exists
