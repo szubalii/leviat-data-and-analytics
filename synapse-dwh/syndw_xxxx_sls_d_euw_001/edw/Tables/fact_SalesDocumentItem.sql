@@ -19,6 +19,7 @@
     [DistributionChannelID]            nvarchar(2),
     [DivisionID]                       nvarchar(2),
     [SalesGroupID]                     nvarchar(3),
+    [SalesGroupName]                   nvarchar(20),
     [SalesOfficeID]                    nvarchar(4),
     [InternationalArticleNumberID]     nvarchar(18),
     [BatchID]                          nvarchar(10),

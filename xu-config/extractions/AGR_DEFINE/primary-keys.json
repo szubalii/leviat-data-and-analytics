@@ -1,0 +1,8 @@
+{
+    "isSurrogateKeyEnabled": false,
+    "columns": 
+    [
+        "AGR_DEFINE~MANDT",
+        "AGR_DEFINE~AGR_NAME"
+    ]
+}

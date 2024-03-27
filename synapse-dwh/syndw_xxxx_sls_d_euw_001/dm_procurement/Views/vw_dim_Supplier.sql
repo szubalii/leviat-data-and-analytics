@@ -4,7 +4,7 @@ SELECT
     REPLACE(LTRIM(REPLACE(SupplierID,'0',' ')),' ','0')   
                                                 AS SupplierID               --trim leading zeros
     ,NULL                                       AS SupplierLocationId
-    ,SupplierID                                 AS SupplierName
+    ,Supplier                                   AS SupplierName
     ,Replace(Replace(Replace(StreetName,'"',''),CHAR(10),''),CHAR(13),'')                                 AS StreetAddress
     ,CityName                                   AS City
     ,''                                         AS State

@@ -3,10 +3,175 @@
 	"properties": {
 		"activities": [
 			{
+				"name": "Get Failed Extract",
+				"description": "",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderQuery": {
+							"value": "SELECT \ndbo.svf_get_failed_extract(@{pipeline().parameters.entity_id}) AS failed_extract",
+							"type": "Expression"
+						},
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "ds_orch_db",
+						"type": "DatasetReference",
+						"parameters": {
+							"sqlDb": {
+								"value": "@pipeline().globalParameters.sqlDb",
+								"type": "Expression"
+							}
+						}
+					},
+					"firstRowOnly": false
+				}
+			},
+			{
+				"name": "Set failed_extract",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "Get Failed Extract",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "failed_extract",
+					"value": {
+						"value": "@activity('Get Failed Extract').output.value[0].failed_extract",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "If failed extract",
+				"type": "IfCondition",
+				"dependsOn": [
+					{
+						"activity": "Set failed_extract",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@equals(\n    variables('failed_extract')\n    ,1)",
+						"type": "Expression"
+					},
+					"ifTrueActivities": [
+						{
+							"name": "Log Exception Failed Extract",
+							"type": "SqlServerStoredProcedure",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"storedProcedureName": "[dbo].[log_exception]",
+								"storedProcedureParameters": {
+									"batch_id": {
+										"value": null,
+										"type": "Guid"
+									},
+									"category": {
+										"value": "InternalError",
+										"type": "String"
+									},
+									"entity_id": {
+										"value": {
+											"value": "@pipeline().parameters.entity_id",
+											"type": "Expression"
+										},
+										"type": "Int64"
+									},
+									"error_msg": {
+										"value": {
+											"value": "@concat('Failed extraction found for delta entity ('\n,pipeline().parameters.entity_id\n,').\nReset delta subscription and delete batches in orch db')",
+											"type": "Expression"
+										},
+										"type": "String"
+									},
+									"run_id": {
+										"value": {
+											"value": "@pipeline().parameters.parent_run_id",
+											"type": "Expression"
+										},
+										"type": "Guid"
+									}
+								}
+							},
+							"linkedServiceName": {
+								"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
+								"type": "LinkedServiceReference",
+								"parameters": {
+									"sqlDb": {
+										"value": "@pipeline().globalParameters.sqlDb",
+										"type": "Expression"
+									}
+								}
+							}
+						},
+						{
+							"name": "Fail Entity Pipeline Failed Extract",
+							"type": "Fail",
+							"dependsOn": [
+								{
+									"activity": "Log Exception Failed Extract",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"userProperties": [],
+							"typeProperties": {
+								"message": {
+									"value": "@concat('Failed extraction found for delta entity ('\n,pipeline().parameters.entity_id\n,').\nReset delta subscription and delete batches in orch db')",
+									"type": "Expression"
+								},
+								"errorCode": "500"
+							}
+						}
+					]
+				}
+			},
+			{
 				"name": "Get Delta Entity FileName Batch Activities",
 				"description": "First ",
 				"type": "Lookup",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "If failed extract",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "7.00:00:00",
 					"retry": 0,
@@ -62,6 +227,9 @@
 							"name": "Execute ELT",
 							"type": "ExecutePipeline",
 							"dependsOn": [],
+							"policy": {
+								"secureInput": false
+							},
 							"userProperties": [],
 							"typeProperties": {
 								"pipeline": {
@@ -139,7 +307,7 @@
 										"type": "Expression"
 									},
 									"base_table_name": {
-										"value": "@item().base_table_name",
+										"value": "@variables('deltaTableName')",
 										"type": "Expression"
 									},
 									"required_activities": {
@@ -257,6 +425,26 @@
 									"type": "Expression"
 								}
 							}
+						},
+						{
+							"name": "Append Delta File",
+							"type": "AppendVariable",
+							"dependsOn": [
+								{
+									"activity": "Execute ELT",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "deltaFiles",
+								"value": {
+									"value": "@activity('Execute ELT').output.pipelineReturnValue",
+									"type": "Expression"
+								}
+							}
 						}
 					]
 				}
@@ -284,6 +472,9 @@
 							"name": "Process Synapse Base Procedure",
 							"type": "ExecutePipeline",
 							"dependsOn": [],
+							"policy": {
+								"secureInput": false
+							},
 							"userProperties": [],
 							"typeProperties": {
 								"pipeline": {
@@ -316,8 +507,8 @@
 										"value": "@pipeline().parameters.source_date_field_name",
 										"type": "Expression"
 									},
-									"deltaEntityFileNameBatchActivities": {
-										"value": "@variables('deltaEntityFileNameBatchActivities')",
+									"deltaFiles": {
+										"value": "@variables('deltaFiles')",
 										"type": "Expression"
 									}
 								}
@@ -335,13 +526,94 @@
 						"dependencyConditions": [
 							"Succeeded"
 						]
+					},
+					{
+						"activity": "Set Delta Table Name",
+						"dependencyConditions": [
+							"Succeeded"
+						]
 					}
 				],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
 				"userProperties": [],
 				"typeProperties": {
 					"variableName": "deltaEntityFileNameBatchActivities",
 					"value": {
 						"value": "@activity('Get Delta Entity FileName Batch Activities').output.value",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Truncate Delta Table",
+				"description": "Truncate delta tables at the beginning of the run. \nFull tables are only truncated when data is actually loaded from parquet to Synapse Base. As multiple parquet files can be loaded to the same table, one cannot truncate before each load for delta tables. ",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "If Required to Process Base",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[utilities].[sp_truncate_table]",
+					"storedProcedureParameters": {
+						"schema_name": {
+							"value": {
+								"value": "@pipeline().parameters.base_schema_name",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"table_name": {
+							"value": {
+								"value": "@variables('deltaTableName')",
+								"type": "Expression"
+							},
+							"type": "String"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_ws_xxxx_sls_x_euw_001__syndw_xxxx_sls_x_euw_001",
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"sqlPool": {
+							"value": "@pipeline().globalParameters.synapseDatabaseName",
+							"type": "Expression"
+						},
+						"synapseServer": {
+							"value": "@pipeline().globalParameters.synapseServerName",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "Set Delta Table Name",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "deltaTableName",
+					"value": {
+						"value": "@concat(\n    pipeline().parameters.base_table_name,\n    '_delta'\n)",
 						"type": "Expression"
 					}
 				}
@@ -391,7 +663,7 @@
 			}
 		},
 		"variables": {
-			"delta_entities": {
+			"deltaFiles": {
 				"type": "Array"
 			},
 			"requiresSynapseIngestion": {
@@ -399,6 +671,13 @@
 			},
 			"deltaEntityFileNameBatchActivities": {
 				"type": "Array"
+			},
+			"failed_extract": {
+				"type": "Integer",
+				"defaultValue": 0
+			},
+			"deltaTableName": {
+				"type": "String"
 			}
 		},
 		"folder": {

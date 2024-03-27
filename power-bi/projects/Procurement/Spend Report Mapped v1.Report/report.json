@@ -1,0 +1,846 @@
+{
+  "config": "{\"version\":\"5.35\",\"themeCollection\":{\"baseTheme\":{\"name\":\"CY22SU08\",\"version\":\"5.35\",\"type\":2},\"customTheme\":{\"name\":\"Leviat_Theme3576645172881816.json\",\"version\":\"5.35\",\"type\":1}},\"activeSectionIndex\":0,\"defaultDrillFilterOtherVisuals\":true,\"slowDataSourceSettings\":{\"isCrossHighlightingDisabled\":false,\"isSlicerSelectionsButtonEnabled\":false,\"isFilterSelectionsButtonEnabled\":false,\"isFieldWellButtonEnabled\":false,\"isApplyAllButtonEnabled\":false},\"linguisticSchemaSyncVersion\":2,\"settings\":{\"isPersistentUserStateDisabled\":false,\"hideVisualContainerHeader\":false,\"useStylableVisualContainerHeader\":true,\"exportDataMode\":1,\"useNewFilterPaneExperience\":true,\"optOutNewFilterPaneExperience\":false,\"defaultFilterActionIsDataFilter\":false,\"useCrossReportDrillthrough\":false,\"allowChangeFilterTypes\":true,\"allowInlineExploration\":true,\"disableFilterPaneSearch\":false,\"enableDeveloperMode\":false,\"useEnhancedTooltips\":false,\"useDefaultAggregateDisplayName\":false},\"objects\":{\"section\":[{\"properties\":{\"verticalAlignment\":{\"expr\":{\"Literal\":{\"Value\":\"'Top'\"}}}}}],\"outspacePane\":[{\"properties\":{\"expanded\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}]}}",
+  "layoutOptimization": 0,
+  "resourcePackages": [
+    {
+      "resourcePackage": {
+        "disabled": false,
+        "items": [
+          {
+            "name": "CY22SU08",
+            "path": "BaseThemes/CY22SU08.json",
+            "type": 202
+          }
+        ],
+        "name": "SharedResources",
+        "type": 2
+      }
+    },
+    {
+      "resourcePackage": {
+        "items": [
+          {
+            "name": "Bug14622348017782587.png",
+            "path": "Bug14622348017782587.png",
+            "type": 100
+          },
+          {
+            "name": "Leviat_Theme3576645172881816.json",
+            "path": "Leviat_Theme3576645172881816.json",
+            "type": 100
+          },
+          {
+            "name": "Request16062119061288875.png",
+            "path": "Request16062119061288875.png",
+            "type": 100
+          },
+          {
+            "name": "leviat_dashboard_bg_f_gray_(2)028927307472458752.png",
+            "path": "leviat_dashboard_bg_f_gray_(2)028927307472458752.png",
+            "type": 100
+          },
+          {
+            "name": "leviat_dashboard_bg_f_gray_(2)16032819103232399.png",
+            "path": "leviat_dashboard_bg_f_gray_(2)16032819103232399.png",
+            "type": 100
+          },
+          {
+            "name": "leviat_dashboard_bg_f_gray_(2)210826745597972.png",
+            "path": "leviat_dashboard_bg_f_gray_(2)210826745597972.png",
+            "type": 100
+          },
+          {
+            "name": "leviat_dashboard_bg_f_gray_(2)2915035710077398.png",
+            "path": "leviat_dashboard_bg_f_gray_(2)2915035710077398.png",
+            "type": 100
+          },
+          {
+            "name": "leviat_dashboard_bg_f_gray_(2)3339412774773316.png",
+            "path": "leviat_dashboard_bg_f_gray_(2)3339412774773316.png",
+            "type": 100
+          },
+          {
+            "name": "leviat_dashboard_bg_f_gray_(2)3440283728638245.png",
+            "path": "leviat_dashboard_bg_f_gray_(2)3440283728638245.png",
+            "type": 100
+          },
+          {
+            "name": "leviat_dashboard_bg_f_gray_(2)42621388913848013.png",
+            "path": "leviat_dashboard_bg_f_gray_(2)42621388913848013.png",
+            "type": 100
+          },
+          {
+            "name": "leviat_dashboard_bg_f_gray_(2)5572603530272695.png",
+            "path": "leviat_dashboard_bg_f_gray_(2)5572603530272695.png",
+            "type": 100
+          },
+          {
+            "name": "leviat_dashboard_bg_f_gray_(2)6991286921526667.png",
+            "path": "leviat_dashboard_bg_f_gray_(2)6991286921526667.png",
+            "type": 100
+          },
+          {
+            "name": "leviat_dashboard_bg_f_gray_(2)749561972643976.png",
+            "path": "leviat_dashboard_bg_f_gray_(2)749561972643976.png",
+            "type": 100
+          },
+          {
+            "name": "leviat_dashboard_bg_f_gray_(2)7679771597462117.png",
+            "path": "leviat_dashboard_bg_f_gray_(2)7679771597462117.png",
+            "type": 100
+          },
+          {
+            "name": "leviat_dashboard_bg_f_gray_(2)8659251331350648.png",
+            "path": "leviat_dashboard_bg_f_gray_(2)8659251331350648.png",
+            "type": 100
+          }
+        ],
+        "name": "RegisteredResources",
+        "type": 1
+      }
+    }
+  ],
+  "sections": [
+    {
+      "config": "{\"objects\":{\"background\":[{\"properties\":{\"image\":{\"image\":{\"name\":{\"expr\":{\"Literal\":{\"Value\":\"'leviat_dashboard_bg_f_gray (2).png'\"}}},\"url\":{\"expr\":{\"ResourcePackageItem\":{\"PackageName\":\"RegisteredResources\",\"PackageType\":1,\"ItemName\":\"leviat_dashboard_bg_f_gray_(2)3339412774773316.png\"}}},\"scaling\":{\"expr\":{\"Literal\":{\"Value\":\"'Normal'\"}}}}},\"transparency\":{\"expr\":{\"Literal\":{\"Value\":\"0D\"}}}}}]}}",
+      "displayName": "Supplier",
+      "displayOption": 1,
+      "filters": "[]",
+      "height": 720.00,
+      "name": "ReportSection09f7e1e0c6d384ea8b1b",
+      "ordinal": 8,
+      "visualContainers": [
+        {
+          "config": "{\"name\":\"0ff73da5875b820ea387\",\"layouts\":[{\"id\":0,\"position\":{\"x\":1245.8773181169759,\"y\":0,\"z\":3000,\"width\":31.840228245363768,\"height\":31.840228245363768,\"tabOrder\":2000}}],\"singleVisual\":{\"visualType\":\"image\",\"drillFilterOtherVisuals\":true,\"objects\":{\"general\":[{\"properties\":{\"imageUrl\":{\"expr\":{\"ResourcePackageItem\":{\"PackageName\":\"RegisteredResources\",\"PackageType\":1,\"ItemName\":\"Bug14622348017782587.png\"}}}}}]},\"vcObjects\":{\"general\":[{\"properties\":{\"altText\":{\"expr\":{\"Literal\":{\"Value\":\"'Report a Bug'\"}}}}}],\"visualLink\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"type\":{\"expr\":{\"Literal\":{\"Value\":\"'WebUrl'\"}}},\"tooltip\":{\"expr\":{\"Literal\":{\"Value\":\"'Report a Bug'\"}}},\"webUrl\":{\"expr\":{\"Literal\":{\"Value\":\"'https://app.smartsheet.com/b/form/a2e4dc5affba4de8b4716a87e691659e'\"}}}}}],\"title\":[{\"properties\":{\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'Image'\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 31.84,
+          "width": 31.84,
+          "x": 1245.88,
+          "y": 0.00,
+          "z": 3000.00
+        },
+        {
+          "config": "{\"name\":\"17c275be4c2136955606\",\"layouts\":[{\"id\":0,\"position\":{\"x\":898.6876640419947,\"y\":0,\"z\":4000,\"width\":72.23097112860893,\"height\":57.11286089238845,\"tabOrder\":4000}}],\"singleVisual\":{\"visualType\":\"shape\",\"drillFilterOtherVisuals\":true,\"objects\":{\"shape\":[{\"properties\":{\"tileShape\":{\"expr\":{\"Literal\":{\"Value\":\"'rectangle'\"}}}}}],\"rotation\":[{\"properties\":{\"shapeAngle\":{\"expr\":{\"Literal\":{\"Value\":\"0L\"}}}}}],\"fill\":[{\"properties\":{\"fillColor\":{\"solid\":{\"color\":{\"expr\":{\"Literal\":{\"Value\":\"'#FFFFFF'\"}}}}}},\"selector\":{\"id\":\"default\"}}],\"outline\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 57.11,
+          "width": 72.23,
+          "x": 898.69,
+          "y": 0.00,
+          "z": 4000.00
+        },
+        {
+          "config": "{\"name\":\"3404bf40a195a8310d20\",\"layouts\":[{\"id\":0,\"position\":{\"x\":1246.904422253923,\"y\":26.704707560627675,\"z\":2000,\"width\":31.840228245363768,\"height\":34.92154065620542,\"tabOrder\":1000}}],\"singleVisual\":{\"visualType\":\"image\",\"drillFilterOtherVisuals\":true,\"objects\":{\"general\":[{\"properties\":{\"imageUrl\":{\"expr\":{\"ResourcePackageItem\":{\"PackageName\":\"RegisteredResources\",\"PackageType\":1,\"ItemName\":\"Request16062119061288875.png\"}}}}}]},\"vcObjects\":{\"visualLink\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"type\":{\"expr\":{\"Literal\":{\"Value\":\"'WebUrl'\"}}},\"webUrl\":{\"expr\":{\"Literal\":{\"Value\":\"'https://app.smartsheet.com/b/form/48e28c97fa4d4b5c80eb7220d61beef8'\"}}},\"tooltip\":{\"expr\":{\"Literal\":{\"Value\":\"'Request a Change'\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 34.92,
+          "width": 31.84,
+          "x": 1246.90,
+          "y": 26.70,
+          "z": 2000.00
+        },
+        {
+          "config": "{\"name\":\"8a6b971c30b6d57dbb7b\",\"layouts\":[{\"id\":0,\"position\":{\"x\":20.15748031496063,\"y\":70.55118110236221,\"z\":0,\"width\":638.3202099737532,\"height\":650.0787401574803,\"tabOrder\":3000}}],\"singleVisual\":{\"visualType\":\"tableEx\",\"projections\":{\"Values\":[{\"queryRef\":\"vw_dim_Supplier.SupplierID Remove\"},{\"queryRef\":\"vw_dim_Supplier.Supplier\"},{\"queryRef\":\"vw_dim_Supplier.CountryID\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"v\",\"Entity\":\"vw_dim_Supplier\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v\"}},\"Property\":\"Supplier\"},\"Name\":\"vw_dim_Supplier.Supplier\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v\"}},\"Property\":\"CountryID\"},\"Name\":\"vw_dim_Supplier.CountryID\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v\"}},\"Property\":\"SupplierID Remove\"},\"Name\":\"vw_dim_Supplier.SupplierID Remove\"}]},\"columnProperties\":{\"vw_dim_Supplier.CountryID\":{\"displayName\":\"Country\"},\"vw_dim_Supplier.Supplier\":{\"displayName\":\"SupplierLocationId\"},\"vw_dim_Supplier.SupplierID Remove\":{\"displayName\":\"SupplierId\"}},\"drillFilterOtherVisuals\":true,\"objects\":{\"total\":[{\"properties\":{\"totals\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"grid\":[{\"properties\":{\"outlineColor\":{\"solid\":{\"color\":{\"expr\":{\"ThemeDataColor\":{\"ColorId\":2,\"Percent\":0}}}}}}}]},\"vcObjects\":{\"stylePreset\":[{\"properties\":{\"name\":{\"expr\":{\"Literal\":{\"Value\":\"'Minimal'\"}}}}}]}}}",
+          "filters": "[{\"name\":\"Filterd6687e64b7dcd0a3b710\",\"expression\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"_Measures\"}},\"Property\":\"#DocsMDI\"}},\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"v\",\"Entity\":\"vw_dim_CompanyCode\",\"Type\":0},{\"Name\":\"_\",\"Entity\":\"_Measures\",\"Type\":0}],\"Where\":[{\"Condition\":{\"Comparison\":{\"ComparisonKind\":2,\"Left\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"_\"}},\"Property\":\"#DocsMDI\"}},\"Right\":{\"Literal\":{\"Value\":\"1L\"}}}}}]},\"type\":\"Advanced\",\"howCreated\":1}]",
+          "height": 650.08,
+          "width": 638.32,
+          "x": 20.16,
+          "y": 70.55,
+          "z": 0.00
+        },
+        {
+          "config": "{\"name\":\"e047cb30bc486903482c\",\"layouts\":[{\"id\":0,\"position\":{\"x\":0,\"y\":6,\"z\":1000,\"width\":163.99132321041216,\"height\":43.73101952277658,\"tabOrder\":0}}],\"singleVisual\":{\"visualType\":\"textbox\",\"drillFilterOtherVisuals\":true,\"objects\":{\"general\":[{\"properties\":{\"paragraphs\":[{\"textRuns\":[{\"value\":\"Supplier\",\"textStyle\":{\"fontWeight\":\"bold\",\"fontFamily\":\"Arial\",\"fontSize\":\"12pt\",\"color\":\"#201547\"}}]}]}}]},\"vcObjects\":{\"title\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"visualHeader\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}],\"background\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 43.73,
+          "width": 163.99,
+          "x": 0.00,
+          "y": 6.00,
+          "z": 1000.00
+        }
+      ],
+      "width": 1280.00
+    },
+    {
+      "config": "{\"objects\":{\"background\":[{\"properties\":{\"image\":{\"image\":{\"name\":{\"expr\":{\"Literal\":{\"Value\":\"'leviat_dashboard_bg_f_gray (2).png'\"}}},\"url\":{\"expr\":{\"ResourcePackageItem\":{\"PackageName\":\"RegisteredResources\",\"PackageType\":1,\"ItemName\":\"leviat_dashboard_bg_f_gray_(2)028927307472458752.png\"}}},\"scaling\":{\"expr\":{\"Literal\":{\"Value\":\"'Normal'\"}}}}},\"transparency\":{\"expr\":{\"Literal\":{\"Value\":\"0D\"}}}}}]}}",
+      "displayName": "Self-service Page",
+      "displayOption": 1,
+      "filters": "[]",
+      "height": 720.00,
+      "name": "ReportSection0e04e61e3de359180975",
+      "visualContainers": [
+        {
+          "config": "{\"name\":\"16225483080589597b2c\",\"layouts\":[{\"id\":0,\"position\":{\"x\":0,\"y\":6,\"z\":0,\"width\":163.99132321041216,\"height\":43.73101952277658,\"tabOrder\":0}}],\"singleVisual\":{\"visualType\":\"textbox\",\"drillFilterOtherVisuals\":true,\"objects\":{\"general\":[{\"properties\":{\"paragraphs\":[{\"textRuns\":[{\"value\":\"Self-service page\",\"textStyle\":{\"fontWeight\":\"bold\",\"fontFamily\":\"Arial\",\"fontSize\":\"12pt\",\"color\":\"#201547\"}}]}]}}]},\"vcObjects\":{\"title\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"visualHeader\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}],\"background\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 43.73,
+          "width": 163.99,
+          "x": 0.00,
+          "y": 6.00,
+          "z": 0.00
+        },
+        {
+          "config": "{\"name\":\"36c83e4073b060ab85d2\",\"layouts\":[{\"id\":0,\"position\":{\"x\":20,\"y\":70,\"z\":1000,\"width\":1211.9739696312365,\"height\":634.0997830802604,\"tabOrder\":3000}}],\"singleVisual\":{\"visualType\":\"tableEx\",\"projections\":{\"Values\":[{\"queryRef\":\"vw_fact_PurchasingDocumentItem.PurchasingDocument\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"v\",\"Entity\":\"vw_fact_PurchasingDocumentItem\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v\"}},\"Property\":\"PurchasingDocument\"},\"Name\":\"vw_fact_PurchasingDocumentItem.PurchasingDocument\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"grid\":[{\"properties\":{\"outlineColor\":{\"solid\":{\"color\":{\"expr\":{\"ThemeDataColor\":{\"ColorId\":2,\"Percent\":0}}}}}}}]},\"vcObjects\":{\"stylePreset\":[{\"properties\":{\"name\":{\"expr\":{\"Literal\":{\"Value\":\"'Minimal'\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 634.10,
+          "width": 1211.97,
+          "x": 20.00,
+          "y": 70.00,
+          "z": 1000.00
+        },
+        {
+          "config": "{\"name\":\"5d219cdce523ec73753c\",\"layouts\":[{\"id\":0,\"position\":{\"x\":898.6876640419947,\"y\":0,\"z\":4000,\"width\":72.23097112860893,\"height\":57.11286089238845,\"tabOrder\":4000}}],\"singleVisual\":{\"visualType\":\"shape\",\"drillFilterOtherVisuals\":true,\"objects\":{\"shape\":[{\"properties\":{\"tileShape\":{\"expr\":{\"Literal\":{\"Value\":\"'rectangle'\"}}}}}],\"rotation\":[{\"properties\":{\"shapeAngle\":{\"expr\":{\"Literal\":{\"Value\":\"0L\"}}}}}],\"fill\":[{\"properties\":{\"fillColor\":{\"solid\":{\"color\":{\"expr\":{\"Literal\":{\"Value\":\"'#FFFFFF'\"}}}}}},\"selector\":{\"id\":\"default\"}}],\"outline\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 57.11,
+          "width": 72.23,
+          "x": 898.69,
+          "y": 0.00,
+          "z": 4000.00
+        },
+        {
+          "config": "{\"name\":\"817d44dadaa975d160bb\",\"layouts\":[{\"id\":0,\"position\":{\"x\":1246.904422253923,\"y\":26.704707560627675,\"z\":3000,\"width\":31.840228245363768,\"height\":34.92154065620542,\"tabOrder\":2000}}],\"singleVisual\":{\"visualType\":\"image\",\"drillFilterOtherVisuals\":true,\"objects\":{\"general\":[{\"properties\":{\"imageUrl\":{\"expr\":{\"ResourcePackageItem\":{\"PackageName\":\"RegisteredResources\",\"PackageType\":1,\"ItemName\":\"Request16062119061288875.png\"}}}}}]},\"vcObjects\":{\"visualLink\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"type\":{\"expr\":{\"Literal\":{\"Value\":\"'WebUrl'\"}}},\"webUrl\":{\"expr\":{\"Literal\":{\"Value\":\"'https://app.smartsheet.com/b/form/48e28c97fa4d4b5c80eb7220d61beef8'\"}}},\"tooltip\":{\"expr\":{\"Literal\":{\"Value\":\"'Request a Change'\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 34.92,
+          "width": 31.84,
+          "x": 1246.90,
+          "y": 26.70,
+          "z": 3000.00
+        },
+        {
+          "config": "{\"name\":\"899ccd650c7422dd09a0\",\"layouts\":[{\"id\":0,\"position\":{\"x\":1245.8773181169759,\"y\":0,\"z\":2000,\"width\":31.840228245363768,\"height\":31.840228245363768,\"tabOrder\":1000}}],\"singleVisual\":{\"visualType\":\"image\",\"drillFilterOtherVisuals\":true,\"objects\":{\"general\":[{\"properties\":{\"imageUrl\":{\"expr\":{\"ResourcePackageItem\":{\"PackageName\":\"RegisteredResources\",\"PackageType\":1,\"ItemName\":\"Bug14622348017782587.png\"}}}}}]},\"vcObjects\":{\"general\":[{\"properties\":{\"altText\":{\"expr\":{\"Literal\":{\"Value\":\"'Report a Bug'\"}}}}}],\"visualLink\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"type\":{\"expr\":{\"Literal\":{\"Value\":\"'WebUrl'\"}}},\"tooltip\":{\"expr\":{\"Literal\":{\"Value\":\"'Report a Bug'\"}}},\"webUrl\":{\"expr\":{\"Literal\":{\"Value\":\"'https://app.smartsheet.com/b/form/a2e4dc5affba4de8b4716a87e691659e'\"}}}}}],\"title\":[{\"properties\":{\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'Image'\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 31.84,
+          "width": 31.84,
+          "x": 1245.88,
+          "y": 0.00,
+          "z": 2000.00
+        }
+      ],
+      "width": 1280.00
+    },
+    {
+      "config": "{\"objects\":{\"background\":[{\"properties\":{\"image\":{\"image\":{\"name\":{\"expr\":{\"Literal\":{\"Value\":\"'leviat_dashboard_bg_f_gray (2).png'\"}}},\"url\":{\"expr\":{\"ResourcePackageItem\":{\"PackageName\":\"RegisteredResources\",\"PackageType\":1,\"ItemName\":\"leviat_dashboard_bg_f_gray_(2)5572603530272695.png\"}}},\"scaling\":{\"expr\":{\"Literal\":{\"Value\":\"'Normal'\"}}}}},\"transparency\":{\"expr\":{\"Literal\":{\"Value\":\"0D\"}}}}}]}}",
+      "displayName": "ERP Commdity",
+      "displayOption": 1,
+      "filters": "[]",
+      "height": 720.00,
+      "name": "ReportSection13af1a5d3238b19005ba",
+      "ordinal": 7,
+      "visualContainers": [
+        {
+          "config": "{\"name\":\"019357ab2ae002c3ced7\",\"layouts\":[{\"id\":0,\"position\":{\"x\":1246.904422253923,\"y\":26.704707560627675,\"z\":2000,\"width\":31.840228245363768,\"height\":34.92154065620542,\"tabOrder\":1000}}],\"singleVisual\":{\"visualType\":\"image\",\"drillFilterOtherVisuals\":true,\"objects\":{\"general\":[{\"properties\":{\"imageUrl\":{\"expr\":{\"ResourcePackageItem\":{\"PackageName\":\"RegisteredResources\",\"PackageType\":1,\"ItemName\":\"Request16062119061288875.png\"}}}}}]},\"vcObjects\":{\"visualLink\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"type\":{\"expr\":{\"Literal\":{\"Value\":\"'WebUrl'\"}}},\"webUrl\":{\"expr\":{\"Literal\":{\"Value\":\"'https://app.smartsheet.com/b/form/48e28c97fa4d4b5c80eb7220d61beef8'\"}}},\"tooltip\":{\"expr\":{\"Literal\":{\"Value\":\"'Request a Change'\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 34.92,
+          "width": 31.84,
+          "x": 1246.90,
+          "y": 26.70,
+          "z": 2000.00
+        },
+        {
+          "config": "{\"name\":\"369d2644894512e0ebd8\",\"layouts\":[{\"id\":0,\"position\":{\"x\":0,\"y\":6,\"z\":1000,\"width\":163.99132321041216,\"height\":43.73101952277658,\"tabOrder\":0}}],\"singleVisual\":{\"visualType\":\"textbox\",\"drillFilterOtherVisuals\":true,\"objects\":{\"general\":[{\"properties\":{\"paragraphs\":[{\"textRuns\":[{\"value\":\"ERP \",\"textStyle\":{\"fontWeight\":\"bold\",\"fontFamily\":\"Arial\",\"fontSize\":\"12pt\",\"color\":\"#201547\"}},{\"value\":\"Commodity\",\"textStyle\":{\"fontWeight\":\"bold\",\"fontSize\":\"16px\"}}]}]}}]},\"vcObjects\":{\"title\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"visualHeader\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}],\"background\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 43.73,
+          "width": 163.99,
+          "x": 0.00,
+          "y": 6.00,
+          "z": 1000.00
+        },
+        {
+          "config": "{\"name\":\"52c2d99b60bd176e183a\",\"layouts\":[{\"id\":0,\"position\":{\"x\":1245.8773181169759,\"y\":0,\"z\":3000,\"width\":31.840228245363768,\"height\":31.840228245363768,\"tabOrder\":2000}}],\"singleVisual\":{\"visualType\":\"image\",\"drillFilterOtherVisuals\":true,\"objects\":{\"general\":[{\"properties\":{\"imageUrl\":{\"expr\":{\"ResourcePackageItem\":{\"PackageName\":\"RegisteredResources\",\"PackageType\":1,\"ItemName\":\"Bug14622348017782587.png\"}}}}}]},\"vcObjects\":{\"general\":[{\"properties\":{\"altText\":{\"expr\":{\"Literal\":{\"Value\":\"'Report a Bug'\"}}}}}],\"visualLink\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"type\":{\"expr\":{\"Literal\":{\"Value\":\"'WebUrl'\"}}},\"tooltip\":{\"expr\":{\"Literal\":{\"Value\":\"'Report a Bug'\"}}},\"webUrl\":{\"expr\":{\"Literal\":{\"Value\":\"'https://app.smartsheet.com/b/form/a2e4dc5affba4de8b4716a87e691659e'\"}}}}}],\"title\":[{\"properties\":{\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'Image'\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 31.84,
+          "width": 31.84,
+          "x": 1245.88,
+          "y": 0.00,
+          "z": 3000.00
+        },
+        {
+          "config": "{\"name\":\"8c85577fa59430d378ab\",\"layouts\":[{\"id\":0,\"position\":{\"x\":20.15748031496063,\"y\":70.55118110236221,\"z\":0,\"width\":586.2467191601049,\"height\":650.0787401574803,\"tabOrder\":3000}}],\"singleVisual\":{\"visualType\":\"tableEx\",\"projections\":{\"Values\":[{\"queryRef\":\"vw_fact_PurchasingDocumentItem.MaterialGroupID\"},{\"queryRef\":\"vw_dim_MaterialGroup.MaterialGroup\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"v\",\"Entity\":\"vw_fact_PurchasingDocumentItem\",\"Type\":0},{\"Name\":\"v1\",\"Entity\":\"vw_dim_MaterialGroup\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v\"}},\"Property\":\"MaterialGroupID\"},\"Name\":\"vw_fact_PurchasingDocumentItem.MaterialGroupID\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v1\"}},\"Property\":\"MaterialGroup\"},\"Name\":\"vw_dim_MaterialGroup.MaterialGroup\"}]},\"columnProperties\":{\"vw_dim_MaterialGroup.MaterialGroup\":{\"displayName\":\"CommodityName\"},\"vw_fact_PurchasingDocumentItem.MaterialGroupID\":{\"displayName\":\"CommodityId\"}},\"drillFilterOtherVisuals\":true,\"objects\":{\"total\":[{\"properties\":{\"totals\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"grid\":[{\"properties\":{\"outlineColor\":{\"solid\":{\"color\":{\"expr\":{\"ThemeDataColor\":{\"ColorId\":2,\"Percent\":0}}}}}}}],\"columnWidth\":[{\"properties\":{\"value\":{\"expr\":{\"Literal\":{\"Value\":\"200.43302430822106D\"}}}},\"selector\":{\"metadata\":\"vw_dim_MaterialGroup.MaterialGroup\"}}]},\"vcObjects\":{\"stylePreset\":[{\"properties\":{\"name\":{\"expr\":{\"Literal\":{\"Value\":\"'Minimal'\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 650.08,
+          "width": 586.25,
+          "x": 20.16,
+          "y": 70.55,
+          "z": 0.00
+        },
+        {
+          "config": "{\"name\":\"ff321ed46dde3d10a53a\",\"layouts\":[{\"id\":0,\"position\":{\"x\":898.6876640419947,\"y\":0,\"z\":4000,\"width\":72.23097112860893,\"height\":57.11286089238845,\"tabOrder\":4000}}],\"singleVisual\":{\"visualType\":\"shape\",\"drillFilterOtherVisuals\":true,\"objects\":{\"shape\":[{\"properties\":{\"tileShape\":{\"expr\":{\"Literal\":{\"Value\":\"'rectangle'\"}}}}}],\"rotation\":[{\"properties\":{\"shapeAngle\":{\"expr\":{\"Literal\":{\"Value\":\"0L\"}}}}}],\"fill\":[{\"properties\":{\"fillColor\":{\"solid\":{\"color\":{\"expr\":{\"Literal\":{\"Value\":\"'#FFFFFF'\"}}}}}},\"selector\":{\"id\":\"default\"}}],\"outline\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 57.11,
+          "width": 72.23,
+          "x": 898.69,
+          "y": 0.00,
+          "z": 4000.00
+        }
+      ],
+      "width": 1280.00
+    },
+    {
+      "config": "{\"objects\":{\"background\":[{\"properties\":{\"image\":{\"image\":{\"name\":{\"expr\":{\"Literal\":{\"Value\":\"'leviat_dashboard_bg_f_gray (2).png'\"}}},\"url\":{\"expr\":{\"ResourcePackageItem\":{\"PackageName\":\"RegisteredResources\",\"PackageType\":1,\"ItemName\":\"leviat_dashboard_bg_f_gray_(2)6991286921526667.png\"}}},\"scaling\":{\"expr\":{\"Literal\":{\"Value\":\"'Normal'\"}}}}},\"transparency\":{\"expr\":{\"Literal\":{\"Value\":\"0D\"}}}}}]}}",
+      "displayName": "Account",
+      "displayOption": 1,
+      "filters": "[]",
+      "height": 720.00,
+      "name": "ReportSection14e178e9625a12add218",
+      "ordinal": 6,
+      "visualContainers": [
+        {
+          "config": "{\"name\":\"2caef710b3b056b0c891\",\"layouts\":[{\"id\":0,\"position\":{\"x\":1245.8773181169759,\"y\":0,\"z\":3000,\"width\":31.840228245363768,\"height\":31.840228245363768,\"tabOrder\":2000}}],\"singleVisual\":{\"visualType\":\"image\",\"drillFilterOtherVisuals\":true,\"objects\":{\"general\":[{\"properties\":{\"imageUrl\":{\"expr\":{\"ResourcePackageItem\":{\"PackageName\":\"RegisteredResources\",\"PackageType\":1,\"ItemName\":\"Bug14622348017782587.png\"}}}}}]},\"vcObjects\":{\"general\":[{\"properties\":{\"altText\":{\"expr\":{\"Literal\":{\"Value\":\"'Report a Bug'\"}}}}}],\"visualLink\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"type\":{\"expr\":{\"Literal\":{\"Value\":\"'WebUrl'\"}}},\"tooltip\":{\"expr\":{\"Literal\":{\"Value\":\"'Report a Bug'\"}}},\"webUrl\":{\"expr\":{\"Literal\":{\"Value\":\"'https://app.smartsheet.com/b/form/a2e4dc5affba4de8b4716a87e691659e'\"}}}}}],\"title\":[{\"properties\":{\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'Image'\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 31.84,
+          "width": 31.84,
+          "x": 1245.88,
+          "y": 0.00,
+          "z": 3000.00
+        },
+        {
+          "config": "{\"name\":\"763e23958e9c0072a012\",\"layouts\":[{\"id\":0,\"position\":{\"x\":1246.904422253923,\"y\":26.704707560627675,\"z\":2000,\"width\":31.840228245363768,\"height\":34.92154065620542,\"tabOrder\":1000}}],\"singleVisual\":{\"visualType\":\"image\",\"drillFilterOtherVisuals\":true,\"objects\":{\"general\":[{\"properties\":{\"imageUrl\":{\"expr\":{\"ResourcePackageItem\":{\"PackageName\":\"RegisteredResources\",\"PackageType\":1,\"ItemName\":\"Request16062119061288875.png\"}}}}}]},\"vcObjects\":{\"visualLink\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"type\":{\"expr\":{\"Literal\":{\"Value\":\"'WebUrl'\"}}},\"webUrl\":{\"expr\":{\"Literal\":{\"Value\":\"'https://app.smartsheet.com/b/form/48e28c97fa4d4b5c80eb7220d61beef8'\"}}},\"tooltip\":{\"expr\":{\"Literal\":{\"Value\":\"'Request a Change'\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 34.92,
+          "width": 31.84,
+          "x": 1246.90,
+          "y": 26.70,
+          "z": 2000.00
+        },
+        {
+          "config": "{\"name\":\"b2635113e9098081a0d7\",\"layouts\":[{\"id\":0,\"position\":{\"x\":0,\"y\":6,\"z\":1000,\"width\":163.99132321041216,\"height\":43.73101952277658,\"tabOrder\":0}}],\"singleVisual\":{\"visualType\":\"textbox\",\"drillFilterOtherVisuals\":true,\"objects\":{\"general\":[{\"properties\":{\"paragraphs\":[{\"textRuns\":[{\"value\":\"Account\",\"textStyle\":{\"fontWeight\":\"bold\",\"fontFamily\":\"Arial\",\"fontSize\":\"12pt\",\"color\":\"#201547\"}}]}]}}]},\"vcObjects\":{\"title\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"visualHeader\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}],\"background\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 43.73,
+          "width": 163.99,
+          "x": 0.00,
+          "y": 6.00,
+          "z": 1000.00
+        },
+        {
+          "config": "{\"name\":\"db953b13b6121a2ddd10\",\"layouts\":[{\"id\":0,\"position\":{\"x\":898.6876640419947,\"y\":0,\"z\":4000,\"width\":72.23097112860893,\"height\":57.11286089238845,\"tabOrder\":4000}}],\"singleVisual\":{\"visualType\":\"shape\",\"drillFilterOtherVisuals\":true,\"objects\":{\"shape\":[{\"properties\":{\"tileShape\":{\"expr\":{\"Literal\":{\"Value\":\"'rectangle'\"}}}}}],\"rotation\":[{\"properties\":{\"shapeAngle\":{\"expr\":{\"Literal\":{\"Value\":\"0L\"}}}}}],\"fill\":[{\"properties\":{\"fillColor\":{\"solid\":{\"color\":{\"expr\":{\"Literal\":{\"Value\":\"'#FFFFFF'\"}}}}}},\"selector\":{\"id\":\"default\"}}],\"outline\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 57.11,
+          "width": 72.23,
+          "x": 898.69,
+          "y": 0.00,
+          "z": 4000.00
+        },
+        {
+          "config": "{\"name\":\"e312c34507e710d405e4\",\"layouts\":[{\"id\":0,\"position\":{\"x\":20.15748031496063,\"y\":70.55118110236221,\"z\":0,\"width\":594.6456692913385,\"height\":650.0787401574803,\"tabOrder\":3000}}],\"singleVisual\":{\"visualType\":\"tableEx\",\"projections\":{\"Values\":[{\"queryRef\":\"vw_fact_PurchasingDocumentItem.GLAccount\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"v\",\"Entity\":\"vw_fact_PurchasingDocumentItem\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v\"}},\"Property\":\"GLAccount\"},\"Name\":\"vw_fact_PurchasingDocumentItem.GLAccount\"}]},\"columnProperties\":{\"vw_fact_PurchasingDocumentItem.GLAccount\":{\"displayName\":\"AccountId\"}},\"drillFilterOtherVisuals\":true,\"objects\":{\"total\":[{\"properties\":{\"totals\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"grid\":[{\"properties\":{\"outlineColor\":{\"solid\":{\"color\":{\"expr\":{\"ThemeDataColor\":{\"ColorId\":2,\"Percent\":0}}}}}}}]},\"vcObjects\":{\"stylePreset\":[{\"properties\":{\"name\":{\"expr\":{\"Literal\":{\"Value\":\"'Minimal'\"}}}}}]}}}",
+          "filters": "[{\"name\":\"Filter7d3670e5594410788050\",\"expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"vw_fact_PurchasingDocumentItem\"}},\"Property\":\"GLAccount\"}},\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"v\",\"Entity\":\"vw_fact_PurchasingDocumentItem\",\"Type\":0}],\"Where\":[{\"Condition\":{\"Not\":{\"Expression\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v\"}},\"Property\":\"GLAccount\"}}],\"Values\":[[{\"Literal\":{\"Value\":\"''\"}}]]}}}}}]},\"type\":\"Categorical\",\"howCreated\":0,\"objects\":{\"general\":[{\"properties\":{\"isInvertedSelectionMode\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}]},\"isHiddenInViewMode\":false}]",
+          "height": 650.08,
+          "width": 594.65,
+          "x": 20.16,
+          "y": 70.55,
+          "z": 0.00
+        }
+      ],
+      "width": 1280.00
+    },
+    {
+      "config": "{\"objects\":{\"outspace\":[{\"properties\":{\"image\":{\"image\":{\"name\":{\"expr\":{\"Literal\":{\"Value\":\"'leviat_dashboard_bg_f_gray (2).png'\"}}},\"url\":{\"expr\":{\"ResourcePackageItem\":{\"PackageName\":\"RegisteredResources\",\"PackageType\":1,\"ItemName\":\"leviat_dashboard_bg_f_gray_(2)2915035710077398.png\"}}},\"scaling\":{\"expr\":{\"Literal\":{\"Value\":\"'Normal'\"}}}}},\"transparency\":{\"expr\":{\"Literal\":{\"Value\":\"100D\"}}}}}],\"background\":[{\"properties\":{\"image\":{\"image\":{\"name\":{\"expr\":{\"Literal\":{\"Value\":\"'leviat_dashboard_bg_f_gray (2).png'\"}}},\"url\":{\"expr\":{\"ResourcePackageItem\":{\"PackageName\":\"RegisteredResources\",\"PackageType\":1,\"ItemName\":\"leviat_dashboard_bg_f_gray_(2)749561972643976.png\"}}},\"scaling\":{\"expr\":{\"Literal\":{\"Value\":\"'Normal'\"}}}}},\"transparency\":{\"expr\":{\"Literal\":{\"Value\":\"0D\"}}}}}]},\"visibility\":1}",
+      "displayName": "PO3_1",
+      "displayOption": 1,
+      "filters": "[]",
+      "height": 720.00,
+      "name": "ReportSection308562a60e08a490ce53",
+      "ordinal": 11,
+      "visualContainers": [
+        {
+          "config": "{\"name\":\"56e973593037001cc23a\",\"layouts\":[{\"id\":0,\"position\":{\"x\":1246.904422253923,\"y\":26.704707560627675,\"z\":2000,\"width\":31.840228245363768,\"height\":34.92154065620542,\"tabOrder\":1000}}],\"singleVisual\":{\"visualType\":\"image\",\"drillFilterOtherVisuals\":true,\"objects\":{\"general\":[{\"properties\":{\"imageUrl\":{\"expr\":{\"ResourcePackageItem\":{\"PackageName\":\"RegisteredResources\",\"PackageType\":1,\"ItemName\":\"Request16062119061288875.png\"}}}}}]},\"vcObjects\":{\"visualLink\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"type\":{\"expr\":{\"Literal\":{\"Value\":\"'WebUrl'\"}}},\"webUrl\":{\"expr\":{\"Literal\":{\"Value\":\"'https://app.smartsheet.com/b/form/48e28c97fa4d4b5c80eb7220d61beef8'\"}}},\"tooltip\":{\"expr\":{\"Literal\":{\"Value\":\"'Request a Change'\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 34.92,
+          "width": 31.84,
+          "x": 1246.90,
+          "y": 26.70,
+          "z": 2000.00
+        },
+        {
+          "config": "{\"name\":\"760755c228bee18503b0\",\"layouts\":[{\"id\":0,\"position\":{\"x\":0,\"y\":6,\"z\":1000,\"width\":163.99132321041216,\"height\":43.73101952277658,\"tabOrder\":0}}],\"singleVisual\":{\"visualType\":\"textbox\",\"drillFilterOtherVisuals\":true,\"objects\":{\"general\":[{\"properties\":{\"paragraphs\":[{\"textRuns\":[{\"value\":\"PO3\",\"textStyle\":{\"fontWeight\":\"bold\",\"fontFamily\":\"Arial\",\"fontSize\":\"12pt\",\"color\":\"#201547\"}}]}]}}]},\"vcObjects\":{\"title\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"visualHeader\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}],\"background\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 43.73,
+          "width": 163.99,
+          "x": 0.00,
+          "y": 6.00,
+          "z": 1000.00
+        },
+        {
+          "config": "{\"name\":\"b88051511c8be74a938a\",\"layouts\":[{\"id\":0,\"position\":{\"x\":898.6876640419947,\"y\":0,\"z\":4000,\"width\":72.23097112860893,\"height\":57.11286089238845,\"tabOrder\":4000}}],\"singleVisual\":{\"visualType\":\"shape\",\"drillFilterOtherVisuals\":true,\"objects\":{\"shape\":[{\"properties\":{\"tileShape\":{\"expr\":{\"Literal\":{\"Value\":\"'rectangle'\"}}}}}],\"rotation\":[{\"properties\":{\"shapeAngle\":{\"expr\":{\"Literal\":{\"Value\":\"0L\"}}}}}],\"fill\":[{\"properties\":{\"fillColor\":{\"solid\":{\"color\":{\"expr\":{\"Literal\":{\"Value\":\"'#FFFFFF'\"}}}}}},\"selector\":{\"id\":\"default\"}}],\"outline\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 57.11,
+          "width": 72.23,
+          "x": 898.69,
+          "y": 0.00,
+          "z": 4000.00
+        },
+        {
+          "config": "{\"name\":\"ba9abd15760b4e209ecb\",\"layouts\":[{\"id\":0,\"position\":{\"x\":20.30368763557484,\"y\":70.28199566160521,\"z\":0,\"width\":1241.6485900216921,\"height\":649.7180043383948,\"tabOrder\":3000}}],\"singleVisual\":{\"visualType\":\"tableEx\",\"projections\":{\"Values\":[{\"queryRef\":\"vw_fact_SupplierInvoiceItemPurOrdRef.PurchaseOrder\"},{\"queryRef\":\"vw_fact_SupplierInvoiceItemPurOrdRef.PurchaseOrderItem\"},{\"queryRef\":\"vw_fact_PurchasingDocument.PurchasingDocumentOrderDate\"},{\"queryRef\":\"vw_fact_PurchasingDocumentItem.PO Qty\"},{\"queryRef\":\"vw_fact_PurchasingDocumentItem.PO Net Amount\"},{\"queryRef\":\"vw_fact_PurchasingDocumentItem.DocumentCurrencyID\"},{\"queryRef\":\"vw_fact_PurchasingDocumentItem.MaterialID Remove\"},{\"queryRef\":\"vw_dim_MaterialGroup.MaterialGroupID\"},{\"queryRef\":\"vw_fact_SupplierInvoiceItemPurOrdRef.DocumentCurrencyID\"},{\"queryRef\":\"vw_dim_Supplier.SupplierID\"},{\"queryRef\":\"vw_dim_UserAddress.UserName\"},{\"queryRef\":\"vw_fact_PurchasingDocumentItem.GLAccount Remove\"},{\"queryRef\":\"vw_fact_PurchasingDocument.PurchasingOrganizationID\"},{\"queryRef\":\"vw_fact_PurchasingDocumentItem.CostCenterID\"},{\"queryRef\":\"vw_dim_CompanyCode.CompanyCodeID\"},{\"queryRef\":\"vw_fact_PurchasingDocumentItem.PurchaseContract\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"v\",\"Entity\":\"vw_fact_SupplierInvoiceItemPurOrdRef\",\"Type\":0},{\"Name\":\"v1\",\"Entity\":\"vw_fact_PurchasingDocument\",\"Type\":0},{\"Name\":\"v2\",\"Entity\":\"vw_fact_PurchasingDocumentItem\",\"Type\":0},{\"Name\":\"v3\",\"Entity\":\"vw_dim_MaterialGroup\",\"Type\":0},{\"Name\":\"v4\",\"Entity\":\"vw_dim_Supplier\",\"Type\":0},{\"Name\":\"v5\",\"Entity\":\"vw_dim_UserAddress\",\"Type\":0},{\"Name\":\"v6\",\"Entity\":\"vw_dim_CompanyCode\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v\"}},\"Property\":\"PurchaseOrder\"},\"Name\":\"vw_fact_SupplierInvoiceItemPurOrdRef.PurchaseOrder\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v\"}},\"Property\":\"PurchaseOrderItem\"},\"Name\":\"vw_fact_SupplierInvoiceItemPurOrdRef.PurchaseOrderItem\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v1\"}},\"Property\":\"PurchasingDocumentOrderDate\"},\"Name\":\"vw_fact_PurchasingDocument.PurchasingDocumentOrderDate\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v2\"}},\"Property\":\"DocumentCurrencyID\"},\"Name\":\"vw_fact_PurchasingDocumentItem.DocumentCurrencyID\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v3\"}},\"Property\":\"MaterialGroupID\"},\"Name\":\"vw_dim_MaterialGroup.MaterialGroupID\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v\"}},\"Property\":\"DocumentCurrencyID\"},\"Name\":\"vw_fact_SupplierInvoiceItemPurOrdRef.DocumentCurrencyID\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v4\"}},\"Property\":\"SupplierID\"},\"Name\":\"vw_dim_Supplier.SupplierID\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v5\"}},\"Property\":\"UserName\"},\"Name\":\"vw_dim_UserAddress.UserName\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v1\"}},\"Property\":\"PurchasingOrganizationID\"},\"Name\":\"vw_fact_PurchasingDocument.PurchasingOrganizationID\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v2\"}},\"Property\":\"CostCenterID\"},\"Name\":\"vw_fact_PurchasingDocumentItem.CostCenterID\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v6\"}},\"Property\":\"CompanyCodeID\"},\"Name\":\"vw_dim_CompanyCode.CompanyCodeID\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v2\"}},\"Property\":\"PurchaseContract\"},\"Name\":\"vw_fact_PurchasingDocumentItem.PurchaseContract\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v2\"}},\"Property\":\"PO Qty\"},\"Name\":\"vw_fact_PurchasingDocumentItem.PO Qty\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v2\"}},\"Property\":\"PO Net Amount\"},\"Name\":\"vw_fact_PurchasingDocumentItem.PO Net Amount\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v2\"}},\"Property\":\"MaterialID Remove\"},\"Name\":\"vw_fact_PurchasingDocumentItem.MaterialID Remove\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v2\"}},\"Property\":\"GLAccount Remove\"},\"Name\":\"vw_fact_PurchasingDocumentItem.GLAccount Remove\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v\"}},\"Property\":\"PurchaseOrder\"}}}]},\"columnProperties\":{\"vw_fact_SupplierInvoiceItemPurOrdRef.PurchaseOrder\":{\"displayName\":\"POId\"},\"vw_fact_SupplierInvoiceItemPurOrdRef.PurchaseOrderItem\":{\"displayName\":\"PO Item\"},\"vw_fact_PurchasingDocument.PurchasingDocumentOrderDate\":{\"displayName\":\"OrderedDate\"},\"vw_fact_PurchasingDocumentItem.PO Qty\":{\"displayName\":\"Quantity\"},\"vw_fact_PurchasingDocumentItem.DocumentCurrencyID\":{\"displayName\":\"PO Currency\"},\"vw_dim_MaterialGroup.MaterialGroupID\":{\"displayName\":\"PartNumber\"},\"vw_fact_SupplierInvoiceItemPurOrdRef.DocumentCurrencyID\":{\"displayName\":\"UnitOfMeasure\"},\"vw_dim_Supplier.SupplierID\":{\"displayName\":\"SupplierId\"},\"vw_dim_UserAddress.UserName\":{\"displayName\":\"RequesterId\"},\"vw_fact_PurchasingDocument.PurchasingOrganizationID\":{\"displayName\":\"CompanySiteId\"},\"vw_fact_PurchasingDocumentItem.CostCenterID\":{\"displayName\":\"CostCenterId\"},\"vw_dim_CompanyCode.CompanyCodeID\":{\"displayName\":\"CostCenterCompanyCode\"},\"vw_fact_PurchasingDocumentItem.PurchaseContract\":{\"displayName\":\"ContractId\"},\"vw_fact_PurchasingDocumentItem.MaterialID Remove\":{\"displayName\":\"ERPCommodityId\"},\"vw_fact_PurchasingDocumentItem.GLAccount Remove\":{\"displayName\":\"AccountId\"}},\"drillFilterOtherVisuals\":true,\"objects\":{\"total\":[{\"properties\":{\"totals\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"grid\":[{\"properties\":{\"outlineColor\":{\"solid\":{\"color\":{\"expr\":{\"ThemeDataColor\":{\"ColorId\":2,\"Percent\":0}}}}}}}],\"columnFormatting\":[{\"properties\":{\"alignment\":{\"expr\":{\"Literal\":{\"Value\":\"'Right'\"}}}},\"selector\":{\"metadata\":\"vw_fact_PurchasingDocumentItem.PO Qty\"}},{\"properties\":{\"alignment\":{\"expr\":{\"Literal\":{\"Value\":\"'Right'\"}}}},\"selector\":{\"metadata\":\"vw_dim_MaterialGroup.MaterialGroupID\"}},{\"properties\":{\"alignment\":{\"expr\":{\"Literal\":{\"Value\":\"'Right'\"}}}},\"selector\":{\"metadata\":\"vw_fact_PurchasingDocumentItem.PO Net Amount\"}},{\"properties\":{\"alignment\":{\"expr\":{\"Literal\":{\"Value\":\"'Right'\"}}}},\"selector\":{\"metadata\":\"vw_fact_SupplierInvoiceItemPurOrdRef.PurchaseOrder\"}},{\"properties\":{\"alignment\":{\"expr\":{\"Literal\":{\"Value\":\"'Right'\"}}}},\"selector\":{\"metadata\":\"vw_fact_SupplierInvoiceItemPurOrdRef.PurchaseOrderItem\"}},{\"properties\":{\"alignment\":{\"expr\":{\"Literal\":{\"Value\":\"'Right'\"}}}},\"selector\":{\"metadata\":\"vw_fact_PurchasingDocument.PurchasingDocumentOrderDate\"}},{\"properties\":{\"alignment\":{\"expr\":{\"Literal\":{\"Value\":\"'Right'\"}}}},\"selector\":{\"metadata\":\"vw_fact_PurchasingDocumentItem.DocumentCurrencyID\"}},{\"properties\":{\"alignment\":{\"expr\":{\"Literal\":{\"Value\":\"'Right'\"}}}},\"selector\":{\"metadata\":\"vw_fact_PurchasingDocumentItem.MaterialID Remove\"}},{\"properties\":{\"alignment\":{\"expr\":{\"Literal\":{\"Value\":\"'Right'\"}}}},\"selector\":{\"metadata\":\"vw_fact_SupplierInvoiceItemPurOrdRef.DocumentCurrencyID\"}},{\"properties\":{\"alignment\":{\"expr\":{\"Literal\":{\"Value\":\"'Right'\"}}}},\"selector\":{\"metadata\":\"vw_dim_Supplier.SupplierID\"}},{\"properties\":{\"alignment\":{\"expr\":{\"Literal\":{\"Value\":\"'Right'\"}}}},\"selector\":{\"metadata\":\"vw_dim_UserAddress.UserName\"}},{\"properties\":{\"alignment\":{\"expr\":{\"Literal\":{\"Value\":\"'Right'\"}}}},\"selector\":{\"metadata\":\"vw_fact_PurchasingDocumentItem.GLAccount Remove\"}},{\"properties\":{\"alignment\":{\"expr\":{\"Literal\":{\"Value\":\"'Right'\"}}}},\"selector\":{\"metadata\":\"vw_fact_PurchasingDocument.PurchasingOrganizationID\"}},{\"properties\":{\"alignment\":{\"expr\":{\"Literal\":{\"Value\":\"'Right'\"}}}},\"selector\":{\"metadata\":\"vw_fact_PurchasingDocumentItem.CostCenterID\"}},{\"properties\":{\"alignment\":{\"expr\":{\"Literal\":{\"Value\":\"'Right'\"}}}},\"selector\":{\"metadata\":\"vw_dim_CompanyCode.CompanyCodeID\"}},{\"properties\":{\"alignment\":{\"expr\":{\"Literal\":{\"Value\":\"'Right'\"}}}},\"selector\":{\"metadata\":\"vw_fact_PurchasingDocumentItem.PurchaseContract\"}}]},\"vcObjects\":{\"stylePreset\":[{\"properties\":{\"name\":{\"expr\":{\"Literal\":{\"Value\":\"'Minimal'\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 649.72,
+          "width": 1241.65,
+          "x": 20.30,
+          "y": 70.28,
+          "z": 0.00
+        },
+        {
+          "config": "{\"name\":\"d1eb8c357083256d6211\",\"layouts\":[{\"id\":0,\"position\":{\"x\":1245.8773181169759,\"y\":0,\"z\":3000,\"width\":31.840228245363768,\"height\":31.840228245363768,\"tabOrder\":2000}}],\"singleVisual\":{\"visualType\":\"image\",\"drillFilterOtherVisuals\":true,\"objects\":{\"general\":[{\"properties\":{\"imageUrl\":{\"expr\":{\"ResourcePackageItem\":{\"PackageName\":\"RegisteredResources\",\"PackageType\":1,\"ItemName\":\"Bug14622348017782587.png\"}}}}}]},\"vcObjects\":{\"general\":[{\"properties\":{\"altText\":{\"expr\":{\"Literal\":{\"Value\":\"'Report a Bug'\"}}}}}],\"visualLink\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"type\":{\"expr\":{\"Literal\":{\"Value\":\"'WebUrl'\"}}},\"tooltip\":{\"expr\":{\"Literal\":{\"Value\":\"'Report a Bug'\"}}},\"webUrl\":{\"expr\":{\"Literal\":{\"Value\":\"'https://app.smartsheet.com/b/form/a2e4dc5affba4de8b4716a87e691659e'\"}}}}}],\"title\":[{\"properties\":{\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'Image'\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 31.84,
+          "width": 31.84,
+          "x": 1245.88,
+          "y": 0.00,
+          "z": 3000.00
+        }
+      ],
+      "width": 1280.00
+    },
+    {
+      "config": "{\"objects\":{\"background\":[{\"properties\":{\"image\":{\"image\":{\"name\":{\"expr\":{\"Literal\":{\"Value\":\"'leviat_dashboard_bg_f_gray (2).png'\"}}},\"url\":{\"expr\":{\"ResourcePackageItem\":{\"PackageName\":\"RegisteredResources\",\"PackageType\":1,\"ItemName\":\"leviat_dashboard_bg_f_gray_(2)3440283728638245.png\"}}},\"scaling\":{\"expr\":{\"Literal\":{\"Value\":\"'Normal'\"}}}}},\"transparency\":{\"expr\":{\"Literal\":{\"Value\":\"0D\"}}}}}]}}",
+      "displayName": "CostCenter",
+      "displayOption": 1,
+      "filters": "[]",
+      "height": 720.00,
+      "name": "ReportSection63d34377d6847de248c6",
+      "ordinal": 4,
+      "visualContainers": [
+        {
+          "config": "{\"name\":\"3af9f280ae6b41ad9564\",\"layouts\":[{\"id\":0,\"position\":{\"x\":1246.904422253923,\"y\":26.704707560627675,\"z\":2000,\"width\":31.840228245363768,\"height\":34.92154065620542,\"tabOrder\":1000}}],\"singleVisual\":{\"visualType\":\"image\",\"drillFilterOtherVisuals\":true,\"objects\":{\"general\":[{\"properties\":{\"imageUrl\":{\"expr\":{\"ResourcePackageItem\":{\"PackageName\":\"RegisteredResources\",\"PackageType\":1,\"ItemName\":\"Request16062119061288875.png\"}}}}}]},\"vcObjects\":{\"visualLink\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"type\":{\"expr\":{\"Literal\":{\"Value\":\"'WebUrl'\"}}},\"webUrl\":{\"expr\":{\"Literal\":{\"Value\":\"'https://app.smartsheet.com/b/form/48e28c97fa4d4b5c80eb7220d61beef8'\"}}},\"tooltip\":{\"expr\":{\"Literal\":{\"Value\":\"'Request a Change'\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 34.92,
+          "width": 31.84,
+          "x": 1246.90,
+          "y": 26.70,
+          "z": 2000.00
+        },
+        {
+          "config": "{\"name\":\"5fc5a4843a91d0059535\",\"layouts\":[{\"id\":0,\"position\":{\"x\":0,\"y\":6,\"z\":1000,\"width\":163.99132321041216,\"height\":43.73101952277658,\"tabOrder\":0}}],\"singleVisual\":{\"visualType\":\"textbox\",\"drillFilterOtherVisuals\":true,\"objects\":{\"general\":[{\"properties\":{\"paragraphs\":[{\"textRuns\":[{\"value\":\"Cost Center\",\"textStyle\":{\"fontWeight\":\"bold\",\"fontFamily\":\"Arial\",\"fontSize\":\"12pt\",\"color\":\"#201547\"}}]}]}}]},\"vcObjects\":{\"title\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"visualHeader\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}],\"background\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 43.73,
+          "width": 163.99,
+          "x": 0.00,
+          "y": 6.00,
+          "z": 1000.00
+        },
+        {
+          "config": "{\"name\":\"61bc3690b11cc48ae3c0\",\"layouts\":[{\"id\":0,\"position\":{\"x\":20.30368763557484,\"y\":70.28199566160521,\"z\":0,\"width\":437.31019522776575,\"height\":649.7180043383948,\"tabOrder\":3000}}],\"singleVisual\":{\"visualType\":\"tableEx\",\"projections\":{\"Values\":[{\"queryRef\":\"vw_fact_PurchasingDocumentItem.CostCenterID\"},{\"queryRef\":\"vw_dim_CompanyCode.CompanyCodeID\"},{\"queryRef\":\"vw_dim_CostCenter.CostCenter\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"v\",\"Entity\":\"vw_fact_PurchasingDocumentItem\",\"Type\":0},{\"Name\":\"v1\",\"Entity\":\"vw_dim_CompanyCode\",\"Type\":0},{\"Name\":\"v2\",\"Entity\":\"vw_dim_CostCenter\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v\"}},\"Property\":\"CostCenterID\"},\"Name\":\"vw_fact_PurchasingDocumentItem.CostCenterID\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v1\"}},\"Property\":\"CompanyCodeID\"},\"Name\":\"vw_dim_CompanyCode.CompanyCodeID\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v2\"}},\"Property\":\"CostCenter\"},\"Name\":\"vw_dim_CostCenter.CostCenter\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v\"}},\"Property\":\"CostCenterID\"}}}]},\"columnProperties\":{\"vw_fact_PurchasingDocumentItem.CostCenterID\":{\"displayName\":\"CostCenterId\"},\"vw_dim_CompanyCode.CompanyCodeID\":{\"displayName\":\"CompanyCode\"},\"vw_dim_CostCenter.CostCenter\":{\"displayName\":\"CostCenterName\"}},\"drillFilterOtherVisuals\":true,\"objects\":{\"total\":[{\"properties\":{\"totals\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"grid\":[{\"properties\":{\"outlineColor\":{\"solid\":{\"color\":{\"expr\":{\"ThemeDataColor\":{\"ColorId\":2,\"Percent\":0}}}}}}}]},\"vcObjects\":{\"stylePreset\":[{\"properties\":{\"name\":{\"expr\":{\"Literal\":{\"Value\":\"'Minimal'\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 649.72,
+          "width": 437.31,
+          "x": 20.30,
+          "y": 70.28,
+          "z": 0.00
+        },
+        {
+          "config": "{\"name\":\"a16ddfc9d48705089ae2\",\"layouts\":[{\"id\":0,\"position\":{\"x\":1245.8773181169759,\"y\":0,\"z\":3000,\"width\":31.840228245363768,\"height\":31.840228245363768,\"tabOrder\":2000}}],\"singleVisual\":{\"visualType\":\"image\",\"drillFilterOtherVisuals\":true,\"objects\":{\"general\":[{\"properties\":{\"imageUrl\":{\"expr\":{\"ResourcePackageItem\":{\"PackageName\":\"RegisteredResources\",\"PackageType\":1,\"ItemName\":\"Bug14622348017782587.png\"}}}}}]},\"vcObjects\":{\"general\":[{\"properties\":{\"altText\":{\"expr\":{\"Literal\":{\"Value\":\"'Report a Bug'\"}}}}}],\"visualLink\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"type\":{\"expr\":{\"Literal\":{\"Value\":\"'WebUrl'\"}}},\"tooltip\":{\"expr\":{\"Literal\":{\"Value\":\"'Report a Bug'\"}}},\"webUrl\":{\"expr\":{\"Literal\":{\"Value\":\"'https://app.smartsheet.com/b/form/a2e4dc5affba4de8b4716a87e691659e'\"}}}}}],\"title\":[{\"properties\":{\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'Image'\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 31.84,
+          "width": 31.84,
+          "x": 1245.88,
+          "y": 0.00,
+          "z": 3000.00
+        },
+        {
+          "config": "{\"name\":\"b6381469accc01250e80\",\"layouts\":[{\"id\":0,\"position\":{\"x\":898.6876640419947,\"y\":0,\"z\":4000,\"width\":72.23097112860893,\"height\":57.11286089238845,\"tabOrder\":4000}}],\"singleVisual\":{\"visualType\":\"shape\",\"drillFilterOtherVisuals\":true,\"objects\":{\"shape\":[{\"properties\":{\"tileShape\":{\"expr\":{\"Literal\":{\"Value\":\"'rectangle'\"}}}}}],\"rotation\":[{\"properties\":{\"shapeAngle\":{\"expr\":{\"Literal\":{\"Value\":\"0L\"}}}}}],\"fill\":[{\"properties\":{\"fillColor\":{\"solid\":{\"color\":{\"expr\":{\"Literal\":{\"Value\":\"'#FFFFFF'\"}}}}}},\"selector\":{\"id\":\"default\"}}],\"outline\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 57.11,
+          "width": 72.23,
+          "x": 898.69,
+          "y": 0.00,
+          "z": 4000.00
+        }
+      ],
+      "width": 1280.00
+    },
+    {
+      "config": "{\"objects\":{\"outspace\":[{\"properties\":{\"image\":{\"image\":{\"name\":{\"expr\":{\"Literal\":{\"Value\":\"'leviat_dashboard_bg_f_gray (2).png'\"}}},\"url\":{\"expr\":{\"ResourcePackageItem\":{\"PackageName\":\"RegisteredResources\",\"PackageType\":1,\"ItemName\":\"leviat_dashboard_bg_f_gray_(2)2915035710077398.png\"}}},\"scaling\":{\"expr\":{\"Literal\":{\"Value\":\"'Normal'\"}}}}},\"transparency\":{\"expr\":{\"Literal\":{\"Value\":\"100D\"}}}}}],\"background\":[{\"properties\":{\"image\":{\"image\":{\"name\":{\"expr\":{\"Literal\":{\"Value\":\"'leviat_dashboard_bg_f_gray (2).png'\"}}},\"url\":{\"expr\":{\"ResourcePackageItem\":{\"PackageName\":\"RegisteredResources\",\"PackageType\":1,\"ItemName\":\"leviat_dashboard_bg_f_gray_(2)749561972643976.png\"}}},\"scaling\":{\"expr\":{\"Literal\":{\"Value\":\"'Normal'\"}}}}},\"transparency\":{\"expr\":{\"Literal\":{\"Value\":\"0D\"}}}}}]},\"visibility\":0}",
+      "displayName": "PO3",
+      "displayOption": 1,
+      "filters": "[]",
+      "height": 720.00,
+      "name": "ReportSection6f184dc366534dca5a55",
+      "ordinal": 2,
+      "visualContainers": [
+        {
+          "config": "{\"name\":\"00d05fd529e73b837c88\",\"layouts\":[{\"id\":0,\"position\":{\"x\":20.30368763557484,\"y\":70.28199566160521,\"z\":0,\"width\":1241.6485900216921,\"height\":649.7180043383948,\"tabOrder\":3000}}],\"singleVisual\":{\"visualType\":\"tableEx\",\"projections\":{\"Values\":[{\"queryRef\":\"vw_fact_SupplierInvoiceItemPurOrdRef.PurchaseOrder\"},{\"queryRef\":\"vw_fact_SupplierInvoiceItemPurOrdRef.PurchaseOrderItem\"},{\"queryRef\":\"vw_fact_PurchasingDocument.PurchasingDocumentOrderDate\"},{\"queryRef\":\"vw_fact_PurchasingDocumentItem.PO Net Amount\"},{\"queryRef\":\"vw_fact_PurchasingDocumentItem.DocumentCurrencyID\"},{\"queryRef\":\"vw_fact_SupplierInvoiceItemPurOrdRef.DocumentCurrencyID\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"v\",\"Entity\":\"vw_fact_SupplierInvoiceItemPurOrdRef\",\"Type\":0},{\"Name\":\"v1\",\"Entity\":\"vw_fact_PurchasingDocument\",\"Type\":0},{\"Name\":\"v2\",\"Entity\":\"vw_fact_PurchasingDocumentItem\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v\"}},\"Property\":\"PurchaseOrder\"},\"Name\":\"vw_fact_SupplierInvoiceItemPurOrdRef.PurchaseOrder\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v\"}},\"Property\":\"PurchaseOrderItem\"},\"Name\":\"vw_fact_SupplierInvoiceItemPurOrdRef.PurchaseOrderItem\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v1\"}},\"Property\":\"PurchasingDocumentOrderDate\"},\"Name\":\"vw_fact_PurchasingDocument.PurchasingDocumentOrderDate\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v2\"}},\"Property\":\"DocumentCurrencyID\"},\"Name\":\"vw_fact_PurchasingDocumentItem.DocumentCurrencyID\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v\"}},\"Property\":\"DocumentCurrencyID\"},\"Name\":\"vw_fact_SupplierInvoiceItemPurOrdRef.DocumentCurrencyID\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v2\"}},\"Property\":\"PO Net Amount\"},\"Name\":\"vw_fact_PurchasingDocumentItem.PO Net Amount\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v\"}},\"Property\":\"PurchaseOrder\"}}}]},\"columnProperties\":{\"vw_fact_SupplierInvoiceItemPurOrdRef.PurchaseOrder\":{\"displayName\":\"POId\"},\"vw_fact_SupplierInvoiceItemPurOrdRef.PurchaseOrderItem\":{\"displayName\":\"POLineNumber\"},\"vw_fact_PurchasingDocument.PurchasingDocumentOrderDate\":{\"displayName\":\"OrderedDate\"},\"vw_fact_PurchasingDocumentItem.DocumentCurrencyID\":{\"displayName\":\"AmountCurrency\"},\"vw_fact_SupplierInvoiceItemPurOrdRef.DocumentCurrencyID\":{\"displayName\":\"UnitOfMeasure\"},\"vw_fact_PurchasingDocumentItem.PO Net Amount\":{\"displayName\":\"Amount\"}},\"drillFilterOtherVisuals\":true,\"objects\":{\"total\":[{\"properties\":{\"totals\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"grid\":[{\"properties\":{\"outlineColor\":{\"solid\":{\"color\":{\"expr\":{\"ThemeDataColor\":{\"ColorId\":2,\"Percent\":0}}}}}}}],\"columnFormatting\":[{\"properties\":{\"alignment\":{\"expr\":{\"Literal\":{\"Value\":\"'Right'\"}}}},\"selector\":{\"metadata\":\"vw_fact_PurchasingDocumentItem.PO Net Amount\"}},{\"properties\":{\"alignment\":{\"expr\":{\"Literal\":{\"Value\":\"'Right'\"}}}},\"selector\":{\"metadata\":\"vw_fact_SupplierInvoiceItemPurOrdRef.PurchaseOrder\"}},{\"properties\":{\"alignment\":{\"expr\":{\"Literal\":{\"Value\":\"'Right'\"}}}},\"selector\":{\"metadata\":\"vw_fact_SupplierInvoiceItemPurOrdRef.PurchaseOrderItem\"}},{\"properties\":{\"alignment\":{\"expr\":{\"Literal\":{\"Value\":\"'Right'\"}}}},\"selector\":{\"metadata\":\"vw_fact_PurchasingDocument.PurchasingDocumentOrderDate\"}},{\"properties\":{\"alignment\":{\"expr\":{\"Literal\":{\"Value\":\"'Right'\"}}}},\"selector\":{\"metadata\":\"vw_fact_PurchasingDocumentItem.DocumentCurrencyID\"}},{\"properties\":{\"alignment\":{\"expr\":{\"Literal\":{\"Value\":\"'Right'\"}}}},\"selector\":{\"metadata\":\"vw_fact_SupplierInvoiceItemPurOrdRef.DocumentCurrencyID\"}}]},\"vcObjects\":{\"stylePreset\":[{\"properties\":{\"name\":{\"expr\":{\"Literal\":{\"Value\":\"'Minimal'\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 649.72,
+          "width": 1241.65,
+          "x": 20.30,
+          "y": 70.28,
+          "z": 0.00
+        },
+        {
+          "config": "{\"name\":\"1babc620d8309b9bdbba\",\"layouts\":[{\"id\":0,\"position\":{\"x\":898.6876640419947,\"y\":0,\"z\":4000,\"width\":72.23097112860893,\"height\":57.11286089238845,\"tabOrder\":4000}}],\"singleVisual\":{\"visualType\":\"shape\",\"drillFilterOtherVisuals\":true,\"objects\":{\"shape\":[{\"properties\":{\"tileShape\":{\"expr\":{\"Literal\":{\"Value\":\"'rectangle'\"}}}}}],\"rotation\":[{\"properties\":{\"shapeAngle\":{\"expr\":{\"Literal\":{\"Value\":\"0L\"}}}}}],\"fill\":[{\"properties\":{\"fillColor\":{\"solid\":{\"color\":{\"expr\":{\"Literal\":{\"Value\":\"'#FFFFFF'\"}}}}}},\"selector\":{\"id\":\"default\"}}],\"outline\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 57.11,
+          "width": 72.23,
+          "x": 898.69,
+          "y": 0.00,
+          "z": 4000.00
+        },
+        {
+          "config": "{\"name\":\"31de5cc657d371aeb567\",\"layouts\":[{\"id\":0,\"position\":{\"x\":0,\"y\":6,\"z\":1000,\"width\":163.99132321041216,\"height\":43.73101952277658,\"tabOrder\":0}}],\"singleVisual\":{\"visualType\":\"textbox\",\"drillFilterOtherVisuals\":true,\"objects\":{\"general\":[{\"properties\":{\"paragraphs\":[{\"textRuns\":[{\"value\":\"PO3\",\"textStyle\":{\"fontWeight\":\"bold\",\"fontFamily\":\"Arial\",\"fontSize\":\"12pt\",\"color\":\"#201547\"}}]}]}}]},\"vcObjects\":{\"title\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"visualHeader\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}],\"background\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 43.73,
+          "width": 163.99,
+          "x": 0.00,
+          "y": 6.00,
+          "z": 1000.00
+        },
+        {
+          "config": "{\"name\":\"6bca166eda10d0877852\",\"layouts\":[{\"id\":0,\"position\":{\"x\":1245.8773181169759,\"y\":0,\"z\":3000,\"width\":31.840228245363768,\"height\":31.840228245363768,\"tabOrder\":2000}}],\"singleVisual\":{\"visualType\":\"image\",\"drillFilterOtherVisuals\":true,\"objects\":{\"general\":[{\"properties\":{\"imageUrl\":{\"expr\":{\"ResourcePackageItem\":{\"PackageName\":\"RegisteredResources\",\"PackageType\":1,\"ItemName\":\"Bug14622348017782587.png\"}}}}}]},\"vcObjects\":{\"general\":[{\"properties\":{\"altText\":{\"expr\":{\"Literal\":{\"Value\":\"'Report a Bug'\"}}}}}],\"visualLink\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"type\":{\"expr\":{\"Literal\":{\"Value\":\"'WebUrl'\"}}},\"tooltip\":{\"expr\":{\"Literal\":{\"Value\":\"'Report a Bug'\"}}},\"webUrl\":{\"expr\":{\"Literal\":{\"Value\":\"'https://app.smartsheet.com/b/form/a2e4dc5affba4de8b4716a87e691659e'\"}}}}}],\"title\":[{\"properties\":{\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'Image'\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 31.84,
+          "width": 31.84,
+          "x": 1245.88,
+          "y": 0.00,
+          "z": 3000.00
+        },
+        {
+          "config": "{\"name\":\"e1cbd3c6002845b74746\",\"layouts\":[{\"id\":0,\"position\":{\"x\":1246.904422253923,\"y\":26.704707560627675,\"z\":2000,\"width\":31.840228245363768,\"height\":34.92154065620542,\"tabOrder\":1000}}],\"singleVisual\":{\"visualType\":\"image\",\"drillFilterOtherVisuals\":true,\"objects\":{\"general\":[{\"properties\":{\"imageUrl\":{\"expr\":{\"ResourcePackageItem\":{\"PackageName\":\"RegisteredResources\",\"PackageType\":1,\"ItemName\":\"Request16062119061288875.png\"}}}}}]},\"vcObjects\":{\"visualLink\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"type\":{\"expr\":{\"Literal\":{\"Value\":\"'WebUrl'\"}}},\"webUrl\":{\"expr\":{\"Literal\":{\"Value\":\"'https://app.smartsheet.com/b/form/48e28c97fa4d4b5c80eb7220d61beef8'\"}}},\"tooltip\":{\"expr\":{\"Literal\":{\"Value\":\"'Request a Change'\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 34.92,
+          "width": 31.84,
+          "x": 1246.90,
+          "y": 26.70,
+          "z": 2000.00
+        }
+      ],
+      "width": 1280.00
+    },
+    {
+      "config": "{\"objects\":{\"background\":[{\"properties\":{\"image\":{\"image\":{\"name\":{\"expr\":{\"Literal\":{\"Value\":\"'leviat_dashboard_bg_f_gray (2).png'\"}}},\"url\":{\"expr\":{\"ResourcePackageItem\":{\"PackageName\":\"RegisteredResources\",\"PackageType\":1,\"ItemName\":\"leviat_dashboard_bg_f_gray_(2)7679771597462117.png\"}}},\"scaling\":{\"expr\":{\"Literal\":{\"Value\":\"'Normal'\"}}}}},\"transparency\":{\"expr\":{\"Literal\":{\"Value\":\"0D\"}}}}}]}}",
+      "displayName": "Contract",
+      "displayOption": 1,
+      "filters": "[]",
+      "height": 720.00,
+      "name": "ReportSection70bd6a0d30e71000c214",
+      "ordinal": 3,
+      "visualContainers": [
+        {
+          "config": "{\"name\":\"44809c20475992b05c07\",\"layouts\":[{\"id\":0,\"position\":{\"x\":1245.8773181169759,\"y\":0,\"z\":3000,\"width\":31.840228245363768,\"height\":31.840228245363768,\"tabOrder\":2000}}],\"singleVisual\":{\"visualType\":\"image\",\"drillFilterOtherVisuals\":true,\"objects\":{\"general\":[{\"properties\":{\"imageUrl\":{\"expr\":{\"ResourcePackageItem\":{\"PackageName\":\"RegisteredResources\",\"PackageType\":1,\"ItemName\":\"Bug14622348017782587.png\"}}}}}]},\"vcObjects\":{\"general\":[{\"properties\":{\"altText\":{\"expr\":{\"Literal\":{\"Value\":\"'Report a Bug'\"}}}}}],\"visualLink\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"type\":{\"expr\":{\"Literal\":{\"Value\":\"'WebUrl'\"}}},\"tooltip\":{\"expr\":{\"Literal\":{\"Value\":\"'Report a Bug'\"}}},\"webUrl\":{\"expr\":{\"Literal\":{\"Value\":\"'https://app.smartsheet.com/b/form/a2e4dc5affba4de8b4716a87e691659e'\"}}}}}],\"title\":[{\"properties\":{\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'Image'\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 31.84,
+          "width": 31.84,
+          "x": 1245.88,
+          "y": 0.00,
+          "z": 3000.00
+        },
+        {
+          "config": "{\"name\":\"a58746f2075800ec8bbd\",\"layouts\":[{\"id\":0,\"position\":{\"x\":0,\"y\":6,\"z\":1000,\"width\":163.99132321041216,\"height\":43.73101952277658,\"tabOrder\":0}}],\"singleVisual\":{\"visualType\":\"textbox\",\"drillFilterOtherVisuals\":true,\"objects\":{\"general\":[{\"properties\":{\"paragraphs\":[{\"textRuns\":[{\"value\":\"Contract\",\"textStyle\":{\"fontWeight\":\"bold\",\"fontFamily\":\"Arial\",\"fontSize\":\"12pt\",\"color\":\"#201547\"}}]}]}}]},\"vcObjects\":{\"title\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"visualHeader\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}],\"background\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 43.73,
+          "width": 163.99,
+          "x": 0.00,
+          "y": 6.00,
+          "z": 1000.00
+        },
+        {
+          "config": "{\"name\":\"b3d59f7068b5608020d6\",\"layouts\":[{\"id\":0,\"position\":{\"x\":1246.904422253923,\"y\":26.704707560627675,\"z\":2000,\"width\":31.840228245363768,\"height\":34.92154065620542,\"tabOrder\":1000}}],\"singleVisual\":{\"visualType\":\"image\",\"drillFilterOtherVisuals\":true,\"objects\":{\"general\":[{\"properties\":{\"imageUrl\":{\"expr\":{\"ResourcePackageItem\":{\"PackageName\":\"RegisteredResources\",\"PackageType\":1,\"ItemName\":\"Request16062119061288875.png\"}}}}}]},\"vcObjects\":{\"visualLink\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"type\":{\"expr\":{\"Literal\":{\"Value\":\"'WebUrl'\"}}},\"webUrl\":{\"expr\":{\"Literal\":{\"Value\":\"'https://app.smartsheet.com/b/form/48e28c97fa4d4b5c80eb7220d61beef8'\"}}},\"tooltip\":{\"expr\":{\"Literal\":{\"Value\":\"'Request a Change'\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 34.92,
+          "width": 31.84,
+          "x": 1246.90,
+          "y": 26.70,
+          "z": 2000.00
+        },
+        {
+          "config": "{\"name\":\"c39e93442500bd5e3899\",\"layouts\":[{\"id\":0,\"position\":{\"x\":898.6876640419947,\"y\":0,\"z\":4000,\"width\":72.23097112860893,\"height\":57.11286089238845,\"tabOrder\":4000}}],\"singleVisual\":{\"visualType\":\"shape\",\"drillFilterOtherVisuals\":true,\"objects\":{\"shape\":[{\"properties\":{\"tileShape\":{\"expr\":{\"Literal\":{\"Value\":\"'rectangle'\"}}}}}],\"rotation\":[{\"properties\":{\"shapeAngle\":{\"expr\":{\"Literal\":{\"Value\":\"0L\"}}}}}],\"fill\":[{\"properties\":{\"fillColor\":{\"solid\":{\"color\":{\"expr\":{\"Literal\":{\"Value\":\"'#FFFFFF'\"}}}}}},\"selector\":{\"id\":\"default\"}}],\"outline\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 57.11,
+          "width": 72.23,
+          "x": 898.69,
+          "y": 0.00,
+          "z": 4000.00
+        },
+        {
+          "config": "{\"name\":\"f40421407bd9a45057ba\",\"layouts\":[{\"id\":0,\"position\":{\"x\":20.15748031496063,\"y\":70.55118110236221,\"z\":0,\"width\":280.5249343832021,\"height\":650.0787401574803,\"tabOrder\":3000}}],\"singleVisual\":{\"visualType\":\"tableEx\",\"projections\":{\"Values\":[{\"queryRef\":\"vw_fact_PurchasingDocumentItem.PurchaseContract\"},{\"queryRef\":\"vw_fact_PurchasingDocumentItem.PurchaseContractItem\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"v\",\"Entity\":\"vw_fact_PurchasingDocumentItem\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v\"}},\"Property\":\"PurchaseContract\"},\"Name\":\"vw_fact_PurchasingDocumentItem.PurchaseContract\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v\"}},\"Property\":\"PurchaseContractItem\"},\"Name\":\"vw_fact_PurchasingDocumentItem.PurchaseContractItem\"}]},\"columnProperties\":{\"vw_fact_PurchasingDocumentItem.PurchaseContractItem\":{\"displayName\":\"ContractName\"},\"vw_fact_PurchasingDocumentItem.PurchaseContract\":{\"displayName\":\"ContractID\"}},\"drillFilterOtherVisuals\":true,\"objects\":{\"total\":[{\"properties\":{\"totals\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"grid\":[{\"properties\":{\"outlineColor\":{\"solid\":{\"color\":{\"expr\":{\"ThemeDataColor\":{\"ColorId\":2,\"Percent\":0}}}}}}}]},\"vcObjects\":{\"stylePreset\":[{\"properties\":{\"name\":{\"expr\":{\"Literal\":{\"Value\":\"'Minimal'\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 650.08,
+          "width": 280.52,
+          "x": 20.16,
+          "y": 70.55,
+          "z": 0.00
+        }
+      ],
+      "width": 1280.00
+    },
+    {
+      "config": "{\"objects\":{\"background\":[{\"properties\":{\"image\":{\"image\":{\"name\":{\"expr\":{\"Literal\":{\"Value\":\"'leviat_dashboard_bg_f_gray (2).png'\"}}},\"url\":{\"expr\":{\"ResourcePackageItem\":{\"PackageName\":\"RegisteredResources\",\"PackageType\":1,\"ItemName\":\"leviat_dashboard_bg_f_gray_(2)42621388913848013.png\"}}},\"scaling\":{\"expr\":{\"Literal\":{\"Value\":\"'Normal'\"}}}}},\"transparency\":{\"expr\":{\"Literal\":{\"Value\":\"0D\"}}}}}]}}",
+      "displayName": "CompanySite",
+      "displayOption": 1,
+      "filters": "[]",
+      "height": 720.00,
+      "name": "ReportSection9ae57fb2cc9a071a1460",
+      "ordinal": 10,
+      "visualContainers": [
+        {
+          "config": "{\"name\":\"0cbcc551a510c1438add\",\"layouts\":[{\"id\":0,\"position\":{\"x\":20.15748031496063,\"y\":70.55118110236221,\"z\":0,\"width\":466.98162729658793,\"height\":650.0787401574803,\"tabOrder\":3000}}],\"singleVisual\":{\"visualType\":\"tableEx\",\"projections\":{\"Values\":[{\"queryRef\":\"vw_fact_PurchasingDocument.PurchasingOrganizationID\"},{\"queryRef\":\"vw_fact_PurchasingDocument.PurchasingOrganization\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"v\",\"Entity\":\"vw_fact_PurchasingDocument\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v\"}},\"Property\":\"PurchasingOrganization\"},\"Name\":\"vw_fact_PurchasingDocument.PurchasingOrganization\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v\"}},\"Property\":\"PurchasingOrganizationID\"},\"Name\":\"vw_fact_PurchasingDocument.PurchasingOrganizationID\"}]},\"columnProperties\":{\"vw_fact_PurchasingDocument.PurchasingOrganizationID\":{\"displayName\":\"SiteId\"},\"vw_fact_PurchasingDocument.PurchasingOrganization\":{\"displayName\":\"SiteName\"}},\"drillFilterOtherVisuals\":true,\"objects\":{\"total\":[{\"properties\":{\"totals\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"grid\":[{\"properties\":{\"outlineColor\":{\"solid\":{\"color\":{\"expr\":{\"ThemeDataColor\":{\"ColorId\":2,\"Percent\":0}}}}}}}]},\"vcObjects\":{\"stylePreset\":[{\"properties\":{\"name\":{\"expr\":{\"Literal\":{\"Value\":\"'Minimal'\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 650.08,
+          "width": 466.98,
+          "x": 20.16,
+          "y": 70.55,
+          "z": 0.00
+        },
+        {
+          "config": "{\"name\":\"7a33188aa2598a072188\",\"layouts\":[{\"id\":0,\"position\":{\"x\":898.6876640419947,\"y\":0,\"z\":4000,\"width\":72.23097112860893,\"height\":57.11286089238845,\"tabOrder\":4000}}],\"singleVisual\":{\"visualType\":\"shape\",\"drillFilterOtherVisuals\":true,\"objects\":{\"shape\":[{\"properties\":{\"tileShape\":{\"expr\":{\"Literal\":{\"Value\":\"'rectangle'\"}}}}}],\"rotation\":[{\"properties\":{\"shapeAngle\":{\"expr\":{\"Literal\":{\"Value\":\"0L\"}}}}}],\"fill\":[{\"properties\":{\"fillColor\":{\"solid\":{\"color\":{\"expr\":{\"Literal\":{\"Value\":\"'#FFFFFF'\"}}}}}},\"selector\":{\"id\":\"default\"}}],\"outline\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 57.11,
+          "width": 72.23,
+          "x": 898.69,
+          "y": 0.00,
+          "z": 4000.00
+        },
+        {
+          "config": "{\"name\":\"8fac9af60913d8e8ea9b\",\"layouts\":[{\"id\":0,\"position\":{\"x\":0,\"y\":6,\"z\":1000,\"width\":163.99132321041216,\"height\":43.73101952277658,\"tabOrder\":0}}],\"singleVisual\":{\"visualType\":\"textbox\",\"drillFilterOtherVisuals\":true,\"objects\":{\"general\":[{\"properties\":{\"paragraphs\":[{\"textRuns\":[{\"value\":\"Company Site\",\"textStyle\":{\"fontWeight\":\"bold\",\"fontFamily\":\"Arial\",\"fontSize\":\"12pt\",\"color\":\"#201547\"}}]}]}}]},\"vcObjects\":{\"title\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"visualHeader\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}],\"background\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 43.73,
+          "width": 163.99,
+          "x": 0.00,
+          "y": 6.00,
+          "z": 1000.00
+        },
+        {
+          "config": "{\"name\":\"96d7559ce5a684a4b6b9\",\"layouts\":[{\"id\":0,\"position\":{\"x\":1245.8773181169759,\"y\":0,\"z\":3000,\"width\":31.840228245363768,\"height\":31.840228245363768,\"tabOrder\":2000}}],\"singleVisual\":{\"visualType\":\"image\",\"drillFilterOtherVisuals\":true,\"objects\":{\"general\":[{\"properties\":{\"imageUrl\":{\"expr\":{\"ResourcePackageItem\":{\"PackageName\":\"RegisteredResources\",\"PackageType\":1,\"ItemName\":\"Bug14622348017782587.png\"}}}}}]},\"vcObjects\":{\"general\":[{\"properties\":{\"altText\":{\"expr\":{\"Literal\":{\"Value\":\"'Report a Bug'\"}}}}}],\"visualLink\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"type\":{\"expr\":{\"Literal\":{\"Value\":\"'WebUrl'\"}}},\"tooltip\":{\"expr\":{\"Literal\":{\"Value\":\"'Report a Bug'\"}}},\"webUrl\":{\"expr\":{\"Literal\":{\"Value\":\"'https://app.smartsheet.com/b/form/a2e4dc5affba4de8b4716a87e691659e'\"}}}}}],\"title\":[{\"properties\":{\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'Image'\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 31.84,
+          "width": 31.84,
+          "x": 1245.88,
+          "y": 0.00,
+          "z": 3000.00
+        },
+        {
+          "config": "{\"name\":\"e452aec5c5090dc4b02b\",\"layouts\":[{\"id\":0,\"position\":{\"x\":1246.904422253923,\"y\":26.704707560627675,\"z\":2000,\"width\":31.840228245363768,\"height\":34.92154065620542,\"tabOrder\":1000}}],\"singleVisual\":{\"visualType\":\"image\",\"drillFilterOtherVisuals\":true,\"objects\":{\"general\":[{\"properties\":{\"imageUrl\":{\"expr\":{\"ResourcePackageItem\":{\"PackageName\":\"RegisteredResources\",\"PackageType\":1,\"ItemName\":\"Request16062119061288875.png\"}}}}}]},\"vcObjects\":{\"visualLink\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"type\":{\"expr\":{\"Literal\":{\"Value\":\"'WebUrl'\"}}},\"webUrl\":{\"expr\":{\"Literal\":{\"Value\":\"'https://app.smartsheet.com/b/form/48e28c97fa4d4b5c80eb7220d61beef8'\"}}},\"tooltip\":{\"expr\":{\"Literal\":{\"Value\":\"'Request a Change'\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 34.92,
+          "width": 31.84,
+          "x": 1246.90,
+          "y": 26.70,
+          "z": 2000.00
+        }
+      ],
+      "width": 1280.00
+    },
+    {
+      "config": "{\"objects\":{\"background\":[{\"properties\":{\"image\":{\"image\":{\"name\":{\"expr\":{\"Literal\":{\"Value\":\"'leviat_dashboard_bg_f_gray (2).png'\"}}},\"url\":{\"expr\":{\"ResourcePackageItem\":{\"PackageName\":\"RegisteredResources\",\"PackageType\":1,\"ItemName\":\"leviat_dashboard_bg_f_gray_(2)8659251331350648.png\"}}},\"scaling\":{\"expr\":{\"Literal\":{\"Value\":\"'Normal'\"}}}}},\"transparency\":{\"expr\":{\"Literal\":{\"Value\":\"0D\"}}}}}]},\"visibility\":1}",
+      "displayName": "Invoice3_1",
+      "displayOption": 1,
+      "filters": "[]",
+      "height": 720.00,
+      "name": "ReportSectionb14ee7fb5b4a607ccbb0",
+      "ordinal": 12,
+      "visualContainers": [
+        {
+          "config": "{\"name\":\"2b3f4bb030ab42334c60\",\"layouts\":[{\"id\":0,\"position\":{\"x\":1245.8773181169759,\"y\":0,\"z\":2000,\"width\":31.840228245363768,\"height\":31.840228245363768,\"tabOrder\":1000}}],\"singleVisual\":{\"visualType\":\"image\",\"drillFilterOtherVisuals\":true,\"objects\":{\"general\":[{\"properties\":{\"imageUrl\":{\"expr\":{\"ResourcePackageItem\":{\"PackageName\":\"RegisteredResources\",\"PackageType\":1,\"ItemName\":\"Bug14622348017782587.png\"}}}}}]},\"vcObjects\":{\"general\":[{\"properties\":{\"altText\":{\"expr\":{\"Literal\":{\"Value\":\"'Report a Bug'\"}}}}}],\"visualLink\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"type\":{\"expr\":{\"Literal\":{\"Value\":\"'WebUrl'\"}}},\"tooltip\":{\"expr\":{\"Literal\":{\"Value\":\"'Report a Bug'\"}}},\"webUrl\":{\"expr\":{\"Literal\":{\"Value\":\"'https://app.smartsheet.com/b/form/a2e4dc5affba4de8b4716a87e691659e'\"}}}}}],\"title\":[{\"properties\":{\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'Image'\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 31.84,
+          "width": 31.84,
+          "x": 1245.88,
+          "y": 0.00,
+          "z": 2000.00
+        },
+        {
+          "config": "{\"name\":\"53970cff2e990a6405b5\",\"layouts\":[{\"id\":0,\"position\":{\"x\":898.6876640419947,\"y\":0,\"z\":4000,\"width\":72.23097112860893,\"height\":57.11286089238845,\"tabOrder\":4000}}],\"singleVisual\":{\"visualType\":\"shape\",\"drillFilterOtherVisuals\":true,\"objects\":{\"shape\":[{\"properties\":{\"tileShape\":{\"expr\":{\"Literal\":{\"Value\":\"'rectangle'\"}}}}}],\"rotation\":[{\"properties\":{\"shapeAngle\":{\"expr\":{\"Literal\":{\"Value\":\"0L\"}}}}}],\"fill\":[{\"properties\":{\"fillColor\":{\"solid\":{\"color\":{\"expr\":{\"Literal\":{\"Value\":\"'#FFFFFF'\"}}}}}},\"selector\":{\"id\":\"default\"}}],\"outline\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 57.11,
+          "width": 72.23,
+          "x": 898.69,
+          "y": 0.00,
+          "z": 4000.00
+        },
+        {
+          "config": "{\"name\":\"72d413301350c620ac50\",\"layouts\":[{\"id\":0,\"position\":{\"x\":1246.904422253923,\"y\":26.704707560627675,\"z\":1000,\"width\":31.840228245363768,\"height\":34.92154065620542,\"tabOrder\":0}}],\"singleVisual\":{\"visualType\":\"image\",\"drillFilterOtherVisuals\":true,\"objects\":{\"general\":[{\"properties\":{\"imageUrl\":{\"expr\":{\"ResourcePackageItem\":{\"PackageName\":\"RegisteredResources\",\"PackageType\":1,\"ItemName\":\"Request16062119061288875.png\"}}}}}]},\"vcObjects\":{\"visualLink\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"type\":{\"expr\":{\"Literal\":{\"Value\":\"'WebUrl'\"}}},\"webUrl\":{\"expr\":{\"Literal\":{\"Value\":\"'https://app.smartsheet.com/b/form/48e28c97fa4d4b5c80eb7220d61beef8'\"}}},\"tooltip\":{\"expr\":{\"Literal\":{\"Value\":\"'Request a Change'\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 34.92,
+          "width": 31.84,
+          "x": 1246.90,
+          "y": 26.70,
+          "z": 1000.00
+        },
+        {
+          "config": "{\"name\":\"911c0b7d67a93482b0e8\",\"layouts\":[{\"id\":0,\"position\":{\"x\":0,\"y\":6,\"z\":3000,\"width\":163.99132321041216,\"height\":43.73101952277658,\"tabOrder\":2000}}],\"singleVisual\":{\"visualType\":\"textbox\",\"drillFilterOtherVisuals\":true,\"objects\":{\"general\":[{\"properties\":{\"paragraphs\":[{\"textRuns\":[{\"value\":\"Invoice 3\",\"textStyle\":{\"fontWeight\":\"bold\",\"fontFamily\":\"Arial\",\"fontSize\":\"12pt\",\"color\":\"#201547\"}}]}]}}]},\"vcObjects\":{\"title\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"visualHeader\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}],\"background\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 43.73,
+          "width": 163.99,
+          "x": 0.00,
+          "y": 6.00,
+          "z": 3000.00
+        },
+        {
+          "config": "{\"name\":\"f9de91d2212204c9268c\",\"layouts\":[{\"id\":0,\"position\":{\"x\":20.30368763557484,\"y\":70.28199566160521,\"z\":0,\"width\":1243.2104121475056,\"height\":649.7180043383948,\"tabOrder\":3000}}],\"singleVisual\":{\"visualType\":\"tableEx\",\"projections\":{\"Values\":[{\"queryRef\":\"vw_fact_SupplierInvoiceItemPurOrdRef.SupplierInvoice\"},{\"queryRef\":\"vw_fact_SupplierInvoiceItemPurOrdRef.SupplierInvoiceItem\"},{\"queryRef\":\"vw_fact_SupplierInvoice.PostingDate\"},{\"queryRef\":\"vw_fact_PurchasingDocumentItem.PO Qty\"},{\"queryRef\":\"Sum(vw_fact_SupplierInvoice.InvoiceGrossAmount)\"},{\"queryRef\":\"vw_fact_SupplierInvoice.DocumentCurrencyID\"},{\"queryRef\":\"vw_fact_PurchasingDocumentItem.MaterialID Remove\"},{\"queryRef\":\"vw_dim_MaterialGroup.MaterialGroup\"},{\"queryRef\":\"vw_fact_PurchasingDocumentItem.OrderPriceUnit\"},{\"queryRef\":\"vw_dim_Supplier.SupplierID Remove\"},{\"queryRef\":\"vw_dim_UserAddress.UserName\"},{\"queryRef\":\"vw_fact_PurchasingDocumentItem.GLAccount Remove\"},{\"queryRef\":\"vw_fact_PurchasingDocument.PurchasingOrganizationID\"},{\"queryRef\":\"vw_fact_PurchasingDocumentItem.CostCenterID\"},{\"queryRef\":\"vw_fact_PurchasingDocumentItem.CompanyCodeID\"},{\"queryRef\":\"vw_fact_PurchasingDocumentItem.PurchaseContract\"},{\"queryRef\":\"vw_fact_SupplierInvoiceItemPurOrdRef.PurchaseOrder\"},{\"queryRef\":\"vw_fact_SupplierInvoiceItemPurOrdRef.PurchaseOrderItem\"},{\"queryRef\":\"vw_fact_SupplierInvoice.CreationDate\"},{\"queryRef\":\"vw_fact_SupplierInvoice.InvoicingPartyID  Remove\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"v\",\"Entity\":\"vw_fact_SupplierInvoiceItemPurOrdRef\",\"Type\":0},{\"Name\":\"v1\",\"Entity\":\"vw_fact_PurchasingDocumentItem\",\"Type\":0},{\"Name\":\"v2\",\"Entity\":\"vw_fact_SupplierInvoice\",\"Type\":0},{\"Name\":\"v3\",\"Entity\":\"vw_dim_MaterialGroup\",\"Type\":0},{\"Name\":\"v4\",\"Entity\":\"vw_fact_PurchasingDocument\",\"Type\":0},{\"Name\":\"v5\",\"Entity\":\"vw_dim_UserAddress\",\"Type\":0},{\"Name\":\"v6\",\"Entity\":\"vw_dim_Supplier\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v\"}},\"Property\":\"SupplierInvoice\"},\"Name\":\"vw_fact_SupplierInvoiceItemPurOrdRef.SupplierInvoice\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v2\"}},\"Property\":\"PostingDate\"},\"Name\":\"vw_fact_SupplierInvoice.PostingDate\"},{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v2\"}},\"Property\":\"InvoiceGrossAmount\"}},\"Function\":0},\"Name\":\"Sum(vw_fact_SupplierInvoice.InvoiceGrossAmount)\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v2\"}},\"Property\":\"DocumentCurrencyID\"},\"Name\":\"vw_fact_SupplierInvoice.DocumentCurrencyID\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v3\"}},\"Property\":\"MaterialGroup\"},\"Name\":\"vw_dim_MaterialGroup.MaterialGroup\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v1\"}},\"Property\":\"OrderPriceUnit\"},\"Name\":\"vw_fact_PurchasingDocumentItem.OrderPriceUnit\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v5\"}},\"Property\":\"UserName\"},\"Name\":\"vw_dim_UserAddress.UserName\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v4\"}},\"Property\":\"PurchasingOrganizationID\"},\"Name\":\"vw_fact_PurchasingDocument.PurchasingOrganizationID\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v1\"}},\"Property\":\"CostCenterID\"},\"Name\":\"vw_fact_PurchasingDocumentItem.CostCenterID\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v1\"}},\"Property\":\"CompanyCodeID\"},\"Name\":\"vw_fact_PurchasingDocumentItem.CompanyCodeID\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v1\"}},\"Property\":\"PurchaseContract\"},\"Name\":\"vw_fact_PurchasingDocumentItem.PurchaseContract\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v\"}},\"Property\":\"PurchaseOrder\"},\"Name\":\"vw_fact_SupplierInvoiceItemPurOrdRef.PurchaseOrder\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v\"}},\"Property\":\"PurchaseOrderItem\"},\"Name\":\"vw_fact_SupplierInvoiceItemPurOrdRef.PurchaseOrderItem\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v2\"}},\"Property\":\"CreationDate\"},\"Name\":\"vw_fact_SupplierInvoice.CreationDate\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v1\"}},\"Property\":\"PO Qty\"},\"Name\":\"vw_fact_PurchasingDocumentItem.PO Qty\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v\"}},\"Property\":\"SupplierInvoiceItem\"},\"Name\":\"vw_fact_SupplierInvoiceItemPurOrdRef.SupplierInvoiceItem\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v2\"}},\"Property\":\"InvoicingPartyID  Remove\"},\"Name\":\"vw_fact_SupplierInvoice.InvoicingPartyID  Remove\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v1\"}},\"Property\":\"GLAccount Remove\"},\"Name\":\"vw_fact_PurchasingDocumentItem.GLAccount Remove\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v6\"}},\"Property\":\"SupplierID Remove\"},\"Name\":\"vw_dim_Supplier.SupplierID Remove\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v1\"}},\"Property\":\"MaterialID Remove\"},\"Name\":\"vw_fact_PurchasingDocumentItem.MaterialID Remove\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v\"}},\"Property\":\"SupplierInvoice\"}}}]},\"columnProperties\":{\"vw_fact_SupplierInvoiceItemPurOrdRef.SupplierInvoice\":{\"displayName\":\"InvoiceId\"},\"vw_fact_SupplierInvoice.PostingDate\":{\"displayName\":\"AccountingDate\"},\"vw_fact_PurchasingDocumentItem.PO Qty\":{\"displayName\":\"Quantity\"},\"Sum(vw_fact_SupplierInvoice.InvoiceGrossAmount)\":{\"displayName\":\"Amount\"},\"vw_fact_SupplierInvoice.DocumentCurrencyID\":{\"displayName\":\"AmountCurrency\"},\"vw_dim_MaterialGroup.MaterialGroup\":{\"displayName\":\"PartNumber\"},\"vw_fact_PurchasingDocumentItem.OrderPriceUnit\":{\"displayName\":\"UnitOfMeasure\"},\"vw_dim_UserAddress.UserName\":{\"displayName\":\"RequesterId\"},\"vw_fact_PurchasingDocument.PurchasingOrganizationID\":{\"displayName\":\"CompanySiteId\"},\"vw_fact_PurchasingDocumentItem.CostCenterID\":{\"displayName\":\"CostCenterId\"},\"vw_fact_PurchasingDocumentItem.CompanyCodeID\":{\"displayName\":\"CostCenterCompanyCode\"},\"vw_fact_PurchasingDocumentItem.PurchaseContract\":{\"displayName\":\"ContractId\"},\"vw_fact_SupplierInvoiceItemPurOrdRef.PurchaseOrder\":{\"displayName\":\"POId\"},\"vw_fact_SupplierInvoiceItemPurOrdRef.PurchaseOrderItem\":{\"displayName\":\"POLineNumber\"},\"vw_fact_SupplierInvoice.CreationDate\":{\"displayName\":\"Invoice Date\"},\"vw_fact_SupplierInvoiceItemPurOrdRef.SupplierInvoiceItem\":{\"displayName\":\"InvoiceLineNumber\"},\"vw_fact_SupplierInvoice.InvoicingPartyID  Remove\":{\"displayName\":\"InvoiceNumber\"},\"vw_fact_PurchasingDocumentItem.GLAccount Remove\":{\"displayName\":\"AccountId\"},\"vw_dim_Supplier.SupplierID Remove\":{\"displayName\":\"SupplierId\"},\"vw_fact_PurchasingDocumentItem.MaterialID Remove\":{\"displayName\":\"ERPCommodityId\"}},\"drillFilterOtherVisuals\":true,\"objects\":{\"total\":[{\"properties\":{\"totals\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"grid\":[{\"properties\":{\"outlineColor\":{\"solid\":{\"color\":{\"expr\":{\"ThemeDataColor\":{\"ColorId\":2,\"Percent\":0}}}}}}}],\"columnFormatting\":[{\"properties\":{\"alignment\":{\"expr\":{\"Literal\":{\"Value\":\"'Right'\"}}}},\"selector\":{\"metadata\":\"vw_fact_SupplierInvoiceItemPurOrdRef.SupplierInvoice\"}},{\"properties\":{\"alignment\":{\"expr\":{\"Literal\":{\"Value\":\"'Right'\"}}}},\"selector\":{\"metadata\":\"vw_fact_SupplierInvoiceItemPurOrdRef.SupplierInvoiceItem\"}},{\"properties\":{\"alignment\":{\"expr\":{\"Literal\":{\"Value\":\"'Right'\"}}}},\"selector\":{\"metadata\":\"vw_fact_SupplierInvoice.PostingDate\"}},{\"properties\":{\"alignment\":{\"expr\":{\"Literal\":{\"Value\":\"'Right'\"}}}},\"selector\":{\"metadata\":\"vw_fact_PurchasingDocumentItem.PO Qty\"}},{\"properties\":{\"alignment\":{\"expr\":{\"Literal\":{\"Value\":\"'Right'\"}}}},\"selector\":{\"metadata\":\"Sum(vw_fact_SupplierInvoice.InvoiceGrossAmount)\"}},{\"properties\":{\"alignment\":{\"expr\":{\"Literal\":{\"Value\":\"'Right'\"}}}},\"selector\":{\"metadata\":\"vw_fact_SupplierInvoice.DocumentCurrencyID\"}},{\"properties\":{\"alignment\":{\"expr\":{\"Literal\":{\"Value\":\"'Right'\"}}}},\"selector\":{\"metadata\":\"vw_fact_PurchasingDocumentItem.MaterialID Remove\"}},{\"properties\":{\"alignment\":{\"expr\":{\"Literal\":{\"Value\":\"'Right'\"}}}},\"selector\":{\"metadata\":\"vw_dim_MaterialGroup.MaterialGroup\"}},{\"properties\":{\"alignment\":{\"expr\":{\"Literal\":{\"Value\":\"'Right'\"}}}},\"selector\":{\"metadata\":\"vw_fact_PurchasingDocumentItem.OrderPriceUnit\"}},{\"properties\":{\"alignment\":{\"expr\":{\"Literal\":{\"Value\":\"'Right'\"}}}},\"selector\":{\"metadata\":\"vw_dim_Supplier.SupplierID Remove\"}},{\"properties\":{\"alignment\":{\"expr\":{\"Literal\":{\"Value\":\"'Right'\"}}}},\"selector\":{\"metadata\":\"vw_dim_UserAddress.UserName\"}},{\"properties\":{\"alignment\":{\"expr\":{\"Literal\":{\"Value\":\"'Right'\"}}}},\"selector\":{\"metadata\":\"vw_fact_PurchasingDocumentItem.GLAccount Remove\"}},{\"properties\":{\"alignment\":{\"expr\":{\"Literal\":{\"Value\":\"'Right'\"}}}},\"selector\":{\"metadata\":\"vw_fact_PurchasingDocument.PurchasingOrganizationID\"}},{\"properties\":{\"alignment\":{\"expr\":{\"Literal\":{\"Value\":\"'Right'\"}}}},\"selector\":{\"metadata\":\"vw_fact_PurchasingDocumentItem.CostCenterID\"}},{\"properties\":{\"alignment\":{\"expr\":{\"Literal\":{\"Value\":\"'Right'\"}}}},\"selector\":{\"metadata\":\"vw_fact_PurchasingDocumentItem.CompanyCodeID\"}},{\"properties\":{\"alignment\":{\"expr\":{\"Literal\":{\"Value\":\"'Right'\"}}}},\"selector\":{\"metadata\":\"vw_fact_PurchasingDocumentItem.PurchaseContract\"}},{\"properties\":{\"alignment\":{\"expr\":{\"Literal\":{\"Value\":\"'Right'\"}}}},\"selector\":{\"metadata\":\"vw_fact_SupplierInvoiceItemPurOrdRef.PurchaseOrder\"}},{\"properties\":{\"alignment\":{\"expr\":{\"Literal\":{\"Value\":\"'Right'\"}}}},\"selector\":{\"metadata\":\"vw_fact_SupplierInvoiceItemPurOrdRef.PurchaseOrderItem\"}},{\"properties\":{\"alignment\":{\"expr\":{\"Literal\":{\"Value\":\"'Right'\"}}}},\"selector\":{\"metadata\":\"vw_fact_SupplierInvoice.CreationDate\"}},{\"properties\":{\"alignment\":{\"expr\":{\"Literal\":{\"Value\":\"'Right'\"}}}},\"selector\":{\"metadata\":\"vw_fact_SupplierInvoice.InvoicingPartyID  Remove\"}}]},\"vcObjects\":{\"stylePreset\":[{\"properties\":{\"name\":{\"expr\":{\"Literal\":{\"Value\":\"'Minimal'\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 649.72,
+          "width": 1243.21,
+          "x": 20.30,
+          "y": 70.28,
+          "z": 0.00
+        }
+      ],
+      "width": 1280.00
+    },
+    {
+      "config": "{\"objects\":{\"background\":[{\"properties\":{\"image\":{\"image\":{\"name\":{\"expr\":{\"Literal\":{\"Value\":\"'leviat_dashboard_bg_f_gray (2).png'\"}}},\"url\":{\"expr\":{\"ResourcePackageItem\":{\"PackageName\":\"RegisteredResources\",\"PackageType\":1,\"ItemName\":\"leviat_dashboard_bg_f_gray_(2)210826745597972.png\"}}},\"scaling\":{\"expr\":{\"Literal\":{\"Value\":\"'Normal'\"}}}}},\"transparency\":{\"expr\":{\"Literal\":{\"Value\":\"0D\"}}}}}]}}",
+      "displayName": "User",
+      "displayOption": 1,
+      "filters": "[]",
+      "height": 720.00,
+      "name": "ReportSectionba8ff069a3601e0679e5",
+      "ordinal": 5,
+      "visualContainers": [
+        {
+          "config": "{\"name\":\"19124f2d16c009c94897\",\"layouts\":[{\"id\":0,\"position\":{\"x\":1245.8773181169759,\"y\":0,\"z\":3000,\"width\":31.840228245363768,\"height\":31.840228245363768,\"tabOrder\":2000}}],\"singleVisual\":{\"visualType\":\"image\",\"drillFilterOtherVisuals\":true,\"objects\":{\"general\":[{\"properties\":{\"imageUrl\":{\"expr\":{\"ResourcePackageItem\":{\"PackageName\":\"RegisteredResources\",\"PackageType\":1,\"ItemName\":\"Bug14622348017782587.png\"}}}}}]},\"vcObjects\":{\"general\":[{\"properties\":{\"altText\":{\"expr\":{\"Literal\":{\"Value\":\"'Report a Bug'\"}}}}}],\"visualLink\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"type\":{\"expr\":{\"Literal\":{\"Value\":\"'WebUrl'\"}}},\"tooltip\":{\"expr\":{\"Literal\":{\"Value\":\"'Report a Bug'\"}}},\"webUrl\":{\"expr\":{\"Literal\":{\"Value\":\"'https://app.smartsheet.com/b/form/a2e4dc5affba4de8b4716a87e691659e'\"}}}}}],\"title\":[{\"properties\":{\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'Image'\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 31.84,
+          "width": 31.84,
+          "x": 1245.88,
+          "y": 0.00,
+          "z": 3000.00
+        },
+        {
+          "config": "{\"name\":\"21e34254c7b047622506\",\"layouts\":[{\"id\":0,\"position\":{\"x\":1246.904422253923,\"y\":26.704707560627675,\"z\":2000,\"width\":31.840228245363768,\"height\":34.92154065620542,\"tabOrder\":1000}}],\"singleVisual\":{\"visualType\":\"image\",\"drillFilterOtherVisuals\":true,\"objects\":{\"general\":[{\"properties\":{\"imageUrl\":{\"expr\":{\"ResourcePackageItem\":{\"PackageName\":\"RegisteredResources\",\"PackageType\":1,\"ItemName\":\"Request16062119061288875.png\"}}}}}]},\"vcObjects\":{\"visualLink\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"type\":{\"expr\":{\"Literal\":{\"Value\":\"'WebUrl'\"}}},\"webUrl\":{\"expr\":{\"Literal\":{\"Value\":\"'https://app.smartsheet.com/b/form/48e28c97fa4d4b5c80eb7220d61beef8'\"}}},\"tooltip\":{\"expr\":{\"Literal\":{\"Value\":\"'Request a Change'\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 34.92,
+          "width": 31.84,
+          "x": 1246.90,
+          "y": 26.70,
+          "z": 2000.00
+        },
+        {
+          "config": "{\"name\":\"6fabe84a8c0c12519a55\",\"layouts\":[{\"id\":0,\"position\":{\"x\":20,\"y\":70,\"z\":0,\"width\":609.7041420118344,\"height\":643.7869822485208,\"tabOrder\":3000}}],\"singleVisual\":{\"visualType\":\"tableEx\",\"projections\":{\"Values\":[{\"queryRef\":\"vw_dim_UserAddress.UserID\"},{\"queryRef\":\"vw_fact_PurchasingDocument.CreatedByUser\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"v\",\"Entity\":\"vw_dim_UserAddress\",\"Type\":0},{\"Name\":\"v1\",\"Entity\":\"vw_fact_PurchasingDocument\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v\"}},\"Property\":\"UserID\"},\"Name\":\"vw_dim_UserAddress.UserID\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v1\"}},\"Property\":\"CreatedByUser\"},\"Name\":\"vw_fact_PurchasingDocument.CreatedByUser\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v\"}},\"Property\":\"UserID\"}}}]},\"columnProperties\":{\"vw_fact_PurchasingDocument.CreatedByUser\":{\"displayName\":\"UserName\"},\"vw_dim_UserAddress.UserID\":{\"displayName\":\"UserId\"}},\"drillFilterOtherVisuals\":true,\"objects\":{\"total\":[{\"properties\":{\"totals\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"grid\":[{\"properties\":{\"outlineColor\":{\"solid\":{\"color\":{\"expr\":{\"ThemeDataColor\":{\"ColorId\":2,\"Percent\":0}}}}}}}],\"columnWidth\":[{\"properties\":{\"value\":{\"expr\":{\"Literal\":{\"Value\":\"134.7978861540064D\"}}}},\"selector\":{\"metadata\":\"vw_fact_PurchasingDocument.CreatedByUser\"}}]},\"vcObjects\":{\"stylePreset\":[{\"properties\":{\"name\":{\"expr\":{\"Literal\":{\"Value\":\"'Minimal'\"}}}}}]}}}",
+          "filters": "[{\"name\":\"Filter092f513f862b5423e069\",\"expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"vw_dim_UserAddress\"}},\"Property\":\"UserID\"}},\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"v\",\"Entity\":\"vw_dim_UserAddress\",\"Type\":0}],\"Where\":[{\"Condition\":{\"Not\":{\"Expression\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v\"}},\"Property\":\"UserID\"}}],\"Values\":[[{\"Literal\":{\"Value\":\"null\"}}]]}}}}}]},\"type\":\"Categorical\",\"howCreated\":0,\"objects\":{\"general\":[{\"properties\":{\"isInvertedSelectionMode\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}]},\"isHiddenInViewMode\":false}]",
+          "height": 643.79,
+          "width": 609.70,
+          "x": 20.00,
+          "y": 70.00,
+          "z": 0.00
+        },
+        {
+          "config": "{\"name\":\"8d9b06bf08ce71956beb\",\"layouts\":[{\"id\":0,\"position\":{\"x\":0,\"y\":6,\"z\":1000,\"width\":163.99132321041216,\"height\":43.73101952277658,\"tabOrder\":0}}],\"singleVisual\":{\"visualType\":\"textbox\",\"drillFilterOtherVisuals\":true,\"objects\":{\"general\":[{\"properties\":{\"paragraphs\":[{\"textRuns\":[{\"value\":\"User\",\"textStyle\":{\"fontWeight\":\"bold\",\"fontFamily\":\"Arial\",\"fontSize\":\"12pt\",\"color\":\"#201547\"}}]}]}}]},\"vcObjects\":{\"title\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"visualHeader\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}],\"background\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 43.73,
+          "width": 163.99,
+          "x": 0.00,
+          "y": 6.00,
+          "z": 1000.00
+        },
+        {
+          "config": "{\"name\":\"f740e1708e5ab96c7545\",\"layouts\":[{\"id\":0,\"position\":{\"x\":898.6876640419947,\"y\":0,\"z\":4000,\"width\":72.23097112860893,\"height\":57.11286089238845,\"tabOrder\":4000}}],\"singleVisual\":{\"visualType\":\"shape\",\"drillFilterOtherVisuals\":true,\"objects\":{\"shape\":[{\"properties\":{\"tileShape\":{\"expr\":{\"Literal\":{\"Value\":\"'rectangle'\"}}}}}],\"rotation\":[{\"properties\":{\"shapeAngle\":{\"expr\":{\"Literal\":{\"Value\":\"0L\"}}}}}],\"fill\":[{\"properties\":{\"fillColor\":{\"solid\":{\"color\":{\"expr\":{\"Literal\":{\"Value\":\"'#FFFFFF'\"}}}}}},\"selector\":{\"id\":\"default\"}}],\"outline\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 57.11,
+          "width": 72.23,
+          "x": 898.69,
+          "y": 0.00,
+          "z": 4000.00
+        }
+      ],
+      "width": 1280.00
+    },
+    {
+      "config": "{\"objects\":{\"background\":[{\"properties\":{\"image\":{\"image\":{\"name\":{\"expr\":{\"Literal\":{\"Value\":\"'leviat_dashboard_bg_f_gray (2).png'\"}}},\"url\":{\"expr\":{\"ResourcePackageItem\":{\"PackageName\":\"RegisteredResources\",\"PackageType\":1,\"ItemName\":\"leviat_dashboard_bg_f_gray_(2)16032819103232399.png\"}}},\"scaling\":{\"expr\":{\"Literal\":{\"Value\":\"'Normal'\"}}}}},\"transparency\":{\"expr\":{\"Literal\":{\"Value\":\"0D\"}}}}}]}}",
+      "displayName": "Part",
+      "displayOption": 1,
+      "filters": "[]",
+      "height": 720.00,
+      "name": "ReportSectiond904160f3794849dd06c",
+      "ordinal": 9,
+      "visualContainers": [
+        {
+          "config": "{\"name\":\"134be52b9ae046110aa3\",\"layouts\":[{\"id\":0,\"position\":{\"x\":898.6876640419947,\"y\":0,\"z\":4000,\"width\":72.23097112860893,\"height\":57.11286089238845,\"tabOrder\":4000}}],\"singleVisual\":{\"visualType\":\"shape\",\"drillFilterOtherVisuals\":true,\"objects\":{\"shape\":[{\"properties\":{\"tileShape\":{\"expr\":{\"Literal\":{\"Value\":\"'rectangle'\"}}}}}],\"rotation\":[{\"properties\":{\"shapeAngle\":{\"expr\":{\"Literal\":{\"Value\":\"0L\"}}}}}],\"fill\":[{\"properties\":{\"fillColor\":{\"solid\":{\"color\":{\"expr\":{\"Literal\":{\"Value\":\"'#FFFFFF'\"}}}}}},\"selector\":{\"id\":\"default\"}}],\"outline\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 57.11,
+          "width": 72.23,
+          "x": 898.69,
+          "y": 0.00,
+          "z": 4000.00
+        },
+        {
+          "config": "{\"name\":\"65fec096ed705995d057\",\"layouts\":[{\"id\":0,\"position\":{\"x\":1246.904422253923,\"y\":26.704707560627675,\"z\":2000,\"width\":31.840228245363768,\"height\":34.92154065620542,\"tabOrder\":1000}}],\"singleVisual\":{\"visualType\":\"image\",\"drillFilterOtherVisuals\":true,\"objects\":{\"general\":[{\"properties\":{\"imageUrl\":{\"expr\":{\"ResourcePackageItem\":{\"PackageName\":\"RegisteredResources\",\"PackageType\":1,\"ItemName\":\"Request16062119061288875.png\"}}}}}]},\"vcObjects\":{\"visualLink\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"type\":{\"expr\":{\"Literal\":{\"Value\":\"'WebUrl'\"}}},\"webUrl\":{\"expr\":{\"Literal\":{\"Value\":\"'https://app.smartsheet.com/b/form/48e28c97fa4d4b5c80eb7220d61beef8'\"}}},\"tooltip\":{\"expr\":{\"Literal\":{\"Value\":\"'Request a Change'\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 34.92,
+          "width": 31.84,
+          "x": 1246.90,
+          "y": 26.70,
+          "z": 2000.00
+        },
+        {
+          "config": "{\"name\":\"863d76169c1830b7e535\",\"layouts\":[{\"id\":0,\"position\":{\"x\":1245.8773181169759,\"y\":0,\"z\":3000,\"width\":31.840228245363768,\"height\":31.840228245363768,\"tabOrder\":2000}}],\"singleVisual\":{\"visualType\":\"image\",\"drillFilterOtherVisuals\":true,\"objects\":{\"general\":[{\"properties\":{\"imageUrl\":{\"expr\":{\"ResourcePackageItem\":{\"PackageName\":\"RegisteredResources\",\"PackageType\":1,\"ItemName\":\"Bug14622348017782587.png\"}}}}}]},\"vcObjects\":{\"general\":[{\"properties\":{\"altText\":{\"expr\":{\"Literal\":{\"Value\":\"'Report a Bug'\"}}}}}],\"visualLink\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"type\":{\"expr\":{\"Literal\":{\"Value\":\"'WebUrl'\"}}},\"tooltip\":{\"expr\":{\"Literal\":{\"Value\":\"'Report a Bug'\"}}},\"webUrl\":{\"expr\":{\"Literal\":{\"Value\":\"'https://app.smartsheet.com/b/form/a2e4dc5affba4de8b4716a87e691659e'\"}}}}}],\"title\":[{\"properties\":{\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'Image'\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 31.84,
+          "width": 31.84,
+          "x": 1245.88,
+          "y": 0.00,
+          "z": 3000.00
+        },
+        {
+          "config": "{\"name\":\"969a8d2dcc1dd2563827\",\"layouts\":[{\"id\":0,\"position\":{\"x\":20.15748031496063,\"y\":70.55118110236221,\"z\":0,\"width\":483.7795275590551,\"height\":650.0787401574803,\"tabOrder\":3000}}],\"singleVisual\":{\"visualType\":\"tableEx\",\"projections\":{\"Values\":[{\"queryRef\":\"vw_dim_Product.ProductExternalID\"},{\"queryRef\":\"vw_dim_Product.Product\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"v1\",\"Entity\":\"vw_dim_Product\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v1\"}},\"Property\":\"Product\"},\"Name\":\"vw_dim_Product.Product\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v1\"}},\"Property\":\"ProductExternalID\"},\"Name\":\"vw_dim_Product.ProductExternalID\"}],\"OrderBy\":[{\"Direction\":1,\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v1\"}},\"Property\":\"ProductExternalID\"}}}]},\"columnProperties\":{\"vw_dim_Product.ProductExternalID\":{\"displayName\":\"PartNumber\"},\"vw_dim_Product.Product\":{\"displayName\":\"Description1\"}},\"drillFilterOtherVisuals\":true,\"objects\":{\"columnWidth\":[{\"properties\":{\"value\":{\"expr\":{\"Literal\":{\"Value\":\"242.5621301775148D\"}}}},\"selector\":{\"metadata\":\"vw_dim_Product.Product\"}}],\"grid\":[{\"properties\":{\"outlineColor\":{\"solid\":{\"color\":{\"expr\":{\"ThemeDataColor\":{\"ColorId\":2,\"Percent\":0}}}}}}}]},\"vcObjects\":{\"stylePreset\":[{\"properties\":{\"name\":{\"expr\":{\"Literal\":{\"Value\":\"'Minimal'\"}}}}}]}}}",
+          "filters": "[{\"name\":\"Filter1442699230c26a46d6eb\",\"expression\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"_Measures\"}},\"Property\":\"#DocsMDI\"}},\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"v\",\"Entity\":\"vw_dim_CompanyCode\",\"Type\":0},{\"Name\":\"_\",\"Entity\":\"_Measures\",\"Type\":0}],\"Where\":[{\"Condition\":{\"Comparison\":{\"ComparisonKind\":2,\"Left\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"_\"}},\"Property\":\"#DocsMDI\"}},\"Right\":{\"Literal\":{\"Value\":\"1L\"}}}}}]},\"type\":\"Advanced\",\"howCreated\":1}]",
+          "height": 650.08,
+          "width": 483.78,
+          "x": 20.16,
+          "y": 70.55,
+          "z": 0.00
+        },
+        {
+          "config": "{\"name\":\"d62babdd162aae5e5b00\",\"layouts\":[{\"id\":0,\"position\":{\"x\":0,\"y\":6,\"z\":1000,\"width\":163.99132321041216,\"height\":43.73101952277658,\"tabOrder\":0}}],\"singleVisual\":{\"visualType\":\"textbox\",\"drillFilterOtherVisuals\":true,\"objects\":{\"general\":[{\"properties\":{\"paragraphs\":[{\"textRuns\":[{\"value\":\"Part\",\"textStyle\":{\"fontWeight\":\"bold\",\"fontFamily\":\"Arial\",\"fontSize\":\"12pt\",\"color\":\"#201547\"}}]}]}}]},\"vcObjects\":{\"title\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"visualHeader\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}],\"background\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 43.73,
+          "width": 163.99,
+          "x": 0.00,
+          "y": 6.00,
+          "z": 1000.00
+        }
+      ],
+      "width": 1280.00
+    },
+    {
+      "config": "{\"objects\":{\"background\":[{\"properties\":{\"image\":{\"image\":{\"name\":{\"expr\":{\"Literal\":{\"Value\":\"'leviat_dashboard_bg_f_gray (2).png'\"}}},\"url\":{\"expr\":{\"ResourcePackageItem\":{\"PackageName\":\"RegisteredResources\",\"PackageType\":1,\"ItemName\":\"leviat_dashboard_bg_f_gray_(2)8659251331350648.png\"}}},\"scaling\":{\"expr\":{\"Literal\":{\"Value\":\"'Normal'\"}}}}},\"transparency\":{\"expr\":{\"Literal\":{\"Value\":\"0D\"}}}}}]},\"visibility\":0}",
+      "displayName": "Invoice3",
+      "displayOption": 1,
+      "filters": "[]",
+      "height": 720.00,
+      "name": "ReportSectionec305eb05d3a9c3b6145",
+      "ordinal": 1,
+      "visualContainers": [
+        {
+          "config": "{\"name\":\"23a6117debabc4357420\",\"layouts\":[{\"id\":0,\"position\":{\"x\":0,\"y\":6,\"z\":3000,\"width\":163.99132321041216,\"height\":43.73101952277658,\"tabOrder\":2000}}],\"singleVisual\":{\"visualType\":\"textbox\",\"drillFilterOtherVisuals\":true,\"objects\":{\"general\":[{\"properties\":{\"paragraphs\":[{\"textRuns\":[{\"value\":\"Invoice 3\",\"textStyle\":{\"fontWeight\":\"bold\",\"fontFamily\":\"Arial\",\"fontSize\":\"12pt\",\"color\":\"#201547\"}}]}]}}]},\"vcObjects\":{\"title\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"visualHeader\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}],\"background\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 43.73,
+          "width": 163.99,
+          "x": 0.00,
+          "y": 6.00,
+          "z": 3000.00
+        },
+        {
+          "config": "{\"name\":\"51970890b83c87675394\",\"layouts\":[{\"id\":0,\"position\":{\"x\":1246.904422253923,\"y\":26.704707560627675,\"z\":1000,\"width\":31.840228245363768,\"height\":34.92154065620542,\"tabOrder\":0}}],\"singleVisual\":{\"visualType\":\"image\",\"drillFilterOtherVisuals\":true,\"objects\":{\"general\":[{\"properties\":{\"imageUrl\":{\"expr\":{\"ResourcePackageItem\":{\"PackageName\":\"RegisteredResources\",\"PackageType\":1,\"ItemName\":\"Request16062119061288875.png\"}}}}}]},\"vcObjects\":{\"visualLink\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"type\":{\"expr\":{\"Literal\":{\"Value\":\"'WebUrl'\"}}},\"webUrl\":{\"expr\":{\"Literal\":{\"Value\":\"'https://app.smartsheet.com/b/form/48e28c97fa4d4b5c80eb7220d61beef8'\"}}},\"tooltip\":{\"expr\":{\"Literal\":{\"Value\":\"'Request a Change'\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 34.92,
+          "width": 31.84,
+          "x": 1246.90,
+          "y": 26.70,
+          "z": 1000.00
+        },
+        {
+          "config": "{\"name\":\"b13a3f2a030ea31619eb\",\"layouts\":[{\"id\":0,\"position\":{\"x\":898.6876640419947,\"y\":0,\"z\":4000,\"width\":72.23097112860893,\"height\":57.11286089238845,\"tabOrder\":4000}}],\"singleVisual\":{\"visualType\":\"shape\",\"drillFilterOtherVisuals\":true,\"objects\":{\"shape\":[{\"properties\":{\"tileShape\":{\"expr\":{\"Literal\":{\"Value\":\"'rectangle'\"}}}}}],\"rotation\":[{\"properties\":{\"shapeAngle\":{\"expr\":{\"Literal\":{\"Value\":\"0L\"}}}}}],\"fill\":[{\"properties\":{\"fillColor\":{\"solid\":{\"color\":{\"expr\":{\"Literal\":{\"Value\":\"'#FFFFFF'\"}}}}}},\"selector\":{\"id\":\"default\"}}],\"outline\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 57.11,
+          "width": 72.23,
+          "x": 898.69,
+          "y": 0.00,
+          "z": 4000.00
+        },
+        {
+          "config": "{\"name\":\"b2479029b3564c2000de\",\"layouts\":[{\"id\":0,\"position\":{\"x\":20.30368763557484,\"y\":70.28199566160521,\"z\":0,\"width\":1243.2104121475056,\"height\":649.7180043383948,\"tabOrder\":3000}}],\"singleVisual\":{\"visualType\":\"tableEx\",\"projections\":{\"Values\":[{\"queryRef\":\"vw_fact_SupplierInvoiceItemPurOrdRef.SupplierInvoice\"},{\"queryRef\":\"vw_fact_SupplierInvoiceItemPurOrdRef.SupplierInvoiceItem\"},{\"queryRef\":\"vw_fact_SupplierInvoice.PostingDate\"},{\"queryRef\":\"vw_fact_PurchasingDocumentItem.PO Qty\"},{\"queryRef\":\"Sum(vw_fact_SupplierInvoice.InvoiceGrossAmount)\"},{\"queryRef\":\"vw_fact_SupplierInvoice.DocumentCurrencyID\"},{\"queryRef\":\"vw_fact_SupplierInvoiceItemPurOrdRef.PurchasingDocumentItemShortText\"},{\"queryRef\":\"vw_fact_PurchasingDocumentItem.OrderPriceUnit\"},{\"queryRef\":\"vw_dim_UserAddress.UserName\"},{\"queryRef\":\"vw_fact_SupplierInvoice.CreationDate\"},{\"queryRef\":\"vw_fact_SupplierInvoice.InvoicingPartyID  Remove\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"v\",\"Entity\":\"vw_fact_SupplierInvoiceItemPurOrdRef\",\"Type\":0},{\"Name\":\"v1\",\"Entity\":\"vw_fact_PurchasingDocumentItem\",\"Type\":0},{\"Name\":\"v2\",\"Entity\":\"vw_fact_SupplierInvoice\",\"Type\":0},{\"Name\":\"v5\",\"Entity\":\"vw_dim_UserAddress\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v\"}},\"Property\":\"SupplierInvoice\"},\"Name\":\"vw_fact_SupplierInvoiceItemPurOrdRef.SupplierInvoice\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v2\"}},\"Property\":\"PostingDate\"},\"Name\":\"vw_fact_SupplierInvoice.PostingDate\"},{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v2\"}},\"Property\":\"InvoiceGrossAmount\"}},\"Function\":0},\"Name\":\"Sum(vw_fact_SupplierInvoice.InvoiceGrossAmount)\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v2\"}},\"Property\":\"DocumentCurrencyID\"},\"Name\":\"vw_fact_SupplierInvoice.DocumentCurrencyID\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v1\"}},\"Property\":\"OrderPriceUnit\"},\"Name\":\"vw_fact_PurchasingDocumentItem.OrderPriceUnit\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v5\"}},\"Property\":\"UserName\"},\"Name\":\"vw_dim_UserAddress.UserName\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v2\"}},\"Property\":\"CreationDate\"},\"Name\":\"vw_fact_SupplierInvoice.CreationDate\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v1\"}},\"Property\":\"PO Qty\"},\"Name\":\"vw_fact_PurchasingDocumentItem.PO Qty\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v\"}},\"Property\":\"SupplierInvoiceItem\"},\"Name\":\"vw_fact_SupplierInvoiceItemPurOrdRef.SupplierInvoiceItem\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v2\"}},\"Property\":\"InvoicingPartyID  Remove\"},\"Name\":\"vw_fact_SupplierInvoice.InvoicingPartyID  Remove\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v\"}},\"Property\":\"PurchasingDocumentItemShortText\"},\"Name\":\"vw_fact_SupplierInvoiceItemPurOrdRef.PurchasingDocumentItemShortText\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v\"}},\"Property\":\"SupplierInvoice\"}}}]},\"columnProperties\":{\"vw_fact_SupplierInvoiceItemPurOrdRef.SupplierInvoice\":{\"displayName\":\"InvoiceId\"},\"vw_fact_SupplierInvoice.PostingDate\":{\"displayName\":\"AccountingDate\"},\"vw_fact_PurchasingDocumentItem.PO Qty\":{\"displayName\":\"Quantity\"},\"Sum(vw_fact_SupplierInvoice.InvoiceGrossAmount)\":{\"displayName\":\"Amount\"},\"vw_fact_SupplierInvoice.DocumentCurrencyID\":{\"displayName\":\"AmountCurrency\"},\"vw_fact_PurchasingDocumentItem.OrderPriceUnit\":{\"displayName\":\"UnitOfMeasure\"},\"vw_dim_UserAddress.UserName\":{\"displayName\":\"RequesterId\"},\"vw_fact_SupplierInvoice.CreationDate\":{\"displayName\":\"Invoice Date\"},\"vw_fact_SupplierInvoiceItemPurOrdRef.SupplierInvoiceItem\":{\"displayName\":\"InvoiceLineNumber\"},\"vw_fact_SupplierInvoice.InvoicingPartyID  Remove\":{\"displayName\":\"InvoiceNumber\"},\"vw_fact_SupplierInvoiceItemPurOrdRef.PurchasingDocumentItemShortText\":{\"displayName\":\"Description\"}},\"drillFilterOtherVisuals\":true,\"objects\":{\"total\":[{\"properties\":{\"totals\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"grid\":[{\"properties\":{\"outlineColor\":{\"solid\":{\"color\":{\"expr\":{\"ThemeDataColor\":{\"ColorId\":2,\"Percent\":0}}}}}}}],\"columnFormatting\":[{\"properties\":{\"alignment\":{\"expr\":{\"Literal\":{\"Value\":\"'Right'\"}}}},\"selector\":{\"metadata\":\"vw_fact_SupplierInvoiceItemPurOrdRef.SupplierInvoice\"}},{\"properties\":{\"alignment\":{\"expr\":{\"Literal\":{\"Value\":\"'Right'\"}}}},\"selector\":{\"metadata\":\"vw_fact_SupplierInvoiceItemPurOrdRef.SupplierInvoiceItem\"}},{\"properties\":{\"alignment\":{\"expr\":{\"Literal\":{\"Value\":\"'Right'\"}}}},\"selector\":{\"metadata\":\"vw_fact_SupplierInvoice.PostingDate\"}},{\"properties\":{\"alignment\":{\"expr\":{\"Literal\":{\"Value\":\"'Right'\"}}}},\"selector\":{\"metadata\":\"vw_fact_PurchasingDocumentItem.PO Qty\"}},{\"properties\":{\"alignment\":{\"expr\":{\"Literal\":{\"Value\":\"'Right'\"}}}},\"selector\":{\"metadata\":\"Sum(vw_fact_SupplierInvoice.InvoiceGrossAmount)\"}},{\"properties\":{\"alignment\":{\"expr\":{\"Literal\":{\"Value\":\"'Right'\"}}}},\"selector\":{\"metadata\":\"vw_fact_SupplierInvoice.DocumentCurrencyID\"}},{\"properties\":{\"alignment\":{\"expr\":{\"Literal\":{\"Value\":\"'Right'\"}}}},\"selector\":{\"metadata\":\"vw_fact_PurchasingDocumentItem.OrderPriceUnit\"}},{\"properties\":{\"alignment\":{\"expr\":{\"Literal\":{\"Value\":\"'Right'\"}}}},\"selector\":{\"metadata\":\"vw_dim_UserAddress.UserName\"}},{\"properties\":{\"alignment\":{\"expr\":{\"Literal\":{\"Value\":\"'Right'\"}}}},\"selector\":{\"metadata\":\"vw_fact_SupplierInvoice.CreationDate\"}},{\"properties\":{\"alignment\":{\"expr\":{\"Literal\":{\"Value\":\"'Right'\"}}}},\"selector\":{\"metadata\":\"vw_fact_SupplierInvoice.InvoicingPartyID  Remove\"}}]},\"vcObjects\":{\"stylePreset\":[{\"properties\":{\"name\":{\"expr\":{\"Literal\":{\"Value\":\"'Minimal'\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 649.72,
+          "width": 1243.21,
+          "x": 20.30,
+          "y": 70.28,
+          "z": 0.00
+        },
+        {
+          "config": "{\"name\":\"c34f4d6cb587b2a40605\",\"layouts\":[{\"id\":0,\"position\":{\"x\":1245.8773181169759,\"y\":0,\"z\":2000,\"width\":31.840228245363768,\"height\":31.840228245363768,\"tabOrder\":1000}}],\"singleVisual\":{\"visualType\":\"image\",\"drillFilterOtherVisuals\":true,\"objects\":{\"general\":[{\"properties\":{\"imageUrl\":{\"expr\":{\"ResourcePackageItem\":{\"PackageName\":\"RegisteredResources\",\"PackageType\":1,\"ItemName\":\"Bug14622348017782587.png\"}}}}}]},\"vcObjects\":{\"general\":[{\"properties\":{\"altText\":{\"expr\":{\"Literal\":{\"Value\":\"'Report a Bug'\"}}}}}],\"visualLink\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"type\":{\"expr\":{\"Literal\":{\"Value\":\"'WebUrl'\"}}},\"tooltip\":{\"expr\":{\"Literal\":{\"Value\":\"'Report a Bug'\"}}},\"webUrl\":{\"expr\":{\"Literal\":{\"Value\":\"'https://app.smartsheet.com/b/form/a2e4dc5affba4de8b4716a87e691659e'\"}}}}}],\"title\":[{\"properties\":{\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'Image'\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 31.84,
+          "width": 31.84,
+          "x": 1245.88,
+          "y": 0.00,
+          "z": 2000.00
+        }
+      ],
+      "width": 1280.00
+    }
+  ],
+  "theme": "Leviat_Theme3576645172881816.json"
+}

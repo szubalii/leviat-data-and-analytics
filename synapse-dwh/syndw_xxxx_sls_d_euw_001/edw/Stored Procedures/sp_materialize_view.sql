@@ -1,6 +1,23 @@
-﻿CREATE PROC [edw].[sp_materialize_view]
+﻿/*
+
+  This stored procedure handles the materialization of data from a provided source view
+  into a provided destination table. 
+
+  To make sure the destination table keeps the same distribution and indexes the following
+  approach is taken:
+  
+  1. Begin transaction
+  2. Delete all records from the destination table
+  3. Insert the new data from the view into the destination table
+  
+  If anything goes wrong during the insert:
+  4. Rollback transaction
+
+*/
+
+CREATE PROC [edw].[sp_materialize_view]
 	@SourceSchema NVARCHAR(128),
-	@SourceView  NVARCHAR(128),
+	@SourceView NVARCHAR(128),
 	@DestSchema NVARCHAR(128),
 	@DestTable NVARCHAR(128),
 	@t_jobId VARCHAR(36),
@@ -10,88 +27,57 @@
 AS
 BEGIN
 
-	DECLARE @create_tmp_script NVARCHAR(MAX);
-	DECLARE @Columns NVARCHAR(MAX);
-	DECLARE @errmessage NVARCHAR(2048);
+	DECLARE
+    @create_tmp_script NVARCHAR(MAX),
+	  @Columns NVARCHAR(MAX),
+	  @errmessage NVARCHAR(2048),
+    @total_script NVARCHAR(MAX);
 
+
+  -- Test if the provided destination table name exists
 	IF OBJECT_ID(@DestSchema + '.' + @DestTable, 'U') IS NULL
 	BEGIN
-		SET @errmessage = 'Object [' + @DestSchema + '].['+ @DestTable +'] does not exist. 
-            Please check parameter values: @DestSchema = ''' + @DestSchema + 
-            ''',@DestTable = ''' + @DestTable + '''';
+		SET @errmessage = 'Object [' + @DestSchema + '].['+ @DestTable +'] does not exist.' + CHAR(13) + CHAR(10) +
+      'Please check parameter values: @DestSchema = ''' + @DestSchema + ''',@DestTable = ''' + @DestTable + '''';
 		THROW 50001, @errmessage, 1;
 	END
 
-	IF NOT EXISTS(
-		SELECT 1 
-		FROM sys.views 
-		JOIN sys.[schemas] 
-			ON sys.views.schema_id = sys.[schemas].schema_id 
-		WHERE 
-			sys.[schemas].name = @SourceSchema 
-			AND 
-			sys.views.name = @SourceView 
-			AND 
-			sys.views.type = 'v'
-	)
+-- Test if the provided view name exists
+	IF OBJECT_ID(@SourceSchema + '.' + @SourceView, 'V') IS NULL
 	BEGIN
-		SET @errmessage = 'Object [' + @SourceSchema + '].['+ @SourceView +'] does not exist. 
-            Please check parameter values: @SourceSchema = ''' + @SourceSchema + 
-            ''',@SourceView = ''' + @SourceView + '''';
+		SET @errmessage = 'Object [' + @SourceSchema + '].['+ @SourceView +'] does not exist.'  + CHAR(13) + CHAR(10) +
+      'Please check parameter values: @SourceSchema = ''' + @SourceSchema + ''',@SourceView = ''' + @SourceView + '''';
 		THROW 50001, @errmessage, 1;
 	END
 
 	BEGIN
-		SET @create_tmp_script = N'
-			IF OBJECT_ID(''[' + @DestSchema + '].[' + @DestTable + '_tmp]'') IS NOT NULL
-				DROP TABLE [' + @DestSchema + '].[' + @DestTable + '_tmp];
-			
-			SELECT TOP 0 * 
-            INTO [' + @DestSchema + '].[' + @DestTable + '_tmp] 
-            FROM [' + @DestSchema + '].[' + @DestTable + '];';
+    
+	  -- Retrieve the column list of the provided destination table
+    SET @Columns = (
+      SELECT
+        non_t_job_col_names
+      FROM
+        utilities.vw_MaterializeColumnList
+      WHERE
+        table_name = @DestTable
+        AND
+        schema_name = @DestSchema
+    );
 
-        EXECUTE sp_executesql @create_tmp_script;
+    -- Create the insert statement script and insert in the original table
+    -- so that the original distribution and index is kept
+    DECLARE @transaction_script NVARCHAR(MAX) = utilities.svf_getMaterializeTransactionScript(
+      @DestSchema,
+      @DestTable,
+      @SourceSchema,
+      @SourceView,
+      @Columns,
+      @t_jobId,
+      @t_jobDtm,
+      @t_lastActionCd,
+      @t_jobBy
+    );
 
-	--Insert data
-        SET @Columns = (
-            SELECT 
-                STRING_AGG(
-                    CAST('[' + src.COLUMN_NAME + ']' AS NVARCHAR(MAX)), 
-                    ','
-                ) 
-            FROM 
-                INFORMATION_SCHEMA.COLUMNS src
-            JOIN 
-                INFORMATION_SCHEMA.COLUMNS dest
-                ON 
-                    src.COLUMN_NAME = dest.COLUMN_NAME
-            WHERE 
-                src.COLUMN_NAME NOT IN ('t_jobId','t_jobDtm','t_lastActionCd','t_jobBy')
-                AND src.TABLE_SCHEMA = @SourceSchema
-                AND src.TABLE_NAME = @SourceView
-                AND dest.TABLE_SCHEMA = @DestSchema
-                AND dest.TABLE_NAME = @DestTable
-        );
-
-        DECLARE @insert_script NVARCHAR(MAX) = N'
-            INSERT INTO 
-                [' + @DestSchema + '].[' + @DestTable + '_tmp]' + '(' + @Columns + ',t_jobId,t_jobDtm,t_lastActionCd,t_jobBy' + ') 
-            SELECT 
-                ' + @Columns + '
-            ,	''' + @t_jobId + ''' AS t_jobId
-            ,	''' + CONVERT(NVARCHAR(23), @t_jobDtm, 121) + ''' AS t_jobDtm
-            ,	''' + @t_lastActionCd + ''' AS t_lastActionCd
-            ,	''' + @t_jobBy + ''' AS t_jobBy
-            FROM 
-                [' + @SourceSchema + '].[' + @SourceView + ']';
-
-        EXECUTE sp_executesql @insert_script;
-
-        DECLARE @rename_script NVARCHAR(MAX) = N'
-            RENAME OBJECT [' + @DestSchema + '].[' + @DestTable + '] TO [' + @DestTable + '_old];
-            RENAME OBJECT [' + @DestSchema + '].[' + @DestTable + '_tmp] TO [' + @DestTable + '];
-            DROP TABLE [' + @DestSchema + '].[' + @DestTable + '_old]';
-
-        EXECUTE sp_executesql @rename_script;
-    END
+    EXECUTE sp_executesql @transaction_script;
+  END
 END

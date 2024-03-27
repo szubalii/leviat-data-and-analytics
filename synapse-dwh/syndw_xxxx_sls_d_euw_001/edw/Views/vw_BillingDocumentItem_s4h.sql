@@ -83,6 +83,7 @@ BillingDocumentItemBase AS (
   , doc.[BillingPlan]
   , doc.[BillingPlanItem]
   , doc.[CustomerPriceGroup]                        AS [CustomerPriceGroupID]
+  , COALESCE(BPSA.[CustomerPriceGroup],'')          AS [CustomerPriceGroupID_BPSA]
   , doc.[PriceListType]                             AS [PriceListTypeID]
   , doc.[TaxDepartureCountry]
   , doc.[VATRegistration]
@@ -254,13 +255,15 @@ BillingDocumentItemBase AS (
   , ZP.FullName                                     AS Project
   , dim_SalesEmployee.Personnel                     AS SalesEmployeeID
   , dim_SalesEmployee.FullName                      AS SalesEmployee
-  , D1.[Customer]                                   AS GlobalParentID
-  , D1.[FullName]                                   AS GlobalParent
+  , KNVH.[GlobalParentID]                           AS GlobalParentID
+  , DimCust.[CustomerFullName]                      AS GlobalParent
   , case
-      when D1.[Customer] is not Null then D1.[Customer]
+      when KNVH.[GlobalParentID] is not Null 
+          then KNVH.[GlobalParentID] 
       else AG.[Customer] end                        AS GlobalParentCalculatedID
   , case
-      when D1.[Customer] is not Null then D1.[FullName]
+      when DimCust.[CustomerFullName] is not Null 
+           then DimCust.[CustomerFullName]
       else AG.[FullName] end                        AS GlobalParentCalculated
   , C1.[Customer]                                   AS LocalParentID
   , C1.[FullName]                                   AS LocalParent
@@ -282,7 +285,7 @@ BillingDocumentItemBase AS (
   , doc.[BillingDocumentDate]                       AS [AccountingDate]
   , doc.[Material]                                  AS MaterialCalculated
   , doc.[SoldToParty]                               AS SoldToPartyCalculated
-  , edw.svf_getInOutID_s4h (CustomerID)             AS InOutID
+  , edw.svf_getInOutID_s4h (Cust.CustomerID)        AS InOutID
   , PA.ICSalesDocumentID 
   , PA.ICSalesDocumentItemID
   , doc.[t_applicationId]
@@ -302,9 +305,6 @@ from [base_s4h_cax].[C_BillingDocumentItemBasicDEX] doc
   left join [edw].[vw_dim_SalesEmployee] dim_SalesEmployee
       on dim_SalesEmployee.SDDocument = doc.[BillingDocument]
       -- and VE.[MANDT] = 200 MPS 2021/11/01: commented out due to different client values between dev,qas, and prod
-  left join [edw].[dim_BillingDocumentPartnerFs] D1
-      on D1.SDDocument = doc.[BillingDocument] and D1.[PartnerFunction] = '1D'
-      -- and D1.[MANDT] = 200 MPS 2021/11/01: commented out due to different client values between dev,qas, and prod
   left join [edw].[dim_BillingDocumentPartnerFs] C1
       on C1.SDDocument = doc.[BillingDocument] and C1.[PartnerFunction] = '1C'
       -- and C1.[MANDT] = 200 MPS 2021/11/01: commented out due to different client values between dev,qas, and prod
@@ -326,10 +326,29 @@ from [base_s4h_cax].[C_BillingDocumentItemBasicDEX] doc
   left join [edw].[dim_Brand] DimBrand
         on DimBrand.[BrandID] = doc.[AdditionalMaterialGroup1]
   left join [edw].[dim_PurgAccAssignment] PA
-    ON doc.SalesDocument = PA.PurchaseOrder                   
-        AND right(doc.SalesDocumentItem,5) = PA.PurchaseOrderItem 
+    ON doc.SalesDocument = PA.PurchaseOrder                   COLLATE DATABASE_DEFAULT
+        AND right(doc.SalesDocumentItem,5) = PA.PurchaseOrderItem  
+  left join [edw].[dim_Customer] Cust
+      ON doc.SoldToParty = Cust.CustomerID  
+  left join [edw].[vw_LatestGlobalParent] KNVH
+    ON  doc.SoldToParty = KNVH.CustomerID
+        AND 
+        doc.SalesOrganization = KNVH.SalesOrganizationID
+        AND 
+        doc.DistributionChannel = KNVH.DistributionChannel
+        AND 
+        doc.Division = KNVH.Division
   left join [edw].[dim_Customer] DimCust
-      ON doc.SoldToParty = DimCust.CustomerID  
+    ON KNVH.GlobalParentID = DimCust.CustomerID 
+  left join  [base_s4h_cax].[I_Businesspartnersalesarea] BPSA
+    ON  doc.SalesOrganization = BPSA.SalesOrganization
+        AND 
+        doc.DistributionChannel = BPSA.DistributionChannel
+        AND 
+        doc.Division = BPSA.Division
+        AND
+        AG.Customer = BPSA.BusinessPartner
+  
     )
 
 SELECT
@@ -405,6 +424,7 @@ SELECT
       ,[BillingPlan]
       ,[BillingPlanItem]
       ,[CustomerPriceGroupID]
+      ,[CustomerPriceGroupID_BPSA]
       ,[PriceListTypeID]
       ,[TaxDepartureCountry]
       ,[VATRegistration]

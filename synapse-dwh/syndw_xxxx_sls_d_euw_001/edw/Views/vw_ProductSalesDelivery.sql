@@ -14,6 +14,7 @@ SELECT
 	,[AccountDetnProductGroup]
 	,[DeliveryNoteProcMinDelivQty]
 	,psd.[ItemCategoryGroup]
+	,icgt.[ItemCategoryGroupName]
 	,[DeliveryQuantityUnit]
 	,[DeliveryQuantity]
 	,[ProductSalesStatus]
@@ -95,6 +96,10 @@ LEFT JOIN
 		psd.[ProductDistributionChnl] = dt.[DistributionChannel]
 		AND
 		dt.[Language] = 'E'
+LEFT JOIN 
+	[base_s4h_cax].[I_ItemCategoryGroupText] icgt
+	ON
+		icgt.[ItemCategoryGroup] = psd.[ItemCategoryGroup]
 -- ProductSalesDelivery extraction fails using Z_THEO_READ_TABLE
 -- so set back to /SAPDS/RFC_READ_TABLE2, but this results in duplicates.
 -- Hence as workaround include GROUP BY on primary key fields
@@ -112,6 +117,7 @@ GROUP BY
 	[AccountDetnProductGroup],
 	[DeliveryNoteProcMinDelivQty],
 	psd.[ItemCategoryGroup],
+	icgt.[ItemCategoryGroupName],
 	[DeliveryQuantityUnit],
 	[DeliveryQuantity],
 	[ProductSalesStatus],

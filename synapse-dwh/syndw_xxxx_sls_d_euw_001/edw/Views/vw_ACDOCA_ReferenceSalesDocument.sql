@@ -44,7 +44,10 @@ SELECT
        SRDC.[LedgerGLLineItem],
        SRDC.[SalesReferenceDocumentCalculated],
        SRDC.[SalesReferenceDocumentItemCalculated],
-       SDI.[SalesDocumentItemCategoryID]
+       SDI.[SalesDocumentItemCategoryID],
+       SDI.[SalesOrganizationID] AS SDI_SalesOrganizationID,
+       SDI.[SoldToPartyID] AS SDI_SoldToPartyID,
+       SDI.[MaterialID] AS SDI_MaterialID
 FROM SalesReferenceDocumentCalculated SRDC
 LEFT JOIN [edw].[fact_SalesDocumentItem] SDI 
     ON 
@@ -61,4 +64,7 @@ GROUP BY
        SRDC.[LedgerGLLineItem],
        SRDC.[SalesReferenceDocumentCalculated],
        SRDC.[SalesReferenceDocumentItemCalculated],
-       SDI.[SalesDocumentItemCategoryID]
+       SDI.[SalesDocumentItemCategoryID],
+       SDI.[SalesOrganizationID],
+       SDI.[SoldToPartyID],
+       SDI.[MaterialID]

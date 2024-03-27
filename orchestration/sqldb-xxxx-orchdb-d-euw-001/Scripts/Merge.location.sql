@@ -1,9 +1,11 @@
 -- Check if temp table already exists, if so drop it
 IF OBJECT_ID('location_tmp', 'U') IS NOT NULL
     DROP TABLE location_tmp;
+GO
 
 -- Create shallow copy of original table 
 SELECT TOP 0 * INTO location_tmp FROM dbo.location;
+GO
 
 -- Bulk insert data into temp table (does not work on actual #temp tables)
 BULK INSERT location_tmp
@@ -14,6 +16,7 @@ WITH (
 ,   FIELDTERMINATOR = ','
 ,   FORMAT = 'CSV'
 );
+GO
 
 -- Create a temporary table to hold the updated or inserted values
 -- from the OUTPUT clause.  
@@ -49,6 +52,8 @@ OUTPUT
 ,   Inserted.location_nk
 ,   Inserted.location_description
 ,	GETUTCDATE() INTO [log].location;
+GO
 
 -- drop temp tables
 DROP TABLE location_tmp;
+GO

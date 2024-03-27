@@ -422,6 +422,15 @@
                     "length": 1,
                     "isSelected": true,
                     "conversionExit": ""
+                },
+                {
+                    "name": "SLSDOCISRLVTFORPROOFOFDELIV",
+                    "description": "Relevant for POD processing",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
                 }
             ]
         }

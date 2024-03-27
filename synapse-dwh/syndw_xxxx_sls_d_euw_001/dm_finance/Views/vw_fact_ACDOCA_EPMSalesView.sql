@@ -57,6 +57,7 @@ SELECT
   [GrossMarginAmount],
   [AmountCategory],
   [Amount],
+  [AmountInCompanyCodeCurrency],
   [AmountInGlobalCurrency],
   [FreeDefinedCurrency1],
   [AmountInFreeDefinedCurrency1],
@@ -151,6 +152,8 @@ SELECT
   '10' AS ValueTypeID,
   [ProjectNumber],
   [ProjectNumberCalculated],
+  [GMElementL1],
+  [GMElementL2],
   [t_applicationId],
   [t_extractionDtm]
 FROM

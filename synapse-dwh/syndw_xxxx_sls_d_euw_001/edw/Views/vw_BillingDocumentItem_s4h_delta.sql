@@ -293,14 +293,16 @@ WITH BillingDocumentItemBase as (
         , ZP.FullName                                     as Project
         , VE.Personnel                                    as SalesEmployeeID
         , VE.FullName                                     as SalesEmployee
-        , D1.[Customer]                                   as GlobalParentID
-        , D1.[FullName]                                   as GlobalParent
+        , KNVH.[GlobalParentID]                           AS GlobalParentID
+        , DimCust.[CustomerFullName]                      AS GlobalParent
         , case
-            when D1.[Customer] is not Null then D1.[Customer]
-            else AG.[Customer] end                      as GlobalParentCalculatedID
+          when KNVH.[GlobalParentID] is not Null 
+              then KNVH.[GlobalParentID] 
+          else AG.[Customer] end                          AS GlobalParentCalculatedID
         , case
-            when D1.[Customer] is not Null then D1.[FullName]
-            else AG.[FullName] end                      as GlobalParentCalculated
+          when DimCust.[CustomerFullName] is not Null 
+              then DimCust.[CustomerFullName]
+          else AG.[FullName] end                          AS GlobalParentCalculated
         , C1.[Customer]                                   as LocalParentID
         , C1.[FullName]                                   as LocalParent
         , case
@@ -322,7 +324,7 @@ WITH BillingDocumentItemBase as (
         , doc.[BillingDocumentDate]                     as [AccountingDate]
         , doc.[Material] as MaterialCalculated
         , doc.[SoldToParty] as SoldToPartyCalculated
-        , edw.svf_getInOutID_s4h (CustomerID) as InOutID
+        , edw.svf_getInOutID_s4h (Cust.CustomerID) as InOutID
         , PA.ICSalesDocumentID 
         , PA.ICSalesDocumentItemID
         , doc.[t_applicationId]
@@ -342,9 +344,6 @@ WITH BillingDocumentItemBase as (
         left join [edw].[dim_BillingDocumentPartnerFs] VE
             on VE.SDDocument = doc.[BillingDocument] and VE.[PartnerFunction] = 'VE'
             -- and VE.[MANDT] = 200 MPS 2021/11/01: commented out due to different client values between dev,qas, and prod
-        left join [edw].[dim_BillingDocumentPartnerFs] D1
-            on D1.SDDocument = doc.[BillingDocument] and D1.[PartnerFunction] = '1D'
-            -- and D1.[MANDT] = 200 MPS 2021/11/01: commented out due to different client values between dev,qas, and prod
         left join [edw].[dim_BillingDocumentPartnerFs] C1
             on C1.SDDocument = doc.[BillingDocument] and C1.[PartnerFunction] = '1C'
             -- and C1.[MANDT] = 200 MPS 2021/11/01: commented out due to different client values between dev,qas, and prod
@@ -361,8 +360,18 @@ WITH BillingDocumentItemBase as (
         left join [edw].[dim_PurgAccAssignment] PA
             ON doc.SalesDocument = PA.PurchaseOrder                   
                 AND right(doc.SalesDocumentItem,5) = PA.PurchaseOrderItem
+        left join [edw].[dim_Customer] Cust
+            ON doc.SoldToParty = Cust.CustomerID 
+        left join [edw].[vw_LatestGlobalParent] KNVH
+            ON  doc.SoldToParty = KNVH.CustomerID
+                AND 
+                doc.SalesOrganization = KNVH.SalesOrganizationID
+                AND 
+                doc.DistributionChannel = KNVH.DistributionChannel
+                AND 
+                doc.Division = KNVH.Division
         left join [edw].[dim_Customer] DimCust
-            ON doc.SoldToParty = DimCust.CustomerID 
+            ON KNVH.GlobalParentID = DimCust.CustomerID 
         -- move to DM            
         --left join [base_s4h_cax].[I_SalesDocumentTypeText] SDTT
         --    on SDTT.[SalesDocumentType] = SDID.[SalesDocumentType] and SDTT.[Language] = 'E' 

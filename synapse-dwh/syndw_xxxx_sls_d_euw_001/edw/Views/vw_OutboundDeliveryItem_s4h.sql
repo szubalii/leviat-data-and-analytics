@@ -1,5 +1,20 @@
 ﻿CREATE VIEW [edw].[vw_OutboundDeliveryItem_s4h] AS
 WITH
+
+-- it's to get the earliest OriginalConfirmedDeliveryDate
+-- for that SalesDocumentID and SalesDocumentItem
+OriginalConfirmedSalesOrderItemDeliveryDate AS (
+    SELECT
+        SalesDocumentID,
+        SalesDocumentItemID,
+        MIN(OriginalConfirmedDeliveryDate) AS OriginalConfirmedDeliveryDate
+    FROM
+        [intm_s4h].[vw_OriginalConfirmedScheduleLineDeliveryDate]
+    GROUP BY
+        SalesDocumentID,
+        SalesDocumentItemID
+),
+
 OutboundDeliveryItem_s4h AS (
     SELECT 
         CONCAT_WS('¦', ODI.[OutboundDelivery] collate SQL_Latin1_General_CP1_CS_AS, ODI.[OutboundDeliveryItem] collate SQL_Latin1_General_CP1_CS_AS) AS [nk_fact_OutboundDeliveryItem]
@@ -88,7 +103,13 @@ OutboundDeliveryItem_s4h AS (
         ,ODI.[IntercompanyBillingStatus] AS [IntercompanyBillingStatusID]
         ,ODI.[IsReturnsItem] 
         ,SDSL.[ConfirmedDeliveryDate] AS [SL_ConfirmedDeliveryDate]
-        ,COALESCE(OCDD.[OriginalConfirmedDeliveryDate],SDSL.[ConfirmedDeliveryDate]) AS [SL_OriginalConfirmedDeliveryDate]
+        ,[edw].[svf_getOriginalConfirmedDeliveryDate] (
+             ODI.ActualDeliveryQuantity
+            ,SDI.SDI_ConfdDelivQtyInOrderQtyUnit
+            ,OCDD.[OriginalConfirmedDeliveryDate]
+            ,OCSDIDD.[OriginalConfirmedDeliveryDate]
+            ,SDSL.[ConfirmedDeliveryDate]
+        ) AS [SL_OriginalConfirmedDeliveryDate]
         ,SDSL_1st.[RequestedDeliveryDate] AS [SL_FirstCustomerRequestedDeliveryDate]
         ,SDSL.[GoodsIssueDate] AS [SL_GoodsIssueDate]
         ,SDSL.[ScheduleLine] AS [SL_ScheduleLine]
@@ -262,11 +283,22 @@ OutboundDeliveryItem_s4h AS (
                 OR
                 ODI.[ActualDeliveryQuantity] = 0
             THEN NULL
-            WHEN SDI.[SDI_ConfdDelivQtyInOrderQtyUnit] = ODI.[ActualDeliveryQuantity]
-            THEN 'In Full Delivered'
-            WHEN SDI.[SDI_ConfdDelivQtyInOrderQtyUnit] > ODI.[ActualDeliveryQuantity]
-            THEN 'Under Delivered'
-            ELSE 'Over Delivered'
+            WHEN ODI.[OutboundDeliveryItem] LIKE '9%' THEN -- OutboundDeliveryItems starting with a '9' are part of an original outbound delivery item that has been split into multiple batches.
+                CASE 
+                    WHEN SDI.[SDI_ConfdDelivQtyInOrderQtyUnit] = SUM(ODI.[ActualDeliveryQuantity]) OVER (Partition By ODI.ReferenceSDDocument, ODI.ReferenceSDDocumentItem)
+                        THEN 'In Full Delivered'
+                    WHEN SDI.[SDI_ConfdDelivQtyInOrderQtyUnit] > SUM(ODI.[ActualDeliveryQuantity]) OVER (Partition By ODI.ReferenceSDDocument, ODI.ReferenceSDDocumentItem)
+                        THEN 'Under Delivered'
+                ELSE 'Over Delivered'
+            END
+            ELSE 
+                CASE 
+                    WHEN SDI.[SDI_ConfdDelivQtyInOrderQtyUnit] = ODI.[ActualDeliveryQuantity]
+                        THEN 'In Full Delivered'
+                    WHEN SDI.[SDI_ConfdDelivQtyInOrderQtyUnit] > ODI.[ActualDeliveryQuantity]
+                        THEN 'Under Delivered'
+                ELSE 'Over Delivered'
+                END
          END AS [IF_Group]
         ,CASE
             WHEN
@@ -290,18 +322,7 @@ OutboundDeliveryItem_s4h AS (
             THEN 'Y'
             ELSE 'N'
         END AS [NoActualDeliveredQtyFlag]
-        ,CASE
-            WHEN
-                OD.[PlannedGoodsIssueDate] IS NULL
-                OR
-                OD.[PlannedGoodsIssueDate] = '0001-01-01'
-                OR
-                SDSL.[GoodsIssueDate] IS NULL
-                OR
-                SDSL.[GoodsIssueDate] = '0001-01-01'
-            THEN NULL
-            ELSE DATEDIFF(day, SDSL.[GoodsIssueDate], OD.[PlannedGoodsIssueDate])
-        END AS [OTS_GoodsIssueDateDiffInDays]
+        ,[edw].[svf_getOT_DaysDiff](SDSL.[GoodsIssueDate], OD.[PlannedGoodsIssueDate],GETUTCDATE()) AS [OTS_GoodsIssueDateDiffInDays]
         ,CASE
             WHEN
                 OD.[PlannedGoodsIssueDate] IS NULL
@@ -356,34 +377,9 @@ OutboundDeliveryItem_s4h AS (
             --ELSE OD.[ActualGoodsMovementDate]
             ELSE cdd.CalculatedDelDate
         END AS [CalculatedDelDate]
-      ,CASE
-           WHEN
-               OD.[ActualGoodsMovementDate] IS NULL
-               OR
-               OD.[ActualGoodsMovementDate] = '0001-01-01'
-               OR
-               SDI.[SDI_SalesDocumentDate] IS NULL
-               OR
-               SDI.[SDI_SalesDocumentDate] = '0001-01-01'
-           THEN 
-               NULL
-           ELSE 
-               DATEDIFF(day,SDI.[SDI_SalesDocumentDate],OD.[ActualGoodsMovementDate])
-       END AS [ActualLeadTime]       
-      ,CASE
-           WHEN
-               SDI.[SDI_RequestedDeliveryDate] IS NULL
-               OR
-               SDI.[SDI_RequestedDeliveryDate] = '0001-01-01'
-               OR
-               SDI.[SDI_SalesDocumentDate] IS NULL
-               OR
-               SDI.[SDI_SalesDocumentDate] = '0001-01-01'
-           THEN 
-               NULL
-           ELSE 
-               DATEDIFF(day,SDI.[SDI_SalesDocumentDate],[SDI_RequestedDeliveryDate])
-       END AS [RequestedLeadTime] 
+       ,[edw].[svf_getOT_DaysDiff](SDI.[SDI_SalesDocumentDate], OD.[ActualGoodsMovementDate],GETUTCDATE()) AS [ActualLeadTime]       
+       ,[edw].[svf_getOT_DaysDiff](SDI.[SDI_SalesDocumentDate], SDI.[SDI_RequestedDeliveryDate],GETUTCDATE()) AS [RequestedLeadTime] 
+       ,[edw].[svf_getOT_DaysDiff](SDI.[SDI_SalesDocumentDate], SDSL_1st.[RequestedDeliveryDate] ,GETUTCDATE())  AS [RequestedLeadTimeOTR] 
       ,ODI.[t_applicationId]
       ,ODI.[t_extractionDtm]
     FROM
@@ -414,6 +410,12 @@ OutboundDeliveryItem_s4h AS (
             SDSL.[SalesDocumentItem]   = OCDD.[SalesDocumentItemID]
             AND
             SDSL.[ScheduleLine]   = OCDD.[ScheduleLine]
+    LEFT JOIN
+        OriginalConfirmedSalesOrderItemDeliveryDate OCSDIDD
+        ON
+            OCSDIDD.[SalesDocumentID] = SDSL.[SalesDocument]
+            AND
+            OCSDIDD.[SalesDocumentItemID] = SDSL.[SalesDocumentItem] COLLATE DATABASE_DEFAULT
     LEFT JOIN
         [edw].[dim_Route] AS DimActualRoute
         ON
@@ -714,9 +716,9 @@ OutboundDeliveryItem_s4h_calculated AS (
                 [NrSLInScope] IS NULL   
             THEN 'OTD003'
             WHEN
-                [HDR_ActualDeliveryRoute] = ''
+                [HDR_ProposedDeliveryRoute] = ''
                 OR
-                [HDR_ActualDeliveryRoute] IS NULL
+                [HDR_ProposedDeliveryRoute] IS NULL
             THEN 'OTD004'
             WHEN [ActualDeliveryRouteDurationInDays] = 0
             THEN 'OTD005'
@@ -750,6 +752,7 @@ OutboundDeliveryItem_s4h_calculated AS (
              THEN 0
              ELSE [RequestedLeadTime]
          END AS [RequestedLeadTime]
+        ,[RequestedLeadTimeOTR]
         ,CASE
            WHEN RequestedLeadTime < 0
            THEN 
@@ -989,6 +992,7 @@ SELECT
         ,[ActualLeadTime]
         ,[ALT001_DataQualityCode]  
         ,[RequestedLeadTime]
+        ,[RequestedLeadTimeOTR]
         ,[RLT001_DataQualityCode]
         ,[edw].[svf_getOT_DaysDiff]([SL_ConfirmedDeliveryDate_weekday], [CalculatedDelDate],GETUTCDATE()) AS [OTD_DaysDiff]
         ,[edw].[svf_getOT_DaysDiff]([SL_CustomerRequestedDeliveryDate_weekday], [CalculatedDelDate],GETUTCDATE())  AS [OTR_DaysDiff]
@@ -1227,6 +1231,7 @@ SELECT
     ,[ActualLeadTime]
     ,[ALT001_DataQualityCode]  
     ,[RequestedLeadTime]
+    ,[RequestedLeadTimeOTR]
     ,[RLT001_DataQualityCode]  
     ,[OTD_DaysDiff]
     ,[edw].[svf_getOT_Group]([OTD_DaysDiff]) AS [OTD_Group]
@@ -1493,6 +1498,7 @@ SELECT
     ,[ActualLeadTime]
     ,[ALT001_DataQualityCode]  
     ,[RequestedLeadTime]
+    ,[RequestedLeadTimeOTR]
     ,[RLT001_DataQualityCode]  
     ,[OTD_DaysDiff]
     ,[OTD_Group]
@@ -1555,7 +1561,7 @@ FROM
 )
 SELECT
     [nk_fact_OutboundDeliveryItem]
-    ,edw.[svf_get2PartNaturalKey] ([ProductID], [PlantID]) AS [nk2_fact_OutboundDeliveryItem]
+    ,edw.[svf_get2PartNaturalKey] ([ProductID], [PlantID]) AS [ProductPlant]
     ,[OutboundDelivery]
     ,[OutboundDeliveryItem]
     ,[DeliveryDocumentItemCategoryID]
@@ -1794,6 +1800,7 @@ SELECT
     ,[ActualLeadTime]
     ,[ALT001_DataQualityCode]  
     ,[RequestedLeadTime]
+    ,[RequestedLeadTimeOTR]
     ,[RLT001_DataQualityCode]  
     ,[OTD_DaysDiff]
     ,[OTD_Group]
@@ -1811,6 +1818,16 @@ SELECT
     ,[OTR_IsOnTime]
     ,[OTR_LateDays]
     ,[edw].[svf_getOTIF_OnTimeInFull]([OTR_Group],[OTR_IsOnTime],[IF_IsInFull]) AS [OTRIF_OnTimeCusReqInFull]
+    ,CASE 
+        WHEN [SL_FirstCustomerRequestedDeliveryDate] = [CreationDate]
+        THEN 1
+        ELSE 0
+     END AS [IsRequestedOnTheSameDay]
+     ,CASE 
+        WHEN [SL_FirstCustomerRequestedDeliveryDate] < [CreationDate]
+        THEN 1
+        ELSE 0
+     END AS [IsRequestedInThePast]
     ,[t_applicationId]
     ,[t_extractionDtm]
 FROM

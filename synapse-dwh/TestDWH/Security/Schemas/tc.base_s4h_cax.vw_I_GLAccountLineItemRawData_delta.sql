@@ -1,0 +1,1 @@
+CREATE SCHEMA [tc.base_s4h_cax.vw_I_GLAccountLineItemRawData_delta]
