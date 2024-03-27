@@ -28,6 +28,8 @@ StockLevels AS (
   , [MaterialBaseUnitID]
   , [PurchaseOrderTypeID]
   , [InventoryValuationTypeID]
+  , [nk_StoragePlantId]
+  , [sk_ProductSalesOrg]
   , [ReportingDate]
   , [FirstDayOfMonthDate]
   , [YearWeek]
@@ -73,7 +75,7 @@ StockLevels AS (
         , [InventoryValuationTypeID]
         , [YearWeek]
           ORDER BY YearMonth
-        ) 
+        )
     END AS StockLevelQtyInBaseUnit
   , [ConsumptionQtyICPOInStandardValue_EUR]
   , [ConsumptionQtyICPOInStandardValue_USD]
@@ -87,27 +89,7 @@ StockLevels AS (
   , [ConsumptionValueByLatestPriceInBaseValue]
   , [ConsumptionValueByLatestPrice_EUR]
   , [ConsumptionValueByLatestPrice_USD]
-  -- , [WeeklyMatlStkChangeQtyInBaseUnit]
-  -- , CASE
-  --     WHEN YearMonth IS NULL
-  --     THEN SUM(WeeklyMatlStkChangeQtyInBaseUnit) OVER (
-  --       PARTITION BY
-  --         [MaterialID]
-  --       , [PlantID]
-  --       , [StorageLocationID]
-  --       , [InventorySpecialStockTypeID]
-  --       , [InventoryStockTypeID]
-  --       , [StockOwner]
-  --       , [CostCenterID]
-  --       , [CompanyCodeID]
-  --       , [SalesDocumentTypeID]
-  --       , [SalesDocumentItemCategoryID]
-  --       , [MaterialBaseUnitID]
-  --       , [PurchaseOrderTypeID]
-  --       , [InventoryValuationTypeID]
-  --         ORDER BY YearWeek
-  --       )
-  --     END AS WeeklyStockLevelQtyInBaseUnit
+  , [t_applicationId]
   FROM
     [edw].[vw_fact_MaterialInventoryStockChange]
 )
@@ -127,6 +109,8 @@ SELECT
 , StockLevels.[MaterialBaseUnitID]
 , StockLevels.[PurchaseOrderTypeID]
 , StockLevels.[InventoryValuationTypeID]
+, StockLevels.[nk_StoragePlantId]
+, StockLevels.[sk_ProductSalesOrg]
 , StockLevels.[ReportingDate]
 , StockLevels.[YearWeek]
 , StockLevels.[YearMonth]
@@ -154,6 +138,7 @@ SELECT
 , StockLevels.[ConsumptionValueByLatestPriceInBaseValue]
 , StockLevels.[ConsumptionValueByLatestPrice_EUR]
 , StockLevels.[ConsumptionValueByLatestPrice_USD]
+, StockLevels.[t_applicationId]
 FROM
   StockLevels
 LEFT OUTER JOIN

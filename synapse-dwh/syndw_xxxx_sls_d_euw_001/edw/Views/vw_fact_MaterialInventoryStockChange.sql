@@ -93,6 +93,8 @@ SELECT
 , allWeeks.[MaterialBaseUnitID]
 , allWeeks.[PurchaseOrderTypeID]
 , allWeeks.[InventoryValuationTypeID]
+, allWeeks.[nk_StoragePlantId]
+, allWeeks.[sk_ProductSalesOrg]
 , allWeeks.[ReportingDate]
 , allWeeks.[FirstDayOfMonthDate]
 , allWeeks.[YearWeek]
@@ -114,6 +116,7 @@ SELECT
 -- , stockChangeMonthly.[MonthlyMatlStkChangeQtyInBaseUnit]
 -- , allWeeks.[IsWeekly]
 -- , allWeeks.[IsMonthly]
+, allWeeks.[t_applicationId]
 FROM
   [edw].[vw_fact_MaterialInventoryAllWeeksAndMonths] allWeeks
 LEFT JOIN

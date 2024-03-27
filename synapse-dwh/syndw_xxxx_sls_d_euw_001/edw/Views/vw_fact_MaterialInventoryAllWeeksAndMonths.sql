@@ -28,6 +28,8 @@ FirstPostingDate AS (
   , [MaterialBaseUnitID]
   , [PurchaseOrderTypeID]
   , [InventoryValuationTypeID]
+  , [nk_StoragePlantId]
+  , [sk_ProductSalesOrg]
   , MIN(HDR_PostingDate) AS FirstPostingDate
   , [t_applicationId]
   FROM
@@ -48,6 +50,8 @@ FirstPostingDate AS (
   , [MaterialBaseUnitID]
   , [PurchaseOrderTypeID]
   , [InventoryValuationTypeID]
+  , [nk_StoragePlantId]
+  , [sk_ProductSalesOrg]
   , [t_applicationId]
 )
 ,
@@ -66,6 +70,8 @@ FirstPostingCal AS (
   , fp.[MaterialBaseUnitID]
   , fp.[PurchaseOrderTypeID]
   , fp.[InventoryValuationTypeID]
+  , fp.[nk_StoragePlantId]
+  , fp.[sk_ProductSalesOrg]
   , cal.[YearWeek] AS [FirstPostingYearWeek]
   , cal.[YearMonth] AS [FirstPostingYearMonth]
   , fp.[t_applicationId]
@@ -81,7 +87,7 @@ AllYearWeeks AS (
   SELECT --top 100
     YearWeek,
     NULL AS YearMonth,
-    /* 
+    /*
       Add two helper columns that define in cases of duplicate weeks and months
       respectively which rows to take when retrieving stock levels
     */
@@ -107,7 +113,7 @@ AllYearWeeks AS (
   SELECT --top 100
     NULL AS YearWeek,
     YearMonth,
-    /* 
+    /*
       Add two helper columns that define in cases of duplicate weeks and months
       respectively which rows to take when retrieving stock levels
     */
@@ -142,24 +148,26 @@ SELECT
 , fw.[MaterialBaseUnitID]
 , fw.[PurchaseOrderTypeID]
 , fw.[InventoryValuationTypeID]
+, fw.[nk_StoragePlantId]
+, fw.[sk_ProductSalesOrg]
 , AllYearWeeks.[ReportingDate]
 , AllYearWeeks.[YearWeek]
 , AllYearWeeks.[YearMonth]
 -- , AllYearWeeks.IsWeekly
 -- , AllYearWeeks.IsMonthly
 , AllYearWeeks.FirstDayOfMonthDate
+, fw.[t_applicationId]
 FROM
   FirstPostingCal fw
 CROSS JOIN
   AllYearWeeks
 WHERE
-  AllYearWeeks.YearWeek BETWEEN fw.FirstPostingYearWeek AND 
+  AllYearWeeks.YearWeek BETWEEN fw.FirstPostingYearWeek AND
     -- Construct YearWeek based on current date
     CONCAT(YEAR(GETDATE()), DATEPART(week, GETDATE()))
 
   OR
 
-  AllYearWeeks.YearMonth BETWEEN fw.FirstPostingYearMonth AND 
+  AllYearWeeks.YearMonth BETWEEN fw.FirstPostingYearMonth AND
     -- Construct YearWeek based on current date
     CONCAT(YEAR(GETDATE()), DATEPART(month, GETDATE()))
-
