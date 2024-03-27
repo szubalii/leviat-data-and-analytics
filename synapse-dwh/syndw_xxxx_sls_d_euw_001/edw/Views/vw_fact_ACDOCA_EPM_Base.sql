@@ -325,15 +325,15 @@ INNER JOIN [edw].[dim_FinancialStatementItem]   FSI
 LEFT JOIN
   [edw].[dim_BillingDocumentType] dimBDT
   ON
-    GLALIRD.BillingDocumentTypeID = dimBDT.[BillingDocumentTypeID] COLLATE DATABASE_DEFAULT
+    GLALIRD.BillingDocumentTypeID = dimBDT.[BillingDocumentTypeID]
 LEFT JOIN
   [edw].[dim_ProductSalesDelivery] PSD
   ON
-    GLALIRD.[ProductID] = PSD.[ProductID] COLLATE DATABASE_DEFAULT
+    GLALIRD.[ProductID] = PSD.[ProductID]
     AND
-    GLALIRD.[SalesOrganizationID] = PSD.[SalesOrganizationID] COLLATE DATABASE_DEFAULT
+    GLALIRD.[SalesOrganizationID] = PSD.[SalesOrganizationID]
     AND
-    GLALIRD.[DistributionChannelID] = PSD.[DistributionChannelID] COLLATE DATABASE_DEFAULT
+    GLALIRD.[DistributionChannelID] = PSD.[DistributionChannelID]
 LEFT JOIN
   [edw].[vw_CurrencyConversionRate] ExchangeRate
   ON
@@ -556,9 +556,9 @@ FROM orig
 LEFT JOIN
   [base_s4h_cax].[I_CustomerSalesArea] CSA
   ON
-    orig.[CustomerID] = CSA.[Customer] COLLATE DATABASE_DEFAULT
+    orig.[CustomerID] = CSA.[Customer]
     AND
-    orig.[SalesOrganizationID] = CSA.[SalesOrganization] COLLATE DATABASE_DEFAULT
+    orig.[SalesOrganizationID] = CSA.[SalesOrganization]
 LEFT JOIN
   [edw].[dim_CustomerGroup] dimCGr
   ON
