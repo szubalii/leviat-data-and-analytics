@@ -91,6 +91,7 @@ StockLevels AS (
   , [ConsumptionValueByLatestPrice_EUR]
   , [ConsumptionValueByLatestPrice_USD]
   , [t_applicationId]
+  , [t_extractionDtm]
   FROM
     [edw].[vw_fact_MaterialInventoryStockChange]
 )
