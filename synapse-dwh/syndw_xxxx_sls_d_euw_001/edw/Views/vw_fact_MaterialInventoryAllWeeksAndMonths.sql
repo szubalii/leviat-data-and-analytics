@@ -30,8 +30,10 @@ FirstPostingDate AS (
   , [InventoryValuationTypeID]
   , [nk_StoragePlantID]
   , [sk_ProductSalesOrg]
+  , [PlantSalesOrgID]
   , MIN(HDR_PostingDate) AS FirstPostingDate
   , [t_applicationId]
+  , [t_extractionDtm]
   FROM
     [edw].[fact_MaterialDocumentItem]
   -- WHERE
@@ -52,7 +54,9 @@ FirstPostingDate AS (
   , [InventoryValuationTypeID]
   , [nk_StoragePlantID]
   , [sk_ProductSalesOrg]
+  , [PlantSalesOrgID]
   , [t_applicationId]
+  , [t_extractionDtm]
 )
 ,
 FirstPostingCal AS (
@@ -72,9 +76,11 @@ FirstPostingCal AS (
   , fp.[InventoryValuationTypeID]
   , fp.[nk_StoragePlantID]
   , fp.[sk_ProductSalesOrg]
+  , fp.[PlantSalesOrgID]
   , cal.[YearWeek] AS [FirstPostingYearWeek]
   , cal.[YearMonth] AS [FirstPostingYearMonth]
   , fp.[t_applicationId]
+  , fp.[t_extractionDtm]
   FROM
     FirstPostingDate AS fp
   LEFT JOIN
@@ -150,6 +156,7 @@ SELECT
 , fw.[InventoryValuationTypeID]
 , fw.[nk_StoragePlantID]
 , fw.[sk_ProductSalesOrg]
+, fw.[PlantSalesOrgID]
 , AllYearWeeks.[ReportingDate]
 , AllYearWeeks.[YearWeek]
 , AllYearWeeks.[YearMonth]
@@ -157,6 +164,7 @@ SELECT
 -- , AllYearWeeks.IsMonthly
 , AllYearWeeks.FirstDayOfMonthDate
 , fw.[t_applicationId]
+, fw.[t_extractionDtm]
 FROM
   FirstPostingCal fw
 CROSS JOIN

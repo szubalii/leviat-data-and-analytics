@@ -30,6 +30,7 @@ StockLevels AS (
   , [InventoryValuationTypeID]
   , [nk_StoragePlantID]
   , [sk_ProductSalesOrg]
+  , [PlantSalesOrgID]
   , [ReportingDate]
   , [FirstDayOfMonthDate]
   , [YearWeek]
@@ -111,14 +112,19 @@ SELECT
 , StockLevels.[InventoryValuationTypeID]
 , StockLevels.[nk_StoragePlantID]
 , StockLevels.[sk_ProductSalesOrg]
+, StockLevels.[PlantSalesOrgID]
 , StockLevels.[ReportingDate]
 , StockLevels.[YearWeek]
 , StockLevels.[YearMonth]
 -- , StockLevels.[IsWeekly]
 -- , StockLevels.[IsMonthly]
+, PUP.[CurrencyID]
 , PUP.[StockPricePerUnit]
 , PUP.[StockPricePerUnit_EUR]
 , PUP.[StockPricePerUnit_USD]
+, LPUP.[LatestStockPricePerUnit]
+, LPUP.[LatestStockPricePerUnit_EUR]
+, LPUP.[LatestStockPricePerUnit_USD]
 , StockLevels.[MatlStkChangeQtyInBaseUnit]
 , StockLevels.[StockLevelQtyInBaseUnit]
 -- , StockLevels.[MonthlyMatlStkChangeQtyInBaseUnit]
@@ -126,6 +132,10 @@ SELECT
 , StockLevels.[StockLevelQtyInBaseUnit] * PUP.[StockPricePerUnit] AS StockLevelStandardPPU
 , StockLevels.[StockLevelQtyInBaseUnit] * PUP.[StockPricePerUnit_EUR] AS StockLevelStandardPPU_EUR
 , StockLevels.[StockLevelQtyInBaseUnit] * PUP.[StockPricePerUnit_USD] AS StockLevelStandardPPU_USD
+, StockLevels.[StockLevelQtyInBaseUnit] * LPUP.[LatestStockPricePerUnit] AS StockLevelStandardLatestPPU
+, StockLevels.[StockLevelQtyInBaseUnit] * LPUP.[LatestStockPricePerUnit_EUR] AS StockLevelStandardLatestPPU_EUR
+, StockLevels.[StockLevelQtyInBaseUnit] * LPUP.[LatestStockPricePerUnit_USD] AS StockLevelStandardLatestPPU_USD
+, NULL AS [Prev12MConsumptionQty]
 , StockLevels.[ConsumptionQtyICPOInStandardValue_EUR]
 , StockLevels.[ConsumptionQtyICPOInStandardValue_USD]
 , StockLevels.[ConsumptionQtyOBDProStandardValue]
@@ -139,6 +149,7 @@ SELECT
 , StockLevels.[ConsumptionValueByLatestPrice_EUR]
 , StockLevels.[ConsumptionValueByLatestPrice_USD]
 , StockLevels.[t_applicationId]
+, StockLevels.[t_extractionDtm]
 FROM
   StockLevels
 LEFT OUTER JOIN
@@ -151,4 +162,14 @@ LEFT OUTER JOIN
     PUP.[ValuationTypeID] = StockLevels.[InventoryValuationTypeID] COLLATE DATABASE_DEFAULT
     AND
     PUP.[FirstDayOfMonthDate] = StockLevels.[FirstDayOfMonthDate]
+LEFT OUTER JOIN
+  [edw].[vw_dim_ProductValuationPUP_LatestStockPrice] LPUP
+  ON
+    LPUP.[ProductID] = StockLevels.[MaterialID] COLLATE DATABASE_DEFAULT
+    AND
+    LPUP.[ValuationAreaID] = StockLevels.[PlantID] COLLATE DATABASE_DEFAULT
+    AND
+    LPUP.[ValuationTypeID] = StockLevels.[InventoryValuationTypeID] COLLATE DATABASE_DEFAULT
+    AND
+    LPUP.[FirstDayOfMonthDate] = StockLevels.[FirstDayOfMonthDate]
     

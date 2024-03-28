@@ -95,6 +95,7 @@ SELECT
 , allWeeks.[InventoryValuationTypeID]
 , allWeeks.[nk_StoragePlantID]
 , allWeeks.[sk_ProductSalesOrg]
+, allWeeks.[PlantSalesOrgID]
 , allWeeks.[ReportingDate]
 , allWeeks.[FirstDayOfMonthDate]
 , allWeeks.[YearWeek]
@@ -117,6 +118,7 @@ SELECT
 -- , allWeeks.[IsWeekly]
 -- , allWeeks.[IsMonthly]
 , allWeeks.[t_applicationId]
+, allWeeks.[t_extractionDtm]
 FROM
   [edw].[vw_fact_MaterialInventoryAllWeeksAndMonths] allWeeks
 LEFT JOIN
