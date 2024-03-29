@@ -398,7 +398,7 @@
         "update_mode": "Full",
         "base_table_name": "I_Address",
         "pk_field_names": "ADDRESSID",
-        "schedule_recurrence": "A"
+        "schedule_recurrence": "D"
       },
       {
         "entity_id": 94,
@@ -6190,8 +6190,7 @@
         "source_view_name": "vw_Address",
         "dest_table_name": "dim_Address",
         "execution_order": 1,
-        "schedule_recurrence": "W",
-        "schedule_day": 2
+        "schedule_recurrence": "D"
       },
       {
         "entity_id": 648,
