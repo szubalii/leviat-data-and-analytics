@@ -80,7 +80,7 @@ StockLevels AS (
     END AS StockLevelQtyInBaseUnit
   , CASE
       WHEN YearWeek IS NOT NULL
-      THEN SUM(MatlStkChangeQtyInBaseUnit) OVER (
+      THEN SUM(MatlCnsmpnQtyInMatlBaseUnit) OVER (
         PARTITION BY
           [MaterialID]
         , [PlantID]
@@ -97,10 +97,10 @@ StockLevels AS (
         , [InventoryValuationTypeID]
         , [YearMonth]
           ORDER BY YearWeek
-          ROWS BETWEEN 11 PRECEDING AND CURRENT ROW
+          ROWS BETWEEN 51 PRECEDING AND CURRENT ROW
         )
       WHEN YearMonth IS NOT NULL
-      THEN SUM(MatlStkChangeQtyInBaseUnit) OVER (
+      THEN SUM(MatlCnsmpnQtyInMatlBaseUnit) OVER (
         PARTITION BY
           [MaterialID]
         , [PlantID]
@@ -119,7 +119,7 @@ StockLevels AS (
           ORDER BY YearMonth
           ROWS BETWEEN 11 PRECEDING AND CURRENT ROW
         )
-    END AS Prev12MConsumptionQty
+    END AS Rolling12MonthConsumptionQty
   , [ConsumptionQtyICPOInStandardValue_EUR]
   , [ConsumptionQtyICPOInStandardValue_USD]
   , [ConsumptionQtyOBDProStandardValue]
@@ -178,7 +178,7 @@ SELECT
 , StockLevels.[StockLevelQtyInBaseUnit] * LPUP.[LatestStockPricePerUnit] AS StockLevelStandardLatestPPU
 , StockLevels.[StockLevelQtyInBaseUnit] * LPUP.[LatestStockPricePerUnit_EUR] AS StockLevelStandardLatestPPU_EUR
 , StockLevels.[StockLevelQtyInBaseUnit] * LPUP.[LatestStockPricePerUnit_USD] AS StockLevelStandardLatestPPU_USD
-, StockLevels.[Prev12MConsumptionQty]
+, StockLevels.[Rolling12MonthConsumptionQty]
 , StockLevels.[ConsumptionQtyICPOInStandardValue_EUR]
 , StockLevels.[ConsumptionQtyICPOInStandardValue_USD]
 , StockLevels.[ConsumptionQtyOBDProStandardValue]

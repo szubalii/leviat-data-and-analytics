@@ -39,7 +39,7 @@ SELECT
 , [StockLevelStandardLatestPPU_USD] AS [StockLevelStandardLastPPU_USD]
 , NULL AS [PriceControlIndicatorID]
 , NULL AS [PriceControlIndicator]
-, [Prev12MConsumptionQty]
+, [Rolling12MonthConsumptionQty] AS [Prev12MConsumptionQty]
 , [ConsumptionQtyICPOInStandardValue_EUR]
 , [ConsumptionQtyICPOInStandardValue_USD]
 , [ConsumptionQtyOBDProStandardValue]

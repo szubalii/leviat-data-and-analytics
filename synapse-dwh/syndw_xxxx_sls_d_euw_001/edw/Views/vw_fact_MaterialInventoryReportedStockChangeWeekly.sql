@@ -28,6 +28,7 @@ SELECT
 , MDI.[PurchaseOrderTypeID]
 , MDI.[InventoryValuationTypeID]
 , cal.[YearWeek]
+, SUM(MDI.MatlCnsmpnQtyInMatlBaseUnit) AS MatlCnsmpnQtyInMatlBaseUnit
 , SUM(MDI.MatlStkChangeQtyInBaseUnit) AS MatlStkChangeQtyInBaseUnit
 , SUM(MDI.ConsumptionQtyICPOInStandardValue_EUR) AS ConsumptionQtyICPOInStandardValue_EUR
 , SUM(MDI.ConsumptionQtyICPOInStandardValue_USD) AS ConsumptionQtyICPOInStandardValue_USD
