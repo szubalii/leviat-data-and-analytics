@@ -78,6 +78,48 @@ StockLevels AS (
           ORDER BY YearMonth
         )
     END AS StockLevelQtyInBaseUnit
+  , CASE
+      WHEN YearWeek IS NOT NULL
+      THEN SUM(MatlStkChangeQtyInBaseUnit) OVER (
+        PARTITION BY
+          [MaterialID]
+        , [PlantID]
+        , [StorageLocationID]
+        , [InventorySpecialStockTypeID]
+        , [InventoryStockTypeID]
+        , [StockOwner]
+        , [CostCenterID]
+        , [CompanyCodeID]
+        , [SalesDocumentTypeID]
+        , [SalesDocumentItemCategoryID]
+        , [MaterialBaseUnitID]
+        , [PurchaseOrderTypeID]
+        , [InventoryValuationTypeID]
+        , [YearMonth]
+          ORDER BY YearWeek
+          ROWS BETWEEN 11 PRECEDING AND CURRENT ROW
+        )
+      WHEN YearMonth IS NOT NULL
+      THEN SUM(MatlStkChangeQtyInBaseUnit) OVER (
+        PARTITION BY
+          [MaterialID]
+        , [PlantID]
+        , [StorageLocationID]
+        , [InventorySpecialStockTypeID]
+        , [InventoryStockTypeID]
+        , [StockOwner]
+        , [CostCenterID]
+        , [CompanyCodeID]
+        , [SalesDocumentTypeID]
+        , [SalesDocumentItemCategoryID]
+        , [MaterialBaseUnitID]
+        , [PurchaseOrderTypeID]
+        , [InventoryValuationTypeID]
+        , [YearWeek]
+          ORDER BY YearMonth
+          ROWS BETWEEN 11 PRECEDING AND CURRENT ROW
+        )
+    END AS Prev12MConsumptionQty
   , [ConsumptionQtyICPOInStandardValue_EUR]
   , [ConsumptionQtyICPOInStandardValue_USD]
   , [ConsumptionQtyOBDProStandardValue]
@@ -136,7 +178,7 @@ SELECT
 , StockLevels.[StockLevelQtyInBaseUnit] * LPUP.[LatestStockPricePerUnit] AS StockLevelStandardLatestPPU
 , StockLevels.[StockLevelQtyInBaseUnit] * LPUP.[LatestStockPricePerUnit_EUR] AS StockLevelStandardLatestPPU_EUR
 , StockLevels.[StockLevelQtyInBaseUnit] * LPUP.[LatestStockPricePerUnit_USD] AS StockLevelStandardLatestPPU_USD
-, NULL AS [Prev12MConsumptionQty]
+, StockLevels.[Prev12MConsumptionQty]
 , StockLevels.[ConsumptionQtyICPOInStandardValue_EUR]
 , StockLevels.[ConsumptionQtyICPOInStandardValue_USD]
 , StockLevels.[ConsumptionQtyOBDProStandardValue]
