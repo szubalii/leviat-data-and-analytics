@@ -36,8 +36,6 @@ FirstPostingDate AS (
   , [t_extractionDtm]
   FROM
     [edw].[vw_fact_MaterialDocumentItem_s4h]
-  -- WHERE
-  --   t_applicationId LIKE '%s4h%' -- TODO filter on S4H only now
   GROUP BY
     [MaterialID]
   , [PlantID]
@@ -90,19 +88,9 @@ FirstPostingCal AS (
 )
 ,
 AllYearWeeks AS (
-  SELECT --top 100
+  SELECT
     YearWeek,
     NULL AS YearMonth,
-    /*
-      Add two helper columns that define in cases of duplicate weeks and months
-      respectively which rows to take when retrieving stock levels
-    */
-    -- CASE
-    --   WHEN MAX(YearMonth) OVER(PARTITION BY YearWeek) = YearMonth THEN 1 
-    -- END AS IsWeekly,
-    -- CASE
-    --   WHEN MAX(YearWeek) OVER(PARTITION BY YearMonth) = YearWeek THEN 1 
-    -- END AS IsMonthly,
   -- required to get the monthly StockPricePerUnit
   -- If a weeks falls in two months, take the first month
     FirstDayOfWeekDate AS ReportingDate,
@@ -112,25 +100,13 @@ AllYearWeeks AS (
   GROUP BY
     YearWeek,
     FirstDayOfWeekDate
-    -- YearMonth
-  --Order by YearWeek, YearMonth
+
   UNION ALL
 
-  SELECT --top 100
+  SELECT
     NULL AS YearWeek,
     YearMonth,
-    /*
-      Add two helper columns that define in cases of duplicate weeks and months
-      respectively which rows to take when retrieving stock levels
-    */
-    -- CASE
-    --   WHEN MAX(YearMonth) OVER(PARTITION BY YearWeek) = YearMonth THEN 1 
-    -- END AS IsWeekly,
-    -- CASE
-    --   WHEN MAX(YearWeek) OVER(PARTITION BY YearMonth) = YearWeek THEN 1 
-    -- END AS IsMonthly,
   -- required to get the monthly StockPricePerUnit
-  -- If a weeks falls in two months, take the first month
     FirstDayOfMonthDate AS ReportingDate,
     FirstDayOfMonthDate
   FROM
@@ -160,8 +136,6 @@ SELECT
 , AllYearWeeks.[ReportingDate]
 , AllYearWeeks.[YearWeek]
 , AllYearWeeks.[YearMonth]
--- , AllYearWeeks.IsWeekly
--- , AllYearWeeks.IsMonthly
 , AllYearWeeks.FirstDayOfMonthDate
 , fw.[t_applicationId]
 , fw.[t_extractionDtm]
