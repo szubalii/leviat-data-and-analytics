@@ -10,7 +10,7 @@
 					"type": "PipelineReference"
 				},
 				"parameters": {
-					"entity_filter": "--edw \nentity_id = 370 \nOR \n--base\nentity_name like '%I_GLAccountLineItemRawData_F_2023%'\nand TRY_CONVERT(INT, RIGHT(entity_name, 2)) >= MONTH(getdate()) - 1\nand TRY_CONVERT(INT, RIGHT(entity_name, 2)) <= MONTH(getdate())",
+					"entity_filter": "--edw \nentity_id = 370 \nOR \n--base\nentity_id = 4",
 					"pbi_entity_filter": "WHERE dataset_name LIKE 'EPM Sales View%'",
 					"rerun_successful_full_entities": 1
 				}
