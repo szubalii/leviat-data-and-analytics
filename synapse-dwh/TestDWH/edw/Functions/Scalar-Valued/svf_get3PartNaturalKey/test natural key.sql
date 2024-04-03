@@ -1,4 +1,4 @@
-CREATE PROCEDURE [tc.edw.svf_get3PartNaturalKey].[test filters]
+CREATE PROCEDURE [tc.edw.svf_get3PartNaturalKey].[test natural key]
 AS
 BEGIN
 
