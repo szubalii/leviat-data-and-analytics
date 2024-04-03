@@ -50,13 +50,14 @@ BEGIN
   , [InventoryValuationTypeID]
   , [HDR_PostingDate]
   , [MatlStkChangeQtyInBaseUnit]
+  , [t_applicationId]
   )
   VALUES
-    (1, 1, 1, '2024-01-08', 10),
-    (1, 1, 1, '2024-01-22', 20),
-    (1, 1, 1, '2024-01-22', -10),
-    (1, 1, 1, '2024-01-29', 20),
-    (1, 1, 1, '2024-02-01', 20);
+    (1, 1, 1, '2024-01-08',  10, 's4h-cap-100'),
+    (1, 1, 1, '2024-01-22',  20, 's4h-cap-100'),
+    (1, 1, 1, '2024-01-22', -10, 's4h-cap-100'),
+    (1, 1, 1, '2024-01-29',  20, 's4h-cap-100'),
+    (1, 1, 1, '2024-02-01',  20, 's4h-cap-100');
 
   INSERT INTO edw.dim_ProductValuationPUP (
     ProductID,

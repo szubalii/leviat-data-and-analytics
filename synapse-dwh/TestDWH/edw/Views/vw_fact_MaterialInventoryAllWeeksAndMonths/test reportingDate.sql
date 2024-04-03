@@ -45,10 +45,11 @@ BEGIN
     ('2024-02-01', 202405, 202402, '2024-01-29', '2024-02-01');
 
   INSERT INTO edw.fact_MaterialDocumentItem (
-    [HDR_PostingDate]
+    [HDR_PostingDate],
+    [t_applicationId]
   )
   VALUES
-    ('2024-01-08');
+    ('2024-01-08', 's4h-cap-100');
 
   -- Act: 
   SELECT

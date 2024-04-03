@@ -46,13 +46,14 @@ BEGIN
   INSERT INTO edw.fact_MaterialDocumentItem (
     [HDR_PostingDate]
   , [MatlStkChangeQtyInBaseUnit]
+  , [t_applicationId]
   )
   VALUES
-    ('2024-01-08', 10),
-    ('2024-01-22', 20),
-    ('2024-01-22', -10),
-    ('2024-01-29', 20),
-    ('2024-02-01', 20);
+    ('2024-01-08',  10, 's4h-cap-100'),
+    ('2024-01-22',  20, 's4h-cap-100'),
+    ('2024-01-22', -10, 's4h-cap-100'),
+    ('2024-01-29',  20, 's4h-cap-100'),
+    ('2024-02-01',  20, 's4h-cap-100');
 
   -- Act: 
   SELECT
