@@ -37,6 +37,7 @@ StockLevels AS (
   , [YearMonth]
   -- , [IsWeekly]
   -- , [IsMonthly]
+  , [MatlCnsmpnQtyInMatlBaseUnit]
   , [MatlStkChangeQtyInBaseUnit]
   , CASE
       WHEN YearWeek IS NOT NULL
@@ -168,6 +169,7 @@ SELECT
 , LPUP.[LatestStockPricePerUnit]
 , LPUP.[LatestStockPricePerUnit_EUR]
 , LPUP.[LatestStockPricePerUnit_USD]
+, StockLevels.[MatlCnsmpnQtyInMatlBaseUnit]
 , StockLevels.[MatlStkChangeQtyInBaseUnit]
 , StockLevels.[StockLevelQtyInBaseUnit]
 -- , StockLevels.[MonthlyMatlStkChangeQtyInBaseUnit]

@@ -35,7 +35,7 @@ FirstPostingDate AS (
   , [t_applicationId]
   , [t_extractionDtm]
   FROM
-    [edw].[fact_MaterialDocumentItem]
+    [edw].[vw_fact_MaterialDocumentItem_s4h]
   -- WHERE
   --   t_applicationId LIKE '%s4h%' -- TODO filter on S4H only now
   GROUP BY

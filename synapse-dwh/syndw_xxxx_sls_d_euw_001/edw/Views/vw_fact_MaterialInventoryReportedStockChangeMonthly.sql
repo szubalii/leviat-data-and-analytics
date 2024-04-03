@@ -44,7 +44,7 @@ SELECT
 , SUM(MDI.ConsumptionValueByLatestPrice_USD) AS ConsumptionValueByLatestPrice_USD
 , MDI.[t_applicationId]
 FROM
-  [edw].[fact_MaterialDocumentItem] AS MDI
+  [edw].[vw_fact_MaterialDocumentItem_s4h] AS MDI
 LEFT JOIN
   [edw].[dim_Calendar] AS cal
   ON
