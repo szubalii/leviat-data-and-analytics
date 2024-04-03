@@ -16,14 +16,14 @@ BEGIN
   , StockPricePerUnit
   )
   VALUES
-    ('TypeA', 'AreaA', 'ProductA', '2023-01-01', 10),
-    ('TypeA', 'AreaA', 'ProductA', '2023-02-01', 20),
-    ('TypeA', 'AreaA', 'ProductB', '2023-01-01',  5),
-    ('TypeA', 'AreaA', 'ProductB', '2023-02-01', 10),
-    ('TypeA', 'AreaB', 'ProductA', '2023-01-01', 15),
-    ('TypeA', 'AreaB', 'ProductA', '2023-02-01', 10),
-    ('TypeB', 'AreaA', 'ProductA', '2023-01-01', 10),
-    ('TypeB', 'AreaA', 'ProductA', '2023-02-01', 10);
+    ('TypeA', 'ArA', 'ProductA', '2023-01-01', 10),
+    ('TypeA', 'ArA', 'ProductA', '2023-02-01', 20),
+    ('TypeA', 'ArA', 'ProductB', '2023-01-01',  5),
+    ('TypeA', 'ArA', 'ProductB', '2023-02-01', 10),
+    ('TypeA', 'ArB', 'ProductA', '2023-01-01', 15),
+    ('TypeA', 'ArB', 'ProductA', '2023-02-01', 10),
+    ('TypeB', 'ArA', 'ProductA', '2023-01-01', 10),
+    ('TypeB', 'ArA', 'ProductA', '2023-02-01', 10);
 
   -- Act: 
   SELECT
@@ -48,10 +48,10 @@ BEGIN
   , LatestStockPricePerUnit
   )
   VALUES
-    ('TypeA', 'AreaA', 'ProductA', '2023-02-01', 20),
-    ('TypeA', 'AreaA', 'ProductB', '2023-02-01', 10),
-    ('TypeA', 'AreaB', 'ProductA', '2023-02-01', 10),
-    ('TypeB', 'AreaA', 'ProductA', '2023-02-01', 10);
+    ('TypeA', 'ArA', 'ProductA', '2023-02-01', 20),
+    ('TypeA', 'ArA', 'ProductB', '2023-02-01', 10),
+    ('TypeA', 'ArB', 'ProductA', '2023-02-01', 10),
+    ('TypeB', 'ArA', 'ProductA', '2023-02-01', 10);
 
   EXEC tSQLt.AssertEqualsTable 'expected', 'actual';
 END;
