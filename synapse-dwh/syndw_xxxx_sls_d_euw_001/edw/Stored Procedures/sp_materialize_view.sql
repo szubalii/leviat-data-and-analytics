@@ -59,9 +59,9 @@ BEGIN
       FROM
         utilities.vw_MaterializeColumnList
       WHERE
-        table_name = @DestTable
+        view_name = @SourceView
         AND
-        schema_name = @DestSchema
+        schema_name = @SourceSchema
     );
 
     -- Create the insert statement script and insert in the original table
