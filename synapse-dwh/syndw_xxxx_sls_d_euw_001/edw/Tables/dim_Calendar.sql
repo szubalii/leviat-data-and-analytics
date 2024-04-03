@@ -26,7 +26,7 @@ CREATE TABLE [edw].[dim_Calendar]
 )
     WITH
         (
-        DISTRIBUTION = ROUND_ROBIN, HEAP )
+        DISTRIBUTION = REPLICATE, HEAP )
 GO
 
 

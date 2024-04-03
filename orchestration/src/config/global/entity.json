@@ -6073,7 +6073,7 @@
         "source_view_name": "vw_MaterialStockLevel",
         "dest_table_name": "fact_MaterialStockLevel",
         "execution_order": 3,
-        "schedule_recurrence": "D"
+        "schedule_recurrence": "A"
       },
       {
         "entity_id": 542,
