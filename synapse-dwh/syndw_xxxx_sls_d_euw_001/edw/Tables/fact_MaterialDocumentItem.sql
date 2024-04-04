@@ -136,7 +136,7 @@
     [ConsumptionValueByLatestPrice_USD]         decimal(38,6), 
     [PlantSalesOrgID]                           NVARCHAR(4),
     [sk_ProductSalesOrg]                        INT,
-    [MaterialDocumentRecordType]                NVARCHAR(9),
+    [MaterialDocumentRecordType]                NVARCHAR(9) NOT NULL,
     [t_applicationId]                           VARCHAR(32),
     [t_extractionDtm]                           DATETIME,
     [t_jobId]                                   VARCHAR(36),
@@ -146,7 +146,8 @@
     CONSTRAINT [PK_fact_MaterialDocumentItem] PRIMARY KEY NONCLUSTERED (
         [MaterialDocumentYear],
         [MaterialDocument],
-        [MaterialDocumentItem]
+        [MaterialDocumentItem],
+        [MaterialDocumentRecordType]
     ) NOT ENFORCED
 )
 WITH ( DISTRIBUTION = HASH ([MaterialDocument]), CLUSTERED COLUMNSTORE INDEX )

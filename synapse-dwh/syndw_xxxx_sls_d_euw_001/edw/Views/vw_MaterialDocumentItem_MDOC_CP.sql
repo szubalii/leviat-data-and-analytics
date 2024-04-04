@@ -188,23 +188,6 @@ SELECT
   , [t_filePath]   
 
 FROM [base_s4h_cax].[Z_I_MaterialDocumentItem_MDOC_CP]    
-),
-
-MatDocMDOC_CP_Filtered AS(
-/*
-Material Document Items can be duplicated by using both MDOC and MDOC_CP. Hence, the MDOC is leading in cases where the NK exists for
-both MDOC and MDOC_CP.
-*/
-
-SELECT *
-
-FROM MatDocMDOC_CP
-
-WHERE nk_MaterialDocumentItem NOT IN (
-    SELECT nk_MaterialDocumentItem
-    
-    FROM MatDocMDOC
-)
 )
 
 SELECT *

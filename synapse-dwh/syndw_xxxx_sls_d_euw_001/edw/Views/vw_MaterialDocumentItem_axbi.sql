@@ -87,6 +87,7 @@ SELECT
         END                           AS [ManufacturingOrderItem]
     ,   'A'                           AS [PriceControlIndicatorID]
     ,   'Average Price'               AS [PriceControlIndicator]
+    ,   'MDOC'                        AS [MaterialDocumentRecordType]
     ,   FINV.[t_applicationId]
     ,   FINV.[t_extractionDtm]
 FROM
@@ -294,6 +295,7 @@ SELECT
             ELSE APU.AvgPrice*CCR.ExchangeRate
         END AS [StandardPricePerUnit_EUR]
     ,   INV.[t_applicationId]
+    ,   INV.[MaterialDocumentRecordType]
     ,   INV.[t_extractionDtm]
 FROM
     INVTRANS AS INV
@@ -415,6 +417,7 @@ SELECT  DISTINCT
     ,   INV_QTY.[MatlCnsmpnQtyInMatlBaseUnit]
     ,   INV_QTY.[ManufacturingOrder]
     ,   INV_QTY.[ManufacturingOrderItem]
+    ,   INV_QTY.[MaterialDocumentRecordType]
     ,   INV_QTY.[t_applicationId]
     ,   INV_QTY.[t_extractionDtm]
 FROM
