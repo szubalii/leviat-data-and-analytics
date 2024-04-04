@@ -198,5 +198,5 @@ UNION ALL
 
 SELECT *
 
-FROM MatDocMDOC_CP_Filtered
+FROM MatDocMDOC_CP
 
