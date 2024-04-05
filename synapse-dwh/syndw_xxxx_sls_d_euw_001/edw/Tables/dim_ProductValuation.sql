@@ -16,7 +16,7 @@ CREATE TABLE [edw].[dim_ProductValuation]
     [FuturePriceValidityStartDate]  DATE,
     [PrevInvtryPriceInCoCodeCrcy]   DECIMAL(11, 2),
     [MovingAveragePrice]            DECIMAL(11, 2),
-    [MovingAvgPricePPU]             DECIMAL(11, 2),
+    [MovingAvgPricePerUnit]         DECIMAL(11, 2),
     [MovingAvgPricePerUnit_EUR]     DECIMAL(19, 6),
     [ValuationCategoryID]           NVARCHAR(1) collate Latin1_General_100_BIN2 ,
     [ProductUsageType]              NVARCHAR(1),

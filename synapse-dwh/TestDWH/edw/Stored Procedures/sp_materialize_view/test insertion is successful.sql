@@ -8,6 +8,7 @@ BEGIN
 
   CREATE TABLE [edw].[dim_test](
     [id] INT,
+    [field_not_in_view] INT,
     [t_applicationId] VARCHAR(32),
     [t_jobId] VARCHAR(36),
     [t_jobDtm] DATETIME,
@@ -48,6 +49,7 @@ BEGIN
 
   INSERT INTO expected (
     [id],
+    [field_not_in_view],
     [t_applicationId],
     [t_jobId],
     [t_jobDtm],
@@ -55,7 +57,7 @@ BEGIN
     [t_jobBy]
   )
   VALUES
-    (1, 'test', @t_jobId, @t_jobDtm, @t_lastActionCd, @t_jobBy);
+    (1, NULL, 'test', @t_jobId, @t_jobDtm, @t_lastActionCd, @t_jobBy);
 
   EXEC tSQLt.AssertEqualsTable 'expected', 'actual';
 

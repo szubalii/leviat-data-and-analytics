@@ -52,16 +52,25 @@ BEGIN
 
 	BEGIN
     
-	  -- Retrieve the column list of the provided destination table
+	  -- Retrieve the column list by selecting those columns that exist both in the source view as in the destination table
     SET @Columns = (
       SELECT
-        non_t_job_col_names
+        STRING_AGG( '[' + CAST(vc.COLUMN_NAME AS NVARCHAR(MAX)) + ']', ',' + CHAR(13) + CHAR(10))
+          WITHIN GROUP ( ORDER BY vc.ORDINAL_POSITION ) AS column_names
       FROM
-        utilities.vw_MaterializeColumnList
-      WHERE
-        table_name = @DestTable
-        AND
-        schema_name = @DestSchema
+        INFORMATION_SCHEMA.COLUMNS vc
+      INNER JOIN
+        INFORMATION_SCHEMA.COLUMNS tc
+        ON
+          tc.TABLE_NAME = @DestTable
+          AND
+          tc.TABLE_SCHEMA = @DestSchema
+          AND
+          vc.TABLE_NAME = @SourceView
+          AND
+          vc.TABLE_SCHEMA = @SourceSchema
+          AND
+          tc.COLUMN_NAME = vc.COLUMN_NAME
     );
 
     -- Create the insert statement script and insert in the original table
