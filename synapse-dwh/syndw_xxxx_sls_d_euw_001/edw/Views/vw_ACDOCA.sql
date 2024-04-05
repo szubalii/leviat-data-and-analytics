@@ -161,7 +161,7 @@ SELECT
        ) AS [SalesReferenceDocumentItemCalculated],
        BDI.[HigherLevelItem],
        GLA.[WWPRNPA] AS ProjectNumber,
-       ARSD.SDI_SalesOrganizationID,
+       COALESCE(ARSD.SDI_SalesOrganizationID, ASD.SalesOrganizationID_SDI) AS SDI_SalesOrganizationID,
        ARSD.SDI_SoldToPartyID,
        ARSD.SDI_MaterialID,
        GLA.[t_applicationId],
@@ -194,6 +194,12 @@ LEFT JOIN [edw].[vw_ACDOCA_ReferenceSalesDocument] AS ARSD
        AND GLA.[FiscalYear] = ARSD.[FiscalYear]
        AND GLA.[AccountingDocument] = ARSD.[AccountingDocument]
        AND GLA.[LedgerGLLineItem] = ARSD.[LedgerGLLineItem]
+LEFT JOIN [edw].[vw_ACDOCA_SalesDocument] AS ASD
+    ON GLA.[SourceLedgerID] = ARSD.[SourceLedgerID] 
+       AND GLA.[CompanyCodeID] = ASD.[CompanyCodeID]
+       AND GLA.[FiscalYear] = ASD.[FiscalYear]
+       AND GLA.[AccountingDocument] = ASD.[AccountingDocument]
+       AND GLA.[LedgerGLLineItem] = ASD.[LedgerGLLineItem]
 LEFT JOIN [edw].[fact_BillingDocumentItem] BDI 
     ON GLA.ReferenceDocument = BDI.BillingDocument 
        AND GLA.ReferenceDocumentItem = BDI.BillingDocumentItem
