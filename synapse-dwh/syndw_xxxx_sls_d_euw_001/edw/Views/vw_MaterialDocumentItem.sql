@@ -314,7 +314,7 @@ SELECT  CONVERT(NVARCHAR(32),
         ,   null AS [StandardPricePerUnit]
         ,   null AS [StandardPricePerUnit_EUR] 
         ,   null AS [StandardPricePerUnit_USD]
-        ,   S4H.[MaterialDocumentRecordType]
+        ,   S4H.[MaterialDocumentRecordType] COLLATE DATABASE_DEFAULT
         ,   S4H.[t_applicationId]
         ,   S4H.[t_extractionDtm]
     FROM [edw].[vw_MaterialDocumentItem_s4h] S4H
@@ -442,7 +442,7 @@ SELECT  CONVERT(NVARCHAR(32),
         ,   AXBI.[StandardPricePerUnit]
         ,   AXBI.[StandardPricePerUnit_EUR] 
         ,   null AS [StandardPricePerUnit_USD]
-        ,   AXBI.[MaterialDocumentRecordType]
+        ,   AXBI.[MaterialDocumentRecordType] COLLATE DATABASE_DEFAULT
         ,   AXBI.[t_applicationId]
         ,   AXBI.[t_extractionDtm]
     FROM [edw].[vw_MaterialDocumentItem_axbi] AXBI
