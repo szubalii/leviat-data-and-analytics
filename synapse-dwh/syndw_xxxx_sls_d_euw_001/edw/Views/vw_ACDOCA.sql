@@ -161,7 +161,10 @@ SELECT
        ) AS [SalesReferenceDocumentItemCalculated],
        BDI.[HigherLevelItem],
        GLA.[WWPRNPA] AS ProjectNumber,
-       COALESCE(ARSD.SDI_SalesOrganizationID, ASD.SalesOrganizationID_SDI) AS SDI_SalesOrganizationID,
+       CASE 
+            WHEN COALESCE (ARSD.SDI_SalesOrganizationID, '') = ''
+            THEN ASD.SalesOrganizationID_SDI
+       END AS SDI_SalesOrganizationID,
        ARSD.SDI_SoldToPartyID,
        ARSD.SDI_MaterialID,
        GLA.[t_applicationId],
