@@ -442,7 +442,7 @@ SELECT  CONVERT(NVARCHAR(32),
         ,   AXBI.[StandardPricePerUnit]
         ,   AXBI.[StandardPricePerUnit_EUR] 
         ,   null AS [StandardPricePerUnit_USD]
-        ,   null AS [MaterialDocumentRecordType]
+        ,   AXBI.[MaterialDocumentRecordType]
         ,   AXBI.[t_applicationId]
         ,   AXBI.[t_extractionDtm]
     FROM [edw].[vw_MaterialDocumentItem_axbi] AXBI
