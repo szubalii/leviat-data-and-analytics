@@ -71,6 +71,8 @@ BEGIN
           vc.TABLE_SCHEMA = @SourceSchema
           AND
           tc.COLUMN_NAME = vc.COLUMN_NAME
+      WHERE
+        tc.COLUMN_NAME NOT IN ('t_jobId', 't_jobDtm', 't_lastActionCd', 't_jobBy')
     );
 
     -- Create the insert statement script and insert in the original table
