@@ -198,7 +198,7 @@ LEFT JOIN [edw].[vw_ACDOCA_ReferenceSalesDocument] AS ARSD
        AND GLA.[AccountingDocument] = ARSD.[AccountingDocument]
        AND GLA.[LedgerGLLineItem] = ARSD.[LedgerGLLineItem]
 LEFT JOIN [edw].[vw_ACDOCA_SalesDocument] AS ASD
-    ON GLA.[SourceLedgerID] = ARSD.[SourceLedgerID] 
+    ON GLA.[SourceLedgerID] = ASD.[SourceLedgerID] 
        AND GLA.[CompanyCodeID] = ASD.[CompanyCodeID]
        AND GLA.[FiscalYear] = ASD.[FiscalYear]
        AND GLA.[AccountingDocument] = ASD.[AccountingDocument]
