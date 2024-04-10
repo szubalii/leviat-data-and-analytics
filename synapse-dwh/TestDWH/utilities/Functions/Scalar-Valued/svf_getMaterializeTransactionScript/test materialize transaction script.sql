@@ -74,10 +74,14 @@ SELECT [id],'
 FROM [edw].[vw_TestMaterialize];
 END TRY
 BEGIN CATCH
+
   IF @@TRANCOUNT > 0
     ROLLBACK TRANSACTION;
 
-  THROW 50001, ''Failed to materialize data from [edw].[vw_TestMaterialize] into [edw].[dim_test]'', 1;
+  DECLARE @error_msg NVARCHAR(MAX) = (SELECT COALESCE(ERROR_MESSAGE(), ''''));
+  DECLARE @error_msg2 NVARCHAR(MAX) = ''Failed to materialize data for [edw].[vw_TestMaterialize] into [edw].[dim_test]:'' + CHAR(13) + CHAR(10) + @error_msg;
+
+  THROW 50001, @error_msg2, 1;
 END CATCH;
 
 IF @@TRANCOUNT > 0
