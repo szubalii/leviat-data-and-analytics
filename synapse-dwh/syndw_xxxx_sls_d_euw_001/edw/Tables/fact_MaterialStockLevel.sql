@@ -1,0 +1,57 @@
+CREATE TABLE [edw].[fact_MaterialStockLevel]
+(
+    [_hash]                                     NVARCHAR(32) NOT NULL,  
+    [nk_StoragePlantID]                         NVARCHAR(41) NOT NULL,  
+    [ReportingYear]                             [char](4) NOT NULL,
+    [ReportingMonth]                            [nvarchar](12) NOT NULL,
+    [ReportingDate]                             [date] NOT NULL,
+    [MaterialID]                                [nvarchar](40) NOT NULL,
+    [PlantID]                                   [nvarchar](8),
+    [StorageLocationID]                         [nvarchar](10),
+    [axbi_DataAreaID]                           [nvarchar](4),
+    [InventorySpecialStockTypeID]               [nvarchar](1),
+    [InventoryStockTypeID]                      [nvarchar](2),
+    [StockOwner]                                [nvarchar](10),
+    [CostCenterID]                              [nvarchar](10),
+    [CompanyCodeID]                             [nvarchar](4),
+    [SalesDocumentTypeID]                       [nvarchar](4),
+    [SalesDocumentItemCategoryID]               [nvarchar](8),
+    [MaterialBaseUnitID]                        [nvarchar](3),
+    [PurchaseOrderTypeID]                       [nvarchar](4),
+    [MatlStkChangeQtyInBaseUnit]                [decimal](38, 14),
+    [StockLevelQtyInBaseUnit]                   [decimal](38, 14),
+    [Prev12MConsumptionQty]                     [decimal](38, 14),
+    [StockLevelStandardPPU]                     [decimal](38, 6),
+    [StockLevelStandardPPU_EUR]                 [decimal](38, 6),
+    [StockLevelStandardPPU_USD]                 [decimal](38, 6),
+    [StockLevelStandardLastPPU]                 [decimal](38, 6),
+    [StockLevelStandardLastPPU_EUR]             [decimal](38, 6),
+    [StockLevelStandardLastPPU_USD]             [decimal](38, 6),
+    [StockPricePerUnit]                         [decimal](38, 6),    
+    [StockPricePerUnit_EUR]                     [decimal](38, 6),
+    [StockPricePerUnit_USD]                     [decimal](38, 6),
+    [LatestPricePerPiece_Local]                 [decimal](38, 6),
+    [LatestPricePerPiece_EUR]                   [decimal](38, 6),
+    [LatestPricePerPiece_USD]                   [decimal](38, 6),
+    [PriceControlIndicatorID]                   [nvarchar](1),
+    [PriceControlIndicator]                     [nvarchar](25),
+    [nk_dim_ProductValuationPUP]                [nvarchar](54),
+    [sk_dim_ProductValuationPUP]                [bigint] NULL,
+    [CurrencyID]                                CHAR(5) COLLATE Latin1_General_100_BIN2,
+    [PlantSalesOrgID]                           VARCHAR(4),
+    [sk_ProductSalesOrg]                        INT,
+    [t_applicationId]                           VARCHAR(32),
+    [t_extractionDtm]                           DATETIME,
+    [t_jobId]                                   VARCHAR(36),
+    [t_jobDtm]                                  DATETIME,
+    [t_lastActionCd]                            VARCHAR(1),
+    [t_jobBy]                                   VARCHAR(128),
+    CONSTRAINT [PK_fact_MaterialStockLevel] PRIMARY KEY NONCLUSTERED (
+        [_hash], [ReportingYear], [ReportingMonth] 
+    ) NOT ENFORCED
+)
+WITH
+(
+    DISTRIBUTION = HASH ( [_hash] ),
+    CLUSTERED COLUMNSTORE INDEX
+)
