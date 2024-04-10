@@ -6070,10 +6070,10 @@
         "entity_id": 544,
         "entity_name": "fact_MaterialStockLevel",
         "sproc_name": "sp_materialize_view",
-        "source_view_name": "vw_MaterialStockLevel",
+        "source_view_name": "vw_fact_MaterialInventoryStockLevel",
         "dest_table_name": "fact_MaterialStockLevel",
         "execution_order": 3,
-        "schedule_recurrence": "A"
+        "schedule_recurrence": "D"
       },
       {
         "entity_id": 542,

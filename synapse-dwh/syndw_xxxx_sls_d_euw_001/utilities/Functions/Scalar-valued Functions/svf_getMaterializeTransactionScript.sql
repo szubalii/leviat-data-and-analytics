@@ -22,6 +22,9 @@ BEGIN
   Start a transaction so in case of failures, deletion of records is rolled back.
 
   This also makes sure that the distribution type and indexes of the original table is kept
+
+  Additional doc about transaction use in SQL Pool:
+  https://learn.microsoft.com/en-us/azure/synapse-analytics/sql-data-warehouse/sql-data-warehouse-develop-transactions#transaction-state
 */
 
   DECLARE @insert_script NVARCHAR(MAX) = N'
@@ -39,10 +42,14 @@ SELECT ' + @Columns + '
 FROM [' + @SourceSchema + '].[' + @SourceView + '];
 END TRY
 BEGIN CATCH
+
   IF @@TRANCOUNT > 0
     ROLLBACK TRANSACTION;
 
-  THROW 50001, ''Failed to materialize data from [' + @SourceSchema + '].[' + @SourceView + '] into [' + @DestSchema + '].[' + @DestTable + ']'', 1;
+  DECLARE @error_msg NVARCHAR(MAX) = (SELECT COALESCE(ERROR_MESSAGE(), ''''));
+  DECLARE @error_msg2 NVARCHAR(MAX) = ''Failed to materialize data for [' + @SourceSchema + '].[' + @SourceView + '] into [' + @DestSchema + '].[' + @DestTable + ']:'' + CHAR(13) + CHAR(10) + @error_msg;
+
+  THROW 50001, @error_msg2, 1;
 END CATCH;
 
 IF @@TRANCOUNT > 0

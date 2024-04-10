@@ -13,7 +13,7 @@ AS
 
 -- 6. Calculate the stock levels for each combo of yearWeek and hash
 WITH
-StockLevels AS (
+_union AS (
   SELECT
     [MaterialID]
   , [PlantID]
@@ -28,99 +28,20 @@ StockLevels AS (
   , [MaterialBaseUnitID]
   , [PurchaseOrderTypeID]
   , [InventoryValuationTypeID]
+  , 'Week' AS [DatePart]
   , [nk_StoragePlantID]
   , [sk_ProductSalesOrg]
   , [PlantSalesOrgID]
   , [ReportingDate]
   , [FirstDayOfMonthDate]
   , [YearWeek]
-  , [YearMonth]
+  , NULL AS [YearMonth]
   -- , [IsWeekly]
   -- , [IsMonthly]
   , [MatlCnsmpnQtyInMatlBaseUnit]
   , [MatlStkChangeQtyInBaseUnit]
-  , CASE
-      WHEN YearWeek IS NOT NULL
-      THEN SUM(MatlStkChangeQtyInBaseUnit) OVER (
-        PARTITION BY
-          [MaterialID]
-        , [PlantID]
-        , [StorageLocationID]
-        , [InventorySpecialStockTypeID]
-        , [InventoryStockTypeID]
-        , [StockOwner]
-        , [CostCenterID]
-        , [CompanyCodeID]
-        , [SalesDocumentTypeID]
-        , [SalesDocumentItemCategoryID]
-        , [MaterialBaseUnitID]
-        , [PurchaseOrderTypeID]
-        , [InventoryValuationTypeID]
-        , [YearMonth]
-          ORDER BY YearWeek
-        )
-      WHEN YearMonth IS NOT NULL
-      THEN SUM(MatlStkChangeQtyInBaseUnit) OVER (
-        PARTITION BY
-          [MaterialID]
-        , [PlantID]
-        , [StorageLocationID]
-        , [InventorySpecialStockTypeID]
-        , [InventoryStockTypeID]
-        , [StockOwner]
-        , [CostCenterID]
-        , [CompanyCodeID]
-        , [SalesDocumentTypeID]
-        , [SalesDocumentItemCategoryID]
-        , [MaterialBaseUnitID]
-        , [PurchaseOrderTypeID]
-        , [InventoryValuationTypeID]
-        , [YearWeek]
-          ORDER BY YearMonth
-        )
-    END AS StockLevelQtyInBaseUnit
-  , CASE
-      WHEN YearWeek IS NOT NULL
-      THEN SUM(MatlCnsmpnQtyInMatlBaseUnit) OVER (
-        PARTITION BY
-          [MaterialID]
-        , [PlantID]
-        , [StorageLocationID]
-        , [InventorySpecialStockTypeID]
-        , [InventoryStockTypeID]
-        , [StockOwner]
-        , [CostCenterID]
-        , [CompanyCodeID]
-        , [SalesDocumentTypeID]
-        , [SalesDocumentItemCategoryID]
-        , [MaterialBaseUnitID]
-        , [PurchaseOrderTypeID]
-        , [InventoryValuationTypeID]
-        , [YearMonth]
-          ORDER BY YearWeek
-          ROWS BETWEEN 51 PRECEDING AND CURRENT ROW
-        )
-      WHEN YearMonth IS NOT NULL
-      THEN SUM(MatlCnsmpnQtyInMatlBaseUnit) OVER (
-        PARTITION BY
-          [MaterialID]
-        , [PlantID]
-        , [StorageLocationID]
-        , [InventorySpecialStockTypeID]
-        , [InventoryStockTypeID]
-        , [StockOwner]
-        , [CostCenterID]
-        , [CompanyCodeID]
-        , [SalesDocumentTypeID]
-        , [SalesDocumentItemCategoryID]
-        , [MaterialBaseUnitID]
-        , [PurchaseOrderTypeID]
-        , [InventoryValuationTypeID]
-        , [YearWeek]
-          ORDER BY YearMonth
-          ROWS BETWEEN 11 PRECEDING AND CURRENT ROW
-        )
-    END AS Rolling12MonthConsumptionQty
+  , [StockLevelQtyInBaseUnit]
+  , [Rolling12MonthConsumptionQty]
   , [ConsumptionQtyICPOInStandardValue_EUR]
   , [ConsumptionQtyICPOInStandardValue_USD]
   , [ConsumptionQtyOBDProStandardValue]
@@ -136,32 +57,80 @@ StockLevels AS (
   , [t_applicationId]
   , [t_extractionDtm]
   FROM
-    [edw].[vw_fact_MaterialInventoryStockChange]
+    [edw].[vw_fact_MaterialInventoryStockLevelWeekly]
+
+  UNION ALL
+
+  SELECT
+    [MaterialID]
+  , [PlantID]
+  , [StorageLocationID]
+  , [InventorySpecialStockTypeID]
+  , [InventoryStockTypeID]
+  , [StockOwner]
+  , [CostCenterID]
+  , [CompanyCodeID]
+  , [SalesDocumentTypeID]
+  , [SalesDocumentItemCategoryID]
+  , [MaterialBaseUnitID]
+  , [PurchaseOrderTypeID]
+  , [InventoryValuationTypeID]
+  , 'Month' AS [DatePart]
+  , [nk_StoragePlantID]
+  , [sk_ProductSalesOrg]
+  , [PlantSalesOrgID]
+  , [ReportingDate]
+  , [FirstDayOfMonthDate]
+  , NULL AS [YearWeek]
+  , [YearMonth]
+  -- , [IsWeekly]
+  -- , [IsMonthly]
+  , [MatlCnsmpnQtyInMatlBaseUnit]
+  , [MatlStkChangeQtyInBaseUnit]
+  , [StockLevelQtyInBaseUnit]
+  , [Rolling12MonthConsumptionQty]
+  , [ConsumptionQtyICPOInStandardValue_EUR]
+  , [ConsumptionQtyICPOInStandardValue_USD]
+  , [ConsumptionQtyOBDProStandardValue]
+  , [ConsumptionQtyOBDProStandardValue_EUR]
+  , [ConsumptionQtyOBDProStandardValue_USD]
+  , [ConsumptionQtySOStandardValue]
+  , [ConsumptionQtySOStandardValue_EUR]
+  , [ConsumptionQtySOStandardValue_USD]
+  , [ConsumptionQty]
+  , [ConsumptionValueByLatestPriceInBaseValue]
+  , [ConsumptionValueByLatestPrice_EUR]
+  , [ConsumptionValueByLatestPrice_USD]
+  , [t_applicationId]
+  , [t_extractionDtm]
+  FROM
+    [edw].[vw_fact_MaterialInventoryStockLevelMonthly]
 )
 
 -- 7. Calculate the stock value by getting the price per unit
 SELECT
-  StockLevels.[MaterialID]
-, StockLevels.[PlantID]
-, StockLevels.[StorageLocationID]
-, StockLevels.[InventorySpecialStockTypeID]
-, StockLevels.[InventoryStockTypeID]
-, StockLevels.[StockOwner]
-, StockLevels.[CostCenterID]
-, StockLevels.[CompanyCodeID]
-, StockLevels.[SalesDocumentTypeID]
-, StockLevels.[SalesDocumentItemCategoryID]
-, StockLevels.[MaterialBaseUnitID]
-, StockLevels.[PurchaseOrderTypeID]
-, StockLevels.[InventoryValuationTypeID]
-, StockLevels.[nk_StoragePlantID]
-, StockLevels.[sk_ProductSalesOrg]
-, StockLevels.[PlantSalesOrgID]
-, StockLevels.[ReportingDate]
-, StockLevels.[YearWeek]
-, StockLevels.[YearMonth]
--- , StockLevels.[IsWeekly]
--- , StockLevels.[IsMonthly]
+  _union.[MaterialID]
+, _union.[PlantID]
+, _union.[StorageLocationID]
+, _union.[InventorySpecialStockTypeID]
+, _union.[InventoryStockTypeID]
+, _union.[StockOwner]
+, _union.[CostCenterID]
+, _union.[CompanyCodeID]
+, _union.[SalesDocumentTypeID]
+, _union.[SalesDocumentItemCategoryID]
+, _union.[MaterialBaseUnitID]
+, _union.[PurchaseOrderTypeID]
+, _union.[InventoryValuationTypeID]
+, _union.[DatePart]
+, _union.[nk_StoragePlantID]
+, _union.[sk_ProductSalesOrg]
+, _union.[PlantSalesOrgID]
+, _union.[ReportingDate]
+, _union.[YearWeek]
+, _union.[YearMonth]
+-- , _union.[IsWeekly]
+-- , _union.[IsMonthly]
 , PUP.[CurrencyID]
 , PUP.[StockPricePerUnit]
 , PUP.[StockPricePerUnit_EUR]
@@ -169,52 +138,52 @@ SELECT
 , LPUP.[LatestStockPricePerUnit]
 , LPUP.[LatestStockPricePerUnit_EUR]
 , LPUP.[LatestStockPricePerUnit_USD]
-, StockLevels.[MatlCnsmpnQtyInMatlBaseUnit]
-, StockLevels.[MatlStkChangeQtyInBaseUnit]
-, StockLevels.[StockLevelQtyInBaseUnit]
--- , StockLevels.[MonthlyMatlStkChangeQtyInBaseUnit]
--- , StockLevels.[MonthlyStockLevelQtyInBaseUnit]
-, StockLevels.[StockLevelQtyInBaseUnit] * PUP.[StockPricePerUnit] AS StockLevelStandardPPU
-, StockLevels.[StockLevelQtyInBaseUnit] * PUP.[StockPricePerUnit_EUR] AS StockLevelStandardPPU_EUR
-, StockLevels.[StockLevelQtyInBaseUnit] * PUP.[StockPricePerUnit_USD] AS StockLevelStandardPPU_USD
-, StockLevels.[StockLevelQtyInBaseUnit] * LPUP.[LatestStockPricePerUnit] AS StockLevelStandardLatestPPU
-, StockLevels.[StockLevelQtyInBaseUnit] * LPUP.[LatestStockPricePerUnit_EUR] AS StockLevelStandardLatestPPU_EUR
-, StockLevels.[StockLevelQtyInBaseUnit] * LPUP.[LatestStockPricePerUnit_USD] AS StockLevelStandardLatestPPU_USD
-, StockLevels.[Rolling12MonthConsumptionQty]
-, StockLevels.[ConsumptionQtyICPOInStandardValue_EUR]
-, StockLevels.[ConsumptionQtyICPOInStandardValue_USD]
-, StockLevels.[ConsumptionQtyOBDProStandardValue]
-, StockLevels.[ConsumptionQtyOBDProStandardValue_EUR]
-, StockLevels.[ConsumptionQtyOBDProStandardValue_USD]
-, StockLevels.[ConsumptionQtySOStandardValue]
-, StockLevels.[ConsumptionQtySOStandardValue_EUR]
-, StockLevels.[ConsumptionQtySOStandardValue_USD]
-, StockLevels.[ConsumptionQty]
-, StockLevels.[ConsumptionValueByLatestPriceInBaseValue]
-, StockLevels.[ConsumptionValueByLatestPrice_EUR]
-, StockLevels.[ConsumptionValueByLatestPrice_USD]
-, StockLevels.[t_applicationId]
-, StockLevels.[t_extractionDtm]
+, _union.[MatlCnsmpnQtyInMatlBaseUnit]
+, _union.[MatlStkChangeQtyInBaseUnit]
+, _union.[StockLevelQtyInBaseUnit]
+-- , _union.[MonthlyMatlStkChangeQtyInBaseUnit]
+-- , _union.[MonthlyStockLevelQtyInBaseUnit]
+, _union.[StockLevelQtyInBaseUnit] * PUP.[StockPricePerUnit] AS StockLevelStandardPPU
+, _union.[StockLevelQtyInBaseUnit] * PUP.[StockPricePerUnit_EUR] AS StockLevelStandardPPU_EUR
+, _union.[StockLevelQtyInBaseUnit] * PUP.[StockPricePerUnit_USD] AS StockLevelStandardPPU_USD
+, _union.[StockLevelQtyInBaseUnit] * LPUP.[LatestStockPricePerUnit] AS StockLevelStandardLatestPPU
+, _union.[StockLevelQtyInBaseUnit] * LPUP.[LatestStockPricePerUnit_EUR] AS StockLevelStandardLatestPPU_EUR
+, _union.[StockLevelQtyInBaseUnit] * LPUP.[LatestStockPricePerUnit_USD] AS StockLevelStandardLatestPPU_USD
+, _union.[Rolling12MonthConsumptionQty]
+, _union.[ConsumptionQtyICPOInStandardValue_EUR]
+, _union.[ConsumptionQtyICPOInStandardValue_USD]
+, _union.[ConsumptionQtyOBDProStandardValue]
+, _union.[ConsumptionQtyOBDProStandardValue_EUR]
+, _union.[ConsumptionQtyOBDProStandardValue_USD]
+, _union.[ConsumptionQtySOStandardValue]
+, _union.[ConsumptionQtySOStandardValue_EUR]
+, _union.[ConsumptionQtySOStandardValue_USD]
+, _union.[ConsumptionQty]
+, _union.[ConsumptionValueByLatestPriceInBaseValue]
+, _union.[ConsumptionValueByLatestPrice_EUR]
+, _union.[ConsumptionValueByLatestPrice_USD]
+, _union.[t_applicationId]
+, _union.[t_extractionDtm]
 FROM
-  StockLevels
+  _union
 LEFT OUTER JOIN
   [edw].[dim_ProductValuationPUP] PUP
   ON
-    PUP.[ProductID] = StockLevels.[MaterialID] COLLATE DATABASE_DEFAULT
+    PUP.[ProductID] = _union.[MaterialID] COLLATE DATABASE_DEFAULT
     AND
-    PUP.[ValuationAreaID] = StockLevels.[PlantID] COLLATE DATABASE_DEFAULT
+    PUP.[ValuationAreaID] = _union.[PlantID] COLLATE DATABASE_DEFAULT
     AND
-    PUP.[ValuationTypeID] = StockLevels.[InventoryValuationTypeID] COLLATE DATABASE_DEFAULT
+    PUP.[ValuationTypeID] = _union.[InventoryValuationTypeID] COLLATE DATABASE_DEFAULT
     AND
-    PUP.[FirstDayOfMonthDate] = StockLevels.[FirstDayOfMonthDate]
+    PUP.[FirstDayOfMonthDate] = _union.[FirstDayOfMonthDate]
 LEFT OUTER JOIN
   [edw].[vw_dim_ProductValuationPUP_LatestStockPrice] LPUP
   ON
-    LPUP.[ProductID] = StockLevels.[MaterialID] COLLATE DATABASE_DEFAULT
+    LPUP.[ProductID] = _union.[MaterialID] COLLATE DATABASE_DEFAULT
     AND
-    LPUP.[ValuationAreaID] = StockLevels.[PlantID] COLLATE DATABASE_DEFAULT
+    LPUP.[ValuationAreaID] = _union.[PlantID] COLLATE DATABASE_DEFAULT
     AND
-    LPUP.[ValuationTypeID] = StockLevels.[InventoryValuationTypeID] COLLATE DATABASE_DEFAULT
+    LPUP.[ValuationTypeID] = _union.[InventoryValuationTypeID] COLLATE DATABASE_DEFAULT
     AND
-    LPUP.[FirstDayOfMonthDate] = StockLevels.[FirstDayOfMonthDate]
+    LPUP.[FirstDayOfMonthDate] = _union.[FirstDayOfMonthDate]
     
