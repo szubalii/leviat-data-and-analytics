@@ -150,4 +150,4 @@
         [MaterialDocumentRecordType]
     ) NOT ENFORCED
 )
-WITH ( DISTRIBUTION = HASH ([MaterialDocument]), CLUSTERED COLUMNSTORE INDEX )
+WITH ( DISTRIBUTION = HASH ([MaterialID]), CLUSTERED INDEX ([MaterialID]) )
