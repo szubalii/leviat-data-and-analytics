@@ -6068,10 +6068,10 @@
       },
       {
         "entity_id": 544,
-        "entity_name": "fact_MaterialStockLevel",
+        "entity_name": "fact_MaterialStockInventoryLevel",
         "sproc_name": "sp_materialize_view",
         "source_view_name": "vw_fact_MaterialInventoryStockLevel",
-        "dest_table_name": "fact_MaterialStockLevel",
+        "dest_table_name": "fact_MaterialStockInventoryLevel",
         "execution_order": 3,
         "schedule_recurrence": "D"
       },
