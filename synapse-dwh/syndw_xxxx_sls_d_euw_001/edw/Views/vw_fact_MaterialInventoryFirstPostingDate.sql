@@ -19,7 +19,7 @@ SELECT
 , [PlantSalesOrgID]
 , MIN(HDR_PostingDate) AS FirstPostingDate
 , [t_applicationId]
-, [t_extractionDtm]
+, MAX([t_extractionDtm]) AS [t_extractionDtm] -- Use a MAX aggregate as two extractions exist for s4h (MDOC vs MDOC_CP)
 FROM
   [edw].[vw_fact_MaterialDocumentItem_s4h]
 GROUP BY
@@ -40,4 +40,3 @@ GROUP BY
 , [sk_ProductSalesOrg]
 , [PlantSalesOrgID]
 , [t_applicationId]
-, [t_extractionDtm]
