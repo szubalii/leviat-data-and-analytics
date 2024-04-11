@@ -424,9 +424,16 @@
 							},
 							"type": "String"
 						},
-						"table_name": {
+						"delta_view_name": {
 							"value": {
-								"value": "@pipeline().parameters.base_table_name",
+								"value": "@concat(\n    'vw_',\n    pipeline().parameters.base_table_name,\n    '_delta'\n)",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"active_table_name": {
+							"value": {
+								"value": "@concat(\n    pipeline().parameters.base_table_name,\n    '_active'\n)",
 								"type": "Expression"
 							},
 							"type": "String"
