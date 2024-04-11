@@ -25,7 +25,7 @@
 					"source": {
 						"type": "AzureSqlSource",
 						"sqlReaderQuery": {
-							"value": "SELECT * \nFROM [dbo].[get_scheduled_entity_batch_activities] (\n    @{pipeline().parameters.adhoc},\n    '@{pipeline().parameters.date}',\n    @{pipeline().parameters.rerun_successful_full_entities}\n)\nWHERE\n    @{pipeline().parameters.entity_filter}\n    AND\n    (update_mode = 'Full' OR update_mode IS NULL)",
+							"value": "SELECT * \nFROM [dbo].[get_scheduled_entity_batch_activities] (\n    @{pipeline().parameters.adhoc},\n    '@{variables('date')}',\n    @{pipeline().parameters.rerun_successful_full_entities}\n)\nWHERE\n    @{pipeline().parameters.entity_filter}\n    AND\n    (update_mode = 'Full' OR update_mode IS NULL)",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
@@ -374,7 +374,7 @@
 										"type": "Expression"
 									},
 									"date": {
-										"value": "@pipeline().parameters.date",
+										"value": "@variables('date')",
 										"type": "Expression"
 									},
 									"run_id": {
@@ -783,7 +783,7 @@
 					"source": {
 						"type": "AzureSqlSource",
 						"sqlReaderQuery": {
-							"value": "SELECT\n    entity_id,\n    entity_name,\n    base_schema_name,\n    base_table_name,\n    base_sproc_name,\n    axbi_date_field_name\nFROM [dbo].[get_scheduled_entity_batch_activities] (\n    @{pipeline().parameters.adhoc},\n    '@{pipeline().parameters.date}',\n    @{pipeline().parameters.rerun_successful_full_entities}\n)\nWHERE\n    @{pipeline().parameters.entity_filter}\n    AND\n    update_mode = 'Delta'\nGROUP BY\n    entity_id,\n    entity_name,\n    base_schema_name,\n    base_table_name,\n    base_sproc_name,\n    axbi_date_field_name",
+							"value": "SELECT\n    entity_id,\n    entity_name,\n    base_schema_name,\n    base_table_name,\n    base_sproc_name,\n    axbi_date_field_name\nFROM [dbo].[get_scheduled_entity_batch_activities] (\n    @{pipeline().parameters.adhoc},\n    '@{variables('date')}',\n    @{pipeline().parameters.rerun_successful_full_entities}\n)\nWHERE\n    @{pipeline().parameters.entity_filter}\n    AND\n    update_mode = 'Delta'\nGROUP BY\n    entity_id,\n    entity_name,\n    base_schema_name,\n    base_table_name,\n    base_sproc_name,\n    axbi_date_field_name",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
@@ -851,7 +851,7 @@
 										"type": "Expression"
 									},
 									"date": {
-										"value": "@pipeline().parameters.date",
+										"value": "@variables('date')",
 										"type": "Expression"
 									},
 									"rerun_successful_full_entities": {
