@@ -4,6 +4,7 @@ CREATE FUNCTION [utilities].[svf_getMaterializeTransactionScript](
   @SourceSchema NVARCHAR(128),
   @SourceView NVARCHAR(128),
   @Columns NVARCHAR(MAX),
+  @DeleteBeforeInsert BIT,
 	@t_jobId VARCHAR(36),
 	@t_jobDtm DATETIME,
 	@t_lastActionCd VARCHAR(1),
@@ -30,7 +31,8 @@ BEGIN
   DECLARE @insert_script NVARCHAR(MAX) = N'
 BEGIN TRANSACTION;
 
-DELETE FROM [' + @DestSchema + '].[' + @DestTable + '];
+IF ' + CAST(@DeleteBeforeInsert AS NVARCHAR) + '=1
+  DELETE FROM [' + @DestSchema + '].[' + @DestTable + '];
 
 BEGIN TRY
   INSERT INTO [' + @DestSchema + '].[' + @DestTable + '](' + @Columns + ',t_jobId,t_jobDtm,t_lastActionCd,t_jobBy)

@@ -42,25 +42,6 @@ BEGIN
 		THROW 50001, @errmessage, 1;
 	END
 
-  IF NOT EXISTS (
-		SELECT 1 
-		FROM sys.views 
-		JOIN sys.[schemas] 
-			ON sys.views.schema_id = sys.[schemas].schema_id 
-		WHERE 
-			sys.[schemas].name = @schema_name
-			AND 
-			sys.views.name = @delta_view_name
-			AND 
-			sys.views.type = 'v'
-	)
-	BEGIN
-		SET @errmessage = 'Object [' + @schema_name + '].['+ @delta_view_name +'] does not exist. 
-            Please check parameter values: @schema_name = ''' + @schema_name + 
-            ''',@table_name = ''' + @table_name + '''';
-		THROW 50001, @errmessage, 1;
-	END
-
   DECLARE
     @col_names NVARCHAR(MAX) = (
       SELECT

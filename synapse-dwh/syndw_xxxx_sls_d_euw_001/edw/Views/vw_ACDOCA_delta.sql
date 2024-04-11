@@ -1,49 +1,65 @@
 ﻿CREATE VIEW [edw].[vw_ACDOCA_delta]
 AS
+WITH PA AS (
+  SELECT
+    PurchaseOrder,
+    PurchaseOrderItem,
+    ICSalesDocumentID,
+    ICSalesDocumentItemID
+  FROM
+    [edw].[dim_PurgAccAssignment]
+  GROUP BY
+    PurchaseOrder,
+    PurchaseOrderItem,
+    ICSalesDocumentID,
+    ICSalesDocumentItemID
+)
+
 SELECT 
-       [SourceLedger]                           AS [SourceLedgerID],
-       [CompanyCode]                            AS [CompanyCodeID],
-       [FiscalYear],
-       [AccountingDocument],
-       [LedgerGLLineItem],
+       GLA.[SourceLedgerID],
+       GLA.[CompanyCodeID],
+       edw.svf_getProductSurrogateKey(VC.[ProductSurrogateKey],GLA.[ProductID],SoldProduct) AS [ProductSurrogateKey],
+       GLA.[FiscalYear],
+       GLA.[AccountingDocument],
+       GLA.[LedgerGLLineItem],
        [LedgerFiscalYear],
-       [GLRecordType]                           AS [GLRecordTypeID],
-       [ChartOfAccounts]                        AS [ChartOfAccountsID],
-       [ControllingArea]                        AS [ControllingAreaID],
-       [FinancialTransactionType]               AS [FinancialTransactionTypeID],
-       [BusinessTransactionType]                AS [BusinessTransactionTypeID],
-       [ControllingBusTransacType]              AS [ControllingBusTransacTypeID],
-       [ReferenceDocumentType]                  AS [ReferenceDocumentTypeID],
-       [ReferenceDocumentContext]               AS [ReferenceDocumentContextID],
+       [GLRecordTypeID],
+       [ChartOfAccountsID],
+       [ControllingAreaID],
+       [FinancialTransactionTypeID],
+       [BusinessTransactionTypeID],
+       [ControllingBusTransacTypeID],
+       [ReferenceDocumentTypeID],
+       [ReferenceDocumentContextID],
        [ReferenceDocument],
        [ReferenceDocumentItem],
-       [ReferenceDocumentItemGroup]             AS [ReferenceDocumentItemGroupID],
+       [ReferenceDocumentItemGroupID],
        [IsReversal],
        [IsReversed],
-       [PredecessorReferenceDocType]            AS [PredecessorReferenceDocTypeID],
-       [ReversalReferenceDocumentCntxt]         AS [ReversalReferenceDocumentCntxtID],
+       [PredecessorReferenceDocTypeID],
+       [ReversalReferenceDocumentCntxtID],
        [ReversalReferenceDocument],
        [IsSettlement],
        [IsSettled],
        [PredecessorReferenceDocument],
        [PredecessorReferenceDocItem],
-       [SourceReferenceDocumentType]            AS [SourceReferenceDocumentTypeID],
+       [SourceReferenceDocumentTypeID],
        [SourceReferenceDocument],
        [SourceReferenceDocumentItem],
        [IsCommitment],
-       [JrnlEntryItemObsoleteReason]            AS [JrnlEntryItemObsoleteReasonID],
-       [GLAccount]                              AS [GLAccountID],
-       [CostCenter]                             AS [CostCenterID],
-       [ProfitCenter]                           AS [ProfitCenterID],
-       [FunctionalArea]                         AS [FunctionalAreaID],
-       [BusinessArea]                           AS [BusinessAreaID],        
-       [Segment]                                AS [SegmentID],
-       [PartnerCostCenter]                      AS [PartnerCostCenterID],
-       [PartnerProfitCenter]                    AS [PartnerProfitCenterID],
-       [PartnerFunctionalArea]                  AS [PartnerFunctionalAreaID],
-       [PartnerBusinessArea]                    AS [PartnerBusinessAreaID],
-       [PartnerCompany]                         AS [PartnerCompanyID],
-       [PartnerSegment]                         AS [PartnerSegmentID],
+       [JrnlEntryItemObsoleteReasonID],
+       GLA.[GLAccountID],
+       GLA.[CostCenterID],
+       GLA.[ProfitCenterID],
+       [FunctionalAreaID],
+       [BusinessAreaID],          
+       [SegmentID],
+       [PartnerCostCenterID],
+       [PartnerProfitCenterID],
+       [PartnerFunctionalAreaID],
+       [PartnerBusinessAreaID],
+       [PartnerCompanyID],
+       [PartnerSegmentID],
        [BalanceTransactionCurrency],
        [AmountInBalanceTransacCrcy],
        [TransactionCurrency],
@@ -56,89 +72,133 @@ SELECT
        [AmountInFreeDefinedCurrency1],
        [FreeDefinedCurrency2],
        [AmountInFreeDefinedCurrency2],
-       [BaseUnit],
+       GLA.[BaseUnit],
        [Quantity],
-       [DebitCreditCode]                        AS [DebitCreditID], 
-       [FiscalPeriod], 
-       [FiscalYearVariant],
+       [DebitCreditID], 
+       GLA.[FiscalPeriod], 
+       GLA.[FiscalYearVariant],
        [FiscalYearPeriod],
        [PostingDate],
        [DocumentDate],
-       [AccountingDocumentType]                 AS [AccountingDocumentTypeID],
+       [AccountingDocumentTypeID],
        [AccountingDocumentItem],
        [AssignmentReference],
-       [AccountingDocumentCategory]             AS [AccountingDocumentCategoryID],
-       [PostingKey]                             AS [PostingKeyID],
-       [TransactionTypeDetermination]           AS [TransactionTypeDeterminationID],
-       [SubLedgerAcctLineItemType]              AS [SubLedgerAcctLineItemTypeID],
-       [AccountingDocCreatedByUser]             AS [AccountingDocCreatedByUserID],
+       [AccountingDocumentCategoryID],
+       [PostingKeyID],
+       [TransactionTypeDeterminationID],
+       [SubLedgerAcctLineItemTypeID],
+       [AccountingDocCreatedByUserID],
        [LastChangeDateTime],
        [CreationDateTime],
-       [CreationDate],
-       [OriginObjectType]                       AS [OriginObjectTypeID],
-       GLAccountLineItemRawData.[GLAccountType] AS [GLAccountTypeID],
+       GLA.[CreationDate],
+       [OriginObjectTypeID],
+       [GLAccountTypeID],
        [InvoiceReference],
        [InvoiceReferenceFiscalYear],
        [InvoiceItemReference],
-       [ReferencePurchaseOrderCategory]         AS [ReferencePurchaseOrderCategoryID],
+       [ReferencePurchaseOrderCategoryID],
        [PurchasingDocument],
        [PurchasingDocumentItem],
        [AccountAssignmentNumber],
        [DocumentItemText],
-       [SalesDocument]                          AS [SalesDocumentID],          
-       [SalesDocumentItem]                      AS [SalesDocumentItemID],
-       [Product]                                AS [ProductID],
-       [Plant]                                  AS [PlantID],
-       [Supplier]                               AS [SupplierID],
-       [Customer]                               AS [CustomerID],
+       GLA.[SalesDocumentID],          
+       GLA.[SalesDocumentItemID],
+       GLA.[ProductID],
+       GLA.[PlantID],
+       [SupplierID],
+       [CustomerID],
        [ExchangeRateDate],                    
-       [FinancialAccountType]                   AS [FinancialAccountTypeID],
-       [SpecialGLCode]                          AS [SpecialGLCodeID],
-       [TaxCode]                                AS [TaxCodeID],
+       [FinancialAccountTypeID],
+       [SpecialGLCodeID],
+       [TaxCodeID],
        [ClearingDate],
        [ClearingAccountingDocument],
        [ClearingDocFiscalYear],
        [LineItemIsCompleted],
        [PersonnelNumber],
-       [PartnerCompanyCode]                     AS [PartnerCompanyCodeID],
-       [OriginProfitCenter]                     AS [OriginProfitCenterID],
-       [OriginCostCenter]                       AS [OriginCostCenterID],
-       [AccountAssignment]                      AS [AccountAssignmentID],
-       [AccountAssignmentType]                  AS [AccountAssignmentTypeID],
-       [CostCtrActivityType]                    AS [CostCtrActivityTypeID],
-       [OrderID],
-       [OrderCategory]                          AS [OrderCategoryID],
-       [WBSElement]                             AS [WBSElementID],
+       [PartnerCompanyCodeID],
+       [OriginProfitCenterID],
+       [OriginCostCenterID],
+       [AccountAssignmentID],
+       [AccountAssignmentTypeID],
+       [CostCtrActivityTypeID],
+       GLA.[OrderID],
+       [OrderCategoryID],
+       [WBSElementID],
        [ProjectInternalID],
-       [Project]                                AS [ProjectID],
-       [OperatingConcern]                       AS [OperatingConcernID],
-       [BusinessProcess]                        AS [BusinessProcessID],
-       [CostObject]                             AS [CostObjectID],
-       [BillableControl]                        AS [BillableControlID],
-       [ServiceDocumentType]                    AS [ServiceDocumentTypeID],
+       GLA.[ProjectID],
+       [OperatingConcernID],
+       [BusinessProcessID],
+       [CostObjectID],
+       [BillableControlID],
+       [ServiceDocumentTypeID],
        [ServiceDocument],
        [ServiceDocumentItem],
-       [BillingDocumentType]                    AS [BillingDocumentTypeID],
-       [SalesOrganization]                      AS [SalesOrganizationID],
-       [DistributionChannel]                    AS [DistributionChannelID],
-       [SalesDistrict]                          AS [SalesDistrictID],
-       [BillToParty]                            AS [BillToPartyID],
-       [KMVKBUPA]                               AS [SalesOfficeID],
-       [t_applicationId],
-       [t_extractionDtm],
-       [t_lastActionBy],
-       [t_lastActionCd],
-       [t_lastActionDtm],
-       [t_filePath]
-FROM [base_s4h_cax].[I_GLAccountLineItemRawData_active] GLAccountLineItemRawData 
-WHERE
-       -- casting the left and right sides of equality to the same data type DATE              
-       CAST([t_lastActionDtm] as DATE) >  -- the view displays new data that is not yet in the fact table
-       (
-              SELECT 
-              CAST(isNull(max(gla.[t_lastActionDtm]), '1900-01-01') as DATE) AS [max_lastActionDay]
-              FROM 
-                [edw].[fact_ACDOCA_active] gla
-       )
+       GLA.[BillingDocumentTypeID],
+       GLA.[SalesOrganizationID],
+       GLA.[DistributionChannelID],
+       GLA.[SalesDistrictID],
+       [BillToPartyID],
+       [ShipToPartyID], 
+       GLA.[SalesOfficeID],
+       PA.ICSalesDocumentID,
+       PA.ICSalesDocumentItemID,
+       [SoldProduct],
+       ProfitCenterTypeID,
+       edw.[svf_getSalesRefDocCalc] (
+              GLA.[SalesDocumentID]
+            , GLA.[ReferenceDocumentTypeID]
+            , GLA.[PurchasingDocument]
+            , PA.[ICSalesDocumentID] COLLATE DATABASE_DEFAULT
+            , ARSD.[SalesReferenceDocumentCalculated]
+       ) AS [SalesReferenceDocumentCalculated],
+       edw.[svf_getSalesRefDocItemCalc] (
+              GLA.[SalesDocumentID]
+            , GLA.[ReferenceDocumentTypeID]
+            , GLA.[PurchasingDocument]
+            , PA.[ICSalesDocumentItemID] COLLATE DATABASE_DEFAULT
+            , ARSD.[SalesReferenceDocumentItemCalculated]
+       ) AS [SalesReferenceDocumentItemCalculated],
+       BDI.[HigherLevelItem],
+       GLA.[WWPRNPA] AS ProjectNumber,
+       ARSD.SDI_SalesOrganizationID,
+       ARSD.SDI_SoldToPartyID,
+       ARSD.SDI_MaterialID,
+       GLA.[t_applicationId],
+       GLA.[t_extractionDtm]
+FROM [intm_s4h].[vw_GLAccountLineItemRawData_delta] AS GLA
+LEFT JOIN PA
+    ON
+        PA.PurchaseOrder COLLATE DATABASE_DEFAULT = [PurchasingDocument]
+    AND
+        PA.PurchaseOrderItem = [PurchasingDocumentItem]
+LEFT JOIN [edw].[vw_ProductHierarchyVariantConfigCharacteristic] AS VC
+    ON
+        VC.SalesDocument = CASE
+            WHEN [ReferenceDocumentTypeID] = 'VBRK' AND GLA.SalesDocumentID = ''
+            THEN PA.ICSalesDocumentID COLLATE DATABASE_DEFAULT
+            ELSE GLA.SalesDocumentID
+        END
+    AND
+        VC.SalesDocumentItem = CASE
+            WHEN [ReferenceDocumentTypeID] = 'VBRK' AND GLA.SalesDocumentID = ''
+            THEN PA.ICSalesDocumentItemID COLLATE DATABASE_DEFAULT
+            ELSE GLA.SalesDocumentItemID
+        END 
+LEFT JOIN edw.dim_ProfitCenter PC
+    ON 
+        GLA.ProfitCenterID=PC.ProfitCenterID
+LEFT JOIN [edw].[vw_ACDOCA_ReferenceSalesDocument] AS ARSD
+    ON GLA.[SourceLedgerID] = ARSD.[SourceLedgerID] 
+       AND GLA.[CompanyCodeID] = ARSD.[CompanyCodeID]
+       AND GLA.[FiscalYear] = ARSD.[FiscalYear]
+       AND GLA.[AccountingDocument] = ARSD.[AccountingDocument]
+       AND GLA.[LedgerGLLineItem] = ARSD.[LedgerGLLineItem]
+LEFT JOIN [edw].[fact_BillingDocumentItem] BDI 
+    ON GLA.ReferenceDocument = BDI.BillingDocument 
+       AND GLA.ReferenceDocumentItem = BDI.BillingDocumentItem
+       AND BDI.CurrencyTypeID = '10'
+
 -- WHERE
 --     GLAccountLineItemRawData.MANDT = 200 MPS 2021/11/01: commented out due to different client values between dev,qas, and prod
+

@@ -20,6 +20,7 @@ CREATE PROC [edw].[sp_materialize_view]
 	@SourceView NVARCHAR(128),
 	@DestSchema NVARCHAR(128),
 	@DestTable NVARCHAR(128),
+  @DeleteBeforeInsert BIT,
 	@t_jobId VARCHAR(36),
 	@t_jobDtm DATETIME,
 	@t_lastActionCd VARCHAR(1),
@@ -43,7 +44,7 @@ BEGIN
 	END
 
 -- Test if the provided view name exists
-	IF OBJECT_ID(@SourceSchema + '.' + @SourceView, 'V') IS NULL
+	IF OBJECT_ID(@SourceSchema + '.' + @SourceView) IS NULL
 	BEGIN
 		SET @errmessage = 'Object [' + @SourceSchema + '].['+ @SourceView +'] does not exist.'  + CHAR(13) + CHAR(10) +
       'Please check parameter values: @SourceSchema = ''' + @SourceSchema + ''',@SourceView = ''' + @SourceView + '''';
@@ -83,6 +84,7 @@ BEGIN
       @SourceSchema,
       @SourceView,
       @Columns,
+      @DeleteBeforeInsert,
       @t_jobId,
       @t_jobDtm,
       @t_lastActionCd,
