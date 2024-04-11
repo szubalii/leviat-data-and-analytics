@@ -55,4 +55,4 @@ SELECT
 , [t_applicationId]
 , [t_extractionDtm]
 FROM
-  [edw].[vw_fact_MaterialInventoryStockLevel]
+  [edw].[fact_MaterialInventoryStockLevel]
