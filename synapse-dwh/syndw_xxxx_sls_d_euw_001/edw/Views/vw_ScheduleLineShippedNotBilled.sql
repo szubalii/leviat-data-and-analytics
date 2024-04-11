@@ -37,6 +37,7 @@ SELECT
   SLS.[ClosedInvoicedValue],
   SLS.[PricePerUnit],
   SLS.[InScope],
+  SLS.[SoldToPartyID],
   SLS.[t_applicationId],
   SLS.[t_extractionDtm]
 FROM
