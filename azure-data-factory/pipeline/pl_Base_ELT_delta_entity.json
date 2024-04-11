@@ -548,8 +548,8 @@
 				}
 			},
 			{
-				"name": "Truncate Delta Table",
-				"description": "Truncate delta tables at the beginning of the run. \nFull tables are only truncated when data is actually loaded from parquet to Synapse Base. As multiple parquet files can be loaded to the same table, one cannot truncate before each load for delta tables. ",
+				"name": "Post Process Delta Entity",
+				"description": "Copy the data into INTM for follow-up processing.\n\nTruncate the BASE delta table to indicate delta processing in base layer is successful.",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
@@ -568,16 +568,27 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"storedProcedureName": "[utilities].[sp_truncate_table]",
+					"storedProcedureName": "[base_s4h_cax].[up_delta_postprocessing]",
 					"storedProcedureParameters": {
-						"schema_name": {
+						"source_schema": {
 							"value": {
 								"value": "@pipeline().parameters.base_schema_name",
 								"type": "Expression"
 							},
 							"type": "String"
 						},
-						"table_name": {
+						"source_table": {
+							"value": {
+								"value": "@variables('deltaTableName')",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"target_schema": {
+							"value": "intm_s4h",
+							"type": "String"
+						},
+						"target_table": {
 							"value": {
 								"value": "@variables('deltaTableName')",
 								"type": "Expression"
