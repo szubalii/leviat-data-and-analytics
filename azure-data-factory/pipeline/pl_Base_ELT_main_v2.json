@@ -1144,7 +1144,7 @@
 			},
 			"date": {
 				"type": "string",
-				"defaultValue": "2023/03/30"
+				"defaultValue": "yyyy/MM/dd"
 			},
 			"rerun_successful_full_entities": {
 				"type": "int",
