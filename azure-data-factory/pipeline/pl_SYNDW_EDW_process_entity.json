@@ -457,7 +457,7 @@
 					},
 					"ifFalseActivities": [
 						{
-							"name": "Execute Pipeline1",
+							"name": "Execute Full Materialization",
 							"type": "ExecutePipeline",
 							"dependsOn": [],
 							"policy": {
@@ -477,6 +477,10 @@
 									},
 									"sproc_schema_name": {
 										"value": "@pipeline().parameters.sproc_schema_name",
+										"type": "Expression"
+									},
+									"batch_id": {
+										"value": "@variables('batch_id')",
 										"type": "Expression"
 									},
 									"entity_id": {
@@ -505,6 +509,10 @@
 									},
 									"entity_name": {
 										"value": "@pipeline().parameters.entity_name",
+										"type": "Expression"
+									},
+									"exception": {
+										"value": "@variables('exception')",
 										"type": "Expression"
 									}
 								}
