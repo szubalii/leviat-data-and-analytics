@@ -475,7 +475,7 @@
 					],
 					"ifTrueActivities": [
 						{
-							"name": "Materialize EDW Delta",
+							"name": "Process EDW Delta",
 							"type": "SqlServerStoredProcedure",
 							"dependsOn": [],
 							"policy": {
@@ -532,7 +532,7 @@
 							"type": "SqlServerStoredProcedure",
 							"dependsOn": [
 								{
-									"activity": "Materialize EDW Delta",
+									"activity": "Process EDW Delta",
 									"dependencyConditions": [
 										"Succeeded"
 									]
