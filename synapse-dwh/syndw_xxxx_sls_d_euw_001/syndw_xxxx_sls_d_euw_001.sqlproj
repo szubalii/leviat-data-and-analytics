@@ -1236,7 +1236,6 @@
     <Build Include="edw\Views\vw_LatestGlobalParent.sql" />
     <Build Include="edw\Views\vw_BillingDocProject.sql" />
     <Build Include="edw\Views\vw_MaterialDocumentItem_MDOC_CP.sql" />
-    <Build Include="edw\Views\vw_ACDOCA_SalesDocument.sql" />
     
     <Build Include="dq\Views\vw_Product_1_2.sql" />
     <Build Include="dq\Views\vw_RuleTotal.sql" />
