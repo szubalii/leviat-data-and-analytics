@@ -469,7 +469,45 @@
 									"referenceName": "pl_SYNDW_EDW_process_entity_full",
 									"type": "PipelineReference"
 								},
-								"waitOnCompletion": true
+								"waitOnCompletion": true,
+								"parameters": {
+									"sproc_name": {
+										"value": "@pipeline().parameters.sproc_name",
+										"type": "Expression"
+									},
+									"sproc_schema_name": {
+										"value": "@pipeline().parameters.sproc_schema_name",
+										"type": "Expression"
+									},
+									"entity_id": {
+										"value": "@pipeline().parameters.entity_id",
+										"type": "Expression"
+									},
+									"run_id": {
+										"value": "@pipeline().parameters.run_id",
+										"type": "Expression"
+									},
+									"dest_schema_name": {
+										"value": "@pipeline().parameters.dest_schema_name",
+										"type": "Expression"
+									},
+									"dest_table_name": {
+										"value": "@pipeline().parameters.dest_table_name",
+										"type": "Expression"
+									},
+									"source_schema_name": {
+										"value": "@pipeline().parameters.source_schema_name",
+										"type": "Expression"
+									},
+									"source_view_name": {
+										"value": "@pipeline().parameters.source_view_name",
+										"type": "Expression"
+									},
+									"entity_name": {
+										"value": "@pipeline().parameters.entity_name",
+										"type": "Expression"
+									}
+								}
 							}
 						}
 					],
