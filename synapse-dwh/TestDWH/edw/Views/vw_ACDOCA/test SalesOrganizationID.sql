@@ -4,6 +4,7 @@ BEGIN
   IF OBJECT_ID('actual') IS NOT NULL DROP TABLE actual;
   IF OBJECT_ID('expected') IS NOT NULL DROP TABLE expected;
   IF OBJECT_ID('tempdb..#vw_GLAccountLineItemRawData') IS NOT NULL DROP TABLE #vw_GLAccountLineItemRawData;
+  IF OBJECT_ID('tempdb..#vw_ACDOCA_SalesDocument') IS NOT NULL DROP TABLE #vw_ACDOCA_SalesDocument;
   IF OBJECT_ID('tempdb..#vw_ACDOCA_ReferenceSalesDocument') IS NOT NULL DROP TABLE #vw_ACDOCA_ReferenceSalesDocument;
 
   -- Assemble: Fake Table
@@ -66,7 +67,7 @@ BEGIN
   VALUES
   ('OC', 'PL35', '2023', '9900000093', '000008', 'PL01'),
   ('OC', 'PL35', '2023', '9900000093', '000001', NULL),
-  ('OC', 'PL35', '2023', '9900000093', '0000016', 'PL01'),
+  ('OC', 'PL35', '2023', '9900000093', '000016', 'PL01'),
   ('L1', 'CH35', '2023', '0090004883', '000012', 'CH01');
 
   EXEC ('INSERT INTO edw.vw_ACDOCA_SalesDocument SELECT * FROM #vw_ACDOCA_SalesDocument');
