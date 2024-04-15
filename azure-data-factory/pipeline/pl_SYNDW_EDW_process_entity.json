@@ -528,7 +528,7 @@
 							}
 						},
 						{
-							"name": "Stored procedure1",
+							"name": "Truncate Intm Delta",
 							"type": "SqlServerStoredProcedure",
 							"dependsOn": [
 								{
@@ -554,7 +554,10 @@
 										"type": "String"
 									},
 									"table_name": {
-										"value": "",
+										"value": {
+											"value": "@pipeline().parameters.source_table_name",
+											"type": "Expression"
+										},
 										"type": "String"
 									}
 								}
@@ -615,6 +618,9 @@
 				"type": "string"
 			},
 			"update_mode": {
+				"type": "string"
+			},
+			"source_table_name": {
 				"type": "string"
 			}
 		},
