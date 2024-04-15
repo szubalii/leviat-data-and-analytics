@@ -9,19 +9,7 @@ BEGIN
   -- Assemble: Fake Table
   EXEC tSQLt.FakeTable '[edw]', '[vw_GLAccountLineItemRawData]';
   EXEC tSQLt.FakeTable '[edw]', '[vw_ACDOCA_ReferenceSalesDocument]';
-  EXEC tSQLt.FakeTable '[edw]', '[fact_SalesDocumentItem]';
-
-  INSERT INTO edw.fact_SalesDocumentItem (
-    SalesDocument,
-    SalesDocumentItem,
-    CurrencyTypeID,
-    SalesOrganizationID
-  )
-  VALUES
-  ('0020038952', '000010', '10', 'PL01'),
-  ('0020038952', '000020', '10', 'PL01'),
-  ('0020038952', '000030', '10', 'PL01'),
-  ('0020038952', '000040', '10', 'PL01');
+  EXEC tSQLt.FakeTable '[edw]', '[vw_ACDOCA_SalesDocument]';
 
 
   SELECT TOP(0) *
@@ -33,14 +21,13 @@ BEGIN
     CompanyCodeID,
     FiscalYear,
     AccountingDocument,
-    LedgerGLLineItem,
-    SalesDocumentID,
-    SalesDocumentItemID
+    LedgerGLLineItem
   )
   VALUES
-  ('OC', 'PL35', '2023', '9900000093', '000001', '0020038952', '000000'),
-  ('OC', 'PL35', '2023', '9900000093', '000008', '', ''),
-  ('L1', 'CH35', '2023', '0090011594', '000016', '0020020683', '000030');
+  ('OC', 'PL35', '2023', '9900000093', '000001'),
+  ('OC', 'PL35', '2023', '9900000093', '000008'),
+  ('L1', 'CH35', '2023', '0090011594', '000016'),
+  ('L1', 'CH35', '2023', '0090004883', '000012');
 
   EXEC ('INSERT INTO edw.vw_GLAccountLineItemRawData SELECT * FROM #vw_GLAccountLineItemRawData');
   
@@ -55,14 +42,34 @@ BEGIN
     FiscalYear,
     AccountingDocument, 
     LedgerGLLineItem,
-    SalesReferenceDocumentCalculated,
-    SalesReferenceDocumentItemCalculated,
     SDI_SalesOrganizationID
   )
   VALUES
-  ('L1', 'CH35', '2023', '0090011594', '000016', '0020020683', '000030', 'CH01');
+  ('L1', 'CH35', '2023', '0090011594', '000016', 'CH01'),
+  ('L1', 'CH35', '2023', '0090004883', '000012', 'AT35');
 
   EXEC ('INSERT INTO edw.vw_ACDOCA_ReferenceSalesDocument SELECT * FROM #vw_ACDOCA_ReferenceSalesDocument');
+
+
+   SELECT TOP(0) *
+  INTO #vw_ACDOCA_SalesDocument
+  FROM edw.vw_ACDOCA_SalesDocument;
+
+  INSERT INTO #vw_ACDOCA_SalesDocument (
+    SourceLedgerID,
+    CompanyCodeID, 
+    FiscalYear,
+    AccountingDocument, 
+    LedgerGLLineItem,
+    SalesOrganizationID_SDI
+  )
+  VALUES
+  ('OC', 'PL35', '2023', '9900000093', '000008', 'PL01'),
+  ('OC', 'PL35', '2023', '9900000093', '000001', NULL),
+  ('OC', 'PL35', '2023', '9900000093', '0000016', 'PL01'),
+  ('L1', 'CH35', '2023', '0090004883', '000012', 'CH01');
+
+  EXEC ('INSERT INTO edw.vw_ACDOCA_SalesDocument SELECT * FROM #vw_ACDOCA_SalesDocument');
 
 
   -- Act: 
@@ -90,9 +97,10 @@ BEGIN
     SDI_SalesOrganizationID
   )
   VALUES
-    ('OC', 'PL35', '2023', '9900000093', '000001', 'PL01'),
-    ('OC', 'PL35', '2023', '9900000093', '000008', NULL),
-    ('L1', 'CH35', '2023', '0090011594', '000016', 'CH01');
+    ('OC', 'PL35', '2023', '9900000093', '000008', 'PL01'),
+    ('OC', 'PL35', '2023', '9900000093', '000001', NULL),
+    ('L1', 'CH35', '2023', '0090011594', '000016', 'CH01'),
+    ('L1', 'CH35', '2023', '0090004883', '000012', 'AT35');
 
 
 
