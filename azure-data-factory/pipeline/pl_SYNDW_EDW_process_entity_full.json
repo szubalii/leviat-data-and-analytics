@@ -140,14 +140,14 @@
 								"storedProcedureParameters": {
 									"batch_id": {
 										"value": {
-											"value": "@variables('batch_id')",
+											"value": "@pipeline().parameters.batch_id",
 											"type": "Expression"
 										},
 										"type": "Guid"
 									},
 									"category": {
 										"value": {
-											"value": "@variables('exception')",
+											"value": "@pipeline().parameters.exception",
 											"type": "Expression"
 										},
 										"type": "String"
@@ -320,14 +320,14 @@
 								"storedProcedureParameters": {
 									"batch_id": {
 										"value": {
-											"value": "@variables('batch_id')",
+											"value": "@pipeline().parameters.batch_id",
 											"type": "Expression"
 										},
 										"type": "Guid"
 									},
 									"category": {
 										"value": {
-											"value": "@variables('exception')",
+											"value": "@pipeline().parameters.exception",
 											"type": "Expression"
 										},
 										"type": "String"
@@ -419,6 +419,9 @@
 				"type": "string"
 			},
 			"entity_name": {
+				"type": "string"
+			},
+			"exception": {
 				"type": "string"
 			}
 		},
