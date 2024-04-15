@@ -1,4 +1,4 @@
-﻿alter VIEW [edw].[vw_ACDOCA]
+﻿CREATE VIEW [edw].[vw_ACDOCA]
 AS
 WITH PA AS (
   SELECT
