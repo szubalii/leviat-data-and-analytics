@@ -1,4 +1,4 @@
-﻿CREATE VIEW [edw].[vw_ACDOCA]
+﻿alter VIEW [edw].[vw_ACDOCA]
 AS
 WITH PA AS (
   SELECT
@@ -25,7 +25,7 @@ SELECT
        [LedgerFiscalYear],
        [GLRecordTypeID],
        [ChartOfAccountsID],
-       [ControllingAreaID],
+       GLA.[ControllingAreaID],
        [FinancialTransactionTypeID],
        [BusinessTransactionTypeID],
        [ControllingBusTransacTypeID],
@@ -52,7 +52,7 @@ SELECT
        GLA.[CostCenterID],
        GLA.[ProfitCenterID],
        [FunctionalAreaID],
-       [BusinessAreaID],          
+       GLA.[BusinessAreaID],          
        [SegmentID],
        [PartnerCostCenterID],
        [PartnerProfitCenterID],
@@ -107,7 +107,7 @@ SELECT
        GLA.[PlantID],
        [SupplierID],
        [CustomerID],
-       [ExchangeRateDate],                    
+       GLA.[ExchangeRateDate],                    
        [FinancialAccountTypeID],
        [SpecialGLCodeID],
        [TaxCodeID],
@@ -138,8 +138,8 @@ SELECT
        GLA.[SalesOrganizationID],
        GLA.[DistributionChannelID],
        GLA.[SalesDistrictID],
-       [BillToPartyID],
-       [ShipToPartyID], 
+       GLA.[BillToPartyID],
+       GLA.[ShipToPartyID], 
        GLA.[SalesOfficeID],
        PA.ICSalesDocumentID,
        PA.ICSalesDocumentItemID,
@@ -163,7 +163,7 @@ SELECT
        GLA.[WWPRNPA] AS ProjectNumber,
        CASE 
             WHEN COALESCE (ARSD.SDI_SalesOrganizationID, '') = ''
-            THEN ASD.SalesOrganizationID_SDI
+            THEN SDI.SalesOrganizationID
        END AS SDI_SalesOrganizationID,
        ARSD.SDI_SoldToPartyID,
        ARSD.SDI_MaterialID,
@@ -197,12 +197,11 @@ LEFT JOIN [edw].[vw_ACDOCA_ReferenceSalesDocument] AS ARSD
        AND GLA.[FiscalYear] = ARSD.[FiscalYear]
        AND GLA.[AccountingDocument] = ARSD.[AccountingDocument]
        AND GLA.[LedgerGLLineItem] = ARSD.[LedgerGLLineItem]
-LEFT JOIN [edw].[vw_ACDOCA_SalesDocument] AS ASD
-    ON GLA.[SourceLedgerID] = ASD.[SourceLedgerID] 
-       AND GLA.[CompanyCodeID] = ASD.[CompanyCodeID]
-       AND GLA.[FiscalYear] = ASD.[FiscalYear]
-       AND GLA.[AccountingDocument] = ASD.[AccountingDocument]
-       AND GLA.[LedgerGLLineItem] = ASD.[LedgerGLLineItem]
+LEFT JOIN [edw].[fact_SalesDocumentItem] SDI 
+    ON 
+       GLA.SalesDocumentID = SDI.SalesDocument
+       AND 
+       SDI.CurrencyTypeID = '10'
 LEFT JOIN [edw].[fact_BillingDocumentItem] BDI 
     ON GLA.ReferenceDocument = BDI.BillingDocument 
        AND GLA.ReferenceDocumentItem = BDI.BillingDocumentItem
