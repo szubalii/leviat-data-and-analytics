@@ -164,6 +164,7 @@ SELECT
        CASE 
             WHEN COALESCE (ARSD.SDI_SalesOrganizationID, '') = ''
             THEN ASD.SalesOrganizationID_SDI
+            ELSE ARSD.SDI_SalesOrganizationID
        END AS SDI_SalesOrganizationID,
        ARSD.SDI_SoldToPartyID,
        ARSD.SDI_MaterialID,
