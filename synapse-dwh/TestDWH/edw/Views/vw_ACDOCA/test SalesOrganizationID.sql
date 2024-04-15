@@ -22,9 +22,11 @@ BEGIN
   ('0020038952', '000040', '10', 'PL01');
 
 
+  SELECT TOP(0) *
+  INTO #vw_GLAccountLineItemRawData
+  FROM edw.vw_GLAccountLineItemRawData;
 
-
- INSERT INTO edw.vw_GLAccountLineItemRawData (
+ INSERT INTO #vw_ACDOCA_ReferenceSalesDocument (
     SourceLedgerID,
     CompanyCodeID,
     FiscalYear,
@@ -38,6 +40,7 @@ BEGIN
   ('OC', 'PL35', '2023', '9900000093', '000008', '', ''),
   ('L1', 'CH35', '2023', '0090011594', '000016', '0020020683', '000030');
 
+  EXEC ('INSERT INTO edw.vw_ACDOCA_ReferenceSalesDocument SELECT * FROM #vw_ACDOCA_ReferenceSalesDocument');
   
   SELECT TOP(0) *
   INTO #vw_ACDOCA_ReferenceSalesDocument
