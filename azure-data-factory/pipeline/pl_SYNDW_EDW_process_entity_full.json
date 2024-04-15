@@ -17,14 +17,7 @@
 						{
 							"name": "Materialize Custom View",
 							"type": "SqlServerStoredProcedure",
-							"dependsOn": [
-								{
-									"activity": "Set Exception Category",
-									"dependencyConditions": [
-										"Succeeded"
-									]
-								}
-							],
+							"dependsOn": [],
 							"policy": {
 								"timeout": "7.00:00:00",
 								"retry": 0,
@@ -79,41 +72,6 @@
 										"type": "Expression"
 									}
 								}
-							}
-						},
-						{
-							"name": "Set Activity",
-							"type": "SetVariable",
-							"dependsOn": [],
-							"policy": {
-								"secureOutput": false,
-								"secureInput": false
-							},
-							"userProperties": [],
-							"typeProperties": {
-								"variableName": "activity",
-								"value": "BasetoEDWExecCustomSP"
-							}
-						},
-						{
-							"name": "Set Exception Category",
-							"type": "SetVariable",
-							"dependsOn": [
-								{
-									"activity": "Set Activity",
-									"dependencyConditions": [
-										"Succeeded"
-									]
-								}
-							],
-							"policy": {
-								"secureOutput": false,
-								"secureInput": false
-							},
-							"userProperties": [],
-							"typeProperties": {
-								"variableName": "exception",
-								"value": "FailedEDWCustomSP"
 							}
 						},
 						{
