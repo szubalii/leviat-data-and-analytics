@@ -12,26 +12,7 @@ BEGIN
   EXEC tSQLt.FakeTable '[edw]', '[vw_ACDOCA_ReferenceSalesDocument]';
   EXEC tSQLt.FakeTable '[edw]', '[vw_ACDOCA_SalesDocument]';
 
-
-  SELECT TOP(0) *
-  INTO #vw_GLAccountLineItemRawData
-  FROM edw.vw_GLAccountLineItemRawData;
-
- INSERT INTO #vw_GLAccountLineItemRawData (
-    SourceLedgerID,
-    CompanyCodeID,
-    FiscalYear,
-    AccountingDocument,
-    LedgerGLLineItem
-  )
-  VALUES
-  ('OC', 'PL35', '2023', '9900000093', '000001'),
-  ('OC', 'PL35', '2023', '9900000093', '000008'),
-  ('L1', 'CH35', '2023', '0090011594', '000016'),
-  ('L1', 'CH35', '2023', '0090004883', '000012');
-
-  EXEC ('INSERT INTO edw.vw_GLAccountLineItemRawData SELECT * FROM #vw_GLAccountLineItemRawData');
-  
+ 
 
   SELECT TOP(0) *
   INTO #vw_ACDOCA_ReferenceSalesDocument
@@ -72,6 +53,25 @@ BEGIN
 
   EXEC ('INSERT INTO edw.vw_ACDOCA_SalesDocument SELECT * FROM #vw_ACDOCA_SalesDocument');
 
+
+ SELECT TOP(0) *
+  INTO #vw_GLAccountLineItemRawData
+  FROM edw.vw_GLAccountLineItemRawData;
+
+ INSERT INTO #vw_GLAccountLineItemRawData (
+    SourceLedgerID,
+    CompanyCodeID,
+    FiscalYear,
+    AccountingDocument,
+    LedgerGLLineItem
+  )
+  VALUES
+  ('OC', 'PL35', '2023', '9900000093', '000001'),
+  ('OC', 'PL35', '2023', '9900000093', '000008'),
+  ('L1', 'CH35', '2023', '0090011594', '000016'),
+  ('L1', 'CH35', '2023', '0090004883', '000012');
+
+  EXEC ('INSERT INTO edw.vw_GLAccountLineItemRawData SELECT * FROM #vw_GLAccountLineItemRawData');
 
   -- Act: 
   SELECT
