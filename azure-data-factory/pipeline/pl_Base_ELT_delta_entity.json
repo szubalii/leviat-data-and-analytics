@@ -594,6 +594,31 @@
 								"type": "Expression"
 							},
 							"type": "String"
+						},
+						"t_jobBy": {
+							"value": {
+								"value": "@pipeline().DataFactory",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"t_jobDtm": {
+							"value": {
+								"value": "@formatDateTime(utcnow(),'yyyy/MM/dd HH:mm:ss')",
+								"type": "Expression"
+							},
+							"type": "DateTime"
+						},
+						"t_jobId": {
+							"value": {
+								"value": "@pipeline().RunId",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"t_lastActionCd": {
+							"value": "I",
+							"type": "String"
 						}
 					}
 				},
