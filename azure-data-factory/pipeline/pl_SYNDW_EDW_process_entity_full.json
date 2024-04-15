@@ -390,6 +390,38 @@
 				}
 			}
 		],
+		"parameters": {
+			"sproc_name": {
+				"type": "string"
+			},
+			"sproc_schema_name": {
+				"type": "string"
+			},
+			"batch_id": {
+				"type": "string"
+			},
+			"entity_id": {
+				"type": "string"
+			},
+			"run_id": {
+				"type": "string"
+			},
+			"dest_schema_name": {
+				"type": "string"
+			},
+			"dest_table_name": {
+				"type": "string"
+			},
+			"source_schema_name": {
+				"type": "string"
+			},
+			"source_view_name": {
+				"type": "string"
+			},
+			"entity_name": {
+				"type": "string"
+			}
+		},
 		"folder": {
 			"name": "00 ELT/05 Synapse Transformation/02 EDW"
 		},
