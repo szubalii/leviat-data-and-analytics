@@ -3,8 +3,9 @@ AS
 BEGIN
 
   IF OBJECT_ID('actual') IS NOT NULL DROP TABLE actual;
+  IF OBJECT_ID('expected') IS NOT NULL DROP TABLE expected;
   IF OBJECT_ID('tempdb..#vw_GLAccountLineItemRawData') IS NOT NULL DROP TABLE #vw_GLAccountLineItemRawData;
-  -- IF OBJECT_ID('expected') IS NOT NULL DROP TABLE expected;
+
 
   -- Assemble: Fake Table
   EXEC tSQLt.FakeTable '[edw]', '[vw_GLAccountLineItemRawData]';
@@ -38,10 +39,11 @@ BEGIN
   INSERT INTO edw.fact_SalesDocumentItem (
      SalesDocument
     ,SalesOrganizationID
+    ,CurrencyTypeID
   )
   VALUES
-   ('0020071703', 'DE01')
-  ,('0020077777', 'CH01');
+   ('0020071703', 'DE01', '10')
+  ,('0020077777', 'CH01', '10');
   
 
   -- Act: 
