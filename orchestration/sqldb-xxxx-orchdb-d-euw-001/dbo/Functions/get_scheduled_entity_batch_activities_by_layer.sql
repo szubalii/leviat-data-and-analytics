@@ -63,6 +63,7 @@ RETURNS TABLE AS RETURN
             e.source_view_name,
             e.dest_schema_name,
             e.dest_table_name,
+            e.base_table_name,
             ba.activity_nk,
             ba.activity_order,
             lb.batch_id,
@@ -111,6 +112,7 @@ RETURNS TABLE AS RETURN
             source_view_name,
             dest_schema_name,
             dest_table_name,
+            base_table_name,
             concat(
                 '[',
                 CASE
@@ -153,6 +155,7 @@ RETURNS TABLE AS RETURN
             source_view_name,
             dest_schema_name,
             dest_table_name,
+            base_table_name,
             isRequired
     )
     SELECT
@@ -167,6 +170,7 @@ RETURNS TABLE AS RETURN
         source_view_name,
         dest_schema_name,
         dest_table_name,
+        base_table_name,
         MIN(required_activities) AS required_activities,
         MIN(skipped_activities) AS skipped_activities
     FROM activities
@@ -181,5 +185,6 @@ RETURNS TABLE AS RETURN
         source_schema_name,
         source_view_name,
         dest_schema_name,
-        dest_table_name
+        dest_table_name,
+        base_table_name
 GO
