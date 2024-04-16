@@ -38,12 +38,15 @@ BEGIN
 
   INSERT INTO edw.fact_SalesDocumentItem (
      SalesDocument
+    ,SalesDocumentItem
     ,SalesOrganizationID
     ,CurrencyTypeID
   )
   VALUES
-   ('0020071703', 'DE01', '10')
-  ,('0020077777', 'CH01', '10');
+   ('0020071703', '001', 'DE01', '10')
+  ,('0020077777', '001', 'CH01', '10')
+  ,('0020077777', '002', 'CH01', '10')
+  ,('0020077777', '003', 'CH01', '10')
   
 
   -- Act: 
