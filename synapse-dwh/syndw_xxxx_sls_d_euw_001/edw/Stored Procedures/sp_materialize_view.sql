@@ -20,7 +20,7 @@ CREATE PROC [edw].[sp_materialize_view]
 	@SourceView NVARCHAR(128),
 	@DestSchema NVARCHAR(128),
 	@DestTable NVARCHAR(128),
-  @DeleteBeforeInsert BIT,
+  -- @DeleteBeforeInsert BIT,
 	@t_jobId VARCHAR(36),
 	@t_jobDtm DATETIME,
 	@t_lastActionCd VARCHAR(1),
@@ -29,10 +29,10 @@ AS
 BEGIN
 
 	DECLARE
-    @create_tmp_script NVARCHAR(MAX),
-	  @Columns NVARCHAR(MAX),
-	  @errmessage NVARCHAR(2048),
-    @total_script NVARCHAR(MAX);
+    -- @create_tmp_script NVARCHAR(MAX),
+	  -- @Columns NVARCHAR(MAX),
+	  @errmessage NVARCHAR(2048);
+    -- @total_script NVARCHAR(MAX);
 
 
   -- Test if the provided destination table name exists
@@ -53,29 +53,6 @@ BEGIN
 
 	BEGIN
     
-	  -- Retrieve the column list by selecting those columns that exist both in the source view as in the destination table
-    SET @Columns = (
-      SELECT
-        STRING_AGG( '[' + CAST(vc.COLUMN_NAME AS NVARCHAR(MAX)) + ']', ',' + CHAR(13) + CHAR(10))
-          WITHIN GROUP ( ORDER BY vc.ORDINAL_POSITION ) AS column_names
-      FROM
-        INFORMATION_SCHEMA.COLUMNS vc
-      INNER JOIN
-        INFORMATION_SCHEMA.COLUMNS tc
-        ON
-          tc.TABLE_NAME = @DestTable
-          AND
-          tc.TABLE_SCHEMA = @DestSchema
-          AND
-          vc.TABLE_NAME = @SourceView
-          AND
-          vc.TABLE_SCHEMA = @SourceSchema
-          AND
-          tc.COLUMN_NAME = vc.COLUMN_NAME
-      WHERE
-        tc.COLUMN_NAME NOT IN ('t_jobId', 't_jobDtm', 't_lastActionCd', 't_jobBy')
-    );
-
     -- Create the insert statement script and insert in the original table
     -- so that the original distribution and index is kept
     DECLARE @transaction_script NVARCHAR(MAX) = utilities.svf_getMaterializeTransactionScript(
@@ -83,8 +60,8 @@ BEGIN
       @DestTable,
       @SourceSchema,
       @SourceView,
-      @Columns,
-      @DeleteBeforeInsert,
+      -- @Columns,
+      -- @DeleteBeforeInsert,
       @t_jobId,
       @t_jobDtm,
       @t_lastActionCd,
