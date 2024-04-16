@@ -584,7 +584,7 @@
 			},
 			"date": {
 				"type": "String",
-				"defaultValue": "@{utcNow}"
+				"defaultValue": "@{utcNow()}"
 			}
 		},
 		"folder": {
