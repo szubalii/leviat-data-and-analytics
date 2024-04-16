@@ -17,14 +17,7 @@
 						{
 							"name": "Materialize Custom View",
 							"type": "SqlServerStoredProcedure",
-							"dependsOn": [
-								{
-									"activity": "Set Exception Category",
-									"dependencyConditions": [
-										"Succeeded"
-									]
-								}
-							],
+							"dependsOn": [],
 							"policy": {
 								"timeout": "7.00:00:00",
 								"retry": 0,
@@ -82,41 +75,6 @@
 							}
 						},
 						{
-							"name": "Set Activity",
-							"type": "SetVariable",
-							"dependsOn": [],
-							"policy": {
-								"secureOutput": false,
-								"secureInput": false
-							},
-							"userProperties": [],
-							"typeProperties": {
-								"variableName": "activity",
-								"value": "BasetoEDWExecCustomSP"
-							}
-						},
-						{
-							"name": "Set Exception Category",
-							"type": "SetVariable",
-							"dependsOn": [
-								{
-									"activity": "Set Activity",
-									"dependencyConditions": [
-										"Succeeded"
-									]
-								}
-							],
-							"policy": {
-								"secureOutput": false,
-								"secureInput": false
-							},
-							"userProperties": [],
-							"typeProperties": {
-								"variableName": "exception",
-								"value": "FailedEDWCustomSP"
-							}
-						},
-						{
 							"name": "Log Exception for Custom Materialized EDW Table",
 							"type": "SqlServerStoredProcedure",
 							"dependsOn": [
@@ -140,14 +98,14 @@
 								"storedProcedureParameters": {
 									"batch_id": {
 										"value": {
-											"value": "@variables('batch_id')",
+											"value": "@pipeline().parameters.batch_id",
 											"type": "Expression"
 										},
 										"type": "Guid"
 									},
 									"category": {
 										"value": {
-											"value": "@variables('exception')",
+											"value": "@pipeline().parameters.exception",
 											"type": "Expression"
 										},
 										"type": "String"
@@ -320,14 +278,14 @@
 								"storedProcedureParameters": {
 									"batch_id": {
 										"value": {
-											"value": "@variables('batch_id')",
+											"value": "@pipeline().parameters.batch_id",
 											"type": "Expression"
 										},
 										"type": "Guid"
 									},
 									"category": {
 										"value": {
-											"value": "@variables('exception')",
+											"value": "@pipeline().parameters.exception",
 											"type": "Expression"
 										},
 										"type": "String"
@@ -390,6 +348,41 @@
 				}
 			}
 		],
+		"parameters": {
+			"sproc_name": {
+				"type": "string"
+			},
+			"sproc_schema_name": {
+				"type": "string"
+			},
+			"batch_id": {
+				"type": "string"
+			},
+			"entity_id": {
+				"type": "string"
+			},
+			"run_id": {
+				"type": "string"
+			},
+			"dest_schema_name": {
+				"type": "string"
+			},
+			"dest_table_name": {
+				"type": "string"
+			},
+			"source_schema_name": {
+				"type": "string"
+			},
+			"source_view_name": {
+				"type": "string"
+			},
+			"entity_name": {
+				"type": "string"
+			},
+			"exception": {
+				"type": "string"
+			}
+		},
 		"folder": {
 			"name": "00 ELT/05 Synapse Transformation/02 EDW"
 		},

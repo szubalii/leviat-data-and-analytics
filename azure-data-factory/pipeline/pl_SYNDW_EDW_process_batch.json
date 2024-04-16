@@ -124,6 +124,10 @@
 												"update_mode": {
 													"value": "@item().update_mode",
 													"type": "Expression"
+												},
+												"source_table_name": {
+													"value": "@item().base_table_name",
+													"type": "Expression"
 												}
 											}
 										}
