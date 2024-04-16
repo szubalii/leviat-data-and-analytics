@@ -23,25 +23,25 @@ BEGIN
     @t_lastActionCd VARCHAR(1) = 'I',
     @t_jobBy NVARCHAR(128) = 'system_user';
 
-  DECLARE @Columns NVARCHAR(MAX) = (
-    SELECT
-      STRING_AGG( '[' + CAST(vc.COLUMN_NAME AS NVARCHAR(MAX)) + ']', ',' + CHAR(13) + CHAR(10))
-        WITHIN GROUP ( ORDER BY vc.ORDINAL_POSITION ) AS column_names
-    FROM
-      INFORMATION_SCHEMA.COLUMNS vc
-    INNER JOIN
-      INFORMATION_SCHEMA.COLUMNS tc
-      ON
-        tc.TABLE_NAME = @DestTable
-        AND
-        tc.TABLE_SCHEMA = @DestSchema
-        AND
-        vc.TABLE_NAME = @SourceView
-        AND
-        vc.TABLE_SCHEMA = @SourceSchema
-        AND
-        tc.COLUMN_NAME = vc.COLUMN_NAME
-  );
+  -- DECLARE @Columns NVARCHAR(MAX) = (
+  --   SELECT
+  --     STRING_AGG( '[' + CAST(vc.COLUMN_NAME AS NVARCHAR(MAX)) + ']', ',' + CHAR(13) + CHAR(10))
+  --       WITHIN GROUP ( ORDER BY vc.ORDINAL_POSITION ) AS column_names
+  --   FROM
+  --     INFORMATION_SCHEMA.COLUMNS vc
+  --   INNER JOIN
+  --     INFORMATION_SCHEMA.COLUMNS tc
+  --     ON
+  --       tc.TABLE_NAME = @DestTable
+  --       AND
+  --       tc.TABLE_SCHEMA = @DestSchema
+  --       AND
+  --       vc.TABLE_NAME = @SourceView
+  --       AND
+  --       vc.TABLE_SCHEMA = @SourceSchema
+  --       AND
+  --       tc.COLUMN_NAME = vc.COLUMN_NAME
+  -- );
 
   DECLARE
     @actual NVARCHAR(MAX) = [utilities].[svf_getMaterializeTransactionScript](
@@ -49,7 +49,7 @@ BEGIN
       @DestTable,
       @SourceSchema,
       @SourceView,
-      @Columns,
+      -- @Columns,
       @t_jobId,
       @t_jobDtm,
       @t_lastActionCd,
