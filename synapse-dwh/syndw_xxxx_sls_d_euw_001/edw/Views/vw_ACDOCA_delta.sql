@@ -202,7 +202,7 @@ LEFT JOIN
   ON 
     GLA.ProfitCenter = PC.ProfitCenterID
 LEFT JOIN
-  [edw].[vw_ACDOCA_ReferenceSalesDocument] AS ARSD
+  [edw].[vw_ACDOCA_ReferenceSalesDocument_delta] AS ARSD
   ON
     GLA.[SourceLedger] = ARSD.[SourceLedger] 
     AND
