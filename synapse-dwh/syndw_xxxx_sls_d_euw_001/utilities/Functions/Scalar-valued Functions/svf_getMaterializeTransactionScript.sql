@@ -3,6 +3,7 @@ CREATE FUNCTION [utilities].[svf_getMaterializeTransactionScript](
   @DestTable NVARCHAR(128),
   @SourceSchema NVARCHAR(128),
   @SourceView NVARCHAR(128),
+  @Columns NVARCHAR(MAX),
 	@t_jobId VARCHAR(36),
 	@t_jobDtm DATETIME,
 	@t_lastActionCd VARCHAR(1),
@@ -25,28 +26,6 @@ BEGIN
   Additional doc about transaction use in SQL Pool:
   https://learn.microsoft.com/en-us/azure/synapse-analytics/sql-data-warehouse/sql-data-warehouse-develop-transactions#transaction-state
 */
-  -- Retrieve the column list by selecting those columns that exist both in the source view as in the destination table
-  DECLARE @Columns NVARCHAR(MAX) = (
-    SELECT
-      STRING_AGG( '[' + CAST(vc.COLUMN_NAME AS NVARCHAR(MAX)) + ']', ',' + CHAR(13) + CHAR(10))
-        WITHIN GROUP ( ORDER BY vc.ORDINAL_POSITION ) AS column_names
-    FROM
-      INFORMATION_SCHEMA.COLUMNS vc
-    INNER JOIN
-      INFORMATION_SCHEMA.COLUMNS tc
-      ON
-        tc.TABLE_NAME = @DestTable
-        AND
-        tc.TABLE_SCHEMA = @DestSchema
-        AND
-        vc.TABLE_NAME = @SourceView
-        AND
-        vc.TABLE_SCHEMA = @SourceSchema
-        AND
-        tc.COLUMN_NAME = vc.COLUMN_NAME
-    WHERE
-      tc.COLUMN_NAME NOT IN ('t_jobId', 't_jobDtm', 't_lastActionCd', 't_jobBy')
-  );
 
   DECLARE @insert_script NVARCHAR(MAX) = N'
 BEGIN TRANSACTION;
