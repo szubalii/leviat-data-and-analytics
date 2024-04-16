@@ -40,7 +40,7 @@ BEGIN
 	END
 
 -- Test if the provided view name exists
-	IF OBJECT_ID(@SourceSchema + '.' + @SourceView) IS NULL
+	IF OBJECT_ID(@SourceSchema + '.' + @SourceView, 'V') IS NULL
 	BEGIN
 		SET @errmessage = 'Object [' + @SourceSchema + '].['+ @SourceView +'] does not exist.'  + CHAR(13) + CHAR(10) +
       'Please check parameter values: @SourceSchema = ''' + @SourceSchema + ''',@SourceView = ''' + @SourceView + '''';
