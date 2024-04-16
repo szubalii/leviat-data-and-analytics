@@ -20,7 +20,6 @@ CREATE PROC [edw].[sp_materialize_view]
 	@SourceView NVARCHAR(128),
 	@DestSchema NVARCHAR(128),
 	@DestTable NVARCHAR(128),
-  -- @DeleteBeforeInsert BIT,
 	@t_jobId VARCHAR(36),
 	@t_jobDtm DATETIME,
 	@t_lastActionCd VARCHAR(1),
@@ -29,10 +28,7 @@ AS
 BEGIN
 
 	DECLARE
-    -- @create_tmp_script NVARCHAR(MAX),
-	  -- @Columns NVARCHAR(MAX),
 	  @errmessage NVARCHAR(2048);
-    -- @total_script NVARCHAR(MAX);
 
 
   -- Test if the provided destination table name exists
@@ -60,8 +56,6 @@ BEGIN
       @DestTable,
       @SourceSchema,
       @SourceView,
-      -- @Columns,
-      -- @DeleteBeforeInsert,
       @t_jobId,
       @t_jobDtm,
       @t_lastActionCd,

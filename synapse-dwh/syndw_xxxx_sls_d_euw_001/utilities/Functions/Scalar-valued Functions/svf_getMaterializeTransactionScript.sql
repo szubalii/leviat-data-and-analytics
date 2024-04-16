@@ -3,8 +3,6 @@ CREATE FUNCTION [utilities].[svf_getMaterializeTransactionScript](
   @DestTable NVARCHAR(128),
   @SourceSchema NVARCHAR(128),
   @SourceView NVARCHAR(128),
-  -- @Columns NVARCHAR(MAX),
-  -- @DeleteBeforeInsert BIT,
 	@t_jobId VARCHAR(36),
 	@t_jobDtm DATETIME,
 	@t_lastActionCd VARCHAR(1),

@@ -6054,6 +6054,7 @@
         "entity_id": 504,
         "entity_name": "fact_ACDOCA_active",
         "sproc_name": "up_upsert_delta_active_table",
+        "base_schema_name": "base_s4h_cax",
         "base_table_name": "I_GLAccountLineItemRawData_delta",
         "source_view_name": "vw_ACDOCA_delta",
         "dest_table_name": "fact_ACDOCA_active",

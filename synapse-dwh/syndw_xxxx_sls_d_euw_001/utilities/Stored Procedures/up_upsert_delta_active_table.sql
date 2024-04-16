@@ -8,16 +8,8 @@ BEGIN
 
 -- TODO USE TRANSACTION?
 
-
-  -- DECLARE
-  --   @schema_name NVARCHAR(128) = 'base_s4h_cax',
-  --   @table_name NVARCHAR(128) = '';
-
   DECLARE
     @errmessage NVARCHAR(2048),
-    -- @delta_table_name NVARCHAR(128) = @table_name + '_delta',
-    -- @active_table_name NVARCHAR(128) = @table_name + '_active',
-    -- @delta_view_name NVARCHAR(128) = 'vw_' + @table_name + '_delta',
     @date_time_string NVARCHAR(23) = CONVERT(NVARCHAR(23), GETUTCDATE(), 127),
     @system_user NVARCHAR(100) = SYSTEM_USER;
 
@@ -125,11 +117,7 @@ BEGIN
       @insert_scrpt_where_clause,
       @system_user,
       @date_time_string
-    );
-
-    -- SELECT @update_scrpt
-    -- SELECT @insert_scrpt
-    
+    );    
   
   EXEC sp_executesql @update_scrpt;
 
