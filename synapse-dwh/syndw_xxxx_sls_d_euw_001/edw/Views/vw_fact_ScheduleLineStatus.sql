@@ -62,8 +62,7 @@ WITH DeliveryItem AS
         END                                         AS IsUnconfirmedDelivery,
         DeliveryItem.[SDI_ODB_LatestActualGoodsMovmtDate],
         SDSL.DelivBlockReasonForSchedLine,
-        SDSL.LoadingDate,
-        SDSL.[SoldToPartyID]
+        SDSL.LoadingDate
 	FROM [edw].[dim_SalesDocumentScheduleLine] SDSL 
 	LEFT JOIN DeliveryItem 
         ON SDSL.[SalesDocumentID] = DeliveryItem.[ReferenceSDDocument] 
@@ -170,7 +169,7 @@ SELECT
         SDI.[NetAmount] / SDI.[OrderQuantity]   AS [PricePerUnit],
         SO.[CompanyCode],
         SDI.[IsOrderItemBlockedFlag],
-        SDSL.[SoldToPartyID],
+        SDI.[SoldToPartyID],
         SDI.t_applicationId,
         SDI.t_extractionDtm
 	FROM SDSL 
