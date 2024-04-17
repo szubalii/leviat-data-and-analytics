@@ -55,10 +55,10 @@ table_columns AS (
 
 SELECT
   CAST(vc.entity_id AS INT) AS [Entity ID],
-  CAST(vc.source_view_name AS CHAR(32)) AS [Source View Name],
-  CAST(vc.dest_table_name AS CHAR(32)) AS [Target Table Name],
-  CAST(vc.view_column_name AS CHAR(32)) AS [View Columns missing in Table],
-  CAST(tc.table_column_name AS CHAR(32)) AS [Table Columns missing in View]
+  CAST(vc.source_view_name AS CHAR(35)) AS [Source View Name],
+  CAST(vc.dest_table_name AS CHAR(35)) AS [Target Table Name],
+  CAST(vc.view_column_name AS CHAR(35)) AS [View Columns missing in Table],
+  CAST(tc.table_column_name AS CHAR(35)) AS [Table Columns missing in View]
 FROM 
   view_columns vc
 LEFT JOIN
