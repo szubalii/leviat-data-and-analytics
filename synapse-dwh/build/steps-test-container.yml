@@ -6,8 +6,8 @@ steps:
   displayName: 'Start a mssql-server instance for SQL Server 2022'
 
 - script: |
-  docker cp '$(System.DefaultWorkingDirectory)/orchestration/src/config/' test-dwh:/
-displayName: 'Copy Orchestration config to docker instance'
+    docker cp '$(System.DefaultWorkingDirectory)/orchestration/src/config/' test-dwh:/
+  displayName: 'Copy Orchestration config to docker instance'
 
 - script: |
     dotnet build "$(System.DefaultWorkingDirectory)/synapse-dwh/TestDWH/TestDWH.sqlproj" /p:NetCoreBuild=true
