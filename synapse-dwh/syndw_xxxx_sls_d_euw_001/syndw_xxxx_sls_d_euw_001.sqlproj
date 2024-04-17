@@ -248,7 +248,7 @@
     <None Include="edw\Stored Procedures\sp_load_fact_BillingDocumentItem.sql" />
     <None Include="edw\Stored Procedures\sp_load_dim_ProductHierarchy.sql" />
     <None Include="edw\Stored Procedures\sp_load_dim_ProductSalesDelivery_delta.sql" />
-    <None Include="edw\Stored Procedures\sp_load_fact_ACDOCA_active.sql" />
+    <!-- <None Include="edw\Stored Procedures\sp_load_fact_ACDOCA_active.sql" /> -->
     <None Include="edw\Stored Procedures\sp_load_fact_BillingDocumentItem_axbi.sql" />
     <None Include="edw\Stored Procedures\sp_load_fact_BillingDocumentItem_s4h_active.sql" />
     <None Include="edw\Stored Procedures\sp_load_fact_SalesDocItem_SAPSnapshotMonthly.sql" />
@@ -1481,7 +1481,7 @@
     <!-- <Build Include="edw\Stored Procedures\sp_load_fact_SalesDocumentItem_s4h_active.sql" /> -->
     <!-- <Build Include="edw\Stored Procedures\sp_load_fact_SalesDocumentItem_axbi.sql" /> -->
     <!-- <Build Include="edw\Stored Procedures\sp_load_fact_ProductHierarchyVariantConfigCharacteristic_active.sql" /> -->
-    <Build Include="edw\Stored Procedures\sp_load_fact_ACDOCA_active.sql" />
+    <!-- <Build Include="edw\Stored Procedures\sp_load_fact_ACDOCA_active.sql" /> -->
     <Build Include="edw\Stored Procedures\sp_materialize_view.sql" />
     <Build Include="dq\Stored Procedures\sp_materialize_view.sql" />
     <Build Include="dq\Stored Procedures\sp_dq_materialize_view.sql" />
