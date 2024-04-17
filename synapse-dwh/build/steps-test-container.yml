@@ -88,7 +88,7 @@ steps:
       -d TestDWH \
       -U sa \
       -P "$(mssql-sa-pwd)" \
-      -i "$(System.DefaultWorkingDirectory)/synapse-dwh/Scrips/Validate EDW Materialization Columns.sql"
+      -i "$(System.DefaultWorkingDirectory)/synapse-dwh/Scripts/Validate EDW Materialization Columns.sql"
   displayName: 'Validate EDW Materialization Columns'
 
 
