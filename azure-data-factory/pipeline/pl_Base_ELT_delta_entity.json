@@ -548,60 +548,6 @@
 				}
 			},
 			{
-				"name": "Truncate Delta Table",
-				"description": "Truncate delta tables at the beginning of the run. \nFull tables are only truncated when data is actually loaded from parquet to Synapse Base. As multiple parquet files can be loaded to the same table, one cannot truncate before each load for delta tables. ",
-				"type": "SqlServerStoredProcedure",
-				"dependsOn": [
-					{
-						"activity": "If Required to Process Base",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"policy": {
-					"timeout": "7.00:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"storedProcedureName": "[utilities].[sp_truncate_table]",
-					"storedProcedureParameters": {
-						"schema_name": {
-							"value": {
-								"value": "@pipeline().parameters.base_schema_name",
-								"type": "Expression"
-							},
-							"type": "String"
-						},
-						"table_name": {
-							"value": {
-								"value": "@variables('deltaTableName')",
-								"type": "Expression"
-							},
-							"type": "String"
-						}
-					}
-				},
-				"linkedServiceName": {
-					"referenceName": "ls_ws_xxxx_sls_x_euw_001__syndw_xxxx_sls_x_euw_001",
-					"type": "LinkedServiceReference",
-					"parameters": {
-						"sqlPool": {
-							"value": "@pipeline().globalParameters.synapseDatabaseName",
-							"type": "Expression"
-						},
-						"synapseServer": {
-							"value": "@pipeline().globalParameters.synapseServerName",
-							"type": "Expression"
-						}
-					}
-				}
-			},
-			{
 				"name": "Set Delta Table Name",
 				"type": "SetVariable",
 				"dependsOn": [],

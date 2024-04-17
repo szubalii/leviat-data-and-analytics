@@ -3,392 +3,6 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "If Generic OR Custom SP",
-				"description": "If to be executed procedure is sp_materialize_view, additional parameters are required to provide source view and destination table.",
-				"type": "IfCondition",
-				"dependsOn": [
-					{
-						"activity": "Set Batch",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"userProperties": [],
-				"typeProperties": {
-					"expression": {
-						"value": "@or(\n    equals(\n        pipeline().parameters.sproc_name,\n        'sp_materialize_view')\n    ,\n    equals(\n        pipeline().parameters.sproc_name,\n        'sp_dq_materialize_view')\n)",
-						"type": "Expression"
-					},
-					"ifFalseActivities": [
-						{
-							"name": "Materialize Custom View",
-							"type": "SqlServerStoredProcedure",
-							"dependsOn": [
-								{
-									"activity": "Set Exception Category",
-									"dependencyConditions": [
-										"Succeeded"
-									]
-								}
-							],
-							"policy": {
-								"timeout": "7.00:00:00",
-								"retry": 0,
-								"retryIntervalInSeconds": 30,
-								"secureOutput": false,
-								"secureInput": false
-							},
-							"userProperties": [],
-							"typeProperties": {
-								"storedProcedureName": {
-									"value": "@{Concat(pipeline().parameters.sproc_schema_name, '.', pipeline().parameters.sproc_name)}",
-									"type": "Expression"
-								},
-								"storedProcedureParameters": {
-									"t_jobBy": {
-										"value": {
-											"value": "@pipeline().DataFactory",
-											"type": "Expression"
-										},
-										"type": "String"
-									},
-									"t_jobDtm": {
-										"value": {
-											"value": "@formatDateTime(utcnow(),'yyyy/MM/dd HH:mm:ss')",
-											"type": "Expression"
-										},
-										"type": "DateTime"
-									},
-									"t_jobId": {
-										"value": {
-											"value": "@pipeline().RunId",
-											"type": "Expression"
-										},
-										"type": "String"
-									},
-									"t_lastActionCd": {
-										"value": "I",
-										"type": "String"
-									}
-								}
-							},
-							"linkedServiceName": {
-								"referenceName": "ls_ws_xxxx_sls_x_euw_001__syndw_xxxx_sls_x_euw_001",
-								"type": "LinkedServiceReference",
-								"parameters": {
-									"sqlPool": {
-										"value": "@pipeline().globalParameters.synapseDatabaseName",
-										"type": "Expression"
-									},
-									"synapseServer": {
-										"value": "@pipeline().globalParameters.synapseServerName",
-										"type": "Expression"
-									}
-								}
-							}
-						},
-						{
-							"name": "Set Activity",
-							"type": "SetVariable",
-							"dependsOn": [],
-							"userProperties": [],
-							"typeProperties": {
-								"variableName": "activity",
-								"value": "BasetoEDWExecCustomSP"
-							}
-						},
-						{
-							"name": "Set Exception Category",
-							"type": "SetVariable",
-							"dependsOn": [
-								{
-									"activity": "Set Activity",
-									"dependencyConditions": [
-										"Succeeded"
-									]
-								}
-							],
-							"userProperties": [],
-							"typeProperties": {
-								"variableName": "exception",
-								"value": "FailedEDWCustomSP"
-							}
-						},
-						{
-							"name": "Log Exception for Custom Materialized EDW Table",
-							"type": "SqlServerStoredProcedure",
-							"dependsOn": [
-								{
-									"activity": "Materialize Custom View",
-									"dependencyConditions": [
-										"Failed"
-									]
-								}
-							],
-							"policy": {
-								"timeout": "7.00:00:00",
-								"retry": 0,
-								"retryIntervalInSeconds": 30,
-								"secureOutput": false,
-								"secureInput": false
-							},
-							"userProperties": [],
-							"typeProperties": {
-								"storedProcedureName": "[dbo].[log_exception]",
-								"storedProcedureParameters": {
-									"batch_id": {
-										"value": {
-											"value": "@variables('batch_id')",
-											"type": "Expression"
-										},
-										"type": "Guid"
-									},
-									"category": {
-										"value": {
-											"value": "@variables('exception')",
-											"type": "Expression"
-										},
-										"type": "String"
-									},
-									"entity_id": {
-										"value": {
-											"value": "@pipeline().parameters.entity_id",
-											"type": "Expression"
-										},
-										"type": "Int64"
-									},
-									"error_msg": {
-										"value": {
-											"value": "@activity('Materialize Custom View').Error.Message",
-											"type": "Expression"
-										},
-										"type": "String"
-									},
-									"run_id": {
-										"value": {
-											"value": "@pipeline().parameters.run_id",
-											"type": "Expression"
-										},
-										"type": "Guid"
-									}
-								}
-							},
-							"linkedServiceName": {
-								"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
-								"type": "LinkedServiceReference",
-								"parameters": {
-									"sqlDb": {
-										"value": "@pipeline().globalParameters.sqlDb",
-										"type": "Expression"
-									}
-								}
-							}
-						},
-						{
-							"name": "CustomSPFailure",
-							"type": "Fail",
-							"dependsOn": [
-								{
-									"activity": "Log Exception for Custom Materialized EDW Table",
-									"dependencyConditions": [
-										"Succeeded"
-									]
-								}
-							],
-							"userProperties": [],
-							"typeProperties": {
-								"message": {
-									"value": "@{Concat('Custom SP ',pipeline().parameters.sproc_schema_name, '.', pipeline().parameters.sproc_name,' for loading ',pipeline().parameters.entity_name,' entity failed')}",
-									"type": "Expression"
-								},
-								"errorCode": "CustomSPFailure"
-							}
-						}
-					],
-					"ifTrueActivities": [
-						{
-							"name": "Materialize Generic View",
-							"type": "SqlServerStoredProcedure",
-							"dependsOn": [],
-							"policy": {
-								"timeout": "7.00:00:00",
-								"retry": 0,
-								"retryIntervalInSeconds": 30,
-								"secureOutput": false,
-								"secureInput": false
-							},
-							"userProperties": [],
-							"typeProperties": {
-								"storedProcedureName": {
-									"value": "@concat(\n    '[',\n    pipeline().parameters.sproc_schema_name,\n    '].[',\n    pipeline().parameters.sproc_name,\n    ']'\n)",
-									"type": "Expression"
-								},
-								"storedProcedureParameters": {
-									"DestSchema": {
-										"value": {
-											"value": "@pipeline().parameters.dest_schema_name",
-											"type": "Expression"
-										},
-										"type": "String"
-									},
-									"DestTable": {
-										"value": {
-											"value": "@pipeline().parameters.dest_table_name",
-											"type": "Expression"
-										},
-										"type": "String"
-									},
-									"SourceSchema": {
-										"value": {
-											"value": "@pipeline().parameters.source_schema_name",
-											"type": "Expression"
-										},
-										"type": "String"
-									},
-									"SourceView": {
-										"value": {
-											"value": "@pipeline().parameters.source_view_name",
-											"type": "Expression"
-										},
-										"type": "String"
-									},
-									"t_jobBy": {
-										"value": {
-											"value": "@pipeline().DataFactory",
-											"type": "Expression"
-										},
-										"type": "String"
-									},
-									"t_jobDtm": {
-										"value": {
-											"value": "@formatDateTime(utcnow(),'yyyy/MM/dd HH:mm:ss')",
-											"type": "Expression"
-										},
-										"type": "DateTime"
-									},
-									"t_jobId": {
-										"value": {
-											"value": "@pipeline().RunId",
-											"type": "Expression"
-										},
-										"type": "String"
-									},
-									"t_lastActionCd": {
-										"value": "I",
-										"type": "String"
-									}
-								}
-							},
-							"linkedServiceName": {
-								"referenceName": "ls_ws_xxxx_sls_x_euw_001__syndw_xxxx_sls_x_euw_001",
-								"type": "LinkedServiceReference",
-								"parameters": {
-									"sqlPool": {
-										"value": "@pipeline().globalParameters.synapseDatabaseName",
-										"type": "Expression"
-									},
-									"synapseServer": {
-										"value": "@pipeline().globalParameters.synapseServerName",
-										"type": "Expression"
-									}
-								}
-							}
-						},
-						{
-							"name": "Log Exception for Generic Materialized EDW Table",
-							"type": "SqlServerStoredProcedure",
-							"dependsOn": [
-								{
-									"activity": "Materialize Generic View",
-									"dependencyConditions": [
-										"Failed"
-									]
-								}
-							],
-							"policy": {
-								"timeout": "7.00:00:00",
-								"retry": 0,
-								"retryIntervalInSeconds": 30,
-								"secureOutput": false,
-								"secureInput": false
-							},
-							"userProperties": [],
-							"typeProperties": {
-								"storedProcedureName": "[dbo].[log_exception]",
-								"storedProcedureParameters": {
-									"batch_id": {
-										"value": {
-											"value": "@variables('batch_id')",
-											"type": "Expression"
-										},
-										"type": "Guid"
-									},
-									"category": {
-										"value": {
-											"value": "@variables('exception')",
-											"type": "Expression"
-										},
-										"type": "String"
-									},
-									"entity_id": {
-										"value": {
-											"value": "@pipeline().parameters.entity_id",
-											"type": "Expression"
-										},
-										"type": "Int64"
-									},
-									"error_msg": {
-										"value": {
-											"value": "@activity('Materialize Generic View').Error.Message",
-											"type": "Expression"
-										},
-										"type": "String"
-									},
-									"run_id": {
-										"value": {
-											"value": "@pipeline().parameters.run_id",
-											"type": "Expression"
-										},
-										"type": "Guid"
-									}
-								}
-							},
-							"linkedServiceName": {
-								"referenceName": "ls_sqlsrv_xxxx_sls_x_euw_001__sqldb_xxxx_sls_x_euw_001",
-								"type": "LinkedServiceReference",
-								"parameters": {
-									"sqlDb": {
-										"value": "@pipeline().globalParameters.sqlDb",
-										"type": "Expression"
-									}
-								}
-							}
-						},
-						{
-							"name": "GenericSPFailure",
-							"type": "Fail",
-							"dependsOn": [
-								{
-									"activity": "Log Exception for Generic Materialized EDW Table",
-									"dependencyConditions": [
-										"Succeeded"
-									]
-								}
-							],
-							"userProperties": [],
-							"typeProperties": {
-								"message": {
-									"value": "@{Concat('Generic SP ',pipeline().parameters.sproc_schema_name, '.', pipeline().parameters.sproc_name,' for loading ',pipeline().parameters.entity_name,' entity failed')}",
-									"type": "Expression"
-								},
-								"errorCode": "GenericSPFailure"
-							}
-						}
-					]
-				}
-			},
-			{
 				"name": "Set Batch",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [],
@@ -550,7 +164,7 @@
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "If Generic OR Custom SP",
+						"activity": "If Full_OR_Delta",
 						"dependencyConditions": [
 							"Failed"
 						]
@@ -621,12 +235,15 @@
 				"type": "ExecutePipeline",
 				"dependsOn": [
 					{
-						"activity": "If Generic OR Custom SP",
+						"activity": "If Full_OR_Delta",
 						"dependencyConditions": [
 							"Succeeded"
 						]
 					}
 				],
+				"policy": {
+					"secureInput": false
+				},
 				"userProperties": [],
 				"typeProperties": {
 					"pipeline": {
@@ -820,6 +437,194 @@
 					},
 					"errorCode": "500"
 				}
+			},
+			{
+				"name": "If Full_OR_Delta",
+				"type": "IfCondition",
+				"dependsOn": [
+					{
+						"activity": "Set Batch",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@equals(pipeline().parameters.update_mode, 'Delta')",
+						"type": "Expression"
+					},
+					"ifFalseActivities": [
+						{
+							"name": "Execute Full Materialization",
+							"type": "ExecutePipeline",
+							"dependsOn": [],
+							"policy": {
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"pipeline": {
+									"referenceName": "pl_SYNDW_EDW_process_entity_full",
+									"type": "PipelineReference"
+								},
+								"waitOnCompletion": true,
+								"parameters": {
+									"sproc_name": {
+										"value": "@pipeline().parameters.sproc_name",
+										"type": "Expression"
+									},
+									"sproc_schema_name": {
+										"value": "@pipeline().parameters.sproc_schema_name",
+										"type": "Expression"
+									},
+									"batch_id": {
+										"value": "@variables('batch_id')",
+										"type": "Expression"
+									},
+									"entity_id": {
+										"value": "@pipeline().parameters.entity_id",
+										"type": "Expression"
+									},
+									"run_id": {
+										"value": "@pipeline().parameters.run_id",
+										"type": "Expression"
+									},
+									"dest_schema_name": {
+										"value": "@pipeline().parameters.dest_schema_name",
+										"type": "Expression"
+									},
+									"dest_table_name": {
+										"value": "@pipeline().parameters.dest_table_name",
+										"type": "Expression"
+									},
+									"source_schema_name": {
+										"value": "@pipeline().parameters.source_schema_name",
+										"type": "Expression"
+									},
+									"source_view_name": {
+										"value": "@pipeline().parameters.source_view_name",
+										"type": "Expression"
+									},
+									"entity_name": {
+										"value": "@pipeline().parameters.entity_name",
+										"type": "Expression"
+									},
+									"exception": {
+										"value": "@variables('exception')",
+										"type": "Expression"
+									}
+								}
+							}
+						}
+					],
+					"ifTrueActivities": [
+						{
+							"name": "Process EDW Delta",
+							"type": "SqlServerStoredProcedure",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"storedProcedureName": "[utilities].[up_upsert_delta_active_table]",
+								"storedProcedureParameters": {
+									"schema_name": {
+										"value": {
+											"value": "@pipeline().parameters.sproc_schema_name",
+											"type": "Expression"
+										},
+										"type": "String"
+									},
+									"delta_view_name": {
+										"value": {
+											"value": "@pipeline().parameters.source_view_name",
+											"type": "Expression"
+										},
+										"type": "String"
+									},
+									"active_table_name": {
+										"value": {
+											"value": "@pipeline().parameters.dest_table_name",
+											"type": "Expression"
+										},
+										"type": "String"
+									}
+								}
+							},
+							"linkedServiceName": {
+								"referenceName": "ls_ws_xxxx_sls_x_euw_001__syndw_xxxx_sls_x_euw_001",
+								"type": "LinkedServiceReference",
+								"parameters": {
+									"sqlPool": {
+										"value": "@pipeline().globalParameters.synapseDatabaseName",
+										"type": "Expression"
+									},
+									"synapseServer": {
+										"value": "@pipeline().globalParameters.synapseServerName",
+										"type": "Expression"
+									}
+								}
+							}
+						},
+						{
+							"name": "Truncate Base Delta Table",
+							"type": "SqlServerStoredProcedure",
+							"dependsOn": [
+								{
+									"activity": "Process EDW Delta",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"storedProcedureName": "[utilities].[sp_truncate_table]",
+								"storedProcedureParameters": {
+									"schema_name": {
+										"value": "base_s4h_cax",
+										"type": "String"
+									},
+									"table_name": {
+										"value": {
+											"value": "@pipeline().parameters.source_table_name",
+											"type": "Expression"
+										},
+										"type": "String"
+									}
+								}
+							},
+							"linkedServiceName": {
+								"referenceName": "ls_ws_xxxx_sls_x_euw_001__syndw_xxxx_sls_x_euw_001",
+								"type": "LinkedServiceReference",
+								"parameters": {
+									"sqlPool": {
+										"value": "@pipeline().globalParameters.synapseDatabaseName",
+										"type": "Expression"
+									},
+									"synapseServer": {
+										"value": "@pipeline().globalParameters.synapseServerName",
+										"type": "Expression"
+									}
+								}
+							}
+						}
+					]
+				}
 			}
 		],
 		"parameters": {
@@ -856,6 +661,12 @@
 				"defaultValue": "EDW"
 			},
 			"entity_name": {
+				"type": "string"
+			},
+			"update_mode": {
+				"type": "string"
+			},
+			"source_table_name": {
 				"type": "string"
 			}
 		},

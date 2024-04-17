@@ -314,7 +314,7 @@ CASE
   GLALIRD.[SDI_SoldToPartyID] AS SoldToPartyID,
   GLALIRD.[t_applicationId],
   GLALIRD.[t_extractionDtm]
-FROM edw.[fact_ACDOCA] GLALIRD
+FROM edw.[fact_ACDOCA_active] GLALIRD
 LEFT JOIN [edw].[dim_ZE_EXQLMAP_DT] ZED
   ON GLALIRD.[GLAccountID] = ZED.[GLAccountID]
     AND GLALIRD.[FunctionalAreaID] = ZED.[FunctionalAreaID]

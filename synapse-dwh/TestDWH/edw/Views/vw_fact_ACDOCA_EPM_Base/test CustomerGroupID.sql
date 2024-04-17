@@ -6,13 +6,13 @@ BEGIN
   IF OBJECT_ID('tempdb..#vw_CurrencyConversionRate') IS NOT NULL DROP TABLE #vw_CurrencyConversionRate;
 
   -- Assemble: Fake Table
-  EXEC tSQLt.FakeTable '[edw]', '[fact_ACDOCA]';
+  EXEC tSQLt.FakeTable '[edw]', '[fact_ACDOCA_active]';
   EXEC tSQLt.FakeTable '[edw]', '[dim_CustomerGroup]';
   EXEC tSQLt.FakeTable '[base_s4h_cax]','[I_CustomerSalesArea]';
   EXEC tSQLt.FakeTable '[edw]', '[vw_CurrencyConversionRate]';
   EXEC tSQLt.FakeTable '[dm_sales]', '[vw_dim_CurrencyType]';
 
-  INSERT INTO edw.fact_ACDOCA (
+  INSERT INTO edw.fact_ACDOCA_active (
     SalesReferenceDocumentCalculated,
     SalesReferenceDocumentItemCalculated,
     CompanyCodeCurrency,

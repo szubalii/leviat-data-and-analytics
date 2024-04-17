@@ -1,62 +1,36 @@
 CREATE PROC [utilities].[up_upsert_delta_active_table]
   @schema_name NVARCHAR(128),
-  @table_name NVARCHAR(128)
+  @delta_view_name NVARCHAR(128),
+  @active_table_name NVARCHAR(128)
 AS
 BEGIN
 
 
 -- TODO USE TRANSACTION?
 
-
-  -- DECLARE
-  --   @schema_name NVARCHAR(128) = 'base_s4h_cax',
-  --   @table_name NVARCHAR(128) = '';
-
   DECLARE
     @errmessage NVARCHAR(2048),
-    @delta_table_name NVARCHAR(128) = @table_name + '_delta',
-    @active_table_name NVARCHAR(128) = @table_name + '_active',
-    @delta_view_name NVARCHAR(128) = 'vw_' + @table_name + '_delta',
     @date_time_string NVARCHAR(23) = CONVERT(NVARCHAR(23), GETUTCDATE(), 127),
     @system_user NVARCHAR(100) = SYSTEM_USER;
 
   DECLARE
     @active_table_id INT = OBJECT_ID(@schema_name + '.' + @active_table_name, 'U'),
-    @delta_table_id INT = OBJECT_ID(@schema_name + '.' + @delta_table_name, 'U');
+    @delta_view_id INT = OBJECT_ID(@schema_name + '.' + @delta_view_name, 'V');
     
 
 	IF @active_table_id IS NULL
 	BEGIN
 		SET @errmessage = 'Object [' + @schema_name + '].['+ @active_table_name +'] does not exist. 
             Please check parameter values: @schema_name = ''' + @schema_name + 
-            ''',@table_name = ''' + @table_name + '''';
+            ''',@active_table_name = ''' + @active_table_name + '''';
 		THROW 50001, @errmessage, 1;
 	END
 
-  IF @delta_table_id IS NULL
-	BEGIN
-		SET @errmessage = 'Object [' + @schema_name + '].['+ @delta_table_name +'] does not exist. 
-            Please check parameter values: @schema_name = ''' + @schema_name + 
-            ''',@table_name = ''' + @table_name + '''';
-		THROW 50001, @errmessage, 1;
-	END
-
-  IF NOT EXISTS (
-		SELECT 1 
-		FROM sys.views 
-		JOIN sys.[schemas] 
-			ON sys.views.schema_id = sys.[schemas].schema_id 
-		WHERE 
-			sys.[schemas].name = @schema_name
-			AND 
-			sys.views.name = @delta_view_name
-			AND 
-			sys.views.type = 'v'
-	)
+  IF @delta_view_id IS NULL
 	BEGIN
 		SET @errmessage = 'Object [' + @schema_name + '].['+ @delta_view_name +'] does not exist. 
             Please check parameter values: @schema_name = ''' + @schema_name + 
-            ''',@table_name = ''' + @table_name + '''';
+            ''',@delta_view_name = ''' + @delta_view_name + '''';
 		THROW 50001, @errmessage, 1;
 	END
 
@@ -143,11 +117,7 @@ BEGIN
       @insert_scrpt_where_clause,
       @system_user,
       @date_time_string
-    );
-
-    -- SELECT @update_scrpt
-    -- SELECT @insert_scrpt
-    
+    );    
   
   EXEC sp_executesql @update_scrpt;
 

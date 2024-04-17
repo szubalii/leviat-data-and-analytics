@@ -72,6 +72,9 @@
 										"name": "Process EDW Entity",
 										"type": "ExecutePipeline",
 										"dependsOn": [],
+										"policy": {
+											"secureInput": false
+										},
 										"userProperties": [],
 										"typeProperties": {
 											"pipeline": {
@@ -116,6 +119,14 @@
 												"target_layer": "EDW",
 												"entity_name": {
 													"value": "@item().entity_name",
+													"type": "Expression"
+												},
+												"update_mode": {
+													"value": "@item().update_mode",
+													"type": "Expression"
+												},
+												"source_table_name": {
+													"value": "@item().base_table_name",
 													"type": "Expression"
 												}
 											}
