@@ -2,8 +2,12 @@ steps:
 
 # MS Azure SQL Edge instance (mcr.microsoft.com/azure-sql-edge) doesn't support tSQLt to use SQL Server 2022
 - script: |
-    docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=$(mssql-sa-pwd)" -p 1433:1433 -d mcr.microsoft.com/mssql/server:2022-latest
+    docker run --name test-dwh -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=$(mssql-sa-pwd)" -p 1433:1433 -d mcr.microsoft.com/mssql/server:2022-latest
   displayName: 'Start a mssql-server instance for SQL Server 2022'
+
+- script: |
+  docker cp '$(System.DefaultWorkingDirectory)/orchestration/src/config/' test-dwh:/
+displayName: 'Copy Orchestration config to docker instance'
 
 - script: |
     dotnet build "$(System.DefaultWorkingDirectory)/synapse-dwh/TestDWH/TestDWH.sqlproj" /p:NetCoreBuild=true
@@ -77,6 +81,16 @@ steps:
     testResultsFormat: 'JUnit'
     testResultsFiles: '**/TEST-*.xml'
     failTaskOnFailedTests: true
+
+- script: |
+    sqlcmd \
+      -S localhost \
+      -d TestDWH \
+      -U sa \
+      -P "$(mssql-sa-pwd)" \
+      -i "$(System.DefaultWorkingDirectory)/synapse-dwh/Scrips/Validate EDW Materialization Columns.sql"
+  displayName: 'Validate EDW Materialization Columns'
+
 
 # Cleaning existing deployments...
 #     > docker ps -q -a --filter label=source=sqldbproject-testorchestrationdb
