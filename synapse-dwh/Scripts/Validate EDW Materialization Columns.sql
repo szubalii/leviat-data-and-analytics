@@ -1,6 +1,6 @@
 DECLARE @entity NVARCHAR(MAX);
 SELECT @entity = BulkColumn
-FROM OPENROWSET(BULK '/global/entity.json', SINGLE_CLOB) as j;
+FROM OPENROWSET(BULK '/config/global/entity.json', SINGLE_CLOB) as j;
 
 WITH entity AS (
   SELECT
@@ -57,8 +57,8 @@ SELECT
   vc.entity_id,
   vc.source_view_name,
   vc.dest_table_name,
-  vc.view_column_name,
-  tc.table_column_name
+  vc.view_column_name AS [View Columns missing in Table],
+  tc.table_column_name AS [Table Columns missing in View]
 FROM 
   view_columns vc
 LEFT JOIN
