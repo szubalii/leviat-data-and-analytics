@@ -147,8 +147,6 @@ SELECT
   GLA.[BillToParty] AS [BillToPartyID],
   GLA.[ShipToParty] AS [ShipToPartyID], 
   GLA.[KMVKBUPA] AS [SalesOfficeID],
-  PA.ICSalesDocumentID,
-  PA.ICSalesDocumentItemID,
   GLA.[SoldProduct],
   PC.ProfitCenterTypeID,
   edw.[svf_getSalesRefDocCalc] (
@@ -165,6 +163,7 @@ SELECT
   , PA.[ICSalesDocumentItemID] COLLATE DATABASE_DEFAULT
   , ARSD.[SalesReferenceDocumentItemCalculated]
   ) AS [SalesReferenceDocumentItemCalculated],
+  ARSD.[SalesDocumentItemCategoryID],
   BDI.[HigherLevelItem],
   GLA.[WWPRNPA] AS ProjectNumber,
   ARSD.SDI_SalesOrganizationID,
