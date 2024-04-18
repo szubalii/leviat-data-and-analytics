@@ -106,6 +106,7 @@ stages:
         echo variables['Build.SourceBranchName']
         echo Build.SourceBranchName: $(Build.SourceBranchName)
         echo recreateDatabase: $(recreateDatabase)
+      displayName: Print Env Variables
 
 - stage: DEPLOY
   jobs:
