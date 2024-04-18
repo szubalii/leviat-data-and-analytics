@@ -25,10 +25,16 @@ view_columns AS (
     vc.name AS view_column_name
   FROM
     entity AS e
-  LEFT JOIN
+  INNER JOIN
     sys.objects v
     ON
       v.name = e.source_view_name
+  INNER JOIN
+    sys.schemas s
+    ON
+      s.schema_id = v.schema_id
+      AND
+      s.name = 'edw'
   LEFT JOIN
     sys.columns AS vc
     ON
@@ -43,10 +49,16 @@ table_columns AS (
     tc.name AS table_column_name
   FROM
     entity AS e
-  LEFT JOIN
+  INNER JOIN
     sys.objects t
     ON
       t.name = e.dest_table_name
+  INNER JOIN
+    sys.schemas s
+    ON
+      s.schema_id = t.schema_id
+      AND
+      s.name = 'edw'
   LEFT JOIN
     sys.columns AS tc
     ON
