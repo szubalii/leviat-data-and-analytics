@@ -88,6 +88,11 @@ FROM (
     tc.table_column_name IS NULL
     AND
     vc.view_column_name IS NOT NULL
+    AND
+    vc.view_column_name NOT IN ( -- exclude delta fields
+      'ODQ_CHANGEMODE',
+      'ODQ_ENTITYCNTR'
+    )
 
   UNION ALL
 
@@ -106,7 +111,7 @@ FROM (
       AND
       vc.view_column_name = tc.table_column_name
   WHERE
-    tc.table_column_name NOT IN (
+    tc.table_column_name NOT IN ( -- exclude technical fields
       't_jobId',
       't_jobBy',
       't_jobDtm',
