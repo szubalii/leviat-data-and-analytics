@@ -129,6 +129,7 @@
   [ProfitCenterTypeID]                    char(1),
   [SalesReferenceDocumentCalculated]      nvarchar(10),
   [SalesReferenceDocumentItemCalculated]  char(6) collate Latin1_General_100_BIN2,
+  [SalesDocumentItemCategoryID]           nvarchar(8),
   [HigherLevelItem]                       char(6) collate Latin1_General_100_BIN2,
   [ProjectNumber]                         nvarchar(10),
   [SDI_SalesOrganizationID]               nvarchar(4),

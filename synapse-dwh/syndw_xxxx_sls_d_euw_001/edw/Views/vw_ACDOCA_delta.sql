@@ -163,6 +163,7 @@ SELECT
   , PA.[ICSalesDocumentItemID] COLLATE DATABASE_DEFAULT
   , ARSD.[SalesReferenceDocumentItemCalculated]
   ) AS [SalesReferenceDocumentItemCalculated],
+  ARSD.[SalesDocumentItemCategoryID],
   BDI.[HigherLevelItem],
   GLA.[WWPRNPA] AS ProjectNumber,
   ARSD.SDI_SalesOrganizationID,
