@@ -63,6 +63,8 @@ table_columns AS (
     sys.columns AS tc
     ON
       tc.object_id = t.object_id
+      AND
+      tc.is_identity = 0 -- exclude IDENTITY table columns with AUTO INCREMENT
 )
 
 SELECT
@@ -86,8 +88,6 @@ FROM (
     tc.table_column_name IS NULL
     AND
     vc.view_column_name IS NOT NULL
-    -- )
-    -- TODO exclude table columns with AUTO INCREMENT
 
   UNION ALL
 
@@ -106,7 +106,14 @@ FROM (
       AND
       vc.view_column_name = tc.table_column_name
   WHERE
-    tc.table_column_name NOT IN ('t_jobId', 't_lastActionCd', 't_jobBy', 't_jobDtm')
+    tc.table_column_name NOT IN (
+      't_jobId',
+      't_jobBy',
+      't_jobDtm',
+      't_lastActionBy',
+      't_lastActionCd',
+      't_lastActionDtm'
+    )
     AND
     vc.view_column_name IS NULL
     AND
