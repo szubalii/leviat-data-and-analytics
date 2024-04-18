@@ -147,8 +147,6 @@ SELECT
   GLA.[BillToParty] AS [BillToPartyID],
   GLA.[ShipToParty] AS [ShipToPartyID], 
   GLA.[KMVKBUPA] AS [SalesOfficeID],
-  PA.ICSalesDocumentID,
-  PA.ICSalesDocumentItemID,
   GLA.[SoldProduct],
   PC.ProfitCenterTypeID,
   edw.[svf_getSalesRefDocCalc] (
