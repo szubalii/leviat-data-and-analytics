@@ -54,45 +54,51 @@ table_columns AS (
 )
 
 SELECT
-  CAST(vc.entity_id AS INT) AS [Entity ID],
-  CAST(vc.source_view_name AS CHAR(35)) AS [Source View Name],
-  CAST(vc.dest_table_name AS CHAR(35)) AS [Target Table Name],
-  CAST(vc.view_column_name AS CHAR(35)) AS [View Columns missing in Table],
-  CAST(tc.table_column_name AS CHAR(35)) AS [Table Columns missing in View]
-FROM 
-  view_columns vc
-LEFT JOIN
-  table_columns tc
-  ON
-    vc.entity_id = tc.entity_id
-    AND
-    vc.view_column_name = tc.table_column_name
-WHERE
+  *
+FROM (
+  SELECT
+    CAST(vc.entity_id AS INT) AS [Entity ID],
+    CAST(vc.source_view_name AS CHAR(35)) AS [Source View Name],
+    CAST(vc.dest_table_name AS CHAR(35)) AS [Target Table Name],
+    CAST(vc.view_column_name AS CHAR(35)) AS [View Columns missing in Table],
+    CAST(tc.table_column_name AS CHAR(35)) AS [Table Columns missing in View]
+  FROM 
+    view_columns vc
+  LEFT JOIN
+    table_columns tc
+    ON
+      vc.entity_id = tc.entity_id
+      AND
+      vc.view_column_name = tc.table_column_name
+  WHERE
     tc.table_column_name IS NULL
     AND
     vc.view_column_name IS NOT NULL
-  -- )
-  -- TODO exclude table columns with AUTO INCREMENT
+    -- )
+    -- TODO exclude table columns with AUTO INCREMENT
 
-UNION ALL
+  UNION ALL
 
-SELECT
-  tc.entity_id,
-  tc.source_view_name,
-  tc.dest_table_name,
-  vc.view_column_name,
-  tc.table_column_name
-FROM 
-  table_columns tc
-LEFT JOIN
-   view_columns vc
-  ON
-    vc.entity_id = tc.entity_id
-    AND
-    vc.view_column_name = tc.table_column_name
-WHERE
+  SELECT
+    tc.entity_id,
+    tc.source_view_name,
+    tc.dest_table_name,
+    vc.view_column_name,
+    tc.table_column_name
+  FROM 
+    table_columns tc
+  LEFT JOIN
+    view_columns vc
+    ON
+      vc.entity_id = tc.entity_id
+      AND
+      vc.view_column_name = tc.table_column_name
+  WHERE
     tc.table_column_name NOT IN ('t_jobId', 't_lastActionCd', 't_jobBy', 't_jobDtm')
     AND
     vc.view_column_name IS NULL
     AND
     tc.table_column_name IS NOT NULL
+) a
+ORDER BY
+  [Entity ID]
