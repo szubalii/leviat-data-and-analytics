@@ -25,7 +25,7 @@
 					"source": {
 						"type": "AzureSqlSource",
 						"sqlReaderQuery": {
-							"value": "SELECT * \nFROM [dbo].[get_scheduled_entity_batch_activities] (\n    @{pipeline().parameters.adhoc},\n    '@{variables('date')}',\n    @{pipeline().parameters.rerun_successful_full_entities}\n)\nWHERE\n    @{pipeline().parameters.entity_filter}\n    AND\n    (update_mode = 'Full' OR update_mode IS NULL)",
+							"value": "SELECT * \nFROM [dbo].[get_scheduled_full_entity_batch_activities] (\n    @{pipeline().parameters.adhoc},\n    '@{variables('date')}',\n    @{pipeline().parameters.rerun_successful_full_entities}\n)\nWHERE\n    @{pipeline().parameters.entity_filter}",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
@@ -783,7 +783,7 @@
 					"source": {
 						"type": "AzureSqlSource",
 						"sqlReaderQuery": {
-							"value": "SELECT\n    entity_id,\n    entity_name,\n    base_schema_name,\n    base_table_name,\n    base_sproc_name,\n    axbi_date_field_name\nFROM [dbo].[get_scheduled_entity_batch_activities] (\n    @{pipeline().parameters.adhoc},\n    '@{variables('date')}',\n    @{pipeline().parameters.rerun_successful_full_entities}\n)\nWHERE\n    @{pipeline().parameters.entity_filter}\n    AND\n    update_mode = 'Delta'\nGROUP BY\n    entity_id,\n    entity_name,\n    base_schema_name,\n    base_table_name,\n    base_sproc_name,\n    axbi_date_field_name",
+							"value": "SELECT\n    entity_id,\n    entity_name,\n    base_schema_name,\n    base_table_name,\n    base_sproc_name,\n    axbi_date_field_name\nFROM [dbo].[get_scheduled_delta_entity_batch_activities] (\n    @{pipeline().parameters.adhoc},\n    '@{variables('date')}'\n)\nWHERE\n    @{pipeline().parameters.entity_filter}\nGROUP BY\n    entity_id,\n    entity_name,\n    base_schema_name,\n    base_table_name,\n    base_sproc_name,\n    axbi_date_field_name",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
