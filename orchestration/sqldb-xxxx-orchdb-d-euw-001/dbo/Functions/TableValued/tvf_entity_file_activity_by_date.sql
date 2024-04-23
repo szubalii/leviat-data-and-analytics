@@ -83,7 +83,8 @@ RETURN
 
     UNION ALL
 
-    -- Add new activities for delta entiites
+    -- Add new activities for delta entities
+    -- TODO: retrieve delta base entities only
     SELECT
       [delta].entity_id,
       [activity].layer_id,
