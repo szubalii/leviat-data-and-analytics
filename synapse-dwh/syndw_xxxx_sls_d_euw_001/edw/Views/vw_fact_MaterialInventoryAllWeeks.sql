@@ -1,5 +1,6 @@
 CREATE VIEW [edw].[vw_fact_MaterialInventoryAllWeeks]
-AS WITH
+AS
+WITH
 FirstPostingCal AS (
   SELECT
     fp.[MaterialID]
@@ -18,7 +19,7 @@ FirstPostingCal AS (
   , fp.[nk_StoragePlantID]
   , fp.[sk_ProductSalesOrg]
   , fp.[PlantSalesOrgID]
-  , cal.[Year] AS [FirstPostingYear]
+  , cal.[CalendarYear] AS [FirstPostingYear]
   , cal.[YearMonth] AS [FirstPostingYearMonth]
   , cal.[YearWeek] AS [FirstPostingYearWeek]
   , fp.[t_applicationId]
@@ -29,11 +30,23 @@ FirstPostingCal AS (
     [edw].[dim_Calendar] AS cal
     ON
       cal.CalendarDate = fp.FirstPostingDate
+  -- WHERE
+  --   fp.MaterialID = '000000007000001725'
+  --   AND
+  --   InventorySpecialStockTypeID = ''
+  --   AND
+  --   InventoryStockTypeID = '01'
+  --   AND
+  --   CostCenterID = ''
+  --   AND
+  --   SalesDocumentTypeID is NULL
+  --   AND
+  --   SalesDocumentItemCategoryID IS NULL
 )
 ,
 AllYearWeeks AS (
   SELECT
-    Year,
+    [CalendarYear],
     YearMonth,
     CalendarMonth,
     YearWeek,
@@ -45,7 +58,7 @@ AllYearWeeks AS (
   FROM
     [edw].[dim_Calendar]
   GROUP BY
-    Year,
+    [CalendarYear],
     YearMonth,
     CalendarMonth,
     YearWeek,
@@ -84,7 +97,7 @@ SELECT
 , fw.[nk_StoragePlantID]
 , fw.[sk_ProductSalesOrg]
 , fw.[PlantSalesOrgID]
-, AllYearWeeks.[Year]
+, AllYearWeeks.[CalendarYear]
 , AllYearWeeks.[YearMonth]
 , AllYearWeeks.[CalendarMonth]
 , AllYearWeeks.[YearWeek]
@@ -100,4 +113,5 @@ CROSS JOIN
 WHERE
   AllYearWeeks.YearWeek BETWEEN fw.FirstPostingYearWeek AND
     -- Construct YearWeek based on current date
-    CONCAT(YEAR(GETDATE()), DATEPART(week, GETDATE()));
+    CONCAT(YEAR(GETDATE()), DATEPART(week, GETDATE()))
+-- order by YearMonth, YearWeek

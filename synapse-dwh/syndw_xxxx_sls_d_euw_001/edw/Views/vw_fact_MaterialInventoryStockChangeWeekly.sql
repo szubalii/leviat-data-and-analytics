@@ -100,7 +100,7 @@ SELECT
 , allWeeks.[PlantSalesOrgID]
 -- , allWeeks.[ReportingDate]
 , allWeeks.[FirstDayOfMonthDate]
-, allWeeks.[Year]
+, allWeeks.[CalendarYear]
 , allWeeks.[YearMonth]
 , allWeeks.[CalendarMonth]
 , allWeeks.[YearWeek]

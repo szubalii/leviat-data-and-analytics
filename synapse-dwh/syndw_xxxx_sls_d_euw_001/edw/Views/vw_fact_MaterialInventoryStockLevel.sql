@@ -127,7 +127,7 @@ SELECT
 , sl.[sk_ProductSalesOrg]
 , sl.[PlantSalesOrgID]
 -- , sl.[ReportingDate]
-, sl.[Year]
+, sl.[CalendarYear]
 , sl.[YearMonth]
 , sl.[CalendarMonth]
 , sl.[YearWeek]
