@@ -98,11 +98,16 @@ SELECT
 , allWeeks.[nk_StoragePlantID]
 , allWeeks.[sk_ProductSalesOrg]
 , allWeeks.[PlantSalesOrgID]
-, allWeeks.[ReportingDate]
+-- , allWeeks.[ReportingDate]
 , allWeeks.[FirstDayOfMonthDate]
+, allWeeks.[Year]
+, allWeeks.[YearMonth]
+, allWeeks.[CalendarMonth]
 , allWeeks.[YearWeek]
+, allWeeks.[CalendarWeek]
 -- , stockChangeWeekly.[WeeklyMatlStkChangeQtyInBaseUnit]
 -- , allWeeks.[YearMonth]
+, stock.[MaxPostingDate]
 , stock.[MatlCnsmpnQtyInMatlBaseUnit]
 , stock.[MatlStkChangeQtyInBaseUnit]
 , stock.[ConsumptionQtyICPOInStandardValue_EUR]
@@ -234,11 +239,11 @@ LEFT JOIN
         allWeeks.[YearWeek] IS NULL
       )
     )
-    -- AND (
-    --   stock.[YearMonth] = allWeeks.[YearMonth]
-    --   OR (
-    --     stock.[YearMonth] IS NULL
-    --     AND
-    --     allWeeks.[YearMonth] IS NULL
-    --   )
-    -- )
+    AND (
+      stock.[YearMonth] = allWeeks.[YearMonth]
+      OR (
+        stock.[YearMonth] IS NULL
+        AND
+        allWeeks.[YearMonth] IS NULL
+      )
+    )

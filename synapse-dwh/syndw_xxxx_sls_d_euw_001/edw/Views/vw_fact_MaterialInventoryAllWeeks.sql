@@ -18,6 +18,8 @@ FirstPostingCal AS (
   , fp.[nk_StoragePlantID]
   , fp.[sk_ProductSalesOrg]
   , fp.[PlantSalesOrgID]
+  , cal.[Year] AS [FirstPostingYear]
+  , cal.[YearMonth] AS [FirstPostingYearMonth]
   , cal.[YearWeek] AS [FirstPostingYearWeek]
   , fp.[t_applicationId]
   , fp.[t_extractionDtm]
@@ -31,17 +33,24 @@ FirstPostingCal AS (
 ,
 AllYearWeeks AS (
   SELECT
+    Year,
+    YearMonth,
+    CalendarMonth,
     YearWeek,
-    -- NULL AS YearMonth,
+    CalendarWeek,
   -- required to get the monthly StockPricePerUnit
   -- If a weeks falls in two months, take the first month
-    FirstDayOfWeekDate AS ReportingDate,
+    -- FirstDayOfWeekDate AS ReportingDate,
     MIN(FirstDayOfMonthDate) AS FirstDayOfMonthDate
   FROM
     [edw].[dim_Calendar]
   GROUP BY
+    Year,
+    YearMonth,
+    CalendarMonth,
     YearWeek,
-    FirstDayOfWeekDate
+    CalendarWeek--,
+    -- FirstDayOfWeekDate
 
   -- UNION ALL
 
@@ -75,8 +84,11 @@ SELECT
 , fw.[nk_StoragePlantID]
 , fw.[sk_ProductSalesOrg]
 , fw.[PlantSalesOrgID]
-, AllYearWeeks.[ReportingDate]
+, AllYearWeeks.[Year]
+, AllYearWeeks.[YearMonth]
+, AllYearWeeks.[CalendarMonth]
 , AllYearWeeks.[YearWeek]
+, AllYearWeeks.[CalendarWeek]
 -- , AllYearWeeks.[YearMonth]
 , AllYearWeeks.FirstDayOfMonthDate
 , fw.[t_applicationId]

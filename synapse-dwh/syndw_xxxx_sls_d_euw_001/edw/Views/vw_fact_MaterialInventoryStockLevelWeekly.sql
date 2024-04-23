@@ -31,12 +31,15 @@ StockLevels AS (
   , [nk_StoragePlantID]
   , [sk_ProductSalesOrg]
   , [PlantSalesOrgID]
-  , [ReportingDate]
+  -- , [ReportingDate]
   , [FirstDayOfMonthDate]
+  , [Year]
+  , [YearMonth]
   , [YearWeek]
   -- , [YearMonth]
   -- , [IsWeekly]
   -- , [IsMonthly]
+  , [MaxPostingDate]
   , [MatlCnsmpnQtyInMatlBaseUnit]
   , [MatlStkChangeQtyInBaseUnit]
   , SUM(MatlStkChangeQtyInBaseUnit) OVER (
@@ -55,7 +58,7 @@ StockLevels AS (
       , [PurchaseOrderTypeID]
       , [InventoryValuationTypeID]
       -- , [YearMonth]
-        ORDER BY YearWeek
+        ORDER BY YearMonth, YearWeek
       )
     AS StockLevelQtyInBaseUnit
   , SUM(MatlCnsmpnQtyInMatlBaseUnit) OVER (
@@ -74,7 +77,7 @@ StockLevels AS (
       , [PurchaseOrderTypeID]
       , [InventoryValuationTypeID]
       -- , [YearMonth]
-        ORDER BY YearWeek
+        ORDER BY YearMonth, YearWeek
         ROWS BETWEEN 51 PRECEDING AND CURRENT ROW
         )
     AS Rolling12MonthConsumptionQty
@@ -114,9 +117,14 @@ SELECT
 , StockLevels.[nk_StoragePlantID]
 , StockLevels.[sk_ProductSalesOrg]
 , StockLevels.[PlantSalesOrgID]
-, StockLevels.[ReportingDate]
+-- , StockLevels.[ReportingDate]
 , StockLevels.[FirstDayOfMonthDate]
+, StockLevels.[Year]
+, StockLevels.[YearMonth]
+, StockLevels.[CalendarMonth]
 , StockLevels.[YearWeek]
+, StockLevels.[CalendarWeek]
+, StockLevels.[MaxPostingDate]
 -- , StockLevels.[YearMonth]
 -- , StockLevels.[IsWeekly]
 -- , StockLevels.[IsMonthly]

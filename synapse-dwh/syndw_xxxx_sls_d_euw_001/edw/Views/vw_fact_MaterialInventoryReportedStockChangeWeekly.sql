@@ -27,7 +27,12 @@ SELECT
 , MDI.[MaterialBaseUnitID]
 , MDI.[PurchaseOrderTypeID]
 , MDI.[InventoryValuationTypeID]
+, cal.[Year]
+, cal.[YearMonth]
+, cal.[CalendarMonth]
 , cal.[YearWeek]
+, cal.[CalendarWeek]
+, MAX(MDI.HDR_PostingDate) AS MaxPostingDate
 , SUM(MDI.MatlCnsmpnQtyInMatlBaseUnit) AS MatlCnsmpnQtyInMatlBaseUnit
 , SUM(MDI.MatlStkChangeQtyInBaseUnit) AS MatlStkChangeQtyInBaseUnit
 , SUM(MDI.ConsumptionQtyICPOInStandardValue_EUR) AS ConsumptionQtyICPOInStandardValue_EUR
@@ -65,5 +70,9 @@ GROUP BY
 , MDI.[MaterialBaseUnitID]
 , MDI.[PurchaseOrderTypeID]
 , MDI.[InventoryValuationTypeID]
+, cal.[Year]
+, cal.[YearMonth]
+, cal.[CalendarMonth]
 , cal.[YearWeek]
+, cal.[CalendarWeek]
 , MDI.[t_applicationId]
