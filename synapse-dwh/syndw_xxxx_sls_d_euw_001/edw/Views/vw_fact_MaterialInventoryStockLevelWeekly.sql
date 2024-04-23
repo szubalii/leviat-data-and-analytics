@@ -40,7 +40,7 @@ StockLevels AS (
   , [CalendarWeek]
   -- , [YearMonth]
   -- , [IsWeekly]
-  -- , [IsMonthly]
+  , [IsMonthly]
   , [MaxPostingDate]
   , [MatlCnsmpnQtyInMatlBaseUnit]
   , [MatlStkChangeQtyInBaseUnit]
@@ -83,12 +83,15 @@ StockLevels AS (
         ROWS BETWEEN 51 PRECEDING AND CURRENT ROW
         )
     AS Rolling12MonthConsumptionQty
+  , [ConsumptionQtyICPOInBaseUnit]
   , [ConsumptionQtyICPOInStandardValue_EUR]
   , [ConsumptionQtyICPOInStandardValue_USD]
   , [ConsumptionQtyOBDProStandardValue]
+  , [ConsumptionQtyOBDProInBaseUnit]
   , [ConsumptionQtyOBDProStandardValue_EUR]
   , [ConsumptionQtyOBDProStandardValue_USD]
   , [ConsumptionQtySOStandardValue]
+  , [ConsumptionQtySOInBaseUnit]
   , [ConsumptionQtySOStandardValue_EUR]
   , [ConsumptionQtySOStandardValue_USD]
   , [ConsumptionQty]
@@ -129,7 +132,7 @@ SELECT
 , StockLevels.[MaxPostingDate]
 -- , StockLevels.[YearMonth]
 -- , StockLevels.[IsWeekly]
--- , StockLevels.[IsMonthly]
+, StockLevels.[IsMonthly]
 -- , PUP.[CurrencyID]
 -- , PUP.[StockPricePerUnit]
 -- , PUP.[StockPricePerUnit_EUR]
@@ -149,12 +152,15 @@ SELECT
 -- , StockLevels.[StockLevelQtyInBaseUnit] * LPUP.[LatestStockPricePerUnit_EUR] AS StockLevelStandardLatestPPU_EUR
 -- , StockLevels.[StockLevelQtyInBaseUnit] * LPUP.[LatestStockPricePerUnit_USD] AS StockLevelStandardLatestPPU_USD
 , StockLevels.[Rolling12MonthConsumptionQty]
+, StockLevels.[ConsumptionQtyICPOInBaseUnit]
 , StockLevels.[ConsumptionQtyICPOInStandardValue_EUR]
 , StockLevels.[ConsumptionQtyICPOInStandardValue_USD]
 , StockLevels.[ConsumptionQtyOBDProStandardValue]
+, StockLevels.[ConsumptionQtyOBDProInBaseUnit]
 , StockLevels.[ConsumptionQtyOBDProStandardValue_EUR]
 , StockLevels.[ConsumptionQtyOBDProStandardValue_USD]
 , StockLevels.[ConsumptionQtySOStandardValue]
+, StockLevels.[ConsumptionQtySOInBaseUnit]
 , StockLevels.[ConsumptionQtySOStandardValue_EUR]
 , StockLevels.[ConsumptionQtySOStandardValue_USD]
 , StockLevels.[ConsumptionQty]
@@ -185,4 +191,18 @@ FROM
 --     LPUP.[ValuationTypeID] = StockLevels.[InventoryValuationTypeID] COLLATE DATABASE_DEFAULT
 --     AND
 --     LPUP.[FirstDayOfMonthDate] = StockLevels.[FirstDayOfMonthDate]
+-- WHERE
+--   MaterialID = '000000000040000023'
+--   AND
+--   CompanyCodeID = 'DE35'
+--   AND
+--   PurchaseOrderTypeID IS NULL
+--   AND
+--   CostCenterID = ''
+-- --   AND
+-- --   InventorySpecialStockTypeID = ''
+--   AND
+--   InventoryStockTypeID = '01'
+-- ORDER  BY
+--   YearMonth, YearWeek
     

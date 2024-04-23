@@ -45,39 +45,53 @@ FirstPostingCal AS (
 )
 ,
 AllYearWeeks AS (
+  SELECT --top 100
+    [CalendarYear],
+    YearMonth,
+    CalendarMonth,
+    YearWeek,
+    CalendarWeek,
+    LastDayOfMonthDate,
+    -- CASE
+    --   WHEN CalendarDate = LastDayOfMonthDate THEN 1 ELSE 0
+    -- END AS IsMonthly,
+  -- required to get the monthly StockPricePerUnit
+  -- If a weeks falls in two months, take the first month
+    -- FirstDayOfWeekDate AS ReportingDate,
+    MAX(CalendarDate) AS MaxPostingDate,
+    MIN(FirstDayOfMonthDate) AS FirstDayOfMonthDate
+  FROM
+    [edw].[dim_Calendar]
+  -- WHERE
+  --   YearMonth = '202402' OR YearMonth = '202401'
+  GROUP BY
+    [CalendarYear],
+    YearMonth,
+    CalendarMonth,
+    YearWeek,
+    CalendarWeek,
+    LastDayOfMonthDate
+)
+,
+
+IsMonthly AS (
   SELECT
     [CalendarYear],
     YearMonth,
     CalendarMonth,
     YearWeek,
     CalendarWeek,
+    -- LastDayOfMonthDate,
+    CASE
+      WHEN MaxPostingDate = LastDayOfMonthDate THEN 1 ELSE 0
+    END AS IsMonthly,
   -- required to get the monthly StockPricePerUnit
   -- If a weeks falls in two months, take the first month
     -- FirstDayOfWeekDate AS ReportingDate,
-    MIN(FirstDayOfMonthDate) AS FirstDayOfMonthDate
+    MaxPostingDate,
+    FirstDayOfMonthDate
   FROM
-    [edw].[dim_Calendar]
-  GROUP BY
-    [CalendarYear],
-    YearMonth,
-    CalendarMonth,
-    YearWeek,
-    CalendarWeek--,
-    -- FirstDayOfWeekDate
-
-  -- UNION ALL
-
-  -- SELECT
-  --   NULL AS YearWeek,
-  --   YearMonth,
-  -- -- required to get the monthly StockPricePerUnit
-  --   FirstDayOfMonthDate AS ReportingDate,
-  --   FirstDayOfMonthDate
-  -- FROM
-  --   [edw].[dim_Calendar]
-  -- GROUP BY
-  --   YearMonth,
-  --   FirstDayOfMonthDate
+    AllYearWeeks
 )
 
 SELECT
@@ -97,21 +111,22 @@ SELECT
 , fw.[nk_StoragePlantID]
 , fw.[sk_ProductSalesOrg]
 , fw.[PlantSalesOrgID]
-, AllYearWeeks.[CalendarYear]
-, AllYearWeeks.[YearMonth]
-, AllYearWeeks.[CalendarMonth]
-, AllYearWeeks.[YearWeek]
-, AllYearWeeks.[CalendarWeek]
--- , AllYearWeeks.[YearMonth]
-, AllYearWeeks.FirstDayOfMonthDate
+, IsMonthly.[CalendarYear]
+, IsMonthly.[YearMonth]
+, IsMonthly.[CalendarMonth]
+, IsMonthly.[YearWeek]
+, IsMonthly.[CalendarWeek]
+, IsMonthly.[MaxPostingDate]
+, IsMonthly.[IsMonthly]
+, IsMonthly.[FirstDayOfMonthDate]
 , fw.[t_applicationId]
 , fw.[t_extractionDtm]
 FROM
   FirstPostingCal fw
 CROSS JOIN
-  AllYearWeeks
+  IsMonthly
 WHERE
-  AllYearWeeks.YearWeek BETWEEN fw.FirstPostingYearWeek AND
+  IsMonthly.YearWeek BETWEEN fw.FirstPostingYearWeek AND
     -- Construct YearWeek based on current date
     CONCAT(YEAR(GETDATE()), DATEPART(week, GETDATE()))
 -- order by YearMonth, YearWeek
