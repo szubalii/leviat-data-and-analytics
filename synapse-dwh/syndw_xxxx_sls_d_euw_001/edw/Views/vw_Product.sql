@@ -173,10 +173,6 @@ LEFT JOIN
     [base_ff].[SAPDummyProduct] sapDummyProd
     ON
         product.[ProductExternalID] = sapDummyProd.[ProductExternalID]
-LEFT JOIN
-    [base_ff].[ConfigurableProduct] config_pr
-    ON
-        product.[Product] = config_pr.[ProductID]
 --    WHERE product.MANDT = 200 
 --    AND pr_text.MANDT = 200 
 --    AND type_text.MANDT = 200 MPS 2021/11/01: commented out due to different client values between dev,qas, and prod
