@@ -98,19 +98,25 @@ SELECT
 , allMonths.[nk_StoragePlantID]
 , allMonths.[sk_ProductSalesOrg]
 , allMonths.[PlantSalesOrgID]
-, allMonths.[ReportingDate]
+-- , allMonths.[ReportingDate]
 , allMonths.[FirstDayOfMonthDate]
+, allWeeks.[CalendarYear]
+, allWeeks.[YearMonth]
+, allWeeks.[CalendarMonth]
 -- , allMonths.[YearWeek]
 -- , stockChangeWeekly.[WeeklyMatlStkChangeQtyInBaseUnit]
 , allMonths.[YearMonth]
 , stock.[MatlCnsmpnQtyInMatlBaseUnit]
 , stock.[MatlStkChangeQtyInBaseUnit]
+, stock.[ConsumptionQtyICPOInBaseUnit]
 , stock.[ConsumptionQtyICPOInStandardValue_EUR]
 , stock.[ConsumptionQtyICPOInStandardValue_USD]
 , stock.[ConsumptionQtyOBDProStandardValue]
+, stock.[ConsumptionQtyOBDProInBaseUnit]
 , stock.[ConsumptionQtyOBDProStandardValue_EUR]
 , stock.[ConsumptionQtyOBDProStandardValue_USD]
 , stock.[ConsumptionQtySOStandardValue]
+, stock.[ConsumptionQtySOInBaseUnit]
 , stock.[ConsumptionQtySOStandardValue_EUR]
 , stock.[ConsumptionQtySOStandardValue_USD]
 , stock.[ConsumptionQty]
@@ -238,7 +244,7 @@ LEFT JOIN
       stock.[YearMonth] = allMonths.[YearMonth]
       OR (
         stock.[YearMonth] IS NULL
-        AND
-        allMonths.[YearMonth] IS NULL
+        -- AND
+        -- allMonths.[YearMonth] IS NULL
       )
     )

@@ -247,8 +247,8 @@ LEFT JOIN
       stock.[YearMonth] = allWeeks.[YearMonth]
       OR (
         stock.[YearMonth] IS NULL
-        -- AND
-        -- allWeeks.[YearMonth] IS NULL
+    --     -- AND
+    --     -- allWeeks.[YearMonth] IS NULL
       )
     )
 -- WHERE

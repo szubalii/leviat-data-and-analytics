@@ -63,26 +63,27 @@ StockLevels AS (
         ORDER BY YearMonth, YearWeek
       )
     AS StockLevelQtyInBaseUnit
-  , SUM(MatlCnsmpnQtyInMatlBaseUnit) OVER (
-      PARTITION BY
-        [MaterialID]
-      , [PlantID]
-      , [StorageLocationID]
-      , [InventorySpecialStockTypeID]
-      , [InventoryStockTypeID]
-      , [StockOwner]
-      , [CostCenterID]
-      , [CompanyCodeID]
-      , [SalesDocumentTypeID]
-      , [SalesDocumentItemCategoryID]
-      , [MaterialBaseUnitID]
-      , [PurchaseOrderTypeID]
-      , [InventoryValuationTypeID]
-      -- , [YearMonth]
-        ORDER BY YearMonth, YearWeek
-        ROWS BETWEEN 51 PRECEDING AND CURRENT ROW
-        )
-    AS Rolling12MonthConsumptionQty
+  -- , SUM(MatlCnsmpnQtyInMatlBaseUnit) OVER (
+  --     PARTITION BY
+  --       [MaterialID]
+  --     , [PlantID]
+  --     , [StorageLocationID]
+  --     , [InventorySpecialStockTypeID]
+  --     , [InventoryStockTypeID]
+  --     , [StockOwner]
+  --     , [CostCenterID]
+  --     , [CompanyCodeID]
+  --     , [SalesDocumentTypeID]
+  --     , [SalesDocumentItemCategoryID]
+  --     , [MaterialBaseUnitID]
+  --     , [PurchaseOrderTypeID]
+  --     , [InventoryValuationTypeID]
+  --     -- , [YearMonth]
+  --       ORDER BY YearMonth, YearWeek
+  --       ROWS BETWEEN 51 PRECEDING AND CURRENT ROW
+  --       )
+  --   AS Rolling12MonthConsumptionQty
+  , NULL AS Rolling12MonthConsumptionQty
   , [ConsumptionQtyICPOInBaseUnit]
   , [ConsumptionQtyICPOInStandardValue_EUR]
   , [ConsumptionQtyICPOInStandardValue_USD]

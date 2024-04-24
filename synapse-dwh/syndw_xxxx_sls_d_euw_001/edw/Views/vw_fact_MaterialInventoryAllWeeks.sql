@@ -52,22 +52,23 @@ AllYearWeeks AS (
     YearWeek,
     CalendarWeek,
     LastDayOfMonthDate,
+    -- 0 AS IsMonthly,
     -- CASE
     --   WHEN CalendarDate = LastDayOfMonthDate THEN 1 ELSE 0
     -- END AS IsMonthly,
-  -- required to get the monthly StockPricePerUnit
-  -- If a weeks falls in two months, take the first month
     -- FirstDayOfWeekDate AS ReportingDate,
     MAX(CalendarDate) AS MaxPostingDate,
+  -- If a weeks falls in two months, take the first month
+  -- as that is required to get the monthly StockPricePerUnit
     MIN(FirstDayOfMonthDate) AS FirstDayOfMonthDate
   FROM
     [edw].[dim_Calendar]
   -- WHERE
   --   YearMonth = '202402' OR YearMonth = '202401'
   GROUP BY
-    [CalendarYear],
-    YearMonth,
-    CalendarMonth,
+    -- [CalendarYear],
+    -- YearMonth,
+    -- CalendarMonth,
     YearWeek,
     CalendarWeek,
     LastDayOfMonthDate
