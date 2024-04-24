@@ -177,10 +177,6 @@ LEFT JOIN
     [base_ff].[ConfigurableProduct] config_pr
     ON
         product.[Product] = config_pr.[ProductID]
-LEFT JOIN 
-    [edw].[dim_ProductHierarchy] config_prodhier
-    ON
-        config_pr.[ProductHierarchyNode] = config_prodhier.[ProductHierarchyNode]
 --    WHERE product.MANDT = 200 
 --    AND pr_text.MANDT = 200 
 --    AND type_text.MANDT = 200 MPS 2021/11/01: commented out due to different client values between dev,qas, and prod
