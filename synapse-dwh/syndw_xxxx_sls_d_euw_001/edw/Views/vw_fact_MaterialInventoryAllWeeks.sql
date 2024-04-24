@@ -66,9 +66,9 @@ AllYearWeeks AS (
   -- WHERE
   --   YearMonth = '202402' OR YearMonth = '202401'
   GROUP BY
-    -- [CalendarYear],
-    -- YearMonth,
-    -- CalendarMonth,
+    [CalendarYear],
+    YearMonth,
+    CalendarMonth,
     YearWeek,
     CalendarWeek,
     LastDayOfMonthDate
