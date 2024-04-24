@@ -47,24 +47,14 @@ AllYearMonths AS (
 
   SELECT
     -- NULL AS YearWeek,
-    CalendarYear,
     YearMonth,
-    CalendarMonth,
-    NULL AS YearWeek,
-    NULL AS CalendarWeek,
-    LastDayOfMonthDate,
-    -- 1 AS IsMonthly,
-    LastDayOfMonthDate AS MaxPostingDate,
   -- required to get the monthly StockPricePerUnit
-    -- FirstDayOfMonthDate AS ReportingDate,
+    FirstDayOfMonthDate AS ReportingDate,
     FirstDayOfMonthDate
   FROM
     [edw].[dim_Calendar]
   GROUP BY
-    CalendarYear,
     YearMonth,
-    CalendarMonth,
-    LastDayOfMonthDate,
     FirstDayOfMonthDate
 )
 
@@ -85,14 +75,10 @@ SELECT
 , fw.[nk_StoragePlantID]
 , fw.[sk_ProductSalesOrg]
 , fw.[PlantSalesOrgID]
-, AllYearWeeks.[CalendarYear]
-, AllYearWeeks.[YearMonth]
-, AllYearWeeks.[CalendarMonth]
--- , AllYearWeeks.[YearWeek]
--- , AllYearWeeks.[CalendarWeek]
-, AllYearWeeks.[MaxPostingDate]
--- , AllYearWeeks.[IsMonthly]
-, AllYearWeeks.[FirstDayOfMonthDate]
+, AllYearMonths.[ReportingDate]
+, AllYearMonths.[YearMonth]
+-- , AllYearWeeks.[YearMonth]
+, AllYearMonths.FirstDayOfMonthDate
 , fw.[t_applicationId]
 , fw.[t_extractionDtm]
 FROM
