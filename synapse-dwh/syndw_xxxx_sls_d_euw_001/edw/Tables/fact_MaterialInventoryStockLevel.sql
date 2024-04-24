@@ -18,7 +18,7 @@ CREATE TABLE [edw].[fact_MaterialInventoryStockLevel]
   [sk_ProductSalesOrg]            INT,
   [PlantSalesOrgID]               [nvarchar](4),
   [ReportingDate]                 DATE,
-  [Year]                          INT,
+  [CalendarYear]                  INT,
   [YearMonth]                     INT,
   [CalendarMonth]                 INT,
   [YearWeek]                      INT,

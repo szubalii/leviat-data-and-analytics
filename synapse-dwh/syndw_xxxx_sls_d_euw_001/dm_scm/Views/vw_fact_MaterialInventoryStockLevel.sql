@@ -20,7 +20,7 @@ SELECT
 , NULL AS [nk_dim_ProductValuationPUP]
 , NULL AS [sk_dim_ProductValuationPUP]
 , [ReportingDate]
-, [Year] AS [ReportingYear]
+, [CalendarYear] AS [ReportingYear]
 , [YearMonth] AS [ReportingMonth]
 , [CalendarMonth]
 , [YearWeek] AS [ReportingWeek]
