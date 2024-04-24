@@ -1,4 +1,4 @@
-CREATE PROCEDURE [tc.edw.vw_fact_MaterialInventoryStockChange].[test stock change]
+CREATE PROCEDURE [tc.edw.vw_fact_MaterialInventoryStockChangeWeekly].[test stock change]
 AS
 BEGIN
 
@@ -63,7 +63,7 @@ BEGIN
     [YearMonth],
     [MatlStkChangeQtyInBaseUnit]
   INTO actual
-  FROM [edw].[vw_fact_MaterialInventoryStockChange]
+  FROM [edw].[vw_fact_MaterialInventoryStockChangeWeekly]
   WHERE
     YearWeek <= 202405
     OR
@@ -76,17 +76,16 @@ BEGIN
   
   INSERT INTO expected (
     [MaterialID],
-    [YearWeek],
     [YearMonth],
+    [YearWeek],
     [MatlStkChangeQtyInBaseUnit]
   )
   VALUES
-    (1, 202402,   NULL,   10),
-    (1, 202403,   NULL, NULL),
-    (1, 202404,   NULL,   10),
-    (1, 202405,   NULL,   40),
-    (1,   NULL, 202401,   40),
-    (1,   NULL, 202402,   20);
+    (1, 202401, 202402,   10),
+    (1, 202401, 202403, NULL),
+    (1, 202401, 202404,   10),
+    (1, 202401, 202405,   20),
+    (1, 202402, 202405,   20);
 
   EXEC tSQLt.AssertEqualsTable 'expected', 'actual';
 END;
