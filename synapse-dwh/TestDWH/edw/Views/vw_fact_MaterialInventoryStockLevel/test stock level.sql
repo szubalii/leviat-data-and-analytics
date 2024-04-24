@@ -59,8 +59,8 @@ BEGIN
   -- Act: 
   SELECT
     [MaterialID],
-    [YearWeek],
     [YearMonth],
+    [YearWeek],
     [StockLevelQtyInBaseUnit]
   INTO actual
   FROM [edw].[vw_fact_MaterialInventoryStockLevel]
@@ -76,8 +76,8 @@ BEGIN
   
   INSERT INTO expected (
     [MaterialID],
-    [YearWeek],
     [YearMonth],
+    [YearWeek],
     [StockLevelQtyInBaseUnit]
   )
   VALUES

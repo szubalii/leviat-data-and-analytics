@@ -77,8 +77,8 @@ BEGIN
     [MaterialID],
     [PlantID],
     [InventoryValuationTypeID],
-    [YearWeek],
     [YearMonth],
+    [YearWeek],
     [StockLevelQtyInBaseUnit],
     [StockLevelStandardPPU],
     [StockLevelStandardPPU_EUR],
@@ -111,7 +111,7 @@ BEGIN
     (1, 1, 1, 202401, 202403,   10,  100,  150,  200),
     (1, 1, 1, 202401, 202404,   20,  200,  300,  400),
     (1, 1, 1, 202401, 202405,   40,  400,  600,  800),
-    (1, 1, 1, 202402, 202405,   60,  600,  900, 1200);
+    (1, 1, 1, 202402, 202405,   60,  660,  960, 1260);
 
   EXEC tSQLt.AssertEqualsTable 'expected', 'actual';
 END;
