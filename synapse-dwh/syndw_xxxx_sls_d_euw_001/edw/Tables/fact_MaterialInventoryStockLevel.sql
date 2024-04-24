@@ -41,7 +41,7 @@ CREATE TABLE [edw].[fact_MaterialInventoryStockLevel]
   [StockLevelStandardLatestPPU_EUR] [decimal](38, 6),
   [StockLevelStandardLatestPPU_USD] [decimal](38, 6),
   [Rolling12MonthConsumptionQty]  [decimal](38, 14),
-  [ConsumptionQtyICPOInInBaseUnit]           DECIMAL(38, 6),
+  [ConsumptionQtyICPOInBaseUnit]             DECIMAL(38, 6),
   [ConsumptionQtyICPOInStandardValue_EUR]    DECIMAL(38, 6),
   [ConsumptionQtyICPOInStandardValue_USD]    DECIMAL(38, 6),
   [ConsumptionQtyOBDProStandardValue]        DECIMAL(38, 6),
