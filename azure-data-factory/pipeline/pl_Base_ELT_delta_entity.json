@@ -503,10 +503,6 @@
 										"value": "@pipeline().parameters.parent_run_id",
 										"type": "Expression"
 									},
-									"source_date_field_name": {
-										"value": "@pipeline().parameters.source_date_field_name",
-										"type": "Expression"
-									},
 									"deltaFiles": {
 										"value": "@variables('deltaFiles')",
 										"type": "Expression"
@@ -600,9 +596,6 @@
 			"base_sproc_name": {
 				"type": "string",
 				"defaultValue": "sp_load_Z_C_VariantConfig"
-			},
-			"source_date_field_name": {
-				"type": "string"
 			},
 			"refresh_from_date": {
 				"type": "string"
