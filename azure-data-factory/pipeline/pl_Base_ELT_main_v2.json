@@ -783,7 +783,7 @@
 					"source": {
 						"type": "AzureSqlSource",
 						"sqlReaderQuery": {
-							"value": "SELECT\n    entity_id,\n    entity_name,\n    base_schema_name,\n    base_table_name,\n    base_sproc_name,\n    axbi_date_field_name\nFROM [dbo].[tvf_scheduled_base_delta_entities] (\n    @{pipeline().parameters.adhoc},\n    '@{variables('date')}'\n)\nWHERE\n    @{pipeline().parameters.entity_filter}\nGROUP BY\n    entity_id,\n    entity_name,\n    base_schema_name,\n    base_table_name,\n    base_sproc_name,\n    axbi_date_field_name",
+							"value": "SELECT\n    entity_id,\n    entity_name,\n    base_schema_name,\n    base_table_name,\n    base_sproc_name\nFROM [dbo].[tvf_scheduled_base_delta_entities] (\n    @{pipeline().parameters.adhoc},\n    '@{variables('date')}'\n)\nWHERE\n    @{pipeline().parameters.entity_filter}\nGROUP BY\n    entity_id,\n    entity_name,\n    base_schema_name,\n    base_table_name,\n    base_sproc_name",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
@@ -872,10 +872,6 @@
 									},
 									"base_sproc_name": {
 										"value": "@item().base_sproc_name",
-										"type": "Expression"
-									},
-									"source_date_field_name": {
-										"value": "@item().axbi_date_field_name",
 										"type": "Expression"
 									}
 								}
