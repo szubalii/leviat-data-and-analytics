@@ -6,6 +6,7 @@
 
 
 CREATE FUNCTION [dbo].[tvf_scheduled_base_delta_entity_batch_activities](
+  @adhoc BIT,
   @date DATE -- set default to current date
 )
 RETURNS TABLE
@@ -15,5 +16,7 @@ RETURN
     *
   FROM
     [dbo].[get_scheduled_entity_batch_activities]
+      @adhoc,
+      @date
   WHERE
     update_mode = 'Delta'
