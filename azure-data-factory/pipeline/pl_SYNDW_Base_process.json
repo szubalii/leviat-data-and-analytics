@@ -472,9 +472,6 @@
 			"run_id": {
 				"type": "string"
 			},
-			"source_date_field_name": {
-				"type": "string"
-			},
 			"deltaFiles": {
 				"type": "array"
 			}
