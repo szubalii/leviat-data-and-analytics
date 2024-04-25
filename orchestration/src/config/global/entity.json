@@ -6565,6 +6565,7 @@
     ]
   },
   "dm_procurement": {
+    "level_id": 4,
     "layer_id": 20,
     "schema_name": "dm_procurement",
     "source_schema_name": "dm_procurement",
