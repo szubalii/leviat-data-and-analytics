@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "EPM Sales View KPI"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "5f8a8a80-f2df-4a0b-87af-4d9c42d05ec3"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "GRIR Account Reconciliation KPI"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "7ee1bafc-7cf5-48ec-b3d3-fbcfa36f2896"
+  }
+}

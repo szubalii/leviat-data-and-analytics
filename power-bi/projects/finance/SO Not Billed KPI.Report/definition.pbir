@@ -1,0 +1,9 @@
+{
+  "version": "4.0",
+  "datasetReference": {
+    "byPath": {
+      "path": "../SO Not Billed KPI.SemanticModel"
+    },
+    "byConnection": null
+  }
+}

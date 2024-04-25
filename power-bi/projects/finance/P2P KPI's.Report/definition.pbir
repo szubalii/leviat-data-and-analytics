@@ -1,0 +1,9 @@
+{
+  "version": "4.0",
+  "datasetReference": {
+    "byPath": {
+      "path": "../P2P KPI's.SemanticModel"
+    },
+    "byConnection": null
+  }
+}

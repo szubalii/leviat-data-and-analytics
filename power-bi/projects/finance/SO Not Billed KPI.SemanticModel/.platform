@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "SO Not Billed KPI"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "ab8d967e-14a5-4270-ba6a-a63b893dc332"
+  }
+}

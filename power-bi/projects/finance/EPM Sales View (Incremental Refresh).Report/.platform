@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "EPM Sales View (Incremental Refresh)"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "851547c6-ca88-4e24-b384-ae1d1a2747d4"
+  }
+}

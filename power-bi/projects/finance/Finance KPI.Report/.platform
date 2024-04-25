@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "Finance KPI"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "01702ad0-fbc5-4faf-93e8-997da2da1d05"
+  }
+}

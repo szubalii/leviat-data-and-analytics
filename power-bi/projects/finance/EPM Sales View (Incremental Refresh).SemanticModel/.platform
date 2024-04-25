@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "EPM Sales View (Incremental Refresh)"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "a1015cf3-ef8f-45be-9e10-167aaa7d23db"
+  }
+}

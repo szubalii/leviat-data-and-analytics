@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "FI SD Reconciliation"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "a96ac9bc-7bfc-49f6-83e1-c9196484e163"
+  }
+}
