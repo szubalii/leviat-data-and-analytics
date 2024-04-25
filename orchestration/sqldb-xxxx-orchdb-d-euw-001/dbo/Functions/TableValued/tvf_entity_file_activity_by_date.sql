@@ -102,7 +102,7 @@ RETURN
       ON
         [activity].entity_id = [e].entity_id
     WHERE
-      e.level_nk = 'BASE'
+      e.level_id = 1 --'BASE'
       AND
       e.update_mode = 'Delta'
 
