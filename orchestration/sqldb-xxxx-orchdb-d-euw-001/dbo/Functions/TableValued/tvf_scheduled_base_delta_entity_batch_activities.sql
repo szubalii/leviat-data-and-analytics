@@ -17,7 +17,8 @@ RETURN
   FROM
     [dbo].[get_scheduled_entity_batch_activities](
       @adhoc,
-      @date
+      @date,
+      0
     )
   WHERE
     update_mode = 'Delta'
