@@ -12,14 +12,15 @@ BEGIN
   -- EXEC tSQLt.FakeTable '[dbo]', '[vw_delta_load_entity_file_activities]';
 
   INSERT INTO dbo.entity (
-    entity_id, 
+    entity_id,
+    level_id,
     layer_id,
     update_mode,
     base_sproc_name
   )
   VALUES
-    (1, 6, 'Delta', 'up_upsert_delta_active_table'),
-    (2, 6, 'Delta', 'up_upsert_delta_active_table');
+    (1, 1, 6, 'Delta', 'up_upsert_delta_active_table'),
+    (2, 1, 6, 'Delta', 'up_upsert_delta_active_table');
   
   INSERT INTO dbo.batch (
     start_date_time,

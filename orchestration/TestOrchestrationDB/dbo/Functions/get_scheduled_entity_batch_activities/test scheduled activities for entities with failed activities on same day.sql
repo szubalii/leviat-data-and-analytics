@@ -10,10 +10,10 @@ BEGIN
   EXEC tSQLt.FakeTable '[dbo]', '[entity]';
   EXEC tSQLt.FakeTable '[dbo]', '[batch]';
   
-  INSERT INTO dbo.entity (entity_id, schedule_recurrence, layer_id, update_mode, base_sproc_name)
+  INSERT INTO dbo.entity (entity_id, schedule_recurrence, level_id, layer_id, update_mode, base_sproc_name)
   VALUES
-    (1, 'D', 6, 'Delta', 'up_upsert_delta_active_table'),
-    (2, 'D', 6, 'Full', NULL);
+    (1, 'D', 1, 6, 'Delta', 'up_upsert_delta_active_table'),
+    (2, 'D', 1, 6, 'Full', NULL);
   
   INSERT INTO dbo.batch (
     start_date_time,
