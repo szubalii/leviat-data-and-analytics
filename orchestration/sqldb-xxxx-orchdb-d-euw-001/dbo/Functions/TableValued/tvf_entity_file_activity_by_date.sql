@@ -84,7 +84,6 @@ RETURN
     UNION ALL
 
     -- Add new activities for delta entities
-    -- TODO: retrieve delta base entities only
     SELECT
       [delta].entity_id,
       [activity].layer_id,
@@ -97,11 +96,15 @@ RETURN
       NULL AS output,
       NULL AS isRequired
     FROM
-      dbo.[vw_delta_load_entities] [delta]
+      dbo.[entity_id] [e]
     LEFT JOIN
       dbo.[vw_entity_activity] [activity]
       ON
-        [activity].entity_id = [delta].entity_id
+        [activity].entity_id = [e].entity_id
+    WHERE
+      e.level_nk = 'BASE'
+      AND
+      e.update_mode = 'Delta'
 
   )
 
