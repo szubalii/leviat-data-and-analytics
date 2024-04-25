@@ -184,7 +184,7 @@
 					"source": {
 						"type": "AzureSqlSource",
 						"sqlReaderQuery": {
-							"value": "SELECT entity_id,\n    entity_name,\n    layer_nk,\n    update_mode,\n    client_field,\n    extraction_type,\n    pk_field_names,\n    axbi_database_name,\n    axbi_schema_name,\n    base_table_name,\n    axbi_date_field_name,\n    adls_container_name,\n    adls_directory_path_In,\n    adls_directory_path_Out,\n    base_schema_name,\n    base_sproc_name,\n    file_name,\n    required_activities,\n    skipped_activities \nFROM [dbo].[tvf_scheduled_delta_entity_batch_activities] (\n    @{pipeline().parameters.adhoc},\n    '@{pipeline().parameters.date}'\n)\nWHERE\n    @{pipeline().parameters.entity_filter}\n    AND\n    entity_id = @{pipeline().parameters.entity_id}",
+							"value": "SELECT entity_id,\n    entity_name,\n    layer_nk,\n    update_mode,\n    client_field,\n    extraction_type,\n    pk_field_names,\n    axbi_database_name,\n    axbi_schema_name,\n    base_table_name,\n    axbi_date_field_name,\n    adls_container_name,\n    adls_directory_path_In,\n    adls_directory_path_Out,\n    base_schema_name,\n    base_sproc_name,\n    file_name,\n    required_activities,\n    skipped_activities \nFROM [dbo].[tvf_scheduled_base_delta_entity_batch_activities] (\n    @{pipeline().parameters.adhoc},\n    '@{pipeline().parameters.date}'\n)\nWHERE\n    @{pipeline().parameters.entity_filter}\n    AND\n    entity_id = @{pipeline().parameters.entity_id}",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
