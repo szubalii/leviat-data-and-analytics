@@ -4,7 +4,7 @@ IF OBJECT_ID('level_tmp', 'U') IS NOT NULL
 GO
 
 -- Create shallow copy of original table 
-SELECT TOP 0 * INTO level_tmp FROM dbo.level;
+SELECT TOP 0 * INTO level_tmp FROM dbo.[level];
 GO
 
 -- Bulk insert data into temp table (does not work on actual #temp tables)
@@ -25,7 +25,7 @@ GO
 
 -- Merge data from temp table with original table
 MERGE 
-	level AS tgt 
+	[level] AS tgt 
 USING 
 	(SELECT * FROM level_tmp) AS src
 ON 
@@ -46,7 +46,7 @@ OUTPUT
 ,   $action
 ,   Inserted.level_id
 ,   Inserted.level_nk
-,	GETUTCDATE() INTO [log].level;
+,	GETUTCDATE() INTO [log].[level];
 GO
 
 -- drop temp tables
