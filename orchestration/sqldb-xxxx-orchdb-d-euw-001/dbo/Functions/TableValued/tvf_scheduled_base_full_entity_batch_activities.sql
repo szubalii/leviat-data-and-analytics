@@ -17,9 +17,10 @@ RETURN
   SELECT
     *
   FROM
-    [dbo].[get_scheduled_entity_batch_activities]
+    [dbo].[get_scheduled_entity_batch_activities](
       @adhoc,
       @date,
       @rerunSuccessfulFullEntities
+    )
   WHERE
     update_mode = 'Full' OR update_mode IS NULL
