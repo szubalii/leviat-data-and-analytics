@@ -13,14 +13,15 @@ BEGIN
 
   INSERT INTO dbo.entity (
     entity_id, 
+    level_id,
     layer_id,
     update_mode,
     base_sproc_name
   )
   VALUES
-    (1, 6, 'Delta', 'up_upsert_delta_active_table'),
-    (2, 6, 'Full', NULL),
-    (3, 6, 'Full', NULL);
+    (1, 1, 6, 'Delta', 'up_upsert_delta_active_table'),
+    (2, 1, 6, 'Full', NULL),
+    (3, 1, 6, 'Full', NULL);
   
   INSERT INTO dbo.batch (
     start_date_time,

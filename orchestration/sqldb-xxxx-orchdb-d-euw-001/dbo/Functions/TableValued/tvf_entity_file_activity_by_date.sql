@@ -83,9 +83,9 @@ RETURN
 
     UNION ALL
 
-    -- Add new activities for delta entiites
+    -- Add new activities for delta entities
     SELECT
-      [delta].entity_id,
+      [e].entity_id,
       [activity].layer_id,
       NULL AS file_name,
       @date AS trigger_date,
@@ -96,11 +96,15 @@ RETURN
       NULL AS output,
       NULL AS isRequired
     FROM
-      dbo.[vw_delta_load_entities] [delta]
+      dbo.[entity] [e]
     LEFT JOIN
       dbo.[vw_entity_activity] [activity]
       ON
-        [activity].entity_id = [delta].entity_id
+        [activity].entity_id = [e].entity_id
+    WHERE
+      e.level_id = 1 --'BASE'
+      AND
+      e.update_mode = 'Delta'
 
   )
 

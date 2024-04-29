@@ -148,6 +148,7 @@
     <None Include="Scripts\Merge.execution_status.sql" />
     <None Include="Scripts\Merge.layer_activity.sql" />
     <None Include="Scripts\Merge.layer.sql" />
+    <None Include="Scripts\Merge.level.sql" />
     <None Include="Scripts\Merge.location.sql" />
     <None Include="Scripts\Merge.pbi_dataset_entity.sql" />
     <None Include="Scripts\Merge.pbi_dataset.sql" />

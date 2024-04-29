@@ -108,6 +108,7 @@ function entityGenerateCSV (env) {
     let entityHeader = [
         "entity_id",
         "entity_name",
+        "level_id",
         "layer_id",
         "adls_container_name",
         "data_category",

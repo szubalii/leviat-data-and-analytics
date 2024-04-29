@@ -884,14 +884,6 @@
 									"run_id": {
 										"value": "@pipeline().parameters.run_id",
 										"type": "Expression"
-									},
-									"file_name": {
-										"value": "@variables('adlsFileName')",
-										"type": "Expression"
-									},
-									"directory_path": {
-										"value": "@pipeline().parameters.adls_directory_path_Out",
-										"type": "Expression"
 									}
 								}
 							}
