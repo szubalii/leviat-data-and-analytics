@@ -25,7 +25,7 @@
 					"source": {
 						"type": "AzureSqlSource",
 						"sqlReaderQuery": {
-							"value": "SELECT * \nFROM [dbo].[get_scheduled_entity_batch_activities] (\n    @{pipeline().parameters.adhoc},\n    '@{pipeline().parameters.date}',\n    @{pipeline().parameters.rerun_successful_full_entities}\n)\nWHERE\n    @{pipeline().parameters.entity_filter}\n    AND\n    (update_mode = 'Full' OR update_mode IS NULL)",
+							"value": "SELECT * \nFROM [dbo].[tvf_scheduled_base_full_entity_batch_activities] (\n    @{pipeline().parameters.adhoc},\n    '@{variables('date')}',\n    @{pipeline().parameters.rerun_successful_full_entities}\n)\nWHERE\n    @{pipeline().parameters.entity_filter}",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
@@ -374,7 +374,7 @@
 										"type": "Expression"
 									},
 									"date": {
-										"value": "@pipeline().parameters.date",
+										"value": "@variables('date')",
 										"type": "Expression"
 									},
 									"run_id": {
@@ -715,6 +715,12 @@
 						"dependencyConditions": [
 							"Succeeded"
 						]
+					},
+					{
+						"activity": "Set Date var",
+						"dependencyConditions": [
+							"Succeeded"
+						]
 					}
 				],
 				"policy": {
@@ -777,7 +783,7 @@
 					"source": {
 						"type": "AzureSqlSource",
 						"sqlReaderQuery": {
-							"value": "SELECT\n    entity_id,\n    entity_name,\n    base_schema_name,\n    base_table_name,\n    base_sproc_name,\n    axbi_date_field_name\nFROM [dbo].[get_scheduled_entity_batch_activities] (\n    @{pipeline().parameters.adhoc},\n    '@{pipeline().parameters.date}',\n    @{pipeline().parameters.rerun_successful_full_entities}\n)\nWHERE\n    @{pipeline().parameters.entity_filter}\n    AND\n    update_mode = 'Delta'\nGROUP BY\n    entity_id,\n    entity_name,\n    base_schema_name,\n    base_table_name,\n    base_sproc_name,\n    axbi_date_field_name",
+							"value": "SELECT\n    entity_id,\n    entity_name,\n    base_schema_name,\n    base_table_name,\n    base_sproc_name\nFROM [dbo].[tvf_scheduled_base_delta_entities] (\n    @{pipeline().parameters.adhoc},\n    '@{variables('date')}'\n)\nWHERE\n    @{pipeline().parameters.entity_filter}\nGROUP BY\n    entity_id,\n    entity_name,\n    base_schema_name,\n    base_table_name,\n    base_sproc_name",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
@@ -845,7 +851,7 @@
 										"type": "Expression"
 									},
 									"date": {
-										"value": "@pipeline().parameters.date",
+										"value": "@variables('date')",
 										"type": "Expression"
 									},
 									"rerun_successful_full_entities": {
@@ -866,10 +872,6 @@
 									},
 									"base_sproc_name": {
 										"value": "@item().base_sproc_name",
-										"type": "Expression"
-									},
-									"source_date_field_name": {
-										"value": "@item().axbi_date_field_name",
 										"type": "Expression"
 									}
 								}
@@ -1105,6 +1107,23 @@
 					},
 					"errorCode": "500"
 				}
+			},
+			{
+				"name": "Set Date var",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "date",
+					"value": {
+						"value": "@if(\n    or(\n        equals(coalesce(pipeline().parameters.date, ''),''),\n        equals(pipeline().parameters.date, 'yyyy/MM/dd')\n    ),\n    formatDateTime(utcNow(),'yyyy/MM/dd'),\n    pipeline().parameters.date\n)",
+						"type": "Expression"
+					}
+				}
 			}
 		],
 		"parameters": {
@@ -1121,7 +1140,7 @@
 			},
 			"date": {
 				"type": "string",
-				"defaultValue": "2023/03/30"
+				"defaultValue": "yyyy/MM/dd"
 			},
 			"rerun_successful_full_entities": {
 				"type": "int",
@@ -1134,6 +1153,10 @@
 			},
 			"delta_entities": {
 				"type": "Array"
+			},
+			"date": {
+				"type": "String",
+				"defaultValue": "@{utcNow()}"
 			}
 		},
 		"folder": {

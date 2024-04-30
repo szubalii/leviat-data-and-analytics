@@ -17,7 +17,7 @@ CREATE VIEW [dm_sales].[vw_dim_ProductValuation]
         PV.[StandardPricePerUnit_EUR],
         PV.[InventoryValuationProcedure],
         PV.[MovingAveragePrice],
-        PV.[MovingAvgPricePPU],
+        PV.[MovingAvgPricePerUnit] AS [MovingAvgPricePPU],
         PV.[MovingAvgPricePerUnit_EUR],
         PV.[ValuationCategoryID],
         VCat.[ValuationCategory],

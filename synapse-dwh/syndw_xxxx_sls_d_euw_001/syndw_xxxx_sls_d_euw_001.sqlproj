@@ -248,7 +248,7 @@
     <None Include="edw\Stored Procedures\sp_load_fact_BillingDocumentItem.sql" />
     <None Include="edw\Stored Procedures\sp_load_dim_ProductHierarchy.sql" />
     <None Include="edw\Stored Procedures\sp_load_dim_ProductSalesDelivery_delta.sql" />
-    <None Include="edw\Stored Procedures\sp_load_fact_ACDOCA_active.sql" />
+    <!-- <None Include="edw\Stored Procedures\sp_load_fact_ACDOCA_active.sql" /> -->
     <None Include="edw\Stored Procedures\sp_load_fact_BillingDocumentItem_axbi.sql" />
     <None Include="edw\Stored Procedures\sp_load_fact_BillingDocumentItem_s4h_active.sql" />
     <None Include="edw\Stored Procedures\sp_load_fact_SalesDocItem_SAPSnapshotMonthly.sql" />
@@ -1202,7 +1202,6 @@
     <Build Include="edw\Views\vw_SalesOrderItemPricingElement.sql" />
     <Build Include="edw\Views\vw_SalesQuotationItemPrcgElmnt.sql" />
     <Build Include="edw\Views\vw_dim_SalesEmployee.sql" />
-    <Build Include="edw\Views\vw_MaterialStockLevel_Weekly.sql" />
     <Build Include="edw\Views\vw_ACDOCA_FinStatemntSalesMargin.sql" />
     <Build Include="edw\Views\vw_GLAccountLineItemRawData.sql" />
     <Build Include="edw\Views\vw_ACDOCA_ReferenceSalesDocument.sql" />
@@ -1236,6 +1235,7 @@
     <Build Include="edw\Views\vw_LatestGlobalParent.sql" />
     <Build Include="edw\Views\vw_BillingDocProject.sql" />
     <Build Include="edw\Views\vw_MaterialDocumentItem_MDOC_CP.sql" />
+    <Build Include="edw\Views\vw_ACDOCA_SalesDocument.sql" />
     
     <Build Include="dq\Views\vw_Product_1_2.sql" />
     <Build Include="dq\Views\vw_RuleTotal.sql" />
@@ -1349,7 +1349,6 @@
     <Build Include="dm_sales\Views\vw_fact_SalesOrderItem_active.sql" />
     <Build Include="dm_sales\Views\vw_fact_SalesQuotationItem_active.sql" />
     <Build Include="dm_sales\Views\vw_fact_MaterialStockLevel.sql" />
-    <Build Include="dm_sales\Views\vw_fact_MaterialStockLevel_filtered.sql" />
     <Build Include="dm_sales\Views\vw_dim_InventoryStockType.sql" />
     <Build Include="dm_sales\Views\vw_dim_InventorySpecialStockType.sql" />
     <Build Include="dm_sales\Views\vw_dim_UnitOfMeasure.sql" />
@@ -1439,7 +1438,6 @@
     <Build Include="dm_dq\Views\vw_dim_SupplierPurchasingOrg.sql" />
     <Build Include="dm_dq\Views\vw_dim_Supplier.sql" />
     <Build Include="dm_c4c\Views\vw_fact_OpportunityCollection.sql" />
-    <Build Include="dm_scm\Views\vw_fact_MaterialStockLevel_Weekly.sql" />
     <Build Include="dm_scm\Views\vw_fact_ProductSalesThirdPartyDelivery.sql" />
     <Build Include="dm_scm\Views\vw_dim_ShippingPoint.sql" />
     <Build Include="dm_RiskAndCompliance\Views\vw_dim_ActivityGroupRoleInCompositeRole.sql" />
@@ -1483,7 +1481,7 @@
     <!-- <Build Include="edw\Stored Procedures\sp_load_fact_SalesDocumentItem_s4h_active.sql" /> -->
     <!-- <Build Include="edw\Stored Procedures\sp_load_fact_SalesDocumentItem_axbi.sql" /> -->
     <!-- <Build Include="edw\Stored Procedures\sp_load_fact_ProductHierarchyVariantConfigCharacteristic_active.sql" /> -->
-    <Build Include="edw\Stored Procedures\sp_load_fact_ACDOCA_active.sql" />
+    <!-- <Build Include="edw\Stored Procedures\sp_load_fact_ACDOCA_active.sql" /> -->
     <Build Include="edw\Stored Procedures\sp_materialize_view.sql" />
     <Build Include="dq\Stored Procedures\sp_materialize_view.sql" />
     <Build Include="dq\Stored Procedures\sp_dq_materialize_view.sql" />

@@ -66,8 +66,6 @@
 , [TaxInvoiceRepresentativeName] nvarchar(20)
 , [BusinessType] nvarchar(60)
 , [IndustryType] nvarchar(60)
-, [TW_CollvBillingIsSupported] nvarchar(2)
-, [AlternativePayeeIsAllowed] nvarchar(2)
 , [t_applicationId]       VARCHAR (32)
 , [t_jobId]               VARCHAR (36)
 , [t_jobDtm]              DATETIME

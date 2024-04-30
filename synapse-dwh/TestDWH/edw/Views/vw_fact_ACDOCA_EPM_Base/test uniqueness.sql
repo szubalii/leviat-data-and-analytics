@@ -16,7 +16,7 @@ BEGIN
   EXEC tSQLt.FakeTable '[edw]', '[dim_CurrencyType]';
   EXEC tSQLt.FakeTable '[edw]', '[dim_Brand]';
   EXEC tSQLt.FakeTable '[edw]', '[dim_CustomerGroup]';
-  EXEC tSQLt.FakeTable '[edw]', '[fact_ACDOCA]';
+  EXEC tSQLt.FakeTable '[edw]', '[fact_ACDOCA_active]';
   EXEC tSQLt.FakeTable '[edw]', '[dim_BillingDocProject]';
 
   
@@ -40,7 +40,7 @@ BEGIN
   INSERT INTO edw.dim_CustomerGroup (CustomerGroupID)
   VALUES (1);
 
-  INSERT INTO edw.fact_ACDOCA (
+  INSERT INTO edw.fact_ACDOCA_active (
     SourceLedgerID,
     CompanyCodeID,
     FiscalYear,

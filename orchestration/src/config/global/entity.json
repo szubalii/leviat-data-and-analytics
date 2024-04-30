@@ -1,5 +1,6 @@
 {
   "s4h": {
+    "level_id": 1,
     "layer_id": 6,
     "schema_name": "base_s4h_cax",
     "base_schema_name": "base_s4h_cax",
@@ -398,7 +399,7 @@
         "update_mode": "Full",
         "base_table_name": "I_Address",
         "pk_field_names": "ADDRESSID",
-        "schedule_recurrence": "A"
+        "schedule_recurrence": "D"
       },
       {
         "entity_id": 94,
@@ -4530,6 +4531,7 @@
     ]
   },
   "c4c": {
+    "level_id": 1,
     "layer_id": 8,
     "schema_name": "base_c4c",
     "base_schema_name": "base_c4c",
@@ -4545,6 +4547,7 @@
     ]
   },
   "dw-halfen-0-hlp": {
+    "level_id": 1,
     "layer_id": 5,
     "schema_name": "base_dw_halfen_0_hlp",
     "base_schema_name": "base_dw_halfen_0_hlp",
@@ -4590,6 +4593,7 @@
     ]
   },
   "dw-halfen-2-dwh": {
+    "level_id": 1,
     "layer_id": 5,
     "schema_name": "base_dw_halfen_2_dwh",
     "base_schema_name": "base_dw_halfen_2_dwh",
@@ -4626,6 +4630,7 @@
     ]
   },
   "dw_halfen_1_stg": {
+    "level_id": 1,
     "layer_id": 5,
     "schema_name": "base_dw_halfen_1_stg",
     "base_schema_name": "base_dw_halfen_1_stg",
@@ -4648,6 +4653,7 @@
     ]
   },
   "tx-ca-0-hlp": {
+    "level_id": 1,
     "layer_id": 5,
     "schema_name": "base_tx_ca_0_hlp",
     "base_schema_name": "base_tx_ca_0_hlp",
@@ -4703,6 +4709,7 @@
     ]
   },
   "ancon_australia_2_dwh": {
+    "level_id": 1,
     "layer_id": 5,
     "schema_name": "base_ancon_australia_2_dwh",
     "base_schema_name": "base_ancon_australia_2_dwh",
@@ -4755,6 +4762,7 @@
     ]
   },
   "tx_crh_1_stg": {
+    "level_id": 1,
     "layer_id": 5,
     "schema_name": "base_tx_crh_1_stg",
     "base_schema_name": "base_tx_crh_1_stg",
@@ -4784,6 +4792,7 @@
     ]
   },
   "tx_crh_2_dwh": {
+    "level_id": 1,
     "layer_id": 5,
     "schema_name": "base_tx_crh_2_dwh",
     "base_schema_name": "base_tx_crh_2_dwh",
@@ -4842,6 +4851,7 @@
     ]
   },
   "tx-halfen-2-dwh": {
+    "level_id": 1,
     "layer_id": 5,
     "schema_name": "base_tx_halfen_2_dwh",
     "base_schema_name": "base_tx_halfen_2_dwh",
@@ -4969,6 +4979,7 @@
     ]
   },
   "leviat-db-us": {
+    "level_id": 1,
     "layer_id": 7,
     "schema_name": "base_us_leviat_db",
     "base_schema_name": "base_us_leviat_db",
@@ -5018,6 +5029,7 @@
     ]
   },
   "edw": {
+    "level_id": 2,
     "layer_id": 4,
     "schema_name": "edw",
     "sproc_schema_name": "edw",
@@ -6053,9 +6065,14 @@
       {
         "entity_id": 504,
         "entity_name": "fact_ACDOCA_active",
-        "sproc_name": "sp_load_fact_ACDOCA_active",
+        "sproc_name": "up_upsert_delta_active_table",
+        "base_schema_name": "base_s4h_cax",
+        "base_table_name": "I_GLAccountLineItemRawData_delta",
+        "source_view_name": "vw_ACDOCA_delta",
+        "dest_table_name": "fact_ACDOCA_active",
         "update_mode": "Delta",
-        "execution_order": 3
+        "execution_order": 3,
+        "schedule_recurrence": "D"
       },
       {
         "entity_id": 543,
@@ -6068,10 +6085,10 @@
       },
       {
         "entity_id": 544,
-        "entity_name": "fact_MaterialStockLevel",
+        "entity_name": "fact_MaterialInventoryStockLevel",
         "sproc_name": "sp_materialize_view",
-        "source_view_name": "vw_MaterialStockLevel",
-        "dest_table_name": "fact_MaterialStockLevel",
+        "source_view_name": "vw_fact_MaterialInventoryStockLevel",
+        "dest_table_name": "fact_MaterialInventoryStockLevel",
         "execution_order": 3,
         "schedule_recurrence": "D"
       },
@@ -6190,8 +6207,7 @@
         "source_view_name": "vw_Address",
         "dest_table_name": "dim_Address",
         "execution_order": 1,
-        "schedule_recurrence": "W",
-        "schedule_day": 2
+        "schedule_recurrence": "D"
       },
       {
         "entity_id": 648,
@@ -6205,6 +6221,7 @@
     ]
   },
   "dq": {
+    "level_id": 3,
     "layer_id": 10,
     "schema_name": "dq",
     "sproc_schema_name": "dq",
@@ -6259,6 +6276,7 @@
     ]
   },
   "ancon-me": {
+    "level_id": 1,
     "layer_id": 11,
     "schema_name": "base_ancon_me",
     "base_schema_name": "base_ancon_me",
@@ -6288,6 +6306,7 @@
     ]
   },
   "ancon-conolly-aus": {
+    "level_id": 1,
     "layer_id": 12,
     "schema_name": "base_ancon_conolly_aus",
     "base_schema_name": "base_ancon_conolly_aus",
@@ -6317,6 +6336,7 @@
     ]
   },
   "isedio-aus": {
+    "level_id": 1,
     "layer_id": 13,
     "schema_name": "base_isedio_aus",
     "base_schema_name": "base_isedio_aus",
@@ -6346,6 +6366,7 @@
     ]
   },
   "halfen-moment-my": {
+    "level_id": 1,
     "layer_id": 14,
     "schema_name": "base_halfen_moment_my",
     "base_schema_name": "base_halfen_moment_my",
@@ -6375,6 +6396,7 @@
     ]
   },
   "halfen-moment-sg": {
+    "level_id": 1,
     "layer_id": 15,
     "schema_name": "base_halfen_moment_sg",
     "base_schema_name": "base_halfen_moment_sg",
@@ -6404,6 +6426,7 @@
     ]
   },
   "halfen-moment-in": {
+    "level_id": 1,
     "layer_id": 16,
     "schema_name": "base_halfen_moment_in",
     "base_schema_name": "base_halfen_moment_in",
@@ -6432,6 +6455,7 @@
     ]
   },
   "halfen-moment-ph": {
+    "level_id": 1,
     "layer_id": 17,
     "schema_name": "base_halfen_moment_ph",
     "base_schema_name": "base_halfen_moment_ph",
@@ -6460,6 +6484,7 @@
     ]
   },
   "ancon-uk": {
+    "level_id": 1,
     "layer_id": 18,
     "schema_name": "base_ancon_uk",
     "base_schema_name": "base_ancon_uk",
@@ -6503,6 +6528,7 @@
     ]
   },
   "isedio": {
+    "level_id": 1,
     "layer_id": 19,
     "schema_name": "base_isedio",
     "base_schema_name": "base_isedio",
@@ -6539,6 +6565,7 @@
     ]
   },
   "dm_procurement": {
+    "level_id": 4,
     "layer_id": 20,
     "schema_name": "dm_procurement",
     "source_schema_name": "dm_procurement",

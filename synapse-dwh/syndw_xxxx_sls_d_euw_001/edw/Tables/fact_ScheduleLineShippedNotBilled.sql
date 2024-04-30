@@ -37,6 +37,7 @@ CREATE TABLE [edw].[fact_ScheduleLineShippedNotBilled] (
     [ClosedInvoicedValue]                                     decimal(38,6),
     [PricePerUnit]                                            decimal(38,6),
     [InScope]                                                 varchar(1),
+    [SoldToPartyID]                                           nvarchar(10),
     [t_applicationId]                                         VARCHAR(32),
     [t_extractionDtm]                                         DATETIME,
     [t_jobId]                                                 VARCHAR(36),

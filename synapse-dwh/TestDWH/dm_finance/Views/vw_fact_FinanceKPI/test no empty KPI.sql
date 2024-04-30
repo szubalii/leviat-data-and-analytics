@@ -7,7 +7,7 @@ BEGIN
   -- Assemble: Fake Table
   EXEC tSQLt.FakeTable '[edw]', '[dim_FiscalCalendar]'; 
   EXEC tSQLt.FakeTable '[edw]', '[dim_CompanyCode]';
-  EXEC tSQLt.FakeTable '[edw]', '[fact_ACDOCA]';
+  EXEC tSQLt.FakeTable '[edw]', '[fact_ACDOCA_active]';
   EXEC tSQLt.FakeTable '[edw]', '[dim_ExchangeRates]';
   EXEC tSQLt.FakeTable '[edw]', '[dim_CurrencyType]';
   EXEC tSQLt.FakeTable '[edw]', '[dim_ZE_EXQLMAP_DT]';
@@ -36,7 +36,7 @@ BEGIN
   )
   VALUES ('1111');
 
-  INSERT INTO edw.fact_ACDOCA (
+  INSERT INTO edw.fact_ACDOCA_active (
     [SourceLedgerID],
     [CompanyCodeID],
     [FiscalYear],

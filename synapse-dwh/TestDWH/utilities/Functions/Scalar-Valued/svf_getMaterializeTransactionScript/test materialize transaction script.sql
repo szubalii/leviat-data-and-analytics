@@ -25,13 +25,22 @@ BEGIN
 
   DECLARE @Columns NVARCHAR(MAX) = (
     SELECT
-      non_t_job_col_names
+      STRING_AGG( '[' + CAST(vc.COLUMN_NAME AS NVARCHAR(MAX)) + ']', ',' + CHAR(13) + CHAR(10))
+        WITHIN GROUP ( ORDER BY vc.ORDINAL_POSITION ) AS column_names
     FROM
-      utilities.vw_MaterializeColumnList
-    WHERE
-      table_name = @DestTable
-      AND
-      schema_name = @DestSchema
+      INFORMATION_SCHEMA.COLUMNS vc
+    INNER JOIN
+      INFORMATION_SCHEMA.COLUMNS tc
+      ON
+        tc.TABLE_NAME = @DestTable
+        AND
+        tc.TABLE_SCHEMA = @DestSchema
+        AND
+        vc.TABLE_NAME = @SourceView
+        AND
+        vc.TABLE_SCHEMA = @SourceSchema
+        AND
+        tc.COLUMN_NAME = vc.COLUMN_NAME
   );
 
   DECLARE
@@ -65,10 +74,14 @@ SELECT [id],'
 FROM [edw].[vw_TestMaterialize];
 END TRY
 BEGIN CATCH
+
   IF @@TRANCOUNT > 0
     ROLLBACK TRANSACTION;
 
-  THROW 50001, ''Failed to materialize data from [edw].[vw_TestMaterialize] into [edw].[dim_test]'', 1;
+  DECLARE @error_msg NVARCHAR(MAX) = (SELECT COALESCE(ERROR_MESSAGE(), ''''));
+  DECLARE @error_msg2 NVARCHAR(MAX) = ''Failed to materialize data for [edw].[vw_TestMaterialize] into [edw].[dim_test]:'' + CHAR(13) + CHAR(10) + @error_msg;
+
+  THROW 50001, @error_msg2, 1;
 END CATCH;
 
 IF @@TRANCOUNT > 0

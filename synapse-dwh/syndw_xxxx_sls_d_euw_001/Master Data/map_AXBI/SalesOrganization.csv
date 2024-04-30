@@ -21,7 +21,7 @@ ANAH,AXC,ANCON,AU,TBD,TBD,,ANAH,Ancon Australia Helifix,AU,Australia,EURWA,Europ
 ANAT,AXA2,ANCON,AT,D,AT35,Leviat Austria AG,AT01,Leviat Austria,AT,Austria,EURCI,Europe Central,AT,Y
 ANAU,AXA1,ANCON,AU,W,TBD,,ANAU,Ancon Australia,AU,Australia,EURWA,Europe West & APAC,AU,N
 ANCH,AXA2,ANCON,CH,E,CH35,Leviat AG,CH01,Leviat Schweiz,CH,Switzerland,EURCI,Europe Central,CH,Y
-ANDE,AXA2,ANCON,DE,R,DE35,,ANDE,Ancon Germany SU,DE,Germany,EURCI,Europe Central,DE,N
+ANDE,AXA2,ANCON,DE,R,DE35,,ANDE,Ancon Germany SU,DE,Germany,EURCI,Europe Central,DE,Y
 ANME,Quickbooks,ANCON,EX,TBD,TBD,,ANME,Leviat Middle East,EX,International,EURCI,Europe Central,INT,N
 ANNZ,AXC,ANCON,NZ,TBD,TBD,,ANNZ,Leviat New Zealand,NZ,New Zealand,EURWA,Europe West & APAC,NZ,N
 ANUK,M3,ANCON,GB,TBD,TBD,,ANUK,Ancon UK,GB,United Kingdom,EURWA,Europe West & APAC,GB,N

@@ -24,7 +24,9 @@ CREATE TABLE [base_s4h_cax].[Z_I_MaterialDocumentItem_MDOC_CP] (
     [ShelfLifeExpirationDate]       date,
     [ManufactureDate]               date,
     [Supplier]                      nvarchar(10),
-    [SalesOrder]                    nvarchar(10),
+    -- make sure same data type and length of SalesOrder is equal to SalesDocument in fact_SalesDocumentItem
+    -- so join performance is sped up
+    [SalesOrder]                    nvarchar(20),
     [SalesOrderItem]                char(6),
     [SalesOrderScheduleLine]        char(4),
     [WBSElementInternalID]          char(8),
@@ -104,5 +106,5 @@ CREATE TABLE [base_s4h_cax].[Z_I_MaterialDocumentItem_MDOC_CP] (
     , [MaterialDocumentItem]
   ) NOT ENFORCED
 ) WITH (
-  HEAP
+  HEAP, DISTRIBUTION = HASH ([SalesOrder])
 )

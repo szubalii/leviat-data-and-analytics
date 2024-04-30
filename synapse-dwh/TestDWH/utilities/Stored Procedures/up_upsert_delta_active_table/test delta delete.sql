@@ -38,7 +38,10 @@ BEGIN
   VALUES
     (1, 'D', -1, 1, 1, 'A', '2024-01-02');
 
-  EXEC utilities.up_upsert_delta_active_table 'base_s4h_cax', '';
+  EXEC utilities.up_upsert_delta_active_table
+    'base_s4h_cax',
+    'vw__delta',
+    '_active';
 
   -- Act
   SELECT

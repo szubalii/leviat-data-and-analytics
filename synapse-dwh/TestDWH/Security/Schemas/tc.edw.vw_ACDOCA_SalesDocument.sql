@@ -1,0 +1,1 @@
+CREATE SCHEMA [tc.edw.vw_ACDOCA_SalesDocument]

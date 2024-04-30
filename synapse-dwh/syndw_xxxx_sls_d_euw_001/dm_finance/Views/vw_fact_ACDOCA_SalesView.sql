@@ -88,7 +88,7 @@ AS
     acdoca.[t_applicationId],
     acdoca.[t_extractionDtm]
 FROM 
-   [edw].[fact_ACDOCA] acdoca
+   [edw].[fact_ACDOCA_active] acdoca
 LEFT JOIN  
     [base_s4h_cax].[I_AccountingDocumentCategoryT] accDCT
     ON 

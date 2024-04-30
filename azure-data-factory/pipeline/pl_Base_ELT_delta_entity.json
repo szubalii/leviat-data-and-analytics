@@ -184,7 +184,7 @@
 					"source": {
 						"type": "AzureSqlSource",
 						"sqlReaderQuery": {
-							"value": "SELECT entity_id,\n    entity_name,\n    layer_nk,\n    update_mode,\n    client_field,\n    extraction_type,\n    pk_field_names,\n    axbi_database_name,\n    axbi_schema_name,\n    base_table_name,\n    axbi_date_field_name,\n    adls_container_name,\n    adls_directory_path_In,\n    adls_directory_path_Out,\n    base_schema_name,\n    base_sproc_name,\n    file_name,\n    required_activities,\n    skipped_activities \nFROM [dbo].[get_scheduled_entity_batch_activities] (\n    @{pipeline().parameters.adhoc},\n    '@{pipeline().parameters.date}',\n    @{pipeline().parameters.rerun_successful_full_entities}\n)\nWHERE\n    @{pipeline().parameters.entity_filter}\n    AND\n    entity_id = @{pipeline().parameters.entity_id}",
+							"value": "SELECT entity_id,\n    entity_name,\n    layer_nk,\n    update_mode,\n    client_field,\n    extraction_type,\n    pk_field_names,\n    axbi_database_name,\n    axbi_schema_name,\n    base_table_name,\n    axbi_date_field_name,\n    adls_container_name,\n    adls_directory_path_In,\n    adls_directory_path_Out,\n    base_schema_name,\n    base_sproc_name,\n    file_name,\n    required_activities,\n    skipped_activities \nFROM [dbo].[tvf_scheduled_base_delta_entity_batch_activities] (\n    @{pipeline().parameters.adhoc},\n    '@{pipeline().parameters.date}'\n)\nWHERE\n    @{pipeline().parameters.entity_filter}\n    AND\n    entity_id = @{pipeline().parameters.entity_id}",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
@@ -503,10 +503,6 @@
 										"value": "@pipeline().parameters.parent_run_id",
 										"type": "Expression"
 									},
-									"source_date_field_name": {
-										"value": "@pipeline().parameters.source_date_field_name",
-										"type": "Expression"
-									},
 									"deltaFiles": {
 										"value": "@variables('deltaFiles')",
 										"type": "Expression"
@@ -544,60 +540,6 @@
 					"value": {
 						"value": "@activity('Get Delta Entity FileName Batch Activities').output.value",
 						"type": "Expression"
-					}
-				}
-			},
-			{
-				"name": "Truncate Delta Table",
-				"description": "Truncate delta tables at the beginning of the run. \nFull tables are only truncated when data is actually loaded from parquet to Synapse Base. As multiple parquet files can be loaded to the same table, one cannot truncate before each load for delta tables. ",
-				"type": "SqlServerStoredProcedure",
-				"dependsOn": [
-					{
-						"activity": "If Required to Process Base",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"policy": {
-					"timeout": "7.00:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"storedProcedureName": "[utilities].[sp_truncate_table]",
-					"storedProcedureParameters": {
-						"schema_name": {
-							"value": {
-								"value": "@pipeline().parameters.base_schema_name",
-								"type": "Expression"
-							},
-							"type": "String"
-						},
-						"table_name": {
-							"value": {
-								"value": "@variables('deltaTableName')",
-								"type": "Expression"
-							},
-							"type": "String"
-						}
-					}
-				},
-				"linkedServiceName": {
-					"referenceName": "ls_ws_xxxx_sls_x_euw_001__syndw_xxxx_sls_x_euw_001",
-					"type": "LinkedServiceReference",
-					"parameters": {
-						"sqlPool": {
-							"value": "@pipeline().globalParameters.synapseDatabaseName",
-							"type": "Expression"
-						},
-						"synapseServer": {
-							"value": "@pipeline().globalParameters.synapseServerName",
-							"type": "Expression"
-						}
 					}
 				}
 			},
@@ -654,9 +596,6 @@
 			"base_sproc_name": {
 				"type": "string",
 				"defaultValue": "sp_load_Z_C_VariantConfig"
-			},
-			"source_date_field_name": {
-				"type": "string"
 			},
 			"refresh_from_date": {
 				"type": "string"
