@@ -64,7 +64,7 @@ WITH ProductValuationPUP AS (
 
 SELECT 
     edw.svf_get5PartNaturalKey (PV.[ProductID],PV.[ValuationAreaID],PV.[ValuationTypeID],PV.[FiscalYearPeriod],PV.[FiscalMonthPeriod]
-                             ) COLLATE SQL_Latin1_General_CP1_CS_AS AS [nk_dim_ProductValuationPUP],
+                             ) /*COLLATE SQL_Latin1_General_CP1_CS_AS*/ AS [nk_dim_ProductValuationPUP],
     PV.[ProductID],
     PV.[ValuationAreaID],
     PV.[ValuationArea],        

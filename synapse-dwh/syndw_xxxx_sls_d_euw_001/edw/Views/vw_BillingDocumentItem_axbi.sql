@@ -577,7 +577,7 @@ BillingDocumentItemBase_axbi_mapped AS (
 
 ), BillingDocumentItemBase_axbi_mapped_calc as (
     SELECT
-        CONCAT(TRIM(SubQ.[SalesOrganizationID]),'_',TRIM(SubQ.[BillingDocument]) COLLATE SQL_Latin1_General_CP1_CS_AS) AS [BillingDocument]
+        CONCAT(TRIM(SubQ.[SalesOrganizationID]),'_',TRIM(SubQ.[BillingDocument]) /*COLLATE SQL_Latin1_General_CP1_CS_AS)*/ AS [BillingDocument]
     ,   SubQ.[BillingDocumentItem]
     ,   SubQ.[ReturnItemProcessingType]
     ,   SubQ.[DataAreaID]

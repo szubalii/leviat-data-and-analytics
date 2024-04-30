@@ -160,7 +160,7 @@
 , [SDoc_ControllingObjectID]   NVARCHAR(22) -- collate Latin1_General_100_BIN2
 , [SDItem_ControllingObjectID] NVARCHAR(22) -- collate Latin1_General_100_BIN2
 , [CorrespncExternalReference] VARCHAR(12)
-, [InOutID] NVARCHAR (6) collate Latin1_General_100_BIN2 NULL
+, [InOutID] NVARCHAR (6) -- collate Latin1_General_100_BIN2 NULL
 , [OpenDeliveryNetAmount] DECIMAL(15,2)
 , [SnapshotCalMonth]      CHAR(6)
 , [SnapshotDate]          DATETIME
