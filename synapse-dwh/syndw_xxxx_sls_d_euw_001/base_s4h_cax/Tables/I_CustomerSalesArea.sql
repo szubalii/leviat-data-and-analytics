@@ -46,6 +46,7 @@ CREATE TABLE [base_s4h_cax].[I_CustomerSalesArea](
 , [AdditionalCustomerGroup3] nvarchar(3)
 , [AdditionalCustomerGroup4] nvarchar(3)
 , [AdditionalCustomerGroup5] nvarchar(3)
+, [SlsDocIsRlvtForProofOfDeliv] nvarchar(1)
 , [t_applicationId]       VARCHAR (32)
 , [t_jobId]               VARCHAR (36)
 , [t_jobDtm]              DATETIME

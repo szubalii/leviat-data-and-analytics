@@ -7,7 +7,7 @@
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "Process Base",
+						"activity": "Update Delta Active Table",
 						"dependencyConditions": [
 							"Failed"
 						]
@@ -44,7 +44,7 @@
 						},
 						"error_msg": {
 							"value": {
-								"value": "@activity('Process Base').Error.Message",
+								"value": "@activity('Update Delta Active Table').Error.Message",
 								"type": "Expression"
 							},
 							"type": "String"
@@ -76,7 +76,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@pipeline().parameters.deltaEntityFileNameBatchActivities",
+						"value": "@pipeline().parameters.deltaFiles",
 						"type": "Expression"
 					},
 					"isSequential": true,
@@ -123,7 +123,7 @@
 									},
 									"file_name": {
 										"value": {
-											"value": "@item().file_name",
+											"value": "@item().adlsFileName",
 											"type": "Expression"
 										},
 										"type": "String"
@@ -166,7 +166,7 @@
 									},
 									"directory_path": {
 										"value": {
-											"value": "@item().adls_directory_path_In",
+											"value": "@item().directoryPath",
 											"type": "Expression"
 										}
 									}
@@ -187,6 +187,10 @@
 							"name": "Set batch_id",
 							"type": "SetVariable",
 							"dependsOn": [],
+							"policy": {
+								"secureOutput": false,
+								"secureInput": false
+							},
 							"userProperties": [],
 							"typeProperties": {
 								"variableName": "batch_id",
@@ -224,7 +228,7 @@
 				"type": "ForEach",
 				"dependsOn": [
 					{
-						"activity": "Process Base",
+						"activity": "Update Delta Active Table",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -392,7 +396,7 @@
 				}
 			},
 			{
-				"name": "Process Base",
+				"name": "Update Delta Active Table",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
@@ -411,9 +415,29 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"storedProcedureName": {
-						"value": "@{pipeline().parameters.base_schema_name}.@{pipeline().parameters.base_sproc_name}",
-						"type": "Expression"
+					"storedProcedureName": "[utilities].[up_upsert_delta_active_table]",
+					"storedProcedureParameters": {
+						"schema_name": {
+							"value": {
+								"value": "@pipeline().parameters.base_schema_name",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"delta_view_name": {
+							"value": {
+								"value": "@concat(\n    'vw_',\n    pipeline().parameters.base_table_name,\n    '_delta'\n)",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"active_table_name": {
+							"value": {
+								"value": "@concat(\n    pipeline().parameters.base_table_name,\n    '_active'\n)",
+								"type": "Expression"
+							},
+							"type": "String"
+						}
 					}
 				},
 				"linkedServiceName": {
@@ -448,10 +472,7 @@
 			"run_id": {
 				"type": "string"
 			},
-			"source_date_field_name": {
-				"type": "string"
-			},
-			"deltaEntityFileNameBatchActivities": {
+			"deltaFiles": {
 				"type": "array"
 			}
 		},

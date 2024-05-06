@@ -188,6 +188,7 @@ SELECT  CONVERT(NVARCHAR(32),
         * LastPPU.[StockPricePerUnit_USD]                                   AS ConsumptionValueByLatestPrice_USD 
     ,   P.SalesOrganization                                                 AS PlantSalesOrgID
     ,   PSD.sk_ProductSalesDelivery                                         AS sk_ProductSalesOrg
+    ,   UV.[MaterialDocumentRecordType]
     ,   UV.[t_applicationId]
     ,   UV.[t_extractionDtm]
     FROM
@@ -313,6 +314,7 @@ SELECT  CONVERT(NVARCHAR(32),
         ,   null AS [StandardPricePerUnit]
         ,   null AS [StandardPricePerUnit_EUR] 
         ,   null AS [StandardPricePerUnit_USD]
+        ,   S4H.[MaterialDocumentRecordType] COLLATE DATABASE_DEFAULT AS [MaterialDocumentRecordType]
         ,   S4H.[t_applicationId]
         ,   S4H.[t_extractionDtm]
     FROM [edw].[vw_MaterialDocumentItem_s4h] S4H
@@ -440,6 +442,7 @@ SELECT  CONVERT(NVARCHAR(32),
         ,   AXBI.[StandardPricePerUnit]
         ,   AXBI.[StandardPricePerUnit_EUR] 
         ,   null AS [StandardPricePerUnit_USD]
+        ,   AXBI.[MaterialDocumentRecordType] COLLATE DATABASE_DEFAULT AS [MaterialDocumentRecordType]
         ,   AXBI.[t_applicationId]
         ,   AXBI.[t_extractionDtm]
     FROM [edw].[vw_MaterialDocumentItem_axbi] AXBI

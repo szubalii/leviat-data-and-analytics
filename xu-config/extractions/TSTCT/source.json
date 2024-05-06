@@ -1,0 +1,67 @@
+{
+    "functionName": "Z_THEO_READ_TABLE",
+    "runInBackgroundJob": false,
+    "backgroundJobTimeout": 180,
+    "tables": 
+    [
+        {
+            "name": "TSTCT",
+            "description": "Transaction Code Texts",
+            "isView": false,
+            "fields": 
+            [
+                {
+                    "name": "SPRSL",
+                    "description": "Language Key",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "formattedLength": 2,
+                    "checkTable": "T002",
+                    "conversionExit": "ISOLA",
+                    "isClientField": false
+                },
+                {
+                    "name": "TCODE",
+                    "description": "Transaction Code",
+                    "abapType": "CharacterString",
+                    "length": 20,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "TSTC",
+                    "indexed": "Ascending",
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "TTEXT",
+                    "description": "Transaction text",
+                    "abapType": "CharacterString",
+                    "length": 36,
+                    "isSelected": true,
+                    "indexed": "Ascending",
+                    "conversionExit": "",
+                    "isClientField": false
+                }
+            ]
+        }
+    ],
+    "complexRuntimeParameters": {
+    },
+    "whereSequence": [
+        [
+            "ColumnName",
+            "TSTCT~SPRSL"
+        ],
+        [
+            "Operator",
+            "Equal"
+        ],
+        [
+            "Literal",
+            "String",
+            "E"
+        ]
+    ]
+}

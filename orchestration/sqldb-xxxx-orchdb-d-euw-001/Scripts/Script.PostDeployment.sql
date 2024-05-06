@@ -16,6 +16,7 @@ Post-Deployment Script Template
 :r .\Merge.error_category.sql
 :r .\Merge.location.sql -- load location before layer, due to foreign key in layer
 :r .\Merge.layer.sql    -- load layer before entity, due to foreign key in entity
+:r .\Merge.level.sql    -- load level before entity, due to foreign key in entity
 :r .\Merge.layer_activity.sql
 :r .\Merge.entity.sql
 :r .\Merge.pbi_dataset.sql

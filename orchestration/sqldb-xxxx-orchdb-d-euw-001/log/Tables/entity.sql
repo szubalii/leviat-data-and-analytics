@@ -1,6 +1,7 @@
 CREATE TABLE [log].entity (
     [Existing_entity_id]				BIGINT
 ,   [Existing_entity_name]				VARCHAR(112)
+,   [Existing_level_id]					BIGINT
 ,   [Existing_layer_id]					BIGINT
 ,   [Existing_adls_container_name]		VARCHAR(63)
 ,   [Existing_data_category]			VARCHAR(11)
@@ -28,6 +29,7 @@ CREATE TABLE [log].entity (
 ,   ActionTaken nvarchar(10)
 ,   [New_entity_id]					BIGINT
 ,   [New_entity_name]				VARCHAR(112)
+,   [New_level_id]					BIGINT
 ,   [New_layer_id]					BIGINT
 ,   [New_adls_container_name]		VARCHAR(63)
 ,   [New_data_category]				VARCHAR(11)

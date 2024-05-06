@@ -56,12 +56,14 @@ RETURNS TABLE AS RETURN
             e.entity_name,
             e.layer_nk,
             e.execution_order,
+            e.update_mode,
             e.sproc_schema_name,
             e.sproc_name,
             e.source_schema_name,
             e.source_view_name,
             e.dest_schema_name,
             e.dest_table_name,
+            e.base_table_name,
             ba.activity_nk,
             ba.activity_order,
             lb.batch_id,
@@ -103,12 +105,14 @@ RETURNS TABLE AS RETURN
             entity_name,
             layer_nk,
             execution_order,
+            update_mode,
             sproc_schema_name,
             sproc_name,
             source_schema_name,
             source_view_name,
             dest_schema_name,
             dest_table_name,
+            base_table_name,
             concat(
                 '[',
                 CASE
@@ -144,12 +148,14 @@ RETURNS TABLE AS RETURN
             entity_name,
             layer_nk,
             execution_order,
+            update_mode,
             sproc_schema_name,
             sproc_name,
             source_schema_name,
             source_view_name,
             dest_schema_name,
             dest_table_name,
+            base_table_name,
             isRequired
     )
     SELECT
@@ -157,12 +163,14 @@ RETURNS TABLE AS RETURN
         entity_name,
         layer_nk,
         execution_order,
+        update_mode,
         sproc_schema_name,
         sproc_name,
         source_schema_name,
         source_view_name,
         dest_schema_name,
         dest_table_name,
+        base_table_name,
         MIN(required_activities) AS required_activities,
         MIN(skipped_activities) AS skipped_activities
     FROM activities
@@ -171,10 +179,12 @@ RETURNS TABLE AS RETURN
         entity_name,
         layer_nk,
         execution_order,
+        update_mode,
         sproc_schema_name,
         sproc_name,
         source_schema_name,
         source_view_name,
         dest_schema_name,
-        dest_table_name
+        dest_table_name,
+        base_table_name
 GO

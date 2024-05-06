@@ -1,0 +1,9 @@
+{
+    "isSurrogateKeyEnabled": false,
+    "columns": 
+    [
+        "AGR_AGRS~MANDT",
+        "AGR_AGRS~AGR_NAME",
+        "AGR_AGRS~CHILD_AGR"
+    ]
+}

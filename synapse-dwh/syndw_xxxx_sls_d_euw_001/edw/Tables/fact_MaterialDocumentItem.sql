@@ -4,7 +4,8 @@
     [nk_StoragePlantID]                         nvarchar(41) NOT NULL,
     [MaterialDocumentYear]                      char(4)      NOT NULL,
     [MaterialDocument]                          nvarchar(10) NOT NULL,
-    [MaterialDocumentItem]                      char(10)      NOT NULL,
+    [MaterialDocumentItem]                      char(10)     NOT NULL,
+    [MaterialDocumentRecordType]                NVARCHAR(9)  NOT NULL,
     [MaterialID]                                nvarchar(40),
     [PlantID]                                   nvarchar(8),
     [StorageLocationID]                         nvarchar(10),
@@ -145,7 +146,8 @@
     CONSTRAINT [PK_fact_MaterialDocumentItem] PRIMARY KEY NONCLUSTERED (
         [MaterialDocumentYear],
         [MaterialDocument],
-        [MaterialDocumentItem]
+        [MaterialDocumentItem],
+        [MaterialDocumentRecordType]
     ) NOT ENFORCED
 )
-WITH ( DISTRIBUTION = HASH ([MaterialDocument]), CLUSTERED COLUMNSTORE INDEX )
+WITH ( DISTRIBUTION = HASH ([MaterialID]), CLUSTERED INDEX ([MaterialID]) )

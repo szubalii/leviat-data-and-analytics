@@ -1,0 +1,9 @@
+{
+  "version": "1.0",
+  "datasetReference": {
+    "byPath": {
+      "path": "../Suppliers List.Dataset"
+    },
+    "byConnection": null
+  }
+}

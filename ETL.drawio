@@ -1,0 +1,138 @@
+<mxfile host="65bd71144e">
+    <diagram name="Copy of Page-1" id="JKMI9oRPu-A73O5QVIaz">
+        <mxGraphModel dx="771" dy="926" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+            <root>
+                <mxCell id="0_V3_beaj-7G9e6yYEle-0"/>
+                <mxCell id="0_V3_beaj-7G9e6yYEle-1" parent="0_V3_beaj-7G9e6yYEle-0"/>
+                <mxCell id="0_V3_beaj-7G9e6yYEle-9" value="EDW" style="rounded=1;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="0_V3_beaj-7G9e6yYEle-1">
+                    <mxGeometry x="60" y="320" width="300" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="0_V3_beaj-7G9e6yYEle-3" value="Base" style="rounded=1;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="0_V3_beaj-7G9e6yYEle-1">
+                    <mxGeometry x="60" y="480" width="300" height="200" as="geometry"/>
+                </mxCell>
+                <mxCell id="0_V3_beaj-7G9e6yYEle-4" value="" style="edgeStyle=none;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="0_V3_beaj-7G9e6yYEle-1" source="0_V3_beaj-7G9e6yYEle-15" target="0_V3_beaj-7G9e6yYEle-8">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="0_V3_beaj-7G9e6yYEle-5" style="edgeStyle=none;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="0_V3_beaj-7G9e6yYEle-1" source="0_V3_beaj-7G9e6yYEle-7" target="0_V3_beaj-7G9e6yYEle-15">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="0_V3_beaj-7G9e6yYEle-6" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="0_V3_beaj-7G9e6yYEle-1" source="0_V3_beaj-7G9e6yYEle-15" target="0_V3_beaj-7G9e6yYEle-11">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="100" y="370" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="160" y="480"/>
+                            <mxPoint x="160" y="480"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="0_V3_beaj-7G9e6yYEle-7" value="_delta" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="0_V3_beaj-7G9e6yYEle-1">
+                    <mxGeometry x="120" y="600" width="80" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="0_V3_beaj-7G9e6yYEle-8" value="_active" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="0_V3_beaj-7G9e6yYEle-1">
+                    <mxGeometry x="240" y="520" width="80" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="0_V3_beaj-7G9e6yYEle-10" value="" style="edgeStyle=none;html=1;" edge="1" parent="0_V3_beaj-7G9e6yYEle-1" source="0_V3_beaj-7G9e6yYEle-11" target="0_V3_beaj-7G9e6yYEle-12">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="0_V3_beaj-7G9e6yYEle-11" value="vw_delta" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="0_V3_beaj-7G9e6yYEle-1">
+                    <mxGeometry x="120" y="360" width="80" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="0_V3_beaj-7G9e6yYEle-12" value="_active" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="0_V3_beaj-7G9e6yYEle-1">
+                    <mxGeometry x="240" y="360" width="80" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="0_V3_beaj-7G9e6yYEle-15" value="vw_delta" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="0_V3_beaj-7G9e6yYEle-1">
+                    <mxGeometry x="120" y="520" width="80" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="0_V3_beaj-7G9e6yYEle-18" value="Materialize base.vw_delta into base._active" style="rounded=0;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="0_V3_beaj-7G9e6yYEle-1">
+                    <mxGeometry x="400" y="515" width="240" height="45" as="geometry"/>
+                </mxCell>
+                <mxCell id="0_V3_beaj-7G9e6yYEle-21" value="Materialize edw.vw_delta into edw._active" style="rounded=0;whiteSpace=wrap;html=1;align=left;labelPosition=center;verticalLabelPosition=middle;verticalAlign=middle;" vertex="1" parent="0_V3_beaj-7G9e6yYEle-1">
+                    <mxGeometry x="400" y="360" width="240" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="0_V3_beaj-7G9e6yYEle-22" value="Truncate base._delta" style="rounded=0;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="0_V3_beaj-7G9e6yYEle-1">
+                    <mxGeometry x="400" y="280" width="240" height="40" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+    <diagram id="Nzuk6BCiQaYigjXfhCQv" name="Page-1">
+        <mxGraphModel dx="1621" dy="2026" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="12" value="INTM" style="rounded=1;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="1">
+                    <mxGeometry x="-10" y="210" width="470" height="220" as="geometry"/>
+                </mxCell>
+                <mxCell id="7" value="Base" style="rounded=1;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="1">
+                    <mxGeometry x="-10" y="490" width="470" height="220" as="geometry"/>
+                </mxCell>
+                <mxCell id="4" value="" style="edgeStyle=none;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="17" target="3">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="16" style="edgeStyle=none;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="2" target="17">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="20" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="2" target="14">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="100" y="640"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="2" value="_delta" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="110" y="610" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="3" value="_active" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="310" y="520" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="8" value="EDW" style="rounded=1;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="1">
+                    <mxGeometry x="-10" y="-70" width="470" height="220" as="geometry"/>
+                </mxCell>
+                <mxCell id="9" value="" style="edgeStyle=none;html=1;" edge="1" parent="1" source="10" target="11">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="10" value="vw_delta" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="110" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="11" value="_active" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="310" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="22" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;" edge="1" parent="1" source="14" target="21">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="14" value="_delta" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="40" y="310" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="17" value="vw_delta" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="110" y="520" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="23" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="21" target="10">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="100" y="180"/>
+                            <mxPoint x="170" y="180"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="21" value="vw_delta" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="40" y="230" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="24" value="Materialize base_delta into base_active" style="rounded=0;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="1">
+                    <mxGeometry x="480" y="510" width="320" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="25" value="Insert base_delta into intm_delta" style="rounded=0;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="1">
+                    <mxGeometry x="480" y="440" width="320" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="26" value="Truncate base_delta" style="rounded=0;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="1">
+                    <mxGeometry x="480" y="370" width="320" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="27" value="Materialize intm_delta into edw_active" style="rounded=0;whiteSpace=wrap;html=1;align=left;labelPosition=center;verticalLabelPosition=middle;verticalAlign=middle;" vertex="1" parent="1">
+                    <mxGeometry x="480" y="190" width="320" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="28" value="Truncate intm_delta" style="rounded=0;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="1">
+                    <mxGeometry x="480" y="120" width="320" height="50" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

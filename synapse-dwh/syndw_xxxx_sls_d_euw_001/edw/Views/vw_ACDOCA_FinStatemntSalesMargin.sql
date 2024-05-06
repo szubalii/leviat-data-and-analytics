@@ -116,7 +116,7 @@ AS (
         END AS [AmountCategory]
         ,AC.t_applicationId
         ,AC.t_extractionDtm
-    FROM [edw].[fact_ACDOCA] AC
+    FROM [edw].[fact_ACDOCA_active] AC
     INNER JOIN L3 
         ON AC.GLAccountID COLLATE Latin1_General_CI_AS BETWEEN L3.LowerBoundaryAccount AND L3.UpperBoundaryAccount 
     INNER JOIN [edw].[dim_ZE_EXQLMAP_DT] ZED

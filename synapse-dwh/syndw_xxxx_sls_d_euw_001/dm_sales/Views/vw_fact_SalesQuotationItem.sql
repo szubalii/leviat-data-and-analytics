@@ -1,245 +1,362 @@
 ﻿CREATE VIEW [dm_sales].[vw_fact_SalesQuotationItem] AS
 
 WITH
-PrcgElmnt AS (
-    SELECT
-        [SalesQuotation]
-        ,[SalesQuotationItem]
-        ,[CurrencyTypeID]
-        ,MAX([ZC10])    AS [ZC10]
-        ,MAX([ZCF1])    AS [ZCF1]
-        ,MAX([VPRS])    AS [VPRS]
-        ,MAX([EK02])    AS [EK02]
-    FROM [edw].[fact_SalesQuotationItemPrcgElmnt]
-    PIVOT  
-    (  
-        SUM(ConditionAmount)  
-        FOR [ConditionType] IN ([ZC10], [ZCF1], [VPRS], [EK02])  
-    ) AS PivotTable
-    GROUP BY
-        [SalesQuotation]
-        ,[SalesQuotationItem]
-        ,[CurrencyTypeID]
+
+CTE_SalesOrder AS (
+  SELECT
+    subDoc.[ReferenceSDDocumentID] AS [QuotationID],
+    subDoc.[ReferenceSDDocumentItemID] AS [QuotationItemID],
+    subDoc.[CurrencyTypeID],                   
+    SUM(OrderQuantity) AS SO_OrderQuantity,
+    SUM(NetAmount)     AS SO_NetAmount,
+    SUM(CostAmount)    AS SO_CostAmount,
+    SUM(Margin)        AS SO_Margin
+  FROM
+    [edw].[fact_SalesDocumentItem] subDoc
+  WHERE
+    subDoc.[SDDocumentCategoryID] <> 'B'
+    AND
+    subDoc.[ReferenceSDDocumentID] <> ''
+    AND
+    subDoc.[ReferenceSDDocumentCategoryID] = 'B'
+    AND
+    subDoc.[SalesDocumentTypeID] = 'ZOR'
+  GROUP BY
+    subDoc.[ReferenceSDDocumentID],
+    subDoc.[ReferenceSDDocumentItemID],
+    subDoc.[CurrencyTypeID]
 )
-select doc.[SalesDocument]           as [QuotationID]
-     , doc.[SalesDocumentItem]       as [QuotationItemID]
-     , doc.[CurrencyTypeID]
-     , doc.[CurrencyType]
-     , doc.[sk_fact_SalesDocumentItem] as sk_fact_SalesQuotationItem
-     , dimSDDC.[SDDocumentCategoryID]
-     , dimSDDC.[SDDocumentCategory]
-     , dimSDT.[SalesDocumentTypeID]
-     , dimSDT.[SalesDocumentType]
-     , dimSDIC.[SalesDocumentItemCategoryID]
-     , dimSDIC.[SalesDocumentItemCategory]
-     , doc.[IsReturnsItemID]
-     , doc.[CreationDate]
-     , doc.[CreationTime]
-     , doc.[LastChangeDate]
-     , doc.[SalesOrganizationID]  
-     , dimDCh.[DistributionChannelID]
-     , dimDCh.[DistributionChannel]
-     , doc.[MaterialID]
-     , doc.[ProductSurrogateKey]
-     , doc.[OriginallyRequestedMaterialID]
-     , doc.[MaterialSubstitutionReasonID]
-     , doc.[MaterialGroupID]
-     , doc.[BrandID]
-     , doc.[Brand]
-     , doc.[SoldToPartyID]
-     , doc.[ShipToPartyID]
-     , doc.[PayerPartyID]
-     , doc.[BillToPartyID]
-     , dimSDR.[SDDocumentReasonID]
-     , dimSDR.[SDDocumentReason]
-     , doc.[SalesDocumentDate]
-     , doc.[OrderQuantity]
-     , dimUOM.[UnitOfMeasureID]      as [OrderQuantityUnitID]
-     , dimUOM.[UnitOfMeasure]        as [OrderQuantityUnit]
-     , doc.[TargetQuantity]
-     , doc.[TargetQuantityUnitID]
-     --, doc.[ConfdDelivyInOrderyUnitID]
-     --, doc.[TargetDelivyInOrderyUnitID]
-     --, doc.[ConfdDeliveryInBaseUnitID]
-     , doc.[SalesDistrictID]
-     , dimCGr.[CustomerGroupID]
-     , dimCGr.[CustomerGroup]
-     , dimSDRR.[SalesDocumentRjcnReasonID]
-     , dimSDRR.[SalesDocumentRjcnReason]
-     , doc.[PricingDate]
-     , doc.[ExchangeRateDate]
-     , doc.[NetAmount]
-     , doc.[TransactionCurrencyID]
-     , doc.[RequestedDeliveryDate]
-     , doc.[PlantID]
-     , doc.[StorageLocationID]
-     --, doc.[MinDeliveryInBaseUnitID]
-     --, doc.[BindingPeriodValityStartDate]
-     --, doc.[BindingPeriodValityEndDate]
-     , doc.[BillingDocumentDate]
-     , doc.[BillingCompanyCodeID]
-     , doc.[ProfitCenterID]
-     , doc.[ReferenceSDDocumentID]
-     , doc.[ReferenceSDDocumentItemID]
-     , dimRSDDC.SDDocumentCategoryID as [ReferenceSDDocumentCategoryID]
-     , dimRSDDC.SDDocumentCategory   as [ReferenceSDDocumentCategory]
-     , doc.[OriginSDDocumentID]
-     , doc.[OriginSDDocumentItemID]
-     , dimOSS.[OverallSDProcessStatusID]
-     , dimOSS.[OverallSDProcessStatus]
-     , dimOTDS.[OverallTotalDeliveryStatusID]
-     , dimOTDS.[OverallTotalDeliveryStatus] as [OverallTotalDeliveryStatus]
-     , doc.[OverallOrdReltdBillgStatusID]
-     , dimTCCS.[TotalCreditCheckStatusID]
-     , dimTCCS.[TotalCreditCheckStatus]
-     , dimDBS.[DeliveryBlockStatusID]
-     , dimDBS.[DeliveryBlockStatus]
-     , dimBBS.[BillingBlockStatusID]
-     , dimBBS.[BillingBlockStatus]
-     , dimTSDDRS.[TotalSDDocReferenceStatusID]
-     , dimTSDDRS.[TotalSDDocReferenceStatus]     as [TotalSDDocReferenceStatus]
-     , dimSDDRS.[SDDocReferenceStatusID]
-     , dimSDDRS.[SDDocReferenceStatus]
-     , dimOSDDRS.[OverallSDDocumentRjcnStatusID]
-     , dimOSDDRS.[OverallSDDocumentRjcnStatus] as [OverallSDDocumentRejectionSts]
-     , dimSDDRjS.[SDDocumentRejectionStatusID]
-     , dimSDDRjS.[SDDocumentRejectionStatus]     as [SDDocumentRejectionStatus]
-     , dimOTSDDRS.[OverallTotalSDDocRefStatusID]
-     , dimOTSDDRS.[OverallTotalSDDocRefStatus]   as [OverallTotalSDDocRefStatus]
-     , dimOSDDRSt.[OverallSDDocReferenceStatusID]
-     , dimOSDDRSt.[OverallSDDocReferenceStatus]  as [OverallSDDocReferenceStatus]
-     , dimIGIS.[ItemGeneralIncompletionStatusID]
-     , dimIGIS.[ItemGeneralIncompletionStatus]
-     , dimIBIS.[ItemBillingIncompletionStatusID]
-     , dimIBIS.[ItemBillingIncompletionStatus]
-     , dimPIS.[PricingIncompletionStatusID]
-     , dimPIS.[PricingIncompletionStatus]        as [PricingIncompletionStatus]
-     , dimIDIS.[ItemDeliveryIncompletionStatusID]
-     , dimIDIS.[ItemDeliveryIncompletionStatus]
-     , doc.[ExternalSalesAgentID]
-     , doc.[ExternalSalesAgent]
-     , doc.[ProjectID]
-     , doc.[Project]
-     , doc.[SalesEmployeeID]
-     , doc.[SalesEmployee]
-     , doc.[GlobalParentCalculatedID]
-     , doc.[GlobalParentCalculated]
-     , doc.[LocalParentCalculatedID]
-     , doc.[LocalParentCalculated]
-     , doc.[SDoc_ControllingObjectID]
-     , doc.[SDItem_ControllingObjectID]     
-     , doc.[Margin]
-     , doc.[Subtotal1Amount]
-     , doc.[Subtotal2Amount]
-     , doc.[Subtotal3Amount]
-     , doc.[Subtotal4Amount]
-     , doc.[Subtotal5Amount]
-     , doc.[Subtotal6Amount]
-     , doc.[InOutID]       
-     --, doc.[OrderNetAmount]
-     , ord.[SO_OrderQuantity]
-     , ord.[SO_NetAmount]
-     , ord.[SO_CostAmount]
-     , ord.[SO_Margin]
-     , doc.[CorrespncExternalReference] 
-     , doc.SalesOfficeID
-    , PrcgElmnt.[ZC10]                         AS [PrcgElmntZC10ConditionAmount]
-    , PrcgElmnt.[ZCF1]                         AS [PrcgElmntZCF1ConditionAmount]
-    , [edw].[svf_replaceZero](
-            PrcgElmnt.[VPRS]
-            ,PrcgElmnt.[EK02])                 AS [PrcgElmntVPRS/EK02ConditionAmount]
-     , doc.[t_applicationId]
-     , doc.[t_extractionDtm]
-from [edw].[fact_SalesDocumentItem] doc
-         left join [edw].[dim_SDDocumentCategory] dimSDDC
-                   on dimSDDC.[SDDocumentCategoryID] = doc.[SDDocumentCategoryID]
-         left join [edw].[dim_SalesDocumentItemCategory] dimSDIC 
-                   on dimSDIC.[SalesDocumentItemCategoryID] = doc.[SalesDocumentItemCategoryID]
-         left join [edw].[dim_SDDocumentReason] dimSDR
-                   on dimSDR.[SDDocumentReasonID] = doc.[SDDocumentReasonID]
+,
+CTE_ConditionTypes AS (
+  SELECT
+    [SalesQuotation]
+    ,[SalesQuotationItem]
+    ,[CurrencyTypeID]
+    ,ConditionType AS ConditionTypeForConditionAmount
+    ,ConditionType + '1' AS ConditionTypeForConditionRateValue
+    ,SUM(ConditionAmount) AS ConditionAmount
+    ,SUM(ConditionRateValue) AS ConditionRateValue
+  FROM
+    [edw].[fact_SalesQuotationItemPrcgElmnt]
+  GROUP BY
+    [SalesQuotation]
+    ,[SalesQuotationItem]
+    ,[CurrencyTypeID]
+    ,[ConditionType]
+)
+,
+CTE_PVT AS (
+  SELECT
+    *
+  FROM
+    CTE_ConditionTypes
+  PIVOT  
+  (  
+    SUM(ConditionAmount)  
+    FOR [ConditionTypeForConditionAmount] IN ([ZC10], [ZCF1], [VPRS], [EK02])  
+  ) AS PVT_ConditionAmount
+  PIVOT  
+  (  
+    SUM(ConditionRateValue)  
+    FOR [ConditionTypeForConditionRateValue] IN ([ZC101], [ZCF11], [VPRS1], [EK021])  
+  ) AS PVT_ConditionRateValue
+)
+,
+CTE_PrcgElmnt AS (
+  SELECT
+    [SalesQuotation]
+    ,[SalesQuotationItem]
+    ,[CurrencyTypeID]
+    ,MAX([ZC10])    AS [PrcgElmntZC10ConditionAmount]
+    ,MAX([ZCF1])    AS [PrcgElmntZCF1ConditionAmount]
+    ,MAX([VPRS])    AS [PrcgElmntVPRSConditionAmount]
+    ,MAX([EK02])    AS [PrcgElmntEK02ConditionAmount]
+    ,MAX([ZC101])   AS [PrcgElmntZC10ConditionRate]
+    ,MAX([ZCF11])   AS [PrcgElmntZCF1ConditionRate]
+    ,MAX([VPRS1])   AS [PrcgElmntVPRSConditionRate]
+    ,MAX([EK021])   AS [PrcgElmntEK02ConditionRate]
+  FROM
+    CTE_PVT
+  GROUP BY
+    [SalesQuotation]
+    ,[SalesQuotationItem]
+    ,[CurrencyTypeID]
+)
 
-         left join [edw].[dim_CustomerGroup] dimCGr
-                   on dimCGr.[CustomerGroupID] = doc.[CustomerGroupID]
-         left join [edw].[dim_SDDocumentCategory] dimRSDDC
-                   on dimRSDDC.[SDDocumentCategoryID] = doc.[ReferenceSDDocumentCategoryID]
+SELECT
+  doc.[SalesDocument]           AS [QuotationID]
+, doc.[SalesDocumentItem]       AS [QuotationItemID]
+, doc.[CurrencyTypeID]
+, doc.[CurrencyType]
+, doc.[sk_fact_SalesDocumentItem] AS sk_fact_SalesQuotationItem
+, dimSDDC.[SDDocumentCategoryID]
+, dimSDDC.[SDDocumentCategory]
+, dimSDT.[SalesDocumentTypeID]
+, dimSDT.[SalesDocumentType]
+, dimSDIC.[SalesDocumentItemCategoryID]
+, dimSDIC.[SalesDocumentItemCategory]
+, doc.[IsReturnsItemID]
+, doc.[CreationDate]
+, doc.[CreationTime]
+, doc.[LastChangeDate]
+, doc.[SalesOrganizationID]  
+, dimDCh.[DistributionChannelID]
+, dimDCh.[DistributionChannel]
+, doc.[MaterialID]
+, doc.[nk_ProductPlant]
+, doc.[ProductSurrogateKey]
+, doc.[OriginallyRequestedMaterialID]
+, doc.[MaterialSubstitutionReasonID]
+, doc.[MaterialGroupID]
+, doc.[BrandID]
+, doc.[Brand]
+, doc.[SoldToPartyID]
+, doc.[ShipToPartyID]
+, doc.[PayerPartyID]
+, doc.[BillToPartyID]
+, dimSDR.[SDDocumentReasonID]
+, dimSDR.[SDDocumentReason]
+, doc.[SalesDocumentDate]
+, doc.[OrderQuantity]
+, dimUOM.[UnitOfMeasureID]      AS [OrderQuantityUnitID]
+, dimUOM.[UnitOfMeasure]        AS [OrderQuantityUnit]
+, doc.[TargetQuantity]
+, doc.[TargetQuantityUnitID]
+--, doc.[ConfdDelivyInOrderyUnitID]
+--, doc.[TargetDelivyInOrderyUnitID]
+--, doc.[ConfdDeliveryInBaseUnitID]
+, doc.[SalesDistrictID]
+, dimCGr.[CustomerGroupID]
+, dimCGr.[CustomerGroup]
+, dimSDRR.[SalesDocumentRjcnReasonID]
+, dimSDRR.[SalesDocumentRjcnReason]
+, doc.[PricingDate]
+, doc.[ExchangeRateDate]
+, doc.[NetAmount]
+, doc.[TransactionCurrencyID]
+, doc.[RequestedDeliveryDate]
+, doc.[PlantID]
+, doc.[StorageLocationID]
+--, doc.[MinDeliveryInBaseUnitID]
+--, doc.[BindingPeriodValityStartDate]
+--, doc.[BindingPeriodValityEndDate]
+, doc.[BillingDocumentDate]
+, doc.[BillingCompanyCodeID]
+, doc.[ProfitCenterID]
+, doc.[ReferenceSDDocumentID]
+, doc.[ReferenceSDDocumentItemID]
+, dimRSDDC.SDDocumentCategoryID AS [ReferenceSDDocumentCategoryID]
+, dimRSDDC.SDDocumentCategory   AS [ReferenceSDDocumentCategory]
+, doc.[OriginSDDocumentID]
+, doc.[OriginSDDocumentItemID]
+, dimOSS.[OverallSDProcessStatusID]
+, dimOSS.[OverallSDProcessStatus]
+, dimOTDS.[OverallTotalDeliveryStatusID]
+, dimOTDS.[OverallTotalDeliveryStatus] AS [OverallTotalDeliveryStatus]
+, doc.[OverallOrdReltdBillgStatusID]
+, dimTCCS.[TotalCreditCheckStatusID]
+, dimTCCS.[TotalCreditCheckStatus]
+, dimDBS.[DeliveryBlockStatusID]
+, dimDBS.[DeliveryBlockStatus]
+, dimBBS.[BillingBlockStatusID]
+, dimBBS.[BillingBlockStatus]
+, dimTSDDRS.[TotalSDDocReferenceStatusID]
+, dimTSDDRS.[TotalSDDocReferenceStatus]     AS [TotalSDDocReferenceStatus]
+, dimSDDRS.[SDDocReferenceStatusID]
+, dimSDDRS.[SDDocReferenceStatus]
+, dimOSDDRS.[OverallSDDocumentRjcnStatusID]
+, dimOSDDRS.[OverallSDDocumentRjcnStatus] AS [OverallSDDocumentRejectionSts]
+, dimSDDRjS.[SDDocumentRejectionStatusID]
+, dimSDDRjS.[SDDocumentRejectionStatus]     AS [SDDocumentRejectionStatus]
+, dimOTSDDRS.[OverallTotalSDDocRefStatusID]
+, dimOTSDDRS.[OverallTotalSDDocRefStatus]   AS [OverallTotalSDDocRefStatus]
+, dimOSDDRSt.[OverallSDDocReferenceStatusID]
+, dimOSDDRSt.[OverallSDDocReferenceStatus]  AS [OverallSDDocReferenceStatus]
+, dimIGIS.[ItemGeneralIncompletionStatusID]
+, dimIGIS.[ItemGeneralIncompletionStatus]
+, dimIBIS.[ItemBillingIncompletionStatusID]
+, dimIBIS.[ItemBillingIncompletionStatus]
+, dimPIS.[PricingIncompletionStatusID]
+, dimPIS.[PricingIncompletionStatus]        AS [PricingIncompletionStatus]
+, dimIDIS.[ItemDeliveryIncompletionStatusID]
+, dimIDIS.[ItemDeliveryIncompletionStatus]
+, doc.[ExternalSalesAgentID]
+, doc.[ExternalSalesAgent]
+, doc.[ProjectID]
+, doc.[Project]
+, doc.[SalesEmployeeID]
+, doc.[SalesEmployee]
+, doc.[GlobalParentCalculatedID]
+, doc.[GlobalParentCalculated]
+, doc.[LocalParentCalculatedID]
+, doc.[LocalParentCalculated]
+, doc.[SDoc_ControllingObjectID]
+, doc.[SDItem_ControllingObjectID]     
+, doc.[Margin]
+, doc.[Subtotal1Amount]
+, doc.[Subtotal2Amount]
+, doc.[Subtotal3Amount]
+, doc.[Subtotal4Amount]
+, doc.[Subtotal5Amount]
+, doc.[Subtotal6Amount]
+, doc.[InOutID]       
+--, doc.[OrderNetAmount]
+, CTE_SalesOrder.[SO_OrderQuantity]
+, CTE_SalesOrder.[SO_NetAmount]
+, CTE_SalesOrder.[SO_CostAmount]
+, CTE_SalesOrder.[SO_Margin]
+, doc.[CorrespncExternalReference] 
+, doc.SalesOfficeID
+, CTE_PrcgElmnt.[PrcgElmntZC10ConditionAmount]
+, CTE_PrcgElmnt.[PrcgElmntZCF1ConditionAmount]
+, [edw].[svf_replaceZero](
+     CTE_PrcgElmnt.[PrcgElmntVPRSConditionAmount]
+    ,CTE_PrcgElmnt.[PrcgElmntEK02ConditionAmount]
+) AS [PrcgElmntVPRS/EK02ConditionAmount]
+, CTE_PrcgElmnt.[PrcgElmntZC10ConditionRate]
+, CTE_PrcgElmnt.[PrcgElmntZCF1ConditionRate]
+, [edw].[svf_replaceZero](
+     CTE_PrcgElmnt.[PrcgElmntVPRSConditionRate]
+    ,CTE_PrcgElmnt.[PrcgElmntEK02ConditionRate]
+) AS [PrcgElmntVPRS/EK02ConditionRate]
+, doc.[SalesGroupID]
+, doc.[SalesGroupName]
+, doc.[t_applicationId]
+, doc.[t_extractionDtm]
+FROM
+  [edw].[fact_SalesDocumentItem] doc
+LEFT JOIN
+  [edw].[dim_SDDocumentCategory] dimSDDC
+  ON
+    dimSDDC.[SDDocumentCategoryID] = doc.[SDDocumentCategoryID]
+LEFT JOIN
+  [edw].[dim_SalesDocumentItemCategory] dimSDIC 
+  ON
+    dimSDIC.[SalesDocumentItemCategoryID] = doc.[SalesDocumentItemCategoryID]
+LEFT JOIN
+  [edw].[dim_SDDocumentReason] dimSDR
+  ON
+    dimSDR.[SDDocumentReasonID] = doc.[SDDocumentReasonID]
 
-         left join [edw].[dim_SalesDocumentType] dimSDT
-                   on dimSDT.[SalesDocumentTypeID] = doc.[SalesDocumentTypeID]
+LEFT JOIN
+  [edw].[dim_CustomerGroup] dimCGr
+  ON
+    dimCGr.[CustomerGroupID] = doc.[CustomerGroupID]
+LEFT JOIN
+  [edw].[dim_SDDocumentCategory] dimRSDDC
+  ON
+    dimRSDDC.[SDDocumentCategoryID] = doc.[ReferenceSDDocumentCategoryID]
 
-         left join [edw].[dim_BillingBlockStatus] dimBBS
-                   on dimBBS.[BillingBlockStatusID] = doc.[BillingBlockStatusID]
+LEFT JOIN
+  [edw].[dim_SalesDocumentType] dimSDT
+  ON
+    dimSDT.[SalesDocumentTypeID] = doc.[SalesDocumentTypeID]
 
-         left join [edw].[dim_DeliveryBlockStatus] dimDBS
-                   on dimDBS.[DeliveryBlockStatusID] = doc.[DeliveryBlockStatusID]
+LEFT JOIN
+  [edw].[dim_BillingBlockStatus] dimBBS
+  ON
+    dimBBS.[BillingBlockStatusID] = doc.[BillingBlockStatusID]
 
-         left join [edw].[dim_ItemBillingIncompletionStatus] dimIBIS
-                   on dimIBIS.[ItemBillingIncompletionStatusID] = doc.[ItemBillingIncompletionStatusID]
+LEFT JOIN
+  [edw].[dim_DeliveryBlockStatus] dimDBS
+  ON
+    dimDBS.[DeliveryBlockStatusID] = doc.[DeliveryBlockStatusID]
 
-         left join [edw].[dim_ItemDeliveryIncompletionStatus] dimIDIS
-                   on dimIDIS.[ItemDeliveryIncompletionStatusID] = doc.[ItemDeliveryIncompletionStatusID]
+LEFT JOIN
+  [edw].[dim_ItemBillingIncompletionStatus] dimIBIS
+  ON
+    dimIBIS.[ItemBillingIncompletionStatusID] = doc.[ItemBillingIncompletionStatusID]
 
-         left join [edw].[dim_ItemGeneralIncompletionStatus] dimIGIS
-                   on dimIGIS.[ItemGeneralIncompletionStatusID] = doc.[ItemGeneralIncompletionStatusID]
+LEFT JOIN
+  [edw].[dim_ItemDeliveryIncompletionStatus] dimIDIS
+  ON
+    dimIDIS.[ItemDeliveryIncompletionStatusID] = doc.[ItemDeliveryIncompletionStatusID]
 
-         left join [edw].[dim_OverallSDProcessStatus] dimOSS
-                   on dimOSS.[OverallSDProcessStatusID] = doc.[OverallSDProcessStatusID]
+LEFT JOIN
+  [edw].[dim_ItemGeneralIncompletionStatus] dimIGIS
+  ON
+    dimIGIS.[ItemGeneralIncompletionStatusID] = doc.[ItemGeneralIncompletionStatusID]
 
-         left join [edw].[dim_SDDocReferenceStatus] dimSDDRS
-                   on dimSDDRS.[SDDocReferenceStatusID] = doc.[SDDocReferenceStatusID]
+LEFT JOIN
+  [edw].[dim_OverallSDProcessStatus] dimOSS
+  ON
+    dimOSS.[OverallSDProcessStatusID] = doc.[OverallSDProcessStatusID]
 
-         left join [edw].[dim_TotalCreditCheckStatus] dimTCCS
-                   on dimTCCS.[TotalCreditCheckStatusID] = doc.[TotalCreditCheckStatusID]
+LEFT JOIN
+  [edw].[dim_SDDocReferenceStatus] dimSDDRS
+  ON
+    dimSDDRS.[SDDocReferenceStatusID] = doc.[SDDocReferenceStatusID]
 
-         left join [edw].[dim_UnitOfMeasure] dimUOM
-                   on dimUOM.[UnitOfMeasureID] = doc.[OrderQuantityUnitID]
+LEFT JOIN
+  [edw].[dim_TotalCreditCheckStatus] dimTCCS
+  ON
+    dimTCCS.[TotalCreditCheckStatusID] = doc.[TotalCreditCheckStatusID]
 
-         left join [edw].[dim_SalesDocumentRjcnReason] dimSDRR
-                   on dimSDRR.[SalesDocumentRjcnReasonID] = doc.[SalesDocumentRjcnReasonID]
+LEFT JOIN
+  [edw].[dim_UnitOfMeasure] dimUOM
+  ON
+    dimUOM.[UnitOfMeasureID] = doc.[OrderQuantityUnitID]
 
-         left join [edw].[dim_DistributionChannel] dimDCh
-                   on dimDCh.[DistributionChannelID] = doc.[DistributionChannelID]
-         left join (
-                select subDoc.[ReferenceSDDocumentID]    as [QuotationID],
-                    subDoc.[ReferenceSDDocumentItemID]   as [QuotationItemID],
-                    subDoc.[CurrencyTypeID],                   
-                    sum(OrderQuantity) as       SO_OrderQuantity,
-                    sum(NetAmount)     as       SO_NetAmount,
-                    sum(CostAmount)             SO_CostAmount,
-                    sum(Margin)                 SO_Margin
-                from [edw].[fact_SalesDocumentItem] subDoc
-                where subDoc.[SDDocumentCategoryID] <> 'B'
-                and subDoc.[ReferenceSDDocumentID] <> ''
-                and subDoc.[ReferenceSDDocumentCategoryID] = 'B'
-                and subDoc.[SalesDocumentTypeID] = 'ZOR'
-                group by subDoc.[ReferenceSDDocumentID], subDoc.[ReferenceSDDocumentItemID],  subDoc.[CurrencyTypeID] 
-                
-             ) as ord on ord.[QuotationID] = doc.[SalesDocument] 
-                    and ord.[QuotationItemID] = doc.[SalesDocumentItem]
-                    and ord.[CurrencyTypeID] = doc.[CurrencyTypeID]
-        left join [edw].[dim_TotalSDDocReferenceStatus] dimTSDDRS
-                   on dimTSDDRS.[TotalSDDocReferenceStatusID] = doc.[TotalSDDocReferenceStatusID]
+LEFT JOIN
+  [edw].[dim_SalesDocumentRjcnReason] dimSDRR
+  ON
+    dimSDRR.[SalesDocumentRjcnReasonID] = doc.[SalesDocumentRjcnReasonID]
 
-         left join [edw].[dim_OverallSDDocumentRjcnStatus] dimOSDDRS
-                   on dimOSDDRS.[OverallSDDocumentRjcnStatusID] = doc.[OverallSDDocumentRejectionStsID]
+LEFT JOIN
+  [edw].[dim_DistributionChannel] dimDCh
+  ON
+    dimDCh.[DistributionChannelID] = doc.[DistributionChannelID]
+LEFT JOIN
+  CTE_SalesOrder
+  ON
+    CTE_SalesOrder.[QuotationID] = doc.[SalesDocument] 
+    AND
+    CTE_SalesOrder.[QuotationItemID] = doc.[SalesDocumentItem]
+    AND
+    CTE_SalesOrder.[CurrencyTypeID] = doc.[CurrencyTypeID]
+LEFT JOIN
+  [edw].[dim_TotalSDDocReferenceStatus] dimTSDDRS
+  ON
+    dimTSDDRS.[TotalSDDocReferenceStatusID] = doc.[TotalSDDocReferenceStatusID]
 
-         left join [edw].[dim_SDDocumentRejectionStatus] dimSDDRjS
-                   on dimSDDRjS.[SDDocumentRejectionStatusID] = doc.[SDDocumentRejectionStatusID]
+LEFT JOIN
+  [edw].[dim_OverallSDDocumentRjcnStatus] dimOSDDRS
+  ON
+    dimOSDDRS.[OverallSDDocumentRjcnStatusID] = doc.[OverallSDDocumentRejectionStsID]
 
-         left join [edw].[dim_OverallTotalSDDocRefStatus] dimOTSDDRS
-                   on dimOTSDDRS.[OverallTotalSDDocRefStatusID] = doc.[OverallTotalSDDocRefStatusID]
+LEFT JOIN
+  [edw].[dim_SDDocumentRejectionStatus] dimSDDRjS
+  ON
+    dimSDDRjS.[SDDocumentRejectionStatusID] = doc.[SDDocumentRejectionStatusID]
 
-         left join [edw].[dim_OverallSDDocReferenceStatus] dimOSDDRSt
-                   on dimOSDDRSt.[OverallSDDocReferenceStatusID] = doc.[OverallSDDocReferenceStatusID]
+LEFT JOIN
+  [edw].[dim_OverallTotalSDDocRefStatus] dimOTSDDRS
+  ON
+    dimOTSDDRS.[OverallTotalSDDocRefStatusID] = doc.[OverallTotalSDDocRefStatusID]
 
-         left join [edw].[dim_PricingIncompletionStatus] dimPIS
-                   on dimPIS.[PricingIncompletionStatusID] = doc.[PricingIncompletionStatusID]
+LEFT JOIN
+  [edw].[dim_OverallSDDocReferenceStatus] dimOSDDRSt
+  ON
+    dimOSDDRSt.[OverallSDDocReferenceStatusID] = doc.[OverallSDDocReferenceStatusID]
 
-         left join [edw].[dim_OverallTotalDeliveryStatus] dimOTDS
-                   on dimOTDS.[OverallTotalDeliveryStatusID] = doc.[OverallTotalDeliveryStatusID]
-        
-         LEFT JOIN PrcgElmnt
-                 ON doc.SalesDocument = PrcgElmnt.SalesQuotation
-                     AND doc.SalesDocumentItem = PrcgElmnt.SalesQuotationItem  COLLATE DATABASE_DEFAULT
-                     AND doc.CurrencyTypeID = PrcgElmnt.CurrencyTypeID
+LEFT JOIN
+  [edw].[dim_PricingIncompletionStatus] dimPIS
+  ON
+    dimPIS.[PricingIncompletionStatusID] = doc.[PricingIncompletionStatusID]
 
-where doc.[SDDocumentCategoryID] = 'B'
+LEFT JOIN
+  [edw].[dim_OverallTotalDeliveryStatus] dimOTDS
+  ON
+    dimOTDS.[OverallTotalDeliveryStatusID] = doc.[OverallTotalDeliveryStatusID]
+
+LEFT JOIN
+  CTE_PrcgElmnt
+  ON
+    doc.SalesDocument = CTE_PrcgElmnt.SalesQuotation
+    AND
+    doc.SalesDocumentItem = CTE_PrcgElmnt.SalesQuotationItem  COLLATE DATABASE_DEFAULT
+    AND
+    doc.CurrencyTypeID = CTE_PrcgElmnt.CurrencyTypeID
+
+WHERE
+  doc.[SDDocumentCategoryID] = 'B'

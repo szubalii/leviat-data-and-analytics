@@ -29,17 +29,17 @@ SELECT
 ,   [BaseUnit]
 ,   [ItemCategoryGroup]
 ,   [NetWeight]
-,   COALESCE(config_prodhier.[ProductHierarchyNode],prodhier.[ProductHierarchyNode]) AS [ProductHierarchy]
-,   COALESCE(config_prodhier.[Product_L1_PillarID],prodhier.[Product_L1_PillarID]) AS [Product_L1_PillarID]
-,   COALESCE(config_prodhier.[Product_L2_GroupID],prodhier.[Product_L2_GroupID]) AS [Product_L2_GroupID]
-,   COALESCE(config_prodhier.[Product_L3_TypeID],prodhier.[Product_L3_TypeID]) AS [Product_L3_TypeID]
-,   COALESCE(config_prodhier.[Product_L4_FamilyID],prodhier.[Product_L4_FamilyID]) AS [Product_L4_FamilyID]
-,   COALESCE(config_prodhier.[Product_L5_SubFamilyID],prodhier.[Product_L5_SubFamilyID]) AS [Product_L5_SubFamilyID]
-,   COALESCE(config_prodhier.[Product_L1_Pillar],prodhier.[Product_L1_Pillar],sapDummyProd.[Product_L1_Pillar]) AS [Product_L1_Pillar]
-,   COALESCE(config_prodhier.[Product_L2_Group],prodhier.[Product_L2_Group],sapDummyProd.[Product_L2_Group]) AS [Product_L2_Group]
-,   COALESCE(config_prodhier.[Product_L3_Type],prodhier.[Product_L3_Type],sapDummyProd.[Product_L3_Type]) AS [Product_L3_Type]
-,   COALESCE(config_prodhier.[Product_L4_Family],prodhier.[Product_L4_Family],sapDummyProd.[Product_L4_Family]) AS [Product_L4_Family]
-,   COALESCE(config_prodhier.[Product_L5_SubFamily],prodhier.[Product_L5_SubFamily],sapDummyProd.[Product_L5_SubFamily]) AS [Product_L5_SubFamily]
+,   prodhier.[ProductHierarchyNode] AS [ProductHierarchy]
+,   prodhier.[Product_L1_PillarID] AS [Product_L1_PillarID]
+,   prodhier.[Product_L2_GroupID] AS [Product_L2_GroupID]
+,   prodhier.[Product_L3_TypeID] AS [Product_L3_TypeID]
+,   prodhier.[Product_L4_FamilyID] AS [Product_L4_FamilyID]
+,   prodhier.[Product_L5_SubFamilyID] AS [Product_L5_SubFamilyID]
+,   COALESCE(prodhier.[Product_L1_Pillar],sapDummyProd.[Product_L1_Pillar]) AS [Product_L1_Pillar]
+,   COALESCE(prodhier.[Product_L2_Group],sapDummyProd.[Product_L2_Group]) AS [Product_L2_Group]
+,   COALESCE(prodhier.[Product_L3_Type],sapDummyProd.[Product_L3_Type]) AS [Product_L3_Type]
+,   COALESCE(prodhier.[Product_L4_Family],sapDummyProd.[Product_L4_Family]) AS [Product_L4_Family]
+,   COALESCE(prodhier.[Product_L5_SubFamily],sapDummyProd.[Product_L5_SubFamily]) AS [Product_L5_SubFamily]
 ,   [Division]
 ,   [VarblPurOrdUnitIsActive]
 ,   [VolumeUnit]
@@ -173,14 +173,6 @@ LEFT JOIN
     [base_ff].[SAPDummyProduct] sapDummyProd
     ON
         product.[ProductExternalID] = sapDummyProd.[ProductExternalID]
-LEFT JOIN
-    [base_ff].[ConfigurableProduct] config_pr
-    ON
-        product.[Product] = config_pr.[ProductID]
-LEFT JOIN 
-    [edw].[dim_ProductHierarchy] config_prodhier
-    ON
-        config_pr.[ProductHierarchyNode] = config_prodhier.[ProductHierarchyNode]
 --    WHERE product.MANDT = 200 
 --    AND pr_text.MANDT = 200 
 --    AND type_text.MANDT = 200 MPS 2021/11/01: commented out due to different client values between dev,qas, and prod

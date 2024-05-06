@@ -169,6 +169,7 @@ SELECT
         SDI.[NetAmount] / SDI.[OrderQuantity]   AS [PricePerUnit],
         SO.[CompanyCode],
         SDI.[IsOrderItemBlockedFlag],
+        SDI.[SoldToPartyID],
         SDI.t_applicationId,
         SDI.t_extractionDtm
 	FROM SDSL 
@@ -232,6 +233,7 @@ SELECT
             ELSE 0
         END                                 AS [IsScheduleLineBlockedFlag],
         pre_report.[IsOrderItemBlockedFlag],
+        pre_report.[SoldToPartyID],
         pre_report.t_applicationId,
         pre_report.t_extractionDtm
 FROM pre_report

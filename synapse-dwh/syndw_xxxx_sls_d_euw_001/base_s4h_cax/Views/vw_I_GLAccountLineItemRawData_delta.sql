@@ -1,19 +1,27 @@
 CREATE VIEW [base_s4h_cax].[vw_I_GLAccountLineItemRawData_delta]
 AS
 
--- As multiple updates can exist on the same document,
--- apply group by and max on TS_SEQUENCE_NUMBER to only 
--- take the most recent change
-SELECT *
-FROM base_s4h_cax.I_GLAccountLineItemRawData_delta
-WHERE TS_SEQUENCE_NUMBER IN (
-  SELECT MAX(TS_SEQUENCE_NUMBER) AS TS_SEQUENCE_NUMBER
+-- Add row_number based on t_extractionDtm, TS_SEQUENCE_NUMBER
+-- the lower row_number - the freshest date
+-- ordering on t_extractionDtm get the latest load
+-- ordering on TS_SEQUENCE_NUMBER get the latest record in a load
+WITH add_rn AS (
+  SELECT *
+    , ROW_NUMBER () OVER (
+        PARTITION BY
+          MANDT,
+          [SourceLedger],
+          [CompanyCode],
+          [FiscalYear],
+          [AccountingDocument],
+          [LedgerGLLineItem]
+        ORDER BY
+          [t_extractionDtm] DESC,
+          [TS_SEQUENCE_NUMBER] DESC
+        ) AS rn
   FROM base_s4h_cax.I_GLAccountLineItemRawData_delta
-  GROUP BY
-    MANDT,
-    [SourceLedger],
-    [CompanyCode],
-    [FiscalYear],
-    [AccountingDocument],
-    [LedgerGLLineItem]
 )
+-- leave only the latest records
+SELECT *
+FROM add_rn
+WHERE rn=1

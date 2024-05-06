@@ -27,10 +27,18 @@ parameters:
     - qas
     - prod
   default: pers
+- name: recreateDatabase
+  displayName: Recreate Database (for pers. env only)
+  type: boolean
+  values:
+    - false
+    - true
+  default: false
 
 extends:
   template: ../../build/stages-deploy.yml
   parameters:
     folder: orchestration
     target_env: ${{ parameters.target_env }}
+    recreateDatabase: ${{ parameters.recreateDatabase }}
   

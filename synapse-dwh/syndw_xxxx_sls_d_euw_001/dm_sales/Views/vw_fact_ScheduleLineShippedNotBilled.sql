@@ -38,4 +38,6 @@ SELECT
     ,[PricePerUnit]                              
     ,[InScope]                                   
     ,[ReportDate]
+    ,[CompanyCodeID]
+    ,[SoldToPartyID]
 FROM [edw].[fact_ScheduleLineShippedNotBilled]   

@@ -7,12 +7,12 @@ steps:
     Contents: '*.dacpac'
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
-- task: CopyFiles@2
-  displayName: 'Copy Test Assemblies'
-  inputs:
-    SourceFolder: '$(Build.SourcesDirectory)\synapse-dwh\Test\bin\$(buildConfiguration)'
-    Contents: '**'
-    TargetFolder: '$(Build.ArtifactStagingDirectory)\Test'
+# - task: CopyFiles@2
+#   displayName: 'Copy Test Assemblies'
+#   inputs:
+#     SourceFolder: '$(Build.SourcesDirectory)\synapse-dwh\Test\bin\$(buildConfiguration)'
+#     Contents: '**'
+#     TargetFolder: '$(Build.ArtifactStagingDirectory)\Test'
 
   # expose publish config as build artifact
 - task: CopyFiles@2

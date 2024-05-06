@@ -71,26 +71,6 @@
 							}
 						},
 						{
-							"name": "Pause Synapse Dedicated SQL Pool",
-							"type": "ExecutePipeline",
-							"dependsOn": [
-								{
-									"activity": "Scale Down Synapse",
-									"dependencyConditions": [
-										"Succeeded"
-									]
-								}
-							],
-							"userProperties": [],
-							"typeProperties": {
-								"pipeline": {
-									"referenceName": "pl_SYNDW_pause",
-									"type": "PipelineReference"
-								},
-								"waitOnCompletion": true
-							}
-						},
-						{
 							"name": "Start VM",
 							"type": "ExecutePipeline",
 							"dependsOn": [],

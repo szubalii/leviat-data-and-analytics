@@ -1,9 +1,11 @@
 -- Check if temp table already exists, if so drop it
 IF OBJECT_ID('entity_tmp', 'U') IS NOT NULL
     DROP TABLE entity_tmp;
+GO
 
 -- Create shallow copy of original table 
 SELECT TOP 0 * INTO entity_tmp FROM dbo.entity;
+GO
 
 -- Bulk insert data into temp table (does not work on actual #temp tables)
 BULK INSERT entity_tmp
@@ -14,6 +16,7 @@ WITH (
 ,   FIELDTERMINATOR = ','
 ,   FORMAT = 'CSV'
 );
+GO
 
 -- Create a temporary table to hold the updated or inserted values
 -- from the OUTPUT clause.  
@@ -31,6 +34,8 @@ WHEN MATCHED AND (
 	ISNULL(src.entity_name, '') <> ISNULL(tgt.entity_name, '')
     OR
     ISNULL(src.layer_id, 0) <> ISNULL(tgt.layer_id, 0)
+    OR
+    ISNULL(src.level_id, 0) <> ISNULL(tgt.level_id, 0)
     OR
     ISNULL(src.adls_container_name, '') <> ISNULL(tgt.adls_container_name, '')
     OR
@@ -81,6 +86,7 @@ WHEN MATCHED AND (
     UPDATE SET 
         entity_name		        = src.entity_name		
     ,   layer_id			    = src.layer_id			
+    ,   level_id			    = src.level_id		
     ,   adls_container_name     = src.adls_container_name
     ,   data_category		    = src.data_category		
     ,   client_field            = src.client_field            
@@ -108,6 +114,7 @@ WHEN NOT MATCHED BY TARGET THEN
     INSERT (
         entity_id
     ,   entity_name
+    ,   level_id
     ,   layer_id
     ,   adls_container_name
     ,   data_category
@@ -136,6 +143,7 @@ WHEN NOT MATCHED BY TARGET THEN
     VALUES (
         src.entity_id
     ,   src.entity_name
+    ,   src.level_id
     ,   src.layer_id
     ,   src.adls_container_name
     ,   src.data_category
@@ -166,6 +174,7 @@ WHEN NOT MATCHED BY SOURCE THEN
 OUTPUT     
     Deleted.entity_id
 ,   Deleted.entity_name
+,   Deleted.level_id
 ,   Deleted.layer_id
 ,   Deleted.adls_container_name
 ,   Deleted.data_category
@@ -193,6 +202,7 @@ OUTPUT
 ,   $action
 ,   Inserted.entity_id
 ,   Inserted.entity_name
+,   Inserted.level_id
 ,   Inserted.layer_id
 ,   Inserted.adls_container_name
 ,   Inserted.data_category
@@ -218,6 +228,8 @@ OUTPUT
 ,   Inserted.schedule_start_date
 ,   Inserted.schedule_day
 ,   GETUTCDATE() INTO [log].entity;
+GO
 
 -- drop temp tables
 DROP TABLE entity_tmp;
+GO

@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [edw].[fact_OutboundDeliveryItem] (
        [sk_fact_OutboundDeliveryItem] int IDENTITY(1,1) NOT NULL
       ,[nk_fact_OutboundDeliveryItem] nvarchar(45) NOT NULL
-      ,[nk2_fact_OutboundDeliveryItem] nvarchar(45)
+      ,[ProductPlant] nvarchar(45)
       ,[OutboundDelivery] nvarchar(20) NOT NULL
       ,[OutboundDeliveryItem] char(6) collate Latin1_General_100_BIN2 NOT NULL
       ,[DeliveryDocumentItemCategoryID] nvarchar(4)
@@ -237,6 +237,7 @@
       ,[ActualLeadTime] int
       ,[ALT001_DataQualityCode] nvarchar (6)
       ,[RequestedLeadTime] int
+      ,[RequestedLeadTimeOTR] int
       ,[RLT001_DataQualityCode] nvarchar (6)
       ,[OTD_DaysDiff] int
       ,[OTD_Group]  nvarchar (7)
@@ -254,6 +255,8 @@
       ,[OTR_IsOnTime] bit
       ,[OTR_LateDays] int
       ,[OTRIF_OnTimeCusReqInFull] nvarchar(6)
+      ,[IsRequestedOnTheSameDay] bit
+      ,[IsRequestedInThePast] bit
       ,[t_applicationId]       varchar (32)
       ,[t_extractionDtm]       datetime
       ,[t_jobId]               varchar (36)

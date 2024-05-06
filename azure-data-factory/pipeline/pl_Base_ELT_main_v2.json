@@ -25,7 +25,7 @@
 					"source": {
 						"type": "AzureSqlSource",
 						"sqlReaderQuery": {
-							"value": "SELECT * \nFROM [dbo].[get_scheduled_entity_batch_activities] (\n    @{pipeline().parameters.adhoc},\n    '@{pipeline().parameters.date}',\n    @{pipeline().parameters.rerun_successful_full_entities}\n)\nWHERE\n    @{pipeline().parameters.entity_filter}\n    AND\n    (update_mode = 'Full' OR update_mode IS NULL)",
+							"value": "SELECT * \nFROM [dbo].[tvf_scheduled_base_full_entity_batch_activities] (\n    @{pipeline().parameters.adhoc},\n    '@{variables('date')}',\n    @{pipeline().parameters.rerun_successful_full_entities}\n)\nWHERE\n    @{pipeline().parameters.entity_filter}",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
@@ -354,6 +354,9 @@
 							"name": "Execute Full ELT",
 							"type": "ExecutePipeline",
 							"dependsOn": [],
+							"policy": {
+								"secureInput": false
+							},
 							"userProperties": [],
 							"typeProperties": {
 								"pipeline": {
@@ -371,7 +374,7 @@
 										"type": "Expression"
 									},
 									"date": {
-										"value": "@pipeline().parameters.date",
+										"value": "@variables('date')",
 										"type": "Expression"
 									},
 									"run_id": {
@@ -559,6 +562,9 @@
 										"name": "Process Synapse Base",
 										"type": "ExecutePipeline",
 										"dependsOn": [],
+										"policy": {
+											"secureInput": false
+										},
 										"userProperties": [],
 										"typeProperties": {
 											"pipeline": {
@@ -588,11 +594,7 @@
 													"type": "Expression"
 												},
 												"source_date_field_name": {
-													"value": "@item().source_date_field_name",
-													"type": "Expression"
-												},
-												"deltaEntityFileNameBatchActivities": {
-													"value": "@array(item().file_name)",
+													"value": "@item().axbi_date_field_name",
 													"type": "Expression"
 												}
 											}
@@ -668,117 +670,6 @@
 				}
 			},
 			{
-				"name": "Get List of Delta Tables",
-				"description": "Truncate delta tables at the beginning of the run. \nFull tables are only truncated when data is actually loaded from parquet to Synapse Base. As multiple parquet files can be loaded to the same table, one cannot truncate before each load for delta tables. ",
-				"type": "Lookup",
-				"dependsOn": [
-					{
-						"activity": "Get Delta Entity Batch Activities",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"policy": {
-					"timeout": "7.00:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"source": {
-						"type": "AzureSqlSource",
-						"sqlReaderQuery": {
-							"value": "SELECT base_schema_name, base_table_name \nFROM dbo.get_scheduled_entities(\n    @{pipeline().parameters.adhoc},\n    '@{pipeline().parameters.date}'\n)\nWHERE\n    update_mode = 'Delta'\n    AND\n    layer_nk <> 'EDW'\n    AND\n    @{pipeline().parameters.entity_filter}",
-							"type": "Expression"
-						},
-						"queryTimeout": "02:00:00",
-						"partitionOption": "None"
-					},
-					"dataset": {
-						"referenceName": "ds_orch_db",
-						"type": "DatasetReference",
-						"parameters": {
-							"sqlDb": {
-								"value": "@pipeline().globalParameters.sqlDb",
-								"type": "Expression"
-							}
-						}
-					},
-					"firstRowOnly": false
-				}
-			},
-			{
-				"name": "Truncate Each Delta Table",
-				"type": "ForEach",
-				"dependsOn": [
-					{
-						"activity": "Get List of Delta Tables",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"userProperties": [],
-				"typeProperties": {
-					"items": {
-						"value": "@activity('Get List of Delta Tables').output.value",
-						"type": "Expression"
-					},
-					"activities": [
-						{
-							"name": "Truncate Delta Table",
-							"description": "Truncate delta tables at the beginning of the run. \nFull tables are only truncated when data is actually loaded from parquet to Synapse Base. As multiple parquet files can be loaded to the same table, one cannot truncate before each load for delta tables. ",
-							"type": "SqlServerStoredProcedure",
-							"dependsOn": [],
-							"policy": {
-								"timeout": "7.00:00:00",
-								"retry": 0,
-								"retryIntervalInSeconds": 30,
-								"secureOutput": false,
-								"secureInput": false
-							},
-							"userProperties": [],
-							"typeProperties": {
-								"storedProcedureName": "[utilities].[sp_truncate_table]",
-								"storedProcedureParameters": {
-									"schema_name": {
-										"value": {
-											"value": "@item().base_schema_name",
-											"type": "Expression"
-										},
-										"type": "String"
-									},
-									"table_name": {
-										"value": {
-											"value": "@item().base_table_name",
-											"type": "Expression"
-										},
-										"type": "String"
-									}
-								}
-							},
-							"linkedServiceName": {
-								"referenceName": "ls_ws_xxxx_sls_x_euw_001__syndw_xxxx_sls_x_euw_001",
-								"type": "LinkedServiceReference",
-								"parameters": {
-									"sqlPool": {
-										"value": "@pipeline().globalParameters.synapseDatabaseName",
-										"type": "Expression"
-									},
-									"synapseServer": {
-										"value": "@pipeline().globalParameters.synapseServerName",
-										"type": "Expression"
-									}
-								}
-							}
-						}
-					]
-				}
-			},
-			{
 				"name": "Fail Getting Batch Activities",
 				"type": "Fail",
 				"dependsOn": [
@@ -824,8 +715,18 @@
 						"dependencyConditions": [
 							"Succeeded"
 						]
+					},
+					{
+						"activity": "Set Date var",
+						"dependencyConditions": [
+							"Succeeded"
+						]
 					}
 				],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
 				"userProperties": [],
 				"typeProperties": {
 					"variableName": "parameters",
@@ -848,11 +749,11 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
+					"method": "GET",
 					"url": {
 						"value": "@concat(\n    'https://management.azure.com/subscriptions/',\n    'f199b488-7d9d-4992-aeda-c10a1e1c9b9e',\n    '/resourceGroups/',\n    pipeline().globalParameters.resourceGroupName,\n    '/providers/Microsoft.DataFactory/factories/',\n    pipeline().DataFactory,\n    if(equals(pipeline().TriggerName, 'Sandbox'), '/sandboxpipelineruns/', '/pipelineruns/'),\n    pipeline().RunId,\n    if(equals(pipeline().TriggerName, 'Sandbox'), '?api-version=2017-09-01-preview', '?api-version=2018-06-01')\n)",
 						"type": "Expression"
 					},
-					"method": "GET",
 					"authentication": {
 						"type": "MSI",
 						"resource": "https://management.core.windows.net/"
@@ -882,7 +783,7 @@
 					"source": {
 						"type": "AzureSqlSource",
 						"sqlReaderQuery": {
-							"value": "SELECT\n    entity_id,\n    entity_name,\n    base_schema_name,\n    base_table_name,\n    base_sproc_name,\n    axbi_date_field_name\nFROM [dbo].[get_scheduled_entity_batch_activities] (\n    @{pipeline().parameters.adhoc},\n    '@{pipeline().parameters.date}',\n    @{pipeline().parameters.rerun_successful_full_entities}\n)\nWHERE\n    @{pipeline().parameters.entity_filter}\n    AND\n    update_mode = 'Delta'\nGROUP BY\n    entity_id,\n    entity_name,\n    base_schema_name,\n    base_table_name,\n    base_sproc_name,\n    axbi_date_field_name",
+							"value": "SELECT\n    entity_id,\n    entity_name,\n    base_schema_name,\n    base_table_name,\n    base_sproc_name\nFROM [dbo].[tvf_scheduled_base_delta_entities] (\n    @{pipeline().parameters.adhoc},\n    '@{variables('date')}'\n)\nWHERE\n    @{pipeline().parameters.entity_filter}\nGROUP BY\n    entity_id,\n    entity_name,\n    base_schema_name,\n    base_table_name,\n    base_sproc_name",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
@@ -907,7 +808,7 @@
 				"type": "ForEach",
 				"dependsOn": [
 					{
-						"activity": "Truncate Each Delta Table",
+						"activity": "Get Delta Entity Batch Activities",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -926,6 +827,9 @@
 							"name": "Execute Delta ELT",
 							"type": "ExecutePipeline",
 							"dependsOn": [],
+							"policy": {
+								"secureInput": false
+							},
 							"userProperties": [],
 							"typeProperties": {
 								"pipeline": {
@@ -947,7 +851,7 @@
 										"type": "Expression"
 									},
 									"date": {
-										"value": "@pipeline().parameters.date",
+										"value": "@variables('date')",
 										"type": "Expression"
 									},
 									"rerun_successful_full_entities": {
@@ -956,6 +860,18 @@
 									},
 									"entity_id": {
 										"value": "@item().entity_id",
+										"type": "Expression"
+									},
+									"base_schema_name": {
+										"value": "@item().base_schema_name",
+										"type": "Expression"
+									},
+									"base_table_name": {
+										"value": "@item().base_table_name",
+										"type": "Expression"
+									},
+									"base_sproc_name": {
+										"value": "@item().base_sproc_name",
 										"type": "Expression"
 									}
 								}
@@ -1191,6 +1107,23 @@
 					},
 					"errorCode": "500"
 				}
+			},
+			{
+				"name": "Set Date var",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "date",
+					"value": {
+						"value": "@if(\n    or(\n        equals(coalesce(pipeline().parameters.date, ''),''),\n        equals(pipeline().parameters.date, 'yyyy/MM/dd')\n    ),\n    formatDateTime(utcNow(),'yyyy/MM/dd'),\n    pipeline().parameters.date\n)",
+						"type": "Expression"
+					}
+				}
 			}
 		],
 		"parameters": {
@@ -1207,7 +1140,7 @@
 			},
 			"date": {
 				"type": "string",
-				"defaultValue": "2023/03/30"
+				"defaultValue": "yyyy/MM/dd"
 			},
 			"rerun_successful_full_entities": {
 				"type": "int",
@@ -1220,6 +1153,10 @@
 			},
 			"delta_entities": {
 				"type": "Array"
+			},
+			"date": {
+				"type": "String",
+				"defaultValue": "@{utcNow()}"
 			}
 		},
 		"folder": {

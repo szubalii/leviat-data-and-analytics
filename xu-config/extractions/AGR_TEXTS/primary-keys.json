@@ -1,0 +1,10 @@
+{
+    "isSurrogateKeyEnabled": false,
+    "columns": 
+    [
+        "AGR_TEXTS~MANDT",
+        "AGR_TEXTS~AGR_NAME",
+        "AGR_TEXTS~SPRAS",
+        "AGR_TEXTS~LINE"
+    ]
+}

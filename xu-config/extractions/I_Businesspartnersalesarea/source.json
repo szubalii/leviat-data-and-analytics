@@ -1,0 +1,592 @@
+{
+    "functionName": "Z_THEO_READ_TABLE",
+    "runInBackgroundJob": false,
+    "backgroundJobTimeout": 180,
+    "tables": 
+    [
+        {
+            "name": "IBUPASALESAREA",
+            "description": "Generated Table for View IBUPASALESAREA",
+            "isView": true,
+            "fields": 
+            [
+                {
+                    "name": "MANDT",
+                    "description": "Client",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "checkTable": "T000",
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "SALESORGANIZATION",
+                    "description": "Sales Organization",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "DISTRIBUTIONCHANNEL",
+                    "description": "Distribution Channel",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "DIVISION",
+                    "description": "Division",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "BUSINESSPARTNER",
+                    "description": "Business Partner Number",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isPrimaryKey": true,
+                    "isSelected": true,
+                    "conversionExit": "ALPHA",
+                    "isClientField": false
+                },
+                {
+                    "name": "BUSINESSPARTNERUUID",
+                    "description": "Business Partner GUID",
+                    "abapType": "ByteSequence",
+                    "length": 16,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "CUSTOMER",
+                    "description": "Customer Number",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": "ALPHA",
+                    "isClientField": false
+                },
+                {
+                    "name": "CUSTOMERGROUP",
+                    "description": "Customer Group",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "SALESOFFICE",
+                    "description": "Sales Office",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "SALESGROUP",
+                    "description": "Sales Group",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "ACCOUNTBYCUSTOMER",
+                    "description": "Shipper's (Our) Account Number at the Customer or Vendor",
+                    "abapType": "CharacterString",
+                    "length": 12,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "CUSTOMERABCCLASSIFICATION",
+                    "description": "Customer classification (ABC analysis)",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "CURRENCY",
+                    "description": "Currency",
+                    "abapType": "CharacterString",
+                    "length": 5,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "CUSTOMERPRICEGROUP",
+                    "description": "Customer Price Group",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "CUSTOMERPRICINGPROCEDURE",
+                    "description": "Customer Classification for Pricing Procedure Determination",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "DELIVERYPRIORITY",
+                    "description": "Delivery Priority",
+                    "abapType": "NumericCharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "ORDERCOMBINATIONISALLOWED",
+                    "description": "Order Combination Indicator",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "SHIPPINGCONDITION",
+                    "description": "Shipping Conditions",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "SUPPLYINGPLANT",
+                    "description": "Delivering Plant (Own or External)",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "DELIVERYISBLOCKEDFORCUSTOMER",
+                    "description": "Customer delivery block (sales area)",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "BILLINGISBLOCKEDFORCUSTOMER",
+                    "description": "Billing block for customer (sales and distribution)",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "COMPLETEDELIVERYISDEFINED",
+                    "description": "Complete Delivery Defined for Each Sales Order?",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "PARTIALDELIVERYISALLOWED",
+                    "description": "Partial delivery at item level",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "INVOICEDATE",
+                    "description": "Invoice Dates (Calendar Identification)",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "INCOTERMSCLASSIFICATION",
+                    "description": "Incoterms (Part 1)",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "INCOTERMSTRANSFERLOCATION",
+                    "description": "Incoterms (Part 2)",
+                    "abapType": "CharacterString",
+                    "length": 28,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "CUSTOMERPAYMENTTERMS",
+                    "description": "Terms of Payment Key",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "CUSTOMERACCOUNTASSIGNMENTGROUP",
+                    "description": "Account Assignment Group for Customer",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "SALESDISTRICT",
+                    "description": "Sales District",
+                    "abapType": "CharacterString",
+                    "length": 6,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "ORDERISBLOCKEDFORCUSTOMER",
+                    "description": "Customer order block (sales area)",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "PRICELISTTYPE",
+                    "description": "Price List Type",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "INCOTERMSVERSION",
+                    "description": "Incoterms Version",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "INCOTERMSLOCATION1",
+                    "description": "Incoterms Location 1",
+                    "abapType": "CharacterString",
+                    "length": 70,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "INCOTERMSLOCATION2",
+                    "description": "Incoterms Location 2",
+                    "abapType": "CharacterString",
+                    "length": 70,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "AUTHORIZATIONGROUP",
+                    "description": "Authorization Group",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "PAYMENTGUARANTEEPROCEDURE",
+                    "description": "Customer payment guarantee procedure",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "ISACTIVEENTITY",
+                    "description": "Char Column",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "ISBUSINESSPURPOSECOMPLETED",
+                    "description": "Business Purpose Completed Flag",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "INVOICELISTSCHEDULE",
+                    "description": "Invoice List Schedule (calendar identification)",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "EXCHANGERATETYPE",
+                    "description": "Exchange Rate Type",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "ITEMORDERPROBABILITYINPERCENT",
+                    "description": "Order Probability of the Item",
+                    "abapType": "NumericCharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "ADDITIONALCUSTOMERGROUP1",
+                    "description": "Expt MinVal Surcharge",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "ADDITIONALCUSTOMERGROUP2",
+                    "description": "Print net price only",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "ADDITIONALCUSTOMERGROUP3",
+                    "description": "Freight Rate",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "ADDITIONALCUSTOMERGROUP4",
+                    "description": "Freight prepaid limt",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "ADDITIONALCUSTOMERGROUP5",
+                    "description": "Customer Group 5",
+                    "abapType": "CharacterString",
+                    "length": 3,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "UNDERDELIVTOLRTDLMTRATIOINPCT",
+                    "description": "Underdelivery Tolerance",
+                    "abapType": "PackedNumber",
+                    "length": 3,
+                    "decimalCount": 1,
+                    "isSelected": true,
+                    "formattedLength": 4,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "OVERDELIVTOLRTDLMTRATIOINPCT",
+                    "description": "Overdelivery Tolerance",
+                    "abapType": "PackedNumber",
+                    "length": 3,
+                    "decimalCount": 1,
+                    "isSelected": true,
+                    "formattedLength": 4,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "MAXNMBROFPARTIALDELIVERY",
+                    "description": "Maximum Number of Partial Deliveries Allowed Per Item",
+                    "abapType": "PackedNumber",
+                    "length": 1,
+                    "isSelected": true,
+                    "formattedLength": 1,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "SUPLRISRLVTFORSETTLMTMGMT",
+                    "description": "Indicator: Relevant for Settlement Management",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "PRODUCTUNITGROUP",
+                    "description": "Unit of Measure Group",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "SLSDOCISRLVTFORPROOFOFDELIV",
+                    "description": "Relevant for POD processing",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "SLSUNLMTDOVRDELIVISALLWD",
+                    "description": "Unlimited Overdelivery Allowed",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "CREDITCONTROLAREA",
+                    "description": "Credit Control Area",
+                    "abapType": "CharacterString",
+                    "length": 4,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "CUSTOMERISREBATERELEVANT",
+                    "description": "Indicator: Customer Is Rebate-Relevant",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "INSPSBSTHASNOTIMEORQUANTITY",
+                    "description": "Relevant for price determination ID",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "MANUALINVOICEMAINTISRELEVANT",
+                    "description": "Manual Invoice Maintenance",
+                    "abapType": "CharacterString",
+                    "length": 1,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "SALESITEMPROPOSAL",
+                    "description": "Item proposal",
+                    "abapType": "CharacterString",
+                    "length": 10,
+                    "isSelected": true,
+                    "conversionExit": "ALPHA",
+                    "isClientField": false
+                },
+                {
+                    "name": "CUSTPRODPROPOSALPROCEDURE",
+                    "description": "Customer procedure for product proposal",
+                    "abapType": "CharacterString",
+                    "length": 2,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "PROOFOFDELIVERYTIME",
+                    "abapType": "Time",
+                    "isSelected": false,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "INCOTERMSSUPCHNLOC2ADDLUUID",
+                    "description": "Location UUID",
+                    "abapType": "ByteSequence",
+                    "length": 16,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "INCOTERMSSUPCHNLOC1ADDLUUID",
+                    "description": "Location UUID",
+                    "abapType": "ByteSequence",
+                    "length": 16,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                },
+                {
+                    "name": "INCOTERMSSUPCHNDVTGLOCADDLUUID",
+                    "description": "Location UUID",
+                    "abapType": "ByteSequence",
+                    "length": 16,
+                    "isSelected": true,
+                    "conversionExit": "",
+                    "isClientField": false
+                }
+            ]
+        }
+    ]
+}

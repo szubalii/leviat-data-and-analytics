@@ -12,6 +12,11 @@ steps:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
+- task: Npm@1
+  inputs:
+    command: 'install'
+    workingDir: $(System.DefaultWorkingDirectory)/orchestration
+
 - script: |
     cd $(System.DefaultWorkingDirectory)/orchestration
     node -e require('./src/libs/generate-master-data').writeMasterDataCSV()

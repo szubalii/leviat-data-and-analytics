@@ -10,7 +10,7 @@ BEGIN
   -- Assemble: Fake Table
   EXEC tSQLt.FakeTable '[base_ff]', '[IC_ReconciliationGLAccounts]';
   EXEC tSQLt.FakeTable '[edw]', '[vw_CurrencyConversionRate]';
-  EXEC tSQLt.FakeTable '[edw]', '[fact_ACDOCA]';
+  EXEC tSQLt.FakeTable '[edw]', '[fact_ACDOCA_active]';
   EXEC tSQLt.FakeTable '[dm_sales]', '[vw_dim_CurrencyType]';
 
   INSERT INTO base_ff.IC_ReconciliationGLAccounts (
@@ -37,7 +37,7 @@ BEGIN
     ('0035700100'),
     ('0035800100');
   
-  INSERT INTO edw.fact_ACDOCA (
+  INSERT INTO edw.fact_ACDOCA_active (
     GLAccountID,
     PartnerCompanyID,
     AmountInCompanyCodeCurrency,
