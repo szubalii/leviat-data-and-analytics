@@ -1,7 +1,7 @@
 CREATE TABLE [base_s4h_cax].[I_InventorySpecialStockTypeT]
 (
     [MANDT]                         char(3) NOT NULL, -- collate Latin1_General_100_BIN2 NOT NULL,
-    [InventorySpecialStockType]     nvarchar(1)  collate Latin1_General_100_BIN2 NOT NULL,
+    [InventorySpecialStockType]     nvarchar(1) NOT NULL, -- collate Latin1_General_100_BIN2 NOT NULL,
     [Language]                      char(1) NOT NULL, -- collate Latin1_General_100_BIN2 NOT NULL,
     [InventorySpecialStockTypeName] nvarchar(20),
     [t_applicationId]               VARCHAR(32),
