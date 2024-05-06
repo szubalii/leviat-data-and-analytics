@@ -30,7 +30,7 @@
   UNION ALL
   SELECT
       'ZAXBIBUD' AS [ExchangeRateType]
-      ,[CURRENCY] collate SQL_Latin1_General_CP1_CS_AS AS [SourceCurrency]
+      ,[CURRENCY] /*collate SQL_Latin1_General_CP1_CS_AS*/ AS [SourceCurrency]
 	  ,'EUR' AS [TargetCurrency]
       ,CONVERT(date, (CAST([YEAR] as VARCHAR)), 112) AS [ExchangeRateEffectiveDate]
       ,1/[CRHRATE] AS [ExchangeRate]

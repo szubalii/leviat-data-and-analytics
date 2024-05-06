@@ -21,8 +21,8 @@ FROM
 --at least for CharatericticName "ZCH_MAT_DESCRIPTION_S" .
 --For these cases, we concate the values using a space in between, and save the value as CharValueDescription.
 SELECT
-    [SalesDocument] collate SQL_Latin1_General_CP1_CS_AS AS SalesDocument,
-    [SalesDocumentItem] collate SQL_Latin1_General_CP1_CS_AS AS SalesDocumentItem,
+    [SalesDocument] /*collate SQL_Latin1_General_CP1_CS_AS*/ AS SalesDocument,
+    [SalesDocumentItem] /*collate SQL_Latin1_General_CP1_CS_AS*/ AS SalesDocumentItem,
     [ProductID],
     [ProductExternalID],
     [CharacteristicName],
@@ -32,16 +32,16 @@ FROM
     ZCV_active
 WHERE [CharacteristicName]='MAT_DESCRIPTION_S'
 GROUP BY
-    [SalesDocument] collate SQL_Latin1_General_CP1_CS_AS,
-    [SalesDocumentItem] collate SQL_Latin1_General_CP1_CS_AS,
+    [SalesDocument] /*collate SQL_Latin1_General_CP1_CS_AS*/,
+    [SalesDocumentItem] /*collate SQL_Latin1_General_CP1_CS_AS*/,
     [ProductID],
     [ProductExternalID],
     [CharacteristicName], 
     [t_applicationId] 
 UNION ALL
 SELECT 
-    [SalesDocument] collate SQL_Latin1_General_CP1_CS_AS AS SalesDocument,
-    [SalesDocumentItem] collate SQL_Latin1_General_CP1_CS_AS AS SalesDocumentItem,
+    [SalesDocument] /*collate SQL_Latin1_General_CP1_CS_AS*/ AS SalesDocument,
+    [SalesDocumentItem] /*collate SQL_Latin1_General_CP1_CS_AS*/ AS SalesDocumentItem,
     [ProductID],
     [ProductExternalID],   
     [CharacteristicName],

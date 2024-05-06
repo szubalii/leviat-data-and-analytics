@@ -39,7 +39,7 @@ SupplierPurchasingOrg AS
 		--,	CONCAT(sup.[CountryID], ' (', sup.[Country], ')') AS [CountryID_Name]
 	FROM [dm_sales].[vw_dim_SupplierPurchasingOrg] org 
 	LEFT JOIN [edw].[dim_Supplier] sup
-		ON org.[SupplierID]  = sup.[SupplierID] COLLATE SQL_Latin1_General_CP1_CI_AS 
+		ON org.[SupplierID]  = sup.[SupplierID] --COLLATE SQL_Latin1_General_CP1_CI_AS 
 )
 	SELECT 
 			itm.[sk_fact_PurchasingDocumentItem]
@@ -131,11 +131,11 @@ SupplierPurchasingOrg AS
 	LEFT JOIN [edw].[dim_UnitOfMeasure] uom
 		ON itm.[OrderPriceUnit] = uom.[UnitOfMeasureID]
 	LEFT JOIN [edw].[dim_Product] p
-		ON itm.[MaterialID] COLLATE SQL_Latin1_General_CP1_CI_AS = p.[ProductID] 
+		ON itm.[MaterialID] /*COLLATE SQL_Latin1_General_CP1_CI_AS*/ = p.[ProductID] 
 	LEFT JOIN [edw].[dim_Plant] pl
-		ON	itm.[PlantID] = pl.[PlantID] COLLATE SQL_Latin1_General_CP1_CI_AS
+		ON	itm.[PlantID] = pl.[PlantID] /*COLLATE SQL_Latin1_General_CP1_CI_AS*/
 	LEFT JOIN [edw].[dim_MaterialGroup] mg 
-		ON itm.[MaterialGroupID] = mg.[MaterialGroupID] COLLATE SQL_Latin1_General_CP1_CI_AS
+		ON itm.[MaterialGroupID] = mg.[MaterialGroupID] /*COLLATE SQL_Latin1_General_CP1_CI_AS*/
 	LEFT JOIN [edw].[dim_Currency] cur
 		ON itm.[DocumentCurrencyID] = cur.[CurrencyID]
 

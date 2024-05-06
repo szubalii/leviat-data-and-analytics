@@ -1,7 +1,7 @@
 ﻿CREATE VIEW [edw].[vw_OutboundDeliveryItem_axbi]
 	AS 
 SELECT
-    CONCAT_WS('¦', FCust.[PACKINGSLIPID] collate SQL_Latin1_General_CP1_CS_AS, FCust.[INVENTTRANSID] collate SQL_Latin1_General_CP1_CS_AS) as [nk_fact_OutboundDeliveryItem],
+    CONCAT_WS('¦', FCust.[PACKINGSLIPID] /*collate SQL_Latin1_General_CP1_CS_AS*/, FCust.[INVENTTRANSID] /*collate SQL_Latin1_General_CP1_CS_AS*/) as [nk_fact_OutboundDeliveryItem],
 	FCust.[PACKINGSLIPID]                                                        as [OutboundDelivery],
     SO.[target_SalesOrganizationID]                                              as [HDR_SalesOrganizationID], 
     FCust.[ORIGSALESID]                                                          as [ReferenceSDDocument],

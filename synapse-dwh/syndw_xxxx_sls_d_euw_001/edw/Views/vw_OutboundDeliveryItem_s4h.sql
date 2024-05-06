@@ -17,7 +17,7 @@ OriginalConfirmedSalesOrderItemDeliveryDate AS (
 
 OutboundDeliveryItem_s4h AS (
     SELECT 
-        CONCAT_WS('¦', ODI.[OutboundDelivery] collate SQL_Latin1_General_CP1_CS_AS, ODI.[OutboundDeliveryItem] collate SQL_Latin1_General_CP1_CS_AS) AS [nk_fact_OutboundDeliveryItem]
+        CONCAT_WS('¦', ODI.[OutboundDelivery] /*collate SQL_Latin1_General_CP1_CS_AS*/, ODI.[OutboundDeliveryItem] /*collate SQL_Latin1_General_CP1_CS_AS*/) AS [nk_fact_OutboundDeliveryItem]
         ,ODI.[OutboundDelivery]
         ,ODI.[OutboundDeliveryItem]
         ,ODI.[DeliveryDocumentItemCategory] AS [DeliveryDocumentItemCategoryID]
@@ -415,7 +415,7 @@ OutboundDeliveryItem_s4h AS (
         ON
             OCSDIDD.[SalesDocumentID] = SDSL.[SalesDocument]
             AND
-            OCSDIDD.[SalesDocumentItemID] = SDSL.[SalesDocumentItem] COLLATE DATABASE_DEFAULT
+            OCSDIDD.[SalesDocumentItemID] = SDSL.[SalesDocumentItem] /*COLLATE DATABASE_DEFAULT*/
     LEFT JOIN
         [edw].[dim_Route] AS DimActualRoute
         ON
@@ -449,7 +449,7 @@ OutboundDeliveryItem_s4h AS (
     LEFT JOIN 
         [base_s4h_cax].[I_SDDocumentCompletePartners] AS SDDCP
         ON
-            ODI.[OutboundDelivery] collate SQL_Latin1_General_CP1_CS_AS = SDDCP.[SDDocument]
+            ODI.[OutboundDelivery] /*collate SQL_Latin1_General_CP1_CS_AS*/ = SDDCP.[SDDocument]
             AND
             SDDCP.[PartnerFunction] = 'SP'
     LEFT JOIN
