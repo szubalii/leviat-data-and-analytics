@@ -1,8 +1,6 @@
-# Delta Processing
-
 This section describes the process of processing of delta in the base layer and the edw layer. 
 
-## High Level Process
+# High Level Process
 
 The high-level process of handling delta is as follows:
 1. Get delta entity batch activities
@@ -35,7 +33,7 @@ The high-level process of handling delta is as follows:
    In the EDW layer, the corresponding edw entity transforms the data as usual but is in the end referencing the base layer delta view instead of the base layer table. This means a lot less data requires transforming. After successful materialization into the edw delta table, the base delta table is truncated. 
 
 
-## Entity Batch Activities
+# Entity Batch Activities
 
 1. Extract 
 
@@ -58,7 +56,7 @@ The high-level process of handling delta is as follows:
    Ingest the delta parquet file into a base delta table in Synapse SQL Pool, e.g. base_s4h_cax.I_GLAccountLineItemRawData_delta
 1. Process Base
 
-   For a delta entity, this step is executed after all required delta parquet files have been ingested into Synapse SQL Pool Base. It processes the new delta parquet files and applies the delta information in the active table that contains the latest up to date status. It runs the stored procedure utilities.up_***
+   For a delta entity, this step is executed after all required delta parquet files have been ingested into Synapse SQL Pool Base. It processes the new delta parquet files and applies the delta information in the active table that contains the latest up to date status. It runs the stored procedure utilities.up_upsert_delta_active_table which creates dynamic SQL queries for both an insert statement and update statement. 
 
 # Delta structure in Synapse SQL Pool
 
