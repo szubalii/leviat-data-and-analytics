@@ -1,8 +1,13 @@
-# High Level Process
+# Delta Processing
 
+This section describes the process of processing of delta in the base layer and the edw layer. 
+
+## High Level Process
+
+The high-level process of handling delta is as follows:
 1. Get delta entity batch activities
 
-   Calculate for each delta entity, which delta parquet files need to be processed. Processing can include any of the activities from [Entity Batch Activities](#entity-batch-activities). Based on logging data in the Orchestration DB, a stored procedure calculates which activities for each delta parquet file for each delta entity is required. 
+   Calculate for each delta entity, which delta parquet files need to be processed. Processing can include any of the activities from [Entity Batch Activities](#entity-batch-activities). Based on logged data in the Orchestration DB, a stored procedure calculates which activities for each delta parquet file for each delta entity is required. 
 1. Process each delta entity
 
    1. Get the delta entity file name batch activities
@@ -17,10 +22,17 @@
          (without truncate because multiple parquet files can be ingested into same base delta table)
 
 1. If required
-   1. Process the delta info in the base layer of Synapse SQL Pool   
-   1. Processing of delta is successful, truncate the base delta table
+   1. Process the delta info in the base layer of Synapse SQL Pool
+
+
+
+      Insert and update 
       
-      Full tables are only truncated when data is actually loaded from parquet to Synapse Base. For delta entities, multiple delta parquet files can be loaded into the same base table. Therefore, one cannot truncate this table before each delta file is inserted. Only truncate the base delta table in case ingestion into this table is required. 
+      Full tables are only truncated when data is actually loaded from parquet to Synapse Base. For delta entities, multiple delta parquet files can be loaded into the same base table. Therefore, one cannot truncate this table before each delta file is inserted.
+
+1. Delta in EDW
+
+   In the EDW layer, the corresponding edw entity transforms the data as usual but is in the end referencing the base layer delta view instead of the base layer table. This means a lot less data requires transforming. After successful materialization into the edw delta table, the base delta table is truncated. 
 
 
 ## Entity Batch Activities
@@ -43,10 +55,10 @@
 1. Test for Duplicates
 1. Ingest into Synapse Base
 
-   Ingest the delta parquet file into the base delta table in Synapse SQL Pool.
+   Ingest the delta parquet file into a base delta table in Synapse SQL Pool, e.g. base_s4h_cax.I_GLAccountLineItemRawData_delta
 1. Process Base
 
-   For a delta entity, this step is executed after all required delta parquet files have been ingested into Synapse SQL Pool Base. It processes the new delta parquet files and applies the delta information in the active table that contains the latest up to date status.
+   For a delta entity, this step is executed after all required delta parquet files have been ingested into Synapse SQL Pool Base. It processes the new delta parquet files and applies the delta information in the active table that contains the latest up to date status. It runs the stored procedure utilities.up_***
 
 # Delta structure in Synapse SQL Pool
 
@@ -54,11 +66,11 @@
 
 <entity_delta>
 
-Contains delta records from potentially multiple delta parquet files
+This table contains delta records from potentially multiple delta parquet files
 
 <vw_entity_delta>
 1. In a single delta parquet file, multiple updates on the same key can exist
-1. Additionaly, multiple delta parquet files can be ingested into the same delta table.
+1. Additionaly, multiple delta parquet files can be ingested into the same delta table before this table is truncated.
 
 This view retrieves the most recent status for each key taking into account point 1 and 2. 
 
