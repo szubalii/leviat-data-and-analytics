@@ -133,6 +133,9 @@ WHERE NOT EXISTS (
     target.[PrimaryKeyField_1] = src.[PrimaryKeyField_1]'
 + CHAR(13) + CHAR(10) + ' AND ' + CHAR(13) + CHAR(10) +
 'target.[PrimaryKeyField_2] = src.[PrimaryKeyField_2]
+)
+OPTION (
+  LABEL=''Process Delta Insert [base_s4h_cax].[vw__delta] into [base_s4h_cax].[_active]; Last Action DTM: 2024-03-01T12:00:00.000''
 )';
 
   EXEC tSQLt.AssertEqualsString @actual, @expected;

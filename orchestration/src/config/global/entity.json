@@ -6071,7 +6071,7 @@
         "source_view_name": "vw_ACDOCA_delta",
         "dest_table_name": "fact_ACDOCA_active",
         "update_mode": "Delta",
-        "execution_order": 3,
+        "execution_order": 6,
         "schedule_recurrence": "D"
       },
       {

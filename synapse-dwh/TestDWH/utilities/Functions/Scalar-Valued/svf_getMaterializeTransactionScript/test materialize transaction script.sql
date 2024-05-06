@@ -71,7 +71,10 @@ SELECT [id],'
 ,	''2024-03-26 00:00:00.000'' AS t_jobDtm
 ,	''I'' AS t_lastActionCd
 ,	''system_user'' AS t_jobBy
-FROM [edw].[vw_TestMaterialize];
+FROM [edw].[vw_TestMaterialize]
+OPTION (
+  LABEL=''Materialize [edw].[vw_TestMaterialize] into [edw].[dim_test]; ADF RunId: 1''
+);
 END TRY
 BEGIN CATCH
 
