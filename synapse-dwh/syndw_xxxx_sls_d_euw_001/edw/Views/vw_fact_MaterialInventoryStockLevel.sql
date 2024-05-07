@@ -169,21 +169,21 @@ FROM
 LEFT OUTER JOIN
   [edw].[dim_ProductValuationPUP] PUP
   ON
-    PUP.[ProductID] = _union.[MaterialID] COLLATE DATABASE_DEFAULT
+    PUP.[ProductID] = _union.[MaterialID] /*COLLATE DATABASE_DEFAULT*/
     AND
-    PUP.[ValuationAreaID] = _union.[PlantID] COLLATE DATABASE_DEFAULT
+    PUP.[ValuationAreaID] = _union.[PlantID] /*COLLATE DATABASE_DEFAULT*/
     AND
-    PUP.[ValuationTypeID] = _union.[InventoryValuationTypeID] COLLATE DATABASE_DEFAULT
+    PUP.[ValuationTypeID] = _union.[InventoryValuationTypeID] /*COLLATE DATABASE_DEFAULT*/
     AND
     PUP.[FirstDayOfMonthDate] = _union.[FirstDayOfMonthDate]
 LEFT OUTER JOIN
   [edw].[vw_dim_ProductValuationPUP_LatestStockPrice] LPUP
   ON
-    LPUP.[ProductID] = _union.[MaterialID] COLLATE DATABASE_DEFAULT
+    LPUP.[ProductID] = _union.[MaterialID] /*COLLATE DATABASE_DEFAULT*/
     AND
-    LPUP.[ValuationAreaID] = _union.[PlantID] COLLATE DATABASE_DEFAULT
+    LPUP.[ValuationAreaID] = _union.[PlantID] /*COLLATE DATABASE_DEFAULT*/
     AND
-    LPUP.[ValuationTypeID] = _union.[InventoryValuationTypeID] COLLATE DATABASE_DEFAULT
+    LPUP.[ValuationTypeID] = _union.[InventoryValuationTypeID] /*COLLATE DATABASE_DEFAULT*/
     AND
     LPUP.[FirstDayOfMonthDate] = _union.[FirstDayOfMonthDate]
     

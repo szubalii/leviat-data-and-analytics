@@ -1,8 +1,8 @@
 CREATE TABLE [edw].[dim_GoodsMovementType]
 (
-    [GoodsMovementTypeID]    nvarchar(3) collate Latin1_General_100_BIN2 NOT NULL,
+    [GoodsMovementTypeID]    nvarchar(3) NOT NULL,
     [GoodsMovementTypeName]  nvarchar(20),
-    [IsReversalMovementType] nvarchar(1) collate Latin1_General_100_BIN2,
+    [IsReversalMovementType] nvarchar(1),
     [t_applicationId]        VARCHAR(32),
     [t_jobId]                VARCHAR(36),
     [t_jobDtm]               DATETIME,

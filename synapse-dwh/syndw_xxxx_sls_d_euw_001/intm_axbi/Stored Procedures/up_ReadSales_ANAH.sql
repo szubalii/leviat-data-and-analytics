@@ -224,7 +224,7 @@ SELECT
 	into #inventtrans_ANAH_SB
 	from [intm_axbi].[fact_CUSTINVOICETRANS] as t
 	--inner join #inventtrans_ANAH_OS os
-	--on t.INVOICEID COLLATE DATABASE_DEFAULT= os.INVOICEID COLLATE DATABASE_DEFAULT
+	--on t.INVOICEID = os.INVOICEID 
 	where upper(t.DATAAREAID) = 'ANAH' and t.ITEMID not in ('ANAH-FRA', 'ANAH-MISC', 'ANAH-RESTOCK')
 	group by t.INVOICEID;
 
@@ -251,11 +251,11 @@ SELECT
 --     [intm_axbi].[fact_CUSTINVOICETRANS].OTHERSALESEUR   += (la.lineamounteur_os_sum * t.PRODUCTSALESEUR/sb.SALESBALANCEEUR) * os.cnt_inv
 -- from [intm_axbi].[fact_CUSTINVOICETRANS] as t
 -- inner join #inventtrans_ANAH_OS os
--- on t.INVOICEID  COLLATE DATABASE_DEFAULT= os.INVOICEID  COLLATE DATABASE_DEFAULT
+-- on t.INVOICEID  = os.INVOICEID  
 -- inner join #inventtrans_ANAH_SB sb
--- on t.INVOICEID COLLATE DATABASE_DEFAULT=sb.INVOICEID COLLATE DATABASE_DEFAULT
+-- on t.INVOICEID =sb.INVOICEID 
 -- inner join #inventtrans_ANAH_LA la
--- on t.INVOICEID COLLATE DATABASE_DEFAULT=la.INVOICEID COLLATE DATABASE_DEFAULT
+-- on t.INVOICEID =la.INVOICEID 
 -- where upper(t.DATAAREAID) = 'ANAH'  and t.ITEMID not in ('ANAH-FRA', 'ANAH-MISC', 'ANAH-RESTOCK')
 -- and sb.SALESBALANCE<>0
 
@@ -267,11 +267,11 @@ WITH PCC AS (
 	    	,SUM(os.lineamounteur_os * t.PRODUCTSALESEUR/sb.SALESBALANCEEUR) as e_sum
         from [intm_axbi].[fact_CUSTINVOICETRANS] as t
         inner join #inventtrans_ANAH_OS os
-        on t.INVOICEID  COLLATE DATABASE_DEFAULT= os.INVOICEID  COLLATE DATABASE_DEFAULT
+        on t.INVOICEID  = os.INVOICEID  
         inner join #inventtrans_ANAH_SB sb
-        on t.INVOICEID COLLATE DATABASE_DEFAULT=sb.INVOICEID COLLATE DATABASE_DEFAULT
+        on t.INVOICEID =sb.INVOICEID 
         --inner join #inventtrans_ANAH_LA la
-        --on t.INVOICEID COLLATE DATABASE_DEFAULT=la.INVOICEID COLLATE DATABASE_DEFAULT
+        --on t.INVOICEID =la.INVOICEID 
         where upper(t.DATAAREAID) = 'ANAH'  and t.ITEMID not in ('ANAH-FRA', 'ANAH-MISC', 'ANAH-RESTOCK')
         and sb.SALESBALANCE<>0
     	GROUP BY t.SALESID,t.INVOICEID, t.LINENUM
@@ -290,11 +290,11 @@ INNER JOIN PCC
 -- 	   [intm_axbi].[fact_CUSTINVOICETRANS].OTHERSALESEUR   += la.lineamounteur_os_sum / cnt.lcounter
 -- from [intm_axbi].[fact_CUSTINVOICETRANS] as t
 -- inner join #inventtrans_ANAH_SB sb
--- on t.INVOICEID COLLATE DATABASE_DEFAULT=sb.INVOICEID COLLATE DATABASE_DEFAULT
+-- on t.INVOICEID =sb.INVOICEID 
 -- inner join #inventtrans_ANAH_LA la
--- on t.INVOICEID COLLATE DATABASE_DEFAULT=la.INVOICEID COLLATE DATABASE_DEFAULT
+-- on t.INVOICEID =la.INVOICEID 
 -- inner join #inventtrans_ANAH_cnt cnt
--- on t.INVOICEID COLLATE DATABASE_DEFAULT=cnt.INVOICEID COLLATE DATABASE_DEFAULT
+-- on t.INVOICEID =cnt.INVOICEID 
 -- where upper(t.DATAAREAID) = 'ANAH'  
 -- and t.ITEMID not in ('ANAH-FRA', 'ANAH-MISC', 'ANAH-RESTOCK')
 -- and sb.SALESBALANCE = 0
@@ -308,13 +308,13 @@ WITH PCC AS (
 	    	,SUM(os.lineamounteur_os / sb.lcounter) as e_sum
     	from [intm_axbi].[fact_CUSTINVOICETRANS] as t
         inner join #inventtrans_ANAH_OS os
-        on t.INVOICEID  COLLATE DATABASE_DEFAULT= os.INVOICEID  COLLATE DATABASE_DEFAULT
+        on t.INVOICEID  = os.INVOICEID  
         inner join #inventtrans_ANAH_SB sb
-        on t.INVOICEID COLLATE DATABASE_DEFAULT=sb.INVOICEID COLLATE DATABASE_DEFAULT
+        on t.INVOICEID =sb.INVOICEID 
         --inner join #inventtrans_ANAH_LA la
-        --on t.INVOICEID COLLATE DATABASE_DEFAULT=la.INVOICEID COLLATE DATABASE_DEFAULT
+        --on t.INVOICEID =la.INVOICEID 
         --inner join #inventtrans_ANAH_cnt cnt
-        --on t.INVOICEID COLLATE DATABASE_DEFAULT=cnt.INVOICEID COLLATE DATABASE_DEFAULT
+        --on t.INVOICEID =cnt.INVOICEID 
         where upper(t.DATAAREAID) = 'ANAH'  
         and t.ITEMID not in ('ANAH-FRA', 'ANAH-MISC', 'ANAH-RESTOCK')
         and sb.SALESBALANCE = 0
@@ -389,7 +389,7 @@ insert [intm_axbi].[fact_CUSTINVOICETRANS]
     t_jobBy,
     t_extractionDtm
 	from #inventtrans_ANAH_OS
-	where INVOICEID COLLATE DATABASE_DEFAULT not in (select INVOICEID from [intm_axbi].[fact_CUSTINVOICETRANS] where upper(DATAAREAID) = 'ANAH' and ITEMID not in ('ANAH-FRA', 'ANAH-MISC', 'ANAH-RESTOCK'))
+	where INVOICEID  not in (select INVOICEID from [intm_axbi].[fact_CUSTINVOICETRANS] where upper(DATAAREAID) = 'ANAH' and ITEMID not in ('ANAH-FRA', 'ANAH-MISC', 'ANAH-RESTOCK'))
 
 --update SALES100
 	update [intm_axbi].[fact_CUSTINVOICETRANS]

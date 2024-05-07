@@ -79,7 +79,7 @@ LEFT JOIN
 LEFT JOIN
     [base_s4h_cax].[I_CompanyCode] CC
     ON
-        SC.[CompanyCode] COLLATE SQL_Latin1_General_CP1_CS_AS = CC.[CompanyCode]
+        SC.[CompanyCode] /*COLLATE SQL_Latin1_General_CP1_CS_AS*/ = CC.[CompanyCode]
 WHERE
     (S.SupplierAccountGroup <> 'Z008' --Employees
     AND

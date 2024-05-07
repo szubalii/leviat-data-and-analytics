@@ -354,7 +354,7 @@ LEFT JOIN
   ON
     doc.SalesDocument = CTE_PrcgElmnt.SalesQuotation
     AND
-    doc.SalesDocumentItem = CTE_PrcgElmnt.SalesQuotationItem  COLLATE DATABASE_DEFAULT
+    doc.SalesDocumentItem = CTE_PrcgElmnt.SalesQuotationItem
     AND
     doc.CurrencyTypeID = CTE_PrcgElmnt.CurrencyTypeID
 

@@ -150,9 +150,9 @@ LEFT JOIN
 LEFT JOIN 
     [base_s4h_cax].[NSDM_V_MARC] NAM
     ON 
-      PP.[Product] = NAM.[MATNR] COLLATE Latin1_General_100_BIN2
+      PP.[Product] = NAM.[MATNR]
       AND
-      PP.[Plant] = NAM.[WERKS] COLLATE Latin1_General_100_BIN2
+      PP.[Plant] = NAM.[WERKS]
 WHERE
       P.[CrossPlantStatus] = '70'
     AND

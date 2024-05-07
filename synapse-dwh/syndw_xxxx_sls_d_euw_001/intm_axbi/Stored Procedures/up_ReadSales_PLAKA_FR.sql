@@ -829,13 +829,13 @@ BEGIN
 	on lower(t.DATAAREAID) = lower(g.DATAAREAID) and
 	t.ITEMID = g.ITEMID
 	--inner join #inventtrans_PLFR_OS os
-	--on t.INVOICEID COLLATE DATABASE_DEFAULT= os.INVOICEID COLLATE DATABASE_DEFAULT
+	--on t.INVOICEID = os.INVOICEID 
 	where upper(t.DATAAREAID) = 'PLFR' 
 	and g.ITEMGROUPID <> 'PLFR-EL'
   --  and EXISTS (
 		--	SELECT 1
 		--	FROM #inventtrans_PLFR_OS os
-		--	WHERE t.INVOICEID COLLATE DATABASE_DEFAULT= os.INVOICEID COLLATE DATABASE_DEFAULT
+		--	WHERE t.INVOICEID = os.INVOICEID 
 		--)
 	group by t.INVOICEID;
 
@@ -868,11 +868,11 @@ from [intm_axbi].[fact_CUSTINVOICETRANS] as t
 on lower(t.DATAAREAID) = lower(g.DATAAREAID) and
    t.ITEMID     = g.ITEMID 
 inner join #inventtrans_PLFR_OS os
-on t.INVOICEID  COLLATE DATABASE_DEFAULT= os.INVOICEID  COLLATE DATABASE_DEFAULT
+on t.INVOICEID  = os.INVOICEID  
 inner join #inventtrans_PLFR_SB sb
-on t.INVOICEID COLLATE DATABASE_DEFAULT=sb.INVOICEID COLLATE DATABASE_DEFAULT
+on t.INVOICEID =sb.INVOICEID 
 inner join #inventtrans_PLFR_LA la
-on t.INVOICEID COLLATE DATABASE_DEFAULT=la.INVOICEID COLLATE DATABASE_DEFAULT
+on t.INVOICEID =la.INVOICEID 
 where upper(t.DATAAREAID) = 'PLFR' 
 and datepart(YYYY, t.ACCOUNTINGDATE) = @P_Year 
 and datepart(MM, t.ACCOUNTINGDATE) = @P_Month
@@ -890,11 +890,11 @@ WITH PCC AS (
         on lower(t.DATAAREAID) = lower(g.DATAAREAID) and
            t.ITEMID     = g.ITEMID 
         inner join #inventtrans_PLFR_OS os
-        on t.INVOICEID  COLLATE DATABASE_DEFAULT= os.INVOICEID  COLLATE DATABASE_DEFAULT
+        on t.INVOICEID  = os.INVOICEID  
         inner join #inventtrans_PLFR_SB sb
-        on t.INVOICEID COLLATE DATABASE_DEFAULT=sb.INVOICEID COLLATE DATABASE_DEFAULT
+        on t.INVOICEID =sb.INVOICEID 
         --inner join #inventtrans_PLFR_LA la
-        --on t.INVOICEID COLLATE DATABASE_DEFAULT=la.INVOICEID COLLATE DATABASE_DEFAULT
+        --on t.INVOICEID =la.INVOICEID 
         where upper(t.DATAAREAID) = 'PLFR' 
         and datepart(YYYY, t.ACCOUNTINGDATE) = @P_Year 
         and datepart(MM, t.ACCOUNTINGDATE) = @P_Month
@@ -919,11 +919,11 @@ INNER JOIN PCC
 --on lower(t.DATAAREAID) = lower(g.DATAAREAID) and
 --t.ITEMID = g.ITEMID  
 --inner join #inventtrans_PLFR_SB sb
---on t.INVOICEID COLLATE DATABASE_DEFAULT=sb.INVOICEID COLLATE DATABASE_DEFAULT
+--on t.INVOICEID =sb.INVOICEID 
 --inner join #inventtrans_PLFR_LA la
---on t.INVOICEID COLLATE DATABASE_DEFAULT=la.INVOICEID COLLATE DATABASE_DEFAULT
+--on t.INVOICEID =la.INVOICEID 
 --inner join #inventtrans_PLFR_cnt cnt
---on t.INVOICEID COLLATE DATABASE_DEFAULT=cnt.INVOICEID COLLATE DATABASE_DEFAULT
+--on t.INVOICEID =cnt.INVOICEID 
 --where upper(t.DATAAREAID) = 'PLFR' 
 --and datepart(YYYY, t.ACCOUNTINGDATE) = @P_Year 
 --and datepart(MM, t.ACCOUNTINGDATE) = @P_Month 
@@ -942,13 +942,13 @@ WITH PCC AS (
         on lower(t.DATAAREAID) = lower(g.DATAAREAID) and
         t.ITEMID = g.ITEMID
         inner join #inventtrans_PLFR_OS os
-        on t.INVOICEID  COLLATE DATABASE_DEFAULT= os.INVOICEID  COLLATE DATABASE_DEFAULT
+        on t.INVOICEID  = os.INVOICEID  
         inner join #inventtrans_PLFR_SB sb
-        on t.INVOICEID COLLATE DATABASE_DEFAULT=sb.INVOICEID COLLATE DATABASE_DEFAULT
+        on t.INVOICEID =sb.INVOICEID 
         --inner join #inventtrans_PLFR_LA la
-        --on t.INVOICEID COLLATE DATABASE_DEFAULT=la.INVOICEID COLLATE DATABASE_DEFAULT
+        --on t.INVOICEID =la.INVOICEID 
         --inner join #inventtrans_PLFR_cnt cnt
-        --on t.INVOICEID COLLATE DATABASE_DEFAULT=cnt.INVOICEID COLLATE DATABASE_DEFAULT
+        --on t.INVOICEID =cnt.INVOICEID 
         where upper(t.DATAAREAID) = 'PLFR' 
         and datepart(YYYY, t.ACCOUNTINGDATE) = @P_Year 
         and datepart(MM, t.ACCOUNTINGDATE) = @P_Month 
@@ -1025,7 +1025,7 @@ insert [intm_axbi].[fact_CUSTINVOICETRANS]
     t_jobBy,
     t_extractionDtm 
 	from #inventtrans_PLFR_OS
-	where INVOICEID COLLATE DATABASE_DEFAULT not in 
+	where INVOICEID  not in 
 	(select t.INVOICEID from [intm_axbi].[fact_CUSTINVOICETRANS] as t
      inner join [intm_axbi].[dim_ITEMTABLE] as g
      on lower(t.DATAAREAID) = lower(g.DATAAREAID) and

@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [base_s4h_cax].[MSTA](
 -- Material Master Status
-  [MANDT]           CHAR(3) collate Latin1_General_100_BIN2 NOT NULL
+  [MANDT]           CHAR(3) NOT NULL -- collate Latin1_General_100_BIN2 NOT NULL
 , [MATNR]           NVARCHAR(40) NOT NULL
 , [STATM]           CHAR(1) NOT NULL
 , [ZHLER]           CHAR(5) NOT NULL

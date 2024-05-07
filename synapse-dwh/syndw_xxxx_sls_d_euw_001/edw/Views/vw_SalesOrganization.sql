@@ -67,7 +67,7 @@ SELECT
         THEN
             SO.[target_SalesOrganizationID]
         ELSE
-            SalesOrganizationAXBI.[DATAAREAID2] collate Latin1_General_100_BIN2
+            SalesOrganizationAXBI.[DATAAREAID2]
     END AS [SalesOrganizationID],
     CASE
         WHEN
@@ -75,10 +75,10 @@ SELECT
         THEN
             SO.[target_SalesOrganizationName]
         ELSE
-            SalesOrganizationAXBI.[NAME] collate Latin1_General_100_BIN2
+            SalesOrganizationAXBI.[NAME]
     END AS [SalesOrganization],
-    [LOCALCURRENCY] collate Latin1_General_100_BIN2 AS [SalesOrganizationCurrency],
-    [CRHCOMPANYID] collate Latin1_General_100_BIN2 AS [CompanyCode],
+    [LOCALCURRENCY]  AS [SalesOrganizationCurrency],
+    [CRHCOMPANYID]  AS [CompanyCode],
     NULL AS [IntercompanyBillingCustomer],
     NULL AS [ArgentinaDeliveryDateEvent],
     SO.[CountryID],
@@ -107,7 +107,7 @@ SELECT
         THEN
             SO.[target_SalesOrganizationID]
         ELSE
-            SalesOrganizationAXBI2.[ID] collate Latin1_General_100_BIN2
+            SalesOrganizationAXBI2.[ID]
     END AS [SalesOrganizationID],
     CASE
         WHEN
@@ -115,7 +115,7 @@ SELECT
         THEN
             SO.[target_SalesOrganizationName]
         ELSE
-            SalesOrganizationAXBI2.[NAME] collate Latin1_General_100_BIN2
+            SalesOrganizationAXBI2.[NAME]
     END AS [SalesOrganization],
     NULL AS [SalesOrganizationCurrency],
     NULL AS [CompanyCode],

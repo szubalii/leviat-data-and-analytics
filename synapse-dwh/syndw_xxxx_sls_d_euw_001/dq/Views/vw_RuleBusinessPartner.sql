@@ -2,7 +2,7 @@ CREATE VIEW [dq].[vw_RuleBusinessPartner]
 AS
 SELECT
     [RuleID]
-    ,[BUSINESSPARTNER]  COLLATE DATABASE_DEFAULT    AS [BusinessPartner] 
+    ,[BUSINESSPARTNER]      AS [BusinessPartner] 
 FROM
     [dq].[vw_BP_2_0_1]
 

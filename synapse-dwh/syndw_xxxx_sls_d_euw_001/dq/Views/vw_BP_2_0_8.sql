@@ -10,7 +10,7 @@ FROM
 INNER JOIN
     [base_s4h_cax].[I_BusinessPartner] BP
     ON
-        BPTN.[BUSINESSPARTNER] COLLATE Latin1_General_100_BIN2 = BP.[BusinessPartner]
+        BPTN.[BUSINESSPARTNER] = BP.[BusinessPartner]
 WHERE
     BP.[IsMarkedForArchiving] <> 'X'
 GROUP BY

@@ -3,7 +3,7 @@
 , [ODQ_CHANGEMODE]              CHAR(1)
 , [ODQ_ENTITYCNTR]              NUMERIC(19, 0)
 , [SalesDocument]               NVARCHAR(20) NOT NULL
-, [SalesDocumentItem]           NVARCHAR(24) collate Latin1_General_100_BIN2 NOT NULL
+, [SalesDocumentItem]           NVARCHAR(24) NOT NULL -- collate Latin1_General_100_BIN2 NOT NULL
 , [ProductID]                   NVARCHAR(40)
 , [ProductExternalID]           NVARCHAR(40)
 , [Configuration]               NVARCHAR(18)

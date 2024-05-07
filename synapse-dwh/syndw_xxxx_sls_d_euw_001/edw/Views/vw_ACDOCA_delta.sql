@@ -153,14 +153,14 @@ SELECT
     GLA.[SalesDocument]
   , GLA.[ReferenceDocumentType]
   , GLA.[PurchasingDocument]
-  , PA.[ICSalesDocumentID] COLLATE DATABASE_DEFAULT
+  , PA.[ICSalesDocumentID] --COLLATE DATABASE_DEFAULT
   , ARSD.[SalesReferenceDocumentCalculated]
   ) AS [SalesReferenceDocumentCalculated],
   edw.[svf_getSalesRefDocItemCalc] (
     GLA.[SalesDocument]
   , GLA.[ReferenceDocumentType]
   , GLA.[PurchasingDocument]
-  , PA.[ICSalesDocumentItemID] COLLATE DATABASE_DEFAULT
+  , PA.[ICSalesDocumentItemID] --COLLATE DATABASE_DEFAULT
   , ARSD.[SalesReferenceDocumentItemCalculated]
   ) AS [SalesReferenceDocumentItemCalculated],
   ARSD.[SalesDocumentItemCategoryID],

@@ -1,10 +1,10 @@
 CREATE TABLE [base_s4h_cax].[I_CustomerReturnDeliveryItem](
-  [MANDT] char(3) collate Latin1_General_100_BIN2 NOT NULL
+  [MANDT] char(3) NOT NULL -- collate Latin1_General_100_BIN2 NOT NULL
 , [CustomerReturnDelivery] nvarchar(10) NOT NULL
-, [CustomerReturnDeliveryItem] char(6) collate Latin1_General_100_BIN2 NOT NULL
+, [CustomerReturnDeliveryItem] char(6) NOT NULL -- collate Latin1_General_100_BIN2 NOT NULL
 , [DeliveryDocumentItemCategory] nvarchar(4)
 , [SalesDocumentItemType] nvarchar(1)
-, [HigherLvlItmOfBatSpltItm] char(6) collate Latin1_General_100_BIN2
+, [HigherLvlItmOfBatSpltItm] char(6) -- collate Latin1_General_100_BIN2
 , [CreatedByUser] nvarchar(12)
 , [CreationDate] date
 , [CreationTime] time(0)
@@ -19,7 +19,7 @@ CREATE TABLE [base_s4h_cax].[I_CustomerReturnDeliveryItem](
 , [OriginallyRequestedMaterial] nvarchar(40)
 , [InternationalArticleNumber] nvarchar(18)
 , [Batch] nvarchar(10)
-, [BatchClassification] char(18) collate Latin1_General_100_BIN2
+, [BatchClassification] char(18) -- collate Latin1_General_100_BIN2
 , [BatchBySupplier] nvarchar(15)
 , [MaterialIsIntBatchManaged] nvarchar(1)
 , [MaterialIsBatchManaged] nvarchar(1)
@@ -38,29 +38,29 @@ CREATE TABLE [base_s4h_cax].[I_CustomerReturnDeliveryItem](
 , [InventorySpecialStockType] nvarchar(1)
 , [ShelfLifeExpirationDate] date
 , [NumberOfSerialNumbers] int
-, [ProductConfiguration] char(18) collate Latin1_General_100_BIN2
+, [ProductConfiguration] char(18) -- collate Latin1_General_100_BIN2
 , [ProductHierarchyNode] nvarchar(18)
 , [ManufactureDate] date
 , [DeliveryDocumentItemText] nvarchar(40)
-, [HigherLevelItem] char(6) collate Latin1_General_100_BIN2
+, [HigherLevelItem] char(6) -- collate Latin1_General_100_BIN2
 , [ActualDeliveryQuantity] decimal(13,3)
 , [QuantityIsFixed] nvarchar(1)
 , [OriginalDeliveryQuantity] decimal(13,3)
-, [DeliveryQuantityUnit] nvarchar(3) collate Latin1_General_100_BIN2
+, [DeliveryQuantityUnit] nvarchar(3) -- collate Latin1_General_100_BIN2
 , [ActualDeliveredQtyInBaseUnit] decimal(13,3)
-, [BaseUnit] nvarchar(3) collate Latin1_General_100_BIN2
+, [BaseUnit] nvarchar(3) -- collate Latin1_General_100_BIN2
 , [DeliveryToBaseQuantityDnmntr] decimal(5)
 , [DeliveryToBaseQuantityNmrtr] decimal(5)
 , [ProductAvailabilityDate] date
 , [ProductAvailabilityTime] time(0)
-, [DeliveryGroup] char(3) collate Latin1_General_100_BIN2
+, [DeliveryGroup] char(3) -- collate Latin1_General_100_BIN2
 , [ItemGrossWeight] decimal(15,3)
 , [ItemNetWeight] decimal(15,3)
-, [ItemWeightUnit] nvarchar(3) collate Latin1_General_100_BIN2
+, [ItemWeightUnit] nvarchar(3) -- collate Latin1_General_100_BIN2
 , [ItemVolume] decimal(15,3)
-, [ItemVolumeUnit] nvarchar(3) collate Latin1_General_100_BIN2
-, [InspectionLot] char(12) collate Latin1_General_100_BIN2
-, [InspectionPartialLot] char(6) collate Latin1_General_100_BIN2
+, [ItemVolumeUnit] nvarchar(3) -- collate Latin1_General_100_BIN2
+, [InspectionLot] char(12) -- collate Latin1_General_100_BIN2
+, [InspectionPartialLot] char(6) -- collate Latin1_General_100_BIN2
 , [PartialDeliveryIsAllowed] nvarchar(1)
 , [UnlimitedOverdeliveryIsAllowed] nvarchar(1)
 , [OverdelivTolrtdLmtRatioInPct] decimal(3,1)
@@ -70,7 +70,7 @@ CREATE TABLE [base_s4h_cax].[I_CustomerReturnDeliveryItem](
 , [IsNotGoodsMovementsRelevant] nvarchar(1)
 , [StockType] nvarchar(1)
 , [GLAccount] nvarchar(10)
-, [GoodsMovementReasonCode] char(4) collate Latin1_General_100_BIN2
+, [GoodsMovementReasonCode] char(4) -- collate Latin1_General_100_BIN2
 , [IsCompletelyDelivered] nvarchar(1)
 , [PickingControl] nvarchar(1)
 , [LoadingGroup] nvarchar(4)
@@ -84,16 +84,16 @@ CREATE TABLE [base_s4h_cax].[I_CustomerReturnDeliveryItem](
 , [ItemBillingBlockReason] nvarchar(2)
 , [BusinessArea] nvarchar(4)
 , [ControllingArea] nvarchar(4)
-, [ProfitabilitySegment] char(10) collate Latin1_General_100_BIN2
+, [ProfitabilitySegment] char(10) -- collate Latin1_General_100_BIN2
 , [ProfitCenter] nvarchar(10)
 , [InventoryValuationType] nvarchar(10)
 , [IsSeparateValuation] nvarchar(1)
 , [ConsumptionPosting] nvarchar(1)
 , [OrderID] nvarchar(12)
-, [OrderItem] char(4) collate Latin1_General_100_BIN2
+, [OrderItem] char(4) -- collate Latin1_General_100_BIN2
 , [CostCenter] nvarchar(10)
 , [ReferenceSDDocument] nvarchar(10)
-, [ReferenceSDDocumentItem] char(6) collate Latin1_General_100_BIN2
+, [ReferenceSDDocumentItem] char(6) -- collate Latin1_General_100_BIN2
 , [ReferenceSDDocumentCategory] nvarchar(4)
 , [ReferenceDocumentLogicalSystem] nvarchar(10)
 , [AdditionalCustomerGroup1] nvarchar(3)

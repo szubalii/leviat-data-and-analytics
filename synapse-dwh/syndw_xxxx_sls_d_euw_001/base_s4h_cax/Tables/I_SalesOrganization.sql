@@ -1,7 +1,7 @@
 CREATE TABLE [base_s4h_cax].[I_SalesOrganization](
-  [MANDT] char(3) collate Latin1_General_100_BIN2 NOT NULL
+  [MANDT] char(3) NOT NULL -- collate Latin1_General_100_BIN2 NOT NULL
 , [SalesOrganization] nvarchar(4) NOT NULL
-, [SalesOrganizationCurrency] char(5) collate Latin1_General_100_BIN2
+, [SalesOrganizationCurrency] char(5) -- collate Latin1_General_100_BIN2
 , [CompanyCode] nvarchar(4)
 , [IntercompanyBillingCustomer] nvarchar(10)
 , [ArgentinaDeliveryDateEvent] nvarchar(1)

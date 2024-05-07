@@ -2,7 +2,7 @@
 -- G/L Account In Chart Of Accounts
   [ChartOfAccounts] nvarchar(8) NOT NULL
 , [GLAccountID] nvarchar(20) NOT NULL --renamed (ex GLAccount)
---, [Language] char(1) collate  Latin1_General_100_BIN2 NOT NULL -- from [base_s4h_cax].[I_GLAccountText]
+--, [Language] char(1)  -- from [base_s4h_cax].[I_GLAccountText]
 , [GLAccount] nvarchar(40) --renamed (ex GLAccountName)
 , [GLAccountLongName] nvarchar(100) --from [base_s4h_cax].[I_GLAccountText]
 , [IsBalanceSheetAccount] nvarchar(2)

@@ -1,9 +1,9 @@
 CREATE TABLE [base_s4h_cax].[I_Address](
-  [MANDT] char(3) collate Latin1_General_100_BIN2 NOT NULL
+  [MANDT] char(3) NOT NULL -- collate Latin1_General_100_BIN2 NOT NULL
 , [AddressID] nvarchar(10) NOT NULL
 , [CareOfName] nvarchar(40)
 , [AdditionalStreetSuffixName] nvarchar(40)
-, [CorrespondenceLanguage] char(1) collate  Latin1_General_100_BIN2
+, [CorrespondenceLanguage] char(1) -- collate Latin1_General_100_BIN2
 , [PrfrdCommMediumType] nvarchar(3)
 , [POBox] nvarchar(10)
 , [POBoxIsWithoutNumber] nvarchar(1)

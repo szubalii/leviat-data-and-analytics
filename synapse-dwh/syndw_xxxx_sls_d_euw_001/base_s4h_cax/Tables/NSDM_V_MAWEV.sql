@@ -1,11 +1,11 @@
 CREATE TABLE [base_s4h_cax].[NSDM_V_MAWEV]
 -- MAWEV Compatibility View
 (
-  [MANDT] nchar(3) collate Latin1_General_100_BIN2 NOT NULL
-, [MATNR] nvarchar(40) collate Latin1_General_100_BIN2 NOT NULL
-, [WERKS] nvarchar(4) collate Latin1_General_100_BIN2 NOT NULL
-, [ALAND] nvarchar(3) collate Latin1_General_100_BIN2 NOT NULL
-, [VHART] nvarchar(4) collate Latin1_General_100_BIN2
+  [MANDT] nchar(3) NOT NULL -- collate Latin1_General_100_BIN2 NOT NULL
+, [MATNR] nvarchar(40) NOT NULL -- collate Latin1_General_100_BIN2 NOT NULL
+, [WERKS] nvarchar(4) NOT NULL -- collate Latin1_General_100_BIN2 NOT NULL
+, [ALAND] nvarchar(3) NOT NULL -- collate Latin1_General_100_BIN2 NOT NULL
+, [VHART] nvarchar(4) -- collate Latin1_General_100_BIN2
 --, [tragr] nvarchar(4) collate Latin1_General_100_BIN2
 --, [dismm] nvarchar(2) collate Latin1_General_100_BIN2
 --, [atpkz] nvarchar(1) collate Latin1_General_100_BIN2
@@ -80,7 +80,7 @@ CREATE TABLE [base_s4h_cax].[NSDM_V_MAWEV]
 --, [fsh_mg_arun_req] nvarchar(1) collate Latin1_General_100_BIN2
 --, [fsh_seaim] nvarchar(1) collate Latin1_General_100_BIN2
 --, [fprfm] nvarchar(3) collate Latin1_General_100_BIN2
---, [arun_fix_batch] nvarchar(1) collate Latin1_General_100_BIN2
+--, [arun_fix_batch] nvarchar(1) -- collate Latin1_General_100_BIN2
 , [t_applicationId]       VARCHAR (32)
 , [t_jobId]               VARCHAR (36)
 , [t_jobDtm]             DATETIME

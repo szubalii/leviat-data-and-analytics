@@ -7,7 +7,7 @@ SELECT
             ,[GLAccountID]
             ,'_'
             ,[GLAccountLongName]
-    )             COLLATE DATABASE_DEFAULT     AS DummyIDName
+    )                                         AS DummyIDName
 FROM edw.vw_GLAccountText
 
 

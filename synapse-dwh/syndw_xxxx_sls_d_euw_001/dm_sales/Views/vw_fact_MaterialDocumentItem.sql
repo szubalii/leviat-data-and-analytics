@@ -1,11 +1,11 @@
 ﻿CREATE VIEW [dm_sales].[vw_fact_MaterialDocumentItem] AS
 SELECT  
         MDI.[MaterialDocumentYear] 
-    ,   MDI.[MaterialDocument] COLLATE DATABASE_DEFAULT          AS MaterialDocument
+    ,   MDI.[MaterialDocument]           AS MaterialDocument
     ,   MDI.[MaterialDocumentItem]
-    ,   MDI.[MaterialID] COLLATE DATABASE_DEFAULT                AS MaterialID
-    ,   MDI.[PlantID] COLLATE DATABASE_DEFAULT                   AS PlantID
-    ,   MDI.[StorageLocationID] COLLATE DATABASE_DEFAULT         AS StorageLocationID
+    ,   MDI.[MaterialID]                 AS MaterialID
+    ,   MDI.[PlantID]                    AS PlantID
+    ,   MDI.[StorageLocationID]          AS StorageLocationID
     ,   MDI.[nk_StoragePlantID] 
     ,   MDI.[StorageTypeID]
     ,   MDI.[StorageBin] 
@@ -13,8 +13,8 @@ SELECT
     ,   MDI.[ShelfLifeExpirationDate] 
     ,   MDI.[ManufactureDate] 
     ,   MDI.[SupplierID]
-    ,   MDI.[SalesOrder] COLLATE DATABASE_DEFAULT                AS SalesOrder
-    ,   MDI.[SalesOrderItem] COLLATE DATABASE_DEFAULT            AS SalesOrderItem
+    ,   MDI.[SalesOrder]                 AS SalesOrder
+    ,   MDI.[SalesOrderItem]             AS SalesOrderItem
     ,   MDI.[SalesOrderScheduleLine] 
     ,   MDI.[WBSElementInternalID] 
     ,   MDI.[CustomerID]
@@ -25,20 +25,20 @@ SELECT
     ,   MDI.[DebitCreditCode] 
     ,   MDI.[InventoryUsabilityCode] 
     ,   MDI.[QuantityInBaseUnit] 
-    ,   MDI.[MaterialBaseUnitID] COLLATE DATABASE_DEFAULT        AS MaterialBaseUnitID
+    ,   MDI.[MaterialBaseUnitID]         AS MaterialBaseUnitID
     ,   MDI.[QuantityInEntryUnit] 
     ,   MDI.[EntryUnitID]
     ,   MDI.[HDR_PostingDate]
     ,   MDI.[DocumentDate] 
     ,   MDI.[TotalGoodsMvtAmtInCCCrcy] 
-    ,   MDI.[CompanyCodeCurrency]  COLLATE DATABASE_DEFAULT      AS CompanyCodeCurrency
+    ,   MDI.[CompanyCodeCurrency]        AS CompanyCodeCurrency
     ,   MDI.[InventoryValuationTypeID]
     ,   MDI.[ReservationIsFinallyIssued]
-    ,   MDI.[PurchaseOrder] COLLATE DATABASE_DEFAULT             AS PurchaseOrder
-    ,   MDI.[PurchaseOrderItem] COLLATE DATABASE_DEFAULT         AS PurchaseOrderItem
+    ,   MDI.[PurchaseOrder]              AS PurchaseOrder
+    ,   MDI.[PurchaseOrderItem]          AS PurchaseOrderItem
     ,   MDI.[ProjectNetwork] 
-    ,   MDI.[Order]                 COLLATE DATABASE_DEFAULT     AS [Order]
-    ,   MDI.[OrderItem]             COLLATE DATABASE_DEFAULT     AS OrderItem
+    ,   MDI.[Order]                      AS [Order]
+    ,   MDI.[OrderItem]                  AS OrderItem
     ,   MDI.[SalesDocumentItemCategoryID]
     ,   MDI.[SalesDocumentItemCategory]
     ,   MDI.[Reservation]
@@ -90,8 +90,8 @@ SELECT
     ,   MDI.[GoodsMovementIsCancelled]
     ,   MDI.[GoodsMovementCancellationType]
     ,   MDI.[ConsumptionPosting]
-    ,   MDI.[ManufacturingOrder] COLLATE DATABASE_DEFAULT        AS ManufacturingOrder
-    ,   MDI.[ManufacturingOrderItem] COLLATE DATABASE_DEFAULT    AS ManufacturingOrderItem
+    ,   MDI.[ManufacturingOrder]         AS ManufacturingOrder
+    ,   MDI.[ManufacturingOrderItem]     AS ManufacturingOrderItem
     ,   MDI.[IsReversalMovementType]
     ,   MDI.[nk_dim_ProductValuationPUP]
     ,   MDI.[StockPricePerUnit]
@@ -171,7 +171,7 @@ SELECT
     , dimIST.[InventoryStockTypeName]
     , MDI.[StockOwner]
     , MDI.[GoodsMovementTypeID]
-    , dimGMT.[GoodsMovementTypeName] COLLATE Latin1_General_100_BIN2 as GoodsMovementTypeName
+    , dimGMT.[GoodsMovementTypeName] as GoodsMovementTypeName
     , MDI.[DebitCreditCode]
     , MDI.[InventoryUsabilityCode]
     , MDI.[QuantityInBaseUnit]
@@ -275,7 +275,7 @@ SELECT
     FROM [edw].[fact_MaterialDocumentItem] MDI
     LEFT JOIN 
         [edw].[fact_SalesDocumentItem] SDI
-            ON MDI.[SalesOrder] = SDI.[SalesDocument] collate Latin1_General_100_BIN2
+            ON MDI.[SalesOrder] = SDI.[SalesDocument]
                 AND
                 MDI.[SalesOrderItem] = SDI.[SalesDocumentItem]
                 AND
@@ -577,7 +577,7 @@ FROM
 LEFT JOIN 
     [edw].[fact_PurchasingDocument] dimPD 
         ON 
-            MDIU.[PurchaseOrder] COLLATE Latin1_General_100_BIN2 = dimPD.[PurchasingDocument] 
+            MDIU.[PurchaseOrder] = dimPD.[PurchasingDocument] 
 LEFT JOIN  
     [edw].[dim_PurchasingDocumentType] dimPDT 
         ON  

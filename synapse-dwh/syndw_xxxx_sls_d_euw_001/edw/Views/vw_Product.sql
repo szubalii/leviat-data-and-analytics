@@ -873,7 +873,7 @@ FROM
     CTE_Product
 LEFT JOIN [edw].[vw_MaterialStatus] MS
     ON
-        CTE_Product.[CrossPlantStatus] = MS.[MaterialStatusID] COLLATE Latin1_General_100_BIN2
+        CTE_Product.[CrossPlantStatus] = MS.[MaterialStatusID] 
         AND
         MS.[Language] = 'E'
 LEFT JOIN

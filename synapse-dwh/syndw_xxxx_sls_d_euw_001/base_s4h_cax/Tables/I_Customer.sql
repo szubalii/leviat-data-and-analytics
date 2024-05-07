@@ -1,5 +1,5 @@
 CREATE TABLE [base_s4h_cax].[I_Customer](
-  [MANDT] char(3) collate Latin1_General_100_BIN2 NOT NULL
+  [MANDT] char(3) NOT NULL -- collate Latin1_General_100_BIN2 NOT NULL
 , [Customer] nvarchar(10) NOT NULL
 , [CustomerName] nvarchar(80)
 , [CustomerFullName] nvarchar(220)
@@ -14,7 +14,7 @@ CREATE TABLE [base_s4h_cax].[I_Customer](
 , [PostingIsBlocked] nvarchar(1)
 , [BillingIsBlockedForCustomer] nvarchar(2)
 , [OrderIsBlockedForCustomer] nvarchar(2)
-, [InternationalLocationNumber1] char(7) collate Latin1_General_100_BIN2
+, [InternationalLocationNumber1] char(7) -- collate Latin1_General_100_BIN2
 , [IsOneTimeAccount] nvarchar(1)
 , [TaxJurisdiction] nvarchar(15)
 , [Industry] nvarchar(4)
@@ -52,7 +52,7 @@ CREATE TABLE [base_s4h_cax].[I_Customer](
 , [FiscalAddress] nvarchar(10)
 , [NFPartnerIsNaturalPerson] nvarchar(1)
 , [DeletionIndicator] nvarchar(1)
-, [Language] char(1) collate  Latin1_General_100_BIN2
+, [Language] char(1) -- collate Latin1_General_100_BIN2
 , [TradingPartner] nvarchar(6)
 , [TaxInvoiceRepresentativeName] nvarchar(10)
 , [BusinessType] nvarchar(30)

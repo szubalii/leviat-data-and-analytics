@@ -144,7 +144,7 @@ FROM
 JOIN 
     [base_s4h_cax].[I_ProductValuationCosting] PVC
     ON 
-      P.Product = PVC.Product COLLATE Latin1_General_100_BIN2      
+      P.Product = PVC.Product      
 WHERE 
     PVC.[IsMaterialRelatedOrigin] != 'X'  
     AND

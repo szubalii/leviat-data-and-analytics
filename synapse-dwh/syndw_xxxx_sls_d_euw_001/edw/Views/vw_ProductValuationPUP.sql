@@ -27,12 +27,12 @@ WITH Hash_Calc AS (
         HC.[ValuationAreaID],
         HC.[ProductID],
         CONCAT_WS(
-            '¦' COLLATE Latin1_General_100_BIN2,
+            '¦' ,
             HC.[ProductID],
             HC.[ValuationAreaID],
             HC.[ValuationTypeID],
-            dimC.[CalendarYear] COLLATE Latin1_General_100_BIN2,
-            dimC.[CalendarMonth] COLLATE Latin1_General_100_BIN2
+            dimC.[CalendarYear] ,
+            dimC.[CalendarMonth] 
         ) as  nk_dim_ProductValuationPUP
     FROM Hash_Calc HC
     CROSS JOIN [edw].[dim_Calendar] AS dimC
@@ -59,7 +59,7 @@ WITH Hash_Calc AS (
             ELSE
                 (
                     SELECT TOP 1
-                    dimPVs.[nk_dim_ProductValuationPUP] COLLATE Latin1_General_100_BIN2
+                    dimPVs.[nk_dim_ProductValuationPUP] 
                     FROM [edw].[vw_StockPricePerUnit] dimPVs
                     WHERE  
                         dimPVs.[ValuationTypeID] = CC.[ValuationTypeID] 

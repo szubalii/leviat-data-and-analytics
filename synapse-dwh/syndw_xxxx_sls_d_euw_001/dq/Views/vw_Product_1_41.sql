@@ -11,9 +11,9 @@ WITH CTE_NSDM_V_MAWEV AS (
     JOIN 
         [base_s4h_cax].[I_ProductPlant] PP 
         ON 
-            NVM.[MATNR] COLLATE Latin1_General_100_BIN2 = PP.[Product]
+            NVM.[MATNR] = PP.[Product]
         AND  
-            NVM.[WERKS] COLLATE Latin1_General_100_BIN2  = PP.[Plant]         
+            NVM.[WERKS] = PP.[Plant]         
     WHERE
         NVM.[VHART] != 'ZMT1'
 )
@@ -161,7 +161,7 @@ FROM
 JOIN 
     CTE_NSDM_V_MAWEV CNVM
     ON 
-        CNVM.[MaterialNumber] COLLATE Latin1_General_100_BIN2 = P.[Product]
+        CNVM.[MaterialNumber] = P.[Product]
 WHERE
     P.[ProductType] ='ZVER'
     AND

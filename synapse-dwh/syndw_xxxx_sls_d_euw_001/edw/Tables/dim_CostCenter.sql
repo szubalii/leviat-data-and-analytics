@@ -13,7 +13,7 @@
 , [CostCenterCategory] nvarchar(2)
 , [CostCtrResponsiblePersonName] nvarchar(40)
 , [CostCtrResponsibleUser] nvarchar(24)
-, [CostCenterCurrency] char(5) collate Latin1_General_100_BIN2
+, [CostCenterCurrency] char(5) 
 , [CostingSheet] nvarchar(12)
 , [TaxJurisdiction] nvarchar(30)
 , [ProfitCenter] nvarchar(20)
@@ -46,7 +46,7 @@
 , [PostalCode] nvarchar(20)
 , [POBoxPostalCode] nvarchar(20)
 , [Region] nvarchar(6)
-, [Language] char(1) collate  Latin1_General_100_BIN2
+, [Language] char(1) 
 , [TeleboxNumber] nvarchar(30)
 , [PhoneNumber1] nvarchar(32)
 , [PhoneNumber2] nvarchar(32)

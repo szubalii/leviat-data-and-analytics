@@ -1,5 +1,5 @@
 CREATE TABLE [base_s4h_cax].[I_MaterialPlant](
-  [MANDT] char(3) collate Latin1_General_100_BIN2 NOT NULL
+  [MANDT] char(3) NOT NULL -- collate Latin1_General_100_BIN2 NOT NULL
 , [Material] nvarchar(40) NOT NULL
 , [Plant] nvarchar(4) NOT NULL
 , [MRPController] nvarchar(3)

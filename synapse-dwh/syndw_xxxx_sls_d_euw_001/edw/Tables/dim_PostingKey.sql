@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [edw].[dim_PostingKey] (
 -- Posting Key
   [PostingKeyID] nvarchar(4) NOT NULL --renamed (ex PostingKey)
---, [Language] char(1) collate  Latin1_General_100_BIN2 NOT NULL --from [base_s4h_cax].[I_PostingKeyText]
+--, [Language] char(1)  --from [base_s4h_cax].[I_PostingKeyText]
 , [PostingKey] nvarchar(40) -- renamed (ex PostingKeyName) from [base_s4h_cax].[I_PostingKeyText]
 , [DebitCreditCode] nvarchar(2)
 , [FinancialAccountType] nvarchar(2)

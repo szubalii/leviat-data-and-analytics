@@ -7,7 +7,7 @@
     [source_UDFLegacyID]           VARCHAR(3),
     [target_CompanyCodeID]         NVARCHAR(4)    NULL,
     [target_CompanyCodeName]       NVARCHAR(20)   NULL,
-    [target_SalesOrganizationID]   NVARCHAR(4)    NULL,     --, [target_Language]                 char(1) collate  Latin1_General_100_BIN2 NOT NULL
+    [target_SalesOrganizationID]   NVARCHAR(4)    NULL,     --, [target_Language]                 char(1)
     [target_SalesOrganizationName] NVARCHAR(50),
     [CountryID]                    NVARCHAR(3),
     [CountryName]                  NVARCHAR(50),

@@ -50,8 +50,8 @@ BillingDocumentItemBase_axbi AS (
     SELECT 
         DA.[DATAAREAID]                                       AS [DataAreaID]
     ,   [INVOICEID]                                           AS [BillingDocument]
-    ,   RIGHT('00000' + CAST(CAST(CITQ.[LINENUM] as INT)      AS VARCHAR(5)), 5) +
-            '0' collate Latin1_General_100_BIN2               AS [BillingDocumentItem]
+    ,   RIGHT('00000' + CAST(CAST(CITQ.[LINENUM] as INT) AS VARCHAR(5)), 5) + '0' 
+                                                              AS [BillingDocumentItem]
     ,   ''                                                    AS [ReturnItemProcessingType]
     ,   DA.[LOCALCURRENCY]                                    AS [CurrencyIDLocal]
     ,   'EUR'                                                 AS [CurrencyIDGroupEUR]
@@ -64,7 +64,7 @@ BillingDocumentItemBase_axbi AS (
     ,   NULL                                                  AS LengthInM
     ,   NULL                                                  AS [PlantID]
     ,   CAST(CITQ.[QTY] as DECIMAL(13, 3))                    AS [BillingQuantity]
-    ,   'ST' collate Latin1_General_100_BIN2                  AS [BillingQuantityUnitID]
+    ,   'ST'                                                  AS [BillingQuantityUnitID]
     ,   sum(CAST(CITQ.[PRODUCTSALESLOCAL] as DECIMAL(19, 6))) AS [NetAmountLocal]
     ,   sum(CAST(CITQ.[PRODUCTSALESEUR] as DECIMAL(19, 6)))   AS [NetAmountGroupEUR]
     ,   CITQ.[COSTAMOUNTLOCAL]                                AS [CostAmountLocal]
@@ -173,13 +173,13 @@ BillingDocumentItemBase_axbi AS (
 
     select
         FH.[Company]                                                        as [DataAreaID]
-    ,   FH.[Invoiceno] collate Latin1_General_100_BIN2                      as [BillingDocument]
+    ,   FH.[Invoiceno]                                                      as [BillingDocument]
         --TODO check LPAD: LPAD is MySQL specific
     ,   RIGHT('00000' + CAST(CAST(FH.[Posno] as INT) as VARCHAR(5)), 5) +
-        '0' collate Latin1_General_100_BIN2                                 as [BillingDocumentItem]
+        '0'                                                                 as [BillingDocumentItem]
     ,   case when FH.SalesType = 4 then 'X' else '' end                     as [ReturnItemProcessingType]
-    ,   FH.Currencylocal collate Latin1_General_100_BIN2                    as [CurrencyIDLocal]
-    ,   FH.CurrencyEUR collate Latin1_General_100_BIN2                      as [CurrencyIDGroupEUR]
+    ,   FH.Currencylocal                                                    as [CurrencyIDLocal]
+    ,   FH.CurrencyEUR                                                      as [CurrencyIDGroupEUR]
     ,   CAST(FH.[CurrencyRatelocaltoCRH1EUR] as DECIMAL(15, 6))             as [ExchangeRate]
     ,   FH.SalesType                                                        as [SalesType]    --[SDDocumentCategoryID]
     ,   CONVERT(DATE, FH.Invoicedate)                                       as [BillingDocumentDate]
@@ -189,7 +189,7 @@ BillingDocumentItemBase_axbi AS (
     ,   FH.[LengthinM]                                                      AS [LengthInM]
     ,   FH.[Originwarehouse]                                                AS [PlantID]
     ,   CAST(FH.Invoicequantity as DECIMAL(13, 3))                          AS [BillingQuantity]
-    ,   'ST' collate Latin1_General_100_BIN2                                AS [BillingQuantityUnitID] --TODO check
+    ,   'ST'                                                                AS [BillingQuantityUnitID] --TODO check
     ,   CAST(FH.Invoicedsaleslocal as DECIMAL(19, 6))                       AS [NetAmountLocal]
     ,   CAST(FH.InvoicedsalesCRHEUR as DECIMAL(19, 6))                      AS [NetAmountGroupEUR]
     ,   CAST(FH.ICPlocal as DECIMAL(19, 6))                                 AS [CostAmountLocal]
@@ -367,7 +367,7 @@ BillingDocumentItemBase_axbi_mapped AS (
     ,   ESA.target_ExternalSalesAgentID                                  AS [ExternalSalesAgentID]
     ,   RIGHT('0000000000' + CAST(MBP.target_XRefID as VARCHAR(10)), 10) AS [ProjectID]
     ,   IBP.BusinessPartnerName                                          AS [Project]
-    ,   SE.target_SalesEmployeeID collate Latin1_General_100_BIN2        AS [SalesEmployeeID]
+    ,   SE.target_SalesEmployeeID                                        AS [SalesEmployeeID]
     ,   SubQ.[GlobalParentID]
     ,   CASE 
             WHEN  
@@ -558,7 +558,7 @@ BillingDocumentItemBase_axbi_mapped AS (
     LEFT JOIN 
         [base_s4h_cax].[I_BusinessPartner] IBP
         ON
-            IBP.BusinessPartner = RIGHT('0000000000'+CAST(MBP.target_XRefID collate Latin1_General_100_BIN2 as VARCHAR(10)),10)
+            IBP.BusinessPartner = RIGHT('0000000000'+CAST(MBP.target_XRefID as VARCHAR(10)),10)
             -- AND
             -- IBP.[MANDT] = 200 MPS 2021/11/03: commented out due to different client values between dev,qas, and prod
     -- LEFT JOIN
@@ -577,7 +577,7 @@ BillingDocumentItemBase_axbi_mapped AS (
 
 ), BillingDocumentItemBase_axbi_mapped_calc as (
     SELECT
-        CONCAT(TRIM(SubQ.[SalesOrganizationID]),'_',TRIM(SubQ.[BillingDocument]) COLLATE SQL_Latin1_General_CP1_CS_AS) AS [BillingDocument]
+        CONCAT(TRIM(SubQ.[SalesOrganizationID]),'_',TRIM(SubQ.[BillingDocument]) /*COLLATE SQL_Latin1_General_CP1_CS_AS*/) AS [BillingDocument]
     ,   SubQ.[BillingDocumentItem]
     ,   SubQ.[ReturnItemProcessingType]
     ,   SubQ.[DataAreaID]

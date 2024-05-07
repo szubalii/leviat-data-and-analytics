@@ -72,7 +72,7 @@ FROM
 LEFT JOIN
     [base_s4h_cax].[I_CountryText] Country
     ON
-        SuppInv.[SupplyingCountry] collate Latin1_General_100_BIN2 = Country.[Country]
+        SuppInv.[SupplyingCountry] = Country.[Country]
         AND
         [Language] = 'E'
 WHERE

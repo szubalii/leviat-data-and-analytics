@@ -1,6 +1,6 @@
 CREATE TABLE [edw].[dim_UnitOfMeasure]
 (
-    [UnitOfMeasureID]               NVARCHAR(4) collate Latin1_General_100_BIN2 NOT NULL,
+    [UnitOfMeasureID]               NVARCHAR(4) NOT NULL,
     [UnitOfMeasure]                 NVARCHAR(40),
     [UnitOfMeasureLongName]         NVARCHAR(30),
     [UnitOfMeasureTechnicalName]    NVARCHAR(6),
@@ -19,9 +19,9 @@ CREATE TABLE [edw].[dim_UnitOfMeasure]
     [UnitOfMeasureDspExponent]      SMALLINT,
     [UnitOfMeasureDspNmbrOfDcmls]   SMALLINT,
     [UnitOfMeasureTemperature]      FLOAT,
-    [UnitOfMeasureTemperatureUnit]  NVARCHAR(3) collate Latin1_General_100_BIN2,
+    [UnitOfMeasureTemperatureUnit]  NVARCHAR(3),
     [UnitOfMeasurePressure]         FLOAT,
-    [UnitOfMeasurePressureUnit]     NVARCHAR(3) collate Latin1_General_100_BIN2,
+    [UnitOfMeasurePressureUnit]     NVARCHAR(3),
     [t_applicationId]               VARCHAR(32)    NULL,
     [t_extractionDtm]               DATETIME       NULL,
     [t_jobId]                       VARCHAR(36)    NULL,

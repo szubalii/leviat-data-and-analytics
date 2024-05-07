@@ -10,8 +10,8 @@ BEGIN
     DECLARE @SalesDocItem AS CHAR(6)
     SET @SalesDocItem =
         CASE 
-            WHEN @SalesDocumentID LIKE '001%' THEN COALESCE(@SubsequentDocumentItem COLLATE DATABASE_DEFAULT,@SalesDocumentItemID)  -- 001 = Quotation
-            WHEN @SalesDocumentID LIKE '008%' THEN COALESCE(@PrecedingDocumentItem COLLATE DATABASE_DEFAULT,@SalesDocumentItemID)   -- 008 = Delivery
+            WHEN @SalesDocumentID LIKE '001%' THEN COALESCE(@SubsequentDocumentItem, @SalesDocumentItemID)  -- 001 = Quotation
+            WHEN @SalesDocumentID LIKE '008%' THEN COALESCE(@PrecedingDocumentItem, @SalesDocumentItemID)   -- 008 = Delivery
             ELSE @SalesDocumentItemID
         END
 

@@ -1,9 +1,9 @@
 CREATE TABLE [edw].[dim_ProductValuation]
 (
-    [ProductID]                     NVARCHAR(40) collate Latin1_General_100_BIN2 NOT NULL,
-    [ValuationAreaID]               NVARCHAR(4) collate Latin1_General_100_BIN2 NOT NULL,
-    [ValuationTypeID]               NVARCHAR(10) collate Latin1_General_100_BIN2 NOT NULL,
-    [ValuationClassID]              NVARCHAR(4) collate Latin1_General_100_BIN2 ,
+    [ProductID]                     NVARCHAR(40) NOT NULL,
+    [ValuationAreaID]               NVARCHAR(4) NOT NULL,
+    [ValuationTypeID]               NVARCHAR(10) NOT NULL,
+    [ValuationClassID]              NVARCHAR(4),
     [PriceDeterminationControlID]   NVARCHAR(1),
     [FiscalMonthCurrentPeriod]      CHAR(2),
     [FiscalYearCurrentPeriod]       CHAR(4),
@@ -18,7 +18,7 @@ CREATE TABLE [edw].[dim_ProductValuation]
     [MovingAveragePrice]            DECIMAL(11, 2),
     [MovingAvgPricePerUnit]         DECIMAL(11, 2),
     [MovingAvgPricePerUnit_EUR]     DECIMAL(19, 6),
-    [ValuationCategoryID]           NVARCHAR(1) collate Latin1_General_100_BIN2 ,
+    [ValuationCategoryID]           NVARCHAR(1),
     [ProductUsageType]              NVARCHAR(1),
     [ProductOriginType]             NVARCHAR(1),
     [IsProducedInhouse]             NVARCHAR(1),

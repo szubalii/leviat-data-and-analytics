@@ -1,9 +1,9 @@
 CREATE TABLE [base_s4h_cax].[I_Purreqvaluationarea]
 (
-    [MANDT]            nchar(3)     collate Latin1_General_100_BIN2 NOT NULL,
-    [ValuationArea]    nchar(4)     collate Latin1_General_100_BIN2 NOT NULL,
-    [CompanyCode]      nchar(4)     collate Latin1_General_100_BIN2 NOT NULL,
-    [CompanyCodeName]  nvarchar(25) collate Latin1_General_100_BIN2 NOT NULL,  
+    [MANDT]            nchar(3) NOT NULL, --    collate Latin1_General_100_BIN2 NOT NULL,
+    [ValuationArea]    nchar(4) NOT NULL, --    collate Latin1_General_100_BIN2 NOT NULL,
+    [CompanyCode]      nchar(4) NOT NULL, --    collate Latin1_General_100_BIN2 NOT NULL,
+    [CompanyCodeName]  nvarchar(25) NOT NULL, --    collate Latin1_General_100_BIN2 NOT NULL,
     [t_applicationId]  VARCHAR (32),
     [t_jobId]          VARCHAR(36),
     [t_jobDtm]         DATETIME,

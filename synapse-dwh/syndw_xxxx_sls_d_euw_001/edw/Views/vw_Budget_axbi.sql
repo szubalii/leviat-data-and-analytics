@@ -10,7 +10,7 @@ WITH BudgetBase_axbi as (
             docBud.[ITEMID],
             CAST(docBud.[ACCOUNTINGDATE] AS DATE)
         ) AS [nk_fact_Budget]
-    ,   DA.[LOCALCURRENCY] collate Latin1_General_100_BIN2                                                                             AS [LOCALCURRENCY]
+    ,   DA.[LOCALCURRENCY]                                                                                                             AS [LOCALCURRENCY]
     ,   CASE
             WHEN docBud.[BUDGETEUR] <> 0
                 THEN docBud.[BUDGETLOC] / docBud.[BUDGETEUR]

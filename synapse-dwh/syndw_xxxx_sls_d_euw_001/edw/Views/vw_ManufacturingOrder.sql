@@ -54,7 +54,7 @@ LEFT JOIN
 LEFT JOIN
     [edw].[fact_OutboundDeliveryItem] ODI
     ON 
-        MFGOWS.[SalesOrder] = ODI.[ReferenceSDDocument] COLLATE Latin1_General_100_BIN2 
+        MFGOWS.[SalesOrder] = ODI.[ReferenceSDDocument]
         AND
         MFGOWS.[SalesOrderItem] = ODI.[ReferenceSDDocumentItem]
         AND 

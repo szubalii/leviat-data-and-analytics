@@ -1,5 +1,5 @@
 CREATE TABLE [base_s4h_cax].[C_CnsldtnProfitCenter](
-  [MANDT] CHAR(3) COLLATE Latin1_General_100_BIN2 NOT NULL
+  [MANDT] CHAR(3) NOT NULL -- collate Latin1_General_100_BIN2 NOT NULL
 , [ProfitCenter] NVARCHAR(10) NOT NULL
 , [ControllingArea] NVARCHAR(4) NOT NULL
 , [AdditionalMasterDataText] NVARCHAR(20)

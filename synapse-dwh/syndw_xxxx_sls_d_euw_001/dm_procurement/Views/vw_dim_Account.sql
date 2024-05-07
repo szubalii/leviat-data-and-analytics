@@ -11,7 +11,7 @@ SELECT
 FROM [edw].[fact_PurchasingDocumentItem]    PDI
 LEFT JOIN
     [edw].[vw_GLAccountText]                Acc
-    ON PDI.GLAccountID = Acc.GLAccountID    COLLATE DATABASE_DEFAULT
+    ON PDI.GLAccountID = Acc.GLAccountID    
 GROUP BY PDI.GLAccountID                     
         ,PDI.CompanyCodeID                  
         ,Acc.GLAccountLongName              

@@ -358,7 +358,7 @@ WITH BillingDocumentItemBase as (
                     SDID.[SalesDocumentItem] = doc.[SalesDocumentItem] 
                     -- and SDID.[MANDT] = 200 MPS 2021/11/01: commented out due to different client values between dev,qas, and prod
         left join [edw].[dim_PurgAccAssignment] PA
-            ON doc.SalesDocument = PA.PurchaseOrder                   COLLATE DATABASE_DEFAULT
+            ON doc.SalesDocument = PA.PurchaseOrder                   
                 AND right(doc.SalesDocumentItem,5) = PA.PurchaseOrderItem
         left join [edw].[dim_Customer] Cust
             ON doc.SoldToParty = Cust.CustomerID 

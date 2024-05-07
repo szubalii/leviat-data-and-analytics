@@ -1,6 +1,6 @@
 CREATE TABLE [base_s4h_cax].[I_BusTransactionTypeText](
-  [MANDT] char(3) collate Latin1_General_100_BIN2 NOT NULL
-, [Language] char(1) collate  Latin1_General_100_BIN2 NOT NULL
+  [MANDT] char(3) NOT NULL -- collate Latin1_General_100_BIN2 NOT NULL
+, [Language] char(1) NOT NULL -- collate Latin1_General_100_BIN2 NOT NULL
 , [BusinessTransactionType] nvarchar(4) NOT NULL
 , [BusinessTransactionTypeName] nvarchar(30)
 , [t_applicationId]       VARCHAR (32)

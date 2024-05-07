@@ -221,7 +221,7 @@ select
 	into #inventtrans_ANNZ_SB
 	from [intm_axbi].[fact_CUSTINVOICETRANS] as t
 	--inner join #inventtrans_ANNZ_OS os
-	--on t.INVOICEID COLLATE DATABASE_DEFAULT= os.INVOICEID COLLATE DATABASE_DEFAULT
+	--on t.INVOICEID = os.INVOICEID 
 	where upper(t.DATAAREAID) = 'ANNZ' 
 	and t.ITEMID not in ('ANNZ-FRA', 'ANNZ-FRU')
 	group by t.INVOICEID;
@@ -251,11 +251,11 @@ select
 --     [intm_axbi].[fact_CUSTINVOICETRANS].OTHERSALESEUR   += (la.lineamounteur_os_sum * t.PRODUCTSALESEUR/sb.salesbalanceeur) * os.cnt_inv
 -- from [intm_axbi].[fact_CUSTINVOICETRANS] as t
 -- inner join #inventtrans_ANNZ_OS os
--- on t.INVOICEID  COLLATE DATABASE_DEFAULT= os.INVOICEID  COLLATE DATABASE_DEFAULT
+-- on t.INVOICEID  = os.INVOICEID  
 -- inner join #inventtrans_ANNZ_SB sb
--- on t.INVOICEID COLLATE DATABASE_DEFAULT=sb.INVOICEID COLLATE DATABASE_DEFAULT
+-- on t.INVOICEID =sb.INVOICEID 
 -- inner join #inventtrans_ANNZ_LA la
--- on t.INVOICEID COLLATE DATABASE_DEFAULT=la.INVOICEID COLLATE DATABASE_DEFAULT
+-- on t.INVOICEID =la.INVOICEID 
 -- where upper(t.DATAAREAID) = 'ANNZ' 
 -- and t.ITEMID not in ('ANNZ-FRA', 'ANNZ-FRU')
 -- and sb.salesbalance<>0
@@ -268,9 +268,9 @@ WITH PCC AS (
 	    	,SUM(os.lineamounteur_os * t.PRODUCTSALESEUR/sb.salesbalance) as e_sum
         from [intm_axbi].[fact_CUSTINVOICETRANS] as t
         inner join #inventtrans_ANNZ_OS os
-        on t.INVOICEID  COLLATE DATABASE_DEFAULT= os.INVOICEID  COLLATE DATABASE_DEFAULT
+        on t.INVOICEID  = os.INVOICEID  
         inner join #inventtrans_ANNZ_SB sb
-        on t.INVOICEID COLLATE DATABASE_DEFAULT=sb.INVOICEID COLLATE DATABASE_DEFAULT
+        on t.INVOICEID =sb.INVOICEID 
         where upper(t.DATAAREAID) = 'ANNZ' 
         and t.ITEMID not in ('ANNZ-FRA', 'ANNZ-FRU')
         and sb.salesbalance<>0
@@ -290,11 +290,11 @@ INNER JOIN PCC
 -- 	   [intm_axbi].[fact_CUSTINVOICETRANS].OTHERSALESEUR   += la.lineamounteur_os_sum / cnt.lcounter
 -- from [intm_axbi].[fact_CUSTINVOICETRANS] as t
 -- inner join #inventtrans_ANNZ_SB sb
--- on t.INVOICEID COLLATE DATABASE_DEFAULT=sb.INVOICEID COLLATE DATABASE_DEFAULT
+-- on t.INVOICEID =sb.INVOICEID 
 -- inner join #inventtrans_ANNZ_LA la
--- on t.INVOICEID COLLATE DATABASE_DEFAULT=la.INVOICEID COLLATE DATABASE_DEFAULT
+-- on t.INVOICEID =la.INVOICEID 
 -- inner join #inventtrans_ANNZ_cnt cnt
--- on t.INVOICEID COLLATE DATABASE_DEFAULT=cnt.INVOICEID COLLATE DATABASE_DEFAULT
+-- on t.INVOICEID =cnt.INVOICEID 
 -- where upper(t.DATAAREAID) = 'ANNZ' 
 -- and t.ITEMID not in ('ANNZ-FRA', 'ANNZ-FRU')
 -- and sb.salesbalance = 0
@@ -307,9 +307,9 @@ WITH PCC AS (
 	    	,SUM(os.lineamounteur_os / sb.lcounter) as e_sum
     	from [intm_axbi].[fact_CUSTINVOICETRANS] as t
         inner join #inventtrans_ANNZ_OS os
-        on t.INVOICEID  COLLATE DATABASE_DEFAULT= os.INVOICEID  COLLATE DATABASE_DEFAULT
+        on t.INVOICEID  = os.INVOICEID  
         inner join #inventtrans_ANNZ_SB sb
-        on t.INVOICEID COLLATE DATABASE_DEFAULT=sb.INVOICEID COLLATE DATABASE_DEFAULT
+        on t.INVOICEID =sb.INVOICEID 
         where upper(t.DATAAREAID) = 'ANNZ' 
         and t.ITEMID not in ('ANNZ-FRA', 'ANNZ-FRU')
         and sb.salesbalance = 0
@@ -385,7 +385,7 @@ insert [intm_axbi].[fact_CUSTINVOICETRANS]
     t_jobBy,
     t_extractionDtm 
 	from #inventtrans_ANNZ_OS
-	where INVOICEID COLLATE DATABASE_DEFAULT not in (select INVOICEID from [intm_axbi].[fact_CUSTINVOICETRANS]
+	where INVOICEID  not in (select INVOICEID from [intm_axbi].[fact_CUSTINVOICETRANS]
 	where upper(DATAAREAID) = 'ANNZ' 
     and ITEMID not in ('ANNZ-FRA', 'ANNZ-FRU'))
 

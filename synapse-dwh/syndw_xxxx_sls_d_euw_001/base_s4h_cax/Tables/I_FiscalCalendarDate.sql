@@ -1,15 +1,3 @@
--- =============================================
--- Schema         : base_s4h_cax
--- CDS View       : I_FiscalCalendarDate
--- System Version : SAP S/4HANA 2022, SP 0001
--- Description    : Fiscal Calendar Date
--- Source:        : S/4HANA
--- Extraction_Mode: Full
--- Source Type    : ODP
--- Source Name    : CAACLNT200
-
--- =============================================
-
 CREATE TABLE [base_s4h_cax].[I_FiscalCalendarDate] (
     [FiscalYearVariant] NVARCHAR(2) NOT NULL  -- Fiscal Year Variant
   , [CalendarDate] DATE NOT NULL  -- Calendar Date

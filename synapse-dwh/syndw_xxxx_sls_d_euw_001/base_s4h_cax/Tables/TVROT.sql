@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [base_s4h_cax].[TVROT](
-  [MANDT]           CHAR(3) collate Latin1_General_100_BIN2 NOT NULL
-, [SPRAS]			CHAR(1) collate Latin1_General_100_BIN2 NOT NULL
+  [MANDT]           CHAR(3) NOT NULL -- collate Latin1_General_100_BIN2 NOT NULL
+, [SPRAS]			CHAR(1) NOT NULL -- collate Latin1_General_100_BIN2 NOT NULL
 , [ROUTE]           NVARCHAR(6) NOT NULL
 , [BEZEI]           NVARCHAR(40) NOT NULL
 , [t_applicationId] VARCHAR (32)

@@ -19,7 +19,7 @@ CountRowsPerBusinessPartnerType AS (
     FROM
         [base_s4h_cax].[I_BusinessPartner] BP
     INNER JOIN [base_s4h_cax].[I_BusinessPartnerGroupingText] BPGT
-        ON BP.BusinessPartnerGrouping = BPGT.BusinessPartnerGrouping    COLLATE DATABASE_DEFAULT
+        ON BP.BusinessPartnerGrouping = BPGT.BusinessPartnerGrouping    
     GROUP BY
         BPGT.[BusinessPartnerGroupingText] 
 )
@@ -53,7 +53,7 @@ FROM
 LEFT JOIN
     CountRowsPerBusinessPartnerType AS cnt
     ON
-        r.[RuleGroup] = cnt.[BusinessPartnerType] COLLATE DATABASE_DEFAULT
+        r.[RuleGroup] = cnt.[BusinessPartnerType] 
         OR r.[RuleGroup] = 'All'
 WHERE
     [DataArea] = 'BP'

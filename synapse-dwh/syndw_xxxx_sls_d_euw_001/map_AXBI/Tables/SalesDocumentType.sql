@@ -2,7 +2,7 @@
 (
      [source_SalesTypeID]               BIGINT          NOT NULL
     ,[target_SalesDocumentTypeID]       NVARCHAR(4)     NULL
-    --,[target_Language]                  CHAR(1) collate  Latin1_General_100_BIN2 NOT NULL
+    --,[target_Language]                
     ,[target_SalesDocumentTypeName]     nvarchar(20)
     ,[t_applicationId]                  VARCHAR (32)    NULL
     ,[t_jobId]                          VARCHAR (36)    NULL

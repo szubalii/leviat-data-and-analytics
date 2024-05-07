@@ -1,5 +1,5 @@
 CREATE TABLE [base_s4h_cax].[I_Product](
-  [MANDT] char(3) collate Latin1_General_100_BIN2 NOT NULL
+  [MANDT] char(3) NOT NULL -- collate Latin1_General_100_BIN2 NOT NULL
 , [Product] nvarchar(40) NOT NULL
 , [ProductExternalID] nvarchar(40)
 , [ProductType] nvarchar(4)
@@ -14,25 +14,25 @@ CREATE TABLE [base_s4h_cax].[I_Product](
 , [CrossPlantStatusValidityDate] date
 , [ProductOldID] nvarchar(40)
 , [GrossWeight] decimal(13,3)
-, [PurchaseOrderQuantityUnit] nvarchar(3) collate Latin1_General_100_BIN2
+, [PurchaseOrderQuantityUnit] nvarchar(3) -- collate Latin1_General_100_BIN2
 , [SourceOfSupply] nvarchar(1)
-, [WeightUnit] nvarchar(3) collate Latin1_General_100_BIN2
+, [WeightUnit] nvarchar(3) -- collate Latin1_General_100_BIN2
 , [CountryOfOrigin] nvarchar(3)
 , [CompetitorID] nvarchar(10)
 , [ProductGroup] nvarchar(9)
-, [BaseUnit] nvarchar(3) collate Latin1_General_100_BIN2
+, [BaseUnit] nvarchar(3) -- collate Latin1_General_100_BIN2
 , [ItemCategoryGroup] nvarchar(4)
 , [NetWeight] decimal(13,3)
 , [ProductHierarchy] nvarchar(18)
 , [Division] nvarchar(2)
 , [VarblPurOrdUnitIsActive] nvarchar(1)
-, [VolumeUnit] nvarchar(3) collate Latin1_General_100_BIN2
+, [VolumeUnit] nvarchar(3) -- collate Latin1_General_100_BIN2
 , [MaterialVolume] decimal(13,3)
 , [SalesStatus] nvarchar(2)
 , [TransportationGroup] nvarchar(4)
 , [SalesStatusValidityDate] date
 , [AuthorizationGroup] nvarchar(4)
-, [ANPCode] char(9) collate Latin1_General_100_BIN2
+, [ANPCode] char(9) -- collate Latin1_General_100_BIN2
 , [ProductCategory] nvarchar(2)
 , [Brand] nvarchar(4)
 , [ProcurementRule] nvarchar(1)
@@ -61,11 +61,11 @@ CREATE TABLE [base_s4h_cax].[I_Product](
 , [StandardHandlingUnitType] nvarchar(4)
 , [SerialNumberProfile] nvarchar(4)
 , [AdjustmentProfile] nvarchar(3)
-, [PreferredUnitOfMeasure] nvarchar(3) collate Latin1_General_100_BIN2
+, [PreferredUnitOfMeasure] nvarchar(3) -- collate Latin1_General_100_BIN2
 , [IsPilferable] nvarchar(1)
 , [IsRelevantForHzdsSubstances] nvarchar(1)
 , [QuarantinePeriod] decimal(3)
-, [TimeUnitForQuarantinePeriod] nvarchar(3) collate Latin1_General_100_BIN2
+, [TimeUnitForQuarantinePeriod] nvarchar(3) -- collate Latin1_General_100_BIN2
 , [QualityInspectionGroup] nvarchar(4)
 , [HandlingUnitType] nvarchar(4)
 , [HasVariableTareWeight] nvarchar(1)
@@ -74,14 +74,14 @@ CREATE TABLE [base_s4h_cax].[I_Product](
 , [MaximumPackagingHeight] decimal(15,3)
 , [MaximumCapacity] decimal(15,3)
 , [OvercapacityTolerance] decimal(3,1)
-, [UnitForMaxPackagingDimensions] nvarchar(3) collate Latin1_General_100_BIN2
+, [UnitForMaxPackagingDimensions] nvarchar(3) -- collate Latin1_General_100_BIN2
 , [BaseUnitSpecificProductLength] decimal(13,3)
 , [BaseUnitSpecificProductWidth] decimal(13,3)
 , [BaseUnitSpecificProductHeight] decimal(13,3)
-, [ProductMeasurementUnit] nvarchar(3) collate Latin1_General_100_BIN2
+, [ProductMeasurementUnit] nvarchar(3) -- collate Latin1_General_100_BIN2
 , [ProductValidStartDate] date
 , [ArticleCategory] nvarchar(2)
-, [ContentUnit] nvarchar(3) collate Latin1_General_100_BIN2
+, [ContentUnit] nvarchar(3) -- collate Latin1_General_100_BIN2
 , [NetContent] decimal(13,3)
 , [ComparisonPriceQuantity] decimal(5)
 , [GrossContent] decimal(13,3)
@@ -99,7 +99,7 @@ CREATE TABLE [base_s4h_cax].[I_Product](
 , [ProductUUID] binary(16)
 , [ProdSupChnMgmtUUID22] nvarchar(22)
 , [ProductDocumentChangeNumber] nvarchar(6)
-, [ProductDocumentPageCount] char(3) collate Latin1_General_100_BIN2
+, [ProductDocumentPageCount] char(3) -- collate Latin1_General_100_BIN2
 , [ProductDocumentPageNumber] nvarchar(3)
 , [OwnInventoryManagedProduct] nvarchar(40)
 , [DocumentIsCreatedByCAD] nvarchar(1)
@@ -122,7 +122,7 @@ CREATE TABLE [base_s4h_cax].[I_Product](
 , [ProductDocumentVersion] nvarchar(2)
 , [ProductDocumentType] nvarchar(3)
 , [ProductDocumentPageFormat] nvarchar(4)
-, [ProductConfiguration] char(18) collate Latin1_General_100_BIN2
+, [ProductConfiguration] char(18) -- collate Latin1_General_100_BIN2
 , [SegmentationStrategy] nvarchar(8)
 , [SegmentationIsRelevant] nvarchar(1)
 , [IsChemicalComplianceRelevant] nvarchar(1)

@@ -1,5 +1,5 @@
 CREATE TABLE [base_s4h_cax].[I_CustomerSalesArea](
-  [MANDT] char(3) collate Latin1_General_100_BIN2 NOT NULL
+  [MANDT] char(3) NOT NULL -- collate Latin1_General_100_BIN2 NOT NULL
 , [Customer] nvarchar(10) NOT NULL
 , [SalesOrganization] nvarchar(4) NOT NULL
 , [DistributionChannel] nvarchar(2) NOT NULL
@@ -8,10 +8,10 @@ CREATE TABLE [base_s4h_cax].[I_CustomerSalesArea](
 , [SalesOffice] nvarchar(4)
 , [SalesGroup] nvarchar(3)
 , [OrderIsBlockedForCustomer] nvarchar(2)
-, [Currency] char(5) collate Latin1_General_100_BIN2
+, [Currency] char(5) -- collate Latin1_General_100_BIN2
 , [CustomerPriceGroup] nvarchar(2)
 , [PriceListType] nvarchar(2)
-, [DeliveryPriority] char(2) collate Latin1_General_100_BIN2
+, [DeliveryPriority] char(2) -- collate Latin1_General_100_BIN2
 , [ShippingCondition] nvarchar(2)
 , [IncotermsClassification] nvarchar(3)
 , [SupplyingPlant] nvarchar(4)
@@ -28,7 +28,7 @@ CREATE TABLE [base_s4h_cax].[I_CustomerSalesArea](
 , [InvoiceDate] nvarchar(2)
 , [PaymentTerms] nvarchar(4)
 , [IncotermsTransferLocation] nvarchar(28)
-, [ItemOrderProbabilityInPercent] char(3) collate Latin1_General_100_BIN2
+, [ItemOrderProbabilityInPercent] char(3) -- collate Latin1_General_100_BIN2
 , [IncotermsLocation2] nvarchar(70)
 , [AuthorizationGroup] nvarchar(4)
 , [SalesDistrict] nvarchar(6)

@@ -1,6 +1,6 @@
 CREATE TABLE [edw].[dim_InventoryStockType]
 (
-    [InventoryStockTypeID]          NVARCHAR(2) collate Latin1_General_100_BIN2  NOT NULL,
+    [InventoryStockTypeID]          NVARCHAR(2) NOT NULL,
     [InventoryStockTypeName]        NVARCHAR(60),
     [t_applicationId]               VARCHAR(32),
     [t_extractionDtm]               DATETIME,

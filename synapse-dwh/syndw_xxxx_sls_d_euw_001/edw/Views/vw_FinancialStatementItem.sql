@@ -9,7 +9,7 @@ CREATE VIEW [edw].[vw_FinancialStatementItem]
         icns.[ChildNode],
         icns.[SiblingNode],
         icns.[FinStatementHierarchyLevelVal],
-        icns.[SignIsInverted],
+        -- icns.[SignIsInverted],
         icns.[LastChangeDate],
     --I_FinancialStatementItemText      
         ifsix.[FinStatementItemDescription], 

@@ -304,17 +304,17 @@ LEFT JOIN [edw].[dim_DistributionChannel] DistributionChannel
 LEFT JOIN [edw].[dim_SDProcessStatus] SDProcessStatus
   ON ODI.[SDProcessStatusID] = SDProcessStatus.[SDProcessStatusID]
 LEFT JOIN [edw].[vw_TransportationOrderItemFreightCost] FCDI
-  ON ODI.[OutboundDelivery] = FCDI.[TranspOrdDocReferenceID]             COLLATE DATABASE_DEFAULT
-  AND ODI.[OutboundDeliveryItem] = FCDI.[TranspOrdDocReferenceItmID]     COLLATE DATABASE_DEFAULT
+  ON ODI.[OutboundDelivery] = FCDI.[TranspOrdDocReferenceID]             
+  AND ODI.[OutboundDeliveryItem] = FCDI.[TranspOrdDocReferenceItmID]     
 LEFT JOIN [edw].[vw_fact_BillingDocumentItemFreight] BDIFreight
   ON ODI.[OutboundDelivery] = BDIFreight.[ReferenceSDDocument]
   AND ODI.[OutboundDeliveryItem] = BDIFreight.[ReferenceSDDocumentItem]
 LEFT JOIN CurrencyConversionRate CCR_EUR
-  ON BDIFreight.LocalCurrencyID = CCR_EUR.[SourceCurrency]              COLLATE DATABASE_DEFAULT
+  ON BDIFreight.LocalCurrencyID = CCR_EUR.[SourceCurrency]            
   AND CCR_EUR.[TargetCurrency] = 'EUR'
 LEFT JOIN CurrencyConversionRate CCR_FR_LOC
-  ON FCDI.[FrtCostDistrItemAmtCrcy] = CCR_FR_LOC.[SourceCurrency]        COLLATE DATABASE_DEFAULT
-  AND SDI_LocalCurrency = CCR_FR_LOC.[TargetCurrency]                    COLLATE DATABASE_DEFAULT
-LEFT JOIN CurrencyConversionRate CCR_FR_EUR
-  ON FCDI.[FrtCostDistrItemAmtCrcy] = CCR_FR_EUR.[SourceCurrency]        COLLATE DATABASE_DEFAULT
+  ON FCDI.[FrtCostDistrItemAmtCrcy] = CCR_FR_LOC.[SourceCurrency]   
+  AND SDI_LocalCurrency = CCR_FR_LOC.[TargetCurrency]           
+LEFT JOIN CurrencyConversionRate CCR_FR_EUR  
+  ON FCDI.[FrtCostDistrItemAmtCrcy] = CCR_FR_EUR.[SourceCurrency]   
   AND CCR_FR_EUR.[TargetCurrency] = 'EUR'

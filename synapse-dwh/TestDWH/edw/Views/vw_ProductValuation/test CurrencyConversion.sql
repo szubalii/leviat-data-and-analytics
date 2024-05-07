@@ -45,7 +45,7 @@ BEGIN
 
   -- Assert:
   CREATE TABLE expected (
-    CurrencyID nchar(5) collate Latin1_General_100_BIN2,
+    CurrencyID nchar(5),
     StandardPricePerUnit decimal(11, 2),
     StandardPricePerUnit_EUR decimal(11, 2),
     MovingAvgPricePerUnit decimal(11, 2),

@@ -83,7 +83,7 @@ WHERE
     AND
     S.[Supplier] NOT IN
     (SELECT
-        [BUSINESSPARTNER]  COLLATE SQL_Latin1_General_CP1_CS_AS
+        [BUSINESSPARTNER] -- COLLATE SQL_Latin1_General_CP1_CS_AS
      FROM
         [base_s4h_cax].[I_BusinessPartnerBank]
     )

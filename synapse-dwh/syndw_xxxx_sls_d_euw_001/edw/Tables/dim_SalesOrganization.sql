@@ -2,7 +2,7 @@ CREATE TABLE [edw].[dim_SalesOrganization]
 (
     [SalesOrganizationID]         NVARCHAR(4)  NOT NULL,
     [SalesOrganization]           NVARCHAR(50) NULL,
-    [SalesOrganizationCurrency]   char(5) collate Latin1_General_100_BIN2,
+    [SalesOrganizationCurrency]   char(5),
     [CompanyCode]                 nvarchar(10),
     [IntercompanyBillingCustomer] nvarchar(10),
     [ArgentinaDeliveryDateEvent]  nvarchar(1),

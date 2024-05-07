@@ -61,9 +61,9 @@ BEGIN
            FROM
                [edw].[fact_Budget_axbi]
            WHERE
-               [Year] collate Latin1_General_100_BIN2 NOT IN (
+               [Year]  NOT IN (
                    SELECT
-                       [Year] collate Latin1_General_100_BIN2
+                       [Year]
                    FROM
                        [edw].[vw_Budget_axbi]
                    GROUP BY

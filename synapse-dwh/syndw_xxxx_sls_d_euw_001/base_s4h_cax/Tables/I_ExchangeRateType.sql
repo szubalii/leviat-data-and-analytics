@@ -1,7 +1,7 @@
 CREATE TABLE [base_s4h_cax].[I_ExchangeRateType](
-  [MANDT] char(3) collate Latin1_General_100_BIN2 NOT NULL
+  [MANDT] char(3) NOT NULL -- collate Latin1_General_100_BIN2 NOT NULL
 , [ExchangeRateType] nvarchar(4) NOT NULL
-, [ReferenceCurrency] char(5) collate Latin1_General_100_BIN2
+, [ReferenceCurrency] char(5) -- collate Latin1_General_100_BIN2
 , [BuyingRateAvgExchangeRateType] nvarchar(4)
 , [InvertedExchangeRateIsAllowed] nvarchar(1)
 , [SellingRateAvgExchangeRateType] nvarchar(4)

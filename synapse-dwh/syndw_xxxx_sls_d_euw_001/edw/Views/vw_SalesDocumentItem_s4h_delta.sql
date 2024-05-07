@@ -546,7 +546,7 @@ ExchangeRateUSD as (
             bdi_er_date_usd.[ExchangeRateEffectiveDate] = EuroBudgetExchangeRateUSD.[ExchangeRateEffectiveDate]
      )
 SELECT 
-      CONCAT_WS('¦', [SalesDocument] collate SQL_Latin1_General_CP1_CS_AS, [SalesDocumentItem] collate SQL_Latin1_General_CP1_CS_AS, CR.[CurrencyTypeID]) as [nk_fact_SalesDocumentItem]
+      CONCAT_WS('¦', [SalesDocument] /*collate SQL_Latin1_General_CP1_CS_AS*/, [SalesDocumentItem] /*collate SQL_Latin1_General_CP1_CS_AS*/, CR.[CurrencyTypeID]) as [nk_fact_SalesDocumentItem]
     , [SalesDocument]
     , [SalesDocumentItem]
     , CR.[CurrencyTypeID]
@@ -722,7 +722,7 @@ SELECT
 UNION  ALL
 
 SELECT  
-      CONCAT_WS('¦', [SalesDocument] collate SQL_Latin1_General_CP1_CS_AS, [SalesDocumentItem] collate SQL_Latin1_General_CP1_CS_AS, CR.[CurrencyTypeID]) as [nk_fact_SalesDocumentItem]
+      CONCAT_WS('¦', [SalesDocument] /*collate SQL_Latin1_General_CP1_CS_AS*/, [SalesDocumentItem] /*collate SQL_Latin1_General_CP1_CS_AS*/, CR.[CurrencyTypeID]) as [nk_fact_SalesDocumentItem]
     , [SalesDocument]
     , [SalesDocumentItem]
     , CR.[CurrencyTypeID]
@@ -920,7 +920,7 @@ WHERE CR.[CurrencyTypeID] = '10'
 UNION ALL
 
 SELECT 
-       CONCAT_WS('¦', [SalesDocument] collate SQL_Latin1_General_CP1_CS_AS, [SalesDocumentItem] collate SQL_Latin1_General_CP1_CS_AS, CR.[CurrencyTypeID]) as [nk_fact_SalesDocumentItem]
+       CONCAT_WS('¦', [SalesDocument] /*collate SQL_Latin1_General_CP1_CS_AS*/, [SalesDocumentItem] /*collate SQL_Latin1_General_CP1_CS_AS*/, CR.[CurrencyTypeID]) as [nk_fact_SalesDocumentItem]
       ,[SalesDocument]
       ,[SalesDocumentItem]
 	  ,CR.[CurrencyTypeID]
@@ -1100,7 +1100,7 @@ SELECT
       -- [TS_SEQUENCE_NUMBER]
       --,[ODQ_CHANGEMODE]
       --,[ODQ_ENTITYCNTR]
-       CONCAT_WS('¦', ExchangeRateUSD.[SalesDocument] collate SQL_Latin1_General_CP1_CS_AS, ExchangeRateUSD.[SalesDocumentItem] collate SQL_Latin1_General_CP1_CS_AS, CR.[CurrencyTypeID]) as [nk_fact_SalesDocumentItem]
+       CONCAT_WS('¦', ExchangeRateUSD.[SalesDocument] /*collate SQL_Latin1_General_CP1_CS_AS*/, ExchangeRateUSD.[SalesDocumentItem] /*collate SQL_Latin1_General_CP1_CS_AS*/, CR.[CurrencyTypeID]) as [nk_fact_SalesDocumentItem]
       ,ExchangeRateUSD.[SalesDocument]
       ,ExchangeRateUSD.[SalesDocumentItem]
 	  ,CR.[CurrencyTypeID]

@@ -111,9 +111,9 @@ PurchasingOrg AS
 		,	o.[PurchasingGroupID_Name]
 	FROM Supplier AS s
 	LEFT JOIN Company AS c
-		ON s.[SupplierID_init] COLLATE SQL_Latin1_General_CP1_CI_AS = c.[SupplierID_init]
+		ON s.[SupplierID_init] /*COLLATE SQL_Latin1_General_CP1_CI_AS */ = c.[SupplierID_init]
 	LEFT JOIN BankDetails AS d
-		ON s.[SupplierID_init] COLLATE SQL_Latin1_General_CP1_CI_AS = d.[SupplierID_init]
+		ON s.[SupplierID_init] /*COLLATE SQL_Latin1_General_CP1_CI_AS */ = d.[SupplierID_init]
 	LEFT JOIN PurchasingOrg AS o
-		ON s.[SupplierID_init] COLLATE SQL_Latin1_General_CP1_CI_AS = o.[SupplierID_init]
+		ON s.[SupplierID_init] /*COLLATE SQL_Latin1_General_CP1_CI_AS */ = o.[SupplierID_init]
 

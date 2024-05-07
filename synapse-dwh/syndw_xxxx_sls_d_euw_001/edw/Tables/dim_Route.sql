@@ -13,7 +13,7 @@
 ,[SPZST]           NVARCHAR(10)
 ,[FAHZTD]          DECIMAL(11)
 ,[DISTZ]           DECIMAL(13,3)
-,[MEDST]           NVARCHAR(3) collate Latin1_General_100_BIN2
+,[MEDST]           NVARCHAR(3)
 ,[VSART]           NVARCHAR(2)
 ,[VSAVL]           NVARCHAR(2)
 ,[VSANL]           NVARCHAR(2)
@@ -21,7 +21,7 @@
 ,[ROUTID]          NVARCHAR(100)
 ,[TCTAB]           NVARCHAR(1)
 ,[ALLOWED_TWGT]    DECIMAL(8)
-,[ALLOWED_UOM]     NVARCHAR(3) collate Latin1_General_100_BIN2
+,[ALLOWED_UOM]     NVARCHAR(3)
 ,[DurInDays]       DECIMAL(11)
 ,[t_applicationId] VARCHAR(32)
 ,[t_jobId]         VARCHAR(36)

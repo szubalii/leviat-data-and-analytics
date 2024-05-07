@@ -1,16 +1,16 @@
  CREATE TABLE [edw].[dim_FinancialStatementItem] (
-      [FinancialStatementVariant]     NVARCHAR(4) COLLATE Latin1_General_100_BIN2 NOT NULL
-    , [HierarchyNode]                 CHAR(6) COLLATE Latin1_General_100_BIN2     NOT NULL
-    , [NodeType]                      NVARCHAR(4) COLLATE Latin1_General_100_BIN2
-    , [FinancialStatementItem]        NVARCHAR(10) COLLATE Latin1_General_100_BIN2
-    , [ParentNode]                    CHAR(6) COLLATE Latin1_General_100_BIN2
-    , [ChildNode]                     CHAR(6) COLLATE Latin1_General_100_BIN2
-    , [SiblingNode]                   CHAR(6) COLLATE Latin1_General_100_BIN2
-    , [FinStatementHierarchyLevelVal] CHAR(2) COLLATE Latin1_General_100_BIN2
+      [FinancialStatementVariant]     NVARCHAR(4)  NOT NULL
+    , [HierarchyNode]                 CHAR(6)      NOT NULL
+    , [NodeType]                      NVARCHAR(4) 
+    , [FinancialStatementItem]        NVARCHAR(10) 
+    , [ParentNode]                    CHAR(6) 
+    , [ChildNode]                     CHAR(6) 
+    , [SiblingNode]                   CHAR(6) 
+    , [FinStatementHierarchyLevelVal] CHAR(2) 
     , [LastChangeDate]                DATE
-    , [ResponsiblePerson]             NVARCHAR(12) COLLATE Latin1_General_100_BIN2
-    , [OffsettingItem]                NVARCHAR(10) COLLATE Latin1_General_100_BIN2
-    , [FinStatementItemDescription]   NVARCHAR(45) COLLATE Latin1_General_100_BIN2
+    , [ResponsiblePerson]             NVARCHAR(12) 
+    , [OffsettingItem]                NVARCHAR(10) 
+    , [FinStatementItemDescription]   NVARCHAR(45) 
     , [t_applicationId]               VARCHAR (32)
     , [t_extractionDtm]               DATETIME
     , [t_jobId]                       VARCHAR (36)

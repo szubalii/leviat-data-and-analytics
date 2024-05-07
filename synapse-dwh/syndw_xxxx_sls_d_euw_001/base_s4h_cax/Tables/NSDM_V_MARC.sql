@@ -1,12 +1,12 @@
 CREATE TABLE [base_s4h_cax].[NSDM_V_MARC]
 -- MARC Compatibility View
 (
-  [MANDT] nchar(3) collate Latin1_General_100_BIN2 NOT NULL
-, [MATNR] nvarchar(40) collate Latin1_General_100_BIN2 NOT NULL
-, [WERKS] nvarchar(4) collate Latin1_General_100_BIN2 NOT NULL
-, [FXHOR] char(3) collate Latin1_General_100_BIN2
+  [MANDT] nchar(3) NOT NULL -- collate Latin1_General_100_BIN2 NOT NULL
+, [MATNR] nvarchar(40) NOT NULL -- collate Latin1_General_100_BIN2 NOT NULL
+, [WERKS] nvarchar(4) NOT NULL -- collate Latin1_General_100_BIN2 NOT NULL
+, [FXHOR] char(3) -- collate Latin1_General_100_BIN2
 , [MINBE] decimal(13,3)
-, [NCOST] nvarchar(1) collate Latin1_General_100_BIN2
+, [NCOST] nvarchar(1) -- collate Latin1_General_100_BIN2
 , [BSTRF] decimal(13,3)
 -- , [pstat] nvarchar(15) collate Latin1_General_100_BIN2
 -- , [lvorm] nvarchar(1) collate Latin1_General_100_BIN2
@@ -147,7 +147,7 @@ CREATE TABLE [base_s4h_cax].[NSDM_V_MARC]
 -- , [itark] nvarchar(1) collate Latin1_General_100_BIN2
 -- , [servg] nvarchar(1) collate Latin1_General_100_BIN2
 -- , [kzkup] nvarchar(1) collate Latin1_General_100_BIN2
-, [STRGR] nvarchar(2) collate Latin1_General_100_BIN2
+, [STRGR] nvarchar(2) --collate Latin1_General_100_BIN2
 -- , [cuobv] char(18) collate Latin1_General_100_BIN2
 -- , [lgfsb] nvarchar(4) collate Latin1_General_100_BIN2
 -- , [schgt] nvarchar(1) collate Latin1_General_100_BIN2
@@ -301,7 +301,7 @@ CREATE TABLE [base_s4h_cax].[NSDM_V_MARC]
 -- , [iuid_relevant] nvarchar(1) collate Latin1_General_100_BIN2
 -- , [iuid_type] nvarchar(10) collate Latin1_General_100_BIN2
 -- , [uid_iea] nvarchar(1) collate Latin1_General_100_BIN2
--- , [dpcbt] nvarchar(1) collate Latin1_General_100_BIN2
+-- , [dpcbt] nvarchar(1) -- collate Latin1_General_100_BIN2
 , [t_applicationId]       VARCHAR (32)
 , [t_jobId]               VARCHAR (36)
 , [t_jobDtm]             DATETIME

@@ -3,7 +3,7 @@ CREATE TABLE [edw].[dim_BillingDocumentType]
     [BillingDocumentTypeID]   NVARCHAR(8)  NOT NULL,
     [BillingDocumentType]     NVARCHAR(80) NULL,
     [SDDocumentCategoryID]    NVARCHAR(8)  NULL,
-    [IncrementItemNumber]     CHAR(6)      collate Latin1_General_100_BIN2 NULL,
+    [IncrementItemNumber]     CHAR(6),
     [BillingDocumentCategory] NVARCHAR(2)  NULL
 , [t_applicationId]       VARCHAR (32)
 , [t_jobId]               VARCHAR (36)
