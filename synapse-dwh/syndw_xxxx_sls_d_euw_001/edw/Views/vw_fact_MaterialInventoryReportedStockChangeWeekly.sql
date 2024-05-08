@@ -27,14 +27,21 @@ SELECT
 , MDI.[MaterialBaseUnitID]
 , MDI.[PurchaseOrderTypeID]
 , MDI.[InventoryValuationTypeID]
+, cal.[CalendarYear]
+, cal.[YearMonth]
+, cal.[CalendarMonth]
 , cal.[YearWeek]
+, cal.[CalendarWeek]
 , SUM(MDI.MatlCnsmpnQtyInMatlBaseUnit) AS MatlCnsmpnQtyInMatlBaseUnit
 , SUM(MDI.MatlStkChangeQtyInBaseUnit) AS MatlStkChangeQtyInBaseUnit
+, SUM(MDI.ConsumptionQtyICPOInBaseUnit) AS ConsumptionQtyICPOInBaseUnit
 , SUM(MDI.ConsumptionQtyICPOInStandardValue_EUR) AS ConsumptionQtyICPOInStandardValue_EUR
 , SUM(MDI.ConsumptionQtyICPOInStandardValue_USD) AS ConsumptionQtyICPOInStandardValue_USD
+, SUM(MDI.ConsumptionQtyOBDProInBaseUnit) AS ConsumptionQtyOBDProInBaseUnit
 , SUM(MDI.ConsumptionQtyOBDProStandardValue) AS ConsumptionQtyOBDProStandardValue
 , SUM(MDI.ConsumptionQtyOBDProStandardValue_EUR) AS ConsumptionQtyOBDProStandardValue_EUR
 , SUM(MDI.ConsumptionQtyOBDProStandardValue_USD) AS ConsumptionQtyOBDProStandardValue_USD
+, SUM(MDI.ConsumptionQtySOInBaseUnit) AS ConsumptionQtySOInBaseUnit
 , SUM(MDI.ConsumptionQtySOStandardValue) AS ConsumptionQtySOStandardValue
 , SUM(MDI.ConsumptionQtySOStandardValue_EUR) AS ConsumptionQtySOStandardValue_EUR
 , SUM(MDI.ConsumptionQtySOStandardValue_USD) AS ConsumptionQtySOStandardValue_USD
@@ -51,6 +58,18 @@ LEFT JOIN
     cal.CalendarDate = MDI.HDR_PostingDate
 -- WHERE
 --   MDI.t_applicationId LIKE '%s4h%' -- TODO filter on S4H only now
+-- WHERE
+--   MaterialID = '000000007000001725'
+--   AND
+--   InventorySpecialStockTypeID = ''
+--   AND
+--   InventoryStockTypeID = '01'
+--   AND
+--   CostCenterID = ''
+--   AND
+--   SalesDocumentTypeID is NULL
+--   AND
+--   SalesDocumentItemCategoryID IS NULL
 GROUP BY
   MDI.[MaterialID]
 , MDI.[PlantID]
@@ -65,5 +84,11 @@ GROUP BY
 , MDI.[MaterialBaseUnitID]
 , MDI.[PurchaseOrderTypeID]
 , MDI.[InventoryValuationTypeID]
+, cal.[CalendarYear]
+, cal.[YearMonth]
+, cal.[CalendarMonth]
 , cal.[YearWeek]
+, cal.[CalendarWeek]
 , MDI.[t_applicationId]
+-- ORDER BY
+--   YearMonth, YearWeek

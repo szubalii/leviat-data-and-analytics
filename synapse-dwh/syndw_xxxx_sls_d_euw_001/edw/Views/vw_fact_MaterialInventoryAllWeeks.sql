@@ -1,5 +1,6 @@
 CREATE VIEW [edw].[vw_fact_MaterialInventoryAllWeeks]
-AS WITH
+AS
+WITH
 FirstPostingCal AS (
   SELECT
     fp.[MaterialID]
@@ -18,6 +19,8 @@ FirstPostingCal AS (
   , fp.[nk_StoragePlantID]
   , fp.[sk_ProductSalesOrg]
   , fp.[PlantSalesOrgID]
+  , cal.[CalendarYear] AS [FirstPostingYear]
+  , cal.[YearMonth] AS [FirstPostingYearMonth]
   , cal.[YearWeek] AS [FirstPostingYearWeek]
   , fp.[t_applicationId]
   , fp.[t_extractionDtm]
@@ -27,35 +30,69 @@ FirstPostingCal AS (
     [edw].[dim_Calendar] AS cal
     ON
       cal.CalendarDate = fp.FirstPostingDate
+  -- WHERE
+  --   fp.MaterialID = '000000007000001725'
+  --   AND
+  --   InventorySpecialStockTypeID = ''
+  --   AND
+  --   InventoryStockTypeID = '01'
+  --   AND
+  --   CostCenterID = ''
+  --   AND
+  --   SalesDocumentTypeID is NULL
+  --   AND
+  --   SalesDocumentItemCategoryID IS NULL
 )
 ,
 AllYearWeeks AS (
-  SELECT
+  SELECT --top 100
+    [CalendarYear],
+    YearMonth,
+    CalendarMonth,
     YearWeek,
-    -- NULL AS YearMonth,
-  -- required to get the monthly StockPricePerUnit
+    CalendarWeek,
+    LastDayOfMonthDate,
+    -- 0 AS IsMonthly,
+    -- CASE
+    --   WHEN CalendarDate = LastDayOfMonthDate THEN 1 ELSE 0
+    -- END AS IsMonthly,
+    -- FirstDayOfWeekDate AS ReportingDate,
+    MAX(CalendarDate) AS MaxPostingDate,
   -- If a weeks falls in two months, take the first month
-    FirstDayOfWeekDate AS ReportingDate,
+  -- as that is required to get the monthly StockPricePerUnit
     MIN(FirstDayOfMonthDate) AS FirstDayOfMonthDate
   FROM
     [edw].[dim_Calendar]
+  -- WHERE
+  --   YearMonth = '202402' OR YearMonth = '202401'
   GROUP BY
+    [CalendarYear],
+    YearMonth,
+    CalendarMonth,
     YearWeek,
-    FirstDayOfWeekDate
+    CalendarWeek,
+    LastDayOfMonthDate
+)
+,
 
-  -- UNION ALL
-
-  -- SELECT
-  --   NULL AS YearWeek,
-  --   YearMonth,
-  -- -- required to get the monthly StockPricePerUnit
-  --   FirstDayOfMonthDate AS ReportingDate,
-  --   FirstDayOfMonthDate
-  -- FROM
-  --   [edw].[dim_Calendar]
-  -- GROUP BY
-  --   YearMonth,
-  --   FirstDayOfMonthDate
+IsMonthly AS (
+  SELECT
+    [CalendarYear],
+    YearMonth,
+    CalendarMonth,
+    YearWeek,
+    CalendarWeek,
+    -- LastDayOfMonthDate,
+    CASE
+      WHEN MaxPostingDate = LastDayOfMonthDate THEN 1 ELSE 0
+    END AS IsMonthly,
+  -- required to get the monthly StockPricePerUnit
+  -- If a weeks falls in two months, take the first month
+    -- FirstDayOfWeekDate AS ReportingDate,
+    MaxPostingDate,
+    FirstDayOfMonthDate
+  FROM
+    AllYearWeeks
 )
 
 SELECT
@@ -75,17 +112,22 @@ SELECT
 , fw.[nk_StoragePlantID]
 , fw.[sk_ProductSalesOrg]
 , fw.[PlantSalesOrgID]
-, AllYearWeeks.[ReportingDate]
-, AllYearWeeks.[YearWeek]
--- , AllYearWeeks.[YearMonth]
-, AllYearWeeks.FirstDayOfMonthDate
+, IsMonthly.[CalendarYear]
+, IsMonthly.[YearMonth]
+, IsMonthly.[CalendarMonth]
+, IsMonthly.[YearWeek]
+, IsMonthly.[CalendarWeek]
+, IsMonthly.[MaxPostingDate]
+, IsMonthly.[IsMonthly]
+, IsMonthly.[FirstDayOfMonthDate]
 , fw.[t_applicationId]
 , fw.[t_extractionDtm]
 FROM
   FirstPostingCal fw
 CROSS JOIN
-  AllYearWeeks
+  IsMonthly
 WHERE
-  AllYearWeeks.YearWeek BETWEEN fw.FirstPostingYearWeek AND
+  IsMonthly.YearWeek BETWEEN fw.FirstPostingYearWeek AND
     -- Construct YearWeek based on current date
-    CONCAT(YEAR(GETDATE()), DATEPART(week, GETDATE()));
+    CONCAT(YEAR(GETDATE()), DATEPART(week, GETDATE()))
+-- order by YearMonth, YearWeek

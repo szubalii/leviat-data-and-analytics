@@ -98,19 +98,28 @@ SELECT
 , allWeeks.[nk_StoragePlantID]
 , allWeeks.[sk_ProductSalesOrg]
 , allWeeks.[PlantSalesOrgID]
-, allWeeks.[ReportingDate]
+-- , allWeeks.[ReportingDate]
 , allWeeks.[FirstDayOfMonthDate]
+, allWeeks.[CalendarYear]
+, allWeeks.[YearMonth]
+, allWeeks.[CalendarMonth]
 , allWeeks.[YearWeek]
+, allWeeks.[CalendarWeek]
 -- , stockChangeWeekly.[WeeklyMatlStkChangeQtyInBaseUnit]
 -- , allWeeks.[YearMonth]
+, allWeeks.[MaxPostingDate]
+, allWeeks.[IsMonthly]
 , stock.[MatlCnsmpnQtyInMatlBaseUnit]
 , stock.[MatlStkChangeQtyInBaseUnit]
+, stock.[ConsumptionQtyICPOInBaseUnit]
 , stock.[ConsumptionQtyICPOInStandardValue_EUR]
 , stock.[ConsumptionQtyICPOInStandardValue_USD]
 , stock.[ConsumptionQtyOBDProStandardValue]
+, stock.[ConsumptionQtyOBDProInBaseUnit]
 , stock.[ConsumptionQtyOBDProStandardValue_EUR]
 , stock.[ConsumptionQtyOBDProStandardValue_USD]
 , stock.[ConsumptionQtySOStandardValue]
+, stock.[ConsumptionQtySOInBaseUnit]
 , stock.[ConsumptionQtySOStandardValue_EUR]
 , stock.[ConsumptionQtySOStandardValue_USD]
 , stock.[ConsumptionQty]
@@ -230,15 +239,29 @@ LEFT JOIN
       stock.[YearWeek] = allWeeks.[YearWeek]
       OR (
         stock.[YearWeek] IS NULL
-        AND
-        allWeeks.[YearWeek] IS NULL
+        -- AND
+        -- allWeeks.[YearWeek] IS NULL
       )
     )
-    -- AND (
-    --   stock.[YearMonth] = allWeeks.[YearMonth]
-    --   OR (
-    --     stock.[YearMonth] IS NULL
-    --     AND
-    --     allWeeks.[YearMonth] IS NULL
-    --   )
-    -- )
+    AND (
+      stock.[YearMonth] = allWeeks.[YearMonth]
+      OR (
+        stock.[YearMonth] IS NULL
+    --     -- AND
+    --     -- allWeeks.[YearMonth] IS NULL
+      )
+    )
+-- WHERE
+--   allWeeks.MaterialID = '000000000040000023'
+--   AND
+--   allWeeks.CompanyCodeID = 'DE35'
+--   AND
+--   allWeeks.PurchaseOrderTypeID IS NULL
+--   AND
+--   allWeeks.CostCenterID = ''
+-- --   AND
+-- --   InventorySpecialStockTypeID = ''
+--   AND
+--   allWeeks.InventoryStockTypeID = '01'
+-- ORDER  BY
+--   allWeeks.YearMonth, allWeeks.YearWeek
