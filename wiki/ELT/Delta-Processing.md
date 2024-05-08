@@ -4,7 +4,7 @@ This section describes the process of processing of delta in the base layer and 
 
 The high-level process of handling delta is as follows:
 
-![Delta Process](../images/Delta-Process.drawio.svg)
+![Delta Process](../.images/Delta-Process.drawio.svg)
 
 <!-- ![Delta Process](Delta-Process.svg) -->
 
@@ -65,7 +65,7 @@ The high-level process of handling delta is as follows:
 
 # Delta structure in Synapse SQL Pool
 
-![Synapse-DB-Delta-Objects](../images/Synapse-DB-Delta-Objects.drawio.svg)
+![Synapse-DB-Delta-Objects](../.images/Synapse-DB-Delta-Objects.drawio.svg)
 
 ## Base
 

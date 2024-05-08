@@ -1,1 +1,1 @@
-![Delta Process](../images/Architecture.drawio.svg)
+![Delta Process](../.images/Architecture.drawio.svg)

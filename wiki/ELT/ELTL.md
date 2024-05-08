@@ -1,1 +1,1 @@
-![ELTL](../images/ELTL.drawio.svg)
+![ELTL](../.images/ELTL.drawio.svg)
