@@ -1,3 +1,14 @@
+/*
+  This view generates the WHERE clause used in the dynamic SQL UPDATE script
+  when processing delta materialization. 
+
+  Its format can be seen in its corresponding test case.
+
+  The additional filter clause on t_extractionDtm is added to make sure that
+  records regarded for update are only those that have an extraction date time earlier
+  than those existing in the delta view.
+*/
+
 CREATE VIEW [utilities].[vw_UpdateScriptWhereClause] 
 AS
 
@@ -5,9 +16,13 @@ SELECT
   t.name as table_name,
   SCHEMA_NAME(t.schema_id) as schema_name,
   CONCAT(
-    STRING_AGG( '[' + SCHEMA_NAME(t.schema_id) + '].[' + t.name + '].[' + CAST(COL_NAME(ic.object_id, ic.column_id) AS NVARCHAR(MAX)) + '] = src.[' + COL_NAME(ic.object_id, ic.column_id) + ']', CHAR(13) + CHAR(10) + ' AND ' + CHAR(13) + CHAR(10))
+    STRING_AGG(
+      '[' + SCHEMA_NAME(t.schema_id) + '].[' + t.name + '].[' + CAST(COL_NAME(ic.object_id, ic.column_id) AS NVARCHAR(MAX)) + '] = src.[' + COL_NAME(ic.object_id, ic.column_id) + ']',
+      CHAR(13) + CHAR(10) + ' AND ' + CHAR(13) + CHAR(10)
+    )
     WITHIN GROUP ( ORDER BY ic.column_id ),
-    CHAR(13) + CHAR(10) + ' AND ' + CHAR(13) + CHAR(10) + '[' + SCHEMA_NAME(t.schema_id) + '].[' + t.name + '].[t_extractionDtm] < src.[t_extractionDtm]'
+    CHAR(13) + CHAR(10) + ' AND ' + CHAR(13) + CHAR(10) +
+      '[' + SCHEMA_NAME(t.schema_id) + '].[' + t.name + '].[t_extractionDtm] < src.[t_extractionDtm]'
   ) AS update_scrpt_where_clause
   -- ic.column_id,
   -- COL_NAME(ic.object_id, ic.column_id) AS col_name

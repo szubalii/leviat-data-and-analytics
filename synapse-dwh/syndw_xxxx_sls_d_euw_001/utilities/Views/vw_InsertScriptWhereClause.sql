@@ -1,3 +1,10 @@
+/*
+  This view generates the WHERE clause used in the dynamic SQL INSERT script
+  when processing delta materialization. 
+
+  Its format can be seen in its corresponding test case.
+*/
+
 CREATE VIEW [utilities].[vw_InsertScriptWhereClause] 
 AS
 

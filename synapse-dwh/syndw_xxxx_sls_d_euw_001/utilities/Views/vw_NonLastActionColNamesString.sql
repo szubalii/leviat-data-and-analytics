@@ -1,3 +1,11 @@
+/*
+  This view generates a single string record based on the columns of tables
+  that are not equal to the system field names used for delta information.
+  This view is used in the process of delta materialization. 
+
+  Its format can be seen in its corresponding test case.
+*/
+
 CREATE VIEW [utilities].[vw_NonLastActionColNamesString]
 AS
 SELECT

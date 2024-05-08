@@ -1,3 +1,10 @@
+/*
+  This view returns the primary key fields for each table.
+  This view is used in the process of delta materialization. 
+
+  Its format can be seen in its corresponding test case.
+*/
+
 CREATE VIEW [utilities].[vw_PrimaryKeyFields]
 AS
 SELECT
