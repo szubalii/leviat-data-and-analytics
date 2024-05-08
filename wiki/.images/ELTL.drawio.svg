@@ -1,4 +1,4 @@
-<svg host="65bd71144e" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="1122px" height="82px" viewBox="-0.5 -0.5 1122 82" content="&lt;mxfile&gt;&lt;diagram id=&quot;u9JGMMDOpzvWFr5ONleq&quot; name=&quot;Page-1&quot;&gt;xZbbbpwwEIafhnvAuyy57B6aRkqkqlTK9XSZBSRjI+Nd2D59hzAEqNM2UtvlBuzf48M/fDb2xK5s7w1U+ZNOUXqhn7ae2HthGEc+PTvh2guBiESvZKZIWRuFpPiOLHLH7FykWM8CrdbSFtVcPGql8GhnGhijm3nYScv5rBVk6AjJEaSrPhepzdnX2h/1T1hk+TBz4HNLCUMwC3UOqW4mkjh4Yme0tn2pbHcou+QNeen7ffxF6+vCDCr7ng6rvsMF5Jm98brsdTCLKXnnqtKKXtvclpJqARXdCXkNtT6bIw/Bg1owGXIUf/Bu8Ek3XuQ96hKtuVKAQQm2uMwTD/z9ste40SIV2OXbjkPH8aG1BogSAsHokl5Jv/SfE2H0WaXYDeOT8SYvLCYVvHhsiPN35uWCxmL7W89D6wAJb5PViuvNyFww7KV8wlvs/32aopuAIVww1kuBIRzHjxrSLkDR48P+MVmcCBEtSER8EyLWLhGbpYhYO44fVIa1HZhIrgqqmg4Kfwv18udF5C9Ix/Br/s94bFw87pbCY+M4/mpA1Sdtup8IqO7seAKLpgDZXWGYGi+MJC19+81QKetKI0eH/fMfMJok7C2i/gFG8WpBjO6cnH7Bk8E6J/Hz9oGee7C02Wy9+HYL/Ph2iaLqeCl8aZtcrcXhBw==&lt;/diagram&gt;&lt;/mxfile&gt;">
+<svg host="65bd71144e" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="1122px" height="82px" viewBox="-0.5 -0.5 1122 82" content="&lt;mxfile&gt;&lt;diagram id=&quot;u9JGMMDOpzvWFr5ONleq&quot; name=&quot;Page-1&quot;&gt;xZZdb5swFIZ/DfcEJ4ReLh/rKrXSNCb1+iycAJKxkXEC2a/fIRwK1O1WaVu4Afv18cd7eGzsiW3R3BsosyedoPQCP2k8sfOCIAp9erbCpRMWIhSdkpo8YW0Q4vwnssgd01OeYDUJtFpLm5dT8aCVwoOdaGCMrqdhRy2ns5aQoiPEB5Cu+pwnNmNfK3/Qv2CeZv3MC59bCuiDWagySHQ9ksTeE1ujte1KRbNF2Savz0vX7/M7rS8LM6jsRzosuw5nkCf2xuuyl94sJuSdq0orem0yW0iqLajoTshrqPTJHHgIHtSCSZGj+IO3g4+68SLvURdozYUCDEqw+XmaeODvl77EDRapwC7fdhw4jveNNUCUEAhGF/SKu6W/ToTRJ5VgO4xPxusstxiXcPVYE+cfzMsZjcXmt5771h4S3ibLJdfrgblFv5eyEW+R//dpCm8ChnDBWM0FhnAcP2pI2gBFj0+7x3h2IkQ4IxHRTYhYuUSs5yJi5Th+UClWtmcivigoKzoo/A1U858XoT8jHf2v+T/jsXbxuJsLj7Xj+LsBVR21aX8ioNqz4wksmhxke4VharwglLT0zQ9DpdRenb9WBrL2u+c/gDVK4VuM/QOwouWMYN05Wf6GR4NVRuLXzQM9d2Bp+9lq9g248KPbJYqqwzXx2ja6bIv9Lw==&lt;/diagram&gt;&lt;/mxfile&gt;">
     <defs/>
     <g>
         <path d="M 160 40 L 233.63 40" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="stroke"/>
@@ -68,6 +68,7 @@
                         <div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: center;">
                             <div style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: normal; overflow-wrap: normal;">
                                 Transform and Materialize in
+                                <br/>
                                 <br/>
                                 Synapse EDW
                             </div>
