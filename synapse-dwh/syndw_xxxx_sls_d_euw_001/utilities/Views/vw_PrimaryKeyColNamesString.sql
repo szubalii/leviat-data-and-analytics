@@ -1,3 +1,10 @@
+/*
+  This view generates a single string record based on the primary columns of tables.
+  This view is used in the process of delta materialization. 
+
+  Its format can be seen in its corresponding test case.
+*/
+
 CREATE VIEW [utilities].[vw_PrimaryKeyColNamesString] 
 AS
 
