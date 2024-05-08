@@ -79,7 +79,7 @@ This table contains delta records from potentially multiple delta parquet files
 
 This view retrieves the most recent status for each key taking into account point 1 and 2. 
 
-<sp_entity_active>
+<up_upsert_delta_active_table>
 
 Stored Procedure that updates existing records and inserts new records in <entity_active> based on <vw_entity_delta>. This stored procedure is executed during the **Process Base** step. 
 
@@ -89,7 +89,24 @@ Contains the actual latest status of all previously ingested delta parquet files
 
 ## EDW
 
+<vw_entity_delta>
 
-# Scenarios
+This view handles the required transformations to be materialized in the edw-layer. It references the delta view from the base layer to make sure only the new delta data is transformed.
 
-1. What if only Process Base activity is required? If by default, delta tables are being truncated, we need to re-ingest corresponding delta parquet files into Synapse SQL Pool. 
+<up_upsert_delta_active_table>
+
+The same stored Procedure is called to handle delta processing in the EDW layer from the view logic into the delta active table. 
+
+<entity_active>
+
+Contains the actual latest status of all previously ingested delta parquet files.
+
+
+## up_upsert_delta_active_table
+
+This stored procedure handles the delta materialization and expects the following parameters:
+- <schema_name>, schema name
+- <delta_view_name>, the name of the source delta view
+- <active_table_name>, the name of the target active table
+
+The stored procedure works by leveraring Dynamic SQL to create an <insert> query and an <update> query. 
