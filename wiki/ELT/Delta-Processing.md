@@ -3,6 +3,11 @@ This section describes the process of processing of delta in the base layer and 
 # High Level Process
 
 The high-level process of handling delta is as follows:
+
+![Delta Process](../images/Delta-Process.drawio.svg)
+
+<!-- ![Delta Process](Delta-Process.svg) -->
+
 1. Get delta entity batch activities
 
    Calculate for each delta entity, which delta parquet files need to be processed. Processing can include any of the activities from [Entity Batch Activities](#entity-batch-activities). Based on logged data in the Orchestration DB, a stored procedure calculates which activities for each delta parquet file for each delta entity is required. 
@@ -59,6 +64,8 @@ The high-level process of handling delta is as follows:
    For a delta entity, this step is executed after all required delta parquet files have been ingested into Synapse SQL Pool Base. It processes the new delta parquet files and applies the delta information in the active table that contains the latest up to date status. It runs the stored procedure utilities.up_upsert_delta_active_table which creates dynamic SQL queries for both an insert statement and update statement. 
 
 # Delta structure in Synapse SQL Pool
+
+![Synapse-DB-Delta-Objects](../images/Synapse-DB-Delta-Objects.drawio.svg)
 
 ## Base
 
