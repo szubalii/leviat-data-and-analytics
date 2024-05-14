@@ -60985,7 +60985,7 @@
             "value": "DateTime"
           }
         ],
-        "expression": "#datetime(2024, 3, 31, 0, 0, 0) meta [IsParameterQuery=true, Type=\"DateTime\", IsParameterQueryRequired=false]",
+        "expression": "#datetime(2024, 3, 1, 0, 0, 0) meta [IsParameterQuery=true, Type=\"DateTime\", IsParameterQueryRequired=false]",
         "kind": "m",
         "lineageTag": "9e7502f8-46af-4416-984c-6f0f8dc5d65e"
       },
@@ -61001,7 +61001,7 @@
             "value": "DateTime"
           }
         ],
-        "expression": "#datetime(2024, 3, 1, 0, 0, 0) meta [IsParameterQuery=true, Type=\"DateTime\", IsParameterQueryRequired=false]",
+        "expression": "#datetime(2024, 3, 31, 0, 0, 0) meta [IsParameterQuery=true, Type=\"DateTime\", IsParameterQueryRequired=false]",
         "kind": "m",
         "lineageTag": "9aeac4dd-6100-4e33-b8a9-88c22166d42b"
       }
