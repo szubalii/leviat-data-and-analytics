@@ -4,11 +4,11 @@
     "annotations": [
       {
         "name": "PBIDesktopVersion",
-        "value": "2.128.952.0 (24.04)"
+        "value": "2.128.1380.0 (24.04)"
       },
       {
         "name": "PBI_QueryOrder",
-        "value": "[\"srv_MeasureTypes\",\"srv_Cogs_cost\",\"Calendar\",\"Product\",\"ProfitCenter\",\"CustomerSoldTo\",\"fact_ACDOCA_EPMSalesView\",\"_Measures\",\"SalesOrganization\",\"Source\",\"DB\",\"SalesDistrict\",\"GLAccount\",\"RLS_GROUPS\",\"RLS_USERS\",\"ExQLReportingEntity\",\"exQL_Map\",\"CompanyCode\",\"DateStart\",\"fact_ACDOCA_FinStatemntSalesMargin\",\"Calendar_cut\",\"CompanyCodeProfitCenter\",\"Currency\",\"CurrencyType\",\"fact_Budget_EPM\",\"ValueType\",\"InOut\",\"GM Element Sort\",\"Reconciliation_File\",\"GM Element 2 Sorting\",\"srv_Actual_Finance\",\"ProductPlant\",\"Plant\"]"
+        "value": "[\"srv_MeasureTypes\",\"srv_Cogs_cost\",\"Calendar\",\"Product\",\"ProfitCenter\",\"CustomerSoldTo\",\"fact_ACDOCA_EPMSalesView\",\"_Measures\",\"SalesOrganization\",\"Source\",\"DB\",\"SalesDistrict\",\"GLAccount\",\"RLS_GROUPS\",\"RLS_USERS\",\"ExQLReportingEntity\",\"exQL_Map\",\"CompanyCode\",\"DateStart\",\"fact_ACDOCA_FinStatemntSalesMargin\",\"Calendar_cut\",\"CompanyCodeProfitCenter\",\"Currency\",\"CurrencyType\",\"fact_Budget_EPM\",\"ValueType\",\"InOut\",\"GM Element Sort\",\"Reconciliation_File\",\"GM Element 2 Sorting\",\"srv_Actual_Finance\",\"ProductPlant\",\"Plant\",\"ProductSalesDelivery\"]"
       },
       {
         "name": "__PBI_TimeIntelligenceEnabled",
@@ -60945,7 +60945,7 @@
             "value": "Text"
           }
         ],
-        "expression": "\"ws-xxxx-sls-a-euw-001.sql.azuresynapse.net\" meta [IsParameterQuery=true, List={\"ws-xxxx-sls-p-euw-001.sql.azuresynapse.net\", \"ws-xxxx-sls-d-euw-001.sql.azuresynapse.net\", \"ws-xxxx-sls-a-euw-001.sql.azuresynapse.net\", \"ws-sleshchuk-d-euw-001.sql.azuresynapse.net\", \"ws-nkukhtenko-d-euw-001.sql.azuresynapse.net\"}, DefaultValue=\"ws-xxxx-sls-p-euw-001.sql.azuresynapse.net\", Type=\"Text\", IsParameterQueryRequired=true]",
+        "expression": "\"ws-xxxx-sls-p-euw-001.sql.azuresynapse.net\" meta [IsParameterQuery=true, List={\"ws-xxxx-sls-p-euw-001.sql.azuresynapse.net\", \"ws-xxxx-sls-d-euw-001.sql.azuresynapse.net\", \"ws-xxxx-sls-a-euw-001.sql.azuresynapse.net\", \"ws-sleshchuk-d-euw-001.sql.azuresynapse.net\", \"ws-nkukhtenko-d-euw-001.sql.azuresynapse.net\"}, DefaultValue=\"ws-xxxx-sls-p-euw-001.sql.azuresynapse.net\", Type=\"Text\", IsParameterQueryRequired=true]",
         "kind": "m",
         "lineageTag": "51c1eca3-85e3-40a5-9886-bc7b2858932e"
       },
@@ -60957,7 +60957,7 @@
             "value": "Text"
           }
         ],
-        "expression": "\"syndw_xxxx_sls_a_euw_001\" meta [IsParameterQuery=true, List={\"syndw_xxxx_sls_p_euw_001\", \"syndw_xxxx_sls_d_euw_001\", \"syndw_xxxx_sls_a_euw_001\", \"syndw_sleshchuk_d_euw_001\", \"syndw_nkukhtenko_d_euw_001\"}, DefaultValue=\"syndw_xxxx_sls_p_euw_001\", Type=\"Text\", IsParameterQueryRequired=true]",
+        "expression": "\"syndw_xxxx_sls_p_euw_001\" meta [IsParameterQuery=true, List={\"syndw_xxxx_sls_p_euw_001\", \"syndw_xxxx_sls_d_euw_001\", \"syndw_xxxx_sls_a_euw_001\", \"syndw_sleshchuk_d_euw_001\", \"syndw_nkukhtenko_d_euw_001\"}, DefaultValue=\"syndw_xxxx_sls_p_euw_001\", Type=\"Text\", IsParameterQueryRequired=true]",
         "kind": "m",
         "lineageTag": "59565eac-ed26-41a4-b712-5d399b142541"
       },
@@ -61611,6 +61611,17 @@
                 "name": "PlantID"
               }
             ]
+          },
+          {
+            "name": "ProductSalesDelivery",
+            "columns": [
+              {
+                "name": "ItemCategoryGroupName"
+              },
+              {
+                "name": "ItemCategoryGroup"
+              }
+            ]
           }
         ]
       },
@@ -62155,6 +62166,17 @@
               },
               {
                 "name": "PlantID"
+              }
+            ]
+          },
+          {
+            "name": "ProductSalesDelivery",
+            "columns": [
+              {
+                "name": "ItemCategoryGroupName"
+              },
+              {
+                "name": "ItemCategoryGroup"
               }
             ]
           }
@@ -63488,6 +63510,17 @@
                 "name": "PlantID"
               }
             ]
+          },
+          {
+            "name": "ProductSalesDelivery",
+            "columns": [
+              {
+                "name": "ItemCategoryGroupName"
+              },
+              {
+                "name": "ItemCategoryGroup"
+              }
+            ]
           }
         ]
       }
@@ -63780,6 +63813,15 @@
         "fromTable": "fact_ACDOCA_EPMSalesView",
         "toColumn": "nk_ProductPlant",
         "toTable": "ProductPlant"
+      },
+      {
+        "name": "59cce710-e23f-4636-a471-b99e14c9a17d",
+        "crossFilteringBehavior": "bothDirections",
+        "fromColumn": "ProductID",
+        "fromTable": "fact_ACDOCA_EPMSalesView",
+        "toCardinality": "many",
+        "toColumn": "ProductID",
+        "toTable": "ProductSalesDelivery"
       }
     ],
     "roles": [
@@ -74777,6 +74819,330 @@
                 "let",
                 "    Source = Sql.Database(#\"Source\", #\"DB\"),",
                 "    dm_sales_vw_dim_InOut = Source{[Schema=\"dm_sales\",Item=\"vw_dim_Plant\"]}[Data]",
+                "in",
+                "    dm_sales_vw_dim_InOut"
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "ProductSalesDelivery",
+        "annotations": [
+          {
+            "name": "PBI_NavigationStepName",
+            "value": "Navigation"
+          },
+          {
+            "name": "PBI_ResultType",
+            "value": "Table"
+          }
+        ],
+        "columns": [
+          {
+            "name": "sk_ProductSalesDelivery",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "lineageTag": "3fbdf7e9-27dd-4694-9bf4-c1d4d716f7b3",
+            "sourceColumn": "sk_ProductSalesDelivery",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "ProductID",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "cf423369-5ec5-4f3a-bbd5-b20d98c363a8",
+            "sourceColumn": "ProductID",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "SalesOrganizationID",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "1c530f39-0b44-4acd-a15e-e92eebf88367",
+            "sourceColumn": "SalesOrganizationID",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "DistributionChannelID",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "869d26bc-730f-4fdc-933c-37c9a2b78a55",
+            "sourceColumn": "DistributionChannelID",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "DistributionChannel",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "cd2d55c9-3a88-4a80-82b8-2a2c6e6b2205",
+            "sourceColumn": "DistributionChannel",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "MinimumOrderQuantity",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "dataType": "double",
+            "lineageTag": "125b40f9-9996-4d30-8229-7fa1855a837f",
+            "sourceColumn": "MinimumOrderQuantity",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "SupplyingPlant",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "76afd8a9-31cb-4ce4-9b18-a3b7e48aa8fb",
+            "sourceColumn": "SupplyingPlant",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "PriceSpecificationProductGroup",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "3d986591-f213-4644-8f4f-e0759750f3ae",
+            "sourceColumn": "PriceSpecificationProductGroup",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "AccountDetnProductGroup",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "4e2f31c5-ec76-4157-beca-91f06b756496",
+            "sourceColumn": "AccountDetnProductGroup",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "DeliveryNoteProcMinDelivQty",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "dataType": "double",
+            "lineageTag": "074f21d3-a4a2-4dbb-ace9-c9d23c556066",
+            "sourceColumn": "DeliveryNoteProcMinDelivQty",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "ItemCategoryGroup",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "87d55516-38ec-4c59-8470-6d51750be4e9",
+            "sourceColumn": "ItemCategoryGroup",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "ItemCategoryGroupName",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "671b16ab-1882-4252-9cff-9779970c7196",
+            "sourceColumn": "ItemCategoryGroupName",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "DeliveryQuantityUnit",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "d727af06-51e4-4d66-a8a2-778245928072",
+            "sourceColumn": "DeliveryQuantityUnit",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "DeliveryQuantity",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "dataType": "double",
+            "lineageTag": "81af488f-ee46-4a5f-a980-d782a58c3cc4",
+            "sourceColumn": "DeliveryQuantity",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "ProductSalesStatus",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "e8684bc8-894f-4460-8a83-c548e315ff67",
+            "sourceColumn": "ProductSalesStatus",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "ProductSalesStatusValidityDate",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "UnderlyingDateTimeDataType",
+                "value": "Date"
+              }
+            ],
+            "dataType": "dateTime",
+            "formatString": "Long Date",
+            "lineageTag": "8c761fd6-ec60-4e59-9993-b4592b057135",
+            "sourceColumn": "ProductSalesStatusValidityDate",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "SalesMeasureUnit",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "4256955c-4d71-4c50-ac6b-a3e0f90c4629",
+            "sourceColumn": "SalesMeasureUnit",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "IsMarkedForDeletion",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "976fb0d1-6fef-4597-8131-c523d50e0b87",
+            "sourceColumn": "IsMarkedForDeletion",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "IsConfigurable",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "a5262a43-ff7d-4ca3-a568-8152afe03a08",
+            "sourceColumn": "IsConfigurable",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "t_applicationId",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "81122a3d-e086-46bb-96cc-3416d84b2703",
+            "sourceColumn": "t_applicationId",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "t_extractionDtm",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "dateTime",
+            "formatString": "General Date",
+            "lineageTag": "523ed8d1-11f9-4e82-8003-0c059a58dff6",
+            "sourceColumn": "t_extractionDtm",
+            "summarizeBy": "none"
+          }
+        ],
+        "lineageTag": "ee80df4a-d16f-411b-a6e9-c8bfb9f2b1db",
+        "partitions": [
+          {
+            "name": "ProductSalesDelivery",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Source = Sql.Database(#\"Source\", #\"DB\"),",
+                "    dm_sales_vw_dim_InOut = Source{[Schema=\"dm_sales\",Item=\"vw_fact_ProductSalesDelivery\"]}[Data]",
                 "in",
                 "    dm_sales_vw_dim_InOut"
               ],

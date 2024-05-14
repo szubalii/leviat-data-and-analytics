@@ -4,11 +4,11 @@
     "annotations": [
       {
         "name": "PBIDesktopVersion",
-        "value": "2.122.746.0 (23.10)"
+        "value": "2.128.1380.0 (24.04)"
       },
       {
         "name": "PBI_QueryOrder",
-        "value": "[\"srv_MeasureTypes\",\"srv_Cogs_cost\",\"Calendar\",\"Product\",\"ProfitCenter\",\"CustomerSoldTo\",\"fact_ACDOCA_EPMSalesView\",\"_Measures\",\"SalesOrganization\",\"Source\",\"DB\",\"SalesDistrict\",\"GLAccount\",\"RLS_GROUPS\",\"RLS_USERS\",\"ExQLReportingEntity\",\"exQL_Map\",\"CompanyCode\",\"DateStart\",\"fact_ACDOCA_FinStatemntSalesMargin\",\"Calendar_cut\",\"CompanyCodeProfitCenter\",\"Currency\",\"CurrencyType\",\"fact_Budget_EPM\",\"ValueType\",\"InOut\",\"GM Element Sort\",\"Reconciliation_File\",\"GM Element 2 Sorting\",\"srv_Actual_Finance\",\"ProductPlant\",\"Plant\",\"RangeStart\",\"RangeEnd\"]"
+        "value": "[\"srv_MeasureTypes\",\"srv_Cogs_cost\",\"Calendar\",\"Product\",\"ProfitCenter\",\"CustomerSoldTo\",\"fact_ACDOCA_EPMSalesView\",\"_Measures\",\"SalesOrganization\",\"Source\",\"DB\",\"SalesDistrict\",\"GLAccount\",\"RLS_GROUPS\",\"RLS_USERS\",\"ExQLReportingEntity\",\"exQL_Map\",\"CompanyCode\",\"DateStart\",\"fact_ACDOCA_FinStatemntSalesMargin\",\"Calendar_cut\",\"CompanyCodeProfitCenter\",\"Currency\",\"CurrencyType\",\"fact_Budget_EPM\",\"ValueType\",\"InOut\",\"GM Element Sort\",\"Reconciliation_File\",\"GM Element 2 Sorting\",\"srv_Actual_Finance\",\"ProductPlant\",\"Plant\",\"ProductSalesDelivery\",\"RangeStart\",\"RangeEnd\"]"
       },
       {
         "name": "__PBI_TimeIntelligenceEnabled",
@@ -25,7 +25,6 @@
         "name": "en-US",
         "linguisticMetadata": {
           "content": {
-            "DynamicImprovement": "HighConfidence",
             "Entities": {
               "GL_account": {
                 "Definition": {
@@ -60933,7 +60932,6 @@
       }
     ],
     "dataAccessOptions": {
-      "fastCombine": true,
       "legacyRedirects": true,
       "returnErrorValuesAsNull": true
     },
@@ -60945,13 +60943,9 @@
           {
             "name": "PBI_ResultType",
             "value": "Text"
-          },
-          {
-            "name": "PBI_NavigationStepName",
-            "value": "Navigation"
           }
         ],
-        "expression": "\"ws-xxxx-sls-a-euw-001.sql.azuresynapse.net\" meta [IsParameterQuery=true, List={\"ws-xxxx-sls-p-euw-001.sql.azuresynapse.net\", \"ws-xxxx-sls-d-euw-001.sql.azuresynapse.net\", \"ws-xxxx-sls-a-euw-001.sql.azuresynapse.net\", \"ws-sleshchuk-d-euw-001.sql.azuresynapse.net\", \"ws-nkukhtenko-d-euw-001.sql.azuresynapse.net\"}, DefaultValue=\"ws-xxxx-sls-p-euw-001.sql.azuresynapse.net\", Type=\"Text\", IsParameterQueryRequired=true]",
+        "expression": "\"ws-xxxx-sls-p-euw-001.sql.azuresynapse.net\" meta [IsParameterQuery=true, List={\"ws-xxxx-sls-p-euw-001.sql.azuresynapse.net\", \"ws-xxxx-sls-d-euw-001.sql.azuresynapse.net\", \"ws-xxxx-sls-a-euw-001.sql.azuresynapse.net\", \"ws-sleshchuk-d-euw-001.sql.azuresynapse.net\", \"ws-nkukhtenko-d-euw-001.sql.azuresynapse.net\"}, DefaultValue=\"ws-xxxx-sls-p-euw-001.sql.azuresynapse.net\", Type=\"Text\", IsParameterQueryRequired=true]",
         "kind": "m",
         "lineageTag": "51c1eca3-85e3-40a5-9886-bc7b2858932e"
       },
@@ -60961,13 +60955,9 @@
           {
             "name": "PBI_ResultType",
             "value": "Text"
-          },
-          {
-            "name": "PBI_NavigationStepName",
-            "value": "Navigation"
           }
         ],
-        "expression": "\"syndw_xxxx_sls_a_euw_001\" meta [IsParameterQuery=true, List={\"syndw_xxxx_sls_p_euw_001\", \"syndw_xxxx_sls_d_euw_001\", \"syndw_xxxx_sls_a_euw_001\", \"syndw_sleshchuk_d_euw_001\", \"syndw_nkukhtenko_d_euw_001\"}, DefaultValue=\"syndw_xxxx_sls_p_euw_001\", Type=\"Text\", IsParameterQueryRequired=true]",
+        "expression": "\"syndw_xxxx_sls_p_euw_001\" meta [IsParameterQuery=true, List={\"syndw_xxxx_sls_p_euw_001\", \"syndw_xxxx_sls_d_euw_001\", \"syndw_xxxx_sls_a_euw_001\", \"syndw_sleshchuk_d_euw_001\", \"syndw_nkukhtenko_d_euw_001\"}, DefaultValue=\"syndw_xxxx_sls_p_euw_001\", Type=\"Text\", IsParameterQueryRequired=true]",
         "kind": "m",
         "lineageTag": "59565eac-ed26-41a4-b712-5d399b142541"
       },
@@ -60995,9 +60985,9 @@
             "value": "DateTime"
           }
         ],
-        "expression": "#datetime(2024, 3, 1, 0, 0, 0) meta [IsParameterQuery=true, Type=\"DateTime\", IsParameterQueryRequired=true]",
+        "expression": "#datetime(2024, 3, 31, 0, 0, 0) meta [IsParameterQuery=true, Type=\"DateTime\", IsParameterQueryRequired=false]",
         "kind": "m",
-        "lineageTag": "51173ca5-188c-4ea4-b2e0-4988545856cc"
+        "lineageTag": "9e7502f8-46af-4416-984c-6f0f8dc5d65e"
       },
       {
         "name": "RangeEnd",
@@ -61011,9 +61001,9 @@
             "value": "DateTime"
           }
         ],
-        "expression": "#datetime(2024, 3, 31, 0, 0, 0) meta [IsParameterQuery=true, Type=\"DateTime\", IsParameterQueryRequired=true]",
+        "expression": "#datetime(2024, 3, 1, 0, 0, 0) meta [IsParameterQuery=true, Type=\"DateTime\", IsParameterQueryRequired=false]",
         "kind": "m",
-        "lineageTag": "771436c1-204e-405f-b842-45b4262a37cf"
+        "lineageTag": "9aeac4dd-6100-4e33-b8a9-88c22166d42b"
       }
     ],
     "perspectives": [
@@ -61340,6 +61330,12 @@
               },
               {
                 "name": "SalesReferenceDocumentItemCalculated"
+              },
+              {
+                "name": "GMElementL1"
+              },
+              {
+                "name": "GMElementL2"
               }
             ]
           },
@@ -61441,6 +61437,9 @@
               },
               {
                 "name": "Sales Margin %"
+              },
+              {
+                "name": "KPI PY"
               }
             ]
           },
@@ -61642,6 +61641,17 @@
               },
               {
                 "name": "PlantID"
+              }
+            ]
+          },
+          {
+            "name": "ProductSalesDelivery",
+            "columns": [
+              {
+                "name": "ItemCategoryGroupName"
+              },
+              {
+                "name": "ItemCategoryGroup"
               }
             ]
           }
@@ -61970,6 +61980,12 @@
               },
               {
                 "name": "SalesReferenceDocumentItemCalculated"
+              },
+              {
+                "name": "GMElementL1"
+              },
+              {
+                "name": "GMElementL2"
               }
             ]
           },
@@ -61978,6 +61994,9 @@
             "measures": [
               {
                 "name": "Sales Margin %"
+              },
+              {
+                "name": "KPI PY"
               }
             ]
           },
@@ -62179,6 +62198,17 @@
               },
               {
                 "name": "PlantID"
+              }
+            ]
+          },
+          {
+            "name": "ProductSalesDelivery",
+            "columns": [
+              {
+                "name": "ItemCategoryGroupName"
+              },
+              {
+                "name": "ItemCategoryGroup"
               }
             ]
           }
@@ -62841,6 +62871,12 @@
               },
               {
                 "name": "SalesReferenceDocumentItemCalculated"
+              },
+              {
+                "name": "GMElementL1"
+              },
+              {
+                "name": "GMElementL2"
               }
             ]
           },
@@ -63506,6 +63542,17 @@
                 "name": "PlantID"
               }
             ]
+          },
+          {
+            "name": "ProductSalesDelivery",
+            "columns": [
+              {
+                "name": "ItemCategoryGroupName"
+              },
+              {
+                "name": "ItemCategoryGroup"
+              }
+            ]
           }
         ]
       }
@@ -63784,20 +63831,29 @@
         "toTable": "GM Element 2 Sorting"
       },
       {
-        "name": "7f18947f-c476-4b17-851c-f2c1c2d44bae",
+        "name": "1f2bdb64-6c15-435f-94de-84d4c1a96c20",
         "crossFilteringBehavior": "bothDirections",
-        "fromColumn": "Plant",
-        "fromTable": "ProductPlant",
+        "fromColumn": "PlantID",
+        "fromTable": "fact_ACDOCA_EPMSalesView",
         "toColumn": "PlantID",
         "toTable": "Plant"
       },
       {
-        "name": "c726827a-3a0a-40c9-a163-887d21e12c4c",
+        "name": "9cb4019c-9834-4110-b6ff-c56b1c842e27",
         "crossFilteringBehavior": "bothDirections",
-        "fromColumn": "Product",
-        "fromTable": "ProductPlant",
-        "toColumn": "sk_dim_Product",
-        "toTable": "Product"
+        "fromColumn": "nk_ProductPlant_derived",
+        "fromTable": "fact_ACDOCA_EPMSalesView",
+        "toColumn": "nk_ProductPlant",
+        "toTable": "ProductPlant"
+      },
+      {
+        "name": "59cce710-e23f-4636-a471-b99e14c9a17d",
+        "crossFilteringBehavior": "bothDirections",
+        "fromColumn": "ProductID",
+        "fromTable": "fact_ACDOCA_EPMSalesView",
+        "toCardinality": "many",
+        "toColumn": "ProductID",
+        "toTable": "ProductSalesDelivery"
       }
     ],
     "roles": [
@@ -63818,14 +63874,14 @@
         ]
       }
     ],
-    "sourceQueryCulture": "en-US",
+    "sourceQueryCulture": "ru-UA",
     "tables": [
       {
         "name": "Calendar",
         "annotations": [
           {
             "name": "PBI_ResultType",
-            "value": "Exception"
+            "value": "Table"
           }
         ],
         "columns": [
@@ -64445,7 +64501,7 @@
         "annotations": [
           {
             "name": "PBI_ResultType",
-            "value": "Exception"
+            "value": "Table"
           }
         ],
         "columns": [
@@ -64559,7 +64615,7 @@
             "isHidden": true,
             "lineageTag": "d07871c3-e841-4751-afe5-5611822a1fe8",
             "sourceColumn": "GrossWeight",
-            "summarizeBy": "sum"
+            "summarizeBy": "none"
           },
           {
             "name": "SourceOfSupply",
@@ -64956,7 +65012,7 @@
             "isHidden": true,
             "lineageTag": "9ba6266f-a1a3-40e4-970f-a84af75a2d19",
             "sourceColumn": "MaximumPackagingLength",
-            "summarizeBy": "sum"
+            "summarizeBy": "none"
           },
           {
             "name": "MaximumPackagingWidth",
@@ -64974,7 +65030,7 @@
             "isHidden": true,
             "lineageTag": "5611c7e8-0a7b-4785-b05c-c48eaf8d887b",
             "sourceColumn": "MaximumPackagingWidth",
-            "summarizeBy": "sum"
+            "summarizeBy": "none"
           },
           {
             "name": "MaximumPackagingHeight",
@@ -64992,7 +65048,7 @@
             "isHidden": true,
             "lineageTag": "690cb278-5f08-43e4-bd77-48f110e4e251",
             "sourceColumn": "MaximumPackagingHeight",
-            "summarizeBy": "sum"
+            "summarizeBy": "none"
           },
           {
             "name": "MaximumCapacity",
@@ -65010,7 +65066,7 @@
             "isHidden": true,
             "lineageTag": "bac66443-f30f-447d-b4cb-3a16c1d46c5a",
             "sourceColumn": "MaximumCapacity",
-            "summarizeBy": "sum"
+            "summarizeBy": "none"
           },
           {
             "name": "OvercapacityTolerance",
@@ -65028,7 +65084,7 @@
             "isHidden": true,
             "lineageTag": "7b216ef4-238f-4259-bce9-a0b7992d808f",
             "sourceColumn": "OvercapacityTolerance",
-            "summarizeBy": "sum"
+            "summarizeBy": "none"
           },
           {
             "name": "UnitForMaxPackagingDimensions",
@@ -65060,7 +65116,7 @@
             "isHidden": true,
             "lineageTag": "bdee2a63-2a16-4e80-b62b-c54d20285e76",
             "sourceColumn": "BaseUnitSpecificProductLength",
-            "summarizeBy": "sum"
+            "summarizeBy": "none"
           },
           {
             "name": "BaseUnitSpecificProductWidth",
@@ -65078,7 +65134,7 @@
             "isHidden": true,
             "lineageTag": "ae327246-5bc7-452d-ad79-4c7a32506472",
             "sourceColumn": "BaseUnitSpecificProductWidth",
-            "summarizeBy": "sum"
+            "summarizeBy": "none"
           },
           {
             "name": "BaseUnitSpecificProductHeight",
@@ -65096,7 +65152,7 @@
             "isHidden": true,
             "lineageTag": "c65a8006-fa1e-4f22-912c-d3ff01ed2b50",
             "sourceColumn": "BaseUnitSpecificProductHeight",
-            "summarizeBy": "sum"
+            "summarizeBy": "none"
           },
           {
             "name": "ArticleCategory",
@@ -65316,7 +65372,7 @@
             "isHidden": true,
             "lineageTag": "d18288f1-8bc0-40f9-92c8-5ebcf9af99ef",
             "sourceColumn": "NetWeight",
-            "summarizeBy": "sum"
+            "summarizeBy": "none"
           },
           {
             "name": "IndustrySector",
@@ -65478,7 +65534,7 @@
         "annotations": [
           {
             "name": "PBI_ResultType",
-            "value": "Exception"
+            "value": "Table"
           }
         ],
         "columns": [
@@ -65699,7 +65755,11 @@
         "annotations": [
           {
             "name": "PBI_ResultType",
-            "value": "Exception"
+            "value": "Table"
+          },
+          {
+            "name": "PBI_NavigationStepName",
+            "value": "Navigation"
           }
         ],
         "columns": [
@@ -66118,12 +66178,12 @@
             "value": "Table"
           },
           {
-            "name": "PBI_IsMQueryFoldable",
-            "value": "True"
-          },
-          {
             "name": "PBI_NavigationStepName",
             "value": "Navigation"
+          },
+          {
+            "name": "PBI_IsMQueryFoldable",
+            "value": "True"
           }
         ],
         "columns": [
@@ -67586,9 +67646,24 @@
               }
             ],
             "dataType": "double",
-            "lineageTag": "acb28b80-6c24-4b2b-a97c-6c7ac78b6942",
+            "lineageTag": "19631501-9efd-4899-84fa-937eab8baa1c",
             "sourceColumn": "AmountInCompanyCodeCurrency",
             "summarizeBy": "sum"
+          },
+          {
+            "name": "nk_ProductPlant_derived",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "expression": "CONCATENATE(CONCATENATE(fact_ACDOCA_EPMSalesView[ProductID],\"¦\"),fact_ACDOCA_EPMSalesView[PlantID])",
+            "isDataTypeInferred": true,
+            "lineageTag": "e1422870-9675-442a-8dab-900c63024898",
+            "summarizeBy": "none",
+            "type": "calculated"
           }
         ],
         "lineageTag": "ac84624d-69b6-416c-8ecd-f006e24cdd3f",
@@ -67602,7 +67677,7 @@
         ],
         "partitions": [
           {
-            "name": "fact_ACDOCA_EPMSalesView",
+            "name": "fact_ACDOCA_EPMSalesView-6af331e5-a7a8-4878-8bef-907afd35d5ed",
             "mode": "import",
             "source": {
               "expression": [
@@ -67680,100 +67755,14 @@
                 "}",
                 "),",
                 "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Removed Columns\",{{\"PostingDate\", type datetime}}),",
-                "    #\"Filtered Rows\" = Table.SelectRows(#\"Changed Type\", each [PostingDate] >= RangeStart and [PostingDate] <= RangeEnd)",
+                "    #\"Filtered Rows\" = Table.SelectRows(#\"Changed Type\", each [PostingDate] > RangeStart and [PostingDate] <= RangeEnd)",
                 "in",
                 "    #\"Filtered Rows\""
               ],
               "type": "m"
             }
           }
-        ],
-        "refreshPolicy": {
-          "incrementalGranularity": "month",
-          "incrementalPeriods": 3,
-          "policyType": "basic",
-          "rollingWindowGranularity": "year",
-          "rollingWindowPeriods": 5,
-          "sourceExpression": [
-            "let",
-            "    Source = Sql.Database(\"\"&Source&\"\", \"\"&DB&\"\"),",
-            "    dm_finance_vw_fact_ACDOCA_EPMSalesView = Source{[Schema=\"dm_finance\",Item=\"vw_fact_ACDOCA_EPMSalesView\"]}[Data],",
-            "    #\"Removed Columns\" = Table.RemoveColumns(dm_finance_vw_fact_ACDOCA_EPMSalesView,{",
-            "\"AccountAssignmentID\",",
-            "\"AccountAssignmentNumber\",",
-            "\"AccountAssignmentTypeID\",",
-            "\"AccountingDocumentCategoryID\",",
-            "\"AmountInFreeDefinedCurrency1\",",
-            "\"AmountInFreeDefinedCurrency2\",",
-            "\"AssignmentReference\",",
-            "\"BillableControlID\",",
-            "\"BusinessAreaID\",",
-            "\"BusinessProcessID\",",
-            "\"ChartOfAccountsID\",",
-            "\"ClearingAccountingDocument\",",
-            "\"ClearingDocFiscalYear\",",
-            "\"ControllingAreaID\",",
-            "\"ControllingBusTransacTypeID\",",
-            "\"CostCtrActivityTypeID\",",
-            "\"CostObjectID\",",
-            "\"CreationDateTime\",",
-            "\"FinancialAccountTypeID\",",
-            "\"FinancialTransactionTypeID\",",
-            "\"FiscalYearVariant\",",
-            "\"FreeDefinedCurrency1\",",
-            "\"FreeDefinedCurrency2\",",
-            "\"GLRecordTypeID\",",
-            "\"InvoiceItemReference\",",
-            "\"InvoiceReference\",",
-            "\"InvoiceReferenceFiscalYear\",",
-            "\"IsCommitment\",",
-            "\"IsSettled\",",
-            "\"IsSettlement\",",
-            "\"JrnlEntryItemObsoleteReasonID\",",
-            "\"LastChangeDateTime\",",
-            "\"LineItemIsCompleted\",",
-            "\"OperatingConcernID\",",
-            "\"OrderCategoryID\",",
-            "\"OrderID\",",
-            "\"OriginCostCenterID\",",
-            "\"OriginObjectTypeID\",",
-            "\"OriginProfitCenterID\",",
-            "\"PartnerBusinessAreaID\",",
-            "\"PartnerCostCenterID\",",
-            "\"PartnerFunctionalAreaID\",",
-            "\"PartnerProfitCenterID\",",
-            "\"PartnerSegmentID\",",
-            "\"PersonnelNumber\",",
-            "\"PostingKeyID\",",
-            "\"PredecessorReferenceDocItem\",",
-            "\"PredecessorReferenceDocTypeID\",",
-            "\"PredecessorReferenceDocument\",",
-            "\"ProjectID\",",
-            "\"ProjectInternalID\",",
-            "\"ReferenceDocumentContextID\",",
-            "\"ReferenceDocumentItemGroupID\",",
-            "\"ReferencePurchaseOrderCategoryID\",",
-            "\"ReversalReferenceDocumentCntxtID\",",
-            "\"SegmentID\",",
-            "\"ServiceDocument\",",
-            "\"ServiceDocumentItem\",",
-            "\"ServiceDocumentTypeID\",",
-            "\"SourceReferenceDocument\",",
-            "\"SourceReferenceDocumentItem\",",
-            "\"SourceReferenceDocumentTypeID\",",
-            "\"SpecialGLCodeID\",",
-            "\"SubLedgerAcctLineItemTypeID\",",
-            "\"TaxCodeID\",",
-            "\"TransactionTypeDeterminationID\",",
-            "\"WBSElementID\"",
-            "}",
-            "),",
-            "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Removed Columns\",{{\"PostingDate\", type datetime}}),",
-            "    #\"Filtered Rows\" = Table.SelectRows(#\"Changed Type\", each [PostingDate] >= RangeStart and [PostingDate] <= RangeEnd)",
-            "in",
-            "    #\"Filtered Rows\""
-          ]
-        }
+        ]
       },
       {
         "name": "CustomerShippedTo",
@@ -70179,7 +70168,7 @@
             "displayFolder": "!Predefined KPIs",
             "expression": [
               "",
-              "//IF(SELECTEDVALUE(srv_Actual_Finance[Value])=\"Exclude\",",
+              "IF(SELECTEDVALUE(srv_Actual_Finance[Value])=\"Exclude\",",
               "CALCULATE([Sales]+ [Cogs a/c], ",
               "            fact_ACDOCA_EPMSalesView[TPAdjustment] = 0, ",
               "            fact_ACDOCA_EPMSalesView[SourceLedgerID] IN { \"0L\", \"OC\" },",
@@ -70187,11 +70176,15 @@
               "            ALL(fact_ACDOCA_EPMSalesView[Source]), ",
               "            ALL(fact_ACDOCA_EPMSalesView[Subsource]),",
               "            FILTER(fact_ACDOCA_EPMSalesView, CONCATENATE(fact_ACDOCA_EPMSalesView[CompanyCodeID],fact_ACDOCA_EPMSalesView[SourceLedgerID]) <> \"CH35OC\")",
-              "        )//,",
-              "       // CALCULATE([Sales]+[Cogs a/c]",
-              "        //+CALCULATE(SUM(CompanyCode[Currency]))//",
-              "        //,fact_ACDOCA_EPMSalesView[GMElementL1]=\"Freight Outbound\")",
-              "//)"
+              "        ),",
+              "        CALCULATE([Sales]+ [Cogs a/c] + CALCULATE(SUM(fact_ACDOCA_EPMSalesView[AmountInCompanyCodeCurrency]),fact_ACDOCA_EPMSalesView[GMElementL1]=\"Freight Outbound\"), ",
+              "            fact_ACDOCA_EPMSalesView[TPAdjustment] = 0, ",
+              "            fact_ACDOCA_EPMSalesView[SourceLedgerID] IN { \"0L\", \"OC\" },",
+              "            ALL(GLAccount[GLAccountID]), ",
+              "            ALL(fact_ACDOCA_EPMSalesView[Source]), ",
+              "            ALL(fact_ACDOCA_EPMSalesView[Subsource]),",
+              "            FILTER(fact_ACDOCA_EPMSalesView, CONCATENATE(fact_ACDOCA_EPMSalesView[CompanyCodeID],fact_ACDOCA_EPMSalesView[SourceLedgerID]) <> \"CH35OC\")",
+              "))"
             ],
             "lineageTag": "deb58a71-556b-4d69-b920-721e617b0628"
           },
@@ -70507,19 +70500,25 @@
           {
             "name": "7_Grosss Margin %% PY",
             "displayFolder": "!Predefined KPIs",
-            "expression": "round(CALCULATE([7_Gross Margin %], DATEADD('Calendar'[Date], -1, year)),1)",
+            "expression": "CALCULATE([7_Gross Margin %], DATEADD('Calendar'[Date], -1, year))",
             "formatString": "0.00%;-0.00%;0.00%",
             "lineageTag": "3e83a07c-b11e-4348-a56b-bb1cd4369c5a"
           },
           {
             "name": "6_Actual Finance Margin % PY",
             "displayFolder": "!Predefined KPIs",
-            "expression": "round(CALCULATE([6_Actual Finance Margin %], DATEADD('Calendar'[Date], -1, year)),1)",
+            "expression": "CALCULATE([6_Actual Finance Margin %], DATEADD('Calendar'[Date], -1, year))",
             "formatString": "0.00%;-0.00%;0.00%",
             "lineageTag": "7c6ed9de-04cd-4c3e-bcbc-9e4c46c3d7b7"
           },
           {
             "name": "6_Actual Finance Margin %",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isCustom\":true}"
+              }
+            ],
             "displayFolder": "!Predefined KPIs",
             "expression": "[6_Actual Finance Margin] / [3_Reported Revenue]",
             "formatString": "0.00%;-0.00%;0.00%",
@@ -70568,8 +70567,11 @@
             "expression": [
               "",
               "IF(",
-              "   [SelectedValue_KPI] = \"Predefined KPI is chosen\", \"TP adjustments are excluded\", \" \"",
-              ")"
+              "   SELECTEDVALUE(srv_MeasureTypes[Type])=BLANK(),\"TP adjustments are excluded\",",
+              "   IF(SELECTEDVALUE(srv_MeasureTypes[Type])=\"Predefined\",\"TP adjustments are excluded\",",
+              "   IF(SELECTEDVALUE(fact_ACDOCA_EPMSalesView[TPAdjustment]) =1, \"TP adjustments are included\", ",
+              "   IF(DISTINCTCOUNT(fact_ACDOCA_EPMSalesView[TPAdjustment]) <>1,\"TP adjustments are included\", IF(SELECTEDVALUE(fact_ACDOCA_EPMSalesView[TPAdjustment]) =0,\"TP adjustments are excluded\",\"\"",
+              ")))))"
             ],
             "lineageTag": "88a7a70c-dabe-4b38-931a-06f2ed7a6d61"
           },
@@ -70726,7 +70728,7 @@
             "name": "% of Total Sales KPI",
             "expression": [
               "",
-              "DIVIDE(CALCULATE([GrossMargin],fact_ACDOCA_EPMSalesView[GMElementL1]<>\"Sales\"), [Total Sales], BLANK())"
+              "(DIVIDE([GrossMargin],[Total Sales], BLANK()))"
             ],
             "formatString": "0.00%;-0.00%;0.00%",
             "lineageTag": "2493c3bd-11f4-416f-9614-86290358ca65"
@@ -70746,7 +70748,7 @@
           {
             "name": "Reconciliation File Title",
             "displayFolder": "Titles",
-            "expression": "CONCATENATE(CONCATENATE(\"Gross Margin YTD (\",CONCATENATE(FORMAT(CALCULATE(MAX(Reconciliation_File[YTD])),\"YYYY\"),CONCATENATE(\" \",FORMAT(CALCULATE(MAX(Reconciliation_File[YTD])),\"MMMM\")))),\") Reconciliation to ExQL\")",
+            "expression": "CONCATENATE(CONCATENATE(\"Gross Margin (\",CONCATENATE(FORMAT(CALCULATE(MAX(Reconciliation_File[YTD])),\"YYYY\"),CONCATENATE(\" \",FORMAT(CALCULATE(MAX(Reconciliation_File[YTD])),\"MMMM\")))),\" YTD) Reconciliation to ExQL\")",
             "lineageTag": "27f1e183-9eea-4b4d-a777-92140476416a"
           },
           {
@@ -70758,7 +70760,7 @@
               }
             ],
             "displayFolder": "!Predefined KPIs",
-            "expression": "CALCULATE([7_Gross Margin])/1000000",
+            "expression": "CALCULATE([7_Gross Margin Currency USD],DATESYTD(fact_ACDOCA_EPMSalesView[PostingDate]),FILTER(fact_ACDOCA_EPMSalesView,fact_ACDOCA_EPMSalesView[PostingDate]<=MAX(Reconciliation_File[YTD])))/1000000",
             "lineageTag": "18687bae-a825-449e-a216-727f6be2a386"
           },
           {
@@ -70770,8 +70772,141 @@
               }
             ],
             "displayFolder": "!Predefined KPIs",
-            "expression": "CALCULATE(SUM(Reconciliation_File[ExQL values IN $mm]))-CALCULATE([7_Gross Margin],DATESYTD('Calendar'[Date]))/1000000",
+            "expression": "CALCULATE(SUM(Reconciliation_File[ExQL values IN $mm]))-CALCULATE([7_GrossMargin YTD in mm])",
             "lineageTag": "17ce45e4-3edd-4f22-8afe-0142df04ea69"
+          },
+          {
+            "name": "Notification_Freight_Outbound",
+            "displayFolder": "Notifications",
+            "expression": [
+              "",
+              "IF(",
+              "   AND(SELECTEDVALUE(srv_MeasureTypes[Choose KPI])=\"6_Actual Finance Margin\",SELECTEDVALUE(srv_Actual_Finance[Value]) =\"Include\"), \" | Freight Outbound included\",",
+              "   IF(AND(SELECTEDVALUE(srv_MeasureTypes[Choose KPI])=\"6_Actual Finance Margin\",SELECTEDVALUE(srv_Actual_Finance[Value]) =\"Exclude\"),  \" | Freight Outbound excluded\",\"\"))"
+            ],
+            "lineageTag": "8304ee18-623f-4cb8-a81c-e8400694fc28"
+          },
+          {
+            "name": "Budget PY",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "displayFolder": "Budget",
+            "expression": "CALCULATE([Budget], DATEADD('Calendar'[Date], -1, year))",
+            "lineageTag": "46501e93-06c3-4242-85e2-d78289067024"
+          },
+          {
+            "name": "7_Gross Margin Local Currency",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "displayFolder": "!Predefined KPIs",
+            "expression": [
+              "",
+              "CALCULATE([GrossMargin], ",
+              "            fact_ACDOCA_EPMSalesView[TPAdjustment] = 0, ",
+              "            fact_ACDOCA_EPMSalesView[SourceLedgerID] IN { \"0L\", \"OC\" },",
+              "            ALL(GLAccount[GLAccountID]), ",
+              "            ALL(fact_ACDOCA_EPMSalesView[Source]), ",
+              "            ALL(fact_ACDOCA_EPMSalesView[Subsource]),",
+              "            FILTER(fact_ACDOCA_EPMSalesView, CONCATENATE(fact_ACDOCA_EPMSalesView[CompanyCodeID],fact_ACDOCA_EPMSalesView[SourceLedgerID]) <> \"CH35OC\")",
+              "            ,FILTER(fact_ACDOCA_EPMSalesView,fact_ACDOCA_EPMSalesView[CurrencyType]=\"Local Currency\")",
+              "        )"
+            ],
+            "lineageTag": "d858fb56-8141-4855-ad53-e977acaf0620"
+          },
+          {
+            "name": "7_GrossMargin YTD in mm Local Currency",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "displayFolder": "!Predefined KPIs",
+            "expression": "CALCULATE([7_Gross Margin Local Currency],DATESYTD(fact_ACDOCA_EPMSalesView[PostingDate]),FILTER(fact_ACDOCA_EPMSalesView,fact_ACDOCA_EPMSalesView[PostingDate]<=MAX(Reconciliation_File[YTD])))/1000000",
+            "lineageTag": "e956cf14-f00f-42c2-8bc9-ddb40c32c938"
+          },
+          {
+            "name": "Delta 7_GrossMargin Reconciliation Local Currency",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "displayFolder": "!Predefined KPIs",
+            "expression": "CALCULATE(SUM(Reconciliation_File[ExQL values in Loc cur mm]))-CALCULATE([7_GrossMargin YTD in mm Local Currency],DATESYTD('Calendar'[Date]))",
+            "lineageTag": "ec4be038-b2db-4eb1-a529-8a69ae99b7cb"
+          },
+          {
+            "name": "Delta7_Reconciliation Color",
+            "displayFolder": "!Predefined KPIs",
+            "expression": "IF(and([Delta 7_GrossMargin Reconciliation]<0.01,[Delta 7_GrossMargin Reconciliation]>-0.01),0,IF(and([Delta 7_GrossMargin Reconciliation]<0.05,[Delta 7_GrossMargin Reconciliation]>-0.05),1,2))",
+            "formatString": "0",
+            "lineageTag": "793ada2d-8bcb-4de8-b84a-941f803a2a00"
+          },
+          {
+            "name": "Delta7_Reconciliation Color Local Currency",
+            "displayFolder": "!Predefined KPIs",
+            "expression": "IF(and([Delta 7_GrossMargin Reconciliation Local Currency]<0.01,[Delta 7_GrossMargin Reconciliation Local Currency]>-0.01),0,IF(and([Delta 7_GrossMargin Reconciliation Local Currency]<0.05,[Delta 7_GrossMargin Reconciliation Local Currency]>-0.05),1,2))",
+            "formatString": "0",
+            "lineageTag": "e7582587-8a78-4537-9979-6f9ff56731dd"
+          },
+          {
+            "name": "Budget label",
+            "displayFolder": "Notifications",
+            "expression": "\"Budget\"",
+            "lineageTag": "7851313d-cda1-4223-8583-98f2bc3a06ef"
+          },
+          {
+            "name": "GM label",
+            "displayFolder": "Notifications",
+            "expression": "\"% GM\"",
+            "lineageTag": "bd6f5bff-9f2b-4844-8a68-6c4d9960ae1a"
+          },
+          {
+            "name": "7_Gross Margin Currency USD",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "displayFolder": "!Predefined KPIs",
+            "expression": [
+              "",
+              "CALCULATE([GrossMargin], ",
+              "            fact_ACDOCA_EPMSalesView[TPAdjustment] = 0, ",
+              "            fact_ACDOCA_EPMSalesView[SourceLedgerID] IN { \"0L\", \"OC\" },",
+              "            ALL(GLAccount[GLAccountID]), ",
+              "            ALL(fact_ACDOCA_EPMSalesView[Source]), ",
+              "            ALL(fact_ACDOCA_EPMSalesView[Subsource]),",
+              "            FILTER(fact_ACDOCA_EPMSalesView, CONCATENATE(fact_ACDOCA_EPMSalesView[CompanyCodeID],fact_ACDOCA_EPMSalesView[SourceLedgerID]) <> \"CH35OC\")",
+              "            ,FILTER(fact_ACDOCA_EPMSalesView,fact_ACDOCA_EPMSalesView[CurrencyType]=\"Group Currency USD\")",
+              "        )"
+            ],
+            "lineageTag": "9cae0a5b-7595-45df-8972-e78148e678e5"
+          },
+          {
+            "name": "Quantity_Sales",
+            "displayFolder": "EPM Sales and Margins",
+            "expression": "CALCULATE(ABS(SUM(fact_ACDOCA_EPMSalesView[Quantity])),RIGHT(LEFT(GLAccount[GLAccountID],3),1)=4)",
+            "formatString": "0",
+            "lineageTag": "8b99734c-5958-4b5e-a89b-d7278b74357a"
+          },
+          {
+            "name": "Quantity_COGS",
+            "displayFolder": "EPM Cogs",
+            "expression": "CALCULATE(ABS(SUM(fact_ACDOCA_EPMSalesView[Quantity])),RIGHT(LEFT(GLAccount[GLAccountID],3),1)=5)",
+            "formatString": "0",
+            "lineageTag": "d041cf5d-cd3d-456a-b256-75e185088e3d"
           }
         ],
         "partitions": [
@@ -70908,7 +71043,7 @@
             "source": {
               "expression": [
                 "let",
-                "    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText(\"jZRBb4IwFMe/SkPizQOgoh4NycwOzkVOi5qmQt1ITDGlmu22+77lPslaXkFoK+4A5b3+3++9V9put15CTrT0ht0Rvb7Jz0A+C0ZOX2Veevvh1ovXywRJZ2cEbWhqgbMi/D1nDdZpAmBkAtbig3IUF4mccH5D3NiMW/KilA3w4pgLOddjAmBiJT7TT5XnNoAwcmdqeuoxATDtWyM0MJfFdgBmZmJ0N62whx4gzU3SKq7Eq7h61bLAN3UBfqECPbNrkacU1Vun5cvA+fv9o+Jttd40QVUZzegxZzIG2ARv6IEIihZpyi/kpNC2x5ZpZuhghlUFG3ql7EJ1pRwsKLEj0KCRC0Twk1w/lRLtLr4fRgiqUCXJGcLSVkGW4n64zjl25BzJRs8FF9K+dWC6ZBs7tetssSZPXGSCqyOcCMIywrP6SLdsU6JpkYt2AOkiFbL7mtVY3WnNmTo4E9wkq1f0dm+4Z+An9gWGM0emCOtiLLnTD1nuBOmG5o40U9xzNQC0K9E3ou9iDbpKdVz/5dNM68Tt/wA=\", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [#\"Choose KPI\" = _t, MeasureDescription = _t, #\"KPI Name PY\" = _t, Sort = _t, Type = _t]),",
+                "    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText(\"jZRBb4IwFMe/SkPizQOgoh4NycwOzkVOi5qmQt1ITDGlmu22+77lPslaXkFoK+4A5b3+3++9V9put15CTrT0ht0Rvb7Jz0A+C0ZOX2Veevvh1ovXywRJZ2cEbWhqgbMi/D1nDdZpAmBkAtbig3IUF4mccH5D3NiMW/KilA3w4pgLOddjAmBiJT7TT5XnNoAwcmdqeuoxATDtWyM0MJfFdgBmZmJ0N62whx4gzU3SKq7Eq7h61bLAN3UBfqECPbNrkacU1Vun5cvA+fv9o+Jttd40QVUZzegxZzQDNMEbeiCCokWa8gs5KbLtsWUaGdrIsMq/oVfKLlTXycGCAjsCzRk5OAQ/ycVTCdHu4vthhKAGVZCcISxtlWMp7ofrlGM75Uh2eS64kAt6q990ySZ2asfZYg2eOMAEV6c3EYRlhGf1aW7ZpkTDIgfsAMpFKmTrNaqxutMaM7UxE9ykqlfzdmG4Z+D/9QWGMztRhHUpltrphyR3gnQ7czvLFPfcCMDsSvRF6DtQg65QHdJ/+TTSPGf7Pw==\", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [#\"Choose KPI\" = _t, MeasureDescription = _t, #\"KPI Name PY\" = _t, Sort = _t, Type = _t]),",
                 "    #\"Changed Type\" = Table.TransformColumnTypes(Source,{{\"Choose KPI\", type text}, {\"MeasureDescription\", type text}, {\"KPI Name PY\", type text}}),",
                 "    #\"Inserted Merged Column\" = Table.AddColumn(#\"Changed Type\", \"Title\", each Text.Combine({[Choose KPI], \" Analysis\"}), type text)",
                 "in",
@@ -70924,7 +71059,7 @@
         "annotations": [
           {
             "name": "PBI_ResultType",
-            "value": "Exception"
+            "value": "Table"
           }
         ],
         "columns": [
@@ -71100,7 +71235,7 @@
         "annotations": [
           {
             "name": "PBI_ResultType",
-            "value": "Exception"
+            "value": "Table"
           }
         ],
         "columns": [
@@ -71168,7 +71303,7 @@
         "annotations": [
           {
             "name": "PBI_ResultType",
-            "value": "Exception"
+            "value": "Table"
           }
         ],
         "columns": [
@@ -71563,7 +71698,7 @@
         "annotations": [
           {
             "name": "PBI_ResultType",
-            "value": "Exception"
+            "value": "Table"
           }
         ],
         "columns": [
@@ -71806,7 +71941,7 @@
         "annotations": [
           {
             "name": "PBI_ResultType",
-            "value": "Exception"
+            "value": "Table"
           }
         ],
         "columns": [
@@ -72004,7 +72139,7 @@
         "annotations": [
           {
             "name": "PBI_ResultType",
-            "value": "Exception"
+            "value": "Table"
           }
         ],
         "columns": [
@@ -72227,7 +72362,7 @@
         "annotations": [
           {
             "name": "PBI_ResultType",
-            "value": "Exception"
+            "value": "Table"
           }
         ],
         "columns": [
@@ -72392,7 +72527,7 @@
         "annotations": [
           {
             "name": "PBI_ResultType",
-            "value": "Exception"
+            "value": "Table"
           }
         ],
         "columns": [
@@ -72487,7 +72622,7 @@
         "annotations": [
           {
             "name": "PBI_ResultType",
-            "value": "Exception"
+            "value": "Table"
           }
         ],
         "columns": [
@@ -72541,7 +72676,7 @@
         "annotations": [
           {
             "name": "PBI_ResultType",
-            "value": "Exception"
+            "value": "Table"
           }
         ],
         "columns": [
@@ -72595,7 +72730,7 @@
         "annotations": [
           {
             "name": "PBI_ResultType",
-            "value": "Exception"
+            "value": "Table"
           }
         ],
         "columns": [
@@ -72764,7 +72899,7 @@
         "annotations": [
           {
             "name": "PBI_ResultType",
-            "value": "Exception"
+            "value": "Table"
           }
         ],
         "columns": [
@@ -72831,7 +72966,7 @@
         "annotations": [
           {
             "name": "PBI_ResultType",
-            "value": "Exception"
+            "value": "Table"
           }
         ],
         "columns": [
@@ -72960,7 +73095,7 @@
         "annotations": [
           {
             "name": "PBI_ResultType",
-            "value": "Exception"
+            "value": "Table"
           }
         ],
         "columns": [
@@ -73101,7 +73236,7 @@
             "summarizeBy": "none"
           },
           {
-            "name": "ExQL values IN $mm",
+            "name": "ExQL values in $mm",
             "annotations": [
               {
                 "name": "SummarizationSetBy",
@@ -73113,9 +73248,172 @@
               }
             ],
             "dataType": "double",
-            "lineageTag": "f24da3e7-7cf1-451e-bf50-70750af039c4",
-            "sourceColumn": "ExQL values IN $mm",
+            "lineageTag": "691984c0-00af-44d8-a419-125df0273532",
+            "sourceColumn": "ExQL values in $mm",
             "summarizeBy": "sum"
+          },
+          {
+            "name": "BI values in $mm",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "dataType": "double",
+            "lineageTag": "c47fb0f9-6063-432e-97b1-f2fbab4404e7",
+            "sourceColumn": "BI values in $mm",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "Diff in $mm",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "dataType": "double",
+            "lineageTag": "04d09108-fc32-4e5d-9df6-ed623e7e2fe7",
+            "sourceColumn": "Diff in $mm",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "ExQL values in Loc cur mm",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "dataType": "double",
+            "lineageTag": "c277232d-e6b9-4a5b-81b6-f278d2f5b885",
+            "sourceColumn": "ExQL values in Loc cur mm",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "BI values in Loc cur mm",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "dataType": "double",
+            "lineageTag": "cb02bc35-1fea-48fe-9b99-aa480f9928cf",
+            "sourceColumn": "BI values in Loc cur mm",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "Diff in Loc cur mm",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "dataType": "double",
+            "lineageTag": "e03f42d9-5ca3-4009-93a3-e1f9925454e8",
+            "sourceColumn": "Diff in Loc cur mm",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "Comments",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "794003c0-a9f8-46ec-ad03-5aabc16c0a69",
+            "sourceColumn": "Comments",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Column13",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "c83a41cd-1a6d-444d-b133-bc2f2eab7909",
+            "sourceColumn": "Column13",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Column14",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "4c879c19-2d18-40c4-8274-d1cba637c4ff",
+            "sourceColumn": "Column14",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Column15",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "86d3b386-5bcf-4d7c-a7ab-b192b5fddc04",
+            "sourceColumn": "Column15",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Column16",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "b1515381-8e65-4870-bf75-1bb980bdf4f4",
+            "sourceColumn": "Column16",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Column17",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "74debc7f-7b94-469f-beac-024ba777dabf",
+            "sourceColumn": "Column17",
+            "summarizeBy": "none"
           }
         ],
         "lineageTag": "6c62be00-8113-4fc8-b0ba-d0719f1c79a3",
@@ -73126,12 +73424,13 @@
             "source": {
               "expression": [
                 "let",
-                "    Source = Excel.Workbook(Web.Contents(\"https://crhemea.sharepoint.com/sites/crh-group-cs-dataandanalyti-0010_DevOps/Shared%20Documents/0010_DevOps/ExQL%20reconciliation%20banner/RECONCILIATION_NovemberYTD.xlsx\"), null, true),",
-                "    Sheet1_Sheet = Source{[Item=\"Sheet1\",Kind=\"Sheet\"]}[Data],",
-                "    #\"Promoted Headers\" = Table.PromoteHeaders(Sheet1_Sheet, [PromoteAllScalars=true]),",
-                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\",{{\"Reporting Entity\", type text}, {\"Company Code\", type text}, {\"ExQL reporting entity \", type text}, {\"Key \", type text}, {\"YTD\", type date}, {\"ExQL values IN $mm\", type number}})",
+                "    Source = Excel.Workbook(Web.Contents(\"https://crhemea.sharepoint.com/sites/crh-group-cs-leviatfinancep/MEC%20Files/00.MEC%20TEMPLATES/ExQL%20to%20SAP%20Reconciliation/GM_reconciliation_data.xlsx\"), null, true),",
+                "    Sheet2_Sheet = Source{[Item=\"Sheet2\",Kind=\"Sheet\"]}[Data],",
+                "    #\"Promoted Headers1\" = Table.PromoteHeaders(Sheet2_Sheet, [PromoteAllScalars=true]),",
+                "    #\"Changed Type1\" = Table.TransformColumnTypes(#\"Promoted Headers1\",{{\"Reporting Entity\", type text}, {\"Company Code\", type text}, {\"ExQL reporting entity \", type text}, {\"Key \", type text}, {\"YTD\", type date}, {\"ExQL values in $mm\", type number}, {\"BI values in $mm\", type number}, {\"Diff in $mm\", type number}, {\"ExQL values in Loc cur mm\", type number}, {\"BI values in Loc cur mm\", type number}, {\"Diff in Loc cur mm\", type number}, {\"Comments\", type any}, {\"Column13\", type any}, {\"Column14\", type any}, {\"Column15\", type any}, {\"Column16\", type any}, {\"Column17\", type any}}),",
+                "    #\"Filtered Rows\" = Table.SelectRows(#\"Changed Type1\", each ([#\"Key \"] <> null))",
                 "in",
-                "    #\"Changed Type\""
+                "    #\"Filtered Rows\""
               ],
               "type": "m"
             }
@@ -73452,7 +73751,7 @@
             "dataType": "double",
             "lineageTag": "ab26f2a3-0406-42f8-a6cf-ba06e1053f35",
             "sourceColumn": "GoodsReceiptDuration",
-            "summarizeBy": "sum"
+            "summarizeBy": "none"
           },
           {
             "name": "MaintenanceStatusName",
@@ -73534,7 +73833,7 @@
             "dataType": "double",
             "lineageTag": "951cd842-4ee5-4c81-8545-3424b681a813",
             "sourceColumn": "MinimumLotSizeQuantity",
-            "summarizeBy": "sum"
+            "summarizeBy": "none"
           },
           {
             "name": "MaximumLotSizeQuantity",
@@ -73551,7 +73850,7 @@
             "dataType": "double",
             "lineageTag": "f1c3ec9f-1176-4f81-8ebc-798d397d939c",
             "sourceColumn": "MaximumLotSizeQuantity",
-            "summarizeBy": "sum"
+            "summarizeBy": "none"
           },
           {
             "name": "FixedLotSizeQuantity",
@@ -73568,7 +73867,7 @@
             "dataType": "double",
             "lineageTag": "20b4cf6d-4647-48a9-acb8-1375e41a6b7a",
             "sourceColumn": "FixedLotSizeQuantity",
-            "summarizeBy": "sum"
+            "summarizeBy": "none"
           },
           {
             "name": "ConsumptionTaxCtrlCode",
@@ -73650,7 +73949,7 @@
             "dataType": "double",
             "lineageTag": "11082ff1-09b4-4d3a-86d1-c88036466f1f",
             "sourceColumn": "StockInTransferQuantity",
-            "summarizeBy": "sum"
+            "summarizeBy": "none"
           },
           {
             "name": "StockInTransitQuantity",
@@ -73667,7 +73966,7 @@
             "dataType": "double",
             "lineageTag": "c6851638-6bc6-4ad5-9b39-26abc359b111",
             "sourceColumn": "StockInTransitQuantity",
-            "summarizeBy": "sum"
+            "summarizeBy": "none"
           },
           {
             "name": "HasPostToInspectionStock",
@@ -73736,7 +74035,7 @@
             "dataType": "double",
             "lineageTag": "49fd18b5-1789-4f5a-980a-43e0a45fb654",
             "sourceColumn": "GoodsReceiptBlockedStockQty",
-            "summarizeBy": "sum"
+            "summarizeBy": "none"
           },
           {
             "name": "HasConsignmentCtrl",
@@ -73844,7 +74143,7 @@
             "dataType": "double",
             "lineageTag": "b5fc802e-a532-4542-bdf8-b79f2f3fd0d1",
             "sourceColumn": "UnderDelivToleranceLimit",
-            "summarizeBy": "sum"
+            "summarizeBy": "none"
           },
           {
             "name": "OverDelivToleranceLimit",
@@ -73861,7 +74160,7 @@
             "dataType": "double",
             "lineageTag": "1b184057-c7af-4040-8d0d-17857eb5a434",
             "sourceColumn": "OverDelivToleranceLimit",
-            "summarizeBy": "sum"
+            "summarizeBy": "none"
           },
           {
             "name": "ProcurementType",
@@ -73930,7 +74229,7 @@
             "dataType": "double",
             "lineageTag": "71d25183-15c9-4a61-b81c-4eb2f5a01116",
             "sourceColumn": "SafetyStockQuantity",
-            "summarizeBy": "sum"
+            "summarizeBy": "none"
           },
           {
             "name": "GoodsIssueUnit",
@@ -74017,7 +74316,7 @@
             "dataType": "double",
             "lineageTag": "314a0735-4323-497c-ac35-f5f0a93984b7",
             "sourceColumn": "ConsumptionQtyMultiplier",
-            "summarizeBy": "sum"
+            "summarizeBy": "none"
           },
           {
             "name": "ProductUnitGroup",
@@ -74073,7 +74372,7 @@
             "dataType": "double",
             "lineageTag": "d752f6a5-b321-42b0-b372-bd9d7fae50c3",
             "sourceColumn": "GoodIssueProcessingDays",
-            "summarizeBy": "sum"
+            "summarizeBy": "none"
           },
           {
             "name": "PlannedDeliveryDurationInDays",
@@ -74090,7 +74389,7 @@
             "dataType": "double",
             "lineageTag": "5fb1ffd3-9f1d-4ca4-970c-bac6d2347bec",
             "sourceColumn": "PlannedDeliveryDurationInDays",
-            "summarizeBy": "sum"
+            "summarizeBy": "none"
           },
           {
             "name": "IsActiveEntity",
@@ -74211,7 +74510,7 @@
             "dataType": "double",
             "lineageTag": "d454323b-83d7-4086-8e6f-e74bf3bfa0b4",
             "sourceColumn": "Re-Order Point",
-            "summarizeBy": "sum"
+            "summarizeBy": "none"
           },
           {
             "name": "Rounding Value",
@@ -74228,7 +74527,7 @@
             "dataType": "double",
             "lineageTag": "c5d58ea3-52de-434c-9c46-8e20a1f26ccc",
             "sourceColumn": "Rounding Value",
-            "summarizeBy": "sum"
+            "summarizeBy": "none"
           },
           {
             "name": "PlanningStrategyGroupID_Name",
@@ -74557,6 +74856,330 @@
                 "let",
                 "    Source = Sql.Database(#\"Source\", #\"DB\"),",
                 "    dm_sales_vw_dim_InOut = Source{[Schema=\"dm_sales\",Item=\"vw_dim_Plant\"]}[Data]",
+                "in",
+                "    dm_sales_vw_dim_InOut"
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "ProductSalesDelivery",
+        "annotations": [
+          {
+            "name": "PBI_NavigationStepName",
+            "value": "Navigation"
+          },
+          {
+            "name": "PBI_ResultType",
+            "value": "Table"
+          }
+        ],
+        "columns": [
+          {
+            "name": "sk_ProductSalesDelivery",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "lineageTag": "3fbdf7e9-27dd-4694-9bf4-c1d4d716f7b3",
+            "sourceColumn": "sk_ProductSalesDelivery",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "ProductID",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "cf423369-5ec5-4f3a-bbd5-b20d98c363a8",
+            "sourceColumn": "ProductID",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "SalesOrganizationID",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "1c530f39-0b44-4acd-a15e-e92eebf88367",
+            "sourceColumn": "SalesOrganizationID",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "DistributionChannelID",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "869d26bc-730f-4fdc-933c-37c9a2b78a55",
+            "sourceColumn": "DistributionChannelID",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "DistributionChannel",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "cd2d55c9-3a88-4a80-82b8-2a2c6e6b2205",
+            "sourceColumn": "DistributionChannel",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "MinimumOrderQuantity",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "dataType": "double",
+            "lineageTag": "125b40f9-9996-4d30-8229-7fa1855a837f",
+            "sourceColumn": "MinimumOrderQuantity",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "SupplyingPlant",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "76afd8a9-31cb-4ce4-9b18-a3b7e48aa8fb",
+            "sourceColumn": "SupplyingPlant",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "PriceSpecificationProductGroup",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "3d986591-f213-4644-8f4f-e0759750f3ae",
+            "sourceColumn": "PriceSpecificationProductGroup",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "AccountDetnProductGroup",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "4e2f31c5-ec76-4157-beca-91f06b756496",
+            "sourceColumn": "AccountDetnProductGroup",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "DeliveryNoteProcMinDelivQty",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "dataType": "double",
+            "lineageTag": "074f21d3-a4a2-4dbb-ace9-c9d23c556066",
+            "sourceColumn": "DeliveryNoteProcMinDelivQty",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "ItemCategoryGroup",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "87d55516-38ec-4c59-8470-6d51750be4e9",
+            "sourceColumn": "ItemCategoryGroup",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "ItemCategoryGroupName",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "671b16ab-1882-4252-9cff-9779970c7196",
+            "sourceColumn": "ItemCategoryGroupName",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "DeliveryQuantityUnit",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "d727af06-51e4-4d66-a8a2-778245928072",
+            "sourceColumn": "DeliveryQuantityUnit",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "DeliveryQuantity",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "dataType": "double",
+            "lineageTag": "81af488f-ee46-4a5f-a980-d782a58c3cc4",
+            "sourceColumn": "DeliveryQuantity",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "ProductSalesStatus",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "e8684bc8-894f-4460-8a83-c548e315ff67",
+            "sourceColumn": "ProductSalesStatus",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "ProductSalesStatusValidityDate",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "UnderlyingDateTimeDataType",
+                "value": "Date"
+              }
+            ],
+            "dataType": "dateTime",
+            "formatString": "Long Date",
+            "lineageTag": "8c761fd6-ec60-4e59-9993-b4592b057135",
+            "sourceColumn": "ProductSalesStatusValidityDate",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "SalesMeasureUnit",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "4256955c-4d71-4c50-ac6b-a3e0f90c4629",
+            "sourceColumn": "SalesMeasureUnit",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "IsMarkedForDeletion",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "976fb0d1-6fef-4597-8131-c523d50e0b87",
+            "sourceColumn": "IsMarkedForDeletion",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "IsConfigurable",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "a5262a43-ff7d-4ca3-a568-8152afe03a08",
+            "sourceColumn": "IsConfigurable",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "t_applicationId",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "81122a3d-e086-46bb-96cc-3416d84b2703",
+            "sourceColumn": "t_applicationId",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "t_extractionDtm",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "dateTime",
+            "formatString": "General Date",
+            "lineageTag": "523ed8d1-11f9-4e82-8003-0c059a58dff6",
+            "sourceColumn": "t_extractionDtm",
+            "summarizeBy": "none"
+          }
+        ],
+        "lineageTag": "ee80df4a-d16f-411b-a6e9-c8bfb9f2b1db",
+        "partitions": [
+          {
+            "name": "ProductSalesDelivery",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Source = Sql.Database(#\"Source\", #\"DB\"),",
+                "    dm_sales_vw_dim_InOut = Source{[Schema=\"dm_sales\",Item=\"vw_fact_ProductSalesDelivery\"]}[Data]",
                 "in",
                 "    dm_sales_vw_dim_InOut"
               ],
