@@ -6080,7 +6080,7 @@
         "sproc_name": "sp_materialize_view",
         "source_view_name": "vw_MaterialDocumentItem",
         "dest_table_name": "fact_MaterialDocumentItem",
-        "execution_order": 2,
+        "execution_order": 6,
         "schedule_recurrence": "D"
       },
       {
@@ -6089,7 +6089,7 @@
         "sproc_name": "sp_materialize_view",
         "source_view_name": "vw_fact_MaterialInventoryStockLevel",
         "dest_table_name": "fact_MaterialInventoryStockLevel",
-        "execution_order": 3,
+        "execution_order": 7,
         "schedule_recurrence": "D"
       },
       {
