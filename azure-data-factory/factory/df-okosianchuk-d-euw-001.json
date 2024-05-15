@@ -1,0 +1,64 @@
+{
+    "name": "df-okosianchuk-d-euw-001",
+    "properties": {
+        "globalParameters": {
+            "XU_hostName": {
+                "type": "string",
+                "value": "http://10.109.68.4:8065"
+            },
+            "storageAccountName": {
+                "type": "string",
+                "value": "stokosianchukdeuw001"
+            },
+            "resourceGroupName": {
+                "type": "string",
+                "value": "rg-xxxx-sls-d-euw-001"
+            },
+            "VMResourceGroupName": {
+                "type": "string",
+                "value": "rg-xxxx-sls-a-euw-001"
+            },
+            "virtualMachineName": {
+                "type": "string",
+                "value": "WEALEVAPP001"
+            },
+            "synapseServerName": {
+                "type": "string",
+                "value": "ws-okosianchuk-d-euw-001"
+            },
+            "synapseDatabaseName": {
+                "type": "string",
+                "value": "syndw_okosianchuk_d_euw_001"
+            },
+            "keyVaultUrl": {
+                "type": "string",
+                "value": "https://kv-xxxx-sls-d-euw-001.vault.azure.net/"
+            },
+            "environment": {
+                "type": "string",
+                "value": "okosianchuk"
+            },
+            "sqlDb": {
+                "type": "string",
+                "value": "sqldb-okosianchuk-d-euw-001"
+            },
+            "s4hSystemId": {
+                "type": "string",
+                "value": "CAA"
+            },
+            "s4hClientId": {
+                "type": "string",
+                "value": "200"
+            },
+            "axbiDataBaseEnvSuffix": {
+                "type": "string",
+                "value": "UAT"
+            },
+            "axbiMinExtractionDate": {
+                "type": "string",
+                "value": "2021-01-01"
+            }
+        }
+    },
+    "location": "westeurope"
+}
