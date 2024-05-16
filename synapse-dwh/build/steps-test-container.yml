@@ -40,7 +40,7 @@ steps:
     script: |
       $xmloutput = "";
       $connectionString = "Data Source=localhost;User ID=sa;Password=$(mssql-sa-pwd);Initial Catalog=TestDWH";
-      $sqlCommand = 'SELECT * FROM utilities.vw_edw_execution_order_issue';
+      $sqlCommand = 'SELECT * FROM utilities.vw_edw_entity_execution_order_issue';
       $connection = new-object system.data.SqlClient.SQLConnection($connectionString);
       $command = new-object system.data.sqlclient.sqlcommand($sqlCommand,$connection);
       $connection.Open();
