@@ -38,7 +38,7 @@ steps:
     targetType: 'inline'
     pwsh: true
     script: |
-      Install-Module -Name SQLServer
+      Install-Module -Name SQLServer -force
 
 - task: PowerShell@2
   displayName: 'Validate EDW Execution Orders'
