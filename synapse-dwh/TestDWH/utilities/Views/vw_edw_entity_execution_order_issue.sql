@@ -90,6 +90,7 @@ ReferencedEntities AS (
 
 
 SELECT
+  e_root.entity_id,
   re.root_view_name,
   e_root.execution_order AS root_view_execution_order,
   re.referenced_entity_name AS referenced_view_name,

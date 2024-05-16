@@ -1,4 +1,6 @@
-WITH 
+CREATE VIEW utilities.vw_edw_entity_column_discrepancy
+AS
+WITH
 view_columns AS (
   SELECT
     e.entity_id,
@@ -10,7 +12,7 @@ view_columns AS (
   INNER JOIN
     sys.objects v
     ON
-      v.name = e.source_view_name
+      v.name COLLATE DATABASE_DEFAULT = e.source_view_name COLLATE DATABASE_DEFAULT
   INNER JOIN
     sys.schemas s
     ON
@@ -34,7 +36,7 @@ table_columns AS (
   INNER JOIN
     sys.objects t
     ON
-      t.name = e.dest_table_name
+      t.name COLLATE DATABASE_DEFAULT = e.dest_table_name COLLATE DATABASE_DEFAULT
   INNER JOIN
     sys.schemas s
     ON
@@ -106,5 +108,3 @@ FROM (
     AND
     tc.table_column_name IS NOT NULL
 ) a
-ORDER BY
-  [Entity ID]
