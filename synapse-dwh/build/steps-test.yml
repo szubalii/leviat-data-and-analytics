@@ -40,7 +40,7 @@ steps:
 
       $connectionString = "Data Source=localhost;User ID=sa;Password=$(mssql-sa-pwd);Initial Catalog=TestDWH;TrustServerCertificate=true";
       $sqlCommand = 'SELECT * FROM utilities.vw_edw_entity_execution_order_issue';
-      Invoke-Sqlcmd -ConnectionString $connectionString -Query $sqlCommand | Format-Table -Width 125
+      Invoke-Sqlcmd -ConnectionString $connectionString -Query $sqlCommand | Out-String -Width 125
       $DS = Invoke-Sqlcmd -ConnectionString $connectionString -Query $sqlCommand -As DataSet
       $DS.Tables[0].Rows | %{ echo "| $($_['root_view_name']), $($_['root_view_execution_order']), $($_['referenced_view_name']), $($_['referenced_view_execution_order']) |" }
       
@@ -74,16 +74,16 @@ steps:
         exit 1
       }
 
-- script: |
-    sqlcmd \
-      -S localhost \
-      -d TestDWH \
-      -U sa \
-      -P "$(mssql-sa-pwd)" \
-      -y 35 \
-      -Y 35 \
-      -i "$(System.DefaultWorkingDirectory)/synapse-dwh/Scripts/Validate EDW Materialization Columns.sql"
-  displayName: 'Validate EDW Materialization Columns'
+# - script: |
+#     sqlcmd \
+#       -S localhost \
+#       -d TestDWH \
+#       -U sa \
+#       -P "$(mssql-sa-pwd)" \
+#       -y 35 \
+#       -Y 35 \
+#       -i "$(System.DefaultWorkingDirectory)/synapse-dwh/Scripts/Validate EDW Materialization Columns.sql"
+#   displayName: 'Validate EDW Materialization Columns'
 
 
 # User powershell instead of direct sqlcmd due to issues in fixed length of output of xml results
