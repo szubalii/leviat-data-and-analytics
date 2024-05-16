@@ -92,13 +92,8 @@ ReferencedEntities AS (
 SELECT
   re.root_view_name,
   e_root.execution_order AS root_view_execution_order,
-  -- re.referencing_id,
-  -- re.referencing_entity_name,
-  -- re.referencing_description,
-  -- re.referenced_schema_name,
   re.referenced_entity_name AS referenced_view_name,
-  e.execution_order AS referenced_view_execution_order--,
-  -- MAX(e.execution_order) AS max_execution_order_referenced_views
+  e.execution_order AS referenced_view_execution_order
 FROM
   ReferencedEntities re
 LEFT JOIN
@@ -113,8 +108,3 @@ WHERE
   re.referenced_desciption = 'USER_TABLE'
   AND
   e_root.execution_order <= e.execution_order
--- GROUP BY
---   re.root_view_name,
---   e_root.execution_order
--- ORDER BY
---   root_view_name

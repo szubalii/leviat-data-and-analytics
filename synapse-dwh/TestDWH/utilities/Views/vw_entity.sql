@@ -1,10 +1,15 @@
 CREATE VIEW utilities.vw_entity
 AS 
 
+/*
+  This view allows to read the entity config located in 
+  the file from orchestration/src/config/global/entity.json.
+
+  This file is added to the SQL DB created in the PR triggered 
+  Azure DevOps Pipeline called TEST Synapse DWH
+*/
+
 SELECT
-  -- [key]+1 AS [column_id], -- array index starts at 0, so add 1
-  -- JSON_VALUE(value, '$.edw.entities') AS [name] -- get the column name from parquet
-  -- [entity_id], 
   JSON_VALUE(value, '$.entity_id') AS entity_id,
   JSON_VALUE(value, '$.entity_name') AS entity_name,
   JSON_VALUE(value, '$.source_view_name') AS source_view_name,
@@ -16,10 +21,3 @@ FROM
     SELECT BulkColumn
     FROM OPENROWSET(BULK '/config/global/entity.json', SINGLE_CLOB) as j
   ), '$.edw.entities') e
-
-
-
--- select *
--- from utilities.vw_entity
--- where source_view_name is not null
--- order by source_view_name
