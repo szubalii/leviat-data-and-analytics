@@ -54,8 +54,10 @@ steps:
         }
 
         Write-Host "##[error]EDW entities identified with incorrect execution order"
-        $xmloutput;
+        $dataset;
         Write-Host "##[error]Make sure EDW entities have a higher execution order than the execution order of their referenced child entities."
+
+        exit 1
       }
 
 # - script: |

@@ -1,22 +1,4 @@
-DECLARE @entity NVARCHAR(MAX);
-SELECT @entity = BulkColumn
-FROM OPENROWSET(BULK '/config/global/entity.json', SINGLE_CLOB) as j;
-
-WITH entity AS (
-  SELECT
-    -- [key]+1 AS [column_id], -- array index starts at 0, so add 1
-    -- JSON_VALUE(value, '$.edw.entities') AS [name] -- get the column name from parquet
-    -- [entity_id], 
-    JSON_VALUE(value, '$.entity_id') AS entity_id,
-    JSON_VALUE(value, '$.source_view_name') AS source_view_name,
-    JSON_VALUE(value, '$.dest_table_name') AS dest_table_name,
-    JSON_VALUE(value, '$.execution_order') AS execution_order,
-    JSON_VALUE(value, '$.schedule_recurrence') AS schedule_recurrence
-  FROM
-    OPENJSON(@entity, '$.edw.entities') e
-)
-
-,
+WITH 
 view_columns AS (
   SELECT
     e.entity_id,
@@ -24,7 +6,7 @@ view_columns AS (
     e.dest_table_name,
     vc.name AS view_column_name
   FROM
-    entity AS e
+    utilities.vw_entity AS e
   INNER JOIN
     sys.objects v
     ON
@@ -48,7 +30,7 @@ table_columns AS (
     e.dest_table_name,
     tc.name AS table_column_name
   FROM
-    entity AS e
+    utilities.vw_entity AS e
   INNER JOIN
     sys.objects t
     ON
