@@ -32,6 +32,13 @@ steps:
     /TargetConnectionString:"Server=localhost;Initial Catalog=TestDWH;User ID=sa;Password=$(mssql-sa-pwd);Encrypt=False;TrustServerCertificate=False;Connection Timeout=30;"
   displayName: 'Deploy Test dacpac to Docker Container'
 
+- task: PowerShell@2
+  displayName: Install SQLServer Module
+  inputs:
+    targetType: 'inline'
+    pwsh: true
+    script: |
+      Install-Module -Name SQLServer
 
 - task: PowerShell@2
   displayName: 'Validate EDW Execution Orders'
@@ -39,6 +46,7 @@ steps:
     targetType: 'inline'
     pwsh: true
     script: |
+
       $connectionString = "Data Source=localhost;User ID=sa;Password=$(mssql-sa-pwd);Initial Catalog=TestDWH";
       $sqlCommand = 'SELECT * FROM utilities.vw_edw_entity_execution_order_issue';
       $DS = Invoke-Sqlcmd -ConnectionString $connectionString -Query $sqlCommand -As DataSet
