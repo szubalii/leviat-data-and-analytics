@@ -32,6 +32,43 @@ steps:
     /TargetConnectionString:"Server=localhost;Initial Catalog=TestDWH;User ID=sa;Password=$(mssql-sa-pwd);Encrypt=False;TrustServerCertificate=False;Connection Timeout=30;"
   displayName: 'Deploy Test dacpac to Docker Container'
 
+- task: PowerShell@2
+  displayName: 'Validate EDW Execution Orders'
+  inputs:
+    targetType: 'inline'
+    pwsh: true
+    script: |
+      $xmloutput = "";
+      $connectionString = "Data Source=localhost;User ID=sa;Password=$(mssql-sa-pwd);Initial Catalog=TestDWH";
+      $sqlCommand = 'SELECT * FROM utilities.vw_edw_execution_order_issue';
+      $connection = new-object system.data.SqlClient.SQLConnection($connectionString);
+      $command = new-object system.data.sqlclient.sqlcommand($sqlCommand,$connection);
+      $connection.Open();
+      $adapter = New-Object System.Data.sqlclient.sqlDataAdapter $command;
+      $dataset = New-Object System.Data.DataSet;
+      $adapter.Fill($dataset) | Out-Null;
+      $connection.Close();
+      if ($dataset.Tables[0].Rows.Count -gt 0) {
+        foreach ($dr in $dataset.Tables[0].Rows) {
+          $xmloutput += $dr.ItemArray[0].ToString();
+        }
+
+        Write-Host "##[error]EDW entities identified with incorrect execution order"
+        $xmloutput;
+        Write-Host "##[error]Make sure EDW entities have a higher execution order than the execution order of their referenced child entities."
+      }
+
+# - script: |
+#     sqlcmd \
+#       -S localhost \
+#       -d TestDWH \
+#       -U sa \
+#       -P "$(mssql-sa-pwd)" \
+#       -y 35 \
+#       -Y 35 \
+#       -Q "SELECT * FROM utilities.vw_edw_execution_order_issue"
+#   displayName: 'Validate EDW Execution Orders'
+
 
 # User powershell instead of direct sqlcmd due to issues in fixed length of output of xml results
 # Also, xml output has incorrect headers by default which need to be removed which is done using powershell
