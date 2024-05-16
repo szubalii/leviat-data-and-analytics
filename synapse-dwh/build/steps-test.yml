@@ -40,14 +40,14 @@ steps:
 
       $connectionString = "Data Source=localhost;User ID=sa;Password=$(mssql-sa-pwd);Initial Catalog=TestDWH;TrustServerCertificate=true";
       $sqlCommand = 'SELECT * FROM utilities.vw_edw_entity_execution_order_issue ORDER BY root_view_name';
-      Invoke-Sqlcmd -ConnectionString $connectionString -Query $sqlCommand | Out-String -Width 125
+      Invoke-Sqlcmd -ConnectionString $connectionString -Query $sqlCommand | Format-Table -AutoSize | Out-String -Width 125
       $DS = Invoke-Sqlcmd -ConnectionString $connectionString -Query $sqlCommand -As DataSet
       
       if ($DS.Tables) {
 
         Write-Host "##[error]EDW entities identified with incorrect execution order"
         Write-Host "##[error]Make sure EDW entities have a higher execution order than the execution order of their referenced child entities."
-
+        Write-Host "##vso[task.logissue type=error]Incorrect EDW Entity Execution Order"
         exit 1
       }
 
@@ -62,7 +62,7 @@ steps:
 
       $connectionString = "Data Source=localhost;User ID=sa;Password=$(mssql-sa-pwd);Initial Catalog=TestDWH;TrustServerCertificate=true";
       $sqlCommand = 'SELECT * FROM utilities.vw_edw_entity_column_discrepancy ORDER BY [Source View Name]';
-      Invoke-Sqlcmd -ConnectionString $connectionString -Query $sqlCommand | Out-String -Width 125
+      Invoke-Sqlcmd -ConnectionString $connectionString -Query $sqlCommand | Format-Table -AutoSize | Out-String -Width 125
       $DS = Invoke-Sqlcmd -ConnectionString $connectionString -Query $sqlCommand -As DataSet
       
       if ($DS.Tables) {
@@ -70,7 +70,7 @@ steps:
         Write-Host "##[warning]EDW entities identified with for which the source view columns don't correspond with the target table columns."
         Write-Host "##[warning]Make sure the target table columns exist in the source view output and vice versa."
 
-        
+        Write-Host "##vso[task.logissue type=warning]Field Discrepancies in EDW Materialization"
       }
 
 # User powershell instead of direct sqlcmd due to issues in fixed length of output of xml results
