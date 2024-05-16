@@ -52,6 +52,28 @@ steps:
         exit 1
       }
 
+# For each edw entity, check if the output columns in the materialization view correspond with the 
+# target columns in the target table. Output a warning if discrepancies are detected.
+- task: PowerShell@2
+    displayName: 'Validate EDW Materialization Columns'
+    inputs:
+      targetType: 'inline'
+      pwsh: true
+      script: |
+  
+        $connectionString = "Data Source=localhost;User ID=sa;Password=$(mssql-sa-pwd);Initial Catalog=TestDWH;TrustServerCertificate=true";
+        $sqlCommand = 'SELECT * FROM utilities.vw_edw_entity_column_discrepancy';
+        Invoke-Sqlcmd -ConnectionString $connectionString -Query $sqlCommand | Format-Table -Width 125
+        $DS = Invoke-Sqlcmd -ConnectionString $connectionString -Query $sqlCommand -As DataSet
+        
+        if ($DS.Tables[0].Rows.Count -gt 0) {
+  
+          Write-Host "##[warning]EDW entities identified with for which the source view columns don't correspond with the target table columns."
+          Write-Host "##[warning]Make sure the target table columns exist in the source view output and vice versa."
+  
+          exit 1
+        }
+
 - script: |
     sqlcmd \
       -S localhost \
