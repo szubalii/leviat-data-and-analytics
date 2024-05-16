@@ -1,8 +1,0 @@
-trigger: none # triggered by PR
-
-extends:
-  template: ../../build/stages-build-deploy.yml
-  parameters:
-    folder: azure-data-factory
-    solution: ADF
-    env: dev
