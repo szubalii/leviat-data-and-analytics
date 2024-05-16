@@ -47,7 +47,7 @@ steps:
     pwsh: true
     script: |
 
-      $connectionString = "Data Source=localhost;User ID=sa;Password=$(mssql-sa-pwd);Initial Catalog=TestDWH";
+      $connectionString = "Data Source=localhost;User ID=sa;Password=$(mssql-sa-pwd);Initial Catalog=TestDWH;TrustServerCertificate=true";
       $sqlCommand = 'SELECT * FROM utilities.vw_edw_entity_execution_order_issue';
       $DS = Invoke-Sqlcmd -ConnectionString $connectionString -Query $sqlCommand -As DataSet
       $DS.Tables[0].Rows | %{ echo "| $($_['root_view_name']), $($_['root_view_execution_order']), $($_['referenced_view_name']), $($_['referenced_view_exeuction_order']) |" }
