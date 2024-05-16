@@ -40,7 +40,7 @@ steps:
 
       $connectionString = "Data Source=localhost;User ID=sa;Password=$(mssql-sa-pwd);Initial Catalog=TestDWH;TrustServerCertificate=true";
       $sqlCommand = 'SELECT * FROM utilities.vw_edw_entity_execution_order_issue ORDER BY root_view_name';
-      Invoke-Sqlcmd -ConnectionString $connectionString -Query $sqlCommand | Format-Table -AutoSize | Out-String -Width 125
+      Invoke-Sqlcmd -ConnectionString $connectionString -Query $sqlCommand | Format-Table -AutoSize | Out-String -Width 150
       $DS = Invoke-Sqlcmd -ConnectionString $connectionString -Query $sqlCommand -As DataSet
       
       if ($DS.Tables) {
@@ -58,11 +58,12 @@ steps:
   inputs:
     targetType: 'inline'
     pwsh: true
+    showWarnings: true
     script: |
 
       $connectionString = "Data Source=localhost;User ID=sa;Password=$(mssql-sa-pwd);Initial Catalog=TestDWH;TrustServerCertificate=true";
       $sqlCommand = 'SELECT * FROM utilities.vw_edw_entity_column_discrepancy ORDER BY [Source View Name]';
-      Invoke-Sqlcmd -ConnectionString $connectionString -Query $sqlCommand | Format-Table -AutoSize | Out-String -Width 125
+      Invoke-Sqlcmd -ConnectionString $connectionString -Query $sqlCommand | Format-Table -AutoSize | Out-String -Width 150
       $DS = Invoke-Sqlcmd -ConnectionString $connectionString -Query $sqlCommand -As DataSet
       
       if ($DS.Tables) {
@@ -71,6 +72,7 @@ steps:
         Write-Host "##[warning]Make sure the target table columns exist in the source view output and vice versa."
 
         Write-Host "##vso[task.logissue type=warning]Field Discrepancies in EDW Materialization"
+        Write-Host "##vso[task.complete result=SucceededWithIssues;]"
       }
 
 # User powershell instead of direct sqlcmd due to issues in fixed length of output of xml results
