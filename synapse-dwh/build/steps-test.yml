@@ -50,6 +50,9 @@ steps:
         Write-Host "##vso[task.logissue type=error]Incorrect EDW Entity Execution Order"
         exit 1
       }
+      else {
+        Write-Host "All EDW entity execution order values are configured correctly"
+      }
 
 # For each edw entity, check if the output columns in the materialization view correspond with the 
 # target columns in the target table. Output a warning if discrepancies are detected.
@@ -73,6 +76,9 @@ steps:
 
         Write-Host "##vso[task.logissue type=warning]Field Discrepancies in EDW Materialization"
         Write-Host "##vso[task.complete result=SucceededWithIssues;]"
+      }
+      else {
+        Write-Host "No discrepancies between source view fields and target table columns found"
       }
 
 # User powershell instead of direct sqlcmd due to issues in fixed length of output of xml results
