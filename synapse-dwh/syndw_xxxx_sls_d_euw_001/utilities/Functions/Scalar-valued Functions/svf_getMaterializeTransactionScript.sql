@@ -39,7 +39,10 @@ SELECT ' + @Columns + '
 ,	''' + CONVERT(NVARCHAR(23), @t_jobDtm, 121) + ''' AS t_jobDtm
 ,	''' + @t_lastActionCd + ''' AS t_lastActionCd
 ,	''' + @t_jobBy + ''' AS t_jobBy
-FROM [' + @SourceSchema + '].[' + @SourceView + '];
+FROM [' + @SourceSchema + '].[' + @SourceView + ']
+OPTION (
+  LABEL=''Materialize [' + @SourceSchema + '].[' + @SourceView + '] into [' + @DestSchema + '].[' + @DestTable + ']; ADF RunId: ' + @t_jobId + '''
+);
 END TRY
 BEGIN CATCH
 

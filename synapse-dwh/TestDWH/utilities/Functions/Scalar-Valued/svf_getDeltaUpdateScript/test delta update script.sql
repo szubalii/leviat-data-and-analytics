@@ -80,7 +80,10 @@ WHERE
   + CHAR(13) + CHAR(10) + ' AND ' + CHAR(13) + CHAR(10) +
   '[base_s4h_cax].[_active].[PrimaryKeyField_2] = src.[PrimaryKeyField_2]'
   + CHAR(13) + CHAR(10) + ' AND ' + CHAR(13) + CHAR(10) +
-  '[base_s4h_cax].[_active].[t_extractionDtm] < src.[t_extractionDtm]';
+  '[base_s4h_cax].[_active].[t_extractionDtm] < src.[t_extractionDtm]
+OPTION (
+  LABEL=''Process Delta Update [base_s4h_cax].[vw__delta] into [base_s4h_cax].[_active]; Last Action DTM: 2024-03-01T12:00:00.000''
+)';
 
   -- TODO include where clause where extraction DTm is higher in delta vw than active
 

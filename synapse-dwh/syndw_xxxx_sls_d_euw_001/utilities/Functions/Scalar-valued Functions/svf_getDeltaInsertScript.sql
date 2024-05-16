@@ -45,6 +45,9 @@ WHERE NOT EXISTS (
     [' + @schema_name + '].[' + @active_table_name + '] target 
   WHERE
     ' + @insert_scrpt_where_clause + '
+)
+OPTION (
+  LABEL=''Process Delta Insert [' + @schema_name + '].[' + @delta_view_name + '] into [' + @schema_name + '].[' + @active_table_name + ']; Last Action DTM: ' + @date_time_string + '''
 )';
 
   RETURN(@insert_scrpt);

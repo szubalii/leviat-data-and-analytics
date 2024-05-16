@@ -33,7 +33,9 @@ SET
 FROM
   [' + @schema_name + '].[' + @delta_view_name + '] as src 
 WHERE
-  ' + @update_scrpt_where_clause;
-
+  ' + @update_scrpt_where_clause + '
+OPTION (
+  LABEL=''Process Delta Update [' + @schema_name + '].[' + @delta_view_name + '] into [' + @schema_name + '].[' + @active_table_name + ']; Last Action DTM: ' + @date_time_string + '''
+)';
   RETURN(@update_scrpt);
 END;
