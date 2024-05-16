@@ -43,7 +43,7 @@ steps:
       Invoke-Sqlcmd -ConnectionString $connectionString -Query $sqlCommand | Out-String -Width 125
       $DS = Invoke-Sqlcmd -ConnectionString $connectionString -Query $sqlCommand -As DataSet
       
-      if ($DS.Tables[0].Rows.Count -gt 0) {
+      if ($DS.Tables) {
 
         Write-Host "##[error]EDW entities identified with incorrect execution order"
         Write-Host "##[error]Make sure EDW entities have a higher execution order than the execution order of their referenced child entities."
@@ -65,7 +65,7 @@ steps:
       Invoke-Sqlcmd -ConnectionString $connectionString -Query $sqlCommand | Out-String -Width 125
       $DS = Invoke-Sqlcmd -ConnectionString $connectionString -Query $sqlCommand -As DataSet
       
-      if ($DS.Tables[0].Rows.Count -gt 0) {
+      if ($DS.Tables) {
 
         Write-Host "##[warning]EDW entities identified with for which the source view columns don't correspond with the target table columns."
         Write-Host "##[warning]Make sure the target table columns exist in the source view output and vice versa."
