@@ -162,8 +162,8 @@ WHERE
         [base_ff].[CustomerCalculated] CC
     WHERE 
         CC.[CustomerIDCalculated]=C.[CustomerIDCalculated]
-        AND 
-        CC.[isReviewed] = 1
+        --AND 
+        --CC.[isReviewed] = 1
     )
 
 UNION ALL
@@ -185,5 +185,5 @@ SELECT
 ,   CC.[t_filePath]
 FROM 
     [base_ff].[CustomerCalculated] CC
-WHERE
-    CC.[isReviewed] = 1
+--WHERE
+--    CC.[isReviewed] = 1
