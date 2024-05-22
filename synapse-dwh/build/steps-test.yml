@@ -1,158 +1,123 @@
 steps:
 
-- checkout: self
-  fetchDepth: 0 # disables shallow fetch and results in correct return of git diff-tree
+# MS Azure SQL Edge instance (mcr.microsoft.com/azure-sql-edge) doesn't support tSQLt to use SQL Server 2022
+- script: |
+    docker run --name test-dwh -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=$(mssql-sa-pwd)" -p 1433:1433 -d mcr.microsoft.com/mssql/server:2022-latest
+  displayName: 'Start a mssql-server instance for SQL Server 2022'
+
+- script: |
+    docker cp '$(System.DefaultWorkingDirectory)/orchestration/src/config/' test-dwh:/
+  displayName: 'Copy Orchestration config to docker instance'
+
+- script: |
+    dotnet build "$(System.DefaultWorkingDirectory)/synapse-dwh/TestDWH/TestDWH.sqlproj" /p:NetCoreBuild=true
+  displayName: 'Build Test sqlproj'
+
+- script: |
+    sqlpackage /Action:Publish /SourceFile:"$(System.DefaultWorkingDirectory)/synapse-dwh/syndw_xxxx_sls_d_euw_001/bin/Debug/syndw_xxxx_sls_d_euw_001.dacpac" \
+    /TargetConnectionString:"Server=localhost;Initial Catalog=TestDWH;User ID=sa;Password=$(mssql-sa-pwd);Encrypt=False;TrustServerCertificate=False;Connection Timeout=30;"
+  displayName: 'Deploy Synapse SQL Pool dacpac to Docker Container'
   
+- script: |
+    sqlpackage /Action:Publish /SourceFile:"$(System.DefaultWorkingDirectory)/synapse-dwh/TestDWH/bin/Debug/TestDWH.dacpac" \
+    /TargetConnectionString:"Server=localhost;Initial Catalog=TestDWH;User ID=sa;Password=$(mssql-sa-pwd);Encrypt=False;TrustServerCertificate=False;Connection Timeout=30;"
+  displayName: 'Deploy Test dacpac to Docker Container'
 
 - task: PowerShell@2
-  displayName: 'Get Changed Files'
-  name: GetTestCaseFilter
+  displayName: Install SQLServer Module
+  inputs:
+    targetType: 'inline'
+    pwsh: true
+    script: |
+      Install-Module -Name SQLServer -force
+
+- task: PowerShell@2
+  displayName: 'Validate EDW Execution Orders'
   inputs:
     targetType: 'inline'
     pwsh: true
     script: |
 
-      # Retrieve list of changed files
-      Write-Host "System.DefaultWorkingDirectory: $(System.DefaultWorkingDirectory)"
-      Write-Host "CommitID: $(commitId)"
-      # Write-Host "Build.SourceVersion: $(Build.SourceVersion)"
-      Write-Host "Build.SourceVersionMessage: $(Build.SourceVersionMessage)"
-      $filePaths = $(git diff --name-only $(commitId)^!) #difference between parent of commit and commit
-      # $filePaths2 = $(git diff-tree --no-commit-id --name-only -r $(Build.SourceVersion))
-      Write-Host "Changed files using commitId: $($filePaths)"
-      # Write-Host "Changed files Build.SourceVersion: $($filePaths2)"
-
-      # Execute those test cases only impacted by the changed files
-      # Generate the test case filter based on changed files
-      # https://github.com/microsoft/vstest-docs/blob/main/docs/filter.md
-      # https://learn.microsoft.com/en-us/dotnet/core/testing/selective-unit-tests?pivots=mstest
-      # start with initial filter so in case of no files mapped to a test case,
-      # no actual test case is run
-      $testCaseFilterHelp = "(FullyQualifiedName=dummy)|" 
-      $edwEntities = {}
-      $baseEntities = {}
-      $dir = 'synapse-dwh' #${{ parameters.folder }}
-      $synDbFolder = 'syndw_xxxx_sls_d_euw_001'
-      $entities = (Get-Content './orchestration/src/config/global/entity.json' | Out-String | ConvertFrom-Json)
-
-      ForEach ($filePath in $filePaths) {
-
-        # synapse-dwh/Test/edw/Functions/ScalarValued/svf_getInvertAmount.cs
-
-        $dirIndex = $filePath.IndexOf($dir)
-        
-        if ($dirIndex -ne -1) {
-
-          $fileTypeIndex = $filePath.IndexOf(".")
-          $filePathWithoutExt = $filePath.SubString(0, $fileTypeIndex)
-          # synapse-dwh/Test/edw/Functions/ScalarValued/svf_getInvertAmount
-
-          $subFilePath = $filePathWithoutExt.SubString($dirIndex + $dir.Length + 1)
-
-          # if actual database artifact is changed, remove the database folder 
-          # from its path so that its corresponding test case will run
-          $synDbIndex = $subFilePath.IndexOf($synDbFolder)
-          if ($synDbIndex -ne -1) {
-            $subFilePath = $subFilePath.SubString($synDbIndex + $synDbFolder.Length + 1)
-          }          
-
-          # Test/edw/Functions/ScalarValued/svf_getInvertAmount
-
-          # Views
-          # if ($filePath.IndexOf("Views") -ne -1) {
-            $fqn = $subFilePath.Replace('/','.')
-            # Test.edw.Functions.ScalarValued.svf_getInvertAmount
-
-            $testCaseFilterHelp += "(FullyQualifiedName~$fqn)|"
-          # }
-          # Tables
-          # else if ($filePath.IndexOf("Tables") -ne -1) {
-
-            # Base
-
-            # EDW
-
-
-        }
-
-
-          
-
-          # Tables
-          # Invoke ADF pipeline
-        # }
-      }
+      $connectionString = "Data Source=localhost;User ID=sa;Password=$(mssql-sa-pwd);Initial Catalog=TestDWH;TrustServerCertificate=true";
+      $sqlCommand = 'SELECT * FROM utilities.vw_edw_entity_execution_order_issue ORDER BY root_view_name';
+      Invoke-Sqlcmd -ConnectionString $connectionString -Query $sqlCommand | Format-Table -AutoSize | Out-String -Width 150
+      $DS = Invoke-Sqlcmd -ConnectionString $connectionString -Query $sqlCommand -As DataSet
       
-      # Remove the last separator character '|'
-      if ($testCaseFilterHelp.Length -gt 0) {
-        $testCaseFilter = $testCaseFilterHelp.SubString(0, $testCaseFilterHelp.Length-1)
-      } 
-      Write-Host "testCaseFilter: $testCaseFilter"
+      if ($DS.Tables) {
 
-      # expose the test case filter variable value defined in this task
-      # https://learn.microsoft.com/en-us/azure/devops/pipelines/process/set-variables-scripts?view=azure-devops&tabs=powershell#set-an-output-variable-for-use-in-future-stages
-      Write-Host "##vso[task.setvariable variable=testCaseFilter;isOutput=true]$testCaseFilter"
+        Write-Host "##[error]EDW entities identified with incorrect execution order"
+        Write-Host "##[error]Make sure EDW entities have a higher execution order than the execution order of their referenced child entities."
+        Write-Host "##vso[task.logissue type=error]Incorrect EDW Entity Execution Order"
+        exit 1
+      }
+      else {
+        Write-Host "All EDW entity execution order values are configured correctly"
+      }
 
-      # $AzureDevOpsPAT = "$(ReadTestManagementPAT)"
-      # $AzureDevOpsAuthenicationHeader = @{Authorization = 'Basic ' + [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(":$($AzureDevOpsPAT)")) }
-      # $uri = "https://dev.azure.com/leviatazure/Leviat_Data_and_Analytics_DevOps/_apis/testplan/Plans/${{parameters.testPlan}}/suites?api-version=7.0"
-          
-      # Invoke-RestMethod -Uri $uri -Method get -Headers $AzureDevOpsAuthenicationHeader | ConvertTo-Json
-
-- task: DownloadPipelineArtifact@2
+# For each edw entity, check if the output columns in the materialization view correspond with the 
+# target columns in the target table. Output a warning if discrepancies are detected.
+- task: PowerShell@2
+  displayName: 'Validate EDW Materialization Columns'
   inputs:
-    artifact: SynapseDWH
+    targetType: 'inline'
+    pwsh: true
+    showWarnings: true
+    script: |
 
+      $connectionString = "Data Source=localhost;User ID=sa;Password=$(mssql-sa-pwd);Initial Catalog=TestDWH;TrustServerCertificate=true";
+      $sqlCommand = 'SELECT * FROM utilities.vw_edw_entity_column_discrepancy ORDER BY [Source View Name]';
+      Invoke-Sqlcmd -ConnectionString $connectionString -Query $sqlCommand | Format-Table -AutoSize | Out-String -Width 150
+      $DS = Invoke-Sqlcmd -ConnectionString $connectionString -Query $sqlCommand -As DataSet
+      
+      if ($DS.Tables) {
 
-# Substitute the connection string for the Test Project 
-# so Azure DevOps can run the Test Cases
-- task: FileTransform@1
-  displayName: 'Update Connection String for Test Project'
+        Write-Host "##[warning]EDW entities identified with for which the source view columns don't correspond with the target table columns."
+        Write-Host "##[warning]Make sure the target table columns exist in the source view output and vice versa."
+
+        Write-Host "##vso[task.logissue type=warning]Field Discrepancies in EDW Materialization"
+        Write-Host "##vso[task.complete result=SucceededWithIssues;]"
+      }
+      else {
+        Write-Host "No discrepancies between source view fields and target table columns found"
+      }
+
+# User powershell instead of direct sqlcmd due to issues in fixed length of output of xml results
+# Also, xml output has incorrect headers by default which need to be removed which is done using powershell
+- script: |
+    sqlcmd \
+      -S localhost \
+      -d TestDWH \
+      -U sa \
+      -P "$(mssql-sa-pwd)" \
+      -Q "EXEC tSQLt.RunAll;"
+  displayName: 'Run TSQLT tests'
+
+- task: PowerShell@2
+  displayName: 'Export Test Results'
   inputs:
-    folderPath: '$(Pipeline.Workspace)/Test/'
-    fileType: 'xml'
-    targetFiles: 'Test.dll.config'
+    targetType: 'inline'
+    pwsh: true
+    script: |
+      $xmloutput = "";
+      $connectionString = "Data Source=localhost;User ID=sa;Password=$(mssql-sa-pwd);Initial Catalog=TestDWH";
+      $sqlCommand = 'EXEC tSQLt.XmlResultFormatter';
+      $connection = new-object system.data.SqlClient.SQLConnection($connectionString);
+      $command = new-object system.data.sqlclient.sqlcommand($sqlCommand,$connection);
+      $connection.Open();
+      $adapter = New-Object System.Data.sqlclient.sqlDataAdapter $command;
+      $dataset = New-Object System.Data.DataSet;
+      $adapter.Fill($dataset) | Out-Null;
+      $connection.Close();
+      if ($dataset.Tables[0].Rows.Count -gt 0) {
+        foreach ($dr in $dataset.Tables[0].Rows) {
+          $xmloutput += $dr.ItemArray[0].ToString();
+        }
+      }
+      $xmloutput;
+      $xmloutput | Out-File "$(System.DefaultWorkingDirectory)/synapse-dwh/TestDWH/bin/Debug/TEST-Results.xml"
 
-# Run test directly from assemblies and use Test Filter
-- task: VSTest@2
-  displayName: 'Run Test Cases'
+- task: PublishTestResults@2
   inputs:
-    testSelector: testAssemblies
-    searchFolder: '$(Pipeline.Workspace)/Test'
-    testFiltercriteria: '$(GetTestCaseFilter.testCaseFilter)'
-# - ${{ if eq(parameters.test, true) }}:
-#   - stage: TEST_${{ upper(variables['Build.SourceBranchName']) }}
-#     jobs:
-#     - job: TEST_${{ parameters.solution }}
-#       pool:
-#         name: 'VM'
-#         demands:
-#         - node.js
-#         - VisualStudio
-#         - Agent.ComputerName -equals $(VMName)
-#       steps:
-#       # - task: PowerShell@2
-#       #   displayName: '**Get Changed Files**'
-#       #   inputs:
-#       #     targetType: 'inline'
-#       #     pwsh: true
-#       #     script: |
-#       #       $files = $(git diff-tree --no-commit-id --name-only -r $(Build.SourceVersion))
-#       #       $AzureDevOpsPAT = $(ReadTestManagementPAT)
-#       #       $AzureDevOpsAuthenicationHeader = @{Authorization = 'Basic ' + [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(":$($AzureDevOpsPAT)")) }
-#       #       $uri = https://dev.azure.com/leviatazure/Leviat_Data_and_Analytics_DevOps/_apis/testplan/Plans/${{parameters.testPlan}}/suites?api-version=7.0
-
-#       #       echo $files
-
-#       #       Invoke-RestMethod -Uri $uri -Method get -Headers $AzureDevOpsAuthenicationHeader
-#       - task: VSTest@2
-#         displayName: 'Run Test Cases'
-#         inputs:
-#           testSelector: testPlan
-#           testPlan: ${{parameters.testPlan}}
-#           testSuite: 2647
-#           testConfiguration: 6
-#           searchFolder: '$(System.DefaultWorkingDirectory)/synapse-dwh/Test'
-      # testFilterCriteria: 
-
-  # - template: ../${{ parameters.folder }}/build/steps-test.yml
+    testResultsFormat: 'JUnit'
+    testResultsFiles: '**/TEST-*.xml'
+    failTaskOnFailedTests: true

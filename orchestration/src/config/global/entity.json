@@ -5074,7 +5074,7 @@
         "sproc_name": "sp_materialize_view",
         "source_view_name": "vw_SalesDocumentScheduleLine",
         "dest_table_name": "dim_SalesDocumentScheduleLine",
-        "execution_order": 4,
+        "execution_order": 6,
         "schedule_recurrence": "D"
       },
       {
@@ -5710,7 +5710,7 @@
         "sproc_name": "sp_materialize_view",
         "source_view_name": "vw_BillingDocumentItem_US",
         "dest_table_name": "fact_BillingDocumentItem_US",
-        "execution_order": 0,
+        "execution_order": 1,
         "schedule_recurrence": "M",
         "schedule_day": 1
       },
@@ -6042,7 +6042,7 @@
         "sproc_name": "sp_materialize_view",
         "source_view_name": "vw_ManufacturingOrder",
         "dest_table_name": "fact_ManufacturingOrder",
-        "execution_order": 5
+        "execution_order": 7
       },
       {
         "entity_id": 500,
