@@ -1,18 +1,18 @@
 CREATE TABLE [edw].[fact_MaterialInventoryStockLevel]
 (
-  [MaterialID]                    [nvarchar](40),
-  [PlantID]                       [nvarchar](8),
-  [StorageLocationID]             [nvarchar](10),
-  [InventorySpecialStockTypeID]   [nvarchar](1),
-  [InventoryStockTypeID]          [nvarchar](2),
-  [StockOwner]                    [nvarchar](10),
-  [CostCenterID]                  [nvarchar](10),
-  [CompanyCodeID]                 [nvarchar](4),
+  [MaterialID]                    [nvarchar](40) NOT NULL,
+  [PlantID]                       [nvarchar](8) NOT NULL,
+  [StorageLocationID]             [nvarchar](10) NOT NULL,
+  [InventorySpecialStockTypeID]   [nvarchar](1) NOT NULL,
+  [InventoryStockTypeID]          [nvarchar](2) NOT NULL,
+  [StockOwner]                    [nvarchar](10) NOT NULL,
+  [CostCenterID]                  [nvarchar](10) NOT NULL,
+  [CompanyCodeID]                 [nvarchar](4) NOT NULL,
+  [MaterialBaseUnitID]            [nvarchar](3) NOT NULL,
+  [InventoryValuationTypeID]      [nvarchar](10) NOT NULL,
   [SalesDocumentTypeID]           [nvarchar](4),
   [SalesDocumentItemCategoryID]   [nvarchar](8),
-  [MaterialBaseUnitID]            [nvarchar](3),
   [PurchaseOrderTypeID]           [nvarchar](4),
-  [InventoryValuationTypeID]      [nvarchar](10),
   [DatePart]                      [nvarchar](5),
   [nk_StoragePlantID]             [nvarchar](41),
   [sk_ProductSalesOrg]            INT,
@@ -40,8 +40,9 @@ CREATE TABLE [edw].[fact_MaterialInventoryStockLevel]
   [StockLevelStandardLatestPPU]     [decimal](38, 6),
   [StockLevelStandardLatestPPU_EUR] [decimal](38, 6),
   [StockLevelStandardLatestPPU_USD] [decimal](38, 6),
-  [Rolling12MonthConsumptionQty]  [decimal](38, 14),
+  [Rolling365DayConsumptionQty]   [decimal](38, 14),
   [ConsumptionQtyICPOInBaseUnit]             DECIMAL(38, 6),
+  [ConsumptionQtyICPOInStandardValue]        DECIMAL(38, 6),
   [ConsumptionQtyICPOInStandardValue_EUR]    DECIMAL(38, 6),
   [ConsumptionQtyICPOInStandardValue_USD]    DECIMAL(38, 6),
   [ConsumptionQtyOBDProStandardValue]        DECIMAL(38, 6),
@@ -63,23 +64,22 @@ CREATE TABLE [edw].[fact_MaterialInventoryStockLevel]
   [t_lastActionCd]                VARCHAR(1),
   [t_jobBy]                       VARCHAR(128)--,
   -- The primary key of this table can be regarded as the combination of the following fields
-  -- The primary key has been commented out as some of these fields can have NULL VALUES
-  -- CONSTRAINT [PK_fact_MaterialStockLevel] PRIMARY KEY NONCLUSTERED (
-  --   [MaterialID]
-  -- , [PlantID]
-  -- , [StorageLocationID]
-  -- , [InventorySpecialStockTypeID]
-  -- , [InventoryStockTypeID]
-  -- , [StockOwner]
-  -- , [CostCenterID]
-  -- , [CompanyCodeID]
-  -- , [SalesDocumentTypeID]
-  -- , [SalesDocumentItemCategoryID]
-  -- , [MaterialBaseUnitID]
-  -- , [PurchaseOrderTypeID]
-  -- , [InventoryValuationTypeID]
-  -- , [DatePart]
-  -- ) NOT ENFORCED
+  CONSTRAINT [PK_fact_MaterialInventoryStockLevel] PRIMARY KEY NONCLUSTERED (
+    [MaterialID]
+  , [PlantID]
+  , [StorageLocationID]
+  , [InventorySpecialStockTypeID]
+  , [InventoryStockTypeID]
+  , [StockOwner]
+  , [CostCenterID]
+  , [CompanyCodeID]
+  --, [SalesDocumentTypeID]
+  --, [SalesDocumentItemCategoryID]
+  , [MaterialBaseUnitID]
+  --, [PurchaseOrderTypeID]
+  , [InventoryValuationTypeID]
+  , [MaxPostingDate]
+  ) NOT ENFORCED
 )
 WITH
 (
