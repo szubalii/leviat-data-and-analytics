@@ -60945,7 +60945,7 @@
             "value": "Text"
           }
         ],
-        "expression": "\"ws-xxxx-sls-p-euw-001.sql.azuresynapse.net\" meta [IsParameterQuery=true, List={\"ws-xxxx-sls-p-euw-001.sql.azuresynapse.net\", \"ws-xxxx-sls-d-euw-001.sql.azuresynapse.net\", \"ws-xxxx-sls-a-euw-001.sql.azuresynapse.net\", \"ws-sleshchuk-d-euw-001.sql.azuresynapse.net\", \"ws-nkukhtenko-d-euw-001.sql.azuresynapse.net\"}, DefaultValue=\"ws-xxxx-sls-p-euw-001.sql.azuresynapse.net\", Type=\"Text\", IsParameterQueryRequired=true]",
+        "expression": "\"ws-xxxx-sls-a-euw-001.sql.azuresynapse.net\" meta [IsParameterQuery=true, List={\"ws-xxxx-sls-p-euw-001.sql.azuresynapse.net\", \"ws-xxxx-sls-d-euw-001.sql.azuresynapse.net\", \"ws-xxxx-sls-a-euw-001.sql.azuresynapse.net\", \"ws-sleshchuk-d-euw-001.sql.azuresynapse.net\", \"ws-nkukhtenko-d-euw-001.sql.azuresynapse.net\"}, DefaultValue=\"ws-xxxx-sls-p-euw-001.sql.azuresynapse.net\", Type=\"Text\", IsParameterQueryRequired=true]",
         "kind": "m",
         "lineageTag": "51c1eca3-85e3-40a5-9886-bc7b2858932e"
       },
@@ -60957,7 +60957,7 @@
             "value": "Text"
           }
         ],
-        "expression": "\"syndw_xxxx_sls_p_euw_001\" meta [IsParameterQuery=true, List={\"syndw_xxxx_sls_p_euw_001\", \"syndw_xxxx_sls_d_euw_001\", \"syndw_xxxx_sls_a_euw_001\", \"syndw_sleshchuk_d_euw_001\", \"syndw_nkukhtenko_d_euw_001\"}, DefaultValue=\"syndw_xxxx_sls_p_euw_001\", Type=\"Text\", IsParameterQueryRequired=true]",
+        "expression": "\"syndw_xxxx_sls_a_euw_001\" meta [IsParameterQuery=true, List={\"syndw_xxxx_sls_p_euw_001\", \"syndw_xxxx_sls_d_euw_001\", \"syndw_xxxx_sls_a_euw_001\", \"syndw_sleshchuk_d_euw_001\", \"syndw_nkukhtenko_d_euw_001\"}, DefaultValue=\"syndw_xxxx_sls_p_euw_001\", Type=\"Text\", IsParameterQueryRequired=true]",
         "kind": "m",
         "lineageTag": "59565eac-ed26-41a4-b712-5d399b142541"
       },
