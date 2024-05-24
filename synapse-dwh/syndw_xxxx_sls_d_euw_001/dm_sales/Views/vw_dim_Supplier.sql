@@ -16,6 +16,7 @@ SELECT
     [DeletionIndicator],
     [SupplierCorporateGroup],
     [Global_Local],
+    edw.svf_getInOutID_s4h (SupplierID) AS InOutID,
     [t_applicationId],
     [t_extractionDtm]    
 FROM [edw].[dim_Supplier]
