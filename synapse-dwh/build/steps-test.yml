@@ -114,7 +114,7 @@ steps:
         }
       }
       $xmloutput;
-      $xmloutput | Out-File "$(System.DefaultWorkingDirectory)/synapse-dwh/TestDWH/bin/Debug/TEST-Results.xml"
+      $xmloutput | Out-File "$(System.DefaultWorkingDirectory)/synapse-dwh/TestDWH/bin/Output/TEST-Results.xml"
 
 - task: PublishTestResults@2
   inputs:
