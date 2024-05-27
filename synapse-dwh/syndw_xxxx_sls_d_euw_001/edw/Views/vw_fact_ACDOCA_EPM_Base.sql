@@ -314,7 +314,8 @@ CASE
   GLALIRD.[SDI_SoldToPartyID] AS SoldToPartyID,
   GLALIRD.[t_applicationId],
   GLALIRD.[t_extractionDtm]
-FROM edw.[fact_ACDOCA_active] GLALIRD
+--FROM edw.[fact_ACDOCA_active] GLALIRD --doesn't have [ProductSurrogateKey], so changed to [edw].[vw_ACDOCA_active]
+FROM edw.[vw_ACDOCA_active] GLALIRD
 LEFT JOIN [edw].[dim_ZE_EXQLMAP_DT] ZED
   ON GLALIRD.[GLAccountID] = ZED.[GLAccountID]
     AND GLALIRD.[FunctionalAreaID] = ZED.[FunctionalAreaID]

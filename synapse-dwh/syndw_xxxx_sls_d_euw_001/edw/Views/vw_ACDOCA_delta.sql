@@ -20,11 +20,11 @@ SELECT
   GLA.[ODQ_ENTITYCNTR],
   GLA.[SourceLedger] AS [SourceLedgerID],
   GLA.[CompanyCode]  AS [CompanyCodeID],
-  edw.svf_getProductSurrogateKey(
+  /*edw.svf_getProductSurrogateKey(
     VC.[ProductSurrogateKey],
     GLA.[Product],
     SoldProduct
-  ) AS [ProductSurrogateKey],
+  ) AS [ProductSurrogateKey],*/ --is added in [edw].[vw_ACDOCA_active]
   GLA.[FiscalYear],
   GLA.[AccountingDocument],
   GLA.[LedgerGLLineItem],
@@ -182,7 +182,7 @@ LEFT JOIN
     PA.PurchaseOrder COLLATE DATABASE_DEFAULT = GLA.[PurchasingDocument]
     AND
     PA.PurchaseOrderItem = GLA.[PurchasingDocumentItem]
-LEFT JOIN
+/*LEFT JOIN --is added in [edw].[vw_ACDOCA_active]
   [edw].[vw_ProductHierarchyVariantConfigCharacteristic] AS VC
   ON
     VC.SalesDocument = CASE
@@ -195,7 +195,7 @@ LEFT JOIN
       WHEN GLA.[ReferenceDocumentType] = 'VBRK' AND GLA.SalesDocument = ''
       THEN PA.ICSalesDocumentItemID COLLATE DATABASE_DEFAULT
       ELSE GLA.SalesDocumentItem
-    END 
+    END*/
 LEFT JOIN
   edw.dim_ProfitCenter PC
   ON 
