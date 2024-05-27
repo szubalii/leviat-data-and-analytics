@@ -10,7 +10,7 @@ steps:
   displayName: 'Copy Orchestration config to docker instance'
 
 - script: |
-    dotnet build "$(System.DefaultWorkingDirectory)/synapse-dwh/TestDWH/TestDWH.sqlproj" /p:NetCoreBuild=true
+    dotnet build "$(System.DefaultWorkingDirectory)/synapse-dwh/TestDWH/TestDWH.sqlproj" /p:NetCoreBuild=true /p:Configuration=Validate
   displayName: 'Build Test sqlproj'
 
 - script: |
