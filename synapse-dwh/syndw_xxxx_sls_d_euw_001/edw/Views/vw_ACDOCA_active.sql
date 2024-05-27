@@ -1,4 +1,4 @@
-CREATE VIEW [edw].[vw_ACDOCA_active]
+CREATE VIEW [edw].[vw_fact_ACDOCA_active]
 AS
 /*
 The view is the same as [edw].[fact_ACDOCA_active] table but with [ProductSurrogateKey] field that has incorrect values if added during delta load to the table

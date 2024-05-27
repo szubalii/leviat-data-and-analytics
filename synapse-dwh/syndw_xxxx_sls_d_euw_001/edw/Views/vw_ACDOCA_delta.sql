@@ -24,7 +24,7 @@ SELECT
     VC.[ProductSurrogateKey],
     GLA.[Product],
     SoldProduct
-  ) AS [ProductSurrogateKey],*/ --is added in [edw].[vw_ACDOCA_active]
+  ) AS [ProductSurrogateKey],*/ --is added in [edw].[vw_fact_ACDOCA_active]
   GLA.[FiscalYear],
   GLA.[AccountingDocument],
   GLA.[LedgerGLLineItem],
@@ -182,7 +182,7 @@ LEFT JOIN
     PA.PurchaseOrder COLLATE DATABASE_DEFAULT = GLA.[PurchasingDocument]
     AND
     PA.PurchaseOrderItem = GLA.[PurchasingDocumentItem]
-/*LEFT JOIN --is added in [edw].[vw_ACDOCA_active]
+/*LEFT JOIN --is added in [edw].[vw_fact_ACDOCA_active]
   [edw].[vw_ProductHierarchyVariantConfigCharacteristic] AS VC
   ON
     VC.SalesDocument = CASE
