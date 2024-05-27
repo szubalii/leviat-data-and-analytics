@@ -2,7 +2,7 @@
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
   <Sdk Name="Microsoft.Build.Sql" Version="0.1.9-preview" />
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Configuration Condition=" '$(Configuration)' == '' ">Validate</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <Name>syndw_xxxx_sls_d_euw_001</Name>
     <SchemaVersion>2.0</SchemaVersion>
@@ -235,7 +235,7 @@
     <None Include="Scripts\**\*.sql" />
     <None Include="Security\Roles\*.sql" />
   </ItemGroup>
-  <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+  <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Validate|AnyCPU' ">
     <None Include="utilities\External Tables\ext_MasterDataConfig.sql" />
     <None Include="External resources\External data sources\eds_MasterData.sql" />
     <None Include="External resources\External file formats\eff_MasterDataConfigFileFormat.sql" />
