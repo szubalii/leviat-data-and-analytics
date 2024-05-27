@@ -10,7 +10,7 @@ steps:
   displayName: 'Copy Orchestration config to docker instance'
 
 - script: |
-    dotnet build "$(System.DefaultWorkingDirectory)/synapse-dwh/TestDWH/TestDWH.sqlproj" /p:NetCoreBuild=true
+    dotnet build "$(System.DefaultWorkingDirectory)/synapse-dwh/TestDWH/TestDWH.sqlproj" /p:NetCoreBuild=true /p:Configuration=Validate
   displayName: 'Build Test sqlproj'
 
 - script: |
@@ -19,7 +19,7 @@ steps:
   displayName: 'Deploy Synapse SQL Pool dacpac to Docker Container'
   
 - script: |
-    sqlpackage /Action:Publish /SourceFile:"$(System.DefaultWorkingDirectory)/synapse-dwh/TestDWH/bin/Debug/TestDWH.dacpac" \
+    sqlpackage /Action:Publish /SourceFile:"$(System.DefaultWorkingDirectory)/synapse-dwh/TestDWH/bin/Output/TestDWH.dacpac" \
     /TargetConnectionString:"Server=localhost;Initial Catalog=TestDWH;User ID=sa;Password=$(mssql-sa-pwd);Encrypt=False;TrustServerCertificate=False;Connection Timeout=30;"
   displayName: 'Deploy Test dacpac to Docker Container'
 
@@ -114,7 +114,7 @@ steps:
         }
       }
       $xmloutput;
-      $xmloutput | Out-File "$(System.DefaultWorkingDirectory)/synapse-dwh/TestDWH/bin/Debug/TEST-Results.xml"
+      $xmloutput | Out-File "$(System.DefaultWorkingDirectory)/synapse-dwh/TestDWH/bin/Output/TEST-Results.xml"
 
 - task: PublishTestResults@2
   inputs:

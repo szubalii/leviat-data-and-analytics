@@ -2,12 +2,18 @@
 <Project DefaultTargets="Build">
   <Sdk Name="Microsoft.Build.Sql" Version="0.1.9-preview" />
   <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Name>TestDWH</Name>
     <ProjectGuid>{A8A032D6-5E9A-4304-85EF-B2EFC67EA575}</ProjectGuid>
     <DSP>Microsoft.Data.Tools.Schema.Sql.SqlAzureV12DatabaseSchemaProvider</DSP>
     <ModelCollation>1033,CS</ModelCollation>
     <DefaultCollation>SQL_Latin1_General_CP1_CS_AS</DefaultCollation>
   </PropertyGroup>
+  <ItemGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <None Include="utilities\Views\vw_entity.sql" />
+    <None Include="utilities\Views\vw_edw_entity_column_discrepancy.sql" />
+    <None Include="utilities\Views\vw_edw_entity_execution_order_issue.sql" />
+  </ItemGroup>
   <ItemGroup>
     <PreDeploy Include="Scripts\PreDeploy\Script.PreDeployment.sql" />
   </ItemGroup>
