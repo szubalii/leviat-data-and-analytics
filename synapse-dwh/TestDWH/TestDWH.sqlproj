@@ -10,8 +10,7 @@
     <DefaultCollation>SQL_Latin1_General_CP1_CS_AS</DefaultCollation>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|' == 'Validate' ">
-    <OutputPath>bin\Debug\</OutputPath>
-    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <OutputPath>bin\Output\</OutputPath>
   </PropertyGroup>
   <ItemGroup Condition=" '$(Configuration)' == 'Debug' ">
     <None Include="utilities\Views\vw_entity.sql" />
