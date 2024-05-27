@@ -98,7 +98,7 @@
     <QueryStoreStaleQueryThreshold>0</QueryStoreStaleQueryThreshold>
     <QueryStoreMaxStorageSize>0</QueryStoreMaxStorageSize>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Validate|AnyCPU' ">
+  <PropertyGroup Condition=" ('$(Configuration)|$(Platform)' == 'Debug|AnyCPU') Or ('$(Configuration)|$(Platform)' == 'Validate|AnyCPU') ">
     <DSP>Microsoft.Data.Tools.Schema.Sql.SqlAzureV12DatabaseSchemaProvider</DSP>
     <OutputPath>bin\Debug\</OutputPath>
     <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
@@ -235,7 +235,7 @@
     <None Include="Scripts\**\*.sql" />
     <None Include="Security\Roles\*.sql" />
   </ItemGroup>
-  <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Validate|AnyCPU' ">
+  <ItemGroup Condition=" ('$(Configuration)|$(Platform)' == 'Debug|AnyCPU') Or ('$(Configuration)|$(Platform)' == 'Validate|AnyCPU') ">
     <None Include="utilities\External Tables\ext_MasterDataConfig.sql" />
     <None Include="External resources\External data sources\eds_MasterData.sql" />
     <None Include="External resources\External file formats\eff_MasterDataConfigFileFormat.sql" />
