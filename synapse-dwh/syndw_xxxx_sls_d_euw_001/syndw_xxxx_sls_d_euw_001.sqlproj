@@ -98,7 +98,7 @@
     <QueryStoreStaleQueryThreshold>0</QueryStoreStaleQueryThreshold>
     <QueryStoreMaxStorageSize>0</QueryStoreMaxStorageSize>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Validate|AnyCPU' ">
     <DSP>Microsoft.Data.Tools.Schema.Sql.SqlAzureV12DatabaseSchemaProvider</DSP>
     <OutputPath>bin\Debug\</OutputPath>
     <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
