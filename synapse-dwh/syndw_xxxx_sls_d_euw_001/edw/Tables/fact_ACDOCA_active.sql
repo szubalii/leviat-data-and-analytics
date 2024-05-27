@@ -5,7 +5,7 @@
   [FiscalYear]                            char(4) NOT NULL, -- collate Latin1_General_100_BIN2  NOT NULL,
   [AccountingDocument]                    nvarchar(20)  NOT NULL,
   [LedgerGLLineItem]                      nvarchar(12)  NOT NULL,
-  [ProductSurrogateKey]                   nvarchar(117),
+  --[ProductSurrogateKey]                   nvarchar(117), -- is added in [edw].[vw_fact_ACDOCA_active]
   [LedgerFiscalYear]                      char(4), -- collate Latin1_General_100_BIN2,
   [GLRecordTypeID]                        nvarchar(2),
   [ChartOfAccountsID]                     nvarchar(8),
