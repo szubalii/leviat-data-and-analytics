@@ -9,9 +9,6 @@
     <ModelCollation>1033,CS</ModelCollation>
     <DefaultCollation>SQL_Latin1_General_CP1_CS_AS</DefaultCollation>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|' == 'Validate' ">
-    <OutputPath>bin\Output\</OutputPath>
-  </PropertyGroup>
   <ItemGroup Condition=" '$(Configuration)' == 'Debug' ">
     <None Include="utilities\Views\vw_entity.sql" />
     <None Include="utilities\Views\vw_edw_entity_column_discrepancy.sql" />
