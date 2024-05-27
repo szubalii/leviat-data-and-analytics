@@ -9,9 +9,9 @@
     <ModelCollation>1033,CS</ModelCollation>
     <DefaultCollation>SQL_Latin1_General_CP1_CS_AS</DefaultCollation>
   </PropertyGroup>
-  <ItemGroup Condition=" '$(Configuration)' == 'Validate' ">
-    <Build Include="utilities\Views\vw_entity.sql" />
-  </ItemGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Validate' ">
+    <DSP>Microsoft.Data.Tools.Schema.Sql.SqlAzureV12DatabaseSchemaProvider</DSP>
+  </PropertyGroup>
   <ItemGroup Condition=" '$(Configuration)' == 'Debug' ">
     <None Include="utilities\Views\vw_entity.sql" />
     <None Include="utilities\Views\vw_edw_entity_column_discrepancy.sql" />
