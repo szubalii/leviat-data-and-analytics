@@ -19,7 +19,7 @@ steps:
   displayName: 'Deploy Synapse SQL Pool dacpac to Docker Container'
   
 - script: |
-    sqlpackage /Action:Publish /SourceFile:"$(System.DefaultWorkingDirectory)/synapse-dwh/TestDWH/bin/Debug/TestDWH.dacpac" \
+    sqlpackage /Action:Publish /SourceFile:"$(System.DefaultWorkingDirectory)/synapse-dwh/TestDWH/bin/Output/TestDWH.dacpac" \
     /TargetConnectionString:"Server=localhost;Initial Catalog=TestDWH;User ID=sa;Password=$(mssql-sa-pwd);Encrypt=False;TrustServerCertificate=False;Connection Timeout=30;"
   displayName: 'Deploy Test dacpac to Docker Container'
 
