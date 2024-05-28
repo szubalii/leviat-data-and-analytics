@@ -11,102 +11,6 @@ AS
 7. Calculate the stock level price per unit
 */
 
--- 6. Calculate the stock levels for each combo of yearWeek and hash
--- WITH
--- _union AS (
---   SELECT
---     [MaterialID]
---   , [PlantID]
---   , [StorageLocationID]
---   , [InventorySpecialStockTypeID]
---   , [InventoryStockTypeID]
---   , [StockOwner]
---   , [CostCenterID]
---   , [CompanyCodeID]
---   , [SalesDocumentTypeID]
---   , [SalesDocumentItemCategoryID]
---   , [MaterialBaseUnitID]
---   , [PurchaseOrderTypeID]
---   , [InventoryValuationTypeID]
---   , 'Week' AS [DatePart]
---   , [nk_StoragePlantID]
---   , [sk_ProductSalesOrg]
---   , [PlantSalesOrgID]
---   , [ReportingDate]
---   , [FirstDayOfMonthDate]
---   , [YearWeek]
---   , NULL AS [YearMonth]
---   -- , [IsWeekly]
---   -- , [IsMonthly]
---   , [MatlCnsmpnQtyInMatlBaseUnit]
---   , [MatlStkChangeQtyInBaseUnit]
---   , [StockLevelQtyInBaseUnit]
---   , [Rolling12MonthConsumptionQty]
---   , [ConsumptionQtyICPOInStandardValue_EUR]
---   , [ConsumptionQtyICPOInStandardValue_USD]
---   , [ConsumptionQtyOBDProStandardValue]
---   , [ConsumptionQtyOBDProStandardValue_EUR]
---   , [ConsumptionQtyOBDProStandardValue_USD]
---   , [ConsumptionQtySOStandardValue]
---   , [ConsumptionQtySOStandardValue_EUR]
---   , [ConsumptionQtySOStandardValue_USD]
---   , [ConsumptionQty]
---   , [ConsumptionValueByLatestPriceInBaseValue]
---   , [ConsumptionValueByLatestPrice_EUR]
---   , [ConsumptionValueByLatestPrice_USD]
---   , [t_applicationId]
---   , [t_extractionDtm]
---   FROM
---     [edw].[vw_fact_MaterialInventoryStockLevelWeekly]
-
---   UNION ALL
-
---   SELECT
---     [MaterialID]
---   , [PlantID]
---   , [StorageLocationID]
---   , [InventorySpecialStockTypeID]
---   , [InventoryStockTypeID]
---   , [StockOwner]
---   , [CostCenterID]
---   , [CompanyCodeID]
---   , [SalesDocumentTypeID]
---   , [SalesDocumentItemCategoryID]
---   , [MaterialBaseUnitID]
---   , [PurchaseOrderTypeID]
---   , [InventoryValuationTypeID]
---   , 'Month' AS [DatePart]
---   , [nk_StoragePlantID]
---   , [sk_ProductSalesOrg]
---   , [PlantSalesOrgID]
---   , [ReportingDate]
---   , [FirstDayOfMonthDate]
---   , NULL AS [YearWeek]
---   , [YearMonth]
---   -- , [IsWeekly]
---   -- , [IsMonthly]
---   , [MatlCnsmpnQtyInMatlBaseUnit]
---   , [MatlStkChangeQtyInBaseUnit]
---   , [StockLevelQtyInBaseUnit]
---   , [Rolling12MonthConsumptionQty]
---   , [ConsumptionQtyICPOInStandardValue_EUR]
---   , [ConsumptionQtyICPOInStandardValue_USD]
---   , [ConsumptionQtyOBDProStandardValue]
---   , [ConsumptionQtyOBDProStandardValue_EUR]
---   , [ConsumptionQtyOBDProStandardValue_USD]
---   , [ConsumptionQtySOStandardValue]
---   , [ConsumptionQtySOStandardValue_EUR]
---   , [ConsumptionQtySOStandardValue_USD]
---   , [ConsumptionQty]
---   , [ConsumptionValueByLatestPriceInBaseValue]
---   , [ConsumptionValueByLatestPrice_EUR]
---   , [ConsumptionValueByLatestPrice_USD]
---   , [t_applicationId]
---   , [t_extractionDtm]
---   FROM
---     [edw].[vw_fact_MaterialInventoryStockLevelMonthly]
--- )
-
 -- 7. Calculate the stock value by getting the price per unit
 SELECT
   sl.[MaterialID]
@@ -132,7 +36,7 @@ SELECT
 , sl.[CalendarMonth]
 , sl.[YearWeek]
 , sl.[CalendarWeek]
-, sl.[MaxPostingDate]
+, sl.[CalendarDate] AS MaxPostingDate
 -- , sl.[IsWeekly]
 , sl.[IsMonthly]
 , PUP.[CurrencyID]
@@ -153,8 +57,9 @@ SELECT
 , sl.[StockLevelQtyInBaseUnit] * LPUP.[LatestStockPricePerUnit] AS StockLevelStandardLatestPPU
 , sl.[StockLevelQtyInBaseUnit] * LPUP.[LatestStockPricePerUnit_EUR] AS StockLevelStandardLatestPPU_EUR
 , sl.[StockLevelQtyInBaseUnit] * LPUP.[LatestStockPricePerUnit_USD] AS StockLevelStandardLatestPPU_USD
-, sl.[Rolling12MonthConsumptionQty]
+, sl.[Rolling365DayConsumptionQty]
 , sl.[ConsumptionQtyICPOInBaseUnit]
+, sl.[ConsumptionQtyICPOInStandardValue]
 , sl.[ConsumptionQtyICPOInStandardValue_EUR]
 , sl.[ConsumptionQtyICPOInStandardValue_USD]
 , sl.[ConsumptionQtyOBDProStandardValue]
@@ -172,7 +77,7 @@ SELECT
 , sl.[t_applicationId]
 , sl.[t_extractionDtm]
 FROM
-  [edw].[vw_fact_MaterialInventoryStockLevelWeekly] sl
+  [edw].[vw_fact_MaterialInventoryStockLevelWeeklyBasedOnDaily] sl
 LEFT OUTER JOIN
   [edw].[dim_ProductValuationPUP] PUP
   ON

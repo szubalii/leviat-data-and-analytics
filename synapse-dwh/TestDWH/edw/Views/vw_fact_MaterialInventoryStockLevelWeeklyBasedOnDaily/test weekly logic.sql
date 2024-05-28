@@ -1,4 +1,4 @@
-CREATE PROCEDURE [tc.edw.vw_fact_MaterialInventoryStockLevel].[test stock value]
+CREATE PROCEDURE [tc.edw.vw_fact_MaterialInventoryStockLevelWeeklyBasedOnDaily].[test weekly logic]
 AS
 BEGIN
 
@@ -8,7 +8,6 @@ BEGIN
   -- Assemble: Fake Table
   EXEC tSQLt.FakeTable '[edw]', '[dim_Calendar]';
   EXEC tSQLt.FakeTable '[edw]', '[fact_MaterialDocumentItem]';
-  EXEC tSQLt.FakeTable '[edw]', '[dim_ProductValuationPUP]';
 
   INSERT INTO edw.dim_Calendar (
     CalendarDate,
@@ -43,7 +42,10 @@ BEGIN
     ('2024-01-29', 2024, 202405, 202401, '2024-01-01'),
     ('2024-01-30', 2024, 202405, 202401, '2024-01-01'),
     ('2024-01-31', 2024, 202405, 202401, '2024-01-01'),
-    ('2024-02-01', 2024, 202405, 202402, '2024-02-01');
+    ('2024-02-01', 2024, 202405, 202402, '2024-02-01'),
+    ('2024-02-02', 2024, 202405, 202402, '2024-02-01'),
+    ('2024-02-03', 2024, 202405, 202402, '2024-02-01'),
+    ('2024-02-04', 2024, 202405, 202402, '2024-02-01');
 
   INSERT INTO edw.fact_MaterialDocumentItem (
     [MaterialID]
@@ -58,41 +60,28 @@ BEGIN
   , [InventoryValuationTypeID]
   , [HDR_PostingDate]
   , [MatlStkChangeQtyInBaseUnit]
+  , [MatlCnsmpnQtyInMatlBaseUnit]
   , [t_applicationId]
   )
   VALUES
-    (1, 1, 1, 1, 1, 1, 1, 1, 1, 1, '2024-01-08',  10, 's4h-cap-100'),
-    (1, 1, 1, 1, 1, 1, 1, 1, 1, 1, '2024-01-22',  20, 's4h-cap-100'),
-    (1, 1, 1, 1, 1, 1, 1, 1, 1, 1, '2024-01-22', -10, 's4h-cap-100'),
-    (1, 1, 1, 1, 1, 1, 1, 1, 1, 1, '2024-01-29',  20, 's4h-cap-100'),
-    (1, 1, 1, 1, 1, 1, 1, 1, 1, 1, '2024-02-01',  20, 's4h-cap-100');
-
-  INSERT INTO edw.dim_ProductValuationPUP (
-    ProductID,
-    ValuationAreaID,
-    ValuationTypeID,
-    FirstDayOfMonthDate,
-    StockPricePerUnit,
-    StockPricePerUnit_EUR,
-    StockPricePerUnit_USD
-  )
-  VALUES
-    (1, 1, 1, '2024-01-01', 10, 15, 20),
-    (1, 1, 1, '2024-02-01', 11, 16, 21);
+    (1, 1, 1, 1, 1, 1, 1, 1, 1, 1, '2024-01-08',  10,  5, 's4h-cap-100'),
+    (1, 1, 1, 1, 1, 1, 1, 1, 1, 1, '2024-01-22',  20, 10, 's4h-cap-100'),
+    (1, 1, 1, 1, 1, 1, 1, 1, 1, 1, '2024-01-22', -10, -5, 's4h-cap-100'),
+    (1, 1, 1, 1, 1, 1, 1, 1, 1, 1, '2024-01-29',  20, 10, 's4h-cap-100'),
+    (1, 1, 1, 1, 1, 1, 1, 1, 1, 1, '2024-02-01',  20, 10, 's4h-cap-100');
 
   -- Act: 
   SELECT
     [MaterialID],
-    [PlantID],
-    [InventoryValuationTypeID],
     [YearMonth],
     [YearWeek],
+    [CalendarDate],
+    [MatlStkChangeQtyInBaseUnit],
+    [MatlCnsmpnQtyInMatlBaseUnit],
     [StockLevelQtyInBaseUnit],
-    [StockLevelStandardPPU],
-    [StockLevelStandardPPU_EUR],
-    [StockLevelStandardPPU_USD]
+    [Rolling365DayConsumptionQty]
   INTO actual
-  FROM [edw].[vw_fact_MaterialInventoryStockLevel]
+  FROM [edw].[vw_fact_MaterialInventoryStockLevelWeeklyBasedOnDaily]
 
   -- Assert:
   SELECT TOP(0) *
@@ -101,21 +90,20 @@ BEGIN
   
   INSERT INTO expected (
     [MaterialID],
-    [PlantID],
-    [InventoryValuationTypeID],
     [YearMonth],
     [YearWeek],
+    [CalendarDate],
+    [MatlStkChangeQtyInBaseUnit],
+    [MatlCnsmpnQtyInMatlBaseUnit],
     [StockLevelQtyInBaseUnit],
-    [StockLevelStandardPPU],
-    [StockLevelStandardPPU_EUR],
-    [StockLevelStandardPPU_USD]
+    [Rolling365DayConsumptionQty]
   )
   VALUES
-    (1, 1, 1, 202401, 202402,   10,  100,  150,  200),
-    (1, 1, 1, 202401, 202403,   10,  100,  150,  200),
-    (1, 1, 1, 202401, 202404,   20,  200,  300,  400),
-    (1, 1, 1, 202401, 202405,   40,  400,  600,  800),
-    (1, 1, 1, 202402, 202405,   60,  660,  960, 1260);
+    (1, 202401, 202402, '2024-01-14',   10,    5, 10,  5),
+    (1, 202401, 202403, '2024-01-21', NULL, NULL, 10,  5),
+    (1, 202401, 202404, '2024-01-28',   10,    5, 20, 10),
+    (1, 202401, 202405, '2024-01-31',   20,   10, 40, 20),
+    (1, 202402, 202405, '2024-02-04',   20,   10, 60, 30);
 
   EXEC tSQLt.AssertEqualsTable 'expected', 'actual';
 END;
