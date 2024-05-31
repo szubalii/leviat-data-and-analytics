@@ -2,6 +2,28 @@
 
 WITH
 
+CTE_CustomerSalesArea AS (
+    SELECT
+        csa.CustomerGroup
+    ,   csa.SalesOrganization
+    ,   csa.DistributionChannel
+    ,   csa.Division
+    ,   csa.Customer
+    ,   csa.CustomerPriceGroup
+    ,   ROW_NUMBER() OVER (
+            PARTITION BY csa.CustomerGroup, csa.SalesOrganization, csa.DistributionChannel, csa.Division, csa.Customer
+            ORDER BY csa.CustomerGroup, csa.SalesOrganization, csa.DistributionChannel, csa.Division, csa.Customer
+        ) AS row_num
+    FROM [base_s4h_cax].[I_CustomerSalesArea] csa
+    GROUP BY
+        csa.CustomerGroup
+    ,   csa.SalesOrganization
+    ,   csa.DistributionChannel
+    ,   csa.Division
+    ,   csa.Customer
+    ,   csa.CustomerPriceGroup
+)
+,
 CTE_SalesOrder AS (
   SELECT
     subDoc.[ReferenceSDDocumentID] AS [QuotationID],
@@ -221,6 +243,7 @@ SELECT
 ) AS [PrcgElmntVPRS/EK02ConditionRate]
 , doc.[SalesGroupID]
 , doc.[SalesGroupName]
+, csa.CustomerPriceGroup AS [CustomerPriceGroupID]
 , doc.[t_applicationId]
 , doc.[t_extractionDtm]
 FROM
@@ -357,6 +380,22 @@ LEFT JOIN
     doc.SalesDocumentItem = CTE_PrcgElmnt.SalesQuotationItem
     AND
     doc.CurrencyTypeID = CTE_PrcgElmnt.CurrencyTypeID
+
+LEFT JOIN
+  CTE_CustomerSalesArea csa
+  ON
+    doc.SoldToPartyID = csa.Customer
+    AND
+    doc.CustomerGroupID = csa.CustomerGroup
+    AND 
+    doc.SalesOrganizationID = csa.SalesOrganization
+    AND 
+    doc.DistributionChannelID = csa.DistributionChannel
+    AND
+    doc.DivisionID = csa.Division
+    AND 
+    csa.row_num = 1
+
 
 WHERE
   doc.[SDDocumentCategoryID] = 'B'
