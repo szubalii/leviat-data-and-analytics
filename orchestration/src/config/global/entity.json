@@ -5684,7 +5684,7 @@
         "source_view_name": "vw_CustomerCalculated_US",
         "dest_table_name": "dim_CustomerCalculated_US",
         "execution_order": 0,
-        "schedule_recurrence": "A"
+        "schedule_recurrence": "D"
       },
       {
         "entity_id": 381,

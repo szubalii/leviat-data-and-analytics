@@ -1,15 +1,8 @@
 ﻿CREATE VIEW [edw].[vw_CustomerCalculated_US]
     AS 
 SELECT 
-        CASE
-            WHEN 
-                map_Cust.[UniqueCustomerNumber] IS NOT NULL
-            THEN
-                map_Cust.[UniqueCustomerNumber]
-            ELSE
-                CONCAT(CUST.[COMP],'-',CUST.[CUSTOMER])
-        END AS [CustomerIDCalculated] 
-    ,   map_Cust.[CustName] AS [CustomerCalculated] 
+        COALESCE(map_Cust.[UniqueCustomerNumber], CONCAT(CUST.[COMP],'-',CUST.[CUSTOMER])) AS [CustomerIDCalculated] 
+    ,   COALESCE(map_Cust.[CustName], CUST.CustName) AS [CustomerCalculated] 
     ,   map_Cust.CustomerPillar AS [CustomerPillarCalculated]
     ,   NULL AS [isReviewed] 
     ,   'no_SAP' AS [mappingType] 
