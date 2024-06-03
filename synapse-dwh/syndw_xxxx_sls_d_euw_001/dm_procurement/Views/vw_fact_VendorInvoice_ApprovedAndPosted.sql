@@ -53,7 +53,7 @@ SELECT
 , HDR2_AccountingDocument
 , HDR2_PostingUser
 , CASE 
-    WHEN CGLA.[Status] ='Compliant'
+    WHEN CGLA.[Status] = 'Compliant'
     THEN 'Compliant'
     ELSE 'Non-Compliant'
   END AS ComplianceIndicator
@@ -62,4 +62,4 @@ FROM
 LEFT JOIN
   [base_ff].[CompliantGLAccounts] CGLA
   ON
-  orig.GLAccountID = CGLA.GLAccountID
+  orig.GLAccountID = CGLA.SAPAccount
