@@ -43,3 +43,4 @@ map_AXBI;SAPCustomerBasicMappingTable.csv;";";map_AXBI;SAPCustomerBasicMappingTa
 ;LeviatWarehouse.csv;";";base_ff;LeviatWarehouse
 ;PurchaseOrderExpectedGLAccount.csv;";";base_ff;PurchaseOrderExpectedGLAccount
 ;ProductHierarchyNodeMapping.csv;";";base_ff;ProductHierarchyNodeMapping
+;CompliantGLAccounts.csv;";";base_ff;CompliantGLAccounts
