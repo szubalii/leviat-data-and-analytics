@@ -1,5 +1,5 @@
 CREATE TABLE base_ff.CompliantGLAccounts (
-	[SAPAccount]                   NVARCHAR(8),
+	[SAPAccount]                   NVARCHAR(10),
     [SAPAccountName]               NVARCHAR(60),
     [Category]                     NVARCHAR(40),
     [Status]                       NVARCHAR(10),
