@@ -52,5 +52,14 @@ SELECT
 , HDR2_SupplierInvoiceID
 , HDR2_AccountingDocument
 , HDR2_PostingUser
+, CASE 
+    WHEN CGLA.[Status] ='Compliant'
+    THEN 'Compliant'
+    ELSE 'Non-Compliant'
+  END AS ComplianceIndicator
 FROM
-  [edw].[vw_fact_VendorInvoice_ApprovedAndPosted_CUR]
+  [edw].[vw_fact_VendorInvoice_ApprovedAndPosted_CUR] orig
+LEFT JOIN
+  [base_ff].[CompliantGLAccounts] CGLA
+  ON
+  orig.GLAccountID = CGLA.GLAccountID

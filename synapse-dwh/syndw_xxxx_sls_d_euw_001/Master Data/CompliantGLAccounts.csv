@@ -1,0 +1,200 @@
+﻿SAPAccount;SAPAccountName;Category;Status
+15310001;Prepayments for old-age and disability insurance;Insurance;Compliant
+15310003;Prepayment for accident insurance;Insurance;Compliant
+15310005;Prepayments for sick leave insurance;Insurance;Compliant
+15311100;Prepaid insurance;Insurance;Compliant
+15360104;Other receivables - returns adv payment travel exp;Travel;Compliant
+21311201;Other insurance costs accr. - property ins. ;Insurance;Compliant
+21311202;Other insurance costs accr. - credit ins. customer;Insurance;Compliant
+21380200;Accrued group auditor fees;Lawyers, consultancy & Management fees;Compliant
+21380300;Accrued other auditor fees;Lawyers, consultancy & Management fees;Compliant
+21380400;Accrued other professional fees;Lawyers, consultancy & Management fees;Compliant
+21390124;VAT, sales and use tax - Import VAT payable;Tax;Compliant
+21393204;Other accruals - related to insurance costs;Insurance;Compliant
+21393207;Other accruals - transport, warehouse & stockyard;Transport ;Compliant
+21393209;Other accruals - rent & operational lease costs;Leasing;Compliant
+21393212;Other accruals -  consultancy and audit fees;Lawyers, consultancy & Management fees;Compliant
+21393220;Other accurals - employees - life insurance;Insurance;Compliant
+22100101;Insurance provision - trade association (BG) PY;Insurance;Compliant
+22100102;Insurance provision - trade association (BG) CY;Insurance;Compliant
+25100100;Lease liabilities - Land and building ;Leasing;Compliant
+25100150;Lease liabilities - Land and building -  manual;Leasing;Compliant
+25200100;Lease liabilities - Machinery and equipment ;Leasing;Compliant
+25200101;Lease Liabilities - Acc.P.C - Plant & Machinery;Leasing;Compliant
+25200102;Lease liabilities - CARS;Leasing;Compliant
+25200105;Lease liabilities - Computer Equipment;Leasing;Compliant
+25200106;Lease liabilities - Transport (e.g. Forklifts) ;Leasing;Compliant
+25200107;Lease liabilities - Furniture and Fittings;Leasing;Compliant
+25200108;Lease Liabilities - Cars - short term;Leasing;Compliant
+25200150;Lease liabilities - Machinery and equipment - manual;Leasing;Compliant
+25200151;Lease liabilities - CARS - manual;Leasing;Compliant
+25200152;Lease liabilities - Computer Equipment - manual;Leasing;Compliant
+25200153;Lease liabilities - Transport (e.g. Forklifts) - manual;Leasing;Compliant
+25200154;Lease liabilities - Furniture and Fittings - manual;Leasing;Compliant
+25300200;Lease Liabilities - technical AP clearing account;Leasing;Compliant
+35600100;IC admin fees payable / receivable;Lawyers, consultancy & Management fees;Compliant
+50108115;Wages & salaries - other - transportation;Transport ;Compliant
+50707100;Accident insurance;Insurance;Compliant
+50707101;Sick leave insurance;Insurance;Compliant
+50707102;Social insurances on accruals;Insurance;Compliant
+50707350;Rent & Operational Lease - Comp Cars - Installment;Leasing;Compliant
+50707351;Rent & Operational Lease - Comp Cars - Insurance;Leasing;Compliant
+50707351;Rent & Operational Lease - Comp Cars - Insurance;Insurance;Compliant
+50707352;Rent & Operational Lease - Comp Cars - Maintenance;Leasing;Compliant
+50707353;Rent & Operational Lease - Comp Cars - fuel ;Leasing;Compliant
+50707354;Rent & Operational Lease - Comp Cars - other fees;Leasing;Compliant
+50707354;Rent & Operational Lease - Comp Cars - other fees;Lawyers, consultancy & Management fees;Compliant
+50707355;Rent & Operational Lease - Comp Cars- priv contrib;Leasing;Compliant
+50707356;Rent & Operational Lease - Comp Cars - car tax;Leasing;Compliant
+50707360;Set-Off IFRS Rent & Oper. Lease - Comp Cars Inst.;Leasing;Compliant
+52901200;Cost of sales transport (non standard costing) -OM;Transport ;Compliant
+55000100;External Transport Costs;Transport ;Compliant
+55000110;External Outbound Transport - Prov freight charges;Transport ;Compliant
+55000120;External Outbound Transport - Transp Costs accrual;Transport ;Compliant
+55000130;External Outbound Transport - Customs;Transport ;Compliant
+55000140;External Outbound Transport - Logistic & Warehouse;Transport ;Compliant
+55000150;External Inbound Transport Costs;Transport ;Compliant
+55000160;External Outbound Transport costs - Packaging Material;Transport ;Compliant
+55000200;Cost of goods delivered - transport;Transport ;Compliant
+55000201;Cost of goods delivered - custom duties;Transport ;Compliant
+55000202;Cost of goods delivered - inbound packaging;Transport ;Compliant
+55000203;Cost of goods delivered - inbound freight SU's;Transport ;Compliant
+55502100;Intracompany Transport costs;Transport ;Compliant
+59000201;Rent & lease costs - Warehouse;Leasing;Compliant
+59000202;Rent & lease costs - Warehouse Short term;Leasing;Compliant
+59000204;Rent & lease costs - Warehouse variable costs;Leasing;Compliant
+59000210;Rent & lease costs - Transport;Leasing;Compliant
+59000211;Rent & lease costs - Transport Short term;Leasing;Compliant
+59000215;Set-off Rent & lease costs - Transport;Leasing;Compliant
+59000220;Rent & lease costs - Computer equipment;Leasing;Compliant
+59000222;Rent & lease costs - Computer equip short term;Leasing;Compliant
+59000225;Set-off Rent & lease costs - Computer equipment;Leasing;Compliant
+59000230;Rent & lease costs - Buildings;Leasing;Compliant
+59000231;Rent & lease costs - Buildings short term;Leasing;Compliant
+59000232;Rent & lease costs - Buildings low value;Leasing;Compliant
+59000235;Set-off Rent & lease costs - Buildings;Leasing;Compliant
+59000240;Rent & lease costs - furniture & equipment;Leasing;Compliant
+59000241;Rent & lease costs - furniture & equipm short term;Leasing;Compliant
+59000242;Rent & lease costs - furniture & equipm low value;Leasing;Compliant
+59000245;Set-off Rent & lease costs - furniture & equipment;Leasing;Compliant
+59000260;Rent & lease costs - other assets;Leasing;Compliant
+59000270;Rent & lease costs - machinery & equipment;Leasing;Compliant
+59000271;Rent & lease costs - machinery & equip short term;Leasing;Compliant
+59000275;Set-off Rent & lease costs - machinery & equipment;Leasing;Compliant
+59000280;Lease Expense - technical AP clearing acc.;Leasing;Compliant
+59001120;Marketing & promotion - Sponsoring;Sponsoring;Compliant
+59001200;Travel Costs;Travel;Compliant
+59001201;Travel Costs - Daily Allowances tax free;Travel;Compliant
+59001202;Travel Costs - Daily Allowances taxable;Travel;Compliant
+59001203;Travel Costs - Entertainment decutible;Travel;Compliant
+59001204;Travel Costs - Entertainment non-decutible;Travel;Compliant
+59001205;Travel Costs - Travel Fees;Travel;Compliant
+59001206;Travel Costs - Hotel;Travel;Compliant
+59001207;Travel Costs - Car Park/ Toll;Travel;Compliant
+59001208;Travel Costs - Flight;Travel;Compliant
+59001209;Travel Costs - Train;Travel;Compliant
+59001210;Travel Costs - Taxi & Public Transport;Transport ;Compliant
+59001210;Travel Costs - Taxi & Public Transport;Travel;Compliant
+59001211;Travel Costs - Meals;Travel;Compliant
+59001212;Travel Costs - Reinvoicing;Travel;Compliant
+59001214;Travel Costs - Credit Cards;Travel;Compliant
+59001215;Travel Costs - Car Rental;Travel;Compliant
+59001216;Travel Costs - Car milage&fuel comps  decutible;Travel;Compliant
+59001217;Travel Costs - Car milage&fuel comps non-decutible;Travel;Compliant
+59001218;Travel Costs - Conferences;Travel;Compliant
+59001700;Credit insurance costs;Insurance;Compliant
+59002800;Taxes - other ;Tax;Compliant
+59003700;Property Tax;Tax;Compliant
+59100100;Insurance claims;Insurance;Compliant
+59100300;Other Insurance income;Insurance;Compliant
+59100301;Other Insurance income Credit;Insurance;Compliant
+59100400;Other Insurance Costs;Insurance;Compliant
+59100403;Other Insurance Costs - Business interruption ;Insurance;Compliant
+59100404;Other Insurance Costs - Building Insurance;Insurance;Compliant
+59100405;Other Insurance Costs - Product Liability;Insurance;Compliant
+59100406;Other Insurance Costs - Transport;Insurance;Compliant
+59300400;Other consultancy / professional fees;Lawyers, consultancy & Management fees;Compliant
+59300500;Legal Fees;Lawyers, consultancy & Management fees;Compliant
+59300600;Consulting Fees;Lawyers, consultancy & Management fees;Compliant
+59300601;Court fees;Lawyers, consultancy & Management fees;Compliant
+59300602;Technical consulting fees;Lawyers, consultancy & Management fees;Compliant
+59300603;Professional services - New approvals;Lawyers, consultancy & Management fees;Compliant
+59300604;Professional services -  Product improvement;Lawyers, consultancy & Management fees;Compliant
+59300605;Professional services -  Approvals/Maintenance;Lawyers, consultancy & Management fees;Compliant
+59300606;Professional services - Other R&D costs;Lawyers, consultancy & Management fees;Compliant
+59300607;Professional services - Patent Attorney;Lawyers, consultancy & Management fees;Compliant
+59300608;Professional services - New Products;Lawyers, consultancy & Management fees;Compliant
+59300610;Professional services - R&D Small tool costs;Lawyers, consultancy & Management fees;Compliant
+59300620;Consulting Fees - IT Consulting;Lawyers, consultancy & Management fees;Compliant
+59300630;Consulting Fees -Pensions - non Group Auditor;Lawyers, consultancy & Management fees;Compliant
+59310100;Group auditors - audit fees;Lawyers, consultancy & Management fees;Compliant
+59310300;Other auditors - audit fee;Lawyers, consultancy & Management fees;Compliant
+59320100;Group auditors - tax fees;Lawyers, consultancy & Management fees;Compliant
+59320200;Other auditors - tax fees;Lawyers, consultancy & Management fees;Compliant
+61105554;Transport (IO clearing);Transport ;Compliant
+71120301;Lease interest - buildings leasehold;Leasing;Compliant
+71120302;Lease interest - company cars leasehold;Leasing;Compliant
+71120303;Lease interest - leased computer equipment;Leasing;Compliant
+71120304;Lease interest - leased fixtures and fittings;Leasing;Compliant
+71120305;Lease interest - leased transport;Leasing;Compliant
+71120306;Lease interest - machinery and equipment;Leasing;Compliant
+71120351;Lease interest - Land & Building - manual;Leasing;Compliant
+71120352;Lease interest - company cars leasehold - manual;Leasing;Compliant
+71120353;Lease interest - leased computer equipment -manual;Leasing;Compliant
+71120354;Lease interest - leased fixtures & fittings manual;Leasing;Compliant
+71120355;Lease interest - leased transport - manual;Leasing;Compliant
+71120356;Lease interest - machinery and equipment - manual;Leasing;Compliant
+75000200;Value based fee;Lawyers, consultancy & Management fees;Compliant
+75000300;CRH guarantee fees cost / (income);Lawyers, consultancy & Management fees;Compliant
+76000100;Ext Curr tax charge / (credit);Tax;Compliant
+76000101;Ext Curr tax charge /(credit) -advance payment;Tax;Compliant
+76000102;Ext Curr tax charge / (credit) - prior year;Tax;Compliant
+76000103;Ext Curr tax charge / (debit) - withh income tax;Tax;Compliant
+76000200;IC current tax charge / (credit);Tax;Compliant
+76000300;Total deferred tax charge - in-/decrease DTA;Tax;Compliant
+76000301;Total deferred tax charge - in-/decrease DTL;Tax;Compliant
+15334100;VAT & sales taxes;Tax;Compliant
+15334104;Import input tax;Tax;Compliant
+15334105;Input tax from intra-community supply;Tax;Compliant
+15334106;Input tax from intra-community services;Tax;Compliant
+15334108;Input tax PL for Germany;Tax;Compliant
+15334115;VAT & sales taxes - input tax reverse charge dom;Tax;Compliant
+21390100;VAT, sales & use tax;Tax;Compliant
+21390102;VAT, sales & use tax - Sales tax intra-comm supply;Tax;Compliant
+21390104;VAT, sales & use tax - rev.charge Services payable;Tax;Compliant
+21390106;VAT, sales & use tax - VAT payable amount ;Tax;Compliant
+21390107;VAT, sales & use tax - VAT payable amount PY;Tax;Compliant
+21390108;VAT, sales & use tax - Import Sales tax deductible;Tax;Compliant
+21390109;VAT, sales & use tax -VAT payable amount DE for AT;Tax;Compliant
+21390110;VAT, sales & use tax - Sales tax (VAT) PL for DE;Tax;Compliant
+21390119;VAT, sales & use tax - benefits in kind;Tax;Compliant
+21390120;VAT, sales & use tax - provision benefits in kind;Tax;Compliant
+21390121;VAT, sales & use tax - Intercompany/ tax group;Tax;Compliant
+21390125;VAT, sales &use tax - outp tax rev charge domestic;Tax;Compliant
+21392100;Accr realty&prop Tax;Tax;Compliant
+21392200;Accrued utilities;Tax;Compliant
+21393200;Other accruals;Tax;Compliant
+21393205;OthAcr COGS;Tax;Compliant
+21393206;OthAcr empl costs;Tax;Compliant
+21393207;OthAccr Transp Ware;Tax;Compliant
+21393214;OthAccr Out Invoice;Tax;Compliant
+21393215;OthAccr Empl Invent;Tax;Compliant
+21393217;OthAccr empl tar sur;Tax;Compliant
+21393220;OthAccr EmplLifeIns;Tax;Compliant
+21393221;OthAccr.SevDisComp;Tax;Compliant
+21393225;OthAccr Retent requ ;Tax;Compliant
+21393226;OthAccr IntYEClose;Tax;Compliant
+21393227;OthAccr Cust Duty;Tax;Compliant
+21320200;Holiday & vacation accrual;Tax;Compliant
+21320201;Holiday and vacation accrual - holiday allowance;Tax;Compliant
+21320302;Bonus accrual - prior year;Tax;Compliant
+21320300;Bonus accrual;Tax;Compliant
+21320202;Wages & salaries payable - X-mas bonus / 13th sal;Tax;Compliant
+21320204;Holiday and vacation accrual - Overtime;Tax;Compliant
+21320500;Taxes (payroll income) payable;Tax;Compliant
+21320400;Social sec. liabilities payable;Tax;Compliant
+21320100;Wages & salaries payable;Tax;Compliant
+21320106;Wages & salaries payable - garnishment;Tax;Compliant
+21320105;Wages & salaries payable - capital accum benefits;Tax;Compliant
+21320104;Wages & Salaries payable - Empl. Travel costs;Tax;Compliant
+21320103;Wages & Salaries payable - other rel. to salaries;Tax;Compliant
