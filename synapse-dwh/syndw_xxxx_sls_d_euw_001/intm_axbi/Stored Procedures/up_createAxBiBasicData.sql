@@ -46,43 +46,43 @@ BEGIN
 	,t_extractionDtm)
 	select distinct
 	case DATAAREAID
-	--when '5300' then 'HADP'
-	--when '5302' then 'HAIN'
-	--when '5303' then 'HADE'
+	when '5300' then 'HADP'
+	when '5302' then 'HAIN'
+	when '5303' then 'HADE'
 	when '5307' then 'HAFR'
-	--when '5308' then 'HASE'
+	when '5308' then 'HASE'
 	when '5309' then 'HABE'
 	when '5310' then 'HAUK'
-	/*when '5311' then 'HACH'
+	when '5311' then 'HACH'
 	when '5313' then 'HAAT'
 	when '5314' then 'HANL'
 	when '5315' then 'HAIT'
 	when '5316' then 'HAPL'
 	when '5317' then 'HACZ'
 	when '5320' then 'HAES'
-	when '5321' then 'HAPP'*/
+	when '5321' then 'HAPP'
 	when '5325' then 'HANO'
-	--when '5327' then 'HACN'
+	when '5327' then 'HACN'
 	when '5330' then 'HAUS'
 	end,
 	case DATAAREAID
-	/*when '5300' then 'HADP-' + ACCOUNTNUM
+	when '5300' then 'HADP-' + ACCOUNTNUM
 	when '5302' then 'HAIN-' + ACCOUNTNUM
-	when '5303' then 'HADE-' + ACCOUNTNUM*/
+	when '5303' then 'HADE-' + ACCOUNTNUM
 	when '5307' then 'HAFR-' + ACCOUNTNUM
-	--when '5308' then 'HASE-' + ACCOUNTNUM
+	when '5308' then 'HASE-' + ACCOUNTNUM
 	when '5309' then 'HABE-' + ACCOUNTNUM
 	when '5310' then 'HAUK-' + ACCOUNTNUM
-	/*when '5311' then 'HACH-' + ACCOUNTNUM
+	when '5311' then 'HACH-' + ACCOUNTNUM
 	when '5313' then 'HAAT-' + ACCOUNTNUM
 	when '5314' then 'HANL-' + ACCOUNTNUM
 	when '5315' then 'HAIT-' + ACCOUNTNUM
 	when '5316' then 'HAPL-' + ACCOUNTNUM
 	when '5317' then 'HACZ-' + ACCOUNTNUM
 	when '5320' then 'HAES-' + ACCOUNTNUM
-	when '5321' then 'HAPP-' + ACCOUNTNUM*/
+	when '5321' then 'HAPP-' + ACCOUNTNUM
 	when '5325' then 'HANO-' + ACCOUNTNUM
-	--when '5327' then 'HACN-' + ACCOUNTNUM
+	when '5327' then 'HACN-' + ACCOUNTNUM
 	when '5330' then 'HAUS-' + ACCOUNTNUM
 	end,
 	NAME,
@@ -131,7 +131,8 @@ BEGIN
 	@t_jobDtm as t_jobDtm,
 	@t_jobBy as t_jobBy,
 	t_extractionDtm
-	from [base_dw_halfen_0_hlp].[CUSTOMER] where DATAAREAID in ('5307', '5309', '5310', '5325' ) -- ohne Halfen USA 5330
+	from [base_dw_halfen_0_hlp].[CUSTOMER] where DATAAREAID in ('5307', '5309', '5310', '5325', -- ohne Halfen USA 5330
+                                                                '5300', '5302', '5303', '5308', '5311', '5313', '5314', '5315', '5316', '5317', '5320', '5321', '5327')
 
 	-- Ancon AT, CH, DE Aschwanden CH Plaka BE, FR
 
