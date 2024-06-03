@@ -693,6 +693,11 @@ GLACCOUNT;FUNCTIONALAREA;TRANSACTIONTYPE;TRADINGPARTNER;CONTIGENCY1;CONTIGENCY2;
 18113452;;;;;;;;;;;BS192000;Bank balances;;;;;S_MA;U;;BS
 18113453;;;;;;;;;;;BS192000;Bank balances;;;;;S_MA;U;;BS
 18113454;;;;;;;;;;;BS192000;Bank balances;;;;;S_MA;U;;BS
+18113460;;;;;;;;;;;BS192000;Bank balances;;;;;S_MA;U;;BS
+18113461;;;;;;;;;;;BS192000;Bank balances;;;;;S_MA;U;;BS
+18113462;;;;;;;;;;;BS192000;Bank balances;;;;;S_MA;U;;BS
+18113463;;;;;;;;;;;BS192000;Bank balances;;;;;S_MA;U;;BS
+18113464;;;;;;;;;;;BS192000;Bank balances;;;;;S_MA;U;;BS
 18114450;;;;;;;;;;;BS192000;Bank balances;;;;;S_MA;U;;BS
 18114451;;;;;;;;;;;BS192000;Bank balances;;;;;S_MA;U;;BS
 18114452;;;;;;;;;;;BS192000;Bank balances;;;;;S_MA;U;;BS
@@ -1124,9 +1129,9 @@ GLACCOUNT;FUNCTIONALAREA;TRANSACTIONTYPE;TRADINGPARTNER;CONTIGENCY1;CONTIGENCY2;
 41100102;;;;;;Gross sales;Gross Margin;Sales;Sales;Income for products;IS411000;Trade sales;DT999;;;;S_MA;U;;IS
 41100103;;;;;;Gross sales;Gross Margin;Sales;Sales;Income for products;IS411000;Trade sales;DT999;;;;S_MA;U;;IS
 41100104;;;;;;Gross sales;Gross Margin;Sales;Sales;Income for products;IS411000;Trade sales;DT999;;;;S_MA;U;;IS
-41200100;;;;;;Gross sales;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
-41200101;;;;;;Gross sales;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
-41200102;;;;;;Gross sales;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
+41200100;;;;;;Gross sales;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales;DT999;;;;S_MA;U;;IS
+41200101;;;;;;Gross sales;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales;DT999;;;;S_MA;U;;IS
+41200102;;;;;;Gross sales;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales;DT999;;;;S_MA;U;;IS
 41400100;;;;;;Gross sales;Gross Margin;Sales;Sales;Income for products;IS417200;Transport sales;DT999;;;;S_MA;U;;IS
 41400101;;;;;;Gross sales;Gross Margin;Sales;Sales;Income for products;IS417200;Transport sales;DT999;;;;S_MA;U;;IS
 41400102;;;;;;Gross sales;Gross Margin;Sales;Sales;Income for products;IS417200;Transport sales;DT999;;;;S_MA;U;;IS
@@ -1155,40 +1160,40 @@ GLACCOUNT;FUNCTIONALAREA;TRANSACTIONTYPE;TRADINGPARTNER;CONTIGENCY1;CONTIGENCY2;
 41800106;;;;;;Bonusses and discounts;Gross Margin;Sales;Sales;Income for products;IS421000;Sales bonus payable and volume rebates - customers;DT999;;;;S_MA;U;;IS
 41800107;;;;;;Bonusses and discounts;Gross Margin;Sales;Sales;Income for products;IS421000;Sales bonus payable and volume rebates - customers;DT999;;;;S_MA;U;;IS
 49000101;;;;;;;Gross Margin;Sales;Sales;Income for products;IS411000;Trade sales;DT999;;;;S_MA;U;;IS
-49000102;;;;;;;Gross Margin;Sales;Sales;Income for freight (ZCF1);IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
-49000103;;;;;;;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
-49000104;;;;;;;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
-49000105;;;;;;;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
-49000106;;;;;;;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
-49000107;;;;;;;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
-49000108;;;;;;;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
-49000109;;;;;;;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
-49000110;;;;;;;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
+49000102;;;;;;;Gross Margin;Sales;Sales;Income for freight (ZCF1);IS415000;Own production sales;DT999;;;;S_MA;U;;IS
+49000103;;;;;;;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales;DT999;;;;S_MA;U;;IS
+49000104;;;;;;;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales;DT999;;;;S_MA;U;;IS
+49000105;;;;;;;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales;DT999;;;;S_MA;U;;IS
+49000106;;;;;;;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales;DT999;;;;S_MA;U;;IS
+49000107;;;;;;;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales;DT999;;;;S_MA;U;;IS
+49000108;;;;;;;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales;DT999;;;;S_MA;U;;IS
+49000109;;;;;;;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales;DT999;;;;S_MA;U;;IS
+49000110;;;;;;;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales;DT999;;;;S_MA;U;;IS
 49000111;;;;;;;Gross Margin;Sales;Sales;Income for products;IS411000;Trade sales;DT999;;;;S_MA;U;;IS
-49000112;;;;;;;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
-49000116;;;;;;;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
-49000117;;;;;;;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
+49000112;;;;;;;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales;DT999;;;;S_MA;U;;IS
+49000116;;;;;;;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales;DT999;;;;S_MA;U;;IS
+49000117;;;;;;;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales;DT999;;;;S_MA;U;;IS
 49000121;;;;;;;Gross Margin;Sales;Sales;Mark-up for ovh (ZC10);IS411000;Trade sales;DT999;;;;S_MA;U;;IS
-49000126;;;;;;;Gross Margin;Sales;Sales;Mark-up for ovh (ZC10);IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
-49000127;;;;;;;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
+49000126;;;;;;;Gross Margin;Sales;Sales;Mark-up for ovh (ZC10);IS415000;Own production sales;DT999;;;;S_MA;U;;IS
+49000127;;;;;;;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales;DT999;;;;S_MA;U;;IS
 49000131;;;;;;;Gross Margin;Sales;Sales;Mark-up for ovh (ZC10);IS411000;Trade sales;DT999;;;;S_MA;U;;IS
-49000136;;;;;;;Gross Margin;Sales;Sales;Mark-up for ovh (ZC10);IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
-49000137;;;;;;;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
-49000150;;;;;;;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
-49000200;;;;;;;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
-49000299;;;;;;;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
-49000299;DT999;;;;;;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
+49000136;;;;;;;Gross Margin;Sales;Sales;Mark-up for ovh (ZC10);IS415000;Own production sales;DT999;;;;S_MA;U;;IS
+49000137;;;;;;;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales;DT999;;;;S_MA;U;;IS
+49000150;;;;;;;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales;DT999;;;;S_MA;U;;IS
+49000200;;;;;;;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales;DT999;;;;S_MA;U;;IS
+49000299;;;;;;;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales;DT999;;;;S_MA;U;;IS
+49000299;DT999;;;;;;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales;DT999;;;;S_MA;U;;IS
 49000300;;;;;;;Gross Margin;Sales;Sales;Income for products;IS421000;Sales bonus payable and volume rebates - customers;DT999;;;;S_MA;U;;IS
 49000301;;;;;;;Gross Margin;Sales;Sales;Income for products;IS421000;Sales bonus payable and volume rebates - customers;DT999;;;;S_MA;U;;IS
 49000302;;;;;;;Gross Margin;Sales;Sales;Income for products;IS421000;Sales bonus payable and volume rebates - customers;DT999;;;;S_MA;U;;IS
 49000305;;;;;;;Gross Margin;Sales;Sales;Income for products;IS421000;Sales bonus payable and volume rebates - customers;DT999;;;;S_MA;U;;IS
 49000306;;;;;;;Gross Margin;Sales;Sales;Income for products;IS421900;Other sales and payment discounts - off-invoice - customers;DT999;;;;S_MA;U;;IS
 49000311;;;;;;;Gross Margin;Sales;Sales;Income for products;IS411000;Trade sales;DT999;;;;S_MA;U;;IS
-49000316;;;;;;;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
-49000317;;;;;;;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
+49000316;;;;;;;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales;DT999;;;;S_MA;U;;IS
+49000317;;;;;;;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales;DT999;;;;S_MA;U;;IS
 49000321;;;;;;;Gross Margin;Sales;Sales;Income for products;IS411000;Trade sales;DT999;;;;S_MA;U;;IS
-49000326;;;;;;;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
-49000327;;;;;;;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
+49000326;;;;;;;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales;DT999;;;;S_MA;U;;IS
+49000327;;;;;;;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales;DT999;;;;S_MA;U;;IS
 49000330;;;;;;;Gross Margin;Sales;Sales;Income for products;IS417200;Transport sales;DT999;;;;S_MA;U;;IS
 49000331;;;;;;;Gross Margin;Sales;Sales;Income for products;IS419900;Other sales;DT999;;;;S_MA;U;;IS
 49000332;;;;;;;Gross Margin;Sales;Sales;Income for products;IS419900;Other sales;DT999;;;;S_MA;U;;IS
@@ -2534,30 +2539,30 @@ GLACCOUNT;FUNCTIONALAREA;TRANSACTIONTYPE;TRADINGPARTNER;CONTIGENCY1;CONTIGENCY2;
 51010600;DT102;;;;;Energy;Gross Margin;Other CoS;Production cost absorption difference;Cost of manufacturing difference;IS527110;Fuel oil;FA1100;;;;S_MA;U;;IS
 51012100;DT102;;;;;Energy;Gross Margin;Other CoS;Production cost absorption difference;Cost of manufacturing difference;IS527130;Natural gas;FA1100;;;;S_MA;U;;IS
 52113200;DT102;;;;;Raw material;Gross Margin;Other CoS;Production cost absorption difference;Cost of manufacturing difference;IS521140;Steel;FA1100;;;;S_MA;U;;IS
-52116200;DT102;;;;;Raw material;Gross Margin;Other CoS;Production cost absorption difference;Cost of manufacturing difference;IS521900;Other raw material ;FA1100;;;;S_MA;U;;IS
-52116201;DT102;;;;;Raw material;Gross Margin;Other CoS;Subcontracting - Production;Subcontracting - Production;IS521900;Other raw material ;FA1100;;;;S_MA;U;;IS
-52116500;DT102;;;;;Raw material;Gross Margin;Other CoS;Production cost absorption difference;Cost of manufacturing difference;IS521900;Other raw material ;FA1100;;;;S_MA;U;;IS
-52116501;DT102;;;;;Raw material;Gross Margin;Other CoS;Subcontracting - Production;Subcontracting - Production;IS521900;Other raw material ;FA1100;;;;S_MA;U;;IS
-52116510;DT102;;;;;Raw material;Gross Margin;Other CoS;Production cost absorption difference;Cost of manufacturing difference;IS521900;Other raw material ;FA1100;;;;S_MA;U;;IS
-52116511;DT102;;;;;Raw material;Gross Margin;Other CoS;Subcontracting - Production;Subcontracting - Production;IS521900;Other raw material ;FA1100;;;;S_MA;U;;IS
-52116520;DT102;;;;;Raw material;Gross Margin;Other CoS;Production cost absorption difference;Cost of manufacturing difference;IS521900;Other raw material ;FA1100;;;;S_MA;U;;IS
-52116521;DT102;;;;;Raw material;Gross Margin;Other CoS;Subcontracting - Production;Subcontracting - Production;IS521900;Other raw material ;FA1100;;;;S_MA;U;;IS
-52116530;DT102;;;;;Raw material;Gross Margin;Other CoS;Production cost absorption difference;Cost of manufacturing difference;IS521900;Other raw material ;FA1100;;;;S_MA;U;;IS
-52116531;DT102;;;;;Raw material;Gross Margin;Other CoS;Production cost absorption difference;Cost of manufacturing difference;IS521900;Other raw material ;FA1100;;;;S_MA;U;;IS
-52116532;DT102;;;;;Raw material;Gross Margin;Other CoS;Production cost absorption difference;Cost of manufacturing difference;IS521900;Other raw material ;FA1100;;;;S_MA;U;;IS
-52116533;DT102;;;;;Raw material;Gross Margin;Other CoS;Production cost absorption difference;Cost of manufacturing difference;IS521900;Other raw material ;FA1100;;;;S_MA;U;;IS
-52116534;DT102;;;;;Raw material;Gross Margin;Other CoS;Production cost absorption difference;Cost of manufacturing difference;IS521900;Other raw material ;FA1100;;;;S_MA;U;;IS
-52116535;DT102;;;;;Raw material;Gross Margin;Other CoS;Production cost absorption difference;Cost of manufacturing difference;IS521900;Other raw material ;FA1100;;;;S_MA;U;;IS
-52116540;DT102;;;;;Raw material;Gross Margin;Other CoS;Subcontracting - Production;Subcontracting - Production;IS521900;Other raw material ;FA1100;;;;S_MA;U;;IS
-52116541;DT102;;;;;Raw material;Gross Margin;Other CoS;Subcontracting - Production;Subcontracting - Production;IS521900;Other raw material ;FA1100;;;;S_MA;U;;IS
-52116542;DT102;;;;;Raw material;Gross Margin;Other CoS;Subcontracting - Production;Subcontracting - Production;IS521900;Other raw material ;FA1100;;;;S_MA;U;;IS
-52116543;DT102;;;;;Raw material;Gross Margin;Other CoS;Subcontracting - Production;Subcontracting - Production;IS521900;Other raw material ;FA1100;;;;S_MA;U;;IS
-52116544;DT102;;;;;Raw material;Gross Margin;Other CoS;Subcontracting - Production;Subcontracting - Production;IS521900;Other raw material ;FA1100;;;;S_MA;U;;IS
-52116545;DT102;;;;;Raw material;Gross Margin;Other CoS;Subcontracting - Production;Subcontracting - Production;IS521900;Other raw material ;FA1100;;;;S_MA;U;;IS
+52116200;DT102;;;;;Raw material;Gross Margin;Other CoS;Production cost absorption difference;Cost of manufacturing difference;IS521900;Other raw material;FA1100;;;;S_MA;U;;IS
+52116201;DT102;;;;;Raw material;Gross Margin;Other CoS;Subcontracting - Production;Subcontracting - Production;IS521900;Other raw material;FA1100;;;;S_MA;U;;IS
+52116500;DT102;;;;;Raw material;Gross Margin;Other CoS;Production cost absorption difference;Cost of manufacturing difference;IS521900;Other raw material;FA1100;;;;S_MA;U;;IS
+52116501;DT102;;;;;Raw material;Gross Margin;Other CoS;Subcontracting - Production;Subcontracting - Production;IS521900;Other raw material;FA1100;;;;S_MA;U;;IS
+52116510;DT102;;;;;Raw material;Gross Margin;Other CoS;Production cost absorption difference;Cost of manufacturing difference;IS521900;Other raw material;FA1100;;;;S_MA;U;;IS
+52116511;DT102;;;;;Raw material;Gross Margin;Other CoS;Subcontracting - Production;Subcontracting - Production;IS521900;Other raw material;FA1100;;;;S_MA;U;;IS
+52116520;DT102;;;;;Raw material;Gross Margin;Other CoS;Production cost absorption difference;Cost of manufacturing difference;IS521900;Other raw material;FA1100;;;;S_MA;U;;IS
+52116521;DT102;;;;;Raw material;Gross Margin;Other CoS;Subcontracting - Production;Subcontracting - Production;IS521900;Other raw material;FA1100;;;;S_MA;U;;IS
+52116530;DT102;;;;;Raw material;Gross Margin;Other CoS;Production cost absorption difference;Cost of manufacturing difference;IS521900;Other raw material;FA1100;;;;S_MA;U;;IS
+52116531;DT102;;;;;Raw material;Gross Margin;Other CoS;Production cost absorption difference;Cost of manufacturing difference;IS521900;Other raw material;FA1100;;;;S_MA;U;;IS
+52116532;DT102;;;;;Raw material;Gross Margin;Other CoS;Production cost absorption difference;Cost of manufacturing difference;IS521900;Other raw material;FA1100;;;;S_MA;U;;IS
+52116533;DT102;;;;;Raw material;Gross Margin;Other CoS;Production cost absorption difference;Cost of manufacturing difference;IS521900;Other raw material;FA1100;;;;S_MA;U;;IS
+52116534;DT102;;;;;Raw material;Gross Margin;Other CoS;Production cost absorption difference;Cost of manufacturing difference;IS521900;Other raw material;FA1100;;;;S_MA;U;;IS
+52116535;DT102;;;;;Raw material;Gross Margin;Other CoS;Production cost absorption difference;Cost of manufacturing difference;IS521900;Other raw material;FA1100;;;;S_MA;U;;IS
+52116540;DT102;;;;;Raw material;Gross Margin;Other CoS;Subcontracting - Production;Subcontracting - Production;IS521900;Other raw material;FA1100;;;;S_MA;U;;IS
+52116541;DT102;;;;;Raw material;Gross Margin;Other CoS;Subcontracting - Production;Subcontracting - Production;IS521900;Other raw material;FA1100;;;;S_MA;U;;IS
+52116542;DT102;;;;;Raw material;Gross Margin;Other CoS;Subcontracting - Production;Subcontracting - Production;IS521900;Other raw material;FA1100;;;;S_MA;U;;IS
+52116543;DT102;;;;;Raw material;Gross Margin;Other CoS;Subcontracting - Production;Subcontracting - Production;IS521900;Other raw material;FA1100;;;;S_MA;U;;IS
+52116544;DT102;;;;;Raw material;Gross Margin;Other CoS;Subcontracting - Production;Subcontracting - Production;IS521900;Other raw material;FA1100;;;;S_MA;U;;IS
+52116545;DT102;;;;;Raw material;Gross Margin;Other CoS;Subcontracting - Production;Subcontracting - Production;IS521900;Other raw material;FA1100;;;;S_MA;U;;IS
 52116550;DT999;;;;;Cost of goods for resale;Gross Margin;COGS;COGS;COGS;IS511000;Cost of goods sold trade sales;DT999;;;;S_MA;U;;IS
 52116550;;;;;;Cost of goods for resale;Gross Margin;COGS;COGS;COGS;IS511000;Cost of goods sold trade sales;DT999;;;;S_MA;U;;IS
-52116599;DT102;;;;;Raw material;Gross Margin;Other CoS;Manual entries;Cost of manufacturing difference;IS521900;Other raw material ;FA1100;;;;S_MA;U;;IS
-52116699;DT102;;;;;Raw material;Gross Margin;Other CoS;Manual entries;Cost of manufacturing difference;IS521900;Other raw material ;FA1100;;;;S_MA;U;;IS
+52116599;DT102;;;;;Raw material;Gross Margin;Other CoS;Manual entries;Cost of manufacturing difference;IS521900;Other raw material;FA1100;;;;S_MA;U;;IS
+52116699;DT102;;;;;Raw material;Gross Margin;Other CoS;Manual entries;Cost of manufacturing difference;IS521900;Other raw material;FA1100;;;;S_MA;U;;IS
 52300100;;;;;;Cost of goods for resale;Gross Margin;COGS;COGS;COGS;IS511000;Cost of goods sold trade sales;DT999;;;;S_MA;U;;IS
 52300100;DT999;;;;;Cost of goods for resale;Gross Margin;COGS;COGS;COGS;IS511000;Cost of goods sold trade sales;DT999;;;;S_MA;U;;IS
 52300101;DT999;;;;;Cost of goods for resale;Gross Margin;COGS;COGS;COGS;IS511000;Cost of goods sold trade sales;DT999;;;;S_MA;U;;IS
@@ -2610,6 +2615,8 @@ GLACCOUNT;FUNCTIONALAREA;TRANSACTIONTYPE;TRADINGPARTNER;CONTIGENCY1;CONTIGENCY2;
 52300350;;;;;;Cost of goods for resale;Gross Margin;COGS;COGS;COGS;IS511000;Cost of goods sold trade sales;DT999;;;;S_MA;U;;IS
 52300351;DT999;;;;;Cost of goods for resale;Gross Margin;COGS;COGS;COGS;IS511000;Cost of goods sold trade sales;DT999;;;;S_MA;U;;IS
 52300351;;;;;;Cost of goods for resale;Gross Margin;COGS;COGS;COGS;IS511000;Cost of goods sold trade sales;DT999;;;;S_MA;U;;IS
+52300352;DT999;;;;;Cost of goods for resale;Gross Margin;COGS;COGS;COGS;IS511000;Cost of goods sold trade sales;DT999;;;;S_MA;U;;IS
+52300352;;;;;;Cost of goods for resale;Gross Margin;COGS;COGS;COGS;IS511000;Cost of goods sold trade sales;DT999;;;;S_MA;U;;IS
 52300360;;;;;;Cost of goods for resale;Gross Margin;COGS;COGS;COGS;IS511000;Cost of goods sold trade sales;DT999;;;;S_MA;U;;IS
 52300360;DT999;;;;;Cost of goods for resale;Gross Margin;COGS;COGS;COGS;IS511000;Cost of goods sold trade sales;DT999;;;;S_MA;U;;IS
 52300199;;;;;;Cost of goods for resale;Gross Margin;COGS;COGS;COGS;IS511000;Cost of goods sold trade sales;DT999;;;;S_MA;U;;IS
@@ -2701,22 +2708,22 @@ GLACCOUNT;FUNCTIONALAREA;TRANSACTIONTYPE;TRADINGPARTNER;CONTIGENCY1;CONTIGENCY2;
 52800579;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Undistributed price differences before Material Ledger;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
 52800581;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Undistributed price differences before Material Ledger;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
 52800582;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Undistributed price differences before Material Ledger;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800586;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Purchased price v standard price differences;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800587;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Purchased price v standard price differences;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800586;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Purchase price v standard price differences;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800587;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Purchase price v standard price differences;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
 52800594;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Undistributed price differences before Material Ledger;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
 52800595;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Undistributed price differences before Material Ledger;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
 52800596;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Undistributed price differences before Material Ledger;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
 52800597;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Undistributed price differences before Material Ledger;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
 52800501;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Undistributed price differences before Material Ledger;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800521;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Purchased price v standard price differences;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800522;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Purchased price v standard price differences;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800523;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Purchased price v standard price differences;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800524;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Purchased price v standard price differences;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800525;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Purchased price v standard price differences;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800526;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Purchased price v standard price differences;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800527;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Purchased price v standard price differences;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800528;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Purchased price v standard price differences;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800529;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Purchased price v standard price differences;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800521;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Purchase price v standard price differences;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800522;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Purchase price v standard price differences;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800523;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Purchase price v standard price differences;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800524;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Purchase price v standard price differences;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800525;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Purchase price v standard price differences;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800526;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Purchase price v standard price differences;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800527;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Purchase price v standard price differences;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800528;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Purchase price v standard price differences;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800529;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Purchase price v standard price differences;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
 52800531;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;Write-offs / scrappage;Write-offs / scrappage;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
 52800598;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Undistributed price differences before Material Ledger;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
 52800599;DT999;;;;;Inventory write-offs;Gross Margin;Other CoS;Manual entries;ML price differences;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
@@ -2768,22 +2775,22 @@ GLACCOUNT;FUNCTIONALAREA;TRANSACTIONTYPE;TRADINGPARTNER;CONTIGENCY1;CONTIGENCY2;
 52800579;;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Undistributed price differences before Material Ledger;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
 52800581;;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Undistributed price differences before Material Ledger;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
 52800582;;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Undistributed price differences before Material Ledger;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800586;;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Purchased price v standard price differences;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800587;;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Purchased price v standard price differences;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800586;;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Purchase price v standard price differences;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800587;;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Purchase price v standard price differences;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
 52800594;;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Undistributed price differences before Material Ledger;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
 52800595;;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Undistributed price differences before Material Ledger;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
 52800596;;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Undistributed price differences before Material Ledger;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
 52800597;;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Undistributed price differences before Material Ledger;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
 52800501;;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Undistributed price differences before Material Ledger;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800521;;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Purchased price v standard price differences;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800522;;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Purchased price v standard price differences;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800523;;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Purchased price v standard price differences;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800524;;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Purchased price v standard price differences;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800525;;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Purchased price v standard price differences;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800526;;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Purchased price v standard price differences;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800527;;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Purchased price v standard price differences;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800528;;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Purchased price v standard price differences;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800529;;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Purchased price v standard price differences;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800521;;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Purchase price v standard price differences;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800522;;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Purchase price v standard price differences;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800523;;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Purchase price v standard price differences;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800524;;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Purchase price v standard price differences;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800525;;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Purchase price v standard price differences;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800526;;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Purchase price v standard price differences;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800527;;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Purchase price v standard price differences;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800528;;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Purchase price v standard price differences;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800529;;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Purchase price v standard price differences;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
 52800531;;;;;;Inventory write-offs;Gross Margin;Other CoS;Write-offs / scrappage;Write-offs / scrappage;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
 52800598;;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Undistributed price differences before Material Ledger;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
 52800599;;;;;;Inventory write-offs;Gross Margin;Other CoS;Manual entries;ML price differences;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
@@ -2835,22 +2842,22 @@ GLACCOUNT;FUNCTIONALAREA;TRANSACTIONTYPE;TRADINGPARTNER;CONTIGENCY1;CONTIGENCY2;
 52800579;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Undistributed price differences before Material Ledger;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
 52800581;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Undistributed price differences before Material Ledger;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
 52800582;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Undistributed price differences before Material Ledger;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800586;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Purchased price v standard price differences;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800587;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Purchased price v standard price differences;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800586;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Purchase price v standard price differences;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800587;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Purchase price v standard price differences;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
 52800594;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Undistributed price differences before Material Ledger;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
 52800595;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Undistributed price differences before Material Ledger;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
 52800596;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Undistributed price differences before Material Ledger;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
 52800597;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Undistributed price differences before Material Ledger;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
 52800501;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Undistributed price differences before Material Ledger;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800521;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Purchased price v standard price differences;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800522;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Purchased price v standard price differences;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800523;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Purchased price v standard price differences;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800524;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Purchased price v standard price differences;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800525;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Purchased price v standard price differences;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800526;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Purchased price v standard price differences;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800527;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Purchased price v standard price differences;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800528;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Purchased price v standard price differences;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
-52800529;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Purchased price v standard price differences;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800521;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Purchase price v standard price differences;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800522;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Purchase price v standard price differences;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800523;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Purchase price v standard price differences;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800524;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Purchase price v standard price differences;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800525;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Purchase price v standard price differences;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800526;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Purchase price v standard price differences;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800527;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Purchase price v standard price differences;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800528;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Purchase price v standard price differences;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
+52800529;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Purchase price v standard price differences;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
 52800531;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;Write-offs / scrappage;Write-offs / scrappage;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
 52800598;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;Undistributed ML differences;Undistributed price differences before Material Ledger;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
 52800599;DT102;;;;;Inventory write-offs;Gross Margin;Other CoS;Manual entries;ML price differences;IS682000;Inventory differences, breakage, destroyed (book to physical);FA1100;;;;S_MA;U;;IS
@@ -3039,8 +3046,8 @@ GLACCOUNT;FUNCTIONALAREA;TRANSACTIONTYPE;TRADINGPARTNER;CONTIGENCY1;CONTIGENCY2;
 55000130;DT102;;;;;Inventory costs - variable;Gross Margin;Other CoS;Production cost absorption difference;Cost of manufacturing difference;IS685000;Delivery costs;FA1100;;;;S_MA;U;;IS
 55000130;DT141;;;;;Haulage S&D;;Opex;;;IS751000D;Outbound freight, customs and duty;DT141;;;;S_MA;U;;IS
 55000130;DT142;;;;;Haulage;Gross Margin;Opex;Freight outbound;Freight outbound;IS751000D;Outbound freight, customs and duty;DT142;;;;S_MA;U;;IS
-55000140;DT132;;;;;Haulage;Gross Margin;Opex;Variable logistics costs;Variable logistics costs;IS756000D;Warehouse and stockyard supplies - outbound logistics ;DT132;;;;S_MA;U;;IS
-55000140;DT131;;;;;Haulage S&D;;Opex;;;IS756000D;Warehouse and stockyard supplies - outbound logistics ;DT131;;;;S_MA;U;;IS
+55000140;DT132;;;;;Haulage;Gross Margin;Opex;Variable logistics costs;Variable logistics costs;IS756000D;Warehouse and stockyard supplies - outbound logistics;DT132;;;;S_MA;U;;IS
+55000140;DT131;;;;;Haulage S&D;;Opex;;;IS756000D;Warehouse and stockyard supplies - outbound logistics;DT131;;;;S_MA;U;;IS
 55000150;DT122;;;;;Inbound logistic costs - variable;Gross Margin;Other CoS;Production cost absorption difference;Cost of manufacturing difference;IS530000D;Inbound logistic costs;FA1400;;;;S_MA;U;;IS
 55000150;DT121;;;;;;;Other CoS;;;IS530000D;Inbound logistic costs;FA1300;;;;S_MA;U;;IS
 55000160;DT102;;;;;Inventory costs - variable;Gross Margin;Other CoS;Production cost absorption difference;Cost of manufacturing difference;IS685000;Delivery costs;FA1100;;;;S_MA;U;;IS
@@ -3855,6 +3862,40 @@ GLACCOUNT;FUNCTIONALAREA;TRANSACTIONTYPE;TRADINGPARTNER;CONTIGENCY1;CONTIGENCY2;
 59003112;DT241;;;;;Intercompany services rendered fixed admin;;Opex;;;IS801950;Intercompany services rendered;DT241;;;;S_MA;U;;IS
 59003112;DT251;;;;;Intercompany services rendered fixed admin;;Opex;;;IS801950;Intercompany services rendered;DT251;;;;S_MA;U;;IS
 59003112;DT271;;;;;Intercompany services rendered fixed admin;;Opex;;;IS801950;Intercompany services rendered;DT271;;;;S_MA;U;;IS
+59003113;DT131;;;;;Intercompany services rendered fixed S&D;;Opex;;;IS801950;Intercompany services rendered;DT131;;;;S_MA;U;;IS
+59003113;DT132;;;;;Intercompany services rendered - variable;Gross Margin;Opex;Variable logistics costs;Variable logistics costs;IS801950;Intercompany services rendered;DT132;;;;S_MA;U;;IS
+59003113;DT141;;;;;Intercompany services rendered fixed S&D;;Opex;;;IS801950;Intercompany services rendered;DT141;;;;S_MA;U;;IS
+59003113;DT142;;;;;Intercompany services rendered - variable;Gross Margin;Opex;Freight outbound;Freight outbound;IS801950;Intercompany services rendered;DT142;;;;S_MA;U;;IS
+59003113;DT151;;;;;Intercompany services rendered fixed S&D;;Opex;;;IS801950;Intercompany services rendered;DT151;;;;S_MA;U;;IS
+59003113;DT152;;;;;Intercompany services rendered - variable;Gross Margin;Opex;Variable sales and marketing costs;Variable sales and marketing costs;IS801950;Intercompany services rendered;DT152;;;;S_MA;U;;IS
+59003113;DT161;;;;;Intercompany services rendered fixed admin;;Opex;;;IS801950;Intercompany services rendered;DT161;;;;S_MA;U;;IS
+59003113;DT171;;;;;Intercompany services rendered fixed admin;;Opex;;;IS801950;Intercompany services rendered;DT171;;;;S_MA;U;;IS
+59003113;DT181;;;;;Intercompany services rendered fixed admin;;Opex;;;IS801950;Intercompany services rendered;DT181;;;;S_MA;U;;IS
+59003113;DT191;;;;;Intercompany services rendered fixed admin;;Opex;;;IS801950;Intercompany services rendered;DT191;;;;S_MA;U;;IS
+59003113;DT201;;;;;Intercompany services rendered fixed admin;;Opex;;;IS801950;Intercompany services rendered;DT201;;;;S_MA;U;;IS
+59003113;DT213;;;;;Intercompany services rendered fixed admin;;Opex;;;IS801950;Intercompany services rendered;DT213;;;;S_MA;U;;IS
+59003113;DT222;;;;;Intercompany services rendered fixed admin;;Opex;;;IS801950;Intercompany services rendered;DT222;;;;S_MA;U;;IS
+59003113;DT231;;;;;Intercompany services rendered fixed admin;;Opex;;;IS801950;Intercompany services rendered;DT231;;;;S_MA;U;;IS
+59003113;DT241;;;;;Intercompany services rendered fixed admin;;Opex;;;IS801950;Intercompany services rendered;DT241;;;;S_MA;U;;IS
+59003113;DT251;;;;;Intercompany services rendered fixed admin;;Opex;;;IS801950;Intercompany services rendered;DT251;;;;S_MA;U;;IS
+59003113;DT271;;;;;Intercompany services rendered fixed admin;;Opex;;;IS801950;Intercompany services rendered;DT271;;;;S_MA;U;;IS
+59003114;DT131;;;;;Intercompany services rendered fixed S&D;;Opex;;;IS801950;Intercompany services rendered;DT131;;;;S_MA;U;;IS
+59003114;DT132;;;;;Intercompany services rendered - variable;Gross Margin;Opex;Variable logistics costs;Variable logistics costs;IS801950;Intercompany services rendered;DT132;;;;S_MA;U;;IS
+59003114;DT141;;;;;Intercompany services rendered fixed S&D;;Opex;;;IS801950;Intercompany services rendered;DT141;;;;S_MA;U;;IS
+59003114;DT142;;;;;Intercompany services rendered - variable;Gross Margin;Opex;Freight outbound;Freight outbound;IS801950;Intercompany services rendered;DT142;;;;S_MA;U;;IS
+59003114;DT151;;;;;Intercompany services rendered fixed S&D;;Opex;;;IS801950;Intercompany services rendered;DT151;;;;S_MA;U;;IS
+59003114;DT152;;;;;Intercompany services rendered - variable;Gross Margin;Opex;Variable sales and marketing costs;Variable sales and marketing costs;IS801950;Intercompany services rendered;DT152;;;;S_MA;U;;IS
+59003114;DT161;;;;;Intercompany services rendered fixed admin;;Opex;;;IS801950;Intercompany services rendered;DT161;;;;S_MA;U;;IS
+59003114;DT171;;;;;Intercompany services rendered fixed admin;;Opex;;;IS801950;Intercompany services rendered;DT171;;;;S_MA;U;;IS
+59003114;DT181;;;;;Intercompany services rendered fixed admin;;Opex;;;IS801950;Intercompany services rendered;DT181;;;;S_MA;U;;IS
+59003114;DT191;;;;;Intercompany services rendered fixed admin;;Opex;;;IS801950;Intercompany services rendered;DT191;;;;S_MA;U;;IS
+59003114;DT201;;;;;Intercompany services rendered fixed admin;;Opex;;;IS801950;Intercompany services rendered;DT201;;;;S_MA;U;;IS
+59003114;DT213;;;;;Intercompany services rendered fixed admin;;Opex;;;IS801950;Intercompany services rendered;DT213;;;;S_MA;U;;IS
+59003114;DT222;;;;;Intercompany services rendered fixed admin;;Opex;;;IS801950;Intercompany services rendered;DT222;;;;S_MA;U;;IS
+59003114;DT231;;;;;Intercompany services rendered fixed admin;;Opex;;;IS801950;Intercompany services rendered;DT231;;;;S_MA;U;;IS
+59003114;DT241;;;;;Intercompany services rendered fixed admin;;Opex;;;IS801950;Intercompany services rendered;DT241;;;;S_MA;U;;IS
+59003114;DT251;;;;;Intercompany services rendered fixed admin;;Opex;;;IS801950;Intercompany services rendered;DT251;;;;S_MA;U;;IS
+59003114;DT271;;;;;Intercompany services rendered fixed admin;;Opex;;;IS801950;Intercompany services rendered;DT271;;;;S_MA;U;;IS
 59003200;DT102;;;;;Other (costs) / income - variable (detail);Gross Margin;Other CoS;Production cost absorption difference;Cost of manufacturing difference;IS663000D;Other variable production costs;FA1100;;;;S_MA;U;;IS
 59003200;DT101;;;;;;;Other CoS;;;IS651000;Other fixed production costs;FA1200;;;;S_MA;U;;IS
 59003200;DT131;;;;;Other (costs) / income fixed S&D;;Opex;;;IS811900;Other operating costs;DT131;;;;S_MA;U;;IS
@@ -4427,7 +4468,7 @@ GLACCOUNT;FUNCTIONALAREA;TRANSACTIONTYPE;TRADINGPARTNER;CONTIGENCY1;CONTIGENCY2;
 59009900;DT191;;;;;Facility costs fixed admin;;Opex;;;IS801800;Other facility and office costs;DT191;;;;S_MA;U;;IS
 59009901;DT191;;;;;Facility costs fixed admin;;Opex;;;IS801800;Other facility and office costs;DT191;;;;S_MA;U;;IS
 59009902;DT191;;;;;Facility costs fixed admin;;Opex;;;IS801800;Other facility and office costs;DT191;;;;S_MA;U;;IS
-59100100;DT191;;;;;Insurance costs fixed admin;;Opex;;;IS794000;Insurance claims ;DT191;;;;S_MA;U;;IS
+59100100;DT191;;;;;Insurance costs fixed admin;;Opex;;;IS794000;Insurance claims;DT191;;;;S_MA;U;;IS
 59100300;DT141;;;;;Insurance costs fixed S&D;;Opex;;;IS799000;Insurance costs;DT141;;;;S_MA;U;;IS
 59100300;DT142;;;;;Insurance costs variable - variable;Gross Margin;Opex;Freight outbound;Freight outbound;IS799000;Insurance costs;DT142;;;;S_MA;U;;IS
 59100300;DT191;;;;;Insurance costs fixed admin;;Opex;;;IS799000;Insurance costs;DT191;;;;S_MA;U;;IS
@@ -4579,11 +4620,11 @@ GLACCOUNT;FUNCTIONALAREA;TRANSACTIONTYPE;TRADINGPARTNER;CONTIGENCY1;CONTIGENCY2;
 61104150;DT131;;;;;Depreciation fixed S&D;;Opex;;;IS732120;Depreciation land leasehold - non mineral bearing;DT131;;;;S_MA;U;;IS
 61104150;DT191;;;;;Depreciation fixed admin;;Opex;;;IS732120;Depreciation land leasehold - non mineral bearing;DT191;;;;S_MA;U;;IS
 61104200;DT101;;;;;Depreciation fixed production;;Other CoS;;;IS632320;Depreciation buildings leasehold  - production fixed;FA1200;;;;S_MA;U;;IS
-61104200;DT131;;;;;Depreciation fixed S&D;;Opex;;;IS732320;Depreciation buildings leasehold ;DT131;;;;S_MA;U;;IS
-61104200;DT191;;;;;Depreciation fixed admin;;Opex;;;IS732320;Depreciation buildings leasehold ;DT191;;;;S_MA;U;;IS
+61104200;DT131;;;;;Depreciation fixed S&D;;Opex;;;IS732320;Depreciation buildings leasehold;DT131;;;;S_MA;U;;IS
+61104200;DT191;;;;;Depreciation fixed admin;;Opex;;;IS732320;Depreciation buildings leasehold;DT191;;;;S_MA;U;;IS
 61104250;DT101;;;;;Depreciation fixed production;;Other CoS;;;IS632320;Depreciation buildings leasehold  - production fixed;FA1200;;;;S_MA;U;;IS
-61104250;DT131;;;;;Depreciation fixed S&D;;Opex;;;IS732320;Depreciation buildings leasehold ;DT131;;;;S_MA;U;;IS
-61104250;DT191;;;;;Depreciation fixed admin;;Opex;;;IS732320;Depreciation buildings leasehold ;DT191;;;;S_MA;U;;IS
+61104250;DT131;;;;;Depreciation fixed S&D;;Opex;;;IS732320;Depreciation buildings leasehold;DT131;;;;S_MA;U;;IS
+61104250;DT191;;;;;Depreciation fixed admin;;Opex;;;IS732320;Depreciation buildings leasehold;DT191;;;;S_MA;U;;IS
 61105100;DT101;;;;;Depreciation fixed production;;Other CoS;;;IS632420;Depreciation plant and machinery leased - production fixed;FA1200;;;;S_MA;U;;IS
 61105100;DT131;;;;;Depreciation fixed S&D;;Opex;;;IS732420;Depreciation plant and machinery leased;DT131;;;;S_MA;U;;IS
 61105150;DT101;;;;;Depreciation fixed production;;Other CoS;;;IS632420;Depreciation plant and machinery leased - production fixed;FA1200;;;;S_MA;U;;IS
@@ -5075,6 +5116,8 @@ GLACCOUNT;FUNCTIONALAREA;TRANSACTIONTYPE;TRADINGPARTNER;CONTIGENCY1;CONTIGENCY2;
 90001500;;;;;;;;;;;IS963000;Intercompany dividends from associates;DT999;;;;S_MA;U;;IS
 90001200;DT999;;;;;;;;;;IS970200;Result from income statement transfers;DT999;;;;S_MA;U;;IS
 90001500;DT999;;;;;;;;;;IS963000;Intercompany dividends from associates;DT999;;;;S_MA;U;;IS
+90001900;;;;;;;;;;;IS970300;(Reversal) outlay allocation;DT999;;;;S_MA;U;;IS
+90001900;DT999;;;;;;;;;;IS970300;(Reversal) outlay allocation;DT999;;;;S_MA;U;;IS
 41100105;;;;;;Gross sales;Gross Margin;Sales;Sales;Income for products;IS411000;Trade sales;DT999;;;;S_MA;U;;IS
 41600102;;;;;;Gross sales;Gross Margin;Sales;Sales;Income for products;IS419900;Other sales;DT999;;;;S_MA;U;;IS
 50101105;DT102;;;;;Wages & salaries - variable;Gross Margin;Other CoS;Production cost absorption difference;Cost of manufacturing difference;IS611100;Wages and salaries own personnel - production variable;FA1100;;;;S_MA;U;;IS
@@ -5811,11 +5854,11 @@ GLACCOUNT;FUNCTIONALAREA;TRANSACTIONTYPE;TRADINGPARTNER;CONTIGENCY1;CONTIGENCY2;
 41100102;DT999;;;;;Gross sales;Gross Margin;Sales;Sales;Income for products;IS411000;Trade sales;DT999;;;;S_MA;U;;IS
 41100103;DT999;;;;;Gross sales;Gross Margin;Sales;Sales;Income for products;IS411000;Trade sales;DT999;;;;S_MA;U;;IS
 41100104;DT999;;;;;Gross sales;Gross Margin;Sales;Sales;Income for products;IS411000;Trade sales;DT999;;;;S_MA;U;;IS
-41200100;DT999;;;;;Gross sales;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
-41200101;DT999;;;;;Gross sales;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
-41200102;DT999;;;;;Gross sales;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
-41200110;DT999;;;;;Gross sales;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
-41200110;;;;;;Gross sales;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
+41200100;DT999;;;;;Gross sales;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales;DT999;;;;S_MA;U;;IS
+41200101;DT999;;;;;Gross sales;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales;DT999;;;;S_MA;U;;IS
+41200102;DT999;;;;;Gross sales;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales;DT999;;;;S_MA;U;;IS
+41200110;DT999;;;;;Gross sales;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales;DT999;;;;S_MA;U;;IS
+41200110;;;;;;Gross sales;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales;DT999;;;;S_MA;U;;IS
 41400100;DT999;;;;;Gross sales;Gross Margin;Sales;Sales;Income for products;IS417200;Transport sales;DT999;;;;S_MA;U;;IS
 41400101;DT999;;;;;Gross sales;Gross Margin;Sales;Sales;Income for products;IS417200;Transport sales;DT999;;;;S_MA;U;;IS
 41400102;DT999;;;;;Gross sales;Gross Margin;Sales;Sales;Income for products;IS417200;Transport sales;DT999;;;;S_MA;U;;IS
@@ -5844,40 +5887,38 @@ GLACCOUNT;FUNCTIONALAREA;TRANSACTIONTYPE;TRADINGPARTNER;CONTIGENCY1;CONTIGENCY2;
 41800106;DT999;;;;;Bonusses and discounts;Gross Margin;Sales;Sales;Income for products;IS421000;Sales bonus payable and volume rebates - customers;DT999;;;;S_MA;U;;IS
 41800107;DT999;;;;;Bonusses and discounts;Gross Margin;Sales;Sales;Income for products;IS421000;Sales bonus payable and volume rebates - customers;DT999;;;;S_MA;U;;IS
 49000101;DT999;;;;;;Gross Margin;Sales;Sales;Income for products;IS411000;Trade sales;DT999;;;;S_MA;U;;IS
-49000102;DT999;;;;;;Gross Margin;Sales;Sales;Income for freight (ZCF1);IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
-49000103;DT999;;;;;;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
-49000104;DT999;;;;;;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
-49000105;DT999;;;;;;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
-49000106;DT999;;;;;;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
-49000107;DT999;;;;;;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
-49000108;DT999;;;;;;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
-49000109;DT999;;;;;;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
+49000102;DT999;;;;;;Gross Margin;Sales;Sales;Income for freight (ZCF1);IS415000;Own production sales;DT999;;;;S_MA;U;;IS
+49000103;DT999;;;;;;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales;DT999;;;;S_MA;U;;IS
+49000104;DT999;;;;;;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales;DT999;;;;S_MA;U;;IS
+49000105;DT999;;;;;;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales;DT999;;;;S_MA;U;;IS
+49000106;DT999;;;;;;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales;DT999;;;;S_MA;U;;IS
+49000107;DT999;;;;;;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales;DT999;;;;S_MA;U;;IS
+49000108;DT999;;;;;;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales;DT999;;;;S_MA;U;;IS
+49000109;DT999;;;;;;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales;DT999;;;;S_MA;U;;IS
 49000111;DT999;;;;;;Gross Margin;Sales;Sales;Income for products;IS411000;Trade sales;DT999;;;;S_MA;U;;IS
-49000112;DT999;;;;;;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
-49000116;DT999;;;;;;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
-49000117;DT999;;;;;;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
+49000112;DT999;;;;;;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales;DT999;;;;S_MA;U;;IS
+49000116;DT999;;;;;;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales;DT999;;;;S_MA;U;;IS
+49000117;DT999;;;;;;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales;DT999;;;;S_MA;U;;IS
 49000121;DT999;;;;;;Gross Margin;Sales;Sales;Mark-up for ovh (ZC10);IS411000;Trade sales;DT999;;;;S_MA;U;;IS
-49000126;DT999;;;;;;Gross Margin;Sales;Sales;Mark-up for ovh (ZC10);IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
-49000127;DT999;;;;;;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
+49000126;DT999;;;;;;Gross Margin;Sales;Sales;Mark-up for ovh (ZC10);IS415000;Own production sales;DT999;;;;S_MA;U;;IS
+49000127;DT999;;;;;;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales;DT999;;;;S_MA;U;;IS
 49000131;DT999;;;;;;Gross Margin;Sales;Sales;Mark-up for ovh (ZC10);IS411000;Trade sales;DT999;;;;S_MA;U;;IS
-49000136;DT999;;;;;;Gross Margin;Sales;Sales;Mark-up for ovh (ZC10);IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
-49000137;DT999;;;;;;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
-49000150;DT999;;;;;;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
-49000199;;;;;;;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
-49000199;DT999;;;;;;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
-49000200;DT999;;;;;;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
+49000136;DT999;;;;;;Gross Margin;Sales;Sales;Mark-up for ovh (ZC10);IS415000;Own production sales;DT999;;;;S_MA;U;;IS
+49000137;DT999;;;;;;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales;DT999;;;;S_MA;U;;IS
+49000150;DT999;;;;;;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales;DT999;;;;S_MA;U;;IS
+49000199;;;;;;;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales;DT999;;;;S_MA;U;;IS
+49000199;DT999;;;;;;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales;DT999;;;;S_MA;U;;IS
+49000200;DT999;;;;;;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales;DT999;;;;S_MA;U;;IS
 49000300;DT999;;;;;;Gross Margin;Sales;Sales;Income for products;IS421000;Sales bonus payable and volume rebates - customers;DT999;;;;S_MA;U;;IS
 49000301;DT999;;;;;;Gross Margin;Sales;Sales;Income for products;IS421000;Sales bonus payable and volume rebates - customers;DT999;;;;S_MA;U;;IS
 49000302;DT999;;;;;;Gross Margin;Sales;Sales;Income for products;IS421000;Sales bonus payable and volume rebates - customers;DT999;;;;S_MA;U;;IS
 49000305;DT999;;;;;;Gross Margin;Sales;Sales;Income for products;IS421000;Sales bonus payable and volume rebates - customers;DT999;;;;S_MA;U;;IS
 49000306;DT999;;;;;;Gross Margin;Sales;Sales;Income for products;IS421900;Other sales and payment discounts - off-invoice - customers;DT999;;;;S_MA;U;;IS
 49000311;DT999;;;;;;Gross Margin;Sales;Sales;Income for products;IS411000;Trade sales;DT999;;;;S_MA;U;;IS
-49000316;DT999;;;;;;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
-49000317;DT999;;;;;;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
+49000316;DT999;;;;;;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales;DT999;;;;S_MA;U;;IS
+49000317;DT999;;;;;;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales;DT999;;;;S_MA;U;;IS
 49000321;DT999;;;;;;Gross Margin;Sales;Sales;Income for products;IS411000;Trade sales;DT999;;;;S_MA;U;;IS
-49000326;DT999;;;;;;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
-49000327;DT999;;;;;;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales ;DT999;;;;S_MA;U;;IS
+49000326;DT999;;;;;;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales;DT999;;;;S_MA;U;;IS
+49000327;DT999;;;;;;Gross Margin;Sales;Sales;Income for products;IS415000;Own production sales;DT999;;;;S_MA;U;;IS
 41100105;DT999;;;;;Gross sales;Gross Margin;Sales;Sales;Income for products;IS411000;Trade sales;DT999;;;;S_MA;U;;IS
 41600102;DT999;;;;;Gross sales;Gross Margin;Sales;Sales;Income for products;IS419900;Other sales;DT999;;;;S_MA;U;;IS
-52300352;DT999;;;;;Cost of goods for resale;Gross Margin;COGS;COGS;COGS;IS511000;Cost of goods sold trade sales;DT999;;;;S_MA;U;;IS
-52300352;;;;;;Cost of goods for resale;Gross Margin;COGS;COGS;COGS;IS511000;Cost of goods sold trade sales;DT999;;;;S_MA;U;;IS
