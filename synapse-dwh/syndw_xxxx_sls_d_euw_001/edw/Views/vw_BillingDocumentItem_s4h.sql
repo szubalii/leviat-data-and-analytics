@@ -259,10 +259,12 @@ BillingDocumentItemBase AS (
   , DimCust.[CustomerFullName]                      AS GlobalParent
   , case
       when KNVH.[GlobalParentID] is not Null 
+      and KNVH.[GlobalParentID] <> ''
           then KNVH.[GlobalParentID] 
       else AG.[Customer] end                        AS GlobalParentCalculatedID
   , case
       when DimCust.[CustomerFullName] is not Null 
+      and DimCust.[CustomerFullName] <> ''
            then DimCust.[CustomerFullName]
       else AG.[FullName] end                        AS GlobalParentCalculated
   , C1.[Customer]                                   AS LocalParentID
