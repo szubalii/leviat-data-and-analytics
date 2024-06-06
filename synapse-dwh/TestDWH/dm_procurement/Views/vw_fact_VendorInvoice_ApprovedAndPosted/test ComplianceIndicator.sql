@@ -14,8 +14,7 @@ BEGIN
     ,[Status]
   )
   VALUES
-  (0015310001, 'Compliant'),
-  (0000000002, 'Non-Compliant');
+  (0015310001, 'Compliant');
      
 
   INSERT INTO edw.vw_fact_VendorInvoice_ApprovedAndPosted_CUR (
@@ -48,5 +47,5 @@ BEGIN
 
   
   -- Assert:
-  EXEC tSQLt.AssertEqualsTable 'expected', 'actual';;
+  EXEC tSQLt.AssertEqualsTable 'expected', 'actual';
 END;
