@@ -25,10 +25,11 @@ BEGIN
   INSERT INTO #vw_fact_VendorInvoice_ApprovedAndPosted_CUR (
      [sk_fact_PurchasingDocumentItem]
     ,[GLAccountID]
+    ,[HDR1_DocumentType]
   )
   VALUES
-    ('001', 0015310001),
-    ('002', 0000000002);
+    ('001', 0015310001, 'NPO_S4'),
+    ('002', 0000000002, 'PO-S4');
 
  EXEC ('INSERT INTO edw.vw_fact_VendorInvoice_ApprovedAndPosted_CUR SELECT * FROM #vw_fact_VendorInvoice_ApprovedAndPosted_CUR');
 
