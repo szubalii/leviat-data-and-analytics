@@ -53,9 +53,9 @@ SELECT
 , HDR2_AccountingDocument
 , HDR2_PostingUser
 , CASE 
-    WHEN  HDR1_DocumentType like 'NPO%' and CGLA.[Status] = 'Compliant'
-    THEN 'Compliant'
-    ELSE 'Non-Compliant'
+    WHEN  HDR1_DocumentType LIKE '%NPO%' AND CGLA.[Status] = 'Compliant' THEN 'Compliant'
+    WHEN  HDR1_DocumentType LIKE '%NPO%' AND CGLA.[Status] <> 'Compliant' THEN 'Non-Compliant'
+    ELSE ''
   END AS ComplianceIndicator
 FROM
   [edw].[vw_fact_VendorInvoice_ApprovedAndPosted_CUR] orig
