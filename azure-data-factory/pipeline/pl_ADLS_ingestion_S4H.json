@@ -22,6 +22,7 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
+					"method": "GET",
 					"url": {
 						"value": "@variables('extraction_url')",
 						"type": "Expression"
@@ -29,8 +30,7 @@
 					"connectVia": {
 						"referenceName": "ir-WEXLEVAPP001",
 						"type": "IntegrationRuntimeReference"
-					},
-					"method": "GET"
+					}
 				}
 			},
 			{
@@ -52,7 +52,7 @@
 				"typeProperties": {
 					"variableName": "XUExtractionTimestamp",
 					"value": {
-						"value": "@activity('Run XU Extraction').output.response",
+						"value": "@activity('Run XU Extraction').output.webLogTimestamp",
 						"type": "Expression"
 					}
 				}
