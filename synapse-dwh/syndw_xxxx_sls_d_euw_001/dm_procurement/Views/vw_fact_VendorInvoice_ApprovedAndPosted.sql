@@ -54,7 +54,7 @@ SELECT
 , HDR2_PostingUser
 , CASE 
     WHEN  HDR1_DocumentType LIKE '%NPO%' AND CGLA.[Status] = 'Compliant' THEN 'Compliant'
-    WHEN  HDR1_DocumentType LIKE '%NPO%' AND CGLA.[Status] <> 'Compliant' THEN 'Non-Compliant'
+    WHEN  HDR1_DocumentType LIKE '%NPO%' AND CGLA.[Status] IS NULL THEN 'Non-Compliant'
     ELSE ''
   END AS ComplianceIndicator
 FROM

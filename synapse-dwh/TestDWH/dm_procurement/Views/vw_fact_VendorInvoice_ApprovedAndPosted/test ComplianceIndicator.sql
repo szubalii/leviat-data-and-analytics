@@ -30,7 +30,7 @@ BEGIN
   VALUES
     ('001', 0015310001, 'NPO_S4'),
     ('002', 0000000002, 'NPO_S4'),
-    ('003', 0000000003, 'PO-S4');
+    ('003', 0000000003, 'SO-S4');
 
  EXEC ('INSERT INTO edw.vw_fact_VendorInvoice_ApprovedAndPosted_CUR SELECT * FROM #vw_fact_VendorInvoice_ApprovedAndPosted_CUR');
 
