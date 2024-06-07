@@ -285,9 +285,9 @@ OutboundDeliveryItem_s4h AS (
             THEN NULL
             WHEN ODI.[OutboundDeliveryItem] LIKE '9%' THEN -- OutboundDeliveryItems starting with a '9' are part of an original outbound delivery item that has been split into multiple batches.
                 CASE 
-                    WHEN SDI.[SDI_ConfdDelivQtyInOrderQtyUnit] = SUM(ODI.[ActualDeliveryQuantity]) OVER (Partition By ODI.ReferenceSDDocument, ODI.ReferenceSDDocumentItem)
+                    WHEN SDI.[SDI_ConfdDelivQtyInOrderQtyUnit] = SUM(ODI.[ActualDeliveryQuantity]) OVER (Partition By ODI.ReferenceSDDocument, ODI.ReferenceSDDocumentItem, ODI.OutboundDelivery)
                         THEN 'In Full Delivered'
-                    WHEN SDI.[SDI_ConfdDelivQtyInOrderQtyUnit] > SUM(ODI.[ActualDeliveryQuantity]) OVER (Partition By ODI.ReferenceSDDocument, ODI.ReferenceSDDocumentItem)
+                    WHEN SDI.[SDI_ConfdDelivQtyInOrderQtyUnit] > SUM(ODI.[ActualDeliveryQuantity]) OVER (Partition By ODI.ReferenceSDDocument, ODI.ReferenceSDDocumentItem, ODI.OutboundDelivery)
                         THEN 'Under Delivered'
                 ELSE 'Over Delivered'
             END
@@ -300,20 +300,6 @@ OutboundDeliveryItem_s4h AS (
                 ELSE 'Over Delivered'
                 END
          END AS [IF_Group]
-        ,CASE
-            WHEN
-                ODI.[ActualDeliveryQuantity] IS NULL
-                OR
-                ODI.[ActualDeliveryQuantity] = 0
-                OR
-                SDI.[SDI_ConfdDelivQtyInOrderQtyUnit] IS NULL
-                OR
-                SDI.[SDI_ConfdDelivQtyInOrderQtyUnit] = 0
-            THEN NULL
-            WHEN ODI.[ActualDeliveryQuantity] = SDI.[SDI_ConfdDelivQtyInOrderQtyUnit]
-            THEN 'Y'
-            ELSE 'N'
-        END AS [IF_IsInFullFlag]
         ,CASE
             WHEN
                 ODI.[ActualDeliveryQuantity] IS NULL
@@ -679,12 +665,20 @@ OutboundDeliveryItem_s4h_calculated AS (
         ,[SDICreationDateIsODICreationDateFlag]
         ,[IF_Total_Group]
         ,[IF_Group]
-        ,[IF_IsInFullFlag]
         ,CASE
-            WHEN [IF_IsInFullFlag] = 'Y'
-            THEN 1
-            ELSE 0
-        END AS [IF_IsInFull]
+            WHEN
+                [ActualDeliveryQuantity] IS NULL
+                OR
+                [ActualDeliveryQuantity] = 0
+                OR
+                [SDI_ConfdDelivQtyInOrderQtyUnit] IS NULL
+                OR
+                [SDI_ConfdDelivQtyInOrderQtyUnit] = 0
+            THEN NULL
+            WHEN [IF_Group] = 'In Full Delivered'
+            THEN 'Y'
+            ELSE 'N'
+        END AS [IF_IsInFullFlag]
         ,[NoActualDeliveredQtyFlag]
         ,[OTS_GoodsIssueDateDiffInDays]
         ,[OTS_GIDateCheckGroup]
@@ -977,7 +971,11 @@ SELECT
         ,[IF_Total_Group]
         ,[IF_Group]
         ,[IF_IsInFullFlag]
-        ,[IF_IsInFull]
+        ,CASE
+            WHEN [IF_IsInFullFlag] = 'Y'
+            THEN 1
+            ELSE 0
+         END AS [IF_IsInFull]
         ,[NoActualDeliveredQtyFlag]
         ,[edw].[svf_getOT_DaysDiff]([HDR_PlannedGoodsIssueDate_weekday], [HDR_ActualGoodsMovementDate_weekday],GETUTCDATE()) AS [OTS_DaysDiff]
         ,[OTS_GoodsIssueDateDiffInDays]
