@@ -671,9 +671,9 @@ OutboundDeliveryItem_s4h_calculated AS (
                 OR
                 [ActualDeliveryQuantity] = 0
                 OR
-                SDI.[SDI_ConfdDelivQtyInOrderQtyUnit] IS NULL
+                [SDI_ConfdDelivQtyInOrderQtyUnit] IS NULL
                 OR
-                SDI.[SDI_ConfdDelivQtyInOrderQtyUnit] = 0
+                [SDI_ConfdDelivQtyInOrderQtyUnit] = 0
             THEN NULL
             WHEN [IF_Group] = 'In Full Delivered'
             THEN 'Y'
