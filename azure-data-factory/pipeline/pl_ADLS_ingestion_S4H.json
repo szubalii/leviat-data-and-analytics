@@ -52,7 +52,7 @@
 				"typeProperties": {
 					"variableName": "XUExtractionTimestamp",
 					"value": {
-						"value": "@activity('Run XU Extraction').output.ADFWebActivityResponseHeaders.X-XU-Timestamp",
+						"value": "@activity('Run XU Extraction').output.ADFWebActivityResponseHeaders['X-XU-Timestamp']",
 						"type": "Expression"
 					}
 				}
