@@ -16,5 +16,5 @@ SELECT [CalendarDate]        as [Date]
      , [CalendarDayOfYear]
      , [YearDay]
 FROM [edw].[dim_Calendar]
-where CAST([CalendarYear] AS integer) >= 2021
+where CAST([CalendarYear] AS integer) >= 2019
   and CAST([CalendarYear] AS integer) <= YEAR(CONVERT(date, GETDATE())) + 3
