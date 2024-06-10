@@ -8,13 +8,13 @@ BEGIN
   EXEC tSQLt.FakeTable '[edw]', '[dim_Calendar]';
 
   INSERT INTO edw.dim_Calendar (CalendarYear)
-  VALUES (2020);
+  VALUES (2018);
 
   -- Act: 
   SELECT [Year]
   INTO actual
   FROM [dm_sales].[vw_dim_Calendar]
-  WHERE [Year] < 2021
+  WHERE [Year] < 2019
 
   -- Assert:
   EXEC tSQLt.AssertEmptyTable 'actual';
