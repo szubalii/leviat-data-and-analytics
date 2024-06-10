@@ -9,7 +9,7 @@ BEGIN
   EXEC tSQLt.FakeTable '[edw]', '[dim_Calendar]';
 
   INSERT INTO edw.dim_Calendar (CalendarYear)
-  VALUES (2020), (2021);
+  VALUES (2018), (2019);
 
   -- Act: 
   SELECT [Year]
@@ -20,7 +20,7 @@ BEGIN
   SELECT TOP 0 * INTO expected FROM actual;
 
   INSERT INTO expected([Year])
-  VALUES (2021)
+  VALUES (2019)
 
   EXEC tSQLt.AssertEqualsTable 'expected', 'actual';
 END;
