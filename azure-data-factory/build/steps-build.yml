@@ -1,6 +1,12 @@
 steps:
   
-    # Installs the npm packages saved in your package.json file in the build
+# Installs Node and the npm packages saved in your package.json file in the build
+
+  - task: UseNode@1
+    inputs:
+      version: '18.x'
+    displayName: 'Install Node.js'
+
   - task: Npm@1
     inputs:
       command: 'install'
