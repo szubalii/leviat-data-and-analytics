@@ -307,6 +307,57 @@
             "dim_DataQualityCode"
           ]
         }
+      },
+      "Warehouse Footprint": {
+        "pbi_dataset_id": 34,
+        "schedule_recurrence": "D",
+        "entities": {
+          "edw": [
+            "fact_OutboundDeliveryItem",
+            "dim_Product",
+            "dim_ProductPlant",
+            "dim_SalesOrganization",
+            "dim_Customer",
+            "dim_Calendar",
+            "dim_CompanyCode",
+            "dim_CurrencyType",
+            "dim_ShippingPoint"
+          ]
+        }
+      },
+      "$$ SELF-SERVICE (SCM)": {
+        "pbi_dataset_id": 35,
+        "schedule_recurrence": "D",
+        "entities": {
+          "edw": [
+            "dim_Customer",
+            "dim_InventoryStockType",
+            "dim_Plant",
+            "dim_Product",
+            "dim_ProductPlant",
+            "dim_ProductSalesDelivery",
+            "dim_ProductValuationPUP",
+            "fact_MaterialDocumentItem",
+            "fact_MaterialInventoryStockLevel",
+            "dim_SalesOrganization",
+            "dim_StorageLocation",
+            "dim_CurrencyType"
+          ]
+        }
+      },
+      "$$ SELF-SERVICE OTIF (SCM)": {
+        "pbi_dataset_id": 36,
+        "schedule_recurrence": "D",
+        "entities": {
+          "edw": [
+            "dim_CompanyCode",
+            "dim_Customer",
+            "fact_OutboundDeliveryItem",
+            "dim_Product",
+            "dim_ProductSalesDelivery",
+            "dim_ShippingPoint"
+          ]
+        }
       }
     }
   },

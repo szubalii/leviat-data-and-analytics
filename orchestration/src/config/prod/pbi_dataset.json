@@ -85,10 +85,19 @@
       },
       "Data Quality Checks": {
         "dataset_guid": "b62f4e1a-3ed8-44d8-a743-b097345d2f05"
+      },
+      "Warehouse Footprint": {
+        "dataset_guid": "02be1bc4-ea38-4e03-9e0f-94147c011e64"
+      },
+      "$$ SELF-SERVICE (SCM)": {
+        "dataset_guid": "159786aa-7cbe-4753-bb8b-1085bcb54b9e"
+      },
+      "$$ SELF-SERVICE OTIF (SCM)": {
+        "dataset_guid": "abbb5f89-a73b-42bc-a545-17480f59cb55"
       }
     }
   },
-  "Leviat_Data_Analytics Performance Team Tools": {
+    "Leviat_Data_Analytics Performance Team Tools": {
     "workspace_guid": "acd73a8e-c087-4568-bade-3c5856cdfbc8",
     "datasets": {
       "Price Floor": {
