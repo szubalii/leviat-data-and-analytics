@@ -1,0 +1,822 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 900.78969536745024,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 0,
+            "y": 523.66387449941431
+          },
+          "nodeIndex": "_Measures",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 14
+        },
+        {
+          "location": {
+            "x": 428.4,
+            "y": 827.46387449941426
+          },
+          "nodeIndex": "Calendar",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 18
+        },
+        {
+          "location": {
+            "x": 444.63800000000003,
+            "y": 428.65587449941432
+          },
+          "nodeIndex": "Product",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 19
+        },
+        {
+          "location": {
+            "x": 882.4920000000011,
+            "y": 969.54887449941407
+          },
+          "nodeIndex": "ProfitCenter",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 15
+        },
+        {
+          "location": {
+            "x": 0,
+            "y": 33.594974098945741
+          },
+          "nodeIndex": "srv_MeasureTypes",
+          "nodeLineageTag": "07abc236-5ff9-4eac-8734-3194df3cb2ff",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 27
+        },
+        {
+          "location": {
+            "x": 1673.5026410888022,
+            "y": 94.634931128394882
+          },
+          "nodeIndex": "SalesOrganization",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 16
+        },
+        {
+          "location": {
+            "x": 1249.4144271765272,
+            "y": 42.265574709551778
+          },
+          "nodeIndex": "SalesDistrict",
+          "nodeLineageTag": "4489824b-f974-4f44-9470-b656ba969aa3",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 17
+        },
+        {
+          "location": {
+            "x": 661.21887787792787,
+            "y": 1396.4285060833643
+          },
+          "nodeIndex": "CustomerSoldTo",
+          "nodeLineageTag": "bcc1f273-d056-4fd3-978e-f13504899fed",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 8
+        },
+        {
+          "location": {
+            "x": 1846.8295062650357,
+            "y": 526.18564971173168
+          },
+          "nodeIndex": "GLAccount",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 9
+        },
+        {
+          "location": {
+            "x": 747.87000000000012,
+            "y": 81.903874499414258
+          },
+          "nodeIndex": "CustomerShippedTo",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 10
+        },
+        {
+          "location": {
+            "x": 249.03884816513579,
+            "y": 35.581194018852024
+          },
+          "nodeIndex": "srv_Cogs_cost",
+          "nodeLineageTag": "b24b47e3-3bf5-4ed2-9441-be44ace69e7d",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 30
+        },
+        {
+          "location": {
+            "x": 1277.0001528084244,
+            "y": 901.99932328051
+          },
+          "nodeIndex": "RLS_GROUPS",
+          "nodeLineageTag": "8a8f2bb8-80f6-478b-b9d2-6ad6504aef1f",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 11
+        },
+        {
+          "location": {
+            "x": 1536.4182209136866,
+            "y": 693.17704049711176
+          },
+          "nodeIndex": "RLS_USERS",
+          "nodeLineageTag": "ca4af54c-bd2a-4c46-9223-e3cb0b74043f",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 12
+        },
+        {
+          "location": {
+            "x": 2033.04011158011,
+            "y": 1501.2548925650444
+          },
+          "nodeIndex": "ExQLReportingEntity",
+          "nodeLineageTag": "a070344f-2eb0-4c2b-b33b-8fece1073b1c",
+          "size": {
+            "height": 296,
+            "width": 234
+          },
+          "zIndex": 13
+        },
+        {
+          "location": {
+            "x": 2046.9434272522717,
+            "y": 1040.022232978572
+          },
+          "nodeIndex": "exQL_Map",
+          "nodeLineageTag": "4c50a867-1bae-493c-a484-b80a1880b9e8",
+          "size": {
+            "height": 272,
+            "width": 234
+          },
+          "zIndex": 26
+        },
+        {
+          "location": {
+            "x": 102.1973133746294,
+            "y": 1205.9953575207985
+          },
+          "nodeIndex": "CompanyCode",
+          "nodeLineageTag": "a74996f9-43ea-4cff-bdb3-e0620eb83507",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 20
+        },
+        {
+          "location": {
+            "x": 279.43827617871193,
+            "y": 1794.1934736765916
+          },
+          "nodeIndex": "Calendar_cut",
+          "nodeLineageTag": "7ca49719-8fef-486b-b088-ab4d621be6ae",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 22
+        },
+        {
+          "location": {
+            "x": 2749.473952975331,
+            "y": 2119.1921796338047
+          },
+          "nodeIndex": "CompanyCodeProfitCenter",
+          "nodeLineageTag": "1d1b3e65-8de4-481f-960c-0a95ec39042f",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 24
+        },
+        {
+          "location": {
+            "x": 866.84901021433325,
+            "y": 1806.1934736765916
+          },
+          "nodeIndex": "Currency",
+          "nodeLineageTag": "2cf611a7-562a-4217-a7dd-67a49abf99ea",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 3
+        },
+        {
+          "location": {
+            "x": 1150.8490102143335,
+            "y": 1806.1934736765916
+          },
+          "nodeIndex": "CurrencyType",
+          "nodeLineageTag": "ea2cbb9a-a151-4450-8526-bc5b57bf9891",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 4
+        },
+        {
+          "location": {
+            "x": 1398.6617006202184,
+            "y": 1283.6356775318038
+          },
+          "nodeIndex": "ValueType",
+          "nodeLineageTag": "1cc468ef-e940-4b38-8448-1ef171256187",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 21
+        },
+        {
+          "location": {
+            "x": 1794.5617987777412,
+            "y": 1838.3632449081304
+          },
+          "nodeIndex": "fact_Budget_EPM",
+          "nodeLineageTag": "24945562-6c8f-4377-b569-6cf22ba7c633",
+          "size": {
+            "height": 296,
+            "width": 234
+          },
+          "zIndex": 5
+        },
+        {
+          "location": {
+            "x": 1444.8490102143335,
+            "y": 1793.3338864963453
+          },
+          "nodeIndex": "InOut",
+          "nodeLineageTag": "ac46df97-a42d-459b-bbea-0906d588d17d",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 6
+        },
+        {
+          "location": {
+            "x": 856.7,
+            "y": 523.06387449941428
+          },
+          "nodeIndex": "fact_ACDOCA_EPMSalesView",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 23
+        },
+        {
+          "location": {
+            "x": 1642.3143663662181,
+            "y": 991.54887944077791
+          },
+          "nodeIndex": "fact_ACDOCA_FinStatemntSalesMargin",
+          "nodeLineageTag": "65f9552c-8e52-4643-a8e4-7aa6ae685136",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 7
+        },
+        {
+          "location": {
+            "x": 2330.9434272522717,
+            "y": 979.01355970377244
+          },
+          "nodeIndex": "CompCodeRepEntity",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 2
+        },
+        {
+          "location": {
+            "x": 2599.0536678930216,
+            "y": 574.07273748457692
+          },
+          "nodeIndex": "GM Element Sort",
+          "nodeLineageTag": "2a87210d-9606-4786-bd1c-f1fd075399b7",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 25
+        },
+        {
+          "location": {
+            "x": 2898.9434272522717,
+            "y": 967.01355970377244
+          },
+          "nodeIndex": "Reconciliation_File",
+          "size": {
+            "height": 224,
+            "width": 234
+          },
+          "zIndex": 28
+        },
+        {
+          "location": {
+            "x": 3182.9434272522717,
+            "y": 1095.4280270666095
+          },
+          "nodeIndex": "GM Element 2 Sorting",
+          "nodeLineageTag": "83ccf753-d5ef-48c9-8cd1-977cb1ed2aa1",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 29
+        },
+        {
+          "location": {
+            "x": 3466.9434272522717,
+            "y": 1107.4280270666095
+          },
+          "nodeIndex": "srv_Actual_Finance",
+          "nodeLineageTag": "fe232730-9e67-445e-9774-6bff5dbc0eb9",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 1057.668652559561,
+            "y": 210.89871886381354
+          },
+          "nodeIndex": "Plant",
+          "nodeLineageTag": "9cdd6b5b-78e7-4360-9103-1cb611ace465",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 32
+        },
+        {
+          "location": {
+            "x": 485.66677932680477,
+            "y": 48.028685431498126
+          },
+          "nodeIndex": "ProductPlant",
+          "nodeLineageTag": "f2d8c5a9-bf6a-4524-ae1e-303ac2d49680",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 31
+        },
+        {
+          "location": {
+            "x": 3750.9434272522717,
+            "y": 991.996927467078
+          },
+          "nodeIndex": "ProductSalesDelivery",
+          "nodeLineageTag": "ee80df4a-d16f-411b-a6e9-c8bfb9f2b1db",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "All tables",
+      "zoomValue": 28.419508051274107,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    },
+    {
+      "ordinal": 1,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 797.37241729443792,
+            "y": 1210.6877311620458
+          },
+          "nodeIndex": "ProfitCenter",
+          "nodeLineageTag": "57d986f3-00f9-45c2-802b-caadf024a2c9",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 7
+        },
+        {
+          "location": {
+            "x": 419.15507890332532,
+            "y": 401.74936876847357
+          },
+          "nodeIndex": "GLAccount",
+          "nodeLineageTag": "75e48071-f068-4c8e-bf56-80cb381a6292",
+          "size": {
+            "height": 272,
+            "width": 234
+          },
+          "zIndex": 8
+        },
+        {
+          "location": {
+            "x": 1737.6040410699206,
+            "y": 316.28583584473211
+          },
+          "nodeIndex": "ExQLReportingEntity",
+          "nodeLineageTag": "a070344f-2eb0-4c2b-b33b-8fece1073b1c",
+          "size": {
+            "height": 296,
+            "width": 234
+          },
+          "zIndex": 11
+        },
+        {
+          "location": {
+            "x": 771.76820817139787,
+            "y": 261.80322179138972
+          },
+          "nodeIndex": "Calendar_cut",
+          "nodeLineageTag": "7ca49719-8fef-486b-b088-ab4d621be6ae",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 6
+        },
+        {
+          "location": {
+            "x": 1060.1393202063755,
+            "y": 99.207415999999839
+          },
+          "nodeIndex": "Calendar",
+          "nodeLineageTag": "23b61ee0-dd79-4c21-8026-6836ae54321c",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 5
+        },
+        {
+          "location": {
+            "x": 2074.9924616883209,
+            "y": 545.16279314679423
+          },
+          "nodeIndex": "CompanyCode",
+          "nodeLineageTag": "a74996f9-43ea-4cff-bdb3-e0620eb83507",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 4
+        },
+        {
+          "location": {
+            "x": 1830.5944631376994,
+            "y": 800.51088335440738
+          },
+          "nodeIndex": "CompanyCodeProfitCenter",
+          "nodeLineageTag": "1d1b3e65-8de4-481f-960c-0a95ec39042f",
+          "size": {
+            "height": 310.82286054140695,
+            "width": 234
+          },
+          "zIndex": 3
+        },
+        {
+          "location": {
+            "x": 402.34522492415908,
+            "y": 1067.739988160507
+          },
+          "nodeIndex": "Currency",
+          "nodeLineageTag": "2cf611a7-562a-4217-a7dd-67a49abf99ea",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 9
+        },
+        {
+          "location": {
+            "x": 1425.330595325694,
+            "y": 336.58679989631895
+          },
+          "nodeIndex": "CurrencyType",
+          "nodeLineageTag": "ea2cbb9a-a151-4450-8526-bc5b57bf9891",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 10
+        },
+        {
+          "location": {
+            "x": 1232.8305452672048,
+            "y": 1184.4639130389983
+          },
+          "nodeIndex": "fact_ACDOCA_EPMSalesView",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 774.27088670105115,
+            "y": 619.82766859641788
+          },
+          "nodeIndex": "fact_ACDOCA_FinStatemntSalesMargin",
+          "size": {
+            "height": 470,
+            "width": 234
+          },
+          "zIndex": 2
+        }
+      ],
+      "name": "Layout for FinStatement",
+      "zoomValue": 50.346892102823226,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    },
+    {
+      "ordinal": 2,
+      "scrollPosition": {
+        "x": 0,
+        "y": 49.826137183475055
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 1084.2312414125006,
+            "y": 474.72912541158178
+          },
+          "nodeIndex": "fact_ACDOCA_EPMSalesView",
+          "nodeLineageTag": "ac84624d-69b6-416c-8ecd-f006e24cdd3f",
+          "size": {
+            "height": 300,
+            "width": 297.86268497174115
+          },
+          "zIndex": 8
+        },
+        {
+          "location": {
+            "x": 565.86379170433315,
+            "y": 450.66920918254664
+          },
+          "nodeIndex": "fact_Budget_EPM",
+          "nodeLineageTag": "24945562-6c8f-4377-b569-6cf22ba7c633",
+          "size": {
+            "height": 368.265669836444,
+            "width": 234
+          },
+          "zIndex": 13
+        },
+        {
+          "location": {
+            "x": 1444.5638746491829,
+            "y": 474.96925706069618
+          },
+          "nodeIndex": "fact_ACDOCA_FinStatemntSalesMargin",
+          "nodeLineageTag": "65f9552c-8e52-4643-a8e4-7aa6ae685136",
+          "size": {
+            "height": 300,
+            "width": 373.48954875406639
+          },
+          "zIndex": 11
+        },
+        {
+          "location": {
+            "x": 923.86992764812214,
+            "y": 392.87269487204736
+          },
+          "nodeIndex": "InOut",
+          "nodeLineageTag": "ac46df97-a42d-459b-bbea-0906d588d17d",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 3
+        },
+        {
+          "location": {
+            "x": 90.941279006161892,
+            "y": 823.22452809546883
+          },
+          "nodeIndex": "CurrencyType",
+          "nodeLineageTag": "ea2cbb9a-a151-4450-8526-bc5b57bf9891",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 4
+        },
+        {
+          "location": {
+            "x": 1194.17142670025,
+            "y": 0
+          },
+          "nodeIndex": "CompanyCodeProfitCenter",
+          "nodeLineageTag": "1d1b3e65-8de4-481f-960c-0a95ec39042f",
+          "size": {
+            "height": 281.87760929525518,
+            "width": 288.81570313734233
+          },
+          "zIndex": 12
+        },
+        {
+          "location": {
+            "x": 141.488125448613,
+            "y": 462.67127384655407
+          },
+          "nodeIndex": "ExQLReportingEntity",
+          "nodeLineageTag": "a070344f-2eb0-4c2b-b33b-8fece1073b1c",
+          "size": {
+            "height": 124,
+            "width": 234
+          },
+          "zIndex": 9
+        },
+        {
+          "location": {
+            "x": 1642.328517912862,
+            "y": 0
+          },
+          "nodeIndex": "CompanyCode",
+          "nodeLineageTag": "a74996f9-43ea-4cff-bdb3-e0620eb83507",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 10
+        },
+        {
+          "location": {
+            "x": 580.30512634386332,
+            "y": -45.173862816524945
+          },
+          "nodeIndex": "Calendar",
+          "nodeLineageTag": "23b61ee0-dd79-4c21-8026-6836ae54321c",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 5
+        },
+        {
+          "location": {
+            "x": 0,
+            "y": 114.42749924167424
+          },
+          "nodeIndex": "Calendar_cut",
+          "nodeLineageTag": "7ca49719-8fef-486b-b088-ab4d621be6ae",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 6
+        },
+        {
+          "location": {
+            "x": 757.67334451130046,
+            "y": 908.6596527916837
+          },
+          "nodeIndex": "ValueType",
+          "nodeLineageTag": "1cc468ef-e940-4b38-8448-1ef171256187",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 7
+        },
+        {
+          "location": {
+            "x": 881.34072280745443,
+            "y": 97.109361865693572
+          },
+          "nodeIndex": "CompCodeRepEntity",
+          "nodeLineageTag": "a3e48b80-cb22-46a8-aa0a-a1e7fae2c74a",
+          "size": {
+            "height": 151.94151651867682,
+            "width": 234
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 1402.3729917437063,
+            "y": 1018.9591600852111
+          },
+          "nodeIndex": "Currency",
+          "nodeLineageTag": "2cf611a7-562a-4217-a7dd-67a49abf99ea",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 2
+        }
+      ],
+      "name": "Layout for Budgeting",
+      "zoomValue": 56.195405830669657,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    },
+    {
+      "ordinal": 3,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 697.20000076293945,
+            "y": 151
+          },
+          "nodeIndex": "exQL_Map",
+          "nodeLineageTag": "4c50a867-1bae-493c-a484-b80a1880b9e8",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 168.20000076293945,
+            "y": 18
+          },
+          "nodeIndex": "GM Element Sort",
+          "nodeLineageTag": "2a87210d-9606-4786-bd1c-f1fd075399b7",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 2
+        }
+      ],
+      "name": "Layout 1",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "All tables",
+  "defaultDiagram": "All tables"
+}

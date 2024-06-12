@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "$$ SELF-SERVICE (ACDOCA CH-AT)"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "2809b75c-2db4-49f4-b859-0a553eee28c6"
+  }
+}

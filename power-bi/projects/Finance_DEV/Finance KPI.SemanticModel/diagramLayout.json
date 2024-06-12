@@ -1,0 +1,72 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 0,
+            "y": 1184.3819654989529
+          },
+          "nodeIndex": "_Measures",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 2
+        },
+        {
+          "location": {
+            "x": 1695.9310369632935,
+            "y": 1430.4897967176896
+          },
+          "nodeIndex": "Company",
+          "nodeLineageTag": "d4a8dabf-e348-47b1-9ca0-78bd829eba09",
+          "size": {
+            "height": 296,
+            "width": 234
+          },
+          "zIndex": 3
+        },
+        {
+          "location": {
+            "x": 2998.6,
+            "y": 1246.3819654989529
+          },
+          "nodeIndex": "srv_MeasureTypes",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 4
+        },
+        {
+          "location": {
+            "x": 2224.1793193238705,
+            "y": 1141.5666876585424
+          },
+          "nodeIndex": "vw_fact_ACDOCA_FinanceKPI",
+          "nodeLineageTag": "0c0cdb19-0810-4543-b427-3aa456eed891",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 1
+        }
+      ],
+      "name": "All tables",
+      "zoomValue": 53.309950338819625,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "All tables",
+  "defaultDiagram": "All tables"
+}

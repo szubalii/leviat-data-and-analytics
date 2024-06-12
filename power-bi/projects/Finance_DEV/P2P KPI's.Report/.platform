@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "P2P KPI's"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "0a42b4c6-4766-41c8-a73c-ef3c3e5f9f59"
+  }
+}
