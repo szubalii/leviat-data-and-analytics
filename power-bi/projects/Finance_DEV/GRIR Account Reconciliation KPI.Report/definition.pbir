@@ -1,9 +1,0 @@
-{
-  "version": "4.0",
-  "datasetReference": {
-    "byPath": {
-      "path": "../GRIR Account Reconciliation KPI.SemanticModel"
-    },
-    "byConnection": null
-  }
-}
